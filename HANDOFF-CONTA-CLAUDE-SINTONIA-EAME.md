@@ -18,7 +18,7 @@ a reportar, não um erro a ignorar.
 | **HEAD** | ver `git rev-parse HEAD` — o commit de handoff é o último |
 | **REMOTE_HEAD** | idêntico ao local no momento do push |
 | **WORKING_TREE** | limpo |
-| **TESTS** | `python3 -m unittest discover -s tests` → **355 testes, 0 falhas, 0 erros, 0 pulados** |
+| **TESTS** | `python3 -m unittest discover -s tests` → **366 testes, 0 falhas, 0 erros, 0 pulados** |
 | **LAST_MAJOR_MISSION** | 10B-ES — fechar os portões estruturais antes de coletar mais |
 | **CURRENT_COUNTRY_SCOPE** | **ESPANHA**. França e Itália **não** foram abertas na camada de voz. |
 
@@ -666,7 +666,7 @@ Verificadas hoje, todas continuam válidas:
 ### Arquivos em que eu confio mais
 `data/samples/*.json` com envelope de proveniência. `scripts/metricas_canonicas.py` — **é a
 fonte de verdade dos números**, e há teste que reprova documento com número divergente.
-`tests/` inteiro: <!--M:TEST_COUNT_CURRENT-->355<!--/M--> testes que codificam as leis, não só o comportamento.
+`tests/` inteiro: <!--M:TEST_COUNT_CURRENT-->366<!--/M--> testes que codificam as leis, não só o comportamento.
 
 ### Documentos que envelhecem rápido
 Qualquer `.md` com número digitado sem marcador `<!--M:NOME-->`. Os documentos de missão
@@ -780,7 +780,7 @@ científico (380 instituições com afiliação declarada).
 ## AB · COMANDOS — todos testados nesta sessão
 
 ```bash
-# suíte canônica — <!--M:TEST_COUNT_CURRENT-->355<!--/M--> testes
+# suíte canônica — <!--M:TEST_COUNT_CURRENT-->366<!--/M--> testes
 python3 -m unittest discover -s tests
 python3 -m unittest discover -s tests -q          # silencioso
 python3 -m unittest tests.test_pipeline            # um arquivo

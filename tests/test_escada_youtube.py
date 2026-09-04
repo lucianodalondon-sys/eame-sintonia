@@ -33,6 +33,7 @@ import unittest
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import asr_local  # noqa: E402
+import youtube_janela as yj  # noqa: E402
 import youtube_transcrever as yt  # noqa: E402
 
 
@@ -434,6 +435,146 @@ class TestMedicaoAntesDepois(unittest.TestCase):
                       'EVENT_PROMOTION', 'NOISE'}
         self.assertEqual(set(), devolvidos - conhecidos,
                          'a régua devolve um tipo que a medição não conta')
+
+
+class TestPortaoFechadoNaoViraPortaoAberto(unittest.TestCase):
+    """`rodar` obedece a fila. Fila vazia significa NINGUÉM, nunca "então todo mundo"."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp(prefix='fila-')
+        self.janela = os.path.join(self.tmp, 'YOUTUBE-JANELA')
+        self.relev = os.path.join(self.tmp, 'YOUTUBE-RELEVANCIA')
+        os.makedirs(self.janela)
+        os.makedirs(self.relev)
+        self._guardado = (yt.JANELA, yt.RELEVANCIA)
+        yt.JANELA, yt.RELEVANCIA = self.janela, self.relev
+        with open(os.path.join(self.janela, 'OBJETOS.json'), 'w', encoding='utf-8') as f:
+            json.dump({'ITEMS': [{'VIDEO_ID': 'v%d' % n, 'TITLE': 't', 'DURATION_S': 30,
+                                  'ACCOUNT_HANDLE': 'h'} for n in range(240)]}, f)
+        with open(os.path.join(self.relev, 'FILA-WHISPER.json'), 'w', encoding='utf-8') as f:
+            json.dump({'QUEUE': [], 'QUAL_CRITERIO_REALMENTE_FILTRA': 'LEGENDA_NAO_TESTADA'}, f)
+
+    def tearDown(self):
+        yt.JANELA, yt.RELEVANCIA = self._guardado
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def test_fila_vazia_nao_derrama_para_o_acervo_inteiro(self):
+        alvos, avisos = yt.universo(so_da_fila=True)
+        self.assertEqual([], alvos,
+                         'a fila vazia virou 240 vídeos — horas de máquina que ninguém pediu')
+        self.assertTrue(any('FILA_VAZIA' in a for a in avisos))
+
+    def test_escada_sem_fila_continua_podendo_rodar_sobre_o_acervo(self):
+        """A recusa é de `rodar`, não de `escada`: quem pede sem portão, recebe."""
+        alvos, _avisos = yt.universo(so_da_fila=False, teto=5)
+        self.assertEqual(5, len(alvos))
+
+
+class TestReleituraNaoApagaLegendaLida(unittest.TestCase):
+    """Um 429 de hoje não pode apagar a legenda que veio inteira ontem."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp(prefix='merge-')
+        self._guardado = yj.SAIDA
+        yj.SAIDA = self.tmp
+        with open(os.path.join(self.tmp, 'OBJETOS.json'), 'w', encoding='utf-8') as f:
+            json.dump({'ITEMS': [
+                {'VIDEO_ID': 'JA_LIDO', 'VIDEO_URL': 'https://www.youtube.com/watch?v=JA_LIDO',
+                 'TITLE': 'lido ontem', 'ACCOUNT_HANDLE': 'h'}]}, f)
+        with open(os.path.join(self.tmp, 'LEGENDAS.json'), 'w', encoding='utf-8') as f:
+            json.dump({'ITEMS': [{
+                'VIDEO_ID': 'JA_LIDO', 'CAPTION_STATE': 'PRESENTE', 'CAPTION_SEGMENTS': 2,
+                'TRANSCRICAO': [{'T_MS': 0, 'DUR_MS': 900, 'TEXTO': 'texto caro'}]}]}, f)
+
+    def tearDown(self):
+        yj.SAIDA = self._guardado
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def test_porta_fechada_hoje_preserva_a_legenda_de_ontem(self):
+        # `_abrir` devolvendo porta fechada é exatamente o 429 desta casa.
+        original = yj._abrir
+        yj._abrir = lambda *a, **k: (None, 'NENHUMA', 'NAVEGADOR_NAO_ALCANCADO')
+        try:
+            yj.fase_legendas(ids=['JA_LIDO'])
+        finally:
+            yj._abrir = original
+        with open(os.path.join(self.tmp, 'LEGENDAS.json'), encoding='utf-8') as f:
+            d = json.load(f)
+        i = d['ITEMS'][0]
+        self.assertEqual('PRESENTE', i['CAPTION_STATE'],
+                         'a releitura falha apagou uma legenda já lida de graça')
+        self.assertEqual('texto caro', i['TRANSCRICAO'][0]['TEXTO'])
+        self.assertEqual('PORTA_NAO_ABRIU', i['RELEITURA_FALHOU_COM'])
+        self.assertEqual(1, d['LEGENDAS_RESGATADAS_DE_RELEITURA_FALHA'])
+
+
+class TestAuditoriaDeIdentidadeAcusa(unittest.TestCase):
+    """Um contador que não pode dar diferente de zero não mede nada."""
+
+    def test_handle_fora_do_lote_e_acusado(self):
+        a = yt.auditar_identidade(
+            [{'VIDEO_ID': 'v1', 'SOURCE_ID': 'x', 'ACCOUNT_HANDLE': 'INVENTADO_NA_FALA',
+              'COUNTRY': 'ES'}],
+            objetos=[{'VIDEO_ID': 'v1', 'ACCOUNT_HANDLE': 'INVENTADO_NA_FALA'}])
+        self.assertEqual(1, a['NEW_ENTITIES_FROM_CONTENT'])
+        self.assertGreaterEqual(a['IDENTITY_ERRORS'], 1)
+
+    def test_papel_diferente_do_lote_e_acusado(self):
+        handle = sorted(yt.paises_do_lote())[0]
+        a = yt.auditar_identidade(
+            [{'VIDEO_ID': 'v1', 'SOURCE_ID': 'x', 'ACCOUNT_HANDLE': handle,
+              'PAGE_ROLE': 'INFLUENCER_INVENTADO'}],
+            objetos=[{'VIDEO_ID': 'v1', 'ACCOUNT_HANDLE': handle}])
+        self.assertEqual(1, a['ROLE_FROM_CONTENT'])
+
+    def test_pais_diferente_do_lote_e_acusado(self):
+        handle = sorted(yt.paises_do_lote())[0]
+        a = yt.auditar_identidade(
+            [{'VIDEO_ID': 'v1', 'SOURCE_ID': 'x', 'ACCOUNT_HANDLE': handle,
+              'COUNTRY': 'ZZ'}],
+            objetos=[{'VIDEO_ID': 'v1', 'ACCOUNT_HANDLE': handle}])
+        self.assertGreaterEqual(a['IDENTITY_ERRORS'], 1)
+
+    def test_documento_sem_source_id_e_acusado(self):
+        a = yt.auditar_identidade([{'VIDEO_ID': 'v1'}], objetos=[])
+        self.assertEqual(1, a['DOCUMENT_WITHOUT_SOURCE_ID'])
+
+
+class TestAudioSuspeito(unittest.TestCase):
+    """Sobras de download não são áudio, e meio áudio não é transcrição completa."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp(prefix='audio-')
+        self._guardado = yt.MEDIA
+        yt.MEDIA = self.tmp
+
+    def tearDown(self):
+        yt.MEDIA = self._guardado
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def _escrever(self, nome, n=5000):
+        with open(os.path.join(self.tmp, nome), 'wb') as f:
+            f.write(b'\0' * n)
+
+    def test_arquivo_part_nao_e_aceito_como_audio_pronto(self):
+        """Um `.part` de 4 MB é grande, legítimo aos olhos de getsize — e meio vídeo."""
+        self._escrever('VID12345678.m4a.part')
+        self.assertIsNone(yt._audio_em_cache('VID12345678'))
+
+    def test_arquivo_ytdl_nao_e_aceito(self):
+        self._escrever('VID12345678.ytdl')
+        self.assertIsNone(yt._audio_em_cache('VID12345678'))
+
+    def test_o_arquivo_inteiro_e_aceito(self):
+        self._escrever('VID12345678.m4a')
+        self.assertTrue(yt._audio_em_cache('VID12345678').endswith('.m4a'))
+
+    def test_o_seletor_do_yt_dlp_nao_autoriza_video(self):
+        """`best` sozinho traria um MP4 com imagem para dentro do cache de ÁUDIO."""
+        fonte = open(os.path.join(ROOT, 'scripts', 'youtube_transcrever.py'),
+                     encoding='utf-8').read()
+        self.assertIn('vcodec=none', fonte)
+        self.assertNotIn("'bestaudio/best'", fonte)
 
 
 if __name__ == '__main__':

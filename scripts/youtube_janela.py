@@ -679,8 +679,31 @@ def fase_legendas(limite=None, ids=None):
     juntos = {i['VIDEO_ID']: i for i in (anterior.get('ITEMS') or []) if i.get('VIDEO_ID')}
     lidos_agora = {i['VIDEO_ID'] for i in saida}
     preservados = sum(1 for k in juntos if k not in lidos_agora)
+    resgatados = 0
     for i in saida:
+        velho = juntos.get(i['VIDEO_ID'])
+        # ── UMA RELEITURA QUE FALHOU NÃO APAGA UMA LEGENDA QUE JÁ VEIO ───────────
+        # A porta fecha por 429, e o 429 é do MINUTO, não do vídeo. Se a releitura
+        # de hoje bateu na porta fechada e a leitura de ontem trouxe a legenda
+        # inteira, quem manda é ontem: o texto existe e está aqui.
+        #
+        #     PERDER TEXTO JÁ LIDO POR CAUSA DE UM 429 É PAGAR DUAS VEZES —
+        #     UMA EM REDE, OUTRA EM HORA DE WHISPER QUE NÃO PRECISAVA.
+        if (velho and velho.get('CAPTION_STATE') == 'PRESENTE'
+                and i.get('CAPTION_STATE') != 'PRESENTE'):
+            velho = dict(velho)
+            velho['RELEITURA_FALHOU_EM'] = i.get('CAPTURED_AT')
+            velho['RELEITURA_FALHOU_COM'] = i.get('CAPTION_STATE')
+            velho['POR_QUE_O_ANTIGO_FICOU'] = (
+                'a releitura bateu em %s e a leitura anterior tinha a legenda inteira. '
+                'Falha de rede de hoje não apaga texto lido ontem.' % i.get('CAPTION_STATE'))
+            juntos[i['VIDEO_ID']] = velho
+            resgatados += 1
+            continue
         juntos[i['VIDEO_ID']] = i
+    if resgatados:
+        print('  ⚠️  %d legendas já lidas foram PRESERVADAS: a releitura de hoje falhou'
+              % resgatados)
     itens = list(juntos.values())
     # Os contadores passam a descrever O ARQUIVO, não a rodada — senão um teste de dez
     # objetos publicaria "COM_LEGENDA=2" sobre um acervo de 240.
@@ -702,6 +725,7 @@ def fase_legendas(limite=None, ids=None):
         'COM_LEGENDA': com, 'SEM_LEGENDA': sem, 'PORTA_NAO_ABRIU': barrados,
         'LIDOS_NESTA_RODADA': len(saida),
         'PRESERVADOS_DE_RODADAS_ANTERIORES': preservados,
+        'LEGENDAS_RESGATADAS_DE_RELEITURA_FALHA': resgatados,
         'OS_CONTADORES_DESCREVEM_O_ARQUIVO': (
             'COM_LEGENDA, SEM_LEGENDA e PORTA_NAO_ABRIU contam TODOS os itens deste '
             'arquivo, não só os relidos agora. LIDOS_NESTA_RODADA diz quantos foram '

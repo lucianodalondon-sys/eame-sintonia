@@ -392,7 +392,10 @@ def audio(video_id):
     falhas = []
     for cliente in CLIENTES:
         cmd = [sys.executable, '-m', 'yt_dlp', '-q', '--no-warnings', '--no-progress',
-               '-f', 'bestaudio/bestaudio*/best',
+               # SÓ ÁUDIO. `best` sozinho autorizaria um MP4 com imagem, e o arquivo
+               # de vídeo ficaria no cache de ÁUDIO para sempre — pagando banda por
+               # pixels que nenhum reconhecedor de fala vai olhar.
+               '-f', 'bestaudio[acodec!=none][vcodec=none]/bestaudio',
                '-o', os.path.join(MEDIA, '%(id)s.%(ext)s'), url]
         if cliente and cliente != 'default':
             cmd += ['--extractor-args', 'youtube:player_client=' + cliente]
@@ -460,16 +463,24 @@ def universo(ids=None, teto=None, so_da_fila=False):
         return None, ['sem OBJETOS.json — rode `py scripts/youtube_janela.py objetos` antes']
     itens = objetos['ITEMS']
     if so_da_fila:
+        # ── FILA VAZIA É UMA ORDEM, NÃO UM SILÊNCIO ──────────────────────────────
+        # `rodar` obedece o portão de relevância. Se o portão não aprovou ninguém, a
+        # resposta é NINGUÉM — e não "então roda em todo mundo". Cair para o acervo
+        # inteiro aqui trocaria zero vídeo por 240, sem que ninguém tivesse pedido,
+        # e a conta viria em horas de máquina.
+        #
+        #     PORTÃO FECHADO QUE VIRA PORTÃO ABERTO É O PIOR TIPO DE PADRÃO.
         fila = _ler_json(os.path.join(RELEVANCIA, 'FILA-WHISPER.json')) or {}
         ordem = [q['VIDEO_ID'] for q in (fila.get('QUEUE') or [])]
         if not ordem:
             avisos.append(
                 'FILA_VAZIA=YES · o portão de relevância não aprovou nenhum vídeo (%s). '
-                'A escada roda sobre o acervo, e a fila continua sendo quem ordena quando '
-                'houver ordem.' % (fila.get('QUAL_CRITERIO_REALMENTE_FILTRA') or 'sem motivo'))
-        else:
-            por_id = {i['VIDEO_ID']: i for i in itens}
-            itens = [por_id[v] for v in ordem if v in por_id]
+                'Isto é o desenho, não uma falha — e por isso a escada NÃO roda. Para '
+                'rodar sobre o acervo sem passar pelo portão, peça `escada` em vez de '
+                '`rodar`.' % (fila.get('QUAL_CRITERIO_REALMENTE_FILTRA') or 'sem motivo'))
+            return [], avisos
+        por_id = {i['VIDEO_ID']: i for i in itens}
+        itens = [por_id[v] for v in ordem if v in por_id]
     if ids:
         pedidos = [str(i).strip() for i in ids if str(i).strip()]
         por_id = {i['VIDEO_ID']: i for i in itens}
@@ -660,6 +671,23 @@ def escada(ids=None, teto=None, modelo=None, so_da_fila=False):
         maquina_s += float(r.get('MACHINE_SECONDS') or 0)
         if isinstance(r.get('AUDIO_SECONDS'), (int, float)):
             audio_s += r['AUDIO_SECONDS']
+        # ── O ÁUDIO OUVIDO BATE COM O VÍDEO QUE A GRADE ANUNCIOU? ────────────────
+        # Um download interrompido produz um arquivo legítimo e CURTO. O whisper o
+        # transcreve inteiro, com sucesso, e devolve WHISPER_OK sobre metade da fala —
+        # e essa metade entraria no cache para sempre. A grade do canal já publicou a
+        # duração de graça; conferir custa uma subtração.
+        #
+        #     TRANSCRIÇÃO DE MEIO ÁUDIO NÃO PARECE INCOMPLETA. PARECE CURTA.
+        ouvido = r.get('AUDIO_SECONDS')
+        if (r['ESTADO'] == WHISPER_OK and isinstance(dur, (int, float)) and dur > 0
+                and isinstance(ouvido, (int, float)) and ouvido < dur * 0.9):
+            d['WHISPER_STATE'] = 'WHISPER_AUDIO_TRUNCATED'
+            d['WHY'] = ('o áudio ouvido tem %.0f s e a grade do canal anuncia %.0f s '
+                        '(%.0f%%). O arquivo veio pela metade — o texto fica, mas não é '
+                        'o vídeo inteiro.' % (ouvido, dur, ouvido / dur * 100))
+            d['NAO_SIGNIFICA'] = 'que o resto do vídeo é silêncio. Eu não ouvi o resto.'
+            r = dict(r, ESTADO='WHISPER_AUDIO_TRUNCATED')
+
         if r['ESTADO'] == WHISPER_OK:
             d['TEXT_SOURCE'] = WHISPER_LOCAL
             contas['WHISPER_SUCCESS'] += 1
@@ -682,43 +710,108 @@ def escada(ids=None, teto=None, modelo=None, so_da_fila=False):
         itens.append(d)
 
     _gravar_cache(cache)
-    caminho = _gravar('TEXTO.json', _cabecalho(itens, contas, audio_s, maquina_s, modelo))
+
+    # ── O MESMO CUIDADO QUE A LEGENDA GANHOU, E PELA MESMA RAZÃO ────────────────
+    # Rodar a escada sobre dez vídeos não pode apagar o texto dos outros. Aqui o que
+    # se perderia é ainda mais caro que uma abertura de página: são as HORAS DE
+    # MÁQUINA que produziram a transcrição dos que não foram relidos.
+    anterior = _ler_json(os.path.join(SAIDA, 'TEXTO.json')) or {}
+    juntos = {i['VIDEO_ID']: i for i in (anterior.get('ITEMS') or []) if i.get('VIDEO_ID')}
+    agora_ids = {i['VIDEO_ID'] for i in itens}
+    preservados = sum(1 for k in juntos if k not in agora_ids)
+    for i in itens:
+        juntos[i['VIDEO_ID']] = i
+    todos = list(juntos.values())
+
+    cab = _cabecalho(todos, contas, audio_s, maquina_s, modelo)
+    # As contas de MÁQUINA descrevem ESTA rodada; as de acervo descrevem o arquivo.
+    # Misturar as duas foi o que quase fez a segunda execução do microteste — que é
+    # toda em cache e gasta zero — publicar "custo zero" sobre um lote já pago.
+    #
+    #     TEMPO DE MÁQUINA É DE QUEM GASTOU, NÃO DE QUEM LEU O ARQUIVO DEPOIS.
+    cab['OBJETOS_NESTA_RODADA'] = len(itens)
+    cab['OBJETOS_PRESERVADOS_DE_RODADAS_ANTERIORES'] = preservados
+    cab['TOTAL_MACHINE_SECONDS_ACUMULADO'] = round(
+        sum(float(i.get('MACHINE_SECONDS_ORIGINAL') or i.get('MACHINE_SECONDS') or 0)
+            for i in todos), 1)
+    cab['TOTAL_AUDIO_MINUTES_ACUMULADO'] = round(
+        sum(float(i.get('AUDIO_SECONDS') or 0) for i in todos) / 60.0, 2)
+    cab['O_QUE_CADA_TOTAL_MEDE'] = (
+        'TOTAL_MACHINE_SECONDS e TOTAL_AUDIO_MINUTES são o que ESTA rodada gastou — numa '
+        'rodada toda em cache eles são zero, e isso é verdade. Os _ACUMULADO somam o que '
+        'o acervo inteiro já custou, inclusive o que foi pago em rodadas anteriores.')
+    caminho = _gravar('TEXTO.json', cab)
     _resumo(caminho, itens, contas, audio_s, maquina_s)
     return 0
 
 
 # ══════════════════════════════════════════════════════════ O ARTEFATO E A AUDITORIA
 
-def auditar_identidade(itens):
+def auditar_identidade(itens, objetos=None):
     """Os quatro contadores da missão, CALCULADOS — nunca afirmados.
 
-    Um contador que é escrito à mão como zero não mede nada: ele repete a intenção de
-    quem escreveu. Estes são contados sobre os itens que acabaram de ser gravados.
+    O CONTADOR QUE NÃO PODE ACUSAR NÃO É UM CONTADOR
+    -------------------------------------------------
+    A primeira versão desta função comparava os campos de identidade do documento
+    contra o mesmo mapa do lote que `escada()` tinha acabado de usar para escrevê-los.
+    Ela dava zero sempre — e daria zero mesmo se a escada estivesse inventando gente,
+    porque estaria conferindo a resposta contra a própria resposta.
+
+        CONFERIR A CÓPIA CONTRA A CÓPIA É PUBLICAR UM ZERO QUE NÃO MEDE NADA.
+
+    Agora a conferência é de TRÊS PONTAS: o documento, o artefato de coleta
+    (`OBJETOS.json`, escrito pelo dono da coleta) e o LOTE CONGELADO. Um documento só
+    passa se a identidade dele bater com a que a COLETA registrou **e** com a que o
+    LOTE declarou. Qualquer divergência entre as três acusa — e uma delas seria
+    exatamente o sintoma de identidade tirada do conteúdo.
     """
-    sem_source_id = sum(1 for i in itens if not i.get('SOURCE_ID'))
-    # A identidade de cada item tem de vir de campo que existia ANTES do texto. Se um
-    # item carrega COMPANY/COUNTRY que não bate com o lote congelado, alguém inferiu.
     lote = paises_do_lote()
-    papel_do_conteudo = sum(
-        1 for i in itens
-        if i.get('PAGE_ROLE') not in (NAO_SEI, None)
-        and i.get('PAGE_ROLE') != (lote.get(i.get('ACCOUNT_HANDLE')) or {}).get('PAGE_ROLE'))
-    entidade_do_conteudo = sum(
-        1 for i in itens
-        if i.get('ACCOUNT_HANDLE') and i['ACCOUNT_HANDLE'] not in lote)
-    pais_do_conteudo = sum(
-        1 for i in itens
-        if i.get('COUNTRY') not in (NAO_SEI, None)
-        and i['COUNTRY'] != (lote.get(i.get('ACCOUNT_HANDLE')) or {}).get('COUNTRY'))
+    da_coleta = {}
+    if objetos is None:
+        d = _ler_json(os.path.join(JANELA, 'OBJETOS.json')) or {}
+        objetos = d.get('ITEMS') or []
+    for o in objetos:
+        if o.get('VIDEO_ID'):
+            da_coleta[o['VIDEO_ID']] = o
+
+    sem_source_id = sum(1 for i in itens if not i.get('SOURCE_ID'))
+    entidade, papel, pais = 0, 0, 0
+    divergencias = []
+    for i in itens:
+        vid = i.get('VIDEO_ID')
+        handle = i.get('ACCOUNT_HANDLE')
+        coletado = da_coleta.get(vid)
+        do_lote = lote.get(handle)
+        # 1 · a entidade tem de existir no lote E ser a mesma que a coleta registrou
+        if not do_lote or (coletado and coletado.get('ACCOUNT_HANDLE') != handle):
+            entidade += 1
+            divergencias.append('%s: handle %r não confere com o lote/coleta' % (vid, handle))
+            continue
+        # 2 · o papel é do lote, e o documento não pode ter outro
+        if i.get('PAGE_ROLE') not in (NAO_SEI, None) and i['PAGE_ROLE'] != do_lote['PAGE_ROLE']:
+            papel += 1
+            divergencias.append('%s: PAGE_ROLE %r ≠ lote %r'
+                                % (vid, i.get('PAGE_ROLE'), do_lote['PAGE_ROLE']))
+        # 3 · o país é do lote, e o escopo do documento tem de ser o que a coleta gravou
+        if i.get('COUNTRY') not in (NAO_SEI, None) and i['COUNTRY'] != do_lote['COUNTRY']:
+            pais += 1
+            divergencias.append('%s: COUNTRY %r ≠ lote %r'
+                                % (vid, i.get('COUNTRY'), do_lote['COUNTRY']))
+        elif coletado and i.get('COUNTRY_SCOPE') != coletado.get('COUNTRY_SCOPE'):
+            pais += 1
+            divergencias.append('%s: COUNTRY_SCOPE %r ≠ coleta %r'
+                                % (vid, i.get('COUNTRY_SCOPE'), coletado.get('COUNTRY_SCOPE')))
     return {
-        'IDENTITY_ERRORS': papel_do_conteudo + entidade_do_conteudo + pais_do_conteudo,
-        'NEW_ENTITIES_FROM_CONTENT': entidade_do_conteudo,
-        'ROLE_FROM_CONTENT': papel_do_conteudo,
+        'IDENTITY_ERRORS': entidade + papel + pais,
+        'NEW_ENTITIES_FROM_CONTENT': entidade,
+        'ROLE_FROM_CONTENT': papel,
         'DOCUMENT_WITHOUT_SOURCE_ID': sem_source_id,
+        'IDENTITY_DIVERGENCIAS': divergencias[:20],
         'COMO_FORAM_CONTADOS': (
-            'comparando ACCOUNT_HANDLE, COUNTRY e PAGE_ROLE de cada documento contra o '
-            'LOTE CONGELADO. Nenhum deles é lido do texto — e é exatamente isso que os '
-            'contadores verificam.'),
+            'conferência de TRÊS PONTAS: o documento contra OBJETOS.json (o que a COLETA '
+            'registrou) e contra o LOTE CONGELADO (o que foi DECLARADO). Zero aqui '
+            'significa que as três concordam. A versão anterior comparava o documento '
+            'contra o mesmo mapa que o escreveu, e dava zero mesmo se estivesse errada.'),
     }
 
 

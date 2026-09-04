@@ -181,14 +181,24 @@ def chave(video_ou_objeto_id, cfg, idioma):
 # ═══════════════════════════════════════════════════════════════════════ O MOTOR
 
 def disponivel():
-    """→ (SIM/NÃO, motivo). Perguntar antes custa um segundo; descobrir depois custa o lote."""
+    """→ (SIM/NÃO, motivo). Perguntar antes custa um segundo; descobrir depois custa o lote.
+
+    O `except` é largo de propósito. Instalação meio-quebrada do `ctranslate2` não
+    levanta `ImportError`: levanta `OSError` de biblioteca compartilhada ausente. Um
+    `except ImportError` sozinho deixaria essa passar como exceção não tratada, e o
+    lote inteiro morreria com traceback em vez de virar um estado — sem gravar o
+    artefato daquela corrida.
+
+        MOTOR QUEBRADO TEM DE VIRAR ESTADO, NUNCA TRACEBACK.
+    """
     try:
         import faster_whisper                                  # noqa: F401
-    except ImportError as e:
-        return False, ('faster-whisper ausente (%s). Instale FORA do repositório:\n'
-                       '  py -m pip install --target %s faster-whisper\n'
+    except Exception as e:                                     # noqa: BLE001
+        return False, ('faster-whisper indisponível (%s: %s). Instale FORA do '
+                       'repositório:\n  py -m pip install --target %s faster-whisper\n'
                        'NUNCA sem --target: no Windows o pip cria `Scripts/`, que é a '
-                       'MESMA pasta que `scripts/`.' % (e, LIBS))
+                       'MESMA pasta que `scripts/`.'
+                       % (type(e).__name__, str(e)[:160], LIBS))
     return True, 'faster-whisper importável a partir de %s' % LIBS
 
 
@@ -283,14 +293,42 @@ class Motor:
                 if time.time() - t > teto:
                     estourou = True
                     break
-                trechos.append({'START_S': round(s.start, 2), 'END_S': round(s.end, 2),
-                                'TEXT': s.text.strip()})
+                # ── OS TRÊS SINAIS QUE DENUNCIAM TEXTO INVENTADO ────────────────
+                # O Whisper NÃO fica em silêncio diante de silêncio: ele preenche.
+                # Ruído de motor vira "Suscríbete al canal", música vira a letra que
+                # ele acha que reconheceu. O texto sai limpo, gramatical e falso.
+                #
+                #     ALUCINAÇÃO DE ASR NÃO PARECE ERRO. PARECE FRASE.
+                #
+                # Os três números que a denunciam já vêm calculados no segmento e não
+                # custam nada para guardar. Jogá-los fora seria destruir a única prova
+                # de que aquela frase não foi dita.
+                trecho = {'START_S': round(s.start, 2), 'END_S': round(s.end, 2),
+                          'TEXT': s.text.strip()}
+                for campo, nome in (('no_speech_prob', 'NO_SPEECH_PROB'),
+                                    ('avg_logprob', 'AVG_LOGPROB'),
+                                    ('compression_ratio', 'COMPRESSION_RATIO')):
+                    v = getattr(s, campo, None)
+                    if isinstance(v, (int, float)):
+                        trecho[nome] = round(float(v), 3)
+                trechos.append(trecho)
         except Exception as e:                                 # noqa: BLE001
-            fora.update({'ESTADO': FALHOU, 'TRANSCRIPT': None,
+            # Decodificador que não abre o arquivo é ÁUDIO ilegível, não reconhecedor
+            # quebrado. Os dois pedem conduta diferente: um manda baixar de novo, o
+            # outro manda olhar a instalação. Guardá-los sob o mesmo nome esconderia
+            # um download corrompido atrás de "o whisper falhou".
+            de_audio = ('InvalidData', 'ffmpeg', 'av.error', 'Invalid data',
+                        'moov atom', 'EOFError', 'PermissionError', 'FileNotFoundError',
+                        'IsADirectoryError', 'UnicodeDecodeError')
+            texto_do_erro = '%s: %s' % (type(e).__name__, str(e))
+            e_audio = any(m.lower() in texto_do_erro.lower() for m in de_audio)
+            fora.update({'ESTADO': AUDIO_ILEGIVEL if e_audio else FALHOU,
+                         'TRANSCRIPT': None,
                          'MACHINE_SECONDS': round(time.time() - t, 2),
-                         'WHY': '%s: %s' % (type(e).__name__, str(e)[:180]),
-                         'NAO_SIGNIFICA': ('que o vídeo não tem fala. O reconhecedor é '
-                                           'que caiu.')})
+                         'WHY': texto_do_erro[:200],
+                         'NAO_SIGNIFICA': ('que o vídeo não tem fala. %s'
+                                           % ('O arquivo de áudio é que não abriu.'
+                                              if e_audio else 'O reconhecedor é que caiu.'))})
             return fora
 
         gasto = time.time() - t

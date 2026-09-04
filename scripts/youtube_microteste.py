@@ -270,8 +270,26 @@ def medir():
         'AG_RELEVANT_BEFORE': antes_c['AG_RELEVANT'], 'AG_RELEVANT_AFTER': depois_c['AG_RELEVANT'],
         'FIELD_SIGNAL_BEFORE': antes_c['FIELD_SIGNAL'], 'FIELD_SIGNAL_AFTER': depois_c['FIELD_SIGNAL'],
         'OFF_TOPIC_BEFORE': antes_c['OFF_TOPIC'], 'OFF_TOPIC_AFTER': depois_c['OFF_TOPIC'],
-        'TOTAL_AUDIO_MINUTES': texto.get('TOTAL_AUDIO_MINUTES'),
-        'TOTAL_MACHINE_SECONDS': texto.get('TOTAL_MACHINE_SECONDS'),
+        # ── DE QUAL EXECUÇÃO É ESTE CUSTO ─────────────────────────────────────
+        # `rodar` executa a escada DUAS vezes de propósito, para provar o cache. A
+        # segunda é toda em cache e gasta zero. Publicar só o número dela diria
+        # "custo zero" sobre um lote que já foi pago — e essa seria a mentira mais
+        # confortável deste arquivo inteiro.
+        #
+        #     O CUSTO NÃO SOME PORQUE A SEGUNDA LEITURA FOI DE GRAÇA.
+        'TOTAL_AUDIO_MINUTES_ULTIMA_EXECUCAO': texto.get('TOTAL_AUDIO_MINUTES'),
+        'TOTAL_MACHINE_SECONDS_ULTIMA_EXECUCAO': texto.get('TOTAL_MACHINE_SECONDS'),
+        'TOTAL_AUDIO_MINUTES': texto.get('TOTAL_AUDIO_MINUTES_ACUMULADO',
+                                         texto.get('TOTAL_AUDIO_MINUTES')),
+        'TOTAL_MACHINE_SECONDS': texto.get('TOTAL_MACHINE_SECONDS_ACUMULADO',
+                                           texto.get('TOTAL_MACHINE_SECONDS')),
+        'DE_QUAL_EXECUCAO_VEM_O_CUSTO': (
+            'TOTAL_* é o ACUMULADO do acervo — tudo o que já foi pago em hora de '
+            'máquina por estes vídeos. TOTAL_*_ULTIMA_EXECUCAO é o que a última '
+            'passada gastou, e numa passada toda em cache ele é zero de verdade.'),
+        'CUSTO_NAO_E_ZERO_ABSOLUTO': (
+            'PAID_API_COST_USD = 0 porque o reconhecimento roda nesta máquina. O custo '
+            'real é TOTAL_MACHINE_SECONDS, e ele não é zero.'),
         'REALTIME_FACTOR': texto.get('REALTIME_FACTOR'),
         'CAPTION_HITS': texto.get('CAPTION_HITS'),
         'WHISPER_FALLBACKS': texto.get('WHISPER_FALLBACKS'),
