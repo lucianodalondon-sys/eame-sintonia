@@ -1,7 +1,19 @@
 # LINKEDIN ENRICHMENT — V1
 
 **Data:** 2026-09-04 · **Branch:** `claude/linkedin-enrichment-v1-y1gikl`
-**Custo desta rodada:** **US$ 0** · **execuções pagas iniciadas: 0**
+**`REPROCESSAMENTO_DO_RAW_EXISTENTE_API_COST` = US$ 0** · execuções pagas iniciadas: **0**
+
+> **Este número não diz que "o LinkedIn ficou grátis".** Ele descreve o
+> **reprocessamento** do que já foi adquirido. Coleta **nova** de perfil ou de post
+> continua dependendo das rotas e do provider já existentes, e **pode ter custo**.
+> O whisper é local (`API_COST = US$ 0`) e ainda assim depende de **mídia
+> legitimamente disponível** — e o custo dele é hora de máquina, não zero.
+> O RAW relido **foi pago**: ver `COST_USD` das execuções `ES-T8-002-*` em
+> `RUN-MANIFEST.json`.
+>
+> ```
+> REPROCESSAR O JÁ PAGO ≠ COLETAR DE GRAÇA
+> ```
 
 Frente separada para enriquecer pesquisadores, técnicos e outras fontes humanas
 **que já existem** no universo canônico. Não cria dono de identidade, não duplica
@@ -292,7 +304,7 @@ do campo inteiro, e não havia o que copiar.
 
 ---
 
-## F · MICROTESTE — 5 perfis, custo US$ 0
+## F · MICROTESTE — 5 perfis, `REPROCESSAMENTO_..._API_COST` = US$ 0
 
 Os cinco escolhidos são exatamente as pessoas canônicas com LinkedIn **PROVADO**,
 duas delas italianas — a preferência que a missão pediu.
@@ -314,15 +326,15 @@ duas delas italianas — a preferência que a missão pediu.
 | `DOCUMENTS_DECODED` | **0 de 3 lidos** — mojibake |
 | `NEW_FACTS` | 1 transcrição técnica sobre repilo, com proveniência |
 | `NAO_SEI_RESOLVED` | 0 nesta amostra (as 472 datas já vinham); a rota fica aberta |
-| `API_COST` | **US$ 0** |
+| `REPROCESSAMENTO_DO_RAW_EXISTENTE_API_COST` | **US$ 0** — e só isso; ver aviso no topo |
 | `TIME` | ~19 s de whisper · ~47 s de varredura de mídia |
 
-### O ganho real, e ele não está na rota gratuita
+### O ganho real, e ele não está em rota nova nenhuma
 
-**138 perfis × até 10 campos declarados** voltaram de graça do RAW já pago —
+**138 perfis × até 10 campos declarados** voltaram do RAW **já pago** —
 experiência, formação, competências, o texto que a própria pessoa escreveu sobre
 si. Nenhuma execução nova. **É o dado mais barato da casa: o que já foi pago e
-não foi lido.**
+não foi lido** — barato porque o preço já saiu, não porque foi de graça.
 
 ---
 
@@ -369,7 +381,7 @@ VERDICT = ADOPT_LIMITED
 ```
 
 **Adotar — e isto não depende de decisão nenhuma, porque não toca a rede:** a
-releitura do RAW já pago (ganho grande, risco zero, custo zero); a data derivada do
+releitura do RAW já pago (ganho grande, risco zero, sem custo novo de API); a data derivada do
 id, com a conferência que a autoriza; e os quatro guardas de estado — mídia vencida,
 ausência de fala, alucinação de ASR, texto ilegível.
 

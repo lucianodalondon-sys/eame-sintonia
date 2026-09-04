@@ -38,10 +38,14 @@ class TestNaoGastaNada(unittest.TestCase):
             self.assertNotIn(proibido, fonte,
                              'o enriquecimento nao pode abrir rota paga: %s' % proibido)
 
-    def test_saida_declara_zero_execucoes_e_zero_custo(self):
+    def test_saida_declara_zero_execucoes_e_qualifica_o_custo(self):
         out = le.enriquecer()
         self.assertEqual(0, out['NEW_ACTOR_RUNS'])
-        self.assertEqual(0, out['COST_USD'])
+        self.assertEqual('US$ 0', out['REPROCESSAMENTO_DO_RAW_EXISTENTE_API_COST'])
+        # um zero sem qualificacao vira "o LinkedIn ficou gratis" na primeira leitura
+        self.assertNotIn('COST_USD', out)
+        self.assertIn('PODE TER CUSTO', out['CUSTO_NAO_SIGNIFICA'])
+        self.assertIn('hora de máquina', out['WHISPER_COST_NOTE'])
 
 
 class TestIdentidadeNuncaCriaPessoa(unittest.TestCase):
@@ -283,10 +287,23 @@ class TestArtefatos(unittest.TestCase):
             self.assertIsNone(re.search(r'apify_api_[A-Za-z0-9]{10,}', texto),
                               '%s carrega token' % nome)
 
-    def test_microteste_declara_custo_zero(self):
-        d = json.loads(self._carrega('MICROTESTE-V1.json'))
-        self.assertEqual(0, d['API_COST_USD'])
-        self.assertEqual(0, d['NEW_ACTOR_RUNS'])
+    def test_o_custo_e_nomeado_como_reprocessamento_e_nunca_como_gratuidade(self):
+        """REPROCESSAR O JA PAGO != COLETAR DE GRACA. O nome errado seria promessa."""
+        for nome in ('MICROTESTE-V1.json', 'ENRIQUECIMENTO-V1.json'):
+            d = json.loads(self._carrega(nome))
+            self.assertEqual('US$ 0', d['REPROCESSAMENTO_DO_RAW_EXISTENTE_API_COST'],
+                             '%s tem de nomear o custo pelo que ele e' % nome)
+            self.assertNotIn('API_COST_USD', d,
+                             '%s: um custo sem qualificacao vira "ficou gratis"' % nome)
+            self.assertIn('PODE TER CUSTO', d['CUSTO_NAO_SIGNIFICA'])
+        self.assertEqual(0, json.loads(self._carrega('MICROTESTE-V1.json'))['NEW_ACTOR_RUNS'])
+
+    def test_a_proveniencia_nao_apaga_o_preco_do_dado_original(self):
+        d = json.loads(self._carrega('ENRIQUECIMENTO-V1.json'))
+        prov = d['POSTS'][0]['PROVENANCE']
+        self.assertEqual(0, prov['REPROCESSING_COST_USD'])
+        self.assertIn('não é zero', prov['ORIGINAL_ACQUISITION_COST'])
+        self.assertIn('RUN-MANIFEST', prov['ORIGINAL_ACQUISITION_COST'])
 
     def test_o_999_e_estado_de_acesso_e_nao_perfil_inexistente(self):
         d = json.loads(self._carrega('MICROTESTE-V1.json'))

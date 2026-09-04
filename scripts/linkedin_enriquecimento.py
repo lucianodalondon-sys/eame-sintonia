@@ -10,8 +10,19 @@ LINKEDIN ENRICHMENT V1 — enriquecer quem JÁ EXISTE, sem inventar ninguém.
 ESTE ARQUIVO NÃO ABRE NENHUMA ROTA PAGA. NENHUMA.
 -------------------------------------------------
 Ele não chama Apify, não inicia ator, não gasta chave. Tudo que ele lê já foi
-comprado e já está no repositório, em `data/samples/raw-paid/`. O custo de rodar
-este arquivo é zero, e há teste que prova que ele não importa `coletor`.
+comprado e já está no repositório, em `data/samples/raw-paid/`. Há teste que prova
+que ele não importa `coletor` e que não tem uma única chamada de rede.
+
+E o número que sai daqui tem nome exato, porque o nome errado seria uma promessa:
+
+    REPROCESSAMENTO_DO_RAW_EXISTENTE_API_COST = US$ 0
+
+Isto **não** quer dizer que "o LinkedIn ficou grátis". Coleta NOVA de perfil ou de
+post continua dependendo das rotas e do provider já existentes, e **pode ter custo**.
+O whisper é local e também não tem custo de API — mas depende de mídia legitimamente
+disponível, e o custo dele é hora de máquina, não zero.
+
+    REPROCESSAR O JÁ PAGO ≠ COLETAR DE GRAÇA
 
     O DADO MAIS BARATO DA CASA É O QUE JÁ FOI PAGO E NÃO FOI LIDO.
 
@@ -660,7 +671,11 @@ def proveniencia(post_ou_perfil, identidade, *, content_source, transcript_metho
         'COLLECTION_RUN_ID': run_id,
         'RAW_EVIDENCE_PATH': raw_path,
         'NEW_ACTOR_RUNS': 0,
-        'COST_USD': 0,
+        # A DERIVAÇÃO custou zero. A AQUISIÇÃO não custou zero — ela foi paga, e o
+        # manifesto sabe quanto. Publicar só o zero apagaria o preço do dado.
+        'REPROCESSING_COST_USD': 0,
+        'ORIGINAL_ACQUISITION_COST': (
+            'não é zero — ver COST_USD da execução %s em RUN-MANIFEST.json' % run_id),
         'SOURCE_LOCATION': 'LinkedIn',
         'FACT_LOCATION': ('NÃO DERIVADO — onde a pessoa mora não é onde o fenômeno '
                           'agrícola aconteceu'),
@@ -706,7 +721,15 @@ def enriquecer():
         'SOURCE_LOCATION': 'LinkedIn', 'FACT_LOCATION': 'n/a — metadado de coleta',
         'ORIGINAL_LANGUAGE': 'pt', 'EVIDENCE_CLASS': 'DERIVED_INTERPRETATION',
         'MISSION': MISSION, 'captured_at': hoje(), 'CAPTURED_AT': agora(),
-        'NEW_ACTOR_RUNS': 0, 'COST_USD': 0,
+        'NEW_ACTOR_RUNS': 0,
+        'REPROCESSAMENTO_DO_RAW_EXISTENTE_API_COST': 'US$ 0',
+        'CUSTO_NAO_SIGNIFICA': (
+            'que "o LinkedIn ficou grátis". Este número descreve o REPROCESSAMENTO do '
+            'que já foi adquirido, e nada além disso. Coleta NOVA de perfil ou de post '
+            'continua dependendo das rotas e do provider já existentes, e PODE TER CUSTO.'),
+        'WHISPER_COST_NOTE': (
+            'o whisper é local: API_COST = US$ 0. Ele depende, ainda assim, de mídia '
+            'legitimamente disponível — e o custo dele é hora de máquina, não zero.'),
         'IDENTITY_OWNER': 'SENSOR-PILOT/CANAL-IDENTIDADE — este arquivo NÃO cria pessoa',
         'CANONICAL_PERSON_OWNER': 'SPEAKER-UNIVERSE-PILOT-V1',
         'CANONICAL_PEOPLE': universo.get('PEOPLE_COUNT', NAO_SEI),

@@ -213,6 +213,60 @@ Regras do diário:
 
 ---
 
+### D-013 — LinkedIn enriquece o RAW já pago; a rota pública fica fora, por política
+
+- **Data:** 2026-09-04
+- **Estado:** DECIDIDO — `VERDICT = ADOPT_LIMITED`
+- **Contexto:** a frente LINKEDIN ENRICHMENT mediu que a normalização descartava o que a
+  rota paga já entregava — experiência em 98% dos 138 perfis, competências em 88%,
+  formação em 86%, *about* em 63%; e, nos posts, imagem em 62%, artigo em 20%, vídeo em
+  12%, documento em 4%. Nada disso exigia execução nova.
+- **Decisão:** adotar o **enriquecimento offline** do RAW já adquirido. **Não** construir
+  scraper próprio. **Não** usar em produção as rotas públicas de mídia, legenda e PDF.
+- **Motivo:** as rotas públicas **funcionam** — 56/56 vídeos, 12/12 PDFs, sem login e sem
+  contornar controle nenhum — e o `robots.txt` do `www.linkedin.com` diz
+  `User-agent: * / Disallow: /`, com `/embed/feed/update/` nomeado; o `robots.txt` de
+  `dms.licdn.com`, o host da mídia, repete a proibição. **`NÃO HÁ CONTROLE TÉCNICO ≠ HÁ
+  PERMISSÃO`.** A rota de perfil, além disso, está fechada por acesso: 999/authwall nos
+  cinco alvos canônicos.
+- **Consequência:** para produção, a mídia vem pela rota autorizada/provider já existente.
+  As sondagens pontuais ficam como **experimento**, não como rota. E o custo publicado tem
+  nome exato — `REPROCESSAMENTO_DO_RAW_EXISTENTE_API_COST = US$ 0` —, porque
+  **`REPROCESSAR O JÁ PAGO ≠ COLETAR DE GRAÇA`**: coleta nova continua dependendo das
+  rotas e do provider existentes e pode ter custo.
+- **Quem decidiu:** decisão do dono do produto, sobre a medição da frente LINKEDIN
+  ENRICHMENT V1.
+
+---
+
+### D-014 — Dois defeitos canônicos ficam REGISTRADOS, não corrigidos na branch que os achou
+
+- **Data:** 2026-09-04
+- **Estado:** REGISTRADO — correção pertence ao dono de cada arquivo
+- **Contexto:** a varredura de código aberto da frente LinkedIn encontrou dois defeitos
+  fora do seu próprio escopo, ambos conferidos linha a linha no repositório.
+- **Decisão:** registrar e **não** corrigir aqui. A branch que achou um defeito não é
+  automaticamente a branch que o conserta — corrigir o canônico a partir de uma frente
+  experimental mistura donos e faz a correção viajar junto com um experimento.
+- **Os dois:**
+  - **A · `scripts/youtube_transcrever.py:199`** — a retomada é
+    `{i['VIDEO_ID']: i for … if TRANSCRIPT_STATE == 'OK'}`, mas a saída depende também de
+    `ASR_MODEL`, `ASR_BEAM`/parâmetros e idioma, todos gravados no item e nenhum lido de
+    volta. Rodar `medium` depois de um `small` **preserva o texto do `small` e o reporta
+    como feito**. O próprio docstring do arquivo mede os modelos como textos
+    materialmente diferentes.
+  - **B · `scripts/speaker_universo.py:155,193`** — `while cursor and paginas <
+    PAGINAS_MAX:` tem duas saídas, cursor esgotado (fim real) e teto de páginas atingido
+    (truncagem nossa), e em `:193` as duas produzem `STATE = COLLECTED` com contagem de
+    aparência real. O arquivo desenha essa distinção perfeitamente contra a **fonte**
+    (`THROTTLED_NOT_EMPTY`, contagem `None` e nunca `0`) e não a desenha contra **nós
+    mesmos**.
+- **Consequência:** **não abrir missão agora** se isso disputar o sprint do Portal Itália.
+  Fica na fila, com arquivo e linha, para quando o dono puder pegar.
+- **Quem decidiu:** decisão do dono do produto.
+
+---
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |
@@ -225,4 +279,6 @@ Regras do diário:
 | P-006 | Criar conta institucional EPPO para obter token da API (EU-T3-001)? É gratuita, mas fica em nome de alguém. | EU-T3-001 | 2026-08-28 |
 | P-009 | Obter chave da YouTube Data API e decidir se a ADAMA quer perfilar criadores individuais (T8). Questão de GDPR distinta da de T5. | T8 inteiro | 2026-08-28 |
 | P-008 | Perfilamento de pesquisadores identificados (EU-T5-001/OpenAlex): revisão GDPR antes de qualquer tela que liste pessoas nomeadas. | T6, people graph, protótipo | 2026-08-28 |
+| P-010 | A ponte `PERSON_ID` ↔ `ORIGIN_ID` existe? Hoje **0 de 138** perfis LinkedIn pagos ligam a alguma das 13 pessoas canônicas. Sem ela, o LinkedIn enriquece um corpus que não é o universo canônico. **Próxima missão, somente leitura, sem fuzzy-match.** | LINKEDIN ENRICHMENT, POST_BY_PROFILE | 2026-09-04 |
+| P-011 | A rota `apimaestro~linkedin-profile-posts` (`POST_BY_PROFILE`) funciona? Está declarada em `linkedin_sensores.py` e **nunca foi executada**. Medir em no máximo 3 pessoas PROVED, **informando custo estimado antes** e sem rodar sem autorização se houver custo. | elo pessoa→posts | 2026-09-04 |
 | P-007 | Uso e difusão de coordenadas de parcela do RAIF (ES-T3-001): revisão jurídica antes de expor em tela externa. | ES-T3-001, protótipo | 2026-08-28 |

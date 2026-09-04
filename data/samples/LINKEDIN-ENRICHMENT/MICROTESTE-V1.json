@@ -8,7 +8,6 @@
  "MISSION": "LINKEDIN_ENRICHMENT_V1",
  "captured_at": "2026-09-04",
  "CAPTURED_AT": "2026-09-04T21:21:49Z",
- "API_COST_USD": 0,
  "NEW_ACTOR_RUNS": 0,
  "O_QUE_FOI_MEDIDO": "duas perguntas separadas: (1) a rota pública gratuita abre o perfil das pessoas canônicas? (2) a mídia que a rota paga JÁ ENTREGOU ainda é alcançável e transcritível de graça?",
  "A_ROTA_PUBLICA_DE_PERFIL": {
@@ -267,5 +266,10 @@
   "LAW": "NÃO HÁ CONTROLE TÉCNICO ≠ HÁ PERMISSÃO",
   "DECISAO": "DO_DONO_DO_PRODUTO — nao minha. Fica como pergunta com o numero ao lado.",
   "O_QUE_CONTINUA_LIMPO": "a releitura do .raw.json.gz nao toca a rede. O dado foi obtido pela rota paga e contratada (Apify) e ja esta no repositorio. Ha teste que prova que scripts/linkedin_enriquecimento.py nao tem nenhuma chamada de rede."
- }
+ },
+ "REPROCESSAMENTO_DO_RAW_EXISTENTE_API_COST": "US$ 0",
+ "CUSTO_NAO_SIGNIFICA": "que \"o LinkedIn ficou grátis\". O número descreve o REPROCESSAMENTO do que já foi adquirido. Coleta NOVA de perfil ou de post continua dependendo das rotas e do provider já existentes, e PODE TER CUSTO.",
+ "WHISPER_COST": "local: API_COST = US$ 0. Depende, ainda assim, de mídia legitimamente disponível, e o custo dele é hora de máquina, não zero.",
+ "CUSTO_ORIGINAL_DO_DADO_LIDO": "não é zero. O RAW relido foi pago — ver COST_USD das execuções ES-T8-002-* em RUN-MANIFEST.json.",
+ "LAW_CUSTO": "REPROCESSAR O JÁ PAGO ≠ COLETAR DE GRAÇA"
 }
