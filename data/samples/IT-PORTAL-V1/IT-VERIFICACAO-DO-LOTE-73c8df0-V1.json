@@ -1,0 +1,231 @@
+{
+  "DATASET": "IT-VERIFICACAO-DO-LOTE-73c8df0-V1",
+  "LAYER": "VERIFICACAO — mede uma ingestao ja feita por outra sessao. Nao ingere, nao escreve na Linha B.",
+  "COUNTRY": "IT",
+  "CAPTURED_AT": "2026-09-04",
+  "SOURCE": "comparacao dos contratos e handoffs em 5703711 com as copias ingeridas em 73c8df0, mais a corrida dos portoes nas duas cabecas",
+  "SOURCE_ID": "IT-HANDOFF-LINHA-B-*-V1 + IT-CONTRATO-FAMILIA-*-V1",
+  "PORQUE_ESTE_ARTEFACTO_EXISTE": "a missao pedia executar a ingestao. Ao chegar, ela ja estava feita por escritor concorrente. A regra desta rodada manda PARAR e reportar perante escritor concorrente — entao mediu-se em vez de reescrever.",
+  "HEAD_BEFORE": "9f932ff",
+  "HEAD_AFTER": "73c8df0",
+  "INGESTAO_FEITA_POR": "sessao concorrente (73c8df0), nao por esta",
+  "UPSTREAM_HANDOFF_CHECKPOINT_MANDATADO": "5703711",
+  "UPSTREAM_CHECKPOINT_DECLARADO_NOS_ARTEFACTOS": "8c082f7",
+  "PORQUE_OS_DOIS_NOMES_NAO_SAO_UMA_DIVERGENCIA": "8c082f7 e ancestral de 5703711. O commit 032ebd1 carimbou esse nome dentro dos proprios handoffs; entre 8c082f7 e 5703711 so entrou o TOP_3-SENSORS. As quatro copias sao byte a byte iguais aos artefactos em 5703711 — verificado por SHA256.",
+  "FEZ_MERGE": false,
+  "PROVA_DE_QUE_NAO_HOUVE_MERGE": "git diff 9f932ff..73c8df0 = 5 ficheiros, todos novos, todos sob italia-portale/. Nenhum ficheiro upstream reescrito.",
+  "FAMILIAS": [
+    {
+      "FAMILIA": "SINAIS_DE_CAMPO",
+      "TOTAL_ESPERADO": 640,
+      "TOTAL_CONTRATO": 640,
+      "TOTAL_HANDOFF": 640,
+      "TOTAL_INGERIDO": 640,
+      "DESTINOS_ORDEM": "CARTAO, COM_METODO, EVIDENCE_ONLY, DROPPED",
+      "DESTINOS_ESPERADOS": [
+        28,
+        19,
+        421,
+        172
+      ],
+      "DESTINOS_CONTRATO": [
+        28,
+        19,
+        421,
+        172
+      ],
+      "DESTINOS_HANDOFF": [
+        28,
+        19,
+        421,
+        172
+      ],
+      "DESTINOS_INGERIDO": [
+        28,
+        19,
+        421,
+        172
+      ],
+      "NUMEROS_BATEM_NAS_TRES_CAMADAS": true,
+      "HASH_UPSTREAM": "4fda8a87f5efe18a9eea76067e4d31bf",
+      "HASH_INGERIDO": "4fda8a87f5efe18a9eea76067e4d31bf",
+      "COPIA_BYTE_A_BYTE": true,
+      "NUMEROS_VELHOS_625_221_438_NA_PROSA": [],
+      "TRIPLE_MATCH": "PASS",
+      "PORQUE_FALHA": null
+    },
+    {
+      "FAMILIA": "FONTES",
+      "TOTAL_ESPERADO": 317,
+      "TOTAL_CONTRATO": 317,
+      "TOTAL_HANDOFF": 317,
+      "TOTAL_INGERIDO": 317,
+      "DESTINOS_ORDEM": "CARTAO, COM_METODO, EVIDENCE_ONLY, DROPPED",
+      "DESTINOS_ESPERADOS": [
+        0,
+        91,
+        39,
+        187
+      ],
+      "DESTINOS_CONTRATO": [
+        0,
+        91,
+        39,
+        187
+      ],
+      "DESTINOS_HANDOFF": [
+        0,
+        91,
+        39,
+        187
+      ],
+      "DESTINOS_INGERIDO": [
+        0,
+        91,
+        39,
+        187
+      ],
+      "NUMEROS_BATEM_NAS_TRES_CAMADAS": true,
+      "HASH_UPSTREAM": "262ac41060a27fbebde9a5301f843737",
+      "HASH_INGERIDO": "262ac41060a27fbebde9a5301f843737",
+      "COPIA_BYTE_A_BYTE": true,
+      "NUMEROS_VELHOS_625_221_438_NA_PROSA": [],
+      "TRIPLE_MATCH": "PASS",
+      "PORQUE_FALHA": null
+    },
+    {
+      "FAMILIA": "FITOSSANITARIO",
+      "TOTAL_ESPERADO": 560,
+      "TOTAL_CONTRATO": 560,
+      "TOTAL_HANDOFF": 560,
+      "TOTAL_INGERIDO": 560,
+      "DESTINOS_ORDEM": "CARTAO, COM_METODO, EVIDENCE_ONLY, DROPPED",
+      "DESTINOS_ESPERADOS": [
+        0,
+        0,
+        560,
+        0
+      ],
+      "DESTINOS_CONTRATO": [
+        0,
+        0,
+        560,
+        0
+      ],
+      "DESTINOS_HANDOFF": [
+        0,
+        0,
+        560,
+        0
+      ],
+      "DESTINOS_INGERIDO": [
+        0,
+        0,
+        560,
+        0
+      ],
+      "NUMEROS_BATEM_NAS_TRES_CAMADAS": true,
+      "HASH_UPSTREAM": "7c3174eef74d17f407328219623ead6c",
+      "HASH_INGERIDO": "7c3174eef74d17f407328219623ead6c",
+      "COPIA_BYTE_A_BYTE": true,
+      "NUMEROS_VELHOS_625_221_438_NA_PROSA": [
+        {
+          "CAMPO": "CONTRATO.LEI",
+          "NUMERO": 438,
+          "TEXTO": "esta familia NAO e uma familia de cartoes. Sao 438 registos em 58 ficheiros de corpus bruto — videos, audios, transcricoes, falas, leituras de sessao e testemunhas de recolha. E a CAMADA DE EVIDENCIA por baixo das outras"
+        },
+        {
+          "CAMPO": "HANDOFF.LEI_DA_FAMILIA",
+          "NUMERO": 438,
+          "TEXTO": "esta familia NAO e uma familia de cartoes. Sao 438 registos em 58 ficheiros de corpus bruto — videos, audios, transcricoes, falas, leituras de sessao e testemunhas de recolha. E a CAMADA DE EVIDENCIA por baixo das outras"
+        },
+        {
+          "CAMPO": "INGERIDO.LEI_DA_FAMILIA",
+          "NUMERO": 438,
+          "TEXTO": "esta familia NAO e uma familia de cartoes. Sao 438 registos em 58 ficheiros de corpus bruto — videos, audios, transcricoes, falas, leituras de sessao e testemunhas de recolha. E a CAMADA DE EVIDENCIA por baixo das outras"
+        }
+      ],
+      "TRIPLE_MATCH": "FAIL",
+      "PORQUE_FALHA": "os numeros batem, mas a prosa da familia ainda declara um universo antigo — a regra desta rodada manda PARAR a familia que ainda diga 625, 221 ou 438"
+    }
+  ],
+  "RADAR": {
+    "FAMILIA": "RADAR_FUTURO",
+    "ESPERADO": {
+      "TOTAL": 45,
+      "RENDERABLE": 44,
+      "DROPPED": 1,
+      "ACT_NOW": 0,
+      "PREPARE": 23,
+      "WATCH": 21
+    },
+    "HANDOFF": {
+      "TOTAL": 45,
+      "RENDERABLE": 44,
+      "DROPPED": 1,
+      "ACT_NOW": 0,
+      "PREPARE": 23,
+      "WATCH": 21
+    },
+    "INGERIDO": {
+      "TOTAL": 45,
+      "RENDERABLE": 44,
+      "DROPPED": 1,
+      "ACT_NOW": 0,
+      "PREPARE": 23,
+      "WATCH": 21
+    },
+    "PORTFOLIO_LIMITED": 8,
+    "TOP_3": [
+      "ITFC-009",
+      "ITFC-016",
+      "ITFC-018"
+    ],
+    "EXCLUIDO": [
+      "ITFC-027"
+    ],
+    "COPIA_BYTE_A_BYTE": true,
+    "NUMEROS_VELHOS_NA_PROSA": [],
+    "TRIPLE_MATCH": "PASS"
+  },
+  "PORTOES": {
+    "upstream-ingestion.mjs @73c8df0": "12/12 PASS",
+    "meeting-gate.mjs @9f932ff": "23/23",
+    "meeting-gate.mjs @73c8df0": "23/23",
+    "run.mjs @9f932ff": "66/71 (5 falhas: B3, H3, W2, O1, DS1)",
+    "run.mjs @73c8df0": "66/71 (as mesmas 5)",
+    "ingestion-provenance.mjs @73c8df0 com o pacote canonico": "6/6 PASS",
+    "REGRESSAO_CAUSADA_PELA_INGESTAO": "NENHUMA — os portoes dao o mesmo resultado antes e depois"
+  },
+  "ACHADO_1_PROSA_ANTIGA": {
+    "ONDE": "IT-CONTRATO-FAMILIA-FITOSSANITARIO-V1.LEI, propagado literal para HANDOFF.LEI_DA_FAMILIA e dai para a copia ingerida",
+    "O_QUE_DIZ": "«esta familia NAO e uma familia de cartoes. Sao 438 registos em 58 ficheiros de corpus bruto»",
+    "O_QUE_DEVIA_DIZER": "560 — o proprio contrato explica a correccao no campo ACHADO_DA_CONTAGEM (401 por lista branca no V1, 560 pela forma no V2)",
+    "ALCANCE": "so a prosa. N_ESPERADO, TOTAL, EVIDENCE_ONLY e os portoes dizem 560 em todo o lado.",
+    "JA_CHEGOU_AO_CLIENTE": false,
+    "PROVA_DE_QUE_NAO_CHEGOU": "italia-portale/client/italy-ingested.js nao contem uma unica mencao a FITOSSANITARIO em 73c8df0 — o lote ainda nao atravessou para a camada de tela",
+    "PORQUE_O_PORTAO_NAO_APANHOU": "upstream-ingestion.mjs verifica que LEI_DA_FAMILIA existe, nunca o que ela diz",
+    "DONO_DA_CORRECCAO": "quem e dono do contrato da familia (upstream), nao a Linha B — corrigir na copia ingerida criaria um segundo dono do mesmo texto"
+  },
+  "ACHADO_2_GERADOR_ANTIGO_NA_LINHA_B": {
+    "O_QUE_SE_MEDIU": "bash scripts/v21_cadeia.sh corrido dentro de 73c8df0",
+    "PRODUZ": "V21-5d312cb90a0de01d",
+    "CANONICO": "V21-69bf448ac934a6d9",
+    "DEFEITOS_DO_PACOTE_PRODUZIDO": [
+      "MEETING_SURFACE_RULE ausente",
+      "estado revogado PREPARE_NOW em 11 casos"
+    ],
+    "DISTANCIA_DO_GERADOR": "30 ficheiros em scripts/ diferem de 55c2674 (+6481 / -1189)",
+    "PORQUE_IMPORTA": "e exatamente a queda silenciosa para uma safra antiga que a Prioridade 1 proibiu: quem correr a cadeia a partir da Linha B regenera a safra velha sem aviso",
+    "O_QUE_JA_CONTEM_O_RISCO": "ingestion-provenance.mjs recusa o pacote errado (CANONICAL_PACKAGE_ACCEPTED FAIL, com BUILD_ID, regra ausente e os 11 casos nomeados) — mas so quando alguem corre o portao",
+    "O_QUE_ESTA_MEDICAO_NAO_DIZ": "nao diz que o portal serve a safra velha hoje. O pacote embarcado em 73c8df0 continua a ser o canonico; o risco e de quem regenerar, nao do que esta la."
+  },
+  "VERDICT": "INGESTAO_JA_EXECUTADA_POR_TERCEIRO · CONTEUDO_CORRETO · UMA_FAMILIA_PARADA_PELA_REGRA_DA_PROSA",
+  "O_QUE_ESTA_SESSAO_NAO_FEZ": [
+    "nao escreveu na Linha B",
+    "nao fez merge",
+    "nao fez deploy nem preview",
+    "nao corrigiu a prosa do contrato de outra frente",
+    "nao tocou nos julgamentos congelados do Radar Futuro"
+  ]
+}
