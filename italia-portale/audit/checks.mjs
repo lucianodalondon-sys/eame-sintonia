@@ -322,6 +322,13 @@ check('N1', 'Nav counts match the active normalized collections', () => {
      drifts back to whatever number looks fuller. */
   const expect = [
     AM.collections.opportunities.count,
+    /* IL RADAR CANONICO NON CONTA UNA COLLEZIONE DEL MODELLO: conta i casi
+       dell'istantanea della riunione, che e la sua unica fonte. Se un giorno
+       questo badge cominciasse a mostrare un numero del modello, sarebbe
+       esattamente la sostituzione silenziosa che questo controllo esiste per
+       impedire — quindi entra nel contratto come tutti gli altri, non come
+       un'eccezione. */
+    (m.ctx.MEETING_INTELLIGENCE || {}).TOTAL_CASES,
     AM.collections.futureSignals.count,
     AM.collections.cropWindows.count,
     AM.collections.marketObservations.count,
@@ -438,7 +445,7 @@ check('L3', 'Taxonomic names reach the screen complete', () => {
   const bad = [];
   const seen = new Set();
   for (const sc of SCREENS) {
-    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
+    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM, m.ctx) : {});
     const r = m.tryVals(patch);
     if (!r.ok) continue;
     for (const { path, value } of collectStrings(r.vals)) {
@@ -476,7 +483,7 @@ check('PT1', 'No Portuguese research prose reaches any rendered screen', () => {
   const want = SCREENS.length * 2;
   for (const sc of SCREENS) {
     for (const lang of ['it', 'en']) {
-      const patch = Object.assign({ view: sc.view, lang }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
+      const patch = Object.assign({ view: sc.view, lang }, sc.state || {}, sc.pick ? sc.pick(m.AM, m.ctx) : {});
       const r = m.tryVals(patch);
       if (!r.ok) continue;
       rendered++;
@@ -649,13 +656,20 @@ export const SCREENS = [
   { view: 'field', label: 'Field Sales demo' },
   { view: 'radar', label: 'Global search', state: { query: 'grano', committedQuery: 'grano' } },
   { view: 'brief', label: 'Action brief', pick: (AM) => ({ caseId: (AM.collections.opportunities.records[0] || {}).id, briefDept: 'MARKETING' }) },
+  /* La superficie canonica entra nella spazzata come ogni altra schermata: una
+     schermata che nessuno rende in due lingue e una schermata che nessuno sa
+     se si rompe. Il caso scelto e il PRIMO DELL'ISTANTANEA, non uno a mano,
+     cosi il controllo resta vero anche se lo snapshot cambia. */
+  { view: 'canonical', label: 'Radar Canonico' },
+  { view: 'copportunity', label: 'Canonical opportunity detail',
+    pick: (AM, ctx) => ({ cCaseId: (((ctx && ctx.MEETING_INTELLIGENCE) || {}).CASES || [{}])[0].ID }) },
 ];
 
 check('RT1', 'Every screen renders in Italian without crashing', () => {
   const m = mount();
   const fails = [];
   for (const sc of SCREENS) {
-    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
+    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM, m.ctx) : {});
     const r = m.tryVals(patch);
     if (!r.ok) fails.push(`${sc.label} (${sc.view}): ${r.error}`);
   }
@@ -666,7 +680,7 @@ check('RT2', 'Every screen renders in English without crashing', () => {
   const m = mount();
   const fails = [];
   for (const sc of SCREENS) {
-    const patch = Object.assign({ view: sc.view, lang: 'en' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
+    const patch = Object.assign({ view: sc.view, lang: 'en' }, sc.state || {}, sc.pick ? sc.pick(m.AM, m.ctx) : {});
     const r = m.tryVals(patch);
     if (!r.ok) fails.push(`${sc.label} (${sc.view}): ${r.error}`);
   }
@@ -685,7 +699,7 @@ check('RT3', 'No screen renders the string "undefined" or "[object Object]"', ()
   };
   let rendered = 0;
   for (const sc of SCREENS) {
-    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
+    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM, m.ctx) : {});
     const r = m.tryVals(patch);
     if (!r.ok) continue;
     rendered++;
@@ -842,7 +856,7 @@ check('H4', 'Engine bookkeeping never reaches a rendered screen', () => {
   let rendered = 0;
   for (const lang of ['it', 'en']) {
     for (const sc of SCREENS) {
-      const patch = Object.assign({ view: sc.view, lang }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
+      const patch = Object.assign({ view: sc.view, lang }, sc.state || {}, sc.pick ? sc.pick(m.AM, m.ctx) : {});
       const r = m.tryVals(patch);
       if (!r.ok) continue;
       rendered++;
@@ -1087,7 +1101,7 @@ check('MK1', 'Every prop the markup binds is still returned by the render', () =
   const m = mount();
   const provided = new Set();
   for (const sc of SCREENS) {
-    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
+    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM, m.ctx) : {});
     const r = m.tryVals(patch);
     if (!r.ok) continue;
     Object.keys(r.vals).forEach((k) => provided.add(k));
@@ -1103,7 +1117,7 @@ check('MK2', 'Every sc-for list resolves to an array on the screen that owns it'
   const m = mount();
   const seen = {};
   for (const sc of SCREENS) {
-    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
+    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM, m.ctx) : {});
     const r = m.tryVals(patch);
     if (!r.ok) continue;
     for (const name of lists) {
@@ -1711,7 +1725,7 @@ check('I6', 'Italian mode shows no accidental English on any screen', () => {
   const hits = [];
   let rendered = 0;
   for (const sc of SCREENS) {
-    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
+    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM, m.ctx) : {});
     const r = m.tryVals(patch);
     if (!r.ok) continue;
     rendered++;

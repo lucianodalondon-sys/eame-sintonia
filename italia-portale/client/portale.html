@@ -585,7 +585,7 @@
           <sc-if value="{{ cd.hasWhyCommText }}" hint-placeholder-val="{{ true }}"><div data-why-commercial="1" style="font-size:13.5px;color:#fff;line-height:1.45">{{ cd.whyCommText }}</div></sc-if>
           <div style="display:flex;flex-wrap:wrap;gap:6px">
             <sc-for list="{{ cd.whyCommCodes }}" as="w" hint-placeholder-count="2">
-              <span style="display:inline-flex;align-items:center;padding:3px 10px;border-radius:9999px;border:1px solid rgba(0,152,69,0.45);color:#7BE0A6;font-size:10.5px;line-height:1.3">{{ w }}</span>
+              <span style="display:inline-flex;align-items:center;padding:3px 10px;border-radius:9999px;border:1px solid rgba(0,152,69,0.45);color:{{ cd.stateVerified }};font-size:10.5px;line-height:1.3">{{ w }}</span>
             </sc-for>
           </div>
           <sc-if value="{{ cd.hasCommNotProves }}" hint-placeholder-val="{{ true }}"><div style="font-size:11px;color:#8F8886;line-height:1.4;border-top:1px dotted rgba(151,139,135,0.45);padding-top:7px">{{ cd.commNotProves }}</div></sc-if>
@@ -2971,7 +2971,7 @@ class Component extends DCLogic {
       chip: 'rgba(255,255,255,0.16)', chipEdge: 'rgba(255,255,255,0.34)',
       well: 'rgba(0,0,0,0.30)', wellEdge: 'rgba(255,255,255,0.10)', rule: 'rgba(255,255,255,0.20)' };
     const ACTP = (AM && AM.ACT_PILL) || { bg: '#3ED27F', ink: '#110E0D' };
-    const ONST = (AM && AM.ON_SURFACE_STATE) || { verified: '#7BE0A6', validate: '#F6BB2E', neutral: '#C9C3C1' };
+    const ONST = (AM && AM.ON_SURFACE_STATE) || { verified: STATE.verified, validate: STATE.validate, neutral: '#C9C3C1' };
 
     /* Date labels are presentation, so they are rebuilt per render rather than
        frozen at load — that is what lets the language switch without a reload. */
@@ -4311,7 +4311,7 @@ class Component extends DCLogic {
     const ONS = (AM && AM.ON_SURFACE) || { ink: '#FFFFFF', body: '#EDEAE9', muted: '#C9C3C1',
       chip: 'rgba(255,255,255,0.16)', chipEdge: 'rgba(255,255,255,0.34)',
       well: 'rgba(0,0,0,0.30)', wellEdge: 'rgba(255,255,255,0.10)', rule: 'rgba(255,255,255,0.20)' };
-    const ONST = (AM && AM.ON_SURFACE_STATE) || { verified: '#7BE0A6', validate: '#F6BB2E', neutral: '#C9C3C1' };
+    const ONST = (AM && AM.ON_SURFACE_STATE) || { verified: STATE.verified, validate: STATE.validate, neutral: '#C9C3C1' };
     const ACTP = (AM && AM.ACT_PILL) || { bg: '#3ED27F', ink: '#110E0D' };
     const aiText = (v) => (Array.isArray(v) ? v.join(' + ') : v) || '';
 
@@ -9098,6 +9098,13 @@ class Component extends DCLogic {
       chip: 'rgba(255,255,255,0.16)', chipEdge: 'rgba(255,255,255,0.34)',
       well: 'rgba(0,0,0,0.30)', wellEdge: 'rgba(255,255,255,0.10)', rule: 'rgba(255,255,255,0.20)' };
     var PILL = (AM && AM.ACT_PILL) || { bg: '#1AB963', ink: '#110E0D' };
+    /* GLI INCHIOSTRI DI STATO SONO GIA DECISI, e non si scelgono a occhio.
+       `verified` e `validate` sono TINTE VERE delle linee corporative — il
+       verde vivo e l'ambra schiariti verso il bianco — ed e per derivazione
+       che il portone del manuale li riconosce. Un verde scelto a mano che
+       «sembra giusto» cade fuori dalla paletta: misurato, #7BE0A6 non sta su
+       nessuna delle due rette. Si usa il gettone del modello. */
+    var STATE = (AM && AM.ON_SURFACE_STATE) || { verified: '#80D8A8', validate: STATE.validate, neutral: '#C9C3C1' };
     var CATL = (AM && AM.UI && AM.UI.CATEGORY) || {};
     var catLabelOf = function (k) {
       var e = CATL[k];
@@ -9185,7 +9192,7 @@ class Component extends DCLogic {
            contorno ambra. Nessuno dei due e nascosto. */
         pubLabel: L('PUBLICATION_STATE', pub) || '',
         pubBg: isPub ? 'rgba(26,185,99,0.18)' : 'transparent',
-        pubInk: isPub ? '#7BE0A6' : '#F6BB2E',
+        pubInk: isPub ? STATE.verified : STATE.validate,
         pubEdge: isPub ? 'rgba(26,185,99,0.55)' : 'rgba(246,187,46,0.55)',
         whyCommercial: listL('WHY_COMMERCIAL_CODES', c.WHY_COMMERCIAL_CODES)[0] || '',
         whyNow: listL('WHY_NOW_CODES', c.WHY_NOW_CODES)[0] || '',
@@ -9269,10 +9276,10 @@ class Component extends DCLogic {
       { key: 'TOTAL', label: U('lblTotal'), value: CASES.length, color: '#fff', rail: '#00B152',
         sub: U('lblEngineDecides'), go: function () { self.setState({ cfStatus: '', cfPriority: '', cfCrop: '', cfRegion: '', cfPublication: '' }); } },
       { key: 'PUBLISHABLE', label: U('lblProven'), value: countBy(function (c) { return c.PUBLICATION_STATE === 'PUBLISHABLE'; }),
-        color: '#7BE0A6', rail: '#00B152', sub: L('PUBLICATION_STATE_LONG', 'PUBLISHABLE') || '',
+        color: STATE.verified, rail: '#00B152', sub: L('PUBLICATION_STATE_LONG', 'PUBLISHABLE') || '',
         go: function () { self.setState({ cfPublication: 'PUBLISHABLE' }); } },
       { key: 'VALIDATION_REQUIRED', label: U('lblInValidation'), value: countBy(function (c) { return c.PUBLICATION_STATE === 'VALIDATION_REQUIRED'; }),
-        color: '#F6BB2E', rail: '#F5B317', sub: L('PUBLICATION_STATE_LONG', 'VALIDATION_REQUIRED') || '',
+        color: STATE.validate, rail: '#F5B317', sub: L('PUBLICATION_STATE_LONG', 'VALIDATION_REQUIRED') || '',
         go: function () { self.setState({ cfPublication: 'VALIDATION_REQUIRED' }); } },
     ].concat(ST_ORDER.map(function (st) {
       return { key: st, label: L('STATUS', st) || st, value: byStatus(st),
@@ -9321,8 +9328,8 @@ class Component extends DCLogic {
             || L('PRODUCT_LINK_STATE', v.FACT) || String(v.FACT)) : '';
           return { name: nameL, ok: !!v.OK,
             state: L('CHAIN_STATE', v.OK ? 'OK' : 'MISSING') || '',
-            ink: v.OK ? '#7BE0A6' : '#F6BB2E',
-            edge: v.OK ? 'rgba(123,224,166,0.45)' : 'rgba(246,187,46,0.45)',
+            ink: v.OK ? STATE.verified : STATE.validate,
+            edge: v.OK ? 'rgba(128,216,168,0.45)' : 'rgba(246,187,46,0.45)',
             fact: factL, hasFact: !!factL };
         }).filter(Boolean);
 
@@ -9399,7 +9406,7 @@ class Component extends DCLogic {
             moa: (m.MODE_OF_ACTION || []).join(' · '), hasMoa: !!(m.MODE_OF_ACTION || []).length,
             validation: LT('VALIDATION_STATE', m.VALIDATION_STATE) || '',
             hasValidation: !!LT('VALIDATION_STATE', m.VALIDATION_STATE),
-            validationInk: m.VALIDATION_STATE === 'LABEL_AND_CATALOG' ? '#7BE0A6' : '#F6BB2E',
+            validationInk: m.VALIDATION_STATE === 'LABEL_AND_CATALOG' ? STATE.verified : STATE.validate,
             matchReason: LT('MATCH_REASON', m.MATCH_REASON) || '',
             hasMatchReason: !!LT('MATCH_REASON', m.MATCH_REASON),
             fits: fits,
@@ -9472,7 +9479,7 @@ class Component extends DCLogic {
             family: famL || '', hasFamily: !!famL,
             why: L('EVIDENCE_ROLE_WHY', e.WHY_CODE) || '', hasWhy: !!L('EVIDENCE_ROLE_WHY', e.WHY_CODE),
             dot: (AM && AM.evidenceUI) ? AM.evidenceUI(e.ENTITY_TYPE) : '#978B87',
-            ink: cool ? '#F6BB2E' : '#C9C3C1',
+            ink: cool ? STATE.validate : '#C9C3C1',
             cool: cool,
           };
         }).filter(Boolean);
@@ -9511,8 +9518,10 @@ class Component extends DCLogic {
           pubLabel: L('PUBLICATION_STATE', c0.PUBLICATION_STATE) || '',
           pubLong: L('PUBLICATION_STATE_LONG', c0.PUBLICATION_STATE) || '',
           pubBg: isPub0 ? 'rgba(26,185,99,0.18)' : 'rgba(246,187,46,0.12)',
-          pubInk: isPub0 ? '#7BE0A6' : '#F6BB2E',
+          pubInk: isPub0 ? STATE.verified : STATE.validate,
           pubEdge: isPub0 ? 'rgba(26,185,99,0.55)' : 'rgba(246,187,46,0.55)',
+          /* l'inchiostro approvato, non un verde scelto nel markup */
+          stateVerified: STATE.verified,
           trail: L('TRAIL_STATE', c0.TRAIL_STATE) || '',
           signal: L('SIGNAL_CURRENCY', c0.SIGNAL_CURRENCY) || '',
           signalDate: c0.SIGNAL_DATE || '', hasSignalDate: !!c0.SIGNAL_DATE,
