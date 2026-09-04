@@ -1,0 +1,29 @@
+{
+ "DATASET": "IT-CONTRATO-FAMILIA-FONTES-V1",
+ "FAMILIA": "FONTES",
+ "REGEX_DA_FAMILIA": "IT-FONTES",
+ "DONO_DA_DECISAO": "coleta",
+ "CAPTURED_AT": "2026-09-04",
+ "LEI": "esta familia responde a UMA pergunta e nao a outra. Responde ONDE TEMOS OLHOS. Nao responde onde ha problema — confundir as duas transforma cobertura de coleta em mapa de pressao agronomica.",
+ "ACHADO_DA_CONTAGEM": "o inventario contou 93 porque WEB e REJECTIONS nao estao na sua lista de chaves. Recontado: 221.",
+ "SOBRE_O_CLIENT_SAFE": "os 91 sao CLIENT_SAFE=false, e isso NAO os esconde. Por 55c2674, CLIENT_SAFE responde se a afirmacao se sustenta como FATO sem a nossa sintese — nao decide visibilidade. Uma fonte cadastrada e um facto de coleta, e aparece com o metodo ao lado.",
+ "CAMPOS_QUE_NUNCA_ATRAVESSAM": ["NOTES_INTERNAL", "DISCOVERY_QUERY", "DEDUPE_AGAINST", "DEDUPE_MEANS"],
+ "SUBCONJUNTOS": [
+  {"NOME": "fontes descobertas", "FICHEIRO": "IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json",
+   "CHAVE_DA_LISTA": "SOURCES", "N_ESPERADO": 91, "DESTINO": "COM_METODO",
+   "PORQUE": "MEDIDO: ACCESS_STATUS GREEN 87, YELLOW 3, INTERMITTENT 1. A fonte e um facto de coleta com prova (EVIDENCE_PROBE, LAST_CHECKED_AT), mas o que ela vale como sinal depende de AUTHORITY_CLASS e COLLECTABILITY — e isso e leitura nossa, logo viaja com o metodo.",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "CAMPOS_MINIMOS": ["SOURCE_ID", "NAME", "ENTITY", "PLATFORM", "PRIMARY_URL", "REGION", "COUNTRY", "SOURCE_TYPE", "AUTHORITY_CLASS", "ACCESS_STATUS", "COLLECTABILITY", "PROVENANCE_STATUS", "LAST_CHECKED_AT", "EVIDENCE_PROBE", "ADAMA_RELEVANCE_REASON"],
+   "REMOVE_INTERNOS": true,
+   "NAO_SEI": {"CAMPO": "LAST_OBSERVED_CONTENT_DATE", "COMO_RENDERIZAR": "fonte sem data de conteudo observado aparece como NAO SEI, nunca como fonte inativa: nao ter olhado nao e o mesmo que nao haver nada. ACCESS_STATUS diferente de GREEN aparece sempre, com a palavra do proprio campo."}},
+
+  {"NOME": "reconferencia de enderecos", "FICHEIRO": "IT-FONTES-V1/IT-FONTES-RECONFERENCIA-V1.json",
+   "CHAVE_DA_LISTA": "WEB", "N_ESPERADO": 35, "DESTINO": "FORA",
+   "PORQUE": "e o registo de terem sido reconferidos enderecos — trabalho de manutencao do cadastro. O resultado ja vive no proprio cadastro; mostra-lo a parte contaria a mesma fonte duas vezes."},
+
+  {"NOME": "rejeicoes do lote 2", "FICHEIRO": "IT-FONTES-V1/IT-FONTES-REJEICOES-LOTE2-V1.json",
+   "CHAVE_DA_LISTA": "REJECTIONS", "N_ESPERADO": 95, "DESTINO": "FORA",
+   "PORQUE": "o proprio artefacto declara em O_QUE_ISTO_NAO_E que REASON_AS_REPORTED e o texto do agente e NAO foi verificado item a item. Levar 95 rejeicoes nao verificadas a uma reuniao seria apresentar juizo de maquina como conclusao. Fica em auditoria."}
+ ],
+ "DECISOES_EM_ABERTO": []
+}
