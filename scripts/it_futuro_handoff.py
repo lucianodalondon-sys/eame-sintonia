@@ -119,7 +119,11 @@ def main():
                'nao esteja aqui.',
         'UPSTREAM_CHECKPOINT': cabeca(sys.argv),
         'SOURCE_HEAD': cabeca(sys.argv),
-        'SURFACE_CONTRACT_VERSION': C['DATASET'],
+        # O contrato mestre chama-lhe CONTRACT_VERSION, e os handoffs das outras
+        # tres familias tambem. Dois nomes para o mesmo campo obrigam o receptor
+        # a conhecer os dois — e um receptor que tem de conhecer as duas versoes
+        # do nome ja esta a adivinhar.
+        'CONTRACT_VERSION': C['DATASET'],
         'CONGELAMENTO': C['CONGELAMENTO'],
         'COLLECTION': C['COLECAO_CANONICA']['PREFIXO'],
         'TOTAL': len(S),
@@ -146,7 +150,7 @@ def main():
     json.dump(doc, open(SAIDA, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 
     print('== HANDOFF · RADAR FUTURO -> LINHA B ==')
-    for k in ('UPSTREAM_CHECKPOINT', 'SURFACE_CONTRACT_VERSION', 'COLLECTION',
+    for k in ('UPSTREAM_CHECKPOINT', 'CONTRACT_VERSION', 'COLLECTION',
               'TOTAL', 'RENDERABLE', 'DROPPED', 'ACT_NOW', 'PREPARE', 'WATCH',
               'PORTFOLIO_LIMITED'):
         print('  %-26s %s' % (k, doc[k]))
