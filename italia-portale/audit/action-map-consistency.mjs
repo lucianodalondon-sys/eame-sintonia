@@ -24,8 +24,12 @@
    Ogni affermazione della schermata e uno di quegli span; il resto e cornice.
    --------------------------------------------------------------------------- */
 import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { serve, open, openCase, clickTitle, C, line } from './lib/drive.mjs';
 import { loadData } from './lib/harness.mjs';
+
+const HERE = path.dirname(fileURLToPath(import.meta.url));
 
 const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 ? argv[i + 1] : d; };
@@ -50,14 +54,36 @@ const I18N = (DATA.SINTONIA_I18N || {})[LANG] || {};
 const V21 = I18N.V21 || {};
 const PSTATE = I18N.PSTATE || {};
 const AREAMODE = I18N.AREAMODE || {};
-const areaLabel = (a) => V21[a] || String(a).replace(/_/g, ' ');
-const statusLabel = (s) => V21[s] || String(s).replace(/_/g, ' ');
+/* ── IL VOCABOLARIO HA CAMBIATO PROPRIETARIO, E IL PORTONE DEVE SEGUIRLO ────
+   Le aree e gli stati non vengono piu da `I18N.V21`: la mappa delle azioni e
+   ACTION_BY_DEPARTMENT del motore, e le sue parole vivono in
+   `meeting-labels.js`. Un portone che continuasse a chiedere a V21 misurerebbe
+   la superficie di ieri contro il motore di oggi e chiamerebbe la differenza
+   «errore dello schermo».
+
+       QUANDO LA REGOLA CAMBIA PROPRIETARIO, IL PORTONE CAMBIA INTERLOCUTORE —
+       NON SOGLIA.
+
+   Il dizionario canonico viene per primo e V21 resta la riserva per i record
+   che il motore non conosce. */
+const CLIENT_DIR = path.resolve(HERE, '..', 'client');
+const MLW = {};
+new Function('window', fs.readFileSync(path.join(CLIENT_DIR, 'meeting-labels.js'), 'utf8'))(MLW);
+const ML = MLW.MEETING_LABELS;
+const mlt = (fam, code) => (ML && code ? ML.t(fam, code, LANG === 'en' ? 'en' : 'it') : '');
+const areaLabel = (a) => mlt('DEPARTMENT', a) || V21[a] || String(a).replace(/_/g, ' ');
+const statusLabel = (s) => mlt('STATUS', s) || V21[s] || String(s).replace(/_/g, ' ');
 const STATUS_LABELS = STATUSES.map(statusLabel);
 const PSTATE_LABELS = Object.values(PSTATE);
 /* L'etichetta di area e la CHIAVE al contrario: il portao deve poter risalire
    dal testo sullo schermo all'area del modello, altrimenti «PORTAFOGLIO» sullo
    schermo e `PORTFOLIO` nel record sarebbero due mondi che non si toccano. */
 const AREA_BY_LABEL = {}; AREAS.forEach((a) => { AREA_BY_LABEL[areaLabel(a)] = a; });
+/* Il motore nomina TECHNICAL_SCIENTIFIC dove il portale pubblicava
+   SCIENCE_TECHNICAL: e la stessa area con due nomi, e il portone deve
+   riconoscerla scritta in tutte e due le lingue del dizionario canonico. */
+['MARKET_DEVELOPMENT', 'COMMERCIAL', 'MARKETING', 'TECHNICAL_SCIENTIFIC', 'SUPPLY']
+  .forEach((a) => { const l = mlt('DEPARTMENT', a); if (l) AREA_BY_LABEL[l] = a; });
 /* Il modo che lo STATO DEL CASO implica. Il template lo deriva dallo stato
    della finestra canonica — che e nullo su 37 record su 37 — quindi qui si
    scrive l'unica lettura che il lettore puo fare: uno schermo che grida AGIRE
@@ -221,7 +247,12 @@ for (const id of SAMPLE) {
   if (!opened) { rows.push({ id, error: 'card did not open' }); continue; }
   const det = await readDetail();
 
-  const modelAreas = (o.actionMap || []).slice();
+  /* Su un caso canonico le aree sono i reparti che ACTION_BY_DEPARTMENT
+     convoca — cinque, ciascuno col proprio ACTION_STATE — e non i tre che il
+     campo legacy `ACTION_MAP` elencava. Il record legacy resta la riserva. */
+  const modelAreas = o.engine
+    ? Object.keys(o.engine.actionByDepartment || {})
+    : (o.actionMap || []).slice();
   const wantAreas = modelAreas.map(areaLabel);
   const gotAreas = det.areas.slice();
   const setEq = (a, b) => a.length === b.length && a.slice().sort().join('|') === b.slice().sort().join('|');
@@ -232,7 +263,17 @@ for (const id of SAMPLE) {
      dal vocabolario. Si conta a parte perche dice una cosa diversa. */
   const offVocab = gotAreas.filter((x) => !(x in AREA_BY_LABEL));
   const cardProduct = card.products[0] || '';
-  const wantMode = modeForStatus(o.status);
+  /* ⚠️ IL MODO NON SI DEDUCE PIU DALLO STATO DEL CASO. Era esattamente il
+     ricalcolo che il portale faceva — «ACT_NOW quindi tutti guardano» — e che
+     il motore sostituisce con un ACTION_STATE per reparto: su un caso ACT_NOW
+     il Market Development valida mentre il Supply non ha azione sostenuta.
+     Chiedere UN modo solo era chiedere allo schermo di essere meno preciso del
+     motore. Adesso il portone chiede l'insieme dei modi che il motore dichiara. */
+  const wantModes = o.engine
+    ? [...new Set(Object.values(o.engine.actionByDepartment || {})
+      .map((v) => mlt('ACTION_STATE', v.ACTION_STATE)).filter(Boolean))]
+    : [modeForStatus(o.status)];
+  const wantMode = wantModes.join(' / ');
 
   rows.push({
     id, status: o.status, verified: verifiedOf(o),
@@ -252,7 +293,9 @@ for (const id of SAMPLE) {
       && card.status[0] === det.status[0],
     statusIsModel: card.status[0] === statusLabel(o.status) && det.status[0] === statusLabel(o.status),
     /* AC4 · il prodotto della scheda e nominato nel dettaglio */
-    productNamed: !!cardProduct && det.products.indexOf(cardProduct) >= 0,
+    productNamed: cardProduct
+      ? det.products.indexOf(cardProduct) >= 0
+      : (o.engine && o.engine.primary ? false : null),
     /* AC5/6/7/8 · la mappa delle azioni */
     mapFound: det.mapFound, modelAreas, wantAreas, gotAreas,
     mapExact: det.mapFound && setEq(wantAreas, gotAreas),
@@ -270,8 +313,8 @@ for (const id of SAMPLE) {
            TACERE DOVE L'ALTRA SUPERFICIE PARLA E ANCORA DISACCORDO. */
     regionSilent: !card.region && !!det.region,
     /* AC12 · il modo delle aree contro lo stato che LA STESSA schermata stampa */
-    wantMode, gotModes: [...new Set(det.modes)],
-    modeAgrees: det.mapFound ? det.modes.every((m) => m === wantMode) : null,
+    wantMode, wantModes, gotModes: [...new Set(det.modes)],
+    modeAgrees: det.mapFound ? det.modes.every((m) => wantModes.indexOf(m) >= 0) : null,
   });
 }
 
@@ -282,11 +325,26 @@ const ok = rows.filter((r) => !r.error);
 const broken = rows.filter((r) => r.error).length;
 const stCovered = new Set(ok.map((r) => r.status));
 const bothProducts = new Set(ok.map((r) => r.verified)).size;
-const coverage = stCovered.size === 4 && bothProducts === 2;
+/* Il motore canonico pubblica CINQUE stati (ha aggiunto WATCH e VALIDATE_NOW ai
+   quattro che il portale conosceva). Un campione che ne copre cinque copre di
+   piu, non di meno: la soglia e un MINIMO, non un'uguaglianza — scritta come
+   uguaglianza, bocciava per eccesso di copertura. */
+const coverage = stCovered.size >= 4 && bothProducts === 2;
 const notOpened = ok.filter((r) => !r.openedRight).length;
 const cropBad = ok.filter((r) => !r.cropAgrees).length;
 const statusBad = ok.filter((r) => !r.statusAgrees || !r.statusIsModel).length;
-const prodBad = ok.filter((r) => !r.productNamed).length;
+/* ⚠️ `productNamed` ERA UNA DOMANDA SOLA E ADESSO SONO DUE.
+   La scheda che NON nomina un prodotto non e in disaccordo col dettaglio: e in
+   accordo col motore, che su 26 casi su 43 rifiuta di eleggerne uno e dice
+   perche. Contarlo come difetto chiederebbe alla scheda di incoronare qualcuno
+   — cioe esattamente il difetto che questa integrazione ha tolto.
+
+       IL SILENZIO CONCORDE NON E UN DISACCORDO.
+       IL SILENZIO SOPRA UN FATTO CHE ESISTE, SI.
+
+   Resta difetto: nominare un prodotto che il dettaglio non ha, e TACERE dove il
+   motore ha invece un principale. */
+const prodBad = ok.filter((r) => r.productNamed === false).length;
 const mapBad = ok.filter((r) => !r.mapExact).length;
 const inventedN = ok.reduce((a, r) => a + r.invented.length, 0);
 const droppedN = ok.reduce((a, r) => a + r.dropped.length, 0);
@@ -298,7 +356,7 @@ const modeBad = ok.filter((r) => r.modeAgrees === false).length;
 
 console.log('\n  SINTONIA · ACTION_MAP_CONSISTENCY_GATE   ·   lang=' + LANG + '   ·   ' + ok.length + ' casi aperti su ' + OPP.length);
 console.log('  ' + '─'.repeat(104));
-console.log(line(coverage && broken === 0, 'AC0', 'Sample covers 4 statuses x both product situations', '4+2', stCovered.size + '+' + bothProducts + (broken ? ' (' + broken + ' unreadable)' : '')));
+console.log(line(coverage && broken === 0, 'AC0', 'Sample covers 4+ statuses x both product situations', '>=4+2', stCovered.size + '+' + bothProducts + (broken ? ' (' + broken + ' unreadable)' : '')));
 console.log(line(notOpened === 0, 'AC1', 'Every card opens its own, non-empty detail', 0, notOpened));
 console.log(line(cropBad === 0, 'AC2', 'Card crop === detail crop', 0, cropBad));
 console.log(line(statusBad === 0, 'AC3', 'Card status === detail status === model status', 0, statusBad));

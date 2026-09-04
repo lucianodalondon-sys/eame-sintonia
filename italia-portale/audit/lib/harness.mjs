@@ -36,6 +36,15 @@ export const DATA_FILES = [
      window.ITALY_HANDOFF_V21 at construction time and a family that arrives
      late is a family that silently kept the fixture. */
   'italy-handoff-v21.js',
+  /* Lo snapshot della riunione e il suo dizionario, nello stesso ordine in cui
+     `portale.html` li carica. Senza di loro il modello costruisce `o.engine`
+     null su tutti e 43 i casi: i portoni misurerebbero il portale di ieri e
+     chiamerebbero la differenza «errore dello schermo».
+
+         UN BANCO DI PROVA CHE CARICA MENO DELLA PAGINA
+         NON STA PROVANDO LA PAGINA. */
+  'meeting-intelligence-snapshot.js',
+  'meeting-labels.js',
   'italy-app-model.js',
 ];
 

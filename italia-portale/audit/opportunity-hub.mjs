@@ -10,8 +10,22 @@
        SE A TELA MOSTRA UM VINCULO QUE O MODELO NAO TEM, REPROVA MAIS.
    --------------------------------------------------------------------------- */
 import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { serve, open, openCase, caseIds, screenText, clickTitle, C, line } from './lib/drive.mjs';
 import { loadData } from './lib/harness.mjs';
+
+/* Le parole della finestra canonica vengono dal dizionario che la pagina stessa
+   carica: cercare a mano la frase italiana qui dentro creerebbe una seconda
+   copia della traduzione, e due copie divergono. */
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const MLW = {};
+new Function('window', fs.readFileSync(path.resolve(HERE, '..', 'client', 'meeting-labels.js'), 'utf8'))(MLW);
+const V = {
+  windowTypeLabels: Object.keys(MLW.MEETING_LABELS.families.WINDOW_TYPE)
+    .reduce((a, k) => (a[k] = MLW.MEETING_LABELS.t('WINDOW_TYPE', k, 'it'), a), {}),
+  noRuleLabel: MLW.MEETING_LABELS.t('WINDOW_DEFINED', 'NO', 'it'),
+};
 
 const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 ? argv[i + 1] : d; };
@@ -29,17 +43,31 @@ const winIds = new Set(WIN.map((w) => w.windowId));
 const server = await serve(PORT);
 const { browser, page, errors, failed } = await open({ port: PORT });
 
+/* Il radar apre su dodici schede: un campione preso da li ignorerebbe
+   trentuno casi canonici, e la copertura «con finestra / senza finestra»
+   cadrebbe sempre dalla stessa parte. */
+await page.evaluate(() => {
+  const h = [...document.querySelectorAll('span')]
+    .find((e) => /VEDI TUTTE|VIEW ALL/i.test(e.textContent || '') && e.children.length === 0);
+  if (h) h.click();
+});
+await page.waitForTimeout(650);
 const ids = await caseIds(page);
 /* Escolhe uma amostra que cobre os estados, nao os doze primeiros da lista:
    verificado, so candidato pendente, com janela, sem janela, e cada status. */
 const pick = [];
 const want = (fn) => { const hit = ids.find((i) => !pick.includes(i) && byId[i] && fn(byId[i])); if (hit) pick.push(hit); };
-want((o) => (o.productLinks || []).some((l) => l.strength === 'VERIFIED_LABEL_MATCH'));
-want((o) => (o.productLinks || []).length && !(o.productLinks || []).some((l) => l.strength === 'VERIFIED_LABEL_MATCH'));
-want((o) => o.windowStart);
-want((o) => !o.windowStart);
-for (const st of ['ACT_NOW', 'PREPARE_NOW', 'FUTURE_PREPARATION', 'TO_VALIDATE']) want((o) => o.status === st);
-for (const ar of ['SUPPLY', 'MARKETING', 'REGULATORY', 'SCIENCE_TECHNICAL']) want((o) => (o.actionMap || []).includes(ar));
+/* Con portafoglio del motore e senza; con regola di finestra e senza — che e la
+   divisione vera, perche le DATE sono nulle su tutti e 43 e dividere su quelle
+   metteva ogni caso dalla stessa parte. */
+want((o) => o.engine && (o.engine.portfolioMatches || []).length > 0);
+want((o) => o.engine && (o.engine.portfolioMatches || []).length === 0);
+want((o) => o.engine && o.engine.window.defined === 'YES');
+want((o) => o.engine && o.engine.window.defined !== 'YES');
+want((o) => o.engine && o.engine.window.openNow === 'YES');
+want((o) => o.engine && o.engine.window.ruleState === 'RULE_DELEGATED_TO_FARM');
+want((o) => o.engine && o.engine.window.ruleState === 'RULE_ADMINISTRATIVE_ONLY');
+for (const st of ['ACT_NOW', 'VALIDATE_NOW', 'WATCH', 'FUTURE_PREPARATION', 'TO_VALIDATE']) want((o) => o.status === st);
 want((o) => (o.evidenceIds || []).some((e) => /^IT-WIN/.test(e)));
 for (const i of ids) { if (pick.length >= WANT) break; if (!pick.includes(i)) pick.push(i); }
 
@@ -48,14 +76,26 @@ for (const id of pick.slice(0, WANT)) {
   const o = byId[id];
   if (!o) continue;
   await clickTitle(page, 'Radar delle Opportunità');
+  await page.evaluate(() => {
+    const h = [...document.querySelectorAll('span')]
+      .find((e) => /VEDI TUTTE|VIEW ALL/i.test(e.textContent || '') && e.children.length === 0);
+    if (h) h.click();
+  });
+  await page.waitForTimeout(500);
   const opened = await openCase(page, id, 600);
   if (!opened) { rows.push({ id, error: 'card not clickable' }); continue; }
   const txt = await screenText(page);
   const has = (v) => !!v && txt.includes(String(v));
 
   /* MODELO TEM  ->  TELA MOSTRA */
-  const prodNames = (o.productLinks || []).map((l) => l.name || l.product).filter(Boolean);
-  const areas = o.actionMap || [];
+  /* Il portafoglio di un caso canonico e PORTFOLIO_MATCHES — la lista che il
+     motore ha collegato — e non i legami che il portale deriva dall'audit delle
+     etichette. Le due liste divergono: su botrite x vite x Emilia-Romagna la
+     derivata ne conta tre e quella del motore uno. */
+  const prodNames = o.engine
+    ? (o.engine.portfolioMatches || []).map((m) => m.PRODUCT_NAME).filter(Boolean)
+    : (o.productLinks || []).map((l) => l.name || l.product).filter(Boolean);
+  const areas = o.engine ? Object.keys(o.engine.actionByDepartment || {}) : (o.actionMap || []);
   const evIds = o.evidenceIds || [];
   const srcIds = o.sourceIds || [];
 
@@ -80,9 +120,30 @@ for (const id of pick.slice(0, WANT)) {
     modelHasSources: srcIds.length > 0,
     sourcesVisible: srcIds.length > 0 && txt.includes('FONTI DEL CASO'),
     /* janela: so conta como ligada quando o proprio record a declara */
-    modelHasWindow: !!(o.windowStart || o.windowEnd || o.windowState),
-    windowVisible: !!(o.windowStart && has(String(o.windowStart))),
-    windowHonest: !(o.windowStart || o.windowEnd || o.windowState) ? txt.includes('Nessuna finestra dichiarata') : true,
+    /* ── LA FINESTRA HA CAMBIATO PROPRIETARIO ────────────────────────────
+       Questa riga chiedeva WINDOW_START / WINDOW_END / WINDOW_STATE, e da li
+       concludeva «se il record non ha date, lo schermo DEVE scrivere “Nessuna
+       finestra dichiarata”». Le date sono nulle su 43 casi su 43, quindi il
+       portone PRETENDEVA la frase che contraddice il motore: su sedici casi il
+       motore dichiara la regola, e su due la condizione e verificata adesso.
+
+           UN PORTONE CHE ESIGE LA FRASE SBAGLIATA
+           NON E UNA SALVAGUARDIA: E LA CAUSA.
+
+       L'intenzione resta identica — nessuna finestra, e lo schermo lo dice, in
+       parole — e cambia l'interlocutore: WINDOW_DEFINED del motore, e la frase
+       che il dizionario canonico gli assegna. Il record legacy resta la
+       riserva per i casi che il motore non conosce. */
+    modelHasWindow: o.engine ? o.engine.window.defined === 'YES'
+      : !!(o.windowStart || o.windowEnd || o.windowState),
+    windowVisible: o.engine
+      ? (o.engine.window.defined === 'YES' && has(V.windowTypeLabels[o.engine.window.type] || '\u0000'))
+      : !!(o.windowStart && has(String(o.windowStart))),
+    windowHonest: o.engine
+      ? (o.engine.window.defined === 'YES'
+        ? has(V.windowTypeLabels[o.engine.window.type] || '\u0000')
+        : has(V.noRuleLabel))
+      : (!(o.windowStart || o.windowEnd || o.windowState) ? txt.includes('Nessuna finestra dichiarata') : true),
     /* RELATIONSHIP: nenhuma janela pode ser mostrada se o id nao resolve */
     citesUnresolvedWindow: evIds.filter((e) => /^IT-WIN/.test(e) && !winIds.has(e)).length,
   });
@@ -106,7 +167,12 @@ const regById = {}; regProducts.forEach((r) => { if (r.id) regById[r.id] = r; })
 for (const r of rows) {
   const o = byId[r.id];
   if (!o) continue;
+  /* Il grafo dichiarato include PORTFOLIO_MATCHES: e la dichiarazione piu forte
+     che esista su questo caso — il motore ha unito prodotto e coppia sul numero
+     di registrazione — e ignorarla farebbe passare per «fantasma» proprio il
+     nome che il motore ha collegato. */
   const declared = new Set((o.productLinks || []).map((l) => l.name || l.product).filter(Boolean));
+  ((o.engine && o.engine.portfolioMatches) || []).forEach((m) => { if (m.PRODUCT_NAME) declared.add(m.PRODUCT_NAME); });
   /* produtos citados por id de registo nas proprias evidencias do caso */
   for (const eid of (o.evidenceIds || [])) {
     const rec = regById[eid];
@@ -123,6 +189,12 @@ for (const r of rows) {
     }
   }
   await clickTitle(page, 'Radar delle Opportunità');
+  await page.evaluate(() => {
+    const h = [...document.querySelectorAll('span')]
+      .find((e) => /VEDI TUTTE|VIEW ALL/i.test(e.textContent || '') && e.children.length === 0);
+    if (h) h.click();
+  });
+  await page.waitForTimeout(500);
   await openCase(page, r.id, 520);
   const shown = await page.evaluate(() => [...document.querySelectorAll('[data-product]')]
     .map((e) => (e.getAttribute('data-product') || '').trim()).filter(Boolean));

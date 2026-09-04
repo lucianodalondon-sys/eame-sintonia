@@ -362,7 +362,7 @@
             </div>
             <div style="position:relative;margin-top:auto;border-radius:10px;background:{{ c.onWell }};border:1px solid {{ c.onWellEdge }};padding:8px 10px;display:flex;flex-direction:column;gap:2px">
               <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:{{ c.onMuted }}">{{ t.lblPortfolio }}</div>
-              <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px"><span data-product="{{ c.primaryLabel }}" style="font-size:13px;font-weight:700;color:{{ c.onInk }};line-height:1.15;overflow-wrap:anywhere">{{ c.primaryLabel }}</span><span style="font-size:10px;color:{{ c.onMuted }};font-weight:600;white-space:nowrap">{{ c.moreLabel }}</span></div>
+              <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px"><span data-product="{{ c.primaryProductName }}" style="font-size:13px;font-weight:700;color:{{ c.onInk }};line-height:1.15;overflow-wrap:anywhere">{{ c.primaryLabel }}</span><span style="font-size:10px;color:{{ c.onMuted }};font-weight:600;white-space:nowrap">{{ c.moreLabel }}</span></div>
               <!-- LO STATO DEL LEGAME VIVE SOTTO IL NOME, NON AL SUO POSTO. -->
               <div style="font-size:10px;font-weight:700;letter-spacing:0.05em;color:{{ c.linkStateInk }}">{{ c.linkStateL }}</div>
               <div style="font-size:10px;color:{{ c.onMuted }}">{{ c.primaryAiL }}</div>
@@ -2758,7 +2758,19 @@ class Component extends DCLogic {
        colturali in WSTATUS. Senza il primo, la pillola della scheda stampava
        `FUTURE_PREPARATION` — un token interno, in maiuscolo, su una scheda
        destinata al cliente. */
-    const statusLabel = status ? ((T0.V21 && T0.V21[status]) || (T0.WSTATUS && T0.WSTATUS[status]) || (this._L ? this._L(status) : status) || String(status).replace(/_/g, ' ')) : '';
+    /* ── LA SCHEDA E IL DETTAGLIO DICONO LA STESSA COSA CON LE STESSE PAROLE ─
+       Il fatto era gia lo stesso — STATUS del motore su entrambe — ma le
+       parole no: la scheda leggeva `T0.V21` («AGIRE ORA») e il dettaglio il
+       dizionario della superficie canonica («Agire ora»). Un portone che
+       confronta le due superfici lo chiama disaccordo, ed ha ragione: un
+       lettore che vede due formule si chiede quale delle due e lo stato.
+
+           STESSO FATTO, STESSO PROPRIETARIO, STESSE PAROLE. */
+    const CENG = (c0 && c0.engine) || c.engine || null;
+    const CML = (code, fam) => (window.MEETING_LABELS
+      ? window.MEETING_LABELS.t(fam || 'UI', code, this.state.lang) : '');
+    const statusLabel = (CENG && CML(CENG.status, 'STATUS'))
+      || (status ? ((T0.V21 && T0.V21[status]) || (T0.WSTATUS && T0.WSTATUS[status]) || (this._L ? this._L(status) : status) || String(status).replace(/_/g, ' ')) : '');
     /* Openness is READ from the upstream enum, never computed from today's date.
        `=== true` and not a truthy test on purpose: a canonical window publishes a
        boolean `open` (6/29 are open), while a decorated card publishes an `open`
@@ -2835,11 +2847,11 @@ class Component extends DCLogic {
        Il motore pubblica PRIMARY_MATCH e, quando non ne ha uno, pubblica anche
        il PERCHE: SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER, su 26 casi su 43. La
        corona non si assegna li: si mostrano TUTTI i match, senza vincitore. */
-    const ENG = c.engine || null;
-    /* Il dizionario della superficie canonica. Un codice senza voce esce VUOTO
-       e il gate lo trova; non diventa mai una parola inventata. */
-    const ML = (k, fam) => (window.MEETING_LABELS
-      ? window.MEETING_LABELS.t(fam || 'UI', k, this.state.lang) : '');
+    /* Gli stessi due, gia definiti in cima a decorate(): un secondo dizionario
+       accanto al primo sarebbe la stessa specie di difetto che questo file sta
+       correggendo. */
+    const ENG = CENG;
+    const ML = CML;
     const primary = ENG
       ? (ENG.primary ? ENG.primary.name : null)
       : (c.primary || (verified[0] ? (verified[0].name || verified[0].product) : null)
@@ -3038,13 +3050,25 @@ class Component extends DCLogic {
       /* Su un caso del motore, quando non c'e un principale difendibile la
          scheda NON incorona il primo della lista: dichiara quanti prodotti la
          coppia ha, e il dettaglio li mostra tutti, alla pari. */
+      /* `data-product` e la CASA DEL NOME, e i portoni la leggono come tale.
+         «1 prodotti collegati» non e il nome di un prodotto: dove il motore non
+         incorona nessuno, la casa resta vuota invece di contenere una frase. */
+      primaryProductName: ENG ? (primary || '') : (primary || (links[0] && (links[0].name || links[0].product)) || ''),
       primaryLabel: ENG
         ? (primary || (engMatches.length
           ? engMatches.length + ' ' + ML(engMatches.length === 1 ? 'PRODUCT_LINKED_1' : 'PRODUCTS_LINKED_N')
           : ML('NO_MATCHES')))
         : (primary || (links[0] && (links[0].name || links[0].product))
           || (T0.lblNoCandidate || 'Nessun prodotto candidato in questa lettura')),
-      linkStateL: portfolioState ? ((T0.PSTATE && T0.PSTATE[portfolioState]) || String(portfolioState).replace(/_/g, ' ')) : '',
+      /* Lo stato del legame: sulla scheda era il verdetto che il portale deriva
+         dai legami di etichetta, sul dettaglio e VALIDATION_STATE del prodotto
+         che il motore ha collegato. Due righelli, due parole. Sulla scheda di
+         un caso canonico vince lo stesso righello del dettaglio. */
+      linkStateL: ENG
+        ? (ENG.primary && ENG.primary.match
+          ? CML(ENG.primary.match.VALIDATION_STATE, 'VALIDATION_STATE')
+          : (engMatches[0] ? CML(engMatches[0].VALIDATION_STATE, 'VALIDATION_STATE') : ''))
+        : (portfolioState ? ((T0.PSTATE && T0.PSTATE[portfolioState]) || String(portfolioState).replace(/_/g, ' ')) : ''),
       /* La tinta resta quella del buio approvato: verde acceso per il
          verificato, Earth chiaro per cio che attende lettura. */
       linkStateInk: portfolioState === 'VERIFIED_LABEL_MATCH' ? ONST.verified
@@ -3331,6 +3355,16 @@ class Component extends DCLogic {
            to windows on LEGACY_CASE_ID (IT-HERO-00x) and no window carries one. So
            there is no start date, no end date and no progress on any of the three. */
         canonical: w, windowId: o.windowId || null,
+        /* ── LA FRONTIERA CANONICA VIAGGIA FINO ALLA SCHEDA ──────────────────
+           `mkOpp` e una PROIEZIONE: costruisce l'oggetto che le schermate
+           leggono, campo per campo, e cio che non nomina non arriva. Restava
+           fuori proprio `engine` — quindi la scheda continuava a incoronare
+           AGHARTA e a scrivere «AGIRE ORA» mentre il dettaglio, che legge il
+           record intero, diceva BANJO e «Agire ora».
+
+               UNA CORREZIONE CHE NON ATTRAVERSA LA PROIEZIONE
+               NON E ARRIVATA ALLA SCHERMATA CHE DOVEVA CORREGGERE. */
+        engine: o.engine || null,
         /* LO STATO DEL MOTORE ARRIVA ALLA SCHEDA.
            Era `status: null`, e la nota diceva perche: le tre schede scritte a
            mano portavano WINDOW.APPLICATION, che NON e uno stato canonico e non
