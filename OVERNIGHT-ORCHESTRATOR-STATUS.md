@@ -660,3 +660,173 @@ cta-navigation · internal-token na tela · deploy. É o ciclo 05.
 ```
 MEETING_BUILD_HEAD 8f37e36 · DEPLOY_STATE nenhum · MEETING_FREEZE NO
 ```
+
+---
+
+## CICLO 05 · 03:15Z — a tela, provada num browser de verdade
+
+### 1 · O pacote reconstruído, com proveniência
+
+Worktree próprio em `b3935bd`, `bash scripts/v21_cadeia.sh`, e depois
+`git checkout --detach 8f37e36` **no mesmo tree** — o pacote é ignorado pelo git
+e sobrevive à troca de HEAD. É o procedimento do handoff, e é o que dá
+proveniência: nada foi copiado de outra árvore.
+
+```
+BUILD_ID   V21-358954754db5ea2f      (esperado V21-358954754db5ea2f)
+RECORDS    43                        (esperado 43)
+R2 · CONTRATO DE PROCEDENCIA — 7169 registros checados, VIOLACOES: 0
+```
+
+**A cadeia é reprodutível.** Mesmos inputs, mesmo `BUILD_ID`.
+
+### 2 · Os cinco gates antigos, sob condição idêntica
+
+Mesmo tree, mesmo pacote, só o código muda:
+
+| | `a14b9e1` base | `8f37e36` dona |
+|---|---|---|
+| `run.mjs` | 66/71 | 66/71 |
+| B3 · H3 · W2 · O1 · DS1 | 1 · 3 · 1 · 1 · 1 | 1 · 3 · 1 · 1 · 1 |
+
+    IDÊNTICO SOB CONDIÇÃO IDÊNTICA. REGRESSÃO = NENHUMA.
+
+Com o pacote, `W2` e `O1` deixam de lançar exceção e passam a dar valor real — e
+ainda assim os dois lados batem. São dívidas anteriores da base congelada, não da
+integração da reunião.
+
+### 3 · `meeting-gate.mjs` na dona, com pacote · **20/20**
+
+`SNAPSHOT_SOURCE_HEAD_VALID` passou. A falha do ciclo 04 era mesmo a minha
+árvore sem pacote, como estava escrito lá.
+
+Todas as testemunhas obrigatórias do §13 verdes: `CANONICAL_43_RENDERED`
+(43 · total 43) · `CANONICAL_COUNTS_FROM_43_ONLY` · `NO_RAW_BYPASS` ·
+`NO_FRONTEND_INTELLIGENCE_RECALCULATION` · `PRIMARY_MATCH_SINGLE_OWNER` ·
+`NO_PRIMARY_WHEN_UNKNOWN` · `WINDOW_SINGLE_OWNER` ·
+`WINDOW_DEFINED_OPEN_SEPARATED` · `ALL_PORTFOLIO_MATCHES_RENDERED` ·
+`WHY_COMMERCIAL_RENDERED` · `WHY_NOW_RENDERED` · `ACTION_MAP_FROM_ENGINE` ·
+`EVIDENCE_ROLE_RENDERED` · `VALIDATION_STATE_NOT_HIDDEN` ·
+`DEEP_NESTED_INTERNAL_TOKEN_FILTER` · `IT_LABELS_COMPLETE` ·
+`EN_LABELS_COMPLETE` · `DEMO_AND_CANONICAL_SEPARATED`.
+
+### 4 · `meeting-browser.mjs` · **11/11**, 20 percursos
+
+`CONSOLE_ERRORS 0` · `FAILED_REQUESTS 0` · `DEAD_CONTROLS 0` ·
+`NO_INTERNAL_TOKEN_ON_SCREEN 0` · `NO_PORTUGUESE_ON_SCREEN 0` ·
+`REACHABLE_IT_EN_DESKTOP_MOBILE 0`.
+
+### 5 · Os 43 no DOM — medido por mim, não pelo gate da dona
+
+O gate prova que os casos da demo são alcançáveis. Não prova que os 43 chegam.
+Medi separadamente, abrindo o radar e premindo `[data-meeting-more]` até esgotar:
+
+```
+1440 it  cards 43 · únicos 43 · faltando 0 · alheios 0 · 1 clique · errors 0
+1440 en  cards 43 · únicos 43 · faltando 0 · alheios 0 · 1 clique · errors 0
+ 390 it  cards 43 · únicos 43 · faltando 0 · alheios 0 · 1 clique · errors 0
+ 390 en  cards 43 · únicos 43 · faltando 0 · alheios 0 · 1 clique · errors 0
+```
+
+    CANONICAL_CASES_RENDERED = 43   ·   ALHEIOS AOS 43 = 0
+
+As 24 do primeiro ecrã são paginação com controlo, não truncagem: um clique
+revela os 19 restantes.
+
+### 6 · Os cinco casos da demo, abertos de verdade
+
+```
+DEMO_5_NO_BROWSER = PASS   (1440 e 390 × IT e EN = 20 aberturas)
+tokens internos 0 · prosa PT 0 · console 0 · requests falhados 0
+conteúdo por caso: 4.1 KB a 6.6 KB
+```
+
+### 7 · O ACHADO QUE MUDA O QUE SE PODE PROMETER NA REUNIÃO
+
+O §8 pede provar um `WEAKENS` e um `CONTRADICTS`/`CLOSES` na tela. **Não é
+possível — e a UI não tem culpa:**
+
+```python
+papéis de evidência nos 43:
+  SUPPORTS_PRODUCT_MATCH 200 · SUPPORTS_COMMERCIAL_ACTION 61 · BACKGROUND_ONLY 53
+  SUPPORTS_SIGNAL 29 · SUPPORTS_DIRECTION 17 · SUPPORTS_WINDOW 12 · SUPPORTS_REGIONAL_CONTEXT 12
+  WEAKENS 0 · CONTRADICTS 0 · CLOSES 0
+```
+
+**O motor não emite papel de evidência negativo neste snapshot.** A tela não pode
+mostrar o que não existe, e inventar seria a violação exata que a madrugada
+inteira esteve a impedir.
+
+**Mas a inteligência negativa existe — noutro campo, e é forte:**
+
+| campo | valores que esfriam |
+|---|---|
+| `NEED_DIRECTION` | `NO_ACTION_RECOMMENDED` 3 · `TREATMENT_PROHIBITED` 2 · `WINDOW_CONCLUDED` 2 · `ACTION_SUSPENDED` 1 |
+| `ACTION_RECOMMENDATION_STATE` | `NOT_NEEDED_DECLARED` 3 · `PROHIBITED_DECLARED` 2 · `CONCLUDED_DECLARED` 2 · `SUSPEND_RECOMMENDED` 1 |
+| `WHY_COMMERCIAL_CODES` | `NEED_CLOSED` |
+
+E o caso da Umbria é a demonstração perfeita, por quatro campos ao mesmo tempo:
+
+```
+OPP_169BD86DB324   NEED_DIRECTION              NO_ACTION_RECOMMENDED
+                   ACTION_RECOMMENDATION_STATE NOT_NEEDED_DECLARED
+                   PEST_STAGE_STATE            STAGE_DECLINING
+                   WHY_COMMERCIAL_CODES        NEED_CLOSED
+                   STATUS                      WATCH
+```
+
+    NA REUNIÃO, NÃO PROMETER «EVIDÊNCIA QUE CONTRADIZ».
+    MOSTRAR «A FONTE DIZ QUE NÃO É PRECISO INTERVIR» — QUE É REAL, E É MAIS FORTE.
+
+### 8 · Uma coisa a vigiar: o ecrã de demonstração continua contraditório
+
+O gate da dona mede o canônico **e** o legado, e diz:
+
+```
+PRIMARY_MATCH_SINGLE_OWNER      real 0 · legacy 14
+WINDOW_SINGLE_OWNER             real 0 · legacy 43
+WINDOW_DEFINED_OPEN_SEPARATED   real 0 · legacy 48
+```
+
+A superfície canônica está limpa. **O ecrã dos 21 casos de demonstração não
+está** — mantém as contradições antigas de produto principal e de janela. Estão
+separados e não contaminam nenhum número dos 43, que era a exigência. Mas se
+alguém abrir o radar de demonstração durante a reunião, verá as contradições que
+a superfície nova resolveu.
+
+**Recomendação: apresentar apenas o Radar Canônico.** Não é defeito a corrigir
+esta noite — é uma tela a não abrir.
+
+### 9 · Três vezes medi mal antes de medir bem
+
+O meu script dos 43 deu `0 cards` e `3 console errors` enquanto o gate oficial
+dava 24 e zero. Não era o portal: era `file://` em vez do servidor HTTP; depois
+o rótulo `'RADAR CANONICO'` em vez de `'Radar Canonico'`; depois `openCase` em
+vez de `openMeetingCase`. Nas três, o instinto certo foi desconfiar do
+instrumento antes do objeto.
+
+    CINCO VEZES ACREDITEI QUE O PORTAL ESTAVA PARTIDO, E ERA EU A MEDIR MAL.
+    A FRASE JÁ ESTAVA NO REPOSITÓRIO. AGORA ESTÁ MEDIDA.
+
+### 10 · A candidata `8c316e2` — não substituir
+
+`8f37e36` mantém precedência: está na branch oficial, passou a auditoria contra a
+referência congelada, preservou os 29 campos decisórios e os 26 `PRIMARY_MATCH`
+nulos, e agora passa 20/20 + 11/11 + os 43 no DOM. **Nenhum defeito concreto do
+browser da dona ficou por resolver.** Sem defeito, não há cherry-pick a fazer.
+
+### Estado
+
+```
+MEETING_BUILD_HEAD              8f37e36
+ADAPTER_BOUNDARY                PASS_DECLARED_SCHEMA_ADAPTATION
+DECISION_FIELDS_CHANGED         0
+CANONICAL_CASES_RENDERED        43   (1440/390 × IT/EN)
+MEETING_GATE                    20/20
+MEETING_BROWSER                 11/11
+REGRESSION vs a14b9e1           NENHUMA (condição idêntica)
+DEMO_5_NO_BROWSER               PASS
+NEGATIVE_EVIDENCE_ROLES         0 no motor — usar NEED_DIRECTION
+DEPLOY_STATE                    nenhum
+MEETING_FREEZE                  NO   ← falta só deploy + smoke test
+```
