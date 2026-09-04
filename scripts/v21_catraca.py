@@ -211,14 +211,23 @@ NAO_E_COLECAO = ('APP-MANIFEST.json', '_COLECOES.json', '_PARCIAL.json',
 #       produtos do catálogo entram por outra porta (IT-LASTMILE e o pacote de
 #       product-intelligence), e entram: são os 51 de PRODUCTS-COMMERCIAL.
 #
-#   HERBICIDE_CURRENT_CONTEXT (16)  NÃO é papel de trabalho: são JANELAS
-#       CORRENTES declaradas pelo serviço fitossanitário regional, por
-#       província, com os ativos permitidos e as derrogações de calendário.
-#       É exatamente o tipo de registro cuja ausência faz WHY_NOW=ACT_NOW ser
-#       impossível em todo o pacote — porque `WINDOW_KIND=APPLICATION` não
-#       existe em lugar nenhum. Ingeri-la é uma missão com coleção própria,
-#       normalização própria e dono próprio; fazê-lo de passagem aqui seria
-#       criar um segundo dono para a janela.
+#   HERBICIDE_CURRENT_CONTEXT (16)  contexto de herbicida do serviço regional.
+#
+#       ⚠️ A PRIMEIRA LEITURA DESTE CENSO ERROU O TAMANHO DO ACHADO, e o erro
+#       merece ficar escrito. Ela disse que estes 16 eram «janelas correntes de
+#       aplicação» e que a ausência deles era a causa de `ACT_NOW` ser zero no
+#       pacote. As duas afirmações caíram na reconciliação de linhagem:
+#
+#         · `ACT_NOW = 0` era defeito de uma camada paralela que recalculava o
+#           estado sem conhecer a janela agronômica. O motor da linhagem
+#           `e7c154c` devolve `ACT_NOW = 2`, com a cadeia de quatro elos.
+#         · e `v21_janelas.tipos_da_oracao` — o dono do tipo de janela — não
+#           reconhece tipo AGRONÔMICO em NENHUM dos 16. Dois são
+#           `ADMINISTRATIVE_WINDOW`, seis nem nomeiam alvo.
+#
+#       Medido em `scripts/v21_censo_das_16_janelas.py`. Continua sendo um
+#       buraco declarado, e continua exigindo coleção e dono próprios — mas não
+#       é a peça que faltava, e dizer que era foi conclusão sem medida.
 #
 # O que esta camada faz é o mínimo honesto: DECLARAR as duas, contá-las, e
 # tornar FATAL qualquer buraco NOVO — uma família que ninguém declarou, ou uma
@@ -230,12 +239,14 @@ FAMILIA_NAO_INGERIDA = {
         'os produtos do catalogo entram por IT-LASTMILE e sao os 51 de '
         'PRODUCTS-COMMERCIAL.json.',
     'HERBICIDE_CURRENT_CONTEXT':
-        'ABERTO. Sao janelas correntes de herbicida declaradas pelo servico '
-        'fitossanitario regional, por provincia. NAO e papel de trabalho: e '
-        'material de campo, e a ausencia dele e a causa medida de nao existir '
-        'WINDOW_KIND=APPLICATION no pacote inteiro. Ingerir a familia exige '
-        'colecao, normalizacao e dono proprios — e uma missao, nao um efeito '
-        'colateral desta.',
+        'ABERTO, e MENOS urgente do que a primeira leitura disse. Sao 16 '
+        'registros de contexto de herbicida do servico regional — resistencia x '
+        'epoca, limite de disciplinar, derroga de calendario, secao ausente do '
+        'boletim. Medido em scripts/v21_censo_das_16_janelas.py contra o dono '
+        'do tipo de janela (v21_janelas.tipos_da_oracao): ZERO tem tipo '
+        'AGRONOMICO, 2 sao ADMINISTRATIVE_WINDOW e 6 nao nomeiam alvo. Nao sao '
+        'a janela de aplicacao que falta. Ingerir a familia continua exigindo '
+        'colecao, normalizacao e dono proprios.',
 }
 
 
