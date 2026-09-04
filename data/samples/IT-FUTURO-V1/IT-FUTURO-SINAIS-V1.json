@@ -4,10 +4,11 @@
  "COUNTRY": "IT",
  "SOURCE_ID": "IT-FUTURO-JULGADOS-V1",
  "CAPTURED_AT": "2026-09-04",
- "SOURCE": "cada candidato aprovado pela regua virou ficha operacional escrita por um agente e atacada por outro, instruido a derrubar. Os journals dos workflows wf_e5e03bcc-487, wf_3d483e10-13c sao a fonte, nao o resultado da ferramenta.",
+ "SOURCE": "cada candidato aprovado pela regua virou ficha operacional escrita por um agente e atacada por outro, instruido a derrubar. Os journals dos workflows wf_e5e03bcc-487, wf_3d483e10-13c, wf_e4c83732-977 sao a fonte, nao o resultado da ferramenta.",
  "RUN_IDS": [
   "wf_e5e03bcc-487",
-  "wf_3d483e10-13c"
+  "wf_3d483e10-13c",
+  "wf_e4c83732-977"
  ],
  "JULGADOS_DUAS_VEZES": {},
  "ACORDO_NA_SOBREPOSICAO": "nenhum candidato foi julgado duas vezes",
@@ -15,8 +16,8 @@
  "ESTADO": "PARCIAL — os dois workflows ainda corriam quando este ficheiro foi escrito. 0 de 45 candidatos ja tem veredito; os restantes aparecem como SEM_FICHA ou SEM_REFUTACAO, que sao estados de PROCESSAMENTO e nao julgamentos. Nao ler as contagens abaixo como resultado final.",
  "CANDIDATOS": 45,
  "POR_ESTADO": {
-  "SEM_REFUTACAO": 12,
-  "SEM_FICHA": 33
+  "SEM_REFUTACAO": 17,
+  "SEM_FICHA": 28
  },
  "SINAL_COMPLETO": 0,
  "PARCIAL": 0,
@@ -24,12 +25,13 @@
  "AUTOR_SE_DEU_POR_COMPLETO_E_FOI_REBAIXADO": [],
  "POR_VALOR": {},
  "POR_ACAO": {
-  "MONITORAR": 6,
-  "PREPARAR": 6
+  "MONITORAR": 8,
+  "PREPARAR": 9
  },
  "POR_HORIZONTE": {
-  "PROXIMA_SAFRA": 10,
-  "ESTRUTURAL_FUTURO": 2
+  "PROXIMA_SAFRA": 12,
+  "ESTRUTURAL_FUTURO": 4,
+  "IMEDIATO": 1
  },
  "JANELAS_INVENTADAS_APANHADAS": [],
  "UNIOES_MAQUIADAS_APANHADAS": [],
@@ -110,14 +112,14 @@
   },
   {
    "CAND_ID": "ITFC-013",
-   "ESTADO": "SEM_FICHA",
-   "MOTIVO": "o agente que escreveria a ficha nao devolveu resultado",
+   "ESTADO": "SEM_REFUTACAO",
+   "MOTIVO": null,
    "DEFEITOS": null
   },
   {
    "CAND_ID": "ITFC-014",
-   "ESTADO": "SEM_FICHA",
-   "MOTIVO": "o agente que escreveria a ficha nao devolveu resultado",
+   "ESTADO": "SEM_REFUTACAO",
+   "MOTIVO": null,
    "DEFEITOS": null
   },
   {
@@ -290,20 +292,20 @@
   },
   {
    "CAND_ID": "ITFC-043",
-   "ESTADO": "SEM_FICHA",
-   "MOTIVO": "o agente que escreveria a ficha nao devolveu resultado",
+   "ESTADO": "SEM_REFUTACAO",
+   "MOTIVO": null,
    "DEFEITOS": null
   },
   {
    "CAND_ID": "ITFC-044",
-   "ESTADO": "SEM_FICHA",
-   "MOTIVO": "o agente que escreveria a ficha nao devolveu resultado",
+   "ESTADO": "SEM_REFUTACAO",
+   "MOTIVO": null,
    "DEFEITOS": null
   },
   {
    "CAND_ID": "ITFC-045",
-   "ESTADO": "SEM_FICHA",
-   "MOTIVO": "o agente que escreveria a ficha nao devolveu resultado",
+   "ESTADO": "SEM_REFUTACAO",
+   "MOTIVO": null,
    "DEFEITOS": null
   }
  ],
@@ -1923,19 +1925,262 @@
   },
   {
    "CAND_ID": "ITFC-013",
-   "ESTADO": "SEM_FICHA",
-   "PORQUE": "o agente que escreveria a ficha nao devolveu resultado",
+   "ESTADO": "SEM_REFUTACAO",
+   "MOTIVO_DO_VEREDITO": null,
+   "VALOR": null,
+   "VALOR_PORQUE": null,
+   "NOMEADO_PELO_USUARIO": false,
    "SOURCE_ID": "CYV76yVc98s",
-   "SINAL": "O Piemonte declara esperar que a Popillia japonica colonize todo o areal regional dentro de alguns anos, avancando pela rota das fruteiras e dos piccoli frutti em direcao ao torinese e ao cuneese (areas ainda pouco atingidas), enquanto no Novarese, onde ja chegou, cerca de 15 ha de mirtilo ficam ha duas safras sem ser colhidos porque o inseto chega antes da colheita. A decisao que se abre antes do evento e a cobertura preventiva com rede antiinsetto dos pomares e mirtilos ainda livres (a mesma rede ja instalada contra carpocapsa serve), e a vigilancia a partir do inicio de junho, quando emergem os adultos.",
-   "NOMEADO_PELO_USUARIO": false
+   "TITULO": "Popillia japonica scende verso cuneese e torinese: il Piemonte se l'aspetta su tutto l'areale entro pochi anni, e nel Novarese il mirtillo non si raccoglie da due stagioni",
+   "A_FATO": {
+    "O_QUE_ACONTECEU": "No balanco fitossanitario 2024/2025 de morango e piccoli frutti (convegno AIPP), o relator do servico fitossanitario do Piemonte apresenta a difusao da Popillia japonica na regiao desde 2014 e declara, em primeira pessoa do plural, que espera que ela colonize praticamente todo o areal regional dentro de alguns anos. Descreve a rota: nos ultimos 4 anos o inseto segue a via da cultivacao de fruteiras e piccoli frutti e desce para o areal do torinese e do cuneese, enquanto no Alessandrino e no Astigiano a difusao e ligeiramente limitada; difunde-se tambem para a Lombardia. Da o ciclo: uma geracao por ano, primeiros adultos saem no inicio de junho, oviposicao em prados e graminaceas, exige humidade — nos anos de seca o problema parecia recuar ligeiramente porque as larvas no solo tinham dificuldade em desenvolver-se. Diz que o comportamento e gregario (os primeiros adultos e as lesoes em folhas e frutos atraem outros) e que \"l'uso di reti puo gia comunque aiutare molto nella gestione\", sobretudo em pomares onde a rede ja existe, como ja foi feito contra a carpocapsa. Cita o caso ja consumado: no Novarese, cerca de quinze unidades de superficie de mirtilo estao ha 2 anos sem conseguir colher, \"perche arriva lei prima delle raccolte\". Fecha dizendo que e um inseto \"che andremmo ad attenzionare\". Nas conclusoes do convegno o moderador retoma o assunto como primeiro ponto-chave e diz que ha receio tambem no Sul.",
+    "FONTE": "IT-CONVEGNO-V1 — YouTube CYV76yVc98s, \"Il bilancio fitosanitario 2024/2025 di fragola e piccoli frutti\", canal AIPP (Associazione Italiana Protezione Piante), publicado 2025-10-25, duracao 13832 s. Legenda automatica italiana (CAPTION_SOURCE = YOUTUBE_ASR_AUTO), colhida pela rota json3 do youtube.com/api/timedtext a partir do indice do portal giornatefitopatologiche.it (DISTAL / Universita di Bologna). Transcricao integral conferida: /home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/CYV76yVc98s.json (campo TRANSCRIPT, 175392 caracteres). Bloco Popillia nos indices ~95735-98600 e a frase de expectativa no indice ~100809.",
+    "CITACAO_VERBATIM": "vi faccio un accenno della popiglia iaponica che in Piemonte si sta diffondendo e poi vedremo la cartina eh della diffusione eh dal 2014 [...] vedete come sta seguendo un pochettino la via di quella che è la coltivazione di di fruttiferi, piccoli frutti, quindi sta scendendo verso l'areale del torinese del cunese, mentre la zona dell'Alessandrino e dell'Astigiano la diffusione è leggermente limitata [...] La popiglia, come dicevo, ci aspettiamo che nell'arco di qualche anno vada a colonizzare un po' tutto l'areale.",
+    "CITACAO_CONFERIDA": "SIM",
+    "DATA_DO_FATO": "A declaracao e feita na propria sessao do convegno; o documento nao da a data da sessao, so a da publicacao do video (2025-10-25), portanto o facto e datado como <= 2025-10-25. Os factos de apoio tem datas proprias declaradas: primeira deteccao em 2014; mapa de difusao \"dal 2014\"; rota de descida ao torinese/cuneese lida sobre \"gli ultimi 4 anni\"; Novarese \"sono 2 anni che non riescono a raccogliere\" (ou seja, as duas ultimas colheitas antes da fala). A expectativa aponta para \"nell'arco di qualche anno\" a contar dessa data — o documento nao diz quantos anos.",
+    "DATA_DA_PUBLICACAO": "2025-10-25",
+    "PAIS": "Italia",
+    "REGIAO": "Piemonte. Sub-areais nomeados na propria passagem: Novarese (ja colonizado, com dano consumado em mirtilo), torinese e cuneese (para onde o inseto esta a descer), Alessandrino e Astigiano (difusao ligeiramente limitada). O relator diz ainda que se difunde para a regiao limitrofe, a Lombardia, e menciona a duvida sobre quando chegara ao Trentino.",
+    "CULTURA": "MIRTILLO e a unica cultura nomeada com dano concreto (Novarese). No resto da passagem o documento fala em generico: \"fruttiferi, piccoli frutti\" — nao nomeia nenhuma especie frutifera individual associada a Popillia. NAO SEI quais fruteiras concretas: o documento nao as declara. As culturas FRAGOLA e CILIEGIO que a rota do documento declara pertencem a outros blocos da mesma sessao e nao aparecem ligadas a Popillia.",
+    "ALVO": "Popillia japonica (coleoptero; a legenda automatica escreve \"popiglia iaponica\"). O documento acrescenta que pode ser confundida com uma especie proxima que o ASR escreve \"acetonia orata\"."
+   },
+   "B_CONFIANCA": {
+    "ESTADO_DO_TEMPO": "EXPECTED",
+    "OBSERVADO": [
+     "Declaracao literal de expectativa: 'La popiglia, come dicevo, ci aspettiamo che nell'arco di qualche anno vada a colonizzare un po' tutto l'areale.' (transcricao, indice ~100809; ocorre 1 vez)",
+     "'in Piemonte si sta diffondendo' — presente, e o relator anuncia mostrar o mapa de difusao 'dal 2014'",
+     "Nos ultimos 4 anos a difusao segue a via da cultivacao de fruteiras e piccoli frutti e desce para o areal do torinese e do cuneese; no Alessandrino e no Astigiano a difusao e 'leggermente limitata'",
+     "Difunde-se tambem para a regiao limitrofe, a Lombardia; ha duvida declarada sobre quando chegara ao Trentino",
+     "Ciclo declarado: uma geracao por ano — 'Il suo ciclo e un ciclo di una generazione all'anno'",
+     "Emergencia declarada: 'compare eh a inizio di giugno con le le prime uscite degli adulti' que se deslocam para a vegetacao e ai fazem o dano",
+     "Oviposicao em prados e graminaceas; favorecida por ambientes humidos, precisa de humidade para completar o ciclo interno",
+     "Ressalva do proprio relator: 'nelle annate di sicita sembrava fosse arretratto leggermente il problema' porque as larvas no terreno tinham dificuldade em desenvolver-se",
+     "Comportamento gregario: a presenca dos primeiros adultos atrai outros, tal como as lesoes que provoca em folhas e frutos",
+     "Alavanca fisica declarada, sem numero: 'si e visto che l'uso di reti puo gia comunque aiutare molto nella gestione', sobretudo em pomares onde a rede ja existe",
+     "Dano consumado no Novarese: 'circa una quindicina di eteri di mirtillo e li sostanzialmente sono 2 anni che non riescono a raccogliere perche arriva lei prima delle raccolte'",
+     "Chegada em 2014 atribuida a via aerea a partir dos Estados Unidos ('pur chiamandosi iapponica, l'abbiamo importata dall'America')",
+     "Postura declarada do servico: 'e un insetto che andremmo ad attenzionare'",
+     "Nas conclusoes o moderador poe o assunto como primeiro ponto-chave da jornada e diz 'Abbiamo tutti paura di quello che possa succedere, anche noi stiamo qui a sud'"
+    ],
+    "INFERIDO": [
+     "'popiglia iaponica' = Popillia japonica: normalizacao de ASR, nao esta escrito assim no documento",
+     "'circa una quindicina di eteri' lido como 'quindicina di ettari' -> ~15 ha. 'eteri' e corrupcao de ASR; a unidade NAO e literal na fonte e nao deve ser citada como se fosse",
+     "'retenti antigine' lido como 'reti antinsetto' e 'carpo capsule' lido como carpocapsa; 'l'uso di al carpot' lido como o sistema de rede Alt'Carpo. So a palavra 'reti' e literal",
+     "'acetonia orata' lido como Cetonia aurata",
+     "Nas conclusoes, 'Popidea Diabonica' lido como Popillia japonica pelo contexto (primeiro ponto-chave, logo apos as relacoes regionais) — a grafia do ASR e ambigua e podia tambem sugerir Diabrotica",
+     "O intervalo '2014-2025' do mapa: a fonte diz 'dal 2014' e 'gli ultimi 4 anni', e o video e de 2025-10-25; o intervalo fechado e reconstruido, nao declarado",
+     "Que cuneese e torinese estejam hoje 'indenes' ou 'livres': o documento diz que a difusao esta a DESCER para la, nao que estejam sem o inseto",
+     "Que a rede tenha de estar instalada ANTES da emergencia de inicio de junho: e deducao agronomica; o documento nao da momento nem mes de instalacao",
+     "Que o caso do Novarese seja uma perda comercial total: o documento diz que nao conseguem colher, nao quantifica o valor",
+     "Que 'attenzionare' signifique monitorizacao com armadilhas ou limiares: o documento nao descreve nenhum protocolo para Popillia"
+    ],
+    "NAO_SABEMOS": [
+     "Quantos anos sao 'qualche anno' — o documento nao o diz",
+     "Que superficie de mirtilo e piccoli frutti existe no cuneese e no torinese, e quanta dela ja tem rede: nenhum numero no documento",
+     "A data da sessao (so temos a data de publicacao do video)",
+     "Se existe zona demarcada regional para Popillia e qual o seu perimetro: as palavras zona demarcata e quarentena nao aparecem em toda a transcricao",
+     "Que rede serve contra Popillia — malha, custo, momento de instalacao. A unica malha quantificada na transcricao (<1 mm2) e de outro orador, para um dispositivo contra Drosophila suzukii, e nao se transfere",
+     "Qual a eficacia da rede contra Popillia: 'puo gia comunque aiutare molto' e a unica afirmacao, sem ensaio e sem numero",
+     "Nenhuma substancia activa, nenhum produto e nenhum tratamento quimico e nomeado para Popillia em todo o documento",
+     "Se alguma autorizacao ADAMA fora dos 163 rotulos lidos nomeia Popillia japonica — nao verificamos registos alem do conjunto lido",
+     "Se os 45 pares rotulo x cultura da divida de leitura declarada (IT-ROTULOS-DIVIDA-DE-LEITURA-V1) escondem alguma cultura de piccoli frutti"
+    ]
+   },
+   "C_TEMPO_AGRONOMICO": {
+    "JANELA_DE_APLICACAO": "Duas janelas, ambas com base no documento. (1) JANELA ANUAL — a exposicao abre no INICIO DE JUNHO, quando saem os primeiros adultos, uma geracao por ano; o dano faz-se quando o inseto encontra producao e, no Novarese, \"arriva lei prima delle raccolte\", ou seja antes da colheita do mirtilo. (2) HORIZONTE PLURIANUAL da colonizacao — \"nell'arco di qualche anno\" a contar da fala publicada em 2025-10-25, portanto grosso modo 2026-2029. RESSALVA QUE FAZ PARTE DA JANELA: o documento NAO da data nem mes para instalar a rede, nem qualquer momento de tratamento. A data de instalacao e NAO SEI.",
+    "BASE_DA_JANELA": "Tres frases literais da transcricao, cada uma com uma ocorrencia unica, conferidas por comparacao exacta de cadeia: (a) \"Il suo ciclo e un ciclo di una generazione all'anno\" e \"compare eh a inizio di giugno con le le prime uscite degli adulti\" — fase fenologica e mes; (b) \"sono 2 anni che non riescono a raccogliere perche arriva lei prima delle raccolte\" — posiciona o dano relativamente a colheita; (c) \"ci aspettiamo che nell'arco di qualche anno vada a colonizzare un po' tutto l'areale\" — horizonte plurianual declarado pela fonte. Procurei no ficheiro inteiro por meses, estacoes, \"trattament\", \"raccolt\", \"fiorit\", \"soglia\", \"monitorag\", \"trappol\": os 10 usos de \"giugno\" foram lidos um a um e so o do indice 96448 pertence ao bloco Popillia; os restantes sao de outros oradores e outras pragas. Nenhuma outra ancora temporal para Popillia existe no documento.",
+    "AGIR_AGORA": "NAO",
+    "AINDA_HA_TEMPO": "SIM",
+    "PROXIMA_JANELA_OU_SAFRA": "SIM",
+    "PORQUE": "Hoje e 2026-09-04. A janela anual que o documento ancora — inicio de junho, emergencia dos adultos — fechou ha cerca de tres meses, e a campanha de mirtilo de 2026 ja passou; o documento nao oferece nenhum outro momento dentro do ano. Por isso T_AGIR_AGORA = NAO: nao ha nada no documento que exija accao nesta semana. Mas o horizonte plurianual continua aberto: a expectativa foi declarada em outubro de 2025 com \"nell'arco di qualche anno\", e as areas nomeadas como frente de avanco (cuneese, torinese) estao, pelo proprio documento, a jusante da difusao e ainda nao consumadas — dai T_AINDA_HA_TEMPO = SIM. A proxima janela datada e a emergencia de inicio de junho de 2027, com todo o outono e inverno de 2026-2027 a preceder-la; e nesse intervalo que uma decisao de cobertura fisica caberia, mas o proprio documento nao diz quando se instala a rede, e essa parte fica por conta de quem decide, nao da ficha."
+   },
+   "D_RELEVANCIA_ADAMA": {
+    "TEM_PORTFOLIO": "NAO",
+    "PRODUTOS": [],
+    "SEM_PORTFOLIO_PORQUE": "Das tres causas possiveis, esta NAO e \"nao lemos o rotulo\". Os 163 rotulos ADAMA italianos foram lidos e eu conferi tanto o conjunto canonico como o texto bruto. Sao duas ausencias simultaneas. (1) CULTURA FORA DO CATALOGO AUTORIZADO E LIDO: MIRTILLO nao esta entre as 46 culturas que os 2928 pares publicados de IT-ROTULOS-PARES-V3.json autorizam, e nao existe como termo canonico em scripts/it_rotulo_vocab.py. Fui ao texto bruto dos 163 rotulos: \"mirtill\" aparece em 11 ficheiros e em todos e \"Vaccinum sp. (Mirtillo)\" numa lista de especies arbustivas a ELIMINAR com arboricida — o mirtilo e o alvo da aplicacao, nao a cultura protegida. \"piccoli frutti\" aparece em 3 rotulos e sempre dentro do nome de uma praga, \"Moscerino dei piccoli frutti (Drosophila suzukii)\", declarado sobre VITE. FRUTTIFERI existe no vocabulario como grupo de expansao deliberadamente vazia. (2) ALVO FORA DO CATALOGO E DO TEXTO: POPILLIA nao esta entre os 57 alvos canonicos e \"popill\" tem ZERO ocorrencias no texto bruto dos 163 rotulos. NAO PROMOVI MAGGIOLINO (Melolontha) a equivalente: existem 5 produtos de lambda-cialotrina (LAMDEX EXTRA 008259, FORZA 013560, NINJA 013590, DURAVIS 015275, ELTIRA 017687) com \"Agrilo, maggiolino (sulla vegetazione)\" em mandorlo e nocciolo, e 2 de tefluthrin em horticolas de solo — sao escarabeideos distintos de Popillia japonica, o proprio ficheiro de vocabulario proibe casamento por parecenca, e nenhum desses pares e mirtilo nem piccoli frutti. Tambem verifiquei \"coleotter\" no texto bruto: todas as ocorrencias sao colza (Meligethes, Ceutorhynchus, Psylliodes), erba medica (Hypera, Sitona, Apion), pragas de solo ou oleos em horticolas — nenhuma em fruteiras contra Popillia. RESSALVA QUE VIAJA COM A FICHA, pela lei do projecto \"ausencia na nossa leitura nunca e ausencia no registro\": os 163 rotulos sao o conjunto ADAMA IT colhido a 2026-09-04, ha uma divida de leitura declarada de 45 pares rotulo x cultura que o rotulo autoriza e o parser ainda nao le, e nao consultei registos fora da ADAMA. A conclusao segura e: nao ha autorizacao NO CONJUNTO LIDO, nos dois eixos.",
+    "UNIAO_DE_AUTORIZACOES": "NAO",
+    "UNIAO_EXPLICADA": "Nao ha uniao a explicar porque a lista de produtos e vazia — nao ha um unico par cultura x alvo a unir. Registo mesmo assim as duas regras que se aplicariam, para que ninguem as contorne mais tarde nesta ficha: se algum dia sairem produtos para este par, a lista sera o CONJUNTO das autorizacoes encontradas e nao uma recomendacao de produto unico; e nenhum produto pode ser apresentado como \"o produto\" aqui, porque o documento nao nomeia nenhum. O documento nao nomeia nem produto nem substancia activa para Popillia: a unica alavanca que declara e fisica — a rede — e a rede nao e portfolio.",
+    "OPORTUNIDADE": "NENHUMA_DEMONSTRAVEL"
+   },
+   "E_MAPA_DE_ACAO": [
+    {
+     "DEPARTAMENTO": "DESENVOLVIMENTO_DE_MERCADO",
+     "ACIONAVEL": "NAO",
+     "RAZAO": "Avaliado explicitamente, e a resposta honesta e NAO. Nao ha nada para desenvolver: a unica alavanca que o documento nomeia e uma rede fisica, nao um produto; os dois eixos do portfolio estao a zero no conjunto lido (mirtilo e piccoli frutti nao aparecem como cultura autorizada em nenhum dos 163 rotulos, Popillia nao aparece de todo); e a janela anual ancorada pelo documento — inicio de junho — fechou em 2026 tres meses antes de hoje. Alem disso a ficha nao traz um unico numero de mercado: nao ha superficie de mirtilo no cuneese nem no torinese, nao ha percentagem ja coberta por rede, nao ha valor da perda do Novarese (e mesmo o \"15 ha\" assenta numa reconstrucao de ASR). Marcar SIM aqui seria pedir um estudo de segmento que esta ficha nao sustenta. O que a ficha entrega ao desenvolvimento de mercado nao e uma accao, e uma constatacao estrutural para arquivo: piccoli frutti e um segmento onde a leitura ADAMA Italia devolve zero autorizacoes, e e sobre esse segmento que o servico regional declara uma praga em expansao."
+    },
+    {
+     "DEPARTAMENTO": "MARKETING",
+     "ACIONAVEL": "NAO",
+     "RAZAO": "NAO. Nao ha oferta autorizada para comunicar e nao ha nenhuma alegacao possivel: zero produtos para a cultura, zero para o alvo, e nenhuma substancia activa nomeada pelo documento. Comunicar sobre uma praga de quarentena em expansao sem ter nada autorizado para ela seria conteudo sem substancia — e, com uma praga em que o proprio moderador diz \"abbiamo tutti paura\", tambem seria arriscado. A unica solucao que o documento cita e uma rede, que nao e nossa."
+    },
+    {
+     "DEPARTAMENTO": "COMERCIAL_RTV",
+     "ACIONAVEL": "NAO",
+     "RAZAO": "NAO. Nao ha o que vender: nenhum produto do conjunto lido esta autorizado nem para mirtilo/piccoli frutti nem contra Popillia, a janela anual de junho de 2026 ja passou, e a accao que o documento sugere — cobrir com rede antes da chegada — nao passa por uma venda nossa. O RTV do Piemonte pode legitimamente saber disto para conversar com produtores do Novarese, do cuneese e do torinese, mas conversar nao e uma accao demonstravel desta ficha, e eu nao a vou marcar como se fosse."
+    },
+    {
+     "DEPARTAMENTO": "CIENCIA_TECNICO",
+     "ACIONAVEL": "SIM",
+     "RAZAO": "SIM, e por duas razoes que apontam para factos desta ficha e nao para trabalho generico. Primeira: esta ficha recusou deliberadamente promover MAGGIOLINO (Melolontha, 5 produtos de lambda-cialotrina em mandorlo e nocciolo) a equivalente de Popillia japonica, e a funcao tecnica e a unica que pode adjudicar se existe ou nao qualquer transferencia de dados entre escarabeideos — a ficha deixa a questao aberta em vez de a fechar por parecenca. Segunda: o documento entrega um mecanismo falseavel e uma alavanca por quantificar — larvas no solo que precisam de humidade (\"nelle annate di sicita sembrava fosse arretratto leggermente il problema\") e uma rede que \"puo gia comunque aiutare molto\" sem um unico numero de eficacia contra Popillia. Sao exactamente as duas coisas que a funcao tecnica pode converter em hipotese de invalidacao e em lacuna registada, e a ancora anual para o fazer — inicio de junho — esta escrita no proprio documento."
+    },
+    {
+     "DEPARTAMENTO": "SUPPLY",
+     "ACIONAVEL": "NAO",
+     "RAZAO": "NAO. Nao ha nada para prever nem posicionar: zero produtos autorizados, nenhuma substancia activa nomeada, nenhuma superficie tratavel e nenhuma janela de aplicacao para produto (a janela de inicio de junho e de emergencia e vigilancia, nao de tratamento). Sem SKU e sem volume, supply nao tem objecto nesta ficha."
+    },
+    {
+     "DEPARTAMENTO": "REGULATORIO_PORTFOLIO",
+     "ACIONAVEL": "SIM",
+     "RAZAO": "SIM, e o unico departamento com uma tarefa fechada e verificavel a partir dos factos desta ficha. A ficha estabelece uma dupla ausencia medida — MIRTILLO fora das 46 culturas dos 2928 pares publicados e \"popill\" com zero ocorrencias no texto bruto dos 163 rotulos — mas tambem regista que essa leitura tem divida declarada: 45 pares rotulo x cultura que o rotulo autoriza e o parser ainda nao le, e 35 rotulos sem qualquer par suportado. A pergunta que so o regulatorio/portfolio pode fechar e delimitada e nao precisa de campo nenhum: alguma autorizacao ADAMA em Italia nomeia Popillia japonica, ou um alvo generico de coleopteros em fruteiras, fora do que ja lemos? E, do outro lado, e verdade que a ADAMA Italia nao tem nenhuma cultura de piccoli frutti registada? Sao as duas perguntas que esta ficha deixa explicitamente em NAO SABEMOS, e a resposta muda a leitura de todo o segmento, nao so deste sinal."
+    }
+   ],
+   "F_ACAO_POSSIVEL": {
+    "CLASSE": "MONITORAR",
+    "ACOES": [
+     "Fechar a pergunta de registo, sem trabalho de campo: verificar se alguma autorizacao ADAMA em Italia nomeia Popillia japonica, ou coleopteros em fruteiras, fora dos 163 rotulos ja lidos — em particular nos 35 rotulos sem par suportado e nos 45 pares da divida de leitura declarada. Dono: regulatorio/portfolio.",
+     "Responder se a ADAMA Italia tem, ou nao, qualquer cultura de piccoli frutti registada. A leitura actual devolve zero e essa e uma constatacao de segmento, nao deste sinal apenas. Dono: regulatorio/portfolio.",
+     "Marcar a ancora anual do documento — inicio de junho de 2027, primeiras saidas de adultos, uma geracao por ano — como o momento de reler os mapas do servico fitossanitario piemontes para o cuneese e o torinese, que e onde o proprio documento situa a frente de avanco.",
+     "Registar a hipotese de invalidacao pela boca da fonte: anos de seca travam a larva no solo e o problema 'sembrava fosse arretratto leggermente'. Se a difusao para sul nao avancar, e este o primeiro mecanismo a conferir antes de dar o sinal por errado.",
+     "Anotar como lacuna tecnica, nao como facto: a rede e a unica alavanca que o documento nomeia e nao tem nenhum numero de eficacia contra Popillia; a unica malha quantificada na transcricao (<1 mm2) e de outro orador e para Drosophila suzukii, e nao se transfere.",
+     "Nao repetir o numero '15 ha' como se fosse literal: a fonte diz 'una quindicina di eteri', corrupcao de ASR. Quem citar deve citar com a ressalva."
+    ],
+    "PORQUE": "MONITORAR e nao PREPARAR porque nao ha nada para preparar do nosso lado: sem produto autorizado para a cultura ou para o alvo, e sem uma unica substancia activa nomeada pelo documento, nao existe oferta a posicionar para a janela de junho de 2027. A accao de cobertura preventiva que o documento sugere e uma rede, que nao e portfolio. MONITORAR e nao SEM_ACAO_DEMONSTRAVEL porque restam duas coisas concretas e verificaveis, que e o que separa uma ficha util de uma nota: uma pergunta de registo fechada, interna e sem trabalho de campo, que esta ficha propria deixou em NAO SABEMOS; e uma vigilancia com data escrita no documento (inicio de junho) e com uma invalidacao dada pela propria fonte (anos secos travam a larva no solo). Ambas sao falseaveis e ambas tem dono. O que nao existe e destinatario comercial: quatro dos seis departamentos ficam em NAO, e ficam com razao declarada, nao por omissao."
+   },
+   "G_HORIZONTE": "ESTRUTURAL_FUTURO",
+   "AUTOAVALIACAO_DO_AUTOR": "PARCIAL",
+   "AUTOAVALIACAO_PORQUE": "PARCIAL, e digo exactamente o que falta e o que nao falta. NAO FALTA: o facto esta conferido literalmente (as tres partes da citacao aparecem uma unica vez cada na transcricao, por comparacao exacta de cadeia), o estado do tempo e EXPECTED com clausula declarada pela fonte, e a janela agronomica TEM base no documento — inicio de junho para a emergencia dos adultos, uma geracao por ano, e 'nell'arco di qualche anno' para a colonizacao; nao tive de completar com agronomia geral. FALTA, e e o que impede fechar: (1) portfolio a zero nos dois eixos do conjunto lido, com a ressalva de que uma divida de leitura de 45 pares continua declarada e que nao consultei registos fora da ADAMA — a conclusao segura e \"sem autorizacao no conjunto lido\", nao \"sem autorizacao\"; (2) nenhum departamento comercial accionavel: desenvolvimento de mercado, marketing, comercial/RTV e supply ficam todos em NAO, e so ciencia/tecnico e regulatorio/portfolio tem tarefa, ambas internas e de verificacao, nenhuma de receita; (3) a ficha nao tem um unico numero utilizavel — nao ha superficie de mirtilo no cuneese nem no torinese, nao ha fraccao ja coberta por rede, nao ha eficacia da rede contra Popillia, e o unico numero que existe, os '15 ha' do Novarese, assenta em 'una quindicina di eteri', corrupcao de ASR, e nao pode ser citado como literal; (4) o documento nao da data de instalacao de rede, que e precisamente a decisao que o sinal abre — essa data fica NAO SEI. Um sinal verdadeiro e verificado, mas ainda nao operavel do lado comercial.",
+   "DEFEITOS_ENCONTRADOS": null,
+   "CORRECOES_OBRIGATORIAS": null,
+   "JANELA_INVENTADA": null,
+   "UNIAO_MAQUIADA": null,
+   "PORTFOLIO_ERRADO": null,
+   "CITACAO_CONFERIDA_PELO_REFUTADOR": null
   },
   {
    "CAND_ID": "ITFC-014",
-   "ESTADO": "SEM_FICHA",
-   "PORQUE": "o agente que escreveria a ficha nao devolveu resultado",
+   "ESTADO": "SEM_REFUTACAO",
+   "MOTIVO_DO_VEREDITO": null,
+   "VALOR": null,
+   "VALOR_PORQUE": null,
+   "NOMEADO_PELO_USUARIO": false,
    "SOURCE_ID": "CYV76yVc98s",
-   "SINAL": "O mirtilo do Trentino entra na proxima campanha com a botrite sem cobertura quimica solida: em 2024 havia um unico principio ativo utilizavel na cultura e nele ja foram assinalados casos de resistencia; em 2025 foi preciso pedir uso excecional da mistura fludioxonil+ciprodinil. A decisao ainda aberta e a defesa antibotritica de 2026 — repetir o pedido de derroga (que e anual e tem de ser decidido no inverno), mudar de estrategia agronomica, ou registar uma alternativa — numa cultura que o mesmo relator diz esperar em expansao de area nos proximos anos.",
-   "NOMEADO_PELO_USUARIO": false
+   "TITULO": "Mirtillo in Trentino: botrite con un solo attivo, resistenza gia segnalata e una deroga annuale — ADAMA non ha etichetta sulla coltura",
+   "A_FATO": {
+    "O_QUE_ACONTECEU": "No balanco fitossanitario 2024/2025 dos pequenos frutos do Trentino, apresentado no convegno da AIPP pelo relator do bloco do Trentino (Fondazione Mach), foi declarado que: em 2024, sobre MIRTILLO, havia um unico principio ativo que podia ser utilizado contra a botrite; que foram assinalados casos/fenomenos de resistencia; e que no decurso de 2025 foi PEDIDO um uso excecional de outra mistura (o ASR escreve \"della miscela di fluioxonico ciprodumi\"). O relator NAO diz se esse uso excecional foi concedido. No mesmo bloco declara ainda que o mirtilo esteve \"un pochino in calo\" de 2024 para 2025, que continua a ser a segunda cultura do setor em superficie, e que espera um certo aumento de area nos proximos anos por investimento das cooperativas em linhas de calibragem automatica. A frase de fecho do relator sobre a doenca e apenas \"e sempre una malattia che eh va attenzionata\" — nao ha nenhuma projecao.",
+    "FONTE": "Video da AIPP (Associazione Italiana Protezione Piante), \"Il bilancio fitosanitario 2024/2025 di fragola e piccoli frutti\", https://www.youtube.com/watch?v=CYV76yVc98s (SOURCE_ID CYV76yVc98s), publicado 2025-10-25, duracao 13832 s. Legenda automatica italiana do YouTube (CAPTION_SOURCE = YOUTUBE_ASR_AUTO) — os nomes comerciais e as substancias chegam degradados e isso condiciona a leitura. Bloco do TRENTINO, aberto com \"vi presentero appunto il primo bilancio della della giornata, quindi e riguarda il Trentino\". Transcricao integral em /home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/CYV76yVc98s.json, campo TRANSCRIPT (175392 caracteres), citacao no offset 64513.",
+    "CITACAO_VERBATIM": "su Mirtillo abbiamo segnalato eh nel corso del 2024 eh con il singolo miscela e Sum, insomma, è l'unico principio attivo che poteva essere utilizzato nel nel corso del 2024. abbiamo eh segnalato dei casi fenomeni di resistenza e nel corso del eh 2025 è stato richiesto un uso eccezionale di un'altra mis di eh della miscela di fluioxonico ciprodumi.",
+    "CITACAO_CONFERIDA": "SIM",
+    "DATA_DO_FATO": "2024 (unico ativo utilizavel contra botrite e resistencia assinalada) e 2025 (pedido de uso excecional). A fonte nao da mes nem dia para nenhum dos dois — diz apenas \"nel corso del 2024\" e \"nel corso del 2025\".",
+    "DATA_DA_PUBLICACAO": "2025-10-25",
+    "PAIS": "Italia (IT)",
+    "REGIAO": "Trentino — Provincia autonoma di Trento. Ressalva: a frase citada nao repete o nome da regiao. O bloco em que ela esta e explicitamente aberto como o balanco do Trentino, a estacao climatica usada e Pergine (Valsugana, \"la zona maggiormente importante per la coltivazione di piccoli frutti\") e o relator diz \"in provincia di Trento\". O bloco do Piemonte so comeca cerca de dez mil caracteres depois da citacao.",
+    "CULTURA": "MIRTILLO (mirtilo, Vaccinium) — nomeado dentro da propria citacao, primeira palavra a seguir a \"su\".",
+    "ALVO": "BOTRITE (Botrytis, \"muffa grigia\"). NAO esta dentro da citacao: e estabelecida duas frases antes, mesmo relator, mesmo paragrafo, sem quebra de assunto — \"sicuramente importante rimane la botrite. Tant'è che tutte le coltivazioni sono sotto antipioggia\" (offset 64185). E adjacencia no paragrafo, nao heranca da lista de alvos declarada ao nivel do video.",
+    "MOLECULA_OU_PRODUTO": "Mistura pedida em uso excecional em 2025: ASR \"della miscela di fluioxonico ciprodumi\" = fludioxonil + ciprodinil (leitura inferida, ver C_INFERIDO). O unico ativo disponivel em 2024 NAO e identificavel a partir deste documento: o ASR escreve \"con il singolo miscela e Sum\" e isso nao permite uma leitura segura. Nenhum produto ADAMA e nomeado em nenhum ponto do documento."
+   },
+   "B_CONFIANCA": {
+    "ESTADO_DO_TEMPO": "OBSERVED_NOW",
+    "OBSERVADO": [
+     "Um unico ativo utilizavel em 2024: \"su Mirtillo abbiamo segnalato eh nel corso del 2024 eh con il singolo miscela e Sum, insomma, è l'unico principio attivo che poteva essere utilizzato nel nel corso del 2024\" (offset 64513).",
+     "Casos de resistencia assinalados: \"abbiamo eh segnalato dei casi fenomeni di resistenza\".",
+     "Uso excecional PEDIDO em 2025: \"nel corso del eh 2025 è stato richiesto un uso eccezionale di un'altra mis di eh della miscela di fluioxonico ciprodumi\". Diz pedido, nunca concedido.",
+     "Unica frase prospetiva do relator sobre a doenca: \"e quindi è sempre una malattia che eh va attenzionata perché è sempre importante per queste colture\". Nao e previsao.",
+     "Alvo estabelecido no mesmo paragrafo: \"sicuramente importante rimane la botrite. Tant'è che tutte le coltivazioni sono sotto antipioggia\" (offset 64185).",
+     "Contexto meteorologico de 2024, do mesmo bloco: \"Il 2024 come complice l'andamento meteorologico è stato una [bo]trite degna di nota\" e, na estacao de Pergine, \"circa 1800 mm alla fine della stagione\".",
+     "As duas metades da area, ambas ditas pelo mesmo relator (offset 59702-59900): \"Mirtillo che avete visto un pochino in calo rispetto a dal 2024 al 2025. rimane comunque una eh la seconda coltura in termini di superficie e ci aspettiamo comunque un certo aumento nei prossimi anni\" — o aumento e justificado por investimento em linhas de calibragem automatica nas cooperativas.",
+     "Dimensao do setor (fragola + piccoli frutti do Trentino): PLV \"circa 25 27 milioni di euro\", \"circa il 2,7% della dell'agricoltura provinciale\"; superficie \"circa 400\" — o ASR NAO diz a unidade.",
+     "Bloco do PIEMONTE, outro relator (Fondazione Agrion), na seccao de marciume/botrite que nomeia o mirtilo na frase seguinte (offset 83201): \"nonostante le coperture che vengono utilizzate da a partire dalle fioriture per ridurre eh la la presenza della eh della botrice ci sono comunque stati grossi problemi\".",
+     "Bloco da CALABRIA, outro relator (ARSAC), sobre FRAGOLA (offset ~149600): \"fluioxio e ciprodinil ha hanno dimostrato efficacia, ma questo è un principio attivo, sono due principi attivi che sono arrivati alla fine della loro del loro utilizzo\" — a mesma mistura pedida em derroga para o mirtilo do Trentino."
+    ],
+    "INFERIDO": [
+     "\"il singolo miscela e Sum\" = provavelmente Signum (boscalide + piraclostrobina). Inferencia por semelhanca sonora no ASR. NAO confirmada. Nao usar como facto em lado nenhum.",
+     "\"fluioxonico ciprodumi\" = fludioxonil + ciprodinil. Inferencia forte, mas ainda inferencia: sustenta-se em o mesmo documento escrever \"fluioxio e ciprodinil\" no bloco da Calabria, e em a mistura ser um botriticida.",
+     "\"uso eccezionale\" = autorizacao excecional de emergencia ao abrigo do art. 53 do Reg. (CE) 1107/2009. A fonte diz apenas \"uso eccezionale\"; nunca escreve \"art. 53\" nem \"deroga\" (a palavra \"deroga\" tem zero ocorrencias no ficheiro).",
+     "A leitura de que a defesa antibotritica de 2026 e uma decisao ainda em aberto e nossa, a partir da estrutura do facto. O relator nao a formula.",
+     "A ligacao entre a expansao de area esperada e a lacuna de rotulo — isto e, o problema crescer com a area — e nossa, nao dele. Ele diz as duas coisas, nunca as junta.",
+     "Que o mirtilo do Trentino seja mais exposto do que outras culturas do mesmo setor: nao dito. O relator descreve \"coperta corta\" tambem em Ribes (oidio), lampone (oidio) e afidi em Ribes/Mora."
+    ],
+    "NAO_SABEMOS": [
+     "Se o uso excecional pedido em 2025 foi CONCEDIDO. A fonte so diz que foi pedido.",
+     "Quantos casos de resistencia, em que superficie, com que metodo de teste, e se houve confirmacao laboratorial ou apenas observacao de campo.",
+     "Qual era o unico principio ativo utilizavel em 2024. O ASR nao permite le-lo.",
+     "Se houve pedido de uso excecional para a campanha de 2026 e qual foi o desfecho. O documento termina a informacao em 2025.",
+     "O calendario regulatorio. A fonte NAO diz que a autorizacao excecional e anual, NAO diz que tem de ser decidida no inverno, e NAO da prazo nenhum. Isso e conhecimento externo e fica fora desta ficha como facto.",
+     "Se a falha de 2024 foi resistencia genuina ou perda de eficacia sob 1800 mm de chuva. O proprio documento fornece material para as duas leituras e nao arbitra entre elas.",
+     "Se existe, fora dos 163 rotulos ADAMA lidos, alguma autorizacao ADAMA em mirtilo em Italia.",
+     "Se a ADAMA tem algum botriticida candidato para pequenos frutos. Nada neste acervo o mostra, em nenhum sentido.",
+     "A superficie real de mirtilo no Trentino. O unico numero de area do bloco (\"circa 400\") e do setor inteiro e vem sem unidade."
+    ]
+   },
+   "C_TEMPO_AGRONOMICO": {
+    "JANELA_DE_APLICACAO": "Cobertura antibotritica a partir da FLORACAO (fioritura). ATENCAO ao estatuto desta janela: e a unica ancora fenologica que o documento da para a botrite em pequenos frutos, e ela NAO vem do bloco do Trentino. Vem do bloco do Piemonte. O bloco do Trentino, onde esta o facto desta ficha, nao da mes, nem fase, nem momento de tratamento, nem data para a defesa antibotritica do mirtilo.",
+    "BASE_DA_JANELA": "Verbatim, bloco do Piemonte (Fondazione Agrion), offset 83201, dentro da seccao de marciume/botrite que nomeia o mirtilo na frase imediatamente seguinte: \"nonostante le coperture che vengono utilizzate da a partire dalle fioriture per ridurre eh la la presenza della eh della botrice ci sono comunque stati grossi problemi\". Tres ressalvas que tem de viajar com a janela: (a) e outra regiao — Piemonte, nao Trentino; (b) \"coperture\" e ambiguo neste ASR entre cobertura quimica e cobertura fisica antichuva, e o documento nao desambigua (o relator do Trentino diz, a proposito da botrite, \"tutte le coltivazioni sono sotto antipioggia\"); (c) a unica cadencia numerica do paragrafo — \"generalmente possono essere utilizzati due interventi in pre/post fioritura\" — e explicitamente restringida a FRAGOLA, nao ao mirtilo. Procurei antes de escrever: no ficheiro inteiro, \"deroga\" tem ZERO ocorrencias e \"eccezionale\" tem UMA, dentro da propria citacao. Logo, para o prazo de decisao do pedido de uso excecional, NAO HA BASE. As ocorrencias de meses, \"raccolta\", \"fioritura\", \"primavera\" e \"inverno\" mais proximas ou pertencem ao bloco do sul de Italia (mirtilo americano, offsets 108100-111400, onde se fala de antecipacao de floracao e colheita) ou ao bloco de Drosophila do Trentino — nenhuma delas e uma janela de tratamento antibotritico para mirtilo no Trentino.",
+    "AGIR_AGORA": "NAO",
+    "AINDA_HA_TEMPO": "NAO SEI",
+    "PROXIMA_JANELA_OU_SAFRA": "SIM",
+    "PORQUE": "Hoje e 2026-09-04. A fala foi publicada em 2025-10-25 e a sua informacao termina em 2025. Nada nesta ficha descreve o estado da campanha de 2026 — nem se houve pedido de uso excecional, nem se houve resistencia, nem que produto se usou — pelo que nao existe nada demonstravel para executar hoje: T_AGIR_AGORA = NAO. \"Ainda ha tempo\" fica NAO SEI e nao NAO por disciplina: a fonte nao declara nenhum prazo, e afirmar que o prazo ja passou seria completar a ficha com calendario regulatorio que o documento nao contem — exatamente o que esta proibido. O que continua vivo e a proxima campanha. A lacuna que a fonte descreve — um unico ativo utilizavel, resistencia assinalada nesse ativo, e dependencia de uma autorizacao excecional para a alternativa — nao e resolvida por nada dentro do documento, e o mesmo relator espera aumento de area nos proximos anos. E ai, e nao hoje, que esta ficha e utilizavel."
+   },
+   "D_RELEVANCIA_ADAMA": {
+    "TEM_PORTFOLIO": "NAO",
+    "PRODUTOS": [],
+    "SEM_PORTFOLIO_PORQUE": "Das tres causas possiveis, esta e sobretudo a TERCEIRA — cultura fora do catalogo canonico — mas com uma verificacao crua que a leva mais longe. (1) A consulta (CROP=MIRTILLO, TARGET=BOTRITE) em data/samples/IT-ROTULOS-V1/IT-ROTULOS-PARES-V3.json devolve lista vazia POR CONSTRUCAO: MIRTILLO nao existe no dicionario CULTURAS de scripts/it_rotulo_vocab.py (46 culturas canonicas presentes nos pares, nenhuma delas Vaccinium ou pequenos frutos). BOTRITE existe como alvo canonico. Portanto \"sem par\" nao prova, sozinho, absolutamente nada. (2) Por isso nao parei no vocabulario e fui ao corpo cru. \"mirtill\" tem ZERO ocorrencias no IT-ROTULOS-PARES-V3.json e aparece em 11 dos 163 rotulos ADAMA lidos: 015096, 015401, 015405, 015592, 016387, 017929, 017930, 018270, 018271, 018277, 018279. Em TODOS os 11 e a mesma linha — \"Vaccinum sp. (Mirtillo)\" — dentro de uma lista de especies arbustivas a controlar em rotulos de glifosato (TAIFUN JARDIN, TAIFUN MK CL, GLIPHOGAN TOP CL, SHAMAL MK PLUS CL, HERBITOTAL CL, KORAVERT, AKTIVIR). Ou seja: mirtilo como INFESTANTE a eliminar, nunca como cultura a proteger. Nenhum desses 11 rotulos menciona botrite. (3) Conclusao dupla, e as duas metades tem de andar juntas: dentro dos 163 rotulos lidos NAO ha nenhuma autorizacao ADAMA sobre mirtilo como cultura, nem para botrite nem para mais nada — isto nao e ausencia de leitura. Mas tambem NAO e ausencia de autorizacao no registo italiano: o acervo lido sao 163 rotulos, com 35 sem par suportado e 141 linhas ambiguas, e fora desse conjunto nao lemos. Ausencia de leitura nao e ausencia de autorizacao, e aqui a fronteira do que lemos esta escrita.",
+    "UNIAO_DE_AUTORIZACOES": "NAO",
+    "UNIAO_EXPLICADA": "A questao da uniao nao se coloca: a consulta nao devolveu nenhum produto, logo nao ha lista e nao ha uniao de autorizacoes a explicar. Registo aqui, para que ninguem o transporte por engano, o que existe ao lado: no acervo lido o alvo BOTRITE so tem pares ADAMA em POMODORO (8 rotulos — FINESSOX 008401, FOLPAN 80 WDG 008601, FOLPAN SC 010587, PARIFOL 011501, FOLVIT 80 WDG 013012, SOLOFOL AP 014862, FLOVINE 017111, VINIFOL WDG 017311) e em VITE (6 — FOLPAN GOLD 012878, SOLOFOL 013585, BANJO 013905, EMBRACE 015315, SESTO GOLD 015317, AGHARTA 017432). Sao autorizacoes de tomate e de videira. NAO sao transferiveis para mirtilo, NAO sao uma recomendacao, e nao devem aparecer em nenhuma conversa sobre esta ficha como se fossem uma resposta. O documento tambem nao nomeia nenhum produto ADAMA em ponto nenhum.",
+    "OPORTUNIDADE": "FUTURA"
+   },
+   "E_MAPA_DE_ACAO": [
+    {
+     "DEPARTAMENTO": "DESENVOLVIMENTO_DE_MERCADO",
+     "ACIONAVEL": "SIM",
+     "RAZAO": "Destinatario central desta ficha, e o unico departamento com uma pergunta bem posta. Os factos que a sustentam sao desta ficha, nao de fora: (a) lacuna quimica declarada por quem faz o balanco oficial da regiao — \"è l'unico principio attivo che poteva essere utilizzato nel nel corso del 2024\", com \"casi fenomeni di resistenza\" nesse mesmo ativo; (b) dependencia de uma autorizacao excecional pedida em 2025 para a alternativa; (c) o mirtilo e a segunda cultura do setor em superficie e o mesmo relator diz \"ci aspettiamo comunque un certo aumento nei prossimi anni\", justificado por investimento das cooperativas em calibragem automatica; (d) a ADAMA nao tem um unico rotulo sobre esta cultura nos 163 lidos. A pergunta e: pequenos frutos, com o mirtilo a frente, sao um segmento em que vale a pena a ADAMA Italia ter presenca? Contrapeso obrigatorio, e da mesma fonte: o setor inteiro (fragola + piccoli frutti do Trentino) vale \"circa 25 27 milioni di euro\" de PLV, 2,7% da agricultura provincial, e o proprio mirtilo esteve \"un pochino in calo\" de 2024 para 2025. A decisao tem de olhar as duas metades."
+    },
+    {
+     "DEPARTAMENTO": "MARKETING",
+     "ACIONAVEL": "NAO",
+     "RAZAO": "Nao ha nada para comunicar. A_PRODUTOS esta vazio, o documento nao nomeia nenhum produto ADAMA, e a unica coisa que a ficha estabelece e uma lacuna de terceiros. Comunicar sobre uma lacuna que nao sabemos preencher e, na melhor das hipoteses, ruido, e na pior cria expectativa sobre uma oferta que nao existe. Marketing so entra depois de M_REGULATORIO_PORTFOLIO responder se ha caminho de rotulo."
+    },
+    {
+     "DEPARTAMENTO": "COMERCIAL_RTV",
+     "ACIONAVEL": "NAO",
+     "RAZAO": "Nao ha nada para vender nem para posicionar: zero autorizacoes ADAMA em mirtilo no acervo lido, e a equipa comercial nao converte uma lacuna de rotulo em conversa de campo. O momento tambem nao ajuda — a ficha e construida a 2026-09-04 sobre informacao que termina em 2025, e o estado da campanha de 2026 e desconhecido (ver T_AGIR_AGORA = NAO). Se um dia houver rotulo, o interlocutor esta nomeado pelo proprio relator, que agradece \"i tecnici delle cooperative, in particolare Garden Frotta e Sant'Orsola\" — mas isso e consequencia de uma decisao regulatoria que ainda nao existe, nao uma accao de hoje."
+    },
+    {
+     "DEPARTAMENTO": "CIENCIA_TECNICO",
+     "ACIONAVEL": "SIM",
+     "RAZAO": "Ha uma pergunta cientifica por resolver que o proprio documento levanta e nao arbitra, e ela e exatamente o gatilho de invalidacao deste sinal: o relator diz ter assinalado \"casi fenomeni di resistenza\" em 2024, e no mesmo bloco diz que 2024 foi \"una [bo]trite degna di nota\" com \"circa 1800 mm alla fine della stagione\" na estacao de Pergine. Resistencia genuina e perda de eficacia sob pressao meteorologica extrema pedem respostas opostas, e so uma delas justifica mexer em portfolio. Ha ainda duas verificacoes baratas e necessarias antes de qualquer outro departamento se mover: identificar qual era o unico ativo de 2024 (o ASR escreve \"il singolo miscela e Sum\" e nao permite le-lo) e confirmar se o uso excecional de 2025 foi concedido. Terceiro elemento tecnico, este ja dentro do documento e que reforca a urgencia: no bloco da Calabria, sobre fragola, outro relator diz que fluioxionil e ciprodinil \"sono arrivati alla fine della loro del loro utilizzo\" — e essa e precisamente a mistura pedida em derroga para o mirtilo do Trentino."
+    },
+    {
+     "DEPARTAMENTO": "SUPPLY",
+     "ACIONAVEL": "NAO",
+     "RAZAO": "Nao ha nada para planear. Sem autorizacao, sem produto, e sem um unico numero de procura nesta ficha: a fonte nao da hectares tratados, nao da doses, nao da volumes, e a unica cifra de dimensao do bloco (\"circa 400\") aparece sem unidade no ASR. Construir qualquer plano de abastecimento sobre isto seria inventar uma serie que ninguem mediu."
+    },
+    {
+     "DEPARTAMENTO": "REGULATORIO_PORTFOLIO",
+     "ACIONAVEL": "SIM",
+     "RAZAO": "Duas razoes, ambas ancoradas em factos desta ficha. Primeira, virada para fora: a forma do facto e regulatoria de ponta a ponta — \"è stato richiesto un uso eccezionale\" e a admissao de que a cobertura normal de rotulo nao chegou, e a pergunta \"deve a ADAMA ter rotulo em mirtilo ou em pequenos frutos em Italia\" e de portfolio, nao de vendas. Segunda, virada para dentro e imediata: esta ficha expos um defeito do nosso proprio dicionario — MIRTILLO nao existe em CULTURAS (scripts/it_rotulo_vocab.py), pelo que qualquer consulta sobre esta cultura devolve vazio por construcao e pode ser lida por engano como \"nao ha autorizacao\". Enquanto isso nao for corrigido, o mesmo erro repete-se em todos os sinais sobre pequenos frutos — e este convegno inteiro e sobre pequenos frutos (lampone, mora, ribes e mirtilo, nenhum deles no catalogo)."
+    }
+   ],
+   "F_ACAO_POSSIVEL": {
+    "CLASSE": "PREPARAR",
+    "ACOES": [
+     "REGULATORIO / PORTFOLIO — Corrigir o dicionario canonico: acrescentar MIRTILLO e as restantes especies de piccoli frutti que este convegno nomeia (LAMPONE, MORA, RIBES) ao dicionario CULTURAS em scripts/it_rotulo_vocab.py, com as formas como o rotulo italiano as escreve, e reprocessar os 163 rotulos. Enquanto isto nao for feito, \"sem par\" nesta cultura nao quer dizer nada e pode ser lido ao contrario.",
+     "CIENCIA / TECNICO — Pedir ao servico fitosanitario da Provincia de Trento e a Fondazione Mach o registo dos casos de resistencia de 2024 em mirtilo: quantos, em que superficie, por que metodo, e se houve confirmacao laboratorial. E a pergunta que separa resistencia genuina de falha de eficacia sob 1800 mm de chuva.",
+     "CIENCIA / TECNICO — Confirmar em fonte escrita, nao no ASR, qual era o unico principio ativo utilizavel contra botrite em mirtilo em 2024, e se o uso excecional de 2025 (leitura inferida: fludioxonil + ciprodinil) foi efetivamente concedido, com que dose e por que periodo.",
+     "REGULATORIO / PORTFOLIO — Verificar se houve pedido de uso excecional para botrite em mirtilo na campanha de 2026 e qual foi o desfecho. E o gatilho ja escrito no registo do candidato e e o que diz se o sinal continua vivo ou morreu.",
+     "DESENVOLVIMENTO DE MERCADO — Dimensionar antes de decidir: obter a superficie real de mirtilo no Trentino (a fonte so da \"circa 400\" para o setor inteiro e sem unidade) e nas outras regioes cobertas por este mesmo documento, e confrontar a expectativa de aumento declarada pelo relator com a ligeira queda 2024->2025 que ele tambem declara.",
+     "TODOS — Nao apresentar os rotulos ADAMA de botrite em POMODORO e VITE como resposta a este caso. Sao tomate e videira e nao sao transferiveis para mirtilo."
+    ],
+    "PORQUE": "PREPARAR, e nao AGIR_AGORA, porque nao ha nada para executar hoje: nao existe produto ADAMA na cultura, e a informacao do documento termina em 2025, deixando o estado da campanha de 2026 completamente desconhecido a 2026-09-04. E nao e SEM_ACAO_DEMONSTRAVEL porque tres das accoes acima sao concretas, baratas e nao dependem de terceiros ou tem destinatario nomeado no proprio documento: a correcao do dicionario e trabalho interno que esta ficha provou ser necessario e que desbloqueia todos os sinais futuros sobre pequenos frutos; e as duas verificacoes tecnicas apontam para a Fondazione Mach e o servico fitosanitario de Trento, que sao os autores do facto. Todas elas servem uma decisao que so se toma depois — se a ADAMA quer, ou nao, estar presente em pequenos frutos em Italia — e nenhuma delas exige assumir seja o que for que o documento nao diz."
+   },
+   "G_HORIZONTE": "PROXIMA_SAFRA",
+   "AUTOAVALIACAO_DO_AUTOR": "PARCIAL",
+   "AUTOAVALIACAO_PORQUE": "Duas das tres pernas ficaram fracas ou vazias, e digo qual e qual. (1) JANELA — fraca e emprestada. Existe uma unica ancora fenologica no documento, \"le coperture che vengono utilizzate a partire dalle fioriture\" contra a botrite, mas vem do bloco do Piemonte e nao do Trentino onde vive o facto, e \"coperture\" e ambiguo no ASR entre cobertura quimica e cobertura fisica antichuva. O bloco do Trentino nao da mes, fase nem data. E para o prazo de decisao do pedido de uso excecional nao ha rigorosamente nenhuma base: \"deroga\" tem zero ocorrencias no ficheiro inteiro e \"eccezionale\" tem uma, dentro da propria citacao. (2) PORTFOLIO — vazio, por uma razao dupla que nunca deve ser citada pela metade: a cultura esta fora do catalogo canonico, o que torna a consulta vazia por construcao, E a leitura crua dos 163 rotulos confirma que o mirtilo so aparece como infestante em rotulos de glifosato. Isso fecha o acervo lido; nao fecha o registo italiano. (3) DEPARTAMENTOS — aqui a ficha e utilizavel: tres SIM com razao ancorada em factos desta ficha (Desenvolvimento de Mercado, Ciencia/Tecnico, Regulatorio/Portfolio) e tres NAO honestos. O que falta para deixar de ser PARCIAL: o desfecho do pedido de 2025, a existencia ou nao de um pedido em 2026, a identificacao do ativo unico de 2024, e a correcao do dicionario para que a resposta de portfolio deixe de ser vazia por construcao.",
+   "DEFEITOS_ENCONTRADOS": null,
+   "CORRECOES_OBRIGATORIAS": null,
+   "JANELA_INVENTADA": null,
+   "UNIAO_MAQUIADA": null,
+   "PORTFOLIO_ERRADO": null,
+   "CITACAO_CONFERIDA_PELO_REFUTADOR": null
   },
   {
    "CAND_ID": "ITFC-015",
@@ -2163,27 +2408,411 @@
   },
   {
    "CAND_ID": "ITFC-043",
-   "ESTADO": "SEM_FICHA",
-   "PORQUE": "o agente que escreveria a ficha nao devolveu resultado",
+   "ESTADO": "SEM_REFUTACAO",
+   "MOTIVO_DO_VEREDITO": null,
+   "VALOR": null,
+   "VALOR_PORQUE": null,
+   "NOMEADO_PELO_USUARIO": false,
    "SOURCE_ID": "szsLkUd2cy4",
-   "SINAL": "A Uniao Europeia pode retirar Aleurocanthus spiniferus da lista de organismos de quarentena, reclassificando-o como organismo regulamentado nao-quarentenario, possivelmente ja nos meses seguintes a marco de 2026. O pedido de desclassificacao ja foi apresentado e quem o apresentou declara 'boas probabilidades' de sucesso. Se cair o estatuto de quarentena, caem tambem as medidas oficiais obrigatorias nos focolai em contencao — entre elas o controlo biologico imposto como medida fitossanitaria, as restricoes de movimentacao e os tratamentos obrigatorios — e a decisao de defesa contra o aleurodideo espinhoso passa dos servicos fitossanitarios para quem gere o verde urbano, os viveiros ornamentais e os citrinos. Isso muda hoje, antes do ato sair, duas decisoes abertas: (a) se vale a pena montar programas de lancamento de auxiliares (Macrolophus pygmaeus, Amblyseius swirskii) desenhados para serem aceites como medida fitossanitaria obrigatoria, e (b) se abre espaco comercial para inseticida de escolha livre num alvo que hoje e gerido por obrigacao publica.",
-   "NOMEADO_PELO_USUARIO": false
+   "TITULO": "Aleurodídeo espinhoso dos citrinos pode perder o estatuto de quarentena na UE — e hoje não temos rótulo italiano para este alvo",
+   "A_FATO": {
+    "O_QUE_ACONTECEU": "Na sessão da tarde de 18 de março das Giornate Fitopatologiche 2026, Mariangela Ciampitti (serviço fitossanitário da Regione Lombardia), ao abrir a sua relação sobre fitófagos exóticos, declarou que o pedido de desclassificação de Aleurocanthus spiniferus JÁ FOI APRESENTADO (\"abbiamo chiesto il declassamento\") e que há \"boas probabilidades\" de o organismo ser desregulamentado, talvez como organismo regulamentado não-de-quarentena, \"forse già da dei prossimi mesi\". Na mesma frase confirma que o estatuto VIGENTE continua a ser o de organismo nocivo de quarentena para a União Europeia. No mesmo bloco contínuo, a oradora explica por que isto importa: existe um regulamento que dita as normas a aplicar nos focolai em contenção e uma das medidas previstas é precisamente o controlo biológico; foi por indicação do Comitato Fitosanitario Nazionale que se exigiu o uso de antagonistas autóctones. Apresenta dois ensaios (Lombardia, focolaio de Bergamo escolhido entre os cinco da região, com Macrolophus pygmaeus; Emilia-Romagna, Ravarino e outros sítios, com Amblyseius swirskii e Macrolophus) em sebes ornamentais urbanas de Pyracantha, e conclui que o predador contém a população e que \"anche se poi un domani verrà declassato comunque può essere considerata un'opzione sostenibile per limitare l'impiego di insetticidi in ambiente urbano\". NADA MUDOU AINDA: nenhum ato foi publicado, nenhum regulador se pronunciou, e quem estima a probabilidade é a própria parte requerente.",
+    "FONTE": "Transcrição integral (legenda automática italiana do YouTube) da gravação szsLkUd2cy4, \"Giornate Fitopatologiche 2026: sessione pomeridiana del 18 marzo\", canal Giornate Fitopatologiche. Ficheiro: /home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/szsLkUd2cy4.json, campo TRANSCRIPT (176.752 caracteres). Orador identificado no próprio documento: Mariangela Ciampitti, Regione Lombardia. Bloco relevante: offsets 115938–124400.",
+    "CITACAO_VERBATIM": "I primi due sono su Alorantus Piniferus, che è un organismo nocivo da quarantena per l'Unione Europea, ma per il quale abbiamo chiesto il declassamento e ci sono buone probabilità che che venga deregolamentato magari come organismo ehm regolamentato non da quarantena che quindi non sia più da quarantena, forse già da dei prossimi mesi.",
+    "CITACAO_CONFERIDA": "SIM",
+    "DATA_DO_FATO": "2026-03-18 (data da fala, declarada no título do documento: \"sessione pomeridiana del 18 marzo\"). ATENÇÃO: esta é a data em que o facto foi DITO. A data em que o pedido de desclassificação foi efetivamente entregue NÃO está no documento — \"abbiamo chiesto\" é passado consumado sem data.",
+    "DATA_DA_PUBLICACAO": "2026-05-11 (campo PUBLICATION_DATE do ficheiro de fala; publicação do vídeo, 54 dias depois da fala)",
+    "PAIS": "ITÁLIA é o país da fala e do serviço fitossanitário requerente (Regione Lombardia). Mas o estatuto em causa é da UNIÃO EUROPEIA — a citação di-lo literalmente (\"per l'Unione Europea\") — pelo que o ato, se sair, produz efeito nos 27, não só em Itália.",
+    "REGIAO": "UE (União Europeia) — é o âmbito do estatuto, literal na citação. NÃO reivindico Lombardia nem Emilia-Romagna: essas regiões aparecem no mesmo bloco apenas como sede dos ensaios e dos focolai (cinco focolai na Lombardia, Bergamo escolhido; Ravarino e outros sítios na Emilia-Romagna) e seriam herdadas do palestrante. A Ligúria aparece noutro trabalho do mesmo bloco, como local de introdução de A. spiniferus em 2021 a partir de citrinos ornamentais e de fruto.",
+    "CULTURA": "AGRUMI (citrinos) + ORNAMENTAIS URBANOS (sebes de Pyracantha no verde urbano; viveiros ornamentais). RESSALVA OBRIGATÓRIA: a cultura NÃO está na frase citada, que nomeia só o organismo. Vem do mesmo bloco contínuo do mesmo orador — \"contesti ornamentali urbani\", \"siepi ornamentali urbane\", \"sepi di Pierracanta\", \"oltre al citrus che la sua pianta di elezione purtroppo va su parecchie altre specie ornamentali\", \"nel 2021 ancora una volta l'elorantus piniferus dagli agrumi ornamentali da frutto\". Não atravessa secção nem orador.",
+    "ALVO": "ALEUROCANTHUS SPINIFERUS — aleurodídeo espinhoso dos citrinos. O ASR grafa-o mal e de forma variável ao longo do bloco: \"Alorantus Piniferus\" (na citação), \"Aleurocus\", \"eurocurocantus piniferus\", \"allocantus Piniferus\", \"allerocanto spinifero\", \"allorantinius\", \"elorantus piniferus\", \"allercantus Peniniferus\". A identidade é a mesma e é confirmada pelo contexto (organismo de quarentena UE, focolai em contenção, citrus como planta de eleição)."
+   },
+   "B_CONFIANCA": {
+    "ESTADO_DO_TEMPO": "EXPECTED",
+    "OBSERVADO": [
+     "LITERAL: o pedido de desclassificação já foi apresentado — 'ma per il quale abbiamo chiesto il declassamento' (passado consumado, sujeito = o próprio serviço fitossanitário).",
+     "LITERAL: o estatuto VIGENTE ainda é o de quarentena — 'che è un organismo nocivo da quarantena per l'Unione Europea' (presente, na mesma frase).",
+     "LITERAL: a expectativa e a janela — 'ci sono buone probabilità che venga deregolamentato magari come organismo regolamentato non da quarantena ... forse già da dei prossimi mesi'. Quem estima a probabilidade é a parte requerente.",
+     "LITERAL: existe regulamento com medidas obrigatórias nos focolai em contenção e o controlo biológico é UMA delas — 'nei focolai in conten c'è un regolamento che detta le norme da da applicare nei focolai in contenimento e una delle misure previste è proprio il controllo biologico'.",
+     "LITERAL: o antagonista autóctone foi imposto de cima — 'su indicazione del comitato fitosanitario nazionale dell'Istituto Nazionale di riferimento ... ci è stato chiesto di utilizzare degli antagonisti autoctoni'.",
+     "LITERAL: cinco focolai na Lombardia — 'dai cinque focolai presenti in Lombardia abbiamo scelto quello di Bergamo perché aveva le popolazioni più alte'.",
+     "LITERAL, ENSAIO LOMBARDIA: cinco sebes, duas de controlo, três com dois lançamentos de Macrolophus pygmaeus — 'sono stati eseguiti due lanci, uno a metà luglio e uno a metà agosto'. Auxiliar fornecido pela CBC Bioplanet, em fase de neânides. Resultado: a partir de T37 as populações tratadas ficam estáveis e não diferentes da baseline; o controlo sobe significativamente aos dias 37, 45 e 60.",
+     "LITERAL, PROTOCOLO COMUM ÀS DUAS REGIÕES: 'sepi di Pierracanta più o meno di 30 m, i controlli sono fatti prelancio 7 15 30 60 70 giorni, il controllo su 20 germogli scelti casualmente per ogni pianta della tesi'. Indivíduos observados quase exclusivamente neânides.",
+     "LITERAL, ENSAIO EMILIA-ROMAGNA: objetivo declarado era 'trovare un'alternativa all'utilizzo di prodotti chimici, soprattutto dal momento che queste infestazioni sono in ambiente urbano'. Em 2024 Amblyseius swirskii com uma só introdução; em 2025 acrescentaram Macrolophus pygmaeus; em ambos os casos houve segunda introdução. Em 2024 só Ravarino deu resultado estatisticamente significativo; em 2025 os resultados foram mais significativos e o A. swirskii 'leggermente più efficace'.",
+     "LITERAL, CONFUNDIDORES DECLARADOS: chuvas que lavam o auxiliar depois da introdução, e podas feitas pelos proprietários em ambiente urbano apesar de avisados.",
+     "LITERAL, CONCLUSÃO DA ORADORA SOBRE O PÓS-DESCLASSIFICAÇÃO: 'anche se poi un domani verrà declassato comunque può essere considerata un'opzione sostenibile per limitare l'impiego di insetticidi in ambiente urbano'.",
+     "LITERAL: a praga fica, decida-se o que se decidir — 'indipendentemente dalla come verrà categorizzato anche in futuro è un organismo nocivo che sarà presente nel nostro verde urbano'.",
+     "LITERAL: os momentos de aplicação AINDA NÃO ESTÃO ESTABELECIDOS — 'bisognerà approfondire le modalità di applicazione, dosaggi, superficie, introduzione, momenti di applicazione'.",
+     "LITERAL, ESTRATÉGIA RECOMENDADA HOJE PELOS SERVIÇOS: 'la strategia più efficace ... è un misto di più tecniche, in particolare i servizi fitosanitari consigliano l'eliminazione fisica, quindi la potatura dei germogli, dei getti maggiormente compromessi, è possibile utilizzare dei lavaggi, il lancio di ausiliari'. Nenhum produto fitofarmacêutico é nomeado.",
+     "LITERAL: polifagia — 'è comunque un parassita polifago e quindi oltre al citrus che la sua pianta di elezione purtroppo va su parecchie altre specie ornamentali'.",
+     "LITERAL, LIGÚRIA: 'nel 2021 ancora una volta l'elorantus piniferus dagli agrumi ornamentali da frutto', numa região de produção de plantas ornamentais com muitas trocas com países terceiros."
+    ],
+    "INFERIDO": [
+     "INFERÊNCIA MINHA: que a queda do estatuto de quarentena faz cair as medidas oficiais obrigatórias nos focolai em contenção. O documento só diz que EXISTE um regulamento para focolai em contenção e que o controlo biológico é uma das medidas previstas. O encadeamento 'cai o estatuto → cai a obrigatoriedade' é dedução minha sobre como funcionam os regimes de quarentena, apoiada indiretamente pela frase da própria oradora que já planeia o cenário pós-desclassificação.",
+     "INFERÊNCIA MINHA, E FRACA: que caem também 'restrições de movimentação' e 'tratamentos obrigatórios'. ISTO NÃO ESTÁ NO DOCUMENTO em lado nenhum. É conhecimento genérico sobre regimes de quarentena. O juiz já registou esta ressalva.",
+     "INFERÊNCIA MINHA: que a decisão de defesa passa dos serviços fitossanitários para quem gere o verde urbano, os viveiros ornamentais e os citrinos. O documento diz que a praga fica presente no verde urbano e que o controlo biológico continuaria a fazer sentido; não diz quem passa a decidir nem quem passa a pagar.",
+     "INFERÊNCIA MINHA, E CONTRARIADA PELO PRÓPRIO DOCUMENTO: que se abre espaço comercial para inseticida de escolha livre. O documento aponta na direção OPOSTA em ambiente urbano — o objetivo declarado da Emilia-Romagna era encontrar alternativa aos produtos químicos, e a conclusão da Lombardia enquadra o auxiliar como forma de LIMITAR o uso de inseticidas no urbano.",
+     "INFERÊNCIA MINHA: que RNQP implicaria obrigações sobre material de propagação e viveiros (o regime RNQP incide sobre plantas para plantação). Não está no documento.",
+     "INFERÊNCIA MINHA, ARITMÉTICA: que 'prossimi mesi' contados de 18/03/2026 significa indicativamente ao longo de 2026. O documento não dá mês nem trimestre.",
+     "INFERÊNCIA MINHA, TAXONÓMICA E NÃO ESCRITA EM LADO NENHUM: que Aleurocanthus spiniferus pertence ao balde canónico ALEURODIDI. O ficheiro scripts/it_rotulo_vocab.py enumera sob ALEURODIDI apenas 'aleurodid[ei]', 'trialeurodes' e 'bemisia'; a palavra Aleurocanthus NÃO aparece em nenhum ponto do vocabulário controlado. Fiz este mapeamento por família (Aleyrodidae) — é uma decisão minha, sem fonte registada no ficheiro.",
+     "INFERÊNCIA MINHA: que os ensaios de Lombardia foram de 2025. O documento data explicitamente os ensaios da Emilia-Romagna (2024 e 2025) mas não data os lançamentos de meados de julho / meados de agosto da Lombardia."
+    ],
+    "NAO_SABEMOS": [
+     "A QUEM foi entregue o pedido (EFSA? Comissão? via Comitato Fitosanitario Nazionale?) e QUANDO. O documento não diz.",
+     "SE O ATO JÁ SAIU. Hoje é 2026-09-04: passaram 170 dias sobre a fala, dentro da janela 'prossimi mesi' declarada. Ninguém verificou. Esta ficha não sabe se o sinal já se consumou, se foi indeferido, ou se continua pendente.",
+     "Se o desfecho é desregulamentação total ou passagem a RNQP. A própria oradora hesita: 'magari come organismo regolamentato non da quarantena'.",
+     "Se a desclassificação encerra efetivamente as medidas obrigatórias nos focolai, e qual seria o regime transitório para os focolai já declarados.",
+     "Quantos focolai existem fora da Lombardia. 'Cinque in Lombardia' é literal; para a Emilia-Romagna há apenas 'i colleghi emiliani più siti'; do resto de Itália e da UE, nada.",
+     "Se A. spiniferus está presente em CITRINOS DE PRODUÇÃO no sul de Itália, onde está o mercado real de agrumi. Todo o material deste documento é verde urbano do norte (Bergamo, Ravarino) mais viveiros da Ligúria. Sem isto não há mercado a dimensionar.",
+     "Qualquer produto, substância ativa, dose ou momento de aplicação química contra este alvo. O documento não nomeia nenhum — nem ADAMA nem concorrente.",
+     "Os momentos de aplicação corretos do auxiliar: a própria oradora diz que 'modalità di applicazione, dosaggi, superficie, introduzione, momenti di applicazione' ainda têm de ser aprofundados.",
+     "Se existe hoje, em Itália, algum registo de qualquer titular para aleurodídeos em agrumi. O nosso conjunto lido cobre a ADAMA, não o mercado.",
+     "Se o serviço fitossanitário mantém a estimativa de 'boas probabilidades' seis meses depois."
+    ]
+   },
+   "C_TEMPO_AGRONOMICO": {
+    "JANELA_DE_APLICACAO": "DUAS JANELAS DISTINTAS, E NENHUMA DELAS É JANELA DE PRODUTO ADAMA. (1) JANELA AGRONÓMICA DOCUMENTADA — lançamento de auxiliares em sebes ornamentais: MEADOS DE JULHO e MEADOS DE AGOSTO, dois lançamentos, com avaliação até 70 dias após o lançamento (controlos pré-lançamento e aos 7, 15, 30, 60 e 70 dias). É o protocolo executado, não uma recomendação: a oradora diz explicitamente que os momentos de aplicação ainda têm de ser aprofundados. Para 2026 esta janela ESTÁ FECHADA — meados de agosto passou há 20 dias. (2) JANELA REGULATÓRIA — \"forse già da dei prossimi mesi\" contados de 18/03/2026; indicativamente ao longo de 2026, portanto ABERTA HOJE e possivelmente já consumada sem que tenhamos verificado. NÃO EXISTE no documento qualquer janela de aplicação de produto fitofarmacêutico contra este alvo: nenhum mês, nenhuma fase fenológica, nenhuma dose, nenhum produto.",
+    "BASE_DA_JANELA": "BASE LITERAL, do próprio ficheiro (procurado por grep de meses, fases, \"trattament\", \"inizio\", \"fine\", \"raccolta\", \"primavera\", \"autunno\", \"lanci\", \"introduzione\", \"giorni\", \"mesi\"). Janela agronómica, offset 118478: \"sono stati eseguiti due lanci, uno a metà luglio e uno a metà agosto\". Calendário de avaliação, offset 121329: \"i controlli sono fatti prelancio 7 15 30 60 70 giorni il controllo su 20 germogli scelti casualmente per ogni pianta della tesi\". Segunda introdução na Emilia-Romagna, offset 120968: \"nel 2024 ... con una sola introduzione, mentre nel 2025 hanno aggiunto anche loro il Macrolofus Pigmeus e in entrambi i casi si è proceduto a una seconda introduzione\". Ressalva declarada pela própria oradora, offset 122818: \"bisognerà approfondire le modalità di applicazione, dosaggi, superficie, introduzione, momenti di applicazione\". Janela regulatória, offset 116270: \"forse già da dei prossimi mesi\". O grep NÃO encontrou nenhum outro mês, nenhuma fase fenológica, nenhuma referência a colheita, primavera ou outono neste bloco — a única palavra \"maggio\" encontrada é o falso positivo dentro de \"maggiormente compromessi\".",
+    "AGIR_AGORA": "SIM",
+    "AINDA_HA_TEMPO": "NAO SEI",
+    "PROXIMA_JANELA_OU_SAFRA": "SIM",
+    "PORQUE": "AGIR AGORA = SIM, mas o que há para fazer hoje não é campo, é verificação. A janela regulatória declarada (\"prossimi mesi\" a partir de 18/03/2026) está aberta neste momento e o valor desta informação existe exatamente no intervalo entre o pedido e a decisão. Passaram 170 dias e ninguém confirmou o estado — essa confirmação é a única coisa acionável hoje, e está atrasada. AINDA HÁ TEMPO = NÃO SEI, e é a resposta honesta por duas razões independentes: (a) a janela agronómica de lançamento de auxiliares fechou para 2026 — meados de agosto passou há 20 dias, meados de julho há 51 — pelo que nada se faz no terreno este ano; (b) na janela regulatória não sabemos se o ato já saiu, se foi indeferido ou se continua pendente, e portanto não sabemos se ainda há antecipação a capturar ou se já a perdemos. PRÓXIMA JANELA = SIM: a janela de lançamento de auxiliares repete-se em julho-agosto de 2027 segundo o protocolo dos dois serviços regionais, e a decisão regulatória resolve-se no seu próprio calendário administrativo, que não é sazonal. Nada disto é janela de aplicação de produto ADAMA — essa não existe porque não existe o par autorizado."
+   },
+   "D_RELEVANCIA_ADAMA": {
+    "TEM_PORTFOLIO": "NAO",
+    "PRODUTOS": [],
+    "SEM_PORTFOLIO_PORQUE": "CONSULTA FEITA HOJE no conjunto publicado data/samples/IT-ROTULOS-V1/IT-ROTULOS-PARES-V3.json (2.928 pares; o juiz tinha visto 2.845 — o conjunto cresceu, a conclusão não muda). Tradução canónica prévia por scripts/it_rotulo_vocab.py. RESULTADO: AGRUMI x ALEURODIDI = ZERO pares. E as três causas separadas, porque não são a mesma coisa: (1) EM AGRUMI É AUSÊNCIA REAL DE AUTORIZAÇÃO, NÃO AUSÊNCIA DE LEITURA. AGRUMI é cultura bem lida no nosso acervo — tem 47 pares em 6 alvos (AFIDI, CIMICI, COCCINIGLIE, MOSCA, GOMMOSI, INFESTANTI), com sete registos inseticidas: 008259 LAMDEX EXTRA, 013560 FORZA, 013590 NINJA, 015275 DURAVIS, 017687 ELTIRA, 018156 APYZA WG, 018165 APYZA 500 WG. Nenhum deles declara aleurodídeos. Lemos o rótulo e o alvo não lá está. (2) NO ALVO É TAMBÉM PROBLEMA DE CATÁLOGO. Aleurocanthus não existe em lado nenhum de scripts/it_rotulo_vocab.py: a regex ALEURODIDI enumera só aleurodid[ei], trialeurodes e bemisia. Se algum rótulo escrevesse \"Aleurocanthus\", a normalização não o apanharia. O zero é robusto na cultura, mas o catálogo do alvo é incompleto e isso tem de constar. (3) NA METADE ORNAMENTAL NÃO PODEMOS SEQUER DIZER \"NÃO HÁ AUTORIZAÇÃO\": ornamentais/verde urbano estão FORA DO CATÁLOGO — as 46 culturas canónicas do conjunto não incluem uma única cultura ornamental, e nenhum dos 163 rótulos lidos gera um par ornamental. Para o verde urbano, que é onde este documento se passa, a resposta certa é \"não sabemos\", não \"não há\". PARA REFERÊNCIA: ALEURODIDI só aparece em dois produtos, ambos óleo de parafina — 012573 EKO OIL SPRAY e 014386 OLIONET — e só em BARBABIETOLA, CARCIOFO, CETRIOLO, COCOMERO, FAGIOLO, MELONE e ZUCCHINO. Nunca em agrumi, nunca em ornamentais.",
+    "UNIAO_DE_AUTORIZACOES": "NAO",
+    "UNIAO_EXPLICADA": "A questão da união não se coloca porque a lista é vazia: zero pares em AGRUMI x ALEURODIDI. Fica registado o aviso simétrico, que é o erro que se cometeria com pressa: os sete inseticidas ADAMA registados em AGRUMI (LAMDEX EXTRA, FORZA, NINJA, DURAVIS, ELTIRA, APYZA WG, APYZA 500 WG) NÃO PODEM ser apresentados como resposta a este alvo. Estão autorizados para AFIDI, CIMICI, COCCINIGLIE e MOSCA em citrinos — não para aleurodídeos, e muito menos para Aleurocanthus spiniferus. O documento, por sua vez, não nomeia um único produto fitofarmacêutico: as únicas ferramentas que cita são poda dos rebentos comprometidos, lavagens e lançamento de auxiliares (Macrolophus pygmaeus, Amblyseius swirskii). Não há \"o produto\" nesta ficha porque não há produto nenhum, nem do nosso lado nem do lado da fonte.",
+    "OPORTUNIDADE": "NENHUMA_DEMONSTRAVEL"
+   },
+   "E_MAPA_DE_ACAO": [
+    {
+     "DEPARTAMENTO": "DESENVOLVIMENTO_DE_MERCADO",
+     "ACIONAVEL": "SIM",
+     "RAZAO": "SIM, e é o destinatário certo — precisamente porque a leitura acionável desta ficha é lacuna de portefólio, não venda. Três factos desta ficha sustentam-no. Primeiro: AGRUMI é cultura onde já estamos (47 pares lidos, sete registos inseticidas) e onde temos exatamente zero para este alvo — a lacuna é nossa, num sítio onde já jogamos. Segundo: a estrutura de procura muda de natureza se o ato sair. Hoje o controlo é medida imposta pelo serviço fitossanitário e paga por ele; a oradora diz literalmente que o controlo biológico é \"una delle misure previste\" pelo regulamento dos focolai em contenção. Depois, se a obrigação cair, quem decide é quem gere o verde urbano, os viveiros e os citrinos — outro comprador, outro critério, outro ciclo de decisão. Isso é dimensionamento de mercado, não é campanha. Terceiro, e é o entregável concreto e barato: responder se A. spiniferus existe em citrinos DE PRODUÇÃO no sul de Itália. Todo este documento é verde urbano do norte (Bergamo, Ravarino) mais viveiros da Ligúria — se a praga não chegou ao citricultura comercial, não há mercado nenhum a preparar e esta ficha morre aqui, o que também é um resultado útil. Nenhum destes três exige que o ato saia primeiro."
+    },
+    {
+     "DEPARTAMENTO": "MARKETING",
+     "ACIONAVEL": "NAO",
+     "RAZAO": "NÃO, e é um NÃO firme. Não há mensagem possível: nenhum ato foi publicado, nenhum regulador se pronunciou, não temos um único rótulo italiano neste par cultura x alvo, e a única fonte da probabilidade é a parte que apresentou o pedido a estimar a sua própria hipótese de êxito. Pior: comunicar oportunidade química aqui seria remar contra o que o documento diz. O objetivo declarado da Emilia-Romagna era \"trovare un'alternativa all'utilizzo di prodotti chimici\" em ambiente urbano, e a conclusão da Lombardia enquadra o auxiliar como forma de \"limitare l'impiego di insetticidi in ambiente urbano\". Qualquer peça de marketing construída sobre este sinal, hoje, seria desmentida pelo próprio documento que a originou."
+    },
+    {
+     "DEPARTAMENTO": "COMERCIAL_RTV",
+     "ACIONAVEL": "NAO",
+     "RAZAO": "NÃO. Um RTV não tem o que recomendar: zero pares autorizados neste alvo, nenhum produto nomeado no documento, nenhuma dose, nenhum momento de aplicação estabelecido — a própria oradora diz que \"momenti di applicazione\" ainda têm de ser aprofundados. E o interlocutor está errado: quem hoje toma a decisão nos focolai é o serviço fitossanitário regional a cumprir regulamento, e quem gere as sebes de Pyracantha em Bergamo e Ravarino é o município, não o citricultor da carteira do RTV. Levar isto ao campo agora só produziria uma conversa sobre um produto que não existe."
+    },
+    {
+     "DEPARTAMENTO": "CIENCIA_TECNICO",
+     "ACIONAVEL": "SIM",
+     "RAZAO": "SIM, por dois itens concretos e verificáveis desta ficha. (1) DÍVIDA DE VOCABULÁRIO COM CONSEQUÊNCIA MEDIDA: Aleurocanthus não aparece em nenhum ponto de scripts/it_rotulo_vocab.py; sob ALEURODIDI estão apenas aleurodid[ei], trialeurodes e bemisia. Eu mapeei A. spiniferus para ALEURODIDI por família, por minha conta, sem fonte escrita no ficheiro — exatamente o tipo de equivalência-tácita que o caso OLIO MINERALE já mostrou ser um defeito. Enquanto a decisão não estiver escrita com fonte, RAW_TERM e RELATION_TYPE, toda a consulta futura sobre esta praga devolve um zero que ninguém sabe interpretar. (2) PROTOCOLO APROVEITÁVEL: o documento entrega um desenho experimental completo e replicado em duas regiões contra este alvo — sebes de Pyracantha de ~30 m, dois lançamentos (meados de julho, meados de agosto), controlos pré-lançamento e aos 7/15/30/60/70 dias, 20 rebentos por planta, com os confundidores já identificados (chuva que lava o auxiliar, podas dos proprietários). Se alguma vez quisermos dados de eficácia comparáveis neste alvo, é este o protocolo com que se compara."
+    },
+    {
+     "DEPARTAMENTO": "SUPPLY",
+     "ACIONAVEL": "NAO",
+     "RAZAO": "NÃO. Não há SKU, não há par autorizado, não há ato publicado e não há sequer resposta à pergunta de se a praga existe em citricultura de produção. Sem produto e sem procura identificada não há volume a prever nem matéria-prima a reservar — qualquer número que a Supply produzisse aqui seria inventado. Este departamento só entra depois de existir um registo, e nada nesta ficha o anuncia."
+    },
+    {
+     "DEPARTAMENTO": "REGULATORIO_PORTFOLIO",
+     "ACIONAVEL": "SIM",
+     "RAZAO": "SIM, e é quem detém as duas perguntas que bloqueiam todo o resto. Primeira, regulatória e atrasada: o objeto do sinal é um ato pendente — alteração ao Reg. (UE) 2019/2072 que remova A. spiniferus do anexo de pragas de quarentena ou o passe a RNQP, ou circular do Comitato Fitosanitario Nazionale (órgão nomeado no documento) aos serviços regionais. Hoje, 2026-09-04, passaram 170 dias sobre a declaração e estamos dentro da janela \"prossimi mesi\" que a requerente declarou: ninguém aqui consegue dizer se o ato saiu, se foi indeferido ou se continua pendente, e só este departamento o pode apurar. Segunda, de portefólio: AGRUMI x ALEURODIDI = 0 nos 2.928 pares lidos, com os sete inseticidas de agrumi (008259, 013560, 013590, 015275, 017687, 018156, 018165) a cobrirem apenas afídeos, cimices, cochonilhas e mosca. Confirmar essa ausência por leitura de rótulo, e não por consulta ao conjunto derivado, é trabalho deste departamento."
+    }
+   ],
+   "F_ACAO_POSSIVEL": {
+    "CLASSE": "MONITORAR",
+    "ACOES": [
+     "VERIFICAR HOJE SE O ATO JÁ SAIU. Procurar alteração ao Reg. (UE) 2019/2072 que remova Aleurocanthus spiniferus do anexo de pragas de quarentena ou o passe a RNQP, e circular do Comitato Fitosanitario Nazionale aos serviços regionais. Passaram 170 dias sobre 18/03/2026, dentro da janela 'prossimi mesi' declarada pela própria requerente. Enquanto isto não for feito, esta ficha não sabe se o sinal já se consumou. Dono: Regulatório.",
+     "ESCREVER A DECISÃO SOBRE ALEUROCANTHUS NO VOCABULÁRIO CONTROLADO (scripts/it_rotulo_vocab.py), com RAW_TERM, RELATION_TYPE e fonte — pertence ou não a ALEURODIDI, que hoje enumera só aleurodid[ei], trialeurodes e bemisia. Até estar escrita, toda a consulta futura sobre esta praga devolve um zero falso e ninguém sabe distinguir 'não há autorização' de 'não está no catálogo'. Dono: Ciência/Técnico.",
+     "CONFIRMAR POR LEITURA DE RÓTULO, não pelo conjunto derivado, que nenhum dos sete registos ADAMA em agrumi (008259 LAMDEX EXTRA, 013560 FORZA, 013590 NINJA, 015275 DURAVIS, 017687 ELTIRA, 018156 APYZA WG, 018165 APYZA 500 WG) declara aleurodídeos. Dono: Regulatório/Portefólio.",
+     "PERGUNTAR AO SERVIÇO FITOSSANITÁRIO DA LOMBARDIA (a oradora, Mariangela Ciampitti, é a parte requerente identificada) a quem foi entregue o pedido, quando, e em que estado está. O documento não diz o órgão nem a data de entrega. Dono: Regulatório.",
+     "DETERMINAR SE A. SPINIFERUS ESTÁ EM CITRINOS DE PRODUÇÃO NO SUL DE ITÁLIA. Todo o material desta fonte é verde urbano do norte (Bergamo, Ravarino) e viveiros da Ligúria. Se a praga não chegou à citricultura comercial, não há mercado a preparar e a ficha encerra-se — o que é resultado útil. Dono: Desenvolvimento de Mercado.",
+     "GUARDAR O PROTOCOLO DOS DOIS SERVIÇOS REGIONAIS como referência de comparação futura neste alvo: sebes de Pyracantha ~30 m, dois lançamentos (meados de julho e meados de agosto), controlos pré-lançamento e aos 7/15/30/60/70 dias, 20 rebentos por planta, confundidores chuva e poda. Dono: Ciência/Técnico.",
+     "NÃO COMUNICAR NADA EXTERNAMENTE. Não há ato, não há produto autorizado neste par, e o documento aponta na direção de reduzir inseticidas no urbano, não de os vender. Dono: Marketing (ação = abster-se)."
+    ],
+    "PORQUE": "MONITORAR e não AGIR_AGORA porque o gatilho e a invalidação são ambos eventos públicos externos que não controlamos — sai o ato, ou é indeferido, ou um novo foco em área livre congela o processo — e nenhuma das ações desta lista move um produto: são verificação, arrumação de catálogo e dimensionamento. Não é PREPARAR porque preparar pressupõe algo a aprontar, e não há nada: zero pares autorizados em AGRUMI x ALEURODIDI, nenhum registo em curso, nenhuma cultura ornamental sequer no nosso catálogo. Não é SEM_ACAO_DEMONSTRAVEL porque há duas coisas concretas, baratas e atrasadas: apurar se o ato já saiu (170 dias de silêncio dentro da janela declarada) e escrever a decisão sobre Aleurocanthus no vocabulário controlado, sem a qual todas as consultas futuras sobre esta praga mentem por omissão. A consequência do sinal — obrigação pública a transformar-se em escolha privada — é estrutural e desenrola-se em anos; a única coisa com relógio a correr é a verificação, e por isso o horizonte é imediato mesmo com a classe em monitorização."
+   },
+   "G_HORIZONTE": "IMEDIATO",
+   "AUTOAVALIACAO_DO_AUTOR": "PARCIAL",
+   "AUTOAVALIACAO_PORQUE": "PARCIAL, e o que falta é nomeável. TEM JANELA, MAS NÃO A NOSSA: o documento dá meados de julho e meados de agosto com avaliação a 70 dias, mas é a janela de lançamento de auxiliares num ensaio de dois serviços públicos, já fechada para 2026 (meados de agosto passou há 20 dias), e a própria oradora diz que os momentos de aplicação ainda têm de ser estudados. Não existe janela de aplicação de produto fitofarmacêutico neste documento — nenhum mês, nenhuma fase fenológica, nenhuma dose. NÃO TEM PORTEFÓLIO: AGRUMI x ALEURODIDI = 0 nos 2.928 pares publicados, e a metade ornamental nem sequer é cultura do nosso catálogo, pelo que aí a resposta honesta é 'não sabemos', não 'não há'. TEM DEPARTAMENTOS ACIONÁVEIS, MAS NENHUM COMERCIAL: Desenvolvimento de Mercado, Ciência/Técnico e Regulatório/Portefólio têm entregáveis reais; Marketing, Comercial/RTV e Supply não têm nada e o NÃO deles é sincero, não é falta de esforço. FALTA, EM CONCRETO: (a) o estado do ato hoje, 170 dias depois da fala e sem verificação; (b) a quem foi entregue o pedido e quando; (c) se A. spiniferus existe em citricultura de produção em Itália, sem o que não há mercado a dimensionar; (d) a decisão escrita sobre se Aleurocanthus pertence a ALEURODIDI, hoje uma inferência minha sem fonte no ficheiro; (e) qualquer produto, substância ou dose — o documento não nomeia nenhum; (f) confirmação de que a queda do estatuto encerra mesmo as medidas obrigatórias, que é inferência minha e não conteúdo da fonte, tal como a lista de 'restrições de movimentação e tratamentos obrigatórios' que não está no documento em lado nenhum. Não completei nada disto por conhecimento agronómico ou regulatório genérico.",
+   "DEFEITOS_ENCONTRADOS": null,
+   "CORRECOES_OBRIGATORIAS": null,
+   "JANELA_INVENTADA": null,
+   "UNIAO_MAQUIADA": null,
+   "PORTFOLIO_ERRADO": null,
+   "CITACAO_CONFERIDA_PELO_REFUTADOR": null
   },
   {
    "CAND_ID": "ITFC-044",
-   "ESTADO": "SEM_FICHA",
-   "PORQUE": "o agente que escreveria a ficha nao devolveu resultado",
+   "ESTADO": "SEM_REFUTACAO",
+   "MOTIVO_DO_VEREDITO": null,
+   "VALOR": null,
+   "VALOR_PORQUE": null,
+   "NOMEADO_PELO_USUARIO": false,
    "SOURCE_ID": "szsLkUd2cy4",
-   "SINAL": "Na Capitanata, a primeira aparicao danosa do acaro-ferrugineo do tomate ja se deslocou cerca de dois meses para tras — da terceira decada de agosto em 2011 para o fim de junho nos ultimos anos — e o acaro deixou de ser fitofago secundario para causar danos importantes em Italia e em toda a Europa, tanto em estufa como em pleno campo. A decisao aberta que isto muda, antes da campanha de 2026: quem definir o calendario de monitoramento e de acaricida no tomate de industria pelo historico chega tarde por duas geracoes; a janela util passa a abrir no fim de junho nas zonas de colheita precoce e nas areas mais quentes junto ao mar, onde o eriofideo aparece primeiro. Em termos de mercado, e um alvo que migra de secundario a alvo de rotulo em tomate de industria, numa das maiores areas de producao de Italia.",
-   "NOMEADO_PELO_USUARIO": false
+   "TITULO": "Tomate de industria na Capitanata: o acaro-ferrugineo aparece dois meses mais cedo — fim de junho, contra a terceira decada de agosto em 2011",
+   "A_FATO": {
+    "O_QUE_ACONTECEU": "Nas Giornate Fitopatologiche 2026 (sessao da tarde de 18 de marco), Ilaria Di Sita, do grupo de entomologia da Universita di Foggia, sintetizou o trabalho \"Risultati del monitoraggio pluriennale dell'acaro rugginoso del Pomodoro in Capitanata\". O monitoramento corre desde 2011 no Sul de Italia, \"una delle principali aree di produzione in Italia del pomodoro da industria\" (idx 71044), com amostragens SEMANAIS da floracao a colheita em sitios de colheita precoce (provincias de Campobasso e Foggia), medio-precoce e medio-tardia (Foggia) e tardia (Foggia e Potenza); as folhas sao processadas em laboratorio por imersao em tensoativo, separacao em peneiros de malha decrescente e contagem ao estereomicroscopio (protocolo Monfreda et al.). Tres resultados: (1) desde 2011 o eriofideo esta cada vez mais difundido na cultura do tomate no areal estudado, e a sua presenca foi ficando progressivamente antecipada — no areal de Lesina, zona de colheita precoce, em 2011 apareceu a partir da terceira decada de agosto, e nos ultimos anos aparece de modo danoso cerca de dois meses antes, praticamente desde o fim de junho; (2) dentro do mesmo ano, aparece primeiro \"nelle aree piu calde prospicenti al mare\"; (3) mudanca de estatuto do alvo — ate ha pouco era considerado fitofago secundario do tomate, e nos ultimos anos, em Italia e em toda a Europa, registam-se \"importanti danni\", tanto em estufa como em pleno campo. Os autores concluem que as dimensoes reduzidas do acaro e a elevada variabilidade entre sitios e entre anos na data da primeira aparicao tornam o monitoramento necessario para montar corretamente a estrategia de controlo integrado e para intervir de modo atempado e dirigido; acrescentam que o metodo de laboratorio e de dificil aplicacao em larga escala por ser muito laborioso, e que estao em curso estudos para pôr a ponto um metodo de monitoramento rapido.",
+    "FONTE": "Giornate Fitopatologiche 2026, sessao pomeridiana de 18 de marco — sintese de seis contributos apresentada por Ilaria Di Sita (gruppo di entomologia, Universita di Foggia); terceiro trabalho da serie, \"Risultati del monitoraggio pluriennale dell'acaro rugginoso del Pomodoro in Capitanata\". Video YouTube szsLkUd2cy4, canal \"Giornate Fitopatologiche\", legenda automatica italiana (YOUTUBE_ASR_AUTO), duracao 13744 s. Transcricao integral em /home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/szsLkUd2cy4.json, campo TRANSCRIPT (176752 caracteres); bloco do eriofideo entre os indices ~70950 e ~74500. ATENCAO A PROVENIENCIA: os rotulos declarados da rota deste video sao outros — CROP_DECLARED_BY_THE_ROUTE = \"PESCO, MELO, PERO, AGRUMI, OLIVO, NOCE\", ISSUE = \"CERATITIS, FORFICULA, CIMICE ASIATICA, PHILAENUS, CYDIA, CONTARINIA\", REGION_NAMED = \"Emilia-Romagna\". Cultura, alvo e regiao desta ficha foram lidos DENTRO do bloco, contra o rotulo da rota, e nao herdados dele.",
+    "CITACAO_VERBATIM": "Inoltre è interessante notare che nel tempo è stata registrata una presenza dell'agaro progressivamente anticipata. Questa è una cosa che abbiamo visto molto bene nell'areale di Lesina che è una zona a raccolta precoce dove nel 2011 l'eriofide è comparso a partire dalla terza decade del mese di agosto, mentre negli ultimi anni l'eriofide compare in modo dannoso circa due mesi prima, praticamente dall dalla fine del del mese di giugno. Per quanto riguarda invece i campionamenti effettuati nello stesso anno, gli autori notano che l'eriofide compare prima nelle aree più calde prospicenti al mare. Fino a qualche tempo fa l'eriofide non era considerato un fitofago importante per la coltura del pomodoro, era piuttosto considerato un fitofago secondario. Negli ultimi anni però in Italia, ma in realtà in tutta Europa, si stanno registrando degli importanti danni a causa di quest'acaro sia in serra che in pieno campo.",
+    "CITACAO_CONFERIDA": "SIM",
+    "DATA_DO_FATO": "Comunicacao: 2026-03-18 (sessao da tarde das Giornate Fitopatologiche 2026). Serie observada: 2011 (\"il primo anno di monitoraggio\") ate \"oggi\". AVISO: o documento NAO data \"negli ultimi anni\" — nao ha lista de anos nem datas de primeira aparicao ano a ano; o unico ano com data explicita e 2011 (terceira decada de agosto).",
+    "DATA_DA_PUBLICACAO": "2026-05-11",
+    "PAIS": "ITALIA. A mudanca de estatuto do alvo e declarada mais larga: \"in Italia, ma in realta in tutta Europa\".",
+    "REGIAO": "Capitanata — provincia di Foggia, com o areal de Lesina nomeado dentro da citacao como zona de colheita precoce. O mesmo trabalho declara sitios amostrados tambem na provincia de Campobasso (Molise) e na provincia di Potenza (Basilicata). NAO e Emilia-Romagna, apesar de ser o que a rota do video declara.",
+    "CULTURA": "POMODORO DA INDUSTRIA (canonico: POMODORO — scripts/it_rotulo_vocab.py, CULTURAS['POMODORO'] = pomodor[oi]|lycopersic\\w*). Sustentada no bloco por \"la coltura del pomodoro\" dentro da citacao e por \"una delle principali aree di produzione in Italia del pomodoro da industria\".",
+    "ALVO": "Acaro rugginoso / eriofideo do tomate. Canonico estrito: ERIOFIDI (ALVOS['ERIOFIDI'] = eriofid[ei]) — a fonte chama-lhe \"eriofide\" repetidamente dentro da citacao. Leitura larga: ACARI (ALVOS['ACARI'] = acar[oi]|tetranychus|panonychus), porque a fonte tambem escreve \"acaro rugginoso\" e \"quest'acaro\". Binomio Aculops lycopersici: a oradora escreve \"l'acaro rugginoso del pomodoro Aculops licopersici\" no indice 62729, na abertura em que enumera os quatro trabalhos — cerca de 10 mil caracteres ANTES da citacao, nao dentro do bloco. Mesmo documento, mesma oradora, mesmo trabalho, mas a atribuicao do binomio e contextual e nao literal do paragrafo citado."
+   },
+   "B_CONFIANCA": {
+    "ESTADO_DO_TEMPO": "OBSERVED_NOW",
+    "OBSERVADO": [
+     "Serie de monitoramento pluriennale conduzida pela Universita di Foggia desde 2011 ate hoje na Capitanata, numa das principais areas de tomate de industria de Italia (idx 71044).",
+     "Amostragem semanal da floracao a colheita: 'I campionamenti si sono susseguiti settimanalmente dalla fioritura alla raccolta' (idx 71744). E o unico calendario que o documento declara.",
+     "Tipologia de sitios declarada: colheita precoce em Campobasso e Foggia; medio-precoce e medio-tardia em Foggia; tardia em Foggia e Potenza (idx 71467, 71580). O documento NAO data nenhuma destas colheitas.",
+     "Lesina (zona de colheita precoce): em 2011 o eriofideo apareceu a partir da TERCEIRA DECADA DE AGOSTO.",
+     "Nos ultimos anos, em Lesina, aparece de modo danoso cerca de DOIS MESES antes, praticamente desde o FIM DE JUNHO. A fonte diz 'circa due mesi' — nao conta geracoes.",
+     "Dentro do mesmo ano, o eriofideo aparece primeiro nas areas mais quentes viradas para o mar (idx 73439).",
+     "Desde 2011 o eriofideo esta 'sempre piu diffuso' na cultura do tomate no areal estudado.",
+     "Mudanca de estatuto do alvo: era considerado fitofago secundario do tomate; nos ultimos anos, em Italia e em toda a Europa, registam-se 'importanti danni', 'sia in serra che in pieno campo' (idx 73710, 73795).",
+     "Protocolo de laboratorio descrito: imersao integral em solucao com tensoativo, separacao por peneiros empilhados de malha decrescente, lavagem do ultimo peneiro com agua destilada e contagem dos acaros ao estereomicroscopio (protocolo Monfreda et al.).",
+     "Conclusao dos autores: as dimensoes reduzidas e 'l'elevata variabilita tra i diversi siti e negli anni della prima comparsa' tornam o monitoramento necessario para montar a estrategia de controlo integrado e 'per intervenire in modo tempestivo e mirato sul problema in campo' (idx 73878, 74087).",
+     "O metodo de laboratorio e 'di difficile applicazione su ampia scala perche e molto laborioso' e 'sono in corso ulteriori studi per la messa a punto di un metodo di monitoraggio' rapido e eficaz (idx 74313, 74388).",
+     "AVISO DE NAO-CONFUSAO: o unico acaricida nomeado em toda a sessao (Kanemite, acequinocyl) pertence a OUTRO trabalho da mesma sintese, contra Tetranychus urticae em cucurbitaceas e morango. Nao tem relacao nenhuma com o eriofideo do tomate."
+    ],
+    "INFERIDO": [
+     "Que a janela util de vigilancia/intervencao 'passa a abrir no fim de junho' — a fonte reporta uma data de PRIMEIRA APARICAO OBSERVADA, nunca declara janela nem momento de tratamento. Esta derivada e HIPOTESE do analista, nao afirmacao da fonte.",
+     "Que a antecipacao de dois meses se generaliza para alem de Lesina — os proprios autores avisam da elevada variabilidade entre sitios e entre anos, o que enfraquece qualquer data unica.",
+     "Que a decisao aberta e o calendario da campanha de 2027 — a fonte tira uma conclusao de PROCESSO (monitorar), nao de data, e nao projeta ano nenhum.",
+     "Que se deve comecar a amostrar pelos areais precoces e pelas faixas costeiras mais quentes — deriva da observacao 'compare prima nelle aree piu calde prospicenti al mare', mas a fonte nao a converte em regra de amostragem.",
+     "Que o 'eriofide'/'acaro rugginoso' da citacao e Aculops lycopersici — o binomio esta no mesmo documento e no mesmo trabalho, mas ~10 mil caracteres antes, na enumeracao de abertura.",
+     "Que os sitios medio-tardivos e tardivos (Foggia, Potenza) ainda tenham cultura em campo em setembro de 2026 — o documento nomeia essas tipologias mas NUNCA as data.",
+     "Que o alvo, ao migrar de secundario a causador de danos importantes, se torne alvo de rotulo em tomate de industria — e uma leitura de mercado, plausivel, mas nao esta na fonte e nao tem nenhum registo que a sustente."
+    ],
+    "NAO_SABEMOS": [
+     "Qual e o momento de tratamento. O bloco inteiro nao contem nenhuma ocorrencia de 'trattamento', nenhuma soglia/limiar de intervencao, nenhum produto e nenhuma dose para este alvo. Grep conferido no bloco: 'trattament' = 0 ocorrencias.",
+     "Quanto e o dano. 'Importanti danni' e qualitativo: nao ha percentagem de infestacao, nao ha perda de rendimento, nao ha numero nenhum.",
+     "Que area esta afetada. Nao ha hectares, nao ha proporcao do areal da Capitanata, nao ha numero de explorações.",
+     "Se o 'Acari' generico dos rotulos 012573 e 014386 cobre juridicamente eriofideos. O texto do rotulo enumera 'contro Afidi, Acari, Aleu-rodidi, Ditteri agromizidi, Tripidi, uova di Dorifora, Lepidotteri e Coleotteri in periodo vegetativo' e nunca nomeia eriofideos; o vocabulario canonico mantem ERIOFIDI e ACARI como alvos SEPARADOS e nao declara nenhuma ponte taxonomica entre eles (TAXONOMIA so cobre o caso ANTRACNOSI).",
+     "Quais anos sao 'negli ultimi anni' e qual a data de primeira aparicao ano a ano e sitio a sitio — a sintese da a tendencia, nao a serie.",
+     "Se a campanha de 2026 confirmou a antecipacao. O documento e de marco/maio de 2026 e nao ha boletim de 2026 no acervo.",
+     "Se existe, fora do conjunto ADAMA publicado, algum acaricida registado em Italia para eriofideos em tomate. So lemos o conjunto ADAMA: nao sabemos nada sobre o mercado registado alheio.",
+     "Se o metodo de monitoramento rapido em desenvolvimento na Universita di Foggia ja existe, quando sai, e o que custa."
+    ]
+   },
+   "C_TEMPO_AGRONOMICO": {
+    "JANELA_DE_APLICACAO": "DUAS JANELAS DIFERENTES — nao as confundir. (1) JANELA DE APLICACAO / TRATAMENTO: NAO SEI. O documento nao declara nenhum momento de tratamento, nenhum limiar de intervencao e nenhum produto para este alvo; grep de 'trattament' no bloco = 0. (2) JANELA DE MONITORAMENTO — esta o documento da, e da com base fenologica explicita: amostragem SEMANAL DA FLORACAO A COLHEITA, e primeira aparicao danosa observada a partir do FIM DE JUNHO nos ultimos anos no areal de Lesina (colheita precoce), contra a TERCEIRA DECADA DE AGOSTO em 2011, com aparicao mais precoce nas areas mais quentes viradas para o mar. Esta janela e OBSERVADA (passado medido), nao prevista pela fonte: escrever \"a janela abre a fim de junho\" como afirmacao seca transformaria tendencia em previsao. Para 2026 ja fechou (hoje e 2026-09-04); a janela viva e a da campanha de 2027, aproximadamente 2027-06 a 2027-08 no areal precoce, e essa datacao para 2027 e minha, nao da fonte.",
+    "BASE_DA_JANELA": "HA BASE, e e literal do documento, em tres pecas: (a) fase fenologica — \"I campionamenti si sono susseguiti settimanalmente dalla fioritura alla raccolta\" (idx 71744); (b) meses e decada — \"nel 2011 l'eriofide e comparso a partire dalla terza decade del mese di agosto, mentre negli ultimi anni l'eriofide compare in modo dannoso circa due mesi prima, praticamente dalla fine del mese di giugno\" (dentro da citacao conferida, idx 72905); (c) gradiente territorial — \"l'eriofide compare prima nelle aree piu calde prospicenti al mare\" (idx 73439). O que NAO tem base no documento: qualquer momento de tratamento, e a data da colheita nos sitios medio-tardivos e tardivos, que o documento nomeia mas nunca data.",
+    "AGIR_AGORA": "NAO",
+    "AINDA_HA_TEMPO": "NAO",
+    "PROXIMA_JANELA_OU_SAFRA": "SIM",
+    "PORQUE": "Hoje e 2026-09-04. A janela observada de primeira aparicao (fim de junho) fechou ha cerca de dois meses e meio, e para o que resta da campanha de 2026 o documento nao declara nenhum momento de tratamento a que se possa chegar a tempo — nem sequer sabemos se ha cultura no campo, porque o documento nomeia sitios de colheita medio-tardia e tardia (Foggia, Potenza) mas nunca os data. Por isso AGIR AGORA = NAO e AINDA HA TEMPO = NAO: nao ha accao de campo demonstravel a partir desta fonte nesta data. O que continua aberto e a proxima safra: a decisao de calendario — quando comecar a amostrar e com que base — ainda nao foi tomada para 2027, e e exatamente a decisao que a serie de 2011 a hoje desloca, porque quem pautar o monitoramento pelo historico de agosto chega cerca de dois meses tarde nos areais precoces. Esta e a razao pela qual o sinal nao esta morto apesar de a data ter passado: o objeto da decisao e o calendario, e o calendario da campanha seguinte monta-se fora da campanha."
+   },
+   "D_RELEVANCIA_ADAMA": {
+    "TEM_PORTFOLIO": "SIM",
+    "PRODUTOS": [
+     "012573 · EKO OIL SPRAY · PARAFFIN OIL (CAS 97862-82-3) · par POMODORO x ACARI · CROP_AS_WRITTEN 'PATATA PEPERONE POMODORO' · TARGET_AS_WRITTEN 'contro Afidi, Acari, Aleu- rodidi, Ditteri agromizidi, Tripidi, uova di Dorifora, Lepidotteri e Coleotteri in periodo vegetativo' · rota INLINE_COLON_HEAD, p0",
+     "014386 · OLIONET · PARAFFIN OIL (CAS 97862-82-3) · par POMODORO x ACARI · CROP_AS_WRITTEN 'PATATA PEPERONE POMODORO' · mesma redacao generica, com dose '1,0-2,5 l/hl' · rota INLINE_COLON_HEAD, p0",
+     "AVISO QUE ACOMPANHA OS DOIS: nenhum destes rotulos nomeia eriofideos. O par existe pela palavra 'Acari' dentro de uma enumeracao generica de rotulo. POMODORO x ERIOFIDI = ZERO pares no conjunto publicado (2928 pares lidos)."
+    ],
+    "UNIAO_DE_AUTORIZACOES": "SIM",
+    "UNIAO_EXPLICADA": "Os dois rotulos acima sao a UNIAO das autorizacoes que o conjunto publicado sustenta para POMODORO x ACARI — nao sao uma escolha, nao sao uma recomendacao, e nenhum deles e \"o produto\". O documento nao nomeia produto nenhum: apresentar EKO OIL SPRAY ou OLIONET como resposta a este sinal seria pôr na boca da fonte uma coisa que ela nao diz. Ha ainda um segundo grau de cautela, mais forte do que o habitual: o alvo desta ficha, tal como a fonte o nomeia (\"eriofide\"), traduz-se no vocabulario canonico para ERIOFIDI, e POMODORO x ERIOFIDI da ZERO pares em 2928. Os dois pares acima aparecem so pela leitura larga \"acaro rugginoso\" -> ACARI, e a linha de rotulo que os sustenta e uma enumeracao generica que nunca escreve a palavra eriofideo. O vocabulario controlado mantem ERIOFIDI e ACARI como alvos canonicos separados e nao declara ponte taxonomica entre eles. Consequencia operacional: RELACAO DE PORTFOLIO NAO E AUTORIZACAO DE ROTULO. Ha aqui materia para uma pergunta ao Regulatorio, nao uma alegacao acaricida contra o eriofideo do tomate.",
+    "SEM_PORTFOLIO_PORQUE": "Para o alvo estritamente canonico (ERIOFIDI) em POMODORO nao ha par, e a razao e a primeira das tres, nao as outras duas: NAO HA AUTORIZACAO LIDA NO CONJUNTO PUBLICADO. Nao e \"nao lemos o rotulo\" — lemos o conjunto inteiro, 2928 pares. Nao e \"o alvo esta fora do catalogo\" — ERIOFIDI existe como alvo canonico proprio e aparece em dez culturas (ALBICOCCO, CILIEGIO, MANDORLO, MELO, NOCCIOLO, NOCE, PERO, PESCO, SUSINO, VITE), so nunca em POMODORO. Fica no entanto uma quarta hipotese que este conjunto nao consegue fechar: o conjunto lido e o dos rotulos ADAMA. Ausencia de par aqui nao diz nada sobre registos de terceiros em Italia para eriofideos em tomate. Ausencia de leitura nao e ausencia de autorizacao, e ausencia no nosso catalogo nao e ausencia no mercado.",
+    "OPORTUNIDADE": "FUTURA"
+   },
+   "E_MAPA_DE_ACAO": [
+    {
+     "DEPARTAMENTO": "DESENVOLVIMENTO_DE_MERCADO",
+     "ACIONAVEL": "SIM",
+     "RAZAO": "E o destinatario central desta ficha e o unico departamento para quem ela esta madura. O facto que o obriga a olhar esta em C_OBSERVADO: um alvo que a fonte declara ter passado de fitofago secundario a causador de \"importanti danni\" em Italia e em toda a Europa, em estufa e em pleno campo, numa das principais areas de tomate de industria do pais — e, do lado do portfolio, POMODORO x ERIOFIDI = ZERO pares em 2928, contra dez outras culturas onde ERIOFIDI ja e alvo canonico com rotulo. Isto e exatamente a forma de uma pergunta de desenvolvimento de mercado: existe aqui um segmento a definir, ou o alvo continua pequeno demais para justificar um registo? A ficha da a pergunta bem posta e da a assimetria que a motiva; nao da o dimensionamento, porque a fonte nao tem numeros de incidencia nem de area (ver C_NAO_SABEMOS). O trabalho e decidir se vale a pena ir buscar esses numeros, nao decidir com estes."
+    },
+    {
+     "DEPARTAMENTO": "MARKETING",
+     "ACIONAVEL": "NAO",
+     "RAZAO": "Nao ha nada que se possa comunicar sem inventar uma alegacao. Os unicos dois rotulos que tocam POMODORO x ACARI (012573 EKO OIL SPRAY e 014386 OLIONET) sustentam-se numa enumeracao generica de rotulo que nunca escreve a palavra eriofideo, e POMODORO x ERIOFIDI da zero. Qualquer peca de comunicacao que ligasse o acaro-ferrugineo do tomate a um produto ADAMA seria uma alegacao acaricida sem rotulo que a suporte. Acresce que a fonte nao nomeia produto nenhum e nao declara momento de tratamento: nao ha sequer uma recomendacao agronomica de terceiros para citar. Quando o Regulatorio responder sobre o alcance do 'Acari' generico, esta linha pode reabrir — hoje nao."
+    },
+    {
+     "DEPARTAMENTO": "COMERCIAL_RTV",
+     "ACIONAVEL": "NAO",
+     "RAZAO": "Nao ha o que levar ao campo. Faltam as tres coisas de que um RTV precisa ao mesmo tempo: produto autorizado para o alvo (zero pares POMODORO x ERIOFIDI), momento de aplicacao (o documento nao declara nenhum tratamento nem limiar) e janela viva (a de fim de junho de 2026 fechou ha cerca de dois meses e meio, e hoje e 2026-09-04). Mandar RTVs a Capitanata com esta ficha seria pedir-lhes que sustentassem em campo uma alegacao que nenhum rotulo suporta. Marcar SIM aqui era o erro mais tentador desta ficha, porque a regiao e grande e o sinal e bom: continua a ser errado. Reabre se e quando o Regulatorio fechar a questao do 'Acari' generico e existir um produto para conversar."
+    },
+    {
+     "DEPARTAMENTO": "CIENCIA_TECNICO",
+     "ACIONAVEL": "SIM",
+     "RAZAO": "Ha trabalho tecnico concreto e imediatamente executavel, e ele nasce de dois factos desta ficha. Primeiro, o documento entrega um protocolo de monitoramento reproduzivel e datado: amostragem semanal da floracao a colheita, extracao por imersao em tensoativo e peneiros de malha decrescente, contagem ao estereomicroscopio (protocolo Monfreda et al.) — e um calendario de referencia contra o qual comparar, fim de junho contra terceira decada de agosto de 2011. Segundo, os proprios autores declaram a fraqueza do metodo, \"di difficile applicazione su ampia scala perche e molto laborioso\", e declaram que ha estudos em curso para um metodo rapido: e um ponto de contacto tecnico nomeado (grupo de entomologia da Universita di Foggia, Ilaria Di Sita, prof. Germinara) e um resultado a acompanhar. O que o tecnico NAO pode fazer com esta ficha e recomendar intervencao: nao ha limiar nem tratamento na fonte."
+    },
+    {
+     "DEPARTAMENTO": "SUPPLY",
+     "ACIONAVEL": "NAO",
+     "RAZAO": "Nao ha nada para dimensionar. A fonte nao da incidencia, nao da area afetada, nao da hectares tratados nem volume de produto — \"importanti danni\" e qualitativo, e e a unica medida de dano no bloco (ver C_NAO_SABEMOS). Alem disso nao existe produto autorizado para o alvo cuja procura se pudesse projetar, e os proprios autores sublinham a elevada variabilidade entre sitios e entre anos na primeira aparicao, que impede qualquer serie de procura. Um pedido de previsao a Supply a partir desta ficha produziria um numero inventado com aparencia de estimativa."
+    },
+    {
+     "DEPARTAMENTO": "REGULATORIO_PORTFOLIO",
+     "ACIONAVEL": "SIM",
+     "RAZAO": "Ha uma pergunta fechada, respondivel por leitura de documento, e que decide tudo o resto nesta ficha: o \"Acari\" da enumeracao generica dos rotulos 012573 (EKO OIL SPRAY) e 014386 (OLIONET) — \"contro Afidi, Acari, Aleu-rodidi, Ditteri agromizidi, Tripidi, uova di Dorifora, Lepidotteri e Coleotteri in periodo vegetativo\", em PATATA PEPERONE POMODORO, olio di paraffina — cobre ou nao cobre eriofideos? Nenhum dos dois rotulos escreve a palavra, o vocabulario controlado mantem ERIOFIDI e ACARI separados e nao declara ponte taxonomica entre eles, e a resposta e o que separa \"temos dois rotulos\" de \"nao temos nada\" para este alvo. Enquanto nao for respondida, Marketing e Comercial ficam em NAO por construcao. A segunda pergunta, subordinada, e se o padrao ERIOFIDI-em-dez-culturas-mas-nunca-em-POMODORO e lacuna de registo ou ausencia de necessidade historica que a mudanca de estatuto do alvo veio alterar."
+    }
+   ],
+   "F_ACAO_POSSIVEL": {
+    "CLASSE": "PREPARAR",
+    "ACOES": [
+     "REGULATORIO — Ler o texto integral dos rotulos 012573 (EKO OIL SPRAY) e 014386 (OLIONET) e emitir um parecer de uma linha: o 'Acari' generico da enumeracao em PATATA PEPERONE POMODORO cobre, ou nao cobre, eriofideos (Aculops lycopersici)? Ate essa resposta, nenhuma alegacao acaricida existe para este alvo. Esta accao desbloqueia ou fecha definitivamente Marketing e Comercial.",
+     "DESENVOLVIMENTO DE MERCADO — Escrever a pergunta de segmento com os dois numeros que ja temos: POMODORO x ERIOFIDI = 0 pares em 2928, contra ERIOFIDI ja autorizado em dez culturas; e um alvo declarado pela fonte como tendo passado de secundario a causador de danos importantes em Italia e em toda a Europa, em estufa e em campo aberto. Decidir se vale ir buscar a incidencia e a area que esta ficha nao tem, nao decidir com o que ela tem.",
+     "CIENCIA/TECNICO — Montar o calendario de monitoramento de 2027 sobre o protocolo da propria fonte (semanal, da floracao a colheita), comecando pelos areais de colheita precoce e pelas faixas mais quentes junto ao mar, e nao sobre a referencia historica de fim de agosto. Registar que a antecipacao de dois meses esta medida em Lesina e que os autores avisam de elevada variabilidade entre sitios e anos: o calendario e uma hipotese a testar, nao uma data adquirida.",
+     "CIENCIA/TECNICO — Obter o texto completo do trabalho 'Risultati del monitoraggio pluriennale dell'acaro rugginoso del Pomodoro in Capitanata' (Giornate Fitopatologiche 2026) para as datas de primeira aparicao ano a ano e sitio a sitio, que a sintese oral resume mas nao lista; e acompanhar, junto do grupo de entomologia da Universita di Foggia, o metodo de monitoramento rapido que os autores declaram em desenvolvimento.",
+     "VERIFICACAO — Gatilho de confirmacao: boletins ou monitoramentos da Capitanata em 2027 a registarem presenca danosa do eriofideo ja em junho, sobretudo nos areais precoces e nas faixas costeiras. Gatilho de invalidacao, ditado pelos proprios autores: primeira aparicao de volta a agosto, ou a variabilidade entre sitios a mostrar que Lesina nao representa o areal.",
+     "NAO FAZER — Nao levar produto a campo, nao construir mensagem, nao pedir previsao de volume. E nao confundir com o Kanemite (acequinocyl) citado na mesma sessao: esse e de outro trabalho, contra Tetranychus urticae em cucurbitaceas e morango."
+    ],
+    "PORQUE": "A classe e PREPARAR e nao AGIR_AGORA porque a janela de 2026 fechou e porque, mesmo que nao tivesse fechado, o documento nao declara momento de tratamento nenhum: nao ha accao de campo a executar hoje. Nao e MONITORAR porque ha mais do que vigiar — ha duas determinacoes concretas a fazer fora da campanha (o parecer do Regulatorio sobre o alcance do 'Acari' generico, e o calendario de amostragem de 2027 montado sobre o protocolo da fonte em vez do historico de agosto), e ambas so tem valor se forem feitas ANTES da proxima janela. E nao e SEM_ACAO_DEMONSTRAVEL porque as accoes listadas sao verificaveis e apontam para factos desta ficha, nao para conhecimento geral. Todas as accoes que nao entraram na lista foram deixadas de fora pela mesma razao: exigiriam afirmar coisas que a fonte nao diz — um produto, uma dose, um limiar, um numero de hectares. O ordenamento tambem nao e arbitrario: a primeira accao e a do Regulatorio porque e a unica que pode mudar o estado de tres outros departamentos, e e barata — e leitura de dois documentos que ja temos identificados por numero de registo."
+   },
+   "G_HORIZONTE": "PROXIMA_SAFRA",
+   "AUTOAVALIACAO_DO_AUTOR": "PARCIAL",
+   "AUTOAVALIACAO_PORQUE": "A ficha tem as tres pecas, mas nenhuma delas na forma forte, e e por isso que fecha em PARCIAL e nao em SINAL_COMPLETO. JANELA: existe e tem base literal no documento (semanal da floracao a colheita; fim de junho contra terceira decada de agosto de 2011), mas e uma janela de MONITORAMENTO, nao de aplicacao — o momento de tratamento continua em NAO SEI, e sem ele nenhuma recomendacao de campo se escreve. PORTFOLIO: existe, mas e a uniao de dois rotulos de olio di paraffina alcancados por uma palavra generica; para o alvo tal como a fonte o nomeia, o portfolio e zero. Ou seja: temos relacao de portfolio e nao temos autorizacao de rotulo, e a diferenca entre as duas coisas e precisamente o que impede metade do mapa de accao de abrir. DEPARTAMENTO ACIONAVEL: tres marcam SIM, mas dois deles (Desenvolvimento de Mercado e Regulatorio) recebem uma PERGUNTA para responder, nao uma tarefa para executar; so Ciencia/Tecnico recebe trabalho que pode comecar hoje. Falta, em concreto, quatro coisas nomeaveis: (1) o parecer sobre o alcance do 'Acari' generico nos rotulos 012573 e 014386; (2) qualquer numero de incidencia, area ou dano — sem eles nao se dimensiona nada e Supply fica fechado; (3) as datas de primeira aparicao ano a ano e sitio a sitio, que a sintese oral resume mas nao lista; (4) confirmacao de campo de que a antecipacao medida em Lesina vale para o resto do areal, contra o aviso de variabilidade dos proprios autores. Uma nota final de honestidade sobre a datacao: o horizonte original do candidato dizia \"antes da campanha de 2026\" e esta vencido — hoje e 2026-09-04 e a janela de fim de junho de 2026 ja passou. A ficha foi reescrita para a proxima safra (aproximadamente junho a agosto de 2027) e essa datacao para 2027 e inferencia minha, nao afirmacao da fonte, que nao projeta ano nenhum. Publicar o horizonte antigo seria vender lead time que ja nao existe.",
+   "DEFEITOS_ENCONTRADOS": null,
+   "CORRECOES_OBRIGATORIAS": null,
+   "JANELA_INVENTADA": null,
+   "UNIAO_MAQUIADA": null,
+   "PORTFOLIO_ERRADO": null,
+   "CITACAO_CONFERIDA_PELO_REFUTADOR": null
   },
   {
    "CAND_ID": "ITFC-045",
-   "ESTADO": "SEM_FICHA",
-   "PORQUE": "o agente que escreveria a ficha nao devolveu resultado",
+   "ESTADO": "SEM_REFUTACAO",
+   "MOTIVO_DO_VEREDITO": null,
+   "VALOR": null,
+   "VALOR_PORQUE": null,
+   "NOMEADO_PELO_USUARIO": false,
    "SOURCE_ID": "szsLkUd2cy4",
-   "SINAL": "Os elaterideos devem crescer em importancia em Italia para alem da batata, alastrando as culturas sensiveis ja identificadas noutros paises (milho em primeiro lugar, e ainda alface, beterraba e horticolas em geral), porque nenhum produto pos-fipronil restitui persistencia e porque as praticas agronomicas em curso (minima lavoura, cover crops) favorecem as populacoes. A decisao aberta que isto muda e de posicionamento: hoje toda a oferta e a mesa tecnica nacional estao concentradas na batata ('adesso noi ci stiamo concentrando su patata'), e o proprio coordenador diz que a batata nao e a unica cultura afetada. Antecipar significa preparar dados, ensaios e rotulos de solo para milho e horticolas antes de o dano ser reconhecido nessas culturas, e nao depois.",
-   "NOMEADO_PELO_USUARIO": false
+   "TITULO": "Elaterideos deixam de ser problema so da batata: o coordenador do tavolo nazionale diz que o milho e as horticolas vem a seguir — e o rotulo de teflutrin da ADAMA ja cobre quase todas essas culturas",
+   "A_FATO": {
+    "O_QUE_ACONTECEU": "Nas Giornate Fitopatologiche 2026 (sessao da tarde de 18 de marco), Massimo Bariselli apresentou o aprofundamento sobre elaterideos falando em nome do tavolo tecnico nacional italiano, relatando o confronto internacional feito no MacFrut entre Franca, Suica, Austria e Italia. Depois de descrever a tabela italiana de decisao pre-semeadura, disse que o instrumento se aplica a batata \"ma anche su mais\", que hoje a atencao italiana esta concentrada na batata porque e ai que o problema emerge, mas que a batata nao e a unica cultura atingida — e declarou o seu receio de que nos proximos anos os elaterideos cresçam em importancia, porque as culturas sensiveis sao muitas. No mesmo bloco tinha ja mostrado, a partir do levantamento austriaco, que os danos comecam a atingir a alface e a beterraba e \"un po' tutte le culture erbacee, ortive\". O contexto que ele proprio da: revogacao do fipronil ha 12-13 anos, nenhum substituto com a mesma persistencia, minima lavoura e cover crops a favorecer as populacoes, e um tavolo nacional italiano \"su base volontaria e senza capacita di spesa, cioe non ha portafoglio\", enquanto Franca, Suica e Austria financiaram projetos plurianuais.",
+    "FONTE": "Video YouTube szsLkUd2cy4, canal \"Giornate Fitopatologiche\", titulo \"Giornate Fitopatologiche 2026: sessione pomeridiana del 18 marzo\". Legenda automatica italiana colhida pela rota json3 de youtube.com/api/timedtext a partir do indice do portal giornatefitopatologiche.it (DISTAL / Universita di Bologna). Ficheiro: /home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/szsLkUd2cy4.json, campo TRANSCRIPT, 176.752 caracteres. Orador: Massimo Bariselli, apresentado pelo moderador como autor do \"approfondimento sugli elateridi della patata\"; fala \"come tavolo nazionale\". ATENCAO: e ASR automatico, com gaguez e erros de transcricao de nomes proprios (\"Iatlorf\"/\"ITLorf\" por YATLORF, \"sordus\"/\"lustulatus\" por sordidus/ustulatus).",
+    "CITACAO_VERBATIM": "E questo è uno strumento che viene applicato su patata, ma anche su mais, perché adesso noi ci stiamo concentrando su patata perché in Italia fondamentalmente il problema emerge su patata, ma non è l'unica cultura su cui gli elateridi fanno danno, anzi io temo che nel prossimo futuro gli elateridi sarà uno di quei problemi destinato a a crescere come importanza perché sono tante le culture sensibili.",
+    "CITACAO_CONFERIDA": "SIM",
+    "DATA_DO_FATO": "2026-03-18",
+    "DATA_DA_PUBLICACAO": "2026-05-11",
+    "PAIS": "ITALIA",
+    "REGIAO": "ITALIA (ambito nacional). A citacao diz \"in Italia fondamentalmente il problema emerge su patata\" e o orador fala em nome do tavolo tecnico NACIONAL. NAO reivindico Emilia-Romagna: e a regiao do palestrante e seria heranca de cabecalho. A Emilia-Romagna so aparece a proposito de que especies se procuram em cada regiao (\"in Emilia-Romagna si cercano Brevis e litigiosus e sordus e non lustulatus che invece si cerca in Veneto\"), e a Pianura Padana e citada como a zona de dano mais elevado na batata — sem que a projecao futura lhe seja atribuida.",
+    "CULTURA": "PATATA e MAIS (ambas dentro da citacao). No mesmo bloco, e a partir do levantamento AUSTRIACO e nao italiano, o orador acrescenta LATTUGA e BARBABIETOLA e \"un po' tutte le culture erbacee, ortive\".",
+    "ALVO": "ELATERIDI (Agriotes spp. / vermes-arame). Especies prevalentes citadas por territorio: brevis, litigiosus e sordidus na Emilia-Romagna; ustulatus no Veneto; Agriotes sputator dominante na Suica e \"che praticamente da noi non troviamo praticamente mai\".",
+    "MOLECULA_OU_PRODUTO": "O documento NAO nomeia nenhum produto comercial da ADAMA. As substancias que nomeia sao: fipronil (revogado ha 12-13 anos, referencia de persistencia perdida), etoprofos (\"il caposaldo\", tambem ja revogado, \"non arriva a livelli che erano quelli del fipronil\"), piretroidi em geral, Beauveria bassiana, e feromonios para confusao sexual de Agriotes sordidus em Franca. Do lado ADAMA, a molecula que chega a este alvo e o TEFLUTRIN (piretroide, IRAC 3A) — mas isso vem do rotulo, nao do documento."
+   },
+   "B_CONFIANCA": {
+    "ESTADO_DO_TEMPO": "HYPOTHESIS",
+    "OBSERVADO": [
+     "Revogacao do fipronil ha 12-13 anos e, desde entao, 'i prodotti non hanno piu la stessa persistenza' e 'si e cominciato a vedere danni sempre piu frequenti' na batata — declarado como facto passado e presente.",
+     "Praticas agronomicas que favorecem as populacoes: 'le minime lavorazioni piuttosto che le cover crop'; e alteracoes climaticas com 'forti apporti di acqua in momenti in cui di solito non venivano' que provocam 'la risalita delle larve in momenti in cui prima non succedeva'.",
+     "Resposta institucional assimetrica: 'Francia, Svizzera e Austria hanno risposto con dei progetti di ricerca pluriennali, quindi hanno stanziato dei soldi'; 'Noi come Italia abbiamo fatto un tavolo nazionale, un tavolo tecnico nazionale che pero e su base volontaria e senza capacita di spesa, cioe non ha portafoglio.'",
+     "Avaliacao francesa do dano: sobretudo em batata-semente, o dano supera 4% e nao cumpre o requisito da norma ISO, com 2-3 milhoes de euros de prejuizo nesse segmento, e 'danni molto elevati anche su mais'. Isto e FRANCA, nao Italia.",
+     "Mapa italiano por regioes: elaterideos danosos 'un po' ovunque cia patata', com a Pianura Padana como a zona de dano mais elevado.",
+     "Austria: 'i danni cominciano a interessare la lattuga piuttosto che la barbabietola, piuttosto che un po' tutte le culture erbacce, ortive' — polifagia observada NA AUSTRIA.",
+     "Seis anos de ensaios franceses sobre todos os fitofarmacos pos-fipronil: 'nessun prodotto ha una performance totale', o etoprofos nao chega aos niveis do fipronil, e ha 'una grandissima variabilita della performance'. Explicacao dada: 'la difesa viene fatta alla semina, ma il danno viene eh arriva dopo, arriva quando il tubero si sta sviluppando, quindi quando i prodotti hanno di fatto interrotto la loro attivita.'",
+     "Confusao sexual para Agriotes sordidus em Franca: 'dopo 4 anni di lavoro ancora non ci sono dati conclusivi'.",
+     "Biofumigacao na Suica: com sorgo a fraccao sem dano aumenta, mas 'non e conclusivo perche il danno rimane'.",
+     "Lavoracoes: 'ci sono delle lavorazioni estive che possono essere molto efficaci perche vanno ad agire sulle larve giovani, vanno ad agire sulle uova'; investigacao austriaca com armadilhas identificou 'qual e il momento migliore per intervenire'.",
+     "Decisao pre-semeadura ja em uso em Italia: 'monitorare le presenza di elateridi con le trappole Iatlorf l'anno prima della semina della patata' para obter um indice numerico de capturas que diz se e ou nao oportuno semear batata; com populacao muito elevada, 'cerchero di precocizzare la cultura, cerchero comunque di seminare presto'.",
+     "Rotacao como agravante declarada (resposta do orador no debate): 'avere sempre graminace prima della patata, spesso nella nostra zona si fa grano, poi patata. Le graminacce tutto sommato piacciono e sono quelli piu favorevoli gli elateridi, quindi ci facciamo un po' del male da soli.'",
+     "Conclusao do orador: 'in questo momento non c'e un uno strumento vincente' e 'non c'e da nessuna parte uno strumento vincente per gestire gli elateridi'.",
+     "Divulgacao: o tavolo nazionale produziu linhas-guia de oito paginas, distribuidas ao lado das actas das Giornate, e um guia pratico para distinguir os adultos capturados, porque 'la conoscenza di queste specie e molto spesso poco diffusa'.",
+     "Intervencao do publico em representacao da producao: os agricultores esqueceram o monitoramento, 'con le ILOF non tutti in pochissimi le stiano utilizzando', e 'si chiamano insetti terricoli, non insetti pataticoli'; refere dois projetos activos em Italia e congressos internacionais na Noruega e este ano na Finlandia.",
+     "PORTFOLIO ADAMA (lido do texto do rotulo, nao do documento): de 163 rotulos italianos ADAMA, exactamente DOIS mencionam Agriotes — 008189 LEBRON 0.5 G e 014479 SCHERMO 0.5 G, ambos teflutrin 0,5% microgranular geodisinfestante, IRAC 3A. Linhas de Agriotes verbatim: 'Patata | Agriotes spp.'; 'Mais, Mais Dolce, Sorgo | Agriotes sp., Agrotis sp., Diabrotica sp.'; 'Barbabietola da zucchero | Agriotes sp., Atomaria linearis, ...'; 'Girasole, Soia | Agriotes sp., Agrotis sp.'; 'Pomodoro, Melanzana, Rapa, Navone, Melone, Cetriolo, Cocomero, Finocchio, Sedano, ... Pisello, Carota | Agriotes sp., Agrotis sp., ...'; 'Cavolo cappuccio, Cavolfiore, Cavolo broccolo | Agriotes sp., Agrotis sp., ...'; 'Tabacco | Agriotes spp., Agrotis spp., Tipula spp.'. Modo de emprego: 'si distribuisce al momento della semina ... lungo la fila della coltura', 'ammesso un solo trattamento per ciclo'."
+    ],
+    "INFERIDO": [
+     "Que a expansao a alface e beterraba vai acontecer EM ITALIA. O documento so a OBSERVA na Austria; para Italia e explicitamente receio pessoal do orador ('io temo'), sem serie, sem numero e sem ano.",
+     "Que 'nel prossimo futuro' significa as proximas uma a tres campanhas. O documento nao diz. Qualquer datacao e minha, nao dele.",
+     "Que a janela de posicionamento comercial esta aberta. Deduzo-o de dois factos do documento — a Italia nao tem projeto financiado e 'non c'e da nessuna parte uno strumento vincente' — mas o documento nunca fala em oportunidade comercial.",
+     "Que a uniao de autorizacoes ADAMA ja cobre a maior parte das culturas que o orador nomeia. E um cruzamento que EU fiz entre a transcricao e o texto dos rotulos 008189/014479; o documento nao nomeia a ADAMA nem nenhum produto seu.",
+     "Que o momento de decisao pre-semeadura descrito para a batata ('l'anno prima della semina') e o ponto natural de insercao de uma oferta ligada a monitorizacao. O documento descreve a decisao; a insercao comercial e minha.",
+     "Que os dois rotulos sao gemeos e valem como UMA autorizacao carregada por dois registos. Baseio-me em terem a mesma substancia, a mesma concentracao e a mesma tabela de usos linha a linha — nao numa declaracao do fabricante.",
+     "Que a linha de FRUMENTO x ELATERIDI que consta do conjunto antigo (productRelationships.json) e falso positivo: o texto do rotulo da, para Frumento, 'Bibio hortulanus, Hylemya sp.' e nao Agriotes. E leitura minha do rotulo."
+    ],
+    "NAO_SABEMOS": [
+     "Quando. Nao ha ano, nao ha campanha, nao ha mes. 'Nel prossimo futuro' e tudo o que a fonte da.",
+     "Quanto. Nenhuma quantificacao para a expansao italiana fora da batata: nem hectares, nem percentagem de dano, nem valor economico. O unico numero de dano em milho e FRANCES, e os 4%/2-3 milhoes de euros sao de batata-semente francesa.",
+     "Se ha ja dano por elaterideos em milho, alface ou beterraba EM ITALIA. O documento nao apresenta um unico dado italiano fora da batata.",
+     "Onde se situa o TEFLUTRIN na variabilidade de performance descrita. O ensaio frances de 6 anos nomeia etoprofos e piretroidi genericamente; nao nomeia teflutrin nem o classifica. Sem isto nao existe argumento de eficacia defensavel.",
+     "Se a LATTUGA esta dentro do ambito autorizado. O cabecalho dos dois rotulos declara ambito generico 'ortaggi' e a faixa de respeito fala de 'ortaggi a foglia', mas nenhuma linha de Agriotes nomeia lattuga, e a palavra 'lattuga' nao aparece em nenhum dos dois ficheiros de texto do rotulo. Isto e ambito declarado por resolver, nao ausencia de autorizacao.",
+     "O estado registral dos registos 008189 e 014479 — datas de expiracao, revisao ou restricoes em curso. Nao foi lido nesta ficha.",
+     "O que cobrem os dois projetos italianos referidos no debate. Os nomes chegam corrompidos pelo ASR ('Agribatuna nel capofila', Astra, Universita di Ferrara, 'Consorzio Sanitario di Reggio Emilia') e nao verifiquei se tratam culturas alem da batata.",
+     "Porque e que o conjunto publicado IT-ROTULOS-PARES-V3 (parser 3.4.0) perdeu a linha BARBABIETOLA x ELATERIDI que o rotulo escreve literalmente e que o conjunto antigo tinha lido. Sei que a perdeu; nao sei porque."
+    ]
+   },
+   "C_TEMPO_AGRONOMICO": {
+    "JANELA_DE_APLICACAO": "Nao ha janela DATADA. O documento nao da mes, data nem ano para este sinal — o proprio enunciado e \"nel prossimo futuro\". O que o documento DA sao tres momentos operacionais nomeados, todos ancorados no ciclo da batata: (1) MONITORIZACAO no ciclo anterior — \"monitorare le presenza di elateridi con le trappole Iatlorf l'anno prima della semina della patata\", que produz o indice de capturas com que se decide se e onde semear; (2) TRATAMENTO A SEMENTEIRA — \"la difesa viene fatta alla semina\" (o documento acrescenta que e essa a limitacao: \"il danno ... arriva quando il tubero si sta sviluppando, quindi quando i prodotti hanno di fatto interrotto la loro attivita\"); (3) LAVORACOES ESTIVAS — \"ci sono delle lavorazioni estive che possono essere molto efficaci perche vanno ad agire sulle larve giovani, vanno ad agire sulle uova\". Nenhum destes tres e datado no documento, e nenhum e enunciado para milho ou horticolas: sao todos ditos a proposito da batata. Nao completo com calendario agronomico geral.",
+    "BASE_DA_JANELA": "Transcricao szsLkUd2cy4, tres passagens verificadas por igualdade exata de string: offset 59.386 \"monitorare le presenza di elateridi con le trappole Iatlorf l'anno prima della semina della patata\"; offset 54.917 \"la difesa viene fatta alla semina, ma il danno viene eh arriva dopo\"; offset 55.921 \"ci sono delle lavorazioni estive che possono essere molto efficaci\". Complemento coerente do lado do rotulo (fonte distinta, declarada como tal): 008189/014479 dizem \"si distribuisce al momento della semina ... lungo la fila della coltura\" e \"ammesso un solo trattamento per ciclo\". Procurei no ficheiro por meses (gennaio a dicembre), estacoes (primavera, autunno, estate, inverno), fases (fenologia, emergenza, raccolta, tuberizzazione) e por \"trattament\", \"inizio\", \"fine\": dentro do bloco dos elaterideos (offsets 48.000-63.000) NAO ha um unico mes, estacao datada nem fase fenologica. As unicas ancoras sao as tres acima.",
+    "AGIR_AGORA": "NAO SEI",
+    "AINDA_HA_TEMPO": "SIM",
+    "PROXIMA_JANELA_OU_SAFRA": "SIM",
+    "PORQUE": "AGIR AGORA = NAO SEI porque o documento nomeia momentos mas nao os data: nao diz quando e a semeadura, e por isso nao e possivel determinar se 2026-09-04 cai dentro de algum deles sem eu importar calendario agronomico geral, que e exatamente o que esta proibido. AINDA HA TEMPO = SIM, e isto e sustentavel sem calendario: o proprio documento coloca a decisao no ciclo ANTERIOR a semeadura (\"l'anno prima della semina\"), ou seja, por construcao a monitorizacao que alimenta uma semeadura futura precede-a sempre; e nenhuma semeadura futura passou. Reforca-o o facto de o horizonte do sinal ser plurianual e de o documento declarar a resposta tecnica incompleta em toda a parte (\"non c'e da nessuna parte uno strumento vincente\"). PROXIMA JANELA OU SAFRA = SIM porque a decisao que o documento descreve e explicitamente anual e recorrente — armadilhas no ano anterior, indice de capturas, escolha do que semear e onde — logo repete-se na proxima campanha, quer o sinal se confirme quer nao. O que NAO posso dizer e qual e a data dessa proxima janela."
+   },
+   "D_RELEVANCIA_ADAMA": {
+    "TEM_PORTFOLIO": "SIM",
+    "PRODUTOS": [
+     "LEBRON 0.5 G — registo Ministero della Salute n. 8189 de 16.03.1993 — teflutrin puro 0,5 g/100 g — insetticida geodisinfestante em formulacao microgranular — mecanismo IRAC grupo 3A",
+     "SCHERMO 0.5 G — registo Ministero della Salute n. 14479 de 26.01.2009 — teflutrin puro 0,5 g/100 g — insetticida geodisinfestante em formulacao microgranular — mecanismo IRAC grupo 3A — rotulo gemeo do 008189: mesma substancia, mesma concentracao, mesma tabela de usos linha a linha",
+     "CULTURAS com Agriotes nomeado nas linhas destes dois rotulos (lidas no texto do rotulo, nao no conjunto de pares): patata; mais e mais dolce; sorgo; barbabietola da zucchero; girasole; soia; pomodoro; melanzana; rapa; navone; melone; cetriolo; cocomero; finocchio; sedano; pisello; carota; cavolo cappuccio; cavolfiore; cavolo broccolo; tabacco",
+     "MODO DE EMPREGO declarado no rotulo: 'si distribuisce al momento della semina ... lungo la fila della coltura'; 'ammesso un solo trattamento per ciclo'",
+     "COBERTURA DAS CULTURAS DESTA FICHA: PATATA SIM (linha 'Patata | Agriotes spp.'); MAIS SIM (linha 'Mais, Mais Dolce, Sorgo | Agriotes sp., Agrotis sp., Diabrotica sp.'); BARBABIETOLA SIM (linha 'Barbabietola da zucchero | Agriotes sp., ...'); LATTUGA NAO NOMEADA — ver A_SEM_PORTFOLIO_PORQUE"
+    ],
+    "UNIAO_DE_AUTORIZACOES": "SIM",
+    "UNIAO_EXPLICADA": "A lista acima e o CONJUNTO das autorizacoes ADAMA italianas que chegam a Agriotes, nao uma recomendacao de produto. Tres precisoes que nao podem cair: (1) O documento NAO nomeia nenhum produto — nem da ADAMA nem de ninguem — para este alvo; nomeia fipronil, etoprofos, piretroidi e Beauveria bassiana. Nenhum produto pode ser apresentado como \"o produto\" a partir desta fonte. (2) De 163 rotulos ADAMA italianos, exatamente DOIS contem a palavra Agriotes: 008189 e 014479, verificado por grep no texto integral dos 163 ficheiros. Nao ha, portanto, escolha entre alternativas: ha uma unica autorizacao (teflutrin, geodisinfestante microgranular) carregada por dois registos gemeos. Chamar-lhes duas opcoes seria enganador. (3) O conjunto publicado IT-ROTULOS-PARES-V3 (2.928 pares, CAPTURED_AT 2026-09-04, parser 3.4.0) devolve PATATA x ELATERIDI e MAIS x ELATERIDI para os dois registos — mas PERDE BARBABIETOLA x ELATERIDI, que o rotulo escreve literalmente ('Barbabietola da zucchero | Agriotes sp., Atomaria linearis, Chaetocnema tibialis, Scutigerella immaculata, Tipula sp. | 12-15') e que o conjunto antigo (productRelationships.json) tinha lido com citacao. Recuperei-a lendo o rotulo. Em sentido inverso, o conjunto antigo afirma FRUMENTO x ELATERIDI, que o rotulo nao sustenta (a linha de Frumento lista Bibio hortulanus e Hylemya sp.). A uniao aqui apresentada e a leitura do ROTULO, que arbitra entre os dois conjuntos. NOTA OBRIGATORIA DE RECONCILIACAO: o juiz de ITFC-045 concluiu ADAMA_PAIR_EXISTS = NO contra um conjunto anterior de 2.845 pares. Nao reabro a aprovacao — o sinal passa na regua na mesma — mas a leitura operacional inverte-se: nao e um sinal de LACUNA de portfolio, e um sinal de POSICAO JA DETIDA e por explorar.",
+    "SEM_PORTFOLIO_PORQUE": "Apenas para LATTUGA, que e uma das quatro culturas nomeadas no bloco. Das tres hipoteses possiveis, esta e a TERCEIRA em parte e a SEGUNDA em parte, e nao a primeira: NAO e \"nao ha autorizacao\". O que se sabe: a palavra 'lattuga' nao ocorre em nenhum dos dois ficheiros de texto dos rotulos 008189 e 014479, e nenhuma linha de Agriotes a nomeia; mas o cabecalho de ambos declara ambito generico \"per la protezione di barbabietola da zucchero, frumento, mais, mais dolce e sorgo, oleaginose, ORTAGGI, patata, tabacco\" e a prescricao de faixa de respeito fala explicitamente de \"applicazioni su ortaggi a foglia\". Ou seja: ha ambito declarado que pode conter a alface e uma tabela que nao a enumera. Isto e AMBITO DECLARADO POR RESOLVER — trabalho de regulatorio sobre o documento, nao conclusao a tirar de uma tabela. Registar \"nao autorizado\" para LATTUGA seria transformar ausencia de leitura em ausencia de autorizacao.",
+    "OPORTUNIDADE": "ATUAL_E_FUTURA"
+   },
+   "E_MAPA_DE_ACAO": [
+    {
+     "DEPARTAMENTO": "DESENVOLVIMENTO_DE_MERCADO",
+     "ACIONAVEL": "SIM",
+     "RAZAO": "E o destinatario central desta ficha e a unica funcao que pode agir sobre a assimetria que ela expoe. Os factos que a sustentam sao os desta ficha: (a) toda a atencao tecnica italiana esta concentrada na batata — \"adesso noi ci stiamo concentrando su patata\" — e o proprio relator do tavolo nazionale diz que \"non e l'unica cultura su cui gli elateridi fanno danno\"; (b) o rotulo de teflutrin JA cobre mais, sorgo, barbabietola, girasole, soia e doze horticolas para Agriotes, ou seja a autorizacao existe onde o esforco tecnico ainda nao chegou; (c) nao existe um unico dado italiano de dano fora da batata, o que significa que o caso de mercado tem de ser CONSTRUIDO e nao apenas citado; (d) a Italia nao tem projeto financiado (\"senza capacita di spesa ... non ha portafoglio\") enquanto Franca, Suica e Austria tem, o que deixa espaco para quem trouxer dados. A accao e antecipar dados e ensaios em milho e horticolas antes do reconhecimento do dano nessas culturas em Italia — que e literalmente o que o sinal aprovado diz."
+    },
+    {
+     "DEPARTAMENTO": "MARKETING",
+     "ACIONAVEL": "SIM",
+     "RAZAO": "Ha um facto de comunicacao explicito nesta ficha, nao uma suposicao: o orador dedica um bloco inteiro a divulgacao, diz que \"gli elateridi sono insetti poco conosciuti\" porque \"passano buona parte del ciclo sottoterra\", e o tavolo nazionale produziu por isso linhas-guia de oito paginas mais um guia de reconhecimento de adultos, distribuidos nas Giornate. Um representante da producao acrescenta, no debate, que os agricultores esqueceram o monitoramento e que \"con le ILOF ... in pochissimi le stiano utilizzando\". Isto define a accao de marketing e o seu limite: encostar ao material do tavolo nazionale e a linguagem de \"insetti terricoli, non insetti pataticoli\" que saiu da propria sala, em vez de produzir material paralelo. Nao ha aqui campanha datavel — nao ha janela — mas ha material de conhecimento a construir, que e trabalho de marketing tecnico e nao de promocao."
+    },
+    {
+     "DEPARTAMENTO": "COMERCIAL_RTV",
+     "ACIONAVEL": "SIM",
+     "RAZAO": "Porque a ficha nomeia uma conversa de campo concreta e recorrente, e nao uma janela de aplicacao inventada: a decisao pre-semeadura com armadilhas no ano anterior, que produz um indice de capturas usado para decidir onde semear (\"se catturo 50 eh adulti o 5.000 c'e una bella differenza\"), e a rotacao como agravante declarado pelo proprio orador — \"avere sempre graminace prima della patata, spesso nella nostra zona si fa grano, poi patata ... quindi ci facciamo un po' del male da soli\". Sao dois argumentos que o RTV pode levar a explorações da Pianura Padana, a zona que o mapa do documento marca como a de dano mais elevado, sabendo que o documento tambem diz que quase ninguem usa as armadilhas. Limite honesto: o RTV NAO pode prometer data de aplicacao a partir desta ficha, porque nao ha nenhuma, nem invocar dado italiano de dano em milho, porque nao existe."
+    },
+    {
+     "DEPARTAMENTO": "CIENCIA_TECNICO",
+     "ACIONAVEL": "SIM",
+     "RAZAO": "Porque esta ficha levanta uma pergunta tecnica que ela propria nao consegue responder e que bloqueia tudo o resto. O documento descreve seis anos de ensaios franceses sobre todos os produtos pos-fipronil e conclui \"nessun prodotto ha una performance totale\" com \"una grandissima variabilita della performance\", e explica porque: \"la difesa viene fatta alla semina, ma il danno ... arriva quando il tubero si sta sviluppando\". Ora, os nossos dois rotulos sao exatamente esse padrao — aplicacao \"al momento della semina\", \"un solo trattamento per ciclo\" — e o documento NAO nomeia nem posiciona o teflutrin nesse quadro de variabilidade. Sem saber onde o teflutrin cai, nao ha argumento de eficacia defensavel nem para batata nem para milho. Segunda tarefa tecnica que a ficha torna concreta: as especies dominantes diferem por territorio (brevis/litigiosus/sordidus na Emilia-Romagna, ustulatus no Veneto), o que e uma variavel de ensaio, nao um detalhe."
+    },
+    {
+     "DEPARTAMENTO": "SUPPLY",
+     "ACIONAVEL": "NAO",
+     "RAZAO": "NAO, e a razao e honesta e nao de conveniencia: nao existe nesta ficha um unico facto de que o supply possa partir. O estado do tempo e HYPOTHESIS, sem ano, sem campanha e sem janela datada; nao ha area, hectares, volume nem percentagem de dano para Italia fora da batata; o unico numero de dano em milho e frances. Planear stock ou lead time contra um receio pessoal declarado (\"io temo\") sem serie e sem data seria construir procura a partir de nada. O supply so entra quando o gatilho ja escrito no registo disparar — boletins fitossanitarios regionais com dano economico fora da batata, ou passagem do tavolo nazionale a projeto financiado — e ai com numeros."
+    },
+    {
+     "DEPARTAMENTO": "REGULATORIO_PORTFOLIO",
+     "ACIONAVEL": "SIM",
+     "RAZAO": "Duas tarefas concretas que saem diretamente dos factos desta ficha. (1) LATTUGA: e uma das culturas que o orador nomeia como ja atingida na Austria, e o rotulo declara ambito generico \"ortaggi\" e fala de \"ortaggi a foglia\" na faixa de respeito, mas nenhuma linha de Agriotes a nomeia. Decidir se a alface esta dentro do ambito autorizado e leitura regulatoria do documento, nao deducao de tabela — e enquanto nao for feita ninguem pode escrever \"nao autorizado\". (2) INTEGRIDADE DO CONJUNTO DE PARES: IT-ROTULOS-PARES-V3 perde BARBABIETOLA x ELATERIDI, que o rotulo escreve literalmente, enquanto o conjunto antigo afirma FRUMENTO x ELATERIDI, que o rotulo nao sustenta. Um erro esconde autorizacao real numa cultura nomeada pelo sinal; o outro afirma autorizacao inexistente. Ambos tem de ser corrigidos antes que alguem tome decisao comercial lendo o conjunto automatico em vez do rotulo."
+    }
+   ],
+   "F_ACAO_POSSIVEL": {
+    "CLASSE": "PREPARAR",
+    "ACOES": [
+     "REGULATORIO/DADOS — Corrigir IT-ROTULOS-PARES-V3: repor BARBABIETOLA x ELATERIDI para 008189 e 014479. O rotulo escreve 'Barbabietola da zucchero | Agriotes sp., Atomaria linearis, Chaetocnema tibialis, Scutigerella immaculata, Tipula sp. | 12-15'; o parser 3.4.0 perdeu a linha e o conjunto antigo tinha-a. Enquanto nao for corrigido, qualquer leitura automatica dira 'nao autorizado' numa cultura que o proprio orador nomeia como ja atingida na Austria.",
+     "REGULATORIO/DADOS — Retirar ou marcar FRUMENTO x ELATERIDI no conjunto antigo (productRelationships.json): a linha de Frumento do rotulo lista Bibio hortulanus e Hylemya sp., nao Agriotes. E afirmacao de autorizacao sem suporte no documento.",
+     "REGULATORIO — Resolver o caso LATTUGA por leitura do ambito declarado ('per la protezione di ... oleaginose, ortaggi, patata' e 'applicazioni su ortaggi a foglia'), e nao pela tabela de usos. Devolver uma das tres respostas: dentro do ambito, fora do ambito, ou por confirmar junto do Ministero.",
+     "GOVERNANCA DO RADAR — Reconciliar o veredicto do juiz. ITFC-045 foi julgado com ADAMA_PAIR_EXISTS = NO contra um conjunto de 2.845 pares; o conjunto publicado hoje tem 2.928 e devolve pares para patata e mais. A aprovacao mantem-se, mas a etiqueta 'sinal de lacuna de portfolio' que o juiz lhe pos deve passar a 'sinal de posicao ja detida e nao explorada'.",
+     "DESENVOLVIMENTO DE MERCADO — Montar o dossier milho + horticolas antes do reconhecimento do dano em Italia: a autorizacao ja existe (mais, sorgo, girasole, soia, pomodoro, melanzana, melone, cetriolo, cocomero, finocchio, sedano, pisello, carota, cavoli), os dados italianos fora da batata nao existem. Definir que culturas do rotulo se ensaiam primeiro, ancorando na decisao pre-semeadura que o documento descreve.",
+     "CIENCIA/TECNICO — Situar o teflutrin dentro do quadro de variabilidade descrito pelo ensaio frances de 6 anos, que nomeia etoprofos e piretroidi mas nao o teflutrin. Incluir na pergunta a limitacao que o proprio documento identifica: aplicacao a sementeira contra dano na fase de engrossamento do tuberculo, e um unico tratamento por ciclo permitido pelo rotulo.",
+     "CIENCIA/TECNICO — Desenhar qualquer ensaio por especie e por territorio: brevis, litigiosus e sordidus na Emilia-Romagna; ustulatus no Veneto. O documento diz explicitamente que as especies nao sao as mesmas em todos os territorios.",
+     "MARKETING — Encostar as linhas-guia de oito paginas do tavolo nazionale e ao guia de reconhecimento de adultos ja distribuidos, em vez de produzir material paralelo; usar o enquadramento que saiu da propria sala, 'insetti terricoli, non insetti pataticoli', e o facto declarado de que quase ninguem usa as armadilhas.",
+     "COMERCIAL/RTV — Levar a explorações da Pianura Padana a conversa de monitorizacao pre-semeadura e o agravante de rotacao que o orador declara ('grano, poi patata'), sem prometer data de aplicacao — a ficha nao tem nenhuma.",
+     "VIGILANCIA — Manter o gatilho ja escrito no registo: boletins fitossanitarios regionais ou actas do tavolo nazionale de 2026-2027 com dano economico por elaterideos fora da batata; ou a passagem do tavolo de 'base volontaria e senza capacita di spesa' a projeto financiado. E o momento em que esta ficha passa de PREPARAR a AGIR."
+    ],
+    "PORQUE": "PREPARAR e nao AGIR_AGORA porque falta a janela e nao falta o resto. Nao ha data, nao ha mes, nao ha campanha: o documento diz \"nel prossimo futuro\" e mais nada, e os tres momentos operacionais que nomeia (monitorizacao no ano anterior, tratamento a sementeira, lavoracoes estivas) sao ditos a proposito da batata e nao sao datados. Sem data nao ha accao imediata que se possa demonstrar. Mas tambem nao e SEM_ACAO_DEMONSTRAVEL, e isso e o que muda com esta ficha: a autorizacao ADAMA para Agriotes JA existe em mais, barbabietola e doze horticolas, exatamente as culturas para onde o relator do tavolo nazionale diz que o problema vai alastrar, e o que falta e trabalho nosso — corrigir o registo interno de pares, resolver o ambito da alface, e gerar em milho e horticolas os dados italianos que hoje nao existem. Tres das accoes da lista (correcao do conjunto de pares, retirada do falso positivo de frumento, reconciliacao do veredicto do juiz) sao executaveis hoje, sem depender de janela nenhuma, porque sao correcoes documentais. E preparar no sentido literal do sinal aprovado: preparar dados, ensaios e leitura de rotulo antes de o dano ser reconhecido nessas culturas, e nao depois."
+   },
+   "G_HORIZONTE": "ESTRUTURAL_FUTURO",
+   "AUTOAVALIACAO_DO_AUTOR": "PARCIAL",
+   "AUTOAVALIACAO_PORQUE": "Esta completo: o facto e a citacao (403 caracteres, conferidos por igualdade exata de string contra o TRANSCRIPT de 176.752 caracteres, offset 58.804, com a gaguez do ASR incluida); o portfolio, lido no texto dos rotulos e nao de memoria — dois registos, teflutrin, com as linhas de Agriotes transcritas verbatim; os seis departamentos avaliados um a um, com quatro SIM ancorados em factos desta ficha e um NAO com razao (supply); e uma lista de accoes onde tres itens sao executaveis hoje. Falta, e por isso PARCIAL: (1) JANELA DATADA — nenhuma. O documento da momentos operacionais mas nenhum mes, data ou ano, e recusei-me a completar com calendario agronomico geral; por isso T_AGIR_AGORA ficou em NAO SEI. (2) DADOS ITALIANOS FORA DA BATATA — zero. O dano em milho e frances, o dano em alface e beterraba e austriaco; para Italia o enunciado e receio pessoal declarado, sem serie e sem numero. (3) LATTUGA POR RESOLVER — uma das quatro culturas nomeadas fica sem resposta de portfolio, entre um ambito generico \"ortaggi\" que a pode conter e uma tabela que nao a enumera. (4) A CAMADA DE PARES ESTA INCONSISTENTE NESTE ALVO — o conjunto publicado perde barbabietola que o rotulo afirma, o conjunto antigo afirma frumento que o rotulo nega, e o juiz de ITFC-045 concluiu ADAMA_PAIR_EXISTS = NO contra um conjunto que ja nao e o publicado. Nao reabri a aprovacao e nao mexi no sinal, mas a ficha assenta numa camada que sei estar defeituosa exatamente aqui, e isso tem de ficar escrito. (5) EFICACIA DO TEFLUTRIN — desconhecida dentro da variabilidade que o documento descreve; sem ela o portfolio existe mas o argumento nao.",
+   "DEFEITOS_ENCONTRADOS": null,
+   "CORRECOES_OBRIGATORIAS": null,
+   "JANELA_INVENTADA": null,
+   "UNIAO_MAQUIADA": null,
+   "PORTFOLIO_ERRADO": null,
+   "CITACAO_CONFERIDA_PELO_REFUTADOR": null
   }
  ]
 }

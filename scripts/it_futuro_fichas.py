@@ -230,7 +230,18 @@ def main(runs):
     print('->', SAIDA)
 
 
-RUNS_PADRAO = ['wf_e5e03bcc-487', 'wf_3d483e10-13c']
+# Tres corridas sobre o mesmo universo, e nao uma. A maquina da poucos agentes
+# de cada vez e a fila e FIFO: uma corrida so poe os 45 refutadores atras das 45
+# fichas, e o primeiro veredito fica a horas de distancia. Entao a cabeca, a
+# cauda e o miolo foram atacados em paralelo, cada um com a sua fila propria, e
+# o veredito de cada candidato sai logo a seguir a ficha dele.
+#
+#     PARALELIZAR PELO MEIO NAO E OTIMIZACAO. E O QUE FAZ O REFUTADOR FALAR
+#     ANTES DO FIM.
+#
+# Onde as corridas se cruzam ha julgamento em duplicado, e isso fica medido em
+# JULGADOS_DUAS_VEZES em vez de ser silenciosamente descartado.
+RUNS_PADRAO = ['wf_e5e03bcc-487', 'wf_3d483e10-13c', 'wf_e4c83732-977']
 
 if __name__ == '__main__':
     main(sys.argv[1:] or RUNS_PADRAO)
