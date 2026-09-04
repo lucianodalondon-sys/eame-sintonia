@@ -607,10 +607,22 @@ grep -n "noPrimary:" italia-portale/client/portale.html  # noPrimary: !csPrimary
 ### 15.1 · O deployment
 
 ```
-HOTFIX_HEAD    b20e459
-DEPLOYMENT_ID  6257148860        env=Preview       state=success
-PREVIEW_URL    https://sintonia-eame-preview-q0pxx3x5n-london-creative.vercel.app
+HOTFIX_HEAD    41d9690
+DEPLOYMENT_ID  6257278255        env=Preview       state=success
+PREVIEW_URL    https://sintonia-eame-preview-1rbhey3jc-london-creative.vercel.app
 ```
+
+A prova dos §§15.2–15.6 correu sobre o Preview de `b20e459`. `41d9690` só
+acrescentou este documento, que vive na raiz e não na superfície de deploy —
+e os cinco ficheiros que decidem a reunião foram RECONFERIDOS contra o novo
+Preview, byte a byte:
+
+```
+portale.html · italy-app-model.js · meeting-intelligence-snapshot.js
+meeting-labels.js · italy-handoff-v21.js        →  IDÊNTICOS
+```
+
+    UM DOCUMENTO NOVO NAO E UM BUILD NOVO — MAS PROVA-SE, NAO SE ASSUME.
 
 ### 15.2 · Bytes públicos contra locais
 
