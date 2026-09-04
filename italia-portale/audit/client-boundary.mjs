@@ -184,9 +184,26 @@ const SURFACE = CLIENT_SURFACE();
   const empty = areas.filter((a) => !(AM.collections[a] && AM.collections[a].count > 0));
   const v = m.vals({ view: 'radar', lang: 'it' });
   const navAreas = (v.nav || []).filter((n) => n.count > 0).length;
-  T('T8', 'le aree strategiche restano popolate e raggiungibili', empty.length === 0 && navAreas >= 6,
+  /* E I DICIASSETTE. Sono i casi che il motore NON sostiene come opportunita
+     commerciale: nessuno di loro esiste in un'altra collezione — misurato — e
+     due sono testimoni della riunione. Se uscissero dalle opportunita senza
+     restare raggiungibili, «nascondere» sarebbe diventato «perdere». Qui si
+     prova che ognuno si apre ancora, per id. */
+  const surf = m.ctx.MEETING_SURFACE ? m.ctx.MEETING_SURFACE.build('it') : null;
+  const signals = surf ? surf.signals : [];
+  const unreachable = [];
+  for (const c of signals) {
+    const d = m.vals({ view: 'mcase', mCaseId: c.id, lang: 'it' });
+    if (!(d.mc && d.mc.id === c.id)) unreachable.push(c.id);
+  }
+  const sum = surf ? surf.commercial.length + surf.signals.length : 0;
+  const ok8 = empty.length === 0 && navAreas >= 6 && unreachable.length === 0
+    && sum === SNAP.TOTAL_CASES;
+  T('T8', 'le aree restano popolate, e i casi non commerciali restano raggiungibili', ok8,
     empty.length ? 'aree vuote: ' + empty.join(', ')
-      : areas.map((a) => `${a} ${AM.collections[a].count}`).join(' · ') + ` · ${navAreas} voci di menu vive`);
+      : unreachable.length ? `${unreachable.length} segnali non si aprono: ` + unreachable.slice(0, 4).join(', ')
+      : `${surf ? surf.commercial.length : 0} opportunita + ${signals.length} segnali = ${sum} (i casi del motore, nessuno perso) · `
+        + areas.map((a) => `${a} ${AM.collections[a].count}`).join(' · '));
 }
 
 /* ── il verdetto ─────────────────────────────────────────────────────────── */

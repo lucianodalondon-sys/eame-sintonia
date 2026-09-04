@@ -478,6 +478,54 @@
     };
   }
 
+  /* ══ LA FRONTIERA COMMERCIALE ═══════════════════════════════════════════
+     Il motore trova CASI. Il cliente compra OPPORTUNITA. Non sono lo stesso
+     insieme, e questa tabella e l'unico posto dove uno diventa l'altro.
+
+         MOSTRARE COME LA MACCHINA HA TROVATO IL CASO NON E UN PRODOTTO.
+
+     `COMMERCIAL_PRIORITY` e il verdetto del motore su «regge come opportunita
+     commerciale?». I tre valori che reggono ricevono lo stato che il cliente
+     legge. Il quarto — TO_VALIDATE — dice che NON regge: quel caso non e
+     un'opportunita commerciale, e non viene presentato come tale.
+
+     MISURATO sui 43: SALES_READY 5 · STRATEGIC_OPPORTUNITY 8 ·
+     COMMERCIAL_WATCH 13 · TO_VALIDATE 17.
+
+     E I DICIASSETTE NON SPARISCONO. Misurato: nessuno di loro esiste in
+     un'altra collezione del modello, e due sono testimoni della riunione
+     (Umbria, Toscana). Toglierli dalla vista senza dargli una casa sarebbe
+     perderli, non ripulirli — quindi restano raggiungibili come SEGNALI, che
+     e quello che sono: letture che non hanno ancora un caso commerciale.
+
+         NASCONDERE NON E CANCELLARE.
+         L'INTELLIGENZA RESTA; SMETTIAMO SOLO DI CHIAMARLA OPPORTUNITA. */
+  const CLIENT_STATE = {
+    SALES_READY: 'CLIENT_ACT_NOW',
+    STRATEGIC_OPPORTUNITY: 'CLIENT_PREPARE_NOW',
+    COMMERCIAL_WATCH: 'CLIENT_MONITOR',
+    /* TO_VALIDATE non e mappato di proposito: senza rilevanza commerciale
+       difendibile non c'e stato cliente da dargli. */
+  };
+  const CLIENT_ORDER = ['CLIENT_ACT_NOW', 'CLIENT_PREPARE_NOW', 'CLIENT_MONITOR'];
+  const clientStateOf = (c) => CLIENT_STATE[c.priorityCode] || null;
+
+  /* I conteggi che il cliente vede contano SOLO le opportunita commerciali.
+     I numeri del motore restano, ma sotto un'altra chiave: chi ne ha bisogno
+     sa dove sono, e nessuna schermata li mostra per sbaglio. */
+  function commercialCounts(commercial) {
+    const by = commercial.reduce((a, c) => {
+      const k = c.clientState; if (k) a[k] = (a[k] || 0) + 1; return a;
+    }, {});
+    return {
+      TOTAL: commercial.length,
+      CLIENT_ACT_NOW: by.CLIENT_ACT_NOW || 0,
+      CLIENT_PREPARE_NOW: by.CLIENT_PREPARE_NOW || 0,
+      CLIENT_MONITOR: by.CLIENT_MONITOR || 0,
+      BY_CLIENT_STATE: by,
+    };
+  }
+
   window.MEETING_SURFACE = {
     /* Exposed so a gate can prove the boundary on a hand-built deep object
        instead of only on data that happens to be clean today. */
@@ -488,12 +536,23 @@
       if (!s) return null;
       const L = lang === 'en' ? 'en' : 'it';
       const cases = (s.CASES || []).map((c) => caseOf(c, L));
+      cases.forEach((c) => { c.clientState = clientStateOf(c); });
+      /* Due insiemi disgiunti, e la loro somma e sempre 43: se un caso cadesse
+         fuori da entrambi sarebbe sparito senza che nessuno se ne accorgesse. */
+      const commercial = cases.filter((c) => !!c.clientState)
+        .sort((a, b) => CLIENT_ORDER.indexOf(a.clientState) - CLIENT_ORDER.indexOf(b.clientState));
+      const signals = cases.filter((c) => !c.clientState);
       return {
         meta: {
           SOURCE_HEAD: s.SOURCE_HEAD, BUILD_ID: s.BUILD_ID,
           MEETING_CUTOFF: s.MEETING_CUTOFF, TOTAL_CASES: s.TOTAL_CASES,
         },
+        /* `counts` resta il conteggio del MOTORE — lo leggono i portoni, non
+           lo schermo. `commercialCounts` e quello che il cliente vede. */
         counts: countsOf(cases),
+        commercialCounts: commercialCounts(commercial),
+        commercial,
+        signals,
         cases,
       };
     },

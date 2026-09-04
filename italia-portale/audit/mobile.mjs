@@ -80,6 +80,10 @@ const AM = ctx.ITALY_APP_MODEL;
        O QUE O PORTAL COSTUMAVA MOSTRAR.
 
    A instantanea manda; o modelo fica so como reserva se ela faltar. */
+const PRIORITY = {};
+if (ctx.MEETING_INTELLIGENCE && Array.isArray(ctx.MEETING_INTELLIGENCE.CASES)) {
+  ctx.MEETING_INTELLIGENCE.CASES.forEach((c) => { PRIORITY[c.ID] = c.COMMERCIAL_PRIORITY; });
+}
 const STATUS = {};
 if (ctx.MEETING_INTELLIGENCE && Array.isArray(ctx.MEETING_INTELLIGENCE.CASES)) {
   ctx.MEETING_INTELLIGENCE.CASES.forEach((c) => { STATUS[c.ID] = c.STATUS; });
@@ -355,7 +359,11 @@ if (SHOTS) await shot(jp, SHOTS, 'j0-390-load');
   /* O radar unico filtra por pastilhas (`data-meeting-filter`), nao por um
      <select>. Procurar o controlo que EXISTE, e nao o que existia. */
   const set = await jp.evaluate(() => {
-    const chip = document.querySelector('[data-meeting-filter="ACT_NOW"]');
+    /* Lo stato che il cliente filtra e CLIENT_ACT_NOW: dietro c'e
+       COMMERCIAL_PRIORITY=SALES_READY, e il verdetto del motore su «regge come
+       opportunita commerciale», non lo stato temporale del caso. */
+    const chip = document.querySelector('[data-meeting-filter="CLIENT_ACT_NOW"]')
+      || document.querySelector('[data-meeting-filter="ACT_NOW"]');
     if (chip) { chip.click(); return 'ACT_NOW'; }
     const s = [...document.querySelectorAll('select')].find((x) => [...x.options].some((o) => o.value === 'ACT_NOW'));
     if (!s) return null;
@@ -363,7 +371,10 @@ if (SHOTS) await shot(jp, SHOTS, 'j0-390-load');
   });
   await jp.waitForTimeout(700);
   const after = await caseIds(jp);
-  const wrong = after.filter((id) => STATUS[id] && STATUS[id] !== 'ACT_NOW');
+  /* La verita contro cui si misura e quella che lo schermo dichiara: dopo il
+     filtro «AGIRE ORA» devono restare SOLO i casi che il motore sostiene come
+     pronti alla vendita. */
+  const wrong = after.filter((id) => PRIORITY[id] && PRIORITY[id] !== 'SALES_READY');
   step('J3', 'a filter changes the list, and honestly', !!set && after.length > 0 && after.length !== before.length && wrong.length === 0,
     `status=ACT_NOW · ${before.length} -> ${after.length} cards · ${wrong.length} of them not ACT_NOW in the model`);
   if (SHOTS) await shot(jp, SHOTS, 'j3-390-filtered');

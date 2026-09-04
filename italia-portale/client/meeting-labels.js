@@ -31,6 +31,30 @@
     navMeeting:        ['Radar delle Opportunità', 'Opportunity Radar'],
     subMeeting:        ['Dove ADAMA può agire o prepararsi ora — pressione, tempistica colturale e coerenza di portafoglio.',
                         'Where ADAMA can act or prepare now — pressure, crop timing and portfolio fit.'],
+    /* ── GLI STATI CHE IL CLIENTE LEGGE ───────────────────────────────
+       Non sono i tre valori di COMMERCIAL_PRIORITY tradotti: sono la domanda
+       che il cliente si fa. SALES_READY, STRATEGIC_OPPORTUNITY e
+       COMMERCIAL_WATCH restano dentro il motore e non arrivano mai qui come
+       parola. Il quarto valore, TO_VALIDATE, non ha stato cliente perche non
+       regge come opportunita commerciale — e i suoi casi vivono come segnali. */
+    CLIENT_ACT_NOW:     ['AGIRE ORA', 'ACT NOW'],
+    CLIENT_PREPARE_NOW: ['PREPARARE ORA', 'PREPARE NOW'],
+    CLIENT_MONITOR:     ['DA MONITORARE', 'TO MONITOR'],
+    CLIENT_ACT_NOW_WHY:     ['La catena regge fino al prodotto: si può parlare con il cliente.',
+                             'The chain holds all the way to the product: the customer conversation can happen.'],
+    CLIENT_PREPARE_NOW_WHY: ['Vale come posizione da costruire, non come vendita immediata.',
+                             'It is a position worth building, not an immediate sale.'],
+    CLIENT_MONITOR_WHY:     ['Da tenere sotto osservazione: manca ancora un elo per agire.',
+                             'Keep it under observation: one link is still missing before acting.'],
+    /* ── I SEGNALI ────────────────────────────────────────────────────
+       Diciassette letture che il motore NON sostiene come opportunita
+       commerciale. Non spariscono — sarebbe perderle, e due di loro sono
+       testimoni della riunione. Restano qui, chiamate per quello che sono. */
+    navSignals:        ['Segnali', 'Signals'],
+    subSignals:        ['Letture che non sostengono ancora un caso commerciale — restano qui, non fra le opportunità.',
+                        'Readings that do not yet support a commercial case — they stay here, not among the opportunities.'],
+    signalsNote:       ['Non è un\u2019opportunità commerciale: manca ciò che la renderebbe difendibile.',
+                        'Not a commercial opportunity: what would make it defensible is missing.'],
     meetingSnapshot:   ['ISTANTANEA DELLA RIUNIONE', 'MEETING SNAPSHOT'],
     lblSourceHead:     ['origine', 'source head'],
     lblBuildId:        ['build', 'build'],

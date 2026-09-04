@@ -327,7 +327,12 @@ check('N1', 'Nav counts match the active normalized collections', () => {
        anche il suo badge. Contare il radar da una collezione del modello
        sarebbe di nuovo un numero che sta al posto di un altro, che e
        esattamente il difetto per cui questo controllo esiste. */
-    (m.ctx.MEETING_INTELLIGENCE || {}).TOTAL_CASES,
+    (() => { const s2 = m.ctx.MEETING_SURFACE && m.ctx.MEETING_SURFACE.build('it');
+             return s2 ? s2.commercial.length : (m.ctx.MEETING_INTELLIGENCE || {}).TOTAL_CASES; })(),
+    /* I SEGNALI SONO UN CONTEGGIO A PARTE, e devono restarlo: sommarli alle
+       opportunita rifarebbe il numero che questa missione ha appena separato. */
+    (() => { const s2 = m.ctx.MEETING_SURFACE && m.ctx.MEETING_SURFACE.build('it');
+             return s2 ? s2.signals.length : 0; })(),
     AM.collections.futureSignals.count,
     AM.collections.cropWindows.count,
     AM.collections.marketObservations.count,

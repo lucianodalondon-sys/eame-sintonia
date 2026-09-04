@@ -38,10 +38,20 @@ const NAV = (() => {
     const w = {}; const src = fs.readFileSync(path.join(CLIENT, 'meeting-labels.js'), 'utf8');
     new Function('window', src)(w);
     const d = w.MEETING_LABELS;
-    if (d && d.get) return { it: d.get('navMeeting', 'it'), en: d.get('navMeeting', 'en') };
+    if (d && d.get) return { it: d.get('navMeeting', 'it'), en: d.get('navMeeting', 'en'),
+                             sit: d.get('navSignals', 'it'), sen: d.get('navSignals', 'en') };
   } catch (e) { /* cade sul valore sotto */ }
-  return { it: 'Radar delle Opportunità', en: 'Opportunity Radar' };
+  return { it: 'Radar delle Opportunità', en: 'Opportunity Radar', sit: 'Segnali', sen: 'Signals' };
 })();
+const NAV_SIGNALS = { it: NAV.sit, en: NAV.sen };
+/* QUALI CASI VIVONO DOVE. Il motore dice se un caso regge come opportunita
+   commerciale; i tre valori che reggono stanno nel radar, il quarto sta fra i
+   segnali. Il portone deve cercare ogni testimone DOVE VIVE — non trovarlo
+   nel posto sbagliato non e un difetto del portale. */
+const COMMERCIAL = new Set(['SALES_READY', 'STRATEGIC_OPPORTUNITY', 'COMMERCIAL_WATCH']);
+const isSignal = (id) => !COMMERCIAL.has((byId(id) || {}).COMMERCIAL_PRIORITY);
+const EXPECTED_COMMERCIAL = SNAP.CASES.filter((c) => COMMERCIAL.has(c.COMMERCIAL_PRIORITY)).length;
+const EXPECTED_SIGNALS = SNAP.CASES.length - EXPECTED_COMMERCIAL;
 const INTERNAL = /\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b/g;
 
 const bad = [];
@@ -109,10 +119,23 @@ for (const width of [1440, 390]) {
       /* D.CASES nao podem entrar: os ids da demo sao IT-OPP-* */
       measured.PUBLIC_DEMO_IDS_ON_CANONICAL = radar.cards.filter((c) => /^IT-OPP-/.test(c)).length;
     }
-    if (radar.cards.length !== 43) fail('COUNT', `${width}px ${lang} · ${radar.cards.length} canonical cards, expected 43`);
+    if (radar.cards.length !== EXPECTED_COMMERCIAL) {
+      fail('COUNT', `${width}px ${lang} · ${radar.cards.length} commercial cards, expected ${EXPECTED_COMMERCIAL}`);
+    }
+    /* E NIENTE SI PERDE: i segnali devono esserci tutti, e i due insiemi
+       insieme devono fare ancora i casi del motore. */
+    if (await clickTitle(page, NAV_SIGNALS[lang])) {
+      await clickSel(page, '[data-meeting-filter="MEETING_FILTER_ALL"]');
+      for (let i = 0; i < 3; i++) { if (!(await clickSel(page, '[data-meeting-more]'))) break; }
+      const sg = await page.evaluate(() => [...document.querySelectorAll('[data-meeting-case]')].map((e) => e.getAttribute('data-meeting-case')));
+      if (sg.length !== EXPECTED_SIGNALS) fail('COUNT', `${width}px ${lang} · ${sg.length} signals, expected ${EXPECTED_SIGNALS}`);
+      const union = new Set([...radar.cards, ...sg]);
+      if (union.size !== SNAP.CASES.length) fail('COUNT', `${width}px ${lang} · ${union.size} casi raggiungibili, il motore ne ha ${SNAP.CASES.length}`);
+      journeys.push(`${width} ${lang} segnali(${sg.length})`);
+    } else { fail('NAV', `${width}px ${lang} · signals surface unreachable`); }
 
     for (const { id, what } of CASES) {
-      await clickTitle(page, NAV[lang]);
+      await clickTitle(page, (isSignal(id) ? NAV_SIGNALS : NAV)[lang]);
       await clickSel(page, '[data-meeting-filter="MEETING_FILTER_ALL"]');
       for (let i = 0; i < 3; i++) {
         if (await page.evaluate((w) => !!document.querySelector(`[data-meeting-case="${w}"]`), id)) break;
@@ -209,7 +232,11 @@ for (const b of bad) { const k = b.split(' · ')[0]; (groups[k] = groups[k] || [
 console.log(`\n  SINTONIA · MEETING PUBLIC · ${BASE}`);
 console.log('  ' + '─'.repeat(100));
 const rows = [
-  ['PUBLIC_CANONICAL_CASES', measured.PUBLIC_CANONICAL_CASES === 43 ? 0 : 1, `${measured.PUBLIC_CANONICAL_CASES} (expected 43)`],
+  /* Il numero atteso non e piu «43 in una griglia»: e quanti casi il motore
+     sostiene come opportunita commerciale. I 43 restano, contati insieme ai
+     segnali dal controllo COUNT qui sopra. */
+  ['PUBLIC_COMMERCIAL_CASES', measured.PUBLIC_CANONICAL_CASES === EXPECTED_COMMERCIAL ? 0 : 1,
+    `${measured.PUBLIC_CANONICAL_CASES} opportunita (attese ${EXPECTED_COMMERCIAL}) · ${EXPECTED_SIGNALS} segnali · ${SNAP.CASES.length} casi in tutto`],
   ['PUBLIC_D_CASES_AS_CANONICAL', measured.PUBLIC_DEMO_IDS_ON_CANONICAL || 0, String(measured.PUBLIC_DEMO_IDS_ON_CANONICAL || 0)],
   ['PUBLIC_PRIMARY_INVENTED', (groups.PRIMARY || []).length, String((groups.PRIMARY || []).length)],
   ['PUBLIC_ALL_PRODUCTS', (groups.PRODUCTS || []).length, String((groups.PRODUCTS || []).length)],

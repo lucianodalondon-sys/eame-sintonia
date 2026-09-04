@@ -143,12 +143,20 @@ check('SNAPSHOT_SOURCE_HEAD_VALID', 'SOURCE_HEAD names the intelligence commit, 
 });
 
 /* ── 2 · i 43, e nessun altro insieme ────────────────────────────────────── */
-check('CANONICAL_43_RENDERED', 'All 43 canonical cases reach the canonical radar', () => {
-  const v = m.vals({ view: 'meeting', lang: 'it', mShown: 999 });
-  const ids = new Set(v.meetingCases.map((c) => c.id));
+/* La schermata delle opportunita mostra i casi che REGGONO come opportunita
+   commerciale; gli altri vivono come segnali. Il conto che conta non e piu
+   «43 in una griglia» — e che NESSUNO DEI 43 sia caduto fra le due.
+
+       IL CLIENTE VEDE MENO. IL SISTEMA NON PERDE NIENTE. */
+check('CANONICAL_43_RENDERED', 'All 43 canonical cases remain reachable across opportunities and signals', () => {
+  const opp = m.vals({ view: 'radar', lang: 'it', mShown: 999 });
+  const sig = m.vals({ view: 'msignals', lang: 'it', mShown: 999 });
+  const ids = new Set([...opp.meetingCases.map((c) => c.id), ...sig.meetingCases.map((c) => c.id)]);
   const missing = SNAP.CASES.filter((c) => !ids.has(c.ID)).map((c) => c.ID);
-  return { pass: !missing.length && v.meetingTotal === 43, expected: 43,
-    measured: `${ids.size} rendered · total ${v.meetingTotal}`, detail: missing.slice(0, 8) };
+  const overlap = opp.meetingCases.filter((c) => sig.meetingCases.some((x) => x.id === c.id));
+  return { pass: !missing.length && !overlap.length && ids.size === 43, expected: 43,
+    measured: `${opp.meetingCases.length} opportunita + ${sig.meetingCases.length} segnali = ${ids.size}`,
+    detail: missing.length ? missing.slice(0, 8) : overlap.slice(0, 4).map((c) => 'in entrambi: ' + c.id) };
 });
 
 check('CANONICAL_COUNTS_FROM_43_ONLY', 'Every canonical count is computed from the 43, never from D.CASES', () => {
@@ -312,9 +320,16 @@ check('EVIDENCE_ROLE_RENDERED', 'Every evidence role reaches the screen, cooling
 
 check('VALIDATION_STATE_NOT_HIDDEN', 'VALIDATION_REQUIRED is shown, never dressed as validated', () => {
   const bad = [];
-  const v = m.vals({ view: 'meeting', lang: 'it', mShown: 999 });
-  const shown = v.meetingCases.filter((c) => c.publicationCode === 'VALIDATION_REQUIRED');
-  if (shown.length !== 38) bad.push(`${shown.length} of 38 VALIDATION_REQUIRED cases reach the radar`);
+  /* I 38 non stanno piu tutti in una schermata: quelli che non reggono come
+     opportunita commerciale vivono fra i segnali. Lo stato di pubblicazione
+     deve restare visibile DOVUNQUE il caso si trovi — e la somma delle due
+     schermate deve fare ancora 38, altrimenti qualcuno e stato messo a tacere
+     invece che spostato. */
+  const v = m.vals({ view: 'radar', lang: 'it', mShown: 999 });
+  const sg = m.vals({ view: 'msignals', lang: 'it', mShown: 999 });
+  const shown = [...v.meetingCases, ...sg.meetingCases]
+    .filter((c) => c.publicationCode === 'VALIDATION_REQUIRED');
+  if (shown.length !== 38) bad.push(`${shown.length} of 38 VALIDATION_REQUIRED cases reachable across both surfaces`);
   for (const c of shown) if (!c.publication) bad.push(`${c.id}: publication state has no phrase`);
   if (!/\{\{\s*c\.publication\s*\}\}/.test(markup)) bad.push('the card does not bind the publication state');
   return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad.slice(0, 6) };

@@ -464,15 +464,20 @@
         </div>
       </div>
 
-      <!-- I CONTEGGI VENGONO DAI 43 E DA NESSUN ALTRO INSIEME. -->
+      <!-- I CONTEGGI CONTANO LE OPPORTUNITA COMMERCIALI, E NIENT'ALTRO.
+           Sulla schermata dei segnali non compaiono: un segnale non e
+           un'opportunita, e dargli un contatore commerciale lo farebbe
+           sembrare quello che il motore dice che non e. -->
+      <sc-if value="{{ hasCommercialCounts }}" hint-placeholder-val="{{ true }}">
       <div class="sn-keepgrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:8px">
-        <sc-for list="{{ meetingKpis }}" as="k" hint-placeholder-count="5">
+        <sc-for list="{{ meetingKpis }}" as="k" hint-placeholder-count="3">
           <div onClick="{{ k.go }}" data-meeting-kpi="{{ k.token }}" style="border-radius:12px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;border-top:3px solid {{ k.color }};padding:11px 13px;display:flex;flex-direction:column;gap:5px;cursor:pointer" style-hover="border-color:rgba(203,197,195,0.30)">
             <span style="font-size:26px;font-weight:300;line-height:1;font-variant-numeric:tabular-nums;color:{{ k.color }}">{{ k.value }}</span>
             <div style="font-size:11px;font-weight:600;color:#EDEAE9;line-height:1.3">{{ k.label }}</div>
           </div>
         </sc-for>
       </div>
+      </sc-if>
 
       <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
         <sc-for list="{{ meetingStatusBtns }}" as="b" hint-placeholder-count="6">
@@ -3370,13 +3375,33 @@ class Component extends DCLogic {
       const d = window.MEETING_LABELS;
       return (d && d.get(k, s.lang)) || '';
     };
-    const meetingAll = MSURF ? MSURF.cases : [];
-    const meetingCounts = MSURF ? MSURF.counts : {};
+    /* ══ LA SCHERMATA E COMMERCIALE, NON DIAGNOSTICA ═════════════════════
+       Il radar mostra le OPPORTUNITA COMMERCIALI — i 26 casi che il motore
+       sostiene come tali — non i 43 casi che il motore ha trovato. I
+       diciassette che restano fuori non spariscono: vivono come SEGNALI, e
+       due di loro sono testimoni della riunione.
+
+           IL CLIENTE COMPRA OPPORTUNITA. IL MOTORE TROVA CASI.
+
+       `meetingEngineCounts` resta per i portoni; sullo schermo si contano
+       soltanto le opportunita commerciali. */
+    /* UNA GRIGLIA SOLA, DUE INSIEMI DISGIUNTI. Ricostruire una seconda griglia
+       per i segnali sarebbe il secondo radar che abbiamo appena tolto: stessa
+       scheda, stesso disegno, cambia CHE COSA contiene e come si chiama. */
+    const isSignalsView = s.view === 'msignals';
+    const meetingSignals = MSURF ? MSURF.signals : [];
+    const meetingAll = MSURF ? (isSignalsView ? MSURF.signals : MSURF.commercial) : [];
+    const meetingCounts = MSURF ? MSURF.commercialCounts : {};
+    const meetingEngineCounts = MSURF ? MSURF.counts : {};
     const meetingMeta = MSURF ? MSURF.meta : {};
-    const meetingCount = meetingAll.length;
+    /* Il badge del radar conta le OPPORTUNITA COMMERCIALI sempre, anche
+       mentre si guardano i segnali: un numero di menu che cambia con la
+       schermata aperta non e un conteggio, e un riflesso. */
+    const meetingCount = MSURF ? MSURF.commercial.length : 0;
     /* Il filtro e una LETTURA, non un giudizio: taglia l'elenco per uno stato
        che il motore ha gia scritto, e non ne calcola nessuno. */
-    const meetingFiltered = s.mStatus ? meetingAll.filter((c) => c.statusCode === s.mStatus) : meetingAll;
+    /* Il filtro lavora sullo STATO CLIENTE, non sullo stato del motore. */
+    const meetingFiltered = s.mStatus ? meetingAll.filter((c) => c.clientState === s.mStatus) : meetingAll;
     const meetingShown = meetingFiltered.slice(0, s.mShown || 24).map((c) => Object.assign({}, c, {
       open: () => this.go({ view: 'mcase', mCaseId: c.id }),
       /* Il numero dei prodotti si legge dalla lista, non da un contatore
@@ -3391,11 +3416,11 @@ class Component extends DCLogic {
        Nessuno di questi numeri e scritto a mano: se l'istantanea cambia,
        cambiano da soli. I 21 casi di presentazione non entrano qui. */
     const MEETING_KPI_DEF = [
-      ['ACT_NOW', meetingCounts.ACT_NOW, '#1AB963'],
-      ['VALIDATE_NOW', meetingCounts.VALIDATE_NOW, '#F5B317'],
-      ['TO_VALIDATE', meetingCounts.TO_VALIDATE, '#F5B317'],
-      ['FUTURE_PREPARATION', meetingCounts.PREPARE, '#00A0DF'],
-      ['WATCH', meetingCounts.WATCH, '#C9C3C1'],
+      /* Tre stati, e sono quelli che il cliente sa usare. «Da validare» e
+         «validare ora» erano il metodo che si raccontava da solo. */
+      ['CLIENT_ACT_NOW', meetingCounts.CLIENT_ACT_NOW, '#1AB963'],
+      ['CLIENT_PREPARE_NOW', meetingCounts.CLIENT_PREPARE_NOW, '#00A0DF'],
+      ['CLIENT_MONITOR', meetingCounts.CLIENT_MONITOR, '#C9C3C1'],
     ];
     const meetingKpis = MEETING_KPI_DEF.map(([code, value, color]) => ({
       code, token: code, value: value || 0, color,
@@ -3416,7 +3441,12 @@ class Component extends DCLogic {
     }, mPill(!s.mStatus))].concat(meetingKpis.map((k) => Object.assign({
       code: k.code, token: k.code, label: k.label, value: k.value, on: k.on, go: k.go,
     }, mPill(k.on, k.color))));
-    const mcCase = s.mCaseId ? (meetingAll.find((c) => c.id === s.mCaseId) || null) : null;
+    /* Una scheda si apre anche se il caso e un SEGNALE: toglierlo dalle
+       opportunita non lo rende irraggiungibile — sarebbe perderlo. */
+    const mcCase = s.mCaseId
+      ? (meetingAll.find((c) => c.id === s.mCaseId)
+         || meetingSignals.find((c) => c.id === s.mCaseId) || null)
+      : null;
     /* Crop and issue display names. The raw value stays the filter key, so filtering,
        window matching and cross-tool lookups are untouched. A name the map does not
        carry passes through verbatim — that is how Latin binomials (Zea mays, Olea
@@ -4188,6 +4218,9 @@ class Component extends DCLogic {
          resa (vedi `isRadar`), cosi nessun percorso ci finisce dentro.
          Il conteggio viene dall'istantanea, mai scritto a mano. */
       ['meeting', mtL('navMeeting'), meetingCount],
+      /* I segnali sono un'area a parte, e non entrano in nessun conteggio
+         commerciale: e la meta del §6 — l'intelligenza resta, il nome no. */
+      ['msignals', mtL('navSignals'), meetingSignals.length],
       ['future', T.navFuture, navN('futureSignals')],
       ['windows', T.navWindows, navN('windows')],
       ['market', T.navMarket, navN('marketObservations')],
@@ -8934,9 +8967,14 @@ class Component extends DCLogic {
          indietro e i portoni la usano — ma rende la superficie riconciliata.
          Cosi «un solo radar» non e una voce nascosta nel menu: e l'unica
          griglia che il portale sa disegnare. */
-      isMeeting: s.view === 'meeting' || s.view === 'radar', isMcase: s.view === 'mcase',
+      isMeeting: s.view === 'meeting' || s.view === 'radar' || s.view === 'msignals', isMcase: s.view === 'mcase',
+      isSignalsView,
+      /* i contatori commerciali esistono solo dove ci sono opportunita */
+      hasCommercialCounts: !isSignalsView,
       mt: {
-        nav: mtL('navMeeting'), sub: mtL('subMeeting'),
+        nav: isSignalsView ? mtL('navSignals') : mtL('navMeeting'),
+        sub: isSignalsView ? mtL('subSignals') : mtL('subMeeting'),
+        signalsNote: mtL('signalsNote'),
         snapshot: mtL('meetingSnapshot'), srcHead: mtL('lblSourceHead'),
         buildId: mtL('lblBuildId'), cutoff: mtL('lblCutoff'),
         cases: mtL('lblCases'), of: mtL('lblOf'), all: mtL('lblAll'),
