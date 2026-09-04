@@ -55,6 +55,7 @@ from collections import Counter, defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sensor_epmc_it as EP                                              # noqa: E402
+from selo_de_amostra import selar
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(ROOT, 'data', 'raw', 'SENSOR-HUMANO-IT')
@@ -736,7 +737,7 @@ def montar():
         'REJECTED_SENSORS': rejeitados,
     }
     with open(REGISTRY, 'w', encoding='utf-8') as f:
-        json.dump(corpo, f, ensure_ascii=False, indent=1)
+        json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
     print('descobertos %d · qualificados %d · rejeitados %d' % (
         len(todos), len(aceitos), len(rejeitados)))
     print('tiers %s' % dict(tiers))
@@ -835,7 +836,7 @@ def cobertura():
         'CAPTURED_AT': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
     }
     with open(COVERAGE, 'w', encoding='utf-8') as f:
-        json.dump(corpo, f, ensure_ascii=False, indent=1)
+        json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
     print('células %d · %s' % (len(saida), dict(est)))
     print('-> %s' % COVERAGE)
     return corpo
@@ -905,7 +906,7 @@ def persistencia(quantos=10):
     }
     p = os.path.join(DEST, 'PERSISTENCE-PROOF.json')
     with open(p, 'w', encoding='utf-8') as f:
-        json.dump(corpo, f, ensure_ascii=False, indent=1)
+        json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
     for x in provas:
         print('%-14s %-9s %-34s %-2s %-11s %s' % (
             x['SENSOR_ID'], 'ID_STABLE' if x['ID_STABLE'] else 'ID_DRIFT',
@@ -1006,7 +1007,7 @@ def primarios(n=20):
     }
     p = os.path.join(DEST, 'TOP-20-PRIMARY.json')
     with open(p, 'w', encoding='utf-8') as f:
-        json.dump(corpo, f, ensure_ascii=False, indent=1)
+        json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
     for i, s in enumerate(escolhidos, 1):
         print('%2d %-13s %-2s %-34s %-11s %-26s %s' % (
             i, s['SENSOR_ID'], s['TIER'], (s['NAME'] or '')[:34],

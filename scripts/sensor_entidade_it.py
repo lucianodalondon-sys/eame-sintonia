@@ -97,6 +97,7 @@ import re
 import sys
 import unicodedata
 from collections import Counter, OrderedDict, defaultdict
+from selo_de_amostra import selar
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEST = os.path.join(ROOT, 'data', 'samples', 'IT-HUMAN-SENSORS')
@@ -270,7 +271,7 @@ class Ledger:
 
     def gravar(self):
         with open(self.caminho, 'w', encoding='utf-8') as f:
-            json.dump(self.d, f, ensure_ascii=False, indent=1, sort_keys=True)
+            json.dump(selar(self.d), f, ensure_ascii=False, indent=1, sort_keys=True)
 
 
 def _kind(nome, veio_da_rota, entity_kind_antigo):
@@ -590,7 +591,7 @@ def migrar():
     }
     for caminho, corpo in ((ENTIDADES, corpo_e), (FONTES, corpo_f), (MIGRACAO, corpo_m)):
         with open(caminho, 'w', encoding='utf-8') as f:
-            json.dump(corpo, f, ensure_ascii=False, indent=1)
+            json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
 
     print('ENTITIES_TOTAL          %d' % len(ents))
     print('SOURCES_TOTAL           %d  (linked %d · unresolved %d)'
@@ -757,7 +758,7 @@ def validar():
              'MEDIDO_EM': 'derivado na execução de `validar`; a data vive no commit',
              'METRICAS': v}
     with open(VALID, 'w', encoding='utf-8') as f:
-        json.dump(corpo, f, ensure_ascii=False, indent=1)
+        json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
     for k, x in v.items():
         if k in ('TRAVAS', 'ROLES_BY_STATE', 'BY_KIND', 'BY_DOMINIO'):
             continue

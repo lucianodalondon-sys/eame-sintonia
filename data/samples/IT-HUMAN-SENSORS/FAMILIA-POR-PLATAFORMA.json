@@ -1,0 +1,42 @@
+{
+ "SOURCE_ID": "IT-HUMAN-SENSORS/FAMILIA-POR-PLATAFORMA",
+ "source": "cruzamento offline de SOURCES.json x ENTITIES.json, sem rede",
+ "REGRA_DE_GRUPO": "a mesma de selecionar(): A = papel de campo provado, B = pesquisador/professor, C = sem papel provado",
+ "UNIVERSO_MONITORAVEL": 89,
+ "GRUPO_X_PLATAFORMA": {
+  "C": {
+   "youtube": 41,
+   "instagram": 13,
+   "facebook": 14,
+   "tiktok": 3,
+   "linkedin": 8
+  },
+  "A": {
+   "youtube": 4,
+   "facebook": 2,
+   "instagram": 2
+  },
+  "B": {
+   "twitter": 1,
+   "linkedin": 1
+  }
+ },
+ "CANAIS_DA_FAMILIA_PESQUISADOR": [
+  {
+   "NOME": "Riccardo Baroncelli",
+   "PLATAFORMA": "twitter",
+   "URL": "https://twitter.com/R_Baroncelli",
+   "SOURCE_ID": "IT-S-000305"
+  },
+  {
+   "NOME": "Andrea Milani",
+   "PLATAFORMA": "linkedin",
+   "URL": "https://www.linkedin.com/in/andrea-milani-ab8aab68",
+   "SOURCE_ID": "IT-S-000309"
+  }
+ ],
+ "RESEARCHER_YOUTUBE_CHANNELS": 0,
+ "CONDITION_6_TESTABLE_WITH_CURRENT_YOUTUBE_UNIVERSE": "NÃO",
+ "POR_QUE": "a condicao 6 pergunta se o canal publico do pesquisador acrescenta algo ao Europe PMC. Com 0 canais de YouTube nessa familia, a pergunta nao tem onde ser feita — e legenda nenhuma muda isso.",
+ "CAPTURED_AT": "2026-09-04T16:35:27Z"
+}

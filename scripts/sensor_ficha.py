@@ -30,6 +30,7 @@ import json
 import os
 import sys
 from collections import Counter, defaultdict
+from selo_de_amostra import selar
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEST = os.path.join(ROOT, 'data', 'samples', 'IT-HUMAN-SENSORS')
@@ -234,7 +235,7 @@ def fichas():
         'FICHAS': out,
     }
     with open(SAIDA, 'w', encoding='utf-8') as f:
-        json.dump(corpo, f, ensure_ascii=False, indent=1)
+        json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
     print('fichas por grupo: %s' % corpo['FICHAS_POR_GRUPO'])
     print('\ncasos híbridos:')
     for k, v in corpo['CASOS_HIBRIDOS'].items():

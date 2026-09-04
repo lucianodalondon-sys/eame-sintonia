@@ -427,7 +427,13 @@ def _abrir(url, *, navegador_primeiro=False, espera=5):
             return html, 'NAVEGADOR', 'BLOQUEADO_TAMBEM_NO_NAVEGADOR'
         return html, 'NAVEGADOR', 'OK'
     except cdp.Erro as e:
-        return None, 'NENHUMA', 'NAVEGADOR_NAO_ALCANCADO: %s' % str(e)[:120]
+        # 120 caracteres cortavam a frase EXATAMENTE onde ela começava a servir: em
+        # 2026-09-04 o motivo real ("Running as root without --no-sandbox is not
+        # supported") caía fora do corte e o relatório dizia só "NAVEGADOR_NAO_ALCANCADO:
+        # o Chrome NÃO subiu: morreu em 1.0s com código 1, sem abrir a porta 9342. Ele
+        # disse: [7118:...:ERROR:" — o nome do erro ficou de fora. Truncar diagnóstico é
+        # apagar diagnóstico.
+        return None, 'NENHUMA', 'NAVEGADOR_NAO_ALCANCADO: %s' % str(e)[:400]
 
 
 # ═══════════════════════════════════════════════════════════════ FASE · CANAIS
@@ -591,9 +597,45 @@ def fase_legendas(limite=None):
             'NAME': (t.get('name', {}).get('simpleText')
                      or (t.get('name', {}).get('runs') or [{}])[0].get('text', NAO_SEI)),
         } for t in faixas]
+        # PLAYER NEGADO ≠ VÍDEO SEM LEGENDA — 2026-09-04
+        # ------------------------------------------------
+        # A página do vídeo volta 200, com 1,2 MB, com `ytInitialData` e com
+        # `ytInitialPlayerResponse`. `_bloqueado()` diz False, e diz certo: não há
+        # captcha e o DOM veio. Só que dentro do player está escrito
+        #
+        #     playabilityStatus.status = LOGIN_REQUIRED
+        #     reason = "Accedi per confermare di non essere un bot"
+        #
+        # e quando isso acontece o YouTube NÃO manda o bloco `captions`. Faixa nenhuma.
+        # Sem este ramo, o código lia `faixas == []` e concluía AUSENTE com
+        # WHISPER_CANDIDATO=True — medido no controle positivo `jNQXAC9IVRw`, que TEM
+        # duas faixas ('de', 'en') e seria gravado como vídeo sem legenda e mandado
+        # para transcrição paga. É exatamente o desastre que o cabeçalho deste arquivo
+        # promete evitar.
+        #
+        #     RECUSA DE PLAYER NÃO É AUSÊNCIA DE LEGENDA.
+        #
+        # O ramo só desvia quando o player NÃO veio OK. Com player OK e faixa nenhuma,
+        # AUSENTE continua significando o que sempre significou.
+        status_player = (pr.get('playabilityStatus') or {}).get('status') or NAO_SEI
+        r['PLAYABILITY_STATUS'] = status_player
+        if not faixas and status_player != 'OK':
+            r.update({'CAPTION_STATE': 'PLAYER_NEGADO',
+                      'POR_QUE': ('o player voltou %s (%s). Nenhuma faixa foi declarada '
+                                  'porque o PLAYER não foi entregue a esta requisição — '
+                                  'não porque o vídeo não tenha legenda. Mandar whisper '
+                                  'por causa disto é pagar transcrição por causa de uma '
+                                  'reputação de IP.'
+                                  % (status_player,
+                                     (pr.get('playabilityStatus') or {}).get('reason')
+                                     or NAO_SEI)),
+                      'WHISPER_CANDIDATO': False})
+            barrados += 1
+            saida.append(r)
+            continue
         if not faixas:
             r.update({'CAPTION_STATE': 'AUSENTE',
-                      'POR_QUE': 'o player não declarou nenhuma faixa de legenda',
+                      'POR_QUE': 'o player veio OK e não declarou nenhuma faixa de legenda',
                       'WHISPER_CANDIDATO': True})
             sem += 1
             saida.append(r)
@@ -636,13 +678,15 @@ def fase_legendas(limite=None):
         'CAPTURED_AT': agora(),
         'APIFY_RUNS': 0, 'COST_USD': 0,
         'COM_LEGENDA': com, 'SEM_LEGENDA': sem, 'PORTA_NAO_ABRIU': barrados,
-        'TRES_ESTADOS_DIFERENTES': (
-            'PRESENTE = há texto. AUSENTE = o player disse que não há faixa. '
-            'DECLARADA_MAS_VAZIA = há faixa e o corpo não veio. PORTA_NAO_ABRIU não é '
-            'sobre o vídeo, é sobre a rede — e mandar o whisper por causa dele seria '
-            'transcrever por causa de um 429.'),
+        'CINCO_ESTADOS_DIFERENTES': (
+            'PRESENTE = há texto. AUSENTE = o player veio OK e disse que não há faixa. '
+            'DECLARADA_MAS_VAZIA = há faixa e o corpo não veio. PLAYER_NEGADO = a página '
+            'veio inteira mas o player voltou negado (LOGIN_REQUIRED e parentes): não se '
+            'mediu o vídeo, mediu-se a porta. PORTA_NAO_ABRIU não é sobre o vídeo, é '
+            'sobre a rede — e mandar o whisper por causa de qualquer um dos dois últimos '
+            'seria transcrever por causa de um 429.'),
         'ITEMS': saida})
-    print('gravado: %s · com=%d sem=%d porta_fechada=%d' % (p, com, sem, barrados))
+    print('gravado: %s · com=%d sem=%d barrado=%d' % (p, com, sem, barrados))
     return 0
 
 

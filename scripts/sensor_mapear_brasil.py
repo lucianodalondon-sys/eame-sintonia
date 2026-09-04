@@ -56,6 +56,7 @@ import re
 import sys
 import unicodedata
 from collections import Counter, defaultdict
+from selo_de_amostra import selar
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEST = os.path.join(ROOT, 'data', 'samples', 'IT-HUMAN-SENSORS')
@@ -356,7 +357,7 @@ def mapear():
         'FONTES': fontes,
     }
     with open(SAIDA, 'w', encoding='utf-8') as f:
-        json.dump(corpo, f, ensure_ascii=False, indent=1)
+        json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
     print('entrada %d sensores -> %d entidades + %d fontes' % (
         len(reg['SENSORS']), len(entidades), len(fontes)))
     print('entidades.tipo  %s' % dict(portipoent))

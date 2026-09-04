@@ -47,6 +47,7 @@ from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import speaker_universo as SU                                            # noqa: E402
+from selo_de_amostra import selar
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(ROOT, 'data', 'raw', 'SENSOR-HUMANO-IT')
@@ -268,7 +269,7 @@ def universo():
     }
     caminho = os.path.join(SAMPLES, 'UNIVERSE.json')
     with open(caminho, 'w', encoding='utf-8') as f:
-        json.dump(corpo, f, ensure_ascii=False, indent=1)
+        json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
     print('%d produtos ADAMA em vigor · %d ativos · %d linhas de matriz -> %s' % (
         len(produtos), len(ativos), len(linhas), caminho))
     return corpo
@@ -330,7 +331,7 @@ def openalex():
     }
     caminho = os.path.join(RAW, 'openalex-IT.json')
     with open(caminho, 'w', encoding='utf-8') as f:
-        json.dump(corpo, f, ensure_ascii=False, indent=1)
+        json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
     print('\n%d pessoas -> %s' % (len(pessoas), caminho))
     return corpo
 

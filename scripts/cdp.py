@@ -223,6 +223,17 @@ def abas(porta, timeout=10):
                    % (porta, type(e).__name__, str(e)[:80], porta))
 
 
+def _ultima_linha(arquivo):
+    """A última coisa que o navegador imprimiu antes de morrer, ou por que não deu para ler."""
+    try:
+        arquivo.flush()
+        arquivo.seek(0)
+        linhas = [l.strip() for l in arquivo.read().splitlines() if l.strip()]
+    except (OSError, ValueError) as e:
+        return '(não consegui ler o que ele imprimiu: %s)' % type(e).__name__
+    return linhas[-1][:300] if linhas else '(nada em stderr)'
+
+
 def subir(porta, *, perfil=None, url='about:blank', segundos=25):
     """Abre o Chrome com janela nesta porta, se ainda não houver um. Devolve o processo.
 
@@ -243,16 +254,46 @@ def subir(porta, *, perfil=None, url='about:blank', segundos=25):
     if not achado['FOUND']:
         raise Erro('sem Chrome nesta máquina: %s' % achado.get('WHY'))
     args = navegador.argumentos(url, perfil=perfil, porta_devtools=porta)
+    # O QUE O CHROME DISSE ANTES DE MORRER — 2026-09-04
+    # ------------------------------------------------
+    # Isto aqui mandava stdout E stderr para DEVNULL, e o laço abaixo nunca perguntava
+    # se o processo ainda estava vivo. Num contêiner rodando como root, o Chromium morre
+    # em 0,4 s dizendo, textualmente:
+    #
+    #     Running as root without --no-sandbox is not supported.
+    #
+    # Essa frase ia para o lixo. O laço dormia os 25 s inteiros esperando uma porta que
+    # nunca ia abrir e depois AFIRMAVA algo falso — "o Chrome subiu mas a porta não
+    # passou a escutar" —, mandando o operador caçar defeito de rede onde havia binário
+    # que se recusou a iniciar. Numa passada de 240 vídeos isso são ~100 minutos de
+    # silêncio enganoso: foi exatamente assim que a camada de legendas "não completou".
+    #
+    #     PROCESSO MORTO ≠ PORTA LENTA.
+    #
+    # stderr vai para arquivo, não para PIPE: um pipe de 64 KB não drenado travaria o
+    # navegador VIVO — o mesmo bug, pior. E o arquivo sobrevive (delete=False) porque
+    # quem lê o erro é gente, depois.
+    import tempfile
+    registro = tempfile.NamedTemporaryFile('w+', prefix='chrome-%d-' % porta,
+                                           suffix='.err', delete=False)
     p = subprocess.Popen([achado['EXECUTABLE']] + args,
-                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    fim = time.time() + segundos
+                         stdout=subprocess.DEVNULL, stderr=registro)
+    inicio = time.time()
+    fim = inicio + segundos
     while time.time() < fim:
         try:
             abas(porta, timeout=2)
             return p
         except Erro:
+            if p.poll() is not None:          # morreu: esperar mais não muda nada
+                raise Erro(
+                    'o Chrome NÃO subiu: morreu em %.1fs com código %s, sem abrir a '
+                    'porta %d. Ele disse: %s (saída completa em %s)'
+                    % (time.time() - inicio, p.returncode, porta,
+                       _ultima_linha(registro), registro.name))
             time.sleep(1)
-    raise Erro('o Chrome subiu mas a porta %d não passou a escutar em %ds' % (porta, segundos))
+    raise Erro('o Chrome está vivo mas a porta %d não passou a escutar em %ds '
+               '(o que ele imprimiu está em %s)' % (porta, segundos, registro.name))
 
 
 def _aba_de_pagina(porta):

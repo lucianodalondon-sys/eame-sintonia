@@ -63,6 +63,7 @@ import unicodedata
 import urllib.error
 import urllib.request
 from collections import Counter, OrderedDict, defaultdict
+from selo_de_amostra import selar
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEST = os.path.join(ROOT, 'data', 'samples', 'IT-HUMAN-SENSORS')
@@ -219,7 +220,7 @@ def orcid():
         'RESULTADOS': saida,
     }
     with open(ORCID_RAW, 'w', encoding='utf-8') as f:
-        json.dump(corpo, f, ensure_ascii=False, indent=1)
+        json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
     print('\ncom researcher-url: %d · com employment: %d · urls: %d · falhas %s'
           % (corpo['COM_RESEARCHER_URL'], corpo['COM_EMPLOYMENT'],
              corpo['URLS_TOTAL'], dict(falhas)))
@@ -375,7 +376,7 @@ def sites():
         'RESULTADOS': saida,
     }
     with open(SAIDA_SITES, 'w', encoding='utf-8') as f:
-        json.dump(corpo, f, ensure_ascii=False, indent=1)
+        json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
     print('\nlidos %d/%d · com papel estruturado %d -> %s'
           % (corpo['LIDOS'], len(alvos), corpo['COM_PAPEL_ESTRUTURADO'], SAIDA_SITES))
     return corpo
@@ -542,7 +543,7 @@ def aplicar():
     E['MULTI_ROLE_ENTITIES'] = sum(1 for e in ents.values() if len(e['ROLES']) >= 2)
     for caminho, corpo in ((ENTIDADES, E), (FONTES, S)):
         with open(caminho, 'w', encoding='utf-8') as f:
-            json.dump(corpo, f, ensure_ascii=False, indent=1)
+            json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
 
     rel = {
         'SOURCE_ID': 'IT-HUMAN-SENSORS/SOURCE-RESOLUTION',
@@ -564,7 +565,7 @@ def aplicar():
         'NOVAS_FONTES': novas,
     }
     with open(SAIDA_RESOLUCAO, 'w', encoding='utf-8') as f:
-        json.dump(rel, f, ensure_ascii=False, indent=1)
+        json.dump(selar(rel), f, ensure_ascii=False, indent=1)
     print('NEW_ENTITIES                    %d  (tem de ser 0)' % rel['NEW_ENTITIES'])
     print('NEW_SOURCES_LINKED_WITH_PROOF   %d' % len(novas))
     print('  monitoráveis                  %d' % rel['NEW_SOURCES_MONITORABLE'])
@@ -631,7 +632,7 @@ def orfas():
                         'PROVA': x['LINK_EVIDENCE']} for x in resolvidas],
     }
     with open(FONTES, 'w', encoding='utf-8') as f:
-        json.dump(S, f, ensure_ascii=False, indent=1)
+        json.dump(selar(S), f, ensure_ascii=False, indent=1)
     print('UNRESOLVED_BEFORE %d · RESOLVED_WITH_PROOF %d · UNRESOLVED_AFTER %d'
           % (antes, len(resolvidas), len(restantes)))
     for x in resolvidas:
@@ -730,7 +731,7 @@ def medir():
              'source': 'derivado de ENTITIES.json + SOURCES.json — nenhuma coleta',
              'METRICAS': v}
     with open(os.path.join(DEST, 'RESOLUTION-METRICS.json'), 'w', encoding='utf-8') as f:
-        json.dump(corpo, f, ensure_ascii=False, indent=1)
+        json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
     for k, x in v.items():
         if k in ('TRAVAS', 'DENOMINADORES'):
             continue

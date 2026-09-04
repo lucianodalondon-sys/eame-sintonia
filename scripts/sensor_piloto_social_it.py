@@ -58,6 +58,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from collections import Counter, OrderedDict, defaultdict
+from selo_de_amostra import selar
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEST = os.path.join(ROOT, 'data', 'samples', 'IT-HUMAN-SENSORS')
@@ -202,7 +203,7 @@ def selecionar():
         'CAPTURED_AT': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
     }
     with open(SELECAO, 'w', encoding='utf-8') as f:
-        json.dump(corpo, f, ensure_ascii=False, indent=1)
+        json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
     print('selecionados %d de %d monitoráveis · grupos %s · plataformas %s'
           % (len(sel), len(cands), corpo['POR_GRUPO'], corpo['POR_PLATAFORMA']))
     print('com rota pública: %d · sem rota: %d · APIFY_TOKEN: %s'
@@ -331,7 +332,7 @@ def lote():
         'CONTAS': contas,
     }
     with open(LOTE_PILOTO, 'w', encoding='utf-8') as f:
-        json.dump(corpo, f, ensure_ascii=False, indent=1)
+        json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
     print('lote congelado: %d contas · substituídos %d · sem rota %d'
           % (len(contas), len(subs), len(nao)))
     print('dono canônico: %s' % corpo['SCRAP_CANONICAL_OWNER'])
@@ -586,7 +587,7 @@ def medir():
         'DOCUMENTS': docs,
     }
     with open(MEDIDA, 'w', encoding='utf-8') as f:
-        json.dump(corpo, f, ensure_ascii=False, indent=1)
+        json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
     print('documentos %d · classes %s' % (len(docs), corpo['BY_VALUE_CLASS']))
     print('AG_RELEVANT %d · legendas %d · transcrição necessária %d'
           % (corpo['AG_RELEVANT'], corpo['HAS_CAPTION'], corpo['TRANSCRIPTION_NEEDED']))
@@ -595,6 +596,75 @@ def medir():
     return corpo
 
 
+# ═══════════════════════════════ 5 · QUEM ESTÁ NO YOUTUBE, POR FAMÍLIA DE PAPEL
+
+def familia():
+    """A tabela GRUPO × PLATAFORMA do universo monitorável. Sem rede, sem coleta.
+
+    Existe porque a rodada do piloto afirmou que as condições 5 e 6 do portão falhavam
+    "pela mesma causa: a legenda". Metade disso é falso, e esta tabela é a prova:
+
+        LEGENDA É UMA CAMADA DE YOUTUBE. NÃO ALCANÇA QUEM NÃO ESTÁ NO YOUTUBE.
+
+    A regra de grupo é a MESMA de `selecionar()` — de propósito. Duas regras de família no
+    mesmo repositório seriam duas respostas para a mesma pergunta.
+    """
+    with open(ENTIDADES, encoding='utf-8') as f:
+        E = json.load(f)
+    with open(FONTES, encoding='utf-8') as f:
+        S = json.load(f)
+    ents = {e['ENTITY_ID']: e for e in E['ENTITIES']}
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import sensor_resolver_fontes_it as R
+
+    tabela, canais_b = {}, []
+    total = 0
+    for f in S['SOURCES']:
+        if not (f.get('SOURCE_TYPE') == 'MONITORABLE_CHANNEL'
+                or f.get('PLATAFORMA') in R.MONITORAVEL):
+            continue
+        e = ents.get(f['ENTITY_ID'])
+        if not e:
+            continue
+        ps = [r['PAPEL'] for r in e['ROLES'] if r['ESTADO'] in ('PROVADO', 'PROBABLE')]
+        g = ('A' if any(p in CAMPO for p in ps) else
+             'B' if any(p in ('pesquisador', 'professor') for p in ps) else 'C')
+        tabela.setdefault(g, {}).setdefault(f['PLATAFORMA'], 0)
+        tabela[g][f['PLATAFORMA']] += 1
+        total += 1
+        if g == 'B':
+            canais_b.append({'NOME': e['NOME_CANONICO'], 'PLATAFORMA': f['PLATAFORMA'],
+                             'URL': f['URL'], 'SOURCE_ID': f['SOURCE_ID']})
+
+    yt_b = tabela.get('B', {}).get('youtube', 0)
+    corpo = {
+        'SOURCE_ID': 'IT-HUMAN-SENSORS/FAMILIA-POR-PLATAFORMA',
+        'source': 'cruzamento offline de SOURCES.json x ENTITIES.json, sem rede',
+        'REGRA_DE_GRUPO': ('a mesma de selecionar(): A = papel de campo provado, '
+                           'B = pesquisador/professor, C = sem papel provado'),
+        'UNIVERSO_MONITORAVEL': total,
+        'GRUPO_X_PLATAFORMA': tabela,
+        'CANAIS_DA_FAMILIA_PESQUISADOR': canais_b,
+        'RESEARCHER_YOUTUBE_CHANNELS': yt_b,
+        'CONDITION_6_TESTABLE_WITH_CURRENT_YOUTUBE_UNIVERSE': 'SIM' if yt_b else 'NÃO',
+        'POR_QUE': ('a condicao 6 pergunta se o canal publico do pesquisador acrescenta '
+                    'algo ao Europe PMC. Com %d canais de YouTube nessa familia, a '
+                    'pergunta nao tem onde ser feita — e legenda nenhuma muda isso.'
+                    % yt_b),
+    }
+    with open(os.path.join(DEST, 'FAMILIA-POR-PLATAFORMA.json'), 'w',
+              encoding='utf-8') as f:
+        json.dump(selar(corpo), f, ensure_ascii=False, indent=1)
+    plats = sorted({p for g in tabela.values() for p in g})
+    print('universo monitoravel: %d' % total)
+    print('      ' + ' '.join('%-10s' % p for p in plats))
+    for g in sorted(tabela):
+        print('%-6s' % g + ' '.join('%-10d' % tabela[g].get(p, 0) for p in plats))
+    print('RESEARCHER_YOUTUBE_CHANNELS = %d' % yt_b)
+    return corpo
+
+
 if __name__ == '__main__':
     {'selecionar': selecionar, 'lote': lote, 'coletar': coletar,
-     'medir': medir}[sys.argv[1] if len(sys.argv) > 1 else 'medir']()
+     'medir': medir, 'familia': familia}[
+        sys.argv[1] if len(sys.argv) > 1 else 'medir']()
