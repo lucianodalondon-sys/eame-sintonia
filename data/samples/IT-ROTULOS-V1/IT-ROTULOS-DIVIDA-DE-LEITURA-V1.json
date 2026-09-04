@@ -7,15 +7,15 @@
  "SOURCE": "auditoria rotulo a rotulo das perdas de leitura entre o conjunto antigo e o publicado, com refutacao adversarial de cada alegacao de autorizacao",
  "METODO": "um agente le a GEOMETRIA de cada rotulo e classifica cada cultura perdida; um segundo agente tenta DERRUBAR cada alegacao de AUTORIZADO_MAS_NAO_LIDO. O refutador manda, e foi instruido a refutar na duvida.",
  "LEI": "AUSENCIA NA NOSSA LEITURA NUNCA E AUSENCIA NO REGISTRO",
- "LABELS_AUDITED": 35,
- "CROP_CLAIMS_AUDITED": 83,
+ "LABELS_AUDITED": 52,
+ "CROP_CLAIMS_AUDITED": 100,
  "BY_VERDICT": {
-  "AUTORIZADO_MAS_NAO_LIDO": 49,
+  "AUTORIZADO_MAS_NAO_LIDO": 66,
   "AUTORIZADO_E_LIDO": 33,
   "NAO_AUTORIZADO": 1
  },
  "RESOLVED_BY_PARSER_TONIGHT": 33,
- "STILL_BLOCKING": 49,
+ "STILL_BLOCKING": 66,
  "STILL_UNKNOWN": 0,
  "BLOCKING_LABELS": {
   "008189": 6,
@@ -42,7 +42,24 @@
   "014074": 1,
   "014210": 1,
   "014386": 1,
-  "015096": 1
+  "015096": 1,
+  "015315": 1,
+  "015401": 1,
+  "015405": 1,
+  "016387": 1,
+  "017209": 1,
+  "017432": 1,
+  "017580": 1,
+  "017655": 1,
+  "017929": 1,
+  "017930": 1,
+  "017983": 1,
+  "018072": 1,
+  "017995": 1,
+  "018271": 1,
+  "018279": 1,
+  "018561": 1,
+  "018545": 1
  },
  "FIX_CLASSES": {
   "MATRIZ_MULTICOLUNA (principal — re-segme": 6,
@@ -55,8 +72,9 @@
   "CABECALHO_DE_SECAO (primaria) + SECAO_PR": 2
  },
  "CONJUNTO_NOVO_PODE_SUBSTITUIR_O_ANTIGO": "NAO",
- "POR_QUE": "ainda ha 49 pares (rotulo x cultura) que o rotulo AUTORIZA e o parser NAO LE. Enquanto existirem, substituir apagaria autorizacao real.",
+ "POR_QUE": "ainda ha 66 pares (rotulo x cultura) que o rotulo AUTORIZA e o parser NAO LE. Enquanto existirem, substituir apagaria autorizacao real.",
  "UNIAO_AINDA_NECESSARIA": "SIM",
+ "O_UNICO_ERRO_DO_CONJUNTO_ANTIGO": "011526 SULTAN x CIPOLLA. O rotulo diz \"diserbante selettivo per colza, cavoli a infiorescenza, cavoli a testa, cavoli a foglia e AGLIO\" — aglio, e nao cipolla. Das cem perdas auditadas, esta e a unica em que o conjunto antigo estava errado e o novo esta certo.",
  "ROWS": [
   {
    "LABEL_ID": "004701",
@@ -183,7 +201,7 @@
    "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
    "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
    "REFUTED_BY_CHALLENGER": false,
-   "CHALLENGER_WHY": null,
+   "CHALLENGER_WHY": "Tentei derrubar por cinco vias e nenhuma pegou. (1) LITERALIDADE: a citacao existe palavra por palavra na geometria bruta (data/samples/IT-ROTULOS-V1/geometria/008189.xml.gz) — b20 linhas \"Barbabietola da\" (y=54.05-61.28 x=525.79-576.57) e \"zucchero\" (y=63.53-70.76); b22 linhas \"Agriotes sp., Atomaria linearis, Chaetocnema\" (y=54.05 x=607.27-756.10) e \"tibialis, Scutigerella immaculata, Tipula sp.\" (y=63.53); b23 \"DOSE\"/\"kg/ha\"/\"12-15\" (y=34.47/43.95/54.05 x=766.78); b01 escopo y=46.47-83.10 x=50.40-256.49. (2) TIPO DE BLOCO: e tabela de uso, nao outra coisa — cabecalhos b19 COLTURA (x=532.87-572.97), b21 PARASSITI (x=652.78-695.49), b23 DOSE kg/ha (x=766.78), introduzida pela secao CAMPI E DOSI D'IMPIEGO em y=460.69 x=273.65 (\"Le dosi qui riportate si riferiscono a trattamenti da effettuarsi con i microgranulatori e lungo la fila della coltura\"). Nao e carenza, nao e lista de infestantes, nao e faixa de deriva (essa e b17, x=309.1, y=129.5), nao e composicao (b07/b08) nem prosa de seguranca. (3) HOMONIMO: \"Barbabietola da zucchero\" esta na coluna COLTURA e e repetida no escopo do produto como cultura protegida — e a cultura, nao daninha. (4) HERANCA DE LINHA VIZINHA (o angulo mais forte, e falha): a celula de cultura ocupa y 54.05-70.76 em duas linhas e as duas linhas de parassiti caem exatamente nas mesmas duas baselines (54.05 e 63.53), com a dose 12-15 em y=54.05; a linha seguinte e independente e igualmente alinhada (Frumento y=73.73 / \"Bibio hortulanus, Hylemya sp.\" y=73.73 / 10-12 y=73.73). As colunas sao disjuntas em x (525.79-576.57 | 607.27-756.25 | 766.78-788.58), entao o texto de alvos nao invade a coluna de cultura. Alem disso Atomaria linearis e Chaetocnema tibialis sao pragas especificas de beterraba — o conjunto de alvos e biologicamente coerente com a linha, nao herdado. (5) COORDENADAS: todas conferem exatamente com os blocos que contem a frase (b19/b20/b21/b22/b23/b01 e a secao em y=460.69). Diagnostico do parser: pares_geometricos devolve [] porque a celula de cultura e um bloco proprio sem alvo nenhum (c=['BARBABIETOLA','FRUMENTO'] a=[]) enquanto os alvos vivem noutro bloco, e cindir_colunas ainda trunca b22 em x~690.6, picando \"Atomaria linearis\" e perdendo \"Chaetocnema\"/\"Tipula sp.\" — defeito do extrator, nao do rotulo. O proprio registro ja traz SUGARBEET em CROP_TERMS_PRESENT e AUTHORIZED_USE_ROWS=6. Restricoes que qualificam mas nao anulam o uso: \"Divieto di impiego in serra\", \"Ammesso un solo trattamento per ciclo vegetativo\", faixa de respeito de 10 m (que nem cita beterraba); ha tambem um artefato de copia-cola no rotulo (\"SCHERMO 0.5 G\" em MODALITA' D'IMPIEGO), que nao toca a linha da beterraba.",
    "TARGETS_ON_LABEL": [
     "Agriotes sp.",
     "Atomaria linearis",
@@ -206,7 +224,7 @@
    "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
    "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
    "REFUTED_BY_CHALLENGER": false,
-   "CHALLENGER_WHY": null,
+   "CHALLENGER_WHY": "Tentei derrubar por cinco vias e nenhuma pegou. (1) A citacao existe literalmente: B20 linha y=73.7-81.0 x=525.8-556.9 = \"Frumento\"; B22 linha y=73.7-81.0 x=607.3-706.1 = \"Bibio hortulanus, Hylemya sp.\"; B24 y=73.7-81.0 x=766.8-785.7 = \"10-12\". A unica imprecisao da citacao e cosmetica: x=576.6 e o xMax do BLOCO B20 (herdado de \"Barbabietola da\"), nao da linha. (2) NAO e secao proibida: os cabecalhos B19 COLTURA (y=34.5 x=532.9), B21 PARASSITI (y=34.5 x=652.8) e B23 DOSE/kg/ha (y=34.5/43.9 x=766.8) coroam a tabela, e B30 y=460.7 declara \"CAMPI E DOSI D'IMPIEGO ... Le dosi qui riportate si riferiscono a trattamenti ... lungo la fila della coltura\". Nao e carenza, nem lista de infestantes, nem deriva (a deriva e B17, bloco separado, e nao cita frumento), nem rotacao, nem composicao. (3) NAO e homonimo: frumento e trigo, nao existe daninha com esse nome, e o produto e inseticida geodisinfestante (teflutrin) — a coluna e de pragas. Bibio hortulanus e Hylemya sp. sao pragas de solo reais de cereais. (4) O alvo NAO foi herdado da linha vizinha: cultura, parassiti e dose compartilham a caixa identica y=73.7-81.0; a linha de cima (Barbabietola da zucchero, y=54.0 e 63.5) tem celula de praga propria terminando em \"Tipula sp.\" em 63.5 e dose propria 12-15 em y=54.0 dentro de B23. Dois blocos de dose em dois y distintos provam duas linhas distintas — mata tambem a hipotese de celula mesclada. A mesma regra de alinhamento por y vale em toda a tabela (Mais 103.6, Sorgo 113.1, Patata 305.6, Tabacco 315.8). (5) Corroboracao independente: B1 y=46.5-92.1 x=50.4-256.5 nomeia frumento no escopo do produto — \"per la protezione di barbabietola da zucchero, frumento, mais, mais dolce e sorgo, oleaginose, ortaggi, patata, tabacco.\" Nenhuma exclusao atinge trigo (so \"Divieto di impiego in serra\" e um tratamento por ciclo). O documento e o certo: B2 traz \"Autorizzazione Ministero della Salute n. 8189 del 16.03.1993\". A segunda metade da afirmacao tambem se confirma, com causa nomeada: parse() devolve ZERO pares para 008189 inteiro; culturas_em(\"Frumento\") -> ['FRUMENTO'], mas alvos_em(\"Bibio hortulanus, Hylemya sp.\") -> [], e grep por hylemya|bibio|delia em /home/user/eame-sintonia/scripts/it_rotulo_parser.py nao retorna nada — as pragas nao estao no vocabulario controlado; alem disso cultura (B20) e praga (B22) estao em blocos diferentes, entao o pareamento intra-bloco nao tem o que juntar. Perde-se a tabela toda, nao so frumento. Ressalva honesta que NAO afeta esta linha: B22 tem duas linhas orfas de praga em y=83.2 e y=93.4 (com dose 12-15 em 93.4) sem celula de cultura, pois B20 termina em y=81.0 — a cultura DESSAS linhas fica indeterminada, o que e incerteza separada a sinalizar, nao motivo para rejeitar Frumento.",
    "TARGETS_ON_LABEL": [
     "Bibio hortulanus",
     "Hylemya sp."
@@ -226,7 +244,7 @@
    "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
    "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
    "REFUTED_BY_CHALLENGER": false,
-   "CHALLENGER_WHY": null,
+   "CHALLENGER_WHY": "Tentei derrubar por cinco vias e nenhuma pegou. (1) CITACAO LITERAL: existe verbatim nas coordenadas alegadas — linha y=132.77-140.00 x=525.79-570.97 \"Girasole, Soia\"; linha y=132.77-140.00 x=607.27-685.14 \"Agriotes sp., Agrotis sp.\"; dose b26 x=766.78 y=132.77 \"12-15\"; bloco b22 x=525.79-756.25 y=54.05-323.05. Tudo bate. (2) NATUREZA DO BLOCO: e DECLARACAO DE USO, nao carenza/infestantes/deriva/rotacao/composicao/prosa. Os cabecalhos existem como blocos proprios acima, todos em y=34.47: COLTURA (b19, x=532.87), PARASSITI (b21, x=652.78), DOSE + kg/ha (b23, x=766.78); a secao e \"CAMPI E DOSI D'IMPIEGO\". SECAO_PROIBIDA e VERBO_DE_PROSA dao negativo em b22. (3) HOMONIMIA: Girasole esta na coluna COLTURA, x0=525.79, o mesmo x0 de Barbabietola, Frumento, Mais, Sorgo, Pomodoro, Patata e Tabacco, a esquerda da calha e a esquerda do texto de alvo (x0=607.27). Corroborado duas vezes no proprio rotulo: a frase de escopo \"per la protezione di barbabietola da zucchero, frumento, mais, mais dolce e sorgo, OLEAGINOSE, ortaggi, patata, tabacco\" e a nota de fascia di rispetto que nomeia \"soia\" como cultura tratada. Nao e daninha homonima. (4) HERANCA DE LINHA VIZINHA: nao ha. Cultura, alvo e dose partilham UMA MESMA LINHA DE BASE, y=132.77, e a dose \"12-15\" e um bloco autonomo (b26, y=132.77-140.00). O passo vertical separa quebra-de-celula (9.48 pt) de troca-de-linha (10.20 pt): a celula anterior (Mais, Mais Dolce, / Sorgo) fecha o alvo em y=122.57 e ha um salto de 19.68 pt — uma linha em branco — ate 132.77; a linha seguinte (Pomodoro, Melanzana...) abre em 152.45. A celula de alvo do Girasole tem exatamente duas linhas: \"Agriotes sp., Agrotis sp.\" (132.77) e \"Chaetocnema tibialis, Hylemya sp\" (142.25). Os alvos alegados sao a primeira delas, na linha de base da propria cultura. (5) COORDENADA: bate integralmente. UNICO DEFEITO REAL ENCONTRADO, e ele NAO toca este par: a tabela tem 9 celulas de alvo e 9 de dose mas so 8 de cultura — ha uma linha orfa em y=93.41 (\"Agriotes sp., Melolontha melolontha\", dose 12-15) cuja celula COLTURA nao foi extraida. Isso prova que a coluna de cultura deste rotulo esta incompleta na extracao (foi por isso que IT-ROTULOS-GOLD-COMPLETE-V1.json o colocou em EXCLUDED[4]), mas nao desloca o Girasole: o casamento aqui e por coordenada absoluta, nao por indice ordinal de linha, a orfa esta ACIMA, e cultura/alvo/dose continuam coincidindo em 132.77. PREMISSA DO ACUSADOR CONFIRMADA: o parser devolve mesmo zero. Causa mecanica exata em /home/user/eame-sintonia/scripts/it_rotulo_parser.py: (a) a calha real entre as colunas e 601.77->607.27 = 5.50 pt, abaixo de CALHA_MINIMA=6.0, estreitada por exatamente duas palavras que invadem a faixa — 'Melanzana,' (termina x=600.34, y=152.45) e 'Melone,' (termina x=601.77, y=161.93) — e _calhas(b22) devolve []; (b) a ancora de cabecalho COLTURA e entao descartada pela guarda \"b['x0'] + 8 < x\", pois 525.79+8=533.79 > 532.87 — falha por 0.92 pt; sobra so a ancora PARASSITI em 652.78, que NAO e o inicio da coluna de alvo (607.27), e o corte cai 45 pt dentro da coluna de alvo. A parte esquerda sai como \"...Mais, Mais Dolce, Agriotes sp., Agrotis Sorgo ... Girasole, Soia Agriotes sp., Agrotis ...\", densidade 0.39 contra limite 0.72, _celulas_de_cultura devolve 0 e pares_geometricos devolve []. O vocabulario nao e o obstaculo: culturas_em(\"Girasole, Soia\")=['GIRASOLE','SOIA'] e alvos_em(\"Agriotes sp., Agrotis sp.\")=['ELATERIDI','NOTTUE']. Rotulo vigente: \"Etichetta autorizzata con decreto dirigenziale del 16 luglio 2024\", Autorizzazione n. 8189, STATUS Ri-registrato, EXPIRY 2027-05-31. Restricoes que acompanham (divieto di impiego in serra; um so tratamento por ciclo; fascia di rispetto de 10 m) condicionam o uso, nao o negam. Nao consegui refutar: o rotulo autoriza GIRASOLE contra Agriotes sp. (ELATERIDI) e Agrotis sp. (NOTTUE) a 12-15 kg/ha; o parser e que e cego a isso por 5.50 pt de calha e 0.92 pt de guarda de ancora.",
    "TARGETS_ON_LABEL": [
     "Agriotes sp.",
     "Agrotis sp."
@@ -246,7 +264,7 @@
    "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
    "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
    "REFUTED_BY_CHALLENGER": false,
-   "CHALLENGER_WHY": null,
+   "CHALLENGER_WHY": "Tentei derrubar por sete vias e a afirmacao resistiu a todas.\n\n1) A citacao existe literalmente. Em data/samples/IT-ROTULOS-V1/geometria/008189.xml.gz: linha y=305.6-312.8 x=525.8-545.5 = \"Patata\"; linha y=305.6-312.8 x=607.3-650.0 = \"Agriotes spp.\". O escopo b1 y=46.5-92.1 x=50.4-256.5 traz, em tres linhas, \"per la protezione di barbabietola da zucchero, frumento, / mais, mais dolce e sorgo, / oleaginose, ortaggi, patata, tabacco.\" — verbatim.\n\n2) O bloco e DECLARACAO DE USO, nao prosa. Os cabecalhos sao blocos proprios: b19 COLTURA (y=34.5 x=532.9-573.0) e b21 PARASSITI (y=34.5 x=652.8-695.5), com b23 DOSE / kg/ha em x=766.8-788.6. Dentro de b22 as 39 linhas comecam em exatamente x=525.8 (coluna cultura) ou exatamente x=607.3 (coluna parassiti) — tabela de duas colunas limpa. Nao e tabela de carenza (nao ha dias), nao e lista de infestantes, nao e deriva, nao e rotacao, nao e composicao. SECAO_PROIBIDA nao casa com o bloco.\n\n3) Confirmacao pela TERCEIRA coluna, que eu nao esperava achar. O bloco 29 se estende ate x=799.1 e carrega y=305.6 x=766.8-785.7 = \"12-15\" e y=315.8 x=766.8-785.7 = \"12-15\", dentro da coluna DOSE kg/ha. A linha da Patata esta completa nas tres colunas: cultura, parassita e dose.\n\n4) Nao e homonimo de daninha. Produto e geodisinfestante a base de teflutrin, alvo Agriotes (elaterideo do solo). \"Patata\" so pode ser a cultura batata; nao existe leitura de daninha numa linha de inseticida de solo.\n\n5) O alvo NAO foi herdado da linha vizinha. A lista de parassiti da linha do cavolo termina em y=295.4 = \"radicum\" (Delia radicum). \"Agriotes spp.\" em y=305.6 comeca com maiuscula, sem virgula inicial, na mesma baseline exata de \"Patata\", e tem dose propria. A linha seguinte (Tabacco, y=315.8) usa a mesma grafia \"spp.\" da linha da Patata, distinta do \"sp.\" das linhas antigas acima — as duas linhas foram acrescentadas juntas como par proprio.\n\n6) As coordenadas batem ao decimo. b22 e exatamente o bloco fundido y=54.0-323.1 x=525.8-756.2; b1 e exatamente y=46.5-92.1 x=50.4-256.5; cabecalhos em y=34.5 x=532.9 e x=652.8.\n\n7) Nao ha exclusao. grep por patat|serra|divieto|vietat|esclus devolve so a linha de escopo, a linha da tabela, \"Divieto di impiego in serra\" (proibe estufa, nao retira batata) e o boilerplate \"Da impiegarsi esclusivamente per gli usi...\". Rotulo vigente: \"Etichetta autorizzata con decreto dirigenziale del 16 luglio 2024\".\n\nA segunda metade da afirmacao tambem se confirma: it_rotulo_ver.py 008189 --parser devolve (nada) — zero pares no rotulo inteiro. culturas_em() sobre b22 ja devolve PATATA e o bloco nao e excluido, entao a perda e a jusante: as duas colunas da tabela colapsaram num unico bloco (b22), logo pares_geometricos nao tem segundo bloco para alinhar e pares_inline nao acha cultura e alvo na mesma LINHA — cultura e alvo estao em linhas separadas que compartilham o mesmo y. Observacao lateral: it_rotulo_ver.py --linhas imprime b['x0'] em vez do x da propria linha, por isso as 39 linhas aparecem todas como x=525.8 nessa vista e a estrutura de colunas fica invisivel ali; as coordenadas de palavra citadas pelo afirmante vieram do arquivo de geometria e estao corretas.\n\nNao encontrei defeito. Publicar PATATA para 008189 nao e sobre-leitura.",
    "TARGETS_ON_LABEL": [
     "Agriotes spp."
    ],
@@ -286,7 +304,7 @@
    "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
    "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
    "REFUTED_BY_CHALLENGER": false,
-   "CHALLENGER_WHY": null,
+   "CHALLENGER_WHY": "Tentei derrubar e nao consegui; a alegacao resiste a todos os ataques. (1) LITERALIDADE: a citacao existe verbatim na geometria (data/samples/IT-ROTULOS-V1/geometria/008189.xml.gz). Bloco b22, DUAS linhas na MESMA baseline y=315.8: \"Tabacco\" em x=525.8-553.1 e \"Agriotes spp., Agrotis spp., Tipula spp.\" em x=607.3-733.9. As coordenadas citadas batem ate a decima. (2) TIPO DE BLOCO: e DECLARACAO DE USO, nao carenza, nao lista de infestantes, nao deriva, nao rotacao, nao composicao, nao prosa de seguranca. Cabecalhos em y=34.5: COLTURA x=532.9 (b19), PARASSITI x=652.8 (b21), DOSE kg/ha x=766.8 (b23). A calha entre colunas (x=594.6 a 607.3) esta vazia; \"Tabacco\" termina em 553.1 (dentro de COLTURA) e a lista de parassiti comeca exatamente em 607.3 (borda esquerda de PARASSITI). Zero sobreposicao. O titulo narrativo \"CAMPI E DOSI D'IMPIEGO\" (b30, y=460.7) e desta tabela. (3) HERANCA DE LINHA VIZINHA: descartada. A linha acima e \"Patata\" | \"Agriotes spp.\" em y=305.6 — celula completa e auto-terminada, com dose propria. A lista do Tabacco abre celula nova na borda da coluna, na sua propria baseline. (4) TERCEIRA CELULA CONFIRMA A LINHA: dose \"12-15\" em y=315.8 x=766.8-785.7 (engolida pelo bloco fundido b29, que fundiu a coluna de prosa CARATTERISTICHE com a coluna DOSE). Patata tem \"12-15\" em y=305.6. Linha de tres celulas completa: cultura / alvo / dose, todas alinhadas. (5) CORROBORACAO INDEPENDENTE: b1 y=74.9 x=91.9-215.2 \"oleaginose, ortaggi, patata, tabacco.\" — tabacco nomeado no escopo de protecao do proprio produto, num bloco separado da tabela. (6) HOMONIMO: nao ha. Produto e teflutrin, geodisinfestante; os alvos sao elateridi/nottue/tipule. \"Tabacco\" na coluna COLTURA de rotulo italiano e Nicotiana tabacum; este rotulo nao tem lista de infestantes. (7) EXCLUSAO: busquei tabac|serra|divieto|non ammess|escluso|revoc|carenza no texto inteiro. Unica restricao e \"Divieto di impiego in serra\" (b29 y=354.5) — restringe o ambiente, nao a cultura. Pagina unica, sem anexo contraditorio. Status Ri-registrato, EXPIRY 2027-05-31, etiqueta autorizada por decreto de 16.07.2024, Aut. Min. Salute n. 8189 del 16.03.1993 (bate com o LABEL_ID). (8) A METADE \"O PARSER NAO LE\" TAMBEM E VERDADEIRA: scripts/it_rotulo_ver.py 008189 --parser devolve \"(nada)\", zero pares. Causa em scripts/it_rotulo_parser.py, funcao pares_geometricos: a deteccao de celula de cultura opera POR BLOCO e a primeira guarda e \"if len(t) > 110: continue\"; o bloco fundido b22 tem 1071 caracteres e e descartado inteiro, levando junto as 11 linhas de cultura. UNICA CAUTELA ENCONTRADA: IT-ROTULOS-GOLD-COMPLETE-V1.json excluiu 008189 do gabarito porque o leitor humano nao conseguiu separar as linhas achatadas com confianca. As coordenadas por linha resolvem exatamente essa duvida para ESTA linha: mesma baseline, bandas de x disjuntas, celula de dose propria. Nao ha motivo defensavel para refutar.",
    "TARGETS_ON_LABEL": [
     "Agriotes spp.",
     "Agrotis spp.",
@@ -1199,6 +1217,64 @@
    "FIX_CLASS": "CELULA_ENUMERATIVA_DE_CULTURAS (celula de tabela que e nome de grupo + enumeracao explicita dos membros, com ou sem parenteses: \"Orticole aglio, cipolla, ... patata ...\", \"Foraggere (... erba medica)\""
   },
   {
+   "LABEL_ID": "015315",
+   "PRODUCT": "EMBRACE (fluazinam 500 g/l, sospensione concentrata) — fungicida",
+   "CROP": "MELO",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "TICCHIOLATURA (Venturia inaequalis)",
+    "ALTERNARIA (Alternaria mali)"
+   ],
+   "EVIDENCE_QUOTE": "Melo, Cotogno, Nespolo giapponese ed europeo: applicare alla dose di 70-100 ml/hl senza superare la dose massima di 1 l/ha per il controllo della ticchiolatura (Venturia inaequalis) e dell'alternaria (Alternaria mali). Effettuare un massimo di 3 trattamenti all'anno con un intervallo minimo di 14 giorni tra le applicazioni, intervenendo nelle condizioni di maggiore suscettibilita alle malattie dop",
+   "EVIDENCE_COORDS": "p0 y=110-172 x=561-800 (linhas y=109.7 a 164.9, x=561.4), sob o cabecalho \"DOSI E MODALITA' DI IMPIEGO\" (p0 y=44.4 x=561.4)",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "Nao ha tabela. A secao \"DOSI E MODALITA' DI IMPIEGO\" (coluna direita, x=561-800) e uma sequencia de PARAGRAFOS-DECLARACAO, um por cultura/grupo, no formato \"<cabeca de culturas>: applicare alla dose .",
+   "WHY_PARSER_MISSES": "A cabeca do bloco do melo e \"Melo, Cotogno, Nespolo giapponese ed europeo\" — termina em tokens qualificadores (\"giapponese\", \"ed\", \"europeo\") que nao sao nome de cultura do vocabulario nem separador conhecido. As DUAS rotas de declaracao inline morrem nisso. (1) INLINE_RX, usada por pares_inline (scripts/it_rotulo_parser.py:677-683): a cabeca so pode ser um run de tokens Capitalizados unidos por \"",
+   "FIX_CLASS": "CABECALHO_DE_USO_COM_QUALIFICADOR — cabeca de declaracao inline cujo ultimo nome de cultura vem seguido de qualificador de especie/variedade fora do vocabulario (\"Nespolo giapponese ed europeo\", \"Nash"
+  },
+  {
+   "LABEL_ID": "015401",
+   "PRODUCT": "TAIFUN MK CL (glifosate 360 g/l, DISERBANTE, ADAMA — Reg. Min. Salute n. 15401 del 22.06.2012)",
+   "CROP": "SEGALE",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "INFESTANTI"
+   ],
+   "EVIDENCE_QUOTE": "TERRENI AGRARI IN ASSENZA DI COLTURA (BARBABIETOLA DA ZUCCHERO, FRUMENTO, ORZO, SEGALE, AVENA, FRAGOLA, MAIS, ORTICOLE, SOIA): Prima della lavorazione del terreno o della messa a dimora (pre- semina, pre-trapianto) delle colture riportate in parentesi, ovvero in seguito alla raccolta della coltura in precessione colturale, è possibile effettuare un trattamento con TAIFUN® MK CL senza eccedere la d",
+   "EVIDENCE_COORDS": "p0 y=233.1-388.2 x=579.4-807.9 (bloco 'TERRENI AGRARI'); SEGALE na linha p0 y=251.3 x=579.4 'SEGALE, AVENA, FRAGOLA, MAIS, ORTICOLE, SOIA):'; cabecalho do bullet nas linhas y=233.1 e y=242.2; declaracao de epoca e dose nas linhas y=260.4 a y=296.9. Alvo global do documento em p0 y=72.4-83.2 x=48.6: 'ERBICIDA SISTEMICO PER IL CONTROLLO DI / INFESTANTI ANNUALI E PERENNI'",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "NAO ha tabela. A geometria (72 block / 278 line / 2035 word, zero elemento de tabela) traz a secao CAMPI DI IMPIEGO desenhada como LISTA DE BULLETS na coluna direita (marcador em x=561.4, texto em x=5",
+   "WHY_PARSER_MISSES": "Duas guardas independentes matam o par, cada uma confirmada por experimento sobre a geometria versionada. (1) ROTA INLINE_COLON_HEAD — chega ao ultimo passo e morre. `_cabecas_por_dois_pontos` acha o ':' do bullet, `_run_de_culturas_antes_do_dois_pontos` retira o parentetico final e devolve corretamente a cabeca \"AVENA BARBABIETOLA FRAGOLA FRUMENTO MAIS ORZO SEGALE SOIA\", e `USO.search(resto)` da ",
+   "FIX_CLASS": "LISTA_DE_USOS (primaria: bullet de CAMPI DI IMPIEGO com culturas enumeradas entre parenteses e alvo declarado uma vez para o documento — exatamente o que a rota AUTHORISED_USE_LIST existe para ler), h"
+  },
+  {
+   "LABEL_ID": "015405",
+   "PRODUCT": "SHAMAL MK PLUS CL (glifosate 360 g/l, ADAMA) - DISERBANTE, reg. Min. Salute n. 15405 del 22.06.2012, etichetta autorizzata con D.D. del 16 ottobre 2020",
+   "CROP": "SEGALE",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "INFESTANTI"
+   ],
+   "EVIDENCE_QUOTE": "TERRENI AGRARI IN ASSENZA DI COLTURA (BARBABIETOLA DA ZUCCHERO, FRUMENTO, ORZO, SEGALE, AVENA, FRAGOLA, MAIS, ORTICOLE, SOIA): Prima della lavorazione del terreno o della messa a dimora (pre- semina, pre-trapianto) delle colture riportate in parentesi, ovvero in seguito alla raccolta della coltura in precessione colturale, e possibile effettuare un trattamento con SHAMAL MK PLUS CL senza eccedere ",
+   "EVIDENCE_COORDS": "p0 y=166.6-320.3 x=579.4-807.8 (bloco cru, antes de cindir_colunas). Linhas: p0 y=166.6 x=579.4 'TERRENI AGRARI IN ASSENZA DI COLTURA'; p0 y=175.7 x=579.4 '(BARBABIETOLA DA ZUCCHERO, FRUMENTO, ORZO,'; p0 y=184.9 x=579.4 'SEGALE, AVENA, FRAGOLA, MAIS, ORTICOLE, SOIA):'; p0 y=248.7 x=579.4 'lavorazione e di semina senza aratura) trattare con le infestanti'. Cabecalho da secao: p0 y=460.8 x=294.8 'CAMPI DI IMPIEGO'. Alvo no titulo do produto: p0 y=51.8-62.6 x=48.6 'ERBICIDA SISTEMICO PER IL CONTROLLO DI INFESTANTI ANNUALI E PERENNI'. Dose global: p0 y=522.3-540.5 x=561.4 'DOSI DI IMPIEGO: Per tutti gli usi consentiti non superare la dose massima di 10 l/ha/anno di prodotto'.",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "Nao ha tabela. O rotulo declara os usos como LISTA DE MARCADORES ('-') sob o cabecalho de secao 'CAMPI DI IMPIEGO' (p0 y=460.8 x=294.8), espalhada num cartaz multicoluna. Sao seis itens, cada um uma d",
+   "WHY_PARSER_MISSES": "Duas guardas empilhadas, ambas verificadas rodando o parser sobre a geometria versionada. (1) CINDIR_COLUNAS DESTROI O BLOCO ANTES DE QUALQUER ROTA. O bloco cru p0 y=166.6-320.3 x=579.4-807.8 tem 22 linhas e largura 228.4 (>= 180), entao entra em cindir_colunas(). _calhas(bloco) devolve [] - nao ha calha vertical nenhuma no bloco. Mas _ancoras_de_coluna(blocos, 0) coleta o x de QUALQUER palavra da",
+   "FIX_CLASS": "LISTA_DE_USOS (item de marcador sob 'CAMPI DI IMPIEGO': cabeca de culturas + ':' + prosa de uso), bloqueada por duas classes independentes de defeito: (a) CINDIR_COLUNAS_FALSO_POSITIVO - _ancoras_de_c"
+  },
+  {
    "LABEL_ID": "015629",
    "PRODUCT": "BADGER 45% WG (cymoxanil 45%, FUNGICIDA) - ADAMA Italia S.r.l., Autorizzazione n. 15629 del 20.12.2012, etichetta autorizzata con Decreto Dirigenziale del 15 dicembre 2020",
    "CROP": "PATATA",
@@ -1292,6 +1368,47 @@
    "STRUCTURE": "Nao e tabela. E uma secao em PROSA com subcabecalhos: a linha-titulo \"COLTURE AUTORIZZATE\" (p0 y=314.1 x=299.6) abre uma sequencia de tres subcabecalhos de cultura, cada um em linha propria, seguido d",
    "WHY_PARSER_MISSES": "Duas falhas empilhadas; a primeira sozinha ja zera o rotulo.\n\n(1) DOMINANTE — VETO DE BLOCO INTEIRO POR MARCADOR NAO ANCORADO. Todas as rotas abrem com \"if SECAO_PROIBIDA.search(b['text']): continue\" — pares_inline (l.471), pares_header_continuation (l.530), escopos (l.584) e pares_lista_de_usos (l.628 e l.654). O bloco UNICO que carrega toda a secao COLTURE AUTORIZZATE (p0 y=314-536 x=300-542, 23",
    "FIX_CLASS": "CABECALHO_DE_SECAO (principal) + MULTI_CABECALHO_NO_BLOCO + CONTINUACAO_DE_COLUNA. (1) CABECALHO_DE_SECAO: SECAO_PROIBIDA precisa ser testada como CABECALHO (inicio de linha / linha-titulo isolada), e"
+  },
+  {
+   "LABEL_ID": "016387",
+   "PRODUCT": "HERBITOTAL CL (glifosate acido puro 360 g/l, categoria DISERBANTE) - ADAMA / Reg. Min. Salute n. 16387 del 12.06.2015, etichetta autorizzata con Decreto Dirigenziale del 09/03/2021",
+   "CROP": "SEGALE",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "INFESTANTI"
+   ],
+   "EVIDENCE_QUOTE": "TERRENI AGRARI IN ASSENZA DI COLTURA (BARBABIETOLA DA ZUCCHERO, FRUMENTO, ORZO, SEGALE, AVENA, FRAGOLA, MAIS, ORTICOLE, SOIA): Prima della lavorazione del terreno o della messa a dimora (pre- semina, pre-trapianto) delle colture riportate in parentesi, ovvero in seguito alla raccolta della coltura in precessione colturale, e possibile effettuare un trattamento con HERBITOTAL CL senza eccedere la d",
+   "EVIDENCE_COORDS": "bloco p0 y=219.8-373.5 x=576.8-800.1 (item de CAMPI DI IMPIEGO). Linhas: p0 y=219.8 x=576.8 'TERRENI AGRARI IN ASSENZA DI COLTURA'; p0 y=228.9 x=576.8 '(BARBABIETOLA DA ZUCCHERO, FRUMENTO, ORZO,'; p0 y=238.1 x=576.8 'SEGALE, AVENA, FRAGOLA, MAIS, ORTICOLE, SOIA):'; p0 y=283.7 x=576.8 'eccedere la dose massima di 6 l/ha'; p0 y=301.9-311.0 x=576.8 'trattare con le infestanti emerse'. Alvo declarado para o documento inteiro em p0 y=59.4-70.2 x=53.6: 'ERBICIDA SISTEMICO PER IL CONTROLLO DI INFESTANTI ANNUALI E PERENNI'. Cabecalho de secao em p0 y=497.0 x=297.4: 'CAMPI DI IMPIEGO'.",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "LISTA DE USOS EM COLUNA, com marcador. Nao ha tabela cultura x alvo em lugar nenhum do rotulo. O cabecalho de secao \"CAMPI DI IMPIEGO\" esta em p0 y=497.0 x=297.4 e os itens de uso vivem numa coluna pr",
+   "WHY_PARSER_MISSES": "DUAS guardas independentes matam a mesma declaracao; nenhuma das duas tem a ver com o rotulo nao autorizar SEGALE.\n\n(1) ROTA LISTA_DE_USOS - a precondicao de alvo global e destruida por SECAO_PROIBIDA aplicada por BLOCO. pares_lista_de_usos() (scripts/it_rotulo_parser.py:828) chama escopos() e para seco em `if 'INFESTANTI' not in target_scope: return []` (linha ~834). target_scope volta VAZIO. Mot",
+   "FIX_CLASS": "LISTA_DE_USOS (causa primaria: SECAO_PROIBIDA avaliada por BLOCO em vez de por LINHA/FRASE, o que apaga o escopo de alvo global do herbicida quando \"MECCANISMO D'AZIONE\" cai no mesmo retangulo da tarj"
+  },
+  {
+   "LABEL_ID": "017209",
+   "PRODUCT": "DAVAI (ADAMA, imazamox 80 g/l, DISERBANTE)",
+   "CROP": "SOIA",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "INFESTANTI (rotulo global do herbicida)",
+    "Malerbe sensibili: Amaranthus retroflexus (amaranto comune), Datura stramonium (stramonio), Polygonum spp. (poligoni), Salsola kali (erba kali), Solanum nigrum (erba morella), Sorghum halepense (sorghetta) — p0 y=390.8-428.3 x=299.6-542.5",
+    "Malerbe mediamente sensibili: Abutilon theophrasti (cencio molle), Amaranthus blitoides (amaranto blitoide), Ambrosia artemisiifolia (ambrosia), Chenopodium album (farinello), Echinochloa crus-galli (giavone), Mercurialis annua (mercorella comune) — p0 y=439.1-476.8 x=299.6-542.5",
+    "infestanti dicotiledoni / graminacee infestanti (categorias) — p0 y=82.5-148.7 x=556.6-799.6"
+   ],
+   "EVIDENCE_QUOTE": "SOIA: impiegare alla dose di 0,5-0,65 l/ha in 100-400 l/ha di acqua in post-emergenza della coltura tra lo stadio di 2 e 4 foglie trifogliate.",
+   "EVIDENCE_COORDS": "p0 y=43.9-71.5 x=556.6-799.6 (bloco imediatamente seguinte, em ordem de coluna, ao cabecalho de secao 'COLTURE, DOSI E MODALITA' DI IMPIEGO' em p0 y=516.7-525.0 x=299.6-468.3)",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "Rotulo de TRES COLUNAS sem tabela nenhuma. A secao de uso e um cabecalho isolado no rodape da coluna do meio — \"COLTURE, DOSI E MODALITÀ DI IMPIEGO\" (p0 y=516.7-525.0 x=299.6-468.3) — cujo conteudo co",
+   "WHY_PARSER_MISSES": "O parser devolve ZERO pares. Cinco rotas, cinco guardas, cada uma verificada rodando a funcao isolada:\n\n(1) pares_inline — a unica que chega perto. O bloco \"SOIA: impiegare alla dose...\" e capturado por INLINE_RX/_cabecas_por_dois_pontos com cabeca=SOIA e o resto passa em USO (l/ha, impiegare, post-emergenza). Morre na linha seguinte: `tg = alvos_em(resto); if not tg: continue`. alvos_em() dessa f",
+   "FIX_CLASS": "LISTA_DE_USOS (primaria) + CABECALHO_DE_SECAO (secundaria). A rota AUTHORISED_USE_LIST ja existe e ja e a forma correta de ler este rotulo — falta (a) o gatilho de alvo global aceitar a forma \"Malerbe"
   },
   {
    "LABEL_ID": "017340",
@@ -1410,6 +1527,79 @@
    "STRUCTURE": "Matriz geometrica multicoluna. Na pagina p1 (2a folha fisica) a secao \"CAMPI E MODALITÀ DI IMPIEGO\" (p1 y=35.6 x=21.2) abre uma tabela de sete colunas, com cabecalhos todos em y=48.3: Coltura (x=86.8)",
    "WHY_PARSER_MISSES": "So MELO e perdido. CAROTA e CIPOLLA NAO sao perdidas pelo parser de hoje: `python3 scripts/it_rotulo_ver.py 017409 --parser` devolve CAROTA x AFIDI e CIPOLLA x AFIDI, ambas SUPPORTED_PAIR pela rota GEOMETRIC_TABLE, a partir da celula \"Orticole in pieno campo: ... cipolla, aglio, carota ...\" (verificado tambem em execucao: culturas_em('cipolla, aglio, carota, prezzemolo a grossa radice') == ['AGLIO",
    "FIX_CLASS": "GRUPO_SEM_ENUMERACAO — so para MELO (e, pela mesma linha, PERO). Para CAROTA e CIPOLLA: NENHUMA, o parser ja as devolve. A classe e: celula de cultura de uma tabela de uso que contem SO o nome de um g"
+  },
+  {
+   "LABEL_ID": "017432",
+   "PRODUCT": "AGHARTA (fluazinam 500 g/l SC, fungicida) — Reg. Min. Salute n. 17432 del 18/06/2019",
+   "CROP": "MELO",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "TICCHIOLATURA (Venturia inaequalis)",
+    "ALTERNARIA (Alternaria mali)"
+   ],
+   "EVIDENCE_QUOTE": "Melo, Cotogno, Nespolo giapponese ed europeo: applicare alla dose di 70-100 ml/hl senza superare la dose massima di 1 l/ha per il controllo della ticchiolatura (Venturia inaequalis) e dell’alternaria (Alternaria mali). Effettuare un massimo di 3 trattamenti all’anno con un intervallo minimo di 14 giorni tra le applicazioni, intervenendo nelle condizioni di maggiore suscettibilità alle malattie dop",
+   "EVIDENCE_COORDS": "p0 bloco y=109.7-172.4 x=561.4-799.7 (secao DOSI E MODALITA’ DI IMPIEGO, cabecalho em p0 y=44.4 x=561.4); primeira linha em p0 y=109.7 x=561.4",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "Sem tabela de usos. A secao \"DOSI E MODALITA' DI IMPIEGO\" (coluna direita, x=561-800) e composta por quatro DECLARACOES INLINE DE DOIS PONTOS, uma por grupo de cultura, cada uma num bloco proprio: \"Me",
+   "WHY_PARSER_MISSES": "O bloco do melo e lido por UMA unica rota possivel — a INLINE — e as duas variantes dessa rota o rejeitam pela FORMA DA CABECA, nao pelo conteudo.\n\n(1) INLINE_RX (scripts/it_rotulo_parser.py, def. da constante INLINE_RX): a cabeca e `((?:[A-ZÀ-Ü][\\wàèéìòùA-Za-z]*(?:\\s*\\([^)]{0,120}\\))?)(?:\\s*(?:,|\\be\\b|\\bed\\b)\\s*[A-ZÀ-Ü]?[\\wàèéìòùA-Za-z]+(?:\\s*\\([^)]{0,120}\\))?){0,4})` seguida OBRIGATORIAMENTE de ",
+   "FIX_CLASS": "CABECA_INLINE_MULTIPALAVRA (lista de culturas antes do ':' em que um dos nomes ocupa mais de uma palavra — \"Nespolo giapponese ed europeo\"; nem a corrida de INLINE_RX nem a caminhada para tras de _run"
+  },
+  {
+   "LABEL_ID": "017580",
+   "PRODUCT": "GOLTIX SUPER (metamitron puro 30.7 g = 350 g/l + etofumesate puro 13.16 g = 150 g/l) — categoria regulatoria DISERBANTE",
+   "CROP": "BARBABIETOLA",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "INFESTANTI (classe declarada para o documento inteiro)",
+    "Farinello comune (Chenopodium album) — sensibile",
+    "Giavone comune (Echinochloa crus-galli) — sensibile",
+    "Centinoda (Polygonum aviculare) — mediamente sensibile"
+   ],
+   "EVIDENCE_QUOTE": "DISERBANTE SELETTIVO PER LA BARBABIETOLA DA ZUCCHERO",
+   "EVIDENCE_COORDS": "p0 bloco y=54-118 x=48-282 (linhas p0 y=54.0 x=47.5 'DISERBANTE SELETTIVO PER LA' + p0 y=67.3 x=47.5 'BARBABIETOLA DA ZUCCHERO'). Alvo de classe: p0 bloco y=480-506 x=299-430 'INFESTANTI SENSIBILI: Farinello comune (Chenopodium album) Giavone comune (Echinochloa crus-galli)' e p0 bloco y=517-534 x=299-445 'INFESTANTI MEDIAMENTE SENSIBILI: Centinoda (Polygonum aviculare),'. Corroboracao de modalidade de uso: p0 bloco y=376-469 x=299-543 'Negli interventi frazionati di post-emergenza applicare con barbabietole dalla fase di prima foglia visibile vera e ripetere il trattamento dopo 6-20 giorni.' NOTA DE DISCIPLINA: os outros dois blocos que citam barbabietola NAO servem de prova — p0 y=30-135 e prosa de seguranca ('Avvertenza: in post-emergenza non trattare barbabietole in stress vegetativo') e p0 y=142-189 e cultura sucessiva ('AVVERTENZE AGRONOMICHE In caso di fallimento della coltura e possibile seminare ... barbabietola da zucchero e da foraggio o mais, patata, pisello e fava'), que e justamente a razao pela qual MAIS, PATATA e PISELLO NAO estao autorizados neste rotulo.",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "Rotulo de MONOCULTURA com escopo no titulo. A autorizacao nao vive em tabela cultura x alvo: vive no cabecalho comercial \"DISERBANTE SELETTIVO PER LA BARBABIETOLA DA ZUCCHERO\" (p0 bloco y=54-118, x=48",
+   "WHY_PARSER_MISSES": "Duas guardas de BLOCO, cada uma matando uma rota, ambas verificadas em execucao. (1) escopos() comeca com \"if SECAO_PROIBIDA.search(b['text']): continue\". O bloco do titulo, como o pdftotext -bbox-layout o entrega, funde quatro afirmacoes numa caixa so: \"DISERBANTE SELETTIVO PER LA BARBABIETOLA DA ZUCCHERO SOSPENSIONE CONCENTRATA MECCANISMO D'AZIONE (HRAC): GRUPPO 5 (C1) E GRUPPO 15 (K3)\". SECAO_P",
+   "FIX_CLASS": "CABECALHO_DE_SECAO (principal): o veto SECAO_PROIBIDA precisa de granularidade de FRASE/segmento em vez do texto inteiro do bloco, porque o extrator funde o titulo de escopo com a linha MECCANISMO D'A"
+  },
+  {
+   "LABEL_ID": "017655",
+   "PRODUCT": "EARLEX (ADAMA, DISERBANTE, imazamox 80 g/l) — Aut. Min. Salute n. 17655 del 01/10/2020",
+   "CROP": "SOIA",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "INFESTANTI (alvo de classe do herbicida, declarado uma vez para o rotulo inteiro)",
+    "Amaranthus retroflexus (amaranto comune)",
+    "Datura stramonium (stramonio)",
+    "Polygonum spp. (poligoni)",
+    "Salsola kali (erba kali)",
+    "Solanum nigrum (erba morella)",
+    "Sorghum halepense (sorghetta)",
+    "Abutilon theophrasti (cencio molle)",
+    "Amaranthus blitoides (amaranto blitoide)",
+    "Ambrosia artemisiifolia (ambrosia)",
+    "Chenopodium album (farinello)",
+    "Echinochloa crus-galli (giavone)",
+    "Mercurialis annua (mercorella comune)"
+   ],
+   "EVIDENCE_QUOTE": "SOIA: impiegare alla dose di 0,5-0,65 l/ha in 100-400 l/ha di acqua in post-emergenza della coltura tra lo stadio di 2 e 4 foglie trifogliate.",
+   "EVIDENCE_COORDS": "p0 y=44-72 x=557-800 (bloco de dose, conteudo do cabecalho 'COLTURE, DOSI E MODALITÀ DI IMPIEGO' que esta em p0 y=527.6 x=299.6). Reforcos: 'Erbicida per soia' p0 y=66-96 x=94-234; 'il prodotto risulta selettivo su soia' p0 y=361-429 x=557-799; alvo global 'Malerbe sensibili: Amaranthus retroflexus ... Sorghum halepense (sorghetta).' p0 y=402-439 x=300-542 e 'Malerbe mediamente sensibili: Abutilon theophrasti ... Mercurialis annua (mercorella comune).' p0 y=450-488 x=300-543",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "Rotulo de coluna tripla SEM tabela de usos. O cabecalho \"COLTURE, DOSI E MODALITÀ DI IMPIEGO\" fica no pe da coluna do meio (p0 y=527.6 x=299.6) e o seu conteudo corre para o TOPO da coluna da direita ",
+   "WHY_PARSER_MISSES": "Duas guardas independentes matam a unica rota que caberia (a de herbicida), e as outras tres nao tem forma para agarrar.\n\n(1) escopos() descarta o bloco INTEIRO pelo SECAO_PROIBIDA, e a frase de escopo mora dentro dele. O laco faz `for b in blocos: if SECAO_PROIBIDA.search(b['text']): continue` ANTES de rodar ESCOPO_CULTURA. O unico bloco que carrega \"Erbicida per soia\" e o bloco de identidade do ",
+   "FIX_CLASS": "LISTA_DE_USOS (rota de herbicida), destravada por duas correcoes que precisam vir juntas: (a) SECAO_PROIBIDA_POR_FRASE — aplicar SECAO_PROIBIDA a frase/linha e nao ao bloco inteiro dentro de escopos()"
   },
   {
    "LABEL_ID": "017687",
@@ -1597,6 +1787,44 @@
    "FIX_CLASS": "CABECALHO_DE_SECAO + MULTI_CABECALHO_NO_BLOCO — duas classes empilhadas, e as duas precisam cair para recuperar as duas culturas. (a) CABECALHO_DE_SECAO: SECAO_PROIBIDA precisa ancorar em CABECALHO RE"
   },
   {
+   "LABEL_ID": "017929",
+   "PRODUCT": "KORAVERT (diserbante)",
+   "CROP": "SEGALE",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "INFESTANTI"
+   ],
+   "EVIDENCE_QUOTE": "TERRENI AGRARI IN ASSENZA DI COLTURA (BARBABIETOLA DA ZUCCHERO, FRUMENTO, ORZO, SEGALE, AVENA, FRAGOLA, MAIS, ORTICOLE, SOIA): Prima della lavorazione del terreno o della messa a dimora (pre- semina, pre-trapianto) delle colture riportate in parentesi, ovvero in seguito alla raccolta della coltura in precessione colturale, e possibile effettuare un trattamento con KORAVERT senza eccedere la dose m",
+   "EVIDENCE_COORDS": "p0 y=279-423 x=545-759 (bloco de 914 caracteres); a linha que nomeia a cultura e p0 y=296.2 x=544.6 'SEGALE, AVENA, FRAGOLA, MAIS, ORTICOLE, SOIA):'",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "Coluna direita da p0 traz QUATRO blocos de uso paralelos, todos na forma '<GRUPO DE USO> (<enumeracao explicita de culturas>): <prosa de dose/epoca/limite>': (1) ARBOREE (...) y=83-142, (2) ORTICOLE (",
+   "WHY_PARSER_MISSES": "Duas guardas, em cascata. (1) PRIMARIA - janela de declaracao truncada. A unica rota que dispara neste rotulo e INLINE_COLON_HEAD: _cabecas_por_dois_pontos corta a declaracao em txt[i+1:i+1+420] (e INLINE_RX limita o grupo 2 a '([^\\n]{6,420})'). Instrumentando o parser: a cabeca sai CORRETA - _run_de_culturas_antes_do_dois_pontos devolve 'AVENA BARBABIETOLA FRAGOLA FRUMENTO MAIS ORZO SEGALE SOIA' ",
+   "FIX_CLASS": "JANELA_DE_DECLARACAO_TRUNCADA (primaria: o corte fixo de 420 caracteres apos o ':' em _cabecas_por_dois_pontos/INLINE_RX descarta a declaracao inteira quando o alvo cai depois do corte - a cabeca ja f"
+  },
+  {
+   "LABEL_ID": "017930",
+   "PRODUCT": "AKTIVIR - glifosate 360 g/l, erbicida sistemico (diserbante), ADAMA, Reg. n. 17930 del 07/12/2021",
+   "CROP": "SEGALE",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "INFESTANTI (infestanti emerse, infestanti annuali, infestanti vivaci)"
+   ],
+   "EVIDENCE_QUOTE": "TERRENI AGRARI IN ASSENZA DI COLTURA (BARBABIETOLA DA ZUCCHERO, FRUMENTO, ORZO, SEGALE, AVENA, FRAGOLA, MAIS, ORTICOLE, SOIA): Prima della lavorazione del terreno o della messa a dimora (pre- semina, pre-trapianto) delle colture riportate in parentesi, ovvero in seguito alla raccolta della coltura in precessione colturale, e possibile effettuare un trattamento con AKTIVIR senza eccedere la dose ma",
+   "EVIDENCE_COORDS": "p0 y=279.2-422.7 x=544.6-759.4 (bloco inteiro, 4o item da lista CAMPI DI IMPIEGO, marcador '-' em p0 y=279.2 x=527.6); o parentetico com SEGALE esta nas linhas p0 y=287.8 x=544.6 e p0 y=296.2 x=544.6",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "LISTA DE USOS em prosa (CAMPI DI IMPIEGO), nao tabela: seis itens marcados por \"-\" em x=527.6 com o texto em x=544.6, no formato \"culturas (enumeracao entre parenteses): paragrafo longo de condicoes\".",
+   "WHY_PARSER_MISSES": "Duas guardas, ambas fatais. (1) cindir_colunas fatia o bloco antes de qualquer rota ler: o bloco intacto e p0 y=279.2-422.7 x=544.6-759.4, 22 linhas, largura 214.8, logo passa nos testes de elegibilidade len(lns)>=3 e largura>=180. _calhas(b) devolve vazio (e paragrafo, nao ha calha real), mas entram as ANCORAS: _ancoras_de_coluna varre TODAS as palavras da pagina e aceita como inicio de coluna qu",
+   "FIX_CLASS": "LISTA_DE_USOS (duas sub-classes independentes: FALSA_CALHA_DE_COLUNA - a ancora de coluna aceita palavra de prosa fora de linha de cabecalho e retalha paragrafo largo; e JANELA_DE_DECLARACAO_CURTA - o"
+  },
+  {
    "LABEL_ID": "017955",
    "PRODUCT": "MAGANIC (ADAMA Makhteshim Ltd. / ADAMA Italia S.r.l.) — FUNGICIDA, Protioconazolo 175 g/L + Difenoconazolo 125 g/L, Aut. Min. Salute n. 17955 del 05.06.2024",
    "CROP": "FRUMENTO",
@@ -1678,6 +1906,47 @@
    "FIX_CLASS": "MATRIZ_MULTICOLUNA — sub-classe COLUNA_FUNDIDA_NO_BLOCO: recuperar as colunas por corte em x de PALAVRA (a geometria versionada guarda xMin/xMax por <word>; ler_geometria hoje descarta isso e so conse"
   },
   {
+   "LABEL_ID": "017983",
+   "PRODUCT": "GOLDBEET SUPER (DISERBANTE; metamitron 350 g/l + etofumesate 150 g/l; Registrazione n. 17983 del 02.03.2022)",
+   "CROP": "BARBABIETOLA",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "INFESTANTI (classe declarada uma vez para o documento inteiro)",
+    "Farinello comune (Chenopodium album)",
+    "Giavone comune (Echinochloa crus-galli)",
+    "Centinoda (Polygonum aviculare)"
+   ],
+   "EVIDENCE_QUOTE": "DISERBANTE SELETTIVO PER LA BARBABIETOLA DA ZUCCHERO",
+   "EVIDENCE_COORDS": "p0 bloco y=54-118 x=48-282; linhas p0 y=54.0 x=47.5 ('DISERBANTE SELETTIVO PER LA') e p0 y=67.3 x=47.5 ('BARBABIETOLA DA ZUCCHERO'). Bloco marcado [SECAO_PROIBIDA] pelo visor por conter 'MECCANISMO D'AZIONE' no mesmo bloco. Alvo em p0 y=461-487 x=299-430: 'INFESTANTI SENSIBILI: Farinello comune (Chenopodium album) Giavone comune (Echinochloa crus-galli)' e p0 y=498-515 x=299-445: 'INFESTANTI MEDIAMENTE SENSIBILI: Centinoda (Polygonum aviculare),'. Uso na cultura em p0 y=357-450 x=299-543: 'Negli interventi frazionati di post-emergenza applicare con barbabietole dalla fase di prima foglia visibile vera e ripetere il trattamento dopo 6-20 giorni.' Tabela de dose em p0 y=237-300 x=299-543: 'DOSI E MODALITA' D'IMPIEGO / Pre-emergenza 1 3 l/ha / Post-emergenza 1 - 5 Massimo 1.5 l/ha'.",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "Rotulo de CULTURA UNICA. A cultura nao aparece em nenhuma tabela: ela mora no CABECALHO/titulo do produto (\"DISERBANTE SELETTIVO PER LA BARBABIETOLA DA ZUCCHERO\"), fundido no mesmo bloco de titulo que",
+   "WHY_PARSER_MISSES": "Tres guardas distintas matam as tres rotas que poderiam ler este rotulo; a primeira e a decisiva.\n\n(1) ROTA SCOPE — a que deveria acertar — morre em SECAO_PROIBIDA, ANTES de qualquer leitura. `escopos()` abre com `for b in blocos: if SECAO_PROIBIDA.search(b['text']): continue`. O bloco do titulo (p0 y=54-118 x=48-282) e UM bloco so que funde \"DISERBANTE SELETTIVO PER LA BARBABIETOLA DA ZUCCHERO SO",
+   "FIX_CLASS": "CABECALHO_DE_SECAO (a cultura mora no cabecalho/titulo do produto e o bloco de cabecalho e descartado inteiro por SECAO_PROIBIDA 'MECCANISMO D'AZIONE' colado nele). Subclasse secundaria: ESCOPO_ALVO_G"
+  },
+  {
+   "LABEL_ID": "017995",
+   "PRODUCT": "HIGHCARD (Quizalofop-P-ethyl 10.0 g / 105 g/L + Isoxadifen-etile antidoto agronomico) - ADAMA Agan Ltd / ADAMA Italia S.r.l. - Aut. Min. Salute n. 17995 del 08/02/2024 - categoria DISERBANTE-ANTIDOTO AGRONOMICO",
+   "CROP": "RISO",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "INFESTANTI (alvo declarado uma vez para o documento inteiro): giavone / Echinochloa crus-galli; giavone maggiore / Echinochloa oryzicola od oryzoides; giavoni del genere Echinochloa spp.; riso crodo / Oryza sativa — este ultimo e DANINHA e nao cultura (regra 5): consta da lista de infestantes e o rotulo reforca 'assicurare il controllo delle malerbe difficili (in particolare del riso crodo, per evitare il fenomeno dell’incrocio con la varietà coltivata)' em p0 y=467.4-486.7 x=297.8"
+   ],
+   "EVIDENCE_QUOTE": "CAMPI, DOSI E MODALITÀ DI IMPIEGO — HIGHCARD ® si impiega esclusivamente su varietà ed ibridi di riso tolleranti agli erbicidi inibitori dell’enzima ACCasi (tecnologia Max-Ace ®). Lasciare la risaia sgrondata per 3-4 giorni dopo l’applicazione, successivamente immettere acqua nella camera. || Seminato in acqua — Intervenire su terreno sgrondato con coltura dallo stadio di due foglie al terzo culmo",
+   "EVIDENCE_COORDS": "p0 y=429.3 x=297.8 (titulo 'CAMPI, DOSI E MODALITÀ DI IMPIEGO'); p0 y=438.5-457.8 x=297.8 (frase de impiego — as linhas do arquivo vem INTERCALADAS com a coluna da direita: y=438.5 'HIGHCARD ® si impiega esclusivamente su varietà ed ibridi di riso esempio l’alternanza con metodi di lotta...', y=448.1 'tolleranti agli erbicidi inibitori dell’enzima ACCasi (tecnologia Max- meccanismo d’azione...', y=457.8 'Ace ® ). Lasciare la risaia sgrondata...'); p0 y=468.0 x=297.8; p0 y=487.3-545.3 x=297.8 ('Seminato in acqua' + doses); p0 y=61.8-139.0 x=553.0 ('Seminato in asciutta' + doses, 'Non effettuare più di 2 trattamenti/anno'); p0 y=66.6-76.2 x=35.9 (frase de escopo do cabecalho); p0 y=245.2 e y=255.1 x=297.8 (INFESTANTI SENSIBILI); p0 y=274.2/283.9/293.7 x=297.8 (INFESTANTI MODERATAMENTE SENSIBILI). Blocos: escopo = p0 y=66.6-107.4 x=35.9-281.7; corpo fundido = p0 y=158.3-555.0 x=297.8-799.7.",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "Rotulo SEM tabela de uso. A autorizacao e declarada em PROSA, em tres lugares distintos e em pagina de DUAS COLUNAS de texto: (a) frase de escopo no cabecalho comercial, p0 y=66.6-76.2 x=35.9 (\"Erbici",
+   "WHY_PARSER_MISSES": "Duas guardas, ambas de granularidade BLOCO, e nao de secao/frase.\n\n(1) SECAO_PROIBIDA no bloco do escopo. O bloco p0 y=66.6-107.4 x=35.9-281.7 (4 linhas, 164 chars) traz a frase que declara a cultura, e ESCOPO_CULTURA de fato casa nela (verificado: devolve ['RISO']). Mas o MESMO bloco de 4 linhas termina em \"Meccanismo d'azione: gruppo 1 (A) (HRAC)\", e SECAO_PROIBIDA contem MECCANISMO\\\\s+D.?AZIONE",
+   "FIX_CLASS": "SECAO_PROIBIDA_POR_BLOCO (o veto de secao deveria valer por SECAO/FRASE, ou por coluna cindida, e nao pelo texto do bloco inteiro) — habilitando em seguida LISTA_DE_USOS (alvo global de herbicida + cu"
+  },
+  {
    "LABEL_ID": "018067",
    "PRODUCT": "MAXENTIS (ADAMA) — azoxystrobin + protioconazolo, FUNGICIDA, aut. Min. Salute n.18067 del 14/06/2024, validita dal 18/03/2026",
    "CROP": "FRUMENTO",
@@ -1723,6 +1992,25 @@
    "FIX_CLASS": "CONTINUACAO_DE_COLUNA_DE_TABELA (para FRUMENTO x FUSARIOSI: reancorar a celula de alvo que continua no topo da proxima coluna de pagina a ultima linha aberta da coluna anterior — o mesmo principio do "
   },
   {
+   "LABEL_ID": "018072",
+   "PRODUCT": "SONAVIO (bifenox 480 g/l, ADAMA Italia, DISERBANTE)",
+   "CROP": "CAROTA",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "INFESTANTI"
+   ],
+   "EVIDENCE_QUOTE": "CAROTA Il prodotto si impiega in post-emergenza della coltura, quando ha differenziato le prime 3-4 foglie vere. DOSE: 0.8–1L/ha distribuito con 100-400 litri d’acqua. Eseguire massimo un trattamento per anno. Adottare la dose più alta in caso di elevata presenza di erbe infestanti",
+   "EVIDENCE_COORDS": "p0 y=44.2-129.6 x=565.6-806.6 (bloco 13; a linha isolada 'CAROTA' esta em p0 y=66.0 x=565.6). Corroboracao independente no descritor de escopo: p0 y=66.0-131.5 x=42.6-276.6 (bloco 1) — 'Erbicida per il diserbo di pomodoro, valerianella, dolcetta, gallinella, lattughe, scarola, indivia, radicchio, carota, cipolla, aglio, scalogno, carciofo, prezzemolo, finocchio e sedano', com a palavra 'carota,' na linha p0 y=76.9 x=249.1-276.6. Alvo declarado uma vez para o documento inteiro: p0 y=141.7-162.2 x=565.6-799.5 — 'INFESTANTI SENSIBILI: Amaranto ( Amaranthus spp.), Portulaca ( Portulaca oleracea)' e p0 y=174.6-194.8 x=565.6-799.6 — 'INFESTANTI MEDIAMENTE SENSIBILI: Erba morella ( Solanum nigrum ), Farinaccio ( Chenopodium spp .)'",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "Nao ha tabela. E um rotulo de herbicida em TRES COLUNAS com alvo declarado UMA VEZ para o documento inteiro e culturas declaradas em PARAGRAFOS DE USO com cabecalho em caixa alta. Sob 'COLTURE, DOSI, ",
+   "WHY_PARSER_MISSES": "CAROTA e derrubada por DUAS guardas de escopo-de-bloco, cada uma suficiente sozinha; ambas verificadas por instrumentacao, e neutralizar QUALQUER UMA das duas ja devolve CAROTA (medido).\n\n(1) EXCLUSAO avaliada no BLOCO, dentro de pares_lista_de_usos. O laco final da rota faz `for b in blocos: t = b['text']; if SECAO_PROIBIDA.search(t) or EXCLUSAO.search(t): continue` ANTES do laco por frase `for f",
+   "FIX_CLASS": "LISTA_DE_USOS — guardas aplicadas por BLOCO em vez de por FRASE. Duas classes independentes, cada uma suficiente para recuperar CAROTA sozinha: (1) EXCLUSAO_POR_BLOCO em pares_lista_de_usos (a exclusa"
+  },
+  {
    "LABEL_ID": "018244",
    "PRODUCT": "MOMENTUM PFnPE (Fosetil alluminio 80% p/p, GRANULI IDRODISPERSIBILI, ADAMA) — registrazione n. 18244 del 30.12.2022",
    "CROP": "AGRUMI",
@@ -1759,6 +2047,86 @@
    "STRUCTURE": "Matriz de uso autorizado de 7 colunas x 3 linhas de cultura na pagina p2, sob o cabecalho de secao \"IMPIEGHI AUTORIZZATI E MODALITA D'USO\" (p1 y=384.4 x=41.9). Colunas ancoradas em x fixo (p2 y=36.4):",
    "WHY_PARSER_MISSES": "Nao e falha de geometria: a tabela e lida corretamente e a rota GEOMETRIC_TABLE funciona (VITE sai como SUPPORTED_PAIR). Sao DUAS causas estruturais independentes, ambas medidas.\n\n(1) PERO — LACUNA DE VOCABULARIO DE ALVO, causa unica. A celula de cultura PERO E construida normalmente por _celulas_de_cultura (col x0=41, yc=245.9) e a banda calculada em pares_geometricos cobre o alvo (topo=(168.7+24",
    "FIX_CLASS": "VOCABULARIO_DE_ALVO (classe principal, atinge AGRUMI e PERO: faltam GOMMOSI/Phytophthora e GEMME_NERE/Pseudomonas — o dicionario ALVOS nao cobre bacterioses nem Phytophthora, e precisa tolerar as graf"
+  },
+  {
+   "LABEL_ID": "018271",
+   "PRODUCT": "HERBITOTAL CL PFnPE (glifosate 30,8% p/p — DISERBANTE, PFnPE)",
+   "CROP": "AVENA",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "INFESTANTI"
+   ],
+   "EVIDENCE_QUOTE": "TERRENI AGRARI IN ASSENZA DI COLTURA (FRUMENTO, ORZO, SEGALE, AVENA, FRAGOLA, MAIS, ORTICOLE)",
+   "EVIDENCE_COORDS": "p3 y=277.6-304.9 x=41.0-173.1 (celula da coluna 'Colture', ancorada pelo cabecalho 'Colture' em p3 y=67.6 x=41.0); celula pareada na mesma faixa vertical: p3 y=277.6-359.2 x=196.8-471 = 'Prima della lavorazione del terreno o della messa a dimora (pre-semina, pre-trapianto) delle colture riportate in parentesi, e possibile effettuare un trattamento con HERBITOTAL CL senza eccedere la dose massima di 60 mL di prodotto/100 mq. ... trattare con le infestanti emerse.'; dose/trattamenti em p3 y=277.6-286.8 x=487.5 = 'Eseguire 1 solo trattamento all'anno alla dose massima e di 60 mL di prodotto / 100 mq.'; intervallo di sicurezza em p3 y=277.6 x=657.7 = 'n.d.'",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "Tabela geometrica de usos autorizados na p3, sob \"IMPIEGHI AUTORIZZATI E MODALITA D'USO\" / \"AVVERSITA E DOSE\", com 4 colunas ancoradas em x (p3 y=67.6): \"Colture\" (x=41.0), \"Quando trattare la coltura",
+   "WHY_PARSER_MISSES": "A guarda que rejeita e o teto de DENSIDADE em _celulas_de_cultura (scripts/it_rotulo_parser.py, linhas ~408-417): `dens, n = _densidade_de_cultura(t)` / `limite = 0.55 if n <= 8 else 0.72` / `if dens < limite: continue`. Medido no bloco real (p3 y=277.6-304.9 x=41.0-173.1), o texto \"TERRENI AGRARI IN ASSENZA DI COLTURA (FRUMENTO, ORZO, SEGALE, AVENA, FRAGOLA, MAIS, ORTICOLE)\" tem 13 tokens; 9 sao ",
+   "FIX_CLASS": "DENSIDADE_DE_CELULA (subclasse: CELULA_GRUPO_ENUMERADO com cabecalho de USO, nao de grupo botanico) — a celula \"NOME DO USO (CULTURA, CULTURA, ...)\" tem enumeracao explicita entre parenteses e deveria"
+  },
+  {
+   "LABEL_ID": "018279",
+   "PRODUCT": "TAIFUN MK CL PFnPE (glifosate acido puro 30,8% p/p = 360 g/L), ADAMA Deutschland GmbH, reg. n. 18279 de 30/12/2022, erbicida sistemico / DISERBANTE, PFnPE (utilizador nao profissional)",
+   "CROP": "AVENA",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "INFESTANTI"
+   ],
+   "EVIDENCE_QUOTE": "TERRENI AGRARI IN ASSENZA DI COLTURA (FRUMENTO, ORZO, SEGALE, AVENA, FRAGOLA, MAIS, ORTICOLE) | Prima della lavorazione del terreno o della messa a dimora (pre-semina, pre-trapianto) delle colture riportate in parentesi, e possibile effettuare un trattamento con TAIFUN (R) MK CL senza eccedere la dose massima di 60 mL di prodotto/100 mq. | Eseguire 1 solo trattamento all'anno alla dose massima e d",
+   "EVIDENCE_COORDS": "celula Colture: p3 y=277.6-304.9 x=41.0-173.1 (linhas y=277.6 / 286.8 / 295.8); celula 'Quando trattare la coltura': p3 y=277.6-359.0 x=196.8-471.0; celula 'n massimo di trattamenti e dose totale massima per anno': p3 y=277.6-286.8 x=487.5; celula 'Intervallo di sicurezza': p3 y=277.6 x=657.7. Cabecalhos da tabela em p3 y=67.6 x=41.0/196.8/487.5/657.7. Tabela sob 'IMPIEGHI AUTORIZZATI E MODALITA D'USO' (p1 y=356.8 x=41.9).",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "Matriz de 4 colunas x 4 linhas de uso na p3, sob a secao 'IMPIEGHI AUTORIZZATI E MODALITA D'USO'. Cabecalhos (p3 y=67.6): 'Colture' (x=41.0) | 'Quando trattare la coltura' (x=196.8) | 'n massimo di tr",
+   "WHY_PARSER_MISSES": "Guarda de DENSIDADE em _celulas_de_cultura (scripts/it_rotulo_parser.py:377-425), especificamente as linhas 'limite = 0.55 if n <= 8 else 0.72' e 'if dens < limite: continue'. A celula 'TERRENI AGRARI IN ASSENZA DI COLTURA (FRUMENTO, ORZO, SEGALE, AVENA, FRAGOLA, MAIS, ORTICOLE)' tem 13 tokens; _densidade_de_cultura conta como bons IN, DI (SEPARADOR_DE_CELULA), ORTICOLE (SEPARADOR_DE_CELULA) e as ",
+   "FIX_CLASS": "DENSIDADE_DE_CELULA (celula de cultura com preambulo de uso). Subclasse: o preambulo 'TERRENI AGRARI IN ASSENZA DI COLTURA' e vocabulario de USO, nao ruido de prosa — pertence ao lexico de cabecalho/q"
+  },
+  {
+   "LABEL_ID": "018545",
+   "PRODUCT": "NERASTAL (bifenox 480 g/l, sospensione concentrata) — ADAMA ITALIA S.r.l., categoria DISERBANTE",
+   "CROP": "CAROTA",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "INFESTANTI"
+   ],
+   "EVIDENCE_QUOTE": "CAROTA / Il prodotto si impiega in post-emergenza della coltura, quando ha differenziato le prime 3-4 foglie vere. / DOSE: 0.8–1L/ha distribuito con 100-400 litri d'acqua. / Eseguire massimo un trattamento per anno. Adottare la dose piu alta in caso di elevata presenza di erbe infestanti",
+   "EVIDENCE_COORDS": "p0 y=66.0-120.3 x=565.6 (dentro do bloco p0 y=44.2-129.6 x=565.6-807, coluna 2 da secao 'COLTURE, DOSI, EPOCHE E MODALITA DI IMPIEGO'). Confirmacao independente no cabecalho de escopo, p0 y=66.0-98.6 x=42.6: 'Erbicida per il diserbo di pomodoro, valerianella, dolcetta, gallinella, lattughe, scarola, indivia, radicchio, carota, cipolla, aglio, scalogno, carciofo, prezzemolo, finocchio e sedano'. O alvo do par esta declarado para o documento inteiro em p0 y=141.7 x=565.6 ('INFESTANTI SENSIBILI: Amaranto ( Amaranthus spp.), Portulaca ( Portulaca oleracea)') e p0 y=174.6 x=565.6 ('INFESTANTI MEDIAMENTE SENSIBILI: Erba morella ( Solanum nigrum ), Farinaccio ( Chenopodium spp .)') — nenhuma dessas infestantes coincide com nome de cultura, entao nao ha risco de daninha lida como cultura aqui.",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "Nao e tabela. E uma LISTA DE USOS EM PROSA distribuida em duas colunas (x=304 e x=565), sob o cabecalho unico \"COLTURE, DOSI, EPOCHE E MODALITA DI IMPIEGO\" (p0 y=272.4 x=304.1). Cada grupo de culturas",
+   "WHY_PARSER_MISSES": "CAROTA cai por DUAS guardas independentes, ambas verificadas rodando o parser sobre a geometria versionada (data/samples/IT-ROTULOS-V1/geometria/018545.xml.gz).\n\n(1) GUARDA DE EXCLUSAO APLICADA AO BLOCO INTEIRO, em pares_lista_de_usos (/home/user/eame-sintonia/scripts/it_rotulo_parser.py:872): \"for b in blocos: t = b['text']; if SECAO_PROIBIDA.search(t) or EXCLUSAO.search(t): continue\". O bloco da",
+   "FIX_CLASS": "LISTA_DE_USOS (principal: em pares_lista_de_usos a guarda EXCLUSAO e aplicada ao bloco inteiro antes do laco por frase; deveria ser por frase, como ja e a segunda guarda dentro do mesmo laco) + CABECA"
+  },
+  {
+   "LABEL_ID": "018561",
+   "PRODUCT": "COSAYR 200 SC (ADAMA Italia, Reg. Ministero della Salute n. 18561 del 04/02/2026, chlorantraniliprole 200 g/L, insetticida)",
+   "CROP": "PESCO",
+   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
+   "REFUTED_BY_CHALLENGER": false,
+   "CHALLENGER_WHY": null,
+   "TARGETS_ON_LABEL": [
+    "C. molesta (= Cydia molesta, 'tignola orientale' no SPETTRO D'AZIONE) -> TIGNOLE/LEPIDOTTERI",
+    "A. pulchellana (= Argyrotaenia pulchellana, 'eulia') -> LEPIDOTTERI",
+    "Cydia funebrana ('tignola del susino') -> TIGNOLE",
+    "Operophtera brumata ('cheimatobia') -> sem termo no vocabulario",
+    "A. lineatella (= Anarsia lineatella, 'anarsia') -> ANARSIA"
+   ],
+   "EVIDENCE_QUOTE": "Pesco, Nettarine, Albicocco, Susino: può essere impiegato nelle fasi fenologiche comprese fra l'accrescimento frutti e la maturazione. Utilizzare 18-20 mL/hL (180-300 mL/ha) per il controllo di C. molesta, A. pulchellana, Cydia funebrana, Operophtera brumata e 16-20 mL/hL (160- 300 mL/ha) per A. lineatella , intervenendo in fase di ovideposizione prima della schiusura delle uova e della penetrazio",
+   "EVIDENCE_COORDS": "p0 y=318-372 x=566-814 (linhas y=317.9 / 327.1 / 335.7 / 344.8 / 353.8 / 363.3, x=566.0), bloco sob 'DOSI ED EPOCA D'IMPIEGO' (p0 y=127.8 x=566.0)",
+   "CONFIDENCE": "HIGH",
+   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "STRUCTURE": "Rotulo SEM tabela de usos. A secao 'DOSI ED EPOCA D'IMPIEGO' (coluna direita, x=566, p0 y=128 em diante) e uma sequencia de blocos de prosa, um por grupo de culturas, cada um no formato '<lista de cul",
+   "WHY_PARSER_MISSES": "O bloco do PESCO passa por TODAS as guardas de cultura e morre na guarda de ALVO. Simulei a rota em scripts/it_rotulo_parser.py: `_cabecas_por_dois_pontos` (linha 550) acha o ':' e `_run_de_culturas_antes_do_dois_pontos` devolve a cabeca 'ALBICOCCO PESCO SUSINO' — culturas_em da ['ALBICOCCO','PESCO','SUSINO'] (Nettarine ja normaliza para PESCO) — e `USO.search(resto)` e True ('può essere impiegato",
+   "FIX_CLASS": "LEXICO_DE_ALVOS_BINOMIO_ABREVIADO (subclasse: GLOSSARIO_INTERNO_DE_ESPECIE — o proprio rotulo, no bloco SPETTRO D'AZIONE p0 y=28-119 x=566-814, escreve 'Cydia molesta (tignola orientale)', 'Anarsia li"
   },
   {
    "LABEL_ID": "019095",

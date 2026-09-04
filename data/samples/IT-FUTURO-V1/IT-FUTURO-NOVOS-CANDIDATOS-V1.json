@@ -1,0 +1,280 @@
+{
+ "DATASET": "IT-FUTURO-NOVOS-CANDIDATOS-V1",
+ "LAYER": "FUTURE INTELLIGENCE — approved candidates",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-FUTURO-V1",
+ "CAPTURED_AT": "2026-09-04",
+ "SOURCE": "sinais futuros lidos nos documentos do acervo que nunca tinham sido lidos, e julgados por um agente diferente do que os propos",
+ "A_REGUA": [
+  "a citacao existe LITERALMENTE no documento declarado?",
+  "o estado do tempo e sustentado pelo paragrafo?",
+  "cultura e alvo saem do contexto da citacao?",
+  "existe gatilho de invalidacao?",
+  "nao e duplicata de um dos dez ja existentes?"
+ ],
+ "DOCS_READ": 12,
+ "SIGNALS_PROPOSED": 77,
+ "SIGNALS_RULED": 16,
+ "SIGNALS_APPROVED": 8,
+ "SIGNALS_REJECTED": 8,
+ "REJECTION_REASONS": {
+  "CROP_NOT_SUPPORTED_BY_CONTEXT": 1,
+  "QUOTE_NOT_IN_DOCUMENT": 5,
+  "TREND_DRESSED_AS_FORECAST": 1,
+  "REGION_INHERITED": 1
+ },
+ "O_TESTE_QUE_MAIS_DERRUBA": "QUOTE_NOT_IN_DOCUMENT. Um mesmo leitor atribuiu a um documento cinco frases que estavam em OUTRO. Sem esse teste, cinco proveniencias falsas teriam entrado no radar com aparencia perfeita. E a razao de quem propoe nunca se aprovar.",
+ "BY_DOCUMENT": {
+  "4ybyIcvgUhg (IT-CONVEGNO-V1)": {
+   "propostos": 9,
+   "aprovados": 0
+  },
+  "6eNiYjzPGHw": {
+   "propostos": 5,
+   "aprovados": 0
+  },
+  "8_rnThlsy9Q": {
+   "propostos": 6,
+   "aprovados": 0
+  },
+  "CYV76yVc98s": {
+   "propostos": 6,
+   "aprovados": 0
+  },
+  "D9rKf6p1YY0": {
+   "propostos": 7,
+   "aprovados": 0
+  },
+  "GIiPq_NhIiM": {
+   "propostos": 7,
+   "aprovados": 0
+  },
+  "azHKlPD3qAg": {
+   "propostos": 5,
+   "aprovados": 0
+  },
+  "gDNHhPeng7Y": {
+   "propostos": 5,
+   "aprovados": 4
+  },
+  "m50xqCqqJP4 (IT-CONVEGNO-V1)": {
+   "propostos": 6,
+   "aprovados": 0
+  },
+  "or7l165Qv_c": {
+   "propostos": 9,
+   "aprovados": 4
+  },
+  "or7l165Qv_c2": {
+   "propostos": 8,
+   "aprovados": 0
+  },
+  "szsLkUd2cy4": {
+   "propostos": 4,
+   "aprovados": 0
+  }
+ },
+ "STATE": "CANDIDATOS APROVADOS PELA REGUA, ainda NAO promovidos a sinal do radar: promover exige a ficha completa (janela, mapa de acao por departamento, portfolio), que se escreve a mao.",
+ "APPROVED": [
+  {
+   "SOURCE_ID": "gDNHhPeng7Y",
+   "SIGNAL_SUMMARY": "NOCCIOLO x CIMICI (Halyomorpha halys), Calabria — Parco Naturale delle Serre (Cardinale, Torre di Ruggero, Simbario; ~700 ha, >90% biologico, mais de 50% da superficie corilicola regional). O relator fixa que H. halys AINDA NAO esta presente (\"vi anticipo che non c'e la cimite asiatica\" / \"vi ho anticipato che l'aliomorfa non c'e\") e projeta explicitamente a chegada porque a frente ja desceu a peninsula ate ao viterbese (\"fra qualche tempo se la troveranno anche loro... questo e un po' quello che succedera\"). O equilibrio hoje vigente — cimiciato ~5%, aceite ate 10% no biologico, com no maximo dois tratamentos com produtos a base de zeolite (e piretro) contra cimici, dano hoje atribuido sobretudo a Gonocerus — e o que a chegada poria em causa. Estado: EXPECTED (atteso, non ancora osservato), sem janela declarada — sinal PARTIAL, suficiente para vigiar, insuficiente para dimensionar.",
+   "EVIDENCE_TIME_STATE": "EXPECTED",
+   "CROP": null,
+   "TARGET": null,
+   "REGION": null,
+   "QUOTE_IT": "",
+   "TRIGGER": null,
+   "INVALIDATION_TRIGGER": null,
+   "CONFIDENCE": null,
+   "ADAMA_PAIR_EXISTS": "YES",
+   "ADAMA_LABELS": [
+    "012573 · EKO OIL SPRAY · PARAFFIN OIL (CAS 97862-82-3) · NOCCIOLO x CIMICI",
+    "014386 · OLIONET · PARAFFIN OIL (CAS 97862-82-3) · NOCCIOLO x CIMICI"
+   ],
+   "RULED_BY": "agente independente do que propos",
+   "STATE": "APPROVED_CANDIDATE_NOT_YET_HAND_WRITTEN"
+  },
+  {
+   "SOURCE_ID": "gDNHhPeng7Y",
+   "SIGNAL_SUMMARY": "Umbria may be recording its first presence of Ectomyelois ceratoniae (tignola delle carrube) on NOCE: a larva plus the fruit symptom were shown in the room to the Veneto phytosanitary technician (dott. Fiorin/Fiorentini), who hypothesised the species; the specimen was sent to specialists for determination and the outcome is not yet known. If the determination confirms it, Umbria inherits the technical void Veneto already describes in the same session — flights concentrated exactly in the harvest window, when treatment is no longer possible, and no insecticide registered against the species.",
+   "EVIDENCE_TIME_STATE": "ANNOUNCED",
+   "CROP": null,
+   "TARGET": null,
+   "REGION": null,
+   "QUOTE_IT": "",
+   "TRIGGER": null,
+   "INVALIDATION_TRIGGER": null,
+   "CONFIDENCE": null,
+   "ADAMA_PAIR_EXISTS": "NO",
+   "ADAMA_LABELS": [],
+   "RULED_BY": "agente independente do que propos",
+   "STATE": "APPROVED_CANDIDATE_NOT_YET_HAND_WRITTEN"
+  },
+  {
+   "SOURCE_ID": "gDNHhPeng7Y",
+   "SIGNAL_SUMMARY": "NOCE x Garella musculana (fallena asiatica do noce), Veneto — HYPOTHESIS. Especie de entrada turca, primeira deteccao em 2021 na provincia de Venezia, hoje confinada a impianti jovens e ao apice vegetativo, sem dano em fruto; o servico fitossanitario do Veneto declara o receio de que nos proximos anos se desloque para noceti em producao, num quadro em que nao ha feromona nem armadilha e o monitorizacao e apenas visual.",
+   "EVIDENCE_TIME_STATE": "HYPOTHESIS",
+   "CROP": null,
+   "TARGET": null,
+   "REGION": null,
+   "QUOTE_IT": "",
+   "TRIGGER": null,
+   "INVALIDATION_TRIGGER": null,
+   "CONFIDENCE": null,
+   "ADAMA_PAIR_EXISTS": "NO",
+   "ADAMA_LABELS": [],
+   "RULED_BY": "agente independente do que propos",
+   "STATE": "APPROVED_CANDIDATE_NOT_YET_HAND_WRITTEN"
+  },
+  {
+   "SOURCE_ID": "gDNHhPeng7Y",
+   "SIGNAL_SUMMARY": "Nocciolo / necrosi grigia in provincia di Viterbo: laboratory isolations from an anomalous late (July 2025) attack came back almost exclusively Alternaria against a historical bouquet of 70% Fusarium / 20% Alternaria / 10% Phomopsis. The source (Benedetto Valentini, Servizio Fitosanitario Lazio, reporting results received that same morning from prof. Angelo Mazzaglia) explicitly declines to project the shift and states it must be verified over the coming years to see whether it is an exception or a new norm. Decision-relevant because the only registered tool on nocciolo for this complex, boscalid + pyraclostrobin, was registered mainly for the early cancro rameale / bandiera effect.",
+   "EVIDENCE_TIME_STATE": "OBSERVED_NOW",
+   "CROP": null,
+   "TARGET": null,
+   "REGION": null,
+   "QUOTE_IT": "",
+   "TRIGGER": null,
+   "INVALIDATION_TRIGGER": null,
+   "CONFIDENCE": null,
+   "ADAMA_PAIR_EXISTS": "NO",
+   "ADAMA_LABELS": [],
+   "RULED_BY": "agente independente do que propos",
+   "STATE": "APPROVED_CANDIDATE_NOT_YET_HAND_WRITTEN"
+  },
+  {
+   "SOURCE_ID": "or7l165Qv_c",
+   "SIGNAL_SUMMARY": "AGRUMI x FORMICHE (formica rossa del fuoco, primeira sinalizacao europeia) na Sicilia: a fonte declara a presenca da formiga como fato do balanco 2024/2025 e projeta, em futuro explicito de segunda pessoa, que dela decorrera aumento de infestacao de cotonello (Planococcus citri) e cocciniglia rossa (Aonidiella aurantii), porque a formiga preda os auxiliares e interrompe o controle biologico — deslocando o manejo de formigas de detalhe agronomico para pre-requisito de qualquer programa de biocontrole em agrumi.",
+   "EVIDENCE_TIME_STATE": "EXPECTED",
+   "CROP": null,
+   "TARGET": null,
+   "REGION": null,
+   "QUOTE_IT": "",
+   "TRIGGER": null,
+   "INVALIDATION_TRIGGER": null,
+   "CONFIDENCE": null,
+   "ADAMA_PAIR_EXISTS": "YES",
+   "ADAMA_LABELS": [
+    "008259 LAMDEX EXTRA (LAMBDA-CYHALOTHRIN) — AGRUMI x COCCINIGLIE",
+    "013560 FORZA (LAMBDA-CYHALOTHRIN) — AGRUMI x COCCINIGLIE",
+    "013590 NINJA (LAMBDA-CYHALOTHRIN) — AGRUMI x COCCINIGLIE",
+    "015275 DURAVIS (LAMBDA-CYHALOTHRIN) — AGRUMI x COCCINIGLIE",
+    "017687 ELTIRA (LAMBDA-CYHALOTHRIN) — AGRUMI x COCCINIGLIE",
+    "AGRUMI x FORMICHE = ZERO pares em todo o conjunto publicado (2845 pares); FORMICHE nem sequer existe como termo canonico em scripts/it_rotulo_vocab.py"
+   ],
+   "RULED_BY": "agente independente do que propos",
+   "STATE": "APPROVED_CANDIDATE_NOT_YET_HAND_WRITTEN"
+  },
+  {
+   "SOURCE_ID": "or7l165Qv_c",
+   "SIGNAL_SUMMARY": "Calabria (Piana di Sibari), AGRUMI x COTONELLO (Planococcus citri): o responsavel fitossanitario regional projeta que o cotonello voltara a crescer quando faltarem as moleculas hoje usadas contra cocciniglie - condicao ja parcialmente realizada, porque o spirotetramat, \"il prodotto principe\", ficou indisponivel no mercado em 2025 apesar de autorizado ate 31/10. A Calabria chega a esse momento sem resposta biologica: os lancamentos de Cryptolaemus/Leptomastix cessaram na regiao, o fornecimento gratuito do insetario de Pantanello e passado, e outro palestrante confirma que a producao comercial de Leptomastix foi completamente abandonada. Reabre demanda por biofabrica/insetario e por alternativa de posicionamento em fim de junho, quando aparecem as femeas nos pedunculos das variedades ombelicate.",
+   "EVIDENCE_TIME_STATE": "EXPECTED",
+   "CROP": null,
+   "TARGET": null,
+   "REGION": null,
+   "QUOTE_IT": "",
+   "TRIGGER": null,
+   "INVALIDATION_TRIGGER": null,
+   "CONFIDENCE": null,
+   "ADAMA_PAIR_EXISTS": "YES",
+   "ADAMA_LABELS": [
+    "008259 LAMDEX EXTRA (LAMBDA-CYHALOTHRIN) - AGRUMI x COCCINIGLIE",
+    "013560 FORZA (LAMBDA-CYHALOTHRIN) - AGRUMI x COCCINIGLIE",
+    "013590 NINJA (LAMBDA-CYHALOTHRIN) - AGRUMI x COCCINIGLIE",
+    "015275 DURAVIS (LAMBDA-CYHALOTHRIN) - AGRUMI x COCCINIGLIE",
+    "017687 ELTIRA (LAMBDA-CYHALOTHRIN) - AGRUMI x COCCINIGLIE"
+   ],
+   "RULED_BY": "agente independente do que propos",
+   "STATE": "APPROVED_CANDIDATE_NOT_YET_HAND_WRITTEN"
+  },
+  {
+   "SOURCE_ID": "or7l165Qv_c",
+   "SIGNAL_SUMMARY": "AGRUMI x COCCINIGLIA ROSSA (Aonidiella aurantii), Calabria: o periodo em que a cocciniglia rossa \"nao era problema\" nos citros calabreses tende a terminar depois de 2025, porque a indisponibilidade efetiva do spirotetramat no mercado em 2025 ja fez reaparecer cochonilhas sobre os frutos em quem nao pode tratar; a defesa migra para monitoramento de voos de machos, confusao sexual com densidade muito alta de difusores (oltre 400) e oleo de laranja doce adicionado de oleo branco.",
+   "EVIDENCE_TIME_STATE": "EXPECTED",
+   "CROP": "AGRUMI",
+   "TARGET": "COCCINIGLIA ROSSA / AONIDIELLA AURANTII (com Aonidiella citrina associada e nao monitorada)",
+   "REGION": "Calabria",
+   "QUOTE_IT": "lo Spiratetamart che era il prodotto principe nella difesa fitti sanitaria delle cocciniglie che e quello che in base al posizionamento non ci fa fare i trattamenti sugli di di sul cotonello, credetemi, per il posizionamento e per il meccanismo d'azione gia nel 2025 non e stato possibile reperlzato fino autorizzato fino al 31 ottobre, ma non si non si e provato sul mercato, quindi era per molte aziende e stato un pro",
+   "TRIGGER": "Confirma: aumento de descarte por cochonilha nos magazzini de lavorazione da Piana di Sibari na campanha 2025/26; inclusao de Aonidiella no monitoramento dos boletins ARSAC, hoje declarado ausente; expansao dos 350-360 hectares em confusao sexual; pedidos de deroga art. 53 para cocciniglie em agrumi.",
+   "INVALIDATION_TRIGGER": "Derruba: reposicao do spirotetramat no mercado ou autorizacao de substituto com o mesmo posicionamento e mecanismo; ou o inventario de 2026 mostrar Aonidiella ainda irrelevante mesmo nas empresas que nao trataram em 2025 - o que indicaria que o controle vinha dos antagonistas e da gestao, e nao da molecula.",
+   "CONFIDENCE": "MEDIUM",
+   "ADAMA_PAIR_EXISTS": "YES",
+   "ADAMA_LABELS": [
+    "008259 LAMDEX EXTRA (LAMBDA-CYHALOTHRIN)",
+    "013560 FORZA (LAMBDA-CYHALOTHRIN)",
+    "013590 NINJA (LAMBDA-CYHALOTHRIN)",
+    "015275 DURAVIS (LAMBDA-CYHALOTHRIN)",
+    "017687 ELTIRA (LAMBDA-CYHALOTHRIN)"
+   ],
+   "RULED_BY": "agente independente do que propos",
+   "STATE": "APPROVED_CANDIDATE_NOT_YET_HAND_WRITTEN"
+  },
+  {
+   "SOURCE_ID": "or7l165Qv_c",
+   "SIGNAL_SUMMARY": "Decreto regional (Calabria) ampliou a area demarcada de Aleurocanthus spiniferus e fez entrar Rende e Corigliano Rossano — o comune com quase 5.000 ha de clementine — na zona onde ja valem as medidas de contencao: proibicao de fazer sair material infetado, proibicao de colher material folheado / partes vegetais / frutos com presenca do aleirodideo, e obrigacao de se defender se o problema aumentar.",
+   "EVIDENCE_TIME_STATE": "ANNOUNCED",
+   "CROP": null,
+   "TARGET": null,
+   "REGION": null,
+   "QUOTE_IT": "",
+   "TRIGGER": null,
+   "INVALIDATION_TRIGGER": null,
+   "CONFIDENCE": null,
+   "ADAMA_PAIR_EXISTS": "NO",
+   "ADAMA_LABELS": [],
+   "RULED_BY": "agente independente do que propos",
+   "STATE": "APPROVED_CANDIDATE_NOT_YET_HAND_WRITTEN"
+  }
+ ],
+ "REJECTED": [
+  {
+   "SOURCE_ID": "gDNHhPeng7Y",
+   "REASON": "CROP_NOT_SUPPORTED_BY_CONTEXT",
+   "WHY": "REPROVO, e nao pelo motivo que eu suspeitava no inicio.\n\n1. CITACAO — PASSA, literalmente. Testei a string inteira contra o TRANSCRIPT e deu `EXACT MATCH: True`, no indice 175454 de data/samples/IT-CONVEGNO-V1/falas/gDNHhPeng7Y.json. Nao ha invencao de citacao.\n\n2. TEMPO — PASSA. O paragrafo em volt",
+   "SIGNAL": "Via preferencial nacional (fast track) de registo para estrategias de baixo impacto ambiental, que o presidente da AIPP declara estar em curso e dever entrar em vigor dentro do ano, apresentada como j"
+  },
+  {
+   "SOURCE_ID": "6eNiYjzPGHw",
+   "REASON": "QUOTE_NOT_IN_DOCUMENT",
+   "WHY": "REPROVADO NO TESTE 1, QUE DERRUBA TUDO. O documento declarado e 6eNiYjzPGHw (/home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/6eNiYjzPGHw.json), unica copia no acervo. TITLE = \"Il bilancio fitosanitario 2024/2025 della vite nel sud Italia\", CROP_DECLARED_BY_THE_ROUTE = \"VITE, OLIVO\", REGIO",
+   "SIGNAL": "Garella musculana (\"fallina asiatica del noce\"), presente no Veneto desde 2021 e ate agora restrita ao apice vegetativo de plantios jovens, poderia migrar para nogueirais em producao, expondo a regiao"
+  },
+  {
+   "SOURCE_ID": "6eNiYjzPGHw",
+   "REASON": "QUOTE_NOT_IN_DOCUMENT",
+   "WHY": "TESTE 1 (decisivo) — A CITACAO NAO EXISTE. O documento e /home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/6eNiYjzPGHw.json, TITLE \"Il bilancio fitosanitario 2024/2025 della vite nel sud Italia\" (AIPP, 2025-12-05), CROP_DECLARED_BY_THE_ROUTE \"VITE, OLIVO\", ISSUE \"PERONOSPORA, OIDIO, FLAVESC",
+   "SIGNAL": "Alegado carryover de inoculo de Xanthomonas arboricola pv. corylina na avelaneira de Viterbo (Lazio) apos a maior perda em 35 anos em 2025, comprometendo a producao de 2026 e sustentando demanda por c"
+  },
+  {
+   "SOURCE_ID": "6eNiYjzPGHw",
+   "REASON": "QUOTE_NOT_IN_DOCUMENT",
+   "WHY": "A citacao NAO existe no documento 6eNiYjzPGHw. Ela existe, literalmente, em OUTRO documento do mesmo dataset: gDNHhPeng7Y.\n\nO documento alegado, /home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/6eNiYjzPGHw.json, tem TITLE \"Il bilancio fitosanitario 2024/2025 della vite nel sud Italia\", CRO",
+   "SIGNAL": "Possivel deslocamento do agente causal da necrosi grigia do nocciolo em Viterbo (Lazio): amostras de um ataque tardivo de julho/2025 deram quase exclusivamente Alternaria contra o perfil historico 70%"
+  },
+  {
+   "SOURCE_ID": "6eNiYjzPGHw",
+   "REASON": "QUOTE_NOT_IN_DOCUMENT",
+   "WHY": "TESTE 1 (decisivo) REPROVA: a citacao nao existe no documento declarado. Em /home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/6eNiYjzPGHw.json (158.855 chars, \"Il bilancio fitosanitario 2024/2025 della vite nel sud Italia\", 2025-12-05) as buscas case-insensitive dao ZERO ocorrencia de: \"noc",
+   "SIGNAL": "Ectomyelois ceratoniae (tignola delle carrube) suspeitada em noce na Umbria: larva e sintoma em fruto mostrados a especialista do Veneto no convegno, exemplar enviado para determinacao taxonomica; se "
+  },
+  {
+   "SOURCE_ID": "6eNiYjzPGHw",
+   "REASON": "QUOTE_NOT_IN_DOCUMENT",
+   "WHY": "A citacao NAO existe em 6eNiYjzPGHw. O arquivo unico da fala e /home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/6eNiYjzPGHw.json (TRANSCRIPT_CHARS 158855, verificado integralmente por busca sobre a string do transcript, nao so por grep de linha). Nele nao ocorre nenhuma vez: \"corsia\" (0), ",
+   "SIGNAL": "Anuncio de uma \"corsia preferenziale\" / fast track nacional italiana para registro de estrategias de baixo impacto ambiental, declarada em curso e prevista para \"vedere la luce\" ate o fim do ano, torn"
+  },
+  {
+   "SOURCE_ID": "or7l165Qv_c",
+   "REASON": "TREND_DRESSED_AS_FORECAST",
+   "WHY": "REPROVADO por UM defeito, e so um: o estado do tempo esta inflado. Todo o resto passa, e passa bem.\n\n1) CITACAO — EXISTE, literal. char 53350 de data/samples/IT-CONVEGNO-V1/falas/or7l165Qv_c.json: \"bruciare una nuova molecola mi raccontano, per esempio, di trattamenti a dosis doppie, trighe, da un p",
+   "SIGNAL": "AGRUMI x ACARI, Sul da Italia: o acaricida mais recente registrado esta sendo queimado por sobredosagem (doses duplas e triplas; abamectina a 200 cc/hL nas clementine, das precoces as tardias), e o ac"
+  },
+  {
+   "SOURCE_ID": "or7l165Qv_c",
+   "REASON": "REGION_INHERITED",
+   "WHY": "1) CITACAO: EXISTE, literal. Encontrada em /home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/or7l165Qv_c.json, campo TRANSCRIPT, offset ~136.902, com as proprias corrupcoes da ASR reproduzidas fielmente (\"l'incremento delleazioni degli acari\", \"si parla di EUR25.000 000 e pero\"). Nada foi i",
+   "SIGNAL": "AGRUMI x ACARI, Sicilia: a difusao das coberturas antivento sobre agrumeti comerciais jovens (contra vento/malsecco, ~EUR 25.000) eleva temperatura e sobretudo umidade sob a cobertura e faz subir a in"
+  }
+ ]
+}

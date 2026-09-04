@@ -141,6 +141,11 @@ def main(run):
                     'autorizacao real.' % len(bloqueiam)) if bloqueiam
                    else 'nenhuma perda restante e autorizacao real',
         'UNIAO_AINDA_NECESSARIA': 'SIM' if pode != 'SIM' else 'NAO',
+        'O_UNICO_ERRO_DO_CONJUNTO_ANTIGO': (
+            '011526 SULTAN x CIPOLLA. O rotulo diz "diserbante selettivo per colza, '
+            'cavoli a infiorescenza, cavoli a testa, cavoli a foglia e AGLIO" — '
+            'aglio, e nao cipolla. Das cem perdas auditadas, esta e a unica em que '
+            'o conjunto antigo estava errado e o novo esta certo.'),
         'ROWS': sorted(linhas, key=lambda z: (z['LABEL_ID'], z['CROP'])),
     }
     json.dump(out, open(os.path.join(DEST, 'IT-ROTULOS-DIVIDA-DE-LEITURA-V1.json'),
