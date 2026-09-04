@@ -15,8 +15,10 @@ BRANCH        claude/meeting-portal-contradictions-qb5a1x   (descendente direto
               nada reescrito, nada forçado)
 HEAD          7b2f24f  (código completo) + o commit que traz este documento
               confirme sempre com:  git log --oneline -3
-ESTADO        PORTAL INTEGRADO · contradições fechadas · gates verdes
-              DEPLOY: PUBLICADO e verificado (ver §0.6)
+ESTADO        MEETING_PORTAL_READY = YES · MEETING_FREEZE = YES
+              publicado e verificado (ver §0.6)
+FREEZE_TIME   2026-09-04T02:5xZ  (o commit que traz esta linha)
+DEPLOY_URL    https://sintonia-eame-preview-8p1qae38s-london-creative.vercel.app
 ```
 
 ## 0.1 · A CORREÇÃO QUE A SESSÃO 3 TEVE DE FAZER PRIMEIRO
@@ -259,6 +261,33 @@ comando. E **nunca** `playwright install` — o Chromium já está em
 | `pdf-gate` | PASS · 4 PDFs reais gerados e lidos por pdf.js |
 | `deploy-surface` (contrato) | PASS |
 | `journey` | **não existe** neste repositório — o briefing nomeia-o, o ficheiro não está cá |
+| `cta-navigation` | **PASS** · CT1–CT5 + NV1–NV7 · 1061 clicáveis · 936 premidos e julgados · **936 vivos · 0 mortos** · 0 erros de consola · 0 pedidos falhados |
+| `meeting-public` (bytes públicos) | **PUBLIC BUILD VERIFIED** |
+
+### O controlo «suspeito», medido em vez de suposto
+
+O varrimento reportou uma assinatura que não se voltou a apresentar
+(`Radar Canonico · span||×|8|23`). Medida:
+
+```
+CONTROL             span 6×6 px, sem texto e sem título
+SURFACE             barra lateral — está nas 12 telas, não é da superfície canónica
+EXPECTED_ACTION     nenhuma própria: é o ponto de estado dentro da linha de navegação
+ACTUAL_ACTION       navega — o handler está no antepassado (onClick={{ n.go }})
+HANDLER             na linha de navegação (data-dc-tpl=34), não no ponto
+DESTINATION         a tela do item de navegação
+VISIBLE_AFFORDANCE  a linha inteira; o ponto é decoração dentro dela
+CLASSIFICATION      ALIVE (pelo antepassado) · NOT_APPLICABLE como controlo próprio
+```
+
+`clickables()` do próprio portão devolve **0** elementos sem texto nem título,
+porque sobe até ao antepassado que carrega o handler. A assinatura não se
+repetiu porque o índice `nth` de um ponto anónimo muda quando a tela é
+restaurada — é um artefacto de re-identificação, **não** um defeito do portal.
+E o varrimento deu `Radar Canonico · sospetti 0`.
+
+    NENHUM DEFEITO REAL ⇒ NENHUMA CORREÇÃO. Mexer na navegação por causa
+    disto seria refatorar por um número, não por um problema.
 
 ## 0.8 · OS 5 GATES QUE JÁ FALHAVAM ANTES DESTA SESSÃO
 
@@ -623,7 +652,9 @@ Pode-se mostrar os que estão em validação — desde que o estado apareça, e 
 
 ---
 
-## 8 · MEETING_FREEZE
+## 8 · MEETING_FREEZE  ·  ⚠️ SUPERADO PELO §0 — agora é YES
+
+*(o texto abaixo é da sessão 2 e fica como história)*
 
 Ainda **NÃO**. Declarar só quando: snapshot estável + portal integrado + gates
 verdes + casos da demo verificados no browser + deploy aberto e testado.
