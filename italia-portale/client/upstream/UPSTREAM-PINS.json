@@ -7,38 +7,38 @@
   "IT-FUTURO-HANDOFF-LINHA-B-V1.json": {
    "CLASSE": "BASE",
    "O_QUE_E": "Radar Futuro · 45 ITFC",
-   "SHA_QUE_CONTEM_OS_BYTES": "032ebd1",
+   "SHA_QUE_CONTEM_OS_BYTES": "60af3fb",
    "CAMINHO_NESSE_COMMIT": "data/samples/IT-FUTURO-V1/IT-FUTURO-HANDOFF-LINHA-B-V1.json",
-   "BRANCH": "claude/retomada-coleta-video-convegni-vz50er",
-   "SOURCE_HEAD_DECLARADO_PELO_ARTEFACTO": "8c082f7",
-   "HASH": "sha256:5c99631467bbb77a3a66084e51028231b6654ae9af821f0a07bec5cc727b666e"
+   "BRANCH": "sprint/publicacao-unica-5855cad",
+   "SOURCE_HEAD_DECLARADO_PELO_ARTEFACTO": "5855cad",
+   "HASH": "sha256:5512f25e83a0da922fd6ca0e916f9ef398510633c62af3753f113674e58d0cc0"
   },
   "IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json": {
    "CLASSE": "BASE",
    "O_QUE_E": "Sinais de Campo · 640",
-   "SHA_QUE_CONTEM_OS_BYTES": "032ebd1",
+   "SHA_QUE_CONTEM_OS_BYTES": "60af3fb",
    "CAMINHO_NESSE_COMMIT": "data/samples/IT-PORTAL-V1/IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json",
-   "BRANCH": "claude/retomada-coleta-video-convegni-vz50er",
-   "SOURCE_HEAD_DECLARADO_PELO_ARTEFACTO": "8c082f7",
-   "HASH": "sha256:4fda8a87f5efe18a9eea76067e4d31bfe10f1d18fc2d143f6e345a04273defa4"
+   "BRANCH": "sprint/publicacao-unica-5855cad",
+   "SOURCE_HEAD_DECLARADO_PELO_ARTEFACTO": "5855cad",
+   "HASH": "sha256:f7958ff29c00dddd282c9437c127c80d6b476c2e182e3ac558a53eefc33608f2"
   },
   "IT-HANDOFF-LINHA-B-FONTES-V1.json": {
    "CLASSE": "BASE",
    "O_QUE_E": "Fontes · 317",
-   "SHA_QUE_CONTEM_OS_BYTES": "032ebd1",
+   "SHA_QUE_CONTEM_OS_BYTES": "60af3fb",
    "CAMINHO_NESSE_COMMIT": "data/samples/IT-PORTAL-V1/IT-HANDOFF-LINHA-B-FONTES-V1.json",
-   "BRANCH": "claude/retomada-coleta-video-convegni-vz50er",
-   "SOURCE_HEAD_DECLARADO_PELO_ARTEFACTO": "8c082f7",
-   "HASH": "sha256:262ac41060a27fbebde9a5301f843737565da4f8159a871a411db59fc2e63b5d"
+   "BRANCH": "sprint/publicacao-unica-5855cad",
+   "SOURCE_HEAD_DECLARADO_PELO_ARTEFACTO": "5855cad",
+   "HASH": "sha256:1f2058f40f0d0ff537c93eb7fa11deb605161f55d5d79e920e8a8265d3e901e1"
   },
   "IT-HANDOFF-LINHA-B-FITOSSANITARIO-V1.json": {
    "CLASSE": "BASE",
    "O_QUE_E": "Fitossanitario · 560 evidence-only",
-   "SHA_QUE_CONTEM_OS_BYTES": "5855cad",
+   "SHA_QUE_CONTEM_OS_BYTES": "60af3fb",
    "CAMINHO_NESSE_COMMIT": "data/samples/IT-PORTAL-V1/IT-HANDOFF-LINHA-B-FITOSSANITARIO-V1.json",
-   "BRANCH": "sprint/fito-lei-560",
-   "SOURCE_HEAD_DECLARADO_PELO_ARTEFACTO": "0b490ec",
-   "HASH": "sha256:b0d6550993be660e2cce4ce8a0450202a0692af2effca309cea31362f577af75"
+   "BRANCH": "sprint/publicacao-unica-5855cad",
+   "SOURCE_HEAD_DECLARADO_PELO_ARTEFACTO": "5855cad",
+   "HASH": "sha256:328310a59e715c593405a51ee5eef4290bc17f502a3b6b6b854bb530158ed0db"
   },
   "IT-TOP3-SENSORES-V1.json": {
    "CLASSE": "ENRIQUECIMENTO",
@@ -58,5 +58,7 @@
    "SOURCE_HEAD_DECLARADO_PELO_ARTEFACTO": "470c951596cbdc4a275d0daab824ae56ad75f42f",
    "HASH": "sha256:1283b4f7a292798f19a964421966316603e7c25aaa9d5b52aa7764bba74ec560"
   }
- }
+ },
+ "UMA_SO_ENTREGA_PARA_AS_QUATRO_BASE": "as quatro familias BASE declaram o mesmo SOURCE_HEAD (5855cad). Isso NAO e cosmetica: enquanto declaravam dois carimbos, o portao tinha de perguntar ao git se um continha o outro, e num `git clone --single-branch` da Linha B nenhum dos dois objetos existe — o lote ficava por provar (11/12) dentro do proprio clone. Com uma entrega so, a pergunta de ancestralidade nem chega a ser feita.",
+ "OS_ENRIQUECIMENTOS_NAO_ENTRAM_NISTO": "TOP3-SENSORES e HUMAN-SENSORS continuam pinados cada um no seu commit. Sao outra camada, com outro dono. Obriga-los ao carimbo das quatro seria inventar uma entrega que nunca existiu."
 }
