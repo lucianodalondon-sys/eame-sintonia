@@ -38,8 +38,8 @@ Estado de `LEGENDAS.json` antes: **10 itens, 10 `PORTA_NAO_ABRIU`**, todos com o
 | **C** | página abre mas DOM esperado não aparece | ⛔ **REFUTADA** | `ytInitialData` e `ytInitialPlayerResponse` presentes em 10/10 |
 | **D** | consent/cookie/locale interfere | ⛔ **REFUTADA** | 10 combinações, mesmo resultado |
 | **E** | vídeo abre e a rota de legenda não é descoberta | ✅ **CONFIRMADA — e é a causa raiz** | player negado ⇒ bloco `captions` nem existe |
-| **F** | rota existe e o download falha | ⛔ não alcançada | sem rota, não há download |
-| **G** | legenda baixa e o parser falha | ⛔ não alcançada | — |
+| **F** | rota existe e o download falha | ✅ **CONFIRMADA — o quarto muro** | `baseUrl` assinado devolve **200 com 0 bytes** |
+| **G** | legenda baixa e o parser falha | ⛔ não alcançada | não há corpo para o parser errar |
 | **H** | vídeo realmente não tem legenda | ⛔ **REFUTADA** | controle positivo tem faixa e mede zero |
 | **I** | timeout/espera incorreto | ⚠️ **PARCIAL** | 25 s não é curto; é longo para um processo já morto |
 | **J** | erro é engolido e vira timeout | ✅ **CONFIRMADA** | `stderr=DEVNULL` + laço sem `poll()` |
@@ -232,6 +232,49 @@ mandado para o Whisper. É o desastre que o cabeçalho do próprio arquivo prome
 > *"Quem confundir os dois vai registrar SEM_LEGENDA num vídeo legendado, e mandar o whisper
 > transcrever seis horas de som que já existia escrito."*
 
+### 2.1 · O QUARTO MURO: em VERDE, a faixa aparece e o corpo não vem
+
+Numa janela `VERDE` desta mesma sessão, o controle positivo devolveu o que se espera:
+
+```
+jNQXAC9IVRw   http=200  bytes=1258647  status=OK  título='Me at the zoo'  faixas=2
+    captions(chaves) = ['audioTracks','captionTracks','defaultAudioTrackIndex',
+                        'translationLanguages']
+```
+
+E então, pela **URL assinada que o próprio player entregou** — que é exatamente o que
+`_timedtext` usa:
+
+```
+    lang=en  kind=MANUAL  fmt=json3  ->  http=200  bytes=0  ''
+    lang=en  kind=MANUAL  fmt=srv3   ->  http=200  bytes=0  ''
+    lang=de  kind=MANUAL  fmt=json3  ->  http=200  bytes=0  ''
+    lang=de  kind=MANUAL  fmt=srv3   ->  http=200  bytes=0  ''
+```
+
+**Quatro formatos, duas línguas, corpo vazio nas quatro.** No mesmo HTML, medido:
+`"pot"`, `"potc"`, `"poToken"` e `"webPoSignal"` aparecem **0 vezes** — o `baseUrl` que o
+YouTube entrega hoje ao cliente anônimo não carrega o token que o `/api/timedtext` passou
+a exigir. O endpoint de transcrição (`get_transcript`) devolve `HTTP 400 — "Precondition
+check failed."`.
+
+Isto **não é defeito deste repositório**: o `baseUrl` é usado exatamente como o player o
+entregou. É mudança do lado do YouTube.
+
+E o dono canônico **já tem o estado certo** para isso — `DECLARADA_MAS_VAZIA`, cujo próprio
+texto diz *"aqui a legenda EXISTE e não foi entregue"*. Nada a mudar no código.
+
+> **Procedência desta medição, declarada:** ela foi feita por um agente auxiliar desta mesma
+> sessão, neste mesmo contêiner, com o log preservado — **não por mim, à mão.** Depois dela o
+> IP entrou em `ÂMBAR` e não voltou a `VERDE` dentro desta rodada, apesar de pausas de 10
+> minutos sem requisição alguma. Portanto:
+>
+> - que o `baseUrl` assinado devolve corpo vazio: **medido nesta sessão, uma vez**;
+> - que isso se repete: **NÃO SEI** — não consegui uma segunda janela `VERDE` para confirmar.
+>
+> Registrar como "confirmado" o que foi visto uma vez seria o mesmo erro que este documento
+> passou a rodada inteira desmontando.
+
 ---
 
 ## 3 · O QUE FOI CORRIGIDO, E O QUE NÃO FOI
@@ -359,3 +402,110 @@ NOT_JUDGEABLE_TITLE_ONLY = 82
 
 Nenhum texto novo entrou. A lei da rodada é explícita: *"não reclassificar os 150 documentos
 enquanto não houver texto novo real."* Reclassificar sem texto seria inventar.
+
+---
+
+## 6 · MICRO-REMEDIÇÃO: NÃO EXECUTADA, E POR QUÊ
+
+A missão condiciona a micro-remedição a uma coisa: *"se — e somente se — a legenda funcionar
+de forma reproduzível"*.
+
+```
+CAPTION_REPRODUCIBLE = NÃO
+```
+
+Nenhum caractere de legenda entrou nesta rodada. Comparar `TITLE_ONLY` com
+`TITLE_PLUS_CAPTION` sem `CAPTION` seria comparar uma coluna consigo mesma e chamar o
+resultado de medição. A lei da rodada já dizia: **não reclassificar os 150 documentos
+enquanto não houver texto novo real.**
+
+```
+MICRO_REMEASUREMENT_EXECUTED = NÃO
+```
+
+A correção que a missão mandou preservar — *`OFF_TOPIC` só existe com evidência positiva de
+assunto não-agrícola* — **continua no código e não foi tocada** (D-032).
+
+---
+
+## 7 · PORTÃO DE SAÍDA
+
+```
+HEAD_BEFORE = 4fbe19a4792a0b8550e6915ed17a6698042813bd
+
+CANONICAL_OWNER_PRESERVED = SIM   (scripts/youtube_janela.py continua único dono)
+APIFY_USED                = NO
+NEW_SCRAPER_CREATED       = NO    (legendas_diagnostico.py só chama funções do dono)
+WHISPER_USED              = NO
+PAID_API_USED             = NO
+COST_USD                  = 0.00
+
+BROWSER_START             = SIM, mas fora do dono canônico e sem valor de coleta
+                            (não-root + Xvfb, sandbox LIGADA — e mesmo assim
+                             ERR_CONNECTION_RESET contra qualquer HTTPS)
+CAPTION_LAYER_OPENED      = NÃO
+CAPTION_REPRODUCIBLE      = NÃO
+NEGATIVE_CONTROL_DISTINGUISHED = SIM
+                            (NO_CAPTION exige player OK; ENVIRONMENT_FAILURE virou
+                             PLAYER_NEGADO — separados no código e presos por teste)
+
+MICRO_REMEASUREMENT_EXECUTED = NÃO
+
+CONDITION_5_CHANGED_BY_CAPTIONS               = NÃO
+CONDITION_6_TESTABLE_WITH_CURRENT_YOUTUBE_UNIVERSE = NÃO
+
+SCALE_TO_89_CHANNELS = NÃO
+```
+
+### `ROOT_CAUSE`
+
+Quatro muros empilhados. Os dois primeiros eram nossos e estão consertados; os dois últimos
+não são deste repositório:
+
+1. **`navegador.descobrir()` não acha o Chromium** — ele existe em `/opt/pw-browsers`, fora do
+   `PATH`, e o módulo só conhece caminhos de Windows e macOS. *(Contornável por
+   `CHROME_EXECUTABLE`, que é a porta declarada.)*
+2. **`cdp.subir` engolia o erro e afirmava o falso** — o Chromium morria em 0,43 s
+   (`root` sem `--no-sandbox`; depois, sem `X server`) e o laço esperava 25 s para dizer "o
+   Chrome subiu". ~63 minutos por passada. **← é isto que "não completou" significava.**
+   *(CONSERTADO.)*
+3. **O navegador não alcança HTTPS nenhum daqui** — `ERR_CONNECTION_RESET` até em
+   `example.com`; o proxy do ambiente registra o túnel cortado. *(Reportado, não contornado.)*
+4. **O YouTube nega a rota anônima de `/watch` a este IP** — `LOGIN_REQUIRED`, *"Accedi per
+   confermare di non essere un bot"*; sem player não há bloco `captions`. E numa janela em
+   que houve player e faixas, o `baseUrl` assinado devolveu **200 com 0 bytes**.
+   *(Fora do repositório.)*
+
+### `FIX`
+
+| onde | o quê |
+|---|---|
+| `scripts/cdp.py` · `subir` | captura `stderr` em arquivo, consulta `p.poll()`, para de afirmar que o Chrome subiu. **25,02 s de mentira → 1,00 s de verdade.** |
+| `scripts/youtube_janela.py` · `_abrir` | truncamento de motivo: 120 → 400 caracteres |
+| `scripts/youtube_janela.py` · `fase_legendas` | estado novo **`PLAYER_NEGADO`**, com `WHISPER_CANDIDATO = False`; `AUSENTE` passa a exigir player `OK` |
+| `tests/test_legendas.py` | 8 provas, sem rede, prendendo os três ramos e a mensagem de falha do navegador |
+| `scripts/legendas_diagnostico.py` | instrumento de estado por vídeo — chama o dono, não substitui |
+| `scripts/sensor_piloto_social_it.py` · `familia` | a tabela GRUPO × PLATAFORMA que responde a condição 6 sem rede |
+| `scripts/selo_de_amostra.py` | `SOURCE_ID` e `CAPTURED_AT` num lugar só (a suíte de proveniência estava vermelha) |
+
+### `NEXT_DECISION`
+
+**Não é "consertar o scraper".** O código está consertado até onde ele mandava. A decisão
+seguinte é do dono, e é uma escolha entre quatro caminhos — todos **fora** desta rodada:
+
+| caminho | o que resolve | o que custa |
+|---|---|---|
+| **Saída de rede com reputação residencial** | os muros 3 e 4 de uma vez | infraestrutura; e continua sem resolver o corpo vazio do `timedtext` |
+| **Rodar a coleta fora deste contêiner** | muros 1, 2 e 3 | operação; a rota barata já funciona em máquina com reputação limpa |
+| **Aceitar a camada de título** e medir valor sem legenda | nada — mas fecha a pergunta | o piloto já disse: 7 operacionais em 150 |
+| **Abrir a família pesquisador onde ela está** (Twitter/LinkedIn) | **só isto destrava a condição 6** | proibido nesta rodada; exige decisão e provavelmente credencial |
+
+E uma pergunta nova, que esta rodada abriu e não pode responder: **o `/api/timedtext` ainda
+serve corpo a cliente anônimo?** Medido uma vez que não. Se a resposta for "não" em
+definitivo, a legenda gratuita do YouTube deixou de existir como rota — e isso muda o
+orçamento de qualquer decisão acima.
+
+---
+
+**Parado aqui.** Não escalei para 89. Não abri PR. Nada entrou no portal. Nada foi
+reclassificado.
