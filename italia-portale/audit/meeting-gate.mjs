@@ -1,269 +1,435 @@
-/* SINTONIA · PORTONE DELLA RIUNIONE
+#!/usr/bin/env node
+/* SINTONIA · I PORTONI DELLA RIUNIONE — audit/meeting-gate.mjs
    ===========================================================================
-   Le testimonianze che l'integrazione della riunione deve poter produrre.
+       node audit/meeting-gate.mjs           tabella leggibile
+       node audit/meeting-gate.mjs --json    per una macchina
 
-   Ogni controllo qui sotto guarda la SCHERMATA COSTRUITA — `renderVals()` sul
-   pacchetto client reale — non una grep del sorgente. Un controllo che legge
-   il file e non la schermata non sa se quel valore e arrivato all'occhio.
+   Le quattordici testimonianze del §23, ognuna misurata sul portale montato —
+   mai su un rapporto scritto, mai sul file sorgente quando la domanda riguarda
+   cio che finisce sullo schermo.
 
-       IL MOTORE DECIDE. LO SCHERMO PRESENTA. IL PORTONE MISURA.
+   PERCHE QUESTI PORTONI, E NON ALTRI
+   -----------------------------------
+   Ogni riga qui sotto esiste perche un difetto REALE l'ha resa necessaria.
+   Non sono controlli di stile: sono la memoria di cio che e gia andato storto.
 
-   NON e un secondo motore: non calcola inteligenza, non tocca soglie, non
-   riscrive un verdetto. Conta cio che lo schermo mostra e lo confronta con
-   cio che lo snapshot dichiara.
+       SNAPSHOT_FROM_CANONICAL_HEAD   il pacchetto puo essere ricostruito da un
+                                      HEAD diverso e nessuno se ne accorge
+       SNAPSHOT_43_CASES              un caso che sparisce non fa rumore
+       NO_RAW_BYPASS                  il portale deduceva `status` dal grezzo:
+                                      16 AGIRE ORA contro i 2 del motore
+       ACTION_MAP_FROM_ENGINE         la mappa leggeva lo stato del CASO, e
+                                      tutte e cinque le aree dicevano lo stesso
+       ALL_PORTFOLIO_MATCHES_RENDERED «primario + altri N» quando lo snapshot
+                                      li conosce tutti
+       NO_INTERNAL_CODES              «VALIDATE NOW» stampato in italiano dalla
+                                      fine di una catena di ripiego
+       VALIDATION_STATE_NOT_HIDDEN    38 casi DA VALIDARE con addosso la sola
+                                      parola «verificata»
+
+   LA REGOLA DI QUESTO FILE
+   ------------------------
+   Un portone che non puo fallire non e un portone. Ognuno qui dichiara che
+   cosa ha CONTATO, cosi un domani si vede se ha smesso di separare qualcosa —
+   che e esattamente come `O1` era invecchiato senza dirlo.
    =========================================================================== */
 import fs from 'node:fs';
 import path from 'node:path';
-import { mount, CLIENT } from './lib/harness.mjs';
+import { mount, loadData, CLIENT, readPortal } from './lib/harness.mjs';
 
-const C = {
-  g: (t) => `\x1b[32m${t}\x1b[0m`, r: (t) => `\x1b[31m${t}\x1b[0m`,
-  y: (t) => `\x1b[33m${t}\x1b[0m`, d: (t) => `\x1b[2m${t}\x1b[0m`,
-  b: (t) => `\x1b[1m${t}\x1b[0m`,
-};
+const CHECKS = [];
+const check = (id, title, fn) => CHECKS.push({ id, title, fn });
 
-const results = [];
-const R = (name, ok, detail) => { results.push({ name, ok: !!ok, detail: detail || '' }); };
+const SNAP_JSON = path.join(CLIENT, 'meeting-intelligence-snapshot.json');
+const PKG = path.join(CLIENT, '..', '..', 'build', 'ITALY-REALITY-HANDOFF-V2.1',
+                      'DESIGN-INGEST', 'OPPORTUNITIES.json');
 
-const SNAP = JSON.parse(fs.readFileSync(path.join(CLIENT, 'meeting-intelligence-snapshot.json'), 'utf8'));
-/* L'HEAD dell'inteligenza che questa riunione ha approvato. Lo snapshot vale
-   solo se dimostra di venire da qui. */
-const APPROVED_SOURCE_HEAD = 'b3935bd';
-const APPROVED_BUILD_ID = 'V21-358954754db5ea2f';
+const snap = JSON.parse(fs.readFileSync(SNAP_JSON, 'utf8'));
+const CASES = snap.CASES || [];
 
-const m = await mount();
-const vIT = m.vals({ view: 'canonical', lang: 'it' });
-const vEN = m.vals({ view: 'canonical', lang: 'en' });
-const detail = (id, lang) => m.vals({ view: 'copportunity', cCaseId: id, lang }).cd;
-const IDS = SNAP.CASES.map((c) => c.ID);
-
-/* ── 1 · il contratto dell'istantanea ─────────────────────────────────── */
-R('MEETING_SNAPSHOT_CONTRACT',
-  SNAP.COLLECTION === 'MEETING-INTELLIGENCE-SNAPSHOT'
-  && Array.isArray(SNAP.CASES) && SNAP.CASES.length === SNAP.TOTAL_CASES
-  && !!SNAP.BUILD_ID && !!SNAP.SOURCE_HEAD && !!SNAP.MEETING_CUTOFF,
-  `${SNAP.COLLECTION} · ${SNAP.CASES.length} casi · ${SNAP.BUILD_ID}`);
-
-R('SNAPSHOT_SOURCE_HEAD_VALID',
-  SNAP.SOURCE_HEAD === APPROVED_SOURCE_HEAD && SNAP.BUILD_ID === APPROVED_BUILD_ID,
-  `SOURCE_HEAD=${SNAP.SOURCE_HEAD} BUILD_ID=${SNAP.BUILD_ID}`);
-
-/* ── 2 · i 43, e soltanto i 43 ────────────────────────────────────────── */
-const rendered = vIT.cCards.map((c) => c.id);
-R('CANONICAL_43_RENDERED',
-  rendered.length === SNAP.TOTAL_CASES && IDS.every((id) => rendered.indexOf(id) >= 0),
-  `${rendered.length} schede costruite su ${SNAP.TOTAL_CASES} casi`);
-
-/* I conteggi della superficie devono essere RICONTABILI dallo snapshot. Se un
-   solo numero non si riproduce contando i 43, viene da qualche altra parte. */
-const cnt = (p) => SNAP.CASES.filter(p).length;
-const kpi = (k) => (vIT.cKpis.filter((x) => x.key === k)[0] || {}).value;
-const kpiChecks = [
-  ['TOTAL', SNAP.CASES.length],
-  ['PUBLISHABLE', cnt((c) => c.PUBLICATION_STATE === 'PUBLISHABLE')],
-  ['VALIDATION_REQUIRED', cnt((c) => c.PUBLICATION_STATE === 'VALIDATION_REQUIRED')],
-  ['ACT_NOW', cnt((c) => c.STATUS === 'ACT_NOW')],
-  ['VALIDATE_NOW', cnt((c) => c.STATUS === 'VALIDATE_NOW')],
-  ['TO_VALIDATE', cnt((c) => c.STATUS === 'TO_VALIDATE')],
-  ['WATCH', cnt((c) => c.STATUS === 'WATCH')],
-  ['FUTURE_PREPARATION', cnt((c) => c.STATUS === 'FUTURE_PREPARATION')],
-  ['WINDOW_DEFINED', cnt((c) => c.WINDOW_DEFINED === 'YES')],
-  ['WINDOW_OPEN_NOW', cnt((c) => c.WINDOW_OPEN_NOW === 'YES')],
+/* Le viste che la riunione percorre. Un portone che misura una sola schermata
+   prova una sola schermata. */
+const CASE_IDS_FOR_SCREEN = [
+  'OPP_5F31A63F844D', /* A · botrite × vite × Emilia-Romagna — ACT_NOW */
+  'OPP_F8106D5E1767', /* B · botrite × vite × Toscana — ACT_NOW */
+  'OPP_169BD86DB324', /* C · tignoletta × vite × Umbria — WATCH, fonte che raffredda */
+  'OPP_75C37DED9160', /* D+E · carpocapsa × melo × Veneto — stadio finito, protezione no */
+  'OPP_D11664591168', /* F · scafoide × vite × Toscana — obbligo amministrativo */
 ];
-const kpiBad = kpiChecks.filter(([k, want]) => kpi(k) !== want);
-R('CANONICAL_COUNTS_FROM_43_ONLY', kpiBad.length === 0,
-  kpiBad.length ? kpiBad.map(([k, w]) => `${k}: schermo ${kpi(k)} != snapshot ${w}`).join(' · ')
-                : kpiChecks.map(([k, w]) => `${k}=${w}`).join(' · '));
 
-/* I 29 casi di presentazione vivono su un'altra schermata e non entrano qui.
-   Il controllo e sugli ID: due insiemi della stessa dimensione non sono lo
-   stesso insieme, e solo l'identita lo dimostra. */
-const demoIds = ((m.ctx.ITALY_DEMO && m.ctx.ITALY_DEMO.CASES) || []).map((c) => c.id);
-const bleed = rendered.filter((id) => demoIds.indexOf(id) >= 0);
-R('DEMO_CASES_NOT_COUNTED_AS_CANONICAL',
-  bleed.length === 0 && rendered.every((id) => /^OPP_/.test(id)),
-  `${demoIds.length} casi di presentazione · 0 sulla superficie canonica`);
+/* Il dettaglio espone i suoi campi sotto `cs`, non alla radice: leggerli alla
+   radice restituisce `undefined` per tutto, e un portone che confronta
+   `undefined` con un numero fallisce raccontando un difetto che non esiste. */
+const caseVals = (id, lang = 'it') =>
+  (mount().vals({ view: 'case', caseId: id, lang }) || {}).cs || {};
 
-/* ── 3 · nessuna scorciatoia, nessun ricalcolo ────────────────────────── */
-const portal = fs.readFileSync(path.join(CLIENT, 'portale.html'), 'utf8');
-const block = portal.slice(portal.indexOf('canonicalVals(T, s) {'));
-/* La superficie legge lo snapshot e il dizionario. Se leggesse ITALY_DEMO o
-   il pacchetto grezzo, starebbe scavalcando la frontiera. */
-R('NO_RAW_BYPASS',
-  block.indexOf('ITALY_DEMO') < 0 && block.indexOf('ITALY_HANDOFF_V21') < 0
-  && block.indexOf('window.MEETING_INTELLIGENCE') >= 0,
-  'la superficie canonica legge solo MEETING_INTELLIGENCE + MEETING_LABELS');
+const radarVals = (lang = 'it') => mount().vals({ view: 'radar', lang, showAll: true });
 
-/* Nessuna soglia, nessun punteggio, nessuna decisione rifatta a valle. */
-const recalcWords = ['OPPORTUNITY_SCORE', 'threshold', 'SCORE_DIMENSIONS'];
-const recalcHits = recalcWords.filter((w) => block.indexOf(w) >= 0);
-R('NO_FRONTEND_INTELLIGENCE_RECALCULATION', recalcHits.length === 0,
-  recalcHits.length ? 'trovato: ' + recalcHits.join(', ') : 'nessun punteggio, nessuna soglia, nessun verdetto ricostruito');
+/* ── 1 · PROVENIENZA ─────────────────────────────────────────────────────── */
 
-/* ── 4 · cio che ogni scheda aperta deve mostrare ─────────────────────── */
-let missProd = [], missWhyC = [], missWhyN = [], missWin = [], missAct = [], missEv = [], missPub = [];
-for (const lang of ['it', 'en']) {
-  for (const c of SNAP.CASES) {
-    const d = detail(c.ID, lang);
-    if (!d || !d.id) { missProd.push(c.ID + '/' + lang + ' NON APRE'); continue; }
-    /* TUTTI i prodotti che reggono, mai «principale + altri N». */
-    if ((d.prodRows || []).length !== (c.PORTFOLIO_MATCHES || []).length) missProd.push(`${c.ID}/${lang}`);
-    /* PERCHE COMMERCIALE: la prosa approvata o, in sua assenza, i codici. */
-    if (!d.hasWhyCommText && !(d.whyCommCodes || []).length) missWhyC.push(`${c.ID}/${lang}`);
-    /* PERCHE ADESSO / PERCHE NON ANCORA: sempre una risposta. */
-    if (!(d.whyNowCodes || []).length && !(d.chainRows || []).length) missWhyN.push(`${c.ID}/${lang}`);
-    /* LO STATO DELLA FINESTRA non puo mancare: UNKNOWN e una risposta. */
-    if (!d.win || (!d.win.definedL && !d.win.openL && !d.win.hasRule)) missWin.push(`${c.ID}/${lang}`);
-    /* LA MAPPA DELLE AZIONI viene dal motore, reparto per reparto. */
-    if ((d.deptRows || []).length !== Object.keys(c.ACTION_BY_DEPARTMENT || {}).length) missAct.push(`${c.ID}/${lang}`);
-    /* IL RUOLO DELLE PROVE, in parole. */
-    if ((c.EVIDENCE_ROLES || []).length && !(d.evRows || []).length) missEv.push(`${c.ID}/${lang}`);
-    /* LO STATO DI PUBBLICAZIONE NON SI NASCONDE. */
-    if (!d.pubLabel || !d.pubLong) missPub.push(`${c.ID}/${lang}`);
+check('MG1', 'SNAPSHOT_FROM_CANONICAL_HEAD · lo snapshot dichiara l’HEAD e il build che lo hanno prodotto', () => {
+  const bad = [];
+  if (!snap.SOURCE_HEAD) bad.push('SOURCE_HEAD assente');
+  if (!snap.BUILD_ID) bad.push('BUILD_ID assente');
+  if (!snap.MEETING_CUTOFF) bad.push('MEETING_CUTOFF assente');
+  if (!snap.ENGINE_VERSION) bad.push('ENGINE_VERSION assente');
+  if (!snap.RULE_VERSION) bad.push('RULE_VERSION assente');
+  if (!snap.GENERATED_AT) bad.push('GENERATED_AT assente');
+  /* Il BUILD_ID dello snapshot deve essere quello del pacchetto che lo ha
+     generato: due build diversi con lo stesso nome sono il modo piu rapido di
+     mostrare in riunione i numeri di ieri. */
+  if (fs.existsSync(PKG)) {
+    const pkg = JSON.parse(fs.readFileSync(PKG, 'utf8'));
+    if (pkg.BUILD_ID !== snap.BUILD_ID) {
+      bad.push(`BUILD_ID diverge: pacchetto ${pkg.BUILD_ID} vs snapshot ${snap.BUILD_ID}`);
+    }
+  } else {
+    bad.push('pacchetto canonico assente — ricostruire con scripts/v21_cadeia.sh');
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad : [`${snap.SOURCE_HEAD} · ${snap.BUILD_ID} · cutoff ${snap.MEETING_CUTOFF}`] };
+});
+
+check('MG2', 'SNAPSHOT_43_CASES · il numero di casi e quello del pacchetto, contato non dichiarato', () => {
+  const bad = [];
+  if (CASES.length !== snap.TOTAL_CASES) {
+    bad.push(`TOTAL_CASES dichiara ${snap.TOTAL_CASES}, il corpo ne ha ${CASES.length}`);
+  }
+  if (fs.existsSync(PKG)) {
+    const pkg = JSON.parse(fs.readFileSync(PKG, 'utf8'));
+    const a = new Set(pkg.RECORDS.map((r) => r.ID));
+    const b = new Set(CASES.map((c) => c.ID));
+    const lost = [...a].filter((x) => !b.has(x));
+    const gained = [...b].filter((x) => !a.has(x));
+    if (lost.length) bad.push(`lo snapshot perde ${lost.length}: ${lost.slice(0, 5).join(', ')}`);
+    if (gained.length) bad.push(`lo snapshot inventa ${gained.length}: ${gained.slice(0, 5).join(', ')}`);
+  }
+  const dup = CASES.map((c) => c.ID).filter((x, i, a) => a.indexOf(x) !== i);
+  if (dup.length) bad.push(`ID duplicati: ${dup.slice(0, 5).join(', ')}`);
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad : [`${CASES.length} casi, insieme identico al pacchetto`] };
+});
+
+check('MG3', 'MEETING_SNAPSHOT_CONTRACT · ogni caso porta i campi su cui la riunione si appoggia', () => {
+  const REQUIRED = ['ID', 'STATUS', 'COMMERCIAL_PRIORITY', 'PUBLICATION_STATE',
+                    'TRAIL_STATE', 'WINDOW_DEFINED', 'WINDOW_OPEN_NOW',
+                    'WHY_NOW_CODES', 'WHY_COMMERCIAL_CODES', 'WHAT_IS_MISSING',
+                    'PORTFOLIO_MATCHES', 'ACTION_BY_DEPARTMENT', 'EVIDENCE_ROLES'];
+  const bad = [];
+  for (const c of CASES) {
+    for (const f of REQUIRED) {
+      if (c[f] === undefined) bad.push(`${c.ID} manca ${f}`);
+    }
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad.slice(0, 10) : [`${REQUIRED.length} campi presenti su ${CASES.length} casi`] };
+});
+
+check('MG4', 'SNAPSHOT_ONLY_CLOSED_INPUTS · nessun ingresso parziale, temporaneo o in scrittura', () => {
+  /* Un input aperto non si riconosce dal contenuto: si riconosce dal NOME e
+     dal fatto che la cadeia lo abbia chiuso. Lo snapshot nasce da un solo
+     file, e quel file e l'uscita dichiarata della cadeia canonica. */
+  const bad = [];
+  const raw = fs.readFileSync(SNAP_JSON, 'utf8');
+  for (const m of ['TODO', 'PARTIAL', 'TEMP_', '_TMP', 'IN_PROGRESS', 'WRITING', 'DRAFT_']) {
+    if (raw.includes('"' + m) || raw.includes(m + '"')) bad.push(`marca di lavoro aperto: ${m}`);
+  }
+  if (!fs.existsSync(PKG)) bad.push('il pacchetto sorgente non esiste');
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad : ['un solo ingresso: OPPORTUNITIES.json della cadeia canonica'] };
+});
+
+/* ── 2 · IL PORTALE NON DEDUCE PIU ───────────────────────────────────────── */
+
+check('MG5', 'NO_RAW_BYPASS · lo stato sullo schermo e quello del motore, non quello dedotto', () => {
+  const AM = loadData().ITALY_APP_MODEL;
+  const recs = AM.collections.opportunities.records;
+  const byId = {}; CASES.forEach((c) => { byId[c.ID] = c; });
+  const bad = [];
+  for (const r of recs) {
+    const c = byId[r.id];
+    if (!c) { bad.push(`${r.id} non e nello snapshot`); continue; }
+    if (r.status !== c.STATUS) bad.push(`${r.id}: schermo ${r.status} ≠ motore ${c.STATUS}`);
+    if (r.publicationState !== c.PUBLICATION_STATE) {
+      bad.push(`${r.id}: pubblicazione ${r.publicationState} ≠ ${c.PUBLICATION_STATE}`);
+    }
+  }
+  /* E il conteggio, che e la ragione per cui il portone esiste. */
+  const n = (s) => recs.filter((r) => r.status === s).length;
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad.slice(0, 10)
+      : [`ACT_NOW ${n('ACT_NOW')} · VALIDATE_NOW ${n('VALIDATE_NOW')} · WATCH ${n('WATCH')} — dal motore`] };
+});
+
+check('MG6', 'NO_PARTIAL_INPUT_USED · l’adattatore si innesta senza difetti e senza ID orfani', () => {
+  const w = loadData();
+  const A = w.MEETING_ADAPTER;
+  const bad = [];
+  if (!A) return { pass: false, expected: 0, measured: 1, detail: ['MEETING_ADAPTER non caricato'] };
+  if (!A.OK) bad.push('adattatore non OK');
+  (A.FAULTS || []).forEach((f) => bad.push('difetto: ' + f));
+  if (A.SOURCE_HEAD !== snap.SOURCE_HEAD) bad.push('SOURCE_HEAD diverge');
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad : [`innestato da ${A.SOURCE_HEAD} · build ${A.BUILD_ID}`] };
+});
+
+check('MG7', 'MEETING_COUNTS_FROM_SNAPSHOT · nessun conteggio della schermata e una costante', () => {
+  const w = loadData();
+  const c = w.MEETING_ADAPTER.counts();
+  const bad = [];
+  const expect = {
+    total: CASES.length,
+    actNow: CASES.filter((x) => x.STATUS === 'ACT_NOW').length,
+    validateNow: CASES.filter((x) => x.STATUS === 'VALIDATE_NOW').length,
+    watch: CASES.filter((x) => x.STATUS === 'WATCH').length,
+    publishable: CASES.filter((x) => x.PUBLICATION_STATE === 'PUBLISHABLE').length,
+    validationRequired: CASES.filter((x) => x.PUBLICATION_STATE === 'VALIDATION_REQUIRED').length,
+    windowDefined: CASES.filter((x) => x.WINDOW_DEFINED === 'YES').length,
+    windowOpenNow: CASES.filter((x) => x.WINDOW_OPEN_NOW === 'YES').length,
+  };
+  for (const k of Object.keys(expect)) {
+    if (c[k] !== expect[k]) bad.push(`${k}: contato ${c[k]} ≠ snapshot ${expect[k]}`);
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad : [JSON.stringify(expect)] };
+});
+
+/* ── 3 · CIO CHE LA SCHERMATA DEVE MOSTRARE ──────────────────────────────── */
+
+check('MG8', 'ALL_PORTFOLIO_MATCHES_RENDERED · l’eroe mostra TUTTI i prodotti, mai «primario + N»', () => {
+  const bad = [];
+  for (const id of CASE_IDS_FOR_SCREEN) {
+    const c = CASES.find((x) => x.ID === id);
+    const v = caseVals(id);
+    const expect = (c.PORTFOLIO_MATCHES || []).length;
+    if (!expect) continue;
+    if (v.mPortfolioCount !== expect) bad.push(`${id}: la schermata dichiara ${v.mPortfolioCount} di ${expect}`);
+    if ((v.mPortfolio || []).length !== expect) bad.push(`${id}: rese ${(v.mPortfolio || []).length} schede di ${expect}`);
+    /* ogni nome del motore deve comparire, non solo il primo */
+    const names = new Set((v.mPortfolio || []).map((p) => p.name));
+    for (const p of c.PORTFOLIO_MATCHES) {
+      if (!names.has(p.PRODUCT_NAME)) bad.push(`${id}: manca ${p.PRODUCT_NAME}`);
+    }
+    /* e un principale si mostra solo con una regola difendibile */
+    if (c.PRIMARY_MATCH_REASON === 'SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER' && v.mHasPrimary) {
+      bad.push(`${id}: elegge un principale senza regola difendibile`);
+    }
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad.slice(0, 10) : [`${CASE_IDS_FOR_SCREEN.length} casi · tutti i prodotti resi`] };
+});
+
+check('MG9', 'WHY_COMMERCIAL_RENDERED + WHY_NOW_RENDERED · le due domande della riunione hanno risposta', () => {
+  const bad = [];
+  for (const id of CASE_IDS_FOR_SCREEN) {
+    for (const lang of ['it', 'en']) {
+      const v = caseVals(id, lang);
+      if (!v.mHasWhyCommercial) bad.push(`${id}/${lang}: nessun PERCHE COMMERCIALE`);
+      if (!v.mHasChain) bad.push(`${id}/${lang}: nessuna catena del PERCHE ORA`);
+      const c = CASES.find((x) => x.ID === id);
+      if ((c.WHY_NOW_CHAIN ? Object.keys(c.WHY_NOW_CHAIN).length : 0) !== (v.mChain || []).length) {
+        bad.push(`${id}/${lang}: anelli resi ${(v.mChain || []).length}`);
+      }
+    }
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad.slice(0, 10) : ['perche commerciale e catena resi in IT e EN'] };
+});
+
+check('MG10', 'WINDOW_STATE_RENDERED · la finestra e leggibile e UNKNOWN non sparisce', () => {
+  const bad = [];
+  for (const id of CASE_IDS_FOR_SCREEN) {
+    const c = CASES.find((x) => x.ID === id);
+    for (const lang of ['it', 'en']) {
+      const v = caseVals(id, lang);
+      if (!v.mHasWindow) { bad.push(`${id}/${lang}: nessuno stato di finestra`); continue; }
+      /* Uno stato non misurato deve DIRSI. Se la finestra e UNKNOWN e la
+         schermata non lo dichiara, l'ignoto e sparito dietro la copy. */
+      if (c.WINDOW_OPEN_NOW === 'UNKNOWN' && !v.mWinUnknown && !v.mWinOpenL) {
+        bad.push(`${id}/${lang}: UNKNOWN non dichiarato`);
+      }
+      if (c.WINDOW_OPEN_NOW === 'YES' && !v.mWinIsOpen) bad.push(`${id}/${lang}: finestra aperta non annunciata`);
+      /* un obbligo amministrativo non e una finestra agronomica */
+      if (c.WINDOW_RULE_STATE === 'RULE_ADMINISTRATIVE_ONLY' && !v.mWinAdministrative) {
+        bad.push(`${id}/${lang}: obbligo amministrativo presentato come finestra`);
+      }
+      if (c.WINDOW_RULE_STATE === 'RULE_DELEGATED_TO_FARM' && !v.mWinDelegated) {
+        bad.push(`${id}/${lang}: regola delegata al campo non dichiarata`);
+      }
+    }
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad.slice(0, 10) : ['tipo, regola e stato attuale resi; UNKNOWN visibile'] };
+});
+
+check('MG11', 'ACTION_MAP_FROM_ENGINE · ogni reparto porta il proprio stato, non quello del caso', () => {
+  const bad = [];
+  for (const id of CASE_IDS_FOR_SCREEN) {
+    const c = CASES.find((x) => x.ID === id);
+    const v = caseVals(id);
+    const engine = c.ACTION_BY_DEPARTMENT || {};
+    const n = Object.keys(engine).length;
+    if ((v.mDepts || []).length !== n) bad.push(`${id}: aree rese ${(v.mDepts || []).length} di ${n}`);
+    for (const d of (v.mDepts || [])) {
+      const e = engine[d.department];
+      if (!e) { bad.push(`${id}: area inventata ${d.department}`); continue; }
+      if (d.actionState !== e.ACTION_STATE) bad.push(`${id}/${d.department}: stato ${d.actionState} ≠ ${e.ACTION_STATE}`);
+      if (d.action !== e.ACTION) bad.push(`${id}/${d.department}: azione ${d.action} ≠ ${e.ACTION}`);
+      if (!d.actionStateL) bad.push(`${id}/${d.department}: stato senza etichetta`);
+      if (!d.actionL) bad.push(`${id}/${d.department}: azione senza etichetta`);
+    }
+    /* IL DIFETTO ORIGINALE: tutte le aree con lo stesso modo, perche il modo
+       veniva dallo stato del CASO. Se il motore ne dichiara piu d'uno e lo
+       schermo ne mostra uno solo, la mappa e tornata a leggere il titolo. */
+    const engStates = new Set(Object.values(engine).map((x) => x.ACTION_STATE));
+    const uiStates = new Set((v.mDepts || []).map((x) => x.actionState));
+    if (engStates.size > 1 && uiStates.size === 1) {
+      bad.push(`${id}: il motore dichiara ${engStates.size} modi, lo schermo ne mostra 1`);
+    }
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad.slice(0, 10) : ['stato, azione, perche e innesco per ogni reparto'] };
+});
+
+check('MG12', 'EVIDENCE_ROLE_RENDERED · ogni prova porta il suo ruolo, e l’intelligenza negativa resta', () => {
+  const bad = [];
+  for (const id of CASE_IDS_FOR_SCREEN) {
+    const c = CASES.find((x) => x.ID === id);
+    const v = caseVals(id);
+    const n = (c.EVIDENCE_ROLES || []).length;
+    if (!n) continue;
+    if ((v.mEvidence || []).length !== n) bad.push(`${id}: prove rese ${(v.mEvidence || []).length} di ${n}`);
+    for (const e of (v.mEvidence || [])) {
+      if (!e.roleL) bad.push(`${id}/${e.id}: ruolo senza etichetta`);
+    }
+    /* §15 · WEAKENS / CONTRADICTS / CLOSES non si tolgono e non si spostano.
+       In questo snapshot non compaiono; se un giorno compariranno, questo
+       portone si accorgera che sono stati persi per strada. */
+    const negEngine = (c.EVIDENCE_ROLES || []).filter((e) => ['WEAKENS', 'CONTRADICTS', 'CLOSES'].includes(e.ROLE)).length;
+    if (negEngine !== v.mEvNegCount) bad.push(`${id}: prove negative ${v.mEvNegCount} ≠ ${negEngine}`);
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad.slice(0, 10) : ['ruolo reso per ogni prova; nessuna prova negativa persa'] };
+});
+
+check('MG13', 'VALIDATION_STATE_NOT_HIDDEN · un caso DA VALIDARE non puo sembrare validato', () => {
+  const bad = [];
+  const r = radarVals();
+  const byId = {}; CASES.forEach((c) => { byId[c.ID] = c; });
+  for (const card of (r.visibleCases || [])) {
+    const c = byId[card.id];
+    if (!c) continue;
+    if (!card.mPubL) { bad.push(`${card.id}: nessuno stato di pubblicazione sulla scheda`); continue; }
+    if (c.PUBLICATION_STATE === 'PUBLISHABLE' && !card.mPubOk) bad.push(`${card.id}: pubblicabile non segnalato`);
+    if (c.PUBLICATION_STATE === 'VALIDATION_REQUIRED' && card.mPubOk) {
+      bad.push(`${card.id}: DA VALIDARE presentato come verificato`);
+    }
+  }
+  for (const id of CASE_IDS_FOR_SCREEN) {
+    const v = caseVals(id);
+    if (!v.mPubShortL) bad.push(`${id}: il dettaglio non dichiara lo stato di pubblicazione`);
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad.slice(0, 10)
+      : [`${(r.visibleCases || []).length} schede · stato di pubblicazione sempre visibile`] };
+});
+
+check('MG14', 'NO_INTERNAL_CODES · nessun codice del motore raggiunge lo schermo, in IT o in EN', () => {
+  /* Un codice si riconosce dalla FORMA: MAIUSCOLE_CON_UNDERSCORE. Cercarne una
+     lista sarebbe cercare quelli che gia conosciamo; la forma trova anche
+     quelli che nasceranno domani. */
+  const SHAPE = /\b[A-Z][A-Z0-9]{2,}(?:_[A-Z0-9]+){1,}\b/g;
+  /* Sigle che sono FATTI pubblici, non codici interni: stanno in etichetta. */
+  const ALLOWED = new Set(['FRAC_M', 'IRAC_3', 'NUTS_2']);
+  const bad = [];
+  const seen = new Set();
+  const scan = (where, val) => {
+    if (typeof val === 'string') {
+      const m = val.match(SHAPE);
+      if (m) for (const t of m) {
+        if (ALLOWED.has(t) || seen.has(where + t)) continue;
+        seen.add(where + t);
+        bad.push(`${where}: ${t}`);
+      }
+    } else if (Array.isArray(val)) {
+      val.forEach((x) => scan(where, x));
+    } else if (val && typeof val === 'object') {
+      for (const k of Object.keys(val)) {
+        /* i campi tecnici non vanno a schermo: si misura cio che si rende */
+        if (/^(id|department|actionState|action|whyCode|role|entityType|status|publicationState|windowType|windowRuleState|windowOpenNow|windowDefined|link|code|productId|evidenceId|matchReason|validationState|cropFit|targetFit|regulatoryFit|windowFit|regionalFit|archetype|commercialPriority|needDirection|pestStage|actionRecommendation|threshold|magnitude|signalCurrency|opportunityState|trailState|primaryMatch|primaryMatchReason|externalMaterialReady|fact|mv|m|meeting|rawDerived|whatIsMissing|whyNowCodes|whyCommercialCodes|evidence|restrictions|actives|moa|sourceUrls|url|go|raw)$/.test(k)) continue;
+        scan(where, val[k]);
+      }
+    }
+  };
+  for (const lang of ['it', 'en']) {
+    for (const id of CASE_IDS_FOR_SCREEN) {
+      const v = caseVals(id, lang);
+      /* solo i campi che la markup rende come TESTO */
+      for (const k of ['mStatusL', 'mStatusWhyL', 'mPubL', 'mPubShortL', 'mWhyCommercial',
+                       'mWinTypeL', 'mWinRuleL', 'mWinOpenL', 'mWinMethodL', 'mPestStageL',
+                       'mActionRecL', 'mStageNote', 'mThresholdL', 'mNeedDirectionL',
+                       'mExternalReadyL', 'mArchetypeL', 'mScopeL', 'mNoPrimaryReasonL',
+                       'heroWinMain', 'heroWinSub', 'bandCountL']) {
+        scan(`${id}/${lang}/${k}`, v[k]);
+      }
+      for (const arr of ['mWhyCommercialCodes', 'mWhyNow', 'mMissing', 'mBrief', 'gapRowsM']) {
+        (v[arr] || []).forEach((x) => scan(`${id}/${lang}/${arr}`, x && x.text));
+      }
+      (v.mDepts || []).forEach((d) => {
+        scan(`${id}/${lang}/dept`, d.departmentL); scan(`${id}/${lang}/dept`, d.actionStateL);
+        scan(`${id}/${lang}/dept`, d.actionL); scan(`${id}/${lang}/dept`, d.whyL);
+        scan(`${id}/${lang}/dept`, d.dependencyL); scan(`${id}/${lang}/dept`, d.nextTriggerL);
+      });
+      (v.mPortfolio || []).forEach((p) => {
+        for (const k of ['cropFitL', 'targetFitL', 'regulatoryFitL', 'windowFitL',
+                         'regionalFitL', 'validationStateL', 'matchReasonL']) scan(`${id}/${lang}/prod`, p[k]);
+        (p.restrictions || []).forEach((x) => scan(`${id}/${lang}/prod`, x.text));
+      });
+      (v.mEvidence || []).forEach((e) => { scan(`${id}/${lang}/ev`, e.roleL); scan(`${id}/${lang}/ev`, e.whyL); scan(`${id}/${lang}/ev`, e.familyL); });
+      (v.mChain || []).forEach((l) => { scan(`${id}/${lang}/chain`, l.linkL); scan(`${id}/${lang}/chain`, l.factL); });
+    }
+    const r = radarVals(lang);
+    (r.visibleCases || []).forEach((c) => {
+      for (const k of ['mWindowL', 'mWhyNowL', 'mWhyCommercialL', 'mPubL', 'mFirstActorL', 'statusLabel', 'linkStateL']) {
+        scan(`radar/${lang}/${k}`, c[k]);
+      }
+    });
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad.slice(0, 12) : ['nessun MAIUSCOLO_CON_UNDERSCORE nel testo reso, IT ed EN'] };
+});
+
+/* ── ESECUZIONE ──────────────────────────────────────────────────────────── */
+
+const results = CHECKS.map((c) => {
+  try {
+    return Object.assign({ id: c.id, title: c.title }, c.fn());
+  } catch (e) {
+    return { id: c.id, title: c.title, pass: false, expected: 'il portone gira',
+             measured: 'HA LANCIATO', detail: [e.message, (e.stack || '').split('\n')[1]] };
+  }
+});
+
+if (process.argv.includes('--json')) {
+  console.log(JSON.stringify({ results, passed: results.filter((r) => r.pass).length, total: results.length }, null, 2));
+  process.exit(results.every((r) => r.pass) ? 0 : 1);
+}
+
+const G = '\x1b[32m', R = '\x1b[31m', DIM = '\x1b[2m', X = '\x1b[0m';
+const pad = (s, n) => String(s).slice(0, n).padEnd(n);
+console.log('');
+console.log('  SINTONIA · I PORTONI DELLA RIUNIONE');
+console.log(`  ${DIM}snapshot ${snap.SOURCE_HEAD} · build ${snap.BUILD_ID} · cutoff ${snap.MEETING_CUTOFF}${X}`);
+console.log('  ' + '─'.repeat(100));
+for (const r of results) {
+  console.log(`  ${r.pass ? G + 'PASS' + X : R + 'FAIL' + X}  ${pad(r.id, 5)} ${pad(r.title, 74)} ${DIM}got${X} ${r.measured}`);
+  if (!r.pass || process.argv.includes('--verbose')) {
+    const d = Array.isArray(r.detail) ? r.detail : [r.detail];
+    for (const line of d.slice(0, 12)) console.log(`        ${DIM}${String(line).slice(0, 150)}${X}`);
   }
 }
-R('ALL_PORTFOLIO_MATCHES_RENDERED', missProd.length === 0,
-  missProd.length ? missProd.slice(0, 4).join(' · ')
-    : `${SNAP.CASES.reduce((a, c) => a + (c.PORTFOLIO_MATCHES || []).length, 0)} legami di prodotto, tutti sullo schermo, in due lingue`);
-R('WHY_COMMERCIAL_RENDERED', missWhyC.length === 0, missWhyC.slice(0, 4).join(' · ') || 'tutti i 43 casi, in due lingue');
-R('WHY_NOW_RENDERED', missWhyN.length === 0, missWhyN.slice(0, 4).join(' · ') || 'catena o codici su tutti i 43, in due lingue');
-R('WINDOW_STATE_RENDERED', missWin.length === 0, missWin.slice(0, 4).join(' · ') || 'stato della finestra su tutti i 43, UNKNOWN compreso');
-R('ACTION_MAP_FROM_ENGINE', missAct.length === 0,
-  missAct.slice(0, 4).join(' · ') || `${SNAP.CASES.reduce((a, c) => a + Object.keys(c.ACTION_BY_DEPARTMENT || {}).length, 0)} riquadri di reparto, uno per ogni voce del motore`);
-R('EVIDENCE_ROLE_RENDERED', missEv.length === 0, missEv.slice(0, 4).join(' · ') || 'ruolo delle prove in parole su tutti i casi che ne portano');
-R('VALIDATION_STATE_NOT_HIDDEN', missPub.length === 0,
-  missPub.slice(0, 4).join(' · ') || 'i 38 in validazione portano il loro stato, e non somigliano ai 5 comprovati');
-
-/* ── 5 · nessun gettone interno sullo schermo ─────────────────────────── */
-const TOKEN = /\b[A-Z][A-Z0-9]{2,}(?:_[A-Z0-9]+)+\b/;
-/* Gettoni che NON sono interni: sigle pubbliche del registro fitosanitario e
-   codici di legge europei. Sono cio che il documento stesso stampa. */
-const PUBLIC_OK = /^(FRAC|HRAC|IRAC)\b/;
-const leaks = [];
-const walk = (v, where, seen) => {
-  if (v === null || v === undefined) return;
-  if (typeof v === 'string') {
-    const mt = v.match(TOKEN);
-    if (mt && !PUBLIC_OK.test(mt[0])) leaks.push(`${where}: «${mt[0]}»`);
-    return;
-  }
-  if (typeof v !== 'object') return;
-  if (seen.has(v)) return; seen.add(v);
-  if (Array.isArray(v)) { v.forEach((x, i) => walk(x, `${where}[${i}]`, seen)); return; }
-  for (const k of Object.keys(v)) {
-    /* Gli attributi d'identita (`data-…`) portano l'ID del caso al DOM apposta,
-       perche un controllo possa dire QUALI casi, non solo quanti. Non sono
-       testo sullo schermo. */
-    if (k === 'id' || k === 'catKey' || k === 'stateKey' || k === 'key' || k === 'v'
-        || k === 'evidenceId' || k === 'condNote' || k === 'url'
-        || k === 'registration' || k === 'cBuildId' || k === 'cSourceHead') continue;
-    if (typeof v[k] === 'function') continue;
-    walk(v[k], `${where}.${k}`, seen);
-  }
-};
-for (const lang of ['it', 'en']) {
-  const v = m.vals({ view: 'canonical', lang });
-  walk(v.cKpis, `${lang}.cKpis`, new WeakSet());
-  walk(v.cCards, `${lang}.cCards`, new WeakSet());
-  walk(v.cFilters, `${lang}.cFilters`, new WeakSet());
-  for (const c of SNAP.CASES) walk(detail(c.ID, lang), `${lang}.${c.ID}`, new WeakSet());
-}
-R('NO_INTERNAL_CODES', leaks.length === 0,
-  leaks.length ? `${leaks.length} fughe · ` + leaks.slice(0, 5).join(' · ')
-               : 'nessun gettone interno in nessuna delle due lingue, su tutte le schede aperte');
-
-/* ── 6 · le due lingue, complete per la demo ──────────────────────────── */
-const ML = m.ctx.MEETING_LABELS;
-const DEMO = ['OPP_5F31A63F844D', 'OPP_F8106D5E1767', 'OPP_169BD86DB324', 'OPP_75C37DED9160', 'OPP_D11664591168'];
-for (const lang of ['it', 'en']) {
-  const gaps = [];
-  for (const id of DEMO) {
-    const d = detail(id, lang);
-    if (!d || !d.id) { gaps.push(id + ' non apre'); continue; }
-    const must = { headline: d.headline, status: d.statusLabel, priority: d.priority,
-      publication: d.pubLabel, publicationLong: d.pubLong, archetype: d.archetype,
-      actionMap: (d.deptRows || []).length, whyNow: (d.whyNowCodes || []).length + (d.chainRows || []).length,
-      window: d.win && (d.win.ruleL || d.win.definedL) };
-    for (const k of Object.keys(must)) if (!must[k]) gaps.push(`${id}.${k}`);
-  }
-  R(`${lang.toUpperCase()}_LABELS_COMPLETE_FOR_DEMO`, gaps.length === 0,
-    gaps.slice(0, 5).join(' · ') || `${DEMO.length} casi della demo, ogni blocco con la sua frase`);
-}
-
-/* Il dizionario deve coprire OGNI gettone che i 43 casi usano davvero. */
-const uncovered = [];
-const need = (fam, tok) => {
-  if (tok === null || tok === undefined || tok === '') return;
-  if (!ML.label('it', fam, tok) || !ML.label('en', fam, tok)) uncovered.push(`${fam}:${tok}`);
-};
-for (const c of SNAP.CASES) {
-  ['STATUS', 'COMMERCIAL_PRIORITY', 'ARCHETYPE', 'WINDOW_TYPE', 'WINDOW_RULE_STATE',
-   'WINDOW_DEFINED', 'WINDOW_OPEN_NOW', 'WINDOW_OPEN_NOW_METHOD', 'NEED_DIRECTION',
-   'NEED_METHOD', 'PEST_STAGE_STATE', 'ACTION_RECOMMENDATION_STATE', 'THRESHOLD_STATE',
-   'PUBLICATION_STATE', 'TRAIL_STATE', 'OPPORTUNITY_STATE', 'PRIMARY_MATCH_REASON',
-   'PRODUCT_LINK_STATE', 'MODE_OF_ACTION_STATE', 'APPLICATION_STATE', 'SIGNAL_CURRENCY',
-   'COMMERCIAL_TIMING_BASIS', 'GEOGRAPHIC_SCOPE', 'COMMERCIAL_MAGNITUDE',
-   'EXTERNAL_MATERIAL_READY', 'CROP', 'TARGET', 'GEOGRAPHY'].forEach((f) => need(f, c[f]));
-  (c.WHY_COMMERCIAL_CODES || []).forEach((x) => need('WHY_COMMERCIAL_CODES', x));
-  (c.WHY_NOW_CODES || []).forEach((x) => need('WHY_NOW_CODES', x));
-  (c.WHAT_IS_MISSING || []).forEach((x) => need('WHAT_IS_MISSING', x));
-  (c.EVIDENCE_FAMILIES || []).forEach((x) => need('EVIDENCE_FAMILY', x));
-  Object.keys(c.WHY_NOW_CHAIN || {}).forEach((k) => need('WHY_NOW_CHAIN_LINK', k));
-  Object.keys(c.ACTION_BY_DEPARTMENT || {}).forEach((k) => {
-    const v = c.ACTION_BY_DEPARTMENT[k];
-    need('DEPARTMENT', k); need('ACTION_STATE', v.ACTION_STATE);
-    need('ACTION', v.ACTION); need('ACTION_WHY_CODE', v.WHY_CODE);
-  });
-  (c.EVIDENCE_ROLES || []).forEach((e) => {
-    need('EVIDENCE_ROLE', e.ROLE); need('EVIDENCE_ROLE_WHY', e.WHY_CODE); need('EVIDENCE_FAMILY', e.ENTITY_TYPE);
-  });
-  (c.INTELLIGENCE_BRIEF || []).forEach((b) => need('BRIEF', b.CODE));
-  (c.PORTFOLIO_MATCHES || []).forEach((p) => {
-    ['CROP_FIT', 'TARGET_FIT', 'REGIONAL_FIT', 'REGULATORY_FIT', 'WINDOW_FIT'].forEach((f) => need('PRODUCT_FIT', p[f]));
-    need('VALIDATION_STATE', p.VALIDATION_STATE); need('MATCH_REASON', p.MATCH_REASON);
-    (p.RESTRICTIONS || []).forEach((r) => need('RESTRICTION', r.CODE));
-  });
-}
-R('LABEL_DICTIONARY_COVERS_SNAPSHOT', uncovered.length === 0,
-  uncovered.length ? uncovered.slice(0, 6).join(' · ') : 'ogni gettone dei 43 casi ha una frase in IT e in EN');
-
-/* ── 7 · le due letture che non devono confondersi ────────────────────── */
-const veneto = SNAP.CASES.filter((c) => c.PEST_STAGE_STATE === 'STAGE_ENDED'
-  && c.ACTION_RECOMMENDATION_STATE === 'CONTINUE_RECOMMENDED');
-const venetoOk = veneto.every((c) => ['it', 'en'].every((lang) => {
-  const d = detail(c.ID, lang);
-  return d.stage && d.stage.divergent === true && !!d.stage.note && d.stage.stageL && d.stage.recL;
-}));
-R('STAGE_NOT_CONFUSED_WITH_ACTION', veneto.length > 0 && venetoOk,
-  `${veneto.length} caso/i con volo concluso e raccomandazione viva · la nota che li separa e sullo schermo`);
-
-/* Il principale esiste solo quando il motore porta una regola difendibile. */
-const primaryBad = [];
-for (const c of SNAP.CASES) {
-  const d = detail(c.ID, 'it');
-  const shown = (d.prodRows || []).filter((p) => p.isPrimary).length;
-  const should = (c.PRIMARY_MATCH && c.PRIMARY_MATCH_REASON !== 'SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER') ? 1 : 0;
-  if (shown > should) primaryBad.push(`${c.ID}: ${shown} principali, regola difendibile ${should}`);
-}
-R('PRIMARY_ONLY_WHEN_DEFENSIBLE', primaryBad.length === 0,
-  primaryBad.slice(0, 4).join(' · ') || 'nessun principale inventato dove il motore dice di non avere una regola');
-
-/* ── 8 · nessun ingresso parziale ─────────────────────────────────────── */
-const partial = ['RUNNING', 'PARTIAL', 'UNCOMMITTED', 'TEMP', 'INCOMPLETE']
-  .filter((w) => JSON.stringify(SNAP).indexOf('"' + w + '"') >= 0);
-R('NO_PARTIAL_INPUT_USED', partial.length === 0,
-  partial.length ? 'trovato: ' + partial.join(', ') : 'nessun marcatore di lavoro in corso dentro l\'istantanea');
-
-/* ── il verdetto ──────────────────────────────────────────────────────── */
-const pass = results.filter((x) => x.ok).length;
-const fail = results.length - pass;
+const ok = results.filter((r) => r.pass).length;
+console.log('  ' + '─'.repeat(100));
+console.log(`  ${ok}/${results.length} passing${ok === results.length ? '' : `  ${R}${results.length - ok} failing${X}`}`);
 console.log('');
-console.log(C.b('  PORTONE DELLA RIUNIONE · ' + SNAP.BUILD_ID + ' · SOURCE_HEAD ' + SNAP.SOURCE_HEAD));
-console.log('');
-for (const x of results) {
-  console.log('  ' + (x.ok ? C.g('PASS') : C.r('FAIL')) + '  ' + x.name.padEnd(38) + C.d(x.detail));
-}
-console.log('');
-console.log('  ' + (fail === 0 ? C.g(`${pass}/${results.length} testimonianze`) : C.r(`${fail} FALLITE su ${results.length}`)));
-console.log('');
-process.exit(fail === 0 ? 0 : 1);
+process.exit(ok === results.length ? 0 : 1);

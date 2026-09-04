@@ -37,12 +37,20 @@ export const DATA_FILES = [
      late is a family that silently kept the fixture. */
   'italy-handoff-v21.js',
   'italy-app-model.js',
-  /* L'istantanea della riunione e il suo dizionario IT/EN. Caricati dopo il
-     modello, esattamente come in portale.html: la superficie canonica li legge
-     a ogni render, quindi un controllo che non li carica non sta guardando la
-     schermata che il cliente vede. */
+  /* ══ LO SNAPSHOT DELLA RIUNIONE ═══════════════════════════════════════════
+     Il banco di prova caricava tutto TRANNE i tre file che decidono che cosa
+     la riunione legge. Ogni portone misurava quindi un portale senza
+     snapshot: quello in cui sedici casi dicevano AGIRE ORA invece di due.
+
+         UN BANCO DI PROVA CHE NON CARICA CIO CHE SI SERVE NON MISURA IL
+         PORTALE: MISURA UN PORTALE CHE NESSUNO APRIRA.
+
+     L'ordine e quello di `portale.html` e non e negoziabile: dati, poi
+     dizionario, poi adattatore — l'adattatore legge gli altri due al
+     caricamento. */
   'meeting-intelligence-snapshot.js',
   'meeting-labels.js',
+  'meeting-adapter.js',
 ];
 
 function makeWindow() {

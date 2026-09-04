@@ -128,6 +128,14 @@
       /* stato temporale del caso */
       ACT_NOW: 'AGIRE ORA', PREPARE_NOW: 'PREPARARE ORA',
       FUTURE_PREPARATION: 'PREPARAZIONE FUTURA',
+      /* I DUE STATI CANONICI CHE MANCAVANO. Lo snapshot della riunione porta
+         il vocabolario completo del motore — cinque stati, non tre. Senza
+         queste righe la catena di ripiego di `statusLabel` stampava
+         «VALIDATE NOW» e «TO VALIDATE» in italiano: non un token interno per
+         caso, ma la fine della catena che restituisce il codice ripulito.
+             UNA LINGUA CHE FINISCE IN UN FALLBACK NON E UNA TRADUZIONE. */
+      VALIDATE_NOW: 'VALIDARE ORA', TO_VALIDATE: 'DA VALIDARE',
+      WATCH: 'OSSERVARE',
       /* chi dovrebbe guardarlo ora — un instradamento, mai un compito */
       COMMERCIAL: 'COMMERCIALE', MARKETING: 'MARKETING',
       MARKET_DEVELOPMENT: 'SVILUPPO DI MERCATO', PORTFOLIO: 'PORTAFOGLIO',
@@ -754,6 +762,8 @@
       O6_SCIENCE_TO_FIELD: 'SCIENCE TO FIELD',
       ACT_NOW: 'ACT NOW', PREPARE_NOW: 'PREPARE NOW',
       FUTURE_PREPARATION: 'FUTURE PREPARATION',
+      VALIDATE_NOW: 'VALIDATE NOW', TO_VALIDATE: 'TO VALIDATE',
+      WATCH: 'WATCH',
       COMMERCIAL: 'COMMERCIAL', MARKETING: 'MARKETING',
       MARKET_DEVELOPMENT: 'MARKET DEVELOPMENT', PORTFOLIO: 'PORTFOLIO',
       REGULATORY: 'REGULATORY', SCIENCE_TECHNICAL: 'TECHNICAL AND SCIENTIFIC',
