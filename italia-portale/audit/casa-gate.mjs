@@ -41,6 +41,7 @@ const RF = J('IT-FUTURO-HANDOFF-LINHA-B-V1.json');
 const SC = J('IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json');
 const FI = J('IT-HANDOFF-LINHA-B-FITOSSANITARIO-V1.json');
 const T3 = J('IT-TOP3-SENSORES-V1.json');
+const HS = J('IT-PORTAL-SPRINT-HANDOFF-HUMAN-SENSORS-V1.json');
 
 const R = [];
 const check = (id, fn) => { try { R.push({ id, ...fn() }); }
@@ -193,6 +194,25 @@ check('NAO_SEI_NAO_VIRA_AFIRMACAO', () => {
     bad.push('«non esiste» sem o NON SO ao lado');
   if (CASA.SENSORES.DERRUBADOS.some((s) => !s.CAIU_PORQUE)) bad.push('derrubado sem o porque');
   return { pass: !bad.length, detail: bad.length ? bad : ['ausencia de leitura dita como NON SO, nao como ausencia no mundo'] };
+});
+
+check('DO_NOT_SHOW_NAO_DIZER_AUSENTE_DA_CASA', () => {
+  /* A verificacao literal do lote corre sobre portale.html — readPortal() le so
+     esse ficheiro. A casa e uma superficie NOVA, e a mais vista de todas: sem
+     isto, as frases proibidas ficavam testadas na tela antiga e livres na
+     primeira dobra.
+
+     A lista nao e copiada de lado nenhum: le-se do proprio handoff, que e o
+     dono. Copia-la para aqui faria dela duas listas, e duas listas divergem. */
+  const regras = HS.DO_NOT_SHOW || [];
+  const bad = [];
+  if (regras.length !== 14) bad.push(`o handoff traz ${regras.length} regras, nao 14`);
+  for (const r of regras) {
+    if (r.NAO_DIZER && aberta.toLowerCase().includes(String(r.NAO_DIZER).toLowerCase()))
+      bad.push(`a casa diz «${r.NAO_DIZER}» (${r.ACHADO})`);
+  }
+  return { pass: !bad.length, detail: bad.length ? bad
+    : [`${regras.length} formulacoes proibidas, nenhuma presente com todas as dobras abertas`] };
 });
 
 const mau = R.filter((r) => !r.pass);
