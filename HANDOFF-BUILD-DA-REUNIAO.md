@@ -1,7 +1,202 @@
 # HANDOFF · BUILD DA REUNIÃO — onde parou, e o que falta
 
-> Para colar como primeira mensagem numa conta Claude nova.
+> **ESTADO ATUALIZADO · sessão 3.** O que está abaixo do §0 é o handoff da
+> sessão 2 e continua correto como história. O §0 é o estado de AGORA.
 > **Não confie em nada daqui sem medir.** Cada número tem um comando ao lado.
+
+---
+
+# 0 · ESTADO DE AGORA — leia só isto se tiver pressa
+
+```
+REPOSITÓRIO   lucianodalondon-sys/eame-sintonia
+BRANCH        claude/meeting-portal-contradictions-qb5a1x   (descendente direto
+              de claude/meeting-intelligence-integration @ a54e287 — fast-forward,
+              nada reescrito, nada forçado)
+HEAD          7b2f24f  (código completo) + o commit que traz este documento
+              confirme sempre com:  git log --oneline -3
+ESTADO        PORTAL INTEGRADO · contradições fechadas · gates verdes
+              DEPLOY: bloqueado por credenciais (ver §0.6)
+```
+
+## 0.1 · A CORREÇÃO QUE A SESSÃO 3 TEVE DE FAZER PRIMEIRO
+
+O briefing da sessão 3 dizia que a integração «já tinha chegado ao navegador
+real», com hero, secções, labels IT/EN e 0 erros de consola.
+
+**Isso não estava no git.** Medido:
+
+```bash
+git diff --stat a14b9e1 a54e287
+# HANDOFF-BUILD-DA-REUNIAO.md | 363 +
+# meeting-intelligence-snapshot.js | 3 +
+# meeting-intelligence-snapshot.json | 17873 +
+# scripts/meeting_snapshot.py | 210 +
+```
+
+Quatro ficheiros. `italy-app-model.js` era **byte-a-byte igual** a `a14b9e1`.
+Não existia `meeting-labels.js`, nem hero, nem secções. O próprio handoff da
+sessão 2 dizia-o na primeira linha: *«PARCIAL — snapshot pronto, portal ainda
+NÃO integrado»*.
+
+    O QUE MORREU COM O CONTENTOR DA CONTA ANTERIOR FOI A CAMADA DE
+    APRESENTAÇÃO. O MOTOR, O SNAPSHOT E A BASE VISUAL SOBREVIVERAM
+    INTACTOS, E FORAM PRESERVADOS.
+
+Nada foi recomeçado do zero: `b3935bd`, `a14b9e1` e `a15ac4e` são a base sobre
+a qual esta sessão construiu.
+
+## 0.2 · AS DUAS CONTRADIÇÕES · fechadas, com o mecanismo medido
+
+**A · produto principal com dois donos — FECHADA**
+
+```
+portale.html:2758   const primary = c.primary || (verified[0] ? ... : null)
+```
+
+`c.primary` é copy escrita à mão nos 21 `D.CASES`; o fallback é literalmente o
+**primeiro elemento do array**. Dois blocos que leem dois arrays coroam dois
+produtos diferentes, e cada um está certo sobre o seu array.
+
+MEDIDO nos 43: `PRIMARY_MATCH` é não-nulo **exatamente** nos 17 casos que têm
+UM único produto, e nulo nos 26 restantes. *«PRINCIPAL + 2 OUTROS» é uma forma
+que o motor nunca produz.* Quem a mostra, inventou.
+
+**B · janela com dois donos — FECHADA**
+
+```
+LEGACY_WINDOW_SOURCE = window.ITALY_CANONICAL (italy-canonical-windows.js)
+                       29 janelas de calendário, chaveadas por LEGACY_CASE_ID
+                       (IT-OPP-*), CURRENT_STATUS calculado contra uma data
+                       congelada (2026-09-02)
+CANONICAL_WINDOW_SOURCE = WINDOW_* do snapshot
+```
+
+O calendário legacy pertence aos 21 casos de demonstração e não sabe nada dos
+pares canónicos — por isso dizia «nenhuma janela» exatamente onde o motor
+declara uma regra.
+
+`meeting-surface.js` **nunca lê `ITALY_CANONICAL`**, e um gate prova-o.
+
+## 0.3 · OS FICHEIROS NOVOS
+
+| ficheiro | o que é |
+|---|---|
+| `client/meeting-labels.js` | 258 chaves IT/EN. Um código sem frase devolve `null` e a linha desaparece — **nunca** cai para o token cru, que é o vazamento. |
+| `client/meeting-surface.js` | O adaptador. Copia do snapshot; não recalcula nada. O principal é `PRIMARY_MATCH` e mais nada; a janela é `WINDOW_*` e mais nada. |
+| `audit/meeting-gate.mjs` | 20 testemunhas. As 4 centrais correm **duas vezes** — na superfície real e numa LEGACY que reproduz os dois defeitos. |
+| `audit/meeting-browser.mjs` | Chromium real: 1440/390 × IT/EN × 4 casos obrigatórios. |
+
+Em `portale.html`: vista `meeting` (radar dos 43) + vista `mcase` (detalhe).
+O radar de demonstração **fica exatamente como estava**.
+
+## 0.4 · AS TESTEMUNHAS QUE REPROVAM A VERSÃO ANTIGA
+
+Um teste que passava antes não prova o defeito. As quatro centrais correm
+contra uma superfície legacy construída de propósito, e declaram-se `VACUOUS`
+se passarem também lá:
+
+```
+PRIMARY_MATCH_SINGLE_OWNER      real 0 · legacy 14
+NO_PRIMARY_WHEN_UNKNOWN         real 0 · legacy 14
+WINDOW_SINGLE_OWNER             real 0 · legacy 43
+WINDOW_DEFINED_OPEN_SEPARATED   real 0 · legacy 48
+```
+
+## 0.5 · O ACHADO QUE NINGUÉM PODIA ADIVINHAR
+
+A prosa **IT/EN do próprio motor** carrega os nomes dos seus campos:
+
+```
+«...non dice di intervenire — vedi NEED_DIRECTION e la frase originale
+  in NEED_EXCERPT.»          11 casos em 43
+```
+
+Escrita para quem lê o JSON, não para a reunião. O motor está congelado em
+`b3935bd` e a frase **não pode ser reescrita** — inventar prosa seria o pior
+dos dois defeitos.
+
+Tira-se o **ponteiro**, não a afirmação: a frase está completa antes do
+travessão, e as duas coisas apontadas passam a estar exatamente onde o ponteiro
+mandava olhar. O gate exige que a frase mostrada seja um **prefixo** da do
+motor.
+
+## 0.6 · DEPLOY — o único item por fechar
+
+```
+DEPLOY_URL conhecido   https://sintonia-eame-preview.vercel.app/portale
+estado                 HTTP 200, mas serve ainda a base visual SEM o meeting build
+                       (meeting-surface.js -> 404)
+bloqueio               não há CLI nem token da Vercel neste contentor
+```
+
+`audit/deploy-surface.mjs` (contrato) passa: `vercel.json` + `.vercelignore`
+servem só `italia-portale/client` e excluem `/build`, `/data`, `/docs`, `/audit`.
+
+**PRÓXIMA AÇÃO EXATA:** publicar a branch na Vercel (integração Git ou
+`vercel --prod` com token) e depois correr
+
+```bash
+node audit/deploy-surface.mjs --base https://<url-servido>
+curl -sS https://<url-servido>/meeting-surface.js -o /dev/null -w '%{http_code}\n'   # tem de ser 200
+```
+
+**Não declarar READY porque o deploy devolveu sucesso — abrir o domínio
+servido e comparar com o ficheiro local.**
+
+## 0.7 · COMO REPRODUZIR TUDO
+
+```bash
+# 1 · o pacote canónico (a branch da reunião não o traz: é ignorado pelo git)
+git worktree add /tmp/canon claude/opportunity-commercial-priority-v1   # b3935bd
+cd /tmp/canon && bash scripts/v21_cadeia.sh                            # ~40s
+cp -r /tmp/canon/build/ITALY-REALITY-HANDOFF-V2.1 build/
+# esperado: BUILD_ID V21-358954754db5ea2f · 43 RECORDS · 0 violações
+
+# 2 · os portões
+cd italia-portale
+npm install playwright-core --no-save     # NUNCA `playwright install`
+node audit/run.mjs                        # 66/71 — os 5 são anteriores a esta sessão
+node audit/meeting-gate.mjs               # 20/20
+node audit/meeting-browser.mjs            # tudo verde
+node audit/brandwell.mjs && node audit/mobile.mjs && node audit/internal-token.mjs
+```
+
+## 0.8 · OS 5 GATES QUE JÁ FALHAVAM ANTES DESTA SESSÃO
+
+Medidos em `a54e287`, **antes** de qualquer alteração minha. Não foram tocados:
+mexer nos números esperados seria esconder o problema.
+
+| id | o que diz | porquê |
+|---|---|---|
+| `B3` | dependência de CDN público | `vendor/jspdf` traz um comentário com `cdnjs.cloudflare` |
+| `H3` | 43 opportunities, esperava 37 | constantes do pacote **anterior** à reconciliação |
+| `W2` | 4 downgrades, esperava 17 | idem |
+| `O1` | 21 publicáveis fora da 1ª página | o radar de demonstração não mostra os 43 — é a lacuna arquitetural conhecida |
+| `DS1` | o toggle de cenários não muda nada | verificação vazia, anterior |
+
+## 0.9 · LIMITAÇÃO MEDIDA · inteligência negativa
+
+O §17 do briefing pede provar 1 `WEAKENS` e 1 `CLOSES`/`CONTRADICTS`.
+
+**Esses papéis não existem neste build.** Medido nos 43:
+
+```
+EVIDENCE_ROLES = SUPPORTS_PRODUCT_MATCH 200 · SUPPORTS_COMMERCIAL_ACTION 61
+                 BACKGROUND_ONLY 53 · SUPPORTS_SIGNAL 29 · SUPPORTS_DIRECTION 17
+                 SUPPORTS_WINDOW 12 · SUPPORTS_REGIONAL_CONTEXT 12
+WEAKENS / CLOSES / CONTRADICTS = 0
+```
+
+A inteligência que esfria o caso existe — mas vive em `NEED_DIRECTION` e
+`ACTION_RECOMMENDATION_STATE`, e é de lá que a tela a mostra: **8 dos 43**
+casos exibem-na (ex.: Umbria, «la fonte dichiara che non sono necessari
+interventi»). As labels IT/EN de `WEAKENS`/`CLOSES`/`CONTRADICTS` já existem,
+com as frases do briefing, para o dia em que o motor as emitir.
+
+---
+
+# HISTÓRIA · o handoff da sessão 2 (mantido como registo)
 
 ```
 REPOSITÓRIO   lucianodalondon-sys/eame-sintonia
