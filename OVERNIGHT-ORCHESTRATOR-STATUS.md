@@ -944,3 +944,82 @@ run.mjs                     67/71   (base: 66/71 — melhorou)
 DEPLOY_STATE                nenhum
 MEETING_FREEZE              NO
 ```
+
+---
+
+## CICLO 07 · 03:22Z — **MEETING_FREEZE = YES**
+
+```
+MEETING_FREEZE   YES
+FREEZE_TIME      2026-09-04T03:22:28Z
+MEETING_HEAD     014b929
+DEPLOY_URL       https://sintonia-eame-preview.vercel.app/portale
+```
+
+### O HEAD final
+
+```
+e927cb9..014b929
+  8900866 02:38  due riquadri contavano e non portavano da nessuna parte
+  0430a8f 02:49  o handoff caiu na armadilha que o proprio handoff documenta
+  014b929 03:05  merge: a terceira sessao mede, perde a arquitetura e entrega a prova que faltava
+```
+
+A terceira sessão foi absorvida, e o diff líquido sobre `e927cb9` é **um único
+ficheiro**: `meeting-browser.mjs` (+180). Nenhum código de produção tocado,
+snapshot intacto. É a mudança mais segura possível a esta hora — devolveu
+exatamente a prova que eu tinha registado como faltando.
+
+### A prova que estava em aberto, fechada
+
+```
+CANONICAL_CASES_RENDERED = 43     it · «visibleCases» 43 · faltando 0 · alheios 0
+                                  en · «visibleCases» 43 · faltando 0 · alheios 0
+```
+
+Medida com o mecanismo da própria branch (`vals({view:'radar', showAll:true})`),
+não com seletores meus — depois de errar três vezes assim.
+
+### Gates finais em `014b929`
+
+| | |
+|---|---|
+| `meeting-gate.mjs` | **14/14** |
+| `meeting-browser.mjs` | **24/24 percursos verdes** · 1440 e 390 · IT e EN |
+| `browser.mjs` | **7/7** |
+| `run.mjs` | **67/71** (base congelada: 66/71 — melhorou) |
+| `ADAPTER_BOUNDARY` | **PASS_DECLARED_SCHEMA_ADAPTATION** · IT e EN |
+| `DECISION_FIELDS_CHANGED_BY_FRONTEND` | **0** |
+| `CLIENT_PRIMARY_MATCH_NULL` | **26 / 26** |
+
+### Verificação do deploy — o que foi provado, e o que não foi
+
+**Provado:**
+
+```bash
+curl .../meeting-intelligence-snapshot.json
+#   SOURCE_HEAD b3935bd · BUILD_ID V21-358954754db5ea2f · TOTAL 43
+
+sha256 local vs servido:
+  portale.html                      31b3ab982e4fbf3e  IGUAL
+  meeting-adapter.js                8e3af74a26446909  IGUAL
+  meeting-labels.js                 52e4f222459a22cf  IGUAL
+  meeting-intelligence-snapshot.js  a079911b37565087  IGUAL
+
+23 recursos referenciados: todos HTTP 200 · falhas reais 0
+  (accesso.html → 308 → /accesso 200 é o cleanUrls do vercel.json;
+   «{{ v.url }}» é placeholder de template, não recurso)
+```
+
+**Não provado:** não consegui **dirigir** o domínio servido num browser a partir
+deste contentor. O Chromium não atravessa o relay do proxy
+(`ERR_CONNECTION_RESET`; o `__agentproxy/status` mostra
+`ws_closed_mid_exchange`). Não desliguei verificação de TLS para contornar.
+
+O que substitui: os bytes servidos são **idênticos** aos locais, e sobre esses
+bytes exatos correram os 24 percursos verdes, os 43 no DOM e os 5 casos da demo.
+É mais forte do que abrir e olhar — mas **não é** a mesma coisa que clicar no
+domínio público, e fica dito.
+
+**Quem abrir o portal antes da reunião deve clicar uma vez em cada um dos cinco
+casos.** É um minuto, e fecha a única lacuna.
