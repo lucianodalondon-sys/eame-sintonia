@@ -98,3 +98,21 @@ deve dizê-lo com a mesma clareza dos que crescem.
 | camada de canal inexistente | coleta | 3 ações comerciais dependem dela |
 | dívida de leitura dos rótulos-matriz | parser | `ITF-009` depende dela para saber o que a ADAMA autoriza em VITE × TIGNOLE |
 | 29 documentos com sinal, não lidos | leitura à mão | fila já ordenada em `IT-ACERVO-CENSO-V1.json` |
+
+
+## 7 · A matriz dos dez casos
+
+Gerada de `IT-FUTURO-RADAR-V1.json`; nenhum campo foi digitado à mão aqui.
+
+| CASO | O QUE MUDA | ONDE | QUANDO | TRIGGER | CULTURA | ALVO | JANELA | ADAMA | DES.MERCADO | COMERCIAL | MKT | SUPPLY | CONF | ESTADO |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **ITF-001** | A campanha 2026 abre sem estrategia definida contra Eriosoma lanig… | Piemonte | 181_365 | publicacao (ou ausencia) de autorizacao … | MELO | ERIOSOMA_LANIGERUM | 2026-03→2026-06 | no (0) | MARKET_DEVELOPMENT_VALIDATE | WATCH_TRIGGER | WATCH_TRIGGER | WATCH_TRIGGER | MEDIUM | COMPLETE |
+| **ITF-002** | Revogacoes recentes deixam a psila do pero sem ferramentas: "nao s… | Piemonte | 181_365 | primeira geracao de psila na retomada ve… | PERO | PSILLE | 2026-02→2026-05 | sì (8) | VALIDATE_BEFORE_WINDOW | COMMERCIAL_PREPARE | MARKETING_PREPARE | SUPPLY_PREPARE | MEDIUM | COMPLETE |
+| **ITF-003** | Resistencia multipla a varios mecanismos de acao em Lolium, Papave… | Puglia (Foggia, Bari) | NEXT_SEASON | semeadura de outono-inverno 2026/27 e a … | FRUMENTO | INFESTANTI | 2026-10→2027-02 | sì (5) | MARKET_DEVELOPMENT_VALIDATE | COMMERCIAL_PREPARE | MARKETING_PREPARE | SUPPLY_PREPARE | HIGH | COMPLETE |
+| **ITF-004** | Um concorrente registra herbicida novo de cereais com piroxsulam +… | UNKNOWN | NEXT_SEASON | a primeira campanha comercial do produto… | FRUMENTO | INFESTANTI | 2026-11→2027-03 | sì (2) | MARKET_DEVELOPMENT_VALIDATE | WATCH_TRIGGER | WATCH_TRIGGER | WATCH_TRIGGER | MEDIUM | PARTIAL |
+| **ITF-005** | Cyperus deixou de ser emergente e esta INSTALADO nos solos arenoso… | Emilia-Romagna (Ferrar | NEXT_SEASON | a semeadura do cereal obrigatorio na rot… | PATATA | INFESTANTI | 2026-10→2026-12 | no (0) | MARKET_DEVELOPMENT_VALIDATE | COMMERCIAL_PREPARE | MARKETING_PREPARE | WATCH_TRIGGER | HIGH | COMPLETE |
+| **ITF-006** | A producao integrada do olivo nas Marche esta no teto: em 2025 for… | Marche | 181_365 | pedido de deroga da campanha 2026 ao dis… | OLIVO | MOSCA | 2026-07→2026-09 | ? (0) | MARKET_DEVELOPMENT_VALIDATE | WATCH_TRIGGER | WATCH_TRIGGER | WATCH_TRIGGER | MEDIUM | COMPLETE |
+| **ITF-007** | A alternariose da batata consome deroga: em 2024 foi concedida na … | Emilia-Romagna | 181_365 | pedido de deroga da campanha 2026, se ho… | PATATA | ALTERNARIA | 2026-06→2026-08 | no (0) | MARKET_DEVELOPMENT_VALIDATE | WATCH_TRIGGER | WATCH_TRIGGER | WATCH_TRIGGER | HIGH | COMPLETE |
+| **ITF-008** | O lancamento do parasitoide Trissolcus japonicus (vespa samurai) c… | Veneto, Friuli, Marche | 181_365 | serie de capturas de 2026 nas armadilhas… | MELO, PERO | CIMICI | non dichiarata | sì (2) | WATCH_TRIGGER | WATCH_TRIGGER | WATCH_TRIGGER | SUPPLY_PREPARE | MEDIUM | PARTIAL |
+| **ITF-009** | Lobesia botrana (tignoletta) teve em 2025 um incremento nitido em … | Nord Italia (Barbera e | 181_365 | primeiro voo de adultos em meados de mai… | VITE | TIGNOLE | 2026-05→2026-07 | sì (3) | VALIDATE_BEFORE_WINDOW | COMMERCIAL_PREPARE | MARKETING_PREPARE | SUPPLY_PREPARE | HIGH | COMPLETE |
+| **ITF-010** | Os acaros tetraniquideos, sobretudo o ragnetto giallo, sobem de fo… | Nord Italia | 181_365 | monitoramento de sintomas de 2026 confir… | VITE | ACARI | non dichiarata | sì (2) | WATCH_TRIGGER | WATCH_TRIGGER | WATCH_TRIGGER | WATCH_TRIGGER | MEDIUM | PARTIAL |

@@ -1,10 +1,68 @@
 # HANDOFF · COLETA / VÍDEO / CONVEGNI / CRUZAMENTOS ITÁLIA
 
-**Data:** 2026-09-04 (5ª rodada)
+**Data:** 2026-09-04 (6ª rodada — madrugada)
 **Branch:** `claude/retomada-coleta-video-convegni-vz50er`
-**HEAD da rodada anterior:** `6cbd34b`
+**HEAD da rodada anterior:** `e95f6e0`
 
 O próximo agente deve conseguir continuar **sem reconstruir esta história pela conversa**.
+
+---
+
+## 0 · O QUE MUDOU NA MADRUGADA — DO ACERVO À INTELIGÊNCIA FUTURA
+
+**As 43 oportunidades foram localizadas.** Não estavam nesta branch e não foram
+inventadas: o motor vive em `claude/opportunity-commercial-priority-v1` (`b3935bd`)
+e o pacote é `build/ITALY-REALITY-HANDOFF-V2.1/`, **ignorado pelo git**. Reconstruí
+numa worktree destacada, sem tocar naquela branch: `BUILD_ID V21-358954754db5ea2f`,
+43 registros. O `opportunities.json` desta branch, com 3, é cópia pinada parcial.
+
+**A propagação do conjunto novo é UNIÃO, e isso não foi cautela abstrata.** A
+primeira leitura dizia que 36 oportunidades mudariam — mas oito **perderiam**
+produto, e `OPP_169BD86DB324` (tignoletta × videira) e `OPP_3C8C3960CC66`
+(`VALIDATE_NOW`) ficariam com zero. Causa medida: 142 pares com `ISSUE_ID` canônico
+que o conjunto antigo tem e o novo não, concentrados nos sete rótulos-matriz que o
+gabarito excluiu. Ali o conjunto novo não diz «não autorizado» — diz «não li».
+Com união: **28 ganham produto, zero perdem**, 9 `PRIMARY_MATCH` mudam (5 viram
+`null` porque um segundo produto passou a qualificar, 4 nascem — três deles OLIVO).
+
+**O acervo tem 131 documentos e 11 chegam a alguma inteligência.** 29 carregam
+sinal de futuro com cultura e alvo e nunca foram lidos. A fila está ordenada em
+`IT-ACERVO-CENSO-V1.json`.
+
+**Dez sinais futuros, de 3.035 candidatos.** 7 `COMPLETE`, 3 `PARTIAL`, nenhum
+`ACT_NOW`. Todos com gatilho **e** gatilho de invalidação.
+
+| | caso | o que ele prova |
+|---|---|---|
+| `ITF-001` | MELO × Eriosoma, «l'anno zero sarà il 2026» | vazio de portfólio, ADAMA zero |
+| `ITF-002` | PERO × psila, revogações recentes | abertura real: 8 rótulos, 2 famílias |
+| `ITF-003` | Trigo duro × resistência múltipla, Puglia | «grave, gravissima», Foggia e Bari |
+| `ITF-004` | concorrente registra ALS para cereais | **cruza com ITF-003**: ALS onde há resistência ALS |
+| `ITF-005` | Cyperus instalado em Ferrara | art. 53 **obriga** cereal na rotação seguinte |
+| `ITF-006` | OLIVO × mosca, deroga pedida | a assimetria do olivo agora tem data |
+| `ITF-007` | batata × alternária, deroga de difenoconazol | `PORTFOLIO RELATION ≠ LABEL AUTHORIZATION` |
+| `ITF-008` | Trissolcus em 5 regiões, capturas caindo | **inteligência negativa** |
+| `ITF-009` | Lobesia em áreas nunca antes observadas | cai sobre o par que o parser lê pior |
+| `ITF-010` | acaros na vite subindo desde 2014 | tendência de década ≠ previsão |
+
+**O extrator perdia 77 candidatos** por exigir a cultura na janela de três frases,
+quando num «bilancio della vite» ela é declarada uma vez no título. Com a cultura
+do título num campo separado e proveniência declarada, os candidatos fortes vão de
+59 para 136.
+
+**Canal: `CHANNEL_LAYER_STATE = NOT_COLLECTED`.** O acervo nomeia Melinda,
+Assomela, Cofruit, Corma — todas como anfitriãs de convegno. Nenhuma fonte as liga
+a compra de produto. Saem como `CANDIDATE_ONLY`. Três ações comerciais estão
+bloqueadas por isso.
+
+**O portal não está nesta branch** (sem `package.json`, sem `vercel.json`). Entreguei
+`RADAR-FUTURO-ESPECIFICACAO-DE-SUPERFICIE.md` para quem o mantém, com o contrato
+pronto e as cinco coisas que a tela nunca faz.
+
+**Red team**: achou um herbicida de cereal oferecido como resposta para batata em
+`ITF-005`, e foi corrigido. Doze outros testes passaram com zero. Detalhe em
+`OVERNIGHT-RED-TEAM.md`.
+
 
 ---
 
