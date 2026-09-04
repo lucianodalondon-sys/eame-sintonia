@@ -1,107 +1,5 @@
 # HANDOFF · BUILD DA REUNIÃO — onde parou, e o que falta
 
-> **ESTADO ATUALIZADO · sessão 4.** O §00 é o estado de AGORA e substitui o
-> §0 da sessão 3, que fica abaixo como história — continua correto sobre o
-> que ELA construiu. **Não confie em nada daqui sem medir.**
-
----
-
-# 00 · DUAS SESSÕES FIZERAM A MESMA MISSÃO AO MESMO TEMPO
-
-```
-BRANCH        claude/meeting-intelligence-integration
-HEAD          (este merge)
-INTELLIGENCE  b3935bd · BUILD V21-358954754db5ea2f · 43 casos
-VISUAL        a14b9e1 (preservada, não redesenhada)
-```
-
-A sessão 3 (`claude/meeting-portal-contradictions-qb5a1x`, HEAD `8f37e36`) e
-a sessão 4 (esta) trabalharam **em paralelo, nos mesmos ficheiros**, sem se
-verem. Chegaram às MESMAS conclusões — o ponteiro `NEED_DIRECTION` na prosa
-do motor, a janela com dois donos, o produto principal com dois donos — e
-isso é confirmação mútua, não desperdício.
-
-Divergiram em UMA coisa, e é arquitetural.
-
-## 00.1 · A MEDIÇÃO QUE DECIDIU
-
-A sessão 3 concluiu que o radar principal é o «radar de demonstração» e que
-não mostra os 43; construiu por isso uma **superfície separada**
-(`meeting-surface.js` + vistas `meeting` / `mcase`) e deixou o radar
-principal exatamente como estava.
-
-Medido no navegador real, nos dois builds:
-
-```
-                              sessão 3 (8f37e36)      sessão 4 (este)
-ecrã de ABERTURA · «AGIRE ORA»      13                      2
-ecrã de abertura · «OSSERVARE»       0                     22
-registos do modelo            ACT_NOW 16              ACT_NOW 2
-                              PREPARE_NOW 11          WATCH 22
-                              (estado que o cânone     VALIDATE_NOW 3
-                               não tem)
-```
-
-E o radar principal **é canónico**:
-
-```bash
-# collections.opportunities: 43 registos · provenance CANONICAL · ids OPP_*
-# não existe collection `cases`; opportunityScenarios (29, DEMO_SCENARIO) é
-# uma coleção lateral e NÃO é o radar
-```
-
-    O ECRÃ EM QUE A REUNIÃO ABRE NÃO PODE SER O ÚNICO QUE NÃO FOI CORRIGIDO.
-
-Uma superfície nova ao lado deixa o ecrã de abertura a dizer AGIRE ORA em 16
-casos que o motor tem em OBSERVAÇÃO. Por isso este merge fica com a
-**integração no lugar**: os mesmos 43, no mesmo radar que já passava nos
-gates, a ler o snapshot.
-
-## 00.2 · O QUE FOI DESCARTADO, E COMO SE RECUPERA
-
-`meeting-surface.js` e `meeting-browser.mjs` **não são servidos** — não por
-serem piores, mas porque dois radares dos mesmos 43 na mesma reunião é
-exatamente o «múltiplos donos» que o briefing §22 proíbe.
-
-    NADA SE PERDEU: estão em `8f37e36` e na branch
-    `claude/meeting-portal-contradictions-qb5a1x`, intactos.
-
-Para trocar de arquitetura, é essa branch que se recupera — e aí o radar
-principal tem de ser corrigido à mesma, ou o ecrã de abertura continua errado.
-
-**Uma ideia da sessão 3 que vale a pena portar:** os gates dela correm as 4
-testemunhas centrais DUAS vezes — na superfície real e numa legacy construída
-de propósito — e declaram-se `VACUOUS` se passarem também na legacy. Um teste
-que passa antes da correção não prova o defeito. Não está portado aqui.
-
-## 00.3 · O QUE ESTA SESSÃO MEDIU (comandos no §0.7, que continua válido)
-
-```
-portões    meeting-gate 14/14 · brandwell 5/5 · mobile 8/8 + viagem 8/8
-           opportunity-hub 8/8 · action-map 14/14 · rtv 9/9 · pdf 8/8
-           internal-token · link-asset · future-ruler: verdes
-           run.mjs 67/71 — os 4 vermelhos já o eram em a54e287 (§0.8)
-demo       A B C D/E F · IT e EN · 1440 e 390 · 0 erros de consola
-ordem      os 5 PUBLISHABLE nos lugares 1-5 (antes: 2 na 1ª página)
-```
-
-O `O1` do §0.8 **passou a verde**: media «publicável» como
-`RENDERABLE_WITH_METHOD` (33 de 43, que não cabem numa primeira página de 12);
-passou a medir `PUBLICATION_STATE` (5 de 43), que é o campo que a catraca
-criou entretanto para essa mesma pergunta.
-
-## 00.4 · DEPLOY — continua o único item por fechar
-
-Sem CLI nem token da Vercel neste contentor, tal como na sessão 3. A raiz tem
-`vercel.json` com `outputDirectory: italia-portale/client`, e a integração Git
-é o caminho. Ver §0.6.
-
-⚠️ `package.json` **não declara** playwright/pdfjs: o deploy instala o que lá
-estiver, e o `postinstall` do playwright descarrega browsers. O comando para
-os gates está em `italia-portale/audit/_digest.md`.
-
----
-
 > **ESTADO ATUALIZADO · sessão 3.** O que está abaixo do §0 é o handoff da
 > sessão 2 e continua correto como história. O §0 é o estado de AGORA.
 > **Não confie em nada daqui sem medir.** Cada número tem um comando ao lado.
@@ -117,9 +15,126 @@ BRANCH        claude/meeting-portal-contradictions-qb5a1x   (descendente direto
               nada reescrito, nada forçado)
 HEAD          7b2f24f  (código completo) + o commit que traz este documento
               confirme sempre com:  git log --oneline -3
-ESTADO        PORTAL INTEGRADO · contradições fechadas · gates verdes
-              DEPLOY: bloqueado por credenciais (ver §0.6)
+ESTADO        MEETING_PORTAL_READY = YES · MEETING_FREEZE = YES
+              publicado e verificado (ver §0.6)
+FREEZE_TIME   2026-09-04T02:5xZ  (o commit que traz esta linha)
+DEPLOY_URL    https://sintonia-eame-preview-8p1qae38s-london-creative.vercel.app
 ```
+
+## 0.-1 · ⚠️ PORQUE OS CARDS PARECIAM ANTIGOS — medido, e corrigido
+
+O portal abria em `view: 'radar'` (portale.html), o **radar histórico**. Esse
+radar não mostra os 21 casos de demonstração: mostra os **43 canónicos**, mas
+lidos de `italy-handoff-v21.js`, que é um pacote **anterior à reconciliação**.
+
+```
+italy-handoff-v21.js   buildId  V21-99226fbb90dcdbc2   ← o que se abria
+meeting snapshot       BUILD_ID V21-358954754db5ea2f   ← b3935bd, reconciliado
+```
+
+Não é um detalhe de versão. É outra leitura da mesma realidade:
+
+```
+STATUS no pacote antigo : TO_VALIDATE 9 · ACT_NOW 16 · PREPARE_NOW 11 · FUTURE_PREPARATION 7
+STATUS reconciliado     : TO_VALIDATE 9 · WATCH 22 · FUTURE_PREPARATION 7 · VALIDATE_NOW 3 · ACT_NOW 2
+
+25 de 43 casos com STATUS diferente
+16 cartões diziam AGIRE ORA onde o motor declara 2
+PREPARE_NOW nem sequer existe no vocabulário atual
+```
+
+E o pacote antigo **não tem** os campos da reconciliação — medido no objeto
+cru: `PUBLICATION_STATE`, `WINDOW_DEFINED`, `WINDOW_OPEN_NOW`, `WINDOW_TYPE`,
+`WINDOW_RULE_STATE`, `PRIMARY_MATCH`, `PORTFOLIO_MATCHES`,
+`ACTION_BY_DEPARTMENT`, `WHY_NOW_CHAIN`, `EVIDENCE_ROLES`, `WHY_COMMERCIAL_IT`
+— **todos ausentes**. Aquela tela não podia mostrar a inteligência nova nem
+que quisesse.
+
+Nos seis casos-testemunha: **superfície canónica 5/5**, **radar histórico 0/5**
+(todos liam AGIRE ORA, incluindo Umbria que é WATCH e Veneto que é
+VALIDATE_NOW).
+
+    NÃO ERAM CARTÕES «DE DEMO». ERAM CARTÕES CANÓNICOS VELHOS —
+    O QUE É PIOR, PORQUE PARECEM ATUAIS.
+
+**A correção foi só de binding**, sem redesenho, sem tocar no motor, no
+adapter, na coleta ou nos 21 casos:
+
+1. o portal passa a abrir em `view: 'meeting'` — a superfície canónica;
+2. o radar histórico declara-se no seu subtítulo (build + «não é a leitura
+   canónica da reunião»), para não poder ser lido como atual;
+3. a scheda canónica ganhou `data-case` (o gancho de identidade que os portões
+   desta casa já conhecem) e uma linha de produto que **nomeia só o que o motor
+   nomeou** — 17 cartões nomeiam, 26 contam («4 prodotti collegati»);
+4. três textos a 9,5px passaram a 10px (o portão móvel só os via agora que
+   esta é a tela que abre).
+
+Portões novos: `NO_OLD_SNAPSHOT_FALLBACK` e `SIX_WITNESSES_UI_MATCH_ENGINE`.
+O primeiro declara-se `VACUOUS` se os dois builds coincidirem, para não medir
+uma diferença que não existe.
+
+---
+
+## 0.0 · ⚠️ DUAS SESSÕES CONSTRUÍRAM A MESMA COISA — LEIA ANTES DE ESCOLHER
+
+Enquanto esta sessão trabalhava, outra (`overnight-meeting-orchestrator`)
+construiu a sua própria superfície e **fez merge para
+`claude/meeting-intelligence-integration`** (`e927cb9`, «vince l'ecrã che la
+riunione apre»). O merge tomou o meu `8f37e36` como pai mas **resolveu os
+ficheiros para o lado deles**: `meeting-surface.js`, `meeting-browser.mjs` e as
+minhas 21 testemunhas **não estão lá**; ficou o `meeting-adapter.js` deles e um
+`meeting-gate.mjs` deles (MG1–MG14, 14/14 verde).
+
+**Não sobrescrevi nada.** O trabalho desta sessão vive em
+`claude/meeting-portal-contradictions-qb5a1x`.
+
+### As duas abordagens
+
+| | esta sessão | a outra sessão |
+|---|---|---|
+| onde | superfície NOVA (`meeting` + `mcase`), radar demo intacto | RE-ALIMENTA o radar existente a partir do snapshot |
+| adapter | `meeting-surface.js` | `meeting-adapter.js` |
+| primary no adapter | `PRIMARY_MATCH` e nada mais | `PRIMARY_MATCH` e nada mais — **também correto** |
+
+### O QUE MEDI NA BUILD DELES, E QUE IMPORTA PARA A REUNIÃO
+
+O adapter deles está certo. **A camada de apresentação não.**
+`portale.html:3351`:
+
+```js
+primaryLabel: (mv && mv.hasPortfolio) ? mv.portfolio[0].name
+```
+
+`portfolio[0]` — o primeiro elemento do array — alimenta
+`data-product="{{ c.primaryLabel }}"`, que é o nome do produto impresso no
+cartão. Medido no browser sobre a build deles:
+
+```
+OPP_75C37DED9160   cartão mostra "Lamdex® Extra"
+                   engine PRIMARY_MATCH = null · matches = 2
+```
+
+São **14 casos** em que o motor não coroou ninguém e o cartão nomeia um produto
+escolhido por ordem de array — exatamente o número que a minha testemunha
+`PRIMARY_MATCH_SINGLE_OWNER` devolve contra a implementação legacy
+(`real 0 · legacy 14`). A previsão e a medição batem certo.
+
+    O ADAPTER DELES NÃO COROA NINGUÉM. O CARTÃO DELES COROA O PRIMEIRO
+    DO ARRAY. A CONTRADIÇÃO VOLTA NA ÚLTIMA LINHA.
+
+O comentário deles assume a escolha («la scheda deve restare una scheda» — o
+detalhe mostra todos). É uma decisão defensável sobre densidade; mas o leitor
+do cartão vê um produto principal que o motor recusou-se a eleger, e §5 do
+briefing proíbe `array[0]` como critério.
+
+**A correção mínima**, se escolherem a build deles: onde
+`PRIMARY_MATCH` é nulo, o cartão não deve nomear um produto — deve dizer
+«N prodotti collegati» e deixar a eleição para o detalhe. É uma linha.
+
+**A DECISÃO É DO DONO DA REUNIÃO, NÃO MINHA.** As duas builds estão publicadas
+e cada uma tem o seu URL de preview.
+
+---
 
 ## 0.1 · A CORREÇÃO QUE A SESSÃO 3 TEVE DE FAZER PRIMEIRO
 
@@ -228,8 +243,74 @@ motor.
 ```
 DEPLOY_URL conhecido   https://sintonia-eame-preview.vercel.app/portale
 estado                 HTTP 200, mas serve ainda a base visual SEM o meeting build
-                       (meeting-surface.js -> 404)
+                       (meeting-surface.js -> 404 · portale.html 817712B, o tamanho
+                       anterior; o ficheiro local tem 855814B)
 bloqueio               não há CLI nem token da Vercel neste contentor
+```
+
+### ⚠️ CORREÇÃO — eu tinha concluído mal, e a conclusão errada custaria a reunião
+
+Escrevi antes que empurrar a branch «não desencadeia deploy nenhum». **Está
+errado.** Procurei deploys em `GET /actions/runs` — os *workflow runs* — e a
+Vercel **não publica por GitHub Actions**: publica pela **Deployments API**.
+Olhei para o sítio errado e li o silêncio como ausência.
+
+    UM SÍTIO ERRADO SEM RESULTADOS NÃO É UMA AUSÊNCIA DE RESULTADOS.
+
+O que está lá, medido em `GET /deployments`:
+
+```
+02:35:21Z  Preview  ref 38ed09e  by vercel[bot]   ← o meu HEAD
+02:31:33Z  Preview  ref 8de7309  by vercel[bot]
+02:06:33Z  Preview  ref 8f37e36  by vercel[bot]
+02:04:09Z  Preview  ref 7b2f24f  by vercel[bot]
+```
+
+**Cada commit meu foi publicado**, como *Preview*, com `state=success`. O check
+suite `vercel` está `completed success`. O que me enganou foi o alias
+`sintonia-eame-preview.vercel.app`, que aponta para a branch de **produção** —
+por isso continuava a servir a versão antiga enquanto o meu build já estava no
+ar noutro endereço.
+
+```
+DEPLOY_URL (HEAD 38ed09e)
+https://sintonia-eame-preview-8p1qae38s-london-creative.vercel.app
+
+/portale                            200 · 855814 B  (igual ao local)
+/meeting-surface.js                 200
+/meeting-labels.js                  200
+/meeting-intelligence-snapshot.js   200
+```
+
+Como obter o URL de um HEAD qualquer:
+
+```bash
+API=https://api.github.com/repos/lucianodalondon-sys/eame-sintonia
+ID=$(curl -sS -H "Authorization: Bearer $GITHUB_TOKEN" "$API/deployments?sha=<SHA>" \
+     | python3 -c "import json,sys;print(json.load(sys.stdin)[0]['id'])")
+curl -sS -H "Authorization: Bearer $GITHUB_TOKEN" "$API/deployments/$ID/statuses" \
+     | python3 -c "import json,sys;print(json.load(sys.stdin)[0]['environment_url'])"
+```
+
+### A verificação pública, e o seu limite honesto
+
+Os **77 ficheiros** servidos foram descarregados e comparados byte a byte com
+`italia-portale/client/`: **zero diferenças**. As únicas ausências são
+`vercel.json`, `.gitignore` e os `LEGGIMI/readme` — retidos de propósito, que é
+o contrato do `deploy-surface`. A única diferença de conteúdo em toda a árvore é
+a Vercel injectar o seu script de *feedback* de preview no `index.html`; **não**
+no `portale.html`.
+
+O Chromium deste contentor **não atravessa o proxy** até ao domínio
+(`ERR_CONNECTION_RESET`), embora o `curl` atravesse. Por isso as testemunhas
+correram sobre os **bytes descarregados do URL público**, servidos localmente —
+o artefacto medido é o que o público recebe, verificado por hash:
+
+```bash
+node audit/meeting-browser.mjs --dir <pasta-espelho>   # tudo verde
+node audit/meeting-public.mjs  --base http://localhost:8901
+# PUBLIC_CANONICAL_CASES 43 · PRIMARY_INVENTED 0 · INTERNAL_TOKENS 0
+# CONSOLE_ERRORS 0 · FAILED_REQUESTS 0 · D_CASES_AS_CANONICAL 0
 ```
 
 `audit/deploy-surface.mjs` (contrato) passa: `vercel.json` + `.vercelignore`
@@ -263,6 +344,65 @@ node audit/meeting-gate.mjs               # 20/20
 node audit/meeting-browser.mjs            # tudo verde
 node audit/brandwell.mjs && node audit/mobile.mjs && node audit/internal-token.mjs
 ```
+
+**As dependências não estão no repositório e há uma armadilha real:**
+
+```bash
+# do RAIZ do repositorio (o package.json esta la, nao em italia-portale/)
+npm install playwright-core pdfjs-dist --no-save
+```
+
+Instalar UM de cada vez com `--no-save` **apaga o outro**: `npm install
+pdfjs-dist` sozinho removeu o `playwright-core` e todos os portões de browser
+passaram a estourar com `ERR_MODULE_NOT_FOUND`. Instale os dois no mesmo
+comando. E **nunca** `playwright install` — o Chromium já está em
+`/opt/pw-browsers`.
+
+## 0.7b · ESTADO DOS PORTÕES NESTA BRANCH
+
+| portão | resultado |
+|---|---|
+| `run.mjs` | **66/71** — os 5 do §0.8, todos anteriores a esta sessão |
+| `meeting-gate.mjs` | **20/20** |
+| `meeting-browser.mjs` | **tudo verde** · 0 erros de consola · 0 pedidos falhados · 0 controlos mortos · 20 percursos |
+| `brandwell` | PASS · 17 ecrãs · BrownLL 97% |
+| `mobile` | PASS · 50 ecrãs · 360/390/430/768/1440 · overflow 0 |
+| `internal-token` | PASS · 50 ecrãs · 0 tokens no lugar de uma etiqueta, 0 na prosa |
+| `opportunity-hub` | PASS |
+| `action-map-consistency` | PASS · 7/7 áreas |
+| `link-asset` | PASS |
+| `future-ruler` | PASS |
+| `rtv-gate` | PASS · RV1–RV6 |
+| `pdf-gate` | PASS · 4 PDFs reais gerados e lidos por pdf.js |
+| `deploy-surface` (contrato) | PASS |
+| `journey` | **não existe** neste repositório — o briefing nomeia-o, o ficheiro não está cá |
+| `cta-navigation` | **PASS** · CT1–CT5 + NV1–NV7 · 1061 clicáveis · 936 premidos e julgados · **936 vivos · 0 mortos** · 0 erros de consola · 0 pedidos falhados |
+| `meeting-public` (bytes públicos) | **PUBLIC BUILD VERIFIED** |
+
+### O controlo «suspeito», medido em vez de suposto
+
+O varrimento reportou uma assinatura que não se voltou a apresentar
+(`Radar Canonico · span||×|8|23`). Medida:
+
+```
+CONTROL             span 6×6 px, sem texto e sem título
+SURFACE             barra lateral — está nas 12 telas, não é da superfície canónica
+EXPECTED_ACTION     nenhuma própria: é o ponto de estado dentro da linha de navegação
+ACTUAL_ACTION       navega — o handler está no antepassado (onClick={{ n.go }})
+HANDLER             na linha de navegação (data-dc-tpl=34), não no ponto
+DESTINATION         a tela do item de navegação
+VISIBLE_AFFORDANCE  a linha inteira; o ponto é decoração dentro dela
+CLASSIFICATION      ALIVE (pelo antepassado) · NOT_APPLICABLE como controlo próprio
+```
+
+`clickables()` do próprio portão devolve **0** elementos sem texto nem título,
+porque sobe até ao antepassado que carrega o handler. A assinatura não se
+repetiu porque o índice `nth` de um ponto anónimo muda quando a tela é
+restaurada — é um artefacto de re-identificação, **não** um defeito do portal.
+E o varrimento deu `Radar Canonico · sospetti 0`.
+
+    NENHUM DEFEITO REAL ⇒ NENHUMA CORREÇÃO. Mexer na navegação por causa
+    disto seria refatorar por um número, não por um problema.
 
 ## 0.8 · OS 5 GATES QUE JÁ FALHAVAM ANTES DESTA SESSÃO
 
@@ -627,7 +767,9 @@ Pode-se mostrar os que estão em validação — desde que o estado apareça, e 
 
 ---
 
-## 8 · MEETING_FREEZE
+## 8 · MEETING_FREEZE  ·  ⚠️ SUPERADO PELO §0 — agora é YES
+
+*(o texto abaixo é da sessão 2 e fica como história)*
 
 Ainda **NÃO**. Declarar só quando: snapshot estável + portal integrado + gates
 verdes + casos da demo verificados no browser + deploy aberto e testado.

@@ -1,435 +1,481 @@
 #!/usr/bin/env node
-/* SINTONIA · I PORTONI DELLA RIUNIONE — audit/meeting-gate.mjs
-   ===========================================================================
-       node audit/meeting-gate.mjs           tabella leggibile
-       node audit/meeting-gate.mjs --json    per una macchina
+/* SINTONIA · MEETING GATE — le testimonianze del build della riunione
+   ---------------------------------------------------------------------------
+   Un test che passava anche PRIMA non prova il difetto.
 
-   Le quattordici testimonianze del §23, ognuna misurata sul portale montato —
-   mai su un rapporto scritto, mai sul file sorgente quando la domanda riguarda
-   cio che finisce sullo schermo.
+   Le due contraddizioni viste a schermo erano errori di PROPRIETA: due blocchi
+   della stessa pagina leggevano due fonti diverse per lo stesso fatto. Per
+   dimostrare che i portoni le prendono, ognuno dei quattro testimoni centrali
+   viene eseguito DUE volte:
 
-   PERCHE QUESTI PORTONI, E NON ALTRI
-   -----------------------------------
-   Ogni riga qui sotto esiste perche un difetto REALE l'ha resa necessaria.
-   Non sono controlli di stile: sono la memoria di cio che e gia andato storto.
+     · sulla superficie vera        → deve PASSARE
+     · su una superficie LEGACY     → deve FALLIRE
 
-       SNAPSHOT_FROM_CANONICAL_HEAD   il pacchetto puo essere ricostruito da un
-                                      HEAD diverso e nessuno se ne accorge
-       SNAPSHOT_43_CASES              un caso che sparisce non fa rumore
-       NO_RAW_BYPASS                  il portale deduceva `status` dal grezzo:
-                                      16 AGIRE ORA contro i 2 del motore
-       ACTION_MAP_FROM_ENGINE         la mappa leggeva lo stato del CASO, e
-                                      tutte e cinque le aree dicevano lo stesso
-       ALL_PORTFOLIO_MATCHES_RENDERED «primario + altri N» quando lo snapshot
-                                      li conosce tutti
-       NO_INTERNAL_CODES              «VALIDATE NOW» stampato in italiano dalla
-                                      fine di una catena di ripiego
-       VALIDATION_STATE_NOT_HIDDEN    38 casi DA VALIDARE con addosso la sola
-                                      parola «verificata»
+   La superficie legacy non e inventata per l'occasione: riproduce esattamente
+   i due meccanismi misurati nel repository —
 
-   LA REGOLA DI QUESTO FILE
-   ------------------------
-   Un portone che non puo fallire non e un portone. Ognuno qui dichiara che
-   cosa ha CONTATO, cosi un domani si vede se ha smesso di separare qualcosa —
-   che e esattamente come `O1` era invecchiato senza dirlo.
-   =========================================================================== */
+       portale.html:2758   const primary = c.primary || (verified[0] ? ... )
+       italy-canonical-windows.js   29 finestre di calendario per LEGACY_CASE_ID
+
+   Se un testimone passa anche sulla legacy, non sta misurando niente e lo dice.
+   --------------------------------------------------------------------------- */
 import fs from 'node:fs';
 import path from 'node:path';
-import { mount, loadData, CLIENT, readPortal } from './lib/harness.mjs';
+import { mount, loadData, CLIENT, readPortal, extractMarkup } from './lib/harness.mjs';
 
-const CHECKS = [];
-const check = (id, title, fn) => CHECKS.push({ id, title, fn });
+const results = [];
+const check = (id, title, fn) => {
+  try { const r = fn(); results.push({ id, title, ...r }); }
+  catch (e) { results.push({ id, title, pass: false, expected: 'runs', measured: 'THREW', detail: [e.message, (e.stack || '').split('\n')[1] || ''] }); }
+};
 
-const SNAP_JSON = path.join(CLIENT, 'meeting-intelligence-snapshot.json');
-const PKG = path.join(CLIENT, '..', '..', 'build', 'ITALY-REALITY-HANDOFF-V2.1',
-                      'DESIGN-INGEST', 'OPPORTUNITIES.json');
+const m = mount();
+const ctx = m.ctx;
+const SNAP = ctx.MEETING_INTELLIGENCE;
+const SURF = ctx.MEETING_SURFACE;
+const markup = extractMarkup(readPortal());
+const MODEL = { it: SURF.build('it'), en: SURF.build('en') };
 
-const snap = JSON.parse(fs.readFileSync(SNAP_JSON, 'utf8'));
-const CASES = snap.CASES || [];
-
-/* Le viste che la riunione percorre. Un portone che misura una sola schermata
-   prova una sola schermata. */
-const CASE_IDS_FOR_SCREEN = [
-  'OPP_5F31A63F844D', /* A · botrite × vite × Emilia-Romagna — ACT_NOW */
-  'OPP_F8106D5E1767', /* B · botrite × vite × Toscana — ACT_NOW */
-  'OPP_169BD86DB324', /* C · tignoletta × vite × Umbria — WATCH, fonte che raffredda */
-  'OPP_75C37DED9160', /* D+E · carpocapsa × melo × Veneto — stadio finito, protezione no */
-  'OPP_D11664591168', /* F · scafoide × vite × Toscana — obbligo amministrativo */
-];
-
-/* Il dettaglio espone i suoi campi sotto `cs`, non alla radice: leggerli alla
-   radice restituisce `undefined` per tutto, e un portone che confronta
-   `undefined` con un numero fallisce raccontando un difetto che non esiste. */
-const caseVals = (id, lang = 'it') =>
-  (mount().vals({ view: 'case', caseId: id, lang }) || {}).cs || {};
-
-const radarVals = (lang = 'it') => mount().vals({ view: 'radar', lang, showAll: true });
-
-/* ── 1 · PROVENIENZA ─────────────────────────────────────────────────────── */
-
-check('MG1', 'SNAPSHOT_FROM_CANONICAL_HEAD · lo snapshot dichiara l’HEAD e il build che lo hanno prodotto', () => {
-  const bad = [];
-  if (!snap.SOURCE_HEAD) bad.push('SOURCE_HEAD assente');
-  if (!snap.BUILD_ID) bad.push('BUILD_ID assente');
-  if (!snap.MEETING_CUTOFF) bad.push('MEETING_CUTOFF assente');
-  if (!snap.ENGINE_VERSION) bad.push('ENGINE_VERSION assente');
-  if (!snap.RULE_VERSION) bad.push('RULE_VERSION assente');
-  if (!snap.GENERATED_AT) bad.push('GENERATED_AT assente');
-  /* Il BUILD_ID dello snapshot deve essere quello del pacchetto che lo ha
-     generato: due build diversi con lo stesso nome sono il modo piu rapido di
-     mostrare in riunione i numeri di ieri. */
-  if (fs.existsSync(PKG)) {
-    const pkg = JSON.parse(fs.readFileSync(PKG, 'utf8'));
-    if (pkg.BUILD_ID !== snap.BUILD_ID) {
-      bad.push(`BUILD_ID diverge: pacchetto ${pkg.BUILD_ID} vs snapshot ${snap.BUILD_ID}`);
-    }
-  } else {
-    bad.push('pacchetto canonico assente — ricostruire con scripts/v21_cadeia.sh');
-  }
-  return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: bad.length ? bad : [`${snap.SOURCE_HEAD} · ${snap.BUILD_ID} · cutoff ${snap.MEETING_CUTOFF}`] };
-});
-
-check('MG2', 'SNAPSHOT_43_CASES · il numero di casi e quello del pacchetto, contato non dichiarato', () => {
-  const bad = [];
-  if (CASES.length !== snap.TOTAL_CASES) {
-    bad.push(`TOTAL_CASES dichiara ${snap.TOTAL_CASES}, il corpo ne ha ${CASES.length}`);
-  }
-  if (fs.existsSync(PKG)) {
-    const pkg = JSON.parse(fs.readFileSync(PKG, 'utf8'));
-    const a = new Set(pkg.RECORDS.map((r) => r.ID));
-    const b = new Set(CASES.map((c) => c.ID));
-    const lost = [...a].filter((x) => !b.has(x));
-    const gained = [...b].filter((x) => !a.has(x));
-    if (lost.length) bad.push(`lo snapshot perde ${lost.length}: ${lost.slice(0, 5).join(', ')}`);
-    if (gained.length) bad.push(`lo snapshot inventa ${gained.length}: ${gained.slice(0, 5).join(', ')}`);
-  }
-  const dup = CASES.map((c) => c.ID).filter((x, i, a) => a.indexOf(x) !== i);
-  if (dup.length) bad.push(`ID duplicati: ${dup.slice(0, 5).join(', ')}`);
-  return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: bad.length ? bad : [`${CASES.length} casi, insieme identico al pacchetto`] };
-});
-
-check('MG3', 'MEETING_SNAPSHOT_CONTRACT · ogni caso porta i campi su cui la riunione si appoggia', () => {
-  const REQUIRED = ['ID', 'STATUS', 'COMMERCIAL_PRIORITY', 'PUBLICATION_STATE',
-                    'TRAIL_STATE', 'WINDOW_DEFINED', 'WINDOW_OPEN_NOW',
-                    'WHY_NOW_CODES', 'WHY_COMMERCIAL_CODES', 'WHAT_IS_MISSING',
-                    'PORTFOLIO_MATCHES', 'ACTION_BY_DEPARTMENT', 'EVIDENCE_ROLES'];
-  const bad = [];
-  for (const c of CASES) {
-    for (const f of REQUIRED) {
-      if (c[f] === undefined) bad.push(`${c.ID} manca ${f}`);
-    }
-  }
-  return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: bad.length ? bad.slice(0, 10) : [`${REQUIRED.length} campi presenti su ${CASES.length} casi`] };
-});
-
-check('MG4', 'SNAPSHOT_ONLY_CLOSED_INPUTS · nessun ingresso parziale, temporaneo o in scrittura', () => {
-  /* Un input aperto non si riconosce dal contenuto: si riconosce dal NOME e
-     dal fatto che la cadeia lo abbia chiuso. Lo snapshot nasce da un solo
-     file, e quel file e l'uscita dichiarata della cadeia canonica. */
-  const bad = [];
-  const raw = fs.readFileSync(SNAP_JSON, 'utf8');
-  for (const m of ['TODO', 'PARTIAL', 'TEMP_', '_TMP', 'IN_PROGRESS', 'WRITING', 'DRAFT_']) {
-    if (raw.includes('"' + m) || raw.includes(m + '"')) bad.push(`marca di lavoro aperto: ${m}`);
-  }
-  if (!fs.existsSync(PKG)) bad.push('il pacchetto sorgente non esiste');
-  return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: bad.length ? bad : ['un solo ingresso: OPPORTUNITIES.json della cadeia canonica'] };
-});
-
-/* ── 2 · IL PORTALE NON DEDUCE PIU ───────────────────────────────────────── */
-
-check('MG5', 'NO_RAW_BYPASS · lo stato sullo schermo e quello del motore, non quello dedotto', () => {
-  const AM = loadData().ITALY_APP_MODEL;
-  const recs = AM.collections.opportunities.records;
-  const byId = {}; CASES.forEach((c) => { byId[c.ID] = c; });
-  const bad = [];
-  for (const r of recs) {
-    const c = byId[r.id];
-    if (!c) { bad.push(`${r.id} non e nello snapshot`); continue; }
-    if (r.status !== c.STATUS) bad.push(`${r.id}: schermo ${r.status} ≠ motore ${c.STATUS}`);
-    if (r.publicationState !== c.PUBLICATION_STATE) {
-      bad.push(`${r.id}: pubblicazione ${r.publicationState} ≠ ${c.PUBLICATION_STATE}`);
-    }
-  }
-  /* E il conteggio, che e la ragione per cui il portone esiste. */
-  const n = (s) => recs.filter((r) => r.status === s).length;
-  return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: bad.length ? bad.slice(0, 10)
-      : [`ACT_NOW ${n('ACT_NOW')} · VALIDATE_NOW ${n('VALIDATE_NOW')} · WATCH ${n('WATCH')} — dal motore`] };
-});
-
-check('MG6', 'NO_PARTIAL_INPUT_USED · l’adattatore si innesta senza difetti e senza ID orfani', () => {
-  const w = loadData();
-  const A = w.MEETING_ADAPTER;
-  const bad = [];
-  if (!A) return { pass: false, expected: 0, measured: 1, detail: ['MEETING_ADAPTER non caricato'] };
-  if (!A.OK) bad.push('adattatore non OK');
-  (A.FAULTS || []).forEach((f) => bad.push('difetto: ' + f));
-  if (A.SOURCE_HEAD !== snap.SOURCE_HEAD) bad.push('SOURCE_HEAD diverge');
-  return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: bad.length ? bad : [`innestato da ${A.SOURCE_HEAD} · build ${A.BUILD_ID}`] };
-});
-
-check('MG7', 'MEETING_COUNTS_FROM_SNAPSHOT · nessun conteggio della schermata e una costante', () => {
-  const w = loadData();
-  const c = w.MEETING_ADAPTER.counts();
-  const bad = [];
-  const expect = {
-    total: CASES.length,
-    actNow: CASES.filter((x) => x.STATUS === 'ACT_NOW').length,
-    validateNow: CASES.filter((x) => x.STATUS === 'VALIDATE_NOW').length,
-    watch: CASES.filter((x) => x.STATUS === 'WATCH').length,
-    publishable: CASES.filter((x) => x.PUBLICATION_STATE === 'PUBLISHABLE').length,
-    validationRequired: CASES.filter((x) => x.PUBLICATION_STATE === 'VALIDATION_REQUIRED').length,
-    windowDefined: CASES.filter((x) => x.WINDOW_DEFINED === 'YES').length,
-    windowOpenNow: CASES.filter((x) => x.WINDOW_OPEN_NOW === 'YES').length,
+/* ── il modello LEGACY · i due difetti, riprodotti ───────────────────────── */
+function legacyModel(lang) {
+  const base = SURF.build(lang);
+  const CANON = (ctx.ITALY_CANONICAL && ctx.ITALY_CANONICAL.windows) || [];
+  return {
+    ...base,
+    cases: base.cases.map((c, i) => {
+      const matches = c.products.matches;
+      /* IL DIFETTO 1 · il primo elemento dell'array come ripiego */
+      const primary = c.products.primary || matches[0] || null;
+      /* IL DIFETTO 2 · la finestra dal calendario legacy, per posizione */
+      const lw = CANON[i % CANON.length] || {};
+      const legacyOpen = lw.CURRENT_STATUS === 'WINDOW_OPEN';
+      return {
+        ...c,
+        products: {
+          ...c.products, primary, hasPrimary: !!primary,
+          primaryId: primary ? primary.PRODUCT_ID : null,
+          /* e il riassunto che nasconde cio che si conosce gia */
+          moreLabel: primary && matches.length > 1 ? `+ ${matches.length - 1} more` : '',
+          shown: primary ? [primary] : [],
+        },
+        window: {
+          ...c.window,
+          OWNER: 'ITALY_CANONICAL',
+          DEFINED: lw.START_DATE ? 'YES' : 'NO',
+          OPEN_NOW: legacyOpen ? 'WINDOW_OPEN_NOW_YES' : 'WINDOW_OPEN_NOW_NO',
+          /* IL DIFETTO 3 · una frase sola per due domande */
+          ruleSentence: legacyOpen ? 'Finestra aperta' : 'Nessuna finestra canonica collegata',
+          stateSentence: legacyOpen ? 'Finestra aperta' : 'Nessuna finestra canonica collegata',
+        },
+      };
+    }),
   };
-  for (const k of Object.keys(expect)) {
-    if (c[k] !== expect[k]) bad.push(`${k}: contato ${c[k]} ≠ snapshot ${expect[k]}`);
-  }
-  return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: bad.length ? bad : [JSON.stringify(expect)] };
-});
+}
+const LEGACY = legacyModel('it');
 
-/* ── 3 · CIO CHE LA SCHERMATA DEVE MOSTRARE ──────────────────────────────── */
-
-check('MG8', 'ALL_PORTFOLIO_MATCHES_RENDERED · l’eroe mostra TUTTI i prodotti, mai «primario + N»', () => {
-  const bad = [];
-  for (const id of CASE_IDS_FOR_SCREEN) {
-    const c = CASES.find((x) => x.ID === id);
-    const v = caseVals(id);
-    const expect = (c.PORTFOLIO_MATCHES || []).length;
-    if (!expect) continue;
-    if (v.mPortfolioCount !== expect) bad.push(`${id}: la schermata dichiara ${v.mPortfolioCount} di ${expect}`);
-    if ((v.mPortfolio || []).length !== expect) bad.push(`${id}: rese ${(v.mPortfolio || []).length} schede di ${expect}`);
-    /* ogni nome del motore deve comparire, non solo il primo */
-    const names = new Set((v.mPortfolio || []).map((p) => p.name));
-    for (const p of c.PORTFOLIO_MATCHES) {
-      if (!names.has(p.PRODUCT_NAME)) bad.push(`${id}: manca ${p.PRODUCT_NAME}`);
+/* Ogni testimone centrale e una funzione pura del modello, cosi puo essere
+   puntata sulla superficie vera e su quella legacy senza riscriverla. */
+const W = {
+  PRIMARY_MATCH_SINGLE_OWNER: (M) => {
+    const bad = [];
+    for (const c of M.cases) {
+      const raw = SNAP.CASES.find((x) => x.ID === c.id) || {};
+      const engine = raw.PRIMARY_MATCH || null;
+      const shown = c.products.primaryId;
+      if ((engine || null) !== (shown || null)) bad.push(`${c.id}: engine=${engine} shown=${shown}`);
     }
-    /* e un principale si mostra solo con una regola difendibile */
-    if (c.PRIMARY_MATCH_REASON === 'SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER' && v.mHasPrimary) {
-      bad.push(`${id}: elegge un principale senza regola difendibile`);
+    return bad;
+  },
+  NO_PRIMARY_WHEN_UNKNOWN: (M) => {
+    const bad = [];
+    for (const c of M.cases) {
+      const raw = SNAP.CASES.find((x) => x.ID === c.id) || {};
+      if (!raw.PRIMARY_MATCH && c.products.hasPrimary) bad.push(`${c.id}: engine crowned nobody, screen crowned ${c.products.primaryId}`);
     }
-  }
-  return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: bad.length ? bad.slice(0, 10) : [`${CASE_IDS_FOR_SCREEN.length} casi · tutti i prodotti resi`] };
-});
-
-check('MG9', 'WHY_COMMERCIAL_RENDERED + WHY_NOW_RENDERED · le due domande della riunione hanno risposta', () => {
-  const bad = [];
-  for (const id of CASE_IDS_FOR_SCREEN) {
-    for (const lang of ['it', 'en']) {
-      const v = caseVals(id, lang);
-      if (!v.mHasWhyCommercial) bad.push(`${id}/${lang}: nessun PERCHE COMMERCIALE`);
-      if (!v.mHasChain) bad.push(`${id}/${lang}: nessuna catena del PERCHE ORA`);
-      const c = CASES.find((x) => x.ID === id);
-      if ((c.WHY_NOW_CHAIN ? Object.keys(c.WHY_NOW_CHAIN).length : 0) !== (v.mChain || []).length) {
-        bad.push(`${id}/${lang}: anelli resi ${(v.mChain || []).length}`);
+    return bad;
+  },
+  WINDOW_SINGLE_OWNER: (M) => {
+    const bad = [];
+    for (const c of M.cases) {
+      const raw = SNAP.CASES.find((x) => x.ID === c.id) || {};
+      if (c.window.OWNER !== 'MEETING_INTELLIGENCE') { bad.push(`${c.id}: window owner is ${c.window.OWNER}`); continue; }
+      if ((c.window.DEFINED || null) !== (raw.WINDOW_DEFINED || null)) bad.push(`${c.id}: DEFINED ${c.window.DEFINED} != engine ${raw.WINDOW_DEFINED}`);
+      const expect = 'WINDOW_OPEN_NOW_' + (raw.WINDOW_OPEN_NOW || 'UNKNOWN');
+      if (c.window.OPEN_NOW !== expect) bad.push(`${c.id}: OPEN_NOW ${c.window.OPEN_NOW} != engine ${expect}`);
+    }
+    return bad;
+  },
+  WINDOW_DEFINED_OPEN_SEPARATED: (M) => {
+    const bad = [];
+    for (const c of M.cases) {
+      /* La regola e lo stato sono DUE domande: due frasi diverse, sempre. */
+      if (c.window.ruleSentence && c.window.ruleSentence === c.window.stateSentence) bad.push(`${c.id}: one sentence answers both questions`);
+      /* E il caso che il briefing nomina: regola nota, stato non misurato, non
+         puo mai leggersi come "finestra aperta". */
+      const raw = SNAP.CASES.find((x) => x.ID === c.id) || {};
+      if (raw.WINDOW_DEFINED === 'YES' && raw.WINDOW_OPEN_NOW === 'UNKNOWN') {
+        if (/aperta|open\b/i.test(c.window.stateSentence || '')) bad.push(`${c.id}: UNKNOWN reads as open — "${c.window.stateSentence}"`);
       }
     }
-  }
-  return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: bad.length ? bad.slice(0, 10) : ['perche commerciale e catena resi in IT e EN'] };
+    return bad;
+  },
+};
+
+/* ── 1 · l'istantanea ────────────────────────────────────────────────────── */
+check('MEETING_SNAPSHOT_CONTRACT', 'The snapshot declares its own provenance and carries 43 cases', () => {
+  const bad = [];
+  for (const k of ['SOURCE_HEAD', 'BUILD_ID', 'MEETING_CUTOFF', 'TOTAL_CASES', 'CASES']) if (SNAP[k] === undefined) bad.push(`missing ${k}`);
+  if (SNAP.TOTAL_CASES !== 43) bad.push(`TOTAL_CASES ${SNAP.TOTAL_CASES}`);
+  if ((SNAP.CASES || []).length !== 43) bad.push(`CASES ${(SNAP.CASES || []).length}`);
+  return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad };
 });
 
-check('MG10', 'WINDOW_STATE_RENDERED · la finestra e leggibile e UNKNOWN non sparisce', () => {
+check('SNAPSHOT_SOURCE_HEAD_VALID', 'SOURCE_HEAD names the intelligence commit, not the checkout', () => {
   const bad = [];
-  for (const id of CASE_IDS_FOR_SCREEN) {
-    const c = CASES.find((x) => x.ID === id);
-    for (const lang of ['it', 'en']) {
-      const v = caseVals(id, lang);
-      if (!v.mHasWindow) { bad.push(`${id}/${lang}: nessuno stato di finestra`); continue; }
-      /* Uno stato non misurato deve DIRSI. Se la finestra e UNKNOWN e la
-         schermata non lo dichiara, l'ignoto e sparito dietro la copy. */
-      if (c.WINDOW_OPEN_NOW === 'UNKNOWN' && !v.mWinUnknown && !v.mWinOpenL) {
-        bad.push(`${id}/${lang}: UNKNOWN non dichiarato`);
-      }
-      if (c.WINDOW_OPEN_NOW === 'YES' && !v.mWinIsOpen) bad.push(`${id}/${lang}: finestra aperta non annunciata`);
-      /* un obbligo amministrativo non e una finestra agronomica */
-      if (c.WINDOW_RULE_STATE === 'RULE_ADMINISTRATIVE_ONLY' && !v.mWinAdministrative) {
-        bad.push(`${id}/${lang}: obbligo amministrativo presentato come finestra`);
-      }
-      if (c.WINDOW_RULE_STATE === 'RULE_DELEGATED_TO_FARM' && !v.mWinDelegated) {
-        bad.push(`${id}/${lang}: regola delegata al campo non dichiarata`);
-      }
-    }
-  }
-  return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: bad.length ? bad.slice(0, 10) : ['tipo, regola e stato attuale resi; UNKNOWN visibile'] };
+  if (SNAP.SOURCE_HEAD !== 'b3935bd') bad.push(`SOURCE_HEAD=${SNAP.SOURCE_HEAD}, expected the reconciled canonical head b3935bd`);
+  const pkg = path.resolve(CLIENT, '..', '..', 'build', 'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST', 'OPPORTUNITIES.json');
+  if (fs.existsSync(pkg)) {
+    const d = JSON.parse(fs.readFileSync(pkg, 'utf8'));
+    if (d.BUILD_ID !== SNAP.BUILD_ID) bad.push(`BUILD_ID drift: package ${d.BUILD_ID} vs snapshot ${SNAP.BUILD_ID}`);
+    if ((d.RECORDS || []).length !== 43) bad.push(`package carries ${(d.RECORDS || []).length} records`);
+  } else bad.push('package not rebuilt in this tree — BUILD_ID not reconciled');
+  return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad };
 });
 
-check('MG11', 'ACTION_MAP_FROM_ENGINE · ogni reparto porta il proprio stato, non quello del caso', () => {
-  const bad = [];
-  for (const id of CASE_IDS_FOR_SCREEN) {
-    const c = CASES.find((x) => x.ID === id);
-    const v = caseVals(id);
-    const engine = c.ACTION_BY_DEPARTMENT || {};
-    const n = Object.keys(engine).length;
-    if ((v.mDepts || []).length !== n) bad.push(`${id}: aree rese ${(v.mDepts || []).length} di ${n}`);
-    for (const d of (v.mDepts || [])) {
-      const e = engine[d.department];
-      if (!e) { bad.push(`${id}: area inventata ${d.department}`); continue; }
-      if (d.actionState !== e.ACTION_STATE) bad.push(`${id}/${d.department}: stato ${d.actionState} ≠ ${e.ACTION_STATE}`);
-      if (d.action !== e.ACTION) bad.push(`${id}/${d.department}: azione ${d.action} ≠ ${e.ACTION}`);
-      if (!d.actionStateL) bad.push(`${id}/${d.department}: stato senza etichetta`);
-      if (!d.actionL) bad.push(`${id}/${d.department}: azione senza etichetta`);
-    }
-    /* IL DIFETTO ORIGINALE: tutte le aree con lo stesso modo, perche il modo
-       veniva dallo stato del CASO. Se il motore ne dichiara piu d'uno e lo
-       schermo ne mostra uno solo, la mappa e tornata a leggere il titolo. */
-    const engStates = new Set(Object.values(engine).map((x) => x.ACTION_STATE));
-    const uiStates = new Set((v.mDepts || []).map((x) => x.actionState));
-    if (engStates.size > 1 && uiStates.size === 1) {
-      bad.push(`${id}: il motore dichiara ${engStates.size} modi, lo schermo ne mostra 1`);
-    }
-  }
-  return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: bad.length ? bad.slice(0, 10) : ['stato, azione, perche e innesco per ogni reparto'] };
+/* ── 2 · i 43, e nessun altro insieme ────────────────────────────────────── */
+check('CANONICAL_43_RENDERED', 'All 43 canonical cases reach the canonical radar', () => {
+  const v = m.vals({ view: 'meeting', lang: 'it', mShown: 999 });
+  const ids = new Set(v.meetingCases.map((c) => c.id));
+  const missing = SNAP.CASES.filter((c) => !ids.has(c.ID)).map((c) => c.ID);
+  return { pass: !missing.length && v.meetingTotal === 43, expected: 43,
+    measured: `${ids.size} rendered · total ${v.meetingTotal}`, detail: missing.slice(0, 8) };
 });
 
-check('MG12', 'EVIDENCE_ROLE_RENDERED · ogni prova porta il suo ruolo, e l’intelligenza negativa resta', () => {
+check('CANONICAL_COUNTS_FROM_43_ONLY', 'Every canonical count is computed from the 43, never from D.CASES', () => {
   const bad = [];
-  for (const id of CASE_IDS_FOR_SCREEN) {
-    const c = CASES.find((x) => x.ID === id);
-    const v = caseVals(id);
-    const n = (c.EVIDENCE_ROLES || []).length;
-    if (!n) continue;
-    if ((v.mEvidence || []).length !== n) bad.push(`${id}: prove rese ${(v.mEvidence || []).length} di ${n}`);
-    for (const e of (v.mEvidence || [])) {
-      if (!e.roleL) bad.push(`${id}/${e.id}: ruolo senza etichetta`);
-    }
-    /* §15 · WEAKENS / CONTRADICTS / CLOSES non si tolgono e non si spostano.
-       In questo snapshot non compaiono; se un giorno compariranno, questo
-       portone si accorgera che sono stati persi per strada. */
-    const negEngine = (c.EVIDENCE_ROLES || []).filter((e) => ['WEAKENS', 'CONTRADICTS', 'CLOSES'].includes(e.ROLE)).length;
-    if (negEngine !== v.mEvNegCount) bad.push(`${id}: prove negative ${v.mEvNegCount} ≠ ${negEngine}`);
-  }
-  return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: bad.length ? bad.slice(0, 10) : ['ruolo reso per ogni prova; nessuna prova negativa persa'] };
-});
-
-check('MG13', 'VALIDATION_STATE_NOT_HIDDEN · un caso DA VALIDARE non puo sembrare validato', () => {
-  const bad = [];
-  const r = radarVals();
-  const byId = {}; CASES.forEach((c) => { byId[c.ID] = c; });
-  for (const card of (r.visibleCases || [])) {
-    const c = byId[card.id];
-    if (!c) continue;
-    if (!card.mPubL) { bad.push(`${card.id}: nessuno stato di pubblicazione sulla scheda`); continue; }
-    if (c.PUBLICATION_STATE === 'PUBLISHABLE' && !card.mPubOk) bad.push(`${card.id}: pubblicabile non segnalato`);
-    if (c.PUBLICATION_STATE === 'VALIDATION_REQUIRED' && card.mPubOk) {
-      bad.push(`${card.id}: DA VALIDARE presentato come verificato`);
-    }
-  }
-  for (const id of CASE_IDS_FOR_SCREEN) {
-    const v = caseVals(id);
-    if (!v.mPubShortL) bad.push(`${id}: il dettaglio non dichiara lo stato di pubblicazione`);
-  }
-  return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: bad.length ? bad.slice(0, 10)
-      : [`${(r.visibleCases || []).length} schede · stato di pubblicazione sempre visibile`] };
-});
-
-check('MG14', 'NO_INTERNAL_CODES · nessun codice del motore raggiunge lo schermo, in IT o in EN', () => {
-  /* Un codice si riconosce dalla FORMA: MAIUSCOLE_CON_UNDERSCORE. Cercarne una
-     lista sarebbe cercare quelli che gia conosciamo; la forma trova anche
-     quelli che nasceranno domani. */
-  const SHAPE = /\b[A-Z][A-Z0-9]{2,}(?:_[A-Z0-9]+){1,}\b/g;
-  /* Sigle che sono FATTI pubblici, non codici interni: stanno in etichetta. */
-  const ALLOWED = new Set(['FRAC_M', 'IRAC_3', 'NUTS_2']);
-  const bad = [];
-  const seen = new Set();
-  const scan = (where, val) => {
-    if (typeof val === 'string') {
-      const m = val.match(SHAPE);
-      if (m) for (const t of m) {
-        if (ALLOWED.has(t) || seen.has(where + t)) continue;
-        seen.add(where + t);
-        bad.push(`${where}: ${t}`);
-      }
-    } else if (Array.isArray(val)) {
-      val.forEach((x) => scan(where, x));
-    } else if (val && typeof val === 'object') {
-      for (const k of Object.keys(val)) {
-        /* i campi tecnici non vanno a schermo: si misura cio che si rende */
-        if (/^(id|department|actionState|action|whyCode|role|entityType|status|publicationState|windowType|windowRuleState|windowOpenNow|windowDefined|link|code|productId|evidenceId|matchReason|validationState|cropFit|targetFit|regulatoryFit|windowFit|regionalFit|archetype|commercialPriority|needDirection|pestStage|actionRecommendation|threshold|magnitude|signalCurrency|opportunityState|trailState|primaryMatch|primaryMatchReason|externalMaterialReady|fact|mv|m|meeting|rawDerived|whatIsMissing|whyNowCodes|whyCommercialCodes|evidence|restrictions|actives|moa|sourceUrls|url|go|raw)$/.test(k)) continue;
-        scan(where, val[k]);
-      }
-    }
+  const c = MODEL.it.counts;
+  const tally = (f) => SNAP.CASES.reduce((a, x) => { const k = f(x); if (k) a[k] = (a[k] || 0) + 1; return a; }, {});
+  const st = tally((x) => x.STATUS), pub = tally((x) => x.PUBLICATION_STATE), wo = tally((x) => x.WINDOW_OPEN_NOW);
+  const want = {
+    TOTAL: 43, PUBLISHABLE: pub.PUBLISHABLE || 0, VALIDATION_REQUIRED: pub.VALIDATION_REQUIRED || 0,
+    ACT_NOW: st.ACT_NOW || 0, VALIDATE_NOW: st.VALIDATE_NOW || 0, WATCH: st.WATCH || 0,
+    TO_VALIDATE: st.TO_VALIDATE || 0, PREPARE: st.FUTURE_PREPARATION || 0,
+    WINDOW_DEFINED: SNAP.CASES.filter((x) => x.WINDOW_DEFINED === 'YES').length,
+    WINDOW_OPEN_NOW_YES: wo.YES || 0, WINDOW_OPEN_NOW_NO: wo.NO || 0, WINDOW_OPEN_NOW_UNKNOWN: wo.UNKNOWN || 0,
   };
-  for (const lang of ['it', 'en']) {
-    for (const id of CASE_IDS_FOR_SCREEN) {
-      const v = caseVals(id, lang);
-      /* solo i campi che la markup rende come TESTO */
-      for (const k of ['mStatusL', 'mStatusWhyL', 'mPubL', 'mPubShortL', 'mWhyCommercial',
-                       'mWinTypeL', 'mWinRuleL', 'mWinOpenL', 'mWinMethodL', 'mPestStageL',
-                       'mActionRecL', 'mStageNote', 'mThresholdL', 'mNeedDirectionL',
-                       'mExternalReadyL', 'mArchetypeL', 'mScopeL', 'mNoPrimaryReasonL',
-                       'heroWinMain', 'heroWinSub', 'bandCountL']) {
-        scan(`${id}/${lang}/${k}`, v[k]);
-      }
-      for (const arr of ['mWhyCommercialCodes', 'mWhyNow', 'mMissing', 'mBrief', 'gapRowsM']) {
-        (v[arr] || []).forEach((x) => scan(`${id}/${lang}/${arr}`, x && x.text));
-      }
-      (v.mDepts || []).forEach((d) => {
-        scan(`${id}/${lang}/dept`, d.departmentL); scan(`${id}/${lang}/dept`, d.actionStateL);
-        scan(`${id}/${lang}/dept`, d.actionL); scan(`${id}/${lang}/dept`, d.whyL);
-        scan(`${id}/${lang}/dept`, d.dependencyL); scan(`${id}/${lang}/dept`, d.nextTriggerL);
-      });
-      (v.mPortfolio || []).forEach((p) => {
-        for (const k of ['cropFitL', 'targetFitL', 'regulatoryFitL', 'windowFitL',
-                         'regionalFitL', 'validationStateL', 'matchReasonL']) scan(`${id}/${lang}/prod`, p[k]);
-        (p.restrictions || []).forEach((x) => scan(`${id}/${lang}/prod`, x.text));
-      });
-      (v.mEvidence || []).forEach((e) => { scan(`${id}/${lang}/ev`, e.roleL); scan(`${id}/${lang}/ev`, e.whyL); scan(`${id}/${lang}/ev`, e.familyL); });
-      (v.mChain || []).forEach((l) => { scan(`${id}/${lang}/chain`, l.linkL); scan(`${id}/${lang}/chain`, l.factL); });
-    }
-    const r = radarVals(lang);
-    (r.visibleCases || []).forEach((c) => {
-      for (const k of ['mWindowL', 'mWhyNowL', 'mWhyCommercialL', 'mPubL', 'mFirstActorL', 'statusLabel', 'linkStateL']) {
-        scan(`radar/${lang}/${k}`, c[k]);
-      }
-    });
-  }
-  return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: bad.length ? bad.slice(0, 12) : ['nessun MAIUSCOLO_CON_UNDERSCORE nel testo reso, IT ed EN'] };
+  for (const k of Object.keys(want)) if (c[k] !== want[k]) bad.push(`${k}: screen ${c[k]} vs snapshot ${want[k]}`);
+  /* e il numero dei 21 casi di presentazione non deve MAI comparire come totale */
+  const demo = (ctx.ITALY_DEMO && ctx.ITALY_DEMO.CASES || []).length;
+  if (demo && c.TOTAL === demo) bad.push(`TOTAL equals the demonstration count (${demo})`);
+  return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad };
 });
 
-/* ── ESECUZIONE ──────────────────────────────────────────────────────────── */
-
-const results = CHECKS.map((c) => {
-  try {
-    return Object.assign({ id: c.id, title: c.title }, c.fn());
-  } catch (e) {
-    return { id: c.id, title: c.title, pass: false, expected: 'il portone gira',
-             measured: 'HA LANCIATO', detail: [e.message, (e.stack || '').split('\n')[1]] };
+/* ── 3 · nessun bypass, nessun ricalcolo ─────────────────────────────────── */
+check('NO_RAW_BYPASS', 'The canonical surface reads the snapshot and never the legacy sources', () => {
+  const src = fs.readFileSync(path.join(CLIENT, 'meeting-surface.js'), 'utf8');
+  const body = src.replace(/\/\*[\s\S]*?\*\//g, '');           /* i commenti spiegano, non eseguono */
+  const bad = [];
+  for (const forbidden of ['ITALY_CANONICAL', 'ITALY_DEMO', 'D.CASES', 'ITALY_BRIEFS']) {
+    if (body.includes(forbidden)) bad.push(`meeting-surface.js reads ${forbidden}`);
   }
+  return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad };
 });
 
-if (process.argv.includes('--json')) {
-  console.log(JSON.stringify({ results, passed: results.filter((r) => r.pass).length, total: results.length }, null, 2));
-  process.exit(results.every((r) => r.pass) ? 0 : 1);
+check('NO_FRONTEND_INTELLIGENCE_RECALCULATION', 'Every decided field is copied, never derived on the screen', () => {
+  const bad = [];
+  for (const c of MODEL.it.cases) {
+    const raw = SNAP.CASES.find((x) => x.ID === c.id) || {};
+    const pairs = [
+      ['STATUS', c.statusCode, raw.STATUS],
+      ['COMMERCIAL_PRIORITY', c.priorityCode, raw.COMMERCIAL_PRIORITY],
+      ['PUBLICATION_STATE', c.publicationCode, raw.PUBLICATION_STATE],
+      ['WINDOW_DEFINED', c.window.DEFINED, raw.WINDOW_DEFINED],
+      ['PORTFOLIO_COUNT', c.products.count, (raw.PORTFOLIO_MATCHES || []).length],
+      ['EVIDENCE_COUNT', c.evidence.count, (raw.EVIDENCE_ROLES || []).length],
+      ['ACTION_COUNT', c.actions.length, Object.keys(raw.ACTION_BY_DEPARTMENT || {}).length],
+    ];
+    for (const [k, shown, engine] of pairs) if (shown !== engine) bad.push(`${c.id} ${k}: ${shown} != ${engine}`);
+  }
+  return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad.slice(0, 10) };
+});
+
+/* ── 4 · i quattro testimoni centrali, con la prova che discriminano ─────── */
+for (const [id, title] of [
+  ['PRIMARY_MATCH_SINGLE_OWNER', 'The primary product has exactly one owner: PRIMARY_MATCH'],
+  ['NO_PRIMARY_WHEN_UNKNOWN', 'No primary is invented where the engine crowned nobody'],
+  ['WINDOW_SINGLE_OWNER', 'The window has exactly one owner: the canonical snapshot'],
+  ['WINDOW_DEFINED_OPEN_SEPARATED', 'The rule and the state stay two questions'],
+]) {
+  check(id, title, () => {
+    const real = W[id](MODEL.it);
+    const legacy = W[id](LEGACY);
+    const bad = real.slice();
+    /* UN TESTIMONE CHE PASSA ANCHE SULLA LEGACY NON MISURA NIENTE. */
+    if (!legacy.length) bad.push('VACUOUS: this witness also passes on the legacy implementation, so it does not prove the defect');
+    return { pass: !bad.length, expected: '0 real · >0 legacy',
+      measured: `real ${real.length} · legacy ${legacy.length}`, detail: bad.slice(0, 6) };
+  });
 }
 
+/* ── 5 · tutto il portafoglio, e le sezioni ──────────────────────────────── */
+check('ALL_PORTFOLIO_MATCHES_RENDERED', 'Every portfolio match reaches the screen — never "primary + N more"', () => {
+  const bad = [];
+  const v = m.vals({ view: 'mcase', lang: 'it', mCaseId: 'OPP_5F31A63F844D' });
+  for (const c of MODEL.it.cases) {
+    const raw = SNAP.CASES.find((x) => x.ID === c.id) || {};
+    const engine = (raw.PORTFOLIO_MATCHES || []).length;
+    if (c.products.matches.length !== engine) bad.push(`${c.id}: ${c.products.matches.length} of ${engine}`);
+  }
+  if (/\+\s*\{\{\s*\w+\.moreMatches/.test(markup) || /moreLabel/.test(markup.split('isMcase')[1] || '')) bad.push('the canonical detail binds a "+ N more" summary');
+  if (v.mcProducts.length !== (SNAP.CASES.find((x) => x.ID === 'OPP_5F31A63F844D').PORTFOLIO_MATCHES || []).length) bad.push('rendered product list is shorter than the engine list');
+  return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad.slice(0, 8) };
+});
+
+check('WHY_COMMERCIAL_RENDERED', 'WHY COMMERCIAL comes from the engine, in the reader language', () => {
+  const bad = [];
+  if (!markup.includes('data-meeting-why-commercial')) bad.push('the section is not in the markup');
+  for (const lang of ['it', 'en']) {
+    const key = lang === 'en' ? 'WHY_COMMERCIAL_EN' : 'WHY_COMMERCIAL_IT';
+    for (const c of MODEL[lang].cases) {
+      const raw = SNAP.CASES.find((x) => x.ID === c.id) || {};
+      const engine = (raw[key] || '').trim();
+      const shown = (c.whyCommercial || '').trim();
+      /* La prosa e del motore. L'unica differenza ammessa e la coda di rimando
+         ai suoi campi: la frase mostrata deve essere un PREFISSO di quella del
+         motore, mai una riscrittura. */
+      if (!engine) { if (shown) bad.push(`${lang} ${c.id}: prose appeared where the engine wrote none`); continue; }
+      const stem = shown.replace(/\.$/, '');
+      if (!engine.startsWith(stem)) bad.push(`${lang} ${c.id}: the shown prose is not the engine's`);
+      if (c.whyCommercialPointerRemoved && engine.length <= shown.length) bad.push(`${lang} ${c.id}: a pointer was declared removed but nothing was`);
+      /* e nessuna chiave interna puo sopravvivere nella frase mostrata */
+      const tok = shown.match(/\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b/g);
+      if (tok) bad.push(`${lang} ${c.id}: internal key in rendered prose: ${tok[0]}`);
+      /* cio che il rimando indicava deve restare a schermo */
+      if (c.whyCommercialPointerRemoved && !c.needDirection) bad.push(`${lang} ${c.id}: the pointer was removed and its fact went with it`);
+    }
+  }
+  /* Il motore non ha prosa su 3 dei 43. La regola non e "ci deve essere una
+     frase": e "il posto non puo restare muto, e nessuno puo riempirlo".
+     Dove la frase manca deve restare almeno un codice tradotto. */
+  for (const c of MODEL.it.cases) {
+    if (!c.whyCommercial && !c.whyCommercialCodes.length) bad.push(`${c.id}: neither prose nor a coded reason reaches the screen`);
+  }
+  if (!/mcWhyCommercialCodes/.test(markup)) bad.push('the coded reason has no slot in the markup');
+  return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad.slice(0, 6) };
+});
+
+check('WHY_NOW_RENDERED', 'WHY NOW shows the engine chain, and names the missing link', () => {
+  const bad = [];
+  if (!markup.includes('data-meeting-why-now')) bad.push('the section is not in the markup');
+  for (const c of MODEL.it.cases) {
+    const raw = SNAP.CASES.find((x) => x.ID === c.id) || {};
+    const engine = Object.keys(raw.WHY_NOW_CHAIN || {}).length;
+    if (c.whyNow.links.length !== engine) bad.push(`${c.id}: ${c.whyNow.links.length} links of ${engine}`);
+    for (const l of c.whyNow.links) {
+      const e = (raw.WHY_NOW_CHAIN || {})[l.KEY] || {};
+      if (!!e.OK !== l.ok) bad.push(`${c.id} ${l.KEY}: ok ${l.ok} != engine ${!!e.OK}`);
+    }
+  }
+  return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad.slice(0, 6) };
+});
+
+check('ACTION_MAP_FROM_ENGINE', 'The action map is ACTION_BY_DEPARTMENT, not a hand-written action', () => {
+  const bad = [];
+  if (!markup.includes('data-meeting-action-map')) bad.push('the section is not in the markup');
+  for (const c of MODEL.it.cases) {
+    const raw = SNAP.CASES.find((x) => x.ID === c.id) || {};
+    const by = raw.ACTION_BY_DEPARTMENT || {};
+    for (const a of c.actions) {
+      const e = by[a.DEPARTMENT];
+      if (!e) { bad.push(`${c.id}: ${a.DEPARTMENT} is not in the engine map`); continue; }
+      if (a.stateToken !== 'ACTION_STATE_' + e.ACTION_STATE) bad.push(`${c.id} ${a.DEPARTMENT}: state ${a.stateToken} != ${e.ACTION_STATE}`);
+      if (a.actionToken !== 'ACTION_' + e.ACTION) bad.push(`${c.id} ${a.DEPARTMENT}: action ${a.actionToken} != ${e.ACTION}`);
+    }
+  }
+  return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad.slice(0, 6) };
+});
+
+check('EVIDENCE_ROLE_RENDERED', 'Every evidence role reaches the screen, cooling evidence included', () => {
+  const bad = [];
+  if (!markup.includes('data-evidence-role')) bad.push('evidence roles are not in the markup');
+  if (!markup.includes('data-cooling')) bad.push('cooling intelligence has no slot in the markup');
+  for (const c of MODEL.it.cases) {
+    const raw = SNAP.CASES.find((x) => x.ID === c.id) || {};
+    if (c.evidence.rows.length !== (raw.EVIDENCE_ROLES || []).length) bad.push(`${c.id}: ${c.evidence.rows.length} roles of ${(raw.EVIDENCE_ROLES || []).length}`);
+    for (const r of c.evidence.rows) if (!r.role) bad.push(`${c.id} ${r.id}: role ${r.roleToken} has no phrase`);
+  }
+  const cooled = MODEL.it.cases.filter((c) => c.evidence.hasCooling);
+  if (!cooled.length) bad.push('no case renders cooling intelligence — the negative reading would be invisible');
+  return { pass: !bad.length, expected: 0, measured: bad.length,
+    detail: bad.slice(0, 6).concat([`cases carrying cooling evidence: ${cooled.length}`]) };
+});
+
+check('VALIDATION_STATE_NOT_HIDDEN', 'VALIDATION_REQUIRED is shown, never dressed as validated', () => {
+  const bad = [];
+  const v = m.vals({ view: 'meeting', lang: 'it', mShown: 999 });
+  const shown = v.meetingCases.filter((c) => c.publicationCode === 'VALIDATION_REQUIRED');
+  if (shown.length !== 38) bad.push(`${shown.length} of 38 VALIDATION_REQUIRED cases reach the radar`);
+  for (const c of shown) if (!c.publication) bad.push(`${c.id}: publication state has no phrase`);
+  if (!/\{\{\s*c\.publication\s*\}\}/.test(markup)) bad.push('the card does not bind the publication state');
+  return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad.slice(0, 6) };
+});
+
+/* ── 6 · la frontiera, misurata in profondita ────────────────────────────── */
+check('DEEP_NESTED_INTERNAL_TOKEN_FILTER', 'The boundary filters at every depth: dict → dict → list → dict → leaf', () => {
+  const bad = [];
+  const probe = {
+    KEEP: 'visible',
+    LEVEL2: {
+      RAW_LEDGER: 'must not cross',
+      LIST: [
+        { KEEP2: 'visible', _INTERNAL: 'must not cross', DEEP: { RULE_VERSION: 'must not cross', OK: 'visible' } },
+        { OPPORTUNITY_SCORE: 9.9 },
+      ],
+      WINDOW_CONDITION__PT_ONLY: 'prosa em portugues que nao pode atravessar',
+    },
+  };
+  const out = SURF.clientSafe(probe, null);
+  const flat = JSON.stringify(out);
+  for (const f of ['RAW_LEDGER', '_INTERNAL', 'RULE_VERSION', 'OPPORTUNITY_SCORE', 'PT_ONLY', 'must not cross', 'portugues']) {
+    if (flat.includes(f)) bad.push(`${f} crossed the boundary`);
+  }
+  if (!flat.includes('visible')) bad.push('the filter also removed legitimate content');
+  /* un contenitore svuotato sparisce invece di disegnare una scatola vuota */
+  if (out.LEVEL2 && out.LEVEL2.LIST && out.LEVEL2.LIST.some((x) => x && Object.keys(x).length === 0)) bad.push('an emptied container survived as an empty box');
+  /* e nessun campo PT_ONLY raggiunge il modello reale */
+  const real = JSON.stringify(MODEL.it.cases);
+  if (real.includes('__PT_ONLY')) bad.push('a __PT_ONLY field reached the view model');
+  return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad };
+});
+
+/* ── 7 · le lingue ───────────────────────────────────────────────────────── */
+for (const lang of ['it', 'en']) {
+  check(`${lang.toUpperCase()}_LABELS_COMPLETE`, `No internal code reaches the ${lang.toUpperCase()} screen without a phrase`, () => {
+    const bad = [];
+    const holes = new Set();
+    const walk = (o) => {
+      if (Array.isArray(o)) return o.forEach(walk);
+      if (o && typeof o === 'object') {
+        for (const k of Object.keys(o)) {
+          if (/(Token|Code)$/.test(k) && o[k]) {
+            const base = k.replace(/(Token|Code)$/, '');
+            if (base in o && (o[base] === null || o[base] === undefined || o[base] === '')) holes.add(String(o[k]));
+          }
+          walk(o[k]);
+        }
+      }
+    };
+    walk(MODEL[lang].cases);
+    for (const h of holes) bad.push(`no ${lang.toUpperCase()} phrase for ${h}`);
+    /* i codici che il briefing nomina uno per uno */
+    const MUST = ['RULE_DELEGATED_TO_FARM', 'RULE_ADMINISTRATIVE_ONLY', 'WEAKENS', 'CLOSES', 'CONTRADICTS',
+      'PHENOLOGY_WINDOW', 'PREHARVEST_WINDOW', 'THRESHOLD_WINDOW', 'PEST_STAGE_WINDOW', 'WEATHER_TRIGGERED_WINDOW',
+      'ACT_NOW', 'VALIDATE_NOW', 'WATCH', 'TO_VALIDATE', 'FUTURE_PREPARATION',
+      'PUBLISHABLE', 'VALIDATION_REQUIRED', 'NO_ACTION', 'VALIDATE', 'PREPARE', 'ACT'];
+    for (const k of MUST) if (!ctx.MEETING_LABELS.get(k, lang)) bad.push(`the brief names ${k} and ${lang.toUpperCase()} has no phrase for it`);
+    return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad.slice(0, 10) };
+  });
+}
+
+check('EVERY_CARD_IS_TITLED', 'No card reaches the radar without a headline', () => {
+  const bad = [];
+  for (const lang of ['it', 'en']) {
+    const v = m.vals({ view: 'meeting', lang, mShown: 999 });
+    for (const c of v.meetingCases) {
+      if (!c.title || !String(c.title).trim()) bad.push(`${lang} ${c.id}: untitled card`);
+      /* e dove il titolo viene dall'archetipo, l'assenza del bersaglio deve
+         essere DETTA, non semplicemente lasciata come un buco */
+      if (c.titleFromArchetype) {
+        const raw = SNAP.CASES.find((x) => x.ID === c.id) || {};
+        if ((raw.WHAT_IS_MISSING || []).indexOf('NO_AGRONOMIC_TARGET') < 0) bad.push(`${lang} ${c.id}: titled from archetype but the engine does not declare the gap`);
+        if (!c.missing.length) bad.push(`${lang} ${c.id}: the gap is not shown to the reader`);
+      }
+    }
+  }
+  return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad.slice(0, 6) };
+});
+
+check('NO_OLD_SNAPSHOT_FALLBACK', 'The canonical surface never reads the older package, and it is what opens', () => {
+  const bad = [];
+  /* IL PACCHETTO VECCHIO E ANCORA IN PAGINA, E VA BENE — ma non deve
+     alimentare la superficie della riunione, e non deve essere la schermata
+     che si apre. Misurato: italy-handoff-v21.js porta il build
+     V21-99226fbb90dcdbc2, anteriore alla riconciliazione; su 43 casi
+     dichiara 16 AGIRE ORA dove il motore ne dichiara 2. */
+  const oldBuild = (ctx.ITALY_HANDOFF_V21 || {}).buildId || null;
+  if (oldBuild && oldBuild === SNAP.BUILD_ID) bad.push('the two builds are the same — this witness would be vacuous');
+
+  const src = fs.readFileSync(path.join(CLIENT, 'meeting-surface.js'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+  for (const forbidden of ['ITALY_HANDOFF_V21', 'collections.opportunities', 'upstreamOpportunities']) {
+    if (src.includes(forbidden)) bad.push(`meeting-surface.js reads ${forbidden}`);
+  }
+  /* e la schermata che si apre e quella canonica */
+  const landing = (new (ctx.__Component)()).state.view;
+  if (landing !== 'meeting') bad.push(`the portal opens on '${landing}', not on the canonical surface`);
+
+  /* prova che il vecchio pacchetto DAVVERO diverge — senza questo il portone
+     misurerebbe una differenza che non esiste */
+  const oldOpps = (ctx.ITALY_HANDOFF_V21 || {}).opportunities || [];
+  const byId = new Map(SNAP.CASES.map((c) => [c.ID, c]));
+  const drift = oldOpps.filter((o) => byId.get(o.ID) && byId.get(o.ID).STATUS !== o.STATUS).length;
+  if (!drift) bad.push('VACUOUS: the old package agrees with the snapshot, so nothing was proven');
+  return { pass: !bad.length, expected: 0, measured: bad.length,
+    detail: bad.concat([`old build ${oldBuild} · snapshot ${SNAP.BUILD_ID} · cases whose STATUS drifted: ${drift}/43`]) };
+});
+
+check('SIX_WITNESSES_UI_MATCH_ENGINE', 'The meeting witness cases read on screen exactly what the engine decided', () => {
+  const WIT = ['OPP_5F31A63F844D', 'OPP_F8106D5E1767', 'OPP_169BD86DB324', 'OPP_75C37DED9160', 'OPP_D11664591168'];
+  const bad = [];
+  for (const id of WIT) {
+    const e = SNAP.CASES.find((c) => c.ID === id);
+    if (!e) { bad.push(`${id}: not in the snapshot`); continue; }
+    const v = m.vals({ view: 'mcase', lang: 'it', mCaseId: id });
+    const c = v.mc;
+    const cmp = [
+      ['STATUS', c.statusCode, e.STATUS],
+      ['COMMERCIAL_PRIORITY', c.priorityCode, e.COMMERCIAL_PRIORITY],
+      ['PUBLICATION_STATE', c.publicationCode, e.PUBLICATION_STATE],
+      ['WINDOW_DEFINED', c.window.DEFINED, e.WINDOW_DEFINED],
+      ['WINDOW_OPEN_NOW', c.window.OPEN_NOW, 'WINDOW_OPEN_NOW_' + (e.WINDOW_OPEN_NOW || 'UNKNOWN')],
+      ['WINDOW_TYPE', c.window.TYPE, e.WINDOW_TYPE || null],
+      ['PRIMARY_MATCH', c.products.primaryId, e.PRIMARY_MATCH || null],
+      ['PORTFOLIO_MATCHES', c.products.count, (e.PORTFOLIO_MATCHES || []).length],
+      ['ACTION_BY_DEPARTMENT', c.actions.length, Object.keys(e.ACTION_BY_DEPARTMENT || {}).length],
+      ['WHY_NOW_CHAIN', c.whyNow.links.length, Object.keys(e.WHY_NOW_CHAIN || {}).length],
+      ['EVIDENCE_ROLES', c.evidence.count, (e.EVIDENCE_ROLES || []).length],
+    ];
+    for (const [f, shown, engine] of cmp) if (JSON.stringify(shown) !== JSON.stringify(engine)) bad.push(`${id} ${f}: screen ${JSON.stringify(shown)} vs engine ${JSON.stringify(engine)}`);
+  }
+  return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad.slice(0, 8).concat([`witnesses matched: ${WIT.length - new Set(bad.map((b) => b.split(' ')[0])).size}/${WIT.length}`]) };
+});
+
+/* ── 8 · le due superfici non si mescolano ───────────────────────────────── */
+check('DEMO_AND_CANONICAL_SEPARATED', 'The 21 demonstration cases never enter the canonical surface', () => {
+  const bad = [];
+  const demoIds = new Set(((ctx.ITALY_DEMO && ctx.ITALY_DEMO.CASES) || []).map((c) => c.id));
+  for (const c of MODEL.it.cases) if (demoIds.has(c.id)) bad.push(`${c.id} is a demonstration case`);
+  /* e nessuna prosa dei 21 riempie un buco dei 43 */
+  const flat = JSON.stringify(MODEL.it.cases);
+  for (const c of ((ctx.ITALY_DEMO && ctx.ITALY_DEMO.CASES) || []).slice(0, 25)) {
+    for (const f of ['happening', 'know', 'watch', 'timeline']) {
+      const v = c[f];
+      if (typeof v === 'string' && v.length > 30 && flat.includes(v)) bad.push(`demonstration prose (${f}) reached the canonical surface`);
+    }
+  }
+  return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad.slice(0, 6) };
+});
+
+/* ── report ──────────────────────────────────────────────────────────────── */
 const G = '\x1b[32m', R = '\x1b[31m', DIM = '\x1b[2m', X = '\x1b[0m';
 const pad = (s, n) => String(s).slice(0, n).padEnd(n);
-console.log('');
-console.log('  SINTONIA · I PORTONI DELLA RIUNIONE');
-console.log(`  ${DIM}snapshot ${snap.SOURCE_HEAD} · build ${snap.BUILD_ID} · cutoff ${snap.MEETING_CUTOFF}${X}`);
-console.log('  ' + '─'.repeat(100));
+console.log('\n  SINTONIA · MEETING GATE · le testimonianze del build della riunione');
+console.log('  ' + '─'.repeat(104));
 for (const r of results) {
-  console.log(`  ${r.pass ? G + 'PASS' + X : R + 'FAIL' + X}  ${pad(r.id, 5)} ${pad(r.title, 74)} ${DIM}got${X} ${r.measured}`);
-  if (!r.pass || process.argv.includes('--verbose')) {
-    const d = Array.isArray(r.detail) ? r.detail : [r.detail];
-    for (const line of d.slice(0, 12)) console.log(`        ${DIM}${String(line).slice(0, 150)}${X}`);
-  }
+  console.log(`  ${r.pass ? G + 'PASS' + X : R + 'FAIL' + X}  ${pad(r.id, 38)} ${pad(r.title, 52)} ${DIM}got${X} ${r.measured}`);
+  if (!r.pass) for (const d of (Array.isArray(r.detail) ? r.detail : [r.detail]).slice(0, 8)) console.log(`        ${DIM}${String(d).slice(0, 150)}${X}`);
 }
 const ok = results.filter((r) => r.pass).length;
-console.log('  ' + '─'.repeat(100));
-console.log(`  ${ok}/${results.length} passing${ok === results.length ? '' : `  ${R}${results.length - ok} failing${X}`}`);
-console.log('');
+console.log('  ' + '─'.repeat(104));
+console.log(`  ${ok}/${results.length} passing${ok === results.length ? '' : `  ${R}${results.length - ok} failing${X}`}\n`);
+if (process.argv.includes('--json')) console.log(JSON.stringify(results, null, 2));
 process.exit(ok === results.length ? 0 : 1);

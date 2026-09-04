@@ -27,7 +27,7 @@
     navSources: 'Fonti',
 
     // ── page subtitles ───────────────────────────────────
-    subRadar: 'Dove ADAMA può agire o prepararsi ora — pressione fitosanitaria, tempistica colturale, coerenza di portafoglio e movimento di mercato.',
+    subRadar: 'Lettura precedente del pacchetto (build V21-99226fbb90dcdbc2) — NON è la lettura canonica della riunione. I conteggi e gli stati di questa schermata precedono la riconciliazione: per l’intelligenza attuale vedi il Radar Canonico.',
     subWindows: 'Orologio del campo e orologio commerciale su un\'unica linea temporale — quando la coltura ha bisogno di protezione e quando deve iniziare il lavoro commerciale.',
     subMarket: 'Il contesto economico attorno alle opportunità agronomiche di ADAMA — condizioni, dinamica, offerta, fiducia e prospettive. Non è una previsione di vendita.',
     subScience: 'Cosa la scienza può cambiare per ADAMA Italia — rischio di portafoglio, lacuna di portafoglio, posizionamento e preparazione del ciclo successivo. Non un conteggio di pubblicazioni.',
@@ -128,14 +128,6 @@
       /* stato temporale del caso */
       ACT_NOW: 'AGIRE ORA', PREPARE_NOW: 'PREPARARE ORA',
       FUTURE_PREPARATION: 'PREPARAZIONE FUTURA',
-      /* I DUE STATI CANONICI CHE MANCAVANO. Lo snapshot della riunione porta
-         il vocabolario completo del motore — cinque stati, non tre. Senza
-         queste righe la catena di ripiego di `statusLabel` stampava
-         «VALIDATE NOW» e «TO VALIDATE» in italiano: non un token interno per
-         caso, ma la fine della catena che restituisce il codice ripulito.
-             UNA LINGUA CHE FINISCE IN UN FALLBACK NON E UNA TRADUZIONE. */
-      VALIDATE_NOW: 'VALIDARE ORA', TO_VALIDATE: 'DA VALIDARE',
-      WATCH: 'OSSERVARE',
       /* chi dovrebbe guardarlo ora — un instradamento, mai un compito */
       COMMERCIAL: 'COMMERCIALE', MARKETING: 'MARKETING',
       MARKET_DEVELOPMENT: 'SVILUPPO DI MERCATO', PORTFOLIO: 'PORTAFOGLIO',
@@ -683,7 +675,7 @@
     navArchive: 'Archive',
     navSources: 'Sources',
 
-    subRadar: 'Where ADAMA can act or prepare now — disease pressure, crop timing, portfolio fit and market movement.',
+    subRadar: 'Previous reading of the package (build V21-99226fbb90dcdbc2) — NOT the canonical reading for the meeting. The counts and states on this screen predate the reconciliation: for current intelligence see the Canonical Radar.',
     subWindows: 'Field clock and business clock on one rolling timeline — when the crop needs protection, and when the commercial work has to start.',
     subMarket: 'The economic environment around ADAMA\'s agronomic opportunities — conditions, momentum, supply, sentiment and outlook. Not a sales forecast.',
     subScience: 'What science may change for ADAMA Italy — portfolio risk, portfolio gap, positioning and next-cycle preparation. Not a paper count.',
@@ -762,8 +754,6 @@
       O6_SCIENCE_TO_FIELD: 'SCIENCE TO FIELD',
       ACT_NOW: 'ACT NOW', PREPARE_NOW: 'PREPARE NOW',
       FUTURE_PREPARATION: 'FUTURE PREPARATION',
-      VALIDATE_NOW: 'VALIDATE NOW', TO_VALIDATE: 'TO VALIDATE',
-      WATCH: 'WATCH',
       COMMERCIAL: 'COMMERCIAL', MARKETING: 'MARKETING',
       MARKET_DEVELOPMENT: 'MARKET DEVELOPMENT', PORTFOLIO: 'PORTFOLIO',
       REGULATORY: 'REGULATORY', SCIENCE_TECHNICAL: 'TECHNICAL AND SCIENTIFIC',

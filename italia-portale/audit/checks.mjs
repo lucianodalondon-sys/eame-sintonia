@@ -322,6 +322,11 @@ check('N1', 'Nav counts match the active normalized collections', () => {
      drifts back to whatever number looks fuller. */
   const expect = [
     AM.collections.opportunities.count,
+    /* Il radar canonico e una superficie a parte e il suo numero ha una sola
+       fonte legittima: l'istantanea della riunione. Contarlo da una collezione
+       del modello sarebbe di nuovo un numero che sta al posto di un altro —
+       che e esattamente il difetto per cui questo controllo esiste. */
+    (m.ctx.MEETING_INTELLIGENCE || {}).TOTAL_CASES,
     AM.collections.futureSignals.count,
     AM.collections.cropWindows.count,
     AM.collections.marketObservations.count,
@@ -649,6 +654,13 @@ export const SCREENS = [
   { view: 'field', label: 'Field Sales demo' },
   { view: 'radar', label: 'Global search', state: { query: 'grano', committedQuery: 'grano' } },
   { view: 'brief', label: 'Action brief', pick: (AM) => ({ caseId: (AM.collections.opportunities.records[0] || {}).id, briefDept: 'MARKETING' }) },
+  /* La superficie canonica della riunione entra nell'elenco degli schermi, cosi
+     che OGNI controllo gia scritto — lingua, prop legate, liste, token interni —
+     la misuri senza che nessuno debba ricordarsene. Un portone che non conosce
+     una schermata la dichiara verde per silenzio. */
+  { view: 'meeting', label: 'Canonical radar' },
+  { view: 'mcase', label: 'Canonical opportunity', state: { mCaseId: 'OPP_5F31A63F844D' } },
+  { view: 'mcase', label: 'Canonical opportunity · no primary', state: { mCaseId: 'OPP_75C37DED9160' } },
 ];
 
 check('RT1', 'Every screen renders in Italian without crashing', () => {
@@ -1050,28 +1062,9 @@ check('O1', 'The same opportunity ids reach the package, the handoff, the model 
   if (!Apub.length) bad.push('the canonical package authorises no publishable case at all');
 
   /* E la ragione per cui questa missione e esistita: pubblicabile deve voler
-     dire VISIBILE APRENDO, non raggiungibile dopo un clic su «vedi tutte».
-
-     QUALE «PUBBLICABILE», PERO. Questa riga misurava `RENDERABLE_WITH_METHOD`,
-     che valeva 9 casi su 37 quando fu scritta e ne vale 33 su 43 con il
-     pacchetto di b3935bd. Trentatre non entrano in una prima pagina di dodici:
-     il portone non poteva piu passare, e non perche la schermata fosse
-     peggiorata.
-
-         UN PORTONE CHE NON PUO PASSARE NON MISURA PIU NIENTE:
-         ANNUNCIA SOLO CHE LA SUA DEFINIZIONE E INVECCHIATA.
-
-     La catraca nel frattempo ha dato a «pubblicabile» un campo proprio ed
-     esplicito — PUBLICATION_STATE, 5 su 43 — che e esattamente la domanda che
-     questa riga vuole fare: quali casi possono uscire con il cliente, e si
-     vedono aprendo il portale? Il metodo verificato resta misurato, sopra, a
-     ogni frontiera (`Apub` → `Cpub` → `Dpub`); qui cambia solo QUALE insieme
-     deve stare in prima pagina. Misurato dopo il cambio: i 5 sono ai posti
-     1-5, carpocapsa × melo × Veneto compreso. */
-  const ApubState = pkg.RECORDS.filter((r) => r.PUBLICATION_STATE === 'PUBLISHABLE').map((r) => r.ID);
-  if (!ApubState.length) bad.push('the canonical package declares no PUBLISHABLE case at all');
+     dire VISIBILE APRENDO, non raggiungibile dopo un clic su «vedi tutte». */
   const firstPage = (mount().vals({ view: 'radar', lang: 'it' }).visibleCases || []).map((c) => c.id);
-  const buried = ApubState.filter((id) => !firstPage.includes(id));
+  const buried = Apub.filter((id) => !firstPage.includes(id));
   if (buried.length) bad.push(`${buried.length} publishable case(s) are not on the first page: ${buried.slice(0, 5).join(', ')}`);
 
   return { pass: bad.length === 0, expected: 0, measured: bad.length,

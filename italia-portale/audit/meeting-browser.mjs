@@ -1,180 +1,251 @@
-/* SINTONIA · IL PERCORSO DELLA RIUNIONE NEL BROWSER
-   ===========================================================================
-   `meeting-gate.mjs` prova che il motore arriva al modello della schermata.
-   Questo prova che arriva all'OCCHIO: apre la superficie in un browser vero,
-   a 1440 e a 390, in IT e in EN, e percorre i SEI CASI della demo.
+#!/usr/bin/env node
+/* SINTONIA · MEETING BROWSER — la superficie canonica in un browser vero
+   ---------------------------------------------------------------------------
+   Le due contraddizioni non sono state viste in un test: sono state viste su
+   uno SCHERMO. Quindi si chiudono su uno schermo.
 
-       UNA SCHERMATA CHE NESSUNO HA APERTO NON E UNA SCHERMATA PROVATA.
+   Questo portone apre Chromium, percorre
+       HOME → RADAR CANONICO → OPPORTUNITA → PRODOTTI → PERCHE COMMERCIALE
+       → PERCHE ORA → FINESTRA → MAPPA AZIONI → EVIDENZE → FONTI
+   in italiano e in inglese, a 1440 e a 390, sui casi che la riunione deve
+   poter mostrare, e confronta cio che il lettore LEGGE con cio che il motore
+   ha scritto.
 
-   Per ogni caso confronta cio che si LEGGE nel DOM con cio che lo snapshot
-   DICHIARA, passando per il dizionario: se il motore dice ACT_NOW, sullo
-   schermo deve esserci «AGIRE ORA» in italiano e «ACT NOW» in inglese — non
-   un gettone, non una parola diversa, non niente.
-
-   Preme VEDI TUTTI davvero, perche due dei sei casi stanno oltre i primi
-   dodici: e il gesto che fara chi presenta.
-   =========================================================================== */
-import { chromium } from 'playwright-core';
-import http from 'node:http';
+       UN CAMPO CHE PASSA NEI PROPS E UN CAMPO CHE PASSA NEI PROPS.
+       LA CONTRADDIZIONE SI VEDE NEL DOM.
+   --------------------------------------------------------------------------- */
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { serve, open, clickTitle, clickSelector, screenText, clickables, CLIENT } from './lib/drive.mjs';
 
-const HERE = path.dirname(fileURLToPath(import.meta.url));
-const CLIENT = path.resolve(HERE, '..', 'client');
+/* --dir <path> serve OUTRA pasta em vez de client/. Existe para uma coisa so:
+   correr estas mesmas testemunhas sobre os BYTES DESCARREGADOS DO URL PUBLICO,
+   quando o Chromium deste contentor nao consegue atravessar o proxy ate ao
+   dominio. O que se mede continua a ser o que o publico recebe. */
+const DIR = (() => { const i = process.argv.indexOf('--dir'); return i >= 0 ? process.argv[i + 1] : null; })();
+const SERVE_DIR = DIR || CLIENT;
+
 const SNAP = JSON.parse(fs.readFileSync(path.join(CLIENT, 'meeting-intelligence-snapshot.json'), 'utf8'));
+const byId = (id) => SNAP.CASES.find((c) => c.ID === id) || {};
 
-/* il dizionario, caricato come lo carica la pagina: il file si dichiara su
-   `window`, quindi gli si da un `window` e si legge da li. */
-const win = {};
-globalThis.window = win;
-new Function(fs.readFileSync(path.join(CLIENT, 'meeting-labels.js'), 'utf8'))();
-const ML = win.MEETING_LABELS;
-if (!ML) { console.error('meeting-labels.js non si e dichiarato'); process.exit(1); }
-
-/* I sei casi che la riunione apre, con cio che ciascuno deve dimostrare. */
-const DEMO = [
-  ['A', 'OPP_5F31A63F844D', 'botrite · vite · Emilia-Romagna — ACT_NOW, finestra aperta'],
-  ['B', 'OPP_F8106D5E1767', 'botrite · vite · Toscana — ACT_NOW sostenuto'],
-  ['C', 'OPP_169BD86DB324', 'tignoletta · vite · Umbria — la fonte non chiede di agire'],
-  ['D', 'OPP_75C37DED9160', 'carpocapsa · melo · Veneto — stadio concluso E azione viva'],
-  ['E', 'OPP_75C37DED9160', 'lo stesso caso — RULE_DELEGATED_TO_FARM in parole'],
-  ['F', 'OPP_D11664591168', 'scafoideo · vite · Toscana — obbligo amministrativo'],
+/* I casi che il briefing nomina, e cosa ciascuno deve poter dimostrare. */
+const CASES = [
+  { id: 'OPP_5F31A63F844D', what: 'botrite × vite × Emilia-Romagna · ACT_NOW · finestra aperta' },
+  { id: 'OPP_75C37DED9160', what: 'carpocapsa × melo × Veneto · volo concluso E azione raccomandata' },
+  { id: 'OPP_169BD86DB324', what: 'tignoletta × vite × Umbria · la fonte raffredda il caso' },
+  { id: 'OPP_D11664591168', what: 'scafoideo × vite × Toscana · obbligo amministrativo' },
 ];
 
-const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.json': 'application/json', '.css': 'text/css', '.png': 'image/png', '.svg': 'image/svg+xml', '.ttf': 'font/ttf', '.otf': 'font/otf' };
-const PORT = 8931;
-const srv = http.createServer((req, res) => {
-  let rel = decodeURIComponent((req.url || '/').split('?')[0]);
-  if (rel === '/') rel = '/portale.html';
-  if (!path.extname(rel)) rel += '.html';
-  const f = path.join(CLIENT, rel);
-  fs.readFile(f, (e, b) => {
-    if (e) { res.writeHead(404).end('404'); return; }
-    res.writeHead(200, { 'content-type': TYPES[path.extname(f)] || 'application/octet-stream' }).end(b);
-  });
-}).listen(PORT);
+const findings = [];
+const fail = (id, msg) => findings.push({ id, msg });
+const visited = [];
 
-const EXEC = ['/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
-  '/opt/pw-browsers/chromium/chrome-linux/chrome'].find((p) => fs.existsSync(p));
-const browser = await chromium.launch({ executablePath: EXEC, args: ['--no-sandbox'] });
+const NAV_LABEL = { it: 'Radar Canonico', en: 'Canonical Radar' };
 
-/* Un segnaposto di template dentro un attributo SVG e il template che fa il
-   template, non un errore. Esiste identico in BASELINE/portale.html, e
-   audit/browser.mjs applica la stessa regola. Si conta a parte, non si
-   nasconde. */
-const TEMPLATE_ATTR = /attribute (d|viewBox|points|transform|cx|cy|r|x|y|width|height):/;
-let consoleErrors = 0, templateNoise = 0;
-const problems = [];
-const rows = [];
+const setLang = async (page, code) => {
+  const ok = await page.evaluate((want) => {
+    const e = [...document.querySelectorAll('span')].find((x) => (x.textContent || '').trim() === want && !x.children.length);
+    if (!e) return false;
+    let n = e;
+    for (let i = 0; i < 5 && n; i++) { if (getComputedStyle(n).cursor === 'pointer' || n.onclick) { n.click(); return true; } n = n.parentElement; }
+    e.click(); return true;
+  }, code.toUpperCase());
+  await page.waitForTimeout(700);
+  return ok && (await page.evaluate(() => document.documentElement.lang)) === code;
+};
 
-for (const [w, h, size] of [[1440, 900, 'desktop 1440'], [390, 844, 'mobile 390']]) {
+/* Il click sulla scheda canonica: `data-meeting-case` e l'identita resa
+   leggibile al DOM, come `data-case` lo e per il radar dimostrativo. */
+const openMeetingCase = async (page, id) => {
+  const ok = await page.evaluate((wanted) => {
+    const card = document.querySelector(`[data-meeting-case="${wanted}"]`);
+    if (!card) return false;
+    let n = card;
+    for (let i = 0; i < 5 && n; i++) { if (getComputedStyle(n).cursor === 'pointer' || n.onclick) { n.click(); return true; } n = n.parentElement; }
+    card.click(); return true;
+  }, id);
+  await page.waitForTimeout(600);
+  return ok;
+};
+
+const dom = (page) => page.evaluate(() => {
+  const one = (s, a) => { const e = document.querySelector(s); return e ? (a ? e.getAttribute(a) : e.textContent.trim()) : null; };
+  const all = (s, a) => [...document.querySelectorAll(s)].map((e) => (a ? e.getAttribute(a) : e.textContent.trim()));
+  return {
+    heroPrimary: one('[data-hero-primary]', 'data-hero-primary'),
+    heroId: one('[data-meeting-hero]', 'data-meeting-hero'),
+    hasPrimary: one('[data-meeting-products]', 'data-has-primary'),
+    productCountAttr: one('[data-meeting-products]', 'data-meeting-products'),
+    products: all('[data-product]', 'data-product'),
+    noPrimaryShown: !!document.querySelector('[data-no-primary]'),
+    windowOwner: one('[data-meeting-window]', 'data-window-owner'),
+    windowDefined: one('[data-meeting-window]', 'data-window-defined'),
+    windowOpen: one('[data-meeting-window]', 'data-window-open'),
+    windowRule: one('[data-window-rule]'),
+    windowState: one('[data-window-state]'),
+    pestStage: one('[data-pest-stage]', 'data-pest-stage'),
+    actionRec: one('[data-action-rec]', 'data-action-rec'),
+    whyCommercial: !!document.querySelector('[data-meeting-why-commercial]'),
+    whyNow: !!document.querySelector('[data-meeting-why-now]'),
+    chain: all('[data-chain-link]', 'data-chain-link'),
+    actionMap: !!document.querySelector('[data-meeting-action-map]'),
+    actionDepts: all('[data-action-dept]', 'data-action-dept'),
+    evidence: all('[data-evidence-role]', 'data-evidence-role'),
+    cooling: all('[data-cooling]', 'data-cooling'),
+    text: (document.body.innerText || '').replace(/ /g, ' '),
+  };
+});
+
+/* Un token interno e una parola tutta maiuscola con un underscore. Nessuna
+   lingua umana la scrive; se e a schermo, e una chiave che e sfuggita. */
+const INTERNAL = /\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b/g;
+/* Prosa di ricerca in portoghese: le parole che il portoghese ha e l'italiano no. */
+const PT_WORDS = /\b(nao|entao|declarada|necessidade|estadio|limiar|boletim|evidencia|condicao|satisfeita|atual|acao|janela|comercial|proximo)\b/i;
+
+const server = await serve(8899, SERVE_DIR);
+let consoleErrors = [], failedReqs = [], deadControls = [];
+
+for (const width of [1440, 390]) {
+  const { browser, page, errors, failed } = await open({ port: 8899, width, height: width === 390 ? 844 : 1000 });
+
   for (const lang of ['it', 'en']) {
-    const ctx = await browser.newContext({ viewport: { width: w, height: h } });
-    const page = await ctx.newPage();
-    page.on('console', (m) => {
-      if (m.type() !== 'error') return;
-      const t = m.text();
-      if (TEMPLATE_ATTR.test(t)) { templateNoise++; return; }
-      consoleErrors++; problems.push(`${size}/${lang} console: ${t.slice(0, 140)}`);
-    });
-    page.on('pageerror', (e) => { consoleErrors++; problems.push(`${size}/${lang} pageerror: ${String(e).slice(0, 140)}`); });
+    if (lang === 'en' && !(await setLang(page, 'en'))) { fail('LANG', `${width}px · could not switch to EN`); continue; }
+    if (lang === 'it' && (await page.evaluate(() => document.documentElement.lang)) !== 'it') { fail('LANG', `${width}px · not in IT`); continue; }
 
-    await page.goto(`http://localhost:${PORT}/portale.html`, { waitUntil: 'networkidle' });
-    await page.evaluate((l) => localStorage.setItem('sintonia_lang', l), lang);
-    await page.reload({ waitUntil: 'networkidle' });
-    await page.waitForTimeout(700);
+    /* HOME → RADAR CANONICO */
+    if (!(await clickTitle(page, NAV_LABEL[lang], 800))) { fail('NAV', `${width}px ${lang} · the canonical radar is not reachable from the nav`); continue; }
+    const radar = await dom(page);
+    const cardCount = await page.evaluate(() => document.querySelectorAll('[data-meeting-case]').length);
+    if (cardCount < 1) fail('RADAR', `${width}px ${lang} · the canonical radar rendered no card`);
+    visited.push(`${width} ${lang} radar (${cardCount} cards)`);
 
-    const openAll = async () => page.evaluate(() => {
-      const t = [...document.querySelectorAll('*')].filter((e) => e.children.length === 0 && /VEDI TUTTE|VEDI TUTTI|VIEW ALL/i.test(e.textContent || ''));
-      if (!t.length) return false;
-      let el = t[0]; for (let i = 0; i < 6 && el; i++) { if (el.onclick || el.getAttribute('onclick')) break; el = el.parentElement; }
-      (el || t[0]).click(); return true;
-    });
-    await openAll();
-    await page.waitForTimeout(500);
+    /* il radar non deve mostrare il totale dei 21 di presentazione */
+    if (!/\b43\b/.test(radar.text)) fail('COUNT', `${width}px ${lang} · the canonical total 43 is not on the radar`);
 
-    const radar = await page.evaluate(() => ({
-      cards: document.querySelectorAll('[data-case]').length,
-      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
-      scrollW: document.documentElement.scrollWidth, clientW: document.documentElement.clientWidth,
-    }));
-    if (radar.cards !== SNAP.TOTAL_CASES) problems.push(`${size}/${lang} radar: ${radar.cards} schede, lo snapshot ne dichiara ${SNAP.TOTAL_CASES}`);
-    if (radar.overflow) problems.push(`${size}/${lang} radar: la pagina scorre in orizzontale (${radar.scrollW} > ${radar.clientW})`);
-
-    for (const [tag, id, what] of DEMO) {
-      const snap = SNAP.CASES.find((c) => c.ID === id);
-      const opened = await page.evaluate((cid) => {
-        const el = document.querySelector(`[data-case="${cid}"]`);
-        if (!el) return false; el.click(); return true;
-      }, id);
-      await page.waitForTimeout(500);
-
-      const seen = await page.evaluate(() => ({
-        status: [...document.querySelectorAll('[data-status]')].map((e) => e.getAttribute('data-status')),
-        areas: [...document.querySelectorAll('[data-area]')].map((e) => e.getAttribute('data-area')),
-        products: [...document.querySelectorAll('[data-product]')].map((e) => e.getAttribute('data-product')),
-        text: (document.body.innerText || '').replace(/\s+/g, ' '),
-        overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
-      }));
-
-      /* CIO CHE IL MOTORE DICE DEVE ESSERE CIO CHE SI LEGGE. */
-      const want = {
-        status: ML.label(lang, 'STATUS', snap.STATUS),
-        publication: ML.label(lang, 'PUBLICATION_STATE', snap.PUBLICATION_STATE),
-        windowRule: ML.label(lang, 'WINDOW_RULE_STATE', snap.WINDOW_RULE_STATE),
-      };
-      const miss = [];
-      if (!opened) miss.push('la scheda non si apre');
-      if (want.status && seen.status.indexOf(want.status) < 0) miss.push(`stato «${want.status}» non sullo schermo (letto: ${seen.status.join('/') || 'niente'})`);
-      if (want.publication && seen.text.indexOf(want.publication) < 0) miss.push(`pubblicazione «${want.publication}» non sullo schermo`);
-      if (want.windowRule && seen.text.indexOf(want.windowRule) < 0) miss.push(`regola della finestra «${want.windowRule}» non sullo schermo`);
-      const wantDepts = Object.keys(snap.ACTION_BY_DEPARTMENT || {}).length;
-      if (wantDepts && seen.areas.length < wantDepts) miss.push(`mappa delle azioni: ${seen.areas.length} riquadri, il motore ne dichiara ${wantDepts}`);
-      if (seen.overflow) miss.push('la scheda scorre in orizzontale');
-      /* Nessun gettone interno puo essere leggibile sulla pagina. */
-      const tok = seen.text.match(/\b[A-Z][A-Z0-9]{2,}(?:_[A-Z0-9]+)+\b/);
-      if (tok) miss.push(`gettone interno a schermo: «${tok[0]}»`);
-
-      rows.push({ size, lang, tag, id, what, ok: miss.length === 0, miss, seenStatus: seen.status[0] || '', areas: seen.areas.length });
-      if (miss.length) problems.push(`${size}/${lang} ${tag} ${id}: ` + miss.join(' · '));
-
-      await page.evaluate(() => {
-        const b = [...document.querySelectorAll('span,div,a,button')].filter((e) => /INDIETRO|BACK|^←/.test((e.textContent || '').trim()));
-        const el0 = b[b.length - 1];
-        if (!el0) return;
-        let el = el0; for (let i = 0; i < 6 && el; i++) { if (el.onclick || el.getAttribute('onclick')) break; el = el.parentElement; }
-        (el || el0).click();
-      });
-      await page.waitForTimeout(450);
-      if (!(await page.evaluate(() => document.querySelectorAll('[data-case]').length > 0))) {
-        await page.goto(`http://localhost:${PORT}/portale.html`, { waitUntil: 'networkidle' });
-        await page.waitForTimeout(600);
+    for (const { id, what } of CASES) {
+      await clickTitle(page, NAV_LABEL[lang], 700);
+      /* la scheda puo essere oltre la prima pagina: si apre l'elenco intero */
+      await clickSelector(page, '[data-meeting-filter="MEETING_FILTER_ALL"]', 400);
+      /* L'elenco parte da 24 schede: un caso oltre quella soglia non e
+         irraggiungibile, e solo non ancora chiesto. Si preme finche c'e. */
+      for (let i = 0; i < 4; i++) {
+        if (await page.evaluate((w) => !!document.querySelector(`[data-meeting-case="${w}"]`), id)) break;
+        if (!(await clickSelector(page, '[data-meeting-more]', 420))) break;
       }
-      await openAll();
-      await page.waitForTimeout(350);
-    }
-    await ctx.close();
-  }
-}
-await browser.close(); srv.close();
+      if (!(await openMeetingCase(page, id))) { fail('OPEN', `${width}px ${lang} · ${id} (${what}) does not open`); continue; }
+      const d = await dom(page);
+      const raw = byId(id);
+      visited.push(`${width} ${lang} ${id}`);
 
-const C = { g: (t) => `\x1b[32m${t}\x1b[0m`, r: (t) => `\x1b[31m${t}\x1b[0m`, d: (t) => `\x1b[2m${t}\x1b[0m`, b: (t) => `\x1b[1m${t}\x1b[0m` };
-console.log('');
-console.log(C.b(`  IL PERCORSO DELLA RIUNIONE · ${SNAP.BUILD_ID} · ${SNAP.TOTAL_CASES} casi`));
-let last = '';
-for (const r of rows) {
-  const head = `${r.size} · ${r.lang.toUpperCase()}`;
-  if (head !== last) { console.log(''); console.log(C.b('  ' + head)); last = head; }
-  console.log('  ' + (r.ok ? C.g('OK  ') : C.r('FAIL')) + ` ${r.tag}  ${r.id}  ${C.d(r.what)}`);
-  if (!r.ok) r.miss.forEach((x) => console.log('        ' + C.r(x)));
+      /* ── CONTRADDIZIONE A · un solo prodotto principale ───────────────── */
+      const enginePrimaryId = raw.PRIMARY_MATCH || null;
+      const enginePrimaryName = enginePrimaryId
+        ? ((raw.PORTFOLIO_MATCHES || []).find((m) => m.PRODUCT_ID === enginePrimaryId) || {}).PRODUCT_NAME || null
+        : null;
+      const heroPrimary = d.heroPrimary || null;
+      if ((heroPrimary || null) !== (enginePrimaryName || null)) {
+        fail('PRIMARY', `${width}px ${lang} · ${id} · hero shows "${heroPrimary}", engine says "${enginePrimaryName}"`);
+      }
+      if (!enginePrimaryId && d.hasPrimary === 'true') fail('PRIMARY', `${width}px ${lang} · ${id} · the screen crowned a product the engine did not`);
+      if (!enginePrimaryId && !d.noPrimaryShown) fail('PRIMARY', `${width}px ${lang} · ${id} · no primary, and the screen does not say why`);
+      /* e TUTTI i prodotti sono a schermo, mai un riassunto */
+      const engineProducts = (raw.PORTFOLIO_MATCHES || []).map((m) => m.PRODUCT_NAME);
+      for (const p of engineProducts) if (!d.products.includes(p)) fail('PRODUCTS', `${width}px ${lang} · ${id} · ${p} is not on the screen`);
+      if (/\+\s*\d+\s+(more|altri|altre)\b/i.test(d.text)) fail('PRODUCTS', `${width}px ${lang} · ${id} · the screen summarises products it already knows`);
+
+      /* ── CONTRADDIZIONE B · una sola finestra ─────────────────────────── */
+      if (d.windowOwner !== 'MEETING_INTELLIGENCE') fail('WINDOW', `${width}px ${lang} · ${id} · window owner is ${d.windowOwner}`);
+      if (d.windowDefined !== (raw.WINDOW_DEFINED || null)) fail('WINDOW', `${width}px ${lang} · ${id} · DEFINED ${d.windowDefined} != engine ${raw.WINDOW_DEFINED}`);
+      const expectOpen = 'WINDOW_OPEN_NOW_' + (raw.WINDOW_OPEN_NOW || 'UNKNOWN');
+      if (d.windowOpen !== expectOpen) fail('WINDOW', `${width}px ${lang} · ${id} · OPEN_NOW ${d.windowOpen} != engine ${expectOpen}`);
+      /* la frase legacy del calendario dei 29 non puo comparire qui */
+      if (/nessuna finestra canonica collegata|no canonical window linked/i.test(d.text)) {
+        fail('WINDOW', `${width}px ${lang} · ${id} · the legacy calendar sentence is on the canonical detail`);
+      }
+      /* la regola e lo stato restano due frasi diverse */
+      if (d.windowRule && d.windowRule === d.windowState) fail('WINDOW', `${width}px ${lang} · ${id} · one sentence answers both window questions`);
+      if (raw.WINDOW_DEFINED === 'YES' && raw.WINDOW_OPEN_NOW === 'UNKNOWN' && /finestra .*aperta|window .*open\b/i.test(d.windowState || '')) {
+        fail('WINDOW', `${width}px ${lang} · ${id} · UNKNOWN reads as an open window`);
+      }
+
+      /* ── stadio e raccomandazione: due padroni ────────────────────────── */
+      if (raw.PEST_STAGE_STATE && raw.PEST_STAGE_STATE !== 'STAGE_NOT_DECLARED') {
+        if (d.pestStage !== raw.PEST_STAGE_STATE) fail('STAGE', `${width}px ${lang} · ${id} · stage ${d.pestStage} != ${raw.PEST_STAGE_STATE}`);
+        if (raw.ACTION_RECOMMENDATION_STATE && raw.ACTION_RECOMMENDATION_STATE !== 'RECOMMENDATION_NOT_DECLARED' && !d.actionRec) {
+          fail('STAGE', `${width}px ${lang} · ${id} · the stage is shown but the recommendation is not — the reader will infer one from the other`);
+        }
+      }
+
+      /* ── le sezioni che la riunione deve vedere ───────────────────────── */
+      if (!d.whyCommercial) fail('SECTION', `${width}px ${lang} · ${id} · WHY COMMERCIAL is missing`);
+      if (!d.whyNow) fail('SECTION', `${width}px ${lang} · ${id} · WHY NOW is missing`);
+      if (!d.actionMap) fail('SECTION', `${width}px ${lang} · ${id} · ACTION MAP is missing`);
+      const engineDepts = Object.keys(raw.ACTION_BY_DEPARTMENT || {});
+      for (const dep of engineDepts) if (!d.actionDepts.includes(dep)) fail('ACTION', `${width}px ${lang} · ${id} · ${dep} is not on the screen`);
+      if (d.evidence.length !== (raw.EVIDENCE_ROLES || []).length) {
+        fail('EVIDENCE', `${width}px ${lang} · ${id} · ${d.evidence.length} evidence rows of ${(raw.EVIDENCE_ROLES || []).length}`);
+      }
+      if (d.chain.length !== Object.keys(raw.WHY_NOW_CHAIN || {}).length) {
+        fail('WHYNOW', `${width}px ${lang} · ${id} · ${d.chain.length} chain links of ${Object.keys(raw.WHY_NOW_CHAIN || {}).length}`);
+      }
+
+      /* ── nessun token interno, nessun portoghese ──────────────────────── */
+      const tokens = [...new Set((d.text.match(INTERNAL) || []))]
+        /* gli ID sono identita riportata accanto a un nome, non chiavi sfuggite */
+        .filter((t) => !/^(IT|OPP|CATPRD|AI|GEO|REGION|FRAC|HRAC|IRAC|V21|NUTS)[-_]/.test(t))
+        .filter((t) => !/^[A-Z]{2,4}_\d+$/.test(t));
+      for (const t of tokens) fail('TOKEN', `${width}px ${lang} · ${id} · internal token on screen: ${t}`);
+      if (lang !== 'pt') {
+        const ptHit = (d.text.split('\n').find((l) => l.length > 25 && PT_WORDS.test(l) && !/^[A-Z_]+$/.test(l)) || '').trim();
+        if (ptHit && /\b(nao|declarada|necessidade|boletim|evidencia|satisfeita)\b/i.test(ptHit)) {
+          fail('PT', `${width}px ${lang} · ${id} · Portuguese research prose on screen: ${ptHit.slice(0, 70)}`);
+        }
+      }
+
+      /* ── §13 · la soglia dell'Umbria non e quella dell'Emilia-Romagna ─── */
+      if (id === 'OPP_169BD86DB324' && /\b5\s*%/.test(d.text)) {
+        fail('UMBRIA', `${width}px ${lang} · the Emilia-Romagna 5% threshold appears on the Umbria case`);
+      }
+
+      /* ── controlli vivi ───────────────────────────────────────────────── */
+      const ctrl = await clickables(page);
+      if (ctrl.length < 3) deadControls.push(`${width} ${lang} ${id}: only ${ctrl.length} controls`);
+    }
+  }
+  consoleErrors = consoleErrors.concat(errors);
+  failedReqs = failedReqs.concat(failed);
+  await browser.close();
 }
-console.log('');
-console.log(`  errori reali di console/pagina : ${consoleErrors}`);
-console.log(C.d(`  segnaposto SVG del template   : ${templateNoise} (presenti anche in BASELINE, non fatali)`));
-console.log('');
-console.log('  ' + (problems.length === 0 && consoleErrors === 0
-  ? C.g(`${rows.length}/${rows.length} percorsi verdi · 1440 e 390 · IT e EN`)
-  : C.r(`${problems.length} problemi`)));
-console.log('');
-process.exit(problems.length === 0 && consoleErrors === 0 ? 0 : 1);
+server.close();
+
+/* ── IL GIUDIZIO ─────────────────────────────────────────────────────────── */
+const G = '\x1b[32m', R = '\x1b[31m', DIM = '\x1b[2m', X = '\x1b[0m';
+const groups = {};
+for (const f of findings) (groups[f.id] = groups[f.id] || []).push(f.msg);
+
+console.log('\n  SINTONIA · MEETING BROWSER · la superficie canonica in un browser vero');
+console.log('  ' + '─'.repeat(100));
+const rows = [
+  ['PRIMARY_ONE_OWNER_ON_SCREEN', (groups.PRIMARY || []).length + (groups.PRODUCTS || []).length],
+  ['WINDOW_ONE_OWNER_ON_SCREEN', (groups.WINDOW || []).length],
+  ['STAGE_AND_RECOMMENDATION_SEPARATE', (groups.STAGE || []).length],
+  ['SECTIONS_RENDERED', (groups.SECTION || []).length + (groups.ACTION || []).length + (groups.EVIDENCE || []).length + (groups.WHYNOW || []).length],
+  ['NO_INTERNAL_TOKEN_ON_SCREEN', (groups.TOKEN || []).length],
+  ['NO_PORTUGUESE_ON_SCREEN', (groups.PT || []).length],
+  ['REGION_BOUND_TO_ITS_THRESHOLD', (groups.UMBRIA || []).length],
+  ['REACHABLE_IT_EN_DESKTOP_MOBILE', (groups.NAV || []).length + (groups.LANG || []).length + (groups.OPEN || []).length + (groups.RADAR || []).length + (groups.COUNT || []).length],
+  ['CONSOLE_ERRORS', consoleErrors.length],
+  ['FAILED_REQUESTS', failedReqs.length],
+  ['DEAD_CONTROLS', deadControls.length],
+];
+for (const [id, n] of rows) {
+  console.log(`  ${n === 0 ? G + 'PASS' + X : R + 'FAIL' + X}  ${String(id).padEnd(38)} ${DIM}got${X} ${n}`);
+}
+for (const [k, v] of Object.entries(groups)) for (const msg of v.slice(0, 6)) console.log(`        ${DIM}${k} · ${msg.slice(0, 140)}${X}`);
+for (const e of consoleErrors.slice(0, 5)) console.log(`        ${DIM}console · ${e.slice(0, 140)}${X}`);
+for (const e of failedReqs.slice(0, 5)) console.log(`        ${DIM}request · ${e.slice(0, 140)}${X}`);
+console.log('  ' + '─'.repeat(100));
+console.log(`  percorsi: ${visited.length} · ${DIM}${visited.slice(0, 4).join(' | ')}${X}`);
+const total = rows.reduce((a, [, n]) => a + n, 0);
+console.log(`  ${total === 0 ? G + 'tutte le testimonianze verdi' + X : R + total + ' rilievi' + X}\n`);
+process.exit(total === 0 ? 0 : 1);

@@ -1103,24 +1103,3 @@ SUMMARY: italy-app-model.js is already the declared contract (5-level precedence
   ? V2.1 FAMILY -> SLOT MAP, for confirmation before any V2.1 data is ingested. EXISTS TODAY: productsRegulatory -> collections.regulatory (IG.PRODUCTS, 163); productsCommercial -> collections.commercial (ITALY_CATALOG, 44); cropWindows -> collections.windows (ITALY_CANONICAL, 29); marketObservations -> collections.marketO
   ? Is ITALY_LABEL_VERDICTS authoritative enough to be the ONLY relationship source? It is dated (AUDIT_DATE) and scoped (SCOPE_NOTE), covers 18 of 29 canonical windows, and gives 10 products. The 11 uncovered windows (Maize|Diabrotica Larvae ×2, Wheat|Cereal Aphids · BYDV Risk, Durum Wheat|Wheat Rusts, Maize|Mycotoxin Ris
   ? Should collections.upstreamOpportunities be deleted outright or kept as an alias? Keeping two collections over the same 3 records is what allowed the false join to be written in the first place.
-## Gli strumenti dei portoni — e perche NON stanno in package.json
-
-I portoni che aprono un navigatore vero (`mobile.mjs`, `browser.mjs`,
-`cta-navigation.mjs`, `action-map-consistency.mjs`, `opportunity-hub.mjs`) e
-quelli che leggono un PDF (`pdf-gate.mjs`, `rtv-gate.mjs`) hanno bisogno di
-due pacchetti che il SITO non usa:
-
-    npm install playwright playwright-core pdfjs-dist
-
-Non sono dichiarati in `package.json`, e non e una dimenticanza. La radice del
-repository contiene `vercel.json` con `outputDirectory: italia-portale/client`:
-il deploy parte da QUI, e installa cio che trova in `package.json` — anche le
-devDependencies. `playwright` in fase di installazione scarica i browser, e un
-deploy statico da 800 KB si porterebbe dietro centinaia di MB per uno
-strumento che il sito non carica mai.
-
-    UNA DIPENDENZA DI PROVA DENTRO IL MANIFESTO DEL DEPLOY NON E UNA
-    COMODITA: E UN RISCHIO DI BUILD IN CAMBIO DI UN COMANDO IN MENO.
-
-Chromium e gia nell'ambiente (`PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers`):
-NON eseguire `playwright install`. I portoni lo trovano da soli.

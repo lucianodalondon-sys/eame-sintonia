@@ -37,20 +37,13 @@ export const DATA_FILES = [
      late is a family that silently kept the fixture. */
   'italy-handoff-v21.js',
   'italy-app-model.js',
-  /* ══ LO SNAPSHOT DELLA RIUNIONE ═══════════════════════════════════════════
-     Il banco di prova caricava tutto TRANNE i tre file che decidono che cosa
-     la riunione legge. Ogni portone misurava quindi un portale senza
-     snapshot: quello in cui sedici casi dicevano AGIRE ORA invece di due.
-
-         UN BANCO DI PROVA CHE NON CARICA CIO CHE SI SERVE NON MISURA IL
-         PORTALE: MISURA UN PORTALE CHE NESSUNO APRIRA.
-
-     L'ordine e quello di `portale.html` e non e negoziabile: dati, poi
-     dizionario, poi adattatore — l'adattatore legge gli altri due al
-     caricamento. */
+  /* The meeting build. The snapshot is the intelligence, the labels turn its
+     codes into phrases, and the surface is the adapter that presents them.
+     They load AFTER the model because the surface reuses the model's own
+     CATEGORY_SURFACE / ON_SURFACE / AREA_UI tokens rather than restyling. */
   'meeting-intelligence-snapshot.js',
   'meeting-labels.js',
-  'meeting-adapter.js',
+  'meeting-surface.js',
 ];
 
 function makeWindow() {
