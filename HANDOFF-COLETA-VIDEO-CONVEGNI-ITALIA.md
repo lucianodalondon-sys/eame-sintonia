@@ -2,7 +2,7 @@
 
 **Data:** 2026-09-04 (2ª rodada)
 **Branch:** `claude/retomada-coleta-video-convegni-vz50er`
-**HEAD desta rodada:** ver `git rev-parse HEAD` — a rodada anterior fechou em `80ff4db`
+**HEAD desta rodada:** `24b105b` — a rodada anterior fechou em `80ff4db`
 
 O próximo agente deve conseguir continuar **sem reconstruir esta história pela conversa**.
 
