@@ -179,3 +179,81 @@ MEETING_FREEZE      NO
 ```
 
 Próximo ciclo: **~01:55Z**.
+
+---
+
+## PROTOCOLO DE ARBITRAGEM DAS QUATRO INTEGRAÇÕES
+
+*Escrito no ciclo 01, antes de qualquer uma delas publicar, para que a escolha às
+05:00 seja medição e não improviso.*
+
+### Por que arbitrar em vez de mandar parar
+
+Esta aba **não tem canal** para falar com as outras sessões: elas rodam em
+contêineres separados e `ListAgents` não as alcança. Escrever um aviso na branch
+delas seria pior que o silêncio — empurraria um commit para debaixo de um
+`git push` em andamento e custaria a elas a reconciliação.
+
+E há uma leitura em que as quatro abas são deliberadas: a conta está em
+`seven_day / allowed_warning`, e abas vinham morrendo. Redundância contra morte
+de aba é uma estratégia legítima.
+
+    NÃO CABE A ESTA ABA MATAR TRABALHO QUE O DONO MANDOU COMEÇAR.
+    CABE A ELA GARANTIR QUE NO FIM EXISTA **UMA** RESPOSTA, E QUE ELA SEJA
+    A MELHOR MEDIDA — NÃO A ÚLTIMA A EMPURRAR.
+
+### A regra de precedência
+
+1. `claude/meeting-intelligence-integration` é a branch da reunião. É a única que
+   o §11 do briefing nomeia, é onde vive o snapshot, e é onde `session_01LUHS3X…`
+   já está trabalhando.
+2. As três branches paralelas são **candidatas**, não donas. Nenhuma entra na
+   branch da reunião por antiguidade, por ordem de chegada ou por ser a última.
+3. Só entra por **cherry-pick consciente** do que for medidamente melhor, e só se
+   a candidata passar o mesmo boletim abaixo. Sem force-push, em nenhuma hipótese.
+
+### O boletim — idêntico para as quatro
+
+Cada candidata é medida com os mesmos comandos, no HEAD que ela publicou:
+
+```bash
+B=<branch>
+git fetch --all --prune
+git merge-base --is-ancestor a14b9e1 origin/$B   # casca visual intacta?
+git show origin/$B:italia-portale/client/portale.html | grep -c MEETING_INTELLIGENCE
+git show origin/$B:italia-portale/client/meeting-intelligence-snapshot.json \
+  | python3 -c "import json,sys;d=json.load(sys.stdin);print(d['SOURCE_HEAD'],d['BUILD_ID'],d['TOTAL_CASES'])"
+git checkout $B && cd italia-portale && node audit/run.mjs && node audit/acceptance.mjs
+```
+
+| # | testemunha | como falha |
+|---|---|---|
+| 1 | `SNAPSHOT_SOURCE_HEAD_VALID` | `SOURCE_HEAD ≠ b3935bd` |
+| 2 | `CANONICAL_43_RENDERED` | a tela não navega os 43 |
+| 3 | `CANONICAL_COUNTS_FROM_43_ONLY` | contagem tirada de `D.CASES` |
+| 4 | `NO_RAW_BYPASS` | lê `italy-handoff-v21.js` em vez do snapshot |
+| 5 | `NO_FRONTEND_INTELLIGENCE_RECALCULATION` | **os 16 virando `ACT_NOW`** |
+| 6 | `PRIMARY_MATCH_SINGLE_OWNER` | «PRIMARY + N more» com `SEM_REGRA_DEFENSAVEL` |
+| 7 | `WINDOW_SINGLE_OWNER` | janela recalculada na tela |
+| 8 | `WHY_COMMERCIAL_RENDERED` | ausente em IT ou EN |
+| 9 | `WHY_NOW_RENDERED` | idem |
+| 10 | `ACTION_MAP_FROM_ENGINE` | sequência inventada |
+| 11 | `EVIDENCE_ROLE_RENDERED` | `WEAKENS`/`CONTRADICTS`/`CLOSES` escondidos |
+| 12 | `VALIDATION_STATE_NOT_HIDDEN` | mostrar 5 e esconder 38 |
+| 13 | `NO_INTERNAL_CODES` | `OPP_…`, `CROP_…`, `ISSUE_…` na tela |
+| 14 | visuais | brandwell · mobile · journey · cta-navigation · internal-token |
+| 15 | `UNKNOWN` preservado | `OPEN_NOW=UNKNOWN` virando afirmação |
+
+**Desempate, nesta ordem:** nº de testemunhas verdes → casca visual intacta →
+os 6 casos da demo verificados no browser (1440 e 390, IT e EN) → menos código
+novo. **Nunca** «foi a última a empurrar».
+
+### O que esta aba faz se nenhuma fechar
+
+Se às 04:30Z nenhuma das quatro tiver portal integrado com gates verdes, a
+recomendação passa a ser **apresentar a base visual `a14b9e1` como está** — ela
+já passou brandwell, mobile e journey, e já tem deploy de preview — e mostrar os
+43 casos pelo snapshot em superfície mínima, em vez de levar à reunião um portal
+meio integrado.
+
+    PORTAL CERTO E ESTÁVEL AMANHÃ > PORTAL CONTENDO TUDO QUE TERMINOU ÀS 05:59.
