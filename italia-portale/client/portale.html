@@ -732,7 +732,7 @@
         <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ mt.source }}</div>
         <div style="display:flex;gap:7px;flex-wrap:wrap">
           <sc-for list="{{ mcSources }}" as="sr" hint-placeholder-count="3">
-            <span data-source-id="{{ sr.id }}" style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10.5px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ sr.name }}</span>
+            <span onClick="{{ sr.go }}" data-source-id="{{ sr.id }}" style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10.5px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22);cursor:pointer" style-hover="color:#fff;border-color:rgba(203,197,195,0.5)">{{ sr.name }} →</span>
           </sc-for>
         </div>
         <div style="display:flex;flex-direction:column;gap:3px">
@@ -9032,7 +9032,28 @@ class Component extends DCLogic {
       mcNegatives: mcCase ? mcCase.evidence.negatives : [],
       mcCooling: mcCase ? mcCase.evidence.cooling : [],
       mcMissingList: mcCase ? mcCase.missing : [],
-      mcSources: mcCase ? mcCase.sources : [],
+      /* ── LA SCHEDA DEVE PORTARE DA QUALCHE PARTE ──────────────────────
+         La rotta precedente offriva «VEDI LA RIGA IN ARCHIVIO →», che chiama
+         `archiveWith({ aCase: id })`. Quel filtro confronta `legacyCaseId`, e
+         MISURATO: delle 1103 righe d'archivio 29 ne portano uno, NESSUNA con
+         un id OPP_*, e tutti e 43 i casi del motore hanno legacyCaseId null.
+         Per un caso canonico quel pulsante aprirebbe una schermata vuota —
+         non e un destino, e un vicolo cieco con una freccia.
+
+         Il destino che ESISTE lo pubblica il pacchetto stesso: le 110
+         SOURCE_IDS dei 43 risolvono tutte nella collezione delle fonti, e la
+         schermata `source` le rende. Le pastiglie erano gia qui, con id e
+         nome, e non andavano da nessuna parte.
+
+             CASO -> LA FONTE CHE LO SOSTIENE  e una navigazione vera.
+             CASO -> UN ARCHIVIO VUOTO         non lo e.
+
+         Ogni pastiglia apre la PROPRIA fonte: due fonti sono due schermate
+         diverse, non una lista generica. Nessun ripiego su archiveWith,
+         nessun uso di legacyCaseId. */
+      mcSources: mcCase ? (mcCase.sources || []).map((x) => Object.assign({}, x, {
+        go: () => this.openSource(x.id),
+      })) : [],
       mcSourceUrls: mcCase ? mcCase.sourceUrls : [],
       /* back() / canGoBack() existed and RT4 passed, but nothing in the markup could
          reach them. The header control at markup ~99 binds these two. */
