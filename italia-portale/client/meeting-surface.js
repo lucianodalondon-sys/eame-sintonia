@@ -124,6 +124,38 @@
      so it reads as a key to a person and to the language gate alike. */
   const qual = (prefix, v) => (v === null || v === undefined || v === '' ? null : prefix + '_' + v);
 
+  /* ── IL PUNTATORE NON E IL FATTO ─────────────────────────────────────────
+     Il motore scrive la propria prosa IT/EN, e in 11 casi su 43 la chiude con
+     un rimando ai propri campi:
+
+         «...non dice di intervenire — vedi NEED_DIRECTION e la frase
+           originale in NEED_EXCERPT.»
+
+     Quella coda e stata scritta per chi legge il JSON, non per la riunione, e
+     mette due chiavi interne su uno schermo italiano. Ma la frase NON puo
+     essere riscritta: la prosa e del motore, e inventarne una qui sarebbe il
+     difetto peggiore dei due.
+
+     Si toglie il PUNTATORE, non l'affermazione. La frase e completa prima del
+     trattone, e le due cose indicate sono gia a schermo, accanto: la direzione
+     della fonte come frase tradotta, e l'estratto come il DOCUMENTO che lo
+     contiene. Togliere un rimando non toglie un fatto.
+
+         IL MOTORE E FERMO A b3935bd. LA CORREZIONE E DI PRESENTAZIONE.
+
+     La regola e stretta di proposito: solo una coda finale, introdotta da un
+     trattone, che contiene un rimando (vedi / see) e nient'altro che chiavi. */
+  const POINTER_TAIL = /\s*[—–-]\s*(?:vedi|see|cfr\.?|si veda)\b[^.;]*\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b[^.;]*\.?\s*$/;
+  const dePointer = (text) => {
+    if (typeof text !== 'string' || !text) return { text: text || '', pointerRemoved: false };
+    const cut = text.replace(POINTER_TAIL, '').trim();
+    if (cut === text.trim()) return { text: text.trim(), pointerRemoved: false };
+    /* Se togliere la coda lasciasse una frase monca, si preferisce la frase
+       intera: un token a schermo e un difetto, una frase rotta e due. */
+    if (cut.length < 12) return { text: text.trim(), pointerRemoved: false };
+    return { text: /[.!?]$/.test(cut) ? cut : cut + '.', pointerRemoved: true };
+  };
+
   /* ── THE WINDOW · rule and state, separately ────────────────────────── */
   function windowOf(c, lang) {
     const defined = c.WINDOW_DEFINED === 'YES';
@@ -315,6 +347,7 @@
     const surface = AM && AM.categorySurface ? AM.categorySurface(catKey) : '#564F4D';
     const ONS = (AM && AM.ON_SURFACE) || {};
 
+    const whyC = dePointer(lang === 'en' ? c.WHY_COMMERCIAL_EN : c.WHY_COMMERCIAL_IT);
     const win = windowOf(c, lang);
     const prod = productsOf(c, lang);
 
@@ -341,8 +374,15 @@
 
       /* WHY COMMERCIAL comes from the engine, in the reader's language.
          The frontend writes no prose of its own here. */
-      whyCommercial: lang === 'en' ? (c.WHY_COMMERCIAL_EN || '') : (c.WHY_COMMERCIAL_IT || ''),
+      /* IL MOTORE SCRIVE LA FRASE. QUI NON SE NE SCRIVE NESSUNA.
+         Su 3 dei 43 il motore non ha prosa e porta solo il codice
+         REGULATORY_BY_NATURE. Allora si mostra il CODICE tradotto — che e
+         ancora roba del motore — e si dichiara che la frase manca. Riempire
+         quel vuoto con una frase inventata sarebbe l'unico modo di sbagliare. */
+      whyCommercial: whyC.text,
+      whyCommercialPointerRemoved: whyC.pointerRemoved,
       whyCommercialCodes: labList(c.WHY_COMMERCIAL_CODES, lang),
+      whyCommercialFromCodesOnly: !((lang === 'en' ? c.WHY_COMMERCIAL_EN : c.WHY_COMMERCIAL_IT) || '').trim(),
       proves: lang === 'en' ? (c.WHAT_IT_PROVES_EN || '') : (c.WHAT_IT_PROVES_IT || ''),
       doesNotProve: lang === 'en' ? (c.WHAT_IT_DOES_NOT_PROVE_EN || '') : (c.WHAT_IT_DOES_NOT_PROVE_IT || ''),
       commercialDoesNotProve: lang === 'en' ? (c.COMMERCIAL_DOES_NOT_PROVE_EN || '') : (c.COMMERCIAL_DOES_NOT_PROVE_IT || ''),
@@ -356,6 +396,7 @@
 
       needDirectionToken: qual('NEED_DIRECTION', c.NEED_DIRECTION), needDirection: lab(c.NEED_DIRECTION, lang),
       needDocument: c.NEED_EVIDENCE_ID || null,
+      needExcerptWithheld: !!c['NEED_EXCERPT__PT_ONLY'],
       /* A pest stage and an action recommendation are DIFFERENT OWNERS. The
          screen carries both and concludes neither from the other: a flight can
          be over while the source still recommends continuing. */
@@ -368,7 +409,26 @@
       signalDate: c.SIGNAL_DATE || null,
       signalCurrency: lab(c.SIGNAL_CURRENCY, lang),
       confidence: lab(c.CONFIDENCE, lang),
-      sources: (c.SOURCE_IDS || []).slice(),
+      /* UNA FONTE SI CITA PER NOME, NON PER CHIAVE.
+         SRC_FITOSANITARIO_MO_IT e una chiave del registro: a schermo e un
+         token sfuggito, non una fonte. Il registro del portale risolve tutte
+         e 19 le chiavi dei 43 casi in un nome pubblicato — quello e cio che
+         il lettore puo verificare. La chiave resta come identita nel DOM.
+
+             CITARE UNA CHIAVE NON E CITARE UNA FONTE. */
+      sources: (c.SOURCE_IDS || []).map((id) => {
+        const reg = (window.ITALY_APP_MODEL && window.ITALY_APP_MODEL.collections
+          && window.ITALY_APP_MODEL.collections.sources
+          && window.ITALY_APP_MODEL.collections.sources.records) || [];
+        const hit = reg.find((r) => r.id === id);
+        return { id, name: (hit && (hit.name || hit.title)) || null };
+      }).filter((r) => r.name),
+      sourcesUnnamed: (c.SOURCE_IDS || []).filter((id) => {
+        const reg = (window.ITALY_APP_MODEL && window.ITALY_APP_MODEL.collections
+          && window.ITALY_APP_MODEL.collections.sources
+          && window.ITALY_APP_MODEL.collections.sources.records) || [];
+        return !reg.find((r) => r.id === id);
+      }).length,
       sourceUrls: (c.SOURCE_URLS || []).slice(),
       evidenceCount: c.EVIDENCE_COUNT || 0,
     };
@@ -378,7 +438,11 @@
   function countsOf(cases) {
     const tally = (f) => cases.reduce((a, c) => { const k = f(c); if (k) a[k] = (a[k] || 0) + 1; return a; }, {});
     const byStatus = tally((c) => c.statusCode);
+    /* La finestra viaggia come token qualificato (WINDOW_OPEN_NOW_UNKNOWN):
+       contare la parola nuda qui darebbe zero su tutte e tre le righe, ed e
+       esattamente cosi che un contatore smette di contare senza dirlo. */
     const byWinOpen = tally((c) => c.window.OPEN_NOW);
+    const winOpen = (v) => byWinOpen['WINDOW_OPEN_NOW_' + v] || 0;
     return {
       TOTAL: cases.length,
       PUBLISHABLE: cases.filter((c) => c.publicationCode === 'PUBLISHABLE').length,
@@ -389,9 +453,9 @@
       WATCH: byStatus.WATCH || 0,
       TO_VALIDATE: byStatus.TO_VALIDATE || 0,
       WINDOW_DEFINED: cases.filter((c) => c.window.DEFINED === 'YES').length,
-      WINDOW_OPEN_NOW_YES: byWinOpen.YES || 0,
-      WINDOW_OPEN_NOW_NO: byWinOpen.NO || 0,
-      WINDOW_OPEN_NOW_UNKNOWN: byWinOpen.UNKNOWN || 0,
+      WINDOW_OPEN_NOW_YES: winOpen('YES'),
+      WINDOW_OPEN_NOW_NO: winOpen('NO'),
+      WINDOW_OPEN_NOW_UNKNOWN: winOpen('UNKNOWN'),
       BY_STATUS: byStatus,
     };
   }

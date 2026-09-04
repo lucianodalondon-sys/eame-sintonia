@@ -507,7 +507,7 @@
           </div>
         </sc-for>
       </div>
-      <sc-if value="{{ meetingHasMore }}" hint-placeholder-val="{{ false }}"><span onClick="{{ meetingMore }}" style="align-self:flex-start;display:inline-flex;align-items:center;height:32px;padding:0 16px;border-radius:9999px;cursor:pointer;font-size:11px;font-weight:700;color:#fff;background:rgba(0,152,69,0.16);border:1px solid rgba(0,152,69,0.45)">{{ mt.all }}</span></sc-if>
+      <sc-if value="{{ meetingHasMore }}" hint-placeholder-val="{{ false }}"><span onClick="{{ meetingMore }}" data-meeting-more="1" style="align-self:flex-start;display:inline-flex;align-items:center;height:32px;padding:0 16px;border-radius:9999px;cursor:pointer;font-size:11px;font-weight:700;color:#fff;background:rgba(0,152,69,0.16);border:1px solid rgba(0,152,69,0.45)">{{ mt.all }}</span></sc-if>
     </div>
     </sc-if>
 
@@ -542,7 +542,23 @@
         <div data-meeting-why-commercial="1" style="display:flex;flex-direction:column;gap:5px;padding:11px 13px;border-radius:11px;background:{{ mc.onWell }};border:1px solid {{ mc.onWellEdge }}">
           <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:{{ mc.onMuted }}">{{ mt.whyCommercial }}</div>
           <div style="font-size:12.5px;line-height:1.45;color:{{ mc.onInk }}">{{ mc.whyCommercial }}</div>
+          <!-- I codici del motore restano visibili come motivo: dove la frase
+               manca sono l'unica cosa vera che si puo mostrare. -->
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <sc-for list="{{ mcWhyCommercialCodes }}" as="q" hint-placeholder-count="2">
+              <span style="display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:9999px;font-size:10px;color:{{ mc.onBody }};border:1px solid {{ mc.onChipEdge }}">{{ q.label }}</span>
+            </sc-for>
+          </div>
           <sc-if value="{{ mc.commercialDoesNotProve }}" hint-placeholder-val="{{ true }}"><div style="font-size:11px;line-height:1.4;color:{{ mc.onMuted }}">{{ mc.commercialDoesNotProve }}</div></sc-if>
+          <!-- Dove il motore rimandava a un proprio campo, la cosa indicata sta
+               QUI: la direzione della fonte come frase, e l'estratto come il
+               documento che lo contiene. Il rimando sparisce, il fatto no. -->
+          <sc-if value="{{ mc.needDirection }}" hint-placeholder-val="{{ true }}">
+            <div data-need-direction="{{ mc.needDirectionToken }}" style="font-size:11.5px;line-height:1.4;color:{{ mc.onBody }}">{{ mc.needDirection }}</div>
+          </sc-if>
+          <sc-if value="{{ mc.needExcerptWithheld }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:10.5px;line-height:1.4;color:{{ mc.onMuted }}">{{ mt.ptWithheld }} · {{ mt.documented }} {{ mc.needDocument }}</div>
+          </sc-if>
         </div>
 
         <!-- ══ IL PORTAFOGLIO, PER INTERO ════════════════════════════════
@@ -645,7 +661,7 @@
           <sc-if value="{{ mc.pestStage }}" hint-placeholder-val="{{ true }}"><span data-pest-stage="{{ mc.pestStageCode }}" style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10.5px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ mc.pestStage }}</span></sc-if>
           <sc-if value="{{ mc.actionRec }}" hint-placeholder-val="{{ true }}"><span data-action-rec="{{ mc.actionRecCode }}" style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10.5px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ mc.actionRec }}</span></sc-if>
           <sc-if value="{{ mc.threshold }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10.5px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ mc.threshold }}</span></sc-if>
-          <sc-if value="{{ mc.needDirection }}" hint-placeholder-val="{{ true }}"><span data-need-direction="{{ mc.needDirectionToken }}" style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10.5px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ mc.needDirection }}</span></sc-if>
+
         </div>
       </div>
 
@@ -708,8 +724,8 @@
       <div style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);padding:15px 17px;display:flex;flex-direction:column;gap:8px">
         <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ mt.source }}</div>
         <div style="display:flex;gap:7px;flex-wrap:wrap">
-          <sc-for list="{{ mcSources }}" as="sid" hint-placeholder-count="3">
-            <span style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10.5px;font-variant-numeric:tabular-nums;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ sid }}</span>
+          <sc-for list="{{ mcSources }}" as="sr" hint-placeholder-count="3">
+            <span data-source-id="{{ sr.id }}" style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10.5px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ sr.name }}</span>
           </sc-for>
         </div>
         <div style="display:flex;flex-direction:column;gap:3px">
@@ -8948,6 +8964,7 @@ class Component extends DCLogic {
          ambra se manca. Il COLORE non decide, RIPETE. */
       mcChain: mcCase ? mcCase.whyNow.links.map((l) => Object.assign({}, l, { dot: l.ok ? '#1AB963' : '#F5B317' })) : [],
       mcWhyCodes: mcCase ? mcCase.whyNow.codes : [],
+      mcWhyCommercialCodes: mcCase ? mcCase.whyCommercialCodes : [],
       mcEvidence: mcCase ? mcCase.evidence.rows : [],
       mcNegatives: mcCase ? mcCase.evidence.negatives : [],
       mcCooling: mcCase ? mcCase.evidence.cooling : [],
