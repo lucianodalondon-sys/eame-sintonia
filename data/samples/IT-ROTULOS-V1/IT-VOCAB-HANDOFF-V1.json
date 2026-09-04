@@ -1,0 +1,1536 @@
+{
+ "DATASET": "IT-VOCAB-HANDOFF-V1",
+ "LAYER": "CONTROLLED VOCABULARY — HANDOFF, nao implantacao",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-VOCAB-PROPOSTA-V1",
+ "CAPTURED_AT": "2026-09-04",
+ "SOURCE": "proposta do censo dos alvos, medida contra o motor canonico lido da branch dele",
+ "BRANCH_ATUAL": "claude/retomada-coleta-video-convegni-vz50er",
+ "BRANCH_DO_MOTOR": "claude/opportunity-commercial-priority-v1",
+ "MOTOR_REF_LIDA": "origin/claude/opportunity-commercial-priority-v1",
+ "MOTOR_SHA": "b3935bd03822b9562a05d99671e994edd398cb74",
+ "DONO_DA_TAXONOMIA": "claude/opportunity-commercial-priority-v1:scripts/v21_normalizar.py — o dicionario ISSUE_ALIAS",
+ "QUEM_CONSOME": [
+  "scripts/v21_ingest.py",
+  "scripts/v21_ingest_b.py",
+  "scripts/v21_janelas.py",
+  "scripts/v21_comercial.py",
+  "scripts/v21_necessidade.py",
+  "scripts/v21_defeitos_do_vinculo.py",
+  "scripts/v21_censo_das_16_janelas.py",
+  "scripts/v21_vao_de_janelas.py",
+  "scripts/v21_geografia_contrato.py",
+  "scripts/v21_regressao_do_red_team.py",
+  "tests/test_prioridade_comercial.py"
+ ],
+ "FORMATO_ACEITE_PELO_MOTOR": "ISSUE_ALIAS[ISSUE_<NOME>] = [apelido, ...]. Apelido e LITERAL minusculo sem acentos; o motor normaliza com _n() (apaga tudo o que nao e [a-z0-9]) e casa por PALAVRA INTEIRA, escolhendo o apelido MAIS LONGO. Nao aceita expressao regular, nao aceita lookahead, nao aceita exclusao.",
+ "CONTRATO_MUDA": false,
+ "PORQUE_O_CONTRATO_NAO_MUDA": "a adicao e so de chaves novas num dicionario existente. Nenhuma assinatura de funcao muda, nenhum ID existente e renomeado ou removido, e nenhum consumidor precisa de saber que ha mais chaves.",
+ "ISSUE_IDS_EXISTENTES": 24,
+ "ISSUE_IDS_PROPOSTOS": 38,
+ "ISSUE_IDS_IMPLANTAVEIS": 38,
+ "INCOMPATIBILIDADES": [
+  {
+   "ISSUE_ID": "ISSUE_SMUT",
+   "ALIAS": "carbone (?!attiv|medicinal|veget)",
+   "TIPO": "ALIAS_NAO_E_LITERAL",
+   "VIRARIA": "carbone attiv medicinal veget",
+   "PORQUE": "o apelido foi escrito como expressao regular. O motor nao aceita regex: _n() apaga os metacaracteres e o apelido vira uma frase literal que nunca aparece em texto nenhum. Passaria na regressao por nunca casar nada — e por isso e um defeito, nao uma protecao."
+  }
+ ],
+ "SEQUESTROS": [
+  {
+   "ALIAS_NOVO": "piralide dell olivo",
+   "ISSUE_ID_NOVO": "ISSUE_OLIVE_PYRALID",
+   "ALIAS_ANTIGO": "piralide",
+   "ISSUE_ID_ANTIGO": "ISSUE_CORN_BORER",
+   "EFEITO": "texto que hoje da ISSUE_CORN_BORER passa a dar ISSUE_OLIVE_PYRALID quando a frase mais longa aparece"
+  }
+ ],
+ "IDS_EXISTENTES_QUE_PERDEM_OCORRENCIAS": {},
+ "EXEMPLOS_DAS_PERDAS": {},
+ "IDS_NOVOS_QUE_GANHAM_OCORRENCIAS": {
+  "ISSUE_AGRILUS": 1,
+  "ISSUE_WHITEFLY": 7,
+  "ISSUE_ALTERNARIA": 119,
+  "ISSUE_ANARSIA": 5,
+  "ISSUE_ANTHRACNOSE": 26,
+  "ISSUE_GALL_MIDGE": 7,
+  "ISSUE_LEUCOPTERA": 3,
+  "ISSUE_ORIENTAL_FRUIT_MOTH": 14,
+  "ISSUE_SCALE_INSECTS": 63,
+  "ISSUE_WIREWORM": 39,
+  "ISSUE_HELMINTHOSPORIUM": 1,
+  "ISSUE_ERIOPHYID_MITES": 17,
+  "ISSUE_PHYLLONORYCTER": 2,
+  "ISSUE_COCKCHAFER": 2,
+  "ISSUE_BLACK_ROT": 3,
+  "ISSUE_OLIVE_PYRALID": 5,
+  "ISSUE_METCALFA": 5,
+  "ISSUE_MONILIA": 16,
+  "ISSUE_MEDFLY": 19,
+  "ISSUE_NEMATODES": 12,
+  "ISSUE_PSYLLA": 16,
+  "ISSUE_RAMULARIA": 2,
+  "ISSUE_RHYNCHOSPORIUM": 1,
+  "ISSUE_SAWFLY": 1,
+  "ISSUE_THRIPS": 23
+ },
+ "IDS_NOVOS_MUDOS_NO_ACERVO_DE_FALA": [
+  "ISSUE_ALFALFA_WEEVIL",
+  "ISSUE_APION",
+  "ISSUE_BYCTISCUS",
+  "ISSUE_CASSIDA",
+  "ISSUE_COLORADO_BEETLE",
+  "ISSUE_CONORHYNCHUS",
+  "ISSUE_HYDRELLIA",
+  "ISSUE_LIXUS",
+  "ISSUE_OTIORHYNCHUS",
+  "ISSUE_OULEMA",
+  "ISSUE_POLLEN_BEETLE",
+  "ISSUE_SMUT",
+  "ISSUE_VERTICILLIUM"
+ ],
+ "DOCUMENTOS_DA_REGRESSAO": 131,
+ "TESTE_MINIMO": [
+  {
+   "ISSUE_ID": "ISSUE_AGRILUS",
+   "SOURCE_ID": "gDNHhPeng7Y",
+   "FRASE": "L'Agrilus eh dice che possibile dissecamento perita produttiva.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_AGRILUS"
+  },
+  {
+   "ISSUE_ID": "ISSUE_ALTERNARIA",
+   "SOURCE_ID": "4ybyIcvgUhg",
+   "FRASE": "E le necrosi che si si rilevano possono essere o necrosi anche cosiddette fisiologiche oppure con presenza di altri patogeni come come alternaria, fomo, eccetera.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_ALTERNARIA"
+  },
+  {
+   "ISSUE_ID": "ISSUE_ANARSIA",
+   "SOURCE_ID": "BOLL-ER:2026-08-04:bollettini-di-modena",
+   "FRASE": "Monitorare la presenza in campo e in caso di accertata presenza intervenire con Tau-fluvalinate (Max 2) o Lambdacialotrina (*) (Max 1) o Deltametrina (Max 3 o Etofenprox (*) ( Max 2) Quest’ultimo principio attivo efficace anche su Cidia e Anarsia .",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_ANARSIA"
+  },
+  {
+   "ISSUE_ID": "ISSUE_ANTHRACNOSE",
+   "SOURCE_ID": "4ybyIcvgUhg",
+   "FRASE": "Un'altra sempre in biologico, un'altra altri casi segnalati su con Elsino Epiri che è un altro agente di antracnosi, ehm sia nel ferrarese che nel Ravernate, sempre in ambito biologico.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_ANTHRACNOSE"
+  },
+  {
+   "ISSUE_ID": "ISSUE_BLACK_ROT",
+   "SOURCE_ID": "4ybyIcvgUhg",
+   "FRASE": "segnalazione di presenza in alcuni meletti del mantovano di questo marciume nero da botosferia che sono stati ritrovati appunto anche durante i controlli per fusarium.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_BLACK_ROT"
+  },
+  {
+   "ISSUE_ID": "ISSUE_COCKCHAFER",
+   "SOURCE_ID": "uf5bx-oTees",
+   "FRASE": "Ultimo fitofago che ci interessa è Maggiolino.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_COCKCHAFER"
+  },
+  {
+   "ISSUE_ID": "ISSUE_ERIOPHYID_MITES",
+   "SOURCE_ID": "6eNiYjzPGHw",
+   "FRASE": "Nel 2025 abbiamo osservato una buona presenza di di eriofide su diversi vigneti, ma anche in questo caso non non è causa dei danni rilevanti, non sono stati fatti interventi di difesa ad hoc.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_ERIOPHYID_MITES"
+  },
+  {
+   "ISSUE_ID": "ISSUE_GALL_MIDGE",
+   "SOURCE_ID": "CYV76yVc98s",
+   "FRASE": "E e nel 2025 abbiamo avuto qualche problema di cecidomia su mirtille fase di allevamenti di allevamento.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_GALL_MIDGE"
+  },
+  {
+   "ISSUE_ID": "ISSUE_HELMINTHOSPORIUM",
+   "SOURCE_ID": "mIunZ-pH3RY",
+   "FRASE": "Abbiamo poi l'elmintosporiosi, diciamo, è un patogeno secondario in quanto è presente sia in Lombardia e ma anche in provincia di Novara.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_HELMINTHOSPORIUM"
+  },
+  {
+   "ISSUE_ID": "ISSUE_LEUCOPTERA",
+   "SOURCE_ID": "uf5bx-oTees",
+   "FRASE": "Eh, la Nigero quest'anno è leggermente è stato leggermente di meno il problema rispetto all'anno scorso, però come vi ho detto Capocs acidia un poco di più, vale anche per il biologico e ovviamente qualche problemino anche di cemiostoma, volevo segnalare che in qualche fotetto abbiamo ben avuto qualche qualche qualche problemino.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_LEUCOPTERA"
+  },
+  {
+   "ISSUE_ID": "ISSUE_MEDFLY",
+   "SOURCE_ID": "3m0OxLSK4ro",
+   "FRASE": "Ad esempio, sono stati approfonditi la la glomerella sulle pomace, è stato approfondito le micotossine sui cereali, sono state approfondite la drosofila sulla fragola, è stata approfondita la ceratitis capitata sulle drupace e e tutte le relazioni.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_MEDFLY"
+  },
+  {
+   "ISSUE_ID": "ISSUE_METCALFA",
+   "SOURCE_ID": "4ybyIcvgUhg",
+   "FRASE": "Parliamo un attimo della pattina bianca dei fumaggini, diciamo, direi che diciamo i fattori di rischio lo conoscete tutti, però noi diciamo soprattutto adesso la Fidanal Nigero, anche la Metcalfa che si è stesa abbastanza nel nostro nella nostra provincia, ovviamente la produzione della lamelata ovviamente favorisce queste questi questi fenomeni e ovviamente anche tutto quello che prolunga la bagnatura foliare,",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_METCALFA"
+  },
+  {
+   "ISSUE_ID": "ISSUE_MONILIA",
+   "SOURCE_ID": "m50xqCqqJP4",
+   "FRASE": "Il fluxapiroxad viene valutato sulle moniliosi delle trupace.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_MONILIA"
+  },
+  {
+   "ISSUE_ID": "ISSUE_NEMATODES",
+   "SOURCE_ID": "CYV76yVc98s",
+   "FRASE": "probabilmente diventerà prioritaria rispetto a ad altre possibilità di controllo chimico più o meno diretto, più o meno autorizzato, anche perché oggettivamente i mezzi sono sempre sono sempre di meno né si vede molto all'orizzonte, forse con una novità che può essere un recente nematocida, che però potrebbe bbe aiutare a gestire la questione dei matodi, ma non di altri come di altri avversità come i giunni.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_NEMATODES"
+  },
+  {
+   "ISSUE_ID": "ISSUE_OLIVE_PYRALID",
+   "SOURCE_ID": "azHKlPD3qAg",
+   "FRASE": "Margaronia, problematica soprattutto su allevamenti su impianti d'allevamento.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_OLIVE_PYRALID"
+  },
+  {
+   "ISSUE_ID": "ISSUE_ORIENTAL_FRUIT_MOTH",
+   "SOURCE_ID": "CYV76yVc98s",
+   "FRASE": "Mennore all'ordine Agronomi vede i consiglieri, diciamo, dell'ordine di Matera, il dottor Laciop, la dottoressa di Cidia, il dottor Coca che rappresent l'ordine nazionale che anche ci dato mano in questo, quindi si è creato uno sforzo, si è creato una sinerugia abbiamo già messo in campo quello che poi serve a compagno, che è quello cercare di far sti spirito e sulla scorta di questo, diciamo, di queste esperienze",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_ORIENTAL_FRUIT_MOTH"
+  },
+  {
+   "ISSUE_ID": "ISSUE_PHYLLONORYCTER",
+   "SOURCE_ID": "BOLL-ER:2026-08-04:bollettini-di-modena",
+   "FRASE": "(*) Sostanza attiva Candidata alla Sostituzione Cemiostoma e Litocollete: situazio Sostanza attiva Colture autorizzate Ciclossidim Pomacee-vite Clethodim Pesco-albicocco-susino-ciliegio-vite-pomacee-actinidia-noce-nocciolo-kaki-olivo Fluazifop-p-butile Pesco-albicocco-susino-ciliegio-vite-pomacee-actinidia-noce-nocciolo-kaki-mirtillo-olivo Propaquizafop Albicocco-susino-ciliegio-pomacee-noce-nocciolo-pesco-vite",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_PHYLLONORYCTER"
+  },
+  {
+   "ISSUE_ID": "ISSUE_PSYLLA",
+   "SOURCE_ID": "4ybyIcvgUhg",
+   "FRASE": "La gestione dei vettori, diciamo che durante tutta la stagione primaverile in cui si verifica il volo delle delle psille, gli unici insetti vettori attualmente riconosciuti, vengono fornite al territorio indicazioni specifiche e calate sul territorio in base alle reali necessità del dei diversi dei diversi areali.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_PSYLLA"
+  },
+  {
+   "ISSUE_ID": "ISSUE_RAMULARIA",
+   "SOURCE_ID": "4ybyIcvgUhg",
+   "FRASE": "Ramularia è una un altro problema importante per il Piemonte perché si sta allargando, quindi la varietà Club Ambrosio era stata la prima a essere interessata eh a livello di Melo, eh mentre nelle ultime stagioni sono stati anche individuati i casi su Golden e sull'altra varietà club Fengappy.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_RAMULARIA"
+  },
+  {
+   "ISSUE_ID": "ISSUE_RHYNCHOSPORIUM",
+   "SOURCE_ID": "mIunZ-pH3RY",
+   "FRASE": "Il biegnio ha visto una un forte impatto, diciamo, di il mintosporio e e anche un poco di rincosporiosi.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_RHYNCHOSPORIUM"
+  },
+  {
+   "ISSUE_ID": "ISSUE_SAWFLY",
+   "SOURCE_ID": "uf5bx-oTees",
+   "FRASE": "Ehm niente, concludo con la tabella finale in cui sostanzialmente situazione abbastanza buona e salvo appunto quello che ho detto prima, recurreccienze di eriofide, di tentredine e di affidi.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_SAWFLY"
+  },
+  {
+   "ISSUE_ID": "ISSUE_SCALE_INSECTS",
+   "SOURCE_ID": "6eNiYjzPGHw",
+   "FRASE": "Eh cocciniglia farinosa, anche qui presente in diverse vigneti della Toscana, soprattutto anche qui nelle province più costiere, ma non solo.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_SCALE_INSECTS"
+  },
+  {
+   "ISSUE_ID": "ISSUE_THRIPS",
+   "SOURCE_ID": "3m0OxLSK4ro",
+   "FRASE": "Poi per sempre per quanto riguarda i predatori, interessante, abbiamo visto la presenza di Eliotris Fasciatus che è un tripide zoofago in grado di predare, come voi sapete, i tripidi fitofagi e come vedete l'abbiamo trovato soprattutto nelle parcelle dove è stato seminato trifoglio incarnato.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_THRIPS"
+  },
+  {
+   "ISSUE_ID": "ISSUE_WHITEFLY",
+   "SOURCE_ID": "3m0OxLSK4ro",
+   "FRASE": "Un lavoro condotto in più regioni, invece va a riferire anche di prove di lotta contro la cimice asiatica e la mosca bianca delle delle serre.",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_WHITEFLY"
+  },
+  {
+   "ISSUE_ID": "ISSUE_WIREWORM",
+   "SOURCE_ID": "3m0OxLSK4ro",
+   "FRASE": "Poi spostandoci in Veneto, eh la problematica è molto sentita nella zona di Rovigo e Chioggia, anche qua zone prettamente occate alla coltivazione delle orticole e della patata, soprattutto negli ultimi anni, cioè eh negli ultimi anni nella zona tipiche delle patate è difficile coltivarle appunto per il problema degli elateridi, quindi ci si è spostati in zone dove il problema degli arateridi è meno sentito, però",
+   "ESPERADO": "issues_no_texto(FRASE) contem ISSUE_WIREWORM"
+  }
+ ],
+ "ARQUIVOS_QUE_PRECISARIAM_MUDAR": [
+  "claude/opportunity-commercial-priority-v1:scripts/v21_normalizar.py — acrescentar as chaves novas a ISSUE_ALIAS",
+  "claude/opportunity-commercial-priority-v1:tests/ — um teste que ancore cada ID novo numa frase real do acervo"
+ ],
+ "O_QUE_NAO_FAZER": "nao editar v21_normalizar.py a partir desta branch, nao fazer cherry-pick para ca, nao copiar ISSUE_ALIAS para scripts/it_rotulo_vocab.py. Qualquer das tres cria um segundo dono da mesma taxonomia.",
+ "ROWS": [
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_AGRILUS",
+   "TERMO_ATUAL_NO_ROTULO": "AGRILO",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Agrilo = nome comum italiano dos besouros buprestídeos do género Agrilus (Coleoptera: Buprestidae), broqueadores de ramos e tronco. Nas duas culturas que o rótulo declara: no nocciolo (Corylus avellana) o agente é Agrilus viridis L. — \"agrilo/buprestide del nocciolo\"; no mandorlo (Prunus dulcis) Agrilus spp. A larva escava galerias sob a casca e provoca deperimento dos ramos; o tratamento inseticida atinge o ADULTO em emergência, e é exatamente isso que o rótulo qualifica com \"(sulla vegetazione)\". O rótulo escreve só o nome de género/comum, nunca a espécie.",
+   "APELIDOS_PROPOSTOS": [
+    "agrilo",
+    "agrili",
+    "agrilus",
+    "agrilus viridis",
+    "agrilo del nocciolo",
+    "buprestide del nocciolo"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "Rótulo 008259 (LAMDEX EXTRA), p1: célula de cultura \"Mandorlo, nocciolo\" [y=414-431] emparelhada com a célula de alvo \"Agrilo, maggiolino (sulla vegetazione)\" [y=419-426]. A MESMA linha, verbatim, em 013560 (p1 e p5), 013590 (p1 e p6), 015275 (p2) e 017687 (p2 e p7): \"Mandorlo, nocciolo\" / \"Agrilo, ",
+   "RISCO_DE_SINAL_FALSO": "Três riscos, em ordem de gravidade. (1) ENCURTAR O ALIAS: \"agri\" é a raiz de agricoltura/agricolo/agrario/agronomo — qualquer alias mais curto que \"agrilo\" transforma prosa agrícola comum em sinal de praga. Rejeitar categoricamente. (2) SUBSTRING SEM FRONTEIRA: o padrão hoje em scripts/it_rotulo_vocab.py:123 é r'agrilo' sem \\b, e como substring casa nomes comerciais e de cooperativas que aparecem em texto agrícola italiano — \"Agrilombarda\", \"Agrilogica\", \"Agrilinea\", \"Agrilink\" (com [oi], \"agrili\" casa \"Agrilinea\"). Pedir \\bagril[oi]\\b|\\bagrilus\\b. No motor canónico isto já está protegido: _casa/_todos normalizam e comparam por PALAVRA INTEIRA (' %s ' in t), portanto \"Agrilombarda\" não casa — o risco é do lado do vocabulário do parser, não do lado do motor. (3) SUBIR DE NÍVEL: não aliasar \"buprestidi\"/\"buprestide\" sozinho nem \"coleotteri\". \"Buprestidi\" é família e arrastaria para este ID a Capnodis tenebrionis (drupáceas, incl. mandorlo) e o Coroebus — problemas distintos, com biologia e época de intervenção distintas; \"coleotteri\" arrastaria dorifora, altica, meligete, elateridi e a própria Diabrotica. Nota de fusão: a mesma célula nomeia também MAGGIOLINO (Melolontha melolontha, Scarabaeidae) — dois besouros de famílias diferentes numa só célula. AGRILO e MAGGIOLINO têm de ficar como dois IDs; fundi-los porque partilham a célula e o qualificador \"(sulla vegetazione)\" perderia dois alvos distintos.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 1,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "gDNHhPeng7Y",
+     "FRASE": "L'Agrilus eh dice che possibile dissecamento perita produttiva."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 1 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_WHITEFLY",
+   "TERMO_ATUAL_NO_ROTULO": "ALEURODIDI",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Aleurodidi = Aleyrodidae (Hemiptera: Sternorrhyncha), the whitefly family — in Italian labels the \"mosca bianca / mosche bianche\" complex, glossed by the labels themselves as exactly two species: Trialeurodes vaporariorum (greenhouse whitefly) and Bemisia tabaci (cotton/tobacco whitefly, vector of TYLCV and ToLCNDV). Despite the \"mosca\" in the vernacular name they are NOT Diptera: they are sap-suckers, sister to aphids/scales, not to Ceratitis capitata or Bactrocera oleae.",
+   "APELIDOS_PROPOSTOS": [
+    "aleurodidi",
+    "aleurodide",
+    "aleurodi",
+    "aleyrodidae",
+    "mosca bianca",
+    "mosche bianche",
+    "trialeurodes",
+    "trialeurodes vaporariorum",
+    "bemisia",
+    "bemisia tabaci",
+    "whitefly"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "012573 EKO OIL SPRAY / 014386 OLIONET, p0: \"CUCURBITACEE (cocomero, melone, zucca, zucchino, cetriolo): contro Acari, Afidi, Aleurodidi, Cimice verde, Coccini- glie, Ditteri agromizidi, Minatori fogliari, Tripidi, uova di Lepidot- teri e Ditteri in periodo vegetativo\" and \"FAGIOLO: contro Afidi, Aca",
+   "RISCO_DE_SINAL_FALSO": "Tres perigos, um deles ja esta vivo no vocabulario.\n\n(1) ALIAS PROIBIDO — \"mosca\" / \"mosche\" sozinhos. Sao a palavra italiana comum para dipteros e para o inseto de casa. Bare \"mosca\" casaria \"Mosca della frutta\" (Ceratitis capitata, 008259/013560/013590/015275/017687 em pesco, albicocco, ciliegio, susino), \"Mosca\" em agrumi, \"Mosca\" em barbabietola (012573/014386, Pegomya) e — pior — \"mosca dell'olivo\", engolindo ISSUE_OLIVE_FLY inteiro. Bare \"mosche\" casaria alem disso prosa corrente. Ambos REJEITADOS. So o bigrama e admissivel, ancorado: mosc(a|he)\\s+bianc(a|he). Bem: a tabela do motor ja escreve ISSUE_OLIVE_FLY com o bigrama (\"mosca dell olivo\"), nunca \"mosca\" nua — ISSUE_WHITEFLY tem de seguir a mesma disciplina.\n\n(2) ALIAS PROIBIDO — \"bianca\" / \"bianche\" sozinhos. Casariam \"mal bianco\" (que ja e ISSUE_POWDERY_MILDEW), \"muffa bianca\", \"marciume bianco\", \"cavolaia\"/farfalla bianca, e prosa. So dentro do bigrama.\n\n(3) COLISAO JA PUBLICADA, a corrigir junto com a criacao do ID. O ALVO 'MOSCA' do vocabulario (scripts/it_rotulo_vocab.py) hoje contem r'\\bmosche\\b' E r'\\bmosca\\s+bianca'. Consequencia medida nos pares publicados: as linhas \"Afidi, mosca bianca\" (CAVOLO) e \"Afidi e mosca bianca\" (TABACCO) de 008259, 013560, 013590, 015275, 017687 estao publicadas como TARGET=MOSCA, no mesmo balde que \"Mosca della frutta\" e que a mosca da barbabietola. Isto e, a mosca-branca ja esta hoje fundida com moscas verdadeiras — o erro que este ISSUE_ID vem desfazer. Se ISSUE_WHITEFLY receber \"mosca bianca\" sem que r'\\bmosca\\s+bianca' e r'\\bmosche\\b' saiam de ALVOS['MOSCA'], a mesma linha alimenta dois problemas e o sinal duplica. Ordem de casamento: bigrama especifico primeiro, generico depois.\n\n(4) \"aleurodid[ei]\", \"trialeurodes\", \"bemisia\" sao seguros: nenhum casa palavra comum italiana, precisao praticamente 1. Sao os aliases que carregam o peso.\n\n(5) Nota de cobertura (regra 4 invertida): o alvo NAO e entrada morta — tem 13 pares em 2 rotulos — mas a pegada real e maior do que os 13. A autorizacao de mosca-branca de 018156/018165 (flonicamid, pomodoro e cucurbitacee, via goccia) esta escrita no rotulo e NAO produz par nenhum hoje, porque vive em prosa e nao em tabela de dose. Criar o ISSUE_ID sem tocar no parser deixa esse par invisivel.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 7,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "3m0OxLSK4ro",
+     "FRASE": "Un lavoro condotto in più regioni, invece va a riferire anche di prove di lotta contro la cimice asiatica e la mosca bianca delle delle serre."
+    },
+    {
+     "SOURCE_ID": "3m0OxLSK4ro",
+     "FRASE": "L'ultimo contributo è stato svolto in diverse regioni di d'Italia e ha avuto come scopo quello di confrontare un nuovo formulato a base di Acetami Pried Epic 200 SL e a confronto con l'attuale formulazione EPIC 200 SL ed altri standard di riferimento contro lo scaffoideo, la cimice asiatica leomorfalis e la mosca bianca delle serre e trialurodes vaporarium."
+    },
+    {
+     "SOURCE_ID": "3m0OxLSK4ro",
+     "FRASE": "Eh posso eh quindi eh concludere eh che in tutte quante le prove sperimentali eh del dal 2019 al 2021 la nuova formulazione EPIC 200 SL eh ha fornito sia sulla mosca bianca dell SR che sullo scaffoideo che sulla cimice asiatica risultati paragonabili al formulato attualmente in commercio e anche agli altri prodotti chimici che sono stati impiegati nelle prove."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 7 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_ALTERNARIA",
+   "TERMO_ATUAL_NO_ROTULO": "ALTERNARIA",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Fungos do genero Alternaria (Pleosporaceae). O termo do vocabulario nao cobre UMA especie: os rotulos escrevem tres taxa distintos sob a mesma palavra. (1) Alternaria solani — alternariose/alternariosi do tomate (early blight), nos 8 pares POMODORO, todos de folpet (008401 FINESSOX, 008601 FOLPAN 80 WDG, 010587 FOLPAN SC, 011501 PARIFOL, 013012 FOLVIT 80 WDG, 014862 SOLOFOL AP, 017111 FLOVINE, 017311 VINIFOL WDG). (2) Alternaria mali — maculatura/alternaria das pomaceas, nos 3 pares PERO, todos de fluazinam (013905 BANJO, 015315 EMBRACE, 017432 AGHARTA); no mesmo rotulo 013905 o bloco de MELO declara a mesma Alternaria mali e o par MELO x ALTERNARIA nao foi publicado (bloco p0 y=110-172). (3) Alternaria sp. — nocciolo e pistacchio no 008102 (MERPAN 80 WDG, captan), tambem nao publicado. Logo: 11 pares publicados subcontam o termo; ele existe em pelo menos 13 blocos declarados.",
+   "APELIDOS_PROPOSTOS": [
+    "alternaria",
+    "alternariosi",
+    "alternaria solani",
+    "alternaria mali",
+    "alternarie",
+    "early blight"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "008601 (FOLPAN 80 WDG, POMODORO): \"1,5 kg/ha (150 g/hl ) contro Peronospora ( Phytophthora infestans ), Alternariosi ( Alternaria solani ), Cladosporiosi (Fulvia fulva), Septoriosi ( Septoria lycopersici ) e Muffa grigia ( Botrytis cinerea )\". || 013905 (BANJO, PERO): \"per il controllo della ticchio",
+   "RISCO_DE_SINAL_FALSO": "Tres riscos, um deles ja medido no proprio acervo. (1) ALIAS-TRONCO PROIBIDO: o padrao atual do vocabulario e \"alternari\\\\w*\", e it_futuro_corpus.py:126-131 ja registra que esse prefixo casa \"alternariolo\" — ALTERNARIOL (AOH), que e MICOTOXINA, nao doenca. Admitir \"alternari\" ou \"alternariol\" no ISSUE_ALIAS faria uma discussao de seguranca alimentar (residuo em polpa, limite regulatorio) virar sinal de pressao de doenca no campo. O engano nao e hipotetico: e exatamente o defeito que ja esta hoje dentro de ISSUE_FUSARIUM, cujos apelidos incluem 'don', 'micotossine' e 'micotossina' — micotoxina fundida com fusariose. Nao repetir. (2) ALIAS QUE CASA PALAVRA COMUM ITALIANA — REJEITAR: \"alterna\", \"alternare\", \"alternanza\", \"alternato\". Todo rotulo de fungicida traz paragrafo antirresistencia do tipo \"si consiglia di alternare prodotti con diverso meccanismo d'azione\"; qualquer alias cortado antes de \"alternari\" transformaria cada recomendacao de rotacao de modo de acao em ocorrencia de Alternaria. Alem disso 'don' (ja no engine) casa a preposicao/nome comum — mesmo vicio. (3) RISCO DE NIVEL: 'alternaria' sozinho e nome de GENERO e vai cobrir A. solani (solanaceas), A. mali (pomaceas) e A. sp. (frutta a guscio) com o mesmo ID. Isso e aceitavel para o ID, mas NAO para a leitura: contar pressao de \"alternaria\" somando tomate e pera junta dois patossistemas, duas janelas fenologicas e duas quimicas (folpet vs fluazinam) que nunca competem entre si. O ID deve nascer com TARGET_AS_WRITTEN preservado e a especie carregada em campo proprio.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 119,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "4ybyIcvgUhg",
+     "FRASE": "E le necrosi che si si rilevano possono essere o necrosi anche cosiddette fisiologiche oppure con presenza di altri patogeni come come alternaria, fomo, eccetera."
+    },
+    {
+     "SOURCE_ID": "4ybyIcvgUhg",
+     "FRASE": "queste necrosi fogliari che fino a qualche anno fa venivano attribuite ad alternaria, ehm, si continuano sì ad attribuire ad alternaria, ma dal 2023 con la comparsa di Glomerella, con la comparsa anche di altodo estivo alternando i fungicidi che vedete indicati."
+    },
+    {
+     "SOURCE_ID": "4ybyIcvgUhg",
+     "FRASE": "C'è anche dell'alternaria qua sempre un pochino, però diciamo questo è un po' il quadro generale."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 119 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_ANARSIA",
+   "TERMO_ATUAL_NO_ROTULO": "ANARSIA",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Anarsia lineatella Zeller (Lepidoptera: Gelechiidae), \"anarsia\" / anarsia del pesco, the peach twig borer. Larvae bore into shoots and fruit of stone fruit (pesco, nettarino, albicocco, mandorlo, susino). It is NOT Cydia pomonella (carpocapsa, Tortricidae, pomacee), NOT Grapholita/Cydia molesta (tignola orientale), NOT Lobesia botrana (tignoletta della vite). Note: in the Italian labels the vocabulary term is written as the bare genus \"anarsia\", but every occurrence in this corpus resolves to A. lineatella — no second Anarsia species appears.",
+   "APELIDOS_PROPOSTOS": [
+    "anarsia",
+    "anarsia lineatella",
+    "anarsia del pesco",
+    "peach twig borer"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "018561 (COSAYR 200 SC), lista de alvos: \"Cydia pomonella (carpocapsa) ... Ostrinia nubilialis (piralide), Cydia molesta (tignola orientale), Anarsia lineatella (anarsia), Cydia funebrana (tignola del susino), Operophtera brumata (cheimatobia), Lobesia botrana (tignoletta della vite), Eupoecilia ambi",
+   "RISCO_DE_SINAL_FALSO": "O alias \"anarsia\" e seguro: nao e palavra comum italiana, nao e prefixo/sufixo de palavra corrente (\"anarchia\" nao casa em match de palavra inteira), e no corpus so aparece como nome de praga. Os alias PERIGOSOS, que eu rejeito explicitamente: (1) \"tignola\" / \"tignola del pesco\" — em italiano \"tignola del pesco\" e usado tanto para Anarsia lineatella como para Grapholita (Cydia) molesta, e o rotulo 018561 prova que os dois sao alvos separados na mesma lista; alem disso ISSUE_GRAPE_MOTH ja reivindica o alias generico \"tignole\", entao qualquer alias com \"tignol*\" faria Anarsia e Lobesia botrana colidirem e a tignola do susino (Cydia funebrana), a tignola degli agrumi (Prays citri) e a tignola della vite (Eupoecilia ambiguella) cairem todas no balde errado. (2) \"cidia\" — e o alvo VIZINHO na mesma celula de tabela (\"cidia, anarsia\") e designa Cydia molesta/funebrana, nao Anarsia. (3) \"lepidotteri\" — o parser ja marca LEPIDOTTERI no mesmo bloco; herdar esse alias faria qualquer bloco de lepidopteros em cavolo, lattuga, barbabietola ou erba medica (Pieris, Mamestra, Spodoptera, Ostrinia) disparar sinal de anarsia. (4) \"lineatella\" sozinho e tecnicamente seguro mas nunca ocorre sem o genero: nao acrescenta cobertura e so aumenta superficie. Nota de perda (regra 2): ANARSIA deve ficar separada de um eventual ISSUE de grupo para LEPIDOTTERI; o bloco \"lepidotteri (Anarsia lineatella, Cydia molesta)\" autoriza contra o grupo E nomeia a especie, e fundir os dois niveis apagaria a especie nomeada.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 5,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "BOLL-ER:2026-08-04:bollettini-di-modena",
+     "FRASE": "Monitorare la presenza in campo e in caso di accertata presenza intervenire con Tau-fluvalinate (Max 2) o Lambdacialotrina (*) (Max 1) o Deltametrina (Max 3 o Etofenprox (*) ( Max 2) Quest’ultimo principio attivo efficace anche su Cidia e Anarsia ."
+    },
+    {
+     "SOURCE_ID": "BOLL-ER:2026-08-05:forli-cesena-ravenna-rimini",
+     "FRASE": "Qualora si riscontrasse una importante presenza del fitofago è possibile intervenire con Etofenprox(*) (Max 2) attivo anche nei confronti della cimice asiatica, anarsia e cydia molesta o Deltametrina (Max 3) o Tau-fluvalinate o Lambdacialotrina(*) (Max 1) con attività collaterale nei confronti della forficula e cicaline."
+    },
+    {
+     "SOURCE_ID": "BOLL-ER:2026-08-18:bollettini-di-modena",
+     "FRASE": "Monitorare la presenza in campo e in caso di accertata presenza intervenire con Tau-fluvalinate (Max 2) o Lambdacialotrina (*) (Max 1) o Deltametrina (Max 3 o Etofenprox (*) ( Max 2) Quest’ultimo principio attivo efficace anche su Cidia e Anarsia ."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 5 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_ANTHRACNOSE",
+   "TERMO_ATUAL_NO_ROTULO": "ANTRACNOSI",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Nao e um organismo: e um nome de SINDROME (lesao necrotica deprimida) que nestes dois rotulos cobre tres generos sem parentesco proximo. (1) NOCE: antracnosi do nogueiral = Gnomonia juglandis / Ophiognomonia leptostyla (Gnomoniaceae, Diaporthales). (2) NOCCIOLO e bulbos ornamentais: Colletotrichum spp. (teleomorfo Glomerella cingulata, Glomerellaceae). (3) MELO/PERO: apenas \"Gloeosporium\", que em pomacea e o complexo de podridao lenticelar/amara de conservacao, hoje Neofabraea spp. / Phlyctema vagabunda (Dermateaceae, Helotiales) — anamorfo historicamente chamado Gloeosporium album/perennans. Sao tres doencas de biologia, orgao atacado e momento de aplicacao diferentes (folha de noz na primavera vs. fruto em pos-colheita de maca). O proprio repositorio ja tem trava sobre isso em scripts/it_rotulo_vocab.py, bloco TAXONOMIA: \"o rotulo ADAMA escreve Gloeosporium; as vozes tratam o complexo Colletotrichum/Glomerella. Generos diferentes. NAO promover.\" (TAX-01, TAX-02).",
+   "APELIDOS_PROPOSTOS": [
+    "antracnosi",
+    "antracnosi del noce",
+    "antracnosi del nocciolo",
+    "gnomonia juglandis",
+    "ophiognomonia leptostyla",
+    "colletotrichum",
+    "glomerella cingulata"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "Rotulo 008102 (MERPAN 80 WDG, CAPTAN), p1: \"per la protezione da: ... Noce: antracnosi (Gnomonia juglandis) Castagno: fersa (Mycosphaerella maculiformis) Nocciolo: alternaria (Alternaria sp.), antracnosi (Colletotrichum sp.)\" — o mesmo rotulo, na mesma frase, chama de antracnosi dois fungos de gener",
+   "RISCO_DE_SINAL_FALSO": "O perigo aqui NAO e colisao de string com prosa italiana — e falso sinal semantico dentro do proprio pairset, e ja esta medido: dos 5 pares publicados, 4 (MELO e PERO, nos dois rotulos) tem TARGET_AS_WRITTEN que nunca contem a palavra antracnosi; eles existem so pelo alias r'gloeosporium' numa frase de pomacea. Apenas 1 par (NOCE, 008102) tem \"antracnosi (Gnomonia juglandis)\" escrito. Se ISSUE_ANTHRACNOSE herdar o regex atual inteiro, 80% do sinal desse ISSUE_ID passa a afirmar sobre maca/pera uma doenca que o rotulo nao nomeia, e funde podridao lenticelar de conservacao (Neofabraea) com antracnose foliar de noz. Por isso EXCLUO r'gloeosporium' do alias do motor: os pares MELO/PERO ficam sem ISSUE_ID ate existir fonte que iguale Gloeosporium a antracnose, exatamente o \"NAO promover\" de TAX-01. ALIASES A REJEITAR EXPLICITAMENTE: (a) \"lebbra\" — e palavra italiana comum (lepra) e o proprio TAX-02 registra o caso das Marche em que o campo chamou de lebbra o que o laboratorio identificou como Camarosporium: alias que casa prosa comum E tem identificacao conflitante medida; (b) \"gloeosporium\" pelo motivo acima; (c) \"marciume\", \"maculatura\", \"macchie\" — sintomas genericos que casariam maculatura bruna (Stemphylium), macchie fogliari rosse (Polystigma) e marciume de qualquer agente; (d) r'antracnos[eio]' com a vogal larga — \"antracnose\" e a grafia PT/ES e o acervo tem 29 ocorrencias de ANTRACNOSE e 7 de antracnose em arquivos ES-*; ampliar a vogal faz o alvo italiano vazar para corpus de outra jurisdicao. Manter r'antracnos[ei]'. Nota adicional: \"colletotrichum\" e string segura mas o unico bloco de 011500 que a contem e concia dei bulbi ornamentais sem cultura declarada (c=[]), ato agronomico diferente de pulverizacao — o par nao existe hoje e nao deve ser criado por relaxamento de escopo.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 26,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "4ybyIcvgUhg",
+     "FRASE": "Un'altra sempre in biologico, un'altra altri casi segnalati su con Elsino Epiri che è un altro agente di antracnosi, ehm sia nel ferrarese che nel Ravernate, sempre in ambito biologico."
+    },
+    {
+     "SOURCE_ID": "8_rnThlsy9Q",
+     "FRASE": "L'antracnosi è un po' una particolarità che anni fa non c'era."
+    },
+    {
+     "SOURCE_ID": "CYV76yVc98s",
+     "FRASE": "E questa invece è la fitraafragari che tutti conosciamo e anche molto rappresentata e presente su tutto il territorio per arrivare poi ai Coletotricum, all'antracnosi con le sue varie specie che hanno un impatto sia sulla pianta ma anche sul frutto e e poi la neopestaluzi presente anche nel nostro territorio."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 26 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_APION",
+   "TERMO_ATUAL_NO_ROTULO": "APION",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Apion s.l. (Coleoptera: Brentidae/Apionidae, Apioninae) — os gorgulhos \"apioni\" das leguminosas forrageiras. O rotulo nomeia a especie uma vez, Apion pisi (hoje Holotrichapion pisi / complexo Protapion), praga de erba medica (Medicago sativa) e trifoglio: o adulto rode folhas e o larva mina caule/gema floral. Nao e afideo, nao e crisomelideo, nao e Hypera. Nos rotulos aparece sempre em erba medica / foraggere, tratado com piretroides (tau-fluvalinate, lambda-cialotrina).",
+   "APELIDOS_PROPOSTOS": [
+    "apion",
+    "apion pisi",
+    "holotrichapion pisi"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "007555 / 007864 / 012023 / 014190 (ERBA_MEDICA, tau-fluvalinate): \"Erba medica Contro afidi (Acyrthosiphon pisum, Aphis fabae), coleotteri (Hypera postica, Sitona lineatus, Apion pisi, Phytodecta fornicata, Tichius flavus), tripidi (Thrips tabaci) e lepidotteri (Cydia nigricana, Ostrinia nubilalis) ",
+   "RISCO_DE_SINAL_FALSO": "1) O alias \"apion\" SO e seguro com fronteira de palavra. Sem \\b, \"apion\" e substring de formas verbais italianas correntes — \"capiono\" (3a pessoa plural de capire) contem c-APIONO — e de \"Apionidae\"; prosa comum viraria sinal de praga. O regex atual (\\bapion\\b) e a tabela do motor (_casa, que compara ' %s ' com palavra inteira) ja protegem: a regra e nunca degradar isso para substring. 2) NAO adicionar \"apione\"/\"apioni\" sem testemunha: nao aparecem em nenhum dos 163 rotulos, e \"apione\" e lido fora da entomologia como aumentativo de \"ape\" (abelha) — alias que casaria texto sobre polinizadores, o oposto do alvo. 3) O genero Apion s.l. tem especies que comem INFESTANTES (p.ex. Apion frumentarium em Rumex): fora de rotulo, um \"apion\" solto pode ser inseto benefico, nao problema — o sinal so vale dentro de contexto de autorizacao/dano em leguminosa forrageira. 4) Sangria pelo lado da CULTURA, nao do alvo: os pares publicados APION x MAIS e APION x BARBABIETOLA nascem da celula unica \"Foraggere (prati-pascoli, loglio, mais, barbabietola da foraggio, erba medica)\" — sao MILHO FORRAGEIRO e BETERRABA FORRAGEIRA dentro do grupo, nunca milho grao nem barbabietola da zucchero (cuja linha, no mesmo rotulo, lista altica/cleono/cassida e nao apion). SOIA x APION foi exatamente esse defeito, ja corrigido pelo parser (comentario em scripts/it_rotulo_parser.py:383) — se SOIA ainda consta nas culturas associadas, e residuo, nao autorizacao. Criar ISSUE_APION nao conserta essa sangria; ela e de geometria de tabela.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 0,
+   "EXEMPLOS": [],
+   "IMPACTO": "nenhum trecho do acervo actual o nomeia: entra para os ROTULOS, que e onde o alvo aparece, e fica mudo no acervo de fala",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_SMUT",
+   "TERMO_ATUAL_NO_ROTULO": "CARBONE",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Carbone = the smut complex of cereals (Ustilaginomycetes), used by the label as a disease-group name whose exact species is given in parentheses per crop: Ustilago nuda f.sp. tritici (carbone volante del frumento / loose smut of wheat), Ustilago nuda (orzo), Ustilago avenae (avena), and Urocystis occulta (carbone dello stelo della segale/triticale, Urocystidaceae — a different family from Ustilago). It is a seed-borne disease controlled by seed dressing (concia delle sementi), which is exactly what the witness product SEEDRON is. It is NOT Tilletia caries: the same table cell of 016152 lists \"Carie ( Tilletia caries )\" as a distinct target alongside Carbone.",
+   "APELIDOS_PROPOSTOS": [
+    "ustilago",
+    "urocystis",
+    "carbone volante",
+    "carbone della spiga",
+    "carbone nudo",
+    "carbone coperto",
+    "carbone dello stelo"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [
+    "carbone (?!attiv|medicinal|veget)"
+   ],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "Rotulo 016152 (SEEDRON, FUNGICIDA IN CONCENTRATO FLUIDO PER LA CONCIA DELLE SEMENTI DI FRUMENTO, ORZO, TRITICALE, SEGALE E AVENA):\n  \"Frumento duro, Frumento tenero: Fusariosi ( Fusarium spp., Microdochium nivale ), Carie ( Tilletia caries ), Carbone ( Ustilago nuda f.sp. tritici ).\"\n  \"Orzo: Fusari",
+   "RISCO_DE_SINAL_FALSO": "O alias perigoso e o que ja esta em producao: r'\\bcarbone\\b'. \"Carbone\" e palavra italiana comum (carvao), e aparece nos proprios rotulos fora de qualquer contexto agronomico. Testemunha medida, nao hipotese: no rotulo 009757 o bloco toxicologico \"DIFENOCONAZOLO - Sintomi: ... somministrare carbone medicinale e un lassativo\" faz alvos_em() devolver ['CARBONE'], e SECAO_PROIBIDA.search() nesse bloco devolve False (o bloco comeca pelo nome do principio ativo, nao pelo cabecalho INFORMAZIONI PER IL MEDICO). Hoje esse bloco nao vira par publicado apenas porque nenhuma cultura co-ocorre nele — guarda acidental, nao guarda real: basta um rotulo com cultura no mesmo bloco de primeiros socorros e nasce um par \"cultura x CARBONE\" que o rotulo nunca autorizou. Mesmo risco com \"carbone attivo\" / \"carbone vegetale\" (coadjuvantes e antidotos) e \"carbone attivato\". Recomendacao: substituir r'\\bcarbone\\b' por r'\\bcarbone\\b(?!\\s+(?:attiv\\w*|medicinal\\w*|veget\\w*))', e ancorar preferencialmente nos generos (ustilago, urocystis) e nas formas compostas (carbone volante / della spiga / dello stelo), que nao casam prosa. Segundo risco, de sentido oposto: NAO ampliar este ISSUE_ID para \"carie\"/\"tilletia\" — o proprio 016152 trata Carie e Carbone como alvos distintos na mesma celula; caria (bunt) merece ISSUE_ID proprio.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 0,
+   "EXEMPLOS": [],
+   "IMPACTO": "nenhum trecho do acervo actual o nomeia: entra para os ROTULOS, que e onde o alvo aparece, e fica mudo no acervo de fala",
+   "REPARO_APLICADO_AQUI": [
+    "carbone (?!attiv|medicinal|veget)"
+   ],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_CASSIDA",
+   "TERMO_ATUAL_NO_ROTULO": "CASSIDA",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Cassida vittata Villers (Coleoptera: Chrysomelidae, Cassidinae) - \"cassida della bietola\", the beet tortoise beetle, a defoliating chrysomelid of sugar beet. The corpus uses the term at two grains: 007555/007864/009800/012023/014190/014210 write \"cassida (Cassida vittata)\" (species), while 012573 (EKO OIL SPRAY) and 014386 (OLIONET) write the bare genus \"Cassida\". The genus as used on beet in Italy also covers Cassida nebulosa L., so the vocabulary term as it stands is a genus-level handle over the beet Cassida complex, with C. vittata the only species the corpus names explicitly.",
+   "APELIDOS_PROPOSTOS": [
+    "cassida",
+    "cassida vittata",
+    "cassida nebulosa",
+    "cassida della bietola",
+    "cassida della barbabietola"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "007555 p1 y[386.8,431.1], BARBABIETOLA: \"Barbabietola da zucchero Contro afidi (Aphis fabae, Macrosiphum spp.), lepidotteri (Mamestra spp.), altica (Chaetocnema tibialis), cleono (Conorhynchus mendicus) e cassida (Cassida vittata) impiegare a 0,2 l/ha in 200-400 litri di acqua/ha\" (identical wording",
+   "RISCO_DE_SINAL_FALSO": "Three distinct risks, in order of severity. (1) STEM TRUNCATION IS THE REAL DANGER, NOT THE WORD. \"cassida\" itself is safe: it is not an ordinary Italian word, it matches nothing in agricultural prose, and the engine's _casa/_todos match whole tokens after _n() normalisation, so ' cassida ' cannot fire inside \"cassidinae\" or \"cassidae\". But a shortened alias 'cassid' would: the corpus already contains the surname \"Cassidy\" once, and 'cassid' would also swallow the subfamily name Cassidinae, turning a taxonomic aside into a pest signal. The alias must stay the full word, and the label-side regex should be anchored from r'cassida' to r'\\bcassida\\b' - unanchored today, it can match inside Cassidinae/Cassidae. (2) The only homograph is the archaic/poetic Italian \"cassida\" (from Latin cassis, cassidis, helmet), which does not occur in bollettini or labels; it is a literary artefact, not an operational risk, but it is the reason the alias must never be loosened to a stem. (3) GROUP-LEVEL ALIAS WOULD BE FATAL: do NOT add 'coleotteri' or 'coleotteri della bietola' as aliases. The 007555 sentence names altica, cleono and cassida as three separate targets inside one \"coleotteri\" breath, and 012573 adds Altica beside Cassida; a 'coleotteri' alias would collapse Chaetocnema tibialis, Conorhynchus mendicus, Meligethes, Lixus and even Diabrotica into ISSUE_CASSIDA and manufacture beet-tortoise-beetle pressure out of every generic beetle mention. Finally, a data-side caution rather than an alias one: of the 9 published pairs, only 8 are real. The 012573 CARCIOFO pair is a block-segmentation bleed (two crop statements in one OCR block); if ISSUE_CASSIDA inherits it, the engine will carry a false artichoke authorisation for a beet-only pest. Fix the pair at the parser before minting the ID.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 0,
+   "EXEMPLOS": [],
+   "IMPACTO": "nenhum trecho do acervo actual o nomeia: entra para os ROTULOS, que e onde o alvo aparece, e fica mudo no acervo de fala",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_GALL_MIDGE",
+   "TERMO_ATUAL_NO_ROTULO": "CECIDOMIA",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Gall midges — Diptera: Cecidomyiidae (\"ditteri cecidomidi\"). The corpus witnesses five species in three genera, split by crop: on cereals Contarinia tritici and Sitodiplosis mosellana (cecidomia gialla e arancione del frumento, wheat blossom midges); on pomacee Contarinia pyrivora and Dasineura pyri (cecidomia dei frutticini del pero and cecidomia delle foglie del pero); on legumes Contarinia pisi (cecidomia del pisello). In the barbabietola/girasole/colza dose tables the label writes the bare noun \"cecidomia\" with no binomial at all, so there the family is all that is authorised. It is NOT one taxon: the wheat blossom midge and the pear leaf midge share only the family.",
+   "APELIDOS_PROPOSTOS": [
+    "cecidomia",
+    "cecidomie",
+    "cecidomide",
+    "cecidomidi",
+    "cecidomiidae",
+    "ditteri cecidomidi",
+    "contarinia",
+    "contarinia tritici",
+    "contarinia pyrivora",
+    "contarinia pisi",
+    "sitodiplosis",
+    "sitodiplosis mosellana",
+    "dasineura",
+    "dasineura pyri"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "\"Cereali (orzo, avena, frumento, segale, triticale) Contro afidi (Sitobion avenae, Rhopalosiphum padi), ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana), cimici (Aelia rostrata, Eurygaster maura) e cicaline (Psammotettix alienus) impiegare a 0,2 l/ha\" (007555, 007864, 009800, 012023, ",
+   "RISCO_DE_SINAL_FALSO": "Os aliases propostos sao todos seguros por palavra inteira: \"cecidomi*\" nao e prefixo de nenhuma palavra comum italiana, e Contarinia/Sitodiplosis/Dasineura sao generos monofileticos da familia — nenhum deles casa prosa ordinaria. O perigo esta nos aliases que eu REJEITO explicitamente: (1) \"ditteri\" — e a ORDEM, e o parser ja o emite hoje como alvo separado ao lado de CECIDOMIA para a MESMA frase \"ditteri cecidomidi\"; como alias engoliria Bactrocera oleae (colidindo com ISSUE_OLIVE_FLY), Ceratitis, Liriomyza e todo minatore fogliare, e duplicaria o par. (2) \"mosca\"/\"moscerino\" — \"mosca\" ja casa \"mosca bianca\" (Bemisia/Trialeurodes) e prosa comum (\"mosca\" e substantivo corrente); \"moscerino delle galle\" so aparece em divulgacao, nunca nos rotulos. (3) \"galla\"/\"galle\"/\"cecidio\" — sintoma sem agente, e \"galle\" casa texto botanico qualquer. (4) Mayetiola destructor (mosca di Hessen), que e cecidomiideo real do frumento, tem ZERO ocorrencias no corpus: nao entra na tabela sem testemunha. Risco residual do proprio ISSUE: nas tabelas de barbabietola/girasole o rotulo escreve \"cecidomia\" nua — o sinal e valido no nivel de familia, mas qualquer leitura que dele deduza especie (p.ex. Sitodiplosis) e invencao, porque o rotulo nao a nomeia.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 7,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "CYV76yVc98s",
+     "FRASE": "E e nel 2025 abbiamo avuto qualche problema di cecidomia su mirtille fase di allevamenti di allevamento."
+    },
+    {
+     "SOURCE_ID": "azHKlPD3qAg",
+     "FRASE": "Cecidomia 2024 non c'era nulla, 2025 inizia ad essere problematico."
+    },
+    {
+     "SOURCE_ID": "uf5bx-oTees",
+     "FRASE": "la cecidomia con tarina pierivora in aumento in tutte le annate anche questa, anche qua naturalmente si fa un trattamento, però sono vecchie presenze che ritornano e in maniera adesso anche abbastanza seria, quindi bisogna cominciare a ragionare in maniera specifica, non sono più fitofasi secondarie, ecco, diciamo così, con quindi il monitoraggio che diventa fondamentale."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 7 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_LEUCOPTERA",
+   "TERMO_ATUAL_NO_ROTULO": "CEMIOSTOMA",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Cemiostoma = Leucoptera malifoliella (Costa), sinonimos Leucoptera scitella (Zeller) e Cemiostoma scitella; Lepidoptera: Lyonetiidae. Minadora circular das folhas de pomaceas (melo, pero) — \"minatore/minatrice circolare delle foglie\". Nao e um sintoma nem uma categoria: e uma especie unica, e o rotulo 018561 escreve o binomio inteiro.",
+   "APELIDOS_PROPOSTOS": [
+    "cemiostoma",
+    "leucoptera scitella",
+    "leucoptera malifoliella",
+    "cemiostoma scitella"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "Rotulo 018561 (COSAYR 200 SC, ADAMA, \"Insetticida selettivo specifico per pomacee\"), p1: \"Leucoptera scitella (cemiostoma), Ostrinia nubilialis (piralide), Cydia molesta (tignola orientale), Anarsia lineatella (anarsia), Cydia funebrana (tignola del susino), Operophtera brumata (cheimatobia), Lobesi",
+   "RISCO_DE_SINAL_FALSO": "Tres perigos, em ordem. (1) NUNCA aceitar alias construido sobre \"mina\"/\"mine\"/\"minatrice\"/\"minatore fogliare\": o proprio texto do alvo diz \"prima della comparsa delle mine\" — um padrao tipo r'min\\w*' casaria essa prosa de calendario, casaria \"mine\" italiano comum, e casaria tambem LITOCOLLETE e TUTA, que sao minadoras de outras familias. Alias sintomatico aqui funde tres ISSUE_ID. (2) \"minatrice serpentina\" tambem deve ser rejeitado: em italiano designa Lyonetia clerkella das drupaceas, especie diferente; so \"minatore circolare\" seria correto, e e raro demais nos rotulos para pagar o risco. (3) O padrao atual r'leucoptera' nu e genero, nao especie: absorveria em silencio qualquer outra Leucoptera (coffeella, spartifoliella) se um rotulo a escrever. Nos 163 rotulos italianos so ocorre L. scitella, entao hoje e seguro — mas o alias deve ser anotado como genero-por-conveniencia, nao como identidade. Os aliases propostos (\"cemiostoma\", binomios completos) nao casam nenhuma palavra comum italiana.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 3,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "uf5bx-oTees",
+     "FRASE": "Eh, la Nigero quest'anno è leggermente è stato leggermente di meno il problema rispetto all'anno scorso, però come vi ho detto Capocs acidia un poco di più, vale anche per il biologico e ovviamente qualche problemino anche di cemiostoma, volevo segnalare che in qualche fotetto abbiamo ben avuto qualche qualche qualche problemino."
+    },
+    {
+     "SOURCE_ID": "BOLL-ER:2026-08-04:bollettini-di-modena",
+     "FRASE": "(*) Sostanza attiva Candidata alla Sostituzione Cemiostoma e Litocollete: situazio Sostanza attiva Colture autorizzate Ciclossidim Pomacee-vite Clethodim Pesco-albicocco-susino-ciliegio-vite-pomacee-actinidia-noce-nocciolo-kaki-olivo Fluazifop-p-butile Pesco-albicocco-susino-ciliegio-vite-pomacee-actinidia-noce-nocciolo-kaki-mirtillo-olivo Propaquizafop Albicocco-susino-ciliegio-pomacee-noce-nocciolo-pesco-vite"
+    },
+    {
+     "SOURCE_ID": "BOLL-ER:2026-08-06:bollettini-di-reggio",
+     "FRASE": "(*) Sostanza attiva Candidata alla Sostituzione Cemiostoma e Litocollete: situazion N° 26 del 06/08/2026 Pag."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 3 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_ORIENTAL_FRUIT_MOTH",
+   "TERMO_ATUAL_NO_ROTULO": "CIDIA",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Cydia molesta (Busck, 1916), nome valido atual Grapholita molesta — tignola orientale del pesco / grafolita, oriental fruit moth (Lepidoptera: Tortricidae). \"Cidia\" e a grafia vernacular italiana de Cydia usada nas tabelas de rotulo; em drupacea (pesco, nettarine, albicocco) o unico Cydia visado e molesta, e os proprios rotulos escrevem o binomio por extenso na mesma frase em que outros escrevem so \"cidia\". NAO e Cydia pomonella (carpocapsa, pomacee) nem Cydia nigricana (legumi/erba medica), ambas presentes e nomeadas separadamente no mesmo corpus.",
+   "APELIDOS_PROPOSTOS": [
+    "cydia molesta",
+    "grapholita molesta",
+    "cidia",
+    "grafolita",
+    "tignola orientale del pesco",
+    "oriental fruit moth"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "Rotulos 008259 (LAMDEX EXTRA), 013560 (FORZA), 013590 (NINJA), 015275 (DURAVIS), 017687 (ELTIRA), coluna alvo da tabela geometrica, cultura \"Pesco e nettarine\": «Lepidotteri in genere (cidia, anarsia)». — Prova de identidade da especie, rotulos 007555, 007864, 009800, 012023, 014190, 014210, bloco d",
+   "RISCO_DE_SINAL_FALSO": "O perigo aqui nao e prosa comum, e o GENERO. O alias que NAO pode entrar e \"cydia\" isolado (nem \"grapholita\" isolado). O corpus prova por que: o mesmo rotulo 007555 nomeia Cydia pomonella (pomacee = ISSUE_CODLING_MOTH), Cydia molesta (drupacee = este problema) e Cydia nigricana (legumi/erba medica = tignola do pisello, que hoje nao tem ISSUE_ID nenhum). Como _casa() casa por palavra inteira e o apelido mais longo ganha, \"cydia\" solto perderia para \"cydia pomonella\" no texto das pomaceas, mas venceria sozinho no texto dos legumes — e Cydia nigricana, que nao tem apelido nenhum na tabela, viraria silenciosamente ISSUE_ORIENTAL_FRUIT_MOTH. Um alias de genero fabrica sinal em pisello, fagiolo e erba medica, onde nao ha pessego nenhum. Por isso os apelidos de genero ficam ancorados no binomio. Sobre \"cidia\" isolado: e seguro contra prosa italiana (nao e palavra do dicionario; _n() nao o extrai de \"cecidomia\", e \"Cydia\" normaliza para \"cydia\", que nao casa com \"cidia\"), mas carrega um risco residual de cultura — em rotulo de SUSINO um redator italiano pode escrever \"cidia\" querendo dizer Cydia funebrana, tignola das ameixas, outra especie. Isso nao aparece neste corpus (as 5 linhas com \"cidia\" sao todas \"Pesco e nettarine\"), mas se \"cidia\" for aceito o casamento deveria exigir cultura drupacea de caroco-pessego, nao susino. Mesma ressalva vale para \"grafolita\", que na pratica italiana significa molesta mas e formalmente um nome de genero.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 14,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "CYV76yVc98s",
+     "FRASE": "Mennore all'ordine Agronomi vede i consiglieri, diciamo, dell'ordine di Matera, il dottor Laciop, la dottoressa di Cidia, il dottor Coca che rappresent l'ordine nazionale che anche ci dato mano in questo, quindi si è creato uno sforzo, si è creato una sinerugia abbiamo già messo in campo quello che poi serve a compagno, che è quello cercare di far sti spirito e sulla scorta di questo, diciamo, di queste esperienze"
+    },
+    {
+     "SOURCE_ID": "azHKlPD3qAg",
+     "FRASE": "L'unica cosa che l'unica differenza che possiamo vedere tra il 2024 e 2025 è che l'ampiezza del volo è stato più è stato più corto nel 2025 rispetto al 2024, ma questa diciamo che è una caratteristica che ha accumulato un po' tutti i lepidotteri dalla dalla cidia del pesco alla nasia alla tuta eccetera eccetera, perché sono state, diciamo, le annate calde come quelle del 2024 hanno avuto dei voli molti eh molto"
+    },
+    {
+     "SOURCE_ID": "szsLkUd2cy4",
+     "FRASE": "Il lavoro descrive lo sviluppo e la valitazione di un modello fenologico di cidia pomonella che integra il processo di diapausa monitorando la capacità predittiva rispetto ai modelli previsionali che sono fatti esclusivamente sulle temperature."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 14 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_CONORHYNCHUS",
+   "TERMO_ATUAL_NO_ROTULO": "CLEONO",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Cleono della barbabietola: Conorhynchus mendicus (Curculionidae, tribo Cleonini; sinónimos de nomenclatura Temnorhinus mendicus / Cleonus mendicus). Curculionídeo de raiz/colo da beterraba sacarina — a larva ataca a raiz, o adulto o colo e as folhas cotiledonares na emergência. O rótulo escreve o binómio ao lado do nome vulgar em 6 dos 11 rótulos, portanto a identidade não é inferida: está declarada. NÃO é o mesmo animal que LISSO (Lixus spp., o outro curculionídeo da beterraba), que aparece lado a lado na mesma célula de tabela e tem entrada de vocabulário própria.",
+   "APELIDOS_PROPOSTOS": [
+    "cleono",
+    "cleoni",
+    "conorhynchus",
+    "conorhynchus mendicus",
+    "cleono della barbabietola",
+    "temnorhinus mendicus"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "007555 / 007864 / 009800 / 012023 (bloco BARBABIETOLA, prosa): \"Barbabietola da zucchero Contro afidi (Aphis fabae, Macrosiphum spp.), lepidotteri (Mamestra spp.), altica (Chaetocnema tibialis), cleono (Conorhynchus mendicus) e cassida (Cassida vittata) impiegare a 0,2 l/ha in 200-400 litri di acqua",
+   "RISCO_DE_SINAL_FALSO": "Baixo, mas com três armadilhas nomeadas. (1) O alias seguro é \"cleono\": não é palavra italiana comum, não é substring de nenhuma palavra corrente, e o motor casa por palavra inteira (`_casa`/`_todos` cercam o alias de espaços em v21_normalizar.py), portanto não pega \"ciclone\", \"cleone\" nem prosa ordinária. (2) O alias PERIGOSO que NÃO deve entrar é \"mendicus\" sozinho — é adjetivo latino (\"mendigo\") reutilizado noutros binómios, e casaria fora da beterraba; igualmente rejeito \"cleonus\" nu, que abre para todo o género Cleonus sensu lato e faria o alvo deixar de ser esta espécie. \"cleoni\" (plural agronómico) entra com ressalva: coincide com um apelido italiano raro, mas em corpus de rótulo/boletim fitossanitário a colisão é improvável. (3) O risco maior aqui não é o alias, é o par: nos 5 rótulos de tabela a célula lê só \"Cleono, lisso\", e a cultura vem por geometria de coluna, não pela frase — se o parser errar a linha, CLEONO cola-se a \"Frumento, orzo, avena, sorgo\", que está na mesma página. A ancoragem em BARBABIETOLA só está PROVADA pelos 6 rótulos de prosa; nos de tabela é herdada da coluna. Nota operacional: \"conorhynchus mendicus\" como alias de duas palavras falha em 014190/014210, onde o OCR quebra o binómio entre colunas — quem sustenta esses dois rótulos é o vulgar \"cleono\".",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 0,
+   "EXEMPLOS": [],
+   "IMPACTO": "nenhum trecho do acervo actual o nomeia: entra para os ROTULOS, que e onde o alvo aparece, e fica mudo no acervo de fala",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_SCALE_INSECTS",
+   "TERMO_ATUAL_NO_ROTULO": "COCCINIGLIE",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Cocciniglie = insetos-de-escama, Hemiptera Sternorrhyncha, superfamilia COCCOIDEA. Nao e uma especie: e o guarda-chuva de tres familias com biologia e janela de tratamento diferentes. (a) Pseudococcidae, cocciniglie farinose/cotonose — Planococcus ficus e Pseudococcus comstocki na VITE, Planococcus citri e Pseudococcus longispinus nos AGRUMI; produzem melata, fumaggine sobre o cacho e sao vetores de virus da videira. (b) Coccidae, cocciniglie molli — Saissetia oleae, a 'cocciniglia mezzo grano di pepe' do OLIVO. (c) Diaspididae, cocciniglie a scudetto — Diaspidiotus (Quadraspidiotus) perniciosus nas pomaceas e Aonidiella aurantii nos agrumi; nenhum rotulo do acervo escreve estes nomes, a identificacao vem da cultura e do estadio citado. O que os 13 rotulos autorizam e o GRUPO, e sempre pelo estadio movel: neanidi / forme mobili giovanili / larve — o crawler, unica fase vulneravel ao oleo mineral e aos contatos. IMPORTANTE: em 163 rotulos, os padroes 'planococcus', 'pseudococcus', 'saissetia' e 'quadraspidiotus' casam ZERO caracteres. Os 51 pares nascem todos da palavra nua 'cocciniglia/cocciniglie'. As especies so aparecem fora do rotulo (transcricao de podcast e bollettino regional).",
+   "APELIDOS_PROPOSTOS": [
+    "cocciniglia",
+    "cocciniglie",
+    "cocciniglia farinosa",
+    "cocciniglie farinose",
+    "cocciniglia mezzo grano di pepe",
+    "planococcus",
+    "pseudococcus",
+    "saissetia"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "TEXTO DE ROTULO (verbatim, acervo IT-ROTULOS-V1):\n[1] 008259, linha da tabela de impiego: \"Afidi (foglie non accartocciate) Cocciniglie (neanidi) 40 - 60 100 - 160 1200\"\n[2] 008259, VITE: \"Tignola e tignoletta: 1 a generazione 2 a generazione Cocciniglie (trattamenti estivi su neanidi) Cicaline Siga",
+   "RISCO_DE_SINAL_FALSO": "ALIAS QUE EU REJEITO, E POR QUE:\n1. \"neanidi\" — PROIBIDO. E estadio, nao alvo, e o proprio acervo prova a colisao: 008259 escreve \"Psilla del pero: 1 intervento (adulti svernanti) 2 intervento (prime neanidi della 2 a gen.)\". Um alias em neanidi transformaria linhas de PSILLE (e de cicaline, cimici) em cocciniglia. Como o motor casa por palavra inteira sobre o trecho inteiro, e como o rotulo escreve \"Cocciniglie (neanidi)\" e \"prime neanidi\" no MESMO documento, o erro seria silencioso e frequente.\n2. \"cotonello\" — PROIBIDO, apesar de tentador. No acervo ele aparece com o sentido ERRADO: \"Cotonello dell'olivo (Euphyllura olivina)\" — isso e um PSILIDEO, nao um coccideo. Fora do olivo, \"cotonello degli agrumi\" e mesmo Planococcus citri. Palavra com dois donos: fica de fora.\n3. \"cocci\", \"coccidi\", \"coccus\" — PROIBIDOS. \"coccidi\" e tambem Coccidia (protozoario veterinario) e \"cocci\" e morfologia bacteriana; casariam texto sanitario e microbiologico. \"coccus\" ainda casaria dentro de outros generos.\n4. \"scale\" / \"scale insect\" — \"scale\" nu e PROIBIDO: em italiano scale = escadas/escalas, palavra corrente (\"scale di trattamento\"), e em ingles e polissemico. Nao proponho nem a forma composta, que nao tem testemunha neste acervo.\n5. RISCO RESIDUAL DO ALIAS QUE EU ACEITO: \"cocciniglia\" tem um sentido nao agronomico vivo em italiano — o corante carmim E120 (\"colorante cocciniglia\"). Texto de industria alimentar dispararia. Neste acervo (rotulos, bollettini, convegni) o risco e baixo, mas ele existe e deve ser vigiado se o motor passar a ler imprensa geral ou rotulagem alimentar.\n6. RISCO NAO-LEXICAL, O MAIOR DE TODOS: o rotulo NUNCA nomeia especie. Se o motor casar \"cocciniglie\" do rotulo com \"Planococcus ficus\" da fala de campo e publicar VITE x Planococcus ficus como par de rotulo, isso e invencao — o documento autoriza contra o grupo, e a especie vem de outra fonte, com outra forca. O ISSUE_ID de grupo tem de carregar LEVEL=GROUP para que esse salto seja recusado na juncao, nao no bom senso do leitor.\n7. OBSERVACAO SOBRE OS PADROES ATUAIS: \"planococcus\" e \"pseudococcus\" (e, no vocabulario, \"saissetia\" e \"quadraspidiotus\") casam ZERO no acervo de 163 rotulos — nao produzem falso sinal, mas tambem nao sustentam nenhum dos 51 pares. Mantenho os tres primeiros na tabela do motor porque pagam nos bollettini e nas transcricoes [8][9]; NAO proponho \"quadraspidiotus\" nem \"diaspidiotus\", que nao tem uma unica testemunha em lugar nenhum deste acervo.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 63,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "6eNiYjzPGHw",
+     "FRASE": "Eh cocciniglia farinosa, anche qui presente in diverse vigneti della Toscana, soprattutto anche qui nelle province più costiere, ma non solo."
+    },
+    {
+     "SOURCE_ID": "6eNiYjzPGHw",
+     "FRASE": "Altra altra new entry eh in Puglia eh in maniera preponderante e non new entry, diciamo una eh un un rinforzo delle delle infestazioni e del planococcus o di pseudococcus."
+    },
+    {
+     "SOURCE_ID": "6eNiYjzPGHw",
+     "FRASE": "Eh, maggiore, diciamo, preoccupazione per quanto riguarda le cicaline, gli eriofidi, il planococcus e la mosca."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 63 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_COLORADO_BEETLE",
+   "TERMO_ATUAL_NO_ROTULO": "DORIFORA",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Leptinotarsa decemlineata (Say), the Colorado potato beetle — \"dorifora della patata\". A chrysomelid defoliator of Solanaceae (potato above all, then eggplant, tomato, pepper, tobacco), controlled at both egg/larval and adult stages. The label writes the binomial in full next to the Italian name, so identification is direct, not inferred.",
+   "APELIDOS_PROPOSTOS": [
+    "dorifora",
+    "dorifore",
+    "dorifora della patata",
+    "leptinotarsa",
+    "leptinotarsa decemlineata"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "007555 / 007864 / 009800 / 012023, bloco de PATATA: \"Patata Contro dorifora (Leptinotarsa decemlineata) e afidi (Myzus persicae, Macrosiphum euphorbia) impiegare a 0,3 l/ha in 500-1000 litri di acqua/ha\". 012573 (olio minerale): \"PEPERONE, POMODORO, PATATA: contro Afidi, Acari, Aleurodidi, Ditteri a",
+   "RISCO_DE_SINAL_FALSO": "Os dois aliases atuais sao seguros: \"dorifora\" e \"leptinotarsa\" nao sao palavras comuns do italiano e nao aparecem em prosa de rotulo fora do sentido praguicida; nao ha colisao com nome de cultura, de principio ativo ou de secao. O alias que eu NAO proponho e \"coleotteri\" — casaria Meligethes, Altica, Cassida, Lema, Diabrotica e elateridi, isto e, fundiria seis alvos distintos deste mesmo vocabulario num so sinal. Tambem rejeito \"decemlineata\" solto: sem o genero e um fragmento que so aparece colado a Leptinotarsa, ganha nada e abre risco de casar quebra de linha errada. O risco real deste alvo nao esta no alias e sim no lado da CULTURA: em 008259 a linha \"Dorifora, cavolaia, tripidi, piralidi\" produz c=['CAVOLO'] porque o padrao de cultura 'CAVOLO': [r'cavol\\w*'] (scripts/it_rotulo_vocab.py:68) casa \"cavolaia\" = Pieris brassicae, que e um inseto-alvo e nao a couve. Logo os pares CAVOLO x DORIFORA publicados sao falsos, e o mesmo bug contamina todo alvo que divida essa linha (TRIPIDI, NOTTUE, CIMICI, AFIDI, MOSCA). TABACCO tambem chega por esse bloco de tabela achatado: e biologicamente plausivel (dorifora e praga do tabaco) mas nao esta testemunhado por frase propria, so por adjacencia de tabela. O par solido e PATATA; POMODORO e PEPERONE vem de 012573 e sao explicitos, porem restritos a \"uova di Dorifora\" (ovicida, oleo mineral) — registrar o par sem essa restricao de estagio superestima o que o rotulo autoriza.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 0,
+   "EXEMPLOS": [],
+   "IMPACTO": "nenhum trecho do acervo actual o nomeia: entra para os ROTULOS, que e onde o alvo aparece, e fica mudo no acervo de fala",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_WIREWORM",
+   "TERMO_ATUAL_NO_ROTULO": "ELATERIDI",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Elateridae (coleotteri elateridi, \"click beetles\") — agronomically it is the LARVA, the wireworm (\"ferretto\"/\"verme fil di ferro\"), a polyphagous soil pest that bores underground organs. In Italy the actionable complex is the genus Agriotes: A. sordidus, A. brevis, A. litigiosus, A. ustulatus, A. lineatus. The ADAMA labels write only the genus (\"Agriotes sp./spp.\"), never the Italian family word; the Italian speech corpus writes only the family word (\"elateridi\") plus species epithets (\"litigiosus\", \"sordidus\", \"brevis\").",
+   "APELIDOS_PROPOSTOS": [
+    "elateridi",
+    "elateride",
+    "elateridae",
+    "agriotes",
+    "agriotes sordidus",
+    "agriotes brevis",
+    "agriotes litigiosus",
+    "agriotes ustulatus",
+    "vermi fil di ferro",
+    "verme fil di ferro",
+    "wireworm"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "Rotulo 008189 (LEBRON 0.5 G, teflutrin, \"Insetticida geodisinfestante in formulazione microgranulare\"), tabela COLTURA/PARASSITI/DOSE kg/ha, verbatim: \"Barbabietola da zucchero | Agriotes sp., Atomaria linearis, Chaetocnema tibialis, Scutigerella immaculata, Tipula sp. | 12-15\"; \"Mais, Mais Dolce, S",
+   "RISCO_DE_SINAL_FALSO": "Tres aliases tentadores sao PERIGOSOS e ficam FORA, com testemunha: (1) \"ferretti\"/\"ferretto\" — e o nome comum italiano do verme-arame, mas o acervo tem 24 ocorrencias e a maioria e o SOBRENOME de uma pessoa: \"in tal senso chiamo per un suo saluto Renato Ferretti, rappresentanza del CONAF\" e \"#RenatoFerretti\". Este alias transformaria a saudacao a um palestrante em sinal de praga; e tambem palavra comum (grampo/arame). REJEITADO. (2) \"coleotteri\" — a propria frase do rotulo (\"attivo nei confronti di coleotteri, ditteri, lepidotteri e miriapodi\") mostra que e nome de ORDEM inteira: casaria Diabrotica, Meligethes, Altica, Dorifora, Cassida, Lema, Oziorrinco, e aparece em 10 dos 163 rotulos como palavra de classe, nao de alvo. REJEITADO. (3) \"geodisinfestante\" — e categoria de PRODUTO, nao problema. REJEITADO. Alias limitrofe declarado: \"elateri\" (a fala real diz \"quello degli elateri\") nao entrou na lista porque colide com o termo botanico \"elateri\" (elateres de Equisetum/hepaticas); o custo e perder essa unica ocorrencia, e prefiro perder a inventar. Variantes de ASR encontradas — \"arateridi\", \"elaterdi\", \"elaterni\", \"tiferretti\", \"agriotesineatus\" — sao corrupcoes de transcricao e NAO devem virar alias: cada uma so casaria o proprio erro e abriria a porta a casamento por parecenca. Nota sobre o regex atual do vocabulario: r'elaterid[ei]' e r'agriotes' sao ambos seguros (nenhum casa palavra comum italiana) e nenhum colide com os 24 IDs existentes.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 39,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "3m0OxLSK4ro",
+     "FRASE": "Poi spostandoci in Veneto, eh la problematica è molto sentita nella zona di Rovigo e Chioggia, anche qua zone prettamente occate alla coltivazione delle orticole e della patata, soprattutto negli ultimi anni, cioè eh negli ultimi anni nella zona tipiche delle patate è difficile coltivarle appunto per il problema degli elateridi, quindi ci si è spostati in zone dove il problema degli arateridi è meno sentito, però"
+    },
+    {
+     "SOURCE_ID": "dGmP236Z4uQ",
+     "FRASE": "Due parole invece per quel che riguarda gli elateridi, perché anche qua è un grosso problema, soprattutto sulle patate che dopo lo vediamo sulle sui pomodori anche lui è un problema perché il problema grosso è che lui va mi va a bucare le manichette per cui ho o un discorso che vengono utilizzati dei geodesinfestanti per cui il tè flutringo, una lamba, chalutrina per il controllo che vengono applicati alla semina"
+    },
+    {
+     "SOURCE_ID": "dGmP236Z4uQ",
+     "FRASE": "rischio, rimane un problema quel che riguarda la gestione degli elateridi e il ragno rosso l'ho lasciato una percentuale da 1% perché viaggia fa molto a focolai, è collegato molto a focolai e a poi considerate che il fatto di utilizzare le manichette purtroppo sono valide, però la bagnatura fogliare che mi fa un'irrigazione a pioggia mi dilava ragno rosso e per cui anche lì diminuisce, diciamo, il prodotto."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 39 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_HELMINTHOSPORIUM",
+   "TERMO_ATUAL_NO_ROTULO": "ELMINTOSPORIOSI",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Nome coletivo italiano das doencas foliares/de semente do orzo (Hordeum vulgare) causadas pelos fungos de forma \"Helminthosporium\" (anamorfos Drechslera/Bipolaris, teleomorfos Pyrenophora). Nos rotulos ADAMA cobre DUAS doencas distintas e nomeadas: (a) Pyrenophora teres (anam. Drechslera teres) = maculatura reticolare e puntiforme / net blotch, e (b) Helminthosporium gramineum = Drechslera graminea, teleomorfo Pyrenophora graminea = striatura bruna / leaf stripe, alvo dos tratamentos de concia (SEEDRON 016152). Nao e Zymoseptoria, nao e Pyricularia, nao e Ramularia, nao e Rhyncosporium: os proprios rotulos listam esses como linhas separadas na mesma tabela.",
+   "APELIDOS_PROPOSTOS": [
+    "elmintosporiosi",
+    "elimintosporiosi",
+    "helminthosporium",
+    "helminthosporium gramineum",
+    "pyrenophora",
+    "pyrenophora teres",
+    "pyrenophora graminea",
+    "drechslera teres",
+    "drechslera graminea",
+    "maculatura reticolare",
+    "striatura bruna dell orzo"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "018089 AVASTEL, linha do Orzo: \"Rincosporiosi ( Rhyncosporium secalis ), Elmintosporiosi ( Helminthosporium gramineum o Pyrenophora teres ), Ramularia ( Ramularia collo-cygni ), Ruggine bruna ( Puccinia hordei ), Oidio ( Blumeria graminis sp. hordei )\" — o rotulo enumera elmintosporiosi AO LADO de r",
+   "RISCO_DE_SINAL_FALSO": "Tres perigos, dois deles ja materializados no pairset. (1) ALIAS PROIBIDO \"elminto\"/\"elminti\": em italiano elminti = helmintos (vermes), elmintiasi e termo veterinario/medico corrente; truncar o alias transformaria prosa sanitaria em sinal de fungicida de orzo. Idem \"teres\" sozinho (latim comum, musculus teres) e \"gramineum/graminea\" sozinho. (2) ALIAS PROIBIDO \"maculatura\" e \"striatura bruna\" nus: \"maculatura bruna\" e o nome italiano da doenca do pero por Stemphylium vesicarium — problema distinto, outra cultura; e \"striatura bruna\" tambem nomeia sintoma de virose do pomodoro (TMV). So entram qualificados: \"maculatura reticolare\" e \"striatura bruna dell orzo\". \"reticolare\" sozinho e adjetivo comum. (3) O risco JA REALIZADO nao esta no alias e sim na geometria: 6 pares publicados dao ELMINTOSPORIOSI a CETRIOLO e ZUCCHINO (015232, 017358, 017824, ROUTE=GEOMETRIC_TABLE, ROW_MARGIN 21.4-21.5 contra 63.4 do Orzo). Pyrenophora teres nao infecta Cucurbitaceae; nesses tres rotulos a linha das cucurbitaceas em estufa declara SO \"Oidio (Sphaerotheca spp., Erysiphe spp.)\". Se o ISSUE_ID novo herdar o pairset como esta, o motor passara a afirmar registro de fungicida contra elmintosporiose em abobrinha — sinal falso com cara de dado declarado. O ISSUE_ID deve nascer restrito a ORZO (e, quando o rotulo escrever, FRUMENTO/SEGALE), e os 6 pares cucurbitaceos devem ser rebaixados antes da promocao, como ja foram os 2 pares de SEGALE marcados AMBIGUOUS_ROW (ROW_MARGIN -33.1, 018067 e 019095). NOTA DE COBERTURA: o regex atual \"elmintosporios[ei]\" NAO casa \"Elimintosporiosi\", forma literal em 018067, 018175 e 019095; esses blocos so foram salvos porque tambem traziam \"Helminthosporium\"/\"Pyrenophora\". Um rotulo que escreva a variante sem o nome latino hoje se perde — dai o alias \"elimintosporiosi\" na lista.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 1,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "mIunZ-pH3RY",
+     "FRASE": "Abbiamo poi l'elmintosporiosi, diciamo, è un patogeno secondario in quanto è presente sia in Lombardia e ma anche in provincia di Novara."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 1 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_ERIOPHYID_MITES",
+   "TERMO_ATUAL_NO_ROTULO": "ERIOFIDI",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Acari eriofidi — superfamiglia Eriophyoidea (Acari: Trombidiformes), soprattutto Eriophyidae: Eriophyes pyri (erinosi del pero), Colomerus/Eriophyes vitis (erinosi della vite), Aculus schlechtendali (eriofide rugginoso del melo), Aculops lycopersici (acaro rugginoso del pomodoro), Phyllocoptruta oleivora (agrumi). NON sono i tetranichidi (Panonychus ulmi, Tetranychus urticae), che questi stessi rotuli chiamano separatamente ACARI.",
+   "APELIDOS_PROPOSTOS": [
+    "eriofidi",
+    "eriofide",
+    "eriofide rugginoso",
+    "acari eriofidi",
+    "eriophyes",
+    "eriophyidae",
+    "eriophyoidea",
+    "colomerus vitis",
+    "aculus schlechtendali",
+    "aculops lycopersici"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "Rotulo 012573 (EKO OIL SPRAY), bloco p0 y=173-554: «POMACEE (Melo, Pero e Cotogno): contro Acari, Afidi, Cicali- ne, Cocciniglie, Eriofidi, Psille, Metcalfa, Tignola, uova di Lepidot- teri» — e «DRUPACEE (albicocco, pesco, ciliegio, susino, nettarina) e MANDORLO: contro Afidi, Acari, Cicaline, Cocci",
+   "RISCO_DE_SINAL_FALSO": "O termo em si e seguro: «eriofidi/eriofide» nao existe na prosa italiana comum, so em fitopatologia, e o regex atual eriofid[ei] casa palavra inteira. O perigo esta nos aliases que alguem seria tentado a acrescentar: (1) «acari» — PROIBIDO neste ID: capturaria Panonychus/Tetranychus, que os rotulos 012573 e 014386 listam como alvo SEPARADO na mesma frase, e transformaria toda mencao generica de acaro num falso sinal de eriofideo (por isso mantenho «acari eriofidi» como alias longo, que o desempate por comprimento do _casa faz ganhar de um futuro alias «acari»); (2) «rugginosita»/«ruggine» — PROIBIDO: e sintoma sem agente (o russeting da maca pode ser abiotico ou por cobre) e «ruggine» ja pertence a ISSUE_RUST, um fungo — casaria doenca fungica como acaro; (3) «erinosi» — deixado de fora por prudencia: e sintoma, e embora na vite so o Colomerus o cause, noutras culturas o nome e usado com folga; (4) «aculus»/«aculops» sozinhos — nao incluidos como palavra isolada porque sao genero truncado que pode aparecer em prosa taxonomica de outros grupos; incluo so os binomios completos. Alias de genero/especie (colomerus vitis, aculus schlechtendali) sao seguros mas rebaixam precisao: mapeiam especie para ID de grupo, o que e perda aceitavel aqui mas deve ser registada.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 17,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "6eNiYjzPGHw",
+     "FRASE": "Nel 2025 abbiamo osservato una buona presenza di di eriofide su diversi vigneti, ma anche in questo caso non non è causa dei danni rilevanti, non sono stati fatti interventi di difesa ad hoc."
+    },
+    {
+     "SOURCE_ID": "6eNiYjzPGHw",
+     "FRASE": "anche non so chi era il collega che parlava del degli eriofidi anche da qualche anno a questa parte, da forse 6 o 7 anni a questa parte la presenza costante di eriofidi nei nei nei vigneti sin dalle prime fasi fenologiche è una costante ormai ben definita, eh facilitato anche probabilmente dal dalla eh dall'uso poco frequente di di zolfo polverulento che quantomeno ha un'azione ostacolante se non se non proprio può"
+    },
+    {
+     "SOURCE_ID": "6eNiYjzPGHw",
+     "FRASE": "Eh, gli eriofidi, queste sono le alterazioni che si possono riscontrare con questa frequenza e con questa intensità."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 17 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_ALFALFA_WEEVIL",
+   "TERMO_ATUAL_NO_ROTULO": "FITONOMO",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Fitonomo = Hypera postica (Gyllenhal) (sin. H. variabilis / H. brunneipennis), Coleoptera: Curculionidae — o fitonomo/punteruolo dell'erba medica (alfalfa weevil). A prosa do proprio rotulo fixa o binomio na cultura ERBA MEDICA: «coleotteri (Hypera postica, Sitona lineatus, Apion pisi, Phytodecta fornicata, Tichius flavus)». E um curculionideo desfolhador de leguminosa forrageira, distinto de APION (Apion pisi / Protapion spp.), que aparece na mesma celula mas e outro genero.",
+   "APELIDOS_PROPOSTOS": [
+    "fitonomo",
+    "fitonomi",
+    "fitonomo dell erba medica",
+    "hypera postica",
+    "hypera brunneipennis",
+    "alfalfa weevil",
+    "punteruolo dell erba medica"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "007555 / 007864 / 009800 / 012023 / 014190 / 014210 (texto corrido, coluna ERBA MEDICA): «Erba medica — Contro afidi (Acyrthosiphon pisum, Aphis fabae), coleotteri (Hypera postica, Sitona lineatus, Apion pisi, Phytodecta fornicata, Tichius flavus), tripidi (Thrips tabaci) e lepidotteri (Cydia nigric",
+   "RISCO_DE_SINAL_FALSO": "(1) O alias PERIGOSO e o regex atual «hypera» sem ancora de palavra: como substring casa Hyperomyzus (p.ex. Hyperomyzus lactucae, afideo da lattuga) e Hyperaspis (coccinelideo auxiliar), transformando uma mencao de AFIDEO — que pertence a ISSUE_APHIDS — em sinal de gorgulho da alfafa. Exigir «hypera postica» ou \\bhypera\\b: no motor o _casa casa por palavra inteira e protege, mas o vocabulario do parser (scripts/it_rotulo_vocab.py) usa regex cru e nao protege. (2) NAO aliasar «punteruolo» sozinho: em italiano nomeia tambem Rhynchophorus ferrugineus (punteruolo rosso da palmeira) e Otiorrhynchus — problemas distintos; so a forma composta «punteruolo dell erba medica» e segura. (3) NAO aliasar «coleotteri»: e categoria de ordem e casaria a linha inteira, que nomeia cinco generos diferentes. (4) «fitonomo» em si e seguro: termo entomologico especifico, sem colisao com palavra comum italiana; 9 ocorrencias no corpus, todas pragas. (5) ALERTA DE PAREAMENTO, nao de alias: os 3 pares publicados dizem cultura SOIA, e isso e artefato de alinhamento vertical do parser — em 013560 o bloco «Soia» esta em y=241-248 e a linha do fitonomo em y=276-284, dentro do bloco «Foraggere ... erba medica» (y=267-331). Fitonomo nao e praga de soja; publicar SOIA×FITONOMO cria sinal falso de cultura. (6) Cobertura: 11 rotulos mencionam fitonomo/Hypera mas so 3 geraram par — entrada viva e sub-detectada, nao morta, porque a forma em prosa «coleotteri (Hypera postica...)» nao e lida pelo pareador de tabela.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 0,
+   "EXEMPLOS": [],
+   "IMPACTO": "nenhum trecho do acervo actual o nomeia: entra para os ROTULOS, que e onde o alvo aparece, e fica mudo no acervo de fala",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_HYDRELLIA",
+   "TERMO_ATUAL_NO_ROTULO": "IDRELLIA",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Idrellia = italianizacao de *Hydrellia* (Diptera: Ephydridae), a mosca minadora das folhas de cereais e arroz; na Italia a especie de importancia pratica e *Hydrellia griseola* (Fallen). O rotulo escreve APENAS a forma vernacular do genero (\"idrellia\"), nunca um binomio latino — a atribuicao ao genero Hydrellia vem da nomenclatura agronomica italiana, e a atribuicao a especie griseola e externa ao corpus, nao esta escrita em nenhum dos 5 rotulos. Nao e afideo (Hemiptera), nao e cecidomia (Diptera: Cecidomyiidae, generos Contarinia/Sitodiplosis), nao e lema (Coleoptera: Oulema) — os tres aparecem na MESMA celula e sao organismos distintos.",
+   "APELIDOS_PROPOSTOS": [
+    "idrellia",
+    "idrellie",
+    "hydrellia",
+    "hydrellia griseola",
+    "idrellia del riso"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "Texto identico nos 5 rotulos, na linha dos cereais: \"Afidi, lema, tripidi, cecidomia, idrellia\" — celula de cultura adjacente \"Frumento, orzo, avena, sorgo\" (008259 p1/p6, 013560 p1/p5, 013590 p1/p6, 015275 p2, 017687 p2/p7). O adjudicado publicado registra o par de fronteira: \"015275 SEGALE x IDREL",
+   "RISCO_DE_SINAL_FALSO": "Os aliases propostos sao SEGUROS e devem ficar assim: \"idrellia\"/\"idrellie\"/\"hydrellia\" nao existem como palavra comum italiana nem como prefixo de outra palavra, e o regex atual ja casa palavra inteira. O perigo esta nos aliases que alguem sentiria vontade de acrescentar e que eu REJEITO explicitamente: (a) \"mosca\" — casaria \"mosca bianca\" (Bemisia/Trialeurodes), \"mosca della frutta\" (Ceratitis), \"mosca olearia\" (Bactrocera), \"moscerino\" (Drosophila suzukii) e prosa comum; os proprios rotulos 013590/017687 trazem \"Mosca della frutta\" a poucas linhas de \"idrellia\" no mesmo bloco de texto, entao esse alias colidiria DENTRO do mesmo rotulo; (b) \"minatrice\"/\"mosca minatrice\"/\"leafminer\" — casaria Liriomyza (Agromyzidae) em horticolas, Tuta absoluta (que o motor ja tem como ISSUE_TUTA e cujo nome ingles e literalmente \"tomato leafminer\"), e cemiostoma/litocollete em pomaceas: um alias assim transformaria tres problemas distintos num so e sequestraria ISSUE_TUTA; (c) \"ditteri\" — nivel de ordem, cobriria cecidomia, mosca da azeitona e a propria idrellia. Risco adicional de PESO, nao de casamento: os 25 pares vem de UMA unica frase de tabela repetida (5 culturas x 5 registros de produtos diferentes — LAMDEX EXTRA, FORZA, NINJA, DURAVIS, ELTIRA — que copiam a mesma tabela de piretroide). Contar 25 como 25 evidencias independentes superestima a base; sao 5 registros repetindo um boilerplate.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 0,
+   "EXEMPLOS": [],
+   "IMPACTO": "nenhum trecho do acervo actual o nomeia: entra para os ROTULOS, que e onde o alvo aparece, e fica mudo no acervo de fala",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_OULEMA",
+   "TERMO_ATUAL_NO_ROTULO": "LEMA",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Oulema melanopus (L.) — e a especie irma O. duftschmidi, indistinguiveis na pratica e tratadas como um so complexo — Coleoptera: Chrysomelidae, a criocera dei cereali / cereal leaf beetle. \"Lema\" e o vernaculo italiano herdado do binomio antigo Lema melanopus, hoje Oulema. Codigo EPPO LEMAME. Confirmado dentro do proprio repositorio: /home/user/eame-sintonia/data/samples/ES-T4-001/eppo-dictionary.json traz \"LEMAME\": {\"es\": \"Lema, babosilla, Oulema melanopus\", \"scientific\": \"Oulema melanopus\"} — unica entrada Oulema do dicionario. Coerente com as culturas do alvo (AVENA, FRUMENTO, ORZO, SORGO, SEGALE): a criocera e praga de cereais de inverno e primavera, adultos e larvas raspando o parenquima foliar em estrias longitudinais.",
+   "APELIDOS_PROPOSTOS": [
+    "oulema",
+    "oulema melanopus",
+    "oulema duftschmidi",
+    "lema melanopus",
+    "criocera dei cereali",
+    "criocera del frumento"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [
+    "lema"
+   ],
+   "EVIDENCIA": "Rotulo 008259 (LAMDEX EXTRA), bloco p1 y=49-188, coluna de avversita alinhada as linhas de cereais: \"Altica Afidi (foglie non accartocciate) Cleono, lisso Nottue defogliatrici (allo scoperto) Afidi, lema, tripidi, cecidomia, idrellia Nottue (allo scoperto) Afidi, lema, tripidi, cecidomia, idrellia .",
+   "RISCO_DE_SINAL_FALSO": "O alias perigoso e o nu \"lema\", e o perigo NAO e o italiano — e o espanhol. Verifiquei o mecanismo do motor: _n() em /home/user/wt-canonica/scripts/v21_normalizar.py normaliza com re.sub(r'[^a-z0-9]+',' ') e _casa() casa por palavra inteira sobre a MESMA tabela ISSUE_ALIAS em todos os idiomas (a tabela ja mistura 'pulgao', 'mildiu', 'mosca da oliveira'). Em espanhol \"lema\" e palavra corrente = slogan/mote. O acervo ja contem 7 ocorrencias de prosa espanhola que ISSUE_OULEMA capturaria como sinal fitossanitario: \"bajo el lema 'Protege las plantas, protege la vida'\" (dia nacional da sanidade vegetal), \"bajo el lema 'Retos del Olivar: conocimientos y me...'\", \"Con el lema 'Tu ventana digital al campo'\", \"fieles a nuestro lema #SeguimosTrabajandoPor\", \"¿Nuestro lema? BE SYNERGYNUTS\" (x3) — em data/samples/ES-T8-001-videos.json e ES-T8-002-posts.json. Note o pior caso: sao textos de dominio agronomico, entao nenhum filtro de topico salva; um post da ADAMA Espanha sobre sanidade vegetal viraria pressao de criocera em cereais espanhois. Por isso o alias nu \"lema\" so deve entrar com trava de locale IT **e** contexto de tabela/rotulo, nunca em prosa livre nem em corpus ES/PT; em prosa, exigir \"oulema\" ou \"criocera dei cereali\". Riscos menores medidos e descartados: (a) \"problema\" ocorre 1192 vezes no acervo, mas \\b protege, e a silabacao italiana quebra pro-blema, produzindo \"blema\" — atestado no acervo em EVIDENCE_SPAN \"blema devo intervenire\" e \"blema per le regioni\" — e nao \"lema\"; hoje ha ZERO falsos positivos italianos por corte de OCR, mas o risco reaparece se algum OCR de duas colunas cortar por espaco em \"prob lema\". (b) nomes proprios \"Zulema\" e \"Ailema\" existem no acervo e sao corretamente excluidos por \\b — seriam capturados por qualquer alias por substring, entao a fronteira de palavra e obrigatoria. (c) \"criocera\" sozinho e ambiguo (Crioceris asparagi = criocera dell'asparago, outra praga, outra cultura): exigir \"criocera dei cereali\"/\"del frumento\". (d) \"oulema\" precisa de entrada propria porque \\blema\\b nao casa dentro de \"Oulema\" — o vocabulario do parser em scripts/it_rotulo_vocab.py linha 113 tem apenas [r'\\blema\\b'] e perderia a grafia cientifica; o padrao declarado no enunciado ja inclui \"oulema\" e essa divergencia entre o declarado e o arquivo merece conferencia.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 0,
+   "EXEMPLOS": [],
+   "IMPACTO": "nenhum trecho do acervo actual o nomeia: entra para os ROTULOS, que e onde o alvo aparece, e fica mudo no acervo de fala",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_LIXUS",
+   "TERMO_ATUAL_NO_ROTULO": "LISSO",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Lixus spp., em praxe italiana Lixus junci Boheman (Coleoptera: Curculionidae), o \"lisso della barbabietola\" — gorgulho da beterraba sacarina. \"Lisso\" e a italianizacao do nome do genero Lixus (o proprio vocabulario ja o admite ao juntar o padrao \"lixus\", e o dicionario EPPO do repo, data/samples/ES-T4-001/eppo-dictionary.json, carrega \"Lixus spp.\"). Adultos roem plantulas no colo; larvas minam colo e pecíolo. NAO e o mesmo animal que o \"cleono\" impresso na mesma celula, que e Conorhynchus (Temnorhinus) mendicus, outro curculionideo da beterraba — dois generos distintos, mesma cultura, mesma janela de tratamento.",
+   "APELIDOS_PROPOSTOS": [
+    "lixus",
+    "lixus spp",
+    "lixus junci",
+    "lisso della barbabietola",
+    "cleono, lisso"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "Texto do rotulo, identico nos 5 (008259, 013560, 013590, 015275, 017687), coluna de alvos da tabela geometrica ao lado de \"Barbabietola da zucchero\": \"Cleono, lisso\". A linha completa da tabela, em productRelationships.json e em 008259.txt, mostra as doses lado a lado: \"Barbabietola da Afidi (foglie",
+   "RISCO_DE_SINAL_FALSO": "O alias perigoso e o proprio padrao que ja esta em producao: \"\\blisso\\b\". Ele JA dispara falso no acervo deste repo — verifiquei correndo o regex sobre a arvore inteira: data/samples/IT-CONVEGNO-V1/falas/3m0OxLSK4ro.json contem \"Vedete un po' meno la lisso rispetto alle altre, ma statisticamente differente rispetto allo sfalciato\". Ali \"la lisso\" e a ASR partindo mal \"l'alisso\" — ALYSSUM, a planta de flor semeada em faixas para auxiliares. O mesmo audio diz noutros pontos \"li abbiamo trovati soprattutto su Alisso\", \"la fioritura dell'alisso richiama\", \"soprattutto nella alisso, mentre... runcinia gramnica in facelia\": e um ensaio de artropodes uteis em faixas floridas. Com o padrao atual, uma fala sobre uma planta que ATRAI beneficos passa a contar como pressao de um gorgulho da beterraba — o falso sinal mais caro possivel, porque inverte o sinal (biodiversidade lida como praga). O corte de elisao italiana (l'alisso, dell'alisso, nell'alisso) e exatamente o que a fronteira \\b nao protege. Riscos secundarios: \"lisso\" e tambem base de toponimo/sobrenome (Lissone, Lisso) e, se o motor normalizar acentos e consoantes duplas entre PT/ES/IT — o ISSUE_ALIAS ja mistura linguas ('pulgao', 'daninhas', 'seca') — \"lisso\" colapsa em \"liso\", adjetivo comum (\"liso\", \"superficie lisa\"). Recomendacao operacional: NAO admitir \"lisso\" nu na tabela de alias. Admitir so as formas latinas e as colocacoes desambiguadas que proponho; se o \"lisso\" nu for indispensavel para os rotulos, guarda-lo com lookbehind negativo de elisao e ancora de dominio, p.ex. (?<![a-z'’])lisso\\b apenas na rota GEOMETRIC_TABLE de rotulo INSETTICIDA, nunca sobre transcricoes de fala. Terceiro risco, de fusao: juntar LISSO a CLEONO num unico ID (tentador, porque saem sempre na mesma celula e com a mesma dose) apagaria dois generos distintos; se o programa quiser um so no, que seja um no de grupo explicito (gorgulhos da beterraba), com CLEONO recebendo o seu ISSUE_CLEONUS proprio — por isso marquei SYNONYM_IS_LOSSLESS=false.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 0,
+   "EXEMPLOS": [],
+   "IMPACTO": "nenhum trecho do acervo actual o nomeia: entra para os ROTULOS, que e onde o alvo aparece, e fica mudo no acervo de fala",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_PHYLLONORYCTER",
+   "TERMO_ATUAL_NO_ROTULO": "LITOCOLLETE",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Phyllonorycter spp. (Lepidoptera: Gracillariidae), the tentiform leafminers of pome fruit — Phyllonorycter blancardella (litocollete delle pomacee, ex Lithocolletis blancardella) and Phyllonorycter corylifoliella (litocollete con mina a placca). A larval leaf-mining moth of melo/pero, monitored on mine counts per leaf. NOT Cydia pomonella, NOT Leucoptera malifoliella (cemiostoma), NOT the dipteran Liriomyza leafminers, NOT Phyllocnistis citrella of citrus.",
+   "APELIDOS_PROPOSTOS": [
+    "litocollete",
+    "litocollete delle pomacee",
+    "phyllonorycter",
+    "phyllonorychter",
+    "phyllonorycter blancardella",
+    "phyllonorychter blancardella",
+    "phyllonorycter corylifoliella",
+    "lithocolletis",
+    "lithocolletis blancardella"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "Label 018561 (COSAYR 200 SC), SPETTRO D'AZIONE: \"Cydia pomonella (carpocapsa), Adoxophyes orana (capua reticulana), Argyrotaenia pulchellana (eulia), Pandemis heparana (tortrice verde), Pandemis cerasana (tortrice gialloverde), Phyllonorychter blancardella (litocollete delle pomacee), Phyllonorychte",
+   "RISCO_DE_SINAL_FALSO": "The Latin and vernacular forms are safe: \"litocollete\", \"phyllonorycter\" and \"lithocolletis\" are not Italian words and cannot match prose. Three aliases must be REJECTED. (1) \"minatore fogliare\" / \"minatori fogliari\": the same corpus uses it for a different order — labels 014190, 014210 and 007555, lattuga block, \"minatori fogliari (Liriomyza spp.)\" (Diptera, Agromyzidae) — and as a bare column header in 014386 and 012573, \"Minatori fogliari, Tripidi, uova di Lepidotteri\". Adopting it would file Liriomyza on lettuce as a pome-fruit moth. (2) \"mina\" / \"mine\": ordinary Italian, and in the label it is a PHENOLOGICAL TIMING phrase (\"prima della comparsa delle mine\"), not a target; it would also fire on Phyllocnistis on citrus (\"prima che siano visibili le mine sulle foglie\", 018561) and on any prose containing the common noun. (3) any truncated stem such as \"phyllo\" or \"litocoll\" without word boundary: \"Phyllocnistis citrella\" (agrumi, same label 018561), Phyllotreta and Phyllobius are unrelated organisms; the engine's _casa/_todos match whole normalised token sequences, so only full genus or full vernacular tokens are admissible. Also note \"lepidotteri\" must never be routed here: in the KLARTAN sentence one \"lepidotteri\" parenthesis holds five species at once, and the alias would make Cydia, Adoxophyes, Yponomeuta and Hyphantria all read as Phyllonorycter. Coverage gap worth fixing at the same time: the current vocab regex r'phyllonorycter' does NOT match the label's own spelling \"Phyllonorychter\" (with ch) used throughout 018561.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 2,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "BOLL-ER:2026-08-04:bollettini-di-modena",
+     "FRASE": "(*) Sostanza attiva Candidata alla Sostituzione Cemiostoma e Litocollete: situazio Sostanza attiva Colture autorizzate Ciclossidim Pomacee-vite Clethodim Pesco-albicocco-susino-ciliegio-vite-pomacee-actinidia-noce-nocciolo-kaki-olivo Fluazifop-p-butile Pesco-albicocco-susino-ciliegio-vite-pomacee-actinidia-noce-nocciolo-kaki-mirtillo-olivo Propaquizafop Albicocco-susino-ciliegio-pomacee-noce-nocciolo-pesco-vite"
+    },
+    {
+     "SOURCE_ID": "BOLL-ER:2026-08-06:bollettini-di-reggio",
+     "FRASE": "(*) Sostanza attiva Candidata alla Sostituzione Cemiostoma e Litocollete: situazion N° 26 del 06/08/2026 Pag."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 2 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_COCKCHAFER",
+   "TERMO_ATUAL_NO_ROTULO": "MAGGIOLINO",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Melolontha melolontha (L.), Coleoptera: Scarabaeidae — the cockchafer / May beetle (\"maggiolino comune\"). The label writes only the vernacular genus-level name, with the qualifier \"(sulla vegetazione)\", i.e. the ADULT feeding on the canopy of mandorlo/nocciolo, not the root-feeding white grub (larva) in the soil. The repo's own EPPO dictionary corroborates the identity: \"Escarabajo sanjuanero, Melolontha spp.\" (data/samples/ES-T4-001/eppo-dictionary.json). In Italian usage the vernacular can also cover other Melolonthinae (e.g. Amphimallon solstitiale, \"maggiolino di San Giovanni\"), which is why the term sits at genus/vernacular level rather than species level.",
+   "APELIDOS_PROPOSTOS": [
+    "maggiolino",
+    "maggiolini",
+    "melolontha",
+    "melolontha melolontha",
+    "maggiolino comune"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "\"Agrilo, maggiolino (sulla vegetazione)\" — target cell y[418.7-426.2], paired with crop cell \"Mandorlo, nocciolo\" y[414.2-430.9]; label 008259 LAMDEX EXTRA (LAMBDA-CYHALOTHRIN), ROUTE=GEOMETRIC_TABLE, RELATION=SUPPORTED_PAIR, ROW_MARGIN 9.1; identical cell repeated in 013560, 013590, 015275, 017687.",
+   "RISCO_DE_SINAL_FALSO": "Three concrete risks. (1) \"maggiolino\" is the popular Italian name of the Volkswagen Beetle car; inside a label table cell that is impossible, but ISSUE_ALIAS is also fed free prose by _todos(), where automotive or colloquial text would produce a phantom pest signal. Acceptable only because the corpus is agronomic — it must never be promoted to a web/news scan without a crop co-occurrence guard. (2) Two truncations must be refused outright: \"maggio\" would match the month, which appears in nearly every treatment calendar (\"normalmente in maggio\" is literally in 008259), and \"larve\"/\"larva bianca\"/\"grub\" would match every larval mention on every label. Neither is proposed. (3) Scope over-claim rather than string over-match: the label authorizes only \"(sulla vegetazione)\" — adults on the canopy. An ISSUE_ID read as bare \"maggiolino\" would be silently taken as covering the soil white-grub problem, which no ADAMA label in this corpus supports. The qualifier must travel with the pair. Mechanical note: the vocab regex r'maggiolino' matches substrings and so catches the plural, but the engine's _casa/_todos match whole padded words, so \"maggiolini\" must be listed explicitly or plural mentions are lost.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 2,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "uf5bx-oTees",
+     "FRASE": "Ultimo fitofago che ci interessa è Maggiolino."
+    },
+    {
+     "SOURCE_ID": "uf5bx-oTees",
+     "FRASE": "Il Maggiolino è da sempre presente sul nostro territorio con popolazioni piuttosto elevate da causare anche danni piuttosto importanti sulle radici dei Meleti."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 2 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_BLACK_ROT",
+   "TERMO_ATUAL_NO_ROTULO": "MARCIUME",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "\"Marciume\" is not an organism: it is the Italian word for ROT, a symptom. In this corpus it never stands alone — it always carries a qualifier plus the agent in parentheses, and the qualifiers name at least four unrelated fungi/oomycetes: (1) Marciume nero = black rot of grapevine, Guignardia bidwellii (anamorph Phyllosticta ampelicida) — 9 occurrences, an Ascomycete; (2) Marciume bianco = white rot, Coniella diplodiella (syn. Coniothyrium diplodiella) — 6 occurrences, the post-hail rot; (3) Marciumi secondari = Aspergillus spp. and Penicillium spp., the secondary bunch-rot complex; (4) marciumi radicali e basali = Phytophthora spp., an Oomycete, on ornamentals. The single regex [\"marciume\"] therefore collapses four different problems, four different biologies and (for 1 and 2) two different doses and two different spray triggers into one token. The one problem that carries the corpus and is genuinely actionable in its own right is BLACK ROT (Guignardia bidwellii) on VITE: 016749 FOLPAN ENERGY declares a dedicated dose for it alone (\"ml/hl per quello del marciume nero (Guignardia bidwellii)\"), and the six folpet labels give it 2 kg/ha — a higher dose than the 1,25-1,5 kg/ha used for peronospora on the same label. That is a distinct commercial use, not a symptom mention.",
+   "APELIDOS_PROPOSTOS": [
+    "marciume nero",
+    "marciumi neri",
+    "guignardia bidwellii",
+    "phyllosticta ampelicida"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "008601 FOLPAN 80 WDG, VITE: \"2 kg/ha (200 g/hl) per la protezione da Escoriosi ( Phomopsis viticola ) e Marciume nero ( Guignardia bidwellii ), intervenendo dalla ripresa vegetativa e quando si intravedono le prime foglie aperte. [...] 1,6-1,8 kg/ha (160-180 g/hl) per la protezione da Marciume bianc",
+   "RISCO_DE_SINAL_FALSO": "The dangerous alias is the bare word \"marciume\"/\"marciumi\" — it must be REJECTED, and the current vocabulary pattern [\"marciume\"] is exactly that alias. Three failure modes. (a) It is a common Italian word: any bollettino or agronomist prose saying \"si osservano marciumi sui grappoli\", \"rischio di marciumi\", \"marciumi radicali\" would fire a target that names no agent. (b) Within one sentence it merges four unrelated problems, so a black-rot authorisation, a post-hail white-rot authorisation and an Aspergillus/Penicillium side-effect all become the same signal, and any downstream count of \"marciume\" pressure is a sum of things nobody sprays together. (c) The most damaging capture is the one absent from this corpus but standard in Italian usage: Botrytis cinerea is routinely called \"marciume grigio\" and the sour rot is \"marciume acido\". A bare \"marciume\" alias would silently swallow Botrytis, which the engine already holds as ISSUE_BOTRYTIS — the labels themselves prove the two are distinct, naming \"Muffa grigia (Botrytis cinerea)\" and \"Marciumi secondari\" as separate items in the same list. For the same reason DO NOT map MARCIUME to ISSUE_BOTRYTIS. Also excluded from the proposed aliases: bare \"guignardia\" (Guignardia citricarpa is citrus black spot, a different disease) and the English \"black rot\" (also names Xanthomonas campestris in brassicas and Botryosphaeria obtusa in apple). Only the qualified Italian phrase and the full binomial are safe. Consequence to accept: ISSUE_BLACK_ROT covers only \"marciume nero\". \"Marciume bianco\" (Coniella diplodiella, dose 1,6-1,8 kg/ha, trigger = within 12-18 h of a hailstorm) is a separate problem with a separate decision and needs its own ISSUE_WHITE_ROT — folding it into black rot would be a false merge with no witness. \"Marciumi secondari\" (Aspergillus/Penicillium) and \"marciumi radicali e basali\" (Phytophthora) are authorised only as \"azione collaterale\" or on ornamentals; leave them out until a label declares them as a primary use. Parser note for the caller: 010587 and 011501 contain \"Marciume nero (Guignardia bidwellii)\" and \"Marciume bianco (Coniella diplodiella)\" in a block that did emit PERONOSPORA/BOTRITE/MUFFA pairs, yet published no MARCIUME pair — so the 7 published pairs undercount the term, and the split into ISSUE_BLACK_ROT/ISSUE_WHITE_ROT should be measured on the raw text, not on the current pairset.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 3,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "4ybyIcvgUhg",
+     "FRASE": "segnalazione di presenza in alcuni meletti del mantovano di questo marciume nero da botosferia che sono stati ritrovati appunto anche durante i controlli per fusarium."
+    },
+    {
+     "SOURCE_ID": "or7l165Qv_c",
+     "FRASE": "Questa alternaria può dar luogo al marciume nero, quindi la colonna carpellare unisce oppure la maculatura bruna."
+    },
+    {
+     "SOURCE_ID": "or7l165Qv_c",
+     "FRASE": "La maculatura bruna, quindi la è un po', diciamo, diventata poco importante perché perché le cultiver praticamente erano così suscettibili che dopo una prova di qualche anno praticamente l'agumicoltore l'ha eliminata e mentre il marciume nero un po' resta."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 3 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_OLIVE_PYRALID",
+   "TERMO_ATUAL_NO_ROTULO": "MARGARONIA",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Palpita unionalis (Hübner), sinónimos Margaronia unionalis / Glyphodes unionalis / Palpita vitrealis — Lepidoptera, Crambidae. É a piralide/tignola verde da oliveira: a lagarta mina e desfolha os ápices vegetativos e, em ataque forte, entra na drupa. NÃO é Prays oleae (a «tignola dell'olivo» propriamente dita), NÃO é Ostrinia nubilalis (a piralide do milho), NÃO é Bactrocera oleae. O dicionário EPPO do próprio acervo fecha a identidade: código PALPUN, «scientific: Margaronia unionalis» (/home/user/eame-sintonia/data/samples/ES-T4-001/eppo-dictionary.json).",
+   "APELIDOS_PROPOSTOS": [
+    "margaronia",
+    "margaronia unionalis",
+    "palpita unionalis",
+    "palpita vitrealis",
+    "glyphodes unionalis",
+    "piralide dell olivo",
+    "tignola verde dell olivo"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "NENHUM texto de rótulo sustenta este alvo. Verificado com zgrep sobre os 163 XML comprimidos de /home/user/eame-sintonia/data/samples/IT-ROTULOS-V1/geometria: zero ocorrências de margaroni|palpita|unionalis|vitrealis|glyphodes, e zero em .../testo. Dos 163 rótulos, 15 escrevem OLIVO, e o único lepid",
+   "RISCO_DE_SINAL_FALSO": "Três perigos, um deles já ativo no vocabulário atual. (1) O regex publicado hoje, r'palpita', é o alias perigoso e deve ser recusado como está: em it_rotulo_vocab.py ele não tem \\b, logo casa «palpitante», «palpitazioni», «palpitava»; e mesmo ancorado, «palpita» é a 3ª pessoa corrente de palpitare — «il cuore palpita» viraria alvo fitossanitário. Num acervo que é sobretudo ASR de fala e boletins, isto produz sinal onde só há prosa. Só sobrevive qualificado: «palpita unionalis», «palpita vitrealis». (2) Nunca aliasar «partita»: o ASR de -4lUyIORl4A degrada «la palpita» em «la partita» e «Margaronia» em «Margarogna» — «partita» é das palavras mais comuns do italiano (jogo, lote, partida) e casaria prosa inteira; o preço de não a aliasar é perder essas duas menções degradadas, e esse preço deve ser pago. (3) «piralide» nu já é armadilha instalada no MOTOR: ISSUE_CORN_BORER lista 'piralide', e como Palpita unionalis é chamada «piralide dell'olivo» em italiano corrente, qualquer boletim de oliveira que use esse nome hoje entra como broca do milho — cultura errada, inseto errado, hemisfério agronómico errado. O alias longo «piralide dell olivo» que proponho corrige isso em vez de agravar: _casa() em v21_normalizar.py escolhe o apelido MAIS LONGO em toda a tabela, portanto «piralide dell olivo» ganha de «piralide». Já «margaronia» é seguro — não é palavra comum italiana e não colide com nada nos 24.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 5,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "azHKlPD3qAg",
+     "FRASE": "Margaronia, problematica soprattutto su allevamenti su impianti d'allevamento."
+    },
+    {
+     "SOURCE_ID": "azHKlPD3qAg",
+     "FRASE": "La margaronia è è un problema periodicamente, soprattutto nei giovani impanti lo sta diventando."
+    },
+    {
+     "SOURCE_ID": "azHKlPD3qAg",
+     "FRASE": "Ci sono state soprattutto nel 2005 alcune problematiche legate alla margaronia."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 5 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_POLLEN_BEETLE",
+   "TERMO_ATUAL_NO_ROTULO": "MELIGETE",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Meligethes aeneus (nome atual: Brassicogethes aeneus), Coleoptera: Nitidulidae — o \"meligete\" ou lucente das cruciferas, pollen beetle. Adulto que fura os botoes florais da colza/ravizzone antes da antese e destroi a silique em formacao; e a praga-chave do colza italiano, alvo de tratamento em botao floral verde/amarelo. Os rotulos tau-fluvalinato o nomeiam dentro de um agrupamento \"coleotteri\" junto de Ceutorhynchus napi (punteruolo do caule) e Psylliodes chrysocephala (altica do colza), tres especies distintas de tres familias distintas.",
+   "APELIDOS_PROPOSTOS": [
+    "meligete",
+    "meligeti",
+    "meligethes",
+    "meligethes aeneus",
+    "brassicogethes",
+    "brassicogethes aeneus",
+    "pollen beetle"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "007555 KLARTAN 20 EW, p1 y[285.7,320.7], cultura declarada \"Colza\": \"Contro afidi (Brevicoryne brassicae, Myzus persicae) e coleotteri (Ceutorhynchus napi, Meligethes aeneus, Psylliodes chrysocephala) impiegare a 0,2 l/ha in 100-400 litri di acqua/ha\" — identico em 007864, 009800, 012023, 014190, 01",
+   "RISCO_DE_SINAL_FALSO": "Os aliases propostos sao seguros: \"meligete\"/\"meligeti\"/\"meligethes\" nao sao palavras italianas comuns nem substring de nenhuma outra, e o motor casa por palavra inteira (_casa/_todos padroam com espacos), entao nao ha risco de casamento parcial. Os aliases PERIGOSOS, que devem ser explicitamente recusados: (a) \"coleotteri\" — e nivel de ordem e casaria TODA mencao de besouro do acervo (dorifora em patata, diabrotica em mais, elateridi, altica, cassida, lema, Ceutorhynchus), transformando seis problemas distintos num so; e exatamente por isso que o rotulo tau-fluvalinato, cuja cabeca declarada e \"coleotteri\", so pode ser lido como meligete pelo binomio entre parenteses, nunca pela cabeca; (b) \"aeneus\" sozinho — epiteto compartilhado por muitos binomios (Ophonus, Anomala, Cetonia e afins), casaria taxons sem relacao; (c) \"lucente\" (nome vulgar alternativo do inseto) — e adjetivo corrente do italiano (\"foglia lucente\", \"superficie lucente\") e viraria sinal em prosa ordinaria; deixei-o fora da lista. Alerta separado, de emparelhamento e nao de alias: 10 dos 21 pares (GIRASOLE x5, SOIA x5) sao falsos. Nascem de uma celula de tabela fundida — em 008259 o bloco de alvo em p1 y=196-274 cola tres linhas (\"Afidi... / Cimici e cecidomia / Nottue defogliatrici\") e e alinhado geometricamente tanto contra a linha de cultura \"Arachide, girasole, colza, ravizzone, cotone\" quanto contra \"Soia\". Brassicogethes aeneus e praga de Brassicaceae; nao ataca girasol nem soja. Publicar ISSUE_POLLEN_BEETLE sem corrigir o alinhamento levaria o motor a afirmar meligete em girasol e soja com aparencia de rotulo.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 0,
+   "EXEMPLOS": [],
+   "IMPACTO": "nenhum trecho do acervo actual o nomeia: entra para os ROTULOS, que e onde o alvo aparece, e fica mudo no acervo de fala",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_METCALFA",
+   "TERMO_ATUAL_NO_ROTULO": "METCALFA",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Metcalfa pruinosa (Say, 1830) — Hemiptera: Fulgoromorpha: Flatidae, a Nearctic planthopper introduced into Italy (first recorded in Veneto, 1979) and now naturalised across the peninsula. Italian vernacular: \"metcalfa\", \"cicalina della melata\". The label writes only the genus, but the genus is monospecific in Europe, so \"Metcalfa\" on an Italian label denotes M. pruinosa unambiguously — this is a genus name functioning as a species name, not an aggregation of several species. Agronomic damage is trophic and, above all, indirect: massive honeydew (melata) plus waxy flocculence on fruit, leaves and bunches, followed by fumaggine (sooty mould) that downgrades pomaceae, drupaceae, vine and ornamentals. It is NOT a phytoplasma vector, which is precisely what separates it from Scaphoideus titanus.",
+   "APELIDOS_PROPOSTOS": [
+    "metcalfa",
+    "metcalfa pruinosa",
+    "cicalina della melata"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "Rotulo 014386 (OLIONET): \"DRUPACEE (albicocco, pesco, ciliegio, susino, nettarina) e MANDORLO: contro Afidi, Acari, Cicaline, Cocciniglie, Eriofidi, Metcalfa, Tripidi, uova di Lepidottero\". Rotulo 012573 (EKO OIL SPRAY): \"POMACEE (Melo, Pero e Cotogno): contro Acari, Afidi, Cicali- ne, Cocciniglie, ",
+   "RISCO_DE_SINAL_FALSO": "O alias \"metcalfa\" e seguro: e um genero epônimo (de Metcalf), nao existe como palavra comum italiana, nao e prefixo nem sufixo de nenhum termo agronomico corrente, e nao colide com outro alvo do vocabulario. \"metcalfa pruinosa\" idem. Os aliases PERIGOSOS, que eu rejeito explicitamente: (a) \"cicalina\"/\"cicaline\" — casaria toda a Cicadellidae (Scaphoideus titanus, Empoasca vitis, Zygina) e ja pertence a outro alvo do vocabulario italiano (CICALINE), portanto fundiria Metcalfa com o vetor da flavescencia e dispararia ISSUE_METCALFA em rotulos de vinha que so falam de cicalina verde; (b) \"melata\" — e sintoma, nao agente: cocciniglie, afidi e psille produzem melata, entao esse alias transformaria qualquer rotulo antifidico em sinal de Metcalfa, e ainda casaria prosa comum sobre fumaggine; (c) \"flatidi\"/\"flatidae\" — nivel de familia, mais largo que a especie, e nao aparece escrito nestes rotulos. (d) \"pruinosa\" sozinho — casaria epitetos homonimos de outros generos. Com o alias restrito a \"metcalfa*\", o risco residual e praticamente nulo.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 5,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "4ybyIcvgUhg",
+     "FRASE": "Parliamo un attimo della pattina bianca dei fumaggini, diciamo, direi che diciamo i fattori di rischio lo conoscete tutti, però noi diciamo soprattutto adesso la Fidanal Nigero, anche la Metcalfa che si è stesa abbastanza nel nostro nella nostra provincia, ovviamente la produzione della lamelata ovviamente favorisce queste questi questi fenomeni e ovviamente anche tutto quello che prolunga la bagnatura foliare,"
+    },
+    {
+     "SOURCE_ID": "uf5bx-oTees",
+     "FRASE": "E e per quanto riguarda invece non ci ha menzionata, ma anche la Ah, mi sfugge adesso la No, la se l'ho già detta, la Metcalfa, ecco, [risate] la Metcalfa anche noi abbiamo visto un aumento negli ultimi due anni."
+    },
+    {
+     "SOURCE_ID": "uf5bx-oTees",
+     "FRASE": "Eh, abbiamo avuto anche degli impianti, come detto anche stamattina, diciamo, con frutti sporcati dalla dalla metcalfa."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 5 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_MONILIA",
+   "TERMO_ATUAL_NO_ROTULO": "MONILIA",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Moniliose / marciume bruno delle drupacee — brown rot of stone fruit. The pathogen is the genus Monilinia (Sclerotiniaceae): Monilinia laxa (blossom and twig blight), M. fructigena and the quarantine-relevant M. fructicola (fruit rot). The labels write the anamorph name, \"Monilia spp.\"; the Emilia-Romagna bollettini and the phytopathological literature in this same corpus write the teleomorph name, \"Monilinia spp.\" / \"Monilinia laxa\" / \"Monilinia fructicola\". Same organism, two nomenclatural halves.",
+   "APELIDOS_PROPOSTOS": [
+    "monilia",
+    "monilinia",
+    "moniliosi",
+    "moniliose",
+    "monilosi",
+    "monilinia laxa",
+    "monilinia fructigena",
+    "monilinia fructicola"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "Rotulo 008102 (MERPAN 80 WDG) e 011500 (CAPTHENE 80 WDG), bloco CILIEGIO: \"Ciliegio: 150 g/hl (massimo 2,25 kg/ha) in 800-1500 l/ha d'acqua in pre e post fiorfitura, o pre raccolta, per la prevenzione da moniliosi (Monilia spp.) e corineo (Wilsonomyces carpophilus). Non eseguire piu di 2 trattamenti",
+   "RISCO_DE_SINAL_FALSO": "O perigo NAO e o termo, e o prefixo. O padrao citado na tarefa, \"monili\\\\w*\", ja produziu um falso sinal medido dentro deste acervo: em IT-INVENTARIO-FALA-V2.json e V3.json o unico hit de ISSUE:MONILIA em toda a inventariacao de fala tem MATCHED=\"monili\" e EVIDENCE_SPAN \"...le fumonesine ovviamente, ma anche bevaricina, etricintum, bevaricina, moniliformina e niatine... l'allarme sulle micotossine...\" — isto e moniliformina (moniliformin), micotoxina de Fusarium proliferatum/verticillioides, ou seja, um sinal que pertence a ISSUE_FUSARIUM foi carimbado como MONILIA. COUNT=1, e era o unico. Alem disso \"monili\\\\w*\" casa (a) \"monili\"/\"monile\", substantivo comum italiano (colares, joias), (b) \"moniliforme\"/\"moniliformi\", adjetivo morfologico corrente em chaves entomologicas e micologicas (\"antenne moniliformi\", \"ife moniliformi\"), sem qualquer relacao com o patogeno. Verificado por teste: re.search(r'monili\\\\w*', 'moniliformina') -> True; 'antenne moniliformi' -> True. REJEITAR o prefixo; usar tokens ancorados: \\\\bmonili[ao]\\\\b, \\\\bmonilios[ei]\\\\b, \\\\bmonilos[ei]\\\\b, \\\\bmonilinia\\\\b. Tambem REJEITO dois aliases tentadores: \"marciume bruno\", porque em italiano nomeia tambem podridoes de outra etiologia e o vocabulario ja tem o generico MARCIUME; e \"brown rot\", porque em ingles designa igualmente a bacteriose Ralstonia solanacearum da batata — fundiria uma doenca fungica de drupaceas com uma bacteriose de quarentena. O risco simetrico, e igualmente real, e o padrao que ESTA no arquivo: scripts/it_rotulo_vocab.py:149 traz apenas r'monilia', que NAO casa \"moniliosi\", NAO casa \"monilosi\" e NAO casa \"Monilinia\". Os 12 pares so existem por acidente ortografico — os tres rotulos escrevem \"moniliosi (Monilia spp.)\" e o parentese salva o match. Um rotulo que escreva so \"moniliosi\", ou so \"Monilinia fructicola\", e hoje invisivel; e os bollettini de Emilia-Romagna, que escrevem \"Monilinia\", nunca se ligarao aos rotulos enquanto \"monilinia\" nao entrar na tabela.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 16,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "m50xqCqqJP4",
+     "FRASE": "Il fluxapiroxad viene valutato sulle moniliosi delle trupace."
+    },
+    {
+     "SOURCE_ID": "m50xqCqqJP4",
+     "FRASE": "Vediamo che sia Sercadis che SUM hanno dato degli ottimi risultati in questa prima prova che è quella che riguarda la monilosi sui fiori."
+    },
+    {
+     "SOURCE_ID": "m50xqCqqJP4",
+     "FRASE": "Ancora meglio dal per Sercadis il risultato ha avuto sulla prova fatta sulla monilosi sui frutti dove c'è la riduzione dal 41% medio di malattia sul testimone si arriva al 10%."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 16 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_MEDFLY",
+   "TERMO_ATUAL_NO_ROTULO": "MOSCA",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Como esta escrito no vocabulario, MOSCA nao e um organismo: e um balde de substantivo comum que hoje cola tres familias distintas de insetos. (1) Sentido dominante, 32 dos 44 pares em 11 rotulos: mosca/mosche della frutta = Ceratitis capitata (Tephritidae), com Bactrocera dorsalis co-listada nos rotulos recentes — em pesco, albicocco, ciliegio, susino, pero, agrumi. (2) 4 pares em cavolo e tabacco: \"mosca bianca\" = Trialeurodes vaporariorum e Bemisia tabaci (Aleyrodidae, Hemiptera) — nao sao dipteros, e ja existe o alvo ALEURODIDI com esses mesmos generos. (3) 3 pares em barbabietola da zucchero (012573, 014386): \"Mosca\" nua ao lado de Altica e Cassida — na beterraba italiana isso e Pegomya betae/hyoscyami (Anthomyiidae, minadora), NAO um tefritideo; o rotulo nao escreve o nome latino, entao a especie aqui e NAO_SEI. (4) 1 par CARCIOFO em 012573 e artefato: o bloco vazou para dentro da frase da barbabietola. Existe ainda um quinto diptero no mesmo corpus que o regex nao pega e nao deve pegar: \"Moscerino dei piccoli frutti (Drosophila suzukii)\" na vite (009800, 012023).",
+   "APELIDOS_PROPOSTOS": [
+    "mosca della frutta",
+    "mosche della frutta",
+    "mosca mediterranea della frutta",
+    "ceratitis capitata",
+    "ceratitis",
+    "bactrocera dorsalis"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "007555/007864 (drupacee): \"Contro afidi (Hyalopterus amygdali, Myzus persicae, Brachycaudus persicae), lepidotteri (Anarsia lineatella, Cydia molesta), tripidi (Frankliniella occidentalis, Thrips spp.) e mosca della frutta (Ceratitis capitata)\". 009800/012023 (drupacee): \"cimice asiatica (Halyomorph",
+   "RISCO_DE_SINAL_FALSO": "Os quatro padroes atuais sao perigosos e tres precisam morrer. (a) \"mosca\" e \"mosche\" nus: sao palavra comum italiana (mosca domestica, e a prosa idiomatica \"raro come una mosca bianca\"), e dentro do proprio acervo casam \"mosca bianca\"/\"mosche bianche\" — aleirodideos, que ja tem alvo proprio (ALEURODIDI, trialeurodes|bemisia) — e a \"Mosca\" da barbabietola, que e Pegomya. Hoje esses padroes fabricam 7 pares que dizem \"mosca da fruta\" onde o rotulo autoriza contra mosca-branca ou minadora da beterraba. REJEITAR. (b) o padrao explicito r'\\bmosca\\s+bianca' dentro de MOSCA nao e ambiguidade, e defeito declarado: o vocabulario manda a mosca-branca para o balde do tefritideo de proposito. REMOVER. (c) \"bactrocera\" nu casa Bactrocera oleae, que e exatamente ISSUE_OLIVE_FLY, um dos 24 ja existentes; e uma colisao armada — ainda nao disparou so porque nenhum rotulo OLIVO do acervo chegou ao parser. So \"bactrocera dorsalis\" pode entrar. (d) \"rhagoletis\" nao tem UMA testemunha no corpus e Rhagoletis cerasi (mosca delle ciliegie) e especie distinta de Ceratitis: carrega-lo para ISSUE_MEDFLY fundiria dois problemas sem prova. Fora do acervo, \"mosca\" tambem casaria \"mosca dell'olivo\" e \"mosca dell'olivo/oliva\" — os proprios aliases de ISSUE_OLIVE_FLY na tabela do motor (linhas 86-87 de /home/user/wt-canonica/scripts/v21_normalizar.py) — logo o alias generico canibalizaria um ISSUE_ID existente. Os seis aliases propostos exigem todos o qualificador (\"della frutta\" ou o binomio latino) e nenhum deles casa palavra comum isolada.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 19,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "3m0OxLSK4ro",
+     "FRASE": "Ad esempio, sono stati approfonditi la la glomerella sulle pomace, è stato approfondito le micotossine sui cereali, sono state approfondite la drosofila sulla fragola, è stata approfondita la ceratitis capitata sulle drupace e e tutte le relazioni."
+    },
+    {
+     "SOURCE_ID": "6eNiYjzPGHw",
+     "FRASE": "Eh, c'è una new entry per quanto riguarda la vite da tavola che è la mosca, la mosca della frutta che eh predilige come frutta anche l'uva da tavola."
+    },
+    {
+     "SOURCE_ID": "or7l165Qv_c",
+     "FRASE": "Mosca della frutta."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 19 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_NEMATODES",
+   "TERMO_ATUAL_NO_ROTULO": "NEMATODI",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Nematoides fitoparasitas — filo Nematoda, parte fitofaga. Nao e um taxon de especie nem de genero: e o nome de grupo que o rotulo italiano usa para autorizar contra o conjunto. Os generos que o proprio acervo nomeia sob este guarda-chuva: Meloidogyne (galigenos / \"nematodi galligeni\"), Globodera e Heterodera (cisticolas), Pratylenchus, Ditylenchus e Xiphinema (este ultimo tambem vetor de GFLV na videira). O termo NAO e sinonimo de nenhum dos 24: nenhum dos 24 e um nematoide.",
+   "APELIDOS_PROPOSTOS": [
+    "nematodi galligeni",
+    "nematodi fitoparassiti",
+    "nematodi cisticoli",
+    "nematodi a cisti",
+    "meloidogyne",
+    "globodera",
+    "heterodera",
+    "pratylenchus",
+    "ditylenchus",
+    "xiphinema",
+    "nematocida",
+    "nematocidi"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "NAO EXISTE TEXTO DE ROTULO. Verificado, nao suposto: `nematod[ei]` e `meloidogyne` rodados sobre os 163 arquivos de data/samples/IT-ROTULOS-V1/testo/ = 0 acertos; busca ampliada (globodera|heterodera|ditylenchus|pratylenchus|xiphinema|tylenchulus|anguillul) tambem = 0; e productsRegulatory.json = 0 ",
+   "RISCO_DE_SINAL_FALSO": "ALTISSIMO, e de um tipo pior que o habitual: o alias generico nao apenas alarga o sinal, ele INVERTE O SINAL. (1) O alias `nematod[ei]` / \"nematodi\" / \"nematode\" nu deve ser REJEITADO. No acervo, a maioria das ocorrencias de \"nematodi\" e nematoide ENTOMOPATOGENO usado como TRATAMENTO, nao como praga: em ep1KX19XxS8 as 16 ocorrencias sao todas Heterorhabditis bacteriophora / ceppo Pop 16 aplicados CONTRA Popillia japonica, e ZERO no sentido fitoparasita. O alias nu transformaria um documento cujo problema agronomico e a Popillia num sinal de \"problema de nematoide\" — leria a cura como a doenca. (2) REJEITAR tambem \"eterorabditis\", \"heterorhabditis\", \"steinernema\" e qualquer padrao frouxo tipo `etero\\w*` ou `nemato\\w*`: Heterorhabditis (benefico, biocontrole) e Heterodera (praga, cisticola) diferem por poucas letras e um regex preguicoso funde os dois — sao opostos agronomicos. (3) REJEITAR \"nematofauna\" e \"carica nematica\": no acervo aparecem como INDICADOR DE SAUDE DO SOLO (\"la biodiversita dei nematodi entra a far parte di alcuni degli indicatori\"), onde nematoide e servico ecossistemico, nao alvo de pulverizacao. (4) Por isso todos os aliases propostos sao ou multipalavra com qualificador de patogenicidade (\"nematodi galligeni\", \"nematodi fitoparassiti\", \"nematodi cisticoli\") ou nome cientifico de genero exclusivamente fitoparasita — nenhum casa palavra italiana comum, e o casamento por palavra inteira mais longa do motor (_casa em v21_normalizar.py) so dispara quando o qualificador esta escrito. (5) Custo assumido: sem o alias nu, este ISSUE_ID nasce COM ZERO CAPTURA — inclusive nas falas, porque as unicas passagens em sentido de praga chegam com grafia estropiada pelo ASR (\"melodogine\", \"globodere\", \"eterodere\", \"pratilencus\", \"ditilencus\", \"oxifinema\") que os aliases limpos nao alcancam. Prefiro zero a sinal invertido.",
+   "CONFIANCA": "MEDIUM",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 12,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "CYV76yVc98s",
+     "FRASE": "probabilmente diventerà prioritaria rispetto a ad altre possibilità di controllo chimico più o meno diretto, più o meno autorizzato, anche perché oggettivamente i mezzi sono sempre sono sempre di meno né si vede molto all'orizzonte, forse con una novità che può essere un recente nematocida, che però potrebbe bbe aiutare a gestire la questione dei matodi, ma non di altri come di altri avversità come i giunni."
+    },
+    {
+     "SOURCE_ID": "szsLkUd2cy4",
+     "FRASE": "Voi infatti conoscerete tutti i nematodi galligeni come le varie melodogine così come il nematidiodi cisticoli, le varie globodere, le varie eterodere, così come pratilencus o ditilencus, oxifinema estremamente importante nella vita."
+    },
+    {
+     "SOURCE_ID": "szsLkUd2cy4",
+     "FRASE": "Ed è proprio questo uno degli indicatori che, diciamo, fa additare i nematocidi come il diavolo eh eh di tutti, anche perché nei nemato ce ne sono alcuni che fanno parte di quelle classi di rischio il cui, diciamo, fattore di ponderazione è veramente alto fino ad arrivare a 64, quindi chiaramente fanno alzare moltissimo il rischio."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 12 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": false
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_OTIORHYNCHUS",
+   "TERMO_ATUAL_NO_ROTULO": "OZIORRINCO",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Oziorrinco = genus Otiorhynchus (Coleoptera: Curculionidae), the vine/black weevil group. In Italy the agronomically relevant species are Otiorhynchus sulcatus (vite, fragola, nocciolo, ornamentali/vivaio), Otiorhynchus cribricollis (olivo) and O. armadillo/rugosostriatus. Damage is dual: flightless adults notch leaf margins at night, larvae feed on roots and collar in the soil. It is NOT any of the 24 canonical problems — the engine contains no weevil and no soil-larva pest at all; the nearest beetle, ISSUE_DIABROTICA, is a chrysomelid corn rootworm, a different family and a different control window.",
+   "APELIDOS_PROPOSTOS": [
+    "oziorrinco",
+    "oziorrinchi",
+    "otiorrinco",
+    "otiorhynchus",
+    "otiorhynchus sulcatus",
+    "otiorhynchus cribricollis"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "NENHUMA testemunha de rotulo. Varredura exaustiva dos dois corpora: `zgrep -oiE \"[a-z]*[zt]ior[a-z]*\" data/samples/IT-ROTULOS-V1/geometria/*.xml.gz` e o mesmo grep em .../testo/*.txt devolvem ZERO ocorrencias nos 163 rotulos — nenhuma variante OCR, nenhuma quebra de hifen. A unica ocorrencia literal",
+   "RISCO_DE_SINAL_FALSO": "O par proposto e seguro; o perigo esta nos apelidos que alguem seria tentado a acrescentar para \"cobrir mais\". (1) \"punteruolo\" DEVE SER REJEITADO: e o generico italiano de gorgulho e, sozinho, designa sobretudo Rhynchophorus ferrugineus (punteruolo rosso da palmeira) e o punteruolo do grano — casaria pragas de outra familia e outra cultura. (2) \"curculionidi\" / \"curculionide\" DEVEM SER REJEITADOS: sao nivel de FAMILIA e, neste proprio corpus, engoliriam as 16 ocorrencias de Ceutorhynchus (colza) e Conorhynchus (bietola), fundindo tres problemas distintos num so ID. (3) \"coleotteri\" e ainda pior: nivel de ordem, colidiria com ELATERIDI, DORIFORA, ALTICA, MELIGETE, DIABROTICA. (4) Cuidado tecnico com o motor: _casa() em v21_normalizar.py compara ' %s ' por palavra inteira e nao faz stemming, logo o plural \"oziorrinchi\" precisa de entrada propria — nao e derivado de \"oziorrinco\". (5) Nenhum dos apelidos propostos e palavra comum italiana, e nenhum e substring de Ceutorhynchus/Conorhynchus, portanto nao ha risco de casar prosa corrente. DEFEITO SEPARADO A CORRIGIR JA, independente da decisao: o regex atual em scripts/it_rotulo_vocab.py:125 e [\"oziorrinco\",\"otiorhynchus\"] e NAO cobre a grafia \"otiorrinco\", que e exatamente a que o dicionario EPPO deste repositorio escreve e que rotulos italianos tambem usam — hoje essa forma passaria despercebida.",
+   "CONFIANCA": "MEDIUM",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 0,
+   "EXEMPLOS": [],
+   "IMPACTO": "nenhum trecho do acervo actual o nomeia: entra para os ROTULOS, que e onde o alvo aparece, e fica mudo no acervo de fala",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": false
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_PSYLLA",
+   "TERMO_ATUAL_NO_ROTULO": "PSILLE",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Psilideos (Hemiptera: Psylloidea, familia Psyllidae) — em italiano \"psille\"/\"psilla\". Nos 22 pares publicados o rotulo qualifica o genero em 16 deles (8 rotulos x MELO+PERO ate 012573/014386): \"psille (Cacopsylla spp.)\" nas pomacee, isto e o complexo Cacopsylla pyri / C. pyricola / C. bidens no pero e C. melanoneura no melo (a \"psilla del pero\", vetor do fitoplasma 'Candidatus Phytoplasma pyri' — moria del pero — e C. melanoneura vetor de 'Ca. P. mali'). Nos 4 pares NOCE/NOCCIOLO (012573 EKO OIL SPRAY, 014386 OLIONET) o rotulo escreve so \"Psille\", sem genero: ali sao outros psilideos (nao Cacopsylla de pomacea), o que impede declarar o termo como genero puro. Os 2 pares restantes (CARCIOFO e BARBABIETOLA em 012573) NAO sao psilideos nessas culturas: sao sangramento de bloco — a palavra \"Psille\" pertence a frase \"ORNAMENTALI, FLOREALI, FORESTALI: contro Acari, Afidi, Aleurodidi, Cicaline, Cocciniglie, Ditteri, Lepidotteri, Metcalfa, Psille, Tignole, Tingidi, Tripidi\" empacotada no mesmo bloco OCR. Logo: 20/22 pares sao psilideos reais (pomacee + noce/nocciolo + ornamentais), 2/22 sao artefato do parser que nao deve virar cultura autorizada.",
+   "APELIDOS_PROPOSTOS": [
+    "psille",
+    "psilla",
+    "cacopsylla",
+    "cacopsylla pyri",
+    "cacopsylla pyricola",
+    "cacopsylla melanoneura",
+    "psilla del pero",
+    "psilla del melo",
+    "psylla pyri"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "\"Pomacee (melo, pero, melo cotogno e nespolo) Contro afidi (Dysaphis plantaginea, Aphis pomi), ditteri cecidomidi (Contarinia pyrivora, Dasineura pyri), lepidotteri (Adoxophyes orana, Phyllonorycter blancardella, Cydia pomonella, Yponomeuta malinellus, Hyphantria cunea), cimici (Halyomorpha halys), ",
+   "RISCO_DE_SINAL_FALSO": "Tres riscos concretos, dois deles ja presentes NESTE corpus. (1) ALIAS POR RADICAL — \"psill\"/\"psyll\". O extrator de futuro ja usa o radical 'psill' (scripts/it_futuro_corpus.py:110, lista ALVO_PREFIXO). Radical solto casa \"Psylliodes chrysocephala\", que e um COLEOPTERO (altica da colza, Chrysomelidae) autorizado em 5 rotulos deste mesmo acervo (007555, 007864, 009800, 012023, 014190). Um par COLZA x PSILLE nascido dai seria falso e agronomicamente absurdo. O alias tem de casar PALAVRA INTEIRA (\"psilla\", \"psille\"), como faz _casa/_todos em v21_normalizar.py; o radical deve ser rejeitado. (2) \"MORIA\" NAO PODE SER ALIAS. A doenca transmitida chama-se \"moria del pero\", e a tentacao de puxar o vetor pelo nome da doenca e forte — mas \"moria\" e palavra italiana comum de mortalidade (moria del kiwi, moria delle api, moria dei pesci, moria delle piante) e transformaria prosa qualquer em sinal de psilla. Pelo mesmo motivo nao aliasar \"scopazzi\" nem \"giallumi\" (este ultimo ja pertence a ISSUE_FLAVESCENCE e a colisao inventaria um elo videira-pomacea). (3) FUSAO COM ISSUE_APHIDS. Psilideos e afideos sao ambos Sternorrhyncha sugadores e o texto de campo as vezes os trata junto (\"melata\"), mas o proprio rotulo os enumera separados na mesma oracao, com dose unica mas alvos nomeados distintamente; fundir apagaria o alvo que motiva o tratamento pre-floral especifico do pero. Risco residual aceito: \"psilla\" e nome proprio/sobrenome italiano raro e aparece em toponimo; em corpus de rotulo e boletim fitossanitario o custo e desprezivel, mas em prosa de rede social convem exigir co-ocorrencia de cultura pomacea antes de publicar o par.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 16,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "4ybyIcvgUhg",
+     "FRASE": "La gestione dei vettori, diciamo che durante tutta la stagione primaverile in cui si verifica il volo delle delle psille, gli unici insetti vettori attualmente riconosciuti, vengono fornite al territorio indicazioni specifiche e calate sul territorio in base alle reali necessità del dei diversi dei diversi areali."
+    },
+    {
+     "SOURCE_ID": "4ybyIcvgUhg",
+     "FRASE": "i vettori e come la state approcciando, nel senso, avete una un monitoraggio che fate delle psille presenti in campo, come lo state eseguendo?"
+    },
+    {
+     "SOURCE_ID": "uf5bx-oTees",
+     "FRASE": "E per quanto riguarda le Epsille, abbiamo detto stamattina in Trentino gli Scopazzi sono un problema nuovamente emergente e solo per far vedere che noi, come appunto ho precisato durante la discussione, abbiamo entrambe le psille responsabili del del della trasmissione del fitoplasma e nelle nei due, diciamo, nei grafici si vede sostanzialmente che dopo anni di popolazione veramente importanti in aumento, abbiamo"
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 16 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_RAMULARIA",
+   "TERMO_ATUAL_NO_ROTULO": "RAMULARIA",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Ramularia leaf spot of barley (maculatura fogliare da Ramularia / \"Ramularia leaf spot\", RLS), caused by *Ramularia collo-cygni* (Mycosphaerellaceae, teleomorph unknown/not used commercially). The label names the species explicitly. The vocabulary string itself, \"RAMULARIA\", is the genus *Ramularia* (which also contains *R. beticola* on bietola and *R. rhei*, etc.), but in this corpus every witnessed occurrence is bound to *R. collo-cygni* on ORZO.",
+   "APELIDOS_PROPOSTOS": [
+    "ramularia",
+    "ramularia collo-cygni",
+    "collo-cygni",
+    "ramulariosi"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "Rotulo 018089 (AVASTEL), bloco p0 y=402-538, linha ORZO: «Rincosporiosi ( Rhyncosporium secalis ), Elmintosporiosi ( Helminthosporium gramineum o Pyrenophora teres ), Ramularia ( Ramularia collo-cygni ), Ruggine bruna ( Puccinia hordei ), Oidio ( Blumeria graminis sp. hordei )». O MESMO bloco, nas l",
+   "RISCO_DE_SINAL_FALSO": "Tres riscos, em ordem de gravidade.\n\n(1) O RISCO MAIOR NAO E O ALIAS, E A FUSAO. Se alguem \"resolver\" este termo mapeando-o para ISSUE_CERCOSPORA (parentesco real: Ramularia e Cercospora sao ambos anamorfos de Mycosphaerellaceae, e em bietola «Ramularia beticola» e «Cercospora beticola» convivem no mesmo rotulo) ou para ISSUE_SEPTORIA (parentesco de familia, mesmo grupo de dothideomicetos foliares de cereal), o motor passa a afirmar que um fungicida autorizado contra RLS em cevada esta autorizado contra cercosporiose da beterraba ou septoriose do trigo. Isso e falso e comercialmente perigoso: os programas sao diferentes, a Ramularia collo-cygni tem resistencia documentada a SDHI/QoI que nao se transfere, e o proprio 018089 lista Septoriosi e Ramularia como linhas distintas. Sinonimia aqui seria invencao com aparencia de dado.\n\n(2) ALIAS DE NIVEL DE GENERO. «ramularia» sozinho e o nome do GENERO. Num rotulo de BARBABIETOLA ou de ornamentais ele casaria R. beticola — doenca diferente, cultura diferente. O texto 011500.txt (CAPTHENE, l.58) ja mostra «...per la protezione da ramularia» num bloco de «Alberi e arbusti ornamentali (serra)», sem especie declarada — pode ser bleed de coluna do OCR ou pode ser outra Ramularia. Portanto: o alias «ramularia» so deve gerar sinal QUANDO ANCORADO A CULTURA. Em ORZO/cereais = R. collo-cygni com alta confianca; fora de cereais o par deve ficar em quarentena, nao ser promovido a ISSUE_RAMULARIA com o conteudo semantico de RLS. Recomendo que ISSUE_RAMULARIA seja definido como \"manchas foliares por Ramularia spp., especie determinada pela cultura\", e nao como \"RLS da cevada\" — assim o alias de genero nao mente.\n\n(3) ALIAS EM PROSA: baixo. «ramulari» nao e palavra italiana corrente; nao colide com «ramo», «ramificazione», «ramoscello», «ramato» (o regex exige a sequencia r-a-m-u-l-a-r-i). O unico vizinho e o latim botanico «ramuli/ramulus» (raminho), que NAO casa «ramulari». Ainda assim, o padrao atual do vocabulario `ramulari\\w*` e mais largo que o `ramularia` declarado em it_rotulo_vocab.py l.145 — mantenha o ancoramento em `\\bramulari` e nao aceite o alias solto «ramuli». Os aliases «collo-cygni» e «ramulariosi» sao seguros (o segundo e extrapolacao morfologica pelo padrao septoriosi/rincosporiosi e NAO esta testemunhado no corpus — entra como tolerancia de leitura, nao como fato).\n\nSOBRE A CONTAGEM DE PARES: o alvo aparece como \"1 par em 1 rotulo\", mas isso subdeclara a realidade. O termo esta no texto de pelo menos SEIS rotulos ADAMA (018089, 018067, 017955, 019095, 018175, e a mencao ambigua em 011500). Nos outros cinco o par nao foi publicado porque o parser nao conseguiu ligar o bloco a cultura (colunas de OCR entrelacadas, cabecalho de cultura noutra coluna, quebra «Ramularia / (Ramularia collo-» em 018175). Ou seja: NAO e entrada morta de vocabulario nem artefato — e um problema real e recorrente que o parser ainda perde. Criar o ISSUE_ID agora e o passo certo; o numero de pares vai subir quando o binding de coluna melhorar, e nao se deve tratar o \"1\" como medida da importancia do alvo.\n\nCONTEXTO QUE IMPORTA PARA O MOTOR: Ramularia nao esta sozinha. O mesmo bloco de ORZO produz RINCOSPORIOSI (Rhyncosporium secalis) e ELMINTOSPORIOSI (Pyrenophora teres/Helminthosporium) — dois outros orfaos de cereal sem lugar nos 24. Os 24 cobrem OIDIO, RUGGINE, SEPTORIOSI e FUSARIOSI do trigo, mas nao cobrem o complexo foliar da CEVADA. Julgar Ramularia isoladamente resolve um terco do buraco; o buraco em si e \"doencas foliares do orzo\".",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 2,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "4ybyIcvgUhg",
+     "FRASE": "Ramularia è una un altro problema importante per il Piemonte perché si sta allargando, quindi la varietà Club Ambrosio era stata la prima a essere interessata eh a livello di Melo, eh mentre nelle ultime stagioni sono stati anche individuati i casi su Golden e sull'altra varietà club Fengappy."
+    },
+    {
+     "SOURCE_ID": "4ybyIcvgUhg",
+     "FRASE": "Varie ed eventuali la ramularia presente anche da noi quest'anno."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 2 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_RHYNCHOSPORIUM",
+   "TERMO_ATUAL_NO_ROTULO": "RINCOSPORIOSI",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Rincosporiosi = a \"scald\" / maculatura da cevada e do centeio, causada pelo fungo Rhynchosporium secalis sensu lato (taxonomia atual separa Rhynchosporium commune, que ataca ORZO/Hordeum vulgare, de Rhynchosporium secalis s.s., que ataca SEGALE/Secale cereale; ha ainda R. agropyri). Os rotulos ADAMA continuam a escrever \"Rhyncosporium secalis\" para as duas culturas — atraso de nomenclatura, nao duas doencas. Tres rotulos escrevem apenas o genero (\"Rhynchosporium spp.\"). E uma das tres doencas foliares de cereais de inverno que sustentam o mercado de triazol+estrobilurina na Italia, ao lado da elmintosporiose (Pyrenophora teres) e da ramularia (Ramularia collo-cygni).",
+   "APELIDOS_PROPOSTOS": [
+    "rincosporiosi",
+    "rincosporiose",
+    "rhynchosporium",
+    "rhyncosporium",
+    "rhynchosporium secalis",
+    "rhyncosporium secalis",
+    "rhynchosporium commune"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "018067 MAXENTIS, mesma celula de alvo do bloco ORZO: \"Rincosporiosi ( Rhyncosporium secalis ), Maculatura reticolare e puntiforme o Elimintosporiosi ( Helminthosporium gramineum o Pyrenophora teres ), Ramularia ( Ramularia collo-cygni ), Ruggini ( Puccinia sp. ), Oidio ( Blumeria graminis )\" — e, no",
+   "RISCO_DE_SINAL_FALSO": "Tres perigos, e nenhum deles esta nos apelidos que proponho. (1) O apelido PROIBIDO e \"maculatura\". A literatura de extensao chama a rincosporiose de \"maculatura fogliare\", mas nestes MESMOS rotulos \"Maculatura reticolare e puntiforme\" e a elmintosporiose (Pyrenophora teres/Helminthosporium gramineum) — 018067, 018175, 019095 escrevem as duas na mesma celula. \"maculatura\" tambem ja e usada em \"maculatura bruna del pero (Stemphylium vesicarium)\" em IT-ROTULOS-GOLD-COMPLETE-V1 e no cruzamento PERO. Um alias \"maculatura\" fundiria tres doencas de tres culturas. (2) O apelido PROIBIDO \"scald\": e palavra inglesa comum e, em pos-colheita, e o riscaldo superficial da maca (superficial scald) — casaria texto de conservacao de fruta. Nao entra. (3) O erro por FALTA, nao por excesso: o motor casa por palavra inteira apos normalizacao, entao \"rhyncosporium\" (grafia da ADAMA, sem o primeiro h) e \"rhynchosporium\" (grafia correta) NAO casam um ao outro — precisam ser dois apelidos. E a injecao de espaco do PDF, \"Rhynchosporiu m spp.\", quebra QUALQUER apelido latino: os pares de 015232, 017358 e 017824 (3 dos 7) so sobrevivem porque \"rincosporiosi\" esta na mesma celula. Se alguem \"limpar\" a lista deixando so o nome cientifico, 3 dos 7 pares desaparecem em silencio. Os apelidos que proponho — rincosporios[ie] e as duas grafias do genero — nao casam nenhuma palavra comum italiana: \"rincosporiosi\" nao existe fora da fitopatologia.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 1,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "mIunZ-pH3RY",
+     "FRASE": "Il biegnio ha visto una un forte impatto, diciamo, di il mintosporio e e anche un poco di rincosporiosi."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 1 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_BYCTISCUS",
+   "TERMO_ATUAL_NO_ROTULO": "SIGARAIO",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Sigaraio della vite = Byctiscus betulae (Coleoptera: Rhynchitidae/Attelabidae), o gorgulho-charuteiro da videira. O nome vernaculo vem do comportamento: a femea enrola a folha num \"charuto\" (sigaro) para ovipor, e a folha enrolada seca e cai. Ataca videira, aveleira, betula, choupo e pereira; na Italia e praga esporadica mas localmente severa em vinha (sobretudo no norte). Congener proximo: Byctiscus populi (choupo/bétula), que o alias de genero tambem apanharia. NAO e lepidoptero: nao tem parentesco com tignoletta/Lobesia botrana, nem com cicaline (Hemiptera) nem com cocciniglie — todos listados na MESMA linha da vite e portanto declarados como problemas distintos pelo proprio rotulo.",
+   "APELIDOS_PROPOSTOS": [
+    "byctiscus",
+    "byctiscus betulae",
+    "sigaraio della vite",
+    "sigaraio"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "\"Vite (da vino e da tavola) Tignola e tignoletta: 1a generazione 2a generazione 100 100 1000 1000 1 Cocciniglie (trattamenti estivi su neanidi) 100 1000 Cicaline 60 - 100 600-1000 Sigaraio 100 1000\" (IT-RADAR-V21/productRelationships.json, QUOTE_FROM_LABEL; mesmo bloco visto em 013560 p1 y=430-488: ",
+   "RISCO_DE_SINAL_FALSO": "O alias perigoso e o \"sigaraio\" nu. Sigaraio e palavra comum do italiano corrente: significa CHARUTEIRO — a pessoa que enrola ou vende charutos. Casaria prosa que nao fala de praga nenhuma (\"il sigaraio\", \"sigarai cubani\"), e o risco nao e hipotetico neste acervo: os mesmos rotulos (008259, 013560) trazem TABACCO como cultura, entao um documento de tabaco no corpus e caminho plausivel para o falso positivo. O casamento e por palavra inteira, o que nao ajuda aqui — a palavra inteira e exatamente a palavra comum. Recomendacao: \"sigaraio\" nu so em CAMPO DE ALVO declarado (issue_id, que ja recusa prosa por padrao); em issues_no_texto/prosa, admitir apenas \"sigaraio della vite\", \"byctiscus\" e \"byctiscus betulae\", que nao tem homonimo. Segundo risco, de sentido oposto: NAO alargar o alias para \"rinchite\"/\"attelabidi\"/\"curculionidi\" — apanharia Rhynchites, Attelabus, Otiorhynchus e Coenorrhinus, que o rotulo nao autoriza e que o vocabulario ja separa (OZIORRINCO tem entrada propria). Terceiro risco, o de fusao: mapear SIGARAIO em ISSUE_GRAPE_MOTH so porque ambos sao \"praga da vite\" fundiria um coleoptero com um lepidoptero que o rotulo lista lado a lado com doses diferentes (Sigaraio 100/1000 vs tignoletta 100/1000 com 1 aplicacao max e geracoes declaradas) — a pressao de tignoletta passaria a contar tratamentos que foram autorizados contra o charuteiro.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 0,
+   "EXEMPLOS": [],
+   "IMPACTO": "nenhum trecho do acervo actual o nomeia: entra para os ROTULOS, que e onde o alvo aparece, e fica mudo no acervo de fala",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_SAWFLY",
+   "TERMO_ATUAL_NO_ROTULO": "TENTREDINE",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Tentredini = imenotteri sinfiti, famiglia Tenthredinidae (Hymenoptera: Symphyta) — le \"mosche a sega\", le cui larve eruciformi defogliano. Nel contesto pubblicato (colza, ravizzone, girasole, soia) la specie operativa e Athalia rosae (L.), la tentredine della rapa, defogliatrice delle brassicacee da olio. Il rotulo scrive solo il nome volgare di famiglia, mai la specie; in altre colture lo stesso vocabolo indica generi diversi (Hoplocampa brevis sul pero, H. flava/minuta sul susino, H. testudinea sul melo, Caliroa limacina sul ciliegio). Non e nessuno dei 24: non e afide, non e cimice, non e nottua, non e piralide.",
+   "APELIDOS_PROPOSTOS": [
+    "tentredine",
+    "tentredini",
+    "tenthredinidae",
+    "athalia rosae"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "Rotulo 008259 (LAMDEX EXTRA, lambda-cialotrina), coluna direita, bloco de alvos x=502-673 colado ao bloco de culturas x=431-494 \"Arachide, girasole, colza, ravizzone, cotone\": \"Afidi (foglie non accartocciate), altica, meligete e tentredine / Cimici e cecidomia / Nottue defogliatrici (allo scoperto)",
+   "RISCO_DE_SINAL_FALSO": "\"tentredine\"/\"tentredini\" nao e palavra comum do italiano nem substring de palavra comum — risco praticamente nulo, e o padrao pode entrar como esta. O apelido PERIGOSO e \"athalia\" sozinho, que hoje esta no padrao regex do vocabulario: Athalia/Athalie e nome proprio de pessoa (Atalia biblica) e titulo de obra (tragedia de Racine, oratorio de Mendelssohn), e como o motor casa apelido por substring delimitada em PROSA (issues_no_texto le trechos de boletim, nao so campos declarados), \"athalia\" transformaria uma frase cultural ou um nome proprio em sinal fitossanitario. Por isso proponho ao motor apenas \"athalia rosae\" com epiteto, deixando o \"athalia\" nu confinado ao regex do vocabulario de rotulo, onde o contexto e um campo de alvo e nao prosa livre. Rejeito explicitamente tres apelidos tentadores: \"cavolaia\" (e Pieris brassicae, alvo separado no mesmo rotulo), \"sega\"/\"mosca a sega\" (casam prosa comum), e \"sinfiti\" (raro no corpus e homografo de nada util). Segunda advertencia, de perda e nao de ruido: um unico ISSUE_SAWFLY de nivel de familia junta Athalia rosae (desfolhadora de brassicaceas, monitoramento no outono/inicio de primavera) com Hoplocampa spp. (larva carpofaga de pomaceas e drupaceas, intervencao na queda das petalas). Sao problemas agronomicos diferentes com a mesma etiqueta volgare. No corpus publicado so aparece o contexto colza/girasole/soia, entao a divisao ainda nao e forcada; se um rotulo de pomacea trouxer \"tentredine del pero\"/\"hoplocampa\", esse ID deve ser dividido, nao esticado. Registro tambem que a evidencia e estreita: 15 pares, mas de UMA unica tabela de lambda-cialotrina replicada em cinco registros, nao cinco autorizacoes independentes.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 1,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "uf5bx-oTees",
+     "FRASE": "Ehm niente, concludo con la tabella finale in cui sostanzialmente situazione abbastanza buona e salvo appunto quello che ho detto prima, recurreccienze di eriofide, di tentredine e di affidi."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 1 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_THRIPS",
+   "TERMO_ATUAL_NO_ROTULO": "TRIPIDI",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Tisanotteri (ordem Thysanoptera) — os tripes. O rotulo italiano usa \"tripidi\" como cabeca de grupo e enumera as especies entre parenteses. Nos 13 rotulos e no acervo aparecem, sob esta mesma palavra: Frankliniella occidentalis (tripes-do-cebolinho-ocidental, WFT, 424 mencoes), Thrips tabaci (371), Thrips spp. (238), Thrips angusticeps (78), Drepanothrips reuteri (tripes-da-videira, 74), e ainda Scirtothrips spp., Thrips parvispinus, Liothrips oleae (tripes-da-oliveira), Pezothrips kellyanus, Hercinothrips spp., Heliothrips haemorrhoidalis, Haplothrips tritici, Chaetanaphothrips orchidii. Isto atravessa pelo menos duas familias — Thripidae (Frankliniella, Thrips, Drepanothrips, Scirtothrips) e Phlaeothripidae (Liothrips, Haplothrips) — logo o termo e de NIVEL DE ORDEM, nao de genero.",
+   "APELIDOS_PROPOSTOS": [
+    "tripidi",
+    "tripide",
+    "thrips",
+    "thysanoptera",
+    "tisanotteri",
+    "frankliniella",
+    "frankliniella occidentalis",
+    "thrips tabaci",
+    "thrips angusticeps",
+    "drepanothrips",
+    "drepanothrips reuteri",
+    "scirtothrips",
+    "liothrips",
+    "liothrips oleae",
+    "haplothrips",
+    "heliothrips",
+    "hercinothrips",
+    "pezothrips",
+    "chaetanaphothrips"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "Rotulo 007555 (e identico em 007864, 009800, 012023), bloco cetriolo/zucchino: \"Cetriolo, cetriolino, zucchino Contro afidi (Aphis gossypii, Myzus persicae, Macrosiphum spp.), tripidi (Frankliniella occidentalis, Thrips tabaci) impiegare a 0,2 l/ha in 500-1000 litri di acqua/ha\". A MESMA oracao sepa",
+   "RISCO_DE_SINAL_FALSO": "Tres riscos concretos, um deles ja materializado no acervo.\n\n(1) ALIAS PROIBIDO — \"tabaci\". Tentador porque \"Thrips tabaci\" tem 371 mencoes, mas \"tabaci\" sozinho casa BEMISIA TABACI, que e mosca branca (Aleyrodidae), praga inteiramente distinta que os proprios rotulos listam a parte (\"Afidi (foglie non accartocciate), mosca bianca\" em 008259). Um alias \"tabaci\" transformaria cada mencao de mosca branca em sinal de tripes. So o binomio completo \"thrips tabaci\" entra. Pelo mesmo motivo ficam de fora \"occidentalis\" (casa dezenas de binomios) e \"spp\".\n\n(2) ARMADILHA DE FRONTEIRA DE PALAVRA — \"thrips\" NAO cobre o que parece cobrir. O motor casa por palavra inteira (`_casa`/`_todos` padroniza com espacos), portanto ' thrips ' nao encontra \"drepanothrips reuteri\", \"liothrips oleae\", \"scirtothrips spp\", \"haplothrips tritici\". Sao 74+ mencoes de Drepanothrips na videira que ficariam mudas se eu confiasse no radical. Por isso listei cada genero -thrips como alias proprio. Atencao: a camada de vocabulario do parser (scripts/it_rotulo_vocab.py) usa REGEX, nao palavra inteira, e la r'thrips' casa por dentro de \"Drepanothrips\" — as duas camadas nao se comportam igual, e quem comparar contagens entre elas vai ver divergencia por esta razao, nao por erro de dados.\n\n(3) PROSA INGLESA. \"thrips\" e palavra corrente em texto tecnico ingles; no acervo ja aparecem \"Thrips Diversity\", \"Thrips and\", \"thrips in\" — cabecalhos e titulos de artigo, nao autorizacoes de rotulo. O alias esta correto (e mesmo o inseto), mas quem contar mencoes deve saber que parte delas e bibliografia, nao alvo declarado. Nenhum alias proposto casa palavra comum italiana: \"tripidi\"/\"tripide\" nao colidem com nada do italiano corrente.\n\n(4) PERDA POR FUSAO, se alguem for tentado a resolver isto por sinonimia. Nao ha sinonimo entre os 24, mas registro o que se perderia se se forcasse: ISSUE_THRIPS de nivel de ordem cobre desde F. occidentalis (polifago de estufa, vetor de TSWV, resistencia conhecida) ate Liothrips oleae na oliveira e Haplothrips tritici no cereal — biologias, culturas e janelas de tratamento diferentes. Fundir com qualquer ISSUE_ID de especie seria perda; por isso o ID proprio e de GRUPO, e um dia pode precisar de filhos (ISSUE_THRIPS_WFT para F. occidentalis, que e o que de fato move mercado de inseticida em horticola protegida italiana). Marquei SYNONYM_IS_LOSSLESS=false para dizer exatamente isto: nao existe mapeamento sem perda para dentro dos 24.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 23,
+   "EXEMPLOS": [
+    {
+     "SOURCE_ID": "3m0OxLSK4ro",
+     "FRASE": "Poi per sempre per quanto riguarda i predatori, interessante, abbiamo visto la presenza di Eliotris Fasciatus che è un tripide zoofago in grado di predare, come voi sapete, i tripidi fitofagi e come vedete l'abbiamo trovato soprattutto nelle parcelle dove è stato seminato trifoglio incarnato."
+    },
+    {
+     "SOURCE_ID": "6eNiYjzPGHw",
+     "FRASE": "Finisco i tripidi."
+    },
+    {
+     "SOURCE_ID": "6eNiYjzPGHw",
+     "FRASE": "Nessun problema per quanto riguarda anche i tripidi."
+    }
+   ],
+   "IMPACTO": "passa a reconhecer 23 trechos que hoje nao reconhece",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  },
+  {
+   "ISSUE_ID_PROPOSTO": "ISSUE_VERTICILLIUM",
+   "TERMO_ATUAL_NO_ROTULO": "VERTICILLIOSI",
+   "TERMO_ATUAL_NO_MOTOR": "NENHUM — o motor nao tem ID para este alvo",
+   "IDENTIDADE": "Verticilliosi (tracheoverticilliosi, \"avvizzimento verticilliano\") = vascular wilt caused by the soil-borne fungus Verticillium dahliae Kleb., historically also V. albo-atrum Reinke & Berthold. In Italy it is a first-rank problem on olivo (Olea europaea) in Puglia, Toscana and Sicilia, and on pomodoro, melanzana, patata, carciofo and fragola. CRITICAL CAVEAT: it is soil-borne and vascular, so there is NO curative foliar fungicide for it in Italy — it is managed by soil solarization, certified/resistant planting material, sanitation of pruning wounds and drainage. That is precisely WHY zero ADAMA Italian labels claim it, and why zero pairs is the expected result, not a parser gap.",
+   "APELIDOS_PROPOSTOS": [
+    "verticilliosi",
+    "verticilliosi dell'olivo",
+    "tracheoverticilliosi",
+    "verticillium",
+    "verticillium dahliae",
+    "verticillium albo-atrum",
+    "avvizzimento verticilliano",
+    "verticilosis"
+   ],
+   "APELIDOS_RECUSADOS_AQUI": [],
+   "APELIDOS_RECUSADOS_NA_REGRESSAO_DO_CENSO": [],
+   "EVIDENCIA": "Rotulo 009790 (CONTATTO 320) linha 36 e rotulo 011734 (CONTATTO DOUBLE SC) linha 37, verbatim: \"Senecio (Erba calderina), Setaria verticillata (Pabbio verticillato), Stellaria media (Centocchio), Urtica dioica (Ortica minore), Veronica hederaefolia (Veronica comune).\" Este e o UNICO trecho com a str",
+   "RISCO_DE_SINAL_FALSO": "O risco aqui ja se MATERIALIZOU e esta medido: 2 dos 2 casamentos existentes sao falsos. O alias perigoso e qualquer prefixo curto — r'verticill\\w*' (it_rotulo_vocab.py:154) e r'verticil' (wt-canonica/scripts/voz.py:192) casam \"Setaria verticillata\" e \"Pabbio verticillato\", o nome de uma GRAMINACEA INFESTANTE, transformando dois herbicidas de barbabietola em rotulos que \"falam de verticilliose\". Pior: o falso sinal cai justamente em cima de INFESTANTI/ISSUE_WEEDS_GENERIC, ou seja, contamina um alvo que os mesmos rotulos declaram de verdade. Ambos os regex devem ser mortos. \"verticillata\"/\"verticillato\" tem de entrar como STOPWORD explicita, nao apenas ser evitada por acaso de sufixo. Rejeito tambem \"avvizzimento\" sozinho (sintoma, casa fusariose, murcha bacteriana e ate stress hidrico), \"tracheo-\" sozinho, e \"verticillo\" (em botanica italiana verticillo e a disposicao verticilada das folhas — palavra comum de prosa botanica, sem relacao com o fungo). Os aliases que proponho sao seguros por construcao: \"verticillium\" e \"verticilliosi\" exigem a letra i ou u apos \"verticill\", e nenhum epiteto do tipo verticillat- pode alcanca-los; sao termos que nao existem no italiano comum fora da fitopatologia. O prefixo 'verticilli' ja usado em it_futuro_corpus.py:110 e, por essa mesma razao, seguro e pode ficar.",
+   "CONFIANCA": "HIGH",
+   "OCORRENCIAS_NO_ACERVO_DEPOIS": 0,
+   "EXEMPLOS": [],
+   "IMPACTO": "nenhum trecho do acervo actual o nomeia: entra para os ROTULOS, que e onde o alvo aparece, e fica mudo no acervo de fala",
+   "REPARO_APLICADO_AQUI": [],
+   "SEM_JULGAMENTO_HUMANO": true
+  }
+ ],
+ "PODE_ENTRAR_SEM_JULGAMENTO_HUMANO": [
+  "ISSUE_AGRILUS",
+  "ISSUE_ALFALFA_WEEVIL",
+  "ISSUE_ALTERNARIA",
+  "ISSUE_ANARSIA",
+  "ISSUE_ANTHRACNOSE",
+  "ISSUE_APION",
+  "ISSUE_BLACK_ROT",
+  "ISSUE_BYCTISCUS",
+  "ISSUE_CASSIDA",
+  "ISSUE_COCKCHAFER",
+  "ISSUE_COLORADO_BEETLE",
+  "ISSUE_CONORHYNCHUS",
+  "ISSUE_ERIOPHYID_MITES",
+  "ISSUE_GALL_MIDGE",
+  "ISSUE_HELMINTHOSPORIUM",
+  "ISSUE_HYDRELLIA",
+  "ISSUE_LEUCOPTERA",
+  "ISSUE_LIXUS",
+  "ISSUE_MEDFLY",
+  "ISSUE_METCALFA",
+  "ISSUE_MONILIA",
+  "ISSUE_OLIVE_PYRALID",
+  "ISSUE_ORIENTAL_FRUIT_MOTH",
+  "ISSUE_OULEMA",
+  "ISSUE_PHYLLONORYCTER",
+  "ISSUE_POLLEN_BEETLE",
+  "ISSUE_PSYLLA",
+  "ISSUE_RAMULARIA",
+  "ISSUE_RHYNCHOSPORIUM",
+  "ISSUE_SAWFLY",
+  "ISSUE_SCALE_INSECTS",
+  "ISSUE_SMUT",
+  "ISSUE_THRIPS",
+  "ISSUE_VERTICILLIUM",
+  "ISSUE_WHITEFLY",
+  "ISSUE_WIREWORM"
+ ],
+ "EXIGE_DECISAO_HUMANA": [
+  "ISSUE_NEMATODES",
+  "ISSUE_OTIORHYNCHUS"
+ ]
+}
