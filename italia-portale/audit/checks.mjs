@@ -10,6 +10,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { mount, loadData, CLIENT, readPortal, extractLogic, extractMarkup, nullRate } from './lib/harness.mjs';
+import { EXPECTED_BUILD_ID } from './ingestion-provenance.mjs';
 import { scanAll, grepPackage, walkPackage } from './lib/scan.mjs';
 import { isPortuguese, isEnglish, looksEnglish, collectStrings, cropKeyOf } from './lang.mjs';
 
@@ -742,7 +743,18 @@ check('RT4', 'Back returns to the previous portal state', () => {
 
        A GUARD THAT SURVIVES THE THING IT GUARDED AGAINST
        STOPS BEING A GUARD AND BECOMES NOISE. */
-const V21_BUILD_ID = 'V21-99226fbb90dcdbc2';
+/* IL BUILD ATTESO NON SI SCRIVE DUE VOLTE.
+   Questa costante era 'V21-99226fbb90dcdbc2' scritta a mano, e ha smesso di
+   corrispondere nel momento in cui l'artefatto imbarcato e stato rigenerato dal
+   pacchetto canonico di 55c2674. Un numero copiato in due file e un numero che
+   prima o poi discorda con se stesso — ed e esattamente la malattia che questa
+   ingestione e venuta a curare.
+
+       CHI DICHIARA IL CONTRATTO E UNO SOLO.
+
+   `audit/ingestion-provenance.mjs` e il portone che rifiuta il pacchetto stale:
+   e li che vive l'attesa, e da li che H1 la legge. */
+const V21_BUILD_ID = EXPECTED_BUILD_ID;
 
 check('H1', 'Handoff V2.1 is ingested and identifies its build', () => {
   const ctx = loadData();

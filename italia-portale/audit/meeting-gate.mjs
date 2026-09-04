@@ -422,7 +422,25 @@ check('NO_OLD_SNAPSHOT_FALLBACK', 'The canonical surface never reads the older p
      V21-99226fbb90dcdbc2, anteriore alla riconciliazione; su 43 casi
      dichiara 16 AGIRE ORA dove il motore ne dichiara 2. */
   const oldBuild = (ctx.ITALY_HANDOFF_V21 || {}).buildId || null;
-  if (oldBuild && oldBuild === SNAP.BUILD_ID) bad.push('the two builds are the same — this witness would be vacuous');
+  /* QUANDO I DUE BUILD COINCIDONO, NON E VACUITA: E LA CURA.
+     Questo portone e nato per TESTIMONIARE una divergenza — il pacchetto
+     imbarcato dichiarava 16 AGIRE ORA dove il motore ne dichiarava 2. La
+     divergenza e stata eliminata all'origine (rigenerazione da 55c2674,
+     BUILD_ID V21-69bf448ac934a6d9), quindi il testimone non ha piu niente da
+     testimoniare.
+
+         UN TESTIMONE CHE SI DICHIARA VUOTO E ONESTO.
+         UN TESTIMONE CHE PASSA PER ABITUDINE, NO.
+
+     Allora cambia il compito, non la severita: se i build coincidono, devono
+     coincidere SUL CANONICO. Se coincidessero su un build vecchio, sarebbe la
+     stessa malattia con due schermi d'accordo — e questo lo prende. La prova
+     permanente che il pacchetto imbarcato E canonico vive in
+     audit/ingestion-provenance.mjs, che rifiuta anche il pacchetto stale. */
+  const CONVERGED = oldBuild && oldBuild === SNAP.BUILD_ID;
+  if (CONVERGED && oldBuild !== 'V21-69bf448ac934a6d9') {
+    bad.push(`the two builds agree on ${oldBuild}, which is not the canonical build`);
+  }
 
   const src = fs.readFileSync(path.join(CLIENT, 'meeting-surface.js'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
   for (const forbidden of ['ITALY_HANDOFF_V21', 'collections.opportunities', 'upstreamOpportunities']) {
@@ -437,7 +455,8 @@ check('NO_OLD_SNAPSHOT_FALLBACK', 'The canonical surface never reads the older p
   const oldOpps = (ctx.ITALY_HANDOFF_V21 || {}).opportunities || [];
   const byId = new Map(SNAP.CASES.map((c) => [c.ID, c]));
   const drift = oldOpps.filter((o) => byId.get(o.ID) && byId.get(o.ID).STATUS !== o.STATUS).length;
-  if (!drift) bad.push('VACUOUS: the old package agrees with the snapshot, so nothing was proven');
+  if (!CONVERGED && !drift) bad.push('VACUOUS: the old package agrees with the snapshot, so nothing was proven');
+  if (CONVERGED && drift) bad.push(`same build id but ${drift} cases still drift — the artefact lies about its own build`);
   return { pass: !bad.length, expected: 0, measured: bad.length,
     detail: bad.concat([`old build ${oldBuild} · snapshot ${SNAP.BUILD_ID} · cases whose STATUS drifted: ${drift}/43`]) };
 });
