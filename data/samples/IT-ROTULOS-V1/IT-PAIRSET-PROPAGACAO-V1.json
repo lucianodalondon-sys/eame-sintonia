@@ -9,10 +9,10 @@
  "CANONICAL_BUILD_ID": "V21-358954754db5ea2f",
  "OPPORTUNITIES_IN_ENGINE": 43,
  "OLD_PAIR_COUNT": 2030,
- "NEW_PAIR_COUNT": 2313,
- "ADDED_PAIRS": 514,
- "REMOVED_PAIRS": 257,
- "UNCHANGED_PAIRS": 319,
+ "NEW_PAIR_COUNT": 2340,
+ "ADDED_PAIRS": 515,
+ "REMOVED_PAIRS": 245,
+ "UNCHANGED_PAIRS": 331,
  "CHAVE_DE_COMPARACAO": "(CROP_ID, ISSUE_ID, REGISTRATION_NUMBER) — no namespace do motor, traduzido com o vocabulario do proprio motor (v21_normalizar)",
  "PORQUE_NAO_COMPARO_LITERAL": "o conjunto antigo conta o LITERAL do alvo (AMARANTO, ERIOSOMA) e o novo conta CLASSE canonica (INFESTANTI, AFIDI). Comparar literal contra classe contaria como \"removido\" todo par que so mudou de regua. A chave comum e o ISSUE_ID do motor, que os dois alcancam.",
  "ADDED_BY_CROP": {
@@ -20,7 +20,7 @@
   "PERO": 53,
   "FRUMENTO": 48,
   "ORZO": 46,
-  "VITE": 40,
+  "VITE": 41,
   "PESCO": 33,
   "BARBABIETOLA": 28,
   "PATATA": 26,
@@ -46,8 +46,8 @@
   "INFESTANTI": 251,
   "AFIDI": 83,
   "TRIPIDI": 25,
+  "OIDIO": 15,
   "PERONOSPORA": 15,
-  "OIDIO": 14,
   "SEPTORIOSI": 14,
   "DITTERI": 14,
   "MUFFA": 11,
@@ -93,8 +93,8 @@
   "APYZA WG": 7,
   "APYZA 500 WG": 7,
   "SEEDRON": 6,
-  "LEOPARD 5 EC": 6,
-  "MANAGER": 6
+  "BLAISE ULTRA": 6,
+  "LEOPARD 5 EC": 6
  },
  "ADDED_BY_LABEL": {
   "012573": 24,
@@ -120,17 +120,17 @@
   "018156": 7,
   "018165": 7,
   "016152": 6,
-  "011243": 6,
-  "011789": 6
+  "017358": 6,
+  "011243": 6
  },
  "REMOVED_BY_CROP": {
   "MELO": 36,
   "VITE": 27,
   "PATATA": 27,
-  "BARBABIETOLA": 27,
-  "FRUMENTO": 24,
-  "ORZO": 16,
+  "BARBABIETOLA": 25,
+  "FRUMENTO": 18,
   "POMODORO": 14,
+  "ORZO": 12,
   "BRASSICACEE": 8,
   "TRITICALE": 8,
   "RISO": 8,
@@ -151,24 +151,24 @@
   "PERO": 1
  },
  "REMOVED_BY_TARGET": {
-  "NAO_MAPEADO": 69,
+  "NAO_MAPEADO": 67,
   "AFIDI": 34,
   "PERONOSPORA": 15,
   "ECHINOCHLOA": 14,
   "AMARANTO": 13,
   "CARPOCAPSA": 12,
   "LOLIUM": 8,
-  "RUGGINE": 7,
-  "OIDIO": 7,
   "CIMICE": 6,
   "SCAFOIDEO": 6,
   "ELATERIDI": 6,
-  "FUSARIOSI": 5,
   "INFESTANTI": 5,
   "TIGNOLE": 5,
   "MAGGIOLINO": 5,
   "TRIPIDI": 5,
-  "SEPTORIOSI": 4,
+  "FUSARIOSI": 4,
+  "OIDIO": 4,
+  "RUGGINE": 3,
+  "SEPTORIOSI": 3,
   "ALTERNARIA": 3,
   "TICCHIOLATURA": 3,
   "VIOLA": 3,
@@ -178,8 +178,6 @@
   "PHALARIS": 2
  },
  "REMOVED_BY_PRODUCT": {
-  "MAXENTIS": 9,
-  "KOJAMI": 9,
   "LAMDEX EXTRA": 9,
   "DURAVIS": 9,
   "ELTIRA": 9,
@@ -197,6 +195,8 @@
   "KLARTAN SMART": 4,
   "MAVRIK EW": 4,
   "EVURE PRO": 4,
+  "MAXENTIS": 4,
+  "KOJAMI": 4,
   "COSAYR 200 SC": 4,
   "FOX": 4,
   "DAUPHIN 45": 4,
@@ -204,8 +204,8 @@
   "ANTERLEX": 4,
   "MOXYL MK": 4
  },
- "PAIRS_WITHOUT_CANONICAL_ISSUE_ID": 1142,
- "PAIRS_WITHOUT_CANONICAL_CROP_ID": 1094,
+ "PAIRS_WITHOUT_CANONICAL_ISSUE_ID": 1155,
+ "PAIRS_WITHOUT_CANONICAL_CROP_ID": 1106,
  "LACUNA_DE_VOCABULARIO": "par sem ISSUE_ID canonico NAO foi descartado: ele conta aqui. O motor conhece 24 problemas e 20 culturas; o conjunto de rotulos fala 61 alvos e 48 culturas. A diferenca e lacuna de vocabulario do motor, e nao ausencia de autorizacao.",
  "MERGE_RULE": "UNIAO. O conjunto novo so ACRESCENTA produto a oportunidade.",
  "POR_QUE_UNIAO": "142 pares que o conjunto antigo tinha e o novo nao tem carregam ISSUE_ID canonico — sao perda REAL de leitura, e nao mudanca de regua. Estao concentrados nos rotulos-matriz de centenas de blocos (008259, 013560, 013590, 015275, 017687, 018067, 019095), que o gabarito EXCLUIU por nao conseguir defender a exaustividade. Ali o conjunto novo nao afirma \"nao autorizado\": ele nao leu. Substituir em vez de unir tiraria o unico produto de OPP_169BD86DB324 e de OPP_3C8C3960CC66 (VALIDATE_NOW) por causa de um buraco de recall.",
@@ -238,7 +238,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 96,
-   "LABELS_REACHING_AFTER": 93,
+   "LABELS_REACHING_AFTER": 94,
    "OLD_PRODUCTS": [
     "BANJO",
     "FOLPAN GOLD",
@@ -343,7 +343,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": "ISSUE_POWDERY_MILDEW",
    "LABELS_REACHING_BEFORE": 2,
-   "LABELS_REACHING_AFTER": 3,
+   "LABELS_REACHING_AFTER": 4,
    "OLD_PRODUCTS": [],
    "NEW_PRODUCTS": [],
    "ADDED_PRODUCTS": [],
@@ -383,7 +383,7 @@
    "CROP_ID": "CROP_SUGAR_BEET",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 239,
-   "LABELS_REACHING_AFTER": 91,
+   "LABELS_REACHING_AFTER": 93,
    "OLD_PRODUCTS": [
     "CONTATTO 320",
     "GOLTIX",
@@ -748,7 +748,7 @@
    "CROP_ID": "CROP_WHEAT_GENERIC",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 176,
-   "LABELS_REACHING_AFTER": 106,
+   "LABELS_REACHING_AFTER": 112,
    "OLD_PRODUCTS": [
     "ELEGANT 2FD",
     "Lamdex® Extra",
@@ -787,12 +787,10 @@
    "PORTFOLIO_CHANGED": true,
    "MERGE_RULE": "UNIAO — o conjunto novo ACRESCENTA produto, nunca remove",
    "PRODUCTS_THE_NEW_SET_ALONE_WOULD_NOT_SEE": [
-    "MAXENTIS",
     "Maganic®",
     "Schermo® 0.5 G"
    ],
    "RECALL_DEBT": [
-    "MAXENTIS",
     "Maganic®",
     "Schermo® 0.5 G"
    ],
@@ -1344,7 +1342,7 @@
    "CROP_ID": "CROP_BARLEY",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 131,
-   "LABELS_REACHING_AFTER": 102,
+   "LABELS_REACHING_AFTER": 108,
    "OLD_PRODUCTS": [
     "ELEGANT 2FD",
     "MAXENTIS",
@@ -1379,11 +1377,9 @@
    "PORTFOLIO_CHANGED": true,
    "MERGE_RULE": "UNIAO — o conjunto novo ACRESCENTA produto, nunca remove",
    "PRODUCTS_THE_NEW_SET_ALONE_WOULD_NOT_SEE": [
-    "MAXENTIS",
     "Maganic®"
    ],
    "RECALL_DEBT": [
-    "MAXENTIS",
     "Maganic®"
    ],
    "RECALCULATED_LAYERS": [
@@ -1413,7 +1409,7 @@
    "CROP_ID": "CROP_SUGAR_BEET",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 239,
-   "LABELS_REACHING_AFTER": 91,
+   "LABELS_REACHING_AFTER": 93,
    "OLD_PRODUCTS": [
     "CONTATTO 320",
     "GOLTIX",
@@ -1520,7 +1516,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 96,
-   "LABELS_REACHING_AFTER": 93,
+   "LABELS_REACHING_AFTER": 94,
    "OLD_PRODUCTS": [
     "BANJO",
     "FOLPAN GOLD",
@@ -1671,7 +1667,7 @@
    "CROP_ID": null,
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 740,
-   "LABELS_REACHING_AFTER": 1094,
+   "LABELS_REACHING_AFTER": 1106,
    "OLD_PRODUCTS": [
     "AGIL",
     "Diode®",
@@ -1762,7 +1758,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 96,
-   "LABELS_REACHING_AFTER": 93,
+   "LABELS_REACHING_AFTER": 94,
    "OLD_PRODUCTS": [
     "BANJO",
     "FOLPAN GOLD",
@@ -1819,7 +1815,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": "ISSUE_POWDERY_MILDEW",
    "LABELS_REACHING_BEFORE": 2,
-   "LABELS_REACHING_AFTER": 3,
+   "LABELS_REACHING_AFTER": 4,
    "OLD_PRODUCTS": [],
    "NEW_PRODUCTS": [],
    "ADDED_PRODUCTS": [],
@@ -1859,7 +1855,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": "ISSUE_POWDERY_MILDEW",
    "LABELS_REACHING_BEFORE": 2,
-   "LABELS_REACHING_AFTER": 3,
+   "LABELS_REACHING_AFTER": 4,
    "OLD_PRODUCTS": [],
    "NEW_PRODUCTS": [],
    "ADDED_PRODUCTS": [],
@@ -2175,7 +2171,7 @@
    "CROP_ID": "CROP_BARLEY",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 131,
-   "LABELS_REACHING_AFTER": 102,
+   "LABELS_REACHING_AFTER": 108,
    "OLD_PRODUCTS": [
     "ELEGANT 2FD",
     "MAXENTIS",
@@ -2210,11 +2206,9 @@
    "PORTFOLIO_CHANGED": true,
    "MERGE_RULE": "UNIAO — o conjunto novo ACRESCENTA produto, nunca remove",
    "PRODUCTS_THE_NEW_SET_ALONE_WOULD_NOT_SEE": [
-    "MAXENTIS",
     "Maganic®"
    ],
    "RECALL_DEBT": [
-    "MAXENTIS",
     "Maganic®"
    ],
    "RECALCULATED_LAYERS": [
@@ -2332,7 +2326,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 96,
-   "LABELS_REACHING_AFTER": 93,
+   "LABELS_REACHING_AFTER": 94,
    "OLD_PRODUCTS": [
     "BANJO",
     "FOLPAN GOLD",
