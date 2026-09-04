@@ -10,13 +10,13 @@
  "LABELS_AUDITED": 52,
  "CROP_CLAIMS_AUDITED": 100,
  "BY_VERDICT": {
-  "AUTORIZADO_MAS_NAO_LIDO": 46,
-  "AUTORIZADO_E_LIDO": 39,
+  "AUTORIZADO_MAS_NAO_LIDO": 45,
+  "AUTORIZADO_E_LIDO": 40,
   "NAO_AUTORIZADO": 14,
   "NAO_SEI": 1
  },
- "RESOLVED_BY_PARSER_TONIGHT": 39,
- "STILL_BLOCKING": 46,
+ "RESOLVED_BY_PARSER_TONIGHT": 40,
+ "STILL_BLOCKING": 45,
  "STILL_UNKNOWN": 1,
  "BLOCKING_LABELS": {
   "008189": 3,
@@ -30,9 +30,9 @@
   "017688": 2,
   "017689": 2,
   "017690": 2,
-  "018244": 2,
   "007876": 1,
   "014091": 1,
+  "018244": 1,
   "011734": 1,
   "012023": 1,
   "013905": 1,
@@ -61,7 +61,7 @@
   "CABECALHO_DE_SECAO (principal) + LISTA_D": 2
  },
  "CONJUNTO_NOVO_PODE_SUBSTITUIR_O_ANTIGO": "NAO",
- "POR_QUE": "ainda ha 46 pares (rotulo x cultura) que o rotulo AUTORIZA e o parser NAO LE. Enquanto existirem, substituir apagaria autorizacao real.",
+ "POR_QUE": "ainda ha 45 pares (rotulo x cultura) que o rotulo AUTORIZA e o parser NAO LE. Enquanto existirem, substituir apagaria autorizacao real.",
  "UNIAO_AINDA_NECESSARIA": "SIM",
  "O_UNICO_ERRO_DO_CONJUNTO_ANTIGO": "011526 SULTAN x CIPOLLA. O rotulo diz \"diserbante selettivo per colza, cavoli a infiorescenza, cavoli a testa, cavoli a foglia e AGLIO\" — aglio, e nao cipolla. Das cem perdas auditadas, esta e a unica em que o conjunto antigo estava errado e o novo esta certo.",
  "ROWS": [
@@ -2003,7 +2003,7 @@
    "LABEL_ID": "018244",
    "PRODUCT": "MOMENTUM PFnPE (Fosetil alluminio 80% p/p, GRANULI IDRODISPERSIBILI, ADAMA) — registrazione n. 18244 del 30.12.2022",
    "CROP": "AGRUMI",
-   "VERDICT": "AUTORIZADO_MAS_NAO_LIDO",
+   "VERDICT": "AUTORIZADO_E_LIDO",
    "VERDICT_FROM_DIAGNOSIS": "AUTORIZADO_MAS_NAO_LIDO",
    "REFUTED_BY_CHALLENGER": false,
    "CHALLENGER_WHY": "Tentei derrubar por todos os vetores e a afirmacao resistiu.\n\n1) CITACAO LITERAL: confirmada palavra por palavra no XML bruto de data/samples/IT-ROTULOS-V1/geometria/018244.xml.gz, nao apenas na renderizacao do visor.\n\n2) COORDENADAS BATEM COM O BLOCO REAL: bloco da cultura xMin=41.04 yMin=91.22 xMax=143.08 yMax=154.70 (linhas y0 de 91.2 a 145.6, exatamente como citado); bloco Avversita xMin=155.42 yMin=91.22 xMax=221.74 yMax=120.33, identico ao citado; Dose xMin=239.18 yMin=91.22. Nada foi tomado de outro bloco.\n\n3) E DECLARACAO DE USO, nao decoy: a tabela tem cabecalho proprio em p2 y=36.4 (Colture | Avversita | Dose | Quando trattare la coltura | n massimo di trattamenti all'anno | Intervallo minimo tra i trattamenti | Intervallo di sicurezza), sob IMPIEGHI AUTORIZZATI E MODALITA D'USO (p1 y=384.4). A carenza e uma COLUNA dessa mesma tabela em x=722.3, nao o bloco citado. SECAO_PROIBIDA nao casa com nenhum bloco do rotulo; EXCLUSAO nao casa perto de agrumi. Nao e lista de infestantes, deriva, rotacao, composicao nem prosa de seguranca.\n\n4) NAO E HOMONIMO: AGRUMI e a cultura, enumerada com 14 especies de citros, e a manchete do proprio produto a nomeia duas vezes: \"Fungicida sistemico per la difesa di agrumi, vite e pero\" (p0 y=63.7 e p3 y=79.8).\n\n5) ALVO NAO HERDADO DE LINHA VIZINHA: linhas disjuntas com vaos de ~44pt. AGRUMI 91.2-154.7 / Gommosi 91.2-120.3; VITE 164.2 / Peronospora 164.2-193.3; PERO 241.4 / Gemme nere 241.4-270.4. Correspondencia um-para-um.\n\n6) Li tambem a p4 (truncada no primeiro dump) procurando restricao posterior: so distribuidores, oficinas e avisos de descarte. A unica outra mencao a agrumi e \"sospendere i trattamenti 15 giorni prima della raccolta su agrumi\", que PRESSUPOE o tratamento.\n\nPOR QUE O PARSER PERDE - duas lacunas de vocabulario independentes, nenhuma delas um fato sobre o rotulo:\n(a) A celula de cultura nem chega a ser reconhecida: _densidade_de_cultura da 0.500 contra limite 0.72, e _celulas_de_cultura a descarta como prosa. Os 8 tokens rejeitados sao POMELO, BERGAMOTTO, CEDRO, TANGERINO, CHINOTTO, AMARO, MAPO, TANGELO, ausentes de CULTURAS['AGRUMI'] em scripts/it_rotulo_vocab.py e de SEPARADOR_DE_CELULA. A celula e jogada fora justamente por enumerar citros com mais riqueza - o mesmo erro que o comentario acima de _densidade_de_cultura diz existir para evitar.\n(b) Ainda que passasse, alvos_em(\"Gommosi parassitaria ( Phytophtora spp.)\") devolve [], pois nenhuma chave de gommosi/Phytophthora existe entre os 60 ALVOS, e pares_geometricos cai em \"if not tg: continue\" em scripts/it_rotulo_parser.py.\nA mesma lacuna dupla derruba PERO x Gemme nere (Pseudomonas syringae) - ali a celula PERO E reconhecida, entao falha so pela causa (b). O parser publica 1 das 3 linhas desta tabela (so VITE x PERONOSPORA).\n\nRESSALVA HONESTA, que nao e refutacao: a CULTURA esta autorizada, mas reabilitar o PAR exige vocabulario dos dois lados (nomes das especies de citros e um alvo GOMMOSI/PHYTOPHTHORA), nao apenas afrouxar o limite de densidade.",
@@ -2013,7 +2013,7 @@
    "EVIDENCE_QUOTE": "IMPIEGHI AUTORIZZATI E MODALITA D'USO [p1 y=384.4 x=41.9] // Colture [p2 y=36.4 x=41.0] | Avversita [p2 y=36.4 x=155.4] // AGRUMI (ARANCIO, LIMONE, POMPELMO, LIMETTA, MANDARINO, CLEMENTINO, POMELO, BERGAMOTTO, CEDRO, TANGERINO, CHINOTTO, ARANCIO AMARO, MAPO, TANGELO) [p2 y=91.2-145.6 x=41.0] | Gommosi parassitaria ( Phytophtora spp.) [p2 y=91.2-120.3 x=155.4] | 4,5g di prodotto in 1,5 l di acqua p",
    "EVIDENCE_COORDS": "p2 y=91.2-145.6 x=41.0 (celula Colture) alinhada na mesma faixa vertical com p2 y=91.2-120.3 x=155.4 (celula Avversita), p2 y=91.2 x=239.2 (Dose), p2 y=91.2 x=374.1 (Quando trattare), p2 y=91.2 x=624.6 (n. trattamenti=3), p2 y=91.2 x=659.1 (intervallo=90 giorni); cabecalho de secao em p1 y=384.4 x=41.9; escopo de capa em p0 y=63.7 x=300.8 e p3 y=79.8 x=300.8",
    "CONFIDENCE": "HIGH",
-   "RESOLVED_BY_PARSER_TONIGHT": false,
+   "RESOLVED_BY_PARSER_TONIGHT": true,
    "STRUCTURE": "Matriz de uso autorizado de 7 colunas x 3 linhas de cultura na pagina p2, sob o cabecalho de secao \"IMPIEGHI AUTORIZZATI E MODALITA D'USO\" (p1 y=384.4 x=41.9). Colunas ancoradas em x fixo (p2 y=36.4):",
    "WHY_PARSER_MISSES": "Nao e falha de geometria: a tabela e lida corretamente e a rota GEOMETRIC_TABLE funciona (VITE sai como SUPPORTED_PAIR). Sao DUAS causas estruturais independentes, ambas medidas.\n\n(1) PERO — LACUNA DE VOCABULARIO DE ALVO, causa unica. A celula de cultura PERO E construida normalmente por _celulas_de_cultura (col x0=41, yc=245.9) e a banda calculada em pares_geometricos cobre o alvo (topo=(168.7+24",
    "FIX_CLASS": "VOCABULARIO_DE_ALVO (classe principal, atinge AGRUMI e PERO: faltam GOMMOSI/Phytophthora e GEMME_NERE/Pseudomonas — o dicionario ALVOS nao cobre bacterioses nem Phytophthora, e precisa tolerar as graf"

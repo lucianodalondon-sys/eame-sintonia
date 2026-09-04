@@ -1,0 +1,1413 @@
+{
+ "DATASET": "IT-ROTULOS-FILA-DE-CAUDA-V1",
+ "LAYER": "NATIONAL PRODUCT AUTHORIZATION — divida de leitura priorizada por valor",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-ROTULOS-DIVIDA-DE-LEITURA-V1",
+ "CAPTURED_AT": "2026-09-04",
+ "SOURCE": "os 46 pares AUTORIZADO_MAS_NAO_LIDO que sobraram, cruzados com as 43 oportunidades canonicas, com o conjunto publicado e com os sinais futuros",
+ "MOTOR_LIDO": "origin/claude/opportunity-commercial-priority-v1 b3935bd03822",
+ "LEI": "AUSENCIA NA NOSSA LEITURA NUNCA E AUSENCIA NO REGISTRO",
+ "A_FILA_NAO_E_META": "nao ha objectivo de zerar os 46. Ha objectivo de nao deixar por ler o que muda uma decisao.",
+ "TOTAL": 45,
+ "POR_PRIORIDADE": {
+  "P0": 18,
+  "P1": 16,
+  "P2": 11
+ },
+ "POR_CAUSA": {
+  "CABECALHO_DE_SECAO": 13,
+  "CABECALHO_DE_USO_COM_QUALIFICADOR": 1,
+  "CABECA_INLINE_MULTIPALAVRA": 1,
+  "SECAO_PROIBIDA_POR_SUBSTRING": 2,
+  "GUARDA_DE_SECAO_NAO_ANCORADA": 2,
+  "SECAO_PROIBIDA_POR_BLOCO": 1,
+  "MATRIZ_MULTICOLUNA": 9,
+  "SECAO_PROIBIDA_EM_BLOCO_MULTICOLUNA_FUNDIDO": 1,
+  "COLUNA_FUNDIDA_COM_PROSA": 1,
+  "LISTA_DE_USOS": 5,
+  "LEXICO_DE_ALVOS_BINOMIO_ABREVIADO": 1,
+  "CABECALHO_COM_QUALIFICADOR_VARIETAL": 1,
+  "NAO_CLASSIFICADA": 1,
+  "CELULA_DE_LISTA_LONGA": 1,
+  "VOCABULARIO_DE_ALVO": 1,
+  "CABECALHO_MULTIPLO_NO_BLOCO": 2,
+  "CABECALHO_ORFAO_EM_QUEBRA_DE_COLUNA": 1,
+  "CABECALHO_ORFAO_ENTRE_BLOCOS": 1
+ },
+ "POR_CUSTO": {
+  "MEDIO": 27,
+  "ALTO": 11,
+  "BAIXO": 7
+ },
+ "P0_EXISTE": true,
+ "ROWS": [
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_EA2AE1EFB775, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "013899",
+   "PRODUTO": "DAUPHIN 45 (ADAMA Italia S.r.l., cymoxanil 45%, FUNGICIDA)",
+   "CULTURA": "POMODORO",
+   "ALVOS_NO_ROTULO": [
+    "PERONOSPORA (Phytophtora infestans)"
+   ],
+   "CROP_ID_CANONICO": "CROP_TOMATO",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_DOWNY_MILDEW"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_DE_SECAO",
+   "CAUSA_COMPLETA": "CABECALHO_DE_SECAO (primaria: SECAO_PROIBIDA precisa exigir que o marcador ENCABECE o bloco/secao, e nao casar como substring em qualquer posicao do corpo — \"meccanismo d'azione\" dentro de uma frase d",
+   "PORQUE_O_PARSER_PERDE": "Duas guardas estruturais empilhadas, e a primeira sozinha ja mata tudo. (1) VETO DE SECAO POR SUBSTRING NO BLOCO INTEIRO: SECAO_PROIBIDA (scripts/it_rotulo_parser.py:52-56) inclui a alternativa MECCANISMO\\s+D.?AZIONE, e a frase de manejo de resistencia que vive DENTRO da entrada POMODORO — \"Si consiglia di impiegare il prodotto in associazione e/o alternanza con principi attivi a diverso meccanism",
+   "CITACAO_DO_ROTULO": "POMODORO (in campo) Contro peronospora (Phytophtora infestans): impiegare 220g/ha in un volume d'acqua compreso tra 200 e 1000 L/ha in relazione allo stato vegetativo della coltura. DAUPHIN 45 puo essere applicato dalla fase di 3-4 foglie vere fino alla maturazione dei frutti, osservando un intervallo tra i trattamenti di 7-10 giorni. Numero massimo di trattamenti/ciclo colturale: 5.",
+   "COORDENADAS": "p0, linhas y=65.4 ate y=123.7, x=556.7, dentro do bloco p0 y=46.0-268.1 x=556.7-799.5; sob o cabecalho de secao 'COLTURE AUTORIZZATE' em p0 y=430.2-438.5 x=299.6-397.8; corroborado por 'Pomodoro da industria: 10 giorni; Pomodoro da mensa: 3 giorni' no bloco de carenza p0 y=430.5-467.9 x=556.7-799.5",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_EA2AE1EFB775",
+     "STATUS": "TO_VALIDATE",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_TOMATO",
+      "ISSUE_DOWNY_MILDEW"
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [
+    "POMODORO DA INDUSTRIA — A CULTURA ESTA NA PROPRIA CITACAO ('UN FITOFAGO IMPORTANTE PER LA COLTURA DEL POMODORO') E O TRABALHO SINTETIZADO E DECLARADO NO MESMO BLOCO COMO 'MONITORAGGIO PLURIENNALE DELL'ACARO RUGGINOSO DEL POMODORO IN CAPITANATA ... UNA DELLE PRINCIPALI AREE DI PRODUZIONE IN ITALIA DEL POMODORO DA INDUSTRIA'. x ACULOPS LYCOPERSICI (ACARO RUGGINOSO / ERIOFIDEO DO TOMATE; NOMEADO NO MESMO BLOCO COMO 'L'ACARO RUGGINOSO DEL POMODORO ACULOPS LICOPERSICI' E REFERIDO NA CITACAO COMO 'L'ERIOFIDE')"
+   ],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_DA4B5954F72A, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "015315",
+   "PRODUTO": "EMBRACE (fluazinam 500 g/l, sospensione concentrata) — fungicida",
+   "CULTURA": "MELO",
+   "ALVOS_NO_ROTULO": [
+    "TICCHIOLATURA (Venturia inaequalis)",
+    "ALTERNARIA (Alternaria mali)"
+   ],
+   "CROP_ID_CANONICO": "CROP_APPLE",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_SCAB"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_DE_USO_COM_QUALIFICADOR",
+   "CAUSA_COMPLETA": "CABECALHO_DE_USO_COM_QUALIFICADOR — cabeca de declaracao inline cujo ultimo nome de cultura vem seguido de qualificador de especie/variedade fora do vocabulario (\"Nespolo giapponese ed europeo\", \"Nash",
+   "PORQUE_O_PARSER_PERDE": "A cabeca do bloco do melo e \"Melo, Cotogno, Nespolo giapponese ed europeo\" — termina em tokens qualificadores (\"giapponese\", \"ed\", \"europeo\") que nao sao nome de cultura do vocabulario nem separador conhecido. As DUAS rotas de declaracao inline morrem nisso. (1) INLINE_RX, usada por pares_inline (scripts/it_rotulo_parser.py:677-683): a cabeca so pode ser um run de tokens Capitalizados unidos por \"",
+   "CITACAO_DO_ROTULO": "Melo, Cotogno, Nespolo giapponese ed europeo: applicare alla dose di 70-100 ml/hl senza superare la dose massima di 1 l/ha per il controllo della ticchiolatura (Venturia inaequalis) e dell'alternaria (Alternaria mali). Effettuare un massimo di 3 trattamenti all'anno con un intervallo minimo di 14 giorni tra le applicazioni, intervenendo nelle condizioni di maggiore suscettibilita alle malattie dop",
+   "COORDENADAS": "p0 y=110-172 x=561-800 (linhas y=109.7 a 164.9, x=561.4), sob o cabecalho \"DOSI E MODALITA' DI IMPIEGO\" (p0 y=44.4 x=561.4)",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "costurar cabecalho de cultura ao bloco de uso que o segue, atravessando quebra de coluna ou de pagina.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_DA4B5954F72A",
+     "STATUS": "TO_VALIDATE",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_APPLE",
+      "ISSUE_SCAB"
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [
+    "MELO x BITTER ROT / GLOMERELLA (COMPLEXOS COLLETOTRICHUM ACUTATUM E C. GLOEOSPORIOIDES)",
+    "MELO x GLOMERELLA LEAF SPOT (COLLETOTRICHUM SPP.); AMOSTRAS ANALISADAS INICIALMENTE PARA ALTERNARIA",
+    "MELO x GLOMERELLA LEAF SPOT / BITTER ROT (COLLETOTRICHUM SPP.)",
+    "MELO x TICCHIOLATURA (COM EXTENSÃO ESTIVAL POR CAUSA DE GLS/COLLETOTRICHUM)",
+    "MELO x TICCHIOLATURA (VENTURIA INAEQUALIS) — LIBERTAÇÃO ASCOSPÓRICA"
+   ],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_EA2AE1EFB775, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "015629",
+   "PRODUTO": "BADGER 45% WG (cymoxanil 45%, FUNGICIDA) - ADAMA Italia S.r.l., Autorizzazione n. 15629 del 20.12.2012, etichetta autorizzata con Decreto Dirigenziale del 15 dicembre 2020",
+   "CULTURA": "POMODORO",
+   "ALVOS_NO_ROTULO": [
+    "PERONOSPORA (Phytophtora infestans)"
+   ],
+   "CROP_ID_CANONICO": "CROP_TOMATO",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_DOWNY_MILDEW"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_DE_SECAO",
+   "CAUSA_COMPLETA": "CABECALHO_DE_SECAO (principal) + LISTA_DE_USOS (subordinada). CABECALHO_DE_SECAO: SECAO_PROIBIDA precisa ser ancorada como CABECALHO - inicio de bloco ou de linha, caixa alta e/ou seguida de ':' - e n",
+   "PORQUE_O_PARSER_PERDE": "TRES GUARDAS EMPILHADAS SOBRE O MESMO BLOCO p0 y=44-295 x=557-799, e basta a primeira. (1) GUARDA DE SECAO NAO-ANCORADA: a rota que produziu o par do VITE, pares_header_continuation (scripts/it_rotulo_parser.py:727), comeca com \"if len(b['lines']) < 2 or SECAO_PROIBIDA.search(b['text']): continue\". SECAO_PROIBIDA (linhas 52-56) inclui a alternativa r'MECCANISMO\\s+D.?AZIONE' com re.I, e o texto do ",
+   "CITACAO_DO_ROTULO": "POMODORO (in campo) Contro peronospora (Phytophtora infestans): impiegare 220g/ha in un volume d'acqua compreso tra 200 e 1000 L/ha in relazione allo stato vegetativo della coltura. BADGER 45% WG puo essere applicato dalla fase di 3-4 foglie vere fino alla maturazione dei frutti, osservando un intervallo tra i trattamenti di 7-10 giorni. Numero massimo di trattamenti/ciclo colturale: 5.",
+   "COORDENADAS": "p0, bloco y=44-295 x=557-799 (linhas y=82.9 'POMODORO (in campo)' e y=92.7-141.1, x=556.6) - continuacao, no topo da coluna direita, da secao aberta em p0 y=458.3 x=299.5 pelo cabecalho verbatim 'COLTURE AUTORIZZATE'. Corroboracao secundaria, nao usada como prova principal por ser tabela de carenza: p0 y=457-494 x=557-799 'INTERVALLO DI SICUREZZA TRA L'ULTIMO TRATTAMENTO E LA RACCOLTA: ... Pomodoro da industria: 10 giorni; Pomodoro da mensa: 3 giorni'.",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_EA2AE1EFB775",
+     "STATUS": "TO_VALIDATE",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_TOMATO",
+      "ISSUE_DOWNY_MILDEW"
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [
+    "POMODORO DA INDUSTRIA — A CULTURA ESTA NA PROPRIA CITACAO ('UN FITOFAGO IMPORTANTE PER LA COLTURA DEL POMODORO') E O TRABALHO SINTETIZADO E DECLARADO NO MESMO BLOCO COMO 'MONITORAGGIO PLURIENNALE DELL'ACARO RUGGINOSO DEL POMODORO IN CAPITANATA ... UNA DELLE PRINCIPALI AREE DI PRODUZIONE IN ITALIA DEL POMODORO DA INDUSTRIA'. x ACULOPS LYCOPERSICI (ACARO RUGGINOSO / ERIOFIDEO DO TOMATE; NOMEADO NO MESMO BLOCO COMO 'L'ACARO RUGGINOSO DEL POMODORO ACULOPS LICOPERSICI' E REFERIDO NA CITACAO COMO 'L'ERIOFIDE')"
+   ],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_EA2AE1EFB775, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "015630",
+   "PRODUTO": "CARSON 45% WG (CARSON 45 WG) — cymoxanil puro g 45 — FUNGICIDA — Aut. Min. Salute n. 15630 del 20.12.2012, etichetta autorizzata con Decreto Dirigenziale del 15 dicembre 2020 — ADAMA Italia S.r.l.",
+   "CULTURA": "POMODORO",
+   "ALVOS_NO_ROTULO": [
+    "PERONOSPORA (Phytophtora infestans)"
+   ],
+   "CROP_ID_CANONICO": "CROP_TOMATO",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_DOWNY_MILDEW"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_DE_SECAO",
+   "CAUSA_COMPLETA": "CABECALHO_DE_SECAO (principal) + MULTI_CABECALHO_NO_BLOCO + CONTINUACAO_DE_COLUNA. (1) CABECALHO_DE_SECAO: SECAO_PROIBIDA precisa ser testada como CABECALHO (inicio de linha / linha-titulo isolada), e",
+   "PORQUE_O_PARSER_PERDE": "Duas falhas empilhadas; a primeira sozinha ja zera o rotulo.\n\n(1) DOMINANTE — VETO DE BLOCO INTEIRO POR MARCADOR NAO ANCORADO. Todas as rotas abrem com \"if SECAO_PROIBIDA.search(b['text']): continue\" — pares_inline (l.471), pares_header_continuation (l.530), escopos (l.584) e pares_lista_de_usos (l.628 e l.654). O bloco UNICO que carrega toda a secao COLTURE AUTORIZZATE (p0 y=314-536 x=300-542, 23",
+   "CITACAO_DO_ROTULO": "POMODORO (in campo) / Contro peronospora ( Phytophtora infestans ): impiegare 220g/ha in un volume d'acqua compreso tra 200 e 1000 L/ha in relazione allo stato vegetativo della coltura. [...] Numero massimo di trattamenti/ciclo colturale: 5.",
+   "COORDENADAS": "p0 bloco y=314-536 x=300-542; linhas y=440.4 (POMODORO (in campo)), y=449.8-498.7 (Contro peronospora / dose / n. trattamenti), x=299.6 — sob o cabecalho COLTURE AUTORIZZATE em y=314.1",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_EA2AE1EFB775",
+     "STATUS": "TO_VALIDATE",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_TOMATO",
+      "ISSUE_DOWNY_MILDEW"
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [
+    "POMODORO DA INDUSTRIA — A CULTURA ESTA NA PROPRIA CITACAO ('UN FITOFAGO IMPORTANTE PER LA COLTURA DEL POMODORO') E O TRABALHO SINTETIZADO E DECLARADO NO MESMO BLOCO COMO 'MONITORAGGIO PLURIENNALE DELL'ACARO RUGGINOSO DEL POMODORO IN CAPITANATA ... UNA DELLE PRINCIPALI AREE DI PRODUZIONE IN ITALIA DEL POMODORO DA INDUSTRIA'. x ACULOPS LYCOPERSICI (ACARO RUGGINOSO / ERIOFIDEO DO TOMATE; NOMEADO NO MESMO BLOCO COMO 'L'ACARO RUGGINOSO DEL POMODORO ACULOPS LICOPERSICI' E REFERIDO NA CITACAO COMO 'L'ERIOFIDE')"
+   ],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_3F736F0A9467, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "015630",
+   "PRODUTO": "CARSON 45% WG (CARSON 45 WG) — cymoxanil puro g 45 — FUNGICIDA — Aut. Min. Salute n. 15630 del 20.12.2012, etichetta autorizzata con Decreto Dirigenziale del 15 dicembre 2020 — ADAMA Italia S.r.l.",
+   "CULTURA": "VITE",
+   "ALVOS_NO_ROTULO": [
+    "PERONOSPORA (Plasmopara viticola)"
+   ],
+   "CROP_ID_CANONICO": "CROP_GRAPEVINE",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_DOWNY_MILDEW"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_DE_SECAO",
+   "CAUSA_COMPLETA": "CABECALHO_DE_SECAO (principal) + MULTI_CABECALHO_NO_BLOCO + CONTINUACAO_DE_COLUNA. (1) CABECALHO_DE_SECAO: SECAO_PROIBIDA precisa ser testada como CABECALHO (inicio de linha / linha-titulo isolada), e",
+   "PORQUE_O_PARSER_PERDE": "Duas falhas empilhadas; a primeira sozinha ja zera o rotulo.\n\n(1) DOMINANTE — VETO DE BLOCO INTEIRO POR MARCADOR NAO ANCORADO. Todas as rotas abrem com \"if SECAO_PROIBIDA.search(b['text']): continue\" — pares_inline (l.471), pares_header_continuation (l.530), escopos (l.584) e pares_lista_de_usos (l.628 e l.654). O bloco UNICO que carrega toda a secao COLTURE AUTORIZZATE (p0 y=314-536 x=300-542, 23",
+   "CITACAO_DO_ROTULO": "COLTURE AUTORIZZATE / VITE (da vino e da tavola) / Contro peronospora ( Plasmopara viticola ): impiegare 270 g/ha in un volume d'acqua compreso tra 200 e 1000 L/ha in relazione allo stato vegetativo della coltura. [...] Numero massimo di trattamenti/anno: 4.",
+   "COORDENADAS": "p0 bloco y=314-536 x=300-542; linhas y=314.1 (COLTURE AUTORIZZATE), y=323.8 (VITE (da vino e da tavola)), y=333.1-391.8 (Contro peronospora / dose / n. trattamenti), x=299.6",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_3F736F0A9467",
+     "STATUS": "TO_VALIDATE",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_GRAPEVINE",
+      "ISSUE_DOWNY_MILDEW"
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [
+    "VITE (PINOT GRIGIO, CHARDONNAY, PINOT NERO — AS CASTAS DOMINANTES DECLARADAS PELO MESMO RELATOR PARA O TERRITÓRIO) x BOTRITE (BOTRYTIS CINEREA)",
+    "VITE E COLTURE ARBOREE x UNKNOWN",
+    "VITE x BLACK ROT (GUIGNARDIA BIDWELLII / PHYLLOSTICTA AMPELICIDA)",
+    "VITE x OIDIO DELLA VITE (ERYSIPHE NECATOR)",
+    "VITE x PERONOSPORA DELLA VITE (PLASMOPARA VITICOLA)",
+    "VITE x PERONOSPORA DELLA VITE (PLASMOPARA VITICOLA) — PERDA DE SENSIBILIDADE AO FUNGICIDA CIAZOFAMIDA",
+    "VITE x PLASMOPARA VITICOLA (PERONOSPORA DA VIDEIRA)",
+    "VITE — CASTAS RESISTENTES / PIWI (CONDUZIDAS COM NÚMERO REDUZIDO DE INTERVENÇÕES) x DOENÇAS FÚNGICAS SECUNDÁRIAS EM REGIME DE BAIXA INTERVENÇÃO: BLACK ROT, ESCORIOSE (PHOMOPSIS VITICOLA) E ANTRACNOSE (ELSINOË AMPELINA)"
+   ],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_DA4B5954F72A, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "017432",
+   "PRODUTO": "AGHARTA (fluazinam 500 g/l SC, fungicida) — Reg. Min. Salute n. 17432 del 18/06/2019",
+   "CULTURA": "MELO",
+   "ALVOS_NO_ROTULO": [
+    "TICCHIOLATURA (Venturia inaequalis)",
+    "ALTERNARIA (Alternaria mali)"
+   ],
+   "CROP_ID_CANONICO": "CROP_APPLE",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_SCAB"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECA_INLINE_MULTIPALAVRA",
+   "CAUSA_COMPLETA": "CABECA_INLINE_MULTIPALAVRA (lista de culturas antes do ':' em que um dos nomes ocupa mais de uma palavra — \"Nespolo giapponese ed europeo\"; nem a corrida de INLINE_RX nem a caminhada para tras de _run",
+   "PORQUE_O_PARSER_PERDE": "O bloco do melo e lido por UMA unica rota possivel — a INLINE — e as duas variantes dessa rota o rejeitam pela FORMA DA CABECA, nao pelo conteudo.\n\n(1) INLINE_RX (scripts/it_rotulo_parser.py, def. da constante INLINE_RX): a cabeca e `((?:[A-ZÀ-Ü][\\wàèéìòùA-Za-z]*(?:\\s*\\([^)]{0,120}\\))?)(?:\\s*(?:,|\\be\\b|\\bed\\b)\\s*[A-ZÀ-Ü]?[\\wàèéìòùA-Za-z]+(?:\\s*\\([^)]{0,120}\\))?){0,4})` seguida OBRIGATORIAMENTE de ",
+   "CITACAO_DO_ROTULO": "Melo, Cotogno, Nespolo giapponese ed europeo: applicare alla dose di 70-100 ml/hl senza superare la dose massima di 1 l/ha per il controllo della ticchiolatura (Venturia inaequalis) e dell’alternaria (Alternaria mali). Effettuare un massimo di 3 trattamenti all’anno con un intervallo minimo di 14 giorni tra le applicazioni, intervenendo nelle condizioni di maggiore suscettibilità alle malattie dop",
+   "COORDENADAS": "p0 bloco y=109.7-172.4 x=561.4-799.7 (secao DOSI E MODALITA’ DI IMPIEGO, cabecalho em p0 y=44.4 x=561.4); primeira linha em p0 y=109.7 x=561.4",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "costurar cabecalho de cultura ao bloco de uso que o segue, atravessando quebra de coluna ou de pagina.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_DA4B5954F72A",
+     "STATUS": "TO_VALIDATE",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_APPLE",
+      "ISSUE_SCAB"
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [
+    "MELO x BITTER ROT / GLOMERELLA (COMPLEXOS COLLETOTRICHUM ACUTATUM E C. GLOEOSPORIOIDES)",
+    "MELO x GLOMERELLA LEAF SPOT (COLLETOTRICHUM SPP.); AMOSTRAS ANALISADAS INICIALMENTE PARA ALTERNARIA",
+    "MELO x GLOMERELLA LEAF SPOT / BITTER ROT (COLLETOTRICHUM SPP.)",
+    "MELO x TICCHIOLATURA (COM EXTENSÃO ESTIVAL POR CAUSA DE GLS/COLLETOTRICHUM)",
+    "MELO x TICCHIOLATURA (VENTURIA INAEQUALIS) — LIBERTAÇÃO ASCOSPÓRICA"
+   ],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_EA2AE1EFB775, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "017688",
+   "PRODUTO": "ANTERLEX (ADAMA Italia, cymoxanil puro g 45, fungicida antiperonosporico)",
+   "CULTURA": "POMODORO",
+   "ALVOS_NO_ROTULO": [
+    "PERONOSPORA (Phytophtora infestans)"
+   ],
+   "CROP_ID_CANONICO": "CROP_TOMATO",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_DOWNY_MILDEW"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "SECAO_PROIBIDA_POR_SUBSTRING",
+   "CAUSA_COMPLETA": "SECAO_PROIBIDA_POR_SUBSTRING (ancorar SECAO_PROIBIDA em cabecalho/inicio de bloco em vez de casar substring de prosa como \"meccanismo d'azione\") + MULTI_CABECALHO_NO_BLOCO (HEADER_CONTINUATION tem de ",
+   "PORQUE_O_PARSER_PERDE": "Duas guardas empilhadas matam o mesmo bloco p0 y=44.5-268.1 x=556.8, e nenhuma delas fala de autorizacao. (1) SECAO_PROIBIDA (scripts/it_rotulo_parser.py:52-56) tem a alternativa MECCANISMO\\s+D.?AZIONE e roda com re.I sobre o TEXTO INTEIRO do bloco; dentro do paragrafo do POMODORO ha a frase de manejo de resistencia \"Si consiglia di impiegare il prodotto in associazione e/o alternanza con principi",
+   "CITACAO_DO_ROTULO": "POMODORO (in campo) Contro peronospora (Phytophtora infestans): impiegare 220g/ha in un volume d'acqua compreso tra 200 e 1000 L/ha in relazione allo stato vegetativo della coltura. ANTERLEX puo essere applicato dalla fase di 3-4 foglie vere fino alla maturazione dei frutti, osservando un intervallo tra i trattamenti di 7-10 giorni. Numero massimo di trattamenti/ciclo colturale: 5.",
+   "COORDENADAS": "p0 linhas y=64.0 ('POMODORO (in campo)') a y=122.3 ('Numero massimo di trattamenti/ciclo colturale: 5.'), x=556.8; dentro do bloco p0 y=44.5-268.1 x=556.8-799.6, que continua a secao aberta por 'COLTURE AUTORIZZATE' em p0 y=431.6-441.3 x=299.7",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_EA2AE1EFB775",
+     "STATUS": "TO_VALIDATE",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_TOMATO",
+      "ISSUE_DOWNY_MILDEW"
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [
+    "POMODORO DA INDUSTRIA — A CULTURA ESTA NA PROPRIA CITACAO ('UN FITOFAGO IMPORTANTE PER LA COLTURA DEL POMODORO') E O TRABALHO SINTETIZADO E DECLARADO NO MESMO BLOCO COMO 'MONITORAGGIO PLURIENNALE DELL'ACARO RUGGINOSO DEL POMODORO IN CAPITANATA ... UNA DELLE PRINCIPALI AREE DI PRODUZIONE IN ITALIA DEL POMODORO DA INDUSTRIA'. x ACULOPS LYCOPERSICI (ACARO RUGGINOSO / ERIOFIDEO DO TOMATE; NOMEADO NO MESMO BLOCO COMO 'L'ACARO RUGGINOSO DEL POMODORO ACULOPS LICOPERSICI' E REFERIDO NA CITACAO COMO 'L'ERIOFIDE')"
+   ],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_EA2AE1EFB775, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "017689",
+   "PRODUTO": "MOXYL MK (cymoxanil 45%, WG, FUNGICIDA — ADAMA Italia S.r.l., aut. n. 17689 del 15/10/2020)",
+   "CULTURA": "POMODORO",
+   "ALVOS_NO_ROTULO": [
+    "PERONOSPORA (Phytophtora infestans)"
+   ],
+   "CROP_ID_CANONICO": "CROP_TOMATO",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_DOWNY_MILDEW"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "GUARDA_DE_SECAO_NAO_ANCORADA",
+   "CAUSA_COMPLETA": "GUARDA_DE_SECAO_NAO_ANCORADA + BLOCO_MULTI_CABECALHO (duas classes, ambas necessarias: (a) SECAO_PROIBIDA tem de casar CABECALHO DE SECAO ancorado em inicio de linha/bloco, e nao ocorrencia em meio de",
+   "PORQUE_O_PARSER_PERDE": "Duas guardas, em cascata, ambas verificadas executando o parser sobre a geometria.\n\n(1) CAUSA PRIMARIA — falso positivo de SECAO_PROIBIDA sobre o bloco inteiro. Em scripts/it_rotulo_parser.py:739, pares_header_continuation abre com `if len(b['lines']) < 2 or SECAO_PROIBIDA.search(b['text']): continue`. SECAO_PROIBIDA (linha 52-56) traz a alternativa `MECCANISMO\\s+D.?AZIONE` com re.I, e ela casa a ",
+   "CITACAO_DO_ROTULO": "POMODORO (in campo) Contro peronospora (Phytophtora infestans): impiegare 220g/ha in un volume d’acqua compreso tra 200 e 1000 L/ha in relazione allo stato vegetativo della coltura. MOXYL MK può essere applicato dalla fase di 3-4 foglie vere fino alla maturazione dei frutti, osservando un intervallo tra i trattamenti di 7-10 giorni. Numero massimo di trattamenti/ciclo colturale: 5.",
+   "COORDENADAS": "p0, cabeçalho de cultura na linha y=44.1 x=556.8, declaração de uso nas linhas y=53.8-102.4 x=556.8; bloco p0 y=44-248 x=557-800 (suprimido por SECAO_PROIBIDA). Secção que rege a coluna: 'COLTURE AUTORIZZATE', bloco p0 y=421.4-429.6 x=299.7-397.8",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_EA2AE1EFB775",
+     "STATUS": "TO_VALIDATE",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_TOMATO",
+      "ISSUE_DOWNY_MILDEW"
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [
+    "POMODORO DA INDUSTRIA — A CULTURA ESTA NA PROPRIA CITACAO ('UN FITOFAGO IMPORTANTE PER LA COLTURA DEL POMODORO') E O TRABALHO SINTETIZADO E DECLARADO NO MESMO BLOCO COMO 'MONITORAGGIO PLURIENNALE DELL'ACARO RUGGINOSO DEL POMODORO IN CAPITANATA ... UNA DELLE PRINCIPALI AREE DI PRODUZIONE IN ITALIA DEL POMODORO DA INDUSTRIA'. x ACULOPS LYCOPERSICI (ACARO RUGGINOSO / ERIOFIDEO DO TOMATE; NOMEADO NO MESMO BLOCO COMO 'L'ACARO RUGGINOSO DEL POMODORO ACULOPS LICOPERSICI' E REFERIDO NA CITACAO COMO 'L'ERIOFIDE')"
+   ],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_EA2AE1EFB775, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "017690",
+   "PRODUTO": "VANTEX (cymoxanil puro g 45, granuli idrodisperdibili, FUNGICIDA) — Aut. Ministero della Salute n. 17690 del 22/10/2020",
+   "CULTURA": "POMODORO",
+   "ALVOS_NO_ROTULO": [
+    "PERONOSPORA (Phytophtora infestans)"
+   ],
+   "CROP_ID_CANONICO": "CROP_TOMATO",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_DOWNY_MILDEW"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_DE_SECAO",
+   "CAUSA_COMPLETA": "CABECALHO_DE_SECAO + MULTI_CABECALHO_NO_BLOCO — duas classes empilhadas, e as duas precisam cair para recuperar as duas culturas. (a) CABECALHO_DE_SECAO: SECAO_PROIBIDA precisa ancorar em CABECALHO RE",
+   "PORQUE_O_PARSER_PERDE": "Sao DOIS defeitos ESTRUTURAIS EMPILHADOS, ambos confirmados por contrafactual executado.\n\n(1) FALSO POSITIVO DE SECAO_PROIBIDA — mata POMODORO E PATATA de uma vez. A guarda SECAO_PROIBIDA (scripts/it_rotulo_parser.py, linhas 52-56) tem a alternativa r'MECCANISMO\\s+D.?AZIONE' com re.I. Ela foi escrita para derrubar o CABECALHO de secao 'MECCANISMO D'AZIONE', mas casa em QUALQUER ponto do texto, e n",
+   "CITACAO_DO_ROTULO": "POMODORO (in campo) Contro peronospora (Phytophtora infestans): impiegare 220g/ha in un volume d’acqua compreso tra 200 e 1000 L/ha in relazione allo stato vegetativo della coltura. VANTEX può essere applicato dalla fase di 3-4 foglie vere fino alla maturazione dei frutti, osservando un intervallo tra i trattamenti di 7-10 giorni. Numero massimo di trattamenti/ciclo colturale: 5.",
+   "COORDENADAS": "p0, bloco y=42.5-245.3 x=556.6-799.6, linhas 0-6 (de y=42.5 'POMODORO (in campo)' ate y=100.3). Cabecalho de secao que rege o bloco por continuacao de coluna: p0 y=426.6-436.3 x=299.6-397.0 'COLTURE AUTORIZZATE'. Corroboracao secundaria (nao e a base do veredito, regra 3): p0 y=404.5-443.2 x=556.6-799.6 'Pomodoro da industria: 10 giorni; Pomodoro da mensa: 3 giorni'.",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_EA2AE1EFB775",
+     "STATUS": "TO_VALIDATE",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_TOMATO",
+      "ISSUE_DOWNY_MILDEW"
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [
+    "POMODORO DA INDUSTRIA — A CULTURA ESTA NA PROPRIA CITACAO ('UN FITOFAGO IMPORTANTE PER LA COLTURA DEL POMODORO') E O TRABALHO SINTETIZADO E DECLARADO NO MESMO BLOCO COMO 'MONITORAGGIO PLURIENNALE DELL'ACARO RUGGINOSO DEL POMODORO IN CAPITANATA ... UNA DELLE PRINCIPALI AREE DI PRODUZIONE IN ITALIA DEL POMODORO DA INDUSTRIA'. x ACULOPS LYCOPERSICI (ACARO RUGGINOSO / ERIOFIDEO DO TOMATE; NOMEADO NO MESMO BLOCO COMO 'L'ACARO RUGGINOSO DEL POMODORO ACULOPS LICOPERSICI' E REFERIDO NA CITACAO COMO 'L'ERIOFIDE')"
+   ],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_4C39CCC05EEB, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "017995",
+   "PRODUTO": "HIGHCARD (Quizalofop-P-ethyl 10.0 g / 105 g/L + Isoxadifen-etile antidoto agronomico) - ADAMA Agan Ltd / ADAMA Italia S.r.l. - Aut. Min. Salute n. 17995 del 08/02/2024 - categoria DISERBANTE-ANTIDOTO AGRONOMICO",
+   "CULTURA": "RISO",
+   "ALVOS_NO_ROTULO": [
+    "INFESTANTI (alvo declarado uma vez para o documento inteiro): giavone / Echinochloa crus-galli; giavone maggiore / Echinochloa oryzicola od oryzoides; giavoni del genere Echinochloa spp.; riso crodo / Oryza sativa — este ultimo e DANINHA e nao cultura (regra 5): consta da lista de infestantes e o rotulo reforca 'assicurare il controllo delle malerbe difficili (in particolare del riso crodo, per evitare il fenomeno dell’incrocio con la varietà coltivata)' em p0 y=467.4-486.7 x=297.8"
+   ],
+   "CROP_ID_CANONICO": "CROP_RICE",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_ECHINOCHLOA"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "SECAO_PROIBIDA_POR_BLOCO",
+   "CAUSA_COMPLETA": "SECAO_PROIBIDA_POR_BLOCO (o veto de secao deveria valer por SECAO/FRASE, ou por coluna cindida, e nao pelo texto do bloco inteiro) — habilitando em seguida LISTA_DE_USOS (alvo global de herbicida + cu",
+   "PORQUE_O_PARSER_PERDE": "Duas guardas, ambas de granularidade BLOCO, e nao de secao/frase.\n\n(1) SECAO_PROIBIDA no bloco do escopo. O bloco p0 y=66.6-107.4 x=35.9-281.7 (4 linhas, 164 chars) traz a frase que declara a cultura, e ESCOPO_CULTURA de fato casa nela (verificado: devolve ['RISO']). Mas o MESMO bloco de 4 linhas termina em \"Meccanismo d'azione: gruppo 1 (A) (HRAC)\", e SECAO_PROIBIDA contem MECCANISMO\\\\s+D.?AZIONE",
+   "CITACAO_DO_ROTULO": "CAMPI, DOSI E MODALITÀ DI IMPIEGO — HIGHCARD ® si impiega esclusivamente su varietà ed ibridi di riso tolleranti agli erbicidi inibitori dell’enzima ACCasi (tecnologia Max-Ace ®). Lasciare la risaia sgrondata per 3-4 giorni dopo l’applicazione, successivamente immettere acqua nella camera. || Seminato in acqua — Intervenire su terreno sgrondato con coltura dallo stadio di due foglie al terzo culmo",
+   "COORDENADAS": "p0 y=429.3 x=297.8 (titulo 'CAMPI, DOSI E MODALITÀ DI IMPIEGO'); p0 y=438.5-457.8 x=297.8 (frase de impiego — as linhas do arquivo vem INTERCALADAS com a coluna da direita: y=438.5 'HIGHCARD ® si impiega esclusivamente su varietà ed ibridi di riso esempio l’alternanza con metodi di lotta...', y=448.1 'tolleranti agli erbicidi inibitori dell’enzima ACCasi (tecnologia Max- meccanismo d’azione...', y=457.8 'Ace ® ). Lasciare la risaia sgrondata...'); p0 y=468.0 x=297.8; p0 y=487.3-545.3 x=297.8 ('Seminato in acqua' + doses); p0 y=61.8-139.0 x=553.0 ('Seminato in asciutta' + doses, 'Non effettuare più di 2 trattamenti/anno'); p0 y=66.6-76.2 x=35.9 (frase de escopo do cabecalho); p0 y=245.2 e y=255.1 x=297.8 (INFESTANTI SENSIBILI); p0 y=274.2/283.9/293.7 x=297.8 (INFESTANTI MODERATAMENTE SENSIBILI). Blocos: escopo = p0 y=66.6-107.4 x=35.9-281.7; corpo fundido = p0 y=158.3-555.0 x=297.8-799.7.",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_4C39CCC05EEB",
+     "STATUS": "TO_VALIDATE",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_RICE",
+      "ISSUE_ECHINOCHLOA"
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_9AB924CA36C8, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "008189",
+   "PRODUTO": "LEBRON 0.5 G (teflutrin 0,5 g/100 g; microgranulare geodisinfestante; Aut. Min. Salute n. 8189 del 16.03.1993)",
+   "CULTURA": "BARBABIETOLA",
+   "ALVOS_NO_ROTULO": [
+    "Agriotes sp.",
+    "Atomaria linearis",
+    "Chaetocnema tibialis",
+    "Scutigerella immaculata",
+    "Tipula sp."
+   ],
+   "CROP_ID_CANONICO": "CROP_SUGAR_BEET",
+   "ISSUE_IDS_CANONICOS": [],
+   "CAUSA_DA_ILEGIBILIDADE": "MATRIZ_MULTICOLUNA",
+   "CAUSA_COMPLETA": "MATRIZ_MULTICOLUNA (principal — re-segmentar colunas por x DENTRO de um bloco fundido, antes do filtro len(t)>110 e antes de len(cells)<2, usando a calha vazia x=594-607 e os x dos cabecalhos COLTURA/",
+   "PORQUE_O_PARSER_PERDE": "Falha total (zero pares por ambas as rotas), confirmada por instrumentacao: pares_geometricos(blocos)==[] e pares_inline(blocos)==[]. Cadeia concreta de guardas em scripts/it_rotulo_parser.py, funcao pares_geometricos: (1) a deteccao de celula de cultura opera POR BLOCO e o primeiro filtro e \"if len(t) > 110: continue\" — o bloco fundido b22 tem 1071 caracteres e e descartado inteiro, e com ele des",
+   "CITACAO_DO_ROTULO": "COLTURA / PARASSITI / DOSE kg/ha — \"Barbabietola da zucchero\" | \"Agriotes sp., Atomaria linearis, Chaetocnema tibialis, Scutigerella immaculata, Tipula sp.\" | \"12-15\"; e o escopo \"Insetticida geodisinfestante in formulazione microgranulare per la protezione di barbabietola da zucchero, frumento, mais, mais dolce e sorgo, oleaginose, ortaggi, patata, tabacco.\"",
+   "COORDENADAS": "p0: cabecalhos COLTURA y=34.5 x=532.9-573.0, PARASSITI y=34.5 x=652.8-695.5, DOSE kg/ha y=34.5-61.3 x=766.8; celula cultura b20 y=54.0-63.5 x=525.8-576.6; celula parassiti (linhas dentro de b22) y=54.0-63.5 x=607.3-756.1; dose b23 y=54.0 x=766.8; escopo b1 y=46.5-92.1 x=50.4-256.5; secao CAMPI E DOSI D'IMPIEGO y=460.7 x=273.6",
+   "CUSTO_PROVAVEL": "ALTO",
+   "PORQUE_ESSE_CUSTO": "exige cindir colunas dentro de um bloco fundido — a rota que foi medida a 0,75 de precisao e desligada. Custa gabarito novo antes de custar codigo.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_9AB924CA36C8",
+     "STATUS": "TO_VALIDATE",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_SUGAR_BEET",
+      null
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_5D03565DB4C3, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "008189",
+   "PRODUTO": "LEBRON 0.5 G (teflutrin 0,5 g/100 g; microgranulare geodisinfestante; Aut. Min. Salute n. 8189 del 16.03.1993)",
+   "CULTURA": "FRUMENTO",
+   "ALVOS_NO_ROTULO": [
+    "Bibio hortulanus",
+    "Hylemya sp."
+   ],
+   "CROP_ID_CANONICO": "CROP_WHEAT_GENERIC",
+   "ISSUE_IDS_CANONICOS": [],
+   "CAUSA_DA_ILEGIBILIDADE": "MATRIZ_MULTICOLUNA",
+   "CAUSA_COMPLETA": "MATRIZ_MULTICOLUNA (principal — re-segmentar colunas por x DENTRO de um bloco fundido, antes do filtro len(t)>110 e antes de len(cells)<2, usando a calha vazia x=594-607 e os x dos cabecalhos COLTURA/",
+   "PORQUE_O_PARSER_PERDE": "Falha total (zero pares por ambas as rotas), confirmada por instrumentacao: pares_geometricos(blocos)==[] e pares_inline(blocos)==[]. Cadeia concreta de guardas em scripts/it_rotulo_parser.py, funcao pares_geometricos: (1) a deteccao de celula de cultura opera POR BLOCO e o primeiro filtro e \"if len(t) > 110: continue\" — o bloco fundido b22 tem 1071 caracteres e e descartado inteiro, e com ele des",
+   "CITACAO_DO_ROTULO": "COLTURA / PARASSITI / DOSE kg/ha — \"Frumento\" | \"Bibio hortulanus, Hylemya sp.\" | \"10-12\"; e o escopo \"per la protezione di barbabietola da zucchero, frumento, mais, mais dolce e sorgo, oleaginose, ortaggi, patata, tabacco.\"",
+   "COORDENADAS": "p0: celula de cultura b20 linha y=73.7 x=525.8-576.6; linha de parassiti y=73.7 x=607.3-706.1 (dentro de b22); dose b24 y=73.7 x=766.8; escopo b1 y=46.5-92.1 x=50.4-256.5",
+   "CUSTO_PROVAVEL": "ALTO",
+   "PORQUE_ESSE_CUSTO": "exige cindir colunas dentro de um bloco fundido — a rota que foi medida a 0,75 de precisao e desligada. Custa gabarito novo antes de custar codigo.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_5D03565DB4C3",
+     "STATUS": "TO_VALIDATE",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_WHEAT_GENERIC",
+      null
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_B9206ACFC797, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "008189",
+   "PRODUTO": "LEBRON 0.5 G (teflutrin 0,5 g/100 g; microgranulare geodisinfestante; Aut. Min. Salute n. 8189 del 16.03.1993)",
+   "CULTURA": "SORGO",
+   "ALVOS_NO_ROTULO": [
+    "Hylemya sp.",
+    "Scutigerella immaculata",
+    "Tipula sp."
+   ],
+   "CROP_ID_CANONICO": null,
+   "ISSUE_IDS_CANONICOS": [],
+   "CAUSA_DA_ILEGIBILIDADE": "MATRIZ_MULTICOLUNA",
+   "CAUSA_COMPLETA": "MATRIZ_MULTICOLUNA (principal — re-segmentar colunas por x DENTRO de um bloco fundido, antes do filtro len(t)>110 e antes de len(cells)<2, usando a calha vazia x=594-607 e os x dos cabecalhos COLTURA/",
+   "PORQUE_O_PARSER_PERDE": "Falha total (zero pares por ambas as rotas), confirmada por instrumentacao: pares_geometricos(blocos)==[] e pares_inline(blocos)==[]. Cadeia concreta de guardas em scripts/it_rotulo_parser.py, funcao pares_geometricos: (1) a deteccao de celula de cultura opera POR BLOCO e o primeiro filtro e \"if len(t) > 110: continue\" — o bloco fundido b22 tem 1071 caracteres e e descartado inteiro, e com ele des",
+   "CITACAO_DO_ROTULO": "COLTURA / PARASSITI — \"Sorgo\" | \"Hylemya sp., Scutigerella immaculata, Tipula sp.\"; e o escopo \"per la protezione di barbabietola da zucchero, frumento, mais, mais dolce e sorgo, oleaginose, ortaggi, patata, tabacco.\"",
+   "COORDENADAS": "p0: linha de cultura y=113.1 x=525.8-544.8 (dentro do bloco fundido b22); linhas de parassiti y=113.1 x=607.3-756.2 e continuacao y=122.6 x=607.3-616.5 (mesmo bloco, coluna direita); escopo b1 y=46.5-92.1 x=50.4-256.5; cabecalhos y=34.5 x=532.9/652.8",
+   "CUSTO_PROVAVEL": "ALTO",
+   "PORQUE_ESSE_CUSTO": "exige cindir colunas dentro de um bloco fundido — a rota que foi medida a 0,75 de precisao e desligada. Custa gabarito novo antes de custar codigo.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_B9206ACFC797",
+     "STATUS": "FUTURE_PREPARATION",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      null,
+      null
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_F139E05A9F3A, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "013771",
+   "PRODUTO": "NIMROD 250 EW (bupirimate 250 g/l, FUNGICIDA) — Reg. Min. Salute n. 13771 del 02.04.2007",
+   "CULTURA": "POMODORO",
+   "ALVOS_NO_ROTULO": [
+    "OIDIO (Leveillula taurica)"
+   ],
+   "CROP_ID_CANONICO": "CROP_TOMATO",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_POWDERY_MILDEW"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "SECAO_PROIBIDA_EM_BLOCO_MULTICOLUNA_FUNDIDO",
+   "CAUSA_COMPLETA": "SECAO_PROIBIDA_EM_BLOCO_MULTICOLUNA_FUNDIDO (primaria) + CALHA_DE_COLUNA_TRUNCADA (residual, especifica desta linha). A primeira classe: SECAO_PROIBIDA e hoje um veto de BLOCO INTEIRO aplicado ANTES d",
+   "PORQUE_O_PARSER_PERDE": "Sao duas falhas empilhadas, e a primeira ja basta. (1) VETO DE BLOCO INTEIRO POR SECAO_PROIBIDA NUM BLOCO MULTICOLUNA FUNDIDO. A rota feita exatamente para esta forma, pares_inline, comeca com `for b in blocos: if SECAO_PROIBIDA.search(b['text']): continue`. O bloco fundido p0 y=299.4-515.7 x=290.7-801.2 casa SECAO_PROIBIDA em \"FITOTOSSICIT\" (confirmado: SECAO_PROIBIDA.search devolve 'FITOTOSSICIT",
+   "CITACAO_DO_ROTULO": "Pomodoro (ad esclusione di Pomodoro ciliegino), Melanzana e Peperone: contro Leveillula taurica, intervenire in modo preventivo, ogni 10-12 giorni, dallo stadio di 2 foglie vere fino a maturazione.",
+   "COORDENADAS": "p0, secao EPOCHE DI APPLICAZIONE: linhas y=465.8 / y=474.3 / y=483.0 em x=290.7 (dentro do bloco fundido p0 y=299.4-515.7 x=290.7-801.2). Corroborado pela tabela de uso: celula de cultura em p0 y=155.1-179.3 x=551.2 (bloco p0 y=105-202 x=551-641), coluna 'Coltura' (cabecalho p0 y=48.8 x=585.2), com 'Pomodoro (ad esclusione di Pomodoro ciliegino), Melanzana, Peperone (in pieno campo e serra)', dose '1–2' em p0 y=167.2 x=679.1 sob 'Dose (L/ha)' (p0 y=48.8 x=666.9) e '4' em p0 y=167.2 x=755.7 sob 'N° massimo Applicazioni' (p0 y=44.8-52.8 x=738.7).",
+   "CUSTO_PROVAVEL": "ALTO",
+   "PORQUE_ESSE_CUSTO": "exige cindir colunas dentro de um bloco fundido — a rota que foi medida a 0,75 de precisao e desligada. Custa gabarito novo antes de custar codigo.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_F139E05A9F3A",
+     "STATUS": "TO_VALIDATE",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_TOMATO",
+      "ISSUE_POWDERY_MILDEW"
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [
+    "POMODORO DA INDUSTRIA — A CULTURA ESTA NA PROPRIA CITACAO ('UN FITOFAGO IMPORTANTE PER LA COLTURA DEL POMODORO') E O TRABALHO SINTETIZADO E DECLARADO NO MESMO BLOCO COMO 'MONITORAGGIO PLURIENNALE DELL'ACARO RUGGINOSO DEL POMODORO IN CAPITANATA ... UNA DELLE PRINCIPALI AREE DI PRODUZIONE IN ITALIA DEL POMODORO DA INDUSTRIA'. x ACULOPS LYCOPERSICI (ACARO RUGGINOSO / ERIOFIDEO DO TOMATE; NOMEADO NO MESMO BLOCO COMO 'L'ACARO RUGGINOSO DEL POMODORO ACULOPS LICOPERSICI' E REFERIDO NA CITACAO COMO 'L'ERIOFIDE')"
+   ],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_F139E05A9F3A, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "014074",
+   "PRODUTO": "TRINEX 250 EW (bupirimate 250 g/L, fungicida antioidico) - ADAMA Makhteshim / ADAMA Italia",
+   "CULTURA": "POMODORO",
+   "ALVOS_NO_ROTULO": [
+    "Leveillula taurica (OIDIO)"
+   ],
+   "CROP_ID_CANONICO": "CROP_TOMATO",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_POWDERY_MILDEW"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "COLUNA_FUNDIDA_COM_PROSA",
+   "CAUSA_COMPLETA": "COLUNA_FUNDIDA_COM_PROSA (desentrelacar os fluxos de coluna ANTES de aplicar SECAO_PROIBIDA - hoje a guarda julga o bloco fundido inteiro, entao a prosa de seguranca contamina a tabela que corre ao la",
+   "PORQUE_O_PARSER_PERDE": "O parser devolve ZERO pares para 014074 inteiro, e a causa e uma so: fusao de fluxos de coluna dentro de um unico bloco, seguida da guarda de secao proibida. (1) O mega-bloco p0 y=93.2-519.2 x=290.7-801.2 contem, no mesmo texto, 'Prescrizioni Supplementari', 'INFORMAZIONI PER IL MEDICO', 'CARATTERISTICHE', 'FITOTOSSICITA' e 'INTERVALLO TRA L'ULTIMO TRATTAMENTO E LA RACCOLTA' - cinco gatilhos de SE",
+   "CITACAO_DO_ROTULO": "EPOCHE DI APPLICAZIONE, declaracao de uso com alvo nomeado: \"Pomodoro (ad esclusione di Pomodoro ciliegino), Melanzana e Peperone:\" / \"contro Leveillula taurica, intervenire in modo preventivo, ogni 10-12 giorni, dallo\" / \"stadio di 2 foglie vere fino a maturazione.\" -- a mesma cultura na tabela de dosagem, sob os cabecalhos \"Coltura\" / \"Dose (L/ha)\" / \"N° massimo Applicazioni\": \"Pomodoro (ad escl",
+   "COORDENADAS": "prosa EPOCHE: p0 y=465.8, y=474.3, y=483.0 (x=290.7, dentro do bloco p0 y=93.2-519.2 x=290.7-801.2). Linha da tabela: p0 y=163.7, y=171.8, y=179.8, y=187.9, com dose/aplicacoes em p0 y=175.9 (mesmo bloco). Cabecalhos: p0 y=57.4 x=585.2 'Coltura', p0 y=57.4 x=666.9 'Dose (L/ha)', p0 y=53.4 e y=61.5 x=738.7 'N° massimo Applicazioni'. Escopo: bloco p0 y=56-92 x=54-272.",
+   "CUSTO_PROVAVEL": "ALTO",
+   "PORQUE_ESSE_CUSTO": "exige cindir colunas dentro de um bloco fundido — a rota que foi medida a 0,75 de precisao e desligada. Custa gabarito novo antes de custar codigo.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_F139E05A9F3A",
+     "STATUS": "TO_VALIDATE",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_TOMATO",
+      "ISSUE_POWDERY_MILDEW"
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [
+    "POMODORO DA INDUSTRIA — A CULTURA ESTA NA PROPRIA CITACAO ('UN FITOFAGO IMPORTANTE PER LA COLTURA DEL POMODORO') E O TRABALHO SINTETIZADO E DECLARADO NO MESMO BLOCO COMO 'MONITORAGGIO PLURIENNALE DELL'ACARO RUGGINOSO DEL POMODORO IN CAPITANATA ... UNA DELLE PRINCIPALI AREE DI PRODUZIONE IN ITALIA DEL POMODORO DA INDUSTRIA'. x ACULOPS LYCOPERSICI (ACARO RUGGINOSO / ERIOFIDEO DO TOMATE; NOMEADO NO MESMO BLOCO COMO 'L'ACARO RUGGINOSO DEL POMODORO ACULOPS LICOPERSICI' E REFERIDO NA CITACAO COMO 'L'ERIOFIDE')"
+   ],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_9AB924CA36C8, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "014479",
+   "PRODUTO": "SCHERMO 0.5 G (ADAMA Italia; teflutrin 0,5 g/100 g; insetticida geodisinfestante microgranulare; Aut. Min. Salute n. 14479 del 26.01.2009; etichetta autorizzata con decreto dirigenziale del 16 luglio 2024)",
+   "CULTURA": "BARBABIETOLA",
+   "ALVOS_NO_ROTULO": [
+    "Agriotes sp. (ELATERIDI)",
+    "Atomaria linearis",
+    "Chaetocnema tibialis",
+    "Scutigerella immaculata",
+    "Tipula sp."
+   ],
+   "CROP_ID_CANONICO": "CROP_SUGAR_BEET",
+   "ISSUE_IDS_CANONICOS": [],
+   "CAUSA_DA_ILEGIBILIDADE": "MATRIZ_MULTICOLUNA",
+   "CAUSA_COMPLETA": "MATRIZ_MULTICOLUNA (principal) + TABELA_LINHA_UNICA (secundaria) + CABECALHO_DE_SECAO (colateral). MATRIZ_MULTICOLUNA: quando um bloco unico carrega varias colunas, as celulas tem de ser derivadas por",
+   "PORQUE_O_PARSER_PERDE": "Zero pares por tres guardas encadeadas, todas em scripts/it_rotulo_parser.py. (a) CELULA DE CULTURA E BLOCO, NAO LINHA: pares_geometricos monta as celulas iterando BLOCOS e corta na linha 230 com 'if len(t) > 110: continue'. O corpo inteiro da tabela e um so bloco de 1071 caracteres (p0 y=54.0-323.1 x=525.8-756.2), entao Sorgo, Girasole, Patata e Tabacco — que sao LINHAS com xMin=525.79 dentro des",
+   "CITACAO_DO_ROTULO": "COLTURA | Barbabietola da zucchero | Agriotes sp., Atomaria linearis, Chaetocnema tibialis, Scutigerella immaculata, Tipula sp. | DOSE kg/ha 12-15",
+   "COORDENADAS": "p0: cabecalho 'COLTURA' y=34.5 x=532.9-573.0; celula de cultura y=54.05-70.76 x=525.79-576.57 (bloco proprio y=54.0-81.0 x=525.8-576.6); parassiti y=54.05-70.76 x=607.27-756.10 (bloco y=54.0-323.1 x=525.8-756.2); dose y=54.0 x=766.8-788.6. Escopo confirmatorio: y=55.97-63.20 x=50.4-256.5 'per la protezione di barbabietola da zucchero, frumento,'",
+   "CUSTO_PROVAVEL": "ALTO",
+   "PORQUE_ESSE_CUSTO": "exige cindir colunas dentro de um bloco fundido — a rota que foi medida a 0,75 de precisao e desligada. Custa gabarito novo antes de custar codigo.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_9AB924CA36C8",
+     "STATUS": "TO_VALIDATE",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_SUGAR_BEET",
+      null
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_5D03565DB4C3, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "014479",
+   "PRODUTO": "SCHERMO 0.5 G (ADAMA Italia; teflutrin 0,5 g/100 g; insetticida geodisinfestante microgranulare; Aut. Min. Salute n. 14479 del 26.01.2009; etichetta autorizzata con decreto dirigenziale del 16 luglio 2024)",
+   "CULTURA": "FRUMENTO",
+   "ALVOS_NO_ROTULO": [
+    "Bibio hortulanus",
+    "Hylemya sp.",
+    "Scutigerella immaculata",
+    "Tipula sp.",
+    "Agriotes sp. (ELATERIDI)",
+    "Melolontha melolontha (MAGGIOLINO)"
+   ],
+   "CROP_ID_CANONICO": "CROP_WHEAT_GENERIC",
+   "ISSUE_IDS_CANONICOS": [],
+   "CAUSA_DA_ILEGIBILIDADE": "MATRIZ_MULTICOLUNA",
+   "CAUSA_COMPLETA": "MATRIZ_MULTICOLUNA (principal) + TABELA_LINHA_UNICA (secundaria) + CABECALHO_DE_SECAO (colateral). MATRIZ_MULTICOLUNA: quando um bloco unico carrega varias colunas, as celulas tem de ser derivadas por",
+   "PORQUE_O_PARSER_PERDE": "Zero pares por tres guardas encadeadas, todas em scripts/it_rotulo_parser.py. (a) CELULA DE CULTURA E BLOCO, NAO LINHA: pares_geometricos monta as celulas iterando BLOCOS e corta na linha 230 com 'if len(t) > 110: continue'. O corpo inteiro da tabela e um so bloco de 1071 caracteres (p0 y=54.0-323.1 x=525.8-756.2), entao Sorgo, Girasole, Patata e Tabacco — que sao LINHAS com xMin=525.79 dentro des",
+   "CITACAO_DO_ROTULO": "Frumento | Bibio hortulanus, Hylemya sp. / Scutigerella immaculata, Tipula sp. / Agriotes sp., Melolontha melolontha | 10-12",
+   "COORDENADAS": "p0: celula de cultura y=73.73-80.96 x=525.79-556.90 (bloco y=54.0-81.0 x=525.8-576.6); parassiti em tres entradas y=73.73-80.96, y=83.21-90.44 e y=93.41-100.64, todas x=607.27-726.13; dose '10-12' y=73.73-80.96 x=766.8-785.7. Escopo confirmatorio: y=55.97-63.20 x=50.4-256.5 'barbabietola da zucchero, frumento,'",
+   "CUSTO_PROVAVEL": "ALTO",
+   "PORQUE_ESSE_CUSTO": "exige cindir colunas dentro de um bloco fundido — a rota que foi medida a 0,75 de precisao e desligada. Custa gabarito novo antes de custar codigo.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_5D03565DB4C3",
+     "STATUS": "TO_VALIDATE",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_WHEAT_GENERIC",
+      null
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P0",
+   "PORQUE_ESTA_PRIORIDADE": "cai na oportunidade OPP_E6200AA0FA63, que hoje nao tem este produto na carteira",
+   "LABEL_ID": "017955",
+   "PRODUTO": "MAGANIC (ADAMA Makhteshim Ltd. / ADAMA Italia S.r.l.) — FUNGICIDA, Protioconazolo 175 g/L + Difenoconazolo 125 g/L, Aut. Min. Salute n. 17955 del 05.06.2024",
+   "CULTURA": "ORZO",
+   "ALVOS_NO_ROTULO": [
+    "ELMINTOSPORIOSI",
+    "RAMULARIA"
+   ],
+   "CROP_ID_CANONICO": "CROP_BARLEY",
+   "ISSUE_IDS_CANONICOS": [],
+   "CAUSA_DA_ILEGIBILIDADE": "MATRIZ_MULTICOLUNA",
+   "CAUSA_COMPLETA": "MATRIZ_MULTICOLUNA — sub-classe COLUNA_FUNDIDA_NO_BLOCO: recuperar as colunas por corte em x de PALAVRA (a geometria versionada guarda xMin/xMax por <word>; ler_geometria hoje descarta isso e so conse",
+   "PORQUE_O_PARSER_PERDE": "parse() devolve lista VAZIA — as cinco rotas falham, e a falha decisiva e uma cadeia de duas guardas em pares_geometricos():\n\n(1) A coluna Coltura nunca vira celulas. O laco de selecao de celula tem 'if len(t) > 110: continue'. O bloco fundido que carrega Orzo, Segale e Triticale tem 742 caracteres, entao ORZO/SEGALE/TRITICALE sao descartados como celula de cultura antes de qualquer geometria. Sob",
+   "CITACAO_DO_ROTULO": "Orzo (invernale e primaverile) | Maculatura reticolare e puntiforme o Elimintosporiosi (Pyrenophora teres), Ramularia (Ramularia collo-cygni)",
+   "COORDENADAS": "p0 linha y=161.4: palavra 'Orzo' a x=557.5-573.5 e '(invernale' a x=579.7-612.0, continuada em y=171.8 'e primaverile)' x=557.5-602.2 — coluna Coltura. Alvos na MESMA faixa y=161.4-190.5, palavras a x>=622.9 ('Maculatura reticolare e puntiforme', 'Elimintosporiosi (Pyrenophora teres),', 'Ramularia (Ramularia collo-cygni)'). Dose 0,8-1 l/ha a x>=769. Confirmacao em prosa p0 y=286.8 x=551.9: 'Su orzo applicare il prodotto tra gli stadi di inizio levata e fine spigatura.'",
+   "CUSTO_PROVAVEL": "ALTO",
+   "PORQUE_ESSE_CUSTO": "exige cindir colunas dentro de um bloco fundido — a rota que foi medida a 0,75 de precisao e desligada. Custa gabarito novo antes de custar codigo.",
+   "BLOQUEIA_OPORTUNIDADE": [
+    {
+     "OPPORTUNITY_ID": "OPP_E6200AA0FA63",
+     "STATUS": "FUTURE_PREPARATION",
+     "PRIORIDADE_COMERCIAL": null,
+     "CHAVE": [
+      "CROP_BARLEY",
+      null
+     ]
+    }
+   ],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P1",
+   "PORQUE_ESTA_PRIORIDADE": "o motor sabe nomear os dois lados (CROP_SUGAR_BEET x ISSUE_WEEDS_GENERIC): e divida de recall com endereco",
+   "LABEL_ID": "011734",
+   "PRODUTO": "CONTATTO DOUBLE SC (DISERBANTE, PHENMEDIPHAM) — Reg. n. 11734 del 31.07.2003",
+   "CULTURA": "BARBABIETOLA",
+   "ALVOS_NO_ROTULO": [
+    "INFESTANTI"
+   ],
+   "CROP_ID_CANONICO": "CROP_SUGAR_BEET",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_WEEDS_GENERIC"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "LISTA_DE_USOS",
+   "CAUSA_COMPLETA": "LISTA_DE_USOS (sub-causa: ESCOPO_ALVO_HERBICIDA — o alvo unico do documento nao e reconhecido porque a frase que o declara nao esta entre os quatro literais de ESCOPO_ALVO_GLOBAL e mora num bloco bani",
+   "PORQUE_O_PARSER_PERDE": "As cinco rotas morrem, e as duas que deviam pegar este rotulo morrem na MESMA guarda. (a) pares_geometricos: nao ha tabela — nenhuma celula de cultura tem bloco de alvo a direita dentro de `xmax < b['x0'] < min(limite, xmax+260)`; o unico bloco a direita da coluna do meio e a prosa de seguranca (x=556.8+), que cai em SECAO_PROIBIDA<FITOTOSSICIT> ou nao tem alvo. (b) pares_inline: `_cabecas_por_doi",
+   "CITACAO_DO_ROTULO": "Viene impiegato per il diserbo di: BARBABIETOLA DA ZUCCHERO E DA FORAGGIO - BIETOLA ROSSA:",
+   "COORDENADAS": "p0 y=346-372 x=300-542 (linhas y=346.0 / y=354.3 / y=362.6, x=299.7). Corroboracao 1 — titulo do produto, p0 y=44-88 x=60-264: 'ERBICIDA SELETTIVO DI POST-EMERGENZA PER IL DISERBO DELLA BARBABIETOLA DA ZUCCHERO E DA FORAGGIO, BIETOLA ROSSA (SOSPENSIONE CONCENTRATA)'. Corroboracao 2 — dose e epoca, p0 y=387-472 x=300-543: 'A SEMINA PRIMAVERILE ED AUTUNNALE: CONTATTO DOUBLE SC viene impiegato (1 applicazione) a 2-3 l per ha in 200-400 l di acqua, dall’emergenza della coltura fino alla chiusura delle file (BBCH 10-18).' Corroboracao 3 — o alvo, p0 y=189-339 x=300-543: 'agisce per assorbimento fogliare non permettendo la fotosintesi clorofilliana sulle seguenti infestanti: Amaranthus retroflexus (Amaranto comune), Chenopodium album (Farinaccio comune), ...'",
+   "CUSTO_PROVAVEL": "BAIXO",
+   "PORQUE_ESSE_CUSTO": "a rota certa ja existe; a guarda e que e aplicada ao bloco em vez da frase.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P1",
+   "PORQUE_ESTA_PRIORIDADE": "o motor sabe nomear os dois lados (CROP_PEACH x ISSUE_GRAPE_MOTH): e divida de recall com endereco",
+   "LABEL_ID": "018561",
+   "PRODUTO": "COSAYR 200 SC (ADAMA Italia, Reg. Ministero della Salute n. 18561 del 04/02/2026, chlorantraniliprole 200 g/L, insetticida)",
+   "CULTURA": "PESCO",
+   "ALVOS_NO_ROTULO": [
+    "C. molesta (= Cydia molesta, 'tignola orientale' no SPETTRO D'AZIONE) -> TIGNOLE/LEPIDOTTERI",
+    "A. pulchellana (= Argyrotaenia pulchellana, 'eulia') -> LEPIDOTTERI",
+    "Cydia funebrana ('tignola del susino') -> TIGNOLE",
+    "Operophtera brumata ('cheimatobia') -> sem termo no vocabulario",
+    "A. lineatella (= Anarsia lineatella, 'anarsia') -> ANARSIA"
+   ],
+   "CROP_ID_CANONICO": "CROP_PEACH",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_GRAPE_MOTH"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "LEXICO_DE_ALVOS_BINOMIO_ABREVIADO",
+   "CAUSA_COMPLETA": "LEXICO_DE_ALVOS_BINOMIO_ABREVIADO (subclasse: GLOSSARIO_INTERNO_DE_ESPECIE — o proprio rotulo, no bloco SPETTRO D'AZIONE p0 y=28-119 x=566-814, escreve 'Cydia molesta (tignola orientale)', 'Anarsia li",
+   "PORQUE_O_PARSER_PERDE": "O bloco do PESCO passa por TODAS as guardas de cultura e morre na guarda de ALVO. Simulei a rota em scripts/it_rotulo_parser.py: `_cabecas_por_dois_pontos` (linha 550) acha o ':' e `_run_de_culturas_antes_do_dois_pontos` devolve a cabeca 'ALBICOCCO PESCO SUSINO' — culturas_em da ['ALBICOCCO','PESCO','SUSINO'] (Nettarine ja normaliza para PESCO) — e `USO.search(resto)` e True ('può essere impiegato",
+   "CITACAO_DO_ROTULO": "Pesco, Nettarine, Albicocco, Susino: può essere impiegato nelle fasi fenologiche comprese fra l'accrescimento frutti e la maturazione. Utilizzare 18-20 mL/hL (180-300 mL/ha) per il controllo di C. molesta, A. pulchellana, Cydia funebrana, Operophtera brumata e 16-20 mL/hL (160- 300 mL/ha) per A. lineatella , intervenendo in fase di ovideposizione prima della schiusura delle uova e della penetrazio",
+   "COORDENADAS": "p0 y=318-372 x=566-814 (linhas y=317.9 / 327.1 / 335.7 / 344.8 / 353.8 / 363.3, x=566.0), bloco sob 'DOSI ED EPOCA D'IMPIEGO' (p0 y=127.8 x=566.0)",
+   "CUSTO_PROVAVEL": "BAIXO",
+   "PORQUE_ESSE_CUSTO": "e vocabulario, nao geometria — mas passa pelo processo de proposta, nao por remendo (ver IT-VOCAB-HANDOFF-V1).",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P1",
+   "PORQUE_ESTA_PRIORIDADE": "o motor sabe nomear os dois lados (CROP_WHEAT_GENERIC x ISSUE_WEEDS_GENERIC): e divida de recall com endereco",
+   "LABEL_ID": "012060",
+   "PRODUTO": "FOX (Bifenox 40,6 g/100 g = 480 g/l) — ADAMA Italia — categoria DISERBANTE",
+   "CULTURA": "FRUMENTO",
+   "ALVOS_NO_ROTULO": [
+    "INFESTANTI (malerbe dicotiledoni: lista 'INFESTANTI SENSIBILI' + lista 'INFESTANTI MEDIAMENTE SENSIBILI')"
+   ],
+   "CROP_ID_CANONICO": "CROP_WHEAT_GENERIC",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_WEEDS_GENERIC"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_DE_SECAO",
+   "CAUSA_COMPLETA": "CABECALHO_DE_SECAO (primaria) + SECAO_PROIBIDA_POR_BLOCO (secundaria, e a que de fato zera o rotulo). Primaria: reconhecer \"MODALITA' D'IMPIEGO\" seguido de linha so-de-culturas como declaracao de cult",
+   "PORQUE_O_PARSER_PERDE": "Cinco guardas em cascata, nenhuma delas por falta de autorizacao no rotulo. (1) ROTA GEOMETRICA: a celula de cultura b15 E aceita por _celulas_de_cultura (densidade 4/6=0.67 > limite 0.55 para n<=8; SECAO_PROIBIDA e VERBO_DE_PROSA nao disparam), unica celula da pagina, unica=True, banda y=486.0..541.3, xmax=446.9. Mas o ESCOPO DE COLUNA em pares_geometricos exige \"xmax < b['x0'] < min(limite, xmax",
+   "CITACAO_DO_ROTULO": "Erbicida per il diserbo di frumento tenero, frumento duro e orzo",
+   "COORDENADAS": "p0 bloco b2 y=69.3-115.0 x=51.2-267.7 (linhas y=69.3 e y=81.3). Confirmado pelo cabecalho de secao: p0 bloco b15 y=504.5-522.9 x=304.1-446.9, linhas \"MODALITA' D'IMPIEGO\" (y=504.5) e \"FRUMENTO TENERO E DURO; ORZO\" (y=515.1). Alvo declarado para o documento inteiro em p0 b13 y=273.3-445.4 x=304.1 (\"INFESTANTI SENSIBILI: Amaranto ( Amaranthus spp.), Borsa del pastore ( Capsella bursa-pastoris ), ...\") e p0 b14 y=456.4-493.6 x=304.1 (\"INFESTANTI MEDIAMENTE SENSIBILI: Ambrosia (Ambrosia artemisifolia), ...\"). Dose e epoca em p0 b16 y=46.6 x=565.5: \"Il prodotto si impiega in pre-emergenza o in post-emergenza della coltura, dalla quarta foglia alla fine dell'accestimento, alla dose massima di 1,5 l/ha da distribuire in 200-500 litri d'acqua.\" — 'accestimento' e estadio de cereal, coerente com frumento/orzo. FRUMENTO nao aparece em lista de infestanti, composicao, deriva, carenza nem rotacao.",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P1",
+   "PORQUE_ESTA_PRIORIDADE": "o motor sabe nomear os dois lados (CROP_BARLEY x ISSUE_WEEDS_GENERIC): e divida de recall com endereco",
+   "LABEL_ID": "012060",
+   "PRODUTO": "FOX (Bifenox 40,6 g/100 g = 480 g/l) — ADAMA Italia — categoria DISERBANTE",
+   "CULTURA": "ORZO",
+   "ALVOS_NO_ROTULO": [
+    "INFESTANTI (malerbe dicotiledoni: lista 'INFESTANTI SENSIBILI' + lista 'INFESTANTI MEDIAMENTE SENSIBILI')"
+   ],
+   "CROP_ID_CANONICO": "CROP_BARLEY",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_WEEDS_GENERIC"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_DE_SECAO",
+   "CAUSA_COMPLETA": "CABECALHO_DE_SECAO (primaria) + SECAO_PROIBIDA_POR_BLOCO (secundaria, e a que de fato zera o rotulo). Primaria: reconhecer \"MODALITA' D'IMPIEGO\" seguido de linha so-de-culturas como declaracao de cult",
+   "PORQUE_O_PARSER_PERDE": "Cinco guardas em cascata, nenhuma delas por falta de autorizacao no rotulo. (1) ROTA GEOMETRICA: a celula de cultura b15 E aceita por _celulas_de_cultura (densidade 4/6=0.67 > limite 0.55 para n<=8; SECAO_PROIBIDA e VERBO_DE_PROSA nao disparam), unica celula da pagina, unica=True, banda y=486.0..541.3, xmax=446.9. Mas o ESCOPO DE COLUNA em pares_geometricos exige \"xmax < b['x0'] < min(limite, xmax",
+   "CITACAO_DO_ROTULO": "MODALITA' D'IMPIEGO FRUMENTO TENERO E DURO; ORZO",
+   "COORDENADAS": "p0 bloco b15 y=504.5-522.9 x=304.1-446.9 (linha 1 y=504.5 \"MODALITA' D'IMPIEGO\", linha 2 y=515.1 \"FRUMENTO TENERO E DURO; ORZO\"). Confirmado pela frase de escopo do produto em p0 b2 y=69.3-115.0 x=51.2-267.7: \"Erbicida per il diserbo di frumento tenero, frumento duro e orzo\". Alvo em p0 b13 y=273.3-445.4 x=304.1 (\"INFESTANTI SENSIBILI: ...\") e p0 b14 y=456.4-493.6 x=304.1 (\"INFESTANTI MEDIAMENTE SENSIBILI: ...\"). ORZO nao aparece em nenhuma lista de infestanti, nem em composicao, deriva, carenza ou rotacao — so nestes dois blocos de autorizacao.",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P1",
+   "PORQUE_ESTA_PRIORIDADE": "o motor sabe nomear os dois lados (CROP_POTATO x ISSUE_DOWNY_MILDEW): e divida de recall com endereco",
+   "LABEL_ID": "013899",
+   "PRODUTO": "DAUPHIN 45 (ADAMA Italia S.r.l., cymoxanil 45%, FUNGICIDA)",
+   "CULTURA": "PATATA",
+   "ALVOS_NO_ROTULO": [
+    "PERONOSPORA (Phytophtora infestans)"
+   ],
+   "CROP_ID_CANONICO": "CROP_POTATO",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_DOWNY_MILDEW"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_DE_SECAO",
+   "CAUSA_COMPLETA": "CABECALHO_DE_SECAO (primaria: SECAO_PROIBIDA precisa exigir que o marcador ENCABECE o bloco/secao, e nao casar como substring em qualquer posicao do corpo — \"meccanismo d'azione\" dentro de uma frase d",
+   "PORQUE_O_PARSER_PERDE": "Duas guardas estruturais empilhadas, e a primeira sozinha ja mata tudo. (1) VETO DE SECAO POR SUBSTRING NO BLOCO INTEIRO: SECAO_PROIBIDA (scripts/it_rotulo_parser.py:52-56) inclui a alternativa MECCANISMO\\s+D.?AZIONE, e a frase de manejo de resistencia que vive DENTRO da entrada POMODORO — \"Si consiglia di impiegare il prodotto in associazione e/o alternanza con principi attivi a diverso meccanism",
+   "CITACAO_DO_ROTULO": "PATATA Contro peronospora (Phytophtora infestans):impiegare 270 g/ha in un volume d'acqua compreso tra 200 e 1000 L/ha in relazione allo stato vegetativo della coltura. DAUPHIN 45 puo essere applicato dalla comparsa del primo getto basale laterale fino al 50% di foglie brunastre, osservando un intervallo tra i trattamenti di 7-10 giorni. Numero massimo di trattamenti/anno: 6.",
+   "COORDENADAS": "p0, linhas y=152.9 ate y=211.2, x=556.7, dentro do bloco p0 y=46.0-268.1 x=556.7-799.5; sob o cabecalho de secao 'COLTURE AUTORIZZATE' em p0 y=430.2-438.5 x=299.6-397.8; corroborado por 'Patata: 14 giorni' no bloco de carenza p0 y=430.5-467.9 x=556.7-799.5",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P1",
+   "PORQUE_ESTA_PRIORIDADE": "o motor sabe nomear os dois lados (CROP_APPLE x ISSUE_SCAB): e divida de recall com endereco",
+   "LABEL_ID": "013905",
+   "PRODUTO": "BANJO (FLUAZINAM 500 g/l, sospensione concentrata, ADAMA MAKHTESHIM LTD) — Reg. Ministero della Salute n. 13905 del 9/12/2010",
+   "CULTURA": "MELO",
+   "ALVOS_NO_ROTULO": [
+    "TICCHIOLATURA",
+    "ALTERNARIA"
+   ],
+   "CROP_ID_CANONICO": "CROP_APPLE",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_SCAB"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_COM_QUALIFICADOR_VARIETAL",
+   "CAUSA_COMPLETA": "CABECALHO_COM_QUALIFICADOR_VARIETAL (terminador de cabeca: qualificador de varieta/provenienza entre a ultima cultura e o ':'). Subclasse de LISTA_DE_USOS inline; nao e problema de vocabulario nem de ",
+   "PORQUE_O_PARSER_PERDE": "A rota que produz TODOS os pares deste rotulo e INLINE_STATEMENT (INLINE_RX, scripts/it_rotulo_parser.py:541-545). O regex exige que o ':' venha IMEDIATAMENTE depois da enumeracao de culturas, e a enumeracao so aceita itens colados por ',', 'e' ou 'ed': ((?:[A-ZÀ-Ü][\\wàèéìòù]*...)(?:\\s*(?:,|\\be\\b|\\bed\\b)\\s*[A-ZÀ-Ü]?[\\w]+...){0,4})\\s*(?:\\(in [^)]{0,60}\\)\\s*)?[:\\-–]. Na cabeca 'Melo, Cotogno, Nespol",
+   "CITACAO_DO_ROTULO": "Melo, Cotogno, Nespolo giapponese ed europeo: applicare alla dose di 70-100 ml/hl senza superare la dose massima di 1 l/ha per il controllo della ticchiolatura (Venturia inaequalis) e dell’alternaria (Alternaria mali). Effettuare un massimo di 3 trattamenti all’anno con un intervallo minimo di 14 giorni tra le applicazioni",
+   "COORDENADAS": "p0 y=110-172 x=561-800 (linhas p0 y=109.7 a y=164.9, x=561.4), coluna 'DOSI E MODALITA' DI IMPIEGO'",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "costurar cabecalho de cultura ao bloco de uso que o segue, atravessando quebra de coluna ou de pagina.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [
+    "MELO x BITTER ROT / GLOMERELLA (COMPLEXOS COLLETOTRICHUM ACUTATUM E C. GLOEOSPORIOIDES)",
+    "MELO x GLOMERELLA LEAF SPOT (COLLETOTRICHUM SPP.); AMOSTRAS ANALISADAS INICIALMENTE PARA ALTERNARIA",
+    "MELO x GLOMERELLA LEAF SPOT / BITTER ROT (COLLETOTRICHUM SPP.)",
+    "MELO x TICCHIOLATURA (COM EXTENSÃO ESTIVAL POR CAUSA DE GLS/COLLETOTRICHUM)",
+    "MELO x TICCHIOLATURA (VENTURIA INAEQUALIS) — LIBERTAÇÃO ASCOSPÓRICA"
+   ],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P1",
+   "PORQUE_ESTA_PRIORIDADE": "o motor sabe nomear os dois lados (CROP_POTATO x ISSUE_DOWNY_MILDEW): e divida de recall com endereco",
+   "LABEL_ID": "015629",
+   "PRODUTO": "BADGER 45% WG (cymoxanil 45%, FUNGICIDA) - ADAMA Italia S.r.l., Autorizzazione n. 15629 del 20.12.2012, etichetta autorizzata con Decreto Dirigenziale del 15 dicembre 2020",
+   "CULTURA": "PATATA",
+   "ALVOS_NO_ROTULO": [
+    "PERONOSPORA (Phytophtora infestans)"
+   ],
+   "CROP_ID_CANONICO": "CROP_POTATO",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_DOWNY_MILDEW"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_DE_SECAO",
+   "CAUSA_COMPLETA": "CABECALHO_DE_SECAO (principal) + LISTA_DE_USOS (subordinada). CABECALHO_DE_SECAO: SECAO_PROIBIDA precisa ser ancorada como CABECALHO - inicio de bloco ou de linha, caixa alta e/ou seguida de ':' - e n",
+   "PORQUE_O_PARSER_PERDE": "TRES GUARDAS EMPILHADAS SOBRE O MESMO BLOCO p0 y=44-295 x=557-799, e basta a primeira. (1) GUARDA DE SECAO NAO-ANCORADA: a rota que produziu o par do VITE, pares_header_continuation (scripts/it_rotulo_parser.py:727), comeca com \"if len(b['lines']) < 2 or SECAO_PROIBIDA.search(b['text']): continue\". SECAO_PROIBIDA (linhas 52-56) inclui a alternativa r'MECCANISMO\\s+D.?AZIONE' com re.I, e o texto do ",
+   "CITACAO_DO_ROTULO": "PATATA Contro peronospora (Phytophtora infestans):impiegare 270 g/ha in un volume d'acqua compreso tra 200 e 1000 L/ha in relazione allo stato vegetativo della coltura. BADGER 45% WG puo essere applicato dalla comparsa del primo getto basale laterale fino al 50% di foglie brunastre, osservando un intervallo tra i trattamenti di 7-10 giorni. Numero massimo di trattamenti/anno: 6.",
+   "COORDENADAS": "p0, bloco y=44-295 x=557-799 (linhas y=170.3 'PATATA' e y=180.0-238.2, x=556.6) - terceira e ultima entrada da secao 'COLTURE AUTORIZZATE' aberta em p0 y=458.3 x=299.5. Corroboracao secundaria: p0 y=457-494 x=557-799, '... Patata: 14 giorni.'",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P1",
+   "PORQUE_ESTA_PRIORIDADE": "o motor sabe nomear os dois lados (CROP_POTATO x ISSUE_DOWNY_MILDEW): e divida de recall com endereco",
+   "LABEL_ID": "015630",
+   "PRODUTO": "CARSON 45% WG (CARSON 45 WG) — cymoxanil puro g 45 — FUNGICIDA — Aut. Min. Salute n. 15630 del 20.12.2012, etichetta autorizzata con Decreto Dirigenziale del 15 dicembre 2020 — ADAMA Italia S.r.l.",
+   "CULTURA": "PATATA",
+   "ALVOS_NO_ROTULO": [
+    "PERONOSPORA (Phytophtora infestans)"
+   ],
+   "CROP_ID_CANONICO": "CROP_POTATO",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_DOWNY_MILDEW"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_DE_SECAO",
+   "CAUSA_COMPLETA": "CABECALHO_DE_SECAO (principal) + MULTI_CABECALHO_NO_BLOCO + CONTINUACAO_DE_COLUNA. (1) CABECALHO_DE_SECAO: SECAO_PROIBIDA precisa ser testada como CABECALHO (inicio de linha / linha-titulo isolada), e",
+   "PORQUE_O_PARSER_PERDE": "Duas falhas empilhadas; a primeira sozinha ja zera o rotulo.\n\n(1) DOMINANTE — VETO DE BLOCO INTEIRO POR MARCADOR NAO ANCORADO. Todas as rotas abrem com \"if SECAO_PROIBIDA.search(b['text']): continue\" — pares_inline (l.471), pares_header_continuation (l.530), escopos (l.584) e pares_lista_de_usos (l.628 e l.654). O bloco UNICO que carrega toda a secao COLTURE AUTORIZZATE (p0 y=314-536 x=300-542, 23",
+   "CITACAO_DO_ROTULO": "PATATA [ultima linha da secao COLTURE AUTORIZZATE, coluna do meio] ... Contro peronospora ( Phytophtora infestans ):impiegare 270 g/ha in un volume d'acqua compreso tra 200 e 1000 L/ha in relazione allo stato vegetativo della coltura. CARSON 45 WG puo essere applicato dalla comparsa del primo getto basale laterale fino al 50% di foglie brunastre, osservando un intervallo tra i trattamenti di 7-10 ",
+   "COORDENADAS": "cabecalho: p0 y=527.9 x=299.6 (ultima linha do bloco y=314-536 x=300-542, aberto por COLTURE AUTORIZZATE em y=314.1); paragrafo de uso continua no topo da coluna seguinte: p0 bloco y=46-103 x=557-799 (linhas y=45.6-94.6)",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P1",
+   "PORQUE_ESTA_PRIORIDADE": "o motor sabe nomear os dois lados (CROP_SOYBEAN x ISSUE_WEEDS_GENERIC/ISSUE_AMARANTHUS/ISSUE_ECHINOCHLOA): e divida de recall com endereco",
+   "LABEL_ID": "017209",
+   "PRODUTO": "DAVAI (ADAMA, imazamox 80 g/l, DISERBANTE)",
+   "CULTURA": "SOIA",
+   "ALVOS_NO_ROTULO": [
+    "INFESTANTI (rotulo global do herbicida)",
+    "Malerbe sensibili: Amaranthus retroflexus (amaranto comune), Datura stramonium (stramonio), Polygonum spp. (poligoni), Salsola kali (erba kali), Solanum nigrum (erba morella), Sorghum halepense (sorghetta) — p0 y=390.8-428.3 x=299.6-542.5",
+    "Malerbe mediamente sensibili: Abutilon theophrasti (cencio molle), Amaranthus blitoides (amaranto blitoide), Ambrosia artemisiifolia (ambrosia), Chenopodium album (farinello), Echinochloa crus-galli (giavone), Mercurialis annua (mercorella comune) — p0 y=439.1-476.8 x=299.6-542.5",
+    "infestanti dicotiledoni / graminacee infestanti (categorias) — p0 y=82.5-148.7 x=556.6-799.6"
+   ],
+   "CROP_ID_CANONICO": "CROP_SOYBEAN",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_WEEDS_GENERIC",
+    "ISSUE_AMARANTHUS",
+    "ISSUE_ECHINOCHLOA"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "LISTA_DE_USOS",
+   "CAUSA_COMPLETA": "LISTA_DE_USOS (primaria) + CABECALHO_DE_SECAO (secundaria). A rota AUTHORISED_USE_LIST ja existe e ja e a forma correta de ler este rotulo — falta (a) o gatilho de alvo global aceitar a forma \"Malerbe",
+   "PORQUE_O_PARSER_PERDE": "O parser devolve ZERO pares. Cinco rotas, cinco guardas, cada uma verificada rodando a funcao isolada:\n\n(1) pares_inline — a unica que chega perto. O bloco \"SOIA: impiegare alla dose...\" e capturado por INLINE_RX/_cabecas_por_dois_pontos com cabeca=SOIA e o resto passa em USO (l/ha, impiegare, post-emergenza). Morre na linha seguinte: `tg = alvos_em(resto); if not tg: continue`. alvos_em() dessa f",
+   "CITACAO_DO_ROTULO": "SOIA: impiegare alla dose di 0,5-0,65 l/ha in 100-400 l/ha di acqua in post-emergenza della coltura tra lo stadio di 2 e 4 foglie trifogliate.",
+   "COORDENADAS": "p0 y=43.9-71.5 x=556.6-799.6 (bloco imediatamente seguinte, em ordem de coluna, ao cabecalho de secao 'COLTURE, DOSI E MODALITA' DI IMPIEGO' em p0 y=516.7-525.0 x=299.6-468.3)",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "costurar cabecalho de cultura ao bloco de uso que o segue, atravessando quebra de coluna ou de pagina.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P1",
+   "PORQUE_ESTA_PRIORIDADE": "o motor sabe nomear os dois lados (CROP_SUGAR_BEET x ISSUE_WEEDS_GENERIC/ISSUE_ECHINOCHLOA): e divida de recall com endereco",
+   "LABEL_ID": "017580",
+   "PRODUTO": "GOLTIX SUPER (metamitron puro 30.7 g = 350 g/l + etofumesate puro 13.16 g = 150 g/l) — categoria regulatoria DISERBANTE",
+   "CULTURA": "BARBABIETOLA",
+   "ALVOS_NO_ROTULO": [
+    "INFESTANTI (classe declarada para o documento inteiro)",
+    "Farinello comune (Chenopodium album) — sensibile",
+    "Giavone comune (Echinochloa crus-galli) — sensibile",
+    "Centinoda (Polygonum aviculare) — mediamente sensibile"
+   ],
+   "CROP_ID_CANONICO": "CROP_SUGAR_BEET",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_WEEDS_GENERIC",
+    "ISSUE_ECHINOCHLOA"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_DE_SECAO",
+   "CAUSA_COMPLETA": "CABECALHO_DE_SECAO (principal): o veto SECAO_PROIBIDA precisa de granularidade de FRASE/segmento em vez do texto inteiro do bloco, porque o extrator funde o titulo de escopo com a linha MECCANISMO D'A",
+   "PORQUE_O_PARSER_PERDE": "Duas guardas de BLOCO, cada uma matando uma rota, ambas verificadas em execucao. (1) escopos() comeca com \"if SECAO_PROIBIDA.search(b['text']): continue\". O bloco do titulo, como o pdftotext -bbox-layout o entrega, funde quatro afirmacoes numa caixa so: \"DISERBANTE SELETTIVO PER LA BARBABIETOLA DA ZUCCHERO SOSPENSIONE CONCENTRATA MECCANISMO D'AZIONE (HRAC): GRUPPO 5 (C1) E GRUPPO 15 (K3)\". SECAO_P",
+   "CITACAO_DO_ROTULO": "DISERBANTE SELETTIVO PER LA BARBABIETOLA DA ZUCCHERO",
+   "COORDENADAS": "p0 bloco y=54-118 x=48-282 (linhas p0 y=54.0 x=47.5 'DISERBANTE SELETTIVO PER LA' + p0 y=67.3 x=47.5 'BARBABIETOLA DA ZUCCHERO'). Alvo de classe: p0 bloco y=480-506 x=299-430 'INFESTANTI SENSIBILI: Farinello comune (Chenopodium album) Giavone comune (Echinochloa crus-galli)' e p0 bloco y=517-534 x=299-445 'INFESTANTI MEDIAMENTE SENSIBILI: Centinoda (Polygonum aviculare),'. Corroboracao de modalidade de uso: p0 bloco y=376-469 x=299-543 'Negli interventi frazionati di post-emergenza applicare con barbabietole dalla fase di prima foglia visibile vera e ripetere il trattamento dopo 6-20 giorni.' NOTA DE DISCIPLINA: os outros dois blocos que citam barbabietola NAO servem de prova — p0 y=30-135 e prosa de seguranca ('Avvertenza: in post-emergenza non trattare barbabietole in stress vegetativo') e p0 y=142-189 e cultura sucessiva ('AVVERTENZE AGRONOMICHE In caso di fallimento della coltura e possibile seminare ... barbabietola da zucchero e da foraggio o mais, patata, pisello e fava'), que e justamente a razao pela qual MAIS, PATATA e PISELLO NAO estao autorizados neste rotulo.",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P1",
+   "PORQUE_ESTA_PRIORIDADE": "o motor sabe nomear os dois lados (CROP_SOYBEAN x ISSUE_WEEDS_GENERIC/ISSUE_AMARANTHUS/ISSUE_ECHINOCHLOA): e divida de recall com endereco",
+   "LABEL_ID": "017655",
+   "PRODUTO": "EARLEX (ADAMA, DISERBANTE, imazamox 80 g/l) — Aut. Min. Salute n. 17655 del 01/10/2020",
+   "CULTURA": "SOIA",
+   "ALVOS_NO_ROTULO": [
+    "INFESTANTI (alvo de classe do herbicida, declarado uma vez para o rotulo inteiro)",
+    "Amaranthus retroflexus (amaranto comune)",
+    "Datura stramonium (stramonio)",
+    "Polygonum spp. (poligoni)",
+    "Salsola kali (erba kali)",
+    "Solanum nigrum (erba morella)",
+    "Sorghum halepense (sorghetta)",
+    "Abutilon theophrasti (cencio molle)",
+    "Amaranthus blitoides (amaranto blitoide)",
+    "Ambrosia artemisiifolia (ambrosia)",
+    "Chenopodium album (farinello)",
+    "Echinochloa crus-galli (giavone)",
+    "Mercurialis annua (mercorella comune)"
+   ],
+   "CROP_ID_CANONICO": "CROP_SOYBEAN",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_WEEDS_GENERIC",
+    "ISSUE_AMARANTHUS",
+    "ISSUE_ECHINOCHLOA"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "LISTA_DE_USOS",
+   "CAUSA_COMPLETA": "LISTA_DE_USOS (rota de herbicida), destravada por duas correcoes que precisam vir juntas: (a) SECAO_PROIBIDA_POR_FRASE — aplicar SECAO_PROIBIDA a frase/linha e nao ao bloco inteiro dentro de escopos()",
+   "PORQUE_O_PARSER_PERDE": "Duas guardas independentes matam a unica rota que caberia (a de herbicida), e as outras tres nao tem forma para agarrar.\n\n(1) escopos() descarta o bloco INTEIRO pelo SECAO_PROIBIDA, e a frase de escopo mora dentro dele. O laco faz `for b in blocos: if SECAO_PROIBIDA.search(b['text']): continue` ANTES de rodar ESCOPO_CULTURA. O unico bloco que carrega \"Erbicida per soia\" e o bloco de identidade do ",
+   "CITACAO_DO_ROTULO": "SOIA: impiegare alla dose di 0,5-0,65 l/ha in 100-400 l/ha di acqua in post-emergenza della coltura tra lo stadio di 2 e 4 foglie trifogliate.",
+   "COORDENADAS": "p0 y=44-72 x=557-800 (bloco de dose, conteudo do cabecalho 'COLTURE, DOSI E MODALITÀ DI IMPIEGO' que esta em p0 y=527.6 x=299.6). Reforcos: 'Erbicida per soia' p0 y=66-96 x=94-234; 'il prodotto risulta selettivo su soia' p0 y=361-429 x=557-799; alvo global 'Malerbe sensibili: Amaranthus retroflexus ... Sorghum halepense (sorghetta).' p0 y=402-439 x=300-542 e 'Malerbe mediamente sensibili: Abutilon theophrasti ... Mercurialis annua (mercorella comune).' p0 y=450-488 x=300-543",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P1",
+   "PORQUE_ESTA_PRIORIDADE": "o motor sabe nomear os dois lados (CROP_POTATO x ISSUE_DOWNY_MILDEW): e divida de recall com endereco",
+   "LABEL_ID": "017688",
+   "PRODUTO": "ANTERLEX (ADAMA Italia, cymoxanil puro g 45, fungicida antiperonosporico)",
+   "CULTURA": "PATATA",
+   "ALVOS_NO_ROTULO": [
+    "PERONOSPORA (Phytophtora infestans)"
+   ],
+   "CROP_ID_CANONICO": "CROP_POTATO",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_DOWNY_MILDEW"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "SECAO_PROIBIDA_POR_SUBSTRING",
+   "CAUSA_COMPLETA": "SECAO_PROIBIDA_POR_SUBSTRING (ancorar SECAO_PROIBIDA em cabecalho/inicio de bloco em vez de casar substring de prosa como \"meccanismo d'azione\") + MULTI_CABECALHO_NO_BLOCO (HEADER_CONTINUATION tem de ",
+   "PORQUE_O_PARSER_PERDE": "Duas guardas empilhadas matam o mesmo bloco p0 y=44.5-268.1 x=556.8, e nenhuma delas fala de autorizacao. (1) SECAO_PROIBIDA (scripts/it_rotulo_parser.py:52-56) tem a alternativa MECCANISMO\\s+D.?AZIONE e roda com re.I sobre o TEXTO INTEIRO do bloco; dentro do paragrafo do POMODORO ha a frase de manejo de resistencia \"Si consiglia di impiegare il prodotto in associazione e/o alternanza con principi",
+   "CITACAO_DO_ROTULO": "PATATA Contro peronospora (Phytophtora infestans): impiegare 270 g/ha in un volume d'acqua compreso tra 200 e 1000 L/ha in relazione allo stato vegetativo della coltura. ANTERLEX puo essere applicato dalla comparsa del primo getto basale laterale fino al 50% di foglie brunastre, osservando un intervallo tra i trattamenti di 7-10 giorni. Numero massimo di trattamenti/anno: 6.",
+   "COORDENADAS": "p0 linhas y=151.5 ('PATATA') a y=209.8 ('Numero massimo di trattamenti/anno: 6.'), x=556.8; dentro do bloco p0 y=44.5-268.1 x=556.8-799.6, que continua a secao aberta por 'COLTURE AUTORIZZATE' em p0 y=431.6-441.3 x=299.7",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P1",
+   "PORQUE_ESTA_PRIORIDADE": "o motor sabe nomear os dois lados (CROP_POTATO x ISSUE_DOWNY_MILDEW): e divida de recall com endereco",
+   "LABEL_ID": "017689",
+   "PRODUTO": "MOXYL MK (cymoxanil 45%, WG, FUNGICIDA — ADAMA Italia S.r.l., aut. n. 17689 del 15/10/2020)",
+   "CULTURA": "PATATA",
+   "ALVOS_NO_ROTULO": [
+    "PERONOSPORA (Phytophtora infestans)"
+   ],
+   "CROP_ID_CANONICO": "CROP_POTATO",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_DOWNY_MILDEW"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "GUARDA_DE_SECAO_NAO_ANCORADA",
+   "CAUSA_COMPLETA": "GUARDA_DE_SECAO_NAO_ANCORADA + BLOCO_MULTI_CABECALHO (duas classes, ambas necessarias: (a) SECAO_PROIBIDA tem de casar CABECALHO DE SECAO ancorado em inicio de linha/bloco, e nao ocorrencia em meio de",
+   "PORQUE_O_PARSER_PERDE": "Duas guardas, em cascata, ambas verificadas executando o parser sobre a geometria.\n\n(1) CAUSA PRIMARIA — falso positivo de SECAO_PROIBIDA sobre o bloco inteiro. Em scripts/it_rotulo_parser.py:739, pares_header_continuation abre com `if len(b['lines']) < 2 or SECAO_PROIBIDA.search(b['text']): continue`. SECAO_PROIBIDA (linha 52-56) traz a alternativa `MECCANISMO\\s+D.?AZIONE` com re.I, e ela casa a ",
+   "CITACAO_DO_ROTULO": "PATATA Contro peronospora (Phytophtora infestans): impiegare 270 g/ha in un volume d’acqua compreso tra 200 e 1000 L/ha in relazione allo stato vegetativo della coltura. MOXYL MK può essere applicato dalla comparsa del primo getto basale laterale fino al 50% di foglie brunastre, osservando un intervallo tra i trattamenti di 7-10 giorni. Numero massimo di trattamenti/anno: 6.",
+   "COORDENADAS": "p0, cabeçalho de cultura na linha y=131.6 x=556.8, declaração de uso nas linhas y=141.3-189.9 x=556.8; bloco p0 y=44-248 x=557-800 (suprimido por SECAO_PROIBIDA). Secção que rege a coluna: 'COLTURE AUTORIZZATE', bloco p0 y=421.4-429.6 x=299.7-397.8",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P1",
+   "PORQUE_ESTA_PRIORIDADE": "o motor sabe nomear os dois lados (CROP_POTATO x ISSUE_DOWNY_MILDEW): e divida de recall com endereco",
+   "LABEL_ID": "017690",
+   "PRODUTO": "VANTEX (cymoxanil puro g 45, granuli idrodisperdibili, FUNGICIDA) — Aut. Ministero della Salute n. 17690 del 22/10/2020",
+   "CULTURA": "PATATA",
+   "ALVOS_NO_ROTULO": [
+    "PERONOSPORA (Phytophtora infestans)"
+   ],
+   "CROP_ID_CANONICO": "CROP_POTATO",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_DOWNY_MILDEW"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_DE_SECAO",
+   "CAUSA_COMPLETA": "CABECALHO_DE_SECAO + MULTI_CABECALHO_NO_BLOCO — duas classes empilhadas, e as duas precisam cair para recuperar as duas culturas. (a) CABECALHO_DE_SECAO: SECAO_PROIBIDA precisa ancorar em CABECALHO RE",
+   "PORQUE_O_PARSER_PERDE": "Sao DOIS defeitos ESTRUTURAIS EMPILHADOS, ambos confirmados por contrafactual executado.\n\n(1) FALSO POSITIVO DE SECAO_PROIBIDA — mata POMODORO E PATATA de uma vez. A guarda SECAO_PROIBIDA (scripts/it_rotulo_parser.py, linhas 52-56) tem a alternativa r'MECCANISMO\\s+D.?AZIONE' com re.I. Ela foi escrita para derrubar o CABECALHO de secao 'MECCANISMO D'AZIONE', mas casa em QUALQUER ponto do texto, e n",
+   "CITACAO_DO_ROTULO": "PATATA Contro peronospora (Phytophtora infestans): impiegare 270 g/ha in un volume d’acqua compreso tra 200 e 1000 L/ha in relazione allo stato vegetativo della coltura. VANTEX può essere applicato dalla comparsa del primo getto basale laterale fino al 50% di foglie brunastre, osservando un intervallo tra i trattamenti di 7-10 giorni. Numero massimo di trattamenti/anno: 6.",
+   "COORDENADAS": "p0, bloco y=42.5-245.3 x=556.6-799.6, linhas 9-15 (de y=129.4 'PATATA' ate y=187.4). Cabecalho de secao que rege o bloco por continuacao de coluna: p0 y=426.6-436.3 x=299.6-397.0 'COLTURE AUTORIZZATE'. Corroboracao secundaria (nao e a base do veredito, regra 3): p0 y=404.5-443.2 x=556.6-799.6 'Patata: 14 giorni'.",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P1",
+   "PORQUE_ESTA_PRIORIDADE": "o motor sabe nomear os dois lados (CROP_SUGAR_BEET x ISSUE_WEEDS_GENERIC/ISSUE_ECHINOCHLOA): e divida de recall com endereco",
+   "LABEL_ID": "017983",
+   "PRODUTO": "GOLDBEET SUPER (DISERBANTE; metamitron 350 g/l + etofumesate 150 g/l; Registrazione n. 17983 del 02.03.2022)",
+   "CULTURA": "BARBABIETOLA",
+   "ALVOS_NO_ROTULO": [
+    "INFESTANTI (classe declarada uma vez para o documento inteiro)",
+    "Farinello comune (Chenopodium album)",
+    "Giavone comune (Echinochloa crus-galli)",
+    "Centinoda (Polygonum aviculare)"
+   ],
+   "CROP_ID_CANONICO": "CROP_SUGAR_BEET",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_WEEDS_GENERIC",
+    "ISSUE_ECHINOCHLOA"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_DE_SECAO",
+   "CAUSA_COMPLETA": "CABECALHO_DE_SECAO (a cultura mora no cabecalho/titulo do produto e o bloco de cabecalho e descartado inteiro por SECAO_PROIBIDA 'MECCANISMO D'AZIONE' colado nele). Subclasse secundaria: ESCOPO_ALVO_G",
+   "PORQUE_O_PARSER_PERDE": "Tres guardas distintas matam as tres rotas que poderiam ler este rotulo; a primeira e a decisiva.\n\n(1) ROTA SCOPE — a que deveria acertar — morre em SECAO_PROIBIDA, ANTES de qualquer leitura. `escopos()` abre com `for b in blocos: if SECAO_PROIBIDA.search(b['text']): continue`. O bloco do titulo (p0 y=54-118 x=48-282) e UM bloco so que funde \"DISERBANTE SELETTIVO PER LA BARBABIETOLA DA ZUCCHERO SO",
+   "CITACAO_DO_ROTULO": "DISERBANTE SELETTIVO PER LA BARBABIETOLA DA ZUCCHERO",
+   "COORDENADAS": "p0 bloco y=54-118 x=48-282; linhas p0 y=54.0 x=47.5 ('DISERBANTE SELETTIVO PER LA') e p0 y=67.3 x=47.5 ('BARBABIETOLA DA ZUCCHERO'). Bloco marcado [SECAO_PROIBIDA] pelo visor por conter 'MECCANISMO D'AZIONE' no mesmo bloco. Alvo em p0 y=461-487 x=299-430: 'INFESTANTI SENSIBILI: Farinello comune (Chenopodium album) Giavone comune (Echinochloa crus-galli)' e p0 y=498-515 x=299-445: 'INFESTANTI MEDIAMENTE SENSIBILI: Centinoda (Polygonum aviculare),'. Uso na cultura em p0 y=357-450 x=299-543: 'Negli interventi frazionati di post-emergenza applicare con barbabietole dalla fase di prima foglia visibile vera e ripetere il trattamento dopo 6-20 giorni.' Tabela de dose em p0 y=237-300 x=299-543: 'DOSI E MODALITA' D'IMPIEGO / Pre-emergenza 1 3 l/ha / Post-emergenza 1 - 5 Massimo 1.5 l/ha'.",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "mover a guarda de secao de BLOCO para FRASE. Mudanca pequena e testavel, mas toca todas as rotas ao mesmo tempo: exige a suite inteira.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P1",
+   "PORQUE_ESTA_PRIORIDADE": "o motor sabe nomear os dois lados (CROP_WHEAT_GENERIC x ISSUE_SEPTORIA/ISSUE_RUST/ISSUE_FUSARIUM): e divida de recall com endereco",
+   "LABEL_ID": "017955",
+   "PRODUTO": "MAGANIC (ADAMA Makhteshim Ltd. / ADAMA Italia S.r.l.) — FUNGICIDA, Protioconazolo 175 g/L + Difenoconazolo 125 g/L, Aut. Min. Salute n. 17955 del 05.06.2024",
+   "CULTURA": "FRUMENTO",
+   "ALVOS_NO_ROTULO": [
+    "SEPTORIOSI",
+    "RUGGINE",
+    "FUSARIOSI"
+   ],
+   "CROP_ID_CANONICO": "CROP_WHEAT_GENERIC",
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_SEPTORIA",
+    "ISSUE_RUST",
+    "ISSUE_FUSARIUM"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "MATRIZ_MULTICOLUNA",
+   "CAUSA_COMPLETA": "MATRIZ_MULTICOLUNA — sub-classe COLUNA_FUNDIDA_NO_BLOCO: recuperar as colunas por corte em x de PALAVRA (a geometria versionada guarda xMin/xMax por <word>; ler_geometria hoje descarta isso e so conse",
+   "PORQUE_O_PARSER_PERDE": "parse() devolve lista VAZIA — as cinco rotas falham, e a falha decisiva e uma cadeia de duas guardas em pares_geometricos():\n\n(1) A coluna Coltura nunca vira celulas. O laco de selecao de celula tem 'if len(t) > 110: continue'. O bloco fundido que carrega Orzo, Segale e Triticale tem 742 caracteres, entao ORZO/SEGALE/TRITICALE sao descartados como celula de cultura antes de qualquer geometria. Sob",
+   "CITACAO_DO_ROTULO": "Frumento tenero e duro (invernale e primaverile) | Septoria (Septoria tritici), Ruggini (Puccinia recondita), Fusariosi della spiga (Fusarium spp. e Microdochium spp.)",
+   "COORDENADAS": "p0 celula Coltura y=119.6-148.7 x=557.5-612.0 (bloco proprio); celulas Patogeno na MESMA faixa y=119.6-158.9, palavras a x>=622.9 (dentro do bloco fundido p0 y=119.6-295.3 x=551.9-811.8). Cabecalho da tabela 'Coltura' x=571.9 / 'Patogeno' x=670.7 / 'Dosi di impiego' x=762.8 em y=98.4, sob o titulo 'DOSI ED EPOCHE DI IMPIEGO' p0 y=75.4 x=551.9. Confirmacao em prosa p0 y=266.2 x=551.9: 'Su frumento tenero e duro, segale e triticale applicare il prodotto tra gli stadi di inizio levata e fine fioritura.' Escopo p0 y=68.0 x=43.0: 'Fungicida per frumento, orzo, triticale e segale'",
+   "CUSTO_PROVAVEL": "ALTO",
+   "PORQUE_ESSE_CUSTO": "exige cindir colunas dentro de um bloco fundido — a rota que foi medida a 0,75 de precisao e desligada. Custa gabarito novo antes de custar codigo.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P2",
+   "PORQUE_ESTA_PRIORIDADE": "a cultura nao tem nome no motor: entra no conjunto de rotulos, mas nao move oportunidade enquanto o vocabulario nao entrar",
+   "LABEL_ID": "007876",
+   "PRODUTO": "PIRIMOR 17,5 (pirimicarb 17,5%, INSETTICIDA/aficida — ADAMA ITALIA)",
+   "CULTURA": "LATTUGA",
+   "ALVOS_NO_ROTULO": [
+    "AFIDI"
+   ],
+   "CROP_ID_CANONICO": null,
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_APHIDS"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "NAO_CLASSIFICADA",
+   "CAUSA_COMPLETA": "Tres classes, uma por cultura, nenhuma delas NENHUMA: (1) CIPOLLA -> LISTA_DE_USOS_NA_CELULA / CELULA_DE_CULTURA_LONGA — o teto fixo len(t) > 110 descarta a celula da coluna Coltura que ENUMERA as cul",
+   "PORQUE_O_PARSER_PERDE": "Tres causas distintas, todas em pares_geometricos() de scripts/it_rotulo_parser.py, na fase que SELECIONA celulas de cultura (antes de qualquer bandeamento). (1) CIPOLLA — a celula da coluna Coltura \"Orticole in pieno campo: Fragola, pomodoro, ... cipolla, aglio, carota, ...\" tem len(t)=299 e a primeira guarda e um teto fixo: \"if len(t) > 110: continue\". A celula inteira e descartada antes de entr",
+   "CITACAO_DO_ROTULO": "Lattughe e insalate, tranne spinacio baby leaf e bietola da foglia baby leaf",
+   "COORDENADAS": "p2 y=284.7-303.2 x=99.3-226, coluna 'Coltura', linha propria da tabela de impiego. Alvo na mesma faixa: p2 y=284.8-303.5 x=251.2 'Nasonovia ribis-nigri / Aphis spp. / Myzus persicae' = AFIDI. Dose da linha p2 y=273.4 x=351.4 '280' g/hl, x=398.6 '2' Kg/ha, x=444.4 '200-750' l. Segunda linha (secao serra): p2 y=429.3-447.8 x=101.1-228 'Lattughe e insalate, tranne spinacio baby leaf e bietola da foglia baby leaf. Foglie di sedano e prezzemolo', alvo p2 y=429.4-448.2 x=251.2 'Nasonovia ribis-nigri / Aphis spp. / Myzus persicae', carenza p2 y=429.3-447.8 x=608.0 'Foglie di sedano e prezzemolo, Lattughe e insalate, tranne spinacio baby leaf e bietola da foglia baby leaf: 14 giorni'. Repetido em p6. A clausula 'tranne ...' exclui spinacio/bietola BABY LEAF, nao a lattuga. Regra 5 nao se aplica: PIRIMOR e aficida, nao ha lista de infestanti neste rotulo e 'Lattughe' esta na coluna Coltura com dose, nota e carenza proprias.",
+   "CUSTO_PROVAVEL": "BAIXO",
+   "PORQUE_ESSE_CUSTO": "a rota certa ja existe; a guarda e que e aplicada ao bloco em vez da frase.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P2",
+   "PORQUE_ESTA_PRIORIDADE": "a cultura nao tem nome no motor: entra no conjunto de rotulos, mas nao move oportunidade enquanto o vocabulario nao entrar",
+   "LABEL_ID": "014091",
+   "PRODUTO": "APHOX (pirimicarb 17,5%, AFICIDA, ADAMA ITALIA)",
+   "CULTURA": "LATTUGA",
+   "ALVOS_NO_ROTULO": [
+    "AFIDI (Nasonovia ribis-nigri, Aphis spp., Myzus persicae)"
+   ],
+   "CROP_ID_CANONICO": null,
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_APHIDS"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CELULA_DE_LISTA_LONGA",
+   "CAUSA_COMPLETA": "CELULA_DE_LISTA_LONGA (CIPOLLA: relaxar/substituir a guarda de comprimento da celula candidata quando a celula esta na coluna de cultura e e uma ENUMERACAO separada por virgulas, e nao prosa — o discr",
+   "PORQUE_O_PARSER_PERDE": "Tres guardas diferentes, uma por cultura, todas em pares_geometricos (scripts/it_rotulo_parser.py:221-247) e no vocabulario (scripts/it_rotulo_vocab.py):\n\n(1) CIPOLLA — guarda de comprimento da celula candidata, linha 230-231: \"if len(t) > 110: continue\". A celula de cultura da linha \"Orticole in pieno campo\" tem 299 caracteres porque o rotulo enumera 21 hortalicas DENTRO DE UMA SO CELULA. Ela e d",
+   "CITACAO_DO_ROTULO": "Lattughe e insalate, tranne spinacio baby leaf e bietola da foglia baby leaf",
+   "COORDENADAS": "p1 y=277-303 x=99-226 (celula da COLUNA DE CULTURA; linhas p1 y=276.9 / y=286.1 / y=295.4 em x=99.3). Alvo da mesma faixa: 'Nasonovia ribis-nigri Aphis spp. Myzus persicae' em p1 y=277-303 x=254-327 (Nasonovia ribis-nigri e o afide da alface). Segunda linha autorizada com a mesma cultura: p1 y=423-449 x=99-226 'Lattughe e insalate, tranne spinacio baby leaf e bietola da foglia baby leaf. Foglie di sedano e prezzemolo', alvo p1 y=423-449 x=254-327, dose p1 y=432.3 x=400.0 '1.4' e x=447.8 '200-1000'. Carenza propria: p1 y=423-449 x=616-781 'Foglie di sedano e prezzemolo, Lattughe e insalate, tranne spinacio baby leaf e bietola da foglia baby leaf: 14 giorni'. A restricao 'tranne' exclui apenas spinacio baby leaf e bietola da foglia baby leaf, nunca a lattuga. Repetido em p5 y=277-293 e p5 y=423-449.",
+   "CUSTO_PROVAVEL": "BAIXO",
+   "PORQUE_ESSE_CUSTO": "a rota certa ja existe; a guarda e que e aplicada ao bloco em vez da frase.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P2",
+   "PORQUE_ESTA_PRIORIDADE": "a cultura nao tem nome no motor: entra no conjunto de rotulos, mas nao move oportunidade enquanto o vocabulario nao entrar",
+   "LABEL_ID": "018072",
+   "PRODUTO": "SONAVIO (bifenox 480 g/l, ADAMA Italia, DISERBANTE)",
+   "CULTURA": "CAROTA",
+   "ALVOS_NO_ROTULO": [
+    "INFESTANTI"
+   ],
+   "CROP_ID_CANONICO": null,
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_WEEDS_GENERIC"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "LISTA_DE_USOS",
+   "CAUSA_COMPLETA": "LISTA_DE_USOS — guardas aplicadas por BLOCO em vez de por FRASE. Duas classes independentes, cada uma suficiente para recuperar CAROTA sozinha: (1) EXCLUSAO_POR_BLOCO em pares_lista_de_usos (a exclusa",
+   "PORQUE_O_PARSER_PERDE": "CAROTA e derrubada por DUAS guardas de escopo-de-bloco, cada uma suficiente sozinha; ambas verificadas por instrumentacao, e neutralizar QUALQUER UMA das duas ja devolve CAROTA (medido).\n\n(1) EXCLUSAO avaliada no BLOCO, dentro de pares_lista_de_usos. O laco final da rota faz `for b in blocos: t = b['text']; if SECAO_PROIBIDA.search(t) or EXCLUSAO.search(t): continue` ANTES do laco por frase `for f",
+   "CITACAO_DO_ROTULO": "CAROTA Il prodotto si impiega in post-emergenza della coltura, quando ha differenziato le prime 3-4 foglie vere. DOSE: 0.8–1L/ha distribuito con 100-400 litri d’acqua. Eseguire massimo un trattamento per anno. Adottare la dose più alta in caso di elevata presenza di erbe infestanti",
+   "COORDENADAS": "p0 y=44.2-129.6 x=565.6-806.6 (bloco 13; a linha isolada 'CAROTA' esta em p0 y=66.0 x=565.6). Corroboracao independente no descritor de escopo: p0 y=66.0-131.5 x=42.6-276.6 (bloco 1) — 'Erbicida per il diserbo di pomodoro, valerianella, dolcetta, gallinella, lattughe, scarola, indivia, radicchio, carota, cipolla, aglio, scalogno, carciofo, prezzemolo, finocchio e sedano', com a palavra 'carota,' na linha p0 y=76.9 x=249.1-276.6. Alvo declarado uma vez para o documento inteiro: p0 y=141.7-162.2 x=565.6-799.5 — 'INFESTANTI SENSIBILI: Amaranto ( Amaranthus spp.), Portulaca ( Portulaca oleracea)' e p0 y=174.6-194.8 x=565.6-799.6 — 'INFESTANTI MEDIAMENTE SENSIBILI: Erba morella ( Solanum nigrum ), Farinaccio ( Chenopodium spp .)'",
+   "CUSTO_PROVAVEL": "BAIXO",
+   "PORQUE_ESSE_CUSTO": "a rota certa ja existe; a guarda e que e aplicada ao bloco em vez da frase.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P2",
+   "PORQUE_ESTA_PRIORIDADE": "o alvo nao tem nome no motor: entra no conjunto de rotulos, mas nao move oportunidade enquanto o vocabulario nao entrar",
+   "LABEL_ID": "018244",
+   "PRODUTO": "MOMENTUM PFnPE (Fosetil alluminio 80% p/p, GRANULI IDRODISPERSIBILI, ADAMA) — registrazione n. 18244 del 30.12.2022",
+   "CULTURA": "PERO",
+   "ALVOS_NO_ROTULO": [
+    "Gemme nere (Pseudominas syringae)"
+   ],
+   "CROP_ID_CANONICO": "CROP_PEAR",
+   "ISSUE_IDS_CANONICOS": [],
+   "CAUSA_DA_ILEGIBILIDADE": "VOCABULARIO_DE_ALVO",
+   "CAUSA_COMPLETA": "VOCABULARIO_DE_ALVO (classe principal, atinge AGRUMI e PERO: faltam GOMMOSI/Phytophthora e GEMME_NERE/Pseudomonas — o dicionario ALVOS nao cobre bacterioses nem Phytophthora, e precisa tolerar as graf",
+   "PORQUE_O_PARSER_PERDE": "Nao e falha de geometria: a tabela e lida corretamente e a rota GEOMETRIC_TABLE funciona (VITE sai como SUPPORTED_PAIR). Sao DUAS causas estruturais independentes, ambas medidas.\n\n(1) PERO — LACUNA DE VOCABULARIO DE ALVO, causa unica. A celula de cultura PERO E construida normalmente por _celulas_de_cultura (col x0=41, yc=245.9) e a banda calculada em pares_geometricos cobre o alvo (topo=(168.7+24",
+   "CITACAO_DO_ROTULO": "IMPIEGHI AUTORIZZATI E MODALITA D'USO [p1 y=384.4 x=41.9] // Colture [p2 y=36.4 x=41.0] | Avversita [p2 y=36.4 x=155.4] // PERO [p2 y=241.4 x=41.0] | Gemme [p2 y=241.4 x=155.4] nere [p2 y=241.4 x=212.6] (Pseudominas syringae) [p2 y=250.5-260.1 x=155.4] | 4,5g di prodotto in 1,5 l di acqua per 10 mq per singola applicazione [p2 y=241.4 x=239.2] | Trattamenti nel periodo aprile-giugno. [p2 y=241.4 x",
+   "COORDENADAS": "p2 y=241.4 x=41.0 (celula Colture 'PERO') alinhada na mesma faixa vertical com p2 y=241.4-260.1 x=155.4/212.6 (celula Avversita 'Gemme nere (Pseudominas syringae)'), p2 y=241.4 x=239.2 (Dose), p2 y=241.4 x=374.1 (Quando trattare), p2 y=241.4 x=624.6 (n. trattamenti=3), p2 y=241.4 x=659.1 (intervallo=10 giorni); cabecalho de secao em p1 y=384.4 x=41.9; escopo de capa em p0 y=63.7 x=300.8 e p3 y=79.8 x=300.8",
+   "CUSTO_PROVAVEL": "BAIXO",
+   "PORQUE_ESSE_CUSTO": "e vocabulario, nao geometria — mas passa pelo processo de proposta, nao por remendo (ver IT-VOCAB-HANDOFF-V1).",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [
+    "PERO x COLPO DI FUOCO BATTERICO (ERWINIA AMYLOVORA) — INFEÇÕES FLORAIS",
+    "PERO x STEMPHYLIUM VESICARIUM (MACULATURA BRUNA DO PERO)"
+   ],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P2",
+   "PORQUE_ESTA_PRIORIDADE": "a cultura nao tem nome no motor: entra no conjunto de rotulos, mas nao move oportunidade enquanto o vocabulario nao entrar",
+   "LABEL_ID": "018545",
+   "PRODUTO": "NERASTAL (bifenox 480 g/l, sospensione concentrata) — ADAMA ITALIA S.r.l., categoria DISERBANTE",
+   "CULTURA": "CAROTA",
+   "ALVOS_NO_ROTULO": [
+    "INFESTANTI"
+   ],
+   "CROP_ID_CANONICO": null,
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_WEEDS_GENERIC"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "LISTA_DE_USOS",
+   "CAUSA_COMPLETA": "LISTA_DE_USOS (principal: em pares_lista_de_usos a guarda EXCLUSAO e aplicada ao bloco inteiro antes do laco por frase; deveria ser por frase, como ja e a segunda guarda dentro do mesmo laco) + CABECA",
+   "PORQUE_O_PARSER_PERDE": "CAROTA cai por DUAS guardas independentes, ambas verificadas rodando o parser sobre a geometria versionada (data/samples/IT-ROTULOS-V1/geometria/018545.xml.gz).\n\n(1) GUARDA DE EXCLUSAO APLICADA AO BLOCO INTEIRO, em pares_lista_de_usos (/home/user/eame-sintonia/scripts/it_rotulo_parser.py:872): \"for b in blocos: t = b['text']; if SECAO_PROIBIDA.search(t) or EXCLUSAO.search(t): continue\". O bloco da",
+   "CITACAO_DO_ROTULO": "CAROTA / Il prodotto si impiega in post-emergenza della coltura, quando ha differenziato le prime 3-4 foglie vere. / DOSE: 0.8–1L/ha distribuito con 100-400 litri d'acqua. / Eseguire massimo un trattamento per anno. Adottare la dose piu alta in caso di elevata presenza di erbe infestanti",
+   "COORDENADAS": "p0 y=66.0-120.3 x=565.6 (dentro do bloco p0 y=44.2-129.6 x=565.6-807, coluna 2 da secao 'COLTURE, DOSI, EPOCHE E MODALITA DI IMPIEGO'). Confirmacao independente no cabecalho de escopo, p0 y=66.0-98.6 x=42.6: 'Erbicida per il diserbo di pomodoro, valerianella, dolcetta, gallinella, lattughe, scarola, indivia, radicchio, carota, cipolla, aglio, scalogno, carciofo, prezzemolo, finocchio e sedano'. O alvo do par esta declarado para o documento inteiro em p0 y=141.7 x=565.6 ('INFESTANTI SENSIBILI: Amaranto ( Amaranthus spp.), Portulaca ( Portulaca oleracea)') e p0 y=174.6 x=565.6 ('INFESTANTI MEDIAMENTE SENSIBILI: Erba morella ( Solanum nigrum ), Farinaccio ( Chenopodium spp .)') — nenhuma dessas infestantes coincide com nome de cultura, entao nao ha risco de daninha lida como cultura aqui.",
+   "CUSTO_PROVAVEL": "BAIXO",
+   "PORQUE_ESSE_CUSTO": "a rota certa ja existe; a guarda e que e aplicada ao bloco em vez da frase.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P2",
+   "PORQUE_ESTA_PRIORIDADE": "a cultura nao tem nome no motor: entra no conjunto de rotulos, mas nao move oportunidade enquanto o vocabulario nao entrar",
+   "LABEL_ID": "009800",
+   "PRODUTO": "MAVRIK SMART (ADAMA Italia, tau-fluvalinate 240 g/l, insetticida-acaricida)",
+   "CULTURA": "ERBA_MEDICA",
+   "ALVOS_NO_ROTULO": [
+    "AFIDI",
+    "APION",
+    "TRIPIDI",
+    "LEPIDOTTERI",
+    "PIRALIDE"
+   ],
+   "CROP_ID_CANONICO": null,
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_APHIDS",
+    "ISSUE_CORN_BORER"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_MULTIPLO_NO_BLOCO",
+   "CAUSA_COMPLETA": "CABECALHO_MULTIPLO_NO_BLOCO (ERBA_MEDICA: segmentar o bloco a cada nova linha que seja cabeca de cultura, exatamente como a docstring da rota ja promete, em vez de deixar \"resto\" correr ate ao fim do ",
+   "PORQUE_O_PARSER_PERDE": "Duas guardas distintas de pares_header_continuation (scripts/it_rotulo_parser.py linhas 611-652), a unica rota que este rotulo aciona. (1) ERBA_MEDICA - guarda de CABECA UNICA POR BLOCO: \"k = next((i for i, ln in enumerate(b['lines']) if ABRE_USO.match(ln['text'])), None)\" pega a PRIMEIRA linha que abre com \"Contro\", logo k=1; \"cabeca = lines[:k]\" fica reduzida a \"Barbabietola da zucchero\" e cultu",
+   "CITACAO_DO_ROTULO": "Erba medica / Contro afidi (Acyrthosiphon pisum, Aphis fabae), coleotteri (Hypera postica, Sitona lineatus, Apion pisi, Phytodecta fornicata, Tichius flavus), tripidi (Thrips tabaci) e lepidotteri (Cydia nigricana, Ostrinia nubilalis) impiegare a 0,3 l/ha in 200-1000 litri di acqua/ha",
+   "COORDENADAS": "p1 y=478.9-515.6 x=42.6 (linhas), dentro do bloco p1 y=433-523 x=43-284, na seccao DOSI E MODALITA D'IMPIEGO; corroborado pela carenza em p1 y=467.1 x=299.6 '7 giorni prima della raccolta di ... melone, fragola, erba medica'",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "costurar cabecalho de cultura ao bloco de uso que o segue, atravessando quebra de coluna ou de pagina.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P2",
+   "PORQUE_ESTA_PRIORIDADE": "a cultura nao tem nome no motor: entra no conjunto de rotulos, mas nao move oportunidade enquanto o vocabulario nao entrar",
+   "LABEL_ID": "009800",
+   "PRODUTO": "MAVRIK SMART (ADAMA Italia, tau-fluvalinate 240 g/l, insetticida-acaricida)",
+   "CULTURA": "FRAGOLA",
+   "ALVOS_NO_ROTULO": [
+    "AFIDI",
+    "TRIPIDI",
+    "LEPIDOTTERI",
+    "NOTTUE"
+   ],
+   "CROP_ID_CANONICO": null,
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_APHIDS"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_MULTIPLO_NO_BLOCO",
+   "CAUSA_COMPLETA": "CABECALHO_MULTIPLO_NO_BLOCO (ERBA_MEDICA: segmentar o bloco a cada nova linha que seja cabeca de cultura, exatamente como a docstring da rota ja promete, em vez de deixar \"resto\" correr ate ao fim do ",
+   "PORQUE_O_PARSER_PERDE": "Duas guardas distintas de pares_header_continuation (scripts/it_rotulo_parser.py linhas 611-652), a unica rota que este rotulo aciona. (1) ERBA_MEDICA - guarda de CABECA UNICA POR BLOCO: \"k = next((i for i, ln in enumerate(b['lines']) if ABRE_USO.match(ln['text'])), None)\" pega a PRIMEIRA linha que abre com \"Contro\", logo k=1; \"cabeca = lines[:k]\" fica reduzida a \"Barbabietola da zucchero\" e cultu",
+   "CITACAO_DO_ROTULO": "Fragola [cabecalho de uso no rodape da coluna 1 da p1] ... Contro afidi (Aphis gossypii), tripidi (Frankliniella occidentalis) e lepidotteri (Spodoptera spp.) impiegare a 0,3 l/ha in 200-1000 litri di acqua/ha [topo da coluna 2 da p1] ... 7 giorni prima della raccolta di legumi da consumo fresco senza baccello, carciofo, cardo, cavolfiore, cavolo cappuccio, cavoletto di Bruxelles, cetriolo, cetrio",
+   "COORDENADAS": "cabeca: p1 y=534.1 x=42.6 (bloco p1 y=534-542 x=43-72). Continuacao no topo da coluna seguinte: p1 y=37.2-55.6 x=299.6 (bloco p1 y=37-63 x=300-541). Carenza: p1 y=439.4-467.1 x=299.6",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "costurar cabecalho de cultura ao bloco de uso que o segue, atravessando quebra de coluna ou de pagina.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P2",
+   "PORQUE_ESTA_PRIORIDADE": "a cultura nao tem nome no motor: entra no conjunto de rotulos, mas nao move oportunidade enquanto o vocabulario nao entrar",
+   "LABEL_ID": "012023",
+   "PRODUTO": "KLARTAN SMART (ADAMA Italia S.r.l.) — insetticida-acaricida, tau-fluvalinate 240 g/l, autorizzazione n. 12023 del 23.03.2004, etichetta autorizzata con Decreto Dirigenziale del 30.07.2025",
+   "CULTURA": "FRAGOLA",
+   "ALVOS_NO_ROTULO": [
+    "AFIDI (Aphis gossypii)",
+    "TRIPIDI (Frankliniella occidentalis)",
+    "LEPIDOTTERI (Spodoptera spp.)"
+   ],
+   "CROP_ID_CANONICO": null,
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_APHIDS"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_ORFAO_EM_QUEBRA_DE_COLUNA",
+   "CAUSA_COMPLETA": "CABECALHO_ORFAO_EM_QUEBRA_DE_COLUNA (subclasse de CABECALHO_DE_SECAO): costurar cabecalho de cultura que fecha uma coluna/pagina com o bloco de abertura de uso (\"Contro...\") que abre a coluna seguinte",
+   "PORQUE_O_PARSER_PERDE": "A unica rota que produz pares neste rotulo e pares_header_continuation (scripts/it_rotulo_parser.py:727), e ela e BLOCO-LOCAL por construcao — o proprio docstring declara \"A relacao vive dentro do bloco e morre nele\". Duas guardas matam FRAGOLA. (1) Guarda de tamanho, linha 728: `if len(b['lines']) < 2 or SECAO_PROIBIDA.search(b['text']): continue` — o bloco \"Fragola\" tem exatamente 1 linha (p1 y=",
+   "CITACAO_DO_ROTULO": "Fragola | Contro afidi (Aphis gossypii), tripidi (Frankliniella occidentalis) e lepidotteri (Spodoptera spp.) impiegare a 0,3 l/ha in 200-1000 litri di acqua/ha",
+   "COORDENADAS": "cabecalho: p1 y=542.6-550.1 x=42.6-71.7 (bloco de linha unica, ultimo bloco da coluna 1 da p1). Declaracao de uso: p1 y=37.2-63.2 x=299.7-541.1 (primeiro bloco da coluna 2 da p1, sem cultura propria, orfao). Corroboracao (NAO autorizante por si, regra 3): p1 y=473.6 x=299.7 dentro do bloco de carenza p1 y=422-546 x=300-541: \"7 giorni prima della raccolta di ... melone, fragola, erba medica\".",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "costurar cabecalho de cultura ao bloco de uso que o segue, atravessando quebra de coluna ou de pagina.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P2",
+   "PORQUE_ESTA_PRIORIDADE": "a cultura nao tem nome no motor: entra no conjunto de rotulos, mas nao move oportunidade enquanto o vocabulario nao entrar",
+   "LABEL_ID": "014210",
+   "PRODUTO": "EVURE PRO (insetticida-acaricida, tau-fluvalinate 240 g/l) — Autorizzazione n. 14210 del 06.06.2008",
+   "CULTURA": "ERBA_MEDICA",
+   "ALVOS_NO_ROTULO": [
+    "AFIDI",
+    "APION",
+    "TRIPIDI",
+    "LEPIDOTTERI",
+    "PIRALIDE"
+   ],
+   "CROP_ID_CANONICO": null,
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_APHIDS",
+    "ISSUE_CORN_BORER"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "CABECALHO_ORFAO_ENTRE_BLOCOS",
+   "CAUSA_COMPLETA": "CABECALHO_ORFAO_ENTRE_BLOCOS (continuacao de coluna: cabeca no fim de um bloco/coluna, declaracao de uso no topo do bloco/coluna seguinte)",
+   "PORQUE_O_PARSER_PERDE": "Duas guardas de pares_header_continuation (scripts/it_rotulo_parser.py, linhas 727-769) descartam os dois lados da mesma relacao, porque a rota e explicitamente intra-bloco (\"a relacao vive dentro do bloco e morre nele\"): (1) No bloco p1 y=488-542 x=43-284 o parser faz k = indice da PRIMEIRA linha que casa ABRE_USO (^contro\\b...). Essa linha e a linha 1 (\"Contro afidi (Aphis fabae, Macrosiphum spp",
+   "CITACAO_DO_ROTULO": "Erba medica | Contro afidi (Acyrthosiphon pisum, Aphis fabae), coleotteri (Hypera postica, Sitona lineatus, Apion pisi, Phytodecta fornicata, Tichius flavus), tripidi (Thrips tabaci) e lepidotteri (Cydia nigricana, Ostrinia nubilalis) impiegare a 0,3 l/ha in 200-1000 litri di acqua/ha.",
+   "COORDENADAS": "cabecalho: p1 y=534.1 x=42.6 (ultima linha do bloco p1 y=488-542 x=43-284, coluna 1); declaracao de uso: p1 y=37.2-64.8 x=299.6 (bloco p1 y=37-72 x=300-541, topo da coluna 2). Confirmacao secundaria no bloco de carenza p1 y=472-541 x=300-541, linha p1 y=522.3 x=299.6: \"fragola, erba medica\" dentro de \"7 giorni prima della raccolta di ...\"",
+   "CUSTO_PROVAVEL": "MEDIO",
+   "PORQUE_ESSE_CUSTO": "costurar cabecalho de cultura ao bloco de uso que o segue, atravessando quebra de coluna ou de pagina.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P2",
+   "PORQUE_ESTA_PRIORIDADE": "a cultura nao tem nome no motor: entra no conjunto de rotulos, mas nao move oportunidade enquanto o vocabulario nao entrar",
+   "LABEL_ID": "014479",
+   "PRODUTO": "SCHERMO 0.5 G (ADAMA Italia; teflutrin 0,5 g/100 g; insetticida geodisinfestante microgranulare; Aut. Min. Salute n. 14479 del 26.01.2009; etichetta autorizzata con decreto dirigenziale del 16 luglio 2024)",
+   "CULTURA": "SORGO",
+   "ALVOS_NO_ROTULO": [
+    "Agriotes sp. (ELATERIDI)",
+    "Agrotis sp. (NOTTUE)",
+    "Diabrotica sp. (DIABROTICA)",
+    "Hylemya sp.",
+    "Scutigerella immaculata",
+    "Tipula sp."
+   ],
+   "CROP_ID_CANONICO": null,
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_DIABROTICA"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "MATRIZ_MULTICOLUNA",
+   "CAUSA_COMPLETA": "MATRIZ_MULTICOLUNA (principal) + TABELA_LINHA_UNICA (secundaria) + CABECALHO_DE_SECAO (colateral). MATRIZ_MULTICOLUNA: quando um bloco unico carrega varias colunas, as celulas tem de ser derivadas por",
+   "PORQUE_O_PARSER_PERDE": "Zero pares por tres guardas encadeadas, todas em scripts/it_rotulo_parser.py. (a) CELULA DE CULTURA E BLOCO, NAO LINHA: pares_geometricos monta as celulas iterando BLOCOS e corta na linha 230 com 'if len(t) > 110: continue'. O corpo inteiro da tabela e um so bloco de 1071 caracteres (p0 y=54.0-323.1 x=525.8-756.2), entao Sorgo, Girasole, Patata e Tabacco — que sao LINHAS com xMin=525.79 dentro des",
+   "CITACAO_DO_ROTULO": "Mais, Mais Dolce, Sorgo | Agriotes sp., Agrotis sp., Diabrotica sp. / Hylemya sp., Scutigerella immaculata, Tipula sp. | 12-15",
+   "COORDENADAS": "p0: linha de cultura 'Sorgo' y=113.09-120.32 x=525.79-544.81 (coluna COLTURA, mesmo xMin=525.79 das demais celulas), precedida por 'Mais, Mais Dolce,' y=103.61-110.84 x=525.79-585.26; parassiti y=103.61-110.84 x=607.27-736.05 e y=113.09-129.80 x=607.27-756.25; dose '12-15' y=103.61 x=766.8-785.7. Tudo dentro do bloco unico y=54.0-323.1 x=525.8-756.2. Escopo confirmatorio: y=65.45-72.68 x=111.1-195.7 'mais, mais dolce e sorgo,'",
+   "CUSTO_PROVAVEL": "ALTO",
+   "PORQUE_ESSE_CUSTO": "exige cindir colunas dentro de um bloco fundido — a rota que foi medida a 0,75 de precisao e desligada. Custa gabarito novo antes de custar codigo.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  },
+  {
+   "PRIORIDADE": "P2",
+   "PORQUE_ESTA_PRIORIDADE": "a cultura nao tem nome no motor: entra no conjunto de rotulos, mas nao move oportunidade enquanto o vocabulario nao entrar",
+   "LABEL_ID": "017955",
+   "PRODUTO": "MAGANIC (ADAMA Makhteshim Ltd. / ADAMA Italia S.r.l.) — FUNGICIDA, Protioconazolo 175 g/L + Difenoconazolo 125 g/L, Aut. Min. Salute n. 17955 del 05.06.2024",
+   "CULTURA": "SEGALE",
+   "ALVOS_NO_ROTULO": [
+    "RINCOSPORIOSI",
+    "RUGGINE"
+   ],
+   "CROP_ID_CANONICO": null,
+   "ISSUE_IDS_CANONICOS": [
+    "ISSUE_RUST"
+   ],
+   "CAUSA_DA_ILEGIBILIDADE": "MATRIZ_MULTICOLUNA",
+   "CAUSA_COMPLETA": "MATRIZ_MULTICOLUNA — sub-classe COLUNA_FUNDIDA_NO_BLOCO: recuperar as colunas por corte em x de PALAVRA (a geometria versionada guarda xMin/xMax por <word>; ler_geometria hoje descarta isso e so conse",
+   "PORQUE_O_PARSER_PERDE": "parse() devolve lista VAZIA — as cinco rotas falham, e a falha decisiva e uma cadeia de duas guardas em pares_geometricos():\n\n(1) A coluna Coltura nunca vira celulas. O laco de selecao de celula tem 'if len(t) > 110: continue'. O bloco fundido que carrega Orzo, Segale e Triticale tem 742 caracteres, entao ORZO/SEGALE/TRITICALE sao descartados como celula de cultura antes de qualquer geometria. Sob",
+   "CITACAO_DO_ROTULO": "Segale | Rincosporiosi (Rhyncosporium secalis), Ruggine (Puccinia recondita)",
+   "COORDENADAS": "p0 linha y=192.9: palavra 'Segale' a x=557.5-580.5 (coluna Coltura). Alvos na MESMA faixa y=192.9-213.5, palavras a x>=622.9: 'Rincosporiosi (Rhyncosporium' (y=192.9), 'secalis), Ruggine' (y=203.2), '(Puccinia recondita)' (y=213.5). Confirmacao em prosa p0 y=266.2 x=551.9: 'Su frumento tenero e duro, segale e triticale applicare il prodotto tra gli stadi di inizio levata e fine fioritura.'",
+   "CUSTO_PROVAVEL": "ALTO",
+   "PORQUE_ESSE_CUSTO": "exige cindir colunas dentro de um bloco fundido — a rota que foi medida a 0,75 de precisao e desligada. Custa gabarito novo antes de custar codigo.",
+   "BLOQUEIA_OPORTUNIDADE": [],
+   "SINAIS_FUTUROS_NA_MESMA_CULTURA": [],
+   "PRODUTO_JA_ALCANCA_A_CULTURA": false
+  }
+ ]
+}

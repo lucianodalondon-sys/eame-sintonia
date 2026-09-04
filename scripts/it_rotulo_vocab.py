@@ -160,6 +160,31 @@ ALVOS = {
     'ANTRACNOSI': [r'antracnos[ei]', r'colletotrichum', r'gloeosporium'],
     'MUFFA': [r'muffa\s+\w+'],
     'MARCIUME': [r'marciume'],
+    # Duas avversita que cinco rotulos ADAMA declaram na coluna Avversita e que
+    # o dicionario nunca teve. Nao sao aproximacao: sao o que a etiqueta escreve.
+    #
+    #   018244/015235/017335/017337/017898 · "Gommosi parassitaria (Phytophtora
+    #   spp.)"  ·  015235/017335/017337/017898 · "gemme nere (Pseudominas
+    #   syringae)"     (os erros de grafia sao do proprio PDF)
+    #
+    # O QUE FICA DELIBERADAMENTE DE FORA, E POR QUE
+    # ---------------------------------------------
+    # O genero NAO entra em nenhuma das duas. 'phytophthora' casaria Phytophthora
+    # infestans, que na batata e a PERONOSPORA — o alvo mais frequente do
+    # conjunto — e transformaria peronospora de batata em gomose de citros.
+    # 'pseudomonas' casaria as bacterioses de kiwi e de drupaceas, que nao sao
+    # gemas negras de pereira. O nome italiano da doenca e especifico; o nome do
+    # genero nao e.
+    #
+    #     O GENERO NOMEIA O FUNGO. A DOENCA E QUE NOMEIA O PROBLEMA.
+    #
+    # Regressao rodada antes de acrescentar: 10 ocorrencias nos 163 rotulos, zero
+    # numa janela que ja tivesse outro alvo; 1 ocorrencia nos 131 documentos de
+    # fala, e e mesmo a gomose dos citros ("il controllo della gommosi si fa
+    # sempre con il rame"); 'gommoso', 'gommosita', 'gommista', 'gemme' e 'nere'
+    # sozinhas nao casam.
+    'GOMMOSI': [r'gommos[ai]'],
+    'GEMME_NERE': [r'gemme\s+nere'],
     'VERTICILLIOSI': [r'verticill\w*'],
     'MALATTIE_FUNGINE': [r'malattie\s+fungine', r'anti-?oidic\w*'],
     'INFESTANTI': [r'infestanti', r'malerbe', r'graminacee', r'dicotiledoni',
