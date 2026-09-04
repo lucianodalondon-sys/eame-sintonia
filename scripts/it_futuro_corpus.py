@@ -62,23 +62,93 @@ LEXICO = [
 ]
 LEXICO_RX = [(re.compile(p, re.I), t) for p, t in LEXICO]
 
-# marcas de dominio: sem cultura, alvo ou regiao o candidato quase nunca vira sinal
-CROP_RX = re.compile(
-    r'\b(vite|vigneto|uva|olivo|oliv[eo]|melo|mel[ea]\b|pero|pere\b|pesco|pesch[ae]|'
-    r'albicocc|ciliegi|susin|nocciol|noce|noci\b|mandorl|castagn|agrum|arancio|limone|'
-    r'clementin|pomodor|patata|patate|barbabietola|frumento|grano\b|orzo|mais|riso\b|'
-    r'soia|girasole|colza|cipolla|aglio|carota|lattuga|cavol|carciofo|fragol|melone|'
-    r'cocomer|zucchin|cetriol|peperone|melanzana|fagiol|pisell|tabacco|erba\s+medica|'
-    r'kiwi|actinidia|sorgo|segale|triticale|avena)\b', re.I)
-ISSUE_RX = re.compile(
-    r'\b(peronospor|oidio|botrite|botrytis|muffa\s+grigia|ticchiolatur|monili|'
-    r'antracnos|alternari|septori|ruggine|ruggini|fusarios|cercospor|elmintosporios|'
-    r'rincosporios|ramulari|carbone|carie|flavescenz|scaphoideus|cicalin|afid|'
-    r'cimice|halyomorpha|carpocaps|cydia|tignol|anarsia|tripid|acar|ragnetto|'
-    r'dorifora|elaterid|piralide|ostrinia|diabrotica|nottue|spodoptera|mosca\s+'
-    r'(?:olearia|della\s+frutta)|bactrocera|ceratitis|drosophila|suzukii|xylella|'
-    r'psilla|cocciniglia|aleurodid|nematod|repilo|occhio\s+di\s+pavone|lebbra|'
-    r'rogna|verticilli|infestanti|malerbe|graminacee|dicotiledoni)\b', re.I)
+# ── marcas de dominio ────────────────────────────────────────────────────────
+#
+# ⚠️ DEFEITO CORRIGIDO AQUI, e ele era grave. A versao anterior escrevia
+#
+#     r'\b(vite|pomodor|agrum|fragol|...)\b'
+#
+# com radicais TRUNCADOS entre dois \b. O \b final exige um nao-caractere logo
+# depois do radical — e "pomodoro" tem um "o" ali. Resultado: 'pomodor' nunca
+# casava "pomodoro", 'agrum' nunca casava "agrumi", 'fragol' nunca casava
+# "fragola". Medido: de 22 termos comuns testados, o matcher de cultura acertava
+# DOIS (vite e olivo) e o de alvo, TRES.
+#
+# A varredura de futuro rodou com esse matcher. As dez inteligencias continuam
+# validas porque eu li o texto a mao, mas o RANKING dos candidatos e os numeros do
+# censo estavam cegos.
+#
+# Agora ha duas classes explicitas, e a diferenca importa:
+#
+#   PREFIXO  o radical vale como INICIO de palavra: 'pomodor' casa pomodoro,
+#            pomodori. So entra aqui radical cuja continuacao natural em italiano
+#            e sempre a mesma palavra.
+#   EXATA    palavra inteira, sem extensao: 'riso' NAO pode casar "risorsa",
+#            "rischio", "risultato"; 'noce' NAO pode casar "nocepesca"; 'lema'
+#            NAO pode casar "problema". Radical curto ou homografo vai aqui.
+CULTURA_PREFIXO = [
+    'vigneto', 'oliveto', 'pomodor', 'barbabietol', 'frument', 'agrum', 'arance',
+    'limon', 'clementin', 'mandarin', 'albicocc', 'ciliegi', 'susin', 'nocciol',
+    'mandorl', 'castagn', 'fragol', 'melanzan', 'peperon', 'cipoll', 'carot',
+    'lattugh', 'carciof', 'cocomer', 'zucchin', 'cetriol', 'fagiol', 'pisell',
+    'patat', 'tabacc', 'girasol', 'actinidi', 'spinac', 'ravanell', 'triticale',
+    'segale', 'sorgo', 'avena', 'colza', 'melone', 'cavol',
+]
+CULTURA_EXATA = [
+    'vite', 'viti', 'uva', 'uve', 'olivo', 'olivi', 'olive', 'oliva', 'melo',
+    'meli', 'mela', 'mele', 'pero', 'peri', 'pera', 'pere', 'pesco', 'pesche',
+    'noce', 'noci', 'mais', 'riso', 'soia', 'orzo', 'grano', 'aglio', 'kiwi',
+    'erba medica',
+]
+ALVO_PREFIXO = [
+    'peronospor', 'botrit', 'botryt', 'ticchiolatur', 'monili', 'antracnos',
+    'alternari', 'septori', 'ruggin', 'fusarios', 'cercospor', 'elmintosporios',
+    'rincosporios', 'ramulari', 'flavescenz', 'scaphoideus', 'cicalin', 'afid',
+    'cimic', 'halyomorpha', 'carpocaps', 'tignol', 'anarsia', 'tripid', 'acar',
+    'ragnett', 'dorifor', 'elaterid', 'piralid', 'ostrinia', 'diabrotic', 'nottu',
+    'spodopter', 'bactrocer', 'ceratitis', 'drosophil', 'suzukii', 'xylella',
+    'psill', 'coccinigli', 'aleurodid', 'nematod', 'verticilli', 'infestant',
+    'malerb', 'graminace', 'dicotiledon', 'eriofid', 'metcalf', 'litocollet',
+    'phyllonorycter', 'meligeth', 'cassid', 'tentredin', 'oidi', 'lobesia',
+    'planococcus', 'pseudococcus', 'empoasca', 'eriosom',
+]
+ALVO_EXATA = [
+    'oidio', 'muffa grigia', 'repilo', 'occhio di pavone', 'lebbra', 'rogna',
+    'carbone', 'carie', 'marciume', 'mosca olearia', 'mosca della frutta',
+    'mosca bianca', 'cidia', 'lema', 'apion', 'cleono', 'lisso', 'sigaraio',
+    'agrilo', 'maggiolino', 'fitonomo', 'idrellia', 'altica', 'escoriosi',
+    'black rot', 'mal bianco', 'mal della bolla', 'corineo',
+]
+
+
+# Prefixo generoso pega palavra que nao e o alvo. Medido no proprio corpus:
+# 'carotenoidi' por 'carot', 'notturni' por 'nottu', 'acarostimolanti' por 'acar',
+# 'alternariolo' e 'moniliformina' por 'alternari' e 'monili' — estas duas sao
+# MICOTOXINAS, parentes da doenca mas nao a doenca. Suprimir e mais honesto do que
+# afrouxar o prefixo, porque o prefixo continua servindo para o resto.
+NEGATIVOS = re.compile(
+    r'^(?:carotenoid\w*|notturn\w*|acarostimolant\w*|alternariol\w*|'
+    r'moniliformin\w*|frumentatori\w*|malerbologic\w*)$', re.I)
+
+
+def _rx(prefixos, exatas):
+    """Prefixo casa inicio de palavra; exata casa a palavra inteira.
+
+    Ordena do mais longo para o mais curto para 'mosca della frutta' ganhar de
+    'mosca bianca' quando as duas caberiam.
+    """
+    p = sorted(prefixos, key=len, reverse=True)
+    e = sorted(exatas, key=len, reverse=True)
+    partes = []
+    if p:
+        partes.append(r'\b(?:%s)\w*' % '|'.join(re.escape(x) for x in p))
+    if e:
+        partes.append(r'\b(?:%s)\b' % '|'.join(re.escape(x) for x in e))
+    return re.compile('(?:%s)' % '|'.join(partes), re.I)
+
+
+CROP_RX = _rx(CULTURA_PREFIXO, CULTURA_EXATA)
+ISSUE_RX = _rx(ALVO_PREFIXO, ALVO_EXATA)
 REGION_RX = re.compile(
     r'\b(Veneto|Lombardia|Piemonte|Emilia[- ]Romagna|Toscana|Puglia|Sicilia|Sardegna|'
     r'Campania|Calabria|Basilicata|Molise|Abruzzo|Marche|Umbria|Lazio|Liguria|'
@@ -86,6 +156,81 @@ REGION_RX = re.compile(
 DATE_RX = re.compile(
     r'\b(20(?:2[5-9]|3[0-5]))\b|\b(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|'
     r'agosto|settembre|ottobre|novembre|dicembre)\b', re.I)
+
+
+
+# ── ESCOPO DA CULTURA ────────────────────────────────────────────────────────
+#
+# Uma transcricao de convegno declara a cultura UMA vez e depois so nomeia alvos.
+# Exigir a cultura na janela de tres frases descartava documentos inteiros. Mas
+# propagar o titulo cegamente e pior: nas Giornate Fitopatologiche o mesmo
+# documento passa por cereais, mais, colza, girassol e barbabietola, e herdar
+# "a cultura do documento" ali produziria par falso em cada paragrafo.
+#
+# A regra tem tres niveis e uma precedencia que nao se inverte:
+#
+#   LOCAL      cultura nomeada na propria janela. SEMPRE vence.
+#   SECAO      um marcador de transicao SEGUIDO de nome de cultura abre secao;
+#              ela vale ate o proximo marcador-com-cultura. Troca explicita de
+#              cultura FECHA a secao anterior — nada atravessa.
+#   DOCUMENTO  culturas do titulo, e SO quando o titulo nomeia EXATAMENTE UMA.
+#              Titulo com duas ou mais, ou com nome de grupo, ou sem nenhuma:
+#              documento MULTICULTURA, que nao propaga nada.
+#
+# O terceiro nivel e deliberadamente estreito. "Il bilancio di pomodoro e patata"
+# nomeia duas culturas: um alvo solto ali pode ser de qualquer uma das duas, e
+# escolher seria inventar. Nesse documento so o nivel de SECAO resolve.
+ABRE_SECAO = re.compile(
+    r'\b(?:passiamo\s+(?:al|alla|ai|alle)|per\s+quanto\s+riguarda(?:\s+(?:il|la|i|le|l))?|'
+    r'veniamo\s+(?:al|alla)|andiamo\s+a\s+vedere(?:\s+(?:il|la|l))?|'
+    r'vado\s+avanti\s+con(?:\s+(?:il|la|l))?|chiudo\s+con(?:\s+(?:il|la|l))?|'
+    r'parliamo\s+(?:di|del|della)|situazione|capitolo)\b[\s\']{0,3}', re.I)
+
+
+def escopo_de_cultura(doc, frases):
+    """→ (culturas_do_documento, [culturas_da_secao] por frase, estado do documento).
+
+    O estado do documento e uma das quatro palavras que a missao pede distinguir:
+    SINGLE_CROP, TWO_OR_MORE, GROUP_ONLY, NONE.
+    """
+    titulo = doc.get('TITLE') or ''
+    do_titulo = sorted({m.group(0).lower() for m in CROP_RX.finditer(titulo)
+                        if not NEGATIVOS.match(m.group(0))})
+    grupo_no_titulo = bool(re.search(r'\b(pomacee|drupacee|cucurbitacee|orticole|'
+                                     r'cereali|frutta\s+a\s+guscio|piccoli\s+frutti)\b',
+                                     titulo, re.I))
+    if len(do_titulo) == 1 and not grupo_no_titulo:
+        estado, doc_scope = 'SINGLE_CROP', do_titulo
+    elif len(do_titulo) >= 2:
+        estado, doc_scope = 'TWO_OR_MORE', []
+    elif grupo_no_titulo:
+        estado, doc_scope = 'GROUP_ONLY', []
+    else:
+        estado, doc_scope = 'NONE', []
+
+    # Secao: varre as frases em ordem mantendo a cultura corrente. Com DECAIMENTO.
+    #
+    # Sem limite, uma secao aberta por "passiamo al girasole" continuaria valendo
+    # cinquenta frases adiante, quando o palestrante ja mudou de assunto sem
+    # anunciar. Medido no corpus: e exatamente o que acontecia. Entao a secao
+    # expira depois de SECAO_ALCANCE frases sem reforco, e cada candidato carrega
+    # a DISTANCIA ate o marcador — quem le pode descontar, em vez de receber uma
+    # atribuicao silenciosa.
+    SECAO_ALCANCE = 40
+    secoes, dists, corrente, desde = [], [], [], 0
+    for f in frases:
+        for m in ABRE_SECAO.finditer(f):
+            depois = f[m.end():m.end() + 42]
+            cs = [x.group(0).lower() for x in CROP_RX.finditer(depois)
+                  if not NEGATIVOS.match(x.group(0))]
+            if cs:
+                corrente, desde = sorted(set(cs)), 0   # troca explicita FECHA a anterior
+        if corrente and desde > SECAO_ALCANCE:
+            corrente, desde = [], 0                    # expirou sem reforco
+        secoes.append(list(corrente))
+        dists.append(desde if corrente else None)
+        desde += 1
+    return doc_scope, secoes, estado, dists
 
 
 def _falas():
@@ -226,9 +371,8 @@ def candidatos():
         # os dois. Isto nao e inferencia: e o proprio documento declarando o seu
         # escopo. Fica num campo SEPARADO, com a proveniencia dita, para nunca se
         # confundir com cultura nomeada na frase.
-        do_titulo = sorted({m.group(0).lower()
-                            for m in CROP_RX.finditer(d.get('TITLE') or '')})
         fs = list(frases(d['TEXT']))
+        do_titulo, secoes, estado_doc, sec_dist = escopo_de_cultura(d, fs)
         for i, f in enumerate(fs):
             tipos = sorted({t for rx, t in LEXICO_RX if rx.search(f)})
             if not tipos:
@@ -236,8 +380,10 @@ def candidatos():
             # a janela e a frase mais uma vizinha de cada lado: o contexto que
             # sustenta ou derruba a leitura de futuro mora ali.
             jan = ' '.join(fs[max(0, i - 1):i + 2])
-            crops = sorted({m.group(0).lower() for m in CROP_RX.finditer(jan)})
-            issues = sorted({m.group(0).lower() for m in ISSUE_RX.finditer(jan)})
+            crops = sorted({m.group(0).lower() for m in CROP_RX.finditer(jan)
+                            if not NEGATIVOS.match(m.group(0))})
+            issues = sorted({m.group(0).lower() for m in ISSUE_RX.finditer(jan)
+                             if not NEGATIVOS.match(m.group(0))})
             regs = sorted({m.group(0) for m in REGION_RX.finditer(jan)})
             datas = sorted({m.group(0) for m in DATE_RX.finditer(jan)})
             yield {
@@ -246,9 +392,15 @@ def candidatos():
                 'FRASE': f, 'JANELA': jan,
                 'CROPS': crops, 'ISSUES': issues, 'REGIONS': regs, 'DATAS': datas,
                 'CROPS_FROM_TITLE': do_titulo,
+                'CROPS_FROM_SECTION': secoes[i],
+                'SECTION_DISTANCE_SENTENCES': sec_dist[i],
+                'DOCUMENT_SCOPE_STATE': estado_doc,
                 'CROP_PROVENANCE': ('WINDOW' if crops
+                                    else 'SECTION' if secoes[i]
                                     else 'DOCUMENT_TITLE' if do_titulo else 'NONE'),
-                'PESO': (len(tipos) + 2 * bool(crops) + bool(do_titulo)
+                'CROPS_EFFECTIVE': (crops or secoes[i] or do_titulo),
+                'PESO': (len(tipos) + 2 * bool(crops)
+                         + 2 * bool(secoes[i]) + bool(do_titulo)
                          + 2 * bool(issues) + bool(regs) + bool(datas)),
             }
 
