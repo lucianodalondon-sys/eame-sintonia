@@ -7,10 +7,10 @@
 REPOSITÓRIO   lucianodalondon-sys/eame-sintonia
 BRANCH        claude/meeting-portal-final-pabok2
 HEAD          f95b157
-ESTADO        POST_MEETING_RECONCILIATION_CANDIDATE
-              As duas contradições estão FECHADAS, gates verdes, browser
-              verificado, e a branch ESTÁ publicada como Preview Vercel.
-              NÃO substitui a build aprovada da reunião — ver §14.
+ESTADO        PRONTA — provada sobre os BYTES PÚBLICOS do seu próprio Preview.
+              43/43 casos abertos · 0 contradições de primary · 0 de janela
+              IT · EN · desktop · mobile · 0 console · 0 pedidos falhados
+              Ver §14 (arbitragem) e §15 (prova pública).
 ```
 
 ---
@@ -584,3 +584,106 @@ mcNoPrimaryShown: !!(mcCase && !mcCase.products.hasPrimary),
 
 `WEAKENS` / `CLOSES` / `CONTRADICTS`: o motor não os emite. Não exigir, não
 inventar.
+
+
+---
+
+## 15 · PROVA SOBRE OS BYTES PÚBLICOS — o que a reunião pode abrir
+
+Nenhum código foi alterado para esta prova. Os dois defeitos medidos na build
+aprovada **não existem nesta branch**, e não por correção: por construção.
+
+| defeito na build aprovada | aqui |
+|---|---|
+| `mcNoPrimary` é STRING e por isso sempre verdadeira | **não existe** — não há `meeting-surface.js`; a porta é `noPrimary: !csPrimary`, um booleano |
+| dois radares na barra, ambos a dizer 43 | **não existe** — há UM radar de oportunidades, e ele É a superfície canónica |
+
+```bash
+ls italia-portale/client/meeting-surface.js     # não existe
+grep -c mcNoPrimary italia-portale/client/portale.html   # 0
+grep -n "noPrimary:" italia-portale/client/portale.html  # noPrimary: !csPrimary
+```
+
+### 15.1 · O deployment
+
+```
+HOTFIX_HEAD    b20e459
+DEPLOYMENT_ID  6257148860        env=Preview       state=success
+PREVIEW_URL    https://sintonia-eame-preview-q0pxx3x5n-london-creative.vercel.app
+```
+
+### 15.2 · Bytes públicos contra locais
+
+Os 75 ficheiros de `client/` foram descarregados do Preview e comparados:
+
+```
+BYTE-IDENTICAL = 69 · DIFERENTES = 1 · RETIDOS POR .vercelignore = 5
+```
+
+O único diferente é `index.html`, e a diferença é a Vercel injectar o seu script
+de feedback de preview. **`portale.html` é byte a byte idêntico**, tal como
+`meeting-intelligence-snapshot.js` e `meeting-labels.js`. Os 5 retidos são
+exactamente os que `.vercelignore` manda reter (`vercel.json`, `.gitignore`,
+`.vercelignore`, o oxlint config e um manifest) — o contrato do deploy-surface.
+
+### 15.3 · Os 43, um a um, nas quatro combinações
+
+Cada caso do snapshot foi **aberto** e lido. Para cada um: os nomes com
+`data-product` na tela têm de ser exactamente `PORTFOLIO_MATCHES`; onde
+`PRIMARY_MATCH` é nulo, ninguém pode estar coroado; e a janela tem de dizer o
+tipo e o estado que o motor declara, sem nenhuma das frases antigas.
+
+| | casos abertos | primary | janela | inventado | console | pedidos |
+|---|---|---|---|---|---|---|
+| IT · 1440 | 43/43 | **0** | **0** | **0** | 0 | 0 |
+| EN · 1440 | 43/43 | **0** | **0** | **0** | 0 | 0 |
+| IT · 390  | 43/43 | **0** | **0** | **0** | 0 | 0 |
+| EN · 390  | 43/43 | **0** | **0** | **0** | 0 | 0 |
+
+    ABRIR OS QUARENTA E TRES E CARO. LER DOZE E BARATO,
+    E FOI ASSIM QUE OS OUTROS TRINTA E UM PASSARAM SEM SER LIDOS.
+
+### 15.4 · As testemunhas obrigatórias
+
+```
+BOTRITE      OPP_5F31A63F844D   PRIMARY_MATCH = BANJO
+             cartão   → [BANJO]      detalhe → [BANJO]      motor → BANJO
+             portfólio completo visível · WINDOW_DEFINED=YES · OPEN_NOW=YES
+
+CARPOCAPSA   OPP_75C37DED9160   PRIMARY_MATCH = null
+             cartão   → []  (nenhum nome coroado)
+             detalhe  → [Lamdex® Extra, MAVRIK SMART]  sem coroa em nenhum
+             WINDOW_DEFINED=YES · OPEN_NOW=UNKNOWN  ← a testemunha do §7
+```
+
+### 15.5 · Contadores, todos dos 43
+
+```
+TOTAL 43 · PUBLISHABLE 5 · VALIDATION_REQUIRED 38
+ACT_NOW 2 · VALIDATE_NOW 3 · PREPARE 7 · WATCH 22 · TO_VALIDATE 9
+WINDOW_DEFINED 16 · WINDOW_OPEN_NOW_YES 2
+SOURCE_HEAD b3935bd · BUILD_ID V21-358954754db5ea2f
+```
+
+`legacyShapedInCanonical = []` — nenhum caso de apresentação entra na população
+canónica. Os 29 cenários demo vivem na sua colecção, `EXPLICIT_DEMO`, desligada
+por omissão, e nunca somam a estes números.
+
+### 15.6 · A porta de entrada
+
+```
+DEFAULT_INTELLIGENCE_SURFACE = CANONICAL
+```
+
+A vista inicial do portal, sem navegar, é o radar — e o radar são os 43 do
+motor. Entradas da barra que contenham «radar»: **«Radar delle Opportunità»**
+(as 43 oportunidades) e **«Radar Futuro»** (3 sinais futuros — outra coisa, outro
+número, sem confusão possível com o radar de oportunidades).
+
+    NAO HA DUAS TELAS A DISPUTAR O MESMO NOME,
+    PORQUE NAO HA DUAS TELAS.
+
+### 15.7 · O alias curto continua a NÃO servir isto
+
+`sintonia-eame-preview.vercel.app` continua em `a14b9e1`. **Para a reunião, usar
+o Preview URL exacto do §15.1.** Não mudar a Production Branch às cegas.
