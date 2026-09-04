@@ -141,7 +141,7 @@
      della fonte come frase tradotta, e l'estratto come il DOCUMENTO che lo
      contiene. Togliere un rimando non toglie un fatto.
 
-         IL MOTORE E FERMO A b3935bd. LA CORREZIONE E DI PRESENTAZIONE.
+         IL MOTORE E FERMO A 55c2674. LA CORREZIONE E DI PRESENTAZIONE.
 
      La regola e stretta di proposito: solo una coda finale, introdotta da un
      trattone, che contiene un rimando (vedi / see) e nient'altro che chiavi. */

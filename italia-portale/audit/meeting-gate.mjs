@@ -132,7 +132,11 @@ check('MEETING_SNAPSHOT_CONTRACT', 'The snapshot declares its own provenance and
 
 check('SNAPSHOT_SOURCE_HEAD_VALID', 'SOURCE_HEAD names the intelligence commit, not the checkout', () => {
   const bad = [];
-  if (SNAP.SOURCE_HEAD !== 'b3935bd') bad.push(`SOURCE_HEAD=${SNAP.SOURCE_HEAD}, expected the reconciled canonical head b3935bd`);
+  /* INGESTION_CHECKPOINT: il portale consuma UN pacchetto autorizzato, mai
+     `latest`. 55c2674 e il checkpoint della disambiguazione dei contratti;
+     b3935bd era quello precedente e portava gli stessi 43 casi con gli stessi
+     valori — a cambiare e stato il CONTRATTO, non il dato. */
+  if (SNAP.SOURCE_HEAD !== '55c2674') bad.push(`SOURCE_HEAD=${SNAP.SOURCE_HEAD}, expected the authorised ingestion checkpoint 55c2674`);
   const pkg = path.resolve(CLIENT, '..', '..', 'build', 'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST', 'OPPORTUNITIES.json');
   if (fs.existsSync(pkg)) {
     const d = JSON.parse(fs.readFileSync(pkg, 'utf8'));
