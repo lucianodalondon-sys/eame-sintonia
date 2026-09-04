@@ -725,7 +725,17 @@ check('RT4', 'Back returns to the previous portal state', () => {
 
        A GUARD THAT SURVIVES THE THING IT GUARDED AGAINST
        STOPS BEING A GUARD AND BECOMES NOISE. */
-const V21_BUILD_ID = 'V21-99226fbb90dcdbc2';
+/* ⚠️ QUESTO NUMERO SEGUE LA CATENA CANONICA, E SI CAMBIA DELIBERATAMENTE.
+   Il pacchetto del sito e stato rigenerato da `claude/opportunity-commercial-priority-v1`
+   a b3935bd: 43 oportunita invece di 37, e i conteggi qui sotto sono MISURATI
+   su quel build, non allentati per farlo passare.
+
+       UN NUMERO DI CONTRATTO SI AGGIORNA QUANDO IL CONTRATTO CAMBIA,
+       E MAI QUANDO LA MISURA DELUDE.
+
+       V21-99226fbb90dcdbc2   37 · 9 verificate · 28 da validare · 17 declassate
+       V21-358954754db5ea2f   43 · 33 verificate · 10 da validare · 4 declassate */
+const V21_BUILD_ID = 'V21-358954754db5ea2f';
 
 check('H1', 'Handoff V2.1 is ingested and identifies its build', () => {
   const ctx = loadData();
@@ -776,7 +786,7 @@ check('H2', 'The V2.1 universe counts are MEASURED, not declared', () => {
 });
 
 check('H3', 'The opportunity engine reaches the screen without its bookkeeping', () => {
-  /* 37 detected · 9 verified convergences · 28 to validate.
+  /* 43 detected · 33 verified convergences · 10 to validate.
      And the four words the client must never read: CLIENT_SAFE,
      RENDERABLE_WITH_METHOD, EVIDENCE_DERIVED, FAILED_GATES. They are engine
      state, they decided the label, and then they were dropped — so this asserts
@@ -785,11 +795,11 @@ check('H3', 'The opportunity engine reaches the screen without its bookkeeping',
   const AM = loadData().ITALY_APP_MODEL;
   const recs = AM.collections.opportunities.records;
   const bad = [];
-  if (recs.length !== 37) bad.push(`opportunities: ${recs.length}, expected 37`);
+  if (recs.length !== 43) bad.push(`opportunities: ${recs.length}, expected 43`);
   const verified = recs.filter((o) => o.convergence === 'VERIFIED_CONVERGENCE').length;
   const toValidate = recs.filter((o) => o.convergence === 'TO_VALIDATE').length;
-  if (verified !== 9) bad.push(`verified convergences: ${verified}, expected 9`);
-  if (toValidate !== 28) bad.push(`to validate: ${toValidate}, expected 28`);
+  if (verified !== 33) bad.push(`verified convergences: ${verified}, expected 33`);
+  if (toValidate !== 10) bad.push(`to validate: ${toValidate}, expected 10`);
   const FORBIDDEN = /^(clientSafe|renderableWithMethod|qaStatus|blockingGates|redTeamFindings|whyNotClientSafe|raw)$/;
   for (const o of recs) {
     for (const k of Object.keys(o)) if (FORBIDDEN.test(k)) bad.push(`${o.id} still carries ${k}`);
@@ -915,14 +925,14 @@ check('W1', 'The 29 canonical crop windows are never collapsed to the 7 field re
 
 check('W2', 'The red team downgrades; it is not a second population', () => {
   /* I 17 casi che il red team ha abbattuto sono un SOTTOINSIEME dei 28 «da
-     validare», non righe nascoste in piu. Sommarli — 37 + 17 — inventerebbe 54
-     oggetti dove ne esistono 37, ed e un errore facile da commettere in un
+     validare», non righe nascoste in piu. Sommarli — 43 + 4 — inventerebbe 47
+     oggetti dove ne esistono 43, ed e un errore facile da commettere in un
      rapporto, perche il file si chiama REJECTIONS.
 
          RESPINTA QUI VUOL DIRE DECLASSATA, NON CANCELLATA.
 
-     Quindi: ogni id declassato esiste fra i 37, nessuno di essi e verificato, e
-     tutti stanno dentro i 28. Se un giorno un declassato comparisse fra i nove,
+     Quindi: ogni id declassato esiste fra i 43, nessuno di essi e verificato, e
+     tutti stanno dentro i 10. Se un giorno un declassato comparisse fra i 33,
      il portone lo direbbe qui invece che il cliente sullo schermo. */
   const AM = loadData().ITALY_APP_MODEL;
   const recs = AM.collections.opportunities.records;
@@ -931,9 +941,9 @@ check('W2', 'The red team downgrades; it is not a second population', () => {
   const ids = (rej.REJEICOES || []).map((r) => r.ID).filter(Boolean);
   const byId = new Map(recs.map((o) => [o.id, o]));
   const bad = [];
-  if (ids.length !== 17) bad.push(`downgraded cases: ${ids.length}, expected 17`);
+  if (ids.length !== 4) bad.push(`downgraded cases: ${ids.length}, expected 4`);
   const missing = ids.filter((id) => !byId.has(id));
-  if (missing.length) bad.push(`${missing.length} downgraded ids are NOT among the 37 — they became a second population`);
+  if (missing.length) bad.push(`${missing.length} downgraded ids are NOT among the 43 — they became a second population`);
   const verified = ids.filter((id) => byId.get(id) && byId.get(id).convergence === 'VERIFIED_CONVERGENCE');
   if (verified.length) bad.push(`downgraded but shown as verified: ${verified.join(', ')}`);
   return { pass: bad.length === 0, expected: 0, measured: bad.length,
@@ -1024,15 +1034,22 @@ check('O1', 'The same opportunity ids reach the package, the handoff, the model 
     'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST', 'OPPORTUNITIES.json'), 'utf8'));
 
   const A = pkg.RECORDS.map((r) => r.ID);
-  const Apub = pkg.RECORDS.filter((r) => r.RENDERABLE_WITH_METHOD === true).map((r) => r.ID);
+  /* ⚠️ «PUBBLICABILE» HA UN CAMPO PROPRIO, E NON E PIU QUESTO.
+     `RENDERABLE_WITH_METHOD` voleva dire «pubblicabile» quando il pacchetto ne
+     verificava nove su trentasette e le due cose coincidevano. Il motore adesso
+     pubblica una catraca esplicita — PUBLICATION_STATE — e le due cose si sono
+     separate: 33 sono renderizzabili col metodo dichiarato, 5 sono autorizzate a
+     uscire. Continuare a leggere il primo campo chiamandolo «pubblicabile»
+     misurerebbe una cosa e ne direbbe un'altra. */
+  const Apub = pkg.RECORDS.filter((r) => r.PUBLICATION_STATE === 'PUBLISHABLE').map((r) => r.ID);
   const B = ((ctx.ITALY_HANDOFF_V21 || {}).opportunities || []).map((r) => r.ID);
   const C = AM.collections.opportunities.records.map((r) => r.id);
   const Cpub = AM.collections.opportunities.records
-    .filter((r) => r.convergence === 'VERIFIED_CONVERGENCE').map((r) => r.id);
+    .filter((r) => r.engine && r.engine.publicationState === 'PUBLISHABLE').map((r) => r.id);
   const m = mount();
   const D = (m.vals({ view: 'radar', lang: 'it', showAll: true }).visibleCases || []).map((c) => c.id);
   const Dpub = (m.vals({ view: 'radar', lang: 'it', showAll: true }).visibleCases || [])
-    .filter((c) => c.convergence === 'VERIFIED_CONVERGENCE').map((c) => c.id);
+    .filter((c) => c.engine && c.engine.publicationState === 'PUBLISHABLE').map((c) => c.id);
 
   const bad = [];
   const same = (n1, a, n2, b) => {

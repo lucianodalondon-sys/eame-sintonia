@@ -3613,10 +3613,28 @@ class Component extends DCLogic {
        punteggi, prove, portoni ne etichette: i ventotto restano in lista e i
        conteggi restano 37 / 9 / 28. Cambia solo CHI SI VEDE PER PRIMO — che e
        esattamente cio che il livello canonico aveva gia deciso. */
+    /* ⚠️ LA STESSA REGOLA, AL VERDETTO PIU FINE CHE IL MOTORE ORA PUBBLICA.
+       `convergence` era la distinzione canonica quando il pacchetto ne
+       verificava nove su trentasette. Sul pacchetto di questa riunione ne
+       verifica TRENTATRE su quarantatre: la chiave non discrimina piu, e i
+       cinque casi che la catraca ha davvero autorizzato a uscire —
+       PUBLICATION_STATE = PUBLISHABLE — finivano tre su cinque dietro «VEDI
+       TUTTE 43».
+
+           PUBBLICATO E DIETRO UN PULSANTE NON E PUBBLICATO.
+
+       Quindi la prima chiave diventa il verdetto di pubblicazione, e
+       `convergence` scende a seconda chiave. Nessun caso viene promosso,
+       nascosto o riclassificato: i quarantatre restano in lista, i conteggi
+       restano 43 / 5 / 38, e cambia solo CHI SI VEDE PER PRIMO — che e
+       esattamente cio che il livello canonico aveva gia deciso. */
     const publishableFirst = (a, b) => {
-      const pa = a.convergence === 'VERIFIED_CONVERGENCE' ? 0 : 1;
-      const pb = b.convergence === 'VERIFIED_CONVERGENCE' ? 0 : 1;
-      return pa - pb;
+      const rank = (x) => {
+        if (x.engine && x.engine.publicationState) return x.engine.publicationState === 'PUBLISHABLE' ? 0 : 2;
+        return x.convergence === 'VERIFIED_CONVERGENCE' ? 1 : 3;
+      };
+      const conv = (x) => (x.convergence === 'VERIFIED_CONVERGENCE' ? 0 : 1);
+      return (rank(a) - rank(b)) || (conv(a) - conv(b));
     };
     filtered = filtered.slice().sort(s.sort === 'relevant'
       ? (a, b) => publishableFirst(a, b) || (a.st.rank - b.st.rank) || (b.evidenceTotal - a.evidenceTotal)
