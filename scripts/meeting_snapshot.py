@@ -101,6 +101,113 @@ SO_DECLARADOS = ('WINDOW_CONDITION', 'NEED_EXCERPT', 'PEST_STAGE_EXCERPT',
                  'ACTION_RECOMMENDATION_EXCERPT')
 
 
+# ── A LISTA DE PERMISSÃO TAMBÉM DESCE ──────────────────────────────────────
+# O filtro anterior era de UM NÍVEL: `r[c] = o[c]` copiava o contêiner inteiro.
+# Sete dos campos permitidos são dicionários e listas, e tudo que morava dentro
+# deles atravessava sem nunca ter sido julgado. Foi assim que
+# `ACTION_BY_DEPARTMENT.<dept>.NEXT_TRIGGER` — uma oração de pesquisa em
+# português — chegou a 215 dos 215 blocos de departamento.
+#
+#     UMA LISTA DE PERMISSÃO QUE SÓ OLHA A PRIMEIRA CAMADA
+#     NÃO É UMA LISTA DE PERMISSÃO: É UMA PORTA ENTREABERTA.
+#
+# Agora a permissão desce até a folha. A gramática abaixo é lida assim:
+#
+#     FOLHA          copia o valor como está (escalar, ou lista de escalares)
+#     {chave: ...}   dicionário de chaves fixas; o que não está aqui não desce
+#     {'*': ...}     dicionário de chaves abertas (departamentos), mesmo molde
+#     [ ... ]        lista; o molde vale para cada item
+#
+# Um campo aninhado que o motor acrescentar amanhã NÃO atravessa por omissão —
+# ele aparece como ausente, que é visível, em vez de atravessar por descuido,
+# que não é.
+FOLHA = 'FOLHA'
+
+_RESTRICAO = {'CODE': FOLHA, 'ACTIVE_INGREDIENT': FOLHA,
+              'DATE': FOLHA, 'EVIDENCE_ID': FOLHA}
+
+_ELO = {'OK': FOLHA, 'EVIDENCE': FOLHA, 'FACT': FOLHA}
+
+ANINHADOS = {
+    'WHY_NOW_CHAIN': {'SINAL_ATUAL': _ELO, 'JANELA_DEFINIDA': _ELO,
+                      'JANELA_ABERTA_AGORA': _ELO,
+                      'VINCULO_COM_PORTFOLIO': _ELO, 'TEMPO_PARA_ACAO': _ELO},
+    'ACTION_CHAIN_LINKS': {'SINAL_ATUAL': FOLHA, 'JANELA_DEFINIDA': FOLHA,
+                           'JANELA_ABERTA_AGORA': FOLHA,
+                           'VINCULO_COM_PORTFOLIO': FOLHA,
+                           'TEMPO_PARA_ACAO': FOLHA},
+    'COMMERCIAL_MAGNITUDE_DIMENSIONS': {
+        'SINAIS_DE_CAMPO': FOLHA, 'FONTES_INDEPENDENTES': FOLHA,
+        'REGIOES_DO_PAR': FOLHA, 'AREA_OFICIAL_HA': FOLHA,
+        'AREA_OFICIAL_ANO': FOLHA, 'AREA_SELECTION_RULE': FOLHA,
+        'AREA_EVIDENCE_ID': FOLHA},
+    # ⚠️ NEXT_TRIGGER fica DE FORA, e não perde nada: medido, ele é a mesma
+    # coisa que DEPENDENCY dita em português — 185/185 sobre SINAL_ATUAL,
+    # 20/20 sobre JANELA_ABERTA_AGORA, 10/10 quando ambos são nulos. A tela
+    # mostra o CÓDIGO, que o dicionário traduz, em vez da oração, que não se
+    # traduz sozinha.
+    'ACTION_BY_DEPARTMENT': {'*': {
+        'DEPARTMENT': FOLHA, 'ACTION_STATE': FOLHA, 'ACTION': FOLHA,
+        'WHY_CODE': FOLHA, 'DEPENDENCY': FOLHA,
+        'EVIDENCE': FOLHA, 'MISSING_LINKS': FOLHA}},
+    'EVIDENCE_ROLES': [{'EVIDENCE_ID': FOLHA, 'ENTITY_TYPE': FOLHA,
+                        'ROLE': FOLHA, 'WHY_CODE': FOLHA}],
+    'INTELLIGENCE_BRIEF': [{'CODE': FOLHA, 'VALUES': {
+        'ALVO': FOLHA, 'CULTURA': FOLHA, 'REGIAO': FOLHA, 'SINAIS': FOLHA,
+        'FONTES': FOLHA, 'PRODUTOS': FOLHA, 'ACAO': FOLHA,
+        'DEPARTAMENTO': FOLHA}}],
+    'PORTFOLIO_MATCHES': [{
+        'PRODUCT_ID': FOLHA, 'PRODUCT_NAME': FOLHA,
+        'REGISTRATION_NUMBER': FOLHA, 'ACTIVE_INGREDIENTS': FOLHA,
+        'MODE_OF_ACTION': FOLHA, 'CROP_FIT': FOLHA, 'TARGET_FIT': FOLHA,
+        'REGIONAL_FIT': FOLHA, 'REGULATORY_FIT': FOLHA, 'WINDOW_FIT': FOLHA,
+        'VALIDATION_STATE': FOLHA, 'EVIDENCE': FOLHA,
+        'SOURCE_NAMES_THIS_ACTIVE': FOLHA, 'MATCH_REASON': FOLHA,
+        'RESTRICTIONS': [_RESTRICAO]}],
+    'PRODUCT_RESTRICTIONS': [_RESTRICAO],
+}
+
+# Prosa que fica de fora lá no fundo, e é DECLARADA no lugar onde morava, para
+# que a tela possa dizer «existe, e está no documento X» sem exibi-la.
+ANINHADOS_SO_DECLARADOS = {
+    'ACTION_BY_DEPARTMENT': ('NEXT_TRIGGER',),
+}
+
+
+def _desce(valor, molde, so_declarados=()):
+    """Aplica o molde a um valor aninhado. O que o molde não nomeia não desce.
+
+    Contêiner vazio continua contêiner vazio: uma lista sem itens sai `[]` e um
+    dicionário sem chaves sai `{}`, exatamente como antes. Suprimi-los mudaria o
+    que a tela vê em casos que nada têm de errado.
+    """
+    if molde == FOLHA:
+        return valor
+    if isinstance(molde, list):
+        if not isinstance(valor, list):
+            return []
+        return [_desce(v, molde[0], so_declarados) for v in valor]
+    if isinstance(molde, dict):
+        if not isinstance(valor, dict):
+            return {}
+        fixo = molde.get('*')
+        saida = {}
+        for k, v in valor.items():
+            sub = fixo if fixo is not None else molde.get(k)
+            if sub is None:
+                continue
+            saida[k] = _desce(v, sub, so_declarados)
+            if fixo is not None and isinstance(v, dict):
+                for pt in so_declarados:
+                    if v.get(pt):
+                        saida[k][pt + '__PT_ONLY'] = True
+        for pt in so_declarados:
+            if fixo is None and valor.get(pt):
+                saida[pt + '__PT_ONLY'] = True
+        return saida
+    return None
+
+
 def cabeca_do_commit(argv):
     """→ o HEAD da INTELIGÊNCIA, não o do checkout de agora.
 
@@ -126,7 +233,12 @@ def cabeca_do_commit(argv):
 def linha(o):
     r = {}
     for c in CAMPOS:
-        if c in o:
+        if c not in o:
+            continue
+        if c in ANINHADOS:
+            r[c] = _desce(o[c], ANINHADOS[c],
+                          ANINHADOS_SO_DECLARADOS.get(c, ()))
+        else:
             r[c] = o[c]
     for c in LOCALIZAVEIS:
         it, en = o.get(c + '_IT'), o.get(c + '_EN')
@@ -175,7 +287,13 @@ def main():
         'BY_WINDOW_DEFINED': conta('WINDOW_DEFINED'),
         'BY_WINDOW_OPEN_NOW': conta('WINDOW_OPEN_NOW'),
         'BY_WINDOW_RULE_STATE': conta('WINDOW_RULE_STATE'),
-        'BRIEF_TEMPLATES': regras.get('INTELLIGENCE_BRIEF_TEMPLATES') or {},
+        # BRIEF_TEMPLATES saiu: eram as frases-molde do motor, escritas em
+        # português de pesquisa, e nenhuma tela pode exibi-las a um
+        # italiano. Os CÓDIGOS do brief atravessam; as frases vivem no
+        # dicionário de lingua, em IT e EN, do lado de cá da fronteira.
+        'BRIEF_CODES': sorted({b.get('CODE') for o in pac['RECORDS']
+                               for b in (o.get('INTELLIGENCE_BRIEF') or [])
+                               if b.get('CODE')}),
         'WINDOW_TYPES_AGRONOMIC': regras.get('WINDOW_TYPES_AGRONOMIC') or [],
         'CASES': casos,
     }

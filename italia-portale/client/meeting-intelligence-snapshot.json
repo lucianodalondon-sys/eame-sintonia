@@ -5,7 +5,7 @@
  "BUILD_ID": "V21-358954754db5ea2f",
  "ENGINE_VERSION": "scripts/v21_oportunidades.py + v21_janelas.py + v21_necessidade.py + v21_comercial.py",
  "RULE_VERSION": "V21-358954754db5ea2f",
- "GENERATED_AT": "2026-09-04T00:56:45Z",
+ "GENERATED_AT": "2026-09-04T01:26:40Z",
  "MEETING_CUTOFF": "2026-09-04T00:52:54Z",
  "TOTAL_CASES": 43,
  "BY_STATUS": {
@@ -39,18 +39,17 @@
   "RULE_DELEGATED_TO_FARM": 1,
   "RULE_ADMINISTRATIVE_ONLY": 1
  },
- "BRIEF_TEMPLATES": {
-  "PRESSAO_RECENTE": "Pressão recente de {ALVO} em {CULTURA} na {REGIAO}, sustentada por {SINAIS} sinais de campo e {FONTES} fontes independentes.",
-  "FONTE_MANDA_PARAR": "A fonte que sustenta o par não manda agir: ver NEED_DIRECTION e a frase original.",
-  "JANELA_ABERTA": "A condição que define o momento está declarada e o mesmo documento declara o estádio da cultura: a janela está aberta agora.",
-  "JANELA_DEFINIDA_ESTADO_DESCONHECIDO": "A condição que define o momento está declarada, mas não há evidência de que esteja satisfeita agora.",
-  "SEM_JANELA": "Nenhuma fonte declara a condição que define o momento de intervir neste par e nesta região.",
-  "JANELA_DELEGADA_AO_POMAR": "A regra regional publicada declara que a decisão de intervir é da própria empresa, pelas observações e pelo histórico do pomar: não há gatilho regional a coletar.",
-  "PORTFOLIO": "Há {PRODUTOS} produto(s) do catálogo comercial ADAMA com rótulo ministerial no par.",
-  "SEM_PORTFOLIO": "Nenhum produto do catálogo comercial ADAMA cobre este par com rótulo ministerial.",
-  "FONTE_NOMEIA_OUTRA_SUBSTANCIA": "A fonte nomeia {ATIVOS_DA_FONTE} como solução; a substância do produto ADAMA ligado ao par é outra.",
-  "ACAO_PRINCIPAL": "Ação: {DEPARTAMENTO} deve {ACAO} antes de qualquer ativação comercial."
- },
+ "BRIEF_CODES": [
+  "ACAO_PRINCIPAL",
+  "FONTE_MANDA_PARAR",
+  "JANELA_ABERTA",
+  "JANELA_DEFINIDA_ESTADO_DESCONHECIDO",
+  "JANELA_DELEGADA_AO_POMAR",
+  "PORTFOLIO",
+  "PRESSAO_RECENTE",
+  "SEM_JANELA",
+  "SEM_PORTFOLIO"
+ ],
  "WINDOW_TYPES_AGRONOMIC": [
   "CALENDAR_WINDOW",
   "PREHARVEST_WINDOW",
@@ -398,14 +397,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -418,14 +417,14 @@
       "CATPRD_LAMDEX_EXTRA"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -434,14 +433,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -450,14 +449,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -475,14 +474,14 @@
       "AI_TEBUCONAZOLE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -828,12 +827,12 @@
       "IT-COL-2609-UM-TIGNOLETTA"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -844,12 +843,12 @@
       "CATPRD_LAMDEX_EXTRA"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -860,12 +859,12 @@
       "IT-COL-2609-UM-TIGNOLETTA"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -877,12 +876,12 @@
       "IT-COL-2609-UM-TIGNOLETTA"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -893,12 +892,12 @@
       "AI_LAMBDA_CYHALOTHRIN"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -1166,13 +1165,13 @@
       "IT-COL-2609-FVG-REGRA-VITE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -1181,13 +1180,13 @@
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -1198,13 +1197,13 @@
       "IT-PHEN-049"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -1216,13 +1215,13 @@
       "IT-PHEN-049"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -1234,13 +1233,13 @@
       "AI_TEBUCONAZOLE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -1477,14 +1476,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -1493,14 +1492,14 @@
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -1509,14 +1508,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -1525,14 +1524,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -1544,14 +1543,14 @@
       "AI_FENPROPIDIN"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -1854,14 +1853,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -1872,14 +1871,14 @@
       "CATPRD_PIRIMOR_50"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -1888,14 +1887,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -1904,14 +1903,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -1926,14 +1925,14 @@
       "AI_TEBUCONAZOLE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -2272,11 +2271,11 @@
       "IT-PHEN-001"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -2287,11 +2286,11 @@
       "CATPRD_LAMDEX_EXTRA"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -2302,11 +2301,11 @@
       "IT-PHEN-001"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -2318,11 +2317,11 @@
       "IT-PHEN-001"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -2333,11 +2332,11 @@
       "AI_LAMBDA_CYHALOTHRIN"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -2639,12 +2638,12 @@
       "IT-COL-2609-UM-REGRA-SCAFOIDEO"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -2655,12 +2654,12 @@
       "CATPRD_MAVRIK_SMART"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -2671,12 +2670,12 @@
       "IT-PHEN-037"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -2688,12 +2687,12 @@
       "IT-PHEN-037"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -2704,12 +2703,12 @@
       "AI_TAU_FLUVALINATE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -3012,13 +3011,13 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -3029,13 +3028,13 @@
       "CATPRD_AGIL"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -3044,13 +3043,13 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -3059,13 +3058,13 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -3076,13 +3075,13 @@
       "AI_PROPAQUIZAFOP"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -3387,14 +3386,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -3403,14 +3402,14 @@
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -3419,14 +3418,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -3435,14 +3434,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -3453,14 +3452,14 @@
       "AI_FLUROXYPYR"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -3920,14 +3919,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -3940,14 +3939,14 @@
       "CATPRD_NICOGAN_VO"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -3956,14 +3955,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -3972,14 +3971,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -3994,14 +3993,14 @@
       "AI_PIRIMICARB"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -4498,14 +4497,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -4518,14 +4517,14 @@
       "CATPRD_MAXENTISR"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -4534,14 +4533,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -4550,14 +4549,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -4573,14 +4572,14 @@
       "AI_TEFLUTHRIN"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -4916,7 +4915,6 @@
       "IT-PHEN-001"
      ],
      "DEPENDENCY": null,
-     "NEXT_TRIGGER": null,
      "MISSING_LINKS": []
     },
     "COMMERCIAL": {
@@ -4928,7 +4926,6 @@
       "CATPRD_BANJO"
      ],
      "DEPENDENCY": null,
-     "NEXT_TRIGGER": null,
      "MISSING_LINKS": []
     },
     "MARKETING": {
@@ -4940,7 +4937,6 @@
       "IT-PHEN-001"
      ],
      "DEPENDENCY": null,
-     "NEXT_TRIGGER": null,
      "MISSING_LINKS": []
     },
     "TECHNICAL_SCIENTIFIC": {
@@ -4953,7 +4949,6 @@
       "IT-PHEN-001"
      ],
      "DEPENDENCY": null,
-     "NEXT_TRIGGER": null,
      "MISSING_LINKS": []
     },
     "SUPPLY": {
@@ -4965,7 +4960,6 @@
       "AI_FLUAZINAM"
      ],
      "DEPENDENCY": null,
-     "NEXT_TRIGGER": null,
      "MISSING_LINKS": []
     }
    },
@@ -5318,14 +5312,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -5336,14 +5330,14 @@
       "CATPRD_LAMDEX_EXTRA"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -5352,14 +5346,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -5368,14 +5362,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -5386,14 +5380,14 @@
       "AI_LAMBDA_CYHALOTHRIN"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -5773,14 +5767,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -5792,14 +5786,14 @@
       "CATPRD_LAMDEX_EXTRA"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -5808,14 +5802,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -5824,14 +5818,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -5843,14 +5837,14 @@
       "AI_LAMBDA_CYHALOTHRIN"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -6089,14 +6083,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -6105,14 +6099,14 @@
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -6121,14 +6115,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -6137,14 +6131,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -6155,14 +6149,14 @@
       "AI_BUPIRIMATE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -6525,11 +6519,11 @@
       "IT-COL-2609-VN-REGRA-CARPOCAPSA"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -6541,11 +6535,11 @@
       "CATPRD_MAVRIK_SMART"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -6556,11 +6550,11 @@
       "IT-CAN-D9582B1FD6"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -6572,11 +6566,11 @@
       "IT-CAN-D9582B1FD6"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -6589,11 +6583,11 @@
       "AI_TAU_FLUVALINATE"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -6911,12 +6905,12 @@
       "IT-COL-2609-LO-REGRA-MAIS"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -6927,12 +6921,12 @@
       "CATPRD_LAMDEX_EXTRA"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -6943,12 +6937,12 @@
       "IT-PHEN-022"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -6960,12 +6954,12 @@
       "IT-PHEN-022"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -6976,12 +6970,12 @@
       "AI_LAMBDA_CYHALOTHRIN"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -7273,14 +7267,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -7291,14 +7285,14 @@
       "CATPRD_AGIL"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -7307,14 +7301,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -7323,14 +7317,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -7341,14 +7335,14 @@
       "AI_PROPAQUIZAFOP"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -7644,14 +7638,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -7662,14 +7656,14 @@
       "CATPRD_DIODER"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -7678,14 +7672,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -7694,14 +7688,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -7712,14 +7706,14 @@
       "AI_MESOTRIONE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -8015,14 +8009,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -8033,14 +8027,14 @@
       "CATPRD_DAVAI"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -8049,14 +8043,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -8065,14 +8059,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -8083,14 +8077,14 @@
       "AI_IMAZAMOX"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -8569,14 +8563,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -8589,14 +8583,14 @@
       "CATPRD_NICOGAN_VO"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -8605,14 +8599,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -8621,14 +8615,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -8643,14 +8637,14 @@
       "AI_PIRIMICARB"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -9074,14 +9068,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -9093,14 +9087,14 @@
       "CATPRD_MAXENTISR"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -9109,14 +9103,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -9125,14 +9119,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -9148,14 +9142,14 @@
       "AI_TEBUCONAZOLE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -9544,14 +9538,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -9564,14 +9558,14 @@
       "CATPRD_SCHERMO_0_5_G"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -9580,14 +9574,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -9596,14 +9590,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -9619,14 +9613,14 @@
       "AI_TEFLUTHRIN"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -9908,11 +9902,11 @@
       "IT-PHEN-048"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -9923,11 +9917,11 @@
       "CATPRD_LAMDEX_EXTRA"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -9938,11 +9932,11 @@
       "IT-PHEN-048"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -9954,11 +9948,11 @@
       "IT-PHEN-048"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -9969,11 +9963,11 @@
       "AI_LAMBDA_CYHALOTHRIN"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -10280,14 +10274,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -10298,14 +10292,14 @@
       "CATPRD_FOLPAN_GOLD"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -10314,14 +10308,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -10330,14 +10324,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -10349,14 +10343,14 @@
       "AI_METALAXYL_M"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -10632,14 +10626,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -10648,14 +10642,14 @@
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -10664,14 +10658,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -10680,14 +10674,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -10698,14 +10692,14 @@
       "AI_FLUROXYPYR"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -11000,14 +10994,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -11018,14 +11012,14 @@
       "CATPRD_AGIL"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -11034,14 +11028,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -11050,14 +11044,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -11068,14 +11062,14 @@
       "AI_PROPAQUIZAFOP"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -11304,14 +11298,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -11320,14 +11314,14 @@
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -11336,14 +11330,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -11352,14 +11346,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -11368,14 +11362,14 @@
      "WHY_CODE": "SEM_BASE_FACTUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -12045,14 +12039,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -12065,14 +12059,14 @@
       "CATPRD_LAMDEX_EXTRA"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -12081,14 +12075,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -12097,14 +12091,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -12122,14 +12116,14 @@
       "AI_TEBUCONAZOLE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -12440,13 +12434,13 @@
       "IT-COL-2609-UM-REGRA-VITE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -12455,13 +12449,13 @@
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -12472,13 +12466,13 @@
       "IT-PHEN-037"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -12490,13 +12484,13 @@
       "IT-PHEN-037"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -12508,13 +12502,13 @@
       "AI_TEBUCONAZOLE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -12754,13 +12748,13 @@
       "IT-COL-2609-TO-REGRA-VITE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -12769,13 +12763,13 @@
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -12786,13 +12780,13 @@
       "IT-PHEN-040"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -12804,13 +12798,13 @@
       "IT-PHEN-040"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -12822,13 +12816,13 @@
       "AI_TEBUCONAZOLE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -13100,13 +13094,13 @@
       "IT-PHEN-038"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -13117,13 +13111,13 @@
       "CATPRD_MAVRIK_SMART"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -13134,13 +13128,13 @@
       "IT-PHEN-038"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -13151,13 +13145,13 @@
       "IT-PHEN-038"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -13168,13 +13162,13 @@
       "AI_TAU_FLUVALINATE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -13559,12 +13553,12 @@
       "IT-COL-2609-FVG-REGRA-VITE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -13576,12 +13570,12 @@
       "CATPRD_FOLPAN_GOLD"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -13592,12 +13586,12 @@
       "IT-PHEN-049"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -13609,12 +13603,12 @@
       "IT-PHEN-049"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -13628,12 +13622,12 @@
       "AI_METALAXYL_M"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -14009,12 +14003,12 @@
       "IT-COL-2609-UM-REGRA-VITE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -14026,12 +14020,12 @@
       "CATPRD_FOLPAN_GOLD"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -14042,12 +14036,12 @@
       "IT-PHEN-037"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -14059,12 +14053,12 @@
       "IT-PHEN-037"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -14078,12 +14072,12 @@
       "AI_METALAXYL_M"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -14453,12 +14447,12 @@
       "IT-COL-2609-ER-REGRA-VITE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -14470,12 +14464,12 @@
       "CATPRD_FOLPAN_GOLD"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -14486,12 +14480,12 @@
       "IT-PHEN-006"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -14503,12 +14497,12 @@
       "IT-PHEN-006"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -14522,12 +14516,12 @@
       "AI_METALAXYL_M"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -15106,14 +15100,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -15126,14 +15120,14 @@
       "CATPRD_LAMDEX_EXTRA"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -15142,14 +15136,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -15158,14 +15152,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -15182,14 +15176,14 @@
       "AI_TAU_FLUVALINATE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -15468,14 +15462,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -15484,14 +15478,14 @@
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -15500,14 +15494,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -15516,14 +15510,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -15535,14 +15529,14 @@
       "AI_FLUROXYPYR"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -15798,12 +15792,12 @@
       "IT-CAN-03C08A9CCB"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -15812,12 +15806,12 @@
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
      "EVIDENCE": [],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -15828,12 +15822,12 @@
       "IT-CAN-03C08A9CCB"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -15845,12 +15839,12 @@
       "IT-CAN-03C08A9CCB"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -15861,12 +15855,12 @@
       "AI_CYMOXANIL"
      ],
      "DEPENDENCY": "JANELA_ABERTA_AGORA",
-     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -16119,14 +16113,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -16135,14 +16129,14 @@
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -16151,14 +16145,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -16167,14 +16161,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -16185,14 +16179,14 @@
       "AI_FLUROXYPYR"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -16605,14 +16599,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -16625,14 +16619,14 @@
       "CATPRD_LAMDEX_EXTRA"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -16641,14 +16635,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -16657,14 +16651,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -16682,14 +16676,14 @@
       "AI_TEBUCONAZOLE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -17001,12 +16995,12 @@
       "IT-COL-2609-LO-REGRA-MAIS"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -17017,12 +17011,12 @@
       "CATPRD_LAMDEX_EXTRA"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -17033,12 +17027,12 @@
       "IT-PHEN-022"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -17050,12 +17044,12 @@
       "IT-PHEN-022"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -17066,12 +17060,12 @@
       "AI_LAMBDA_CYHALOTHRIN"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [
@@ -17366,7 +17360,6 @@
       "IT-COL-2609-TO-BOTRITE"
      ],
      "DEPENDENCY": null,
-     "NEXT_TRIGGER": null,
      "MISSING_LINKS": []
     },
     "COMMERCIAL": {
@@ -17378,7 +17371,6 @@
       "CATPRD_BANJO"
      ],
      "DEPENDENCY": null,
-     "NEXT_TRIGGER": null,
      "MISSING_LINKS": []
     },
     "MARKETING": {
@@ -17390,7 +17382,6 @@
       "IT-PHEN-040"
      ],
      "DEPENDENCY": null,
-     "NEXT_TRIGGER": null,
      "MISSING_LINKS": []
     },
     "TECHNICAL_SCIENTIFIC": {
@@ -17403,7 +17394,6 @@
       "IT-PHEN-040"
      ],
      "DEPENDENCY": null,
-     "NEXT_TRIGGER": null,
      "MISSING_LINKS": []
     },
     "SUPPLY": {
@@ -17415,7 +17405,6 @@
       "AI_FLUAZINAM"
      ],
      "DEPENDENCY": null,
-     "NEXT_TRIGGER": null,
      "MISSING_LINKS": []
     }
    },
@@ -17684,14 +17673,14 @@
      "WHY_CODE": "SEM_SINAL_ATUAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "COMMERCIAL": {
      "DEPARTMENT": "COMMERCIAL",
@@ -17700,14 +17689,14 @@
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "MARKETING": {
      "DEPARTMENT": "MARKETING",
@@ -17716,14 +17705,14 @@
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "TECHNICAL_SCIENTIFIC": {
      "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
@@ -17732,14 +17721,14 @@
      "WHY_CODE": "SEM_CONDICAO_DECLARADA",
      "EVIDENCE": [],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     },
     "SUPPLY": {
      "DEPARTMENT": "SUPPLY",
@@ -17750,14 +17739,14 @@
       "AI_GLYPHOSATE"
      ],
      "DEPENDENCY": "SINAL_ATUAL",
-     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
       "JANELA_DEFINIDA",
       "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
-     ]
+     ],
+     "NEXT_TRIGGER__PT_ONLY": true
     }
    },
    "EVIDENCE_ROLES": [

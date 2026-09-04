@@ -39,6 +39,8 @@
 <script src="italy-catalog.js"></script>
 <script src="italy-ingested.js"></script>
 <script src="italy-handoff-v21.js"></script>
+<script src="meeting-intelligence-snapshot.js"></script>
+<script src="meeting-labels.js"></script>
 <script src="italy-app-model.js"></script>
 <script src="vendor/jspdf-2.5.2.umd.min.js"></script>
 <script src="italy-pdf.js"></script>
@@ -459,7 +461,7 @@
           <!-- IL MOMENTO · PERCHE INTERESSA · CHE COSA MANCA — tre risposte,
                nella lingua del caso, senza scorrere. -->
           <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px">
-            <div style="border-radius:10px;background:{{ cs.onWell }};border:1px solid {{ cs.onWellEdge }};padding:9px 11px;display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:{{ cs.onMuted }}">{{ t.lblAppWindow }}</span><span style="font-size:13px;font-weight:700;color:{{ cs.onInk }}">{{ cs.wsLabel }} — {{ cs.weLabel }}</span><span style="font-size:10.5px;color:{{ cs.onBody }};font-weight:600">{{ cs.windowLine }}</span></div>
+            <div style="border-radius:10px;background:{{ cs.onWell }};border:1px solid {{ cs.onWellEdge }};padding:9px 11px;display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:{{ cs.onMuted }}">{{ t.lblAppWindow }}</span><span style="font-size:13px;font-weight:700;color:{{ cs.onInk }};line-height:1.25;overflow-wrap:anywhere">{{ cs.heroWindowHead }}</span><span style="font-size:10.5px;color:{{ cs.onBody }};font-weight:600;line-height:1.35;overflow-wrap:anywhere">{{ cs.windowLine }}</span></div>
             <div style="border-radius:10px;background:{{ cs.onWell }};border:1px solid {{ cs.onWellEdge }};padding:9px 11px;display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:{{ cs.onMuted }}">{{ t.lblEvidence }}</span><span style="font-size:13px;font-weight:700;color:{{ cs.onInk }}">{{ cs.evidenceLabel }}</span><span style="font-size:10.5px;color:{{ cs.onBody }}">{{ cs.evidenceTotal }} {{ t.lblConnObs }}</span></div>
             <sc-if value="{{ cs.hasRel }}" hint-placeholder-val="{{ true }}"><div style="grid-column:span 2;border-radius:10px;background:{{ cs.onWell }};border:1px solid {{ cs.onWellEdge }};padding:9px 11px;display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:{{ cs.onMuted }}">{{ t.lblWhyAdama }}</span><span style="font-size:12px;font-weight:700;color:{{ cs.onInk }};line-height:1.3">{{ cs.relevanceLine }}</span></div></sc-if>
             <sc-if value="{{ cs.hasGaps }}" hint-placeholder-val="{{ true }}"><div style="grid-column:span 2;border-radius:10px;background:{{ cs.onWell }};border:1px solid {{ cs.onWellEdge }};border-left:3px solid #F6BB2E;padding:9px 11px;display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#F6BB2E">{{ t.lblStillUnknown }}</span><div style="display:flex;flex-wrap:wrap;gap:5px"><sc-for list="{{ cs.gapRows }}" as="g" hint-placeholder-count="2"><span style="font-size:10.5px;font-weight:600;color:{{ cs.onBody }};background:rgba(255,255,255,0.06);border-radius:6px;padding:3px 8px">{{ g.text }}</span></sc-for></div></div></sc-if>
@@ -476,6 +478,7 @@
             <sc-for list="{{ cs.band }}" as="p" hint-placeholder-count="6">
               <div onClick="{{ p.go }}" style="border-radius:9px;background:{{ cs.onWell }};border:1px solid {{ cs.onWellEdge }};padding:8px 10px;display:flex;flex-direction:column;gap:2px;cursor:pointer;min-height:44px" style-hover="border-color:{{ cs.onChipEdge }}">
                 <span data-product="{{ p.name }}" style="font-size:12.5px;font-weight:700;color:{{ cs.onInk }};line-height:1.2;overflow-wrap:anywhere">{{ p.name }}</span>
+                <sc-if value="{{ p.isPrimary }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-self:flex-start;padding:1px 7px;border-radius:9999px;background:{{ p.ink }};color:#110E0D;font-size:9px;font-weight:700;letter-spacing:0.08em">{{ p.primaryTag }}</span></sc-if>
                 <span style="font-size:10px;color:{{ cs.onMuted }};overflow-wrap:anywhere">{{ p.aiL }}</span>
                 <span style="font-size:10px;font-weight:700;letter-spacing:0.05em;color:{{ p.ink }}">{{ p.strengthL }}</span>
               </div>
@@ -509,16 +512,16 @@
           <div style="position:relative;overflow:hidden;border-radius:14px;border:1px solid rgba(203,197,195,0.14);background:#1C1817;padding:16px 18px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px;align-items:center">
             <div style="display:flex;flex-direction:column;gap:10px">
               <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblAppWindow }} · {{ t.lblDome }}</div>
-              <sc-if value="{{ cs.hasWindow }}" hint-placeholder-val="{{ true }}"><div style="display:flex;align-items:flex-end;gap:12px"><span style="font-size:24px;font-weight:300;letter-spacing:-0.02em;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ cs.wsLabel }}</span><div style="flex:1;height:44px;position:relative;-webkit-mask:url(assets/a-corporate-2.png) center bottom/100% 100% no-repeat;mask:url(assets/a-corporate-2.png) center bottom/100% 100% no-repeat;background:rgba(151,139,135,0.28)"><div style="position:absolute;left:0;top:0;bottom:0;width:{{ cs.progressPct }};background:{{ cs.st.color }}"></div></div><span style="font-size:24px;font-weight:300;letter-spacing:-0.02em;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ cs.weLabel }}</span></div></sc-if><sc-if value="{{ cs.noWindow }}" hint-placeholder-val="{{ false }}"><div style="font-size:11.5px;color:#B1A9A7;line-height:1.5">{{ t.csNoCanonicalWindow }}</div></sc-if>
+              <sc-if value="{{ cs.isEngine }}" hint-placeholder-val="{{ true }}"><div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px"><div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cs.engRuleT }}</span><span style="font-size:12.5px;font-weight:700;color:#fff;line-height:1.3;overflow-wrap:anywhere">{{ cs.engRuleL }}</span><span style="font-size:10.5px;color:#B1A9A7;line-height:1.35;overflow-wrap:anywhere">{{ cs.engRuleStateL }}</span></div><div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cs.engStateT }}</span><span style="display:inline-flex;align-self:flex-start;padding:5px 11px;border-radius:9999px;background:{{ cs.engStateInk }};color:#fff;font-size:11.5px;font-weight:700;line-height:1.25;overflow-wrap:anywhere">{{ cs.engStateL }}</span></div><div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cs.engMethodT }}</span><span style="font-size:11px;color:#EDEAE9;line-height:1.4;overflow-wrap:anywhere">{{ cs.engMethodL }}</span></div></div></sc-if><sc-if value="{{ cs.legacyBar }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:flex-end;gap:12px"><span style="font-size:24px;font-weight:300;letter-spacing:-0.02em;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ cs.wsLabel }}</span><div style="flex:1;height:44px;position:relative;-webkit-mask:url(assets/a-corporate-2.png) center bottom/100% 100% no-repeat;mask:url(assets/a-corporate-2.png) center bottom/100% 100% no-repeat;background:rgba(151,139,135,0.28)"><div style="position:absolute;left:0;top:0;bottom:0;width:{{ cs.progressPct }};background:{{ cs.st.color }}"></div></div><span style="font-size:24px;font-weight:300;letter-spacing:-0.02em;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ cs.weLabel }}</span></div></sc-if><sc-if value="{{ cs.legacyNoWindow }}" hint-placeholder-val="{{ false }}"><div style="font-size:11.5px;color:#B1A9A7;line-height:1.5">{{ t.csNoCanonicalWindow }}</div></sc-if>
               <div style="border-top:1px dotted rgba(151,139,135,0.55)"></div>
               <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
-                <div style="display:flex;flex-direction:column;gap:1px"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblCropStage }}</span><span style="font-size:11.5px;color:#EDEAE9">{{ cs.stageL }}</span></div>
-                <div style="display:flex;flex-direction:column;gap:1px"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblSignal }}</span><span style="font-size:11.5px;color:#EDEAE9">{{ cs.signalL }}</span></div>
-                <div style="display:flex;flex-direction:column;gap:1px"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblLabelTiming }}</span><span style="font-size:11.5px;color:#EDEAE9">{{ cs.label }}</span></div>
+                <div style="display:flex;flex-direction:column;gap:1px;min-width:0"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cs.cellAT }}</span><span style="font-size:11.5px;color:#EDEAE9;line-height:1.4;overflow-wrap:anywhere">{{ cs.cellAL }}</span></div>
+                <div style="display:flex;flex-direction:column;gap:1px;min-width:0"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cs.cellBT }}</span><span style="font-size:11.5px;color:#EDEAE9;line-height:1.4;overflow-wrap:anywhere">{{ cs.cellBL }}</span></div>
+                <div style="display:flex;flex-direction:column;gap:1px;min-width:0"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cs.cellCT }}</span><span style="font-size:11.5px;color:#EDEAE9;line-height:1.4;overflow-wrap:anywhere">{{ cs.cellCL }}</span></div>
               </div>
             </div>
             <div style="display:flex;align-items:center;gap:18px;justify-content:flex-end">
-              <div style="display:flex;flex-direction:column"><span style="font-size:44px;font-weight:300;line-height:0.9;letter-spacing:-0.03em;color:#fff;font-variant-numeric:tabular-nums">{{ cs.bigNumber }}</span><span style="font-size:10.5px;color:#C9C3C1;max-width:120px;line-height:1.35">{{ cs.bigLabel }}</span></div>
+              <div style="display:flex;flex-direction:column;min-width:0"><sc-if value="{{ cs.bigNumberIsText }}" hint-placeholder-val="{{ true }}"><span style="font-size:15px;font-weight:700;line-height:1.2;color:#fff;max-width:150px;overflow-wrap:anywhere">{{ cs.bigTextLabel }}</span></sc-if><sc-if value="{{ cs.bigNumberIsNum }}" hint-placeholder-val="{{ false }}"><span style="font-size:44px;font-weight:300;line-height:0.9;letter-spacing:-0.03em;color:#fff;font-variant-numeric:tabular-nums">{{ cs.bigNumber }}</span></sc-if><span style="font-size:10.5px;color:#C9C3C1;max-width:150px;line-height:1.35">{{ cs.bigLabel }}</span></div>
               <div style="display:flex;flex-direction:column;gap:6px;padding-left:18px;border-left:1px solid rgba(255,255,255,0.10)"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblStatusAdama }}</span><span style="display:inline-flex;padding:8px 14px;border-radius:9999px;background:{{ cs.st.color }};color:#fff;font-size:12px;font-weight:700;letter-spacing:0.06em;white-space:nowrap">{{ cs.statusLabel }}</span></div>
             </div>
           </div>
@@ -549,6 +552,52 @@
           </sc-if>
           <sc-if value="{{ cs.noPrimary }}" hint-placeholder-val="{{ false }}">
             <div style="border-radius:12px;border:1px dashed rgba(203,197,195,0.35);background:rgba(151,139,135,0.10);padding:14px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap"><span style="font-size:16px;font-weight:700;color:#F6BB2E">{{ t.PSTATE.LABEL_CHECK_NEEDED }}</span><span style="font-size:11.5px;color:#C9C3C1">{{ t.lblNoConfirmedFor }} {{ cs.absenceSubject }}. {{ cs.absenceRule }}</span></div>
+          </sc-if>
+
+          <!-- ══ LA SUPERFICIE CANONICA · PERCHE COMMERCIALE, STATO, LACUNE ══
+               Tre riquadri che esistono solo se il motore li riempie. Nessuno
+               di loro costruisce una frase: la prende. Un riquadro senza dato
+               non si disegna vuoto — e la stessa legge del resto della
+               schermata, applicata a campi nuovi. -->
+          <sc-if value="{{ cs.hasWhyComm }}" hint-placeholder-val="{{ true }}">
+          <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap">
+              <span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cs.whyCommT }}</span>
+              <sc-if value="{{ cs.hasPub }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;padding:3px 10px;border-radius:9999px;border:1px solid {{ cs.pubInk }};color:{{ cs.pubInk }};font-size:10px;font-weight:700;letter-spacing:0.06em;white-space:nowrap">{{ cs.pubL }}</span></sc-if>
+            </div>
+            <div style="font-size:13.5px;line-height:1.5;color:#FFFFFF;overflow-wrap:anywhere">{{ cs.whyCommTxt }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px">
+              <sc-for list="{{ cs.whyCommCodes }}" as="w" hint-placeholder-count="2">
+                <span style="display:inline-flex;padding:3px 9px;border-radius:9999px;background:rgba(255,255,255,0.06);border:1px solid rgba(203,197,195,0.20);font-size:10.5px;color:#EDEAE9;overflow-wrap:anywhere">{{ w.t }}</span>
+              </sc-for>
+            </div>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ cs.hasMiss }}" hint-placeholder-val="{{ true }}">
+          <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+            <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cs.missT }}</div>
+            <div style="display:flex;flex-direction:column;gap:3px">
+              <sc-for list="{{ cs.missRows }}" as="m" hint-placeholder-count="3">
+                <div style="display:flex;align-items:baseline;gap:8px;padding:3px 0;border-bottom:1px dotted rgba(151,139,135,0.30)"><span style="width:4px;height:4px;border-radius:50%;background:#F6BB2E;flex:0 0 4px"></span><span style="flex:1;min-width:0;font-size:11.5px;color:#EDEAE9;overflow-wrap:anywhere">{{ m.t }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ cs.hasEvRoles }}" hint-placeholder-val="{{ true }}">
+          <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+            <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cs.evRoleT }}</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px">
+              <sc-for list="{{ cs.evRoleRows }}" as="e" hint-placeholder-count="6">
+                <div style="border-radius:9px;background:#161312;border:1px solid rgba(203,197,195,0.12);border-left:3px solid {{ e.ink }};padding:8px 10px;display:flex;flex-direction:column;gap:2px;min-width:0">
+                  <span style="font-size:11.5px;font-weight:700;color:{{ e.ink }};line-height:1.25;overflow-wrap:anywhere">{{ e.role }}</span>
+                  <span style="font-size:10.5px;color:#EDEAE9;line-height:1.35;overflow-wrap:anywhere">{{ e.why }}</span>
+                  <span style="font-size:10px;color:#8F8886;overflow-wrap:anywhere">{{ e.kind }} · {{ e.id }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
           </sc-if>
 
           <!-- ══ IL CASO NON E UN'ISOLA ══════════════════════════════════════
@@ -604,6 +653,8 @@
                     <span style="font-family:var(--font-secondary);font-size:10px;font-weight:700;color:#FFFFFF;font-variant-numeric:tabular-nums">{{ a.ordinal }}</span>
                   </div>
                   <span style="display:inline-flex;align-self:flex-start;align-items:center;min-height:24px;padding:2px 9px;border-radius:9999px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.30);font-size:10px;font-weight:700;letter-spacing:0.06em;color:#FFFFFF">{{ a.modeL }}</span>
+                  <sc-if value="{{ a.hasWhy }}" hint-placeholder-val="{{ true }}"><span style="font-size:12px;font-weight:700;color:#FFFFFF;line-height:1.3;overflow-wrap:anywhere">{{ a.actionL }}</span><span style="font-size:10.5px;color:#EDEAE9;line-height:1.4;overflow-wrap:anywhere">{{ a.whyL }}</span></sc-if>
+                  <sc-if value="{{ a.hasDep }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;color:#C9C3C1;line-height:1.4;overflow-wrap:anywhere">{{ a.depL }}</span></sc-if>
                   <sc-if value="{{ a.isFirst }}" hint-placeholder-val="{{ true }}"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#C9C3C1">{{ t.lblFirstActor }}</span></sc-if>
                 </div>
               </sc-for>
@@ -664,7 +715,19 @@
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;align-items:start">
             <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
               <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblTimingBlock }}</div>
-              <sc-if value="{{ cs.hasOwnWindow }}" hint-placeholder-val="{{ true }}">
+              <sc-if value="{{ cs.hasChain }}" hint-placeholder-val="{{ true }}">
+                <div style="font-size:12.5px;font-weight:700;color:#fff;line-height:1.35;overflow-wrap:anywhere">{{ cs.whyNowL }}</div>
+                <div style="display:flex;flex-direction:column;gap:3px">
+                  <sc-for list="{{ cs.chainRows }}" as="r" hint-placeholder-count="5">
+                    <div style="display:flex;align-items:baseline;gap:8px;padding:3px 0;border-bottom:1px dotted rgba(151,139,135,0.30)">
+                      <span style="font-size:12px;font-weight:700;color:{{ r.ink }};flex:0 0 12px">{{ r.mark }}</span>
+                      <span style="flex:1;min-width:0;font-size:11.5px;color:#EDEAE9;overflow-wrap:anywhere">{{ r.k }}</span>
+                      <span style="font-size:10.5px;color:#B1A9A7;overflow-wrap:anywhere;text-align:right">{{ r.fact }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ cs.hasOwnWindow }}" hint-placeholder-val="{{ false }}">
                 <div style="display:flex;flex-wrap:wrap;gap:16px">
                   <sc-for list="{{ cs.timingRows }}" as="r" hint-placeholder-count="3">
                     <div style="display:flex;flex-direction:column;gap:1px"><span style="font-size:10px;font-weight:600;letter-spacing:0.08em;color:#8F8886">{{ r.k }}</span><span style="font-size:15px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums">{{ r.v }}</span></div>
@@ -2753,22 +2816,45 @@ class Component extends DCLogic {
     const rankOf = (k) => (AM && AM.STRENGTH && AM.STRENGTH[k] ? AM.STRENGTH[k].rank : 9);
     const objOf = (l) => l.obj || (AM && AM.findProduct ? AM.findProduct(l.name || l.product) : null);
     const verified = links.filter((l) => l.strength === 'VERIFIED_LABEL_MATCH');
-    /* A canonical window publishes its audited matches directly (measured: 3 of the
-       first 5 windows carry one or two verified products). */
-    const primary = c.primary || (verified[0] ? (verified[0].name || verified[0].product) : null)
-      || (Array.isArray(c.verifiedProducts) ? c.verifiedProducts[0] : null) || null;
+    /* ── IL PRODOTTO PRINCIPALE HA UN PROPRIETARIO SOLO, ED E IL MOTORE ─────
+       Questa riga leggeva `verified[0]`: il primo VERIFIED_LABEL_MATCH IN ORDINE
+       DI ARRAY. Il dettaglio, a un clic di distanza, leggeva il primo di una
+       lista costruita altrove. Sullo stesso caso — botrite x vite x
+       Emilia-Romagna — la scheda incoronava AGHARTA e il motore diceva BANJO.
+
+           L'ORDINE DI UN ARRAY NON E UNA REGOLA.
+           UN VINCITORE SCELTO DALL'ORDINE E UN VINCITORE INVENTATO.
+
+       Il motore pubblica PRIMARY_MATCH e, quando non ne ha uno, pubblica anche
+       il PERCHE: SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER, su 26 casi su 43. La
+       corona non si assegna li: si mostrano TUTTI i match, senza vincitore. */
+    const ENG = c.engine || null;
+    /* Il dizionario della superficie canonica. Un codice senza voce esce VUOTO
+       e il gate lo trova; non diventa mai una parola inventata. */
+    const ML = (k, fam) => (window.MEETING_LABELS
+      ? window.MEETING_LABELS.t(fam || 'UI', k, this.state.lang) : '');
+    const primary = ENG
+      ? (ENG.primary ? ENG.primary.name : null)
+      : (c.primary || (verified[0] ? (verified[0].name || verified[0].product) : null)
+        || (Array.isArray(c.verifiedProducts) ? c.verifiedProducts[0] : null) || null);
     /* The card's portfolio state is the BEST verdict among the links, not the first
        one in array order — IT-OPP-001 lists four LABEL_CHECK_NEEDED before its two
        VERIFIED matches, and reading links[0] would have understated it. */
     const bestStrength = links.length ? links.slice().sort((a, b) => rankOf(a.strength) - rankOf(b.strength))[0].strength : null;
     const portfolioState = c.portfolioState || c.labelVerdictState || bestStrength || null;
-    const primaryObj = verified[0] ? objOf(verified[0]) : (primary && AM && AM.findProduct ? AM.findProduct(primary) : null);
+    const primaryObj = primary && AM && AM.findProduct ? AM.findProduct(primary)
+      : (!ENG && verified[0] ? objOf(verified[0]) : null);
     const aiText = (v) => (Array.isArray(v) ? v.join(' + ') : v) || null;
     const primaryAi = c.primaryAi || (primaryObj ? aiText(primaryObj.ai) : null);
     /* The registry publishes several actives per product, so "+ N more" counts the
        links the model actually resolved. Falling through to the literal 'single
        match' on a record with 6 links, as the old code did, understated the card. */
-    const moreMatches = typeof c.moreMatches === 'number' ? c.moreMatches : Math.max(0, links.length - 1);
+    /* Su un caso del motore il portafoglio E la sua lista, non i legami che il
+       portale deriva: PORTFOLIO_MATCHES conosce TUTTI i prodotti della coppia,
+       e «+N altri» sopra una corona che non esiste sarebbe una seconda bugia. */
+    const engMatches = ENG ? (ENG.portfolioMatches || []) : null;
+    const moreMatches = ENG ? Math.max(0, engMatches.length - (ENG.primary ? 1 : 0))
+      : (typeof c.moreMatches === 'number' ? c.moreMatches : Math.max(0, links.length - 1));
 
     return Object.assign({}, c, {
       category, st,
@@ -2942,8 +3028,15 @@ class Component extends DCLogic {
 
              LABEL_CHECK_NEEDED E LO STATO DEL VINCOLO.
              NON E IL NOME DI UN PRODOTTO. */
-      primaryLabel: primary || (links[0] && (links[0].name || links[0].product))
-        || (T0.lblNoCandidate || 'Nessun prodotto candidato in questa lettura'),
+      /* Su un caso del motore, quando non c'e un principale difendibile la
+         scheda NON incorona il primo della lista: dichiara quanti prodotti la
+         coppia ha, e il dettaglio li mostra tutti, alla pari. */
+      primaryLabel: ENG
+        ? (primary || (engMatches.length
+          ? engMatches.length + ' ' + ML(engMatches.length === 1 ? 'PRODUCT_LINKED_1' : 'PRODUCTS_LINKED_N')
+          : ML('NO_MATCHES')))
+        : (primary || (links[0] && (links[0].name || links[0].product))
+          || (T0.lblNoCandidate || 'Nessun prodotto candidato in questa lettura')),
       linkStateL: portfolioState ? ((T0.PSTATE && T0.PSTATE[portfolioState]) || String(portfolioState).replace(/_/g, ' ')) : '',
       /* La tinta resta quella del buio approvato: verde acceso per il
          verificato, Earth chiaro per cio che attende lettura. */
@@ -2984,7 +3077,11 @@ class Component extends DCLogic {
       /* No primary means no count to show. The old else-branch returned the raw
          dictionary key 'portfolio', which rendered as visible English on every
          rejected card. */
-      moreLabel: primary ? (moreMatches ? (this._LMORE ? this._LMORE(moreMatches) : '+ ' + moreMatches + ' more') : (this._L ? this._L('single match') : 'single match')) : '',
+      moreLabel: ENG
+        ? (primary
+          ? (moreMatches ? '+ ' + moreMatches + ' ' + ML('MORE_MATCHES') : ML('SINGLE_MATCH'))
+          : (engMatches.length > 1 ? ML('NO_PRIMARY_SHORT') : ''))
+        : (primary ? (moreMatches ? (this._LMORE ? this._LMORE(moreMatches) : '+ ' + moreMatches + ' more') : (this._L ? this._L('single match') : 'single match')) : ''),
       /* The badge asset follows the classification, so it can no longer default to
          'disease-control' for a record nobody classified. */
       badgeVariant: category.icon ? category.key + '-control' : ''
@@ -3814,6 +3911,17 @@ class Component extends DCLogic {
       ? /*@EXPLICIT_DEMO labelled scenario mode, default off; it feeds no count, no evidence and no current signal — only this one detail screen, which badges itself through cs.isScenario*/ (APP0.opportunityScenarios.records.find(o => o.id === s.caseId) || null)
       : null;
     const csRec = csReal || csScen;
+    /* ── LA FRONTIERA CANONICA, LETTA UNA VOLTA SOLA IN QUESTA SCHERMATA ────
+       Tutto cio che il motore ha gia deciso — finestra, portafoglio, prodotto
+       principale, mappa delle azioni, ruolo delle evidenze, stato di
+       pubblicazione — si legge di qui, e SOLO di qui. Se il caso non e nei 43
+       del motore, `CSENG` e null e la schermata torna alla lettura di prima:
+       assente e visibile, un ripiego silenzioso no. */
+    const CSENG = (csRec && csRec.engine) || null;
+    const CSML = (code, fam) => (window.MEETING_LABELS
+      ? window.MEETING_LABELS.t(fam || 'UI', code, s.lang) : '');
+    const CSMLIST = (codes, fam) => (window.MEETING_LABELS
+      ? window.MEETING_LABELS.list(fam, codes || [], s.lang) : []);
     const csLK = (AM && AM.lookups) || {};
     const csUIK = (AM && AM.UI) || {};
 
@@ -4037,11 +4145,38 @@ class Component extends DCLogic {
         go: () => this.openProduct(n)
       };
     });
-    /* A 'primary' has no upstream field at all. It is claimed only where the
-       label audit verifies one, and the record's own declaration order breaks
-       the tie — never a score invented here. */
-    const csPrimary = csProds.find(p => p.verdict === 'VERIFIED_LABEL_MATCH') || null;
-    const csAlts = csProds.filter(p => p !== csPrimary);
+    /* ── LO STESSO PROPRIETARIO DELLA SCHEDA, O NON E UN PROPRIETARIO ───────
+       Questa riga prendeva il primo VERIFIED_LABEL_MATCH della lista costruita
+       QUI, mentre la scheda prendeva il primo della lista costruita LA. Due
+       ordini, due vincitori: sullo stesso caso la scheda scriveva AGHARTA e il
+       dettaglio poteva scrivere altro. Adesso entrambi leggono PRIMARY_MATCH,
+       e dove il motore non ne ha uno NESSUNO DEI DUE lo inventa.
+
+       `csEngProds` e il portafoglio del motore, prodotto per prodotto, con i
+       cinque «fit» che il motore ha gia deciso. La lista derivata dal portale
+       resta per i record che il motore non conosce. */
+    const csEngProds = CSENG ? (CSENG.portfolioMatches || []).map(m => ({
+      id: m.PRODUCT_ID, name: m.PRODUCT_NAME,
+      registration: m.REGISTRATION_NUMBER || '',
+      ai: (m.ACTIVE_INGREDIENTS || []).join(' · ') || (T.ksNotKnown || ''),
+      moa: (m.MODE_OF_ACTION || []).join(', ') || (T.ksNotKnown || ''),
+      cropFit: CSML(m.CROP_FIT, 'FIT'), targetFit: CSML(m.TARGET_FIT, 'FIT'),
+      regionalFit: CSML(m.REGIONAL_FIT, 'FIT'), regulatoryFit: CSML(m.REGULATORY_FIT, 'FIT'),
+      windowFit: CSML(m.WINDOW_FIT, 'FIT'),
+      validation: CSML(m.VALIDATION_STATE, 'VALIDATION_STATE'),
+      matchReason: CSML(m.MATCH_REASON, 'MATCH_REASON'),
+      restrictions: (m.RESTRICTIONS || []).map(r => ({
+        t: CSML(r.CODE, 'RESTRICTION') + (r.ACTIVE_INGREDIENT ? ' · ' + r.ACTIVE_INGREDIENT : '')
+          + (r.DATE ? ' · ' + r.DATE : '') })),
+      hasRestrictions: (m.RESTRICTIONS || []).length > 0,
+      isPrimary: !!(CSENG.primary && CSENG.primary.id === m.PRODUCT_ID),
+      go: () => this.openProduct(m.PRODUCT_NAME)
+    })) : null;
+    const csPrimary = CSENG
+      ? (CSENG.primary ? (csEngProds.filter(p => p.isPrimary)[0] || null) : null)
+      : (csProds.find(p => p.verdict === 'VERIFIED_LABEL_MATCH') || null);
+    const csAlts = CSENG ? (csEngProds || []).filter(p => !p.isPrimary)
+      : csProds.filter(p => p !== csPrimary);
 
     /* SOURCE_IDS is the one link the record declares explicitly. Measured 3/3 and
        identical on all three records, so it locates the case but does not
@@ -4172,21 +4307,62 @@ class Component extends DCLogic {
        primo che il motore nomina, non una nostra graduatoria. Sui 43 casi
        MARKET_DEVELOPMENT e presente 43 volte ed e primo in quasi tutti — resta
        l'attore centrale perche il modello lo dice, non perche lo decidiamo. */
-    const csActionMap = ((csRec && csRec.actionMap) || []).map((a, i) => {
-      const u = (AM && AM.areaUI) ? AM.areaUI(a) : { line: '#978B87', surface: '#564F4D', ink: '#C9C3C1' };
-      const st = (csRec && csRec.status) || csStatus;
-      const modeKey = st === 'ACT_NOW' ? 'LOOK' : st === 'PREPARE_NOW' ? 'PREPARE'
-        : st === 'TO_VALIDATE' ? 'VALIDATE' : 'MONITOR';
-      return {
-        area: a,
-        areaL: csV21[a] || String(a).replace(/_/g, ' '),
-        color: u.line, surface: u.surface, ink: u.ink,
-        edge: i === 0 ? ONS.chipEdge : ONS.wellEdge,
-        ordinal: String(i + 1),
-        isFirst: i === 0,
-        modeL: (T.AREAMODE || {})[modeKey] || ''
-      };
-    });
+    /* ── LA MAPPA DELLE AZIONI VIENE DAL MOTORE, REPARTO PER REPARTO ────────
+       Questa lista era il nome dei reparti piu una `modeL` DEDOTTA QUI dallo
+       stato del caso: ACT_NOW -> «guarda», TO_VALIDATE -> «valida». Era il
+       portale che decideva che cosa fa il Commerciale, e lo decideva da un
+       campo che parla del CASO, non del reparto.
+
+           SE LO SCHERMO DEDUCE L'AZIONE, L'AZIONE E DELLO SCHERMO.
+
+       Il motore pubblica ACTION_BY_DEPARTMENT: cinque reparti, e per ciascuno
+       ACTION_STATE, ACTION, WHY_CODE, DEPENDENCY e MISSING_LINKS. Nessuno di
+       questi cinque campi si inventa, e un reparto che il motore non convoca
+       lo dice — NOT_CONVENED — invece di sparire per riempire meglio la
+       griglia. L'ordine e quello della sequenza che la riunione legge:
+       CHI AGISCE -> CHI VALIDA -> CHI PREPARA -> CHI OSSERVA. */
+    const CS_DEPT_ORDER = ['MARKET_DEVELOPMENT', 'COMMERCIAL', 'MARKETING', 'TECHNICAL_SCIENTIFIC', 'SUPPLY'];
+    const CS_STATE_RANK = { ACT: 0, VALIDATE: 1, PREPARE: 2, WATCH: 3, NO_ACTION: 4 };
+    const csEngActionMap = CSENG ? CS_DEPT_ORDER
+      .filter((d) => !!CSENG.actionByDepartment[d])
+      .map((d) => Object.assign({ DEPARTMENT: d }, CSENG.actionByDepartment[d]))
+      .sort((a, b) => (CS_STATE_RANK[a.ACTION_STATE] === undefined ? 9 : CS_STATE_RANK[a.ACTION_STATE])
+                    - (CS_STATE_RANK[b.ACTION_STATE] === undefined ? 9 : CS_STATE_RANK[b.ACTION_STATE]))
+      : null;
+    const csActionMap = CSENG
+      ? csEngActionMap.map((a, i) => {
+        const u = (AM && AM.areaUI) ? AM.areaUI(a.DEPARTMENT) : { line: '#978B87', surface: '#564F4D', ink: '#C9C3C1' };
+        return {
+          area: a.DEPARTMENT,
+          areaL: CSML(a.DEPARTMENT, 'DEPARTMENT') || String(a.DEPARTMENT).replace(/_/g, ' '),
+          color: u.line, surface: u.surface, ink: u.ink,
+          edge: i === 0 ? ONS.chipEdge : ONS.wellEdge,
+          ordinal: String(i + 1),
+          isFirst: i === 0 && a.ACTION_STATE !== 'NO_ACTION',
+          modeL: CSML(a.ACTION_STATE, 'ACTION_STATE'),
+          actionL: CSML(a.ACTION, 'ACTION'),
+          whyL: CSML(a.WHY_CODE, 'ACTION_WHY_CODE'),
+          hasWhy: !!CSML(a.WHY_CODE, 'ACTION_WHY_CODE'),
+          depL: a.DEPENDENCY ? CSML('UNLOCKED_BY') + ': ' + CSML(a.DEPENDENCY, 'CHAIN_LINK') : '',
+          hasDep: !!a.DEPENDENCY
+        };
+      })
+      : ((csRec && csRec.actionMap) || []).map((a, i) => {
+        const u = (AM && AM.areaUI) ? AM.areaUI(a) : { line: '#978B87', surface: '#564F4D', ink: '#C9C3C1' };
+        const st = (csRec && csRec.status) || csStatus;
+        const modeKey = st === 'ACT_NOW' ? 'LOOK' : st === 'PREPARE_NOW' ? 'PREPARE'
+          : st === 'TO_VALIDATE' ? 'VALIDATE' : 'MONITOR';
+        return {
+          area: a,
+          areaL: csV21[a] || String(a).replace(/_/g, ' '),
+          color: u.line, surface: u.surface, ink: u.ink,
+          edge: i === 0 ? ONS.chipEdge : ONS.wellEdge,
+          ordinal: String(i + 1),
+          isFirst: i === 0,
+          modeL: (T.AREAMODE || {})[modeKey] || '',
+          actionL: '', whyL: '', hasWhy: false, depL: '', hasDep: false
+        };
+      });
 
     /* ── le prove, per id, verso il record vero ────────────────────────────
        Ogni id porta il proprio spazio dei nomi, e ogni spazio ha una casa
@@ -4357,22 +4533,71 @@ class Component extends DCLogic {
        solo quello che l'eroe NON dice: la coppia coltura x bersaglio
        dell'etichetta, il meccanismo d'azione, l'uso e il contesto di
        etichetta. Informazione diversa, non lo stesso nome un'altra volta. */
-    const csBand = csProductRows.map((r) => {
-      const pobj = (AM && AM.findProduct) ? AM.findProduct(r.name) : null;
-      return Object.assign({}, r, {
-        aiL: pobj && pobj.ai && pobj.ai.length ? aiText(pobj.ai) : '',
-        /* Gli inchiostri di stato sono quelli misurati sulla superficie di
-           categoria: il verde pieno del portafoglio scendeva a 2.2:1 sul blu. */
-        ink: r.strength === 'VERIFIED_LABEL_MATCH' ? ONST.verified
-          : r.strength === 'LABEL_CHECK_NEEDED' ? ONST.validate : ONST.neutral
+    /* ── L'EROE MOSTRA IL PORTAFOGLIO DEL MOTORE, PER INTERO ────────────────
+       La banda leggeva `csProductRows`, che il portale deriva dai legami di
+       etichetta: su botrite x vite x Emilia-Romagna quella lista dice tre
+       prodotti — AGHARTA, BANJO, EMBRACE — mentre PORTFOLIO_MATCHES ne dice
+       UNO, BANJO, perche uno solo e sulla pagina di catalogo per quella
+       coppia. Due liste diverse sotto lo stesso titolo.
+
+           IL PORTAFOGLIO DI UN CASO E QUELLO CHE IL MOTORE HA COLLEGATO,
+           NON QUELLO CHE LO SCHERMO RIESCE A DEDURRE.
+
+       E nessuna corona per ordine: il principale si segna SOLO se il motore
+       ne dichiara uno. Dove non lo fa, tutti i riquadri sono pari. */
+    const csBand = CSENG
+      ? (csEngProds || []).map((r) => ({
+        name: r.name, aiL: r.ai,
+        strength: r.validation,
+        strengthL: r.validation,
+        ink: r.isPrimary ? ONST.verified : ONST.neutral,
+        isPrimary: r.isPrimary,
+        primaryTag: r.isPrimary ? CSML('PRIMARY') : '',
+        go: r.go
+      }))
+      : csProductRows.map((r) => {
+        const pobj = (AM && AM.findProduct) ? AM.findProduct(r.name) : null;
+        return Object.assign({}, r, {
+          aiL: pobj && pobj.ai && pobj.ai.length ? aiText(pobj.ai) : '',
+          /* Gli inchiostri di stato sono quelli misurati sulla superficie di
+             categoria: il verde pieno del portafoglio scendeva a 2.2:1 sul blu. */
+          ink: r.strength === 'VERIFIED_LABEL_MATCH' ? ONST.verified
+            : r.strength === 'LABEL_CHECK_NEEDED' ? ONST.validate : ONST.neutral,
+          isPrimary: false, primaryTag: ''
+        });
       });
-    });
     const csNumberRows = ((csRec && csRec.numbers) || []).map((n) => ({
       value: n.value,
       label: (T.V21NUM && T.V21NUM[n.key]) || String(n.key).replace(/_/g, ' ').toLowerCase()
     }));
     const csProvesTxt = narOf(csRec && csRec.proves) || '';
     const csNotProvesTxt = narOf(csRec && csRec.notProves) || '';
+    /* ── PERCHE ORA — E PERCHE NON ANCORA ───────────────────────────────────
+       Questo riquadro chiedeva date di applicazione. Sono nulle su 43 casi su
+       43, quindi stampava «nessuna finestra dichiarata per questo caso» tre
+       centimetri sotto un dome che dichiarava tipo, regola e stato: la stessa
+       schermata si smentiva da sola.
+
+           LA DOMANDA GIUSTA NON ERA «QUALI DATE», ERA «PERCHE ORA».
+
+       WHY_NOW_CHAIN la risponde in cinque anelli, e dice di ciascuno se regge.
+       Un anello che non regge NON e un difetto da nascondere: e esattamente il
+       «perche non ancora» che la riunione deve leggere. */
+    const CS_CHAIN_ORDER = ['SINAL_ATUAL', 'JANELA_DEFINIDA', 'JANELA_ABERTA_AGORA', 'VINCULO_COM_PORTFOLIO', 'TEMPO_PARA_ACAO'];
+    const csChainRows = CSENG ? CS_CHAIN_ORDER
+      .filter((k) => !!CSENG.whyNowChain[k])
+      .map((k) => {
+        const link = CSENG.whyNowChain[k] || {};
+        return {
+          k: CSML(k, 'CHAIN_LINK'),
+          ok: link.OK === true,
+          notOk: link.OK !== true,
+          mark: link.OK === true ? '✓' : '—',
+          ink: link.OK === true ? ONST.verified : ONST.neutral,
+          fact: link.FACT ? String(link.FACT) : ''
+        };
+      }) : [];
+    const csWhyNowL = CSENG ? CSMLIST(CSENG.whyNowCodes, 'WHY_NOW_CODES').join(' · ') : '';
     /* Sette casi su 37 portano le proprie date; trenta non ne hanno nessuna, e
        quello e un fatto che si scrive, non un vuoto da riempire. */
     const csOwnWin = !!(csRecWinStart || csRecWinEnd || (csRec && csRec.windowState));
@@ -4410,16 +4635,32 @@ class Component extends DCLogic {
 
            IL COLORE AIUTA A TROVARE L'OPPORTUNITA.
            NON TRUCCA LA CERTEZZA: UNKNOWN CONTINUA A SEMBRARE UNKNOWN. */
+    /* ⚠️ QUESTO ERA IL TERZO PROPRIETARIO DELLA FINESTRA, E IL PIU SUBDOLO.
+       Non disegnava un dome: scriveva una frase. «Nessuna finestra dichiarata
+       per questo caso» compariva nell'eroe tre centimetri sopra un dome che
+       diceva REGOLA DICHIARATA, STATO APERTA ORA. Nasconderla con il CSS
+       avrebbe tolto la frase e lasciato il calcolo.
+
+           NON SI NASCONDE LA CONTRADDIZIONE: SI TOGLIE IL CALCOLO ANTICO
+           DAL RUOLO CHE NON GLI SPETTA PIU.
+
+       Sul caso canonico le lacune sono WHAT_IS_MISSING, che e la lista che il
+       motore ha gia deciso — e che contiene gia, quando e vero, la mancanza
+       della regola della finestra (WINDOW_RULE_MISSING). */
     const csGaps = [];
-    if (!(csWinRec || csRecWinStart || csRecWinEnd)) csGaps.push(T.lblNoWindowHonest || T.csNoCanonicalWindow || '');
-    /* Lo stato del legame di etichetta e quello che il record dichiara sui
-       propri collegamenti: verificato se almeno uno lo e. */
-    if (!csVerifiedRows.length) {
-      const st = csProductRows.length ? (csProductRows[0].strength || 'LABEL_CHECK_NEEDED')
-        : 'NO_CONFIRMED_MATCH_CURRENT_READING';
-      csGaps.push((T.PSTATE && T.PSTATE[st]) || '');
+    if (CSENG) {
+      CSMLIST(CSENG.whatIsMissing, 'WHAT_IS_MISSING').forEach((x) => csGaps.push(x));
+    } else {
+      if (!(csWinRec || csRecWinStart || csRecWinEnd)) csGaps.push(T.lblNoWindowHonest || T.csNoCanonicalWindow || '');
+      /* Lo stato del legame di etichetta e quello che il record dichiara sui
+         propri collegamenti: verificato se almeno uno lo e. */
+      if (!csVerifiedRows.length) {
+        const st = csProductRows.length ? (csProductRows[0].strength || 'LABEL_CHECK_NEEDED')
+          : 'NO_CONFIRMED_MATCH_CURRENT_READING';
+        csGaps.push((T.PSTATE && T.PSTATE[st]) || '');
+      }
+      csRtvBlockers.forEach((b) => { if (b) csGaps.push(b); });
     }
-    csRtvBlockers.forEach((b) => { if (b) csGaps.push(b); });
     const csGapRows = csGaps.filter(Boolean).filter((x, i, a) => a.indexOf(x) === i).slice(0, 4);
 
     const csSourceRows = ((csRec && csRec.sourceIds) || []).map((sid) => ({
@@ -4497,9 +4738,10 @@ class Component extends DCLogic {
          Questa riga leggeva soltanto la finestra canonica, che e nulla su 37
          casi su 37, e cadeva sempre nel ripiego «DATA DA CONFERMARE»: lo
          stesso caso, a un clic di distanza, diceva due cose diverse. */
-      statusLabel: (csRec && csRec.status) ? oppStatusLabel(csRec.status)
-        : csStatus ? wst(csStatus)
-        : (csRec && csRec.windowApplication ? csEnum(csRec.windowApplication) : ((T.WSTATUS && T.WSTATUS.DATE_UNKNOWN) || '')),
+      statusLabel: CSENG ? CSML(CSENG.status, 'STATUS')
+        : (csRec && csRec.status) ? oppStatusLabel(csRec.status)
+          : csStatus ? wst(csStatus)
+            : (csRec && csRec.windowApplication ? csEnum(csRec.windowApplication) : ((T.WSTATUS && T.WSTATUS.DATE_UNKNOWN) || '')),
       /* The dome bar draws two dates and a fill from the CANONICAL window. On a case with
          no canonical window (IT-OPP-003 of 3) it drew '—', a 0% fill and '—': a decorative
          empty gauge. progressPct is a string ('0%'), which is truthy, so the markup had
@@ -4509,18 +4751,77 @@ class Component extends DCLogic {
          e collegata. Leggere solo quella canonica faceva stampare «nessuna
          finestra collegata» sopra date che il record dichiara: un'assenza
          inventata, non misurata. */
-      hasWindow: !!(csWinRec || csRecWinStart || csRecWinEnd),
-      noWindow: !(csWinRec || csRecWinStart || csRecWinEnd),
+      /* ── LA FINESTRA HA UN PROPRIETARIO SOLO, ED E IL MOTORE ─────────────
+         Queste due righe chiedevano a un fixture di calendario e a due date
+         WINDOW_START / WINDOW_END. Le date sono nulle su 43 casi su 43, quindi
+         lo schermo scriveva «nessuna finestra canonica collegata» anche sul
+         caso in cui il motore aveva gia dichiarato tipo, regola e stato — e su
+         16 casi su 43 la regola c'e.
+
+             UNA REGOLA PARALLELA NON E UNA SECONDA OPINIONE:
+             E UNA CONTRADDIZIONE CHE ASPETTA DI ESSERE LETTA AD ALTA VOCE.
+
+         Adesso la domanda e una sola e la risponde WINDOW_DEFINED. E resta
+         SEPARATA da WINDOW_OPEN_NOW, che e un'altra domanda: 16 casi hanno una
+         regola, 2 soli hanno la condizione verificata adesso. Confondere le due
+         sostituirebbe una contraddizione con un'altra. */
+      hasWindow: CSENG ? CSENG.window.defined === 'YES'
+        : !!(csWinRec || csRecWinStart || csRecWinEnd),
+      noWindow: CSENG ? CSENG.window.defined !== 'YES'
+        : !(csWinRec || csRecWinStart || csRecWinEnd),
+      /* Il dome resta dov'e e continua a essere il dome: cambia CHI risponde.
+         Le due barre di data valgono solo per i record che il motore non
+         conosce — le date sono nulle su 43 casi su 43, e una barra vuota
+         disegnata sopra il nulla e la contraddizione che si voleva togliere. */
+      isEngine: !!CSENG,
+      legacyBar: !CSENG && !!(csWinRec || csRecWinStart || csRecWinEnd),
+      legacyNoWindow: !CSENG && !(csWinRec || csRecWinStart || csRecWinEnd),
+      engRuleT: CSML('RULE'),
+      engRuleL: CSENG ? (CSENG.window.defined === 'YES'
+        ? CSML(CSENG.window.type, 'WINDOW_TYPE')
+        : CSML('WINDOW_NO_RULE')) : '',
+      engRuleStateL: CSENG ? CSML(CSENG.window.ruleState, 'WINDOW_RULE_STATE') : '',
+      engStateT: CSML('STATE_NOW'),
+      engStateL: CSENG ? CSML(CSENG.window.openNow, 'WINDOW_OPEN_NOW') : '',
+      engMethodT: CSML('METHOD'),
+      engMethodL: CSENG ? CSML(CSENG.window.openNowMethod, 'WINDOW_OPEN_NOW_METHOD') : '',
+      /* La tinta della casella dello stato segue il fatto, non l'ottimismo:
+         solo OPEN_NOW = YES si accende. UNKNOWN resta Earth, perche e cio che
+         e — non misurato. */
+      engStateInk: (CSENG && CSENG.window.openNow === 'YES') ? ACTP.bg : '#8F8886',
+      /* Le tre caselle in basso: sul caso canonico dicono i tre stati che il
+         motore tiene separati, ciascuno col proprio titolo. */
+      cellAT: CSENG ? CSML('PEST_STAGE') : (T.lblCropStage || ''),
+      cellAL: CSENG ? CSML(CSENG.pestStageState, 'PEST_STAGE_STATE')
+        : (csWinRec ? obs(csWinRec.cropStageClass) : (T.ksNotKnown || '')),
+      cellBT: CSENG ? CSML('DIRECTION') : (T.lblSignal || ''),
+      cellBL: CSENG ? CSML(CSENG.needDirection, 'NEED_DIRECTION')
+        : (csSafe(csRec && csRec.observedStage) || (csWinRec ? obs(csWinRec.issueStageClass) : (T.ksNotKnown || ''))),
+      cellCT: CSENG ? CSML('RECOMMENDATION') : (T.lblLabelTiming || ''),
+      cellCL: CSENG ? CSML(CSENG.actionRecommendationState, 'ACTION_RECOMMENDATION_STATE')
+        : ((T.PSTATE && T.PSTATE.LABEL_CHECK_NEEDED) || 'LABEL CHECK NEEDED'),
       wsLabel: (csWinRec && csDate(csWinRec.startDate)) || (csRecWinStart && csDate(csRecWinStart)) || '—',
       weLabel: (csWinRec && csDate(csWinRec.endDate)) || (csRecWinEnd && csDate(csRecWinEnd)) || '—',
       /* la precisione della data e essa stessa un fatto: EXACT non e APPROX */
-      windowPrecision: (csRec && csRec.windowState && !csWinRec)
-        ? ((T.V21 && T.V21[csRec.windowState]) || '') : '',
+      /* La riga alta dell'eroe diceva «— — —»: due date nulle e un trattino in
+         mezzo, su 43 casi su 43. Adesso dice lo STATO ORA, che e un fatto che
+         il motore possiede, e la riga sotto dice la REGOLA. */
+      heroWindowHead: CSENG ? CSML(CSENG.window.openNow, 'WINDOW_OPEN_NOW')
+        : ((csWinRec && csDate(csWinRec.startDate)) || (csRecWinStart && csDate(csRecWinStart)) || '—')
+          + ' — ' + ((csWinRec && csDate(csWinRec.endDate)) || (csRecWinEnd && csDate(csRecWinEnd)) || '—'),
+      windowPrecision: CSENG ? CSML(CSENG.window.ruleState, 'WINDOW_RULE_STATE')
+        : (csRec && csRec.windowState && !csWinRec)
+          ? ((T.V21 && T.V21[csRec.windowState]) || '') : '',
       /* The record's OWN declared window states are real 3/3 and survive even
          where no canonical window is linked, so the tile is never blank. */
-      windowLine: (csRec && csRec.windowApplication)
-        ? (csT('appW') + ': ' + csEnum(csRec.windowApplication) + ' · ' + csT('monW') + ': ' + csEnum(csRec.windowMonitoring))
-        : csT('noWindow'),
+      /* La riga della finestra dice la REGOLA, non una data che nessuno ha. */
+      windowLine: CSENG
+        ? (CSENG.window.defined === 'YES'
+          ? CSML(CSENG.window.type, 'WINDOW_TYPE')
+          : CSML('NO', 'WINDOW_DEFINED'))
+        : (csRec && csRec.windowApplication)
+          ? (csT('appW') + ': ' + csEnum(csRec.windowApplication) + ' · ' + csT('monW') + ': ' + csEnum(csRec.windowMonitoring))
+          : csT('noWindow'),
       progressPct: csPct + '%',
       /* no crop stage and no target stage are recorded on any of the 29 canonical windows, so both
          classes read NOT_OBSERVED. OBSERVED_STAGE is real on 1 of 3 records. */
@@ -4530,10 +4831,21 @@ class Component extends DCLogic {
          spray timing that no label record supports is the most consequential
          thing this screen could fabricate, so it states the check instead. */
       label: (T.PSTATE && T.PSTATE.LABEL_CHECK_NEEDED) || 'LABEL CHECK NEEDED',
-      bigNumber: (csStatus === 'WINDOW_OPEN' && csD1 !== null) ? csD1
+      bigNumber: CSENG ? '' : ((csStatus === 'WINDOW_OPEN' && csD1 !== null) ? csD1
         : (csD0 !== null && csD0 > 0) ? csD0
-        : (csRecDays !== null && csRecDays > 0) ? csRecDays : '—',
-      bigLabel: (csStatus === 'WINDOW_OPEN' && csD1 !== null) ? T.lblPriorityDays : (csD0 !== null && csD0 > 0 ? csT('toOpen') : (csWinRec ? csT('closedCycle') : csT('noWindow'))),
+        : (csRecDays !== null && csRecDays > 0) ? csRecDays : '—'),
+      /* Il numerone del dome contava giorni che nessun caso del motore ha. Su
+         un caso canonico la casella dice invece lo STATO ORA — che e la cosa
+         che la riunione deve leggere, e che non si confonde con la regola. */
+      bigNumberIsText: !!CSENG,
+      bigNumberIsNum: !CSENG,
+      /* Diceva «Aperta ora» accanto a una griglia che diceva gia «Stato ora:
+         Aperta ora». La stessa cosa due volte in un riquadro non e enfasi, e
+         rumore: qui va il fatto che il dome NON dice — la priorita
+         commerciale, che sta accanto allo STATO PER ADAMA e non lo ripete. */
+      bigTextLabel: CSENG ? CSML(CSENG.commercialPriority, 'COMMERCIAL_PRIORITY') : '',
+      bigLabel: CSENG ? CSML('COMMERCIAL_PRIORITY_T')
+        : (csStatus === 'WINDOW_OPEN' && csD1 !== null) ? T.lblPriorityDays : (csD0 !== null && csD0 > 0 ? csT('toOpen') : (csWinRec ? csT('closedCycle') : csT('noWindow'))),
 
       /* §2 · The five-bar convergence chart and the words Strong / Good /
          Building were hand-typed onto each demo case and then nudged by a
@@ -4553,7 +4865,10 @@ class Component extends DCLogic {
       numberRows: csNumberRows, hasNumbers: csNumberRows.length > 0,
       provesTxt: csProvesTxt, hasProves: !!csProvesTxt,
       notProvesTxt: csNotProvesTxt, hasNotProves: !!csNotProvesTxt,
-      timingRows: csTimingRows, hasOwnWindow: csOwnWin, noOwnWindow: !csOwnWin,
+      timingRows: csTimingRows,
+      hasOwnWindow: !CSENG && csOwnWin, noOwnWindow: !CSENG && !csOwnWin,
+      whyNowT: CSML('WHY_NOW'), whyNowL: csWhyNowL,
+      chainRows: csChainRows, hasChain: csChainRows.length > 0,
       sourceRows: csSourceRows, hasSourceRows: csSourceRows.length > 0,
       /* ── IL MATERIALE COMMERCIALE AVEVA UNA PORTA SOLA, E ERA CHIUSA ───────
          `openBrief` si chiamava solo dalla schermata delle Finestre Colturali,
@@ -4594,6 +4909,43 @@ class Component extends DCLogic {
 
       matchCount: csProds.length,
       hasPrimary: !!csPrimary, noPrimary: !csPrimary,
+      /* ── PERCHE E UN'OPPORTUNITA COMMERCIALE ─────────────────────────────
+         La frase viene dal payload, gia in italiano e in inglese, decisa dal
+         motore. Il portale NON la ricostruisce: se la costruisse qui, sarebbe
+         una narrativa del frontend sopra dati che dicono altro. Accanto, i
+         CODICI che l'hanno prodotta, tradotti — cosi la frase e verificabile
+         e non solo leggibile. */
+      whyCommT: CSML('WHY_COMMERCIAL'),
+      whyCommTxt: CSENG ? (ITX ? CSENG.whyCommercialIt : CSENG.whyCommercialEn) || '' : '',
+      whyCommCodes: CSENG ? CSMLIST(CSENG.whyCommercialCodes, 'WHY_COMMERCIAL_CODES').map((x) => ({ t: x })) : [],
+      hasWhyComm: !!(CSENG && (ITX ? CSENG.whyCommercialIt : CSENG.whyCommercialEn)),
+      /* PUBLISHABLE 5 / VALIDATION_REQUIRED 38 non diventa «mostrane 5 e
+         nascondine 38»: si mostrano tutti, e lo STATO resta visibile su
+         ciascuno. Un caso da validare presentato come affermazione validata
+         sarebbe l'unica cosa peggiore che nasconderlo. */
+      pubT: CSML('PUBLICATION'),
+      pubL: CSENG ? CSML(CSENG.publicationState, 'PUBLICATION_STATE') : '',
+      pubInk: (CSENG && CSENG.publicationState === 'PUBLISHABLE') ? ONST.verified : ONST.validate,
+      hasPub: !!(CSENG && CSENG.publicationState),
+      missT: CSML('WHAT_IS_MISSING'),
+      missRows: CSENG ? CSMLIST(CSENG.whatIsMissing, 'WHAT_IS_MISSING').map((x) => ({ t: x })) : [],
+      hasMiss: !!(CSENG && (CSENG.whatIsMissing || []).length),
+      /* ── L'EVIDENZA PUO ANCHE RAFFREDDARE ────────────────────────────────
+         Ogni prova porta il RUOLO che il motore le ha dato, e un ruolo che non
+         decide nulla lo dice: BACKGROUND_ONLY resta scritto invece di
+         scomparire fra le altre. Mostrare solo cio che sostiene sarebbe una
+         selezione, e una selezione non e una prova. */
+      evRoleT: CSML('EVIDENCE'),
+      evRoleRows: CSENG ? (CSENG.evidenceRoles || []).map((e) => ({
+        id: e.EVIDENCE_ID,
+        role: CSML(e.ROLE, 'EVIDENCE_ROLE'),
+        why: CSML(e.WHY_CODE, 'EVIDENCE_WHY_CODE'),
+        kind: CSML(e.ENTITY_TYPE, 'EVIDENCE_ENTITY_TYPE'),
+        cold: e.ROLE === 'BACKGROUND_ONLY' || e.ROLE === 'WEAKENS' || e.ROLE === 'CLOSES' || e.ROLE === 'CONTRADICTS',
+        ink: (e.ROLE === 'BACKGROUND_ONLY' || e.ROLE === 'WEAKENS' || e.ROLE === 'CLOSES' || e.ROLE === 'CONTRADICTS') ? '#8F8886' : ONST.verified
+      })) : [],
+      hasEvRoles: !!(CSENG && (CSENG.evidenceRoles || []).length),
+      engStatusL: CSENG ? CSML(CSENG.status, 'STATUS') : '',
       /* L'eroe possiede il portafoglio: TUTTI i prodotti gia collegati, con la
          sostanza e lo stato del legame, in una fascia compatta. */
       band: csBand, hasBand: csBand.length > 0, bandCount: csBand.length,
@@ -4615,9 +4967,17 @@ class Component extends DCLogic {
       primaryLabel: csPrimary ? csPrimary.name
         : (csProductRows[0] ? csProductRows[0].name : (T.lblNoCandidate || '')),
       primaryAi: csPrimary ? csPrimary.ai : '',
-      primaryTargets: csPrimary && csIssueK ? il(csIssueK) : (T.ksNotKnown || ''),
-      /* No upstream application field exists for a product inside a case. */
-      primaryUse: T.ksNotKnown || '',
+      /* I «fit» del prodotto non si deducono dalla schermata: il motore li ha
+         gia decisi, uno per uno, e sono cinque. */
+      primaryTargets: CSENG && csPrimary ? (csPrimary.targetFit || (T.ksNotKnown || ''))
+        : (csPrimary && csIssueK ? il(csIssueK) : (T.ksNotKnown || '')),
+      primaryUse: CSENG && csPrimary ? (csPrimary.regulatoryFit || (T.ksNotKnown || ''))
+        : (T.ksNotKnown || ''),
+      primaryCropFit: CSENG && csPrimary ? (csPrimary.cropFit || '') : '',
+      primaryWindowFit: CSENG && csPrimary ? (csPrimary.windowFit || '') : '',
+      primaryValidation: CSENG && csPrimary ? (csPrimary.validation || '') : '',
+      primaryRestrictions: CSENG && csPrimary ? (csPrimary.restrictions || []) : [],
+      hasPrimaryRestrictions: !!(CSENG && csPrimary && csPrimary.hasRestrictions),
       primaryMoa: csPrimary ? csPrimary.moa : (T.ksNotKnown || ''),
       primaryGo: () => csPrimary && this.openProduct(csPrimary.name),
       alternatives: csAlts.map(p => ({ name: p.name, ai: p.ai, use: p.use, moa: p.moa, go: p.go })),

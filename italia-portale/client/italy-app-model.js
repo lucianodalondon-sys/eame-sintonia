@@ -3927,6 +3927,132 @@
      pairs — but they agree because the lookup was done, not because it was
      assumed, and a future case where they diverge will show the divergence
      instead of hiding it. */
+  /* ── LA FRONTIERA CANONICA · UN SOLO PROPRIETARIO PER OGNI DECISIONE ─────
+     Fino a qui il portale teneva DUE righelli su due domande che ammettono una
+     sola risposta, e le due risposte divergevano sullo stesso caso a un clic di
+     distanza:
+
+       · IL PRODOTTO PRINCIPALE. La scheda prendeva il primo VERIFIED_LABEL_MATCH
+         di `productLinks`; il dettaglio prendeva il primo di una lista costruita
+         altrove, e in mancanza ripiegava sul PRIMO PRODOTTO QUALUNQUE. Due
+         ordini di array, due vincitori, nessuna regola.
+
+       · LA FINESTRA. Il "dome" leggeva la finestra canonica del fixture e le
+         date WINDOW_START / WINDOW_END. Sono nulle su 43 casi su 43, quindi lo
+         schermo diceva «nessuna finestra» anche dove il motore aveva gia
+         dichiarato tipo, regola e stato — su 16 casi su 43 la regola c'e.
+
+     Il motore risponde a entrambe, e le sue risposte attraversano la frontiera
+     client-safe una volta sola, in `meeting-intelligence-snapshot.js`.
+
+         IL MOTORE DECIDE. IL PORTALE PRESENTA.
+         DUE RIGHELLI SONO DUE RIGHELLI CHE DIVERGERANNO.
+
+     Niente qui dentro calcola: ogni campo e una COPIA di un campo gia deciso.
+     `canonical` e un sotto-oggetto e non un appiattimento, perche cosi il gate
+     PRIMARY_MATCH_SINGLE_OWNER / WINDOW_SINGLE_OWNER puo dimostrare che lo
+     schermo legge di la e non di qua. Un caso che lo snapshot non conosce ha
+     `canonical === null` — ASSENTE, che si vede, invece di un ripiego, che no. */
+  const MEET = (typeof window !== 'undefined' && window.MEETING_INTELLIGENCE) || null;
+  const MEET_BY_ID = {};
+  if (MEET && Array.isArray(MEET.CASES)) MEET.CASES.forEach((c) => { MEET_BY_ID[c.ID] = c; });
+
+  /* PRIMARY_MATCH e nullo su 26 casi su 43, e il motore dice anche PERCHE:
+     SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER. Dove non c'e una regola difendibile non
+     c'e un principale — e la corona non si assegna per ordine di lista.
+
+         UN PRINCIPALE INVENTATO E PEGGIO DI NESSUN PRINCIPALE:
+         SEMBRA UNA DECISIONE. */
+  const canonPrimary = (c) => {
+    if (!c || !c.PRIMARY_MATCH) return null;
+    const m = (c.PORTFOLIO_MATCHES || []).filter((x) => x.PRODUCT_ID === c.PRIMARY_MATCH)[0] || null;
+    return { id: c.PRIMARY_MATCH, name: m ? m.PRODUCT_NAME : c.PRIMARY_MATCH, reason: c.PRIMARY_MATCH_REASON || null, match: m };
+  };
+
+  opportunities.records.forEach((o) => {
+    const c = MEET_BY_ID[o.id] || null;
+    if (!c) { o.engine = null; return; }
+    /* `engine` e non `canonical`: in questo file `canonical` significa gia
+       «finestra canonica del fixture», e decorate() lo legge come tale. Due
+       cose diverse con lo stesso nome sono un bug che aspetta. */
+    o.engine = {
+      id: c.ID,
+      status: c.STATUS || null,
+      opportunityState: c.OPPORTUNITY_STATE || null,
+      archetype: c.ARCHETYPE || null,
+      crop: c.CROP || null, target: c.TARGET || null,
+      geography: c.GEOGRAPHY || null, geographicScope: c.GEOGRAPHIC_SCOPE || null,
+      claimGeography: c.CLAIM_GEOGRAPHY || null, claimGeographyHolds: c.CLAIM_GEOGRAPHY_HOLDS,
+      commercialPriority: c.COMMERCIAL_PRIORITY || null,
+      whyCommercialCodes: c.WHY_COMMERCIAL_CODES || [],
+      whyCommercialIt: c.WHY_COMMERCIAL_IT || null, whyCommercialEn: c.WHY_COMMERCIAL_EN || null,
+      provesIt: c.WHAT_IT_PROVES_IT || null, provesEn: c.WHAT_IT_PROVES_EN || null,
+      notProvesIt: c.WHAT_IT_DOES_NOT_PROVE_IT || null, notProvesEn: c.WHAT_IT_DOES_NOT_PROVE_EN || null,
+      commercialNotProvesIt: c.COMMERCIAL_DOES_NOT_PROVE_IT || null,
+      commercialNotProvesEn: c.COMMERCIAL_DOES_NOT_PROVE_EN || null,
+      externalMaterialReady: c.EXTERNAL_MATERIAL_READY || null,
+      externalBlockerCodes: c.EXTERNAL_BLOCKER_CODES || [],
+      whyNowCodes: c.WHY_NOW_CODES || [],
+      whyNowChain: c.WHY_NOW_CHAIN || {},
+      actionChainLinks: c.ACTION_CHAIN_LINKS || {},
+      signalDate: c.SIGNAL_DATE || null, signalAgeDays: c.SIGNAL_AGE_DAYS,
+      signalCurrency: c.SIGNAL_CURRENCY || null,
+      commercialTimingBasis: c.COMMERCIAL_TIMING_BASIS || null,
+      /* ── LA FINESTRA, DAL MOTORE, CON I DUE STATI TENUTI SEPARATI ────────
+         `defined` risponde «esiste una regola di intervento?».
+         `openNow`  risponde «la condizione e soddisfatta ADESSO?».
+         Sono domande diverse e il motore le decide separatamente: 16 casi
+         hanno una regola, solo 2 hanno la condizione verificata ora.
+         Fonderle rimpiazzerebbe una contraddizione con un'altra. */
+      window: {
+        defined: c.WINDOW_DEFINED || null,
+        openNow: c.WINDOW_OPEN_NOW || null,
+        openNowMethod: c.WINDOW_OPEN_NOW_METHOD || null,
+        type: c.WINDOW_TYPE || null,
+        ruleState: c.WINDOW_RULE_STATE || null,
+        evidenceId: c.WINDOW_EVIDENCE_ID || null,
+        ruleEvidenceId: c.WINDOW_RULE_EVIDENCE_ID || null,
+        start: c.WINDOW_START || null, end: c.WINDOW_END || null,
+        daysRemaining: c.DAYS_REMAINING,
+        applicationState: c.WINDOW_STATE || null,
+        conditionDeclaredOnly: c.WINDOW_CONDITION__PT_ONLY === true,
+        confidence: c.WINDOW_CONFIDENCE || null,
+      },
+      pestStageState: c.PEST_STAGE_STATE || null,
+      pestStageEvidenceId: c.PEST_STAGE_EVIDENCE_ID || null,
+      actionRecommendationState: c.ACTION_RECOMMENDATION_STATE || null,
+      actionRecommendationEvidenceId: c.ACTION_RECOMMENDATION_EVIDENCE_ID || null,
+      thresholdState: c.THRESHOLD_STATE || null,
+      needDirection: c.NEED_DIRECTION || null, needMethod: c.NEED_METHOD || null,
+      needEvidenceId: c.NEED_EVIDENCE_ID || null,
+      needExcerptDeclaredOnly: c.NEED_EXCERPT__PT_ONLY === true,
+      portfolioMatches: c.PORTFOLIO_MATCHES || [],
+      primary: canonPrimary(c),
+      primaryReason: c.PRIMARY_MATCH_REASON || null,
+      productLinkState: c.PRODUCT_LINK_STATE || null,
+      productRestrictions: c.PRODUCT_RESTRICTIONS || [],
+      activeIngredientNames: c.ACTIVE_INGREDIENT_NAMES || [],
+      modeOfActionCodes: c.MODE_OF_ACTION_CODES || [],
+      modeOfActionState: c.MODE_OF_ACTION_STATE || null,
+      applicationState: c.APPLICATION_STATE || null,
+      whatIsMissing: c.WHAT_IS_MISSING || [],
+      actionByDepartment: c.ACTION_BY_DEPARTMENT || {},
+      evidenceRoles: c.EVIDENCE_ROLES || [],
+      brief: c.INTELLIGENCE_BRIEF || [],
+      evidenceIds: c.EVIDENCE_IDS || [], evidenceCount: c.EVIDENCE_COUNT,
+      evidenceFamilies: c.EVIDENCE_FAMILIES || [],
+      magnitude: c.COMMERCIAL_MAGNITUDE || null,
+      magnitudeDimensions: c.COMMERCIAL_MAGNITUDE_DIMENSIONS || {},
+      signalConfidence: c.SIGNAL_CONFIDENCE || null,
+      productMatchConfidence: c.PRODUCT_MATCH_CONFIDENCE || null,
+      confidence: c.CONFIDENCE || null,
+      publicationState: c.PUBLICATION_STATE || null,
+      trailState: c.TRAIL_STATE || null,
+      sourceIds: c.SOURCE_IDS || [], sourceUrls: c.SOURCE_URLS || [],
+      referenceDate: c.REFERENCE_DATE || null,
+    };
+  });
+
   const pairStrengthIndex = {};
   productRelationships.records.forEach((r) => {
     if (!r.crop || !r.issueEn || !r.productKey) return;
@@ -4770,9 +4896,48 @@
   };
 
   /* ── 11 · PUBLIC CONTRACT ───────────────────────────────────────────── */
+
+  /* ── LA SUPERFICIE CANONICA DELLA RIUNIONE ───────────────────────────────
+     Un solo posto da cui la riunione prende i suoi numeri, e li PRENDE dai 43
+     — mai da `D.CASES`, i ventuno casi di presentazione scritti a mano, che
+     restano dove sono e non entrano in nessun conteggio canonico.
+
+         MESCOLARE VENTUNO CASI DI DIMOSTRAZIONE CON QUARANTATRE CANONICI
+         NELLA STESSA GRIGLIA E L'UNICA COSA CHE NON SI PUO FARE.
+
+     Nessun numero e scritto a mano qui: si contano i casi. Se il motore
+     domani ne pubblica quaranta o quarantacinque, questi numeri seguono. */
+  const meetingCases = (MEET && Array.isArray(MEET.CASES)) ? MEET.CASES : [];
+  const tally = (fn) => {
+    const out = {};
+    meetingCases.forEach((c) => { const k = String(fn(c)); out[k] = (out[k] || 0) + 1; });
+    return out;
+  };
+  const MEETING = MEET ? {
+    sourceHead: MEET.SOURCE_HEAD || null,
+    buildId: MEET.BUILD_ID || null,
+    ruleVersion: MEET.RULE_VERSION || null,
+    engineVersion: MEET.ENGINE_VERSION || null,
+    cutoff: MEET.MEETING_CUTOFF || null,
+    generatedAt: MEET.GENERATED_AT || null,
+    law: MEET.LAW || null,
+    total: meetingCases.length,
+    byStatus: tally((c) => c.STATUS),
+    byCommercialPriority: tally((c) => c.COMMERCIAL_PRIORITY),
+    byPublicationState: tally((c) => c.PUBLICATION_STATE),
+    byWindowDefined: tally((c) => c.WINDOW_DEFINED),
+    byWindowOpenNow: tally((c) => c.WINDOW_OPEN_NOW),
+    byWindowRuleState: tally((c) => c.WINDOW_RULE_STATE),
+    byArchetype: tally((c) => c.ARCHETYPE),
+    withPrimary: meetingCases.filter((c) => !!c.PRIMARY_MATCH).length,
+    withoutPrimary: meetingCases.filter((c) => !c.PRIMARY_MATCH).length,
+    ids: meetingCases.map((c) => c.ID),
+  } : null;
+
   window.ITALY_APP_MODEL = {
     version: '3.1',
     compiled: REFERENCE_DATE,
+    MEETING,
 
     /* one clock */
     referenceDate: REFERENCE_DATE, REF, daysFrom, asDate, isoOf, fmtDate,
