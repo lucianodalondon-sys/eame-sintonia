@@ -388,7 +388,10 @@ def acao_por_departamento(o, elos):
     # Development definir a condição regional, nesse caso, é mandá-lo procurar
     # o que a Regione publicou que não existe.
     delegada = o.get('WINDOW_RULE_STATE') == 'RULE_DELEGATED_TO_FARM'
-    if delegada and not elos['JANELA_DEFINIDA'] and elos['SINAL_ATUAL']:
+    if delegada and elos['SINAL_ATUAL']:
+        # a regra ja e conhecida — «medir no pomar». Mandar validar a condicao
+        # NA REGIAO seria mandar procurar um gatilho regional que a propria
+        # Regione declarou nao existir.
         md = ('VALIDATE_AT_FARM_LEVEL', 'REGRA_DELEGADA_AO_POMAR')
     elif not elos['JANELA_DEFINIDA'] and elos['SINAL_ATUAL']:
         md = ('DEFINE_WINDOW_CONDITION', 'SEM_CONDICAO_DECLARADA')
@@ -415,7 +418,7 @@ def acao_por_departamento(o, elos):
     else:
         mkt = ('NO_MOVEMENT', 'NAO_AUTORIZADO_A_SAIR')
 
-    if delegada and not elos['JANELA_DEFINIDA']:
+    if delegada:
         tec = ('CONFIRM_AT_FARM_LEVEL', 'REGRA_DELEGADA_AO_POMAR')
     elif not elos['JANELA_DEFINIDA']:
         tec = ('ESTABLISH_WINDOW_CONDITION', 'SEM_CONDICAO_DECLARADA')
@@ -904,7 +907,12 @@ def main():
                      'PEST_STAGE': fase, 'RECOMMENDATION': rec,
                      'QUALITATIVE': NE.qualitativo(oracao),
                      'THRESHOLD_MEASURE': NE.limiar_declarado(oracao),
-                     'DELEGATED': NE.decisao_delegada(oracao)}
+                     'DELEGATED': NE.decisao_delegada(oracao),
+                     # ⚠️ um disciplinare descreve a biologia da praga — «il
+                     # primo volo inizia verso la metà di aprile». Isso e a
+                     # REGRA, nao o estado do campo hoje. So quem declara
+                     # direcao declara estado.
+                     'DECLARA_ESTADO': NE.declara_direcao(s_)}
             for c_ in crops:
                 for i_ in issues:
                     declarado_ix[(c_, i_)].append(linha)
@@ -942,6 +950,20 @@ def main():
                                  0 if j['CLAUSE_DIRECTION'] == NE.POSITIVE_PRESSURE
                                  else 1))
         return cand[0]
+
+    def janela_administrativa(crop, alvo, geo):
+        """→ o ato administrativo que fixa o momento para ESTE par, ou None.
+
+        Ele NÃO é janela agronômica e continua a não ser — a lei não mudou. Mas
+        dizer `WINDOW_RULE_MISSING` sobre um par cujo momento é fixado por um
+        Piano di azione regionale é acusar a fonte de silêncio onde há norma.
+
+            «NINGUÉM DECLAROU A REGRA» E «A REGRA É UMA OBRIGAÇÃO DE NORMA»
+            SÃO RESPOSTAS DIFERENTES, E SÓ UMA DELAS PEDE COLETA.
+        """
+        return next((j for j in janelas_ix.get((crop, alvo), [])
+                     if geo in (j['REGION_IDS'] or [])
+                     and j['WINDOW_TYPE'] == JN.ADMINISTRATIVE_WINDOW), None)
 
     def _casados(rotulos):
         """Os registros do CATALOGO que o par de rotulo alcanca — nao so o nome."""
@@ -1108,8 +1130,8 @@ def main():
 
         # ── A FASE DA PRAGA · o que o inseto está a fazer, e nada mais ───────
         dec = declarados(o.get('CROP'), o.get('TARGET'), o.get('GEOGRAPHY'))
-        fase = next((d for d in dec
-                     if d['PEST_STAGE'] != NE.STAGE_NOT_DECLARED), None)
+        fase = next((d for d in dec if d['DECLARA_ESTADO']
+                     and d['PEST_STAGE'] != NE.STAGE_NOT_DECLARED), None)
         c['PEST_STAGE_STATE'] = fase['PEST_STAGE'] if fase else NE.STAGE_NOT_DECLARED
         c['PEST_STAGE_EVIDENCE_ID'] = fase['SOURCE_ID'] if fase else None
         c['PEST_STAGE_EXCERPT'] = fase['CLAUSE'] if fase else ''
@@ -1130,8 +1152,8 @@ def main():
             c['ACTION_RECOMMENDATION_EVIDENCE_ID'] = c.get('NEED_EVIDENCE_ID')
             c['ACTION_RECOMMENDATION_EXCERPT'] = c.get('NEED_EXCERPT') or ''
         else:
-            cont = next((d for d in dec
-                         if d['RECOMMENDATION'] == NE.CONTINUE_RECOMMENDED), None)
+            cont = next((d for d in dec if d['DECLARA_ESTADO']
+                         and d['RECOMMENDATION'] == NE.CONTINUE_RECOMMENDED), None)
             if cont:
                 c['ACTION_RECOMMENDATION_STATE'] = NE.CONTINUE_RECOMMENDED
                 c['ACTION_RECOMMENDATION_EVIDENCE_ID'] = cont['SOURCE_ID']
@@ -1150,8 +1172,10 @@ def main():
 
         # ── O LIMIAR · houve medição declarada, ou só prosa? ─────────────────
         if c.get('WINDOW_TYPE') == JN.THRESHOLD_WINDOW:
-            med = next((d for d in dec if d['THRESHOLD_MEASURE']), None)
-            qual = next((d for d in dec if d['QUALITATIVE']), None)
+            med = next((d for d in dec if d['DECLARA_ESTADO']
+                        and d['THRESHOLD_MEASURE']), None)
+            qual = next((d for d in dec if d['DECLARA_ESTADO']
+                         and d['QUALITATIVE']), None)
             if med:
                 c['THRESHOLD_STATE'] = 'MEASUREMENT_DECLARED'
                 c['THRESHOLD_STATE_EVIDENCE_ID'] = med['SOURCE_ID']
@@ -1175,20 +1199,32 @@ def main():
         # a decisao e da empresa. Chamar isso de regra ausente e acusar a fonte
         # de nao ter dito o que ela disse com todas as letras.
         deleg = next((d for d in dec if d['DELEGATED']), None)
-        if c.get('WINDOW_DEFINED') == 'YES':
+        adm = janela_administrativa(o.get('CROP'), o.get('TARGET'),
+                                    o.get('GEOGRAPHY'))
+        if c.get('WINDOW_TYPE') == JN.RULE_DELEGATED_TO_FARM:
+            c['WINDOW_RULE_STATE'] = 'RULE_DELEGATED_TO_FARM'
+            c['WINDOW_RULE_EVIDENCE_ID'] = c.get('WINDOW_EVIDENCE_ID')
+        elif c.get('WINDOW_DEFINED') == 'YES':
             c['WINDOW_RULE_STATE'] = 'RULE_DECLARED'
             c['WINDOW_RULE_EVIDENCE_ID'] = c.get('WINDOW_EVIDENCE_ID')
         elif deleg:
             c['WINDOW_RULE_STATE'] = 'RULE_DELEGATED_TO_FARM'
             c['WINDOW_RULE_EVIDENCE_ID'] = deleg['SOURCE_ID']
+        elif adm:
+            c['WINDOW_RULE_STATE'] = 'RULE_ADMINISTRATIVE_ONLY'
+            c['WINDOW_RULE_EVIDENCE_ID'] = adm['SOURCE_ID']
+            c['WINDOW_RULE_CONDITION'] = adm['WINDOW_CONDITION']
         else:
             c['WINDOW_RULE_STATE'] = 'RULE_NOT_DECLARED'
             c['WINDOW_RULE_EVIDENCE_ID'] = None
+        c.setdefault('WINDOW_RULE_CONDITION', c.get('WINDOW_CONDITION'))
         c['WINDOW_RULE_STATE_LAW'] = (
             'RULE_DELEGATED_TO_FARM nao e janela e nunca abre uma: e a fonte '
             'regional declarando que o gatilho e do pomar, pelas observacoes e '
-            'pelo historico dele. Coletar mais nao muda esta resposta — ela ja '
-            'foi dada. RULE_NOT_DECLARED e o unico dos tres que pede coleta.')
+            'pelo historico dele. RULE_ADMINISTRATIVE_ONLY e a norma fixando o '
+            'momento — obrigacao, nao agronomia, e por isso WINDOW_DEFINED '
+            'continua NO. Coletar mais nao muda nenhuma das duas: a resposta ja '
+            'foi dada. RULE_NOT_DECLARED e o unico dos quatro que pede coleta.')
 
         c['THRESHOLD_STATE_LAW'] = (
             'diz se a fonte declarou MEDICAO, quadro QUALITATIVO ou nada. NUNCA '
@@ -1388,12 +1424,15 @@ def main():
         # ── O QUE FALTA, com nome — a lista que dirige a proxima coleta ──────
         falta = []
         if o.get('TARGET'):
-            if o.get('WINDOW_DEFINED') != 'YES':
-                # a fonte pode ter respondido a pergunta com «decide o pomar».
-                # Isso fecha a pergunta; nao a deixa em aberto.
-                falta.append('WINDOW_RULE_DELEGATED_TO_FARM'
-                             if o.get('WINDOW_RULE_STATE') == 'RULE_DELEGATED_TO_FARM'
-                             else 'WINDOW_RULE_MISSING')
+            # a fonte pode ter respondido a pergunta com «decide o pomar».
+            # Isso FECHA a pergunta da regra: sabemos qual e — medir no pomar.
+            # O que continua em aberto e a medicao, e ela nao e regional.
+            if o.get('WINDOW_RULE_STATE') == 'RULE_DELEGATED_TO_FARM':
+                falta.append('WINDOW_RULE_DELEGATED_TO_FARM')
+            elif o.get('WINDOW_RULE_STATE') == 'RULE_ADMINISTRATIVE_ONLY':
+                falta.append('WINDOW_RULE_ADMINISTRATIVE_ONLY')
+            elif o.get('WINDOW_DEFINED') != 'YES':
+                falta.append('WINDOW_RULE_MISSING')
             elif o.get('WINDOW_OPEN_NOW') != 'YES':
                 falta.append('WINDOW_STATE_UNKNOWN')
             if not (o.get('COMMERCIAL_PRODUCT_COUNT') or 0):
@@ -1424,6 +1463,29 @@ def main():
             'declara ocorrencia e nao incidencia, e porque o acervo e um '
             'retrato e nao uma serie.')
         o['EVIDENCE_ROLES'] = papel_das_evidencias(o, apoios)
+        # ⚠️ A FONTE QUE RESPONDEU «QUANDO AGIR» TEM DE ESTAR NA LISTA QUE SE
+        # AUDITA. Um disciplinare regional nao observa par nenhum — e por isso
+        # nunca entrava em `apoios`. O cartao citava-o em WINDOW_EVIDENCE_ID e
+        # nao o listava em EVIDENCE_IDS: quem fosse conferir a lista nao
+        # encontrava o documento que decidiu a janela.
+        #
+        #     CITAR NUM CAMPO E NAO LISTAR NA EVIDENCIA E ESCONDER A FONTE
+        #     ONDE SO QUEM JA SABE VAI OLHAR.
+        for eid, por in ((o.get('WINDOW_EVIDENCE_ID'),
+                          'DECLARA_A_CONDICAO_DA_JANELA'),
+                         (o.get('WINDOW_RULE_EVIDENCE_ID'),
+                          'DECLARA_A_REGRA_DO_MOMENTO')):
+            if eid and eid not in o['EVIDENCE_IDS']:
+                o['EVIDENCE_IDS'].append(eid)
+                o['EVIDENCE_ROLES'].append({
+                    'EVIDENCE_ID': eid, 'ENTITY_TYPE': 'FIELD_SIGNAL',
+                    'ROLE': 'SUPPORTS_WINDOW', 'WHY_CODE': por})
+        o['EVIDENCE_IDS'] = sorted(set(o['EVIDENCE_IDS']))
+        o['EVIDENCE_FAMILIES'] = sorted(set(o['EVIDENCE_FAMILIES'])
+                                        | {'FIELD_SIGNAL'}
+                                        if o.get('WINDOW_EVIDENCE_ID')
+                                        else o['EVIDENCE_FAMILIES'])
+        o['EVIDENCE_ROLES'].sort(key=lambda e: e['EVIDENCE_ID'])
         o['EVIDENCE_ROLES_LAW'] = (
             'toda evidencia recebe papel, inclusive a que esfria o caso. Um '
             'sistema que so classifica evidencia a favor aprende a vender.')
@@ -1697,6 +1759,7 @@ def gravar(brutos, C, cs):
             'THRESHOLD_STATE_LAW': o['THRESHOLD_STATE_LAW'],
             'WINDOW_RULE_STATE': o['WINDOW_RULE_STATE'],
             'WINDOW_RULE_EVIDENCE_ID': o['WINDOW_RULE_EVIDENCE_ID'],
+            'WINDOW_RULE_CONDITION': o['WINDOW_RULE_CONDITION'],
             'WINDOW_RULE_STATE_LAW': o['WINDOW_RULE_STATE_LAW'],
             'ACTIVE_INGREDIENT_IDS': o['ACTIVE_INGREDIENT_IDS'],
             'ACTIVE_INGREDIENT_NAMES': o['ACTIVE_INGREDIENT_NAMES'],

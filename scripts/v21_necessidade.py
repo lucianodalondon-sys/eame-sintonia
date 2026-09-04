@@ -170,6 +170,27 @@ _SEM_LEITURA = re.compile(
 #     CITAÇÃO SEM RECOMENDAÇÃO NÃO É DIREÇÃO.
 CAMPOS_DE_TEXTO = ('INTERVENTION_GUIDANCE', 'WHAT_IT_IS')
 
+# ── A REGRA DIZ QUANDO AGIR. ELA NÃO DIZ QUE SE DEVE AGIR AGORA ─────────────
+#
+# A coleta de REGRAS trouxe disciplinari regionais para dentro do acervo, e com
+# eles um risco novo: o disciplinare escreve «intervenire preventivamente», e
+# essa frase, lida como direção, faz um documento de 2025 declarar pressão de
+# campo em setembro de 2026.
+#
+#     UM DISCIPLINARE É UMA REGRA PERMANENTE. UM BOLETIM É UMA NOTÍCIA.
+#     A REGRA DIZ QUANDO AGIR; SÓ A NOTÍCIA DIZ QUE CHEGOU A HORA.
+#
+# Estes registros continuam a produzir JANELA — é para isso que foram
+# coletados. O que eles não produzem é NEED_DIRECTION, e por isso também não
+# criam oportunidade nenhuma: a regra informa o caso que já existe.
+CLASSES_QUE_NAO_DECLARAM_DIRECAO = ('STANDING_RULE',)
+
+
+def declara_direcao(sinal):
+    """→ este registro pode declarar a direção do par, ou só a regra?"""
+    return (sinal.get('OBSERVATION_CLASS')
+            not in CLASSES_QUE_NAO_DECLARAM_DIRECAO)
+
 
 def _n(t):
     """Sem acento, minúsculo — o mesmo achatamento do léxico canônico."""
@@ -565,6 +586,8 @@ def pares_observados(sinal):
     Cada par carrega a direção, o trecho que a sustenta, o campo de onde saiu e
     o método pelo qual a cultura foi atribuída.
     """
+    if not declara_direcao(sinal):
+        return []
     achados = {}
     for campo, metodo, crops, issues, oracao in atribuicoes(sinal):
         est, _padrao = direcao(oracao)

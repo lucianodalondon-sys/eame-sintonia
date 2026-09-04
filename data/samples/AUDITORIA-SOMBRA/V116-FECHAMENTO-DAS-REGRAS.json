@@ -1,0 +1,584 @@
+{
+ "COLLECTION": "V116-FECHAMENTO-DAS-REGRAS",
+ "SOURCE": "ANTES: data/samples/AUDITORIA-SOMBRA/V116-ANTES-DAS-REGRAS.json (BUILD_ID V21-cc9e5ce20da2dab6) · DEPOIS: build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/OPPORTUNITIES.json (BUILD_ID V21-5aa6336da6784e3f)",
+ "CAPTURED_AT": "2026-09-04",
+ "LAW": "a regra declara QUANDO agir. Se ela mexer em STATUS, COMMERCIAL_PRIORITY, EXTERNAL_MATERIAL_READY ou NEED_DIRECTION, e defeito — e este arquivo reprova.",
+ "WINDOW_RULE_CLOSURE": "PASS",
+ "BUILD_ID_ANTES": "V21-cc9e5ce20da2dab6",
+ "BUILD_ID_DEPOIS": "V21-5aa6336da6784e3f",
+ "GAPS_INICIAIS": 11,
+ "GANHARAM_REGRA": 10,
+ "REGRA_ADMINISTRATIVA": 1,
+ "REGRA_DELEGADA_AO_POMAR": 0,
+ "CONTINUAM_SEM_REGRA": 1,
+ "BACKFILL_ANTES": {
+  "CASES": 43,
+  "TO_VALIDATE": 9,
+  "WINDOW_OPEN_NOW_UNKNOWN": 41,
+  "WATCH": 22,
+  "WINDOW_DEFINED": 6,
+  "WINDOW_RULE_MISSING": 11,
+  "FUTURE_PREPARATION": 7,
+  "VALIDATE_NOW": 3,
+  "SALES_READY": 5,
+  "ACT_NOW": 2,
+  "WINDOW_OPEN_NOW_YES": 2,
+  "RULE_DELEGATED_TO_FARM": 1
+ },
+ "BACKFILL_DEPOIS": {
+  "CASES": 43,
+  "TO_VALIDATE": 9,
+  "WINDOW_OPEN_NOW_UNKNOWN": 41,
+  "WATCH": 22,
+  "WINDOW_DEFINED": 16,
+  "FUTURE_PREPARATION": 7,
+  "VALIDATE_NOW": 3,
+  "SALES_READY": 5,
+  "WINDOW_RULE_MISSING": 1,
+  "ACT_NOW": 2,
+  "WINDOW_OPEN_NOW_YES": 2,
+  "RULE_DELEGATED_TO_FARM": 1,
+  "RULE_ADMINISTRATIVE_ONLY": 1
+ },
+ "FALHAS": [],
+ "ITENS": [
+  {
+   "OPPORTUNITY_ID": "OPP_D9B21D005CC3",
+   "ROTULO": "videira x peronospora · Friuli-Venezia Giulia",
+   "ANTES": {
+    "WINDOW_DEFINED": "NO",
+    "WINDOW_TYPE": null,
+    "WINDOW_CONDITION": null,
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_RULE_MISSING",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "FONTE": {
+    "SOURCE": "Disciplinare di produzione integrata Regione Autonoma Friuli Venezia Giulia, anno 2025 (Decreto n. 115 del 06/03/2025)",
+    "SOURCE_ID": "IT-COL-2609-FVG-REGRA-VITE",
+    "SOURCE_URLS": [
+     "https://www.winbdf.it/bdf-archivi/disciplinari/dpi_friuli_vg_2025.pdf"
+    ],
+    "DATE": "2025-03-06",
+    "OBSERVATION_CLASS": "STANDING_RULE",
+    "REGION": [
+     "REGION_FRIULI_VENEZIA_GIULIA"
+    ],
+    "EXACT_QUOTE": "«PERONOSPORA DELLA VITE — Plasmopara viticola. Effettuare due trattamenti cautelativi con antiperonosporici dotati di persistenza di almeno 10-12 giorni: - subito prima della fioritura - a fine fioritura allo scadere del periodo di persistenza del prodotto impiegato. […] È necessario mantenere costantemente sotto controllo la situazione utilizzando le previsioni meteorologiche e, in previsione del verificarsi e del perdurare di condizioni favorevoli alla malattia, intervenire preventivamente, limitatamente a tale periodo.» · «OIDIO DELLA VITE — Uncinula necator. Interventi chimici: - nei casi in cui sia necessario eseguire trattamenti nelle fasi comprese fra risveglio vegetativo e fioritura, intervenire con Zolfo - eseguire 2 trattamenti cautelativi in miscela con gli antiperonosporici nelle seguenti fasi fenologiche: - subito prima della fioritura - a fine fioritura […] - nelle fasi comprese fra post-allegagione e invaiatura, alternare le sostanze attive a diverso meccanismo d'azione, adottando intervalli inferiori (max 10 giorni) in corrispondenza delle fasi di maggiore accrescimento degli acini.»",
+    "SOURCE_ROLE": "DECLARA_A_CONDICAO_AGRONOMICA"
+   },
+   "DEPOIS": {
+    "WINDOW_DEFINED": "YES",
+    "WINDOW_TYPE": "PHENOLOGY_WINDOW",
+    "WINDOW_CONDITION": "Vite/peronospora: o disciplinare de producao integrada da Regione Autonoma Friuli Venezia Giulia declara que se devem efetuar dois tratamentos cautelares com produtos de persistencia de pelo menos 10-12 dias, imediatamente antes da fioritura e a fine fioritura, ao esgotar-se a persistencia do produto empregue.",
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_STATE_UNKNOWN",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "WINDOW_RULE_STATE_ANTES": "RULE_NOT_DECLARED",
+   "WINDOW_RULE_STATE_DEPOIS": "RULE_DECLARED",
+   "COMMERCIAL_PRIORITY_ANTES": "TO_VALIDATE",
+   "COMMERCIAL_PRIORITY_DEPOIS": "TO_VALIDATE",
+   "WHY_CHANGED": "a fonte regional declarou a regra, e ela entrou pela mesma porta e pela mesma cadeia dos boletins"
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_48C2731BAFD1",
+   "ROTULO": "videira x escafoideo · Umbria",
+   "ANTES": {
+    "WINDOW_DEFINED": "NO",
+    "WINDOW_TYPE": null,
+    "WINDOW_CONDITION": null,
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_RULE_MISSING",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "FONTE": {
+    "SOURCE": "Controllo degli organismi nocivi — Scaphoideus titanus, Servizio Fitosanitario Regionale della Regione Umbria",
+    "SOURCE_ID": "IT-COL-2609-UM-REGRA-SCAFOIDEO",
+    "SOURCE_URLS": [
+     "https://www.regione.umbria.it/documents/18/25152905/SCAPHOIDEUS+TITANUS.pdf/5b62a215-d685-4f58-aec8-e5c55bfdb63e"
+    ],
+    "DATE": "2020-12-31",
+    "OBSERVATION_CLASS": "STANDING_RULE",
+    "REGION": [
+     "REGION_UMBRIA"
+    ],
+    "EXACT_QUOTE": "«Un programma di lotta contro lo Scafoideo si giustifica quando esso è presente in vigneti affetti da flavescenza dorata. L'eventuale lotta chimica va condotta nei confronti delle forme giovanili.» · «I dati del monitoraggio 2020 non hanno rilevato la presenza di tali organismi nocivi.» · «Le femmine depongono le uova da agosto a ottobre nel ritidoma dei tralci dove, attorno alla metà del mese di maggio dell'anno successivo, inizia la schiusura che si protrae per diverse settimane con un picco verso la metà del mese di giugno. Le forme giovanili si compongono di 5 stadi evolutivi (3 di neanide e 2 di ninfa).»",
+    "SOURCE_ROLE": "DECLARA_A_CONDICAO_AGRONOMICA"
+   },
+   "DEPOIS": {
+    "WINDOW_DEFINED": "YES",
+    "WINDOW_TYPE": "PEST_STAGE_WINDOW",
+    "WINDOW_CONDITION": "Vite/scafoideo: o Servizio Fitosanitario Regionale da Umbria declara, na sua ficha de controlo do Scaphoideus titanus, que o eventual tratamento quimico contra o escafoideo deve ser conduzido contra as formas juvenis.",
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_STATE_UNKNOWN",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "WINDOW_RULE_STATE_ANTES": "RULE_NOT_DECLARED",
+   "WINDOW_RULE_STATE_DEPOIS": "RULE_DECLARED",
+   "COMMERCIAL_PRIORITY_ANTES": "TO_VALIDATE",
+   "COMMERCIAL_PRIORITY_DEPOIS": "TO_VALIDATE",
+   "WHY_CHANGED": "a fonte regional declarou a regra, e ela entrou pela mesma porta e pela mesma cadeia dos boletins"
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_4C39CCC05EEB",
+   "ROTULO": "arroz x giavone · Italia",
+   "ANTES": {
+    "WINDOW_DEFINED": "NO",
+    "WINDOW_TYPE": null,
+    "WINDOW_CONDITION": null,
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "TO_VALIDATE",
+    "WHAT_IS_MISSING": [
+     "WINDOW_RULE_MISSING",
+     "DIRECTION_UNKNOWN",
+     "SIGNAL_NOT_RECENT",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "REGION_NOT_DECLARED",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "FONTE": null,
+   "DEPOIS": {
+    "WINDOW_DEFINED": "NO",
+    "WINDOW_TYPE": null,
+    "WINDOW_CONDITION": null,
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "TO_VALIDATE",
+    "WHAT_IS_MISSING": [
+     "WINDOW_RULE_MISSING",
+     "DIRECTION_UNKNOWN",
+     "SIGNAL_NOT_RECENT",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "REGION_NOT_DECLARED",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "WINDOW_RULE_STATE_ANTES": "RULE_NOT_DECLARED",
+   "WINDOW_RULE_STATE_DEPOIS": "RULE_NOT_DECLARED",
+   "COMMERCIAL_PRIORITY_ANTES": "TO_VALIDATE",
+   "COMMERCIAL_PRIORITY_DEPOIS": "TO_VALIDATE",
+   "WHY_NOT_CHANGED": "nenhuma fonte oficial declara a condicao para este par NESTA geografia; e a geografia do caso nao e regional"
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_DF0C3648893A",
+   "ROTULO": "videira x peronospora · Umbria",
+   "ANTES": {
+    "WINDOW_DEFINED": "NO",
+    "WINDOW_TYPE": null,
+    "WINDOW_CONDITION": null,
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_RULE_MISSING",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "FONTE": {
+    "SOURCE": "Disciplinari di produzione integrata 2025-2026, Regione Umbria — Difesa integrata Vite",
+    "SOURCE_ID": "IT-COL-2609-UM-REGRA-VITE",
+    "SOURCE_URLS": [
+     "https://www.winbdf.it/bdf-archivi/disciplinari/dpi_umbria_2026.pdf"
+    ],
+    "DATE": "2026-01-01",
+    "OBSERVATION_CLASS": "STANDING_RULE",
+    "REGION": [
+     "REGION_UMBRIA"
+    ],
+    "EXACT_QUOTE": "«PERONOSPORA DELLA VITE — Plasmopara viticola. Interventi chimici: Fino alla pre fioritura: - intervenire preventivamente sulla base della previsione delle piogge. Dalla pre fioritura alla allegagione: - anche in assenza di macchie d'olio intervenire cautelativamente con cadenze in base alle caratteristiche dei prodotti utilizzati. Successive fasi vegetative: - le strategie di controllo sono in relazione alla comparsa o meno della malattia e all'andamento climatico.» · «OIDIO DELLA VITE. Interventi chimici: - Zone ad alto rischio: Fino alla pre fioritura: - intervenire preventivamente con antioidici di copertura. Dalla pre fioritura all'invaiatura: - intervenire alternando prodotti sistemici e di copertura. - Zone a basso rischio: - intervenire cautelativamente nell'immediata pre-fioritura e proseguire gli interventi alternando prodotti sistemici e di copertura.»",
+    "SOURCE_ROLE": "DECLARA_A_CONDICAO_AGRONOMICA"
+   },
+   "DEPOIS": {
+    "WINDOW_DEFINED": "YES",
+    "WINDOW_TYPE": "PHENOLOGY_WINDOW",
+    "WINDOW_CONDITION": "Vite/peronospora: o disciplinare de producao integrada da Regione Umbria declara que ate a pre fioritura se deve intervir preventivamente com base na previsao das chuvas.",
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_STATE_UNKNOWN",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "WINDOW_RULE_STATE_ANTES": "RULE_NOT_DECLARED",
+   "WINDOW_RULE_STATE_DEPOIS": "RULE_DECLARED",
+   "COMMERCIAL_PRIORITY_ANTES": "TO_VALIDATE",
+   "COMMERCIAL_PRIORITY_DEPOIS": "TO_VALIDATE",
+   "WHY_CHANGED": "a fonte regional declarou a regra, e ela entrou pela mesma porta e pela mesma cadeia dos boletins"
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_E138ECDFD7D2",
+   "ROTULO": "videira x peronospora · Emilia-Romagna",
+   "ANTES": {
+    "WINDOW_DEFINED": "NO",
+    "WINDOW_TYPE": null,
+    "WINDOW_CONDITION": null,
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_RULE_MISSING",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "FONTE": {
+    "SOURCE": "Difesa integrata VITE — Disciplinari di produzione integrata 2026, Regione Emilia-Romagna (Determinazione n. 3130 del 16/02/2026)",
+    "SOURCE_ID": "IT-COL-2609-ER-REGRA-VITE",
+    "SOURCE_URLS": [
+     "https://agricoltura.regione.emilia-romagna.it/produzioni-agroalimentari/agricoltura-sostenibile/agricoltura-integrata/Collezione-dpi/dpi_2026/norme-tecniche-di-coltura/arboree/frutticole/difesa-vite-2026.pdf/@@download/file"
+    ],
+    "DATE": "2026-02-16",
+    "OBSERVATION_CLASS": "STANDING_RULE",
+    "REGION": [
+     "REGION_EMILIA_ROMAGNA"
+    ],
+    "EXACT_QUOTE": "«Peronospora (Plasmopara viticola) — Interventi di difesa. Fino alla prefioritura: - iniziare la difesa seguendo le indicazioni dei Bollettini tecnici territoriali. Fino alla allegagione: - intervenire preventivamente sulla base della previsione delle piogge; - in caso contrario si può intervenire con finalità curative impiegando miscele contenenti antiperonosporici endoterapici entro il 25% del periodo di incubazione della presunta infezione. Dall'allegagione in poi: - impiegare prodotti di copertura (rameici).»",
+    "SOURCE_ROLE": "DECLARA_A_CONDICAO_AGRONOMICA"
+   },
+   "DEPOIS": {
+    "WINDOW_DEFINED": "YES",
+    "WINDOW_TYPE": "PHENOLOGY_WINDOW",
+    "WINDOW_CONDITION": "Ate a allegagione, e ainda para a peronospora da vite, o mesmo disciplinare declara que se deve intervir preventivamente com base na previsao das chuvas e que, em caso contrario, se pode intervir com finalidade curativa empregando misturas com antiperonosporicos endoterapicos dentro de 25 por cento do periodo de incuba",
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_STATE_UNKNOWN",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "WINDOW_RULE_STATE_ANTES": "RULE_NOT_DECLARED",
+   "WINDOW_RULE_STATE_DEPOIS": "RULE_DECLARED",
+   "COMMERCIAL_PRIORITY_ANTES": "TO_VALIDATE",
+   "COMMERCIAL_PRIORITY_DEPOIS": "TO_VALIDATE",
+   "WHY_CHANGED": "a fonte regional declarou a regra, e ela entrou pela mesma porta e pela mesma cadeia dos boletins"
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_81C053E9DCD3",
+   "ROTULO": "milho x piralide · Lombardia",
+   "ANTES": {
+    "WINDOW_DEFINED": "NO",
+    "WINDOW_TYPE": null,
+    "WINDOW_CONDITION": null,
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_RULE_MISSING",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "FONTE": {
+    "SOURCE": "Difesa Integrata di: Mais — Disciplinari di produzione integrata 2026, Regione Lombardia",
+    "SOURCE_ID": "IT-COL-2609-LO-REGRA-MAIS",
+    "SOURCE_URLS": [
+     "https://www.winbdf.it/bdf-archivi/disciplinari/dpi_lombardia_2026.pdf"
+    ],
+    "DATE": "2026-01-01",
+    "OBSERVATION_CLASS": "STANDING_RULE",
+    "REGION": [
+     "REGION_LOMBARDIA"
+    ],
+    "EXACT_QUOTE": "«Diabrotica (Diabrotica virgifera) — La rotazione colturale è sufficiente a contenere la diabrotica. In altre situazioni installare trappole cromotropiche gialle e seguire le indicazioni dei bollettini. Soglia: Catture di 50 adulti settimanali consecutive per due settimane e solo nel caso si preveda la coltura del mais anche nell'anno successivo. Segnalare l'eventuale presenza al Servizio Fitosanitario Regionale.» · «Piralide (Ostrinia nubilalis) — Danni soprattutto alle colture in primo raccolto, con infestazioni cicliche. Interventi agronomici: Sfibratura degli stocchi e aratura tempestiva. Soglia: Solo in caso di presenza accertata sulla II e III generazione.»",
+    "SOURCE_ROLE": "DECLARA_A_CONDICAO_AGRONOMICA"
+   },
+   "DEPOIS": {
+    "WINDOW_DEFINED": "YES",
+    "WINDOW_TYPE": "THRESHOLD_WINDOW",
+    "WINDOW_CONDITION": "Mais/piralide: o mesmo disciplinare declara o limiar de intervencao apenas em caso de presenca comprovada na II e na III geracao, e indica como intervencoes agronomicas a sfibratura dos colmos e a lavoura tempestiva.",
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_STATE_UNKNOWN",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "WINDOW_RULE_STATE_ANTES": "RULE_NOT_DECLARED",
+   "WINDOW_RULE_STATE_DEPOIS": "RULE_DECLARED",
+   "COMMERCIAL_PRIORITY_ANTES": "TO_VALIDATE",
+   "COMMERCIAL_PRIORITY_DEPOIS": "TO_VALIDATE",
+   "WHY_CHANGED": "a fonte regional declarou a regra, e ela entrou pela mesma porta e pela mesma cadeia dos boletins"
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_D11664591168",
+   "ROTULO": "videira x escafoideo · Toscana",
+   "ANTES": {
+    "WINDOW_DEFINED": "NO",
+    "WINDOW_TYPE": null,
+    "WINDOW_CONDITION": null,
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_RULE_MISSING",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "FONTE": {
+    "SOURCE": "Difesa Vite 2026 v1 — Disciplinari di produzione integrata, Regione Toscana",
+    "SOURCE_ID": "IT-COL-2609-TO-REGRA-VITE",
+    "SOURCE_URLS": [
+     "https://www.winbdf.it/bdf-archivi/disciplinari/dpi_toscana_2026.pdf"
+    ],
+    "DATE": "2026-01-01",
+    "OBSERVATION_CLASS": "STANDING_RULE",
+    "REGION": [
+     "REGION_TOSCANA"
+    ],
+    "EXACT_QUOTE": "«OIDIO DELLA VITE — Cadenzare gli interventi dal germogliamento all'invaiatura in funzione della pressione infettiva esercitata dal patogeno e della suscettibilità varietale.» · «SCAFOIDEO — Scaphoideus titanus. Nelle aree delimitate dal Servizio Fitosanitario, in base a quanto stabilito nel Piano di azione regionale con le misure obbligatorie contro Flavescenza dorata, eseguire gli interventi obbligatori.» · «Efficacia limitata alle forme giovanili (fino alla II e III età).»",
+    "SOURCE_ROLE": "DECLARA_A_OBRIGACAO_DE_NORMA"
+   },
+   "DEPOIS": {
+    "WINDOW_DEFINED": "NO",
+    "WINDOW_TYPE": null,
+    "WINDOW_CONDITION": null,
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_RULE_ADMINISTRATIVE_ONLY",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "WINDOW_RULE_STATE_ANTES": "RULE_NOT_DECLARED",
+   "WINDOW_RULE_STATE_DEPOIS": "RULE_ADMINISTRATIVE_ONLY",
+   "COMMERCIAL_PRIORITY_ANTES": "TO_VALIDATE",
+   "COMMERCIAL_PRIORITY_DEPOIS": "TO_VALIDATE",
+   "WHY_CHANGED": "a fonte regional declarou a regra, e ela entrou pela mesma porta e pela mesma cadeia dos boletins"
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_F6EEF5B32F65",
+   "ROTULO": "milho x diabrotica · Lombardia",
+   "ANTES": {
+    "WINDOW_DEFINED": "NO",
+    "WINDOW_TYPE": null,
+    "WINDOW_CONDITION": null,
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_RULE_MISSING",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "FONTE": {
+    "SOURCE": "Difesa Integrata di: Mais — Disciplinari di produzione integrata 2026, Regione Lombardia",
+    "SOURCE_ID": "IT-COL-2609-LO-REGRA-MAIS",
+    "SOURCE_URLS": [
+     "https://www.winbdf.it/bdf-archivi/disciplinari/dpi_lombardia_2026.pdf"
+    ],
+    "DATE": "2026-01-01",
+    "OBSERVATION_CLASS": "STANDING_RULE",
+    "REGION": [
+     "REGION_LOMBARDIA"
+    ],
+    "EXACT_QUOTE": "«Diabrotica (Diabrotica virgifera) — La rotazione colturale è sufficiente a contenere la diabrotica. In altre situazioni installare trappole cromotropiche gialle e seguire le indicazioni dei bollettini. Soglia: Catture di 50 adulti settimanali consecutive per due settimane e solo nel caso si preveda la coltura del mais anche nell'anno successivo. Segnalare l'eventuale presenza al Servizio Fitosanitario Regionale.» · «Piralide (Ostrinia nubilalis) — Danni soprattutto alle colture in primo raccolto, con infestazioni cicliche. Interventi agronomici: Sfibratura degli stocchi e aratura tempestiva. Soglia: Solo in caso di presenza accertata sulla II e III generazione.»",
+    "SOURCE_ROLE": "DECLARA_A_CONDICAO_AGRONOMICA"
+   },
+   "DEPOIS": {
+    "WINDOW_DEFINED": "YES",
+    "WINDOW_TYPE": "THRESHOLD_WINDOW",
+    "WINDOW_CONDITION": "Para a mesma diabrotica do mais, o disciplinare declara o limiar de intervencao em capturas de 50 adultos semanais consecutivas durante duas semanas, e apenas no caso de se prever a cultura do mais tambem no ano seguinte.",
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_STATE_UNKNOWN",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "WINDOW_RULE_STATE_ANTES": "RULE_NOT_DECLARED",
+   "WINDOW_RULE_STATE_DEPOIS": "RULE_DECLARED",
+   "COMMERCIAL_PRIORITY_ANTES": "TO_VALIDATE",
+   "COMMERCIAL_PRIORITY_DEPOIS": "TO_VALIDATE",
+   "WHY_CHANGED": "a fonte regional declarou a regra, e ela entrou pela mesma porta e pela mesma cadeia dos boletins"
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_195919127658",
+   "ROTULO": "videira x oidio · Friuli-Venezia Giulia",
+   "ANTES": {
+    "WINDOW_DEFINED": "NO",
+    "WINDOW_TYPE": null,
+    "WINDOW_CONDITION": null,
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_RULE_MISSING",
+     "COMMERCIAL_PRODUCT_MISSING",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "FONTE": {
+    "SOURCE": "Disciplinare di produzione integrata Regione Autonoma Friuli Venezia Giulia, anno 2025 (Decreto n. 115 del 06/03/2025)",
+    "SOURCE_ID": "IT-COL-2609-FVG-REGRA-VITE",
+    "SOURCE_URLS": [
+     "https://www.winbdf.it/bdf-archivi/disciplinari/dpi_friuli_vg_2025.pdf"
+    ],
+    "DATE": "2025-03-06",
+    "OBSERVATION_CLASS": "STANDING_RULE",
+    "REGION": [
+     "REGION_FRIULI_VENEZIA_GIULIA"
+    ],
+    "EXACT_QUOTE": "«PERONOSPORA DELLA VITE — Plasmopara viticola. Effettuare due trattamenti cautelativi con antiperonosporici dotati di persistenza di almeno 10-12 giorni: - subito prima della fioritura - a fine fioritura allo scadere del periodo di persistenza del prodotto impiegato. […] È necessario mantenere costantemente sotto controllo la situazione utilizzando le previsioni meteorologiche e, in previsione del verificarsi e del perdurare di condizioni favorevoli alla malattia, intervenire preventivamente, limitatamente a tale periodo.» · «OIDIO DELLA VITE — Uncinula necator. Interventi chimici: - nei casi in cui sia necessario eseguire trattamenti nelle fasi comprese fra risveglio vegetativo e fioritura, intervenire con Zolfo - eseguire 2 trattamenti cautelativi in miscela con gli antiperonosporici nelle seguenti fasi fenologiche: - subito prima della fioritura - a fine fioritura […] - nelle fasi comprese fra post-allegagione e invaiatura, alternare le sostanze attive a diverso meccanismo d'azione, adottando intervalli inferiori (max 10 giorni) in corrispondenza delle fasi di maggiore accrescimento degli acini.»",
+    "SOURCE_ROLE": "DECLARA_A_CONDICAO_AGRONOMICA"
+   },
+   "DEPOIS": {
+    "WINDOW_DEFINED": "YES",
+    "WINDOW_TYPE": "PHENOLOGY_WINDOW",
+    "WINDOW_CONDITION": "Ainda para o oidio da vite, o disciplinare declara que nas fases compreendidas entre o risveglio vegetativo e a fioritura, quando seja necessario tratar, se deve intervir com Zolfo.",
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_STATE_UNKNOWN",
+     "COMMERCIAL_PRODUCT_MISSING",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "WINDOW_RULE_STATE_ANTES": "RULE_NOT_DECLARED",
+   "WINDOW_RULE_STATE_DEPOIS": "RULE_DECLARED",
+   "COMMERCIAL_PRIORITY_ANTES": "TO_VALIDATE",
+   "COMMERCIAL_PRIORITY_DEPOIS": "TO_VALIDATE",
+   "WHY_CHANGED": "a fonte regional declarou a regra, e ela entrou pela mesma porta e pela mesma cadeia dos boletins"
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_C1735138E362",
+   "ROTULO": "videira x oidio · Umbria",
+   "ANTES": {
+    "WINDOW_DEFINED": "NO",
+    "WINDOW_TYPE": null,
+    "WINDOW_CONDITION": null,
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_RULE_MISSING",
+     "COMMERCIAL_PRODUCT_MISSING",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "FONTE": {
+    "SOURCE": "Disciplinari di produzione integrata 2025-2026, Regione Umbria — Difesa integrata Vite",
+    "SOURCE_ID": "IT-COL-2609-UM-REGRA-VITE",
+    "SOURCE_URLS": [
+     "https://www.winbdf.it/bdf-archivi/disciplinari/dpi_umbria_2026.pdf"
+    ],
+    "DATE": "2026-01-01",
+    "OBSERVATION_CLASS": "STANDING_RULE",
+    "REGION": [
+     "REGION_UMBRIA"
+    ],
+    "EXACT_QUOTE": "«PERONOSPORA DELLA VITE — Plasmopara viticola. Interventi chimici: Fino alla pre fioritura: - intervenire preventivamente sulla base della previsione delle piogge. Dalla pre fioritura alla allegagione: - anche in assenza di macchie d'olio intervenire cautelativamente con cadenze in base alle caratteristiche dei prodotti utilizzati. Successive fasi vegetative: - le strategie di controllo sono in relazione alla comparsa o meno della malattia e all'andamento climatico.» · «OIDIO DELLA VITE. Interventi chimici: - Zone ad alto rischio: Fino alla pre fioritura: - intervenire preventivamente con antioidici di copertura. Dalla pre fioritura all'invaiatura: - intervenire alternando prodotti sistemici e di copertura. - Zone a basso rischio: - intervenire cautelativamente nell'immediata pre-fioritura e proseguire gli interventi alternando prodotti sistemici e di copertura.»",
+    "SOURCE_ROLE": "DECLARA_A_CONDICAO_AGRONOMICA"
+   },
+   "DEPOIS": {
+    "WINDOW_DEFINED": "YES",
+    "WINDOW_TYPE": "PHENOLOGY_WINDOW",
+    "WINDOW_CONDITION": "Vite/oidio: o mesmo disciplinare declara que nas zonas de alto risco se deve intervir preventivamente com antioidicos de cobertura ate a pre fioritura, e que da pre fioritura a invaiatura se deve intervir alternando produtos sistemicos e de cobertura.",
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_STATE_UNKNOWN",
+     "COMMERCIAL_PRODUCT_MISSING",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "WINDOW_RULE_STATE_ANTES": "RULE_NOT_DECLARED",
+   "WINDOW_RULE_STATE_DEPOIS": "RULE_DECLARED",
+   "COMMERCIAL_PRIORITY_ANTES": "TO_VALIDATE",
+   "COMMERCIAL_PRIORITY_DEPOIS": "TO_VALIDATE",
+   "WHY_CHANGED": "a fonte regional declarou a regra, e ela entrou pela mesma porta e pela mesma cadeia dos boletins"
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_C5F7888EC524",
+   "ROTULO": "videira x oidio · Toscana",
+   "ANTES": {
+    "WINDOW_DEFINED": "NO",
+    "WINDOW_TYPE": null,
+    "WINDOW_CONDITION": null,
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_RULE_MISSING",
+     "COMMERCIAL_PRODUCT_MISSING",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "FONTE": {
+    "SOURCE": "Difesa Vite 2026 v1 — Disciplinari di produzione integrata, Regione Toscana",
+    "SOURCE_ID": "IT-COL-2609-TO-REGRA-VITE",
+    "SOURCE_URLS": [
+     "https://www.winbdf.it/bdf-archivi/disciplinari/dpi_toscana_2026.pdf"
+    ],
+    "DATE": "2026-01-01",
+    "OBSERVATION_CLASS": "STANDING_RULE",
+    "REGION": [
+     "REGION_TOSCANA"
+    ],
+    "EXACT_QUOTE": "«OIDIO DELLA VITE — Cadenzare gli interventi dal germogliamento all'invaiatura in funzione della pressione infettiva esercitata dal patogeno e della suscettibilità varietale.» · «SCAFOIDEO — Scaphoideus titanus. Nelle aree delimitate dal Servizio Fitosanitario, in base a quanto stabilito nel Piano di azione regionale con le misure obbligatorie contro Flavescenza dorata, eseguire gli interventi obbligatori.» · «Efficacia limitata alle forme giovanili (fino alla II e III età).»",
+    "SOURCE_ROLE": "DECLARA_A_CONDICAO_AGRONOMICA"
+   },
+   "DEPOIS": {
+    "WINDOW_DEFINED": "YES",
+    "WINDOW_TYPE": "PHENOLOGY_WINDOW",
+    "WINDOW_CONDITION": "Vite/oidio: o disciplinare de producao integrada da Regione Toscana declara que se devem escalonar as intervencoes do germogliamento ate a invaiatura em funcao da pressao infetiva exercida pelo patogeno e da suscetibilidade varietal.",
+    "WINDOW_OPEN_NOW": "UNKNOWN",
+    "STATUS": "WATCH",
+    "WHAT_IS_MISSING": [
+     "WINDOW_STATE_UNKNOWN",
+     "COMMERCIAL_PRODUCT_MISSING",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ]
+   },
+   "WINDOW_RULE_STATE_ANTES": "RULE_NOT_DECLARED",
+   "WINDOW_RULE_STATE_DEPOIS": "RULE_DECLARED",
+   "COMMERCIAL_PRIORITY_ANTES": "TO_VALIDATE",
+   "COMMERCIAL_PRIORITY_DEPOIS": "TO_VALIDATE",
+   "WHY_CHANGED": "a fonte regional declarou a regra, e ela entrou pela mesma porta e pela mesma cadeia dos boletins"
+  }
+ ]
+}

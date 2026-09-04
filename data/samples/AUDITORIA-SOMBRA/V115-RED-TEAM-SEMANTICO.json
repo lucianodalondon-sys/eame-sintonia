@@ -1,7 +1,7 @@
 {
  "COLLECTION": "V115-RED-TEAM-SEMANTICO",
- "SOURCE": "build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/OPPORTUNITIES.json · BUILD_ID V21-cc9e5ce20da2dab6",
- "CAPTURED_AT": "2026-09-03",
+ "SOURCE": "build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/OPPORTUNITIES.json · BUILD_ID V21-5aa6336da6784e3f",
+ "CAPTURED_AT": "2026-09-04",
  "LAW": "nao pergunta se o codigo rodou. Pergunta se a evidencia sustenta a conclusao — elo a elo, com o dono de cada um nomeado.",
  "SEMANTIC_RED_TEAM": "PASS",
  "FALHAS": [],
@@ -24,9 +24,9 @@
    "PEST_STAGE_EVIDENCE_ID": "IT-COL-2609-VN-CARPOCAPSA",
    "ACTION_RECOMMENDATION_STATE": "CONTINUE_RECOMMENDED",
    "ACTION_RECOMMENDATION_EVIDENCE_ID": "IT-COL-2609-VN-CARPOCAPSA",
-   "WINDOW_DEFINED": "NO",
+   "WINDOW_DEFINED": "YES",
    "WINDOW_OPEN_NOW": "UNKNOWN",
-   "METODO": "NENHUMA_CONDICAO_DECLARADA_PARA_O_PAR",
+   "METODO": "REGRA_EXIGE_MEDICAO_DO_POMAR_QUE_NENHUMA_FONTE_REGIONAL_TEM",
    "STATUS": "VALIDATE_NOW",
    "POR_QUE_NAO_E_JANELA": "a fonte recomenda continuar a defesa, e isso e DIRECAO. Nenhuma oracao amarra a acao a um estadio da praga: ninguem declarou QUAL condicao define o momento.",
    "FALHAS": [],
@@ -238,34 +238,121 @@
    "BUILD_ID_ANTES": "V21-7285e903bfb1c147",
    "CASOS_ANTES": 43,
    "CASOS_DEPOIS": 43,
-   "CASOS_QUE_MUDARAM": 5,
+   "CASOS_QUE_MUDARAM": 14,
    "MUDANCAS": [
     {
      "CASO": "O1_FIELD_PRESSURE|CROP_APPLE|ISSUE_CODLING_MOTH|REGION_VENETO",
      "DIFERENCAS": {
       "WINDOW_TYPE": [
        "PEST_STAGE_WINDOW",
-       null
-      ],
-      "WINDOW_DEFINED": [
-       "YES",
-       "NO"
+       "RULE_DELEGATED_TO_FARM"
       ],
       "WINDOW_OPEN_NOW_METHOD": [
        "CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS",
-       "NENHUMA_CONDICAO_DECLARADA_PARA_O_PAR"
+       "REGRA_EXIGE_MEDICAO_DO_POMAR_QUE_NENHUMA_FONTE_REGIONAL_TEM"
       ],
       "WINDOW_EVIDENCE_ID": [
        "IT-CAN-D9582B1FD6",
-       null
+       "IT-COL-2609-VN-REGRA-CARPOCAPSA"
+      ]
+     }
+    },
+    {
+     "CASO": "O1_FIELD_PRESSURE|CROP_GRAPEVINE|ISSUE_DOWNY_MILDEW|REGION_EMILIA_ROMAGNA",
+     "DIFERENCAS": {
+      "WINDOW_TYPE": [
+       null,
+       "PHENOLOGY_WINDOW"
+      ],
+      "WINDOW_DEFINED": [
+       "NO",
+       "YES"
+      ],
+      "WINDOW_OPEN_NOW_METHOD": [
+       "NENHUMA_CONDICAO_DECLARADA_PARA_O_PAR",
+       "DOCUMENTO_NAO_CORRENTE"
+      ],
+      "WINDOW_EVIDENCE_ID": [
+       null,
+       "IT-COL-2609-ER-REGRA-VITE"
       ],
       "WHY_NOW_CODES": [
        [
+        "SEM_SINAL_ATUAL",
+        "SEM_JANELA_DEFINIDA",
         "SEM_JANELA_ABERTA_AGORA",
         "SEM_TEMPO_PARA_ACAO"
        ],
        [
+        "SEM_SINAL_ATUAL",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_TEMPO_PARA_ACAO"
+       ]
+      ]
+     }
+    },
+    {
+     "CASO": "O1_FIELD_PRESSURE|CROP_GRAPEVINE|ISSUE_DOWNY_MILDEW|REGION_FRIULI_VENEZIA_GIULIA",
+     "DIFERENCAS": {
+      "WINDOW_TYPE": [
+       null,
+       "PHENOLOGY_WINDOW"
+      ],
+      "WINDOW_DEFINED": [
+       "NO",
+       "YES"
+      ],
+      "WINDOW_OPEN_NOW_METHOD": [
+       "NENHUMA_CONDICAO_DECLARADA_PARA_O_PAR",
+       "DOCUMENTO_NAO_CORRENTE"
+      ],
+      "WINDOW_EVIDENCE_ID": [
+       null,
+       "IT-COL-2609-FVG-REGRA-VITE"
+      ],
+      "WHY_NOW_CODES": [
+       [
+        "SEM_SINAL_ATUAL",
         "SEM_JANELA_DEFINIDA",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_TEMPO_PARA_ACAO"
+       ],
+       [
+        "SEM_SINAL_ATUAL",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_TEMPO_PARA_ACAO"
+       ]
+      ]
+     }
+    },
+    {
+     "CASO": "O1_FIELD_PRESSURE|CROP_GRAPEVINE|ISSUE_DOWNY_MILDEW|REGION_UMBRIA",
+     "DIFERENCAS": {
+      "WINDOW_TYPE": [
+       null,
+       "PHENOLOGY_WINDOW"
+      ],
+      "WINDOW_DEFINED": [
+       "NO",
+       "YES"
+      ],
+      "WINDOW_OPEN_NOW_METHOD": [
+       "NENHUMA_CONDICAO_DECLARADA_PARA_O_PAR",
+       "DOCUMENTO_NAO_CORRENTE"
+      ],
+      "WINDOW_EVIDENCE_ID": [
+       null,
+       "IT-COL-2609-UM-REGRA-VITE"
+      ],
+      "WHY_NOW_CODES": [
+       [
+        "SEM_SINAL_ATUAL",
+        "SEM_JANELA_DEFINIDA",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_TEMPO_PARA_ACAO"
+       ],
+       [
+        "SEM_SINAL_ATUAL",
         "SEM_JANELA_ABERTA_AGORA",
         "SEM_TEMPO_PARA_ACAO"
        ]
@@ -291,11 +378,221 @@
      }
     },
     {
+     "CASO": "O1_FIELD_PRESSURE|CROP_GRAPEVINE|ISSUE_POWDERY_MILDEW|REGION_FRIULI_VENEZIA_GIULIA",
+     "DIFERENCAS": {
+      "WINDOW_TYPE": [
+       null,
+       "PHENOLOGY_WINDOW"
+      ],
+      "WINDOW_DEFINED": [
+       "NO",
+       "YES"
+      ],
+      "WINDOW_OPEN_NOW_METHOD": [
+       "NENHUMA_CONDICAO_DECLARADA_PARA_O_PAR",
+       "DOCUMENTO_NAO_CORRENTE"
+      ],
+      "WINDOW_EVIDENCE_ID": [
+       null,
+       "IT-COL-2609-FVG-REGRA-VITE"
+      ],
+      "WHY_NOW_CODES": [
+       [
+        "SEM_SINAL_ATUAL",
+        "SEM_JANELA_DEFINIDA",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_VINCULO_COM_PORTFOLIO",
+        "SEM_TEMPO_PARA_ACAO"
+       ],
+       [
+        "SEM_SINAL_ATUAL",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_VINCULO_COM_PORTFOLIO",
+        "SEM_TEMPO_PARA_ACAO"
+       ]
+      ]
+     }
+    },
+    {
+     "CASO": "O1_FIELD_PRESSURE|CROP_GRAPEVINE|ISSUE_POWDERY_MILDEW|REGION_TOSCANA",
+     "DIFERENCAS": {
+      "WINDOW_TYPE": [
+       null,
+       "PHENOLOGY_WINDOW"
+      ],
+      "WINDOW_DEFINED": [
+       "NO",
+       "YES"
+      ],
+      "WINDOW_OPEN_NOW_METHOD": [
+       "NENHUMA_CONDICAO_DECLARADA_PARA_O_PAR",
+       "DOCUMENTO_NAO_CORRENTE"
+      ],
+      "WINDOW_EVIDENCE_ID": [
+       null,
+       "IT-COL-2609-TO-REGRA-VITE"
+      ],
+      "WHY_NOW_CODES": [
+       [
+        "SEM_SINAL_ATUAL",
+        "SEM_JANELA_DEFINIDA",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_VINCULO_COM_PORTFOLIO",
+        "SEM_TEMPO_PARA_ACAO"
+       ],
+       [
+        "SEM_SINAL_ATUAL",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_VINCULO_COM_PORTFOLIO",
+        "SEM_TEMPO_PARA_ACAO"
+       ]
+      ]
+     }
+    },
+    {
+     "CASO": "O1_FIELD_PRESSURE|CROP_GRAPEVINE|ISSUE_POWDERY_MILDEW|REGION_UMBRIA",
+     "DIFERENCAS": {
+      "WINDOW_TYPE": [
+       null,
+       "PHENOLOGY_WINDOW"
+      ],
+      "WINDOW_DEFINED": [
+       "NO",
+       "YES"
+      ],
+      "WINDOW_OPEN_NOW_METHOD": [
+       "NENHUMA_CONDICAO_DECLARADA_PARA_O_PAR",
+       "DOCUMENTO_NAO_CORRENTE"
+      ],
+      "WINDOW_EVIDENCE_ID": [
+       null,
+       "IT-COL-2609-UM-REGRA-VITE"
+      ],
+      "WHY_NOW_CODES": [
+       [
+        "SEM_SINAL_ATUAL",
+        "SEM_JANELA_DEFINIDA",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_VINCULO_COM_PORTFOLIO",
+        "SEM_TEMPO_PARA_ACAO"
+       ],
+       [
+        "SEM_SINAL_ATUAL",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_VINCULO_COM_PORTFOLIO",
+        "SEM_TEMPO_PARA_ACAO"
+       ]
+      ]
+     }
+    },
+    {
+     "CASO": "O1_FIELD_PRESSURE|CROP_GRAPEVINE|ISSUE_SCAPHOIDEUS|REGION_UMBRIA",
+     "DIFERENCAS": {
+      "WINDOW_TYPE": [
+       null,
+       "PEST_STAGE_WINDOW"
+      ],
+      "WINDOW_DEFINED": [
+       "NO",
+       "YES"
+      ],
+      "WINDOW_OPEN_NOW_METHOD": [
+       "NENHUMA_CONDICAO_DECLARADA_PARA_O_PAR",
+       "DOCUMENTO_NAO_CORRENTE"
+      ],
+      "WINDOW_EVIDENCE_ID": [
+       null,
+       "IT-COL-2609-UM-REGRA-SCAFOIDEO"
+      ],
+      "WHY_NOW_CODES": [
+       [
+        "SEM_SINAL_ATUAL",
+        "SEM_JANELA_DEFINIDA",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_TEMPO_PARA_ACAO"
+       ],
+       [
+        "SEM_SINAL_ATUAL",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_TEMPO_PARA_ACAO"
+       ]
+      ]
+     }
+    },
+    {
      "CASO": "O1_FIELD_PRESSURE|CROP_MAIZE|ISSUE_CORN_BORER|REGION_FRIULI_VENEZIA_GIULIA",
      "DIFERENCAS": {
       "WINDOW_OPEN_NOW_METHOD": [
        "CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS",
        "FONTE_NAO_DECLARA_A_MEDICAO_QUE_A_CONDICAO_EXIGE"
+      ]
+     }
+    },
+    {
+     "CASO": "O1_FIELD_PRESSURE|CROP_MAIZE|ISSUE_CORN_BORER|REGION_LOMBARDIA",
+     "DIFERENCAS": {
+      "WINDOW_TYPE": [
+       null,
+       "THRESHOLD_WINDOW"
+      ],
+      "WINDOW_DEFINED": [
+       "NO",
+       "YES"
+      ],
+      "WINDOW_OPEN_NOW_METHOD": [
+       "NENHUMA_CONDICAO_DECLARADA_PARA_O_PAR",
+       "DOCUMENTO_NAO_CORRENTE"
+      ],
+      "WINDOW_EVIDENCE_ID": [
+       null,
+       "IT-COL-2609-LO-REGRA-MAIS"
+      ],
+      "WHY_NOW_CODES": [
+       [
+        "SEM_SINAL_ATUAL",
+        "SEM_JANELA_DEFINIDA",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_TEMPO_PARA_ACAO"
+       ],
+       [
+        "SEM_SINAL_ATUAL",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_TEMPO_PARA_ACAO"
+       ]
+      ]
+     }
+    },
+    {
+     "CASO": "O1_FIELD_PRESSURE|CROP_MAIZE|ISSUE_DIABROTICA|REGION_LOMBARDIA",
+     "DIFERENCAS": {
+      "WINDOW_TYPE": [
+       null,
+       "THRESHOLD_WINDOW"
+      ],
+      "WINDOW_DEFINED": [
+       "NO",
+       "YES"
+      ],
+      "WINDOW_OPEN_NOW_METHOD": [
+       "NENHUMA_CONDICAO_DECLARADA_PARA_O_PAR",
+       "DOCUMENTO_NAO_CORRENTE"
+      ],
+      "WINDOW_EVIDENCE_ID": [
+       null,
+       "IT-COL-2609-LO-REGRA-MAIS"
+      ],
+      "WHY_NOW_CODES": [
+       [
+        "SEM_SINAL_ATUAL",
+        "SEM_JANELA_DEFINIDA",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_TEMPO_PARA_ACAO"
+       ],
+       [
+        "SEM_SINAL_ATUAL",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_TEMPO_PARA_ACAO"
+       ]
       ]
      }
     },

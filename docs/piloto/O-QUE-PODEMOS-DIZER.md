@@ -36,7 +36,7 @@ Cada frase segura aponta para o arquivo que a prova.
    the same agronomic problem."** → trigo × septoriose FR: BASF 22, Bayer 20, ADAMA 6.
 
 9. **"Every number leads back to a source file, a date and an original statement — and the
-   system refuses to answer when it cannot."** → <!--M:TEST_COUNT_CURRENT-->758<!--/M--> provas automatizadas; 35 perguntas de benchmark,
+   system refuses to answer when it cannot."** → <!--M:TEST_COUNT_CURRENT-->763<!--/M--> provas automatizadas; 35 perguntas de benchmark,
    **20 respondidas, 14 recusadas, 1 parcial, 0 erradas**.
 
 10. **"We can show that brand identity is not registration identity."** → na lista oficial

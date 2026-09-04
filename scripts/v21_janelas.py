@@ -56,13 +56,25 @@ THRESHOLD_WINDOW = 'THRESHOLD_WINDOW'
 WEATHER_TRIGGERED_WINDOW = 'WEATHER_TRIGGERED_WINDOW'
 PEST_STAGE_WINDOW = 'PEST_STAGE_WINDOW'
 ADMINISTRATIVE_WINDOW = 'ADMINISTRATIVE_WINDOW'
+# ⚠️ O OITAVO TIPO NÃO SAIU DE UMA IDEIA: SAIU DE UM DOCUMENTO.
+# «Per cui le decisioni devono essere necessariamente basate sulle osservazioni
+# aziendali» — Manuale difesa integrata del melo, Regione del Veneto. A regra
+# existe, é publicada, e o que ela publica é que o gatilho é do pomar.
+#
+#     SABER QUE A REGRA MANDA MEDIR NO POMAR É SABER A REGRA.
+#     E CONTINUAR SEM A MEDIÇÃO É CONTINUAR SEM SABER SE A JANELA ESTÁ ABERTA.
+RULE_DELEGATED_TO_FARM = 'RULE_DELEGATED_TO_FARM'
 
 TIPOS = (CALENDAR_WINDOW, PREHARVEST_WINDOW, PHENOLOGY_WINDOW, THRESHOLD_WINDOW,
-         PEST_STAGE_WINDOW, WEATHER_TRIGGERED_WINDOW, ADMINISTRATIVE_WINDOW)
+         PEST_STAGE_WINDOW, WEATHER_TRIGGERED_WINDOW, ADMINISTRATIVE_WINDOW,
+         RULE_DELEGATED_TO_FARM)
 
 # Os que dizem QUANDO A PLANTA/PRAGA está pronta — janela agronômica de verdade.
+# A regra delegada entra por último: se houver uma condição regional declarada
+# para o mesmo par, é ela que responde, e a delegação fica de reserva.
 AGRONOMICOS = (CALENDAR_WINDOW, PREHARVEST_WINDOW, PHENOLOGY_WINDOW,
-               THRESHOLD_WINDOW, PEST_STAGE_WINDOW, WEATHER_TRIGGERED_WINDOW)
+               THRESHOLD_WINDOW, PEST_STAGE_WINDOW, WEATHER_TRIGGERED_WINDOW,
+               RULE_DELEGATED_TO_FARM)
 
 # ── OS PADRÕES, EM ORDEM DE PRECEDÊNCIA ─────────────────────────────────────
 # Precedência importa: «intervir em pré-colheita» é PREHARVEST, não FENOLOGIA
@@ -78,10 +90,18 @@ _ESTAGIO = (r'\b(?:vol[oi]|voos?|generazion\w+|gerac\w+|ovideposi\w*|'
             r'nascita d\w+ \w+|formas juvenis)\b')
 
 _P = [
+ # Medido nos disciplinari de 2026: a Toscana não escreve «determinazione» na
+ # linha do escafoide — escreve «nelle aree delimitate dal Servizio Fitosanitario
+ # … eseguire gli interventi obbligatori». É ato administrativo com outro nome.
  (ADMINISTRATIVE_WINDOW, [
     r'\bdeterminazione\b', r'\bdetermina n', r'\bddr n', r'\bdecreto\b',
     r'\bderoga\b', r'\blotta obbligatoria\b', r'\bimpiego consentito\b',
-    r'\bobrigatori\w+ por norma\b', r'\bconforme a determina\w*']),
+    r'\bobrigatori\w+ por norma\b', r'\bconforme a determina\w*',
+    r'\bluta obrigatoria\b', r'\bintervent[oi]s? obrigatori\w+\b',
+    r'\bintervent[oi] obbligatori\b', r'\bmisure obbligatorie\b',
+    r'\bmedidas obrigatorias\b', r'\bpiano di azione regionale\b',
+    r'\bplano de acao regional\b',
+    r'\bareas? delimitad\w+\b', r'\baree delimitate\b']),
 
  (PREHARVEST_WINDOW, [
     r'\bpre[- ]?colheita\b', r'\bpre[- ]?raccolta\b', r'\bpreraccolta\b',
@@ -106,13 +126,26 @@ _P = [
     _ACAO + r'[^.;]{0,70}' + _ESTAGIO,
     _ESTAGIO + r'[^.;]{0,70}' + _ACAO]),
 
+ # ⚠️ Os quatro disciplinari lidos (FVG, Emilia-Romagna, Umbria, Toscana)
+ # escrevem o mesmo gatilho com quatro redações. Nenhuma delas casava.
+ #
+ #     «intervenire preventivamente sulla base della previsione delle piogge»
+ #     «in previsione del verificarsi … di condizioni favorevoli alla malattia»
+ #
+ # Um léxico que só conhece a redação de um boletim chama de «sem janela» o
+ # disciplinare que declara a janela — e a lacuna é nossa, não da fonte.
  (WEATHER_TRIGGERED_WINDOW, [
     r'\bem caso de (?:chuva|temporal|granizo)\b',
     r'\bin caso di (?:pioggia|temporal|grandine)\b',
     r'\bjunto de chuva\b', r'\bdopo le piogge\b',
     r'\bmolhamento\b', r'\bbagnatura\b',
     r'\bcondicoes predisponentes\b', r'\bcondizioni predisponenti\b',
-    r'\bcondicoes ideais para\b']),
+    r'\bcondicoes ideais para\b',
+    r'\bprevisao d[ae]s? (?:chuvas|precipitacoes)\b',
+    r'\bprevisione delle piogge\b',
+    r'\bcondi[cz]\w+ favorav\w+ (?:ao|a|para) \w*\s?(?:desenvolvimento|doenca)\b',
+    r'\bcondizioni favorevoli alla malattia\b',
+    r'\bandamento climatico\b', r'\bandamento do clima\b']),
 
  # ⚠️ O ESTÁDIO SOZINHO NÃO É JANELA. «espigas em maturacao avancada» descreve
  # a planta; não manda tratar em maturação. A janela é a LIGAÇÃO entre uma ação
@@ -128,12 +161,28 @@ _P = [
     r'\b(?:dalla|nella|alla|dopo la|prima della) fase\b',
     r'\bna fase de\b', r'\bem fase de\b', r'\bin fase di\b',
     r'\bbbch \d', r'\ba partir da viragem de cor\b',
-    r'\bao (?:atingir|chegar a)\b[^.;]{0,30}\bfase\b']),
+    r'\bao (?:atingir|chegar a)\b[^.;]{0,30}\bfase\b',
+    # os disciplinari delimitam o período POR DUAS FASES — «da X até Y» — e é
+    # essa moldura que diz quando agir. Medido em FVG, ER, Umbria e Toscana.
+    r'\b(?:ate|fino) [aà]s? (?:pre[- ]?)?(?:fioritura|floracao|allegagione|'
+    r'invaiatura|prefioritura)\b',
+    r'\bd[oa] germogliamento (?:a|ate)\b', r'\bdal germogliamento all\b',
+    r'\bd[ae] pre[- ]?(?:fioritura|floracao)\b',
+    r'\bdalla pre fioritura\b', r'\bdall\W?allegagione\b',
+    r'\b(?:imediatamente )?antes d[ae] (?:fioritura|floracao)\b',
+    r'\bsubito prima della fioritura\b',
+    r'\b(?:no |a )?fim d[ae] (?:fioritura|floracao)\b',
+    r'\ba fine fioritura\b', r'\bem pre[- ]?(?:fioritura|floracao)\b',
+    r'\bnas fases compreendidas entre\b']),
 
  (CALENDAR_WINDOW, [
     r'\b\d{1,2}/\d{1,2}/\d{4}\b', r'\b\d{4}-\d{2}-\d{2}\b',
     r'\ba partir de \d{1,2} de \w+', r'\bdal \d{1,2}\b', r'\bentro il \d{1,2}\b',
     r'\bfino al \d{1,2}\b', r'\bate o fim de \w+\b']),
+
+ # o dono do padrão é `v21_necessidade.decisao_delegada`: um léxico só, lido
+ # aqui e lá, para as duas leituras nunca discordarem.
+ (RULE_DELEGATED_TO_FARM, [NE._DELEGADA.pattern]),
 ]
 
 
@@ -261,10 +310,18 @@ def aberta_agora(tipo, oracao, estagio, corrente):
     mediu; a fonte descreveu em prosa qualitativa; a fonte declarou a fase e ela
     não é a da condição; e a fonte declarou a fase como encerrada.
     """
-    if not corrente:
-        return 'UNKNOWN', 'DOCUMENTO_NAO_CORRENTE'
+    # ⚠️ ESTES DOIS NÃO DEPENDEM DA IDADE DO DOCUMENTO. Um ato administrativo é
+    # prazo de norma num manual de 2020 e num boletim de ontem; e uma regra que
+    # manda medir no pomar manda medir no pomar em qualquer ano. Responder
+    # `DOCUMENTO_NAO_CORRENTE` a eles seria dar a razão errada de novo.
     if tipo == ADMINISTRATIVE_WINDOW:
         return 'NO', 'ATO_ADMINISTRATIVO_NAO_E_JANELA_AGRONOMICA'
+    if tipo == RULE_DELEGATED_TO_FARM:
+        # a regra é conhecida — «medir no pomar» — e a medição não é regional.
+        # Nenhuma coleta de fonte oficial muda esta resposta: ela já foi dada.
+        return 'UNKNOWN', 'REGRA_EXIGE_MEDICAO_DO_POMAR_QUE_NENHUMA_FONTE_REGIONAL_TEM'
+    if not corrente:
+        return 'UNKNOWN', 'DOCUMENTO_NAO_CORRENTE'
     t = N._n(oracao)
     if tipo in CONDICAO_MEDIDA:
         # ⚠️ TESTEMUNHA NEGATIVA. «il quadro rimane tendenzialmente buono» não

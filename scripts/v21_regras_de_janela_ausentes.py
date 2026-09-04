@@ -50,10 +50,30 @@ def _le(nome):
 
 
 def prioridade(r):
-    """Ordem por defensabilidade comercial — nunca por facilidade da fonte."""
-    porta_aberta = r.get('NEED_DIRECTION') in (NE.POSITIVE_PRESSURE, NE.MONITOR)
+    """Ordem declarada, em cinco degraus — nunca por facilidade da fonte.
+
+        1 · SALES_READY
+        2 · portfólio ADAMA defensável (rótulo ministerial + catálogo)
+        3 · maior capacidade de alterar a ação comercial
+        4 · fonte regional oficial disponível
+        5 · os demais
+
+    O terceiro degrau merece explicação. Uma direção RESTRITIVA já fechou a
+    porta: descobrir a regra da janela num par onde a fonte manda parar não muda
+    ação comercial nenhuma — continua a mandar parar. A regra ainda vale a pena
+    conhecer, mas depois das que podem mover alguma coisa.
+
+        SABER QUANDO AGIR NUM CASO ONDE A FONTE MANDA NÃO AGIR
+        É CONHECIMENTO VERDADEIRO E DECISÃO NENHUMA.
+    """
+    defensavel = (r.get('PRODUCT_LINK_STATE') == 'VERIFIED_LABEL_MATCH'
+                  and (r.get('COMMERCIAL_PRODUCT_COUNT') or 0) > 0)
+    move_acao = r.get('NEED_DIRECTION') not in NE.RESTRITIVOS
+    regional = str(r.get('GEOGRAPHY') or '').startswith('REGION_')
     return (0 if r.get('COMMERCIAL_PRIORITY') == 'SALES_READY' else 1,
-            0 if porta_aberta else 1,
+            0 if defensavel else 1,
+            0 if move_acao else 1,
+            0 if regional else 1,
             -(r.get('COMMERCIAL_PRODUCT_COUNT') or 0),
             r['ID'])
 

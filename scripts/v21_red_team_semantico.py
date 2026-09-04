@@ -136,10 +136,22 @@ def item_3(o, sinais):
         falhas.append('serie fechada virou resposta')
     if o['THRESHOLD_STATE'] == 'MEASUREMENT_DECLARED':
         falhas.append('inventou medicao onde a fonte parou')
+    # ⚠️ O TESTE ANTIGO OLHAVA O PREFIXO DO ID, e o prefixo nao e um facto sobre
+    # o mundo: o lote seguinte usou o mesmo prefixo para uma REGRA do Friuli com
+    # fonte, data e citacao, e o red team acusou-a de invencao.
+    #
+    #     UM TESTE QUE OLHA O NOME DO ARQUIVO EM VEZ DO CONTEUDO ACUSA QUEM
+    #     CUMPRIU A REGRA.
+    #
+    # O que importa e o que a missao proibiu: inventar MEDICAO de milho no
+    # Friuli depois de a serie ter fechado em 12/08/2026.
     inventados = [s['ID'] for s in sinais
-                  if s['ID'].startswith('IT-COL-2609-FVG')]
+                  if 'CROP_MAIZE' in (s.get('CROP_IDS') or [])
+                  and 'REGION_FRIULI_VENEZIA_GIULIA' in (s.get('REGION_IDS') or [])
+                  and str(s.get('REFERENCE_DATE') or '') > '2026-08-12']
     if inventados:
-        falhas.append('registro criado sem fonte: %s' % inventados)
+        falhas.append('medicao de milho no Friuli depois de a serie fechar: %s'
+                      % inventados)
     return {
         'PERGUNTA': 'A ultima publicacao de 12/08 responde alguma coisa?',
         'CLASSIFICACAO': 'UNKNOWN',

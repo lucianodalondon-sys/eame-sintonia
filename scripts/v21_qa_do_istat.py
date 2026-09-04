@@ -90,6 +90,41 @@ def provas(linhas):
     return dict(f)
 
 
+def impacto_por_ano(linhas, ops):
+    """Carimbar POR ANO — quanto isso libera, e o que muda de verdade.
+
+    A pergunta não é «quantas linhas ficam client-safe». É «quantos dos 43 casos
+    passam a ter área oficial, e algum resultado comercial muda por isso?».
+
+        LIBERAR DADO NÃO É MUDAR DECISÃO. SÃO DUAS MEDIÇÕES, E A SEGUNDA É A
+        QUE INTERESSA.
+    """
+    por_ano = defaultdict(list)
+    for r in linhas:
+        por_ano[r.get('YEAR')].append(r)
+    # o motor liga a área por CULTURA × GEOGRAFIA, e só para o indicador AREA
+    fora = {}
+    for ano in sorted(por_ano):
+        area = {(r.get('CROP_CODE'), reg)
+                for r in por_ano[ano] if r.get('INDICATOR') == 'AREA'
+                for reg in (r.get('REGION_IDS') or [])}
+        # o cartão não guarda CROP_CODE; a ligação real do motor é por CROP_ID
+        ids = {(r.get('CROP_IDS') or [None])[0]: None for r in por_ano[ano]}
+        alcanca = [o['ID'] for o in ops
+                   if any(o.get('CROP') == c and o.get('GEOGRAPHY') in (r.get('REGION_IDS') or [])
+                          for r in por_ano[ano] if r.get('INDICATOR') == 'AREA'
+                          for c in (r.get('CROP_IDS') or []))]
+        fora[ano] = {
+            'LINHAS': len(por_ano[ano]),
+            'LINHAS_AREA': sum(1 for r in por_ano[ano] if r.get('INDICATOR') == 'AREA'),
+            'PARES_CULTURA_X_GEOGRAFIA': len(area),
+            'CASOS_DOS_43_QUE_CONSOMEM': len(set(alcanca)),
+            'CASOS': sorted(set(alcanca)),
+        }
+        del ids
+    return fora
+
+
 def main():
     linhas = [r for r in _le('CROP-ECONOMIC-WEIGHT.json')
               if 'ISTAT' in str(r.get('SOURCE_IDS')) and r.get('INDICATOR')]
@@ -135,6 +170,22 @@ def main():
           % (sum(len(por_ano[a]) for a in veredito if veredito[a] == 'YES'),
              afetados))
 
+    impacto = impacto_por_ano(linhas, ops)
+    print('\nIMPACTO DO CARIMBO, ANO A ANO')
+    for ano in sorted(impacto):
+        i = impacto[ano]
+        print('  %s · %4d linhas (%d de AREA) · %3d pares cultura x geografia '
+              '· %2d dos 43 casos' % (ano, i['LINHAS'], i['LINHAS_AREA'],
+                                      i['PARES_CULTURA_X_GEOGRAFIA'],
+                                      i['CASOS_DOS_43_QUE_CONSOMEM']))
+    # ⚠️ E A PERGUNTA QUE IMPORTA: o carimbo move alguma decisão comercial?
+    # `AREA_OFICIAL_HA` alimenta COMMERCIAL_MAGNITUDE e a lista do que falta.
+    # `v21_comercial.prioridade` não o lê — os portões são semânticos, e área
+    # não é portão. Então a resposta é NÃO, e é verificável lendo os dois.
+    print('\nMUDA ALGUM RESULTADO COMERCIAL? NAO — AREA_OFICIAL_HA alimenta '
+          'COMMERCIAL_MAGNITUDE e WHAT_IS_MISSING, e nenhum portao de '
+          'v21_comercial.prioridade a le.')
+
     fora = {
         'COLLECTION': 'V115-QA-DO-ISTAT',
         'SOURCE': 'build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/'
@@ -147,6 +198,12 @@ def main():
         'DETAIL_BY_YEAR': detalhe,
         'LINES': len(linhas),
         'CARDS_WITH_OFFICIAL_AREA_NOT_CLIENT_SAFE': afetados,
+        'IMPACT_BY_YEAR': impacto,
+        'CHANGES_ANY_COMMERCIAL_RESULT': 'NO',
+        'CHANGES_ANY_COMMERCIAL_RESULT_WHY':
+            'AREA_OFICIAL_HA alimenta COMMERCIAL_MAGNITUDE e a lista '
+            'WHAT_IS_MISSING. Nenhum portao de v21_comercial.prioridade a le: '
+            'os portoes sao semanticos e area nao e portao.',
         'STAMP_APPLIED': False,
     }
     saida = os.path.join(ROOT, 'data', 'samples', 'AUDITORIA-SOMBRA',

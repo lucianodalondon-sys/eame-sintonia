@@ -1318,3 +1318,78 @@ class TestRegraColetada(unittest.TestCase):
         # e nada foi carimbado: a decisão é de vocês, não efeito colateral
         self.assertTrue(all(r.get('QA_STATUS') == 'QA_UNREVIEWED'
                             for r in linhas))
+
+
+# ── T59 a T63 · A REGRA ENTRA, E NÃO EMPURRA NADA ───────────────────────────
+#
+# A coleta de REGRAS é diferente da coleta de sinais, e a diferença é toda a
+# questão: um disciplinare escreve «intervenire preventivamente», e essa frase,
+# lida como direção, faz um documento de 2025 declarar pressão de campo hoje.
+#
+#     UM DISCIPLINARE É UMA REGRA PERMANENTE. UM BOLETIM É UMA NOTÍCIA.
+#     A REGRA DIZ QUANDO AGIR; SÓ A NOTÍCIA DIZ QUE CHEGOU A HORA.
+class TestRegrasDeJanelaColetadas(unittest.TestCase):
+
+    REGRAS = ('IT-COL-2609-FVG-REGRA-VITE', 'IT-COL-2609-UM-REGRA-VITE',
+              'IT-COL-2609-UM-REGRA-SCAFOIDEO', 'IT-COL-2609-ER-REGRA-VITE',
+              'IT-COL-2609-TO-REGRA-VITE', 'IT-COL-2609-LO-REGRA-MAIS',
+              'IT-COL-2609-VN-REGRA-CARPOCAPSA')
+
+    def _sinais(self):
+        return {s['ID']: s for s in _pacote('CURRENT-FIELD-SIGNALS.json')}
+
+    def test_T59_toda_regra_coletada_declara_fonte_data_e_citacao(self):
+        sinais = self._sinais()
+        for rid in self.REGRAS:
+            s = sinais.get(rid)
+            if s is None:
+                raise unittest.SkipTest('a coleta de regras nao esta no pacote')
+            self.assertEqual('STANDING_RULE', s.get('OBSERVATION_CLASS'), rid)
+            self.assertTrue(s.get('SOURCE_URLS'), rid)
+            self.assertTrue(s.get('REFERENCE_DATE'), rid)
+            self.assertTrue((s.get('RESEARCH') or {}).get('citacao_literal'), rid)
+
+    def test_T60_regra_nao_declara_direcao_e_nao_cria_oportunidade(self):
+        sinais = self._sinais()
+        for rid in self.REGRAS:
+            s = sinais.get(rid)
+            if s is None:
+                raise unittest.SkipTest('a coleta de regras nao esta no pacote')
+            self.assertFalse(NE.declara_direcao(s), rid)
+            self.assertEqual([], NE.pares_observados(s), rid)
+        # e nenhum cartao aponta uma regra como dona da direcao
+        for r in _pacote('OPPORTUNITIES.json'):
+            self.assertNotIn(r.get('NEED_EVIDENCE_ID'), self.REGRAS, r['ID'])
+
+    def test_T61_uma_regra_sozinha_nunca_abre_a_janela(self):
+        """Saber o gatilho não é saber que ele disparou — nem num disciplinare."""
+        for r in _pacote('OPPORTUNITIES.json'):
+            if r.get('WINDOW_EVIDENCE_ID') in self.REGRAS:
+                self.assertNotEqual('YES', r.get('WINDOW_OPEN_NOW'), r['ID'])
+
+    def test_T62_ato_administrativo_nao_vira_regra_ausente_nem_janela(self):
+        for r in _pacote('OPPORTUNITIES.json'):
+            if r.get('WINDOW_RULE_STATE') != 'RULE_ADMINISTRATIVE_ONLY':
+                continue
+            # a lei não mudou: obrigação de norma não é janela agronômica
+            self.assertEqual('NO', r.get('WINDOW_DEFINED'), r['ID'])
+            # mas também não é silêncio da fonte
+            self.assertNotIn('WINDOW_RULE_MISSING',
+                             r.get('WHAT_IS_MISSING') or [], r['ID'])
+            self.assertIn('WINDOW_RULE_ADMINISTRATIVE_ONLY',
+                          r.get('WHAT_IS_MISSING') or [], r['ID'])
+            self.assertTrue(r.get('WINDOW_RULE_EVIDENCE_ID'), r['ID'])
+
+    def test_T63_a_regra_nao_moveu_estado_comercial_nenhum(self):
+        """O relatório de fechamento reprova sozinho se a regra empurrar o número."""
+        p = os.path.join(ROOT, 'data', 'samples', 'AUDITORIA-SOMBRA',
+                         'V116-FECHAMENTO-DAS-REGRAS.json')
+        if not os.path.exists(p):
+            raise unittest.SkipTest('rode scripts/v21_fechamento_das_regras.py')
+        with open(p, encoding='utf-8') as f:
+            d = json.load(f)
+        self.assertEqual([], d['FALHAS'])
+        self.assertEqual('PASS', d['WINDOW_RULE_CLOSURE'])
+        for c in ('SALES_READY', 'ACT_NOW', 'VALIDATE_NOW', 'WATCH', 'CASES'):
+            self.assertEqual(d['BACKFILL_ANTES'].get(c),
+                             d['BACKFILL_DEPOIS'].get(c), c)
