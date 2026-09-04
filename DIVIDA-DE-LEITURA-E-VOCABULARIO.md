@@ -14,29 +14,37 @@ instrução explícita de refutar na dúvida. O refutador manda.
 
 | veredito | n |
 |---|---:|
-| `AUTORIZADO_MAS_NAO_LIDO` — o rótulo autoriza, o parser não lê | **66** |
-| `AUTORIZADO_E_LIDO` — resolvidos pelo parser desta madrugada | **33** |
-| `NAO_AUTORIZADO` — o conjunto antigo estava errado | **1** |
-| `NAO_SEI` | **0** |
+| `AUTORIZADO_MAS_NAO_LIDO` — o rótulo autoriza, o parser não lê | **46** |
+| `AUTORIZADO_E_LIDO` — resolvidos pelo parser desta madrugada | **39** |
+| `NAO_AUTORIZADO` — o conjunto antigo estava errado | **14** |
+| `NAO_SEI` | **1** |
 
-**Noventa e nove de cem eram autorização real.** Substituir apagaria autorização
+**Oitenta e cinco de cem eram autorização real.** Substituir apagaria autorização
 que existe. A união não é precaução: é o que a medição obriga.
 
-### O único erro do conjunto antigo
+### Os catorze erros do conjunto antigo
 
-`011526 SULTAN × CIPOLLA`. O rótulo diz *«diserbante selettivo per colza, cavoli a
-infiorescenza, cavoli a testa, cavoli a foglia e **aglio**»*. Aglio, não cipolla.
-Ali o conjunto novo está certo e o antigo estava errado.
+Os refutadores confirmaram a citação **e** a coordenada em treze deles, e mesmo
+assim derrubaram a alegação — porque a citação não sustenta a cultura alegada.
+Três padrões:
+
+- **`MELO` a partir de «Pomacee»** (`004701`, `007876`, `014091`, `017340`): o
+  rótulo escreve o nome do grupo, não o da cultura. Expandir seria inventar o que
+  o texto não diz — a mesma política que o vocabulário já aplica.
+- **`SEGALE` em rótulos de glifosato** (`015096`, `015401`, `015405`, `016387`,
+  `017929`, `017930`): o bloco é declaração de uso, mas não de uso *em* segale.
+- **`AVENA` nos PFnPE** (`018271`, `018279`): idem.
+- **`011526 SULTAN × CIPOLLA`**: o rótulo diz *«… e **aglio**»*. Aglio, não cipolla.
 
 ### O que ainda bloqueia, por rótulo
 
 | rótulo | produto | pares |
 |---|---|---:|
-| `008189` | LEBRON 0.5 G | 6 |
-| `014479` | SCHERMO 0.5 G | 6 |
+| `008189` | LEBRON 0.5 G | 3 |
+| `014479` | SCHERMO 0.5 G | 3 |
 | `017955` | MAGANIC | 3 |
 | `015630` | CARSON 45% WG | 3 |
-| 38 outros | | 1–2 cada |
+| outros | | 1–2 cada |
 
 A classe dominante é **`MATRIZ_MULTICOLUNA`**: colunas que o extrator de PDF fundiu
 num bloco só. O corte por calha e por cabeçalho foi implementado esta madrugada e
@@ -48,9 +56,9 @@ calha exatamente onde ela deveria estar).
 
 | | v3.1 (publicado ontem) | v3.3 (agora) |
 |---|---:|---:|
-| pares publicados | 2.313 | **2.845** |
-| perdas reais (rótulo × cultura) | 100 | **74** |
-| rótulos sem nenhum par | 44 | **41** |
+| pares publicados | 2.313 | **2.919** |
+| perdas reais (rótulo × cultura) | 100 | **68** |
+| rótulos sem nenhum par | 44 | **39** |
 | precisão no gabarito | 0,965 | 0,965 |
 | recall no gabarito | 0,866 | **0,870** |
 
@@ -66,6 +74,15 @@ Três correções, todas com testemunha:
    Agora o critério é densidade de nomes de cultura.
 3. **Coordenadas de palavra.** `ler_geometria` lia `<word xMin=…>` e as jogava
    fora. Sem elas não há como separar colunas fundidas.
+4. **Rota de tabela de coluna fundida.** A grade de linha passa a vir da coluna de
+   **alvo**, e não da de cultura — porque nessas tabelas as linhas de cultura são
+   adjacentes sem vão. E a regra de continuação é **diferente em cada coluna**:
+   a de alvo continua também quando a linha anterior termina em vírgula
+   (`Agriotes sp., Agrotis sp.,` + `Ceutorhynchus…` é uma entrada só); a de cultura
+   **não**, porque célula de cultura termina em vírgula por natureza
+   (`Mais, Mais Dolce,`). Usar a mesma regra nas duas fundia MAIS com SORGO e
+   deslocava tudo. Verificada linha a linha à mão nos dois rótulos antes de entrar;
+   dispara em dois rótulos e em mais nenhum.
 
 ### Dois erros meus que a medição pegou
 

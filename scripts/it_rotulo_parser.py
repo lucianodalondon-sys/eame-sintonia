@@ -41,7 +41,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from it_rotulo_vocab import (ALVOS, CULTURAS, GRUPOS, SUBSTANCIA_NORM,  # noqa: E402
                              TAXONOMIA)
 
-PARSER_VERSION = 'it_rotulo_parser/3.3.0'
+PARSER_VERSION = 'it_rotulo_parser/3.4.0'
 
 CROP_RX = {k: re.compile(r'\b(?:%s)' % '|'.join(v), re.I) for k, v in CULTURAS.items()}
 TGT_RX = {k: re.compile(r'\b(?:%s)' % '|'.join(v), re.I) for k, v in ALVOS.items()}
@@ -496,6 +496,111 @@ def _celulas_de_cultura(b):
                            'text': t},
                      'yc': (g['y0'] + g['y1']) / 2.0})
     return fora
+
+
+
+# ── ROTA: TABELA DE COLUNA FUNDIDA ──────────────────────────────────────────
+#
+# A rota geometrica normal infere a LINHA a partir da coluna de CULTURA: cada
+# celula de cultura define a sua faixa. Isso funciona quando as celulas de cultura
+# sao separadas por vao. Nas tabelas que o extrator funde num bloco so, elas nao
+# sao: 'Mais, Mais Dolce,' em y=103,6 e 'Sorgo' em y=113,1 sao linhas adjacentes,
+# e qualquer regra de vao as junta — deslocando todas as faixas dali para baixo.
+# Foi assim que saiu GIRASOLE x DIABROTICA, quando Diabrotica e do mais.
+#
+#     A LINHA E PROPRIEDADE DA TABELA, E NAO DA COLUNA DE CULTURA.
+#
+# Entao aqui a grade de linha vem da coluna de ALVO, e as culturas sao atribuidas
+# a faixa em que caem. E a regra de continuacao e DIFERENTE em cada coluna, o que
+# tambem foi medido:
+#
+#   coluna de ALVO     continua tambem quando a linha anterior termina em virgula
+#                      ou conectivo — 'Agriotes sp., Agrotis sp.,' + 'Ceutorhynchus
+#                      pleurostigma, Blaniulus' e uma entrada so;
+#   coluna de CULTURA  NAO continua por virgula, porque celula de cultura termina
+#                      em virgula por natureza ('Mais, Mais Dolce,'). So continua
+#                      quando a linha comeca em minuscula ou parentese.
+#
+# Usar a mesma regra nas duas fundia MAIS com SORGO e perdia a primeira linha.
+CONT_ALVO = re.compile(r'[,;]$|\b(?:e|ed|o|od|di|della|del|dei|delle)$', re.I)
+
+
+def _entradas_de_coluna(linhas, modo):
+    ents = []
+    for l in linhas:
+        t = (l.get('text') or '').strip()
+        if not t:
+            continue
+        cont = bool(re.match(r'^[a-z\(]', t))
+        if modo == 'ALVO' and ents:
+            cont = cont or bool(CONT_ALVO.search(ents[-1]['text'].strip()))
+        if ents and cont:
+            ents[-1]['text'] += ' ' + t
+            ents[-1]['y1'] = l['y1']
+        else:
+            ents.append({'y0': l['y0'], 'y1': l['y1'], 'text': t})
+    for e in ents:
+        e['yc'] = (e['y0'] + e['y1']) / 2.0
+    return ents
+
+
+def pares_tabela_fundida(blocos):
+    pares = []
+    for b in blocos:
+        lns = b.get('lines') or []
+        if len(lns) < 6 or (b['x1'] - b['x0']) < 180:
+            continue
+        if SECAO_PROIBIDA.search(b['text']):
+            continue
+        cortes = [(a + z) / 2 for a, z in _calhas(b)]
+        if not cortes:
+            continue
+        lim = [b['x0']] + sorted(cortes) + [b['x1'] + 1]
+        colunas = []
+        for i in range(len(lim) - 1):
+            a, z = lim[i], lim[i + 1]
+            sub = []
+            for l in lns:
+                ws = [w for w in l.get('words', []) if a <= w['x0'] < z]
+                if ws:
+                    sub.append({'y0': l['y0'], 'y1': l['y1'],
+                                'text': ' '.join(w['t'] for w in ws)})
+            if sub:
+                colunas.append({'x0': a, 'lines': sub})
+        if len(colunas) < 2:
+            continue
+        ec = _entradas_de_coluna(colunas[0]['lines'], 'CULTURA')
+        ea = _entradas_de_coluna(colunas[-1]['lines'], 'ALVO')
+        if not ec or not ea:
+            continue
+        linhas_da_tabela = []
+        for i, a in enumerate(ea):
+            topo = a['y0'] - 2
+            base = ea[i + 1]['y0'] - 2 if i + 1 < len(ea) else a['y1'] + 8
+            crops = sorted({c for e in ec if topo <= e['yc'] < base
+                            for c in culturas_em(e['text'])})
+            alvos = [t for t in alvos_em(a['text']) if t not in ALVO_CATEGORIA]
+            if crops and alvos:
+                linhas_da_tabela.append((topo, base, crops, alvos, a['text']))
+        # ⚠️ Uma linha so nao e tabela. Exigir DUAS e a guarda que impede esta
+        # rota de transformar prosa de duas colunas em par.
+        if len(linhas_da_tabela) < 2:
+            continue
+        for topo, base, crops, alvos, texto in linhas_da_tabela:
+            excl = bool(EXCLUSAO.search(texto))
+            for c in crops:
+                for t in alvos:
+                    pares.append({
+                        'CROP': c, 'TARGET': t, 'ROUTE': 'MERGED_COLUMN_TABLE',
+                        'RELATION': 'EXCLUDED_PAIR' if excl else 'SUPPORTED_PAIR',
+                        'CROP_AS_WRITTEN': ('faixa y %.0f-%.0f da coluna de cultura'
+                                            % (topo, base)),
+                        'TARGET_AS_WRITTEN': texto[:180],
+                        'PAGE': b['page'],
+                        'CROP_Y': [round(topo, 1), round(base, 1)],
+                        'TARGET_Y': [round(topo, 1), round(base, 1)],
+                    })
+    return pares
 
 
 def pares_geometricos(blocos):
@@ -988,7 +1093,8 @@ def parse(pdf_path, rid, produto=None, ai=None, cache_dir=None, categoria=None):
     if not fonte:
         return []
     blocos = ler_geometria(fonte)
-    brutos = (pares_geometricos(blocos) + pares_inline(blocos)
+    brutos = (pares_geometricos(blocos) + pares_tabela_fundida(blocos)
+              + pares_inline(blocos)
               + pares_header_continuation(blocos)
               + pares_lista_de_usos(blocos, categoria)
               + pares_scope(blocos, categoria))
