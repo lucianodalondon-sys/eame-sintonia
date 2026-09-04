@@ -41,7 +41,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from it_rotulo_vocab import (ALVOS, CULTURAS, GRUPOS, SUBSTANCIA_NORM,  # noqa: E402
                              TAXONOMIA)
 
-PARSER_VERSION = 'it_rotulo_parser/3.2.0'
+PARSER_VERSION = 'it_rotulo_parser/3.3.0'
 
 CROP_RX = {k: re.compile(r'\b(?:%s)' % '|'.join(v), re.I) for k, v in CULTURAS.items()}
 TGT_RX = {k: re.compile(r'\b(?:%s)' % '|'.join(v), re.I) for k, v in ALVOS.items()}
@@ -218,6 +218,100 @@ def _entradas(bloco):
     return ents
 
 
+
+# ── CELULA DE CULTURA: DENSIDADE, E NAO COMPRIMENTO ─────────────────────────
+#
+# Antes eu recusava celula de cultura por TAMANHO: `len(t) > 110` e um teto
+# derivado `12 + 14*len(cs) + 30`. O objetivo era separar CELULA de PROSA, e o
+# comprimento era o proxy. Mas numa tabela de rotulo a celula da coluna Coltura
+# pode ser legitimamente uma lista longa:
+#
+#     "Orticole aglio, cipolla, carota, cavolfiore, cavolo broccolo, cavolini di
+#      Bruxelles, carciofo, cetriolo, cocomero, fagiolo, ..."
+#
+# Isso e celula, nao prosa, e o teto de caracteres a jogava fora inteira. Seis
+# auditorias independentes de rotulo apontaram esta mesma guarda.
+#
+# O criterio honesto e DENSIDADE: depois de tirar os nomes de cultura, os
+# separadores e os qualificadores, sobra pouco? Entao e celula. Sobra frase com
+# verbo? Entao e prosa.
+SEPARADOR_DE_CELULA = re.compile(
+    r'^(?:,|;|:|\(|\)|-|e|ed|o|od|da|di|del|della|dello|dei|delle|in|su|il|la|le|'
+    r'lo|i|gli|al|alla|ai|alle|con|per|pieno|campo|serra|aperto|coltivat\w*|'
+    r'fresch\w*|second\w*|raccolt\w*|granella|radice|grossa|testa|dolce|'
+    r'invernale|primaverile|tenero|duro|rossa|rosso|olio|mensa|tavola|vino|'
+    r'zucchero|foraggio|orticole|foraggere|estensive|arboree|frutticole|'
+    r'ornamentali|floreali|forestali|vivai|bruxelles|broccolo|cappuccio|'
+    r'cavolini|pascoli|prati|loglio|sp|spp|var)$', re.I)
+VERBO_DE_PROSA = re.compile(
+    r'\b(?:impiegare|intervenire|applicare|trattare|effettuare|distribuire|'
+    r'rispettare|utilizzare|si\s+consiglia|non\s+superare|deve|devono|'
+    r'proteggere|indispensabile|attenzione)\b', re.I)
+
+
+def _densidade_de_cultura(t):
+    """Fracao dos tokens que sao cultura, separador ou qualificador."""
+    toks = re.findall(r"[A-Za-zÀ-ÿ']{2,}", t)
+    if not toks:
+        return 0.0, 0
+    bons = 0
+    for tk in toks:
+        if SEPARADOR_DE_CELULA.match(tk) or culturas_em(tk):
+            bons += 1
+    return bons / len(toks), len(toks)
+
+
+def _celulas_de_cultura(b):
+    """Uma ou MAIS celulas de cultura dentro de um bloco.
+
+    Um bloco pode fundir duas linhas de tabela — 'Foraggere (...) Mais da
+    foraggio' e uma caixa so para duas linhas. Sem cindir, a faixa vertical fica
+    errada e o alvo da linha de cima cai na cultura de baixo: foi assim que
+    SOIA x APION e SOIA x FITONOMO sairam publicados, quando 'apion, fitonomo'
+    pertence a linha das Foraggere (erba medica).
+    """
+    fora = []
+    if SECAO_PROIBIDA.search(b['text']) or VERBO_DE_PROSA.search(b['text']):
+        return fora
+    linhas = b.get('lines') or []
+    inteiro = [{'text': b['text'], 'y0': b['y0'], 'y1': b['y1'],
+                'yc': (b['y0'] + b['y1']) / 2.0}]
+    grupos = inteiro
+    if len(linhas) > 1:
+        cand = _entradas(b)
+        # ⚠️ SO CINDIR EM QUEBRA DE LINHA DE VERDADE. Uma celula que apenas
+        # QUEBRA ('Grano tenero e duro,' / 'Triticale') continua sendo UMA celula:
+        # cindir encolhe a faixa vertical e o alvo que valia para a celula inteira
+        # cai fora dela. Foi medido — BLAISE ULTRA perdeu sete pares assim.
+        # Duas linhas de tabela distintas ficam separadas por um vao MAIOR que a
+        # altura de linha; texto que so quebra, nao.
+        alturas = [l['y1'] - l['y0'] for l in linhas if l['y1'] > l['y0']]
+        alt = (sum(alturas) / len(alturas)) if alturas else 10.0
+        if len(cand) > 1:
+            vaos = [cand[i + 1]['y0'] - cand[i]['y1'] for i in range(len(cand) - 1)]
+            if vaos and max(vaos) > 1.6 * alt:
+                grupos = cand
+    for g in grupos:
+        t = g['text']
+        cs = culturas_em(t)
+        if not cs or SECAO_PROIBIDA.search(t) or VERBO_DE_PROSA.search(t):
+            continue
+        dens, n = _densidade_de_cultura(t)
+        # celula curta passa com densidade menor; celula longa tem de ser quase
+        # so nomes, senao e prosa que por acaso cita culturas.
+        limite = 0.55 if n <= 8 else 0.72
+        if dens < limite:
+            continue
+        if len(t) > 420:
+            continue
+        fora.append({'crops': cs,
+                     'b': {'x0': b['x0'], 'x1': b['x1'],
+                           'y0': g['y0'], 'y1': g['y1'], 'page': b['page'],
+                           'text': t},
+                     'yc': (g['y0'] + g['y1']) / 2.0})
+    return fora
+
+
 def pares_geometricos(blocos):
     """Celula de cultura a esquerda + alvos na MESMA FAIXA a direita."""
     pares = []
@@ -226,18 +320,8 @@ def pares_geometricos(blocos):
         # celulas de cultura: bloco CURTO, dominado por nome de cultura
         cells = []
         for b in pb:
-            t = b['text']
-            if len(t) > 110:
-                continue
-            cs = culturas_em(t)
-            if not cs:
-                continue
-            # a celula tem de ser majoritariamente o nome da cultura, e nao prosa
-            if len(t) > 12 + 14 * len(cs) + 30:
-                continue
-            if SECAO_PROIBIDA.search(t):
-                continue
-            cells.append({'crops': cs, 'b': b, 'yc': (b['y0'] + b['y1']) / 2.0})
+            for sub in _celulas_de_cultura(b):
+                cells.append(sub)
         if not cells:
             continue
         # colunas: agrupa celulas de cultura por faixa de x parecida
@@ -271,7 +355,16 @@ def pares_geometricos(blocos):
                     base = (c['yc'] + col[i + 1]['yc']) / 2 if i + 1 < len(col) \
                         else c['yc'] + 60
                 bandas.append((topo, base, c))
-            xmax = max(c['b']['x1'] for c in col)
+            # ⚠️ MEDIANA, E NAO MAXIMO. Com a regra de densidade, uma celula
+            # legitima pode ser MUITO larga ('Orticole aglio, cipolla, carota,
+            # cavolfiore, ...'): usar o maximo inflava xmax e o escopo
+            # `xmax < b['x0']` passava a excluir TODOS os blocos de alvo da
+            # coluna. Foi medido — 008259 perdeu cereais, barbabietola, mais e
+            # soia de uma vez, justamente quando a regra nova acertava as
+            # orticolas. A mediana descreve onde a COLUNA termina; o maximo
+            # descreve a celula mais larga dela.
+            xs = sorted(c['b']['x1'] for c in col)
+            xmax = xs[len(xs) // 2]
             # ESCOPO DE COLUNA. Um bloco a direita nao basta: rotulos grandes tem DUAS
             # tabelas lado a lado, cada uma com a sua coluna de cultura. Pegar "tudo o
             # que esta a direita" fez VITE herdar Dorifora da tabela das orticolas —

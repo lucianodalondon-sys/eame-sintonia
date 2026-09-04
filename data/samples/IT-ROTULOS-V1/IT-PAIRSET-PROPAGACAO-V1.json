@@ -9,55 +9,56 @@
  "CANONICAL_BUILD_ID": "V21-358954754db5ea2f",
  "OPPORTUNITIES_IN_ENGINE": 43,
  "OLD_PAIR_COUNT": 2030,
- "NEW_PAIR_COUNT": 2340,
- "ADDED_PAIRS": 515,
- "REMOVED_PAIRS": 245,
- "UNCHANGED_PAIRS": 331,
+ "NEW_PAIR_COUNT": 2840,
+ "ADDED_PAIRS": 550,
+ "REMOVED_PAIRS": 238,
+ "UNCHANGED_PAIRS": 338,
  "CHAVE_DE_COMPARACAO": "(CROP_ID, ISSUE_ID, REGISTRATION_NUMBER) — no namespace do motor, traduzido com o vocabulario do proprio motor (v21_normalizar)",
  "PORQUE_NAO_COMPARO_LITERAL": "o conjunto antigo conta o LITERAL do alvo (AMARANTO, ERIOSOMA) e o novo conta CLASSE canonica (INFESTANTI, AFIDI). Comparar literal contra classe contaria como \"removido\" todo par que so mudou de regua. A chave comum e o ISSUE_ID do motor, que os dois alcancam.",
  "ADDED_BY_CROP": {
-  "POMODORO": 59,
-  "PERO": 53,
-  "FRUMENTO": 48,
-  "ORZO": 46,
-  "VITE": 41,
+  "POMODORO": 69,
+  "PERO": 57,
+  "FRUMENTO": 46,
+  "ORZO": 44,
+  "VITE": 44,
   "PESCO": 33,
-  "BARBABIETOLA": 28,
+  "BARBABIETOLA": 33,
+  "MELO": 27,
   "PATATA": 26,
-  "MELO": 23,
+  "AGRUMI": 21,
   "SOIA": 20,
   "SUSINO": 18,
   "GIRASOLE": 18,
   "TABACCO": 17,
-  "AGRUMI": 17,
+  "OLIVO": 14,
   "ALBICOCCO": 12,
   "TRITICALE": 10,
-  "OLIVO": 10,
   "MAIS": 8,
   "CARCIOFO": 5,
   "ZUCCHINO": 5,
+  "ERBA_MEDICA": 5,
   "SPINACIO": 3,
   "AVENA": 2,
   "SEGALE": 2,
-  "COLZA": 2,
-  "RISO": 2
+  "COLZA": 2
  },
  "ADDED_BY_TARGET": {
-  "INFESTANTI": 251,
-  "AFIDI": 83,
+  "INFESTANTI": 267,
+  "AFIDI": 88,
   "TRIPIDI": 25,
-  "OIDIO": 15,
   "PERONOSPORA": 15,
+  "OIDIO": 14,
   "SEPTORIOSI": 14,
   "DITTERI": 14,
+  "NOTTUE": 13,
   "MUFFA": 11,
   "BOTRITE": 11,
+  "DIABROTICA": 10,
   "TIGNOLE": 10,
   "PSILLE": 9,
   "FUSARIOSI": 7,
   "MARCIUME": 7,
   "CARPOCAPSA": 7,
-  "NOTTUE": 6,
   "RUGGINE": 5,
   "LEPIDOTTERI": 5,
   "ELMINTOSPORIOSI": 4,
@@ -65,7 +66,6 @@
   "TICCHIOLATURA": 3,
   "CARBONE": 2,
   "COCCINIGLIE": 2,
-  "LISSO": 2,
   "RAMULARIA": 1,
   "MONILIA": 1
  },
@@ -87,14 +87,14 @@
   "KLARTAN SMART": 11,
   "MAVRIK EW": 11,
   "EVURE PRO": 11,
+  "DURAVIS": 9,
+  "ELTIRA": 9,
   "TOMIGAN": 9,
   "AVASTEL": 8,
   "MORAINE": 8,
   "APYZA WG": 7,
   "APYZA 500 WG": 7,
-  "SEEDRON": 6,
-  "BLAISE ULTRA": 6,
-  "LEOPARD 5 EC": 6
+  "LAMDEX EXTRA": 7
  },
  "ADDED_BY_LABEL": {
   "012573": 24,
@@ -114,31 +114,30 @@
   "012023": 11,
   "014190": 11,
   "014210": 11,
+  "015275": 9,
+  "017687": 9,
   "016312": 9,
   "018089": 8,
   "018101": 8,
   "018156": 7,
   "018165": 7,
-  "016152": 6,
-  "017358": 6,
-  "011243": 6
+  "008259": 7
  },
  "REMOVED_BY_CROP": {
   "MELO": 36,
-  "VITE": 27,
-  "PATATA": 27,
+  "VITE": 25,
   "BARBABIETOLA": 25,
   "FRUMENTO": 18,
+  "PATATA": 17,
+  "GIRASOLE": 17,
   "POMODORO": 14,
   "ORZO": 12,
   "BRASSICACEE": 8,
   "TRITICALE": 8,
   "RISO": 8,
   "PESCO": 7,
-  "GIRASOLE": 7,
   "ERBA_MEDICA": 6,
   "MAIS": 6,
-  "MAIS_DOLCE": 6,
   "ACTINIDIA": 5,
   "SOIA": 5,
   "LEGUMINOSE": 4,
@@ -148,23 +147,24 @@
   "TABACCO": 2,
   "CIPOLLA": 1,
   "AGRUMI": 1,
+  "MAIS_DOLCE": 1,
   "PERO": 1
  },
  "REMOVED_BY_TARGET": {
   "NAO_MAPEADO": 67,
-  "AFIDI": 34,
-  "PERONOSPORA": 15,
+  "AFIDI": 29,
   "ECHINOCHLOA": 14,
   "AMARANTO": 13,
+  "PERONOSPORA": 13,
   "CARPOCAPSA": 12,
   "LOLIUM": 8,
+  "CECIDOMIA": 6,
   "CIMICE": 6,
   "SCAFOIDEO": 6,
   "ELATERIDI": 6,
   "INFESTANTI": 5,
   "TIGNOLE": 5,
   "MAGGIOLINO": 5,
-  "TRIPIDI": 5,
   "FUSARIOSI": 4,
   "OIDIO": 4,
   "RUGGINE": 3,
@@ -178,12 +178,12 @@
   "PHALARIS": 2
  },
  "REMOVED_BY_PRODUCT": {
-  "LAMDEX EXTRA": 9,
-  "DURAVIS": 9,
-  "ELTIRA": 9,
   "MAGANIC": 8,
-  "FORZA": 8,
-  "NINJA": 8,
+  "LAMDEX EXTRA": 8,
+  "DURAVIS": 8,
+  "ELTIRA": 8,
+  "FORZA": 7,
+  "NINJA": 7,
   "LEBRON 0.5 G": 6,
   "SCHERMO 0.5 G": 6,
   "STOPPER P": 6,
@@ -204,8 +204,8 @@
   "ANTERLEX": 4,
   "MOXYL MK": 4
  },
- "PAIRS_WITHOUT_CANONICAL_ISSUE_ID": 1155,
- "PAIRS_WITHOUT_CANONICAL_CROP_ID": 1106,
+ "PAIRS_WITHOUT_CANONICAL_ISSUE_ID": 1519,
+ "PAIRS_WITHOUT_CANONICAL_CROP_ID": 1535,
  "LACUNA_DE_VOCABULARIO": "par sem ISSUE_ID canonico NAO foi descartado: ele conta aqui. O motor conhece 24 problemas e 20 culturas; o conjunto de rotulos fala 61 alvos e 48 culturas. A diferenca e lacuna de vocabulario do motor, e nao ausencia de autorizacao.",
  "MERGE_RULE": "UNIAO. O conjunto novo so ACRESCENTA produto a oportunidade.",
  "POR_QUE_UNIAO": "142 pares que o conjunto antigo tinha e o novo nao tem carregam ISSUE_ID canonico — sao perda REAL de leitura, e nao mudanca de regua. Estao concentrados nos rotulos-matriz de centenas de blocos (008259, 013560, 013590, 015275, 017687, 018067, 019095), que o gabarito EXCLUIU por nao conseguir defender a exaustividade. Ali o conjunto novo nao afirma \"nao autorizado\": ele nao leu. Substituir em vez de unir tiraria o unico produto de OPP_169BD86DB324 e de OPP_3C8C3960CC66 (VALIDATE_NOW) por causa de um buraco de recall.",
@@ -225,7 +225,7 @@
   "012023"
  ],
  "OPPORTUNITIES_WITH_PORTFOLIO_CHANGED": 28,
- "OPPORTUNITIES_WITH_PRIMARY_MATCH_CHANGED": 9,
+ "OPPORTUNITIES_WITH_PRIMARY_MATCH_CHANGED": 6,
  "PRIMARY_MATCH_RULE": "copiada de scripts/v21_oportunidades.py::portfolio — FONTE_NOMEIA_A_SUBSTANCIA, senao UNICO_PRODUTO, senao None. Nunca a posicao do array.",
  "ROWS": [
   {
@@ -238,7 +238,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 96,
-   "LABELS_REACHING_AFTER": 94,
+   "LABELS_REACHING_AFTER": 99,
    "OLD_PRODUCTS": [
     "BANJO",
     "FOLPAN GOLD",
@@ -252,12 +252,14 @@
     "FOLPAN GOLD",
     "Folpan® Energy",
     "Lamdex® Extra",
-    "MAVRIK SMART"
+    "MAVRIK SMART",
+    "TAIFUN MK CL PFNPE"
    ],
    "ADDED_PRODUCTS": [
     "AGIL",
     "FOLPAN 80 WDG",
-    "Folpan® Energy"
+    "Folpan® Energy",
+    "TAIFUN MK CL PFNPE"
    ],
    "REMOVED_PRODUCTS": [],
    "PRIMARY_MATCH_BEFORE": null,
@@ -343,7 +345,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": "ISSUE_POWDERY_MILDEW",
    "LABELS_REACHING_BEFORE": 2,
-   "LABELS_REACHING_AFTER": 4,
+   "LABELS_REACHING_AFTER": 3,
    "OLD_PRODUCTS": [],
    "NEW_PRODUCTS": [],
    "ADDED_PRODUCTS": [],
@@ -383,7 +385,7 @@
    "CROP_ID": "CROP_SUGAR_BEET",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 239,
-   "LABELS_REACHING_AFTER": 93,
+   "LABELS_REACHING_AFTER": 113,
    "OLD_PRODUCTS": [
     "CONTATTO 320",
     "GOLTIX",
@@ -446,7 +448,7 @@
    "CROP_ID": "CROP_TOMATO",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 44,
-   "LABELS_REACHING_AFTER": 85,
+   "LABELS_REACHING_AFTER": 115,
    "OLD_PRODUCTS": [
     "PIRIMOR 50"
    ],
@@ -454,6 +456,7 @@
     "AGIL",
     "FOLPAN 80 WDG",
     "LEOPARD 5 EC",
+    "Lamdex® Extra",
     "PIRIMOR 50",
     "TAIFUN MK CL PFNPE"
    ],
@@ -461,6 +464,7 @@
     "AGIL",
     "FOLPAN 80 WDG",
     "LEOPARD 5 EC",
+    "Lamdex® Extra",
     "TAIFUN MK CL PFNPE"
    ],
    "REMOVED_PRODUCTS": [],
@@ -647,19 +651,21 @@
    "CROP_ID": "CROP_OLIVE",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 1,
-   "LABELS_REACHING_AFTER": 11,
+   "LABELS_REACHING_AFTER": 15,
    "OLD_PRODUCTS": [],
    "NEW_PRODUCTS": [
+    "TAIFUN MK CL PFNPE",
     "TOMIGAN"
    ],
    "ADDED_PRODUCTS": [
+    "TAIFUN MK CL PFNPE",
     "TOMIGAN"
    ],
    "REMOVED_PRODUCTS": [],
    "PRIMARY_MATCH_BEFORE": null,
    "PRIMARY_MATCH_REASON_BEFORE": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
-   "PRIMARY_MATCH_AFTER": "CATPRD_TOMIGAN",
-   "PRIMARY_MATCH_REASON_AFTER": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+   "PRIMARY_MATCH_AFTER": null,
+   "PRIMARY_MATCH_REASON_AFTER": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
    "PORTFOLIO_CHANGED": true,
    "MERGE_RULE": "UNIAO — o conjunto novo ACRESCENTA produto, nunca remove",
    "PRODUCTS_THE_NEW_SET_ALONE_WOULD_NOT_SEE": [],
@@ -691,7 +697,7 @@
    "CROP_ID": "CROP_MAIZE",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 148,
-   "LABELS_REACHING_AFTER": 39,
+   "LABELS_REACHING_AFTER": 54,
    "OLD_PRODUCTS": [
     "Diode®",
     "Lamdex® Extra",
@@ -748,7 +754,7 @@
    "CROP_ID": "CROP_WHEAT_GENERIC",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 176,
-   "LABELS_REACHING_AFTER": 112,
+   "LABELS_REACHING_AFTER": 110,
    "OLD_PRODUCTS": [
     "ELEGANT 2FD",
     "Lamdex® Extra",
@@ -868,17 +874,19 @@
    "CROP_ID": "CROP_CITRUS",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 17,
-   "LABELS_REACHING_AFTER": 37,
+   "LABELS_REACHING_AFTER": 41,
    "OLD_PRODUCTS": [
     "Lamdex® Extra"
    ],
    "NEW_PRODUCTS": [
     "AGIL",
     "Lamdex® Extra",
+    "TAIFUN MK CL PFNPE",
     "TOMIGAN"
    ],
    "ADDED_PRODUCTS": [
     "AGIL",
+    "TAIFUN MK CL PFNPE",
     "TOMIGAN"
    ],
    "REMOVED_PRODUCTS": [],
@@ -917,7 +925,7 @@
    "CROP_ID": "CROP_SOYBEAN",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 28,
-   "LABELS_REACHING_AFTER": 61,
+   "LABELS_REACHING_AFTER": 55,
    "OLD_PRODUCTS": [
     "DAVAI",
     "Lamdex® Extra"
@@ -974,7 +982,7 @@
    "CROP_ID": "CROP_TOMATO",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 44,
-   "LABELS_REACHING_AFTER": 85,
+   "LABELS_REACHING_AFTER": 115,
    "OLD_PRODUCTS": [
     "PIRIMOR 50"
    ],
@@ -982,6 +990,7 @@
     "AGIL",
     "FOLPAN 80 WDG",
     "LEOPARD 5 EC",
+    "Lamdex® Extra",
     "PIRIMOR 50",
     "TAIFUN MK CL PFNPE"
    ],
@@ -989,6 +998,7 @@
     "AGIL",
     "FOLPAN 80 WDG",
     "LEOPARD 5 EC",
+    "Lamdex® Extra",
     "TAIFUN MK CL PFNPE"
    ],
    "REMOVED_PRODUCTS": [],
@@ -1171,7 +1181,7 @@
    "CROP_ID": "CROP_MAIZE",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 148,
-   "LABELS_REACHING_AFTER": 39,
+   "LABELS_REACHING_AFTER": 54,
    "OLD_PRODUCTS": [
     "Diode®",
     "Lamdex® Extra",
@@ -1228,7 +1238,7 @@
    "CROP_ID": "CROP_SOYBEAN",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 28,
-   "LABELS_REACHING_AFTER": 61,
+   "LABELS_REACHING_AFTER": 55,
    "OLD_PRODUCTS": [
     "DAVAI",
     "Lamdex® Extra"
@@ -1285,7 +1295,7 @@
    "CROP_ID": "CROP_MAIZE",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 148,
-   "LABELS_REACHING_AFTER": 39,
+   "LABELS_REACHING_AFTER": 54,
    "OLD_PRODUCTS": [
     "Diode®",
     "Lamdex® Extra",
@@ -1342,7 +1352,7 @@
    "CROP_ID": "CROP_BARLEY",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 131,
-   "LABELS_REACHING_AFTER": 108,
+   "LABELS_REACHING_AFTER": 106,
    "OLD_PRODUCTS": [
     "ELEGANT 2FD",
     "MAXENTIS",
@@ -1409,7 +1419,7 @@
    "CROP_ID": "CROP_SUGAR_BEET",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 239,
-   "LABELS_REACHING_AFTER": 93,
+   "LABELS_REACHING_AFTER": 113,
    "OLD_PRODUCTS": [
     "CONTATTO 320",
     "GOLTIX",
@@ -1516,7 +1526,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 96,
-   "LABELS_REACHING_AFTER": 94,
+   "LABELS_REACHING_AFTER": 99,
    "OLD_PRODUCTS": [
     "BANJO",
     "FOLPAN GOLD",
@@ -1530,12 +1540,14 @@
     "FOLPAN GOLD",
     "Folpan® Energy",
     "Lamdex® Extra",
-    "MAVRIK SMART"
+    "MAVRIK SMART",
+    "TAIFUN MK CL PFNPE"
    ],
    "ADDED_PRODUCTS": [
     "AGIL",
     "FOLPAN 80 WDG",
-    "Folpan® Energy"
+    "Folpan® Energy",
+    "TAIFUN MK CL PFNPE"
    ],
    "REMOVED_PRODUCTS": [],
    "PRIMARY_MATCH_BEFORE": null,
@@ -1573,19 +1585,21 @@
    "CROP_ID": "CROP_OLIVE",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 1,
-   "LABELS_REACHING_AFTER": 11,
+   "LABELS_REACHING_AFTER": 15,
    "OLD_PRODUCTS": [],
    "NEW_PRODUCTS": [
+    "TAIFUN MK CL PFNPE",
     "TOMIGAN"
    ],
    "ADDED_PRODUCTS": [
+    "TAIFUN MK CL PFNPE",
     "TOMIGAN"
    ],
    "REMOVED_PRODUCTS": [],
    "PRIMARY_MATCH_BEFORE": null,
    "PRIMARY_MATCH_REASON_BEFORE": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
-   "PRIMARY_MATCH_AFTER": "CATPRD_TOMIGAN",
-   "PRIMARY_MATCH_REASON_AFTER": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+   "PRIMARY_MATCH_AFTER": null,
+   "PRIMARY_MATCH_REASON_AFTER": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
    "PORTFOLIO_CHANGED": true,
    "MERGE_RULE": "UNIAO — o conjunto novo ACRESCENTA produto, nunca remove",
    "PRODUCTS_THE_NEW_SET_ALONE_WOULD_NOT_SEE": [],
@@ -1667,7 +1681,7 @@
    "CROP_ID": null,
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 740,
-   "LABELS_REACHING_AFTER": 1106,
+   "LABELS_REACHING_AFTER": 1535,
    "OLD_PRODUCTS": [
     "AGIL",
     "Diode®",
@@ -1758,7 +1772,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 96,
-   "LABELS_REACHING_AFTER": 94,
+   "LABELS_REACHING_AFTER": 99,
    "OLD_PRODUCTS": [
     "BANJO",
     "FOLPAN GOLD",
@@ -1772,12 +1786,14 @@
     "FOLPAN GOLD",
     "Folpan® Energy",
     "Lamdex® Extra",
-    "MAVRIK SMART"
+    "MAVRIK SMART",
+    "TAIFUN MK CL PFNPE"
    ],
    "ADDED_PRODUCTS": [
     "AGIL",
     "FOLPAN 80 WDG",
-    "Folpan® Energy"
+    "Folpan® Energy",
+    "TAIFUN MK CL PFNPE"
    ],
    "REMOVED_PRODUCTS": [],
    "PRIMARY_MATCH_BEFORE": null,
@@ -1815,7 +1831,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": "ISSUE_POWDERY_MILDEW",
    "LABELS_REACHING_BEFORE": 2,
-   "LABELS_REACHING_AFTER": 4,
+   "LABELS_REACHING_AFTER": 3,
    "OLD_PRODUCTS": [],
    "NEW_PRODUCTS": [],
    "ADDED_PRODUCTS": [],
@@ -1855,7 +1871,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": "ISSUE_POWDERY_MILDEW",
    "LABELS_REACHING_BEFORE": 2,
-   "LABELS_REACHING_AFTER": 4,
+   "LABELS_REACHING_AFTER": 3,
    "OLD_PRODUCTS": [],
    "NEW_PRODUCTS": [],
    "ADDED_PRODUCTS": [],
@@ -1943,7 +1959,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": "ISSUE_DOWNY_MILDEW",
    "LABELS_REACHING_BEFORE": 12,
-   "LABELS_REACHING_AFTER": 16,
+   "LABELS_REACHING_AFTER": 18,
    "OLD_PRODUCTS": [
     "BANJO",
     "FOLPAN GOLD"
@@ -1965,12 +1981,8 @@
    "PRIMARY_MATCH_REASON_AFTER": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
    "PORTFOLIO_CHANGED": true,
    "MERGE_RULE": "UNIAO — o conjunto novo ACRESCENTA produto, nunca remove",
-   "PRODUCTS_THE_NEW_SET_ALONE_WOULD_NOT_SEE": [
-    "FOLPAN GOLD"
-   ],
-   "RECALL_DEBT": [
-    "FOLPAN GOLD"
-   ],
+   "PRODUCTS_THE_NEW_SET_ALONE_WOULD_NOT_SEE": [],
+   "RECALL_DEBT": [],
    "RECALCULATED_LAYERS": [
     "PORTFOLIO_MATCHES",
     "PRIMARY_MATCH"
@@ -1998,7 +2010,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": "ISSUE_DOWNY_MILDEW",
    "LABELS_REACHING_BEFORE": 12,
-   "LABELS_REACHING_AFTER": 16,
+   "LABELS_REACHING_AFTER": 18,
    "OLD_PRODUCTS": [
     "BANJO",
     "FOLPAN GOLD"
@@ -2020,12 +2032,8 @@
    "PRIMARY_MATCH_REASON_AFTER": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
    "PORTFOLIO_CHANGED": true,
    "MERGE_RULE": "UNIAO — o conjunto novo ACRESCENTA produto, nunca remove",
-   "PRODUCTS_THE_NEW_SET_ALONE_WOULD_NOT_SEE": [
-    "FOLPAN GOLD"
-   ],
-   "RECALL_DEBT": [
-    "FOLPAN GOLD"
-   ],
+   "PRODUCTS_THE_NEW_SET_ALONE_WOULD_NOT_SEE": [],
+   "RECALL_DEBT": [],
    "RECALCULATED_LAYERS": [
     "PORTFOLIO_MATCHES",
     "PRIMARY_MATCH"
@@ -2053,7 +2061,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": "ISSUE_DOWNY_MILDEW",
    "LABELS_REACHING_BEFORE": 12,
-   "LABELS_REACHING_AFTER": 16,
+   "LABELS_REACHING_AFTER": 18,
    "OLD_PRODUCTS": [
     "BANJO",
     "FOLPAN GOLD"
@@ -2075,12 +2083,8 @@
    "PRIMARY_MATCH_REASON_AFTER": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
    "PORTFOLIO_CHANGED": true,
    "MERGE_RULE": "UNIAO — o conjunto novo ACRESCENTA produto, nunca remove",
-   "PRODUCTS_THE_NEW_SET_ALONE_WOULD_NOT_SEE": [
-    "FOLPAN GOLD"
-   ],
-   "RECALL_DEBT": [
-    "FOLPAN GOLD"
-   ],
+   "PRODUCTS_THE_NEW_SET_ALONE_WOULD_NOT_SEE": [],
+   "RECALL_DEBT": [],
    "RECALCULATED_LAYERS": [
     "PORTFOLIO_MATCHES",
     "PRIMARY_MATCH"
@@ -2108,7 +2112,7 @@
    "CROP_ID": "CROP_APPLE",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 146,
-   "LABELS_REACHING_AFTER": 98,
+   "LABELS_REACHING_AFTER": 102,
    "OLD_PRODUCTS": [
     "AGIL",
     "BANJO",
@@ -2124,9 +2128,11 @@
     "MAVRIK SMART",
     "MERPAN 80 WDG",
     "PIRIMOR 50",
+    "TAIFUN MK CL PFNPE",
     "TOMIGAN"
    ],
    "ADDED_PRODUCTS": [
+    "TAIFUN MK CL PFNPE",
     "TOMIGAN"
    ],
    "REMOVED_PRODUCTS": [],
@@ -2171,7 +2177,7 @@
    "CROP_ID": "CROP_BARLEY",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 131,
-   "LABELS_REACHING_AFTER": 108,
+   "LABELS_REACHING_AFTER": 106,
    "OLD_PRODUCTS": [
     "ELEGANT 2FD",
     "MAXENTIS",
@@ -2282,19 +2288,21 @@
    "CROP_ID": "CROP_OLIVE",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 1,
-   "LABELS_REACHING_AFTER": 11,
+   "LABELS_REACHING_AFTER": 15,
    "OLD_PRODUCTS": [],
    "NEW_PRODUCTS": [
+    "TAIFUN MK CL PFNPE",
     "TOMIGAN"
    ],
    "ADDED_PRODUCTS": [
+    "TAIFUN MK CL PFNPE",
     "TOMIGAN"
    ],
    "REMOVED_PRODUCTS": [],
    "PRIMARY_MATCH_BEFORE": null,
    "PRIMARY_MATCH_REASON_BEFORE": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
-   "PRIMARY_MATCH_AFTER": "CATPRD_TOMIGAN",
-   "PRIMARY_MATCH_REASON_AFTER": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+   "PRIMARY_MATCH_AFTER": null,
+   "PRIMARY_MATCH_REASON_AFTER": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
    "PORTFOLIO_CHANGED": true,
    "MERGE_RULE": "UNIAO — o conjunto novo ACRESCENTA produto, nunca remove",
    "PRODUCTS_THE_NEW_SET_ALONE_WOULD_NOT_SEE": [],
@@ -2326,7 +2334,7 @@
    "CROP_ID": "CROP_GRAPEVINE",
    "ISSUE_ID": null,
    "LABELS_REACHING_BEFORE": 96,
-   "LABELS_REACHING_AFTER": 94,
+   "LABELS_REACHING_AFTER": 99,
    "OLD_PRODUCTS": [
     "BANJO",
     "FOLPAN GOLD",
@@ -2340,12 +2348,14 @@
     "FOLPAN GOLD",
     "Folpan® Energy",
     "Lamdex® Extra",
-    "MAVRIK SMART"
+    "MAVRIK SMART",
+    "TAIFUN MK CL PFNPE"
    ],
    "ADDED_PRODUCTS": [
     "AGIL",
     "FOLPAN 80 WDG",
-    "Folpan® Energy"
+    "Folpan® Energy",
+    "TAIFUN MK CL PFNPE"
    ],
    "REMOVED_PRODUCTS": [],
    "PRIMARY_MATCH_BEFORE": null,
