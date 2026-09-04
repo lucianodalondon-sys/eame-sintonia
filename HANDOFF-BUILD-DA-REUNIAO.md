@@ -6,7 +6,7 @@
 ```
 REPOSITÓRIO   lucianodalondon-sys/eame-sintonia
 BRANCH        claude/meeting-portal-final-pabok2
-HEAD          fa63d21
+HEAD          f95b157
 ESTADO        PARCIAL — as duas contradições estão FECHADAS, gates verdes,
               browser verificado. FALTA: deploy real e MEETING_FREEZE.
 ```
@@ -224,11 +224,35 @@ print([r['id'] for r in d['results'] if not r['pass']] or 'todos verdes')"
 |---|---|
 | `audit/run.mjs` | **69/71** (baseline desta missão: 66/71) |
 | `audit/meeting-gate.mjs` | **22/22** |
-| `brandwell` | BW1 BW2 BW3 TY1 TY2 — **todos PASS** |
-| `internal-token` | IT0…IT5 **PASS** · 0 no lugar de etiqueta, 0 na prosa, IT e EN |
-| `mobile` | **PASS** |
+| `brandwell` | **5/5** — BW1 BW2 BW3 TY1 TY2 |
+| `internal-token` | **6/6** · 0 no lugar de etiqueta, 0 na prosa, IT e EN |
+| `mobile` | **15/15** — MB1…MB8 + a jornada J1…J7 a 390px |
 | `opportunity-hub` | **8/8** · JANELA REAL 5, correctamente ligada 5 (era 0/0) |
 | `action-map-consistency` | **14/14** |
+| `rtv-gate` | **11/11** |
+| `pdf-gate` | **9/9** |
+| `link-asset` | **6/6** |
+| `future-ruler` | **3/3** |
+| `acceptance` | **READY FOR CANONICAL HANDOFF V2.1 = YES** |
+| `cta-navigation` | **PASS** · 995 clicáveis · 873 julgados · 873 vivos · **0 mortos** · 0 console errors · 0 pedidos falhados |
+
+⚠️ **Dois gates precisavam de dependências que não estavam instaladas**, e por
+isso morriam no `import` — um `exit=1` que parecia falha de ambiente e escondia
+defeitos reais. `pdf-gate` e `rtv-gate` precisam de `pdfjs-dist`; todos os de
+browser precisam de `playwright-core`. Instalar **os dois de uma vez**, porque
+`npm i --no-save` poda o que não está no comando:
+
+```bash
+npm i --no-save --no-audit --no-fund playwright-core@1.55.0 pdfjs-dist
+```
+
+    UM PORTAO QUE MORRE NO IMPORT NAO ESTA A VIGIAR NADA,
+    E O SEU VERMELHO PARECE-SE COM O DE UM AMBIENTE MAL POSTO.
+
+Assim que correu, `pdf-gate` encontrou duas fugas verdadeiras no PDF que vai
+para a mão de um cliente — a ficha de campo do revendedor: «Stato attuale
+ACT_NOW.» e uma frase que nomeava `SOURCE_IDS`. Ambas viviam em
+`italy-briefs.js`, ficheiro que esta missão não tinha tocado.
 
 **Os dois que continuam vermelhos já estavam vermelhos antes desta missão** e
 não lhe pertencem:
@@ -304,9 +328,16 @@ escondido ou reclassificado; as contagens continuam 43 / 5 / 38.
 | **D** | carpocapsa × macieira × Veneto | `OPP_75C37DED9160` | `STAGE_ENDED` **e** `CONTINUE_RECOMMENDED` na mesma tela, sem se confundirem |
 | **F** | scafoideo × vite × Toscana | `OPP_D11664591168` | **«Obbligo amministrativo — non è una finestra agronomica»** · `OPEN_NOW=UNKNOWN` como «Stato attuale non ancora misurato» |
 
-⚠️ **`RULE_DELEGATED_TO_FARM` existe em 1 caso de 43** e a frase humana está no
-dicionário («La decisione dipende dall'osservazione in campo»). Falta abri-lo no
-navegador como testemunha visual — ver §10.
+**`RULE_DELEGATED_TO_FARM` existe em 1 caso de 43** — e é o **mesmo**
+`OPP_75C37DED9160` da carpocapsa. Verificado no navegador, nas duas línguas e
+nas duas larguras: «La decisione dipende dall'osservazione in campo» /
+«The decision depends on farm-level observation». Sem token interno, e não
+apresentado como erro.
+
+**Thresholds (§14 do briefing):** este build **não publica percentagem nenhuma**
+— `THRESHOLD_STATE` só toma `NOT_APPLICABLE` e `NOT_DECLARED`. Os 5% de
+Emilia-Romagna não podem aparecer na Umbria porque nenhum número de limiar chega
+a qualquer ecrã. A Umbria mostra `WATCH`, que é o que o motor sustenta.
 
 ---
 
@@ -336,16 +367,24 @@ no dicionário: se o motor os emitir, a tela lê-os sem alteração nenhuma.
 ## 10 · O QUE FALTA — na ordem
 
 1. **Deploy real** da branch `claude/meeting-portal-final-pabok2`, directório
-   `italia-portale/client/`. **Não declarar READY porque o deploy devolveu
-   sucesso** — abrir o domínio servido e comparar com o ficheiro local.
-2. **Registar** `DEPLOY_URL`, `PORTAL_HEAD`, `INTELLIGENCE_SOURCE_HEAD`,
-   `SNAPSHOT_BUILD_ID`.
-3. **Testemunha visual** de `RULE_DELEGATED_TO_FARM` (1 caso em 43).
-4. **`cta-navigation`** — estava a correr quando esta sessão escreveu isto;
-   exigir `BROKEN = 0`, `PLACEBO = 0`, `UNREACHABLE = 0`, e **não** exigir
-   993/871 numericamente, porque a superfície canônica acrescentou controlos
-   legítimos.
-5. **`MEETING_FREEZE = YES`** só depois de tudo isso.
+   `italia-portale/client/`.
+
+   ⚠️ **Esta sessão não conseguiu fazê-lo, e não o contornou.** O `vercel` CLI
+   não está instalado, não há `VERCEL_TOKEN` no ambiente, não há `.vercel/` no
+   repositório nem credencial em `~/.vercel/`. Quem retomar precisa de um token
+   Vercel com acesso ao projeto:
+
+   ```bash
+   cd italia-portale/client && vercel --prod
+   # preset Other · build command: nenhum · output directory: .
+   ```
+
+       UM DEPLOY QUE NAO SE PODE FAZER DECLARA-SE, NAO SE SIMULA.
+
+2. **Não declarar READY porque o deploy devolveu sucesso** — abrir o domínio
+   servido, comparar com o ficheiro local, e registar `DEPLOY_URL`,
+   `PORTAL_HEAD`, `INTELLIGENCE_SOURCE_HEAD`, `SNAPSHOT_BUILD_ID`.
+3. **`MEETING_FREEZE = YES`** só depois disso.
 
 ---
 
@@ -390,11 +429,17 @@ Mostram-se todos, e o estado fica visível em cada um.
    as 12 diz PASS sobre um portal que perdeu 31. `clickText` do drive não abre
    esse botão (sobe para um ancestral que não trata o clique) — clicar no `span`
    folha directamente.
-6. **`playwright-core` não está no `package.json`** e é preciso para os gates de
-   browser: `npm i --no-save playwright-core@1.55.0`. Não foi adicionado às
-   dependências de propósito — o deploy Vercel instalaria um pacote de ~50 MB
-   que o site não usa. Chromium está em `/opt/pw-browsers/chromium-1194`.
-   **Nunca** correr `playwright install`.
+6. **Os gates de browser precisam de dois pacotes que não estão no
+   `package.json`**, e sem eles morrem no `import` com um `exit=1` que se
+   confunde com falha de ambiente:
+   `npm i --no-save --no-audit --no-fund playwright-core@1.55.0 pdfjs-dist`.
+   **Os dois no mesmo comando** — `--no-save` poda o que não estiver lá.
+   Não foram acrescentados às dependências de propósito: o deploy Vercel
+   instalaria ~50 MB que o site não usa. Chromium está em
+   `/opt/pw-browsers/chromium-1194`. **Nunca** correr `playwright install`.
+7. **`italy-briefs.js` também é uma superfície de cliente.** Gera o PDF da ficha
+   de campo do revendedor, e o que lá se escreve não passa pelos templates do
+   `portale.html` — as duas fugas de token que `pdf-gate` encontrou viviam lá.
 
 ---
 
@@ -404,7 +449,7 @@ Mostram-se todos, e o estado fica visível em cada um.
 MEETING_PORTAL_READY        = PARTIAL (falta deploy verificado)
 BRANCH                      = claude/meeting-portal-final-pabok2
 HEAD_INICIAL                = a54e287
-HEAD_FINAL                  = fa63d21
+HEAD_FINAL                  = f95b157
 INTELLIGENCE_SOURCE_HEAD    = b3935bd
 VISUAL_BASE_HEAD            = a14b9e1
 MEETING_CUTOFF              = 2026-09-04T00:52:54Z
@@ -419,8 +464,8 @@ ACT_NOW 2 · VALIDATE_NOW 3 · WATCH 22 · TO_VALIDATE 9 · FUTURE_PREPARATION 7
 WINDOW_DEFINED 16 · OPEN_NOW YES 2 · NO 0 · UNKNOWN 41
 
 IT = PASS      EN = PASS      DESKTOP = PASS      MOBILE = PASS
-BRANDWELL = PASS              INTERNAL_TOKEN = PASS
-DEPLOY_URL = ?
+BRANDWELL = PASS   INTERNAL_TOKEN = PASS   CTA = PASS (0 mortos)
+DEPLOY_URL = NAO FEITO — sem credencial Vercel nesta sessao
 
 WORK_RESTARTED_FROM_ZERO   = NO
 FRONTEND_INVENTED_PRIMARY  = NO
