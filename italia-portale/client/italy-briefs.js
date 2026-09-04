@@ -231,7 +231,25 @@
         || UNK(),
       issue: (W && issueName(W.issue)) || rIssueTxt || (rIssue && issueName(rIssue)) || UNK(),
       issueType: (W && W.issueType) || R.issueType || UNK(),
-      status: (W && W.status) || R.status || 'NOT_ESTABLISHED',
+      /* ⚠️ IL FOGLIO DEL RIVENDITORE STAMPAVA IL CODICE DEL MOTORE.
+         «Stato attuale ACT_NOW.» — su un PDF che va in mano a un cliente. Il
+         codice e giusto (viene dal motore) e la parola no: il portone
+         `pdf-gate` PT2 esiste per questo, e non poteva vederlo perche
+         `pdfjs-dist` non era installato.
+
+             UN PDF E UNA SUPERFICIE COME LE ALTRE.
+             CIO CHE NON PUO STARE SULLO SCHERMO NON PUO STARE NEMMENO LI.
+
+         Il dizionario canonico ha gia la frase nelle due lingue; V21 resta la
+         riserva per gli stati che il motore non pubblica. */
+      status: (() => {
+        const code = (W && W.status) || R.status || null;
+        if (!code) return TX('NON STABILITO', 'NOT ESTABLISHED');
+        const ml = (typeof window !== 'undefined' && window.MEETING_LABELS)
+          ? window.MEETING_LABELS.t('STATUS', code, LG === 'en' ? 'en' : 'it') : '';
+        if (ml) return ml;
+        return DICT('V21')[code] || TX('NON STABILITO', 'NOT ESTABLISHED');
+      })(),
       statusReason: (W && modelProse(W.statusReason)) || null,
       from: (W && fmtISO(W.startDate)) || (R.windowStart && fmtISO(R.windowStart)) || TX('DATA NON STABILITA', 'DATE NOT ESTABLISHED'),
       to: (W && fmtISO(W.endDate)) || (R.windowEnd && fmtISO(R.windowEnd)) || TX('DATA NON STABILITA', 'DATE NOT ESTABLISHED'),
@@ -477,8 +495,11 @@
         `No canonical window resolved for this case — every window fact above reads ${NOTCONF()}.`));
     out.push((W && (W.sourceIds || []).length)
       ? TX(`Fonti dichiarate: ${W.sourceIds.join(', ')}.`, `Declared sources: ${W.sourceIds.join(', ')}.`)
-      : TX('Questa finestra non dichiara alcun SOURCE_IDS — l\'elenco delle fonti per questo caso è NON CONFERMATO.',
-        'This window declares no SOURCE_IDS — the per-case source list is NON CONFERMATO.'));
+      /* La frase nominava il campo del motore invece del fatto. Chi legge il
+         foglio non ha SOURCE_IDS: ha una domanda, «da dove vem isto?», e la
+         risposta onesta e che questa finestra non ne dichiara nessuna. */
+      : TX(`Questa finestra non dichiara alcuna fonte — l'elenco delle fonti per questo caso vale ${NOTCONF()}.`,
+        `This window declares no source — the per-case source list reads ${NOTCONF()}.`));
     if (SR) out.push(TX(`Registro delle fonti: ${SR.count} fonti pubbliche registrate (provenienza ${SR.provenance}). I conteggi di osservazioni collegate per caso non sono stabiliti nel modello e non vengono stampati.`,
       `Source register: ${SR.count} registered public sources (provenance ${SR.provenance}). Per-case connected-observation counts are not established in the model and are not printed.`));
     out.push(TX(`Data di riferimento Sintonia ${refStamp()}. Tutti i conteggi di giorni qui sopra sono misurati da quella data.`,

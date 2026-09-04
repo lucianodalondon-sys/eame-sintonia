@@ -126,7 +126,16 @@ for (const id of pick.slice(0, WANT)) {
        Procurar /VERIFIC/ casava com «da verificare» — «por verificar», que diz
        exactamente o contrario. Mede-se a AFIRMACAO, na forma em que o gerador
        a escreve. */
-    const verified = (o.productLinks || []).filter((l) => l.strength === 'VERIFIED_LABEL_MATCH').map((l) => l.name || l.product);
+    /* ⚠️ LA REGUA MUDOU DE DONO, COMO EM OR1.
+       `productLinks` e o veredito que o portal DERIVA do audit de etiquetas; o
+       motor publica o seu proprio, produto a produto, em PORTFOLIO_MATCHES:
+       LABEL_AND_CATALOG e LABEL_ONLY dizem os dois que a etiqueta ministerial
+       foi verificada no par. Ler so o derivado acusava de «afirmacao sem
+       apoio» um PDF que diz exactamente o que o motor decidiu. */
+    const verified = (o.productLinks || []).filter((l) => l.strength === 'VERIFIED_LABEL_MATCH').map((l) => l.name || l.product)
+      .concat(((o.engine && o.engine.portfolioMatches) || [])
+        .filter((m) => m.VALIDATION_STATE === 'LABEL_AND_CATALOG' || m.VALIDATION_STATE === 'LABEL_ONLY')
+        .map((m) => m.PRODUCT_NAME));
     /* Um veredito citado DEPOIS de a frase declarar que pertence a outras
        culturas nao e uma afirmacao sobre este caso: e o registo do produto,
        circunscrito em voz alta. O portao mede a afirmacao NAO circunscrita. */

@@ -127,15 +127,18 @@ R('OFFLINE / NO PUBLIC CDN', YN(check('B3').pass), 'YES');
    saying, honestly, that the portal was READY for the package and had not yet
    received it. It has received it. */
 R('HANDOFF V2.1 INGESTED', YN(check('H1').pass), 'YES');
-R('V2.1 BUILD ID', (loadData().ITALY_HANDOFF_V21 || {}).buildId || 'ABSENT', 'V21-99226fbb90dcdbc2');
+/* Il pacchetto del sito e stato rigenerato dalla catena canonica a b3935bd: 43
+   oportunita invece di 37. Il numero segue il contratto, e il contratto e
+   cambiato deliberatamente — mai il contrario. */
+R('V2.1 BUILD ID', (loadData().ITALY_HANDOFF_V21 || {}).buildId || 'ABSENT', 'V21-358954754db5ea2f');
 R('V2.1 UNIVERSE COUNTS MEASURED', YN(check('H2').pass), 'YES');
 R('COMMERCIAL PRODUCTS', count('productsCommercial'), 51);
 R('REGULATORY PRODUCTS', count('productsRegulatory'), 163);
 R('LABEL USE PAIRS', count('productRelationships'), 2030);
 R('ACTIVE SUBSTANCES', count('activeIngredients'), 53);
-R('OPPORTUNITIES DETECTED', count('opportunities'), 37);
-R('VERIFIED CONVERGENCES', AM.collections.opportunities.records.filter((o) => o.convergence === 'VERIFIED_CONVERGENCE').length, 9);
-R('TO VALIDATE', AM.collections.opportunities.records.filter((o) => o.convergence === 'TO_VALIDATE').length, 28);
+R('OPPORTUNITIES DETECTED', count('opportunities'), 43);
+R('VERIFIED CONVERGENCES', AM.collections.opportunities.records.filter((o) => o.convergence === 'VERIFIED_CONVERGENCE').length, 33);
+R('TO VALIDATE', AM.collections.opportunities.records.filter((o) => o.convergence === 'TO_VALIDATE').length, 10);
 R('ENGINE BOOKKEEPING ON SCREEN', check('H4').measured, 0);
 R('V2.1 COLLECTION SLOTS READY', check('M3').pass ? '23 slots' : check('M3').measured, '23 slots');
 

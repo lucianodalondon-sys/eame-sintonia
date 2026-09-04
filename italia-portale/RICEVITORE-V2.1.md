@@ -52,8 +52,8 @@ contra o outro.
 | `productsCommercial` | **51** | 44 |
 | `activeIngredients` · substância como entidade | **53** | — |
 | `productActiveIngredients` | **203** | — |
-| `opportunities` · do motor | **37** | 3 |
-| `fieldBulletins` · boletins regionais | **122** | — |
+| `opportunities` · do motor | **43** | 3 |
+| `fieldBulletins` · boletins regionais | **133** | — |
 | `cropEconomics` | **2.978** | — |
 | `regulatoryFutureFacts` | **47** | — |
 | `clientSafeCrossings` | **19** | 0 |
@@ -61,7 +61,7 @@ contra o outro.
 | `competitorActivities` | **577** | 503 |
 | `marketObservations` | **157** | 77 |
 | `publicVoices` | **79** | 17 |
-| `sources` · linhas entregues | **189** | 31 |
+| `sources` · linhas entregues | **191** | 31 |
 | `cropWindows` · canônicas | 29 | 29 |
 
 `cropWindows` não muda: as 7 linhas que o pacote chama `CROP-WINDOWS.json` são
@@ -83,26 +83,41 @@ conhecia só a primeira forma. Dos 577, **569 são publicáveis** e **8 continua
 569 e diz por que o denominador é 569, porque um número certo dentro de uma
 frase errada continua sendo uma frase errada.
 
-`sources` entrega **189** linhas, que são **187 fontes reais** mais **2
+`sources` entrega **191** linhas, que são **189 fontes reais** mais **2
 `SOURCE_SENTINEL`** (`SRC_NAO_DECLARADA` e `SRC_DESCONHECIDA`). Sentinela é a
 marca de que a fonte não foi declarada — contá-la como fonte seria transformar
-uma ausência em acervo. O portal conta 187.
+uma ausência em acervo. O portal conta 189.
 
 ## As oportunidades, e como se dizem
 
-O motor gera 37. Nove passam com o método declarado ao lado; 28 são candidatas.
-Todas as 37 são `CLIENT_SAFE=false`, e isso não foi afrouxado para levantar um
-número: uma oportunidade é leitura nossa sobre fatos de terceiros.
+> **Estes números seguem a cadeia canônica.** O pacote deste build foi
+> reconstruído em `claude/opportunity-commercial-priority-v1` `b3935bd`
+> (`BUILD_ID V21-358954754db5ea2f`), e os anteriores ficam ao lado para que a
+> diferença se leia em vez de se adivinhar:
+>
+> ```
+> V21-99226fbb90dcdbc2   37 · 9 verificadas · 28 a validar · 17 rebaixadas
+> V21-358954754db5ea2f   43 · 33 verificadas · 10 a validar · 4 rebaixadas
+> ```
+
+O motor gera 43. Trinta e três passam com o método declarado ao lado; 10 são
+candidatas. Todas as 43 são `CLIENT_SAFE=false`, e isso não foi afrouxado para
+levantar um número: uma oportunidade é leitura nossa sobre fatos de terceiros.
 
 ```
-IT   OPPORTUNITÀ SINTONIA · CONVERGENZA VERIFICATA        9
-     DA VALIDARE                                         28
-EN   SINTONIA OPPORTUNITY · VERIFIED CONVERGENCE          9
-     TO VALIDATE                                         28
+IT   OPPORTUNITÀ SINTONIA · CONVERGENZA VERIFICATA       33
+     DA VALIDARE                                         10
+EN   SINTONIA OPPORTUNITY · VERIFIED CONVERGENCE         33
+     TO VALIDATE                                         10
 ```
 
-Pode-se apresentar **37 rilevate · 9 convergenze verificate · 28 da validare**.
-Não se apresenta 37 como confirmadas — `H4` recusa a frase.
+Pode-se apresentar **43 rilevate · 33 convergenze verificate · 10 da validare**.
+Não se apresenta 43 como confirmadas — `H4` recusa a frase.
+
+⚠️ `RENDERABLE_WITH_METHOD` **não é mais sinônimo de publicável.** Neste build o
+motor emite uma catraca própria, `PUBLICATION_STATE`: **5 PUBLISHABLE · 38
+VALIDATION_REQUIRED**. As duas perguntas separaram-se, e o radar ordena pela
+segunda — porque publicado atrás de um botão não é publicado.
 
 O próprio pacote escreve `OPPORTUNITY_LABEL_IT = «OPPORTUNITÀ CONFERMATA»`.
 Essa palavra não é embarcada e não é usada: *confirmada* é o que um motor chama
@@ -116,8 +131,8 @@ nenhum painel de depuração pode pô-los diante de um cliente.
 
     UMA PROPRIEDADE QUE VOCÊ APAGA NÃO PODE SER RENDERIZADA POR ACIDENTE.
 
-O red team **rebaixa, não apaga**: os 17 casos que ele derrubou estão todos
-dentro dos 37, como candidatos, porque «da validare» é exatamente o que são. O
+O red team **rebaixa, não apaga**: os 4 casos que ele derrubou estão todos
+dentro dos 43, como candidatos, porque «da validare» é exatamente o que são. O
 que ele proíbe não é mostrá-los — é chamá-los de verificados.
 
 ## O que a régua garante agora
