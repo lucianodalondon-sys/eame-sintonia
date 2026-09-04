@@ -246,8 +246,15 @@ operacional** (1 A + 4 B + 2 C) em 150, e um deles é exatamente o sinal procura
 | 5 | custo/desperdício proporcional | ⛔ **NÃO** — **rendimento de 7 em 150 sem a camada que importa** |
 | 6 | duplicação com fontes científicas compreendida | ⛔ **NÃO** — a família pesquisador **não foi testada** |
 
-**Duas condições falham, e as duas pela mesma causa: a legenda.** Escalar para 89 canais
-agora significaria coletar ~890 títulos e continuar sem poder julgar metade deles.
+**Duas condições falham.** Escalar para 89 canais agora significaria coletar ~890 títulos e
+continuar sem poder julgar metade deles.
+
+> ⚠️ **CORRIGIDO EM 2026-09-04 — `CAMADA-DE-LEGENDAS-DIAGNOSTICO.md`, D-038.**
+> Esta seção afirmava que as duas condições falhavam **pela mesma causa: a legenda**. Era
+> hipótese, e a medição refuta metade. Dos 89 canais monitoráveis, a família pesquisador tem
+> **2 — um no Twitter, um no LinkedIn, ZERO no YouTube**. Legenda é camada de YouTube: não
+> alcança quem não está lá. **Só a condição 5 depende da legenda.** A condição 6 continuaria
+> bloqueada com a legenda funcionando perfeitamente.
 
 ### O que muda o veredito — e é uma coisa só
 
@@ -257,5 +264,12 @@ agora significaria coletar ~890 títulos e continuar sem poder julgar metade del
 > O bloqueio é de **ambiente** (o navegador não completou), não de arquitetura nem de
 > crédito. Resolver isso é mais barato que qualquer alternativa — e é pré-requisito para
 > que a pergunta "vale manter?" tenha resposta.
+
+> ⚠️ **CORRIGIDO EM 2026-09-04 — `CAMADA-DE-LEGENDAS-DIAGNOSTICO.md`, D-035 e D-037.**
+> "O navegador não completou" estava certo pelo motivo errado: o Chromium morria em 0,43 s e
+> o código esperava 25 s por um processo morto, para então **afirmar o falso**. Isso está
+> consertado — o erro real agora chega em 1 s. Mas **abrir a legenda não é "uma coisa só"**:
+> são quatro muros empilhados, e o último (a reputação do IP de saída contra `/watch`, e o
+> corpo vazio do `/api/timedtext`) **não é código deste repositório**.
 
 **Parado aqui. Não escalei para 89. Não abri PR. Nada entrou no portal.**

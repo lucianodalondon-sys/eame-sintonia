@@ -683,6 +683,90 @@ Regras do diário:
   apareceram (1 FIELD_SIGNAL, 4 TECHNICAL, 2 RESEARCH), mas com 55% do corpus ilegível
   afirmar valor seria dizer o que não foi medido.
 
+### D-035 — "O navegador não completou" era espera por um processo morto
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO · **Corrige:** D-034 (a parte do diagnóstico)
+- A camada gratuita de legendas "não completava em >15 min". **Não era lentidão.**
+  `cdp.subir` mandava o `stderr` do Chrome para `DEVNULL` e o laço de espera nunca
+  consultava `p.poll()`. O Chromium morria em **0,43 s** e o código dormia os **25 s**
+  inteiros para então **afirmar o falso**: *"o Chrome subiu mas a porta não passou a
+  escutar"*. Ele não subiu.
+- **Custo medido:** 150 objetos × 25,02 s = **~63 minutos** imprimindo `PORTA_NAO_ABRIU`
+  a cada 25 s, com o motivo trocado. É exatamente o ">15 min sem completar" do relatório.
+- **Consertado:** `stderr` vai para arquivo, o laço pergunta `poll()`, e a mensagem passa a
+  citar a frase do próprio Chrome. **De 25,02 s de mentira para 1,00 s de verdade.**
+- **Lei:** `PROCESSO MORTO ≠ PORTA LENTA`. Um diagnóstico que manda procurar defeito de
+  rede onde há binário que se recusou a iniciar é pior que nenhum diagnóstico.
+
+### D-036 — Não é preciso desligar a sandbox para ter navegador neste contêiner
+
+- **Data:** 2026-09-04 · **Estado:** MEDIDO, **não aplicado**
+- O Chromium existe aqui (`/opt/pw-browsers/chromium`, 141.0.7390.37) e **recusa iniciar
+  como `root` sem `--no-sandbox`**; passado isso, falta `X server`.
+- **Medido que os dois se resolvem sem tocar na sandbox:** `runuser -u nobody` + `xvfb-run`
+  sobe o navegador **com janela e sandbox LIGADA**, e a porta DevTools responde.
+- **Não apliquei ao dono canônico.** `navegador.py:45-49` decide que `--no-sandbox` não vira
+  padrão "para funcionar", e a decisão é do dono. Trocar **como a casa executa** não é
+  conserto de bug — é política. Fica a prova de que o caminho honesto existe.
+- **Nem acrescentei `/opt/pw-browsers` à busca automática:** o mesmo arquivo explica que
+  trocar o binário em silêncio troca User-Agent, codecs e TLS, e duas coletas deixam de ser
+  comparáveis sem que ninguém tenha mudado nada. `CHROME_EXECUTABLE` já é a porta declarada.
+
+### D-037 — Player negado não é vídeo sem legenda
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO · **Código:** `fase_legendas`, estado novo
+- A rota barata **funciona** aqui: HTTP 200, 1,19 MB, `_bloqueado()` = `False`,
+  `ytInitialPlayerResponse` presente. Dentro dele:
+  `playabilityStatus = LOGIN_REQUIRED`, *"Accedi per confermare di non essere un bot"*.
+- **Com o player negado o YouTube não manda o bloco `captions`.** O código lia `faixas == []`
+  e gravava `AUSENTE` com `WHISPER_CANDIDATO = True`. No controle positivo `jNQXAC9IVRw`,
+  que **tem duas faixas** (`de`, `en`), isso seria ausência falsa **com autorização para
+  pagar transcrição** — o desastre que o cabeçalho do próprio arquivo promete evitar.
+- **Estado novo `PLAYER_NEGADO`**, com `WHISPER_CANDIDATO = False`. `AUSENTE` passa a exigir
+  player `OK`. O patch **não afrouxa régua**: move casos de `sem` para `barrado`, a direção
+  conservadora; `com` não muda em cenário nenhum. Preso por `tests/test_legendas.py`.
+- **Três regimes do mesmo IP, no mesmo dia, na mesma URL:**
+  `VERDE` (200, player OK, faixas presentes) → `ÂMBAR` (200, `LOGIN_REQUIRED`, faixas
+  ausentes) → `VERMELHO` (429, redirect para `google.com/sorry`). O corpo do 429 é texto de
+  **reputação de IP**, não de conteúdo. `ÂMBAR` é o perigoso porque passa em todas as
+  verificações que o código tinha.
+
+### D-038 — A condição 6 do portão não era culpa da legenda
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO · **Corrige:** D-034
+- D-034 afirmou que as condições 5 e 6 falhavam *"pela mesma causa: a legenda"*. Era
+  **hipótese**, e a medição refuta metade.
+- **Cruzamento offline** dos 89 canais monitoráveis (`sensor_piloto_social_it.py familia`,
+  mesma regra de grupo de `selecionar()`, sem rede):
+
+| grupo | facebook | instagram | linkedin | tiktok | twitter | **youtube** |
+|---|---|---|---|---|---|---|
+| A — papel de campo provado | 2 | 2 | 0 | 0 | 0 | **4** |
+| B — pesquisador/professor | 0 | 0 | 1 | 0 | 1 | **0** |
+| C — sem papel provado | 14 | 13 | 8 | 3 | 0 | **41** |
+
+- **`RESEARCHER_YOUTUBE_CHANNELS = 0`.** Os dois canais da família pesquisador são um
+  Twitter e um LinkedIn. Pelo papel da entidade dá o mesmo: dos 40 canais técnicos de
+  YouTube, **0** pertencem a entidade com papel científico `PROVADO` — havendo **84**
+  entidades com esse papel no registro.
+- **Legenda é uma camada de YouTube. Não alcança quem não está no YouTube.**
+  `CONDITION_6_TESTABLE_WITH_CURRENT_YOUTUBE_UNIVERSE = NÃO`, e continuará `NÃO` com a
+  legenda funcionando perfeitamente. A condição 6 segue **BLOQUEADA / NÃO SEI**.
+
+### D-039 — Amostra sem data não é evidência: o selo passou a ser um só lugar
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO
+- `tests/test_evidence.py` ficou **vermelho nesta branch**: 13 amostras da camada italiana
+  sem `CAPTURED_AT` e uma sem `SOURCE_ID`. Cada função de escrita montava o dicionário à mão
+  e algumas esqueceram o campo — que é o modo normal de falhar quando o selo é opcional em
+  doze lugares diferentes.
+- **`scripts/selo_de_amostra.py`** carimba `SOURCE_ID` e `CAPTURED_AT` num lugar só, chamado
+  em **todos** os pontos de escrita das amostras italianas. Não sobrescreve o que já existe:
+  se a função pôs a data real da medição, ela vence.
+- As 13 amostras existentes foram preenchidas com a **data do commit que as publicou**,
+  declarada em `CAPTURED_AT_ORIGEM` como `BACKFILL` e como **limite superior** da captura —
+  não como hora de medição. Inventar a hora exata seria pior que a lacuna.
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |

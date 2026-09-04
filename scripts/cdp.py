@@ -234,6 +234,15 @@ def _ultima_linha(arquivo):
     return linhas[-1][:300] if linhas else '(nada em stderr)'
 
 
+def _descartar(arquivo):
+    """Some com o registro de stderr quando o navegador subiu — ninguém vai lê-lo."""
+    try:
+        arquivo.close()
+        os.unlink(arquivo.name)
+    except OSError:
+        pass
+
+
 def subir(porta, *, perfil=None, url='about:blank', segundos=25):
     """Abre o Chrome com janela nesta porta, se ainda não houver um. Devolve o processo.
 
@@ -283,6 +292,7 @@ def subir(porta, *, perfil=None, url='about:blank', segundos=25):
     while time.time() < fim:
         try:
             abas(porta, timeout=2)
+            _descartar(registro)              # subiu: o registro de erro não serve a ninguém
             return p
         except Erro:
             if p.poll() is not None:          # morreu: esperar mais não muda nada
