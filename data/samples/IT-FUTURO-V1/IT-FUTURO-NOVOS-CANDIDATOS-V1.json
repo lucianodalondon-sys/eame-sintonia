@@ -14,11 +14,11 @@
  ],
  "DOCS_READ": 12,
  "SIGNALS_PROPOSED": 77,
- "SIGNALS_RULED": 16,
- "SIGNALS_APPROVED": 8,
- "SIGNALS_REJECTED": 8,
+ "SIGNALS_RULED": 21,
+ "SIGNALS_APPROVED": 12,
+ "SIGNALS_REJECTED": 9,
  "REJECTION_REASONS": {
-  "CROP_NOT_SUPPORTED_BY_CONTEXT": 1,
+  "CROP_NOT_SUPPORTED_BY_CONTEXT": 2,
   "QUOTE_NOT_IN_DOCUMENT": 5,
   "TREND_DRESSED_AS_FORECAST": 1,
   "REGION_INHERITED": 1
@@ -35,7 +35,7 @@
   },
   "8_rnThlsy9Q": {
    "propostos": 6,
-   "aprovados": 0
+   "aprovados": 2
   },
   "CYV76yVc98s": {
    "propostos": 6,
@@ -63,7 +63,7 @@
   },
   "or7l165Qv_c": {
    "propostos": 9,
-   "aprovados": 4
+   "aprovados": 6
   },
   "or7l165Qv_c2": {
    "propostos": 8,
@@ -225,6 +225,95 @@
    "ADAMA_LABELS": [],
    "RULED_BY": "agente independente do que propos",
    "STATE": "APPROVED_CANDIDATE_NOT_YET_HAND_WRITTEN"
+  },
+  {
+   "SOURCE_ID": "or7l165Qv_c",
+   "SIGNAL_SUMMARY": "AGRUMI x ALEURODIDI (Aleurocanthus spiniferus): apos quatro anos de monitoramento a populacao comeca a cair por acao de antagonistas instalados espontaneamente — um coccinelideo quase especifico que chegou junto com o aleirodideo e parasitoides do genero Eretmocerus, incluindo uma especie nunca antes registrada, encontrada em numero crescente. O relator espera que o alvo termine como os demais aleirodideos invasores (difusao, dano, depois equilibrio), por analogia declarada com um caso do mesmo evento que passou de sete intervencoes obrigatorias por ano a nao-problema em cerca de dez anos. Recomendacao operacional: nao tratar na janela em que o parasitoide esta presente na folha. Sinal de reducao de mercado, nao de expansao — e em contradicao aberta com o Calatino, onde os tratamentos ja subiram de um para tres por ano.",
+   "EVIDENCE_TIME_STATE": "EXPECTED",
+   "CROP": null,
+   "TARGET": null,
+   "REGION": null,
+   "QUOTE_IT": "",
+   "TRIGGER": null,
+   "INVALIDATION_TRIGGER": null,
+   "CONFIDENCE": null,
+   "ADAMA_PAIR_EXISTS": "NO",
+   "ADAMA_LABELS": [],
+   "RULED_BY": "agente independente do que propos",
+   "STATE": "APPROVED_CANDIDATE_NOT_YET_HAND_WRITTEN"
+  },
+  {
+   "SOURCE_ID": "or7l165Qv_c",
+   "SIGNAL_SUMMARY": "AGRUMI x TRISTEZZA (CTV, estirpes RB - resistance breaking), Sardegna e Sicilia: deteccao de estirpes RB em plantas assintomaticas - um caso na Sardegna e, mais grave, em viveiros na Sicilia, onde a erradicacao ja foi executada. Como a politica fitossanitaria europeia impoe erradicacao e a infeccao e invisivel a campo, o risco decisional se desloca para o material de propagacao e para a conformidade viveiristica, verificada pelas indagini anuais cofinanciadas Estado-Regiao-Europa.",
+   "EVIDENCE_TIME_STATE": "OBSERVED_NOW",
+   "CROP": null,
+   "TARGET": null,
+   "REGION": null,
+   "QUOTE_IT": "",
+   "TRIGGER": null,
+   "INVALIDATION_TRIGGER": null,
+   "CONFIDENCE": null,
+   "ADAMA_PAIR_EXISTS": "NO",
+   "ADAMA_LABELS": [
+    "AGRUMI x TRISTEZZA = ZERO pares em todo o conjunto publicado (0 de 2845 pares em data/samples/IT-ROTULOS-V1/IT-ROTULOS-PARES-V3.json)",
+    "TRISTEZZA / CTV / VIRUS / VIROSI nao existem como termo canonico em scripts/it_rotulo_vocab.py - a lista ALVOS nao tem NENHUM alvo viral ou bacteriano; so artropodes, fungos e infestantes. O alvo do sinal esta fora do vocabulario controlado por construcao, nao por lacuna de leitura.",
+    "AGRUMI tem 41 pares no conjunto, distribuidos em apenas 5 alvos: AFIDI, CIMICI, COCCINIGLIE, MOSCA, INFESTANTI.",
+    "NAO-RECLAMACAO REGISTRADA: os 7 rotulos AGRUMI x AFIDI (008259 LAMDEX EXTRA, 013560 FORZA, 013590 NINJA, 015275 DURAVIS, 017687 ELTIRA, 018156 APYZA WG, 018165 APYZA 500 WG) sao a unica relacao adjacente concebivel, por via do vetor afidico do CTV. NAO os declaro como par: o paragrafo citado nao menciona afideo, vetor nem transmissao, e o proprio LEI_DO_TEMPO do radar diz que PORTFOLIO RELATION nao vira LABEL AUTHORIZATION. Listo-os para que ninguem os redescubra e os promova sem fonte."
+   ],
+   "RULED_BY": "agente independente do que propos",
+   "STATE": "APPROVED_CANDIDATE_NOT_YET_HAND_WRITTEN"
+  },
+  {
+   "SOURCE_ID": "8_rnThlsy9Q",
+   "SIGNAL_SUMMARY": "VITE x BLACK ROT (Guignardia bidwellii), Friuli-Venezia Giulia / provincia di Pordenone: com a saída dos ditiocarbamatos (mancozeb) em 2025 — a única cobertura que dava protecção praticamente total do primeiro ao último tratamento — o relator do serviço fitossanitário do FVG projecta agravamento nas próximas safras, pelo mecanismo declarado de acumulação de inóculo no vinhedo. Abre a decisão, em aberto para 2026, de que parceiro de cobertura com acção sobre black rot entra no calendário anti-peronóspora.",
+   "EVIDENCE_TIME_STATE": "EXPECTED",
+   "CROP": null,
+   "TARGET": null,
+   "REGION": null,
+   "QUOTE_IT": "",
+   "TRIGGER": null,
+   "INVALIDATION_TRIGGER": null,
+   "CONFIDENCE": null,
+   "ADAMA_PAIR_EXISTS": "YES",
+   "ADAMA_LABELS": [
+    "008401 FINESSOX (FOLPET) — VITE x MARCIUME",
+    "008601 FOLPAN 80 WDG (FOLPET) — VITE x MARCIUME; rótulo nomeia literalmente \"Marciume nero (Guignardia bidwellii)\" a 2 kg/ha (200 g/hl) desde a retomada vegetativa",
+    "013012 FOLVIT 80 WDG (FOLPET) — VITE x MARCIUME",
+    "014862 SOLOFOL AP (FOLPET) — VITE x MARCIUME",
+    "016749 FOLPAN ENERGY (FOLPET + POTASSIUM PHOSPHONATES) — VITE x MARCIUME; dose dedicada só ao marciume nero (Guignardia bidwellii)",
+    "017111 FLOVINE (FOLPET) — VITE x MARCIUME",
+    "017311 VINIFOL WDG (FOLPET) — VITE x MARCIUME"
+   ],
+   "RULED_BY": "agente independente do que propos",
+   "STATE": "APPROVED_CANDIDATE_NOT_YET_HAND_WRITTEN"
+  },
+  {
+   "SOURCE_ID": "8_rnThlsy9Q",
+   "SIGNAL_SUMMARY": "VITE / castas resistentes (PIWI) conduzidas com número reduzido de intervenções tornam-se reservatório e ponto de dano das secundárias — black rot, escoriose (Phomopsis viticola) e antracnose — no norte da Itália, criando a necessidade de um programa mínimo dedicado a secundárias desacoplado do calendário anti-peronóspora, num segmento cuja área pode saltar se as resistentes entrarem nos disciplinari das DOP.",
+   "EVIDENCE_TIME_STATE": "EXPECTED",
+   "CROP": null,
+   "TARGET": null,
+   "REGION": null,
+   "QUOTE_IT": "",
+   "TRIGGER": null,
+   "INVALIDATION_TRIGGER": null,
+   "CONFIDENCE": null,
+   "ADAMA_PAIR_EXISTS": "YES",
+   "ADAMA_LABELS": [
+    "008401 FINESSOX (FOLPET) — VITE, \"Escoriosi (Phomopsis viticola)\" + \"Marciume nero (Guignardia bidwellii)\"",
+    "008601 FOLPAN 80 WDG (FOLPET) — VITE, \"2 kg/ha (200 g/hl) per la protezione da Escoriosi (Phomopsis viticola) e Marciume nero (Guignardia bidwellii), intervenendo dalla ripresa vegetativa\"",
+    "013012 FOLVIT 80 WDG (FOLPET) — VITE, escoriosi + marciume nero",
+    "013585 SOLOFOL (FOLPET) — VITE, \"contro Peronospora, Botrite, Escoriosi e Black rot iniziare i trattamenti a partire dalla ripresa vegetativa\"",
+    "014862 SOLOFOL AP (FOLPET) — VITE, escoriosi + marciume nero",
+    "016749 FOLPAN ENERGY (FOLPET + POTASSIUM PHOSPHONATES) — VITE, dose dedicada só ao marciume nero (Guignardia bidwellii)",
+    "017111 FLOVINE (FOLPET) — VITE, escoriosi + marciume nero",
+    "017311 VINIFOL WDG (FOLPET) — VITE, escoriosi + marciume nero",
+    "010587 FOLPAN SC (FOLPET) — texto bruto tem escoriosi + marciume nero, mas o pairset publicado só emitiu POMODORO (subcontagem do parser, já registada em IT-VOCAB-PROPOSTA-V1)",
+    "011501 PARIFOL (FOLPET) — idem 010587",
+    "SEM PAR: ANTRACNOSE DA VIDE (Elsinoë ampelina). VITE x ANTRACNOSI = 0 pares. Os únicos ANTRACNOSI publicados são MELO/PERO/NOCE (008102 MERPAN 80 WDG, 011500 CAPTHENE 80 WDG) e o regex canónico é Colletotrichum/Gloeosporium/Gnomonia — género errado. O bloco TAXONOMIA diz literalmente 'NAO promover'."
+   ],
+   "RULED_BY": "agente independente do que propos",
+   "STATE": "APPROVED_CANDIDATE_NOT_YET_HAND_WRITTEN"
   }
  ],
  "REJECTED": [
@@ -275,6 +364,12 @@
    "REASON": "REGION_INHERITED",
    "WHY": "1) CITACAO: EXISTE, literal. Encontrada em /home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/or7l165Qv_c.json, campo TRANSCRIPT, offset ~136.902, com as proprias corrupcoes da ASR reproduzidas fielmente (\"l'incremento delleazioni degli acari\", \"si parla di EUR25.000 000 e pero\"). Nada foi i",
    "SIGNAL": "AGRUMI x ACARI, Sicilia: a difusao das coberturas antivento sobre agrumeti comerciais jovens (contra vento/malsecco, ~EUR 25.000) eleva temperatura e sobretudo umidade sob a cobertura e faz subir a in"
+  },
+  {
+   "SOURCE_ID": "or7l165Qv_c",
+   "REASON": "CROP_NOT_SUPPORTED_BY_CONTEXT",
+   "WHY": "1) CITACAO: PASSA. Literal, palavra por palavra, em /home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/or7l165Qv_c.json, campo TRANSCRIPT, offset 114311. Comparacao normalizada (acentos/espacos) da a string inteira contida no documento. Nao ha invencao de citacao.\n\n2) O QUE REPROVA — CULTURA",
+   "SIGNAL": "Aficida novo em agrumi (\"fluir di furone\"/\"fluone\" na legenda ASR, lido como flupyradifurone) introduzido este ano, com degradacao muito lenta; as estruturas que trabalham ao limite de 30% do LMR \"ris"
   }
  ]
 }
