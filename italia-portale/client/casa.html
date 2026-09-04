@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sintonia · Italia — Cosa conta oggi</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23009845'/%3E%3Cpath d='M26 76 50 24l24 52' fill='none' stroke='%23fff' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M37 58h26' stroke='%23fff' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta name="description" content="Sintonia · ADAMA Italia — la prima piega: cosa succede, cosa preparare, cosa monitorare.">
+<style>
+:root{
+  --ink:#0E0C0B; --ink-2:#171413; --line:#272220;
+  --paper:#EDEAE9; --mute:#8F8886; --mute-2:#6E6663; --soft:#B1A9A7;
+  --green:#00B152; --green-d:#009845; --green-dd:#00783F; --amber:#F5B317;
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--font);
+  -webkit-font-smoothing:antialiased}
+body{padding:0 0 72px}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+
+header{padding:26px 0 18px;border-bottom:1px solid var(--line);margin-bottom:30px}
+.top{display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+.mark{width:34px;height:34px;border-radius:9px;background:var(--green-d);
+  display:flex;align-items:center;justify-content:center;flex:none}
+.brand{font-size:15px;font-weight:700;letter-spacing:.15em}
+.sub{font-size:9px;font-weight:700;letter-spacing:.20em;color:var(--mute)}
+.spacer{flex:1}
+.stamp{font-size:10.5px;color:var(--mute-2);letter-spacing:.04em;text-align:right;line-height:1.6}
+h1{font-size:clamp(22px,3.4vw,32px);line-height:1.2;margin:20px 0 6px;font-weight:700;letter-spacing:-.01em}
+.lede{font-size:14px;color:var(--soft);max-width:66ch;line-height:1.65;margin:0}
+
+h2{font-size:10.5px;font-weight:700;letter-spacing:.19em;color:var(--mute);
+  margin:38px 0 14px;text-transform:uppercase}
+
+/* ── prima piega ─────────────────────────────────────────────────── */
+.grid{display:grid;gap:13px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.tile{background:var(--ink-2);border:1px solid var(--line);border-radius:13px;padding:19px 20px}
+.tile .q{font-size:11px;color:var(--mute);line-height:1.45;margin-bottom:13px;min-height:2.9em}
+.n{font-size:40px;font-weight:700;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.n.zero{color:var(--soft)}
+.n small{font-size:13px;font-weight:600;letter-spacing:0;color:var(--mute);margin-left:7px}
+.tile .lab{font-size:12.5px;color:var(--paper);margin-top:9px;font-weight:600}
+.tile .lim{font-size:11px;color:var(--mute-2);line-height:1.55;margin-top:9px}
+.split{display:flex;gap:26px;align-items:flex-end;flex-wrap:wrap}
+.split>div{min-width:74px}
+
+/* ── destaque ────────────────────────────────────────────────────── */
+.hero{margin-top:14px;border:1px solid var(--green-dd);border-radius:15px;overflow:hidden;
+  background:linear-gradient(180deg,rgba(0,120,63,.16),rgba(0,120,63,.05))}
+.hero-b{padding:24px 24px 22px}
+.kicker{font-size:9.5px;font-weight:700;letter-spacing:.19em;color:var(--green);margin-bottom:11px}
+.hero h3{margin:0 0 12px;font-size:clamp(19px,2.6vw,25px);font-weight:700;letter-spacing:-.01em}
+.hero p{margin:0 0 13px;font-size:14px;line-height:1.65;color:var(--paper);max-width:74ch}
+.win{display:flex;gap:11px;flex-wrap:wrap;margin:17px 0 4px}
+.win div{flex:1 1 190px;background:rgba(0,0,0,.32);border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px}
+.win .w-l{font-size:10px;letter-spacing:.13em;color:var(--mute);font-weight:700}
+.win .w-v{font-size:19px;font-weight:700;margin-top:5px;font-variant-numeric:tabular-nums}
+.win .w-n{font-size:11px;color:var(--mute-2);margin-top:4px}
+.ask{margin-top:17px;padding:14px 16px;border-left:2px solid var(--amber);
+  background:rgba(245,179,23,.07);border-radius:0 9px 9px 0}
+.ask b{display:block;font-size:9.5px;letter-spacing:.17em;color:var(--amber);margin-bottom:6px}
+.ask span{font-size:13.5px;line-height:1.6}
+
+/* ── progressive disclosure ──────────────────────────────────────── */
+details{border-top:1px solid var(--line)}
+details>summary{cursor:pointer;list-style:none;padding:14px 2px;font-size:12px;
+  color:var(--mute);display:flex;align-items:center;gap:9px}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"+";width:17px;height:17px;border:1px solid var(--line);
+  border-radius:5px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:12px;line-height:1;color:var(--mute);flex:none}
+details[open]>summary::before{content:"–"}
+details>summary:hover{color:var(--paper)}
+.dd{padding:2px 0 20px 26px;font-size:12.5px;line-height:1.7;color:var(--soft);max-width:82ch}
+.dd p{margin:0 0 11px}
+.dd table{border-collapse:collapse;width:100%;margin:6px 0 12px;font-size:12px}
+.dd th,.dd td{text-align:left;padding:8px 11px 8px 0;border-bottom:1px solid var(--line);
+  vertical-align:top}
+.dd th{color:var(--mute);font-weight:600;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase}
+.dd .src{font-size:11px;color:var(--mute-2);margin-top:8px}
+.tag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.11em;
+  padding:3px 8px;border-radius:5px;border:1px solid var(--line);color:var(--mute);margin-right:6px}
+.tag.ok{color:var(--green);border-color:var(--green-dd)}
+.tag.no{color:var(--soft)}
+
+/* ── nota de limite ──────────────────────────────────────────────── */
+.note{margin-top:16px;font-size:11.5px;color:var(--mute-2);line-height:1.7;max-width:80ch}
+.note b{color:var(--soft);font-weight:600}
+
+footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
+  display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.cta{display:inline-block;background:var(--green-dd);color:#fff;font-size:11.5px;font-weight:700;
+  letter-spacing:.09em;padding:12px 22px;border-radius:9999px}
+.cta:hover{background:var(--green-d)}
+.foot-n{font-size:11px;color:var(--mute-2);line-height:1.6}
+@media(max-width:640px){.n{font-size:33px}.split{gap:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="top">
+    <span class="mark" aria-hidden="true">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 12 4l8 16"></path><path d="M7.6 13.6h8.8"></path></svg>
+    </span>
+    <div>
+      <div class="brand">SINTONIA</div>
+      <div class="sub">ADAMA ITALIA · INTELLIGENCE</div>
+    </div>
+    <span class="spacer"></span>
+    <div class="stamp" id="stamp"></div>
+  </div>
+  <h1>Cosa conta oggi in Italia</h1>
+  <p class="lede">Sei domande, una piega. Ogni numero qui è una <b>decisione</b> — quanto preparare,
+  quanto monitorare, quanto si può mostrare — mai la dimensione dell'archivio.
+  Ciò che porta un metodo viaggia sempre con il suo limite accanto.</p>
+</header>
+
+<h2>La prima piega</h2>
+<div class="grid" id="tiles"></div>
+
+<h2>Ciò che merita attenzione adesso</h2>
+<div class="hero">
+  <div class="hero-b">
+    <div class="kicker" id="hero-kick"></div>
+    <h3 id="hero-title"></h3>
+    <p id="hero-fact"></p>
+    <div class="win" id="hero-win"></div>
+    <div class="ask">
+      <b>ACTIVATION QUESTION · PORTAFOGLIO / SVILUPPO MERCATO</b>
+      <span id="hero-ask"></span>
+    </div>
+  </div>
+  <details>
+    <summary>Fatto, interpretazione, finestra e limite</summary>
+    <div class="dd" id="hero-card"></div>
+  </details>
+  <details>
+    <summary>Evidenza · i quattro registri e la fonte originale</summary>
+    <div class="dd" id="hero-detail"></div>
+  </details>
+</div>
+
+<h2>Come lo osserviamo</h2>
+<div id="sens"></div>
+
+<h2>Dove abbiamo occhi</h2>
+<div id="cover"></div>
+
+<footer>
+  <a class="cta" href="portale.html">APRI IL PORTALE COMPLETO</a>
+  <span class="foot-n" id="foot"></span>
+</footer>
+
+</div>
+
+<script src="italy-casa.js"></script>
+<script>
+(function(){
+  var C = window.ITALY_CASA;
+  var $ = function(id){ return document.getElementById(id); };
+  /* separatore delle migliaia italiano: 13.216, non 13216. Lo stesso numero
+     scritto in due modi sulla stessa pagina fa dubitare di entrambi. */
+  var mil = function(n){ return Number(n).toLocaleString('it-IT'); };
+  var esc = function(s){ return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); };
+
+  /* Un portale che non trova i suoi dati deve dirlo, non disegnare zeri.
+     Uno zero inventato è indistinguibile da uno zero misurato. */
+  if (!C) {
+    document.body.innerHTML = '<div class="wrap" style="padding:60px 22px">'
+      + '<h1>Dati non caricati</h1><p class="lede">italy-casa.js non è stato trovato. '
+      + 'Questa pagina non disegna numeri che non ha letto.</p></div>';
+    return;
+  }
+
+  $('stamp').innerHTML = 'DATA DI RIFERIMENTO ' + esc(C.DATA_DE_REFERENCIA)
+    + '<br>registro fitosanitario · snapshot ' + esc(C.DESTAQUE.DATA_DO_SNAPSHOT);
+
+  /* ── la prima piega: sei domande, sei risposte ─────────────────── */
+  var RF = C.RADAR_FUTURO, SC = C.SINAIS_DE_CAMPO, FO = C.FONTES, CO = C.COBERTURA;
+  var tiles = [
+    { q:'Cosa dobbiamo <b>preparare</b>?',
+      big:[{n:RF.PREPARAR, l:'da preparare'}],
+      lab:'Radar Futuro',
+      lim:'orizzonte: prossima campagna o oltre. Non sono opportunità di oggi.' },
+    { q:'Cosa dobbiamo <b>monitorare</b>?',
+      big:[{n:RF.MONITORAR, l:'da monitorare'}],
+      lab:'Radar Futuro',
+      lim:'segnali con lettura sufficiente per essere seguiti, non per agire.' },
+    { q:'Qualcosa richiede <b>azione immediata</b>?',
+      big:[{n:RF.AGIR_AGORA, l:'agire ora', zero:true}],
+      lab:'Radar Futuro',
+      lim:RF.LIMITE },
+    { q:'Cosa <b>sta succedendo</b> in campo?',
+      big:[{n:SC.CARTAO, l:'come scheda'},{n:SC.COM_METODO, l:'con metodo'}],
+      lab:SC.VISIVEIS + ' letture visibili',
+      lim:SC.LIMITE },
+    { q:'<b>Dove abbiamo occhi</b>?',
+      big:[{n:FO.COM_METODO, l:'fonti con metodo'}],
+      lab:'Copertura della raccolta',
+      lim:'la mappa risponde «' + FO.RESPONDE + '». Non risponde «' + FO.LIMITE + '».' },
+    { q:'Quale <b>finestra</b> regolatoria pesa?',
+      big:[{n:C.DESTAQUE.DELTA_MESES, l:'mesi di scarto', unit:'~'}],
+      lab:'AZOXYSTROBIN + PROTHIOCONAZOLE',
+      lim:'universo chiuso di ' + C.DESTAQUE.UNIVERSO + ' registri, non un campione.' }
+  ];
+  $('tiles').innerHTML = tiles.map(function(t){
+    var nums = t.big.map(function(b){
+      return '<div><div class="n' + (b.zero ? ' zero' : '') + '">'
+        + (b.unit || '') + b.n + '</div>'
+        + '<div class="lim" style="margin-top:5px">' + esc(b.l) + '</div></div>';
+    }).join('');
+    return '<div class="tile"><div class="q">' + t.q + '</div>'
+      + '<div class="split">' + nums + '</div>'
+      + '<div class="lab">' + esc(t.lab) + '</div>'
+      + '<div class="lim">' + esc(t.lim) + '</div></div>';
+  }).join('');
+
+  /* ── il destaque ───────────────────────────────────────────────── */
+  var D = C.DESTAQUE;
+  $('hero-kick').textContent = 'FINESTRA AUTORIZZATIVA · UNIVERSO CHIUSO DI ' + D.UNIVERSO + ' REGISTRI';
+  $('hero-title').textContent = D.TITULO;
+  $('hero-fact').textContent = D.INTERPRETACAO.charAt(0).toUpperCase() + D.INTERPRETACAO.slice(1) + '.';
+  $('hero-win').innerHTML =
+      '<div><div class="w-l">ADAMA ITALIA</div><div class="w-v">' + esc(D.ADAMA_ATE) + '</div>'
+    + '<div class="w-n">MAXENTIS · KOJAMI</div></div>'
+    + '<div><div class="w-l">CAC CHEMICAL</div><div class="w-v">' + esc(D.CONCORRENTE_ATE) + '</div>'
+    + '<div class="w-n">PROMINO XTRA · AMISTAR ERA 240 EC</div></div>'
+    + '<div><div class="w-l">SCARTO</div><div class="w-v">~' + D.DELTA_MESES + ' mesi</div>'
+    + '<div class="w-n">a favore del concorrente</div></div>';
+  $('hero-ask').textContent = D.ACTIVATION_QUESTION;
+
+  $('hero-card').innerHTML =
+      '<p><b>Fatto.</b> ' + esc(D.FATO) + '</p>'
+    + '<p><b>Come è stato filtrato.</b> ' + esc(D.CRITERIO) + '. Universo chiuso: '
+      + esc(D.E_UNIVERSO_FECHADO) + ' — non è un campione.</p>'
+    + '<p><b>Limite.</b> ' + esc(D.TRAVA_DE_INDEPENDENCIA) + '</p>'
+    + '<p><b>Chi decide.</b> ' + esc(D.QUEM_DECIDE) + ' — questa pagina non lo decide.</p>';
+
+  $('hero-detail').innerHTML =
+      '<table><thead><tr><th>Prodotto</th><th>Registro</th><th>Titolare</th>'
+    + '<th>Scadenza</th><th>Stato amministrativo</th></tr></thead><tbody>'
+    + D.ITENS.map(function(i){
+        return '<tr><td>' + esc(i.PRODUTO) + '</td><td>' + esc(i.REGISTRO) + '</td>'
+          + '<td>' + esc(i.TITULAR) + '</td><td>' + esc(i.VENCIMENTO) + '</td>'
+          + '<td>' + esc(i.ESTADO_ADMINISTRATIVO) + '</td></tr>'; }).join('')
+    + '</tbody></table>'
+    + '<div class="src">Fonte: ' + esc(D.FONTE) + ' · snapshot ' + esc(D.DATA_DO_SNAPSHOT) + '</div>';
+
+  /* ── sensori: solo i sopravvissuti ─────────────────────────────── */
+  var S = C.SENSORES;
+  var sensHtml = S.SOBREVIVERAM.map(function(s){
+    return '<details open><summary><span class="tag ok">SENSORE ATTIVABILE</span> '
+      + esc(s.ID) + ' · ' + esc(s.TITULO) + '</summary><div class="dd">'
+      + '<p><b>Variabile.</b> ' + esc(s.VARIAVEL) + '</p>'
+      + '<p><b>Fonte.</b> ' + esc(s.FONTE) + ' <span class="tag">' + esc(s.AUTORIDADE) + '</span></p>'
+      + '<p><b>Cadenza.</b> ' + esc(s.CADENZA) + '</p>'
+      + '<p><b>Scatta quando.</b> ' + esc(s.SCATTA) + '</p>'
+      + '<p><b>Si invalida quando.</b> ' + esc(s.INVALIDA) + '</p>'
+      + '<p><b>Transizione di stato.</b> ' + esc(s.TRANSICAO)
+      + '. Autorizzata dalla riga? <b>' + esc(s.TRANSICAO_AUTORIZADA) + '</b>. '
+      + 'Osservare non promuove.</p>'
+      + '<p><b>Serve un adattatore.</b> ' + esc(s.ADATTATORE) + '</p>'
+      + '</div></details>'; }).join('');
+  var caduti = S.DERRUBADOS.map(function(s){
+    return '<details><summary><span class="tag no">NON ESEGUIBILE</span> '
+      + esc(s.ID) + ' · ' + esc(s.TITULO) + '</summary><div class="dd">'
+      + '<p><b>Perché non ha retto.</b> ' + esc(s.CAIU_PORQUE) + '</p>'
+      + '<p>L\'autore lo dichiarava <b>' + esc(s.DECLARADA_PELO_AUTOR)
+      + '</b>; il verdetto pubblicato è quello di chi lo ha attaccato. '
+      + 'La specifica completa resta a monte, non su questa pagina.</p>'
+      + '</div></details>'; }).join('');
+  $('sens').innerHTML =
+      '<p class="note">Tre segnali prioritari sono stati portati a specifica di osservazione. '
+    + '<b>Uno ha retto</b>, due sono stati abbattuti da chi li ha attaccati. '
+    + 'Non fabbrichiamo il terzo per tenere il numero: ' + esc(S.REGRA) + '</p>'
+    + sensHtml + caduti
+    + '<p class="note">Nessuno di questi tre autorizza un cambio di stato. '
+    + 'Il Radar Futuro resta valido anche senza sensore su tutti e tre.</p>';
+
+  /* ── copertura ─────────────────────────────────────────────────── */
+  $('cover').innerHTML =
+      '<p class="note">La copertura risponde <b>«' + esc(FO.RESPONDE) + '»</b>. '
+    + 'Non risponde mai <b>«' + esc(FO.LIMITE) + '»</b>. Confondere le due trasforma '
+    + 'la copertura della raccolta in una mappa di pressione agronomica.</p>'
+    + '<details><summary>Come è misurata la copertura</summary><div class="dd">'
+    /* La regola DO_NOT_SHOW su questo strato è esplicita: si dice «72 con
+       l'espansione territoriale dichiarata», mai «copertura BUONA in 72 celle».
+       La prima è la misura; la seconda è un giudizio che nessuno ha dato. */
+    + '<p>' + CO.CELULAS + ' celle territorio × specialità. Con l\'espansione territoriale '
+    + 'dichiarata: ' + CO.COM_EXPANSAO_GOOD + ' celle. Senza di essa: '
+    + CO.SEM_EXPANSAO_GOOD + '.</p>'
+    + '<p><b>L\'espansione è una regola, non un dato.</b> ' + esc(CO.A_EXPANSAO_E) + '</p>'
+    + '<p>Non mostriamo recenza su questo strato: è stato prodotto con una lettura di data '
+    + 'difettosa, ancora da rimisurare.</p></div></details>'
+    + '<details><summary>Autorizzazioni ADAMA · il numero non viaggia da solo</summary><div class="dd">'
+    + '<p>Sotto criterio <b>AMPLIATO</b> (' + esc(C.AUTORIZACOES.CRITERIO_AMPLIADO) + '), '
+    + 'cinque ragioni sociali sommate, snapshot ' + esc(C.AUTORIZACOES.DATA_DO_SNAPSHOT) + ': '
+    + '<b>' + C.AUTORIZACOES.AMPLIADO_CINCO_RAZOES + '</b> registri vigenti con scadenza futura. '
+    + 'Sotto criterio <b>STRICT</b> (' + esc(C.AUTORIZACOES.CRITERIO_STRICT) + '): '
+    + '<b>' + C.AUTORIZACOES.STRICT_CINCO_RAZOES + '</b>.</p>'
+    + '<p><b>Limite.</b> ' + esc(C.AUTORIZACOES.LIMITE) + ' Sommare le cinque ragioni sociali è '
+    + esc(C.AUTORIZACOES.AGRUPAR_AS_CINCO_E) + '.</p>'
+    + '<p><b>Stati senza regola.</b> ' + esc(C.AUTORIZACOES.SEM_DONO) + '</p></div></details>'
+    + '<details><summary>Revocato ≠ Scaduto · perché la data da sola non basta</summary><div class="dd">'
+    + '<p>' + esc(C.REVOGADO_X_SCADUTO.DEMONSTRACAO) + '.</p>'
+    + '<p>Revocato: ' + mil(C.REVOGADO_X_SCADUTO.REVOCATO) + ' · Scaduto: '
+    + mil(C.REVOGADO_X_SCADUTO.SCADUTO) + ' · revocati con scadenza ancora futura: '
+    + mil(C.REVOGADO_X_SCADUTO.REVOCATO_COM_VENCIMENTO_FUTURO) + '.</p>'
+    + '<p><b>Limite.</b> ' + esc(C.REVOGADO_X_SCADUTO.LIMITE) + '</p></div></details>';
+
+  $('foot').innerHTML = 'Lo strato di evidenza — ' + C.EVIDENCIA.FITOSSANITARIO
+    + ' registri di corpus — non ha una griglia propria: '
+    + esc(C.EVIDENCIA.NUNCA_E_GRELHA) + '.';
+})();
+</script>
+</body>
+</html>
