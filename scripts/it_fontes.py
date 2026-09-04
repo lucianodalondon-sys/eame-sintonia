@@ -2307,8 +2307,123 @@ CORRECOES_DESTA_MISSAO = [
                          'ADAMA: conferi as dez, uma a uma, e todas aparecem como CITACAO de '
                          'boletim ou dentro de uma frase que diz explicitamente que NAO sao da '
                          'ADAMA. O defeito estava no comentario, e nao no que foi afirmado.')},
+
+    {'ID': 'FIX-06',
+     'WHAT_I_WROTE': ('em IT-SRCX-036 e no commit de 2026-09-03, que "a janela de coleta de '
+                      'fala do YouTube fecha sozinha" e que a rota estava FECHADA — apoiado em '
+                      '27 testes que devolveram 200 com zero bytes em 11 canais.'),
+     'WHY_I_WROTE_IT': ('as medicoes eram verdadeiras e eu tinha ate um experimento controlado: '
+                        'o mesmo video devolvia legenda as 12:15Z e nada as 13:15Z.'),
+     'WHAT_IS_TRUE': ('e LIMITE DE TAXA, e nao muro de permissao. Uma rota da varredura seguinte '
+                      'atravessou o mesmo bloqueio com espera de 45 a 100 segundos e 4 a 5 '
+                      'tentativas por id, SEM cookie e SEM login — e colheu 2.811.477 caracteres '
+                      'de legenda italiana em 17 gravacoes.'),
+     'WHAT_CHANGED_BECAUSE_OF_IT': ('a rota nao precisa de runner nem de credencial: precisa de '
+                                    'PACIENCIA. O harvester que espera esta guardado, e a '
+                                    'consequencia operacional muda de "rode primeiro" para '
+                                    '"rode devagar, e insista".'),
+     'THE_LESSON': ('"FECHADA" E UMA CONCLUSAO CARA, do mesmo tamanho de "precisa de navegador" '
+                    'no FIX-01. As duas vezes eu tinha medicao boa e tirei dela a conclusao '
+                    'larga demais. Bloqueio que cede a espera nao e muro: e fila.'),
+     'WHAT_STAYS_TRUE': ('os 27 testes com zero bytes aconteceram, e o experimento controlado '
+                         'tambem. O que muda e o nome do estado: de ROUTE_CLOSED para '
+                         'RATE_LIMITED_YIELDS_TO_BACKOFF.')},
 ]
 
+
+
+# ── ROTAS DE VIDEO MEDIDAS, FICHA A FICHA ─────────────────────────────────────
+# Uma varredura leu as 90 fichas e procurou a rota de VIDEO de cada organizacao: 133 leituras
+# 200 na primeira camada e 1.399 requisicoes de segunda (/wp-json/wp/v2/media?media_type=video
+# e navegacao). Resultado: 48 fichas tem rota provada, e 39 delas diziam NAO_SEI.
+#
+#     NAO_SEI VIRA YES QUANDO ALGUEM VAI OLHAR. E o campo existia justamente para isso.
+#
+# O que NAO se faz aqui: rebaixar. Uma ficha que declarava YES continua YES mesmo que esta
+# varredura nao tenha achado a rota — a varredura mede ESTA sessao, e nao o mundo.
+#
+# E seis falsos positivos foram mortos ANTES de entrar: o extrator achou embeds de YouTube e
+# um manifest.webm nas cinco fichas hospedadas em spreaker.com e na ficha da Corteva, cujo
+# PRIMARY_URL e uma pagina do whatsapp.com. Era chrome da plataforma compartilhada — player
+# do Spreaker, outros podcasts na mesma pagina, canal do proprio WhatsApp. Nao e midia do
+# dono. A contagem caiu de 54 para 48 por causa disso.
+#
+# (SOURCE_ID: (tipos de rota, url da primeira, item mais novo, total de itens))
+ROTAS_DE_VIDEO_MEDIDAS = {
+    'IT-SRCX-001': ('WP_JSON_MEDIA_VIDEO', 'https://www.fitosanitario.pr.it/wp-json/wp/v2/media?media_type=video&per_page=50', '2023-12-27T15:29:12', 1),
+    'IT-SRCX-004': ('YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-007': ('YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO+SELF_HOSTED_ON_PAGE', None, '2026-03-19T15:34:32', 5),
+    'IT-SRCX-008': ('YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-009': ('YT_EMBEDDED_ON_OWN_PAGE', 'https://www.innovarurale.it/akis-nella-pac/atti-e-convegni/atti-dellevento-il-futuro-e-akis', 'NAO_SEI', 0),
+    'IT-SRCX-010': ('YT_DECLARED_ON_OWN_SITE', None, 'NAO_SEI', 0),
+    'IT-SRCX-011': ('YT_DECLARED_ON_OWN_SITE', None, 'NAO_SEI', 0),
+    'IT-SRCX-012': ('YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO+YT_FEED_LIVE', None, '2024-08-08T10:14:40', 40),
+    'IT-SRCX-013': ('YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO+YT_EMBEDDED_ON_OWN_PAGE', None, '2025-02-14T12:53:23', 2),
+    'IT-SRCX-018': ('YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO+YT_EMBEDDED_ON_OWN_PAGE', None, '2022-03-29T12:24:23', 11),
+    'IT-SRCX-019': ('YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-020': ('YT_DECLARED_ON_OWN_SITE', None, 'NAO_SEI', 0),
+    'IT-SRCX-021': ('YT_DECLARED_ON_OWN_SITE', None, 'NAO_SEI', 0),
+    'IT-SRCX-022': ('YT_DECLARED_ON_OWN_SITE+SELF_HOSTED_ON_HOMEPAGE+YT_EMBEDDED_ON_OWN_PAGE', None, 'NAO_SEI', 0),
+    'IT-SRCX-024': ('YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-025': ('WP_JSON_MEDIA_VIDEO', 'https://www.certisbelchim.it/wp-json/wp/v2/media?media_type=video&per_page=50', '2021-12-14T16:45:58', 1),
+    'IT-SRCX-026': ('YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-027': ('YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-032': ('WP_JSON_MEDIA_VIDEO', 'https://www.horta-srl.it/wp-json/wp/v2/media?media_type=video&per_page=50', '2024-11-14T17:48:32', 9),
+    'IT-SRCX-035': ('YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO', None, '2019-01-23T15:55:29', 1),
+    'IT-SRCX-036': ('YT_EMBEDDED_ON_OWN_PAGE', 'https://www.youtube.com/media/', 'NAO_SEI', 0),
+    'IT-SRCX-043': ('YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-045': ('YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-047': ('YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_EMBEDDED_ON_OWN_PAGE', None, 'NAO_SEI', 0),
+    'IT-SRCX-048': ('YT_DECLARED_ON_OWN_SITE', None, 'NAO_SEI', 0),
+    'IT-SRCX-049': ('YT_DECLARED_ON_OWN_SITE+YT_EMBEDDED_ON_OWN_PAGE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-057': ('YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-058': ('YT_DECLARED_ON_OWN_SITE+YT_EMBEDDED_ON_OWN_PAGE', None, 'NAO_SEI', 0),
+    'IT-SRCX-060': ('YT_DECLARED_ON_OWN_SITE', None, 'NAO_SEI', 0),
+    'IT-SRCX-061': ('YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_EMBEDDED_ON_OWN_PAGE', None, 'NAO_SEI', 0),
+    'IT-SRCX-063': ('YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-064': ('YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-065': ('YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-067': ('YT_DECLARED_ON_OWN_SITE+SELF_HOSTED_ON_HOMEPAGE+WP_JSON_MEDIA_VIDEO', None, '2026-04-09T19:21:25', 10),
+    'IT-SRCX-068': ('YT_EMBEDDED_ON_OWN_PAGE+VIMEO_EMBEDDED+SELF_HOSTED_ON_PAGE', 'https://www.apot.it/convegni/', 'NAO_SEI', 0),
+    'IT-SRCX-069': ('YT_DECLARED_ON_OWN_SITE+SELF_HOSTED_ON_HOMEPAGE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-071': ('YT_DECLARED_ON_OWN_SITE+YT_EMBEDDED_ON_OWN_PAGE+YT_EMBEDDED_ON_OWN_PAGE', None, 'NAO_SEI', 0),
+    'IT-SRCX-072': ('YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-073': ('YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-074': ('YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE', None, 'NAO_SEI', 0),
+    'IT-SRCX-077': ('YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-078': ('YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-082': ('YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-083': ('YT_DECLARED_ON_OWN_SITE+SELF_HOSTED_ON_HOMEPAGE+YT_DECLARED_ON_OWN_SITE', None, 'NAO_SEI', 0),
+    'IT-SRCX-084': ('YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-085': ('YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE', None, 'NAO_SEI', 0),
+    'IT-SRCX-086': ('YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO+YT_FEED_LIVE', None, '2021-04-07T11:37:38', 1),
+    'IT-SRCX-087': ('YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO', None, '2026-05-20T12:09:33', 1),
+}
+
+
+def aplicar_rotas_de_video():
+    """Preenche VIDEO_AVAILABLE onde a varredura provou rota. NUNCA rebaixa."""
+    mudou = []
+    for f in FONTES:
+        r = ROTAS_DE_VIDEO_MEDIDAS.get(f['SOURCE_ID'])
+        if not r:
+            continue
+        kinds, url, newest, itens = r
+        antes = f['VIDEO_AVAILABLE']
+        f['VIDEO_ROUTE_KIND'] = kinds
+        f['VIDEO_ROUTE_URL'] = url
+        f['VIDEO_ROUTE_NEWEST_ITEM'] = newest
+        f['VIDEO_ROUTE_ITEMS'] = itens
+        f['VIDEO_ROUTE_EVIDENCE'] = ('varredura de 2026-09-03 sobre as 90 fichas: 133 leituras '
+                                     '200 e 1.399 requisicoes de segunda camada')
+        if antes != 'YES':
+            f['VIDEO_AVAILABLE'] = 'YES'
+            mudou.append({'SOURCE_ID': f['SOURCE_ID'], 'NAME': f['NAME'][:48],
+                          'ANTES': antes, 'DEPOIS': 'YES', 'ROTA': kinds})
+    return mudou
+
+
+ROTAS_DE_VIDEO_APLICADAS = aplicar_rotas_de_video()
 
 # ── ESCRITA E PLACAR ───────────────────────────────────────────────────────────
 def placar():
@@ -2330,6 +2445,8 @@ def placar():
         'ROUTES_NOT_REACHED': len(NAO_ALCANCADAS),
         'CORRECTIONS_TO_MY_OWN_MEASUREMENTS': len(CORRECOES_DESTA_MISSAO),
         'OPEN_CONTRADICTIONS': len(CONTRADICOES_ABERTAS),
+        'WITH_VIDEO_ROUTE_PROVED': len(ROTAS_DE_VIDEO_MEDIDAS),
+        'VIDEO_AVAILABLE_UPGRADED_FROM_NAO_SEI': len(ROTAS_DE_VIDEO_APLICADAS),
     }
 
 
@@ -2371,6 +2488,7 @@ def escrever():
         'ROUTES_NOT_REACHED_FROM_THIS_SESSION': NAO_ALCANCADAS,
         'CORRECTIONS_TO_MY_OWN_MEASUREMENTS': CORRECOES_DESTA_MISSAO,
         'OPEN_CONTRADICTIONS': CONTRADICOES_ABERTAS,
+        'VIDEO_ROUTES_MEASURED': ROTAS_DE_VIDEO_APLICADAS,
     }
     caminho = os.path.join(SAIDA, 'IT-FONTES-DESCOBERTA-V1.json')
     with open(caminho, 'w', encoding='utf-8') as fh:

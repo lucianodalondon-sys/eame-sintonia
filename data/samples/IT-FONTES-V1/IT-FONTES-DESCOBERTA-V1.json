@@ -53,8 +53,10 @@
   "NEW_CHANNEL_OF_REGISTERED_ORG": 32,
   "REJECTED": 11,
   "ROUTES_NOT_REACHED": 21,
-  "CORRECTIONS_TO_MY_OWN_MEASUREMENTS": 5,
-  "OPEN_CONTRADICTIONS": 1
+  "CORRECTIONS_TO_MY_OWN_MEASUREMENTS": 6,
+  "OPEN_CONTRADICTIONS": 1,
+  "WITH_VIDEO_ROUTE_PROVED": 48,
+  "VIDEO_AVAILABLE_UPGRADED_FROM_NAO_SEI": 39
  },
  "DEDUPE": {
   "DUPLICATE_SOURCE_ID": [],
@@ -94,7 +96,7 @@
    "DISCOVERY_QUERY": "bollettino fitosanitario barbabietola cercospora Emilia-Romagna 2026",
    "COLLECTION_METHOD": "RSS + HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "2026-05-29",
@@ -107,7 +109,12 @@
    "DEDUPE_AGAINST": "SRC_FITOSANITARIO_MO_IT / SRC_FITOSANITARIO_RE_IT sao consorcios IRMAOS, nao este",
    "DEDUPE_MEANS": "o pacote V2.1 ja tem Modena e Reggio Emilia. Parma e Piacenza sao consorcios PROVINCIAIS DISTINTOS, com bollettino proprio. Colapsa-los perderia a provincia, que e a unidade geografica do sinal.",
    "EVIDENCE_PROBE": "probe/c1.json#FITOSANITARIO_PR · HTTP 200 · RSS declarado",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "WP_JSON_MEDIA_VIDEO",
+   "VIDEO_ROUTE_URL": "https://www.fitosanitario.pr.it/wp-json/wp/v2/media?media_type=video&per_page=50",
+   "VIDEO_ROUTE_NEWEST_ITEM": "2023-12-27T15:29:12",
+   "VIDEO_ROUTE_ITEMS": 1,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-002",
@@ -243,7 +250,7 @@
    "DISCOVERY_QUERY": "++api++ sobre a URL do indice de bollettini 2026",
    "COLLECTION_METHOD": "REST JSON + download de PDF + scripts/pdf_text.py",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "FREQUENT",
    "LAST_OBSERVED_CONTENT_DATE": "2026-09-02",
@@ -256,7 +263,12 @@
    "DEDUPE_AGAINST": "SRC_AGRICOLTURA_REGIONE_EMILIA_ROMAGNA_IT",
    "DEDUPE_MEANS": "MESMA ORGANIZACAO, CANAL NOVO. O registro V2.1 aponta para o site; este aponta para a API que lista os bollettini. Nao sao duas organizacoes, sao dois pontos de coleta com falhas diferentes.",
    "EVIDENCE_PROBE": "probe/er_bollettini_2026.json · 150 arquivos · probe/er_texts.json · 14 PDFs lidos, 2,3 M caracteres",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-005",
@@ -396,7 +408,12 @@
    "DEDUPE_AGAINST": "SRC_AIPP_IT",
    "DEDUPE_MEANS": "mesma organizacao; os TRES canais sociais sao novos",
    "EVIDENCE_PROBE": "probe/c3.json#AIPP HTTP 200 · RSS e sociais declarados",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO+SELF_HOSTED_ON_PAGE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "2026-03-19T15:34:32",
+   "VIDEO_ROUTE_ITEMS": 5,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-008",
@@ -429,7 +446,7 @@
    "DISCOVERY_QUERY": "Universita Cattolica Piacenza CERCOPRI CERCODEP modello previsionale cercospora barbabietola",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -442,7 +459,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "probe/c4.json#UNICATT_PIACENZA HTTP 200 · probe/c1.json#UCSC_DIPROVES HTTP 404",
-   "NOTES_INTERNAL": "a URL de departamento (dipartimenti.unicatt.it/diproves e /scienze-delle-produzioni-vegetali-sostenibili) devolveu 404 nas duas tentativas. A pagina do DEPARTAMENTO fica NAO_SEI; o campus esta provado. Nao inventar a rota que faltou."
+   "NOTES_INTERNAL": "a URL de departamento (dipartimenti.unicatt.it/diproves e /scienze-delle-produzioni-vegetali-sostenibili) devolveu 404 nas duas tentativas. A pagina do DEPARTAMENTO fica NAO_SEI; o campus esta provado. Nao inventar a rota que faltou.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-009",
@@ -476,7 +498,7 @@
    "DISCOVERY_QUERY": "cimice asiatica monitoraggio strategie innovative gruppo operativo",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -489,7 +511,12 @@
    "DEDUPE_AGAINST": "SRC_RETERURALE_IT",
    "DEDUPE_MEANS": "mesma rede institucional; a BANCA DATI dos GO e um endpoint distinto do portal",
    "EVIDENCE_PROBE": "probe/c1.json#INNOVARURALE_GO HTTP 200",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_EMBEDDED_ON_OWN_PAGE",
+   "VIDEO_ROUTE_URL": "https://www.innovarurale.it/akis-nella-pac/atti-e-convegni/atti-dellevento-il-futuro-e-akis",
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-010",
@@ -539,7 +566,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "probe/c1.json#AGRALIA · probe/f1.json#AGRALIA 24 itens, latest 2026-05-26",
-   "NOTES_INTERNAL": "feed com 24 itens; o mais recente e de 2026-05-26 — 100 dias. Bollettino de vite concentrado na estacao. PERIODICO SAZONAL nao e fonte morta."
+   "NOTES_INTERNAL": "feed com 24 itens; o mais recente e de 2026-05-26 — 100 dias. Bollettino de vite concentrado na estacao. PERIODICO SAZONAL nao e fonte morta.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-011",
@@ -590,7 +622,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "probe/c4.json#AGRINTESA HTTP 200 · RSS e 3 sociais declarados",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-012",
@@ -640,7 +677,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "probe/c4.json#APOFRUIT HTTP 200",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "2024-08-08T10:14:40",
+   "VIDEO_ROUTE_ITEMS": 40,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-013",
@@ -690,7 +732,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "probe/c4.json#TERREMERSE HTTP 200",
-   "NOTES_INTERNAL": "DISTRIBUICAO != VENDA ADAMA. A fonte prova o que ela publica, nunca share de canal."
+   "NOTES_INTERNAL": "DISTRIBUICAO != VENDA ADAMA. A fonte prova o que ela publica, nunca share de canal.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO+YT_EMBEDDED_ON_OWN_PAGE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "2025-02-14T12:53:23",
+   "VIDEO_ROUTE_ITEMS": 2,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-014",
@@ -908,7 +955,7 @@
    "DISCOVERY_QUERY": "vite peronospora difesa vigneto Italia 2026",
    "COLLECTION_METHOD": "RSS",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "FREQUENT",
    "LAST_OBSERVED_CONTENT_DATE": "2026-09-03",
@@ -921,7 +968,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "probe/f1.json#FRUITJOURNAL · 36 itens · latest 2026-09-03 · age 0",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO+YT_EMBEDDED_ON_OWN_PAGE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "2022-03-29T12:24:23",
+   "VIDEO_ROUTE_ITEMS": 11,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-019",
@@ -954,7 +1006,7 @@
    "DISCOVERY_QUERY": "vite peronospora difesa vigneto Italia 2026",
    "COLLECTION_METHOD": "RSS",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "FREQUENT",
    "LAST_OBSERVED_CONTENT_DATE": "2026-09-02",
@@ -967,7 +1019,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "probe/f1.json#VVQ latest 2026-09-02",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-020",
@@ -1002,7 +1059,7 @@
    "DISCOVERY_QUERY": "rivista orticoltura Edagricole",
    "COLLECTION_METHOD": "RSS",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "FREQUENT",
    "LAST_OBSERVED_CONTENT_DATE": "2026-09-02",
@@ -1015,7 +1072,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "probe/f1.json#RIVORTIC latest 2026-09-02",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-021",
@@ -1045,7 +1107,7 @@
    "DISCOVERY_QUERY": "olivo e olio Edagricole rivista",
    "COLLECTION_METHOD": "RSS",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "FREQUENT",
    "LAST_OBSERVED_CONTENT_DATE": "2026-09-03",
@@ -1058,7 +1120,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "probe/f1.json#OLIVOEOLIO latest 2026-09-02 · probe/f2.json#OLIVONEWS latest 2026-09-03",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-022",
@@ -1107,7 +1174,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "probe/c3.json#MYFRUIT HTTP 200 · probe/f2.json#MYFRUIT NOT_XML",
-   "NOTES_INTERNAL": "o RSS anunciado nao e XML (devolve a home). Coleta por HTML ate achar rota limpa."
+   "NOTES_INTERNAL": "o RSS anunciado nao e XML (devolve a home). Coleta por HTML ate achar rota limpa.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+SELF_HOSTED_ON_HOMEPAGE+YT_EMBEDDED_ON_OWN_PAGE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-023",
@@ -1202,7 +1274,12 @@
    "DEDUPE_AGAINST": "SRC_AG_FMC_COM",
    "DEDUPE_MEANS": "mesma empresa; os canais sociais italianos sao novos",
    "EVIDENCE_PROBE": "probe/c3.json#FMC_IT HTTP 200 · sociais declarados",
-   "NOTES_INTERNAL": "PRODUTO DE CONCORRENTE != PRODUTO ADAMA. O canal prova comunicacao, nunca share."
+   "NOTES_INTERNAL": "PRODUTO DE CONCORRENTE != PRODUTO ADAMA. O canal prova comunicacao, nunca share.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-025",
@@ -1234,7 +1311,7 @@
    "DISCOVERY_QUERY": "Nufarm Italia Sipcam Gowan Albaugh Certis Belchim sito italiano prodotti difesa colture",
    "COLLECTION_METHOD": "RSS",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "EVENT_DRIVEN",
    "LAST_OBSERVED_CONTENT_DATE": "2024-06-25",
@@ -1247,7 +1324,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "probe/f1.json#CERTISBELCHIM 7 itens latest 2024-06-25 age 800",
-   "NOTES_INTERNAL": "feed com 7 itens, o mais recente de 2024-06-25 (800 dias). FEED PARADO != EMPRESA PARADA: mede o feed, nao a empresa. Por isso EVENT_DRIVEN e nao WEEKLY."
+   "NOTES_INTERNAL": "feed com 7 itens, o mais recente de 2024-06-25 (800 dias). FEED PARADO != EMPRESA PARADA: mede o feed, nao a empresa. Por isso EVENT_DRIVEN e nao WEEKLY.",
+   "VIDEO_ROUTE_KIND": "WP_JSON_MEDIA_VIDEO",
+   "VIDEO_ROUTE_URL": "https://www.certisbelchim.it/wp-json/wp/v2/media?media_type=video&per_page=50",
+   "VIDEO_ROUTE_NEWEST_ITEM": "2021-12-14T16:45:58",
+   "VIDEO_ROUTE_ITEMS": 1,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-026",
@@ -1280,7 +1362,7 @@
    "DISCOVERY_QUERY": "Nufarm Italia sito prodotti",
    "COLLECTION_METHOD": "HTML + LinkedIn publico",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -1293,7 +1375,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "probe/c1.json#NUFARM_IT HTTP 200",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-027",
@@ -1339,7 +1426,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "probe/c1.json#GOWAN_IT HTTP 200",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-028",
@@ -1553,7 +1645,7 @@
    "DISCOVERY_QUERY": "horta srl vite.net DSS modelli previsionali Italia",
    "COLLECTION_METHOD": "HTML + sitemap + WP REST",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "STATIC",
    "LAST_OBSERVED_CONTENT_DATE": "2024-10-16",
@@ -1566,7 +1658,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "wf_agromet-forecast-models.json · home 1.079.490 B · wp-json posts, mais recente 2024-10-16",
-   "NOTES_INTERNAL": "horta-srl.COM nao alcancado (Recv failure) e vite.net recusou o tunel; horta-srl.IT responde 200 com 1,07 MB. O canal de noticias esta parado desde 2024-10-16 e o DSS em si vive atras de login. CANAL PARADO != EMPRESA PARADA."
+   "NOTES_INTERNAL": "horta-srl.COM nao alcancado (Recv failure) e vite.net recusou o tunel; horta-srl.IT responde 200 com 1,07 MB. O canal de noticias esta parado desde 2024-10-16 e o DSS em si vive atras de login. CANAL PARADO != EMPRESA PARADA.",
+   "VIDEO_ROUTE_KIND": "WP_JSON_MEDIA_VIDEO",
+   "VIDEO_ROUTE_URL": "https://www.horta-srl.it/wp-json/wp/v2/media?media_type=video&per_page=50",
+   "VIDEO_ROUTE_NEWEST_ITEM": "2024-11-14T17:48:32",
+   "VIDEO_ROUTE_ITEMS": 9,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-033",
@@ -1702,7 +1799,7 @@
    "DISCOVERY_QUERY": "CSO Centro Servizi Ortofrutticoli previsione produzione",
    "COLLECTION_METHOD": "HTML + LinkedIn publico",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -1715,7 +1812,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "wf_social-technical-voices.json · HTTP 200 (prova de agente, NAO reconfirmada por mim)",
-   "NOTES_INTERNAL": "PREVISAO DE PRODUCAO != MERCADO ENDERECAVEL. E denominador de cultura, e so. HANDLE_NAO_RECONFIRMADO: em 2026-09-03 reli csoservizi.com (200 / 50.746 B) e a pagina NAO declara nenhum link social. O handle de LinkedIn fica registrado mas NAO entra em coleta ate ser declarado na casa do dono. Ver FIX-02."
+   "NOTES_INTERNAL": "PREVISAO DE PRODUCAO != MERCADO ENDERECAVEL. E denominador de cultura, e so. HANDLE_NAO_RECONFIRMADO: em 2026-09-03 reli csoservizi.com (200 / 50.746 B) e a pagina NAO declara nenhum link social. O handle de LinkedIn fica registrado mas NAO entra em coleta ate ser declarado na casa do dono. Ver FIX-02.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "2019-01-23T15:55:29",
+   "VIDEO_ROUTE_ITEMS": 1,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-036",
@@ -1756,7 +1858,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "wf_social-technical-voices.json · 7 feeds channel_id HTTP 200, 18 a 39 KB cada · IT-VIDEO-FALAS-V1.json: 18 OK e 14 NAO_OBTIDA, cada uma com o WHY escrito",
-   "NOTES_INTERNAL": "a METADE que nao funciona daqui: o binario de audio vem de googlevideo.com e a politica de saida desta sessao devolve HTTP 403. Listar canal, sim; baixar o audio, nao. A transcricao em si ja esta provada nesta sessao — 5,3 h de audio italiano a ~9x tempo real, custo 0 USD, por outra plataforma. E A JANELA DE COLETA DESTA ROTA FECHA SOZINHA, e isso muda a ordem de execucao. O feed videos.xml continua abrindo sempre; o que degrada e a rota de FALA. Medido em 2026-09-03: das 32 leituras de fala, 18 vieram e 14 devolveram \"Sign in to confirm you are not a bot\" — e a proporcao piorou ao longo da sessao. A varredura paralela registrou um EXPERIMENTO CONTROLADO sobre o mesmo video (oSJkYFLzwzA): as 12:15Z automatic_captions[it] existia e o json3 devolveu 976 caracteres; as 13:15Z, MESMA URL e MESMO cliente, a lista de legendas voltou VAZIA e o titulo voltou em INGLES. LISTA DE LEGENDA VAZIA NA SEGUNDA HORA E DEGRADACAO DE SESSAO, e nunca prova de que o video nao tem legenda. RESSALVA HONESTA: tentei reproduzir o estado t1 hoje e nao consegui — o yt_dlp ja devolve o bloqueio de bot direto. Confirmo o t2, nao confirmo o t1. CONSEQUENCIA OPERACIONAL: rode a rota de FALA do YouTube PRIMEIRO, em sessao nova, antes de gastar a sessao em outra coisa."
+   "NOTES_INTERNAL": "a METADE que nao funciona daqui: o binario de audio vem de googlevideo.com e a politica de saida desta sessao devolve HTTP 403. Listar canal, sim; baixar o audio, nao. A transcricao em si ja esta provada nesta sessao — 5,3 h de audio italiano a ~9x tempo real, custo 0 USD, por outra plataforma. E A JANELA DE COLETA DESTA ROTA FECHA SOZINHA, e isso muda a ordem de execucao. O feed videos.xml continua abrindo sempre; o que degrada e a rota de FALA. Medido em 2026-09-03: das 32 leituras de fala, 18 vieram e 14 devolveram \"Sign in to confirm you are not a bot\" — e a proporcao piorou ao longo da sessao. A varredura paralela registrou um EXPERIMENTO CONTROLADO sobre o mesmo video (oSJkYFLzwzA): as 12:15Z automatic_captions[it] existia e o json3 devolveu 976 caracteres; as 13:15Z, MESMA URL e MESMO cliente, a lista de legendas voltou VAZIA e o titulo voltou em INGLES. LISTA DE LEGENDA VAZIA NA SEGUNDA HORA E DEGRADACAO DE SESSAO, e nunca prova de que o video nao tem legenda. RESSALVA HONESTA: tentei reproduzir o estado t1 hoje e nao consegui — o yt_dlp ja devolve o bloqueio de bot direto. Confirmo o t2, nao confirmo o t1. CONSEQUENCIA OPERACIONAL: rode a rota de FALA do YouTube PRIMEIRO, em sessao nova, antes de gastar a sessao em outra coisa.",
+   "VIDEO_ROUTE_KIND": "YT_EMBEDDED_ON_OWN_PAGE",
+   "VIDEO_ROUTE_URL": "https://www.youtube.com/media/",
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-037",
@@ -2045,7 +2152,7 @@
    "DISCOVERY_QUERY": "Interpoma 2026 Fiera Bolzano date programma",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "EVENT_DRIVEN",
    "LAST_OBSERVED_CONTENT_DATE": "2026-11-25",
@@ -2058,7 +2165,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "wf_events-and-regulatory-calendar.json · pagina pai 200/136.750 B; congresso e expositores 500",
-   "NOTES_INTERNAL": "a pagina do congresso e a lista de expositores devolvem HTTP 500. A DATA esta verificada na pagina pai; a LISTA DE EXPOSITORES nao foi verificada e fica NAO_SEI — e ela e justamente o que diria quais concorrentes estarao la."
+   "NOTES_INTERNAL": "a pagina do congresso e a lista de expositores devolvem HTTP 500. A DATA esta verificada na pagina pai; a LISTA DE EXPOSITORES nao foi verificada e fica NAO_SEI — e ela e justamente o que diria quais concorrentes estarao la.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-044",
@@ -2133,7 +2245,7 @@
    "DISCOVERY_QUERY": "borsa merci Foggia listino grano duro",
    "COLLECTION_METHOD": "HTML + PDF",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "2026-09-02",
@@ -2146,7 +2258,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 95.309 B. A varredura extraiu o PDF da semana 33 (200, 192.860 B) com \"Riunione del 02/09/2026\" e a linha GRANO DURO BIOLOGICO 310,00-315,00.",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-046",
@@ -2227,7 +2344,7 @@
    "DISCOVERY_QUERY": "EFSA calendar plant health plenary",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -2240,7 +2357,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 96.108 B; /en/calendar redireciona para /en/events/advanced-search. A varredura leu \"Results 1 - 10 of 90\" com \"143rd PLH Plenary meeting — 16 September 2026 — Parma, Italy\".",
-   "NOTES_INTERNAL": "CAMADA UE != CAMADA NACIONAL. Uma reuniao da EFSA nao e uma autorizacao italiana e nao pode ser lida como tal."
+   "NOTES_INTERNAL": "CAMADA UE != CAMADA NACIONAL. Uma reuniao da EFSA nao e uma autorizacao italiana e nao pode ser lida como tal.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_EMBEDDED_ON_OWN_PAGE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-048",
@@ -2273,7 +2395,7 @@
    "DISCOVERY_QUERY": "BURP determinazione osservatorio fitosanitario deroga",
    "COLLECTION_METHOD": "HTML + PDF",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "EVENT_DRIVEN",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -2286,7 +2408,12 @@
    "DEDUPE_AGAINST": "IT-SRCX-018",
    "DEDUPE_MEANS": "o FruitJournal NOTICIA a deroga; o BURP e o ato",
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 194.925 B",
-   "NOTES_INTERNAL": "LIMITE DECLARADO: os dois atos efetivamente abertos pela varredura eram de delimitacao de Xylella, e nao as deroghe citadas. A rota esta provada; a presenca das deroghe especificas nao esta."
+   "NOTES_INTERNAL": "LIMITE DECLARADO: os dois atos efetivamente abertos pela varredura eram de delimitacao de Xylella, e nao as deroghe citadas. A rota esta provada; a presenca das deroghe especificas nao esta.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-049",
@@ -2317,7 +2444,7 @@
    "DISCOVERY_QUERY": "CONAF ordine agronomi social",
    "COLLECTION_METHOD": "HTML + Instagram publico",
    "SINTONIA_SCRAP_SUPPORTED": "YES",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -2330,7 +2457,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: conaf.it HTTP 200, 94.717 B, handle declarado na propria casa",
-   "NOTES_INTERNAL": "VOZ PROFISSIONAL != SINAL DE CAMPO. Nao produz observacao datada de praga."
+   "NOTES_INTERNAL": "VOZ PROFISSIONAL != SINAL DE CAMPO. Nao produz observacao datada de praga.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_EMBEDDED_ON_OWN_PAGE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-050",
@@ -2684,7 +2816,7 @@
    "DISCOVERY_QUERY": "Accademia dei Georgofili convegni difesa",
    "COLLECTION_METHOD": "HTML + Instagram publico",
    "SINTONIA_SCRAP_SUPPORTED": "YES",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -2697,7 +2829,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: georgofili.it HTTP 200, 52.840 B, handle declarado na propria casa",
-   "NOTES_INTERNAL": "a pagina /eventi tinha UM unico item futuro na leitura da varredura. Como calendario, e fraco; como voz, nao."
+   "NOTES_INTERNAL": "a pagina /eventi tinha UM unico item futuro na leitura da varredura. Como calendario, e fraco; como voz, nao.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-058",
@@ -2727,7 +2864,7 @@
    "DISCOVERY_QUERY": "Epiresistenze riso giavone resistenza erbicidi",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "FREQUENT",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -2740,7 +2877,12 @@
    "DEDUPE_AGAINST": "IT-SRCX-057",
    "DEDUPE_MEANS": "mesma academia, canal editorial distinto e com outra cadencia",
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 43.594 B, \"Agricoltura Ambiente Alimenti\"",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_EMBEDDED_ON_OWN_PAGE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-059",
@@ -2817,7 +2959,7 @@
    "DISCOVERY_QUERY": "CREA ricerca difesa colture social",
    "COLLECTION_METHOD": "HTML + Instagram publico",
    "SINTONIA_SCRAP_SUPPORTED": "YES",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -2830,7 +2972,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: crea.gov.it HTTP 200, 137.116 B, handle declarado na propria casa",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-061",
@@ -2863,7 +3010,7 @@
    "DISCOVERY_QUERY": "DiSAA Unimi difesa colture social",
    "COLLECTION_METHOD": "HTML + Instagram publico",
    "SINTONIA_SCRAP_SUPPORTED": "YES",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -2876,7 +3023,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: disaa.unimi.it HTTP 200, 104.535 B, handle declarado na propria casa",
-   "NOTES_INTERNAL": "o canal de YouTube que o proprio DiSAA declara no site esta MORTO. Link declarado pelo dono nao e link vivo — foi conferido."
+   "NOTES_INTERNAL": "o canal de YouTube que o proprio DiSAA declara no site esta MORTO. Link declarado pelo dono nao e link vivo — foi conferido.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_EMBEDDED_ON_OWN_PAGE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-062",
@@ -2957,7 +3109,7 @@
    "DISCOVERY_QUERY": "DISTAL Unibo patologia vegetale",
    "COLLECTION_METHOD": "HTML + Instagram publico",
    "SINTONIA_SCRAP_SUPPORTED": "YES",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -2970,7 +3122,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: distal.unibo.it HTTP 200, 81.974 B, handle declarado na propria casa",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-064",
@@ -3004,7 +3161,7 @@
    "DISCOVERY_QUERY": "Di3A Unict agrumi difesa",
    "COLLECTION_METHOD": "HTML + Instagram publico",
    "SINTONIA_SCRAP_SUPPORTED": "YES",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -3017,7 +3174,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: di3a.unict.it HTTP 200, 64.742 B, handle declarado na propria casa",
-   "NOTES_INTERNAL": "o canal de YouTube do Di3A esta vivo mas com ultima publicacao em 2025-07-19: canal EXISTE nao e canal ATIVO."
+   "NOTES_INTERNAL": "o canal de YouTube do Di3A esta vivo mas com ultima publicacao em 2025-07-19: canal EXISTE nao e canal ATIVO.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-065",
@@ -3047,7 +3209,7 @@
    "DISCOVERY_QUERY": "Societa Agraria di Lombardia riso infestanti demo",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -3060,7 +3222,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 86.589 B",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-066",
@@ -3138,7 +3305,7 @@
    "DISCOVERY_QUERY": "Agricolus DSS modelli previsionali",
    "COLLECTION_METHOD": "HTML + WP REST + Instagram publico",
    "SINTONIA_SCRAP_SUPPORTED": "YES",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "2026-08-05",
@@ -3151,7 +3318,12 @@
    "DEDUPE_AGAINST": "IT-SRCX-032",
    "DEDUPE_MEANS": "mesma classe da Horta (DSS comercial); empresas distintas",
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: agricolus.com HTTP 200, 356.152 B, handle declarado na propria casa",
-   "NOTES_INTERNAL": "o LinkedIn que a propria Agricolus declara no rodape devolve 404. Link declarado pelo dono nao e link vivo. api.agricolus.com falha com certificado autoassinado, e a verificacao TLS NAO foi desligada."
+   "NOTES_INTERNAL": "o LinkedIn que a propria Agricolus declara no rodape devolve 404. Link declarado pelo dono nao e link vivo. api.agricolus.com falha com certificado autoassinado, e a verificacao TLS NAO foi desligada.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+SELF_HOSTED_ON_HOMEPAGE+WP_JSON_MEDIA_VIDEO",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "2026-04-09T19:21:25",
+   "VIDEO_ROUTE_ITEMS": 10,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-068",
@@ -3180,7 +3352,7 @@
    "DISCOVERY_QUERY": "APOT associazione produttori ortofrutticoli trentini",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -3193,7 +3365,12 @@
    "DEDUPE_AGAINST": "IT-SRCX-015",
    "DEDUPE_MEANS": "Assomela e nacional; APOT e a AOP trentina",
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 103.162 B",
-   "NOTES_INTERNAL": "o site ainda carrega marcadores de tema nao substituidos — sinal de manutencao fraca."
+   "NOTES_INTERNAL": "o site ainda carrega marcadores de tema nao substituidos — sinal de manutencao fraca.",
+   "VIDEO_ROUTE_KIND": "YT_EMBEDDED_ON_OWN_PAGE+VIMEO_EMBEDDED+SELF_HOSTED_ON_PAGE",
+   "VIDEO_ROUTE_URL": "https://www.apot.it/convegni/",
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-069",
@@ -3228,7 +3405,7 @@
    "DISCOVERY_QUERY": "Consorzi Agrari d Italia prodotti fitosanitari",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "FREQUENT",
    "LAST_OBSERVED_CONTENT_DATE": "2026-04-13",
@@ -3241,7 +3418,12 @@
    "DEDUPE_AGAINST": "IT-SRCX-039",
    "DEDUPE_MEANS": "o CUN e o listino oficial; o CAI e quem o adota",
    "EVIDENCE_PROBE": "minhas duas leituras 2026-09-03: 500/0 e depois 200/700.576; /prodotti-servizi/prodotti-fitosanitari/ 200/119.439",
-   "NOTES_INTERNAL": "FONTE INTERMITENTE, medido por mim: primeira leitura 500 com 0 B; segunda leitura, minutos depois, 200 com 700.576 B. O apex sem www falha o TLS (\"unrecognized name\"). Quem monitorar isto precisa de repeticao, ou vai registrar queda que nao houve."
+   "NOTES_INTERNAL": "FONTE INTERMITENTE, medido por mim: primeira leitura 500 com 0 B; segunda leitura, minutos depois, 200 com 700.576 B. O apex sem www falha o TLS (\"unrecognized name\"). Quem monitorar isto precisa de repeticao, ou vai registrar queda que nao houve.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+SELF_HOSTED_ON_HOMEPAGE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-070",
@@ -3316,7 +3498,7 @@
    "DISCOVERY_QUERY": "Unione Italiana Vini Osservatorio del Vino",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -3329,7 +3511,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 2.457.612 B",
-   "NOTES_INTERNAL": "a UIV declara apenas LinkedIn e YouTube na propria casa. Nenhum outro handle e reivindicado aqui, porque nenhum outro foi declarado."
+   "NOTES_INTERNAL": "a UIV declara apenas LinkedIn e YouTube na propria casa. Nenhum outro handle e reivindicado aqui, porque nenhum outro foi declarado.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_EMBEDDED_ON_OWN_PAGE+YT_EMBEDDED_ON_OWN_PAGE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-072",
@@ -3361,7 +3548,7 @@
    "DISCOVERY_QUERY": "SDHI DMI zolfo ticchiolatura antiresistenza melo",
    "COLLECTION_METHOD": "HTML (exige --compressed)",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "FREQUENT",
    "LAST_OBSERVED_CONTENT_DATE": "2026-07-04",
@@ -3374,7 +3561,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 125.036 B",
-   "NOTES_INTERNAL": "MEDIA e MEDIUM de proposito: e reportagem secundaria de estrategia, e nao medicao. Nada aqui certifica populacao resistente — so o GIRE certifica."
+   "NOTES_INTERNAL": "MEDIA e MEDIUM de proposito: e reportagem secundaria de estrategia, e nao medicao. Nada aqui certifica populacao resistente — so o GIRE certifica.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-073",
@@ -3408,7 +3600,7 @@
    "DISCOVERY_QUERY": "Agrimpresa CIA Emilia-Romagna",
    "COLLECTION_METHOD": "HTML + Instagram publico",
    "SINTONIA_SCRAP_SUPPORTED": "YES",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "FREQUENT",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -3421,7 +3613,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: agrimpresaonline.it HTTP 200, 189.952 B, handle declarado na propria casa",
-   "NOTES_INTERNAL": "VOZ DE ORGANIZACAO != SINAL DE CAMPO VERIFICADO."
+   "NOTES_INTERNAL": "VOZ DE ORGANIZACAO != SINAL DE CAMPO VERIFICADO.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-074",
@@ -3454,7 +3651,7 @@
    "DISCOVERY_QUERY": "AgroNotizie aziende elenco slug",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "FREQUENT",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -3467,7 +3664,12 @@
    "DEDUPE_AGAINST": "REJEITADA_agronotizie_lista_de_produtos",
    "DEDUPE_MEANS": "MESMO HOST, ROTA DIFERENTE. A lista de PRODUTOS na pagina de empresa foi rejeitada (e catalogo do site, nao portfolio da empresa). A rota de NOTICIAS por empresa e outra coisa e vale.",
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 104.421 B, \"Notizie su Syngenta Italia - AgroNotizie\"",
-   "NOTES_INTERNAL": "PEGADA NA IMPRENSA != PARTICIPACAO DE MERCADO."
+   "NOTES_INTERNAL": "PEGADA NA IMPRENSA != PARTICIPACAO DE MERCADO.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-075",
@@ -3593,7 +3795,7 @@
    "DISCOVERY_QUERY": "Fitogest Syngenta Italia catalogo",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -3606,7 +3808,12 @@
    "DEDUPE_AGAINST": "IT-SRCX-076",
    "DEDUPE_MEANS": "pagina de empresa dentro do diretorio ja registrado",
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 235.267 B, \"Syngenta Italia - Fitogest\"",
-   "NOTES_INTERNAL": "PRODUTO DE CONCORRENTE NAO E PRODUTO ADAMA, e catalogo nao e venda."
+   "NOTES_INTERNAL": "PRODUTO DE CONCORRENTE NAO E PRODUTO ADAMA, e catalogo nao e venda.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-078",
@@ -3639,7 +3846,7 @@
    "DISCOVERY_QUERY": "Fitogest Bayer catalogo agrofarmaci",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -3652,7 +3859,12 @@
    "DEDUPE_AGAINST": "IT-SRCX-076",
    "DEDUPE_MEANS": "pagina de empresa dentro do diretorio ja registrado",
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 166.075 B, \"Bayer - Fitogest\"",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-079",
@@ -3822,7 +4034,7 @@
    "DISCOVERY_QUERY": "UPL Italia catalogo prodotti",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -3835,7 +4047,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 347.499 B, \"Prodotti | UPL\"",
-   "NOTES_INTERNAL": "o briefing registrava a UPL como 500. Nao e o estado da fonte: uplitalia.com responde 200 com 347 KB. uplitalia.IT, esse sim, nao abre daqui."
+   "NOTES_INTERNAL": "o briefing registrava a UPL como 500. Nao e o estado da fonte: uplitalia.com responde 200 com 347 KB. uplitalia.IT, esse sim, nao abre daqui.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-083",
@@ -3871,7 +4088,7 @@
    "DISCOVERY_QUERY": "Diachem campo dimostrativo pomodoro patata",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "2026-07-02",
@@ -3884,7 +4101,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 177.585 B, \"Blog agricoltura - Diachem\"",
-   "NOTES_INTERNAL": "chimiberg.it redireciona para diachemagro.com — mesma casa, dominio novo."
+   "NOTES_INTERNAL": "chimiberg.it redireciona para diachemagro.com — mesma casa, dominio novo.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+SELF_HOSTED_ON_HOMEPAGE+YT_DECLARED_ON_OWN_SITE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-084",
@@ -3916,7 +4138,7 @@
    "DISCOVERY_QUERY": "Sipcam Oxon Sipcam Italia entity",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "STATIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -3929,7 +4151,12 @@
    "DEDUPE_AGAINST": "REJEITADA_sipcamitalia.it",
    "DEDUPE_MEANS": "a rejeicao continua valida; esta e a entidade certa",
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 126.227 B, \"Sipcam Italia - SIPCAM OXON\"",
-   "NOTES_INTERNAL": "sipcam-oxon.com/it/ devolve 404: o grupo NAO tem versao italiana do site corporativo."
+   "NOTES_INTERNAL": "sipcam-oxon.com/it/ devolve 404: o grupo NAO tem versao italiana do site corporativo.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-085",
@@ -3957,7 +4184,7 @@
    "DISCOVERY_QUERY": "DEKALB Italia mais Bayer",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -3970,7 +4197,12 @@
    "DEDUPE_AGAINST": "IT-SRCX-078",
    "DEDUPE_MEANS": "mesmo grupo; marca de semente e nao de defensivo",
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 96.539 B, final /index/index.html",
-   "NOTES_INTERNAL": "SEMENTE NAO E DEFENSIVO. Este canal e agronomia de hibrido, e nao rotulo de fitossanitario."
+   "NOTES_INTERNAL": "SEMENTE NAO E DEFENSIVO. Este canal e agronomia de hibrido, e nao rotulo de fitossanitario.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "NAO_SEI",
+   "VIDEO_ROUTE_ITEMS": 0,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-086",
@@ -4006,7 +4238,7 @@
    "DISCOVERY_QUERY": "Biogard CBC Europe biocontrollo colture",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
@@ -4019,7 +4251,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 261.987 B, \"Biogard - Biological first\"",
-   "NOTES_INTERNAL": "NAO_SEI"
+   "NOTES_INTERNAL": "NAO_SEI",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO+YT_FEED_LIVE",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "2021-04-07T11:37:38",
+   "VIDEO_ROUTE_ITEMS": 1,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-087",
@@ -4050,7 +4287,7 @@
    "DISCOVERY_QUERY": "Veronafiere calendario 2027 fiere agricole",
    "COLLECTION_METHOD": "HTML",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
-   "VIDEO_AVAILABLE": "NAO_SEI",
+   "VIDEO_AVAILABLE": "YES",
    "TRANSCRIPTION_RELEVANT": "NAO_SEI",
    "UPDATE_FREQUENCY": "PERIODIC",
    "LAST_OBSERVED_CONTENT_DATE": "2027-01-27",
@@ -4063,7 +4300,12 @@
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 119.996 B, \"Calendario Italia 2027 - Primo semestre\"",
-   "NOTES_INTERNAL": "EVENTO COM DATA FUTURA != SINAL DE CAMPO. E agenda, e serve para planejar presenca, nao para decidir tratamento. O dominio dedicado fieragricolatech.it NAO abre daqui — a data vem do calendario do recinto."
+   "NOTES_INTERNAL": "EVENTO COM DATA FUTURA != SINAL DE CAMPO. E agenda, e serve para planejar presenca, nao para decidir tratamento. O dominio dedicado fieragricolatech.it NAO abre daqui — a data vem do calendario do recinto.",
+   "VIDEO_ROUTE_KIND": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO",
+   "VIDEO_ROUTE_URL": null,
+   "VIDEO_ROUTE_NEWEST_ITEM": "2026-05-20T12:09:33",
+   "VIDEO_ROUTE_ITEMS": 1,
+   "VIDEO_ROUTE_EVIDENCE": "varredura de 2026-09-03 sobre as 90 fichas: 133 leituras 200 e 1.399 requisicoes de segunda camada"
   },
   {
    "SOURCE_ID": "IT-SRCX-091",
@@ -4484,6 +4726,15 @@
    "WHAT_CHANGED_BECAUSE_OF_IT": "o vocabulario NAO encolheu — ser mais largo que o portfolio e o que fez os boletins da OlivoNews entregarem acetamiprid e spinosad, e foi assim que se soube que a ADAMA nao tem chave naquela conversa. O que mudou foi a frase, e entrou MOLECULAS_ADAMA_IT com separar_molecula_por_dono(), que quebra o campo em MOLECULE_ADAMA e MOLECULE_NOT_ADAMA.",
    "THE_LESSON": "MOLECULA MARCADA != MOLECULA ADAMA. Um campo MOLECULE cheio parece bom e nao diz de quem e — e o campo que parece bom e o que engana.",
    "WHAT_STAYS_TRUE": "nenhuma afirmacao publicada por esta missao chamou molecula alheia de ADAMA: conferi as dez, uma a uma, e todas aparecem como CITACAO de boletim ou dentro de uma frase que diz explicitamente que NAO sao da ADAMA. O defeito estava no comentario, e nao no que foi afirmado."
+  },
+  {
+   "ID": "FIX-06",
+   "WHAT_I_WROTE": "em IT-SRCX-036 e no commit de 2026-09-03, que \"a janela de coleta de fala do YouTube fecha sozinha\" e que a rota estava FECHADA — apoiado em 27 testes que devolveram 200 com zero bytes em 11 canais.",
+   "WHY_I_WROTE_IT": "as medicoes eram verdadeiras e eu tinha ate um experimento controlado: o mesmo video devolvia legenda as 12:15Z e nada as 13:15Z.",
+   "WHAT_IS_TRUE": "e LIMITE DE TAXA, e nao muro de permissao. Uma rota da varredura seguinte atravessou o mesmo bloqueio com espera de 45 a 100 segundos e 4 a 5 tentativas por id, SEM cookie e SEM login — e colheu 2.811.477 caracteres de legenda italiana em 17 gravacoes.",
+   "WHAT_CHANGED_BECAUSE_OF_IT": "a rota nao precisa de runner nem de credencial: precisa de PACIENCIA. O harvester que espera esta guardado, e a consequencia operacional muda de \"rode primeiro\" para \"rode devagar, e insista\".",
+   "THE_LESSON": "\"FECHADA\" E UMA CONCLUSAO CARA, do mesmo tamanho de \"precisa de navegador\" no FIX-01. As duas vezes eu tinha medicao boa e tirei dela a conclusao larga demais. Bloqueio que cede a espera nao e muro: e fila.",
+   "WHAT_STAYS_TRUE": "os 27 testes com zero bytes aconteceram, e o experimento controlado tambem. O que muda e o nome do estado: de ROUTE_CLOSED para RATE_LIMITED_YIELDS_TO_BACKOFF."
   }
  ],
  "OPEN_CONTRADICTIONS": [
@@ -4495,6 +4746,281 @@
    "O_QUE_ISSO_NAO_E": "nao e erro de leitura de nenhum dos dois lados: os dois numeros foram lidos direto da fonte. E divergencia de CRITERIO DE ADMISSAO entre dois registros — o que cada um conta como \"caso documentado\".",
    "ESTADO": "ABERTA. Nao resolvida, nao arbitrada, e nao escondida.",
    "POR_QUE_IMPORTA": "se alguem publicar \"a Italia tem 29 casos de resistencia\" tratando a tabela de Heap como censo, estara omitindo o propanil que o GIRE certifica. Duas contagens, dois donos, dois criterios."
+  }
+ ],
+ "VIDEO_ROUTES_MEASURED": [
+  {
+   "SOURCE_ID": "IT-SRCX-001",
+   "NAME": "Consorzio Fitosanitario Provinciale di Parma",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "WP_JSON_MEDIA_VIDEO"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-004",
+   "NAME": "Servizio Fitosanitario Emilia-Romagna — API Plon",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-008",
+   "NAME": "Universita Cattolica del Sacro Cuore, Piacenza —",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-009",
+   "NAME": "Rete Rurale — Banca dati dei Gruppi Operativi PE",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_EMBEDDED_ON_OWN_PAGE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-018",
+   "NAME": "FruitJournal",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO+YT_EMBEDDED_ON_OWN_PAGE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-019",
+   "NAME": "VVQ — Vigne, Vini & Qualita (Edagricole)",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-020",
+   "NAME": "Rivista Orticoltura (Edagricole)",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-021",
+   "NAME": "Olivo e Olio (Edagricole)",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-025",
+   "NAME": "Certis Belchim Italia",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "WP_JSON_MEDIA_VIDEO"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-026",
+   "NAME": "Nufarm Italia",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-032",
+   "NAME": "Horta s.r.l. — DSS agronomicos (vite.net e famil",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "WP_JSON_MEDIA_VIDEO"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-035",
+   "NAME": "CSO Italy — Centro Servizi Ortofrutticoli",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-043",
+   "NAME": "Interpoma — fiera e congresso internacional da m",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-045",
+   "NAME": "CCIAA di Foggia — listino settimanale e Borsa Me",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-047",
+   "NAME": "EFSA — calendario de reunioes e consultas public",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_EMBEDDED_ON_OWN_PAGE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-048",
+   "NAME": "BURP — Bollettino Ufficiale della Regione Puglia",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-049",
+   "NAME": "CONAF — Consiglio dell'Ordine Nazionale dei Dott",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_EMBEDDED_ON_OWN_PAGE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-057",
+   "NAME": "Accademia dei Georgofili",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-058",
+   "NAME": "Georgofili INFO — notiziario dell'Accademia dei ",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_EMBEDDED_ON_OWN_PAGE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-060",
+   "NAME": "CREA — Consiglio per la ricerca in agricoltura e",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-061",
+   "NAME": "DiSAA — Dipartimento di Scienze Agrarie e Ambien",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_EMBEDDED_ON_OWN_PAGE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-063",
+   "NAME": "DISTAL — Dipartimento di Scienze e Tecnologie Ag",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-064",
+   "NAME": "Di3A — Dipartimento di Agricoltura, Alimentazion",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-065",
+   "NAME": "Societa Agraria di Lombardia — news e \"Agricoltu",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-067",
+   "NAME": "Agricolus — plataforma de DSS agronomico (Perugi",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+SELF_HOSTED_ON_HOMEPAGE+WP_JSON_MEDIA_VIDEO"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-068",
+   "NAME": "APOT — Associazione Produttori Ortofrutticoli Tr",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_EMBEDDED_ON_OWN_PAGE+VIMEO_EMBEDDED+SELF_HOSTED_ON_PAGE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-069",
+   "NAME": "Consorzi Agrari d'Italia (CAI)",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+SELF_HOSTED_ON_HOMEPAGE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-071",
+   "NAME": "Unione Italiana Vini — Osservatorio del Vino e I",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_EMBEDDED_ON_OWN_PAGE+YT_EMBEDDED_ON_OWN_PAGE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-072",
+   "NAME": "OmniTrattore — secao Agrochimica e Sementi",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-073",
+   "NAME": "Agrimpresa — periodico da CIA Emilia-Romagna",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-074",
+   "NAME": "AgroNotizie — rota de noticias POR EMPRESA (/azi",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-077",
+   "NAME": "Fitogest — Syngenta Italia (catalogo de 136 agro",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-078",
+   "NAME": "Fitogest — Bayer (catalogo de 78 agrofarmaci), u",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-082",
+   "NAME": "UPL Italia — catalogo de produtos (uplitalia.com",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-083",
+   "NAME": "Diachem S.p.A. — blog tecnico e Campo Dimostrati",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+SELF_HOSTED_ON_HOMEPAGE+YT_DECLARED_ON_OWN_SITE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-084",
+   "NAME": "Sipcam Italia — ficha da entidade no grupo Sipca",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-085",
+   "NAME": "DEKALB Italia (grupo Bayer) — canal de milho em ",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-086",
+   "NAME": "CBC (Europe) Biogard — biocontrole italiano, fic",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO+YT_FEED_LIVE"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-087",
+   "NAME": "Veronafiere — calendario Italia 2027",
+   "ANTES": "NAO_SEI",
+   "DEPOIS": "YES",
+   "ROTA": "YT_DECLARED_ON_OWN_SITE+YT_DECLARED_ON_OWN_SITE+WP_JSON_MEDIA_VIDEO"
   }
  ]
 }
