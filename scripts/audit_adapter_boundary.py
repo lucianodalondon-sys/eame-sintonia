@@ -76,6 +76,10 @@ def declared(field, got, want, spec):
             return 'nulo preservado'
         if isinstance(got, dict) and got.get(key) == want:
             return f'join por {key}'
+    # conversao de tipo declarada: "YES"/"NO" -> booleano, deterministica e reversivel
+    tb = (spec.get('value_bool') or {}).get(field)
+    if tb is not None and isinstance(got, bool) and got == (want == tb):
+        return f'booleano ({tb} -> true)'
     # codigo -> rotulo: cardinalidade e ordem preservadas, codigo nao aparece
     if field in (spec.get('code_to_label') or []):
         w = want or []
@@ -139,11 +143,13 @@ def main():
 
     # ---- testemunhas numericas, medidas no client ----
     def count(field, val):
+        tb = (spec.get('value_bool') or {}).get(field)
         n = 0
         for oid, blobs in found.items():
             for b in blobs:
                 m = {rename.get(k, k): v for k, v in flatten(b).items()}
-                if m.get(field) == val:
+                v = m.get(field)
+                if v == val or (tb is not None and isinstance(v, bool) and v is (val == tb)):
                     n += 1
                     break
         return n

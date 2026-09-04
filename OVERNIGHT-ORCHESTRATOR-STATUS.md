@@ -830,3 +830,117 @@ NEGATIVE_EVIDENCE_ROLES         0 no motor — usar NEED_DIRECTION
 DEPLOY_STATE                    nenhum
 MEETING_FREEZE                  NO   ← falta só deploy + smoke test
 ```
+
+---
+
+## CICLO 06 · 03:20Z — o merge das duas sessões, reauditado
+
+```
+MEETING_PREVIOUS_HEAD  8f37e36
+MEETING_NEW_HEAD       e927cb9
+COMMIT_RANGE           8f37e36..e927cb9   (4 commits)
+  43d6109 01:40  lo snapshot diventa la voce: sedici AGIRE ORA erano due
+  8d1e502 02:35  i portoni imparano la fonte che lo schermo ha gia cambiato
+  8ce2bc1 02:36  gli strumenti di prova escono dal manifesto del deploy
+  e927cb9 02:40  merge: due sessioni, la stessa missione — vince l'ecrã che la riunione apre
+```
+
+As duas implementações fundiram-se. `meeting-surface.js` saiu (−483),
+`meeting-adapter.js` entrou (+426), e a arquitetura mudou: em vez de superfície
+separada, o adaptador **enxerta** os 43 no modelo que o portal já usava.
+
+`a14b9e1` e `8f37e36` continuam ancestrais. Sem reescrita.
+
+### O commit que me fez parar tudo
+
+«*sedici AGIRE ORA erano due*» — e o `meeting-intelligence-snapshot.json` aparece
+alterado no diff. Era exatamente a regra que reprova sozinha. Medi antes de
+qualquer outra coisa:
+
+| | antes | depois |
+|---|---|---|
+| `SOURCE_HEAD` · `BUILD_ID` · `MEETING_CUTOFF` · `TOTAL_CASES` | — | **inalterados** |
+| `GENERATED_AT` | `00:56:45Z` | `01:06:03Z` |
+| `STATUS` · `PUBLICATION_STATE` · `WINDOW_DEFINED` · `WINDOW_OPEN_NOW` | — | **contagens idênticas** |
+| campos alterados nos 43 casos | — | **NENHUM** |
+
+    ACT_NOW CONTINUA 2. WINDOW_DEFINED CONTINUA 16.
+    O COMMIT CORRIGIU NA DIREÇÃO CERTA: TIROU OS 16 DE ONDE APARECIAM COMO ACT_NOW.
+
+O snapshot só foi regerado dez minutos depois. Alarme desarmado por medição.
+
+### `ADAPTER_BOUNDARY = PASS_DECLARED_SCHEMA_ADAPTATION` · IT e EN
+
+```
+MEETING_ADAPTER.OK true · FAULTS [] · SOURCE_HEAD b3935bd · TOTAL_CASES 43
+counts(): actNow 2 · windowDefined 16 · publishable 5 · validationRequired 38
+DECISION_FIELDS_CHANGED_BY_FRONTEND = 0
+PRIMARY_MATCH_NULL_REFERENCE = 26 · CLIENT_PRIMARY_MATCH_NULL = 26
+```
+
+Uma transformação nova, declarada depois de provada: `WINDOW_DEFINED` atravessa
+como **booleano** (`"YES"` → `true`), fiel em 43/43, `true` em exatamente 16. O
+auditor aprendeu `value_bool` e a bateria de violações continua reprovando.
+
+### Gates no HEAD merged
+
+| | resultado |
+|---|---|
+| `meeting-gate.mjs` | **14/14** |
+| `browser.mjs` | **7/7** — sem JS fatal, sem `undefined`, sem `[object Object]`, sem português, sem bookkeeping |
+| `run.mjs` | **67/71** — B3 · H3 · W2 · DS1 |
+
+**`run.mjs` melhorou:** 66/71 na base e no HEAD anterior, **67/71** agora. `O1`
+ficou verde. As quatro que restam são as mesmas da base congelada.
+
+### O que o merge tirou, e que eu tive de provar sozinho
+
+O exame encolheu de **20 para 14 testemunhas**. Saíram:
+
+```
+PRIMARY_MATCH_SINGLE_OWNER · NO_PRIMARY_WHEN_UNKNOWN
+WINDOW_SINGLE_OWNER · WINDOW_DEFINED_OPEN_SEPARATED · DEMO_AND_CANONICAL_SEPARATED
+```
+
+E `meeting-browser.mjs` foi apagado (−244), levando com ele o percurso pelos
+casos da demo.
+
+**As propriedades continuam válidas — medi-as por fora:**
+
+```
+26/26 PRIMARY_MATCH nulos preservados          (auditor contra a referência)
+ITALY_APP_MODEL…opportunities.records = 43     attached: true
+cartões no ecrã inicial: 12 · canônicos 12 · legados 0 · tokens internos 0
+nav: «RADAR DELLE OPPORTUNITÀ» separado de «AMBIENTE DIMOSTRATIVO»
+```
+
+    AS PROPRIEDADES SEGURAM. O EXAME QUE AS GUARDAVA, NÃO.
+    QUEM TOCAR NISTO DEPOIS DA REUNIÃO NÃO SERÁ AVISADO PELO PRÓPRIO REPOSITÓRIO.
+
+Não é motivo para bloquear a reunião. É dívida a registar.
+
+### O QUE EU **NÃO** PROVEI NESTE HEAD
+
+No HEAD anterior medi os 43 no DOM nas quatro combinações. **Aqui não consegui:**
+a navegação mudou com o merge e os meus seletores não alcançaram o radar cheio.
+O que ficou provado é o modelo (43 registros, `attached`) e o ecrã inicial (12
+cartões, todos canônicos, zero legados).
+
+Não vou declarar `CANONICAL_CASES_RENDERED = 43` neste HEAD com base no anterior.
+**Fica em aberto**, e é a primeira coisa do ciclo 07 — com os seletores da própria
+branch, não com os meus.
+
+### Estado
+
+```
+MEETING_BUILD_HEAD          e927cb9
+ADAPTER_BOUNDARY            PASS_DECLARED_SCHEMA_ADAPTATION (IT e EN)
+DECISION_FIELDS_CHANGED     0
+SNAPSHOT                    inalterado exceto GENERATED_AT
+MEETING_GATE                14/14   (era 20/20 com 20 testemunhas)
+BROWSER                     7/7
+run.mjs                     67/71   (base: 66/71 — melhorou)
+43_NO_DOM                   NÃO PROVADO neste HEAD
+DEPLOY_STATE                nenhum
+MEETING_FREEZE              NO
+```
