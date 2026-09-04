@@ -246,6 +246,28 @@ mandado para o Whisper. É o desastre que o cabeçalho do próprio arquivo prome
 > *"Quem confundir os dois vai registrar SEM_LEGENDA num vídeo legendado, e mandar o whisper
 > transcrever seis horas de som que já existia escrito."*
 
+### 2.0 · ÂMBAR não é um contador que zera — medido, por mim, com silêncio
+
+Se `ÂMBAR` fosse consequência de volume, parar de pedir a desfaria. O corpo do 429 até
+sugere isso: *"El bloqueo caducará poco después de que se detengan esas solicitudes."*
+
+Testei, com **uma requisição a cada 10 minutos** e nada entre elas:
+
+| rodada | hora (UTC) | HTTP | bytes | `_bloqueado()` | `playabilityStatus` | faixas |
+|---|---|---|---|---|---|---|
+| 1 | 16:35:00 | 200 | 1 257 655 | `False` | `LOGIN_REQUIRED` | 0 |
+| 2 | 16:45:01 | 200 | 1 261 279 | `False` | `LOGIN_REQUIRED` | 0 |
+
+**Vinte minutos de silêncio não moveram nada.** `VERMELHO` (429) sim desaparece com o
+silêncio — foi o que separou a rodada 1 do estado anterior. `ÂMBAR` não.
+
+Sinal extra, grátis e determinístico, medido nas duas rodadas: em `ÂMBAR`,
+`videoDetails.title` volta **`null`**. Um vídeo real sem legenda tem título. Quem quiser um
+segundo detector de porta fechada, sem depender de `playabilityStatus`, tem um aqui.
+
+> **O que isto autoriza dizer:** `ÂMBAR` não cede a espera curta. **O que não autoriza:**
+> dizer que é permanente. Duas amostras em vinte minutos não medem um dia.
+
 ### 2.1 · O QUARTO MURO: em VERDE, a faixa aparece e o corpo não vem
 
 Numa janela `VERDE` desta mesma sessão, o controle positivo devolveu o que se espera:
@@ -454,14 +476,30 @@ WHISPER_USED              = NO
 PAID_API_USED             = NO
 COST_USD                  = 0.00
 
-BROWSER_START             = SIM, mas fora do dono canônico e sem valor de coleta
-                            (não-root + Xvfb, sandbox LIGADA — e mesmo assim
-                             ERR_CONNECTION_RESET contra qualquer HTTPS)
+BROWSER_START             = NÃO pelo caminho do dono canônico (cdp.subir como root
+                                falha em 1,00 s, agora dizendo por quê)
+                            SIM fora dele, para provar que dá (não-root + Xvfb,
+                                sandbox LIGADA, /json/version respondeu) — e mesmo
+                                assim ERR_CONNECTION_RESET contra qualquer HTTPS
+PAGE_OPEN                 = SIM pela rota barata (urllib): 200, ~1,2 MB
+CAPTION_ROUTE_FOUND       = NÃO nesta janela (player negado ⇒ sem bloco `captions`)
+CAPTION_FETCHED           = NÃO
+CAPTION_PARSED            = NÃO
+CAPTION_CHARS             = 0
+CAPTION_CUES              = 0
+FAILURE_STAGE             = CAPTION_ROUTE_FOUND
+FAILURE_REASON            = ENVIRONMENT_FAILURE — playabilityStatus = LOGIN_REQUIRED
+
 CAPTION_LAYER_OPENED      = NÃO
 CAPTION_REPRODUCIBLE      = NÃO
+POSITIVE_CONTROLS_PASSED  = 0/2   (por mim, à mão, nesta janela)
+                            1/2   se contar a janela VERDE medida pelo agente auxiliar
+                                  desta sessão, em que jNQXAC9IVRw devolveu faixas=2 —
+                                  e ainda assim o corpo da legenda veio com 0 bytes
 NEGATIVE_CONTROL_DISTINGUISHED = SIM
                             (NO_CAPTION exige player OK; ENVIRONMENT_FAILURE virou
-                             PLAYER_NEGADO — separados no código e presos por teste)
+                             PLAYER_NEGADO — separados no código, presos por teste
+                             sintético, e separados também no instrumento)
 
 MICRO_REMEASUREMENT_EXECUTED = NÃO
 
