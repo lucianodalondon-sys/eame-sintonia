@@ -1,0 +1,62 @@
+{
+ "DATASET": "UPSTREAM-PINS",
+ "LEI": "cada insumo entra por COMMIT e por HASH. O portal NAO consome HEAD de branch nenhuma: um HEAD move-se enquanto se le, e um lote que se le duas vezes com dois resultados nao e um lote.",
+ "DOIS_SHA_PORQUE_SAO_DUAS_COISAS": "SHA_QUE_CONTEM_OS_BYTES e o commit em cuja arvore este ficheiro existe byte a byte — e com ele que se refaz o download e se prova o HASH. SOURCE_HEAD_DECLARADO_PELO_ARTEFACTO e o que o proprio ficheiro diz sobre a sua origem, e NAO e o mesmo commit: um gerador carimba o HEAD que leu, e o commit que guarda a saida vem depois. MEDIDO: os quatro handoffs-base declaram 8c082f7 e vivem em 032ebd1. Pinar por 8c082f7 devolveria ficheiros com OUTRO carimbo (5c2d47f e 1eda9b6) e outro hash. CONFUNDIR OS DOIS E PINAR UMA COISA E DESCARREGAR OUTRA. CONFIRMADO UMA SEGUNDA VEZ, por outra mao: o FITOSSANITARIO corrigido a montante declara 0b490ec e os seus bytes vivem em 5855cad. Nao foi um acidente do primeiro lote: e como o gerador funciona.",
+ "O_QUE_E_EXIGIVEL": "o HASH. E auto-verificavel sem rede e sem git: e o unico campo que o portao pode reprovar sozinho. Os dois SHA sao proveniencia declarada e verificam-se contra o repositorio, nao contra o ficheiro.",
+ "PINS": {
+  "IT-FUTURO-HANDOFF-LINHA-B-V1.json": {
+   "CLASSE": "BASE",
+   "O_QUE_E": "Radar Futuro · 45 ITFC",
+   "SHA_QUE_CONTEM_OS_BYTES": "032ebd1",
+   "CAMINHO_NESSE_COMMIT": "data/samples/IT-FUTURO-V1/IT-FUTURO-HANDOFF-LINHA-B-V1.json",
+   "BRANCH": "claude/retomada-coleta-video-convegni-vz50er",
+   "SOURCE_HEAD_DECLARADO_PELO_ARTEFACTO": "8c082f7",
+   "HASH": "sha256:5c99631467bbb77a3a66084e51028231b6654ae9af821f0a07bec5cc727b666e"
+  },
+  "IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json": {
+   "CLASSE": "BASE",
+   "O_QUE_E": "Sinais de Campo · 640",
+   "SHA_QUE_CONTEM_OS_BYTES": "032ebd1",
+   "CAMINHO_NESSE_COMMIT": "data/samples/IT-PORTAL-V1/IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json",
+   "BRANCH": "claude/retomada-coleta-video-convegni-vz50er",
+   "SOURCE_HEAD_DECLARADO_PELO_ARTEFACTO": "8c082f7",
+   "HASH": "sha256:4fda8a87f5efe18a9eea76067e4d31bfe10f1d18fc2d143f6e345a04273defa4"
+  },
+  "IT-HANDOFF-LINHA-B-FONTES-V1.json": {
+   "CLASSE": "BASE",
+   "O_QUE_E": "Fontes · 317",
+   "SHA_QUE_CONTEM_OS_BYTES": "032ebd1",
+   "CAMINHO_NESSE_COMMIT": "data/samples/IT-PORTAL-V1/IT-HANDOFF-LINHA-B-FONTES-V1.json",
+   "BRANCH": "claude/retomada-coleta-video-convegni-vz50er",
+   "SOURCE_HEAD_DECLARADO_PELO_ARTEFACTO": "8c082f7",
+   "HASH": "sha256:262ac41060a27fbebde9a5301f843737565da4f8159a871a411db59fc2e63b5d"
+  },
+  "IT-HANDOFF-LINHA-B-FITOSSANITARIO-V1.json": {
+   "CLASSE": "BASE",
+   "O_QUE_E": "Fitossanitario · 560 evidence-only",
+   "SHA_QUE_CONTEM_OS_BYTES": "5855cad",
+   "CAMINHO_NESSE_COMMIT": "data/samples/IT-PORTAL-V1/IT-HANDOFF-LINHA-B-FITOSSANITARIO-V1.json",
+   "BRANCH": "sprint/fito-lei-560",
+   "SOURCE_HEAD_DECLARADO_PELO_ARTEFACTO": "0b490ec",
+   "HASH": "sha256:b0d6550993be660e2cce4ce8a0450202a0692af2effca309cea31362f577af75"
+  },
+  "IT-TOP3-SENSORES-V1.json": {
+   "CLASSE": "ENRIQUECIMENTO",
+   "O_QUE_E": "TOP_3 · sensores dos tres cartoes prioritarios",
+   "SHA_QUE_CONTEM_OS_BYTES": "5703711",
+   "CAMINHO_NESSE_COMMIT": "data/samples/IT-FUTURO-V1/IT-TOP3-SENSORES-V1.json",
+   "BRANCH": "claude/retomada-coleta-video-convegni-vz50er",
+   "SOURCE_HEAD_DECLARADO_PELO_ARTEFACTO": null,
+   "HASH": "sha256:bf134391b9f6f6ca7f5d8262516a13d5c3b43d877b2e5bbc24b2b7d045e39d88"
+  },
+  "IT-PORTAL-SPRINT-HANDOFF-HUMAN-SENSORS-V1.json": {
+   "CLASSE": "ENRIQUECIMENTO",
+   "O_QUE_E": "Human Sensors · 10 achados em 5 baldes",
+   "SHA_QUE_CONTEM_OS_BYTES": "7501255",
+   "CAMINHO_NESSE_COMMIT": "data/samples/IT-HUMAN-SENSORS/IT-PORTAL-SPRINT-HANDOFF-HUMAN-SENSORS-V1.json",
+   "BRANCH": "claude/human-agricultural-sensors-8fv0fw",
+   "SOURCE_HEAD_DECLARADO_PELO_ARTEFACTO": "470c951596cbdc4a275d0daab824ae56ad75f42f",
+   "HASH": "sha256:1283b4f7a292798f19a964421966316603e7c25aaa9d5b52aa7764bba74ec560"
+  }
+ }
+}
