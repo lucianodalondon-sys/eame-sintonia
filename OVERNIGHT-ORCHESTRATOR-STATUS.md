@@ -563,3 +563,100 @@ para isso — **não rodados por esta aba neste ciclo**. Rodá-los é o ciclo 04
 ```
 MEETING_BUILD_HEAD a54e287 · DEPLOY_STATE nenhum · MEETING_FREEZE NO
 ```
+
+---
+
+## CICLO 04 · 02:29Z — a dona avançou, e eu tinha classificado errado
+
+```
+MEETING_PREVIOUS_HEAD  a54e287
+MEETING_NEW_HEAD       8f37e36
+COMMIT_RANGE           a54e287..8f37e36   (3 commits, fast-forward)
+```
+
+**Correção da minha classificação do ciclo 03.** Tratei
+`claude/meeting-portal-contradictions-qb5a1x` como CANDIDATA. Não era: partiu de
+`a54e287` e acabou de ser aterrissada na branch da dona por fast-forward. Era a
+continuação da própria dona numa branch de trabalho.
+
+```bash
+git rev-parse origin/claude/meeting-intelligence-integration \
+              origin/claude/meeting-portal-contradictions-qb5a1x
+# 8f37e365fa3fbb9a27c3227f9c2edfce0d9e2ad5   (o mesmo commit)
+git merge-base --is-ancestor a54e287 origin/claude/meeting-intelligence-integration  # ✅
+git merge-base --is-ancestor a14b9e1 origin/claude/meeting-intelligence-integration  # ✅
+```
+
+Nada foi perdido e a casca visual está inteira. **A auditoria que fiz no ciclo 03
+é, portanto, a auditoria da integração da dona** — que era exatamente o que o
+protocolo mais queria medir.
+
+```
+ADAPTER_BOUNDARY = PASS_DECLARED_SCHEMA_ADAPTATION   (IT e EN)
+DECISION_FIELDS_CHANGED_BY_FRONTEND = 0
+```
+
+O portal da dona agora carrega `meeting-surface.js` + `meeting-labels.js` +
+o snapshot. **Itens 1, 2, 4 e 5 do caminho crítico: feitos.**
+
+### O controle que evitou um relatório falso
+
+`run.mjs` na dona dá **66/71**, com B3 · H3 · W2 · O1 · DS1 vermelhos. Antes de
+reportar isso como defeito, medi a base visual congelada:
+
+```bash
+git worktree add --detach <tmp> a14b9e1 && cd <tmp>/italia-portale && node audit/run.mjs
+# 66/71 passing · 5 failing — B3, H3, W2, O1, DS1 · os mesmos cinco
+```
+
+    A BASE CONGELADA, QUE PASSOU BRANDWELL E MOBILE, JÁ FALHAVA ESTES CINCO.
+    NENHUM DOS DOIS INTRODUZIU REGRESSÃO.
+
+As cinco dependem do pacote `build/ITALY-REALITY-HANDOFF-V2.1/`, que é ignorado
+pelo git e precisa ser reconstruído na canônica. `W2` e `O1` chegam a lançar
+exceção por isso. Sem este controle eu teria acusado a dona de quebrar cinco
+portões que ela nunca tocou.
+
+Pelo mesmo motivo, `SNAPSHOT_SOURCE_HEAD_VALID` falha no `meeting-gate.mjs` da
+dona (19/20) dizendo, com todas as letras, *«package not rebuilt in this tree —
+BUILD_ID not reconciled»*. É artefato da minha árvore, não da integração: o
+snapshot declara `SOURCE_HEAD b3935bd`, medido.
+
+### A candidata que resta, e o que ela é
+
+`claude/meeting-portal-integration-build-dr7jqr` → `8c316e2` parte de `a54e287` e
+**não** contém `8f37e36`. É implementação paralela genuína: a superfície vive
+dentro de `portale.html` (+954), não num módulo à parte.
+
+| | dona `8f37e36` | candidata `8c316e2` |
+|---|---|---|
+| 43 no ecrã | ✅ 43 renderizados | ✅ 43 `cCards`, 43 ids únicos, todos dos 43 |
+| gate próprio | 19/20 (a falha é a árvore) | **21/21, exit 0** |
+| `run.mjs` | 66/71 = base | 66/71 = base |
+| fronteira do dado | **PASS** pelo meu auditor, IT+EN | rótulos bijetivos com os códigos |
+| 26 sem produto principal | 26/26 nulos preservados | 0 coroados indevidamente; 17/17 corretos |
+| códigos internos no modelo | preserva código + rótulo | **só rótulo** — mais forte em `NO_INTERNAL_CODES` |
+| auditável de fora | **sim** — expõe `build()` | não — precisei do harness dela |
+
+Os 12 casos da candidata sem a nota «nenhum principal» são os 12 **sem produto
+nenhum**: mostram «nessun prodotto». Correto, não defeito.
+
+### Os gates não são transferíveis — cada um se avaliou com o próprio exame
+
+```
+gate da dona rodando na candidata  → TypeError: SURF.build is not defined
+gate da candidata rodando na dona  → TypeError: vIT.cCards is undefined
+```
+
+Por isso 19/20 e 21/21 **não se comparam**. O único instrumento neutro é
+`audit_adapter_boundary.py` contra a referência congelada — e é ele que sustenta
+as linhas «fronteira do dado» e «26 sem produto principal» acima.
+
+### O que ainda falta na dona
+
+`meeting-browser.mjs` não foi executado (1440/390, IT/EN) · brandwell · mobile ·
+cta-navigation · internal-token na tela · deploy. É o ciclo 05.
+
+```
+MEETING_BUILD_HEAD 8f37e36 · DEPLOY_STATE nenhum · MEETING_FREEZE NO
+```
