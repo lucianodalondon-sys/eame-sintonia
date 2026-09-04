@@ -93,6 +93,36 @@ registro — e é exatamente a lacuna DECK-015.
 > **Regra para a tela:** todo número de vigência italiano carrega **dois eixos declarados** —
 > *qual critério de vigência* e *qual ADAMA*. Sem os dois, o número não vai para a tela.
 
+### E há um caso pior que "número sem dono": um número **certo** sem dono
+
+O card italiano da home diz, hoje:
+
+> *"58 delas vencem em até 6 meses (37,4%), contra 20,9% do mercado."*
+
+Esses três valores estão **digitados à mão** em `scripts/build_portal.py:191`, dentro de um
+bloco marcado `REAL`. **Eu os reproduzi, e eles estão certos** — critério AMPLIADO, as cinco
+razões sociais ADAMA somadas, snapshot de 24/08:
+
+```
+AMPLIADO · ADAMA×5 · futuro=155 · ≤6 meses=58 · 37,4%      ← bate
+AMPLIADO · mercado · futuro=3466 · ≤6 meses=724 · 20,9%    ← bate
+```
+
+Estar certo não os salva. **Nenhum arquivo em `data/samples/` contém 58, 37,4 ou 20,9** — para
+auditá-los é preciso re-derivar de um CSV que não é versionado. E a docstring do próprio script
+promete o contrário:
+
+> *"Regra do protótipo: nenhum número é digitado à mão neste script."*
+
+Medido falso em pelo menos dois pontos: a linha 191 (o card italiano) e a linha 66
+(`peaks = {'Huelva': 26.4, 'Cordoba': 6.4, 'Cadiz (Jerez)': 0.0}`, que alimenta um bloco também
+marcado `REAL`). **E o teste não pega:** `tests/test_evidence.py` verifica que o *caminho* da
+evidência existe — nunca que o número exibido veio dele.
+
+> **Um número certo que ninguém consegue auditar é pior que um errado:** o errado alguém
+> derruba; este passa no teste, parece rastreável e não é. E ele escolhe em silêncio os dois
+> eixos desta seção.
+
 **E o eixo tem um terceiro degrau, que eu só vi ao reconciliar uma diferença de 1:**
 
 ```
@@ -162,7 +192,7 @@ E o efeito no agregado: os **155** de 24/08 são **148** hoje.
 
 ---
 
-## 5 · RADAR AGORA — `VAZIO` para a Itália, e é melhor dizer isso
+## 5 · RADAR AGORA — `QUASE VAZIO`, e o que sobra não pode se chamar "agora"
 
 `Radar Agora` responde *"o que está acontecendo agora"*. Para a Espanha existe base: o RAIF
 dá incidência medida, semanal, com 23 safras. **Para a Itália não há equivalente medido no
@@ -171,9 +201,30 @@ acervo.** O que a Itália tem é:
 - registro regulatório — que é **estado**, não evento de campo, e de um snapshot de 24/08;
 - 150 documentos sociais do piloto — dos quais **82 não são julgáveis** e nenhum tem legenda.
 
-**Não há, hoje, dado italiano de campo com frescor para sustentar um "agora".** Colocar
-qualquer coisa sob esse rótulo seria fabricar atualidade. O correto é a área existir **vazia e
-declarada**: *"a Itália ainda não tem camada de campo medida — ver P-010 e P-011"*.
+E há uma razão mais básica que a falta de campo, medida nos próprios documentos:
+
+```
+PUBLICATION_DATE = NOT_KNOWN   em 150 de 150
+REGION           = "NÃO SEI"   em 150 de 150
+CROP             = "NÃO SEI"   em 101 de 150
+```
+
+**Nenhum documento do piloto tem data de publicação.** Sem data não há "agora": não dá nem
+para ordenar.
+
+**Mas existe um sinal grosso, e ele muda o veredito de VAZIO para QUASE:** o campo
+`PUBLICATION_RELATIVE` está preenchido — *"hace 2 semanas"* (11), *"hace 1 mes"* (16),
+*"hace 1 año"* (19), *"hace 10 años"* (10). É idade **relativa**, em espanhol, como o YouTube a
+serviu. Dá para **ordenar por faixa de recência**; não dá para **datar nada**.
+
+E a camada que converteria relativo em data exata é, por desenho, a página do vídeo — que é
+justamente a camada congelada em D-040. O `youtube_janela.py` já dizia isso antes de nós:
+*"a grade dá data RELATIVA. Quem precisa do dia exato abre a página do vídeo."*
+
+> **Veredito honesto do Radar Agora italiano:** pode existir como **ordenação por faixa de
+> recência, sem nenhuma data na tela**, e sem chamar isso de "agora". Qualquer data exibida
+> seria inventada. E a camada de campo medida — a que daria um "agora" de verdade — continua
+> não existindo para a Itália (P-010, P-011).
 
 ---
 
@@ -233,6 +284,9 @@ RAVENNA            194
 
 Um mapa da Itália pintado com isso mostra **onde ficam os escritórios das empresas de
 defensivo**. Não é geografia agronômica, e apresentá-la como tal seria erro de categoria.
+
+**E os documentos coletados não ajudam:** `REGION = "NÃO SEI — o título não declara região"`
+em **150 de 150**. A geografia simplesmente não foi medida nesse corpus.
 
 **A geografia italiana defensável é outra:** a matriz de cobertura dos sensores humanos —
 117 células CROP×REGION×SPECIALTY, 72 `GOOD` · 29 `WEAK` · 16 `NONE`, em 16+ regiões, com as
@@ -313,6 +367,12 @@ Cruzando com o que este documento mediu:
 | um mapa da Itália pintado pelo registro | é endereço de sede, e 51% está vazio | mapa de **cobertura de sensores**, dito como "onde temos olhos" |
 | *"61 documentos relevantes de 150"* | 82 não foram julgados | *"7 operacionais · 61 relevantes · **82 não medidos**, de 150"* |
 | *"oportunidade"* / *"espaço livre"* | proibido pela arquitetura | `ACTIVATION QUESTION`, ou nada |
+| *"58 vencem em 6 meses — 37,4% contra 20,9% do mercado"* | está certo **e** está digitado à mão em `build_portal.py:191`; não existe em arquivo nenhum | ou vira artefato auditável, ou sai da tela |
+| *"nenhum número da tela foi digitado à mão"* (docstring do script e rodapé do portal) | falso em pelo menos `build_portal.py:66` e `:191` | corrigir a afirmação **ou** o script — nunca deixar as duas |
+| *"temos um Portal Itália"* | dos 16 blocos do protótipo, **1 é italiano** (ES 6 · UE/multi 7 · FR 2 · IT 1) | *"um portal EAME com um bloco italiano"* |
+| *"o portal está no ar"* | não há pipeline de publicação: nenhum dos 10 workflows menciona portal, build ou deploy | *"gera um HTML estático, reproduzível, não publicado"* |
+| qualquer data em documento social italiano | `PUBLICATION_DATE = NOT_KNOWN` em 150 de 150 | faixa de recência (*"há ~2 semanas"*), nunca uma data |
+| qualquer região vinda dos documentos | `REGION = NÃO SEI` em 150 de 150 | a matriz de cobertura, dita como *"onde temos olhos"* |
 | qualquer coisa vinda de legenda | nenhuma legenda foi obtida (D-040) | silêncio — e a lei 5 de D-040 explica por quê |
 
 ---
@@ -328,7 +388,8 @@ Sem coleta nova, sem legenda, sem Twitter/LinkedIn, sem escala. Em ordem de depe
 | 3 | **Recalcular "futuro" contra a data de leitura** | §4 — o Radar Futuro deixa de mostrar passado | pequeno, e é o de maior risco se ficar de fora |
 | 4 | **Declarar `Revocato` × `Scaduto` como estados distintos** | §3 — a vantagem italiana sobre a espanhola vira tela | vocabulário, não código |
 | 5 | **Escrever o texto de incerteza dos 82** e prendê-lo em teste | §9 — o número honesto sobrevive a quem quiser arredondá-lo | um teste |
-| 6 | **Marcar Radar Agora como vazio e declarado** | §5 — a ausência para de parecer esquecimento | uma frase |
+| 6 | **Marcar Radar Agora como faixa de recência, sem data** | §5 — a ausência para de parecer esquecimento, e o sinal que existe é usado sem virar mentira | uma frase e uma ordenação |
+| 7 | **Tirar os nove números digitados de `build_portal.py`** — ou derivá-los, ou removê-los | §2 — a promessa do rodapé volta a ser verdadeira, e o teste passa a significar algo | médio; e é o único que toca o protótipo congelado, então **é decisão do dono** |
 
 **Os passos 1–4 são de dado e vocabulário, não de desenho.** Nenhum deles depende de
 descongelar o protótipo — e todos são pré-requisito para que qualquer tela seja defensável.
