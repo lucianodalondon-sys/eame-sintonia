@@ -2,6 +2,17 @@
 
 **Data:** 2026-09-04 · **Dono canônico:** `scripts/youtube_janela.py` · **Branch:** `claude/human-agricultural-sensors-8fv0fw`
 
+> ## ⛔ M7 CONGELADA — `HEAD = 0fc50dd`, 337 testes verdes, árvore limpa
+>
+> **Aceita pelo dono em 2026-09-04. Esta frente não está mais ativa.** Não continuar
+> tentando abrir legenda; não `--no-sandbox`; não scraper novo; não workaround de
+> navegador; não Whisper; não escalar para 89; não Twitter/LinkedIn; não reclassificar
+> documento sem texto novo; não consertar `cdp._vivo`; não gastar tempo com P-018 antes
+> da apresentação. As doze leis desta rodada estão em **D-040**.
+>
+> **A apresentação do Portal Itália NÃO depende de legenda** (D-041). Este documento passa
+> a ser registro histórico e contrato de leitura — não uma lista de tarefas.
+
 A rodada anterior fechou o piloto com uma frase que este documento **corrige**:
 
 > "O bloqueio é de ambiente (o navegador não completou), não de arquitetura."
@@ -532,6 +543,11 @@ CONDITION_6_TESTABLE_WITH_CURRENT_YOUTUBE_UNIVERSE = NÃO
 
 SCALE_TO_89_CHANNELS = NÃO
 ```
+
+> **Este `NÃO` da condição 5 responde "mudou?", não "mudaria?".** Nenhuma legenda foi
+> obtida, então não houve o que mudar. **Ele não é evidência de que legenda não serviria** —
+> essa pergunta continua sem medição, e lê-la como resposta seria exatamente o erro que este
+> documento passou a rodada desmontando: tratar ausência de medida como medida de ausência.
 
 ### `ROOT_CAUSE`
 

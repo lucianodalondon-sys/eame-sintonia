@@ -767,6 +767,59 @@ Regras do diário:
   declarada em `CAPTURED_AT_ORIGEM` como `BACKFILL` e como **limite superior** da captura —
   não como hora de medição. Inventar a hora exata seria pior que a lacuna.
 
+### D-040 — M7 CONGELADA: o estado canônico da camada de legendas
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO · **Quem decidiu:** o dono do produto
+- **Congelada em** `HEAD = 0fc50dd24e9b5c08042aaebbc4cd0a4a307568ce`, 337 testes verdes,
+  árvore limpa. **M7 deixa de ser frente ativa.**
+
+**As doze leis desta rodada, como estado canônico:**
+
+| # | lei |
+|---|---|
+| 1 | A **ausência de `captionTracks` não pode ser lida como `NO_CAPTION`** quando o player está negado. |
+| 2 | **`PLAYER_NEGADO` não autoriza Whisper.** |
+| 3 | **`AUSENTE` só é válido com player `OK`.** |
+| 4 | `CONDITION_5_CHANGED_BY_CAPTIONS = NÃO` — **porque nenhuma legenda foi obtida.** |
+| 5 | Isso **não** significa que legenda não mudaria a condição 5. Significa que **não foi medido**. |
+| 6 | `CONDITION_6_TESTABLE_WITH_CURRENT_YOUTUBE_UNIVERSE = NÃO`. |
+| 7 | Razão de 6: universo pesquisador = **2 canais** — Twitter 1, LinkedIn 1, **YouTube 0**. |
+| 8 | Portanto **condição 5 e condição 6 têm causas independentes**. |
+| 9 | `SCALE_TO_89_CHANNELS = NÃO`. |
+| 10 | **Custo zero.** Nenhum serviço pago foi usado. |
+| 11 | **P-018 permanece medição isolada, não lei** — o corpo vazio do `timedtext` foi visto uma vez. |
+| 12 | **`cdp._vivo` em Linux permanece defeito conhecido, fora do escopo.** |
+
+- **A lei 5 é a que mais importa guardar.** `NÃO` aqui responde *"mudou?"*, não *"mudaria?"*.
+  Quem ler a primeira como a segunda vai concluir que legenda não serve — e essa conclusão
+  **não foi medida por ninguém**.
+- **A correção de proveniência fica incorporada:** `CAPTURED_AT` preenchido **na origem**
+  daqui para frente (`scripts/selo_de_amostra.py`); backfills existentes marcados
+  explicitamente como `BACKFILL`; data de commit usada **apenas como limite superior**,
+  nunca fingida como hora de captura.
+- **Proibido nesta e nas próximas rodadas até nova ordem:** `--no-sandbox`; scraper novo;
+  workaround de navegador; Whisper; escala para 89; Twitter/LinkedIn; reclassificar
+  documento sem texto novo; consertar `cdp._vivo`; gastar tempo com P-018 antes da
+  apresentação.
+
+### D-041 — A apresentação do Portal Itália não depende de legenda
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO · **Quem decidiu:** o dono do produto
+- **Não é preciso resolver legenda para apresentar o Portal Itália.** O sprint recebe apenas
+  o que já é defensável:
+  - canais e fontes existentes;
+  - títulos e metadados **quando válidos**;
+  - conteúdo classificado **com o nível correto de incerteza**;
+  - **nenhuma afirmação baseada em legenda inexistente**.
+- **Consequência operacional:** dos 150 documentos do piloto, **82 não são julgáveis por
+  título**. Eles não somem da base e não viram `OFF_TOPIC`: aparecem como **`NÃO SEI`, com o
+  motivo**. Uma tela que esconder os 82 estará mentindo por omissão; uma que os classificar
+  estará mentindo por invenção.
+- **Nenhuma nova missão de coleta social antes da apresentação.**
+- **Prioridade retomada:** Portal Itália — ingestão do acervo existente → publicabilidade por
+  família → Radar Agora → Radar Futuro → portfólio/regulatório → concorrência →
+  oportunidades → vozes → geografia → mapa de ação departamental.
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |
@@ -786,6 +839,6 @@ Regras do diário:
 | P-013 | ~~Cobertura real de `fontes.entidade_id`?~~ — **resolvida** por D-024: `NÃO SEI` firme; os três números medem coisas diferentes e nenhum é cobertura. | — | resolvida 2026-09-04 |
 | P-014 | ~~A Itália escreve no banco brasileiro?~~ — **resolvida** por D-023: registro próprio, contrato espelhado, sem escrita no Brasil. | — | resolvida 2026-09-04 |
 | P-016 | ~~Camada de legendas do YouTube: a rota de navegador não completou em >15 min~~ — **diagnosticada** por D-035/D-036/D-037: eram quatro muros, não um. Os dois primeiros estão consertados; os dois últimos não são código deste repositório. | — | diagnosticada 2026-09-04 |
-| P-017 | Saída de rede para `/watch` do YouTube: este IP recebe `LOGIN_REQUIRED` (*"Accedi per confermare di non essere un bot"*) e, sob volume, 429 com redirect para `google.com/sorry`. Feed RSS, `oembed` e página de canal continuam 200. Sem uma saída com reputação limpa, a camada de legendas não abre — e nenhuma linha de código muda isso. | legendas, escala para 89 | 2026-09-04 |
-| P-018 | `/api/timedtext` ainda serve corpo a cliente anônimo? Medido **uma vez** nesta sessão: com player `OK` e duas faixas declaradas, o `baseUrl` **assinado** devolveu `200` com **0 bytes** em `json3` e `srv3`, e o HTML não trazia `pot`/`poToken`. Se for definitivo, a legenda gratuita do YouTube deixou de existir como rota e o orçamento de qualquer alternativa muda. | legendas, Whisper vs. gratuito | 2026-09-04 |
+| P-017 | **CONGELADA por D-040 até depois da apresentação.** Saída de rede para `/watch` do YouTube: este IP recebe `LOGIN_REQUIRED` (*"Accedi per confermare di non essere un bot"*) e, sob volume, 429 com redirect para `google.com/sorry`. Feed RSS, `oembed` e página de canal continuam 200. Sem uma saída com reputação limpa, a camada de legendas não abre — e nenhuma linha de código muda isso. | legendas, escala para 89 | 2026-09-04 |
+| P-018 | **CONGELADA por D-040 — medição isolada, não lei, e não se gasta tempo com ela antes da apresentação.** `/api/timedtext` ainda serve corpo a cliente anônimo? Medido **uma vez** nesta sessão: com player `OK` e duas faixas declaradas, o `baseUrl` **assinado** devolveu `200` com **0 bytes** em `json3` e `srv3`, e o HTML não trazia `pot`/`poToken`. Se for definitivo, a legenda gratuita do YouTube deixou de existir como rota e o orçamento de qualquer alternativa muda. | legendas, Whisper vs. gratuito | 2026-09-04 |
 | P-015 | Qual dono de CULTURA a Itália segue? O Brasil tem DUAS listas vivas — `vocabulario.py` CULTURA=9 (em produção) e `lavouras.py` CULTURAS=23 (autodeclarado dono único), com as 9 comuns divergindo em padrão. | vocabulário IT | 2026-09-04 |
