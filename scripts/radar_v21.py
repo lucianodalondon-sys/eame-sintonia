@@ -274,6 +274,11 @@ def testemunha():
     print('  pares com OLIVO ......... %d  %s' % (
         len(olivo), ' · '.join('%s %s x %s' % (p['PRODUCT'], p['REGISTRATION_ID'],
                                                p['TARGET']) for p in olivo)))
+    # Este 1 e o que o CONJUNTO DE PARES contem, e nao o que os rotulos autorizam.
+    # A leitura dos 163 rotulos (2026-09-04) achou 15 rotulos que autorizam OLIVO, dos
+    # quais 14 ja tinham sido "lidos" e mesmo assim nao viraram par. O extrator perde.
+    print('  AVISO ................... o conjunto de pares SUB-REPORTA. 15 rotulos '
+          'autorizam OLIVO; ver data/samples/IT-ROTULOS-V1/IT-ROTULOS-DELTA-V1.json')
     ok = (not mortos) and len(ai) == 53 and len(ps) == 2030 and len(olivo) == 1
     print('  VEREDITO ................ %s' % ('PASS' if ok else 'FAIL'))
     return 0 if ok else 1

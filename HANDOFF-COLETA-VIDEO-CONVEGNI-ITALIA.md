@@ -1,6 +1,6 @@
 # HANDOFF · COLETA / VÍDEO / CONVEGNI / CRUZAMENTOS ITÁLIA
 
-**Data:** 2026-09-04 (2ª rodada)
+**Data:** 2026-09-04 (3ª rodada)
 **Branch:** `claude/retomada-coleta-video-convegni-vz50er`
 **HEAD desta rodada:** `24b105b` — a rodada anterior fechou em `80ff4db`
 
@@ -8,7 +8,34 @@ O próximo agente deve conseguir continuar **sem reconstruir esta história pela
 
 ---
 
-## 0 · O QUE MUDOU NESTA RODADA
+## 0 · O QUE MUDOU NA 3ª RODADA — LEITURA DOS 163 RÓTULOS
+
+**Cobertura de leitura fechada: 163/163, com SHA batendo em 163/163** contra o download da
+casa de 2026-08-30. Não é coleta nova: são os mesmos documentos, byte a byte.
+
+**O gargalo nunca foram os 61.** Dos **15** rótulos que autorizam OLIVO, **14 já tinham sido
+"lidos"** e mesmo assim não produziram par de olivo. Ler os 61 acrescentou **um**. O
+extrator de pares perdeu os outros treze — e o buraco é sistemático:
+
+| cultura | rótulos com frase de uso | pares no conjunto | teto de perda |
+|---|---:|---:|---:|
+| PERO | 47 | 4 | 43 |
+| VITE | 72 | 25 | 51 |
+| POMODORO | 55 | 18 | 45 |
+| AGRUMI | 38 | 6 | 37 |
+| OLIVO | 15 | 1 | 14 |
+| NOCE / NOCCIOLO | 19 / 17 | 0 / 0 | 19 / 17 |
+
+**A presença ADAMA em olivo deixa de ser só herbicida:** EKO OIL SPRAY (012573) e OLIONET
+(014386), de **paraffin oil — que ESTÁ entre as 53** — autorizam *"OLIVO (olive da tavola e
+da mensa): contro Cocciniglie e Tignole"*. Os dois alvos são discutidos no bilancio nacional,
+que nomeia **olio minerale** como meio. Isso **corrige** o que escrevi na 2ª rodada.
+
+Detalhe completo, correções e deltas: `data/samples/IT-ROTULOS-V1/IT-ROTULOS-DELTA-V1.json`.
+
+---
+
+## 0b · O QUE MUDOU NA 2ª RODADA
 
 1. **A causa raiz da perda foi consertada.** Os workflows liam o pacote canônico V2.1 de um
    scratchpad efêmero morto. Agora leem `data/samples/IT-RADAR-V21/`, versionado, com SHA por
