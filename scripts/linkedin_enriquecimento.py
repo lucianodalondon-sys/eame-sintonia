@@ -51,6 +51,36 @@ decide papel é a âncora técnica do universo canônico, que veio de ORCID e Op
 sendo lei da casa, e aqui ela é executada: as métricas entram no bloco de
 `ENGAGEMENT`, separadas dos fatos, e nenhum estado deste arquivo as consulta.
 
+O LIMITE QUE NÃO É TÉCNICO, E QUE DECIDE MAIS QUE O CÓDIGO
+------------------------------------------------------------
+As medições desta rodada provaram que a mídia é alcançável: 56 de 56 vídeos e 12
+de 12 PDFs responderam HTTP 200 sem cookie e sem login, e a rota `/embed/feed/
+update/` devolve a página do post. Não há controle técnico no caminho — nenhum
+CAPTCHA foi resolvido, nenhuma sessão foi reusada, nenhum anti-bot foi contornado.
+
+E ainda assim a rota está fechada, por outro motivo:
+
+    https://www.linkedin.com/robots.txt   →   User-agent: *
+                                              Disallow: /
+                                              Disallow: /embed/feed/update/
+
+    https://dms.licdn.com/robots.txt      →   "The use of robots or other automated
+                                              means to access LinkedIn without the
+                                              express permission of LinkedIn is
+                                              strictly prohibited."
+
+O host da mídia carrega a mesma proibição do site. Ou seja: a busca direta de
+mídia, de legenda e de PDF **funciona e mesmo assim não é uma rota que esta casa
+possa passar a usar em volume**, porque a plataforma pede explicitamente que não.
+
+    NÃO HÁ CONTROLE TÉCNICO ≠ HÁ PERMISSÃO
+
+Por isso este arquivo **não busca nada**. Ele lê o `.raw.json.gz` que já está no
+repositório, obtido pela rota paga e contratada. As medições de alcance foram
+sondagens pontuais, de volume pequeno, feitas para responder "isto é possível?" —
+e a resposta técnica é sim, a resposta de política é do dono do produto, não minha.
+O que sai daqui é a pergunta, com o número ao lado, não uma coleta iniciada.
+
 AS TRÊS COISAS FICAM EM CAMPOS FISICAMENTE SEPARADOS
 ------------------------------------------------------
     FACT            o que a fonte diz, com proveniência que resolve
@@ -533,6 +563,84 @@ def escada_do_video(post, transcricao=None):
     return passo
 
 
+# ══════════════════════════════════════════════ 4b · A ESCADA DO DOCUMENTO
+# O carrossel do LinkedIn vem como PDF já higienizado, em `transcribedDocumentUrl`.
+# Medido em 2026-09-04: os 12 documentos do corpus responderam HTTP 200 sem login,
+# e são material técnico de verdade — "Xylella fastidiosa buenas prácticas agrícolas",
+# "Decreto FLYPACK DACUS TRAP", boletim oficial, mesa do olivar.
+#
+# E foi aí que apareceu o segundo decodificador confiante demais desta rodada.
+# O `pdf_text.py` da casa devolveu 5.818, 5.755 e 15.447 caracteres para três
+# desses PDFs — números grandes, texto nenhum:
+#
+#     "$ ) 2 5 2  / , 0 , 7 $ ' 2 , 1 6 & 5  % ( 7 (  $ 4 8"
+#
+# São fontes embutidas com subconjunto próprio e sem ToUnicode utilizável. O leitor
+# não errou por pouco: ele não decodificou nada e não disse isso. Uma string longa
+# com cara de sucesso é pior que um erro, porque atravessa o pipeline calada.
+#
+#     DECODIFICOU ≠ LEGÍVEL
+#
+# `legibilidade()` é a mesma disciplina do guarda de alucinação do whisper, aplicada
+# a outro decodificador: mede antes de promover a texto.
+LEGIBILIDADE_MINIMA = 0.5
+DOCUMENT_NOT_DECODED = 'DOCUMENT_NOT_DECODED'
+DOCUMENT_TEXT_OK = 'DOCUMENT_TEXT_OK'
+DOCUMENT_EMPTY = 'DOCUMENT_EMPTY'
+NO_DOCUMENT = 'NO_DOCUMENT'
+
+_PALAVRA = re.compile(r'^[A-Za-zÀ-ÿ]{3,}$')
+
+
+def legibilidade(texto):
+    """→ fração de palavras de verdade no que o decodificador devolveu. 0 é mojibake."""
+    fichas = [f for f in re.split(r'\s+', texto or '') if f]
+    if not fichas:
+        return 0.0
+    return sum(1 for f in fichas if _PALAVRA.match(f)) / len(fichas)
+
+
+def escada_do_documento(post, texto_extraido=None):
+    """PDF do carrossel → texto, e só quando o texto é texto."""
+    if not post.get('DOCUMENT_PDF_URL'):
+        return {'DOCUMENT_LADDER': NO_DOCUMENT, 'DOCUMENT_TEXT': None,
+                'CONTENT_SOURCE': 'POST_TEXT'}
+    estado_url, expira = estado_da_url_de_midia(post['DOCUMENT_PDF_URL'])
+    passo = {'DOCUMENT_TITLE': post.get('DOCUMENT_TITLE'),
+             'DOCUMENT_URL_STATE': estado_url, 'DOCUMENT_URL_EXPIRES_AT': expira}
+    if estado_url == MEDIA_URL_EXPIRED:
+        passo.update({'DOCUMENT_LADDER': MEDIA_URL_EXPIRED, 'DOCUMENT_TEXT': None,
+                      'CONTENT_SOURCE': 'POST_TEXT',
+                      'WHY': 'a URL assinada do PDF venceu. RAW PRESERVADO ≠ MÍDIA PRESERVADA.'})
+        return passo
+    if texto_extraido is None:
+        passo.update({'DOCUMENT_LADDER': NOT_ATTEMPTED, 'DOCUMENT_TEXT': None,
+                      'CONTENT_SOURCE': 'POST_TEXT',
+                      'WHY': 'PDF alcançável, leitura ainda não feita sobre este item.'})
+        return passo
+    leg = legibilidade(texto_extraido)
+    passo['DOCUMENT_CHARS'] = len(texto_extraido or '')
+    passo['DOCUMENT_LEGIBILITY'] = round(leg, 3)
+    if not (texto_extraido or '').strip():
+        passo.update({'DOCUMENT_LADDER': DOCUMENT_EMPTY, 'DOCUMENT_TEXT': None,
+                      'CONTENT_SOURCE': 'POST_TEXT',
+                      'WHY': 'o PDF foi obtido e o leitor não devolveu caractere nenhum.'})
+        return passo
+    if leg < LEGIBILIDADE_MINIMA:
+        passo.update({
+            'DOCUMENT_LADDER': DOCUMENT_NOT_DECODED, 'DOCUMENT_TEXT': None,
+            'CONTENT_SOURCE': 'POST_TEXT',
+            'WHY': ('%d caracteres com legibilidade %.2f. A fonte embutida não tem '
+                    'ToUnicode utilizável: isto é mojibake, não texto. DECODIFICOU ≠ '
+                    'LEGÍVEL — e um documento ilegível NÃO é um documento sem conteúdo.'
+                    % (len(texto_extraido), leg)),
+        })
+        return passo
+    passo.update({'DOCUMENT_LADDER': DOCUMENT_TEXT_OK, 'DOCUMENT_TEXT': texto_extraido,
+                  'CONTENT_SOURCE': 'DOCUMENT_PDF'})
+    return passo
+
+
 # ══════════════════════════════════════════════════════════════ 5 · PROVENIÊNCIA
 def proveniencia(post_ou_perfil, identidade, *, content_source, transcript_method,
                  run_id, raw_path, idioma):
@@ -635,6 +743,7 @@ def enriquecer():
                 posts.append({
                     'IDENTITY': ident, 'LINKED_TO_CANONICAL': 'YES' if ligado else 'NO',
                     'POST': c, 'VIDEO': escada_do_video(c),
+                    'DOCUMENT': escada_do_documento(c),
                     'PROVENANCE': proveniencia(c, ident, content_source='POST_TEXT',
                                                transcript_method='NOT_AVAILABLE',
                                                run_id=run_id, raw_path=raw_path,

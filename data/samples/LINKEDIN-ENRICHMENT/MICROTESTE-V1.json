@@ -216,5 +216,56 @@
    }
   ]
  },
- "STATE": "MEASURED"
+ "STATE": "MEASURED",
+ "A_ESCADA_DO_DOCUMENTO": {
+  "METHOD": "GET da URL assinada do PDF do carrossel — sem cookie, sem login",
+  "DOCUMENTS_IN_PAID_RAW": 12,
+  "PDF_REACHABLE_HTTP_200": 12,
+  "PDF_READ_ATTEMPTED": 3,
+  "PDF_DECODED_LEGIBLE": 0,
+  "MEASURED": [
+   {
+    "TITLE": "Taller Deoleo sevilla",
+    "CHARS": 5818,
+    "LEGIBILITY": 0.0,
+    "LADDER": "DOCUMENT_NOT_DECODED"
+   },
+   {
+    "TITLE": "Diario Oficial Sag 08.10.25",
+    "CHARS": 5755,
+    "LEGIBILITY": 0.49,
+    "LADDER": "DOCUMENT_NOT_DECODED"
+   },
+   {
+    "TITLE": "Decreto FLYPACK DACUS TRAP PFnPE 2026",
+    "CHARS": 15447,
+    "LEGIBILITY": 0.0,
+    "LADDER": "DOCUMENT_NOT_DECODED"
+   }
+  ],
+  "READER": "scripts/pdf_text.py — o leitor de PDF que a casa já tem",
+  "WHAT_BROKE": "o leitor devolveu 5.818, 5.755 e 15.447 caracteres — números grandes, texto nenhum. São fontes embutidas com subconjunto próprio e sem ToUnicode utilizável. Ele não errou por pouco: não decodificou e não disse isso.",
+  "LAW": "DECODIFICOU ≠ LEGÍVEL",
+  "WHY_IT_MATTERS": "uma string longa com cara de sucesso atravessa o pipeline calada. O guarda de legibilidade é a mesma disciplina do guarda de alucinação do whisper, aplicada a outro decodificador.",
+  "CONTENT_IS_REAL": "os documentos NÃO são irrelevantes — são \"Xylella fastidiosa buenas prácticas agrícolas\", \"Decreto FLYPACK DACUS TRAP\", boletim oficial, mesa do olivar. O conteúdo existe; o leitor é que não o alcança.",
+  "VERDICT": "REACHABLE_BUT_NOT_DECODABLE_BY_CURRENT_READER"
+ },
+ "A_LEGENDA_NATIVA": {
+  "CLAIM_INVESTIGADO": "a varredura de codigo aberto afirmou que o LinkedIn expoe legenda WebVTT publica em data-captions-url, presente em ~6 de 10 videos recentes",
+  "MECHANISM_CONFIRMED": "YES — o atributo existe e a rota /embed/feed/update/ devolve HTTP 200",
+  "MEASURED_ON_OUR_OWN_CORPUS": 5,
+  "CAPTIONS_FOUND_ON_OUR_CORPUS": 0,
+  "VIDEO_SOURCES_FOUND": 5,
+  "CONCLUSION": "o mecanismo existe e no NOSSO conteudo ele nao aparece. Cinco posts de video do corpus agro espanhol devolveram a pagina e o video, e ZERO legenda. A taxa de ~60% relatada nao se reproduz aqui — e conteudo de criador agro sem SRT anexado. Amostra pequena: 5. Estado = LEGENDA_NAO_OBSERVADA_NO_NOSSO_CORPUS, nunca \"o LinkedIn nao tem legenda\".",
+  "CONSEQUENCE": "se a legenda nao existe no nosso tipo de conteudo, o degrau \"legenda primeiro\" nao economiza hora de maquina aqui, e o whisper deixa de ser o ultimo recurso para ser o unico. Isso encarece a escada e reforca medir fala antes de transcrever em lote — 1 em 3 videos tinha fala."
+ },
+ "O_LIMITE_QUE_NAO_E_TECNICO": {
+  "ROBOTS_WWW": "https://www.linkedin.com/robots.txt → User-agent: * / Disallow: / · Disallow: /embed/feed/update/",
+  "ROBOTS_CDN": "https://dms.licdn.com/robots.txt → \"The use of robots or other automated means to access LinkedIn without the express permission of LinkedIn is strictly prohibited.\"",
+  "O_QUE_ISTO_SIGNIFICA": "a rota gratuita de midia, legenda e PDF FUNCIONA tecnicamente e mesmo assim nao e uma rota que a casa possa passar a usar em volume. O host da midia carrega a mesma proibicao do site.",
+  "O_QUE_FOI_FEITO": "sondagens pontuais e de volume pequeno para responder \"isto e possivel?\" — 56 HEAD de video, 3 downloads, 12 HEAD de PDF, 5 paginas de embed. Nenhuma coleta em volume foi iniciada e nenhum controle tecnico foi contornado: sem cookie, sem sessao, sem CAPTCHA, sem evasao de anti-bot.",
+  "LAW": "NÃO HÁ CONTROLE TÉCNICO ≠ HÁ PERMISSÃO",
+  "DECISAO": "DO_DONO_DO_PRODUTO — nao minha. Fica como pergunta com o numero ao lado.",
+  "O_QUE_CONTINUA_LIMPO": "a releitura do .raw.json.gz nao toca a rede. O dado foi obtido pela rota paga e contratada (Apify) e ja esta no repositorio. Ha teste que prova que scripts/linkedin_enriquecimento.py nao tem nenhuma chamada de rede."
+ }
 }

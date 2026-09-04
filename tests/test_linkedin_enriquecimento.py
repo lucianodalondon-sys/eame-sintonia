@@ -344,5 +344,63 @@ class TestDataVemDeGracaDentroDoId(unittest.TestCase):
         self.assertIn('não foi copiado', fonte)
 
 
+class TestEscadaDoDocumento(unittest.TestCase):
+    """DECODIFICOU != LEGIVEL. O segundo decodificador confiante demais da rodada."""
+
+    def _post(self):
+        return {'DOCUMENT_PDF_URL': 'https://media.licdn.com/d.pdf?e=4102444800',
+                'DOCUMENT_TITLE': 'Xylella fastidiosa'}
+
+    def test_mojibake_longo_nao_vira_texto(self):
+        # o caso real: 15.447 caracteres, zero palavras
+        esc = le.escada_do_documento(self._post(), '$ ) 2 5 2  / , 0 , 7 $ \' 2 , 1 6')
+        self.assertEqual(le.DOCUMENT_NOT_DECODED, esc['DOCUMENT_LADDER'])
+        self.assertIsNone(esc['DOCUMENT_TEXT'])
+        self.assertNotEqual('DOCUMENT_PDF', esc['CONTENT_SOURCE'])
+
+    def test_ilegivel_nao_e_o_mesmo_que_sem_conteudo(self):
+        esc = le.escada_do_documento(self._post(), '$ ) 2 5 2  / , 0 , 7')
+        self.assertIn('NÃO é um documento sem conteúdo', esc['WHY'])
+
+    def test_texto_de_verdade_passa(self):
+        esc = le.escada_do_documento(
+            self._post(),
+            'Buenas practicas agricolas contra Xylella fastidiosa en el olivar andaluz')
+        self.assertEqual(le.DOCUMENT_TEXT_OK, esc['DOCUMENT_LADDER'])
+        self.assertEqual('DOCUMENT_PDF', esc['CONTENT_SOURCE'])
+
+    def test_pdf_vazio_e_estado_proprio(self):
+        esc = le.escada_do_documento(self._post(), '   ')
+        self.assertEqual(le.DOCUMENT_EMPTY, esc['DOCUMENT_LADDER'])
+
+    def test_url_de_pdf_vencida_e_estado_nao_ausencia(self):
+        vencida = {'DOCUMENT_PDF_URL': 'https://x/d.pdf?e=1577836800'}
+        esc = le.escada_do_documento(vencida, 'texto qualquer legivel aqui')
+        self.assertEqual(le.MEDIA_URL_EXPIRED, esc['DOCUMENT_LADDER'])
+
+    def test_legibilidade_separa_texto_de_lixo(self):
+        self.assertGreater(le.legibilidade('buenas practicas agricolas olivar'), 0.9)
+        self.assertLess(le.legibilidade('$ ) 2 5 2 / , 0 , 7 $'), 0.1)
+        self.assertEqual(0.0, le.legibilidade(''))
+
+
+class TestNaoBuscaNadaNaRede(unittest.TestCase):
+    """A rota funciona tecnicamente e mesmo assim nao e usada. Isto e executado."""
+
+    def test_o_arquivo_nao_tem_nenhuma_chamada_de_rede(self):
+        with open(le.__file__, encoding='utf-8') as fh:
+            fonte = fh.read()
+        for proibido in ('requests.get', 'urllib.request.urlopen', 'subprocess.run',
+                         'httpx.', 'urlopen('):
+            self.assertNotIn(proibido, fonte,
+                             'este arquivo le RAW ja pago; nao busca nada: %s' % proibido)
+
+    def test_o_limite_de_politica_esta_declarado_e_nao_so_o_tecnico(self):
+        with open(le.__file__, encoding='utf-8') as fh:
+            fonte = fh.read()
+        self.assertIn('robots.txt', fonte)
+        self.assertIn('NÃO HÁ CONTROLE TÉCNICO ≠ HÁ PERMISSÃO', fonte)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
