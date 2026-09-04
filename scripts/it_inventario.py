@@ -89,6 +89,45 @@ def marcas(texto, vocab, prefixo):
     return achados
 
 
+# ── NUMEROS DITOS EM VOZ ALTA ─────────────────────────────────────────────────
+# O CICLO 1 pede "numeros/medidas citados", e essa e a unica parte da leitura semantica que
+# se faz sem julgamento: ou o numero esta na fala, ou nao esta.
+#
+#     UM NUMERO DITO E O QUE SEPARA "houve pressao" de "10 colonie vitali su 100 organi".
+#
+# O que NAO se faz aqui e interpretar o numero. `30%` pode ser incidencia, perda, dose ou
+# umidade — e decidir qual e leitura de contexto, que e trabalho da camada de cima. Por isso
+# cada numero sai com 120 caracteres de contexto em volta, e com o TIPO APARENTE declarado
+# como aparente, nunca como fato.
+NUMERO = [
+    ('PERCENTUAL', r'\b\d{1,3}(?:[.,]\d+)?\s?%'),
+    ('DOSE_POR_HECTARE', r'\b\d+(?:[.,]\d+)?\s?(?:l|kg|g|ml|cc)\s?(?:/|per\s+|a\s+)?ha\b'),
+    ('CONCENTRACAO', r'\b\d+(?:[.,]\d+)?\s?(?:g|mg|kg|l|ml)\s?/\s?(?:l|hl|kg|ha)\b'),
+    ('TEMPERATURA', r'\b\d{1,2}(?:[.,]\d+)?\s?(?:gradi|°\s?c)\b'),
+    ('SOGLIA_LIMIAR', r'soglia[^.]{0,80}?\d+|\d+[^.]{0,40}?\bsoglia\b'),
+    ('CONTAGEM_POR_UNIDADE', r'\b\d+\s+(?:individui|adulti|larve|uova|colonie|catture|trappole|piante|organi)\b'),
+    ('ANO', r'\b(?:19|20)\d{2}\b'),
+    ('NUMERO_DE_INTERVENCOES', r'\b(?:massimo|max\.?|fino a)\s+\d+\s+(?:interventi|trattamenti|applicazioni)'),
+    ('SUPERFICIE', r'\b\d+(?:[.,]\d+)?\s?(?:ettari|ha)\b'),
+]
+
+
+def numeros(texto, teto=40):
+    """→ [{KIND_APPARENT, MATCHED, EVIDENCE_SPAN}] com o contexto de cada numero dito."""
+    achados, vistos = [], set()
+    for tipo, rx in NUMERO:
+        for m in re.finditer(rx, texto or '', re.I):
+            chave = (tipo, m.group(0).lower())
+            if chave in vistos:
+                continue
+            vistos.add(chave)
+            achados.append({'KIND_APPARENT': tipo, 'MATCHED': m.group(0),
+                            'EVIDENCE_SPAN': _trecho(texto, m, 120)})
+            if len(achados) >= teto:
+                return achados
+    return achados
+
+
 # ── OS LOTES FECHADOS, E COMO LER CADA UM ─────────────────────────────────────
 def _le(caminho):
     if not _fechado(caminho):
@@ -236,6 +275,10 @@ def objetos():
         so_fala = {m['TERM'] for m in r['ISSUE_MARKS_IN_SPEECH']} - {
             m['TERM'] for m in r['ISSUE_MARKS_IN_DESCRIPTION']}
         r['ISSUE_ONLY_IN_SPEECH'] = sorted(so_fala) or None
+        r['NUMBERS_IN_SPEECH'] = numeros(campo_fala)
+        r['NUMBERS_LAW'] = ('KIND_APPARENT e APARENTE. "30%" pode ser incidencia, perda, dose '
+                            'ou umidade, e decidir qual e leitura de contexto — por isso cada '
+                            'numero vem com o trecho em volta.')
         # a qualidade da evidencia sai do que existe, e nunca de quanto parece bom
         tem_alvo = bool(r['ISSUE_MARKS_IN_SPEECH'])
         tem_cult = bool(r['CROP_MARKS_IN_SPEECH'])
