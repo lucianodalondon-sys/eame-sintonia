@@ -12,19 +12,22 @@
  "JULGADOS_DUAS_VEZES": {},
  "ACORDO_NA_SOBREPOSICAO": "nenhum candidato foi julgado duas vezes",
  "QUEM_MANDA_NO_VEREDITO": "o refutador. Quem escreve a ficha tem interesse em que ela sobreviva; a autoavaliacao do autor fica gravada ao lado.",
- "ESTADO": "PARCIAL — os dois workflows ainda corriam quando este ficheiro foi escrito. 4 de 45 candidatos ja tem veredito; os restantes aparecem como SEM_FICHA ou SEM_REFUTACAO, que sao estados de PROCESSAMENTO e nao julgamentos. Nao ler as contagens abaixo como resultado final.",
+ "ESTADO": "PARCIAL — os dois workflows ainda corriam quando este ficheiro foi escrito. 9 de 45 candidatos ja tem veredito; os restantes aparecem como SEM_FICHA ou SEM_REFUTACAO, que sao estados de PROCESSAMENTO e nao julgamentos. Nao ler as contagens abaixo como resultado final.",
  "CANDIDATOS": 45,
  "POR_ESTADO": {
-  "PARCIAL": 4,
-  "SEM_REFUTACAO": 41
+  "PARCIAL": 7,
+  "SINAL_COMPLETO": 2,
+  "SEM_REFUTACAO": 36
  },
- "SINAL_COMPLETO": 0,
- "PARCIAL": 4,
+ "SINAL_COMPLETO": 2,
+ "PARCIAL": 7,
  "DERRUBADO": 0,
- "AUTOR_SE_DEU_POR_COMPLETO_E_FOI_REBAIXADO": [],
+ "AUTOR_SE_DEU_POR_COMPLETO_E_FOI_REBAIXADO": [
+  "ITFC-007"
+ ],
  "POR_VALOR": {
-  "BAIXO": 2,
-  "MEDIO": 2
+  "BAIXO": 4,
+  "MEDIO": 5
  },
  "POR_ACAO": {
   "MONITORAR": 21,
@@ -35,14 +38,17 @@
   "ESTRUTURAL_FUTURO": 18,
   "IMEDIATO": 1
  },
- "REFUTACAO_SOBRE_FICHA_INTEIRA": 4,
+ "REFUTACAO_SOBRE_FICHA_INTEIRA": 9,
  "VEREDITOS_TRUNCADOS_DESCARTADOS": "os quatro vereditos produzidos enquanto a ficha ia cortada em 12.000 caracteres no prompt nao entram nesta contagem: foram refeitos sobre a ficha inteira",
  "ESTADO_DO_TEMPO_ERRADO_APANHADO": [],
  "HORIZONTE_ERRADO_APANHADO": [],
  "JANELAS_INVENTADAS_APANHADAS": [],
  "UNIOES_MAQUIADAS_APANHADAS": [],
  "PORTFOLIOS_ERRADOS_APANHADOS": [],
- "OS_TRES_DE_MAIOR_VALOR": [],
+ "OS_TRES_DE_MAIOR_VALOR": [
+  "ITFC-029",
+  "ITFC-006"
+ ],
  "MOTIVO_DE_CADA_QUEDA_OU_PARCIAL": [
   {
    "CAND_ID": "ITFC-001",
@@ -101,27 +107,40 @@
   },
   {
    "CAND_ID": "ITFC-005",
-   "ESTADO": "SEM_REFUTACAO",
-   "MOTIVO": null,
-   "DEFEITOS": null
-  },
-  {
-   "CAND_ID": "ITFC-006",
-   "ESTADO": "SEM_REFUTACAO",
-   "MOTIVO": null,
-   "DEFEITOS": null
+   "ESTADO": "PARCIAL",
+   "MOTIVO": "O nucleo aguenta e aguenta bem: a citacao de 496 caracteres existe literalmente no ficheiro no indice 155.899 (`q in t` = True, conferido por mim), o portfolio esta exacto (MELO x TICCHIOLATURA devolve precisamente os tres registos CAPTAN declarados, e DITHIANON/METIRAM estao mesmo ausentes das 43 substancias), os limites de rotulo foram lidos e correctamente atribuidos (os 10 tratamentos/ano e 15,1 kg/ha ficam imediatamente sob o bloco das pomacee em 008102, e nao sao os 4 tratamentos/10,2 kg do Pesco), a correccao do fluazinam exigida pela regua foi aplicada, e quatro departamentos tem razao ancorada em facto desta ficha. Nao derrubo. Mas rebaixo de SINAL_COMPLETO por tres defeitos verificados. Primeiro e mais grave: a janela diz \"Tudo literal do documento\" e e verdade a letra, mas as quatro citacoes que efectivamente FIXAM o calendario (meados de marco, culminar a meados de abril, esgotamento em maio, fim do voo de ascosporos a 28/24 de maio) nao vem do Piemonte nem do Friuli — vem do TRENTINO (relacao de Debora Gabardi, indices 50.765/50.886/50.941) e da VALLE D'AOSTA (relacao de Sandro Dallu, indice 112.268). Mapeei todos os passes de palavra para confirmar. Numa ficha que se gaba de \"Nao herdadas\" para F_REGIAO e que declara como inferencia ate as grafias do ASR, esta transferencia inter-regional nao esta declarada em lado nenhum. Segundo: a ficha suprime a causa que a fonte poe em primeiro lugar. O relator do FVG diz que o pacote de 18 nao chegou \"a causa in primis dell'andamento climatico, soprattutto il periodo di maggio e i continui dilavamenti\", e a propria relacao do FVG diz \"ma avere avuto eventi piovosi di lavanti, elevate piovosita\"; F_O_QUE_ACONTECEU afirma \"Duas causas nomeadas no proprio documento\" e lista so a saida do metiram e a extensao do ditianon. A causa apagada e exactamente a contingente, aquela de que depende a invalidacao declarada — apaga-la faz passar por estrutural um estouro que a fonte atribui primeiro a chuva. Terceiro: o TITULO_OPERACIONAL afirma que o teto \"ja subiu 14→16→18\" quando C_NAO_SABEMOS diz \"O documento so regista o PEDIDO\" e a fonte diz apenas \"abbiam chiesto di passare a 18\" — contradicao interna no campo mais visivel do cartao.",
+   "DEFEITOS": [
+    "JANELA COM BASE IMPORTADA DE OUTRAS REGIOES, NAO DECLARADA. T_BASE_DA_JANELA afirma 'Tudo literal do documento' e e literalmente verdade, mas os quatro ancoradouros datados que fixam o calendario pertencem a relacoes de terceiras regioes: 'la malattia e iniziata ... gia a meta del mese di marzo' (idx 50.765), 'Il culmine si e verificato a meta aprile circa' (50.886) e 'si sono esaurite le le infezioni primarie durante il mese di maggio' (50.941) sao do TRENTINO (Debora Gabardi, Fondazione MAC, bloco 44.258-59.804); 'la fine del volo della Scospore che e stato il 28 di maggio per il 24 e il 24 di maggio nel 25' (112.268) e da VALLE D'AOSTA (Sandro Dallu, bloco 108.307-116.665). Nenhuma das duas e regiao deste sinal. So quatro das oito bases sao do Piemonte, do FVG ou dos seus oradores na discussao.",
+    "CAUSA SUPRIMIDA — A QUE A FONTE POE PRIMEIRO. F_O_QUE_ACONTECEU declara 'Duas causas nomeadas no proprio documento' (saida do metiram; extensao estival do ditianon) e omite a terceira, que na discussao vem em primeiro lugar: 'il pacchetto che abbiamo di captani ... pari a 18 quest'anno non e stato sufficiente a causa in primis dell'andamento climatico, soprattutto il periodo di maggio e i continui dilavamenti'. A relacao do FVG repete-a: 'ma avere avuto eventi piovosi di lavanti, elevate piovosita, il pacchetto ... non e stato sufficiente'. Ao apagar a chuva, a ficha converte um estouro que a fonte atribui primeiro ao ano meteorologico num deficit estrutural — e enfraquece silenciosamente a propria invalidacao declarada ('uma primavera com chuvas espacadas em que o pacote de 18 baste').",
+    "CONTRADICAO INTERNA NO TITULO. TITULO_OPERACIONAL afirma que o teto 'ja subiu 14→16→18'; C_NAO_SABEMOS diz o contrario — 'Se os disciplinari 2026 do Piemonte e do FVG concederam de facto os 18 ... O documento so regista o PEDIDO' — e a fonte so tem 'ora quest'anno abbiam chiesto di passare a 18'. O 18 e pedido, nao concedido; o campo mais visivel do cartao afirma-o como facto consumado.",
+    "PROPRIEDADE DE PRODUTO NAO SUSTENTADA. M_CIENCIA_TECNICO_RAZAO manda escrever o posicionamento do captano com 'resistencia a lavagem'. Essa propriedade nao esta no documento nem nos tres rotulos que conferi (008102, 011500, 012156); e atributo tecnico acrescentado pelo autor num campo que a ficha apresenta como ancorado em factos do documento.",
+    "EXPECTATIVA JA VENCIDA E NAO RESOLVIDA. O EXPECTED da fonte era sobre 'la prossima stagione', isto e 2026. Em 2026-09-04 essa estacao ja passou inteira. A ficha assume o custo honestamente (C_NAO_SABEMOS #1, AUTOAVALIACAO, primeira accao da lista), mas o rotulo temporal descreve hoje uma expectativa cujo prazo de resolucao expirou sem ninguem a ter ido verificar."
+   ]
   },
   {
    "CAND_ID": "ITFC-007",
-   "ESTADO": "SEM_REFUTACAO",
-   "MOTIVO": null,
-   "DEFEITOS": null
+   "ESTADO": "PARCIAL",
+   "MOTIVO": "Tentei derrubar por todos os sete testes e nenhum caiu. A citacao existe LITERALMENTE e CONTIGUA no ficheiro (offset 36573, match exacto de 1095 caracteres, sem normalizacao); a ficha ate corrigiu o defeito que a regua tinha mandado corrigir, estendendo a citacao ate \"il suo controllo\" e preenchendo a elipse com a frase real. O estado do tempo EXPECTED aguenta: o gatilho (saida do ditiocarbamato em 2025) e facto consumado, a projeccao e explicita da fonte com mecanismo declarado, sem data nem modelo — e, decisivo, a ficha NAO trata o presente da fonte como presente de hoje: faz a aritmetica de 2025-11-15 para 2026-09-04, declara a janela de 2026 fechada, corrige o registo original que dizia \"ainda em aberto para 2026\", e poe a safra 2026 inteira em C_NAO_SABEMOS. A janela tem base literal — conferi as quatro passagens uma a uma e todas existem. O portfolio bate exactamente com os 7 pares publicados e a uniao esta declarada como uniao, com a frase \"apresentar qualquer um deles como o produto seria inventar uma escolha que a fonte nao fez\". Tres departamentos SIM com razao verificavel, tres NAO com razao honesta. Nao certifico SINAL_COMPLETO por uma razao so: a ficha declara-se completa enquanto deixa por abrir ficheiros que ela propria cita e que respondem a sua pergunta tecnica central. Rebaixo por profundidade de verificacao, nao por verdade — nada aqui esta inventado nem inflacionado.",
+   "DEFEITOS": [
+    "PROVENIENCIA IMPRECISA: F_FONTE declara 'Passagem citada: offsets 36696-37791' sem til, como valor exacto. O valor real e 36573-37668 — erro de 123 caracteres. Quem seguisse o offset declarado cairia a meio de uma frase. A citacao em si e verbatim, portanto e erro de anotacao e nao de proveniencia, mas um numero apresentado como exacto tem de estar exacto.",
+    "TRABALHO POR FAZER APRESENTADO COMO DESCONHECIDO (1): C_NAO_SABEMOS item 8 e ACAO_LISTA item 5 declaram por conferir se os 5 rotulos folpet restantes (008401, 013012, 014862, 017111, 017311) trazem marciume nero ou outro apodrecimento. Conferi os cinco com um unico grep em data/samples/IT-ROTULOS-V1/testo/*.txt: TODOS contem 'Marciume nero'. A resposta estava a um comando de distancia num ficheiro que a ficha ja cita.",
+    "TRABALHO POR FAZER APRESENTADO COMO DESCONHECIDO (2), e este e o que pesa: C_NAO_SABEMOS item 6, M_CIENCIA_TECNICO e ACAO_LISTA item 3 poem como pergunta em aberto se a janela autorizada do folpet cobre a exigencia 'do primeiro tratamento ao ultimo'. E a pergunta que sustenta toda a tese comercial da ficha. Esta respondida no texto do rotulo: 008401 declara 'Non eseguire piu di 10 trattamenti all'anno per uva da vino ... ripetendoli ad intervalli di 7-10 giorni' — ou seja, exactamente a cadencia de 7 dias que a fonte usa como referencia do mancozeb. A excepcao e 016749 FOLPAN ENERGY, limitado a 'massimo di 5 trattamenti all'anno con un intervallo minimo di 14 giorni'. A ficha deixou por ler o facto que mais mudava o seu proprio veredito — e que, note-se, lhe era FAVORAVEL.",
+    "AUTOAVALIACAO SOBREDECLARADA: AUTOAVALIACAO=SINAL_COMPLETO e AUTOAVALIACAO_PORQUE afirmam que 'nenhum campo foi preenchido para fechar a ficha: onde a fonte nao deu, esta NAO SEI'. Verdade quanto a fonte; falso quanto ao acervo. Dois dos oito NAO SEI nao sao lacunas da fonte, sao leituras que a ficha nao fez em ficheiros deste repositorio.",
+    "CONFLACAO MENOR: C_OBSERVADO atribui a Emilia-Romagna a frase sobre 'multias' deixadas pela vindima mecanica. O relator da ER (offset 148497) diz 'raccolta meccanica ... mantenere un inoculo in campo che puo protrarsi da un anno all'altro' mas NAO usa a palavra mummie; quem a usa e o moderador de encerramento (offset 166602). A substancia esta certa e ambos os offsets existem, mas a palavra foi importada de um falante para o outro.",
+    "A_PRODUTOS mistura numa unica lista de 9 itens os 7 pares publicados e 2 registos sem par emitido (010587 FOLPAN SC, 011501 PARIFOL). Esta assinalado item a item e explicado em A_UNIAO_EXPLICADA ressalva 2, e confirmei em IT-VOCAB-PROPOSTA-V1.json e no texto dos rotulos que os dois contem mesmo 'Marciume nero (Guignardia bidwellii)' — portanto nao e produto inventado. Mas um consumidor a jusante que leia so o comprimento da lista conta 9 onde o conjunto publicado autoriza 7."
+   ]
   },
   {
    "CAND_ID": "ITFC-008",
-   "ESTADO": "SEM_REFUTACAO",
-   "MOTIVO": null,
-   "DEFEITOS": null
+   "ESTADO": "PARCIAL",
+   "MOTIVO": "O nucleo aguenta e aguenta bem. A citacao existe LITERALMENTE no TRANSCRIPT (`q in t` == True, indice 47166, exactamente o indice que a ficha declara em F_FONTE). As duas passagens de T_BASE_DA_JANELA existem literalmente (46876 e 47519). TODAS as dez frases de C_OBSERVADO existem literalmente. Todas as contagens de C_INFERIDO conferem no ficheiro (Geoxe 0, Teldor 0, Geox 2, Teldo 1, fludioxonil 0, fenexamid 0, fenhexamid 0, pirimetanil 0, ciprodinil 0, boscalid 0, inverno 0). Os seis produtos de A_PRODUTOS sao EXACTAMENTE os seis SUPPORTED_PAIR de CROP=VITE x TARGET=BOTRITE do IT-ROTULOS-PARES-V3.json, nem um a mais, e a uniao esta declarada como uniao com proibicao explicita de apresentar qualquer um como \"o produto\". A nota do FLUDIOXONIL confere (so em SEEDRON 016152, FRUMENTO/ORZO/AVENA/TRITICALE, nunca VITE). O estado do tempo trata correctamente o presente da fonte como passado de hoje: T_AGIR_AGORA=NAO, T_AINDA_HA_TEMPO=NAO, nove meses e meio contados, e proibicao expressa de converter isto em abordagem comercial de 2026. Nao derrubo. Mas nao dou SINAL_COMPLETO por um defeito verificado que se repete em QUATRO campos e que e carga estrutural do argumento: a ficha afirma que os seis registos estao \"posicionados a partir da retoma vegetativa\". A frase \"a partire dalla ripresa vegetativa\" existe no excerto de UM so registo (013585 SOLOFOL); em 012878, 013905, 015315, 015317 e 017432 tem zero ocorrencias. A ficha generaliza um rotulo aos seis e depois usa essa generalizacao como prova de \"um vazio verificado, nao suposto\" (M_DESENVOLVIMENTO_DE_MERCADO_RAZAO) e de que os nossos estao \"longe do momento pre-vindima\" (M_CIENCIA_TECNICO_RAZAO) — contradizendo o seu proprio C_NAO_SABEMOS (\"fase de aplicacao nao foram lidos nesta ficha\") e a sua propria ACAO_LISTA item 3, que manda reler exactamente isso. O vazio pode ser real; medido, ainda nao esta.",
+   "DEFEITOS": [
+    "SOBRE-GENERALIZACAO DE ROTULO (defeito principal, repetido em 4 campos): 'posicionado a partir da retoma vegetativa' e atribuido aos SEIS registos em A_UNIAO_EXPLICADA, M_DESENVOLVIMENTO_DE_MERCADO_RAZAO, M_CIENCIA_TECNICO_RAZAO e ACAO_PORQUE. Verificado por mim no IT-ROTULOS-PARES-V3.json: 'ripresa vegetativa' aparece em 2 linhas de 013585 (SOLOFOL) e em 0 linhas de 012878, 013905, 015315, 015317 e 017432. As linhas dos tres FLUAZINAM dizem 'applicare preventivamente' sem fase; as de FOLPAN GOLD e SESTO GOLD sao paragrafo de dose/volume. A afirmacao nao esta no conjunto publicado.",
+    "CONTRADICAO INTERNA: C_NAO_SABEMOS diz que 'intervalo de seguranca e fase de aplicacao nao foram lidos nesta ficha para alem dos excertos do conjunto de pares' e ACAO_LISTA manda relê-los — mas M_CIENCIA_TECNICO_RAZAO ja conclui que os seis estao 'longe do momento pre-vindima que o documento nomeia'. Conclusao tirada sobre leitura que a ficha declara nao ter feito.",
+    "CONHECIMENTO EXTERNO VESTIDO DE VERIFICACAO: 'nenhum e botricida especialista' e juizo de classe quimica (FOLPET/FLUAZINAM), nao facto do conjunto publicado nem do video; mesmo assim entra dentro da formula 'a medida de um vazio verificado, nao suposto'.",
+    "IMPRECISAO DE INDICE (menor): T_BASE_DA_JANELA da '~46975' para a passagem das chuvas de setembro; o valor real e 46876 (99 caracteres de desvio). A segunda passagem ('~47528') esta em 47519 e a citacao do Veneto ('~77660') em 77620. Todas com til e todas com texto literal confirmado — imprecisao, nao fabricacao.",
+    "USO SEM RESSALVA NO CAMPO ERRADO (menor): M_DESENVOLVIMENTO_DE_MERCADO_RAZAO apresenta 'riunioni in campo' como 'via de recomendacao ja em uso' sem repetir a ressalva que a propria ficha faz em C_OBSERVADO e em M_COMERCIAL_RTV_RAZAO — foi dito a proposito da desfolha, nao do botricida, e sem data."
+   ]
   },
   {
    "CAND_ID": "ITFC-009",
@@ -239,12 +258,6 @@
   },
   {
    "CAND_ID": "ITFC-028",
-   "ESTADO": "SEM_REFUTACAO",
-   "MOTIVO": null,
-   "DEFEITOS": null
-  },
-  {
-   "CAND_ID": "ITFC-029",
    "ESTADO": "SEM_REFUTACAO",
    "MOTIVO": null,
    "DEFEITOS": null
@@ -965,10 +978,10 @@
   },
   {
    "CAND_ID": "ITFC-005",
-   "ESTADO": "SEM_REFUTACAO",
-   "MOTIVO_DO_VEREDITO": null,
-   "VALOR": null,
-   "VALOR_PORQUE": null,
+   "ESTADO": "PARCIAL",
+   "MOTIVO_DO_VEREDITO": "O nucleo aguenta e aguenta bem: a citacao de 496 caracteres existe literalmente no ficheiro no indice 155.899 (`q in t` = True, conferido por mim), o portfolio esta exacto (MELO x TICCHIOLATURA devolve precisamente os tres registos CAPTAN declarados, e DITHIANON/METIRAM estao mesmo ausentes das 43 substancias), os limites de rotulo foram lidos e correctamente atribuidos (os 10 tratamentos/ano e 15,1 kg/ha ficam imediatamente sob o bloco das pomacee em 008102, e nao sao os 4 tratamentos/10,2 kg do Pesco), a correccao do fluazinam exigida pela regua foi aplicada, e quatro departamentos tem razao ancorada em facto desta ficha. Nao derrubo. Mas rebaixo de SINAL_COMPLETO por tres defeitos verificados. Primeiro e mais grave: a janela diz \"Tudo literal do documento\" e e verdade a letra, mas as quatro citacoes que efectivamente FIXAM o calendario (meados de marco, culminar a meados de abril, esgotamento em maio, fim do voo de ascosporos a 28/24 de maio) nao vem do Piemonte nem do Friuli — vem do TRENTINO (relacao de Debora Gabardi, indices 50.765/50.886/50.941) e da VALLE D'AOSTA (relacao de Sandro Dallu, indice 112.268). Mapeei todos os passes de palavra para confirmar. Numa ficha que se gaba de \"Nao herdadas\" para F_REGIAO e que declara como inferencia ate as grafias do ASR, esta transferencia inter-regional nao esta declarada em lado nenhum. Segundo: a ficha suprime a causa que a fonte poe em primeiro lugar. O relator do FVG diz que o pacote de 18 nao chegou \"a causa in primis dell'andamento climatico, soprattutto il periodo di maggio e i continui dilavamenti\", e a propria relacao do FVG diz \"ma avere avuto eventi piovosi di lavanti, elevate piovosita\"; F_O_QUE_ACONTECEU afirma \"Duas causas nomeadas no proprio documento\" e lista so a saida do metiram e a extensao do ditianon. A causa apagada e exactamente a contingente, aquela de que depende a invalidacao declarada — apaga-la faz passar por estrutural um estouro que a fonte atribui primeiro a chuva. Terceiro: o TITULO_OPERACIONAL afirma que o teto \"ja subiu 14→16→18\" quando C_NAO_SABEMOS diz \"O documento so regista o PEDIDO\" e a fonte diz apenas \"abbiam chiesto di passare a 18\" — contradicao interna no campo mais visivel do cartao.",
+   "VALOR": "MEDIO",
+   "VALOR_PORQUE": "Ha decisao que muda, mas amortecida. Do lado do valor: existe argumento tecnico concretamente escrevivel — posicionar o captano como parceiro de copertura na fase das primarias, com dose de rotulo (150-160 g/hl, max 2 kg/ha) e com o tecto proprio (10 tratamentos/ano, 15,1 kg/ha, 21 dias de carencia, todos conferidos por mim linha a linha nos tres rotulos) — para levar aos gruppi di difesa de duas regioes nomeadas antes de se fixar o numero de 2027; existem duas perguntas regulatorias concretas e respondiveis (como conta o disciplinare os 18 — por substancia, por produto ou pelo par; se a carencia acomoda a extensao estival); e existe campo a avisar, com data e forum reais, porque o ciclo de disciplinari e recorrente. E raro: o sinal aponta para dentro do portfolio, nao para um vazio. Do lado que trava: o captano ja esta registado, portanto nao ha registo a pedir, so posicao a defender; o tecto de 18-20 e do PAR captano+ditianon e a casa nao tem ditianon nem metiram (verificado — ausentes das 43 substancias), pelo que uma subida do tecto nao se converte em volume nosso; e o nosso proprio rotulo para nos 10 tratamentos, muito abaixo do tecto regional, o que limita por si quanto do aumento o captano pode ocupar — limitacao que a propria ficha reconhece e que usa, correctamente, para dizer NAO ao Marketing. Acresce que nada e decidivel hoje: tudo depende de fechar primeiro os nove meses cegos, dentro dos quais a invalidacao pode ja ter disparado. Nao e BAIXO — nao e facto fascinante e inerte, prepara materia utilizavel num forum datavel. Nao e ALTO — nenhuma decisao se toma antes de alguem ir apurar o numero de 2026.",
    "NOMEADO_PELO_USUARIO": false,
    "SOURCE_ID": "4ybyIcvgUhg",
    "TITULO": "Melo/ticchiolatura no Piemonte e no Friuli: o teto de tratamentos de copertura captano+ditianon dos disciplinari ja subiu 14→16→18 e pode subir outra vez — e o captano e a unica metade desse pacote que temos registada",
@@ -1083,23 +1096,35 @@
    "G_HORIZONTE": "PROXIMA_SAFRA",
    "AUTOAVALIACAO_DO_AUTOR": "PARCIAL",
    "AUTOAVALIACAO_PORQUE": "A ficha tem as tres coisas: janela com base literal no documento (primarias de meados de marco a maio, cauda de junho, extensao estival), portfolio lido e nao lembrado (tres registos CAPTAN, e a ausencia dos outros dois confirmada nos 35 rotulos sem par), e departamentos acionaveis (Desenvolvimento de Mercado, Ciencia/Tecnico, Supply, Regulatorio). Mesmo assim digo PARCIAL, por uma falha que nao consigo tapar por dentro: entre a publicacao do documento (2025-12-05) e hoje (2026-09-04) passaram nove meses e uma campanha inteira que esta ficha nao observou, e e dentro desses nove meses que vivem tanto o gatilho (o pedido de aumento para a campanha seguinte) como a invalidacao (uma primavera em que os 18 bastassem, o regresso de um multissitio de copertura, ou a recusa do aumento por residuos). A ficha e usavel para preparar, mas nao pode afirmar que o sinal continua de pe — a primeira accao da lista existe exatamente para responder a isso. Falta ainda, e nao esta no documento, o calendario de revisao dos disciplinari e a regra de contagem dos 18: sem eles nao sei dizer quanto do teto o captano pode ocupar.",
-   "DEFEITOS_ENCONTRADOS": null,
-   "CORRECOES_OBRIGATORIAS": null,
-   "JANELA_INVENTADA": null,
-   "UNIAO_MAQUIADA": null,
-   "PORTFOLIO_ERRADO": null,
-   "CITACAO_CONFERIDA_PELO_REFUTADOR": null,
-   "REFUTADOR_LEU_A_FICHA_INTEIRA": null,
-   "CAMPOS_QUE_O_REFUTADOR_NAO_VIU": null,
-   "ESTADO_DO_TEMPO_ERRADO": null,
-   "HORIZONTE_ERRADO": null
+   "DEFEITOS_ENCONTRADOS": [
+    "JANELA COM BASE IMPORTADA DE OUTRAS REGIOES, NAO DECLARADA. T_BASE_DA_JANELA afirma 'Tudo literal do documento' e e literalmente verdade, mas os quatro ancoradouros datados que fixam o calendario pertencem a relacoes de terceiras regioes: 'la malattia e iniziata ... gia a meta del mese di marzo' (idx 50.765), 'Il culmine si e verificato a meta aprile circa' (50.886) e 'si sono esaurite le le infezioni primarie durante il mese di maggio' (50.941) sao do TRENTINO (Debora Gabardi, Fondazione MAC, bloco 44.258-59.804); 'la fine del volo della Scospore che e stato il 28 di maggio per il 24 e il 24 di maggio nel 25' (112.268) e da VALLE D'AOSTA (Sandro Dallu, bloco 108.307-116.665). Nenhuma das duas e regiao deste sinal. So quatro das oito bases sao do Piemonte, do FVG ou dos seus oradores na discussao.",
+    "CAUSA SUPRIMIDA — A QUE A FONTE POE PRIMEIRO. F_O_QUE_ACONTECEU declara 'Duas causas nomeadas no proprio documento' (saida do metiram; extensao estival do ditianon) e omite a terceira, que na discussao vem em primeiro lugar: 'il pacchetto che abbiamo di captani ... pari a 18 quest'anno non e stato sufficiente a causa in primis dell'andamento climatico, soprattutto il periodo di maggio e i continui dilavamenti'. A relacao do FVG repete-a: 'ma avere avuto eventi piovosi di lavanti, elevate piovosita, il pacchetto ... non e stato sufficiente'. Ao apagar a chuva, a ficha converte um estouro que a fonte atribui primeiro ao ano meteorologico num deficit estrutural — e enfraquece silenciosamente a propria invalidacao declarada ('uma primavera com chuvas espacadas em que o pacote de 18 baste').",
+    "CONTRADICAO INTERNA NO TITULO. TITULO_OPERACIONAL afirma que o teto 'ja subiu 14→16→18'; C_NAO_SABEMOS diz o contrario — 'Se os disciplinari 2026 do Piemonte e do FVG concederam de facto os 18 ... O documento so regista o PEDIDO' — e a fonte so tem 'ora quest'anno abbiam chiesto di passare a 18'. O 18 e pedido, nao concedido; o campo mais visivel do cartao afirma-o como facto consumado.",
+    "PROPRIEDADE DE PRODUTO NAO SUSTENTADA. M_CIENCIA_TECNICO_RAZAO manda escrever o posicionamento do captano com 'resistencia a lavagem'. Essa propriedade nao esta no documento nem nos tres rotulos que conferi (008102, 011500, 012156); e atributo tecnico acrescentado pelo autor num campo que a ficha apresenta como ancorado em factos do documento.",
+    "EXPECTATIVA JA VENCIDA E NAO RESOLVIDA. O EXPECTED da fonte era sobre 'la prossima stagione', isto e 2026. Em 2026-09-04 essa estacao ja passou inteira. A ficha assume o custo honestamente (C_NAO_SABEMOS #1, AUTOAVALIACAO, primeira accao da lista), mas o rotulo temporal descreve hoje uma expectativa cujo prazo de resolucao expirou sem ninguem a ter ido verificar."
+   ],
+   "CORRECOES_OBRIGATORIAS": [
+    "Marcar em T_BASE_DA_JANELA, ou mudar C_INFERIDO, que o calendario das primarias (meados de marco, culminar a meados de abril, esgotamento em maio) e o fim do voo de ascosporos (28/05 em 2024, 24/05 em 2025) NAO sao do Piemonte nem do Friuli: sao da relacao do Trentino e da relacao da Valle d'Aosta. Ou se declara a transferencia como inferencia, ou se substitui pelo que as duas regioes do sinal dizem por si — o FVG tem 'L'obiettivo arrivare alla fine delle infezioni primarie ...' e os intervalos de 12-14 dias; o Piemonte tem o 'risparmiare qualcosina sul ditian ... nel mese di giugno'. Enquanto ficar como esta, a ficha herda fenologia de regiao alheia no exacto ponto em que se gaba de nao herdar.",
+    "Repor a causa suprimida em F_O_QUE_ACONTECEU: passar de 'Duas causas' para tres, com a meteorologia em primeiro lugar, citando 'a causa in primis dell'andamento climatico, soprattutto il periodo di maggio e i continui dilavamenti' e 'ma avere avuto eventi piovosi di lavanti, elevate piovosita'. Sem isto, a ficha faz passar por estrutural um estouro que a fonte atribui primeiro a chuva, e esvazia a sua propria invalidacao.",
+    "Corrigir o TITULO_OPERACIONAL: o teto nao 'ja subiu 14→16→18'. Subiu 14→16 e o 18 foi PEDIDO ('abbiam chiesto di passare a 18'), como a propria ficha admite em C_NAO_SABEMOS. Escrever '14→16 e pediu 18' ou equivalente. Corrigir tambem a fusao implicita das duas escadas: os 18 do Piemonte (pedido) e os 18 do FVG (esgotado, +2) sao numeros de regioes diferentes e o documento nunca os junta — a ficha ja o diz em C_INFERIDO, mas o titulo funde-os.",
+    "Retirar 'resistencia a lavagem' de M_CIENCIA_TECNICO_RAZAO, ou dar-lhe fonte. Nao esta no documento nem nos tres rotulos.",
+    "Antes de qualquer uso do cartao, executar a primeira accao da lista — apurar em que numero ficaram os disciplinari 2026 do Piemonte e do FVG e se o metiram (ou multissitio equivalente de copertura pre-floral) reentrou depois de 2025-12-05. A expectativa da fonte era sobre 2026, e 2026 ja acabou: o sinal nao pode ser apresentado como de pe sem essa verificacao."
+   ],
+   "JANELA_INVENTADA": "NAO",
+   "UNIAO_MAQUIADA": "NAO",
+   "PORTFOLIO_ERRADO": "NAO",
+   "CITACAO_CONFERIDA_PELO_REFUTADOR": "SIM",
+   "REFUTADOR_LEU_A_FICHA_INTEIRA": "SIM",
+   "CAMPOS_QUE_O_REFUTADOR_NAO_VIU": [],
+   "ESTADO_DO_TEMPO_ERRADO": "NAO",
+   "HORIZONTE_ERRADO": "NAO"
   },
   {
    "CAND_ID": "ITFC-006",
-   "ESTADO": "SEM_REFUTACAO",
-   "MOTIVO_DO_VEREDITO": null,
-   "VALOR": null,
-   "VALOR_PORQUE": null,
+   "ESTADO": "SINAL_COMPLETO",
+   "MOTIVO_DO_VEREDITO": "Tentei derrubar esta ficha por sete vias e nenhuma pegou. (1) CITACAO: `q in TRANSCRIPT` devolve True, indice exacto 147873 de 176835 — a corrida inteira, de \"Ovviamente, come anticipava eh Gastone\" a \"un evento abbastanza unico fino ad ora\", e literal e continua. O offset declarado pela ficha (147873) e exacto; o registo original da regua dizia 147933 e e que estava errado. (2) JANELA: T_BASE_DA_JANELA cita tres marcos e li os tres no ficheiro — 2024 \"a fine marzo ci sono sviluppate ... una grossa infezione primaria i cui strasci ... durante tutti i mesi di aprile e maggio\" (~50190), 2025 \"infezioni medio gravi gia a meta del mese di marzo. Il culmine ... a meta aprile circa ... si sono esaurite le infezioni primarie durante il mese di maggio\" (~50820), e \"piogge molto intense gia nel periodo di di fine marzo\" (147638). Nao e agronomia generica: e a propria relatora do Trentino, mesma cultura, mesmo alvo, mesma regiao. (3) PORTFOLIO: filtrei IT-ROTULOS-PARES-V3.json (163 rotulos, 2928 pares, numero que a ficha da correctamente e a regua dava errado como 2845). MELO x TICCHIOLATURA devolve exactamente 3 registos, exactamente os tres listados, todos CAPTAN. Confirmei tambem a nota honesta sobre fluazinam: 013905 BANJO, 015315 EMBRACE e 017432 AGHARTA existem so como PERO x TICCHIOLATURA, nunca MELO. Lista apresentada explicitamente como uniao de autorizacoes, com a frase \"Nenhum destes tres pode ser apresentado como 'o produto' deste sinal\". (4) DEPARTAMENTOS: os dois SIM apontam para factos desta ficha que verifiquei um a um — a pergunta que ficou sem resposta na sala (146813, e confirmei lendo 148700-150400 que ninguem responde: o tema muda para scopazzi/psille), o captaspore ja em uso no corpus (130290 Emilia-Romagna, 87290 \"il 25 di aprile si era azzerato l'inoculo svernante ... confermato anche da capaspore\") e as duas pre-condicoes ditas pela relatora (inoculo elevado + chuva pesada, ~148500). Os quatro NAO tem razoes honestas, nao preguica. (5) ESTADO DO TEMPO: SCENARIO aguenta. A protase e literal (\"se dovesse per caso ripresentarsi negli anni successivi\") e o modal \"eventualmente\" recusa FORECAST; o facto de 2024 fica como observado e nao e promovido a alegacao. Nao ha nenhum \"adesso\" da fonte tratado como agora: a ficha declara expressamente que o balanco cobre 24/25, que nao reporta repeticao em 2025 e que sobre 2026 e mudo. Nao ha clima convertido em ocorrencia de doenca: a cadeia mecanistica (mais horas de molhamento, evento infectivo mais cedo) esta arrumada em C_INFERIDO como nao escrita no documento. Reparo importante: o texto diz que o inoculo acumulado de 2024 \"si e ripresentato nel 2025\" — nao o voo nocturno; a ficha nao confunde as duas coisas. (6) HORIZONTE: PROXIMA_SAFRA bate. Entre 2025-12-05 e hoje 2026-09-04 passou a epoca primaria inteira de 2026 sem observacao, e a ficha assume-o em vez de o esconder; a decisao e pre-estacional e vence antes de marco de 2027. (7) HERANCA: a rota declarava MELO+PERO e sete regioes; a ficha estreitou para MELO+Trentino com ancoras dentro do proprio dialogo (146581 \"nella relazione del Trentino\") e excluiu PERO por ser outro relator noutra regiao — confirmei que o bloco pero/Venturia pirina e Emilia-Romagna, ~129100. A ficha ainda faz o que a regua so tinha pedido: a clausula do sinal original \"os avisos e modelos pressupoem libertacao diurna\" e explicitamente marcada como inferencia nossa e nao do documento, e confirmei que \"diurno\"/\"diurna\" tem ZERO ocorrencias nas 176.835 letras. Os cinco requisitos de SINAL_COMPLETO estao todos satisfeitos e nenhum deles com duvida que justifique rebaixar. Os defeitos que encontrei sao de acabamento e nao tocam citacao, estado do tempo, janela, portfolio nem departamento. Nota separada: SINAL_COMPLETO aqui certifica integridade probatoria, nao peso comercial — dai VALOR=BAIXO.",
+   "VALOR": "BAIXO",
+   "VALOR_PORQUE": "Medido por decisao que muda, hoje nao muda nenhuma. Nenhum campo foi avisado (M_COMERCIAL_RTV=NAO, e bem: a janela primaria de 2026 fechou em maio e nao ha accao de outono para este alvo). Nenhum argumento tecnico foi preparado (M_MARKETING=NAO, porque a clausula que daria titulo — 'os modelos assumem libertacao diurna' — nao existe no documento). Nenhum stock foi verificado (M_SUPPLY=NAO, e a ficha demonstra porque: o cenario desloca o MOMENTO das coberturas, nunca o numero; 'rivedere', nao 'aumentare'). Nenhum registo foi pedido (M_REGULATORIO=NAO: os tres rotulos ja trazem 'ticchiolatura (Venturia spp.)' sem restricao de calendario). A_OPORTUNIDADE=FUTURA e nao ATUAL, e a propria ficha proibe o uso comercial do unico gancho de portfolio: 'Enquanto o cenario nao se realizar, isto e hipotese de trabalho e nao argumento de venda'. O que resta e dois telefonemas a Fondazione Mach e uma pergunta a seis regioes, mais um pedido para registar a HORA da captura na primavera de 2027 — que a propria ficha admite poder ser inexequivel, porque nao sabemos se ha captaspore acessivel em melo no Trentino. E tudo isto pende de um evento que a relatora viu duas vezes na carreira, que nao existe na bibliografia, que o balanco 24/25 nao reporta como repetido, cuja unica outra oportunidade de observacao (2026) ja passou sem que ninguem olhasse, e que a propria fonte admite poder ser artefacto de armadilha. Os tres registos captan MELO x TICCHIOLATURA existem independentemente deste sinal e nao foram criados por ele — contar essa posicao de mercado como valor deste facto seria exactamente o que a ficha, com razao, se recusa a fazer. Fascinante como fenomeno, quase nulo como decisao: BAIXO. Se as duas perguntas voltarem negativas, arquivar, como a propria AUTOAVALIACAO manda.",
    "NOMEADO_PELO_USUARIO": false,
    "SOURCE_ID": "4ybyIcvgUhg",
    "TITULO": "Melo, Trentino — ticchiolatura: se il volo notturno di ascospore del 2024 si ripete, cambia da quando si conta l'infezione e vanno rivisti tutti i momenti di intervento della fase primaria (fine marzo–maggio)",
@@ -1221,23 +1246,37 @@
    "G_HORIZONTE": "PROXIMA_SAFRA",
    "AUTOAVALIACAO_DO_AUTOR": "SINAL_COMPLETO",
    "AUTOAVALIACAO_PORQUE": "A ficha tem as tres pecas e todas vieram de leitura: JANELA com base documental na propria relacao do Trentino (fase primaria de fim de marco a maio, culminacao a meados de abril, char 50190-50990) e nao de agronomia geral; PORTFOLIO com par real no conjunto publicado (tres registos captan para MELO x TICCHIOLATURA, apresentados como uniao de autorizacoes e nao como escolha); e DOIS departamentos accionaveis com razao ancorada em facto — Desenvolvimento de Mercado, que fecha uma pergunta que ficou aberta na propria sala, e Ciencia/Tecnico, que tem instrumento e protocolo. Marco SINAL_COMPLETO com tres reservas que ficam registadas e nao escondidas: (1) uma clausula do sinal original nao tem base — o documento nunca diz que os modelos assumem libertacao diurna, e 'diurno' tem zero ocorrencias; a ficha corrige-a em C_INFERIDO e na lista de accao. (2) A consequencia comercial hoje e NULA: quatro dos seis departamentos sao NAO, e por boas razoes, nao por falta de trabalho. (3) Falta o mais importante para decidir — se o fenomeno se repetiu depois de 2024 e qual a regra de contagem que o Trentino usa. Sao exactamente as duas perguntas da lista de accao. Se ambas voltarem negativas, este sinal deve ser arquivado e nao reciclado.",
-   "DEFEITOS_ENCONTRADOS": null,
-   "CORRECOES_OBRIGATORIAS": null,
-   "JANELA_INVENTADA": null,
-   "UNIAO_MAQUIADA": null,
-   "PORTFOLIO_ERRADO": null,
-   "CITACAO_CONFERIDA_PELO_REFUTADOR": null,
-   "REFUTADOR_LEU_A_FICHA_INTEIRA": null,
-   "CAMPOS_QUE_O_REFUTADOR_NAO_VIU": null,
-   "ESTADO_DO_TEMPO_ERRADO": null,
-   "HORIZONTE_ERRADO": null
+   "DEFEITOS_ENCONTRADOS": [
+    "FIDELIDADE DE CITACAO SECUNDARIA (real, menor): C_OBSERVADO poe entre aspas 'soltanto quando c'era un un potenziale di noculo molto elevato, quindi tante ascospore pronte a essere lasciate e in corrispondenza di una pioggia pesante' — a transcricao real (148490-148660) diz 'tante ehm ascospore' e 'in corrispondenza di una m viene da dire ehm una pioggia pesante'. Os fillers foram removidos silenciosamente dentro das aspas. O sentido nao muda, mas a ficha nao pode limpar ASR dentro de aspas sem o dizer, sobretudo depois de F_FONTE avisar que esta transcricao corrompe palavras.",
+    "MESMA FALHA, SEGUNDA OCORRENCIA: M_CIENCIA_TECNICO_RAZAO e C_OBSERVADO citam 'le prime ascospore rilasciate una due settimane prima della rottura gemme'. Verifiquei: essa string NAO existe. O ficheiro tem 'le prime scospore rilasciate una due settimane prima della rottura gemme' (~114851 e ~130290). O erro de ASR foi corrigido em silencio dentro das aspas.",
+    "OFFSETS SECUNDARIOS SISTEMATICAMENTE ADIANTADOS ~40-80 CARACTERES: 147543 aponta para texto que comeca em 147587; 148491 para 'pioggia pesante' que esta em 148658; 148434 para uma frase que arranca em ~148450; 50492 para 'volo di spor notturno' em 50556; 87330 para '25 di aprile' em ~87290; 44380 para 'Debora Gabardi' em 44452. Todos os fragmentos EXISTEM na vizinhanca declarada, portanto sao verificaveis e nao inventados — mas apontam para o inicio da frase envolvente e nao para a string. Contrasta com o offset da citacao principal, que e exacto ao caracter.",
+    "ACAO_CLASSE=PREPARAR e generosa. Das cinco accoes, tres sao perguntas ou observacao futura (vigilancia), uma e 'registar internamente, SEM comunicar' (por definicao nao accionavel) e uma e corrigir a redaccao do proprio sinal (higiene interna, nao trabalho de campo). Nada na lista se prepara que nao se preparasse igualmente sob MONITORAR. A ficha defende a distincao ('perguntas com destinatario e prazo') e a defesa e razoavel, mas e a linha mais fina da ficha.",
+    "TENSAO INTERNA NAO RESOLVIDA: AUTOAVALIACAO=SINAL_COMPLETO convive com tres reservas escritas pela propria ficha — a consequencia comercial e NULA, quatro dos seis departamentos sao NAO, e faltam os dois factos que decidem (se repetiu depois de 2024 e qual a regra de contagem do Trentino). A etiqueta le-se mais forte do que o conteudo. E honesto porque as reservas estao escritas, mas quem consumir so o cabecalho fica com a impressao errada.",
+    "NOTA DE CADEIA (defeito a montante, nao da ficha): o registo original em IT-FUTURO-JULGADOS-V1.json localiza a citacao no char 147933 e conta 2845 pares no conjunto de rotulos. Os valores reais sao 147873 e 2928. A ficha corrigiu ambos sem o assinalar; deveria te-lo assinalado, porque quem comparar os dois documentos vai suspeitar da ficha e nao da regua."
+   ],
+   "CORRECOES_OBRIGATORIAS": [
+    "Repor os fillers ou marcar a elisao nas duas citacoes secundarias limpas: usar 'tante ehm ascospore pronte a essere lasciate e in corrispondenza di una [...] pioggia pesante' e 'le prime scospore rilasciate' (forma ASR real), ou entao sinalizar com [sic]/[...] o que foi tocado. Numa fonte que F_FONTE declara corrompida, limpar dentro de aspas destroi a unica defesa da ficha.",
+    "Reapontar os offsets secundarios para a posicao real da string citada (147587 em vez de 147543; 148658 em vez de 148491; 148450 em vez de 148434; 50556 em vez de 50492; 87290 em vez de 87330; 44452 em vez de 44380), ou declarar explicitamente que os offsets marcam o inicio da frase envolvente e nao a citacao.",
+    "Assinalar as duas divergencias face ao registo original da regua em vez de as corrigir em silencio: a citacao esta em 147873 e nao em 147933, e o conjunto de rotulos tem 2928 pares e nao 2845. Sem essa nota, o leitor que comparar vai desconfiar da peca errada.",
+    "Baixar ACAO_CLASSE de PREPARAR para MONITORAR, ou remover da ACAO_LISTA os dois itens que nao sao trabalho externo (o registo interno nao comunicavel e a auto-correccao da redaccao do sinal), deixando so as tres perguntas com destinatario e prazo. Cinco itens dos quais dois sao higiene interna inflam a aparencia de accionabilidade.",
+    "Acrescentar ao cabecalho da AUTOAVALIACAO, e nao so ao corpo, que SINAL_COMPLETO aqui certifica integridade de leitura e nao peso de decisao — a consequencia comercial hoje e nula e os dois factos que decidem estao em falta. Quem so ler a etiqueta fica com a impressao errada.",
+    "Registar explicitamente em C_NAO_SABEMOS que a epoca primaria de 2026 inteira decorreu entre a publicacao (2025-12-05) e hoje (2026-09-04) sem que ninguem tenha verificado se o voo nocturno se repetiu — a ficha deduz isso correctamente em T_PORQUE, mas nunca o diz como lacuna de observacao, que e a lacuna mais cara deste sinal."
+   ],
+   "JANELA_INVENTADA": "NAO",
+   "UNIAO_MAQUIADA": "NAO",
+   "PORTFOLIO_ERRADO": "NAO",
+   "CITACAO_CONFERIDA_PELO_REFUTADOR": "SIM",
+   "REFUTADOR_LEU_A_FICHA_INTEIRA": "SIM",
+   "CAMPOS_QUE_O_REFUTADOR_NAO_VIU": [],
+   "ESTADO_DO_TEMPO_ERRADO": "NAO",
+   "HORIZONTE_ERRADO": "NAO"
   },
   {
    "CAND_ID": "ITFC-007",
-   "ESTADO": "SEM_REFUTACAO",
-   "MOTIVO_DO_VEREDITO": null,
-   "VALOR": null,
-   "VALOR_PORQUE": null,
+   "ESTADO": "PARCIAL",
+   "MOTIVO_DO_VEREDITO": "Tentei derrubar por todos os sete testes e nenhum caiu. A citacao existe LITERALMENTE e CONTIGUA no ficheiro (offset 36573, match exacto de 1095 caracteres, sem normalizacao); a ficha ate corrigiu o defeito que a regua tinha mandado corrigir, estendendo a citacao ate \"il suo controllo\" e preenchendo a elipse com a frase real. O estado do tempo EXPECTED aguenta: o gatilho (saida do ditiocarbamato em 2025) e facto consumado, a projeccao e explicita da fonte com mecanismo declarado, sem data nem modelo — e, decisivo, a ficha NAO trata o presente da fonte como presente de hoje: faz a aritmetica de 2025-11-15 para 2026-09-04, declara a janela de 2026 fechada, corrige o registo original que dizia \"ainda em aberto para 2026\", e poe a safra 2026 inteira em C_NAO_SABEMOS. A janela tem base literal — conferi as quatro passagens uma a uma e todas existem. O portfolio bate exactamente com os 7 pares publicados e a uniao esta declarada como uniao, com a frase \"apresentar qualquer um deles como o produto seria inventar uma escolha que a fonte nao fez\". Tres departamentos SIM com razao verificavel, tres NAO com razao honesta. Nao certifico SINAL_COMPLETO por uma razao so: a ficha declara-se completa enquanto deixa por abrir ficheiros que ela propria cita e que respondem a sua pergunta tecnica central. Rebaixo por profundidade de verificacao, nao por verdade — nada aqui esta inventado nem inflacionado.",
+   "VALOR": "MEDIO",
+   "VALOR_PORQUE": "Medido por decisao que muda, e nao por interesse: ha tres coisas que mudam hoje e nenhuma e uma venda. (1) REGISTO PEDIDO — a correccao de portfolio e concreta, interna e nao depende de ninguem no campo: emitir par VITE x MARCIUME para 010587 e 011501 e abrir ISSUE_BLACK_ROT como token proprio. Confirmei que os 7 pares subcontam e que o token MARCIUME agrega quatro doencas distintas; enquanto isso nao se corrigir, qualquer numero interno de 'cobertura ADAMA em black rot' e indefensavel. (2) ARGUMENTO TECNICO PREPARADO — a fonte entrega de graca a referencia a bater (mancozeb, 7 dias, meia dose, em mistura, 100% de proteccao), o local (Pordenone), a fase critica (alegacao-fechamento de cacho, Junho), o risco tardio (invaiatura, fim de Julho) e o confundidor (Junho quente e seco mascara a doenca — sem controlar isso um ensaio de 2027 devolve 'sem diferenca' por meteorologia). Isso e um protocolo que so pode ser escrito agora. (3) MONITORIZAVEL com gatilho e data: bilancio 2026 do FVG, disciplinari 2027 do FVG e Veneto, derrogacao de mancozeb. E o encaixe de rotulo e melhor do que a propria ficha reclama: 016749 FOLPAN ENERGY tem no cabecalho 'per il controllo di peronospora, marciume nero ed escoriosi della vite' com dose dedicada de 400 ml/hl, e a gama folpet recta permite 10 tratamentos/ano em uva da vino a intervalos de 7-10 dias, que e a cadencia do produto que saiu. Nao e ALTO: nao ha um unico dado de eficacia de folpet contra black rot, nao ha area nem volume, nao ha sintoma no campo em Pordenone (duas safras 'tranquille') e o proprio relator diz que os produtos de cobertura nao sao 'neanche minimamente paragonabile'. Nao ha campo a avisar nem stock a verificar hoje. Nao e BAIXO: nao e um facto fascinante e inerte — e um buraco de calendario nomeado por um servico fitossanitario regional, com uma autorizacao de rotulo que cabe la dentro e uma safra inteira de antecedencia para chegar a 2027 com dados em vez de com uma afirmacao.",
    "NOMEADO_PELO_USUARIO": true,
    "SOURCE_ID": "8_rnThlsy9Q",
    "TITULO": "Vite no Friuli (Pordenone): sem ditiocarbamatos, o calendário anti-peronóspora ficou sem alicerce contra o black rot — que parceiro de cobertura entra em 2027",
@@ -1364,23 +1403,37 @@
    "G_HORIZONTE": "PROXIMA_SAFRA",
    "AUTOAVALIACAO_DO_AUTOR": "SINAL_COMPLETO",
    "AUTOAVALIACAO_PORQUE": "A ficha fecha nos três eixos: tem JANELA com base literal no documento (chuvas de Abril, fase crítica alegação→fechamento de cacho em Junho, risco tardio à invaiatura em fim de Julho/início de Agosto, intervalo de referência de 7 dias — nenhum destes elementos veio de agronomia geral, todos estão escritos no ficheiro); tem PORTFOLIO conferido no conjunto publicado, com dois rótulos que nomeiam Guignardia bidwellii ao nível da frase; e tem três departamentos accionáveis com razão ligada a factos desta ficha (Desenvolvimento de Mercado, Ciência/Técnico, Regulatório/Portfolio). Isto dito, três lacunas viajam com ela e não devem ser esquecidas por a autoavaliação ser completa: (1) NÃO temos um único dado de eficácia de folpet contra black rot — o único número de eficácia no documento é do produto que saiu; (2) NÃO sabemos o que aconteceu na safra 2026, que é precisamente a primeira observação capaz de confirmar ou refutar o mecanismo de acumulação, e o documento é de Novembro de 2025; (3) a contagem do portfolio é sabidamente baixa (7 pares publicados contra ≥9 rótulos com a frase) e assenta num token de sintoma que agrega quatro doenças. As três estão registadas em C_NAO_SABEMOS e traduzidas em acções. Nenhum campo foi preenchido para fechar a ficha: onde a fonte não deu, está NAO SEI.",
-   "DEFEITOS_ENCONTRADOS": null,
-   "CORRECOES_OBRIGATORIAS": null,
-   "JANELA_INVENTADA": null,
-   "UNIAO_MAQUIADA": null,
-   "PORTFOLIO_ERRADO": null,
-   "CITACAO_CONFERIDA_PELO_REFUTADOR": null,
-   "REFUTADOR_LEU_A_FICHA_INTEIRA": null,
-   "CAMPOS_QUE_O_REFUTADOR_NAO_VIU": null,
-   "ESTADO_DO_TEMPO_ERRADO": null,
-   "HORIZONTE_ERRADO": null
+   "DEFEITOS_ENCONTRADOS": [
+    "PROVENIENCIA IMPRECISA: F_FONTE declara 'Passagem citada: offsets 36696-37791' sem til, como valor exacto. O valor real e 36573-37668 — erro de 123 caracteres. Quem seguisse o offset declarado cairia a meio de uma frase. A citacao em si e verbatim, portanto e erro de anotacao e nao de proveniencia, mas um numero apresentado como exacto tem de estar exacto.",
+    "TRABALHO POR FAZER APRESENTADO COMO DESCONHECIDO (1): C_NAO_SABEMOS item 8 e ACAO_LISTA item 5 declaram por conferir se os 5 rotulos folpet restantes (008401, 013012, 014862, 017111, 017311) trazem marciume nero ou outro apodrecimento. Conferi os cinco com um unico grep em data/samples/IT-ROTULOS-V1/testo/*.txt: TODOS contem 'Marciume nero'. A resposta estava a um comando de distancia num ficheiro que a ficha ja cita.",
+    "TRABALHO POR FAZER APRESENTADO COMO DESCONHECIDO (2), e este e o que pesa: C_NAO_SABEMOS item 6, M_CIENCIA_TECNICO e ACAO_LISTA item 3 poem como pergunta em aberto se a janela autorizada do folpet cobre a exigencia 'do primeiro tratamento ao ultimo'. E a pergunta que sustenta toda a tese comercial da ficha. Esta respondida no texto do rotulo: 008401 declara 'Non eseguire piu di 10 trattamenti all'anno per uva da vino ... ripetendoli ad intervalli di 7-10 giorni' — ou seja, exactamente a cadencia de 7 dias que a fonte usa como referencia do mancozeb. A excepcao e 016749 FOLPAN ENERGY, limitado a 'massimo di 5 trattamenti all'anno con un intervallo minimo di 14 giorni'. A ficha deixou por ler o facto que mais mudava o seu proprio veredito — e que, note-se, lhe era FAVORAVEL.",
+    "AUTOAVALIACAO SOBREDECLARADA: AUTOAVALIACAO=SINAL_COMPLETO e AUTOAVALIACAO_PORQUE afirmam que 'nenhum campo foi preenchido para fechar a ficha: onde a fonte nao deu, esta NAO SEI'. Verdade quanto a fonte; falso quanto ao acervo. Dois dos oito NAO SEI nao sao lacunas da fonte, sao leituras que a ficha nao fez em ficheiros deste repositorio.",
+    "CONFLACAO MENOR: C_OBSERVADO atribui a Emilia-Romagna a frase sobre 'multias' deixadas pela vindima mecanica. O relator da ER (offset 148497) diz 'raccolta meccanica ... mantenere un inoculo in campo che puo protrarsi da un anno all'altro' mas NAO usa a palavra mummie; quem a usa e o moderador de encerramento (offset 166602). A substancia esta certa e ambos os offsets existem, mas a palavra foi importada de um falante para o outro.",
+    "A_PRODUTOS mistura numa unica lista de 9 itens os 7 pares publicados e 2 registos sem par emitido (010587 FOLPAN SC, 011501 PARIFOL). Esta assinalado item a item e explicado em A_UNIAO_EXPLICADA ressalva 2, e confirmei em IT-VOCAB-PROPOSTA-V1.json e no texto dos rotulos que os dois contem mesmo 'Marciume nero (Guignardia bidwellii)' — portanto nao e produto inventado. Mas um consumidor a jusante que leia so o comprimento da lista conta 9 onde o conjunto publicado autoriza 7."
+   ],
+   "CORRECOES_OBRIGATORIAS": [
+    "Corrigir F_FONTE: a passagem citada esta em 36573-37668, nao em 36696-37791.",
+    "Fechar C_NAO_SABEMOS item 8 e riscar ACAO_LISTA item 5: os 5 rotulos ja foram lidos e todos (008401, 013012, 014862, 017111, 017311) contem 'Marciume nero' em data/samples/IT-ROTULOS-V1/testo/. A cobertura em marciume nero e de 9 rotulos, dos quais 7 com par emitido — deixa de ser 'a confirmar'.",
+    "Fechar C_NAO_SABEMOS item 6 e reescrever ACAO_LISTA item 3 com a resposta que ja existe no acervo: 008401 declara 'Non eseguire piu di 10 trattamenti all'anno per uva da vino ... ripetendoli ad intervalli di 7-10 giorni' (cobre a cadencia de 7 dias que a fonte usa como referencia), enquanto 016749 FOLPAN ENERGY esta limitado a 'massimo di 5 trattamenti all'anno con un intervallo minimo di 14 giorni'. A accao que sobra ja nao e 'ler o rotulo' mas 'verificar o intervalo de seguranca e o numero de aplicacoes nos 5 rotulos cuja coluna ficou truncada na extraccao'.",
+    "Baixar AUTOAVALIACAO de SINAL_COMPLETO para PARCIAL, ou reescrever AUTOAVALIACAO_PORQUE: a frase 'onde a fonte nao deu, esta NAO SEI' e verdadeira quanto ao documento e falsa quanto ao repositorio — dois NAO SEI eram leituras por fazer, nao lacunas da fonte.",
+    "Em C_OBSERVADO, separar as duas vozes: a Emilia-Romagna (offset 148497) fala de 'raccolta meccanica' e 'mantenere un inoculo in campo'; a palavra 'mummie' e do moderador de encerramento (offset 166602). Nao juntar as duas numa citacao unica atribuida a ER.",
+    "Em A_PRODUTOS, separar visivelmente os 7 registos com par publicado dos 2 sem par emitido, para que a contagem nao possa ser lida como 9 autorizacoes no conjunto publicado."
+   ],
+   "JANELA_INVENTADA": "NAO",
+   "UNIAO_MAQUIADA": "NAO",
+   "PORTFOLIO_ERRADO": "NAO",
+   "CITACAO_CONFERIDA_PELO_REFUTADOR": "SIM",
+   "REFUTADOR_LEU_A_FICHA_INTEIRA": "SIM",
+   "CAMPOS_QUE_O_REFUTADOR_NAO_VIU": [],
+   "ESTADO_DO_TEMPO_ERRADO": "NAO",
+   "HORIZONTE_ERRADO": "NAO"
   },
   {
    "CAND_ID": "ITFC-008",
-   "ESTADO": "SEM_REFUTACAO",
-   "MOTIVO_DO_VEREDITO": null,
-   "VALOR": null,
-   "VALOR_PORQUE": null,
+   "ESTADO": "PARCIAL",
+   "MOTIVO_DO_VEREDITO": "O nucleo aguenta e aguenta bem. A citacao existe LITERALMENTE no TRANSCRIPT (`q in t` == True, indice 47166, exactamente o indice que a ficha declara em F_FONTE). As duas passagens de T_BASE_DA_JANELA existem literalmente (46876 e 47519). TODAS as dez frases de C_OBSERVADO existem literalmente. Todas as contagens de C_INFERIDO conferem no ficheiro (Geoxe 0, Teldor 0, Geox 2, Teldo 1, fludioxonil 0, fenexamid 0, fenhexamid 0, pirimetanil 0, ciprodinil 0, boscalid 0, inverno 0). Os seis produtos de A_PRODUTOS sao EXACTAMENTE os seis SUPPORTED_PAIR de CROP=VITE x TARGET=BOTRITE do IT-ROTULOS-PARES-V3.json, nem um a mais, e a uniao esta declarada como uniao com proibicao explicita de apresentar qualquer um como \"o produto\". A nota do FLUDIOXONIL confere (so em SEEDRON 016152, FRUMENTO/ORZO/AVENA/TRITICALE, nunca VITE). O estado do tempo trata correctamente o presente da fonte como passado de hoje: T_AGIR_AGORA=NAO, T_AINDA_HA_TEMPO=NAO, nove meses e meio contados, e proibicao expressa de converter isto em abordagem comercial de 2026. Nao derrubo. Mas nao dou SINAL_COMPLETO por um defeito verificado que se repete em QUATRO campos e que e carga estrutural do argumento: a ficha afirma que os seis registos estao \"posicionados a partir da retoma vegetativa\". A frase \"a partire dalla ripresa vegetativa\" existe no excerto de UM so registo (013585 SOLOFOL); em 012878, 013905, 015315, 015317 e 017432 tem zero ocorrencias. A ficha generaliza um rotulo aos seis e depois usa essa generalizacao como prova de \"um vazio verificado, nao suposto\" (M_DESENVOLVIMENTO_DE_MERCADO_RAZAO) e de que os nossos estao \"longe do momento pre-vindima\" (M_CIENCIA_TECNICO_RAZAO) — contradizendo o seu proprio C_NAO_SABEMOS (\"fase de aplicacao nao foram lidos nesta ficha\") e a sua propria ACAO_LISTA item 3, que manda reler exactamente isso. O vazio pode ser real; medido, ainda nao esta.",
+   "VALOR": "BAIXO",
+   "VALOR_PORQUE": "Medido por decisao que muda, nenhuma das quatro muda. Campo avisado: NAO — a propria ficha marca M_COMERCIAL_RTV=NAO e proibe abordagem em 2026. Argumento tecnico preparado: NAO — a ficha demonstra que a quimica em disputa nao e recuperavel da fonte ('Geox'/'Teldo' pela legenda automatica, zero substancias no video), pelo que nao ha contra que construir argumento. Stock verificado: NAO — M_SUPPLY=NAO, sem hectares, sem volume, sem sequer a unidade do '5800'. Registo pedido: NAO — o que existe e uma divida de leitura interna sobre dois rotulos nossos (012878, 015317), higiene de dados que vale independentemente do Alto Adige. O que sobra e um gatilho de observacao anual num canal publico e uma ordem de releitura de seis rotulos, num territorio que o proprio relator chama \"una realtà molto piccola\", para um lugar onde nao temos botricida especialista para oferecer e cujo lead time de 2026 esta gasto ha nove meses e meio. A parte genuinamente util e negativa: impede a abordagem comercial de 2026 que a versao anterior deste sinal sustentava sobre um \"inverno anterior\" que tem zero ocorrencias no documento. Corrigir uma sobre-declaracao anterior e higiene, nao decisao nova. Na duvida, rebaixo.",
    "NOMEADO_PELO_USUARIO": true,
    "SOURCE_ID": "8_rnThlsy9Q",
    "TITULO": "Alto Adige, vite: il botricida dell'anno dopo viene annunciato in pubblico — quello del 2026 era già stato detto a novembre 2025",
@@ -1500,16 +1553,22 @@
    "G_HORIZONTE": "PROXIMA_SAFRA",
    "AUTOAVALIACAO_DO_AUTOR": "PARCIAL",
    "AUTOAVALIACAO_PORQUE": "A ficha tem janela com base literal (setembro, semanas antes da vindima), tem portfolio (6 registos VITE x BOTRITE lidos no conjunto publicado) e tem tres departamentos com accao honesta (Desenvolvimento de Mercado, Ciencia/Tecnico, Regulatorio/Portfolio). Mesmo assim e PARCIAL, por tres faltas concretas e nomeaveis. (1) A identidade quimica do que esta em jogo nao e recuperavel deste documento: a legenda automatica escreve \"Geox\" e \"Teldo\", nenhuma substancia aparece no video, e por isso a ficha nunca pode dizer contra que quimica se compete sem sair da fonte. (2) Falta a unica data que uma accao precisaria — quando e fixada a rotacao do ano seguinte; a palavra \"inverno\" tem zero ocorrencias no documento e a versao anterior deste sinal afirmava-a. (3) O lead time para 2026 esta gasto e nenhum dos seis registos e um botricida especialista comparavel ao que o territorio usa, pelo que a oportunidade que resta e futura e ainda por dimensionar. Fechar isto como SINAL_COMPLETO, ou apresentar um dos seis produtos como resposta, seria inventar o que o documento nao da.",
-   "DEFEITOS_ENCONTRADOS": null,
+   "DEFEITOS_ENCONTRADOS": [
+    "SOBRE-GENERALIZACAO DE ROTULO (defeito principal, repetido em 4 campos): 'posicionado a partir da retoma vegetativa' e atribuido aos SEIS registos em A_UNIAO_EXPLICADA, M_DESENVOLVIMENTO_DE_MERCADO_RAZAO, M_CIENCIA_TECNICO_RAZAO e ACAO_PORQUE. Verificado por mim no IT-ROTULOS-PARES-V3.json: 'ripresa vegetativa' aparece em 2 linhas de 013585 (SOLOFOL) e em 0 linhas de 012878, 013905, 015315, 015317 e 017432. As linhas dos tres FLUAZINAM dizem 'applicare preventivamente' sem fase; as de FOLPAN GOLD e SESTO GOLD sao paragrafo de dose/volume. A afirmacao nao esta no conjunto publicado.",
+    "CONTRADICAO INTERNA: C_NAO_SABEMOS diz que 'intervalo de seguranca e fase de aplicacao nao foram lidos nesta ficha para alem dos excertos do conjunto de pares' e ACAO_LISTA manda relê-los — mas M_CIENCIA_TECNICO_RAZAO ja conclui que os seis estao 'longe do momento pre-vindima que o documento nomeia'. Conclusao tirada sobre leitura que a ficha declara nao ter feito.",
+    "CONHECIMENTO EXTERNO VESTIDO DE VERIFICACAO: 'nenhum e botricida especialista' e juizo de classe quimica (FOLPET/FLUAZINAM), nao facto do conjunto publicado nem do video; mesmo assim entra dentro da formula 'a medida de um vazio verificado, nao suposto'.",
+    "IMPRECISAO DE INDICE (menor): T_BASE_DA_JANELA da '~46975' para a passagem das chuvas de setembro; o valor real e 46876 (99 caracteres de desvio). A segunda passagem ('~47528') esta em 47519 e a citacao do Veneto ('~77660') em 77620. Todas com til e todas com texto literal confirmado — imprecisao, nao fabricacao.",
+    "USO SEM RESSALVA NO CAMPO ERRADO (menor): M_DESENVOLVIMENTO_DE_MERCADO_RAZAO apresenta 'riunioni in campo' como 'via de recomendacao ja em uso' sem repetir a ressalva que a propria ficha faz em C_OBSERVADO e em M_COMERCIAL_RTV_RAZAO — foi dito a proposito da desfolha, nao do botricida, e sem data."
+   ],
    "CORRECOES_OBRIGATORIAS": null,
-   "JANELA_INVENTADA": null,
-   "UNIAO_MAQUIADA": null,
-   "PORTFOLIO_ERRADO": null,
-   "CITACAO_CONFERIDA_PELO_REFUTADOR": null,
-   "REFUTADOR_LEU_A_FICHA_INTEIRA": null,
-   "CAMPOS_QUE_O_REFUTADOR_NAO_VIU": null,
-   "ESTADO_DO_TEMPO_ERRADO": null,
-   "HORIZONTE_ERRADO": null
+   "JANELA_INVENTADA": "NAO",
+   "UNIAO_MAQUIADA": "NAO",
+   "PORTFOLIO_ERRADO": "NAO",
+   "CITACAO_CONFERIDA_PELO_REFUTADOR": "SIM",
+   "REFUTADOR_LEU_A_FICHA_INTEIRA": "SIM",
+   "CAMPOS_QUE_O_REFUTADOR_NAO_VIU": [],
+   "ESTADO_DO_TEMPO_ERRADO": "NAO",
+   "HORIZONTE_ERRADO": "NAO"
   },
   {
    "CAND_ID": "ITFC-009",
@@ -4377,10 +4436,10 @@
   },
   {
    "CAND_ID": "ITFC-029",
-   "ESTADO": "SEM_REFUTACAO",
-   "MOTIVO_DO_VEREDITO": null,
-   "VALOR": null,
-   "VALOR_PORQUE": null,
+   "ESTADO": "SINAL_COMPLETO",
+   "MOTIVO_DO_VEREDITO": "Tentei derrubar por sete vias e nenhuma pegou. TESTE 1 (decisivo): a citacao existe LITERALMENTE. Os cinco fragmentos estao contiguos no TRANSCRIPT de m50xqCqqJP4 nos indices 212170 / 212465 / 212644 / 212782 / 213233 — 1063 caracteres de ponta a ponta, portanto cada [...] e elisao honesta e nao costura entre trechos distantes. Imprimi o bloco 211900-214400 e li a passagem inteira. Os erros de ASR (\"condata\", \"glenta\", \"ai Friuli\", \"merlo\" com crase) estao preservados em vez de corrigidos, e a ficha ate restaura o \"merlo\" acentuado e a ressalva \"non in misura elevatissima\" que o julgamento anterior tinha apontado como omitida. TESTE 2: a janela NAO e inventada. Confirmei uma a uma as quatro ancoras de T_BASE_DA_JANELA no ficheiro — \"hanno scelto la strategia con due interventi\" (220918), \"l'unica che ne ha scelto uno\" (220964), \"Ma la struttura base dei trattamenti sono due ... primo con prodotti gruppo neonicotinoidi ... nell'immediata postfioritura\" (221334-221645), \"Il secondo trattamento va posizionato una quindicina di giorni dopo, quindi diciamo intorno a fine giugno ... con prodotti ad azione abbattente\" (221719-221940), \"l'unico gruppo di prodotti e quelli piretroidi\" (222116), \"quarta eta prevalente\" (222664), e as duas medicoes de variabilidade fenologica (220267 Piemonte, ~220630 Veneto). Verifiquei tambem a afirmacao de T_PORQUE de que nao ha \"settembre\", \"autunno\", \"raccolta\" nem \"vendemmia\" no bloco da FD (205430-224500): correcto, zero ocorrencias, e acrescentei \"ottobre\", \"novembre\" e \"inverno\" — tambem zero. TESTE 3: o portfolio esta exacto. Os 13 REGISTRATION_ID da ficha sao identicos ao conjunto VITE x CICALINE de IT-ROTULOS-PARES-V3.json (comparacao de conjuntos: True), com produtos, substancias e TARGET_AS_WRITTEN todos conferidos linha a linha. A reparticao 6 tau-fluvalinate / 5 lambda-cyhalothrin / 2 olio di paraffina confere, e os exactamente 6 rotulos que escrevem \"Scaphoideus titanus\" por extenso sao os 6 de tau-fluvalinate que a ficha nomeia. \"flavescenz\" nao aparece em nenhum dos 2928 pares nem em lado nenhum do ficheiro, e FLAVESCENZA DORATA nao existe no vocabulario controlado (grep em scripts/it_rotulo_vocab.py: nada), enquanto ALVOS['CICALINE'] = ['cicalin[ae]', 'scaphoideus', 'empoasca'] esta na linha 102 como a ficha diz. A contagem 163 rotulos / 2928 pares bate com TOTAL_LABELS e SUPPORTED_PAIRS do proprio ficheiro — e corrige o \"2.845\" errado do julgamento anterior. TESTE 4: os tres SIM tem razao que aponta para facto desta ficha e todos passaram verificacao independente. TESTE 5: o estado do tempo aguenta. HYPOTHESIS e marcado pela propria fonte, com as duas ancoras confirmadas: \"noi pensiamo che probabilmente qualcosa possa essere cambiato anche nel fitoplasma, anche se questo e difficile poi da dimostrare sperimentalmente\" (213233) e \"Poi ho aggiunto un altro aspetto che non e stato mai ancora verificato che e la possibile comparsa di varianti fitoplasma\" (~208622). Nao ha tendencia vestida de previsao: a ficha separa explicitamente o que esta medido (a inversao 2017 vs 2024) do que e hipotese (a causa). O clima nunca vira ocorrencia de doenca — aparece apenas como uma das quatro causas candidatas do surto de 2022, com ponto de interrogacao, e a ficha reporta correctamente que a UNICA marcada como certa e o aumento de Scaphoideus apos a saida dos fosforganicos e neonicotinoides (\"questo e certo, non c'e bisogno del punto di domanda\", 207744). Procurei o erro de colapso temporal e encontrei so a sombra dele (ver DEFEITOS), nao o erro operacional: a ficha data os levantamentos em 2017 e 2024 em F_DATA_DO_FATO e no primeiro item de C_OBSERVADO, e todo o maquinismo temporal trata 2026-09-04 como hoje e a janela como fechada. TESTE 6: o horizonte bate. TESTE 7: valor MEDIO. Ponto que merece registo a favor: a ficha CORRIGE o julgamento anterior num ponto de facto. O julgamento usou \"e sempre stata riscontrata la presenza del fitoplasma del ceppo D o varianti del ceppo D\" como linha de base ancorada na fala do Friuli; fui ler o indice 229259 e o contexto e outro — e a apresentacao seguinte, do CREA viticoltura ed enologia di Conegliano (transicao de orador em 224700), sobre vinhas de Pignoletto na provincia de Ravenna e de Lambrusco di Sorbara e Salamino na provincia de Modena (226800-227700). A ficha apanhou isto, marcou-o em C_OBSERVADO com a etiqueta \"atencao a atribuicao\" e usou-o correctamente em M_CIENCIA_TECNICO para dizer que NAO existe linha de base molecular nas vinhas de Glera do sinal. Isso e trabalho de leitura primaria, nao de copia. Os cinco defeitos que encontrei sao de higiene de citacao, de proveniencia de offsets e de arrumacao de campo; nenhum toca nas cinco condicoes de SINAL_COMPLETO, todas verificadas por mim contra os ficheiros originais.",
+   "VALOR": "MEDIO",
+   "VALOR_PORQUE": "Medi por decisao que muda, e ha decisoes que mudam — mas nenhuma delas e urgente e nenhuma delas vem da afirmacao central do sinal. O QUE MUDA: (1) uma premissa territorial de planeamento cai. A casta Glera deixa de poder ser usada como proxy de risco baixo na parte trevigiana do Veneto e no Friuli, porque passou de 'considerata tollerante' em 2017 a 'la varieta piu sensibile in assoluto' em 2024 — isso e campo avisado e reclassificacao de prioridade para 2027, nao curiosidade. (2) O plano de campanha 2027 tem de separar Friuli de Veneto: mesma cultura, mesmo alvo, numero de aplicacoes obrigatorias diferente (um tratamento contra dois), e a razao esta documentada — o Friuli vem de tratamento obrigatorio anual em todo o territorio viticola desde 2000. Dois territorios que hoje partilham pressuposto de plano deixam de poder partilha-lo. (3) Um argumento tecnico fica preparado e delimitado: a carteira VITE x CICALINE posiciona-se exclusivamente no 2.o tratamento, o de accao abatente de fim de junho, e nunca no 1.o, que o documento atribui a neonicotinoides sistemicos; e a data amarra-se ao boletim fenologico regional e nao ao calendario, porque a propria fonte mede quase tres semanas de desvio entre anos na mesma localidade e quase um mes por altimetria dentro do Veneto. (4) Uma guarda que evita um erro caro: fica bloqueada qualquer mensagem que ligue um produto ADAMA a flavescenza dorata. Verifiquei — 'flavescenz' nao aparece em nenhum dos 2928 pares; qualquer peca dessas seria factualmente falsa. (5) Uma pergunta legitima para Regulatorio: toda a posicao ADAMA num alvo de luta obrigatoria assenta em 13 registos, 3 substancias activas, e as duas uteis na fase que interessa pertencem ao unico grupo quimico que a autoridade tecnica diz funcionar nos estadios avancados, enquanto a mesma fala lista 'disponibilita sempre piu ridotta di principi attivi' como criticidade. O QUE NAO MUDA, e e por isso que nao e ALTO: nao ha janela aberta — a de 2026 fechou ha cerca de dois meses e o bloco da FD nao contem uma unica ocorrencia de setembro, outono, colheita ou vindima, confirmei. Nao ha stock a verificar nesta safra, nao ha registo a pedir, e nao ha visita de RTV que faca sentido agora. A serie de incidencia vai no sentido contrario ao de procura acrescida (2024 em queda, 2025 num patamar). E, sobretudo, a afirmacao decisiva do sinal — o fitoplasma ter mudado — a propria fonte declara nunca verificada, e ela sustenta uma unica accao: vigiar. Nao e BAIXO porque nao e um facto fascinante que nao muda nada: derruba uma premissa de planeamento numa area concreta e restringe o que pode ser dito. Mas nao e ALTO porque tudo o que muda esta a uma safra de distancia e nasce da moldura operacional da fala, nao da hipotese que da nome ao sinal.",
    "NOMEADO_PELO_USUARIO": false,
    "SOURCE_ID": "m50xqCqqJP4",
    "TITULO": "Glera, de tolerante a mais sensível à flavescência dourada: caiu a premissa varietal no Friuli e no trevigiano",
@@ -4527,16 +4586,22 @@
    "G_HORIZONTE": "PROXIMA_SAFRA",
    "AUTOAVALIACAO_DO_AUTOR": "PARCIAL",
    "AUTOAVALIACAO_PORQUE": "A ficha tem janela, tem carteira e tem departamentos acionáveis — três SIM (Desenvolvimento de Mercado, Ciência/Técnico, Regulatório/Portfólio) com razão ancorada em factos daqui. Mesmo assim marco PARCIAL, por uma razão que preferia deixar escrita a esconder: nenhum dos três vem do sinal. A janela é o calendário de controlo do vetor que o mesmo relator descreve à parte, e a inversão de suscetibilidade não a desloca nem a encurta. A carteira é contra o vetor Scaphoideus titanus, não contra a doença de que o sinal fala, e é a união das autorizações e não uma resposta. Os departamentos acionáveis reagem à moldura operacional e à mudança de premissa territorial, não à hipótese. A afirmação decisiva do sinal — o fitoplasma ter mudado — sustenta uma única ação: vigiar. Marcar SINAL_COMPLETO deixaria um leitor acreditar que a inversão de suscetibilidade na Glera tem resposta ADAMA. Não tem. O QUE FALTA, em concreto: (1) os números da escala de suscetibilidade 2017 vs 2024 — o relator mostrou o diapositivo e não os leu, temos a ordenação e não as incidências; (2) qualquer linha de base molecular nas vinhas de Glera afetadas — a única leitura de ceppo D no documento é de outra apresentação e de outras vinhas, em Ravenna e Modena; (3) a área de Glera dentro da zona demarcada e o número de explorações, sem os quais nenhuma decisão comercial pode ser dimensionada; (4) o teste das causas rivais contra a inversão varietal especificamente — pressão de inóculo, abundância do vetor, mudança de método de amostragem, idade e expansão das plantações — que o documento nunca faz; (5) confirmação de que os 13 registos continuam vigentes, que esta ficha não conferiu. Não completei nenhum destes com conhecimento agronómico geral, e é por isso que a ficha fecha assim e não fechada.",
-   "DEFEITOS_ENCONTRADOS": null,
+   "DEFEITOS_ENCONTRADOS": [
+    "COLAPSO TEMPORAL NA REDACCAO (nao no maquinismo): F_O_QUE_ACONTECEU escreve que o Tocai friulano 'mostra hoje videiras sintomaticas'. O 'hoje' traduz o 'Adesso' do orador, dito numa sessao de 2026-03-20 sobre um levantamento de 2024, e e lido por quem abre a ficha em 2026-09-04. E o erro que o teste 5 manda cacar. Nao derruba porque a frase imediatamente anterior ancora '2017 (antes do pico epidemico)' e '2024', porque F_DATA_DO_FATO datas os levantamentos, e porque nenhuma conclusao operacional depende dele — mas a palavra devia ser 'em 2024' e nao 'hoje'.",
+    "LIMPEZA SILENCIOSA DENTRO DE PASSAGEM APRESENTADA COMO VERBATIM: T_BASE_DA_JANELA cita 'la lotta e obbligatoria, specie nelle zone in eradicazione'. O ficheiro diz 'specie nelle zone in in eradicazione' (gaguez do ASR, 'in' duplicado). Foi o unico dos 18 fragmentos que testei a falhar o grep exacto. E incoerente numa ficha que faz questao de preservar 'condata', 'glenta' e 'ai Friuli': ou se preserva o ASR ou se corrige, nao as duas coisas no mesmo documento.",
+    "OFFSETS HERDADOS, NAO MEDIDOS: os indices dados na ficha estao sistematicamente desviados 10 a 90 caracteres dos reais (~213.325 vs 213233; ~208.686 vs ~208.622; ~229.317 vs 229259; ~221.359 vs 221334) e sao EXACTAMENTE os mesmos numeros do julgamento anterior. Ou seja, foram copiados e nao remedidos, apesar de F_FONTE afirmar 'Ficheiro lido integralmente nesta ficha'. Todas as citacoes resolvem, portanto nao ha fabricacao — mas o 'idx ~' passa uma precisao que a ficha nao exerceu.",
+    "CAMPO OCUPADO POR JANELA DE OUTRO ASSUNTO: T_JANELA_DE_APLICACAO tem 1260 caracteres de calendario do vetor. A janela do SINAL — uma hipotese sobre variantes do fitoplasma — nao existe, e a resposta certa para o campo era 'NAO SEI'. A correccao esta escrita, e escrita tres vezes (T_BASE_DA_JANELA em maiusculas, T_PORQUE, AUTOAVALIACAO_PORQUE), mas vive nos campos vizinhos: quem ler so o campo da janela sai a acreditar que o sinal tem janela de tratamento.",
+    "SUPERLATIVO NAO DECLARADO: M_DESENVOLVIMENTO_DE_MERCADO_RAZAO afirma que a area do Glera e 'a zona de maior valor de vinha branca do Nordeste'. Isso nao esta no documento e, ao contrario da identificacao Glera trevigiano = Prosecco, que a ficha declara honestamente em C_INFERIDO, este superlativo nao foi declarado como inferencia em lado nenhum."
+   ],
    "CORRECOES_OBRIGATORIAS": null,
-   "JANELA_INVENTADA": null,
-   "UNIAO_MAQUIADA": null,
-   "PORTFOLIO_ERRADO": null,
-   "CITACAO_CONFERIDA_PELO_REFUTADOR": null,
-   "REFUTADOR_LEU_A_FICHA_INTEIRA": null,
-   "CAMPOS_QUE_O_REFUTADOR_NAO_VIU": null,
-   "ESTADO_DO_TEMPO_ERRADO": null,
-   "HORIZONTE_ERRADO": null
+   "JANELA_INVENTADA": "NAO",
+   "UNIAO_MAQUIADA": "NAO",
+   "PORTFOLIO_ERRADO": "NAO",
+   "CITACAO_CONFERIDA_PELO_REFUTADOR": "SIM",
+   "REFUTADOR_LEU_A_FICHA_INTEIRA": "SIM",
+   "CAMPOS_QUE_O_REFUTADOR_NAO_VIU": [],
+   "ESTADO_DO_TEMPO_ERRADO": "NAO",
+   "HORIZONTE_ERRADO": "NAO"
   },
   {
    "CAND_ID": "ITFC-030",
