@@ -27,6 +27,7 @@ import json
 import os
 import re
 import sys
+import collections
 from collections import Counter, defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,18 +41,44 @@ DEPTOS = ['DESENVOLVIMENTO_DE_MERCADO', 'MARKETING', 'COMERCIAL_RTV',
           'CIENCIA_TECNICO', 'SUPPLY', 'REGULATORIO_PORTFOLIO']
 
 
-def do_journal(run):
-    caminho = os.path.join(BASE, run, 'journal.jsonl')
+def do_journal(runs):
+    """Le UM OU MAIS journals. Dois workflows correram sobre o mesmo universo, um
+    pela cabeca e outro pela cauda, porque a maquina so da dois agentes de cada
+    vez e 90 agentes em fila sao horas. Onde se cruzaram ha DUAS fichas e DOIS
+    vereditos independentes do mesmo candidato — e isso nao e desperdicio, e a
+    unica medida de acordo que esta operacao tem:
+
+        SE DOIS AUTORES INDEPENDENTES E DOIS REFUTADORES INDEPENDENTES CHEGAM AO
+        MESMO VEREDITO, O VEREDITO NAO E DO AGENTE. E DO DOCUMENTO.
+
+    Na sobreposicao fica o veredito MAIS SEVERO. Discordar para baixo e barato;
+    discordar para cima exige provar, e nenhum dos dois provou nada ao outro.
+    """
+    severidade = {'SINAL_COMPLETO': 0, 'PARCIAL': 1, 'DERRUBADO': 2}
     fichas, vereditos = {}, {}
-    for linha in open(caminho):
-        r = json.loads(linha)
-        if r.get('type') != 'result':
+    duplicados = collections.defaultdict(list)
+    for run in runs:
+        caminho = os.path.join(BASE, run, 'journal.jsonl')
+        if not os.path.exists(caminho):
             continue
-        v = r['result']
-        if not isinstance(v, dict) or 'CAND_ID' not in v:
-            continue
-        (vereditos if 'VEREDITO' in v else fichas)[v['CAND_ID']] = v
-    return fichas, vereditos
+        for linha in open(caminho):
+            r = json.loads(linha)
+            if r.get('type') != 'result':
+                continue
+            v = r['result']
+            if not isinstance(v, dict) or 'CAND_ID' not in v:
+                continue
+            cid = v['CAND_ID']
+            if 'VEREDITO' in v:
+                antigo = vereditos.get(cid)
+                if antigo:
+                    duplicados[cid].append((antigo['VEREDITO'], v['VEREDITO']))
+                    if severidade.get(v['VEREDITO'], 3) <= severidade.get(antigo['VEREDITO'], 3):
+                        continue
+                vereditos[cid] = v
+            else:
+                fichas.setdefault(cid, v)
+    return fichas, vereditos, dict(duplicados)
 
 
 def mapa_de_acao(f):
@@ -64,8 +91,8 @@ def mapa_de_acao(f):
     return saida
 
 
-def main(run):
-    fichas, vereditos = do_journal(run)
+def main(runs):
+    fichas, vereditos, duplicados = do_journal(runs)
     jul = json.load(open(os.path.join(ROOT, JULGADOS)))
     origem = {r['CAND_ID']: r for r in jul['RULED'] if r.get('CAND_ID')}
 
@@ -141,11 +168,25 @@ def main(run):
         'SOURCE_ID': 'IT-FUTURO-JULGADOS-V1',
         'CAPTURED_AT': '2026-09-04',
         'SOURCE': 'cada candidato aprovado pela regua virou ficha operacional escrita por um '
-                  'agente e atacada por outro, instruido a derrubar. O journal do workflow %s '
-                  'e a fonte, nao o resultado da ferramenta.' % run,
-        'RUN_ID': run,
+                  'agente e atacada por outro, instruido a derrubar. Os journals dos workflows '
+                  '%s sao a fonte, nao o resultado da ferramenta.' % ', '.join(runs),
+        'RUN_IDS': list(runs),
+        'JULGADOS_DUAS_VEZES': {k: v for k, v in duplicados.items()},
+        'ACORDO_NA_SOBREPOSICAO': (
+            '%d de %d candidatos foram julgados por dois pares independentes de autor e '
+            'refutador; %d receberam o mesmo veredito das duas vezes. Na discordancia fica o '
+            'veredito mais severo.' % (
+                len(duplicados), len(vereditos),
+                sum(1 for v in duplicados.values() for a, b in v if a == b))
+            if duplicados else 'nenhum candidato foi julgado duas vezes'),
         'QUEM_MANDA_NO_VEREDITO': 'o refutador. Quem escreve a ficha tem interesse em que ela '
                                   'sobreviva; a autoavaliacao do autor fica gravada ao lado.',
+        'ESTADO': ('COMPLETO' if len(completos) + len(parciais) + len(caidos) == len(linhas)
+                   else 'PARCIAL — os dois workflows ainda corriam quando este ficheiro foi '
+                        'escrito. %d de %d candidatos ja tem veredito; os restantes aparecem '
+                        'como SEM_FICHA ou SEM_REFUTACAO, que sao estados de PROCESSAMENTO e '
+                        'nao julgamentos. Nao ler as contagens abaixo como resultado final.'
+                        % (len(completos) + len(parciais) + len(caidos), len(linhas))),
         'CANDIDATOS': len(linhas),
         'POR_ESTADO': dict(por_estado),
         'SINAL_COMPLETO': len(completos),
@@ -189,5 +230,7 @@ def main(run):
     print('->', SAIDA)
 
 
+RUNS_PADRAO = ['wf_e5e03bcc-487', 'wf_3d483e10-13c']
+
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else 'wf_e5e03bcc-487')
+    main(sys.argv[1:] or RUNS_PADRAO)
