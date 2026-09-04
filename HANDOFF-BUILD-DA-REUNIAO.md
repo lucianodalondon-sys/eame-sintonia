@@ -21,6 +21,67 @@ FREEZE_TIME   2026-09-04T02:5xZ  (o commit que traz esta linha)
 DEPLOY_URL    https://sintonia-eame-preview-8p1qae38s-london-creative.vercel.app
 ```
 
+## 0.0 · ⚠️ DUAS SESSÕES CONSTRUÍRAM A MESMA COISA — LEIA ANTES DE ESCOLHER
+
+Enquanto esta sessão trabalhava, outra (`overnight-meeting-orchestrator`)
+construiu a sua própria superfície e **fez merge para
+`claude/meeting-intelligence-integration`** (`e927cb9`, «vince l'ecrã che la
+riunione apre»). O merge tomou o meu `8f37e36` como pai mas **resolveu os
+ficheiros para o lado deles**: `meeting-surface.js`, `meeting-browser.mjs` e as
+minhas 21 testemunhas **não estão lá**; ficou o `meeting-adapter.js` deles e um
+`meeting-gate.mjs` deles (MG1–MG14, 14/14 verde).
+
+**Não sobrescrevi nada.** O trabalho desta sessão vive em
+`claude/meeting-portal-contradictions-qb5a1x`.
+
+### As duas abordagens
+
+| | esta sessão | a outra sessão |
+|---|---|---|
+| onde | superfície NOVA (`meeting` + `mcase`), radar demo intacto | RE-ALIMENTA o radar existente a partir do snapshot |
+| adapter | `meeting-surface.js` | `meeting-adapter.js` |
+| primary no adapter | `PRIMARY_MATCH` e nada mais | `PRIMARY_MATCH` e nada mais — **também correto** |
+
+### O QUE MEDI NA BUILD DELES, E QUE IMPORTA PARA A REUNIÃO
+
+O adapter deles está certo. **A camada de apresentação não.**
+`portale.html:3351`:
+
+```js
+primaryLabel: (mv && mv.hasPortfolio) ? mv.portfolio[0].name
+```
+
+`portfolio[0]` — o primeiro elemento do array — alimenta
+`data-product="{{ c.primaryLabel }}"`, que é o nome do produto impresso no
+cartão. Medido no browser sobre a build deles:
+
+```
+OPP_75C37DED9160   cartão mostra "Lamdex® Extra"
+                   engine PRIMARY_MATCH = null · matches = 2
+```
+
+São **14 casos** em que o motor não coroou ninguém e o cartão nomeia um produto
+escolhido por ordem de array — exatamente o número que a minha testemunha
+`PRIMARY_MATCH_SINGLE_OWNER` devolve contra a implementação legacy
+(`real 0 · legacy 14`). A previsão e a medição batem certo.
+
+    O ADAPTER DELES NÃO COROA NINGUÉM. O CARTÃO DELES COROA O PRIMEIRO
+    DO ARRAY. A CONTRADIÇÃO VOLTA NA ÚLTIMA LINHA.
+
+O comentário deles assume a escolha («la scheda deve restare una scheda» — o
+detalhe mostra todos). É uma decisão defensável sobre densidade; mas o leitor
+do cartão vê um produto principal que o motor recusou-se a eleger, e §5 do
+briefing proíbe `array[0]` como critério.
+
+**A correção mínima**, se escolherem a build deles: onde
+`PRIMARY_MATCH` é nulo, o cartão não deve nomear um produto — deve dizer
+«N prodotti collegati» e deixar a eleição para o detalhe. É uma linha.
+
+**A DECISÃO É DO DONO DA REUNIÃO, NÃO MINHA.** As duas builds estão publicadas
+e cada uma tem o seu URL de preview.
+
+---
+
 ## 0.1 · A CORREÇÃO QUE A SESSÃO 3 TEVE DE FAZER PRIMEIRO
 
 O briefing da sessão 3 dizia que a integração «já tinha chegado ao navegador
