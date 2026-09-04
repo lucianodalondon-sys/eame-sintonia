@@ -311,6 +311,30 @@ texto diz *"aqui a legenda EXISTE e não foi entregue"*. Nada a mudar no código
 > Registrar como "confirmado" o que foi visto uma vez seria o mesmo erro que este documento
 > passou a rodada inteira desmontando.
 
+### 2.2 · O microconjunto, com um estado explícito por vídeo
+
+`python3 scripts/legendas_diagnostico.py` — 4 vídeos, 30 s entre pedidos, `COST_USD = 0`.
+Artefato em `data/samples/IT-HUMAN-SENSORS/LEGENDAS-DIAGNOSTICO.json`.
+
+| VIDEO_ID | papel | regime | `playabilityStatus` | cues | chars | `FAILURE_STAGE` |
+|---|---|---|---|---|---|---|
+| `jNQXAC9IVRw` | controle positivo | ÂMBAR | `LOGIN_REQUIRED` | 0 | 0 | `CAPTION_ROUTE_FOUND` |
+| `aqz-KE-bpKQ` | controle positivo | VERMELHO | — | 0 | 0 | `PAGE_OPEN` |
+| `y80HWXqXJPM` | do lote do piloto | VERMELHO | — | 0 | 0 | `PAGE_OPEN` |
+| `a2-SLzpNLeI` | do lote do piloto | VERMELHO | — | 0 | 0 | `PAGE_OPEN` |
+
+**Nenhum item termina em "falhou".** Cada um diz em que elo a corrente arrebentou e por quê:
+
+- `CAPTION_ROUTE_FOUND` + `ENVIRONMENT_FAILURE — player negado (LOGIN_REQUIRED)`;
+- `PAGE_OPEN` + `HTTP 429 — reputação de rede, não do vídeo`.
+
+E note o custo da própria medição: **quatro requisições espaçadas 30 s bastaram para levar o
+IP de ÂMBAR a VERMELHO.** O orçamento de pedidos não é detalhe operacional — é a variável que
+decide se a camada mede alguma coisa.
+
+`NO_CAPTION` não aparece em lugar nenhum desta tabela, e é isso que se quer: **nada aqui
+autoriza dizer que algum destes vídeos não tem legenda.**
+
 ---
 
 ## 3 · O QUE FOI CORRIGIDO, E O QUE NÃO FOI
