@@ -1,0 +1,221 @@
+{
+ "SOURCE_ID": "IT-HUMAN-SENSORS/PILOT-SELECTION",
+ "REGISTRADO_ANTES_DA_COLETA": true,
+ "REGRA_DE_SELECAO": "A (papel provado, com rota) → B (todos os pesquisadores com canal monitorável) → C (uma fonte por entidade + sondas de plataforma). ⛔ Nenhum critério lê followers.",
+ "FOLLOWERS_USADO": false,
+ "UNIVERSO_MONITORAVEL": 89,
+ "PILOT_CHANNELS": 15,
+ "PILOT_ENTITIES": 13,
+ "POR_GRUPO": {
+  "A": 4,
+  "B": 2,
+  "C": 9
+ },
+ "POR_PLATAFORMA": {
+  "youtube": 11,
+  "twitter": 1,
+  "linkedin": 1,
+  "instagram": 1,
+  "tiktok": 1
+ },
+ "COM_ROTA_PUBLICA": 11,
+ "SEM_ROTA_PUBLICA": 4,
+ "APIFY_TOKEN_AVAILABLE": false,
+ "SELECAO": [
+  {
+   "GRUPO": "A",
+   "PLATAFORMA": "youtube",
+   "PILOT_ENTITY_ID": "IT-E-000187",
+   "NOME": "CONSORZIO AGRARIO DEL NORDEST",
+   "SOURCE_ID": "IT-S-000064",
+   "CHANNEL": "https://www.youtube.com/@consorzioagrariodelnordest",
+   "ROLE_PROVED": [
+    "cooperativa"
+   ],
+   "ROLE_STATE": "PROVED",
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About",
+   "WHY_SELECTED": "GRUPO A — papel agrícola/técnico PROVADO (cooperativa) e plataforma com rota pública"
+  },
+  {
+   "GRUPO": "A",
+   "PLATAFORMA": "youtube",
+   "PILOT_ENTITY_ID": "IT-E-000192",
+   "NOME": "Terre dell'Etruria",
+   "SOURCE_ID": "IT-S-000092",
+   "CHANNEL": "https://www.youtube.com/@terredelletruria",
+   "ROLE_PROVED": [
+    "cooperativa"
+   ],
+   "ROLE_STATE": "PROVED",
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About",
+   "WHY_SELECTED": "GRUPO A — papel agrícola/técnico PROVADO (cooperativa) e plataforma com rota pública"
+  },
+  {
+   "GRUPO": "A",
+   "PLATAFORMA": "youtube",
+   "PILOT_ENTITY_ID": "IT-E-000207",
+   "NOME": "Dario Cortese",
+   "SOURCE_ID": "IT-S-000149",
+   "CHANNEL": "https://www.youtube.com/@livingsoildario",
+   "ROLE_PROVED": [
+    "consultor"
+   ],
+   "ROLE_STATE": "PROVED",
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About",
+   "WHY_SELECTED": "GRUPO A — papel agrícola/técnico PROVADO (consultor) e plataforma com rota pública"
+  },
+  {
+   "GRUPO": "A",
+   "PLATAFORMA": "youtube",
+   "PILOT_ENTITY_ID": "IT-E-000215",
+   "NOME": "Plant Nutrition Alchemy",
+   "SOURCE_ID": "IT-S-000177",
+   "CHANNEL": "https://www.youtube.com/@plantnutritionalchemy",
+   "ROLE_PROVED": [
+    "agronomo"
+   ],
+   "ROLE_STATE": "PROVED",
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About",
+   "WHY_SELECTED": "GRUPO A — papel agrícola/técnico PROVADO (agronomo) e plataforma com rota pública"
+  },
+  {
+   "GRUPO": "B",
+   "PLATAFORMA": "twitter",
+   "PILOT_ENTITY_ID": "IT-E-000068",
+   "NOME": "Riccardo Baroncelli",
+   "SOURCE_ID": "IT-S-000305",
+   "CHANNEL": "https://twitter.com/R_Baroncelli",
+   "ROLE_PROVED": [
+    "pesquisador",
+    "professor"
+   ],
+   "ROLE_STATE": "PROVED",
+   "IDENTITY_EVIDENCE": "declarado pelo PRÓPRIO titular em ORCID researcher-urls (0000-0002-5878-1159) — declaração, não busca",
+   "WHY_SELECTED": "GRUPO B — pesquisador com voz pública (pesquisador/professor). Incluído mesmo sem rota: o bloqueio por plataforma é a medida."
+  },
+  {
+   "GRUPO": "B",
+   "PLATAFORMA": "linkedin",
+   "PILOT_ENTITY_ID": "IT-E-000080",
+   "NOME": "Andrea Milani",
+   "SOURCE_ID": "IT-S-000309",
+   "CHANNEL": "https://www.linkedin.com/in/andrea-milani-ab8aab68",
+   "ROLE_PROVED": [
+    "pesquisador",
+    "estudante"
+   ],
+   "ROLE_STATE": "PROVED",
+   "IDENTITY_EVIDENCE": "declarado pelo PRÓPRIO titular em ORCID researcher-urls (0000-0002-6379-7737) — declaração, não busca",
+   "WHY_SELECTED": "GRUPO B — pesquisador com voz pública (pesquisador/estudante). Incluído mesmo sem rota: o bloqueio por plataforma é a medida."
+  },
+  {
+   "GRUPO": "C",
+   "PLATAFORMA": "youtube",
+   "PILOT_ENTITY_ID": "IT-E-000177",
+   "NOME": "AgroNotizie — Image Line",
+   "SOURCE_ID": "IT-S-000050",
+   "CHANNEL": "https://www.youtube.com/@agronotizietv",
+   "ROLE_PROVED": [],
+   "ROLE_STATE": "UNKNOWN",
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About",
+   "WHY_SELECTED": "GRUPO C — entidade sem papel provado, identidade forte, plataforma com rota. Serve ao experimento PROVADO × NÃO PROVADO"
+  },
+  {
+   "GRUPO": "C",
+   "PLATAFORMA": "youtube",
+   "PILOT_ENTITY_ID": "IT-E-000185",
+   "NOME": "AgresteTv",
+   "SOURCE_ID": "IT-S-000058",
+   "CHANNEL": "https://www.youtube.com/@AgresteTv",
+   "ROLE_PROVED": [],
+   "ROLE_STATE": "UNKNOWN",
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About",
+   "WHY_SELECTED": "GRUPO C — entidade sem papel provado, identidade forte, plataforma com rota. Serve ao experimento PROVADO × NÃO PROVADO"
+  },
+  {
+   "GRUPO": "C",
+   "PLATAFORMA": "youtube",
+   "PILOT_ENTITY_ID": "IT-E-000186",
+   "NOME": "Dottor Diliddo | Agronomo",
+   "SOURCE_ID": "IT-S-000059",
+   "CHANNEL": "https://www.youtube.com/@DottorDiliddo",
+   "ROLE_PROVED": [],
+   "ROLE_STATE": "UNKNOWN",
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About",
+   "WHY_SELECTED": "GRUPO C — entidade sem papel provado, identidade forte, plataforma com rota. Serve ao experimento PROVADO × NÃO PROVADO"
+  },
+  {
+   "GRUPO": "C",
+   "PLATAFORMA": "youtube",
+   "PILOT_ENTITY_ID": "IT-E-000183",
+   "NOME": "AIPO — Associazione Interregionale Produttori Olivicoli",
+   "SOURCE_ID": "IT-S-000063",
+   "CHANNEL": "https://www.youtube.com/@aipoverona7094",
+   "ROLE_PROVED": [],
+   "ROLE_STATE": "UNKNOWN",
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About",
+   "WHY_SELECTED": "GRUPO C — entidade sem papel provado, identidade forte, plataforma com rota. Serve ao experimento PROVADO × NÃO PROVADO"
+  },
+  {
+   "GRUPO": "C",
+   "PLATAFORMA": "youtube",
+   "PILOT_ENTITY_ID": "IT-E-000188",
+   "NOME": "4Grapes®",
+   "SOURCE_ID": "IT-S-000066",
+   "CHANNEL": "https://www.youtube.com/@4Grapes",
+   "ROLE_PROVED": [],
+   "ROLE_STATE": "UNKNOWN",
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About",
+   "WHY_SELECTED": "GRUPO C — entidade sem papel provado, identidade forte, plataforma com rota. Serve ao experimento PROVADO × NÃO PROVADO"
+  },
+  {
+   "GRUPO": "C",
+   "PLATAFORMA": "youtube",
+   "PILOT_ENTITY_ID": "IT-E-000189",
+   "NOME": "Agralia studio di agronomia",
+   "SOURCE_ID": "IT-S-000071",
+   "CHANNEL": "https://www.youtube.com/@agraliastudio",
+   "ROLE_PROVED": [],
+   "ROLE_STATE": "UNKNOWN",
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About",
+   "WHY_SELECTED": "GRUPO C — entidade sem papel provado, identidade forte, plataforma com rota. Serve ao experimento PROVADO × NÃO PROVADO"
+  },
+  {
+   "GRUPO": "C",
+   "PLATAFORMA": "youtube",
+   "PILOT_ENTITY_ID": "IT-E-000155",
+   "NOME": "Fondazione Edmund Mach — Centro Trasferimento Tecnologico",
+   "SOURCE_ID": "IT-S-000077",
+   "CHANNEL": "https://www.youtube.com/@fondazionemach",
+   "ROLE_PROVED": [],
+   "ROLE_STATE": "UNKNOWN",
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About",
+   "WHY_SELECTED": "GRUPO C — entidade sem papel provado, identidade forte, plataforma com rota. Serve ao experimento PROVADO × NÃO PROVADO"
+  },
+  {
+   "GRUPO": "C",
+   "PLATAFORMA": "instagram",
+   "PILOT_ENTITY_ID": "IT-E-000177",
+   "NOME": "AgroNotizie — Image Line",
+   "SOURCE_ID": "IT-S-000051",
+   "CHANNEL": "instagram.com/agronotizie",
+   "ROLE_PROVED": [],
+   "ROLE_STATE": "UNKNOWN",
+   "IDENTITY_EVIDENCE": "link declarado pelo próprio canal na aba About",
+   "WHY_SELECTED": "GRUPO C — sonda de plataforma: mede se instagram tem rota pública, em vez de presumir bloqueio"
+  },
+  {
+   "GRUPO": "C",
+   "PLATAFORMA": "tiktok",
+   "PILOT_ENTITY_ID": "IT-E-000186",
+   "NOME": "Dottor Diliddo | Agronomo",
+   "SOURCE_ID": "IT-S-000062",
+   "CHANNEL": "tiktok.com/@dottordiliddo",
+   "ROLE_PROVED": [],
+   "ROLE_STATE": "UNKNOWN",
+   "IDENTITY_EVIDENCE": "link declarado pelo próprio canal na aba About",
+   "WHY_SELECTED": "GRUPO C — sonda de plataforma: mede se tiktok tem rota pública, em vez de presumir bloqueio"
+  }
+ ],
+ "CAPTURED_AT": "2026-09-04T15:19:33Z"
+}

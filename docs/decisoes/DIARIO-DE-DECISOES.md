@@ -611,6 +611,78 @@ Regras do diário:
 - **Ressalva 2:** **`APIFY_TOKEN` continua ausente.** Não é uma das seis condições e por
   isso não derruba o `SIM` — mas bloqueia a execução e não deve ser descoberto na hora.
 
+---
+
+### D-031 — O dono canônico da coleta tem nome, e não é "Sintonia Scrap"
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO
+- **Contexto:** a missão mandou localizar a implementação canônica do "Sintonia Scrap"
+  antes de coletar, e parar se houvesse mais de uma.
+- **Medido:** o termo **"SINTONIA SCRAP" não existe como componente no repositório** — ele
+  aparece **só em documentos desta branch**, propagados por mim. Há **três** implementações
+  reais, que não competem: `youtube_janela.py` (rota pública gratuita, `APIFY_RUNS=0`,
+  `COST_USD=0`), `youtube_transcrever.py` (Whisper, só o que a legenda não deu) e
+  `sensor_coleta.py`+`coletor.py`+`apify_pool.py` (rota paga, exige token ausente).
+- **Decisão:** dono canônico deste piloto = **`scripts/youtube_janela.py`**, plataformas
+  suportadas = **[YOUTUBE]**. O reúso foi por **injeção** de lote e diretório de saída; o
+  arquivo não foi alterado, e os artefatos da missão anterior não foram tocados.
+- **Consequência:** `APIFY_USED = NO` · `NEW_SCRAPER_CREATED = NO` ·
+  `SCRAP_CHAIN_PROVED = SIM` (cadeia fechada em `IT-S-000071`).
+
+---
+
+### D-032 — Sem legenda, `OFF_TOPIC` não pode ser afirmado
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO · **corrige a primeira versão desta medição**
+- **Contexto:** a camada de legendas **não abriu** (`PORTA_NAO_ABRIU` nos 150 objetos;
+  `HAS_CAPTION = 0`). O único texto disponível é o título — **mediana de 51 caracteres**.
+- **O erro, e a prova nos próprios dados:** a primeira versão classificou **98 documentos
+  como `OFF_TOPIC`**. Entre eles, *"**Meli** in filare agroforestale — Quarto anno"* —
+  **`meli` é macieira**, e caiu como off-topic porque o léxico não tinha o plural. Declarar
+  off-topic a partir de 51 caracteres é **tratar ausência de texto como ausência de
+  assunto**, a mesma falácia de `falha de leitura ≠ zero`.
+- **Decisão:** `OFF_TOPIC` passa a exigir **marcador positivo de assunto não-agrícola**
+  (`ricetta`, `bilancio di esercizio`, `assemblea`…) **ou** legenda presente. Sem isso, o
+  estado é `NÃO SEI`.
+- **Consequência medida:** `OFF_TOPIC` 98 → **7** · `NÃO SEI` 1 → **82**.
+  **82 de 150 documentos não são julgáveis**, e esse é o resultado principal do piloto:
+  ele mediu **títulos, não conteúdo**.
+
+---
+
+### D-033 — Papel provado NÃO melhorou a qualidade do conteúdo nesta amostra
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO
+- **Experimento:** 4 fontes com papel PROVADO (40 documentos) contra 11 sem papel provado
+  (110 documentos).
+- **Medido:** `AG_RELEVANCE_RATE` **0,425 × 0,400** · `TECHNICAL_RATE` 0,025 × 0,027 ·
+  `FIELD_SIGNAL_RATE` **0,000 × 0,009**. O **único** `FIELD_SIGNAL` do piloto veio de uma
+  fonte **sem papel provado** (Agralia studio di agronomia).
+- **Decisão:** a hipótese de que papel previamente provado melhora o conteúdo como sensor
+  **não se sustenta nesta amostra**. E o veredito publicado é `NÃO SEI`, não "não": a
+  amostra é pequena, sem legenda, e 55% dos documentos não são julgáveis.
+- **Motivo de registrar:** a hipótese era intuitiva e eu poderia tê-la assumido. Medir foi
+  o que mostrou que ela não se sustenta.
+
+---
+
+### D-034 — Escala barrada por duas condições, e as duas pela mesma causa
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO
+- **`SCALE_TO_89_CHANNELS = NÃO`.** Das seis condições, quatro passam e **duas falham**:
+  **(5)** custo/desperdício — rendimento de **7 documentos operacionais em 150**, sem a
+  camada que importa; **(6)** duplicação com fontes científicas **não compreendida** — a
+  família pesquisador **não foi testada**, porque os dois pesquisadores com canal
+  monitorável publicam em Twitter e LinkedIn, sem rota gratuita.
+- **A causa das duas é uma só: a legenda não abriu.** O bloqueio é de **ambiente** (o
+  navegador não completou em >15 min), não de arquitetura nem de crédito.
+- **Consequência:** o próximo passo é **abrir a camada de legendas** — gratuita, já
+  existente em `youtube_janela.py`, já vem com tempos e substitui o Whisper. É o
+  pré-requisito para que "vale manter?" tenha resposta.
+- **`HUMAN_SOCIAL_CONTENT_HAS_VALUE = NÃO SEI`** — 7 documentos com valor operacional
+  apareceram (1 FIELD_SIGNAL, 4 TECHNICAL, 2 RESEARCH), mas com 55% do corpus ilegível
+  afirmar valor seria dizer o que não foi medido.
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |
@@ -629,4 +701,5 @@ Regras do diário:
 | P-012 | GDPR sobre a camada de sensores humanos IT: 135 pessoas nomeadas com afiliação e ORCID. Mesma pergunta de P-008, agora com registro gravado e não só fila. | REGISTRY IT, qualquer tela | 2026-09-04 |
 | P-013 | ~~Cobertura real de `fontes.entidade_id`?~~ — **resolvida** por D-024: `NÃO SEI` firme; os três números medem coisas diferentes e nenhum é cobertura. | — | resolvida 2026-09-04 |
 | P-014 | ~~A Itália escreve no banco brasileiro?~~ — **resolvida** por D-023: registro próprio, contrato espelhado, sem escrita no Brasil. | — | resolvida 2026-09-04 |
+| P-016 | Camada de legendas do YouTube: `CHROME_EXECUTABLE` declarado e Chromium encontrado, mas a rota de navegador não completou em >15 min neste ambiente. É o bloqueio que barra a escala para 89. | piloto social, escala | 2026-09-04 |
 | P-015 | Qual dono de CULTURA a Itália segue? O Brasil tem DUAS listas vivas — `vocabulario.py` CULTURA=9 (em produção) e `lavouras.py` CULTURAS=23 (autodeclarado dono único), com as 9 comuns divergindo em padrão. | vocabulário IT | 2026-09-04 |

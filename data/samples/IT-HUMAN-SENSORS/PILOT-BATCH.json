@@ -1,0 +1,285 @@
+{
+ "SOURCE_ID": "IT-HUMAN-SENSORS/PILOT-BATCH",
+ "DATASET_OWNER": "piloto social IT — sensores humanos",
+ "VERSION": 1,
+ "FROZEN_AT": "2026-09-04",
+ "FROZEN_RULE": "lista datada e congelada ANTES da coleta; a coleta obedece, não escolhe",
+ "SCRAP_CANONICAL_OWNER": "scripts/youtube_janela.py (fases canais·objetos·legendas) — rota pública, APIFY_RUNS=0, COST_USD=0",
+ "SCRAP_SUPPORTED_PLATFORMS": [
+  "YOUTUBE"
+ ],
+ "SCRAP_UNSUPPORTED_TODAY": [
+  "INSTAGRAM",
+  "TIKTOK",
+  "LINKEDIN",
+  "TWITTER",
+  "FACEBOOK"
+ ],
+ "APIFY_TOKEN_AVAILABLE": false,
+ "APIFY_USED": false,
+ "NEW_SCRAPER_CREATED": false,
+ "PILOT_CHANNELS_REQUESTED": 15,
+ "PILOT_CHANNELS_SUPPORTED": 15,
+ "PILOT_CHANNELS_UNSUPPORTED": 4,
+ "SUBSTITUICOES": 4,
+ "UNSUPPORTED": [
+  {
+   "GRUPO": "B",
+   "PLATAFORMA": "twitter",
+   "PILOT_ENTITY_ID": "IT-E-000068",
+   "NOME": "Riccardo Baroncelli",
+   "SOURCE_ID": "IT-S-000305",
+   "CHANNEL": "https://twitter.com/R_Baroncelli",
+   "ROLE_PROVED": [
+    "pesquisador",
+    "professor"
+   ],
+   "ROLE_STATE": "PROVED",
+   "IDENTITY_EVIDENCE": "declarado pelo PRÓPRIO titular em ORCID researcher-urls (0000-0002-5878-1159) — declaração, não busca",
+   "WHY_SELECTED": "GRUPO B — pesquisador com voz pública (pesquisador/professor). Incluído mesmo sem rota: o bloqueio por plataforma é a medida.",
+   "SCRAP_SUPPORTED": "NO",
+   "REASON": "plataforma twitter só entra pela rota paga (scripts/sensor_coleta.py + apify_pool.py) e APIFY_TOKEN está ausente. O dono canônico gratuito (youtube_janela.py) cobre apenas YouTube."
+  },
+  {
+   "GRUPO": "B",
+   "PLATAFORMA": "linkedin",
+   "PILOT_ENTITY_ID": "IT-E-000080",
+   "NOME": "Andrea Milani",
+   "SOURCE_ID": "IT-S-000309",
+   "CHANNEL": "https://www.linkedin.com/in/andrea-milani-ab8aab68",
+   "ROLE_PROVED": [
+    "pesquisador",
+    "estudante"
+   ],
+   "ROLE_STATE": "PROVED",
+   "IDENTITY_EVIDENCE": "declarado pelo PRÓPRIO titular em ORCID researcher-urls (0000-0002-6379-7737) — declaração, não busca",
+   "WHY_SELECTED": "GRUPO B — pesquisador com voz pública (pesquisador/estudante). Incluído mesmo sem rota: o bloqueio por plataforma é a medida.",
+   "SCRAP_SUPPORTED": "NO",
+   "REASON": "plataforma linkedin só entra pela rota paga (scripts/sensor_coleta.py + apify_pool.py) e APIFY_TOKEN está ausente. O dono canônico gratuito (youtube_janela.py) cobre apenas YouTube."
+  },
+  {
+   "GRUPO": "C",
+   "PLATAFORMA": "instagram",
+   "PILOT_ENTITY_ID": "IT-E-000177",
+   "NOME": "AgroNotizie — Image Line",
+   "SOURCE_ID": "IT-S-000051",
+   "CHANNEL": "instagram.com/agronotizie",
+   "ROLE_PROVED": [],
+   "ROLE_STATE": "UNKNOWN",
+   "IDENTITY_EVIDENCE": "link declarado pelo próprio canal na aba About",
+   "WHY_SELECTED": "GRUPO C — sonda de plataforma: mede se instagram tem rota pública, em vez de presumir bloqueio",
+   "SCRAP_SUPPORTED": "NO",
+   "REASON": "plataforma instagram só entra pela rota paga (scripts/sensor_coleta.py + apify_pool.py) e APIFY_TOKEN está ausente. O dono canônico gratuito (youtube_janela.py) cobre apenas YouTube."
+  },
+  {
+   "GRUPO": "C",
+   "PLATAFORMA": "tiktok",
+   "PILOT_ENTITY_ID": "IT-E-000186",
+   "NOME": "Dottor Diliddo | Agronomo",
+   "SOURCE_ID": "IT-S-000062",
+   "CHANNEL": "tiktok.com/@dottordiliddo",
+   "ROLE_PROVED": [],
+   "ROLE_STATE": "UNKNOWN",
+   "IDENTITY_EVIDENCE": "link declarado pelo próprio canal na aba About",
+   "WHY_SELECTED": "GRUPO C — sonda de plataforma: mede se tiktok tem rota pública, em vez de presumir bloqueio",
+   "SCRAP_SUPPORTED": "NO",
+   "REASON": "plataforma tiktok só entra pela rota paga (scripts/sensor_coleta.py + apify_pool.py) e APIFY_TOKEN está ausente. O dono canônico gratuito (youtube_janela.py) cobre apenas YouTube."
+  }
+ ],
+ "LACUNA_DE_FAMILIA": {
+  "FAMILIA": "PESQUISADOR com voz pública",
+  "ESTADO": "INTEIRAMENTE SEM ROTA",
+  "POR_QUE": "os dois pesquisadores com canal monitorável publicam em Twitter e LinkedIn; nenhuma das duas plataformas tem rota gratuita, e a paga exige APIFY_TOKEN ausente.",
+  "CONSEQUENCIA": "a pergunta \"o canal público do pesquisador acrescenta algo que o Europe PMC não entrega?\" NÃO pode ser respondida nesta rodada. RESEARCHER_PUBLIC_CHANNELS_TESTED = 0."
+ },
+ "CONTAS": [
+  {
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_URL": "https://www.youtube.com/@consorzioagrariodelnordest",
+   "ACCOUNT_HANDLE": "IT-S-000064",
+   "COMPANY": "CONSORZIO AGRARIO DEL NORDEST",
+   "COUNTRY_SCOPE": "IT_PILOT",
+   "SOURCE_ID": "IT-S-000064",
+   "ENTITY_ID": "IT-E-000187",
+   "ROLE_STATE": "PROVED",
+   "ROLE_PROVED": [
+    "cooperativa"
+   ],
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About"
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_URL": "https://www.youtube.com/@terredelletruria",
+   "ACCOUNT_HANDLE": "IT-S-000092",
+   "COMPANY": "Terre dell'Etruria",
+   "COUNTRY_SCOPE": "IT_PILOT",
+   "SOURCE_ID": "IT-S-000092",
+   "ENTITY_ID": "IT-E-000192",
+   "ROLE_STATE": "PROVED",
+   "ROLE_PROVED": [
+    "cooperativa"
+   ],
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About"
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_URL": "https://www.youtube.com/@livingsoildario",
+   "ACCOUNT_HANDLE": "IT-S-000149",
+   "COMPANY": "Dario Cortese",
+   "COUNTRY_SCOPE": "IT_PILOT",
+   "SOURCE_ID": "IT-S-000149",
+   "ENTITY_ID": "IT-E-000207",
+   "ROLE_STATE": "PROVED",
+   "ROLE_PROVED": [
+    "consultor"
+   ],
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About"
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_URL": "https://www.youtube.com/@plantnutritionalchemy",
+   "ACCOUNT_HANDLE": "IT-S-000177",
+   "COMPANY": "Plant Nutrition Alchemy",
+   "COUNTRY_SCOPE": "IT_PILOT",
+   "SOURCE_ID": "IT-S-000177",
+   "ENTITY_ID": "IT-E-000215",
+   "ROLE_STATE": "PROVED",
+   "ROLE_PROVED": [
+    "agronomo"
+   ],
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About"
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_URL": "https://www.youtube.com/@agronotizietv",
+   "ACCOUNT_HANDLE": "IT-S-000050",
+   "COMPANY": "AgroNotizie — Image Line",
+   "COUNTRY_SCOPE": "IT_PILOT",
+   "SOURCE_ID": "IT-S-000050",
+   "ENTITY_ID": "IT-E-000177",
+   "ROLE_STATE": "UNKNOWN",
+   "ROLE_PROVED": [],
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About"
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_URL": "https://www.youtube.com/@AgresteTv",
+   "ACCOUNT_HANDLE": "IT-S-000058",
+   "COMPANY": "AgresteTv",
+   "COUNTRY_SCOPE": "IT_PILOT",
+   "SOURCE_ID": "IT-S-000058",
+   "ENTITY_ID": "IT-E-000185",
+   "ROLE_STATE": "UNKNOWN",
+   "ROLE_PROVED": [],
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About"
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_URL": "https://www.youtube.com/@DottorDiliddo",
+   "ACCOUNT_HANDLE": "IT-S-000059",
+   "COMPANY": "Dottor Diliddo | Agronomo",
+   "COUNTRY_SCOPE": "IT_PILOT",
+   "SOURCE_ID": "IT-S-000059",
+   "ENTITY_ID": "IT-E-000186",
+   "ROLE_STATE": "UNKNOWN",
+   "ROLE_PROVED": [],
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About"
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_URL": "https://www.youtube.com/@aipoverona7094",
+   "ACCOUNT_HANDLE": "IT-S-000063",
+   "COMPANY": "AIPO — Associazione Interregionale Produttori Olivicoli",
+   "COUNTRY_SCOPE": "IT_PILOT",
+   "SOURCE_ID": "IT-S-000063",
+   "ENTITY_ID": "IT-E-000183",
+   "ROLE_STATE": "UNKNOWN",
+   "ROLE_PROVED": [],
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About"
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_URL": "https://www.youtube.com/@4Grapes",
+   "ACCOUNT_HANDLE": "IT-S-000066",
+   "COMPANY": "4Grapes®",
+   "COUNTRY_SCOPE": "IT_PILOT",
+   "SOURCE_ID": "IT-S-000066",
+   "ENTITY_ID": "IT-E-000188",
+   "ROLE_STATE": "UNKNOWN",
+   "ROLE_PROVED": [],
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About"
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_URL": "https://www.youtube.com/@agraliastudio",
+   "ACCOUNT_HANDLE": "IT-S-000071",
+   "COMPANY": "Agralia studio di agronomia",
+   "COUNTRY_SCOPE": "IT_PILOT",
+   "SOURCE_ID": "IT-S-000071",
+   "ENTITY_ID": "IT-E-000189",
+   "ROLE_STATE": "UNKNOWN",
+   "ROLE_PROVED": [],
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About"
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_URL": "https://www.youtube.com/@fondazionemach",
+   "ACCOUNT_HANDLE": "IT-S-000077",
+   "COMPANY": "Fondazione Edmund Mach — Centro Trasferimento Tecnologico",
+   "COUNTRY_SCOPE": "IT_PILOT",
+   "SOURCE_ID": "IT-S-000077",
+   "ENTITY_ID": "IT-E-000155",
+   "ROLE_STATE": "UNKNOWN",
+   "ROLE_PROVED": [],
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About"
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_URL": "https://www.youtube.com/@MatejVignaiuoloOslavia",
+   "ACCOUNT_HANDLE": "IT-S-000082",
+   "COMPANY": "Matej vignaiuolo in Oslavia",
+   "COUNTRY_SCOPE": "IT_PILOT",
+   "SOURCE_ID": "IT-S-000082",
+   "ENTITY_ID": "IT-E-000190",
+   "ROLE_STATE": "UNKNOWN",
+   "ROLE_PROVED": [],
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About"
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_URL": "https://www.youtube.com/@MattTheFarmerOfficial",
+   "ACCOUNT_HANDLE": "IT-S-000085",
+   "COMPANY": "Matt The Farmer",
+   "COUNTRY_SCOPE": "IT_PILOT",
+   "SOURCE_ID": "IT-S-000085",
+   "ENTITY_ID": "IT-E-000191",
+   "ROLE_STATE": "UNKNOWN",
+   "ROLE_PROVED": [],
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About"
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_URL": "https://www.youtube.com/@AgricolusAgTech",
+   "ACCOUNT_HANDLE": "IT-S-000099",
+   "COMPANY": "Agricolus srl",
+   "COUNTRY_SCOPE": "IT_PILOT",
+   "SOURCE_ID": "IT-S-000099",
+   "ENTITY_ID": "IT-E-000193",
+   "ROLE_STATE": "UNKNOWN",
+   "ROLE_PROVED": [],
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About"
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_URL": "https://www.youtube.com/@agronomix_",
+   "ACCOUNT_HANDLE": "IT-S-000105",
+   "COMPANY": "Agronomix",
+   "COUNTRY_SCOPE": "IT_PILOT",
+   "SOURCE_ID": "IT-S-000105",
+   "ENTITY_ID": "IT-E-000194",
+   "ROLE_STATE": "UNKNOWN",
+   "ROLE_PROVED": [],
+   "IDENTITY_EVIDENCE": "canal descoberto pela busca pública e identidade lida na aba About"
+  }
+ ]
+}
