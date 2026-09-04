@@ -59,6 +59,7 @@ import os
 import re
 import sys
 import urllib.request
+from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -677,7 +678,11 @@ def fase_legendas(limite=None):
         'captured_at': hoje(),
         'CAPTURED_AT': agora(),
         'APIFY_RUNS': 0, 'COST_USD': 0,
-        'COM_LEGENDA': com, 'SEM_LEGENDA': sem, 'PORTA_NAO_ABRIU': barrados,
+        'COM_LEGENDA': com, 'SEM_LEGENDA': sem,
+        # `barrados` conta duas coisas diferentes desde que PLAYER_NEGADO existe, e um
+        # contador chamado PORTA_NAO_ABRIU somando player negado seria mentira de nome.
+        'NAO_MEDIDOS': barrados,
+        'POR_ESTADO': dict(Counter(i.get('CAPTION_STATE') for i in saida)),
         'CINCO_ESTADOS_DIFERENTES': (
             'PRESENTE = há texto. AUSENTE = o player veio OK e disse que não há faixa. '
             'DECLARADA_MAS_VAZIA = há faixa e o corpo não veio. PLAYER_NEGADO = a página '

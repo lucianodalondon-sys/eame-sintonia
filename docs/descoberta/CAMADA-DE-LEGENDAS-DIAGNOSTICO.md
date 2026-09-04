@@ -160,6 +160,9 @@ resultado**. O `README` do proxy classifica esta família como *reportar, não c
 
 ### C e D · refutadas, e a alavanca funcionou
 
+> **Procedência:** esta subseção reúne medições feitas por um agente auxiliar desta mesma
+> sessão, neste mesmo contêiner, com o log preservado. Não foram feitas por mim à mão.
+
 Dez combinações de `Cookie` (nenhum · `SOCS=CAI` · `SOCS` real · `CONSENT=YES+` ·
 `PREF=hl=en&gl=US`) × `Accept-Language` (nenhum · `es-ES` · `en-US` · `it-IT`) na mesma URL:
 **mesmo `playabilityStatus` em 10/10**.
@@ -202,9 +205,20 @@ VERDE     HTTP 200 · playabilityStatus = OK              · captionTracks PRESE
 VERMELHO  HTTP 429 · redirect → google.com/sorry         · nada
 ```
 
-O mesmo vídeo, do mesmo IP, no mesmo dia, atravessou os três estados. Os dois fatos que
-pareciam se contradizer — "a rota barata funciona" e "tudo dá LOGIN_REQUIRED" — são
-**instantâneos de janelas diferentes**, não medições em conflito.
+Medido com precisão, e sem arredondar para mais: **`jNQXAC9IVRw` atravessou `VERDE` →
+`ÂMBAR`** — 25/25 requisições com `status=OK` e `faixas=2` no início da sessão, e ~40 minutos
+depois `LOGIN_REQUIRED` com `faixas=0` em 13/13. Ele **nunca** caiu em 429. `VERMELHO` foi
+medido no mesmo intervalo em **outros** vídeos, inclusive do lote real (12/12 barrados).
+Então: os três estados existem e convivem, mas **não foram observados no mesmo vídeo**.
+
+Os dois fatos que pareciam se contradizer — "a rota barata funciona" e "tudo dá
+`LOGIN_REQUIRED`" — são **instantâneos de janelas diferentes**, não medições em conflito.
+
+Eu mesmo, à mão, medi as duas pontas: `_por_urllib` devolvendo 1,19 MB com
+`ytInitialPlayerResponse` presente, e o mesmo endereço devolvendo `HTTP 429` minutos depois.
+`VERDE` não voltou dentro desta rodada, mesmo com pausas de 10 minutos sem requisição
+alguma — o que sugere que `ÂMBAR` não é um contador de volume que zera, e sim uma marca de
+reputação da faixa de IP. **Sugere. Não medi por tempo suficiente para afirmar.**
 
 ### O defeito que isso expõe, e que é o mais grave desta rodada
 
@@ -482,7 +496,7 @@ não são deste repositório:
 |---|---|
 | `scripts/cdp.py` · `subir` | captura `stderr` em arquivo, consulta `p.poll()`, para de afirmar que o Chrome subiu. **25,02 s de mentira → 1,00 s de verdade.** |
 | `scripts/youtube_janela.py` · `_abrir` | truncamento de motivo: 120 → 400 caracteres |
-| `scripts/youtube_janela.py` · `fase_legendas` | estado novo **`PLAYER_NEGADO`**, com `WHISPER_CANDIDATO = False`; `AUSENTE` passa a exigir player `OK` |
+| `scripts/youtube_janela.py` · `fase_legendas` | estado novo **`PLAYER_NEGADO`**, com `WHISPER_CANDIDATO = False`; `AUSENTE` passa a exigir player `OK`; o contador que se chamava `PORTA_NAO_ABRIU` virou `NAO_MEDIDOS` (ele soma duas coisas agora) e o artefato passou a gravar `POR_ESTADO` |
 | `tests/test_legendas.py` | 8 provas, sem rede, prendendo os três ramos e a mensagem de falha do navegador |
 | `scripts/legendas_diagnostico.py` | instrumento de estado por vídeo — chama o dono, não substitui |
 | `scripts/sensor_piloto_social_it.py` · `familia` | a tabela GRUPO × PLATAFORMA que responde a condição 6 sem rede |
