@@ -1,0 +1,114 @@
+{
+ "DATASET": "IT-OLIVO-ASSIMETRIA-V1",
+ "LAYER": "HANDOFF_TO_CANONICAL_TRACK",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-OLIVO-ASSIMETRIA-V1",
+ "CAPTURED_AT": "2026-09-04",
+ "SOURCE": "confronto entre a leitura integral de -4lUyIORl4A (IT-OLIVO-LEITURA-V2) e o pacote canonico pinado em IT-RADAR-V21. Nenhum status e nenhum score foi alterado.",
+
+ "A_ASSIMETRIA_CONFERIDA_NO_CATALOGO": {
+  "PARES_DE_ROTULO_TOTAIS": 2030,
+  "PARES_COM_OLIVO": 1,
+  "O_UNICO_PAR": {
+   "ID": "IT-LBL-1932",
+   "CROP": "OLIVO",
+   "TARGET": "INFESTANTI",
+   "TARGET_AS_WRITTEN_ON_LABEL": "malerb",
+   "PRODUCT": "MORAINE",
+   "REGISTRATION_ID": "018101",
+   "LINK_STRENGTH": "LINHA_DA_TABELA",
+   "TIPO": "HERBICIDA"
+  },
+  "OPORTUNIDADES_COM_CROP_OLIVE": 3,
+  "COBERTURA_DE_LEITURA_DE_ROTULO": "102 de 163 registros. 61 sem rotulo lido.",
+  "CONFERIDO_CONTRA": "data/samples/IT-RADAR-V21/productRelationships.json e productsRegulatory.json, pinados com SHA e verificaveis por `python3 scripts/radar_v21.py verificar`"
+ },
+
+ "AS_TRES_OPORTUNIDADES_COMO_O_MOTOR_AS_DEIXOU": [
+  {"ID": "OPP_568684853264", "ARCHETYPE": "O6_SCIENCE_TO_FIELD", "STATUS": "TO_VALIDATE", "SCORE": 9, "TARGET": null,
+   "BLOQUEIO_DECLARADO": "D_PROBLEMA sem alvo agronomico declarado",
+   "WHY_DO_MOTOR": "sem alvo, e o unico produto de rotulo (MORAINE) nao esta no catalogo comercial publico"},
+  {"ID": "OPP_B19061BA418B", "ARCHETYPE": "O4_COMPETITIVE_OPENING", "STATUS": "PREPARE_NOW", "SCORE": 9, "TARGET": null,
+   "BLOQUEIO_DECLARADO": "RED_TEAM comunicacao de concorrente virou participacao de mercado",
+   "WHY_DO_MOTOR": "24 pecas de concorrente e um unico produto de rotulo (MORAINE), fora do catalogo comercial publico"},
+  {"ID": "OPP_EE1E2A3869EE", "ARCHETYPE": "O2_MARKET_MOMENT", "STATUS": "TO_VALIDATE", "SCORE": 7, "TARGET": null,
+   "BLOQUEIO_DECLARADO": "C_TEMPO sem janela defensavel e sem sinal datado",
+   "WHY_DO_MOTOR": "so peso economico, e o unico rotulo (MORAINE) esta fora do catalogo comercial"}
+ ],
+ "O_QUE_AS_TRES_TEM_EM_COMUM": "TARGET = null nas tres. B_ENCAIXE_COMERCIAL = NAO nas tres. C_ROTULO_CULTURA_X_ALVO = NOT_APPLICABLE nas tres. E_QUANDO = UNKNOWN nas tres. G_PERGUNTA_DE_VENDA = NAO nas tres. As tres sao a MESMA lacuna vista de tres angulos.",
+
+ "RESPOSTAS": {
+  "A_AS_TRES_OPORTUNIDADES_TEM_SUPORTE_SUFICIENTE": {
+   "RESPOSTA": "NAO, e a leitura nao muda isso.",
+   "PORQUE": "as tres estao bloqueadas por falta de ALVO e de ENCAIXE COMERCIAL. A leitura fornece alvos em abundancia — rogna, occhio di pavone, Dasineura, Palpita, Halyomorpha, mosca, Xylella — mas nenhum deles se liga a um produto ADAMA. O bloqueio que a leitura poderia levantar (D_PROBLEMA) nao e o mesmo que impede a promocao (B e C).",
+   "EFEITO_LIQUIDO": "as tres continuam TO_VALIDATE / PREPARE_NOW como estavam. Esta missao NAO as promove nem as rebaixa: quem decide faixa e a regua de oportunidade, que nao e desta camada."
+  },
+  "B_HA_RELACAO_PRODUTO_x_CULTURA_x_ALVO_DEFENSAVEL": {
+   "RESPOSTA": "NAO.",
+   "PORQUE": "o unico par ADAMA lido em olivo e MORAINE 018101 x INFESTANTI, um herbicida. A sessao inteira e fitopatologica e entomologica: nao ha um unico bloco sobre gestione delle malerbe, diserbo, inerbimento ou flora spontanea. A palavra 'trinciature' aparece UMA vez, e dentro da prescricao obrigatoria contra o vetor da Xylella — e nomeia meio MECANICO.",
+   "O_UNICO_PONTO_DE_CONTATO": "OLIVO-F01. O ciclo de Philaenus spumarius depende da vegetacao herbacea do oliveto e a medida obrigatoria da Puglia e destrui-la por aratura, trinciatura e erpicatura.",
+   "POR_QUE_NAO_BASTA": "nenhuma fonte lida afirma que um herbicida produza sobre as neanidi o efeito que a lavoura mecanica produz. As formas juvenis vivem em massas espumosas sobre a planta hospedeira; dessecar quimicamente a erva e destrui-la mecanicamente NAO foram declaradas equivalentes por ninguem. Afirmar a equivalencia seria construir eficacia que nenhuma fonte assinou — a mesma tentacao que esta casa ja recusou em MELO x Glomerella x fluazinam.",
+   "CLASSIFICACAO": "HIPOTESE_A_TESTAR, e nao cruzamento. PRODUCT_MATCH = NAO. ACTIVE_INGREDIENT_MATCH = NAO.",
+   "O_QUE_DESTRAVARIA": "o texto da determina n.66 e das determine de misura obbligatoria da Regione Puglia, que listam os 'prodotti ammessi' e definem o que conta como cumprimento da medida; e qualquer fonte que compare controle quimico e mecanico da vegetacao herbacea sobre a populacao de neanidi."
+  },
+  "C_HA_SUBSTANCIA_ATIVA_MENCIONADA_SEM_PRODUTO_ADAMA_CORRESPONDENTE": {
+   "RESPOSTA": "SIM — e sao TODAS.",
+   "MEDIDA": "18 meios tecnicos nomeados na sessao. ZERO estao entre as 53 substancias ativas ADAMA.",
+   "LISTA": ["RAME", "ZOLFO", "POLTIGLIA BORDOLESE", "OSSIDO DI RAME", "DODINA", "DELTAMETRINA", "ACETAMIPRID", "FLUPYRADIFURONE", "PIRETRO NATURALE", "BACILLUS THURINGIENSIS", "BACILLUS SUBTILIS", "AZADIRACTINA", "CAOLINO", "ZEOLITE", "FARINA DI ROCCIA", "OLIO MINERALE", "DISTILLATO DI LEGNO", "FERTILIZZANTE FOGLIARE RAME+ACIDO CITRICO"],
+   "COMO_FOI_CONFERIDO": "contra IT-RADAR-V21/activeIngredients.json, que e DERIVADO dos 163 registros e nao digitado de memoria — precisamente o defeito que originou o FIX-05.",
+   "A_UNICA_CANDIDATA_E_RECUSADA": "uma palavra deformada pelo ASR ('di disconolo'). Recuso a leitura como DIFENOCONAZOLO: e o unico ponto da sessao onde uma molecula ADAMA poderia aparecer, o que torna a leitura interessada e inaceitavel. E, conferido assim mesmo, os DOIS registros ADAMA de difenoconazole (SPYRALE 009757 e MAGANIC 017955) tem rotulo LIDO e nenhum produz par com OLIVO — logo nem a leitura favoravel abriria rota.",
+   "O_QUE_ISTO_NAO_E": "nao e 'a ADAMA nao tem produto para olivo'. E ausencia NA NOSSA LEITURA. 61 dos 163 registros seguem sem rotulo lido."
+  },
+  "D_ALGUMA_EVIDENCIA_FORTALECE": {
+   "RESPOSTA": "SIM, mas fortalece o PROBLEMA, e nao a oportunidade ADAMA.",
+   "ITENS": [
+    {"ID": "OLIVO-F03", "O_QUE": "rogna em vermelho na Liguria nos dois anos, ataques acima de 40%", "ROLE": "SUPPORTS"},
+    {"ID": "OLIVO-F09", "O_QUE": "Palpita em expansao, e a causa declarada e a progressiva desaparicao de inseticidas", "ROLE": "SUPPORTS"},
+    {"ID": "OLIVO-F10", "O_QUE": "'la coperta e decisamente corta' — o mesmo punhado de substancias serve mosca, tignola e cecidomia, e gastar uma tira-a da outra. Aparece TRES vezes de forma independente: Liguria, Toscana e Marche", "ROLE": "SUPPORTS"},
+    {"ID": "OLIVO-F11", "O_QUE": "derroga PEDIDA nas Marche em 2025 para mais dois larvicidas e mais um piretro", "ROLE": "SUPPORTS"},
+    {"ID": "OLIVO-F08", "O_QUE": "'scarsita di principi attivi disponibili, registrati' para Halyomorpha; e a deltametrina como unico registrado", "ROLE": "SUPPORTS"}
+   ],
+   "A_RESSALVA_QUE_MANDA": "cada um destes e uma LACUNA DE MEIOS na cultura. Uma lacuna so vira oportunidade para esta casa se houver um produto ADAMA que a preencha — e nao ha nenhum, em nenhum destes alvos, no rotulo lido. Um problema real sem rota propria e um problema alheio.",
+   "PRECEDENTE_DESTA_CASA": "o melhor nao-cruzamento da rodada anterior foi exatamente sobre a oliveira: um concorrente (FMC, Exel/Exirel Bait) posicionando-se contra a mosca na cultura em que a ADAMA tem UM par lido, e ele e um herbicida. Esta leitura CONFIRMA esse achado por outro caminho, com 171.715 caracteres de fala nacional."
+  },
+  "E_ALGUMA_EVIDENCIA_ENFRAQUECE_OU_FECHA": {
+   "RESPOSTA": "SIM, tres.",
+   "ITENS": [
+    {"ID": "OLIVO-F02", "O_QUE": "o Piano straordinario di rigenerazione olivicola, de cerca de 80 milhoes de euro, NAO preve apoio a intervencao com principi attivi. Perguntado diretamente, o servico da Puglia respondeu 'non e prevista [...] pero si sta valutando'", "ROLE": "WEAKENS", "PORQUE": "o dinheiro publico da maior emergencia fitossanitaria do olivo italiano vai para arranquio, replantio, enxertia e contraste ao vetor — nao para quimica."},
+    {"ID": "OLIVO-F04 + OLIVO-F05", "O_QUE": "para a rogna, o presidente da AIPP declara que a direcao de interesse sao produtos que NAO sao prodotti fitosanitari pela normativa, porque permitem reduzir drasticamente o cobre; e a prova de campo do Trentino deu vantagem a um fertilizante foliar sobre o preparado microbiologico e sobre o destilado de madeira", "ROLE": "WEAKENS", "PORQUE": "no alvo que a Liguria pinta de vermelho, o vetor de inovacao declarado esta FORA do registro fitossanitario."},
+    {"ID": "OLIVO-F13", "O_QUE": "Xylella medida como AUSENTE fora da Puglia, com denominador: Marche cerca de 4.000 analises todas negativas; Trentino negativo; Toscana com subespecie MULTIPLEX ST87 que ao que parece nao ataca o olivo, e tendencia de zonas infetas em diminuicao", "ROLE": "CLOSES", "PORQUE": "fecha, para as regioes e o bienio citados, a leitura de uma emergencia Xylella nacional em olivo."}
+   ]
+  },
+  "F_HA_JANELA_FENOLOGIA_OU_THRESHOLD_UTIL": {
+   "RESPOSTA": "SIM, e e a contribuicao mais util desta leitura para a trilha canonica.",
+   "ITENS": [
+    {"TIPO": "REGULATORY_WINDOW", "O_QUE": "prazo de 10 de julho para a operacao obrigatoria contra o adulto do vetor da Xylella, nos comuni da determina; sancao de cerca de 1.000 a 6.000 euros", "REGION": "Puglia"},
+    {"TIPO": "PHENOLOGY_HANDOVER", "O_QUE": "o endurecimento do endocarpo e o ponto de passagem: antes dele a drupa e sensivel a Halyomorpha; depois dele, a Bactrocera. Define duas janelas distintas com um marcador fenologico observavel", "REGION": "Veneto, Friuli, Trentino"},
+    {"TIPO": "THRESHOLD", "O_QUE": "Palpita: mais de 10 adultos por armadilha por semana, OU mais de 5 jovens por planta em amostra representativa. Explicitamente NAO oficializada", "REGION": "Friuli"},
+    {"TIPO": "THRESHOLD", "O_QUE": "Halyomorpha: soglia de presenca do adulto em FUNCAO DA CARGA PRODUTIVA — mais baixa em oliveto de baixa producao ou em alternancia, mais alta em oliveto produtivo. Linhas-guia de 2024 das universidades de Trento, Verona e Padova", "REGION": "Trentino"},
+    {"TIPO": "THRESHOLD", "O_QUE": "Occhio di pavone: queda de folhas acima de 20% ja tem consequencia produtiva", "REGION": "Friuli"},
+    {"TIPO": "TREATMENT_WINDOW", "O_QUE": "rame no Trentino: pos-poda, primeira decada de abril, fim de maio, fim de junho, inicio de setembro em pos-colheita", "REGION": "Trentino"},
+    {"TIPO": "TREATMENT_WINDOW", "O_QUE": "rame nas Marche: em pos-colheita ou logo apos a poda, com a recomendacao explicita de intervir NA IMEDIATEZ, porque quem espera terminar a poda perde quase todo o efeito ja limitado do cobre", "REGION": "Marche"},
+    {"TIPO": "TREATMENT_WINDOW", "O_QUE": "Dasineura: abril e inicio de maio, na deposicao — depois da galha formada a larva e inalcancavel", "REGION": "Liguria, Toscana"},
+    {"TIPO": "MONITORING_CHANNEL", "O_QUE": "AMAP Marche opera cerca de 70 estacoes meteo, usa o modelo OLIVO.NET e publica um notiziario agrometeorologico SEMANAL por provincia, redigido na manha de quarta-feira com dados de segunda e terca", "REGION": "Marche", "POR_QUE_IMPORTA": "e um canal institucional datavel e monitoravel para olivo, com cadencia declarada — util para medir precedencia no futuro."},
+    {"TIPO": "MONITORING_CHANNEL", "O_QUE": "Toscana: modelo previsional da Scuola Superiore Sant'Anna de Pisa para a mosca, com bollettini enviados por SMS a quem pede; a propria fonte declara que 'la modellistica a volte viene smentita'", "REGION": "Toscana"}
+   ]
+  },
+  "G_EXISTE_INFORMACAO_ANTERIOR_AO_BOLETIM_OFICIAL": {
+   "RESPOSTA": "NAO NESTA SESSAO, e a distincao importa.",
+   "PORQUE": "no cruzamento MELO x Glomerella a precedencia existia porque havia DUAS pontas: uma fala tecnica datada e um boletim institucional datado da MESMA regiao, com a mesma linha de moleculas. Aqui a fala e ELA PROPRIA institucional — sao os servicos fitossanitarios regionais falando em nome proprio, num balanco da campanha PASSADA (2024/2025). Nao ha uma segunda ponta institucional posterior no acervo desta casa contra a qual medir distancia.",
+   "O_QUE_SERIA_PRECISO": "ler os bollettini olivicoli de 2026 das regioes nomeadas — sobretudo o notiziario semanal da AMAP Marche e os comunicados da Liguria sobre Dasineura — e medir se a linha tecnica dita em 2025-12-11 reaparece neles, e quando.",
+   "O_QUE_NAO_FIZ": "nao chamei de precedencia o que e apenas anterioridade de data. PRECEDENCE exige as duas pontas. E nao converti nada disto em PREDICTION."
+  }
+ },
+
+ "VEREDITO_SOBRE_A_ASSIMETRIA": {
+  "A_ASSIMETRIA_E_REAL_E_FOI_RECONFIRMADA": "1 par de rotulo lido contra 3 oportunidades, medido no catalogo pinado.",
+  "A_LEITURA_NAO_A_RESOLVE": "171.715 caracteres de fala nacional sobre olivo, treze regioes representadas, e ZERO substancias ativas ADAMA nomeadas.",
+  "A_ASSIMETRIA_E_DE_LEITURA_OU_DE_MERCADO": "esta leitura desloca a balanca para MERCADO, sem fecha-la. A sessao nao e uma amostra pequena: e o balanco fitossanitario NACIONAL da cultura, e nele o vocabulario tecnico e cobre, enxofre, dodina, deltametrina, acetamiprid, flupyradifurone, Bacillus e corroborantes. Nenhum e ADAMA. Isso e mais consistente com um portfolio que nao cobre a cultura do que com uma lacuna de leitura nossa.",
+  "MAS_A_PORTA_FICA_ABERTA_POR_DISCIPLINA": "61 dos 163 registros seguem sem rotulo lido, e a afirmacao de ausencia e a mais cara de errar nesta casa. O que fecharia a questao de vez e ler esses 61 rotulos procurando OLIVO — e essa e uma acao barata e definitiva.",
+  "PROMOCAO": "NENHUMA. STATUS_CHANGES = 0. SCORE_CHANGES = 0."
+ },
+
+ "NOTES": "Esta missao nao e dona de ACT_NOW, COMMERCIAL_PRIORITY, PUBLICATION_STATE nem WINDOW_OPEN_NOW. As respostas acima sao evidencia estruturada para a trilha canonica consumir depois. Portal, Vercel, producao e o snapshot da reuniao: intocados."
+}

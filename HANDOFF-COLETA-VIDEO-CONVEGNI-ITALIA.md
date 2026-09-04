@@ -1,58 +1,85 @@
 # HANDOFF · COLETA / VÍDEO / CONVEGNI / CRUZAMENTOS ITÁLIA
 
-**Data:** 2026-09-04
+**Data:** 2026-09-04 (2ª rodada)
 **Branch:** `claude/retomada-coleta-video-convegni-vz50er`
-**Base recebida:** `34e4ce8` (era a ponta de `claude/adama-italia-source-discovery-oui6ma`)
+**HEAD desta rodada:** ver `git rev-parse HEAD` — a rodada anterior fechou em `80ff4db`
 
 O próximo agente deve conseguir continuar **sem reconstruir esta história pela conversa**.
-Tudo o que importa está em arquivo versionado, e este documento diz onde.
 
 ---
 
-## 0 · A COISA MAIS IMPORTANTE DESTE HANDOFF
+## 0 · O QUE MUDOU NESTA RODADA
 
-**O contêiner da conta anterior morreu, e com ele morreram resultados que já tinham fechado.**
-
-O handoff que recebi dizia "11 workflows vivos, não duplicar" e "22 objetos fechados, não
-recolher". As duas frases foram escritas **acreditando que os resultados estavam salvos**.
-Não estavam.
-
-```
-processos vivos da conta anterior neste contêiner ........... ZERO
-scratchpad da conta anterior (b6cc5475-...) ................. NÃO EXISTE
-falas de convegno commitadas ................................ 17
-falas de convegno que a conta anterior tinha fechado ........ 22
-```
-
-Os 11 workflows não podiam ser duplicados nem preservados: eles **não existem mais**. Eles
-escreviam em memória de agente e em `/tmp/claude-0/.../b6cc5475-b0e9-5242-bac3-292cc842a48f/`,
-que é efêmero e foi reclamado junto com o contêiner. Só o que virou commit sobreviveu.
-
-**A lição operacional, e ela vale para a próxima troca de conta:**
-resultado que não virou commit não é resultado fechado — é resultado em risco. O `PROCESSED`
-de `IT-CHECKPOINT-V1.json` estava vazio (`{}`) e por isso o livro-caixa não sabia dizer o que
-tinha sido consumido.
+1. **A causa raiz da perda foi consertada.** Os workflows liam o pacote canônico V2.1 de um
+   scratchpad efêmero morto. Agora leem `data/samples/IT-RADAR-V21/`, versionado, com SHA por
+   arquivo. Testemunha `WORKFLOW_SURVIVES_NEW_CONTAINER` = **PASS**.
+2. **`-4lUyIORl4A` foi lido integralmente** (171.715 caracteres) e entregue estruturado.
+3. **Um objeto anônimo foi identificado.** `gDNHhPeng7Y` tinha 176.979 caracteres de fala e
+   TITLE, data, canal e duração **todos nulos**. É o *bilancio fitosanitario 2024/2025 del
+   noce e del nocciolo*, de 2025-10-10. A fala não foi recolhida — só o metadado.
+4. **Os 2 objetos UNKNOWN continuam UNKNOWN**, e agora com prova de que não são inferíveis.
 
 ---
 
-## 1 · TABELA DE ESTADO REAL
+## 1 · PERSISTÊNCIA — OBJETO A OBJETO
 
-| WORKFLOW / AGENTE | OBJETO | STATUS | ÚLTIMA ATIVIDADE | RESULTADO PERSISTIDO? | RETOMAR? |
-|---|---|---|---|---|---|
-| colhedor paciente (sem agente) | 17 falas de convegno | **CLOSED** | 2026-09-03 23:53 | SIM · `IT-CONVEGNO-V1/falas/` | NÃO |
-| colhedor paciente | `wh20ZkHf5Cc` | **CLOSED** (bytes perdidos → **resgatado**) | 2026-09-04 01:18 | SIM, agora · `IT-CONVEGNO-V2/falas/` | NÃO |
-| colhedor paciente | `AOOVhtTQvPA` | **CLOSED** (bytes perdidos → **resgatado**) | 2026-09-04 01:18 | SIM, agora | NÃO |
-| colhedor paciente | `-4lUyIORl4A` (olivo I sessione) | **CLOSED** (bytes perdidos → **resgatado**) | 2026-09-04 01:20 | SIM, agora | NÃO |
-| colhedor paciente | `c2bJ4IqqXek` (drupacee) | **BLOCKED** | 2026-09-04 01:28 | SIM (o *bloqueio* está registrado) | NÃO |
-| colhedor paciente | 2 objetos não identificados | **UNKNOWN** | — | NÃO | ver §5 |
-| `cruzamento-shard` × `pomacee-drupacee` | 4 cruzamentos | **CLOSED** | 2026-09-04 00:49 | SIM · `IT-CRUZAMENTOS-V2.json` | NÃO |
-| `cruzamento-shard` × `vite` | — | **LOST** | perdido com o contêiner | NÃO | SIM (§6) |
-| `cruzamento-shard` × `seminativi` | — | **LOST** | perdido com o contêiner | NÃO | SIM (§6) |
-| `cruzamento-shard` × `olivo-agrumi` | — | **LOST** | perdido com o contêiner | NÃO | SIM (§6) |
-| `convegno-shard` lotes A–F | 12 leituras em curso | **LOST** | perdido com o contêiner | NÃO | SIM (§6) |
-| intel V1 (sinais) | 44 sinais testados | **CLOSED** | 2026-09-03 | SIM · `IT-CAMPO-SINAIS-VERIFICADOS-V1/V2` | NÃO |
+Só conta como sobrevivente entre contêineres o que está **commitado**. "Fechou no log" não é
+persistência.
 
-**Nenhum processo foi morto por ficar minutos sem output.** Não havia nenhum processo para matar.
+| OBJECT_ID | SOURCE | BYTES | CHARS | PROVENANCE | STATUS | PERSISTED_FILE | COMMITTED? |
+|---|---|---:|---:|---|---|---|---|
+| `m50xqCqqJP4` | IT-CONVEGNO-V1 | 239327 | 237601 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/m50xqCqqJP4.json` | YES |
+| `3m0OxLSK4ro` | IT-CONVEGNO-V1 | 205954 | 204223 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/3m0OxLSK4ro.json` | YES |
+| `dGmP236Z4uQ` | IT-CONVEGNO-V1 | 192976 | 191224 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/dGmP236Z4uQ.json` | YES |
+| `mIunZ-pH3RY` | IT-CONVEGNO-V1 | 191676 | 189979 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/mIunZ-pH3RY.json` | YES |
+| `gDNHhPeng7Y` | IT-CONVEGNO-V1 | 178495 | 176979 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/gDNHhPeng7Y.json` | YES |
+| `4ybyIcvgUhg` | IT-CONVEGNO-V1 | 178475 | 176835 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/4ybyIcvgUhg.json` | YES |
+| `szsLkUd2cy4` | IT-CONVEGNO-V1 | 178060 | 176752 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/szsLkUd2cy4.json` | YES |
+| `CYV76yVc98s` | IT-CONVEGNO-V1 | 176835 | 175392 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/CYV76yVc98s.json` | YES |
+| `-4lUyIORl4A` | IT-CONVEGNO-V2 | 173129 | 171715 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V2/falas/-4lUyIORl4A.json` | YES |
+| `8_rnThlsy9Q` | IT-CONVEGNO-V1 | 171233 | 169756 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/8_rnThlsy9Q.json` | YES |
+| `or7l165Qv_c` | IT-CONVEGNO-V1 | 164340 | 162876 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/or7l165Qv_c.json` | YES |
+| `6eNiYjzPGHw` | IT-CONVEGNO-V1 | 160146 | 158855 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/6eNiYjzPGHw.json` | YES |
+| `VE8gaWinRmY` | IT-CONVEGNO-V1 | 155898 | 154654 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/VE8gaWinRmY.json` | YES |
+| `azHKlPD3qAg` | IT-CONVEGNO-V1 | 151917 | 150660 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/azHKlPD3qAg.json` | YES |
+| `GIiPq_NhIiM` | IT-CONVEGNO-V1 | 149169 | 148030 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/GIiPq_NhIiM.json` | YES |
+| `D9rKf6p1YY0` | IT-CONVEGNO-V1 | 141833 | 140760 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/D9rKf6p1YY0.json` | YES |
+| `uf5bx-oTees` | IT-CONVEGNO-V1 | 137861 | 136778 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/uf5bx-oTees.json` | YES |
+| `yFZ7eTXY2zU` | IT-SRCX-036 | 105812 | 104742 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/yFZ7eTXY2zU.json` | YES |
+| `3tDE1zDHUvU` | IT-SRCX-036 | 95262 | 94484 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/3tDE1zDHUvU.json` | YES |
+| `ofRkFRzzkno` | IT-SRCX-036 | 83210 | 82605 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/ofRkFRzzkno.json` | YES |
+| `ep1KX19XxS8` | IT-SRCX-036 | 69544 | 68992 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/ep1KX19XxS8.json` | YES |
+| `lr4Alw-8VXA` | IT-CONVEGNO-V1 | 60602 | 60123 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V1/falas/lr4Alw-8VXA.json` | YES |
+| `wh20ZkHf5Cc` | IT-CONVEGNO-V2 | 59647 | 59137 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V2/falas/wh20ZkHf5Cc.json` | YES |
+| `AOOVhtTQvPA` | IT-CONVEGNO-V2 | 4810 | 4767 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-CONVEGNO-V2/falas/AOOVhtTQvPA.json` | YES |
+| `acAe_KZkL0w` | IT-SRCX-036 | 1952 | 1935 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/acAe_KZkL0w.json` | YES |
+| `zklvzODubuQ` | IT-SRCX-036 | 1752 | 1739 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/zklvzODubuQ.json` | YES |
+| `AuYXP_5Hfzc` | IT-SRCX-036 | 1573 | 1561 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/AuYXP_5Hfzc.json` | YES |
+| `D8BW5iP35rM` | IT-SRCX-036 | 1493 | 1485 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/D8BW5iP35rM.json` | YES |
+| `67b-g9X49GQ` | IT-SRCX-036 | 1463 | 1456 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/67b-g9X49GQ.json` | YES |
+| `EmDDkVgfzEM` | IT-SRCX-036 | 1437 | 1432 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/EmDDkVgfzEM.json` | YES |
+| `uruXJezDp3o` | IT-SRCX-036 | 1345 | 1333 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/uruXJezDp3o.json` | YES |
+| `HD4ZaIURPso` | IT-SRCX-036 | 1261 | 1246 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/HD4ZaIURPso.json` | YES |
+| `AEF-A2AVP7E` | IT-SRCX-036 | 1131 | 1119 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/AEF-A2AVP7E.json` | YES |
+| `2jgjJQqcr-s` | IT-SRCX-036 | 1116 | 1104 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/2jgjJQqcr-s.json` | YES |
+| `ah8sT9hB7HU` | IT-SRCX-036 | 651 | 645 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/ah8sT9hB7HU.json` | YES |
+| `f0Tzdu2j67E` | IT-SRCX-036 | 611 | 606 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/f0Tzdu2j67E.json` | YES |
+| `INGnJtElzkg` | IT-SRCX-036 | 553 | 550 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/INGnJtElzkg.json` | YES |
+| `SlTx6OqFiGA` | IT-SRCX-036 | 532 | 524 | YOUTUBE_ASR_AUTO | CLOSED | `data/samples/IT-VIDEO-V1/falas/SlTx6OqFiGA.json` | YES |
+
+| `c2bJ4IqqXek` | IT-CONVEGNO-V2 | 0 | 0 | NENHUMA — sem legenda em idioma algum | BLOCKED | `data/samples/IT-CONVEGNO-V2/testemunhas/c2bJ4IqqXek.witness.json` | YES (o *bloqueio*) |
+| UNKNOWN (2 objetos) | — | — | 28.473 no total | — | LOST | — | NO |
+
+TOTAL: 38 objetos fechados · 3414654 caracteres · 3443081 bytes
+
+
+**Verificação rápida:**
+
+```bash
+python3 scripts/radar_v21.py verificar    # SHA de cada arquivo do pacote canônico
+python3 scripts/radar_v21.py testemunha   # WORKFLOW_SURVIVES_NEW_CONTAINER
+python3 -m pytest tests/ -q               # 329 passed, 4676 subtests
+```
 
 ---
 
@@ -139,11 +166,26 @@ declarado no FIX-06 ........ 22 obj   3.075.569 ch
 FALTA ......................  2 obj      28.473 ch
 ```
 
-**Os ids desses 2 objetos não estão escritos em nenhum arquivo versionado.** Procurei em
-`IT-VIDEO-V1` um objeto de 28.473 caracteres e um par que somasse 28.473: **nenhum dos dois
-existe**. Inventar dois ids para fechar a aritmética seria pior que declarar o buraco.
+**Os ids desses 2 objetos não estão escritos em nenhum arquivo versionado.**
 
-**Estado: `UNKNOWN_2_OBJECTS`.**
+Nesta 2ª rodada a busca foi exaustiva e está fechada:
+
+- `28473` / `28.473` **não aparece literalmente** em nenhum artefato de nenhuma branch (as
+  três ocorrências encontradas são coincidências de dígitos num bundle minificado do jsPDF e
+  num arquivo de eventos de concorrente, mais os meus próprios artefatos desta missão);
+- a única menção a "22 objetos" em todo o repositório é o próprio texto do FIX-06, que **não
+  os enumera**;
+- contra **todos os 38 objetos commitados**, nenhum objeto isolado, nenhum par e nenhum trio
+  soma 28.473 caracteres.
+
+A aritmética foi usada apenas para **descartar**, nunca para inferir identidade. Inventar dois
+ids para fechar a conta seria pior que declarar o buraco.
+
+```
+OBJECT_ID   = UNKNOWN
+PERSISTENCE = LOST
+RECOVERY    = NOT_POSSIBLE_WITH_CURRENT_EVIDENCE
+```
 
 ---
 
@@ -167,10 +209,17 @@ Refazer é possível e custa fan-out novo, que a missão restringe. **Não refiz
 não por esquecimento:** a missão manda não reabrir fan-out amplo, e o handoff é mais valioso
 que uma rodada parcial que a próxima troca de conta perderia de novo.
 
-**Aviso ao próximo agente:** antes de disparar qualquer workflow, corrija o caminho dentro de
-`.claude/workflows/*.js` — a constante `SC` ainda aponta para o scratchpad morto
-`b6cc5475-b0e9-5242-bac3-292cc842a48f`, e os pacotes `v21/*.json` que ela referencia **não
-existem mais**. Rodar sem corrigir isso produz agente cego.
+**A dependência de scratchpad efêmero foi CONSERTADA nesta rodada.** A constante `SC` dos
+workflows apontava para `b6cc5475-…`, morto. Agora:
+
+- o pacote canônico vive em `data/samples/IT-RADAR-V21/`, **versionado**;
+- `MANIFEST.json` guarda ref, path e **blob SHA** de origem por arquivo, e o SHA é endereçado
+  por conteúdo — se a origem mudar, `verificar` acusa em vez de divergir em silêncio;
+- `activeIngredients.json` é **derivado** dos 163 registros, nunca digitado de memória — o
+  defeito que originou o FIX-05;
+- `python3 scripts/radar_v21.py testemunha` prova, a partir de `/` e com ambiente vazio, que
+  um processo novo sem scratchpad nenhum encontra o pacote, lê as 53 substâncias, os 2.030
+  pares e reproduz a assimetria do OLIVO. **WORKFLOW_SURVIVES_NEW_CONTAINER = PASS.**
 
 ---
 
@@ -189,6 +238,13 @@ data/samples/IT-CRUZAMENTO-V2/IT-CRUZAMENTOS-V2.json     grupo pomacee-drupacee 
 data/samples/IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json   FIX-01..06 e os bloqueios medidos
 data/samples/IT-VOZ-AUDIO-V1/ e V2/                      transcrições whisper local
 data/samples/IT-INSTAGRAM-V1/ V2/ V3/                    transcrições whisper local
+```
+
+```
+data/samples/IT-RADAR-V21/*.json            o pacote canonico ADAMA V2.1, PINADO com SHA
+data/samples/IT-CONVEGNO-V2/IT-OLIVO-LEITURA-V2.json    a leitura integral do olivo I
+data/samples/IT-HANDOFF-CANONICO-V1/*.json  handoff estruturado para a trilha canonica
+scripts/radar_v21.py                        o resolver que tira os workflows do caminho morto
 ```
 
 `IT-CRUZAMENTOS-V2.json` é o mais insubstituível: os **11 descartes com motivo** e os **2
@@ -226,29 +282,42 @@ for p in sorted(glob.glob('data/samples/IT-CONVEGNO-V2/falas/*.json')):
 
 ## 9 · GAPS RESTANTES
 
-1. **2 objetos / 28.473 caracteres** não identificados (§5). `UNKNOWN`.
-2. **3 grupos de cruzamento** sem output (§6).
-3. **12 leituras de convegno** sem output (§6).
-4. **`-4lUyIORl4A` foi coletada e nunca foi lida** por nenhum agente — é a I sessione do
-   bilancio do olivo, 171.715 caracteres, e o OLIVO é a maior assimetria declarada do radar
-   (1 par de rótulo lido contra 3 oportunidades).
-5. **`c2bJ4IqqXek`** bloqueado por egresso (§4).
-6. **136 dos 150 bollettini de 2026** ainda sem texto extraído. Toda afirmação sobre "quando
-   a instituição falou pela primeira vez" carrega esse limite.
-7. **61 dos 163 registros ADAMA** sem rótulo lido. Toda afirmação de ausência sobre eles é
-   frágil — foi assim que o único sinal já refutado desta casa caiu.
+1. **2 objetos / 28.473 caracteres** — `UNKNOWN`, busca exaustiva fechada (§5).
+2. **3 grupos de cruzamento** e **22 objetos nunca lidos** (~2,1 milhões de caracteres) sem
+   output. Inventário completo, com custo e valor por item, em
+   `data/samples/IT-HANDOFF-CANONICO-V1/IT-TRABALHO-PERDIDO-V1.json`.
+3. **`c2bJ4IqqXek`** bloqueado por egresso (§4). Sem legenda em idioma algum.
+4. **136 dos 150 bollettini de 2026** ainda sem texto extraído. Toda afirmação sobre "quando a
+   instituição falou pela primeira vez" carrega esse limite.
+5. **61 dos 163 registros ADAMA sem rótulo lido.** É a ressalva que impede fechar a assimetria
+   do OLIVO, e é barata de resolver — ver §10.
+6. **Uma molécula ilegível.** Em `-4lUyIORl4A`, o único ponto de toda a sessão onde uma
+   molécula ADAMA poderia aparecer está deformado pelo ASR (`"di disconolo"`). **Recusei** ler
+   como *difenoconazolo*. Conferido mesmo assim: os dois registros ADAMA de difenoconazole
+   (SPYRALE 009757, MAGANIC 017955) têm rótulo **lido** e nenhum traz olivo — nem a leitura
+   favorável abriria rota.
 
 ---
 
 ## 10 · PRÓXIMA AÇÃO EXATA
 
-**Ler `-4lUyIORl4A`** (I sessione do bilancio do olivo, 171.715 caracteres, já em disco, custo
-zero de coleta). É a única massa de fala nova que entrou e ainda não foi lida, e ela cai
-exatamente em cima da maior assimetria declarada do radar. Ler antes de abrir qualquer
-fan-out novo.
+**Ler os 61 rótulos ADAMA que nunca foram lidos, procurando OLIVO e as culturas declaradas
+vazias.** É leitura de documento, não fan-out; custa muito menos que um grupo de cruzamento; e
+resolve de uma vez a ressalva que hoje contamina *todas* as afirmações de ausência desta casa —
+inclusive a assimetria do OLIVO, que a leitura desta rodada deslocou para "mercado" sem poder
+fechar.
 
-Depois, e só depois, decidir com o dono da missão se vale refazer os 3 grupos de cruzamento e
-as 12 leituras — corrigindo antes o caminho `SC` dentro de `.claude/workflows/*.js`.
+Só depois, e com decisão do dono da missão sobre o custo, reabrir fan-out **nesta ordem**:
+
+| # | O quê | Por quê |
+|---|---|---|
+| 1 | grupo **seminativi** + `mIunZ-pH3RY`, `dGmP236Z4uQ` | maior peso de rótulo do radar (BARBABIETOLA 239, FRUMENTO 176, ORZO 131, MAIS 112, PATATA 100) e zero cobertura. Agora há material dos **dois lados**: os bilanci externos e o webinar da própria ADAMA sobre cereais, que nomeia AVASTEL, mesosulfuron e pinoxaden. |
+| 2 | grupo **vite** + `8_rnThlsy9Q`, `VE8gaWinRmY`, `6eNiYjzPGHw` | 6 dos 19 sinais de fala verificados são de VITE, e é a única cultura com gravação independente do **norte e do sul** — responde a pergunta que a missão pediu e ninguém respondeu. |
+| 3 | `CYV76yVc98s` (fragola e piccoli frutti) | pode **corrigir** uma conclusão atual: o vazio declarado de CILIEGIO apoia-se justamente nesta gravação. |
+| 4–9 | agrumi, GF 19 marzo, olivo II, webinars ANVE, noce/nocciolo, droni | ver o inventário; noce e nocciolo têm **zero** pares de rótulo, conferido. |
+
+A infraestrutura já não é obstáculo: o `SC` morto foi consertado e há testemunha de que um
+processo novo, sem scratchpad nenhum, encontra e lê o pacote canônico.
 
 ---
 

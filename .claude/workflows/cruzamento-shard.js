@@ -8,7 +8,13 @@ export const meta = {
 }
 
 const REPO = '/home/user/eame-sintonia'
-const SC = '/tmp/claude-0/-home-user-eame-sintonia/b6cc5475-b0e9-5242-bac3-292cc842a48f/scratchpad'
+// O pacote canonico V2.1 vive VERSIONADO no repositorio. Ate 2026-09-04 esta constante
+// apontava para o scratchpad efemero de um conteiner que morreu, e com ele morreram tres
+// grupos de cruzamento e doze leituras. ARQUIVO NAO COMMITADO NAO SOBREVIVE A TROCA DE
+// CONTA. Proveniencia e SHA de cada arquivo em IT-RADAR-V21/MANIFEST.json; conferir com
+// `python3 scripts/radar_v21.py verificar`.
+const SC = `${REPO}/data/samples`
+const V21 = `${SC}/IT-RADAR-V21`
 
 const LEI = `
 LEIS DESTA CASA — nao negociaveis:
@@ -35,7 +41,7 @@ const RADAR = `
 RADAR ADAMA ITALIA: BARBABIETOLA 239 · FRUMENTO 176 · MELO 146 · ORZO 131 · MAIS 112 ·
 PATATA 100 · BRASSICACEE 100 · VITE 96 · ERBA_MEDICA 87 · CAROTA 63 · FRAGOLA 51 · PESCO 45 ·
 POMODORO 44 · CIPOLLA 42 · SOIA 28 · CILIEGIO 27 · AGRUMI 17 · RISO 15 · PERO 11 · OLIVO 1.
-Alvo n.1: AFIDI, 436 pares. 2.030 pares em ${SC}/v21/productRelationships.json.
+Alvo n.1: AFIDI, 436 pares. 2.030 pares em ${V21}/productRelationships.json.
 LINK_STRENGTH: LINHA_DA_TABELA > BLOCO_DA_CULTURA > DECLARACAO_DE_PRODUTO > SUBSTANCIA_ATIVA.
 9 oportunidades confirmadas: OPP_2BDE8FC566CE OPP_3965565ACFCC OPP_576D71D702F0
 OPP_6E18A133EE14 OPP_886307860F79 OPP_88CC35C57C7B OPP_8EA4F5C0D3F4 OPP_AF16E6A6B8B3
@@ -55,7 +61,7 @@ OS ARQUIVOS, todos fechados e versionados:
   ${REPO}/data/samples/IT-SNAPSHOT-V1/IT-INVENTARIO-FALA-V3.json  117 objetos, 816 numeros ditos
   ${REPO}/data/samples/IT-CONVEGNO-V1/falas/*.json  o texto integral das gravacoes
   ${REPO}/data/samples/IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json  91 fichas
-  ${SC}/v21/*.json  o pacote canonico`
+  ${V21}/*.json  o pacote canonico`
 
 const TIPOS = `OS DEZ TIPOS, e o nome de cada um:
   1  FALA_CONFIRMA_ESCRITO        a fala confirma algo ja visto em boletim ou documento
@@ -192,8 +198,8 @@ ATAQUE, cada passo com leitura real de arquivo:
    as DUAS datas tem de estar no arquivo. Se uma ponta e um bilancio 2024/2025 e a outra um
    bollettino de 2026, isso NAO e simultaneidade -> se foi tratado como tal, REFUTADO.
 4. O PAR DE ROTULO EXISTE, e com a forca declarada? Confira em
-   ${SC}/v21/productRelationships.json com fronteira de palavra. Inflou a forca -> REFUTADO.
-5. A MOLECULA dita ADAMA esta entre as 53? Confira em ${SC}/v21/activeIngredients.json.
+   ${V21}/productRelationships.json com fronteira de palavra. Inflou a forca -> REFUTADO.
+5. A MOLECULA dita ADAMA esta entre as 53? Confira em ${V21}/activeIngredients.json.
    Rame, zolfo, mancozeb, acetamiprid, spinosad, deltametrina, fipronil, metribuzin NAO
    estao -> se alguma foi chamada de nossa, REFUTADO.
 6. E JA EXISTE? Se este cruzamento repete um dos 7 de IT-CRUZAMENTOS-V1.json sem acrescentar

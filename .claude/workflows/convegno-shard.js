@@ -8,11 +8,17 @@ export const meta = {
 }
 
 const REPO = '/home/user/eame-sintonia'
-const SC = '/tmp/claude-0/-home-user-eame-sintonia/b6cc5475-b0e9-5242-bac3-292cc842a48f/scratchpad'
+// O pacote canonico V2.1 vive VERSIONADO no repositorio. Ate 2026-09-04 esta constante
+// apontava para o scratchpad efemero de um conteiner que morreu, e com ele morreram tres
+// grupos de cruzamento e doze leituras. ARQUIVO NAO COMMITADO NAO SOBREVIVE A TROCA DE
+// CONTA. Proveniencia e SHA de cada arquivo em IT-RADAR-V21/MANIFEST.json; conferir com
+// `python3 scripts/radar_v21.py verificar`.
+const SC = `${REPO}/data/samples`
+const V21 = `${SC}/IT-RADAR-V21`
 
 const FRONTEIRA = `
 TRILHA B · INTELIGENCIA. A coleta corre em outro processo e NAO E SUA.
-PROIBIDO: escrever em ${SC}/probe/wf3*, mexer em fila, cursor ou paginacao, lancar coleta
+PROIBIDO: escrever em QUALQUER arquivo da trilha de coleta (data/samples/IT-CONVEGNO-*, IT-VIDEO-*, IT-FONTES-*), mexer em fila, cursor ou paginacao, lancar coleta
 nova, reiniciar fan-out, tocar portal/site/Vercel/producao, ou promover achado a canonico.
 STATUS_CHANGES = 0 e SCORE_CHANGES = 0, sempre.
 Ler e obrigatorio. UMA leitura HTTP para conferir uma fonte que voce vai citar e permitida:
@@ -46,7 +52,7 @@ LEIS DESTA CASA — nao negociaveis:
 10. NAO_SEI e resposta.`
 
 const RADAR = `
-RADAR ADAMA ITALIA (pacote canonico V2.1, em ${SC}/v21/*.json):
+RADAR ADAMA ITALIA (pacote canonico V2.1, em ${V21}/*.json):
   culturas por peso de rotulo: BARBABIETOLA 239 · FRUMENTO 176 · MELO 146 · ORZO 131 ·
   MAIS 112 · PATATA 100 · BRASSICACEE 100 · VITE 96 · ERBA_MEDICA 87 · SEGALE 82 ·
   TRITICALE 71 · LEGUMINOSE 70 · CAROTA 63 · CUCURBITACEE 58 · COLZA 56 · FRAGOLA 51 ·
@@ -83,7 +89,7 @@ O ACERVO CONTRA O QUAL VOCE CRUZA — tudo fechado e versionado:
   ${REPO}/data/samples/IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json   91 fichas de fonte
   ${REPO}/data/samples/IT-SNAPSHOT-V1/IT-INVENTARIO-FALA-V2.json
       117 objetos de fala, com CROP/ISSUE/REGION/MOLECULE marcados e o EVIDENCE_SPAN de cada
-  ${SC}/v21/*.json  o pacote canonico inteiro`
+  ${V21}/*.json  o pacote canonico inteiro`
 
 const RELACAO_SCHEMA = {
   type: 'object',
@@ -191,8 +197,8 @@ DEPOIS, para cada relacao que a evidencia sustentar:
     QUAL MOMENTO · QUAL DIRECAO · COM QUE CERTEZA · e a CITACAO LITERAL em italiano
 Cada eixo com a SUA evidencia. Em axes_not_linked diga o que voce NAO conseguiu ligar.
 
-DEPOIS, a REGUA. Confira cada molecula contra ${SC}/v21/activeIngredients.json e cada par
-cultura x alvo contra ${SC}/v21/productRelationships.json, com fronteira de palavra. Declare
+DEPOIS, a REGUA. Confira cada molecula contra ${V21}/activeIngredients.json e cada par
+cultura x alvo contra ${V21}/productRelationships.json, com fronteira de palavra. Declare
 o LINK_STRENGTH LIDO no arquivo, e nunca um mais forte. Veredito: CONFIRMED, REJECTED,
 UNKNOWN ou VALIDATION_REQUIRED, com o porque.
 
@@ -242,9 +248,9 @@ ${REPO}/data/samples/IT-CONVEGNO-V1/falas/${o.id}.json:
 3. QUEM FALA foi declarado na propria fala, ou foi atribuido ao relator errado do convegno?
    Atribuido -> REFUTADO.
 4. A MOLECULA dita ADAMA esta MESMO entre as 53? Confira em
-   ${SC}/v21/activeIngredients.json com fronteira de palavra. Rame, zolfo, mancozeb,
+   ${V21}/activeIngredients.json com fronteira de palavra. Rame, zolfo, mancozeb,
    acetamiprid, spinosad, deltametrina, pyraclostrobin, metribuzin NAO estao. Errou -> REFUTADO.
-5. O PAR cultura x alvo existe em ${SC}/v21/productRelationships.json, e com a forca
+5. O PAR cultura x alvo existe em ${V21}/productRelationships.json, e com a forca
    declarada? Nao existe, ou a forca foi inflada -> REFUTADO.
 6. A DIRECAO foi DITA ou deduzida da estacao do ano? Deduzida -> a relacao nao morre, mas a
    direcao vira NAO_SEI: escreva isso em correction.
