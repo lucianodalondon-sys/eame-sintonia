@@ -1,0 +1,4306 @@
+{
+ "SOURCE_ID": "IT-HUMAN-SENSORS/COVERAGE",
+ "source": "derivado de REGISTRY.json x UNIVERSE.json",
+ "SOURCE_LOCATION": "ITALY",
+ "FACT_LOCATION": "ITALY",
+ "ORIGINAL_LANGUAGE": "pt",
+ "EVIDENCE_CLASS": "DERIVED_MEASUREMENT",
+ "RULE": "GOOD = >=2 sensores Tier A/B em >=2 famílias de origem; WEAK = >=1; NONE = 0. Família de origem = INDEPENDENCE_GROUP (organização).",
+ "CELLS": 117,
+ "BY_STATE": {
+  "NONE": 16,
+  "WEAK": 29,
+  "GOOD": 72
+ },
+ "BY_CROP": {
+  "APPLE": {
+   "WEAK": 1,
+   "GOOD": 10
+  },
+  "CEREAL": {
+   "NONE": 4,
+   "WEAK": 8
+  },
+  "MAIZE": {
+   "WEAK": 2,
+   "GOOD": 15
+  },
+  "MULTI": {
+   "NONE": 1,
+   "WEAK": 1,
+   "GOOD": 1
+  },
+  "OLIVE": {
+   "NONE": 2,
+   "WEAK": 2,
+   "GOOD": 6
+  },
+  "POTATO": {
+   "WEAK": 2,
+   "GOOD": 3
+  },
+  "RICE": {
+   "GOOD": 2
+  },
+  "STONE_FRUIT": {
+   "NONE": 2,
+   "WEAK": 1,
+   "GOOD": 5
+  },
+  "SUGAR_BEET": {
+   "NONE": 3,
+   "WEAK": 2,
+   "GOOD": 2
+  },
+  "TOMATO": {
+   "WEAK": 3,
+   "GOOD": 2
+  },
+  "VINE": {
+   "NONE": 2,
+   "WEAK": 1,
+   "GOOD": 15
+  },
+  "WHEAT": {
+   "NONE": 2,
+   "WEAK": 6,
+   "GOOD": 11
+  }
+ },
+ "BY_REGION": {
+  "ABRUZZO": {
+   "WEAK": 1
+  },
+  "BASILICATA": {
+   "NONE": 1,
+   "WEAK": 1
+  },
+  "CALABRIA": {
+   "WEAK": 1,
+   "GOOD": 1
+  },
+  "CAMPANIA": {
+   "NONE": 1,
+   "WEAK": 2
+  },
+  "EMILIA-ROMAGNA": {
+   "NONE": 3,
+   "GOOD": 18
+  },
+  "FRIULI-VENEZIA GIULIA": {
+   "NONE": 1,
+   "WEAK": 3,
+   "GOOD": 2
+  },
+  "LAZIO": {
+   "NONE": 1,
+   "WEAK": 1
+  },
+  "LOMBARDIA": {
+   "NONE": 3,
+   "WEAK": 2,
+   "GOOD": 6
+  },
+  "MARCHE": {
+   "NONE": 2,
+   "WEAK": 2
+  },
+  "PIEMONTE": {
+   "NONE": 1,
+   "WEAK": 2,
+   "GOOD": 14
+  },
+  "PUGLIA": {
+   "WEAK": 2,
+   "GOOD": 7
+  },
+  "SICILIA": {
+   "NONE": 1,
+   "WEAK": 3,
+   "GOOD": 4
+  },
+  "TOSCANA": {
+   "NONE": 2,
+   "WEAK": 2,
+   "GOOD": 1
+  },
+  "TRENTINO-ALTO ADIGE": {
+   "GOOD": 4
+  },
+  "UMBRIA": {
+   "GOOD": 2
+  },
+  "VENETO": {
+   "WEAK": 7,
+   "GOOD": 13
+  }
+ },
+ "TOP_GAPS": [
+  {
+   "CROP": "CEREAL",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "APHIDS",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "PIRIMICARB (APHOX)|FLONICAMID|LAMBDA-CYHALOTHRIN",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "CEREAL",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "GRASS_WEEDS",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "CLODINAFOP|PINOXADEN|MESOSULFURON-METHYL|CHLOROTOLURON (CELIO, HAWK)",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "CEREAL",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "HERBICIDE_RESISTANCE",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "CLODINAFOP|PINOXADEN — ACCase/ALS, onde a resistência italiana está descrita",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "CEREAL",
+   "REGION": "LOMBARDIA",
+   "SPECIALTY": "GRASS_WEEDS",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "CLODINAFOP|PINOXADEN|MESOSULFURON-METHYL|CHLOROTOLURON (CELIO, HAWK)",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "MULTI",
+   "REGION": "LOMBARDIA",
+   "SPECIALTY": "SLUGS",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "METALDEHYDE (LUMA-KL) — único molusquicida do portfólio",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "OLIVE",
+   "REGION": "LAZIO",
+   "SPECIALTY": "OLIVE_FRUIT_FLY",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN — Bactrocera oleae",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "OLIVE",
+   "REGION": "TOSCANA",
+   "SPECIALTY": "OLIVE_FRUIT_FLY",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN — Bactrocera oleae",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "STONE_FRUIT",
+   "REGION": "CAMPANIA",
+   "SPECIALTY": "BROWN_ROT",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "TEBUCONAZOLE|DIFENOCONAZOLE — Monilinia",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "STONE_FRUIT",
+   "REGION": "FRIULI-VENEZIA GIULIA",
+   "SPECIALTY": "BROWN_MARMORATED_STINK_BUG",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN — Halyomorpha halys",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "SUGAR_BEET",
+   "REGION": "LOMBARDIA",
+   "SPECIALTY": "BEET_WEEDS",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "METAMITRON (GOLTIX, GOLD-BEET, GOLTIX TOP) — 7 registros em vigor",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  }
+ ],
+ "MATRIX": [
+  {
+   "CROP": "CEREAL",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "APHIDS",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "PIRIMICARB (APHOX)|FLONICAMID|LAMBDA-CYHALOTHRIN",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "CEREAL",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "GRASS_WEEDS",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "CLODINAFOP|PINOXADEN|MESOSULFURON-METHYL|CHLOROTOLURON (CELIO, HAWK)",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "CEREAL",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "HERBICIDE_RESISTANCE",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "CLODINAFOP|PINOXADEN — ACCase/ALS, onde a resistência italiana está descrita",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "CEREAL",
+   "REGION": "LOMBARDIA",
+   "SPECIALTY": "GRASS_WEEDS",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "CLODINAFOP|PINOXADEN|MESOSULFURON-METHYL|CHLOROTOLURON (CELIO, HAWK)",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "MULTI",
+   "REGION": "LOMBARDIA",
+   "SPECIALTY": "SLUGS",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "METALDEHYDE (LUMA-KL) — único molusquicida do portfólio",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "OLIVE",
+   "REGION": "LAZIO",
+   "SPECIALTY": "OLIVE_FRUIT_FLY",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN — Bactrocera oleae",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "OLIVE",
+   "REGION": "TOSCANA",
+   "SPECIALTY": "OLIVE_FRUIT_FLY",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN — Bactrocera oleae",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "STONE_FRUIT",
+   "REGION": "CAMPANIA",
+   "SPECIALTY": "BROWN_ROT",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "TEBUCONAZOLE|DIFENOCONAZOLE — Monilinia",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "STONE_FRUIT",
+   "REGION": "FRIULI-VENEZIA GIULIA",
+   "SPECIALTY": "BROWN_MARMORATED_STINK_BUG",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN — Halyomorpha halys",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "SUGAR_BEET",
+   "REGION": "LOMBARDIA",
+   "SPECIALTY": "BEET_WEEDS",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "METAMITRON (GOLTIX, GOLD-BEET, GOLTIX TOP) — 7 registros em vigor",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "SUGAR_BEET",
+   "REGION": "MARCHE",
+   "SPECIALTY": "BEET_WEEDS",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "METAMITRON (GOLTIX, GOLD-BEET, GOLTIX TOP) — 7 registros em vigor",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "SUGAR_BEET",
+   "REGION": "MARCHE",
+   "SPECIALTY": "CERCOSPORA",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "AZOXYSTROBIN|DIFENOCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "SICILIA",
+   "SPECIALTY": "GRAPE_MOTH",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "CHLORANTRANILIPROLE|LAMBDA-CYHALOTHRIN — Lobesia botrana",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "TOSCANA",
+   "SPECIALTY": "GRAPE_MOTH",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "CHLORANTRANILIPROLE|LAMBDA-CYHALOTHRIN — Lobesia botrana",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": []
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "BASILICATA",
+   "SPECIALTY": "FUSARIUM_HEAD_BLIGHT",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|TEBUCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE+PUBLIC_SIGNAL",
+   "SENSORS": []
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "SEPTORIA",
+   "STATE": "NONE",
+   "REASON": "nenhum sensor qualificado nesta célula",
+   "SENSOR_COUNT": 0,
+   "ORIGIN_FAMILIES": 0,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|AZOXYSTROBIN|FLUXAPYROXAD (AVASTEL, MAXENTIS, MAGANIC)",
+   "BASIS": "REGISTRY_ACTIVE+PUBLIC_SIGNAL",
+   "SENSORS": []
+  },
+  {
+   "CROP": "APPLE",
+   "REGION": "VENETO",
+   "SPECIALTY": "SCAB",
+   "STATE": "WEAK",
+   "REASON": "1 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 1,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "CAPTAN (MERPAN)|DIFENOCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-4b1fa56fed",
+     "NAME": "Servizio Fitosanitario Regione Veneto",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Veneto"
+    }
+   ]
+  },
+  {
+   "CROP": "CEREAL",
+   "REGION": "LOMBARDIA",
+   "SPECIALTY": "HERBICIDE_RESISTANCE",
+   "STATE": "WEAK",
+   "REASON": "1 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 1,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "CLODINAFOP|PINOXADEN — ACCase/ALS, onde a resistência italiana está descrita",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-0b29c0626d",
+     "NAME": "Fabrizio Araniti",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    }
+   ]
+  },
+  {
+   "CROP": "CEREAL",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "GRASS_WEEDS",
+   "STATE": "WEAK",
+   "REASON": "2 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "CLODINAFOP|PINOXADEN|MESOSULFURON-METHYL|CHLOROTOLURON (CELIO, HAWK)",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-d009bf1a7d",
+     "NAME": "Massimo Turina",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-46942de9d4",
+     "NAME": "Anna Maria Vaira",
+     "TIER": "B",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    }
+   ]
+  },
+  {
+   "CROP": "CEREAL",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "HERBICIDE_RESISTANCE",
+   "STATE": "WEAK",
+   "REASON": "1 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 1,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "CLODINAFOP|PINOXADEN — ACCase/ALS, onde a resistência italiana está descrita",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-1aece929e1",
+     "NAME": "Stefania Savoi",
+     "TIER": "B",
+     "FAMILY": "Università di Torino"
+    }
+   ]
+  },
+  {
+   "CROP": "CEREAL",
+   "REGION": "PUGLIA",
+   "SPECIALTY": "APHIDS",
+   "STATE": "WEAK",
+   "REASON": "3 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 3,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "PIRIMICARB (APHOX)|FLONICAMID|LAMBDA-CYHALOTHRIN",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-f7c7dd3222",
+     "NAME": "Francesca Taranto",
+     "TIER": "A",
+     "FAMILY": "CNR — IBBR"
+    },
+    {
+     "SENSOR_ID": "IT-P-2c14a6f961",
+     "NAME": "Giacomo Mangini",
+     "TIER": "A",
+     "FAMILY": "CNR — IBBR"
+    },
+    {
+     "SENSOR_ID": "IT-P-0094abed38",
+     "NAME": "Silvia Procino",
+     "TIER": "A",
+     "FAMILY": "CNR — IBBR"
+    }
+   ]
+  },
+  {
+   "CROP": "CEREAL",
+   "REGION": "PUGLIA",
+   "SPECIALTY": "GRASS_WEEDS",
+   "STATE": "WEAK",
+   "REASON": "2 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "CLODINAFOP|PINOXADEN|MESOSULFURON-METHYL|CHLOROTOLURON (CELIO, HAWK)",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-5145a92a0c",
+     "NAME": "Francesco Di Serio",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-f34c21caac",
+     "NAME": "Beatriz Navarro",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    }
+   ]
+  },
+  {
+   "CROP": "CEREAL",
+   "REGION": "VENETO",
+   "SPECIALTY": "APHIDS",
+   "STATE": "WEAK",
+   "REASON": "1 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 1,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "PIRIMICARB (APHOX)|FLONICAMID|LAMBDA-CYHALOTHRIN",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-0b2a9632f0",
+     "NAME": "Nicola Mori",
+     "TIER": "A",
+     "FAMILY": "Università di Verona"
+    }
+   ]
+  },
+  {
+   "CROP": "CEREAL",
+   "REGION": "VENETO",
+   "SPECIALTY": "GRASS_WEEDS",
+   "STATE": "WEAK",
+   "REASON": "3 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 3,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "CLODINAFOP|PINOXADEN|MESOSULFURON-METHYL|CHLOROTOLURON (CELIO, HAWK)",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-6ccde30295",
+     "NAME": "Laura Scarabel",
+     "TIER": "B",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-d514416574",
+     "NAME": "Andrea Milani",
+     "TIER": "B",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-47b986dd3d",
+     "NAME": "Silvia Panozzo",
+     "TIER": "B",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    }
+   ]
+  },
+  {
+   "CROP": "CEREAL",
+   "REGION": "VENETO",
+   "SPECIALTY": "HERBICIDE_RESISTANCE",
+   "STATE": "WEAK",
+   "REASON": "3 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 3,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "CLODINAFOP|PINOXADEN — ACCase/ALS, onde a resistência italiana está descrita",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-6ccde30295",
+     "NAME": "Laura Scarabel",
+     "TIER": "B",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-d514416574",
+     "NAME": "Andrea Milani",
+     "TIER": "B",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-47b986dd3d",
+     "NAME": "Silvia Panozzo",
+     "TIER": "B",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "FRIULI-VENEZIA GIULIA",
+   "SPECIALTY": "MYCOTOXIN",
+   "STATE": "WEAK",
+   "REASON": "1 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 1,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|AZOXYSTROBIN — Fusarium/aflatossina em mais",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-213c29c65e",
+     "NAME": "ERSA — Agenzia regionale sviluppo rurale FVG",
+     "TIER": "A",
+     "FAMILY": "ERSA — Agenzia regionale sviluppo rurale FVG"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "FRIULI-VENEZIA GIULIA",
+   "SPECIALTY": "ROOTWORM",
+   "STATE": "WEAK",
+   "REASON": "1 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 1,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "TEFLUTHRIN (geodisinfestante) — Diabrotica",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-213c29c65e",
+     "NAME": "ERSA — Agenzia regionale sviluppo rurale FVG",
+     "TIER": "A",
+     "FAMILY": "ERSA — Agenzia regionale sviluppo rurale FVG"
+    }
+   ]
+  },
+  {
+   "CROP": "MULTI",
+   "REGION": "VENETO",
+   "SPECIALTY": "SLUGS",
+   "STATE": "WEAK",
+   "REASON": "1 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 1,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "METALDEHYDE (LUMA-KL) — único molusquicida do portfólio",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-674146b60e",
+     "NAME": "L'Informatore Agrario",
+     "TIER": "B",
+     "FAMILY": "L'Informatore Agrario"
+    }
+   ]
+  },
+  {
+   "CROP": "OLIVE",
+   "REGION": "CALABRIA",
+   "SPECIALTY": "OLIVE_FRUIT_FLY",
+   "STATE": "WEAK",
+   "REASON": "1 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 1,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN — Bactrocera oleae",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-a91181344a",
+     "NAME": "CREA — Olivicoltura, Frutticoltura e Agrumicoltura (CREA-OFA)",
+     "TIER": "A",
+     "FAMILY": "CREA — Olivicoltura, Frutticoltura e Agrumicoltura (CREA-OFA)"
+    }
+   ]
+  },
+  {
+   "CROP": "OLIVE",
+   "REGION": "TOSCANA",
+   "SPECIALTY": "OLIVE_DISEASE",
+   "STATE": "WEAK",
+   "REASON": "2 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "AZOXYSTROBIN|DIFENOCONAZOLE — occhio di pavone/lebbra",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-c495b4eea8",
+     "NAME": "Salvatore Moricca",
+     "TIER": "A",
+     "FAMILY": "Università di Firenze"
+    },
+    {
+     "SENSOR_ID": "IT-P-aa15503e83",
+     "NAME": "Alessandra Benigno",
+     "TIER": "A",
+     "FAMILY": "Università di Firenze"
+    }
+   ]
+  },
+  {
+   "CROP": "POTATO",
+   "REGION": "ABRUZZO",
+   "SPECIALTY": "LATE_BLIGHT",
+   "STATE": "WEAK",
+   "REASON": "1 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 1,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "FLUAZINAM (AGHARTA)|CYMOXANIL|METALAXYL-M",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-224e2bbdd5",
+     "NAME": "Clemencia Chaves-López",
+     "TIER": "B",
+     "FAMILY": "Università di Teramo"
+    }
+   ]
+  },
+  {
+   "CROP": "POTATO",
+   "REGION": "CAMPANIA",
+   "SPECIALTY": "LATE_BLIGHT",
+   "STATE": "WEAK",
+   "REASON": "6 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 6,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "FLUAZINAM (AGHARTA)|CYMOXANIL|METALAXYL-M",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-6fb4d5d1b1",
+     "NAME": "Marco Masi",
+     "TIER": "A",
+     "FAMILY": "Università di Napoli Federico II"
+    },
+    {
+     "SENSOR_ID": "IT-P-50f9a94146",
+     "NAME": "Ciro Gianmaria Amoroso",
+     "TIER": "A",
+     "FAMILY": "Università di Napoli Federico II"
+    },
+    {
+     "SENSOR_ID": "IT-P-761412cda2",
+     "NAME": "Giuseppe Andolfo",
+     "TIER": "A",
+     "FAMILY": "Università di Napoli Federico II"
+    },
+    {
+     "SENSOR_ID": "IT-P-f35c58444b",
+     "NAME": "Francesco Vinale",
+     "TIER": "B",
+     "FAMILY": "Università di Napoli Federico II"
+    },
+    {
+     "SENSOR_ID": "IT-P-e002fe09ea",
+     "NAME": "Giuseppina Iacomino",
+     "TIER": "B",
+     "FAMILY": "Università di Napoli Federico II"
+    },
+    {
+     "SENSOR_ID": "IT-P-f9b8797b18",
+     "NAME": "Anna Andolfi",
+     "TIER": "B",
+     "FAMILY": "Università di Napoli Federico II"
+    }
+   ]
+  },
+  {
+   "CROP": "STONE_FRUIT",
+   "REGION": "BASILICATA",
+   "SPECIALTY": "BROWN_ROT",
+   "STATE": "WEAK",
+   "REASON": "2 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "TEBUCONAZOLE|DIFENOCONAZOLE — Monilinia",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-0fcffa26a1",
+     "NAME": "Hazem S Elshafie",
+     "TIER": "A",
+     "FAMILY": "Università della Basilicata"
+    },
+    {
+     "SENSOR_ID": "IT-P-f2bc2c6735",
+     "NAME": "Ippolito Camele",
+     "TIER": "A",
+     "FAMILY": "Università della Basilicata"
+    }
+   ]
+  },
+  {
+   "CROP": "SUGAR_BEET",
+   "REGION": "VENETO",
+   "SPECIALTY": "BEET_WEEDS",
+   "STATE": "WEAK",
+   "REASON": "1 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 1,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "METAMITRON (GOLTIX, GOLD-BEET, GOLTIX TOP) — 7 registros em vigor",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-4b1fa56fed",
+     "NAME": "Servizio Fitosanitario Regione Veneto",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Veneto"
+    }
+   ]
+  },
+  {
+   "CROP": "SUGAR_BEET",
+   "REGION": "VENETO",
+   "SPECIALTY": "CERCOSPORA",
+   "STATE": "WEAK",
+   "REASON": "1 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 1,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "AZOXYSTROBIN|DIFENOCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-4b1fa56fed",
+     "NAME": "Servizio Fitosanitario Regione Veneto",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Veneto"
+    }
+   ]
+  },
+  {
+   "CROP": "TOMATO",
+   "REGION": "CAMPANIA",
+   "SPECIALTY": "TOMATO_DISEASE",
+   "STATE": "WEAK",
+   "REASON": "7 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 7,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "AZOXYSTROBIN|CYMOXANIL|METALAXYL-M",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-6fb4d5d1b1",
+     "NAME": "Marco Masi",
+     "TIER": "A",
+     "FAMILY": "Università di Napoli Federico II"
+    },
+    {
+     "SENSOR_ID": "IT-P-50f9a94146",
+     "NAME": "Ciro Gianmaria Amoroso",
+     "TIER": "A",
+     "FAMILY": "Università di Napoli Federico II"
+    },
+    {
+     "SENSOR_ID": "IT-P-761412cda2",
+     "NAME": "Giuseppe Andolfo",
+     "TIER": "A",
+     "FAMILY": "Università di Napoli Federico II"
+    },
+    {
+     "SENSOR_ID": "IT-P-a214991bd6",
+     "NAME": "Nunzio D'Agostino",
+     "TIER": "A",
+     "FAMILY": "Università di Napoli Federico II"
+    },
+    {
+     "SENSOR_ID": "IT-P-f35c58444b",
+     "NAME": "Francesco Vinale",
+     "TIER": "B",
+     "FAMILY": "Università di Napoli Federico II"
+    },
+    {
+     "SENSOR_ID": "IT-P-e002fe09ea",
+     "NAME": "Giuseppina Iacomino",
+     "TIER": "B",
+     "FAMILY": "Università di Napoli Federico II"
+    },
+    {
+     "SENSOR_ID": "IT-P-f9b8797b18",
+     "NAME": "Anna Andolfi",
+     "TIER": "B",
+     "FAMILY": "Università di Napoli Federico II"
+    }
+   ]
+  },
+  {
+   "CROP": "TOMATO",
+   "REGION": "LAZIO",
+   "SPECIALTY": "TOMATO_DISEASE",
+   "STATE": "WEAK",
+   "REASON": "2 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "AZOXYSTROBIN|CYMOXANIL|METALAXYL-M",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-dba4ac220b",
+     "NAME": "Massimo Reverberi",
+     "TIER": "A",
+     "FAMILY": "Sapienza Università di Roma"
+    },
+    {
+     "SENSOR_ID": "IT-P-078d47b5c7",
+     "NAME": "Marzia Beccaccioli",
+     "TIER": "B",
+     "FAMILY": "Sapienza Università di Roma"
+    }
+   ]
+  },
+  {
+   "CROP": "TOMATO",
+   "REGION": "SICILIA",
+   "SPECIALTY": "TOMATO_DISEASE",
+   "STATE": "WEAK",
+   "REASON": "3 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 3,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "AZOXYSTROBIN|CYMOXANIL|METALAXYL-M",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-59bf767cd6",
+     "NAME": "Santa Olga Cacciola",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    },
+    {
+     "SENSOR_ID": "IT-P-e7fa4cf066",
+     "NAME": "Alessandro Vitale",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    },
+    {
+     "SENSOR_ID": "IT-P-8d0641dd4c",
+     "NAME": "Mario Riolo",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    }
+   ]
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "FRIULI-VENEZIA GIULIA",
+   "SPECIALTY": "DOWNY_MILDEW",
+   "STATE": "WEAK",
+   "REASON": "1 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 1,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "FOLPET (FOLPAN)|CYMOXANIL|METALAXYL-M — 6+6+2 registros em vigor",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-213c29c65e",
+     "NAME": "ERSA — Agenzia regionale sviluppo rurale FVG",
+     "TIER": "A",
+     "FAMILY": "ERSA — Agenzia regionale sviluppo rurale FVG"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "LOMBARDIA",
+   "SPECIALTY": "SEPTORIA",
+   "STATE": "WEAK",
+   "REASON": "1 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 1,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|AZOXYSTROBIN|FLUXAPYROXAD (AVASTEL, MAXENTIS, MAGANIC)",
+   "BASIS": "REGISTRY_ACTIVE+PUBLIC_SIGNAL",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-fed7829c5e",
+     "NAME": "Servizio Fitosanitario Regione Lombardia",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Lombardia"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "MARCHE",
+   "SPECIALTY": "FUSARIUM_HEAD_BLIGHT",
+   "STATE": "WEAK",
+   "REASON": "1 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 1,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|TEBUCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE+PUBLIC_SIGNAL",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-333c2b7211",
+     "NAME": "Università Politecnica delle Marche — D3A",
+     "TIER": "B",
+     "FAMILY": "Università Politecnica delle Marche — D3A"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "MARCHE",
+   "SPECIALTY": "SEPTORIA",
+   "STATE": "WEAK",
+   "REASON": "1 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 1,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|AZOXYSTROBIN|FLUXAPYROXAD (AVASTEL, MAXENTIS, MAGANIC)",
+   "BASIS": "REGISTRY_ACTIVE+PUBLIC_SIGNAL",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-333c2b7211",
+     "NAME": "Università Politecnica delle Marche — D3A",
+     "TIER": "B",
+     "FAMILY": "Università Politecnica delle Marche — D3A"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "SICILIA",
+   "SPECIALTY": "FUSARIUM_HEAD_BLIGHT",
+   "STATE": "WEAK",
+   "REASON": "3 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 3,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|TEBUCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE+PUBLIC_SIGNAL",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-59bf767cd6",
+     "NAME": "Santa Olga Cacciola",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    },
+    {
+     "SENSOR_ID": "IT-P-e7fa4cf066",
+     "NAME": "Alessandro Vitale",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    },
+    {
+     "SENSOR_ID": "IT-P-8d0641dd4c",
+     "NAME": "Mario Riolo",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "SICILIA",
+   "SPECIALTY": "RUST",
+   "STATE": "WEAK",
+   "REASON": "2 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|AZOXYSTROBIN|TEBUCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-59bf767cd6",
+     "NAME": "Santa Olga Cacciola",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    },
+    {
+     "SENSOR_ID": "IT-P-e7fa4cf066",
+     "NAME": "Alessandro Vitale",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "TOSCANA",
+   "SPECIALTY": "RUST",
+   "STATE": "WEAK",
+   "REASON": "3 sensores Tier A/B em 1 famílias de origem",
+   "SENSOR_COUNT": 3,
+   "ORIGIN_FAMILIES": 1,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|AZOXYSTROBIN|TEBUCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-37f35b9690",
+     "NAME": "Claudio Pugliesi",
+     "TIER": "B",
+     "FAMILY": "Università di Pisa"
+    },
+    {
+     "SENSOR_ID": "IT-P-4aadec4477",
+     "NAME": "Marco Fambrini",
+     "TIER": "B",
+     "FAMILY": "Università di Pisa"
+    },
+    {
+     "SENSOR_ID": "IT-P-e7bc77a8cd",
+     "NAME": "Susanna Pecchia",
+     "TIER": "A",
+     "FAMILY": "Università di Pisa"
+    }
+   ]
+  },
+  {
+   "CROP": "APPLE",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "CODLING_MOTH",
+   "STATE": "GOOD",
+   "REASON": "5 sensores Tier A/B em 5 famílias de origem",
+   "SENSOR_COUNT": 5,
+   "ORIGIN_FAMILIES": 5,
+   "ADAMA_ANCHOR": "CHLORANTRANILIPROLE|LAMBDA-CYHALOTHRIN — Cydia pomonella",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-700d9a836d",
+     "NAME": "Servizio Fitosanitario Regione Emilia-Romagna",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Emilia-Romagna"
+    },
+    {
+     "SENSOR_ID": "IT-O-a0c1c348de",
+     "NAME": "CRPV — Centro Ricerche Produzioni Vegetali",
+     "TIER": "A",
+     "FAMILY": "CRPV — Centro Ricerche Produzioni Vegetali"
+    },
+    {
+     "SENSOR_ID": "IT-O-0c7dc90e90",
+     "NAME": "Apofruit Italia",
+     "TIER": "B",
+     "FAMILY": "Apofruit Italia"
+    },
+    {
+     "SENSOR_ID": "IT-O-1d0488c1fe",
+     "NAME": "Agrintesa",
+     "TIER": "A",
+     "FAMILY": "Agrintesa"
+    },
+    {
+     "SENSOR_ID": "IT-O-bb6f4019d4",
+     "NAME": "Rivista di Frutticoltura",
+     "TIER": "A",
+     "FAMILY": "Rivista di Frutticoltura"
+    }
+   ]
+  },
+  {
+   "CROP": "APPLE",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "FRUIT_THINNING",
+   "STATE": "GOOD",
+   "REASON": "5 sensores Tier A/B em 5 famílias de origem",
+   "SENSOR_COUNT": 5,
+   "ORIGIN_FAMILIES": 5,
+   "ADAMA_ANCHOR": "METAMITRON (BREVIS) — único DIRADANTE do portfólio italiano",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-700d9a836d",
+     "NAME": "Servizio Fitosanitario Regione Emilia-Romagna",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Emilia-Romagna"
+    },
+    {
+     "SENSOR_ID": "IT-O-a0c1c348de",
+     "NAME": "CRPV — Centro Ricerche Produzioni Vegetali",
+     "TIER": "A",
+     "FAMILY": "CRPV — Centro Ricerche Produzioni Vegetali"
+    },
+    {
+     "SENSOR_ID": "IT-O-0c7dc90e90",
+     "NAME": "Apofruit Italia",
+     "TIER": "B",
+     "FAMILY": "Apofruit Italia"
+    },
+    {
+     "SENSOR_ID": "IT-O-1d0488c1fe",
+     "NAME": "Agrintesa",
+     "TIER": "A",
+     "FAMILY": "Agrintesa"
+    },
+    {
+     "SENSOR_ID": "IT-O-bb6f4019d4",
+     "NAME": "Rivista di Frutticoltura",
+     "TIER": "A",
+     "FAMILY": "Rivista di Frutticoltura"
+    }
+   ]
+  },
+  {
+   "CROP": "APPLE",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "SCAB",
+   "STATE": "GOOD",
+   "REASON": "8 sensores Tier A/B em 6 famílias de origem",
+   "SENSOR_COUNT": 8,
+   "ORIGIN_FAMILIES": 6,
+   "ADAMA_ANCHOR": "CAPTAN (MERPAN)|DIFENOCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-e2d3899399",
+     "NAME": "Vittorio Rossi",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-810e88ab8d",
+     "NAME": "Tito Caffi",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-c7f168980c",
+     "NAME": "Giorgia Fedele",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-O-700d9a836d",
+     "NAME": "Servizio Fitosanitario Regione Emilia-Romagna",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Emilia-Romagna"
+    },
+    {
+     "SENSOR_ID": "IT-O-a0c1c348de",
+     "NAME": "CRPV — Centro Ricerche Produzioni Vegetali",
+     "TIER": "A",
+     "FAMILY": "CRPV — Centro Ricerche Produzioni Vegetali"
+    },
+    {
+     "SENSOR_ID": "IT-O-0c7dc90e90",
+     "NAME": "Apofruit Italia",
+     "TIER": "B",
+     "FAMILY": "Apofruit Italia"
+    },
+    {
+     "SENSOR_ID": "IT-O-1d0488c1fe",
+     "NAME": "Agrintesa",
+     "TIER": "A",
+     "FAMILY": "Agrintesa"
+    },
+    {
+     "SENSOR_ID": "IT-O-bb6f4019d4",
+     "NAME": "Rivista di Frutticoltura",
+     "TIER": "A",
+     "FAMILY": "Rivista di Frutticoltura"
+    }
+   ]
+  },
+  {
+   "CROP": "APPLE",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "CODLING_MOTH",
+   "STATE": "GOOD",
+   "REASON": "2 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "CHLORANTRANILIPROLE|LAMBDA-CYHALOTHRIN — Cydia pomonella",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-2c5c4272fb",
+     "NAME": "Settore Fitosanitario Regione Piemonte",
+     "TIER": "A",
+     "FAMILY": "Settore Fitosanitario Regione Piemonte"
+    },
+    {
+     "SENSOR_ID": "IT-O-28e2ab1baf",
+     "NAME": "Fondazione Agrion",
+     "TIER": "A",
+     "FAMILY": "Fondazione Agrion"
+    }
+   ]
+  },
+  {
+   "CROP": "APPLE",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "FRUIT_THINNING",
+   "STATE": "GOOD",
+   "REASON": "2 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "METAMITRON (BREVIS) — único DIRADANTE do portfólio italiano",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-2c5c4272fb",
+     "NAME": "Settore Fitosanitario Regione Piemonte",
+     "TIER": "A",
+     "FAMILY": "Settore Fitosanitario Regione Piemonte"
+    },
+    {
+     "SENSOR_ID": "IT-O-28e2ab1baf",
+     "NAME": "Fondazione Agrion",
+     "TIER": "A",
+     "FAMILY": "Fondazione Agrion"
+    }
+   ]
+  },
+  {
+   "CROP": "APPLE",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "SCAB",
+   "STATE": "GOOD",
+   "REASON": "2 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "CAPTAN (MERPAN)|DIFENOCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-2c5c4272fb",
+     "NAME": "Settore Fitosanitario Regione Piemonte",
+     "TIER": "A",
+     "FAMILY": "Settore Fitosanitario Regione Piemonte"
+    },
+    {
+     "SENSOR_ID": "IT-O-28e2ab1baf",
+     "NAME": "Fondazione Agrion",
+     "TIER": "A",
+     "FAMILY": "Fondazione Agrion"
+    }
+   ]
+  },
+  {
+   "CROP": "APPLE",
+   "REGION": "TRENTINO-ALTO ADIGE",
+   "SPECIALTY": "CODLING_MOTH",
+   "STATE": "GOOD",
+   "REASON": "10 sensores Tier A/B em 9 famílias de origem",
+   "SENSOR_COUNT": 10,
+   "ORIGIN_FAMILIES": 9,
+   "ADAMA_ANCHOR": "CHLORANTRANILIPROLE|LAMBDA-CYHALOTHRIN — Cydia pomonella",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-8f2911b792",
+     "NAME": "Valerio Mazzoni",
+     "TIER": "B",
+     "FAMILY": "Fondazione Edmund Mach"
+    },
+    {
+     "SENSOR_ID": "IT-P-40fd13adec",
+     "NAME": "Gianfranco Anfora",
+     "TIER": "A",
+     "FAMILY": "Università di Trento"
+    },
+    {
+     "SENSOR_ID": "IT-P-6cb52f8fa6",
+     "NAME": "Katrin Janik",
+     "TIER": "A",
+     "FAMILY": "Laimburg Research Centre"
+    },
+    {
+     "SENSOR_ID": "IT-P-3298105bda",
+     "NAME": "Livia Zapponi",
+     "TIER": "B",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-74e81e672c",
+     "NAME": "Pietro Franceschi",
+     "TIER": "A",
+     "FAMILY": "Fondazione Edmund Mach"
+    },
+    {
+     "SENSOR_ID": "IT-O-7e96d64ea1",
+     "NAME": "Servizio Fitosanitario Provincia Autonoma di Trento",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Provincia Autonoma di Trento"
+    },
+    {
+     "SENSOR_ID": "IT-O-d766ec2187",
+     "NAME": "Fondazione Edmund Mach — Centro Trasferimento Tecnologico",
+     "TIER": "A",
+     "FAMILY": "Fondazione Edmund Mach — Centro Trasferimento Tecnologico"
+    },
+    {
+     "SENSOR_ID": "IT-O-125a6b1778",
+     "NAME": "APOT — Associazione Produttori Ortofrutticoli Trentini",
+     "TIER": "A",
+     "FAMILY": "APOT — Associazione Produttori Ortofrutticoli Trentini"
+    }
+   ]
+  },
+  {
+   "CROP": "APPLE",
+   "REGION": "TRENTINO-ALTO ADIGE",
+   "SPECIALTY": "FRUIT_THINNING",
+   "STATE": "GOOD",
+   "REASON": "5 sensores Tier A/B em 5 famílias de origem",
+   "SENSOR_COUNT": 5,
+   "ORIGIN_FAMILIES": 5,
+   "ADAMA_ANCHOR": "METAMITRON (BREVIS) — único DIRADANTE do portfólio italiano",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-7e96d64ea1",
+     "NAME": "Servizio Fitosanitario Provincia Autonoma di Trento",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Provincia Autonoma di Trento"
+    },
+    {
+     "SENSOR_ID": "IT-O-d766ec2187",
+     "NAME": "Fondazione Edmund Mach — Centro Trasferimento Tecnologico",
+     "TIER": "A",
+     "FAMILY": "Fondazione Edmund Mach — Centro Trasferimento Tecnologico"
+    },
+    {
+     "SENSOR_ID": "IT-O-125a6b1778",
+     "NAME": "APOT — Associazione Produttori Ortofrutticoli Trentini",
+     "TIER": "A",
+     "FAMILY": "APOT — Associazione Produttori Ortofrutticoli Trentini"
+    },
+    {
+     "SENSOR_ID": "IT-O-7340b3594f",
+     "NAME": "VOG — Consorzio delle cooperative ortofrutticole dell Alto Adige",
+     "TIER": "B",
+     "FAMILY": "VOG — Consorzio delle cooperative ortofrutticole dell Alto Adige"
+    },
+    {
+     "SENSOR_ID": "IT-O-5c70b1aa7c",
+     "NAME": "VI.P — Consorzio Cooperative Ortofrutticole Val Venosta",
+     "TIER": "B",
+     "FAMILY": "VI.P — Consorzio Cooperative Ortofrutticole Val Venosta"
+    }
+   ]
+  },
+  {
+   "CROP": "APPLE",
+   "REGION": "TRENTINO-ALTO ADIGE",
+   "SPECIALTY": "SCAB",
+   "STATE": "GOOD",
+   "REASON": "8 sensores Tier A/B em 6 famílias de origem",
+   "SENSOR_COUNT": 8,
+   "ORIGIN_FAMILIES": 6,
+   "ADAMA_ANCHOR": "CAPTAN (MERPAN)|DIFENOCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-7fb9a35fb7",
+     "NAME": "Peter Robatscher",
+     "TIER": "A",
+     "FAMILY": "Laimburg Research Centre"
+    },
+    {
+     "SENSOR_ID": "IT-P-6cb52f8fa6",
+     "NAME": "Katrin Janik",
+     "TIER": "A",
+     "FAMILY": "Laimburg Research Centre"
+    },
+    {
+     "SENSOR_ID": "IT-P-c7a87f5e4d",
+     "NAME": "Urban Spitaler",
+     "TIER": "A",
+     "FAMILY": "Laimburg Research Centre"
+    },
+    {
+     "SENSOR_ID": "IT-O-7e96d64ea1",
+     "NAME": "Servizio Fitosanitario Provincia Autonoma di Trento",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Provincia Autonoma di Trento"
+    },
+    {
+     "SENSOR_ID": "IT-O-d766ec2187",
+     "NAME": "Fondazione Edmund Mach — Centro Trasferimento Tecnologico",
+     "TIER": "A",
+     "FAMILY": "Fondazione Edmund Mach — Centro Trasferimento Tecnologico"
+    },
+    {
+     "SENSOR_ID": "IT-O-125a6b1778",
+     "NAME": "APOT — Associazione Produttori Ortofrutticoli Trentini",
+     "TIER": "A",
+     "FAMILY": "APOT — Associazione Produttori Ortofrutticoli Trentini"
+    },
+    {
+     "SENSOR_ID": "IT-O-7340b3594f",
+     "NAME": "VOG — Consorzio delle cooperative ortofrutticole dell Alto Adige",
+     "TIER": "B",
+     "FAMILY": "VOG — Consorzio delle cooperative ortofrutticole dell Alto Adige"
+    },
+    {
+     "SENSOR_ID": "IT-O-5c70b1aa7c",
+     "NAME": "VI.P — Consorzio Cooperative Ortofrutticole Val Venosta",
+     "TIER": "B",
+     "FAMILY": "VI.P — Consorzio Cooperative Ortofrutticole Val Venosta"
+    }
+   ]
+  },
+  {
+   "CROP": "APPLE",
+   "REGION": "VENETO",
+   "SPECIALTY": "CODLING_MOTH",
+   "STATE": "GOOD",
+   "REASON": "2 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "CHLORANTRANILIPROLE|LAMBDA-CYHALOTHRIN — Cydia pomonella",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-0b2a9632f0",
+     "NAME": "Nicola Mori",
+     "TIER": "A",
+     "FAMILY": "Università di Verona"
+    },
+    {
+     "SENSOR_ID": "IT-O-4b1fa56fed",
+     "NAME": "Servizio Fitosanitario Regione Veneto",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Veneto"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "CORN_BORER",
+   "STATE": "GOOD",
+   "REASON": "3 sensores Tier A/B em 3 famílias de origem",
+   "SENSOR_COUNT": 3,
+   "ORIGIN_FAMILIES": 3,
+   "ADAMA_ANCHOR": "CHLORANTRANILIPROLE|LAMBDA-CYHALOTHRIN|TEFLUTHRIN",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-700d9a836d",
+     "NAME": "Servizio Fitosanitario Regione Emilia-Romagna",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Emilia-Romagna"
+    },
+    {
+     "SENSOR_ID": "IT-O-45ff33ee0d",
+     "NAME": "CREA — Cerealicoltura e Colture Industriali (CREA-CI)",
+     "TIER": "B",
+     "FAMILY": "CREA — Cerealicoltura e Colture Industriali (CREA-CI)"
+    },
+    {
+     "SENSOR_ID": "IT-O-1a5c5af8bd",
+     "NAME": "Terremerse",
+     "TIER": "A",
+     "FAMILY": "Terremerse"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "MAIZE_WEEDS",
+   "STATE": "GOOD",
+   "REASON": "3 sensores Tier A/B em 3 famílias de origem",
+   "SENSOR_COUNT": 3,
+   "ORIGIN_FAMILIES": 3,
+   "ADAMA_ANCHOR": "NICOSULFURON|MESOTRIONE|PENDIMETHALIN|DICAMBA",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-700d9a836d",
+     "NAME": "Servizio Fitosanitario Regione Emilia-Romagna",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Emilia-Romagna"
+    },
+    {
+     "SENSOR_ID": "IT-O-45ff33ee0d",
+     "NAME": "CREA — Cerealicoltura e Colture Industriali (CREA-CI)",
+     "TIER": "B",
+     "FAMILY": "CREA — Cerealicoltura e Colture Industriali (CREA-CI)"
+    },
+    {
+     "SENSOR_ID": "IT-O-1a5c5af8bd",
+     "NAME": "Terremerse",
+     "TIER": "A",
+     "FAMILY": "Terremerse"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "FRIULI-VENEZIA GIULIA",
+   "SPECIALTY": "CORN_BORER",
+   "STATE": "GOOD",
+   "REASON": "2 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "CHLORANTRANILIPROLE|LAMBDA-CYHALOTHRIN|TEFLUTHRIN",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-e769f91ee4",
+     "NAME": "Francesco Pavan",
+     "TIER": "A",
+     "FAMILY": "Università di Udine"
+    },
+    {
+     "SENSOR_ID": "IT-O-213c29c65e",
+     "NAME": "ERSA — Agenzia regionale sviluppo rurale FVG",
+     "TIER": "A",
+     "FAMILY": "ERSA — Agenzia regionale sviluppo rurale FVG"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "LOMBARDIA",
+   "SPECIALTY": "CORN_BORER",
+   "STATE": "GOOD",
+   "REASON": "5 sensores Tier A/B em 3 famílias de origem",
+   "SENSOR_COUNT": 5,
+   "ORIGIN_FAMILIES": 3,
+   "ADAMA_ANCHOR": "CHLORANTRANILIPROLE|LAMBDA-CYHALOTHRIN|TEFLUTHRIN",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-98ce0e6a98",
+     "NAME": "Silvia Laura Toffolatti",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-P-6134af398c",
+     "NAME": "Giuliana Maddalena",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-P-558ac25e89",
+     "NAME": "Demetrio Marcianò",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-O-fed7829c5e",
+     "NAME": "Servizio Fitosanitario Regione Lombardia",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Lombardia"
+    },
+    {
+     "SENSOR_ID": "IT-O-2318f34fef",
+     "NAME": "Università di Milano — DiSAA",
+     "TIER": "A",
+     "FAMILY": "Università di Milano — DiSAA"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "LOMBARDIA",
+   "SPECIALTY": "MAIZE_WEEDS",
+   "STATE": "GOOD",
+   "REASON": "2 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "NICOSULFURON|MESOTRIONE|PENDIMETHALIN|DICAMBA",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-fed7829c5e",
+     "NAME": "Servizio Fitosanitario Regione Lombardia",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Lombardia"
+    },
+    {
+     "SENSOR_ID": "IT-O-2318f34fef",
+     "NAME": "Università di Milano — DiSAA",
+     "TIER": "A",
+     "FAMILY": "Università di Milano — DiSAA"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "LOMBARDIA",
+   "SPECIALTY": "MYCOTOXIN",
+   "STATE": "GOOD",
+   "REASON": "2 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|AZOXYSTROBIN — Fusarium/aflatossina em mais",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-fed7829c5e",
+     "NAME": "Servizio Fitosanitario Regione Lombardia",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Lombardia"
+    },
+    {
+     "SENSOR_ID": "IT-O-2318f34fef",
+     "NAME": "Università di Milano — DiSAA",
+     "TIER": "A",
+     "FAMILY": "Università di Milano — DiSAA"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "LOMBARDIA",
+   "SPECIALTY": "ROOTWORM",
+   "STATE": "GOOD",
+   "REASON": "5 sensores Tier A/B em 3 famílias de origem",
+   "SENSOR_COUNT": 5,
+   "ORIGIN_FAMILIES": 3,
+   "ADAMA_ANCHOR": "TEFLUTHRIN (geodisinfestante) — Diabrotica",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-98ce0e6a98",
+     "NAME": "Silvia Laura Toffolatti",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-P-6134af398c",
+     "NAME": "Giuliana Maddalena",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-P-9830e9a5fa",
+     "NAME": "Gabriella De Lorenzis",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-O-fed7829c5e",
+     "NAME": "Servizio Fitosanitario Regione Lombardia",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Lombardia"
+    },
+    {
+     "SENSOR_ID": "IT-O-2318f34fef",
+     "NAME": "Università di Milano — DiSAA",
+     "TIER": "A",
+     "FAMILY": "Università di Milano — DiSAA"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "CORN_BORER",
+   "STATE": "GOOD",
+   "REASON": "3 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 3,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "CHLORANTRANILIPROLE|LAMBDA-CYHALOTHRIN|TEFLUTHRIN",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-32ca3e4621",
+     "NAME": "Massimo Blandino",
+     "TIER": "B",
+     "FAMILY": "Università di Torino"
+    },
+    {
+     "SENSOR_ID": "IT-P-4e729d1dd1",
+     "NAME": "Valentina Scarpino",
+     "TIER": "B",
+     "FAMILY": "Università di Torino"
+    },
+    {
+     "SENSOR_ID": "IT-O-2c5c4272fb",
+     "NAME": "Settore Fitosanitario Regione Piemonte",
+     "TIER": "A",
+     "FAMILY": "Settore Fitosanitario Regione Piemonte"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "MAIZE_WEEDS",
+   "STATE": "GOOD",
+   "REASON": "2 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "NICOSULFURON|MESOTRIONE|PENDIMETHALIN|DICAMBA",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-a45b762d2f",
+     "NAME": "Slavica Matić",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-O-2c5c4272fb",
+     "NAME": "Settore Fitosanitario Regione Piemonte",
+     "TIER": "A",
+     "FAMILY": "Settore Fitosanitario Regione Piemonte"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "MYCOTOXIN",
+   "STATE": "GOOD",
+   "REASON": "3 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 3,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|AZOXYSTROBIN — Fusarium/aflatossina em mais",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-32ca3e4621",
+     "NAME": "Massimo Blandino",
+     "TIER": "B",
+     "FAMILY": "Università di Torino"
+    },
+    {
+     "SENSOR_ID": "IT-P-4e729d1dd1",
+     "NAME": "Valentina Scarpino",
+     "TIER": "B",
+     "FAMILY": "Università di Torino"
+    },
+    {
+     "SENSOR_ID": "IT-O-2c5c4272fb",
+     "NAME": "Settore Fitosanitario Regione Piemonte",
+     "TIER": "A",
+     "FAMILY": "Settore Fitosanitario Regione Piemonte"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "ROOTWORM",
+   "STATE": "GOOD",
+   "REASON": "6 sensores Tier A/B em 3 famílias de origem",
+   "SENSOR_COUNT": 6,
+   "ORIGIN_FAMILIES": 3,
+   "ADAMA_ANCHOR": "TEFLUTHRIN (geodisinfestante) — Diabrotica",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-d8c6e45eb3",
+     "NAME": "Cristina Marzachì",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-c9b6995bd6",
+     "NAME": "Luciana Galetto",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-65c5322693",
+     "NAME": "Simona Abbà",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-3ee6110d8c",
+     "NAME": "Marika Rossi",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-bd0f1bec1c",
+     "NAME": "Domenico Bosco",
+     "TIER": "A",
+     "FAMILY": "Università di Torino"
+    },
+    {
+     "SENSOR_ID": "IT-O-2c5c4272fb",
+     "NAME": "Settore Fitosanitario Regione Piemonte",
+     "TIER": "A",
+     "FAMILY": "Settore Fitosanitario Regione Piemonte"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "VENETO",
+   "SPECIALTY": "CORN_BORER",
+   "STATE": "GOOD",
+   "REASON": "3 sensores Tier A/B em 3 famílias de origem",
+   "SENSOR_COUNT": 3,
+   "ORIGIN_FAMILIES": 3,
+   "ADAMA_ANCHOR": "CHLORANTRANILIPROLE|LAMBDA-CYHALOTHRIN|TEFLUTHRIN",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-0b2a9632f0",
+     "NAME": "Nicola Mori",
+     "TIER": "A",
+     "FAMILY": "Università di Verona"
+    },
+    {
+     "SENSOR_ID": "IT-O-4b1fa56fed",
+     "NAME": "Servizio Fitosanitario Regione Veneto",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Veneto"
+    },
+    {
+     "SENSOR_ID": "IT-O-0d025d69f1",
+     "NAME": "Università di Padova — DAFNAE",
+     "TIER": "B",
+     "FAMILY": "Università di Padova — DAFNAE"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "VENETO",
+   "SPECIALTY": "MAIZE_WEEDS",
+   "STATE": "GOOD",
+   "REASON": "5 sensores Tier A/B em 3 famílias de origem",
+   "SENSOR_COUNT": 5,
+   "ORIGIN_FAMILIES": 3,
+   "ADAMA_ANCHOR": "NICOSULFURON|MESOTRIONE|PENDIMETHALIN|DICAMBA",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-6ccde30295",
+     "NAME": "Laura Scarabel",
+     "TIER": "B",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-d514416574",
+     "NAME": "Andrea Milani",
+     "TIER": "B",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-47b986dd3d",
+     "NAME": "Silvia Panozzo",
+     "TIER": "B",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-O-4b1fa56fed",
+     "NAME": "Servizio Fitosanitario Regione Veneto",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Veneto"
+    },
+    {
+     "SENSOR_ID": "IT-O-0d025d69f1",
+     "NAME": "Università di Padova — DAFNAE",
+     "TIER": "B",
+     "FAMILY": "Università di Padova — DAFNAE"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "VENETO",
+   "SPECIALTY": "MYCOTOXIN",
+   "STATE": "GOOD",
+   "REASON": "2 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|AZOXYSTROBIN — Fusarium/aflatossina em mais",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-4b1fa56fed",
+     "NAME": "Servizio Fitosanitario Regione Veneto",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Veneto"
+    },
+    {
+     "SENSOR_ID": "IT-O-0d025d69f1",
+     "NAME": "Università di Padova — DAFNAE",
+     "TIER": "B",
+     "FAMILY": "Università di Padova — DAFNAE"
+    }
+   ]
+  },
+  {
+   "CROP": "MAIZE",
+   "REGION": "VENETO",
+   "SPECIALTY": "ROOTWORM",
+   "STATE": "GOOD",
+   "REASON": "7 sensores Tier A/B em 4 famílias de origem",
+   "SENSOR_COUNT": 7,
+   "ORIGIN_FAMILIES": 4,
+   "ADAMA_ANCHOR": "TEFLUTHRIN (geodisinfestante) — Diabrotica",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-f3120c875c",
+     "NAME": "Luca Nerva",
+     "TIER": "A",
+     "FAMILY": "CREA"
+    },
+    {
+     "SENSOR_ID": "IT-P-2dab3b026a",
+     "NAME": "Walter Chitarra",
+     "TIER": "A",
+     "FAMILY": "CREA"
+    },
+    {
+     "SENSOR_ID": "IT-P-6ccde30295",
+     "NAME": "Laura Scarabel",
+     "TIER": "B",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-d514416574",
+     "NAME": "Andrea Milani",
+     "TIER": "B",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-47b986dd3d",
+     "NAME": "Silvia Panozzo",
+     "TIER": "B",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-O-4b1fa56fed",
+     "NAME": "Servizio Fitosanitario Regione Veneto",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Veneto"
+    },
+    {
+     "SENSOR_ID": "IT-O-0d025d69f1",
+     "NAME": "Università di Padova — DAFNAE",
+     "TIER": "B",
+     "FAMILY": "Università di Padova — DAFNAE"
+    }
+   ]
+  },
+  {
+   "CROP": "MULTI",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "SLUGS",
+   "STATE": "GOOD",
+   "REASON": "2 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "METALDEHYDE (LUMA-KL) — único molusquicida do portfólio",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-1972a14682",
+     "NAME": "AgroNotizie — Image Line",
+     "TIER": "A",
+     "FAMILY": "AgroNotizie — Image Line"
+    },
+    {
+     "SENSOR_ID": "IT-O-902b897094",
+     "NAME": "Terra e Vita — Edagricole",
+     "TIER": "B",
+     "FAMILY": "Terra e Vita — Edagricole"
+    }
+   ]
+  },
+  {
+   "CROP": "OLIVE",
+   "REGION": "CALABRIA",
+   "SPECIALTY": "OLIVE_DISEASE",
+   "STATE": "GOOD",
+   "REASON": "2 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "AZOXYSTROBIN|DIFENOCONAZOLE — occhio di pavone/lebbra",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-5daab500b4",
+     "NAME": "Antonino Malacrinò",
+     "TIER": "A",
+     "FAMILY": "Università Mediterranea di Reggio Calabria"
+    },
+    {
+     "SENSOR_ID": "IT-O-a91181344a",
+     "NAME": "CREA — Olivicoltura, Frutticoltura e Agrumicoltura (CREA-OFA)",
+     "TIER": "A",
+     "FAMILY": "CREA — Olivicoltura, Frutticoltura e Agrumicoltura (CREA-OFA)"
+    }
+   ]
+  },
+  {
+   "CROP": "OLIVE",
+   "REGION": "PUGLIA",
+   "SPECIALTY": "OLIVE_DISEASE",
+   "STATE": "GOOD",
+   "REASON": "5 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 5,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "AZOXYSTROBIN|DIFENOCONAZOLE — occhio di pavone/lebbra",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-8eb7b66f4a",
+     "NAME": "Francesco Porcelli",
+     "TIER": "B",
+     "FAMILY": "Università di Bari Aldo Moro"
+    },
+    {
+     "SENSOR_ID": "IT-P-43f6a06ae6",
+     "NAME": "Francesca Garganese",
+     "TIER": "B",
+     "FAMILY": "Università di Bari Aldo Moro"
+    },
+    {
+     "SENSOR_ID": "IT-P-ade9ee5a43",
+     "NAME": "Ugo Picciotti",
+     "TIER": "B",
+     "FAMILY": "Università di Bari Aldo Moro"
+    },
+    {
+     "SENSOR_ID": "IT-P-b8e256e471",
+     "NAME": "Simona Marianna Sanzani",
+     "TIER": "A",
+     "FAMILY": "Università di Bari Aldo Moro"
+    },
+    {
+     "SENSOR_ID": "IT-O-f39fc7a69e",
+     "NAME": "Osservatorio Fitosanitario Regione Puglia",
+     "TIER": "B",
+     "FAMILY": "Osservatorio Fitosanitario Regione Puglia"
+    }
+   ]
+  },
+  {
+   "CROP": "OLIVE",
+   "REGION": "PUGLIA",
+   "SPECIALTY": "OLIVE_FRUIT_FLY",
+   "STATE": "GOOD",
+   "REASON": "5 sensores Tier A/B em 3 famílias de origem",
+   "SENSOR_COUNT": 5,
+   "ORIGIN_FAMILIES": 3,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN — Bactrocera oleae",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-f7c7dd3222",
+     "NAME": "Francesca Taranto",
+     "TIER": "A",
+     "FAMILY": "CNR — IBBR"
+    },
+    {
+     "SENSOR_ID": "IT-P-8eb7b66f4a",
+     "NAME": "Francesco Porcelli",
+     "TIER": "B",
+     "FAMILY": "Università di Bari Aldo Moro"
+    },
+    {
+     "SENSOR_ID": "IT-P-43f6a06ae6",
+     "NAME": "Francesca Garganese",
+     "TIER": "B",
+     "FAMILY": "Università di Bari Aldo Moro"
+    },
+    {
+     "SENSOR_ID": "IT-P-ade9ee5a43",
+     "NAME": "Ugo Picciotti",
+     "TIER": "B",
+     "FAMILY": "Università di Bari Aldo Moro"
+    },
+    {
+     "SENSOR_ID": "IT-O-f39fc7a69e",
+     "NAME": "Osservatorio Fitosanitario Regione Puglia",
+     "TIER": "B",
+     "FAMILY": "Osservatorio Fitosanitario Regione Puglia"
+    }
+   ]
+  },
+  {
+   "CROP": "OLIVE",
+   "REGION": "SICILIA",
+   "SPECIALTY": "OLIVE_DISEASE",
+   "STATE": "GOOD",
+   "REASON": "4 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 4,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "AZOXYSTROBIN|DIFENOCONAZOLE — occhio di pavone/lebbra",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-59bf767cd6",
+     "NAME": "Santa Olga Cacciola",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    },
+    {
+     "SENSOR_ID": "IT-P-e7fa4cf066",
+     "NAME": "Alessandro Vitale",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    },
+    {
+     "SENSOR_ID": "IT-P-8d0641dd4c",
+     "NAME": "Mario Riolo",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    },
+    {
+     "SENSOR_ID": "IT-P-fa527c2485",
+     "NAME": "Francesco Carimi",
+     "TIER": "B",
+     "FAMILY": "CNR — IBBR"
+    }
+   ]
+  },
+  {
+   "CROP": "OLIVE",
+   "REGION": "SICILIA",
+   "SPECIALTY": "OLIVE_FRUIT_FLY",
+   "STATE": "GOOD",
+   "REASON": "3 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 3,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN — Bactrocera oleae",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-59bf767cd6",
+     "NAME": "Santa Olga Cacciola",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    },
+    {
+     "SENSOR_ID": "IT-P-8d0641dd4c",
+     "NAME": "Mario Riolo",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    },
+    {
+     "SENSOR_ID": "IT-P-fa527c2485",
+     "NAME": "Francesco Carimi",
+     "TIER": "B",
+     "FAMILY": "CNR — IBBR"
+    }
+   ]
+  },
+  {
+   "CROP": "OLIVE",
+   "REGION": "UMBRIA",
+   "SPECIALTY": "OLIVE_FRUIT_FLY",
+   "STATE": "GOOD",
+   "REASON": "4 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 4,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN — Bactrocera oleae",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-7b426ac754",
+     "NAME": "Eric Conti",
+     "TIER": "B",
+     "FAMILY": "Università di Perugia"
+    },
+    {
+     "SENSOR_ID": "IT-P-a9f398239e",
+     "NAME": "Gabriele Rondoni",
+     "TIER": "B",
+     "FAMILY": "Università di Perugia"
+    },
+    {
+     "SENSOR_ID": "IT-P-a1f1073fc4",
+     "NAME": "Elena Chierici",
+     "TIER": "B",
+     "FAMILY": "Università di Perugia"
+    },
+    {
+     "SENSOR_ID": "IT-O-1362238c30",
+     "NAME": "Servizio Fitosanitario Regione Umbria",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Umbria"
+    }
+   ]
+  },
+  {
+   "CROP": "POTATO",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "LATE_BLIGHT",
+   "STATE": "GOOD",
+   "REASON": "2 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "FLUAZINAM (AGHARTA)|CYMOXANIL|METALAXYL-M",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-726ca0e1a8",
+     "NAME": "Riccardo Baroncelli",
+     "TIER": "A",
+     "FAMILY": "Università di Bologna"
+    },
+    {
+     "SENSOR_ID": "IT-O-700d9a836d",
+     "NAME": "Servizio Fitosanitario Regione Emilia-Romagna",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Emilia-Romagna"
+    }
+   ]
+  },
+  {
+   "CROP": "POTATO",
+   "REGION": "SICILIA",
+   "SPECIALTY": "LATE_BLIGHT",
+   "STATE": "GOOD",
+   "REASON": "3 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 3,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "FLUAZINAM (AGHARTA)|CYMOXANIL|METALAXYL-M",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-59bf767cd6",
+     "NAME": "Santa Olga Cacciola",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    },
+    {
+     "SENSOR_ID": "IT-P-e7fa4cf066",
+     "NAME": "Alessandro Vitale",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    },
+    {
+     "SENSOR_ID": "IT-P-fa527c2485",
+     "NAME": "Francesco Carimi",
+     "TIER": "B",
+     "FAMILY": "CNR — IBBR"
+    }
+   ]
+  },
+  {
+   "CROP": "POTATO",
+   "REGION": "VENETO",
+   "SPECIALTY": "LATE_BLIGHT",
+   "STATE": "GOOD",
+   "REASON": "3 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 3,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "FLUAZINAM (AGHARTA)|CYMOXANIL|METALAXYL-M",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-f3120c875c",
+     "NAME": "Luca Nerva",
+     "TIER": "A",
+     "FAMILY": "CREA"
+    },
+    {
+     "SENSOR_ID": "IT-P-2dab3b026a",
+     "NAME": "Walter Chitarra",
+     "TIER": "A",
+     "FAMILY": "CREA"
+    },
+    {
+     "SENSOR_ID": "IT-P-0b2a9632f0",
+     "NAME": "Nicola Mori",
+     "TIER": "A",
+     "FAMILY": "Università di Verona"
+    }
+   ]
+  },
+  {
+   "CROP": "RICE",
+   "REGION": "LOMBARDIA",
+   "SPECIALTY": "RICE_PROTECTION",
+   "STATE": "GOOD",
+   "REASON": "7 sensores Tier A/B em 3 famílias de origem",
+   "SENSOR_COUNT": 7,
+   "ORIGIN_FAMILIES": 3,
+   "ADAMA_ANCHOR": "AZOXYSTROBIN|PROPAQUIZAFOP (AGIL)",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-98ce0e6a98",
+     "NAME": "Silvia Laura Toffolatti",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-P-6134af398c",
+     "NAME": "Giuliana Maddalena",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-P-9830e9a5fa",
+     "NAME": "Gabriella De Lorenzis",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-P-0f42ea6c97",
+     "NAME": "Piero Attilio Bianco",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-P-0b29c0626d",
+     "NAME": "Fabrizio Araniti",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-O-fed7829c5e",
+     "NAME": "Servizio Fitosanitario Regione Lombardia",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Lombardia"
+    },
+    {
+     "SENSOR_ID": "IT-O-2318f34fef",
+     "NAME": "Università di Milano — DiSAA",
+     "TIER": "A",
+     "FAMILY": "Università di Milano — DiSAA"
+    }
+   ]
+  },
+  {
+   "CROP": "RICE",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "RICE_PROTECTION",
+   "STATE": "GOOD",
+   "REASON": "6 sensores Tier A/B em 4 famílias de origem",
+   "SENSOR_COUNT": 6,
+   "ORIGIN_FAMILIES": 4,
+   "ADAMA_ANCHOR": "AZOXYSTROBIN|PROPAQUIZAFOP (AGIL)",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-d009bf1a7d",
+     "NAME": "Massimo Turina",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-c90c8cd784",
+     "NAME": "Marco Forgia",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-1aece929e1",
+     "NAME": "Stefania Savoi",
+     "TIER": "B",
+     "FAMILY": "Università di Torino"
+    },
+    {
+     "SENSOR_ID": "IT-P-46942de9d4",
+     "NAME": "Anna Maria Vaira",
+     "TIER": "B",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-ab08db1528",
+     "NAME": "Stefania Daghino",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-O-2c5c4272fb",
+     "NAME": "Settore Fitosanitario Regione Piemonte",
+     "TIER": "A",
+     "FAMILY": "Settore Fitosanitario Regione Piemonte"
+    }
+   ]
+  },
+  {
+   "CROP": "STONE_FRUIT",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "BROWN_MARMORATED_STINK_BUG",
+   "STATE": "GOOD",
+   "REASON": "7 sensores Tier A/B em 7 famílias de origem",
+   "SENSOR_COUNT": 7,
+   "ORIGIN_FAMILIES": 7,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN — Halyomorpha halys",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-700d9a836d",
+     "NAME": "Servizio Fitosanitario Regione Emilia-Romagna",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Emilia-Romagna"
+    },
+    {
+     "SENSOR_ID": "IT-O-a0c1c348de",
+     "NAME": "CRPV — Centro Ricerche Produzioni Vegetali",
+     "TIER": "A",
+     "FAMILY": "CRPV — Centro Ricerche Produzioni Vegetali"
+    },
+    {
+     "SENSOR_ID": "IT-O-5eea02b9f6",
+     "NAME": "Università di Bologna — DISTAL",
+     "TIER": "B",
+     "FAMILY": "Università di Bologna — DISTAL"
+    },
+    {
+     "SENSOR_ID": "IT-O-0c7dc90e90",
+     "NAME": "Apofruit Italia",
+     "TIER": "B",
+     "FAMILY": "Apofruit Italia"
+    },
+    {
+     "SENSOR_ID": "IT-O-1a5c5af8bd",
+     "NAME": "Terremerse",
+     "TIER": "A",
+     "FAMILY": "Terremerse"
+    },
+    {
+     "SENSOR_ID": "IT-O-1d0488c1fe",
+     "NAME": "Agrintesa",
+     "TIER": "A",
+     "FAMILY": "Agrintesa"
+    },
+    {
+     "SENSOR_ID": "IT-O-bb6f4019d4",
+     "NAME": "Rivista di Frutticoltura",
+     "TIER": "A",
+     "FAMILY": "Rivista di Frutticoltura"
+    }
+   ]
+  },
+  {
+   "CROP": "STONE_FRUIT",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "BROWN_ROT",
+   "STATE": "GOOD",
+   "REASON": "7 sensores Tier A/B em 7 famílias de origem",
+   "SENSOR_COUNT": 7,
+   "ORIGIN_FAMILIES": 7,
+   "ADAMA_ANCHOR": "TEBUCONAZOLE|DIFENOCONAZOLE — Monilinia",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-700d9a836d",
+     "NAME": "Servizio Fitosanitario Regione Emilia-Romagna",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Emilia-Romagna"
+    },
+    {
+     "SENSOR_ID": "IT-O-a0c1c348de",
+     "NAME": "CRPV — Centro Ricerche Produzioni Vegetali",
+     "TIER": "A",
+     "FAMILY": "CRPV — Centro Ricerche Produzioni Vegetali"
+    },
+    {
+     "SENSOR_ID": "IT-O-5eea02b9f6",
+     "NAME": "Università di Bologna — DISTAL",
+     "TIER": "B",
+     "FAMILY": "Università di Bologna — DISTAL"
+    },
+    {
+     "SENSOR_ID": "IT-O-0c7dc90e90",
+     "NAME": "Apofruit Italia",
+     "TIER": "B",
+     "FAMILY": "Apofruit Italia"
+    },
+    {
+     "SENSOR_ID": "IT-O-1a5c5af8bd",
+     "NAME": "Terremerse",
+     "TIER": "A",
+     "FAMILY": "Terremerse"
+    },
+    {
+     "SENSOR_ID": "IT-O-1d0488c1fe",
+     "NAME": "Agrintesa",
+     "TIER": "A",
+     "FAMILY": "Agrintesa"
+    },
+    {
+     "SENSOR_ID": "IT-O-bb6f4019d4",
+     "NAME": "Rivista di Frutticoltura",
+     "TIER": "A",
+     "FAMILY": "Rivista di Frutticoltura"
+    }
+   ]
+  },
+  {
+   "CROP": "STONE_FRUIT",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "BROWN_MARMORATED_STINK_BUG",
+   "STATE": "GOOD",
+   "REASON": "7 sensores Tier A/B em 3 famílias de origem",
+   "SENSOR_COUNT": 7,
+   "ORIGIN_FAMILIES": 3,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN — Halyomorpha halys",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-d8c6e45eb3",
+     "NAME": "Cristina Marzachì",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-c9b6995bd6",
+     "NAME": "Luciana Galetto",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-65c5322693",
+     "NAME": "Simona Abbà",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-3ee6110d8c",
+     "NAME": "Marika Rossi",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-c9e4d76c1b",
+     "NAME": "Chiara Pagliarani",
+     "TIER": "B",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-bd0f1bec1c",
+     "NAME": "Domenico Bosco",
+     "TIER": "A",
+     "FAMILY": "Università di Torino"
+    },
+    {
+     "SENSOR_ID": "IT-O-28e2ab1baf",
+     "NAME": "Fondazione Agrion",
+     "TIER": "A",
+     "FAMILY": "Fondazione Agrion"
+    }
+   ]
+  },
+  {
+   "CROP": "STONE_FRUIT",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "BROWN_ROT",
+   "STATE": "GOOD",
+   "REASON": "3 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 3,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "TEBUCONAZOLE|DIFENOCONAZOLE — Monilinia",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-0e7cff51f7",
+     "NAME": "Alberto Acquadro",
+     "TIER": "A",
+     "FAMILY": "Università di Torino"
+    },
+    {
+     "SENSOR_ID": "IT-P-63e6b75ae2",
+     "NAME": "Andrea Moglia",
+     "TIER": "A",
+     "FAMILY": "Università di Torino"
+    },
+    {
+     "SENSOR_ID": "IT-O-28e2ab1baf",
+     "NAME": "Fondazione Agrion",
+     "TIER": "A",
+     "FAMILY": "Fondazione Agrion"
+    }
+   ]
+  },
+  {
+   "CROP": "STONE_FRUIT",
+   "REGION": "VENETO",
+   "SPECIALTY": "BROWN_MARMORATED_STINK_BUG",
+   "STATE": "GOOD",
+   "REASON": "7 sensores Tier A/B em 4 famílias de origem",
+   "SENSOR_COUNT": 7,
+   "ORIGIN_FAMILIES": 4,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN — Halyomorpha halys",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-f3120c875c",
+     "NAME": "Luca Nerva",
+     "TIER": "A",
+     "FAMILY": "CREA"
+    },
+    {
+     "SENSOR_ID": "IT-P-2dab3b026a",
+     "NAME": "Walter Chitarra",
+     "TIER": "A",
+     "FAMILY": "CREA"
+    },
+    {
+     "SENSOR_ID": "IT-P-0b2a9632f0",
+     "NAME": "Nicola Mori",
+     "TIER": "A",
+     "FAMILY": "Università di Verona"
+    },
+    {
+     "SENSOR_ID": "IT-P-b9a286056f",
+     "NAME": "Luca Sella",
+     "TIER": "A",
+     "FAMILY": "Università di Padova"
+    },
+    {
+     "SENSOR_ID": "IT-P-ae45d003a7",
+     "NAME": "Alberto Pozzebon",
+     "TIER": "A",
+     "FAMILY": "CIRVE — Centro Interdipartimentale per la Ricerca in Viticoltura"
+    },
+    {
+     "SENSOR_ID": "IT-P-f7c544b0b9",
+     "NAME": "Carlo Duso",
+     "TIER": "A",
+     "FAMILY": "CIRVE — Centro Interdipartimentale per la Ricerca in Viticoltura"
+    },
+    {
+     "SENSOR_ID": "IT-P-1b888cff91",
+     "NAME": "Davide Scaccini",
+     "TIER": "B",
+     "FAMILY": "Università di Padova"
+    }
+   ]
+  },
+  {
+   "CROP": "SUGAR_BEET",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "BEET_WEEDS",
+   "STATE": "GOOD",
+   "REASON": "2 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "METAMITRON (GOLTIX, GOLD-BEET, GOLTIX TOP) — 7 registros em vigor",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-700d9a836d",
+     "NAME": "Servizio Fitosanitario Regione Emilia-Romagna",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Emilia-Romagna"
+    },
+    {
+     "SENSOR_ID": "IT-O-44e917af95",
+     "NAME": "COPROB — Italia Zuccheri",
+     "TIER": "A",
+     "FAMILY": "COPROB — Italia Zuccheri"
+    }
+   ]
+  },
+  {
+   "CROP": "SUGAR_BEET",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "CERCOSPORA",
+   "STATE": "GOOD",
+   "REASON": "2 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "AZOXYSTROBIN|DIFENOCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-700d9a836d",
+     "NAME": "Servizio Fitosanitario Regione Emilia-Romagna",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Emilia-Romagna"
+    },
+    {
+     "SENSOR_ID": "IT-O-44e917af95",
+     "NAME": "COPROB — Italia Zuccheri",
+     "TIER": "A",
+     "FAMILY": "COPROB — Italia Zuccheri"
+    }
+   ]
+  },
+  {
+   "CROP": "TOMATO",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "TOMATO_DISEASE",
+   "STATE": "GOOD",
+   "REASON": "13 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 13,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "AZOXYSTROBIN|CYMOXANIL|METALAXYL-M",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-c1dd822f46",
+     "NAME": "Paola Battilani",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-fe15832810",
+     "NAME": "Paola Giorni",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-e32ba22fe3",
+     "NAME": "Antonio Gallo",
+     "TIER": "B",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-726ca0e1a8",
+     "NAME": "Riccardo Baroncelli",
+     "TIER": "A",
+     "FAMILY": "Università di Bologna"
+    },
+    {
+     "SENSOR_ID": "IT-P-e8cc9669c0",
+     "NAME": "Irene Salotti",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-3eae96f943",
+     "NAME": "Adriano Marocco",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-3b90ccc9c9",
+     "NAME": "Alessandra Lanubile",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-fb48db29c4",
+     "NAME": "Assunta Bertaccini",
+     "TIER": "A",
+     "FAMILY": "Università di Bologna"
+    }
+   ]
+  },
+  {
+   "CROP": "TOMATO",
+   "REGION": "PUGLIA",
+   "SPECIALTY": "TOMATO_DISEASE",
+   "STATE": "GOOD",
+   "REASON": "17 sensores Tier A/B em 7 famílias de origem",
+   "SENSOR_COUNT": 17,
+   "ORIGIN_FAMILIES": 7,
+   "ADAMA_ANCHOR": "AZOXYSTROBIN|CYMOXANIL|METALAXYL-M",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-aa0f1382ac",
+     "NAME": "Antonio Moretti",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-72fffa8102",
+     "NAME": "Anna Maria Mastrangelo",
+     "TIER": "A",
+     "FAMILY": "CREA"
+    },
+    {
+     "SENSOR_ID": "IT-P-5145a92a0c",
+     "NAME": "Francesco Di Serio",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-eed3b941bb",
+     "NAME": "Mario Masiello",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-f34c21caac",
+     "NAME": "Beatriz Navarro",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-f7c7dd3222",
+     "NAME": "Francesca Taranto",
+     "TIER": "A",
+     "FAMILY": "CNR — IBBR"
+    },
+    {
+     "SENSOR_ID": "IT-P-438b9fd33e",
+     "NAME": "Miriam Haidukowski",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-6ae5117ac6",
+     "NAME": "Stefania Somma",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    }
+   ]
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "DOWNY_MILDEW",
+   "STATE": "GOOD",
+   "REASON": "12 sensores Tier A/B em 5 famílias de origem",
+   "SENSOR_COUNT": 12,
+   "ORIGIN_FAMILIES": 5,
+   "ADAMA_ANCHOR": "FOLPET (FOLPAN)|CYMOXANIL|METALAXYL-M — 6+6+2 registros em vigor",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-e2d3899399",
+     "NAME": "Vittorio Rossi",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-c1dd822f46",
+     "NAME": "Paola Battilani",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-fe15832810",
+     "NAME": "Paola Giorni",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-810e88ab8d",
+     "NAME": "Tito Caffi",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-c7f168980c",
+     "NAME": "Giorgia Fedele",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-e8cc9669c0",
+     "NAME": "Irene Salotti",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-4ea6cbad37",
+     "NAME": "Edoardo Puglisi",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-1098e12d4d",
+     "NAME": "Margherita Furiosi",
+     "TIER": "B",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    }
+   ]
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "FLAVESCENCE_DOREE",
+   "STATE": "GOOD",
+   "REASON": "11 sensores Tier A/B em 6 famílias de origem",
+   "SENSOR_COUNT": 11,
+   "ORIGIN_FAMILIES": 6,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN|TAU-FLUVALINATE — vetor Scaphoideus titanus",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-e2d3899399",
+     "NAME": "Vittorio Rossi",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-810e88ab8d",
+     "NAME": "Tito Caffi",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-c7f168980c",
+     "NAME": "Giorgia Fedele",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-e8cc9669c0",
+     "NAME": "Irene Salotti",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-fb48db29c4",
+     "NAME": "Assunta Bertaccini",
+     "TIER": "A",
+     "FAMILY": "Università di Bologna"
+    },
+    {
+     "SENSOR_ID": "IT-P-4ea6cbad37",
+     "NAME": "Edoardo Puglisi",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-1098e12d4d",
+     "NAME": "Margherita Furiosi",
+     "TIER": "B",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-O-700d9a836d",
+     "NAME": "Servizio Fitosanitario Regione Emilia-Romagna",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Emilia-Romagna"
+    }
+   ]
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "FRIULI-VENEZIA GIULIA",
+   "SPECIALTY": "FLAVESCENCE_DOREE",
+   "STATE": "GOOD",
+   "REASON": "2 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN|TAU-FLUVALINATE — vetor Scaphoideus titanus",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-e769f91ee4",
+     "NAME": "Francesco Pavan",
+     "TIER": "A",
+     "FAMILY": "Università di Udine"
+    },
+    {
+     "SENSOR_ID": "IT-O-213c29c65e",
+     "NAME": "ERSA — Agenzia regionale sviluppo rurale FVG",
+     "TIER": "A",
+     "FAMILY": "ERSA — Agenzia regionale sviluppo rurale FVG"
+    }
+   ]
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "LOMBARDIA",
+   "SPECIALTY": "FLAVESCENCE_DOREE",
+   "STATE": "GOOD",
+   "REASON": "11 sensores Tier A/B em 4 famílias de origem",
+   "SENSOR_COUNT": 11,
+   "ORIGIN_FAMILIES": 4,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN|TAU-FLUVALINATE — vetor Scaphoideus titanus",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-98ce0e6a98",
+     "NAME": "Silvia Laura Toffolatti",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-P-6134af398c",
+     "NAME": "Giuliana Maddalena",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-P-558ac25e89",
+     "NAME": "Demetrio Marcianò",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-P-9830e9a5fa",
+     "NAME": "Gabriella De Lorenzis",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-P-0f42ea6c97",
+     "NAME": "Piero Attilio Bianco",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-P-bb8ebab934",
+     "NAME": "Valentina Ricciardi",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-P-b2c6949630",
+     "NAME": "Osvaldo Failla",
+     "TIER": "B",
+     "FAMILY": "Università di Milano"
+    },
+    {
+     "SENSOR_ID": "IT-P-ae054ae7a0",
+     "NAME": "Fabio Quaglino",
+     "TIER": "A",
+     "FAMILY": "Università di Milano"
+    }
+   ]
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "DOWNY_MILDEW",
+   "STATE": "GOOD",
+   "REASON": "16 sensores Tier A/B em 5 famílias de origem",
+   "SENSOR_COUNT": 16,
+   "ORIGIN_FAMILIES": 5,
+   "ADAMA_ANCHOR": "FOLPET (FOLPAN)|CYMOXANIL|METALAXYL-M — 6+6+2 registros em vigor",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-d009bf1a7d",
+     "NAME": "Massimo Turina",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-d8c6e45eb3",
+     "NAME": "Cristina Marzachì",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-c9b6995bd6",
+     "NAME": "Luciana Galetto",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-c90c8cd784",
+     "NAME": "Marco Forgia",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-b801b20ab0",
+     "NAME": "Giorgio Gambino",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-65c5322693",
+     "NAME": "Simona Abbà",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-3ee6110d8c",
+     "NAME": "Marika Rossi",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-63e6b75ae2",
+     "NAME": "Andrea Moglia",
+     "TIER": "A",
+     "FAMILY": "Università di Torino"
+    }
+   ]
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "FLAVESCENCE_DOREE",
+   "STATE": "GOOD",
+   "REASON": "17 sensores Tier A/B em 5 famílias de origem",
+   "SENSOR_COUNT": 17,
+   "ORIGIN_FAMILIES": 5,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN|TAU-FLUVALINATE — vetor Scaphoideus titanus",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-d009bf1a7d",
+     "NAME": "Massimo Turina",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-d8c6e45eb3",
+     "NAME": "Cristina Marzachì",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-c9b6995bd6",
+     "NAME": "Luciana Galetto",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-c90c8cd784",
+     "NAME": "Marco Forgia",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-b801b20ab0",
+     "NAME": "Giorgio Gambino",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-65c5322693",
+     "NAME": "Simona Abbà",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-0e7cff51f7",
+     "NAME": "Alberto Acquadro",
+     "TIER": "A",
+     "FAMILY": "Università di Torino"
+    },
+    {
+     "SENSOR_ID": "IT-P-3ee6110d8c",
+     "NAME": "Marika Rossi",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    }
+   ]
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "GRAPE_MOTH",
+   "STATE": "GOOD",
+   "REASON": "4 sensores Tier A/B em 3 famílias de origem",
+   "SENSOR_COUNT": 4,
+   "ORIGIN_FAMILIES": 3,
+   "ADAMA_ANCHOR": "CHLORANTRANILIPROLE|LAMBDA-CYHALOTHRIN — Lobesia botrana",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-b801b20ab0",
+     "NAME": "Giorgio Gambino",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-c08ae005dd",
+     "NAME": "Irene Perrone",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-O-2c5c4272fb",
+     "NAME": "Settore Fitosanitario Regione Piemonte",
+     "TIER": "A",
+     "FAMILY": "Settore Fitosanitario Regione Piemonte"
+    },
+    {
+     "SENSOR_ID": "IT-O-28e2ab1baf",
+     "NAME": "Fondazione Agrion",
+     "TIER": "A",
+     "FAMILY": "Fondazione Agrion"
+    }
+   ]
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "PUGLIA",
+   "SPECIALTY": "DOWNY_MILDEW",
+   "STATE": "GOOD",
+   "REASON": "4 sensores Tier A/B em 3 famílias de origem",
+   "SENSOR_COUNT": 4,
+   "ORIGIN_FAMILIES": 3,
+   "ADAMA_ANCHOR": "FOLPET (FOLPAN)|CYMOXANIL|METALAXYL-M — 6+6+2 registros em vigor",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-5145a92a0c",
+     "NAME": "Francesco Di Serio",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-f34c21caac",
+     "NAME": "Beatriz Navarro",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-b8e256e471",
+     "NAME": "Simona Marianna Sanzani",
+     "TIER": "A",
+     "FAMILY": "Università di Bari Aldo Moro"
+    },
+    {
+     "SENSOR_ID": "IT-O-f39fc7a69e",
+     "NAME": "Osservatorio Fitosanitario Regione Puglia",
+     "TIER": "B",
+     "FAMILY": "Osservatorio Fitosanitario Regione Puglia"
+    }
+   ]
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "PUGLIA",
+   "SPECIALTY": "GRAPE_MOTH",
+   "STATE": "GOOD",
+   "REASON": "4 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 4,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "CHLORANTRANILIPROLE|LAMBDA-CYHALOTHRIN — Lobesia botrana",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-8eb7b66f4a",
+     "NAME": "Francesco Porcelli",
+     "TIER": "B",
+     "FAMILY": "Università di Bari Aldo Moro"
+    },
+    {
+     "SENSOR_ID": "IT-P-43f6a06ae6",
+     "NAME": "Francesca Garganese",
+     "TIER": "B",
+     "FAMILY": "Università di Bari Aldo Moro"
+    },
+    {
+     "SENSOR_ID": "IT-P-ade9ee5a43",
+     "NAME": "Ugo Picciotti",
+     "TIER": "B",
+     "FAMILY": "Università di Bari Aldo Moro"
+    },
+    {
+     "SENSOR_ID": "IT-O-f39fc7a69e",
+     "NAME": "Osservatorio Fitosanitario Regione Puglia",
+     "TIER": "B",
+     "FAMILY": "Osservatorio Fitosanitario Regione Puglia"
+    }
+   ]
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "SICILIA",
+   "SPECIALTY": "DOWNY_MILDEW",
+   "STATE": "GOOD",
+   "REASON": "3 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 3,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "FOLPET (FOLPAN)|CYMOXANIL|METALAXYL-M — 6+6+2 registros em vigor",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-59bf767cd6",
+     "NAME": "Santa Olga Cacciola",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    },
+    {
+     "SENSOR_ID": "IT-P-e7fa4cf066",
+     "NAME": "Alessandro Vitale",
+     "TIER": "A",
+     "FAMILY": "Università di Catania"
+    },
+    {
+     "SENSOR_ID": "IT-P-fa527c2485",
+     "NAME": "Francesco Carimi",
+     "TIER": "B",
+     "FAMILY": "CNR — IBBR"
+    }
+   ]
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "TOSCANA",
+   "SPECIALTY": "DOWNY_MILDEW",
+   "STATE": "GOOD",
+   "REASON": "10 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 10,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "FOLPET (FOLPAN)|CYMOXANIL|METALAXYL-M — 6+6+2 registros em vigor",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-37f35b9690",
+     "NAME": "Claudio Pugliesi",
+     "TIER": "B",
+     "FAMILY": "Università di Pisa"
+    },
+    {
+     "SENSOR_ID": "IT-P-4aadec4477",
+     "NAME": "Marco Fambrini",
+     "TIER": "B",
+     "FAMILY": "Università di Pisa"
+    },
+    {
+     "SENSOR_ID": "IT-P-55e3d15794",
+     "NAME": "Cristina Nali",
+     "TIER": "A",
+     "FAMILY": "Università di Pisa"
+    },
+    {
+     "SENSOR_ID": "IT-P-96ced94a1a",
+     "NAME": "Sabrina Sarrocco",
+     "TIER": "B",
+     "FAMILY": "Università di Pisa"
+    },
+    {
+     "SENSOR_ID": "IT-P-b27c56199c",
+     "NAME": "Elisa Pellegrini",
+     "TIER": "A",
+     "FAMILY": "Università di Pisa"
+    },
+    {
+     "SENSOR_ID": "IT-P-e7bc77a8cd",
+     "NAME": "Susanna Pecchia",
+     "TIER": "A",
+     "FAMILY": "Università di Pisa"
+    },
+    {
+     "SENSOR_ID": "IT-P-c51b6afd39",
+     "NAME": "Lorenzo Cotrozzi",
+     "TIER": "A",
+     "FAMILY": "Università di Pisa"
+    },
+    {
+     "SENSOR_ID": "IT-P-c495b4eea8",
+     "NAME": "Salvatore Moricca",
+     "TIER": "A",
+     "FAMILY": "Università di Firenze"
+    }
+   ]
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "TRENTINO-ALTO ADIGE",
+   "SPECIALTY": "DOWNY_MILDEW",
+   "STATE": "GOOD",
+   "REASON": "9 sensores Tier A/B em 4 famílias de origem",
+   "SENSOR_COUNT": 9,
+   "ORIGIN_FAMILIES": 4,
+   "ADAMA_ANCHOR": "FOLPET (FOLPAN)|CYMOXANIL|METALAXYL-M — 6+6+2 registros em vigor",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-6616ab45da",
+     "NAME": "Michele Perazzolli",
+     "TIER": "A",
+     "FAMILY": "Fondazione Edmund Mach"
+    },
+    {
+     "SENSOR_ID": "IT-P-7fb9a35fb7",
+     "NAME": "Peter Robatscher",
+     "TIER": "A",
+     "FAMILY": "Laimburg Research Centre"
+    },
+    {
+     "SENSOR_ID": "IT-P-45433a040b",
+     "NAME": "Claudio Moser",
+     "TIER": "B",
+     "FAMILY": "Fondazione Edmund Mach"
+    },
+    {
+     "SENSOR_ID": "IT-P-6cb52f8fa6",
+     "NAME": "Katrin Janik",
+     "TIER": "A",
+     "FAMILY": "Laimburg Research Centre"
+    },
+    {
+     "SENSOR_ID": "IT-P-c7a87f5e4d",
+     "NAME": "Urban Spitaler",
+     "TIER": "A",
+     "FAMILY": "Laimburg Research Centre"
+    },
+    {
+     "SENSOR_ID": "IT-P-74e81e672c",
+     "NAME": "Pietro Franceschi",
+     "TIER": "A",
+     "FAMILY": "Fondazione Edmund Mach"
+    },
+    {
+     "SENSOR_ID": "IT-P-4423800cb1",
+     "NAME": "Stefania Pilati",
+     "TIER": "B",
+     "FAMILY": "Fondazione Edmund Mach"
+    },
+    {
+     "SENSOR_ID": "IT-O-7e96d64ea1",
+     "NAME": "Servizio Fitosanitario Provincia Autonoma di Trento",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Provincia Autonoma di Trento"
+    }
+   ]
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "VENETO",
+   "SPECIALTY": "DOWNY_MILDEW",
+   "STATE": "GOOD",
+   "REASON": "13 sensores Tier A/B em 8 famílias de origem",
+   "SENSOR_COUNT": 13,
+   "ORIGIN_FAMILIES": 8,
+   "ADAMA_ANCHOR": "FOLPET (FOLPAN)|CYMOXANIL|METALAXYL-M — 6+6+2 registros em vigor",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-f3120c875c",
+     "NAME": "Luca Nerva",
+     "TIER": "A",
+     "FAMILY": "CREA"
+    },
+    {
+     "SENSOR_ID": "IT-P-2dab3b026a",
+     "NAME": "Walter Chitarra",
+     "TIER": "A",
+     "FAMILY": "CREA"
+    },
+    {
+     "SENSOR_ID": "IT-P-0b2a9632f0",
+     "NAME": "Nicola Mori",
+     "TIER": "A",
+     "FAMILY": "Università di Verona"
+    },
+    {
+     "SENSOR_ID": "IT-P-b9a286056f",
+     "NAME": "Luca Sella",
+     "TIER": "A",
+     "FAMILY": "Università di Padova"
+    },
+    {
+     "SENSOR_ID": "IT-P-ae45d003a7",
+     "NAME": "Alberto Pozzebon",
+     "TIER": "A",
+     "FAMILY": "CIRVE — Centro Interdipartimentale per la Ricerca in Viticoltura"
+    },
+    {
+     "SENSOR_ID": "IT-P-51dd54237a",
+     "NAME": "Francesco Favaron",
+     "TIER": "A",
+     "FAMILY": "Università di Padova"
+    },
+    {
+     "SENSOR_ID": "IT-P-f7c544b0b9",
+     "NAME": "Carlo Duso",
+     "TIER": "A",
+     "FAMILY": "CIRVE — Centro Interdipartimentale per la Ricerca in Viticoltura"
+    },
+    {
+     "SENSOR_ID": "IT-P-79435c8fcb",
+     "NAME": "Silvio Tundo",
+     "TIER": "A",
+     "FAMILY": "Università di Padova"
+    }
+   ]
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "VENETO",
+   "SPECIALTY": "FLAVESCENCE_DOREE",
+   "STATE": "GOOD",
+   "REASON": "14 sensores Tier A/B em 8 famílias de origem",
+   "SENSOR_COUNT": 14,
+   "ORIGIN_FAMILIES": 8,
+   "ADAMA_ANCHOR": "LAMBDA-CYHALOTHRIN|TAU-FLUVALINATE — vetor Scaphoideus titanus",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-f3120c875c",
+     "NAME": "Luca Nerva",
+     "TIER": "A",
+     "FAMILY": "CREA"
+    },
+    {
+     "SENSOR_ID": "IT-P-2dab3b026a",
+     "NAME": "Walter Chitarra",
+     "TIER": "A",
+     "FAMILY": "CREA"
+    },
+    {
+     "SENSOR_ID": "IT-P-0b2a9632f0",
+     "NAME": "Nicola Mori",
+     "TIER": "A",
+     "FAMILY": "Università di Verona"
+    },
+    {
+     "SENSOR_ID": "IT-P-b9a286056f",
+     "NAME": "Luca Sella",
+     "TIER": "A",
+     "FAMILY": "Università di Padova"
+    },
+    {
+     "SENSOR_ID": "IT-P-ae45d003a7",
+     "NAME": "Alberto Pozzebon",
+     "TIER": "A",
+     "FAMILY": "CIRVE — Centro Interdipartimentale per la Ricerca in Viticoltura"
+    },
+    {
+     "SENSOR_ID": "IT-P-51dd54237a",
+     "NAME": "Francesco Favaron",
+     "TIER": "A",
+     "FAMILY": "Università di Padova"
+    },
+    {
+     "SENSOR_ID": "IT-P-f7c544b0b9",
+     "NAME": "Carlo Duso",
+     "TIER": "A",
+     "FAMILY": "CIRVE — Centro Interdipartimentale per la Ricerca in Viticoltura"
+    },
+    {
+     "SENSOR_ID": "IT-P-79435c8fcb",
+     "NAME": "Silvio Tundo",
+     "TIER": "A",
+     "FAMILY": "Università di Padova"
+    }
+   ]
+  },
+  {
+   "CROP": "VINE",
+   "REGION": "VENETO",
+   "SPECIALTY": "GRAPE_MOTH",
+   "STATE": "GOOD",
+   "REASON": "6 sensores Tier A/B em 5 famílias de origem",
+   "SENSOR_COUNT": 6,
+   "ORIGIN_FAMILIES": 5,
+   "ADAMA_ANCHOR": "CHLORANTRANILIPROLE|LAMBDA-CYHALOTHRIN — Lobesia botrana",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-2dab3b026a",
+     "NAME": "Walter Chitarra",
+     "TIER": "A",
+     "FAMILY": "CREA"
+    },
+    {
+     "SENSOR_ID": "IT-P-ae45d003a7",
+     "NAME": "Alberto Pozzebon",
+     "TIER": "A",
+     "FAMILY": "CIRVE — Centro Interdipartimentale per la Ricerca in Viticoltura"
+    },
+    {
+     "SENSOR_ID": "IT-P-f7c544b0b9",
+     "NAME": "Carlo Duso",
+     "TIER": "A",
+     "FAMILY": "CIRVE — Centro Interdipartimentale per la Ricerca in Viticoltura"
+    },
+    {
+     "SENSOR_ID": "IT-O-4b1fa56fed",
+     "NAME": "Servizio Fitosanitario Regione Veneto",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Veneto"
+    },
+    {
+     "SENSOR_ID": "IT-O-7e45292a66",
+     "NAME": "CREA — Viticoltura ed Enologia (CREA-VE)",
+     "TIER": "B",
+     "FAMILY": "CREA — Viticoltura ed Enologia (CREA-VE)"
+    },
+    {
+     "SENSOR_ID": "IT-O-0d025d69f1",
+     "NAME": "Università di Padova — DAFNAE",
+     "TIER": "B",
+     "FAMILY": "Università di Padova — DAFNAE"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "FUSARIUM_HEAD_BLIGHT",
+   "STATE": "GOOD",
+   "REASON": "18 sensores Tier A/B em 8 famílias de origem",
+   "SENSOR_COUNT": 18,
+   "ORIGIN_FAMILIES": 8,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|TEBUCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE+PUBLIC_SIGNAL",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-c1dd822f46",
+     "NAME": "Paola Battilani",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-fe15832810",
+     "NAME": "Paola Giorni",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-e32ba22fe3",
+     "NAME": "Antonio Gallo",
+     "TIER": "B",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-726ca0e1a8",
+     "NAME": "Riccardo Baroncelli",
+     "TIER": "A",
+     "FAMILY": "Università di Bologna"
+    },
+    {
+     "SENSOR_ID": "IT-P-3eae96f943",
+     "NAME": "Adriano Marocco",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-3b90ccc9c9",
+     "NAME": "Alessandra Lanubile",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-fb48db29c4",
+     "NAME": "Assunta Bertaccini",
+     "TIER": "A",
+     "FAMILY": "Università di Bologna"
+    },
+    {
+     "SENSOR_ID": "IT-P-9007c92f62",
+     "NAME": "Gabriele Rocchetti",
+     "TIER": "B",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "POWDERY_MILDEW",
+   "STATE": "GOOD",
+   "REASON": "7 sensores Tier A/B em 7 famílias de origem",
+   "SENSOR_COUNT": 7,
+   "ORIGIN_FAMILIES": 7,
+   "ADAMA_ANCHOR": "FENPROPIDIN|PROTHIOCONAZOLE (FORAPRO-classe)",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-4ea6cbad37",
+     "NAME": "Edoardo Puglisi",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-O-700d9a836d",
+     "NAME": "Servizio Fitosanitario Regione Emilia-Romagna",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Emilia-Romagna"
+    },
+    {
+     "SENSOR_ID": "IT-O-45ff33ee0d",
+     "NAME": "CREA — Cerealicoltura e Colture Industriali (CREA-CI)",
+     "TIER": "B",
+     "FAMILY": "CREA — Cerealicoltura e Colture Industriali (CREA-CI)"
+    },
+    {
+     "SENSOR_ID": "IT-O-a0c1c348de",
+     "NAME": "CRPV — Centro Ricerche Produzioni Vegetali",
+     "TIER": "A",
+     "FAMILY": "CRPV — Centro Ricerche Produzioni Vegetali"
+    },
+    {
+     "SENSOR_ID": "IT-O-5eea02b9f6",
+     "NAME": "Università di Bologna — DISTAL",
+     "TIER": "B",
+     "FAMILY": "Università di Bologna — DISTAL"
+    },
+    {
+     "SENSOR_ID": "IT-O-1a5c5af8bd",
+     "NAME": "Terremerse",
+     "TIER": "A",
+     "FAMILY": "Terremerse"
+    },
+    {
+     "SENSOR_ID": "IT-O-ef50b93daf",
+     "NAME": "granoduro.net — DSS de trigo duro",
+     "TIER": "B",
+     "FAMILY": "granoduro.net — DSS de trigo duro"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "RUST",
+   "STATE": "GOOD",
+   "REASON": "9 sensores Tier A/B em 8 famílias de origem",
+   "SENSOR_COUNT": 9,
+   "ORIGIN_FAMILIES": 8,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|AZOXYSTROBIN|TEBUCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-e2d3899399",
+     "NAME": "Vittorio Rossi",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-e8cc9669c0",
+     "NAME": "Irene Salotti",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-c4b3285f34",
+     "NAME": "Marco Maccaferri",
+     "TIER": "A",
+     "FAMILY": "Università di Bologna"
+    },
+    {
+     "SENSOR_ID": "IT-O-700d9a836d",
+     "NAME": "Servizio Fitosanitario Regione Emilia-Romagna",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Emilia-Romagna"
+    },
+    {
+     "SENSOR_ID": "IT-O-45ff33ee0d",
+     "NAME": "CREA — Cerealicoltura e Colture Industriali (CREA-CI)",
+     "TIER": "B",
+     "FAMILY": "CREA — Cerealicoltura e Colture Industriali (CREA-CI)"
+    },
+    {
+     "SENSOR_ID": "IT-O-a0c1c348de",
+     "NAME": "CRPV — Centro Ricerche Produzioni Vegetali",
+     "TIER": "A",
+     "FAMILY": "CRPV — Centro Ricerche Produzioni Vegetali"
+    },
+    {
+     "SENSOR_ID": "IT-O-5eea02b9f6",
+     "NAME": "Università di Bologna — DISTAL",
+     "TIER": "B",
+     "FAMILY": "Università di Bologna — DISTAL"
+    },
+    {
+     "SENSOR_ID": "IT-O-1a5c5af8bd",
+     "NAME": "Terremerse",
+     "TIER": "A",
+     "FAMILY": "Terremerse"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "EMILIA-ROMAGNA",
+   "SPECIALTY": "SEPTORIA",
+   "STATE": "GOOD",
+   "REASON": "10 sensores Tier A/B em 8 famílias de origem",
+   "SENSOR_COUNT": 10,
+   "ORIGIN_FAMILIES": 8,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|AZOXYSTROBIN|FLUXAPYROXAD (AVASTEL, MAXENTIS, MAGANIC)",
+   "BASIS": "REGISTRY_ACTIVE+PUBLIC_SIGNAL",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-e2d3899399",
+     "NAME": "Vittorio Rossi",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-726ca0e1a8",
+     "NAME": "Riccardo Baroncelli",
+     "TIER": "A",
+     "FAMILY": "Università di Bologna"
+    },
+    {
+     "SENSOR_ID": "IT-P-e8cc9669c0",
+     "NAME": "Irene Salotti",
+     "TIER": "A",
+     "FAMILY": "Università Cattolica del Sacro Cuore"
+    },
+    {
+     "SENSOR_ID": "IT-P-c4b3285f34",
+     "NAME": "Marco Maccaferri",
+     "TIER": "A",
+     "FAMILY": "Università di Bologna"
+    },
+    {
+     "SENSOR_ID": "IT-O-700d9a836d",
+     "NAME": "Servizio Fitosanitario Regione Emilia-Romagna",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Emilia-Romagna"
+    },
+    {
+     "SENSOR_ID": "IT-O-45ff33ee0d",
+     "NAME": "CREA — Cerealicoltura e Colture Industriali (CREA-CI)",
+     "TIER": "B",
+     "FAMILY": "CREA — Cerealicoltura e Colture Industriali (CREA-CI)"
+    },
+    {
+     "SENSOR_ID": "IT-O-a0c1c348de",
+     "NAME": "CRPV — Centro Ricerche Produzioni Vegetali",
+     "TIER": "A",
+     "FAMILY": "CRPV — Centro Ricerche Produzioni Vegetali"
+    },
+    {
+     "SENSOR_ID": "IT-O-5eea02b9f6",
+     "NAME": "Università di Bologna — DISTAL",
+     "TIER": "B",
+     "FAMILY": "Università di Bologna — DISTAL"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "PIEMONTE",
+   "SPECIALTY": "POWDERY_MILDEW",
+   "STATE": "GOOD",
+   "REASON": "6 sensores Tier A/B em 3 famílias de origem",
+   "SENSOR_COUNT": 6,
+   "ORIGIN_FAMILIES": 3,
+   "ADAMA_ANCHOR": "FENPROPIDIN|PROTHIOCONAZOLE (FORAPRO-classe)",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-d009bf1a7d",
+     "NAME": "Massimo Turina",
+     "TIER": "A",
+     "FAMILY": "CNR — Istituto per la Protezione Sostenibile delle Piante"
+    },
+    {
+     "SENSOR_ID": "IT-P-c90c8cd784",
+     "NAME": "Marco Forgia",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-0e7cff51f7",
+     "NAME": "Alberto Acquadro",
+     "TIER": "A",
+     "FAMILY": "Università di Torino"
+    },
+    {
+     "SENSOR_ID": "IT-P-63e6b75ae2",
+     "NAME": "Andrea Moglia",
+     "TIER": "A",
+     "FAMILY": "Università di Torino"
+    },
+    {
+     "SENSOR_ID": "IT-P-8e589c62f1",
+     "NAME": "Raffaella Balestrini",
+     "TIER": "B",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-a45b762d2f",
+     "NAME": "Slavica Matić",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "PUGLIA",
+   "SPECIALTY": "FUSARIUM_HEAD_BLIGHT",
+   "STATE": "GOOD",
+   "REASON": "19 sensores Tier A/B em 8 famílias de origem",
+   "SENSOR_COUNT": 19,
+   "ORIGIN_FAMILIES": 8,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|TEBUCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE+PUBLIC_SIGNAL",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-aa0f1382ac",
+     "NAME": "Antonio Moretti",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-72fffa8102",
+     "NAME": "Anna Maria Mastrangelo",
+     "TIER": "A",
+     "FAMILY": "CREA"
+    },
+    {
+     "SENSOR_ID": "IT-P-027285930d",
+     "NAME": "Antonio F Logrieco",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-5145a92a0c",
+     "NAME": "Francesco Di Serio",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-eed3b941bb",
+     "NAME": "Mario Masiello",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-f34c21caac",
+     "NAME": "Beatriz Navarro",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    },
+    {
+     "SENSOR_ID": "IT-P-f7c7dd3222",
+     "NAME": "Francesca Taranto",
+     "TIER": "A",
+     "FAMILY": "CNR — IBBR"
+    },
+    {
+     "SENSOR_ID": "IT-P-438b9fd33e",
+     "NAME": "Miriam Haidukowski",
+     "TIER": "A",
+     "FAMILY": "CNR"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "PUGLIA",
+   "SPECIALTY": "RUST",
+   "STATE": "GOOD",
+   "REASON": "8 sensores Tier A/B em 6 famílias de origem",
+   "SENSOR_COUNT": 8,
+   "ORIGIN_FAMILIES": 6,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|AZOXYSTROBIN|TEBUCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-72fffa8102",
+     "NAME": "Anna Maria Mastrangelo",
+     "TIER": "A",
+     "FAMILY": "CREA"
+    },
+    {
+     "SENSOR_ID": "IT-P-f7c7dd3222",
+     "NAME": "Francesca Taranto",
+     "TIER": "A",
+     "FAMILY": "CNR — IBBR"
+    },
+    {
+     "SENSOR_ID": "IT-P-45d28698ff",
+     "NAME": "Agata Gadaleta",
+     "TIER": "A",
+     "FAMILY": "Università di Bari Aldo Moro"
+    },
+    {
+     "SENSOR_ID": "IT-P-2c14a6f961",
+     "NAME": "Giacomo Mangini",
+     "TIER": "A",
+     "FAMILY": "CNR — IBBR"
+    },
+    {
+     "SENSOR_ID": "IT-P-0094abed38",
+     "NAME": "Silvia Procino",
+     "TIER": "A",
+     "FAMILY": "CNR — IBBR"
+    },
+    {
+     "SENSOR_ID": "IT-P-9ec2f9c6c6",
+     "NAME": "Nicola Pecchioni",
+     "TIER": "A",
+     "FAMILY": "CREA — Consiglio per la ricerca in agricoltura"
+    },
+    {
+     "SENSOR_ID": "IT-O-f39fc7a69e",
+     "NAME": "Osservatorio Fitosanitario Regione Puglia",
+     "TIER": "B",
+     "FAMILY": "Osservatorio Fitosanitario Regione Puglia"
+    },
+    {
+     "SENSOR_ID": "IT-O-4aac8e5251",
+     "NAME": "CNR — Istituto di Scienze delle Produzioni Alimentari (ISPA)",
+     "TIER": "B",
+     "FAMILY": "CNR — Istituto di Scienze delle Produzioni Alimentari (ISPA)"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "UMBRIA",
+   "SPECIALTY": "SEPTORIA",
+   "STATE": "GOOD",
+   "REASON": "6 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 6,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|AZOXYSTROBIN|FLUXAPYROXAD (AVASTEL, MAXENTIS, MAGANIC)",
+   "BASIS": "REGISTRY_ACTIVE+PUBLIC_SIGNAL",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-c1dd4f5b4a",
+     "NAME": "Giovanni Beccari",
+     "TIER": "B",
+     "FAMILY": "Università di Perugia"
+    },
+    {
+     "SENSOR_ID": "IT-P-5704408c3c",
+     "NAME": "Lorenzo Covarelli",
+     "TIER": "B",
+     "FAMILY": "Università di Perugia"
+    },
+    {
+     "SENSOR_ID": "IT-P-aa8d2abf18",
+     "NAME": "Francesco Tini",
+     "TIER": "B",
+     "FAMILY": "Università di Perugia"
+    },
+    {
+     "SENSOR_ID": "IT-P-2fae504cc4",
+     "NAME": "Andrea Onofri",
+     "TIER": "B",
+     "FAMILY": "Università di Perugia"
+    },
+    {
+     "SENSOR_ID": "IT-P-132657d1f0",
+     "NAME": "Paolo Benincasa",
+     "TIER": "B",
+     "FAMILY": "Università di Perugia"
+    },
+    {
+     "SENSOR_ID": "IT-O-1362238c30",
+     "NAME": "Servizio Fitosanitario Regione Umbria",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Umbria"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "VENETO",
+   "SPECIALTY": "FUSARIUM_HEAD_BLIGHT",
+   "STATE": "GOOD",
+   "REASON": "7 sensores Tier A/B em 4 famílias de origem",
+   "SENSOR_COUNT": 7,
+   "ORIGIN_FAMILIES": 4,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|TEBUCONAZOLE",
+   "BASIS": "REGISTRY_ACTIVE+PUBLIC_SIGNAL",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-f3120c875c",
+     "NAME": "Luca Nerva",
+     "TIER": "A",
+     "FAMILY": "CREA"
+    },
+    {
+     "SENSOR_ID": "IT-P-2dab3b026a",
+     "NAME": "Walter Chitarra",
+     "TIER": "A",
+     "FAMILY": "CREA"
+    },
+    {
+     "SENSOR_ID": "IT-P-b9a286056f",
+     "NAME": "Luca Sella",
+     "TIER": "A",
+     "FAMILY": "Università di Padova"
+    },
+    {
+     "SENSOR_ID": "IT-P-51dd54237a",
+     "NAME": "Francesco Favaron",
+     "TIER": "A",
+     "FAMILY": "Università di Padova"
+    },
+    {
+     "SENSOR_ID": "IT-P-79435c8fcb",
+     "NAME": "Silvio Tundo",
+     "TIER": "A",
+     "FAMILY": "Università di Padova"
+    },
+    {
+     "SENSOR_ID": "IT-O-4b1fa56fed",
+     "NAME": "Servizio Fitosanitario Regione Veneto",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Veneto"
+    },
+    {
+     "SENSOR_ID": "IT-O-0d025d69f1",
+     "NAME": "Università di Padova — DAFNAE",
+     "TIER": "B",
+     "FAMILY": "Università di Padova — DAFNAE"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "VENETO",
+   "SPECIALTY": "POWDERY_MILDEW",
+   "STATE": "GOOD",
+   "REASON": "5 sensores Tier A/B em 3 famílias de origem",
+   "SENSOR_COUNT": 5,
+   "ORIGIN_FAMILIES": 3,
+   "ADAMA_ANCHOR": "FENPROPIDIN|PROTHIOCONAZOLE (FORAPRO-classe)",
+   "BASIS": "REGISTRY_ACTIVE",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-P-b9a286056f",
+     "NAME": "Luca Sella",
+     "TIER": "A",
+     "FAMILY": "Università di Padova"
+    },
+    {
+     "SENSOR_ID": "IT-P-51dd54237a",
+     "NAME": "Francesco Favaron",
+     "TIER": "A",
+     "FAMILY": "Università di Padova"
+    },
+    {
+     "SENSOR_ID": "IT-P-79435c8fcb",
+     "NAME": "Silvio Tundo",
+     "TIER": "A",
+     "FAMILY": "Università di Padova"
+    },
+    {
+     "SENSOR_ID": "IT-O-4b1fa56fed",
+     "NAME": "Servizio Fitosanitario Regione Veneto",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Veneto"
+    },
+    {
+     "SENSOR_ID": "IT-O-0d025d69f1",
+     "NAME": "Università di Padova — DAFNAE",
+     "TIER": "B",
+     "FAMILY": "Università di Padova — DAFNAE"
+    }
+   ]
+  },
+  {
+   "CROP": "WHEAT",
+   "REGION": "VENETO",
+   "SPECIALTY": "SEPTORIA",
+   "STATE": "GOOD",
+   "REASON": "2 sensores Tier A/B em 2 famílias de origem",
+   "SENSOR_COUNT": 2,
+   "ORIGIN_FAMILIES": 2,
+   "ADAMA_ANCHOR": "PROTHIOCONAZOLE|AZOXYSTROBIN|FLUXAPYROXAD (AVASTEL, MAXENTIS, MAGANIC)",
+   "BASIS": "REGISTRY_ACTIVE+PUBLIC_SIGNAL",
+   "SENSORS": [
+    {
+     "SENSOR_ID": "IT-O-4b1fa56fed",
+     "NAME": "Servizio Fitosanitario Regione Veneto",
+     "TIER": "A",
+     "FAMILY": "Servizio Fitosanitario Regione Veneto"
+    },
+    {
+     "SENSOR_ID": "IT-O-0d025d69f1",
+     "NAME": "Università di Padova — DAFNAE",
+     "TIER": "B",
+     "FAMILY": "Università di Padova — DAFNAE"
+    }
+   ]
+  }
+ ],
+ "CAPTURED_AT": "2026-09-04T10:56:50Z"
+}

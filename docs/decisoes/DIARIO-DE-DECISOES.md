@@ -213,6 +213,92 @@ Regras do diário:
 
 ---
 
+---
+
+### D-013 — Uma rota gratuita que deixa de ser gratuita é falha de fonte, não falha do país
+
+- **Data:** 2026-09-04
+- **Estado:** DECIDIDO
+- **Contexto:** o `speaker_universo.py` descreve o OpenAlex como "rota REST gratuita, sem
+  chave". Na camada de sensores humanos italiana, os 25 recortes devolveram `HTTP 429` com
+  `{"error":"Rate limit exceeded","message":"Insufficient budget... you only have $0
+  remaining","retryAfter":49093,"dailyRemainingUsd":0}` — preço por requisição e orçamento
+  diário zerado, com e sem `mailto`.
+- **Decisão:** o OpenAlex sai como `FAILED_WITH_REASON` com a resposta preservada; os 25
+  recortes saem `THROTTLED_NOT_EMPTY` e **nenhum com zero**. A rota substituta é o
+  **Europe PMC** (`scripts/sensor_epmc_it.py`), declarada como substituta no próprio
+  artefato, com o motivo da substituição dentro.
+- **Motivo:** `SOURCE FAILURE != ZERO`. Um recorte que devolve zero por falta de crédito é
+  indistinguível de um recorte sem pesquisadores — e a segunda leitura seria falsa.
+- **Consequência:** a premissa "OpenAlex é grátis" deixa de valer no repositório. Qualquer
+  missão futura que dependa dela precisa testar antes, não presumir. O Europe PMC entrega
+  algo que o OpenAlex não dava tão diretamente: a **string de afiliação por autor**, com a
+  cidade dentro — e daí sai `REGION` com base declarada.
+- **Quem decidiu:** decisão técnica da missão de sensores humanos IT.
+
+---
+
+### D-014 — Afiliação decide domínio; o assunto do trabalho não decide
+
+- **Data:** 2026-09-04
+- **Estado:** DECIDIDO
+- **Contexto:** consultas por `aflatoxin`, `deoxynivalenol`, `Monilinia` e `fungicide
+  resistance` trouxeram para o corpus italiano gastroenterologia do Policlinico Gemelli
+  (12 autores), Istituto Zooprofilattico (8), Human Nutrition de Parma (8) e Veterinária
+  de Messina (7). Autores reais, italianos, do assunto — e não sensores agrícolas.
+- **Decisão:** portão **positivo** de afiliação: a string precisa **declarar** domínio
+  agronômico. Ausência de marcador vira `NOT_DECLARED` e a pessoa **não é promovida**.
+  2.480 candidatos recusados por ele.
+- **Motivo:** é o `MODELO-DE-IDENTIDADE-EAME` aplicado à afiliação — papel sai de campo
+  declarado, nunca do assunto do trabalho. Micotoxina chega ao paciente; isso não põe o
+  gastroenterologista no campo.
+- **Consequência e o erro medido:** a primeira versão do portão barrou **Vittorio Rossi**
+  ("Sustainable Crop Production" / "Plant Health Modelling"), **A. F. Logrieco**
+  ("Institute of Sciences of Food Production (ISPA)") e **Nicola Mori** ("Department of
+  Biotechnology"). Os dois primeiros entraram acrescentando termos **específicos**
+  (`crop production`, `plant health`, `ispa`) — nenhum departamento médico se chama assim.
+  O terceiro entrou por dono canônico: já estava no `SPEAKER-UNIVERSE-PILOT-V1` com
+  `IDENTITY_PROVED` por ORCID, e barrá-lo seria o registro desconhecendo a própria prova.
+  **A exceção não afrouxa o portão — ela reconhece prova anterior**, e sai marcada como
+  `TECHNICAL_AUTHORITY = PROVED_BY_CANONICAL_OWNER`.
+- **Quem decidiu:** decisão técnica da missão de sensores humanos IT.
+
+---
+
+### D-015 — Cobertura exige duas famílias de origem, não dois nomes
+
+- **Data:** 2026-09-04
+- **Estado:** DECIDIDO
+- **Contexto:** a matriz `CROP × REGION × SPECIALTY` precisava de uma régua para `GOOD`,
+  `WEAK` e `NONE`. Contar sensores por célula seria o caminho óbvio e estaria errado.
+- **Decisão:** `GOOD` exige **≥2 sensores Tier A/B em ≥2 `INDEPENDENCE_GROUP` distintos**.
+  Uma célula coberta por cinco nomes do mesmo instituto é `WEAK` **por construção**.
+- **Motivo:** três pessoas do mesmo laboratório não são três fontes independentes. Sem
+  isto, a matriz mediria produtividade institucional e chamaria o resultado de cobertura.
+- **Consequência:** 117 células → `GOOD` 72 · `WEAK` 29 · `NONE` 16. E o achado que a régua
+  tornou visível: **`CEREAL` não tem uma única célula `GOOD`**, justamente onde a ADAMA
+  Itália tem 26 registros de herbicida em vigor. A causa é da rota — `CEREAL|GRASS_WEEDS`
+  devolveu 21 hits no Europe PMC contra 791 de `VINE|FLAVESCENCE_DOREE` — e a resposta é
+  **outra rota**, não um limiar mais frouxo na mesma.
+- **Quem decidiu:** decisão técnica da missão de sensores humanos IT.
+
+---
+
+### D-016 — Recomendação de monitoramento é guardada; agendamento não é criado
+
+- **Data:** 2026-09-04
+- **Estado:** DECIDIDO
+- **Contexto:** os 224 sensores qualificados têm `MONITORING_RECOMMENDATION` (`WEEKLY` 37,
+  `MONTHLY` 154, `EVENT_DRIVEN` 2, `DISCOVERY_ONLY` 31). Havia a tentação de ligar isso a
+  um agendador.
+- **Decisão:** a recomendação é **gravada** e nada é agendado. `READY FOR CONTINUOUS
+  MONITORING = NO`.
+- **Motivo:** não há executor — nem chave de coleta (`APIFY_TOKEN` ausente), nem dono da
+  arquitetura de agendamento. Declarar `YES` seria chamar de capacidade uma tabela.
+- **Consequência:** a camada entrega dado canônico para ingestão posterior, e o veredito
+  publicado é `PARTIAL`, com as três razões nomeadas no documento da missão.
+- **Quem decidiu:** decisão técnica da missão de sensores humanos IT.
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |
@@ -226,3 +312,6 @@ Regras do diário:
 | P-009 | Obter chave da YouTube Data API e decidir se a ADAMA quer perfilar criadores individuais (T8). Questão de GDPR distinta da de T5. | T8 inteiro | 2026-08-28 |
 | P-008 | Perfilamento de pesquisadores identificados (EU-T5-001/OpenAlex): revisão GDPR antes de qualquer tela que liste pessoas nomeadas. | T6, people graph, protótipo | 2026-08-28 |
 | P-007 | Uso e difusão de coordenadas de parcela do RAIF (ES-T3-001): revisão jurídica antes de expor em tela externa. | ES-T3-001, protótipo | 2026-08-28 |
+| P-010 | Rota para `coltura × avversità` autorizada na Itália: `fitosanitari.salute.gov.it` falha no TLS desta saída e `servizi.salute.gov.it` devolve 502. Sem ela a matriz ADAMA IT diz onde procurar gente, não o que a etiqueta permite. | matriz IT, CASE-014 | 2026-09-04 |
+| P-011 | Rota para malherbologia italiana: o Europe PMC não a alcança (21 hits em `CEREAL\|GRASS_WEEDS`), e é onde o portfólio ADAMA IT é mais denso (26 herbicidas). Sociedade científica, atas, revista técnica. | cobertura CEREAL e SUGAR_BEET | 2026-09-04 |
+| P-012 | GDPR sobre a camada de sensores humanos IT: 135 pessoas nomeadas com afiliação e ORCID. Mesma pergunta de P-008, agora com registro gravado e não só fila. | REGISTRY IT, qualquer tela | 2026-09-04 |

@@ -1,0 +1,930 @@
+{
+ "SOURCE_ID": "IT-HUMAN-SENSORS/TOP-20-PRIMARY",
+ "source": "derivado de REGISTRY.json x COVERAGE.json",
+ "EVIDENCE_CLASS": "DERIVED_SELECTION",
+ "O_QUE_ISTO_NAO_E": "não é ranking de importância, não lê AUDIENCE_SIZE e não ordena pessoas por produtividade",
+ "RULE": "guloso por cobertura marginal, uma família de origem por sensor",
+ "CELLS_TOTAL": 117,
+ "CELLS_COVERED_BY_TOP": 91,
+ "CELLS_COVERAGE_SHARE": 77.8,
+ "ORIGIN_FAMILIES_USED": 20,
+ "SENSORS": [
+  {
+   "SENSOR_ID": "IT-O-700d9a836d",
+   "ENTITY_KIND": "ORGANIZATION",
+   "NAME": "Servizio Fitosanitario Regione Emilia-Romagna",
+   "ROLE": "PLANT_HEALTH_SERVICE",
+   "ORGANIZATION": "Servizio Fitosanitario Regione Emilia-Romagna",
+   "REGION": [
+    "EMILIA-ROMAGNA"
+   ],
+   "CROPS": [
+    "WHEAT",
+    "MAIZE",
+    "SUGAR_BEET",
+    "APPLE",
+    "STONE_FRUIT",
+    "VINE",
+    "POTATO"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "assistenza tecnica",
+    "avversit",
+    "consulenza",
+    "difesa integrata",
+    "fitopatolog",
+    "fitosanitar",
+    "monitoraggio",
+    "produttori",
+    "produzione integrata",
+    "ricerca",
+    "servizio fitosanitario",
+    "sperimentazione",
+    "tecnic"
+   ],
+   "WHY_ADAMA_CARES": "publica bollettini de produção integrada vinculantes por área — cruzam crop x target x território",
+   "CHANNELS": {
+    "INSTITUTION_URL": "https://agricoltura.regione.emilia-romagna.it/fitosanitario",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "NÃO SEI"
+   },
+   "LAST_ACTIVE": "NÃO SEI",
+   "MONITORING_RECOMMENDATION": "WEEKLY",
+   "TIER": "A",
+   "OBSERVATION_CAPABILITIES": [
+    "TECHNICAL_DIFFICULTY",
+    "PRODUCT_USE",
+    "DISEASE_PRESSURE",
+    "PEST_PRESSURE",
+    "APPLICATION_TIMING",
+    "REGULATORY_INTERPRETATION",
+    "MANAGEMENT_CHANGE"
+   ],
+   "CELLS_COVERED": 14,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-O-4b1fa56fed",
+   "ENTITY_KIND": "ORGANIZATION",
+   "NAME": "Servizio Fitosanitario Regione Veneto",
+   "ROLE": "PLANT_HEALTH_SERVICE",
+   "ORGANIZATION": "Servizio Fitosanitario Regione Veneto",
+   "REGION": [
+    "VENETO"
+   ],
+   "CROPS": [
+    "VINE",
+    "MAIZE",
+    "WHEAT",
+    "APPLE",
+    "SUGAR_BEET"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "agronom",
+    "bollettino",
+    "fitopatolog",
+    "fitosanitar",
+    "laboratorio",
+    "monitoraggio",
+    "produzione integrata",
+    "ricerca",
+    "servizio fitosanitario",
+    "sperimentazione",
+    "tecnic"
+   ],
+   "WHY_ADAMA_CARES": "Veneto concentra vinha, milho e cereal; flavescência e cimice asiatica são alvos ADAMA",
+   "CHANNELS": {
+    "INSTITUTION_URL": "https://www.regione.veneto.it/web/fitosanitario",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "NÃO SEI"
+   },
+   "LAST_ACTIVE": "NÃO SEI",
+   "MONITORING_RECOMMENDATION": "WEEKLY",
+   "TIER": "A",
+   "OBSERVATION_CAPABILITIES": [
+    "DISEASE_PRESSURE",
+    "PEST_PRESSURE",
+    "APPLICATION_TIMING",
+    "PHENOLOGY",
+    "PRODUCT_USE",
+    "REGULATORY_INTERPRETATION",
+    "MANAGEMENT_CHANGE"
+   ],
+   "CELLS_COVERED": 12,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-O-2c5c4272fb",
+   "ENTITY_KIND": "ORGANIZATION",
+   "NAME": "Settore Fitosanitario Regione Piemonte",
+   "ROLE": "PLANT_HEALTH_SERVICE",
+   "ORGANIZATION": "Settore Fitosanitario Regione Piemonte",
+   "REGION": [
+    "PIEMONTE"
+   ],
+   "CROPS": [
+    "VINE",
+    "RICE",
+    "MAIZE",
+    "APPLE"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "avversit",
+    "bollettino",
+    "fitopatolog",
+    "fitosanitar",
+    "laboratorio",
+    "monitoraggio",
+    "produzione integrata",
+    "ricerca",
+    "tecnic",
+    "viticolt"
+   ],
+   "WHY_ADAMA_CARES": "flavescência dourada é regulada no Piemonte; arroz e milho concentram-se aqui",
+   "CHANNELS": {
+    "INSTITUTION_URL": "https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "NÃO SEI"
+   },
+   "LAST_ACTIVE": "NÃO SEI",
+   "MONITORING_RECOMMENDATION": "WEEKLY",
+   "TIER": "A",
+   "OBSERVATION_CAPABILITIES": [
+    "DISEASE_PRESSURE",
+    "PEST_PRESSURE",
+    "APPLICATION_TIMING",
+    "PHENOLOGY",
+    "PRODUCT_USE",
+    "REGULATORY_INTERPRETATION"
+   ],
+   "CELLS_COVERED": 9,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-P-59bf767cd6",
+   "ENTITY_KIND": "PERSON",
+   "NAME": "Santa Olga Cacciola",
+   "ROLE": "RESEARCHER",
+   "ORGANIZATION": "Università di Catania",
+   "REGION": [
+    "SICILIA"
+   ],
+   "CROPS": [
+    "MAIZE",
+    "OLIVE",
+    "POTATO",
+    "RICE",
+    "STONE_FRUIT",
+    "TOMATO",
+    "VINE",
+    "WHEAT"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "BROWN_ROT",
+    "DOWNY_MILDEW",
+    "FUSARIUM_HEAD_BLIGHT",
+    "LATE_BLIGHT",
+    "MYCOTOXIN",
+    "OLIVE_DISEASE",
+    "OLIVE_FRUIT_FLY",
+    "RICE_PROTECTION",
+    "RUST",
+    "TOMATO_DISEASE"
+   ],
+   "WHY_ADAMA_CARES": "publica em MAIZE/OLIVE/POTATO x BROWN_ROT/DOWNY_MILDEW/FUSARIUM_HEAD_BLIGHT — pares presentes na matriz ADAMA Itália (UNIVERSE.json)",
+   "CHANNELS": {
+    "INSTITUTION_URL": "NÃO SEI",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "https://europepmc.org/search?query=AUTH:%22Santa%20Olga%20Cacciola%22"
+   },
+   "LAST_ACTIVE": "2026-03-14",
+   "MONITORING_RECOMMENDATION": "MONTHLY",
+   "TIER": "A",
+   "OBSERVATION_CAPABILITIES": [
+    "DISEASE_PRESSURE",
+    "CROP_CONDITION",
+    "MARKET_CONCERN",
+    "PEST_PRESSURE"
+   ],
+   "CELLS_COVERED": 7,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-O-fed7829c5e",
+   "ENTITY_KIND": "ORGANIZATION",
+   "NAME": "Servizio Fitosanitario Regione Lombardia",
+   "ROLE": "PLANT_HEALTH_SERVICE",
+   "ORGANIZATION": "Servizio Fitosanitario Regione Lombardia",
+   "REGION": [
+    "LOMBARDIA"
+   ],
+   "CROPS": [
+    "MAIZE",
+    "RICE",
+    "WHEAT",
+    "VINE"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "bollettino",
+    "fitosanitar",
+    "monitoraggio",
+    "ricerca",
+    "servizio fitosanitario",
+    "tecnic"
+   ],
+   "WHY_ADAMA_CARES": "maior área de milho e arroz; diabrótica e micotoxina são alvos com ativo ADAMA",
+   "CHANNELS": {
+    "INSTITUTION_URL": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/servizi-e-informazioni/imprese/imprese-agricole/servizio-fitosanitario",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "NÃO SEI"
+   },
+   "LAST_ACTIVE": "NÃO SEI",
+   "MONITORING_RECOMMENDATION": "WEEKLY",
+   "TIER": "A",
+   "OBSERVATION_CAPABILITIES": [
+    "DISEASE_PRESSURE",
+    "PEST_PRESSURE",
+    "APPLICATION_TIMING",
+    "PHENOLOGY"
+   ],
+   "CELLS_COVERED": 6,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-O-213c29c65e",
+   "ENTITY_KIND": "ORGANIZATION",
+   "NAME": "ERSA — Agenzia regionale sviluppo rurale FVG",
+   "ROLE": "PLANT_HEALTH_SERVICE",
+   "ORGANIZATION": "ERSA — Agenzia regionale sviluppo rurale FVG",
+   "REGION": [
+    "FRIULI-VENEZIA GIULIA"
+   ],
+   "CROPS": [
+    "VINE",
+    "MAIZE",
+    "APPLE"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "assistenza tecnica",
+    "difesa integrata",
+    "fitopatolog",
+    "fitosanitar",
+    "monitoraggio",
+    "produttori",
+    "ricerca",
+    "servizio fitosanitario",
+    "sperimentazione",
+    "tecnic"
+   ],
+   "WHY_ADAMA_CARES": "serviço fitossanitário regional do FVG; vinha e milho com flavescência e piralide",
+   "CHANNELS": {
+    "INSTITUTION_URL": "https://www.ersa.fvg.it/",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "NÃO SEI"
+   },
+   "LAST_ACTIVE": "NÃO SEI",
+   "MONITORING_RECOMMENDATION": "WEEKLY",
+   "TIER": "A",
+   "OBSERVATION_CAPABILITIES": [
+    "TECHNICAL_DIFFICULTY",
+    "PRODUCT_USE",
+    "APPLICATION_TIMING",
+    "DISEASE_PRESSURE",
+    "PEST_PRESSURE",
+    "MANAGEMENT_CHANGE"
+   ],
+   "CELLS_COVERED": 5,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-O-f39fc7a69e",
+   "ENTITY_KIND": "ORGANIZATION",
+   "NAME": "Osservatorio Fitosanitario Regione Puglia",
+   "ROLE": "PLANT_HEALTH_SERVICE",
+   "ORGANIZATION": "Osservatorio Fitosanitario Regione Puglia",
+   "REGION": [
+    "PUGLIA"
+   ],
+   "CROPS": [
+    "OLIVE",
+    "WHEAT",
+    "TOMATO",
+    "VINE"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "fitosanitar",
+    "servizio fitosanitario"
+   ],
+   "WHY_ADAMA_CARES": "trigo duro, olival e tomate industrial; a maior concentração de trigo duro italiano",
+   "CHANNELS": {
+    "INSTITUTION_URL": "https://www.osservatoriofitosanitario.regione.puglia.it/",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "NÃO SEI"
+   },
+   "LAST_ACTIVE": "NÃO SEI",
+   "MONITORING_RECOMMENDATION": "WEEKLY",
+   "TIER": "B",
+   "OBSERVATION_CAPABILITIES": [],
+   "CELLS_COVERED": 5,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-P-0b2a9632f0",
+   "ENTITY_KIND": "PERSON",
+   "NAME": "Nicola Mori",
+   "ROLE": "RESEARCHER",
+   "ORGANIZATION": "Università di Verona",
+   "REGION": [
+    "VENETO"
+   ],
+   "CROPS": [
+    "APPLE",
+    "CEREAL",
+    "MAIZE",
+    "OLIVE",
+    "POTATO",
+    "STONE_FRUIT",
+    "TOMATO",
+    "VINE"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "APHIDS",
+    "BROWN_MARMORATED_STINK_BUG",
+    "CODLING_MOTH",
+    "CORN_BORER",
+    "DOWNY_MILDEW",
+    "FLAVESCENCE_DOREE",
+    "LATE_BLIGHT",
+    "OLIVE_DISEASE",
+    "OLIVE_FRUIT_FLY",
+    "TOMATO_DISEASE"
+   ],
+   "WHY_ADAMA_CARES": "publica em APPLE/CEREAL/MAIZE x APHIDS/BROWN_MARMORATED_STINK_BUG/CODLING_MOTH — pares presentes na matriz ADAMA Itália (UNIVERSE.json)",
+   "CHANNELS": {
+    "INSTITUTION_URL": "NÃO SEI",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "https://europepmc.org/search?query=AUTH:%22Nicola%20Mori%22"
+   },
+   "LAST_ACTIVE": "2026-08-14",
+   "MONITORING_RECOMMENDATION": "MONTHLY",
+   "TIER": "A",
+   "OBSERVATION_CAPABILITIES": [
+    "PEST_PRESSURE",
+    "APPLICATION_TIMING",
+    "DISEASE_PRESSURE",
+    "REGULATORY_INTERPRETATION"
+   ],
+   "CELLS_COVERED": 5,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-O-7e96d64ea1",
+   "ENTITY_KIND": "ORGANIZATION",
+   "NAME": "Servizio Fitosanitario Provincia Autonoma di Trento",
+   "ROLE": "PLANT_HEALTH_SERVICE",
+   "ORGANIZATION": "Servizio Fitosanitario Provincia Autonoma di Trento",
+   "REGION": [
+    "TRENTINO-ALTO ADIGE"
+   ],
+   "CROPS": [
+    "APPLE",
+    "VINE"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "agronom",
+    "bollettino",
+    "centro di saggio",
+    "consulenza",
+    "difesa integrata",
+    "fitosanitar",
+    "frutticolt",
+    "monitoraggio",
+    "olivicolt",
+    "ricerca",
+    "sperimentazione",
+    "tecnic",
+    "viticolt"
+   ],
+   "WHY_ADAMA_CARES": "maçã e vinha do Trentino; carpocapsa, ticchiolatura e diradamento (BREVIS) são ADAMA",
+   "CHANNELS": {
+    "INSTITUTION_URL": "https://www.fmach.it/CTT",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "NÃO SEI"
+   },
+   "LAST_ACTIVE": "NÃO SEI",
+   "MONITORING_RECOMMENDATION": "WEEKLY",
+   "TIER": "A",
+   "OBSERVATION_CAPABILITIES": [
+    "DISEASE_PRESSURE",
+    "PEST_PRESSURE",
+    "APPLICATION_TIMING",
+    "PHENOLOGY",
+    "PRODUCT_USE",
+    "MANAGEMENT_CHANGE"
+   ],
+   "CELLS_COVERED": 4,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-P-d009bf1a7d",
+   "ENTITY_KIND": "PERSON",
+   "NAME": "Massimo Turina",
+   "ROLE": "RESEARCHER",
+   "ORGANIZATION": "CNR — Istituto per la Protezione Sostenibile delle Piante",
+   "REGION": [
+    "PIEMONTE"
+   ],
+   "CROPS": [
+    "CEREAL",
+    "POTATO",
+    "RICE",
+    "SUGAR_BEET",
+    "TOMATO",
+    "VINE",
+    "WHEAT"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "CERCOSPORA",
+    "DOWNY_MILDEW",
+    "FLAVESCENCE_DOREE",
+    "FUSARIUM_HEAD_BLIGHT",
+    "GRASS_WEEDS",
+    "LATE_BLIGHT",
+    "POWDERY_MILDEW",
+    "RICE_PROTECTION",
+    "TOMATO_DISEASE"
+   ],
+   "WHY_ADAMA_CARES": "publica em CEREAL/POTATO/RICE x CERCOSPORA/DOWNY_MILDEW/FLAVESCENCE_DOREE — pares presentes na matriz ADAMA Itália (UNIVERSE.json)",
+   "CHANNELS": {
+    "INSTITUTION_URL": "NÃO SEI",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "https://europepmc.org/search?query=AUTH:%22Massimo%20Turina%22"
+   },
+   "LAST_ACTIVE": "2026-09-02",
+   "MONITORING_RECOMMENDATION": "MONTHLY",
+   "TIER": "A",
+   "OBSERVATION_CAPABILITIES": [
+    "WEED_PRESSURE",
+    "DISEASE_PRESSURE",
+    "PEST_PRESSURE",
+    "REGULATORY_INTERPRETATION",
+    "CROP_CONDITION"
+   ],
+   "CELLS_COVERED": 4,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-P-5145a92a0c",
+   "ENTITY_KIND": "PERSON",
+   "NAME": "Francesco Di Serio",
+   "ROLE": "RESEARCHER",
+   "ORGANIZATION": "CNR",
+   "REGION": [
+    "PUGLIA"
+   ],
+   "CROPS": [
+    "CEREAL",
+    "RICE",
+    "SUGAR_BEET",
+    "TOMATO",
+    "VINE",
+    "WHEAT"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "CERCOSPORA",
+    "DOWNY_MILDEW",
+    "FLAVESCENCE_DOREE",
+    "FUSARIUM_HEAD_BLIGHT",
+    "GRASS_WEEDS",
+    "RICE_PROTECTION",
+    "TOMATO_DISEASE"
+   ],
+   "WHY_ADAMA_CARES": "publica em CEREAL/RICE/SUGAR_BEET x CERCOSPORA/DOWNY_MILDEW/FLAVESCENCE_DOREE — pares presentes na matriz ADAMA Itália (UNIVERSE.json)",
+   "CHANNELS": {
+    "INSTITUTION_URL": "NÃO SEI",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "https://europepmc.org/search?query=AUTH:%22Francesco%20Di%20Serio%22"
+   },
+   "LAST_ACTIVE": "2026-07-20",
+   "MONITORING_RECOMMENDATION": "MONTHLY",
+   "TIER": "A",
+   "OBSERVATION_CAPABILITIES": [
+    "WEED_PRESSURE",
+    "DISEASE_PRESSURE",
+    "PEST_PRESSURE",
+    "REGULATORY_INTERPRETATION",
+    "CROP_CONDITION"
+   ],
+   "CELLS_COVERED": 3,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-P-c1dd822f46",
+   "ENTITY_KIND": "PERSON",
+   "NAME": "Paola Battilani",
+   "ROLE": "RESEARCHER",
+   "ORGANIZATION": "Università Cattolica del Sacro Cuore",
+   "REGION": [
+    "EMILIA-ROMAGNA"
+   ],
+   "CROPS": [
+    "MAIZE",
+    "TOMATO",
+    "VINE",
+    "WHEAT"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "DOWNY_MILDEW",
+    "FUSARIUM_HEAD_BLIGHT",
+    "MYCOTOXIN",
+    "TOMATO_DISEASE"
+   ],
+   "WHY_ADAMA_CARES": "publica em MAIZE/TOMATO/VINE x DOWNY_MILDEW/FUSARIUM_HEAD_BLIGHT/MYCOTOXIN — pares presentes na matriz ADAMA Itália (UNIVERSE.json)",
+   "CHANNELS": {
+    "INSTITUTION_URL": "NÃO SEI",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "https://europepmc.org/search?query=AUTH:%22Paola%20Battilani%22"
+   },
+   "LAST_ACTIVE": "2026-06-25",
+   "MONITORING_RECOMMENDATION": "MONTHLY",
+   "TIER": "A",
+   "OBSERVATION_CAPABILITIES": [
+    "DISEASE_PRESSURE",
+    "CROP_CONDITION",
+    "MARKET_CONCERN"
+   ],
+   "CELLS_COVERED": 3,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-O-1362238c30",
+   "ENTITY_KIND": "ORGANIZATION",
+   "NAME": "Servizio Fitosanitario Regione Umbria",
+   "ROLE": "PLANT_HEALTH_SERVICE",
+   "ORGANIZATION": "Servizio Fitosanitario Regione Umbria",
+   "REGION": [
+    "UMBRIA"
+   ],
+   "CROPS": [
+    "WHEAT",
+    "OLIVE",
+    "VINE"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "assistenza tecnica",
+    "avversit",
+    "difesa integrata",
+    "fitosanitar",
+    "monitoraggio",
+    "produzione integrata",
+    "servizio fitosanitario",
+    "tecnic"
+   ],
+   "WHY_ADAMA_CARES": "cereal e olival úmbrios; fusariose e mosca da azeitona",
+   "CHANNELS": {
+    "INSTITUTION_URL": "https://www.regione.umbria.it/agricoltura/servizio-fitosanitario-regionale",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "NÃO SEI"
+   },
+   "LAST_ACTIVE": "NÃO SEI",
+   "MONITORING_RECOMMENDATION": "WEEKLY",
+   "TIER": "A",
+   "OBSERVATION_CAPABILITIES": [
+    "TECHNICAL_DIFFICULTY",
+    "PRODUCT_USE",
+    "DISEASE_PRESSURE",
+    "PEST_PRESSURE",
+    "APPLICATION_TIMING",
+    "REGULATORY_INTERPRETATION"
+   ],
+   "CELLS_COVERED": 2,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-O-28e2ab1baf",
+   "ENTITY_KIND": "ORGANIZATION",
+   "NAME": "Fondazione Agrion",
+   "ROLE": "RESEARCH_CENTRE",
+   "ORGANIZATION": "Fondazione Agrion",
+   "REGION": [
+    "PIEMONTE"
+   ],
+   "CROPS": [
+    "APPLE",
+    "STONE_FRUIT",
+    "VINE"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "fitosanitar",
+    "frutticolt",
+    "monitoraggio",
+    "ricerca",
+    "sperimentazione",
+    "tecnic",
+    "viticolt"
+   ],
+   "WHY_ADAMA_CARES": "fundação piemontesa de pesquisa aplicada em fruticultura e viticultura",
+   "CHANNELS": {
+    "INSTITUTION_URL": "https://www.agrion.it/",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "NÃO SEI"
+   },
+   "LAST_ACTIVE": "NÃO SEI",
+   "MONITORING_RECOMMENDATION": "MONTHLY",
+   "TIER": "A",
+   "OBSERVATION_CAPABILITIES": [
+    "DISEASE_PRESSURE",
+    "PEST_PRESSURE",
+    "PRODUCT_USE",
+    "MANAGEMENT_CHANGE"
+   ],
+   "CELLS_COVERED": 2,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-O-333c2b7211",
+   "ENTITY_KIND": "ORGANIZATION",
+   "NAME": "Università Politecnica delle Marche — D3A",
+   "ROLE": "UNIVERSITY",
+   "ORGANIZATION": "Università Politecnica delle Marche — D3A",
+   "REGION": [
+    "MARCHE"
+   ],
+   "CROPS": [
+    "STONE_FRUIT",
+    "WHEAT"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "agronom",
+    "ricerca",
+    "tecnic"
+   ],
+   "WHY_ADAMA_CARES": "patologia pós-colheita e defesa de fruta",
+   "CHANNELS": {
+    "INSTITUTION_URL": "https://www.d3a.univpm.it/",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "NÃO SEI"
+   },
+   "LAST_ACTIVE": "NÃO SEI",
+   "MONITORING_RECOMMENDATION": "MONTHLY",
+   "TIER": "B",
+   "OBSERVATION_CAPABILITIES": [],
+   "CELLS_COVERED": 2,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-O-a91181344a",
+   "ENTITY_KIND": "ORGANIZATION",
+   "NAME": "CREA — Olivicoltura, Frutticoltura e Agrumicoltura (CREA-OFA)",
+   "ROLE": "PUBLIC_RESEARCH",
+   "ORGANIZATION": "CREA — Olivicoltura, Frutticoltura e Agrumicoltura (CREA-OFA)",
+   "REGION": [
+    "CALABRIA"
+   ],
+   "CROPS": [
+    "OLIVE",
+    "APPLE",
+    "STONE_FRUIT"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "cerealicolt",
+    "difesa integrata",
+    "frutticolt",
+    "laboratorio",
+    "olivicolt",
+    "ricerca",
+    "sperimentazione",
+    "tecnic",
+    "viticolt"
+   ],
+   "WHY_ADAMA_CARES": "centro nacional de olivicultura e fruticultura",
+   "CHANNELS": {
+    "INSTITUTION_URL": "https://www.crea.gov.it/web/olivicoltura-frutticoltura-e-agrumicoltura",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "NÃO SEI"
+   },
+   "LAST_ACTIVE": "NÃO SEI",
+   "MONITORING_RECOMMENDATION": "MONTHLY",
+   "TIER": "A",
+   "OBSERVATION_CAPABILITIES": [
+    "APPLICATION_TIMING",
+    "PRODUCT_USE",
+    "DISEASE_PRESSURE",
+    "MANAGEMENT_CHANGE"
+   ],
+   "CELLS_COVERED": 2,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-P-37f35b9690",
+   "ENTITY_KIND": "PERSON",
+   "NAME": "Claudio Pugliesi",
+   "ROLE": "RESEARCHER",
+   "ORGANIZATION": "Università di Pisa",
+   "REGION": [
+    "TOSCANA"
+   ],
+   "CROPS": [
+    "CEREAL",
+    "MAIZE",
+    "RICE",
+    "TOMATO",
+    "VINE",
+    "WHEAT"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "APHIDS",
+    "DOWNY_MILDEW",
+    "FLAVESCENCE_DOREE",
+    "FUSARIUM_HEAD_BLIGHT",
+    "HERBICIDE_RESISTANCE",
+    "POWDERY_MILDEW",
+    "RICE_PROTECTION",
+    "ROOTWORM",
+    "RUST",
+    "TOMATO_DISEASE"
+   ],
+   "WHY_ADAMA_CARES": "publica em CEREAL/MAIZE/RICE x APHIDS/DOWNY_MILDEW/FLAVESCENCE_DOREE — pares presentes na matriz ADAMA Itália (UNIVERSE.json)",
+   "CHANNELS": {
+    "INSTITUTION_URL": "NÃO SEI",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "https://europepmc.org/search?query=AUTH:%22Claudio%20Pugliesi%22"
+   },
+   "LAST_ACTIVE": "2025-09-23",
+   "MONITORING_RECOMMENDATION": "MONTHLY",
+   "TIER": "B",
+   "OBSERVATION_CAPABILITIES": [
+    "PEST_PRESSURE",
+    "RESISTANCE",
+    "WEED_PRESSURE",
+    "DISEASE_PRESSURE",
+    "REGULATORY_INTERPRETATION",
+    "CROP_CONDITION"
+   ],
+   "CELLS_COVERED": 2,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-P-50f9a94146",
+   "ENTITY_KIND": "PERSON",
+   "NAME": "Ciro Gianmaria Amoroso",
+   "ROLE": "RESEARCHER",
+   "ORGANIZATION": "Università di Napoli Federico II",
+   "REGION": [
+    "CAMPANIA"
+   ],
+   "CROPS": [
+    "POTATO",
+    "RICE",
+    "TOMATO",
+    "VINE",
+    "WHEAT"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "DOWNY_MILDEW",
+    "FLAVESCENCE_DOREE",
+    "FUSARIUM_HEAD_BLIGHT",
+    "LATE_BLIGHT",
+    "RICE_PROTECTION",
+    "RUST",
+    "TOMATO_DISEASE"
+   ],
+   "WHY_ADAMA_CARES": "publica em POTATO/RICE/TOMATO x DOWNY_MILDEW/FLAVESCENCE_DOREE/FUSARIUM_HEAD_BLIGHT — pares presentes na matriz ADAMA Itália (UNIVERSE.json)",
+   "CHANNELS": {
+    "INSTITUTION_URL": "NÃO SEI",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "https://europepmc.org/search?query=AUTH:%22Ciro%20Gianmaria%20Amoroso%22"
+   },
+   "LAST_ACTIVE": "2026-05-27",
+   "MONITORING_RECOMMENDATION": "MONTHLY",
+   "TIER": "A",
+   "OBSERVATION_CAPABILITIES": [
+    "DISEASE_PRESSURE",
+    "PEST_PRESSURE",
+    "REGULATORY_INTERPRETATION",
+    "CROP_CONDITION"
+   ],
+   "CELLS_COVERED": 2,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-O-1972a14682",
+   "ENTITY_KIND": "ORGANIZATION",
+   "NAME": "AgroNotizie — Image Line",
+   "ROLE": "TECHNICAL_MEDIA",
+   "ORGANIZATION": "AgroNotizie — Image Line",
+   "REGION": [
+    "EMILIA-ROMAGNA"
+   ],
+   "CROPS": [
+    "MULTI"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "agronom",
+    "cerealicolt",
+    "consorzio",
+    "fitosanitar",
+    "frutticolt",
+    "monitoraggio",
+    "olivicolt",
+    "produttori",
+    "ricerca",
+    "tecnic",
+    "viticolt"
+   ],
+   "WHY_ADAMA_CARES": "principal veículo técnico agro italiano; publica difesa e agrofarmaci",
+   "CHANNELS": {
+    "INSTITUTION_URL": "https://agronotizie.imagelinenetwork.com/",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "NÃO SEI"
+   },
+   "LAST_ACTIVE": "NÃO SEI",
+   "MONITORING_RECOMMENDATION": "WEEKLY",
+   "TIER": "A",
+   "OBSERVATION_CAPABILITIES": [
+    "DISEASE_PRESSURE",
+    "PEST_PRESSURE"
+   ],
+   "CELLS_COVERED": 1,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  },
+  {
+   "SENSOR_ID": "IT-O-674146b60e",
+   "ENTITY_KIND": "ORGANIZATION",
+   "NAME": "L'Informatore Agrario",
+   "ROLE": "TECHNICAL_MEDIA",
+   "ORGANIZATION": "L'Informatore Agrario",
+   "REGION": [
+    "VENETO"
+   ],
+   "CROPS": [
+    "MULTI"
+   ],
+   "TARGETS_SPECIALTIES": [
+    "agronom",
+    "frutticolt",
+    "olivicolt",
+    "ricerca",
+    "sperimentazione",
+    "tecnic",
+    "viticolt"
+   ],
+   "WHY_ADAMA_CARES": "referência técnica italiana com ensaios comparados de defesa",
+   "CHANNELS": {
+    "INSTITUTION_URL": "https://www.informatoreagrario.it/",
+    "YOUTUBE": "NÃO SEI",
+    "LINKEDIN": "NÃO SEI",
+    "INSTAGRAM": "NÃO SEI",
+    "PUBLICATIONS_URL": "NÃO SEI"
+   },
+   "LAST_ACTIVE": "NÃO SEI",
+   "MONITORING_RECOMMENDATION": "WEEKLY",
+   "TIER": "B",
+   "OBSERVATION_CAPABILITIES": [
+    "PRODUCT_USE",
+    "MANAGEMENT_CHANGE"
+   ],
+   "CELLS_COVERED": 1,
+   "SELECTION_BASIS": "cobertura marginal de células CROP x REGION x SPECIALTY, uma família de origem por vez — não é mérito nem alcance"
+  }
+ ],
+ "CAPTURED_AT": "2026-09-04T10:56:50Z"
+}
