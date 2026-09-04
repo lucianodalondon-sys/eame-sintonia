@@ -40,6 +40,9 @@
 <script src="italy-ingested.js"></script>
 <script src="italy-handoff-v21.js"></script>
 <script src="italy-app-model.js"></script>
+<script src="meeting-intelligence-snapshot.js"></script>
+<script src="meeting-labels.js"></script>
+<script src="meeting-surface.js"></script>
 <script src="vendor/jspdf-2.5.2.umd.min.js"></script>
 <script src="italy-pdf.js"></script>
 <style>
@@ -431,6 +434,294 @@
     </sc-if>
 
     <!-- ================= CASE DETAIL ================= -->
+    <!-- ══ RADAR CANONICO ═══════════════════════════════════════════════════
+         I 43 casi del motore. Superficie SEPARATA dal radar di dimostrazione:
+         nessuna prosa scritta a mano entra qui, e nessun conteggio di qui
+         viene dai 21 casi di presentazione.
+
+             DUE UNIVERSI, DUE GRIGLIE. MESCOLARLI E L'UNICA COSA VIETATA.
+
+         La lingua visiva e quella di a14b9e1 e non cambia: la MASSA della
+         scheda e la categoria, gli inchiostri sopra si separano per luminanza.
+    -->
+    <sc-if value="{{ isMeeting }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:nowrap"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ mt.nav }}</h1><span style="padding:3px 9px;border-radius:9999px;background:rgba(0,152,69,0.16);border:1px solid rgba(0,152,69,0.45);font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.12em;color:#00B152">{{ meetingTotal }}</span></div>
+          <div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ mt.sub }}</div>
+        </div>
+        <!-- L'ISTANTANEA DICHIARA LA PROPRIA PROVENIENZA.
+             Un pacchetto che non dice da quale commit viene sembra auditabile
+             senza esserlo. Queste tre righe sono la firma del build. -->
+        <div style="display:flex;flex-direction:column;gap:3px;padding:9px 13px;border-radius:11px;background:#1C1817;border:1px solid rgba(203,197,195,0.10)">
+          <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ mt.snapshot }}</div>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;font-size:10px;color:#C9C3C1">
+            <span>{{ mt.srcHead }} <b style="color:#fff;font-variant-numeric:tabular-nums">{{ meetingMeta.SOURCE_HEAD }}</b></span>
+            <span>{{ mt.buildId }} <b style="color:#fff;font-variant-numeric:tabular-nums">{{ meetingMeta.BUILD_ID }}</b></span>
+            <span>{{ mt.cutoff }} <b style="color:#fff;font-variant-numeric:tabular-nums">{{ meetingMeta.MEETING_CUTOFF }}</b></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- I CONTEGGI VENGONO DAI 43 E DA NESSUN ALTRO INSIEME. -->
+      <div class="sn-keepgrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:8px">
+        <sc-for list="{{ meetingKpis }}" as="k" hint-placeholder-count="5">
+          <div onClick="{{ k.go }}" data-meeting-kpi="{{ k.token }}" style="border-radius:12px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;border-top:3px solid {{ k.color }};padding:11px 13px;display:flex;flex-direction:column;gap:5px;cursor:pointer" style-hover="border-color:rgba(203,197,195,0.30)">
+            <span style="font-size:26px;font-weight:300;line-height:1;font-variant-numeric:tabular-nums;color:{{ k.color }}">{{ k.value }}</span>
+            <div style="font-size:11px;font-weight:600;color:#EDEAE9;line-height:1.3">{{ k.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+        <sc-for list="{{ meetingStatusBtns }}" as="b" hint-placeholder-count="6">
+          <span onClick="{{ b.go }}" data-meeting-filter="{{ b.token }}" style="display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 13px;border-radius:9999px;cursor:pointer;font-size:11px;font-weight:700;background:{{ b.bg }};border:1px solid {{ b.border }};color:{{ b.ink }}" style-hover="border-color:rgba(203,197,195,0.5)">{{ b.label }}<b style="font-variant-numeric:tabular-nums;opacity:0.75">{{ b.value }}</b></span>
+        </sc-for>
+      </div>
+
+      <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ mt.cases }} · <span style="color:#fff">{{ meetingShownCount }}</span> {{ mt.of }} {{ meetingFilteredCount }}</div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:10px">
+        <sc-for list="{{ meetingCases }}" as="c" hint-placeholder-count="12">
+          <div onClick="{{ c.open }}" data-meeting-case="{{ c.id }}" data-primary="{{ c.primaryName }}" data-window-defined="{{ c.window.DEFINED }}" data-window-open="{{ c.window.OPEN_NOW }}" style="position:relative;overflow:hidden;cursor:pointer;border-radius:14px;border:1px solid {{ c.onChipEdge }};background:{{ c.surfaceDark }};padding:13px 14px;display:flex;flex-direction:column;gap:9px" style-hover="border-color:{{ c.onRule }}">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+              <div style="font-size:14px;font-weight:700;line-height:1.25;color:{{ c.onInk }}">{{ c.title }}</div>
+              <sc-if value="{{ c.isActNow }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:9999px;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.1em;white-space:nowrap;background:{{ c.actPill.bg }};color:{{ c.actPill.ink }}">{{ c.status }}</span></sc-if>
+            </div>
+            <div style="font-family:var(--font-secondary);font-size:10.5px;letter-spacing:0.06em;color:{{ c.onMuted }}">{{ c.geography }}</div>
+            <!-- LO STATO DI PUBBLICAZIONE NON SI NASCONDE MAI.
+                 Mostrare solo i 5 pubblicabili sarebbe una bugia per omissione;
+                 mostrare i 38 senza dirlo sarebbe peggio. -->
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+              <span style="display:inline-flex;align-items:center;height:19px;padding:0 9px;border-radius:9999px;font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.1em;background:transparent;border:1px solid {{ c.onChipEdge }};color:{{ c.onBody }}">{{ c.publication }}</span>
+              <span style="font-size:10px;color:{{ c.onMuted }}">{{ c.priority }}</span>
+            </div>
+            <!-- LA REGOLA E LO STATO, DUE RIGHE. Una sola riga qui e esattamente
+                 come «la regola e nota» diventa «la finestra e aperta». -->
+            <div style="display:flex;flex-direction:column;gap:3px;padding:8px 9px;border-radius:9px;background:{{ c.onWell }};border:1px solid {{ c.onWellEdge }}">
+              <div style="font-size:10px;line-height:1.35;color:{{ c.onBody }}">{{ c.windowRule }}</div>
+              <div style="font-size:10px;line-height:1.35;color:{{ c.onMuted }}">{{ c.windowState }}</div>
+            </div>
+            <div style="font-size:10px;color:{{ c.onMuted }}">{{ c.productCount }} · {{ c.evidenceCount }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <sc-if value="{{ meetingHasMore }}" hint-placeholder-val="{{ false }}"><span onClick="{{ meetingMore }}" style="align-self:flex-start;display:inline-flex;align-items:center;height:32px;padding:0 16px;border-radius:9999px;cursor:pointer;font-size:11px;font-weight:700;color:#fff;background:rgba(0,152,69,0.16);border:1px solid rgba(0,152,69,0.45)">{{ mt.all }}</span></sc-if>
+    </div>
+    </sc-if>
+
+    <!-- ══ DETTAGLIO CANONICO ═══════════════════════════════════════════════
+         Ogni blocco qui sotto ha UN padrone dichiarato nell'istantanea.
+         Nessun blocco ricalcola cio che un altro blocco mostra: e per questo
+         che due parti della stessa schermata non possono contraddirsi.      -->
+    <sc-if value="{{ isMcase }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:14px">
+      <sc-if value="{{ mcMissing }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:16px;border-radius:12px;background:#1C1817;border:1px solid rgba(245,179,23,0.45);color:#F5B317;font-size:12px">{{ mcId }}</div>
+      </sc-if>
+      <sc-if value="{{ hasMc }}" hint-placeholder-val="{{ true }}">
+      <!-- ══ HERO · senza scroll, e con TUTTI i prodotti ═══════════════════ -->
+      <div data-meeting-hero="{{ mc.id }}" data-hero-primary="{{ mcPrimary.name }}" style="border-radius:16px;background:{{ mc.surfaceDark }};border:1px solid {{ mc.onChipEdge }};padding:18px 20px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <h1 style="margin:0;font-size:24px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;color:{{ mc.onInk }}">{{ mc.title }}</h1>
+            <div style="font-family:var(--font-secondary);font-size:11px;letter-spacing:0.08em;color:{{ mc.onMuted }}">{{ mc.geography }} · {{ mc.scopeLabel }}</div>
+            <div style="font-size:11px;color:{{ mc.onBody }}">{{ mc.archetype }}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+            <sc-if value="{{ mc.isActNow }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:24px;padding:0 13px;border-radius:9999px;font-family:var(--font-secondary);font-size:11px;font-weight:700;letter-spacing:0.1em;background:{{ mc.actPill.bg }};color:{{ mc.actPill.ink }}">{{ mc.status }}</span></sc-if>
+            <span style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.1em;border:1px solid {{ mc.onChipEdge }};color:{{ mc.onBody }}">{{ mc.publication }}</span>
+            <span style="font-size:10.5px;color:{{ mc.onMuted }}">{{ mc.priority }}</span>
+          </div>
+        </div>
+
+        <!-- ══ PERCHE E COMMERCIALE · la frase e del motore ═══════════════
+             Il frontend non scrive prosa qui. Se il motore non ha una frase,
+             lo spazio resta vuoto invece di riempirsi di parole inventate. -->
+        <div data-meeting-why-commercial="1" style="display:flex;flex-direction:column;gap:5px;padding:11px 13px;border-radius:11px;background:{{ mc.onWell }};border:1px solid {{ mc.onWellEdge }}">
+          <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:{{ mc.onMuted }}">{{ mt.whyCommercial }}</div>
+          <div style="font-size:12.5px;line-height:1.45;color:{{ mc.onInk }}">{{ mc.whyCommercial }}</div>
+          <sc-if value="{{ mc.commercialDoesNotProve }}" hint-placeholder-val="{{ true }}"><div style="font-size:11px;line-height:1.4;color:{{ mc.onMuted }}">{{ mc.commercialDoesNotProve }}</div></sc-if>
+        </div>
+
+        <!-- ══ IL PORTAFOGLIO, PER INTERO ════════════════════════════════
+             TUTTI i prodotti che l'istantanea conosce, con i loro campi.
+             Mai «PRINCIPALE + 2 ALTRI» quando i tre sono gia noti: quel
+             riassunto nasconde esattamente cio che il lettore deve vedere.
+
+             Il principale esiste SOLO se il motore lo ha nominato. Dove non
+             c'e, nessuno viene incoronato — non il primo dell'array, non il
+             piu conosciuto, non il primo disegnato.                        -->
+        <div data-meeting-products="{{ mcProductCount }}" data-has-primary="{{ mcHasPrimary }}" style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+            <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:{{ mc.onMuted }}">{{ mt.products }}</div>
+            <sc-if value="{{ mcHasPrimary }}" hint-placeholder-val="{{ false }}"><span style="font-size:10.5px;color:{{ mc.onBody }}">{{ mcPrimaryReason }}</span></sc-if>
+            <sc-if value="{{ mcNoPrimary }}" hint-placeholder-val="{{ true }}"><span data-no-primary="1" style="font-size:10.5px;color:{{ mc.onBody }}">{{ mcNoPrimary }}</span></sc-if>
+          </div>
+          <div class="sn-keepgrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px">
+            <sc-for list="{{ mcProducts }}" as="p" hint-placeholder-count="4">
+              <div data-product="{{ p.name }}" style="display:flex;flex-direction:column;gap:6px;padding:11px 12px;border-radius:11px;background:{{ mc.onWell }};border:1px solid {{ mc.onWellEdge }}">
+                <div style="font-size:13px;font-weight:700;color:{{ mc.onInk }}">{{ p.name }}</div>
+                <div style="font-size:10px;color:{{ mc.onMuted }}">{{ mt.actives }}</div>
+                <div style="font-size:11px;color:{{ mc.onBody }}"><sc-for list="{{ p.actives }}" as="a" hint-placeholder-count="2"><span style="margin-right:6px">{{ a }}</span></sc-for></div>
+                <div style="font-size:10px;color:{{ mc.onMuted }}">{{ mt.moa }}</div>
+                <div style="font-size:11px;color:{{ mc.onBody }}"><sc-for list="{{ p.moa }}" as="m" hint-placeholder-count="2"><span style="margin-right:6px">{{ m }}</span></sc-for></div>
+                <div style="display:flex;flex-direction:column;gap:2px;font-size:10px;color:{{ mc.onMuted }}">
+                  <span>{{ mt.cropFit }} · <b style="color:{{ mc.onBody }};font-weight:600">{{ p.cropFit }}</b></span>
+                  <span>{{ mt.targetFit }} · <b style="color:{{ mc.onBody }};font-weight:600">{{ p.targetFit }}</b></span>
+                  <span>{{ mt.regionalFit }} · <b style="color:{{ mc.onBody }};font-weight:600">{{ p.regionalFit }}</b></span>
+                  <span>{{ mt.regFit }} · <b style="color:{{ mc.onBody }};font-weight:600">{{ p.regulatoryFit }}</b></span>
+                  <span>{{ mt.windowFit }} · <b style="color:{{ mc.onBody }};font-weight:600">{{ p.windowFit }}</b></span>
+                  <span>{{ mt.validation }} · <b style="color:{{ mc.onBody }};font-weight:600">{{ p.validation }}</b></span>
+                  <span>{{ mt.matchReason }} · <b style="color:{{ mc.onBody }};font-weight:600">{{ p.matchReason }}</b></span>
+                </div>
+                <sc-for list="{{ p.restrictions }}" as="r" hint-placeholder-count="1">
+                  <div style="font-size:10px;color:#F5B317">{{ mt.restrictions }} · {{ r.label }} · {{ r.date }}</div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PERCHE ORA · i cinque anelli, e quello che manca ═══════════════
+           La catena e del motore: SEGNALE → REGOLA → CONDIZIONE ADESSO →
+           PORTAFOGLIO → TEMPO. Dove un anello manca lo si DICE; non si
+           riempie il buco con una frase.                                    -->
+      <div data-meeting-why-now="1" style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);padding:15px 17px;display:flex;flex-direction:column;gap:9px">
+        <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ mt.whyNow }}</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <sc-for list="{{ mcChain }}" as="l" hint-placeholder-count="5">
+            <div data-chain-link="{{ l.KEY }}" data-chain-ok="{{ l.ok }}" style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;padding:7px 9px;border-radius:8px;background:#211D1C">
+              <span style="width:7px;height:7px;border-radius:50%;background:{{ l.dot }};flex:0 0 7px"></span>
+              <span style="font-size:11.5px;font-weight:600;color:#EDEAE9">{{ l.label }}</span>
+              <span style="font-size:10px;color:#8F8886">{{ l.stateLabel }}</span>
+              <sc-if value="{{ l.factLabel }}" hint-placeholder-val="{{ true }}"><span style="font-size:10px;color:#C9C3C1">{{ l.factLabel }}</span></sc-if>
+              <sc-if value="{{ l.factDate }}" hint-placeholder-val="{{ true }}"><span style="font-size:10px;color:#C9C3C1;font-variant-numeric:tabular-nums">{{ l.factDate }}</span></sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap">
+          <sc-for list="{{ mcWhyCodes }}" as="w" hint-placeholder-count="2">
+            <span style="display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:9999px;font-size:10px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ w.label }}</span>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- ══ FINESTRA · UN SOLO PADRONE, DUE DOMANDE ═══════════════════════
+           Questo blocco legge SOLO i campi WINDOW_* dell'istantanea.
+           `window.ITALY_CANONICAL` — il calendario dei 29 casi legacy — non
+           entra qui: e quello che diceva «nessuna finestra» sopra una regola
+           che il motore aveva dichiarato.
+
+               LA REGOLA E NOTA  ≠  LA CONDIZIONE E SODDISFATTA ADESSO       -->
+      <div data-meeting-window="1" data-window-owner="{{ mcWindow.OWNER }}" data-window-defined="{{ mcWindow.DEFINED }}" data-window-open="{{ mcWindow.OPEN_NOW }}" style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);padding:15px 17px;display:flex;flex-direction:column;gap:11px">
+        <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ mt.window }}</div>
+        <div class="sn-keepgrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="display:flex;flex-direction:column;gap:4px;padding:11px 12px;border-radius:11px;background:#211D1C;border:1px solid rgba(203,197,195,0.10)">
+            <div style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ mt.rule }}</div>
+            <div data-window-rule="1" style="font-size:12px;line-height:1.4;color:#EDEAE9">{{ mcWindow.ruleSentence }}</div>
+            <sc-if value="{{ mcWindow.typeLabel }}" hint-placeholder-val="{{ true }}"><div style="font-size:10.5px;color:#C9C3C1">{{ mcWindow.typeLabel }}</div></sc-if>
+            <sc-if value="{{ mcWindow.ruleStateLabel }}" hint-placeholder-val="{{ true }}"><div style="font-size:10.5px;color:#C9C3C1">{{ mcWindow.ruleStateLabel }}</div></sc-if>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;padding:11px 12px;border-radius:11px;background:#211D1C;border:1px solid rgba(203,197,195,0.10)">
+            <div style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ mt.stateNow }}</div>
+            <div data-window-state="1" style="font-size:12px;line-height:1.4;color:#EDEAE9">{{ mcWindow.stateSentence }}</div>
+            <sc-if value="{{ mcWindow.methodLabel }}" hint-placeholder-val="{{ true }}"><div style="font-size:10.5px;color:#C9C3C1">{{ mcWindow.methodLabel }}</div></sc-if>
+          </div>
+        </div>
+        <!-- La condizione originale e prosa di ricerca in portoghese: NON
+             attraversa come testo. Si cita il documento che la contiene —
+             che e vero — invece di mostrare portoghese a un italiano. -->
+        <sc-if value="{{ mcWindow.conditionWithheld }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:10.5px;color:#8F8886;line-height:1.4">{{ mt.ptWithheld }} · {{ mt.documented }} {{ mcWindow.conditionDocument }}</div>
+        </sc-if>
+        <!-- STADIO E RACCOMANDAZIONE SONO DUE PADRONI DIVERSI.
+             Un volo concluso non conclude l'azione: la fonte puo ancora
+             raccomandare di proseguire, e la schermata deve poter dire
+             entrambe le cose senza dedurre l'una dall'altra. -->
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <sc-if value="{{ mc.pestStage }}" hint-placeholder-val="{{ true }}"><span data-pest-stage="{{ mc.pestStageCode }}" style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10.5px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ mc.pestStage }}</span></sc-if>
+          <sc-if value="{{ mc.actionRec }}" hint-placeholder-val="{{ true }}"><span data-action-rec="{{ mc.actionRecCode }}" style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10.5px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ mc.actionRec }}</span></sc-if>
+          <sc-if value="{{ mc.threshold }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10.5px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ mc.threshold }}</span></sc-if>
+          <sc-if value="{{ mc.needDirection }}" hint-placeholder-val="{{ true }}"><span data-need-direction="{{ mc.needDirectionToken }}" style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10.5px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ mc.needDirection }}</span></sc-if>
+        </div>
+      </div>
+
+      <!-- ══ MAPPA DELLE AZIONI · esattamente ACTION_BY_DEPARTMENT ═════════
+           Cinque aree, quelle che il motore dichiara. Nessuna azione viene
+           creata per riempire una scatola vuota: NESSUN MOVIMENTO e a sua
+           volta una risposta, e va detta.                                  -->
+      <div data-meeting-action-map="1" style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);padding:15px 17px;display:flex;flex-direction:column;gap:9px">
+        <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ mt.actionMap }}</div>
+        <div class="sn-keepgrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px">
+          <sc-for list="{{ mcActions }}" as="a" hint-placeholder-count="5">
+            <div data-action-dept="{{ a.DEPARTMENT }}" data-action-state="{{ a.stateToken }}" style="display:flex;flex-direction:column;gap:5px;padding:11px 12px;border-radius:11px;background:{{ a.bg }};border:1px solid {{ a.border }};border-left:3px solid {{ a.line }}">
+              <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.12em;color:{{ a.ink }}">{{ a.deptLabel }}</div>
+              <div style="font-size:12px;font-weight:700;color:#fff">{{ a.state }}</div>
+              <div style="font-size:11.5px;line-height:1.35;color:#EDEAE9">{{ a.action }}</div>
+              <div style="font-size:10.5px;line-height:1.35;color:#C9C3C1">{{ a.why }}</div>
+              <sc-if value="{{ a.dependency }}" hint-placeholder-val="{{ true }}"><div style="font-size:10px;color:#8F8886">{{ mt.dependency }} · {{ a.dependency }}</div></sc-if>
+              <sc-if value="{{ a.nextTrigger }}" hint-placeholder-val="{{ true }}"><div style="font-size:10px;color:#8F8886;line-height:1.35">{{ mt.nextTrigger }} · {{ a.nextTrigger }}</div></sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- ══ EVIDENZE · comprese quelle che raffreddano il caso ════════════
+           Un'evidenza che toglie urgenza e INTELLIGENZA, non un difetto.
+           La schermata deve poter dire «questa prova raffredda l'occasione»
+           e non solo contare quante fonti ci sono.                          -->
+      <div data-meeting-evidence="1" style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);padding:15px 17px;display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:baseline;gap:10px"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ mt.evidence }}</div><span style="font-size:11px;color:#C9C3C1">{{ mc.evidenceCount }}</span></div>
+        <sc-for list="{{ mcCooling }}" as="k" hint-placeholder-count="1">
+          <div data-cooling="{{ k.coolingToken }}" style="padding:10px 12px;border-radius:10px;background:rgba(245,179,23,0.10);border:1px solid rgba(245,179,23,0.40);font-size:11.5px;line-height:1.4;color:#F6BB2E">{{ k.label }}</div>
+        </sc-for>
+        <sc-for list="{{ mcNegatives }}" as="n" hint-placeholder-count="1">
+          <div data-negative-role="{{ n.roleToken }}" style="padding:10px 12px;border-radius:10px;background:rgba(245,179,23,0.10);border:1px solid rgba(245,179,23,0.40);font-size:11.5px;line-height:1.4;color:#F6BB2E">{{ n.role }} · {{ n.id }}</div>
+        </sc-for>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <sc-for list="{{ mcEvidence }}" as="e" hint-placeholder-count="6">
+            <div data-evidence-role="{{ e.roleToken }}" style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;padding:6px 9px;border-radius:8px;background:#211D1C">
+              <span style="font-size:10px;font-variant-numeric:tabular-nums;color:#8F8886">{{ e.id }}</span>
+              <span style="font-size:11px;color:#EDEAE9">{{ e.role }}</span>
+              <span style="font-size:10px;color:#C9C3C1">{{ e.why }}</span>
+              <span style="font-size:10px;color:#8F8886">{{ e.familyLabel }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- ══ COSA MANCA · la lacuna e un fatto, non un errore ══════════════ -->
+      <div style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);padding:15px 17px;display:flex;flex-direction:column;gap:8px">
+        <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ mt.missing }}</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap">
+          <sc-for list="{{ mcMissingList }}" as="w" hint-placeholder-count="3">
+            <span style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10.5px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ w.label }}</span>
+          </sc-for>
+        </div>
+        <sc-if value="{{ mc.doesNotProve }}" hint-placeholder-val="{{ true }}"><div style="font-size:11px;line-height:1.4;color:#8F8886">{{ mc.doesNotProve }}</div></sc-if>
+      </div>
+
+      <!-- ══ FONTI ════════════════════════════════════════════════════════ -->
+      <div style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);padding:15px 17px;display:flex;flex-direction:column;gap:8px">
+        <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ mt.source }}</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap">
+          <sc-for list="{{ mcSources }}" as="sid" hint-placeholder-count="3">
+            <span style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10.5px;font-variant-numeric:tabular-nums;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ sid }}</span>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <sc-for list="{{ mcSourceUrls }}" as="u" hint-placeholder-count="2">
+            <a href="{{ u }}" target="_blank" rel="noopener noreferrer" style="font-size:10.5px;color:#00B152;word-break:break-all">{{ u }}</a>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
     <sc-if value="{{ isCase }}" hint-placeholder-val="{{ false }}">
     <div style="padding:14px 22px 40px;display:flex;flex-direction:column;gap:10px">
       <sc-if value="{{ cs.missingId }}" hint-placeholder-val="{{ false }}">
@@ -2374,7 +2665,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
 class Component extends DCLogic {
-  state = { view: 'radar', caseId: null, companyId: null, themeId: null, personId: null, sourceId: null, archiveId: null,
+  state = { view: 'radar', caseId: null, mCaseId: null, mStatus: '', mShown: 24, companyId: null, themeId: null, personId: null, sourceId: null, archiveId: null,
     fCrop: '', fIssue: '', fRegion: '', fStatus: '', fProduct: '', fDept: '', sort: 'relevant', showAll: false, query: '', committedQuery: '',
     futureStatus: '', futureSource: '', futureShown: 16, compView: 'feed', fCompany: '', fType: '', fPeriod: '', compShown: 12, eventId: null, cproductId: null,
     showDataState: false,
@@ -3027,6 +3318,69 @@ class Component extends DCLogic {
     const s = this.state;
     const T = (window.SINTONIA_I18N && window.SINTONIA_I18N[s.lang]) || (window.SINTONIA_I18N && window.SINTONIA_I18N.it) || {};
     if (D.setMonths && T.months) D.setMonths(T.months);
+
+    /* ══ IL BUILD DELLA RIUNIONE ══════════════════════════════════════════
+       Una sola chiamata, un solo padrone. `MEETING_SURFACE` copia dall'
+       istantanea canonica e non calcola niente: nessuno stato, nessuna
+       finestra, nessun prodotto principale, nessuna azione.
+
+           IL MOTORE DECIDE. QUESTA SCHERMATA MOSTRA.
+
+       Le etichette vivono in `meeting-labels.js` e NON in `t.` — il portale
+       ha un solo dizionario e questa superficie ha il suo, dichiarato, cosi
+       che un codice senza frase si veda come un buco in quel file invece che
+       come una sigla dipinta sullo schermo. */
+    const MSURF = (window.MEETING_SURFACE && window.MEETING_SURFACE.build) ? window.MEETING_SURFACE.build(s.lang) : null;
+    const mtL = (k) => {
+      const d = window.MEETING_LABELS;
+      return (d && d.get(k, s.lang)) || '';
+    };
+    const meetingAll = MSURF ? MSURF.cases : [];
+    const meetingCounts = MSURF ? MSURF.counts : {};
+    const meetingMeta = MSURF ? MSURF.meta : {};
+    const meetingCount = meetingAll.length;
+    /* Il filtro e una LETTURA, non un giudizio: taglia l'elenco per uno stato
+       che il motore ha gia scritto, e non ne calcola nessuno. */
+    const meetingFiltered = s.mStatus ? meetingAll.filter((c) => c.statusCode === s.mStatus) : meetingAll;
+    const meetingShown = meetingFiltered.slice(0, s.mShown || 24).map((c) => Object.assign({}, c, {
+      open: () => this.go({ view: 'mcase', mCaseId: c.id }),
+      /* Il numero dei prodotti si legge dalla lista, non da un contatore
+         scritto a mano: "PRINCIPALE + 2 ALTRI" nasce sempre da un secondo
+         numero che nessuno ha ricontato. */
+      productCount: c.products.count,
+      primaryName: c.products.hasPrimary ? c.products.primary.name : '',
+      windowRule: c.window.ruleSentence, windowState: c.window.stateSentence,
+    }));
+    /* I CONTEGGI VENGONO DAI 43 E DA NESSUN ALTRO INSIEME.
+       Nessuno di questi numeri e scritto a mano: se l'istantanea cambia,
+       cambiano da soli. I 21 casi di presentazione non entrano qui. */
+    const MEETING_KPI_DEF = [
+      ['ACT_NOW', meetingCounts.ACT_NOW, '#1AB963'],
+      ['VALIDATE_NOW', meetingCounts.VALIDATE_NOW, '#F5B317'],
+      ['TO_VALIDATE', meetingCounts.TO_VALIDATE, '#F5B317'],
+      ['FUTURE_PREPARATION', meetingCounts.PREPARE, '#00A0DF'],
+      ['WATCH', meetingCounts.WATCH, '#C9C3C1'],
+    ];
+    const meetingKpis = MEETING_KPI_DEF.map(([code, value, color]) => ({
+      code, token: code, value: value || 0, color,
+      label: mtL(code),
+      on: s.mStatus === code,
+      go: () => this.setState({ mStatus: s.mStatus === code ? '' : code, mShown: 24 }),
+    }));
+    /* Colore e bordo sono PRESENTAZIONE. Nessuno di questi valori decide
+       niente: la pastiglia accesa e solo il filtro che il lettore ha scelto. */
+    const mPill = (on, color) => ({
+      bg: on ? 'rgba(0,152,69,0.16)' : 'transparent',
+      border: on ? 'rgba(0,152,69,0.45)' : 'rgba(203,197,195,0.22)',
+      ink: on ? '#fff' : (color || '#C9C3C1'),
+    });
+    const meetingStatusBtns = [Object.assign({
+      code: '', token: 'MEETING_FILTER_ALL', label: mtL('lblAll'), value: meetingCount, on: !s.mStatus,
+      go: () => this.setState({ mStatus: '', mShown: 24 }),
+    }, mPill(!s.mStatus))].concat(meetingKpis.map((k) => Object.assign({
+      code: k.code, token: k.code, label: k.label, value: k.value, on: k.on, go: k.go,
+    }, mPill(k.on, k.color))));
+    const mcCase = s.mCaseId ? (meetingAll.find((c) => c.id === s.mCaseId) || null) : null;
     /* Crop and issue display names. The raw value stays the filter key, so filtering,
        window matching and cross-tool lookups are untouched. A name the map does not
        carry passes through verbatim — that is how Latin binomials (Zea mays, Olea
@@ -3787,6 +4141,16 @@ class Component extends DCLogic {
          standing in for the real opportunity feed, which is the exact
          substitution this migration exists to remove. */
       ['radar', T.navRadar, navN('opportunities')],
+      /* ══ IL RADAR CANONICO E UNA SUPERFICIE A PARTE ═══════════════════════
+         I 21 casi di presentazione (D.CASES) e i 43 del motore sono due
+         universi. Mescolarli in una griglia sola e l'unica cosa che non si
+         puo fare: la prosa scritta a mano riempirebbe i buchi del motore e
+         nessuno saprebbe piu quale numero e stato misurato.
+
+             DUE FONTI NELLA STESSA GRIGLIA SONO UNA FONTE SOLA, E FALSA.
+
+         Il conteggio viene dall'istantanea, mai scritto a mano. */
+      ['meeting', mtL('navMeeting'), meetingCount],
       ['future', T.navFuture, navN('futureSignals')],
       ['windows', T.navWindows, navN('windows')],
       ['market', T.navMarket, navN('marketObservations')],
@@ -3798,7 +4162,7 @@ class Component extends DCLogic {
       ['sources', T.navSources, navN('sources')]
     ];
     const navIntegrations = [['field', T.navField, allMessages.length]];
-    const activeOf = { radar: 'radar', case: 'radar', brief: 'radar', field: 'field', windows: 'windows', window: 'windows', market: 'market', signal: 'future', future: 'future', competitors: 'competitors', company: 'competitors', event: 'competitors', cproduct: 'competitors', science: 'science', theme: 'science', archive: 'archive', portfolio: 'portfolio', product: 'portfolio', voices: 'voices', sources: 'sources', source: 'sources', person: 'sources', search: '' };
+    const activeOf = { radar: 'radar', case: 'radar', brief: 'radar', meeting: 'meeting', mcase: 'meeting', field: 'field', windows: 'windows', window: 'windows', market: 'market', signal: 'future', future: 'future', competitors: 'competitors', company: 'competitors', event: 'competitors', cproduct: 'competitors', science: 'science', theme: 'science', archive: 'archive', portfolio: 'portfolio', product: 'portfolio', voices: 'voices', sources: 'sources', source: 'sources', person: 'sources', search: '' };
     /* §4 · The green/amber accents, the dot and the active tint are presentation only and stay. */
     const nav = navDef.map(n => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => n[0] === 'competitors' ? this.compWith({}) : n[0] === 'radar' ? this.radarWith({ showAll: false }) : this.go({ view: n[0] }), bg: on ? 'rgba(0,152,69,0.13)' : 'transparent', border: on ? 'rgba(0,152,69,0.40)' : 'transparent', dot: on ? '#009845' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
     const navIntegrationItems = navIntegrations.map(n => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => this.go({ view: n[0] }), bg: on ? 'rgba(245,179,23,0.13)' : 'transparent', border: on ? 'rgba(245,179,23,0.40)' : 'transparent', dot: on ? '#F5B317' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
@@ -8490,7 +8854,7 @@ class Component extends DCLogic {
 
     /* portfolio, product and voices had no entry, so the breadcrumb bar was blank on three
        of the twenty-six screens. The keys already exist in italy-i18n.js. */
-    const titles = { portfolio: (T.navPortfolio || '').toUpperCase(), product: (T.navPortfolio || '').toUpperCase(), voices: (T.navVoices || '').toUpperCase(), radar: (T.navRadar || '').toUpperCase(), case: (T.navRadar || '').toUpperCase(), brief: 'ACTION BRIEF', field: (T.navField || '').toUpperCase(), windows: (T.navWindows || '').toUpperCase(), window: (T.navWindows || '').toUpperCase(), market: (T.navMarket || '').toUpperCase(), signal: (T.navFuture || '').toUpperCase(), future: (T.navFuture || '').toUpperCase(), competitors: (T.navCompetitors || '').toUpperCase(), company: (T.navCompetitors || '').toUpperCase(), event: (T.navCompetitors || '').toUpperCase() + ' · ' + (T.lblEventWatch || 'EVENT WATCH'), cproduct: (T.navCompetitors || '').toUpperCase(), science: (T.navScience || '').toUpperCase(), theme: (T.navScience || '').toUpperCase(), archive: (T.navArchive || '').toUpperCase(), sources: (T.navSources || '').toUpperCase(), source: (T.navSources || '').toUpperCase(), person: (T.navSources || '').toUpperCase() + ' · ' + (T.lblPeople || 'PEOPLE'), search: (T.lblSearch || 'SEARCH') };
+    const titles = { meeting: mtL('navMeeting').toUpperCase(), mcase: mtL('navMeeting').toUpperCase(), portfolio: (T.navPortfolio || '').toUpperCase(), product: (T.navPortfolio || '').toUpperCase(), voices: (T.navVoices || '').toUpperCase(), radar: (T.navRadar || '').toUpperCase(), case: (T.navRadar || '').toUpperCase(), brief: 'ACTION BRIEF', field: (T.navField || '').toUpperCase(), windows: (T.navWindows || '').toUpperCase(), window: (T.navWindows || '').toUpperCase(), market: (T.navMarket || '').toUpperCase(), signal: (T.navFuture || '').toUpperCase(), future: (T.navFuture || '').toUpperCase(), competitors: (T.navCompetitors || '').toUpperCase(), company: (T.navCompetitors || '').toUpperCase(), event: (T.navCompetitors || '').toUpperCase() + ' · ' + (T.lblEventWatch || 'EVENT WATCH'), cproduct: (T.navCompetitors || '').toUpperCase(), science: (T.navScience || '').toUpperCase(), theme: (T.navScience || '').toUpperCase(), archive: (T.navArchive || '').toUpperCase(), sources: (T.navSources || '').toUpperCase(), source: (T.navSources || '').toUpperCase(), person: (T.navSources || '').toUpperCase() + ' · ' + (T.lblPeople || 'PEOPLE'), search: (T.lblSearch || 'SEARCH') };
     /* Every branch is evaluated before the view is picked, so each detail object is read
        through a guard: several domains now resolve to null on an unknown id instead of
        silently substituting record[0], and a bare .label would throw on the way there. */
@@ -8513,6 +8877,83 @@ class Component extends DCLogic {
 
     return {
       nav, kpi: K, todayLabel, pageTitle: titles[s.view], crumb, hasCrumb: !!crumb,
+
+      /* ══ SUPERFICIE CANONICA DELLA RIUNIONE ═══════════════════════════════
+         Ogni valore qui sotto e gia stato deciso dal motore e copiato
+         dall'istantanea. Questa schermata non sceglie un prodotto principale,
+         non apre una finestra e non inventa un'azione.
+
+         I due errori visti a schermo erano errori di PROPRIETA, non di
+         disegno, e qui non possono ripetersi:
+
+         · il principale e `mc.products.primary`, che esiste solo se il motore
+           ha scritto PRIMARY_MATCH. Non c'e nessun `|| array[0]`.
+         · la finestra e `mc.window`, che nasce solo dai campi WINDOW_* dell'
+           istantanea. `window.ITALY_CANONICAL` non viene letto da qui.
+
+         Le due domande della finestra restano DUE: la regola e nota? e la
+         condizione e soddisfatta adesso? La seconda non eredita la prima. */
+      isMeeting: s.view === 'meeting', isMcase: s.view === 'mcase',
+      mt: {
+        nav: mtL('navMeeting'), sub: mtL('subMeeting'),
+        snapshot: mtL('meetingSnapshot'), srcHead: mtL('lblSourceHead'),
+        buildId: mtL('lblBuildId'), cutoff: mtL('lblCutoff'),
+        cases: mtL('lblCases'), of: mtL('lblOf'), all: mtL('lblAll'),
+        whyCommercial: mtL('secWhyCommercial'), whyNow: mtL('secWhyNow'),
+        window: mtL('secWindow'), products: mtL('secProducts'),
+        actionMap: mtL('secActionMap'), evidence: mtL('secEvidence'),
+        missing: mtL('secMissing'), source: mtL('secSource'),
+        rule: mtL('lblRule'), stateNow: mtL('lblStateNow'),
+        restrictions: mtL('lblRestrictions'), dependency: mtL('lblDependency'),
+        nextTrigger: mtL('lblNextTrigger'), documented: mtL('lblDocumented'),
+        ptWithheld: mtL('lblPtWithheld'), noEvidence: mtL('lblNoEvidence'),
+        cropFit: mtL('lblCropFit'), targetFit: mtL('lblTargetFit'),
+        regionalFit: mtL('lblRegionalFit'), regFit: mtL('lblRegFit'),
+        windowFit: mtL('lblWindowFit'), validation: mtL('lblValidation'),
+        actives: mtL('lblActives'), moa: mtL('lblMoa'), matchReason: mtL('lblMatchReason'),
+      },
+      meetingMeta,
+      meetingCounts,
+      meetingKpis,
+      meetingStatusBtns,
+      meetingCases: meetingShown,
+      meetingShownCount: meetingShown.length,
+      meetingFilteredCount: meetingFiltered.length,
+      meetingTotal: meetingCount,
+      meetingHasMore: meetingFiltered.length > meetingShown.length,
+      meetingMore: () => this.setState({ mShown: (s.mShown || 24) + 24 }),
+      goMeeting: () => this.go({ view: 'meeting', mStatus: '', mShown: 24 }),
+      /* Un id che non risolve DICE di non risolvere. Non apre il vicino. */
+      mc: mcCase || {}, hasMc: !!mcCase, mcMissing: !!s.mCaseId && !mcCase,
+      mcId: s.mCaseId || '',
+      mcProducts: mcCase ? mcCase.products.matches : [],
+      mcWindow: mcCase ? mcCase.window : {},
+      mcNoPrimary: mcCase ? mcCase.products.noPrimarySentence : '',
+      mcAllProducts: mcCase ? mcCase.products.allProductsSentence : '',
+      mcPrimaryReason: mcCase ? mcCase.products.primaryReason : '',
+      mcProductCount: mcCase ? mcCase.products.count : 0,
+      mcHasPrimary: !!(mcCase && mcCase.products.hasPrimary),
+      mcPrimary: (mcCase && mcCase.products.primary) || {},
+      /* AREA_UI e gia la tavolozza pubblicata del portale: le cinque aree
+         riprendono i loro colori invece di diventare cinque scatole grigie. */
+      mcActions: mcCase ? mcCase.actions.map((a) => {
+        const u = a.ui || {};
+        return Object.assign({}, a, {
+          line: u.line || '#8F8886', ink: u.ink || '#C9C3C1',
+          bg: u.surface ? (u.surface + '2E') : '#211D1C',
+          border: 'rgba(203,197,195,0.14)',
+        });
+      }) : [],
+      /* Il pallino segue l'anello: verde se il motore lo ha dimostrato,
+         ambra se manca. Il COLORE non decide, RIPETE. */
+      mcChain: mcCase ? mcCase.whyNow.links.map((l) => Object.assign({}, l, { dot: l.ok ? '#1AB963' : '#F5B317' })) : [],
+      mcWhyCodes: mcCase ? mcCase.whyNow.codes : [],
+      mcEvidence: mcCase ? mcCase.evidence.rows : [],
+      mcNegatives: mcCase ? mcCase.evidence.negatives : [],
+      mcCooling: mcCase ? mcCase.evidence.cooling : [],
+      mcMissingList: mcCase ? mcCase.missing : [],
+      mcSources: mcCase ? mcCase.sources : [],
+      mcSourceUrls: mcCase ? mcCase.sourceUrls : [],
       /* back() / canGoBack() existed and RT4 passed, but nothing in the markup could
          reach them. The header control at markup ~99 binds these two. */
       hasBack: this.canGoBack(), goBack: () => this.back(),

@@ -37,6 +37,13 @@ export const DATA_FILES = [
      late is a family that silently kept the fixture. */
   'italy-handoff-v21.js',
   'italy-app-model.js',
+  /* The meeting build. The snapshot is the intelligence, the labels turn its
+     codes into phrases, and the surface is the adapter that presents them.
+     They load AFTER the model because the surface reuses the model's own
+     CATEGORY_SURFACE / ON_SURFACE / AREA_UI tokens rather than restyling. */
+  'meeting-intelligence-snapshot.js',
+  'meeting-labels.js',
+  'meeting-surface.js',
 ];
 
 function makeWindow() {

@@ -322,6 +322,11 @@ check('N1', 'Nav counts match the active normalized collections', () => {
      drifts back to whatever number looks fuller. */
   const expect = [
     AM.collections.opportunities.count,
+    /* Il radar canonico e una superficie a parte e il suo numero ha una sola
+       fonte legittima: l'istantanea della riunione. Contarlo da una collezione
+       del modello sarebbe di nuovo un numero che sta al posto di un altro —
+       che e esattamente il difetto per cui questo controllo esiste. */
+    (m.ctx.MEETING_INTELLIGENCE || {}).TOTAL_CASES,
     AM.collections.futureSignals.count,
     AM.collections.cropWindows.count,
     AM.collections.marketObservations.count,
@@ -649,6 +654,13 @@ export const SCREENS = [
   { view: 'field', label: 'Field Sales demo' },
   { view: 'radar', label: 'Global search', state: { query: 'grano', committedQuery: 'grano' } },
   { view: 'brief', label: 'Action brief', pick: (AM) => ({ caseId: (AM.collections.opportunities.records[0] || {}).id, briefDept: 'MARKETING' }) },
+  /* La superficie canonica della riunione entra nell'elenco degli schermi, cosi
+     che OGNI controllo gia scritto — lingua, prop legate, liste, token interni —
+     la misuri senza che nessuno debba ricordarsene. Un portone che non conosce
+     una schermata la dichiara verde per silenzio. */
+  { view: 'meeting', label: 'Canonical radar' },
+  { view: 'mcase', label: 'Canonical opportunity', state: { mCaseId: 'OPP_5F31A63F844D' } },
+  { view: 'mcase', label: 'Canonical opportunity · no primary', state: { mCaseId: 'OPP_75C37DED9160' } },
 ];
 
 check('RT1', 'Every screen renders in Italian without crashing', () => {
