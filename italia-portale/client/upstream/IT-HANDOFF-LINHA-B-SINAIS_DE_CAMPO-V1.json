@@ -1,0 +1,497 @@
+{
+ "DATASET": "IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1",
+ "LEI": "empacota o que o contrato ja aprovou. Nao recalcula julgamento, nao reclassifica, nao cria QA e nao altera CLIENT_SAFE.",
+ "UPSTREAM_CHECKPOINT": "8c082f7",
+ "SOURCE_HEAD": "8c082f7",
+ "CONTRACT_VERSION": "IT-CONTRATO-FAMILIA-SINAIS_DE_CAMPO-V1",
+ "COLLECTION": "SINAIS_DE_CAMPO",
+ "DONO_DA_DECISAO": "ciencia/tecnico",
+ "TOTAL": 640,
+ "RENDERABLE_CARD": 28,
+ "RENDERABLE_WITH_METHOD": 19,
+ "EVIDENCE_ONLY": 421,
+ "DROPPED": 172,
+ "NAO_SEI": 1,
+ "LEI_DA_FAMILIA": "esta familia nao e homogenea: junta sinais verificados, cruzamentos, um INDICE de boletins e as mencoes de substancia dentro deles. Trata-los como uma coisa so poria um indice de PDFs na mesma grelha de uma leitura refutada.",
+ "PROVENIENCIA": {
+  "SOURCE_ARTIFACT_HASHES": {
+   "data/samples/IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V1.json": "sha256:ab45656b8cffbb1b8c3f0b50f1944f24",
+   "data/samples/IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V2.json": "sha256:78a9b9943188cf8f2c0e962fd92f93de",
+   "data/samples/IT-CRUZAMENTO-V1/IT-CRUZAMENTOS-V1.json": "sha256:bfc4cd8a9da5ce01db4d48814b710209",
+   "data/samples/IT-CRUZAMENTO-V1/IT-ENRIQUECIMENTO-CONFIRMADAS-V1.json": "sha256:566e01d02f56c230d69de0a280ead28f",
+   "data/samples/IT-CRUZAMENTO-V2/IT-CRUZAMENTOS-V2.json": "sha256:866199776992b3ed6806b52266be06d4",
+   "data/samples/IT-CAMPO-V1/IT-BOLLETTINI-ER-2026-INDICE.json": "sha256:7b5be6150be39fed4f7b0a66d3938702",
+   "data/samples/IT-CAMPO-V1/IT-BOLLETTINI-ER-SOSTANZE-ATTIVE-V1.json": "sha256:14c264fd1a3225159345d32cfe87b3da",
+   "data/samples/IT-CAMPO-V1/IT-CIMICE-TRAPPOLE-UNIBO-SERIE.json": "sha256:30679d9e353a2d106966bbcdd2ee582e"
+  },
+  "ACHADO_DA_CONTAGEM": "o inventario V1 contou 195 por lista branca; o V2, que conta pela FORMA, conta 638. A diferenca sao HITS (1->421), CROSSINGS, ENRICHMENTS e as quatro coleccoes de inteligencia negativa que a primeira versao deste contrato tambem deixou sem dono — apanhadas pelo teste por COLECCAO."
+ },
+ "CAMPOS_OBRIGATORIOS": {
+  "sinais verificados V1": [
+   "crop",
+   "target",
+   "region",
+   "date",
+   "observation",
+   "citation",
+   "proves",
+   "does_not_prove",
+   "adama_relation",
+   "source_document",
+   "VERIFICATION"
+  ],
+  "sinais verificados V2": [
+   "crop",
+   "issue",
+   "region",
+   "publication_date",
+   "quote_it",
+   "proves",
+   "does_not_prove",
+   "link_strength",
+   "adama_relation",
+   "source_url",
+   "verificacao"
+  ],
+  "cruzamentos V1": [
+   "ID",
+   "TITLE",
+   "CROP",
+   "TARGET",
+   "GEOGRAPHY",
+   "GEOGRAPHY_STATE",
+   "WINDOW",
+   "EVIDENCE",
+   "PROVES",
+   "DOES_NOT_PROVE",
+   "ADAMA_RELATION",
+   "PROVENANCE"
+  ]
+ },
+ "AVISOS_OBRIGATORIOS": {
+  "sinais verificados V2": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE"
+ },
+ "LIMITES": [
+  {
+   "SUBCONJUNTO": "sinais verificados V1",
+   "NAO_SEI": {
+    "CAMPO": "does_not_prove",
+    "COMO_RENDERIZAR": "does_not_prove aparece SEMPRE ao lado de proves, com o mesmo peso tipografico. Um cartao que mostre so o que prova mente por omissao."
+   },
+   "REMOVE_INTERNOS": true
+  },
+  {
+   "SUBCONJUNTO": "sinais verificados V2",
+   "NAO_SEI": {
+    "CAMPO": "link_strength",
+    "COMO_RENDERIZAR": "link_strength aparece VERBATIM, nunca reduzido a rotulo. Onde o valor comeca por NAO_SEI, o cartao mostra NAO SEI e a frase que o justifica."
+   },
+   "REMOVE_INTERNOS": true
+  },
+  {
+   "SUBCONJUNTO": "cruzamentos V1",
+   "NAO_SEI": {
+    "CAMPO": "GEOGRAPHY_STATE",
+    "COMO_RENDERIZAR": "GEOGRAPHY_STATE viaja com GEOGRAPHY: uma regiao sem estado declarado aparece como NAO SEI, nunca como regiao confirmada."
+   },
+   "REMOVE_INTERNOS": true
+  }
+ ],
+ "CAMPOS_QUE_NUNCA_ATRAVESSAM": [
+  "NOTES_INTERNAL",
+  "opportunity_ids",
+  "evidence_path"
+ ],
+ "RAZAO_DE_EXCLUSAO": [
+  {
+   "SUBCONJUNTO": "enriquecimentos confirmados",
+   "CLASSE": "DROPPED",
+   "N": 5,
+   "RAZAO": "sao alteracoes APLICADAS a outros registos, nao inteligencia propria. Mostra-las como cartao contaria o mesmo facto duas vezes."
+  },
+  {
+   "SUBCONJUNTO": "cruzamentos V2 (agregado)",
+   "CLASSE": "DROPPED",
+   "N": 1,
+   "RAZAO": "e um documento de agregacao com GROUPS e quatro leis, nao um registo de campo."
+  },
+  {
+   "SUBCONJUNTO": "indice dos bollettini ER",
+   "CLASSE": "DROPPED",
+   "N": 150,
+   "RAZAO": "AREA, DATE, TITLE e URL: e um INDICE DE FONTES, nao inteligencia. 150 linhas de indice na grelha da reuniao afogariam os 28 cartoes reais."
+  },
+  {
+   "SUBCONJUNTO": "mencoes de substancia nos bollettini",
+   "CLASSE": "EVIDENCE_ONLY",
+   "N": 421,
+   "RAZAO": "AI, AREA, CTX e DATE: e a CAMADA DE EVIDENCIA que sustenta os sinais verificados, alcancavel a partir deles. Como cartao proprio, 421 mencoes seriam ruido com aparencia de volume."
+  },
+  {
+   "SUBCONJUNTO": "serie de armadilhas cimice UNIBO",
+   "CLASSE": "DROPPED",
+   "N": 1,
+   "RAZAO": "serie temporal com POINTS e DENOMINATOR_LAW — e material de grafico, e esta superficie nao tem contrato de grafico. Fica fora ate ter."
+  },
+  {
+   "SUBCONJUNTO": "refutados V1",
+   "CLASSE": "DROPPED",
+   "N": 3,
+   "RAZAO": "MEDIDA E NAO RESTO: e o registo do que NAO se cruzou, NAO se enriqueceu ou foi refutado, com o motivo. Fica FORA da grelha da reuniao porque fala do NOSSO metodo e nao do campo — mas fica alcancavel em auditoria, porque apagar uma ausencia medida e pior do que nunca a ter medido."
+  },
+  {
+   "SUBCONJUNTO": "refutados V2",
+   "CLASSE": "DROPPED",
+   "N": 1,
+   "RAZAO": "MEDIDA E NAO RESTO: e o registo do que NAO se cruzou, NAO se enriqueceu ou foi refutado, com o motivo. Fica FORA da grelha da reuniao porque fala do NOSSO metodo e nao do campo — mas fica alcancavel em auditoria, porque apagar uma ausencia medida e pior do que nunca a ter medido."
+  },
+  {
+   "SUBCONJUNTO": "nao cruzados, com o porque",
+   "CLASSE": "DROPPED",
+   "N": 7,
+   "RAZAO": "MEDIDA E NAO RESTO: e o registo do que NAO se cruzou, NAO se enriqueceu ou foi refutado, com o motivo. Fica FORA da grelha da reuniao porque fala do NOSSO metodo e nao do campo — mas fica alcancavel em auditoria, porque apagar uma ausencia medida e pior do que nunca a ter medido."
+  },
+  {
+   "SUBCONJUNTO": "nao enriquecidos, com o porque",
+   "CLASSE": "DROPPED",
+   "N": 4,
+   "RAZAO": "MEDIDA E NAO RESTO: e o registo do que NAO se cruzou, NAO se enriqueceu ou foi refutado, com o motivo. Fica FORA da grelha da reuniao porque fala do NOSSO metodo e nao do campo — mas fica alcancavel em auditoria, porque apagar uma ausencia medida e pior do que nunca a ter medido."
+  }
+ ],
+ "ENTRADAS_AUTORIZADAS": [
+  {
+   "ID": "sinais_verificados_V1#0",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#1",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#2",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#3",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#4",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#5",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#6",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#7",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#8",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#9",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#10",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#11",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#12",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#13",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#14",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#15",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#16",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#17",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#18",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#19",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V1#20",
+   "SUBCONJUNTO": "sinais verificados V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#0",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#1",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#2",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#3",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#4",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#5",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#6",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#7",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#8",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#9",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#10",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#11",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#12",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#13",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#14",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#15",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#16",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#17",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": null
+  },
+  {
+   "ID": "sinais_verificados_V2#18",
+   "SUBCONJUNTO": "sinais verificados V2",
+   "DESTINO": "COM_METODO",
+   "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "link_strength",
+     "VALOR": "NAO_SEI — nao ha par de rotulo defensavel a declarar. O vinculo e de CONCORRENCIA, nao de rotulo."
+    }
+   }
+  },
+  {
+   "ID": "IT-X-2026-001",
+   "SUBCONJUNTO": "cruzamentos V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-X-2026-002",
+   "SUBCONJUNTO": "cruzamentos V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-X-2026-003",
+   "SUBCONJUNTO": "cruzamentos V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-X-2026-004",
+   "SUBCONJUNTO": "cruzamentos V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-X-2026-005",
+   "SUBCONJUNTO": "cruzamentos V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-X-2026-006",
+   "SUBCONJUNTO": "cruzamentos V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-X-2026-007",
+   "SUBCONJUNTO": "cruzamentos V1",
+   "DESTINO": "CARTAO",
+   "AVISO": null,
+   "LIMITES": null
+  }
+ ]
+}
