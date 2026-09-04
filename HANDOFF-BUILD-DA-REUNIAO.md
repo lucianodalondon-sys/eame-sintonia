@@ -126,9 +126,23 @@ motor.
 ```
 DEPLOY_URL conhecido   https://sintonia-eame-preview.vercel.app/portale
 estado                 HTTP 200, mas serve ainda a base visual SEM o meeting build
-                       (meeting-surface.js -> 404)
+                       (meeting-surface.js -> 404 · portale.html 817712B, o tamanho
+                       anterior; o ficheiro local tem 855814B)
 bloqueio               não há CLI nem token da Vercel neste contentor
 ```
+
+**MEDIDO, e é o que poupa a próxima tentativa:** a branch
+`claude/meeting-intelligence-integration` foi avançada por fast-forward
+(`a54e287..8f37e36`, sem force) e **isso NÃO desencadeou deploy nenhum**.
+Passados vários minutos o URL continuava a servir os mesmos 817712 B, e a
+lista de workflow runs do GitHub não regista nenhuma execução nova — os
+deploys da Vercel não são GitHub Actions, e nenhum foi disparado.
+
+    EMPURRAR ESTA BRANCH NÃO PUBLICA. A INTEGRAÇÃO GIT DA VERCEL NÃO
+    ESTÁ LIGADA A ELA.
+
+Portanto o deploy exige mesmo credenciais: um `VERCEL_TOKEN` (com project/org)
+ou acesso ao painel. Não vale a pena voltar a tentar pelo git.
 
 `audit/deploy-surface.mjs` (contrato) passa: `vercel.json` + `.vercelignore`
 servem só `italia-portale/client` e excluem `/build`, `/data`, `/docs`, `/audit`.
@@ -161,6 +175,38 @@ node audit/meeting-gate.mjs               # 20/20
 node audit/meeting-browser.mjs            # tudo verde
 node audit/brandwell.mjs && node audit/mobile.mjs && node audit/internal-token.mjs
 ```
+
+**As dependências não estão no repositório e há uma armadilha real:**
+
+```bash
+# do RAIZ do repositorio (o package.json esta la, nao em italia-portale/)
+npm install playwright-core pdfjs-dist --no-save
+```
+
+Instalar UM de cada vez com `--no-save` **apaga o outro**: `npm install
+pdfjs-dist` sozinho removeu o `playwright-core` e todos os portões de browser
+passaram a estourar com `ERR_MODULE_NOT_FOUND`. Instale os dois no mesmo
+comando. E **nunca** `playwright install` — o Chromium já está em
+`/opt/pw-browsers`.
+
+## 0.7b · ESTADO DOS PORTÕES NESTA BRANCH
+
+| portão | resultado |
+|---|---|
+| `run.mjs` | **66/71** — os 5 do §0.8, todos anteriores a esta sessão |
+| `meeting-gate.mjs` | **20/20** |
+| `meeting-browser.mjs` | **tudo verde** · 0 erros de consola · 0 pedidos falhados · 0 controlos mortos · 20 percursos |
+| `brandwell` | PASS · 17 ecrãs · BrownLL 97% |
+| `mobile` | PASS · 50 ecrãs · 360/390/430/768/1440 · overflow 0 |
+| `internal-token` | PASS · 50 ecrãs · 0 tokens no lugar de uma etiqueta, 0 na prosa |
+| `opportunity-hub` | PASS |
+| `action-map-consistency` | PASS · 7/7 áreas |
+| `link-asset` | PASS |
+| `future-ruler` | PASS |
+| `rtv-gate` | PASS · RV1–RV6 |
+| `pdf-gate` | PASS · 4 PDFs reais gerados e lidos por pdf.js |
+| `deploy-surface` (contrato) | PASS |
+| `journey` | **não existe** neste repositório — o briefing nomeia-o, o ficheiro não está cá |
 
 ## 0.8 · OS 5 GATES QUE JÁ FALHAVAM ANTES DESTA SESSÃO
 
