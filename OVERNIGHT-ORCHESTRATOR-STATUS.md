@@ -382,3 +382,87 @@ MISSIONS_RUNNING 6 · MISSIONS_CLOSED 5 · INTEGRATED 0 · DEFERRED 2
 BLOCKERS  portal ainda não consome o snapshot
 MEETING_BUILD_HEAD a54e287 · DEPLOY_STATE nenhum · MEETING_FREEZE NO
 ```
+
+---
+
+## AUDITORIA DOS «25 RECORDS CORRECTED» — pronta antes de haver o que auditar
+
+Complemento ao protocolo, 01:55Z. A dona **não foi tocada**. O que ficou pronto é
+a ferramenta, para que a auditoria custe segundos no instante em que ela publicar
+— e não vinte minutos na hora em que o tempo for mais caro.
+
+```
+scripts/audit_adapter_boundary.py        o auditor
+MEETING-DECISION-FIELDS-REFERENCE.json   a referência congelada
+REFERENCE_DIGEST                         0feb6e3e9ddb4e0d
+```
+
+### Duas correções à lista de campos
+
+Medi o esquema real dos 43 casos. Dois nomes do protocolo não existem no snapshot:
+
+| pedido | realidade medida |
+|---|---|
+| `WHY_THIS_IS_A_COMMERCIAL_OPPORTUNITY` | não existe. São `WHY_COMMERCIAL_IT` · `WHY_COMMERCIAL_EN` · `WHY_COMMERCIAL_CODES` |
+| `WINDOW_CONDITION` | atravessa só como `WINDOW_CONDITION__PT_ONLY` (bool). A prosa PT não embarca — é a lei do snapshot, não uma falta |
+
+Os outros 27 existem e entraram. A referência cobre **29 campos decisórios** nos
+43 casos, cada caso com digest próprio.
+
+### O que a referência já prova
+
+```
+TOTAL_CASES 43 · ACT_NOW 2 · WINDOW_DEFINED=YES 16 · PUBLISHABLE 5 · VALIDATION_REQUIRED 38
+```
+
+Medidos por contagem independente, não copiados do handoff — e conferem.
+
+**`PRIMARY_MATCH` é nulo em 26 dos 43.** Esses 26 têm de chegar nulos ao client.
+É a maior superfície de risco do §8: `PORTFOLIO_MATCHES[0] → PRIMARY_MATCH` é a
+transformação mais natural do mundo para quem está montando um cartão, e é
+proibida.
+
+### O auditor foi testado contra as violações, não contra o caminho feliz
+
+Um auditor que só passa em entrada limpa não prova nada. Os cinco casos:
+
+| entrada | esperado | obtido |
+|---|---|---|
+| snapshot contra si mesmo | PASS | `exit 0` · `CHANGED = 0` |
+| os 16 `WINDOW_DEFINED` virando `ACT_NOW` | REJECT | `exit 1` · «*ACT_NOW = 16 … REJECT_CANDIDATE*» |
+| `PORTFOLIO_MATCHES[0] → PRIMARY_MATCH` | FAIL | `exit 1` · 14 registros nomeados |
+| `WINDOW_OPEN_NOW: UNKNOWN → NO` | FAIL | `exit 1` · 41 campos ofensores |
+| renome de chave **declarado** em `--map` | PASS | `exit 0` · renome é apresentação |
+| o mesmo renome **não declarado** | FAIL | `exit 1` |
+
+A última linha é o desenho, não um defeito: renomear chave é livre, mas tem de
+ser **declarado**. Renome não declarado e recálculo escondido são
+indistinguíveis de fora, e o auditor recusa os dois.
+
+### Como rodar quando a dona publicar
+
+```bash
+git fetch --all --prune
+# MEETING_PREVIOUS_HEAD = a54e287 ; COMMIT_RANGE = a54e287..<NEW_HEAD>
+git log --oneline a54e287..origin/claude/meeting-intelligence-integration
+git diff --stat a54e287..origin/claude/meeting-intelligence-integration
+
+python3 scripts/audit_adapter_boundary.py <client-model.json> [--map renames.json]
+```
+
+O auditor percorre **qualquer** formato de JSON e reconhece um caso por
+`OPP_[0-9A-F]+`, então funciona sem saber de antemão a forma que o adapter deu ao
+modelo. Devolve o veredito A/B/C/D, os ofensores por registro e por campo, as
+cinco testemunhas numéricas e as duas confusões nomeadas.
+
+### A regra que a auditoria serve
+
+    CORRIGIR A UI PARA ENTENDER O ESTADO.
+    NUNCA CORRIGIR O ESTADO PARA CABER NA UI.
+
+Se o veredito for **A** ou **B**: `ADAPTER_BOUNDARY = PASS`, **não abrir nova
+auditoria**, seguir direto para 43 rendered → D.CASES separados → contradições →
+IT/EN → mobile → gates → deploy.
+
+Se for **C** ou **D**: os ofensores saem nomeados, registro e campo, e a
+implementação não é aprovada até saírem.
