@@ -125,13 +125,26 @@ Este é o único caminho crítico da madrugada.
 | B · botrite × videira × Toscana | `OPP_F8106D5E1767` | `ACT_NOW` · `PHENOLOGY_WINDOW` · `OPEN_NOW=YES` · `PUBLISHABLE` ✅ |
 | C · tignoletta × videira × Umbria | `OPP_169BD86DB324` | `WATCH` · `THRESHOLD_WINDOW` · `VALIDATION_REQUIRED` ✅ |
 | D/E · carpocapsa × macieira × Veneto | `OPP_75C37DED9160` | `VALIDATE_NOW` · `RULE_DELEGATED_TO_FARM` · `PUBLISHABLE` ✅ |
-| F · scafoideo × videira × Toscana | `OPP_D11664591168` | `WATCH` · `WINDOW_TYPE = null` ⚠️ |
+| F · scafoideo × videira × Toscana | `OPP_D11664591168` | `WATCH` · `WINDOW_RULE_STATE = RULE_ADMINISTRATIVE_ONLY` · `WINDOW_TYPE = null` ✅ |
 
-⚠️ **Divergência registrada, não corrigida por esta aba.** O handoff apresenta F
-como a demonstração de `RULE_ADMINISTRATIVE_ONLY`, mas o caso não tem
-`WINDOW_TYPE` no snapshot. Ou a regra vive noutro campo, ou o caso F não sustenta
-a demonstração que lhe foi atribuída. **Quem integra deve medir antes de montar a
-tela em cima disso.** Não é motivo para mexer na inteligência.
+**Correção do próprio ciclo.** Registrei F como divergência porque procurei a
+regra em `WINDOW_TYPE` e achei `null`. Estava olhando o campo errado:
+
+```
+WINDOW_RULE_STATE   RULE_ADMINISTRATIVE_ONLY   (único dos 43)
+WINDOW_DEFINED      NO
+WINDOW_TYPE         null
+```
+
+`WINDOW_TYPE = null` **é a demonstração**, não um defeito: obrigação
+administrativa não é janela agronômica, então não tem tipo de janela. O caso F
+sustenta exatamente o que lhe foi atribuído. Os dois casos de regra são únicos no
+acervo — `RULE_ADMINISTRATIVE_ONLY` só em `OPP_D11664591168`,
+`RULE_DELEGATED_TO_FARM` só em `OPP_75C37DED9160` — e por isso não há substituto
+se algum deles cair da tela.
+
+Distribuição medida: `RULE_NOT_DECLARED` 26 · `RULE_DECLARED` 15 ·
+`RULE_DELEGATED_TO_FARM` 1 · `RULE_ADMINISTRATIVE_ONLY` 1.
 
 ### SINAL ABERTO NA DONA DA INTEGRAÇÃO
 
