@@ -51,6 +51,12 @@
        commerciale. Non spariscono — sarebbe perderle, e due di loro sono
        testimoni della riunione. Restano qui, chiamate per quello che sono. */
     navSignals:        ['Segnali', 'Signals'],
+    /* ── L'ACCESSO AI SEGNALI E SECONDARIO, E LO DICE STANDO IN BASSO ──
+       I diciassette servono a NON PERDERE intelligenza, non a sembrare un
+       secondo strumento. Fuori dal menu di primo livello, e raggiungibili da
+       una riga discreta in fondo al radar: il numero lo conta la superficie,
+       non e scritto qui. */
+    signalsEntry:      ['segnali in validazione', 'signals in validation'],
     subSignals:        ['Letture che non sostengono ancora un caso commerciale — restano qui, non fra le opportunità.',
                         'Readings that do not yet support a commercial case — they stay here, not among the opportunities.'],
     signalsNote:       ['Non è un\u2019opportunità commerciale: manca ciò che la renderebbe difendibile.',

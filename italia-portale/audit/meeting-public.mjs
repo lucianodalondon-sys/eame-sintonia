@@ -38,12 +38,10 @@ const NAV = (() => {
     const w = {}; const src = fs.readFileSync(path.join(CLIENT, 'meeting-labels.js'), 'utf8');
     new Function('window', src)(w);
     const d = w.MEETING_LABELS;
-    if (d && d.get) return { it: d.get('navMeeting', 'it'), en: d.get('navMeeting', 'en'),
-                             sit: d.get('navSignals', 'it'), sen: d.get('navSignals', 'en') };
+    if (d && d.get) return { it: d.get('navMeeting', 'it'), en: d.get('navMeeting', 'en') };
   } catch (e) { /* cade sul valore sotto */ }
-  return { it: 'Radar delle Opportunità', en: 'Opportunity Radar', sit: 'Segnali', sen: 'Signals' };
+  return { it: 'Radar delle Opportunità', en: 'Opportunity Radar' };
 })();
-const NAV_SIGNALS = { it: NAV.sit, en: NAV.sen };
 /* QUALI CASI VIVONO DOVE. Il motore dice se un caso regge come opportunita
    commerciale; i tre valori che reggono stanno nel radar, il quarto sta fra i
    segnali. Il portone deve cercare ogni testimone DOVE VIVE — non trovarlo
@@ -124,7 +122,10 @@ for (const width of [1440, 390]) {
     }
     /* E NIENTE SI PERDE: i segnali devono esserci tutti, e i due insiemi
        insieme devono fare ancora i casi del motore. */
-    if (await clickTitle(page, NAV_SIGNALS[lang])) {
+    /* I SEGNALI NON SONO PIU UNA VOCE DI MENU. Si arriva dalla riga in fondo
+       al radar: il portone deve entrare da dove entra il cliente, altrimenti
+       proverebbe una porta che nessuno usa. */
+    if (await clickSel(page, '[data-signals-entry]')) {
       await clickSel(page, '[data-meeting-filter="MEETING_FILTER_ALL"]');
       for (let i = 0; i < 3; i++) { if (!(await clickSel(page, '[data-meeting-more]'))) break; }
       const sg = await page.evaluate(() => [...document.querySelectorAll('[data-meeting-case]')].map((e) => e.getAttribute('data-meeting-case')));
@@ -135,7 +136,8 @@ for (const width of [1440, 390]) {
     } else { fail('NAV', `${width}px ${lang} · signals surface unreachable`); }
 
     for (const { id, what } of CASES) {
-      await clickTitle(page, (isSignal(id) ? NAV_SIGNALS : NAV)[lang]);
+      await clickTitle(page, NAV[lang]);
+      if (isSignal(id)) await clickSel(page, '[data-signals-entry]');
       await clickSel(page, '[data-meeting-filter="MEETING_FILTER_ALL"]');
       for (let i = 0; i < 3; i++) {
         if (await page.evaluate((w) => !!document.querySelector(`[data-meeting-case="${w}"]`), id)) break;

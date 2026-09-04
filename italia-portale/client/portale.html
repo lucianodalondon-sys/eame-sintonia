@@ -514,6 +514,16 @@
           </div>
         </sc-for>
       </div>
+      <!-- ══ I SEGNALI, IN FONDO E IN PICCOLO ══════════════════════════════
+           Una riga sola, sotto le schede: non un quarto contatore commerciale
+           — quelli restano tre — ma la porta che tiene raggiungibili i casi che
+           il motore non sostiene come opportunita. Non compare sulla schermata
+           dei segnali stessi: da li si torna dal radar, che e nel menu. -->
+      <sc-if value="{{ hasSignalsEntry }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;justify-content:center;padding-top:4px">
+          <span onClick="{{ goSignals }}" data-signals-entry="{{ meetingSignalsCount }}" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#8F8886;cursor:pointer;padding:6px 12px;border-radius:9999px;border:1px solid rgba(203,197,195,0.14)" style-hover="color:#C9C3C1;border-color:rgba(203,197,195,0.34)">{{ meetingSignalsCount }} {{ mt.signalsEntry }} →</span>
+        </div>
+      </sc-if>
       <sc-if value="{{ meetingHasMore }}" hint-placeholder-val="{{ false }}"><span onClick="{{ meetingMore }}" data-meeting-more="1" style="align-self:flex-start;display:inline-flex;align-items:center;height:32px;padding:0 16px;border-radius:9999px;cursor:pointer;font-size:11px;font-weight:700;color:#fff;background:rgba(0,152,69,0.16);border:1px solid rgba(0,152,69,0.45)">{{ mt.all }}</span></sc-if>
     </div>
     </sc-if>
@@ -4218,9 +4228,11 @@ class Component extends DCLogic {
          resa (vedi `isRadar`), cosi nessun percorso ci finisce dentro.
          Il conteggio viene dall'istantanea, mai scritto a mano. */
       ['meeting', mtL('navMeeting'), meetingCount],
-      /* I segnali sono un'area a parte, e non entrano in nessun conteggio
-         commerciale: e la meta del §6 — l'intelligenza resta, il nome no. */
-      ['msignals', mtL('navSignals'), meetingSignals.length],
+      /* I SEGNALI NON SONO UNO STRUMENTO. Stavano qui, accanto al radar, e una
+         voce di menu al primo livello dice «sono due cose» — che e proprio la
+         lettura sbagliata: i diciassette esistono per non perdere intelligenza,
+         non per affiancarsi alle opportunita. La rotta e la superficie restano
+         intere; si raggiungono da una riga in fondo al radar. */
       ['future', T.navFuture, navN('futureSignals')],
       ['windows', T.navWindows, navN('windows')],
       ['market', T.navMarket, navN('marketObservations')],
@@ -8969,12 +8981,18 @@ class Component extends DCLogic {
          griglia che il portale sa disegnare. */
       isMeeting: s.view === 'meeting' || s.view === 'radar' || s.view === 'msignals', isMcase: s.view === 'mcase',
       isSignalsView,
+      /* La riga dei segnali sta solo sul radar commerciale, e il numero viene
+         contato dalla superficie — mai scritto a mano. */
+      hasSignalsEntry: !isSignalsView && meetingSignals.length > 0,
+      meetingSignalsCount: meetingSignals.length,
+      goSignals: () => this.go({ view: 'msignals', mStatus: '', mShown: 24 }),
       /* i contatori commerciali esistono solo dove ci sono opportunita */
       hasCommercialCounts: !isSignalsView,
       mt: {
         nav: isSignalsView ? mtL('navSignals') : mtL('navMeeting'),
         sub: isSignalsView ? mtL('subSignals') : mtL('subMeeting'),
         signalsNote: mtL('signalsNote'),
+        signalsEntry: mtL('signalsEntry'),
         snapshot: mtL('meetingSnapshot'), srcHead: mtL('lblSourceHead'),
         buildId: mtL('lblBuildId'), cutoff: mtL('lblCutoff'),
         cases: mtL('lblCases'), of: mtL('lblOf'), all: mtL('lblAll'),

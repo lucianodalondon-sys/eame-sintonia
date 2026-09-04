@@ -329,10 +329,9 @@ check('N1', 'Nav counts match the active normalized collections', () => {
        esattamente il difetto per cui questo controllo esiste. */
     (() => { const s2 = m.ctx.MEETING_SURFACE && m.ctx.MEETING_SURFACE.build('it');
              return s2 ? s2.commercial.length : (m.ctx.MEETING_INTELLIGENCE || {}).TOTAL_CASES; })(),
-    /* I SEGNALI SONO UN CONTEGGIO A PARTE, e devono restarlo: sommarli alle
-       opportunita rifarebbe il numero che questa missione ha appena separato. */
-    (() => { const s2 = m.ctx.MEETING_SURFACE && m.ctx.MEETING_SURFACE.build('it');
-             return s2 ? s2.signals.length : 0; })(),
+    /* I SEGNALI NON HANNO PIU UN BADGE: non sono uno strumento, e la voce di
+       primo livello e stata tolta. Restano raggiungibili da una riga in fondo
+       al radar, e il loro numero non e un contatore di menu. */
     AM.collections.futureSignals.count,
     AM.collections.cropWindows.count,
     AM.collections.marketObservations.count,
