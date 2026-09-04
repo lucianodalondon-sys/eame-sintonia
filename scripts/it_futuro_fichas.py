@@ -164,6 +164,35 @@ def main(runs):
                   if x.get('AUTOAVALIACAO_DO_AUTOR') == 'SINAL_COMPLETO'
                   and x['ESTADO'] in ('PARCIAL', 'DERRUBADO')]
 
+    # ── A QUEM SE DEVE CADA QUEDA ────────────────────────────────────────────
+    # Um sinal pode cair por mais de uma razao, e contar cada queda uma so vez
+    # esconderia a segunda. Entao um candidato aparece em TODAS as causas que o
+    # refutador marcou, e a soma das causas NAO tem de bater com o numero de
+    # quedas — dizer que bate seria arredondar a verdade para a tabela ficar
+    # bonita.
+    #
+    #     UMA QUEDA COM DUAS CAUSAS SAO DUAS CAUSAS, NAO MEIA CADA.
+    #
+    # OUTROS_REBAIXAMENTOS e o que sobra: caiu, e nenhum dos tres testes duros o
+    # explica. Esse resto e para ler, nao para ignorar.
+    caidos = {x['CAND_ID']: x for x in linhas if x['ESTADO'] in ('PARCIAL', 'DERRUBADO')}
+
+    def por_causa(campos):
+        return sorted(c for c, x in caidos.items()
+                      if any(x.get(k) == 'SIM' for k in campos))
+
+    causa_data = por_causa(['ESTADO_DO_TEMPO_ERRADO', 'HORIZONTE_ERRADO'])
+    causa_janela = por_causa(['JANELA_INVENTADA'])
+    causa_port = por_causa(['PORTFOLIO_ERRADO', 'UNIAO_MAQUIADA'])
+    explicados = set(causa_data) | set(causa_janela) | set(causa_port)
+    outros = [{'CAND_ID': c, 'ESTADO': x['ESTADO'],
+               'MOTIVO': (x.get('MOTIVO_DO_VEREDITO') or '')[:400],
+               'DEPARTAMENTOS_SEM_RAZAO': x.get('DEPARTAMENTOS_SEM_RAZAO')}
+              for c, x in sorted(caidos.items()) if c not in explicados]
+
+    discordancias = [{'CAND_ID': k, 'VEREDITOS': v} for k, v in sorted(duplicados.items())
+                     for a, b in v if a != b]
+
     ordem_valor = {'ALTO': 0, 'MEDIO': 1, 'BAIXO': 2, None: 3}
     top = sorted(completos, key=lambda x: (
         ordem_valor.get(x['VALOR'], 3),
@@ -204,6 +233,16 @@ def main(runs):
         'PARCIAL': len(parciais),
         'DERRUBADO': len(caidos),
         'AUTOR_SE_DEU_POR_COMPLETO_E_FOI_REBAIXADO': rebaixados,
+        'VEREDITOS_REBAIXADOS_POR_REFUTADOR': len(rebaixados),
+        'DISCORDANCIAS_ENTRE_REFUTADORES': discordancias,
+        'DATA_DERRUBOU_OU_REBAIXOU': causa_data,
+        'JANELA_DERRUBOU_OU_REBAIXOU': causa_janela,
+        'PORTFOLIO_DERRUBOU_OU_REBAIXOU': causa_port,
+        'OUTROS_REBAIXAMENTOS': outros,
+        'PORQUE_AS_CAUSAS_NAO_SOMAM': (
+            'um candidato aparece em todas as causas que o refutador lhe marcou. A soma das '
+            'causas nao tem de bater com o numero de quedas: uma queda com duas causas sao '
+            'duas causas, nao meia cada.'),
         'POR_VALOR': dict(Counter(x['VALOR'] for x in linhas if x.get('VALOR'))),
         'POR_ACAO': dict(Counter(x['F_ACAO_POSSIVEL']['CLASSE'] for x in linhas
                                  if x.get('F_ACAO_POSSIVEL'))),
@@ -246,6 +285,11 @@ def main(runs):
     print('FICHA INTEIRA   ', saida['REFUTACAO_SOBRE_FICHA_INTEIRA'], 'de', len(linhas))
     print('TEMPO ERRADO    ', saida['ESTADO_DO_TEMPO_ERRADO_APANHADO'])
     print('HORIZONTE ERRADO', saida['HORIZONTE_ERRADO_APANHADO'])
+    print('CAUSA DATA      ', causa_data)
+    print('CAUSA JANELA    ', causa_janela)
+    print('CAUSA PORTFOLIO ', causa_port)
+    print('OUTRAS QUEDAS   ', len(outros))
+    print('DISCORDANCIAS   ', len(discordancias))
     print('TOP 3           ', saida['OS_TRES_DE_MAIOR_VALOR'])
     for x in top:
         print('   %s %-6s %-22s %s' % (x['CAND_ID'], x['VALOR'],
