@@ -245,6 +245,13 @@
       /* The sentence the screen shows when the engine crowned nobody. It says
          WHY there is no primary; it does not apologise and it does not pick. */
       noPrimarySentence: matches.length ? lab('lblNoPrimary', lang) : lab('lblNoProducts', lang),
+      /* La riga che la SCHEDA stampa. Nomina il prodotto solo se il motore lo
+         ha nominato; altrimenti conta. Non c'e nessun ramo che scelga. */
+      cardLine: (() => {
+        if (primary) return primary.name;
+        if (!matches.length) return lab('lblNoProductShort', lang);
+        return matches.length + ' ' + lab(matches.length === 1 ? 'lblProductLinked' : 'lblProductsLinked', lang);
+      })(),
       allProductsSentence: lab('lblAllProducts', lang),
       OWNER: 'MEETING_INTELLIGENCE',
     };

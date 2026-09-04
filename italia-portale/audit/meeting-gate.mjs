@@ -395,6 +395,60 @@ check('EVERY_CARD_IS_TITLED', 'No card reaches the radar without a headline', ()
   return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad.slice(0, 6) };
 });
 
+check('NO_OLD_SNAPSHOT_FALLBACK', 'The canonical surface never reads the older package, and it is what opens', () => {
+  const bad = [];
+  /* IL PACCHETTO VECCHIO E ANCORA IN PAGINA, E VA BENE — ma non deve
+     alimentare la superficie della riunione, e non deve essere la schermata
+     che si apre. Misurato: italy-handoff-v21.js porta il build
+     V21-99226fbb90dcdbc2, anteriore alla riconciliazione; su 43 casi
+     dichiara 16 AGIRE ORA dove il motore ne dichiara 2. */
+  const oldBuild = (ctx.ITALY_HANDOFF_V21 || {}).buildId || null;
+  if (oldBuild && oldBuild === SNAP.BUILD_ID) bad.push('the two builds are the same — this witness would be vacuous');
+
+  const src = fs.readFileSync(path.join(CLIENT, 'meeting-surface.js'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+  for (const forbidden of ['ITALY_HANDOFF_V21', 'collections.opportunities', 'upstreamOpportunities']) {
+    if (src.includes(forbidden)) bad.push(`meeting-surface.js reads ${forbidden}`);
+  }
+  /* e la schermata che si apre e quella canonica */
+  const landing = (new (ctx.__Component)()).state.view;
+  if (landing !== 'meeting') bad.push(`the portal opens on '${landing}', not on the canonical surface`);
+
+  /* prova che il vecchio pacchetto DAVVERO diverge — senza questo il portone
+     misurerebbe una differenza che non esiste */
+  const oldOpps = (ctx.ITALY_HANDOFF_V21 || {}).opportunities || [];
+  const byId = new Map(SNAP.CASES.map((c) => [c.ID, c]));
+  const drift = oldOpps.filter((o) => byId.get(o.ID) && byId.get(o.ID).STATUS !== o.STATUS).length;
+  if (!drift) bad.push('VACUOUS: the old package agrees with the snapshot, so nothing was proven');
+  return { pass: !bad.length, expected: 0, measured: bad.length,
+    detail: bad.concat([`old build ${oldBuild} · snapshot ${SNAP.BUILD_ID} · cases whose STATUS drifted: ${drift}/43`]) };
+});
+
+check('SIX_WITNESSES_UI_MATCH_ENGINE', 'The meeting witness cases read on screen exactly what the engine decided', () => {
+  const WIT = ['OPP_5F31A63F844D', 'OPP_F8106D5E1767', 'OPP_169BD86DB324', 'OPP_75C37DED9160', 'OPP_D11664591168'];
+  const bad = [];
+  for (const id of WIT) {
+    const e = SNAP.CASES.find((c) => c.ID === id);
+    if (!e) { bad.push(`${id}: not in the snapshot`); continue; }
+    const v = m.vals({ view: 'mcase', lang: 'it', mCaseId: id });
+    const c = v.mc;
+    const cmp = [
+      ['STATUS', c.statusCode, e.STATUS],
+      ['COMMERCIAL_PRIORITY', c.priorityCode, e.COMMERCIAL_PRIORITY],
+      ['PUBLICATION_STATE', c.publicationCode, e.PUBLICATION_STATE],
+      ['WINDOW_DEFINED', c.window.DEFINED, e.WINDOW_DEFINED],
+      ['WINDOW_OPEN_NOW', c.window.OPEN_NOW, 'WINDOW_OPEN_NOW_' + (e.WINDOW_OPEN_NOW || 'UNKNOWN')],
+      ['WINDOW_TYPE', c.window.TYPE, e.WINDOW_TYPE || null],
+      ['PRIMARY_MATCH', c.products.primaryId, e.PRIMARY_MATCH || null],
+      ['PORTFOLIO_MATCHES', c.products.count, (e.PORTFOLIO_MATCHES || []).length],
+      ['ACTION_BY_DEPARTMENT', c.actions.length, Object.keys(e.ACTION_BY_DEPARTMENT || {}).length],
+      ['WHY_NOW_CHAIN', c.whyNow.links.length, Object.keys(e.WHY_NOW_CHAIN || {}).length],
+      ['EVIDENCE_ROLES', c.evidence.count, (e.EVIDENCE_ROLES || []).length],
+    ];
+    for (const [f, shown, engine] of cmp) if (JSON.stringify(shown) !== JSON.stringify(engine)) bad.push(`${id} ${f}: screen ${JSON.stringify(shown)} vs engine ${JSON.stringify(engine)}`);
+  }
+  return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad.slice(0, 8).concat([`witnesses matched: ${WIT.length - new Set(bad.map((b) => b.split(' ')[0])).size}/${WIT.length}`]) };
+});
+
 /* ── 8 · le due superfici non si mescolano ───────────────────────────────── */
 check('DEMO_AND_CANONICAL_SEPARATED', 'The 21 demonstration cases never enter the canonical surface', () => {
   const bad = [];

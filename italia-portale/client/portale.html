@@ -455,7 +455,7 @@
              Un pacchetto che non dice da quale commit viene sembra auditabile
              senza esserlo. Queste tre righe sono la firma del build. -->
         <div style="display:flex;flex-direction:column;gap:3px;padding:9px 13px;border-radius:11px;background:#1C1817;border:1px solid rgba(203,197,195,0.10)">
-          <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ mt.snapshot }}</div>
+          <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ mt.snapshot }}</div>
           <div style="display:flex;gap:14px;flex-wrap:wrap;font-size:10px;color:#C9C3C1">
             <span>{{ mt.srcHead }} <b style="color:#fff;font-variant-numeric:tabular-nums">{{ meetingMeta.SOURCE_HEAD }}</b></span>
             <span>{{ mt.buildId }} <b style="color:#fff;font-variant-numeric:tabular-nums">{{ meetingMeta.BUILD_ID }}</b></span>
@@ -484,7 +484,7 @@
 
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:10px">
         <sc-for list="{{ meetingCases }}" as="c" hint-placeholder-count="12">
-          <div onClick="{{ c.open }}" data-meeting-case="{{ c.id }}" data-primary="{{ c.primaryName }}" data-window-defined="{{ c.window.DEFINED }}" data-window-open="{{ c.window.OPEN_NOW }}" style="position:relative;overflow:hidden;cursor:pointer;border-radius:14px;border:1px solid {{ c.onChipEdge }};background:{{ c.surfaceDark }};padding:13px 14px;display:flex;flex-direction:column;gap:9px" style-hover="border-color:{{ c.onRule }}">
+          <div onClick="{{ c.open }}" data-case="{{ c.id }}" data-meeting-case="{{ c.id }}" data-primary="{{ c.primaryName }}" data-window-defined="{{ c.window.DEFINED }}" data-window-open="{{ c.window.OPEN_NOW }}" style="position:relative;overflow:hidden;cursor:pointer;border-radius:14px;border:1px solid {{ c.onChipEdge }};background:{{ c.surfaceDark }};padding:13px 14px;display:flex;flex-direction:column;gap:9px" style-hover="border-color:{{ c.onRule }}">
             <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
               <div style="font-size:14px;font-weight:700;line-height:1.25;color:{{ c.onInk }}">{{ c.title }}</div>
               <sc-if value="{{ c.isActNow }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:9999px;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.1em;white-space:nowrap;background:{{ c.actPill.bg }};color:{{ c.actPill.ink }}">{{ c.status }}</span></sc-if>
@@ -494,7 +494,7 @@
                  Mostrare solo i 5 pubblicabili sarebbe una bugia per omissione;
                  mostrare i 38 senza dirlo sarebbe peggio. -->
             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-              <span style="display:inline-flex;align-items:center;height:19px;padding:0 9px;border-radius:9999px;font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.1em;background:transparent;border:1px solid {{ c.onChipEdge }};color:{{ c.onBody }}">{{ c.publication }}</span>
+              <span style="display:inline-flex;align-items:center;height:19px;padding:0 9px;border-radius:9999px;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.1em;background:transparent;border:1px solid {{ c.onChipEdge }};color:{{ c.onBody }}">{{ c.publication }}</span>
               <span style="font-size:10px;color:{{ c.onMuted }}">{{ c.priority }}</span>
             </div>
             <!-- LA REGOLA E LO STATO, DUE RIGHE. Una sola riga qui e esattamente
@@ -503,7 +503,9 @@
               <div style="font-size:10px;line-height:1.35;color:{{ c.onBody }}">{{ c.windowRule }}</div>
               <div style="font-size:10px;line-height:1.35;color:{{ c.onMuted }}">{{ c.windowState }}</div>
             </div>
-            <div style="font-size:10px;color:{{ c.onMuted }}">{{ c.productCount }} · {{ c.evidenceCount }}</div>
+            <!-- LA RIGA DI PRODOTTO · nomina solo cio che il motore ha nominato.
+                 Dove PRIMARY_MATCH e nullo la scheda CONTA e non sceglie. -->
+            <div data-product="{{ c.cardLine }}" style="font-size:11px;font-weight:600;color:{{ c.onBody }}">{{ c.cardLine }}</div>
           </div>
         </sc-for>
       </div>
@@ -2681,7 +2683,24 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
 class Component extends DCLogic {
-  state = { view: 'radar', caseId: null, mCaseId: null, mStatus: '', mShown: 24, companyId: null, themeId: null, personId: null, sourceId: null, archiveId: null,
+  /* ══ LA SCHERMATA CHE SI APRE E QUELLA CANONICA ═══════════════════════════
+     Misurato: il radar storico legge `italy-handoff-v21.js`, che porta il
+     build V21-99226fbb90dcdbc2 — ANTERIORE alla riconciliazione. Le stesse 43
+     coppie, ma con la vecchia lettura: 16 schede dicono AGIRE ORA dove il
+     motore riconciliato ne dichiara 2, e 25 casi su 43 portano uno STATUS che
+     l'istantanea non riconosce piu (PREPARE_NOW non esiste nemmeno nel
+     vocabolario attuale). Sui sei casi testimoni: 0/5 combaciano col motore.
+
+     Chi apriva il portale atterrava LI. Non su schede «di demo»: su schede
+     canoniche VECCHIE, che e peggio, perche sembrano attuali.
+
+         UNA SCHERMATA CHE SEMBRA CANONICA E NON E AGGIORNATA
+         NON E UNA SCHERMATA VECCHIA: E UNA SCHERMATA SBAGLIATA.
+
+     Qui non si ridisegna e non si ricalcola niente: cambia SOLO quale
+     superficie si apre. La canonica legge l'istantanea b3935bd /
+     V21-358954754db5ea2f e combacia 5/5. */
+  state = { view: 'meeting', caseId: null, mCaseId: null, mStatus: '', mShown: 24, companyId: null, themeId: null, personId: null, sourceId: null, archiveId: null,
     fCrop: '', fIssue: '', fRegion: '', fStatus: '', fProduct: '', fDept: '', sort: 'relevant', showAll: false, query: '', committedQuery: '',
     futureStatus: '', futureSource: '', futureShown: 16, compView: 'feed', fCompany: '', fType: '', fPeriod: '', compShown: 12, eventId: null, cproductId: null,
     showDataState: false,
@@ -3365,6 +3384,7 @@ class Component extends DCLogic {
          numero che nessuno ha ricontato. */
       productCount: c.products.count,
       primaryName: c.products.hasPrimary ? c.products.primary.name : '',
+      cardLine: c.products.cardLine,
       windowRule: c.window.ruleSentence, windowState: c.window.stateSentence,
     }));
     /* I CONTEGGI VENGONO DAI 43 E DA NESSUN ALTRO INSIEME.

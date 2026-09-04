@@ -21,6 +21,60 @@ FREEZE_TIME   2026-09-04T02:5xZ  (o commit que traz esta linha)
 DEPLOY_URL    https://sintonia-eame-preview-8p1qae38s-london-creative.vercel.app
 ```
 
+## 0.-1 · ⚠️ PORQUE OS CARDS PARECIAM ANTIGOS — medido, e corrigido
+
+O portal abria em `view: 'radar'` (portale.html), o **radar histórico**. Esse
+radar não mostra os 21 casos de demonstração: mostra os **43 canónicos**, mas
+lidos de `italy-handoff-v21.js`, que é um pacote **anterior à reconciliação**.
+
+```
+italy-handoff-v21.js   buildId  V21-99226fbb90dcdbc2   ← o que se abria
+meeting snapshot       BUILD_ID V21-358954754db5ea2f   ← b3935bd, reconciliado
+```
+
+Não é um detalhe de versão. É outra leitura da mesma realidade:
+
+```
+STATUS no pacote antigo : TO_VALIDATE 9 · ACT_NOW 16 · PREPARE_NOW 11 · FUTURE_PREPARATION 7
+STATUS reconciliado     : TO_VALIDATE 9 · WATCH 22 · FUTURE_PREPARATION 7 · VALIDATE_NOW 3 · ACT_NOW 2
+
+25 de 43 casos com STATUS diferente
+16 cartões diziam AGIRE ORA onde o motor declara 2
+PREPARE_NOW nem sequer existe no vocabulário atual
+```
+
+E o pacote antigo **não tem** os campos da reconciliação — medido no objeto
+cru: `PUBLICATION_STATE`, `WINDOW_DEFINED`, `WINDOW_OPEN_NOW`, `WINDOW_TYPE`,
+`WINDOW_RULE_STATE`, `PRIMARY_MATCH`, `PORTFOLIO_MATCHES`,
+`ACTION_BY_DEPARTMENT`, `WHY_NOW_CHAIN`, `EVIDENCE_ROLES`, `WHY_COMMERCIAL_IT`
+— **todos ausentes**. Aquela tela não podia mostrar a inteligência nova nem
+que quisesse.
+
+Nos seis casos-testemunha: **superfície canónica 5/5**, **radar histórico 0/5**
+(todos liam AGIRE ORA, incluindo Umbria que é WATCH e Veneto que é
+VALIDATE_NOW).
+
+    NÃO ERAM CARTÕES «DE DEMO». ERAM CARTÕES CANÓNICOS VELHOS —
+    O QUE É PIOR, PORQUE PARECEM ATUAIS.
+
+**A correção foi só de binding**, sem redesenho, sem tocar no motor, no
+adapter, na coleta ou nos 21 casos:
+
+1. o portal passa a abrir em `view: 'meeting'` — a superfície canónica;
+2. o radar histórico declara-se no seu subtítulo (build + «não é a leitura
+   canónica da reunião»), para não poder ser lido como atual;
+3. a scheda canónica ganhou `data-case` (o gancho de identidade que os portões
+   desta casa já conhecem) e uma linha de produto que **nomeia só o que o motor
+   nomeou** — 17 cartões nomeiam, 26 contam («4 prodotti collegati»);
+4. três textos a 9,5px passaram a 10px (o portão móvel só os via agora que
+   esta é a tela que abre).
+
+Portões novos: `NO_OLD_SNAPSHOT_FALLBACK` e `SIX_WITNESSES_UI_MATCH_ENGINE`.
+O primeiro declara-se `VACUOUS` se os dois builds coincidirem, para não medir
+uma diferença que não existe.
+
+---
+
 ## 0.0 · ⚠️ DUAS SESSÕES CONSTRUÍRAM A MESMA COISA — LEIA ANTES DE ESCOLHER
 
 Enquanto esta sessão trabalhava, outra (`overnight-meeting-orchestrator`)

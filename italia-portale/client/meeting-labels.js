@@ -47,6 +47,12 @@
                         'Every linked product, none crowned'],
     lblNoProducts:     ['Nessun prodotto del catalogo collegato a questa coppia',
                         'No catalogue product linked to this pair'],
+    /* La riga di prodotto della SCHEDA. Dove il motore ha nominato un
+       principale, la scheda lo nomina. Dove non l'ha nominato, la scheda
+       CONTA e non sceglie — «3 prodotti collegati» e vero, «BANJO +2» no. */
+    lblProductsLinked: ['prodotti collegati', 'linked products'],
+    lblProductLinked:  ['prodotto collegato', 'linked product'],
+    lblNoProductShort: ['nessun prodotto collegato', 'no linked product'],
     lblPrimaryOne:     ['Unico prodotto del catalogo per questa coppia',
                         'The only catalogue product for this pair'],
     lblEvidenceOf:     ['evidenze', 'evidence items'],
