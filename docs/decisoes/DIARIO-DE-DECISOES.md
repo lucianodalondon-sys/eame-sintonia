@@ -536,6 +536,81 @@ Regras do diário:
   `NAME_OR_ORG_USED_AS_OPERATIONAL_ID = 0` · `FOLLOWERS_USED_AS_AUTHORITY = 0` ·
   `ID_MIGRATION_LOSS = 0`.
 
+---
+
+### D-027 — Endereço partilhado por duas pessoas não é identidade de nenhuma
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO
+- **Contexto:** a resolução de entidade é por **claim**. Ao ligar as portas declaradas no
+  ORCID, apareceu o caso real: **Marco Lapris** e **Michela Errico** declaram as **mesmas
+  duas URLs** (`dipartimenti.unicatt.it/diana-home` e
+  `scuoledidottorato.unicatt.it/agrisystem-home`). Sem guarda, as duas pessoas virariam
+  **uma entidade**.
+- **Decisão:** três guardas, todos medidos na saída.
+  **(1)** raiz de domínio não vira claim — URL sem caminho é o endereço do **empregador**,
+  não da pessoa; entra como FONTE e não participa da resolução (acionado **4×**).
+  **(2)** duas entidades com ORCID distinto **nunca** fundem — união recusada e registrada.
+  **(3)** endereço declarado por **≥2** pesquisadores distintos é página institucional
+  compartilhada, não identidade (acionado **4×**).
+- **Motivo:** a lei da casa é *"Nome NUNCA é identificador"*; o corolário que faltava é que
+  **endereço institucional também não é identidade pessoal**. Sem isso, o mecanismo que
+  protege contra homônimo abriria uma porta pior: fundir por empregador.
+- **Consequência:** `NEW_ENTITIES = 0` · `ENTIDADES_COM_DOIS_ORCID = nenhuma`.
+
+---
+
+### D-028 — ORCID declara cargo acadêmico, não papel de campo
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO
+- **Medido:** `employments.role-title` provou **114 papéis** em 107 entidades — e quase
+  todos acadêmicos: `pesquisador` 60 · `professor` 31 · `estudante` 7 · **`tecnico` 3**.
+  `AGRONOMIST_PROVED = 0` · `PRODUCER_PROVED = 0` · `CONSULTANT_PROVED = 0`.
+- **Decisão:** a rota ORCID fecha o buraco **científico** e **não** fecha o buraco de campo.
+  Um `Ricercatore` é pesquisador provado; não é agrônomo, técnico de campo nem produtor por
+  isso. `PROVED_FIELD_ROLES` sobe de 0 para **3**, e o número é o que é.
+- **Deliberadamente sem mapa:** `Director`, `Collaboratori`, `Group Leader` — posição
+  hierárquica, não papel agrícola. Mapeá-los seria inventar papel a partir de organograma.
+- **A rota dos sites rendeu pouco, e isso é informação:** 21 sites lidos, **4** com título
+  profissional em posição estruturada. Dois vieram de `og:description`, que é campo
+  estruturado com **conteúdo livre** — entraram como **PROBABLE**, nunca PROVADO. O
+  contrato espelhado admite grau intermediário (`enderecos.confianca` brasileiro).
+
+---
+
+### D-029 — IDENTITY_SOURCE não é MONITORABLE_CHANNEL
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO
+- **Medido:** das **53** portas novas, **50 são só identidade** e **3** são canal
+  monitorável. Dos 135 pesquisadores, **32** ganharam porta e apenas **3** têm superfície
+  onde conteúdo novo apareça.
+- **Decisão:** os dois estados são separados e medidos em separado.
+  `RESEARCHERS_WITH_MONITORABLE_CHANNEL` e `RESEARCHERS_WITH_IDENTITY_SOURCE_ONLY` nunca se
+  somam. Uma página institucional prova **quem a pessoa é** e pode nunca publicar nada;
+  chamá-la de monitorável seria prometer uma coleta sem o que colher.
+- **`researchgate` e `scholar` ficam como IDENTITY**, por decisão declarada: publicam obra
+  nova, mas são **espelho da produção científica que o Europe PMC já cobre** — contá-los
+  como canal novo seria contar a mesma testemunha duas vezes.
+
+---
+
+### D-030 — Portão aberto para coleta social, com duas ressalvas que o SIM não apaga
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO
+- **`SOURCE_RESOLUTION_READY = SIM`** e **`SOCIAL_CONTENT_COLLECTION_READY = SIM`**: as seis
+  condições declaradas estão satisfeitas e medidas — conteúdo anexa a `SOURCE_ID`; toda
+  fonte aponta para entidade **ou** carrega dívida explícita (91 `UNRESOLVED` nomeadas);
+  canal novo não cria entidade; papel não depende de conteúdo; autoridade não depende de
+  followers; e há universo declarado.
+- **`COLLECTION_UNIVERSE` proposto, não executado:** **89 canais monitoráveis, 44 entidades**
+  — YouTube 45 · Instagram 15 · LinkedIn 9 · TikTok 3 · outros 17. Fora: 154 fontes
+  só-identidade e 91 `UNRESOLVED`.
+- **Ressalva 1:** **79 dos 89 canais pertencem a entidades sem papel provado.** A coleta é
+  arquiteturalmente segura, mas o que voltar será atribuível a uma entidade cujo papel
+  agrícola continua `NÃO SEI`. Serve para medir *o que se fala*; não sustenta *quem é o
+  sensor*.
+- **Ressalva 2:** **`APIFY_TOKEN` continua ausente.** Não é uma das seis condições e por
+  isso não derruba o `SIM` — mas bloqueia a execução e não deve ser descoberto na hora.
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |

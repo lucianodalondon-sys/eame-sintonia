@@ -18,7 +18,7 @@
   "PROVADO_IT": 40
  },
  "MULTI_SOURCE_ENTITIES": 32,
- "MULTI_ROLE_ENTITIES": 11,
+ "MULTI_ROLE_ENTITIES": 58,
  "ROLES_REMOVED": [
   {
    "ENTITY_ID": "IT-E-000177",
@@ -138,19 +138,31 @@
      "VALOR": "0000-0003-3572-8686",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "RESEARCHGATE",
+     "VALOR": "https://www.researchgate.net/profile/silvia_toffolatti2",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Research fellow\" em Università degli Studi di Milano — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Associate professor\" em Università degli Studi di Milano — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "LOMBARDIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -194,7 +206,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-98ce0e6a98"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi di Milano) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000002",
@@ -210,6 +223,12 @@
      "VALOR": "0000-0003-0415-2581",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "RESEARCHGATE",
+     "VALOR": "https://www.researchgate.net/profile/giuliana-maddalena",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
@@ -283,6 +302,12 @@
      "VALOR": "0000-0003-0390-4008",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "RESEARCHGATE",
+     "VALOR": "https://www.researchgate.net/profile/gianfranco_romanazzi/publications",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
@@ -291,11 +316,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Professor\" em Università Politecnica delle Marche — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "MARCHE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -336,7 +367,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-11f66405c9"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università Politecnica delle Marche) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000004",
@@ -416,6 +448,12 @@
      "VALOR": "0000-0001-7218-9963",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "https://webapps.unitn.it/du/it/persona/per0202463/pubblicazioni",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
@@ -424,11 +462,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Associate Professor\" em University of Trento — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "TRENTINO-ALTO ADIGE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -458,7 +502,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-6616ab45da"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Trento) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000006",
@@ -548,11 +593,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Full professor\" em Università Cattolica del Sacro Cuore — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "EMILIA-ROMAGNA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -583,7 +634,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-e2d3899399"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università Cattolica del Sacro Cuore) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000008",
@@ -604,14 +656,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Research Leader\" em National Research Council — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PUGLIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -641,7 +693,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-aa0f1382ac"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Consiglio Nazionale delle Ricerche) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000009",
@@ -723,19 +776,25 @@
      "VALOR": "0000-0001-5009-5798",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "RESEARCHGATE",
+     "VALOR": "https://www.researchgate.net/profile/luca-nerva",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Consiglio per la ricerca in agricoltura e l'analisi dell'economia agraria — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "VENETO",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -770,7 +829,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-f3120c875c"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Consiglio Nazionale delle Ricerche, Istituto per la Protezione Sostenibile delle Piante) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000011",
@@ -850,19 +910,31 @@
      "VALOR": "0000-0002-5382-3794",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "http://www.ipsp.cnr.it/researchers/chitarra-walter",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
+    },
+    {
+     "TIPO": "RESEARCHGATE",
+     "VALOR": "https://www.researchgate.net/profile/walter_chitarra",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Council for Agricultural Research and Agricultural Economy Analysis — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "VENETO",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -898,7 +970,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-2dab3b026a"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Consiglio Nazionale delle Ricerche) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000013",
@@ -985,14 +1058,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"PostDoc\" em Umeå Universitet — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "LOMBARDIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -1030,7 +1103,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-558ac25e89"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Milan) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000015",
@@ -1051,14 +1125,20 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Ricercatore a tempo determinato B (RTD-B)\" em University of Milan — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Associate Professor\" em University of Milan — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "LOMBARDIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -1093,7 +1173,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-9830e9a5fa"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi di Milano) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000016",
@@ -1109,19 +1190,37 @@
      "VALOR": "0000-0003-4798-5874",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "RESEARCHGATE",
+     "VALOR": "https://www.researchgate.net/profile/luca-sella",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
+    },
+    {
+     "TIPO": "SCHOLAR",
+     "VALOR": "https://scholar.google.it/citations?user=1xx-hd4aaaaj&hl=it",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Ricercatori\" em Università di Padova — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Docenti di ruolo di IIa fascia\" em Università di Padova — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "VENETO",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -1156,7 +1255,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-b9a286056f"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università di Padova) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000017",
@@ -1177,14 +1277,20 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Università Cattolica del Sacro Cuore Sede di Piacenza e Cremona — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Full Professor\" em Università Cattolica del Sacro Cuore Sede di Piacenza e Cremona — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "EMILIA-ROMAGNA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -1212,7 +1318,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-c1dd822f46"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università Cattolica del Sacro Cuore Sede di Piacenza e Cremona) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000018",
@@ -1353,14 +1460,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher I\" em CNR, Istituto per la Protezione Sostenibile delle Piante — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PIEMONTE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -1387,7 +1494,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-d8c6e45eb3"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (CNR, Istituto per la Protezione Sostenibile delle Piante) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000021",
@@ -1403,19 +1511,25 @@
      "VALOR": "0000-0002-6018-7319",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "SCHOLAR",
+     "VALOR": "https://scholar.google.com/citations?user=we8uudaaaaaj&hl=it&oi=ao",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Università degli Studi della Basilicata — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "BASILICATA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -1443,7 +1557,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-0fcffa26a1"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi della Basilicata) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000022",
@@ -1464,14 +1579,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Fixed Term Researcher (rtdA)\" em University of Naples Federico II — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "CAMPANIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -1511,7 +1626,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-6fb4d5d1b1"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Naples Federico II) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000023",
@@ -1532,14 +1648,20 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Senior Researcher\" em Università degli Studi di Roma La Sapienza — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"adjunct professor in molecular plant pathology\" em Università degli Studi di Roma La Sapienza — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "LAZIO",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -1576,7 +1698,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-dba4ac220b"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi dell'Aquila) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000024",
@@ -1658,19 +1781,25 @@
      "VALOR": "0000-0003-4036-5322",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "https://cri.fmach.it/en/unita-di-ricerca/plant-protection",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Fondazione Edmund Mach Centro Ricerca e Innovazione — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "TRENTINO-ALTO ADIGE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -1696,7 +1825,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-8f2911b792"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Fondazione Edmund Mach Centro Ricerca e Innovazione) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000026",
@@ -1720,11 +1850,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Docenti di ruolo di IIa fascia\" em Università di Padova — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "VENETO",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -1753,7 +1889,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-ae45d003a7"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università di Padova) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000027",
@@ -1829,19 +1966,25 @@
      "VALOR": "0000-0001-6637-0678",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "http://www.ipsp.cnr.it/researchers/galetto-luciana",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Consiglio Nazionale delle Ricerche Istituto per la Protezione Sostenibile delle Piante — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PIEMONTE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -1868,7 +2011,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-c9b6995bd6"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Consiglio Nazionale delle Ricerche Istituto per la Protezione Sostenibile delle Piante) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000029",
@@ -1892,11 +2036,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "estudante",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"PhD\" em Università di Pisa — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "TOSCANA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -1932,7 +2082,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-4aadec4477"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università di Pisa) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000030",
@@ -1953,14 +2104,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Research fellow\" em IPSP — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PIEMONTE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -1993,7 +2144,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-c90c8cd784"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (IPSP-CNR) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000031",
@@ -2017,11 +2169,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Associate Professor\" em University of Turin — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PIEMONTE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -2046,7 +2204,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-32ca3e4621"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Turin) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000032",
@@ -2067,14 +2226,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Scientist\" em Consiglio per la ricerca in agricoltura e l’analisi dell’economia agraria (CREA) - Cereal Research Centre — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PUGLIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -2104,7 +2263,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-72fffa8102"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Consiglio per la ricerca in agricoltura e l’analisi dell’economia agraria (CREA) - Cereal Research Centre) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000033",
@@ -2294,11 +2454,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Full Professor in General and Applied Entomology\" em University of Trento — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "TRENTINO-ALTO ADIGE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -2324,7 +2490,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-40fd13adec"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Trento) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000037",
@@ -2400,11 +2567,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Professor\" em University of Basilicata — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "BASILICATA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -2432,7 +2605,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-f2bc2c6735"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Basilicata) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000039",
@@ -2453,14 +2627,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Ricercatore\" em National Research Council — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PUGLIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -2490,7 +2664,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-eed3b941bb"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (National Research Council) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000040",
@@ -2506,19 +2681,25 @@
      "VALOR": "0000-0001-9345-5407",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "http://www.ipsp.cnr.it/en/abba-simona-2",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em National Research Council of Italy (CNR) - Institute for Sustainable Plant Protection (IPSP) — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PIEMONTE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -2545,7 +2726,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-65c5322693"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (National Research Council of Italy (CNR) - Institute for Sustainable Plant Protection (IPSP)) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000041",
@@ -2620,19 +2802,25 @@
      "VALOR": "0000-0001-8981-1018",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "http://www.ipsp.cnr.it/researchers/navarro-ramirez-beatriz",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Consiglio Nazionale delle Ricerche — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PUGLIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -2665,7 +2853,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-f34c21caac"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Consiglio Nazionale delle Ricerche) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000043",
@@ -2689,11 +2878,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Docenti di ruolo di Ia fascia\" em Università di Padova — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "VENETO",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -2719,7 +2914,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-f7c544b0b9"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università di Padova) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000044",
@@ -2740,14 +2936,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em National Research Council — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PUGLIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -2781,7 +2977,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-f7c7dd3222"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (SINAGRI s.r.l.) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000045",
@@ -2797,19 +2994,31 @@
      "VALOR": "0000-0001-9929-4130",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "http://docenti.unicatt.it/ita/tito_caffi",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher \" em Università Cattolica del Sacro Cuore - Campus di Piacenza e Cremona — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Associate Professor\" em Università Cattolica del Sacro Cuore — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "EMILIA-ROMAGNA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -2835,7 +3044,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-810e88ab8d"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università Cattolica del Sacro Cuore - Campus di Piacenza e Cremona) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000046",
@@ -2859,11 +3069,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Professor/researcher\" em University of Catania — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "SICILIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -2900,7 +3116,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-e7fa4cf066"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Catania) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000047",
@@ -2924,11 +3141,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Professor\" em Università Cattolica del Sacro Cuore — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "EMILIA-ROMAGNA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -2954,7 +3177,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-e32ba22fe3"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università Cattolica del Sacro Cuore) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000048",
@@ -3034,14 +3258,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em National Research Council of Italy — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "VENETO",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -3067,7 +3291,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-6ccde30295"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Padova) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000050",
@@ -3088,14 +3313,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em National Research Council — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PIEMONTE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -3122,7 +3347,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-3ee6110d8c"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (National Research Council) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000051",
@@ -3143,14 +3369,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"researcher\" em Università Politecnica delle Marche — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "MARCHE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -3187,7 +3413,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-3955849888"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università Politecnica delle Marche) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000052",
@@ -3203,6 +3430,24 @@
      "VALOR": "0000-0002-6072-8939",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "https://www.lens.org/lens/orcid/0000-0002-6072-8939",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "https://intranet.cnr.it/servizi/people/persona/persone",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
+    },
+    {
+     "TIPO": "SCHOLAR",
+     "VALOR": "https://scholar.google.com/citations?hl=en&user=oal1bkuaaaaj",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
@@ -3261,19 +3506,31 @@
      "VALOR": "0000-0002-9541-1923",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "http://www.unimi.it/chiedove/schedapersonaxml.jsp?matricola=15615",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"researcher\" em Consiglio Nazionale delle Ricerche — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Full Professor \" em University of Milan — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "LOMBARDIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -3303,7 +3560,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-0f42ea6c97"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Consiglio Nazionale delle Ricerche) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000054",
@@ -3378,14 +3636,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Institute of Sciences of Food Production — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PUGLIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -3413,7 +3671,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-6ae5117ac6"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Institute of Sciences of Food Production) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000056",
@@ -3434,14 +3693,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Research Fellow\" em National Research Council — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "LOMBARDIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -3469,7 +3728,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-bb8ebab934"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi di Milano) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000057",
@@ -3550,11 +3810,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Associate Professor\" em University of Turin — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PIEMONTE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -3585,7 +3851,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-63e6b75ae2"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Turin) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000059",
@@ -3663,14 +3930,20 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Università degli Studi di Bari PugliaIT — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Associate Professor - Full Professor National Scientific Habilitation (ASN)\" em Università degli Studi di Bari Aldo Moro — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PUGLIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -3700,7 +3973,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-8eb7b66f4a"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi di Bari PugliaIT) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000061",
@@ -3721,14 +3995,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Università Cattolica del Sacro Cuore - Campus di Piacenza e Cremona — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "EMILIA-ROMAGNA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -3754,7 +4028,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-c7f168980c"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università Cattolica del Sacro Cuore - Campus di Piacenza e Cremona) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000062",
@@ -3830,6 +4105,12 @@
      "VALOR": "0000-0001-5901-1386",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "https://www.mendeley.com/profiles/marzia-beccaccioli",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
@@ -3895,19 +4176,37 @@
      "VALOR": "0000-0001-9840-3817",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "https://www.docenti.unina.it/nunzio.dagostino",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "https://sites.google.com/view/dagolab",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"researcher, permanent position\" em CREA — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Associate Professor\" em University of Naples Federico II — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "CAMPANIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -3939,7 +4238,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-a214991bd6"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (CREA) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000065",
@@ -3960,14 +4260,20 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Ricercatori\" em University of Milan — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Docenti\" em University of Milan — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "LOMBARDIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -3995,7 +4301,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-b2c6949630"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Milan) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000066",
@@ -4074,14 +4381,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Group Leader\" em CNR — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PIEMONTE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -4112,7 +4419,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-8e589c62f1"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (CNR) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000068",
@@ -4128,19 +4436,37 @@
      "VALOR": "0000-0002-5878-1159",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "https://www.unibo.it/sitoweb/riccardo.baroncelli",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
+    },
+    {
+     "TIPO": "TWITTER",
+     "VALOR": "https://twitter.com/r_baroncelli",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Postdoctoral researcher\" em Universidad de Salamanca — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Docenti di ruolo di IIa fascia\" em Alma Mater Studiorum  Universita' di Bologna — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "EMILIA-ROMAGNA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -4173,7 +4499,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-726ca0e1a8"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi di Pisa Facoltà di Agraria) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000069",
@@ -4255,11 +4582,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Professor\" em University of Palermo — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PIEMONTE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -4294,7 +4627,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-a45b762d2f"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Palermo) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000071",
@@ -4318,11 +4652,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Assistant Professor\" em University of Pisa — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "TOSCANA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -4354,7 +4694,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-e7bc77a8cd"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Pisa) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000072",
@@ -4375,14 +4716,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Group Leader\" em Fondazione Edmund Mach Istituto Agrario di San Michele all'Adige — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "TRENTINO-ALTO ADIGE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -4414,7 +4755,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-45433a040b"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Fondazione Edmund Mach Istituto Agrario di San Michele all'Adige) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000073",
@@ -4484,19 +4826,31 @@
      "VALOR": "0000-0002-7386-8543",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "RESEARCHGATE",
+     "VALOR": "https://www.researchgate.net/profile/francesca-garganese",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
+    },
+    {
+     "TIPO": "SCHOLAR",
+     "VALOR": "https://scholar.google.it/citations?hl=it&user=ovd1l_waaaaj",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Research fellow\" em University of Bari Aldo Moro — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PUGLIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -4524,7 +4878,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-43f6a06ae6"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Universita' degli Studi di Bari Aldo Moro) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000075",
@@ -4603,14 +4958,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Primo Ricercatore\" em Istituto per la Protezione Sostenibile delle Piante Consiglio Nazionale delle Ricerche Unità di Firenze — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": null,
     "BASE_ORIGEM": null,
@@ -4642,7 +4997,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-9e717f1ef5"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Istituto per la Protezione Sostenibile delle Piante Consiglio Nazionale delle Ricerche Unità di Firenze) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000077",
@@ -4658,19 +5014,25 @@
      "VALOR": "0000-0002-7009-6891",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "RESEARCHGATE",
+     "VALOR": "https://www.researchgate.net/profile/ugo-picciotti",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Postdoctoral researcher\" em University of Bari Aldo Moro — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PUGLIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -4698,7 +5060,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-ade9ee5a43"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Dyrecta Lab) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000078",
@@ -4822,19 +5185,31 @@
      "VALOR": "0000-0002-6379-7737",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "LINKEDIN",
+     "VALOR": "https://www.linkedin.com/in/andrea-milani-ab8aab68",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Postdoctoral research fellow\" em Istituto per la Protezione Sostenibile delle Piante Consiglio Nazionale delle Ricerche — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "estudante",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"PhD Student\" em Università degli Studi di Padova — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "VENETO",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -4860,7 +5235,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-d514416574"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi di Padova) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000081",
@@ -4876,6 +5252,12 @@
      "VALOR": "0000-0002-5650-1512",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "http://www.unibo.it/sitowebdocente/default.aspx?upn=assunta.bertaccini%40unibo.it&view=cv",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
@@ -4884,11 +5266,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Associate Professor\" em Alma Mater Studiorum University of Bologna — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "EMILIA-ROMAGNA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -4914,7 +5302,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-fb48db29c4"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Alma Mater Studiorum University of Bologna) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000082",
@@ -4935,14 +5324,20 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Università degli Studi di Milano — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "estudante",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"PhD\" em Università degli Studi Mediterranea di Reggio Calabria — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "LOMBARDIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -4975,7 +5370,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-0b29c0626d"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi Mediterranea di Reggio Calabria) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000083",
@@ -4996,14 +5392,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Council for Agricultural Research and Economics (CREA) — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": null,
     "BASE_ORIGEM": null,
@@ -5032,7 +5428,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-f883954272"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Council for Agricultural Research and Economics (CREA)) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000084",
@@ -5048,19 +5445,49 @@
      "VALOR": "0000-0002-5090-8127",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "https://www.docenti.unina.it/#!/professor/4652414e434553434f56494e414c45564e4c464e4337305430314638333944/riferimenti",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
+    },
+    {
+     "TIPO": "RESEARCHGATE",
+     "VALOR": "https://www.researchgate.net/profile/francesco_vinale",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
+    },
+    {
+     "TIPO": "RESEARCHGATE",
+     "VALOR": "https://www.researchgate.net/profile/francesco-vinale",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
+    },
+    {
+     "TIPO": "SCHOLAR",
+     "VALOR": "https://scholar.google.it/citations?user=yiphwj8aaaaj&hl=it",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Consiglio Nazionale delle Ricerche — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Docenti di ruolo di IIa fascia\" em Universita' degli Studi di Napoli Federico II — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "CAMPANIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -5092,7 +5519,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-f35c58444b"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Universita' degli Studi di Napoli Federico II) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000085",
@@ -5113,14 +5541,20 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher (RTT)\" em Università Cattolica del Sacro Cuore — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "estudante",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"PhD Student (Agro-Food System)\" em Università Cattolica del Sacro Cuore Sede di Piacenza e Cremona — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "EMILIA-ROMAGNA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -5146,7 +5580,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-9007c92f62"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università Cattolica del Sacro Cuore Sede di Piacenza e Cremona) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000086",
@@ -5162,19 +5597,37 @@
      "VALOR": "0000-0002-1797-0842",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "https://www.unipg.it/personale/gabriele.rondoni/en",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
+    },
+    {
+     "TIPO": "RESEARCHGATE",
+     "VALOR": "https://www.researchgate.net/profile/gabriele-rondoni",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher Tenure-track\" em University of Perugia — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Associate Professor\" em University of Perugia — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "UMBRIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -5198,7 +5651,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-a9f398239e"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Perugia) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000087",
@@ -5214,19 +5668,25 @@
      "VALOR": "0000-0002-6600-2178",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "https://www.ibbr.cnr.it/ibbr/people/giacomo-mangini",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em National Research Council, Institute of Biosciences and BioResources (CNR-IBBR) — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PUGLIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -5255,7 +5715,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-2c14a6f961"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (National Research Council, Institute of Biosciences and BioResources (CNR-IBBR)) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000088",
@@ -5279,11 +5740,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "estudante",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"PhD Student\" em University of Naples Federico II — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "CAMPANIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -5318,7 +5785,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-e002fe09ea"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Naples Federico II) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000089",
@@ -5339,9 +5807,9 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Postdoc\" em Karolinska Institute — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
@@ -5390,6 +5858,12 @@
      "VALOR": "0000-0002-6067-4600",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "https://www.crea.gov.it/web/genomica-e-bioinformatica",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
@@ -5504,14 +5978,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"III Level Researcher\" em Istituto per la Protezione Sostenibile delle Piante Consiglio Nazionale delle Ricerche Sezione di Bari — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PUGLIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -5543,7 +6017,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-15f83e0f77"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Istituto per la Protezione Sostenibile delle Piante Consiglio Nazionale delle Ricerche Sezione di Bari) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000093",
@@ -5564,14 +6039,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em National Research Council — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "VENETO",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -5597,7 +6072,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-47b986dd3d"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (National Research Council) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000094",
@@ -5621,11 +6097,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Associate Professor\" em Università degli Studi di Bari Aldo Moro — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PUGLIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -5656,7 +6138,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-b8e256e471"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi di Bari Aldo Moro) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000095",
@@ -5740,14 +6223,20 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em University of Turin — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "estudante",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"PhD Student\" em Fondazione Edmund Mach Centro Ricerca e Innovazione — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PIEMONTE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -5780,7 +6269,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-1aece929e1"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Fondazione Edmund Mach Centro Ricerca e Innovazione) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000097",
@@ -5919,11 +6409,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Associate Professor\" em Università degli Studi di Perugia — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "UMBRIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -5956,7 +6452,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-2fae504cc4"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi di Perugia) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000100",
@@ -5977,14 +6474,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Consiglio Nazionale delle Ricerche — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PIEMONTE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -6016,7 +6513,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-46942de9d4"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Consiglio Nazionale delle Ricerche) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000101",
@@ -6032,19 +6530,37 @@
      "VALOR": "0000-0002-0811-1229",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "RESEARCHGATE",
+     "VALOR": "https://www.researchgate.net/profile/antonino_malacrino",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
+    },
+    {
+     "TIPO": "SCHOLAR",
+     "VALOR": "https://scholar.google.com/citations?user=_ghedkyaaaaj&hl=it",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Postdoctoral Researcher\" em Università degli Studi Mediterranea di Reggio Calabria — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Assistant Professor\" em Clemson University — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "CALABRIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -6074,7 +6590,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-5daab500b4"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi Mediterranea di Reggio Calabria) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000102",
@@ -6095,14 +6612,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Istituto per la Protezione Sostenibile delle Piante Consiglio Nazionale delle Ricerche — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PIEMONTE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -6127,7 +6644,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-c9e4d76c1b"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Istituto per la Protezione Sostenibile delle Piante Consiglio Nazionale delle Ricerche) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000103",
@@ -6151,11 +6669,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Associated professor\" em Università degli Studi di Teramo — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "ABRUZZO",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -6187,7 +6711,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-224e2bbdd5"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi di Teramo) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000104",
@@ -6211,11 +6736,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Full Professor\" em Università degli Studi di Torino — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PIEMONTE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -6241,7 +6772,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-bd0f1bec1c"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi di Torino) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000105",
@@ -6314,14 +6846,20 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em University of Milan — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Associate Professor\" em University of Milan — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "LOMBARDIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -6346,7 +6884,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-ae054ae7a0"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Milan) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000107",
@@ -6367,14 +6906,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Senior Researcher\" em National Research Council — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PUGLIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -6400,7 +6939,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-0b2f0cc077"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (National Research Council) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000108",
@@ -6521,6 +7061,18 @@
      "VALOR": "0009-0007-0135-1178",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "RESEARCHGATE",
+     "VALOR": "https://www.researchgate.net/profile/marco-lapris",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
+    },
+    {
+     "TIPO": "LINKEDIN",
+     "VALOR": "https://www.linkedin.com/in/marco-lapris",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
@@ -6529,11 +7081,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "estudante",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Ph.D. student\" em Università Cattolica del Sacro Cuore — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "EMILIA-ROMAGNA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -6559,7 +7117,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-d6c84fe8d0"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università Cattolica del Sacro Cuore) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000111",
@@ -6580,14 +7139,20 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Research fellow\" em Consiglio per la ricerca in agricoltura e l'analisi dell'economia agraria — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "estudante",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"PhD student\" em Universita degli Studi Mediterranea di Reggio Calabria Dipartimento di Agraria — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "SICILIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -6616,7 +7181,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-8d0641dd4c"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Universita degli Studi Mediterranea di Reggio Calabria Dipartimento di Agraria) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000112",
@@ -6746,14 +7312,20 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Consiglio Nazionale delle Ricerche — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Professor (Forest Pathology)\" em Università degli Studi di Firenze — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "TOSCANA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -6787,7 +7359,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-c495b4eea8"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi di Firenze) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000115",
@@ -6868,14 +7441,20 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Institute for Sustainable Plant Protection — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "tecnico",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Research Technician\" em Università degli Studi di Torino — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PIEMONTE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -6904,7 +7483,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-ab08db1528"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi di Torino) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000117",
@@ -6925,14 +7505,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Post Doctoral Researcher\" em University of Florence — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "TOSCANA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -6964,7 +7544,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-aa15503e83"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Florence) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000118",
@@ -6980,6 +7561,12 @@
      "VALOR": "0000-0001-8949-3654",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "https://www.docenti.unina.it/anna.andolfi",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
@@ -7047,14 +7634,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Senior Researcher\" em National Research Council (CNR) — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "PUGLIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -7080,7 +7667,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-ead19bb5a2"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (National Research Council) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000120",
@@ -7101,14 +7689,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Tenure Track Researcher\" em Università di Pisa — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "TOSCANA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -7137,7 +7725,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-89a1e3f343"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università di Pisa) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000121",
@@ -7158,14 +7747,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Centro di ricerca per la viticoltura — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "VENETO",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -7192,7 +7781,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-9aa2d83a04"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Centro di ricerca per la viticoltura) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000122",
@@ -7271,11 +7861,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Full Professor\" em Università Cattolica del Sacro Cuore — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "EMILIA-ROMAGNA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -7303,7 +7899,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-4ea6cbad37"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università Cattolica del Sacro Cuore) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000124",
@@ -7376,19 +7973,31 @@
      "VALOR": "0000-0002-7700-9527",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "SCHOLAR",
+     "VALOR": "https://scholar.google.it/citations?user=b0v2f2qaaaaj&hl=en",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "http://ibbr.cnr.it/ibbr/info/people/francesco-carimi",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Senior Researcher\" em National Council of Research, University of Padova — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "SICILIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -7418,7 +8027,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-fa527c2485"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Institute of Citrus Genetics, Palermo) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000126",
@@ -7439,14 +8049,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em University of Udine — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "FRIULI-VENEZIA GIULIA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -7471,7 +8081,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-e769f91ee4"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (University of Udine) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000127",
@@ -7495,11 +8106,23 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "professor",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Associated Professor\" em University of Trento — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "tecnico",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Research Technologist\" em Fondazione Edmund Mach — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "TRENTINO-ALTO ADIGE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -7531,7 +8154,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-9ce9958265"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Fondazione Edmund Mach) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000128",
@@ -7552,14 +8176,14 @@
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Consiglio Nazionale delle Ricerche — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "TRENTINO-ALTO ADIGE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -7585,7 +8209,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-3298105bda"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Consiglio Nazionale delle Ricerche) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000129",
@@ -7713,11 +8338,17 @@
      "ESTADO": "DECLARADO",
      "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
      "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+    },
+    {
+     "PAPEL": "estudante",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Ph.D. student\" em Università Cattolica del Sacro Cuore — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "EMILIA-ROMAGNA",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -7743,7 +8374,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-1c0e3815d3"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Università Cattolica del Sacro Cuore) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000132",
@@ -7926,19 +8558,31 @@
      "VALOR": "0000-0001-7103-9613",
      "EVIDENCIA": "declarado no índice Europe PMC",
      "ESTADO": "ORCID_DECLARED_NOT_RESOLVED"
+    },
+    {
+     "TIPO": "INSTITUCIONAL",
+     "VALOR": "https://cri.fmach.it/unita-di-ricerca/biologia-e-fisiologia-vegetale",
+     "EVIDENCIA": "ORCID researcher-urls — declarado pelo titular",
+     "ESTADO": "OBSERVADO"
     }
    ],
    "ROLES": [
     {
      "PAPEL": "pesquisador",
-     "ESTADO": "DECLARADO",
-     "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/EPMC"
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Researcher\" em Fondazione Edmund Mach — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
+    },
+    {
+     "PAPEL": "tecnico",
+     "ESTADO": "PROVADO",
+     "PROVA": "ORCID employment `role-title` = \"Ricercatore tecnologo /technologist with permanent position \" em Fondazione Edmund Mach — CAMPO ESTRUTURADO declarado pelo titular",
+     "PROVENIENCIA": "ORCID/employments"
     }
    ],
    "PUBLIC_PRESENCE": [],
    "PAIS": "IT",
-   "PAIS_ESTADO": "PROVADO_POR_ROTA",
+   "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
    "GEO": {
     "BASE_REGIAO": "TRENTINO-ALTO ADIGE",
     "BASE_ORIGEM": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
@@ -7970,7 +8614,8 @@
    "MONITORING_RECOMMENDATION": "MONTHLY",
    "LEGACY_SENSOR_IDS": [
     "IT-P-4423800cb1"
-   ]
+   ],
+   "PAIS_PROVA": "ORCID employment organization address country=IT (Ospedale San Raffaele) — campo estruturado"
   },
   {
    "ENTITY_ID": "IT-E-000136",
@@ -10711,9 +11356,9 @@
    "ROLES": [
     {
      "PAPEL": "cooperativa",
-     "ESTADO": "NAO_PROVADO",
-     "PROVA": "lido da PROSA LIVRE da aba About; o MODELO-DE-IDENTIDADE proíbe prosa livre de decidir papel, e o YouTube não expõe campo estruturado de papel. Candidato, nunca prova. Além disso a fonte declarou mais de um termo (AMBIGUOUS).",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/YOUTUBE-DISCOVERY"
+     "ESTADO": "PROVADO",
+     "PROVA": "campo estruturado `title` do site declarado pela própria entidade (https://agrinordest.it): \"Consorzio Agrario del Nord Est\"",
+     "PROVENIENCIA": "SITE/campo-estruturado"
     }
    ],
    "PUBLIC_PRESENCE": [
@@ -11134,9 +11779,9 @@
     },
     {
      "PAPEL": "cooperativa",
-     "ESTADO": "NAO_PROVADO",
-     "PROVA": "lido da PROSA LIVRE da aba About; o MODELO-DE-IDENTIDADE proíbe prosa livre de decidir papel, e o YouTube não expõe campo estruturado de papel. Candidato, nunca prova. Além disso a fonte declarou mais de um termo (AMBIGUOUS).",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/YOUTUBE-DISCOVERY"
+     "ESTADO": "PROVADO",
+     "PROVA": "campo estruturado `title` do site declarado pela própria entidade (https://terretruria.it): \"Terre dell'Etruria Cooperativa Agricola tra Produttori Castagneto Carducci Toscana\"",
+     "PROVENIENCIA": "SITE/campo-estruturado"
     }
    ],
    "PUBLIC_PRESENCE": [
@@ -12195,9 +12840,9 @@
    "ROLES": [
     {
      "PAPEL": "consultor",
-     "ESTADO": "NAO_PROVADO",
-     "PROVA": "lido da PROSA LIVRE da aba About; o MODELO-DE-IDENTIDADE proíbe prosa livre de decidir papel, e o YouTube não expõe campo estruturado de papel. Candidato, nunca prova.",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/YOUTUBE-DISCOVERY"
+     "ESTADO": "PROBABLE",
+     "PROVA": "campo estruturado `og:description` do site declarado pela própria entidade (https://cortesedario.com): \"Dario Cortese — consulente in agroecologia, orticoltura rigenerativa e agroforestazione. Affianco aziende, com\"",
+     "PROVENIENCIA": "SITE/campo-estruturado"
     }
    ],
    "PUBLIC_PRESENCE": [
@@ -12737,9 +13382,9 @@
    "ROLES": [
     {
      "PAPEL": "agronomo",
-     "ESTADO": "NAO_PROVADO",
-     "PROVA": "lido da PROSA LIVRE da aba About; o MODELO-DE-IDENTIDADE proíbe prosa livre de decidir papel, e o YouTube não expõe campo estruturado de papel. Candidato, nunca prova. Além disso a fonte declarou mais de um termo (AMBIGUOUS).",
-     "PROVENIENCIA": "SENSOR-HUMANO-IT/YOUTUBE-DISCOVERY"
+     "ESTADO": "PROBABLE",
+     "PROVA": "campo estruturado `og:description` do site declarado pela própria entidade (https://progettopna.it): \"Piante, Natura e Agricoltura spiegati bene: video tecnici e articoli di un agronomo su suolo, nutrizione e con\"",
+     "PROVENIENCIA": "SITE/campo-estruturado"
     },
     {
      "PAPEL": "tecnico",

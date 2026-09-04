@@ -1,0 +1,829 @@
+{
+ "SOURCE_ID": "IT-HUMAN-SENSORS/FICHAS-RESOLUCAO",
+ "REGRA": "15 fichas: 5 pesquisadores com canal monitorável · 5 com papel de campo provado · 5 casos difíceis",
+ "CONTAGEM": {
+  "PESQUISADORES_COM_CANAL_MONITORAVEL": 2,
+  "PAPEL_DE_CAMPO_AGORA_PROVADO": 5,
+  "CASOS_DIFICEIS_OU_NAO_SEI": 5
+ },
+ "FICHAS": {
+  "PESQUISADORES_COM_CANAL_MONITORAVEL": [
+   {
+    "ENTITY_ID": "IT-E-000068",
+    "NOME": "Riccardo Baroncelli",
+    "KIND": "pessoa",
+    "ROLES_PROVADOS": [
+     {
+      "PAPEL": "pesquisador",
+      "ESTADO": "PROVADO",
+      "PROVA": "ORCID employment `role-title` = \"Postdoctoral researcher\" em Universidad de Salamanca — CAMPO ESTRUTURADO declarado pelo titular"
+     },
+     {
+      "PAPEL": "professor",
+      "ESTADO": "PROVADO",
+      "PROVA": "ORCID employment `role-title` = \"Docenti di ruolo di IIa fascia\" em Alma Mater Studiorum  Universita' di Bologna — CAMPO ESTRUTURADO declarado pelo titular"
+     }
+    ],
+    "ROLES_NAO_PROVADOS": [],
+    "SOURCES": [
+     {
+      "SOURCE_ID": "IT-S-000304",
+      "PLATAFORMA": "institucional",
+      "URL": "https://www.unibo.it/sitoweb/riccardo.baroncelli/",
+      "TIPO": "IDENTITY_SOURCE",
+      "OWNERSHIP": "PROVED",
+      "PROVA": "declarado pelo PRÓPRIO titular em ORCID researcher-urls (0000-0002-5878-1159) — declaração, não busca"
+     },
+     {
+      "SOURCE_ID": "IT-S-000305",
+      "PLATAFORMA": "twitter",
+      "URL": "https://twitter.com/R_Baroncelli",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "PROVED",
+      "PROVA": "declarado pelo PRÓPRIO titular em ORCID researcher-urls (0000-0002-5878-1159) — declaração, não busca"
+     }
+    ],
+    "QUAL_SOURCE_PROVA_IDENTIDADE": [
+     "IT-S-000304"
+    ],
+    "QUAL_SOURCE_E_MONITORAVEL": [
+     "IT-S-000305"
+    ],
+    "PAIS": "IT",
+    "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
+    "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi di Pisa Facoltà di Agraria) — campo estruturado",
+    "REGIAO": "EMILIA-ROMAGNA",
+    "REGIAO_BASE": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+    "CULTURAS": [
+     "MAIZE",
+     "OLIVE",
+     "POTATO",
+     "RICE",
+     "TOMATO",
+     "WHEAT"
+    ],
+    "ESPECIALIDADES": [
+     "FUSARIUM_HEAD_BLIGHT",
+     "LATE_BLIGHT",
+     "MYCOTOXIN",
+     "OLIVE_DISEASE",
+     "RICE_PROTECTION",
+     "SEPTORIA",
+     "TOMATO_DISEASE"
+    ],
+    "O_QUE_CONTINUA_NAO_SEI": [
+     "OPERATING/INFLUENCE/FACT nunca medidos",
+     "conteúdo nunca coletado — recorrência temática e proximidade de campo seguem NÃO SEI"
+    ]
+   },
+   {
+    "ENTITY_ID": "IT-E-000080",
+    "NOME": "Andrea Milani",
+    "KIND": "pessoa",
+    "ROLES_PROVADOS": [
+     {
+      "PAPEL": "pesquisador",
+      "ESTADO": "PROVADO",
+      "PROVA": "ORCID employment `role-title` = \"Postdoctoral research fellow\" em Istituto per la Protezione Sostenibile delle Piante Consiglio Nazionale delle Ricerche — CAMPO ESTRUTURA"
+     },
+     {
+      "PAPEL": "estudante",
+      "ESTADO": "PROVADO",
+      "PROVA": "ORCID employment `role-title` = \"PhD Student\" em Università degli Studi di Padova — CAMPO ESTRUTURADO declarado pelo titular"
+     }
+    ],
+    "ROLES_NAO_PROVADOS": [],
+    "SOURCES": [
+     {
+      "SOURCE_ID": "IT-S-000309",
+      "PLATAFORMA": "linkedin",
+      "URL": "https://www.linkedin.com/in/andrea-milani-ab8aab68",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "PROVED",
+      "PROVA": "declarado pelo PRÓPRIO titular em ORCID researcher-urls (0000-0002-6379-7737) — declaração, não busca"
+     }
+    ],
+    "QUAL_SOURCE_PROVA_IDENTIDADE": [
+     "NÃO SEI"
+    ],
+    "QUAL_SOURCE_E_MONITORAVEL": [
+     "IT-S-000309"
+    ],
+    "PAIS": "IT",
+    "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
+    "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi di Padova) — campo estruturado",
+    "REGIAO": "VENETO",
+    "REGIAO_BASE": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+    "CULTURAS": [
+     "CEREAL",
+     "MAIZE"
+    ],
+    "ESPECIALIDADES": [
+     "GRASS_WEEDS",
+     "HERBICIDE_RESISTANCE",
+     "MAIZE_WEEDS",
+     "ROOTWORM"
+    ],
+    "O_QUE_CONTINUA_NAO_SEI": [
+     "OPERATING/INFLUENCE/FACT nunca medidos",
+     "conteúdo nunca coletado — recorrência temática e proximidade de campo seguem NÃO SEI"
+    ]
+   }
+  ],
+  "PAPEL_DE_CAMPO_AGORA_PROVADO": [
+   {
+    "ENTITY_ID": "IT-E-000116",
+    "NOME": "Stefania Daghino",
+    "KIND": "pessoa",
+    "ROLES_PROVADOS": [
+     {
+      "PAPEL": "pesquisador",
+      "ESTADO": "PROVADO",
+      "PROVA": "ORCID employment `role-title` = \"Researcher\" em Institute for Sustainable Plant Protection — CAMPO ESTRUTURADO declarado pelo titular"
+     },
+     {
+      "PAPEL": "tecnico",
+      "ESTADO": "PROVADO",
+      "PROVA": "ORCID employment `role-title` = \"Research Technician\" em Università degli Studi di Torino — CAMPO ESTRUTURADO declarado pelo titular"
+     }
+    ],
+    "ROLES_NAO_PROVADOS": [],
+    "SOURCES": [],
+    "QUAL_SOURCE_PROVA_IDENTIDADE": [
+     "NÃO SEI"
+    ],
+    "QUAL_SOURCE_E_MONITORAVEL": [
+     "NENHUMA"
+    ],
+    "PAIS": "IT",
+    "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
+    "PAIS_PROVA": "ORCID employment organization address country=IT (Università degli Studi di Torino) — campo estruturado",
+    "REGIAO": "PIEMONTE",
+    "REGIAO_BASE": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+    "CULTURAS": [
+     "POTATO",
+     "RICE",
+     "VINE",
+     "WHEAT"
+    ],
+    "ESPECIALIDADES": [
+     "DOWNY_MILDEW",
+     "FLAVESCENCE_DOREE",
+     "FUSARIUM_HEAD_BLIGHT",
+     "LATE_BLIGHT",
+     "RICE_PROTECTION"
+    ],
+    "O_QUE_CONTINUA_NAO_SEI": [
+     "nenhuma fonte",
+     "OPERATING/INFLUENCE/FACT nunca medidos",
+     "conteúdo nunca coletado — recorrência temática e proximidade de campo seguem NÃO SEI"
+    ]
+   },
+   {
+    "ENTITY_ID": "IT-E-000127",
+    "NOME": "Gerardo Puopolo",
+    "KIND": "pessoa",
+    "ROLES_PROVADOS": [
+     {
+      "PAPEL": "professor",
+      "ESTADO": "PROVADO",
+      "PROVA": "ORCID employment `role-title` = \"Associated Professor\" em University of Trento — CAMPO ESTRUTURADO declarado pelo titular"
+     },
+     {
+      "PAPEL": "tecnico",
+      "ESTADO": "PROVADO",
+      "PROVA": "ORCID employment `role-title` = \"Research Technologist\" em Fondazione Edmund Mach — CAMPO ESTRUTURADO declarado pelo titular"
+     }
+    ],
+    "ROLES_NAO_PROVADOS": [],
+    "SOURCES": [],
+    "QUAL_SOURCE_PROVA_IDENTIDADE": [
+     "NÃO SEI"
+    ],
+    "QUAL_SOURCE_E_MONITORAVEL": [
+     "NENHUMA"
+    ],
+    "PAIS": "IT",
+    "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
+    "PAIS_PROVA": "ORCID employment organization address country=IT (Fondazione Edmund Mach) — campo estruturado",
+    "REGIAO": "TRENTINO-ALTO ADIGE",
+    "REGIAO_BASE": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+    "CULTURAS": [
+     "MAIZE",
+     "OLIVE",
+     "RICE",
+     "STONE_FRUIT",
+     "TOMATO",
+     "WHEAT"
+    ],
+    "ESPECIALIDADES": [
+     "BROWN_ROT",
+     "FUSARIUM_HEAD_BLIGHT",
+     "MYCOTOXIN",
+     "OLIVE_DISEASE",
+     "RICE_PROTECTION",
+     "TOMATO_DISEASE"
+    ],
+    "O_QUE_CONTINUA_NAO_SEI": [
+     "nenhuma fonte",
+     "OPERATING/INFLUENCE/FACT nunca medidos",
+     "conteúdo nunca coletado — recorrência temática e proximidade de campo seguem NÃO SEI"
+    ]
+   },
+   {
+    "ENTITY_ID": "IT-E-000135",
+    "NOME": "Stefania Pilati",
+    "KIND": "pessoa",
+    "ROLES_PROVADOS": [
+     {
+      "PAPEL": "pesquisador",
+      "ESTADO": "PROVADO",
+      "PROVA": "ORCID employment `role-title` = \"Researcher\" em Fondazione Edmund Mach — CAMPO ESTRUTURADO declarado pelo titular"
+     },
+     {
+      "PAPEL": "tecnico",
+      "ESTADO": "PROVADO",
+      "PROVA": "ORCID employment `role-title` = \"Ricercatore tecnologo /technologist with permanent position \" em Fondazione Edmund Mach — CAMPO ESTRUTURADO declarado pelo titular"
+     }
+    ],
+    "ROLES_NAO_PROVADOS": [],
+    "SOURCES": [
+     {
+      "SOURCE_ID": "IT-S-000334",
+      "PLATAFORMA": "institucional",
+      "URL": "https://cri.fmach.it/Unita-di-ricerca/Biologia-e-fisiologia-vegetale",
+      "TIPO": "IDENTITY_SOURCE",
+      "OWNERSHIP": "PROVED",
+      "PROVA": "declarado pelo PRÓPRIO titular em ORCID researcher-urls (0000-0001-7103-9613) — declaração, não busca"
+     }
+    ],
+    "QUAL_SOURCE_PROVA_IDENTIDADE": [
+     "IT-S-000334"
+    ],
+    "QUAL_SOURCE_E_MONITORAVEL": [
+     "NENHUMA"
+    ],
+    "PAIS": "IT",
+    "PAIS_ESTADO": "PROVADO_POR_ORCID_EMPLOYMENT",
+    "PAIS_PROVA": "ORCID employment organization address country=IT (Ospedale San Raffaele) — campo estruturado",
+    "REGIAO": "TRENTINO-ALTO ADIGE",
+    "REGIAO_BASE": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+    "CULTURAS": [
+     "MAIZE",
+     "POTATO",
+     "TOMATO",
+     "VINE",
+     "WHEAT"
+    ],
+    "ESPECIALIDADES": [
+     "DOWNY_MILDEW",
+     "FLAVESCENCE_DOREE",
+     "FUSARIUM_HEAD_BLIGHT",
+     "LATE_BLIGHT",
+     "MYCOTOXIN",
+     "POWDERY_MILDEW",
+     "TOMATO_DISEASE"
+    ],
+    "O_QUE_CONTINUA_NAO_SEI": [
+     "nenhum canal monitorável — só identidade",
+     "OPERATING/INFLUENCE/FACT nunca medidos",
+     "conteúdo nunca coletado — recorrência temática e proximidade de campo seguem NÃO SEI"
+    ]
+   },
+   {
+    "ENTITY_ID": "IT-E-000187",
+    "NOME": "CONSORZIO AGRARIO DEL NORDEST",
+    "KIND": "organizacao",
+    "ROLES_PROVADOS": [
+     {
+      "PAPEL": "cooperativa",
+      "ESTADO": "PROVADO",
+      "PROVA": "campo estruturado `title` do site declarado pela própria entidade (https://agrinordest.it): \"Consorzio Agrario del Nord Est\""
+     }
+    ],
+    "ROLES_NAO_PROVADOS": [],
+    "SOURCES": [
+     {
+      "SOURCE_ID": "IT-S-000064",
+      "PLATAFORMA": "youtube",
+      "URL": "https://www.youtube.com/@consorzioagrariodelnordest",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "canal descoberto pela busca pública e identidade lida na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000065",
+      "PLATAFORMA": "web",
+      "URL": "agrinordest.it",
+      "TIPO": "IDENTITY_SOURCE",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     }
+    ],
+    "QUAL_SOURCE_PROVA_IDENTIDADE": [
+     "IT-S-000065"
+    ],
+    "QUAL_SOURCE_E_MONITORAVEL": [
+     "IT-S-000064"
+    ],
+    "PAIS": "IT",
+    "PAIS_ESTADO": "PROVADO_IT",
+    "PAIS_PROVA": "NÃO SEI",
+    "REGIAO": "NÃO SEI",
+    "REGIAO_BASE": "NÃO SEI",
+    "CULTURAS": [
+     "MULTI",
+     "RICE",
+     "WHEAT"
+    ],
+    "ESPECIALIDADES": [
+     "FIELD_ADVISORY",
+     "FUSARIUM_HEAD_BLIGHT",
+     "RICE_PROTECTION"
+    ],
+    "O_QUE_CONTINUA_NAO_SEI": [
+     "OPERATING/INFLUENCE/FACT nunca medidos",
+     "conteúdo nunca coletado — recorrência temática e proximidade de campo seguem NÃO SEI"
+    ]
+   },
+   {
+    "ENTITY_ID": "IT-E-000192",
+    "NOME": "Terre dell'Etruria",
+    "KIND": "NÃO SEI",
+    "ROLES_PROVADOS": [
+     {
+      "PAPEL": "cooperativa",
+      "ESTADO": "PROVADO",
+      "PROVA": "campo estruturado `title` do site declarado pela própria entidade (https://terretruria.it): \"Terre dell'Etruria Cooperativa Agricola tra Produttori Castagneto Carducci To"
+     }
+    ],
+    "ROLES_NAO_PROVADOS": [
+     {
+      "PAPEL": "agronomo",
+      "POR_QUE": "lido da PROSA LIVRE da aba About; o MODELO-DE-IDENTIDADE proíbe prosa livre de decidir papel, e o YouTube não expõe camp"
+     }
+    ],
+    "SOURCES": [
+     {
+      "SOURCE_ID": "IT-S-000092",
+      "PLATAFORMA": "youtube",
+      "URL": "https://www.youtube.com/@terredelletruria",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "canal descoberto pela busca pública e identidade lida na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000093",
+      "PLATAFORMA": "web",
+      "URL": "terretruria.it",
+      "TIPO": "IDENTITY_SOURCE",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000094",
+      "PLATAFORMA": "web",
+      "URL": "acasatua.it",
+      "TIPO": "IDENTITY_SOURCE",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000095",
+      "PLATAFORMA": "facebook",
+      "URL": "facebook.com/terretruria",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000096",
+      "PLATAFORMA": "instagram",
+      "URL": "instagram.com/terretruria_toscana",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000097",
+      "PLATAFORMA": "facebook",
+      "URL": "facebook.com/acasatuashop",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000098",
+      "PLATAFORMA": "instagram",
+      "URL": "instagram.com/acasatuashop",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     }
+    ],
+    "QUAL_SOURCE_PROVA_IDENTIDADE": [
+     "IT-S-000093",
+     "IT-S-000094"
+    ],
+    "QUAL_SOURCE_E_MONITORAVEL": [
+     "IT-S-000092",
+     "IT-S-000095",
+     "IT-S-000096",
+     "IT-S-000097"
+    ],
+    "PAIS": "IT",
+    "PAIS_ESTADO": "PROVADO_IT",
+    "PAIS_PROVA": "NÃO SEI",
+    "REGIAO": "NÃO SEI",
+    "REGIAO_BASE": "NÃO SEI",
+    "CULTURAS": [
+     "POTATO",
+     "VINE"
+    ],
+    "ESPECIALIDADES": [
+     "DOWNY_MILDEW",
+     "GRAPE_MOTH",
+     "LATE_BLIGHT"
+    ],
+    "O_QUE_CONTINUA_NAO_SEI": [
+     "OPERATING/INFLUENCE/FACT nunca medidos",
+     "conteúdo nunca coletado — recorrência temática e proximidade de campo seguem NÃO SEI"
+    ]
+   }
+  ],
+  "CASOS_DIFICEIS_OU_NAO_SEI": [
+   {
+    "ENTITY_ID": "IT-E-000185",
+    "NOME": "AgresteTv",
+    "KIND": "NÃO SEI",
+    "ROLES_PROVADOS": [],
+    "ROLES_NAO_PROVADOS": [
+     {
+      "PAPEL": "tecnico",
+      "POR_QUE": "lido da PROSA LIVRE da aba About; o MODELO-DE-IDENTIDADE proíbe prosa livre de decidir papel, e o YouTube não expõe camp"
+     }
+    ],
+    "SOURCES": [
+     {
+      "SOURCE_ID": "IT-S-000058",
+      "PLATAFORMA": "youtube",
+      "URL": "https://www.youtube.com/@AgresteTv",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "canal descoberto pela busca pública e identidade lida na aba About"
+     }
+    ],
+    "QUAL_SOURCE_PROVA_IDENTIDADE": [
+     "NÃO SEI"
+    ],
+    "QUAL_SOURCE_E_MONITORAVEL": [
+     "IT-S-000058"
+    ],
+    "PAIS": "IT",
+    "PAIS_ESTADO": "PROVADO_IT",
+    "PAIS_PROVA": "NÃO SEI",
+    "REGIAO": "NÃO SEI",
+    "REGIAO_BASE": "NÃO SEI",
+    "CULTURAS": [
+     "APPLE",
+     "MULTI",
+     "POTATO",
+     "SUGAR_BEET",
+     "WHEAT"
+    ],
+    "ESPECIALIDADES": [
+     "BULLETIN",
+     "CERCOSPORA",
+     "CODLING_MOTH",
+     "LATE_BLIGHT",
+     "SCAB",
+     "SEPTORIA"
+    ],
+    "O_QUE_CONTINUA_NAO_SEI": [
+     "papel de campo não provado",
+     "OPERATING/INFLUENCE/FACT nunca medidos",
+     "conteúdo nunca coletado — recorrência temática e proximidade de campo seguem NÃO SEI"
+    ]
+   },
+   {
+    "ENTITY_ID": "IT-E-000186",
+    "NOME": "Dottor Diliddo | Agronomo",
+    "KIND": "NÃO SEI",
+    "ROLES_PROVADOS": [],
+    "ROLES_NAO_PROVADOS": [
+     {
+      "PAPEL": "agronomo",
+      "POR_QUE": "lido da PROSA LIVRE da aba About; o MODELO-DE-IDENTIDADE proíbe prosa livre de decidir papel, e o YouTube não expõe camp"
+     }
+    ],
+    "SOURCES": [
+     {
+      "SOURCE_ID": "IT-S-000059",
+      "PLATAFORMA": "youtube",
+      "URL": "https://www.youtube.com/@DottorDiliddo",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "canal descoberto pela busca pública e identidade lida na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000060",
+      "PLATAFORMA": "facebook",
+      "URL": "facebook.com/dottordiliddo",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000061",
+      "PLATAFORMA": "instagram",
+      "URL": "instagram.com/dottordiliddo",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000062",
+      "PLATAFORMA": "tiktok",
+      "URL": "tiktok.com/@dottordiliddo",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     }
+    ],
+    "QUAL_SOURCE_PROVA_IDENTIDADE": [
+     "NÃO SEI"
+    ],
+    "QUAL_SOURCE_E_MONITORAVEL": [
+     "IT-S-000059",
+     "IT-S-000060",
+     "IT-S-000061",
+     "IT-S-000062"
+    ],
+    "PAIS": "IT",
+    "PAIS_ESTADO": "PROVADO_IT",
+    "PAIS_PROVA": "NÃO SEI",
+    "REGIAO": "NÃO SEI",
+    "REGIAO_BASE": "NÃO SEI",
+    "CULTURAS": [
+     "VINE",
+     "WHEAT"
+    ],
+    "ESPECIALIDADES": [
+     "DOWNY_MILDEW",
+     "RUST",
+     "SEPTORIA"
+    ],
+    "O_QUE_CONTINUA_NAO_SEI": [
+     "papel de campo não provado",
+     "OPERATING/INFLUENCE/FACT nunca medidos",
+     "conteúdo nunca coletado — recorrência temática e proximidade de campo seguem NÃO SEI"
+    ]
+   },
+   {
+    "ENTITY_ID": "IT-E-000188",
+    "NOME": "4Grapes®",
+    "KIND": "NÃO SEI",
+    "ROLES_PROVADOS": [],
+    "ROLES_NAO_PROVADOS": [
+     {
+      "PAPEL": "organizacao_de_pesquisa",
+      "POR_QUE": "lido da PROSA LIVRE da aba About; o MODELO-DE-IDENTIDADE proíbe prosa livre de decidir papel, e o YouTube não expõe camp"
+     },
+     {
+      "PAPEL": "produtor",
+      "POR_QUE": "lido da PROSA LIVRE da aba About; o MODELO-DE-IDENTIDADE proíbe prosa livre de decidir papel, e o YouTube não expõe camp"
+     }
+    ],
+    "SOURCES": [
+     {
+      "SOURCE_ID": "IT-S-000066",
+      "PLATAFORMA": "youtube",
+      "URL": "https://www.youtube.com/@4Grapes",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "canal descoberto pela busca pública e identidade lida na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000067",
+      "PLATAFORMA": "web",
+      "URL": "4grapes.it",
+      "TIPO": "IDENTITY_SOURCE",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000068",
+      "PLATAFORMA": "facebook",
+      "URL": "facebook.com/4grapes.it",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000069",
+      "PLATAFORMA": "instagram",
+      "URL": "instagram.com/4grapes.it",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000070",
+      "PLATAFORMA": "linkedin",
+      "URL": "linkedin.com/company/4grapes",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     }
+    ],
+    "QUAL_SOURCE_PROVA_IDENTIDADE": [
+     "IT-S-000067"
+    ],
+    "QUAL_SOURCE_E_MONITORAVEL": [
+     "IT-S-000066",
+     "IT-S-000068",
+     "IT-S-000069",
+     "IT-S-000070"
+    ],
+    "PAIS": "IT",
+    "PAIS_ESTADO": "PROVADO_IT",
+    "PAIS_PROVA": "NÃO SEI",
+    "REGIAO": "NÃO SEI",
+    "REGIAO_BASE": "NÃO SEI",
+    "CULTURAS": [
+     "VINE"
+    ],
+    "ESPECIALIDADES": [
+     "DOWNY_MILDEW",
+     "FLAVESCENCE_DOREE"
+    ],
+    "O_QUE_CONTINUA_NAO_SEI": [
+     "papel de campo não provado",
+     "OPERATING/INFLUENCE/FACT nunca medidos",
+     "conteúdo nunca coletado — recorrência temática e proximidade de campo seguem NÃO SEI"
+    ]
+   },
+   {
+    "ENTITY_ID": "IT-E-000190",
+    "NOME": "Matej vignaiuolo in Oslavia",
+    "KIND": "NÃO SEI",
+    "ROLES_PROVADOS": [],
+    "ROLES_NAO_PROVADOS": [
+     {
+      "PAPEL": "produtor",
+      "POR_QUE": "lido da PROSA LIVRE da aba About; o MODELO-DE-IDENTIDADE proíbe prosa livre de decidir papel, e o YouTube não expõe camp"
+     }
+    ],
+    "SOURCES": [
+     {
+      "SOURCE_ID": "IT-S-000082",
+      "PLATAFORMA": "youtube",
+      "URL": "https://www.youtube.com/@MatejVignaiuoloOslavia",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "canal descoberto pela busca pública e identidade lida na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000083",
+      "PLATAFORMA": "web",
+      "URL": "fieglvini.it/negozio",
+      "TIPO": "IDENTITY_SOURCE",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000084",
+      "PLATAFORMA": "web",
+      "URL": "t.me/matej_vignaiuolo_oslavia",
+      "TIPO": "IDENTITY_SOURCE",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     }
+    ],
+    "QUAL_SOURCE_PROVA_IDENTIDADE": [
+     "IT-S-000083",
+     "IT-S-000084"
+    ],
+    "QUAL_SOURCE_E_MONITORAVEL": [
+     "IT-S-000082"
+    ],
+    "PAIS": "IT",
+    "PAIS_ESTADO": "PROVADO_IT",
+    "PAIS_PROVA": "NÃO SEI",
+    "REGIAO": "NÃO SEI",
+    "REGIAO_BASE": "NÃO SEI",
+    "CULTURAS": [
+     "MULTI",
+     "VINE"
+    ],
+    "ESPECIALIDADES": [
+     "BULLETIN",
+     "FLAVESCENCE_DOREE"
+    ],
+    "O_QUE_CONTINUA_NAO_SEI": [
+     "papel de campo não provado",
+     "OPERATING/INFLUENCE/FACT nunca medidos",
+     "conteúdo nunca coletado — recorrência temática e proximidade de campo seguem NÃO SEI"
+    ]
+   },
+   {
+    "ENTITY_ID": "IT-E-000191",
+    "NOME": "Matt The Farmer",
+    "KIND": "NÃO SEI",
+    "ROLES_PROVADOS": [],
+    "ROLES_NAO_PROVADOS": [
+     {
+      "PAPEL": "produtor",
+      "POR_QUE": "lido da PROSA LIVRE da aba About; o MODELO-DE-IDENTIDADE proíbe prosa livre de decidir papel, e o YouTube não expõe camp"
+     }
+    ],
+    "SOURCES": [
+     {
+      "SOURCE_ID": "IT-S-000085",
+      "PLATAFORMA": "youtube",
+      "URL": "https://www.youtube.com/@MattTheFarmerOfficial",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "canal descoberto pela busca pública e identidade lida na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000086",
+      "PLATAFORMA": "instagram",
+      "URL": "instagram.com/matt_thefarmer",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000087",
+      "PLATAFORMA": "facebook",
+      "URL": "facebook.com/MattTheFarmerIt",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000088",
+      "PLATAFORMA": "web",
+      "URL": "t.me/MattTheFarmerUfficiale",
+      "TIPO": "IDENTITY_SOURCE",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000089",
+      "PLATAFORMA": "tiktok",
+      "URL": "tiktok.com/@mattthefarmer?lang=it-IT",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000090",
+      "PLATAFORMA": "linkedin",
+      "URL": "linkedin.com/in/fioccomatteo",
+      "TIPO": "MONITORABLE_CHANNEL",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     },
+     {
+      "SOURCE_ID": "IT-S-000091",
+      "PLATAFORMA": "web",
+      "URL": "amzn.to/3FI5Z6t",
+      "TIPO": "IDENTITY_SOURCE",
+      "OWNERSHIP": "LINKED",
+      "PROVA": "link declarado pelo próprio canal na aba About"
+     }
+    ],
+    "QUAL_SOURCE_PROVA_IDENTIDADE": [
+     "IT-S-000088",
+     "IT-S-000091"
+    ],
+    "QUAL_SOURCE_E_MONITORAVEL": [
+     "IT-S-000085",
+     "IT-S-000086",
+     "IT-S-000087",
+     "IT-S-000089"
+    ],
+    "PAIS": "IT",
+    "PAIS_ESTADO": "PROVADO_IT",
+    "PAIS_PROVA": "NÃO SEI",
+    "REGIAO": "NÃO SEI",
+    "REGIAO_BASE": "NÃO SEI",
+    "CULTURAS": [
+     "MULTI",
+     "VINE"
+    ],
+    "ESPECIALIDADES": [
+     "DOWNY_MILDEW",
+     "FIELD_ADVISORY"
+    ],
+    "O_QUE_CONTINUA_NAO_SEI": [
+     "papel de campo não provado",
+     "OPERATING/INFLUENCE/FACT nunca medidos",
+     "conteúdo nunca coletado — recorrência temática e proximidade de campo seguem NÃO SEI"
+    ]
+   }
+  ]
+ }
+}
