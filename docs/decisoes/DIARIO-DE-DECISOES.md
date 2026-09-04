@@ -393,6 +393,60 @@ Regras do diário:
   descoberta para consertar.
 - **Quem decidiu:** decisão técnica da missão Brasil → Itália.
 
+---
+
+### D-021 — Das oito travas, sete dizem CORRIGIR e uma diz COPIAR
+
+- **Data:** 2026-09-04
+- **Estado:** DECIDIDO
+- **Contexto:** as oito afirmações sobre classificação de fonte foram testadas uma a uma
+  contra o **código vivo** brasileiro, por agentes instruídos a procurar o contra-exemplo
+  antes de concluir e a não aceitar documentação como prova de comportamento.
+- **Medido:**
+
+  | trava | BR obedece | IT deve | defeito |
+  |---|---|---|---|
+  | creator não é identidade humana | PARCIAL | CORRIGIR | registrado |
+  | produtor + agrônomo + creator | PARCIAL | CORRIGIR | registrado |
+  | **não perder papel verdadeiro por peso** | **NÃO** | CORRIGIR | **não registrado** |
+  | organização não vira técnica por keyword | PARCIAL | CORRIGIR | **não registrado** |
+  | rede social não prova autoridade | PARCIAL | CORRIGIR | registrado |
+  | portal que entrevista não vira agrônomo | PARCIAL | CORRIGIR | registrado |
+  | **seguidores medem alcance, não autoridade** | **SIM** | **COPIAR** | registrado |
+  | ausência de declaração não é negativa | PARCIAL | CORRIGIR | registrado |
+
+- **Decisão:** a Itália herda o **contrato** brasileiro e **não** o comportamento. A única
+  peça a copiar como está é a separação `alcance` × `autoridade`, que o Brasil implementa
+  em eixo próprio (`relevancia_alcance`, 0-100 em 4 partes) e nunca funde com a nota.
+- **Achado que o Brasil não tinha registrado:** `classificar-fontes.py:151` diz
+  *"peso maior vence"* e :415-418 executa — o laço acha TODOS os papéis que casam e
+  sobrescreve, e **os perdedores não vão para lista, contador, log ou coluna**. Um agrônomo
+  que também é produtor perde o segundo papel sem deixar rastro.
+- **Consequência para a Itália:** multivaloração precisa ser **array ou tabela com prova
+  por papel** — nunca uma coluna `tipo` escalar, que é onde Brasil e Itália falham hoje
+  pela mesma razão estrutural.
+- **Quem decidiu:** decisão técnica da missão Brasil → Itália.
+
+---
+
+### D-022 — `NÃO SEI` tratado como negativa matou 68 canais italianos
+
+- **Data:** 2026-09-04
+- **Estado:** DECIDIDO · **corrige um relato meu incompleto**
+- **Contexto:** a regra italiana de canal é `if COUNTRY != 'IT': REJECT`. Eu relatei que
+  *"17 canais foram recusados por país declarado"* e apresentei isso como aplicação
+  correta da lei *idioma não é país*.
+- **O que a medição mostrou:** foram recusados **24** por declararem país estrangeiro e
+  **68 por não declararem país nenhum**. `NOT_DECLARED` não é *"não é Itália"*.
+- **Decisão:** ausência de declaração vira **estado**, nunca rejeição. O Brasil batizou o
+  defeito: *"tratar ausência de medição como medição de ausência"* (`fila.py:1432-1433`),
+  e tem mais de 40 programas com prova unitária de *"NÃO SEI, nunca zero"*.
+- **Motivo:** é a mesma lei que este repositório já escreve em `FAIL CLOSED`
+  (`falha de leitura ≠ zero`), aplicada a um campo de identidade em vez de a uma rota.
+- **Consequência:** 68 canais voltam para avaliação como `PAIS = NÃO SEI`, e a decisão de
+  promovê-los passa a exigir outra prova de país — nunca a ausência dela.
+- **Quem decidiu:** decisão técnica da missão Brasil → Itália.
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |

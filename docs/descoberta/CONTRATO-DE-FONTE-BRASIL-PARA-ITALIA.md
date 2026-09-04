@@ -190,6 +190,77 @@ categoria que a Itália cometeria ao tratar um canal como se fosse a pessoa.
 
 ---
 
+## 4-C · AS OITO TRAVAS, TESTADAS UMA A UMA CONTRA O CÓDIGO VIVO
+
+Cada afirmação foi verificada por um agente adversarial instruído a **procurar o
+contra-exemplo antes de concluir** e a não aceitar documentação como prova de
+comportamento. Resultado:
+
+| # | trava | Brasil obedece? | Itália deve | defeito |
+|---|---|---|---|---|
+| T1 | creator não é necessariamente identidade humana | PARCIAL | **CORRIGIR** | registrado |
+| T2 | a mesma pessoa pode ser produtor + agrônomo + creator | PARCIAL | **CORRIGIR** | registrado |
+| T3 | **não perder um papel verdadeiro porque outro pesou mais** | ⛔ **NÃO** | **CORRIGIR** | ⚠️ **NÃO registrado** |
+| T4 | organização não vira pessoa técnica por keyword | PARCIAL | **CORRIGIR** | ⚠️ **NÃO registrado** |
+| T5 | rede social não prova autoridade | PARCIAL | **CORRIGIR** | registrado |
+| T6 | portal que entrevista agrônomos não vira agrônomo | PARCIAL | **CORRIGIR** | registrado |
+| T7 | **seguidores medem alcance, não autoridade** | ✅ **SIM** | ✅ **COPIAR** | registrado |
+| T8 | ausência de declaração não pode ser tratada como negativa | PARCIAL | **CORRIGIR** | registrado |
+
+> **Sete de oito dão CORRIGIR. Uma só dá COPIAR.** O contrato brasileiro é bom; o
+> comportamento brasileiro, na maioria destas travas, ainda não alcançou o contrato. A
+> Itália não deve copiar o comportamento.
+
+### T3 — a mais grave, e ninguém no Brasil a registrou
+
+O Brasil **não obedece, e não por descuido**: a negação está escrita em português no
+código antes de estar em Python.
+
+```
+classificar-fontes.py:151    « peso maior vence »
+classificar-fontes.py:415-418  executa
+```
+
+O laço varre os seis papéis, **encontra todos os que casam**, e sobrescreve `voz`,
+`prova_voz` e `peso` a cada melhora. Quando termina, existe **um** papel e **uma** prova.
+
+> **Os perdedores não vão para lista, contador, log ou coluna.** Um agrônomo que também
+> é produtor perde o segundo papel **sem deixar rastro de que ele existiu**.
+
+É exatamente a trava do usuário, violada em produção, **sem estar registrada em nenhuma
+auditoria brasileira**. A Itália herdaria o defeito se copiasse o comportamento — e hoje
+tem a mesma doença por outra via (papel único, multivaloração real = zero).
+
+### T7 — a única para copiar, e o Brasil vai além do que a trava pede
+
+A afirmação separa **duas** coisas (alcance × autoridade). O Brasil separa **três**, e
+ainda desconfia da primeira:
+
+- `fontes.alcance` é coletado e **não entra em regra nenhuma** — `grep alcance fila.py` = **zero**
+- `relevancia.py` **pede a coluna no select e nunca a usa**
+- e existe um eixo **separado e declarado**, `relevancia_alcance` (0-100, em 4 partes),
+  com a doutrina de por que nunca se funde com a nota de conversa:
+
+> *"Pierobon tira 13 na primeira e 84 na segunda… média entre 'alcança 334 mil pessoas' e
+> 'fala de manejo 1,8% do tempo' não significa nada."*
+
+A Itália já faz o mesmo por acidente (`AUDIENCE_SIZE` gravado e não lido por regra
+nenhuma). **Copiar aqui é transformar o acidente em regra escrita.**
+
+### T8 — e o nome que a casa deu ao defeito
+
+O Brasil obedece na camada que **mede** (mais de 40 programas com prova unitária
+*"NÃO SEI, nunca zero"*) e desobedece na camada que **consulta o banco** e na que
+**desenha coluna**. A regra tem nome próprio lá:
+
+> **"tratar ausência de medição como medição de ausência"** (`fila.py:1432-1433`)
+
+É precisamente o defeito italiano dos **68 canais recusados por não declararem país** —
+`NOT_DECLARED` tratado como *"não é Itália"*.
+
+
+---
+
 ## 5 · IDENTIDADE — a resposta definitiva sobre o ORCID
 
 A pergunta era: *a Itália exige ORCID para um pesquisador entrar; o Brasil faz o mesmo?*
@@ -452,6 +523,13 @@ E dois defeitos de esquema que só aparecem ao tentar caber no contrato:
   nome para inserir.**
 - **33 sensores são fonte sem entidade** (`PERSON_OR_ORGANIZATION_NOT_DECLARED`) — no
   contrato brasileiro são `NAO_RESOLVIDA`, e **não deveriam contar como origem qualificada**.
+
+**I6 · `NÃO SEI` tratado como negativa — 68 canais mortos por omissão.** A regra italiana
+`if r['COUNTRY'] != 'IT': REJECT` recusou **68 canais que simplesmente não declararam
+país**, junto com os 24 que declararam país estrangeiro. Não declarar **não é** declarar
+outro país. É o defeito que o Brasil batizou de *"tratar ausência de medição como medição
+de ausência"* (`fila.py:1432-1433`), e a Itália o cometeu na única regra em que ele era
+evitável de graça. **Eu relatei os 24 e não relatei os 68** — a correção está aqui.
 
 ---
 
