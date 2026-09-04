@@ -25,6 +25,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import vm from 'node:vm';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { PT_MARKERS } from './lang.mjs';
@@ -44,6 +45,14 @@ const RF = J('IT-FUTURO-HANDOFF-LINHA-B-V1.json');
 const SC = J('IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json');
 const FI = J('IT-HANDOFF-LINHA-B-FITOSSANITARIO-V1.json');
 const T3 = J('IT-TOP3-SENSORES-V1.json');
+
+/* O artefacto que o browser carrega, lido como o browser o le: executando-o. */
+const embarcadoV21 = () => {
+  const g = { window: {} };
+  vm.createContext(g);
+  vm.runInContext(fs.readFileSync(path.join(CLIENTE, 'italy-handoff-v21.js'), 'utf8'), g);
+  return g.window.ITALY_HANDOFF_V21 || {};
+};
 const HS = J('IT-PORTAL-SPRINT-HANDOFF-HUMAN-SENSORS-V1.json');
 
 const R = [];
@@ -353,6 +362,78 @@ check('BROWSER_DATA_ONLY_AUTHORIZED_DESTINATIONS', () => {
   }
   return { pass: !bad.length, detail: bad.length ? bad
     : [`${noDado.length} ids no dado (${noDado.join(', ')}), todos entre os ${rend.size} renderizaveis`] };
+});
+
+/* ── um nome de superficie, uma populacao ────────────────────────────────── */
+/* O menu chamava «Radar Futuro» a tres registos IT-FUT- do pacote V21, e a casa
+   chama «Radar Futuro» aos 45 ITFC. Chamava «Fonti» a 189 linhas SRC_ do mesmo
+   pacote — sem AUTHORITY_CLASS e sem COLLECTABILITY, que sao precisamente os dois
+   campos que definem as 91 «fonti con metodo». Interseccao de IDs: ZERO nos dois
+   casos. Dois universos disjuntos com o mesmo nome, a um clique da primeira dobra.
+
+       O CLIENTE NAO PODE CLICAR NUM NOME E CAIR NOUTRO UNIVERSO.
+
+   Este portao NAO procura a ausencia de uma string: liga o ROTULO ao DONO DA
+   POPULACAO. Para cada nome de superficie pergunta-se de que colecao ele conta,
+   e exige-se que o nome canonico so possa pertencer ao universo canonico.
+   Um portao por ausencia de texto passaria com o rotulo certo aplicado a
+   populacao errada — que e exactamente o defeito. */
+const NOMES_CANONICOS = {
+  RADAR: ['radar futuro', 'future radar'],
+  FONTES: ['fonti con metodo', 'sources with method'],
+};
+
+check('ONE_SURFACE_NAME_ONE_POPULATION', () => {
+  const i18n = fs.readFileSync(path.join(CLIENTE, 'italy-i18n.js'), 'utf8');
+  const rot = (chave) => [...i18n.matchAll(new RegExp(`${chave}:\\s*'((?:[^'\\\\]|\\\\.)*)'`, 'g'))].map((m) => m[1]);
+  const bad = [];
+
+  /* de que colecao conta cada entrada de menu — lido do portal, nao adivinhado */
+  const portale = fs.readFileSync(path.join(CLIENTE, 'portale.html'), 'utf8');
+  const contaDe = (chave) => {
+    const m = portale.match(new RegExp(`\\[\\s*'[a-z]+'\\s*,\\s*T\\.${chave}\\s*,\\s*navN\\('([a-zA-Z]+)'\\)`));
+    return m ? m[1] : null;
+  };
+  const donoFuture = contaDe('navFuture');
+  const donoSources = contaDe('navSources');
+  if (donoFuture !== 'futureSignals') bad.push(`navFuture conta '${donoFuture}', esperado futureSignals`);
+  if (donoSources !== 'sources') bad.push(`navSources conta '${donoSources}', esperado sources`);
+
+  /* a populacao que cada dono entrega, medida no artefacto embarcado */
+  const emb = embarcadoV21();
+  const idsFuture = (emb.futureSignals || []).map((x) => x.ID || x.id || '');
+  const idsSources = (emb.sources || []).map((x) => x.ID || x.id || '');
+  const canonicos = new Set((RF.RENDERIZAVEIS || []).map((x) => (typeof x === 'string' ? x : x && (x.ID || x.id))));
+
+  /* ZERO em comum: se um dia se cruzarem, deixa de haver dois universos e este
+     portao tem de ser reescrito em vez de silenciado. */
+  const cruz = idsFuture.filter((id) => canonicos.has(id));
+  if (cruz.length) bad.push(`IT-FUT e ITFC deixaram de ser disjuntos: ${cruz.join(',')}`);
+  if (!idsFuture.length || !idsFuture.every((id) => /^IT-FUT-/.test(id)))
+    bad.push(`a populacao de navFuture nao e IT-FUT-*: ${idsFuture.slice(0, 3).join(',')}`);
+  if (!idsSources.every((id) => /^SRC_/.test(id)))
+    bad.push('a populacao de navSources nao e SRC_*');
+
+  /* A LEI: o nome canonico nao pode rotular a populacao legada. */
+  for (const r of rot('navFuture'))
+    if (NOMES_CANONICOS.RADAR.includes(r.trim().toLowerCase()))
+      bad.push(`«${r}» rotula ${idsFuture.length} registos IT-FUT-, mas e o nome dos ${canonicos.size} ITFC`);
+  for (const r of rot('navSources'))
+    if (NOMES_CANONICOS.FONTES.includes(r.trim().toLowerCase()) || /^(fonti|sources)$/i.test(r.trim()))
+      bad.push(`«${r}» rotula ${idsSources.length} linhas SRC_, ao lado das 91 fonti con metodo`);
+
+  /* CONTROLO NEGATIVO — um portao que nunca reprovou e decoracao. Da-se o nome
+     canonico a populacao legada e exige-se que a mesma regra o apanhe. */
+  const regra = (rotulos, canon) => rotulos.some((r) => canon.includes(r.trim().toLowerCase()));
+  if (!regra(['Radar Futuro'], NOMES_CANONICOS.RADAR)) bad.push('CONTROLO NEGATIVO FALHOU: «Radar Futuro» na populacao IT-FUT nao foi apanhado');
+  if (!regra(['Fonti con metodo'], NOMES_CANONICOS.FONTES)) bad.push('CONTROLO NEGATIVO FALHOU: «Fonti con metodo» na coleccao legada nao foi apanhado');
+
+  return { pass: !bad.length, detail: bad.length ? bad : [
+    `navFuture «${rot('navFuture').join(' / ')}» -> ${donoFuture} · ${idsFuture.length} IT-FUT-`,
+    `navSources «${rot('navSources').join(' / ')}» -> ${donoSources} · ${idsSources.length} SRC_`,
+    `«Radar Futuro» fica reservado aos ${canonicos.size} ITFC · interseccao IT-FUT x ITFC = 0`,
+    'controlo negativo: os dois nomes canonicos aplicados ao legado SAO apanhados',
+  ] };
 });
 
 const mau = R.filter((r) => !r.pass);
