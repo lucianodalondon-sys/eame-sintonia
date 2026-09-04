@@ -7,8 +7,10 @@
 REPOSITÓRIO   lucianodalondon-sys/eame-sintonia
 BRANCH        claude/meeting-portal-final-pabok2
 HEAD          f95b157
-ESTADO        PARCIAL — as duas contradições estão FECHADAS, gates verdes,
-              browser verificado. FALTA: deploy real e MEETING_FREEZE.
+ESTADO        POST_MEETING_RECONCILIATION_CANDIDATE
+              As duas contradições estão FECHADAS, gates verdes, browser
+              verificado, e a branch ESTÁ publicada como Preview Vercel.
+              NÃO substitui a build aprovada da reunião — ver §14.
 ```
 
 ---
@@ -489,3 +491,96 @@ presented as portfolio and is not in PORTFOLIO_MATCHES»).
     UM TESTE QUE NÃO PARTE O BUG ANTIGO NÃO É TESTEMUNHA SUFICIENTE.
 
 O portal consome o snapshot. Falta publicá-lo e olhar para o que foi servido.
+
+
+---
+
+## 14 · ARBITRAGEM — esta build é CANDIDATA, não substituição
+
+Existe outra build já publicada e verificada para a reunião. Esta branch fica
+registada como **POST_MEETING_RECONCILIATION_CANDIDATE** e **não** a substitui.
+
+### 14.1 · CORREÇÃO CONTRA MIM: o deploy nunca esteve bloqueado
+
+Declarei «sem credencial Vercel, deploy impossível». Estava errado, e procurei
+no sítio errado: não há `vercel` CLI nem token — mas **não é preciso nenhum**.
+A Vercel publica por GitHub Deployments API, e **cada push cria um Preview**.
+
+```bash
+curl -sS -H "Authorization: Bearer $GH_TOKEN" \
+  "https://api.github.com/repos/lucianodalondon-sys/eame-sintonia/deployments?per_page=30"
+# depois: /deployments/<id>/statuses  →  environment_url
+```
+
+    UMA FERRAMENTA QUE FALTA NAO E UMA PORTA FECHADA.
+    EU LI A AUSENCIA DE `vercel` COMO AUSENCIA DE DEPLOY.
+
+| build | commit | URL |
+|---|---|---|
+| **alias estável** | `a14b9e1` | `https://sintonia-eame-preview.vercel.app` |
+| **aprovada** | `8ef3c23` | `https://sintonia-eame-preview-a6o2lvn02-london-creative.vercel.app` |
+| **esta candidata** | `08c27e9` | `https://sintonia-eame-preview-guor8cyjx-london-creative.vercel.app` |
+
+⚠️ **O alias estável serve a base PRÉ-INTEGRAÇÃO.** Medido: `meeting-intelligence-snapshot.js`
+→ **404**, `meeting-labels.js` → **404**, handoff `V21-99226fbb90dcdbc2`.
+O último deploy de **Production** é `a14b9e1`, de 22:53 — antes de toda a
+integração. Quem abrir o endereço curto na reunião vê o portal antigo.
+
+### 14.2 · O que foi medido na build aprovada
+
+Espelho descarregado do URL público e servido localmente (o Chromium do
+contentor não atravessa o proxy até ao domínio). Só faltam fontes e um CSS de
+padrões — nada que toque nos factos abaixo.
+
+A build aprovada tem **duas superfícies**, ambas na barra de navegação, ambas
+rotuladas **43**:
+
+| | «Radar delle Opportunità» (legado) | «Radar Canonico» (canónica) |
+|---|---|---|
+| 43 renderizam | sim (12 → 43) | sim |
+| produtos no botrite | **AGHARTA · BANJO · EMBRACE** | **BANJO** |
+| janela | **«Nessuna finestra dichiarata»** | regra + estado, separados |
+
+**CRÍTICO — na superfície canónica, o bloco do produto principal contradiz-se
+em 17 casos de 43**, incluindo o caso de abertura da demo:
+
+```
+data-has-primary=true · «Unico prodotto del catalogo su questa coppia» · BANJO
+                       «Nessun prodotto principale: il motore non dichiara
+                        una regola per sceglierne uno»
+```
+
+Medido no browser: Botrite `hasPrimary=true` diz as duas; Tignoletta idem;
+Carpocapsa (`hasPrimary=false`) diz só a segunda, e está certa.
+
+Causa: `portale.html:576` — `<sc-if value="{{ mcNoPrimary }}">` fecha sobre uma
+**string que nunca é vazia** (`meeting-surface.js:247` devolve sempre uma frase).
+
+    UMA STRING NAO VAZIA E SEMPRE VERDADEIRA.
+    E A MESMA ARMADILHA QUE `progressPct` («0%») JA TINHA DEIXADO ESCRITA
+    NESTE FICHEIRO.
+
+**Correção de uma linha, na build aprovada** (não aplicada por esta sessão — a
+branch é de outra):
+
+```html
+<!-- portale.html:576 -->
+<sc-if value="{{ mcNoPrimaryShown }}" …>     <!-- em vez de mcNoPrimary -->
+```
+```js
+// junto de mcNoPrimary, ~8947
+mcNoPrimaryShown: !!(mcCase && !mcCase.products.hasPrimary),
+```
+
+### 14.3 · Deltas que NÃO justificam trocar a build
+
+| delta | classe | veredito |
+|---|---|---|
+| `italy-handoff-v21.js` a 37 casos sob um snapshot de 43 | E · SEMANTIC | modelo e radar mostram 43 · **DEFER** |
+| prosa PT aninhada e 11 frases nomeando campos do motor no snapshot | C · FIX_NOT_PRESENT | **carregadas mas não renderizadas** · DEFER |
+| PDF do revendedor imprime `ACT_NOW` e `SOURCE_IDS` | C · FIX_NOT_PRESENT | só alcançável do detalhe **legado** (`openBrief` 0× na superfície canónica) · DEFER |
+| 8 testemunhas que o merge deixou cair | B · TEST_ONLY | DEFER |
+| B3 · DS1 | PREEXISTING_NON_MEETING_BLOCKER | não gastar a madrugada |
+
+`WEAKENS` / `CLOSES` / `CONTRADICTS`: o motor não os emite. Não exigir, não
+inventar.
