@@ -176,11 +176,41 @@ def main():
             'carregue SO os arquivos de DESIGN-INGEST/. Nao abra INTERNAL-ARCHIVE/: '
             'ele e o rastro do trabalho, nao o contrato.'),
         'MASTER_INDEX': 'CANONICAL-INTELLIGENCE-MASTER.json',
+        # ⚠️ A LEI DESTE CAMPO OBRIGAVA O CONSUMIDOR A ESCOLHER ENTRE DOIS
+        # CONTRATOS QUE SE CONTRADIZIAM, E ISSO E UM DEFEITO DO MANIFESTO.
+        # Ela dizia «CLIENT_SAFE=false vive no corpus e aparece como
+        # RESEARCH_LEADS». As 43 oportunidades sao CLIENT_SAFE=false por
+        # construcao — a juncao e leitura nossa —, e a propria colecao delas diz
+        # o contrario, em OPPORTUNITIES.LAW e em WHY_NOT_CLIENT_SAFE: «vai a
+        # tela com o metodo declarado ao lado».
+        #
+        # Um consumidor obediente ao manifesto mandava as 43 para research leads
+        # e ficava com a superficie vazia.
+        #
+        #     UM MANIFESTO QUE PERMITE DUAS LEITURAS NAO E CONTRATO: E UM TESTE
+        #     DE ADIVINHACAO QUE O CONSUMIDOR VAI PERDER.
+        #
+        # A regra por QA_STATUS continua identica — nenhum valor de CLIENT_SAFE
+        # mudou em registro nenhum. O que muda e a CONSEQUENCIA declarada: o
+        # campo responde se a afirmacao se sustenta SEM a sintese do Sintonia,
+        # e nao se ela pode aparecer.
         'CLIENT_SAFE_RULE': {
             'true': 'QA_PASS · QA_CORRECTED · EVIDENCE_DOCUMENTED · EVIDENCE_SOURCED',
             'false': 'QA_UNREVIEWED · QA_REJECTED · EVIDENCE_DERIVED',
-            'LEI': 'so CLIENT_SAFE=true sustenta afirmacao visivel ao cliente. '
-                   'CLIENT_SAFE=false vive no corpus e aparece como RESEARCH_LEADS.',
+            'PERGUNTA': 'esta afirmacao pode ser apresentada como FATO client-safe '
+                        'sem depender da leitura/sintese metodologica do Sintonia?',
+            'LEI': 'CLIENT_SAFE=true sustenta afirmacao de FATO ao cliente. '
+                   'CLIENT_SAFE=false significa que a afirmacao depende da nossa '
+                   'sintese — e por isso viaja COM O METODO AO LADO, nunca sozinha. '
+                   'FATO CLIENT-SAFE NAO E A MESMA COISA QUE LEITURA DE '
+                   'INTELIGENCIA MOSTRAVEL.',
+            'NAO_E_PORTAO_DE_VISIBILIDADE': True,
+            'NAO_SIGNIFICA': ['esconder', 'retirar da reuniao',
+                              'converter automaticamente em RESEARCH_LEAD',
+                              'eliminar a oportunidade'],
+            'RESEARCH_LEADS': 'RESEARCH_LEADS existe onde o contrato da colecao o '
+                              'determinar. CLIENT_SAFE=false SOZINHO NAO e regra '
+                              'suficiente para mandar uma OPPORTUNITY para la.',
         },
         'LANGUAGE_RULE': {
             'RESEARCH': 'as notas de pesquisa ficam em portugues dentro de RESEARCH — '
@@ -188,6 +218,70 @@ def main():
             'CLIENT_FIELDS': 'os campos interpretativos client-safe trazem *_IT e '
                              '*_EN prontos, com ORIGINAL_RESEARCH_TEXT ao lado.',
             'QUOTES': 'citacao publica permanece no idioma da fonte, sempre.',
+        },
+        # ── A SUPERFICIE DA REUNIAO, DECLARADA ──────────────────────────────
+        # O manifesto e o arquivo de entrada do portal, e ate aqui ele nao
+        # respondia a pergunta mais simples que um consumidor faz: o que eu
+        # mostro? Tres campos pareciam portao de visibilidade e nenhum era.
+        #
+        #     TRES CANDIDATOS A PORTAO E NENHUMA REGRA ESCRITA E O MESMO QUE
+        #     NENHUM CONTRATO.
+        #
+        # A decisao de superficie e de quem manda, nao minha; o que e meu e
+        # escreve-la de modo que so exista UMA leitura possivel.
+        'MEETING_SURFACE_RULE': {
+            'SOURCE_COLLECTION': 'OPPORTUNITIES',
+            'INCLUDE_ALL_CURRENT_CASES': True,
+            # Recontado do proprio pacote a cada build — numero escrito a mao
+            # no contrato envelhece em silencio, e este repositorio ja pagou por
+            # isso mais de uma vez.
+            'EXPECTED_TOTAL': (por_col.get('opportunities') or {}).get('COUNT_TOTAL'),
+            'LANE_OWNER': 'COMMERCIAL_PRIORITY',
+            'LANES': {
+                'SALES_READY': 'AGIRE ORA',
+                'STRATEGIC_OPPORTUNITY': 'PREPARARE ORA',
+                'COMMERCIAL_WATCH': 'DA MONITORARE',
+                'TO_VALIDATE': 'SEGNALI',
+            },
+            'CLIENT_SAFE_IS_VISIBILITY_GATE': False,
+            'RENDERABLE_WITH_METHOD_IS_VISIBILITY_GATE': False,
+            'PUBLICATION_STATE_IS_VISIBILITY_GATE': False,
+            'PUBLICATION_STATE_CONTROLS_EXTERNAL_DISTRIBUTION': True,
+            'LEI': 'todos os casos correntes de OPPORTUNITIES aparecem na superficie '
+                   'da reuniao. A FAIXA sai de COMMERCIAL_PRIORITY e de mais nada. '
+                   'CLIENT_SAFE, RENDERABLE_WITH_METHOD e PUBLICATION_STATE NAO '
+                   'filtram a tela: respondem outras tres perguntas.',
+        },
+        # As quatro perguntas, lado a lado, para que ninguem as confunda de novo.
+        'FIELD_QUESTIONS': {
+            'COMMERCIAL_PRIORITY': {
+                'PERGUNTA': 'em que estagio comercial esta inteligencia esta?',
+                'PAPEL': 'DONO DA FAIXA DA SUPERFICIE'},
+            'CLIENT_SAFE': {
+                'PERGUNTA': 'a afirmacao e client-safe como FATO, ou precisa '
+                            'permanecer declarada como leitura/sintese do Sintonia?',
+                'PAPEL': 'NAO E PORTAO DE VISIBILIDADE'},
+            'RENDERABLE_WITH_METHOD': {
+                'PERGUNTA': 'qual e o estado metodologico/epistemologico desta '
+                            'leitura? (true = OPPORTUNITY_CONFIRMED · '
+                            'false = OPPORTUNITY_CANDIDATE, com portao aberto)',
+                'PAPEL': 'NAO E PORTAO DE VISIBILIDADE. Nao cria colecao nova, nao '
+                         'move caso de faixa e nao vira classificacao comercial.'},
+            'PUBLICATION_STATE': {
+                'PERGUNTA': 'pode sair da ADAMA para terceiro como material?',
+                'PAPEL': 'PORTAO DE DISTRIBUICAO EXTERNA. Nao e portao de '
+                         'renderizacao. RENDER != EXPORT.'},
+        },
+        'EXTERNAL_EXPORT_ALLOWED': {
+            'PUBLISHABLE': 'permitido pelo portao de publicacao, sujeito aos demais '
+                           'contratos aplicaveis',
+            'VALIDATION_REQUIRED': 'BLOQUEADO ate validacao. Aparece na superficie '
+                                   'de inteligencia; nao sai como material pronto.',
+            'UNKNOWN': 'BLOQUEADO: sem estado decidido nao ha autorizacao.',
+            'QUARANTINED': 'BLOQUEADO: apoio que nao completou etapa obrigatoria.',
+            'LEI': 'VENDER E UMA DECISAO INTERNA. ENVIAR E UMA AFIRMACAO PUBLICA. '
+                   'Este contrato NAO obriga o consumidor a implementar exportacao '
+                   'agora — define o que valeria quando implementar.',
         },
         'DOUBLE_COUNT_WARNING': (
             'FUTURE-EVENTS.json e um RECORTE de EVENTS.json. Carregar os dois soma o '

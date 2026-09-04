@@ -30,6 +30,7 @@ porta, a aceitação que reprova, o fim do bypass no CI e a testemunha universal
     U19–U26 o FECHAMENTO DAS REGRAS de `85df96f` não pode regredir.
     U15–U17 aceitação, ordem da cadeia e CI.
     U18     a testemunha universal atravessou.
+    U29–U34 o manifesto só admite UMA leitura da superfície.
 
     UM TESTE QUE NÃO NASCEU DE UM ERRO MEDIDO É UM TESTE QUE PASSA POR SORTE.
 """
@@ -527,6 +528,115 @@ class TestReconciliacaoUniversal(unittest.TestCase):
             self.assertIn('AREA_SELECTION_RULE', dim, r['ID'])
             if dim.get('AREA_OFICIAL_HA') is not None:
                 self.assertIsNotNone(dim.get('AREA_OFICIAL_ANO'), r['ID'])
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# U29–U34 · O MANIFESTO SÓ ADMITE UMA LEITURA
+#
+# Três campos pareciam portão de visibilidade e nenhum era; a lei do
+# `CLIENT_SAFE` mandava os 43 casos para `RESEARCH_LEADS`, e a lei da catraca
+# dizia «publicável» onde queria dizer «pode sair da ADAMA». Um portal obediente
+# ao contrato chegava a uma tela vazia; um portal desobediente chegava à tela
+# certa por sorte.
+#
+#     QUANDO A IMPLEMENTAÇÃO CORRETA EXIGE DESOBEDECER AO CONTRATO,
+#     QUEM ESTÁ QUEBRADO É O CONTRATO.
+#
+# Estes testes não conferem números da tela — disso cuida
+# `v21_contrato_da_superficie.py`, que roda na cadeia. Eles seguram as FRASES,
+# porque foi frase ambígua, e não número errado, que produziu os três
+# CONTRACT_CONFLICT.
+# ═══════════════════════════════════════════════════════════════════════════
+class ManifestoSemDuasLeituras(unittest.TestCase):
+
+    def _man(self):
+        return _pacote('APP-MANIFEST.json')
+
+    def test_U29_client_safe_false_nao_manda_ninguem_para_research_leads(self):
+        """CONFLICT 1. Os 43 são `CLIENT_SAFE=false` por construção."""
+        cs = self._man()['CLIENT_SAFE_RULE']
+        self.assertNotIn('RESEARCH_LEADS', cs['LEI'],
+                         'a lei voltou a mandar o false para RESEARCH_LEADS')
+        self.assertIs(cs.get('NAO_E_PORTAO_DE_VISIBILIDADE'), True)
+        # O mapeamento por QA_STATUS é o que decide o valor, e ele NÃO mudou.
+        self.assertEqual(cs['true'],
+                         'QA_PASS · QA_CORRECTED · EVIDENCE_DOCUMENTED · '
+                         'EVIDENCE_SOURCED')
+        self.assertEqual(cs['false'],
+                         'QA_UNREVIEWED · QA_REJECTED · EVIDENCE_DERIVED')
+        self.assertTrue(all(r['CLIENT_SAFE'] is False
+                            for r in _recs('OPPORTUNITIES.json')),
+                        'algum CLIENT_SAFE mudou de valor — a correção era de lei')
+
+    def test_U30_os_tres_campos_declaram_que_nao_filtram_a_tela(self):
+        """CONFLICT 2. Ausência não serve: o portal teria de adivinhar."""
+        regra = self._man()['MEETING_SURFACE_RULE']
+        for campo in ('CLIENT_SAFE', 'RENDERABLE_WITH_METHOD',
+                      'PUBLICATION_STATE'):
+            self.assertIs(regra.get('%s_IS_VISIBILITY_GATE' % campo), False,
+                          '%s não declara que NÃO filtra a superfície' % campo)
+        self.assertEqual(regra.get('LANE_OWNER'), 'COMMERCIAL_PRIORITY')
+        self.assertIs(regra.get('INCLUDE_ALL_CURRENT_CASES'), True)
+
+    def test_U31_render_nao_e_export(self):
+        """CONFLICT 3. «Portão de saída» lido na tela virava «não renderize»."""
+        man = self._man()
+        self.assertIs(
+            man['MEETING_SURFACE_RULE']
+               .get('PUBLICATION_STATE_CONTROLS_EXTERNAL_DISTRIBUTION'), True)
+        papel = man['FIELD_QUESTIONS']['PUBLICATION_STATE']['PAPEL']
+        self.assertIn('DISTRIBUICAO EXTERNA', papel)
+        self.assertIn('RENDER != EXPORT', papel)
+        # E a lei que viaja no cartão precisa dizer o mesmo, ou são duas fontes.
+        for r in _recs('OPPORTUNITIES.json'):
+            lei = r['PUBLICATION_GATE_LAW']
+            self.assertIn('NAO E PORTAO DE RENDERIZACAO', lei, r['ID'])
+            self.assertNotIn('publicavel', lei, r['ID'])
+
+    def test_U32_o_total_da_superficie_e_recontado_do_pacote(self):
+        """Número escrito à mão no contrato envelhece em silêncio."""
+        regra = self._man()['MEETING_SURFACE_RULE']
+        self.assertEqual(regra['EXPECTED_TOTAL'],
+                         len(_recs('OPPORTUNITIES.json')))
+        fonte = open(os.path.join(ROOT, 'scripts', 'v21_fechar.py'),
+                     encoding='utf-8').read()
+        self.assertNotIn("'EXPECTED_TOTAL': 43", fonte,
+                         'o total virou constante — ele tem de sair do pacote')
+
+    def test_U33_toda_faixa_da_superficie_tem_dono_declarado(self):
+        """Um valor de COMMERCIAL_PRIORITY sem faixa é um caso sem tela."""
+        faixas = self._man()['MEETING_SURFACE_RULE']['LANES']
+        for r in _recs('OPPORTUNITIES.json'):
+            self.assertIn(r['COMMERCIAL_PRIORITY'], faixas, r['ID'])
+
+    def test_U34_o_consumidor_burro_montou_a_tela_sem_adivinhar(self):
+        """R4 roda na cadeia; aqui o teste segura o veredito dele."""
+        p = os.path.join(os.path.dirname(ING), 'SURFACE-CONTRACT.json')
+        if not os.path.exists(p):
+            raise unittest.SkipTest('rode scripts/v21_cadeia.sh')
+        r = json.load(open(p, encoding='utf-8'))
+        self.assertEqual(r['DECISOES_QUE_O_PORTAL_TERIA_DE_ADIVINHAR'], [])
+        self.assertEqual(r['CONTRACT'], 'PASS')
+        cad = open(os.path.join(ROOT, 'scripts', 'v21_cadeia.sh'),
+                   encoding='utf-8').read()
+        self.assertIn('v21_contrato_da_superficie.py', cad,
+                      'o contrato saiu da cadeia — no rebuild seguinte ninguem nota')
+
+    def test_U35_o_controle_negativo_continua_reprovando(self):
+        """R4 reprovou de verdade uma vez. Sem isso ele é decoração.
+
+        O pacote vive fora do Git e é refeito a cada rodada, então o `FAIL`
+        medido em `b3935bd` foi congelado como amostra. Se alguém o "consertar",
+        some a única prova de que o portão discrimina.
+        """
+        p = os.path.join(ROOT, 'data', 'samples', 'AUDITORIA-SOMBRA',
+                         'SURFACE-CONTRACT-ANTES-DA-CORRECAO.json')
+        self.assertTrue(os.path.exists(p), 'o controle negativo sumiu')
+        r = json.load(open(p, encoding='utf-8'))
+        self.assertEqual(r['CONTRACT'], 'FAIL')
+        self.assertTrue(r['DECISOES_QUE_O_PORTAL_TERIA_DE_ADIVINHAR'],
+                        'o controle negativo nao lista o que faltava adivinhar')
+
 
 
 if __name__ == '__main__':

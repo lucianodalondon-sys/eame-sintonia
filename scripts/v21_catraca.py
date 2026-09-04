@@ -474,12 +474,25 @@ def main():
         o['TRAIL_INCOMPLETE_EVIDENCE_IDS'] = inc
         o['TRAIL_MISSING_EVIDENCE_IDS'] = aus
         o['PUBLICATION_STATE_FROM'] = 'EXTERNAL_MATERIAL_READY'
+        # ⚠️ ESTA LEI JA FOI AMBIGUA, E A AMBIGUIDADE CUSTOU UM CONFLITO DE
+        # CONTRATO. Ela dizia «sustentar afirmacao publicavel» — e «publicavel»,
+        # lido por quem implementa a tela, vira «renderizavel». Nao e.
+        #
+        #     RENDER NAO E EXPORT. MOSTRAR NA REUNIAO E UMA DECISAO INTERNA;
+        #     ENVIAR PARA FORA E UMA AFIRMACAO PUBLICA.
+        #
+        # Um caso VALIDATION_REQUIRED continua na superficie da reuniao, na
+        # faixa que COMMERCIAL_PRIORITY lhe deu. O que este portao decide e se
+        # ele pode SAIR da ADAMA como material — e so isso.
         o['PUBLICATION_GATE_LAW'] = (
-            'DADO BRUTO NAO E PUBLICAVEL. PUBLICATION_STATE nasce de '
+            'DADO BRUTO NAO SAI COMO MATERIAL. PUBLICATION_STATE nasce de '
             'EXTERNAL_MATERIAL_READY, que e decisao de v21_comercial.externo(), '
-            'e a catraca so pode REBAIXA-LO — nunca promove-lo. O material pode '
-            'ficar no acervo sem passar pela inteligencia; o que ele nao pode e '
-            'sustentar afirmacao publicavel sem ter passado.')
+            'e a catraca so pode REBAIXA-LO — nunca promove-lo. Este e o PORTAO '
+            'DE DISTRIBUICAO EXTERNA: ele autoriza (ou nao) a saida da afirmacao '
+            'para terceiro. NAO E PORTAO DE RENDERIZACAO e NAO retira o caso da '
+            'superficie da reuniao — a faixa da tela sai de COMMERCIAL_PRIORITY. '
+            'O material pode ficar no acervo sem passar pela inteligencia; o que '
+            'ele nao pode e sair para fora sem ter passado.')
         por_estado[est] += 1
         por_trilha[trilha] += 1
 

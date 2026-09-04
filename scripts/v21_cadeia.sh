@@ -140,3 +140,6 @@ echo "── 9 · os contratos: cada lei vira contador, e o zero e medido ──
 # desaparece no rebuild seguinte e ninguem nota.
 "$PY" scripts/v21_geografia_contrato.py
 "$PY" scripts/v21_procedencia_contrato.py
+# R4 · o manifesto lido por um consumidor que nao interpreta nada. Roda por
+# ultimo porque le o pacote inteiro ja fechado — inclusive o proprio manifesto.
+"$PY" scripts/v21_contrato_da_superficie.py
