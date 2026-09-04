@@ -1,0 +1,1046 @@
+{
+ "DATASET": "IT-HANDOFF-LINHA-B-FONTES-V1",
+ "LEI": "empacota o que o contrato ja aprovou. Nao recalcula julgamento, nao reclassifica, nao cria QA e nao altera CLIENT_SAFE.",
+ "UPSTREAM_CHECKPOINT": "678649a",
+ "SOURCE_HEAD": "678649a",
+ "CONTRACT_VERSION": "IT-CONTRATO-FAMILIA-FONTES-V1",
+ "COLLECTION": "FONTES",
+ "DONO_DA_DECISAO": "coleta",
+ "TOTAL": 317,
+ "RENDERABLE_CARD": 0,
+ "RENDERABLE_WITH_METHOD": 91,
+ "EVIDENCE_ONLY": 39,
+ "DROPPED": 187,
+ "NAO_SEI": 59,
+ "LEI_DA_FAMILIA": "esta familia responde a UMA pergunta e nao a outra. Responde ONDE TEMOS OLHOS. Nao responde onde ha problema — confundir as duas transforma cobertura de coleta em mapa de pressao agronomica.",
+ "PROVENIENCIA": {
+  "SOURCE_ARTIFACT_HASHES": {
+   "data/samples/IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json": "sha256:be52cf12a3cfe591bdf6654177801704",
+   "data/samples/IT-FONTES-V1/IT-FONTES-RECONFERENCIA-V1.json": "sha256:ea1e433836fd5fbf1e8d5712fdab538c",
+   "data/samples/IT-FONTES-V1/IT-FONTES-REJEICOES-LOTE2-V1.json": "sha256:e78e80ce13c1348b1ca28385aae5bad6"
+  },
+  "ACHADO_DA_CONTAGEM": "o inventario V1 contou 93; o V2 conta 317. A diferenca sao WEB, REJECTIONS, HANDLES, VIDEO_ROUTES_MEASURED, ROUTES_NOT_REACHED_FROM_THIS_SESSION e as correccoes as proprias medicoes."
+ },
+ "CAMPOS_OBRIGATORIOS": {
+  "fontes descobertas": [
+   "SOURCE_ID",
+   "NAME",
+   "ENTITY",
+   "PLATFORM",
+   "PRIMARY_URL",
+   "REGION",
+   "COUNTRY",
+   "SOURCE_TYPE",
+   "AUTHORITY_CLASS",
+   "ACCESS_STATUS",
+   "COLLECTABILITY",
+   "PROVENANCE_STATUS",
+   "LAST_CHECKED_AT",
+   "EVIDENCE_PROBE",
+   "ADAMA_RELEVANCE_REASON"
+  ]
+ },
+ "AVISOS_OBRIGATORIOS": {
+  "fontes descobertas": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE"
+ },
+ "LIMITES": [
+  {
+   "SUBCONJUNTO": "fontes descobertas",
+   "NAO_SEI": {
+    "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+    "COMO_RENDERIZAR": "fonte sem data de conteudo observado aparece como NAO SEI, nunca como fonte inativa: nao ter olhado nao e o mesmo que nao haver nada. ACCESS_STATUS diferente de GREEN aparece sempre, com a palavra do proprio campo."
+   },
+   "REMOVE_INTERNOS": true
+  }
+ ],
+ "CAMPOS_QUE_NUNCA_ATRAVESSAM": [
+  "NOTES_INTERNAL",
+  "DISCOVERY_QUERY",
+  "DEDUPE_AGAINST",
+  "DEDUPE_MEANS"
+ ],
+ "RAZAO_DE_EXCLUSAO": [
+  {
+   "SUBCONJUNTO": "reconferencia de enderecos",
+   "CLASSE": "DROPPED",
+   "N": 35,
+   "RAZAO": "e o registo de terem sido reconferidos enderecos — trabalho de manutencao do cadastro. O resultado ja vive no proprio cadastro; mostra-lo a parte contaria a mesma fonte duas vezes."
+  },
+  {
+   "SUBCONJUNTO": "rejeicoes do lote 2",
+   "CLASSE": "DROPPED",
+   "N": 95,
+   "RAZAO": "o proprio artefacto declara em O_QUE_ISTO_NAO_E que REASON_AS_REPORTED e o texto do agente e NAO foi verificado item a item. Levar 95 rejeicoes nao verificadas a uma reuniao seria apresentar juizo de maquina como conclusao. Fica em auditoria."
+  },
+  {
+   "SUBCONJUNTO": "fontes rejeitadas na descoberta",
+   "CLASSE": "DROPPED",
+   "N": 11,
+   "RAZAO": "fala do NOSSO metodo de coleta, nao do campo. Fica FORA da grelha da reuniao e alcancavel em auditoria: uma rota que nao se alcancou e uma medicao, e escondê-la faria a cobertura parecer maior do que e."
+  },
+  {
+   "SUBCONJUNTO": "rotas nao alcancadas nesta sessao",
+   "CLASSE": "DROPPED",
+   "N": 22,
+   "RAZAO": "fala do NOSSO metodo de coleta, nao do campo. Fica FORA da grelha da reuniao e alcancavel em auditoria: uma rota que nao se alcancou e uma medicao, e escondê-la faria a cobertura parecer maior do que e."
+  },
+  {
+   "SUBCONJUNTO": "rotas de video medidas",
+   "CLASSE": "EVIDENCE_ONLY",
+   "N": 39,
+   "RAZAO": "fala do NOSSO metodo de coleta, nao do campo. Fica FORA da grelha da reuniao e alcancavel em auditoria: uma rota que nao se alcancou e uma medicao, e escondê-la faria a cobertura parecer maior do que e."
+  },
+  {
+   "SUBCONJUNTO": "correccoes as proprias medicoes",
+   "CLASSE": "DROPPED",
+   "N": 6,
+   "RAZAO": "fala do NOSSO metodo de coleta, nao do campo. Fica FORA da grelha da reuniao e alcancavel em auditoria: uma rota que nao se alcancou e uma medicao, e escondê-la faria a cobertura parecer maior do que e."
+  },
+  {
+   "SUBCONJUNTO": "contradicoes em aberto",
+   "CLASSE": "DROPPED",
+   "N": 1,
+   "RAZAO": "fala do NOSSO metodo de coleta, nao do campo. Fica FORA da grelha da reuniao e alcancavel em auditoria: uma rota que nao se alcancou e uma medicao, e escondê-la faria a cobertura parecer maior do que e."
+  },
+  {
+   "SUBCONJUNTO": "handles reconferidos",
+   "CLASSE": "DROPPED",
+   "N": 17,
+   "RAZAO": "fala do NOSSO metodo de coleta, nao do campo. Fica FORA da grelha da reuniao e alcancavel em auditoria: uma rota que nao se alcancou e uma medicao, e escondê-la faria a cobertura parecer maior do que e."
+  }
+ ],
+ "ENTRADAS_AUTORIZADAS": [
+  {
+   "ID": "IT-SRCX-001",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-002",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-003",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-004",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-005",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-006",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-007",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-008",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-009",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-010",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-011",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-012",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-013",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-014",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-015",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-016",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-017",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-018",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-019",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-020",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-021",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-022",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-023",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-024",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-025",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-026",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-027",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-028",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-029",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-030",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-031",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-032",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-033",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-034",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-035",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-036",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-037",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-038",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-039",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-040",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-041",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-042",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-043",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-044",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-045",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-046",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-047",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-048",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-049",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-050",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-051",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-052",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-053",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-054",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-055",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-056",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-057",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-058",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-059",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-060",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-061",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-062",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-063",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-064",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-065",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-066",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-067",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-068",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-069",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-070",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-071",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-072",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-073",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-074",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-075",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-076",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-077",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-078",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-079",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-080",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-081",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-082",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-083",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-084",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-085",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-086",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": {
+    "NAO_SEI": {
+     "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+     "VALOR": "NAO_SEI"
+    }
+   }
+  },
+  {
+   "ID": "IT-SRCX-087",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-091",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-088",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-089",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  },
+  {
+   "ID": "IT-SRCX-090",
+   "SUBCONJUNTO": "fontes descobertas",
+   "DESTINO": "COM_METODO",
+   "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
+   "LIMITES": null
+  }
+ ]
+}

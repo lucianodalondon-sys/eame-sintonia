@@ -5,25 +5,119 @@
  "DONO_DA_DECISAO": "coleta",
  "CAPTURED_AT": "2026-09-04",
  "LEI": "esta familia responde a UMA pergunta e nao a outra. Responde ONDE TEMOS OLHOS. Nao responde onde ha problema — confundir as duas transforma cobertura de coleta em mapa de pressao agronomica.",
- "ACHADO_DA_CONTAGEM": "o inventario contou 93 porque WEB e REJECTIONS nao estao na sua lista de chaves. Recontado: 221.",
+ "ACHADO_DA_CONTAGEM": "o inventario V1 contou 93; o V2 conta 317. A diferenca sao WEB, REJECTIONS, HANDLES, VIDEO_ROUTES_MEASURED, ROUTES_NOT_REACHED_FROM_THIS_SESSION e as correccoes as proprias medicoes.",
  "SOBRE_O_CLIENT_SAFE": "os 91 sao CLIENT_SAFE=false, e isso NAO os esconde. Por 55c2674, CLIENT_SAFE responde se a afirmacao se sustenta como FATO sem a nossa sintese — nao decide visibilidade. Uma fonte cadastrada e um facto de coleta, e aparece com o metodo ao lado.",
- "CAMPOS_QUE_NUNCA_ATRAVESSAM": ["NOTES_INTERNAL", "DISCOVERY_QUERY", "DEDUPE_AGAINST", "DEDUPE_MEANS"],
+ "CAMPOS_QUE_NUNCA_ATRAVESSAM": [
+  "NOTES_INTERNAL",
+  "DISCOVERY_QUERY",
+  "DEDUPE_AGAINST",
+  "DEDUPE_MEANS"
+ ],
  "SUBCONJUNTOS": [
-  {"NOME": "fontes descobertas", "FICHEIRO": "IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json",
-   "CHAVE_DA_LISTA": "SOURCES", "N_ESPERADO": 91, "DESTINO": "COM_METODO",
+  {
+   "NOME": "fontes descobertas",
+   "FICHEIRO": "IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json",
+   "CHAVE_DA_LISTA": "SOURCES",
+   "N_ESPERADO": 91,
+   "DESTINO": "COM_METODO",
    "PORQUE": "MEDIDO: ACCESS_STATUS GREEN 87, YELLOW 3, INTERMITTENT 1. A fonte e um facto de coleta com prova (EVIDENCE_PROBE, LAST_CHECKED_AT), mas o que ela vale como sinal depende de AUTHORITY_CLASS e COLLECTABILITY — e isso e leitura nossa, logo viaja com o metodo.",
    "AVISO": "COPERTURA_DELLA_RACCOLTA_NON_MAPPA_DELLA_PRESSIONE",
-   "CAMPOS_MINIMOS": ["SOURCE_ID", "NAME", "ENTITY", "PLATFORM", "PRIMARY_URL", "REGION", "COUNTRY", "SOURCE_TYPE", "AUTHORITY_CLASS", "ACCESS_STATUS", "COLLECTABILITY", "PROVENANCE_STATUS", "LAST_CHECKED_AT", "EVIDENCE_PROBE", "ADAMA_RELEVANCE_REASON"],
+   "CAMPOS_MINIMOS": [
+    "SOURCE_ID",
+    "NAME",
+    "ENTITY",
+    "PLATFORM",
+    "PRIMARY_URL",
+    "REGION",
+    "COUNTRY",
+    "SOURCE_TYPE",
+    "AUTHORITY_CLASS",
+    "ACCESS_STATUS",
+    "COLLECTABILITY",
+    "PROVENANCE_STATUS",
+    "LAST_CHECKED_AT",
+    "EVIDENCE_PROBE",
+    "ADAMA_RELEVANCE_REASON"
+   ],
    "REMOVE_INTERNOS": true,
-   "NAO_SEI": {"CAMPO": "LAST_OBSERVED_CONTENT_DATE", "COMO_RENDERIZAR": "fonte sem data de conteudo observado aparece como NAO SEI, nunca como fonte inativa: nao ter olhado nao e o mesmo que nao haver nada. ACCESS_STATUS diferente de GREEN aparece sempre, com a palavra do proprio campo."}},
-
-  {"NOME": "reconferencia de enderecos", "FICHEIRO": "IT-FONTES-V1/IT-FONTES-RECONFERENCIA-V1.json",
-   "CHAVE_DA_LISTA": "WEB", "N_ESPERADO": 35, "DESTINO": "FORA",
-   "PORQUE": "e o registo de terem sido reconferidos enderecos — trabalho de manutencao do cadastro. O resultado ja vive no proprio cadastro; mostra-lo a parte contaria a mesma fonte duas vezes."},
-
-  {"NOME": "rejeicoes do lote 2", "FICHEIRO": "IT-FONTES-V1/IT-FONTES-REJEICOES-LOTE2-V1.json",
-   "CHAVE_DA_LISTA": "REJECTIONS", "N_ESPERADO": 95, "DESTINO": "FORA",
-   "PORQUE": "o proprio artefacto declara em O_QUE_ISTO_NAO_E que REASON_AS_REPORTED e o texto do agente e NAO foi verificado item a item. Levar 95 rejeicoes nao verificadas a uma reuniao seria apresentar juizo de maquina como conclusao. Fica em auditoria."}
+   "NAO_SEI": {
+    "CAMPO": "LAST_OBSERVED_CONTENT_DATE",
+    "COMO_RENDERIZAR": "fonte sem data de conteudo observado aparece como NAO SEI, nunca como fonte inativa: nao ter olhado nao e o mesmo que nao haver nada. ACCESS_STATUS diferente de GREEN aparece sempre, com a palavra do proprio campo."
+   },
+   "CHAVE_DE_ID": "SOURCE_ID"
+  },
+  {
+   "NOME": "reconferencia de enderecos",
+   "FICHEIRO": "IT-FONTES-V1/IT-FONTES-RECONFERENCIA-V1.json",
+   "CHAVE_DA_LISTA": "WEB",
+   "N_ESPERADO": 35,
+   "DESTINO": "FORA",
+   "PORQUE": "e o registo de terem sido reconferidos enderecos — trabalho de manutencao do cadastro. O resultado ja vive no proprio cadastro; mostra-lo a parte contaria a mesma fonte duas vezes.",
+   "CLASSE_DO_FORA": "DROPPED"
+  },
+  {
+   "NOME": "rejeicoes do lote 2",
+   "FICHEIRO": "IT-FONTES-V1/IT-FONTES-REJEICOES-LOTE2-V1.json",
+   "CHAVE_DA_LISTA": "REJECTIONS",
+   "N_ESPERADO": 95,
+   "DESTINO": "FORA",
+   "PORQUE": "o proprio artefacto declara em O_QUE_ISTO_NAO_E que REASON_AS_REPORTED e o texto do agente e NAO foi verificado item a item. Levar 95 rejeicoes nao verificadas a uma reuniao seria apresentar juizo de maquina como conclusao. Fica em auditoria.",
+   "CLASSE_DO_FORA": "DROPPED"
+  },
+  {
+   "NOME": "fontes rejeitadas na descoberta",
+   "FICHEIRO": "IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json",
+   "CHAVE_DA_LISTA": "REJECTED",
+   "N_ESPERADO": 11,
+   "DESTINO": "FORA",
+   "PORQUE": "fala do NOSSO metodo de coleta, nao do campo. Fica FORA da grelha da reuniao e alcancavel em auditoria: uma rota que nao se alcancou e uma medicao, e escondê-la faria a cobertura parecer maior do que e.",
+   "CLASSE_DO_FORA": "DROPPED"
+  },
+  {
+   "NOME": "rotas nao alcancadas nesta sessao",
+   "FICHEIRO": "IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json",
+   "CHAVE_DA_LISTA": "ROUTES_NOT_REACHED_FROM_THIS_SESSION",
+   "N_ESPERADO": 22,
+   "DESTINO": "FORA",
+   "PORQUE": "fala do NOSSO metodo de coleta, nao do campo. Fica FORA da grelha da reuniao e alcancavel em auditoria: uma rota que nao se alcancou e uma medicao, e escondê-la faria a cobertura parecer maior do que e.",
+   "CLASSE_DO_FORA": "DROPPED"
+  },
+  {
+   "NOME": "rotas de video medidas",
+   "FICHEIRO": "IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json",
+   "CHAVE_DA_LISTA": "VIDEO_ROUTES_MEASURED",
+   "N_ESPERADO": 39,
+   "DESTINO": "FORA",
+   "PORQUE": "fala do NOSSO metodo de coleta, nao do campo. Fica FORA da grelha da reuniao e alcancavel em auditoria: uma rota que nao se alcancou e uma medicao, e escondê-la faria a cobertura parecer maior do que e.",
+   "CLASSE_DO_FORA": "EVIDENCE_ONLY"
+  },
+  {
+   "NOME": "correccoes as proprias medicoes",
+   "FICHEIRO": "IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json",
+   "CHAVE_DA_LISTA": "CORRECTIONS_TO_MY_OWN_MEASUREMENTS",
+   "N_ESPERADO": 6,
+   "DESTINO": "FORA",
+   "PORQUE": "fala do NOSSO metodo de coleta, nao do campo. Fica FORA da grelha da reuniao e alcancavel em auditoria: uma rota que nao se alcancou e uma medicao, e escondê-la faria a cobertura parecer maior do que e.",
+   "CLASSE_DO_FORA": "DROPPED"
+  },
+  {
+   "NOME": "contradicoes em aberto",
+   "FICHEIRO": "IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json",
+   "CHAVE_DA_LISTA": "OPEN_CONTRADICTIONS",
+   "N_ESPERADO": 1,
+   "DESTINO": "FORA",
+   "PORQUE": "fala do NOSSO metodo de coleta, nao do campo. Fica FORA da grelha da reuniao e alcancavel em auditoria: uma rota que nao se alcancou e uma medicao, e escondê-la faria a cobertura parecer maior do que e.",
+   "CLASSE_DO_FORA": "DROPPED"
+  },
+  {
+   "NOME": "handles reconferidos",
+   "FICHEIRO": "IT-FONTES-V1/IT-FONTES-RECONFERENCIA-V1.json",
+   "CHAVE_DA_LISTA": "HANDLES",
+   "N_ESPERADO": 17,
+   "DESTINO": "FORA",
+   "PORQUE": "fala do NOSSO metodo de coleta, nao do campo. Fica FORA da grelha da reuniao e alcancavel em auditoria: uma rota que nao se alcancou e uma medicao, e escondê-la faria a cobertura parecer maior do que e.",
+   "CLASSE_DO_FORA": "DROPPED"
+  }
  ],
  "DECISOES_EM_ABERTO": []
 }

@@ -5,50 +5,175 @@
  "DONO_DA_DECISAO": "ciencia/tecnico",
  "CAPTURED_AT": "2026-09-04",
  "LEI": "esta familia nao e homogenea: junta sinais verificados, cruzamentos, um INDICE de boletins e as mencoes de substancia dentro deles. Trata-los como uma coisa so poria um indice de PDFs na mesma grelha de uma leitura refutada.",
- "ACHADO_DA_CONTAGEM": "o inventario contou 195 porque a sua lista de chaves nao inclui HITS, CROSSINGS nem ENRICHMENTS: ficheiros com centenas de registos valeram 1. Recontado: 625.",
- "CAMPOS_QUE_NUNCA_ATRAVESSAM": ["NOTES_INTERNAL", "opportunity_ids", "evidence_path"],
+ "ACHADO_DA_CONTAGEM": "o inventario V1 contou 195 por lista branca; o V2, que conta pela FORMA, conta 638. A diferenca sao HITS (1->421), CROSSINGS, ENRICHMENTS e as quatro coleccoes de inteligencia negativa que a primeira versao deste contrato tambem deixou sem dono — apanhadas pelo teste por COLECCAO.",
+ "CAMPOS_QUE_NUNCA_ATRAVESSAM": [
+  "NOTES_INTERNAL",
+  "opportunity_ids",
+  "evidence_path"
+ ],
  "SUBCONJUNTOS": [
-  {"NOME": "sinais verificados V1", "FICHEIRO": "IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V1.json",
-   "CHAVE_DA_LISTA": "SIGNALS", "N_ESPERADO": 21, "DESTINO": "CARTAO",
+  {
+   "NOME": "sinais verificados V1",
+   "FICHEIRO": "IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V1.json",
+   "CHAVE_DA_LISTA": "SIGNALS",
+   "N_ESPERADO": 21,
+   "DESTINO": "CARTAO",
    "PORQUE": "os 21 declaram VERIFICATION=SURVIVED_ADVERSARIAL_REFUTATION e trazem cultura, alvo, regiao, data, observacao e citacao. Sobreviver a refutacao e o que autoriza o cartao inteiro.",
-   "CAMPOS_MINIMOS": ["crop", "target", "region", "date", "observation", "citation", "proves", "does_not_prove", "adama_relation", "source_document", "VERIFICATION"],
+   "CAMPOS_MINIMOS": [
+    "crop",
+    "target",
+    "region",
+    "date",
+    "observation",
+    "citation",
+    "proves",
+    "does_not_prove",
+    "adama_relation",
+    "source_document",
+    "VERIFICATION"
+   ],
    "REMOVE_INTERNOS": true,
-   "NAO_SEI": {"CAMPO": "does_not_prove", "COMO_RENDERIZAR": "does_not_prove aparece SEMPRE ao lado de proves, com o mesmo peso tipografico. Um cartao que mostre so o que prova mente por omissao."}},
-
-  {"NOME": "sinais verificados V2", "FICHEIRO": "IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V2.json",
-   "CHAVE_DA_LISTA": "SIGNALS", "N_ESPERADO": 19, "DESTINO": "COM_METODO",
+   "NAO_SEI": {
+    "CAMPO": "does_not_prove",
+    "COMO_RENDERIZAR": "does_not_prove aparece SEMPRE ao lado de proves, com o mesmo peso tipografico. Um cartao que mostre so o que prova mente por omissao."
+   }
+  },
+  {
+   "NOME": "sinais verificados V2",
+   "FICHEIRO": "IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V2.json",
+   "CHAVE_DA_LISTA": "SIGNALS",
+   "N_ESPERADO": 19,
+   "DESTINO": "COM_METODO",
    "PORQUE": "MEDIDO: link_strength nao e uma classe, e prosa livre — 7 valores distintos entre os 19, varios sao paragrafos inteiros que declaram a ressalva dentro do proprio valor. Nao se pode filtrar, ordenar nem pintar por um campo assim; so se pode mostra-lo como o autor o escreveu.",
    "AVISO": "FORZA_DEL_LEGAME_DICHIARATA_DALL_AUTORE",
-   "CAMPOS_MINIMOS": ["crop", "issue", "region", "publication_date", "quote_it", "proves", "does_not_prove", "link_strength", "adama_relation", "source_url", "verificacao"],
+   "CAMPOS_MINIMOS": [
+    "crop",
+    "issue",
+    "region",
+    "publication_date",
+    "quote_it",
+    "proves",
+    "does_not_prove",
+    "link_strength",
+    "adama_relation",
+    "source_url",
+    "verificacao"
+   ],
    "REMOVE_INTERNOS": true,
-   "NAO_SEI": {"CAMPO": "link_strength", "COMO_RENDERIZAR": "link_strength aparece VERBATIM, nunca reduzido a rotulo. Onde o valor comeca por NAO_SEI, o cartao mostra NAO SEI e a frase que o justifica."}},
-
-  {"NOME": "cruzamentos V1", "FICHEIRO": "IT-CRUZAMENTO-V1/IT-CRUZAMENTOS-V1.json",
-   "CHAVE_DA_LISTA": "CROSSINGS", "N_ESPERADO": 7, "DESTINO": "CARTAO",
+   "NAO_SEI": {
+    "CAMPO": "link_strength",
+    "COMO_RENDERIZAR": "link_strength aparece VERBATIM, nunca reduzido a rotulo. Onde o valor comeca por NAO_SEI, o cartao mostra NAO SEI e a frase que o justifica."
+   }
+  },
+  {
+   "NOME": "cruzamentos V1",
+   "FICHEIRO": "IT-CRUZAMENTO-V1/IT-CRUZAMENTOS-V1.json",
+   "CHAVE_DA_LISTA": "CROSSINGS",
+   "N_ESPERADO": 7,
+   "DESTINO": "CARTAO",
    "PORQUE": "os 7 trazem TITLE, CROP, TARGET, GEOGRAPHY com GEOGRAPHY_STATE, WINDOW, EVIDENCE, PROVES, DOES_NOT_PROVE, ACTION_MAP e PROVENANCE. E a forma de cartao mais completa desta familia.",
-   "CAMPOS_MINIMOS": ["ID", "TITLE", "CROP", "TARGET", "GEOGRAPHY", "GEOGRAPHY_STATE", "WINDOW", "EVIDENCE", "PROVES", "DOES_NOT_PROVE", "ADAMA_RELATION", "PROVENANCE"],
+   "CAMPOS_MINIMOS": [
+    "ID",
+    "TITLE",
+    "CROP",
+    "TARGET",
+    "GEOGRAPHY",
+    "GEOGRAPHY_STATE",
+    "WINDOW",
+    "EVIDENCE",
+    "PROVES",
+    "DOES_NOT_PROVE",
+    "ADAMA_RELATION",
+    "PROVENANCE"
+   ],
    "REMOVE_INTERNOS": true,
-   "NAO_SEI": {"CAMPO": "GEOGRAPHY_STATE", "COMO_RENDERIZAR": "GEOGRAPHY_STATE viaja com GEOGRAPHY: uma regiao sem estado declarado aparece como NAO SEI, nunca como regiao confirmada."}},
-
-  {"NOME": "enriquecimentos confirmados", "FICHEIRO": "IT-CRUZAMENTO-V1/IT-ENRIQUECIMENTO-CONFIRMADAS-V1.json",
-   "CHAVE_DA_LISTA": "ENRICHMENTS", "N_ESPERADO": 5, "DESTINO": "FORA",
-   "PORQUE": "sao alteracoes APLICADAS a outros registos, nao inteligencia propria. Mostra-las como cartao contaria o mesmo facto duas vezes."},
-
-  {"NOME": "cruzamentos V2 (agregado)", "FICHEIRO": "IT-CRUZAMENTO-V2/IT-CRUZAMENTOS-V2.json",
-   "CHAVE_DA_LISTA": "(doc unico)", "N_ESPERADO": 1, "DESTINO": "FORA",
-   "PORQUE": "e um documento de agregacao com GROUPS e quatro leis, nao um registo de campo."},
-
-  {"NOME": "indice dos bollettini ER", "FICHEIRO": "IT-CAMPO-V1/IT-BOLLETTINI-ER-2026-INDICE.json",
-   "CHAVE_DA_LISTA": "ITEMS", "N_ESPERADO": 150, "DESTINO": "FORA",
-   "PORQUE": "AREA, DATE, TITLE e URL: e um INDICE DE FONTES, nao inteligencia. 150 linhas de indice na grelha da reuniao afogariam os 28 cartoes reais."},
-
-  {"NOME": "mencoes de substancia nos bollettini", "FICHEIRO": "IT-CAMPO-V1/IT-BOLLETTINI-ER-SOSTANZE-ATTIVE-V1.json",
-   "CHAVE_DA_LISTA": "HITS", "N_ESPERADO": 421, "DESTINO": "FORA",
-   "PORQUE": "AI, AREA, CTX e DATE: e a CAMADA DE EVIDENCIA que sustenta os sinais verificados, alcancavel a partir deles. Como cartao proprio, 421 mencoes seriam ruido com aparencia de volume."},
-
-  {"NOME": "serie de armadilhas cimice UNIBO", "FICHEIRO": "IT-CAMPO-V1/IT-CIMICE-TRAPPOLE-UNIBO-SERIE.json",
-   "CHAVE_DA_LISTA": "(doc unico)", "N_ESPERADO": 1, "DESTINO": "FORA",
-   "PORQUE": "serie temporal com POINTS e DENOMINATOR_LAW — e material de grafico, e esta superficie nao tem contrato de grafico. Fica fora ate ter."}
+   "NAO_SEI": {
+    "CAMPO": "GEOGRAPHY_STATE",
+    "COMO_RENDERIZAR": "GEOGRAPHY_STATE viaja com GEOGRAPHY: uma regiao sem estado declarado aparece como NAO SEI, nunca como regiao confirmada."
+   },
+   "CHAVE_DE_ID": "ID"
+  },
+  {
+   "NOME": "enriquecimentos confirmados",
+   "FICHEIRO": "IT-CRUZAMENTO-V1/IT-ENRIQUECIMENTO-CONFIRMADAS-V1.json",
+   "CHAVE_DA_LISTA": "ENRICHMENTS",
+   "N_ESPERADO": 5,
+   "DESTINO": "FORA",
+   "PORQUE": "sao alteracoes APLICADAS a outros registos, nao inteligencia propria. Mostra-las como cartao contaria o mesmo facto duas vezes.",
+   "CLASSE_DO_FORA": "DROPPED"
+  },
+  {
+   "NOME": "cruzamentos V2 (agregado)",
+   "FICHEIRO": "IT-CRUZAMENTO-V2/IT-CRUZAMENTOS-V2.json",
+   "CHAVE_DA_LISTA": "(doc unico)",
+   "N_ESPERADO": 1,
+   "DESTINO": "FORA",
+   "PORQUE": "e um documento de agregacao com GROUPS e quatro leis, nao um registo de campo.",
+   "CLASSE_DO_FORA": "DROPPED"
+  },
+  {
+   "NOME": "indice dos bollettini ER",
+   "FICHEIRO": "IT-CAMPO-V1/IT-BOLLETTINI-ER-2026-INDICE.json",
+   "CHAVE_DA_LISTA": "ITEMS",
+   "N_ESPERADO": 150,
+   "DESTINO": "FORA",
+   "PORQUE": "AREA, DATE, TITLE e URL: e um INDICE DE FONTES, nao inteligencia. 150 linhas de indice na grelha da reuniao afogariam os 28 cartoes reais.",
+   "CLASSE_DO_FORA": "DROPPED"
+  },
+  {
+   "NOME": "mencoes de substancia nos bollettini",
+   "FICHEIRO": "IT-CAMPO-V1/IT-BOLLETTINI-ER-SOSTANZE-ATTIVE-V1.json",
+   "CHAVE_DA_LISTA": "HITS",
+   "N_ESPERADO": 421,
+   "DESTINO": "FORA",
+   "PORQUE": "AI, AREA, CTX e DATE: e a CAMADA DE EVIDENCIA que sustenta os sinais verificados, alcancavel a partir deles. Como cartao proprio, 421 mencoes seriam ruido com aparencia de volume.",
+   "CLASSE_DO_FORA": "EVIDENCE_ONLY"
+  },
+  {
+   "NOME": "serie de armadilhas cimice UNIBO",
+   "FICHEIRO": "IT-CAMPO-V1/IT-CIMICE-TRAPPOLE-UNIBO-SERIE.json",
+   "CHAVE_DA_LISTA": "(doc unico)",
+   "N_ESPERADO": 1,
+   "DESTINO": "FORA",
+   "PORQUE": "serie temporal com POINTS e DENOMINATOR_LAW — e material de grafico, e esta superficie nao tem contrato de grafico. Fica fora ate ter.",
+   "CLASSE_DO_FORA": "DROPPED"
+  },
+  {
+   "NOME": "refutados V1",
+   "FICHEIRO": "IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V1.json",
+   "CHAVE_DA_LISTA": "REFUTED_AND_WHY",
+   "N_ESPERADO": 3,
+   "DESTINO": "FORA",
+   "PORQUE": "MEDIDA E NAO RESTO: e o registo do que NAO se cruzou, NAO se enriqueceu ou foi refutado, com o motivo. Fica FORA da grelha da reuniao porque fala do NOSSO metodo e nao do campo — mas fica alcancavel em auditoria, porque apagar uma ausencia medida e pior do que nunca a ter medido.",
+   "CLASSE_DO_FORA": "DROPPED"
+  },
+  {
+   "NOME": "refutados V2",
+   "FICHEIRO": "IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V2.json",
+   "CHAVE_DA_LISTA": "REFUTED_WITH_REASON",
+   "N_ESPERADO": 1,
+   "DESTINO": "FORA",
+   "PORQUE": "MEDIDA E NAO RESTO: e o registo do que NAO se cruzou, NAO se enriqueceu ou foi refutado, com o motivo. Fica FORA da grelha da reuniao porque fala do NOSSO metodo e nao do campo — mas fica alcancavel em auditoria, porque apagar uma ausencia medida e pior do que nunca a ter medido.",
+   "CLASSE_DO_FORA": "DROPPED"
+  },
+  {
+   "NOME": "nao cruzados, com o porque",
+   "FICHEIRO": "IT-CRUZAMENTO-V1/IT-CRUZAMENTOS-V1.json",
+   "CHAVE_DA_LISTA": "NOT_CROSSED_AND_WHY",
+   "N_ESPERADO": 7,
+   "DESTINO": "FORA",
+   "PORQUE": "MEDIDA E NAO RESTO: e o registo do que NAO se cruzou, NAO se enriqueceu ou foi refutado, com o motivo. Fica FORA da grelha da reuniao porque fala do NOSSO metodo e nao do campo — mas fica alcancavel em auditoria, porque apagar uma ausencia medida e pior do que nunca a ter medido.",
+   "CLASSE_DO_FORA": "DROPPED"
+  },
+  {
+   "NOME": "nao enriquecidos, com o porque",
+   "FICHEIRO": "IT-CRUZAMENTO-V1/IT-ENRIQUECIMENTO-CONFIRMADAS-V1.json",
+   "CHAVE_DA_LISTA": "NOT_ENRICHED_AND_WHY",
+   "N_ESPERADO": 4,
+   "DESTINO": "FORA",
+   "PORQUE": "MEDIDA E NAO RESTO: e o registo do que NAO se cruzou, NAO se enriqueceu ou foi refutado, com o motivo. Fica FORA da grelha da reuniao porque fala do NOSSO metodo e nao do campo — mas fica alcancavel em auditoria, porque apagar uma ausencia medida e pior do que nunca a ter medido.",
+   "CLASSE_DO_FORA": "DROPPED"
+  }
  ],
  "DECISOES_EM_ABERTO": []
 }

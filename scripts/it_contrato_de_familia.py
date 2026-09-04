@@ -43,20 +43,45 @@ SAIDA = os.path.join(CONTRATOS, 'IT-FAMILIA-SUPERFICIE-VERIFICACAO-V1.json')
 
 DESTINOS = ('CARTAO', 'COM_METODO', 'FORA')
 
+# ⚠️ A PRECEDENCIA VEM DO INVENTARIO, NAO DAQUI. Um contrato que decidisse
+# sozinho o que e da sua familia daria um numero diferente do inventario para o
+# mesmo ficheiro — e dois contadores a discordar sobre o mesmo acervo e
+# exatamente o defeito que o V2 foi escrito para fechar.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from it_acervo_inventario_v2 import (familia as _familia_do_inventario,  # noqa: E402
+                                     e_italiano as _italiano_do_inventario)
 
-def _maior(doc):
-    """A maior lista de dicionarios do documento. Serve as familias de corpus,
-    onde cada ficheiro traz a sua lista com nome proprio (SPEAKERS, FINDINGS,
-    EPISODES, ATTEMPTS) e uma lista branca de chaves conta 1 onde ha 14."""
+
+
+def _do_escopo(caminho, fam):
+    """Mesmo recorte do inventario: italiano E desta familia pela precedencia."""
+    rel = os.path.relpath(caminho, ROOT)
+    try:
+        d = json.load(open(caminho, encoding='utf-8'))
+    except Exception:
+        return False
+    return _italiano_do_inventario(rel, d) and _familia_do_inventario(rel) == fam
+
+def _todas(doc):
+    """TODAS as coleccoes do documento, nao a maior.
+
+    A versao anterior devolvia so a maior lista, e isso deixava 86 registos de
+    FITOSSANITARIO sem dono enquanto o portao dizia PASS: reclamava o ficheiro
+    e contava uma lista. Numa familia de corpus, onde tudo e evidencia, ou se
+    reclama tudo ou nao se reclamou nada."""
     if isinstance(doc, list):
         return doc
     if not isinstance(doc, dict):
         return []
-    melhor = []
+    fora = []
     for v in doc.values():
-        if isinstance(v, list) and v and isinstance(v[0], dict) and len(v) > len(melhor):
-            melhor = v
-    return melhor or [doc]
+        if isinstance(v, list) and v and isinstance(v[0], dict):
+            fora.extend(v)
+    # O defeito da V1 era contar 1 onde havia 421 — um ficheiro COM coleccao que
+    # a lista branca nao reconhecia. Nao era contar 1 onde ha 1. Um artefacto
+    # agregado, sem lista nenhuma, E um registo, e o inventario V2 conta-o com
+    # chave propria: aqui vale o mesmo, ou os dois contadores voltam a discordar.
+    return fora or [doc]
 
 
 def _lista(doc, chave):
@@ -110,14 +135,16 @@ def uma(familia):
                     q = os.path.join(base, nn)
                     if not prx.search(q):
                         continue
+                    if not _do_escopo(q, familia):
+                        continue
                     ficheiros_do_sub.append(q)
                     try:
                         d = json.load(open(q, encoding='utf-8'))
                     except Exception:
                         falhas.append('ILEGIVEL · %s' % os.path.relpath(q, ROOT))
                         continue
-                    regs.extend(_lista(d, chave) if chave != '(maior lista)'
-                                else _maior(d))
+                    regs.extend(_lista(d, chave) if chave != '(todas as listas)'
+                                else _todas(d))
             if not ficheiros_do_sub:
                 falhas.append('PADRAO_SEM_FICHEIRO · %s' % nome)
         else:
@@ -128,7 +155,7 @@ def uma(familia):
             ficheiros_do_sub = [fp]
             regs = _lista(json.load(open(fp, encoding='utf-8')), chave)
         for q in ficheiros_do_sub:
-            reclamados.add(os.path.normpath(q))
+            reclamados.add((os.path.normpath(q), chave))
         n = len(regs)
         if s.get('N_ESPERADO') != n:
             falhas.append('CONTAGEM · %s: %d, contrato diz %s' % (nome, n, s.get('N_ESPERADO')))
@@ -136,6 +163,11 @@ def uma(familia):
         detalhe_sub.append({'NOME': nome, 'DESTINO': dest, 'N': n})
 
         if dest == 'FORA':
+            # FORA nao e um so destino. Uma coisa e ficar fora da grelha e
+            # continuar alcancavel pelo cartao que a cita; outra e nao entrar de
+            # forma nenhuma. Confundir as duas apaga a camada de evidencia.
+            if s.get('CLASSE_DO_FORA') not in ('EVIDENCE_ONLY', 'DROPPED'):
+                falhas.append('FORA_SEM_CLASSE · %s nao diz se e EVIDENCE_ONLY ou DROPPED' % nome)
             continue
         # campos minimos existem em TODO registo? (ausencia de VALOR e permitida)
         minimos = s.get('CAMPOS_MINIMOS') or []
@@ -156,18 +188,44 @@ def uma(familia):
             falhas.append('CAMPO_INTERNO_ATRAVESSA · %s: %s (declare REMOVE_INTERNOS)' % (nome, vaza))
 
     # ── o teste que impede o contrato de fingir cobertura ───────────────────
+    # ⚠️ A PRIMEIRA VERSAO CONFERIA FICHEIROS E NAO COLECCOES, e o inventario V2
+    # apanhou-a: um subconjunto declarava SOURCES e o mesmo ficheiro trazia WEB,
+    # HANDLES e VIDEO_ROUTES_MEASURED sem dono. Os 96 que escaparam em FONTES, os
+    # 86 em FITOSSANITARIO e os 13 em SINAIS_DE_CAMPO eram quase todos
+    # inteligencia NEGATIVA — NOT_CROSSED_AND_WHY, REFUTED_AND_WHY,
+    # MEASURED_AND_LEFT_OUT, ROUTES_NOT_REACHED_FROM_THIS_SESSION.
+    #
+    #     RECLAMAR O FICHEIRO E DIZER «ESTE E MEU». RECLAMAR A COLECCAO E DIZER
+    #     O QUE SE FAZ COM ELA. SO A SEGUNDA E CONTRATO.
     rx = re.compile(C.get('REGEX_DA_FAMILIA', '$^'), re.I)
+    reclamado_fic = {f for f, _ in reclamados}
     orfaos = []
     for base, _, nomes in os.walk(os.path.join(ROOT, 'data')):
-        for n in nomes:
+        for n in sorted(nomes):
             if not n.endswith('.json'):
                 continue
             fp = os.path.join(base, n)
-            if rx.search(fp) and os.path.normpath(fp) not in reclamados:
-                orfaos.append(os.path.relpath(fp, ROOT))
-    exige(not orfaos, 'TODO_FICHEIRO_TEM_DONO',
-          '%d ficheiro(s) da familia que nenhum subconjunto reclama: %s'
-          % (len(orfaos), orfaos[:3]))
+            if not rx.search(fp):
+                continue
+            if not _do_escopo(fp, familia):
+                continue
+            nf = os.path.normpath(fp)
+            try:
+                d = json.load(open(fp, encoding='utf-8'))
+            except Exception:
+                continue
+            cols = ([('(raiz e lista)', len(d))] if isinstance(d, list) and d else
+                    [(k, len(v)) for k, v in d.items()
+                     if isinstance(v, list) and v and isinstance(v[0], dict)]
+                    if isinstance(d, dict) else [])
+            if not cols and nf not in reclamado_fic:
+                orfaos.append('%s · (doc unico)' % os.path.relpath(fp, ROOT))
+            for k, cn in cols:
+                if (nf, k) not in reclamados and (nf, '(todas as listas)') not in reclamados:
+                    orfaos.append('%s · %s (%d)' % (os.path.relpath(fp, ROOT), k, cn))
+    exige(not orfaos, 'TODA_COLECCAO_TEM_DONO',
+          '%d coleccao(oes) da familia que nenhum subconjunto reclama: %s'
+          % (len(orfaos), orfaos[:4]))
 
     abertas = C.get('DECISOES_EM_ABERTO') or []
     exige(not abertas, 'NENHUMA_DECISAO_EM_ABERTO', '%s' % abertas[:3])

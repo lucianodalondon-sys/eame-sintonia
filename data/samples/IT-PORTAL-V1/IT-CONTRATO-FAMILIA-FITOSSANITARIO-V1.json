@@ -5,15 +5,22 @@
  "DONO_DA_DECISAO": "ciencia/tecnico",
  "CAPTURED_AT": "2026-09-04",
  "LEI": "esta familia NAO e uma familia de cartoes. Sao 438 registos em 58 ficheiros de corpus bruto — videos, audios, transcricoes, falas, leituras de sessao e testemunhas de recolha. E a CAMADA DE EVIDENCIA por baixo das outras familias, e o seu lugar na tela e o destino de um link, nunca uma grelha propria.",
- "ACHADO_DA_CONTAGEM": "o inventario contou 401 porque FINDINGS, EPISODES, ATTEMPTS e SPEAKERS nao estao na sua lista de chaves. Recontado: 438.",
+ "ACHADO_DA_CONTAGEM": "o inventario V1 contou 401 por lista branca; o V2, que conta pela FORMA, conta 560 nesta familia — 524 em coleccoes mais 36 artefactos agregados que sao, cada um, um registo. A diferenca sao FINDINGS, EPISODES, ATTEMPTS, SPEAKERS, EVIDENCE, CHANNELS, REJECTED_WITH_REASON, SIGNAL_ONLY_IN_SPOKEN, MEASURED_AND_LEFT_OUT e EXCLUDED_AND_WHY — varias delas inteligencia NEGATIVA, que e material e nao resto.",
  "PORQUE_NADA_VAI_A_GRELHA": "um corpus de recolha na grelha da reuniao mede o esforco de quem recolheu, nao a inteligencia que dele saiu. Os 45 do Radar Futuro e os 28 sinais de campo JA SAO a leitura deste corpus; poe-lo ao lado deles contaria o mesmo trabalho duas vezes, uma como materia e outra como produto.",
  "COMO_SE_ALCANCA": "pelo cartao que o cita: source_document (sinais de campo), F_FONTE (Radar Futuro) e SOURCE_ID resolvem aqui. A rota existe e nao precisa de grelha.",
- "CAMPOS_QUE_NUNCA_ATRAVESSAM": ["NOTES_INTERNAL"],
+ "CAMPOS_QUE_NUNCA_ATRAVESSAM": [
+  "NOTES_INTERNAL"
+ ],
  "SUBCONJUNTOS": [
-  {"NOME": "corpus fitossanitario inteiro",
+  {
+   "NOME": "corpus fitossanitario inteiro",
    "PADRAO": "IT-CONVEGNO|IT-VIDEO|IT-VOZ-AUDIO|falas/|testemunhas/",
-   "CHAVE_DA_LISTA": "(maior lista)", "N_ESPERADO": 438, "DESTINO": "FORA",
-   "PORQUE": "camada de evidencia. Alcancavel a partir do cartao que a cita, nunca como cartao proprio. Quando existir contrato de VISOR DE FONTE — a tela que abre um documento e mostra a citacao no offset — este subconjunto muda de destino, e so entao."}
+   "CHAVE_DA_LISTA": "(todas as listas)",
+   "N_ESPERADO": 560,
+   "DESTINO": "FORA",
+   "PORQUE": "camada de evidencia. Alcancavel a partir do cartao que a cita, nunca como cartao proprio. Quando existir contrato de VISOR DE FONTE — a tela que abre um documento e mostra a citacao no offset — este subconjunto muda de destino, e so entao.",
+   "CLASSE_DO_FORA": "EVIDENCE_ONLY"
+  }
  ],
  "DECISOES_EM_ABERTO": []
 }
