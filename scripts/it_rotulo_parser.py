@@ -41,7 +41,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from it_rotulo_vocab import (ALVOS, CULTURAS, GRUPOS, SUBSTANCIA_NORM,  # noqa: E402
                              TAXONOMIA)
 
-PARSER_VERSION = 'it_rotulo_parser/3.1.0'
+PARSER_VERSION = 'it_rotulo_parser/3.2.0'
 
 CROP_RX = {k: re.compile(r'\b(?:%s)' % '|'.join(v), re.I) for k, v in CULTURAS.items()}
 TGT_RX = {k: re.compile(r'\b(?:%s)' % '|'.join(v), re.I) for k, v in ALVOS.items()}
@@ -238,7 +238,7 @@ def pares_geometricos(blocos):
             if SECAO_PROIBIDA.search(t):
                 continue
             cells.append({'crops': cs, 'b': b, 'yc': (b['y0'] + b['y1']) / 2.0})
-        if len(cells) < 2:
+        if not cells:
             continue
         # colunas: agrupa celulas de cultura por faixa de x parecida
         cells.sort(key=lambda c: (round(c['b']['x0'] / 40), c['yc']))
@@ -246,15 +246,30 @@ def pares_geometricos(blocos):
         for c in cells:
             colunas.setdefault(round(c['b']['x0'] / 40), []).append(c)
         for col in colunas.values():
-            if len(col) < 2:
-                continue
             col.sort(key=lambda c: c['yc'])
+            # ⚠️ TABELA DE LINHA UNICA. Antes eu exigia len(col) >= 2, e uma tabela
+            # com UMA linha era descartada inteira. Isso zerava SPYRALE (009757),
+            # que declara "Barbabietola da zucchero" numa celula e
+            # "Cercosporiosi | Oidio" na celula ao lado — uma tabela perfeitamente
+            # legivel, com um so par de linhas.
+            #
+            # A guarda existia por um motivo real: sem uma celula vizinha nao ha
+            # como inferir onde a linha termina. Entao a regra da linha unica e
+            # MAIS ESTREITA, e nao igual: a faixa e a propria altura da celula
+            # mais uma tolerancia do tamanho dela. O que cair fora disso vira
+            # AMBIGUOUS_ROW, nunca SUPPORTED_PAIR.
+            unica = len(col) == 1
             # faixa de cada cultura = do meio-caminho com a de cima ao meio-caminho
             # com a de baixo. A celula fica CENTRADA na sua linha, e nao no topo.
             bandas = []
             for i, c in enumerate(col):
-                topo = (col[i - 1]['yc'] + c['yc']) / 2 if i else c['yc'] - 60
-                base = (c['yc'] + col[i + 1]['yc']) / 2 if i + 1 < len(col) else c['yc'] + 60
+                if unica:
+                    alt = max(14.0, c['b']['y1'] - c['b']['y0'])
+                    topo, base = c['b']['y0'] - alt, c['b']['y1'] + alt
+                else:
+                    topo = (col[i - 1]['yc'] + c['yc']) / 2 if i else c['yc'] - 60
+                    base = (c['yc'] + col[i + 1]['yc']) / 2 if i + 1 < len(col) \
+                        else c['yc'] + 60
                 bandas.append((topo, base, c))
             xmax = max(c['b']['x1'] for c in col)
             # ESCOPO DE COLUNA. Um bloco a direita nao basta: rotulos grandes tem DUAS

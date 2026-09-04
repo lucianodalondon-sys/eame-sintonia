@@ -4,7 +4,7 @@
  "COUNTRY": "IT",
  "LAYER": "NATIONAL PRODUCT AUTHORIZATION",
  "DATASET": "IT-ROTULOS-COBERTURA-V2",
- "SOURCE": "rotulos por cultura, conjunto antigo contra it_rotulo_parser/3.1.0",
+ "SOURCE": "rotulos por cultura, conjunto antigo contra it_rotulo_parser/3.2.0",
  "POR_QUE_ROTULOS_E_NAO_PARES": "o conjunto antigo conta o LITERAL do alvo (Eriosoma spp e Dysaphis plantaginea como pares distintos) e o novo conta CLASSE canonica. Somar os dois seria comparar reguas diferentes.",
  "LABELS_PER_CROP_OLD": {
   "BARBABIETOLA": 23,
@@ -44,7 +44,7 @@
   "OLIVO": 1
  },
  "LABELS_PER_CROP_NEW": {
-  "BARBABIETOLA": 35,
+  "BARBABIETOLA": 36,
   "SPINACIO": 8,
   "ALBICOCCO": 33,
   "PESCO": 35,
@@ -52,7 +52,7 @@
   "MELONE": 26,
   "ZUCCHINO": 26,
   "MELO": 36,
-  "VITE": 48,
+  "VITE": 49,
   "FRAGOLA": 22,
   "CETRIOLO": 21,
   "CILIEGIO": 28,
@@ -64,8 +64,8 @@
   "MAIS": 28,
   "SORGO": 15,
   "AVENA": 24,
-  "FRUMENTO": 39,
-  "ORZO": 38,
+  "FRUMENTO": 41,
+  "ORZO": 40,
   "SEGALE": 27,
   "TRITICALE": 26,
   "COLZA": 34,
@@ -84,10 +84,10 @@
   "MANDORLO": 12,
   "NOCCIOLO": 12,
   "SOIA": 25,
+  "TABACCO": 27,
   "RISO": 7,
   "AGLIO": 25,
   "CIPOLLA": 24,
-  "TABACCO": 24,
   "RAVANELLO": 8,
   "OLIVO": 9
  },
@@ -119,5 +119,5 @@
  },
  "PERDAS_SAO_CATEGORIAS": "BRASSICACEE, CUCURBITACEE, LEGUMINOSE, FLOREALI, ORTAGGI nao sao culturas: sao grupos. O conjunto novo publica os MEMBROS que o rotulo nomeia (cavolo 0->26, melone 0->26, cetriolo 0->21, fagiolo 0->29, pisello 0->27) em vez do nome do grupo. MAIS_DOLCE 6->0 e lacuna de vocabulario declarada: milho doce nao tem termo canonico proprio.",
  "LABELS_WITH_A_PAIR_OLD": 102,
- "LABELS_WITH_A_PAIR_NEW": 119
+ "LABELS_WITH_A_PAIR_NEW": 120
 }
