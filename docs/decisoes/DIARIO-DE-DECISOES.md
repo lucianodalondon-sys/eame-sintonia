@@ -299,6 +299,100 @@ Regras do diário:
   publicado é `PARTIAL`, com as três razões nomeadas no documento da missão.
 - **Quem decidiu:** decisão técnica da missão de sensores humanos IT.
 
+---
+
+### D-017 — O contrato de fonte é do Brasil; a Itália traduz, não inventa
+
+- **Data:** 2026-09-04
+- **Estado:** DECIDIDO
+- **Contexto:** a camada de sensores humanos italiana nasceu com taxonomia própria
+  (`SENSOR_ID`, `SENSOR_TYPE`, `ENTITY_KIND`). O `portal-sintonia` (Sintonia Brasil) já tem
+  o contrato: `entidades` (QUEM É) · `fontes` (ONDE EU BATO) · `documentos.fonte_id`, com
+  `fontes.tipo` de 20 valores (`tipos-de-fonte.sql:38-66`) e as cinco famílias humanas de
+  `vozes-do-acervo.py:128-140`.
+- **Decisão:** a Itália **mapeia para os 20 valores existentes**, grava o esquema italiano
+  **ao lado como proveniência**, e deixa **NULO** o que não couber. Nenhum valor novo.
+  Executado em `scripts/sensor_mapear_brasil.py` → `MAPA-BRASIL.json`.
+- **Motivo:** `CENSO-DA-IDENTIDADE-ANALITICA.md:277` avisa *"taxonomia PARALELA — ⛔ NÃO
+  criar uma terceira"*. O Brasil já tem três; a Itália tinha criado uma quarta.
+- **Consequência medida:** 224 "sensores" = **190 entidades + 115 fontes**. Eles nunca
+  foram 224 origens. E **dez dos 20 tipos brasileiros a Itália não usa** — entre eles
+  `revenda`, `distribuidor`, `comercial` e `comite_tecnico`, que são rotas ausentes.
+- **Limite herdado, declarado:** o vocabulário de classificação brasileiro é PT-BR
+  chumbado em regex e **não transfere**. A Itália herda o CONTRATO e **não** os
+  classificadores.
+- **Quem decidiu:** decisão técnica da missão Brasil → Itália.
+
+---
+
+### D-018 — Identificador é prova-entre-várias, nunca catraca de entrada
+
+- **Data:** 2026-09-04
+- **Estado:** DECIDIDO · **corrige D-014 e a régua da missão anterior**
+- **Contexto:** o portão italiano rejeitava pesquisador sem ORCID, citando
+  `REGRA-DE-COLETA §17`. Medido no Brasil: **não existe coluna de ORCID nem de Lattes**,
+  não há CHECK e não há validação de formato. ORCID aparece **uma vez** em todo o
+  repositório, como valor de `fontes.url`. Nas 36 linhas de cadastro de pesquisador de
+  07/08, das 35 URLs legíveis: 29 página institucional, 3 Lattes, **1 ORCID (2,9%)**,
+  1 Scholar.
+- **Decisão:** identidade é o **endereço observável da conta na plataforma**
+  (`fontes.external_id`, dono único em `identidade_da_conta.py:69-104`). ORCID, Lattes,
+  Scholar e página institucional entram **pela mesma porta**. A ausência de ORCID passa a
+  ser um **estado**, nunca uma rejeição.
+- **Motivo:** `§17` é intitulado *VIDEO × SCIENCE* e trata de **construir o crosswalk**;
+  ele mesmo mede que *"as plataformas públicas não publicam nenhum dos dois"*. Exigir
+  ORCID de produtor, técnico ou creator tornaria essas famílias impossíveis por
+  construção — o oposto do que a camada existe para fazer.
+- **Consequência:** o gate italiano funde **qualidade de identidade** com **capacidade de
+  crosswalk automático**. É defeito estrutural, registrado e **não corrigido em silêncio**.
+  Sete pesquisadores foram barrados só por isso.
+- **Quem decidiu:** decisão técnica da missão Brasil → Itália.
+
+---
+
+### D-019 — Nome nunca é chave de operação
+
+- **Data:** 2026-09-04
+- **Estado:** DECIDIDO
+- **Contexto:** `SENSOR_ID = sha1(NOME|ORGANIZAÇÃO)[:10]`. A lei brasileira é
+  *"nome é atributo de tela, nunca chave de operação"*, com **trava por AST**
+  (`provar-fonte-por-id.py:96,144-167`), nascida de um defeito que deixou *"quatro das
+  cinco frentes de YouTube vermelhas por dias"*.
+- **Decisão:** o `SENSOR_ID` derivado de nome é **defeito**, e a substituição é o par
+  brasileiro: id operacional opaco + `external_id` derivado do **endereço**.
+- **Consequência medida — 5 de 8 casos adversariais quebram:** travessão U+2010, espaço
+  duplo, inicial vs nome por extenso, nome do meio, e **mudança de instituição** produzem
+  ids diferentes para a mesma pessoa; homônimo na mesma organização **colide**.
+  Hoje há 0 duplicatas reais e 224 ids únicos **porque houve uma rota numa execução só** —
+  a instabilidade é latente e dispara na segunda rota.
+- **Agravante:** o próprio repositório italiano já normaliza o travessão U+2010 em
+  `sensor_canal_identidade.py` e `speaker_identidade.py::_chave()`. O `SENSOR_ID` não
+  reusou o contrato que a casa já tinha.
+- **Quem decidiu:** decisão técnica da missão Brasil → Itália.
+
+---
+
+### D-020 — Origem, papel e canal são três coisas; papel é multivalorado
+
+- **Data:** 2026-09-04
+- **Estado:** DECIDIDO
+- **Contexto:** o registro italiano guarda origem e canal na mesma linha e um papel único.
+  Medido: **Fondazione Edmund Mach conta duas vezes** (`web:fmach.it` e
+  `youtube:@fondazionemach`) — no contrato brasileiro é `MESMA_ENTIDADE`, uma entidade e
+  duas fontes. E só 16 de 224 têm mais de um papel, **todos vindos de `AMBIGUOUS:`** —
+  multivaloração real é **zero**.
+- **Decisão:** `ORIGEM (entidade) · PAPEL (multivalorado, cada um com a sua prova) ·
+  CANAL (fonte)` viram três coisas separadas. **Presença pública é dimensão à parte e
+  nunca vira papel profissional** — `creator` não é tipo de entidade.
+- **Motivo:** o Brasil mediu o custo de fundir: 39 dos 55 grupos "PODE FUNDIR" eram a mesma
+  pessoa em plataformas diferentes, com 8.687 documentos. *"LIGAR, nunca fundir."*
+  E o Brasil **não consegue** representar `produtor + creator`: `fontes.tipo` é uma coluna
+  `text not null` com CHECK de valor único. A Itália deve **corrigir**, não copiar.
+- **Consequência:** quatro defeitos italianos nomeados — `SENSOR_ID` por nome · origem e
+  canal na mesma linha · papel único · 33 fontes sem entidade. Nenhum exige nova
+  descoberta para consertar.
+- **Quem decidiu:** decisão técnica da missão Brasil → Itália.
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |
@@ -315,3 +409,6 @@ Regras do diário:
 | P-010 | Rota para `coltura × avversità` autorizada na Itália: `fitosanitari.salute.gov.it` falha no TLS desta saída e `servizi.salute.gov.it` devolve 502. Sem ela a matriz ADAMA IT diz onde procurar gente, não o que a etiqueta permite. | matriz IT, CASE-014 | 2026-09-04 |
 | P-011 | Rota para malherbologia italiana: o Europe PMC não a alcança (21 hits em `CEREAL\|GRASS_WEEDS`), e é onde o portfólio ADAMA IT é mais denso (26 herbicidas). Sociedade científica, atas, revista técnica. | cobertura CEREAL e SUGAR_BEET | 2026-09-04 |
 | P-012 | GDPR sobre a camada de sensores humanos IT: 135 pessoas nomeadas com afiliação e ORCID. Mesma pergunta de P-008, agora com registro gravado e não só fila. | REGISTRY IT, qualquer tela | 2026-09-04 |
+| P-013 | Qual é a cobertura REAL de `fontes.entidade_id` no Brasil? Três números no mesmo período: 47/95 (MAPA-DOS-DADOS.md:180), 57 (inventário 19/08), 3.275/3.299 (PLANO-location-resolver.md:683). A Itália precisa saber se o contrato está operante antes de se apoiar nele. | mapeamento IT→BR | 2026-09-04 |
+| P-014 | A Itália escreve no banco brasileiro ou mantém registro próprio espelhando o contrato? Decide se `MAPA-BRASIL.json` é destino final ou passo intermediário. | arquitetura EAME | 2026-09-04 |
+| P-015 | Qual dono de CULTURA a Itália segue? O Brasil tem DUAS listas vivas — `vocabulario.py` CULTURA=9 (em produção) e `lavouras.py` CULTURAS=23 (autodeclarado dono único), com as 9 comuns divergindo em padrão. | vocabulário IT | 2026-09-04 |

@@ -1,0 +1,1839 @@
+{
+ "SOURCE_ID": "IT-HUMAN-SENSORS/FICHAS",
+ "source": "derivado de REGISTRY.json + MAPA-BRASIL.json — nenhuma coleta nova",
+ "CONTRATO": "entidade · fonte · documento (portal-sintonia)",
+ "REGRA_DE_PAPEL": "multivalorado, cada papel com a sua prova; PRESENCA_PUBLICA é dimensão à parte e nunca vira papel profissional",
+ "FICHAS_POR_GRUPO": {
+  "PESQUISADORES": 3,
+  "TECNICOS_AGRONOMICOS": 3,
+  "PRODUTORES": 3,
+  "COOPERATIVAS_ORGANIZACOES": 3,
+  "COM_PRESENCA_SOCIAL": 3
+ },
+ "CASOS_HIBRIDOS": {
+  "PRODUTOR_MAIS_CREATOR": {
+   "QUANTOS": 9,
+   "SENSOR_IDS": [
+    "IT-O-3439a0d9cc",
+    "IT-O-abbf068e4f",
+    "IT-O-cca8fa06ed",
+    "IT-O-6fd44b2481",
+    "IT-O-14f9572134",
+    "IT-O-9a4b91f041"
+   ],
+   "ESTADO": "PRESENTE"
+  },
+  "AGRONOMO_MAIS_CREATOR": {
+   "QUANTOS": 15,
+   "SENSOR_IDS": [
+    "IT-O-db6ace21c2",
+    "IT-O-cb5b757200",
+    "IT-O-3cac110d62",
+    "IT-O-0aa9fa7f4e",
+    "IT-O-f17f9e24fc",
+    "IT-O-ed2b631852"
+   ],
+   "ESTADO": "PRESENTE"
+  },
+  "PESQUISADOR_MAIS_VOZ_SOCIAL": {
+   "QUANTOS": 0,
+   "SENSOR_IDS": [],
+   "ESTADO": "AUSENTE"
+  },
+  "ORGANIZACAO_MAIS_MULTIPLOS_CANAIS": {
+   "QUANTOS": 16,
+   "SENSOR_IDS": [
+    "IT-O-db6ace21c2",
+    "IT-O-cb5b757200",
+    "IT-O-7080bcb7a9",
+    "IT-O-3cac110d62",
+    "IT-O-aa171c4216",
+    "IT-O-cca8fa06ed"
+   ],
+   "ESTADO": "PRESENTE"
+  }
+ },
+ "FICHAS": {
+  "PESQUISADORES": [
+   {
+    "SENSOR_ID": "IT-P-98ce0e6a98",
+    "QUEM_E": {
+     "nome_canonico": "Silvia Laura Toffolatti",
+     "entidade_tipo_br": "pessoa",
+     "pessoa_ou_organizacao": "PERSON",
+     "organizacao_ligada": "Università di Milano",
+     "identificadores": {
+      "ORCID": "0000-0003-3572-8686",
+      "ORCID_ESTADO": "ORCID_DECLARED_NOT_RESOLVED",
+      "external_ids": []
+     },
+     "evidencia_de_identidade": "marcadores: agrar, agricultur, disaa, scienze agrarie",
+     "dono_canonico": "NÃO SEI"
+    },
+    "O_QUE_FAZ": {
+     "papeis": [
+      {
+       "PAPEL": "pesquisador",
+       "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
+       "ORIGEM_DA_PROVA": "SENSOR-HUMANO-IT/EPMC"
+      }
+     ],
+     "papeis_count": 1
+    },
+    "POR_QUE_ESTA_NO_SINTONIA": "publica em APPLE/CEREAL/MAIZE x APHIDS/CODLING_MOTH/CORN_BORER — pares presentes na matriz ADAMA Itália (UNIVERSE.json)",
+    "ONDE_ATUA": {
+     "pais": "IT",
+     "regiao": [
+      "LOMBARDIA"
+     ],
+     "base_da_regiao": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+     "onde_mora": "NÃO SEI — nunca foi coletado",
+     "onde_trabalha": "LOMBARDIA",
+     "onde_produz": "NÃO SEI — nunca foi coletado",
+     "sobre_onde_fala": "NÃO SEI — exige conteúdo coletado"
+    },
+    "CULTURAS": {
+     "lista": [
+      "APPLE",
+      "CEREAL",
+      "MAIZE",
+      "MULTI",
+      "OLIVE",
+      "POTATO",
+      "RICE",
+      "TOMATO",
+      "VINE",
+      "WHEAT"
+     ],
+     "prova": "herdadas da CONSULTA que trouxe a origem, nunca do título"
+    },
+    "PROBLEMAS": {
+     "lista": [
+      "APHIDS",
+      "CODLING_MOTH",
+      "CORN_BORER",
+      "DOWNY_MILDEW",
+      "FLAVESCENCE_DOREE",
+      "FUNGICIDE_RESISTANCE",
+      "FUSARIUM_HEAD_BLIGHT",
+      "LATE_BLIGHT",
+      "OLIVE_FRUIT_FLY",
+      "POWDERY_MILDEW",
+      "RICE_PROTECTION",
+      "ROOTWORM",
+      "RUST",
+      "TOMATO_DISEASE"
+     ],
+     "prova": "PUBLICATION_IN_SCOPE — derivada do recorte que trouxe a pessoa, com os identificadores das obras anexados; nunca do cargo"
+    },
+    "RELACAO_COM_O_CAMPO": {
+     "proximidade": "NOT_ESTABLISHED",
+     "prova": "nenhum conteúdo público coletado: SINTONIA SCRAP exige APIFY_TOKEN, ausente. Publicação não prova visita a campo."
+    },
+    "RELACAO_COM_A_CIENCIA": {
+     "autoridade_cientifica": "DECLARADA",
+     "obras_em_escopo": 47,
+     "evidencia": [
+      {
+       "ID": "42015580",
+       "SOURCE": "MED",
+       "DOI": "10.1002/ps.70806",
+       "TITLE": "RNA interference in crop protection: opportunities and challenges during the transition to commercialization.",
+       "DATE": "2026-04-21"
+      },
+      {
+       "ID": "36033864",
+       "SOURCE": "MED",
+       "DOI": "10.3389/fmicb.2022.998501",
+       "TITLE": "Editorial: Advances in multi-omics study of filamentous plant pathogens.",
+       "DATE": "2022-08-12"
+      }
+     ]
+    },
+    "CANAIS_PUBLICOS": [],
+    "PRESENCA_PUBLICA": {
+     "tem_rede_social": false,
+     "plataformas": [],
+     "NOTA": "presença pública NÃO é papel profissional. Um agrônomo com canal continua sendo agrônomo; \"creator\" nunca vira tipo de entidade."
+    },
+    "QUANDO_FALOU_POR_ULTIMO": "2026-07-16",
+    "SOBRE_O_QUE_FALA_RECORRENTEMENTE": {
+     "recorrencia_cientifica": 47,
+     "recorrencia_tecnica": "NÃO SEI — exige conteúdo coletado",
+     "recorrencia_social": "NÃO SEI — exige conteúdo coletado"
+    },
+    "AUTORIDADE": {
+     "cientifica": "DECLARED_RESEARCH_AFFILIATION",
+     "tecnica": "DECLARED_RESEARCH_AFFILIATION",
+     "base": "marcadores: agrar, agricultur, disaa, scienze agrarie"
+    },
+    "ALCANCE": {
+     "valor": "NÃO SEI",
+     "NOTA": "ALCANCE nunca é autoridade e não entra em nenhuma régua"
+    },
+    "CRUZAMENTOS_POSSIVEIS": [
+     "SCIENCE (obras em escopo)",
+     "CROP WINDOW (crop×target da matriz ADAMA)"
+    ],
+    "MONITORAMENTO_RECOMENDADO": "MONTHLY",
+    "COLETAVEL_HOJE": false,
+    "POR_QUE_NAO_COLETAVEL": "nenhum canal público resolvido"
+   },
+   {
+    "SENSOR_ID": "IT-P-6134af398c",
+    "QUEM_E": {
+     "nome_canonico": "Giuliana Maddalena",
+     "entidade_tipo_br": "pessoa",
+     "pessoa_ou_organizacao": "PERSON",
+     "organizacao_ligada": "Università di Milano",
+     "identificadores": {
+      "ORCID": "0000-0003-0415-2581",
+      "ORCID_ESTADO": "ORCID_DECLARED_NOT_RESOLVED",
+      "external_ids": []
+     },
+     "evidencia_de_identidade": "marcadores: agrar, agricultur, disaa, scienze agrarie",
+     "dono_canonico": "NÃO SEI"
+    },
+    "O_QUE_FAZ": {
+     "papeis": [
+      {
+       "PAPEL": "pesquisador",
+       "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
+       "ORIGEM_DA_PROVA": "SENSOR-HUMANO-IT/EPMC"
+      }
+     ],
+     "papeis_count": 1
+    },
+    "POR_QUE_ESTA_NO_SINTONIA": "publica em APPLE/CEREAL/MAIZE x APHIDS/CODLING_MOTH/CORN_BORER — pares presentes na matriz ADAMA Itália (UNIVERSE.json)",
+    "ONDE_ATUA": {
+     "pais": "IT",
+     "regiao": [
+      "LOMBARDIA"
+     ],
+     "base_da_regiao": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+     "onde_mora": "NÃO SEI — nunca foi coletado",
+     "onde_trabalha": "LOMBARDIA",
+     "onde_produz": "NÃO SEI — nunca foi coletado",
+     "sobre_onde_fala": "NÃO SEI — exige conteúdo coletado"
+    },
+    "CULTURAS": {
+     "lista": [
+      "APPLE",
+      "CEREAL",
+      "MAIZE",
+      "MULTI",
+      "OLIVE",
+      "POTATO",
+      "RICE",
+      "TOMATO",
+      "VINE",
+      "WHEAT"
+     ],
+     "prova": "herdadas da CONSULTA que trouxe a origem, nunca do título"
+    },
+    "PROBLEMAS": {
+     "lista": [
+      "APHIDS",
+      "CODLING_MOTH",
+      "CORN_BORER",
+      "DOWNY_MILDEW",
+      "FLAVESCENCE_DOREE",
+      "FUNGICIDE_RESISTANCE",
+      "FUSARIUM_HEAD_BLIGHT",
+      "LATE_BLIGHT",
+      "OLIVE_FRUIT_FLY",
+      "POWDERY_MILDEW",
+      "RICE_PROTECTION",
+      "ROOTWORM",
+      "RUST",
+      "SCAB",
+      "TOMATO_DISEASE"
+     ],
+     "prova": "PUBLICATION_IN_SCOPE — derivada do recorte que trouxe a pessoa, com os identificadores das obras anexados; nunca do cargo"
+    },
+    "RELACAO_COM_O_CAMPO": {
+     "proximidade": "NOT_ESTABLISHED",
+     "prova": "nenhum conteúdo público coletado: SINTONIA SCRAP exige APIFY_TOKEN, ausente. Publicação não prova visita a campo."
+    },
+    "RELACAO_COM_A_CIENCIA": {
+     "autoridade_cientifica": "DECLARADA",
+     "obras_em_escopo": 37,
+     "evidencia": [
+      {
+       "ID": "42015580",
+       "SOURCE": "MED",
+       "DOI": "10.1002/ps.70806",
+       "TITLE": "RNA interference in crop protection: opportunities and challenges during the transition to commercialization.",
+       "DATE": "2026-04-21"
+      },
+      {
+       "ID": "36678977",
+       "SOURCE": "MED",
+       "DOI": "10.3390/plants12020263",
+       "TITLE": "Influence of Nitrogen on Grapevine Susceptibility to Downy Mildew.",
+       "DATE": "2023-01-06"
+      }
+     ]
+    },
+    "CANAIS_PUBLICOS": [],
+    "PRESENCA_PUBLICA": {
+     "tem_rede_social": false,
+     "plataformas": [],
+     "NOTA": "presença pública NÃO é papel profissional. Um agrônomo com canal continua sendo agrônomo; \"creator\" nunca vira tipo de entidade."
+    },
+    "QUANDO_FALOU_POR_ULTIMO": "2026-04-28",
+    "SOBRE_O_QUE_FALA_RECORRENTEMENTE": {
+     "recorrencia_cientifica": 37,
+     "recorrencia_tecnica": "NÃO SEI — exige conteúdo coletado",
+     "recorrencia_social": "NÃO SEI — exige conteúdo coletado"
+    },
+    "AUTORIDADE": {
+     "cientifica": "DECLARED_RESEARCH_AFFILIATION",
+     "tecnica": "DECLARED_RESEARCH_AFFILIATION",
+     "base": "marcadores: agrar, agricultur, disaa, scienze agrarie"
+    },
+    "ALCANCE": {
+     "valor": "NÃO SEI",
+     "NOTA": "ALCANCE nunca é autoridade e não entra em nenhuma régua"
+    },
+    "CRUZAMENTOS_POSSIVEIS": [
+     "SCIENCE (obras em escopo)",
+     "CROP WINDOW (crop×target da matriz ADAMA)"
+    ],
+    "MONITORAMENTO_RECOMENDADO": "MONTHLY",
+    "COLETAVEL_HOJE": false,
+    "POR_QUE_NAO_COLETAVEL": "nenhum canal público resolvido"
+   },
+   {
+    "SENSOR_ID": "IT-P-11f66405c9",
+    "QUEM_E": {
+     "nome_canonico": "Gianfranco Romanazzi",
+     "entidade_tipo_br": "pessoa",
+     "pessoa_ou_organizacao": "PERSON",
+     "organizacao_ligada": "Università Politecnica delle Marche",
+     "identificadores": {
+      "ORCID": "0000-0003-0390-4008",
+      "ORCID_ESTADO": "ORCID_DECLARED_NOT_RESOLVED",
+      "external_ids": []
+     },
+     "evidencia_de_identidade": "marcadores: agricultur, food and environmental scien",
+     "dono_canonico": "NÃO SEI"
+    },
+    "O_QUE_FAZ": {
+     "papeis": [
+      {
+       "PAPEL": "pesquisador",
+       "PROVA": "afiliação institucional declarada em campo estruturado do Europe PMC; nunca de prosa livre nem do assunto do trabalho",
+       "ORIGEM_DA_PROVA": "SENSOR-HUMANO-IT/EPMC"
+      }
+     ],
+     "papeis_count": 1
+    },
+    "POR_QUE_ESTA_NO_SINTONIA": "publica em APPLE/CEREAL/MAIZE x APHIDS/BROWN_ROT/CODLING_MOTH — pares presentes na matriz ADAMA Itália (UNIVERSE.json)",
+    "ONDE_ATUA": {
+     "pais": "IT",
+     "regiao": [
+      "MARCHE"
+     ],
+     "base_da_regiao": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+     "onde_mora": "NÃO SEI — nunca foi coletado",
+     "onde_trabalha": "MARCHE",
+     "onde_produz": "NÃO SEI — nunca foi coletado",
+     "sobre_onde_fala": "NÃO SEI — exige conteúdo coletado"
+    },
+    "CULTURAS": {
+     "lista": [
+      "APPLE",
+      "CEREAL",
+      "MAIZE",
+      "OLIVE",
+      "POTATO",
+      "RICE",
+      "STONE_FRUIT",
+      "TOMATO",
+      "VINE"
+     ],
+     "prova": "herdadas da CONSULTA que trouxe a origem, nunca do título"
+    },
+    "PROBLEMAS": {
+     "lista": [
+      "APHIDS",
+      "BROWN_ROT",
+      "CODLING_MOTH",
+      "CORN_BORER",
+      "DOWNY_MILDEW",
+      "FLAVESCENCE_DOREE",
+      "GRAPE_MOTH",
+      "LATE_BLIGHT",
+      "OLIVE_FRUIT_FLY",
+      "RICE_PROTECTION",
+      "SCAB",
+      "TOMATO_DISEASE"
+     ],
+     "prova": "PUBLICATION_IN_SCOPE — derivada do recorte que trouxe a pessoa, com os identificadores das obras anexados; nunca do cargo"
+    },
+    "RELACAO_COM_O_CAMPO": {
+     "proximidade": "NOT_ESTABLISHED",
+     "prova": "nenhum conteúdo público coletado: SINTONIA SCRAP exige APIFY_TOKEN, ausente. Publicação não prova visita a campo."
+    },
+    "RELACAO_COM_A_CIENCIA": {
+     "autoridade_cientifica": "DECLARADA",
+     "obras_em_escopo": 30,
+     "evidencia": [
+      {
+       "ID": "37687399",
+       "SOURCE": "MED",
+       "DOI": "10.3390/plants12173152",
+       "TITLE": "Are Basic Substances a Key to Sustainable Pest and Disease Management in Agriculture? An Open Field Perspective.",
+       "DATE": "2023-09-01"
+      },
+      {
+       "ID": "35684422",
+       "SOURCE": "MED",
+       "DOI": "10.3390/molecules27113484",
+       "TITLE": "Basic Substances, a Sustainable Tool to Complement and Eventually Replace Synthetic Pesticides in the Management of Pre and Postharvest Diseases: Reviewed Instructions for Users.",
+       "DATE": "2022-05-28"
+      }
+     ]
+    },
+    "CANAIS_PUBLICOS": [],
+    "PRESENCA_PUBLICA": {
+     "tem_rede_social": false,
+     "plataformas": [],
+     "NOTA": "presença pública NÃO é papel profissional. Um agrônomo com canal continua sendo agrônomo; \"creator\" nunca vira tipo de entidade."
+    },
+    "QUANDO_FALOU_POR_ULTIMO": "2026-02-20",
+    "SOBRE_O_QUE_FALA_RECORRENTEMENTE": {
+     "recorrencia_cientifica": 30,
+     "recorrencia_tecnica": "NÃO SEI — exige conteúdo coletado",
+     "recorrencia_social": "NÃO SEI — exige conteúdo coletado"
+    },
+    "AUTORIDADE": {
+     "cientifica": "DECLARED_RESEARCH_AFFILIATION",
+     "tecnica": "DECLARED_RESEARCH_AFFILIATION",
+     "base": "marcadores: agricultur, food and environmental scien"
+    },
+    "ALCANCE": {
+     "valor": "NÃO SEI",
+     "NOTA": "ALCANCE nunca é autoridade e não entra em nenhuma régua"
+    },
+    "CRUZAMENTOS_POSSIVEIS": [
+     "SCIENCE (obras em escopo)",
+     "CROP WINDOW (crop×target da matriz ADAMA)"
+    ],
+    "MONITORAMENTO_RECOMENDADO": "MONTHLY",
+    "COLETAVEL_HOJE": false,
+    "POR_QUE_NAO_COLETAVEL": "nenhum canal público resolvido"
+   }
+  ],
+  "TECNICOS_AGRONOMICOS": [
+   {
+    "SENSOR_ID": "IT-O-700d9a836d",
+    "QUEM_E": {
+     "nome_canonico": "Servizio Fitosanitario Regione Emilia-Romagna",
+     "entidade_tipo_br": "orgao",
+     "pessoa_ou_organizacao": "ORGANIZATION",
+     "organizacao_ligada": "Servizio Fitosanitario Regione Emilia-Romagna",
+     "identificadores": {
+      "ORCID": "NÃO SEI",
+      "ORCID_ESTADO": "NÃO SEI",
+      "external_ids": [
+       "web:agricoltura.regione.emilia-romagna.it/fitosanitario"
+      ]
+     },
+     "evidencia_de_identidade": "termos declarados na página: assistenza tecnica, avversit, consulenza, difesa integrata, fitopatolog, fitosanitar",
+     "dono_canonico": "NÃO SEI"
+    },
+    "O_QUE_FAZ": {
+     "papeis": [
+      {
+       "PAPEL": "servico_fitossanitario",
+       "PROVA": "tipo declarado pela própria página institucional; termos de papel encontrados no HTML buscado nesta execução",
+       "ORIGEM_DA_PROVA": "SENSOR-HUMANO-IT/INSTITUTIONS"
+      }
+     ],
+     "papeis_count": 1
+    },
+    "POR_QUE_ESTA_NO_SINTONIA": "publica bollettini de produção integrada vinculantes por área — cruzam crop x target x território",
+    "ONDE_ATUA": {
+     "pais": "IT",
+     "regiao": [
+      "EMILIA-ROMAGNA"
+     ],
+     "base_da_regiao": "SEDE_DECLARADA_DA_ORGANIZACAO",
+     "onde_mora": "NÃO SEI — nunca foi coletado",
+     "onde_trabalha": "EMILIA-ROMAGNA",
+     "onde_produz": "NÃO SEI — nunca foi coletado",
+     "sobre_onde_fala": "NÃO SEI — exige conteúdo coletado"
+    },
+    "CULTURAS": {
+     "lista": [
+      "WHEAT",
+      "MAIZE",
+      "SUGAR_BEET",
+      "APPLE",
+      "STONE_FRUIT",
+      "VINE",
+      "POTATO"
+     ],
+     "prova": "herdadas da CONSULTA que trouxe a origem, nunca do título"
+    },
+    "PROBLEMAS": {
+     "lista": [
+      "assistenza tecnica",
+      "avversit",
+      "consulenza",
+      "difesa integrata",
+      "fitopatolog",
+      "fitosanitar",
+      "monitoraggio",
+      "produttori",
+      "produzione integrata",
+      "ricerca",
+      "servizio fitosanitario",
+      "sperimentazione",
+      "tecnic"
+     ],
+     "prova": "DECLARED_ON_INSTITUTIONAL_PAGE — termos lidos do HTML buscado, não do nome da organização"
+    },
+    "RELACAO_COM_O_CAMPO": {
+     "proximidade": "DECLARED_TERRITORIAL_ACTIVITY",
+     "prova": "a própria página declara: assistenza tecnica, avversit, difesa integrata, monitoraggio"
+    },
+    "RELACAO_COM_A_CIENCIA": {
+     "autoridade_cientifica": "NÃO SEI",
+     "obras_em_escopo": "NÃO SEI",
+     "evidencia": [
+      {
+       "URL": "https://agricoltura.regione.emilia-romagna.it/fitosanitario",
+       "PAGE_TITLE": "Fitosanitario e difesa delle produzioni - Fitosanitario e difesa delle produzioni - Agricoltura, caccia e pesca",
+       "HTTP_STATUS": 200,
+       "TERMS": [
+        "assistenza tecnica",
+        "avversit",
+        "consulenza",
+        "difesa integrata",
+        "fitopatolog",
+        "fitosanitar",
+        "monitoraggio",
+        "produttori",
+        "produzione integrata",
+        "ricerca",
+        "servizio fitosanitario",
+        "sperimentazione",
+        "tecnic"
+       ]
+      }
+     ]
+    },
+    "CANAIS_PUBLICOS": [
+     {
+      "plataforma": "web",
+      "external_id": "agricoltura.regione.emilia-romagna.it/fitosanitario",
+      "url": "https://agricoltura.regione.emilia-romagna.it/fitosanitario",
+      "papel_da_fonte": "canal_tecnico",
+      "prova_de_pertencimento": "URL institucional verificada por GET"
+     }
+    ],
+    "PRESENCA_PUBLICA": {
+     "tem_rede_social": false,
+     "plataformas": [],
+     "NOTA": "presença pública NÃO é papel profissional. Um agrônomo com canal continua sendo agrônomo; \"creator\" nunca vira tipo de entidade."
+    },
+    "QUANDO_FALOU_POR_ULTIMO": "NÃO SEI",
+    "SOBRE_O_QUE_FALA_RECORRENTEMENTE": {
+     "recorrencia_cientifica": "NÃO SEI",
+     "recorrencia_tecnica": "NÃO SEI — exige conteúdo coletado",
+     "recorrencia_social": "NÃO SEI — exige conteúdo coletado"
+    },
+    "AUTORIDADE": {
+     "cientifica": "NÃO SEI",
+     "tecnica": "DECLARED_TECHNICAL_ROLE",
+     "base": "termos declarados na página: assistenza tecnica, avversit, consulenza, difesa integrata, fitopatolog, fitosanitar"
+    },
+    "ALCANCE": {
+     "valor": "NÃO SEI",
+     "NOTA": "ALCANCE nunca é autoridade e não entra em nenhuma régua"
+    },
+    "CRUZAMENTOS_POSSIVEIS": [
+     "FIELD (bollettino territorial)",
+     "CROP WINDOW (crop×target da matriz ADAMA)"
+    ],
+    "MONITORAMENTO_RECOMENDADO": "WEEKLY",
+    "COLETAVEL_HOJE": false,
+    "POR_QUE_NAO_COLETAVEL": "só tem endereço web institucional, sem conta de plataforma — a coleta de conteúdo não tem onde bater"
+   },
+   {
+    "SENSOR_ID": "IT-O-4b1fa56fed",
+    "QUEM_E": {
+     "nome_canonico": "Servizio Fitosanitario Regione Veneto",
+     "entidade_tipo_br": "orgao",
+     "pessoa_ou_organizacao": "ORGANIZATION",
+     "organizacao_ligada": "Servizio Fitosanitario Regione Veneto",
+     "identificadores": {
+      "ORCID": "NÃO SEI",
+      "ORCID_ESTADO": "NÃO SEI",
+      "external_ids": [
+       "web:regione.veneto.it/web/fitosanitario"
+      ]
+     },
+     "evidencia_de_identidade": "termos declarados na página: agronom, bollettino, fitopatolog, fitosanitar, laboratorio, monitoraggio",
+     "dono_canonico": "NÃO SEI"
+    },
+    "O_QUE_FAZ": {
+     "papeis": [
+      {
+       "PAPEL": "servico_fitossanitario",
+       "PROVA": "tipo declarado pela própria página institucional; termos de papel encontrados no HTML buscado nesta execução",
+       "ORIGEM_DA_PROVA": "SENSOR-HUMANO-IT/INSTITUTIONS"
+      }
+     ],
+     "papeis_count": 1
+    },
+    "POR_QUE_ESTA_NO_SINTONIA": "Veneto concentra vinha, milho e cereal; flavescência e cimice asiatica são alvos ADAMA",
+    "ONDE_ATUA": {
+     "pais": "IT",
+     "regiao": [
+      "VENETO"
+     ],
+     "base_da_regiao": "SEDE_DECLARADA_DA_ORGANIZACAO",
+     "onde_mora": "NÃO SEI — nunca foi coletado",
+     "onde_trabalha": "VENETO",
+     "onde_produz": "NÃO SEI — nunca foi coletado",
+     "sobre_onde_fala": "NÃO SEI — exige conteúdo coletado"
+    },
+    "CULTURAS": {
+     "lista": [
+      "VINE",
+      "MAIZE",
+      "WHEAT",
+      "APPLE",
+      "SUGAR_BEET"
+     ],
+     "prova": "herdadas da CONSULTA que trouxe a origem, nunca do título"
+    },
+    "PROBLEMAS": {
+     "lista": [
+      "agronom",
+      "bollettino",
+      "fitopatolog",
+      "fitosanitar",
+      "laboratorio",
+      "monitoraggio",
+      "produzione integrata",
+      "ricerca",
+      "servizio fitosanitario",
+      "sperimentazione",
+      "tecnic"
+     ],
+     "prova": "DECLARED_ON_INSTITUTIONAL_PAGE — termos lidos do HTML buscado, não do nome da organização"
+    },
+    "RELACAO_COM_O_CAMPO": {
+     "proximidade": "DECLARED_TERRITORIAL_ACTIVITY",
+     "prova": "a própria página declara: bollettino, monitoraggio"
+    },
+    "RELACAO_COM_A_CIENCIA": {
+     "autoridade_cientifica": "NÃO SEI",
+     "obras_em_escopo": "NÃO SEI",
+     "evidencia": [
+      {
+       "URL": "https://www.regione.veneto.it/web/fitosanitario",
+       "PAGE_TITLE": "U.O. Fitosanitario - Regione del Veneto",
+       "HTTP_STATUS": 200,
+       "TERMS": [
+        "agronom",
+        "bollettino",
+        "fitopatolog",
+        "fitosanitar",
+        "laboratorio",
+        "monitoraggio",
+        "produzione integrata",
+        "ricerca",
+        "servizio fitosanitario",
+        "sperimentazione",
+        "tecnic"
+       ]
+      }
+     ]
+    },
+    "CANAIS_PUBLICOS": [
+     {
+      "plataforma": "web",
+      "external_id": "regione.veneto.it/web/fitosanitario",
+      "url": "https://www.regione.veneto.it/web/fitosanitario",
+      "papel_da_fonte": "canal_tecnico",
+      "prova_de_pertencimento": "URL institucional verificada por GET"
+     }
+    ],
+    "PRESENCA_PUBLICA": {
+     "tem_rede_social": false,
+     "plataformas": [],
+     "NOTA": "presença pública NÃO é papel profissional. Um agrônomo com canal continua sendo agrônomo; \"creator\" nunca vira tipo de entidade."
+    },
+    "QUANDO_FALOU_POR_ULTIMO": "NÃO SEI",
+    "SOBRE_O_QUE_FALA_RECORRENTEMENTE": {
+     "recorrencia_cientifica": "NÃO SEI",
+     "recorrencia_tecnica": "NÃO SEI — exige conteúdo coletado",
+     "recorrencia_social": "NÃO SEI — exige conteúdo coletado"
+    },
+    "AUTORIDADE": {
+     "cientifica": "NÃO SEI",
+     "tecnica": "DECLARED_TECHNICAL_ROLE",
+     "base": "termos declarados na página: agronom, bollettino, fitopatolog, fitosanitar, laboratorio, monitoraggio"
+    },
+    "ALCANCE": {
+     "valor": "NÃO SEI",
+     "NOTA": "ALCANCE nunca é autoridade e não entra em nenhuma régua"
+    },
+    "CRUZAMENTOS_POSSIVEIS": [
+     "FIELD (bollettino territorial)",
+     "CROP WINDOW (crop×target da matriz ADAMA)"
+    ],
+    "MONITORAMENTO_RECOMENDADO": "WEEKLY",
+    "COLETAVEL_HOJE": false,
+    "POR_QUE_NAO_COLETAVEL": "só tem endereço web institucional, sem conta de plataforma — a coleta de conteúdo não tem onde bater"
+   },
+   {
+    "SENSOR_ID": "IT-O-2c5c4272fb",
+    "QUEM_E": {
+     "nome_canonico": "Settore Fitosanitario Regione Piemonte",
+     "entidade_tipo_br": "orgao",
+     "pessoa_ou_organizacao": "ORGANIZATION",
+     "organizacao_ligada": "Settore Fitosanitario Regione Piemonte",
+     "identificadores": {
+      "ORCID": "NÃO SEI",
+      "ORCID_ESTADO": "NÃO SEI",
+      "external_ids": [
+       "web:regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan"
+      ]
+     },
+     "evidencia_de_identidade": "termos declarados na página: avversit, bollettino, fitopatolog, fitosanitar, laboratorio, monitoraggio",
+     "dono_canonico": "NÃO SEI"
+    },
+    "O_QUE_FAZ": {
+     "papeis": [
+      {
+       "PAPEL": "servico_fitossanitario",
+       "PROVA": "tipo declarado pela própria página institucional; termos de papel encontrados no HTML buscado nesta execução",
+       "ORIGEM_DA_PROVA": "SENSOR-HUMANO-IT/INSTITUTIONS"
+      }
+     ],
+     "papeis_count": 1
+    },
+    "POR_QUE_ESTA_NO_SINTONIA": "flavescência dourada é regulada no Piemonte; arroz e milho concentram-se aqui",
+    "ONDE_ATUA": {
+     "pais": "IT",
+     "regiao": [
+      "PIEMONTE"
+     ],
+     "base_da_regiao": "SEDE_DECLARADA_DA_ORGANIZACAO",
+     "onde_mora": "NÃO SEI — nunca foi coletado",
+     "onde_trabalha": "PIEMONTE",
+     "onde_produz": "NÃO SEI — nunca foi coletado",
+     "sobre_onde_fala": "NÃO SEI — exige conteúdo coletado"
+    },
+    "CULTURAS": {
+     "lista": [
+      "VINE",
+      "RICE",
+      "MAIZE",
+      "APPLE"
+     ],
+     "prova": "herdadas da CONSULTA que trouxe a origem, nunca do título"
+    },
+    "PROBLEMAS": {
+     "lista": [
+      "avversit",
+      "bollettino",
+      "fitopatolog",
+      "fitosanitar",
+      "laboratorio",
+      "monitoraggio",
+      "produzione integrata",
+      "ricerca",
+      "tecnic",
+      "viticolt"
+     ],
+     "prova": "DECLARED_ON_INSTITUTIONAL_PAGE — termos lidos do HTML buscado, não do nome da organização"
+    },
+    "RELACAO_COM_O_CAMPO": {
+     "proximidade": "DECLARED_TERRITORIAL_ACTIVITY",
+     "prova": "a própria página declara: avversit, bollettino, monitoraggio"
+    },
+    "RELACAO_COM_A_CIENCIA": {
+     "autoridade_cientifica": "NÃO SEI",
+     "obras_em_escopo": "NÃO SEI",
+     "evidencia": [
+      {
+       "URL": "https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan",
+       "PAGE_TITLE": "Servizi fitosanitari e PAN | Regione Piemonte",
+       "HTTP_STATUS": 200,
+       "TERMS": [
+        "avversit",
+        "bollettino",
+        "fitopatolog",
+        "fitosanitar",
+        "laboratorio",
+        "monitoraggio",
+        "produzione integrata",
+        "ricerca",
+        "tecnic",
+        "viticolt"
+       ]
+      }
+     ]
+    },
+    "CANAIS_PUBLICOS": [
+     {
+      "plataforma": "web",
+      "external_id": "regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan",
+      "url": "https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan",
+      "papel_da_fonte": "canal_tecnico",
+      "prova_de_pertencimento": "URL institucional verificada por GET"
+     }
+    ],
+    "PRESENCA_PUBLICA": {
+     "tem_rede_social": false,
+     "plataformas": [],
+     "NOTA": "presença pública NÃO é papel profissional. Um agrônomo com canal continua sendo agrônomo; \"creator\" nunca vira tipo de entidade."
+    },
+    "QUANDO_FALOU_POR_ULTIMO": "NÃO SEI",
+    "SOBRE_O_QUE_FALA_RECORRENTEMENTE": {
+     "recorrencia_cientifica": "NÃO SEI",
+     "recorrencia_tecnica": "NÃO SEI — exige conteúdo coletado",
+     "recorrencia_social": "NÃO SEI — exige conteúdo coletado"
+    },
+    "AUTORIDADE": {
+     "cientifica": "NÃO SEI",
+     "tecnica": "DECLARED_TECHNICAL_ROLE",
+     "base": "termos declarados na página: avversit, bollettino, fitopatolog, fitosanitar, laboratorio, monitoraggio"
+    },
+    "ALCANCE": {
+     "valor": "NÃO SEI",
+     "NOTA": "ALCANCE nunca é autoridade e não entra em nenhuma régua"
+    },
+    "CRUZAMENTOS_POSSIVEIS": [
+     "FIELD (bollettino territorial)",
+     "CROP WINDOW (crop×target da matriz ADAMA)"
+    ],
+    "MONITORAMENTO_RECOMENDADO": "WEEKLY",
+    "COLETAVEL_HOJE": false,
+    "POR_QUE_NAO_COLETAVEL": "só tem endereço web institucional, sem conta de plataforma — a coleta de conteúdo não tem onde bater"
+   }
+  ],
+  "PRODUTORES": [
+   {
+    "SENSOR_ID": "IT-O-3439a0d9cc",
+    "QUEM_E": {
+     "nome_canonico": "AIPO verona",
+     "entidade_tipo_br": "NAO_RESOLVIDA",
+     "pessoa_ou_organizacao": "PERSON_OR_ORGANIZATION_NOT_DECLARED",
+     "organizacao_ligada": "NÃO SEI",
+     "identificadores": {
+      "ORCID": "NÃO SEI",
+      "ORCID_ESTADO": "NÃO SEI",
+      "external_ids": [
+       "youtube:@aipoverona7094"
+      ]
+     },
+     "evidencia_de_identidade": "DECLARED_IN_CHANNEL_DESCRIPTION",
+     "dono_canonico": "NÃO SEI"
+    },
+    "O_QUE_FAZ": {
+     "papeis": [
+      {
+       "PAPEL": "produtor",
+       "PROVA": "DECLARED_IN_CHANNEL_DESCRIPTION",
+       "ORIGEM_DA_PROVA": "SENSOR-HUMANO-IT/YOUTUBE-DISCOVERY"
+      }
+     ],
+     "papeis_count": 1
+    },
+    "POR_QUE_ESTA_NO_SINTONIA": "canal aparece em consultas técnicas italianas de BULLETIN/OLIVE_DISEASE/OLIVE_FRUIT_FLY",
+    "ONDE_ATUA": {
+     "pais": "IT",
+     "regiao": [
+      "NÃO SEI"
+     ],
+     "base_da_regiao": "NÃO SEI",
+     "onde_mora": "NÃO SEI — nunca foi coletado",
+     "onde_trabalha": "NÃO SEI",
+     "onde_produz": "NÃO SEI — nunca foi coletado",
+     "sobre_onde_fala": "NÃO SEI — exige conteúdo coletado"
+    },
+    "CULTURAS": {
+     "lista": [
+      "MULTI",
+      "OLIVE"
+     ],
+     "prova": "herdadas da CONSULTA que trouxe a origem, nunca do título"
+    },
+    "PROBLEMAS": {
+     "lista": [
+      "BULLETIN",
+      "OLIVE_DISEASE",
+      "OLIVE_FRUIT_FLY"
+     ],
+     "prova": "NOT_ESTABLISHED — exige conteúdo público coletado e transcrito"
+    },
+    "RELACAO_COM_O_CAMPO": {
+     "proximidade": "NOT_ESTABLISHED",
+     "prova": "nenhum conteúdo coletado nem transcrito — NOT_REACHED por falta de chave. A missão proíbe presumir capacidade pelo rótulo do canal."
+    },
+    "RELACAO_COM_A_CIENCIA": {
+     "autoridade_cientifica": "NÃO SEI",
+     "obras_em_escopo": "NÃO SEI",
+     "evidencia": []
+    },
+    "CANAIS_PUBLICOS": [
+     {
+      "plataforma": "youtube",
+      "external_id": "@aipoverona7094",
+      "url": "https://www.youtube.com/@aipoverona7094",
+      "papel_da_fonte": "person",
+      "prova_de_pertencimento": "declarado na própria página/aba About da origem"
+     }
+    ],
+    "PRESENCA_PUBLICA": {
+     "tem_rede_social": true,
+     "plataformas": [
+      "youtube"
+     ],
+     "NOTA": "presença pública NÃO é papel profissional. Um agrônomo com canal continua sendo agrônomo; \"creator\" nunca vira tipo de entidade."
+    },
+    "QUANDO_FALOU_POR_ULTIMO": "NÃO SEI — a busca devolve tempo relativo, não data",
+    "SOBRE_O_QUE_FALA_RECORRENTEMENTE": {
+     "recorrencia_cientifica": "NÃO SEI",
+     "recorrencia_tecnica": "NÃO SEI — exige conteúdo coletado",
+     "recorrencia_social": "NÃO SEI — exige conteúdo coletado"
+    },
+    "AUTORIDADE": {
+     "cientifica": "NÃO SEI",
+     "tecnica": "DECLARED_IN_CHANNEL_DESCRIPTION",
+     "base": "DECLARED_IN_CHANNEL_DESCRIPTION"
+    },
+    "ALCANCE": {
+     "valor": "10,4K iscritti",
+     "NOTA": "ALCANCE nunca é autoridade e não entra em nenhuma régua"
+    },
+    "CRUZAMENTOS_POSSIVEIS": [
+     "CROP WINDOW (crop×target da matriz ADAMA)"
+    ],
+    "MONITORAMENTO_RECOMENDADO": "DISCOVERY_ONLY",
+    "COLETAVEL_HOJE": true,
+    "POR_QUE_NAO_COLETAVEL": null
+   },
+   {
+    "SENSOR_ID": "IT-O-abbf068e4f",
+    "QUEM_E": {
+     "nome_canonico": "Matej vignaiuolo in Oslavia",
+     "entidade_tipo_br": "empresa",
+     "pessoa_ou_organizacao": "ORGANIZATION",
+     "organizacao_ligada": "NÃO SEI",
+     "identificadores": {
+      "ORCID": "NÃO SEI",
+      "ORCID_ESTADO": "NÃO SEI",
+      "external_ids": [
+       "youtube:@matejvignaiuolooslavia"
+      ]
+     },
+     "evidencia_de_identidade": "DECLARED_IN_CHANNEL_DESCRIPTION",
+     "dono_canonico": "NÃO SEI"
+    },
+    "O_QUE_FAZ": {
+     "papeis": [
+      {
+       "PAPEL": "produtor",
+       "PROVA": "DECLARED_IN_CHANNEL_DESCRIPTION",
+       "ORIGEM_DA_PROVA": "SENSOR-HUMANO-IT/YOUTUBE-DISCOVERY"
+      }
+     ],
+     "papeis_count": 1
+    },
+    "POR_QUE_ESTA_NO_SINTONIA": "canal aparece em consultas técnicas italianas de BULLETIN/FLAVESCENCE_DOREE",
+    "ONDE_ATUA": {
+     "pais": "IT",
+     "regiao": [
+      "NÃO SEI"
+     ],
+     "base_da_regiao": "NÃO SEI",
+     "onde_mora": "NÃO SEI — nunca foi coletado",
+     "onde_trabalha": "NÃO SEI",
+     "onde_produz": "NÃO SEI — nunca foi coletado",
+     "sobre_onde_fala": "NÃO SEI — exige conteúdo coletado"
+    },
+    "CULTURAS": {
+     "lista": [
+      "MULTI",
+      "VINE"
+     ],
+     "prova": "herdadas da CONSULTA que trouxe a origem, nunca do título"
+    },
+    "PROBLEMAS": {
+     "lista": [
+      "BULLETIN",
+      "FLAVESCENCE_DOREE"
+     ],
+     "prova": "NOT_ESTABLISHED — exige conteúdo público coletado e transcrito"
+    },
+    "RELACAO_COM_O_CAMPO": {
+     "proximidade": "NOT_ESTABLISHED",
+     "prova": "nenhum conteúdo coletado nem transcrito — NOT_REACHED por falta de chave. A missão proíbe presumir capacidade pelo rótulo do canal."
+    },
+    "RELACAO_COM_A_CIENCIA": {
+     "autoridade_cientifica": "NÃO SEI",
+     "obras_em_escopo": "NÃO SEI",
+     "evidencia": []
+    },
+    "CANAIS_PUBLICOS": [
+     {
+      "plataforma": "youtube",
+      "external_id": "@matejvignaiuolooslavia",
+      "url": "https://www.youtube.com/@MatejVignaiuoloOslavia",
+      "papel_da_fonte": "company",
+      "prova_de_pertencimento": "declarado na própria página/aba About da origem"
+     }
+    ],
+    "PRESENCA_PUBLICA": {
+     "tem_rede_social": true,
+     "plataformas": [
+      "youtube"
+     ],
+     "NOTA": "presença pública NÃO é papel profissional. Um agrônomo com canal continua sendo agrônomo; \"creator\" nunca vira tipo de entidade."
+    },
+    "QUANDO_FALOU_POR_ULTIMO": "NÃO SEI — a busca devolve tempo relativo, não data",
+    "SOBRE_O_QUE_FALA_RECORRENTEMENTE": {
+     "recorrencia_cientifica": "NÃO SEI",
+     "recorrencia_tecnica": "NÃO SEI — exige conteúdo coletado",
+     "recorrencia_social": "NÃO SEI — exige conteúdo coletado"
+    },
+    "AUTORIDADE": {
+     "cientifica": "NÃO SEI",
+     "tecnica": "DECLARED_IN_CHANNEL_DESCRIPTION",
+     "base": "DECLARED_IN_CHANNEL_DESCRIPTION"
+    },
+    "ALCANCE": {
+     "valor": "8,49K iscritti",
+     "NOTA": "ALCANCE nunca é autoridade e não entra em nenhuma régua"
+    },
+    "CRUZAMENTOS_POSSIVEIS": [
+     "CROP WINDOW (crop×target da matriz ADAMA)"
+    ],
+    "MONITORAMENTO_RECOMENDADO": "DISCOVERY_ONLY",
+    "COLETAVEL_HOJE": true,
+    "POR_QUE_NAO_COLETAVEL": null
+   },
+   {
+    "SENSOR_ID": "IT-O-cca8fa06ed",
+    "QUEM_E": {
+     "nome_canonico": "Matt The Farmer",
+     "entidade_tipo_br": "NAO_RESOLVIDA",
+     "pessoa_ou_organizacao": "PERSON_OR_ORGANIZATION_NOT_DECLARED",
+     "organizacao_ligada": "NÃO SEI",
+     "identificadores": {
+      "ORCID": "NÃO SEI",
+      "ORCID_ESTADO": "NÃO SEI",
+      "external_ids": [
+       "youtube:@mattthefarmerofficial",
+       "instagram:@matt_thefarmer",
+       "linkedin:linkedin.com/in/fioccomatteo"
+      ]
+     },
+     "evidencia_de_identidade": "DECLARED_IN_CHANNEL_DESCRIPTION",
+     "dono_canonico": "NÃO SEI"
+    },
+    "O_QUE_FAZ": {
+     "papeis": [
+      {
+       "PAPEL": "produtor",
+       "PROVA": "DECLARED_IN_CHANNEL_DESCRIPTION",
+       "ORIGEM_DA_PROVA": "SENSOR-HUMANO-IT/YOUTUBE-DISCOVERY"
+      }
+     ],
+     "papeis_count": 1
+    },
+    "POR_QUE_ESTA_NO_SINTONIA": "canal aparece em consultas técnicas italianas de DOWNY_MILDEW/FIELD_ADVISORY",
+    "ONDE_ATUA": {
+     "pais": "IT",
+     "regiao": [
+      "NÃO SEI"
+     ],
+     "base_da_regiao": "NÃO SEI",
+     "onde_mora": "NÃO SEI — nunca foi coletado",
+     "onde_trabalha": "NÃO SEI",
+     "onde_produz": "NÃO SEI — nunca foi coletado",
+     "sobre_onde_fala": "NÃO SEI — exige conteúdo coletado"
+    },
+    "CULTURAS": {
+     "lista": [
+      "MULTI",
+      "VINE"
+     ],
+     "prova": "herdadas da CONSULTA que trouxe a origem, nunca do título"
+    },
+    "PROBLEMAS": {
+     "lista": [
+      "DOWNY_MILDEW",
+      "FIELD_ADVISORY"
+     ],
+     "prova": "NOT_ESTABLISHED — exige conteúdo público coletado e transcrito"
+    },
+    "RELACAO_COM_O_CAMPO": {
+     "proximidade": "NOT_ESTABLISHED",
+     "prova": "nenhum conteúdo coletado nem transcrito — NOT_REACHED por falta de chave. A missão proíbe presumir capacidade pelo rótulo do canal."
+    },
+    "RELACAO_COM_A_CIENCIA": {
+     "autoridade_cientifica": "NÃO SEI",
+     "obras_em_escopo": "NÃO SEI",
+     "evidencia": []
+    },
+    "CANAIS_PUBLICOS": [
+     {
+      "plataforma": "youtube",
+      "external_id": "@mattthefarmerofficial",
+      "url": "https://www.youtube.com/@MattTheFarmerOfficial",
+      "papel_da_fonte": "person",
+      "prova_de_pertencimento": "declarado na própria página/aba About da origem"
+     },
+     {
+      "plataforma": "instagram",
+      "external_id": "@matt_thefarmer",
+      "url": "instagram.com/matt_thefarmer",
+      "papel_da_fonte": "person",
+      "prova_de_pertencimento": "declarado na própria página/aba About da origem"
+     },
+     {
+      "plataforma": "linkedin",
+      "external_id": "linkedin.com/in/fioccomatteo",
+      "url": "linkedin.com/in/fioccomatteo",
+      "papel_da_fonte": "person",
+      "prova_de_pertencimento": "declarado na própria página/aba About da origem"
+     }
+    ],
+    "PRESENCA_PUBLICA": {
+     "tem_rede_social": true,
+     "plataformas": [
+      "instagram",
+      "linkedin",
+      "youtube"
+     ],
+     "NOTA": "presença pública NÃO é papel profissional. Um agrônomo com canal continua sendo agrônomo; \"creator\" nunca vira tipo de entidade."
+    },
+    "QUANDO_FALOU_POR_ULTIMO": "NÃO SEI — a busca devolve tempo relativo, não data",
+    "SOBRE_O_QUE_FALA_RECORRENTEMENTE": {
+     "recorrencia_cientifica": "NÃO SEI",
+     "recorrencia_tecnica": "NÃO SEI — exige conteúdo coletado",
+     "recorrencia_social": "NÃO SEI — exige conteúdo coletado"
+    },
+    "AUTORIDADE": {
+     "cientifica": "NÃO SEI",
+     "tecnica": "DECLARED_IN_CHANNEL_DESCRIPTION",
+     "base": "DECLARED_IN_CHANNEL_DESCRIPTION"
+    },
+    "ALCANCE": {
+     "valor": "507K iscritti",
+     "NOTA": "ALCANCE nunca é autoridade e não entra em nenhuma régua"
+    },
+    "CRUZAMENTOS_POSSIVEIS": [
+     "CROP WINDOW (crop×target da matriz ADAMA)"
+    ],
+    "MONITORAMENTO_RECOMENDADO": "MONTHLY",
+    "COLETAVEL_HOJE": true,
+    "POR_QUE_NAO_COLETAVEL": null
+   }
+  ],
+  "COOPERATIVAS_ORGANIZACOES": [
+   {
+    "SENSOR_ID": "IT-O-125a6b1778",
+    "QUEM_E": {
+     "nome_canonico": "APOT — Associazione Produttori Ortofrutticoli Trentini",
+     "entidade_tipo_br": "cooperativa",
+     "pessoa_ou_organizacao": "ORGANIZATION",
+     "organizacao_ligada": "APOT — Associazione Produttori Ortofrutticoli Trentini",
+     "identificadores": {
+      "ORCID": "NÃO SEI",
+      "ORCID_ESTADO": "NÃO SEI",
+      "external_ids": [
+       "web:apot.it"
+      ]
+     },
+     "evidencia_de_identidade": "termos declarados na página: agronom, consorzio, cooperativa, frutticolt, monitoraggio, produttori",
+     "dono_canonico": "NÃO SEI"
+    },
+    "O_QUE_FAZ": {
+     "papeis": [
+      {
+       "PAPEL": "organizacao_de_produtores",
+       "PROVA": "tipo declarado pela própria página institucional; termos de papel encontrados no HTML buscado nesta execução",
+       "ORIGEM_DA_PROVA": "SENSOR-HUMANO-IT/INSTITUTIONS"
+      }
+     ],
+     "papeis_count": 1
+    },
+    "POR_QUE_ESTA_NO_SINTONIA": "agrega os produtores de maçã do Trentino; assistência técnica própria",
+    "ONDE_ATUA": {
+     "pais": "IT",
+     "regiao": [
+      "TRENTINO-ALTO ADIGE"
+     ],
+     "base_da_regiao": "SEDE_DECLARADA_DA_ORGANIZACAO",
+     "onde_mora": "NÃO SEI — nunca foi coletado",
+     "onde_trabalha": "TRENTINO-ALTO ADIGE",
+     "onde_produz": "NÃO SEI — nunca foi coletado",
+     "sobre_onde_fala": "NÃO SEI — exige conteúdo coletado"
+    },
+    "CULTURAS": {
+     "lista": [
+      "APPLE"
+     ],
+     "prova": "herdadas da CONSULTA que trouxe a origem, nunca do título"
+    },
+    "PROBLEMAS": {
+     "lista": [
+      "agronom",
+      "consorzio",
+      "cooperativa",
+      "frutticolt",
+      "monitoraggio",
+      "produttori"
+     ],
+     "prova": "DECLARED_ON_INSTITUTIONAL_PAGE — termos lidos do HTML buscado, não do nome da organização"
+    },
+    "RELACAO_COM_O_CAMPO": {
+     "proximidade": "DECLARED_TERRITORIAL_ACTIVITY",
+     "prova": "a própria página declara: monitoraggio"
+    },
+    "RELACAO_COM_A_CIENCIA": {
+     "autoridade_cientifica": "NÃO SEI",
+     "obras_em_escopo": "NÃO SEI",
+     "evidencia": [
+      {
+       "URL": "https://www.apot.it/",
+       "PAGE_TITLE": "Apot &#8211; Associazione Produttori Ortofrutticoli Trentini",
+       "HTTP_STATUS": 200,
+       "TERMS": [
+        "agronom",
+        "consorzio",
+        "cooperativa",
+        "frutticolt",
+        "monitoraggio",
+        "produttori"
+       ]
+      }
+     ]
+    },
+    "CANAIS_PUBLICOS": [
+     {
+      "plataforma": "web",
+      "external_id": "apot.it",
+      "url": "https://www.apot.it/",
+      "papel_da_fonte": "canal_tecnico",
+      "prova_de_pertencimento": "URL institucional verificada por GET"
+     }
+    ],
+    "PRESENCA_PUBLICA": {
+     "tem_rede_social": false,
+     "plataformas": [],
+     "NOTA": "presença pública NÃO é papel profissional. Um agrônomo com canal continua sendo agrônomo; \"creator\" nunca vira tipo de entidade."
+    },
+    "QUANDO_FALOU_POR_ULTIMO": "NÃO SEI",
+    "SOBRE_O_QUE_FALA_RECORRENTEMENTE": {
+     "recorrencia_cientifica": "NÃO SEI",
+     "recorrencia_tecnica": "NÃO SEI — exige conteúdo coletado",
+     "recorrencia_social": "NÃO SEI — exige conteúdo coletado"
+    },
+    "AUTORIDADE": {
+     "cientifica": "NÃO SEI",
+     "tecnica": "DECLARED_TECHNICAL_ROLE",
+     "base": "termos declarados na página: agronom, consorzio, cooperativa, frutticolt, monitoraggio, produttori"
+    },
+    "ALCANCE": {
+     "valor": "NÃO SEI",
+     "NOTA": "ALCANCE nunca é autoridade e não entra em nenhuma régua"
+    },
+    "CRUZAMENTOS_POSSIVEIS": [
+     "CROP WINDOW (crop×target da matriz ADAMA)"
+    ],
+    "MONITORAMENTO_RECOMENDADO": "WEEKLY",
+    "COLETAVEL_HOJE": false,
+    "POR_QUE_NAO_COLETAVEL": "só tem endereço web institucional, sem conta de plataforma — a coleta de conteúdo não tem onde bater"
+   },
+   {
+    "SENSOR_ID": "IT-O-5530a7be36",
+    "QUEM_E": {
+     "nome_canonico": "Consorzio Melinda",
+     "entidade_tipo_br": "cooperativa",
+     "pessoa_ou_organizacao": "ORGANIZATION",
+     "organizacao_ligada": "Consorzio Melinda",
+     "identificadores": {
+      "ORCID": "NÃO SEI",
+      "ORCID_ESTADO": "NÃO SEI",
+      "external_ids": [
+       "web:melinda.it"
+      ]
+     },
+     "evidencia_de_identidade": "nenhum termo de papel técnico no HTML lido",
+     "dono_canonico": "NÃO SEI"
+    },
+    "O_QUE_FAZ": {
+     "papeis": [
+      {
+       "PAPEL": "cooperativa",
+       "PROVA": "tipo declarado pela própria página institucional; termos de papel encontrados no HTML buscado nesta execução",
+       "ORIGEM_DA_PROVA": "SENSOR-HUMANO-IT/INSTITUTIONS"
+      }
+     ],
+     "papeis_count": 1
+    },
+    "POR_QUE_ESTA_NO_SINTONIA": "consórcio de maçã do Val di Non com serviço técnico de campo",
+    "ONDE_ATUA": {
+     "pais": "IT",
+     "regiao": [
+      "TRENTINO-ALTO ADIGE"
+     ],
+     "base_da_regiao": "SEDE_DECLARADA_DA_ORGANIZACAO",
+     "onde_mora": "NÃO SEI — nunca foi coletado",
+     "onde_trabalha": "TRENTINO-ALTO ADIGE",
+     "onde_produz": "NÃO SEI — nunca foi coletado",
+     "sobre_onde_fala": "NÃO SEI — exige conteúdo coletado"
+    },
+    "CULTURAS": {
+     "lista": [
+      "APPLE"
+     ],
+     "prova": "herdadas da CONSULTA que trouxe a origem, nunca do título"
+    },
+    "PROBLEMAS": {
+     "lista": [],
+     "prova": "NOT_ESTABLISHED"
+    },
+    "RELACAO_COM_O_CAMPO": {
+     "proximidade": "NOT_ESTABLISHED",
+     "prova": "nenhum termo de atividade territorial declarado"
+    },
+    "RELACAO_COM_A_CIENCIA": {
+     "autoridade_cientifica": "NÃO SEI",
+     "obras_em_escopo": "NÃO SEI",
+     "evidencia": [
+      {
+       "URL": "https://www.melinda.it/",
+       "PAGE_TITLE": null,
+       "HTTP_STATUS": null,
+       "TERMS": []
+      }
+     ]
+    },
+    "CANAIS_PUBLICOS": [
+     {
+      "plataforma": "web",
+      "external_id": "melinda.it",
+      "url": "https://www.melinda.it/",
+      "papel_da_fonte": "canal_tecnico",
+      "prova_de_pertencimento": "URL institucional verificada por GET"
+     }
+    ],
+    "PRESENCA_PUBLICA": {
+     "tem_rede_social": false,
+     "plataformas": [],
+     "NOTA": "presença pública NÃO é papel profissional. Um agrônomo com canal continua sendo agrônomo; \"creator\" nunca vira tipo de entidade."
+    },
+    "QUANDO_FALOU_POR_ULTIMO": "NÃO SEI",
+    "SOBRE_O_QUE_FALA_RECORRENTEMENTE": {
+     "recorrencia_cientifica": "NÃO SEI",
+     "recorrencia_tecnica": "NÃO SEI — exige conteúdo coletado",
+     "recorrencia_social": "NÃO SEI — exige conteúdo coletado"
+    },
+    "AUTORIDADE": {
+     "cientifica": "NÃO SEI",
+     "tecnica": "NOT_DECLARED",
+     "base": "nenhum termo de papel técnico no HTML lido"
+    },
+    "ALCANCE": {
+     "valor": "NÃO SEI",
+     "NOTA": "ALCANCE nunca é autoridade e não entra em nenhuma régua"
+    },
+    "CRUZAMENTOS_POSSIVEIS": [
+     "CROP WINDOW (crop×target da matriz ADAMA)"
+    ],
+    "MONITORAMENTO_RECOMENDADO": "WEEKLY",
+    "COLETAVEL_HOJE": false,
+    "POR_QUE_NAO_COLETAVEL": "só tem endereço web institucional, sem conta de plataforma — a coleta de conteúdo não tem onde bater"
+   },
+   {
+    "SENSOR_ID": "IT-O-7340b3594f",
+    "QUEM_E": {
+     "nome_canonico": "VOG — Consorzio delle cooperative ortofrutticole dell Alto Adige",
+     "entidade_tipo_br": "cooperativa",
+     "pessoa_ou_organizacao": "ORGANIZATION",
+     "organizacao_ligada": "VOG — Consorzio delle cooperative ortofrutticole dell Alto Adige",
+     "identificadores": {
+      "ORCID": "NÃO SEI",
+      "ORCID_ESTADO": "NÃO SEI",
+      "external_ids": [
+       "web:vog.it"
+      ]
+     },
+     "evidencia_de_identidade": "termos declarados na página: consorzio, frutticolt, produttori",
+     "dono_canonico": "NÃO SEI"
+    },
+    "O_QUE_FAZ": {
+     "papeis": [
+      {
+       "PAPEL": "cooperativa",
+       "PROVA": "tipo declarado pela própria página institucional; termos de papel encontrados no HTML buscado nesta execução",
+       "ORIGEM_DA_PROVA": "SENSOR-HUMANO-IT/INSTITUTIONS"
+      }
+     ],
+     "papeis_count": 1
+    },
+    "POR_QUE_ESTA_NO_SINTONIA": "maior consórcio de maçã do Alto Adige",
+    "ONDE_ATUA": {
+     "pais": "IT",
+     "regiao": [
+      "TRENTINO-ALTO ADIGE"
+     ],
+     "base_da_regiao": "SEDE_DECLARADA_DA_ORGANIZACAO",
+     "onde_mora": "NÃO SEI — nunca foi coletado",
+     "onde_trabalha": "TRENTINO-ALTO ADIGE",
+     "onde_produz": "NÃO SEI — nunca foi coletado",
+     "sobre_onde_fala": "NÃO SEI — exige conteúdo coletado"
+    },
+    "CULTURAS": {
+     "lista": [
+      "APPLE"
+     ],
+     "prova": "herdadas da CONSULTA que trouxe a origem, nunca do título"
+    },
+    "PROBLEMAS": {
+     "lista": [
+      "consorzio",
+      "frutticolt",
+      "produttori"
+     ],
+     "prova": "NOT_ESTABLISHED"
+    },
+    "RELACAO_COM_O_CAMPO": {
+     "proximidade": "NOT_ESTABLISHED",
+     "prova": "nenhum termo de atividade territorial declarado"
+    },
+    "RELACAO_COM_A_CIENCIA": {
+     "autoridade_cientifica": "NÃO SEI",
+     "obras_em_escopo": "NÃO SEI",
+     "evidencia": [
+      {
+       "URL": "https://www.vog.it/",
+       "PAGE_TITLE": "VOG Home of apples |Mele dell’Alto Adige - Südtirol in oltre 75 Paesi",
+       "HTTP_STATUS": 200,
+       "TERMS": [
+        "consorzio",
+        "frutticolt",
+        "produttori"
+       ]
+      }
+     ]
+    },
+    "CANAIS_PUBLICOS": [
+     {
+      "plataforma": "web",
+      "external_id": "vog.it",
+      "url": "https://www.vog.it/",
+      "papel_da_fonte": "canal_tecnico",
+      "prova_de_pertencimento": "URL institucional verificada por GET"
+     }
+    ],
+    "PRESENCA_PUBLICA": {
+     "tem_rede_social": false,
+     "plataformas": [],
+     "NOTA": "presença pública NÃO é papel profissional. Um agrônomo com canal continua sendo agrônomo; \"creator\" nunca vira tipo de entidade."
+    },
+    "QUANDO_FALOU_POR_ULTIMO": "NÃO SEI",
+    "SOBRE_O_QUE_FALA_RECORRENTEMENTE": {
+     "recorrencia_cientifica": "NÃO SEI",
+     "recorrencia_tecnica": "NÃO SEI — exige conteúdo coletado",
+     "recorrencia_social": "NÃO SEI — exige conteúdo coletado"
+    },
+    "AUTORIDADE": {
+     "cientifica": "NÃO SEI",
+     "tecnica": "DECLARED_TECHNICAL_ROLE",
+     "base": "termos declarados na página: consorzio, frutticolt, produttori"
+    },
+    "ALCANCE": {
+     "valor": "NÃO SEI",
+     "NOTA": "ALCANCE nunca é autoridade e não entra em nenhuma régua"
+    },
+    "CRUZAMENTOS_POSSIVEIS": [
+     "CROP WINDOW (crop×target da matriz ADAMA)"
+    ],
+    "MONITORAMENTO_RECOMENDADO": "WEEKLY",
+    "COLETAVEL_HOJE": false,
+    "POR_QUE_NAO_COLETAVEL": "só tem endereço web institucional, sem conta de plataforma — a coleta de conteúdo não tem onde bater"
+   }
+  ],
+  "COM_PRESENCA_SOCIAL": [
+   {
+    "SENSOR_ID": "IT-O-db6ace21c2",
+    "QUEM_E": {
+     "nome_canonico": "Agronotizie - Notizie per l'agricoltura",
+     "entidade_tipo_br": "NAO_RESOLVIDA",
+     "pessoa_ou_organizacao": "PERSON_OR_ORGANIZATION_NOT_DECLARED",
+     "organizacao_ligada": "NÃO SEI",
+     "identificadores": {
+      "ORCID": "NÃO SEI",
+      "ORCID_ESTADO": "NÃO SEI",
+      "external_ids": [
+       "youtube:@agronotizietv",
+       "instagram:@agronotizie",
+       "youtube:UCxypgXkKSbXuHn5hfmpXyvQ",
+       "youtube:@agronotiziemeteo8233"
+      ]
+     },
+     "evidencia_de_identidade": "DECLARED_IN_CHANNEL_DESCRIPTION",
+     "dono_canonico": "NÃO SEI"
+    },
+    "O_QUE_FAZ": {
+     "papeis": [
+      {
+       "PAPEL": "agronomo",
+       "PROVA": "DECLARED_IN_CHANNEL_DESCRIPTION",
+       "ORIGEM_DA_PROVA": "SENSOR-HUMANO-IT/YOUTUBE-DISCOVERY"
+      }
+     ],
+     "papeis_count": 1
+    },
+    "POR_QUE_ESTA_NO_SINTONIA": "canal aparece em consultas técnicas italianas de BULLETIN/CORN_BORER/DOWNY_MILDEW",
+    "ONDE_ATUA": {
+     "pais": "IT",
+     "regiao": [
+      "NÃO SEI"
+     ],
+     "base_da_regiao": "NÃO SEI",
+     "onde_mora": "NÃO SEI — nunca foi coletado",
+     "onde_trabalha": "NÃO SEI",
+     "onde_produz": "NÃO SEI — nunca foi coletado",
+     "sobre_onde_fala": "NÃO SEI — exige conteúdo coletado"
+    },
+    "CULTURAS": {
+     "lista": [
+      "APPLE",
+      "CEREAL",
+      "MAIZE",
+      "MULTI",
+      "OLIVE",
+      "POTATO",
+      "RICE",
+      "TOMATO",
+      "VINE",
+      "WHEAT"
+     ],
+     "prova": "herdadas da CONSULTA que trouxe a origem, nunca do título"
+    },
+    "PROBLEMAS": {
+     "lista": [
+      "BULLETIN",
+      "CORN_BORER",
+      "DOWNY_MILDEW",
+      "FLAVESCENCE_DOREE",
+      "FUSARIUM_HEAD_BLIGHT",
+      "HERBICIDE_RESISTANCE",
+      "LATE_BLIGHT",
+      "MAIZE_WEEDS",
+      "MYCOTOXIN",
+      "OLIVE_FRUIT_FLY",
+      "RICE_PROTECTION",
+      "ROOTWORM",
+      "RUST",
+      "SCAB",
+      "SEPTORIA",
+      "TOMATO_DISEASE"
+     ],
+     "prova": "NOT_ESTABLISHED — exige conteúdo público coletado e transcrito"
+    },
+    "RELACAO_COM_O_CAMPO": {
+     "proximidade": "NOT_ESTABLISHED",
+     "prova": "nenhum conteúdo coletado nem transcrito — NOT_REACHED por falta de chave. A missão proíbe presumir capacidade pelo rótulo do canal."
+    },
+    "RELACAO_COM_A_CIENCIA": {
+     "autoridade_cientifica": "NÃO SEI",
+     "obras_em_escopo": "NÃO SEI",
+     "evidencia": []
+    },
+    "CANAIS_PUBLICOS": [
+     {
+      "plataforma": "youtube",
+      "external_id": "@agronotizietv",
+      "url": "https://www.youtube.com/@agronotizietv",
+      "papel_da_fonte": "person",
+      "prova_de_pertencimento": "declarado na própria página/aba About da origem"
+     },
+     {
+      "plataforma": "instagram",
+      "external_id": "@agronotizie",
+      "url": "instagram.com/agronotizie",
+      "papel_da_fonte": "person",
+      "prova_de_pertencimento": "declarado na própria página/aba About da origem"
+     },
+     {
+      "plataforma": "youtube",
+      "external_id": "UCxypgXkKSbXuHn5hfmpXyvQ",
+      "url": "youtube.com/channel/UCxypgXkKSbXuHn5hfmpXyvQ",
+      "papel_da_fonte": "person",
+      "prova_de_pertencimento": "declarado na própria página/aba About da origem"
+     },
+     {
+      "plataforma": "youtube",
+      "external_id": "@agronotiziemeteo8233",
+      "url": "youtube.com/@agronotiziemeteo8233",
+      "papel_da_fonte": "person",
+      "prova_de_pertencimento": "declarado na própria página/aba About da origem"
+     }
+    ],
+    "PRESENCA_PUBLICA": {
+     "tem_rede_social": true,
+     "plataformas": [
+      "instagram",
+      "youtube"
+     ],
+     "NOTA": "presença pública NÃO é papel profissional. Um agrônomo com canal continua sendo agrônomo; \"creator\" nunca vira tipo de entidade."
+    },
+    "QUANDO_FALOU_POR_ULTIMO": "NÃO SEI — a busca devolve tempo relativo, não data",
+    "SOBRE_O_QUE_FALA_RECORRENTEMENTE": {
+     "recorrencia_cientifica": "NÃO SEI",
+     "recorrencia_tecnica": "NÃO SEI — exige conteúdo coletado",
+     "recorrencia_social": "NÃO SEI — exige conteúdo coletado"
+    },
+    "AUTORIDADE": {
+     "cientifica": "NÃO SEI",
+     "tecnica": "DECLARED_IN_CHANNEL_DESCRIPTION",
+     "base": "DECLARED_IN_CHANNEL_DESCRIPTION"
+    },
+    "ALCANCE": {
+     "valor": "10,9K iscritti",
+     "NOTA": "ALCANCE nunca é autoridade e não entra em nenhuma régua"
+    },
+    "CRUZAMENTOS_POSSIVEIS": [
+     "CROP WINDOW (crop×target da matriz ADAMA)"
+    ],
+    "MONITORAMENTO_RECOMENDADO": "WEEKLY",
+    "COLETAVEL_HOJE": true,
+    "POR_QUE_NAO_COLETAVEL": null
+   },
+   {
+    "SENSOR_ID": "IT-O-511b7c62d4",
+    "QUEM_E": {
+     "nome_canonico": "AgresteTv",
+     "entidade_tipo_br": "NAO_RESOLVIDA",
+     "pessoa_ou_organizacao": "PERSON_OR_ORGANIZATION_NOT_DECLARED",
+     "organizacao_ligada": "NÃO SEI",
+     "identificadores": {
+      "ORCID": "NÃO SEI",
+      "ORCID_ESTADO": "NÃO SEI",
+      "external_ids": [
+       "youtube:@agrestetv"
+      ]
+     },
+     "evidencia_de_identidade": "DECLARED_IN_CHANNEL_DESCRIPTION",
+     "dono_canonico": "NÃO SEI"
+    },
+    "O_QUE_FAZ": {
+     "papeis": [
+      {
+       "PAPEL": "tecnico",
+       "PROVA": "DECLARED_IN_CHANNEL_DESCRIPTION",
+       "ORIGEM_DA_PROVA": "SENSOR-HUMANO-IT/YOUTUBE-DISCOVERY"
+      }
+     ],
+     "papeis_count": 1
+    },
+    "POR_QUE_ESTA_NO_SINTONIA": "canal aparece em consultas técnicas italianas de BULLETIN/CERCOSPORA/CODLING_MOTH",
+    "ONDE_ATUA": {
+     "pais": "IT",
+     "regiao": [
+      "NÃO SEI"
+     ],
+     "base_da_regiao": "NÃO SEI",
+     "onde_mora": "NÃO SEI — nunca foi coletado",
+     "onde_trabalha": "NÃO SEI",
+     "onde_produz": "NÃO SEI — nunca foi coletado",
+     "sobre_onde_fala": "NÃO SEI — exige conteúdo coletado"
+    },
+    "CULTURAS": {
+     "lista": [
+      "APPLE",
+      "MULTI",
+      "POTATO",
+      "SUGAR_BEET",
+      "WHEAT"
+     ],
+     "prova": "herdadas da CONSULTA que trouxe a origem, nunca do título"
+    },
+    "PROBLEMAS": {
+     "lista": [
+      "BULLETIN",
+      "CERCOSPORA",
+      "CODLING_MOTH",
+      "LATE_BLIGHT",
+      "SCAB",
+      "SEPTORIA"
+     ],
+     "prova": "NOT_ESTABLISHED — exige conteúdo público coletado e transcrito"
+    },
+    "RELACAO_COM_O_CAMPO": {
+     "proximidade": "NOT_ESTABLISHED",
+     "prova": "nenhum conteúdo coletado nem transcrito — NOT_REACHED por falta de chave. A missão proíbe presumir capacidade pelo rótulo do canal."
+    },
+    "RELACAO_COM_A_CIENCIA": {
+     "autoridade_cientifica": "NÃO SEI",
+     "obras_em_escopo": "NÃO SEI",
+     "evidencia": []
+    },
+    "CANAIS_PUBLICOS": [
+     {
+      "plataforma": "youtube",
+      "external_id": "@agrestetv",
+      "url": "https://www.youtube.com/@AgresteTv",
+      "papel_da_fonte": "person",
+      "prova_de_pertencimento": "declarado na própria página/aba About da origem"
+     }
+    ],
+    "PRESENCA_PUBLICA": {
+     "tem_rede_social": true,
+     "plataformas": [
+      "youtube"
+     ],
+     "NOTA": "presença pública NÃO é papel profissional. Um agrônomo com canal continua sendo agrônomo; \"creator\" nunca vira tipo de entidade."
+    },
+    "QUANDO_FALOU_POR_ULTIMO": "NÃO SEI — a busca devolve tempo relativo, não data",
+    "SOBRE_O_QUE_FALA_RECORRENTEMENTE": {
+     "recorrencia_cientifica": "NÃO SEI",
+     "recorrencia_tecnica": "NÃO SEI — exige conteúdo coletado",
+     "recorrencia_social": "NÃO SEI — exige conteúdo coletado"
+    },
+    "AUTORIDADE": {
+     "cientifica": "NÃO SEI",
+     "tecnica": "DECLARED_IN_CHANNEL_DESCRIPTION",
+     "base": "DECLARED_IN_CHANNEL_DESCRIPTION"
+    },
+    "ALCANCE": {
+     "valor": "2,32K iscritti",
+     "NOTA": "ALCANCE nunca é autoridade e não entra em nenhuma régua"
+    },
+    "CRUZAMENTOS_POSSIVEIS": [
+     "CROP WINDOW (crop×target da matriz ADAMA)"
+    ],
+    "MONITORAMENTO_RECOMENDADO": "DISCOVERY_ONLY",
+    "COLETAVEL_HOJE": true,
+    "POR_QUE_NAO_COLETAVEL": null
+   },
+   {
+    "SENSOR_ID": "IT-O-cb5b757200",
+    "QUEM_E": {
+     "nome_canonico": "Dottor Diliddo | Agronomo",
+     "entidade_tipo_br": "NAO_RESOLVIDA",
+     "pessoa_ou_organizacao": "PERSON_OR_ORGANIZATION_NOT_DECLARED",
+     "organizacao_ligada": "NÃO SEI",
+     "identificadores": {
+      "ORCID": "NÃO SEI",
+      "ORCID_ESTADO": "NÃO SEI",
+      "external_ids": [
+       "youtube:@dottordiliddo",
+       "instagram:@dottordiliddo"
+      ]
+     },
+     "evidencia_de_identidade": "DECLARED_IN_CHANNEL_DESCRIPTION",
+     "dono_canonico": "NÃO SEI"
+    },
+    "O_QUE_FAZ": {
+     "papeis": [
+      {
+       "PAPEL": "agronomo",
+       "PROVA": "DECLARED_IN_CHANNEL_DESCRIPTION",
+       "ORIGEM_DA_PROVA": "SENSOR-HUMANO-IT/YOUTUBE-DISCOVERY"
+      }
+     ],
+     "papeis_count": 1
+    },
+    "POR_QUE_ESTA_NO_SINTONIA": "canal aparece em consultas técnicas italianas de DOWNY_MILDEW/RUST/SEPTORIA",
+    "ONDE_ATUA": {
+     "pais": "IT",
+     "regiao": [
+      "NÃO SEI"
+     ],
+     "base_da_regiao": "NÃO SEI",
+     "onde_mora": "NÃO SEI — nunca foi coletado",
+     "onde_trabalha": "NÃO SEI",
+     "onde_produz": "NÃO SEI — nunca foi coletado",
+     "sobre_onde_fala": "NÃO SEI — exige conteúdo coletado"
+    },
+    "CULTURAS": {
+     "lista": [
+      "VINE",
+      "WHEAT"
+     ],
+     "prova": "herdadas da CONSULTA que trouxe a origem, nunca do título"
+    },
+    "PROBLEMAS": {
+     "lista": [
+      "DOWNY_MILDEW",
+      "RUST",
+      "SEPTORIA"
+     ],
+     "prova": "NOT_ESTABLISHED — exige conteúdo público coletado e transcrito"
+    },
+    "RELACAO_COM_O_CAMPO": {
+     "proximidade": "NOT_ESTABLISHED",
+     "prova": "nenhum conteúdo coletado nem transcrito — NOT_REACHED por falta de chave. A missão proíbe presumir capacidade pelo rótulo do canal."
+    },
+    "RELACAO_COM_A_CIENCIA": {
+     "autoridade_cientifica": "NÃO SEI",
+     "obras_em_escopo": "NÃO SEI",
+     "evidencia": []
+    },
+    "CANAIS_PUBLICOS": [
+     {
+      "plataforma": "youtube",
+      "external_id": "@dottordiliddo",
+      "url": "https://www.youtube.com/@DottorDiliddo",
+      "papel_da_fonte": "person",
+      "prova_de_pertencimento": "declarado na própria página/aba About da origem"
+     },
+     {
+      "plataforma": "instagram",
+      "external_id": "@dottordiliddo",
+      "url": "instagram.com/dottordiliddo",
+      "papel_da_fonte": "person",
+      "prova_de_pertencimento": "declarado na própria página/aba About da origem"
+     }
+    ],
+    "PRESENCA_PUBLICA": {
+     "tem_rede_social": true,
+     "plataformas": [
+      "instagram",
+      "youtube"
+     ],
+     "NOTA": "presença pública NÃO é papel profissional. Um agrônomo com canal continua sendo agrônomo; \"creator\" nunca vira tipo de entidade."
+    },
+    "QUANDO_FALOU_POR_ULTIMO": "NÃO SEI — a busca devolve tempo relativo, não data",
+    "SOBRE_O_QUE_FALA_RECORRENTEMENTE": {
+     "recorrencia_cientifica": "NÃO SEI",
+     "recorrencia_tecnica": "NÃO SEI — exige conteúdo coletado",
+     "recorrencia_social": "NÃO SEI — exige conteúdo coletado"
+    },
+    "AUTORIDADE": {
+     "cientifica": "NÃO SEI",
+     "tecnica": "DECLARED_IN_CHANNEL_DESCRIPTION",
+     "base": "DECLARED_IN_CHANNEL_DESCRIPTION"
+    },
+    "ALCANCE": {
+     "valor": "2,43K iscritti",
+     "NOTA": "ALCANCE nunca é autoridade e não entra em nenhuma régua"
+    },
+    "CRUZAMENTOS_POSSIVEIS": [
+     "CROP WINDOW (crop×target da matriz ADAMA)"
+    ],
+    "MONITORAMENTO_RECOMENDADO": "WEEKLY",
+    "COLETAVEL_HOJE": true,
+    "POR_QUE_NAO_COLETAVEL": null
+   }
+  ]
+ }
+}

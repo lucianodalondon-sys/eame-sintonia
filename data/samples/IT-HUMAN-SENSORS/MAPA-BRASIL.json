@@ -1,0 +1,6048 @@
+{
+ "SOURCE_ID": "IT-HUMAN-SENSORS/MAPA-BRASIL",
+ "source": "derivado de REGISTRY.json traduzido para o contrato de portal-sintonia (entidades.sql + fontes)",
+ "CONTRATO_BRASILEIRO": {
+  "entidades": "chave(unique, do identificador mais estável) · nome_canonico · tipo(pessoa·empresa·cooperativa·veiculo·orgao) · entidade_mae · uf · cidade · origem_local · evidencia",
+  "fontes": "entidade_id → entidades · papel_da_fonte(company·person·marca·canal_tecnico·veiculo) · external_id(id NA PLATAFORMA) · plataforma · handle · url · canonical_url · tipo · culturas · pracas · alcance · cadencia_dias · ultima_coleta",
+  "documentos": "fonte_id — documento NUNCA aponta para entidade",
+  "DO_CAMPO": [
+   "tecnico",
+   "pesquisador",
+   "produtor",
+   "cooperativa"
+  ],
+  "INSTITUCIONAL": [
+   "instituicao",
+   "associacao"
+  ],
+  "estados_de_resolucao": [
+   "MESMA_ENTIDADE",
+   "MESMA_FONTE",
+   "ENTIDADES_DIFERENTES",
+   "NAO_RESOLVIDA"
+  ],
+  "fonte_da_leitura": "portal-sintonia/entidades.sql · auditar-as-fontes.py · camadas-do-campo.py · PLANO-entidade-e-fonte.md"
+ },
+ "SENSORES_ITALIANOS_DE_ENTRADA": 224,
+ "ENTIDADES_DERIVADAS": 190,
+ "FONTES_DERIVADAS": 115,
+ "ENTIDADES_POR_TIPO": {
+  "pessoa": 134,
+  "orgao": 38,
+  "cooperativa": 10,
+  "veiculo": 5,
+  "empresa": 3
+ },
+ "FONTES_POR_TIPO": {
+  "orgao_publico": 14,
+  "instituicao": 27,
+  "laboratorio": 2,
+  "cooperativa": 12,
+  "associacao": 3,
+  "portal": 5,
+  "empresa": 1,
+  "tecnico": 34,
+  "produtor": 13,
+  "pesquisador": 4
+ },
+ "FONTES_POR_PAPEL": {
+  "canal_tecnico": 58,
+  "veiculo": 5,
+  "company": 4,
+  "person": 48
+ },
+ "FONTES_POR_PLATAFORMA": {
+  "web": 49,
+  "youtube": 44,
+  "instagram": 15,
+  "linkedin": 7
+ },
+ "FONTES_POR_CAMADA": {
+  "OUTRA": 22,
+  "INSTITUCIONAL": 30,
+  "DO_CAMPO": 63
+ },
+ "FONTES_POR_VOZ_DA_FICHA": {
+  "FORA_DAS_CINCO": 22,
+  "A · CIÊNCIA": 33,
+  "E · MERCADO": 13,
+  "B · AGRÔNOMO": 34,
+  "D · CAMPO": 13
+ },
+ "VOCABULARIO_BR_VIGENTE": [
+  "creator",
+  "imprensa",
+  "portal",
+  "cooperativa",
+  "associacao",
+  "instituicao",
+  "podcast",
+  "revenda",
+  "distribuidor",
+  "congresso",
+  "orgao_publico",
+  "pesquisador",
+  "tecnico",
+  "comercial",
+  "operador",
+  "produtor",
+  "estudante",
+  "comite_tecnico",
+  "laboratorio",
+  "empresa"
+ ],
+ "PERDAS_NA_TRADUCAO": {
+  "AGRONOMIST + TECHNICAL_ADVISER + FIELD_TECHNICIAN + CROP_PROTECTION": {
+   "br": "tecnico",
+   "perda": "o Brasil não tem 'agronomo' nem 'consultor' em fontes.tipo; os dois estão dobrados dentro de 'tecnico' por decisão do CHECK vigente"
+  },
+  "PLANT_HEALTH_SERVICE + PHYTOSANITARY_CONSORTIUM": {
+   "br": "orgao_publico",
+   "perda": "a Itália separa serviço fitossanitário regional de consórcio provincial; o Brasil tem um valor só"
+  },
+  "UNIVERSITY + PUBLIC_RESEARCH + RESEARCH_CENTRE": {
+   "br": "instituicao",
+   "perda": "universidade, centro nacional e fundação viram o mesmo valor"
+  }
+ },
+ "TIPOS_BR_NAO_USADOS_PELA_ITALIA": [
+  "creator",
+  "imprensa",
+  "podcast",
+  "revenda",
+  "distribuidor",
+  "congresso",
+  "comercial",
+  "operador",
+  "estudante",
+  "comite_tecnico"
+ ],
+ "ENTIDADES_COM_MAIS_DE_UM_SENSOR_ITALIANO": 0,
+ "CANAIS_POR_ENTIDADE": {
+  "1": 73,
+  "4": 1,
+  "2": 7,
+  "3": 8
+ },
+ "SENSORES_SEM_IDENTIFICADOR_ESTAVEL": 1,
+ "PROBLEMAS": [
+  {
+   "SENSOR_ID": "IT-P-027285930d",
+   "NOME": "Antonio F Logrieco",
+   "PROBLEMA": "sem identificador estável para virar entidades.chave"
+  }
+ ],
+ "ENTIDADES": [
+  {
+   "chave": "orcid:0000-0003-3572-8686",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Silvia Laura Toffolatti",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "LOMBARDIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur, disaa, scienze agrarie",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-98ce0e6a98"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-0415-2581",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Giuliana Maddalena",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "LOMBARDIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur, disaa, scienze agrarie",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-6134af398c"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-0390-4008",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Gianfranco Romanazzi",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "MARCHE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-11f66405c9"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-9659-9470",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Massimo Turina",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-d009bf1a7d"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-7218-9963",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Michele Perazzolli",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, edmund mach",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-6616ab45da"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-9227-9023",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Giovanni Beccari",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "UMBRIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-c1dd4f5b4a"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-4090-6117",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Vittorio Rossi",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: crop production, plant health",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-e2d3899399"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-5232-6972",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Antonio Moretti",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: ispa",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-aa0f1382ac"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-4568-6160",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Lorenzo Covarelli",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "UMBRIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-5704408c3c"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-5009-5798",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Luca Nerva",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, council for agricultural research, crea, enolog",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-f3120c875c"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-6427-8234",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Francesco Tini",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "UMBRIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-aa8d2abf18"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-5382-3794",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Walter Chitarra",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, council for agricultural research, crea, enolog",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-2dab3b026a"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-5736-9584",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Nicola Mori",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "afiliação atual não declara domínio agronômico (NOT_DECLARED), mas a pessoa tem dono canônico em SPEAKER-UNIVERSE-PILOT-V1 com identidade resolvida por ORCID",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-0b2a9632f0"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-4781-9593",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Demetrio Marcianò",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "LOMBARDIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur, disaa, scienze agrarie",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-558ac25e89"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-8943-1218",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Gabriella De Lorenzis",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "LOMBARDIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur, disaa, scienze agrarie",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-9830e9a5fa"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-4798-5874",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Luca Sella",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, forest",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-b9a286056f"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-1287-1711",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Paola Battilani",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: crop production, plant health, produzioni vegetali",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-c1dd822f46"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-9538-1835",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Paola Giorni",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, crop production, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-fe15832810"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-5846-7947",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Claudio Pugliesi",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TOSCANA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-37f35b9690"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-1084-6048",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Cristina Marzachì",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-d8c6e45eb3"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-6018-7319",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Hazem S Elshafie",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "BASILICATA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien, forest",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-0fcffa26a1"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-0609-8902",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Marco Masi",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "CAMPANIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agro",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-6fb4d5d1b1"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-3671-6783",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Massimo Reverberi",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "LAZIO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, council for agricultural research, plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-dba4ac220b"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-7926-3601",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Santa Olga Cacciola",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "SICILIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-59bf767cd6"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-4036-5322",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Valerio Mazzoni",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: edmund mach, plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-8f2911b792"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-2445-7211",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Alberto Pozzebon",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agro, agronom, cirve, dafnae",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-ae45d003a7"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-9167-8823",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Francesco Favaron",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, forest",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-51dd54237a"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-6637-0678",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Luciana Galetto",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-c9b6995bd6"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-3665-3954",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Marco Fambrini",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TOSCANA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-4aadec4477"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-0101-1046",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Marco Forgia",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-c90c8cd784"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-3719-2520",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Massimo Blandino",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, disafa, forest",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-32ca3e4621"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-3618-0301",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Anna Maria Mastrangelo",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur, council for agricultural research, crea",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-72fffa8102"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-0843-8424",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Ciro Gianmaria Amoroso",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "CAMPANIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-50f9a94146"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-2822-704X",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Francesco Di Serio",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-5145a92a0c"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-2545-1409",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Gianfranco Anfora",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-40fd13adec"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-1590-4478",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Giorgio Gambino",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-b801b20ab0"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-8099-8234",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Ippolito Camele",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "BASILICATA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien, forest",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-f2bc2c6735"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-3989-2539",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Mario Masiello",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: ispa",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-eed3b941bb"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-9345-5407",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Simona Abbà",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-65c5322693"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-5322-9701",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Alberto Acquadro",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur, disafa, forest",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-0e7cff51f7"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-8981-1018",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Beatriz Navarro",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-f34c21caac"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-2600-2536",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Carlo Duso",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agro, agronom, cirve, enolog",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-f7c544b0b9"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-7849-9038",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Francesca Taranto",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: ibbr",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-f7c7dd3222"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-9929-4130",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Tito Caffi",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: crop production, plant health",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-810e88ab8d"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-7339-4034",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Alessandro Vitale",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "SICILIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-e7fa4cf066"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-4700-4450",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Antonio Gallo",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-e32ba22fe3"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-8228-0258",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Cristina Nali",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TOSCANA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-55e3d15794"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-2584-3069",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Laura Scarabel",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-6ccde30295"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-8475-7366",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Marika Rossi",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-3ee6110d8c"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-3201-2105",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Marwa Moumni",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "MARCHE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-3955849888"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-6072-8939",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Miriam Haidukowski",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: ispa",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-438b9fd33e"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-9541-1923",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Piero Attilio Bianco",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "LOMBARDIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, agro, disaa",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-0f42ea6c97"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-7080-8369",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Sabrina Sarrocco",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TOSCANA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-96ced94a1a"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-7074-7092",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Stefania Somma",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: ispa",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-6ae5117ac6"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-7081-8906",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Valentina Ricciardi",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "LOMBARDIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur, disaa, scienze agrarie",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-bb8ebab934"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-6312-249X",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Agata Gadaleta",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, disaa",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-45d28698ff"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-7431-844X",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Andrea Moglia",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, disafa, forest",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-63e6b75ae2"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-9237-5341",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Elisa Pellegrini",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TOSCANA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-b27c56199c"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-5620-7826",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Francesco Porcelli",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agro, agronom, soil scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-8eb7b66f4a"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-5974-9719",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Giorgia Fedele",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: crop production, plant health",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-c7f168980c"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-0272-8700",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Giuseppe Andolfo",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "CAMPANIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-761412cda2"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-5901-1386",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Marzia Beccaccioli",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "LAZIO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, council for agricultural research, plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-078d47b5c7"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-9840-3817",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Nunzio D'Agostino",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "CAMPANIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-a214991bd6"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-4114-062X",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Osvaldo Failla",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "LOMBARDIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur, scienze agrarie",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-b2c6949630"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-3376-0562",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Peter Robatscher",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: laimburg",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-7fb9a35fb7"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-7958-7681",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Raffaella Balestrini",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: ibbr, plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-8e589c62f1"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-5878-1159",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Riccardo Baroncelli",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, agro, distal",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-726ca0e1a8"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-3638-7345",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Silvio Tundo",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, agro, agronom, dafnae",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-79435c8fcb"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-0885-8744",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Slavica Matić",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, forest, plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-a45b762d2f"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-9017-4738",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Susanna Pecchia",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TOSCANA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-e7bc77a8cd"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-9141-7850",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Claudio Moser",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: edmund mach",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-45433a040b"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-5831-4673",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Eric Conti",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "UMBRIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-7b426ac754"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-7386-8543",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Francesca Garganese",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: soil scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-43f6a06ae6"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-9930-0975",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Irene Salotti",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: crop production",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-e8cc9669c0"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-1368-1250",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Ivan Baccelli",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": null,
+   "cidade": null,
+   "origem_local": "NÃO SEI — NO_KNOWN_CITY_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-9e717f1ef5"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-7009-6891",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Ugo Picciotti",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: soil scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-ade9ee5a43"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-5378-5591",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Adriano Marocco",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: crop production",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-3eae96f943"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-1868-4469",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Alessandra Lanubile",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: crop production",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-3b90ccc9c9"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-6379-7737",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Andrea Milani",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-d514416574"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-5650-1512",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Assunta Bertaccini",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, plant patholog",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-fb48db29c4"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-4983-4116",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Fabrizio Araniti",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "LOMBARDIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur, agro",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-0b29c0626d"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-1991-5249",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Francesca Desiderio",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": null,
+   "cidade": null,
+   "origem_local": "NÃO SEI — NO_KNOWN_CITY_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur, council for agricultural research, crea",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-f883954272"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-5090-8127",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Francesco Vinale",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "CAMPANIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agro, plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-f35c58444b"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-3488-4513",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Gabriele Rocchetti",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-9007c92f62"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-1797-0842",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Gabriele Rondoni",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "UMBRIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-a9f398239e"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-6600-2178",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Giacomo Mangini",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: ibbr",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-2c14a6f961"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-5206-4629",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Giuseppina Iacomino",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "CAMPANIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-e002fe09ea"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-0878-7402",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Katrin Janik",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: laimburg",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-6cb52f8fa6"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-6067-4600",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Luigi Cattivelli",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": null,
+   "cidade": null,
+   "origem_local": "NÃO SEI — NO_KNOWN_CITY_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur, council for agricultural research, crea",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-2f2b82c4ea"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-6547-7702",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Marco Camardo Leggieri",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: crop production, plant health, produzioni vegetali",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-fd0dee4511"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0009-0007-4592-5997",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Marco Greco",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-15f83e0f77"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-5544-7235",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Silvia Panozzo",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-47b986dd3d"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-1631-638X",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Simona Marianna Sanzani",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agro, agronom",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-b8e256e471"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0009-0005-6104-7894",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Simone Piancatelli",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "MARCHE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-e7a4ae6cf9"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-2665-223X",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Stefania Savoi",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, forest",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-1aece929e1"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-0492-6129",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Urban Spitaler",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: laimburg, plant health",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-c7a87f5e4d"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-9994-9907",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Valentina Scarpino",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, disafa, forest",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-4e729d1dd1"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-6603-329X",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Andrea Onofri",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "UMBRIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-2fae504cc4"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-6702-1162",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Anna Maria Vaira",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-46942de9d4"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-0811-1229",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Antonino Malacrinò",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "CALABRIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-5daab500b4"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-4656-6192",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Chiara Pagliarani",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-c9e4d76c1b"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-7373-7888",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Clemencia Chaves-López",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "ABRUZZO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-224e2bbdd5"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-3945-2752",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Domenico Bosco",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur, disafa, forest",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-bd0f1bec1c"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-3737-1409",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Elena Chierici",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "UMBRIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-a1f1073fc4"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-8866-0633",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Fabio Quaglino",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "LOMBARDIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, agro, disaa",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-ae054ae7a0"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-0756-7272",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Giuseppina Avantaggiato",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: ispa",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-0b2f0cc077"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-5129-1571",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Irene Perrone",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-c08ae005dd"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-4401-3896",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Lorenzo Cotrozzi",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TOSCANA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-c51b6afd39"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0009-0007-0135-1178",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Marco Lapris",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-d6c84fe8d0"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-8058-5624",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Mario Riolo",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "SICILIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, council for agricultural research, crea",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-8d0641dd4c"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-8760-5031",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Riccardo Velasco",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, council for agricultural research, crea, enolog",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-4aeb0ae14a"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-2059-4702",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Roberto Romani",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "UMBRIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-8ff4016096"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-3097-559X",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Salvatore Moricca",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TOSCANA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur, entomolog, forest",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-c495b4eea8"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0009-0005-3232-475X",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Silvia Procino",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: ibbr",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-0094abed38"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-5722-1558",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Stefania Daghino",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: plant protection, sustainable plant protection",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-ab08db1528"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-9962-9807",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Alessandra Benigno",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TOSCANA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, entomolog, forest, plant patholog",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-aa15503e83"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-8949-3654",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Anna Andolfi",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "CAMPANIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agro",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-f9b8797b18"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-0021-8774",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Antonia Susca",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: ispa",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-ead19bb5a2"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-7411-6394",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Claudia Pisuttu",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TOSCANA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-89a1e3f343"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-8366-4942",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Daniele Migliaro",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, agricultur, council for agricultural research, crea",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-9aa2d83a04"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-6850-7911",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Davide Scaccini",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agro, agronom, dafnae",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-1b888cff91"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-5051-0971",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Edoardo Puglisi",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-4ea6cbad37"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-6646-898X",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Elena Marone Fassolo",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "LOMBARDIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, disaa",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-08911ecb30"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-7700-9527",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Francesco Carimi",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "SICILIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: ibbr",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-fa527c2485"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-9111-2144",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Francesco Pavan",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "FRIULI-VENEZIA GIULIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-e769f91ee4"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-4864-4396",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Gerardo Puopolo",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, edmund mach",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-9ce9958265"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-4033-9001",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Livia Zapponi",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: edmund mach",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-3298105bda"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0002-1935-3282",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Marco Maccaferri",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, distal",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-c4b3285f34"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-7481-3141",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Margherita Furiosi",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: crop production, plant health",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-1098e12d4d"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0009-0000-6501-9018",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Michela Errico",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-1c0e3815d3"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0003-1704-2541",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Nicola Pecchioni",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agrar, crea",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-9ec2f9c6c6"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-8502-8026",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Paolo Benincasa",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "UMBRIA",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: agricultur, food and environmental scien",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-132657d1f0"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-5711-4429",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Pietro Franceschi",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: edmund mach",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-74e81e672c"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "orcid:0000-0001-7103-9613",
+   "chave_derivada_de": "ORCID",
+   "nome_canonico": "Stefania Pilati",
+   "tipo": "pessoa",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "INSTITUTION_ADDRESS_DECLARED_IN_AFFILIATION",
+   "evidencia": "marcadores: edmund mach",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-P-4423800cb1"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:agricoltura.regione.emilia-romagna.it/fitosanitario",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Servizio Fitosanitario Regione Emilia-Romagna",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: assistenza tecnica, avversit, consulenza, difesa integrata, fitopatolog, fitosanitar",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-700d9a836d"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:regione.veneto.it/web/fitosanitario",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Servizio Fitosanitario Regione Veneto",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: agronom, bollettino, fitopatolog, fitosanitar, laboratorio, monitoraggio",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-4b1fa56fed"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Settore Fitosanitario Regione Piemonte",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: avversit, bollettino, fitopatolog, fitosanitar, laboratorio, monitoraggio",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-2c5c4272fb"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:regione.lombardia.it/wps/portal/istituzionale/HP/servizi-e-informazioni/imprese/imprese-agricole/servizio-fitosanitario",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Servizio Fitosanitario Regione Lombardia",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "LOMBARDIA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: bollettino, fitosanitar, monitoraggio, ricerca, servizio fitosanitario, tecnic",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-fed7829c5e"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:ersa.fvg.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "ERSA — Agenzia regionale sviluppo rurale FVG",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "FRIULI-VENEZIA GIULIA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: assistenza tecnica, difesa integrata, fitopatolog, fitosanitar, monitoraggio, produttori",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-213c29c65e"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:regione.toscana.it/-/servizio-fitosanitario-regionale",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Servizio Fitosanitario Regione Toscana",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "TOSCANA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: fitosanitar, ricerca",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-a3f66c22ab"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:osservatoriofitosanitario.regione.puglia.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Osservatorio Fitosanitario Regione Puglia",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: fitosanitar, servizio fitosanitario",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-f39fc7a69e"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:agricoltura.regione.campania.it/fitosanitario/fitosanitario.html",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Servizio Fitosanitario Regione Campania",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "CAMPANIA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "nenhum termo de papel técnico no HTML lido",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-b1d9dc9b02"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:regione.marche.it/Regione-Utile/Agricoltura-Sviluppo-Rurale-e-Pesca/Fitosanitario",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Servizio Fitosanitario Regione Marche",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "MARCHE",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: fitosanitar",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-99faf24e11"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:regione.umbria.it/agricoltura/servizio-fitosanitario-regionale",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Servizio Fitosanitario Regione Umbria",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "UMBRIA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: assistenza tecnica, avversit, difesa integrata, fitosanitar, monitoraggio, produzione integrata",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-1362238c30"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea/dipartimento-agricoltura/servizio-fitosanitario-regionale",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Servizio Fitosanitario Regione Sicilia",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "SICILIA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: fitosanitar, servizio fitosanitario",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-d6e477b422"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:fmach.it/CTT",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Servizio Fitosanitario Provincia Autonoma di Trento",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: agronom, bollettino, centro di saggio, consulenza, difesa integrata, fitosanitar",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-7e96d64ea1"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:laimburg.it/it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Centro di Sperimentazione Laimburg",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "nenhum termo de papel técnico no HTML lido",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-629e907f90"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:crea.gov.it/web/difesa-e-certificazione",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "CREA — Difesa e Certificazione (CREA-DC)",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "LAZIO",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: cerealicolt, cooperativa, fitosanitar, frutticolt, olivicolt, ricerca",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-fdf98291a5"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:crea.gov.it/web/viticoltura-e-enologia",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "CREA — Viticoltura ed Enologia (CREA-VE)",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: cerealicolt, consorzio, frutticolt, olivicolt, ricerca, tecnic",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-7e45292a66"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:crea.gov.it/web/cerealicoltura-e-colture-industriali",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "CREA — Cerealicoltura e Colture Industriali (CREA-CI)",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: cerealicolt, frutticolt, olivicolt, ricerca, sperimentazione, tecnic",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-45ff33ee0d"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:crea.gov.it/web/olivicoltura-frutticoltura-e-agrumicoltura",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "CREA — Olivicoltura, Frutticoltura e Agrumicoltura (CREA-OFA)",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "CALABRIA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: cerealicolt, difesa integrata, frutticolt, laboratorio, olivicolt, ricerca",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-a91181344a"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:ipsp.cnr.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "CNR — Istituto per la Protezione Sostenibile delle Piante (IPSP)",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "nenhum termo de papel técnico no HTML lido",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-deced6569e"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:ispa.cnr.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "CNR — Istituto di Scienze delle Produzioni Alimentari (ISPA)",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "PUGLIA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: ricerca, tecnic",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-4aac8e5251"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:fmach.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Fondazione Edmund Mach — Centro Trasferimento Tecnologico",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: bollettino, consulenza, fitosanitar, frutticolt, laboratorio, ricerca",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-d766ec2187"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:agrion.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Fondazione Agrion",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "PIEMONTE",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: fitosanitar, frutticolt, monitoraggio, ricerca, sperimentazione, tecnic",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-28e2ab1baf"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:astrainnovazione.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "ASTRA Innovazione e Sviluppo",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "nenhum termo de papel técnico no HTML lido",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-2c934067de"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:crpv.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "CRPV — Centro Ricerche Produzioni Vegetali",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: agronom, cooperativa, fitosanitar, laboratorio, monitoraggio, produzione integrata",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-a0c1c348de"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:unicatt.it/facolta/scienze-agrarie-alimentari-e-ambientali",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Università Cattolica del Sacro Cuore — Piacenza",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: ricerca",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-f6256aee52"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:distal.unibo.it/it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Università di Bologna — DISTAL",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: bollettino, ricerca, tecnic",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-5eea02b9f6"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:dafnae.unipd.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Università di Padova — DAFNAE",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: agronom, ricerca, tecnic",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-0d025d69f1"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:disaa.unimi.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Università di Milano — DiSAA",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "LOMBARDIA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: consulenza, frutticolt, laboratorio, monitoraggio, ricerca, tecnic",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-2318f34fef"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:d3a.univpm.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Università Politecnica delle Marche — D3A",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "MARCHE",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: agronom, ricerca, tecnic",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-333c2b7211"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:apot.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "APOT — Associazione Produttori Ortofrutticoli Trentini",
+   "tipo": "cooperativa",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: agronom, consorzio, cooperativa, frutticolt, monitoraggio, produttori",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-125a6b1778"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:melinda.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Consorzio Melinda",
+   "tipo": "cooperativa",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "nenhum termo de papel técnico no HTML lido",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-5530a7be36"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:vog.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "VOG — Consorzio delle cooperative ortofrutticole dell Alto Adige",
+   "tipo": "cooperativa",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: consorzio, frutticolt, produttori",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-7340b3594f"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:apofruit.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Apofruit Italia",
+   "tipo": "cooperativa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: cooperativa, produttori, tecnic",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-0c7dc90e90"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:coprob.com",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "COPROB — Italia Zuccheri",
+   "tipo": "cooperativa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: agronom, consulenza, cooperativa, monitoraggio, produttori, produzione integrata",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-44e917af95"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:consorzioagrarioemilia.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Consorzio Agrario dell Emilia",
+   "tipo": "cooperativa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "nenhum termo de papel técnico no HTML lido",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-abba66cc54"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:terremerse.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Terremerse",
+   "tipo": "cooperativa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: agronom, avversit, cooperativa, ricerca, tecnic",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-1a5c5af8bd"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:agrintesa.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Agrintesa",
+   "tipo": "cooperativa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: assistenza tecnica, avversit, cooperativa, monitoraggio, produttori, ricerca",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-1d0488c1fe"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:consorziofitoreggio.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Consorzio Fitosanitario Provinciale di Reggio Emilia",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "nenhum termo de papel técnico no HTML lido",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-8464ea5a4d"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:fitosanitariomodena.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Consorzio Fitosanitario Provinciale di Modena",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "nenhum termo de papel técnico no HTML lido",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-2523a0a499"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:confagricoltura.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Confagricoltura",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "LAZIO",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "nenhum termo de papel técnico no HTML lido",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-fd154bd3cb"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:coldiretti.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Coldiretti",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "LAZIO",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: cerealicolt, consorzio, consulenza, cooperativa, fitosanitar, laboratorio",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-4abdc1fd09"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:cia.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "CIA — Agricoltori Italiani",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": "LAZIO",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: laboratorio, ricerca",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-95283b2e15"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:agronotizie.imagelinenetwork.com",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "AgroNotizie — Image Line",
+   "tipo": "veiculo",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: agronom, cerealicolt, consorzio, fitosanitar, frutticolt, monitoraggio",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-1972a14682"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:terraevita.edagricole.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Terra e Vita — Edagricole",
+   "tipo": "veiculo",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: agronom, consorzio, consulenza, cooperativa, fitosanitar, frutticolt",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-902b897094"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:informatoreagrario.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "L'Informatore Agrario",
+   "tipo": "veiculo",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: agronom, frutticolt, olivicolt, ricerca, sperimentazione, tecnic",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-674146b60e"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:rivistafrutticoltura.edagricole.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Rivista di Frutticoltura",
+   "tipo": "veiculo",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: frutticolt, monitoraggio, produttori, ricerca, sperimentazione, tecnic",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-bb6f4019d4"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:corrierevinicolo.com",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Il Corriere Vinicolo — Unione Italiana Vini",
+   "tipo": "veiculo",
+   "uf": null,
+   "regiao_it": "LOMBARDIA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: agronom, consorzio, consulenza, fitosanitar, laboratorio, monitoraggio",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-61403e7279"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:vip.coop/it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "VI.P — Consorzio Cooperative Ortofrutticole Val Venosta",
+   "tipo": "cooperativa",
+   "uf": null,
+   "regiao_it": "TRENTINO-ALTO ADIGE",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: frutticolt, produttori",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-5c70b1aa7c"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:aipoverona.it",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "AIPO — Associazione Interregionale Produttori Olivicoli",
+   "tipo": "cooperativa",
+   "uf": null,
+   "regiao_it": "VENETO",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: agronom, bollettino, consorzio, consulenza, fitopatolog, fitosanitar",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-d9b0b4ca4f"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "web:granoduro.net",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "granoduro.net — DSS de trigo duro",
+   "tipo": "empresa",
+   "uf": null,
+   "regiao_it": "EMILIA-ROMAGNA",
+   "cidade": null,
+   "origem_local": "SEDE_DECLARADA_DA_ORGANIZACAO",
+   "evidencia": "termos declarados na página: fitosanitar, produttori, ricerca, tecnic",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-ef50b93daf"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "youtube:@fondazionemach",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Fondazione Edmund Mach",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": null,
+   "cidade": null,
+   "origem_local": "NÃO SEI",
+   "evidencia": "DECLARED_IN_CHANNEL_DESCRIPTION",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-aa171c4216"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "youtube:@matejvignaiuolooslavia",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Matej vignaiuolo in Oslavia",
+   "tipo": "empresa",
+   "uf": null,
+   "regiao_it": null,
+   "cidade": null,
+   "origem_local": "NÃO SEI",
+   "evidencia": "DECLARED_IN_CHANNEL_DESCRIPTION",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-abbf068e4f"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "youtube:@condifesatvb",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Condifesa TVB",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": null,
+   "cidade": null,
+   "origem_local": "NÃO SEI",
+   "evidencia": "DECLARED_IN_CHANNEL_DESCRIPTION",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-68d6eb79ec"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "youtube:@anapooassaggiatoriprofessi9567",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "ANAPOO Assaggiatori Professionisti Olio E.V.O.",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": null,
+   "cidade": null,
+   "origem_local": "NÃO SEI",
+   "evidencia": "DECLARED_IN_CHANNEL_DESCRIPTION",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-6dcae9a830"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "youtube:@cinemaimpresatv",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Archivio Nazionale Cinema Impresa",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": null,
+   "cidade": null,
+   "origem_local": "NÃO SEI",
+   "evidencia": "DECLARED_IN_CHANNEL_DESCRIPTION",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-7d08835a97"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "youtube:@medicalexcellencetv",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Medical Excellence TV",
+   "tipo": "orgao",
+   "uf": null,
+   "regiao_it": null,
+   "cidade": null,
+   "origem_local": "NÃO SEI",
+   "evidencia": "DECLARED_IN_CHANNEL_DESCRIPTION",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-6b0de3e1a8"
+   ],
+   "entidade_mae": null
+  },
+  {
+   "chave": "youtube:@vinicordoni2148",
+   "chave_derivada_de": "EXTERNAL_ID_DA_PLATAFORMA",
+   "nome_canonico": "Vini Cordoni",
+   "tipo": "empresa",
+   "uf": null,
+   "regiao_it": null,
+   "cidade": null,
+   "origem_local": "NÃO SEI",
+   "evidencia": "DECLARED_IN_CHANNEL_DESCRIPTION",
+   "pais": "IT",
+   "SENSOR_IDS": [
+    "IT-O-c86365e684"
+   ],
+   "entidade_mae": null
+  }
+ ],
+ "FONTES": [
+  {
+   "entidade_chave": "web:agricoltura.regione.emilia-romagna.it/fitosanitario",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "agricoltura.regione.emilia-romagna.it/fitosanitario",
+   "url": "https://agricoltura.regione.emilia-romagna.it/fitosanitario",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "orgao_publico",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "WHEAT",
+    "MAIZE",
+    "SUGAR_BEET",
+    "APPLE",
+    "STONE_FRUIT",
+    "VINE",
+    "POTATO"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-700d9a836d"
+  },
+  {
+   "entidade_chave": "web:regione.veneto.it/web/fitosanitario",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "regione.veneto.it/web/fitosanitario",
+   "url": "https://www.regione.veneto.it/web/fitosanitario",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "orgao_publico",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "VINE",
+    "MAIZE",
+    "WHEAT",
+    "APPLE",
+    "SUGAR_BEET"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "VENETO"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-4b1fa56fed"
+  },
+  {
+   "entidade_chave": "web:regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan",
+   "url": "https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "orgao_publico",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "VINE",
+    "RICE",
+    "MAIZE",
+    "APPLE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "PIEMONTE"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-2c5c4272fb"
+  },
+  {
+   "entidade_chave": "web:regione.lombardia.it/wps/portal/istituzionale/HP/servizi-e-informazioni/imprese/imprese-agricole/servizio-fitosanitario",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "regione.lombardia.it/wps/portal/istituzionale/HP/servizi-e-informazioni/imprese/imprese-agricole/servizio-fitosanitario",
+   "url": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/servizi-e-informazioni/imprese/imprese-agricole/servizio-fitosanitario",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "orgao_publico",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "MAIZE",
+    "RICE",
+    "WHEAT",
+    "VINE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "LOMBARDIA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-fed7829c5e"
+  },
+  {
+   "entidade_chave": "web:ersa.fvg.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "ersa.fvg.it",
+   "url": "https://www.ersa.fvg.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "orgao_publico",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "VINE",
+    "MAIZE",
+    "APPLE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "FRIULI-VENEZIA GIULIA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-213c29c65e"
+  },
+  {
+   "entidade_chave": "web:regione.toscana.it/-/servizio-fitosanitario-regionale",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "regione.toscana.it/-/servizio-fitosanitario-regionale",
+   "url": "https://www.regione.toscana.it/-/servizio-fitosanitario-regionale",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "orgao_publico",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "VINE",
+    "OLIVE",
+    "WHEAT"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "TOSCANA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-a3f66c22ab"
+  },
+  {
+   "entidade_chave": "web:osservatoriofitosanitario.regione.puglia.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "osservatoriofitosanitario.regione.puglia.it",
+   "url": "https://www.osservatoriofitosanitario.regione.puglia.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "orgao_publico",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "OLIVE",
+    "WHEAT",
+    "TOMATO",
+    "VINE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "PUGLIA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-f39fc7a69e"
+  },
+  {
+   "entidade_chave": "web:agricoltura.regione.campania.it/fitosanitario/fitosanitario.html",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "agricoltura.regione.campania.it/fitosanitario/fitosanitario.html",
+   "url": "https://www.agricoltura.regione.campania.it/fitosanitario/fitosanitario.html",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "orgao_publico",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "TOMATO",
+    "STONE_FRUIT",
+    "POTATO"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "CAMPANIA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-b1d9dc9b02"
+  },
+  {
+   "entidade_chave": "web:regione.marche.it/Regione-Utile/Agricoltura-Sviluppo-Rurale-e-Pesca/Fitosanitario",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "regione.marche.it/Regione-Utile/Agricoltura-Sviluppo-Rurale-e-Pesca/Fitosanitario",
+   "url": "https://www.regione.marche.it/Regione-Utile/Agricoltura-Sviluppo-Rurale-e-Pesca/Fitosanitario",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "orgao_publico",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "WHEAT",
+    "SUGAR_BEET",
+    "VINE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "MARCHE"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-99faf24e11"
+  },
+  {
+   "entidade_chave": "web:regione.umbria.it/agricoltura/servizio-fitosanitario-regionale",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "regione.umbria.it/agricoltura/servizio-fitosanitario-regionale",
+   "url": "https://www.regione.umbria.it/agricoltura/servizio-fitosanitario-regionale",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "orgao_publico",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "WHEAT",
+    "OLIVE",
+    "VINE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "UMBRIA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-1362238c30"
+  },
+  {
+   "entidade_chave": "web:regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea/dipartimento-agricoltura/servizio-fitosanitario-regionale",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea/dipartimento-agricoltura/servizio-fitosanitario-regionale",
+   "url": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea/dipartimento-agricoltura/servizio-fitosanitario-regionale",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "orgao_publico",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "WHEAT",
+    "OLIVE",
+    "VINE",
+    "TOMATO"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "SICILIA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-d6e477b422"
+  },
+  {
+   "entidade_chave": "web:fmach.it/CTT",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "fmach.it/CTT",
+   "url": "https://www.fmach.it/CTT",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "orgao_publico",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "APPLE",
+    "VINE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "TRENTINO-ALTO ADIGE"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-7e96d64ea1"
+  },
+  {
+   "entidade_chave": "web:laimburg.it/it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "laimburg.it/it",
+   "url": "https://www.laimburg.it/it",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "APPLE",
+    "VINE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "TRENTINO-ALTO ADIGE"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-629e907f90"
+  },
+  {
+   "entidade_chave": "web:crea.gov.it/web/difesa-e-certificazione",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "crea.gov.it/web/difesa-e-certificazione",
+   "url": "https://www.crea.gov.it/web/difesa-e-certificazione",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "LAZIO"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-fdf98291a5"
+  },
+  {
+   "entidade_chave": "web:crea.gov.it/web/viticoltura-e-enologia",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "crea.gov.it/web/viticoltura-e-enologia",
+   "url": "https://www.crea.gov.it/web/viticoltura-e-enologia",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "VINE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "VENETO"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-7e45292a66"
+  },
+  {
+   "entidade_chave": "web:crea.gov.it/web/cerealicoltura-e-colture-industriali",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "crea.gov.it/web/cerealicoltura-e-colture-industriali",
+   "url": "https://www.crea.gov.it/web/cerealicoltura-e-colture-industriali",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "WHEAT",
+    "MAIZE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-45ff33ee0d"
+  },
+  {
+   "entidade_chave": "web:crea.gov.it/web/olivicoltura-frutticoltura-e-agrumicoltura",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "crea.gov.it/web/olivicoltura-frutticoltura-e-agrumicoltura",
+   "url": "https://www.crea.gov.it/web/olivicoltura-frutticoltura-e-agrumicoltura",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "OLIVE",
+    "APPLE",
+    "STONE_FRUIT"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "CALABRIA"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-a91181344a"
+  },
+  {
+   "entidade_chave": "web:ipsp.cnr.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "ipsp.cnr.it",
+   "url": "https://www.ipsp.cnr.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "VINE",
+    "APPLE",
+    "MULTI"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "PIEMONTE"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-deced6569e"
+  },
+  {
+   "entidade_chave": "web:ispa.cnr.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "ispa.cnr.it",
+   "url": "https://www.ispa.cnr.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "WHEAT",
+    "MAIZE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "PUGLIA"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-4aac8e5251"
+  },
+  {
+   "entidade_chave": "web:fmach.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "fmach.it",
+   "url": "https://www.fmach.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "APPLE",
+    "VINE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "TRENTINO-ALTO ADIGE"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-d766ec2187"
+  },
+  {
+   "entidade_chave": "web:agrion.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "agrion.it",
+   "url": "https://www.agrion.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "APPLE",
+    "STONE_FRUIT",
+    "VINE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "PIEMONTE"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-28e2ab1baf"
+  },
+  {
+   "entidade_chave": "web:astrainnovazione.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "astrainnovazione.it",
+   "url": "https://www.astrainnovazione.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "laboratorio",
+   "camada": "OUTRA",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "STONE_FRUIT",
+    "APPLE",
+    "WHEAT"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": null,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-2c934067de"
+  },
+  {
+   "entidade_chave": "web:crpv.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "crpv.it",
+   "url": "https://www.crpv.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "laboratorio",
+   "camada": "OUTRA",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "STONE_FRUIT",
+    "APPLE",
+    "VINE",
+    "WHEAT"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": null,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-a0c1c348de"
+  },
+  {
+   "entidade_chave": "web:unicatt.it/facolta/scienze-agrarie-alimentari-e-ambientali",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "unicatt.it/facolta/scienze-agrarie-alimentari-e-ambientali",
+   "url": "https://www.unicatt.it/facolta/scienze-agrarie-alimentari-e-ambientali",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "WHEAT",
+    "MAIZE",
+    "VINE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-f6256aee52"
+  },
+  {
+   "entidade_chave": "web:distal.unibo.it/it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "distal.unibo.it/it",
+   "url": "https://distal.unibo.it/it",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "STONE_FRUIT",
+    "WHEAT",
+    "VINE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-5eea02b9f6"
+  },
+  {
+   "entidade_chave": "web:dafnae.unipd.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "dafnae.unipd.it",
+   "url": "https://www.dafnae.unipd.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "VINE",
+    "MAIZE",
+    "WHEAT"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "VENETO"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-0d025d69f1"
+  },
+  {
+   "entidade_chave": "web:disaa.unimi.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "disaa.unimi.it",
+   "url": "https://www.disaa.unimi.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "VINE",
+    "MAIZE",
+    "RICE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "LOMBARDIA"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-2318f34fef"
+  },
+  {
+   "entidade_chave": "web:d3a.univpm.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "d3a.univpm.it",
+   "url": "https://www.d3a.univpm.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "STONE_FRUIT",
+    "WHEAT"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "MARCHE"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-333c2b7211"
+  },
+  {
+   "entidade_chave": "web:apot.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "apot.it",
+   "url": "https://www.apot.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "cooperativa",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "E · MERCADO",
+   "culturas": [
+    "APPLE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "TRENTINO-ALTO ADIGE"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-125a6b1778"
+  },
+  {
+   "entidade_chave": "web:melinda.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "melinda.it",
+   "url": "https://www.melinda.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "cooperativa",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "E · MERCADO",
+   "culturas": [
+    "APPLE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "TRENTINO-ALTO ADIGE"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-5530a7be36"
+  },
+  {
+   "entidade_chave": "web:vog.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "vog.it",
+   "url": "https://www.vog.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "cooperativa",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "E · MERCADO",
+   "culturas": [
+    "APPLE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "TRENTINO-ALTO ADIGE"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-7340b3594f"
+  },
+  {
+   "entidade_chave": "web:apofruit.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "apofruit.it",
+   "url": "https://www.apofruit.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "cooperativa",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "E · MERCADO",
+   "culturas": [
+    "STONE_FRUIT",
+    "APPLE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-0c7dc90e90"
+  },
+  {
+   "entidade_chave": "web:coprob.com",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "coprob.com",
+   "url": "https://www.coprob.com/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "cooperativa",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "E · MERCADO",
+   "culturas": [
+    "SUGAR_BEET"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-44e917af95"
+  },
+  {
+   "entidade_chave": "web:consorzioagrarioemilia.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "consorzioagrarioemilia.it",
+   "url": "https://www.consorzioagrarioemilia.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "cooperativa",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "E · MERCADO",
+   "culturas": [
+    "WHEAT",
+    "MAIZE",
+    "SUGAR_BEET"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-abba66cc54"
+  },
+  {
+   "entidade_chave": "web:terremerse.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "terremerse.it",
+   "url": "https://www.terremerse.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "cooperativa",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "E · MERCADO",
+   "culturas": [
+    "WHEAT",
+    "STONE_FRUIT",
+    "MAIZE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-1a5c5af8bd"
+  },
+  {
+   "entidade_chave": "web:agrintesa.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "agrintesa.it",
+   "url": "https://www.agrintesa.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "cooperativa",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "E · MERCADO",
+   "culturas": [
+    "STONE_FRUIT",
+    "VINE",
+    "APPLE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-1d0488c1fe"
+  },
+  {
+   "entidade_chave": "web:consorziofitoreggio.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "consorziofitoreggio.it",
+   "url": "https://www.consorziofitoreggio.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "orgao_publico",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "VINE",
+    "STONE_FRUIT"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-8464ea5a4d"
+  },
+  {
+   "entidade_chave": "web:fitosanitariomodena.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "fitosanitariomodena.it",
+   "url": "https://www.fitosanitariomodena.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "orgao_publico",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "VINE",
+    "STONE_FRUIT"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-2523a0a499"
+  },
+  {
+   "entidade_chave": "web:confagricoltura.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "confagricoltura.it",
+   "url": "https://www.confagricoltura.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "associacao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "LAZIO"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-fd154bd3cb"
+  },
+  {
+   "entidade_chave": "web:coldiretti.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "coldiretti.it",
+   "url": "https://www.coldiretti.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "associacao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "LAZIO"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-4abdc1fd09"
+  },
+  {
+   "entidade_chave": "web:cia.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "cia.it",
+   "url": "https://www.cia.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "associacao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "LAZIO"
+   ],
+   "cadencia_dias": 30,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-95283b2e15"
+  },
+  {
+   "entidade_chave": "web:agronotizie.imagelinenetwork.com",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "agronotizie.imagelinenetwork.com",
+   "url": "https://agronotizie.imagelinenetwork.com/",
+   "papel_da_fonte": "veiculo",
+   "tipo": "portal",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-1972a14682"
+  },
+  {
+   "entidade_chave": "web:terraevita.edagricole.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "terraevita.edagricole.it",
+   "url": "https://terraevita.edagricole.it/",
+   "papel_da_fonte": "veiculo",
+   "tipo": "portal",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-902b897094"
+  },
+  {
+   "entidade_chave": "web:informatoreagrario.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "informatoreagrario.it",
+   "url": "https://www.informatoreagrario.it/",
+   "papel_da_fonte": "veiculo",
+   "tipo": "portal",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "VENETO"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-674146b60e"
+  },
+  {
+   "entidade_chave": "web:rivistafrutticoltura.edagricole.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "rivistafrutticoltura.edagricole.it",
+   "url": "https://rivistafrutticoltura.edagricole.it/",
+   "papel_da_fonte": "veiculo",
+   "tipo": "portal",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "APPLE",
+    "STONE_FRUIT"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-bb6f4019d4"
+  },
+  {
+   "entidade_chave": "web:corrierevinicolo.com",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "corrierevinicolo.com",
+   "url": "https://www.corrierevinicolo.com/",
+   "papel_da_fonte": "veiculo",
+   "tipo": "portal",
+   "camada": "OUTRA",
+   "voz_da_ficha": "FORA_DAS_CINCO",
+   "culturas": [
+    "VINE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "LOMBARDIA"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-61403e7279"
+  },
+  {
+   "entidade_chave": "web:vip.coop/it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "vip.coop/it",
+   "url": "https://www.vip.coop/it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "cooperativa",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "E · MERCADO",
+   "culturas": [
+    "APPLE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "TRENTINO-ALTO ADIGE"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-5c70b1aa7c"
+  },
+  {
+   "entidade_chave": "web:aipoverona.it",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "aipoverona.it",
+   "url": "https://www.aipoverona.it/",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "cooperativa",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "E · MERCADO",
+   "culturas": [
+    "OLIVE"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "VENETO"
+   ],
+   "cadencia_dias": 7,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-d9b0b4ca4f"
+  },
+  {
+   "entidade_chave": "web:granoduro.net",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "web",
+   "external_id": "granoduro.net",
+   "url": "https://www.granoduro.net/",
+   "papel_da_fonte": "company",
+   "tipo": "empresa",
+   "camada": "OUTRA",
+   "voz_da_ficha": "E · MERCADO",
+   "culturas": [
+    "WHEAT"
+   ],
+   "assuntos": [],
+   "pais": "IT",
+   "regiao": [
+    "EMILIA-ROMAGNA"
+   ],
+   "cadencia_dias": null,
+   "alcance": "NÃO SEI",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-ef50b93daf"
+  },
+  {
+   "entidade_chave": "youtube:@agronotizietv",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@agronotizietv",
+   "url": "https://www.youtube.com/@agronotizietv",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "APPLE",
+    "CEREAL",
+    "MAIZE",
+    "MULTI",
+    "OLIVE",
+    "POTATO",
+    "RICE",
+    "TOMATO",
+    "VINE",
+    "WHEAT"
+   ],
+   "assuntos": [
+    "BULLETIN",
+    "CORN_BORER",
+    "DOWNY_MILDEW",
+    "FLAVESCENCE_DOREE",
+    "FUSARIUM_HEAD_BLIGHT",
+    "HERBICIDE_RESISTANCE",
+    "LATE_BLIGHT",
+    "MAIZE_WEEDS",
+    "MYCOTOXIN",
+    "OLIVE_FRUIT_FLY",
+    "RICE_PROTECTION",
+    "ROOTWORM",
+    "RUST",
+    "SCAB",
+    "SEPTORIA",
+    "TOMATO_DISEASE"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 7,
+   "alcance": "10,9K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-db6ace21c2"
+  },
+  {
+   "entidade_chave": "youtube:@agronotizietv",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "instagram",
+   "external_id": "@agronotizie",
+   "url": "instagram.com/agronotizie",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "APPLE",
+    "CEREAL",
+    "MAIZE",
+    "MULTI",
+    "OLIVE",
+    "POTATO",
+    "RICE",
+    "TOMATO",
+    "VINE",
+    "WHEAT"
+   ],
+   "assuntos": [
+    "BULLETIN",
+    "CORN_BORER",
+    "DOWNY_MILDEW",
+    "FLAVESCENCE_DOREE",
+    "FUSARIUM_HEAD_BLIGHT",
+    "HERBICIDE_RESISTANCE",
+    "LATE_BLIGHT",
+    "MAIZE_WEEDS",
+    "MYCOTOXIN",
+    "OLIVE_FRUIT_FLY",
+    "RICE_PROTECTION",
+    "ROOTWORM",
+    "RUST",
+    "SCAB",
+    "SEPTORIA",
+    "TOMATO_DISEASE"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 7,
+   "alcance": "10,9K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-db6ace21c2"
+  },
+  {
+   "entidade_chave": "youtube:@agronotizietv",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "UCxypgXkKSbXuHn5hfmpXyvQ",
+   "url": "youtube.com/channel/UCxypgXkKSbXuHn5hfmpXyvQ",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "APPLE",
+    "CEREAL",
+    "MAIZE",
+    "MULTI",
+    "OLIVE",
+    "POTATO",
+    "RICE",
+    "TOMATO",
+    "VINE",
+    "WHEAT"
+   ],
+   "assuntos": [
+    "BULLETIN",
+    "CORN_BORER",
+    "DOWNY_MILDEW",
+    "FLAVESCENCE_DOREE",
+    "FUSARIUM_HEAD_BLIGHT",
+    "HERBICIDE_RESISTANCE",
+    "LATE_BLIGHT",
+    "MAIZE_WEEDS",
+    "MYCOTOXIN",
+    "OLIVE_FRUIT_FLY",
+    "RICE_PROTECTION",
+    "ROOTWORM",
+    "RUST",
+    "SCAB",
+    "SEPTORIA",
+    "TOMATO_DISEASE"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 7,
+   "alcance": "10,9K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-db6ace21c2"
+  },
+  {
+   "entidade_chave": "youtube:@agronotizietv",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@agronotiziemeteo8233",
+   "url": "youtube.com/@agronotiziemeteo8233",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "APPLE",
+    "CEREAL",
+    "MAIZE",
+    "MULTI",
+    "OLIVE",
+    "POTATO",
+    "RICE",
+    "TOMATO",
+    "VINE",
+    "WHEAT"
+   ],
+   "assuntos": [
+    "BULLETIN",
+    "CORN_BORER",
+    "DOWNY_MILDEW",
+    "FLAVESCENCE_DOREE",
+    "FUSARIUM_HEAD_BLIGHT",
+    "HERBICIDE_RESISTANCE",
+    "LATE_BLIGHT",
+    "MAIZE_WEEDS",
+    "MYCOTOXIN",
+    "OLIVE_FRUIT_FLY",
+    "RICE_PROTECTION",
+    "ROOTWORM",
+    "RUST",
+    "SCAB",
+    "SEPTORIA",
+    "TOMATO_DISEASE"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 7,
+   "alcance": "10,9K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-db6ace21c2"
+  },
+  {
+   "entidade_chave": "youtube:@agrestetv",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@agrestetv",
+   "url": "https://www.youtube.com/@AgresteTv",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "APPLE",
+    "MULTI",
+    "POTATO",
+    "SUGAR_BEET",
+    "WHEAT"
+   ],
+   "assuntos": [
+    "BULLETIN",
+    "CERCOSPORA",
+    "CODLING_MOTH",
+    "LATE_BLIGHT",
+    "SCAB",
+    "SEPTORIA"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "2,32K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-511b7c62d4"
+  },
+  {
+   "entidade_chave": "youtube:@dottordiliddo",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@dottordiliddo",
+   "url": "https://www.youtube.com/@DottorDiliddo",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "VINE",
+    "WHEAT"
+   ],
+   "assuntos": [
+    "DOWNY_MILDEW",
+    "RUST",
+    "SEPTORIA"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 7,
+   "alcance": "2,43K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-cb5b757200"
+  },
+  {
+   "entidade_chave": "youtube:@dottordiliddo",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "instagram",
+   "external_id": "@dottordiliddo",
+   "url": "instagram.com/dottordiliddo",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "VINE",
+    "WHEAT"
+   ],
+   "assuntos": [
+    "DOWNY_MILDEW",
+    "RUST",
+    "SEPTORIA"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 7,
+   "alcance": "2,43K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-cb5b757200"
+  },
+  {
+   "entidade_chave": "youtube:@aipoverona7094",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@aipoverona7094",
+   "url": "https://www.youtube.com/@aipoverona7094",
+   "papel_da_fonte": "person",
+   "tipo": "produtor",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "D · CAMPO",
+   "culturas": [
+    "MULTI",
+    "OLIVE"
+   ],
+   "assuntos": [
+    "BULLETIN",
+    "OLIVE_DISEASE",
+    "OLIVE_FRUIT_FLY"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "10,4K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-3439a0d9cc"
+  },
+  {
+   "entidade_chave": "youtube:@consorzioagrariodelnordest",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@consorzioagrariodelnordest",
+   "url": "https://www.youtube.com/@consorzioagrariodelnordest",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "cooperativa",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "E · MERCADO",
+   "culturas": [
+    "MULTI",
+    "RICE",
+    "WHEAT"
+   ],
+   "assuntos": [
+    "FIELD_ADVISORY",
+    "FUSARIUM_HEAD_BLIGHT",
+    "RICE_PROTECTION"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "1,21K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-0f144706e7"
+  },
+  {
+   "entidade_chave": "youtube:@4grapes",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@4grapes",
+   "url": "https://www.youtube.com/@4Grapes",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "VINE"
+   ],
+   "assuntos": [
+    "DOWNY_MILDEW",
+    "FLAVESCENCE_DOREE"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "2,77K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-7080bcb7a9"
+  },
+  {
+   "entidade_chave": "youtube:@4grapes",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "instagram",
+   "external_id": "@4grapes.it",
+   "url": "instagram.com/4grapes.it",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "VINE"
+   ],
+   "assuntos": [
+    "DOWNY_MILDEW",
+    "FLAVESCENCE_DOREE"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "2,77K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-7080bcb7a9"
+  },
+  {
+   "entidade_chave": "youtube:@4grapes",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "linkedin",
+   "external_id": "linkedin.com/company/4grapes",
+   "url": "linkedin.com/company/4grapes",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "VINE"
+   ],
+   "assuntos": [
+    "DOWNY_MILDEW",
+    "FLAVESCENCE_DOREE"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "2,77K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-7080bcb7a9"
+  },
+  {
+   "entidade_chave": "youtube:@agraliastudio",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@agraliastudio",
+   "url": "https://www.youtube.com/@agraliastudio",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "VINE"
+   ],
+   "assuntos": [
+    "DOWNY_MILDEW",
+    "GRAPE_MOTH"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "881 iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-3cac110d62"
+  },
+  {
+   "entidade_chave": "youtube:@agraliastudio",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "linkedin",
+   "external_id": "linkedin.com/company/agralia-it",
+   "url": "linkedin.com/company/agralia-it",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "VINE"
+   ],
+   "assuntos": [
+    "DOWNY_MILDEW",
+    "GRAPE_MOTH"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "881 iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-3cac110d62"
+  },
+  {
+   "entidade_chave": "youtube:@agraliastudio",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "instagram",
+   "external_id": "@agralia.it",
+   "url": "instagram.com/agralia.it",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "VINE"
+   ],
+   "assuntos": [
+    "DOWNY_MILDEW",
+    "GRAPE_MOTH"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "881 iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-3cac110d62"
+  },
+  {
+   "entidade_chave": "youtube:@fondazionemach",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@fondazionemach",
+   "url": "https://www.youtube.com/@fondazionemach",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "APPLE",
+    "STONE_FRUIT",
+    "VINE"
+   ],
+   "assuntos": [
+    "BROWN_MARMORATED_STINK_BUG",
+    "FLAVESCENCE_DOREE",
+    "SCAB"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "5,62K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-aa171c4216"
+  },
+  {
+   "entidade_chave": "youtube:@fondazionemach",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "instagram",
+   "external_id": "@fondazionemach",
+   "url": "instagram.com/fondazionemach",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "APPLE",
+    "STONE_FRUIT",
+    "VINE"
+   ],
+   "assuntos": [
+    "BROWN_MARMORATED_STINK_BUG",
+    "FLAVESCENCE_DOREE",
+    "SCAB"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "5,62K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-aa171c4216"
+  },
+  {
+   "entidade_chave": "youtube:@fondazionemach",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "linkedin",
+   "external_id": "linkedin.com/company/fondazionemach",
+   "url": "linkedin.com/company/fondazionemach",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "APPLE",
+    "STONE_FRUIT",
+    "VINE"
+   ],
+   "assuntos": [
+    "BROWN_MARMORATED_STINK_BUG",
+    "FLAVESCENCE_DOREE",
+    "SCAB"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "5,62K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-aa171c4216"
+  },
+  {
+   "entidade_chave": "youtube:@matejvignaiuolooslavia",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@matejvignaiuolooslavia",
+   "url": "https://www.youtube.com/@MatejVignaiuoloOslavia",
+   "papel_da_fonte": "company",
+   "tipo": "produtor",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "D · CAMPO",
+   "culturas": [
+    "MULTI",
+    "VINE"
+   ],
+   "assuntos": [
+    "BULLETIN",
+    "FLAVESCENCE_DOREE"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "8,49K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-abbf068e4f"
+  },
+  {
+   "entidade_chave": "youtube:@mattthefarmerofficial",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@mattthefarmerofficial",
+   "url": "https://www.youtube.com/@MattTheFarmerOfficial",
+   "papel_da_fonte": "person",
+   "tipo": "produtor",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "D · CAMPO",
+   "culturas": [
+    "MULTI",
+    "VINE"
+   ],
+   "assuntos": [
+    "DOWNY_MILDEW",
+    "FIELD_ADVISORY"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 30,
+   "alcance": "507K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-cca8fa06ed"
+  },
+  {
+   "entidade_chave": "youtube:@mattthefarmerofficial",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "instagram",
+   "external_id": "@matt_thefarmer",
+   "url": "instagram.com/matt_thefarmer",
+   "papel_da_fonte": "person",
+   "tipo": "produtor",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "D · CAMPO",
+   "culturas": [
+    "MULTI",
+    "VINE"
+   ],
+   "assuntos": [
+    "DOWNY_MILDEW",
+    "FIELD_ADVISORY"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 30,
+   "alcance": "507K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-cca8fa06ed"
+  },
+  {
+   "entidade_chave": "youtube:@mattthefarmerofficial",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "linkedin",
+   "external_id": "linkedin.com/in/fioccomatteo",
+   "url": "linkedin.com/in/fioccomatteo",
+   "papel_da_fonte": "person",
+   "tipo": "produtor",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "D · CAMPO",
+   "culturas": [
+    "MULTI",
+    "VINE"
+   ],
+   "assuntos": [
+    "DOWNY_MILDEW",
+    "FIELD_ADVISORY"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 30,
+   "alcance": "507K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-cca8fa06ed"
+  },
+  {
+   "entidade_chave": "youtube:@terredelletruria",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@terredelletruria",
+   "url": "https://www.youtube.com/@terredelletruria",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "POTATO",
+    "VINE"
+   ],
+   "assuntos": [
+    "DOWNY_MILDEW",
+    "GRAPE_MOTH",
+    "LATE_BLIGHT"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "137 iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-0aa9fa7f4e"
+  },
+  {
+   "entidade_chave": "youtube:@terredelletruria",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "instagram",
+   "external_id": "@terretruria_toscana",
+   "url": "instagram.com/terretruria_toscana",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "POTATO",
+    "VINE"
+   ],
+   "assuntos": [
+    "DOWNY_MILDEW",
+    "GRAPE_MOTH",
+    "LATE_BLIGHT"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "137 iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-0aa9fa7f4e"
+  },
+  {
+   "entidade_chave": "youtube:@terredelletruria",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "instagram",
+   "external_id": "@acasatuashop",
+   "url": "instagram.com/acasatuashop",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "POTATO",
+    "VINE"
+   ],
+   "assuntos": [
+    "DOWNY_MILDEW",
+    "GRAPE_MOTH",
+    "LATE_BLIGHT"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "137 iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-0aa9fa7f4e"
+  },
+  {
+   "entidade_chave": "youtube:@agricolusagtech",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@agricolusagtech",
+   "url": "https://www.youtube.com/@AgricolusAgTech",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [
+    "FIELD_ADVISORY"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "255 iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-f17f9e24fc"
+  },
+  {
+   "entidade_chave": "youtube:@agricolusagtech",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "instagram",
+   "external_id": "@agricolus_srl",
+   "url": "instagram.com/agricolus_srl",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [
+    "FIELD_ADVISORY"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "255 iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-f17f9e24fc"
+  },
+  {
+   "entidade_chave": "youtube:@agricolusagtech",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "linkedin",
+   "external_id": "linkedin.com/company/agricoluss",
+   "url": "linkedin.com/company/agricoluss.r.l.",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [
+    "FIELD_ADVISORY"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "255 iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-f17f9e24fc"
+  },
+  {
+   "entidade_chave": "youtube:@agronomix_",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@agronomix_",
+   "url": "https://www.youtube.com/@agronomix_",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "MAIZE",
+    "SUGAR_BEET"
+   ],
+   "assuntos": [
+    "CERCOSPORA",
+    "MYCOTOXIN"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "30,6K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-ed2b631852"
+  },
+  {
+   "entidade_chave": "youtube:@condifesatvb",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@condifesatvb",
+   "url": "https://www.youtube.com/@condifesatvb",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [
+    "BULLETIN"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "2,37K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-68d6eb79ec"
+  },
+  {
+   "entidade_chave": "youtube:@condifesatvb",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "instagram",
+   "external_id": "@condifesatvb",
+   "url": "instagram.com/condifesatvb",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [
+    "BULLETIN"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "2,37K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-68d6eb79ec"
+  },
+  {
+   "entidade_chave": "youtube:@doctorfarmer3763",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@doctorfarmer3763",
+   "url": "https://www.youtube.com/@doctorfarmer3763",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "OLIVE"
+   ],
+   "assuntos": [
+    "OLIVE_DISEASE"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "4,34K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-e6ef22ccf8"
+  },
+  {
+   "entidade_chave": "youtube:@infowine",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@infowine",
+   "url": "https://www.youtube.com/@Infowine",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "VINE"
+   ],
+   "assuntos": [
+    "FLAVESCENCE_DOREE"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "6,17K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-b8f092c636"
+  },
+  {
+   "entidade_chave": "youtube:@laimburgresearchcentre",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@laimburgresearchcentre",
+   "url": "https://www.youtube.com/@LaimburgResearchCentre",
+   "papel_da_fonte": "person",
+   "tipo": "produtor",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "D · CAMPO",
+   "culturas": [
+    "APPLE",
+    "MULTI"
+   ],
+   "assuntos": [
+    "BULLETIN",
+    "SCAB"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "477 iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-6fd44b2481"
+  },
+  {
+   "entidade_chave": "youtube:@acieloaperto",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@acieloaperto",
+   "url": "https://www.youtube.com/@acieloaperto",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "TOMATO"
+   ],
+   "assuntos": [
+    "TOMATO_DISEASE"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 7,
+   "alcance": "5,29K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-8cda706504"
+  },
+  {
+   "entidade_chave": "youtube:@a2cit",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@a2cit",
+   "url": "https://www.youtube.com/@A2cIt",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "MAIZE"
+   ],
+   "assuntos": [
+    "MYCOTOXIN"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 7,
+   "alcance": "13,2K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-6b2fab6484"
+  },
+  {
+   "entidade_chave": "youtube:@anapooassaggiatoriprofessi9567",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@anapooassaggiatoriprofessi9567",
+   "url": "https://www.youtube.com/@anapooassaggiatoriprofessi9567",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "OLIVE"
+   ],
+   "assuntos": [
+    "OLIVE_FRUIT_FLY"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "91 iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-6dcae9a830"
+  },
+  {
+   "entidade_chave": "youtube:@apsov5193",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@apsov5193",
+   "url": "https://www.youtube.com/@apsov5193",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "cooperativa",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "E · MERCADO",
+   "culturas": [
+    "WHEAT"
+   ],
+   "assuntos": [
+    "RUST"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "456 iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-a352935a4a"
+  },
+  {
+   "entidade_chave": "youtube:@antonioguadagnoai",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@antonioguadagnoai",
+   "url": "https://www.youtube.com/@AntonioGuadagnoAI",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [
+    "FIELD_ADVISORY"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 7,
+   "alcance": "86,2K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-00382c59cf"
+  },
+  {
+   "entidade_chave": "youtube:@antonioguadagnoai",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "linkedin",
+   "external_id": "linkedin.com/in/antonio-guadagno-ab9ba72b1",
+   "url": "linkedin.com/in/antonio-guadagno-ab9ba72b1",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [
+    "FIELD_ADVISORY"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 7,
+   "alcance": "86,2K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-00382c59cf"
+  },
+  {
+   "entidade_chave": "youtube:@antonioguadagnoai",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "instagram",
+   "external_id": "@antonio_guadagno_ita",
+   "url": "instagram.com/antonio_guadagno_ita",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [
+    "FIELD_ADVISORY"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 7,
+   "alcance": "86,2K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-00382c59cf"
+  },
+  {
+   "entidade_chave": "youtube:@cinemaimpresatv",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@cinemaimpresatv",
+   "url": "https://www.youtube.com/@cinemaimpresatv",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "POTATO"
+   ],
+   "assuntos": [
+    "LATE_BLIGHT"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "32,5K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-7d08835a97"
+  },
+  {
+   "entidade_chave": "youtube:@cinemaimpresatv",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "UCEcj0n94amLKxc53YdFF2TA",
+   "url": "youtube.com/channel/UCEcj0n94amLKxc53YdFF2TA",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "POTATO"
+   ],
+   "assuntos": [
+    "LATE_BLIGHT"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "32,5K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-7d08835a97"
+  },
+  {
+   "entidade_chave": "youtube:@cinemaimpresatv",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "UCSoV9O5mpHiO9xy8DxkaUow",
+   "url": "youtube.com/channel/UCSoV9O5mpHiO9xy8DxkaUow",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "POTATO"
+   ],
+   "assuntos": [
+    "LATE_BLIGHT"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "32,5K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-7d08835a97"
+  },
+  {
+   "entidade_chave": "youtube:@caa_gnicoli",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@caa_gnicoli",
+   "url": "https://www.youtube.com/@caa_gnicoli",
+   "papel_da_fonte": "person",
+   "tipo": "pesquisador",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "STONE_FRUIT"
+   ],
+   "assuntos": [
+    "BROWN_MARMORATED_STINK_BUG"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "35 iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-665e4b3765"
+  },
+  {
+   "entidade_chave": "youtube:@consorziagrariditalia827",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@consorziagrariditalia827",
+   "url": "https://www.youtube.com/@consorziagrariditalia827",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "WHEAT"
+   ],
+   "assuntos": [
+    "FUSARIUM_HEAD_BLIGHT"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "484 iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-f0cd68ad82"
+  },
+  {
+   "entidade_chave": "youtube:@livingsoildario",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@livingsoildario",
+   "url": "https://www.youtube.com/@livingsoildario",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [
+    "FIELD_ADVISORY"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 7,
+   "alcance": "12,2K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-008d87f12c"
+  },
+  {
+   "entidade_chave": "youtube:@davideferrarese1",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@davideferrarese1",
+   "url": "https://www.youtube.com/@davideferrarese1",
+   "papel_da_fonte": "person",
+   "tipo": "produtor",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "D · CAMPO",
+   "culturas": [
+    "VINE"
+   ],
+   "assuntos": [
+    "FLAVESCENCE_DOREE"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "3,4K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-14f9572134"
+  },
+  {
+   "entidade_chave": "youtube:@dott.alessiosantoni840",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@dott.alessiosantoni840",
+   "url": "https://www.youtube.com/@dott.alessiosantoni840",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "WHEAT"
+   ],
+   "assuntos": [
+    "RUST"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "553 iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-5e9164e30b"
+  },
+  {
+   "entidade_chave": "youtube:@dott.alessiosantoni840",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "linkedin",
+   "external_id": "linkedin.com/in/dott-alessio-santoni-agronomo",
+   "url": "linkedin.com/in/dott-alessio-santoni-agronomo",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "WHEAT"
+   ],
+   "assuntos": [
+    "RUST"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "553 iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-5e9164e30b"
+  },
+  {
+   "entidade_chave": "youtube:@ersaflombardia5756",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@ersaflombardia5756",
+   "url": "https://www.youtube.com/@ersaflombardia5756",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [
+    "BULLETIN"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 7,
+   "alcance": "2,29K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-90e0536bb2"
+  },
+  {
+   "entidade_chave": "youtube:@farmaciaagricola17",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@farmaciaagricola17",
+   "url": "https://www.youtube.com/@farmaciaagricola17",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "OLIVE"
+   ],
+   "assuntos": [
+    "OLIVE_FRUIT_FLY"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "8,81K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-3bd6063890"
+  },
+  {
+   "entidade_chave": "youtube:@medicalexcellencetv",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@medicalexcellencetv",
+   "url": "https://www.youtube.com/@MedicalExcellenceTV",
+   "papel_da_fonte": "canal_tecnico",
+   "tipo": "instituicao",
+   "camada": "INSTITUCIONAL",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "MAIZE"
+   ],
+   "assuntos": [
+    "MYCOTOXIN"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "27,4K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-6b0de3e1a8"
+  },
+  {
+   "entidade_chave": "youtube:@ortodacoltivare",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@ortodacoltivare",
+   "url": "https://www.youtube.com/@OrtoDaColtivare",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "APPLE"
+   ],
+   "assuntos": [
+    "CODLING_MOTH"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 7,
+   "alcance": "296K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-dad251da36"
+  },
+  {
+   "entidade_chave": "youtube:@ortodacoltivare",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "instagram",
+   "external_id": "@ortodacoltivare",
+   "url": "instagram.com/ortodacoltivare",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "APPLE"
+   ],
+   "assuntos": [
+    "CODLING_MOTH"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 7,
+   "alcance": "296K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-dad251da36"
+  },
+  {
+   "entidade_chave": "youtube:@paolettisfarm",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@paolettisfarm",
+   "url": "https://www.youtube.com/@PaolettisFarm",
+   "papel_da_fonte": "person",
+   "tipo": "produtor",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "D · CAMPO",
+   "culturas": [
+    "OLIVE"
+   ],
+   "assuntos": [
+    "OLIVE_FRUIT_FLY"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 30,
+   "alcance": "13K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-9a4b91f041"
+  },
+  {
+   "entidade_chave": "youtube:@paolettisfarm",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "instagram",
+   "external_id": "@paolettisfarm",
+   "url": "instagram.com/paolettisfarm",
+   "papel_da_fonte": "person",
+   "tipo": "produtor",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "D · CAMPO",
+   "culturas": [
+    "OLIVE"
+   ],
+   "assuntos": [
+    "OLIVE_FRUIT_FLY"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": 30,
+   "alcance": "13K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-9a4b91f041"
+  },
+  {
+   "entidade_chave": "youtube:@plantnutritionalchemy",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@plantnutritionalchemy",
+   "url": "https://www.youtube.com/@plantnutritionalchemy",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "STONE_FRUIT"
+   ],
+   "assuntos": [
+    "BROWN_MARMORATED_STINK_BUG"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "16,3K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-c67d7c146a"
+  },
+  {
+   "entidade_chave": "youtube:@trainingpractice5686",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@trainingpractice5686",
+   "url": "https://www.youtube.com/@trainingpractice5686",
+   "papel_da_fonte": "person",
+   "tipo": "produtor",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "D · CAMPO",
+   "culturas": [
+    "VINE"
+   ],
+   "assuntos": [
+    "GRAPE_MOTH"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "7,16K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-259f22f08f"
+  },
+  {
+   "entidade_chave": "youtube:@thebughouse",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@thebughouse",
+   "url": "https://www.youtube.com/@Thebughouse",
+   "papel_da_fonte": "person",
+   "tipo": "pesquisador",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "MAIZE"
+   ],
+   "assuntos": [
+    "ROOTWORM"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "2,92K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-900f123c28"
+  },
+  {
+   "entidade_chave": "youtube:@upgrape-formazioneeconsule8497",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@upgrape-formazioneeconsule8497",
+   "url": "https://www.youtube.com/@upgrape-formazioneeconsule8497",
+   "papel_da_fonte": "person",
+   "tipo": "tecnico",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "B · AGRÔNOMO",
+   "culturas": [
+    "MULTI"
+   ],
+   "assuntos": [
+    "FIELD_ADVISORY"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "1,09K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-421b9b20f2"
+  },
+  {
+   "entidade_chave": "youtube:@vinicordoni2148",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@vinicordoni2148",
+   "url": "https://www.youtube.com/@vinicordoni2148",
+   "papel_da_fonte": "company",
+   "tipo": "produtor",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "D · CAMPO",
+   "culturas": [
+    "VINE"
+   ],
+   "assuntos": [
+    "GRAPE_MOTH"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "1,58K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-c86365e684"
+  },
+  {
+   "entidade_chave": "youtube:@vinicordoni2148",
+   "entidade_estado": "ENTIDADE_RESOLVIDA",
+   "plataforma": "instagram",
+   "external_id": "@vinicordoni",
+   "url": "instagram.com/vinicordoni",
+   "papel_da_fonte": "company",
+   "tipo": "produtor",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "D · CAMPO",
+   "culturas": [
+    "VINE"
+   ],
+   "assuntos": [
+    "GRAPE_MOTH"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "1,58K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-c86365e684"
+  },
+  {
+   "entidade_chave": "youtube:@viticolturavisionaria",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@viticolturavisionaria",
+   "url": "https://www.youtube.com/@ViticolturaVisionaria",
+   "papel_da_fonte": "person",
+   "tipo": "produtor",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "D · CAMPO",
+   "culturas": [
+    "POTATO"
+   ],
+   "assuntos": [
+    "LATE_BLIGHT"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "1,42K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-18b302e761"
+  },
+  {
+   "entidade_chave": "youtube:@wa.gardens",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "youtube",
+   "external_id": "@wa.gardens",
+   "url": "https://www.youtube.com/@wa.gardens",
+   "papel_da_fonte": "person",
+   "tipo": "pesquisador",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "OLIVE"
+   ],
+   "assuntos": [
+    "OLIVE_DISEASE"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "12K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-2d8e093b37"
+  },
+  {
+   "entidade_chave": "youtube:@wa.gardens",
+   "entidade_estado": "NAO_RESOLVIDA",
+   "plataforma": "instagram",
+   "external_id": "@wa.gardens",
+   "url": "instagram.com/wa.gardens",
+   "papel_da_fonte": "person",
+   "tipo": "pesquisador",
+   "camada": "DO_CAMPO",
+   "voz_da_ficha": "A · CIÊNCIA",
+   "culturas": [
+    "OLIVE"
+   ],
+   "assuntos": [
+    "OLIVE_DISEASE"
+   ],
+   "pais": "IT",
+   "regiao": [],
+   "cadencia_dias": null,
+   "alcance": "12K iscritti",
+   "ultima_coleta": null,
+   "SENSOR_ID_ITALIANO": "IT-O-2d8e093b37"
+  }
+ ]
+}
