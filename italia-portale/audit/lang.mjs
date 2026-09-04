@@ -48,6 +48,16 @@ export const PT_MARKERS = [
   'principal', 'sinal', 'escala', 'vale do', 'micotoxina', 'micotoxinas',
   'desoxinivalenol', 'regulatorio', 'regulatório', 'praga', 'pragas',
   'colheita', 'lavoura', 'plantio', 'safra',
+  /* 'sim' entrou depois de escapar. Medido 2026-09-04 na primeira dobra: o
+     destaque dizia «Universo chiuso: SIM», porque um token de vocabulario
+     passou cru em vez de passar por `enum()` em it_casa_dados.py. O gerador foi
+     corrigido; o marcador fica para que a MESMA CLASSE de fuga nao volte em
+     silencio — um valor de uma palavra e o que mais facilmente escapa a
+     revisao, porque ninguem o le como prosa.
+     Nao e token ambiguo: 'sim' nao e palavra italiana. O cartao SIM escreve-se
+     igual, e nao aparece num portal fitossanitario; se um dia aparecer, o
+     portao acusa e a decisao e explicita, que e o comportamento correcto. */
+  'sim',
   /* THE SOURCE *NAME* CARRIES THE SAME PROSE, AND THIS LIST COULD NOT SEE IT.
      Measured 2026-09-03 on the shipped package: the guard reported 0 Portuguese
      source names while 66 of 188 were Portuguese — «Macfrut — site oficial»,

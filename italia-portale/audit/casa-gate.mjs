@@ -24,6 +24,7 @@
    --------------------------------------------------------------------------- */
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { PT_MARKERS } from './lang.mjs';
@@ -213,6 +214,59 @@ check('DO_NOT_SHOW_NAO_DIZER_AUSENTE_DA_CASA', () => {
   }
   return { pass: !bad.length, detail: bad.length ? bad
     : [`${regras.length} formulacoes proibidas, nenhuma presente com todas as dobras abertas`] };
+});
+
+/* ── os dados que chegam ao browser, e de onde eles saem ─────────────────── */
+check('CASA_HASHES_6_OF_6_MATCH_PINS_AND_DISK', () => {
+  /* A casa declara seis hashes consumidos e o portao verificava UM. Cinco
+     declaracoes que ninguem confere sao cinco lugares onde um insumo podia ter
+     sido trocado sem que nada aqui mudasse de cor.
+
+         UM HASH DECLARADO E UMA AFIRMACAO. SO REFAZE-LO E QUE E PROVA.
+
+     Cada um e conferido DUAS vezes, contra coisas diferentes: contra o pin
+     (foi este o artefacto que autorizamos?) e contra os bytes em disco (e este
+     o artefacto que esta aqui agora?). Bater so no pin provaria que copiamos a
+     tabela certa; bater so no disco provaria que lemos o que la esta. */
+  const PINS = J('UPSTREAM-PINS.json').PINS || {};
+  const decl = CASA.HASHES_CONSUMIDOS || {};
+  const bad = [];
+  const nomes = Object.keys(decl).sort();
+  if (nomes.length !== 6) bad.push(`a casa declara ${nomes.length} hashes, nao 6`);
+  for (const n of nomes) {
+    const pin = (PINS[n] || {}).HASH;
+    if (!pin) { bad.push(`${n}: consumido pela casa e NAO esta pinado`); continue; }
+    if (pin !== decl[n]) bad.push(`${n}: a casa diz ${decl[n].slice(0, 22)}…, o pin diz ${pin.slice(0, 22)}…`);
+    const f = path.join(UP, n);
+    if (!fs.existsSync(f)) { bad.push(`${n}: pinado e ausente do disco`); continue; }
+    const disco = 'sha256:' + crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
+    if (disco !== decl[n]) bad.push(`${n}: os bytes em disco dao ${disco.slice(0, 22)}…`);
+  }
+  return { pass: !bad.length, detail: bad.length ? bad
+    : [`${nomes.length}/6 refeitos contra o pin E contra os bytes em disco`] };
+});
+
+check('BROWSER_DATA_ONLY_AUTHORIZED_DESTINATIONS', () => {
+  /* Nao basta que a TELA nao mostre um derrubado: o ficheiro que o browser
+     carrega tambem nao pode carrega-lo. Um id que viaja no dado e so nao e
+     desenhado hoje continua a uma linha de CSS de ser visto.
+
+         NAO RENDERIZADO NAO E O MESMO QUE NAO ENTREGUE.
+
+     Os tres ITFC- que a casa carrega tem de estar todos entre os 44
+     RENDERIZAVEIS do handoff do radar, e nenhum entre os EXCLUIDOS. */
+  const idDe = (x) => (typeof x === 'string' ? x : (x && (x.ID || x.id)) || null);
+  const rend = new Set((RF.RENDERIZAVEIS || []).map(idDe).filter(Boolean));
+  const excl = new Set((RF.EXCLUIDOS || []).map(idDe).filter(Boolean));
+  const noDado = [...new Set((fs.readFileSync(path.join(CLIENTE, 'italy-casa.js'), 'utf8')
+    .match(/ITFC-\d+/g) || []))].sort();
+  const bad = [];
+  for (const id of noDado) {
+    if (excl.has(id)) bad.push(`${id} esta entre os EXCLUIDOS e viaja no dado do browser`);
+    else if (!rend.has(id)) bad.push(`${id} viaja no dado e nao esta entre os RENDERIZAVEIS`);
+  }
+  return { pass: !bad.length, detail: bad.length ? bad
+    : [`${noDado.length} ids no dado (${noDado.join(', ')}), todos entre os ${rend.size} renderizaveis`] };
 });
 
 const mau = R.filter((r) => !r.pass);
