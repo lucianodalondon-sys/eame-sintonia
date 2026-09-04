@@ -1,0 +1,107 @@
+{
+ "DATASET": "IT-FUTURO-CONTRATO-SUPERFICIE-V1",
+ "LAYER": "RADAR FUTURO — o que a superficie pode fazer com cada um dos 45",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-FUTURO-V1",
+ "CAPTURED_AT": "2026-09-04",
+ "CHECKPOINT": "0eed31aa1de6e29f0b6b20d043ea30e8a997aacd",
+ "CONGELAMENTO": "707b684 · registo corrigido em 9560823",
+
+ "LEI": "este contrato NAO julga sinal nenhum. Ele traduz estados JA CONGELADOS em comportamento de superficie. Toda regra abaixo cita o texto que a congelou; onde o congelamento nao decidiu, o campo diz DECISAO_EM_ABERTO e o consumidor reprova em vez de adivinhar.",
+
+ "COLECAO_CANONICA": {
+  "PREFIXO": "ITFC",
+  "ARTEFACTOS": [
+   "data/samples/IT-FUTURO-V1/IT-FUTURO-SINAIS-V1.json    (ROWS · estado e veredito)",
+   "data/samples/IT-FUTURO-V1/IT-FUTURO-FICHAS-V1.json    (ROWS · ficha operacional)",
+   "data/samples/IT-FUTURO-V1/IT-FUTURO-JULGADOS-V1.json  (RULED · trigger e portfolio)"
+  ],
+  "CHAVE": "CAND_ID",
+  "NAO_E_ESTA_COLECAO": {
+   "ARTEFACTO": "data/samples/IT-FUTURO-V1/IT-FUTURO-RADAR-V1.json",
+   "PREFIXO": "ITF",
+   "N": 10,
+   "CLASSIFICACAO": "POPULACAO_DISTINTA_SEM_CONTRATO_ATUAL_PARA_ESTA_SUPERFICIE",
+   "LEI": "os 10 ITF- sao outra populacao (MELO x ERIOSOMA, PERO x PSILLE, FRUMENTO x INFESTANTI). Nao se apagam, nao sao falsos e nao se redefinem retroativamente. NAO entram na mesma grelha dos 45 ate ter contrato proprio."
+  }
+ },
+
+ "ESTADOS_DE_VEREDITO": {
+  "CAMPO": "ESTADO (IT-FUTURO-SINAIS-V1.ROWS)",
+  "SINAL_COMPLETO": {
+   "RENDERIZAVEL": true,
+   "CONTEXTO": "cartao inteiro no Radar Futuro",
+   "PORQUE": "sobreviveu a refutacao adversarial sobre a ficha inteira",
+   "AVISO_OBRIGATORIO": null
+  },
+  "PARCIAL": {
+   "RENDERIZAVEL": true,
+   "CONTEXTO": "cartao no Radar Futuro, NUNCA no TOP_3 e nunca apresentado como sinal completo",
+   "PORQUE": "o congelamento define PARCIAL como «o nucleo aguenta e falta-lhe coisa» — nucleo que aguenta e mostravel; o que falta tem de aparecer com ele",
+   "AVISO_OBRIGATORIO": "LETTURA_PARZIALE",
+   "LACUNAS_QUE_TEM_DE_APARECER": ["DEFEITOS_ENCONTRADOS", "CORRECOES_OBRIGATORIAS", "C_NAO_SABEMOS"]
+  },
+  "DERRUBADO": {
+   "RENDERIZAVEL": false,
+   "CONTEXTO": "historico e auditoria apenas — FORA da superficie de reuniao",
+   "PORQUE": "o congelamento define DERRUBADO como «isto nao se apresenta». Nao vira oportunidade ativa e nao aparece na grelha.",
+   "AVISO_OBRIGATORIO": null
+  }
+ },
+
+ "ESTADOS_TEMPORAIS": {
+  "CAMPO": "ACAO_CLASSE (IT-FUTURO-FICHAS-V1.ROWS)",
+  "VALORES_QUE_EXISTEM": ["PREPARAR", "MONITORAR"],
+  "AGIR_AGORA": {
+   "EXISTE_NOS_45": false,
+   "LEI": "AGIR_AGORA = 0 e valor MEDIDO, nao arredondado. As fontes sao de Out/2025 a Mai/2026 e a leitura e de Set/2026: um cartao que diga «aja agora» sobre este material mente sobre o calendario."
+  },
+  "PREPARAR": {
+   "FRASE_PROIBIDA": "qualquer formulacao que implique aplicacao, tratamento ou decisao de campo para hoje",
+   "LEI": "PREPARAR NUNCA pode parecer AGIR_AGORA. O cartao diz o que fazer ANTES da janela, e a janela esta no futuro."
+  },
+  "MONITORAR": {
+   "FRASE_PROIBIDA": "qualquer formulacao que recomende intervencao",
+   "LEI": "MONITORAR NUNCA pode parecer recomendacao de intervencao. E vigilancia sobre um gatilho nomeado."
+  }
+ },
+
+ "CAMPOS_OBRIGATORIOS_DO_CARTAO": {
+  "LEI": "um cartao a que falte qualquer um destes nao e renderizavel. Ausencia de valor e permitida e aparece como NAO SEI com motivo; ausencia de CAMPO nao e.",
+  "EVIDENCIA":            ["F_CITACAO_VERBATIM", "F_CITACAO_CONFERIDA"],
+  "FONTE":                ["F_FONTE"],
+  "DATA":                 ["F_DATA_DO_FATO", "F_DATA_DA_PUBLICACAO"],
+  "REGIAO":               ["F_REGIAO"],
+  "CULTURA_ALVO":         ["F_CULTURA", "F_ALVO"],
+  "JANELA":               ["T_JANELA_DE_APLICACAO", "T_BASE_DA_JANELA"],
+  "TRIGGER":              ["TRIGGER"],
+  "INVALIDATION_TRIGGER": ["INVALIDATION_TRIGGER"],
+  "ESTADO":               ["ESTADO"],
+  "LIMITACOES":           ["DEFEITOS_ENCONTRADOS", "CORRECOES_OBRIGATORIAS"],
+  "O_QUE_AINDA_NAO_SABEMOS": ["C_NAO_SABEMOS"]
+ },
+
+ "DEPENDENCIA_DE_PORTFOLIO": {
+  "LEI": "dependencia quebrada aparece como LIMITACAO, nunca como zero inventado. A rota viva «temos algo para X?» esta com defeito conhecido e NAO pode ser consultada para fabricar resposta.",
+  "CAMPO_BASE": "ADAMA_PAIR_EXISTS (IT-FUTURO-JULGADOS-V1.RULED)",
+  "ROTA_QUEBRADA": {
+   "REGEX_SOBRE_TARGET_E_CROP": "black[ _]?rot|escorios|marciume nero|guignardia|phomopsis|suzukii|drosophila",
+   "PORQUE": "defeito de vocabulario congelado e NAO corrigido: nao existe token BLACK_ROT nem ESCORIOSI, e marciume colapsa varios num so balde; a classe canonica de Drosophila suzukii nao existe. Dois defeitos, duas camadas, dono canonico por identificar."
+  },
+  "CLASSES": {
+   "MEDIDO_EXISTE":       {"quando": "PAIR=YES  e alvo FORA da rota quebrada", "cartao": "pode citar o portfolio medido"},
+   "MEDIDO_ZERO":         {"quando": "PAIR=NO   e alvo FORA da rota quebrada", "cartao": "pode citar o zero, COM numerador e denominador"},
+   "DECLARADO_UNKNOWN":   {"quando": "PAIR=UNKNOWN",                          "cartao": "mostra UNKNOWN e o bloqueador nomeado; NAO usa o par"},
+   "EVIDENCIA_CONGELADA": {"quando": "PAIR=YES  e alvo NA rota quebrada",     "cartao": "usa SOMENTE a evidencia congelada e rastreavel; consulta viva PROIBIDA"},
+   "CEGO_SEM_CLASSE":     {"quando": "PAIR=NO   e alvo NA rota quebrada",     "cartao": "o NAO e CEGO, nao e ausencia real de portfolio — tem de o dizer"}
+  }
+ },
+
+ "TOP_3": {
+  "CAMPO": "lista congelada, nao recalculada pela superficie",
+  "VALOR": ["ITFC-009", "ITFC-016", "ITFC-018"],
+  "LEI": "so SINAL_COMPLETO entra no TOP_3. PARCIAL e DERRUBADO nunca."
+ },
+
+ "DECISOES_EM_ABERTO": []
+}
