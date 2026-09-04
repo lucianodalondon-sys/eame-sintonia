@@ -27,7 +27,7 @@ window.ITALY_CASA = {
   "CRITERIO_PT": "produtos cujo campo `sostanze_attive` nomeia AZOXYSTROBIN E PROTHIOCONAZOLE ao mesmo tempo",
   "DATA_DO_SNAPSHOT": "2026-08-24",
   "DELTA_MESES": 10,
-  "E_UNIVERSO_FECHADO": "SIM",
+  "E_UNIVERSO_FECHADO": "sì",
   "FATO": "quattro registri, tutti vigenti: due di ADAMA ITALIA S.R.L. in scadenza il 31/05/2027 e due di CAC CHEMICAL GMBH in scadenza il 31/03/2028",
   "FATO_PT": "quatro registros, todos vigentes: dois da ADAMA ITALIA S.R.L. vencendo em 31/05/2027 e dois da CAC CHEMICAL GMBH vencendo em 31/03/2028",
   "FONTE": "Ministero della Salute — Banca dati prodotti fitosanitari (dati.salute.gov.it), CC BY 4.0",

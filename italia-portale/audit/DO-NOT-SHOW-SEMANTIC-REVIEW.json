@@ -1,0 +1,73 @@
+{
+ "DATASET": "DO-NOT-SHOW · REVISAO SEMANTICA",
+ "DATA": "2026-09-04",
+ "SUPERFICIE": "italia-portale/client/casa.html — primeira dobra, TODAS as dobras abertas",
+ "PORQUE_ESTE_FICHEIRO_EXISTE": "O handoff traz 14 regras DO_NOT_SHOW sem classe. Oito sao frase ou numero que um grep encontra, e o portao testa-as sozinho. Seis sao FORMA de afirmacao — com variavel ou relacao — que nenhuma busca de texto apanha. Um grep que fingisse cobrir as seis daria cobertura declarada, nao cobertura medida. Por isso elas vem a este ficheiro, com a evidencia ao lado, para leitura humana.",
+ "A_DIVISAO_NAO_VEM_DO_HANDOFF": "e adaptacao de QA da Linha B, declarada em italia-portale/audit/lote-completo.mjs. O handoff nao classifica nenhuma das 14.",
+ "LEI": "UM PORTAO QUE NAO SABE DISPARAR E UM PORTAO QUE NUNCA DISPAROU PRODUZEM O MESMO PASS",
+ "LITERAIS_8": "automatizadas em lote-completo.mjs · DO_NOT_SHOW_LITERAL_8_OF_8",
+ "SEMANTICOS_6": [
+  {
+   "N": 1,
+   "NAO_DIZER": "qualquer data de publicação de documento social italiano",
+   "ACHADO": "04_SOCIAL_YOUTUBE",
+   "PORQUE_NAO_E_GREPAVEL": "a regra proibe UMA CLASSE de valor, nao uma string. Nenhuma busca por texto sabe que data e de documento social.",
+   "COMO_FOI_VERIFICADO": "extraidas TODAS as datas visiveis na tela e classificada a origem de cada uma",
+   "EVIDENCIA": "quatro datas na tela: 2026-09-04 (data de referencia), 2026-08-24 (snapshot do registro fitossanitario), 31/05/2027 e 31/03/2028 (vencimentos de registro). Nenhuma e de documento social.",
+   "REFORCO_NA_TELA": "«Non mostriamo recenza su questo strato: è stato prodotto con una lettura di data difettosa, ancora da rimisurare.»",
+   "VEREDITO": "RESPEITADO"
+  },
+  {
+   "N": 2,
+   "NAO_DIZER": "mudou / está subindo, sobre fonte social italiana",
+   "ACHADO": "04_SOCIAL_YOUTUBE",
+   "PORQUE_NAO_E_GREPAVEL": "e uma afirmacao de tendencia; pode ser escrita de dezenas de maneiras.",
+   "COMO_FOI_VERIFICADO": "busca por familia de tendencia em italiano: aument*, cresc*, «sta salendo», tendenza, trend, «in crescita»",
+   "EVIDENCIA": "zero ocorrencias na tela, com todas as dobras abertas.",
+   "VEREDITO": "RESPEITADO"
+  },
+  {
+   "N": 3,
+   "NAO_DIZER": "mapa da Itália pintado pela sede do titular",
+   "ACHADO": "04_SOCIAL_YOUTUBE",
+   "PORQUE_NAO_E_GREPAVEL": "a violacao seria um DESENHO, nao um texto.",
+   "COMO_FOI_VERIFICADO": "procurado mapa renderizado na primeira dobra e lida a moldura da cobertura",
+   "EVIDENCIA": "nao ha mapa na casa. A cobertura e dita em celulas — 117 territorio x especialidade, 72 com a expansao declarada, 30 sem ela —, nunca pintada.",
+   "REFORCO_NA_TELA": "«La copertura risponde ‹qui abbiamo occhi›. Non risponde mai ‹qui c'è un problema›. Confondere le due trasforma la copertura della raccolta in una mappa di pressione agronomica.»",
+   "VEREDITO": "RESPEITADO"
+  },
+  {
+   "N": 4,
+   "NAO_DIZER": "ato europeu e registro nacional confirmam o mesmo fato",
+   "ACHADO": "01_AZOXISTROBINA_PROTIOCONAZOL",
+   "PORQUE_NAO_E_GREPAVEL": "e uma RELACAO entre duas fontes; a frase proibida nunca aparece literalmente.",
+   "COMO_FOI_VERIFICADO": "lido o bloco de limite do destaque",
+   "EVIDENCIA": "a tela afirma o CONTRARIO, explicitamente: «atto europeo e registro nazionale NON sono due fonti indipendenti: il nazionale deriva dall'europeo. Contarli come due conferme gonfia la fiducia in un fatto che ha una sola origine.»",
+   "VEREDITO": "RESPEITADO · E ATIVAMENTE CONTRADITO"
+  },
+  {
+   "N": 5,
+   "NAO_DIZER": "X produtos foram retirados do mercado",
+   "ACHADO": "03_REVOGADO_X_SCADUTO",
+   "PORQUE_NAO_E_GREPAVEL": "tem variavel: qualquer numero serve, e a formulacao italiana difere da portuguesa.",
+   "COMO_FOI_VERIFICADO": "busca pelas formas italianas: ritirat*, «tolti dal mercato», «fuori mercato», «non piu in commercio»",
+   "EVIDENCIA": "zero ocorrencias. A tela reporta ESTADO DE REGISTO, nunca retirada de mercado: «Revocato: 13.216 · Scaduto: 765 · revocati con scadenza ancora futura: 223.»",
+   "REFORCO_NA_TELA": "«Revocato ≠ Scaduto · perché la data da sola non basta» e «Limite. motivo dichiarato in 1.119 su 13.216. Per gli altri, il perché della revoca è NON SO — e non si deduce.»",
+   "VEREDITO": "RESPEITADO"
+  },
+  {
+   "N": 6,
+   "NAO_DIZER": "contagem de registros como participação de mercado",
+   "ACHADO": "02_AUTORIZACOES_ADAMA",
+   "PORQUE_NAO_E_GREPAVEL": "a violacao esta em COMO o numero e enquadrado, nao numa palavra.",
+   "COMO_FOI_VERIFICADO": "lido o bloco das autorizacoes ADAMA e procurada linguagem de lideranca ou fatia",
+   "EVIDENCIA": "a tela afirma o CONTRARIO: «Limite. conteggio di registri, e nient'altro. Non è quota di mercato.» E acrescenta que somar as cinco razoes sociais e «GIUDIZIO UMANO, non fatto del registro — è la lacuna DECK-015».",
+   "VEREDITO": "RESPEITADO · E ATIVAMENTE CONTRADITO"
+  }
+ ],
+ "RESULTADO_DA_INSPECAO": "6/6 respeitados na superficie medida",
+ "O_QUE_ISTO_AINDA_NAO_E": "a assinatura humana que a regra exige. Uma inspecao feita por maquina sobre as seis FORMAS e melhor do que grep nenhum e pior do que leitura humana — que e exatamente por que estas seis foram separadas das oito. Este ficheiro entrega a evidencia para que a confirmacao custe minutos, nao para a substituir.",
+ "CONFIRMADO_POR_HUMANO": null,
+ "CONFIRMADO_EM": null,
+ "SEM_ASSINATURA": "SEMANTIC_REVIEW conta 6/6 INSPECIONADOS e 0/6 ASSINADOS. PREVIEW aguarda a assinatura."
+}

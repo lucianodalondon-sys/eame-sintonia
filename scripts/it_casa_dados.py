@@ -268,7 +268,11 @@ def main():
             'FATO': it(a01['FATO']),
             'FATO_PT': a01['FATO'],
             'UNIVERSO': a01['UNIVERSO'],
-            'E_UNIVERSO_FECHADO': a01['E_UNIVERSO_FECHADO_NAO_AMOSTRA'],
+            # PASSAVA CRU E CHEGAVA 'SIM' A UMA TELA ITALIANA. A traducao ja
+            # existia em ENUM_IT ('SIM' -> 'si'); faltava a chamada. Um valor
+            # de uma palavra e o que mais facilmente escapa a revisao: ninguem o
+            # le como prosa. `enum()` e fail-closed e recusa o token que nao conhece.
+            'E_UNIVERSO_FECHADO': enum(a01['E_UNIVERSO_FECHADO_NAO_AMOSTRA']),
             'CRITERIO': it(a01['CRITERIO_DO_FILTRO']),
             'CRITERIO_PT': a01['CRITERIO_DO_FILTRO'],
             'INTERPRETACAO': it(a01['INTERPRETACAO']),
