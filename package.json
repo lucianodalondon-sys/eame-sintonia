@@ -4,5 +4,11 @@
   "version": "1.0.0",
   "scripts": {
     "build": "node -e \"require('fs').accessSync('italia-portale/client/index.html'); console.log('Sintonia static portal ready')\""
-  }
+  },
+  "devDependencies": {
+    "pdfjs-dist": "^6.3.289",
+    "playwright": "^1.62.1",
+    "playwright-core": "^1.62.1"
+  },
+  "//devDependencies": "strumenti dei portoni, non del sito. Il deploy serve italia-portale/client/ come cartella statica e non li installa; servono per: audit/mobile.mjs, browser.mjs, cta-navigation.mjs (playwright) e pdf-gate.mjs, rtv-gate.mjs (pdfjs-dist). Installarli con: npm install"
 }

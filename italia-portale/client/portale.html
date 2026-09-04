@@ -308,34 +308,44 @@
             <span><b style="color:#00B152">{{ convSummary.verified }}</b> {{ t.oppVerifiedLabel }}</span>
             <span><b style="color:#F5B317">{{ convSummary.toValidate }}</b> {{ t.oppToValidateLabel }}</span>
           </div></sc-if>
-          <!-- ══ §19 · I NUMERI DELLA RIUNIONE, CONTATI DALLO SNAPSHOT ═══════
-               Nessuna costante scritta a mano: ognuno di questi si ottiene
-               contando i 43 casi al momento del disegno. Se lo snapshot
-               cambia, cambiano da soli — e se qualcuno li scrivesse a mano,
-               il gate MEETING_COUNTS_FROM_SNAPSHOT lo direbbe.
-
-               Sono su una riga separata dai tre di sopra perche misurano
-               un'altra cosa: quelli contano la CONVERGENZA (33/10), questi lo
-               STATO e la CATRACA (2 agire ora · 5 pubblicabili). Confonderli
-               e il modo piu rapido di annunciare sedici AGIRE ORA. -->
-          <sc-if value="{{ mCounts.has }}" hint-placeholder-val="{{ true }}"><div style="display:flex;align-items:baseline;gap:10px;font-size:10px;color:#8F8886;flex-wrap:wrap;padding-top:3px">
-            <span><b style="color:#00B152">{{ mCounts.actNow }}</b> {{ mCounts.actNowL }}</span>
-            <span><b style="color:#F5B317">{{ mCounts.validateNow }}</b> {{ mCounts.validateNowL }}</span>
-            <span><b style="color:#C9C3C1">{{ mCounts.prepare }}</b> {{ mCounts.prepareL }}</span>
-            <span><b style="color:#C9C3C1">{{ mCounts.watch }}</b> {{ mCounts.watchL }}</span>
-            <span style="color:#5F5A58">·</span>
-            <span><b style="color:#7BE0A6">{{ mCounts.publishable }}</b> {{ mCounts.publishableL }}</span>
-            <span><b style="color:#F5B317">{{ mCounts.validationRequired }}</b> {{ mCounts.validationRequiredL }}</span>
-            <span style="color:#5F5A58">·</span>
-            <span><b style="color:#fff">{{ mCounts.windowDefined }}</b> {{ mCounts.windowDefinedL }}</span>
-            <span><b style="color:#00B152">{{ mCounts.windowOpenNow }}</b> {{ mCounts.windowOpenNowL }}</span>
-          </div></sc-if>
         </div>
         <div style="display:flex;align-items:center;gap:12px;font-size:10px;color:#8F8886">
           <span style="display:inline-flex;align-items:center;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:#9D1D96"></span>{{ t.catPest }}</span><span style="display:inline-flex;align-items:center;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:#7DB41E"></span>{{ t.catWeed }}</span>
           <span style="display:inline-flex;align-items:center;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:#00A0DF"></span>{{ t.catDisease }}</span>
         </div>
       </div>
+
+      <!-- ══ §19 · I NUMERI DELLA RIUNIONE, CONTATI DALLO SNAPSHOT ═══════════
+           Nessuna costante scritta a mano: ognuno si ottiene contando i 43
+           casi al momento del disegno. Se lo snapshot cambia, cambiano da
+           soli — e se qualcuno li scrivesse a mano, il portone
+           MEETING_COUNTS_FROM_SNAPSHOT lo direbbe.
+
+           Misurano una cosa DIVERSA dai tre conteggi qui sopra: quelli
+           contano la CONVERGENZA (33/10), questi lo STATO e la CATRACA (2
+           agire ora · 5 pubblicabili). Confonderli e il modo piu rapido di
+           annunciare sedici AGIRE ORA.
+
+           E VIVONO IN UNA RIGA PROPRIA, non dentro la riga `space-between`
+           qui sopra. Dentro, i loro nove conteggi alzavano la larghezza
+           MINIMA del primo figlio e il documento cresceva di 14px a 360, 390
+           e 430: la pagina scorreva di lato senza che un solo elemento
+           sporgesse da solo.
+
+               UN ELEMENTO CHE STA NEL SUO RIQUADRO PUO LO STESSO ALLARGARE
+               LA PAGINA, SE IL GENITORE NON PUO STRINGERSI. -->
+      <sc-if value="{{ mCounts.has }}" hint-placeholder-val="{{ true }}"><div style="display:flex;align-items:baseline;gap:10px;font-size:10px;color:#8F8886;flex-wrap:wrap;min-width:0">
+        <span><b style="color:#00B152">{{ mCounts.actNow }}</b> {{ mCounts.actNowL }}</span>
+        <span><b style="color:#F5B317">{{ mCounts.validateNow }}</b> {{ mCounts.validateNowL }}</span>
+        <span><b style="color:#C9C3C1">{{ mCounts.prepare }}</b> {{ mCounts.prepareL }}</span>
+        <span><b style="color:#C9C3C1">{{ mCounts.watch }}</b> {{ mCounts.watchL }}</span>
+        <span style="color:#8F8886">·</span>
+        <span><b style="color:#00B152">{{ mCounts.publishable }}</b> {{ mCounts.publishableL }}</span>
+        <span><b style="color:#F5B317">{{ mCounts.validationRequired }}</b> {{ mCounts.validationRequiredL }}</span>
+        <span style="color:#8F8886">·</span>
+        <span><b style="color:#fff">{{ mCounts.windowDefined }}</b> {{ mCounts.windowDefinedL }}</span>
+        <span><b style="color:#00B152">{{ mCounts.windowOpenNow }}</b> {{ mCounts.windowOpenNowL }}</span>
+      </div></sc-if>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:10px">
         <sc-for list="{{ visibleCases }}" as="c" hint-placeholder-count="12">
@@ -645,6 +655,16 @@
                   <span style="display:inline-flex;align-items:center;min-height:22px;padding:3px 11px;border-radius:9999px;background:rgba(255,255,255,0.04);border:1px solid rgba(203,197,195,0.16);color:#C9C3C1;font-size:10.5px;line-height:1.3">{{ w.text }}</span>
                 </sc-for>
               </div>
+              <!-- ══ LA DIREZIONE DELLA FONTE · §13 ══════════════════════════
+                   «La fonte raccomanda di monitorare, non di attivare» e una
+                   delle frasi che il briefing detta parola per parola, ed e
+                   intelligenza NEGATIVA: dice che un caso con pressione e
+                   prodotto NON sostiene un intervento oggi. Sta accanto al
+                   perche commerciale, non in fondo, perche e la ragione per
+                   cui quel perche non basta. -->
+              <sc-if value="{{ cs.mNeedDirectionL }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;align-items:baseline;gap:8px;padding-top:2px"><span style="width:4px;height:4px;border-radius:50%;background:#F6BB2E;flex:0 0 4px"></span><span style="font-size:12px;line-height:1.45;color:#F6BB2E">{{ cs.mNeedDirectionL }}</span></div>
+              </sc-if>
               <!-- CIO CHE IL CASO NON PROVA STA ACCANTO A CIO CHE PROVA.
                    Un'opportunita commerciale non e una promessa di domanda. -->
               <sc-if value="{{ cs.mDoesNotProve }}" hint-placeholder-val="{{ true }}">
@@ -661,7 +681,7 @@
                    e l'unico elemento verde pieno di questo blocco. Uno stato
                    NON MISURATO resta un contorno — non diventa mai un no. -->
               <sc-if value="{{ cs.mWinIsOpen }}" hint-placeholder-val="{{ true }}">
-                <div style="display:inline-flex;align-self:flex-start;align-items:center;min-height:26px;padding:4px 14px;border-radius:9999px;background:#00B152;color:#10221A;font-size:12px;font-weight:700;letter-spacing:0.04em">{{ cs.mWinOpenL }}</div>
+                <div style="display:inline-flex;align-self:flex-start;align-items:center;min-height:26px;padding:4px 14px;border-radius:9999px;background:#00B152;color:#110E0D;font-size:12px;font-weight:700;letter-spacing:0.04em">{{ cs.mWinOpenL }}</div>
               </sc-if>
               <sc-if value="{{ cs.mWinUnknown }}" hint-placeholder-val="{{ false }}">
                 <div style="display:inline-flex;align-self:flex-start;align-items:center;min-height:26px;padding:4px 14px;border-radius:9999px;background:transparent;border:1px solid #F6BB2E;color:#F6BB2E;font-size:11.5px;font-weight:700;letter-spacing:0.04em">{{ cs.mWinOpenL }}</div>
@@ -878,7 +898,7 @@
             <div style="font-size:11px;line-height:1.5;color:#B1A9A7">{{ cs.mT.whoActs }} · {{ cs.mT.whoValidates }} · {{ cs.mT.whoPrepares }} · {{ cs.mT.whoWaits }}</div>
             <div class="sn-keepgrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px">
               <sc-for list="{{ cs.mDepts }}" as="a" hint-placeholder-count="5">
-                <div data-area="{{ a.department }}" data-area-name="{{ a.departmentL }}" data-area-mode="{{ a.actionStateL }}" data-status="{{ a.actionStateL }}" style="position:relative;overflow:hidden;border-radius:10px;background:{{ a.surface }};border:1px solid {{ a.edge }};border-top:3px solid {{ a.color }};padding:11px 12px 10px;display:flex;flex-direction:column;gap:5px;min-height:66px">
+                <div data-area="{{ a.department }}" data-area-name="{{ a.departmentL }}" data-area-mode="{{ a.actionStateL }}" style="position:relative;overflow:hidden;border-radius:10px;background:{{ a.surface }};border:1px solid {{ a.edge }};border-top:3px solid {{ a.color }};padding:11px 12px 10px;display:flex;flex-direction:column;gap:5px;min-height:66px">
                   <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
                     <span style="font-size:13px;font-weight:700;color:{{ a.ink }};line-height:1.2;overflow-wrap:anywhere">{{ a.departmentL }}</span>
                     <span style="font-family:var(--font-secondary);font-size:10px;font-weight:700;color:{{ a.ink }};font-variant-numeric:tabular-nums">{{ a.ordinal }}</span>
@@ -3871,13 +3891,43 @@ class Component extends DCLogic {
        punteggi, prove, portoni ne etichette: i ventotto restano in lista e i
        conteggi restano 37 / 9 / 28. Cambia solo CHI SI VEDE PER PRIMO — che e
        esattamente cio che il livello canonico aveva gia deciso. */
+    /* ── LA STESSA LEGGE, SU UNA CHIAVE CHE ORA DISCRIMINA ─────────────────
+       La regola qui sopra e giusta e resta. Cio che era cambiato sotto di lei
+       e la CHIAVE: `VERIFIED_CONVERGENCE` valeva 9 casi su 37 quando fu
+       scritta, e ne vale 33 su 43 con il pacchetto di b3935bd. Trentatre casi
+       a pari merito in testa non sono un ordine — sono la stessa lista di
+       prima, con un confronto in piu che non separa nessuno.
+
+       Misurato prima di questa riga: dei CINQUE casi che il motore dichiara
+       PUBBLICABILI, due erano in prima pagina e tre stavano dietro «vedi
+       tutte» — fra questi carpocapsa × melo × Veneto, uno dei casi che la
+       riunione deve mostrare.
+
+           UNA CHIAVE CHE NON SEPARA PIU NON E UNA CHIAVE: E UN COMMENTO.
+
+       La catraca (5 / 38) e la distinzione che il canonico fa ORA, e diventa
+       la prima chiave; lo stato del motore, che ha cinque gradi e non due, e
+       la seconda. Nessun caso viene promosso, nascosto o riscritto: i
+       conteggi restano 43 · 5 · 38, e i 38 restano tutti in lista. Cambia
+       solo CHI SI VEDE PER PRIMO — che il livello canonico aveva gia deciso. */
     const publishableFirst = (a, b) => {
-      const pa = a.convergence === 'VERIFIED_CONVERGENCE' ? 0 : 1;
-      const pb = b.convergence === 'VERIFIED_CONVERGENCE' ? 0 : 1;
-      return pa - pb;
+      const pa = a.publicationState === 'PUBLISHABLE' ? 0 : 1;
+      const pb = b.publicationState === 'PUBLISHABLE' ? 0 : 1;
+      if (pa !== pb) return pa - pb;
+      const ca = a.convergence === 'VERIFIED_CONVERGENCE' ? 0 : 1;
+      const cb = b.convergence === 'VERIFIED_CONVERGENCE' ? 0 : 1;
+      return ca - cb;
+    };
+    /* STATUS_UI conosce ACT_NOW e manda tutto il resto su DEFAULT: VALIDARE
+       ORA e OSSERVARE finivano a pari rango. L'urgenza ha cinque gradi nel
+       vocabolario del motore, e sono questi — nessuna graduatoria nostra. */
+    const M_STATUS_RANK = { ACT_NOW: 0, VALIDATE_NOW: 1, TO_VALIDATE: 2, FUTURE_PREPARATION: 3, WATCH: 4 };
+    const mRank = (x) => {
+      const r = M_STATUS_RANK[x && x.status];
+      return r === undefined ? (x && x.st ? x.st.rank : 9) : r;
     };
     filtered = filtered.slice().sort(s.sort === 'relevant'
-      ? (a, b) => publishableFirst(a, b) || (a.st.rank - b.st.rank) || (b.evidenceTotal - a.evidenceTotal)
+      ? (a, b) => publishableFirst(a, b) || (mRank(a) - mRank(b)) || (b.evidenceTotal - a.evidenceTotal)
       : sorters[s.sort]);
     const visibleCases = s.showAll ? filtered : filtered.slice(0, 12);
     const hasFilters = !!(s.fCrop || s.fIssue || s.fRegion || s.fStatus || s.fProduct || s.fDept);
@@ -4883,7 +4933,7 @@ class Component extends DCLogic {
       mPubL: csM ? csM.publicationStateL : null,
       mPubShortL: csM ? csM.publicationStateShort : null,
       mPubOk: !!(csM && csM.isPublishable),
-      mPubInk: (csM && csM.isPublishable) ? '#7BE0A6' : '#F6BB2E',
+      mPubInk: (csM && csM.isPublishable) ? '#00B152' : '#F6BB2E',
       mWhyCommercial: csM ? csM.whyCommercial : null,
       mWhyCommercialCodes: csM ? csM.whyCommercialL.map((x) => ({ text: x })) : [],
       mHasWhyCommercial: !!(csM && (csM.whyCommercial || csM.whyCommercialL.length)),
@@ -4893,7 +4943,7 @@ class Component extends DCLogic {
         linkL: l.linkL, ok: l.ok, notOk: !l.ok,
         factL: l.factL || l.fact || '',
         hasFact: !!(l.factL || l.fact),
-        ink: l.ok ? '#7BE0A6' : '#C9C3C1',
+        ink: l.ok ? '#00B152' : '#C9C3C1',
         mark: l.ok ? '✓' : '—'
       })) : [],
       mHasChain: !!(csM && csM.chain.length),

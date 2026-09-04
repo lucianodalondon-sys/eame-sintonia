@@ -37,8 +37,13 @@ const PORT = 8949;
 /* ── il modello, prima del browser ─────────────────────────────────────────
    Le sette aree che il motore pubblica. Non sono un'opinione: sono la lista
    chiusa che il record puo instradare, e le etichette vivono in V21. */
+/* Le sette aree della mappa storica, PIU il nome con cui il motore chiama la
+   sua: `TECHNICAL_SCIENTIFIC`. La tavolozza e il dizionario del portale la
+   registrano come `SCIENCE_TECHNICAL`, e sono la stessa area — un alias, non
+   un'ottava. Senza questa riga il portone la contava «fuori vocabolario» su
+   ogni caso, che e un difetto del vocabolario, non della schermata. */
 const AREAS = ['MARKET_DEVELOPMENT', 'COMMERCIAL', 'SCIENCE_TECHNICAL', 'REGULATORY',
-  'PORTFOLIO', 'SUPPLY', 'MARKETING'];
+  'PORTFOLIO', 'SUPPLY', 'MARKETING', 'TECHNICAL_SCIENTIFIC'];
 const STATUSES = ['ACT_NOW', 'PREPARE_NOW', 'FUTURE_PREPARATION', 'TO_VALIDATE'];
 
 const DATA = loadData();
@@ -50,7 +55,13 @@ const I18N = (DATA.SINTONIA_I18N || {})[LANG] || {};
 const V21 = I18N.V21 || {};
 const PSTATE = I18N.PSTATE || {};
 const AREAMODE = I18N.AREAMODE || {};
-const areaLabel = (a) => V21[a] || String(a).replace(/_/g, ' ');
+/* `TECHNICAL_SCIENTIFIC` (motore) e `SCIENCE_TECHNICAL` (dizionario) sono la
+   stessa area con due chiavi. L'etichetta e una sola, e viene dal dizionario. */
+const AREA_KEY_ALIAS = { TECHNICAL_SCIENTIFIC: 'SCIENCE_TECHNICAL' };
+const areaLabel = (a) => {
+  const k = AREA_KEY_ALIAS[a] || a;
+  return V21[k] || String(k).replace(/_/g, ' ');
+};
 const statusLabel = (s) => V21[s] || String(s).replace(/_/g, ' ');
 const STATUS_LABELS = STATUSES.map(statusLabel);
 const PSTATE_LABELS = Object.values(PSTATE);
@@ -182,14 +193,17 @@ const READ = `(root, V) => {
      Ora il markup dichiara data-area, data-area-name e data-area-mode, e
      questa funzione legge quelli. Se domani il riquadro cambia di nuovo forma,
      la misura resta la stessa. */
-  let areas = [], modes = [], mapFound = false;
+  let areas = [], modes = [], areaKeys = [], mapFound = false;
   const boxes = [...root.querySelectorAll('[data-area]')];
   if (boxes.length) {
     mapFound = true;
     areas = boxes.map((c) => (c.getAttribute('data-area-name') || '').trim());
     modes = boxes.map((c) => (c.getAttribute('data-area-mode') || '').trim());
+    /* la CHIAVE dell'area, non solo la sua etichetta: e cosi che il modo
+       stampato si puo appaiare al reparto che il motore ha deciso */
+    areaKeys = boxes.map((c) => (c.getAttribute('data-area') || '').trim());
   }
-  return { crop, region, dotRows: dots.length, status, linkState, products, areas, modes, mapFound,
+  return { crop, region, dotRows: dots.length, status, linkState, products, areas, modes, areaKeys, mapFound,
     chars: (root.innerText || '').length };
 }`;
 
@@ -221,7 +235,20 @@ for (const id of SAMPLE) {
   if (!opened) { rows.push({ id, error: 'card did not open' }); continue; }
   const det = await readDetail();
 
-  const modelAreas = (o.actionMap || []).slice();
+  /* ══ LA MAPPA SI CONFRONTA CON CHI LA DECIDE ═══════════════════════════
+     `o.actionMap` e la lista dedotta dal pacchetto grezzo: tre nomi di area,
+     senza stato proprio. Il motore pubblica ACTION_BY_DEPARTMENT — cinque
+     reparti, ognuno con il suo ACTION_STATE — ed e quello che la schermata
+     rende dal build della riunione in poi.
+
+         UN PORTONE CHE CONFRONTA LO SCHERMO CON LA FONTE CHE LO SCHERMO
+         HA SMESSO DI LEGGERE MISURA LA SUA PROPRIA MEMORIA.
+
+     Dove il motore ha un caso, si confronta con lui; altrimenti resta
+     `actionMap`, per le schede che il motore non copre. */
+  const engineDepts = (o.meeting && o.meeting.ACTION_BY_DEPARTMENT)
+    ? Object.keys(o.meeting.ACTION_BY_DEPARTMENT) : null;
+  const modelAreas = engineDepts || (o.actionMap || []).slice();
   const wantAreas = modelAreas.map(areaLabel);
   const gotAreas = det.areas.slice();
   const setEq = (a, b) => a.length === b.length && a.slice().sort().join('|') === b.slice().sort().join('|');
@@ -232,6 +259,22 @@ for (const id of SAMPLE) {
      dal vocabolario. Si conta a parte perche dice una cosa diversa. */
   const offVocab = gotAreas.filter((x) => !(x in AREA_BY_LABEL));
   const cardProduct = card.products[0] || '';
+  /* ══ AC12 · OGNI AREA HA IL SUO MODO, NON QUELLO DEL CASO ══════════════
+     Questa riga chiedeva che TUTTE le aree stampassero il modo derivato dallo
+     stato del CASO. Era la verifica del difetto: su un caso AGIRE ORA tutte e
+     cinque le caselle dicevano AGIRE ORA, e il portone lo approvava.
+
+         UN PORTONE CHE PRETENDE CINQUE RISPOSTE UGUALI NON MISURA UNA
+         MAPPA: MISURA UN'INTESTAZIONE RIPETUTA CINQUE VOLTE.
+
+     §14 chiede l'opposto: ogni reparto porta il proprio ACTION_STATE. Il modo
+     atteso si legge quindi dal motore, area per area. */
+  const ML = DATA.MEETING_LABELS || null;
+  const engineMap = (o.meeting && o.meeting.ACTION_BY_DEPARTMENT) || null;
+  const wantModeFor = (key) => {
+    if (!engineMap || !ML || !engineMap[key]) return null;
+    return ML.label('ACTION_STATE', engineMap[key].ACTION_STATE, LANG);
+  };
   const wantMode = modeForStatus(o.status);
 
   rows.push({
@@ -271,7 +314,17 @@ for (const id of SAMPLE) {
     regionSilent: !card.region && !!det.region,
     /* AC12 · il modo delle aree contro lo stato che LA STESSA schermata stampa */
     wantMode, gotModes: [...new Set(det.modes)],
-    modeAgrees: det.mapFound ? det.modes.every((m) => m === wantMode) : null,
+    modeAgrees: !det.mapFound ? null
+      : engineMap
+        /* ogni casella contro il proprio reparto */
+        ? det.areaKeys.every((k, i) => {
+            const want = wantModeFor(k);
+            return want === null ? true : det.modes[i] === want;
+          })
+        /* schede fuori dal motore: resta la regola di prima */
+        : det.modes.every((m) => m === wantMode),
+    modeDetail: engineMap ? det.areaKeys.map((k, i) => `${k}:${det.modes[i]}≠${wantModeFor(k)}`)
+      .filter((x) => { const p = x.split('≠'); return p[0].split(':')[1] !== p[1]; }) : [],
   });
 }
 
@@ -282,7 +335,14 @@ const ok = rows.filter((r) => !r.error);
 const broken = rows.filter((r) => r.error).length;
 const stCovered = new Set(ok.map((r) => r.status));
 const bothProducts = new Set(ok.map((r) => r.verified)).size;
-const coverage = stCovered.size === 4 && bothProducts === 2;
+/* Il campione copriva quattro stati perche il motore ne pubblicava quattro.
+   Con il vocabolario canonico sono CINQUE (AGIRE ORA · VALIDARE ORA · DA
+   VALIDARE · PREPARAZIONE FUTURA · OSSERVARE), e un'uguaglianza esatta faceva
+   fallire il portone per ECCESSO di copertura.
+
+       UN PORTONE DI COPERTURA CHIEDE ALMENO, NON ESATTAMENTE:
+       ALTRIMENTI PUNISCE CHI GLI DA PIU DI QUANTO CHIEDEVA. */
+const coverage = stCovered.size >= 4 && bothProducts === 2;
 const notOpened = ok.filter((r) => !r.openedRight).length;
 const cropBad = ok.filter((r) => !r.cropAgrees).length;
 const statusBad = ok.filter((r) => !r.statusAgrees || !r.statusIsModel).length;
@@ -337,7 +397,7 @@ for (const r of ok) {
   if (r.linkAgrees === false) say.push(`${r.id} · LEGAME: scheda «${r.card.linkState[0]}» · dettaglio ${JSON.stringify([...new Set(r.detail.linkState)])}`);
   if (r.regionAgrees === false) say.push(`${r.id} · REGIONE: scheda «${r.card.region}» · dettaglio «${r.detail.region}»`);
   if (r.regionSilent) say.push(`${r.id} · REGIONE: la scheda non nomina nulla dopo «${r.card.crop} ·» · il dettaglio dice «${r.detail.region}»`);
-  if (r.modeAgrees === false) say.push(`${r.id} · MODO: lo schermo stampa «${r.card.status[0]}» e etichetta le aree ${JSON.stringify(r.gotModes)} — atteso «${r.wantMode}»`);
+  if (r.modeAgrees === false) say.push(`${r.id} · MODO: ${JSON.stringify(r.modeDetail || r.gotModes)}`);
 }
 if (say.length) {
   console.log('\n  ' + C.r('DISCORDANZE MISURATE') + ' (' + say.length + ')');

@@ -57,6 +57,33 @@
   const lab = (t, c, lang) => (L ? L.label(t, c, lang) : null);
   const labs = (t, cs, lang) => (L ? L.labels(t, cs, lang) : []);
 
+  /* ── IL RIMANDO PER L'ANALISTA NON E UNA FRASE PER IL CLIENTE ────────────
+     Alcune frasi che il motore localizza finiscono con un rimando interno:
+
+         «la fonte che sostiene il caso non dice di intervenire
+          — vedi NEED_DIRECTION e la frase originale in NEED_EXCERPT.»
+
+     La prima meta e un fatto, scritto per essere letto. La seconda dice a un
+     analista in quale CAMPO guardare, e in riunione e rumore con l'aspetto di
+     un errore. Non si riscrive la frase del motore: si taglia la coda che
+     nomina campi, e il fatto resta intero.
+
+         TAGLIARE UN RIMANDO NON E CENSURARE UN CONTENUTO:
+         IL CONTENUTO E IL CAMPO, E IL CAMPO LO MOSTRIAMO A PARTE.
+
+     `NEED_DIRECTION` viaggia comunque, con la sua etichetta umana, in
+     `needDirectionL`. Si taglia solo se la coda contiene davvero un codice —
+     una frase senza codici non viene toccata. */
+  const CODE_SHAPE = /[A-Z][A-Z0-9]{2,}(?:_[A-Z0-9]+)+/;
+  function trimAnalystPointer(text) {
+    if (typeof text !== 'string' || !text) return text;
+    const i = text.search(/\s[—–-]\s(?:vedi|see|cfr\.?|vedere)\b/i);
+    if (i < 0) return text;
+    const tail = text.slice(i);
+    if (!CODE_SHAPE.test(tail)) return text;
+    return text.slice(0, i).replace(/[\s,;:]+$/, '') + '.';
+  }
+
   /* ── I QUATTRO MODI DELLA MAPPA · ordine di lettura, non graduatoria ────
      «Chi agisce ora» viene prima di «chi segue» perche e la domanda che una
      riunione fa per prima, non perche un'area valga piu di un'altra. */
@@ -226,7 +253,7 @@
       trailStateL: lab('TRAIL_STATE', c.TRAIL_STATE, lang),
 
       /* perche e un'opportunita commerciale — testo gia localizzato dal motore */
-      whyCommercial: (lang === 'en') ? (c.WHY_COMMERCIAL_EN || null) : (c.WHY_COMMERCIAL_IT || null),
+      whyCommercial: trimAnalystPointer((lang === 'en') ? (c.WHY_COMMERCIAL_EN || null) : (c.WHY_COMMERCIAL_IT || null)),
       whyCommercialCodes: c.WHY_COMMERCIAL_CODES || [],
       whyCommercialL: labs('WHY_COMMERCIAL_CODES', c.WHY_COMMERCIAL_CODES, lang),
       doesNotProve: (lang === 'en') ? (c.COMMERCIAL_DOES_NOT_PROVE_EN || null) : (c.COMMERCIAL_DOES_NOT_PROVE_IT || null),
@@ -358,8 +385,30 @@
     };
   }
 
+  /* ══ L'INNESTO AVVIENE AL CARICAMENTO, NON AL PRIMO DISEGNO ══════════════
+     L'innesto viveva solo dentro `M()`, l'accessore del portale. Chiunque
+     leggesse `ITALY_APP_MODEL.collections.opportunities.records` senza passare
+     di li — il generatore di PDF, un portone, un domani una vista nuova —
+     vedeva ancora lo stato DEDOTTO: OSSERVARE sullo schermo e AGIRE ORA nel
+     brief stampato, sullo stesso caso, nello stesso minuto.
+
+         SE LA CORREZIONE VIVE IN UN ACCESSORE, VALE SOLO PER CHI PASSA
+         DA QUELL'ACCESSORE. UNA VERITA CONDIZIONATA NON E UNA VERITA.
+
+     Questo file si carica DOPO il modello, quindi puo innestare subito: da qui
+     in poi non esiste un lettore che veda i record senza lo snapshot. La
+     chiamata in `M()` resta come rete — `attach()` e idempotente. */
+  var __selfAttached = null;
+  if (SNAP && L && typeof window !== 'undefined'
+      && window.ITALY_APP_MODEL && window.ITALY_APP_MODEL.collections
+      && window.ITALY_APP_MODEL.collections.opportunities) {
+    __selfAttached = attach(window.ITALY_APP_MODEL.collections.opportunities.records);
+    window.ITALY_APP_MODEL.__meetingAttached = __selfAttached;
+  }
+
   window.MEETING_ADAPTER = {
     OK: !!SNAP && !!L && FAULTS.length === 0,
+    ATTACHED_AT_LOAD: __selfAttached,
     FAULTS: FAULTS,
     SOURCE_HEAD: SNAP ? SNAP.SOURCE_HEAD : null,
     BUILD_ID: SNAP ? SNAP.BUILD_ID : null,

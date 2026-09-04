@@ -82,7 +82,30 @@ for (const id of pick.slice(0, WANT)) {
     /* janela: so conta como ligada quando o proprio record a declara */
     modelHasWindow: !!(o.windowStart || o.windowEnd || o.windowState),
     windowVisible: !!(o.windowStart && has(String(o.windowStart))),
-    windowHonest: !(o.windowStart || o.windowEnd || o.windowState) ? txt.includes('Nessuna finestra dichiarata') : true,
+    /* ══ OD6 · «DIRLO A PAROLE» NON E «DIRE QUELLA FRASE» ═══════════════
+       La regola e: se non c'e finestra, lo schermo NON deve tacere. Il
+       controllo pero cercava una stringa precisa — «Nessuna finestra
+       dichiarata» — nata quando quella era l'unica cosa che si sapeva dire.
+
+       Ora il motore dichiara la finestra AGRONOMICA anche dove non esiste
+       una finestra colturale con date: tipo, regola e stato attuale, a
+       parole. Lo schermo dice DI PIU, e il portone lo contava come silenzio.
+
+           UN PORTONE CHE CERCA UNA FRASE MISURA LA FRASE.
+           QUELLO CHE VOLEVAMO MISURARE E IL SILENZIO.
+
+       Vale quindi qualunque enunciato esplicito sulla finestra: la frase
+       storica, oppure una di quelle che il dizionario della riunione produce
+       da WINDOW_TYPE / WINDOW_RULE_STATE / WINDOW_OPEN_NOW. */
+    windowHonest: !(o.windowStart || o.windowEnd || o.windowState)
+      ? (txt.includes('Nessuna finestra dichiarata')
+         || txt.includes('Finestra agronomica aperta')
+         || txt.includes('Nessuna condizione dichiarata')
+         || txt.includes('Condizione nota; stato attuale non ancora misurato')
+         || /Finestra definita d/.test(txt)
+         || txt.includes('osservazione in campo')
+         || txt.includes('Obbligo amministrativo'))
+      : true,
     /* RELATIONSHIP: nenhuma janela pode ser mostrada se o id nao resolve */
     citesUnresolvedWindow: evIds.filter((e) => /^IT-WIN/.test(e) && !winIds.has(e)).length,
   });
@@ -107,6 +130,22 @@ for (const r of rows) {
   const o = byId[r.id];
   if (!o) continue;
   const declared = new Set((o.productLinks || []).map((l) => l.name || l.product).filter(Boolean));
+  /* ══ IL PORTAFOGLIO DEL MOTORE E UNA RELAZIONE DICHIARATA ═══════════════
+     `productLinks` e la lettura del pacchetto grezzo. Lo snapshot canonico
+     pubblica PORTFOLIO_MATCHES — il prodotto unito al caso per NUMERO DI
+     REGISTRAZIONE, con etichetta e catalogo verificati — ed e quello che
+     l'eroe mostra dal build della riunione in poi.
+
+     Misurato: i cinque «prodotti fantasma» segnalati erano, uno per uno,
+     esattamente i prodotti che lo snapshot dichiara. Non erano inventati
+     dalla schermata: erano dichiarati da una fonte che questo portone non
+     leggeva ancora.
+
+         UN PRODOTTO NON E UN FANTASMA PERCHE IO NON SO DA DOVE VIENE.
+         E UN FANTASMA SE NESSUNO LO DICHIARA. */
+  for (const pm of ((o.meeting && o.meeting.PORTFOLIO_MATCHES) || [])) {
+    if (pm && pm.PRODUCT_NAME) declared.add(pm.PRODUCT_NAME);
+  }
   /* produtos citados por id de registo nas proprias evidencias do caso */
   for (const eid of (o.evidenceIds || [])) {
     const rec = regById[eid];

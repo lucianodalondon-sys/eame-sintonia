@@ -389,12 +389,24 @@
   };
 
   /* ── LA MAPPA DELLE AZIONI · chi agisce, chi valida, chi aspetta ──────── */
+  /* ⚠️ QUESTE PAROLE NON SONO LIBERE. Il portale nomina gia le stesse aree nel
+     dizionario V21 (`italy-i18n.js`), e le usa nei filtri, nei brief e nelle
+     schede. Scriverne qui una variante — «Sviluppo Mercato» accanto a
+     «SVILUPPO DI MERCATO» — darebbe alla stessa area due nomi nello stesso
+     prodotto, e nessuno dei due sarebbe sbagliato abbastanza da farsi notare.
+
+         DUE NOMI PER LA STESSA COSA SONO PEGGIO DI UN NOME BRUTTO:
+         UN NOME BRUTTO SI CORREGGE, DUE NOMI SI DISCUTONO.
+
+     Sono quindi COPIATE da V21, parola per parola. Se un giorno cambiano li,
+     devono cambiare qui — e il portone `action-map-consistency` se ne accorge,
+     perche confronta le due liste. */
   const DEPARTMENT = {
-    MARKET_DEVELOPMENT:   { it: 'Sviluppo Mercato',      en: 'Market Development' },
-    COMMERCIAL:           { it: 'Commerciale',           en: 'Commercial' },
-    MARKETING:            { it: 'Marketing',             en: 'Marketing' },
-    TECHNICAL_SCIENTIFIC: { it: 'Tecnico / Scientifico', en: 'Technical / Scientific' },
-    SUPPLY:               { it: 'Supply',                en: 'Supply' }
+    MARKET_DEVELOPMENT:   { it: 'SVILUPPO DI MERCATO',   en: 'MARKET DEVELOPMENT' },
+    COMMERCIAL:           { it: 'COMMERCIALE',           en: 'COMMERCIAL' },
+    MARKETING:            { it: 'MARKETING',             en: 'MARKETING' },
+    TECHNICAL_SCIENTIFIC: { it: 'TECNICO E SCIENTIFICO', en: 'TECHNICAL AND SCIENTIFIC' },
+    SUPPLY:               { it: 'APPROVVIGIONAMENTO',    en: 'SUPPLY' }
   };
 
   const ACTION_STATE = {
