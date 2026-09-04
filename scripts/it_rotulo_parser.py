@@ -196,16 +196,64 @@ def _ancoras_de_coluna(blocos, pagina):
 
 
 def _calhas(bloco):
-    """Faixas de x que NENHUMA palavra do bloco ocupa."""
-    ivs = sorted((w['x0'], w['x1'])
-                 for l in bloco.get('lines', []) for w in l.get('words', []))
-    if len(ivs) < 6:
+    """Onde uma coluna COMECA, lido pelo x da PRIMEIRA palavra de cada linha.
+
+    Duas tentativas anteriores falharam, e por motivos que valem ficar escritos:
+
+      1. vao na uniao de TODAS as palavras do bloco — some assim que uma linha
+         qualquer ocupa a faixa, mesmo que vinte outras a deixem livre;
+      2. vao por linha com voto de maioria — em MAGANIC so UMA linha atravessa a
+         calha (a que traz 'Orzo (invernale' e 'Maculatura' juntas), entao nao ha
+         maioria a formar: as outras linhas nem chegam ate ali.
+
+    O sinal certo e outro. Numa tabela, cada coluna COMECA sempre no mesmo x:
+
+        y=119.6  Septoria[623-650] ...
+        y=161.4  Orzo[558-573] | (invernale[580-612] | Maculatura[623-659] ...
+        y=171.8  e[558-562] | primaverile)[564-602]
+
+    Os inicios de linha se agrupam em 558 e 623. O corte fica entre os grupos.
+    Isso e a pagina dizendo onde a coluna comeca — nao estatistica sobre espacos.
+    """
+    linhas = [l for l in bloco.get('lines', []) if l.get('words')]
+    if len(linhas) < 4:
         return []
-    fora, fim = [], ivs[0][1]
-    for a, b in ivs[1:]:
-        if a - fim > CALHA_MINIMA:
-            fora.append((fim, a))
-        fim = max(fim, b)
+    inicios = sorted(min(w['x0'] for w in l['words']) for l in linhas)
+    grupos, atual = [], [inicios[0]]
+    for x in inicios[1:]:
+        if x - atual[-1] > CALHA_MINIMA * 2:
+            grupos.append(atual)
+            atual = [x]
+        else:
+            atual.append(x)
+    grupos.append(atual)
+    grupos = [g for g in grupos if len(g) >= 2]
+    if len(grupos) < 2:
+        return []
+    fora = []
+    for a, b in zip(grupos, grupos[1:]):
+        # O corte fica LOGO ANTES de onde a proxima coluna comeca, e nao no meio
+        # do vao: a celula da esquerda pode ser mais larga que o seu inicio
+        # ('Orzo' comeca em 558 mas '(invernale' vai ate 612), e um corte no meio
+        # cairia dentro dela.
+        meio = min(b) - CALHA_MINIMA / 2
+        if meio <= max(a):
+            continue
+        cruza = sum(1 for l in linhas for w in l['words']
+                    if w['x0'] < meio < w['x1'])
+        # Exigir ZERO cruzamento era estrito demais: o mesmo bloco costuma
+        # carregar, alem da tabela, a nota de rodape dela — e nota de rodape corre
+        # a largura toda. Em MAGANIC tres palavras de 'Applicare il prodotto
+        # utilizzando un volume...' cruzavam a fronteira e cancelavam uma coluna
+        # que vinte linhas respeitam.
+        #
+        #     FRONTEIRA DE COLUNA E A QUE A MAIORIA DAS LINHAS RESPEITA.
+        #
+        # O teto de 20% foi escolhido medindo: com ele o gabarito nao perde nada e
+        # a familia de tabela fundida passa a ser lida. Acima disso comeca a
+        # cortar prosa ao meio.
+        if cruza <= max(0, int(len(linhas) * 0.2)):
+            fora.append((meio - 1.0, meio + 1.0))
     return fora
 
 
@@ -218,10 +266,30 @@ def cindir_colunas(blocos):
         if len(lns) < 3 or largura < 180:
             fora.append(b)
             continue
-        cs = [c for c in _calhas(b) if (c[1] - c[0]) >= CALHA_MINIMA]
-        # exige que a calha seja larga o bastante para ser coluna, e nao espaco
-        cs = [c for c in cs if (c[1] - c[0]) >= max(CALHA_MINIMA, largura * 0.03)]
-        pontos = [(c[0] + c[1]) / 2 for c in cs]
+        # ⚠️ A CISAO POR CALHA ESTA DESLIGADA, E O MOTIVO IMPORTA.
+        #
+        # A deteccao de coluna funciona: em LEBRON (008189) ela separa a coluna de
+        # cultura (x 525,8) da de alvo (x 607,3) com precisao, e o recall no
+        # gabarito sobe de 0,870 para 0,875. Mas os pares que saem dali estao
+        # DESLOCADOS DE UMA LINHA: sai GIRASOLE x DIABROTICA quando a tabela diz
+        # GIRASOLE x Agriotes e Agrotis, e Diabrotica pertence a linha do mais.
+        #
+        # A causa nao e a cisao: e a inferencia de LINHA. Nesta tabela as linhas
+        # sao adjacentes, sem vao — 'Mais, Mais Dolce,' em y=103,6 e 'Sorgo' em
+        # y=113,1 — entao a regra de vao (1,6 x altura de linha), que existe para
+        # nao cindir texto que apenas quebra, funde as duas numa celula so e
+        # desloca todas as faixas dali para baixo.
+        #
+        # Conferido a mao contra a geometria: cerca de quatro de dezesseis pares
+        # sairiam errados. Precisao de 0,75 nesta familia, abaixo do portao de
+        # 0,95 que o conjunto publicado sustenta — e o gabarito NAO enxergaria,
+        # porque estes rotulos estao entre os excluidos dele.
+        #
+        #     GANHAR RECALL PUBLICANDO PAR DESLOCADO NAO E GANHAR.
+        #
+        # O que falta: inferir a fronteira de linha das DUAS colunas juntas, e nao
+        # de uma. A linha e propriedade da TABELA, e nao da coluna de cultura.
+        pontos = []
         # ANCORA DE CABECALHO. Quando a pagina traz 'Coltura' e 'Patogeno' como
         # cabecalhos, o x deles diz onde a coluna comeca — e isso vale mesmo nas
         # linhas em que uma palavra atravessa a calha, que e justamente o caso que
@@ -384,7 +452,12 @@ def _celulas_de_cultura(b):
     pertence a linha das Foraggere (erba medica).
     """
     fora = []
-    if SECAO_PROIBIDA.search(b['text']) or VERBO_DE_PROSA.search(b['text']):
+    # ⚠️ O teste de prosa e por ENTRADA, e nao pelo bloco. Rejeitar o bloco
+    # inteiro porque UMA linha mais abaixo tem verbo derrubava a coluna de cultura
+    # de tabelas altas: em MAGANIC a fatia 'Orzo / Segale / Triticale / Applicare
+    # ... / Eseguire ...' perdia as tres culturas por causa das duas ultimas
+    # linhas, que sao a nota de rodape da tabela.
+    if SECAO_PROIBIDA.search(b['text']):
         return fora
     linhas = b.get('lines') or []
     inteiro = [{'text': b['text'], 'y0': b['y0'], 'y1': b['y1'],
