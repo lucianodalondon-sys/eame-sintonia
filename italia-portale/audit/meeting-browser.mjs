@@ -18,6 +18,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { serve, open, clickTitle, clickSelector, screenText, clickables, CLIENT } from './lib/drive.mjs';
 
+/* --dir <path> serve OUTRA pasta em vez de client/. Existe para uma coisa so:
+   correr estas mesmas testemunhas sobre os BYTES DESCARREGADOS DO URL PUBLICO,
+   quando o Chromium deste contentor nao consegue atravessar o proxy ate ao
+   dominio. O que se mede continua a ser o que o publico recebe. */
+const DIR = (() => { const i = process.argv.indexOf('--dir'); return i >= 0 ? process.argv[i + 1] : null; })();
+const SERVE_DIR = DIR || CLIENT;
+
 const SNAP = JSON.parse(fs.readFileSync(path.join(CLIENT, 'meeting-intelligence-snapshot.json'), 'utf8'));
 const byId = (id) => SNAP.CASES.find((c) => c.ID === id) || {};
 
@@ -95,7 +102,7 @@ const INTERNAL = /\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b/g;
 /* Prosa di ricerca in portoghese: le parole che il portoghese ha e l'italiano no. */
 const PT_WORDS = /\b(nao|entao|declarada|necessidade|estadio|limiar|boletim|evidencia|condicao|satisfeita|atual|acao|janela|comercial|proximo)\b/i;
 
-const server = await serve(8899);
+const server = await serve(8899, SERVE_DIR);
 let consoleErrors = [], failedReqs = [], deadControls = [];
 
 for (const width of [1440, 390]) {

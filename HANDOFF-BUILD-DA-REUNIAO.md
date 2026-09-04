@@ -16,7 +16,7 @@ BRANCH        claude/meeting-portal-contradictions-qb5a1x   (descendente direto
 HEAD          7b2f24f  (código completo) + o commit que traz este documento
               confirme sempre com:  git log --oneline -3
 ESTADO        PORTAL INTEGRADO · contradições fechadas · gates verdes
-              DEPLOY: bloqueado por credenciais (ver §0.6)
+              DEPLOY: PUBLICADO e verificado (ver §0.6)
 ```
 
 ## 0.1 · A CORREÇÃO QUE A SESSÃO 3 TEVE DE FAZER PRIMEIRO
@@ -131,18 +131,70 @@ estado                 HTTP 200, mas serve ainda a base visual SEM o meeting bui
 bloqueio               não há CLI nem token da Vercel neste contentor
 ```
 
-**MEDIDO, e é o que poupa a próxima tentativa:** a branch
-`claude/meeting-intelligence-integration` foi avançada por fast-forward
-(`a54e287..8f37e36`, sem force) e **isso NÃO desencadeou deploy nenhum**.
-Passados vários minutos o URL continuava a servir os mesmos 817712 B, e a
-lista de workflow runs do GitHub não regista nenhuma execução nova — os
-deploys da Vercel não são GitHub Actions, e nenhum foi disparado.
+### ⚠️ CORREÇÃO — eu tinha concluído mal, e a conclusão errada custaria a reunião
 
-    EMPURRAR ESTA BRANCH NÃO PUBLICA. A INTEGRAÇÃO GIT DA VERCEL NÃO
-    ESTÁ LIGADA A ELA.
+Escrevi antes que empurrar a branch «não desencadeia deploy nenhum». **Está
+errado.** Procurei deploys em `GET /actions/runs` — os *workflow runs* — e a
+Vercel **não publica por GitHub Actions**: publica pela **Deployments API**.
+Olhei para o sítio errado e li o silêncio como ausência.
 
-Portanto o deploy exige mesmo credenciais: um `VERCEL_TOKEN` (com project/org)
-ou acesso ao painel. Não vale a pena voltar a tentar pelo git.
+    UM SÍTIO ERRADO SEM RESULTADOS NÃO É UMA AUSÊNCIA DE RESULTADOS.
+
+O que está lá, medido em `GET /deployments`:
+
+```
+02:35:21Z  Preview  ref 38ed09e  by vercel[bot]   ← o meu HEAD
+02:31:33Z  Preview  ref 8de7309  by vercel[bot]
+02:06:33Z  Preview  ref 8f37e36  by vercel[bot]
+02:04:09Z  Preview  ref 7b2f24f  by vercel[bot]
+```
+
+**Cada commit meu foi publicado**, como *Preview*, com `state=success`. O check
+suite `vercel` está `completed success`. O que me enganou foi o alias
+`sintonia-eame-preview.vercel.app`, que aponta para a branch de **produção** —
+por isso continuava a servir a versão antiga enquanto o meu build já estava no
+ar noutro endereço.
+
+```
+DEPLOY_URL (HEAD 38ed09e)
+https://sintonia-eame-preview-8p1qae38s-london-creative.vercel.app
+
+/portale                            200 · 855814 B  (igual ao local)
+/meeting-surface.js                 200
+/meeting-labels.js                  200
+/meeting-intelligence-snapshot.js   200
+```
+
+Como obter o URL de um HEAD qualquer:
+
+```bash
+API=https://api.github.com/repos/lucianodalondon-sys/eame-sintonia
+ID=$(curl -sS -H "Authorization: Bearer $GITHUB_TOKEN" "$API/deployments?sha=<SHA>" \
+     | python3 -c "import json,sys;print(json.load(sys.stdin)[0]['id'])")
+curl -sS -H "Authorization: Bearer $GITHUB_TOKEN" "$API/deployments/$ID/statuses" \
+     | python3 -c "import json,sys;print(json.load(sys.stdin)[0]['environment_url'])"
+```
+
+### A verificação pública, e o seu limite honesto
+
+Os **77 ficheiros** servidos foram descarregados e comparados byte a byte com
+`italia-portale/client/`: **zero diferenças**. As únicas ausências são
+`vercel.json`, `.gitignore` e os `LEGGIMI/readme` — retidos de propósito, que é
+o contrato do `deploy-surface`. A única diferença de conteúdo em toda a árvore é
+a Vercel injectar o seu script de *feedback* de preview no `index.html`; **não**
+no `portale.html`.
+
+O Chromium deste contentor **não atravessa o proxy** até ao domínio
+(`ERR_CONNECTION_RESET`), embora o `curl` atravesse. Por isso as testemunhas
+correram sobre os **bytes descarregados do URL público**, servidos localmente —
+o artefacto medido é o que o público recebe, verificado por hash:
+
+```bash
+node audit/meeting-browser.mjs --dir <pasta-espelho>   # tudo verde
+node audit/meeting-public.mjs  --base http://localhost:8901
+# PUBLIC_CANONICAL_CASES 43 · PRIMARY_INVENTED 0 · INTERNAL_TOKENS 0
+# CONSOLE_ERRORS 0 · FAILED_REQUESTS 0 · D_CASES_AS_CANONICAL 0
+```
 
 `audit/deploy-surface.mjs` (contrato) passa: `vercel.json` + `.vercelignore`
 servem só `italia-portale/client` e excluem `/build`, `/data`, `/docs`, `/audit`.
