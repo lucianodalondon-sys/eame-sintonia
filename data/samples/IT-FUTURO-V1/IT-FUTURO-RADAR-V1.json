@@ -15,36 +15,36 @@
  "NEW_EVIDENCE_CHARS": 4020690,
  "FUTURE_CANDIDATES_RAW": 3035,
  "FUTURE_CANDIDATES_WITH_CROP_AND_TARGET": 59,
- "FUTURE_PROMOTED": 8,
- "FUTURE_COMPLETE": 6,
- "FUTURE_PARTIAL": 2,
+ "FUTURE_PROMOTED": 10,
+ "FUTURE_COMPLETE": 7,
+ "FUTURE_PARTIAL": 3,
  "EVIDENCE_ONLY": 0,
  "UNKNOWN": 0,
  "PROMOCAO_E_BAIXA_DE_PROPOSITO": "3.035 candidatos brutos viraram 8 sinais. A missao pede para nao otimizar por quantidade: candidato e expressao de futuro, sinal e expressao SUSTENTADA pelo contexto, com cultura, alvo, regiao, horizonte, gatilho e resposta ADAMA. Encher o radar seria facil e seria pior.",
- "WITH_COUNTRY": 8,
- "WITH_REGION": 7,
- "WITH_CROP": 8,
- "WITH_TARGET": 8,
- "WITH_TIME_HORIZON": 8,
- "WITH_TRIGGER": 8,
- "WITH_INVALIDATION_TRIGGER": 8,
- "WITH_EXPECTED_WINDOW": 7,
- "WITH_ADAMA_RESPONSE": 7,
- "WITH_PORTFOLIO_MATCH": 5,
- "WITH_ACTION_MAP": 8,
+ "WITH_COUNTRY": 10,
+ "WITH_REGION": 9,
+ "WITH_CROP": 10,
+ "WITH_TARGET": 10,
+ "WITH_TIME_HORIZON": 10,
+ "WITH_TRIGGER": 10,
+ "WITH_INVALIDATION_TRIGGER": 10,
+ "WITH_EXPECTED_WINDOW": 8,
+ "WITH_ADAMA_RESPONSE": 9,
+ "WITH_PORTFOLIO_MATCH": 7,
+ "WITH_ACTION_MAP": 10,
  "BY_HORIZON": {
-  "HORIZON_181_365_DAYS": 5,
+  "HORIZON_181_365_DAYS": 7,
   "NEXT_SEASON": 3
  },
  "BY_EVIDENCE_TIME_STATE": {
   "EXPECTED": 2,
-  "OBSERVED_NOW": 4,
+  "OBSERVED_NOW": 6,
   "ANNOUNCED": 2
  },
  "HORIZON_0_30_DAYS": 0,
  "HORIZON_31_90_DAYS": 0,
  "HORIZON_91_180_DAYS": 0,
- "HORIZON_181_365_DAYS": 5,
+ "HORIZON_181_365_DAYS": 7,
  "NEXT_SEASON": 3,
  "NO_HORIZON": 0,
  "MISSING_BY_ESSENTIAL_FIELD": {
@@ -52,40 +52,40 @@
   "MISSING_ADAMA_RESPONSE": 1
  },
  "MISSING_FIELD_CAUSES": {
-  "NOT_IN_SOURCE": 8,
-  "NOT_COLLECTED": 3,
+  "NOT_IN_SOURCE": 11,
+  "NOT_COLLECTED": 4,
   "NEEDS_EXTERNAL_SOURCE": 4,
-  "NOT_EXTRACTED": 2,
+  "NOT_EXTRACTED": 3,
   "NOT_APPLICABLE": 1
  },
  "ACTIONS_BY_DEPARTMENT": {
   "COMMERCIAL": {
-   "WATCH_TRIGGER": 5,
-   "COMMERCIAL_PREPARE": 3
+   "WATCH_TRIGGER": 6,
+   "COMMERCIAL_PREPARE": 4
   },
   "MARKETING": {
-   "WATCH_TRIGGER": 5,
-   "MARKETING_PREPARE": 3
+   "WATCH_TRIGGER": 6,
+   "MARKETING_PREPARE": 4
   },
   "MARKET_DEVELOPMENT": {
    "MARKET_DEVELOPMENT_VALIDATE": 6,
-   "VALIDATE_BEFORE_WINDOW": 1,
-   "WATCH_TRIGGER": 1
+   "VALIDATE_BEFORE_WINDOW": 2,
+   "WATCH_TRIGGER": 2
   },
   "SUPPLY": {
-   "WATCH_TRIGGER": 5,
-   "SUPPLY_PREPARE": 3
+   "WATCH_TRIGGER": 6,
+   "SUPPLY_PREPARE": 4
   },
   "TECHNICAL_SCIENTIFIC": {
-   "WATCH_TRIGGER": 3,
-   "PREPARE_NOW": 5
+   "WATCH_TRIGGER": 4,
+   "PREPARE_NOW": 6
   }
  },
- "MARKET_DEVELOPMENT_ACTIONS": 8,
- "COMMERCIAL_ACTIONS": 8,
- "MARKETING_ACTIONS": 8,
- "TECHNICAL_ACTIONS": 8,
- "SUPPLY_ACTIONS": 8,
+ "MARKET_DEVELOPMENT_ACTIONS": 10,
+ "COMMERCIAL_ACTIONS": 10,
+ "MARKETING_ACTIONS": 10,
+ "TECHNICAL_ACTIONS": 10,
+ "SUPPLY_ACTIONS": 10,
  "ACT_NOW_CREATED": 0,
  "ACT_NOW_LAW": "nenhum estado foi promovido a ACT_NOW. Os estados usados sao de PREPARACAO e de OBSERVACAO, que e o que sinal futuro sustenta.",
  "SIGNALS": [
@@ -1046,6 +1046,240 @@
     "CAPTURE_SERIES_NUMBERS": "NOT_EXTRACTED — a fala mostra grafico; a ASR nao carrega os valores",
     "WINDOW": "NOT_IN_SOURCE",
     "CAUSALITY_PARASITOID_TO_DECLINE": "NOT_IN_SOURCE — nenhuma fonte a afirma, e eu nao a afirmo"
+   }
+  },
+  {
+   "ID": "ITF-009",
+   "FUTURE_SIGNAL": "Lobesia botrana (tignoletta) teve em 2025 um incremento nitido em TODO o territorio do norte, com presencas importantes em areas onde o inseto NUNCA tinha sido observado. Barbera e Moscato foram as castas mais atingidas.",
+   "FUTURE_SIGNAL_TYPE": "EXPANSAO_GEOGRAFICA_DE_PRAGA",
+   "EVIDENCE_TIME_STATE": "OBSERVED_NOW",
+   "EVIDENCE_TIME_WHY": "a expansao de 2025 e observada e descrita com detalhe. O que e futuro e a campanha de 2026 nas areas recem-invadidas, onde nao ha historico nem confusao sexual instalada. Nao escrevo FORECAST: a fonte nao projeta 2026.",
+   "SOURCE_ID": "VE8gaWinRmY",
+   "SOURCE_TYPE": "CONVEGNO_BILANCIO_FITOSANITARIO",
+   "SOURCE_DATE": "2025-11-15",
+   "SOURCE_TITLE": "Il bilancio fitosanitario 2024/2025 della vite nel nord Italia — sessione insetti",
+   "QUOTE_IT": "Nel 2025 invece e cambiata la situazione e si e avuto un netto incremento della presenza di Lobesia su tutto il territorio con segnalazioni, presenze anche importanti in aree dove l'insetto non era mai stato osservato in passato. I vitigni piu colpiti sono risultati Barbera e Moscato",
+   "COUNTRY": "IT",
+   "REGION": "Nord Italia (Barbera e Moscato indicam Piemonte)",
+   "REGION_WHY": "o titulo declara \"nord Italia\"; as castas nomeadas sao piemontesas. A regiao precisa NAO e declarada e por isso vai qualificada.",
+   "CROP": "VITE",
+   "TARGET": "TIGNOLE",
+   "TARGET_IN_CONTROLLED_VOCAB": true,
+   "EXPECTED_START": "2026-05",
+   "EXPECTED_END": "2026-08",
+   "TIME_HORIZON_DAYS": 180,
+   "HORIZON_BUCKET": "HORIZON_181_365_DAYS",
+   "TRIGGER": "primeiro voo de adultos em meados de maio de 2026 nas areas novas",
+   "INVALIDATION_TRIGGER": "capturas de 2026 voltando aos niveis anteriores a 2025",
+   "WINDOW_EXPECTED": "YES",
+   "EXPECTED_WINDOW_START": "2026-05",
+   "EXPECTED_WINDOW_END": "2026-07",
+   "WINDOW_TRIGGER": "primeiro voo em meados de maio; armadilhas de feromonio a partir da segunda semana de junho para a segunda geracao — ambas as datas ditas na fonte",
+   "WINDOW_SOURCE": "declarado com precisao pelo relator",
+   "WINDOW_IS_CALENDAR_BASED": "NO",
+   "WINDOW_DEPENDS_ON_FIELD_MEASUREMENT": "YES",
+   "CONFIDENCE": "HIGH",
+   "CONFIDENCE_WHY": "balanco oficial regional, com fenologia datada, castas nomeadas e a distincao explicita entre areas historicas e areas novas.",
+   "ADAMA_LOCAL_RESPONSE": "YES",
+   "PORTFOLIO_MATCHES": [
+    {
+     "REGISTRATION_ID": "012573",
+     "PRODUCT": "EKO OIL SPRAY",
+     "ACTIVE_INGREDIENTS": [
+      "PARAFFIN OIL"
+     ],
+     "PAIR_SOURCE": "IT-ROTULOS-PARES-V3"
+    },
+    {
+     "REGISTRATION_ID": "014386",
+     "PRODUCT": "OLIONET",
+     "ACTIVE_INGREDIENTS": [
+      "PARAFFIN OIL"
+     ],
+     "PAIR_SOURCE": "IT-ROTULOS-PARES-V3"
+    },
+    {
+     "REGISTRATION_ID": "008259",
+     "PRODUCT": "LAMDEX EXTRA",
+     "ACTIVE_INGREDIENTS": [
+      "LAMBDA-CYHALOTHRIN"
+     ],
+     "PAIR_SOURCE": "CONJUNTO ANTIGO (productRelationships.json) — o parser novo NAO le este par, porque 008259 e uma matriz de 393 blocos que o gabarito excluiu. Entra pela UNIAO, e nao por leitura nova."
+    }
+   ],
+   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH_REASON": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+   "WHY_ADAMA": "ESTE E O CASO QUE JUSTIFICA A UNIAO DA FASE 4. O sinal de campo mais acionavel do acervo cai exatamente sobre o par que o parser novo le pior. Se o conjunto de 2.313 tivesse SUBSTITUIDO o antigo, OPP_169BD86DB324 e OPP_3C8C3960CC66 (tignoletta x videira) ficariam com zero produto no momento em que o campo declara expansao. A divida de recall tem endereco: 008259, 013560 e os outros rotulos-matriz.",
+   "WHY_FUTURE": "as areas recem-invadidas entram em 2026 sem confusao sexual instalada e sem historico de monitoramento",
+   "WHY_COMMERCIAL": "area nova, sem estrategia estabelecida, com janela declarada. NAO prova demanda: prova que a decisao de manejo dessas areas ainda nao foi tomada.",
+   "DECISION_STILL_OPEN": "YES",
+   "DECISION_DEADLINE": "2026-04",
+   "LEAD_TIME_AVAILABLE": "cerca de 5 meses ate o primeiro voo",
+   "FUTURE_INTELLIGENCE_STATE": "COMPLETE",
+   "ACTION_MAP": {
+    "MARKET_DEVELOPMENT": {
+     "ACTION_STATE": "VALIDATE_BEFORE_WINDOW",
+     "ACTION": "identificar os areais novos citados e montar monitoramento proprio antes do primeiro voo de maio",
+     "WHY": "em area sem historico nao ha curva de referencia; quem medir primeiro define a recomendacao",
+     "WHEN_TO_START": "2026-02",
+     "DEADLINE": "2026-04",
+     "DEPENDENCY": "lista dos areais — a fonte diz \"aree nuove\" sem nomear",
+     "NEXT_TRIGGER": "primeiro voo"
+    },
+    "TECHNICAL_SCIENTIFIC": {
+     "ACTION_STATE": "PREPARE_NOW",
+     "ACTION": "fechar a divida de leitura dos rotulos-matriz (008259, 013560, 013590, 015275, 017687, 018067, 019095) para saber o que a ADAMA realmente autoriza em VITE x TIGNOLE",
+     "WHY": "hoje o conjunto novo enxerga so oleo de parafina neste par, e isso e buraco de parser, nao realidade regulatoria",
+     "WHEN_TO_START": "imediatamente",
+     "DEADLINE": "2026-03",
+     "DEPENDENCY": "parser de tabela-matriz",
+     "NEXT_TRIGGER": "gabarito ampliado"
+    },
+    "COMMERCIAL": {
+     "ACTION_STATE": "COMMERCIAL_PREPARE",
+     "ACTION": "preparar abordagem para as areas novas do Piemonte antes de abril",
+     "WHY": "a janela de decisao antecede o primeiro voo",
+     "WHEN_TO_START": "2026-02",
+     "DEADLINE": "2026-04",
+     "DEPENDENCY": "canal — HOJE INEXISTENTE no acervo",
+     "NEXT_TRIGGER": "lista de areais"
+    },
+    "MARKETING": {
+     "ACTION_STATE": "MARKETING_PREPARE",
+     "ACTION": "material de monitoramento de Lobesia para viticultor sem historico da praga",
+     "WHY": "o publico novo nao conhece a fenologia do inseto",
+     "WHEN_TO_START": "2026-02",
+     "DEADLINE": "2026-04",
+     "DEPENDENCY": "TECHNICAL_SCIENTIFIC",
+     "NEXT_TRIGGER": "validacao"
+    },
+    "SUPPLY": {
+     "ACTION_STATE": "SUPPLY_PREPARE",
+     "ACTION": "rever cobertura para a janela maio-julho no noroeste",
+     "WHY": "expansao territorial declarada aumenta a area potencial tratada",
+     "WHEN_TO_START": "2026-03",
+     "DEADLINE": "2026-04",
+     "DEPENDENCY": "previsao comercial",
+     "NEXT_TRIGGER": "plano fechado"
+    }
+   },
+   "MISSING_FIELDS": {
+    "NEW_AREAS_NAMED": "NOT_IN_SOURCE — a fala diz \"aree dove non era mai stato osservato\" sem nomea-las",
+    "CHANNEL": "NOT_COLLECTED"
+   }
+  },
+  {
+   "ID": "ITF-010",
+   "FUTURE_SIGNAL": "Os acaros tetraniquideos, sobretudo o ragnetto giallo, sobem de forma lenta e constante na vite do norte desde cerca de 2014. Em 2025 as populacoes de fitoseideos estavam mais altas e nao se observou efeito dos inseticidas de fim de junho contra Scaphoideus titanus.",
+   "FUTURE_SIGNAL_TYPE": "TENDENCIA_DE_DECADA",
+   "EVIDENCE_TIME_STATE": "OBSERVED_NOW",
+   "EVIDENCE_TIME_WHY": "e uma serie observada de dez anos. TENDENCIA NAO VIRA PREVISAO: a fonte descreve a subida passada e nao projeta 2026. Marcar FORECAST aqui seria exatamente o erro que a missao proibe.",
+   "SOURCE_ID": "VE8gaWinRmY",
+   "SOURCE_TYPE": "CONVEGNO_BILANCIO_FITOSANITARIO",
+   "SOURCE_DATE": "2025-11-15",
+   "SOURCE_TITLE": "Il bilancio fitosanitario 2024/2025 della vite nel nord Italia — sessione insetti",
+   "QUOTE_IT": "una problematica piu emergente (...) in questi ultimi 10 anni e la questione acari tetranichidi, quindi soprattutto ragnetto giallo che ha aumentato in maniera lenta ma costante dal 2014 circa (...) quest'anno abbiamo trovato mediamente delle popolazioni di fitoseidi piu alte rispetto all'anno scorso",
+   "COUNTRY": "IT",
+   "REGION": "Nord Italia",
+   "REGION_WHY": "declarado no titulo da sessao; nenhuma regiao especifica e nomeada",
+   "CROP": "VITE",
+   "TARGET": "ACARI",
+   "TARGET_IN_CONTROLLED_VOCAB": true,
+   "EXPECTED_START": "2026-06",
+   "EXPECTED_END": "2026-08",
+   "TIME_HORIZON_DAYS": 270,
+   "HORIZON_BUCKET": "HORIZON_181_365_DAYS",
+   "TRIGGER": "monitoramento de sintomas de 2026 confirmando ou nao a continuidade da subida",
+   "INVALIDATION_TRIGGER": "a propria fonte ja aponta o contrafator: fitoseideos em alta e ausencia de efeito dos inseticidas de junho. Se o equilibrio se mantiver, a subida pode parar sozinha.",
+   "WINDOW_EXPECTED": "UNKNOWN",
+   "EXPECTED_WINDOW_START": "UNKNOWN",
+   "EXPECTED_WINDOW_END": "UNKNOWN",
+   "WINDOW_TRIGGER": "UNKNOWN",
+   "WINDOW_SOURCE": "NOT_IN_SOURCE",
+   "WINDOW_IS_CALENDAR_BASED": "UNKNOWN",
+   "WINDOW_DEPENDS_ON_FIELD_MEASUREMENT": "YES",
+   "CONFIDENCE": "MEDIUM",
+   "CONFIDENCE_WHY": "serie longa e fonte oficial, mas sem numeros na transcricao e com um contrafator declarado pelo proprio relator. Uma tendencia de dez anos nao autoriza afirmar o proximo ano.",
+   "ADAMA_LOCAL_RESPONSE": "YES",
+   "PORTFOLIO_MATCHES": [
+    {
+     "REGISTRATION_ID": "012573",
+     "PRODUCT": "EKO OIL SPRAY",
+     "ACTIVE_INGREDIENTS": [
+      "PARAFFIN OIL"
+     ],
+     "PAIR_SOURCE": "IT-ROTULOS-PARES-V3"
+    },
+    {
+     "REGISTRATION_ID": "014386",
+     "PRODUCT": "OLIONET",
+     "ACTIVE_INGREDIENTS": [
+      "PARAFFIN OIL"
+     ],
+     "PAIR_SOURCE": "IT-ROTULOS-PARES-V3"
+    }
+   ],
+   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH_REASON": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+   "WHY_ADAMA": "a ADAMA tem dois rotulos VITE x ACARI, ambos de oleo de parafina, que e compativel com a preservacao de fitoseideos que a fonte destaca. Isso e uma HIPOTESE tecnica minha, e nao um dado da fonte.",
+   "WHY_FUTURE": "a serie de 2026 ainda nao existe",
+   "WHY_COMMERCIAL": "tendencia de decada nao sustenta campanha. Sustenta observacao e uma pergunta tecnica sobre seletividade.",
+   "DECISION_STILL_OPEN": "YES",
+   "DECISION_DEADLINE": "UNKNOWN",
+   "LEAD_TIME_AVAILABLE": "UNKNOWN",
+   "FUTURE_INTELLIGENCE_STATE": "PARTIAL",
+   "WHY_PARTIAL": "sem janela declarada, sem numeros e com contrafator explicito. Suficiente para observar, insuficiente para agir.",
+   "ACTION_MAP": {
+    "TECHNICAL_SCIENTIFIC": {
+     "ACTION_STATE": "WATCH_TRIGGER",
+     "ACTION": "acompanhar a serie de acaros e de fitoseideos do norte em 2026",
+     "WHY": "a subida e lenta e o contrafator e real; so a serie decide",
+     "WHEN_TO_START": "2026-06",
+     "DEADLINE": "UNKNOWN",
+     "DEPENDENCY": "proximo bilancio",
+     "NEXT_TRIGGER": "publicacao 2026"
+    },
+    "MARKET_DEVELOPMENT": {
+     "ACTION_STATE": "WATCH_TRIGGER",
+     "ACTION": "nenhuma validacao antes de a serie confirmar",
+     "WHY": "validar sobre tendencia de decada gastaria parcela por nada",
+     "WHEN_TO_START": "NOT_APPLICABLE",
+     "DEADLINE": "NOT_APPLICABLE",
+     "DEPENDENCY": "serie 2026",
+     "NEXT_TRIGGER": "confirmacao"
+    },
+    "COMMERCIAL": {
+     "ACTION_STATE": "WATCH_TRIGGER",
+     "ACTION": "nenhuma",
+     "WHY": "tendencia nao e janela",
+     "WHEN_TO_START": "NOT_APPLICABLE",
+     "DEADLINE": "NOT_APPLICABLE",
+     "DEPENDENCY": "serie",
+     "NEXT_TRIGGER": "serie"
+    },
+    "MARKETING": {
+     "ACTION_STATE": "WATCH_TRIGGER",
+     "ACTION": "nenhuma",
+     "WHY": "idem",
+     "WHEN_TO_START": "NOT_APPLICABLE",
+     "DEADLINE": "NOT_APPLICABLE",
+     "DEPENDENCY": "serie",
+     "NEXT_TRIGGER": "serie"
+    },
+    "SUPPLY": {
+     "ACTION_STATE": "WATCH_TRIGGER",
+     "ACTION": "nenhuma",
+     "WHY": "idem",
+     "WHEN_TO_START": "NOT_APPLICABLE",
+     "DEADLINE": "NOT_APPLICABLE",
+     "DEPENDENCY": "serie",
+     "NEXT_TRIGGER": "serie"
+    }
+   },
+   "MISSING_FIELDS": {
+    "SERIES_NUMBERS": "NOT_EXTRACTED — grafico em tela, ASR nao carrega os valores",
+    "WINDOW": "NOT_IN_SOURCE",
+    "REGION_PRECISE": "NOT_IN_SOURCE"
    }
   }
  ]

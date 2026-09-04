@@ -219,6 +219,15 @@ def frases(txt):
 
 def candidatos():
     for d in corpus():
+        # A CULTURA DO DOCUMENTO. Num "bilancio fitosanitario della vite" a cultura
+        # e declarada UMA VEZ, no titulo, e depois so os alvos sao nomeados. Exigir
+        # a cultura na janela de tres frases descartava documentos inteiros — foi
+        # medido: os balancos da vite norte e sul devolviam UM candidato forte entre
+        # os dois. Isto nao e inferencia: e o proprio documento declarando o seu
+        # escopo. Fica num campo SEPARADO, com a proveniencia dita, para nunca se
+        # confundir com cultura nomeada na frase.
+        do_titulo = sorted({m.group(0).lower()
+                            for m in CROP_RX.finditer(d.get('TITLE') or '')})
         fs = list(frases(d['TEXT']))
         for i, f in enumerate(fs):
             tipos = sorted({t for rx, t in LEXICO_RX if rx.search(f)})
@@ -236,8 +245,11 @@ def candidatos():
                 'IDX': i, 'TIPOS_SUGERIDOS': tipos,
                 'FRASE': f, 'JANELA': jan,
                 'CROPS': crops, 'ISSUES': issues, 'REGIONS': regs, 'DATAS': datas,
-                'PESO': (len(tipos) + 2 * bool(crops) + 2 * bool(issues)
-                         + bool(regs) + bool(datas)),
+                'CROPS_FROM_TITLE': do_titulo,
+                'CROP_PROVENANCE': ('WINDOW' if crops
+                                    else 'DOCUMENT_TITLE' if do_titulo else 'NONE'),
+                'PESO': (len(tipos) + 2 * bool(crops) + bool(do_titulo)
+                         + 2 * bool(issues) + bool(regs) + bool(datas)),
             }
 
 
