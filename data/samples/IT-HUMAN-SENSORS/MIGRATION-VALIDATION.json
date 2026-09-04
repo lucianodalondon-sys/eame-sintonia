@@ -1,0 +1,83 @@
+{
+ "SOURCE_ID": "IT-HUMAN-SENSORS/MIGRATION-VALIDATION",
+ "source": "derivado de ENTITIES.json · SOURCES.json · ID-MIGRATION.json · ID-LEDGER.json — nenhuma coleta, nenhuma descoberta",
+ "DISCIPLINA_DE_MEDICAO": {
+  "ORIGEM_DA_REGRA": "P-013 — a cobertura de fontes.entidade_id no Brasil fechou em NÃO SEI porque a coluna nasceu sem censo",
+  "REGRA_1": "coluna de contrato nasce com a consulta de cobertura no mesmo commit do esquema",
+  "REGRA_2": "número publicado declara COLUNA MEDIDA · DENOMINADOR · DATA",
+  "ESTE_ARQUIVO_E_O_CENSO": true,
+  "CONTADOR_DE_ESCRITA_SEPARADO": "a saída de `migrar` é contador de escrita; ela NÃO é cobertura e não preenche esta tabela"
+ },
+ "DENOMINADORES_DECLARADOS": {
+  "ENTIDADES": 221,
+  "FONTES_LIGADAS": 189,
+  "FONTES_NAO_RESOLVIDAS": 92,
+  "FICHAS_DE_ENTRADA_LEGADAS": 224,
+  "NOTA": "as métricas de papel usam ENTIDADES como denominador; as de canal usam FONTES. Os dois nunca se somam."
+ },
+ "MEDIDO_EM": "derivado na execução de `validar`; a data vive no commit",
+ "METRICAS": {
+  "ENTITIES_TOTAL": 221,
+  "SOURCES_TOTAL": 281,
+  "ORPHAN_SOURCES": 92,
+  "MULTI_SOURCE_ENTITIES": 32,
+  "MULTI_ROLE_ENTITIES": 11,
+  "ENTITY_WITH_1_SOURCE": 54,
+  "ENTITY_WITH_0_SOURCE": 135,
+  "RESEARCHERS": 135,
+  "AGRONOMISTS": 0,
+  "TECHNICIANS": 0,
+  "PRODUCERS": 0,
+  "COOPERATIVES_OR_ORGS": 43,
+  "PUBLIC_CREATOR_PRESENCE": 40,
+  "COUNTRY_ITALY_PROVED_BY_SELF_DECLARATION": 40,
+  "COUNTRY_ITALY_PROVED_BY_ROUTE": 181,
+  "COUNTRY_FOREIGN_PROVED": 24,
+  "COUNTRY_UNKNOWN": 68,
+  "ORCID_PRESENT": 134,
+  "ORCID_ABSENT_BUT_IDENTITY_VALID": 86,
+  "ROLE_LOST_BY_WEIGHT": 0,
+  "ROLE_REMOVED_BY_DECLARED_RULE": 10,
+  "ORGANIZATION_CLASSIFIED_AS_PERSON_ROLE": 0,
+  "PORTAL_CLASSIFIED_AS_AGRONOMIST": 0,
+  "NAME_OR_ORG_USED_AS_OPERATIONAL_ID": 0,
+  "FOLLOWERS_USED_AS_AUTHORITY": 0,
+  "OLD_SENSOR_IDS": 224,
+  "NEW_ENTITIES": 221,
+  "ID_MIGRATION_LOSS": 0,
+  "ROLES_BY_STATE": {
+   "DECLARADO": 184,
+   "NAO_PROVADO": 46
+  },
+  "ROLES_CANDIDATE_NOT_PROVED": {
+   "tecnico": 5,
+   "agronomo": 11,
+   "cooperativa": 3,
+   "organizacao_de_pesquisa": 11,
+   "produtor": 11,
+   "consultor": 3,
+   "pesquisador": 2
+  },
+  "NOTA_SOBRE_OS_ZEROS": "AGRONOMISTS/TECHNICIANS/PRODUCERS = 0 PROVADO é consequência de aplicar a lei \"prosa livre não decide papel\". O YouTube não expõe campo estruturado de papel, logo nenhuma dessas famílias pode ser PROVADA por esta rota. Fechar isso exige uma rota com campo declarado estruturado (headline de LinkedIn, página de equipe institucional, Ordine dei Dottori Agronomi) — não executada nesta rodada.",
+  "ENTITIES_WITHOUT_PROVED_ROLE": 37,
+  "BY_KIND": {
+   "pessoa": 135,
+   "organizacao": 58,
+   "NÃO SEI": 28
+  },
+  "BY_DOMINIO": {
+   "AGRO_PROFISSIONAL": 202,
+   "NÃO SEI": 17,
+   "HOBBY_DECLARADO": 2
+  },
+  "TRAVAS": {
+   "ROLE_LOST_BY_WEIGHT == 0": true,
+   "ORGANIZATION_CLASSIFIED_AS_PERSON_ROLE == 0": true,
+   "PORTAL_CLASSIFIED_AS_AGRONOMIST == 0": true,
+   "NAME_OR_ORG_USED_AS_OPERATIONAL_ID == 0": true,
+   "FOLLOWERS_USED_AS_AUTHORITY == 0": true,
+   "ID_MIGRATION_LOSS == 0": true
+  },
+  "TRAVAS_TODAS_PASSAM": true
+ }
+}

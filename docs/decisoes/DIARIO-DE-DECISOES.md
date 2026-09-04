@@ -447,6 +447,95 @@ Regras do diário:
   promovê-los passa a exigir outra prova de país — nunca a ausência dela.
 - **Quem decidiu:** decisão técnica da missão Brasil → Itália.
 
+---
+
+### D-023 — P-014 fechada: a Itália espelha o contrato e mantém registro próprio
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO **pelo dono do projeto**
+- **Decisão:** `ITALY_WRITES_TO_BRAZIL_DB = NO` · `CONTRACT_MIRRORED = YES`.
+  O Brasil é **referência de contrato**, não infraestrutura compartilhada. Sem camada
+  federada. Um eventual reconhecimento da mesma entidade nos dois países será uma camada
+  **explícita** de crosswalk, nunca compartilhamento silencioso de banco.
+- **Motivo, medido:** o contrato `QUEM É → ONDE EU BATO → DOCUMENTO` está certo, mas o dado
+  brasileiro não o realiza; 7 das 8 travas exigem correção; os classificadores são PT-BR
+  chumbados em regex; `entidade_id` tem cobertura desconhecida (D-024); `creator` é default
+  em 54,8%; papel continua escalar.
+- **Consequência:** `BRASIL → semântica · contrato · leis` · `ITÁLIA → dados · registro ·
+  classificadores`.
+
+---
+
+### D-024 — P-013 fechada: NÃO SEI, e os três números nunca brigaram
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO
+- **Contexto:** três números circulavam como cobertura de `fontes.entidade_id` — 47/95, 57
+  e 3.275/3.299.
+- **Medido, por auditoria forense somente-leitura (Brasil HEAD `38e4b8d`, `git status`
+  vazio ao fim):** os três medem coisas **diferentes** e **nenhum** é cobertura.
+  **47/95** é contador de escrita de uma rodada — a seguinte deu **4/56**, o número
+  **desceu**. **57** é `count(*)` da tabela `entidades`, e a citação de 23/08 é literal
+  *hardcoded* em `matriz-do-rendimento.py:305`. **3.275/3.299** é **`external_id`** com o
+  rótulo trocado; a medição original diz *"identidade (external)"*, e a seção que a carimba
+  como "medido" se declara não-construída em `PLANO-location-resolver.md:665`.
+- **Veredito:** `P013_REAL_COVERAGE = NÃO SEI` (firme: a única ocorrência de
+  `entidade_id is not null` no repositório é um índice parcial; não há `count` nenhum) ·
+  `P013_DENOMINATOR` = não existe um (três universos sem rótulo: 4.548 / 3.670 / 3.654) ·
+  `P013_CONTRACT_OPERATIONAL = PARCIAL`.
+- **Laterais:** `enderecos` é **fio cortado** (3.627 linhas idênticas em cinco dias, sem
+  escritor vivo, sem leitor externo, sem `schedule`). `papel_da_fonte` é **contrato não
+  implantado**, não abandonado — nunca recebeu uma linha.
+- **Regra que fica, e já aplicada:** *toda coluna de contrato nasce com a sua consulta de
+  cobertura no mesmo commit do DDL*, e *todo número publicado carrega coluna medida ·
+  denominador declarado · data/execução*. `MIGRATION-VALIDATION.json` é esse censo para a
+  Itália. **Herdar tabela sem herdar consumidor é importar esquema morto.**
+- **Nada foi alterado no Brasil.**
+
+---
+
+### D-025 — Prosa livre não decide papel: os papéis de campo caem a zero PROVADO
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO · **corrige a rota de canal desta missão**
+- **Contexto:** `MODELO-DE-IDENTIDADE-EAME.md` lista o que **nunca** decide papel:
+  *nome da conta · foto · estilo do texto · idioma · **prosa livre (`about`,
+  `description`)** · o assunto de um post*. A rota de canal italiana lia a descrição do
+  canal e produzia papéis — exatamente o classificador que a casa já mediu e reprovou.
+- **Decisão:** todo papel vindo da aba About passa a `NAO_PROVADO`. O YouTube **não expõe
+  campo estruturado de papel**, logo nenhuma família de campo pode ser provada por essa
+  rota. Assunto (`CROP`, `ISSUE`, domínio) **continua** podendo vir do texto — a mesma lei
+  permite.
+- **Consequência medida, e ela é grande:** `AGRONOMISTS = 0` · `TECHNICIANS = 0` ·
+  `PRODUCERS = 0` **provados**. Não é perda de dado: é a retirada de uma afirmação que
+  nunca teve prova. Os candidatos ficam gravados (`agronomo` 11 · `produtor` 11 ·
+  `organizacao_de_pesquisa` 11 · `tecnico` 5 · `consultor` 3 · `cooperativa` 3 ·
+  `pesquisador` 2).
+- **O que fecharia:** rota com campo declarado estruturado — headline de LinkedIn, página
+  de equipe institucional, Ordine dei Dottori Agronomi. **Não executada.**
+
+---
+
+### D-026 — Migração ENTITY · SOURCE · ROLE executada, com seis travas medidas
+
+- **Data:** 2026-09-04 · **Estado:** DECIDIDO
+- **Executado:** `scripts/sensor_entidade_it.py`. 224 fichas → **221 entidades + 281
+  fontes**. Três fusões `MESMA_ENTIDADE` (Fondazione Edmund Mach, AgroNotizie, AIPO),
+  todas por **claim declarado pelo próprio canal**, nunca por semelhança de nome.
+- **Identidade:** id opaco sequencial, atribuído uma vez, persistido em `ID-LEDGER.json` —
+  a semântica do `bigserial` brasileiro (`fontes.id`), **não** a de `entidades.chave`, que
+  o próprio Brasil declara instável. Resolução por **claim**; nome e organização não são
+  claims.
+- **Achado de implementação:** a purga de papel-de-pessoa-em-organização **tem de ser passe
+  final**, depois das fusões. Por registro, ela deixava passar o AgroNotizie: a ficha do
+  canal chegava sem forma jurídica no nome, ganhava `agronomo`, e só a fusão revelava que a
+  entidade é o veículo. **Kind só é conhecido quando a entidade está inteira.**
+- **Dois marcadores corrigidos por medição:** `campo` saiu dos marcadores agronômicos
+  (casava *"campo da medicina"* e fazia o Medical Excellence TV virar AGRO); e hobby
+  **declarado** passou a vencer mesmo com marcador agronômico junto (*"mondo agricolo
+  hobbistico"*).
+- **Travas, todas medidas:** `ROLE_LOST_BY_WEIGHT = 0` ·
+  `ORGANIZATION_CLASSIFIED_AS_PERSON_ROLE = 0` · `PORTAL_CLASSIFIED_AS_AGRONOMIST = 0` ·
+  `NAME_OR_ORG_USED_AS_OPERATIONAL_ID = 0` · `FOLLOWERS_USED_AS_AUTHORITY = 0` ·
+  `ID_MIGRATION_LOSS = 0`.
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |
@@ -463,6 +552,6 @@ Regras do diário:
 | P-010 | Rota para `coltura × avversità` autorizada na Itália: `fitosanitari.salute.gov.it` falha no TLS desta saída e `servizi.salute.gov.it` devolve 502. Sem ela a matriz ADAMA IT diz onde procurar gente, não o que a etiqueta permite. | matriz IT, CASE-014 | 2026-09-04 |
 | P-011 | Rota para malherbologia italiana: o Europe PMC não a alcança (21 hits em `CEREAL\|GRASS_WEEDS`), e é onde o portfólio ADAMA IT é mais denso (26 herbicidas). Sociedade científica, atas, revista técnica. | cobertura CEREAL e SUGAR_BEET | 2026-09-04 |
 | P-012 | GDPR sobre a camada de sensores humanos IT: 135 pessoas nomeadas com afiliação e ORCID. Mesma pergunta de P-008, agora com registro gravado e não só fila. | REGISTRY IT, qualquer tela | 2026-09-04 |
-| P-013 | Qual é a cobertura REAL de `fontes.entidade_id` no Brasil? Três números no mesmo período: 47/95 (MAPA-DOS-DADOS.md:180), 57 (inventário 19/08), 3.275/3.299 (PLANO-location-resolver.md:683). A Itália precisa saber se o contrato está operante antes de se apoiar nele. | mapeamento IT→BR | 2026-09-04 |
-| P-014 | A Itália escreve no banco brasileiro ou mantém registro próprio espelhando o contrato? Decide se `MAPA-BRASIL.json` é destino final ou passo intermediário. | arquitetura EAME | 2026-09-04 |
+| P-013 | ~~Cobertura real de `fontes.entidade_id`?~~ — **resolvida** por D-024: `NÃO SEI` firme; os três números medem coisas diferentes e nenhum é cobertura. | — | resolvida 2026-09-04 |
+| P-014 | ~~A Itália escreve no banco brasileiro?~~ — **resolvida** por D-023: registro próprio, contrato espelhado, sem escrita no Brasil. | — | resolvida 2026-09-04 |
 | P-015 | Qual dono de CULTURA a Itália segue? O Brasil tem DUAS listas vivas — `vocabulario.py` CULTURA=9 (em produção) e `lavouras.py` CULTURAS=23 (autodeclarado dono único), com as 9 comuns divergindo em padrão. | vocabulário IT | 2026-09-04 |
