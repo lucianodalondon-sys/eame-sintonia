@@ -133,17 +133,130 @@ def ler_geometria(xml_path):
         for b in page.iter('block'):
             lines = []
             for ln in b.iter('line'):
-                t = ' '.join(w.text or '' for w in ln.iter('word')).strip()
+                ws = [{'x0': float(w.get('xMin')), 'x1': float(w.get('xMax')),
+                       't': html.unescape(w.text or '')}
+                      for w in ln.iter('word') if (w.text or '').strip()]
+                t = ' '.join(w['t'] for w in ws).strip()
                 if t:
+                    # As coordenadas de PALAVRA estavam sendo jogadas fora. Sem elas
+                    # nao ha como separar colunas que o extrator de PDF fundiu num
+                    # bloco so — e e isso que zera 008189, 014479 e 017955.
                     lines.append({'y0': float(ln.get('yMin')), 'y1': float(ln.get('yMax')),
-                                  'text': html.unescape(t)})
+                                  'text': html.unescape(t), 'words': ws})
             if not lines:
                 continue
             out.append({'page': pi, 'x0': float(b.get('xMin')), 'y0': float(b.get('yMin')),
                         'x1': float(b.get('xMax')), 'y1': float(b.get('yMax')),
                         'lines': lines,
                         'text': ' '.join(l['text'] for l in lines)})
+    # ⚠️ NAO cindir aqui. A cisao de colunas serve a UMA rota — a da tabela —
+    # e aplicar a todas destroi as outras: medido, o recall caiu de 0,868 para
+    # 0,504 porque as rotas de declaracao inline e de cabecalho dependem do bloco
+    # inteiro. A cisao passou a viver dentro de pares_geometricos.
     return out
+
+
+# ── COLUNA FUNDIDA DENTRO DE UM BLOCO ───────────────────────────────────────
+#
+# O extrator de PDF as vezes junta DUAS ou TRES colunas de tabela num unico
+# bloco. Quando isso acontece nao existe celula de cultura nenhuma para achar: o
+# texto vem como "Frumento tenero Septoria (Septoria tritici), Ruggini ...", com
+# a cultura e o patogeno na mesma linha do arquivo. Tres auditorias independentes
+# apontaram esta forma em 008189, 014479 e 017955.
+#
+# A separacao existe na PAGINA, e as coordenadas de palavra a preservam: entre a
+# coluna Coltura e a coluna Patogeno ha uma CALHA — uma faixa de x que nenhuma
+# palavra atravessa, em nenhuma linha do bloco. Cortar ali nao e inferencia; e ler
+# o que a pagina desenha.
+#
+#     SO CORTA ONDE NENHUMA PALAVRA ATRAVESSA, EM NENHUMA LINHA.
+#     Uma unica palavra cruzando a faixa cancela o corte — e sinal de que ali nao
+#     ha calha, e sim texto corrido.
+CALHA_MINIMA = 6.0
+
+# Cabecalho de coluna de tabela de uso. Quando ele existe, ele e a ancora certa:
+# a pagina DIZ onde cada coluna comeca, e nao ha por que adivinhar por estatistica.
+CAB_CULTURA = re.compile(r'^(?:coltur[ae]|colture\s+e\s+avversit|impieghi)$', re.I)
+CAB_ALVO = re.compile(r'^(?:patogen[oi]|parassit[oi]|malatti[ae]|avversit[àa]|'
+                      r'malattia\s+fungina|infestanti)$', re.I)
+
+
+def _ancoras_de_coluna(blocos, pagina):
+    """x das palavras de cabecalho 'Coltura' e 'Patogeno' na pagina."""
+    xs = []
+    for b in blocos:
+        if b['page'] != pagina:
+            continue
+        for l in b.get('lines', []):
+            for w in l.get('words', []):
+                t = w['t'].strip(' :|')
+                if CAB_CULTURA.match(t) or CAB_ALVO.match(t):
+                    xs.append(w['x0'])
+    return sorted(set(round(x, 1) for x in xs))
+
+
+def _calhas(bloco):
+    """Faixas de x que NENHUMA palavra do bloco ocupa."""
+    ivs = sorted((w['x0'], w['x1'])
+                 for l in bloco.get('lines', []) for w in l.get('words', []))
+    if len(ivs) < 6:
+        return []
+    fora, fim = [], ivs[0][1]
+    for a, b in ivs[1:]:
+        if a - fim > CALHA_MINIMA:
+            fora.append((fim, a))
+        fim = max(fim, b)
+    return fora
+
+
+def cindir_colunas(blocos):
+    """Cinde blocos que fundem colunas, usando a calha vertical."""
+    fora = []
+    for b in blocos:
+        lns = b.get('lines') or []
+        largura = b['x1'] - b['x0']
+        if len(lns) < 3 or largura < 180:
+            fora.append(b)
+            continue
+        cs = [c for c in _calhas(b) if (c[1] - c[0]) >= CALHA_MINIMA]
+        # exige que a calha seja larga o bastante para ser coluna, e nao espaco
+        cs = [c for c in cs if (c[1] - c[0]) >= max(CALHA_MINIMA, largura * 0.03)]
+        pontos = [(c[0] + c[1]) / 2 for c in cs]
+        # ANCORA DE CABECALHO. Quando a pagina traz 'Coltura' e 'Patogeno' como
+        # cabecalhos, o x deles diz onde a coluna comeca — e isso vale mesmo nas
+        # linhas em que uma palavra atravessa a calha, que e justamente o caso que
+        # derrotava a deteccao puramente estatistica (017955: a linha
+        # 'Orzo (invernale  Maculatura reticolare...' preenche a calha).
+        anc = [x for x in _ancoras_de_coluna(blocos, b['page'])
+               if b['x0'] + 8 < x < b['x1'] - 8]
+        for x in anc:
+            if all(abs(x - q) > CALHA_MINIMA for q in pontos):
+                pontos.append(x)
+        pontos = sorted(pontos)
+        if not pontos:
+            fora.append(b)
+            continue
+        cortes = [b['x0']] + pontos + [b['x1'] + 1]
+        partes = []
+        for i in range(len(cortes) - 1):
+            a, z = cortes[i], cortes[i + 1]
+            sub = []
+            for l in lns:
+                ws = [w for w in l.get('words', []) if a <= w['x0'] < z]
+                if ws:
+                    sub.append({'y0': l['y0'], 'y1': l['y1'],
+                                'text': ' '.join(w['t'] for w in ws), 'words': ws})
+            if sub:
+                partes.append({'page': b['page'],
+                               'x0': min(w['x0'] for l in sub for w in l['words']),
+                               'x1': max(w['x1'] for l in sub for w in l['words']),
+                               'y0': min(l['y0'] for l in sub),
+                               'y1': max(l['y1'] for l in sub),
+                               'lines': sub,
+                               'text': ' '.join(l['text'] for l in sub)})
+        # Cindir so vale a pena quando produz mais de uma parte com conteudo real.
+        fora.extend(partes if len(partes) > 1 else [b])
+    return fora
 
 
 # ── vocabulario ───────────────────────────────────────────────────────────────
@@ -315,6 +428,9 @@ def _celulas_de_cultura(b):
 def pares_geometricos(blocos):
     """Celula de cultura a esquerda + alvos na MESMA FAIXA a direita."""
     pares = []
+    # A cisao de coluna vale SO aqui: ela transforma um bloco que fundiu Coltura e
+    # Patogeno em duas celulas legiveis, sem tocar no que as outras rotas leem.
+    blocos = cindir_colunas(blocos)
     for pg in sorted({b['page'] for b in blocos}):
         pb = [b for b in blocos if b['page'] == pg]
         # celulas de cultura: bloco CURTO, dominado por nome de cultura

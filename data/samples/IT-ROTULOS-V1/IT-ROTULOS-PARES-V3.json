@@ -10,12 +10,12 @@
  "O_CONJUNTO_ANTIGO_CONTINUA_PINADO": "data/samples/IT-RADAR-V21/productRelationships.json",
  "PARSER_VERSION": "it_rotulo_parser/3.3.0",
  "TOTAL_LABELS": 163,
- "SUPPORTED_PAIRS": 2840,
- "AMBIGUOUS_ROWS": 134,
- "EXCLUDED_PAIRS": 66,
+ "SUPPORTED_PAIRS": 2845,
+ "AMBIGUOUS_ROWS": 139,
+ "EXCLUDED_PAIRS": 68,
  "SCOPE_COMBINATION_NOT_PUBLISHED": 20,
  "CROP_SCOPE_DECLARED_NOT_PUBLISHED": 3,
- "LABELS_WITHOUT_SUPPORTED_PAIR": 43,
+ "LABELS_WITHOUT_SUPPORTED_PAIR": 41,
  "LABELS_WITHOUT_SUPPORTED_PAIR_LIST": [
   {
    "REGISTRATION_ID": "008189",
@@ -30,11 +30,6 @@
   {
    "REGISTRATION_ID": "009783",
    "PRODUCT": "MAGNATE 500 EC",
-   "WHY": "NENHUM_PAR_SUPORTADO"
-  },
-  {
-   "REGISTRATION_ID": "009790",
-   "PRODUCT": "CONTATTO 320",
    "WHY": "NENHUM_PAR_SUPORTADO"
   },
   {
@@ -200,11 +195,6 @@
   {
    "REGISTRATION_ID": "017898",
    "PRODUCT": "RIMENSIS",
-   "WHY": "NENHUM_PAR_SUPORTADO"
-  },
-  {
-   "REGISTRATION_ID": "017955",
-   "PRODUCT": "MAGANIC",
    "WHY": "NENHUM_PAR_SUPORTADO"
   },
   {
@@ -13139,10 +13129,38 @@
   },
   {
    "CROP": "TABACCO",
+   "TARGET": "CIMICI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 21.0,
+   "CROP_AS_WRITTEN": "Tabacco",
+   "TARGET_AS_WRITTEN": "Cimici",
+   "PAGE": 2,
+   "CROP_Y": [
+    204.2,
+    211.6
+   ],
+   "TARGET_Y": [
+    182.8,
+    190.2
+   ],
+   "REGISTRATION_ID": "008259",
+   "PRODUCT": "LAMDEX EXTRA",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 008259 · p2 y[182.8, 190.2]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
+   "CROP": "TABACCO",
    "TARGET": "NOTTUE",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 0.1,
+   "ROW_MARGIN": 42.4,
    "CROP_AS_WRITTEN": "Tabacco",
    "TARGET_AS_WRITTEN": "Nottue defogliatrici (allo scoperto)",
    "PAGE": 2,
@@ -13170,7 +13188,7 @@
    "TARGET": "AFIDI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 17.7,
+   "ROW_MARGIN": 60.0,
    "CROP_AS_WRITTEN": "Tabacco",
    "TARGET_AS_WRITTEN": "Afidi e mosca bianca",
    "PAGE": 2,
@@ -13198,7 +13216,7 @@
    "TARGET": "MOSCA",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 17.7,
+   "ROW_MARGIN": 60.0,
    "CROP_AS_WRITTEN": "Tabacco",
    "TARGET_AS_WRITTEN": "Afidi e mosca bianca",
    "PAGE": 2,
@@ -13226,7 +13244,7 @@
    "TARGET": "TRIPIDI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 0.1,
+   "ROW_MARGIN": 49.0,
    "CROP_AS_WRITTEN": "Tabacco",
    "TARGET_AS_WRITTEN": "Tripidi e pulce del tabacco",
    "PAGE": 2,
@@ -13630,6 +13648,34 @@
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
+   "CROP": "RISO",
+   "TARGET": "INFESTANTI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 21.6,
+   "CROP_AS_WRITTEN": "graminicida, delle al riso crodo in risaia.",
+   "TARGET_AS_WRITTEN": "Trifoglio, alla dose di malerbe presenti",
+   "PAGE": 0,
+   "CROP_Y": [
+    268.1,
+    297.2
+   ],
+   "TARGET_Y": [
+    286.4,
+    315.4
+   ],
+   "REGISTRATION_ID": "009005",
+   "PRODUCT": "AGIL",
+   "ACTIVE_INGREDIENTS": [
+    "PROPAQUIZAFOP"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 009005 · p0 y[286.4, 315.4]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
    "CROP": "CARCIOFO",
    "TARGET": "INFESTANTI",
    "ROUTE": "INLINE_COLON_HEAD",
@@ -13654,33 +13700,6 @@
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
    "PROVENANCE": "MINISTERO_LABEL_PDF · 009005 · p0 y[325.0, 363.7]",
-   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
-  },
-  {
-   "CROP": "RISO",
-   "TARGET": "INFESTANTI",
-   "ROUTE": "INLINE_STATEMENT",
-   "RELATION": "SUPPORTED_PAIR",
-   "CROP_AS_WRITTEN": "Riso",
-   "TARGET_AS_WRITTEN": "trattamenti in pre-semina, dopo l’emergenza di riso crodo e giavone ( Echinochloa crus-galli ). Impiegare 1-1,2 l/ha di prodotto da solo oppure 0,75-1 l/ha in miscela con Glifosate",
-   "PAGE": 0,
-   "CROP_Y": [
-    373.3,
-    460.3
-   ],
-   "TARGET_Y": [
-    373.3,
-    460.3
-   ],
-   "REGISTRATION_ID": "009005",
-   "PRODUCT": "AGIL",
-   "ACTIVE_INGREDIENTS": [
-    "PROPAQUIZAFOP"
-   ],
-   "TAXONOMIC_STATUS": "UNKNOWN",
-   "TAXONOMIC_NOTE": null,
-   "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 009005 · p0 y[373.3, 460.3]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -14551,6 +14570,34 @@
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
    "PROVENANCE": "MINISTERO_LABEL_PDF · 009757 · p0 y[536.0, 552.7]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
+   "CROP": "BARBABIETOLA",
+   "TARGET": "INFESTANTI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 35.3,
+   "CROP_AS_WRITTEN": "Viene BARBABIETOLA ROSSA:",
+   "TARGET_AS_WRITTEN": "il diserbo di: DA ZUCCHERO E DA FORAGGIO",
+   "PAGE": 0,
+   "CROP_Y": [
+    337.8,
+    364.0
+   ],
+   "TARGET_Y": [
+    337.8,
+    355.7
+   ],
+   "REGISTRATION_ID": "009790",
+   "PRODUCT": "CONTATTO 320",
+   "ACTIVE_INGREDIENTS": [
+    "PHENMEDIPHAM"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 009790 · p0 y[337.8, 355.7]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -22998,6 +23045,62 @@
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
+   "CROP": "BARBABIETOLA",
+   "TARGET": "AFIDI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 4.0,
+   "CROP_AS_WRITTEN": "BARBABIETOLA",
+   "TARGET_AS_WRITTEN": "Afidi, adulti di Altica e in periodo vegetativo",
+   "PAGE": 0,
+   "CROP_Y": [
+    55.4,
+    62.2
+   ],
+   "TARGET_Y": [
+    55.4,
+    79.0
+   ],
+   "REGISTRATION_ID": "012573",
+   "PRODUCT": "EKO OIL SPRAY",
+   "ACTIVE_INGREDIENTS": [
+    "PARAFFIN OIL/(CAS 97862-82-3)"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 012573 · p0 y[55.4, 79.0]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
+   "CROP": "BARBABIETOLA",
+   "TARGET": "ALTICA",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 4.0,
+   "CROP_AS_WRITTEN": "BARBABIETOLA",
+   "TARGET_AS_WRITTEN": "Afidi, adulti di Altica e in periodo vegetativo",
+   "PAGE": 0,
+   "CROP_Y": [
+    55.4,
+    62.2
+   ],
+   "TARGET_Y": [
+    55.4,
+    79.0
+   ],
+   "REGISTRATION_ID": "012573",
+   "PRODUCT": "EKO OIL SPRAY",
+   "ACTIVE_INGREDIENTS": [
+    "PARAFFIN OIL/(CAS 97862-82-3)"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 012573 · p0 y[55.4, 79.0]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
    "CROP": "MELO",
    "TARGET": "ACARI",
    "ROUTE": "INLINE_COLON_HEAD",
@@ -26887,61 +26990,7 @@
   },
   {
    "CROP": "BARBABIETOLA",
-   "TARGET": "AFIDI",
-   "ROUTE": "INLINE_COLON_HEAD",
-   "RELATION": "SUPPORTED_PAIR",
-   "CROP_AS_WRITTEN": "BARBABIETOLA",
-   "TARGET_AS_WRITTEN": "contro Afidi, adulti di Altica e Cassida, Mosca in periodo vegetativo 1,0-2,5 l/hl ORNAMENTALI, FLOREALI, FORESTALI: contro Acari, Afidi, Aleurodidi, Cicaline, Cocciniglie, Ditteri",
-   "PAGE": 0,
-   "CROP_Y": [
-    29.8,
-    147.2
-   ],
-   "TARGET_Y": [
-    29.8,
-    147.2
-   ],
-   "REGISTRATION_ID": "012573",
-   "PRODUCT": "EKO OIL SPRAY",
-   "ACTIVE_INGREDIENTS": [
-    "PARAFFIN OIL/(CAS 97862-82-3)"
-   ],
-   "TAXONOMIC_STATUS": "UNKNOWN",
-   "TAXONOMIC_NOTE": null,
-   "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 012573 · p0 y[29.8, 147.2]",
-   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
-  },
-  {
-   "CROP": "BARBABIETOLA",
    "TARGET": "ALEURODIDI",
-   "ROUTE": "INLINE_COLON_HEAD",
-   "RELATION": "SUPPORTED_PAIR",
-   "CROP_AS_WRITTEN": "BARBABIETOLA",
-   "TARGET_AS_WRITTEN": "contro Afidi, adulti di Altica e Cassida, Mosca in periodo vegetativo 1,0-2,5 l/hl ORNAMENTALI, FLOREALI, FORESTALI: contro Acari, Afidi, Aleurodidi, Cicaline, Cocciniglie, Ditteri",
-   "PAGE": 0,
-   "CROP_Y": [
-    29.8,
-    147.2
-   ],
-   "TARGET_Y": [
-    29.8,
-    147.2
-   ],
-   "REGISTRATION_ID": "012573",
-   "PRODUCT": "EKO OIL SPRAY",
-   "ACTIVE_INGREDIENTS": [
-    "PARAFFIN OIL/(CAS 97862-82-3)"
-   ],
-   "TAXONOMIC_STATUS": "UNKNOWN",
-   "TAXONOMIC_NOTE": null,
-   "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 012573 · p0 y[29.8, 147.2]",
-   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
-  },
-  {
-   "CROP": "BARBABIETOLA",
-   "TARGET": "ALTICA",
    "ROUTE": "INLINE_COLON_HEAD",
    "RELATION": "SUPPORTED_PAIR",
    "CROP_AS_WRITTEN": "BARBABIETOLA",
@@ -33202,10 +33251,38 @@
   },
   {
    "CROP": "TABACCO",
+   "TARGET": "CIMICI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 20.9,
+   "CROP_AS_WRITTEN": "Tabacco",
+   "TARGET_AS_WRITTEN": "Cimici",
+   "PAGE": 2,
+   "CROP_Y": [
+    193.5,
+    200.9
+   ],
+   "TARGET_Y": [
+    172.1,
+    179.5
+   ],
+   "REGISTRATION_ID": "013560",
+   "PRODUCT": "FORZA",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 013560 · p2 y[172.1, 179.5]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
+   "CROP": "TABACCO",
    "TARGET": "NOTTUE",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 0.1,
+   "ROW_MARGIN": 42.4,
    "CROP_AS_WRITTEN": "Tabacco",
    "TARGET_AS_WRITTEN": "Nottue defogliatrici (allo scoperto)",
    "PAGE": 2,
@@ -33233,7 +33310,7 @@
    "TARGET": "AFIDI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 17.7,
+   "ROW_MARGIN": 60.0,
    "CROP_AS_WRITTEN": "Tabacco",
    "TARGET_AS_WRITTEN": "Afidi e mosca bianca",
    "PAGE": 2,
@@ -33261,7 +33338,7 @@
    "TARGET": "MOSCA",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 17.7,
+   "ROW_MARGIN": 60.0,
    "CROP_AS_WRITTEN": "Tabacco",
    "TARGET_AS_WRITTEN": "Afidi e mosca bianca",
    "PAGE": 2,
@@ -33289,7 +33366,7 @@
    "TARGET": "TRIPIDI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 0.1,
+   "ROW_MARGIN": 49.0,
    "CROP_AS_WRITTEN": "Tabacco",
    "TARGET_AS_WRITTEN": "Tripidi e pulce del tabacco",
    "PAGE": 2,
@@ -38352,10 +38429,38 @@
   },
   {
    "CROP": "TABACCO",
+   "TARGET": "CIMICI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 20.9,
+   "CROP_AS_WRITTEN": "Tabacco",
+   "TARGET_AS_WRITTEN": "Cimici",
+   "PAGE": 2,
+   "CROP_Y": [
+    193.5,
+    200.9
+   ],
+   "TARGET_Y": [
+    172.1,
+    179.5
+   ],
+   "REGISTRATION_ID": "013590",
+   "PRODUCT": "NINJA",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 013590 · p2 y[172.1, 179.5]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
+   "CROP": "TABACCO",
    "TARGET": "NOTTUE",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 0.1,
+   "ROW_MARGIN": 42.4,
    "CROP_AS_WRITTEN": "Tabacco",
    "TARGET_AS_WRITTEN": "Nottue defogliatrici (allo scoperto)",
    "PAGE": 2,
@@ -38383,7 +38488,7 @@
    "TARGET": "AFIDI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 17.7,
+   "ROW_MARGIN": 60.0,
    "CROP_AS_WRITTEN": "Tabacco",
    "TARGET_AS_WRITTEN": "Afidi e mosca bianca",
    "PAGE": 2,
@@ -38411,7 +38516,7 @@
    "TARGET": "MOSCA",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 17.7,
+   "ROW_MARGIN": 60.0,
    "CROP_AS_WRITTEN": "Tabacco",
    "TARGET_AS_WRITTEN": "Afidi e mosca bianca",
    "PAGE": 2,
@@ -38439,7 +38544,7 @@
    "TARGET": "TRIPIDI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 0.1,
+   "ROW_MARGIN": 49.0,
    "CROP_AS_WRITTEN": "Tabacco",
    "TARGET_AS_WRITTEN": "Tripidi e pulce del tabacco",
    "PAGE": 2,
@@ -46443,20 +46548,21 @@
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
-   "CROP": "COLZA",
+   "CROP": "AGLIO",
    "TARGET": "INFESTANTI",
-   "ROUTE": "INLINE_STATEMENT",
+   "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "CROP_AS_WRITTEN": "Colza",
-   "TARGET_AS_WRITTEN": "2 litri in 400-500 litri di acqua per ettaro. Il trattamento si effettua preferibilmente in pre-emergenza, cioè subito dopo la semina ed al più tardi entro 3 giorni. Il trattamento",
+   "ROW_MARGIN": 23.2,
+   "CROP_AS_WRITTEN": "per colza, cavoli a cavoli a foglia e aglio CONCENTRATA",
+   "TARGET_AS_WRITTEN": "3 giorni. le infestanti cavoli a",
    "PAGE": 0,
    "CROP_Y": [
-    65.7,
-    179.0
+    123.1,
+    157.4
    ],
    "TARGET_Y": [
-    65.7,
-    179.0
+    84.9,
+    150.2
    ],
    "REGISTRATION_ID": "014380",
    "PRODUCT": "CLORMET",
@@ -46466,24 +46572,25 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 014380 · p0 y[65.7, 179.0]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 014380 · p0 y[84.9, 150.2]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
-   "CROP": "AGLIO",
+   "CROP": "CAVOLO",
    "TARGET": "INFESTANTI",
-   "ROUTE": "INLINE_STATEMENT",
+   "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "CROP_AS_WRITTEN": "Aglio",
-   "TARGET_AS_WRITTEN": "1,5 - 2 litri in 400-500 litri di acqua per ettaro. Trattare preferibilmente subito dopo la messa a dimora dei bulbilli oppure in post-emergenza quando la coltura ha sviluppato 2 -",
+   "ROW_MARGIN": 23.2,
+   "CROP_AS_WRITTEN": "per colza, cavoli a cavoli a foglia e aglio CONCENTRATA",
+   "TARGET_AS_WRITTEN": "3 giorni. le infestanti cavoli a",
    "PAGE": 0,
    "CROP_Y": [
-    190.5,
-    227.0
+    123.1,
+    157.4
    ],
    "TARGET_Y": [
-    190.5,
-    227.0
+    84.9,
+    150.2
    ],
    "REGISTRATION_ID": "014380",
    "PRODUCT": "CLORMET",
@@ -46493,7 +46600,35 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 014380 · p0 y[190.5, 227.0]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 014380 · p0 y[84.9, 150.2]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
+   "CROP": "COLZA",
+   "TARGET": "INFESTANTI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 23.2,
+   "CROP_AS_WRITTEN": "per colza, cavoli a cavoli a foglia e aglio CONCENTRATA",
+   "TARGET_AS_WRITTEN": "3 giorni. le infestanti cavoli a",
+   "PAGE": 0,
+   "CROP_Y": [
+    123.1,
+    157.4
+   ],
+   "TARGET_Y": [
+    84.9,
+    150.2
+   ],
+   "REGISTRATION_ID": "014380",
+   "PRODUCT": "CLORMET",
+   "ACTIVE_INGREDIENTS": [
+    "METAZACHLOR"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 014380 · p0 y[84.9, 150.2]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -57821,6 +57956,34 @@
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
+   "CROP": "PERO",
+   "TARGET": "INFESTANTI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 70.9,
+   "CROP_AS_WRITTEN": "PERO, con massima",
+   "TARGET_AS_WRITTEN": "DA E DA in bande fusto non il diserbo",
+   "PAGE": 0,
+   "CROP_Y": [
+    488.7,
+    542.0
+   ],
+   "TARGET_Y": [
+    479.6,
+    532.9
+   ],
+   "REGISTRATION_ID": "015405",
+   "PRODUCT": "SHAMAL MK PLUS CL",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 015405 · p0 y[479.6, 532.9]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
    "CROP": "AGRUMI",
    "TARGET": "INFESTANTI",
    "ROUTE": "INLINE_STATEMENT",
@@ -57957,33 +58120,6 @@
   },
   {
    "CROP": "OLIVO",
-   "TARGET": "INFESTANTI",
-   "ROUTE": "INLINE_STATEMENT",
-   "RELATION": "SUPPORTED_PAIR",
-   "CROP_AS_WRITTEN": "ARBOREE (AGRUMI, DRUPACEE, OLIVO DA OLIO E DA TAVOLA, MELO, PERO, VITE DA VINO E",
-   "TARGET_AS_WRITTEN": "Effettuare un massimo di 3 applicazioni l’anno in bande lungo la fila, evitando il contatto con foglie e parti del fusto non lignificate, senza eccedere la dose massima di 10 l/ha.",
-   "PAGE": 0,
-   "CROP_Y": [
-    479.6,
-    542.0
-   ],
-   "TARGET_Y": [
-    479.6,
-    542.0
-   ],
-   "REGISTRATION_ID": "015405",
-   "PRODUCT": "SHAMAL MK PLUS CL",
-   "ACTIVE_INGREDIENTS": [
-    "GLYPHOSATE"
-   ],
-   "TAXONOMIC_STATUS": "UNKNOWN",
-   "TAXONOMIC_NOTE": null,
-   "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 015405 · p0 y[479.6, 542.0]",
-   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
-  },
-  {
-   "CROP": "PERO",
    "TARGET": "INFESTANTI",
    "ROUTE": "INLINE_STATEMENT",
    "RELATION": "SUPPORTED_PAIR",
@@ -58435,16 +58571,16 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 30.9,
+   "ROW_MARGIN": 23.0,
    "CROP_AS_WRITTEN": "Usi autorizzati: frumento tenero e duro, segale, triticale, orzo, avena, mais, c",
-   "TARGET_AS_WRITTEN": "Aree non coltivate: Applicare in post-emergenza delle malerbe alla dose di 1 – 1,5 l/ha, con 200-400 litri d’acqua ettaro. Sono consentite 2 applicazioni l’anno nel periodo primave",
+   "TARGET_AS_WRITTEN": "delle malerbe litri d’acqua ettaro. Sono e autunnale.",
    "PAGE": 0,
    "CROP_Y": [
     396.4,
     425.6
    ],
    "TARGET_Y": [
-    404.4,
+    414.1,
     443.2
    ],
    "REGISTRATION_ID": "016312",
@@ -58455,7 +58591,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[404.4, 443.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[414.1, 443.2]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -58463,16 +58599,16 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 30.9,
+   "ROW_MARGIN": 23.0,
    "CROP_AS_WRITTEN": "Usi autorizzati: frumento tenero e duro, segale, triticale, orzo, avena, mais, c",
-   "TARGET_AS_WRITTEN": "Aree non coltivate: Applicare in post-emergenza delle malerbe alla dose di 1 – 1,5 l/ha, con 200-400 litri d’acqua ettaro. Sono consentite 2 applicazioni l’anno nel periodo primave",
+   "TARGET_AS_WRITTEN": "delle malerbe litri d’acqua ettaro. Sono e autunnale.",
    "PAGE": 0,
    "CROP_Y": [
     396.4,
     425.6
    ],
    "TARGET_Y": [
-    404.4,
+    414.1,
     443.2
    ],
    "REGISTRATION_ID": "016312",
@@ -58483,7 +58619,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[404.4, 443.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[414.1, 443.2]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -58491,16 +58627,16 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 30.9,
+   "ROW_MARGIN": 23.0,
    "CROP_AS_WRITTEN": "Usi autorizzati: frumento tenero e duro, segale, triticale, orzo, avena, mais, c",
-   "TARGET_AS_WRITTEN": "Aree non coltivate: Applicare in post-emergenza delle malerbe alla dose di 1 – 1,5 l/ha, con 200-400 litri d’acqua ettaro. Sono consentite 2 applicazioni l’anno nel periodo primave",
+   "TARGET_AS_WRITTEN": "delle malerbe litri d’acqua ettaro. Sono e autunnale.",
    "PAGE": 0,
    "CROP_Y": [
     396.4,
     425.6
    ],
    "TARGET_Y": [
-    404.4,
+    414.1,
     443.2
    ],
    "REGISTRATION_ID": "016312",
@@ -58511,7 +58647,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[404.4, 443.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[414.1, 443.2]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -58519,16 +58655,16 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 30.9,
+   "ROW_MARGIN": 23.0,
    "CROP_AS_WRITTEN": "Usi autorizzati: frumento tenero e duro, segale, triticale, orzo, avena, mais, c",
-   "TARGET_AS_WRITTEN": "Aree non coltivate: Applicare in post-emergenza delle malerbe alla dose di 1 – 1,5 l/ha, con 200-400 litri d’acqua ettaro. Sono consentite 2 applicazioni l’anno nel periodo primave",
+   "TARGET_AS_WRITTEN": "delle malerbe litri d’acqua ettaro. Sono e autunnale.",
    "PAGE": 0,
    "CROP_Y": [
     396.4,
     425.6
    ],
    "TARGET_Y": [
-    404.4,
+    414.1,
     443.2
    ],
    "REGISTRATION_ID": "016312",
@@ -58539,7 +58675,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[404.4, 443.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[414.1, 443.2]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -58547,16 +58683,16 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 30.9,
+   "ROW_MARGIN": 23.0,
    "CROP_AS_WRITTEN": "Usi autorizzati: frumento tenero e duro, segale, triticale, orzo, avena, mais, c",
-   "TARGET_AS_WRITTEN": "Aree non coltivate: Applicare in post-emergenza delle malerbe alla dose di 1 – 1,5 l/ha, con 200-400 litri d’acqua ettaro. Sono consentite 2 applicazioni l’anno nel periodo primave",
+   "TARGET_AS_WRITTEN": "delle malerbe litri d’acqua ettaro. Sono e autunnale.",
    "PAGE": 0,
    "CROP_Y": [
     396.4,
     425.6
    ],
    "TARGET_Y": [
-    404.4,
+    414.1,
     443.2
    ],
    "REGISTRATION_ID": "016312",
@@ -58567,7 +58703,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[404.4, 443.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[414.1, 443.2]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -58575,16 +58711,16 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 30.9,
+   "ROW_MARGIN": 23.0,
    "CROP_AS_WRITTEN": "Usi autorizzati: frumento tenero e duro, segale, triticale, orzo, avena, mais, c",
-   "TARGET_AS_WRITTEN": "Aree non coltivate: Applicare in post-emergenza delle malerbe alla dose di 1 – 1,5 l/ha, con 200-400 litri d’acqua ettaro. Sono consentite 2 applicazioni l’anno nel periodo primave",
+   "TARGET_AS_WRITTEN": "delle malerbe litri d’acqua ettaro. Sono e autunnale.",
    "PAGE": 0,
    "CROP_Y": [
     396.4,
     425.6
    ],
    "TARGET_Y": [
-    404.4,
+    414.1,
     443.2
    ],
    "REGISTRATION_ID": "016312",
@@ -58595,7 +58731,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[404.4, 443.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[414.1, 443.2]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -58603,16 +58739,16 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 30.9,
+   "ROW_MARGIN": 23.0,
    "CROP_AS_WRITTEN": "Usi autorizzati: frumento tenero e duro, segale, triticale, orzo, avena, mais, c",
-   "TARGET_AS_WRITTEN": "Aree non coltivate: Applicare in post-emergenza delle malerbe alla dose di 1 – 1,5 l/ha, con 200-400 litri d’acqua ettaro. Sono consentite 2 applicazioni l’anno nel periodo primave",
+   "TARGET_AS_WRITTEN": "delle malerbe litri d’acqua ettaro. Sono e autunnale.",
    "PAGE": 0,
    "CROP_Y": [
     396.4,
     425.6
    ],
    "TARGET_Y": [
-    404.4,
+    414.1,
     443.2
    ],
    "REGISTRATION_ID": "016312",
@@ -58623,7 +58759,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[404.4, 443.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[414.1, 443.2]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -58631,16 +58767,16 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 30.9,
+   "ROW_MARGIN": 23.0,
    "CROP_AS_WRITTEN": "Usi autorizzati: frumento tenero e duro, segale, triticale, orzo, avena, mais, c",
-   "TARGET_AS_WRITTEN": "Aree non coltivate: Applicare in post-emergenza delle malerbe alla dose di 1 – 1,5 l/ha, con 200-400 litri d’acqua ettaro. Sono consentite 2 applicazioni l’anno nel periodo primave",
+   "TARGET_AS_WRITTEN": "delle malerbe litri d’acqua ettaro. Sono e autunnale.",
    "PAGE": 0,
    "CROP_Y": [
     396.4,
     425.6
    ],
    "TARGET_Y": [
-    404.4,
+    414.1,
     443.2
    ],
    "REGISTRATION_ID": "016312",
@@ -58651,7 +58787,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[404.4, 443.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[414.1, 443.2]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -58659,16 +58795,16 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 30.9,
+   "ROW_MARGIN": 23.0,
    "CROP_AS_WRITTEN": "Usi autorizzati: frumento tenero e duro, segale, triticale, orzo, avena, mais, c",
-   "TARGET_AS_WRITTEN": "Aree non coltivate: Applicare in post-emergenza delle malerbe alla dose di 1 – 1,5 l/ha, con 200-400 litri d’acqua ettaro. Sono consentite 2 applicazioni l’anno nel periodo primave",
+   "TARGET_AS_WRITTEN": "delle malerbe litri d’acqua ettaro. Sono e autunnale.",
    "PAGE": 0,
    "CROP_Y": [
     396.4,
     425.6
    ],
    "TARGET_Y": [
-    404.4,
+    414.1,
     443.2
    ],
    "REGISTRATION_ID": "016312",
@@ -58679,7 +58815,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[404.4, 443.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[414.1, 443.2]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -58687,16 +58823,16 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 30.9,
+   "ROW_MARGIN": 23.0,
    "CROP_AS_WRITTEN": "Usi autorizzati: frumento tenero e duro, segale, triticale, orzo, avena, mais, c",
-   "TARGET_AS_WRITTEN": "Aree non coltivate: Applicare in post-emergenza delle malerbe alla dose di 1 – 1,5 l/ha, con 200-400 litri d’acqua ettaro. Sono consentite 2 applicazioni l’anno nel periodo primave",
+   "TARGET_AS_WRITTEN": "delle malerbe litri d’acqua ettaro. Sono e autunnale.",
    "PAGE": 0,
    "CROP_Y": [
     396.4,
     425.6
    ],
    "TARGET_Y": [
-    404.4,
+    414.1,
     443.2
    ],
    "REGISTRATION_ID": "016312",
@@ -58707,7 +58843,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[404.4, 443.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[414.1, 443.2]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -58715,16 +58851,16 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 30.9,
+   "ROW_MARGIN": 23.0,
    "CROP_AS_WRITTEN": "Usi autorizzati: frumento tenero e duro, segale, triticale, orzo, avena, mais, c",
-   "TARGET_AS_WRITTEN": "Aree non coltivate: Applicare in post-emergenza delle malerbe alla dose di 1 – 1,5 l/ha, con 200-400 litri d’acqua ettaro. Sono consentite 2 applicazioni l’anno nel periodo primave",
+   "TARGET_AS_WRITTEN": "delle malerbe litri d’acqua ettaro. Sono e autunnale.",
    "PAGE": 0,
    "CROP_Y": [
     396.4,
     425.6
    ],
    "TARGET_Y": [
-    404.4,
+    414.1,
     443.2
    ],
    "REGISTRATION_ID": "016312",
@@ -58735,7 +58871,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[404.4, 443.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[414.1, 443.2]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -58743,16 +58879,16 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 30.9,
+   "ROW_MARGIN": 23.0,
    "CROP_AS_WRITTEN": "Usi autorizzati: frumento tenero e duro, segale, triticale, orzo, avena, mais, c",
-   "TARGET_AS_WRITTEN": "Aree non coltivate: Applicare in post-emergenza delle malerbe alla dose di 1 – 1,5 l/ha, con 200-400 litri d’acqua ettaro. Sono consentite 2 applicazioni l’anno nel periodo primave",
+   "TARGET_AS_WRITTEN": "delle malerbe litri d’acqua ettaro. Sono e autunnale.",
    "PAGE": 0,
    "CROP_Y": [
     396.4,
     425.6
    ],
    "TARGET_Y": [
-    404.4,
+    414.1,
     443.2
    ],
    "REGISTRATION_ID": "016312",
@@ -58763,7 +58899,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[404.4, 443.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[414.1, 443.2]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -58771,16 +58907,16 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 30.9,
+   "ROW_MARGIN": 23.0,
    "CROP_AS_WRITTEN": "Usi autorizzati: frumento tenero e duro, segale, triticale, orzo, avena, mais, c",
-   "TARGET_AS_WRITTEN": "Aree non coltivate: Applicare in post-emergenza delle malerbe alla dose di 1 – 1,5 l/ha, con 200-400 litri d’acqua ettaro. Sono consentite 2 applicazioni l’anno nel periodo primave",
+   "TARGET_AS_WRITTEN": "delle malerbe litri d’acqua ettaro. Sono e autunnale.",
    "PAGE": 0,
    "CROP_Y": [
     396.4,
     425.6
    ],
    "TARGET_Y": [
-    404.4,
+    414.1,
     443.2
    ],
    "REGISTRATION_ID": "016312",
@@ -58791,7 +58927,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[404.4, 443.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 016312 · p0 y[414.1, 443.2]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -74222,148 +74358,32 @@
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
-   "CROP": "BARBABIETOLA",
-   "TARGET": "AFIDI",
+   "CROP": "FRUMENTO",
+   "TARGET": "FUSARIOSI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 4.9,
-   "CROP_AS_WRITTEN": "Barbabietola da zucchero, girasole",
-   "TARGET_AS_WRITTEN": "Contro afidi (Dysaphis plantaginea, Aphis pomi) impiegare a 2 l/ha intervenendo tra gli stadi di gemme rigonfie e post-fioritura.",
+   "ROW_MARGIN": 16.3,
+   "CROP_AS_WRITTEN": "Frumento tenero e duro (invernale e primaverile)",
+   "TARGET_AS_WRITTEN": "Fusariosi della e Microdochium e puntiforme o teres),",
    "PAGE": 0,
    "CROP_Y": [
-    345.0,
-    372.5
+    119.6,
+    148.7
    ],
    "TARGET_Y": [
-    337.8,
-    354.7
+    129.9,
+    180.2
    ],
-   "REGISTRATION_ID": "017968",
-   "PRODUCT": "MAVRIK JET",
+   "REGISTRATION_ID": "017955",
+   "PRODUCT": "MAGANIC",
    "ACTIVE_INGREDIENTS": [
-    "TAU-FLUVALINATE",
-    "PIRIMICARB"
+    "DIFENOCONAZOLE",
+    "PROTHIOCONAZOLE"
    ],
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p0 y[337.8, 354.7]",
-   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
-  },
-  {
-   "CROP": "GIRASOLE",
-   "TARGET": "AFIDI",
-   "ROUTE": "GEOMETRIC_TABLE",
-   "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 4.9,
-   "CROP_AS_WRITTEN": "Barbabietola da zucchero, girasole",
-   "TARGET_AS_WRITTEN": "Contro afidi (Dysaphis plantaginea, Aphis pomi) impiegare a 2 l/ha intervenendo tra gli stadi di gemme rigonfie e post-fioritura.",
-   "PAGE": 0,
-   "CROP_Y": [
-    345.0,
-    372.5
-   ],
-   "TARGET_Y": [
-    337.8,
-    354.7
-   ],
-   "REGISTRATION_ID": "017968",
-   "PRODUCT": "MAVRIK JET",
-   "ACTIVE_INGREDIENTS": [
-    "TAU-FLUVALINATE",
-    "PIRIMICARB"
-   ],
-   "TAXONOMIC_STATUS": "UNKNOWN",
-   "TAXONOMIC_NOTE": null,
-   "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p0 y[337.8, 354.7]",
-   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
-  },
-  {
-   "CROP": "CAROTA",
-   "TARGET": "AFIDI",
-   "ROUTE": "GEOMETRIC_TABLE",
-   "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 8.1,
-   "CROP_AS_WRITTEN": "Carota",
-   "TARGET_AS_WRITTEN": "Contro afidi (Sitobion avenae) e ditteri cecidomidi (Sitodiplosis mosellana) impiegare a 2 l/ha , intervenendo tra inizio spigatura ed inizio maturazione lattea.",
-   "PAGE": 0,
-   "CROP_Y": [
-    394.8,
-    403.0
-   ],
-   "TARGET_Y": [
-    377.8,
-    403.9
-   ],
-   "REGISTRATION_ID": "017968",
-   "PRODUCT": "MAVRIK JET",
-   "ACTIVE_INGREDIENTS": [
-    "TAU-FLUVALINATE",
-    "PIRIMICARB"
-   ],
-   "TAXONOMIC_STATUS": "UNKNOWN",
-   "TAXONOMIC_NOTE": null,
-   "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p0 y[377.8, 403.9]",
-   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
-  },
-  {
-   "CROP": "CAROTA",
-   "TARGET": "CECIDOMIA",
-   "ROUTE": "GEOMETRIC_TABLE",
-   "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 8.1,
-   "CROP_AS_WRITTEN": "Carota",
-   "TARGET_AS_WRITTEN": "Contro afidi (Sitobion avenae) e ditteri cecidomidi (Sitodiplosis mosellana) impiegare a 2 l/ha , intervenendo tra inizio spigatura ed inizio maturazione lattea.",
-   "PAGE": 0,
-   "CROP_Y": [
-    394.8,
-    403.0
-   ],
-   "TARGET_Y": [
-    377.8,
-    403.9
-   ],
-   "REGISTRATION_ID": "017968",
-   "PRODUCT": "MAVRIK JET",
-   "ACTIVE_INGREDIENTS": [
-    "TAU-FLUVALINATE",
-    "PIRIMICARB"
-   ],
-   "TAXONOMIC_STATUS": "UNKNOWN",
-   "TAXONOMIC_NOTE": null,
-   "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p0 y[377.8, 403.9]",
-   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
-  },
-  {
-   "CROP": "CAROTA",
-   "TARGET": "DITTERI",
-   "ROUTE": "GEOMETRIC_TABLE",
-   "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 8.1,
-   "CROP_AS_WRITTEN": "Carota",
-   "TARGET_AS_WRITTEN": "Contro afidi (Sitobion avenae) e ditteri cecidomidi (Sitodiplosis mosellana) impiegare a 2 l/ha , intervenendo tra inizio spigatura ed inizio maturazione lattea.",
-   "PAGE": 0,
-   "CROP_Y": [
-    394.8,
-    403.0
-   ],
-   "TARGET_Y": [
-    377.8,
-    403.9
-   ],
-   "REGISTRATION_ID": "017968",
-   "PRODUCT": "MAVRIK JET",
-   "ACTIVE_INGREDIENTS": [
-    "TAU-FLUVALINATE",
-    "PIRIMICARB"
-   ],
-   "TAXONOMIC_STATUS": "UNKNOWN",
-   "TAXONOMIC_NOTE": null,
-   "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p0 y[377.8, 403.9]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 017955 · p0 y[129.9, 180.2]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -74371,17 +74391,17 @@
    "TARGET": "AFIDI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 27.9,
-   "CROP_AS_WRITTEN": "Melone, zucchino, cetriolo, cetriolino",
-   "TARGET_AS_WRITTEN": "Contro afidi (Brevicoryne brassicae, Myzus persicae) impiegare a 2.5 l/ha in applicazioni autunnali ed a 2 l/ha in applicazioni primaverili intervenendo tra gli stadi di seconda (c",
+   "ROW_MARGIN": 47.6,
+   "CROP_AS_WRITTEN": "in una fascia patata, melone, zucchino, cetriolino,",
+   "TARGET_AS_WRITTEN": "da zucchero afidi (Aphis fabae) impiegare di seconda foglia e la raccolta.",
    "PAGE": 0,
    "CROP_Y": [
-    420.5,
-    457.6
+    485.3,
+    526.2
    ],
    "TARGET_Y": [
-    428.8,
-    465.1
+    477.3,
+    506.9
    ],
    "REGISTRATION_ID": "017968",
    "PRODUCT": "MAVRIK JET",
@@ -74392,7 +74412,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p0 y[428.8, 465.1]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p0 y[477.3, 506.9]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -74400,17 +74420,17 @@
    "TARGET": "AFIDI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 27.9,
-   "CROP_AS_WRITTEN": "Melone, zucchino, cetriolo, cetriolino",
-   "TARGET_AS_WRITTEN": "Contro afidi (Brevicoryne brassicae, Myzus persicae) impiegare a 2.5 l/ha in applicazioni autunnali ed a 2 l/ha in applicazioni primaverili intervenendo tra gli stadi di seconda (c",
+   "ROW_MARGIN": 47.6,
+   "CROP_AS_WRITTEN": "in una fascia patata, melone, zucchino, cetriolino,",
+   "TARGET_AS_WRITTEN": "da zucchero afidi (Aphis fabae) impiegare di seconda foglia e la raccolta.",
    "PAGE": 0,
    "CROP_Y": [
-    420.5,
-    457.6
+    485.3,
+    526.2
    ],
    "TARGET_Y": [
-    428.8,
-    465.1
+    477.3,
+    506.9
    ],
    "REGISTRATION_ID": "017968",
    "PRODUCT": "MAVRIK JET",
@@ -74421,7 +74441,36 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p0 y[428.8, 465.1]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p0 y[477.3, 506.9]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
+   "CROP": "PATATA",
+   "TARGET": "AFIDI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 47.6,
+   "CROP_AS_WRITTEN": "in una fascia patata, melone, zucchino, cetriolino,",
+   "TARGET_AS_WRITTEN": "da zucchero afidi (Aphis fabae) impiegare di seconda foglia e la raccolta.",
+   "PAGE": 0,
+   "CROP_Y": [
+    485.3,
+    526.2
+   ],
+   "TARGET_Y": [
+    477.3,
+    506.9
+   ],
+   "REGISTRATION_ID": "017968",
+   "PRODUCT": "MAVRIK JET",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE",
+    "PIRIMICARB"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p0 y[477.3, 506.9]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -74429,17 +74478,17 @@
    "TARGET": "AFIDI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 27.9,
-   "CROP_AS_WRITTEN": "Melone, zucchino, cetriolo, cetriolino",
-   "TARGET_AS_WRITTEN": "Contro afidi (Brevicoryne brassicae, Myzus persicae) impiegare a 2.5 l/ha in applicazioni autunnali ed a 2 l/ha in applicazioni primaverili intervenendo tra gli stadi di seconda (c",
+   "ROW_MARGIN": 47.6,
+   "CROP_AS_WRITTEN": "in una fascia patata, melone, zucchino, cetriolino,",
+   "TARGET_AS_WRITTEN": "da zucchero afidi (Aphis fabae) impiegare di seconda foglia e la raccolta.",
    "PAGE": 0,
    "CROP_Y": [
-    420.5,
-    457.6
+    485.3,
+    526.2
    ],
    "TARGET_Y": [
-    428.8,
-    465.1
+    477.3,
+    506.9
    ],
    "REGISTRATION_ID": "017968",
    "PRODUCT": "MAVRIK JET",
@@ -74450,7 +74499,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p0 y[428.8, 465.1]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p0 y[477.3, 506.9]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -74706,6 +74755,62 @@
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
+   "CROP": "BARBABIETOLA",
+   "TARGET": "AFIDI",
+   "ROUTE": "HEADER_CONTINUATION",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_AS_WRITTEN": "Barbabietola da zucchero",
+   "TARGET_AS_WRITTEN": "Contro afidi (Aphis fabae) impiegare a 3 l/ha, intervenendo tra lo stadio di seconda foglia e la raccolta.",
+   "PAGE": 0,
+   "CROP_Y": [
+    477.3,
+    506.9
+   ],
+   "TARGET_Y": [
+    477.3,
+    506.9
+   ],
+   "REGISTRATION_ID": "017968",
+   "PRODUCT": "MAVRIK JET",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE",
+    "PIRIMICARB"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p0 y[477.3, 506.9]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
+   "CROP": "GIRASOLE",
+   "TARGET": "AFIDI",
+   "ROUTE": "HEADER_CONTINUATION",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_AS_WRITTEN": "Girasole",
+   "TARGET_AS_WRITTEN": "Contro afidi (Brachycaudus helichrysi) impiegare a 3 l/ha intervenendo dallo stadio di terza foglia al completamento dello sviluppo fogliare.",
+   "PAGE": 1,
+   "CROP_Y": [
+    169.0,
+    208.0
+   ],
+   "TARGET_Y": [
+    169.0,
+    208.0
+   ],
+   "REGISTRATION_ID": "017968",
+   "PRODUCT": "MAVRIK JET",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE",
+    "PIRIMICARB"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p1 y[169.0, 208.0]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
    "CROP": "CARCIOFO",
    "TARGET": "AFIDI",
    "ROUTE": "HEADER_CONTINUATION",
@@ -74731,6 +74836,34 @@
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
    "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p1 y[221.1, 260.0]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
+   "CROP": "CAROTA",
+   "TARGET": "AFIDI",
+   "ROUTE": "HEADER_CONTINUATION",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_AS_WRITTEN": "Carota",
+   "TARGET_AS_WRITTEN": "Contro afidi (Cavariella aegopodii, Myzus persicae, Semiaphis dauci) impiegare a 2,7 l/ha intervenendo tra lo stadio di terza foglia e la raccolta.",
+   "PAGE": 1,
+   "CROP_Y": [
+    273.1,
+    312.0
+   ],
+   "TARGET_Y": [
+    273.1,
+    312.0
+   ],
+   "REGISTRATION_ID": "017968",
+   "PRODUCT": "MAVRIK JET",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE",
+    "PIRIMICARB"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p1 y[273.1, 312.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -76980,9 +77113,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.2,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.4,
@@ -76990,7 +77123,7 @@
    ],
    "TARGET_Y": [
     158.4,
-    185.7
+    167.5
    ],
    "REGISTRATION_ID": "018270",
    "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
@@ -77000,7 +77133,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018270 · p3 y[158.4, 185.7]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018270 · p3 y[158.4, 167.5]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77008,9 +77141,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.2,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.4,
@@ -77018,7 +77151,7 @@
    ],
    "TARGET_Y": [
     158.4,
-    185.7
+    167.5
    ],
    "REGISTRATION_ID": "018270",
    "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
@@ -77028,7 +77161,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018270 · p3 y[158.4, 185.7]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018270 · p3 y[158.4, 167.5]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77036,9 +77169,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.2,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.4,
@@ -77046,7 +77179,7 @@
    ],
    "TARGET_Y": [
     158.4,
-    185.7
+    167.5
    ],
    "REGISTRATION_ID": "018270",
    "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
@@ -77056,7 +77189,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018270 · p3 y[158.4, 185.7]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018270 · p3 y[158.4, 167.5]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77064,9 +77197,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.2,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.4,
@@ -77074,7 +77207,7 @@
    ],
    "TARGET_Y": [
     158.4,
-    185.7
+    167.5
    ],
    "REGISTRATION_ID": "018270",
    "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
@@ -77084,7 +77217,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018270 · p3 y[158.4, 185.7]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018270 · p3 y[158.4, 167.5]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77092,9 +77225,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.2,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.4,
@@ -77102,7 +77235,7 @@
    ],
    "TARGET_Y": [
     158.4,
-    185.7
+    167.5
    ],
    "REGISTRATION_ID": "018270",
    "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
@@ -77112,7 +77245,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018270 · p3 y[158.4, 185.7]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018270 · p3 y[158.4, 167.5]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77120,9 +77253,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.2,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.4,
@@ -77130,7 +77263,7 @@
    ],
    "TARGET_Y": [
     158.4,
-    185.7
+    167.5
    ],
    "REGISTRATION_ID": "018270",
    "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
@@ -77140,7 +77273,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018270 · p3 y[158.4, 185.7]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018270 · p3 y[158.4, 167.5]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77148,9 +77281,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.2,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.4,
@@ -77158,7 +77291,7 @@
    ],
    "TARGET_Y": [
     158.4,
-    185.7
+    167.5
    ],
    "REGISTRATION_ID": "018270",
    "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
@@ -77168,7 +77301,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018270 · p3 y[158.4, 185.7]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018270 · p3 y[158.4, 167.5]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77176,9 +77309,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 41.0,
+   "ROW_MARGIN": 36.5,
    "CROP_AS_WRITTEN": "MAIS",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     240.4,
@@ -77186,7 +77319,7 @@
    ],
    "TARGET_Y": [
     240.4,
-    267.7
+    249.5
    ],
    "REGISTRATION_ID": "018270",
    "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
@@ -77196,7 +77329,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018270 · p3 y[240.4, 267.7]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018270 · p3 y[240.4, 249.5]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77428,9 +77561,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -77438,7 +77571,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018271",
    "PRODUCT": "HERBITOTAL CL PFNPE",
@@ -77448,7 +77581,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77456,9 +77589,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -77466,7 +77599,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018271",
    "PRODUCT": "HERBITOTAL CL PFNPE",
@@ -77476,7 +77609,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77484,9 +77617,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -77494,7 +77627,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018271",
    "PRODUCT": "HERBITOTAL CL PFNPE",
@@ -77504,7 +77637,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77512,9 +77645,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -77522,7 +77655,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018271",
    "PRODUCT": "HERBITOTAL CL PFNPE",
@@ -77532,7 +77665,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77540,9 +77673,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -77550,7 +77683,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018271",
    "PRODUCT": "HERBITOTAL CL PFNPE",
@@ -77560,7 +77693,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77568,9 +77701,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -77578,7 +77711,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018271",
    "PRODUCT": "HERBITOTAL CL PFNPE",
@@ -77588,7 +77721,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77596,9 +77729,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -77606,7 +77739,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018271",
    "PRODUCT": "HERBITOTAL CL PFNPE",
@@ -77616,7 +77749,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77624,9 +77757,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 41.0,
+   "ROW_MARGIN": 36.5,
    "CROP_AS_WRITTEN": "MAIS",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     240.9,
@@ -77634,7 +77767,7 @@
    ],
    "TARGET_Y": [
     240.9,
-    268.1
+    250.0
    ],
    "REGISTRATION_ID": "018271",
    "PRODUCT": "HERBITOTAL CL PFNPE",
@@ -77644,7 +77777,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[240.9, 268.1]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[240.9, 250.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77876,9 +78009,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -77886,7 +78019,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018277",
    "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
@@ -77896,7 +78029,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018277 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018277 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77904,9 +78037,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -77914,7 +78047,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018277",
    "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
@@ -77924,7 +78057,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018277 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018277 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77932,9 +78065,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -77942,7 +78075,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018277",
    "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
@@ -77952,7 +78085,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018277 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018277 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77960,9 +78093,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -77970,7 +78103,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018277",
    "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
@@ -77980,7 +78113,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018277 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018277 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -77988,9 +78121,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -77998,7 +78131,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018277",
    "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
@@ -78008,7 +78141,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018277 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018277 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -78016,9 +78149,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -78026,7 +78159,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018277",
    "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
@@ -78036,7 +78169,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018277 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018277 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -78044,9 +78177,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -78054,7 +78187,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018277",
    "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
@@ -78064,7 +78197,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018277 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018277 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -78072,9 +78205,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 41.0,
+   "ROW_MARGIN": 36.5,
    "CROP_AS_WRITTEN": "MAIS",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     240.9,
@@ -78082,7 +78215,7 @@
    ],
    "TARGET_Y": [
     240.9,
-    268.1
+    250.0
    ],
    "REGISTRATION_ID": "018277",
    "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
@@ -78092,7 +78225,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018277 · p3 y[240.9, 268.1]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018277 · p3 y[240.9, 250.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -78324,9 +78457,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -78334,7 +78467,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018279",
    "PRODUCT": "TAIFUN  MK CL PFNPE",
@@ -78344,7 +78477,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018279 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018279 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -78352,9 +78485,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -78362,7 +78495,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018279",
    "PRODUCT": "TAIFUN  MK CL PFNPE",
@@ -78372,7 +78505,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018279 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018279 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -78380,9 +78513,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -78390,7 +78523,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018279",
    "PRODUCT": "TAIFUN  MK CL PFNPE",
@@ -78400,7 +78533,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018279 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018279 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -78408,9 +78541,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -78418,7 +78551,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018279",
    "PRODUCT": "TAIFUN  MK CL PFNPE",
@@ -78428,7 +78561,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018279 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018279 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -78436,9 +78569,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -78446,7 +78579,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018279",
    "PRODUCT": "TAIFUN  MK CL PFNPE",
@@ -78456,7 +78589,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018279 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018279 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -78464,9 +78597,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -78474,7 +78607,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018279",
    "PRODUCT": "TAIFUN  MK CL PFNPE",
@@ -78484,7 +78617,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018279 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018279 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -78492,9 +78625,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 25.1,
+   "ROW_MARGIN": 16.1,
    "CROP_AS_WRITTEN": "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA, PISELLO, MELANZANA, POMODORO, PATAT",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     158.9,
@@ -78502,7 +78635,7 @@
    ],
    "TARGET_Y": [
     158.9,
-    186.2
+    168.0
    ],
    "REGISTRATION_ID": "018279",
    "PRODUCT": "TAIFUN  MK CL PFNPE",
@@ -78512,7 +78645,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018279 · p3 y[158.9, 186.2]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018279 · p3 y[158.9, 168.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -78520,9 +78653,9 @@
    "TARGET": "INFESTANTI",
    "ROUTE": "GEOMETRIC_TABLE",
    "RELATION": "SUPPORTED_PAIR",
-   "ROW_MARGIN": 41.0,
+   "ROW_MARGIN": 36.5,
    "CROP_AS_WRITTEN": "MAIS",
-   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda tra le file della coltura già insediata impiegando esclusivamente apposite attrezzature selettive o schermanti per evitare il ",
+   "TARGET_AS_WRITTEN": "infestanti",
    "PAGE": 3,
    "CROP_Y": [
     240.9,
@@ -78530,7 +78663,7 @@
    ],
    "TARGET_Y": [
     240.9,
-    268.1
+    250.0
    ],
    "REGISTRATION_ID": "018279",
    "PRODUCT": "TAIFUN  MK CL PFNPE",
@@ -78540,7 +78673,7 @@
    "TAXONOMIC_STATUS": "UNKNOWN",
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 018279 · p3 y[240.9, 268.1]",
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018279 · p3 y[240.9, 250.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -79790,6 +79923,34 @@
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
+   "CROP": "TABACCO",
+   "TARGET": "DORIFORA",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "AMBIGUOUS_ROW",
+   "ROW_MARGIN": -0.4,
+   "CROP_AS_WRITTEN": "Tabacco",
+   "TARGET_AS_WRITTEN": "Dorifora, cavolaia, tripidi, piralidi",
+   "PAGE": 2,
+   "CROP_Y": [
+    204.2,
+    211.6
+   ],
+   "TARGET_Y": [
+    172.1,
+    179.5
+   ],
+   "REGISTRATION_ID": "008259",
+   "PRODUCT": "LAMDEX EXTRA",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 008259 · p2 y[172.1, 179.5]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
    "CROP": "PESCO",
    "TARGET": "AFIDI",
    "ROUTE": "GEOMETRIC_TABLE",
@@ -80406,6 +80567,34 @@
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
+   "CROP": "TABACCO",
+   "TARGET": "DORIFORA",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "AMBIGUOUS_ROW",
+   "ROW_MARGIN": -0.4,
+   "CROP_AS_WRITTEN": "Tabacco",
+   "TARGET_AS_WRITTEN": "Dorifora, cavolaia, tripidi, piralidi",
+   "PAGE": 2,
+   "CROP_Y": [
+    193.5,
+    200.9
+   ],
+   "TARGET_Y": [
+    161.4,
+    168.8
+   ],
+   "REGISTRATION_ID": "013560",
+   "PRODUCT": "FORZA",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 013560 · p2 y[161.4, 168.8]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
    "CROP": "PESCO",
    "TARGET": "AFIDI",
    "ROUTE": "GEOMETRIC_TABLE",
@@ -81019,6 +81208,34 @@
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
    "PROVENANCE": "MINISTERO_LABEL_PDF · 013590 · p1 y[185.9, 202.6]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
+   "CROP": "TABACCO",
+   "TARGET": "DORIFORA",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "AMBIGUOUS_ROW",
+   "ROW_MARGIN": -0.4,
+   "CROP_AS_WRITTEN": "Tabacco",
+   "TARGET_AS_WRITTEN": "Dorifora, cavolaia, tripidi, piralidi",
+   "PAGE": 2,
+   "CROP_Y": [
+    193.5,
+    200.9
+   ],
+   "TARGET_Y": [
+    161.4,
+    168.8
+   ],
+   "REGISTRATION_ID": "013590",
+   "PRODUCT": "NINJA",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 013590 · p2 y[161.4, 168.8]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -82689,6 +82906,35 @@
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
+   "CROP": "TRITICALE",
+   "TARGET": "FUSARIOSI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "AMBIGUOUS_ROW",
+   "ROW_MARGIN": -23.2,
+   "CROP_AS_WRITTEN": "Triticale",
+   "TARGET_AS_WRITTEN": "un volume di acqua di per anno tra gli stadi tra gli stadi di primo nodo per il controllo delle fusariosi",
+   "PAGE": 0,
+   "CROP_Y": [
+    158.9,
+    168.6
+   ],
+   "TARGET_Y": [
+    183.7,
+    232.0
+   ],
+   "REGISTRATION_ID": "018067",
+   "PRODUCT": "MAXENTIS",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018067 · p0 y[183.7, 232.0]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
    "CROP": "ORZO",
    "TARGET": "RINCOSPORIOSI",
    "ROUTE": "GEOMETRIC_TABLE",
@@ -82947,6 +83193,35 @@
    "SUBSTANCE_NORMALISATION": null,
    "PROVENANCE": "MINISTERO_LABEL_PDF · 019095 · p0 y[66.9, 77.1]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
+   "CROP": "TRITICALE",
+   "TARGET": "FUSARIOSI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "AMBIGUOUS_ROW",
+   "ROW_MARGIN": -23.1,
+   "CROP_AS_WRITTEN": "Triticale",
+   "TARGET_AS_WRITTEN": "un volume di acqua di per anno tra gli stadi tra gli stadi di primo nodo per il controllo delle fusariosi",
+   "PAGE": 0,
+   "CROP_Y": [
+    121.5,
+    131.2
+   ],
+   "TARGET_Y": [
+    146.2,
+    194.4
+   ],
+   "REGISTRATION_ID": "019095",
+   "PRODUCT": "KOJAMI",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 019095 · p0 y[146.2, 194.4]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   }
  ],
  "EXCLUDED": [
@@ -83002,6 +83277,34 @@
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
    "PROVENANCE": "MINISTERO_LABEL_PDF · 015235 · p0 y[159.6, 250.4]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
+   "CROP": "AGLIO",
+   "TARGET": "INFESTANTI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "EXCLUDED_PAIR",
+   "ROW_MARGIN": -4.3,
+   "CROP_AS_WRITTEN": "Aglio,",
+   "TARGET_AS_WRITTEN": "Pistacchio): 3 l/ha da post-raccolta fino ad inizio allegagione, emergenza delle infestanti. Non impiegare in terreni sabbiosi.",
+   "PAGE": 0,
+   "CROP_Y": [
+    178.7,
+    186.2
+   ],
+   "TARGET_Y": [
+    161.2,
+    178.0
+   ],
+   "REGISTRATION_ID": "016697",
+   "PRODUCT": "CINDER",
+   "ACTIVE_INGREDIENTS": [
+    "PENDIMETHALIN"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 016697 · p0 y[161.2, 178.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -83326,6 +83629,34 @@
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
    "PROVENANCE": "MINISTERO_LABEL_PDF · 016697 · p0 y[30.1, 545.9]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
+   "CROP": "AGLIO",
+   "TARGET": "INFESTANTI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "EXCLUDED_PAIR",
+   "ROW_MARGIN": -4.3,
+   "CROP_AS_WRITTEN": "Aglio,",
+   "TARGET_AS_WRITTEN": "Pistacchio): 3 l/ha da post-raccolta fino ad inizio allegagione, emergenza delle infestanti. Non impiegare in terreni sabbiosi.",
+   "PAGE": 0,
+   "CROP_Y": [
+    178.7,
+    186.2
+   ],
+   "TARGET_Y": [
+    161.2,
+    178.0
+   ],
+   "REGISTRATION_ID": "017116",
+   "PRODUCT": "ACTIVUS ME",
+   "ACTIVE_INGREDIENTS": [
+    "PENDIMETHALIN"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 017116 · p0 y[161.2, 178.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
@@ -84355,6 +84686,34 @@
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   },
   {
+   "CROP": "AGLIO",
+   "TARGET": "INFESTANTI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "EXCLUDED_PAIR",
+   "ROW_MARGIN": -4.3,
+   "CROP_AS_WRITTEN": "Aglio,",
+   "TARGET_AS_WRITTEN": "Pistacchio): 3 l/ha da post-raccolta fino ad inizio allegagione, emergenza delle infestanti. Non impiegare in terreni sabbiosi.",
+   "PAGE": 0,
+   "CROP_Y": [
+    178.7,
+    186.2
+   ],
+   "TARGET_Y": [
+    161.2,
+    178.0
+   ],
+   "REGISTRATION_ID": "017659",
+   "PRODUCT": "ACTIGAN ME",
+   "ACTIVE_INGREDIENTS": [
+    "PENDIMETHALIN"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 017659 · p0 y[161.2, 178.0]",
+   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
+  },
+  {
    "CROP": "AGRUMI",
    "TARGET": "INFESTANTI",
    "ROUTE": "INLINE_STATEMENT",
@@ -84703,34 +85062,6 @@
    "TAXONOMIC_NOTE": null,
    "SUBSTANCE_NORMALISATION": null,
    "PROVENANCE": "MINISTERO_LABEL_PDF · 017898 · p0 y[262.1, 333.7]",
-   "PARSER_VERSION": "it_rotulo_parser/3.3.0"
-  },
-  {
-   "CROP": "PATATA",
-   "TARGET": "AFIDI",
-   "ROUTE": "HEADER_CONTINUATION",
-   "RELATION": "EXCLUDED_PAIR",
-   "CROP_AS_WRITTEN": "Patata",
-   "TARGET_AS_WRITTEN": "Contro afidi (Acyrthosiphon pisum, Aulacorthum solani) impiegare a 2,4 l/ha intervenendo tra lo stadio di seconda foglia e la raccolta. Non applicare il prodotto in autunno.",
-   "PAGE": 1,
-   "CROP_Y": [
-    115.0,
-    156.0
-   ],
-   "TARGET_Y": [
-    115.0,
-    156.0
-   ],
-   "REGISTRATION_ID": "017968",
-   "PRODUCT": "MAVRIK JET",
-   "ACTIVE_INGREDIENTS": [
-    "TAU-FLUVALINATE",
-    "PIRIMICARB"
-   ],
-   "TAXONOMIC_STATUS": "UNKNOWN",
-   "TAXONOMIC_NOTE": null,
-   "SUBSTANCE_NORMALISATION": null,
-   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p1 y[115.0, 156.0]",
    "PARSER_VERSION": "it_rotulo_parser/3.3.0"
   }
  ],
