@@ -200,9 +200,28 @@ def _curl(url, timeout=35):
         return None, b'', '', type(e).__name__
 
 
+# A ORDEM DAS ALTERNATIVAS É O CONSERTO — 2026-09-04
+# ---------------------------------------------------
+# A versão anterior escrevia o dia como `(0?[1-9]|[12]\d|3[01])`. Alternância em regex é
+# *leftmost-first*: contra "24", o motor casa `0?[1-9]` com o "2", e como nada depois exige
+# retrocesso, ele PARA ALI. O dia virava o dígito das dezenas — em silêncio, sem erro:
+#
+#     datas_no_texto('2026-08-24')  ->  2026-08-02
+#     datas_no_texto('2026-12-25')  ->  2026-12-02
+#
+# Medido: 257 das 365 datas ISO de 2026 voltavam erradas (70%). Em `dd/mm/aaaa`, nenhuma —
+# porque ali o `[-/]` seguinte forçava o retrocesso que o formato ISO não força.
+#
+#     O ERRO TINHA DIREÇÃO: sempre para trás, sempre para o começo do mês.
+#
+# Isso não é ruído. Uma camada que mede FRESCOR com data truncada faz toda fonte parecer
+# mais velha do que é — e a conclusão errada ("essa fonte está parada") é justamente a que
+# o número existe para evitar.
+#
+# O conserto é pôr as alternativas longas primeiro, para que a mais específica ganhe.
 DATA = re.compile(
-    r'(20\d{2})[-/](0?[1-9]|1[0-2])[-/](0?[1-9]|[12]\d|3[01])'
-    r'|(0?[1-9]|[12]\d|3[01])[-/](0?[1-9]|1[0-2])[-/](20\d{2})')
+    r'(20\d{2})[-/](1[0-2]|0?[1-9])[-/](3[01]|[12]\d|0?[1-9])'
+    r'|(3[01]|[12]\d|0?[1-9])[-/](1[0-2]|0?[1-9])[-/](20\d{2})')
 
 
 def datas_no_texto(texto):

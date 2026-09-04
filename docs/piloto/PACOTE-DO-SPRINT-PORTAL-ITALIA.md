@@ -50,6 +50,11 @@ em disco:                         data/raw/IT-T4-001/PROD_FTS.csv   (17.695 regi
 **Consequência já visível:** `DATA-CLOCK-manifest.json` marca `IT-T4-001` como `AUSENTE`
 enquanto o dado está ali, com a contagem batendo (`products_total = 17695`).
 
+> **Correção ao meu próprio rascunho:** o `AUSENTE` **não é um defeito italiano**. São
+> **6 linhas em 3 fontes** — `FR-T4-001` ×3, `ES-T3-001` ×2, `IT-T4-001` ×1 — e a causa é
+> `data/raw/` não ser versionado (D-003). Atinge a França mais que a Itália. O que **é**
+> específico da Itália é o caminho errado nos três scripts.
+
 O conserto é trivial, e a escolha não é: **renomear o arquivo com o carimbo de versão** (e o
 carimbo passa a viver no nome, onde se vê) **ou fazer os três usarem o glob do `chain.py`**
 (e o carimbo continua só dentro do JSON). `data/raw/` não é versionado por D-003 — então em
@@ -217,6 +222,14 @@ para ordenar.
 *"hace 1 año"* (19), *"hace 10 años"* (10). É idade **relativa**, em espanhol, como o YouTube a
 serviu. Dá para **ordenar por faixa de recência**; não dá para **datar nada**.
 
+**E não são 150 utilizáveis, são 147:** três valores são lixo de DOM que entrou no campo —
+`Añadir a la cola`, `48 K visualizaciones`, `18 K visualizaciones`. Precisam ser recusados na
+leitura, não exibidos.
+
+**Há ainda um fato que fecha a porta do "agora" por outro lado:** `ULTIMA_COLETA = None` em
+**243 de 243** fontes. **Nenhuma fonte italiana foi coletada duas vezes.** Sem segunda
+passagem não existe linha de base, e sem linha de base não existe "mudou" — só "é assim".
+
 E a camada que converteria relativo em data exata é, por desenho, a página do vídeo — que é
 justamente a camada congelada em D-040. O `youtube_janela.py` já dizia isso antes de nós:
 *"a grade dá data RELATIVA. Quem precisa do dia exato abre a página do vídeo."*
@@ -248,6 +261,26 @@ ADAMA (5 razões sociais somadas)   155   ← só existe como número se alguém
 **Duas ressalvas obrigatórias:** contagem de registros **não é participação de mercado** (regra
 já escrita); e a posição da ADAMA depende do agrupamento das cinco razões sociais — um
 julgamento humano, não um fato.
+
+### E há um caso italiano completo, não amostrado — o melhor material da apresentação
+
+Filtrei o registro por `AZOXYSTROBIN` **e** `PROTHIOCONAZOLE` no mesmo produto. São
+**exatamente quatro**, todos vigentes — a lista é o universo, não uma amostra:
+
+| produto | registro | titular | vencimento |
+|---|---|---|---|
+| MAXENTIS | 018067 | ADAMA ITALIA S.R.L. | **31/05/2027** |
+| KOJAMI | 019095 | ADAMA ITALIA S.R.L. | **31/05/2027** |
+| PROMINO XTRA | 019093 | CAC CHEMICAL GMBH | **31/03/2028** |
+| AMISTAR ERA 240 EC | 019194 | CAC CHEMICAL GMBH | **31/03/2028** |
+
+**O concorrente tem dez meses a mais de janela, na mesma dupla de substâncias.** É um fato
+datado, de fonte oficial, com o universo fechado — e não precisa de nenhuma camada que não
+temos.
+
+> **A ressalva que impede o erro fácil:** o ato europeu do protioconazol e o registro italiano
+> **não são duas fontes independentes**. O nacional deriva do europeu. Tratá-los como duas
+> confirmações infla a confiança de um fato que tem uma origem só.
 
 **Defeito de dado a corrigir antes de qualquer tela:** o nome `UPL HOLDINGS COÃPERATIEF U.A.`
 vem corrompido na origem (mojibake de UTF-8 lido como Latin-1). Nome de empresa errado na tela
@@ -293,6 +326,20 @@ em **150 de 150**. A geografia simplesmente não foi medida nesse corpus.
 lacunas nomeadas (a maior: `CEREAL × EMILIA-ROMAGNA × APHIDS`, zero sensores, com âncora ADAMA
 `PIRIMICARB | FLONICAMID | LAMBDA-CYHALOTHRIN`).
 
+> **Mais da metade desse 72 é uma regra, não um sensor — e a regra não estava publicada.**
+> Uma organização territorial Tier A/B **sem especialidade declarada** cobre todas as
+> especialidades da sua cultura naquela região (o bollettino é multi-alvo por construção).
+> São **36 sensores de 171**. Medido, desligando a expansão sobre os mesmos dados:
+>
+> ```
+> COM expansão (publicado)   GOOD 72 · WEAK 29 · NONE 16
+> SEM expansão               GOOD 30 · WEAK 43 · NONE 44
+> ```
+>
+> A regra é defensável; publicá-la escondida não era. **Corrigido nesta rodada:** `COVERAGE.json`
+> agora declara a expansão no próprio campo `RULE` e publica `BY_STATE_SEM_EXPANSAO`. Os
+> números não mudaram — mudou o que dá para saber sobre eles.
+
 > **E ela responde a uma pergunta diferente da que parece.** Diz **onde temos olhos**, não onde
 > há problema. Uma célula `NONE` é uma lacuna nossa, não uma região sem doença.
 
@@ -307,7 +354,57 @@ lacunas nomeadas (a maior: `CEREAL × EMILIA-ROMAGNA × APHIDS`, zero sensores, 
 | documentos do piloto | 150 | `PILOT-MEASUREMENT.json` |
 | com valor operacional | **7** (1 FIELD_SIGNAL · 4 TECHNICAL · 2 RESEARCH) | idem |
 | **não julgáveis só pelo título** | **82** | idem |
-| com legenda | **0** | idem |
+| **existência de legenda** | **`NÃO SEI` em 150 de 150** — ver abaixo | idem |
+
+### `HAS_CAPTION = 0` é um valor padrão, não uma medição
+
+Isto eu escrevi errado no primeiro rascunho e a auditoria pegou. Abri `LEGENDAS.json`:
+
+```
+10 itens · 10 PORTA_NAO_ABRIU · todos do MESMO canal (IT-S-000064, 1 de 15)
+motivo idêntico nos dez: "NAVEGADOR_NAO_ALCANCADO: sem Chrome nesta máquina"
+```
+
+**140 dos 150 documentos nunca foram tentados. E nenhum vídeo respondeu "não há faixa".**
+O `False` em 150/150 é o valor com que o campo nasce, não o resultado de uma medida — e
+dizer *"nenhum desses vídeos tem legenda"* seria exatamente a lei 1 de D-040 violada, agora
+num caso ainda mais fraco: ali o player foi negado; aqui **a porta nem abriu**.
+
+**Texto correto para a tela:** *"Existência de legenda: **NÃO SEI em 150 de 150**. Dez
+tentativas, num único canal, e a porta não abriu. Nenhum vídeo respondeu 'não há legenda'."*
+
+### E os 61 saem do mesmo classificador que os 82
+
+O arquivo declara o próprio limite: `LIMITE_DO_CLASSIFICADOR = "LEXICAL sobre título +
+legenda. Polissemia produz falso positivo e nenhum portão automático detecta. Todo item
+carrega o trecho; verificação é humana."`
+
+**Não há legenda, e a verificação humana não foi executada.** Então o classificador rodou
+sobre metade do que foi desenhado para ler — e os 61 e os 82 vêm da **mesma passada**.
+Proteger um número e publicar o outro como se fosse mais sólido é incoerente.
+
+**Texto correto:** *"61 por casamento lexical de título, não verificados."*
+
+### Os papéis, contados como pessoas e não como linhas
+
+| medida | valor |
+|---|---|
+| entradas de papel | 278 |
+| entradas com estado `PROVADO` | 114 |
+| **entidades com ≥1 papel provado** | **90** de 221 |
+| papéis provados: `pesquisador` 64 · `professor` 36 · `estudante` 9 | |
+| **papéis de campo provados: `tecnico` 3 · `cooperativa` 2** | **5 no total** |
+| **`agronomo`, `produtor`, `consultor` provados** | **0** |
+
+**114 é contagem de linhas, não de gente.** E o número que a tela precisa carregar é o
+último: **zero agrônomos, produtores ou consultores com papel provado por campo estruturado.**
+O grupo A de 8 canais usa `PROVADO` **ou** `PROBABLE`; só `PROVADO`, o campo encolhe a 5.
+
+### As 91 fontes órfãs não são um estoque de reserva
+
+`QUALIFICADO = false` em **91/91**; `PAIS = NÃO SEI` em **67**; e **16 declaram Estados
+Unidos** (mais AU 2, Irlanda 2, CA 1, Pakistan 1). Nenhuma é sensor italiano qualificado, e
+cada registro diz isso de si mesmo.
 
 **Os 82 são o número mais importante desta seção, e não podem sumir da tela.** Eles não são
 `OFF_TOPIC` — `OFF_TOPIC` exige evidência positiva de assunto não-agrícola (D-032). Eles são
@@ -373,6 +470,13 @@ Cruzando com o que este documento mediu:
 | *"o portal está no ar"* | não há pipeline de publicação: nenhum dos 10 workflows menciona portal, build ou deploy | *"gera um HTML estático, reproduzível, não publicado"* |
 | qualquer data em documento social italiano | `PUBLICATION_DATE = NOT_KNOWN` em 150 de 150 | faixa de recência (*"há ~2 semanas"*), nunca uma data |
 | qualquer região vinda dos documentos | `REGION = NÃO SEI` em 150 de 150 | a matriz de cobertura, dita como *"onde temos olhos"* |
+| *"esses vídeos não têm legenda"* / `HAS_CAPTION = 0` | 140 de 150 **nunca foram tentados**; os 10 tentados deram `PORTA_NAO_ABRIU`, todos do mesmo canal | *"existência de legenda: NÃO SEI em 150 de 150"* |
+| *"61 documentos relevantes"* sem ressalva | mesmo classificador dos 82, sem legenda e sem verificação humana | *"61 por casamento lexical de título, não verificados"* |
+| *"114 pesquisadores italianos"* | 114 são **entradas de papel**, não pessoas | *"90 entidades com ≥1 papel provado, de 221"* |
+| *"temos agrônomos e produtores na base"* | provados por campo estruturado: **zero** | *"5 papéis de campo provados: 3 técnicos, 2 cooperativas"* |
+| *"cobertura BOA em 72 células"* sem a regra | 42 das 72 dependem da expansão territorial | *"72 com a expansão declarada; 30 sem ela"* |
+| *"mais 91 canais monitoráveis"* | `QUALIFICADO = false` em 91/91; 16 declaram os EUA | *"91 descobertos, não qualificados, sem entidade"* |
+| qualquer recência da camada territorial | a leitura de data estava truncando 70% das datas ISO | agora corrigida — mas **remedir antes de exibir** |
 | qualquer coisa vinda de legenda | nenhuma legenda foi obtida (D-040) | silêncio — e a lei 5 de D-040 explica por quê |
 
 ---
@@ -389,7 +493,15 @@ Sem coleta nova, sem legenda, sem Twitter/LinkedIn, sem escala. Em ordem de depe
 | 4 | **Declarar `Revocato` × `Scaduto` como estados distintos** | §3 — a vantagem italiana sobre a espanhola vira tela | vocabulário, não código |
 | 5 | **Escrever o texto de incerteza dos 82** e prendê-lo em teste | §9 — o número honesto sobrevive a quem quiser arredondá-lo | um teste |
 | 6 | **Marcar Radar Agora como faixa de recência, sem data** | §5 — a ausência para de parecer esquecimento, e o sinal que existe é usado sem virar mentira | uma frase e uma ordenação |
-| 7 | **Tirar os nove números digitados de `build_portal.py`** — ou derivá-los, ou removê-los | §2 — a promessa do rodapé volta a ser verdadeira, e o teste passa a significar algo | médio; e é o único que toca o protótipo congelado, então **é decisão do dono** |
+| 7 | **Remedir a camada territorial** com a leitura de data consertada | qualquer número de recência italiano; hoje todos estão enviesados para trás | rodar de novo, sem coleta nova |
+| 8 | **Tirar os nove números digitados de `build_portal.py`** — ou derivá-los, ou removê-los | §2 — a promessa do rodapé volta a ser verdadeira, e o teste passa a significar algo | médio; e é o único que toca o protótipo congelado, então **é decisão do dono** |
+
+**Já feito nesta rodada, sem esperar o sprint:**
+
+| o quê | o que muda |
+|---|---|
+| **Leitura de data da camada territorial consertada** (`fonte_territorial.py`) | `datas_no_texto('2026-08-24')` devolvia `2026-08-02`. Alternância *leftmost-first* truncava o dia ao dígito das dezenas: **257 das 365 datas ISO de 2026 voltavam erradas, sempre para trás.** Em `dd/mm/aaaa`, nenhuma — por isso ninguém viu. Três chamadores, zero testes. Agora: 0 erradas em quatro formatos, preso por `tests/test_datas.py` |
+| **`COVERAGE.json` passou a declarar a regra que produz o número** | 72 `GOOD` com a expansão territorial, 30 sem. O campo `RULE` agora diz isso e o artefato publica `BY_STATE_SEM_EXPANSAO` |
 
 **Os passos 1–4 são de dado e vocabulário, não de desenho.** Nenhum deles depende de
 descongelar o protótipo — e todos são pré-requisito para que qualquer tela seja defensável.

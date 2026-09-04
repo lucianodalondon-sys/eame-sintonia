@@ -775,6 +775,27 @@ def cobertura():
                 'SENSORS': [], 'FAMILIES': set(),
             }
 
+    # QUANTO DA COBERTURA É A REGRA, E NÃO O SENSOR — 2026-09-04
+    # -----------------------------------------------------------
+    # A expansão territorial abaixo é honesta e está declarada em comentário desde sempre.
+    # O problema é outro: ela NÃO estava no campo `RULE` do artefato publicado, e ela é
+    # responsável por mais da metade do número. Medido: 72 células GOOD com ela, 30 sem.
+    #
+    #     UM NÚMERO QUE DEPENDE DE UMA REGRA PRECISA CARREGAR A REGRA.
+    #
+    # Por isso a passada agora é feita duas vezes e o artefato publica as duas contagens.
+    # Nenhum limiar mudou; o que mudou é que agora dá para ver de onde vem o 72.
+    sem_expansao = {k: {'S': 0, 'F': set()} for k in celulas}
+    for s in reg['SENSORS']:
+        if s['TIER'] not in ('A', 'B'):
+            continue
+        for crop in s['CROP_IDS']:
+            for regiao in s['REGION_IDS']:
+                for alvo in (s['ISSUE_IDS'] or []):
+                    c = sem_expansao.get((crop, regiao, alvo))
+                    if c is not None:
+                        c['S'] += 1
+                        c['F'].add(s['INDEPENDENCE_GROUP'])
     for s in reg['SENSORS']:
         if s['TIER'] not in ('A', 'B'):
             continue
@@ -825,10 +846,23 @@ def cobertura():
         'source': 'derivado de REGISTRY.json x UNIVERSE.json',
         'SOURCE_LOCATION': 'ITALY', 'FACT_LOCATION': 'ITALY', 'ORIGINAL_LANGUAGE': 'pt',
         'EVIDENCE_CLASS': 'DERIVED_MEASUREMENT',
-        'RULE': 'GOOD = >=2 sensores Tier A/B em >=2 famílias de origem; WEAK = >=1; '
-                'NONE = 0. Família de origem = INDEPENDENCE_GROUP (organização).',
+        'RULE': ('GOOD = >=2 sensores Tier A/B em >=2 famílias de origem; WEAK = >=1; '
+                 'NONE = 0. Família de origem = INDEPENDENCE_GROUP (organização). '
+                 'E UMA TERCEIRA REGRA, que responde por mais da metade do GOOD: sensor '
+                 'territorial Tier A/B SEM especialidade declarada cobre TODAS as '
+                 'especialidades da sua cultura naquela região, porque o bollettino é '
+                 'multi-alvo por construção. Sem essa expansão os mesmos dados dão '
+                 'GOOD=%d em vez de GOOD=%d — ver BY_STATE_SEM_EXPANSAO.'
+                 % (sum(1 for c in sem_expansao.values()
+                        if c['S'] >= 2 and len(c['F']) >= 2), est['GOOD'])),
         'CELLS': len(saida),
         'BY_STATE': dict(est),
+        'BY_STATE_SEM_EXPANSAO': dict(Counter(
+            'GOOD' if (c['S'] >= 2 and len(c['F']) >= 2)
+            else ('WEAK' if c['S'] >= 1 else 'NONE')
+            for c in sem_expansao.values())),
+        'SENSORES_SEM_ESPECIALIDADE_DECLARADA': sum(
+            1 for s in reg['SENSORS'] if s['TIER'] in ('A', 'B') and not s['ISSUE_IDS']),
         'BY_CROP': {k: dict(v) for k, v in sorted(por_crop.items())},
         'BY_REGION': {k: dict(v) for k, v in sorted(por_regiao.items())},
         'TOP_GAPS': lacunas[:10],

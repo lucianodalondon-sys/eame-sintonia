@@ -5,13 +5,19 @@
  "FACT_LOCATION": "ITALY",
  "ORIGINAL_LANGUAGE": "pt",
  "EVIDENCE_CLASS": "DERIVED_MEASUREMENT",
- "RULE": "GOOD = >=2 sensores Tier A/B em >=2 famílias de origem; WEAK = >=1; NONE = 0. Família de origem = INDEPENDENCE_GROUP (organização).",
+ "RULE": "GOOD = >=2 sensores Tier A/B em >=2 famílias de origem; WEAK = >=1; NONE = 0. Família de origem = INDEPENDENCE_GROUP (organização). E UMA TERCEIRA REGRA, que responde por mais da metade do GOOD: sensor territorial Tier A/B SEM especialidade declarada cobre TODAS as especialidades da sua cultura naquela região, porque o bollettino é multi-alvo por construção. Sem essa expansão os mesmos dados dão GOOD=30 em vez de GOOD=72 — ver BY_STATE_SEM_EXPANSAO.",
  "CELLS": 117,
  "BY_STATE": {
   "NONE": 16,
   "WEAK": 29,
   "GOOD": 72
  },
+ "BY_STATE_SEM_EXPANSAO": {
+  "GOOD": 30,
+  "NONE": 44,
+  "WEAK": 43
+ },
+ "SENSORES_SEM_ESPECIALIDADE_DECLARADA": 36,
  "BY_CROP": {
   "APPLE": {
    "WEAK": 1,
@@ -4302,5 +4308,5 @@
    ]
   }
  ],
- "CAPTURED_AT": "2026-09-04T10:56:50Z"
+ "CAPTURED_AT": "2026-09-04T18:45:28Z"
 }
