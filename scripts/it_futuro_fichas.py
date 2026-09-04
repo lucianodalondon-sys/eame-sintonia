@@ -185,8 +185,15 @@ def main(runs):
     causa_janela = por_causa(['JANELA_INVENTADA'])
     causa_port = por_causa(['PORTFOLIO_ERRADO', 'UNIAO_MAQUIADA'])
     explicados = set(causa_data) | set(causa_janela) | set(causa_port)
+    # O motivo vai INTEIRO. Cortei-o a 400 caracteres na primeira versao e depois
+    # tentei classificar as quedas por palavra-chave nesse corte — ou seja, tentei
+    # medir num texto que eu proprio tinha mutilado. E o mesmo erro do prompt do
+    # refutador, em ponto pequeno.
+    #
+    #     NAO SE CONTA NUM TEXTO QUE SE CORTOU.
     outros = [{'CAND_ID': c, 'ESTADO': x['ESTADO'],
-               'MOTIVO': (x.get('MOTIVO_DO_VEREDITO') or '')[:400],
+               'MOTIVO': x.get('MOTIVO_DO_VEREDITO'),
+               'DEFEITOS': x.get('DEFEITOS_ENCONTRADOS'),
                'DEPARTAMENTOS_SEM_RAZAO': x.get('DEPARTAMENTOS_SEM_RAZAO')}
               for c, x in sorted(caidos.items()) if c not in explicados]
 
