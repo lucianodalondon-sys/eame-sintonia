@@ -1,0 +1,35 @@
+{
+  "DATASET": "SINTONIA-CANONICAL-PACKAGE-CONTRACT-V1",
+  "LEI": "o que qualquer pacote tem de provar para atravessar a fronteira do site. Um so dono: este ficheiro. Quem verifica em JS e quem verifica em Python leem daqui, para a regra nao existir em duas linguas e divergir na terceira vez que alguem a mudar.",
+  "CAPTURED_AT": "2026-09-04",
+  "SOURCE": "medido em 55c2674 pela cadeia canonica, congelado como contrato em italia-portale/audit/ingestion-provenance.mjs e extraido para aqui quando o Python passou a precisar da mesma regra",
+
+  "CANONICAL_GENERATOR": {
+    "LINHAGEM": "claude/opportunity-commercial-priority-v1",
+    "COMMIT": "55c2674b785a3a373ef0bad2812c244ed80c31eb",
+    "PORQUE": "a inteligencia tem UM dono. A Linha B consome; nao gera, nao decide e nao arbitra.",
+    "A_CADEIA_LOCAL_DESTA_LINHAGEM_ESTA_ATRASADA": true,
+    "O_QUE_ELA_PRODUZ_SE_CORRIDA_AQUI": "V21-5d312cb90a0de01d — sem MEETING_SURFACE_RULE e com PREPARE_NOW em 11 casos"
+  },
+
+  "EXPECTED_BUILD_ID": "V21-69bf448ac934a6d9",
+  "EXPECTED_CASES": 43,
+  "REVOKED_STATES": ["PREPARE_NOW"],
+  "CANONICAL_STATES": {
+    "WATCH": 22, "TO_VALIDATE": 9, "FUTURE_PREPARATION": 7, "VALIDATE_NOW": 3, "ACT_NOW": 2
+  },
+  "SURFACE_RULE_FIELDS": [
+    "LANE_OWNER", "LANES", "EXPECTED_TOTAL",
+    "CLIENT_SAFE_IS_VISIBILITY_GATE",
+    "RENDERABLE_WITH_METHOD_IS_VISIBILITY_GATE",
+    "PUBLICATION_STATE_IS_VISIBILITY_GATE"
+  ],
+
+  "STALE_KNOWN_BUILD_IDS": {
+    "V21-99226fbb90dcdbc2": "o zip historico commitado: 37 casos, sem MEETING_SURFACE_RULE",
+    "V21-5d312cb90a0de01d": "o que a cadeia local desta linhagem produz hoje: PREPARE_NOW em 11 casos"
+  },
+
+  "FAIL_CLOSED": true,
+  "PORQUE_FAIL_CLOSED": "um portao que avisa e um portao que se ignora na sexta-feira a noite. Se a proveniencia nao se prova, a build para — nao passa com aviso."
+}

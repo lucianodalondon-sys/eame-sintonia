@@ -29,19 +29,18 @@ import { CLIENT } from './lib/harness.mjs';
 
 const ING = path.resolve(CLIENT, '..', '..', 'build', 'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST');
 
-/* O que o contrato exige de QUALQUER pacote que atravesse a fronteira. */
-export const EXPECTED_BUILD_ID = 'V21-69bf448ac934a6d9';
-export const EXPECTED_CASES = 43;
-export const REVOKED_STATES = ['PREPARE_NOW'];
-export const CANONICAL_STATES = {
-  WATCH: 22, TO_VALIDATE: 9, FUTURE_PREPARATION: 7, VALIDATE_NOW: 3, ACT_NOW: 2,
-};
-export const SURFACE_RULE_FIELDS = [
-  'LANE_OWNER', 'LANES', 'EXPECTED_TOTAL',
-  'CLIENT_SAFE_IS_VISIBILITY_GATE',
-  'RENDERABLE_WITH_METHOD_IS_VISIBILITY_GATE',
-  'PUBLICATION_STATE_IS_VISIBILITY_GATE',
-];
+/* O que o contrato exige de QUALQUER pacote que atravesse a fronteira.
+   A regra deixou de viver aqui quando o Python passou a precisar dela: uma
+   regra escrita em duas linguas diverge na terceira vez que alguem a muda.
+   Vive em CANONICAL-PACKAGE-CONTRACT.json, e este ficheiro le-a como todos. */
+export const CONTRATO = JSON.parse(
+  fs.readFileSync(new URL('./CANONICAL-PACKAGE-CONTRACT.json', import.meta.url), 'utf8'),
+);
+export const EXPECTED_BUILD_ID = CONTRATO.EXPECTED_BUILD_ID;
+export const EXPECTED_CASES = CONTRATO.EXPECTED_CASES;
+export const REVOKED_STATES = CONTRATO.REVOKED_STATES;
+export const CANONICAL_STATES = CONTRATO.CANONICAL_STATES;
+export const SURFACE_RULE_FIELDS = CONTRATO.SURFACE_RULE_FIELDS;
 
 /* Le o artefacto embarcado como o browser o le: executando-o. */
 export function embarcado(file = path.join(CLIENT, 'italy-handoff-v21.js')) {

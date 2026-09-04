@@ -19,6 +19,41 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 export PYTHONIOENCODING=utf-8:replace
 
+# ── ESTA LINHAGEM NAO E O DONO DESTE GERADOR ────────────────────────────────
+#
+# Medido: corrida a partir desta branch, a cadeia produz V21-5d312cb90a0de01d —
+# sem MEETING_SURFACE_RULE e com o estado revogado PREPARE_NOW de volta em onze
+# casos. Trinta ficheiros em scripts/ estao atras do gerador canonico.
+#
+#     UM CONSUMIDOR QUE AINDA SABE GERAR ACABA POR GERAR.
+#
+# A cadeia fica no historico porque a sua ordem e conhecimento, e apaga-la
+# perderia a razao de cada passo. Mas nao ha caminho de producao ou preview que
+# a corra e aceite o resultado: `npm run build` passa pelo portao da build, e
+# `site_v21_ingest.py` recusa qualquer pacote que nao prove a proveniencia.
+#
+# O gerador canonico e claude/opportunity-commercial-priority-v1 @ 55c2674.
+# Para regenerar, gere NA LINHAGEM CANONICA e traga o pacote — nao o contrario.
+if [ "${SINTONIA_CADEIA_HISTORICA:-}" != "eu-sei-que-esta-atrasada" ]; then
+  cat >&2 <<'AVISO'
+
+  CADEIA RECUSADA NESTA LINHAGEM.
+
+  Esta branch e CONSUMIDORA da inteligencia, nao geradora. Corrida aqui, esta
+  cadeia produz uma safra antiga (V21-5d312cb90a0de01d): sem MEETING_SURFACE_RULE
+  e com PREPARE_NOW em 11 casos. O pacote resultante seria recusado pelo portao
+  da build e pela ingestao — mas o custo de o descobrir depois nao vale a pena.
+
+  Gerador canonico : claude/opportunity-commercial-priority-v1 @ 55c2674
+  Contrato         : italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json
+
+  Para inspeccionar a cadeia historica sem a servir a ninguem:
+      SINTONIA_CADEIA_HISTORICA=eu-sei-que-esta-atrasada bash scripts/v21_cadeia.sh
+
+AVISO
+  exit 2
+fi
+
 # O INTERPRETADOR SE DESCOBRE, NAO SE FIXA.
 # Esta cadeia nasceu no Windows, onde o Python chama-se `py`. Ao ser retomada em
 # Linux, `py` nao existia e a cadeia inteira ficava inexecutavel — ou seja, o

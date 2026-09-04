@@ -13,6 +13,7 @@
    aqui só se verifica que continuam a valer do lado de cá.
 
    O que ele guarda, um a um:
+     · os quatro carimbos de origem estão na mesma história, um contendo os outros;
      · a contagem de cada família bate com o handoff;
      · nenhum ID renderizável se perdeu;
      · nenhum DROPPED atravessou;
@@ -25,6 +26,7 @@
    --------------------------------------------------------------------------- */
 import fs from 'node:fs';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
 import { CLIENT, readPortal } from './lib/harness.mjs';
 
 const results = [];
@@ -33,6 +35,7 @@ const check = (id, title, fn) => {
   catch (e) { results.push({ id, title, pass: false, expected: 'runs', measured: 'THREW', detail: [e.message] }); }
 };
 
+let detalheDaLinhagem = '';
 const UP = path.join(CLIENT, 'upstream');
 const J = (f) => JSON.parse(fs.readFileSync(path.join(UP, f), 'utf8'));
 
@@ -50,15 +53,44 @@ const CRIT = {
   FITO: { TOTAL: 560, CARD: 0, METHOD: 0, EVIDENCE: 560, DROPPED: 0 },
 };
 
-check('LOTE_COMPLETO_E_DE_UM_SO_CHECKPOINT', 'the four handoffs arrive and name one upstream', () => {
+check('LOTE_COMPLETO_E_DE_UMA_SO_HISTORIA', 'the four handoffs arrive and their checkpoints share one history', () => {
   const bad = [];
-  const heads = new Set([RF, SC_, FO, FI].map((d) => d.UPSTREAM_CHECKPOINT));
-  if (heads.size !== 1) bad.push(`upstream drift: ${[...heads]}`);
+  /* A regra era «um so checkpoint». Deixou de servir quando uma familia foi
+     corrigida a montante sozinha — FITOSSANITARIO, cuja LEI ainda declarava o
+     universo antigo de 438 registos. Refazer as outras tres so para as alinhar
+     seria regerar o que ninguem pediu e nao mudou.
+
+     Mas «checkpoints diferentes» tambem nao pode virar «checkpoint qualquer».
+     A pergunta certa nao e se sao iguais: e se sao COMPARAVEIS. Um lote so e um
+     lote se os seus carimbos estiverem na mesma historia, um contendo os outros.
+
+         DUAS DATAS NA MESMA LINHA SAO UMA CORRECCAO.
+         DUAS DATAS EM LINHAS DIFERENTES SAO DUAS VERDADES.
+
+     Verifica-se pela ancestralidade real no repositorio, nao pela palavra do
+     artefacto. Sem git alcancavel, isto RECUSA: nao saber nao e passar. */
+  const heads = [...new Set([RF, SC_, FO, FI].map((d) => d.UPSTREAM_CHECKPOINT))];
+  if (heads.some((h) => !h)) bad.push('ha familia sem UPSTREAM_CHECKPOINT');
+  else if (heads.length > 1) {
+    const raiz = path.resolve(CLIENT, '..', '..');
+    const antepassado = (a, b) => {
+      const r = spawnSync('git', ['merge-base', '--is-ancestor', a, b], { cwd: raiz });
+      if (r.error || r.status === null) throw new Error(`git inalcancavel: nao da para provar a linhagem de ${a}`);
+      return r.status === 0;
+    };
+    /* o mais novo tem de conter todos os outros */
+    const maisNovo = heads.find((h) => heads.every((o) => o === h || antepassado(o, h)));
+    if (!maisNovo) bad.push(`checkpoints sem historia comum: ${heads.join(', ')} — isto sao safras diferentes, nao uma correccao`);
+    else {
+      const atras = heads.filter((h) => h !== maisNovo);
+      detalheDaLinhagem = `${maisNovo} contem ${atras.join(', ')}`;
+    }
+  }
   for (const [n, d] of [['RADAR', RF], ['CAMPO', SC_], ['FONTES', FO], ['FITO', FI]]) {
     if (!d.CONTRACT_VERSION) bad.push(`${n} sem CONTRACT_VERSION`);
     if (!Object.keys(d.PROVENIENCIA?.SOURCE_ARTIFACT_HASHES || d.HASHES_DOS_ARTEFACTOS_CONSUMIDOS || {}).length) bad.push(`${n} sem hashes de origem`);
   }
-  return { pass: !bad.length, expected: 0, measured: [...heads][0] || 'ABSENT', detail: bad };
+  return { pass: !bad.length, expected: 0, measured: detalheDaLinhagem || heads[0] || 'ABSENT', detail: bad };
 });
 
 check('CONTAGENS_BATEM_COM_O_HANDOFF', 'every family count equals the approved criterion', () => {

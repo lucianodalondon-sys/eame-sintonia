@@ -566,13 +566,73 @@ def carregar(arq):
     return json.load(io.open(p, encoding='utf-8'))
 
 
+CONTRATO = os.path.join(ROOT, 'italia-portale', 'audit',
+                        'CANONICAL-PACKAGE-CONTRACT.json')
+
+
+def recusas_de_proveniencia(manifesto, oportunidades):
+    """Por que este pacote NAO pode virar o artefacto servido.
+
+    A regra nao nasce aqui: le-se de CANONICAL-PACKAGE-CONTRACT.json, o mesmo
+    ficheiro que o portao em JS le. Uma regra escrita em duas linguas diverge na
+    terceira vez que alguem a muda.
+
+    Esta e a porta por onde a safra velha entrava: a cadeia local desta linhagem
+    esta atrasada, e este script transformava o que ela produzisse no ficheiro
+    que o browser carrega, sem perguntar de onde vinha.
+
+        INGERIR SEM VERIFICAR NAO E CONFIAR NA ORIGEM. E NAO TER ORIGEM.
+    """
+    C = json.load(io.open(CONTRATO, encoding='utf-8'))
+    build_id = manifesto.get('BUILD_ID')
+    regra = manifesto.get('MEETING_SURFACE_RULE')
+    estados = {}
+    for r in oportunidades:
+        v = r.get('STATUS')
+        if v:
+            estados[v] = estados.get(v, 0) + 1
+
+    r = []
+    if build_id != C['EXPECTED_BUILD_ID']:
+        r.append('BUILD_ID %s != %s' % (build_id or '(ausente)', C['EXPECTED_BUILD_ID']))
+    if len(oportunidades) != C['EXPECTED_CASES']:
+        r.append('CASOS %d != %d' % (len(oportunidades), C['EXPECTED_CASES']))
+    if not regra:
+        r.append('MEETING_SURFACE_RULE ausente — a superficie teria de adivinhar a faixa')
+    else:
+        for f in C['SURFACE_RULE_FIELDS']:
+            if f not in regra:
+                r.append('MEETING_SURFACE_RULE sem %s' % f)
+    for e in C['REVOKED_STATES']:
+        if estados.get(e):
+            r.append('ESTADO REVOGADO %s em %d casos' % (e, estados[e]))
+    conhecido = C.get('STALE_KNOWN_BUILD_IDS', {}).get(build_id)
+    if conhecido:
+        r.append('safra conhecida como velha: %s' % conhecido)
+    return r, C
+
+
 def main():
     if not os.path.isdir(ING):
         raise SystemExit('pacote V2.1 ausente em %s\n'
-                         'rode antes: bash scripts/v21_cadeia.sh' % ING)
+                         'a cadeia canonica NAO e a desta linhagem — ver '
+                         'italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json' % ING)
 
     manifesto = carregar('APP-MANIFEST.json')
     build_id = manifesto.get('BUILD_ID')
+
+    # FAIL-CLOSED. Antes de projetar uma unica linha, o pacote prova de onde vem.
+    _opp = carregar('OPPORTUNITIES.json')
+    _opp = _opp.get('RECORDS') if isinstance(_opp, dict) else _opp
+    _recusas, _C = recusas_de_proveniencia(manifesto, _opp or [])
+    if _recusas:
+        g = _C['CANONICAL_GENERATOR']
+        raise SystemExit(
+            'INGESTAO RECUSADA — o pacote nao prova a sua proveniencia:\n'
+            + '\n'.join('  · ' + x for x in _recusas)
+            + '\n\n  O gerador canonico e %s @ %s.\n'
+              '  A cadeia local desta linhagem esta atrasada e nao deve regenerar.\n'
+            % (g['LINHAGEM'], g['COMMIT'][:7]))
 
     saida = {}
     medido = {}

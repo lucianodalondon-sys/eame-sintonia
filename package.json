@@ -3,6 +3,8 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "build": "node -e \"require('fs').accessSync('italia-portale/client/index.html'); console.log('Sintonia static portal ready')\""
+    "prebuild": "node italia-portale/audit/build-gate.mjs",
+    "build": "node -e \"require('fs').accessSync('italia-portale/client/index.html'); console.log('Sintonia static portal ready')\"",
+    "preview": "npm run build"
   }
 }
