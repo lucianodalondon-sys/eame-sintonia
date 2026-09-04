@@ -2704,7 +2704,7 @@ class Component extends DCLogic {
     showDataState: false,
     /* La superficie canonica: i suoi filtri sono SUOI, non quelli del radar,
        perche i due insiemi non si mescolano mai. */
-    cCaseId: null, cfStatus: '', cfPriority: '', cfCrop: '', cfRegion: '', cfPublication: '',
+    cCaseId: null, cfStatus: '', cfPriority: '', cfCrop: '', cfRegion: '', cfPublication: '', cfWindow: '',
     cShowAll: false, cShowEvidence: false,
     sciFilter: '', sciImpactId: null, sciHorizon: 'ALL', gireAll: false, showScenarios: false,
     archiveQuery: '', aType: '', aCrop: '', aRegion: '', aCompany: '', aCase: '', aSource: '', archivePage: 0, sourceGroup: 'ALL', peopleCat: 'ALL',
@@ -4116,9 +4116,14 @@ class Component extends DCLogic {
          substitution this migration exists to remove. */
       ['radar', T.navRadar, navN('opportunities')],
       /* IL RADAR CANONICO E UNA VOCE A PARTE, e il suo numero viene dallo
-         snapshot — mai dal modello e mai dai casi di presentazione. */
-      ['canonical', (window.MEETING_LABELS && window.MEETING_LABELS.label(s.lang, 'UI', 'navCanonical')) || 'Radar Canonico',
-        (window.MEETING_INTELLIGENCE && window.MEETING_INTELLIGENCE.TOTAL_CASES) || 0],
+         snapshot — mai dal modello e mai dai casi di presentazione.
+         Se l'istantanea non c'e, la voce NON esiste: una voce che porta a una
+         schermata vuota e un controllo morto, e si toglie alla radice invece
+         di lasciarla lampeggiare uno zero. */
+      ...(window.MEETING_INTELLIGENCE && window.MEETING_LABELS
+        ? [['canonical', window.MEETING_LABELS.label(s.lang, 'UI', 'navCanonical') || 'Radar Canonico',
+            window.MEETING_INTELLIGENCE.TOTAL_CASES || 0]]
+        : []),
       ['future', T.navFuture, navN('futureSignals')],
       ['windows', T.navWindows, navN('windows')],
       ['market', T.navMarket, navN('marketObservations')],
@@ -9244,8 +9249,27 @@ class Component extends DCLogic {
       return f;
     });
 
+    /* Lo stato della finestra come filtro: due voci, entrambe contate dai 43. */
+    cFilters.push((function () {
+      var f = { key: 'cfWindow', label: U('lblWindow'), value: s.cfWindow || '',
+        options: [{ v: '', l: ALL },
+          { v: 'DEFINED', l: U('lblWindowDefined') },
+          { v: 'OPEN_NOW', l: U('lblWindowOpenNow') }] };
+      f.set = self.sel('cfWindow');
+      f.rail = f.value ? '#00A0DF' : 'rgba(203,197,195,0.30)';
+      f.bg = f.value ? 'rgba(0,160,223,0.14)' : '#1C1817';
+      f.border = f.value ? 'rgba(0,160,223,0.45)' : 'rgba(203,197,195,0.14)';
+      f.color = f.value ? '#fff' : '#C9C3C1';
+      f.weight = f.value ? '700' : '600';
+      f.current = f.value ? ((f.options.filter(function (o) { return o.v === f.value; })[0] || {}).l || f.label) : f.label;
+      return f;
+    })());
+
     var filtered = CASES.filter(function (c) {
-      return (!s.cfStatus || c.STATUS === s.cfStatus)
+      return (!s.cfWindow
+          || (s.cfWindow === 'DEFINED' && c.WINDOW_DEFINED === 'YES')
+          || (s.cfWindow === 'OPEN_NOW' && c.WINDOW_OPEN_NOW === 'YES'))
+        && (!s.cfStatus || c.STATUS === s.cfStatus)
         && (!s.cfPriority || c.COMMERCIAL_PRIORITY === s.cfPriority)
         && (!s.cfCrop || c.CROP === s.cfCrop)
         && (!s.cfRegion || c.GEOGRAPHY === s.cfRegion)
@@ -9274,7 +9298,7 @@ class Component extends DCLogic {
     var byStatus = function (v) { return countBy(function (c) { return c.STATUS === v; }); };
     var cKpis = [
       { key: 'TOTAL', label: U('lblTotal'), value: CASES.length, color: '#fff', rail: '#00B152',
-        sub: U('lblEngineDecides'), go: function () { self.setState({ cfStatus: '', cfPriority: '', cfCrop: '', cfRegion: '', cfPublication: '' }); } },
+        sub: U('lblEngineDecides'), go: function () { self.setState({ cfStatus: '', cfPriority: '', cfCrop: '', cfRegion: '', cfPublication: '', cfWindow: '' }); } },
       { key: 'PUBLISHABLE', label: U('lblProven'), value: countBy(function (c) { return c.PUBLICATION_STATE === 'PUBLISHABLE'; }),
         color: STATE.verified, rail: '#00B152', sub: L('PUBLICATION_STATE_LONG', 'PUBLISHABLE') || '',
         go: function () { self.setState({ cfPublication: 'PUBLISHABLE' }); } },
@@ -9286,10 +9310,17 @@ class Component extends DCLogic {
         color: st === 'ACT_NOW' ? '#1AB963' : '#EDEAE9', rail: st === 'ACT_NOW' ? '#00B152' : 'rgba(203,197,195,0.30)',
         sub: '', go: function () { self.setState({ cfStatus: st }); } };
     })).concat([
+      /* UN RIQUADRO CHE NON PORTA DA NESSUNA PARTE E UN CONTROLLO MORTO.
+         Questi due contavano e basta, con il cursore a mano: premerli non
+         faceva nulla. La correzione non e togliere il cursore — e dargli il
+         gesto che promette. Filtrano i 43 sullo stato della finestra, che e
+         la domanda che il numero fa nascere. */
       { key: 'WINDOW_DEFINED', label: U('lblWindowDefined'), value: countBy(function (c) { return c.WINDOW_DEFINED === 'YES'; }),
-        color: '#5CC3EE', rail: '#00A0DF', sub: '', go: function () {} },
+        color: '#5CC3EE', rail: '#00A0DF', sub: '',
+        go: function () { self.setState({ cfWindow: 'DEFINED', cShowAll: false }); } },
       { key: 'WINDOW_OPEN_NOW', label: U('lblWindowOpenNow'), value: countBy(function (c) { return c.WINDOW_OPEN_NOW === 'YES'; }),
-        color: '#5CC3EE', rail: '#00A0DF', sub: '', go: function () {} },
+        color: '#5CC3EE', rail: '#00A0DF', sub: '',
+        go: function () { self.setState({ cfWindow: 'OPEN_NOW', cShowAll: false }); } },
     ]);
 
     /* ══ IL DETTAGLIO ═══════════════════════════════════════════════════ */
@@ -9588,9 +9619,9 @@ class Component extends DCLogic {
       cFiltered: cCards.length,
       cTotal: CASES.length,
       cFilters: cFilters,
-      cHasFilters: !!(s.cfStatus || s.cfPriority || s.cfCrop || s.cfRegion || s.cfPublication),
+      cHasFilters: !!(s.cfStatus || s.cfPriority || s.cfCrop || s.cfRegion || s.cfPublication || s.cfWindow),
       cClearLabel: U('lblClear'),
-      cClear: function () { self.setState({ cfStatus: '', cfPriority: '', cfCrop: '', cfRegion: '', cfPublication: '', cShowAll: false }); },
+      cClear: function () { self.setState({ cfStatus: '', cfPriority: '', cfCrop: '', cfRegion: '', cfPublication: '', cfWindow: '', cShowAll: false }); },
       cNoResults: cCards.length === 0,
       cNoResultsLabel: U('lblNoResults'),
       cCanShowAll: cCards.length > 12,
