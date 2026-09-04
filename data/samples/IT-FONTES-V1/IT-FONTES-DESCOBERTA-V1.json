@@ -52,7 +52,7 @@
   "TRANSCRIPTION_RELEVANT": 15,
   "NEW_CHANNEL_OF_REGISTERED_ORG": 32,
   "REJECTED": 11,
-  "ROUTES_NOT_REACHED": 21,
+  "ROUTES_NOT_REACHED": 22,
   "CORRECTIONS_TO_MY_OWN_MEASUREMENTS": 6,
   "OPEN_CONTRADICTIONS": 1,
   "WITH_VIDEO_ROUTE_PROVED": 48,
@@ -4679,6 +4679,11 @@
    "HOST": "connect.efsa.europa.eu/RM/s/publicconsultations",
    "STATE": "CERTIFICATE_VERIFY_FAILED",
    "MEANS": "as consultas publicas da EFSA, com data de encerramento, ficaram fora. O calendario (IT-SRCX-047) abriu; o Connect nao."
+  },
+  {
+   "HOST": "googlevideo.com (binario de audio do YouTube) — video c2bJ4IqqXek",
+   "STATE": "HTTP_403_PELA_POLITICA_DE_SAIDA, E NAO CEDE A ESPERA",
+   "MEANS": "o bilancio fitosanitario das drupacee (PESCO 45, CILIEGIO 27, ALBICOCCO 16; 15.388 s = 4h16) e o unico objeto do arquivo do convegno SEM legenda italiana de nenhum tipo. A rota para ele seria baixar o audio e rodar o whisper desta casa. O metadado abre e lista TRES formatos so-audio (48, 106 e 129 kbps), mas o binario devolve 403 em CINCO tentativas com espera entre elas. LEGENDA E FILA; MIDIA E MURO. A distincao esta medida, e nao suposta."
   }
  ],
  "CORRECTIONS_TO_MY_OWN_MEASUREMENTS": [
@@ -4734,7 +4739,8 @@
    "WHAT_IS_TRUE": "e LIMITE DE TAXA, e nao muro de permissao. Uma rota da varredura seguinte atravessou o mesmo bloqueio com espera de 45 a 100 segundos e 4 a 5 tentativas por id, SEM cookie e SEM login — e colheu 2.811.477 caracteres de legenda italiana em 17 gravacoes.",
    "WHAT_CHANGED_BECAUSE_OF_IT": "a rota nao precisa de runner nem de credencial: precisa de PACIENCIA. O harvester que espera esta guardado, e a consequencia operacional muda de \"rode primeiro\" para \"rode devagar, e insista\".",
    "THE_LESSON": "\"FECHADA\" E UMA CONCLUSAO CARA, do mesmo tamanho de \"precisa de navegador\" no FIX-01. As duas vezes eu tinha medicao boa e tirei dela a conclusao larga demais. Bloqueio que cede a espera nao e muro: e fila.",
-   "WHAT_STAYS_TRUE": "os 27 testes com zero bytes aconteceram, e o experimento controlado tambem. O que muda e o nome do estado: de ROUTE_CLOSED para RATE_LIMITED_YIELDS_TO_BACKOFF."
+   "WHAT_STAYS_TRUE": "os 27 testes com zero bytes aconteceram, e o experimento controlado tambem. O que muda e o nome do estado: de ROUTE_CLOSED para RATE_LIMITED_YIELDS_TO_BACKOFF.",
+   "E_O_LIMITE_DESTA_PROPRIA_CORRECAO": "NAO generalize \"e fila\" para todo o YouTube — seria repetir o erro na direcao oposta. Sao DUAS rotas com DOIS estados diferentes, e eu medi as duas na mesma hora:\n  youtube.com/api/timedtext (LEGENDA) -> bot-check que CEDE a espera. 22 objetos colhidos, 3.075.569 caracteres, com 45 a 100 s entre tentativas e sem credencial.\n  googlevideo.com (BINARIO DE AUDIO)  -> HTTP 403 pela politica de saida, e NAO cede: c2bJ4IqqXek esgotou CINCO tentativas com backoff e devolveu 403 nas cinco.\nA primeira e fila. A segunda e muro. Chamar as duas de fila seria o mesmo tipo de conclusao larga que esta correcao existe para desfazer."
   }
  ],
  "OPEN_CONTRADICTIONS": [

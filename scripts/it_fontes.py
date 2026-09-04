@@ -2175,6 +2175,17 @@ NAO_ALCANCADAS += [
                'calendario (IT-SRCX-047) abriu; o Connect nao.')},
 ]
 
+NAO_ALCANCADAS += [
+    {'HOST': 'googlevideo.com (binario de audio do YouTube) — video c2bJ4IqqXek',
+     'STATE': 'HTTP_403_PELA_POLITICA_DE_SAIDA, E NAO CEDE A ESPERA',
+     'MEANS': ('o bilancio fitosanitario das drupacee (PESCO 45, CILIEGIO 27, ALBICOCCO 16; '
+               '15.388 s = 4h16) e o unico objeto do arquivo do convegno SEM legenda italiana '
+               'de nenhum tipo. A rota para ele seria baixar o audio e rodar o whisper desta '
+               'casa. O metadado abre e lista TRES formatos so-audio (48, 106 e 129 kbps), mas '
+               'o binario devolve 403 em CINCO tentativas com espera entre elas. '
+               'LEGENDA E FILA; MIDIA E MURO. A distincao esta medida, e nao suposta.')},
+]
+
 # ── UMA CONTRADICAO QUE EU NAO RESOLVI ─────────────────────────────────────────
 # Duas fontes de autoridade discordam. Escolher uma em silencio seria inventar.
 
@@ -2327,7 +2338,16 @@ CORRECOES_DESTA_MISSAO = [
                     'larga demais. Bloqueio que cede a espera nao e muro: e fila.'),
      'WHAT_STAYS_TRUE': ('os 27 testes com zero bytes aconteceram, e o experimento controlado '
                          'tambem. O que muda e o nome do estado: de ROUTE_CLOSED para '
-                         'RATE_LIMITED_YIELDS_TO_BACKOFF.')},
+                         'RATE_LIMITED_YIELDS_TO_BACKOFF.'),
+     'E_O_LIMITE_DESTA_PROPRIA_CORRECAO': (
+         'NAO generalize "e fila" para todo o YouTube — seria repetir o erro na direcao '
+         'oposta. Sao DUAS rotas com DOIS estados diferentes, e eu medi as duas na mesma hora:\n'
+         '  youtube.com/api/timedtext (LEGENDA) -> bot-check que CEDE a espera. 22 objetos '
+         'colhidos, 3.075.569 caracteres, com 45 a 100 s entre tentativas e sem credencial.\n'
+         '  googlevideo.com (BINARIO DE AUDIO)  -> HTTP 403 pela politica de saida, e NAO '
+         'cede: c2bJ4IqqXek esgotou CINCO tentativas com backoff e devolveu 403 nas cinco.\n'
+         'A primeira e fila. A segunda e muro. Chamar as duas de fila seria o mesmo tipo de '
+         'conclusao larga que esta correcao existe para desfazer.')},
 ]
 
 
