@@ -270,3 +270,115 @@ já passou brandwell, mobile e journey, e já tem deploy de preview — e mostra
 meio integrado.
 
     PORTAL CERTO E ESTÁVEL AMANHÃ > PORTAL CONTENDO TUDO QUE TERMINOU ÀS 05:59.
+
+---
+
+## PROTOCOLO GOVERNANTE · decidido pelo dono às 01:30Z
+
+Substitui qualquer leitura anterior desta aba sobre precedência. É a lei dos
+ciclos seguintes.
+
+```
+BRANCH DONA        claude/meeting-intelligence-integration
+SESSÃO PRINCIPAL   session_01LUHS3X…  (confirmada na branch canônica)
+AS OUTRAS TRÊS     CANDIDATAS — nunca donas
+MERGE AUTOMÁTICO   proibido
+```
+
+### Os 8 critérios para aceitar código de uma candidata
+
+Cherry-pick **consciente**, nunca merge. Todos os oito, juntos:
+
+1. resolve algo que a canônica ainda **não** resolveu;
+2. passa a testemunha correspondente;
+3. não cria segundo dono;
+4. não reintroduz `D.CASES` como canônico;
+5. não recalcula inteligência no frontend;
+6. não altera `ACT_NOW` de 2 para 16;
+7. não quebra snapshot / source head;
+8. não regride BrandWell · mobile · navigation.
+
+### A regra que reprova sozinha
+
+```
+ACT_NOW         = 2
+WINDOW_DEFINED  = 16
+```
+
+São universos diferentes. **Qualquer candidata que renderize 16 `ACT_NOW`:
+`REJECT_CANDIDATE`.** Não é ajuste, não é discussão — é reprovação.
+
+⚠️ **Vigiar na própria canônica.** Às 01:50Z ela reporta «adapter wired: 25
+records corrected». *Corrigir registro* é a fronteira exata do critério 5: se o
+adaptador estiver consertando o que o motor decidiu, isso é recálculo no
+frontend, e a lei do snapshot é que o portal apresenta e não recalcula. A ser
+medido no primeiro HEAD que ela publicar — **na dona, com o mesmo rigor das
+candidatas.**
+
+### Caminho crítico — prioridade absoluta, nesta ordem
+
+```
+ 1 portale.html / italy-app-model.js consumindo MEETING_INTELLIGENCE de verdade
+ 2 os 43 casos canônicos renderizados
+ 3 os 21 D.CASES claramente separados
+ 4 primary-product contradiction fechada
+ 5 legacy-window contradiction fechada
+ 6 WHY COMMERCIAL          7 WHY NOW
+ 8 PORTFOLIO_MATCHES completos                9 ACTION MAP
+10 evidência negativa      11 IT/EN          12 desktop/mobile
+13 gates                   14 deploy         15 MEETING_FREEZE
+```
+
+**Nenhuma coleta nova bloqueia isto.** Fontes e vídeo/convegni seguem
+`DEFER_AFTER_MEETING`, e só mudam de estado se, **antes** do freeze, houver
+`CLOSED` + `COMMITTED` + `TRILHA UNIVERSAL PASS` + `BACKFILL PASS` + **delta
+material num caso da demo**. Faltando um, não entram.
+
+### Tabela do ciclo final — a forma da resposta
+
+Toda branch de integração que publicar entra aqui. Uma linha por branch.
+
+| BRANCH | HEAD | 43_CANONICAL_RENDERED | ACT_NOW | WINDOW_DEFINED | D_CASES_SEPARATED | PRIMARY_CONTRADICTION | WINDOW_CONTRADICTION | INTERNAL_TOKEN | IT | EN | MOBILE | BRANDWELL | CTA | DEPLOYABLE |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| *(aguardando publicação)* | | | | | | | | | | | | | | |
+
+`ACT_NOW` **deve** ler 2 e `WINDOW_DEFINED` **deve** ler 16. Qualquer outra
+combinação é defeito, não variação.
+
+**Vencedor por prova, nunca por quem publicou primeiro. A canônica vence
+empate.** Depois: `DEPLOY → smoke test → MEETING_FREEZE = YES`.
+
+---
+
+## CICLO 02 · 01:50Z
+
+```bash
+bash scripts/overnight_watch.sh
+```
+
+| branch | HEAD 01:23Z | HEAD 01:50Z | delta |
+|---|---|---|---|
+| `claude/meeting-intelligence-integration` | `a54e287` | `a54e287` | — |
+| `claude/meeting-portal-integration-build-dr7jqr` | sem push | sem push | — |
+| `claude/meeting-portal-final-pabok2` | sem push | sem push | — |
+| `claude/meeting-portal-contradictions-qb5a1x` | sem push | sem push | — |
+| `claude/retomada-coleta-video-convegni-vz50er` | sem push | **`80ff4db`** | publicou |
+| `claude/adama-italia-source-discovery-oui6ma` | `34e4ce8` | `34e4ce8` | — |
+| `claude/opportunity-commercial-priority-v1` | `b3935bd` | `b3935bd` | — |
+| `claude/site-v21-ingest-recovery` | `a14b9e1` | `a14b9e1` | — |
+
+**A dona não publicou em 48 minutos, e isso não é sintoma.** `get_session` às
+01:50:33Z devolve `SESSION_STATUS_RUNNING`, `connection_status: connected`,
+sumário «adapter wired: 25 records corrected; fixing V21 states + card render» —
+está nos itens 1–3 do caminho crítico, que são o trabalho grande da noite.
+Silêncio no git aqui é trabalho fundo, não morte de aba.
+
+`80ff4db` (coleta vídeo/convegni) é posterior ao `MEETING_CUTOFF` e não passou
+trilha nem backfill: **DEFER_AFTER_MEETING**, sem exceção. Não foi medido além do
+HEAD — medir coleta que não pode entrar seria gastar a madrugada no lugar errado.
+
+```
+MISSIONS_RUNNING 6 · MISSIONS_CLOSED 5 · INTEGRATED 0 · DEFERRED 2
+BLOCKERS  portal ainda não consome o snapshot
+MEETING_BUILD_HEAD a54e287 · DEPLOY_STATE nenhum · MEETING_FREEZE NO
+```
