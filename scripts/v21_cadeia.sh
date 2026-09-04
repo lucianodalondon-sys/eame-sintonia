@@ -102,6 +102,25 @@ echo "── 6b · a voz do pesquisador sai da tela (o original fica) ───�
 "$PY" scripts/v21_dominio_da_alegacao.py --pos-traducao
 
 echo
+echo "── 6c · a catraca: o material que nao passou nao sustenta publicavel ───"
+# ⚠️ ESTE PASSO JA ESTEVE ANTES DA TRADUCAO, E ESTAVA ERRADO.
+# A catraca mede uma etapa chamada LOCALIZATION — «a leitura chega na lingua de
+# quem vai ler?». Rodando antes do passo 6, ela media o pacote ANTES de os
+# irmaos _IT e _EN existirem: 5.638 registros apareciam como incompletos por uma
+# traducao que a propria cadeia ia aplicar tres linhas adiante.
+#
+#     MEDIR UMA ETAPA ANTES DE ELA RODAR NAO MEDE O PACOTE: MEDE A ORDEM.
+#
+# Aqui ela ja tem tudo: o motor decidiu (5e) — com a cadeia de quatro elos, a
+# janela agronomica e o red team semantico —, a traducao entrou (6) e a voz do
+# pesquisador saiu da tela (6b). O fechamento (7) ainda vai levar
+# PUBLICATION_STATE para o mestre.
+#
+# A catraca NAO decide nada do cartao: quem responde «isto pode sair da ADAMA?»
+# continua sendo v21_comercial.externo(), e ela so pode REBAIXAR essa resposta.
+"$PY" scripts/v21_catraca.py
+
+echo
 echo "── 7 · o fechamento: registro central, manifesto, arquivo interno ──────"
 "$PY" scripts/v21_fechar.py
 
