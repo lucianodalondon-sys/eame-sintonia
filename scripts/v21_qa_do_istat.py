@@ -125,6 +125,70 @@ def impacto_por_ano(linhas, ops):
     return fora
 
 
+def qual_ano_alimenta(linhas, ops):
+    """QUAL ANO DEVE ALIMENTAR `COMMERCIAL_MAGNITUDE`? — os candidatos, medidos.
+
+    Antes desta rodada a resposta era «o primeiro do arquivo», que não é
+    critério nenhum. O motor passou a escolher com um critério explícito; qual
+    critério DEVE ser é decisão, e esta função mede o que cada candidato daria.
+
+        UM NÚMERO QUE MUDA DE SIGNIFICADO PELA ORDEM DO ARQUIVO
+        É UM NÚMERO SEM DONO.
+    """
+    porta = {}          # (crop, regiao) -> {ano: linha AREA}
+    for r in linhas:
+        if r.get('INDICATOR') != 'AREA':
+            continue
+        for c in (r.get('CROP_IDS') or []):
+            for g in (r.get('REGION_IDS') or []):
+                porta.setdefault((c, g), {})[r.get('YEAR')] = r
+    qa = {2024: 'YES', 2025: 'YES', 2026: 'UNKNOWN'}
+
+    def escolher(anos, criterio, ano_do_sinal):
+        if not anos:
+            return None
+        if criterio == 'ULTIMO_QA_PASS':
+            ok = [a for a in anos if qa.get(a) == 'YES']
+            return max(ok) if ok else None
+        if criterio == 'ANO_MAIS_RECENTE':
+            return max(anos)
+        if criterio == 'ANO_DO_SINAL':
+            return ano_do_sinal if ano_do_sinal in anos else None
+        return None
+
+    CRITERIOS = ('ULTIMO_QA_PASS', 'ANO_MAIS_RECENTE', 'ANO_DO_SINAL')
+    linhas_fora, discordam = [], 0
+    for o in ops:
+        anos = sorted(porta.get((o.get('CROP'), o.get('GEOGRAPHY')), {}))
+        if not anos:
+            continue
+        try:
+            ano_sinal = int(str(o.get('SIGNAL_DATE') or '')[:4])
+        except ValueError:
+            ano_sinal = None
+        esc = {c: escolher(anos, c, ano_sinal) for c in CRITERIOS}
+        if len({v for v in esc.values() if v is not None}) > 1:
+            discordam += 1
+        linhas_fora.append({'OPPORTUNITY_ID': o['ID'], 'CROP': o.get('CROP'),
+                            'GEOGRAPHY': o.get('GEOGRAPHY'),
+                            'ANOS_DISPONIVEIS': anos,
+                            'ANO_DO_SINAL': ano_sinal, 'ESCOLHA': esc})
+    return {
+        'PERGUNTA': 'qual ano deve alimentar COMMERCIAL_MAGNITUDE?',
+        'CONTRATO_EXISTENTE': (
+            'o repositorio tem dois contratos que se compoem: «o documento mais '
+            'recente que afirma alguma coisa responde por ela, e empate '
+            'desfaz-se pelo ID» (v21_oportunidades.declarados) e «so material '
+            'client-safe entra no cartao». Juntos dao ULTIMO_QA_PASS. Nao ha '
+            'contrato escrito que mande usar o ano do SINAL.'),
+        'CRITERIO_APLICADO_HOJE': 'MAIS_RECENTE_ENTRE_AS_CLIENT_SAFE',
+        'POLITICA': 'DECISION_REQUIRED',
+        'CASOS_MEDIDOS': len(linhas_fora),
+        'CASOS_EM_QUE_OS_CRITERIOS_DISCORDAM': discordam,
+        'CASOS': linhas_fora[:60],
+    }
+
+
 def main():
     linhas = [r for r in _le('CROP-ECONOMIC-WEIGHT.json')
               if 'ISTAT' in str(r.get('SOURCE_IDS')) and r.get('INDICATOR')]
@@ -186,6 +250,13 @@ def main():
           'COMMERCIAL_MAGNITUDE e WHAT_IS_MISSING, e nenhum portao de '
           'v21_comercial.prioridade a le.')
 
+    ano = qual_ano_alimenta(linhas, ops)
+    print('\nQUAL ANO ALIMENTA COMMERCIAL_MAGNITUDE?')
+    print('  criterio aplicado hoje : %s' % ano['CRITERIO_APLICADO_HOJE'])
+    print('  politica               : %s' % ano['POLITICA'])
+    print('  casos medidos          : %d · criterios discordam em %d'
+          % (ano['CASOS_MEDIDOS'], ano['CASOS_EM_QUE_OS_CRITERIOS_DISCORDAM']))
+
     fora = {
         'COLLECTION': 'V115-QA-DO-ISTAT',
         'SOURCE': 'build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/'
@@ -204,6 +275,7 @@ def main():
             'AREA_OFICIAL_HA alimenta COMMERCIAL_MAGNITUDE e a lista '
             'WHAT_IS_MISSING. Nenhum portao de v21_comercial.prioridade a le: '
             'os portoes sao semanticos e area nao e portao.',
+        'AREA_YEAR_QUESTION': ano,
         'STAMP_APPLIED': False,
     }
     saida = os.path.join(ROOT, 'data', 'samples', 'AUDITORIA-SOMBRA',

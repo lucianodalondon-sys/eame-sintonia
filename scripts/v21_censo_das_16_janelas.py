@@ -61,13 +61,25 @@ def main():
     # O que o pacote JA tem de janela, por cultura x alvo x regiao.
     opp = json.load(open(os.path.join(ING, 'OPPORTUNITIES.json'),
                          encoding='utf-8'))['RECORDS']
-    ja_modelado = {}
+    # ⚠️ DUAS PERGUNTAS DIFERENTES, E O CENSO ANTERIOR SO FAZIA UMA.
+    #
+    #     REPRESENTADO  = o pacote ja tem um caso para esta cultura x regiao
+    #     DUPLICATA     = o pacote ja tem JANELA DEFINIDA para o mesmo par
+    #
+    # Um registro pode falar de uma cultura que o pacote conhece sem ser
+    # duplicata de janela nenhuma. Confundir as duas faz o censo dizer «novo»
+    # sobre coisa conhecida, ou «duplicata» sobre coisa que ninguem modelou.
+    ja_modelado, representado = {}, {}
     for o in opp:
+        representado.setdefault((o.get('CROP'), o.get('GEOGRAPHY')), []).append(
+            {'OPPORTUNITY_ID': o['ID'], 'TARGET': o.get('TARGET'),
+             'WINDOW_RULE_STATE': o.get('WINDOW_RULE_STATE')})
         if o.get('WINDOW_DEFINED') != 'YES':
             continue
         ja_modelado[(o.get('CROP'), o.get('TARGET'), o.get('GEOGRAPHY'))] = {
             'OPPORTUNITY_ID': o['ID'], 'WINDOW_TYPE': o.get('WINDOW_TYPE'),
             'WINDOW_OPEN_NOW': o.get('WINDOW_OPEN_NOW'),
+            'WINDOW_RULE_STATE': o.get('WINDOW_RULE_STATE'),
             'WINDOW_EVIDENCE_ID': o.get('WINDOW_EVIDENCE_ID')}
     por_crop = {}
     for (c, a, g), v in ja_modelado.items():
@@ -111,7 +123,16 @@ def main():
                 'ADMINISTRATIVE' if JAN.ADMINISTRATIVE_WINDOW in tipos else
                 'UNKNOWN'),
             'CURRENT': r.get('observation_class'),
+            'WINDOW_RULE_STATE_DO_EQUIVALENTE': [x.get('WINDOW_RULE_STATE')
+                                                 for x in equivalentes],
             'JA_MODELADO_NA_INTELIGENCIA_NOVA': equivalentes,
+            'ALREADY_REPRESENTED': sorted({
+                y['OPPORTUNITY_ID'] for g in (regs or ['GEO_ITALY'])
+                for y in representado.get((crop, g), [])}) if crop else [],
+            'DUPLICATE': (bool(equivalentes)
+                          and bool(set(issues) & {x['TARGET']
+                                                  for x in equivalentes})
+                          ) if crop else 'UNKNOWN',
             'SERIA_DUPLICATA': bool(equivalentes) if crop else 'UNKNOWN',
             'COLECAO_CANONICA_QUE_DEVERIA_POSSUIR': (
                 'NENHUMA — e papel de trabalho, e papel de trabalho nao vira '
@@ -125,7 +146,8 @@ def main():
 
     por_classe = Counter(x['CLASSE'] for x in fora)
     janelas = [x for x in fora if x['CLASSE'] == 'JANELA_CORRENTE_DECLARADA']
-    dup = [x for x in janelas if x['SERIA_DUPLICATA'] is True]
+    dup = [x for x in janelas if x['DUPLICATE'] is True]
+    repr_ = [x for x in janelas if x['ALREADY_REPRESENTED']]
     agro = [x for x in janelas if x['AGRONOMIC_OR_ADMINISTRATIVE'] == 'AGRONOMIC']
     sem_alvo = [x for x in janelas if not x['TARGETS_NO_TEXTO']]
 
@@ -141,6 +163,7 @@ def main():
             'COM_TIPO_AGRONOMICO_RECONHECIDO': len(agro),
             'SEM_ALVO_NOMEADO_NO_TEXTO': len(sem_alvo),
             'JA_MODELADAS_PELA_LINHAGEM_NOVA': len(dup),
+            'CULTURA_X_REGIAO_JA_REPRESENTADA': len(repr_),
             'REALMENTE_NOVAS': len(janelas) - len(dup),
         },
         'LEI': 'antes de ingerir, provar que nao se esta recolocando janela que a '

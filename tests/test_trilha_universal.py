@@ -335,5 +335,69 @@ class TestemunhaUniversal(unittest.TestCase):
         self.assertGreaterEqual(len(d['OPORTUNIDADES_QUE_MUDARAM']), 2)
 
 
+# ── U19 a U21 · A FRONTEIRA DA SEGUNDA RECONCILIAÇÃO ───────────────────────
+#
+# A primeira reconciliação juntou a catraca com a inteligência até `e7c154c`.
+# Esta juntou o que veio depois — `85df96f`, o fechamento das regras de janela.
+# Estes três provam que a junção não custou nada a nenhum dos dois lados.
+#
+#     UMA CAMADA POR CIMA QUE MUDA UM NÚMERO DE BAIXO NÃO É CAMADA: É DONO.
+class TestReconciliacaoUniversal(unittest.TestCase):
+
+    def _witness(self):
+        p = os.path.join(ROOT, 'data', 'samples', 'AUDITORIA-SOMBRA',
+                         'V117-RECONCILIACAO-UNIVERSAL.json')
+        if not os.path.exists(p):
+            raise unittest.SkipTest(
+                'rode scripts/v21_reconciliacao_universal.py')
+        with open(p, encoding='utf-8') as f:
+            return json.load(f)
+
+    def test_U19_a_reconciliacao_nao_mexeu_em_campo_nenhum_do_cartao(self):
+        d = self._witness()
+        self.assertEqual([], d['FALHAS'])
+        self.assertEqual('PASS', d['UNIVERSAL_INTELLIGENCE_RECONCILIATION'])
+        bf = d['BACKFILL']
+        self.assertEqual(bf['CASOS_ANTES'], bf['CASOS_DEPOIS'])
+        self.assertEqual({}, bf['CAMPOS_QUE_MUDARAM'],
+                         'a catraca mexeu num campo que tem outro dono')
+        # e o que ela ACRESCENTOU existe: antes nenhum cartao tinha estado
+        self.assertEqual({'None': bf['CASOS_ANTES']},
+                         bf['PUBLICATION_STATE_ANTES'])
+        self.assertNotIn('None', bf['PUBLICATION_STATE_DEPOIS'])
+
+    def test_U20_publicavel_nunca_contradiz_o_cartao(self):
+        """A catraca pode REBAIXAR. Ela nunca pode promover contra o motor.
+
+        Se um cartão diz que o material não sai da ADAMA e a catraca o declara
+        publicável, são dois donos discordando sobre a mesma pergunta — e é o
+        cartão que responde por ela.
+        """
+        for r in _recs('OPPORTUNITIES.json'):
+            if r.get('PUBLICATION_STATE') == 'PUBLISHABLE':
+                self.assertEqual('YES', r.get('EXTERNAL_MATERIAL_READY'),
+                                 r['ID'])
+            self.assertIn(r.get('PUBLICATION_STATE'),
+                          ('PUBLISHABLE', 'VALIDATION_REQUIRED', 'BLOCKED'),
+                          r['ID'])
+
+    def test_U21_a_area_oficial_escolhe_por_criterio_e_nao_por_ordem(self):
+        """`area[0]` era a ordem do arquivo, que não é critério nenhum.
+
+        Hoje não dispara — nenhuma linha ISTAT é client-safe. O dia em que o
+        carimbo entrar, 2024 e 2025 ficam elegíveis juntos, e um número que muda
+        de significado pela ordem do JSON é um número sem dono.
+        """
+        fonte = open(os.path.join(ROOT, 'scripts', 'v21_oportunidades.py'),
+                     encoding='utf-8').read()
+        self.assertIn('area.sort(', fonte, 'a area voltou a sair por ordem')
+        for r in _recs('OPPORTUNITIES.json'):
+            dim = r.get('COMMERCIAL_MAGNITUDE_DIMENSIONS') or {}
+            self.assertIn('AREA_OFICIAL_ANO', dim, r['ID'])
+            self.assertIn('AREA_SELECTION_RULE', dim, r['ID'])
+            if dim.get('AREA_OFICIAL_HA') is not None:
+                self.assertIsNotNone(dim.get('AREA_OFICIAL_ANO'), r['ID'])
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -59,7 +59,9 @@ PASSO 3 — RODAR A SUÍTE
 
 python3 -m unittest discover -s tests
 
-Esperado: 783 testes descobertos — 783 executados (nenhum abortado antes de rodar), 755 passam, 14 pulados.
+Esperado: 786 testes descobertos = 765 passam + 6 falhas + 1 erro + 14 pulados.
+Nenhum e abortado antes de rodar (DESCOBERTOS == EXECUTADOS).
+O dono da contagem e scripts/v21_contagem_da_suite.py — rode-o e confira a equacao.
 A suíte NÃO fecha verde hoje: 6 falhas e 1 erro, todos anteriores à
 reconciliação de linhagem e classificados um a um em
 docs/design/RECONCILIACAO-DE-LINHAGEM.md, seção 7 (proveniência de amostras
@@ -80,7 +82,7 @@ python3 scripts/proveniencia.py
 
 Confira estas sentinelas contra o que o handoff afirma:
 
-  TEST_COUNT_CURRENT              = 783
+  TEST_COUNT_CURRENT              = 786
   SOURCE_ID_COUNT                 = 37
   RAIF_SEASONS_AVAILABLE          = 23
   RAIF_READINGS_TOTAL             = 148964

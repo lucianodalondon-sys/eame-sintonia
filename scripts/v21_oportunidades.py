@@ -1282,10 +1282,32 @@ def main():
         area = [e for e in econ_crop.get(o.get('CROP'), [])
                 if e.get('INDICATOR') == 'AREA'
                 and o.get('GEOGRAPHY') in (e.get('REGION_IDS') or [])]
+        # ⚠️ `area[0]` ERA A ORDEM DO ARQUIVO, QUE NAO E CRITERIO NENHUM.
+        # Hoje isto nao dispara — nenhuma linha ISTAT e client-safe, e 0 cartoes
+        # carregam area. Mas no dia em que o carimbo entrar, 2024 e 2025 ficam
+        # elegiveis ao mesmo tempo e o numero passa a depender da ordem do JSON.
+        #
+        #     UM NUMERO QUE MUDA DE SIGNIFICADO PELA ORDEM DO ARQUIVO
+        #     E UM NUMERO SEM DONO.
+        #
+        # O criterio aplicado NAO e novo: e a composicao de dois contratos que
+        # ja existem no repositorio — «o documento mais recente que afirma
+        # alguma coisa responde por ela, e empate desfaz-se pelo ID» (o mesmo
+        # de `declarados`), e «so material client-safe entra no cartao». Junto,
+        # isso da: a mais recente ENTRE AS QUE PASSARAM PELO PORTAO.
+        #
+        # A POLITICA continua sendo decisao de quem manda: usar o ano do SINAL
+        # em vez do mais recente e outra regra, e nao esta escrita em lugar
+        # nenhum. Por isso o cartao passa a publicar o ano e o criterio.
+        area.sort(key=lambda e: (str(e.get('YEAR') or ''), str(e.get('ID'))),
+                  reverse=True)
         dim = {'SINAIS_DE_CAMPO': len(sinais),
                'FONTES_INDEPENDENTES': len(fontes),
                'REGIOES_DO_PAR': None,
                'AREA_OFICIAL_HA': (area[0].get('VALUE') if area else None),
+               'AREA_OFICIAL_ANO': (area[0].get('YEAR') if area else None),
+               'AREA_SELECTION_RULE': (
+                   'MAIS_RECENTE_ENTRE_AS_CLIENT_SAFE' if area else None),
                'AREA_EVIDENCE_ID': (area[0].get('ID') if area else None)}
         c['COMMERCIAL_MAGNITUDE_DIMENSIONS'] = dim
         c['COMMERCIAL_MAGNITUDE'] = ('UNKNOWN' if not (dim['SINAIS_DE_CAMPO'] or
@@ -1295,7 +1317,8 @@ def main():
             'NAO ha TAM, SAM nem dinheiro: nao ha fonte para eles. O tamanho '
             'aqui e o que se pode contar — sinais, fontes independentes e area '
             'oficial quando existe linha client-safe. Sem nenhuma dessas, '
-            'UNKNOWN.')
+            'UNKNOWN. A area publica o ANO e o CRITERIO ao lado do valor: '
+            'numero de area sem ano nao se compara com nada.')
 
         # ── AS QUATRO CONFIANÇAS, SEPARADAS ──────────────────────────────────
         # Uma confianca so obriga a media entre coisas que nao se somam: o sinal
