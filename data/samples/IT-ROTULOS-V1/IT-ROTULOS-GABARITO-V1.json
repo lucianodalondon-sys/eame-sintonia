@@ -1,0 +1,196 @@
+{
+ "DATASET": "IT-ROTULOS-GABARITO-V1",
+ "LAYER": "NATIONAL PRODUCT AUTHORIZATION",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-T4-001-ETICHETTA",
+ "CAPTURED_AT": "2026-09-04",
+ "SOURCE": "gabarito MANUAL. Escrito lendo o documento — o dump geometrico de cada rotulo (blocos e linhas com coordenadas, de pdftotext -bbox-layout) — e NAO a saida de nenhum extrator.",
+
+ "REGRA_QUE_ESTE_ARQUIVO_OBEDECE": "o gabarito nao pode nascer do parser. Se nascesse, mediria o parser contra ele mesmo e daria 100% sempre. Cada par abaixo tem a LINHA DE ORIGEM que eu li.",
+
+ "COMO_LI": "para cada rotulo abri o dump de blocos com coordenadas. Nas tabelas, associei a celula de cultura aos alvos que ocupam a MESMA FAIXA VERTICAL a direita dela; quando um bloco de alvo cobria varias culturas, desci ao nivel de LINHA e atribui cada entrada a faixa da cultura correspondente, conferindo contra a coluna de dose.",
+
+ "LABELS": 20,
+ "CULTURAS_OBRIGATORIAS_COBERTAS": ["OLIVO", "PERO", "VITE", "POMODORO", "NOCE", "NOCCIOLO", "MELO"],
+
+ "ARMADILHAS_DECLARADAS": [
+  {"ID": "TRAP-01", "ROTULO": "018165", "FRASE": "Non applicare in presenza di piante infestanti in fiore", "POR_QUE": "'piante infestanti' aparece numa restricao para proteger as abelhas. NAO e autorizacao contra infestanti. Um par POMODORO x INFESTANTI aqui e FALSO POSITIVO."},
+  {"ID": "TRAP-02", "ROTULO": "016218", "FRASE": "Per l'impiego su cereali non applicare il prodotto tra marzo e agosto, corrispondente al periodo di riproduzione degli uccelli", "POR_QUE": "restricao dos CEREAIS. Nao pode ser estendida ao olivo do mesmo rotulo."},
+  {"ID": "TRAP-03", "ROTULO": "016218", "FRASE": "In oliveti: non applicare con olive cadute a terra che devono essere raccolte", "POR_QUE": "restricao de USO dentro de uma autorizacao valida. NAO anula o par OLIVO x INFESTANTI; e condicao, nao exclusao."},
+  {"ID": "TRAP-04", "ROTULO": "018089", "FRASE": "protezione duratura contro le principali patologie di grano", "POR_QUE": "frase de CARACTERISTICHE (marketing/descricao). O par vale pela TABELA, nao por esta frase."},
+  {"ID": "TRAP-05", "ROTULO": "008259", "FRASE": "Intervallo tra l'ultimo trattamento e la raccolta: Coltura Aglio, cocomero, carota... pomodoro...", "POR_QUE": "tabela de CARENZA (PHI), que lista culturas sem alvo. Nao produz par cultura x alvo por si so."}
+ ],
+
+ "GOLD": [
+  {"REGISTRATION_ID": "008259", "PRODUCT": "LAMDEX EXTRA", "ACTIVE_INGREDIENT": "LAMBDA-CYHALOTHRIN", "ESTRUTURA": "D_CELULA_MESCLADA_MULTIPLAS_LINHAS",
+   "PAIRS": [
+    {"CROP": "AGRUMI", "TARGETS": ["AFIDI", "COCCINIGLIE", "MOSCA", "CIMICE VERDE"], "SOURCE_LINE": "Agrumi (arancio, limone, mandarino, clementino) | Afidi (foglie non accartocciate) Cocciniglie (neanidi) | Mosca, cimice verde"},
+    {"CROP": "PESCO", "TARGETS": ["AFIDI", "MOSCA DELLA FRUTTA", "LEPIDOTTERI", "COCCINIGLIE", "TRIPIDI"], "SOURCE_LINE": "Pesco e nettarine y[161.8-178.4] | linhas de alvo y[146.4-193.7]"},
+    {"CROP": "ALBICOCCO", "TARGETS": ["AFIDI", "MOSCA DELLA FRUTTA", "LEPIDOTTERI"], "SOURCE_LINE": "Albicocco y[208.5-215.9] | linhas y[197.0-227.3]"},
+    {"CROP": "CILIEGIO", "TARGETS": ["AFIDI", "MOSCA DELLA FRUTTA"], "SOURCE_LINE": "Ciliegio, susino y[236.3-243.8] | linhas y[231.3-259.5]"},
+    {"CROP": "SUSINO", "TARGETS": ["AFIDI", "MOSCA DELLA FRUTTA"], "SOURCE_LINE": "Ciliegio, susino y[236.3-243.8]"},
+    {"CROP": "MELO", "TARGETS": ["CEMIOSTOMA", "LITOCOLLETE", "CARPOCAPSA", "RICAMATRICI ESTIVE", "LEPIDOTTERI"], "SOURCE_LINE": "Melo, pero y[294.5-302.0] | entrada y[261.9-296.9] Cemiostoma, litocollete ... carpocapsa; y[299.4] Ricamatrici estive e lepidotteri"},
+    {"CROP": "PERO", "TARGETS": ["CEMIOSTOMA", "LITOCOLLETE", "CARPOCAPSA", "RICAMATRICI ESTIVE", "LEPIDOTTERI", "PSILLA"], "SOURCE_LINE": "Melo, pero y[294.5-302.0] | 'Psilla del pero: 1° intervento (adulti svernanti) 2° intervento' y[309.4-344.5]"},
+    {"CROP": "FRAGOLA", "TARGETS": ["AFIDI", "LEPIDOTTERI TORTRICIDI"], "SOURCE_LINE": "Fragola y[352.7-360.2] | y[347.7-365.1]"},
+    {"CROP": "ACTINIDIA", "TARGETS": ["AFIDI"], "SOURCE_LINE": "Actinidia y[400.5-407.9] | Afidi y[400.5-407.9]"},
+    {"CROP": "NOCCIOLO", "TARGETS": ["AGRILO", "MAGGIOLINO"], "SOURCE_LINE": "Mandorlo, nocciolo y[414.2-430.9] | Agrilo, maggiolino (sulla vegetazione) y[418.7-426.2]"},
+    {"CROP": "MANDORLO", "TARGETS": ["AGRILO", "MAGGIOLINO"], "SOURCE_LINE": "Mandorlo, nocciolo y[414.2-430.9]"},
+    {"CROP": "VITE", "TARGETS": ["TIGNOLA", "TIGNOLETTA", "COCCINIGLIE", "CICALINE", "SIGARAIO"], "SOURCE_LINE": "Vite (da vino e da tavola) y[454.8-471.4] | y[434.1-492.1]"}
+   ]},
+
+  {"REGISTRATION_ID": "018165", "PRODUCT": "APYZA 500 WG", "ACTIVE_INGREDIENT": "FLONICAMID", "ESTRUTURA": "B_CULTURA_SEGUIDA_DE_VARIOS_ALVOS",
+   "PAIRS": [
+    {"CROP": "MELO", "TARGETS": ["AFIDI"], "SOURCE_LINE": "Melo e pero: contro afidi (Dysaphis plantaginea, Aphis pomi, Dysaphis pyri) intervenire all'inizio dell'infestazione alla dose di 0,12-0,14 kg/ha"},
+    {"CROP": "PERO", "TARGETS": ["AFIDI"], "SOURCE_LINE": "Melo e pero: contro afidi (Dysaphis plantaginea, Aphis pomi, Dysaphis pyri)"},
+    {"CROP": "PESCO", "TARGETS": ["AFIDI"], "SOURCE_LINE": "Pesco e susino: contro afidi (Myzus persicae, Brachycaudus helichrysi, Hyalopterus pruni)"},
+    {"CROP": "SUSINO", "TARGETS": ["AFIDI"], "SOURCE_LINE": "Pesco e susino: contro afidi"},
+    {"CROP": "POMODORO", "TARGETS": ["AFIDI", "MOSCA BIANCA"], "SOURCE_LINE": "Pomodoro (in campo aperto e serra): contro afidi (Myzus persicae e Aphis gossypii) | Su pomodoro e cucurbitacee [...] per il controllo delle mosche bianche"},
+    {"CROP": "CUCURBITACEE", "TARGETS": ["AFIDI", "MOSCA BIANCA"], "SOURCE_LINE": "Cucurbitacee (melone, cetriolo, cetriolino, cocomero, zucca, zucchino) in campo aperto e serra: contro Aphis gossypii"}
+   ],
+   "MUST_NOT_PRODUCE": [{"CROP": "POMODORO", "TARGET": "INFESTANTI", "WHY": "TRAP-01"}]},
+
+  {"REGISTRATION_ID": "018156", "PRODUCT": "APYZA WG", "ACTIVE_INGREDIENT": "FLONICAMID", "ESTRUTURA": "B_CULTURA_SEGUIDA_DE_VARIOS_ALVOS",
+   "PAIRS": [
+    {"CROP": "MELO", "TARGETS": ["AFIDI"], "SOURCE_LINE": "dell'afide grigio del melo (Dysaphis plantaginea). Non effettuare piu di 3 trattamenti/anno"},
+    {"CROP": "PESCO", "TARGETS": ["AFIDI"], "SOURCE_LINE": "Pesco e susino: contro afidi (Myzus persicae, Brachycaudus helichrysi,"},
+    {"CROP": "SUSINO", "TARGETS": ["AFIDI"], "SOURCE_LINE": "Pesco e susino: contro afidi"},
+    {"CROP": "POMODORO", "TARGETS": ["AFIDI"], "SOURCE_LINE": "Pomodoro (in campo aperto e serra): contro afidi (Myzus persicae e Aphis gossypii)"},
+    {"CROP": "CUCURBITACEE", "TARGETS": ["AFIDI"], "SOURCE_LINE": "Cucurbitacee (melone, cetriolo, cetriolino, cocomero, zucca, zucchino) in campo aperto e serra: contro Aphis gossypii"},
+    {"CROP": "AGRUMI", "TARGETS": ["AFIDI"], "SOURCE_LINE": "Agrumi: contro afidi (Aphis citricola, Toxoptera aurantii, Myzus persicae,"}
+   ],
+   "MUST_NOT_PRODUCE": [{"CROP": "MELO", "TARGET": "ERIOSOMA", "WHY": "Eriosoma nao aparece no rotulo: zero ocorrencias. Inventa-lo seria o erro que a missao proibe."}]},
+
+  {"REGISTRATION_ID": "018089", "PRODUCT": "AVASTEL", "ACTIVE_INGREDIENT": "PROTHIOCONAZOLE + FLUXAPYROXAD", "ESTRUTURA": "D_CELULA_MESCLADA_MULTIPLAS_LINHAS",
+   "PAIRS": [
+    {"CROP": "FRUMENTO", "TARGETS": ["SEPTORIOSI", "OIDIO", "RUGGINE GIALLA", "RUGGINE BRUNA", "FUSARIOSI"], "SOURCE_LINE": "Frumento (invernale) y[348-366] | Septoriosi (Zymoseptoria tritici), Oidio (Blumeria graminis sp. tritici), Ruggine gialla (Puccinia striiformis), Ruggine bruna (Puccinia recondita), Fusariosi y[328-385]"},
+    {"CROP": "ORZO", "TARGETS": ["RINCOSPORIOSI", "ELMINTOSPORIOSI", "RAMULARIA", "RUGGINE BRUNA", "OIDIO"], "SOURCE_LINE": "Orzo (invernale) y[427-435] | linhas y[402-460]"},
+    {"CROP": "SEGALE", "TARGETS": ["RINCOSPORIOSI", "RUGGINE BRUNA", "SEPTORIOSI", "RUGGINE GIALLA"], "SOURCE_LINE": "Segale (invernale) y[476-484] | linhas y[461-499]"}
+   ],
+   "MUST_NOT_PRODUCE": [{"CROP": "PESCO", "TARGET": "MONILIA", "WHY": "AVASTEL e 'Fungicida per frumento, orzo, segale e triticale'. Nao ha pessego no rotulo."}]},
+
+  {"REGISTRATION_ID": "016218", "PRODUCT": "DICURAN PLUS", "ACTIVE_INGREDIENT": "CHLOROTOLURON + DIFLUFENICAN", "ESTRUTURA": "E_ALVO_COMPARTILHADO_POR_VARIAS_CULTURAS",
+   "PAIRS": [
+    {"CROP": "OLIVO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "Olivo: applicare il prodotto in pre-emergenza o post-emergenza precoce delle infestanti alla dose di 3-4,5 l/ha | INFESTANTI SENSIBILI Su OLIVO: Anagallis arvensis..."},
+    {"CROP": "FRUMENTO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "Frumento tenero: applicare il prodotto alla dose di 1,75-4,5 l/ha | Su OLIVO, FRUMENTO, ORZO: Capsella bursa-pastoris..."},
+    {"CROP": "ORZO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "Orzo: applicare il prodotto alla dose di 1,75-4,5 l/ha in pre-emergenza"}
+   ],
+   "MUST_NOT_PRODUCE": [{"CROP": "OLIVO", "TARGET": "UCCELLI", "WHY": "TRAP-02: a restricao dos passaros e dos cereais"}]},
+
+  {"REGISTRATION_ID": "012573", "PRODUCT": "EKO OIL SPRAY", "ACTIVE_INGREDIENT": "PARAFFIN OIL", "ESTRUTURA": "B_CULTURA_SEGUIDA_DE_VARIOS_ALVOS",
+   "PAIRS": [
+    {"CROP": "OLIVO", "TARGETS": ["COCCINIGLIE", "TIGNOLE"], "SOURCE_LINE": "OLIVO (olive da tavola e da mensa): contro Cocciniglie e Tignole | in primavera estate 1,5-2,0 l/hl; in inverno 2,5-3,5 l/hl"},
+    {"CROP": "CARCIOFO", "TARGETS": ["ACARI", "AFIDI", "ALEURODIDI", "DITTERI", "TRIPIDI"], "SOURCE_LINE": "CARCIOFO: contro Acari, Afidi, Aleurodidi, Ditteri, Tripidi, uova di Lepidotteri"},
+    {"CROP": "BARBABIETOLA", "TARGETS": ["AFIDI", "ALTICA", "CASSIDA", "MOSCA"], "SOURCE_LINE": "BARBABIETOLA da ZUCCHERO: contro Afidi, adulti di Altica e Cassida, Mosca"},
+    {"CROP": "NOCE", "TARGETS": ["ACARI", "AFIDI", "COCCINIGLIE", "CICALINE", "CIMICI", "ERIOFIDI", "METCALFA", "PSILLE"], "SOURCE_LINE": "FICO, CACO, RIBES, NOCE, NOCCIOLO: contro Acari, Afidi, Cocciniglie, Cicaline, Cimici, Eriofidi, Metcalfa, Psille, uova di Lepidotteri"},
+    {"CROP": "NOCCIOLO", "TARGETS": ["ACARI", "AFIDI", "COCCINIGLIE", "CICALINE", "CIMICI", "ERIOFIDI", "METCALFA", "PSILLE"], "SOURCE_LINE": "FICO, CACO, RIBES, NOCE, NOCCIOLO: contro Acari, Afidi, Cocciniglie..."}
+   ]},
+
+  {"REGISTRATION_ID": "014386", "PRODUCT": "OLIONET", "ACTIVE_INGREDIENT": "PARAFFIN OIL", "ESTRUTURA": "B_CULTURA_SEGUIDA_DE_VARIOS_ALVOS",
+   "PAIRS": [
+    {"CROP": "OLIVO", "TARGETS": ["COCCINIGLIE"], "SOURCE_LINE": "OLIVO (olive da tavola e da mensa): contro Cocciniglie e [Tignole]"}
+   ]},
+
+  {"REGISTRATION_ID": "007555", "PRODUCT": "KLARTAN 20 EW", "ACTIVE_INGREDIENT": "TAU-FLUVALINATE", "ESTRUTURA": "B_CULTURA_SEGUIDA_DE_VARIOS_ALVOS",
+   "PAIRS": [
+    {"CROP": "AGRUMI", "TARGETS": ["AFIDI", "TIGNOLA"], "SOURCE_LINE": "Agrumi (arancio, mandarino, clementino, limone, limetta, pompelmo) Contro afidi (Aphis spp., Toxoptera aurantii) e tignola degli agrumi (Prays citri)"},
+    {"CROP": "MELO", "TARGETS": ["AFIDI", "CECIDOMIDI", "LEPIDOTTERI", "CIMICI", "COCCINIGLIA", "PSILLE"], "SOURCE_LINE": "Pomacee (melo, pero, melo cotogno e nespolo) Contro afidi (Dysaphis plantaginea, Aphis pomi), ditteri cecidomidi, lepidotteri, cimici (Halyomorpha halys), forme mobili giovanili di cocciniglia e psille"},
+    {"CROP": "PERO", "TARGETS": ["AFIDI", "CECIDOMIDI", "LEPIDOTTERI", "CIMICI", "COCCINIGLIA", "PSILLE"], "SOURCE_LINE": "Pomacee (melo, pero, melo cotogno e nespolo) Contro afidi..."}
+   ],
+   "NOTA_DE_ESTRUTURA": "grupo de cultura com enumeracao EXPLICITA entre parenteses. Expandir 'Pomacee (melo, pero, ...)' para os membros e defensavel porque o proprio rotulo os enumera. Expandir 'Pomacee' sem enumeracao NAO seria."},
+
+  {"REGISTRATION_ID": "002983", "PRODUCT": "NIMROD", "ACTIVE_INGREDIENT": "BUPIRIMATE", "ESTRUTURA": "C_TABELA_CULTURA_ALVO_DOSE",
+   "PAIRS": [
+    {"CROP": "PESCO", "TARGETS": ["OIDIO"], "SOURCE_LINE": "Pesco, Albicocco e Nettarine 0,75-1 | fungicida anti-oidico"},
+    {"CROP": "ALBICOCCO", "TARGETS": ["OIDIO"], "SOURCE_LINE": "Pesco, Albicocco e Nettarine"},
+    {"CROP": "VITE", "TARGETS": ["OIDIO"], "SOURCE_LINE": "Vite da vino e da tavola 0,8-1,5"}
+   ]},
+
+  {"REGISTRATION_ID": "016312", "PRODUCT": "TOMIGAN", "ACTIVE_INGREDIENT": "FLUROXYPYR", "ESTRUTURA": "I_MULTI_CULTURA_NA_MESMA_CELULA",
+   "PAIRS": [
+    {"CROP": "OLIVO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "Olivo (da olio e da tavola): Per il controllo delle malerbe | 30 giorni per olive da tavola, 90 giorni per olive da olio"},
+    {"CROP": "NOCCIOLO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "POMACEE, DRUPACEE, AGRUMI, OLIVO, NOCCIOLO, MANDORLO, NOCE, PRATI/PASCOLI, AREE NON COLTIVATE"},
+    {"CROP": "NOCE", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "POMACEE, DRUPACEE, AGRUMI, OLIVO, NOCCIOLO, MANDORLO, NOCE"},
+    {"CROP": "AGRUMI", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "POMACEE, DRUPACEE, AGRUMI, OLIVO..."}
+   ]},
+
+  {"REGISTRATION_ID": "018101", "PRODUCT": "MORAINE", "ACTIVE_INGREDIENT": "FLUROXYPYR", "ESTRUTURA": "I_MULTI_CULTURA_NA_MESMA_CELULA",
+   "PAIRS": [
+    {"CROP": "OLIVO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "Olivo (da olio e da tavola): Per il controllo delle malerbe | DRUPACEE, AGRUMI, OLIVO, PRATI/PASCOLI, AREE NON COLTIVATE"},
+    {"CROP": "AGRUMI", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "drupacee, agrumi, olivo, prati e pascoli, aree non coltivate"}
+   ]},
+
+  {"REGISTRATION_ID": "015096", "PRODUCT": "GLIPHOGAN TOP CL", "ACTIVE_INGREDIENT": "GLYPHOSATE", "ESTRUTURA": "I_MULTI_CULTURA_NA_MESMA_CELULA",
+   "PAIRS": [
+    {"CROP": "OLIVO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (AGRUMI, DRUPACEE, OLIVO DA OLIO E DA TAVOLA, MELO, PERO, VITE DA VINO E DA TAVOLA, NOCE...) | Per il diserbo dell'olivo da olio non superare la dose massima di 6 l/ha"},
+    {"CROP": "MELO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (AGRUMI, DRUPACEE, OLIVO..., MELO, PERO, VITE...)"},
+    {"CROP": "PERO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (... MELO, PERO, VITE ...)"},
+    {"CROP": "VITE", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (... VITE DA VINO E DA TAVOLA, NOCE ...)"},
+    {"CROP": "NOCE", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (... VITE DA VINO E DA TAVOLA, NOCE ...)"},
+    {"CROP": "AGRUMI", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (AGRUMI, DRUPACEE, ...)"}
+   ]},
+
+  {"REGISTRATION_ID": "017929", "PRODUCT": "KORAVERT", "ACTIVE_INGREDIENT": "GLYPHOSATE", "ESTRUTURA": "I_MULTI_CULTURA_NA_MESMA_CELULA",
+   "PAIRS": [
+    {"CROP": "OLIVO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (AGRUMI, DRUPACEE, OLIVO DA OLIO E DA TAVOLA, MELO, PERO, VITE DA VINO E DA TAVOLA, NOCE"},
+    {"CROP": "MELO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (... MELO, PERO ...)"},
+    {"CROP": "PERO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (... MELO, PERO ...)"},
+    {"CROP": "VITE", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (... VITE DA VINO E DA TAVOLA ...)"},
+    {"CROP": "NOCE", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (... NOCE ...)"}
+   ]},
+
+  {"REGISTRATION_ID": "017930", "PRODUCT": "AKTIVIR", "ACTIVE_INGREDIENT": "GLYPHOSATE", "ESTRUTURA": "I_MULTI_CULTURA_NA_MESMA_CELULA",
+   "PAIRS": [
+    {"CROP": "OLIVO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (AGRUMI, DRUPACEE, OLIVO DA OLIO E DA TAVOLA, MELO, PERO, VITE DA VINO E DA TAVOLA, NOCE"},
+    {"CROP": "MELO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (... MELO, PERO ...)"},
+    {"CROP": "VITE", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (... VITE ...)"},
+    {"CROP": "NOCE", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (... NOCE ...)"}
+   ]},
+
+  {"REGISTRATION_ID": "016387", "PRODUCT": "HERBITOTAL CL", "ACTIVE_INGREDIENT": "GLYPHOSATE", "ESTRUTURA": "I_MULTI_CULTURA_NA_MESMA_CELULA",
+   "PAIRS": [
+    {"CROP": "OLIVO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (AGRUMI, DRUPACEE, OLIVO DA OLIO E DA TAVOLA, ...) | Per il diserbo dell'olivo da olio non superare la dose massima di 6 l/ha"},
+    {"CROP": "MELO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (... MELO, PERO ...)"},
+    {"CROP": "VITE", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (... VITE ...)"}
+   ]},
+
+  {"REGISTRATION_ID": "015401", "PRODUCT": "TAIFUN MK CL", "ACTIVE_INGREDIENT": "GLYPHOSATE", "ESTRUTURA": "I_MULTI_CULTURA_NA_MESMA_CELULA",
+   "PAIRS": [
+    {"CROP": "OLIVO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (AGRUMI, DRUPACEE, OLIVO DA OLIO E DA TAVOLA ...) | Per il diserbo dell'olivo da olio non superare la dose massima di 6 l/ha"},
+    {"CROP": "MELO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (... MELO, PERO ...)"},
+    {"CROP": "VITE", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (... VITE ...)"}
+   ]},
+
+  {"REGISTRATION_ID": "015405", "PRODUCT": "SHAMAL MK PLUS CL", "ACTIVE_INGREDIENT": "GLYPHOSATE", "ESTRUTURA": "I_MULTI_CULTURA_NA_MESMA_CELULA",
+   "PAIRS": [
+    {"CROP": "OLIVO", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (AGRUMI, DRUPACEE, OLIVO DA OLIO E DA TAVOLA ...) | Per il diserbo dell'olivo da olio non superare la dose massima di 6 l/ha"},
+    {"CROP": "AGRUMI", "TARGETS": ["INFESTANTI"], "SOURCE_LINE": "ARBOREE (AGRUMI, DRUPACEE, ...)"}
+   ]},
+
+  {"REGISTRATION_ID": "009757", "PRODUCT": "SPYRALE", "ACTIVE_INGREDIENT": "DIFENOCONAZOLE + FENPROPIDIN", "ESTRUTURA": "G_TEXTO_CORRIDO",
+   "PAIRS": [
+    {"CROP": "BARBABIETOLA", "TARGETS": ["MALATTIE FUNGINE"], "SOURCE_LINE": "FUNGICIDA PER LA DIFESA DELLA BARBABIETOLA DA ZUCCHERO DALLE MALATTIE FUNGINE"}
+   ],
+   "MUST_NOT_PRODUCE": [{"CROP": "OLIVO", "TARGET": "*", "WHY": "zero ocorrencias de 'oliv' no rotulo. Testemunha do difenoconazole."}]},
+
+  {"REGISTRATION_ID": "017955", "PRODUCT": "MAGANIC", "ACTIVE_INGREDIENT": "DIFENOCONAZOLE", "ESTRUTURA": "G_TEXTO_CORRIDO",
+   "PAIRS": [
+    {"CROP": "FRUMENTO", "TARGETS": ["MALATTIE FUNGINE"], "SOURCE_LINE": "Fungicida per frumento"}
+   ],
+   "MUST_NOT_PRODUCE": [{"CROP": "OLIVO", "TARGET": "*", "WHY": "zero ocorrencias de 'oliv'. Testemunha do difenoconazole."}]},
+
+  {"REGISTRATION_ID": "015740", "PRODUCT": "VINETO", "ACTIVE_INGREDIENT": "BUPIRIMATE + TEBUCONAZOLE", "ESTRUTURA": "G_TEXTO_CORRIDO",
+   "PAIRS": [
+    {"CROP": "VITE", "TARGETS": ["OIDIO"], "SOURCE_LINE": "Fungicida ad azione anti-oidica preventiva, curativa ed [eradicante]"}
+   ],
+   "MUST_NOT_PRODUCE": [{"CROP": "PESCO", "TARGET": "MONILIA", "WHY": "zero ocorrencias de pesco/monilia"}]},
+
+  {"REGISTRATION_ID": "016152", "PRODUCT": "SEEDRON", "ACTIVE_INGREDIENT": "FLUDIOXONIL + TEBUCONAZOLE", "ESTRUTURA": "G_TEXTO_CORRIDO",
+   "PAIRS": [
+    {"CROP": "SEGALE", "TARGETS": ["FUSARIOSI", "CARBONE"], "SOURCE_LINE": "Segale e Triticale: Fusariosi (Fusarium spp., Microdochium nivale), Carbone (Urocystis occulta)"},
+    {"CROP": "TRITICALE", "TARGETS": ["FUSARIOSI", "CARBONE"], "SOURCE_LINE": "Segale e Triticale: Fusariosi (Fusarium spp., Microdochium nivale), Carbone"}
+   ],
+   "MUST_NOT_PRODUCE": [{"CROP": "PESCO", "TARGET": "MONILIA", "WHY": "zero ocorrencias"}]}
+ ],
+
+ "NOTES": "Escrito a mao a partir do dump geometrico. Onde nao tive certeza, NAO escrevi par. O gabarito e menor que a verdade do rotulo de proposito: um gabarito que chuta infla o recall medido e mente sobre o parser."
+}

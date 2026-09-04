@@ -1,14 +1,42 @@
 # HANDOFF · COLETA / VÍDEO / CONVEGNI / CRUZAMENTOS ITÁLIA
 
-**Data:** 2026-09-04 (3ª rodada)
+**Data:** 2026-09-04 (4ª rodada)
 **Branch:** `claude/retomada-coleta-video-convegni-vz50er`
-**HEAD desta rodada:** `24b105b` — a rodada anterior fechou em `80ff4db`
+**HEAD da rodada anterior:** `a3617ae`
 
 O próximo agente deve conseguir continuar **sem reconstruir esta história pela conversa**.
 
 ---
 
-## 0 · O QUE MUDOU NA 3ª RODADA — LEITURA DOS 163 RÓTULOS
+## 0 · O QUE MUDOU NA 4ª RODADA — O EXTRATOR DE PARES
+
+**Veredito: `LABEL_PAIR_EXTRACTION = PARTIAL`. O conjunto novo NÃO substitui o antigo.**
+
+O parser passou a ler **geometria** (`pdftotext -bbox-layout`) em vez de texto achatado —
+a causa real da perda, porque `-layout` intercala colunas diferentes na mesma linha. Ele
+resolve célula mesclada descendo ao nível de linha, e **declara `AMBIGUOUS_ROW`** quando a
+fronteira de linha da tabela é um chute, em vez de inventar o par.
+
+| | contra o gabarito | por amostra adjudicada |
+|---|---|---|
+| precisão | 0,240 | **0,958** (23/24, 1 incerto, 0 errados) |
+| recall | **0,630** | — |
+
+A precisão contra o gabarito engana: o gabarito é **parcial** por construção, então pune o
+parser por pares que eu nunca enumerei. O que **não** engana é o recall de 0,630 e os
+**95 rótulos sem nenhum par suportado** — e é por isso que não publico.
+
+**Ganhos reais, por rótulos cobertos:** OLIVO 1→9, NOCE 0→6, NOCCIOLO 0→11, PERO 4→20,
+AGRUMI 6→13, ALBICOCCO 8→18, PESCO 11→20. **Perdas:** MELO 30→18, PATATA 27→15.
+
+Artefatos: `IT-ROTULOS-PARES-V2-CANDIDATO.json`, `IT-ROTULOS-GABARITO-V1.json`,
+`IT-ROTULOS-METRICAS-V1.json`, `scripts/it_rotulo_{parser,vocab,avaliar,rodar,testemunha}.py`,
+e a **geometria dos 163 versionada** (`geometria/*.xml.gz`, 5,2 MB) — um contêiner novo
+reproduz o digest sem rede e sem PDF: `LABEL_PARSER_SURVIVES_NEW_CONTAINER = PASS`.
+
+---
+
+## 0b · O QUE MUDOU NA 3ª RODADA — LEITURA DOS 163 RÓTULOS
 
 **Cobertura de leitura fechada: 163/163, com SHA batendo em 163/163** contra o download da
 casa de 2026-08-30. Não é coleta nova: são os mesmos documentos, byte a byte.
