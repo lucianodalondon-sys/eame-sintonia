@@ -110,12 +110,24 @@ AS_MINHAS_PROPRIAS_SAIDAS = (
     'IT-FAMILIA-SUPERFICIE-VERIFICACAO-V1.json',
 )
 
+# E A CAMADA DE METODO INTEIRA. Contratos, verificacoes e handoffs sao o que
+# DIZEMOS sobre o acervo, nao o acervo. Sem esta excepcao o total subia sempre
+# que alguem escrevia um contrato — o primeiro lote de handoffs somou 160
+# registos e sete chaves novas — e um numero que cresce com a nossa papelada nao
+# mede coisa nenhuma.
+#
+#     O ACERVO E O QUE MEDIMOS. O CONTRATO E COMO O MEDIMOS.
+#     UM CONTADOR QUE SOMA OS DOIS NAO ESTA A MEDIR: ESTA A APLAUDIR-SE.
+CAMADA_DE_METODO = ('IT-PORTAL-V1',)
+
 
 def varre():
     achado = []
     for base, _, nomes in os.walk(os.path.join(ROOT, 'data')):
         for n in sorted(nomes):
             if not n.endswith('.json') or n in AS_MINHAS_PROPRIAS_SAIDAS:
+                continue
+            if any(('/%s/' % d) in (base + '/') for d in CAMADA_DE_METODO):
                 continue
             p = os.path.join(base, n)
             try:
@@ -164,6 +176,12 @@ def main():
             por_chave[k] += n
             por_sub['%s · %s' % (fam, k)] += n
 
+    # INVARIANTE PERMANENTE. Um registo que exista no total e nao caia em familia
+    # nenhuma desaparece sem destino — e desaparecer sem destino e como o acervo
+    # encolhe sem ninguem dar por isso.
+    soma_fam = sum(por_fam.values())
+    invariante_ok = soma_fam == sum(por_chave.values())
+
     doc = OrderedDict([
         ('DATASET', 'IT-ACERVO-INVENTARIO-V2'),
         ('LAYER', 'PORTAL — o acervo contado pela FORMA das coleccoes, nao por lista branca'),
@@ -176,6 +194,8 @@ def main():
         ('TOTAL_REAL_ACERVO', sum(por_chave.values())),
         ('CHAVES_DE_COLECAO_ENCONTRADAS', len(por_chave)),
         ('CHAVES_NAO_RECONHECIDAS', len(desconhecidas)),
+        ('SOMA_DAS_FAMILIAS', soma_fam),
+        ('INVARIANTE_SOMA_DAS_FAMILIAS_IGUAL_AO_TOTAL', invariante_ok),
         ('UNKNOWN_COLLECTION_KEY', desconhecidas),
         ('TOTAL_POR_FAMILIA', OrderedDict(sorted(por_fam.items(), key=lambda x: -x[1]))),
         ('TOTAL_POR_SUBTIPO', OrderedDict(sorted(por_sub.items(), key=lambda x: -x[1]))),
@@ -197,7 +217,10 @@ def main():
         for u in desconhecidas[:8]:
             print('   · %s em %s (%d registos)' % (u['CHAVE'], u['FICHEIRO'], u['REGISTOS']))
     print('\n  gravado: %s' % os.path.relpath(SAIDA, ROOT))
-    return 1 if desconhecidas else 0
+    if not invariante_ok:
+        print('\n  INVARIANTE QUEBRADA: soma das familias %d != total %d'
+              % (soma_fam, sum(por_chave.values())))
+    return 1 if (desconhecidas or not invariante_ok) else 0
 
 
 if __name__ == '__main__':

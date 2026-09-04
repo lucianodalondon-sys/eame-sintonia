@@ -227,6 +227,20 @@ def uma(familia):
           '%d coleccao(oes) da familia que nenhum subconjunto reclama: %s'
           % (len(orfaos), orfaos[:4]))
 
+    # DUAS INVARIANTES PERMANENTES. Nenhum registo pode desaparecer entre
+    # inventario, contrato e handoff sem destino explicito — e a unica forma de
+    # garantir isso e somar os dois lados e exigir que batam.
+    total = sum(conta.values())
+    inv_p = os.path.join(CONTRATOS, 'IT-ACERVO-INVENTARIO-V2.json')
+    if os.path.exists(inv_p):
+        inv = json.load(open(inv_p, encoding='utf-8'))['TOTAL_POR_FAMILIA'].get(familia)
+        exige(inv == total, 'TOTAL_BATE_COM_O_INVENTARIO',
+              'contrato %d · inventario %s — dois contadores a discordar sobre o '
+              'mesmo acervo' % (total, inv))
+    declarado = sum(s.get('N_ESPERADO') or 0 for s in subs)
+    exige(declarado == total, 'SOMA_DOS_DESTINOS_IGUAL_AO_TOTAL',
+          'declarado %d · contado por destino %d' % (declarado, total))
+
     abertas = C.get('DECISOES_EM_ABERTO') or []
     exige(not abertas, 'NENHUMA_DECISAO_EM_ABERTO', '%s' % abertas[:3])
 
