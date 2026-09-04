@@ -28,6 +28,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { CLIENT, readPortal } from './lib/harness.mjs';
+import { antepassadoNaTestemunha } from './lineage-witness.mjs';
 
 const results = [];
 const check = (id, title, fn) => {
@@ -73,17 +74,34 @@ check('LOTE_COMPLETO_E_DE_UMA_SO_HISTORIA', 'the four handoffs arrive and their 
   if (heads.some((h) => !h)) bad.push('ha familia sem UPSTREAM_CHECKPOINT');
   else if (heads.length > 1) {
     const raiz = path.resolve(CLIENT, '..', '..');
+    /* Duas fontes, nesta ordem. O Git quando tem os objectos — e a autoridade.
+       A testemunha versionada quando nao tem, porque um clone `--single-branch`
+       desta linha nao possui commits de outra linhagem que o handoff so nomeia.
+
+           NAO SABER CONTINUA A SER FALHAR. A testemunha nao afrouxa a regra:
+           substitui «nao consigo perguntar» por «aqui esta a conta, refaz».
+
+       O que nao se faz e ir buscar a rede a meio de um portao. */
+    const temObjecto = (s) =>
+      spawnSync('git', ['cat-file', '-e', `${s}^{commit}`], { cwd: raiz }).status === 0;
+    const porqueTestemunha = [];
     const antepassado = (a, b) => {
-      const r = spawnSync('git', ['merge-base', '--is-ancestor', a, b], { cwd: raiz });
-      if (r.error || r.status === null) throw new Error(`git inalcancavel: nao da para provar a linhagem de ${a}`);
-      return r.status === 0;
+      if (temObjecto(a) && temObjecto(b)) {
+        const r = spawnSync('git', ['merge-base', '--is-ancestor', a, b], { cwd: raiz });
+        if (r.error || r.status === null) throw new Error(`git inalcancavel: nao da para provar a linhagem de ${a}`);
+        return r.status === 0;
+      }
+      const v = antepassadoNaTestemunha(a, b);
+      if (v.resposta === null) throw new Error(`linhagem por provar: ${v.porque.join('; ')}`);
+      if (!porqueTestemunha.length) porqueTestemunha.push('por testemunha versionada');
+      return v.resposta;
     };
     /* o mais novo tem de conter todos os outros */
     const maisNovo = heads.find((h) => heads.every((o) => o === h || antepassado(o, h)));
     if (!maisNovo) bad.push(`checkpoints sem historia comum: ${heads.join(', ')} — isto sao safras diferentes, nao uma correccao`);
     else {
       const atras = heads.filter((h) => h !== maisNovo);
-      detalheDaLinhagem = `${maisNovo} contem ${atras.join(', ')}`;
+      detalheDaLinhagem = `${maisNovo} contem ${atras.join(', ')}${porqueTestemunha.length ? ' · ' + porqueTestemunha[0] : ''}`;
     }
   }
   for (const [n, d] of [['RADAR', RF], ['CAMPO', SC_], ['FONTES', FO], ['FITO', FI]]) {

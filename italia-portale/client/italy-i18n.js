@@ -17,14 +17,14 @@
 
     // ── navigation ───────────────────────────────────────
     navRadar: 'Radar delle Opportunità',
-    navFuture: 'Radar Futuro',
+    navFuture: 'Archivio segnali',
     navWindows: 'Finestre Colturali',
     navMarket: 'Polso di Mercato',
     navField: 'Rete Commerciale di Campo',
     navCompetitors: 'Concorrenza',
     navScience: 'Intelligence Scientifica',
     navArchive: 'Archivio',
-    navSources: 'Fonti',
+    navSources: 'Registro fonti',
 
     // ── page subtitles ───────────────────────────────────
     /* La riga di scuse non serve piu: la schermata che la portava non si
@@ -90,7 +90,7 @@
     FSTATUS: { 'NEW SIGNAL': 'NUOVO SEGNALE', 'GAINING ATTENTION': 'ATTENZIONE CRESCENTE', 'MULTIPLE SIGNALS': 'SEGNALI MULTIPLI', 'WATCH CLOSELY': 'OSSERVARE DA VICINO', 'NEEDS VALIDATION': 'DA VALIDARE', 'TIMING APPROACHING': 'TEMPISTICA VICINA', 'PREPARE': 'PREPARARE' },
     EVCHIP: { 'OFFICIAL': 'UFFICIALE', 'FIELD': 'CAMPO', 'SCIENCE': 'SCIENZA', 'TECHNICAL MEDIA': 'MEDIA TECNICI', 'COMPETITORS': 'CONCORRENTI', 'NEWS & MEDIA': 'STAMPA E MEDIA', 'RESEARCHERS': 'RICERCATORI', 'FIELD SALES': 'RETE COMMERCIALE', 'PEOPLE': 'PERSONE' },
     frSub: 'Cosa potrebbe diventare un\'opportunità — {n} segnali monitorati in Italia.',
-    frSubA: 'Cosa potrebbe diventare un\'opportunità —', frWhyWatch: 'PERCHÉ OSSERVARE', frWhoTalking: 'CHI NE PARLA', frNextWindow: 'Prossima finestra',
+    frSubA: 'Archivio dei segnali del pacchetto V21 — popolazione distinta dal Radar Futuro —', frWhyWatch: 'PERCHÉ OSSERVARE', frWhoTalking: 'CHI NE PARLA', frNextWindow: 'Prossima finestra',
     frPortfolio: 'Portafoglio', frUpdated: 'Aggiornato', frExplore: 'ESPLORA SEGNALE →',
     ARCHTYPES: { 'BULLETIN': 'Bollettino di campo', 'FIELD_SIGNAL': 'Lettura di campo', 'News article': 'Articolo di stampa', 'Field bulletin': 'Bollettino di campo', 'Regulatory record': 'Record normativo', 'Label': 'Etichetta', 'Scientific paper': 'Pubblicazione scientifica', 'Researcher signal': 'Segnale di ricercatore', 'Technical article': 'Articolo tecnico', 'Competitor activity': 'Attività concorrente', 'Producer-organization update': 'Aggiornamento da organizzazione di produttori', 'Monitoring observation': 'Osservazione di monitoraggio', 'COMPETITOR': 'Attività di concorrente', 'SCIENCE': 'Pubblicazione scientifica', 'MARKET': 'Osservazione di prezzo', 'RESISTANCE': 'Caso di resistenza', 'WINDOW': 'Finestra colturale', 'EVENT': 'Evento di settore', 'VOICE': 'Voce pubblica', 'NEWS': 'Articolo di stampa' },
     arcSub: 'elementi indicizzati su scienza, mercato, concorrenza, voci, eventi, notizie e finestre colturali.',
@@ -639,7 +639,7 @@
     sciMonitorNextBody: 'Nuove pubblicazioni sul tema e attività dei ricercatori in',
     sciThemeInstitutions: 'istituzioni nel profilo OpenAlex del tema.',
 
-    subSources: 'Chi e cosa Sintonia sta ascoltando in Italia.',
+    subSources: 'Il registro delle fonti del pacchetto V21. Non è la copertura della raccolta: quella vive nella prima piega, con il suo metodo accanto.',
     srcFrequency: 'FREQUENZA', srcGeography: 'GEOGRAFIA', srcLatest: 'ULTIMA', srcRelated: 'COLLEGATI', srcHealth: 'STATO',
     srcRecords: 'elementi',
     srcLatestCaptures: 'ULTIME ACQUISIZIONI IN ARCHIVIO',
@@ -668,14 +668,14 @@
     logout: 'SIGN OUT',
 
     navRadar: 'Opportunity Radar',
-    navFuture: 'Future Radar',
+    navFuture: 'Signal archive',
     navWindows: 'Crop Windows',
     navMarket: 'Market Pulse',
     navField: 'Field Sales Channel',
     navCompetitors: 'Competitor Watch',
     navScience: 'Scientific Intelligence',
     navArchive: 'Archive',
-    navSources: 'Sources',
+    navSources: 'Source registry',
 
     subRadar: 'Where ADAMA can act or prepare now — pest pressure, crop timing and portfolio fit.',
     subWindows: 'Field clock and business clock on one rolling timeline — when the crop needs protection, and when the commercial work has to start.',
@@ -723,7 +723,7 @@
     cwDrag: 'drag the timeline · shift + wheel to travel',
     CROPS: {}, ISSUES: {}, SRCTYPES: {}, FSTATUS: {}, EVCHIP: {},
     frSub: 'What may become an opportunity next — {n} monitored signals across Italy.',
-    frSubA: 'What may become an opportunity next —', frWhyWatch: 'WHY WATCH', frWhoTalking: 'WHO IS TALKING', frNextWindow: 'Next window',
+    frSubA: 'V21 package signal archive — a population distinct from the Future Radar —', frWhyWatch: 'WHY WATCH', frWhoTalking: 'WHO IS TALKING', frNextWindow: 'Next window',
     frPortfolio: 'Portfolio', frUpdated: 'Updated', frExplore: 'EXPLORE SIGNAL →',
     ARCHTYPES: { 'BULLETIN': 'Field bulletin', 'FIELD_SIGNAL': 'Field reading', 'COMPETITOR': 'Competitor activity', 'SCIENCE': 'Scientific publication', 'MARKET': 'Price observation', 'RESISTANCE': 'Resistance case', 'WINDOW': 'Crop window', 'EVENT': 'Sector event', 'VOICE': 'Public voice', 'NEWS': 'News article' },
     arcSub: 'items indexed over science, market, competitors, voices, events, news and crop windows.',
@@ -1205,7 +1205,7 @@
     sciMonitorNextBody: 'New publications on the theme and researcher activity across',
     sciThemeInstitutions: 'institutions in the theme OpenAlex profile.',
 
-    subSources: 'Who and what Sintonia is listening to in Italy.',
+    subSources: 'The V21 package source registry. Not collection coverage: that lives on the first fold, with its method beside it.',
     srcFrequency: 'FREQUENCY', srcGeography: 'GEOGRAPHY', srcLatest: 'LATEST', srcRelated: 'RELATED', srcHealth: 'HEALTH',
     srcRecords: 'records',
     srcLatestCaptures: 'LATEST CAPTURES IN ARCHIVE',

@@ -15,7 +15,10 @@
    "COMO_FOI_VERIFICADO": "extraidas TODAS as datas visiveis na tela e classificada a origem de cada uma",
    "EVIDENCIA": "quatro datas na tela: 2026-09-04 (data de referencia), 2026-08-24 (snapshot do registro fitossanitario), 31/05/2027 e 31/03/2028 (vencimentos de registro). Nenhuma e de documento social.",
    "REFORCO_NA_TELA": "«Non mostriamo recenza su questo strato: è stato prodotto con una lettura di data difettosa, ancora da rimisurare.»",
-   "VEREDITO": "RESPEITADO"
+   "VEREDITO": "RESPEITADO",
+   "O_QUE_A_HOME_MOSTRA": "quatro datas, todas de registo: 2026-09-04 (referencia), 2026-08-24 (snapshot do registo fitossanitario), 31/05/2027 e 31/03/2028 (vencimentos). Nenhuma data de documento social.",
+   "POR_QUE_RESPEITA": "a classe proibida — data de documento social — nao existe na tela, porque a familia social nao entra na casa.",
+   "CONFIRMADO_POR_HUMANO": "PENDING"
   },
   {
    "N": 2,
@@ -24,7 +27,10 @@
    "PORQUE_NAO_E_GREPAVEL": "e uma afirmacao de tendencia; pode ser escrita de dezenas de maneiras.",
    "COMO_FOI_VERIFICADO": "busca por familia de tendencia em italiano: aument*, cresc*, «sta salendo», tendenza, trend, «in crescita»",
    "EVIDENCIA": "zero ocorrencias na tela, com todas as dobras abertas.",
-   "VEREDITO": "RESPEITADO"
+   "VEREDITO": "RESPEITADO",
+   "O_QUE_A_HOME_MOSTRA": "nenhuma afirmacao de variacao. Sobre o estrato territorial diz explicitamente que nao mostra recencia.",
+   "POR_QUE_RESPEITA": "sem linha de base nao ha tendencia que se possa afirmar, e a tela diz isso em vez de a insinuar.",
+   "CONFIRMADO_POR_HUMANO": "PENDING"
   },
   {
    "N": 3,
@@ -34,7 +40,10 @@
    "COMO_FOI_VERIFICADO": "procurado mapa renderizado na primeira dobra e lida a moldura da cobertura",
    "EVIDENCIA": "nao ha mapa na casa. A cobertura e dita em celulas — 117 territorio x especialidade, 72 com a expansao declarada, 30 sem ela —, nunca pintada.",
    "REFORCO_NA_TELA": "«La copertura risponde ‹qui abbiamo occhi›. Non risponde mai ‹qui c'è un problema›. Confondere le due trasforma la copertura della raccolta in una mappa di pressione agronomica.»",
-   "VEREDITO": "RESPEITADO"
+   "VEREDITO": "RESPEITADO",
+   "O_QUE_A_HOME_MOSTRA": "cobertura em celulas contadas — 117 territorio x especialidade, 72 com a expansao declarada, 30 sem ela. Zero mapas e zero canvas em toda a jornada.",
+   "POR_QUE_RESPEITA": "contar celulas nao e pintar geografia: sem mapa, a sede do titular nao tem como virar lugar do facto.",
+   "CONFIRMADO_POR_HUMANO": "PENDING"
   },
   {
    "N": 4,
@@ -43,7 +52,10 @@
    "PORQUE_NAO_E_GREPAVEL": "e uma RELACAO entre duas fontes; a frase proibida nunca aparece literalmente.",
    "COMO_FOI_VERIFICADO": "lido o bloco de limite do destaque",
    "EVIDENCIA": "a tela afirma o CONTRARIO, explicitamente: «atto europeo e registro nazionale NON sono due fonti indipendenti: il nazionale deriva dall'europeo. Contarli come due conferme gonfia la fiducia in un fatto che ha una sola origine.»",
-   "VEREDITO": "RESPEITADO · E ATIVAMENTE CONTRADITO"
+   "VEREDITO": "RESPEITADO · E ATIVAMENTE CONTRADITO",
+   "O_QUE_A_HOME_MOSTRA": "«atto europeo e registro nazionale NON sono due fonti indipendenti: il nazionale deriva dall’europeo», ao lado da leitura que limita e nao atras de uma dobra.",
+   "POR_QUE_RESPEITA": "a tela afirma o contrario da formulacao proibida, e afirma-o visivel.",
+   "CONFIRMADO_POR_HUMANO": "PENDING"
   },
   {
    "N": 5,
@@ -53,7 +65,10 @@
    "COMO_FOI_VERIFICADO": "busca pelas formas italianas: ritirat*, «tolti dal mercato», «fuori mercato», «non piu in commercio»",
    "EVIDENCIA": "zero ocorrencias. A tela reporta ESTADO DE REGISTO, nunca retirada de mercado: «Revocato: 13.216 · Scaduto: 765 · revocati con scadenza ancora futura: 223.»",
    "REFORCO_NA_TELA": "«Revocato ≠ Scaduto · perché la data da sola non basta» e «Limite. motivo dichiarato in 1.119 su 13.216. Per gli altri, il perché della revoca è NON SO — e non si deduce.»",
-   "VEREDITO": "RESPEITADO"
+   "VEREDITO": "RESPEITADO",
+   "O_QUE_A_HOME_MOSTRA": "«Revocato: 13.216 · Scaduto: 765 · revocati con scadenza ancora futura: 223», e o limite «il perche della revoca e NON SO».",
+   "POR_QUE_RESPEITA": "reporta ESTADO DE REGISTO, nunca retirada de mercado, e declara que o motivo e desconhecido na maioria.",
+   "CONFIRMADO_POR_HUMANO": "PENDING"
   },
   {
    "N": 6,
@@ -62,12 +77,19 @@
    "PORQUE_NAO_E_GREPAVEL": "a violacao esta em COMO o numero e enquadrado, nao numa palavra.",
    "COMO_FOI_VERIFICADO": "lido o bloco das autorizacoes ADAMA e procurada linguagem de lideranca ou fatia",
    "EVIDENCIA": "a tela afirma o CONTRARIO: «Limite. conteggio di registri, e nient'altro. Non è quota di mercato.» E acrescenta que somar as cinco razoes sociais e «GIUDIZIO UMANO, non fatto del registro — è la lacuna DECK-015».",
-   "VEREDITO": "RESPEITADO · E ATIVAMENTE CONTRADITO"
+   "VEREDITO": "RESPEITADO · E ATIVAMENTE CONTRADITO",
+   "O_QUE_A_HOME_MOSTRA": "«conteggio di registri, e nient’altro. Non e quota di mercato», mais «sommare le cinque ragioni sociali e GIUDIZIO UMANO».",
+   "POR_QUE_RESPEITA": "nega a leitura proibida pelo nome, e nomeia como julgamento humano a soma das cinco razoes sociais.",
+   "CONFIRMADO_POR_HUMANO": "PENDING"
   }
  ],
  "RESULTADO_DA_INSPECAO": "6/6 respeitados na superficie medida",
  "O_QUE_ISTO_AINDA_NAO_E": "a assinatura humana que a regra exige. Uma inspecao feita por maquina sobre as seis FORMAS e melhor do que grep nenhum e pior do que leitura humana — que e exatamente por que estas seis foram separadas das oito. Este ficheiro entrega a evidencia para que a confirmacao custe minutos, nao para a substituir.",
- "CONFIRMADO_POR_HUMANO": null,
+ "CONFIRMADO_POR_HUMANO": "PENDING",
  "CONFIRMADO_EM": null,
- "SEM_ASSINATURA": "SEMANTIC_REVIEW conta 6/6 INSPECIONADOS e 0/6 ASSINADOS. PREVIEW aguarda a assinatura."
+ "SEM_ASSINATURA": "SEMANTIC_REVIEW conta 6/6 INSPECIONADOS e 0/6 ASSINADOS. PREVIEW aguarda a assinatura.",
+ "SEMANTIC_INSPECTED": "6/6",
+ "SEMANTIC_HUMAN_SIGNED": "0/6",
+ "QUEM_ASSINA": "o agente INSPECIONA e mostra a evidencia; a assinatura e do humano. Preencher CONFIRMADO_POR_HUMANO em nome de quem nao leu seria a propria falha que estas seis regras existem para impedir.",
+ "COMO_ASSINAR": "trocar PENDING por YES em cada uma das seis, e preencher CONFIRMADO_EM com a data. Enquanto houver um PENDING, READY_FOR_HUMAN_SIGNOFF fica YES e PREVIEW_READY fica NO."
 }

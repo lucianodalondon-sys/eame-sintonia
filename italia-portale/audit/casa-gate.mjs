@@ -269,6 +269,70 @@ check('BROWSER_DATA_ONLY_AUTHORIZED_DESTINATIONS', () => {
     : [`${noDado.length} ids no dado (${noDado.join(', ')}), todos entre os ${rend.size} renderizaveis`] };
 });
 
+/* ── um nome, um universo ────────────────────────────────────────────────── */
+/* O menu do portal chamava «Radar Futuro» a tres registos IT-FUT- do pacote V21,
+   e «Fonti» a 189 SRC_ sem AUTHORITY_CLASS nem COLLECTABILITY. A casa chama
+   «Radar Futuro» aos 45 ITFC e «fonti con metodo» as 91. Interseccao de IDs: ZERO
+   nos dois casos — sao universos disjuntos com o mesmo nome, a um clique.
+
+       O CLIENTE NAO PODE CLICAR NUM NOME E CAIR NOUTRO UNIVERSO.
+
+   Isto nao renomeia dados nem apaga populacoes: exige so que dois universos
+   distintos nao partilhem o nome na navegacao. */
+check('CANONICAL_LABEL_COLLISION', () => {
+  const i18n = fs.readFileSync(path.join(CLIENTE, 'italy-i18n.js'), 'utf8');
+  const rot = (chave) => [...i18n.matchAll(new RegExp(`${chave}:\\s*'([^']+)'`, 'g'))].map((m) => m[1]);
+  const bad = [];
+  const nomesDaCasa = ['Radar Futuro', 'Future Radar'];
+  for (const r of rot('navFuture'))
+    if (nomesDaCasa.some((n) => r.toLowerCase() === n.toLowerCase()))
+      bad.push(`navFuture continua a chamar-se «${r}», o nome do universo canonico dos ITFC`);
+  for (const r of rot('navSources'))
+    if (/^(fonti|sources)$/i.test(r.trim()))
+      bad.push(`navSources continua a chamar-se «${r}» ao lado das 91 fonti con metodo`);
+  return { pass: !bad.length, detail: bad.length ? bad
+    : [`navFuture = ${rot('navFuture').join(' / ')}`, `navSources = ${rot('navSources').join(' / ')}`,
+       'RADAR_LABEL_COLLISION = ZERO · FONTI_LABEL_COLLISION = ZERO'] };
+});
+
+/* ── os 8 literais, tambem em italiano ───────────────────────────────────── */
+/* As regras DO_NOT_SHOW foram escritas em portugues, e a tela e italiana. Testar
+   so a string portuguesa e testar uma frase que nunca poderia aparecer: o portao
+   fica verde por construcao. Aqui declara-se, para cada regra, a AFIRMACAO
+   ITALIANA equivalente — a forma que a superficie realmente usaria — e testa-se
+   essa.
+
+       UM CONTROLO QUE SO CONHECE A LINGUA ERRADA NAO E UM CONTROLO.
+
+   Nao e revisao semantica: sao formulacoes literais, so na lingua da tela. */
+const LITERAIS_IT = [
+  { PT: '0 legendas', IT: ['0 sottotitoli', 'nessun sottotitolo', 'zero sottotitoli'] },
+  { PT: 'ADAMA possui 155 autorizações', IT: ['ADAMA possiede 155', 'ADAMA ha 155 autorizzazioni'] },
+  { PT: '114 pessoas', IT: ['114 persone'] },
+  { PT: 'temos agrônomos e produtores na base', IT: ['abbiamo agronomi e produttori'] },
+  { PT: 'cobertura BOA em 72 células', IT: ['copertura BUONA in 72', 'copertura buona in 72 celle'] },
+  { PT: 'há problema nesta região', IT: ['c\'è un problema in questa regione', 'qui c\'è un problema in'] },
+  { PT: '61 documentos relevantes', IT: ['61 documenti rilevanti'] },
+  { PT: 'oportunidade / espaço livre / ativo subutilizado', IT: ['spazio libero', 'attivo sottoutilizzato'] },
+];
+
+check('LITERAL_IT_CONTROL', () => {
+  const bad = [];
+  if (LITERAIS_IT.length !== 8) bad.push(`a lista italiana tem ${LITERAIS_IT.length}, nao 8`);
+  const baixo = aberta.toLowerCase();
+  for (const r of LITERAIS_IT) {
+    for (const f of r.IT) if (baixo.includes(f.toLowerCase())) bad.push(`a casa diz «${f}»`);
+  }
+  /* CONTROLO NEGATIVO: se injectar uma destas frases no texto medido nao fizer
+     falhar, o teste nao esta a medir nada. */
+  const envenenado = (aberta + '\n' + LITERAIS_IT[4].IT[0]).toLowerCase();
+  const apanha = LITERAIS_IT.some((r) => r.IT.some((f) => envenenado.includes(f.toLowerCase())));
+  if (!apanha) bad.push('CONTROLO NEGATIVO FALHOU: a frase injectada nao foi apanhada');
+  return { pass: !bad.length, detail: bad.length ? bad
+    : [`${LITERAIS_IT.reduce((a, r) => a + r.IT.length, 0)} formulacoes italianas testadas em 8 regras`,
+       'controlo negativo: a frase injectada FOI apanhada'] };
+});
+
 const mau = R.filter((r) => !r.pass);
 console.log('\n  SINTONIA · PORTAO DA CASA — a primeira dobra medida no browser');
 console.log('  ' + '─'.repeat(92));
