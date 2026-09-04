@@ -58,6 +58,18 @@ def main():
             if isinstance(x, dict) and x.get('ID'):
                 no_pacote.add(x['ID'])
 
+    # As REGRAS que 85df96f ingeriu pela mesma porta — disciplinari e fichas
+    # regionais, com OBSERVATION_CLASS=STANDING_RULE. Se um destes 16 diz a
+    # mesma coisa que uma regra ja ingerida, ele e redundante.
+    sinais = json.load(open(os.path.join(ING, 'CURRENT-FIELD-SIGNALS.json'),
+                            encoding='utf-8'))['RECORDS']
+    regras = [x for x in sinais if x.get('OBSERVATION_CLASS') == 'STANDING_RULE']
+    regra_por_par = {}
+    for x in regras:
+        for c in (x.get('CROP_IDS') or [None]):
+            for g in (x.get('REGION_IDS') or [None]):
+                regra_por_par.setdefault((c, g), []).append(x['ID'])
+
     # O que o pacote JA tem de janela, por cultura x alvo x regiao.
     opp = json.load(open(os.path.join(ING, 'OPPORTUNITIES.json'),
                          encoding='utf-8'))['RECORDS']
@@ -126,6 +138,18 @@ def main():
             'WINDOW_RULE_STATE_DO_EQUIVALENTE': [x.get('WINDOW_RULE_STATE')
                                                  for x in equivalentes],
             'JA_MODELADO_NA_INTELIGENCIA_NOVA': equivalentes,
+            # ⚠️ TRÊS PERGUNTAS QUE PARECIAM UMA. Duas sessões chegaram a
+            # metade cada uma, e as duas metades são diferentes:
+            #
+            #   ALREADY_REPRESENTED  o pacote já tem UM CASO para esta
+            #                        cultura × região — pode não ter janela
+            #   DUPLICATE            o pacote já tem JANELA DEFINIDA para o
+            #                        mesmo par, com o mesmo alvo
+            #   STANDING_RULE...     85df96f ingeriu um disciplinare pela MESMA
+            #                        porta para o mesmo par: já não é lacuna
+            #
+            # Responder «novo» sobre coisa conhecida e «duplicata» sobre coisa
+            # que ninguém modelou é o mesmo erro em direções opostas.
             'ALREADY_REPRESENTED': sorted({
                 y['OPPORTUNITY_ID'] for g in (regs or ['GEO_ITALY'])
                 for y in representado.get((crop, g), [])}) if crop else [],
@@ -133,6 +157,9 @@ def main():
                           and bool(set(issues) & {x['TARGET']
                                                   for x in equivalentes})
                           ) if crop else 'UNKNOWN',
+            'STANDING_RULE_JA_INGERIDA_NO_MESMO_PAR': sorted(
+                {i for g in (regs or [None])
+                 for i in regra_por_par.get((crop, g), [])}),
             'SERIA_DUPLICATA': bool(equivalentes) if crop else 'UNKNOWN',
             'COLECAO_CANONICA_QUE_DEVERIA_POSSUIR': (
                 'NENHUMA — e papel de trabalho, e papel de trabalho nao vira '
@@ -148,6 +175,7 @@ def main():
     janelas = [x for x in fora if x['CLASSE'] == 'JANELA_CORRENTE_DECLARADA']
     dup = [x for x in janelas if x['DUPLICATE'] is True]
     repr_ = [x for x in janelas if x['ALREADY_REPRESENTED']]
+    red = [x for x in janelas if x['STANDING_RULE_JA_INGERIDA_NO_MESMO_PAR']]
     agro = [x for x in janelas if x['AGRONOMIC_OR_ADMINISTRATIVE'] == 'AGRONOMIC']
     sem_alvo = [x for x in janelas if not x['TARGETS_NO_TEXTO']]
 
@@ -164,7 +192,9 @@ def main():
             'SEM_ALVO_NOMEADO_NO_TEXTO': len(sem_alvo),
             'JA_MODELADAS_PELA_LINHAGEM_NOVA': len(dup),
             'CULTURA_X_REGIAO_JA_REPRESENTADA': len(repr_),
-            'REALMENTE_NOVAS': len(janelas) - len(dup),
+            'COM_STANDING_RULE_JA_INGERIDA_NO_MESMO_PAR': len(red),
+            'REDUNDANTES_APOS_85df96f': len({x['RECORD_ID'] for x in dup + red}),
+            'REALMENTE_NOVAS': len(janelas) - len({x['RECORD_ID'] for x in dup + red}),
         },
         'LEI': 'antes de ingerir, provar que nao se esta recolocando janela que a '
                'linhagem nova ja modela de outra forma. v21_janelas le a janela do '

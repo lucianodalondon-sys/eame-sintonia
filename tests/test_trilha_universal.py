@@ -26,7 +26,8 @@ porta, a aceitação que reprova, o fim do bypass no CI e a testemunha universal
     U5–U7   material incompleto fica visível; falha não sustenta publicável.
     U8–U9   censo da porta: buraco declarado é declarado, buraco novo para.
     U10     a catraca NÃO é dona de nenhum campo do cartão.
-    U11–U14 o que a linhagem nova trouxe não pode regredir.
+    U11–U14 o que a linhagem `e7c154c` trouxe não pode regredir.
+    U19–U26 o FECHAMENTO DAS REGRAS de `85df96f` não pode regredir.
     U15–U17 aceitação, ordem da cadeia e CI.
     U18     a testemunha universal atravessou.
 
@@ -264,6 +265,135 @@ class InteligenciaNovaPreservada(unittest.TestCase):
                               'BACKGROUND_ONLY'}
         self.assertTrue(negativos,
                         'nenhuma evidencia negativa sobreviveu: %s' % sorted(papeis))
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# U19–U26 · O FECHAMENTO DAS REGRAS DE JANELA (85df96f)
+# ═══════════════════════════════════════════════════════════════════════════
+class FechamentoDasRegrasPreservado(unittest.TestCase):
+    """A segunda fronteira da reconciliação.
+
+    `85df96f` fechou dez dos onze `WINDOW_RULE_MISSING` e descobriu que «sem
+    regra» dizia quatro coisas diferentes — e só uma delas pedia coleta. Estes
+    testes existem para que a catraca, que entrou por cima, não possa ter
+    apagado nada disso sem ninguém ver.
+
+        «NÃO ACHAMOS A REGRA» E «A REGRA DIZ OUTRA COISA» SÃO RESPOSTAS
+        DIFERENTES. UMA PEDE MAIS COLETA; AS OUTRAS TRÊS FECHAM A PERGUNTA.
+    """
+
+    def _falta(self, r):
+        return set(r.get('WHAT_IS_MISSING') or [])
+
+    def test_U19_a_contagem_do_fechamento(self):
+        R = _recs('OPPORTUNITIES.json')
+        self.assertEqual(43, len(R), 'CASES mudou')
+        self.assertEqual(16, sum(1 for r in R if r.get('WINDOW_DEFINED') == 'YES'),
+                         'WINDOW_DEFINED mudou')
+        self.assertEqual(1, sum(1 for r in R
+                                if 'WINDOW_RULE_MISSING' in self._falta(r)),
+                         'WINDOW_RULE_MISSING mudou')
+
+    def test_U20_os_quatro_estados_de_regra_existem(self):
+        """`WINDOW_RULE_MISSING` não pode voltar a misturar quatro coisas."""
+        estados = {r.get('WINDOW_RULE_STATE') for r in _recs('OPPORTUNITIES.json')}
+        for e in ('RULE_DECLARED', 'RULE_ADMINISTRATIVE_ONLY',
+                  'RULE_DELEGATED_TO_FARM', 'RULE_NOT_DECLARED'):
+            self.assertIn(e, estados, '%s desapareceu do pacote' % e)
+
+    def test_U21_regra_administrativa_nao_vira_janela_agronomica(self):
+        import v21_janelas as JAN
+        for r in _recs('OPPORTUNITIES.json'):
+            if r.get('WINDOW_RULE_STATE') != 'RULE_ADMINISTRATIVE_ONLY':
+                continue
+            self.assertNotIn(r.get('WINDOW_TYPE'), JAN.AGRONOMICOS,
+                             '%s: norma virou janela agronomica' % r['ID'])
+            self.assertIn('WINDOW_RULE_ADMINISTRATIVE_ONLY', self._falta(r), r['ID'])
+
+    def test_U22_regra_delegada_ao_pomar_define_e_nao_abre(self):
+        """WINDOW_DEFINED=YES e WINDOW_OPEN_NOW=UNKNOWN — as duas ao mesmo tempo."""
+        achou = False
+        for r in _recs('OPPORTUNITIES.json'):
+            if r.get('WINDOW_RULE_STATE') != 'RULE_DELEGATED_TO_FARM':
+                continue
+            achou = True
+            self.assertEqual('YES', r.get('WINDOW_DEFINED'), r['ID'])
+            self.assertEqual('UNKNOWN', r.get('WINDOW_OPEN_NOW'), r['ID'])
+            self.assertNotEqual('ACT_NOW', r.get('STATUS'), r['ID'])
+            self.assertIn('WINDOW_RULE_DELEGATED_TO_FARM', self._falta(r), r['ID'])
+        self.assertTrue(achou, 'RULE_DELEGATED_TO_FARM sumiu do pacote')
+
+    def test_U23_arroz_x_giavone_continua_RULE_NOT_DECLARED(self):
+        """O problema é GEO_ITALY sem sinal/direção — não ausência de documento.
+
+        A regra da Lombardia existe e NÃO pode ser aplicada à Itália inteira.
+        """
+        r = [x for x in _recs('OPPORTUNITIES.json')
+             if x.get('TARGET') == 'ISSUE_ECHINOCHLOA']
+        self.assertEqual(1, len(r))
+        r = r[0]
+        self.assertEqual('GEO_ITALY', r.get('GEOGRAPHY'))
+        self.assertEqual('RULE_NOT_DECLARED', r.get('WINDOW_RULE_STATE'))
+        self.assertEqual('NO', r.get('WINDOW_DEFINED'))
+        self.assertIn('DIRECTION_UNKNOWN', self._falta(r))
+        self.assertIn('REGION_NOT_DECLARED', self._falta(r))
+
+    def test_U24_disciplinare_nao_cria_direcao_nem_sinal_corrente(self):
+        """STANDING_RULE declara regra, não direção atual."""
+        import v21_necessidade as NE
+        self.assertIn('STANDING_RULE', NE.CLASSES_QUE_NAO_DECLARAM_DIRECAO)
+        sinais = _recs('CURRENT-FIELD-SIGNALS.json')
+        regras = [s for s in sinais if s.get('OBSERVATION_CLASS') == 'STANDING_RULE']
+        self.assertTrue(regras, 'os disciplinari sumiram do acervo')
+        ids = {s['ID'] for s in regras}
+        for o in _recs('OPPORTUNITIES.json'):
+            if o.get('NEED_EVIDENCE_ID') in ids:
+                self.fail('%s tirou NEED_DIRECTION de um disciplinare' % o['ID'])
+            if o.get('STATUS') == 'ACT_NOW':
+                elos = o.get('ACTION_CHAIN_LINKS') or {}
+                self.assertTrue(elos.get('SINAL_ATUAL'),
+                                '%s e ACT_NOW sem sinal atual' % o['ID'])
+
+    def test_U25_a_evidencia_da_janela_participa_de_EVIDENCE_IDS(self):
+        for r in _recs('OPPORTUNITIES.json'):
+            ev = r.get('WINDOW_EVIDENCE_ID')
+            if not ev:
+                continue
+            self.assertIn(ev, r.get('EVIDENCE_IDS') or [],
+                          '%s: a evidencia da janela nao entrou em EVIDENCE_IDS'
+                          % r['ID'])
+
+    def test_U26_o_limiar_e_regiao_especifico(self):
+        """Os 5% da Emilia-Romagna não migram para a Umbria."""
+        por_reg = {}
+        for r in _recs('OPPORTUNITIES.json'):
+            if r.get('TARGET') != 'ISSUE_GRAPE_MOTH':
+                continue
+            por_reg[r.get('GEOGRAPHY')] = r
+        er = por_reg.get('REGION_EMILIA_ROMAGNA')
+        um = por_reg.get('REGION_UMBRIA')
+        self.assertIsNotNone(er)
+        self.assertIsNotNone(um)
+        self.assertNotEqual(er.get('WINDOW_CONDITION'), um.get('WINDOW_CONDITION'),
+                            'as duas regioes passaram a citar a MESMA condicao')
+        self.assertNotEqual(er.get('WINDOW_EVIDENCE_ID'),
+                            um.get('WINDOW_EVIDENCE_ID'))
+        # ⚠️ ESTA ASSERÇÃO JÁ FOI UMA ARMADILHA. A primeira versão procurava a
+        # substring «5%» no texto da Umbria para provar que ela NÃO tinha
+        # herdado o limiar da Emilia-Romagna — e reprovou, porque «10-15%»
+        # contém «5%». O dado estava certo; a medição é que era grosseira.
+        #
+        #     PROCURAR PORCENTAGEM POR SUBSTRING ACHA O NÚMERO DENTRO DO NÚMERO.
+        #
+        # A comparação certa é pela FRASE de cada região, que é o que a fonte
+        # escreveu e o que a evidência sustenta.
+        cond_er = str(er.get('WINDOW_CONDITION'))
+        cond_um = str(um.get('WINDOW_CONDITION'))
+        self.assertIn('5% de cachos infestados', cond_er)
+        self.assertIn('10-15%', cond_um)
+        self.assertNotIn('5% de cachos infestados', cond_um,
+                         'a Umbria herdou o limiar da Emilia-Romagna')
+        self.assertIn('Umbria', cond_um)
 
 
 # ═══════════════════════════════════════════════════════════════════════════

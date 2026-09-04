@@ -3,7 +3,9 @@
 """
 A RECONCILIAÇÃO DE LINHAGEM — os 43 casos, nas três árvores, campo a campo.
 
-    python3 scripts/v21_reconciliacao_de_linhagem.py <dir_e7c154c> <dir_d83f6f3>
+    python3 scripts/v21_reconciliacao_de_linhagem.py <dir_cerebro> <dir_catraca>
+
+    (na rodada final: <dir_cerebro> = 85df96f · <dir_catraca> = 4628197)
 
     (cada dir é a raiz de um worktree onde `v21_cadeia.sh` já rodou)
 
@@ -46,11 +48,12 @@ SAIDA = os.path.join(ROOT, 'data', 'samples', 'AUDITORIA-SOMBRA',
                      'RECONCILIACAO-DE-LINHAGEM.json')
 
 # Os campos que a missão mandou comparar, mais os que a catraca acrescenta.
-CAMPOS = ('STATUS', 'COMMERCIAL_PRIORITY', 'WHY_NOW_CODES', 'WINDOW_DEFINED',
-          'WINDOW_OPEN_NOW', 'WINDOW_TYPE', 'ACTION_CHAIN_LINKS',
+CAMPOS = ('STATUS', 'COMMERCIAL_PRIORITY', 'EXTERNAL_MATERIAL_READY',
+          'NEED_DIRECTION', 'WINDOW_DEFINED', 'WINDOW_OPEN_NOW', 'WINDOW_TYPE',
+          'WINDOW_RULE_STATE', 'WHY_NOW_CODES', 'ACTION_CHAIN_LINKS',
           'PORTFOLIO_MATCHES', 'PRIMARY_MATCH', 'ACTION_BY_DEPARTMENT',
-          'ACTION_MAP', 'EVIDENCE_ROLES', 'WHAT_IS_MISSING',
-          'EXTERNAL_MATERIAL_READY', 'PUBLICATION_STATE', 'TRAIL_STATE')
+          'EVIDENCE_ROLES', 'WHAT_IS_MISSING', 'PUBLICATION_STATE',
+          'TRAIL_STATE')
 
 # Campos cujo dono é a catraca — não existiam em e7c154c, e é correto que o
 # reconciliado os tenha e a linhagem nova não.
@@ -112,7 +115,7 @@ def main():
     linhas, contagem, sem_dono, sumidos = [], Counter(), [], []
 
     for oid in todos:
-        presenca = {'E7C154C': oid in novo, 'D83F6F3': oid in meu,
+        presenca = {'CEREBRO': oid in novo, 'CATRACA': oid in meu,
                     'RECONCILIADO': oid in rec}
         if not presenca['RECONCILIADO']:
             sumidos.append(oid)
@@ -123,7 +126,7 @@ def main():
             contagem[rz] += 1
             if rz in ('IGUAL_NOS_TRES', 'DA_CATRACA'):
                 continue
-            campos[c] = {'E7C154C': a, 'D83F6F3': b, 'RECONCILIADO': r,
+            campos[c] = {'CEREBRO': a, 'CATRACA': b, 'RECONCILIADO': r,
                          'RAZAO': rz}
             if rz == 'DIVERGENCIA_SEM_DONO':
                 sem_dono.append('%s · %s' % (oid, c))
@@ -132,10 +135,10 @@ def main():
 
     r = {
         'WHAT_IT_IS': 'os 43 casos nas tres arvores, campo a campo',
-        'BUILD_ID_E7C154C': id_novo,
-        'BUILD_ID_D83F6F3': id_meu,
+        'BUILD_ID_CEREBRO': id_novo,
+        'BUILD_ID_CATRACA': id_meu,
         'BUILD_ID_RECONCILIADO': id_rec,
-        'COUNT': {'E7C154C': len(novo), 'D83F6F3': len(meu),
+        'COUNT': {'CEREBRO': len(novo), 'CATRACA': len(meu),
                   'RECONCILIADO': len(rec)},
         'CASOS_QUE_SUMIRAM': sumidos,
         'CAMPOS_COMPARADOS': list(CAMPOS),
@@ -151,7 +154,7 @@ def main():
     json.dump(r, open(SAIDA, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 
     print('== RECONCILIACAO DE LINHAGEM ==')
-    print('casos        : e7c154c %d · d83f6f3 %d · reconciliado %d'
+    print('casos        : cerebro %d · catraca %d · reconciliado %d'
           % (len(novo), len(meu), len(rec)))
     print('sumiram      : %d %s' % (len(sumidos), sumidos[:5]))
     for k, v in sorted(contagem.items(), key=lambda x: -x[1]):

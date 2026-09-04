@@ -269,12 +269,16 @@ que conhece oito tipos de janela e um léxico estendido por cinco disciplinari:
 | sem alvo nomeado no texto | 6 |
 | **duplicatas de janela já modelada** | **0** |
 | cultura × região **já representada** no pacote | **6** |
+| com **`STANDING_RULE` já ingerida no mesmo par** | **0** |
+| redundantes depois de `85df96f` | 0 |
 | realmente novas | 16 |
 
-> ⚠️ **Duas perguntas que o censo anterior fazia como uma.** «Já representado» é
-> o pacote ter um caso para a mesma cultura × região; «duplicata» é já haver
-> **janela definida** para o mesmo par. Seis são conhecidas pela primeira
-> pergunta e nenhuma pela segunda.
+> ⚠️ **Três perguntas que o censo fazia como uma — e duas sessões chegaram a
+> metade cada.** «Já representado» é o pacote ter um caso para a mesma cultura ×
+> região; «duplicata» é já haver **janela definida** para o mesmo par, com o
+> mesmo alvo; e «`STANDING_RULE` já ingerida» é `85df96f` ter posto um
+> disciplinare pela mesma porta para aquele par. Seis respondem sim à primeira
+> e nenhuma às outras duas.
 >
 >     DIZER «NOVO» SOBRE COISA CONHECIDA E «DUPLICATA» SOBRE COISA QUE NINGUÉM
 >     MODELOU SÃO O MESMO ERRO, EM DIREÇÕES OPOSTAS.
@@ -340,26 +344,26 @@ mudaria**, porque área não é portão.
 Dono da contagem: `scripts/v21_contagem_da_suite.py`.
 
 ```
-DISCOVERED         786
+DISCOVERED         794
 NEVER_EXECUTED       0     (nenhuma classe abortou no setUpClass)
-EXECUTED           786
-  PASS             765
+EXECUTED           794
+  PASS             773
   FAIL               6
   ERROR_CASE         1
   ERROR_HOLDER       0
   SKIPPED           14
   XFAIL / XPASS    0 / 0
 
-EQUAÇÃO   786 = 765 + 6 + 1 + 14        ✅ fecha
-          DISCOVERED = NEVER_EXECUTED + EXECUTED   →   786 = 0 + 786   ✅ fecha
+EQUAÇÃO   794 = 773 + 6 + 1 + 14        ✅ fecha
+          DISCOVERED = NEVER_EXECUTED + EXECUTED   →   794 = 0 + 794   ✅ fecha
 ```
 
 As 6 falhas e o 1 erro são os de sempre: procedência de amostras antigas (×5),
 o gate de import ES, e `test_comunicacao`, que é script e falha na descoberta.
 **Nenhuma nova.**
 
-Por camada: comercial **100/100** · trilha universal **23/23** (`U19`–`U21`
-novos).
+Por camada: comercial **100/100** · trilha universal **31/31** — `U19`–`U21`
+desta sessão mais os que a sessão paralela acrescentou (ver §12).
 
 ---
 
@@ -378,6 +382,29 @@ catraca / aceitação / geografia / procedência = 0 violações
 
 ---
 
+## 12 · A outra sessão fez o mesmo merge ao mesmo tempo
+
+No meio desta rodada, `origin/claude/opportunity-commercial-priority-v1` saltou
+de `85df96f` para `41a3b9e`: **outra sessão Claude fez o mesmo merge de
+`85df96f` + `4628197`** e o publicou primeiro, com um adendo a
+`RECONCILIACAO-DE-LINHAGEM.md`.
+
+    DUAS SESSÕES CHEGARAM À MESMA CONCLUSÃO SOBRE OS MESMOS DOIS PAIS.
+    ISSO NÃO É CONFLITO: É REPRODUTIBILIDADE.
+
+O push foi recusado por não ser fast-forward, e a resposta foi **mergear, nunca
+forçar**: `git merge origin/...` sobre esta linha. Um só arquivo de código
+colidiu — o censo dos 26 — e as duas versões eram **complementares**, não
+concorrentes: uma acrescentava `ALREADY_REPRESENTED` e um `DUPLICATE` mais
+estrito; a outra acrescentava `STANDING_RULE_JA_INGERIDA_NO_MESMO_PAR`. As três
+colunas ficaram.
+
+Os artefatos de sombra em conflito (censo, testemunha universal, fechamento das
+regras) não foram resolvidos à mão: foram **regerados** rodando os seus donos.
+Artefato gerado não se mescla — se refaz.
+
+---
+
 ## Resposta
 
 ```
@@ -386,7 +413,8 @@ UNIVERSAL_INTELLIGENCE_RECONCILIATION = PASS
 HEAD inicial     85df96f (inteligencia) · 4628197 (catraca ja reconciliada)
 merge-base real  e7c154c — NAO 0ddf52d, porque a outra branch ja tinha
                  puxado a inteligencia em 2fef157
-HEAD final       o merge desta rodada, em claude/opportunity-commercial-priority-v1
+HEAD final       o merge desta rodada + o merge da sessao paralela (41a3b9e),
+                 em claude/opportunity-commercial-priority-v1
 
 conflitos        9 — TODOS marcadores de contagem de teste. ZERO em codigo.
 donos preservados de 85df96f   janela, tipo, regra, limiar, fase da praga,
@@ -408,11 +436,12 @@ testemunha de ingestao   AUTOMATIC_NEW_INGEST YES · BACKFILL YES
                          BUILD_ID restaurado identico
 26 sem colecao           10 papel de trabalho · 16 janelas
 16 janelas               0 agronomicas · 2 administrativas · 0 duplicatas
+                         0 com STANDING_RULE ja ingerida no mesmo par
                          6 com cultura x regiao ja representada · NAO ingeridas
 ISTAT / area[0]          bug latente (0 cartoes hoje) · seleção agora explicita
                          politica = DECISION_REQUIRED · criterios discordam em
                          29 de 33 casos · CARIMBO NAO APLICADO
-suite                    786 = 765 + 6 + 1 + 14 · 0 nunca executados
+suite                    794 = 773 + 6 + 1 + 14 · 0 nunca executados
 regressoes               nenhuma
 
 CANONICAL_BRANCH = claude/opportunity-commercial-priority-v1
