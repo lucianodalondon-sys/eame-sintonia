@@ -244,3 +244,185 @@ MERGE PARA MAIN = NÃO            (o merge foi entre as duas linhas de trabalho)
 PUBLICAÇÃO      = NÃO
 SEGUNDO MOTOR   = NÃO — e o que existia foi APAGADO nesta rodada
 ```
+
+---
+---
+
+# ADENDO · a rodada final — incorporar `85df96f`
+
+```
+FINAL_CANONICAL_RECONCILIATION = PASS
+
+85df96f ancestral de 4628197 ANTES?   NO
+85df96f ancestral do HEAD final?      YES
+4628197 ancestral do HEAD final?      YES
+```
+
+## 1 · A prova, outra vez antes do conserto
+
+```
+$ git merge-base --is-ancestor 85df96f 4628197  →  NO
+$ git merge-base 85df96f 4628197                →  e7c154c
+$ git log --oneline e7c154c..85df96f            →  85df96f  (um commit só)
+```
+
+`4628197` **não era canônico**: parou em `e7c154c` e a branch canônica seguiu
+mais um commit. Duas vezes seguidas a mesma lição:
+
+    O NOME DA BRANCH NÃO É PROVA. A ANCESTRALIDADE É.
+
+## 2 · A estratégia
+
+Como a missão pediu: **partir da branch canônica em `85df96f` e fazer merge da
+linhagem da catraca.** Sem reset, sem rebase, sem force-push, sem cherry-pick.
+O commit final tem os dois pais.
+
+Nove conflitos, **todos marcadores de contagem de teste**. Nenhum arquivo de
+código colidiu — e cada metade ficou byte-idêntica ao seu dono:
+
+| arquivo | idêntico a |
+|---|---|
+| `v21_janelas.py` · `v21_oportunidades.py` · `v21_necessidade.py` · `v21_fechamento_das_regras.py` | **85df96f** |
+| `v21_catraca.py` · `v21_aceitacao.py` · `v21_cadeia.sh` · `test_trilha_universal.py` | **4628197** |
+
+    CÉREBRO DE 85df96f + CATRACA DE 4628197.
+
+## 3 · O fechamento das regras atravessou inteiro
+
+`python3 scripts/v21_fechamento_das_regras.py` sobre a árvore mesclada →
+**`WINDOW_RULE_CLOSURE = PASS`**
+
+| | |
+|---|---:|
+| `CASES` | **43** |
+| `WINDOW_DEFINED` | 6 → **16** |
+| `WINDOW_RULE_MISSING` | 11 → **1** |
+
+Dos onze gaps: **9** ganharam regra agronômica · **1** `RULE_ADMINISTRATIVE_ONLY`
+· **1** continua `RULE_NOT_DECLARED`.
+
+Estados presentes: `RULE_DECLARED` 15 · `RULE_NOT_DECLARED` 26 ·
+`RULE_DELEGATED_TO_FARM` 1 · `RULE_ADMINISTRATIVE_ONLY` 1.
+Tipos: `PHENOLOGY_WINDOW` 7 · `THRESHOLD_WINDOW` 5 · `PEST_STAGE_WINDOW` 1 ·
+`PREHARVEST_WINDOW` 1 · `WEATHER_TRIGGERED_WINDOW` 1 ·
+`RULE_DELEGATED_TO_FARM` 1.
+
+`U19`–`U26` passam a segurar cada lei: a contagem, os quatro estados, norma que
+não vira janela agronômica, regra delegada que **define e não abre**, arroz ×
+giavone em `RULE_NOT_DECLARED` **por `GEO_ITALY` sem sinal e sem direção** (a
+regra da Lombardia não foi aplicada à Itália inteira), disciplinare que não cria
+`NEED_DIRECTION`, a evidência da janela dentro de `EVIDENCE_IDS`, e o limiar
+região-específico.
+
+### O teste que nasceu errado
+
+`U26` procurava a substring «5%» no texto da Umbria para provar que ela não
+herdara o limiar da Emilia-Romagna — e **reprovou**, porque «10-15%» contém
+«5%». O dado estava certo; a medição é que era grosseira.
+
+    PROCURAR PORCENTAGEM POR SUBSTRING ACHA O NÚMERO DENTRO DO NÚMERO.
+
+Corrigido para comparar a **frase** de cada região, que é o que a fonte escreveu.
+
+## 4 · As oito testemunhas
+
+| | medido no HEAD final |
+|---|---|
+| **A** contagem | 43 · 16 · 1 — inalterados |
+| **B** 11 gaps | 9 `RULE_DECLARED` + 1 `RULE_ADMINISTRATIVE_ONLY` + 1 `RULE_NOT_DECLARED`; nenhum voltou a `WINDOW_RULE_MISSING` |
+| **C** arroz × giavone | `RULE_NOT_DECLARED` · `GEO_ITALY` · `DIRECTION_UNKNOWN` + `REGION_NOT_DECLARED` |
+| **D** `STANDING_RULE` | 7 sinais; `v21_necessidade.CLASSES_QUE_NAO_DECLARAM_DIRECAO = ('STANDING_RULE',)`. Nenhum `NEED_EVIDENCE_ID` sai de disciplinare |
+| **E** botrite × E-R | `ACT_NOW` · `PREHARVEST_WINDOW` · `WINDOW_OPEN_NOW=YES` · `RULE_DECLARED` · AGHARTA/BANJO/EMBRACE · `PUBLICATION_STATE=PUBLISHABLE` |
+| **F** Toscana | `PHENOLOGY_WINDOW` sustentado pela frase de suscetibilidade — só o elo dela |
+| **G** Veneto × carpocapsa | `STAGE_ENDED` + `CONTINUE_RECOMMENDED` · `WINDOW_DEFINED=YES` · `WINDOW_OPEN_NOW=UNKNOWN` · `VALIDATE_NOW` |
+| **H** Umbria | `THRESHOLD_WINDOW` com a *soglia* 10–15% do próprio boletim · `WINDOW_OPEN_NOW=UNKNOWN` por `FONTE_NAO_DECLARA_A_MEDICAO_QUE_A_CONDICAO_EXIGE` |
+
+## 5 · Os 43 nas três árvores
+
+`v21_reconciliacao_de_linhagem.py <85df96f> <4628197>` → **EXIT 0**
+
+```
+casos                 43 · 43 · 43        sumiram 0
+DIVERGENCIA_SEM_DONO   0
+DA_MINHA_LINHA         0
+IGUAL_NOS_TRES       564
+DA_CATRACA            86      PUBLICATION_STATE + TRAIL_STATE
+DA_LINHAGEM_NOVA      81      o cérebro venceu
+```
+
+Os **81** são exatamente os 10 gaps fechados, oito campos cada:
+`WINDOW_DEFINED` NO→YES ×10 · `WINDOW_TYPE` null→tipo ×10 ·
+`WINDOW_RULE_STATE` ×10 · `WHY_NOW_CODES` ×10 · `ACTION_CHAIN_LINKS` ×10 ·
+`ACTION_BY_DEPARTMENT` ×10 · `WHAT_IS_MISSING` ×10 · `EVIDENCE_ROLES` ×11.
+
+**`STATUS`, `COMMERCIAL_PRIORITY`, `EXTERNAL_MATERIAL_READY`, `NEED_DIRECTION`,
+`PORTFOLIO_MATCHES`, `PRIMARY_MATCH` e `WINDOW_OPEN_NOW` ficaram IGUAIS nos
+três.** A regra definiu janela e **não criou oportunidade** — a lei que
+`85df96f` escreveu, provada por diferença medida.
+
+## 6 · A catraca universal, de novo
+
+```
+AUTOMATIC_NEW_INGEST = YES   ·   UNIVERSAL_GATE = YES   ·   BACKFILL = YES
+
+RAW → CANONICAL ENTRY → NORMALIZATION → WINDOW INTELLIGENCE →
+COMMERCIAL PRIORITY → ACCEPTANCE → PUBLICATION_STATE
+
+BUILD_ID  V21-1cac64ceb8067205  →  com fixtures muda  →  restaurado IGUAL
+material  7.036 · PASSED 6.998 · INCOMPLETE 38 · QUARANTINED 0
+gate      PUBLISHABLE 5 · VALIDATION_REQUIRED 38 · VIOLACOES 0
+```
+
+Segundo motor: **não** — e o que existia foi apagado na rodada anterior.
+
+## 7 · Os 26, reavaliados depois do fechamento
+
+```
+10 papel de trabalho   ·   16 registros reais
+com tipo AGRONÔMICO reconhecido                        0
+ADMINISTRATIVE_WINDOW                                  2
+sem alvo nomeado                                       6
+com STANDING_RULE já ingerida no mesmo par             0
+REDUNDANTES APÓS 85df96f                               0
+realmente novas                                       16
+```
+
+`85df96f` ingeriu disciplinari para videira, milho e macieira; estes 16 são
+contexto de herbicida para trigo, arroz, beterraba e tomate. **Não se cruzam.**
+Continuam não sendo janela agronômica, e continuam não ingeridos.
+
+## 8 · ISTAT
+
+```
+2024 QA = YES   ·   2025 QA = YES   ·   2026 QA = UNKNOWN
+CARIMBO NÃO APLICADO
+```
+
+O bug `area[0]` continua em `scripts/v21_oportunidades.py:1288` e nomeado em
+`docs/design/FECHAMENTO-DAS-REGRAS-DE-JANELA.md`. **Não corrigido por palpite** —
+a integração não o apagou.
+
+## 9 · Regressões
+
+| | 85df96f | HEAD final |
+|---|---:|---:|
+| testes | 763 | **791** (+28) |
+| falhas | 7 | **6** |
+| erros | 1 | **1** |
+| pulados | 16 | 16 |
+
+Nenhuma falha nova. A que falta é `test_branch_vivo_nao_e_alvo_congelado`, que
+só falha em worktree destacada.
+
+## 10 · Branch
+
+`claude/opportunity-commercial-priority-v1` volta a ser a **casa da
+inteligência**. `claude/trilha-universal-inteligencia-a5rx9d` fica como branch
+histórica de integração, apontando para o mesmo commit — **não há duas linhas
+evoluindo em paralelo.**
+
+```
+PORTAL = NÃO TOCADO · DESIGN = NÃO TOCADO · VERCEL = NÃO TOCADO
+PRODUÇÃO = NÃO TOCADA · THRESHOLDS = NÃO ALTERADOS
+NOVA COLETA = NÃO · INGESTÃO DAS 16 = NÃO · PUBLICAÇÃO = NÃO
+```
