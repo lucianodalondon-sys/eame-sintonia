@@ -1,0 +1,19 @@
+{
+ "SOURCE_ID": "YOUTUBE-TRANSCRICOES/ASR-CACHE",
+ "source": "resultados de reconhecimento local já pagos em tempo de máquina, guardados para não serem pagos de novo",
+ "SOURCE_LOCATION": "derivado — máquina local, nenhuma rota paga",
+ "FACT_LOCATION": "NOT_KNOWN — o lugar do fato sai do conteúdo, nunca da conta",
+ "ORIGINAL_LANGUAGE": "multi",
+ "EVIDENCE_CLASS": "LOCAL_ASR",
+ "captured_at": "2026-09-04",
+ "CAPTURED_AT": "2026-09-04T16:57:45Z",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "PAID_API_COST_USD": 0,
+ "A_CHAVE": "VIDEO_ID | ASR_ENGINE | ASR_MODEL | ASR_LANGUAGE",
+ "POR_QUE_ESSA_CHAVE": "modelo e idioma mudam o TEXTO e por isso entram. Beam, lote e número de núcleos mudam só o TEMPO e por isso NÃO entram — uma chave que muda com o número de núcleos transforma \"trocar de máquina\" em \"transcrever tudo de novo\".",
+ "SO_ENTRA_O_QUE_DEU_CERTO": "apenas WHISPER_OK é cacheado. Cachear uma falha de áudio transformaria uma rede ruim de hoje numa condenação permanente daquele vídeo.",
+ "NADA_E_APAGADO": "trocar de configuração ACRESCENTA uma entrada. A antiga fica, com a chave dela — senão a comparação entre dois modelos vira fé.",
+ "ENTRADAS": 0,
+ "ITEMS": []
+}

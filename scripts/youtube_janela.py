@@ -528,13 +528,27 @@ def fase_objetos(limite=None):
 # ══════════════════════════════════════════════════════════════ FASE · LEGENDAS
 
 def _timedtext(base_url):
-    """Busca a legenda pela URL ASSINADA que o player entregou. Sem assinatura, 0 bytes."""
+    """Busca a legenda pela URL ASSINADA que o player entregou. → (trechos, POR_QUE).
+
+    O SEGUNDO ELEMENTO EXISTE PORQUE `None` SOZINHO MENTE POR OMISSÃO
+    ------------------------------------------------------------------
+    Esta função pode voltar sem trechos por dois motivos que NÃO são o mesmo fato:
+
+        CORPO_VAZIO ..... o servidor respondeu 0 byte. Sem assinatura é o que acontece.
+        SEM_TRECHOS ..... veio JSON legítimo e nenhum evento tinha texto.
+
+    O primeiro é falha de ENTREGA; o segundo é uma legenda que existe e está vazia. Quem
+    só recebe `None` escreve o mesmo estado para os dois, e depois ninguém consegue
+    saber se vale a pena tentar de novo — porque tentar de novo conserta um e não o outro.
+
+        DUAS CAUSAS COM O MESMO NOME VIRAM UMA CAUSA QUE NINGUÉM CONSERTA.
+    """
     url = base_url if 'fmt=' in base_url else base_url + '&fmt=json3'
     req = urllib.request.Request(url, headers={'User-Agent': UA})
     with urllib.request.urlopen(req, timeout=45) as r:
         corpo = r.read().decode('utf-8', 'replace')
     if not corpo.strip():
-        return None
+        return None, 'CORPO_VAZIO'
     d = json.loads(corpo)
     trechos = []
     for e in d.get('events') or []:
@@ -542,16 +556,37 @@ def _timedtext(base_url):
         if txt:
             trechos.append({'T_MS': e.get('tStartMs'), 'DUR_MS': e.get('dDurationMs'),
                             'TEXTO': txt})
-    return trechos or None
+    return (trechos, 'OK') if trechos else (None, 'SEM_TRECHOS')
 
 
-def fase_legendas(limite=None):
+def fase_legendas(limite=None, ids=None):
+    """A legenda pública, que é a transcrição de graça. → 0/1.
+
+    `ids` É ADITIVO, E EXISTE PARA QUE UM TESTE PEQUENO SEJA POSSÍVEL
+    ------------------------------------------------------------------
+    Sem ele só há `limite`, que é o PREFIXO do arquivo — e prefixo não sabe escolher
+    um vídeo com legenda, um sem, e um agrícola. Um teste de dez objetos que não pode
+    escolher os dez não é teste: é sorteio.
+
+    Quem passa `ids` continua obedecendo a lista datada: os identificadores têm de
+    existir em OBJETOS.json, e os que não existirem são DENUNCIADOS, não ignorados.
+    """
     objetos = _ler('OBJETOS.json')
     if not objetos:
         print('sem OBJETOS.json — rode `py scripts/youtube_janela.py objetos` antes')
         return 1
     alvos = objetos['ITEMS']
-    if limite:
+    if ids:
+        pedidos = [str(i).strip() for i in ids if str(i).strip()]
+        por_id = {v['VIDEO_ID']: v for v in alvos}
+        alvos = [por_id[i] for i in pedidos if i in por_id]
+        ausentes = [i for i in pedidos if i not in por_id]
+        if ausentes:
+            # Pedir um vídeo que a grade não colheu não é erro de digitação a ser
+            # engolido: é a lista de fora sincronia com o acervo, e isso se anuncia.
+            print('  ⚠️  %d VIDEO_ID pedidos não estão em OBJETOS.json: %s'
+                  % (len(ausentes), ', '.join(ausentes[:6])))
+    elif limite:
         alvos = alvos[:int(limite)]
     saida, com, sem, barrados = [], 0, 0, 0
     for v in alvos:
@@ -599,11 +634,17 @@ def fase_legendas(limite=None):
             saida.append(r)
             continue
         try:
-            trechos = _timedtext(faixas[0]['baseUrl'])
+            trechos, por_que_vazio = _timedtext(faixas[0]['baseUrl'])
         except Exception as e:
-            trechos = None
+            trechos, por_que_vazio = None, 'EXCECAO'
             r['TIMEDTEXT_ERRO'] = '%s: %s' % (type(e).__name__, str(e)[:110])
+            # O TIPO em campo próprio. Ler tipo de exceção de dentro de uma string
+            # truncada em 110 caracteres é adivinhação, e quem for decidir se vale
+            # tentar de novo precisa da diferença entre `HTTPError` (a rede) e
+            # `JSONDecodeError` (o corpo). Uma linha aqui evita um parser lá.
+            r['TIMEDTEXT_ERRO_TIPO'] = type(e).__name__
         if not trechos:
+            r['TIMEDTEXT_VAZIO_POR_QUE'] = por_que_vazio
             r.update({'CAPTION_STATE': 'DECLARADA_MAS_VAZIA',
                       'POR_QUE': ('o player declarou faixa e o corpo veio vazio. Isso é '
                                   'diferente de AUSENTE: aqui a legenda EXISTE e não foi '
@@ -625,6 +666,29 @@ def fase_legendas(limite=None):
         saida.append(r)
         print('  %-13s %-8s %s' % (r['VIDEO_ID'], r['CAPTION_STATE'],
                                    str(r.get('TITLE'))[:44]))
+
+    # ── RODAR SOBRE UM SUBCONJUNTO NÃO PODE SIGNIFICAR PERDER O RESTO ───────────
+    # `_gravar` sobrescreve o arquivo inteiro. Enquanto esta fase só rodava sobre o
+    # acervo todo, isso não aparecia; com `ids` e com `limite`, aparece na primeira
+    # vez — e o que se perde é a coisa MAIS CARA deste arquivo, que é uma abertura de
+    # página por vídeo. A leitura de agora manda sobre a de antes; o que não foi
+    # relido nesta rodada fica exatamente como estava.
+    #
+    #     ARQUIVO SOBRESCRITO NÃO AVISA QUE APAGOU. ELE SÓ FICA MENOR.
+    anterior = _ler('LEGENDAS.json') or {}
+    juntos = {i['VIDEO_ID']: i for i in (anterior.get('ITEMS') or []) if i.get('VIDEO_ID')}
+    lidos_agora = {i['VIDEO_ID'] for i in saida}
+    preservados = sum(1 for k in juntos if k not in lidos_agora)
+    for i in saida:
+        juntos[i['VIDEO_ID']] = i
+    itens = list(juntos.values())
+    # Os contadores passam a descrever O ARQUIVO, não a rodada — senão um teste de dez
+    # objetos publicaria "COM_LEGENDA=2" sobre um acervo de 240.
+    com = sum(1 for i in itens if i.get('CAPTION_STATE') == 'PRESENTE')
+    sem = sum(1 for i in itens if i.get('CAPTION_STATE') in ('AUSENTE', 'DECLARADA_MAS_VAZIA'))
+    barrados = sum(1 for i in itens if i.get('CAPTION_STATE') in (
+        'PORTA_NAO_ABRIU', 'PLAYER_RESPONSE_AUSENTE'))
+
     p = _gravar('LEGENDAS.json', {
         'SOURCE_ID': 'YOUTUBE-JANELA/LEGENDAS',
         'source': 'legenda pública do YouTube, lida pelo navegador desta máquina',
@@ -636,26 +700,36 @@ def fase_legendas(limite=None):
         'CAPTURED_AT': agora(),
         'APIFY_RUNS': 0, 'COST_USD': 0,
         'COM_LEGENDA': com, 'SEM_LEGENDA': sem, 'PORTA_NAO_ABRIU': barrados,
+        'LIDOS_NESTA_RODADA': len(saida),
+        'PRESERVADOS_DE_RODADAS_ANTERIORES': preservados,
+        'OS_CONTADORES_DESCREVEM_O_ARQUIVO': (
+            'COM_LEGENDA, SEM_LEGENDA e PORTA_NAO_ABRIU contam TODOS os itens deste '
+            'arquivo, não só os relidos agora. LIDOS_NESTA_RODADA diz quantos foram '
+            'à rede desta vez.'),
         'TRES_ESTADOS_DIFERENTES': (
             'PRESENTE = há texto. AUSENTE = o player disse que não há faixa. '
             'DECLARADA_MAS_VAZIA = há faixa e o corpo não veio. PORTA_NAO_ABRIU não é '
             'sobre o vídeo, é sobre a rede — e mandar o whisper por causa dele seria '
             'transcrever por causa de um 429.'),
-        'ITEMS': saida})
-    print('gravado: %s · com=%d sem=%d porta_fechada=%d' % (p, com, sem, barrados))
+        'ITEMS': itens})
+    print('gravado: %s · com=%d sem=%d porta_fechada=%d (lidos agora=%d, preservados=%d)'
+          % (p, com, sem, barrados, len(saida), preservados))
     return 0
 
 
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else 'canais'
-    lim = sys.argv[2] if len(sys.argv) > 2 else None
+    arg = sys.argv[2] if len(sys.argv) > 2 else None
+    # `legendas ids:abc,def` lê SÓ esses vídeos e preserva o resto do arquivo.
+    ids = arg[4:].split(',') if (arg or '').startswith('ids:') else None
+    lim = None if ids else arg
     if cmd == 'canais':
         raise SystemExit(fase_canais())
     if cmd == 'objetos':
         raise SystemExit(fase_objetos(lim))
     if cmd == 'legendas':
-        raise SystemExit(fase_legendas(lim))
+        raise SystemExit(fase_legendas(lim, ids=ids))
     if cmd == 'tudo':
         raise SystemExit(fase_canais() or fase_objetos(lim) or fase_legendas(lim))
-    print('uso: youtube_janela.py {canais|objetos|legendas|tudo} [limite]')
+    print('uso: youtube_janela.py {canais|objetos|legendas|tudo} [limite|ids:V1,V2,...]')
     raise SystemExit(2)

@@ -78,6 +78,10 @@ on:
           - yt-calibrar    # cobertura do léxico + candidatos a termo novo
           - yt-alvos       # o que a fila manda, sem transcrever
           - yt-transcrever # whisper local, SÓ no que a fila aprovou
+          - yt-escada      # título → legenda → whisper, vídeo a vídeo
+          - yt-microteste  # os 10 objetos da prova, e a medição do ganho
+          - yt-microteste-escolher # GRÁTIS: quais 10, e por quê
+          - yt-asr-estado  # a máquina tem com que transcrever?
       runner:
         description: 'qual runner usar'
         required: true
@@ -140,7 +144,8 @@ jobs:
           for f in instagram_coleta.py instagram_janela.py instagram_diario.py \
                    instagram_transcrever.py instagram_pessoal.py cdp.py \
                    navegador.py contrato_ator.py youtube_janela.py \
-                   youtube_relevancia.py youtube_transcrever.py; do
+                   youtube_relevancia.py youtube_transcrever.py \
+                   asr_local.py youtube_microteste.py; do
             [ -f "scripts/$f" ] || faltam="$faltam $f"
           done
           if [ -n "$faltam" ]; then
@@ -170,18 +175,26 @@ jobs:
       # Fase que abre navegador falha DEPOIS de minutos se o Chrome nao estiver
       # onde `navegador.py` procura. Perguntar antes custa um segundo.
       - name: 2 · a porta de coleta (só para fase de navegador)
-        if: contains(fromJSON('["janela","janela-perfis","janela-objetos","diario","transcrever","yt-canais","yt-objetos","yt-legendas"]'), inputs.fase)
+        if: contains(fromJSON('["janela","janela-perfis","janela-objetos","diario","transcrever","yt-canais","yt-objetos","yt-legendas","yt-microteste"]'), inputs.fase)
         run: PYTHONIOENCODING=utf-8 $PY scripts/navegador.py
 
       # A transcricao vive fora do repositorio, em ~/.sintonia-libs, e precisa do
       # ffmpeg no PATH. Sem um dos dois ela morre no meio do lote — depois de ja
       # ter baixado audio. Falhar aqui nao desperdica download.
+      # O `ffmpeg` continua OBRIGATORIO para o Instagram, que converte MP4 em WAV.
+      # Ele deixou de ser obrigatorio para o YouTube: a escada baixa a faixa NATIVA e
+      # deixa o PyAV do faster-whisper decodificar. Medido em 2026-09-04 num conteiner
+      # SEM ffmpeg: 218 s de fala espanhola em .mp3, transcritos a 5,53x.
       - name: 3 · a transcrição tem com que transcrever?
-        if: contains(fromJSON('["transcrever","yt-transcrever"]'), inputs.fase)
+        if: contains(fromJSON('["transcrever","yt-transcrever","yt-escada","yt-microteste"]'), inputs.fase)
         run: |
-          ffmpeg -version >/dev/null 2>&1 \
-            && echo "FFMPEG=OK" \
-            || { echo "FFMPEG=AUSENTE · ffmpeg nao esta no PATH desta maquina"; exit 1; }
+          if [ "${{ inputs.fase }}" = "transcrever" ]; then
+            ffmpeg -version >/dev/null 2>&1 \
+              && echo "FFMPEG=OK" \
+              || { echo "FFMPEG=AUSENTE · o Instagram converte para WAV e precisa dele"; exit 1; }
+          else
+            echo "FFMPEG_NAO_EXIGIDO=YES · a escada do YouTube decodifica pelo PyAV"
+          fi
           PYTHONIOENCODING=utf-8 $PY - <<'PYEOF'
           import os, sys
           libs = os.environ.get('SINTONIA_LIBS') or os.path.join(
@@ -198,7 +211,7 @@ jobs:
           # O YouTube nao entrega URL de midia direta: a faixa de audio e negociada
           # pelo player, e quem negocia e o yt-dlp. Sem ele a fase baixa zero audio
           # DEPOIS de carregar o modelo — que leva dezenas de segundos por nada.
-          if os.environ.get('FASE') == 'yt-transcrever':
+          if os.environ.get('FASE') in ('yt-transcrever', 'yt-escada', 'yt-microteste'):
               try:
                   import yt_dlp  # noqa: F401
                   print('YT_DLP=OK')
@@ -247,6 +260,10 @@ jobs:
             yt-calibrar)     PYTHONIOENCODING=utf-8 $PY scripts/youtube_relevancia.py calibrar ;;
             yt-alvos)        PYTHONIOENCODING=utf-8 $PY scripts/youtube_transcrever.py alvos ;;
             yt-transcrever)  PYTHONIOENCODING=utf-8 $PY scripts/youtube_transcrever.py rodar "${{ inputs.modelo }}" $TETO ;;
+            yt-escada)       PYTHONIOENCODING=utf-8 $PY scripts/youtube_transcrever.py escada "${{ inputs.modelo }}" $TETO ;;
+            yt-microteste)   PYTHONIOENCODING=utf-8 $PY scripts/youtube_microteste.py rodar ;;
+            yt-microteste-escolher) PYTHONIOENCODING=utf-8 $PY scripts/youtube_microteste.py escolher ;;
+            yt-asr-estado)   PYTHONIOENCODING=utf-8 $PY scripts/youtube_transcrever.py estado ;;
             *)               PYTHONIOENCODING=utf-8 $PY scripts/instagram_coleta.py "${{ inputs.fase }}" ;;
           esac
 
