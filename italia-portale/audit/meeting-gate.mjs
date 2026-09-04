@@ -377,6 +377,24 @@ for (const lang of ['it', 'en']) {
   });
 }
 
+check('EVERY_CARD_IS_TITLED', 'No card reaches the radar without a headline', () => {
+  const bad = [];
+  for (const lang of ['it', 'en']) {
+    const v = m.vals({ view: 'meeting', lang, mShown: 999 });
+    for (const c of v.meetingCases) {
+      if (!c.title || !String(c.title).trim()) bad.push(`${lang} ${c.id}: untitled card`);
+      /* e dove il titolo viene dall'archetipo, l'assenza del bersaglio deve
+         essere DETTA, non semplicemente lasciata come un buco */
+      if (c.titleFromArchetype) {
+        const raw = SNAP.CASES.find((x) => x.ID === c.id) || {};
+        if ((raw.WHAT_IS_MISSING || []).indexOf('NO_AGRONOMIC_TARGET') < 0) bad.push(`${lang} ${c.id}: titled from archetype but the engine does not declare the gap`);
+        if (!c.missing.length) bad.push(`${lang} ${c.id}: the gap is not shown to the reader`);
+      }
+    }
+  }
+  return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad.slice(0, 6) };
+});
+
 /* ── 8 · le due superfici non si mescolano ───────────────────────────────── */
 check('DEMO_AND_CANONICAL_SEPARATED', 'The 21 demonstration cases never enter the canonical surface', () => {
   const bad = [];

@@ -355,7 +355,18 @@
       id: c.ID,
       crop: cropL, target: targetL, geography: geoL,
       cropCode: c.CROP, targetCode: c.TARGET, geoCode: c.GEOGRAPHY,
-      title: [cropL, targetL].filter(Boolean).join(' · '),
+      /* UNA SCHEDA SENZA TITOLO NON E UNA SCHEDA.
+         Un caso su 43 non ha ne coltura ne bersaglio: e una data regolatoria
+         europea (O5_REGULATORY_PREPARATION), e l'assenza del bersaglio e un
+         FATTO che il motore dichiara — NO_AGRONOMIC_TARGET sta in
+         WHAT_IS_MISSING. Il titolo cade allora sull'ARCHETIPO, che e la
+         dichiarazione del motore su PERCHE il caso esiste. Non e prosa
+         inventata: e l'unica cosa vera che si puo intestare a questa scheda.
+
+         25 casi su 43 non hanno bersaglio: quelli si intestano con la
+         coltura, che basta. Solo questo non ha nessuno dei due. */
+      title: [cropL, targetL].filter(Boolean).join(' · ') || lab(c.ARCHETYPE, lang) || '',
+      titleFromArchetype: !cropL && !targetL,
       hasCategory: catKey !== 'unknown',
       surfaceDark: surface,
       onInk: ONS.ink, onBody: ONS.body, onMuted: ONS.muted,
