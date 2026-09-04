@@ -1,5 +1,9 @@
 # HANDOFF · BUILD DA REUNIÃO — onde parou, e o que falta
 
+> **⚠️ ESTE DOCUMENTO FOI CORRIGIDO POR MEDIÇÃO. LEIA O ADENDO NO FIM ANTES DO §3.**
+> O §3 («o radar mostra 21 casos de apresentação») é **falso no HEAD `a54e287`**.
+> Ele foi medido na cópia congelada `BASELINE/`, não no arquivo de runtime.
+
 > Para colar como primeira mensagem numa conta Claude nova.
 > **Não confie em nada daqui sem medir.** Cada número tem um comando ao lado.
 
@@ -361,3 +365,114 @@ MEETING_FREEZE = ?
 
 **Estado honesto neste handoff: `MEETING_PORTAL_READY = NO`.** O snapshot existe
 e está correto. O portal ainda não o consome.
+
+
+---
+---
+
+# ADENDO · O QUE A CONTA SEGUINTE MEDIU
+
+> Escrito depois de executar o handoff inteiro. Cada afirmação abaixo tem o
+> comando que a produziu.
+
+## A · O §3 DESTE DOCUMENTO ESTAVA ERRADO
+
+O §3 diz que `italy-app-model.js` monta `opportunities` a partir de `D.CASES` e
+que as 43 do motor entram só como coleção lateral. **Medido, é falso** — no
+arquivo que o navegador realmente carrega:
+
+```bash
+grep -n "REAL_OPPS" italia-portale/client/portale.html
+#  3125:  const REAL_OPPS = APP0 ? APP0.opportunities.records : [];
+node -e "import('./italia-portale/audit/lib/harness.mjs').then(async H=>{
+  const m=await H.mount(); const v=m.vals({});
+  console.log(v.filteredCount, v.visibleCases.every(c=>/^OPP_/.test(c.id)));})"
+#  43 true
+```
+
+O radar já renderizava os 43, e os 29 `D.CASES` já estavam atrás de
+`state.showScenarios`, **desligado por padrão**.
+
+**A causa do erro é a própria armadilha do §6 deste handoff.** O comando que o
+§3 manda rodar lê `BASELINE/italy-app-model.js` — a cópia **congelada de 20 KB,
+anterior a este trabalho**, onde `opportunities` de fato vem de `D.CASES`:
+
+```bash
+grep -n "opportunities" italia-portale/BASELINE/italy-app-model.js
+#  254:  const opportunities = coll((D.CASES || []).map(c => {
+```
+
+    O HANDOFF CAIU NA ARMADILHA QUE O PRÓPRIO HANDOFF DOCUMENTA.
+
+## B · CORREÇÃO AO §4.2 — NÃO EDITAR `BASELINE/`
+
+O §4.2 manda construir a superfície em `BASELINE/` **e** `client/`. Não se faz:
+
+```
+italia-portale/README.md:7
+| `BASELINE/` | cópia congelada do ZIP 8. **Nunca editar.** Hashes em `audit/BASELINE-SHA256.txt`. |
+```
+
+`BASELINE/` é a referência pré-trabalho contra a qual `browser.mjs` compara, e
+está travada por 32 hashes — `italy-app-model.js` e `portale.html` inclusive.
+Editá-la quebraria a linha de base.
+
+```
+PORTAL_RUNTIME_FILE   = italia-portale/client/italy-app-model.js   (283 KB)  ← servido, testado, deployado
+PORTAL_BASELINE_FILE  = italia-portale/BASELINE/italy-app-model.js ( 20 KB)  ← congelado, NUNCA editar
+```
+
+Verificação, sempre verde depois deste trabalho:
+
+```bash
+cd italia-portale/BASELINE && sha256sum -c ../audit/BASELINE-SHA256.txt | grep -vc ': OK$'   # 0
+```
+
+## C · O QUE FALTAVA DE VERDADE
+
+Não era «ligar os 43». Era que **o adaptador V21 do modelo deixa cair quase toda
+a inteligência da reunião**. `V21('opportunities', …)` não carrega:
+
+`WHY_NOW_CHAIN` · `WINDOW_TYPE` · `WINDOW_DEFINED` · `WINDOW_OPEN_NOW` ·
+`WINDOW_RULE_STATE` · `PORTFOLIO_MATCHES` · `PRIMARY_MATCH` ·
+`ACTION_BY_DEPARTMENT` · `EVIDENCE_ROLES` · `WHAT_IS_MISSING` ·
+`PUBLICATION_STATE` · `TRAIL_STATE` · `INTELLIGENCE_BRIEF`
+
+A superfície canônica existe por isso — e lê **só** o snapshot.
+
+## D · DUAS FUGAS QUE O PORTÃO ACHOU (e a leitura não acharia)
+
+1. **Ponteiro interno na prosa aprovada do motor.** 11 dos 43 fecham
+   `WHY_COMMERCIAL_IT/_EN` com «vedi NEED_DIRECTION e la frase originale in
+   NEED_EXCERPT». A afirmação está certa; a cauda é um ponteiro para campos que
+   a tela já resolve logo abaixo. Corta-se o ponteiro, mantém-se a afirmação —
+   e se algum token sobrevive, a frase inteira não sai.
+
+2. **`NEXT_TRIGGER` carrega prosa de pesquisa EM PORTUGUÊS.** Dois valores, um
+   vocabulário fechado, agora com IT/EN em `meeting-labels.js`. Nenhum valor cru
+   chega à tela.
+
+## E · O QUE O MOTOR NÃO EMITE — e que ninguém deve inventar
+
+`WEAKENS`, `CONTRADICTS` e `CLOSES` **não existem no snapshot**: zero
+ocorrências nos 43 casos. A inteligência negativa vive noutros campos —
+`NEED_DIRECTION`, `ACTION_RECOMMENDATION_STATE`, `WHY_NOW_CODES` negativos,
+`WHAT_IS_MISSING`. As frases dos três papéis estão no dicionário, prontas para
+o dia em que o motor os emitir; a tela não finge um `WEAKENS` que não existe.
+
+```bash
+grep -c 'WEAKENS\|CONTRADICTS\|"CLOSES"' italia-portale/client/meeting-intelligence-snapshot.json   # 0
+```
+
+## F · COMO SE VERIFICA ESTE TRABALHO
+
+```bash
+node italia-portale/audit/meeting-gate.mjs      # 21/21 testemunhas
+node italia-portale/audit/meeting-browser.mjs   # 1440 e 390, IT e EN, os 6 casos
+node italia-portale/audit/run.mjs               # 66/71 — as mesmas 5 falhas de a54e287
+node italia-portale/audit/brandwell.mjs         # BW1..TY2 verdes
+```
+
+As 5 falhas herdadas, **anteriores a este trabalho** (confirmadas rodando a
+suíte num worktree em `a54e287`): `B3` (CDN dentro de `vendor/jspdf`), `H3`,
+`W2`, `O1`, `DS1`.
