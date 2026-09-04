@@ -70,6 +70,8 @@ def do_journal(runs):
                 continue
             cid = v['CAND_ID']
             if 'VEREDITO' in v:
+                if v.get('LI_A_FICHA_INTEIRA') is None:
+                    continue   # veredito da montagem truncada: nao conta
                 antigo = vereditos.get(cid)
                 if antigo:
                     duplicados[cid].append((antigo['VEREDITO'], v['VEREDITO']))
@@ -78,6 +80,11 @@ def do_journal(runs):
                 vereditos[cid] = v
             else:
                 fichas.setdefault(cid, v)
+    # as fichas vem do artefacto, nao dos journals: e la que elas estao inteiras
+    art = os.path.join(ROOT, 'data/samples/IT-FUTURO-V1/IT-FUTURO-FICHAS-V1.json')
+    if os.path.exists(art):
+        for f in json.load(open(art))['ROWS']:
+            fichas[f['CAND_ID']] = f
     return fichas, vereditos, dict(duplicados)
 
 
@@ -141,6 +148,10 @@ def main(runs):
             'UNIAO_MAQUIADA': (v or {}).get('UNIAO_MAQUIADA'),
             'PORTFOLIO_ERRADO': (v or {}).get('PORTFOLIO_ERRADO'),
             'CITACAO_CONFERIDA_PELO_REFUTADOR': (v or {}).get('CITACAO_CONFERIDA_POR_MIM'),
+            'REFUTADOR_LEU_A_FICHA_INTEIRA': (v or {}).get('LI_A_FICHA_INTEIRA'),
+            'CAMPOS_QUE_O_REFUTADOR_NAO_VIU': (v or {}).get('CAMPOS_QUE_NAO_CONSEGUI_VER'),
+            'ESTADO_DO_TEMPO_ERRADO': (v or {}).get('ESTADO_DO_TEMPO_ERRADO'),
+            'HORIZONTE_ERRADO': (v or {}).get('HORIZONTE_ERRADO'),
         })
 
     por_estado = Counter(x['ESTADO'] for x in linhas)
@@ -197,6 +208,15 @@ def main(runs):
         'POR_ACAO': dict(Counter(x['F_ACAO_POSSIVEL']['CLASSE'] for x in linhas
                                  if x.get('F_ACAO_POSSIVEL'))),
         'POR_HORIZONTE': dict(Counter(x['G_HORIZONTE'] for x in linhas if x.get('G_HORIZONTE'))),
+        'REFUTACAO_SOBRE_FICHA_INTEIRA': sum(
+            1 for x in linhas if x.get('REFUTADOR_LEU_A_FICHA_INTEIRA') == 'SIM'),
+        'VEREDITOS_TRUNCADOS_DESCARTADOS': (
+            'os quatro vereditos produzidos enquanto a ficha ia cortada em 12.000 caracteres no '
+            'prompt nao entram nesta contagem: foram refeitos sobre a ficha inteira'),
+        'ESTADO_DO_TEMPO_ERRADO_APANHADO': [x['CAND_ID'] for x in linhas
+                                            if x.get('ESTADO_DO_TEMPO_ERRADO') == 'SIM'],
+        'HORIZONTE_ERRADO_APANHADO': [x['CAND_ID'] for x in linhas
+                                      if x.get('HORIZONTE_ERRADO') == 'SIM'],
         'JANELAS_INVENTADAS_APANHADAS': [x['CAND_ID'] for x in linhas
                                          if x.get('JANELA_INVENTADA') == 'SIM'],
         'UNIOES_MAQUIADAS_APANHADAS': [x['CAND_ID'] for x in linhas
@@ -223,6 +243,9 @@ def main(runs):
     print('UNIAO MAQUIADA  ', saida['UNIOES_MAQUIADAS_APANHADAS'])
     print('PORTFOLIO ERRADO', saida['PORTFOLIOS_ERRADOS_APANHADOS'])
     print('REBAIXADOS      ', rebaixados)
+    print('FICHA INTEIRA   ', saida['REFUTACAO_SOBRE_FICHA_INTEIRA'], 'de', len(linhas))
+    print('TEMPO ERRADO    ', saida['ESTADO_DO_TEMPO_ERRADO_APANHADO'])
+    print('HORIZONTE ERRADO', saida['HORIZONTE_ERRADO_APANHADO'])
     print('TOP 3           ', saida['OS_TRES_DE_MAIOR_VALOR'])
     for x in top:
         print('   %s %-6s %-22s %s' % (x['CAND_ID'], x['VALOR'],
@@ -241,7 +264,14 @@ def main(runs):
 #
 # Onde as corridas se cruzam ha julgamento em duplicado, e isso fica medido em
 # JULGADOS_DUAS_VEZES em vez de ser silenciosamente descartado.
-RUNS_PADRAO = ['wf_e5e03bcc-487', 'wf_3d483e10-13c', 'wf_e4c83732-977']
+# As corridas de FICHA e as de REFUTACAO sao agora coisas separadas, e por uma
+# razao que custou caro descobrir: enquanto a ficha ia dentro do prompt do
+# refutador, cortada em 12.000 caracteres, ele julgava campos que nunca recebia.
+# As corridas 'wf_e5e03bcc-487', 'wf_3d483e10-13c' e 'wf_e4c83732-977' produziram
+# fichas boas e quatro vereditos TRUNCADOS. As fichas ficam — via
+# IT-FUTURO-FICHAS-V1 — e aqueles quatro vereditos NAO entram: foram refeitos.
+RUNS_FICHA = ['wf_e5e03bcc-487', 'wf_3d483e10-13c', 'wf_e4c83732-977', 'wf_4a1ab40f-f02']
+RUNS_PADRAO = ['wf_c2aac729-96e', 'wf_cc35dd81-6c5']
 
 if __name__ == '__main__':
     main(sys.argv[1:] or RUNS_PADRAO)

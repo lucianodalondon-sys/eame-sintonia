@@ -36,7 +36,7 @@ BASE = os.path.expanduser(
     'f0de5886-eea0-5643-b2e1-e51287bd65f1/subagents/workflows')
 JULGADOS = 'data/samples/IT-FUTURO-V1/IT-FUTURO-JULGADOS-V1.json'
 SAIDA = 'data/samples/IT-FUTURO-V1/IT-FUTURO-FICHAS-V1.json'
-RUNS = ['wf_e5e03bcc-487', 'wf_3d483e10-13c', 'wf_e4c83732-977']
+RUNS = ['wf_e5e03bcc-487', 'wf_3d483e10-13c', 'wf_e4c83732-977', 'wf_4a1ab40f-f02']
 
 
 def main(runs=None):
