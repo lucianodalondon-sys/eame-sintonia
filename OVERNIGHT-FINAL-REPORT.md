@@ -174,3 +174,88 @@ O risco que dominou a noite — quatro sessões a construir a mesma integração
 **não se materializou**: convergiram sozinhas, e esta aba nunca precisou de
 arbitrar. O que ela fez foi medir, e três vezes o que salvou o relatório foi
 desconfiar do instrumento antes do objeto.
+
+---
+
+# CORREÇÃO PÓS-FREEZE · 04:15Z — o freeze nomeava um HEAD que não é o servido
+
+**O que eu declarei às 03:22Z estava certo sobre o código e errado sobre o que a
+reunião abre.**
+
+```
+FREEZE declarado em    014b929   (claude/meeting-intelligence-integration)
+URL serve na verdade   4f24d90   (claude/meeting-portal-contradictions-qb5a1x)
+```
+
+`git merge-base --is-ancestor 014b929 4f24d90` → **não**. Os dois divergem: o
+servido tomou a direção arquitetural oposta (`meeting-surface.js` de volta,
+`meeting-adapter.js` fora).
+
+Descobri-o porque o `sha256` dos quatro ficheiros críticos deixou de bater com o
+local — a mesma verificação que às 03:22Z dizia `IGUAL`.
+
+### O build servido foi medido, e está melhor
+
+| | `014b929` congelado | **`4f24d90` servido** |
+|---|---|---|
+| `meeting-gate.mjs` | 14/14 | **23/23** |
+| `meeting-browser.mjs` | 24/24 | tutte verdi · 20 percursos |
+| `ADAPTER_BOUNDARY` | PASS | **PASS** (auditor independente, IT e EN) |
+| `DECISION_FIELDS_CHANGED_BY_FRONTEND` | 0 | **0** |
+| `CLIENT_PRIMARY_MATCH_NULL` | 26/26 | **26/26** |
+| `ACT_NOW` · `WINDOW_DEFINED` | 2 · 16 | **2 · 16** |
+| snapshot | `b3935bd` · `V21-358954754db5ea2f` · 43 | **idêntico** |
+
+E recuperou as testemunhas que o merge tinha perdido: das 14 voltou a 23,
+incluindo `PRIMARY_MATCH_SINGLE_OWNER` e `DEMO_AND_CANONICAL_SEPARATED`, que eu
+tinha registado como dívida.
+
+O commit do topo é um conserto real:
+`4f24d90 · «o portal abria no pacote anterior a reconciliacao: 16 AGIRE ORA onde
+o motor diz 2»`. Encontraram e fecharam exatamente a confusão que a noite inteira
+esteve a vigiar.
+
+### O veredito corrigido
+
+```
+MEETING_FREEZE       YES
+FREEZE_TIME          2026-09-04T04:15:00Z   (re-declarado sobre o que é servido)
+MEETING_HEAD         4f24d90
+MEETING_HEAD_ANTERIOR 014b929  — íntegro, medido, mas NÃO é o que o URL abre
+DEPLOY_URL           https://sintonia-eame-preview.vercel.app/portale
+```
+
+    NÃO SE CONGELA UM COMMIT. CONGELA-SE O QUE ABRE QUANDO ALGUÉM CLICA NO LINK.
+
+**Recomendação: deixar como está.** O servido passa mais portões que o congelado,
+passa a auditoria independente, corrige um defeito real, e já está no ar.
+Redeployar `014b929` a esta hora seria trocar um build verificado por outro
+verificado, com risco de janela e sem ganho — contra o §15 e o §21 do briefing.
+
+**Não apliquei nenhuma correção ao portal.** Esta aba mede e regista.
+
+### O que isto muda no resto do relatório
+
+Nada dos cinco casos, das cinco limitações ou dos números: o snapshot é o mesmo
+`b3935bd` / `V21-358954754db5ea2f` / 43, com `ACT_NOW 2` e `WINDOW_DEFINED 16`.
+Duas limitações **melhoram** no build servido:
+
+- a dívida do «exame encolhido» (limitação 4) está **paga** — 23 testemunhas;
+- o percurso pelos casos da demo está de volta.
+
+A limitação 3 (smoke ao vivo não dirigido daqui) **mantém-se**, e agora com mais
+razão de ser dita: foi precisamente por comparar bytes servidos com bytes locais
+que este desvio apareceu. Continua a valer o minuto de cliques antes da reunião.
+
+### `DEFERRED_AFTER_MEETING` — acrescentado neste ciclo
+
+| missão | HEAD | o que terminou | impacto esperado no backfill |
+|---|---|---|---|
+| quarta sessão do portal | `5df09cb` | superfície alternativa, `meeting_labels.py`, `meeting_snapshot.py` alterados | diverge de `4f24d90` e de `014b929`; **não integrar** — reavaliar depois da reunião |
+| coleta vídeo/convegni | `6cbd34b` | continua a correr | posterior ao cutoff; inalterado |
+
+**Nota de governança:** `claude/site-v21-ingest-recovery`, a base visual que o
+briefing manda não desenvolver, avançou de `a14b9e1` para `014b929`. Nada se
+perdeu — `a14b9e1` continua ancestral e acessível por SHA — mas a branch **deixou
+de ser a referência congelada**. Quem precisar da casca visual original tem de
+pedir `a14b9e1` pelo SHA, não pelo nome da branch.
