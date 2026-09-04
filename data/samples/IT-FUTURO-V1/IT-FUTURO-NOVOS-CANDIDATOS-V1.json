@@ -14,14 +14,15 @@
  ],
  "DOCS_READ": 12,
  "SIGNALS_PROPOSED": 77,
- "SIGNALS_RULED": 21,
- "SIGNALS_APPROVED": 12,
- "SIGNALS_REJECTED": 9,
+ "SIGNALS_RULED": 26,
+ "SIGNALS_APPROVED": 13,
+ "SIGNALS_REJECTED": 13,
  "REJECTION_REASONS": {
   "CROP_NOT_SUPPORTED_BY_CONTEXT": 2,
   "QUOTE_NOT_IN_DOCUMENT": 5,
-  "TREND_DRESSED_AS_FORECAST": 1,
-  "REGION_INHERITED": 1
+  "TREND_DRESSED_AS_FORECAST": 3,
+  "REGION_INHERITED": 1,
+  "TARGET_NOT_SUPPORTED": 2
  },
  "O_TESTE_QUE_MAIS_DERRUBA": "QUOTE_NOT_IN_DOCUMENT. Um mesmo leitor atribuiu a um documento cinco frases que estavam em OUTRO. Sem esse teste, cinco proveniencias falsas teriam entrado no radar com aparencia perfeita. E a razao de quem propoe nunca se aprovar.",
  "BY_DOCUMENT": {
@@ -35,7 +36,7 @@
   },
   "8_rnThlsy9Q": {
    "propostos": 6,
-   "aprovados": 2
+   "aprovados": 3
   },
   "CYV76yVc98s": {
    "propostos": 6,
@@ -314,6 +315,29 @@
    ],
    "RULED_BY": "agente independente do que propos",
    "STATE": "APPROVED_CANDIDATE_NOT_YET_HAND_WRITTEN"
+  },
+  {
+   "SOURCE_ID": "8_rnThlsy9Q",
+   "SIGNAL_SUMMARY": "Alto Adige (Beratungsring, relator Florian Hungerer): rotacao anual anti-resistencia de botricida na VITE declarada em conferencia publica, com o membro de 2026 ja nomeado (\"Geox\" outra vez), num territorio onde a botrite piorou em 2025 por chuva de 3-4 em 3-4 dias em setembro e cracking do cacho.",
+   "EVIDENCE_TIME_STATE": "ANNOUNCED",
+   "CROP": null,
+   "TARGET": null,
+   "REGION": null,
+   "QUOTE_IT": "",
+   "TRIGGER": null,
+   "INVALIDATION_TRIGGER": null,
+   "CONFIDENCE": null,
+   "ADAMA_PAIR_EXISTS": "YES",
+   "ADAMA_LABELS": [
+    "012878 FOLPAN GOLD (FOLPET + METALAXYL-M)",
+    "013585 SOLOFOL (FOLPET)",
+    "013905 BANJO (FLUAZINAM)",
+    "015315 EMBRACE (FLUAZINAM)",
+    "015317 SESTO GOLD (FOLPET + METALAXYL-M)",
+    "017432 AGHARTA (FLUAZINAM)"
+   ],
+   "RULED_BY": "agente independente do que propos",
+   "STATE": "APPROVED_CANDIDATE_NOT_YET_HAND_WRITTEN"
   }
  ],
  "REJECTED": [
@@ -370,6 +394,30 @@
    "REASON": "CROP_NOT_SUPPORTED_BY_CONTEXT",
    "WHY": "1) CITACAO: PASSA. Literal, palavra por palavra, em /home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/or7l165Qv_c.json, campo TRANSCRIPT, offset 114311. Comparacao normalizada (acentos/espacos) da a string inteira contida no documento. Nao ha invencao de citacao.\n\n2) O QUE REPROVA — CULTURA",
    "SIGNAL": "Aficida novo em agrumi (\"fluir di furone\"/\"fluone\" na legenda ASR, lido como flupyradifurone) introduzido este ano, com degradacao muito lenta; as estruturas que trabalham ao limite de 30% do LMR \"ris"
+  },
+  {
+   "SOURCE_ID": "8_rnThlsy9Q",
+   "REASON": "TREND_DRESSED_AS_FORECAST",
+   "WHY": "TESTE 1 — CITACAO: PASSA. A citacao existe literalmente, palavra por palavra, em /home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/8_rnThlsy9Q.json (teste de substring exacta = True, incluindo o erro de ASR \"Franciaacorta\"). Fala de Giovanna Cattaneo pela Lombardia; video publicado 2025-11-",
+   "SIGNAL": "Queda da superfície vitícola bio na Lombardia (concentrada na Franciacorta) apresentada como projecção SISCO para 2025, a rever com dados de 2026, com inversão do mix bio→integrado certificado e encol"
+  },
+  {
+   "SOURCE_ID": "8_rnThlsy9Q",
+   "REASON": "TREND_DRESSED_AS_FORECAST",
+   "WHY": "CITACAO: literal, os dois fragmentos. Fragmento 1 em offset 29234 e fragmento 2 em offset 29877 de TRANSCRIPT (/home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/8_rnThlsy9Q.json), verificados por `in` exacto, nao so por grep parcial. Nao ha citacao inventada.\n\nREGIAO/CULTURA/ALVO: sustentad",
+   "SIGNAL": "FVG (serviço fitossanitário, relator Pierbruno Mutton) tem a leitura de sensibilidade 2025 de ametoctradina, zoxamide e oxatiapiprolina ainda não disponível; o sinal projecta que a sua divulgação gera"
+  },
+  {
+   "SOURCE_ID": "8_rnThlsy9Q",
+   "REASON": "TARGET_NOT_SUPPORTED",
+   "WHY": "1) CITACAO: PASSA. Verificada literalmente, caractere a caractere, em /home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/8_rnThlsy9Q.json — `q in TRANSCRIPT` = True, count = 1, indice ~8515 de 169.756 chars. Nao ha invencao de texto. Este teste, o mais importante, o sinal passa limpo.\n\n2) AL",
+   "SIGNAL": "Numa fala de abertura do bilancio fitosanitario da vite do norte de Italia (AIPP/Giornate Fitopatologiche, Pordenone, 2025-11-15), o presidente de sessao refere de segunda mao que a Comissao Europeia "
+  },
+  {
+   "SOURCE_ID": "azHKlPD3qAg",
+   "REASON": "TARGET_NOT_SUPPORTED",
+   "WHY": "TESTE 1 — CITACAO: PASSA. Os 700 caracteres da citacao estao literalmente em /home/user/eame-sintonia/data/samples/IT-CONVEGNO-V1/falas/azHKlPD3qAg.json, offset 120.049-120.749 do TRANSCRIPT (verificado por match exato de string, nao por grep parcial). Nada foi inventado.\n\nTESTE 2 — TEMPO: PASSA par",
+   "SIGNAL": "Calabria anuncia piano olivicolo regional com ~20.000 (ha) de novos olivais / ~5 milhoes de plantas em 2-3 anos, contra capacidade viveiristica regional de ~1 milhao; o relator do servico fitossanitar"
   }
  ]
 }
