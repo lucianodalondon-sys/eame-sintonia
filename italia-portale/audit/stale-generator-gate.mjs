@@ -163,6 +163,90 @@ teste('PROVENANCE_GATE_RUNS_BEFORE_PREVIEW', () => {
   };
 });
 
+/* ── 5 · o ENXERTO chama mesmo o portao ──────────────────────────────────── */
+/* Os quatro testes acima provam que a REGRA recusa. Nenhum deles prova que
+   alguem a CHAMA. Medido em 2026-09-04 contra este mesmo HEAD: apaguei a linha
+   da chamada em `site_v21_ingest.py`, deixando definicao, imports e o resto
+   intactos, e os cinco portoes desta casa ficaram verdes.
+
+       UMA LEI QUE NINGUEM INVOCA E UM COMENTARIO COM SINTAXE.
+
+   E o detector NAO pode ser `indexOf('recusas_de_proveniencia(')`: essa sequencia
+   esta dentro da propria DEFINICAO, `def recusas_de_proveniencia(...)`. Um teste
+   escrito assim mede que a funcao existe, nao que ela corre — e foi exatamente
+   nessa pedra que a primeira versao desta prova tropecou.
+
+       CASAR A DEFINICAO EM VEZ DA CHAMADA E CONFERIR A CHAVE
+       CONTRA A FOTOGRAFIA DA CHAVE.
+
+   A chamada e uma ATRIBUICAO: `<alvos> = recusas_de_proveniencia(...)`. `def`
+   nunca satisfaz isso, porque `def` nao tem `=` antes do nome. */
+const ENXERTO = path.join(RAIZ, 'scripts', 'site_v21_ingest.py');
+
+/* Uma linha executavel que ATRIBUI o resultado da funcao. Nao casa `def`. */
+const RE_CHAMADA = /^[ \t]*[A-Za-z_][\w, ]*=\s*recusas_de_proveniencia\s*\(/m;
+const RE_DEFINICAO = /^[ \t]*def\s+recusas_de_proveniencia\s*\(/m;
+/* Escapes que transformariam o portao em sugestao. */
+const RE_ESCAPE = /(SKIP|FORCE|IGNORE|BYPASS|DISABLE)[A-Z_]*_?(PROVEN|INGEST|GATE|CHECK)|(PROVEN|INGEST|GATE)[A-Z_]*_?(SKIP|FORCE|IGNORE|BYPASS|DISABLE)/;
+
+function diagnostico(src) {
+  const mChamada = RE_CHAMADA.exec(src);
+  const iEscrita = src.indexOf('io.open(OUT');
+  const mau = [];
+  if (!RE_DEFINICAO.test(src)) mau.push('a funcao de proveniencia nem esta definida');
+  if (!mChamada) mau.push('o portao NAO e chamado em nenhuma linha executavel (so definido)');
+  else if (iEscrita >= 0 && mChamada.index > iEscrita) mau.push('o portao e chamado DEPOIS de escrever o artefacto');
+  return mau;
+}
+
+teste('GRAFT_CALLS_PROVENANCE_GATE', () => {
+  const src = fs.readFileSync(ENXERTO, 'utf8');
+  const intacta = diagnostico(src);
+
+  /* CONTROLE NEGATIVO, em memoria: tira-se SO a linha da chamada. Se o detector
+     continuar a dizer que esta tudo bem, o detector e que nao serve. O ficheiro
+     no disco nao e tocado — um teste que deixa o repositorio pior que o
+     encontrou nao e um teste, e um acidente com relatorio. */
+  const mutada = src.replace(RE_CHAMADA, '    _recusas, _C = ([], {})  # ');
+  const venenoPegou = !RE_CHAMADA.test(mutada) && RE_DEFINICAO.test(mutada);
+  const detectouMutacao = diagnostico(mutada).length > 0;
+
+  const mau = [...intacta];
+  if (!venenoPegou) mau.push('CONTROLE NEGATIVO INVALIDO: a mutacao nao removeu a chamada (ou removeu a definicao junto)');
+  else if (!detectouMutacao) mau.push('CONTROLE NEGATIVO FALHOU: com a chamada removida o detector continuou verde');
+  return {
+    pass: mau.length === 0,
+    detail: mau.length ? mau : [
+      `chamada encontrada como atribuicao, antes de escrever o artefacto`,
+      `controle negativo: remover so a chamada torna este teste vermelho`,
+      `a definicao sobrevive a mutacao — nao e ela que esta a ser medida`,
+    ],
+  };
+});
+
+teste('PROVENANCE_CANNOT_BE_SKIPPED_BY_ENV', () => {
+  const src = fs.readFileSync(ENXERTO, 'utf8');
+  const mau = [];
+
+  /* 1 · nenhuma variavel de escape existe HOJE. Nao se inventa bypass que o
+     codigo nao tem: procura-se o padrao, e ele nao pode aparecer. */
+  const achado = RE_ESCAPE.exec(src);
+  if (achado) mau.push(`ha um escape por ambiente no enxerto: ${achado[0]}`);
+
+  /* 2 · e se alguem introduzir um, isto fica vermelho. */
+  const comEscape = src.replace(RE_CHAMADA, (m) => `    if os.environ.get('SKIP_PROVENANCE'): return 0\n${m}`);
+  const venenoPegou = RE_ESCAPE.test(comEscape);
+  if (!venenoPegou) mau.push('CONTROLE NEGATIVO INVALIDO: o escape injetado nao foi reconhecido pelo padrao');
+
+  return {
+    pass: mau.length === 0,
+    detail: mau.length ? mau : [
+      'nenhuma variavel de ambiente salta o portao no codigo de hoje',
+      'controle negativo: introduzir SKIP_PROVENANCE torna este teste vermelho',
+    ],
+  };
+});
+
 /* ── relatorio ───────────────────────────────────────────────────────────── */
 const mau = R.filter((r) => !r.pass);
 console.log('\n  SINTONIA · PORTAO CONTRA A SAFRA VELHA');

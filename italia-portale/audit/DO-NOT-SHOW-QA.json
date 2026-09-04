@@ -1,0 +1,36 @@
+{
+ "SOURCE_ID": "LINHA-B/DO-NOT-SHOW-QA",
+ "O_QUE_ISTO_E": "a ADAPTACAO QA DA LINHA B das 14 regras DO_NOT_SHOW do handoff Human Sensors. A divisao 8 literais / 6 semanticos NAO vem do handoff: o handoff traz 14 regras de igual peso, e quem as separou por testabilidade foi esta linha. Por isso mora aqui e nao no artefacto de origem.",
+ "POR_QUE_O_EQUIVALENTE_ITALIANO": "as regras estao escritas em portugues e o ecra e italiano. Um `includes()` da frase portuguesa contra uma pagina italiana passa sempre — nao porque a regra e respeitada, mas porque a frase nunca podia la estar. Medido em 2026-09-04: injetei «copertura BUONA in 72 celle. C'e un problema in questa regione. Spazio libero: 0 sottotitoli.» na casa e o portao deu 14/14.",
+ "O_QUE_ISTO_NAO_E": "revisao semantica. Continua a ser grep, agora em duas linguas. As 6 regras semanticas proibem uma LEITURA e nao uma cadeia de caracteres, e nenhuma delas e coberta por este ficheiro.",
+ "A_NEGACAO_E_LEGITIMA": "a casa DIZ as frases proibidas para as negar — «si dice X, mai Y» e «la mappa risponde A. Non risponde B». Isso e a pedagogia certa, e um controlo que a proibisse estaria a exigir que a tela escondesse a propria regra. Por isso a ocorrencia so conta quando NAO ha marcador de negacao na janela anterior.",
+ "JANELA_DE_NEGACAO_CHARS": 80,
+ "MARCADORES_DE_NEGACAO": ["mai", "non risponde", "non dice", "non ", "nunca", "jamais", "mai come", "invece di"],
+ "LITERAIS": [
+  { "ACHADO": "04_SOCIAL_YOUTUBE", "PT": "0 legendas",
+    "IT": ["0 sottotitoli", "nessun sottotitolo"] },
+  { "ACHADO": "02_AUTORIZACOES_ADAMA", "PT": "155 autorizações",
+    "IT": ["155 autorizzazioni"] },
+  { "ACHADO": "05_PESSOAS_E_PAPEIS", "PT": "114 pessoas",
+    "IT": ["114 persone"] },
+  { "ACHADO": "05_PESSOAS_E_PAPEIS", "PT": "temos agrônomos e produtores na base",
+    "IT": ["abbiamo agronomi e produttori", "agronomi e produttori nella base"] },
+  { "ACHADO": "06_COBERTURA_TERRITORIAL", "PT": "72 células",
+    "IT": ["copertura BUONA"],
+    "NOTA": "o numero 72 e legitimo — a casa diz «72 con l'espansione territoriale dichiarata». O proibido e o juizo BUONA sobre ele, e e esse que o equivalente italiano persegue." },
+  { "ACHADO": "06_COBERTURA_TERRITORIAL", "PT": "há problema nesta região",
+    "IT": ["c'è un problema in questa regione", "c’è un problema in questa regione", "qui c'è un problema", "qui c’è un problema"] },
+  { "ACHADO": "04_SOCIAL_YOUTUBE", "PT": "61 documentos relevantes",
+    "IT": ["61 documenti rilevanti"] },
+  { "ACHADO": "09_ROTULO_OPORTUNIDADE", "PT": "espaço livre",
+    "IT": ["spazio libero", "asset sottoutilizzato"] }
+ ],
+ "SEMANTICOS": [
+  "qualquer data de publicação de documento social italiano",
+  "mudou / está subindo, sobre fonte social italiana",
+  "mapa da Itália pintado pela sede do titular",
+  "ato europeu e registro nacional confirmam o mesmo fato",
+  "X produtos foram retirados do mercado",
+  "contagem de registros como participação de mercado"
+ ]
+}

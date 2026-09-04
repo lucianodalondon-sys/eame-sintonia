@@ -49,21 +49,17 @@ const HS = J('IT-PORTAL-SPRINT-HANDOFF-HUMAN-SENSORS-V1.json');
 const PINS = J('UPSTREAM-PINS.json');
 
 /* Os oito literais: frase ou número que um grep encontra. */
-const DO_NOT_SHOW_LITERAIS = [
-  '0 legendas', '155 autorizações', '114 pessoas',
-  'temos agrônomos e produtores na base', '72 células',
-  'há problema nesta região', '61 documentos relevantes',
-  'espaço livre',
-];
-/* Os seis semânticos: forma de afirmação, não string. Vão a checklist nomeado. */
-const DO_NOT_SHOW_SEMANTICOS = [
-  'qualquer data de publicação de documento social italiano',
-  'mudou / está subindo, sobre fonte social italiana',
-  'mapa da Itália pintado pela sede do titular',
-  'ato europeu e registro nacional confirmam o mesmo fato',
-  'X produtos foram retirados do mercado',
-  'contagem de registros como participação de mercado',
-];
+/* As oito literais e as seis semânticas moram num ficheiro declarado, e não aqui:
+   `casa-gate.mjs` precisa exatamente da mesma divisão para medir a primeira dobra,
+   e duas cópias da mesma lista divergem na terceira vez que alguém mexe numa.
+
+       DUAS LISTAS DA MESMA LEI SÃO DUAS LEIS À ESPERA DE DISCORDAR.
+
+   O ficheiro traz também o equivalente ITALIANO de cada literal — necessário
+   porque as regras estão escritas em português e o ecrã fala italiano. */
+const QA_DNS = JSON.parse(fs.readFileSync(new URL('./DO-NOT-SHOW-QA.json', import.meta.url), 'utf8'));
+const DO_NOT_SHOW_LITERAIS = QA_DNS.LITERAIS.map((x) => x.PT);
+const DO_NOT_SHOW_SEMANTICOS = QA_DNS.SEMANTICOS;
 
 check('RAW_OPPORTUNITIES_FAMILY_CANNOT_REPLACE_CANONICAL_43',
       'the raw OPORTUNIDADES family never stands in for the canonical 43', () => {

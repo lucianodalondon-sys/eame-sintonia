@@ -37,6 +37,8 @@ const RAIZ = path.resolve(AQUI, '..', '..');
 const CLIENTE = path.join(RAIZ, 'italia-portale', 'client');
 const UP = path.join(CLIENTE, 'upstream');
 const J = (f) => JSON.parse(fs.readFileSync(path.join(UP, f), 'utf8'));
+/* A adaptacao QA vive em audit/, nao em upstream/: ela e DESTA linha. */
+const J_AUDIT = (f) => JSON.parse(fs.readFileSync(new URL('./' + f, import.meta.url), 'utf8'));
 
 const RF = J('IT-FUTURO-HANDOFF-LINHA-B-V1.json');
 const SC = J('IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json');
@@ -195,6 +197,90 @@ check('NAO_SEI_NAO_VIRA_AFIRMACAO', () => {
     bad.push('«non esiste» sem o NON SO ao lado');
   if (CASA.SENSORES.DERRUBADOS.some((s) => !s.CAIU_PORQUE)) bad.push('derrubado sem o porque');
   return { pass: !bad.length, detail: bad.length ? bad : ['ausencia de leitura dita como NON SO, nao como ausencia no mundo'] };
+});
+
+/* ── OS OITO LITERAIS, NAS DUAS LINGUAS ───────────────────────────────────────
+   O teste abaixo compara a frase `NAO_DIZER` — escrita em PORTUGUES — contra uma
+   pagina em ITALIANO. Isso passa quase sempre, e nao por a regra ser respeitada:
+   por a frase nunca poder estar la. Medido em 2026-09-04 contra este HEAD:
+   injetei «copertura BUONA in 72 celle. C'e un problema in questa regione.
+   Spazio libero: 0 sottotitoli.» na casa, e o portao deu 14/14.
+
+       UM PORTAO QUE SO SABE A LINGUA EM QUE A REGRA FOI ESCRITA
+       NAO GUARDA A LINGUA EM QUE O ECRA FALA.
+
+   O equivalente italiano e adaptacao QA DESTA linha — nao sai do handoff — e por
+   isso vive num ficheiro declarado, `DO-NOT-SHOW-QA.json`, com a razao escrita.
+
+   E ha um cuidado que o controlo NAO pode atropelar: a casa DIZ as frases
+   proibidas para as NEGAR — «si dice 72 con l'espansione dichiarata, mai
+   copertura BUONA in 72 celle» e «la mappa risponde ... Non risponde ...».
+   Proibir isso seria exigir que a tela escondesse a propria regra.
+
+       A FRASE PROIBIDA, NEGADA, E A REGRA A ENSINAR-SE.
+       PROIBI-LA SERIA APAGAR A LICAO PARA SALVAR O GREP. */
+const QA = J_AUDIT('DO-NOT-SHOW-QA.json');
+
+/* → lista de ocorrencias NAO negadas. A janela e a do ficheiro, nao minha. */
+function ocorrenciasNaoNegadas(texto, frase) {
+  const t = texto.toLowerCase();
+  const f = String(frase).toLowerCase();
+  const janela = QA.JANELA_DE_NEGACAO_CHARS;
+  const marcas = QA.MARCADORES_DE_NEGACAO.map((m) => m.toLowerCase());
+  const achados = [];
+  let i = t.indexOf(f);
+  while (i >= 0) {
+    /* A negacao tem de estar na MESMA frase. Medir uma janela crua de N
+       caracteres deixa a proibicao ser absolvida pelo «mai» da frase ANTERIOR —
+       provado ao injetar «La copertura BUONA in 72 celle» logo a seguir ao
+       paragrafo que ja dizia «mai copertura BUONA in 72 celle»: a ocorrencia
+       nova ficou coberta pela negacao velha.
+
+           UMA NEGACAO NA FRASE DE CIMA NAO NEGA A AFIRMACAO DA FRASE DE BAIXO.
+
+       Recorta-se ate a fronteira de frase mais proxima, e nunca alem da janela. */
+    const cru = t.slice(Math.max(0, i - janela), i);
+    const corte = Math.max(cru.lastIndexOf('.'), cru.lastIndexOf('!'), cru.lastIndexOf('?'),
+                           cru.lastIndexOf('\n'), cru.lastIndexOf(';'));
+    const antes = corte >= 0 ? cru.slice(corte + 1) : cru;
+    if (!marcas.some((m) => antes.includes(m))) achados.push(i);
+    i = t.indexOf(f, i + 1);
+  }
+  return achados;
+}
+
+check('LITERAL_PT_CONTROL', () => {
+  const bad = [];
+  if (QA.LITERAIS.length !== 8) bad.push(`a adaptacao QA declara ${QA.LITERAIS.length} literais, nao 8`);
+  for (const L of QA.LITERAIS) {
+    if (ocorrenciasNaoNegadas(aberta, L.PT).length) bad.push(`a casa afirma «${L.PT}» (${L.ACHADO})`);
+  }
+  /* controle negativo do proprio detector, sem tocar na pagina */
+  const sonda = 'la casa dice 114 pessoas senza metodo';
+  if (!ocorrenciasNaoNegadas(sonda, '114 pessoas').length) bad.push('CONTROLE NEGATIVO PT FALHOU: o detector nao ve a frase afirmada');
+  if (ocorrenciasNaoNegadas('si dice 90 entita, mai 114 pessoas', '114 pessoas').length) bad.push('CONTROLE NEGATIVO PT FALHOU: o detector acusa a frase NEGADA');
+  return { pass: !bad.length, detail: bad.length ? bad : ['8/8 em portugues, e a negacao pedagogica nao conta como afirmacao'] };
+});
+
+check('LITERAL_IT_CONTROL', () => {
+  const bad = [];
+  let n = 0;
+  for (const L of QA.LITERAIS) {
+    if (!L.IT || !L.IT.length) { bad.push(`${L.ACHADO}: «${L.PT}» sem equivalente italiano declarado`); continue; }
+    n += L.IT.length;
+    for (const it of L.IT) {
+      if (ocorrenciasNaoNegadas(aberta, it).length) bad.push(`a casa afirma «${it}» (${L.ACHADO})`);
+    }
+  }
+  /* controle negativo: a mesma leitura proibida, em italiano natural, tem de ser
+     vista quando AFIRMADA e ignorada quando negada. */
+  if (!ocorrenciasNaoNegadas('la copertura BUONA in 72 celle', 'copertura BUONA').length)
+    bad.push('CONTROLE NEGATIVO IT FALHOU: o detector nao ve a frase italiana afirmada');
+  if (ocorrenciasNaoNegadas('si dice 72 dichiarate, mai copertura BUONA in 72 celle', 'copertura BUONA').length)
+    bad.push('CONTROLE NEGATIVO IT FALHOU: o detector acusa a frase italiana NEGADA');
+  if (!ocorrenciasNaoNegadas('mai copertura BUONA in celle. La copertura BUONA e questa.', 'copertura BUONA').length)
+    bad.push('CONTROLE NEGATIVO IT FALHOU: a negacao da frase ANTERIOR absolveu a afirmacao seguinte');
+  return { pass: !bad.length, detail: bad.length ? bad : [`${n} equivalentes italianos declarados para os 8 literais — isto e grep em duas linguas, NAO revisao semantica`] };
 });
 
 check('DO_NOT_SHOW_NAO_DIZER_AUSENTE_DA_CASA', () => {
