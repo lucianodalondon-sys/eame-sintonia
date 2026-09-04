@@ -1,0 +1,104 @@
+{
+  "DATASET": "IT-VOCAB-REMEDICAO-55c2674-V1",
+  "LAYER": "PROVA — remedicao do handoff contra o motor canonico novo. Nao e implantacao.",
+  "COUNTRY": "IT",
+  "SOURCE_ID": "IT-VOCAB-HANDOFF-V1",
+  "SOURCE": "comparacao campo a campo do IT-VOCAB-HANDOFF-V1 medido em b3935bd contra o mesmo handoff remedido em 55c2674",
+  "CAPTURED_AT": "2026-09-04",
+  "PERGUNTA": "Os mesmos 38 ISSUE_ID, rodados de novo contra 55c2674, produzem o mesmo resultado?",
+  "METODO": "nao se trocou o SHA esperado; refez-se a medicao lendo o motor de 55c2674 e comparou-se linha a linha com a medicao anterior",
+  "SOURCE_CHECKPOINT": "57037113b0382ed8e66468fa2731914bccab86c7",
+  "WORKTREE_ISOLADA": "/home/user/wt-vocab (branch sprint/vocab-55c2674) — nao se escreveu na branch partilhada",
+  "VOCAB_BASE_ENGINE_BEFORE": "b3935bd",
+  "VOCAB_BASE_ENGINE_AFTER": "55c2674",
+  "MOTOR_SHA_BEFORE": "b3935bd03822b9562a05d99671e994edd398cb74",
+  "MOTOR_SHA_AFTER": "55c2674b785a3a373ef0bad2812c244ed80c31eb",
+  "ISSUES_TOTAL": 38,
+  "ISSUES_IDENTICAL": 38,
+  "ISSUES_CHANGED": 0,
+  "ISSUES_ADDED": 0,
+  "ISSUES_REMOVED": 0,
+  "ISSUES_CHANGED_DETALHE": [],
+  "ISSUES_ADDED_LISTA": [],
+  "ISSUES_REMOVED_LISTA": [],
+  "AGREGADOS_COMPARADOS": [
+    {
+      "CAMPO": "ISSUE_IDS_EXISTENTES",
+      "IGUAL": true
+    },
+    {
+      "CAMPO": "ISSUE_IDS_PROPOSTOS",
+      "IGUAL": true
+    },
+    {
+      "CAMPO": "ISSUE_IDS_IMPLANTAVEIS",
+      "IGUAL": true
+    },
+    {
+      "CAMPO": "INCOMPATIBILIDADES",
+      "IGUAL": true
+    },
+    {
+      "CAMPO": "SEQUESTROS",
+      "IGUAL": true
+    },
+    {
+      "CAMPO": "IDS_EXISTENTES_QUE_PERDEM_OCORRENCIAS",
+      "IGUAL": true
+    },
+    {
+      "CAMPO": "EXEMPLOS_DAS_PERDAS",
+      "IGUAL": true
+    },
+    {
+      "CAMPO": "IDS_NOVOS_QUE_GANHAM_OCORRENCIAS",
+      "IGUAL": true
+    },
+    {
+      "CAMPO": "IDS_NOVOS_MUDOS_NO_ACERVO_DE_FALA",
+      "IGUAL": true
+    },
+    {
+      "CAMPO": "DOCUMENTOS_DA_REGRESSAO",
+      "IGUAL": true
+    },
+    {
+      "CAMPO": "PODE_ENTRAR_SEM_JULGAMENTO_HUMANO",
+      "IGUAL": true
+    },
+    {
+      "CAMPO": "EXIGE_DECISAO_HUMANA",
+      "IGUAL": true
+    },
+    {
+      "CAMPO": "CONTRATO_MUDA",
+      "IGUAL": true
+    },
+    {
+      "CAMPO": "FORMATO_ACEITE_PELO_MOTOR",
+      "IGUAL": true
+    },
+    {
+      "CAMPO": "TESTE_MINIMO",
+      "IGUAL": true
+    },
+    {
+      "CAMPO": "ARQUIVOS_QUE_PRECISARIAM_MUDAR",
+      "IGUAL": true
+    }
+  ],
+  "AGREGADOS_DIFERENTES": [],
+  "PROVENIENCIA_MUDOU": {
+    "BRANCH_ATUAL": {
+      "ANTES": "claude/retomada-coleta-video-convegni-vz50er",
+      "DEPOIS": "sprint/vocab-55c2674"
+    },
+    "MOTOR_SHA": {
+      "ANTES": "b3935bd03822b9562a05d99671e994edd398cb74",
+      "DEPOIS": "55c2674b785a3a373ef0bad2812c244ed80c31eb"
+    }
+  },
+  "RESULT_CHANGED": "NO",
+  "PORQUE_FICOU_VERDE": "refez-se a medicao e ela reproduziu. Nao se editou nenhum SHA esperado para satisfazer teste.",
+  "O_QUE_ESTA_PROVA_NAO_DIZ": "nao diz que os 38 ISSUE_ID ja foram implantados no motor. O dono da taxonomia continua a ser claude/opportunity-commercial-priority-v1:scripts/v21_normalizar.py."
+}
