@@ -37,6 +37,7 @@ ATIVIDADE É MEDIDA, NÃO PRESUMIDA
 Perfil que a rota não conseguiu ler continua `NOT_MEASURED` — nunca `DORMANT`.
 Falha de leitura != ausência de atividade.
 """
+import contextlib
 import json
 import os
 import sys
@@ -93,8 +94,6 @@ def _http(url, *, token, metodo='GET', corpo=None, timeout=300):
     return json.loads(bruto)
 
 
-coletor._curl = _http
-
 MISSION = '14-MAPA-DE-CREATORS-EAME'
 SAIDA = cr.BASE
 
@@ -110,14 +109,40 @@ SAIDA = cr.BASE
 # intacta e tira o ponto de disputa.
 import proveniencia as pv                                    # noqa: E402
 
-pv.MANIFESTO = os.path.join(cr.BASE, 'RUN-MANIFEST-CREATORS.json')
+MANIFESTO_DA_MISSAO = os.path.join(cr.BASE, 'RUN-MANIFEST-CREATORS.json')
 
 # O isolamento tem de ser INTEIRO. Deixar o bruto no `data/samples/raw-paid/`
 # partilhado enquanto o manifesto ia para o namespace da missao quebrou os testes
 # da casa que exigem que TODO arquivo daquele diretorio resolva pelo manifesto
 # GLOBAL — e quebrou com razao: um bruto sem manifesto que o alcance e um arquivo
 # orfao. Ou o bruto e global com manifesto global, ou os dois sao da missao.
-coletor.RAW_DIR = os.path.join(cr.BASE, 'raw-paid')
+RAW_DIR_DA_MISSAO = os.path.join(cr.BASE, 'raw-paid')
+
+
+# ─────────────────────────────── O ESCOPO, E POR QUE ELE EXISTE
+# O redirecionamento acima era feito no CORPO DO MODULO. Isso queria dizer que
+# IMPORTAR este ficheiro mudava, para o resto do processo, qual manifesto a casa
+# inteira lia — e ninguem no outro lado do processo tinha como saber. Medido:
+# `pv.carregar()` devolvia 22 execucoes antes de `import creator_coleta` e 7
+# depois. Os testes da casa que corriam a seguir liam o manifesto DESTA missao a
+# pensar que liam o global.
+#
+# O namespace por missao continua igual — o que muda e o ALCANCE. Fora do
+# `with`, `pv.MANIFESTO` e `coletor` sao os da casa; dentro, sao os da missao; e
+# o `finally` devolve-os mesmo que a fase rebente a meio. `tests/
+# test_dataset_owner.py` ja provava o padrao em setUp/tearDown; aqui ele vive no
+# proprio modulo, que e onde a troca acontece.
+@contextlib.contextmanager
+def escopo_da_missao():
+    """Aponta coletor e proveniencia para o namespace desta missao, e devolve."""
+    antes = (pv.MANIFESTO, coletor.RAW_DIR, coletor._curl)
+    pv.MANIFESTO = MANIFESTO_DA_MISSAO
+    coletor.RAW_DIR = RAW_DIR_DA_MISSAO
+    coletor._curl = _http
+    try:
+        yield
+    finally:
+        pv.MANIFESTO, coletor.RAW_DIR, coletor._curl = antes
 
 # Atores. Os dois primeiros já foram provados nesta casa (piloto de sensores);
 # os de Instagram/TikTok são novos e por isso a fase `contratos` existe: entrada
@@ -958,4 +983,5 @@ if __name__ == '__main__':
         print('FASE_DESCONHECIDA=%r · fases validas: %s'
               % (fase, ', '.join(sorted(FASES))))
         raise SystemExit(2)
-    FASES[fase]()
+    with escopo_da_missao():
+        FASES[fase]()

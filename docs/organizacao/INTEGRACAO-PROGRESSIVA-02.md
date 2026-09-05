@@ -18,7 +18,7 @@ Continuação de `INTEGRACAO-PROGRESSIVA-01.md`. Uma ref, medida e integrada.
 | `MERGE_ATTEMPTED` | SIM |
 | `MERGE_VERDICT` | **PASS** |
 | `P0_2_STEP_02` | **PASS** *(estado publicado em 2026-09-05; supersedido — ver §9)* |
-| `P0_2_STEP_02_ATUAL` | **REPAIRED_OWNERSHIP · ISOLATION_DEFECT_OPEN** (§9) |
+| `P0_2_STEP_02_ATUAL` | **PASS_AFTER_REPAIR** (§9, §10) |
 
 O head final tem dois merges reais encadeados: o enxerto (`2cef8bc`) e a
 reconciliação com o head remoto que se moveu durante a medição (`bd3c538`).
@@ -227,10 +227,15 @@ PASS                            publicado em 70b097e · medido por modulo, harne
   ↓  verificacao independente
 PUBLISHED_BUT_HEALTH_GATE_RED   24 execucoes sem DATASET_OWNER; 7 falhas que o baseline
                                 pre-enxerto nao tinha, sob corrida de processo unico
-  ↓  reparo de proveniencia (este commit)
+  ↓  reparo de proveniencia
 REPAIRED_OWNERSHIP              portao de dono verde; 2 das 7 falhas curadas
 ISOLATION_DEFECT_OPEN           as outras 5 tem outra causa, nomeada em 9.4
+  ↓  reparo de isolamento (§10)
+PASS_AFTER_REPAIR               as 5 residuais caem; os DOIS harnesses sem regressao nova
 ```
+
+*(A linha de cima fica como está. Cada estado foi verdadeiro no seu momento e nenhum
+foi apagado — é isso que torna o livro útil.)*
 
 O `PASS` original **não foi um erro de medição**: com isolamento por processo — que é
 como os 18 workflows da casa correm os testes — ele era e continua a ser verdade. O que
@@ -319,3 +324,125 @@ em que não é. Chamar isto de PASS seria escolher a leitura que convém — exa
 
 O que desbloqueia o PASSO 03 é restaurar `pv.MANIFESTO` nos dois scripts, do modo que
 `test_dataset_owner.py` já demonstra. É uma frente própria, pequena e provada.
+
+
+---
+
+## 10 · O VAZAMENTO GLOBAL, FECHADO
+
+A §9.4 deixou uma frente aberta com causa nomeada. Esta secção fecha-a.
+
+### 10.1 · O defeito, reproduzido antes de se lhe tocar
+
+```
+PV_MANIFESTO_BEFORE         = data/samples/RUN-MANIFEST.json
+PV_MANIFESTO_AFTER_CREATOR  = data/samples/CREATOR-MAP-EAME/RUN-MANIFEST-CREATORS.json
+PV_MANIFESTO_AFTER_CORPUS   = data/samples/CREATOR-CONTENT-CORPUS-EAME/RUN-MANIFEST-CORPUS.json
+
+pv.carregar()  →  22 execuções antes de importar  ·  17 depois
+```
+
+Bastava `import creator_coleta` para a casa inteira, no resto daquele processo, passar a
+ler o manifesto de outra missão. **Ninguém do outro lado do processo tinha como saber.**
+E não era só o manifesto: `coletor.RAW_DIR` e `coletor._curl` eram trocados no mesmo sítio,
+o corpo do módulo. Como `creator_corpus_coleta` faz `from creator_coleta import _http`,
+os dois módulos disputavam o global e **a ordem de importação decidia o vencedor**.
+
+### 10.2 · A correcção: o namespace fica, o alcance passa a existir
+
+```
+MISSION_LOCAL_MANIFEST != GLOBAL_MANIFEST_MUTATION
+```
+
+As três atribuições saíram do corpo do módulo e passaram para um context manager por
+missão, com `try/finally`:
+
+```python
+MANIFESTO_DA_MISSAO = os.path.join(cr.BASE, 'RUN-MANIFEST-CREATORS.json')
+RAW_DIR_DA_MISSAO   = os.path.join(cr.BASE, 'raw-paid')
+
+@contextlib.contextmanager
+def escopo_da_missao():
+    antes = (pv.MANIFESTO, coletor.RAW_DIR, coletor._curl)
+    pv.MANIFESTO   = MANIFESTO_DA_MISSAO
+    coletor.RAW_DIR = RAW_DIR_DA_MISSAO
+    coletor._curl   = _http
+    try:
+        yield
+    finally:
+        pv.MANIFESTO, coletor.RAW_DIR, coletor._curl = antes
+```
+
+e o dispatch de fases em `__main__` passou a correr lá dentro. **O isolamento por missão
+não foi removido nem afrouxado** — nenhum coletor voltou ao `RUN-MANIFEST` global,
+nenhum `DATASET_OWNER` foi relaxado, nenhum dado histórico foi tocado. O que mudou é que
+fora do `with` a casa é a casa.
+
+`tests/test_dataset_owner.py:45-50` já provava o padrão em `setUp`/`tearDown`; aqui ele
+vive no próprio módulo, que é onde a troca acontece.
+
+### 10.3 · O teste de contrato
+
+`tests/test_isolamento_missao.py`, 9 testes, prova as cinco propriedades:
+
+| # | propriedade | testes |
+|---|---|---|
+| 1 | importar não sequestra `pv.MANIFESTO` (nem `RAW_DIR`, nem `_curl`) | 3 |
+| 2 | dentro do escopo, a missão vê o seu manifesto | 1 |
+| 3 | ao sair, o valor anterior volta | 1 |
+| 4 | em excepção, também volta | 1 |
+| 5 | Creator Map e Creator Corpus não se contaminam | 3 |
+
+O quinto inclui `test_a_ordem_de_importacao_deixa_de_decidir_quem_ganha`, que importa os
+dois módulos nas duas ordens: era essa a corrida real.
+
+### 10.4 · Os dois harnesses, e as 5 residuais
+
+| | baseline pré-enxerto `15b1ec2` | antes do reparo `aac90ad` | depois |
+|---|---|---|---|
+| por módulo (harness da casa) | 17 F / 6 E | 17 F / 6 E | **17 F / 6 E** |
+| processo único (pytest) | 17 falhas | 22 falhas | **17 falhas** |
+
+```
+MODULE_HARNESS_BEFORE  = 17 failures · 6 errors      MODULE_HARNESS_AFTER  = 17 · 6
+SINGLE_PROCESS_BEFORE  = 22 falhas                   SINGLE_PROCESS_AFTER  = 17 falhas
+NEW_TEST_REGRESSIONS_MODULE          = 0
+NEW_TEST_REGRESSIONS_SINGLE_PROCESS  = 0
+```
+
+As cinco residuais da §9.4 caíram todas, nomeadas:
+
+```
+RESOLVIDA  test_portao.py::TestRefutacaoAdversarial10C::test_execucao_legada_continua_nao_dizivel
+RESOLVIDA  test_proveniencia.py::TestOrdemExigeHoraMedida::test_hora_de_escrita_nao_e_hora_de_execucao
+RESOLVIDA  test_proveniencia.py::TestRawEvidence::test_rota_gratuita_nao_finge_preservacao
+RESOLVIDA  test_proveniencia.py::TestRunManifest::test_content_chega_ao_manifesto_pelo_run_id
+RESOLVIDA  test_proveniencia.py::TestSucessoComZeroItensNaoEhSucesso::test_a_execucao_degradada_...
+```
+
+**Os dois harnesses passaram a dizer a mesma coisa.** Enquanto discordavam, um deles estava
+a esconder trabalho — e o que os reconciliou foi corrigir o código, não escolher o harness
+mais simpático.
+
+### 10.5 · Caminho de produção e não-perda
+
+Os workflows chamam `python3 scripts/creator_coleta.py <fase>`. Verificado depois da
+correcção: fase desconhecida ainda sai `FASE_DESCONHECIDA` com `exit 2`; fase real sem
+credencial ainda falha em `POOL_EMPTY` — por falta de token, não por `NameError`; a
+árvore de trabalho não fica suja.
+
+```
+CANONICAL_VALID_CONTENT_LOST = 0   DATA_CHANGED = NAO   RAW_CHANGED = NAO
+OWNER_MAP_CHANGED = NAO            GITIGNORE_CHANGED = NAO
+UNKNOWN_DIFFERENCES = 0            .gz versionados = 248 (inalterado)
+git fsck = 0 erros
+3 ficheiros: 2 escopos (+54/-9) e 1 teste novo
+```
+
+### 10.6 · Estado
+
+```
+ISOLATION_DEFECT = CLOSED
+HEALTH_GATE      = PASS   (nos dois harnesses)
+P0_2_STEP_02     = PASS_AFTER_REPAIR
+```

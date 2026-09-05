@@ -38,6 +38,7 @@ Não resolve identidade (é do Creator Map, e está congelada). Não abre creato
 novo. Não decide relevância — isso é a fase de análise, e depende de material
 que ainda não existe quando esta roda.
 """
+import contextlib
 import json
 import os
 import sys
@@ -58,9 +59,26 @@ import proveniencia as pv                                    # noqa: E402
 # passando pela porta única do `coletor`.
 from creator_coleta import _http                             # noqa: E402
 
-coletor._curl = _http
-pv.MANIFESTO = os.path.join(cc.BASE, 'RUN-MANIFEST-CORPUS.json')
-coletor.RAW_DIR = os.path.join(cc.BASE, 'raw-paid')
+MANIFESTO_DA_MISSAO = os.path.join(cc.BASE, 'RUN-MANIFEST-CORPUS.json')
+RAW_DIR_DA_MISSAO = os.path.join(cc.BASE, 'raw-paid')
+
+
+# O mesmo escopo do Creator Map, e pelo mesmo motivo medido: aplicar a troca no
+# corpo do modulo fazia com que importar este ficheiro mudasse o manifesto da
+# casa para o resto do processo. E este era o pior dos dois, porque
+# `from creator_coleta import _http` ja executava o outro modulo antes, e o
+# vencedor era simplesmente o ultimo a ser importado.
+@contextlib.contextmanager
+def escopo_da_missao():
+    """Aponta coletor e proveniencia para o namespace desta missao, e devolve."""
+    antes = (pv.MANIFESTO, coletor.RAW_DIR, coletor._curl)
+    pv.MANIFESTO = MANIFESTO_DA_MISSAO
+    coletor.RAW_DIR = RAW_DIR_DA_MISSAO
+    coletor._curl = _http
+    try:
+        yield
+    finally:
+        pv.MANIFESTO, coletor.RAW_DIR, coletor._curl = antes
 
 MISSION = cc.MISSION
 
@@ -478,4 +496,5 @@ if __name__ == '__main__':
     if fase not in FASES:
         print('fase desconhecida: %s · disponíveis: %s'
               % (fase, ', '.join(FASES))); raise SystemExit(1)
-    FASES[fase]()
+    with escopo_da_missao():
+        FASES[fase]()
