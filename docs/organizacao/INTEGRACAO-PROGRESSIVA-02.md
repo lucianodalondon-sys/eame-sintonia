@@ -17,7 +17,8 @@ Continuação de `INTEGRACAO-PROGRESSIVA-01.md`. Uma ref, medida e integrada.
 | `LOCAL_REMOTE_MATCH` | **SIM** |
 | `MERGE_ATTEMPTED` | SIM |
 | `MERGE_VERDICT` | **PASS** |
-| `P0_2_STEP_02` | **PASS** |
+| `P0_2_STEP_02` | **PASS** *(estado publicado em 2026-09-05; supersedido — ver §9)* |
+| `P0_2_STEP_02_ATUAL` | **REPAIRED_OWNERSHIP · ISOLATION_DEFECT_OPEN** (§9) |
 
 O head final tem dois merges reais encadeados: o enxerto (`2cef8bc`) e a
 reconciliação com o head remoto que se moveu durante a medição (`bd3c538`).
@@ -209,3 +210,112 @@ Re-medidos contra `15b1ec2` **e** `d76a998` depois do segundo merge.
 HEAD `bd3c538`**
 
 **NÃO EXECUTADO.** Parado aqui, como mandado.
+
+
+---
+
+## 9 · LIVRO DE ESTADOS — o que mudou depois de publicar
+
+Esta secção **não corrige o texto acima**. O que ficou escrito em §1–§8 foi o que se
+mediu na altura, com o harness da altura, e fica de pé como registo. O que mudou foi o
+que se soube depois.
+
+### 9.1 · A linha do tempo, sem apagar nada
+
+```
+PASS                            publicado em 70b097e · medido por modulo, harness da casa
+  ↓  verificacao independente
+PUBLISHED_BUT_HEALTH_GATE_RED   24 execucoes sem DATASET_OWNER; 7 falhas que o baseline
+                                pre-enxerto nao tinha, sob corrida de processo unico
+  ↓  reparo de proveniencia (este commit)
+REPAIRED_OWNERSHIP              portao de dono verde; 2 das 7 falhas curadas
+ISOLATION_DEFECT_OPEN           as outras 5 tem outra causa, nomeada em 9.4
+```
+
+O `PASS` original **não foi um erro de medição**: com isolamento por processo — que é
+como os 18 workflows da casa correm os testes — ele era e continua a ser verdade. O que
+faltava era a segunda leitura.
+
+### 9.2 · O que estava mesmo errado
+
+24 execuções entraram no canónico sem `DATASET_OWNER`, campo que `pv.CAMPOS_RUN` exige.
+Não era dado sujo: era **uma declaração em falta**. `scripts/creator_corpus.py` já
+declarava, desde a origem, `DATASET_OWNER = 'CREATOR_CONTENT_CORPUS_EAME'` e
+`MISSION = '15-CREATOR-CONTENT-CORPUS-EAME'`. Faltava a mesma linha em `pv.DONOS`, o mapa
+que o portão consulta. Sem ela `dono_da_missao` devolvia `UNDECLARED_OWNER` e o portão
+recusava — que é o comportamento **certo**, não o defeito.
+
+### 9.3 · O reparo, e só ele
+
+```
+POLITICA   pv.DONOS ganha 'CREATOR_CONTENT_CORPUS_EAME': ('15-CREATOR-CONTENT-CORPUS-EAME',)
+BACKFILL    7 runs MISSION=14-MAPA-DE-CREATORS-EAME       -> CREATOR_MAP_EAME
+           17 runs MISSION=15-CREATOR-CONTENT-CORPUS-EAME -> CREATOR_CONTENT_CORPUS_EAME
+TOTAL      3 ficheiros · 25 insercoes · 0 remocoes
+```
+
+O dono foi derivado **exclusivamente** por `dono_da_missao(MISSION)`, nunca por prefixo de
+`RUN_ID` nem por palpite. Nenhum facto histórico foi tocado: `RUN_ID`, `ACTOR`, `INPUT`,
+`STARTED_AT`, `FINISHED_AT`, `COST_USD`, `DATASET_ID`, `COUNTRY`, `STATUS` e
+`RAW_EVIDENCE_PATH` são byte-a-byte os mesmos, verificados campo a campo antes de escrever.
+**Nenhuma hora ausente foi inventada** — o que não estava preservado continua não preservado.
+
+Varridos os 541 JSON da árvore, os mesmos `RUN_ID` aparecem ainda em 5 artefactos derivados
+como carimbo (`CREATOR-ACTIVITY`, `CROP-PROOF`, `HUB-DISCOVERED-RESOLVED`, `HUB-EXTRACTION`,
+`SEED-IT-RESOLVED`). Esses **não** recebem `DATASET_OWNER`: a casa tem 37 artefactos
+derivados equivalentes e **37 de 37** carregam `RUN_ID` sem `DATASET_OWNER`. Seguir a
+convenção vale mais do que uniformizar por reflexo. `RUN_ID_OWNER_DIVERGENCES = 0`.
+
+`UNKNOWN_MISSION_STILL_FAILS_CLOSED = SIM` — missão não declarada continua a sair
+`UNDECLARED_OWNER`. O fail-closed não foi enfraquecido para conseguir verde.
+
+### 9.4 · O que sobra, e por que não entra aqui
+
+Numa corrida de **processo único** (a suíte toda de uma vez) sobram 5 falhas que o baseline
+pré-enxerto não tem. Não são dado doente, e o backfill não as podia curar:
+
+```
+scripts/creator_coleta.py:113          pv.MANIFESTO = .../RUN-MANIFEST-CREATORS.json
+scripts/creator_corpus_coleta.py:62    pv.MANIFESTO = .../RUN-MANIFEST-CORPUS.json
+```
+
+As duas reatribuem um global da casa **no import** e nunca restauram. Tudo o que for
+importado depois, no mesmo processo, passa a ler o manifesto da missão em vez do da casa.
+`tests/test_dataset_owner.py:45-50` faz exactamente a mesma coisa da maneira certa,
+guardando e devolvendo em `setUp`/`tearDown`.
+
+Fica **registado e não escondido**, e fora deste commit por estar fora do escopo autorizado.
+`tests/test_creators.py` não foi removido nem ignorado: `TEST_GREEN_BY_LOOKING_LESS !=
+HEALTHY_DATA` vale nas duas direcções.
+
+### 9.5 · Medição final, nos dois harnesses
+
+| | baseline pré-enxerto `15b1ec2` | publicado `70b097e` | reparado |
+|---|---|---|---|
+| por módulo (harness da casa) | 17 F / 6 E | 17 F / 6 E | **17 F / 6 E** |
+| processo único (pytest) | 17 falhas | 24 falhas | **22 falhas** |
+| execuções sem `DATASET_OWNER` | — | 24 | **0** |
+
+```
+NEW_TEST_REGRESSIONS (harness da casa, por modulo) = 0     ← modulos e contagens identicos ao baseline
+NEW_TEST_REGRESSIONS (processo unico, pytest)      = 5     ← todas do defeito de 9.4
+MISSING_DATASET_OWNER_M14 = 0 · MISSING_DATASET_OWNER_M15 = 0 · UNDECLARED_OWNER_M15 = 0
+CANONICAL_VALID_CONTENT_LOST = 0 · SOURCE_VALID_CONTENT_LOST = 0 · UNKNOWN_DIFFERENCES = 0
+GITIGNORE_CHANGED = NAO · RAW_CHANGED = NAO · git fsck = 0 erros
+```
+
+### 9.6 · Estado, e o que ele bloqueia
+
+```
+OWNERSHIP_GATE = PASS
+HEALTH_GATE    = PASS no harness da casa · RED sob processo unico
+P0_2_STEP_02   = REPAIRED_OWNERSHIP · ISOLATION_DEFECT_OPEN
+STEP_03        = BLOCKED
+```
+
+**Não declaro `PASS_AFTER_REPAIR`.** A regra é `NEW_TEST_REGRESSIONS = 0`, e há um harness
+em que não é. Chamar isto de PASS seria escolher a leitura que convém — exactamente o que
+`SCANNER_REACH != DATA_HEALTH` proíbe, na direcção oposta.
+
+O que desbloqueia o PASSO 03 é restaurar `pv.MANIFESTO` nos dois scripts, do modo que
+`test_dataset_owner.py` já demonstra. É uma frente própria, pequena e provada.
