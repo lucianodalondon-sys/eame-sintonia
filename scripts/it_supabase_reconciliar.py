@@ -187,9 +187,19 @@ def reconciliar():
         raise Recusado('inventário com %d itens; o lote declarado é %d' % (len(itens), RAW_EXPECTED))
 
     plano = carregar('PRESERVACAO_PLANO')
-    censo = json.dumps(carregar('CATALOGO_CENSO'), ensure_ascii=False)
+    censo_doc = carregar('CATALOGO_CENSO')
+    censo = json.dumps(censo_doc, ensure_ascii=False)
     medido = json.dumps(carregar('CATALOGO_MEDIDO'), ensure_ascii=False)
     censo02 = json.dumps(carregar('CENSO_02_09'), ensure_ascii=False)
+
+    # O censo do catálogo não só CONTA o documento: ele carrega campos que só existem
+    # se alguém abriu o PDF. `adama_it_catalogo.py::tipar_documento` chama
+    # `pdf_text.text()` no arquivo local e casa frases que o próprio documento carrega
+    # ("scheda di dati di sicurezza", "etichetta autorizzata"). Isso é uma VARREDURA
+    # LÉXICA — e é a diferença entre "não foi lido" e "um classificador tocou o texto".
+    censo_por_sha = {}
+    for d in censo_doc.get('DOCUMENTS', []):
+        censo_por_sha.setdefault(d.get('SHA256'), []).append(d)
 
     docs = carregar('LABEL_MANIFEST')['DOCUMENTS']
     doc_por_sha = {}
@@ -232,6 +242,7 @@ def reconciliar():
             'CONTENT_SHARED_WITH': [o for o in conteudo_repetido.get(x['SHA256'], []) if o != x['OBJETO']],
             'EVIDENCIA': [],
             'EVIDENCIA_DE_CONTEXTO': [],
+            'VARREDURA_LEXICA': None,
         }
 
         ev = r['EVIDENCIA']
@@ -270,6 +281,33 @@ def reconciliar():
                                 % (', '.join(campos), p.get('PRODUCT_NAME'))))
 
         if x['ESPECIE'] == 'DOCUMENT':
+            # Primeiro a varredura léxica, medida na máquina que TINHA os bytes.
+            cs = censo_por_sha.get(x['SHA256'], [])
+            sinais = [c for c in cs if c.get('TYPE_FROM_CONTENT')
+                      or c.get('PRODUCTS_NAMED_IN_DOCUMENT')
+                      or c.get('CONTENT_READABLE') is not None]
+            if sinais:
+                c0 = sinais[0]
+                leitura = 'LEXICALLY_SCANNED'
+                varredura = {
+                    'ONDE': 'CATALOGO_CENSO',
+                    'QUEM': 'scripts/adama_it_catalogo.py :: tipar_documento → scripts/pdf_text.py',
+                    'TYPE_DECIDED_BY': c0.get('TYPE_DECIDED_BY'),
+                    'TYPE_FROM_CONTENT': c0.get('TYPE_FROM_CONTENT'),
+                    'PRODUCTS_NAMED_IN_DOCUMENT': c0.get('PRODUCTS_NAMED_IN_DOCUMENT') or [],
+                    'CONTENT_READABLE': c0.get('CONTENT_READABLE'),
+                    'TYPE_SIGNALS_DISAGREE': c0.get('TYPE_SIGNALS_DISAGREE'),
+                    'COVERS_MULTIPLE_PRODUCTS': c0.get('COVERS_MULTIPLE_PRODUCTS'),
+                    'O_QUE_ELA_NAO_E': 'varredura léxica NUNCA satisfaz INTELLIGENCE_READING. '
+                                       'Um classificador tocou o texto; ninguém leu o documento.',
+                }
+                r['VARREDURA_LEXICA'] = varredura
+                ev.append(prova('CATALOGO_CENSO',
+                                'PDF aberto por pdf_text.py na máquina que tinha os bytes: '
+                                'TYPE_DECIDED_BY=%s · TYPE_FROM_CONTENT=%s · CONTENT_READABLE=%s'
+                                % (c0.get('TYPE_DECIDED_BY'), c0.get('TYPE_FROM_CONTENT'),
+                                   c0.get('CONTENT_READABLE'))))
+
             ds = doc_por_sha.get(x['SHA256'], [])
             if ds:
                 d = ds[0]
@@ -280,6 +318,10 @@ def reconciliar():
                 if d.get('PARSE_STATE') == 'NOT_PARSED':
                     recusa = {
                         'DECLARADA_EM': 'LABEL_MANIFEST',
+                        'NAO_CONTRADIZ_A_VARREDURA':
+                            'a varredura léxica aconteceu em 2026-08-30, na máquina que tinha '
+                            'os bytes; o NOT_PARSED é de 2026-09-02, num ambiente onde o PDF '
+                            'não era alcançável. São dois ambientes, não duas versões do fato.',
                         'PARSE_STATE': d.get('PARSE_STATE'),
                         'PARSE_BLOCKER': d.get('PARSE_BLOCKER'),
                         'LABEL_DATE_STATE': d.get('LABEL_DATE_STATE'),
@@ -350,7 +392,17 @@ def balde(r, bordas):
     if r['CONTENT_READ_STATE'] == 'READ' and not r['FATO_DERIVADO']:
         return 'AMBIGUOUS', 'há selo de leitura sem fato derivado citado — leitura sem destino'
 
+    if r['CONTENT_READ_STATE'] == 'LEXICALLY_SCANNED' and not r['RECUSA_DECLARADA']:
+        return 'AMBIGUOUS', (
+            'há varredura léxica e nenhuma declaração sobre a leitura — o estado intermediário '
+            'existe, o veredicto sobre ele não')
+
     if r['RECUSA_DECLARADA']:
+        if r['VARREDURA_LEXICA']:
+            return 'KNOWN_NOT_CONSUMED', (
+                'um classificador tocou o texto (varredura léxica medida) e ninguém leu o '
+                'documento: varredura léxica NUNCA satisfaz INTELLIGENCE_READING. O motivo '
+                'da não leitura está escrito: %s' % r['RECUSA_DECLARADA'].get('PARSE_BLOCKER'))
         return 'KNOWN_NOT_CONSUMED', (
             'contado no acervo e declarado NÃO LIDO com motivo: %s'
             % r['RECUSA_DECLARADA'].get('PARSE_BLOCKER'))
@@ -393,6 +445,12 @@ def peneira(r, balde_do_item):
                     'reler o PDF a partir do balde e, se o texto não sair, declarar a rota '
                     'de texto fechada para este documento — não rejeitar por ausência',
                     'CONTENT_NOT_PROCESSED')
+        if r['VARREDURA_LEXICA']:
+            return ('DEFER', 'LEXICALLY_SCANNED_NOT_READ',
+                    'o texto já saiu do PDF uma vez, para tipar o documento em até 3 páginas. '
+                    'A próxima ação é LER o documento inteiro a partir do balde e selar '
+                    'CONTENT_READ com evidência — nunca promover a varredura a leitura',
+                    'CONTENT_NOT_PROCESSED')
         return ('DEFER', 'CONTENT_NOT_REACHABLE_IN_THIS_ENVIRONMENT',
                 'ler o conteúdo A PARTIR DO BALDE, onde ele está com hash conferido, em vez '
                 'de tentar adama.com de novo — a rota da origem devolve 403 e o Ministero '
@@ -428,17 +486,24 @@ def sombra(r, balde_do_item, triagem):
 
     dedup = 'DUPLICATE' if r['CONTENT_SHARED_WITH'] else 'UNIQUE'
     lido = r['CONTENT_READ_STATE'] == 'READ'
+    varrido = r['CONTENT_READ_STATE'] == 'LEXICALLY_SCANNED'
+
+    # Normalizado quer dizer: o bruto tem projeção estruturada com dono. Uma linha de
+    # censo com SHA, bytes, tipo e vínculo de produto É essa projeção — e ela é derivada da
+    # evidência, não digitada. Quem não está em censo nenhum fica PENDING, que é a verdade
+    # sobre ele, não uma lacuna de preenchimento.
+    censado = bool({e['FONTE'] for e in r['EVIDENCIA']} & CENSOS)
 
     estados = {
         'RAW_STATE': 'PRESERVED' if r['PRESERVED'] else 'UNKNOWN',
-        # o bruto italiano nunca teve projeção normalizada declarada: PENDING é o default e
-        # é a verdade, não uma lacuna de preenchimento.
-        'NORMALIZATION_STATE': 'PENDING',
+        'NORMALIZATION_STATE': 'NORMALIZED' if censado else 'PENDING',
         # conteúdo repetido é fato preservado, não item duplicado a descartar: as duas
         # procedências continuam inteiras. O selo diz que os bytes se repetem.
         'DEDUP_STATE': dedup,
         'CONTENT_STATE': 'AVAILABLE',   # está no balde, com bytes conferidos de volta
-        'CONTENT_READ_STATE': 'READ' if lido else 'NOT_READ',
+        # LEXICALLY_SCANNED é o estado que o contrato do Passaporte existe para criar:
+        # registra que um classificador tocou o texto, e NUNCA satisfaz a leitura.
+        'CONTENT_READ_STATE': 'READ' if lido else ('LEXICALLY_SCANNED' if varrido else 'NOT_READ'),
         'IDENTITY_STATE': 'PROVED',     # SHA256 conferido depois do download de volta
         'CLAIM_STATE': 'EXTRACTED' if r['FATO_DERIVADO'] else 'PENDING',
         'GEOGRAPHY_STATE': 'PROVED',    # IT declarado na captura e no objeto
@@ -456,6 +521,12 @@ def sombra(r, balde_do_item, triagem):
     estagio = 'CONSUMPTION'
     for nome in ESCADA:
         if nome == 'NORMALIZATION' and estados['NORMALIZATION_STATE'] != 'NORMALIZED':
+            estagio = nome
+            break
+        if nome == 'DEDUP' and estados['DEDUP_STATE'] not in ('UNIQUE', 'DUPLICATE'):
+            estagio = nome
+            break
+        if nome == 'CONTENT_ACQUISITION' and estados['CONTENT_STATE'] != 'AVAILABLE':
             estagio = nome
             break
         if nome == 'INTELLIGENCE_READING' and estados['CONTENT_READ_STATE'] != 'READ':

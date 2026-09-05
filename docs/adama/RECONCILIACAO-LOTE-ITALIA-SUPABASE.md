@@ -70,13 +70,22 @@ pai. Nenhum daqueles PDFs foi lido.
 
 | balde | n | o que sustenta |
 |---|---:|---|
-| `ALREADY_CONSUMED` | **53** | 51 páginas de produto lidas e viradas em fato (`ACTIVE_INGREDIENT`, `FORMULATION`, `PACKAGE_SIZE`, crosswalk contra o registro) + 2 PDFs cujos bytes a casa leu pela rota Ministero |
-| `KNOWN_NOT_CONSUMED` | **137** | contados no acervo e declarados **não lidos com motivo**: `PARSE_STATE = NOT_PARSED`, `PARSE_BLOCKER = "PDF preservado fora deste ambiente; adama.com devolve 403 aqui"` |
+| `ALREADY_CONSUMED` | **53** | 51 páginas de produto lidas e viradas em fato (`ACTIVE_INGREDIENT`, `FORMULATION`, `PACKAGE_SIZE`, `TABLES`) + 2 PDFs cujos bytes a casa leu pela rota Ministero, com o texto persistido |
+| `KNOWN_NOT_CONSUMED` | **137** | **varridos lexicamente e nunca lidos** — ver §5 |
 | `ALREADY_ACCOUNTED` | **3** | papel declarado e consumidor nomeado: `indice-captura.json` e `enumeracao.json` alimentam `adama_it_preservar.py`/`adama_it_catalogo.py`; `robots.txt` é a testemunha de `ROBOTS_DISALLOWS_AJAX_ROUTE` |
 | `SUPABASE_ONLY` | **2** | `home-italia-it.html` e `sitemap-italia-it.xml`: fora do balde, só a prova de preservação os conhece |
 | `AMBIGUOUS` | **0** | — |
 | `UNKNOWN` | **0** | — |
 | **TOTAL_ACCOUNTED** | **195** | |
+
+### Uma ressalva sobre os 51, escrita porque a primeira redação estava errada
+
+O `CROSSWALK` das páginas de produto **não** foi corrido contra o registro nacional do
+Ministero. Foi corrido contra a **fatia de 163 registros de titular ADAMA** que a casa
+mediu — e o próprio arquivo escreve que o dataset nacional `PROD_FTS` *"não está neste
+repositório"*. É por isso que 10 dos 51 saem como
+`LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED`: por causa da fatia, não por causa da página.
+A leitura das 51 páginas está provada; a frase "contra o registro do Ministero" não estava.
 
 ### O achado que muda o valor do balde
 
@@ -91,12 +100,56 @@ Isso é o oposto de "falta coletar". **Não falta coletar nada.** Falta ler o qu
 
 ---
 
-## 5 · A PENEIRA TÉCNICA — A PRIMEIRA PERGUNTA NÃO É RELEVÂNCIA
+## 5 · `LEXICALLY_SCANNED` — O ESTADO QUE QUASE VIROU `NOT_READ`
+
+A primeira redação deste crosswalk dizia que os 139 documentos estavam `NOT_READ`, apoiada
+em `LABEL-MANIFEST.json`: `PARSE_STATE = NOT_PARSED` em 141 de 141. Uma verificação
+adversarial derrubou isso, e o achado é melhor do que a afirmação.
+
+`scripts/adama_it_catalogo.py :: tipar_documento` **abre cada PDF local** com
+`scripts/pdf_text.py`, extrai até 3 páginas / 20.000 caracteres, e casa frases que só
+existem **dentro** do documento — *"scheda di dati di sicurezza"*, *"etichetta
+autorizzata"*, *"estensione d'impiego"*. O censo do catálogo carrega o resultado:
+
+| campo do censo, derivado de dentro do PDF | medida |
+|---|---|
+| `TYPE_DECIDED_BY = CONTENT` | **85** de 141 |
+| `TYPE_FROM_CONTENT` preenchido | 85 (48 SDS + 37 etichetta) |
+| `PRODUCTS_NAMED_IN_DOCUMENT` não vazio | 16 |
+| `CONTENT_READABLE` medido (`bool(texto)`) | 132 sim · 9 não |
+
+**Os dois artefatos não se contradizem — eles são de ambientes diferentes.** A varredura é
+de 2026-08-30, na máquina que tinha os bytes. O `NOT_PARSED` é de 2026-09-02, num ambiente
+onde o PDF não era alcançável. O crosswalk carrega os dois, e o estado correto é o que o
+contrato do Passaporte existe para criar:
+
+> `LEXICALLY_SCANNED` registra que **um classificador tocou o texto** — e **nunca** satisfaz
+> `INTELLIGENCE_READING`.
+
+O balde não muda: `KNOWN_NOT_CONSUMED` continua com os 137. O que muda é a próxima ação, e
+ela fica mais barata: o texto já saiu daquele PDF uma vez.
+
+`CONTENT_READABLE = false` em 9 documentos também deixa de ser declaração e vira
+**medição**: o extrator rodou e não tirou texto. A próxima ação continua sendo reler do
+balde — e, se o texto não sair de novo, **declarar a rota de texto fechada** para aquele
+documento. Nunca rejeitar por ausência.
+
+### A escada, depois da correção
+
+| onde o item parou | n | por quê |
+|---|---:|---|
+| `INTELLIGENCE_READING` | **137** | conteúdo disponível no balde, varrido, nunca lido |
+| `ROUTING` | **53** | lido, com fato extraído — rotear é pergunta da Inteligência |
+| `NORMALIZATION` | **5** | não estão em censo nenhum; não têm projeção estruturada |
+
+---
+
+## 6 · A PENEIRA TÉCNICA — A PRIMEIRA PERGUNTA NÃO É RELEVÂNCIA
 
 | veredicto | n | motivo |
 |---|---:|---|
 | `KEEP` | **53** | já é fato na casa |
-| `DEFER` | **142** | *não utilizável **ainda*** — o conteúdo não é alcançável **neste ambiente**; a próxima ação é ler **a partir do balde** |
+| `DEFER` | **142** | *não utilizável **ainda*** — 128 `LEXICALLY_SCANNED_NOT_READ`, 9 `CONTENT_DECLARED_UNREADABLE`, 5 `ROLE_DECLARED_NO_READING_YET`. A próxima ação é ler **a partir do balde** |
 | `REJECT_WITH_REASON` | **0** | nada foi julgado inutilizável |
 | `ERROR` | **0** | nenhum objeto sem bytes conferidos |
 
@@ -105,13 +158,12 @@ mesmos bytes (`Postscript 80 XL` e `Davai`, mesma Scheda di Sicurezza) não são
 descartar: a casa já decidiu que *hash igual não apaga origem*, e as duas procedências
 continuam inteiras. **A máquina nunca rejeita por ausência.**
 
-Dos 137 em `DEFER`, **9** carregam `CONTENT_READABLE = false` — esses recebem motivo
-próprio (`CONTENT_DECLARED_UNREADABLE`) e uma próxima ação diferente: reler do balde e, se
-o texto não sair, **declarar a rota de texto fechada** para aquele documento. Não rejeitar.
+Cada motivo carrega **próxima ação própria**, porque motivo sem próxima ação é desculpa —
+e há teste que reprova um item em `DEFER` sem `NEXT_ACTION`.
 
 ---
 
-## 6 · PRÉ-PASSAPORTE SOMBRA — O QUE ELE É, E O QUE ELE NÃO É
+## 7 · PRÉ-PASSAPORTE SOMBRA — O QUE ELE É, E O QUE ELE NÃO É
 
 `data/samples/IT-SUPABASE-COLETA/IT-195-PRE-PASSAPORTE-SOMBRA.json`
 
@@ -132,7 +184,7 @@ Três decisões ficam **abertas e escritas**, em vez de resolvidas por conveniê
 
 ---
 
-## 7 · CONTROL_PLANE_EVIDENCE_CANDIDATE
+## 8 · CONTROL_PLANE_EVIDENCE_CANDIDATE
 
 `data/samples/IT-SUPABASE-COLETA/CONTROL-PLANE-EVIDENCE-CANDIDATE.json`
 
@@ -146,12 +198,13 @@ Cada candidato traz `KIND`, `VALUE`, `SCOPE`, `RELIABILITY` (`MEDIDO` · `DECLAR
 
 ---
 
-## 8 · O CHECKPOINT ANTES DA FASE CARA
+## 9 · O CHECKPOINT ANTES DA FASE CARA
 
 ```
 TOTAL                         = 195
 MECHANICALLY_RECONCILED       = 190
 ALREADY_READ                  =  53
+ALREADY_LEXICALLY_SCANNED     = 137      (varridos, nunca lidos — nao contam como lidos)
 READ_QUEUE                    =   5      (os 3 CAPTURE + 2 MANIFEST, casos de borda)
 PERCENT_REQUIRING_NEW_READING = 2,6 %
 ```
@@ -174,7 +227,7 @@ sugerir o contrário.
 
 ---
 
-## 9 · O QUE NÃO MUDOU
+## 10 · O QUE NÃO MUDOU
 
 ```
 SUPABASE_CHANGED     = NÃO      (nenhuma chamada; não há credencial aqui)
@@ -191,11 +244,12 @@ scripts/voz.py       = intocado
 
 ---
 
-## 10 · O QUE FICA NA PORTA DA INTELIGÊNCIA
+## 11 · O QUE FICA NA PORTA DA INTELIGÊNCIA
 
 `COLLECTION_PACKAGE_STATE = READY`, com **uma** coisa faltando, e ela é pequena:
 
 > **ler os 137 documentos a partir do balde.**
 
-Eles estão lá, com hash conferido, e a rota da origem está morta. Essa leitura é uma
-missão da linha da Itália — não desta. Esta aqui para aqui.
+Eles estão lá, com hash conferido, a rota da origem está morta, e o texto **já saiu de
+dentro deles uma vez** — a varredura de tipagem provou que o extrator funciona nesse
+material. Essa leitura é uma missão da linha da Itália, não desta. Esta aqui para aqui.
