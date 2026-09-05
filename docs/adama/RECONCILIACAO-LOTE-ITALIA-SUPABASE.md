@@ -258,7 +258,45 @@ qual rota morreu, quando foi, quanto pesou — preservado com a prova ao lado, p
 em que o Control Plane existir não comece com uma página em branco.
 
 Cada candidato traz `KIND`, `VALUE`, `SCOPE`, `RELIABILITY` (`MEDIDO` · `DECLARADO` ·
-`INFERIDO`) e a citação da fonte.
+`INFERIDO`) e a citação da fonte. São **31**, e cinco deles mudam o que se pode dizer
+sobre esta coleta:
+
+**1 · A execução não tem nome.** Nenhum dos 2.751 blobs das 50 branches carrega `RUN_ID`,
+`COLLECTION_RUN_ID` ou número de job para `IT/adama-website`. A execução que subiu 195
+objetos **não emitiu identidade**.
+
+**2 · E o lote não está no livro-caixa da própria casa.**
+`data/samples/RUN-MANIFEST.json` existe em três versões, e **nenhuma** menciona
+`IT-ADAMA-CATALOG` ou `adama-website` — sendo que o propósito declarado dele é:
+
+> *"dado um registro qualquer, o `RUN_ID` leva a esta tabela e a tabela diz que ator rodou,
+> com que entrada, quando, a que custo"*
+
+**3 · Custo: não declarado.** Nenhuma cifra, em nenhum artefato. A rota foi navegador com
+janela na máquina de casa, sem intermediário pago — mas isso é a explicação provável, não
+a medida, e fica marcado assim.
+
+**4 · O estado por objeto conta as duas rodadas sem que ninguém as tenha escrito.**
+`ALREADY_PRESENT_VERIFIED = 194` + `VERIFIED = 1`. O único `VERIFIED` é a brochura
+**FOLPAN GOLD**, 4.118.810 bytes — a que levou **502** na primeira execução e subiu na
+segunda. E um objeto guarda o **520** dentro de si:
+
+```
+Postscript 80 XL — Scheda di Sicurezza · 138.284 bytes
+RESPOSTA_AMBIGUA = { HTTP_NO_UPLOAD: 520, TENTATIVAS: [520],
+  PORQUE_NAO_E_FALHA: "o upload devolveu 520, mas o objeto está no bucket
+                       e os bytes de volta batem com o sha256 local" }
+```
+
+**5 · A prova dos 195 nunca saiu de uma branch.** `IT-ADAMA-PRESERVACAO-RELATORIO.json`,
+o `PLANO`, o `CENSO`, o `MEASURED` e o `V1` existem em **1 de 50** branches. O censo
+posterior, de 02/09, propagou para **16**.
+
+> Se `claude/adama-it-local-catalog` se perder, o balde tem 195 objetos e o Git não diz o
+> que eles são.
+
+Esta missão não resolve isso — mas o artefato que ela grava é, a partir de hoje, uma
+segunda casa para a identidade dos 195.
 
 ---
 

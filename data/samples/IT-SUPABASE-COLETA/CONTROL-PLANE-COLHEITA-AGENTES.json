@@ -1,0 +1,148 @@
+{
+  "DATASET": "CONTROL-PLANE-COLHEITA-AGENTES",
+  "SOURCE_ID": "IT-ADAMA-CATALOG",
+  "COLLECTION_ID": "IT-ADAMA-CATALOG-2026-08-30",
+  "CAPTURED_AT": "2026-09-05",
+  "EVIDENCE_CLASS": "CONTROL_PLANE_EVIDENCE_HARVEST",
+  "O_QUE_ISTO_E": "colheita de evidencia historica sobre a EXECUCAO da coleta italiana, feita por varredura do acervo inteiro (2.751 blobs unicos de 50 branches) e conferida item a item antes de entrar aqui.",
+  "O_QUE_ISTO_NAO_E": "nao e estado canonico, nao e o Control Plane de Coleta e nao define schema. Entra em CONTROL-PLANE-EVIDENCE-CANDIDATE.json como candidato, com a citacao ao lado.",
+  "COMO_FOI_CONFERIDO": "todo item marcado MEDIDO foi reproduzido nesta sessao contra o blob ou o commit citado. Item que nao sobreviveu a conferencia nao entrou.",
+  "FOUND": [
+    {
+      "KIND": "RUN_ID",
+      "VALUE": "NAO EXISTE. Nenhum dos 2.751 blobs das 50 branches carrega RUN_ID, COLLECTION_RUN_ID, GITHUB_RUN_ID ou numero de job para o lote IT/adama-website. A execucao que subiu 195 objetos nao emitiu identidade.",
+      "EVIDENCE_PATH": "varredura de scratchpad/corpus (todos os blobs unicos das 50 branches) cruzada com allblobs.tsv",
+      "QUOTE": "zero blobs contem simultaneamente 'IT/adama-website' e qualquer token de RUN_ID",
+      "SCOPE": "o lote IT/adama-website inteiro",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "GAP",
+      "VALUE": "O lote italiano NAO ESTA no livro-caixa de execucoes da propria casa. data/samples/RUN-MANIFEST.json existe em tres versoes e nenhuma menciona IT-ADAMA-CATALOG nem adama-website — e o proposito declarado desse arquivo e exatamente ligar RUN_ID a ator, entrada, hora, custo e evidencia.",
+      "EVIDENCE_PATH": "data/samples/RUN-MANIFEST.json (3 versoes; blobs 4d0eb802, 6d67d1ad, e0192096)",
+      "QUOTE": "PARA_QUE_SERVE: dado um registro qualquer, o RUN_ID leva a esta tabela e a tabela diz que ator rodou, com que entrada, quando, a que custo",
+      "SCOPE": "o lote IT/adama-website inteiro — ausencia no registro central de execucoes",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "COST",
+      "VALUE": "NAO DECLARADO. Nao ha COST, COST_USD nem cifra alguma para a coleta ou a preservacao italiana em artefato nenhum. O RUN-MANIFEST tem campo de custo e o lote nao esta la. A rota foi navegador com janela na maquina de casa, sem intermediario pago — mas isso e a explicacao provavel, nao a medida.",
+      "EVIDENCE_PATH": "data/samples/IT-CATALOGO/IT-ADAMA-PRESERVACAO-RELATORIO.json (chaves de topo) + data/samples/RUN-MANIFEST.json",
+      "QUOTE": "ausencia declarada: nenhuma chave de custo em nenhum dos artefatos do lote",
+      "SCOPE": "o lote IT/adama-website inteiro",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "ATTEMPT",
+      "VALUE": "DUAS execucoes reais do portao, e o estado por objeto conta isso sem que ninguem tenha escrito 'duas rodadas': ALREADY_PRESENT_VERIFIED = 194 (subiram na primeira, reconferidos na segunda) e VERIFIED = 1 (subiu so na segunda).",
+      "EVIDENCE_PATH": "data/samples/IT-CATALOGO/IT-ADAMA-PRESERVACAO-RELATORIO.json (POR_ESTADO e ITENS[].ESTADO)",
+      "QUOTE": "POR_ESTADO: {ALREADY_PRESENT_VERIFIED: 194, VERIFIED: 1}",
+      "SCOPE": "as duas execucoes de preservacao do lote",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "FAILURE",
+      "VALUE": "O 502 da primeira execucao: Brochure FOLPAN GOLD, 4.118.810 bytes, o maior PDF do lote, recebeu HTTP 502 no upload. O bucket foi consultado e respondeu que o objeto NAO estava la — era falha de verdade, transitoria. E o unico objeto com ESTADO=VERIFIED.",
+      "EVIDENCE_PATH": "commit 014a97b6b05038a39ac6af71d3b9199671751bba (claude/adama-it-local-catalog) + IT-ADAMA-PRESERVACAO-RELATORIO.json",
+      "QUOTE": "194 de 195, e o que faltou foi um 502 ... 1576-Brochure--Folpan-Gold.pdf, 4.118.810 bytes, upload devolveu HTTP 502",
+      "SCOPE": "um objeto do lote, primeira execucao do portao",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "FAILURE",
+      "VALUE": "O 520 que sobreviveu ate o relatorio final, registrado NO PROPRIO OBJETO: Postscript 80 XL - Scheda di Sicurezza, 138.284 bytes, RESPOSTA_AMBIGUA = {HTTP_NO_UPLOAD: 520, TENTATIVAS: [520]}. O objeto ficou preservado assim mesmo, e a lei esta escrita no lugar em que foi exercida.",
+      "EVIDENCE_PATH": "data/samples/IT-CATALOGO/IT-ADAMA-PRESERVACAO-RELATORIO.json (ITENS[] do objeto 227779fdd6be9975-6321)",
+      "QUOTE": "PORQUE_NAO_E_FALHA: o upload devolveu 520, mas o objeto esta no bucket e os bytes de volta batem com o sha256 local",
+      "SCOPE": "um objeto do lote (o unico dos 195 com RESPOSTA_AMBIGUA)",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "ATTEMPT",
+      "VALUE": "A correcao nascida do 502: upload passa a ter ate 3 tentativas para status transitorio (0, 408, 429, 500, 502, 503, 504, 520-524), com espera crescente, e o BUCKET E CONSULTADO entre uma tentativa e a seguinte. Fora dessa lista — 400, 401, 403, 413 — nao se insiste.",
+      "EVIDENCE_PATH": "scripts/adama_it_preservar.py (claude/adama-it-local-catalog) + commit 014a97b",
+      "QUOTE": "reenviar as cegas depois de resposta ambigua pode duplicar ou gravar por cima",
+      "SCOPE": "o preservador italiano, a partir da segunda execucao",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "FAILURE",
+      "VALUE": "A falha de autenticacao anterior a tudo: o Storage devolvia 400 embrulhando 403 com 'Invalid Compact JWS'. A chave sb_secret nao e JWT, e o cabecalho Bearer era o defeito.",
+      "EVIDENCE_PATH": "commit 04ac90d0d0cf4cfe8b3bd9cfab3b0227071a46ac (claude/adama-it-local-catalog)",
+      "QUOTE": "sb_secret nao e JWT: o Bearer era o defeito, e agora um canario le antes de escrever",
+      "SCOPE": "a primeira tentativa de inventario e upload do lote",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "ATTEMPT",
+      "VALUE": "Duas rodadas anteriores com ZERO escrita, ambas declaradas: UPLOADS_ANTES_DO_CANARIO = 0 apos a correcao da autenticacao, e antes disso RAW_PRESERVATION_GATE_IT = OPEN com motivo CREDENTIALS_ABSENT_IN_LOCAL_ENVIRONMENT.",
+      "EVIDENCE_PATH": "commits 04ac90d e 2b7648d (claude/adama-it-local-catalog)",
+      "QUOTE": "CANARIO ANTES DE QUALQUER BYTE · UPLOADS_ANTES_DO_CANARIO = 0",
+      "SCOPE": "duas rodadas do lote italiano em 2026-08-30, sem escrita",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "LAST_COLLECTION_DATE",
+      "VALUE": "A janela MEDIDA da coleta dos documentos e o unico relogio de execucao que sobreviveu: os 141 links do censo completo carregam CAPTURED_AT por documento, em 2026-08-30. Nenhum artefato guarda STARTED_AT/FINISHED_AT da execucao de preservacao.",
+      "EVIDENCE_PATH": "data/samples/IT-CATALOGO/IT-ADAMA-CATALOG-CENSUS.json (DOCUMENTS[].CAPTURED_AT)",
+      "QUOTE": "CAPTURED_AT: 2026-08-30T19:18:30+00:00 (primeiro documento do censo)",
+      "SCOPE": "a coleta dos 139 documentos que viraram objetos DOCUMENT do lote",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "ATTEMPT",
+      "VALUE": "A coleta pelo navegador teve DUAS rodadas: primeiro uma AMOSTRA (10 paginas de produto, 29 documentos), depois o censo completo (51 paginas, 141 links).",
+      "EVIDENCE_PATH": "data/samples/IT-CATALOGO/IT-ADAMA-CATALOG-MEASURED.json (SCOPE=AMOSTRA) e IT-ADAMA-CATALOG-CENSUS.json (SCOPE=CENSO_COMPLETO)",
+      "QUOTE": "dois SCOPE distintos para o mesmo catalogo, com contagens distintas",
+      "SCOPE": "a coleta do catalogo publico que originou os 195",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "FAILURE",
+      "VALUE": "A rota de coleta, medida: curl devolve 403; chrome --headless=new e bloqueado e devolve 'Access Denied'; so o Chrome com janela na maquina de casa passa. ADAMA_IT_BROWSER_ROUTE = HEADED_ONLY.",
+      "EVIDENCE_PATH": "data/samples/IT-CATALOGO/IT-ADAMA-CATALOG-CENSUS.json (bloco BROWSER_ROUTE e LAWS)",
+      "QUOTE": "ADAMA_IT_BROWSER_ROUTE = HEADED_ONLY · ROUTE_BLOCKED != CATALOG_EMPTY",
+      "SCOPE": "a execucao da coleta, nao um objeto",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "GAP",
+      "VALUE": "A prova de preservacao dos 195 nunca saiu de UMA branch. IT-ADAMA-PRESERVACAO-RELATORIO.json, o PLANO, o CENSO, o MEASURED e o V1 existem em 1 de 50 branches (claude/adama-it-local-catalog). Para efeito de comparacao, o censo posterior de 2026-09-02 propagou para 16. Se aquela branch se perder, o balde tem 195 objetos e o Git nao diz o que eles sao.",
+      "EVIDENCE_PATH": "mapa blob->branch de todas as 50 branches (allblobs.tsv), filtrado por data/samples/IT-CATALOGO/",
+      "QUOTE": "RELATORIO 1 branch · PLANO 1 · CENSUS 1 · MEASURED 1 · V1 1 · CENSUS-2026-09-02 16",
+      "SCOPE": "a propagacao da prova do lote no repositorio",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "STOP_POINT",
+      "VALUE": "Onde a coleta parou POR DECISAO, nao por falha: DOCUMENT_CENSUS_COMPLETE = false, motivo ROBOTS_DISALLOWS_AJAX_ROUTE. A lista 'Tutti i documenti' de cada produto fica atras de uma rota /ajax/ que o robots.txt da propria ADAMA proibe, e ela nao foi aberta.",
+      "EVIDENCE_PATH": "data/samples/IT-CATALOGO/IT-ADAMA-PRESERVACAO-RELATORIO.json + scripts/adama_it_preservar.py:262",
+      "QUOTE": "os documentos preservados sao os que a pagina de produto mostra",
+      "SCOPE": "o universo de documentos por produto",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "ATTEMPT",
+      "VALUE": "Tentativas de RELEITURA do lote, em 2026-09-02 e por outra missao: 7 rotas tentadas, 0 documentos recuperados. ADAMA_MEDIA_DOWNLOAD devolveu 403 em 3 amostras; MINISTERO_BANCA_DATI_ETICHETTE serviu cadeia TLS incompleta; SUPABASE_BUCKET devolveu NO_CREDENTIALS_IN_THIS_ENVIRONMENT.",
+      "EVIDENCE_PATH": "research/adama-italy-product-intelligence-deep/LABEL-MANIFEST.json (RECOVERY)",
+      "QUOTE": "uma rota que devolve 403 para 3 devolve 403 para 141",
+      "SCOPE": "tentativa de releitura dos 139 documentos, 2026-09-02",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "OUTRO",
+      "VALUE": "COLLECTION_ID = IT-ADAMA-CATALOG-2026-08-30 e um literal que ESTA MISSAO cunhou, nao uma identidade emitida pela execucao. Fica declarado como candidato para que ninguem o confunda, mais tarde, com um RUN_ID recuperado.",
+      "EVIDENCE_PATH": "scripts/it_supabase_reconciliar.py (constante COLLECTION_ID)",
+      "QUOTE": "COLLECTION_ID = 'IT-ADAMA-CATALOG-2026-08-30'",
+      "SCOPE": "o lote inteiro — identidade da colecao",
+      "RELIABILITY": "DECLARADO"
+    },
+    {
+      "KIND": "OUTRO",
+      "VALUE": "Falsos amigos, excluidos do escopo apos conferencia: os 'run NNNNNNNN' das branches de sensores sao do piloto Apify, e as tres URLs de run do GitHub Actions no acervo sao da coleta de LinkedIn italiano. Nenhum dos dois e o lote IT/adama-website.",
+      "EVIDENCE_PATH": "claude/adama-italia-scrape-qov10l (git log) e claude/sintonia-italy-pilot-b1l401:data/samples/IT-CASOS/",
+      "QUOTE": "run 33338165630, run 33338012108 — piloto de sensores, outra coleta",
+      "SCOPE": "OUTRAS COLETAS — exclusao explicita",
+      "RELIABILITY": "MEDIDO"
+    }
+  ]
+}
