@@ -197,9 +197,32 @@ O pacote está contabilizado, selado e íntegro — mas a entrega depende de ace
 bytes e, pela ordem acordada, de fechar antes o canário, a linhagem canônica e a
 inteligência já processada.
 
-**Próxima ação recomendada:** promover a linhagem rica de `claude/adama-it-local-catalog`
-para o canônico antes de qualquer leitura nova. Isso poupa 130 releituras e corrige um
-canônico que hoje afirma menos do que o acervo sabe.
+### `NEXT_RECOMMENDED_ACTION`
+
+Avaliar obrigatoriamente `claude/adama-it-local-catalog` no **P0.2 · PASSO 02**, contra o
+HEAD canônico atual.
+
+**NÃO promover automaticamente.**
+
+Primeiro medir:
+
+- ganho incremental;
+- preservação dos registros ricos já existentes;
+- conflitos semânticos;
+- perda;
+- regressões;
+- consumidores afetados, quando aplicável.
+
+Somente se passar os portões do P0.2: integrar → reconciliar novamente o
+`COLLECTION_PACKAGE` → recalcular a `READ_QUEUE` → então determinar quantos documentos
+realmente ainda precisam ser lidos.
+
+**`READ_QUEUE = 137` é teto provisório, não medida final.** 130 desses documentos já têm
+texto extraído numa ref que ainda não foi integrada; o número real só se conhece depois
+da reconciliação pós-integração.
+
+**`REUSE_PROVED_EXISTING_READING_BEFORE_NEW_READING = SIM`.** Honrado neste lote: 58
+objetos poupados de releitura, 0 lidos nesta missão.
 
 ---
 
