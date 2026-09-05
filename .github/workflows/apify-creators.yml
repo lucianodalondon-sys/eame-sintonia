@@ -40,6 +40,10 @@ on:
           - seed           # resolve os handles da seed
           - resolver       # resolve perfis com handle vindo de fonte
           - atividade      # mede atividade 30/90d dos perfis resolvidos
+          - hubs           # extrai mencoes das contas de hub confirmadas
+          - descobertos    # resolve os handles que a extracao revelou
+          - conteudo       # prova de cultura por CONTEUDO publicado
+          - franca         # atividade dos canais franceses confirmados
       runner:
         description: 'qual runner usar'
         required: true
@@ -110,7 +114,6 @@ jobs:
           # gravando em data/samples/ no mesmo instante, e levar o arquivo dela
           # num commit meu criaria um commit que nenhuma das duas missoes fez.
           git add data/samples/CREATOR-MAP-EAME 2>/dev/null || true
-          git add data/samples/raw-paid/14-MAPA-DE-CREATORS-EAME-* 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "NADA_MUDOU=YES · a fase nao produziu arquivo novo"; exit 0
           fi

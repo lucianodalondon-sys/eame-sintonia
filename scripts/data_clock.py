@@ -72,6 +72,24 @@ WATCH = [
      'CRITICA — bruto de rota nao replicavel'),
     ('ES-T8-002', 'data/samples/raw-paid/ES-T8-002-titlesearch-test.raw.json.gz', '2026-08-29',
      'CRITICA — 5 dos 10 perfis desta execucao nao existem em nenhum outro bruto preservado'),
+    # MISSAO 14 — MAPA DE CREATORS. Mesma razao CRITICA das linhas acima: a rota e
+    # paga e a execucao nao se repete quando a chave morre. Sao 25 perfis publicos
+    # resolvidos numa unica execucao, e quatro deles so existem aqui — os handles que
+    # a seed traz errados nao serao reencontrados por quem repetir a busca pela lista.
+    ('CREATOR-MAP-IT', 'data/samples/CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-SEED-IT-INSTAGRAM.raw.json.gz',
+     '2026-08-30', 'CRITICA — bruto de rota nao replicavel; 25 perfis numa execucao'),
+    ('CREATOR-MAP-IT', 'data/samples/CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-ATIVIDADE-IT.raw.json.gz',
+     '2026-08-30', 'CRITICA — bruto de rota nao replicavel; atividade 30/90d dos perfis resolvidos'),
+    ('CREATOR-MAP-ES', 'data/samples/CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-HUBS.raw.json.gz',
+     '2026-08-30', 'CRITICA — bruto de rota nao replicavel; mencoes da conta do premio'),
+    ('CREATOR-MAP-ES', 'data/samples/CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-DESCOBERTOS.raw.json.gz',
+     '2026-08-30', 'CRITICA — bruto de rota nao replicavel; 22 perfis descobertos por hub'),
+    ('CREATOR-MAP', 'data/samples/CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-CROP-PROOF.raw.json.gz',
+     '2026-08-30', 'CRITICA — bruto de rota nao replicavel'),
+    ('CREATOR-MAP', 'data/samples/CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-FR-FR-CR-006.raw.json.gz',
+     '2026-08-30', 'CRITICA — bruto de rota nao replicavel'),
+    ('CREATOR-MAP', 'data/samples/CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-FR-FR-CR-005.raw.json.gz',
+     '2026-08-30', 'CRITICA — bruto de rota nao replicavel'),
     ('RUN-MANIFEST', 'data/samples/RUN-MANIFEST.json', '2026-08-29',
      'ALTA — e o indice que faz o RUN_ID resolver; sem ele o bruto vira arquivo orfao'),
 ]
