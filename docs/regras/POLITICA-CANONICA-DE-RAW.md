@@ -26,8 +26,9 @@ prova de que chegou noutro lugar.
 
 ## A · RAW JÁ VERSIONADO — preservar
 
-Os **51 blobs `.gz`** hoje versionados em `data/samples/ES-T4-005/` e `data/samples/raw-paid/`
-(idênticos nas duas linhagens, verificado blob a blob):
+Os **61 blobs `.gz`** hoje versionados em `data/samples/raw-paid/` (60) e `data/samples/ES-T4-005/` (1)
+(idênticos nas duas linhagens, verificado blob a blob — contagem feita com `git ls-files -z`, porque
+`git ls-tree` aspa nomes com acento e um `grep` ingênuo devolve 51 em vez de 61):
 
 - **preservar**; não remover;
 - **não reescrever história** — o custo de reescrita é maior do que o que resolve;

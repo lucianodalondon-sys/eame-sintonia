@@ -175,3 +175,119 @@ que nenhuma das duas linhagens tem autoridade para tomar sobre a outra**.
 `data/samples/` — permanecem versionáveis nas rotas pagas (linhagem base) ou passam a
 Storage com hash e manifesto no Git (linhagem source)? Registrar a decisão como regra
 explícita **antes** de repetir o merge. Um único `.gitignore` acordado destrava os 122 commits.
+
+---
+---
+
+# ATUALIZAÇÃO · 2026-09-05 — CANÁRIO DESTRAVADO E EXECUTADO
+
+O bloqueio de §4.2 foi fechado por `docs/regras/POLITICA-CANONICA-DE-RAW.md`. O merge
+correu. Os portões correram sobre a árvore integrada. Este bloco substitui o veredito acima.
+
+## Durabilidade primeiro
+
+`sintonia/canonical` empurrada para o remoto — `f38d874`, local = remoto, fast-forward,
+sem force. Default branch (`claude/sintonia-eame-repo-setup-xccfob`) **intocada**.
+
+## Como o `.gitignore` foi resolvido — nem `ours`, nem `theirs`, nem união cega
+
+| decisão | o quê |
+|---|---|
+| **preservado** | regras escopadas da base: `*-JANELA/html-bruto/`, `*-TRANSCRICOES/audio-cache/` |
+| **adotado da origem** | `.tmp/`, `italia-portale/audit/.scratch/`, `build/ITALY-REALITY-HANDOFF-V2.1/` — rascunho e build, capacidades compatíveis |
+| **deliberadamente omitido** | `data/samples/**/*.gz`, `data/samples/**/*.raw.json` — bloqueado pela política até os quatro gates de Storage passarem |
+
+O texto das duas linhas omitidas fica **preservado como comentário documentado no próprio
+ficheiro**, com o motivo e `STORAGE_MIGRATION_STATE = PENDENTE`. Omitir uma regra de ignore
+rastreia **mais** ficheiros, nunca menos — por isso a omissão não pode perder nada.
+
+**Contraprova medida:** injetando as duas regras omitidas, os ficheiros rastreados-e-ignorados
+saltam de **1 para 62**. O merge **reduziu** a superfície de perda silenciosa, de 62 (estado
+da linhagem de origem) para 1 (herdado, pré-existente).
+
+## Portões — árvore integrada `f38d874`
+
+### Não perda · **PASS**
+
+`REESCRITOS: 1` (só o `.gitignore`) · `COM_PERDA: 0` · `VERSIONADOS_AGORA_IGNORADOS: 0`
+
+O teste que importava não era o dos caminhos — era o do **conteúdo**. 306 caminhos existem
+nas duas linhagens; **52 divergem**. Análise de três vias contra a merge-base real `841fb54`:
+50 são só-a-origem-mudou (fast-forward por ficheiro, nada a perder), 1 é o `.gitignore`,
+1 é o `PUBLIC-COMM-FIRST-BATCH-EAME.json` — superconjunto estrito, provado por `json.loads`
+dos dois blobs: zero chaves só na origem, zero valores divergentes.
+
+> **O comando que eu prescrevi estava errado, e o portão pegou.** `git check-ignore -q` **não**
+> reporta caminhos já rastreados sem `--no-index`: o loop devolvia vazio *por construção* —
+> falso negativo. Refeito corretamente, existe **1** rastreado-e-ignorado
+> (`data/raw/IT-ROTULOS/_MANIFESTO.json`, regra `data/raw/*`), **pré-existente**: veio inteiro
+> da origem, onde já era rastreado-e-ignorado. Causado pelo merge: **0**.
+
+### Imports e caminhos · **PASS**
+
+`COMPILE_FAIL: 0` (165 ficheiros) · `IMPORTS_LOCAIS_QUEBRADOS: 0` (35 módulos locais, 24
+`from ... import` conferidos símbolo a símbolo) · `PATHS_AUSENTES: 30` · `NOVOS_PELO_MERGE: 0`
+
+Dos 30 caminhos ausentes: 7 são prosa de relatório, 6 são escrita (criados com `makedirs`),
+7 são templates `%s`, 4 são `NÃO SEI` — e **6 são leitura real que não resolve**, porque as
+branches citadas no próprio código (`claude/eame-meta-competitor`, `claude/adama-it-local-catalog`)
+não existem neste clone. A degradação é explícita: `ler_git` devolve `None` e o script
+imprime `NAO_ACHEI_O_REGULATORIO`. Nenhum é causado pelo merge.
+
+Verificação **estática** (`ast`), declarado: os módulos não foram importados de facto porque
+vários têm efeito colateral de coleta em nível de módulo.
+
+### Suíte de testes · **PARTIAL — e nenhuma falha é do merge**
+
+```
+MESCLADA (f38d874): 678 passed · 56 failed · 5 errors · 16 skipped
+ORIGEM   (06a5785): 677 passed · 57 failed · 5 errors · 16 skipped
+NOVAS_FALHAS CAUSADAS PELO MERGE: 0
+```
+
+A suíte **não passa** — e não passava antes. Três causas, todas anteriores ao merge:
+
+1. **Bug de código real.** `scripts/proveniencia.py:175` — `def carregar():` sem parâmetro,
+   mas o corpo faz `if owner is None` e `v.get('DATASET_OWNER') == owner`. **40 ocorrências**
+   de `NameError: name 'owner' is not defined`. Introduzido no commit `4724282`
+   (*"toda execução passa a ter dono"*), **antes** do merge — `git diff 06a5785 HEAD` do
+   ficheiro é **vazio**, byte-idêntico nas duas linhagens.
+2. `tests/test_comunicacao.py:222` faz `raise SystemExit(1)` durante o import, o que **aborta
+   a coleta inteira do pytest** nas duas árvores. Os números acima excluem esse ficheiro:
+   *não existe* um número de "suíte inteira via pytest" para reportar, em nenhuma das duas.
+3. 5 `errors` exigem uma ref remota não buscada neste ambiente.
+
+## Correção de um número meu
+
+A política canônica dizia **51** blobs `.gz`. São **61** (60 em `raw-paid/`, 1 em `ES-T4-005/`).
+`git ls-tree` aspa nomes com acento e o `grep` que usei perdeu 10. Corrigido na política, com
+o método (`git ls-files -z`) registado para não repetir.
+
+## VEREDITO ATUALIZADO
+
+```
+RAW_POLICY_CANONICAL           = SIM
+CANONICAL_BRANCH_PUSHED        = SIM   (f38d874, local = remoto)
+MERGE_COMPLETED                = SIM   (pais 5b6d94b + 06a5785, história preservada)
+SEMANTIC_CONFLICTS             = 0
+BASE_CONTENT_LOST              = 0
+SOURCE_CONTENT_LOST            = 0
+WORKFLOW_REFERENCES_BROKEN_NEW = 0     (o merge ainda consertou 1: apify_contrato.py)
+TESTS_PASS                     = NÃO   (56 failed / 5 errors — 0 causados pelo merge)
+
+CANARY_VERDICT                 = PASS
+DEFAULT_BRANCH_CHANGE_SAFE_NOW = NÃO
+CANONICAL_LINEAGE_STATE        = CANDIDATE_INTEGRATION
+```
+
+**Por que PASS com a suíte a falhar.** O canário mede **segurança de integração**, não saúde
+do repositório. Nesse critério tudo passou: zero perda dos dois lados, zero conflito semântico
+de inteligência, zero referência nova quebrada, zero falha nova de teste, e a superfície de
+perda silenciosa **diminuiu**. As 56 falhas são dívida herdada das duas linhagens, e agora
+estão medidas e localizadas em vez de espalhadas — o que é o objetivo de reunir a casa.
+
+`NEXT_SINGLE_STEP` = iniciar **P0.2 — integração progressiva da casa**. *(Não executado.)*
+
+Dívida registada, fora do escopo deste canário e **não corrigida** aqui:
+`scripts/proveniencia.py:175` (`owner` indefinido, 40 testes) e `tests/test_comunicacao.py:222`
+(`SystemExit` mata a coleta do pytest). Ambas anteriores ao merge, ambas agora com endereço exato.
