@@ -1,0 +1,164 @@
+{
+  "SOURCE_ID": "IT-ADAMA-CATALOG",
+  "SOURCE_COUNTRY": "IT",
+  "FACT_COUNTRY": "IT",
+  "COLLECTION_ID": "IT-ADAMA-CATALOG-2026-08-30",
+  "RULE_VERSION": "IT-RECONCILE-1.0",
+  "RECONCILED_AT": "2026-09-05",
+  "CAPTURED_AT": "2026-08-30",
+  "SUPABASE_CHANGED": false,
+  "CANONICAL_CHANGED": false,
+  "INTELLIGENCE_CHANGED": false,
+  "PORTAL_CHANGED": false,
+  "DATASET": "CONTROL-PLANE-EVIDENCE-CANDIDATE",
+  "EVIDENCE_CLASS": "CONTROL_PLANE_EVIDENCE_CANDIDATE",
+  "CANONICAL": false,
+  "O_QUE_ISTO_NAO_E": "não é o Control Plane de Coleta, não é estado canônico e não define schema. É o que a casa JÁ escreveu sobre esta coleta, preservado com a prova ao lado, para que o dia em que o Control Plane existir não comece com uma página em branco.",
+  "TOTAL": 13,
+  "POR_KIND": {
+    "ATTEMPT": 1,
+    "COVERAGE": 1,
+    "FAILURE": 2,
+    "GAP": 1,
+    "INTEGRITY": 1,
+    "LAST_COLLECTION_DATE": 1,
+    "REASON_FOR_COLLECTION": 1,
+    "SCOPE_DECLARATION": 1,
+    "SOURCE": 1,
+    "STOP_POINT": 1,
+    "TEMPORAL_COVERAGE": 1,
+    "VOLUME": 1
+  },
+  "CANDIDATOS": [
+    {
+      "KIND": "LAST_COLLECTION_DATE",
+      "VALUE": "2026-08-30",
+      "SCOPE": "lote IT/adama-website inteiro",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "PRESERVACAO_RELATORIO",
+        "DETALHE": "CAPTURED_AT do lote"
+      }
+    },
+    {
+      "KIND": "SOURCE",
+      "VALUE": "IT-ADAMA-CATALOG · acervo local data/raw/IT/adama-website/, capturado do catálogo público ADAMA Italia pelo Chrome com janela desta máquina",
+      "SCOPE": "lote inteiro",
+      "RELIABILITY": "DECLARADO",
+      "EVIDENCE": {
+        "FONTE": "PRESERVACAO_RELATORIO",
+        "DETALHE": "campo source"
+      }
+    },
+    {
+      "KIND": "TEMPORAL_COVERAGE",
+      "VALUE": "catálogo público como estava em 2026-08-30; registro do Ministero em 2026-08-31 (REGISTRY_SNAPSHOT_DATE)",
+      "SCOPE": "lote inteiro",
+      "RELIABILITY": "DECLARADO",
+      "EVIDENCE": {
+        "FONTE": "LABEL_MANIFEST",
+        "DETALHE": "REGISTRY_SNAPSHOT_DATE=2026-08-31 · CATALOG_CAPTURED_AT=2026-08-30"
+      }
+    },
+    {
+      "KIND": "STOP_POINT",
+      "VALUE": "DOCUMENT_CENSUS_COMPLETE=False · ROBOTS_DISALLOWS_AJAX_ROUTE",
+      "SCOPE": "censo de documentos",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "PRESERVACAO_RELATORIO",
+        "DETALHE": "os documentos preservados são os que a página de produto mostra. O link \"Tutti i documenti\" leva a */ajax/, proibido pelo robots.txt, e não foi aberto"
+      }
+    },
+    {
+      "KIND": "GAP",
+      "VALUE": "o link \"Tutti i documenti\" leva a */ajax/, proibido pelo robots.txt, e não foi aberto — os documentos preservados são os que a página de produto mostra",
+      "SCOPE": "universo de documentos por produto",
+      "RELIABILITY": "DECLARADO",
+      "EVIDENCE": {
+        "FONTE": "PRESERVACAO_PLANO",
+        "DETALHE": "os documentos preservados são os que a página de produto mostra. O link \"Tutti i documenti\" leva a */ajax/, proibido pelo robots.txt, e não foi aberto"
+      }
+    },
+    {
+      "KIND": "FAILURE",
+      "VALUE": "adama.com devolve 403 para a rota de mídia neste ambiente",
+      "SCOPE": "releitura dos 139 documentos",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "LABEL_MANIFEST",
+        "DETALHE": "[{\"ROUTE\": \"ADAMA_MEDIA_DOWNLOAD\", \"URL\": \"https://www.adama.com/italia/it/media/6016/download?attachment\", \"PRODUCT\": \"Lamdex® Extra\", \"RESULT\": \"403 144\"}, {\"ROUTE\": \"ADAMA_MEDIA_DOWNLOAD\", \"URL\": \"https://www.adama.com/italia/it/media/4041/download?attachment\", \"PRODUCT\": \"Mavrik® Smart\", \"RESULT\": \"403 144\"}, {\"ROUTE\": \"ADAMA_MEDIA_DOWNLOAD\", \"URL\": \"https://www.adama.com/italia/it/media/221/download?attachment\", \"PRODUCT\": \"Pirimor® 50\", \"RESULT\": \"403 144\"}]"
+      }
+    },
+    {
+      "KIND": "FAILURE",
+      "VALUE": "balde Supabase sem credencial neste ambiente: NO_CREDENTIALS_IN_THIS_ENVIRONMENT",
+      "SCOPE": "releitura a partir do balde",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "LABEL_MANIFEST",
+        "DETALHE": "[{\"ROUTE\": \"SUPABASE_BUCKET\", \"URL\": \"(bucket 'raw', prefixo IT/adama-website)\", \"PRODUCT\": null, \"RESULT\": \"NO_CREDENTIALS_IN_THIS_ENVIRONMENT — SUPABASE_URL e SUPABASE_SECRET_KEY nao estao definidos, e nao devem ser commitados\"}]"
+      }
+    },
+    {
+      "KIND": "ATTEMPT",
+      "VALUE": "7 rotas de recuperação tentadas, 0 documentos recuperados",
+      "SCOPE": "releitura dos documentos",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "LABEL_MANIFEST",
+        "DETALHE": "uma rota que devolve 403 para 3 devolve 403 para 141"
+      }
+    },
+    {
+      "KIND": "COVERAGE",
+      "VALUE": "PRODUCT_CENSUS_COMPLETE=True · DOCUMENT_CENSUS_COMPLETE=False",
+      "SCOPE": "lote inteiro",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "PRESERVACAO_RELATORIO",
+        "DETALHE": "os dois censos do lote"
+      }
+    },
+    {
+      "KIND": "VOLUME",
+      "VALUE": "195 objetos · 80714570 bytes · maior ativo 7326337 bytes · limite do balde 209715200 bytes",
+      "SCOPE": "lote inteiro",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "PRESERVACAO_PLANO",
+        "DETALHE": "contagem do plano"
+      }
+    },
+    {
+      "KIND": "INTEGRITY",
+      "VALUE": "GATE=CLOSED · SHA_VERIFIED=195 · HASH_MISMATCH=0 · BYTES conferidos 80714570 de 80714570",
+      "SCOPE": "lote inteiro",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "PRESERVACAO_RELATORIO",
+        "DETALHE": "todas as sete condições satisfeitas"
+      }
+    },
+    {
+      "KIND": "REASON_FOR_COLLECTION",
+      "VALUE": "ITALY_LOCAL_FOUNDATION_CAPTURE=COMPLETE · ITALY_DECISION_INTELLIGENCE_COMPLETE=NOT_DECLARED — captar a fundação e responder a pergunta de decisão são coisas diferentes, e só a primeira foi feita",
+      "SCOPE": "lote inteiro",
+      "RELIABILITY": "DECLARADO",
+      "EVIDENCE": {
+        "FONTE": "PRESERVACAO_RELATORIO",
+        "DETALHE": "captar a fundação e responder a pergunta de decisão são coisas diferentes — a casa declarou a primeira, não a segunda"
+      }
+    },
+    {
+      "KIND": "SCOPE_DECLARATION",
+      "VALUE": "NO_EAME_IMPORT=YES · ITALY_CATALOG_HANDOFF_READY=YES",
+      "SCOPE": "lote inteiro",
+      "RELIABILITY": "DECLARADO",
+      "EVIDENCE": {
+        "FONTE": "PRESERVACAO_RELATORIO",
+        "DETALHE": "declarações de escopo do lote"
+      }
+    }
+  ]
+}
