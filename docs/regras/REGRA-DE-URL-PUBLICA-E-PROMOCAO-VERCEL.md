@@ -203,5 +203,8 @@ entrega, e é a única coisa que conta como promoção feita.
 âmbito sobre a team **London Creative**, e guarda-se em **Settings → Secrets and variables
 → Actions** do repositório, com esse nome exato. Sem ele o primeiro passo pára e diz porquê.
 
-O workflow vive na branch onde esta regra foi escrita; o GitHub só o oferece no menu
-**Actions** depois de ele chegar à branch por omissão do repositório.
+**Segundo pré-requisito, e é o que hoje o segura:** o GitHub só oferece um
+`workflow_dispatch` no menu **Actions** depois de o ficheiro estar na **branch por omissão**
+do repositório — aqui `claude/sintonia-eame-repo-setup-xccfob`. Enquanto o workflow viver só
+na branch onde foi escrito, ele existe mas não se consegue disparar, e a promoção continua a
+fazer-se pelo ponto 4.
