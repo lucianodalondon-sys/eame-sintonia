@@ -1,0 +1,92 @@
+{
+ "COLLECTION_PACKAGE_ID": "CP-IT-SUPABASE-RECOVERED-V1-d26c1c295a3b",
+ "COLLECTION_ID": "IT-SUPABASE-RECOVERED-V1",
+ "PACKAGE_STATE": "SEALED_SHADOW_ONLY",
+ "SOURCE_IDS": [
+  "IT-ADAMA-CATALOG"
+ ],
+ "SOURCE_FAMILY": "ADAMA_ITALIA_PUBLIC_CATALOG",
+ "SOURCE_COUNTRY": "IT",
+ "CAPTURED_FROM": "2026-08-30T19:18:30+00:00",
+ "CAPTURED_TO": "2026-08-30T19:21:36+00:00",
+ "CAPTURED_AT_NOTE": "os 5 artefatos de crawl carregam so a data 2026-08-30, sem hora",
+ "CAPTURED_AT_POLICY": "historico preservado; NAO reescrito para a data desta missao",
+ "RECOVERED_AT_STATEMENT": "lote recuperado do Storage, nao recoletado",
+ "RAW_COUNT": 195,
+ "RAW_BYTES": 80714570,
+ "RAW_HASHES": {
+  "ALGO": "SHA256",
+  "DISTINCT": 194,
+  "TOTAL": 195,
+  "MANIFEST_DIGEST": "d26c1c295a3b0cf3cc592b356cd60544bf418df0b3d5524fcf6cc255c3a9145c",
+  "NOTE": "digest sha256 da lista ordenada de hashes distintos"
+ },
+ "PRESERVED_COUNT": 195,
+ "KEEP_COUNT": 186,
+ "DEFER_COUNT": 9,
+ "REJECT_COUNT": 0,
+ "ERROR_COUNT": 0,
+ "CONTENT_READ_COUNT": 53,
+ "CONTENT_PENDING_COUNT": 142,
+ "CONTENT_BY_STATE": {
+  "CONTENT_READ": 53,
+  "CONTENT_PARTIAL": 133,
+  "CONTENT_UNREADABLE": 9
+ },
+ "DUPLICATES": {
+  "DISTINCT_SHA256": 194,
+  "CONTENT_DUPLICATE_OBJECTS": 1,
+  "RULING": "mantidos os dois objetos: o acervo ja registrou que um mesmo arquivo serve mais de um produto como fato a preservar, nao como erro",
+  "GROUPS": [
+   {
+    "SHA256": "227779fdd6be997502171b84f141b76f8c6b03a5b2792480b58232b71e23c949",
+    "OBJECTS": [
+     "IT/adama-website/DOCUMENT/227779fdd6be9975-6321-Postscript-80-XL---Scheda-di-Sicurezza.pdf",
+     "IT/adama-website/DOCUMENT/227779fdd6be9975-731-Scheda-di-sicurezza---Davai.pdf"
+    ]
+   }
+  ]
+ },
+ "KNOWN_ALREADY_CONSUMED": 53,
+ "KNOWN_NOT_CONSUMED": 7,
+ "SAME_EVIDENCE_DIFFERENT_REPRESENTATION": 95,
+ "ALREADY_ACCOUNTED": 0,
+ "SUPABASE_ONLY": 0,
+ "AMBIGUOUS": 40,
+ "UNKNOWN": 0,
+ "GENUINELY_NEW_TO_ACERVO": 0,
+ "GENUINELY_NEW_WHY": "todos os 195 tem registro no acervo: 190 por SHA256 em sintonia/canonical (LABEL-MANIFEST.json e PRODUCTS-COMMERCIAL.json) e 5 em forma derivada no censo local. Nenhum objeto e novidade para o acervo.",
+ "COST_STATE": "FREE_PROVED",
+ "RUN_STATE": "NO_COLLECTION_RUN_ROW_IN_DB",
+ "ACCOUNTING": {
+  "INPUT": 195,
+  "KEEP": 186,
+  "DEFER": 9,
+  "REJECT_WITH_REASON": 0,
+  "ERROR": 0,
+  "CLOSES": true
+ },
+ "LIMITATIONS": [
+  "Supabase nao foi contactado: nao existe credencial neste ambiente. Todo o lote foi reconciliado a partir de artefatos ja versionados, sobretudo IT-ADAMA-PRESERVACAO-RELATORIO.json, que carrega os 195 SHA256 medidos no round-trip.",
+  "Os bytes dos 195 objetos nao sao alcancaveis daqui (data/raw/ e ignorado por politica; adama.com devolve 403). Nenhum conteudo foi lido nesta missao.",
+  "O censo do catalogo e incompleto por robots.txt: a rota */ajax/ que lista \"Tutti i documenti\" nunca foi buscada, entao podem existir documentos alem destes 139.",
+  "A derivacao de conteudo dos PDFs (tipo pelo texto, produtos nomeados) vive so em claude/adama-it-local-catalog e nunca chegou a sintonia/canonical.",
+  "DOCUMENT_DATE, VALID_FROM e VALID_UNTIL seguem nao provados para 137 dos 139 documentos: so os 2 objetos byte-identicos a etiquetas ministeriais ja lidas tem data de rotulo.",
+  "REGRESSAO DE LINHAGEM: o registro rico (IT-ADAMA-CATALOG-CENSUS.json, com texto extraido de 130 PDFs) vive numa unica ref, claude/adama-it-local-catalog, enquanto o registro pobre que chegou a sintonia/canonical (LABEL-MANIFEST.json, PARSE_STATE=NOT_PARSED x141) esta em 15 refs. O canonico afirma menos do que o acervo de fato sabe.",
+  "Os 40 objetos AMBIGUOUS tem gemeo ministerial candidato pelo numero de registro, mas SHA256 diferente: resolver exige comparar versao de rotulo, nao apenas registro.",
+  "A varredura cobriu os 2.744 blobs das pontas das 48 refs. Existem ~71 blobs apenas em commits intermediarios que nao foram pesquisados.",
+  "Nao foi possivel provar por que 9 PDFs devolveram texto vazio na extracao."
+ ],
+ "READY_FOR_INTELLIGENCE": "NO",
+ "READ_QUEUE_SIZE": 137,
+ "READY_FOR_INTELLIGENCE_WHY": "o pacote esta contabilizado, selado e integro, mas os 137 documentos da fila de leitura ainda nao tiveram o corpo lido, 40 deles seguem AMBIGUOUS contra o corpus ministerial, e a leitura nao e executavel deste ambiente. A entrega a Inteligencia depende de acesso aos bytes (Supabase ou a maquina local) — e, pela ordem acordada, de fechar antes o canario, a linhagem canonica e a inteligencia ja processada.",
+ "DOWNSTREAM_HANDOFF": "COLLECTION_PACKAGE -> INTELLIGENCE (nao executado nesta missao)",
+ "GUARANTEES": {
+  "SUPABASE_CHANGED": false,
+  "CURRENT_INTELLIGENCE_CHANGED": false,
+  "PORTAL_CHANGED": false,
+  "CANARY_TOUCHED": false,
+  "LEGACY_43_CASES_CHANGED": false,
+  "PRE_PASSPORT_STATE": "SHADOW_ONLY"
+ }
+}
