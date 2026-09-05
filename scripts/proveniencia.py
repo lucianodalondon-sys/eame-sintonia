@@ -166,7 +166,7 @@ def runs_duplicados(manifesto=None):
     return sorted(set(dup))
 
 
-def carregar():
+def carregar(owner=None):
     if not os.path.exists(MANIFESTO):
         return {}
     with open(MANIFESTO, encoding='utf-8') as f:
