@@ -146,6 +146,28 @@
     h1{font-size:33px}
     .stats{display:none}
   }
+
+  /* UN PANNELLO DI 400px IN UNO SCHERMO DI 390 FA ESATTAMENTE 10px DI TROPPO.
+     Misurato a 390px: scrollWidth 400, clientWidth 390. Non era una svista di
+     margine — era la regola qui sopra, che sotto i 1080px fissa il pannello a
+     400 e non ha mai un gradino sotto.
+
+     E lo stesso difetto si leggeva una seconda volta, in un posto che sembrava
+     un altro problema: spinto contro il bordo, il palcoscenico della mappa
+     restava largo zero, `fitExtent` riceveva un'estensione nulla e d3 scriveva
+     un path con NaN dentro. Una causa, due sintomi.
+
+         UN LAYOUT CHE NON CI STA NON SBAGLIA SOLO LA LARGHEZZA:
+         DA ANCHE NUMERI NON NUMERI A CHI DISEGNA.
+
+     Sotto la soglia il guscio diventa una colonna, il pannello prende tutta la
+     larghezza e la mappa — che e decorazione, gia `aria-hidden` — non si
+     disegna. Il desktop non cambia di un pixel. */
+  @media (max-width:440px){
+    body{flex-direction:column;overflow:auto}
+    .panel{width:100%;flex:1 1 auto;padding:26px 20px;border-right:0}
+    .stage{display:none}
+  }
 </style>
 <template id="__bundler_thumbnail">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#0E0C0B"/><rect x="58" y="58" width="84" height="84" rx="18" fill="#009845"/><path d="M78 128 100 74l22 54" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M88 112h24" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/></svg>
@@ -295,6 +317,13 @@
   function draw(world) {
     var all = topojson.feature(world, world.objects.countries).features;
     var w = stage.clientWidth, h = stage.clientHeight;
+    /* UNA MAPPA CHE NON SI PUO MISURARE NON SI DISEGNA.
+       Con il palcoscenico a larghezza zero, `fitExtent` riceve un'estensione
+       nulla e restituisce una proiezione che produce NaN: d3 scrive
+       «M0,NaNL0,NaNZ» e il browser registra un errore per ogni path. Uscire
+       qui e la lettura onesta — non c'e spazio da misurare, quindi non c'e
+       niente da proiettare. Il ridisegno al resize riprende appena ce n'e. */
+    if (!w || !h) { svg.selectAll('*').remove(); return; }
     svg.attr('viewBox', '0 0 ' + w + ' ' + h).selectAll('*').remove();
 
     var frame = { type: 'MultiPoint', coordinates: [[-2.5, 34.6], [26.5, 34.6], [26.5, 53.4], [-2.5, 53.4]] };
