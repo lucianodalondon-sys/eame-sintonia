@@ -68,11 +68,42 @@ const viPath = path.join(ROOT, '.vercelignore');
 if (!fs.existsSync(viPath)) fail.push('.vercelignore assente dalla radice');
 else {
   const vi = fs.readFileSync(viPath, 'utf8');
-  const must = ['/build', '/research', '/data', '/scripts', '/italia-portale/audit', '.env', '.vercel', '*.md',
+  const must = ['/build', '/research', '/data', '/scripts', '.env', '.vercel', '*.md',
     '/italia-portale/client/vercel.json', '/italia-portale/client/.vercelignore'];
   const miss = must.filter((m) => !vi.split('\n').some((l) => l.trim() === m));
   if (miss.length) fail.push(`.vercelignore non esclude: ${miss.join(' ')}`);
-  else pass.push('.vercelignore esclude archivio, pacchetti, script, audit e segreti');
+  else pass.push('.vercelignore esclude archivio, pacchetti, script e segreti');
+
+  /* AUDIT: la riga letterale non basta piu, e non bastava nemmeno prima.
+     `prebuild` esegue `node italia-portale/audit/build-gate.mjs`, e
+     `/italia-portale/audit` intero lo cancellava dal contesto di build:
+     MODULE_NOT_FOUND, e il deployment moriva prima di esistere. Ora sale solo
+     la chiusura minima del cancello.
+
+         CERCARE UNA RIGA NON MISURA UNA PROPRIETA.
+
+     Quello che conta non e quali righe ci sono: e che nulla di audit/ venga
+     SERVITO — e questo lo decide `outputDirectory`, non l'ignore — e che cio
+     che sale sia esattamente la chiusura, non una cartella intera. */
+  const CHIUSURA = ['build-gate.mjs', 'ingestion-provenance.mjs',
+                    'CANONICAL-PACKAGE-CONTRACT.json', 'lib/harness.mjs'];
+  const righe = vi.split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('#'));
+  const chiudeAudit = righe.includes('/italia-portale/audit')
+                   || righe.includes('/italia-portale/audit/*');
+  if (!chiudeAudit) fail.push('.vercelignore non chiude /italia-portale/audit');
+  const liberati = righe.filter((l) => l.startsWith('!/italia-portale/audit/'))
+                        .map((l) => l.replace('!/italia-portale/audit/', '').replace(/\/$/, ''));
+  const extra = liberati.filter((f) => f !== 'lib' && !CHIUSURA.includes(f));
+  if (extra.length) fail.push(`.vercelignore libera da audit/ piu della chiusura: ${extra.join(' ')}`);
+  const mancanti = CHIUSURA.filter((f) => !liberati.includes(f));
+  if (chiudeAudit && righe.includes('/italia-portale/audit/*') && mancanti.length)
+    fail.push(`il cancello di build non salirebbe: manca ${mancanti.join(' ')}`);
+  /* salire non e servire: audit/ resta fuori da outputDirectory */
+  if (!extra.length && !mancanti.length) {
+    const fuori = !"italia-portale/audit".startsWith(String(OUT_DIR));
+    if (!fuori) fail.push('audit/ e dentro outputDirectory: salirebbe E sarebbe servito');
+    else pass.push(`di audit/ sale solo la chiusura del cancello (${CHIUSURA.length} file), e resta fuori da ${OUT_DIR}`);
+  }
 }
 
 /* ---- 2. LA REALTA ------------------------------------------------------- */

@@ -26,7 +26,33 @@
 /scripts
 /tests
 /.github
-/italia-portale/audit
+
+# O PORTAO DA BUILD TEM DE CHEGAR A BUILD.
+#
+# `/italia-portale/audit` inteiro estava excluido, e `prebuild` corre
+# `node italia-portale/audit/build-gate.mjs`. O ficheiro nunca chegava ao
+# contentor: MODULE_NOT_FOUND, e o deployment morria antes de existir.
+#
+#     UM PORTAO OBRIGATORIO QUE O EMPACOTAMENTO APAGA NAO E UM PORTAO.
+#
+# Sobe so a CLOSURE MINIMA — medida seguindo os imports, nao adivinhada: o
+# portao, o modulo que ele importa, a biblioteca desse modulo e o contrato que
+# os dois leem. Mais nada de audit/ viaja.
+#
+# Subir NAO e servir: `outputDirectory` em vercel.json e
+# `italia-portale/client`, e so o que la esta e publicado. Estes quatro
+# ficheiros existem durante a build e desaparecem com ela.
+#
+# A negacao tem de vir depois de `audit/*`, nunca depois de `audit`: um
+# directorio excluido nao se percorre, e `!` dentro dele nao teria efeito.
+# Por isso `lib/` e re-incluida antes de se excluir o seu conteudo.
+/italia-portale/audit/*
+!/italia-portale/audit/build-gate.mjs
+!/italia-portale/audit/ingestion-provenance.mjs
+!/italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json
+!/italia-portale/audit/lib/
+/italia-portale/audit/lib/*
+!/italia-portale/audit/lib/harness.mjs
 /italia-portale/BASELINE
 
 # Documentacao. Nada no portal liga a um .md; servi-los so alarga o publico.
