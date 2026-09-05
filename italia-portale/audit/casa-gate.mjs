@@ -266,13 +266,20 @@ check('TOP3_ONLY_SURVIVORS_RENDERED', () => {
 });
 
 check('NENHUMA_PROSA_PORTUGUESA_NA_TELA', () => {
+  /* NAS DUAS LINGUAS. A prosa de investigacao e portuguesa, e a superficie
+     inglesa e tao capaz de a deixar passar como a italiana — mais, ate: quem
+     revê o italiano olha para cada frase, quem revê o inglês tende a assumir
+     que ja foi vista uma vez. */
   const bad = [];
-  for (const m of PT_MARKERS) {
-    const re = new RegExp('(?<!\\p{L})' + m.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?!\\p{L})', 'giu');
-    const h = aberta.match(re);
-    if (h) bad.push(`${m} ×${h.length}`);
+  for (const [lg, txt] of [['it', aberta], ['en', abertaEN]]) {
+    for (const m of PT_MARKERS) {
+      const re = new RegExp('(?<!\\p{L})' + m.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?!\\p{L})', 'giu');
+      const h = txt.match(re);
+      if (h) bad.push(`${lg}: ${m} ×${h.length}`);
+    }
   }
-  return { pass: !bad.length, detail: bad.length ? bad : ['zero marcadores, com todas as dobras abertas'] };
+  return { pass: !bad.length, detail: bad.length ? bad
+    : ['zero marcadores em italiano e em ingles, com todas as dobras abertas'] };
 });
 
 check('NAO_SEI_NAO_VIRA_AFIRMACAO', () => {
