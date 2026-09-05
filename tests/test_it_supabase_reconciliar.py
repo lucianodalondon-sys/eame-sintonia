@@ -91,6 +91,39 @@ class Reconciliacao(unittest.TestCase):
             self.assertTrue(r['IDENTITY_BASIS'].startswith('SUPABASE:%s:' % rec.BUCKET))
             self.assertIn(r['OBJETO'], r['IDENTITY_BASIS'])
 
+    def test_quase_cobertura_nunca_vira_leitura(self):
+        # 118 documentos da ADAMA carregam o mesmo numero de registro de um rotulo do
+        # Ministero que a casa leu — e sao outro arquivo. Somar os dois declararia uma
+        # cobertura que nao existe. Este teste e o que impede essa soma.
+        vizinhos = [r for r in self.linhas
+                    if any(e['TIPO'] == 'MESMO_REGISTRO_OUTRO_ARQUIVO'
+                           for e in r['EVIDENCIA_DE_CONTEXTO'])]
+        self.assertTrue(vizinhos)
+        for r in vizinhos:
+            self.assertNotEqual(r['BALDE'], 'ALREADY_CONSUMED', r['OBJETO'])
+            self.assertNotEqual(r['CONTENT_READ_STATE'], 'READ', r['OBJETO'])
+            for e in r['EVIDENCIA_DE_CONTEXTO']:
+                self.assertIn('FRACA', e['CHAVE'])
+
+    def test_contexto_nao_entra_na_lista_de_evidencia(self):
+        # EVIDENCIA sustenta veredicto; EVIDENCIA_DE_CONTEXTO nunca sustenta. Misturar as
+        # duas listas seria deixar chave fraca decidir balde pela porta dos fundos.
+        for r in self.linhas:
+            for e in r['EVIDENCIA']:
+                self.assertNotIn('TIPO', e, r['OBJETO'])
+
+    def test_varredura_lexica_nao_e_leitura(self):
+        varridos = [r for r in self.linhas if r['CONTENT_READ_STATE'] == 'LEXICALLY_SCANNED']
+        self.assertTrue(varridos)
+        for r in varridos:
+            # o contrato: LEXICALLY_SCANNED nunca satisfaz INTELLIGENCE_READING.
+            self.assertEqual(r['BALDE'], 'KNOWN_NOT_CONSUMED', r['OBJETO'])
+            self.assertIsNone(r['FATO_DERIVADO'], r['OBJETO'])
+            self.assertTrue(r['VARREDURA_LEXICA'], r['OBJETO'])
+        for s in self.sombras:
+            if s['ESTADOS']['CONTENT_READ_STATE'] == 'LEXICALLY_SCANNED':
+                self.assertEqual(s['CURRENT_STAGE'], 'INTELLIGENCE_READING', s['ITEM_ID'])
+
     def test_leitura_nova_e_zero_e_o_porque_esta_escrito(self):
         self.assertEqual(self.conta['ACTUALLY_READ_NOW'], 0)
         self.assertEqual(self.conta['OBJECT_BYTES_AVAILABLE_IN_THIS_ENVIRONMENT'], 0)

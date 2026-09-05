@@ -213,6 +213,21 @@ def reconciliar():
     rot_por_sha = {r['SHA256']: r for r in rotulos if r.get('SHA256')}
     cobertura = {c['HASH_SHA256']: c for c in carregar('ROTULOS_COBERTURA')['ITEMS']}
 
+    # A quase-cobertura que engana. 118 documentos da ADAMA carregam o MESMO NÚMERO DE
+    # REGISTRO de um rótulo do Ministero que a casa leu — e não são o mesmo arquivo: são
+    # outra renderização do mesmo rótulo autorizado, com bytes diferentes. Ler o rótulo do
+    # Ministero do GOLTIX não é ter lido o PDF que a ADAMA hospeda em media/NNNN.
+    #
+    #     HASH DIFERENTE = OBJETO DIFERENTE = NÃO FOI LIDO
+    #
+    # Isso entra como EVIDÊNCIA DE CONTEXTO — nunca como identidade — porque é exatamente
+    # o tipo de vizinhança que, daqui a seis meses, alguém confundiria com cobertura.
+    rot_por_registro = {}
+    for r in rotulos:
+        chave = str(r.get('REGISTRATION_ID') or '').lstrip('0')
+        if chave:
+            rot_por_registro.setdefault(chave, r)
+
     # conteúdo repetido: dois objetos distintos com os mesmos bytes. Não é erro — é fato,
     # e a PROVENANCE de cada um continua inteira. Fica registrado para não virar surpresa.
     por_conteudo = {}
@@ -329,6 +344,20 @@ def reconciliar():
                         'SERVE_PRODUTOS': sorted({e.get('PRODUCT_NAME') for e in ds if e.get('PRODUCT_NAME')}),
                         'DOCUMENT_TYPE': d.get('DOCUMENT_TYPE'),
                     }
+
+            if ds and x['SHA256'] not in rot_por_sha:
+                registros = {str(d.get('REGISTRATION_NUMBER') or '').lstrip('0') for d in ds}
+                vizinhos = sorted(registros & set(rot_por_registro))
+                if vizinhos:
+                    r['EVIDENCIA_DE_CONTEXTO'].append({
+                        'TIPO': 'MESMO_REGISTRO_OUTRO_ARQUIVO',
+                        'REGISTROS': vizinhos,
+                        'ROTULO_LIDO_DO_MINISTERO': [rot_por_registro[v]['PRODUCT'] for v in vizinhos],
+                        'POR_QUE_NAO_CONTA_COMO_LEITURA':
+                            'hash diferente é objeto diferente. É outra renderização do mesmo '
+                            'rótulo autorizado — dívida de leitura, nunca crédito.',
+                        'CHAVE': 'FRACA · REGISTRATION_ID',
+                    })
 
             # a rota cruzada: o mesmo PDF que a casa baixou do Ministero e LEU.
             if x['SHA256'] in rot_por_sha:
@@ -737,6 +766,15 @@ def montar():
             'nenhum byte dos 195 existe neste ambiente: data/raw está fora do Git por '
             'política (D-003) e não há credencial do Supabase aqui. Toda leitura registrada '
             'nesta reconciliação é leitura de PROVA, nunca de objeto.',
+        'QUASE_COBERTURA': {
+            'OBJETOS_COM_MESMO_REGISTRO_DE_UM_ROTULO_LIDO':
+                sum(1 for r in linhas
+                    if any(e['TIPO'] == 'MESMO_REGISTRO_OUTRO_ARQUIVO'
+                           for e in r['EVIDENCIA_DE_CONTEXTO'])),
+            'POR_QUE_ISTO_ESTA_CONTADO':
+                'porque é a confusão mais fácil deste lote: mesmo registro não é mesmo '
+                'arquivo, e quem somasse os dois declararia uma cobertura que não existe',
+        },
         'CONTEUDO_REPETIDO': {'OBJETOS': sum(len(v) for v in conteudo_repetido.values()),
                               'CONTEUDOS': len(conteudo_repetido),
                               'PARES': conteudo_repetido,
@@ -818,7 +856,7 @@ def main():
                    if k not in ('ARQUIVO_LOCAL', 'ORIGINAL_FILENAME', 'SHA256', 'BYTES',
                                 'MEDIA_TYPE', 'SOURCE_URL', 'PRODUCT_URL', 'PROVENANCE_COUNT',
                                 'PRESERVATION_STATE', 'PRESERVED', 'BYTES_VERIFIED_REMOTELY',
-                                'SHA256_REMOTO', 'IDENTITY_BASIS', 'EVIDENCIA_DE_CONTEXTO')}
+                                'SHA256_REMOTO', 'IDENTITY_BASIS')}
                   for r in linhas],
     })
 

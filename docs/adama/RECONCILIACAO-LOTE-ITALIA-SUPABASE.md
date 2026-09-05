@@ -134,6 +134,34 @@ ela fica mais barata: o texto já saiu daquele PDF uma vez.
 balde — e, se o texto não sair de novo, **declarar a rota de texto fechada** para aquele
 documento. Nunca rejeitar por ausência.
 
+### A quase-cobertura — 118 documentos que quase contam, e não contam
+
+Uma segunda verificação varreu os 194 hashes distintos do inventário contra os 2.751 blobs
+das 50 branches, nos dois sentidos. Ela **não** derrubou os 2 da rota Ministero — e trouxe
+o vizinho perigoso:
+
+| relação com os 163 rótulos lidos do Ministero | objetos | vale como leitura? |
+|---|---:|---|
+| **mesmos bytes** (SHA256 idêntico) | **2** | **sim** — o texto está em `testo/*.txt`, 24.229 e 12.466 caracteres |
+| **mesmo registro, arquivo diferente** | **118** | **não** |
+| nem registro em comum | 19 | não |
+
+Os 118 são outra **renderização** do mesmo rótulo autorizado: `GOLTIX` reg. 002732 tem
+108.797 bytes no site da ADAMA e 108.648 no Ministero. Ler um não é ter lido o outro.
+
+> **HASH DIFERENTE = OBJETO DIFERENTE = NÃO FOI LIDO.**
+> São dívida de leitura, nunca crédito.
+
+Isso entra como `EVIDENCIA_DE_CONTEXTO` — **nunca** como identidade — e está contado em
+`QUASE_COBERTURA`, porque é a confusão mais fácil deste lote: quem somasse os dois
+declararia uma cobertura que não existe. Há teste que reprova qualquer item cuja única
+prova de leitura seja essa vizinhança.
+
+E há uma ressalva sobre os **próprios 2**: pela porta da ADAMA eles também estão
+`NOT_PARSED`. O que sustenta `ALREADY_CONSUMED` é exclusivamente a **identidade de bytes**
+com um rótulo que a casa leu por outra rota — consumo por identidade forte, não consumo
+pela porta da ADAMA. A distinção está escrita no artefato.
+
 ### A escada, depois da correção
 
 | onde o item parou | n | por quê |
