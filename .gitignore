@@ -32,3 +32,20 @@ data/samples/INSTAGRAM-JANELA/html-bruto/
 data/samples/INSTAGRAM-TRANSCRICOES/audio-cache/
 data/samples/YOUTUBE-JANELA/html-bruto/
 data/samples/YOUTUBE-TRANSCRICOES/audio-cache/
+
+# ── vindas da linhagem adama-italia-product-intelligence-deep ────────────────
+# Áreas de rascunho e de build: nunca versionadas. Compatíveis com a regra desta
+# casa, então entram inteiras — preservar as duas capacidades, não escolher uma.
+.tmp/
+italia-portale/audit/.scratch/
+build/ITALY-REALITY-HANDOFF-V2.1/
+
+# ── DELIBERADAMENTE NÃO ADOTADO — ver docs/regras/POLITICA-CANONICA-DE-RAW.md ─
+# A linhagem de origem trazia também:
+#     data/samples/**/*.gz
+#     data/samples/**/*.raw.json
+# Essas duas linhas ficam FORA por decisão canônica, não por esquecimento.
+# Enquanto não houver prova de STORAGE_UPLOAD, STORAGE_READBACK, SHA256_MATCH e
+# MANIFEST_WRITTEN, o bruto pago não tem outro lugar provado para viver, e um
+# ignore global o faria desaparecer em silêncio das rotas que hoje o preservam.
+# STORAGE_MIGRATION_STATE = PENDENTE. Reavaliar quando os quatro gates passarem.

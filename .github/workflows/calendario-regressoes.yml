@@ -1,0 +1,255 @@
+# ═══════════════════════════════════════════════════════════════════════
+# CALENDARIO AGRONOMICO — as regressoes rodam contra um Postgres DE VERDADE.
+#
+# Por que nao basta ler o .sql: um schema pode estar sintaticamente perfeito
+# e ainda assim responder CLOSED para uma janela que so e desconhecida. As
+# As 192 afirmacoes deste job sao sobre SIGNIFICADO, e significado so se
+# mede executando. As 26 mutacoes fecham o outro lado: uma suite verde em
+# cima de codigo quebrado nao prova nada.
+#
+# Banco descartavel do proprio runner. Sem secret, sem tocar no Supabase de
+# producao, sem dado de cliente. Roda em todo push que mexe no schema.
+# ═══════════════════════════════════════════════════════════════════════
+name: calendario-regressoes
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'supabase/migrations/**'
+      - 'supabase/fixtures/**'
+      - 'supabase/tests/**'
+      - '.github/workflows/calendario-regressoes.yml'
+  pull_request:
+    paths:
+      - 'supabase/migrations/**'
+      - 'supabase/fixtures/**'
+      - 'supabase/tests/**'
+
+permissions:
+  contents: read
+
+jobs:
+  regressoes:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: eame_ci
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready --health-interval 5s
+          --health-timeout 5s --health-retries 20
+    env:
+      PGURL: postgresql://postgres:postgres@localhost:5432/eame_ci
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 1 · aplicar 001–007 e 009–018 num banco vazio
+        run: |
+          set -e
+          for f in $(ls supabase/migrations/*.sql | grep -v '/008_'); do
+            num=$(basename "$f" | cut -c1-3)
+            psql "$PGURL" -v ON_ERROR_STOP=1 -q -f "$f" \
+              && echo "MIGRATION_$num=PASS" \
+              || { echo "MIGRATION_$num=FAIL"; exit 1; }
+          done
+
+      - name: 2 · 008 — o banco montado do zero tem as travas do Git?
+        run: |
+          set -e
+          psql "$PGURL" -v ON_ERROR_STOP=1 -f supabase/migrations/008_verificacao_pos_aplicacao.sql 2>&1 \
+            | tee /tmp/o
+          grep -q "conferidas" /tmp/o && echo "POST_APPLY_VERIFICATION=PASS"
+
+      - name: 3 · fixture ES — dado real, e so o que tem fonte
+        run: |
+          set -e
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/fixtures/es_calendario_mvp.sql
+          echo "FIXTURE_ES=PASS"
+
+      - name: 4 · regressoes de significado — 45 afirmacoes
+        run: |
+          set -e
+          psql "$PGURL" -f supabase/tests/regressoes_calendario.sql 2>&1 | tee /tmp/r
+          grep -q "REGRESSOES_CALENDARIO=PASS" /tmp/r
+
+      - name: 4b · CAPTURE != REGISTRATION — 19 afirmacoes
+        run: |
+          set -e
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql
+          psql "$PGURL" -f supabase/tests/regressoes_captura.sql 2>&1 | tee /tmp/c
+          grep -q "REGRESSOES_CAPTURA=PASS" /tmp/c
+          # e as 45 continuam verdes COM as duas camadas juntas — foi exatamente
+          # isso que a rodada anterior nao conseguia.
+          psql "$PGURL" -f supabase/tests/regressoes_calendario.sql 2>&1 | tee /tmp/r2
+          grep -q "REGRESSOES_CALENDARIO=PASS" /tmp/r2
+
+      - name: 4c · as cicatrizes do Brasil — 33 afirmacoes
+        run: |
+          set -e
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql
+          psql "$PGURL" -f supabase/tests/regressoes_cicatrizes.sql 2>&1 | tee /tmp/ci
+          grep -q "REGRESSOES_CICATRIZES=PASS" /tmp/ci
+          # e as mutacoes: cada lei central tem de reprovar quando quebrada
+          psql "$PGURL" -At -f supabase/tests/mutacao_cicatrizes.sql 2>&1 | tee /tmp/mu
+          # Uma mutacao que ERRA nao rodou — e o grep de "NAO PEGOU"
+          # nao a veria. Foi assim que tres mutacoes ficaram apontando
+          # para uma coluna aposentada sem que nada reprovasse.
+          grep -qE "^psql.*ERROR" /tmp/mu \
+            && { echo "PARADO: a mutacao ERROU — ela nao chegou a rodar"; exit 1; } \
+            || true
+          grep -q "NAO PEGOU" /tmp/mu \
+            && { echo "PARADO: mutacao nao pegou — a lei perdeu os dentes"; exit 1; } \
+            || echo "MUTACOES_CICATRIZES=TODAS_PEGARAM"
+
+      - name: 4d · o portao de entrada da coleta — 21 afirmacoes
+        run: |
+          set -e
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/ensaios/SENSOR-HUMANO-CINCO-PERFIS.sql
+          psql "$PGURL" -f supabase/tests/regressoes_coleta.sql 2>&1 | tee /tmp/co
+          grep -q "REGRESSOES_COLETA=PASS" /tmp/co
+          # AGGREGATOR != HUMAN_VOICE, SEM_CHECKPOINT_NAO_GASTEI e a identidade
+          # que nao carrega a rodada: cada uma tem de reprovar quando quebrada.
+          psql "$PGURL" -At -f supabase/tests/mutacao_coleta.sql 2>&1 | tee /tmp/mc
+          # Uma mutacao que ERRA nao rodou — e o grep de "NAO PEGOU"
+          # nao a veria. Foi assim que tres mutacoes ficaram apontando
+          # para uma coluna aposentada sem que nada reprovasse.
+          grep -qE "^psql.*ERROR" /tmp/mc \
+            && { echo "PARADO: a mutacao ERROU — ela nao chegou a rodar"; exit 1; } \
+            || true
+          grep -q "NAO PEGOU" /tmp/mc \
+            && { echo "PARADO: mutacao nao pegou — a lei perdeu os dentes"; exit 1; } \
+            || echo "MUTACOES_COLETA=TODAS_PEGARAM"
+
+      - name: "4e · o ciclo inteiro — token acaba, processo morre, nada se perde"
+        run: |
+          set -e
+          # Zero custo real: o ator e uma funcao Python. O caminho ate o banco
+          # e o MESMO que a producao usa, e e por isso que a prova vale.
+          EAME_TEST_DSN="$PGURL" python3 -m unittest tests.test_coleta_resiliente -v
+
+      - name: 4f · o lugar do fato — 41 afirmacoes e 13 mutacoes
+        run: |
+          set -e
+          psql "$PGURL" -f supabase/tests/regressoes_lugar_do_fato.sql 2>&1 | tee /tmp/lf
+          grep -q "REGRESSOES_LUGAR_DO_FATO=PASS" /tmp/lf
+          # O red team: doze tentativas de promover source/base/lista/mencao a
+          # FACT, de achatar 0..N em 1, de fazer published_at virar fact_time.
+          psql "$PGURL" -At -f supabase/tests/mutacao_lugar_do_fato.sql 2>&1 | tee /tmp/ml
+          # Uma mutacao que ERRA nao rodou — e o grep de "NAO PEGOU"
+          # nao a veria. Foi assim que tres mutacoes ficaram apontando
+          # para uma coluna aposentada sem que nada reprovasse.
+          grep -qE "^psql.*ERROR" /tmp/ml \
+            && { echo "PARADO: a mutacao ERROU — ela nao chegou a rodar"; exit 1; } \
+            || true
+          grep -q "NAO PEGOU" /tmp/ml \
+            && { echo "PARADO: mutacao nao pegou — a lei perdeu os dentes"; exit 1; } \
+            || echo "MUTACOES_LUGAR_DO_FATO=TODAS_PEGARAM"
+          # E a lei tem de ser UMA: core, leitor italiano e banco batendo.
+          EAME_TEST_DSN="$PGURL" python3 -m unittest tests.test_lugar_do_fato -v
+
+      - name: 4h · A CADEIA CANONICA, na MESMA ordem que a producao usa
+        run: |
+          set -e
+          # Este passo existe para que workflow e fresh-db nao possam divergir:
+          # os dois chamam o MESMO scripts/cadeia_canonica.sh. Se a ordem mudar
+          # num lugar, muda nos dois.
+          psql "$PGURL" -tAc "select 1" >/dev/null
+          # Um banco novo so para a cadeia, sem os ensaios: e assim que a
+          # producao vai ver o mundo — dado com fonte, e nada ficticio.
+          psql "$PGURL" -c "drop database if exists cadeia" -c "create database cadeia" \
+            2>/dev/null || true
+          CADEIA="${PGURL%/*}/cadeia"
+          psql "$CADEIA" -tAc "$(python3 scripts/inventario_esperado.py --sql)" | \
+            grep -q . && { echo "PARADO: banco novo ja tem tabela fora do Git"; exit 1; } || true
+          bash scripts/cadeia_canonica.sh migrations "$CADEIA" | tail -3
+          psql "$CADEIA" -v ON_ERROR_STOP=1 -f supabase/migrations/008_verificacao_pos_aplicacao.sql \
+            2>&1 | grep -q conferidas
+          psql "$CADEIA" -v ON_ERROR_STOP=1 -q -f supabase/fixtures/es_calendario_mvp.sql
+          bash scripts/cadeia_canonica.sh importacoes "$CADEIA"
+          # E de novo: a cadeia inteira e idempotente, nao so cada import.
+          bash scripts/cadeia_canonica.sh importacoes "$CADEIA"
+          psql "$CADEIA" -f supabase/tests/regressoes_regulatorio_es.sql 2>&1 | tee /tmp/rg
+          grep -q "REGRESSOES_REGULATORIO_ES=PASS" /tmp/rg
+          psql "$CADEIA" -f supabase/tests/regressoes_catalogo_es.sql 2>&1 | tee /tmp/ct2
+          grep -q "REGRESSOES_CATALOGO_ES=PASS" /tmp/ct2
+          echo "FRESH_DB_FULL_CHAIN=GREEN"
+
+      - name: 4i · REPLAY — a cadeia aplicada duas vezes, e sobre estado parcial
+        run: |
+          set -e
+          # Esta prova FALTAVA, e a producao foi quem cobrou. O fresh-db verde
+          # nao diz nada sobre um banco que JA tem parte da cadeia — e a
+          # producao tinha 001-009. Reaplicar dali quebrava na 007, e pior: a
+          # 015 teria RESSUSCITADO colunas que a 018 aposentou.
+          #
+          # Dois cenarios, os dois obrigatorios:
+          #   A · estado parcial (001-009), como a producao estava
+          #   B · cadeia completa reaplicada, que e o dia seguinte
+          for cen in parcial completo; do
+            psql "$PGURL" -c "drop database if exists r_$cen" -c "create database r_$cen" \
+              2>/dev/null || true
+            R="${PGURL%/*}/r_$cen"
+            if [ "$cen" = parcial ]; then
+              for f in 001 002 003 004 005 006 007 009; do
+                psql "$R" -v ON_ERROR_STOP=1 -q -f $(ls supabase/migrations/${f}_*.sql)
+              done
+            fi
+            bash scripts/cadeia_canonica.sh migrations "$R" >/tmp/r1
+            grep -q FAIL /tmp/r1 && { echo "PARADO: cadeia falhou no cenario $cen"; cat /tmp/r1; exit 1; } || true
+            # E de novo: a segunda passada nao pode aplicar nada.
+            bash scripts/cadeia_canonica.sh migrations "$R" >/tmp/r2
+            grep -q "=PASS" /tmp/r2 && { echo "PARADO: replay REAPLICOU migration em $cen"; cat /tmp/r2; exit 1; } || true
+            psql "$R" -v ON_ERROR_STOP=1 -f supabase/migrations/008_verificacao_pos_aplicacao.sql \
+              2>&1 | grep -q conferidas
+            # A aposentadoria da 018 tem de sobreviver ao replay.
+            n=$(psql "$R" -tAc "select count(*) from information_schema.columns
+                 where table_name='conteudo' and column_name like 'fact_geografia%'")
+            [ "$n" = 0 ] || { echo "PARADO: replay ressuscitou fact_geografia_* em $cen"; exit 1; }
+            echo "REPLAY_${cen}=GREEN"
+          done
+
+      - name: 4g · o catalogo ADAMA Espanha — import, idempotencia e red team
+        run: |
+          set -e
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/migrations/014_catalogo_publico_fabricante.sql \
+            || true   # ja aplicada no passo 1; aqui so garante presenca
+          # No banco COM ensaios, o pre-requisito vem do import canonico —
+          # o ensaio ficou para o caso em que se quer medir sem ele.
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q \
+            -f supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql
+          # O import roda TRES vezes. Se nao for idempotente, os contadores da
+          # suite reprovam — foi assim que 108 virando 216 foi descoberto.
+          for i in 1 2 3; do
+            psql "$PGURL" -v ON_ERROR_STOP=1 -q \
+              -f supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql
+          done
+          psql "$PGURL" -f supabase/tests/regressoes_catalogo_es.sql 2>&1 | tee /tmp/cat
+          grep -q "REGRESSOES_CATALOGO_ES=PASS" /tmp/cat
+          # E o import e deterministico: regenerar da mesma entrada nao muda nada.
+          sha1=$(sha256sum supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql | cut -d' ' -f1)
+          python3 scripts/catalogo_importar.py --sql >/dev/null
+          sha2=$(sha256sum supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql | cut -d' ' -f1)
+          [ "$sha1" = "$sha2" ] && echo "IMPORT_DETERMINISTICO=PASS" \
+            || { echo "PARADO: mesma entrada gerou import diferente"; exit 1; }
+
+      - name: 5 · o payload do caso, impresso no log para leitura humana
+        if: always()
+        run: |
+          psql "$PGURL" -tAc \
+            "select jsonb_pretty(public.f_case_temporal_context('ES','OLIVE','REPILO',null,date '2026-08-30'))"
+          psql "$PGURL" -tAc \
+            "select jsonb_pretty(public.f_case_temporal_context('ES','MAIZE','AMARANTHUS_PALMERI',null,date '2026-08-30'))"
+
+      - name: 6 · isolamento de pais, medido e nao afirmado
+        if: always()
+        run: |
+          psql "$PGURL" -tAc \
+            "select origem||'='||coalesce(array_to_string(paises,','),'VAZIO')
+               from public.f_paises_no_resultado_do_calendario('ES')"
+          psql "$PGURL" -tAc \
+            "select 'FR_ROWS_NUM_ACERVO_SO_ES='||count(*) from public.f_crop_calendar('FR')"

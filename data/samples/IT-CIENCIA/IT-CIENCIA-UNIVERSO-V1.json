@@ -1,0 +1,2077 @@
+{
+ "DATASET": "IT-CIENCIA-UNIVERSO-POR-RECORTE-V1",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-T5-001-B",
+ "SOURCE_NAME": "OpenAlex — rota REST aberta, sem chave, sem custo",
+ "SOURCE_LOCATION": "GLOBAL (índice)",
+ "FACT_LOCATION": "NÃO SEI — a afiliação é do AUTOR, não do estudo",
+ "ORIGINAL_LANGUAGE": "en",
+ "EVIDENCE_CLASS": "SCIENTIFIC_LITERATURE",
+ "CAPTURED_AT": "2026-09-02",
+ "FILTER_BASE": "institutions.country_code:it, from_publication_date:2019-01-01",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "FECHA_A_LACUNA_DE": "IT-T5-001 / ITALY-RESEARCHER-UNIVERSE.json · SCOPES_NOT_BUILT",
+ "RECLASSIFICACAO_DO_ACHADO_ANTERIOR": {
+  "ANTES": "HTTP 429 mesmo 8h depois da rajada; anotado como bloqueio de IP de duração maior. Os 4 recortes ficaram NOT_COLLECTED.",
+  "AGORA": "HTTP 200 na primeira tentativa deste ambiente, e a contagem devolvida bate com a declarada.",
+  "LEITURA": "o limite era do IP DE SAÍDA daquele ambiente — não da fonte, não da consulta e não do volume. NOT_COLLECTED estava certo como estado; o diagnóstico da CAUSA é que muda.",
+  "O_QUE_NAO_MUDA": "a lição de rajada continua valendo e é obedecida aqui: 200 por página, 3 s entre chamadas."
+ },
+ "METHOD": "percorre as obras do recorte, coleta autoria, mantém só quem tem afiliação italiana EM ALGUMA obra do recorte, e ordena por RECORRÊNCIA. Sem cota, sem seguidores.",
+ "WHAT_THIS_DOES_NOT_PROVE": [
+  "não prova onde o estudo foi feito — a afiliação é do autor",
+  "não prova papel: o índice não declara cargo",
+  "não prova importância: publicar mais não é ser o maior especialista",
+  "não resolve identidade: ORCID aqui é o que o índice mostra, não o conferido em pub.orcid.org",
+  "não prova pressão de campo nem ocorrência"
+ ],
+ "CONFOUNDER_DECLARED": "instituição líder e região líder de área tendem a coincidir. Concordância pode ser sinal ou pode ser o mesmo viés medido duas vezes.",
+ "RECORTES_CONSTRUIDOS": 5,
+ "RECORTES_FALHOS": [],
+ "RECORTES": {
+  "VINE_FLAVESCENCE": {
+   "NAME": "VINE_FLAVESCENCE",
+   "QUERY": "flavescence OR flavescenza OR Scaphoideus",
+   "WORKS_DECLARED_BY_SOURCE": 135,
+   "WORKS_TRAVERSED": 135,
+   "TRAVERSAL_COMPLETE": true,
+   "AUTHORS_WITH_IT_AFFILIATION": 334,
+   "AUTHORS_WITH_ORCID": 213,
+   "AUTHORS_ACTIVE_SINCE_2024": 195,
+   "INSTITUTIONS_TOP": {
+    "Institute for Sustainable Plant Protection": 177,
+    "University of Turin": 116,
+    "University of Pisa": 47,
+    "European Food Safety Authority": 40,
+    "University of Padua": 38,
+    "Fondazione Edmund Mach": 36,
+    "National Research Council": 34,
+    "University of Trento": 30,
+    "Cereal Research Centre": 28,
+    "University of Bologna": 26,
+    "University of Ferrara": 26,
+    "University of Milan": 24
+   },
+   "DETAILED_HERE": 30,
+   "UNIVERSE": [
+    {
+     "PERSON": "Cristina Marzachì",
+     "OPENALEX_ID": "https://openalex.org/A5018147034",
+     "ORCID": "https://orcid.org/0000-0002-1084-6048",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "National Research Council"
+     ],
+     "WORKS_IN_SCOPE": 30,
+     "LAST_ACTIVITY": "2025-12-04",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Luciana Galetto",
+     "OPENALEX_ID": "https://openalex.org/A5078553081",
+     "ORCID": "https://orcid.org/0000-0001-6637-0678",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "National Research Council",
+      "Consorzio Roma Ricerche"
+     ],
+     "WORKS_IN_SCOPE": 27,
+     "LAST_ACTIVITY": "2026-07-01",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Elisa Angelini",
+     "OPENALEX_ID": "https://openalex.org/A5043390104",
+     "ORCID": "https://orcid.org/0000-0002-2638-6584",
+     "INSTITUTIONS": [
+      "Cereal Research Centre",
+      "State Education and Research Institute for Viticulture and Pomology Weinsberg",
+      "AULSS 2 Marca Trevigiana"
+     ],
+     "WORKS_IN_SCOPE": 20,
+     "LAST_ACTIVITY": "2026-07-30",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Luisa Filippin",
+     "OPENALEX_ID": "https://openalex.org/A5019173211",
+     "ORCID": "https://orcid.org/0000-0001-7690-9147",
+     "INSTITUTIONS": [
+      "Cereal Research Centre",
+      "State Education and Research Institute for Viticulture and Pomology Weinsberg",
+      "AULSS 2 Marca Trevigiana"
+     ],
+     "WORKS_IN_SCOPE": 20,
+     "LAST_ACTIVITY": "2026-07-30",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Marika Rossi",
+     "OPENALEX_ID": "https://openalex.org/A5081493580",
+     "ORCID": "https://orcid.org/0000-0001-8475-7366",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "National Research Council"
+     ],
+     "WORKS_IN_SCOPE": 20,
+     "LAST_ACTIVITY": "2026-07-01",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Domenico Bosco",
+     "OPENALEX_ID": "https://openalex.org/A5014789293",
+     "ORCID": "https://orcid.org/0000-0003-3945-2752",
+     "INSTITUTIONS": [
+      "University of Turin",
+      "Institute for Sustainable Plant Protection",
+      "Bitron (Italy)"
+     ],
+     "WORKS_IN_SCOPE": 19,
+     "LAST_ACTIVITY": "2025-12-04",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Simona Abbà",
+     "OPENALEX_ID": "https://openalex.org/A5025826529",
+     "ORCID": "https://orcid.org/0000-0001-9345-5407",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "National Research Council"
+     ],
+     "WORKS_IN_SCOPE": 18,
+     "LAST_ACTIVITY": "2026-07-01",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Matteo Ripamonti",
+     "OPENALEX_ID": "https://openalex.org/A5011922444",
+     "ORCID": "https://orcid.org/0000-0001-6668-6509",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "University of Turin",
+      "National Research Council"
+     ],
+     "WORKS_IN_SCOPE": 14,
+     "LAST_ACTIVITY": "2024-09-11",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Alberto Alma",
+     "OPENALEX_ID": "https://openalex.org/A5055036637",
+     "ORCID": "https://orcid.org/0000-0003-4829-4178",
+     "INSTITUTIONS": [
+      "University of Turin"
+     ],
+     "WORKS_IN_SCOPE": 10,
+     "LAST_ACTIVITY": "2025-11-08",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Sabrina Palmano",
+     "OPENALEX_ID": "https://openalex.org/A5019918225",
+     "ORCID": "https://orcid.org/0000-0002-7729-6044",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "National Research Council"
+     ],
+     "WORKS_IN_SCOPE": 8,
+     "LAST_ACTIVITY": "2026-05-01",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Vally Forte",
+     "OPENALEX_ID": "https://openalex.org/A5044834613",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "Cereal Research Centre",
+      "Istituto Sperimentale per la Frutticoltura",
+      "State Education and Research Institute for Viticulture and Pomology Weinsberg"
+     ],
+     "WORKS_IN_SCOPE": 8,
+     "LAST_ACTIVITY": "2023-03-25",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Assunta Bertaccini",
+     "OPENALEX_ID": "https://openalex.org/A5000184502",
+     "ORCID": "https://orcid.org/0000-0002-5650-1512",
+     "INSTITUTIONS": [
+      "University of Bologna",
+      "University of Turin"
+     ],
+     "WORKS_IN_SCOPE": 7,
+     "LAST_ACTIVITY": "2026-03-25",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Carlo Duso",
+     "OPENALEX_ID": "https://openalex.org/A5062539744",
+     "ORCID": "https://orcid.org/0000-0002-2600-2536",
+     "INSTITUTIONS": [
+      "University of Padua"
+     ],
+     "WORKS_IN_SCOPE": 7,
+     "LAST_ACTIVITY": "2026-08-05",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "F. Quaglino",
+     "OPENALEX_ID": "https://openalex.org/A5057322051",
+     "ORCID": "https://orcid.org/0000-0001-8866-0633",
+     "INSTITUTIONS": [
+      "University of Milan"
+     ],
+     "WORKS_IN_SCOPE": 7,
+     "LAST_ACTIVITY": "2026-08-14",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Nadia Bertazzon",
+     "OPENALEX_ID": "https://openalex.org/A5014740516",
+     "ORCID": "https://orcid.org/0000-0001-8947-9377",
+     "INSTITUTIONS": [
+      "Università degli Studi della Tuscia",
+      "Cereal Research Centre",
+      "State Education and Research Institute for Viticulture and Pomology Weinsberg"
+     ],
+     "WORKS_IN_SCOPE": 7,
+     "LAST_ACTIVITY": "2023-03-25",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Nicola Mori",
+     "OPENALEX_ID": "https://openalex.org/A5002982424",
+     "ORCID": "https://orcid.org/0000-0002-5736-9584",
+     "INSTITUTIONS": [
+      "University of Verona"
+     ],
+     "WORKS_IN_SCOPE": 7,
+     "LAST_ACTIVITY": "2026-08-14",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Valeria Trivellone",
+     "OPENALEX_ID": "https://openalex.org/A5059239788",
+     "ORCID": "https://orcid.org/0000-0003-1415-4097",
+     "INSTITUTIONS": [
+      "University of Illinois Urbana-Champaign",
+      "Illinois Archaeological Survey",
+      "Cereal Research Centre"
+     ],
+     "WORKS_IN_SCOPE": 7,
+     "LAST_ACTIVITY": "2025-05-01",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Elena Gonella",
+     "OPENALEX_ID": "https://openalex.org/A5075052073",
+     "ORCID": "https://orcid.org/0000-0002-4779-1300",
+     "INSTITUTIONS": [
+      "University of Turin"
+     ],
+     "WORKS_IN_SCOPE": 6,
+     "LAST_ACTIVITY": "2025-11-08",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Marta Vallino",
+     "OPENALEX_ID": "https://openalex.org/A5004987385",
+     "ORCID": "https://orcid.org/0000-0003-1465-3574",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "National Research Council"
+     ],
+     "WORKS_IN_SCOPE": 6,
+     "LAST_ACTIVITY": "2026-07-01",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Nicola Bodino",
+     "OPENALEX_ID": "https://openalex.org/A5039807458",
+     "ORCID": "https://orcid.org/0000-0002-7655-5008",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "University of Turin"
+     ],
+     "WORKS_IN_SCOPE": 6,
+     "LAST_ACTIVITY": "2026-05-01",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Sofia Casarin",
+     "OPENALEX_ID": "https://openalex.org/A5062628836",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "University of Udine",
+      "State Education and Research Institute for Viticulture and Pomology Weinsberg"
+     ],
+     "WORKS_IN_SCOPE": 6,
+     "LAST_ACTIVITY": "2023-03-25",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Valerio Mazzoni",
+     "OPENALEX_ID": "https://openalex.org/A5061969333",
+     "ORCID": "https://orcid.org/0000-0003-4036-5322",
+     "INSTITUTIONS": [
+      "Fondazione Edmund Mach"
+     ],
+     "WORKS_IN_SCOPE": 6,
+     "LAST_ACTIVITY": "2024-12-12",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Andrea Lucchi",
+     "OPENALEX_ID": "https://openalex.org/A5010891514",
+     "ORCID": "https://orcid.org/0000-0002-9379-6495",
+     "INSTITUTIONS": [
+      "University of Pisa"
+     ],
+     "WORKS_IN_SCOPE": 5,
+     "LAST_ACTIVITY": "2024-10-14",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Antonella Esposito",
+     "OPENALEX_ID": "https://openalex.org/A5028708281",
+     "ORCID": "https://orcid.org/0000-0003-0507-1417",
+     "INSTITUTIONS": [
+      "Magna Graecia University"
+     ],
+     "WORKS_IN_SCOPE": 5,
+     "LAST_ACTIVITY": "2023-03-25",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Mattia Pegoraro",
+     "OPENALEX_ID": "https://openalex.org/A5102970542",
+     "ORCID": "https://orcid.org/0000-0003-3077-1108",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "Istituto Nazionale di Ricerca Metrologica"
+     ],
+     "WORKS_IN_SCOPE": 5,
+     "LAST_ACTIVITY": "2023-06-23",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Sara Ottati",
+     "OPENALEX_ID": "https://openalex.org/A5072903287",
+     "ORCID": "https://orcid.org/0000-0001-7907-8801",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "University of Turin",
+      "National Research Council"
+     ],
+     "WORKS_IN_SCOPE": 5,
+     "LAST_ACTIVITY": "2025-05-01",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Simone Vincenzi",
+     "OPENALEX_ID": "https://openalex.org/A5061364220",
+     "ORCID": "https://orcid.org/0000-0002-0357-4195",
+     "INSTITUTIONS": [
+      "University of Padua"
+     ],
+     "WORKS_IN_SCOPE": 5,
+     "LAST_ACTIVITY": "2023-03-25",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Alberto Materazzi",
+     "OPENALEX_ID": "https://openalex.org/A5014647287",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "University of Pisa"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2022-10-05",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Alessandra Panattoni",
+     "OPENALEX_ID": "https://openalex.org/A5015786815",
+     "ORCID": "https://orcid.org/0000-0001-6772-2241",
+     "INSTITUTIONS": [
+      "University of Pisa"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2025-10-16",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Andrea Schubert",
+     "OPENALEX_ID": "https://openalex.org/A5000254058",
+     "ORCID": "https://orcid.org/0000-0001-7355-5865",
+     "INSTITUTIONS": [
+      "University of Turin",
+      "Bitron (Italy)",
+      "Department of Forestry"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2024-09-11",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    }
+   ]
+  },
+  "DURUM_FUSARIUM": {
+   "NAME": "DURUM_FUSARIUM",
+   "QUERY": "(durum OR \"Triticum durum\") AND (Fusarium OR deoxynivalenol)",
+   "WORKS_DECLARED_BY_SOURCE": 70,
+   "WORKS_TRAVERSED": 70,
+   "TRAVERSAL_COMPLETE": true,
+   "AUTHORS_WITH_IT_AFFILIATION": 235,
+   "AUTHORS_WITH_ORCID": 195,
+   "AUTHORS_ACTIVE_SINCE_2024": 92,
+   "INSTITUTIONS_TOP": {
+    "Università degli Studi della Tuscia": 70,
+    "University of Bologna": 30,
+    "University of Bari Aldo Moro": 26,
+    "University of Basilicata": 24,
+    "University of Perugia": 21,
+    "University of Sassari": 21,
+    "University of Turin": 18,
+    "Cereal Research Centre": 17,
+    "Institute of Sciences of Food Production": 17,
+    "National Research Council": 16,
+    "Regione Siciliana": 13,
+    "University of Parma": 13
+   },
+   "DETAILED_HERE": 30,
+   "UNIVERSE": [
+    {
+     "PERSON": "Massimo Blandino",
+     "OPENALEX_ID": "https://openalex.org/A5061913370",
+     "ORCID": "https://orcid.org/0000-0003-3719-2520",
+     "INSTITUTIONS": [
+      "University of Turin"
+     ],
+     "WORKS_IN_SCOPE": 8,
+     "LAST_ACTIVITY": "2026-07-28",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Giorgio Mariano Balestra",
+     "OPENALEX_ID": "https://openalex.org/A5060590447",
+     "ORCID": "https://orcid.org/0000-0002-0822-4506",
+     "INSTITUTIONS": [
+      "Università degli Studi della Tuscia"
+     ],
+     "WORKS_IN_SCOPE": 6,
+     "LAST_ACTIVITY": "2024-09-19",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Sara Francesconi",
+     "OPENALEX_ID": "https://openalex.org/A5061730344",
+     "ORCID": "https://orcid.org/0000-0001-5946-1301",
+     "INSTITUTIONS": [
+      "Università degli Studi della Tuscia"
+     ],
+     "WORKS_IN_SCOPE": 6,
+     "LAST_ACTIVITY": "2024-09-19",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Valentina Scarpino",
+     "OPENALEX_ID": "https://openalex.org/A5079904373",
+     "ORCID": "https://orcid.org/0000-0002-9994-9907",
+     "INSTITUTIONS": [
+      "University of Turin"
+     ],
+     "WORKS_IN_SCOPE": 6,
+     "LAST_ACTIVITY": "2026-07-28",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Vito Campanella",
+     "OPENALEX_ID": "https://openalex.org/A5055834148",
+     "ORCID": "https://orcid.org/0000-0002-5394-0667",
+     "INSTITUTIONS": [
+      "Regione Siciliana",
+      "Cereal Research Centre"
+     ],
+     "WORKS_IN_SCOPE": 6,
+     "LAST_ACTIVITY": "2026-01-09",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Antonio Prodi",
+     "OPENALEX_ID": "https://openalex.org/A5037294773",
+     "ORCID": "https://orcid.org/0000-0002-7221-7271",
+     "INSTITUTIONS": [
+      "University of Bologna"
+     ],
+     "WORKS_IN_SCOPE": 5,
+     "LAST_ACTIVITY": "2026-03-25",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Carla Ceoloni",
+     "OPENALEX_ID": "https://openalex.org/A5049985772",
+     "ORCID": "https://orcid.org/0000-0001-6354-8901",
+     "INSTITUTIONS": [
+      "Università degli Studi della Tuscia"
+     ],
+     "WORKS_IN_SCOPE": 5,
+     "LAST_ACTIVITY": "2025-01-06",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Giovanni Beccari",
+     "OPENALEX_ID": "https://openalex.org/A5016931616",
+     "ORCID": "https://orcid.org/0000-0002-9227-9023",
+     "INSTITUTIONS": [
+      "University of Perugia"
+     ],
+     "WORKS_IN_SCOPE": 5,
+     "LAST_ACTIVITY": "2023-02-24",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Virgilio Balmas",
+     "OPENALEX_ID": "https://openalex.org/A5075769768",
+     "ORCID": "https://orcid.org/0000-0003-3213-3089",
+     "INSTITUTIONS": [
+      "University of Sassari"
+     ],
+     "WORKS_IN_SCOPE": 5,
+     "LAST_ACTIVITY": "2023-02-24",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Antonella Vitti",
+     "OPENALEX_ID": "https://openalex.org/A5082170331",
+     "ORCID": "https://orcid.org/0000-0002-8394-5493",
+     "INSTITUTIONS": [
+      "University of Salerno",
+      "University of Basilicata"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2026-02-10",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Antonio Moretti",
+     "OPENALEX_ID": "https://openalex.org/A5018341697",
+     "ORCID": "https://orcid.org/0000-0002-5232-6972",
+     "INSTITUTIONS": [
+      "Institute of Sciences of Food Production",
+      "National Research Council"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2022-09-08",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Eleonora Cappelletti",
+     "OPENALEX_ID": "https://openalex.org/A5020837145",
+     "ORCID": "https://orcid.org/0000-0003-3931-9249",
+     "INSTITUTIONS": [
+      "University of Bologna"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2026-03-25",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Francesco Sestili",
+     "OPENALEX_ID": "https://openalex.org/A5018340288",
+     "ORCID": "https://orcid.org/0000-0002-9653-8002",
+     "INSTITUTIONS": [
+      "Università degli Studi della Tuscia"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2024-09-19",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Francesco Tini",
+     "OPENALEX_ID": "https://openalex.org/A5085777238",
+     "ORCID": "https://orcid.org/0000-0002-6427-8234",
+     "INSTITUTIONS": [
+      "University of Perugia"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2023-02-24",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Ljiljana Kuzmanović",
+     "OPENALEX_ID": "https://openalex.org/A5061996584",
+     "ORCID": "https://orcid.org/0000-0003-1629-0666",
+     "INSTITUTIONS": [
+      "Università degli Studi della Tuscia"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2025-01-06",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Lorenzo Covarelli",
+     "OPENALEX_ID": "https://openalex.org/A5029848381",
+     "ORCID": "https://orcid.org/0000-0002-4568-6160",
+     "INSTITUTIONS": [
+      "University of Perugia"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2023-02-24",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Maria Nuzzaci",
+     "OPENALEX_ID": "https://openalex.org/A5053981522",
+     "ORCID": "https://orcid.org/0000-0002-4051-5100",
+     "INSTITUTIONS": [
+      "University of Basilicata"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2026-02-10",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Safa Oufensou",
+     "OPENALEX_ID": "https://openalex.org/A5073459545",
+     "ORCID": "https://orcid.org/0000-0003-4766-7251",
+     "INSTITUTIONS": [
+      "University of Sassari"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2025-01-06",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Silvio Tundo",
+     "OPENALEX_ID": "https://openalex.org/A5009271743",
+     "ORCID": "https://orcid.org/0000-0002-3638-7345",
+     "INSTITUTIONS": [
+      "University of Padua",
+      "Università degli Studi della Tuscia"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2023-04-08",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Ágata Gadaleta",
+     "OPENALEX_ID": "https://openalex.org/A5064528094",
+     "ORCID": "https://orcid.org/0000-0002-6312-249X",
+     "INSTITUTIONS": [
+      "University of Bari Aldo Moro"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2025-01-06",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Antonio Logrieco",
+     "OPENALEX_ID": "https://openalex.org/A5030669619",
+     "ORCID": "https://orcid.org/0000-0002-8606-451X",
+     "INSTITUTIONS": [
+      "Institute of Sciences of Food Production",
+      "National Research Council"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2022-09-08",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Chiara Dall’Asta",
+     "OPENALEX_ID": "https://openalex.org/A5059857211",
+     "ORCID": "https://orcid.org/0000-0003-0716-8394",
+     "INSTITUTIONS": [
+      "University of Parma"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2024-01-18",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Domenico Ronga",
+     "OPENALEX_ID": "https://openalex.org/A5031966840",
+     "ORCID": "https://orcid.org/0000-0002-0219-7420",
+     "INSTITUTIONS": [
+      "University of Salerno"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2026-02-10",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Giulia Mandalà",
+     "OPENALEX_ID": "https://openalex.org/A5005610353",
+     "ORCID": "https://orcid.org/0000-0001-7697-8310",
+     "INSTITUTIONS": [
+      "Università degli Studi della Tuscia"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2023-04-08",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Ilaria Marcotuli",
+     "OPENALEX_ID": "https://openalex.org/A5020284411",
+     "ORCID": "https://orcid.org/0000-0002-0146-5286",
+     "INSTITUTIONS": [
+      "University of Bari Aldo Moro"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2025-01-06",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Laura Righetti",
+     "OPENALEX_ID": "https://openalex.org/A5010163741",
+     "ORCID": "https://orcid.org/0000-0003-4238-0665",
+     "INSTITUTIONS": [
+      "University of Parma",
+      "Wageningen University & Research"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2024-01-18",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Leonardo Coviello",
+     "OPENALEX_ID": "https://openalex.org/A5005692108",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "University of Basilicata"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2026-02-10",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Linda Felici",
+     "OPENALEX_ID": "https://openalex.org/A5094013074",
+     "ORCID": "https://orcid.org/0009-0003-5187-2896",
+     "INSTITUTIONS": [
+      "Università degli Studi della Tuscia"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2024-09-19",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Maria Teresa Senatore",
+     "OPENALEX_ID": "https://openalex.org/A5065877055",
+     "ORCID": "https://orcid.org/0000-0002-2377-7563",
+     "INSTITUTIONS": [
+      "University of Bologna"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2023-02-24",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Pasqualina Colasuonno",
+     "OPENALEX_ID": "https://openalex.org/A5024966400",
+     "ORCID": "https://orcid.org/0000-0002-8235-6515",
+     "INSTITUTIONS": [
+      "University of Bari Aldo Moro"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2022-03-17",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    }
+   ]
+  },
+  "OLIVE_BACTROCERA": {
+   "NAME": "OLIVE_BACTROCERA",
+   "QUERY": "(olive OR Olea) AND (Bactrocera OR \"olive fly\")",
+   "WORKS_DECLARED_BY_SOURCE": 71,
+   "WORKS_TRAVERSED": 71,
+   "TRAVERSAL_COMPLETE": true,
+   "AUTHORS_WITH_IT_AFFILIATION": 223,
+   "AUTHORS_WITH_ORCID": 188,
+   "AUTHORS_ACTIVE_SINCE_2024": 106,
+   "INSTITUTIONS_TOP": {
+    "University of Perugia": 46,
+    "University of Naples Federico II": 46,
+    "University of Florence": 22,
+    "Federico II University Hospital": 20,
+    "Institute for Sustainable Plant Protection": 13,
+    "National Research Council": 12,
+    "Research Centre for Olive Growing and Olive Oil Industry": 12,
+    "University of Palermo": 11,
+    "University of Padua": 11,
+    "Cereal Research Centre": 11,
+    "University of Reggio Calabria": 11,
+    "University of Ferrara": 10
+   },
+   "DETAILED_HERE": 30,
+   "UNIVERSE": [
+    {
+     "PERSON": "Eric Conti",
+     "OPENALEX_ID": "https://openalex.org/A5037667640",
+     "ORCID": "https://orcid.org/0000-0002-5831-4673",
+     "INSTITUTIONS": [
+      "University of Perugia"
+     ],
+     "WORKS_IN_SCOPE": 6,
+     "LAST_ACTIVITY": "2024-07-15",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Franco Famiani",
+     "OPENALEX_ID": "https://openalex.org/A5085486339",
+     "ORCID": "https://orcid.org/0000-0002-9634-7951",
+     "INSTITUTIONS": [
+      "University of Perugia"
+     ],
+     "WORKS_IN_SCOPE": 6,
+     "LAST_ACTIVITY": "2024-07-15",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Gabriele Rondoni",
+     "OPENALEX_ID": "https://openalex.org/A5025438284",
+     "ORCID": "https://orcid.org/0000-0002-1797-0842",
+     "INSTITUTIONS": [
+      "University of Perugia"
+     ],
+     "WORKS_IN_SCOPE": 6,
+     "LAST_ACTIVITY": "2024-07-15",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Luigi Ponti",
+     "OPENALEX_ID": "https://openalex.org/A5019326908",
+     "ORCID": "https://orcid.org/0000-0003-4972-8265",
+     "INSTITUTIONS": [
+      "National Agency for New Technologies, Energy and Sustainable Economic Development",
+      "Center for the Analysis of Sustainable Agricultural Systems"
+     ],
+     "WORKS_IN_SCOPE": 6,
+     "LAST_ACTIVITY": "2024-02-24",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Elena Chierici",
+     "OPENALEX_ID": "https://openalex.org/A5065842979",
+     "ORCID": "https://orcid.org/0000-0002-3737-1409",
+     "INSTITUTIONS": [
+      "University of Perugia"
+     ],
+     "WORKS_IN_SCOPE": 5,
+     "LAST_ACTIVITY": "2024-07-15",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Elissa Daher",
+     "OPENALEX_ID": "https://openalex.org/A5072747824",
+     "ORCID": "https://orcid.org/0000-0002-2747-1748",
+     "INSTITUTIONS": [
+      "University of Perugia"
+     ],
+     "WORKS_IN_SCOPE": 5,
+     "LAST_ACTIVITY": "2023-03-19",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Francesco Vinale",
+     "OPENALEX_ID": "https://openalex.org/A5016154515",
+     "ORCID": "https://orcid.org/0000-0002-5090-8127",
+     "INSTITUTIONS": [
+      "University of Naples Federico II",
+      "Institute for Sustainable Plant Protection",
+      "Federico II University Hospital"
+     ],
+     "WORKS_IN_SCOPE": 5,
+     "LAST_ACTIVITY": "2024-06-08",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Nicola Cinosi",
+     "OPENALEX_ID": "https://openalex.org/A5076425823",
+     "ORCID": "https://orcid.org/0000-0002-8728-3781",
+     "INSTITUTIONS": [
+      "University of Perugia"
+     ],
+     "WORKS_IN_SCOPE": 5,
+     "LAST_ACTIVITY": "2023-03-19",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Annalisa Rotondi",
+     "OPENALEX_ID": "https://openalex.org/A5003457508",
+     "ORCID": "https://orcid.org/0000-0003-1577-866X",
+     "INSTITUTIONS": [
+      "National Research Council",
+      "Istituto di Biometeorologia"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2024-02-29",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Antonio Belcari",
+     "OPENALEX_ID": "https://openalex.org/A5042937790",
+     "ORCID": "https://orcid.org/0000-0001-5456-7887",
+     "INSTITUTIONS": [
+      "University of Florence"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2020-06-10",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Gaia Bigiotti",
+     "OPENALEX_ID": "https://openalex.org/A5033725383",
+     "ORCID": "https://orcid.org/0000-0002-4902-6987",
+     "INSTITUTIONS": [
+      "University of Florence"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2020-06-10",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Lucia Morrone",
+     "OPENALEX_ID": "https://openalex.org/A5086209663",
+     "ORCID": "https://orcid.org/0000-0003-4436-9486",
+     "INSTITUTIONS": [
+      "National Research Council",
+      "Istituto di Biometeorologia"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2024-02-29",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Patrizia Sacchetti",
+     "OPENALEX_ID": "https://openalex.org/A5010345113",
+     "ORCID": "https://orcid.org/0000-0002-7006-8516",
+     "INSTITUTIONS": [
+      "University of Florence"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2020-06-10",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Roberta Pastorelli",
+     "OPENALEX_ID": "https://openalex.org/A5014016453",
+     "ORCID": "https://orcid.org/0000-0002-1278-7651",
+     "INSTITUTIONS": [
+      "Centro di Ricerca per l’Orticoltura",
+      "Consiglio per la ricerca in agricoltura e l’analisi dell’economia agraria"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2020-06-10",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Stefania Laudonia",
+     "OPENALEX_ID": "https://openalex.org/A5020518332",
+     "ORCID": "https://orcid.org/0000-0003-3568-7562",
+     "INSTITUTIONS": [
+      "University of Naples Federico II",
+      "Federico II University Hospital",
+      "Department of Agricultural Sciences"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2024-06-08",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Andrea Sciarretta",
+     "OPENALEX_ID": "https://openalex.org/A5021988523",
+     "ORCID": "https://orcid.org/0000-0002-9443-4816",
+     "INSTITUTIONS": [
+      "University of Molise"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2025-06-03",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Gabriella Lo Verde",
+     "OPENALEX_ID": "https://openalex.org/A5059853350",
+     "ORCID": "https://orcid.org/0000-0001-8207-1416",
+     "INSTITUTIONS": [
+      "University of Palermo"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2021-09-29",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Giacinto Salvatore Germinara",
+     "OPENALEX_ID": "https://openalex.org/A5006989051",
+     "ORCID": "https://orcid.org/0000-0002-0051-3610",
+     "INSTITUTIONS": [
+      "University of Foggia"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2024-06-28",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Giacomo Ferretti",
+     "OPENALEX_ID": "https://openalex.org/A5065612130",
+     "ORCID": "https://orcid.org/0000-0003-2004-5911",
+     "INSTITUTIONS": [
+      "University of Ferrara"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2024-02-29",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Gianandrea Salerno",
+     "OPENALEX_ID": "https://openalex.org/A5024196621",
+     "ORCID": "https://orcid.org/0000-0002-8357-7598",
+     "INSTITUTIONS": [
+      "University of Perugia"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2024-03-01",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Giovanni Jesu",
+     "OPENALEX_ID": "https://openalex.org/A5033701274",
+     "ORCID": "https://orcid.org/0000-0001-5006-1619",
+     "INSTITUTIONS": [
+      "University of Naples Federico II",
+      "Federico II University Hospital"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2024-06-08",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Giuliano Bonanomi",
+     "OPENALEX_ID": "https://openalex.org/A5006573849",
+     "ORCID": "https://orcid.org/0000-0002-1831-4361",
+     "INSTITUTIONS": [
+      "University of Naples Federico II",
+      "Federico II University Hospital",
+      "Department of Agricultural Sciences"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2024-01-02",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Giulio Galamini",
+     "OPENALEX_ID": "https://openalex.org/A5032624038",
+     "ORCID": "https://orcid.org/0000-0002-8616-932X",
+     "INSTITUTIONS": [
+      "University of Ferrara",
+      "University of Modena and Reggio Emilia"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2024-02-29",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Luca Mazzon",
+     "OPENALEX_ID": "https://openalex.org/A5024622493",
+     "ORCID": "https://orcid.org/0000-0002-8459-893X",
+     "INSTITUTIONS": [
+      "University of Padua"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2024-09-28",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Manuela Rebora",
+     "OPENALEX_ID": "https://openalex.org/A5058236306",
+     "ORCID": "https://orcid.org/0000-0002-4271-6336",
+     "INSTITUTIONS": [
+      "University of Perugia"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2024-03-01",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Onofrio Marco Pistillo",
+     "OPENALEX_ID": "https://openalex.org/A5086750791",
+     "ORCID": "https://orcid.org/0000-0001-5094-4999",
+     "INSTITUTIONS": [
+      "University of Foggia"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2024-06-28",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Pierluigi Rizzo",
+     "OPENALEX_ID": "https://openalex.org/A5030731877",
+     "ORCID": "https://orcid.org/0000-0002-2904-9102",
+     "INSTITUTIONS": [
+      "Research Centre for Olive Growing and Olive Oil Industry",
+      "Cereal Research Centre"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2025-11-28",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Ruggero Petacchi",
+     "OPENALEX_ID": "https://openalex.org/A5051233673",
+     "ORCID": "https://orcid.org/0000-0003-4730-9075",
+     "INSTITUTIONS": [
+      "Scuola Superiore Sant'Anna"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2024-07-15",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Veronica Vizzarri",
+     "OPENALEX_ID": "https://openalex.org/A5083302265",
+     "ORCID": "https://orcid.org/0000-0001-5755-6577",
+     "INSTITUTIONS": [
+      "Research Centre for Olive Growing and Olive Oil Industry",
+      "Cereal Research Centre"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2025-11-28",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Virgilio Caleca",
+     "OPENALEX_ID": "https://openalex.org/A5054259183",
+     "ORCID": "https://orcid.org/0000-0001-8777-7127",
+     "INSTITUTIONS": [
+      "University of Palermo"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2020-12-02",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    }
+   ]
+  },
+  "MAIZE_BORER_DIABROTICA": {
+   "NAME": "MAIZE_BORER_DIABROTICA",
+   "QUERY": "(maize OR corn) AND (Ostrinia OR Diabrotica)",
+   "WORKS_DECLARED_BY_SOURCE": 27,
+   "WORKS_TRAVERSED": 27,
+   "TRAVERSAL_COMPLETE": true,
+   "AUTHORS_WITH_IT_AFFILIATION": 62,
+   "AUTHORS_WITH_ORCID": 50,
+   "AUTHORS_ACTIVE_SINCE_2024": 17,
+   "INSTITUTIONS_TOP": {
+    "University of Milan": 13,
+    "University of Bologna": 10,
+    "Institute for Sustainable Plant Protection": 6,
+    "All-Russian Institute of Plant Protection": 6,
+    "University of Turin": 6,
+    "Scuola Superiore Sant'Anna": 5,
+    "Marche Polytechnic University": 5,
+    "Food and Agriculture Organization of the United Nations": 3,
+    "Centro Agricoltura Ambiente (Italy)": 3,
+    "Università Cattolica del Sacro Cuore": 3,
+    "University of Parma": 3,
+    "Piaggio (Italy)": 2
+   },
+   "DETAILED_HERE": 30,
+   "UNIVERSE": [
+    {
+     "PERSON": "Donato Romano",
+     "OPENALEX_ID": "https://openalex.org/A5061773642",
+     "ORCID": "https://orcid.org/0000-0003-4975-3495",
+     "INSTITUTIONS": [
+      "Scuola Superiore Sant'Anna",
+      "Piaggio (Italy)",
+      "Piaggio Aerospace (Italy)"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2025-07-23",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Branislav Trudić",
+     "OPENALEX_ID": "https://openalex.org/A5073946785",
+     "ORCID": "https://orcid.org/0000-0003-0385-547X",
+     "INSTITUTIONS": [
+      "Food and Agriculture Organization of the United Nations"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2023-05-29",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "S. Maini",
+     "OPENALEX_ID": "https://openalex.org/A5057832359",
+     "ORCID": "https://orcid.org/0000-0001-7272-1243",
+     "INSTITUTIONS": [
+      "University of Bologna"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2026-04-28",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Giovanni Burgio",
+     "OPENALEX_ID": "https://openalex.org/A5002692124",
+     "ORCID": "https://orcid.org/0000-0001-7506-7283",
+     "INSTITUTIONS": [
+      "University of Bologna"
+     ],
+     "WORKS_IN_SCOPE": 2,
+     "LAST_ACTIVITY": "2020-12-30",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Giuseppe Camerini",
+     "OPENALEX_ID": "https://openalex.org/A5005419428",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "Istituto di Istruzione Superiore I.T.C. Di Vittorio"
+     ],
+     "WORKS_IN_SCOPE": 2,
+     "LAST_ACTIVITY": "2024-03-25",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "L. Limonta",
+     "OPENALEX_ID": "https://openalex.org/A5064210602",
+     "ORCID": "https://orcid.org/0000-0001-8127-5935",
+     "INSTITUTIONS": [
+      "University of Milan"
+     ],
+     "WORKS_IN_SCOPE": 2,
+     "LAST_ACTIVITY": "2024-03-25",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Lorenzo Furlan",
+     "OPENALEX_ID": "https://openalex.org/A5043672670",
+     "ORCID": "https://orcid.org/0000-0003-4021-4532",
+     "INSTITUTIONS": [
+      "Centro Agricoltura Ambiente (Italy)",
+      "Istituto Sperimentale per la Frutticoltura"
+     ],
+     "WORKS_IN_SCOPE": 2,
+     "LAST_ACTIVITY": "2021-02-25",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "A. A. Miltsyn",
+     "OPENALEX_ID": "https://openalex.org/A5067955882",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "All-Russian Institute of Plant Protection"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2023-04-01",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "A. Bellingeri",
+     "OPENALEX_ID": "https://openalex.org/A5031486300",
+     "ORCID": "https://orcid.org/0000-0002-5046-0369",
+     "INSTITUTIONS": [
+      "Università Cattolica del Sacro Cuore",
+      "University of Wisconsin–Madison"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2019-01-02",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "A. V. Schenikova",
+     "OPENALEX_ID": "https://openalex.org/A5084419963",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "All-Russian Institute of Plant Protection"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2023-04-01",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Abdalhadi M.A. Abulebda",
+     "OPENALEX_ID": "https://openalex.org/A5117610885",
+     "ORCID": "https://orcid.org/0009-0001-1094-9768",
+     "INSTITUTIONS": [
+      "Marche Polytechnic University"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2025-12-13",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Alberto Alma",
+     "OPENALEX_ID": "https://openalex.org/A5055036637",
+     "ORCID": "https://orcid.org/0000-0003-4829-4178",
+     "INSTITUTIONS": [
+      "University of Turin"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2020-07-07",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Alberto Lanzoni",
+     "OPENALEX_ID": "https://openalex.org/A5011084652",
+     "ORCID": "https://orcid.org/0000-0001-8898-200X",
+     "INSTITUTIONS": [
+      "University of Bologna"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2020-12-30",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Alessandro Passera",
+     "OPENALEX_ID": "https://openalex.org/A5074989671",
+     "ORCID": "https://orcid.org/0000-0003-1995-0666",
+     "INSTITUTIONS": [
+      "University of Milan"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2023-07-11",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Amedeo Reyneri",
+     "OPENALEX_ID": "https://openalex.org/A5009023828",
+     "ORCID": "https://orcid.org/0000-0002-4859-9572",
+     "INSTITUTIONS": [
+      "University of Turin"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2020-07-07",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Andrea Lentini",
+     "OPENALEX_ID": "https://openalex.org/A5008460653",
+     "ORCID": "https://orcid.org/0000-0003-2089-1026",
+     "INSTITUTIONS": [
+      "University of Sassari"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2022-01-31",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Andrea Magarini",
+     "OPENALEX_ID": "https://openalex.org/A5073437894",
+     "ORCID": "https://orcid.org/0000-0003-1604-3921",
+     "INSTITUTIONS": [
+      "University of Milan"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2023-07-11",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Antonio Gallo",
+     "OPENALEX_ID": "https://openalex.org/A5090626214",
+     "ORCID": "https://orcid.org/0000-0002-4700-4450",
+     "INSTITUTIONS": [
+      "Università Cattolica del Sacro Cuore"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2019-01-02",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Antonio Masetti",
+     "OPENALEX_ID": "https://openalex.org/A5090812235",
+     "ORCID": "https://orcid.org/0000-0001-6061-2752",
+     "INSTITUTIONS": [
+      "University of Bologna"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2020-12-30",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Beatrice Sicurella",
+     "OPENALEX_ID": "https://openalex.org/A5046244201",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "University of Milano-Bicocca"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2019-12-31",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "C. Jucker",
+     "OPENALEX_ID": "https://openalex.org/A5016745830",
+     "ORCID": "https://orcid.org/0000-0001-5052-3705",
+     "INSTITUTIONS": [
+      "University of Milan"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2020-07-07",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Camila Paola Grigolo",
+     "OPENALEX_ID": "https://openalex.org/A5050877574",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "University of Milan"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2019-12-31",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Chiara Ferracini",
+     "OPENALEX_ID": "https://openalex.org/A5076226828",
+     "ORCID": "https://orcid.org/0000-0002-2135-1147",
+     "INSTITUTIONS": [
+      "University of Turin"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2020-07-07",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Diego Rubolini",
+     "OPENALEX_ID": "https://openalex.org/A5024236612",
+     "ORCID": "https://orcid.org/0000-0003-2703-5783",
+     "INSTITUTIONS": [
+      "University of Milan"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2019-12-31",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Elisa Frasnelli",
+     "OPENALEX_ID": "https://openalex.org/A5140315809",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "University of Trento",
+      "Center for Neuroscience and Cognitive Systems"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2026-07-08",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Enrico Busato",
+     "OPENALEX_ID": "https://openalex.org/A5073066572",
+     "ORCID": "https://orcid.org/0000-0002-8772-3871",
+     "INSTITUTIONS": [
+      "University of Turin"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2020-07-07",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "F. Masoero",
+     "OPENALEX_ID": "https://openalex.org/A5035300192",
+     "ORCID": "https://orcid.org/0000-0002-0373-6051",
+     "INSTITUTIONS": [
+      "Università Cattolica del Sacro Cuore"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2019-01-02",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Fabio Ramilli",
+     "OPENALEX_ID": "https://openalex.org/A5016413930",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "University of Bologna"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2025-12-13",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Federica Musitelli",
+     "OPENALEX_ID": "https://openalex.org/A5010639603",
+     "ORCID": "https://orcid.org/0000-0003-1109-5087",
+     "INSTITUTIONS": [
+      "University of Milano-Bicocca"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2019-12-31",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Federico Longobardi",
+     "OPENALEX_ID": "https://openalex.org/A5117651956",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "Sardegna Ricerche (Italy)"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2025-01-01",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    }
+   ]
+  },
+  "WEED_HERBICIDE_RESISTANCE": {
+   "NAME": "WEED_HERBICIDE_RESISTANCE",
+   "QUERY": "\"herbicide resistance\" AND (Lolium OR Amaranthus OR Avena OR Papaver OR Echinochloa OR Sorghum)",
+   "WORKS_DECLARED_BY_SOURCE": 17,
+   "WORKS_TRAVERSED": 17,
+   "TRAVERSAL_COMPLETE": true,
+   "AUTHORS_WITH_IT_AFFILIATION": 22,
+   "AUTHORS_WITH_ORCID": 17,
+   "AUTHORS_ACTIVE_SINCE_2024": 11,
+   "INSTITUTIONS_TOP": {
+    "Institute for Sustainable Plant Protection": 19,
+    "National Research Council": 14,
+    "University of Pavia": 13,
+    "University of Turin": 6,
+    "University of Perugia": 2,
+    "CSI Piemonte": 1,
+    "Institute of Sciences of Food Production": 1,
+    "University of Pisa": 1,
+    "University of Milano-Bicocca": 1,
+    "University of Padua": 1,
+    "Azienda-Unita' Sanitaria Locale Di Cesena": 1
+   },
+   "DETAILED_HERE": 22,
+   "UNIVERSE": [
+    {
+     "PERSON": "Laura Scarabel",
+     "OPENALEX_ID": "https://openalex.org/A5028192714",
+     "ORCID": "https://orcid.org/0000-0002-2584-3069",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "National Research Council"
+     ],
+     "WORKS_IN_SCOPE": 6,
+     "LAST_ACTIVITY": "2025-01-01",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Silvia Panozzo",
+     "OPENALEX_ID": "https://openalex.org/A5016293701",
+     "ORCID": "https://orcid.org/0000-0002-5544-7235",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "National Research Council"
+     ],
+     "WORKS_IN_SCOPE": 5,
+     "LAST_ACTIVITY": "2024-02-15",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Maurizio Sattin",
+     "OPENALEX_ID": "https://openalex.org/A5024379363",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "National Research Council"
+     ],
+     "WORKS_IN_SCOPE": 4,
+     "LAST_ACTIVITY": "2023-02-07",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Anna Maria Picco",
+     "OPENALEX_ID": "https://openalex.org/A5103053303",
+     "ORCID": "https://orcid.org/0000-0001-9276-1832",
+     "INSTITUTIONS": [
+      "University of Pavia"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2025-02-26",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Carlo Maria Cusaro",
+     "OPENALEX_ID": "https://openalex.org/A5044225780",
+     "ORCID": "https://orcid.org/0000-0002-9132-657X",
+     "INSTITUTIONS": [
+      "University of Pavia"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2025-02-26",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Enrica Capelli",
+     "OPENALEX_ID": "https://openalex.org/A5015923887",
+     "ORCID": "https://orcid.org/0000-0003-0085-6688",
+     "INSTITUTIONS": [
+      "University of Pavia"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2025-02-26",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Maura Brusoni",
+     "OPENALEX_ID": "https://openalex.org/A5028551691",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "University of Pavia"
+     ],
+     "WORKS_IN_SCOPE": 3,
+     "LAST_ACTIVITY": "2025-02-26",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Andrea Milani",
+     "OPENALEX_ID": "https://openalex.org/A5090146115",
+     "ORCID": "https://orcid.org/0000-0002-6379-7737",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "National Research Council"
+     ],
+     "WORKS_IN_SCOPE": 2,
+     "LAST_ACTIVITY": "2024-02-15",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Andrea Onofri",
+     "OPENALEX_ID": "https://openalex.org/A5037985275",
+     "ORCID": "https://orcid.org/0000-0002-6603-329X",
+     "INSTITUTIONS": [
+      "University of Perugia"
+     ],
+     "WORKS_IN_SCOPE": 2,
+     "LAST_ACTIVITY": "2021-07-14",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Donato Loddo",
+     "OPENALEX_ID": "https://openalex.org/A5016877254",
+     "ORCID": "https://orcid.org/0000-0001-8118-9973",
+     "INSTITUTIONS": [
+      "Institute for Sustainable Plant Protection",
+      "National Research Council"
+     ],
+     "WORKS_IN_SCOPE": 2,
+     "LAST_ACTIVITY": "2022-09-26",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Alberto Selvaggi",
+     "OPENALEX_ID": "https://openalex.org/A5032103565",
+     "ORCID": "https://orcid.org/0000-0003-2483-4790",
+     "INSTITUTIONS": [
+      "CSI Piemonte",
+      "University of Turin"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2026-01-01",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Aldo Ferrero",
+     "OPENALEX_ID": "https://openalex.org/A5075993213",
+     "ORCID": "https://orcid.org/0000-0001-8691-4273",
+     "INSTITUTIONS": [
+      "University of Turin"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2020-03-11",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Carolina Grazioli",
+     "OPENALEX_ID": "https://openalex.org/A5060587134",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "University of Pavia"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2022-12-02",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Fernando De Palo",
+     "OPENALEX_ID": "https://openalex.org/A5046273727",
+     "ORCID": "https://orcid.org/0000-0001-5995-1415",
+     "INSTITUTIONS": [
+      "University of Turin"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2020-03-11",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Francesco Vidotto",
+     "OPENALEX_ID": "https://openalex.org/A5009225978",
+     "ORCID": "https://orcid.org/0000-0002-0971-1445",
+     "INSTITUTIONS": [
+      "University of Turin"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2020-03-11",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Marco Milan",
+     "OPENALEX_ID": "https://openalex.org/A5028396754",
+     "ORCID": "https://orcid.org/0000-0003-4839-3889",
+     "INSTITUTIONS": [
+      "University of Turin"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2020-03-11",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Maurizio Vurro",
+     "OPENALEX_ID": "https://openalex.org/A5041793647",
+     "ORCID": "https://orcid.org/0000-0001-6875-4093",
+     "INSTITUTIONS": [
+      "Institute of Sciences of Food Production",
+      "National Research Council"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2024-03-14",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Mino Sportelli",
+     "OPENALEX_ID": "https://openalex.org/A5031671691",
+     "ORCID": "https://orcid.org/0000-0003-1803-7656",
+     "INSTITUTIONS": [
+      "University of Pisa"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2022-12-28",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Rodolfo Gentili",
+     "OPENALEX_ID": "https://openalex.org/A5136899081",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "University of Milano-Bicocca"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2026-01-01",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Silvia Farinati",
+     "OPENALEX_ID": "https://openalex.org/A5037902128",
+     "ORCID": "https://orcid.org/0000-0002-3295-8809",
+     "INSTITUTIONS": [
+      "University of Padua"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2023-02-07",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Silvia Fogliatto",
+     "OPENALEX_ID": "https://openalex.org/A5091110621",
+     "ORCID": "https://orcid.org/0000-0002-7309-8550",
+     "INSTITUTIONS": [
+      "University of Turin"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2020-03-11",
+     "IDENTITY_STATUS": "ORCID_PRESENT_NOT_RESOLVED_HERE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    },
+    {
+     "PERSON": "Tommasini Maria Grazia",
+     "OPENALEX_ID": "https://openalex.org/A5093933102",
+     "ORCID": "NÃO SEI",
+     "INSTITUTIONS": [
+      "Azienda-Unita' Sanitaria Locale Di Cesena"
+     ],
+     "WORKS_IN_SCOPE": 1,
+     "LAST_ACTIVITY": "2024-02-15",
+     "IDENTITY_STATUS": "NO_ORCID_IN_SOURCE",
+     "ROLE": "NÃO SEI — o índice não declara papel",
+     "FACT_REGION": "NÃO SEI — a afiliação é do AUTOR, não do estudo"
+    }
+   ]
+  }
+ }
+}

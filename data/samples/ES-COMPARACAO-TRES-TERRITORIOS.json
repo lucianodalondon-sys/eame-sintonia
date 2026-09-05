@@ -1,0 +1,58 @@
+{
+ "SOURCE_ID": "ES-COMPARACAO-TRES-TERRITORIOS",
+ "source": "comparacao qualitativa entre milho, cereais de inverno e olivar para a demonstracao espanhola",
+ "SOURCE_LOCATION": "interno",
+ "FACT_LOCATION": "SPAIN",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-30",
+ "DATA_DA_AVALIACAO": "2026-08-30",
+ "PORQUE_NAO_HA_SCORE": "tres territorios, oito eixos e nenhum peso defensavel. Um score somaria coisas incomensuraveis e esconderia que a resposta muda conforme a pergunta.",
+ "TERRITORIOS": {
+  "MAIZE": {
+   "ESCALA": "239.087 ha grao; Huesca 39.945 (2a), Lleida 12.360 (4a)",
+   "ISSUE": "Amaranthus palmeri — daninha invasora com resistencia multipla (ALS, glifosato)",
+   "SINAL_ATUAL": "CURRENT — 3 avisos oficiais de Aragon: 22/10/2025, 08/06/2026, 15/07/2026",
+   "ESPECIFICIDADE_REGIONAL": "ALTA — Huesca e Lleida nomeadas",
+   "ADAMA_REGISTRADA": "AMARANTHUS SPP. x milho: 1 registro em toda a Espanha, ADAMA 0. Categoria generica dicotiledoneas: 76 registros, ADAMA 3.",
+   "JANELA": "FECHADA para 2026 — controle e pre/pos-emergencia, e em 30/08 o milho esta em enchimento de grao ou colhido. Proxima: abril/2027, ~7 meses.",
+   "PARES_ADAMA_TOTAIS": 16,
+   "VALOR_DE_DEMONSTRACAO": "ALTO como caso de LACUNA e de PREPARACAO; baixo como urgencia"
+  },
+  "WINTER_CEREALS": {
+   "ESCALA": "CEBADA 2.089.550 ha + TRIGO 1.809.563 ha — as duas maiores da Espanha",
+   "ISSUE": "Septoriose (Zymoseptoria tritici), rincosporiose, helmintosporiose da cevada, fusariose",
+   "SINAL_ATUAL": "NO_CURRENT_EVIDENCE_FOUND — o ITACyL tem secao propria de cereais de inverno com essas doencas, mas nenhum aviso de cereal na lista de 2026 (que traz frutais, batata, pimentao e vinha). O aviso de WDV localizado e de 30/04/2024.",
+   "ESPECIFICIDADE_REGIONAL": "MEDIA — Castilla y Leon concentra ~1,91 M ha de cereal de inverno",
+   "ADAMA_REGISTRADA": "36 pares com ADAMA vigente — o DOBRO do milho. Septoriose 4, rincosporiose 5, helmintosporiose 4, fusariose 4, dicotiledoneas 9.",
+   "JANELA": "SEMENTEIRA SE APROXIMANDO — outubro/novembro, a 6-10 semanas. Fungicida foliar e primavera. Confianca TYPICAL.",
+   "PARES_ADAMA_TOTAIS": 36,
+   "VALOR_DE_DEMONSTRACAO": "ALTO como caso de PREPARACAO com portfolio forte; falta o sinal atual",
+   "SINAL_ATUAL_CORRIGIDO": "o NO_CURRENT_EVIDENCE_FOUND acima era estado da minha busca, nao do mundo. O RAIF Andalucia publica cereais de inverno desde 2012 com septoriose medida. Campanha 2026: 2,68% de superficie com sintomas, segundo menor da serie. Ver ES-T3-002-raif-cereales-invierno."
+  },
+  "OLIVE": {
+   "ESCALA": "Jaen 589.047 ha, Cordoba 376.967, Sevilla 253.293 (area de olivar, ES-PRESSAO)",
+   "ISSUE": "Repilo (Venturia oleaginea)",
+   "SINAL_ATUAL": "CURRENT — RAIF Andalucia, XML gerado em 24/08/2026, seis dias antes da captura. 20.970 amostragens em 2026; serie de 23 safras e 148.964 leituras.",
+   "ACHADO_MATERIAL": "Huelva 8,83% de folhas com repilo visivel em 2026 e o MAXIMO de toda a serie de 23 safras, contra 1,17% na coorte de 2023 — salto de 7,5x. Cadiz 8,01 e alto mas NAO e maximo (teve 9,71 em 2013).",
+   "RESSALVA_DO_N": "Huelva tem 7 parcelas na coorte de 2026. A media viaja com o n — 8,83% sobre 7 parcelas nao tem o mesmo peso que 0,77% sobre 211 em Jaen.",
+   "ESPECIFICIDADE_REGIONAL": "ALTA — provincia a provincia, com parcelas contadas",
+   "ADAMA_REGISTRADA": "OLIVO x REPILO: 180 registros no total, 2 da ADAMA vigentes — ES-00211 NEPTUNE e ES-00979 CUPROXI FLO",
+   "ALERTA_REGULATORIO": "NEPTUNE ES-00211 consta Estado=Vigente com caducidad 15-08-2026 — data que JA PASSOU ha 15 dias, e sem fechaLimiteVenta declarada. E um dos 34 registros do ROPF nessa condicao, e um dos 3 da ADAMA. EXPIRY != WITHDRAWAL: isto e uma contradicao NA FONTE, nao uma conclusao de que o produto saiu. CUPROXI FLO segue com caducidad 30-06-2029.",
+   "JANELA": "ABRINDO — o controle de repilo se concentra no outono. Confianca TYPICAL.",
+   "VALOR_DE_DEMONSTRACAO": "O MAIS ALTO agora: sinal de 6 dias, serie de 23 safras para contexto, granularidade provincial, resposta ADAMA nomeada e um alerta regulatorio acionavel"
+  }
+ },
+ "VEREDITO": {
+  "BEST_CURRENT_CASE": "OLIVE x REPILO x Huelva — unico com sinal de campo dos ultimos dias, contexto historico de 23 safras e janela abrindo. E carrega um achado que se age sozinho: a caducidade vencida do Neptune.",
+  "BEST_FUTURE_CASE": "WINTER CEREALS — maior area do pais, o dobro de resposta ADAMA registrada, e sementeira a 6-10 semanas. Falta so o sinal atual, que a proxima safra vai gerar.",
+  "BEST_STRATEGIC_CASE": "MAIZE x Amaranthus palmeri — o unico onde a lacuna de portfolio e nominal e demonstravel (1 registro no pais, ADAMA 0), com sinal oficial atual e janela em abril/2027. E onde o lancamento EAME de milho encontra um problema real sem resposta declarada.",
+  "PORQUE_TRES_RESPOSTAS_DIFERENTES": "porque as perguntas sao diferentes: o que mostrar HOJE, o que preparar para a proxima sementeira, e onde a estrategia EAME encontra lacuna. Um ranking unico teria escondido as tres."
+ },
+ "O_QUE_FALTA_NOS_TRES": [
+  "clima (AEMET exige chave)",
+  "voz publica (nenhuma coleta social feita)",
+  "ciencia (nao aberta — dependia destes pares)",
+  "portfolio comercial ADAMA (janela paralela)"
+ ],
+ "CORRECAO_2026_08_30": "eu procurei aviso de cereal no ITACyL (Castilla y Leon) e concluí ausencia. A fonte estava no portal do RAIF, que eu ja usava para o olivar, e que publica 10 culturas."
+}

@@ -33,7 +33,7 @@ OUTPUT    quem está exposto a que prazo, por país, com a data oficial
 ESTADOS   DATA_PROVED = SIM · DECISION_PROVED = NÃO (falta piloto) · ECONOMIC = NÃO AFIRMADO
 ```
 
-**Números vivos:** 486 vencimentos espanhóis em ≤6 meses · 1.004 em ≤12 · ADAMA 36 e 61 ·
+**Números vivos:** <!--M:ES_EXPIRING_6M-->486<!--/M--> vencimentos espanhóis em ≤6 meses · <!--M:ES_EXPIRING_12M-->1.004<!--/M--> em ≤12 · ADAMA <!--M:ES_ADAMA_EXPIRING_6M-->36<!--/M--> e <!--M:ES_ADAMA_EXPIRING_12M-->61<!--/M--> ·
 **Syngenta 37 e ADAMA 36 são os dois titulares mais expostos na janela de 6 meses**.
 
 **O que falta e o benchmark localizou:** `BY_HOLDER`, `TOP_HOLDERS`, `BY_SUBSTANCE` e
@@ -56,7 +56,7 @@ ESTADOS   DATA_PROVED = SIM · DECISION_PROVED = NÃO · ECONOMIC = NÃO AFIRMAD
 
 | campo | exemplo — Sevilla |
 |---|---|
-| **FACT** | coorte de repilo 1,10 → 2,74 em duas safras, sobre **301 parcelas**; 253.293 ha de olivar |
+| **FACT** | coorte de repilo 1,10 → <!--M:RAIF_SEVILLA_COHORT_2026-->2,74<!--/M--> em duas safras, sobre **301 parcelas**; 253.293 ha de olivar |
 | **WHY IT RANKS** | única província no top-3 das **duas** réguas — sobe **e** tem escala |
 | **LIMITATION** | 2,74 está **abaixo** do próprio máximo histórico (7,07 em 2009); área é de 2024 e incidência de 2026 |
 | **WHAT ADAMA COULD DO** | ativar assistência técnica na próxima safra; NEPTUNE (ES-00211) é resposta registrada para repilo em olivo |
@@ -77,6 +77,71 @@ a ADAMA.
 
 ---
 
+## CONVERGÊNCIA — sete camadas, e a concorrência é uma delas
+
+**Adicionado em 2026-08-30.** Um caso de convergência cruza:
+
+```
+CAMPO × CIÊNCIA × CLIMA × REGULATÓRIO × PORTFÓLIO ADAMA LOCAL × CONCORRÊNCIA × TEMPO
+```
+
+`CONCORRÊNCIA` **não é um monitor pendurado ao lado do produto.** É uma camada estrutural,
+e entra com **duas colunas independentes** que nunca se fundem:
+
+| coluna | pergunta | fonte | estado hoje |
+|---|---|---|---|
+| **RESPOSTA REGISTRADA** | quem tem resposta registrada localmente para este par? | registro oficial nacional | `DEMONSTRABLE` — é o X-005, COMPROVADO |
+| **ATIVAÇÃO OBSERVADA** | quem está se movimentando agora? | comunicação · Meta Ads Library · atividade técnica | `PLANNED` — sem dado em nenhum país |
+
+Quatro estados de ativação, mais o quinto que sempre existe. **Nunca somados:**
+
+`COMPETITOR_REGISTERED_RESPONSE` · `COMPETITOR_PAID_META_ACTIVITY` ·
+`COMPETITOR_PUBLIC_COMMUNICATION` · `COMPETITOR_TECHNICAL_ACTIVITY` · `NOT_KNOWN`
+
+**META ADS LIBRARY é fonte estratégica nomeada** (`EU-T9-002`), não um item genérico de
+"social media". Ela prova `ATIVAÇÃO PUBLICITÁRIA OBSERVADA` — e `META AD ≠ SALES`,
+`≠ MARKET SHARE`, `≠ CAMPAIGN SUCCESS`, `≠ STOCK`, `≠ PRODUCT AVAILABILITY`.
+
+**Quinto relógio:** `COMPETITOR OBSERVATION CLOCK` — `FIRST_OBSERVED` · `LAST_OBSERVED` ·
+`CHANGE_OBSERVED` · `SOURCE_DATE` · `AS_OF_DATE`. Ele **não** se funde com os quatro do
+calendário agronômico, e o frescor continua derivado, nunca persistido. Ele existe para
+uma pergunta só: **quem viu primeiro?** — comparando sinal de ciência, sinal de campo,
+sinal competitivo, ativação, janela agronômica e janela comercial quando conhecida.
+
+### As cinco perguntas que todo caso futuro faz
+
+1. quem tem resposta?
+2. quem está anunciando?
+3. quem começou primeiro?
+4. isso coincide com campo, ciência ou janela agronômica?
+5. **ainda existe tempo para agir?**
+
+A quinta é a mais difícil e só tem resposta com resolução temporal suficiente. Com
+`APPROXIMATE` ou sem fenologia observada, a resposta é `NOT_KNOWN` — e continua útil,
+porque diz o que falta medir.
+
+### Três casos conceituais — **capacidade, não dado**
+
+| caso | composição | saída |
+|---|---|---|
+| **COMPETITIVE CONVERGENCE WORTH INVESTIGATING** | sinal de campo + janela + resposta ADAMA + concorrentes com resposta + ativação Meta | `PRIORITY TO INVESTIGATE` |
+| **POSSIBLE EARLY WINDOW** | sinal começando + todos com resposta registrada + nenhuma ativação observada | *"o sinal pode estar surgindo antes de forte ativação pública competitiva"* |
+| **POSSIBLE PRE-POSITIONING SIGNAL** | concorrente anuncia + ciência aponta + campo silencioso | pergunta, e a resposta padrão é `NÃO SEI` |
+
+**Nenhum dos três conclui oportunidade comercial.** O caso 2 nunca é `WHITE SPACE`,
+`COMPETITIVE ADVANTAGE` nem `SALES OPPORTUNITY`. O caso 3 não separa antecipação de rotina
+sem série histórica — e a primeira captura nunca sustenta essa separação.
+
+```
+COMPETITOR_LAYER_IN_ARCHITECTURE = YES
+META_EXPLICIT_SOURCE             = YES
+DATA COVERAGE                    = NOT_YET_COMPLETE
+```
+
+Contrato completo: `data/samples/EAME-COMPETITOR-CONTRACT-V1.json`.
+
+---
+
 ## INTERFACE · Ask Sintonia
 
 **Não é uma quarta ferramenta.** É como se pergunta às duas primeiras. E é um
@@ -87,7 +152,7 @@ veredito escrito à mão. Toda resposta devolve `FACTS` · `CONNECTIONS` · `UNK
 ## SUPPORTING ENGINE — por baixo, não no menu
 
 science · experts · climate context · entity identity (7 entidades) · market/crop context ·
-data clock · change events · normalizações (substância 82,1% · agronômica 23,5%) ·
+data clock · change events · normalizações (substância <!--M:X006_USE_COVERAGE-->82,1<!--/M-->% · agronômica <!--M:X007_USE_COVERAGE-->23,5<!--/M-->%) ·
 camada de evidência e proveniência.
 
 ## COLLECT MORE — rota identificada, base insuficiente
@@ -113,11 +178,11 @@ Cinco classes de item, e **nenhum KPI decorativo**:
 
 | classe | exemplo real disponível hoje |
 |---|---|
-| `REGULATORY DEADLINE` | 36 autorizações ADAMA vencem em ≤6 meses; Syngenta tem 37 |
+| `REGULATORY DEADLINE` | <!--M:ES_ADAMA_EXPIRING_6M-->36<!--/M--> autorizações ADAMA vencem em ≤6 meses; Syngenta tem 37 |
 | `GEOGRAPHIC AGRONOMIC PRIORITY` | Sevilla — sobe 2,5× na maior base e tem 15,2% da área |
 | `ACTIVATION QUESTION` | FR · Vigne × Mildiou — 17 usos, nenhuma campanha encontrada |
 | `CHANGE DETECTED` | ES-01717 renomeado MAXENTIS → SORATEL MAX |
-| `INVESTIGATE` | 34 registros `Vigente` com caducidade passada, 31 na mesma data |
+| `INVESTIGATE` | <!--M:ES_ACTIVE_WITH_PAST_EXPIRY-->34<!--/M--> registros `Vigente` com caducidade passada, 31 na mesma data |
 
 **Proibido na home:** contador de fontes, contador de linhas, "buzz", score de influência,
 ou qualquer número que não mude uma decisão.
@@ -132,6 +197,8 @@ ou qualquer número que não mude uma decisão.
 | chamar `ha × incidência` de hectares afetados, área tratada, demanda ou venda | é **índice de exposição relativa**; serve para ordenar |
 | apresentar MT3 como oportunidade | é `ACTIVATION QUESTION` |
 | dizer que um concorrente está silencioso | o correto é `NO PUBLIC ACTIVITY FOUND IN SEARCHED SOURCES` |
+| somar registro, anúncio, comunicação e atividade técnica num indicador | são quatro observações de naturezas diferentes; o número esconderia **qual** delas está acontecendo |
+| ler anúncio como demanda, venda ou *share* | Meta prova `ATIVAÇÃO PUBLICITÁRIA OBSERVADA`, e nada além |
 | mostrar "35 perguntas respondidas pelo sistema" | 5 executam; 35 são contrato |
-| ler `EXPIRED` como `WITHDRAWN` | 34 registros espanhóis provam o contrário |
+| ler `EXPIRED` como `WITHDRAWN` | <!--M:ES_ACTIVE_WITH_PAST_EXPIRY-->34<!--/M--> registros espanhóis provam o contrário |
 | desenhar um menu de módulos independentes | são **duas ferramentas e uma pergunta**, com um motor por baixo |

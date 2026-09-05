@@ -1,0 +1,512 @@
+{
+ "SOURCE_ID": "ES-T5-004",
+ "source": "ORCID Public API v3.0 — /person e /employments, por ORCID",
+ "SOURCE_LOCATION": "ORCID (EUA)",
+ "FACT_LOCATION": "o vinculo institucional e declarado pela propria pessoa no seu registro ORCID",
+ "ORIGINAL_LANGUAGE": "EN",
+ "captured_at": "2026-08-30",
+ "PERGUNTA": "as pessoas que a ciencia confirmou tem canal publico proprio? E elas estao na Espanha?",
+ "CUSTO": "ORCID Public API e gratuita e sem orcamento. 22 chamadas, 22 HTTP 200. Nenhuma rota paga foi usada.",
+ "REGRA_DE_CANAL": "so conta como canal autodeclarado o que a PESSOA registrou no proprio ORCID. Nada foi buscado por nome em rede social. Nao ha contagem de seguidores em lugar nenhum deste arquivo.",
+ "REGRA_DE_PAPEL": "RESEARCHER porque ha vinculo institucional declarado. Papel nunca inferido de tema.",
+ "ACHADO_1_A_CIENCIA_NAO_ENTREGA_VOZ": {
+  "MEDIDO": "11 pesquisadores consultados. Canais autodeclarados em plataforma social: 0. Zero LinkedIn, zero YouTube, zero X, zero Instagram.",
+  "O_QUE_EXISTE": "7 URLs autodeclaradas no total, todas paginas de grupo/instituicao ou indice academico (Dialnet, Scopus, weedresearch.udl.cat, uco.es/ucolivo, masterolivicultura.org, medinadiscovery.com).",
+  "LEITURA": "a camada cientifica prova papel e da identidade estavel. Ela NAO entrega voz publica. A ponte ciencia -> voz nao e automatica e nao foi atravessada por esta rota.",
+  "NAO_CONCLUIR": "ausencia de canal no ORCID nao significa que a pessoa nao tem canal. Significa que ela nao declarou um ali. SOURCE FAILURE != ZERO — aqui e SILENCIO DA FONTE, nao ausencia do mundo.",
+  "PROXIMA_ROTA_HONESTA": "buscar canal por nome+instituicao em fonte publica, tratando cada achado como CANDIDATO ate a propria pagina declarar o vinculo institucional. Nao foi feito nesta rodada."
+ },
+ "ACHADO_2_NEM_TODO_AUTOR_DO_PAR_ESTA_NA_ESPANHA": {
+  "POR_QUE_IMPORTA": "a busca do OpenAlex foi por par CROP x ISSUE, sem filtro de pais. O par e espanhol; a autoria nao precisa ser.",
+  "MEDIDO": {
+   "MAIZE_x_AMARANTHUS": "3 de 3 identidades confirmadas com vinculo ABERTO na Espanha — Univ. Publica de Navarra (2) e Universitat de Lleida (1). Lleida e justamente a regiao do milho de regadio.",
+   "WHEAT_x_SEPTORIA": "as 2 identidades confirmadas NAO tem vinculo aberto na Espanha. Lukas Meile: ETH Zurich (CH) desde 2025, passou pelo CBGP espanhol de 2021 a 2024 e ESSE VINCULO TEM DATA DE FIM. Julien Alassimone: nenhum vinculo espanhol em toda a trajetoria declarada.",
+   "OLIVE_x_REPILO": "Juan Moral, Antonio Trapero e Concepcion Munoz Diez com vinculo aberto na Universidad de Cordoba (ES). Lorenzo Leon: o registro ORCID nao declara nenhum vinculo — NAO SEI."
+  },
+  "CONSEQUENCIA": "nao existe, nesta medicao, voz cientifica espanhola confirmada para TRIGO x SEPTORIA. Quem o par entregou de identidade firme esta na Suica e nos EUA. Isso e lacuna, e a lacuna e do trigo, nao do milho.",
+  "CONTRACHEQUE": "o par TRIGO x SEPTORIA tem 200 autores distintos e so 12 foram persistidos, e so 5 desses foram testados. A conclusao vale para o topo por numero de obras, nao para o par inteiro. Ampliar depende do orcamento OpenAlex, que esta zerado."
+ },
+ "ACHADO_3_INSTITUICAO_DA_BUSCA_NAO_E_INSTITUICAO_ATUAL": {
+  "CASO": "Julien Alassimone. A busca expanded-search do ORCID devolveu institution-name = [\"Biogemma\",\"INRA Centre de Montpellier\"]. O registro de vinculos mostra que esses dois sao estagios de 2006 e 2006-2007.",
+  "CONTRA_O_QUE_PROTEGE": "eu quase usei o campo institution-name da busca para dizer onde a pessoa esta. Ele lista afiliacoes de qualquer epoca, sem data. Usa-lo para localizar alguem e SOURCE_LOCATION virando FACT_LOCATION.",
+  "REGRA": "so /employments com data serve para dizer onde a pessoa esta. O campo de instituicao da busca serve para DESEMPATAR homonimo, nunca para geografia.",
+  "ONDE_ISSO_JA_CIRCULA": "o campo ORGANIZATION da fila ES-T5-002 (152 registros) tambem veio de afiliacao declarada em trabalho, sem data. Ele nao foi corrigido aqui e permanece sem data — nao usar como localizacao atual."
+ },
+ "RESEARCHERS_CONSULTADOS": 11,
+ "COM_VINCULO_ABERTO_NA_ESPANHA": 8,
+ "COM_CANAL_SOCIAL_AUTODECLARADO": 0,
+ "PESSOAS": [
+  {
+   "NAME_NO_OPENALEX": "Mercedes Royuela",
+   "NOME_NO_ORCID": "Mercedes Royuela",
+   "ORCID": "0000-0002-1085-2229",
+   "PAIR": "MAIZE_x_AMARANTHUS",
+   "ANCORA_DE_IDENTIDADE": "BUSCA_ORCID num-found=1",
+   "PAIS_DO_VINCULO_ABERTO": "ES",
+   "PAISES_EM_TODA_A_TRAJETORIA": [
+    "ES"
+   ],
+   "VINCULOS_DECLARADOS": [
+    {
+     "org": "Universidad Publica de Navarra",
+     "pais": "ES",
+     "papel": null,
+     "inicio": null,
+     "fim": null
+    }
+   ],
+   "INSTITUICOES_QUE_A_BUSCA_ORCID_MOSTROU": [
+    "Universidad Publica de Navarra"
+   ],
+   "CANAIS_AUTODECLARADOS": [],
+   "CANAIS_SOCIAIS_AUTODECLARADOS": [],
+   "BIOGRAFIA_PUBLICA": "AUSENTE",
+   "PUBLIC_VOICE": "NAO ENCONTRADA POR ESTA ROTA"
+  },
+  {
+   "NAME_NO_OPENALEX": "Joel Torra",
+   "NOME_NO_ORCID": "Joel Torra",
+   "ORCID": "0000-0002-8666-6780",
+   "PAIR": "MAIZE_x_AMARANTHUS",
+   "ANCORA_DE_IDENTIDADE": "BUSCA_ORCID num-found=1",
+   "PAIS_DO_VINCULO_ABERTO": "ES",
+   "PAISES_EM_TODA_A_TRAJETORIA": [
+    "ES"
+   ],
+   "VINCULOS_DECLARADOS": [
+    {
+     "org": "Universitat de Lleida",
+     "pais": "ES",
+     "papel": "Professor",
+     "inicio": "2025",
+     "fim": null
+    }
+   ],
+   "INSTITUICOES_QUE_A_BUSCA_ORCID_MOSTROU": [
+    "Universitat de Lleida"
+   ],
+   "CANAIS_AUTODECLARADOS": [
+    {
+     "nome": "Weed Science and Plant Ecology Research Group",
+     "url": "http://www.weedresearch.udl.cat/english.htm",
+     "NATUREZA": "PAGINA_INSTITUCIONAL_OU_DE_GRUPO — canal da organizacao, nao da pessoa"
+    }
+   ],
+   "CANAIS_SOCIAIS_AUTODECLARADOS": [],
+   "BIOGRAFIA_PUBLICA": "SIM",
+   "PUBLIC_VOICE": "NAO ENCONTRADA POR ESTA ROTA"
+  },
+  {
+   "NAME_NO_OPENALEX": "Mikel Vicente Eceiza",
+   "NOME_NO_ORCID": "Mikel Vicente Eceiza",
+   "ORCID": "0000-0002-1684-270X",
+   "PAIR": "MAIZE_x_AMARANTHUS",
+   "ANCORA_DE_IDENTIDADE": "BUSCA_ORCID num-found=1",
+   "PAIS_DO_VINCULO_ABERTO": "ES",
+   "PAISES_EM_TODA_A_TRAJETORIA": [
+    "ES"
+   ],
+   "VINCULOS_DECLARADOS": [
+    {
+     "org": "Public University of Navarre",
+     "pais": "ES",
+     "papel": null,
+     "inicio": "2019",
+     "fim": null
+    }
+   ],
+   "INSTITUICOES_QUE_A_BUSCA_ORCID_MOSTROU": [
+    "European Weed Research Society",
+    "Public University of Navarre"
+   ],
+   "CANAIS_AUTODECLARADOS": [],
+   "CANAIS_SOCIAIS_AUTODECLARADOS": [],
+   "BIOGRAFIA_PUBLICA": "AUSENTE",
+   "PUBLIC_VOICE": "NAO ENCONTRADA POR ESTA ROTA",
+   "RESSALVA_DO_VINCULO_ABERTO": "inicio declarado em 2019 e sem data de fim. Isso NAO diz que o registro esta desatualizado nem que a pessoa saiu: uma catedra longa e um registro esquecido produzem exatamente o mesmo campo. Por isso o arquivo nao afirma onde a pessoa esta hoje.",
+   "VINCULO_ABERTO_COMECOU_EM": 2019
+  },
+  {
+   "NAME_NO_OPENALEX": "Lukas Meile",
+   "NOME_NO_ORCID": "Lukas Meile",
+   "ORCID": "0000-0002-2680-3309",
+   "PAIR": "WHEAT_x_SEPTORIA",
+   "ANCORA_DE_IDENTIDADE": "BUSCA_ORCID num-found=1",
+   "PAIS_DO_VINCULO_ABERTO": "CH",
+   "PAISES_EM_TODA_A_TRAJETORIA": [
+    "CH",
+    "ES"
+   ],
+   "VINCULOS_DECLARADOS": [
+    {
+     "org": "ETH Zurich",
+     "pais": "CH",
+     "papel": "Postdoc",
+     "inicio": "2025",
+     "fim": null
+    },
+    {
+     "org": "Centro de Biotecnología y Genómica de Plantas",
+     "pais": "ES",
+     "papel": "Postdoctoral Researcher",
+     "inicio": "2021",
+     "fim": "2024"
+    },
+    {
+     "org": "ETH Zurich",
+     "pais": "CH",
+     "papel": null,
+     "inicio": "2015",
+     "fim": "2020"
+    }
+   ],
+   "INSTITUICOES_QUE_A_BUSCA_ORCID_MOSTROU": [
+    "Centro de Biotecnología y Genómica de Plantas",
+    "ETH Zurich"
+   ],
+   "CANAIS_AUTODECLARADOS": [],
+   "CANAIS_SOCIAIS_AUTODECLARADOS": [],
+   "BIOGRAFIA_PUBLICA": "AUSENTE",
+   "PUBLIC_VOICE": "NAO ENCONTRADA POR ESTA ROTA"
+  },
+  {
+   "NAME_NO_OPENALEX": "Julien Alassimone",
+   "NOME_NO_ORCID": "Julien Alassimone",
+   "ORCID": "0000-0002-8118-2605",
+   "PAIR": "WHEAT_x_SEPTORIA",
+   "ANCORA_DE_IDENTIDADE": "BUSCA_ORCID num-found=1",
+   "PAIS_DO_VINCULO_ABERTO": "US",
+   "PAISES_EM_TODA_A_TRAJETORIA": [
+    "CH",
+    "FR",
+    "US"
+   ],
+   "VINCULOS_DECLARADOS": [
+    {
+     "org": "Stanford University",
+     "pais": "US",
+     "papel": "Postdoctoral Research Associate",
+     "inicio": "2013",
+     "fim": null
+    },
+    {
+     "org": "Université de Lausanne Faculté de biologie et médecine",
+     "pais": "CH",
+     "papel": "Research Scientist -Ph.D student",
+     "inicio": "2007",
+     "fim": "2012"
+    },
+    {
+     "org": "Université de Lausanne Faculté de biologie et médecine",
+     "pais": "CH",
+     "papel": "Teaching Assistant",
+     "inicio": "2007",
+     "fim": "2012"
+    },
+    {
+     "org": "INRA Centre de Montpellier",
+     "pais": "FR",
+     "papel": "Research Intern - Master Student",
+     "inicio": "2006",
+     "fim": "2007"
+    },
+    {
+     "org": "Biogemma",
+     "pais": "FR",
+     "papel": "Research Intern - Bachelor training",
+     "inicio": "2006",
+     "fim": "2006"
+    }
+   ],
+   "INSTITUICOES_QUE_A_BUSCA_ORCID_MOSTROU": [
+    "Biogemma",
+    "INRA Centre de Montpellier"
+   ],
+   "CANAIS_AUTODECLARADOS": [],
+   "CANAIS_SOCIAIS_AUTODECLARADOS": [],
+   "BIOGRAFIA_PUBLICA": "SIM",
+   "PUBLIC_VOICE": "NAO ENCONTRADA POR ESTA ROTA",
+   "RESSALVA_DO_VINCULO_ABERTO": "inicio declarado em 2013 e sem data de fim. Isso NAO diz que o registro esta desatualizado nem que a pessoa saiu: uma catedra longa e um registro esquecido produzem exatamente o mesmo campo. Por isso o arquivo nao afirma onde a pessoa esta hoje.",
+   "VINCULO_ABERTO_COMECOU_EM": 2013
+  },
+  {
+   "NAME_NO_OPENALEX": "Juan Moral",
+   "NOME_NO_ORCID": "Juan Moral Moral",
+   "ORCID": "0000-0002-1153-2809",
+   "PAIR": "OLIVE_x_REPILO",
+   "ANCORA_DE_IDENTIDADE": "ORCID declarado no registro de autor do OpenAlex (ES-T5-002)",
+   "PAIS_DO_VINCULO_ABERTO": "ES",
+   "PAISES_EM_TODA_A_TRAJETORIA": [
+    "ES"
+   ],
+   "VINCULOS_DECLARADOS": [
+    {
+     "org": "University of Córdoba",
+     "pais": "ES",
+     "papel": "Profesor",
+     "inicio": "2025",
+     "fim": null
+    }
+   ],
+   "INSTITUICOES_QUE_A_BUSCA_ORCID_MOSTROU": [
+    "University of Córdoba"
+   ],
+   "CANAIS_AUTODECLARADOS": [],
+   "CANAIS_SOCIAIS_AUTODECLARADOS": [],
+   "BIOGRAFIA_PUBLICA": "AUSENTE",
+   "PUBLIC_VOICE": "NAO ENCONTRADA POR ESTA ROTA"
+  },
+  {
+   "NAME_NO_OPENALEX": "Antonio Trapero Casas",
+   "NOME_NO_ORCID": "Antonio Trapero",
+   "ORCID": "0000-0003-3089-8301",
+   "PAIR": "OLIVE_x_REPILO",
+   "ANCORA_DE_IDENTIDADE": "ORCID declarado no registro de autor do OpenAlex (ES-T5-002)",
+   "PAIS_DO_VINCULO_ABERTO": "ES",
+   "PAISES_EM_TODA_A_TRAJETORIA": [
+    "ES"
+   ],
+   "VINCULOS_DECLARADOS": [
+    {
+     "org": "Universidad de Córdoba",
+     "pais": "ES",
+     "papel": "Professor",
+     "inicio": "1978",
+     "fim": null
+    }
+   ],
+   "INSTITUICOES_QUE_A_BUSCA_ORCID_MOSTROU": null,
+   "CANAIS_AUTODECLARADOS": [
+    {
+     "nome": "Dialnet",
+     "url": "http://dialnet.unirioja.es/servlet/autor?codigo=244826",
+     "NATUREZA": "INDICE_ACADEMICO — nao e canal de voz"
+    },
+    {
+     "nome": "Scopus",
+     "url": "https://www.scopus.com/",
+     "NATUREZA": "INDICE_ACADEMICO — nao e canal de voz"
+    }
+   ],
+   "CANAIS_SOCIAIS_AUTODECLARADOS": [],
+   "BIOGRAFIA_PUBLICA": "AUSENTE",
+   "PUBLIC_VOICE": "NAO ENCONTRADA POR ESTA ROTA",
+   "RESSALVA_DO_VINCULO_ABERTO": "inicio declarado em 1978 e sem data de fim. Isso NAO diz que o registro esta desatualizado nem que a pessoa saiu: uma catedra longa e um registro esquecido produzem exatamente o mesmo campo. Por isso o arquivo nao afirma onde a pessoa esta hoje.",
+   "VINCULO_ABERTO_COMECOU_EM": 1978
+  },
+  {
+   "NAME_NO_OPENALEX": "Concepcion M. Diez",
+   "NOME_NO_ORCID": "Concepcion Munoz Diez",
+   "ORCID": "0000-0002-1888-3628",
+   "PAIR": "OLIVE_x_REPILO",
+   "ANCORA_DE_IDENTIDADE": "ORCID declarado no registro de autor do OpenAlex (ES-T5-002)",
+   "PAIS_DO_VINCULO_ABERTO": "ES",
+   "PAISES_EM_TODA_A_TRAJETORIA": [
+    "ES"
+   ],
+   "VINCULOS_DECLARADOS": [
+    {
+     "org": "University of Córdoba",
+     "pais": "ES",
+     "papel": "Associate Professor",
+     "inicio": "2019",
+     "fim": null
+    }
+   ],
+   "INSTITUICOES_QUE_A_BUSCA_ORCID_MOSTROU": null,
+   "CANAIS_AUTODECLARADOS": [
+    {
+     "nome": "UCOLIVO - Research Group",
+     "url": "https://www.uco.es/ucolivo",
+     "NATUREZA": "PAGINA_INSTITUCIONAL_OU_DE_GRUPO — canal da organizacao, nao da pessoa"
+    },
+    {
+     "nome": "Olive growing and oil technology master",
+     "url": "https://masterolivicultura.org",
+     "NATUREZA": "PAGINA_INSTITUCIONAL_OU_DE_GRUPO — canal da organizacao, nao da pessoa"
+    }
+   ],
+   "CANAIS_SOCIAIS_AUTODECLARADOS": [],
+   "BIOGRAFIA_PUBLICA": "SIM",
+   "PUBLIC_VOICE": "NAO ENCONTRADA POR ESTA ROTA",
+   "RESSALVA_DO_VINCULO_ABERTO": "inicio declarado em 2019 e sem data de fim. Isso NAO diz que o registro esta desatualizado nem que a pessoa saiu: uma catedra longa e um registro esquecido produzem exatamente o mesmo campo. Por isso o arquivo nao afirma onde a pessoa esta hoje.",
+   "VINCULO_ABERTO_COMECOU_EM": 2019
+  },
+  {
+   "NAME_NO_OPENALEX": "Lorenzo Leon",
+   "NOME_NO_ORCID": "Lorenzo León",
+   "ORCID": "0000-0002-5664-3393",
+   "PAIR": "OLIVE_x_REPILO",
+   "ANCORA_DE_IDENTIDADE": "ORCID declarado no registro de autor do OpenAlex (ES-T5-002)",
+   "PAIS_DO_VINCULO_ABERTO": "NAO SEI — o registro ORCID nao declara nenhum vinculo",
+   "PAISES_EM_TODA_A_TRAJETORIA": [],
+   "VINCULOS_DECLARADOS": [],
+   "INSTITUICOES_QUE_A_BUSCA_ORCID_MOSTROU": null,
+   "CANAIS_AUTODECLARADOS": [],
+   "CANAIS_SOCIAIS_AUTODECLARADOS": [],
+   "BIOGRAFIA_PUBLICA": "AUSENTE",
+   "PUBLIC_VOICE": "NAO ENCONTRADA POR ESTA ROTA"
+  },
+  {
+   "NAME_NO_OPENALEX": "Andrea Sanchez-Vallet",
+   "NOME_NO_ORCID": "Andrea Sanchez Vallet",
+   "ORCID": "0000-0002-3668-9503",
+   "PAIR": "WHEAT_x_SEPTORIA",
+   "ANCORA_DE_IDENTIDADE": "ORCID declarado no registro de autor do OpenAlex (ES-T5-002)",
+   "PAIS_DO_VINCULO_ABERTO": "ES",
+   "PAISES_EM_TODA_A_TRAJETORIA": [
+    "CH",
+    "ES"
+   ],
+   "VINCULOS_DECLARADOS": [
+    {
+     "org": "Consejo Superior de Investigaciones Científicas",
+     "pais": "ES",
+     "papel": null,
+     "inicio": "2026",
+     "fim": null
+    },
+    {
+     "org": "Universidad Politécnica de Madrid",
+     "pais": "ES",
+     "papel": "PI",
+     "inicio": "2020",
+     "fim": "2026"
+    },
+    {
+     "org": "ETH Zurich",
+     "pais": "CH",
+     "papel": null,
+     "inicio": "2014",
+     "fim": "2020"
+    }
+   ],
+   "INSTITUICOES_QUE_A_BUSCA_ORCID_MOSTROU": [
+    "Consejo Superior de Investigaciones Científicas",
+    "ETH Zurich"
+   ],
+   "CANAIS_AUTODECLARADOS": [],
+   "CANAIS_SOCIAIS_AUTODECLARADOS": [],
+   "BIOGRAFIA_PUBLICA": "AUSENTE",
+   "PUBLIC_VOICE": "NAO ENCONTRADA POR ESTA ROTA"
+  },
+  {
+   "NAME_NO_OPENALEX": "Olga Genilloud",
+   "NOME_NO_ORCID": "Olga Genilloud",
+   "ORCID": "0000-0002-4202-1219",
+   "PAIR": "WHEAT_x_SEPTORIA",
+   "ANCORA_DE_IDENTIDADE": "ORCID declarado no registro de autor do OpenAlex (ES-T5-002)",
+   "PAIS_DO_VINCULO_ABERTO": "ES",
+   "PAISES_EM_TODA_A_TRAJETORIA": [
+    "ES",
+    "US"
+   ],
+   "VINCULOS_DECLARADOS": [
+    {
+     "org": "Fundación MEDINA",
+     "pais": "ES",
+     "papel": " Scientific Director",
+     "inicio": "2009",
+     "fim": null
+    },
+    {
+     "org": "Merck Sharp y Dohme de España",
+     "pais": "ES",
+     "papel": "Senior Research Fellow",
+     "inicio": "1999",
+     "fim": "2008"
+    },
+    {
+     "org": "Merck Sharp and Dohme de España",
+     "pais": "ES",
+     "papel": "Research Fellow",
+     "inicio": "1995",
+     "fim": "1999"
+    },
+    {
+     "org": "Merck Sharp and Dohme de España",
+     "pais": "ES",
+     "papel": "Senior Research Microbiologist",
+     "inicio": "1989",
+     "fim": "1995"
+    },
+    {
+     "org": "Hospital Ramón y Cajal",
+     "pais": "ES",
+     "papel": "PhD student",
+     "inicio": "1984",
+     "fim": "1988"
+    },
+    {
+     "org": "Harvard Medical School",
+     "pais": "US",
+     "papel": "Visiting PhD student",
+     "inicio": "1987",
+     "fim": "1987"
+    }
+   ],
+   "INSTITUICOES_QUE_A_BUSCA_ORCID_MOSTROU": null,
+   "CANAIS_AUTODECLARADOS": [
+    {
+     "nome": "https://www.medinadiscovery.com",
+     "url": "http://www.medinadiscovery.com",
+     "NATUREZA": "PAGINA_INSTITUCIONAL_OU_DE_GRUPO — canal da organizacao, nao da pessoa"
+    }
+   ],
+   "CANAIS_SOCIAIS_AUTODECLARADOS": [],
+   "BIOGRAFIA_PUBLICA": "SIM",
+   "PUBLIC_VOICE": "NAO ENCONTRADA POR ESTA ROTA",
+   "RESSALVA_DO_VINCULO_ABERTO": "inicio declarado em 2009 e sem data de fim. Isso NAO diz que o registro esta desatualizado nem que a pessoa saiu: uma catedra longa e um registro esquecido produzem exatamente o mesmo campo. Por isso o arquivo nao afirma onde a pessoa esta hoje.",
+   "VINCULO_ABERTO_COMECOU_EM": 2009
+  }
+ ],
+ "REGRA_DO_VINCULO_ABERTO": "vinculo sem data de fim nao prova vinculo atual, em nenhum registro deste arquivo. Onde o inicio e antigo (>=5 anos) o registro carrega RESSALVA_DO_VINCULO_ABERTO — que e um aviso sobre a IDADE DO CAMPO, nao um juizo sobre a pessoa.",
+ "COM_VINCULO_ABERTO_NA_ESPANHA_SEM_RESSALVA": 4,
+ "COM_VINCULO_ABERTO_NA_ESPANHA_COM_RESSALVA": 4,
+ "ONDE_A_RESSALVA_MUDA_A_LEITURA": "so em Julien Alassimone. O unico vinculo sem fim dele e um pos-doc iniciado em 2013 nos EUA, e ele nao tem nenhum vinculo espanhol em toda a trajetoria — a ressalva nao muda a conclusao que importa aqui, que e a ausencia da Espanha. Nos casos espanhois (Trapero 1978, Genilloud 2009, Diez 2019, Eceiza 2019) a ressalva nao retira ninguem da contagem: retira apenas a frase \"esta hoje em X\".",
+ "ACHADO_4_CANAL_AUTODECLARADO_NAO_E_CANAL_VERIFICADO": {
+  "TESTADAS": "6 de 6 URLs autodeclaradas resolvidas (curl -L, ate 3 tentativas).",
+  "RESULTADO": [
+   {
+    "pessoa": "Joel Torra",
+    "url": "http://www.weedresearch.udl.cat/english.htm",
+    "estado": "MORTA",
+    "detalhe": "em https o host responde 404 (\"Pagina no trobada\" do proprio site do grupo); em http redireciona para grem.udl.cat, que o proxy desta sessao recusou (connect_rejected). O grupo mudou de endereco e o ORCID nao acompanhou.",
+    "ressalva": "o 404 e fato da fonte; o bloqueio no endereco novo e limite MEU. Sao coisas diferentes."
+   },
+   {
+    "pessoa": "Antonio Trapero",
+    "url": "https://dialnet.unirioja.es/servlet/autor?codigo=244826",
+    "estado": "VIVA (HTTP 200)",
+    "detalhe": "em http devolveu 503 na primeira tentativa e 200 em https. 503 transitorio nao e URL morta — SOURCE FAILURE != ZERO."
+   },
+   {
+    "pessoa": "Antonio Trapero",
+    "url": "https://www.scopus.com/",
+    "estado": "NAO E CANAL",
+    "detalhe": "HTTP 403 na home. E a home generica de um indice comercial com muro de acesso, sem identificador da pessoa. Nao aponta para ninguem."
+   },
+   {
+    "pessoa": "Concepcion Munoz Diez",
+    "url": "https://www.uco.es/ucolivo",
+    "estado": "VIVA (HTTP 200)",
+    "detalhe": "pagina do grupo UCOLIVO"
+   },
+   {
+    "pessoa": "Concepcion Munoz Diez",
+    "url": "https://masterolivicultura.org",
+    "estado": "VIVA (HTTP 200)",
+    "detalhe": "pagina de um mestrado"
+   },
+   {
+    "pessoa": "Olga Genilloud",
+    "url": "https://www.medinadiscovery.com",
+    "estado": "VIVA (HTTP 200)",
+    "detalhe": "pagina da Fundacion MEDINA"
+   }
+  ],
+  "PLACAR": "4 vivas, 1 morta, 1 que nem e canal. Nenhuma e canal pessoal: todas sao pagina de grupo, de instituicao ou indice.",
+  "REGRA": "CANAIS_AUTODECLARADOS significa \"a pessoa declarou esta URL\", nunca \"esta URL funciona\" e nunca \"esta pessoa fala ali\". Resolver a URL e passo separado, e ler o que ha nela e um terceiro.",
+  "NAO_LIDO": "nenhum conteudo dessas paginas foi lido. Saber que respondem 200 nao autoriza dizer o que dizem."
+ }
+}

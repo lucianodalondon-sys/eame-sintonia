@@ -1,0 +1,333 @@
+{
+ "SOURCE_ID": "ES-T2-003-crosswalk-municipio-aragon",
+ "source": "Gobierno de Aragon, opendata GA_OD_Core resource_id=87 — \"Superficies de parcelarios por municipios\", dataset \"Relacion entre parcelas PAC, codigos catastrales y SIGPAC en Aragon\"",
+ "URL": "https://opendata.aragon.es/GA_OD_Core/download?resource_id=87&filters={\"ccosec\":\"2025\"}&formato=json",
+ "SOURCE_VERSION": "ccosec=2025, baixado em 2026-08-30",
+ "SOURCE_LOCATION": "ARAGON / ESPANHA (a tabela cobre o pais inteiro)",
+ "FACT_LOCATION": "municipio catastral declarado no proprio registro oficial",
+ "ORIGINAL_LANGUAGE": "es",
+ "captured_at": "2026-08-30",
+ "O_QUE_RESOLVE": "era o NEXT_SMALLEST_STEP da rodada anterior: ligar CPROCA+CMUNCA a nome oficial de municipio sem aproximacao.",
+ "CAMPOS_DA_TABELA": [
+  "cprovi — provincia",
+  "cmunca — municipio CATASTRAL",
+  "dmunca — denominacao oficial",
+  "cmunic — municipio INE",
+  "ccomar/csubco — comarca agraria"
+ ],
+ "CASAMENTO": {
+  "MUNICIPIOS_DE_HUESCA_COM_MILHO": 81,
+  "CASADOS_OFICIALMENTE": 81,
+  "SEM_CASAMENTO": 0,
+  "METODO": "juncao exata por (cprovi, cmunca). Nenhum fuzzy-match, nenhuma inferencia."
+ },
+ "A_MEDIDA_QUE_JUSTIFICA_A_RECUSA_ANTERIOR": {
+  "MEDIDO": "nos 339 municipios de Aragon da tabela, o codigo catastral difere do codigo INE em 335 — 99%.",
+  "EXEMPLOS": [
+   {
+    "cmunca": 5,
+    "cmunic_INE": 3,
+    "nome": "ADAHUESCA"
+   },
+   {
+    "cmunca": 7,
+    "cmunic_INE": 4,
+    "nome": "AGUERO"
+   },
+   {
+    "cmunca": 9,
+    "cmunic_INE": 907,
+    "nome": "AINSA-SOBRARBE"
+   },
+   {
+    "cmunca": 10,
+    "cmunic_INE": 6,
+    "nome": "AISA"
+   },
+   {
+    "cmunca": 11,
+    "cmunic_INE": 7,
+    "nome": "ALBALATE DE CINCA"
+   }
+  ],
+  "LEITURA": "se eu tivesse tratado CMUNCA como codigo INE, teria nomeado o municipio errado em 99% dos casos. A recusa de mapear por aproximacao na rodada anterior nao era cautela retorica: era a diferenca entre um mapa util e um mapa errado."
+ },
+ "TOP20_HUESCA_MILHO_2025": [
+  {
+   "CPROCA": 22,
+   "CMUNCA": 294,
+   "NOME_OFICIAL": "SARIÑENA",
+   "CMUNIC_INE": 213,
+   "COMARCA_AGRARIA": "06",
+   "HA_MAIZ_2025": 2895.0,
+   "PARCELAS": 835,
+   "ACUM_PCT": 8.0
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 104,
+   "NOME_OFICIAL": "CANDASNOS",
+   "CMUNIC_INE": 77,
+   "COMARCA_AGRARIA": "08",
+   "HA_MAIZ_2025": 2448.6,
+   "PARCELAS": 346,
+   "ACUM_PCT": 14.7
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 218,
+   "NOME_OFICIAL": "MONZON",
+   "CMUNIC_INE": 158,
+   "COMARCA_AGRARIA": "07",
+   "HA_MAIZ_2025": 2199.4,
+   "PARCELAS": 1443,
+   "ACUM_PCT": 20.8
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 315,
+   "NOME_OFICIAL": "TAMARITE DE LITERA",
+   "CMUNIC_INE": 225,
+   "COMARCA_AGRARIA": "07",
+   "HA_MAIZ_2025": 1969.6,
+   "PARCELAS": 1462,
+   "ACUM_PCT": 26.2
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 253,
+   "NOME_OFICIAL": "SAN MIGUEL DEL CINCA",
+   "CMUNIC_INE": 903,
+   "COMARCA_AGRARIA": "07",
+   "HA_MAIZ_2025": 1498.8,
+   "PARCELAS": 578,
+   "ACUM_PCT": 30.4
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 140,
+   "NOME_OFICIAL": "ESPLUS",
+   "CMUNIC_INE": 99,
+   "COMARCA_AGRARIA": "07",
+   "HA_MAIZ_2025": 1492.4,
+   "PARCELAS": 321,
+   "ACUM_PCT": 34.5
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 241,
+   "NOME_OFICIAL": "PEÑALBA",
+   "CMUNIC_INE": 172,
+   "COMARCA_AGRARIA": "08",
+   "HA_MAIZ_2025": 1298.1,
+   "PARCELAS": 296,
+   "ACUM_PCT": 38.0
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 301,
+   "NOME_OFICIAL": "SENA",
+   "CMUNIC_INE": 217,
+   "COMARCA_AGRARIA": "06",
+   "HA_MAIZ_2025": 1259.6,
+   "PARCELAS": 239,
+   "ACUM_PCT": 41.5
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 162,
+   "NOME_OFICIAL": "GRAÑEN",
+   "CMUNIC_INE": 116,
+   "COMARCA_AGRARIA": "04",
+   "HA_MAIZ_2025": 1129.4,
+   "PARCELAS": 615,
+   "ACUM_PCT": 44.6
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 176,
+   "NOME_OFICIAL": "ILCHE",
+   "CMUNIC_INE": 128,
+   "COMARCA_AGRARIA": "05",
+   "HA_MAIZ_2025": 1122.8,
+   "PARCELAS": 797,
+   "ACUM_PCT": 47.7
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 172,
+   "NOME_OFICIAL": "HUERTO",
+   "CMUNIC_INE": 124,
+   "COMARCA_AGRARIA": "04",
+   "HA_MAIZ_2025": 1027.1,
+   "PARCELAS": 249,
+   "ACUM_PCT": 50.6
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 190,
+   "NOME_OFICIAL": "LALUEZA",
+   "CMUNIC_INE": 136,
+   "COMARCA_AGRARIA": "06",
+   "HA_MAIZ_2025": 996.7,
+   "PARCELAS": 346,
+   "ACUM_PCT": 53.3
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 242,
+   "NOME_OFICIAL": "PERALTA DE ALCOFEA",
+   "CMUNIC_INE": 174,
+   "COMARCA_AGRARIA": "06",
+   "HA_MAIZ_2025": 975.2,
+   "PARCELAS": 331,
+   "ACUM_PCT": 56.0
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 67,
+   "NOME_OFICIAL": "BELVER DE CINCA",
+   "CMUNIC_INE": 52,
+   "COMARCA_AGRARIA": "08",
+   "HA_MAIZ_2025": 854.3,
+   "PARCELAS": 248,
+   "ACUM_PCT": 58.4
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 336,
+   "NOME_OFICIAL": "VALFARTA",
+   "CMUNIC_INE": 242,
+   "COMARCA_AGRARIA": "06",
+   "HA_MAIZ_2025": 766.5,
+   "PARCELAS": 150,
+   "ACUM_PCT": 60.5
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 22,
+   "NOME_OFICIAL": "ALCOLEA DE CINCA",
+   "CMUNIC_INE": 17,
+   "COMARCA_AGRARIA": "08",
+   "HA_MAIZ_2025": 644.5,
+   "PARCELAS": 220,
+   "ACUM_PCT": 62.2
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 231,
+   "NOME_OFICIAL": "ONTIÑENA",
+   "CMUNIC_INE": 165,
+   "COMARCA_AGRARIA": "08",
+   "HA_MAIZ_2025": 643.6,
+   "PARCELAS": 196,
+   "ACUM_PCT": 64.0
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 82,
+   "NOME_OFICIAL": "BINACED",
+   "CMUNIC_INE": 60,
+   "COMARCA_AGRARIA": "07",
+   "HA_MAIZ_2025": 554.8,
+   "PARCELAS": 331,
+   "ACUM_PCT": 65.5
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 191,
+   "NOME_OFICIAL": "LANAJA",
+   "CMUNIC_INE": 137,
+   "COMARCA_AGRARIA": "06",
+   "HA_MAIZ_2025": 533.2,
+   "PARCELAS": 337,
+   "ACUM_PCT": 67.0
+  },
+  {
+   "CPROCA": 22,
+   "CMUNCA": 112,
+   "NOME_OFICIAL": "CASTEJON DEL PUENTE",
+   "CMUNIC_INE": 82,
+   "COMARCA_AGRARIA": "05",
+   "HA_MAIZ_2025": 513.2,
+   "PARCELAS": 288,
+   "ACUM_PCT": 68.4
+  }
+ ],
+ "TOP10_ZARAGOZA_MILHO_2025": [
+  {
+   "NOME_OFICIAL": null,
+   "HA": 2792.8,
+   "PARCELAS": 1167,
+   "ACUM_PCT": 19.9
+  },
+  {
+   "NOME_OFICIAL": null,
+   "HA": 2228.4,
+   "PARCELAS": 1025,
+   "ACUM_PCT": 35.7
+  },
+  {
+   "NOME_OFICIAL": null,
+   "HA": 894.5,
+   "PARCELAS": 258,
+   "ACUM_PCT": 42.1
+  },
+  {
+   "NOME_OFICIAL": null,
+   "HA": 782.4,
+   "PARCELAS": 647,
+   "ACUM_PCT": 47.7
+  },
+  {
+   "NOME_OFICIAL": null,
+   "HA": 486.4,
+   "PARCELAS": 54,
+   "ACUM_PCT": 51.1
+  },
+  {
+   "NOME_OFICIAL": null,
+   "HA": 483.4,
+   "PARCELAS": 395,
+   "ACUM_PCT": 54.6
+  },
+  {
+   "NOME_OFICIAL": null,
+   "HA": 421.4,
+   "PARCELAS": 411,
+   "ACUM_PCT": 57.6
+  },
+  {
+   "NOME_OFICIAL": null,
+   "HA": 395.6,
+   "PARCELAS": 659,
+   "ACUM_PCT": 60.4
+  },
+  {
+   "NOME_OFICIAL": null,
+   "HA": 266.6,
+   "PARCELAS": 592,
+   "ACUM_PCT": 62.3
+  },
+  {
+   "NOME_OFICIAL": null,
+   "HA": 264.9,
+   "PARCELAS": 333,
+   "ACUM_PCT": 64.2
+  }
+ ],
+ "REPRODUCAO_DA_CONCENTRACAO": {
+  "TOTAL_HA_HUESCA": 36273.3,
+  "MUNICIPIOS": 81,
+  "TOP10": "47,7%",
+  "TOP20": "68,4%",
+  "TOP30": "81,2%",
+  "DENOMINADOR": "36.273,3 ha somados sobre os 81 municipios de CPROCA=22 na campanha 2025 do arquivo opendata_sga_parcelas_her_2025.csv, produto cprodu=4 (MAIZ). O total provincial por CPROVI era 37.236 ha — a diferenca de 963 ha e de parcelas cujo municipio catastral cai fora da provincia 22.",
+  "NOTA": "os dois numeros ja apareciam na rodada anterior e sao reproduzidos aqui sem alteracao."
+ },
+ "GEOGRAFIA_QUE_OS_NOMES_REVELAM": {
+  "O_BLOCO": "os 20 primeiros municipios nao estao espalhados por Huesca: sao os regadios de Monegros (Sariñena, Lalueza, Grañen, Lanaja, Peñalba, Valfarta, Candasnos), Cinca (San Miguel del Cinca, Belver, Alcolea, Ontiñena, Castejon del Puente, Binaced) e Litera (Monzon, Tamarite, Esplus, Ilche, Huerto, Peralta de Alcofea).",
+  "A_FRONTEIRA": "Tamarite de Litera, Alcolea de Cinca, Binaced e Belver de Cinca fazem fronteira com o Segria de Lleida. O nucleo de milho e um bloco continuo entre as duas comunidades autonomas, nao dois territorios separados.",
+  "RESSALVA": "a area de milho de Lleida por municipio NAO foi medida — o arquivo PAC e de Aragon. A continuidade e geografica e esta declarada como tal, nao medida em hectares do lado catalao."
+ }
+}

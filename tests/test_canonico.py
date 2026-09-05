@@ -393,3 +393,53 @@ class TestNumerosEntreDocumentos(unittest.TestCase):
                                         'afirma derivação legal entre as datas')
         self.assertRegex(self.DOCS['casos'], r'(?i)DERIVAÇÃO LEGAL = NÃO SEI',
                          'a recusa explícita da derivação legal desapareceu')
+
+
+class TestLimitesDeDadoPessoal(unittest.TestCase):
+    """MISSAO 10C — P-008 segue aberta, e o produto tem de dizer isso sozinho.
+
+    O risco aqui nao e coletar demais: e a proxima conta ler "os dados sao publicos" e
+    concluir "entao esta conforme". PUBLICO nao e LICITO DE PROCESSAR.
+    """
+
+    def setUp(self):
+        self.doc = rd('regras', 'LIMITES-DE-DADO-PESSOAL-EAME.md')
+
+    def test_os_estados_estao_declarados(self):
+        for estado in ('NAMED_RESEARCHER_PUBLIC_SCREEN = BLOCKED_PENDING_LEGAL_REVIEW',
+                       'PERSONAL_SCORING               = PROHIBITED_FOR_CURRENT_PILOT',
+                       'SENSITIVE_PERSONAL_DATA        = OUT_OF_SCOPE',
+                       'EMAIL                          = OUT_OF_SCOPE',
+                       'PHONE                          = OUT_OF_SCOPE',
+                       'PRIVATE_CONTACT                = OUT_OF_SCOPE'):
+            with self.subTest(estado=estado.split('=')[0].strip()):
+                self.assertIn(estado, self.doc)
+
+    def test_o_documento_recusa_ser_parecer_juridico(self):
+        self.assertRegex(self.doc, r'(?i)N[ÃA]O é parecer jur[ií]dico')
+        self.assertIn('PÚBLICO ≠ LÍCITO DE PROCESSAR', self.doc)
+
+    def test_nenhum_documento_declara_conformidade_por_ser_publico(self):
+        """A frase que nao pode existir em lugar nenhum."""
+        proibido = re.compile(r'(?i)(gdpr|lgpd)\s+(resolvid|ok\b|conforme|aprovad)')
+        for dp, _, fs in os.walk(D):
+            for f in fs:
+                if not f.endswith('.md'):
+                    continue
+                caminho = os.path.join(dp, f)
+                with open(caminho, encoding='utf-8') as fh:
+                    txt = fh.read()
+                with self.subTest(documento=os.path.relpath(caminho, D)):
+                    self.assertIsNone(proibido.search(txt),
+                                      'documento declara conformidade juridica sem revisao')
+
+    def test_a_fila_continua_not_tested_e_agora_tem_dois_motivos(self):
+        fila = json.load(open(os.path.join(ROOT, 'data', 'samples',
+                                           'RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json'),
+                              encoding='utf-8'))
+        entradas = next(v for v in fila.values() if isinstance(v, list) and v
+                        and isinstance(v[0], dict))
+        for e in entradas:
+            for campo in ('PUBLIC_LINKEDIN_STATUS', 'PUBLIC_YOUTUBE_STATUS'):
+                if campo in e:
+                    self.assertEqual('NOT_TESTED', e[campo])

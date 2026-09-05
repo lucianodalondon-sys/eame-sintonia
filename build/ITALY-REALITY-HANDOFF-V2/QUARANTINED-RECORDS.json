@@ -1,0 +1,977 @@
+{
+ "LAYER": "QUARANTINE",
+ "COUNTRY": "IT",
+ "HANDOFF": "V2",
+ "BUILT_AT": "2026-09-02",
+ "COUNT": 34,
+ "QA_GATE": "so QA_PASS e QA_CORRECTED sustentam afirmacao ao cliente. QA_UNREVIEWED fica no corpus e nao gera conclusao sozinho. QA_REJECTED nao esta aqui.",
+ "LAW": "o registro cru NAO fica vivo ao lado do corrigido. Aqui esta a linhagem: o que foi substituido e o que foi rejeitado.",
+ "BY_STATUS": {
+  "SUBSTITUIDO_POR_CORRECAO": 33,
+  "QA_REJECTED": 1
+ },
+ "RECORDS": [
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-71D68FCB7D",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "CURRENT_FIELD_SIGNALS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "valor: de «BBCH 85-89 (Pinot/Chardonnay 89; Glera 85-89; Garganega/Cabernet S. 85 tardio e 89 precoce)» para a tabela completa e realinhada «Pinot, Chardonnay 89/89; Corvine, Merlot 85-89/89; Glera 85/89; Garganega, Cabernet S. 85/89 (tardivi/precoci)»",
+    "linha ausente: a linha «Corvine, Merlot» foi reinserida — era dela o 85-89 que o registro atribuia a Glera",
+    "valor da Glera em ambiente tardivo: de 85-89 para 85",
+    "periodo: de «semana de 19/08 a 25/08/2026» para «boletim n. 20 de 27/08/2026; a secao Fase fenologica nao declara janela de datas» (19/08–25/08 e legenda dos graficos meteo da ARPAV)",
+    "o_que: de «cerca de uma semana de antecipacao em relacao a 2025» para «em relacao a stagione scorsa (temporada passada)» — a fonte nao nomeia o ano",
+    "unidade: de «escala BBCH» para «escala BBCH (valor MEDIO declarado, por vitigno e por classe de ambiente)»",
+    "geographic_scope: campo ausente, agora REGIONAL",
+    "source_scope: campo ausente, agora preenchido",
+    "source_name: acrescentada a data do boletim (del 27 agosto 2026)",
+    "o_que_nao_prova: acrescentado o aviso da propria fonte «NB: Ultimo bollettino Viticolo della stagione 2026» e a ressalva de que a fonte nao nomeia o ano de comparacao"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "BOLETIM_FITOSSANITARIO_OFICIAL · VITE · FENOLOGIA",
+    "crop": "VITE",
+    "region": "Veneto",
+    "o_que": "O Servizio Fitosanitario do Veneto declara que as variedades de maturacao media atingiram a plena maturacao e estao em colheita, e as tardias seguem para a plena maturacao, com cerca de uma semana de antecipacao em relacao a 2025.",
+    "valor": "BBCH 85-89 (tabela por vitigno: Pinot/Chardonnay 89; Glera 85-89; Garganega/Cabernet S. 85 em ambiente tardio e 89 em precoce)",
+    "unidade": "escala BBCH",
+    "periodo": "semana de 19/08 a 25/08/2026",
+    "citacao_literal": "Fase fenologica: Le varietà a media maturazione hanno raggiunto la loro piena maturazione e sono in corso di raccolta. Le varietà tardive (ad es. i Rabosi, ecc.) proseguono il processo di addolcimento degli acini verso la piena maturazione. Si conferma anche per quest'ultime l'anticipo di circa una settimana rispetto alla stagione scorsa.",
+    "source_url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_20_270826.pdf/bac2bf94-b6c1-46d6-a608-1ff9cb82264d"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-6EFC8DC91A",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "CURRENT_FIELD_SIGNALS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "valor: de «3–4% de infestacao (mesmo valor em 8 areais)» para «Fase fenologica: Inolizione – inizio invaiatura. Percentuais de mosca por areal (11 areais): 3–4% em 10 deles; 4–6% no Litorale veneziano»",
+    "areais: de 8 para os 11 que o boletim lista — reinseridos Pedemontana vicentina (3–4%), Grappa-Asolo (3–4%) e Litorale veneziano (4–6%), este ultimo o unico divergente e o mais alto",
+    "unidade: de «% de infestacao ativa por Bactrocera oleae» para «fase fenologica descritiva (a fonte nao usa escala BBCH) · percentual declarado pelo boletim, misto de observacao direta e analise previsional, invariado em relacao a semana anterior»",
+    "citacao_literal: de «Bollettino n. 29 del 02/09/2026 – FENOLOGIA E STATO PRODUTTIVO – Inolizione – inizio invaiatura.» para «Inolizione – inizio invaiatura» — a versao anterior costurava tres pedacos de lugares diferentes; numero e data voltam para source_name e publication_date, que e onde metadado mora",
+    "periodo: de «02/09/2026» para «boletim n. 29 de 02/09/2026; os percentuais sao declarados invariados em relacao a semana anterior»",
+    "geographic_scope: campo ausente, agora AREALE (o boletim reporta por areal e adverte forte variabilidade territorial)",
+    "source_scope: campo ausente, agora preenchido",
+    "source_name: acrescentada a data do boletim (del 02/09/2026)",
+    "o_que_nao_prova: acrescentadas a frase da fonte «in molti areali non sono state rilevate nuove infestazioni attive» e a nao uniformidade territorial",
+    "confidence: de ALTA para MEDIA — a fase e a data sao certas, mas o registro carrega percentuais que a propria fonte declara ser parte previsao e repetidos da semana anterior"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "BOLETIM_FITOSSANITARIO_OFICIAL · OLIVO · FENOLOGIA",
+    "crop": "OLIVO",
+    "region": "Veneto",
+    "o_que": "O boletim olivicola do Veneto de 02/09/2026 declara a fase 'inolizione – inicio de invaiatura' e da percentual de infestacao ativa de mosca por areal.",
+    "valor": "3–4% de infestacao (mesmo valor declarado em Alto lago di Garda, Medio e basso lago di Garda, Entroterra gardesano, Colline veronesi Nord/Centrali/Sud, Colli Berici, Colli Euganei)",
+    "unidade": "% de infestacao ativa por Bactrocera oleae",
+    "periodo": "02/09/2026",
+    "citacao_literal": "Bollettino n. 29 del 02/09/2026 – FENOLOGIA E STATO PRODUTTIVO – Inolizione – inizio invaiatura.",
+    "source_url": "https://www.regione.veneto.it/documents/11979050/14331610/Olivicolo_2026_29.pdf/bdef0eb2-2857-4cd6-b2b1-9ac18eba2c83"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-7F521FB52E",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "CURRENT_FIELD_SIGNALS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "tipo: de «LACUNA_CONFIRMADA · SOIA/MAIS · SERIE INTERROMPIDA» para «NO_PUBLIC_SOURCE_FOUND · VENETO · SERIE NAO LIDA» — a ausencia nunca foi provada",
+    "valor: de null para «NO_PUBLIC_SOURCE_FOUND»",
+    "afirmacao de ausencia: retirada «nao ha edicao de agosto nem de setembro» — substituida por «a serie que as publicaria nao foi lida»",
+    "serie: de uma serie nomeada («Bollettino colture erbacee») sustentada pela lista de OUTRA («Bollettino erbacee ed industriali») para as duas series separadas e nomeadas corretamente, cada uma com o que de fato se sabe dela",
+    "crop: de «SOIA / MAIS» para «NAO SEI — cobertura de SOIA/MAIS nao verificada»",
+    "escopo de cultura: retirada a afirmacao nao verificada «(a fonte que cobriria milho e soja)»",
+    "publication_date: de 2026-06-05 para 2026-09-02 — a fonte lida e a pagina indice, cuja data de ultimo aggiornamento e 02 settembre 2026; 05/06/2026 e a data da edicao mais recente LISTADA, nao da fonte consultada",
+    "periodo: de «ultima edicao 05/06/2026» para «indice consultado em 02/09/2026; ultima edicao LISTADA da serie erbacee ed industriali: 05/06/2026»",
+    "citacao_literal: passa a trazer os DOIS blocos do indice, explicitamente rotulados e separados, em vez de um bloco so usado para sustentar afirmacao sobre a outra serie",
+    "o_que_prova: de «a lacuna de SOIA nao se fecha pelo Veneto» para as duas afirmacoes de catalogo que a pagina de fato sustenta",
+    "o_que_nao_prova: reescrito — a lacuna de SOIA deixa de ser «confirmada» e passa a ABERTA e desconhecida",
+    "unidade: de null para «n/a»",
+    "geographic_scope: campo ausente, agora REGIONAL",
+    "source_scope: campo ausente, agora preenchido",
+    "confidence: mantida MEDIA, mas agora sobre o que o registro realmente afirma (estado do catalogo), nao sobre uma ausencia"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "LACUNA_CONFIRMADA · SOIA/MAIS · SERIE INTERROMPIDA",
+    "crop": "SOIA / MAIS",
+    "region": "Veneto",
+    "o_que": "O boletim Colture Erbacee do Veneto (a fonte que cobriria milho e soja) tem apenas dois numeros em 2026, o ultimo em 05/06/2026 — nao ha edicao de agosto nem de setembro.",
+    "valor": null,
+    "unidade": null,
+    "periodo": "ultima edicao 05/06/2026",
+    "citacao_literal": "Bollettino erbacee ed industriali — N°02 del 05/06/2026; N°01 del 06/03/2026",
+    "source_url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2026"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-23BDCC8255",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "MARKET_OBSERVATIONS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "valor: Verona 2025 de EUR 224,50 (weekNumber 8, 18-24/08/2025) para EUR 223,50 (weekNumber 9, 25-31/08/2025)",
+    "valor: variacao de Verona de +0,7% para +1,1%",
+    "periodo: de 'semana final de agosto, 2026 contra 2025' para 'weekNumber 9 nos dois anos: 24-30/08/2026 contra 25-31/08/2025'",
+    "geographic_scope: de ausente para PIAZZA",
+    "source_scope: de ausente para preenchido (serie por praca declarada pelo Estado-membro, nao agregado nacional)",
+    "source_url: de https://www.ec.europa.eu/agrifood/api/cereal/prices?memberStateCodes=IT (devolve HTTP 302) para https://api.tech.ec.europa.eu/agrifood/api/cereal/prices?memberStateCodes=IT (HTTP 200)",
+    "citacao_literal: de uma tupla escrita pelo coletor que so cobria Bologna, e que citava a semana de 2025 so pela data final, para os quatro registros JSON literais da API cobrindo as duas pracas nos dois anos",
+    "o_que: retirada a moldura interpretativa 'o mercado esta parado, nao caindo nem subindo'",
+    "region: de 'Bologna e Verona' para 'Bologna e Verona (duas pracas / borse merci, provincias de Bologna e Verona)'",
+    "o_que_nao_prova: acrescentado que Bologna e Verona sao cotadas em estagios comerciais diferentes e portanto os niveis nao se comparam entre si"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "PRECO",
+    "crop": "FRUMENTO TENERO",
+    "region": "Bologna e Verona",
+    "o_que": "Preco do trigo mole em Bologna e Verona praticamente igual ao da mesma semana de 2025 — o mercado esta parado, nao caindo nem subindo",
+    "valor": "Bologna 240,00 em 2026 contra 240,50 em 2025 (-0,2%) · Verona 226,00 contra 224,50 (+0,7%)",
+    "unidade": "EUR por tonelada",
+    "periodo": "semana final de agosto, 2026 contra 2025",
+    "citacao_literal": "Bologna BLTPAN ultimas: ('24/08/2026','30/08/2026','€240,00') · agosto 2025: ('31/08/2025','€240,50')",
+    "source_url": "https://www.ec.europa.eu/agrifood/api/cereal/prices?memberStateCodes=IT"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-785827E751",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "MARKET_OBSERVATIONS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "geographic_scope: de NACIONAL (implicito em 'ITALIA - media nacional de origem') para PIAZZA",
+    "region: de 'ITALIA (media nacional de origem)' para 'Roma, Trapani e Treviso — as tres pracas que a propria ISMEA declara compor a media da semana corrente'",
+    "o_que: retirada a palavra 'nacional' e acrescentada a composicao de tres pracas em transicao de safra",
+    "valor: removidos os quatro numeros por gradacao (bianchi 12/13 graus 4,10 / -28,7% e rossi 12/13 graus 4,09 / -30,8%), que nao existem na pagina 960 citada (zero ocorrencias) e estao na pagina 961, nao citada; permanecem so 4,45 (-21,3%) e 4,02 (-25,3%), confirmados na pagina 960",
+    "citacao_literal: acrescentado o aviso literal da ISMEA '(attenzione: la media dei prezzi della settimana corrente si riferisce alle piazze di Roma e Trapani -fine campagna- e Treviso -inizio campagna-)' e a linha dos tintos, que faltava",
+    "source_scope: de ausente para preenchido (media de pracas declaradas, nao censo nacional)",
+    "confidence: de ALTA para MEDIA",
+    "o_que_prova: reescrito, sai 'nacional' e entra 'tres pracas'",
+    "o_que_nao_prova: acrescentado que nao e preco nacional e que a variacao ano contra ano pode comparar cestas de pracas diferentes"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "PRECO",
+    "crop": "VITE / VINHO",
+    "region": "ITALIA (media nacional de origem)",
+    "o_que": "Preco medio nacional do vinho comum a granel na 4a semana de agosto de 2026, com queda forte contra a mesma semana do ano passado",
+    "valor": "Vini bianchi comuni 4,45 (variacao sobre a semana do ano anterior -21,3%) · Vini rossi e rosati comuni 4,02 (-25,3%) · por gradacao: bianchi 12/13 graus 4,10 (-28,7%), rossi 12/13 graus 4,09 (-30,8%)",
+    "unidade": "EUR por Ettogrado (euro por hectolitro por grau alcoolico)",
+    "periodo": "2026-8-4 (ano-mes-semana, na notacao da propria fonte)",
+    "citacao_literal": "Prodotto | Anno-Mese-Sett. | Prezzo | Variaz. su Sett. Prec. | Variaz. su Sett. Anno Prec. — Vini bianchi comuni | 2026-8-4 | 4,45 €/Ettogrado | 0,0% | -21,3%",
+    "source_url": "https://www.ismeamercati.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/960"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-1B98DD5EE8",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "CROP_ECONOMIC_WEIGHT",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "valor: participacao combinada Puglia + Sicilia de 52,4% para 52,3% (616,05 / 1.177,44 = 52,32%, refeito na fonte)",
+    "o_que: participacao da Puglia de 28,8% para 28,7% (338,50 / 1.177,44 = 28,749%; correcao alem do veredicto, confirmada na fonte)",
+    "region: de «21 regioes NUTS-2 italianas» para «21 unidades NUTS-2 (19 regioes + as provincias autonomas de Bolzano e de Trento)» — duas das 21 nao sao regioes",
+    "source_url: de recorte com 3 geos (IT, ITF4, ITG1) para o recorte com as 6 geos que devolvem os cinco valores citados (IT, ITF4, ITG1, ITF5, ITI3, ITH5)",
+    "geographic_scope: campo ausente no registro original, preenchido com REGIONAL (NUTS-2 italiano = regiao administrativa; nao sobe para NACIONAL)",
+    "source_scope: campo ausente no registro original, preenchido"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "AREA_PRODUCAO_REGIONAL",
+    "crop": "frumento duro",
+    "region": "21 regiões NUTS-2 italianas",
+    "o_que": "Área e produção de trigo duro por região italiana em 2024: Puglia 338,50 mil ha (28,8% da área nacional), Sicilia 277,55 mil ha (23,6%), Basilicata 115,16 mil ha (9,8%), Marche 72,82 mil ha (6,2%), Emilia-Romagna 69,54 mil ha (5,9%). Produção: Puglia 792,76 mil t, Sicilia 767,70 mil t, Emilia-Romagna 398,95 mil t. Nacional: 1.177,44 mil ha e 3.633,97 mil t.",
+    "valor": "nacional 1.177,44 mil ha / 3.633,97 mil t; Puglia + Sicilia = 52,4% da área",
+    "unidade": "mil hectares (área) e mil toneladas (produção)",
+    "periodo": "2024",
+    "citacao_literal": "\"Crop production in EU standard humidity by NUTS 2 region\" · crops C1120 = \"Durum wheat\" · strucpro AR_THS_HA = \"Area (sown/harvested/production) - thousand hectares\"",
+    "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpshr?format=JSON&lang=en&crops=C1120&time=2024&strucpro=AR_THS_HA&strucpro=HPRD_HUMD_EU_THS_T&geo=IT&geo=ITF4&geo=ITG1"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-30FDAD920D",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "CROP_ECONOMIC_WEIGHT",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "valor: participacao combinada Piemonte + Lombardia de 94,2% para 94,3% (213,18 / 226,13 = 94,27%, refeito na fonte)",
+    "region: de «21 regioes NUTS-2 italianas» para «21 unidades NUTS-2 (19 regioes + as provincias autonomas de Bolzano e de Trento)»",
+    "source_url: de recorte com 3 geos (IT, ITC1, ITC4) para o recorte com as 6 geos que devolvem os cinco valores citados (IT, ITC1, ITC4, ITH5, ITG2, ITH3)",
+    "geographic_scope: campo ausente no registro original, preenchido com REGIONAL",
+    "source_scope: campo ausente no registro original, preenchido"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "AREA_PRODUCAO_REGIONAL",
+    "crop": "riso",
+    "region": "21 regiões NUTS-2 italianas",
+    "o_que": "Área e produção de arroz por região italiana em 2024: Piemonte 117,67 mil ha (52,0% da área nacional), Lombardia 95,51 mil ha (42,2%), Emilia-Romagna 5,25 mil ha (2,3%), Sardegna 3,60 mil ha (1,6%), Veneto 3,35 mil ha (1,5%). Produção: Piemonte 791,29 mil t, Lombardia 584,44 mil t. Nacional: 226,13 mil ha e 1.448,76 mil t.",
+    "valor": "nacional 226,13 mil ha / 1.448,76 mil t; Piemonte + Lombardia = 94,2% da área",
+    "unidade": "mil hectares (área) e mil toneladas (produção)",
+    "periodo": "2024",
+    "citacao_literal": "\"Crop production in EU standard humidity by NUTS 2 region\" · crops C2000 = \"Rice\" · strucpro HUMD_EU_PC para arroz = 13,0% (os cereais usam 14,0%)",
+    "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpshr?format=JSON&lang=en&crops=C2000&time=2024&strucpro=AR_THS_HA&strucpro=HPRD_HUMD_EU_THS_T&geo=IT&geo=ITC1&geo=ITC4"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-EE3A23F6E7",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "CROP_ECONOMIC_WEIGHT",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "valor: soma das 5 unidades de 99,9% para 99,8% (335,96 / 336,74 = 99,77%, refeito na fonte)",
+    "o_que_prova: de «cinco regioes contiguas do vale do Po» para «cinco unidades contiguas do Norte (Piemonte, Lombardia, Emilia-Romagna, Veneto e Friuli-Venezia Giulia)» — o Friuli-Venezia Giulia nao pertence ao vale do Po; correcao alem do veredicto",
+    "region: de «21 regioes NUTS-2 italianas» para «21 unidades NUTS-2 (19 regioes + as provincias autonomas de Bolzano e de Trento)»",
+    "source_url: de recorte com 3 geos (IT, ITH3, ITH4) para o recorte com as 6 geos que devolvem os cinco valores citados (IT, ITH3, ITH4, ITC4, ITH5, ITC1)",
+    "geographic_scope: campo ausente no registro original, preenchido com REGIONAL",
+    "source_scope: campo ausente no registro original, preenchido"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "AREA_PRODUCAO_REGIONAL",
+    "crop": "soia",
+    "region": "21 regiões NUTS-2 italianas",
+    "o_que": "Área e produção de soja por região italiana em 2024: Veneto 160,14 mil ha (47,6% da área nacional), Friuli-Venezia Giulia 66,59 mil ha (19,8%), Lombardia 52,50 mil ha (15,6%), Emilia-Romagna 44,36 mil ha (13,2%), Piemonte 12,37 mil ha (3,7%). Produção: Veneto 552,03 mil t, Friuli-Venezia Giulia 182,35 mil t. Nacional: 336,74 mil ha e 1.125,58 mil t.",
+    "valor": "nacional 336,74 mil ha / 1.125,58 mil t; 5 regiões = 99,9% da área",
+    "unidade": "mil hectares (área) e mil toneladas (produção)",
+    "periodo": "2024",
+    "citacao_literal": "\"Crop production in EU standard humidity by NUTS 2 region\" · crops I1130 = \"Soya\"",
+    "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpshr?format=JSON&lang=en&crops=I1130&time=2024&strucpro=AR_THS_HA&strucpro=HPRD_HUMD_EU_THS_T&geo=IT&geo=ITH3&geo=ITH4"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-7A600FB222",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "CROP_ECONOMIC_WEIGHT",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "o_que: removida a frase «Mesmo resultado para producao.» e substituida pelos seis desvios de producao medidos — milho +0,01, trigo duro +0,01, trigo tenero +0,02, arroz -0,01, soja 0,00, beterraba -0,01 mil t",
+    "valor: de «diferenca maxima +0,03 mil ha em 12 comparacoes» para «maior desvio ABSOLUTO 0,03 mil ha (milho, area) em 12 comparacoes; producao varia de -0,01 a +0,02 mil t» — porque ha desvios negativos e «maxima» com sinal escondia isso",
+    "source_url: de recorte que nao reproduz o teste (crops=C1500, so AR_THS_HA, so geo=IT) para o recorte com as 21 unidades NUTS-2 + IT nas duas medidas; as outras cinco culturas se obtem trocando o codigo crops (C1120, C1110, C2000, I1130, R2000)",
+    "region: de «Italia (21 regioes NUTS-2)» para «Italia — 21 unidades NUTS-2 (19 regioes + as provincias autonomas de Bolzano e de Trento)»",
+    "source_name: acrescentado que o calculo foi refeito na fonte em 02/09/2026",
+    "o_que_nao_prova: acrescentado que os residuos de 0,01 a 0,03 sao efeito de a fonte publicar com duas casas decimais, nao sinal de dado faltando",
+    "geographic_scope: campo ausente no registro original, preenchido com REGIONAL",
+    "source_scope: campo ausente no registro original, preenchido"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "VALIDACAO_INTERNA",
+    "crop": "6 culturas com dado regional completo",
+    "region": "Itália (21 regiões NUTS-2)",
+    "o_que": "Teste de completude que eu mesmo rodei: somei as 21 regiões e comparei com o total nacional que a própria fonte publica, para as 6 culturas. Milho: soma 495,38 vs nacional 495,35 (dif +0,03). Trigo duro: 1.177,45 vs 1.177,44 (+0,01). Trigo tenero: 520,32 vs 520,31 (+0,01). Beterraba: 29,24 vs 29,23 (+0,01). Arroz: 226,13 vs 226,13 (0,00). Soja: 336,74 vs 336,74 (0,00). Mesmo resultado para produção.",
+    "valor": "diferença máxima +0,03 mil ha em 12 comparações (6 culturas × área e produção)",
+    "unidade": "mil hectares e mil toneladas",
+    "periodo": "2024",
+    "citacao_literal": null,
+    "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpshr?format=JSON&lang=en&crops=C1500&time=2024&strucpro=AR_THS_HA&geo=IT"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-4BAF395F2D",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "COMMERCIAL_CATALOG",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "valor: de '1 de 41' para '2 de 42'",
+    "numerador: de 1 erro (so o Nimrod 250 EW) para 2 erros (Nimrod 250 EW / 013771 e Powerfilm / 017852)",
+    "denominador: de 41 (numero que nao existe em lugar nenhum do arquivo) para 42 registros distintos com ficha no catalogo publico",
+    "contagem de marcados true: de 41 para 40, por contagem direta no arquivo",
+    "unidade: de 'registros com flag de catalogo errada' para 'produtos com IN_PUBLIC_CATALOG=false que tem ficha no catalogo publico, sobre o total de produtos com ficha'",
+    "o_que: reescrito para descrever os dois defeitos e suas causas diferentes (ficha sem numero no Nimrod; ficha com numero de outro produto no Powerfilm)",
+    "o_que_prova: de 'a unica divergencia e o IT-PRD-049' para duas divergencias, com a aritmetica do denominador aberta (51 fichas - 6 de titular nao-ADAMA - 2 nao-fitossanitarios = 43 fichas, que viram 42 registros distintos porque o HIGHCARD tem duas fichas)",
+    "o_que_nao_prova: mantem o NAO_SEI sobre qual dos dois Nimrod, e ganha tres ressalvas novas - que a conta de 2 nao muda seja qual for o Nimrod, que o denominador herda a classificacao do censo, e que o defeito vizinho do CATALOG_URL do Highcard nao entra nos 2",
+    "citacao_literal: de linha remontada pelo coletor, que misturava a tabela web do Ministero com campos do corpus, para dois trechos verbatim do proprio arquivo, rotulados como dois registros separados e com as elisoes marcadas",
+    "source_url: de https://www.adama.com/italia/it/prodotti/fungicidi/nimrodr-250-ew (pagina que nao contem afirmacao nenhuma sobre bandeirinhas) para o arquivo adama-italy-products.json, que e onde as bandeirinhas estao",
+    "source_name: passa a nomear os dois artefatos que foram cruzados, em vez de misturar ficha comercial e Ministero num campo so",
+    "crop: de lista de culturas da ficha do Nimrod para 'nao se aplica', porque o achado e de qualidade de dado e cobre dois produtos de categorias diferentes",
+    "geographic_scope: campo ausente no registro original, agora NACIONAL",
+    "source_scope: campo ausente no registro original, agora preenchido"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "NORMALIZATION_FLAG_ERROR",
+    "crop": "Fragola, Melone, Melo, Melanzana, Laucoceraso, Albicocco, Cocomero, Cetriolo, Cetriolino, Nettarino, Peperone, Pesco, Pomodoro, Rosa, Vite da tavola, Vite da vino, Zucca, Zucchino",
+    "region": "Italia",
+    "o_que": "O produto Nimrod 250 EW esta no catalogo publico, mas o arquivo normalizado o marca IN_PUBLIC_CATALOG=false. Sua ficha e a unica das 51 que nao publica numero de registro nenhum.",
+    "valor": "1 de 41",
+    "unidade": "registros com flag de catalogo errada",
+    "periodo": "leitura de 02/09/2026",
+    "citacao_literal": "013771 | NIMROD 250 EW | ADAMA MAKHTESHIM LTD | 02/04/2007 | 31/01/2027 | FUNGICIDA | EW | BUPIRIMATE | 23.8 g | Ri-registrato",
+    "source_url": "https://www.adama.com/italia/it/prodotti/fungicidi/nimrodr-250-ew"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-15F34E6605",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "REGULATORY_FUTURE",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "source_url: de https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/start/screen/active-substances (tela de LISTA, sem campo de relator nem de EFSA) para https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/backend/api/active_substance/details/27 (endpoint de detalhe, onde os campos existem de fato)",
+    "source_name: de 'EU Pesticides Database - Flonicamid (IKI-220)' para 'EU Pesticides Database - Flonicamid (IKI-220), endpoint de detalhe da substancia ativa (AS_ID 27), bloco rms'",
+    "citacao_literal: de um trecho de nome/datas que nao continha nem a palavra relator nem a data 05/12/2023, para os campos contiguos do bloco 'rms' (SUBMISSION_DRAR_DT / MANDATE_EFSA_DT / EFSA_OUTPUT_DT / RMS_LIST), com o bloco da prorrogacao citado SEPARADO e rotulado -- porque sao dois lugares diferentes do mesmo JSON e colar um no outro seria citacao falsa",
+    "o_que: acrescentado que 30/11/2026 resulta de PRORROGACAO (Reg. (UE) 2023/1446, que moveu 31/08/2023 -> 30/11/2026) e nao de renovacao concluida; acrescentado o Estado-relator (Finlandia); explicitado que MANDATE_EFSA_DT tambem esta nulo",
+    "valor: inalterado, 30/11/2026 (confirmado em EXTENSION_OF_APPROVAL_DT '2026-11-30 10:50:47')",
+    "unidade: de 'data de expiracao da aprovacao UE' para 'data-limite da aprovacao UE (dd/mm/aaaa), fixada por prorrogacao'",
+    "periodo: de 'horizonte 3 meses' para 'leitura em 02/09/2026; data-limite em 30/11/2026 (horizonte de ~3 meses)'",
+    "region: de 'UNIAO EUROPEIA / ITALIA' para 'UNIAO EUROPEIA' -- o fato e da aprovacao UE da substancia; o vinculo italiano nao e provado por esta fonte e passou a viver rotulado no campo crop",
+    "geographic_scope: ausente para EUROPEU (aprovacao de substancia ativa vale para toda a UE)",
+    "source_scope: ausente para 'registro oficial de substancias ativas da Comissao Europeia - nivel UE, nao nivel nacional italiano'",
+    "o_que_prova: de 'que 2 dos 11 produtos que vencem em nov/26 dependem desta unica substancia' (que este endpoint NAO prova) para o que o endpoint realmente prova: a data-limite e o estado aberto do procedimento de renovacao",
+    "o_que_nao_prova: removida a mencao ao projeto de prorrogacao PLAN/2026/1408 (afirmada sem prova na fonte citada) e acrescentado que este endpoint nao prova nada sobre produtos ADAMA na Italia",
+    "publication_date: de '2026-09-02 (leitura da base)' para '2026-09-02 (leitura do endpoint de detalhe); ultima modificacao registrada do procedimento de renovacao: 2024-05-23'",
+    "confidence: mantida ALTA, agora com lastro -- campo estruturado do registro oficial, aberto e conferido por mim em 02/09/2026"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "VENCIMENTO_UE",
+    "crop": "MELO e POMODORO (APYZA WG, APYZA 500 WG — os 2 únicos produtos ADAMA IT com linha de uso lida: 4 cada)",
+    "region": "UNIÃO EUROPEIA / ITÁLIA",
+    "o_que": "Flonicamid (IKI-220): aprovação europeia expira 30/11/2026, mesma data dos 2 produtos ADAMA Itália. A renovação já tem relatório do Estado-relator entregue (05/12/2023) mas ainda sem conclusão da EFSA registrada.",
+    "valor": "30/11/2026",
+    "unidade": "data de expiração da aprovação UE",
+    "periodo": "horizonte 3 meses",
+    "citacao_literal": "\"AS_NAME\":\"Flonicamid (IKI-220)\",\"EXPIRY_OF_APPROVAL_DT\":\"31\\/08\\/2023\",\"EXTENSION_OF_APPROVAL_DT\":\"30\\/11\\/2026\",\"EXPIRY_DT\":\"30\\/11\\/2026\"",
+    "source_url": "https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/start/screen/active-substances"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-A8971F6D19",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "AGROMET_CONDITIONS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "escopo: de EUROPEU (aviso geral, implicito) para MACROAREA (ponta leste do dominio do modelo, especialmente Russia ocidental)",
+    "region: de 'dominio europeu do EDO (impacto declarado como maior na Russia ocidental)' para 'ponta leste do dominio do EDO — especialmente a Russia ocidental; a Italia esta fora dessa area'",
+    "citacao_literal: de um recorte truncado que terminava em '...that affect', colado de outro ponto da pagina, para as tres frases integrais e contiguas da ressalva do modelo hidrologico",
+    "o_que: de ressalva apresentada como valida para a leitura toda, para ressalva com o recorte geografico que a propria fonte da",
+    "valor: de 'cautela na leitura do CDI, da anomalia de umidade do solo e do LFI' para a mesma cautela explicitamente restrita a ponta leste do dominio, especialmente a Russia ocidental",
+    "unidade: de 'ressalva metodologica' para 'ressalva metodologica com endereco geografico'",
+    "periodo: mantido 'desde meados de maio de 2025', agora sustentado pela citacao literal correta, e acrescentada a previsao de correcao (fim de 2026, dados EFAS v6.0), que antes era afirmada sem estar na citacao",
+    "geographic_scope: campo ausente no registro original, preenchido como MACROAREA",
+    "source_scope: campo ausente no registro original, preenchido",
+    "o_que_nao_prova: acrescentado, com todas as letras, que a ressalva NAO alcanca a leitura italiana do CDI"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "RESSALVA_DA_FONTE",
+    "crop": "",
+    "region": "dominio europeu do EDO (impacto declarado como maior na Russia ocidental)",
+    "o_que": "O proprio EDO adverte que ha problema conhecido, ainda sob investigacao, afetando a estimativa de umidade do solo, e que por isso o CDI e o indice de vazao baixa devem ser lidos com cautela desde meados de maio de 2025; a correcao so e esperada em atualizacao de fim de 2026.",
+    "valor": "cautela na leitura do CDI, da anomalia de umidade do solo e do LFI",
+    "unidade": "ressalva metodologica",
+    "periodo": "desde meados de maio de 2025",
+    "citacao_literal": "Note: this analysis was performed on 26-08-2026, based on data updated in mid-August 2026 and computed with version 4.1.1 of the Combined Drought Indicator. Due to known issues (currently under investigation) that affect the estimated soil moisture, the CDI map may be less reliable in some regions",
+    "source_url": "https://joint-research-centre.ec.europa.eu/european-and-global-drought-observatories/current-drought-situation-europe_en"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-B145A2CF68",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "AGROMET_CONDITIONS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "valor: de 'melhora observada sobre fundo de seca extrema; captacao efetiva sobre concedida ~40 por cento; nas subbacias alpinas lombardas as reservas subiram a um estado de severidade MEDIA' para 'severidade hidrica a escala distrital CONFIRMADA como ALTA em 27/08/2026; severidade MEDIA apenas nas subbacias alpinas do territorio lombardo; razao entre captacoes efetivas e concedidas de cerca de 40%' — a classe do distrito, que faltava, passa a vir na frente",
+    "citacao_literal: de 'nonostante perdurino per le principali sezioni del Po e per il Lago Maggiore condizioni di siccita estrema ... si e osservato un generale miglioramento' (o trecho da melhora) para 'la severita idrica a scala distrettuale viene confermata come ALTA' (a decisao do Osservatorio)",
+    "escopo: explicitado onde nao havia nada — o distrito do Po e MACROAREA; a classe MEDIA e das subbacias alpinas lombardas, escopo AREALE, e nao sobe para a Lombardia nem para o distrito",
+    "geographic_scope: campo ausente no registro original, preenchido como MACROAREA",
+    "source_scope: campo ausente no registro original, preenchido, com a separacao entre o distrito e as subbacias",
+    "o_que: acrescentada a confirmacao da severidade distrital ALTA e o aviso da fonte sobre 'pioggia utile' — solo extremamente seco nao absorve a chuva de temporal, ela escorre e vira onda de cheia",
+    "periodo: de 'cenario valido a partir de 27 de agosto de 2026' para o mesmo, acrescentada a data da reuniao seguinte do Osservatorio (15/09/2026), que limita ate quando o cenario vale",
+    "o_que_prova: de 'a autoridade descreveu melhora sem declarar fim da criticidade' para 'a autoridade confirmou o distrito em severidade ALTA apesar da melhora'",
+    "region: de 'distrito do rio Po; mencao especifica as subbacias alpinas do territorio lombardo' para a mesma area com a hierarquia marcada — distrito inteiro (a classe ALTA) e, separadamente, subbacias alpinas lombardas (a classe MEDIA)"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "HIDROLOGIA_E_SECA_OFICIAL",
+    "crop": "",
+    "region": "distrito do rio Po; mencao especifica as subbacias alpinas do territorio lombardo",
+    "o_que": "Em 27 de agosto de 2026 a Autoridade da bacia do Po manteve o cenario de severidade hidrica distrital, registrando que as chuvas recentes e a queda de temperatura melhoraram a disponibilidade de agua, mas que persistem condicoes de \"seca extrema\" nas principais secoes do Po e no Lago Maggiore pelos indices padronizados de 30 dias.",
+    "valor": "melhora observada sobre fundo de seca extrema; captacao efetiva sobre concedida ~40 por cento; nas subbacias alpinas lombardas as reservas subiram a um estado de severidade MEDIA",
+    "unidade": "classe de severidade hidrica; por cento (razao de captacao)",
+    "periodo": "cenario valido a partir de 27 de agosto de 2026",
+    "citacao_literal": "nonostante perdurino per le principali sezioni del Po e per il Lago Maggiore condizioni di \"siccita estrema\" in termini di indici standardizzati di anomalia calcolati considerando gli ultimi 30 giorni, si e osservato un generale miglioramento",
+    "source_url": "https://www.adbpo.it/aggiornamento-settimanale-situazione-idrologica-27-08-2026/"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-AC3DB38DD0",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "COMPETITOR_PUBLIC_SIGNALS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "publication_date: de «2026-03-10 (data do primeiro episodio declarada na propria pagina; a pagina nao mostra data de publicacao separada)» para «2026-06-16 (campo «Pubblicato» da propria pagina: «16 giugno 2026»)»",
+    "o_que: removida a frase «e esta campanha explica dois videos que ja estavam soltos no pacote» (leitura nossa, ausente da fonte) e acrescentado que a pagina foi publicada em 16/06/2026 reunindo episodios de marco e abril",
+    "o_que_prova: removido o bloco «LIGACAO COM O QUE JA TEMOS», com os IDs IT-COMP-ACT-472 e IT-COMP-ACT-463 e a conclusao «Nao eram videos soltos: eram uma campanha» (moldura interpretativa sobre o nosso pacote, nao sustentada pela fonte); mantida e detalhada so a evidencia que esta na pagina",
+    "periodo: de «2026-03-10 a 2026-04-09, mais uma segunda temporada sem data declarada» para «episodios da 1a temporada em 2026-03-10, 2026-03-19 e 2026-04-09; 2a temporada sem datas declaradas; pagina publicada em 2026-06-16»",
+    "o_que_nao_prova: acrescentado que a fonte nao sustenta elo com nenhum outro registro do nosso pacote",
+    "citacao_literal: restaurados os acentos italianos suprimidos pelo coletor (e -> è) para a citacao ficar literal",
+    "geographic_scope: campo ausente no registro original, agora preenchido como NACIONAL",
+    "source_scope: campo ausente no registro original, agora preenchido como site corporativo nacional da Bayer Crop Science Italia",
+    "region: de «Italia (nacional; canal YouTube «Bayer Crop Science Italia»)» para «Italia (nacional)», com o canal movido para o campo de prova"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "CAMPANHA_TECNICA_ORGANICA",
+    "crop": "mais",
+    "region": "Italia (nacional; canal YouTube «Bayer Crop Science Italia»)",
+    "o_que": "A Bayer Italia montou o podcast «Mais Lab» em tres episodios sobre diserbo do milho (10/03, 19/03 e 09/04/2026) e depois uma segunda temporada gravada em campo — e esta campanha explica dois videos que ja estavam soltos no pacote",
+    "valor": "3",
+    "unidade": "episodios na primeira temporada",
+    "periodo": "2026-03-10 a 2026-04-09, mais uma segunda temporada sem data declarada",
+    "citacao_literal": "Mais Lab e il podcast firmato Bayer Crop Science che mette a disposizione di tecnici, agronomi e aziende maidicole esperienze di campo, dati e raccomandazioni operative sul diserbo del mais. [...] Nella prima puntata, in uscita il 10 marzo 2026 [...] online dal 19 marzo sul canale YouTube di Bayer Crop Science Italia. [...] In data 9 aprile e previsto il lancio della terza puntata, in cui vengono condivise strategie concrete per la gestione della sorghetta in post-emergenza",
+    "source_url": "https://www.cropscience.bayer.it/Magazine/News/Generica/Mais-Lab"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-CE59EFB377",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "PUBLIC_VOICES",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "source_url: de https://www.igrandivini.com/news/brachetto-acqui-vendemmia-2026-anticipo/ (HTTP 404) para https://www.igrandivini.com/news/brachetto-acqui-vendemmia-2026-anticipata/ (abre, verificado)",
+    "citacao_literal: de trecho cortado ('...hanno avuto un impatto minimo') para a frase inteira da fonte ('...un impatto minimo e oggi possiamo osservare grappoli sani e ben formati')",
+    "o_que: removida a inferencia 'o agronomo que faz o levantamento para o Consorzio' (a fonte diz so 'l'agronomo Daniele Eberle'); incluido o nome do falante e o denominador da denominacao",
+    "o_que_prova: removida a inferencia 'cujas leituras sao a base tecnica citada pelo consorzio na mesma materia' (contaminacao de leitura do coletor)",
+    "o_que_nao_prova: acrescentado o denominador medido (~1.000 ha, ~60 realtas, duas provincias) e que a leitura e qualitativa, sem incidencia medida",
+    "geographic_scope: de ausente para AREALE",
+    "source_scope: de ausente para preenchido (revista setorial, materia de redacao sobre uma denominacao)",
+    "source_name: de titulo abreviado para o titulo completo da materia",
+    "periodo: de 'julho de 2026, antes da vindima' para 'ciclo de abril a julho de 2026, leitura anterior a vindima; declaracao publicada em 29/07/2026'"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "VOZ_AGRONOMO_CONSORZIO_DI_TUTELA",
+    "crop": "VINE (Brachetto d'Acqui DOCG)",
+    "region": "Monferrato / area do Consorzio Tutela Vini d'Acqui, Piemonte",
+    "o_que": "O agronomo que faz o levantamento para o Consorzio Tutela Vini d'Acqui declarou em 29/07/2026 que o estado fitossanitario dos vinhedos estava muito bom e que oidio e traca-do-cacho tiveram impacto minimo.",
+    "valor": null,
+    "unidade": null,
+    "periodo": "julho de 2026, antes da vindima",
+    "citacao_literal": "Lo stato fitosanitario dei vigneti è molto buono. Oidio e tignoletta hanno avuto un impatto minimo",
+    "source_url": "https://www.igrandivini.com/news/brachetto-acqui-vendemmia-2026-anticipo/"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-32037BB3A8",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "PUBLIC_VOICES",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "source_url: de https://www.igrandivini.com/news/brachetto-acqui-vendemmia-2026-anticipo/ (HTTP 404) para https://www.igrandivini.com/news/brachetto-acqui-vendemmia-2026-anticipata/ (abre, verificado)",
+    "o_que: de 'o presidente do Consorzio' para o falante nomeado (Paolo Ricagno, presidente del Consorzio Tutela Vini d'Acqui, conforme o veiculo), com o denominador do consorzio e a marcacao de que e frase de enquadramento",
+    "geographic_scope: de ausente para AREALE (Monferrato / areal da DOCG Brachetto d'Acqui, nao a regiao Piemonte)",
+    "source_scope: de ausente para preenchido",
+    "o_que_nao_prova: reforcado que clima nao e presenca de doenca nem perda medida, e que a fala nao mede o Monferrato inteiro",
+    "source_name: de 'I Grandi Vini' para o titulo completo da materia",
+    "periodo: de 'safra 2026' para 'safra 2026, leitura publicada em 29/07/2026, antes da vindima'"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "VOZ_PRESIDENTE_CONSORZIO_DI_TUTELA",
+    "crop": "VINE",
+    "region": "Monferrato, Piemonte",
+    "o_que": "O presidente do Consorzio Tutela Vini d'Acqui declarou em 29/07/2026 que a safra 2026 confirma a mudanca climatica como um dos principais desafios da viticultura do Monferrato.",
+    "valor": null,
+    "unidade": null,
+    "periodo": "safra 2026",
+    "citacao_literal": "L'annata 2026 conferma come il cambiamento climatico rappresenti una delle principali sfide per la viticoltura del Monferrato",
+    "source_url": "https://www.igrandivini.com/news/brachetto-acqui-vendemmia-2026-anticipo/"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-3CC04B8D67",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "HERBICIDE_CURRENT_CONTEXT",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "citacao_literal: de um corte NAO marcado que virou ordem ('Cercospora: intervenire con Prodotti rameici...') para o texto integral, contiguo e verbatim do boletim do source_url, com a condicao ('su varietà ad estirpo tardivo') e o modo ('è possibile') de volta",
+    "citacao_literal: deixou de fundir dois documentos; cita agora so o boletim do source_url. O texto de Reggio Emilia, que e diferente ('Cercospora: proseguire la difesa su impianti a cavatura tardiva intervenendo con Prodotti rameici o miscele di rame e Zolfo.'), fica descrito e atribuido FORA da citacao",
+    "fase fenologica: de uma fase fundida ('accrescimento fittone / maturacao') para as duas declaracoes separadas e atribuidas: 'accrescimento fittone' (Forlì-Cesena, 19/08/2026) e 'accrescimento fittone-maturazione' (Reggio Emilia, 20/08/2026)",
+    "escopo: de REGIONAL implicito ('na Emilia-Romagna') para PROVINCIAL — quatro provincias de dois boletins interprovinciais, nao a regiao",
+    "tipo: de JANELA_FECHADA_AGORA para SECAO_AUSENTE_NO_BOLETIM",
+    "valor: de 'sem diserbo nesta data' para 'nenhuma rubrica Diserbo sob BARBABIETOLA DA ZUCCHERO nos dois boletins'",
+    "periodo: de 'corrente em 19/08/2026' para as duas datas efetivamente usadas, 19/08/2026 e 20/08/2026",
+    "o_que_prova: retirada a inferencia sobre a Integrazione regional de 08/04/2026 e o florpyrauxifen-benzyl — documento que nao esta no source_url e que nao conferi",
+    "o_que_prova: acrescentada a corroboracao de que a cultura seguinte TEM rubrica Diserbo nos dois documentos, o que mostra que a ausencia esta dentro de um modelo que preve a rubrica",
+    "region: acrescentado Reggio Emilia, que o registro usava no texto mas nao declarava no campo"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "JANELA_FECHADA_AGORA",
+    "crop": "Barbabietola da zucchero",
+    "region": "Forli-Cesena, Ravenna, Rimini (Emilia-Romagna)",
+    "o_que": "A beterraba esta em accrescimento fittone / maturacao nos dois boletins de 19 e 20 de agosto de 2026, e nenhum dos dois abre secao de diserbo para ela — so difesa contra Cercospora",
+    "valor": "sem diserbo nesta data",
+    "unidade": "secao ausente no boletim",
+    "periodo": "corrente em 19/08/2026",
+    "citacao_literal": "BARBABIETOLA DA ZUCCHERO Fase fenologica: accrescimento fittone Difesa Cercospora: intervenire con Prodotti rameici eventualmente in miscela con Zolfo.",
+    "source_url": "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026/forli-cesena-ravenna-rimini/bollettino-27-del-19-agosto-2026-di-forli-cesena-ravenna-rimini.pdf/@@download/file"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-2845A0C259",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "HERBICIDE_CURRENT_CONTEXT",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "alcance normativo: de 'A Emilia-Romagna limita o glifosate' (teto legal para qualquer agricultor) para 'teto do disciplinar de producao integrada, vinculante para a Difesa Integrata Volontaria e para as empresas inscritas nos programas listados no AMBITO APPLICATIVO, pag. 2'",
+    "citacao_literal: de um trecho com corte em '[...]' que suprimia 'sulle quali è consentito l’uso del prodotto' para o paragrafo integral e contiguo da pag. 25, incluindo as duas frases inteiramente omitidas ('Il quantitativo totale di glifosate ottenuto dal calcolo 2 l/ha x numero di ha ammissibili...' e 'Nel caso di due colture/anno sulla stessa superficie...')",
+    "unidade: de 'l/ha/ano (formulados 360 g/l), por hectare de cultura nao arborea' para 'l/ha/ano de formulados a 360 g/l multiplicado pelo numero de hectares admissiveis — teto aziendal em pool anual, so sobre culturas nas quais o uso e consentido, e nao dose por hectare de cada cultura'",
+    "regra do pre-semina: de regra geral para regra restrita as culturas onde o emprego e autorizado (a fonte exemplifica bietola, mais, cipolla) — o parentese cortado voltou a citacao e ao o_que",
+    "escopo: declarado explicitamente REGIONAL, com a prova nova de que o paragrafo e identico nos boletins de Reggio Emilia (20/08/2026) e de Forlì-Cesena/Ravenna/Rimini (19/08/2026)",
+    "tipo: de REGRA_REGIONAL_CORRENTE para LIMITE_DE_DISCIPLINAR_DE_PRODUCAO_INTEGRADA",
+    "periodo: de 'ano civil 1 gennaio - 31 dicembre 2026' para 'por ano civil (1 gennaio - 31 dicembre)', que e o que a fonte diz, com a data dos boletins registrada a parte",
+    "crop: de 'Colture non arboree (inclui cereais, mais, bietola)' para 'Colture non arboree nas quais o uso do produto e consentido' — 'inclui cereais' era acrescimo do coletor, a fonte exemplifica bietola, mais e cipolla",
+    "valor: inalterado (2), conferido na fonte"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "REGRA_REGIONAL_CORRENTE",
+    "crop": "Colture non arboree (inclui cereais, mais, bietola)",
+    "region": "Emilia-Romagna",
+    "o_que": "A Emilia-Romagna limita o glifosate a 2 l/ha por ano por hectare de culturas nao arboreas, e declara que a aplicacao em pre-semina e ALTERNATIVA a de pre-emergencia, nao adicional",
+    "valor": "2",
+    "unidade": "l/ha/ano (formulados 360 g/l), por hectare de cultura nao arborea",
+    "periodo": "ano civil 1 gennaio – 31 dicembre 2026",
+    "citacao_literal": "Limite aziendale di impiego del glifosate su colture non arboree Ogni azienda per singolo anno (1 gennaio - 31 dicembre) puo disporre di un quantitativo massimo di glifosate (riferimento ai formulati 360 g/l) pari a 2 l/ha per ogni ettaro di colture non arboree [...] Si fa presente che le applicazioni di glifosate in pre-semina diventano alternative alle applicazioni in pre-emergenza (nelle colture dove e autorizzato questo impiego, es. bietola, mais, cipolla).",
+    "source_url": "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026/modena-reggio-emilia/bollettini-di-reggio/bollettino-27-del-20-agosto-2026-reggio-emilia.pdf/@@download/file"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-0BC3EDC601",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "HERBICIDE_CURRENT_CONTEXT",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "moldura: retirado 'definicao OFICIAL'. O GIRE passa a ser identificado como grupo de trabalho cientifico hospedado no CNR, sem funcao regulatoria e subordinado ao rotulo autorizado",
+    "unidade: de 'fase fenologica' para 'janela relativa a semeadura, a emergencia e a colheita (pre-semina, pre-emergenza, post-emergenza precoce, post-emergenza, post raccolta)'",
+    "periodo: de 'safra 2026/2027' (presumido, ausente do documento) para 'linha-guia aggiornate a Marzo 2026', com registro de que o arquivo nao menciona safra, campanha nem estacao e de que suas unicas duas datas sao 'Marzo 2026' e '10 giugno 2026'",
+    "tipo: de REGRA_TECNICA_DE_EPOCA para ORIENTACAO_TECNICA_NAO_REGULATORIA",
+    "valor: de 'epoca por grupo HRAC' para 'epoca de emprego que o GIRE atribui a cada principio ativo, por grupo HRAC' — a autoria da atribuicao passa a estar dentro do proprio valor",
+    "o_que_prova: de 'a janela corrente e definida por fase' para 'em marco de 2026 o GIRE atribuia as seguintes epocas', mantida a lista de grupos e principios ativos que o conferente validou",
+    "escopo: declarados geographic_scope NACIONAL e source_scope (linha-guia tecnica nacional, nao regulatoria), que o registro original nao trazia",
+    "citacao_literal: inalterada — o conferente checou a tabela linha a linha e confirmou que esta correta"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "REGRA_TECNICA_DE_EPOCA",
+    "crop": "Cereali autunno-vernini",
+    "region": "Italia (nacional)",
+    "o_que": "A tabela GIRE de marco de 2026 declara a EPOCA DE USO de cada principio ativo autorizado nos cereais de outono, por grupo HRAC — e essa e a definicao oficial de 'quando', em fase fenologica",
+    "valor": "epoca por grupo HRAC",
+    "unidade": "fase fenologica",
+    "periodo": "safra 2026/2027",
+    "citacao_literal": "Gruppo 1 (A) Inibitori Acetil-CoA Carbossilasi (ACCasi) Principi attivi Epoca di impiego Clodinafop-propargil Graminacee Post-emergenza [...] Gruppo 3 (K1) Pendimetalin Dicotiledoni e Graminacee Pre- o post-emergenza precoce [...] Gruppo 9 (G) Glifosate Dicotiledoni e Graminacee Pre-semina, post raccolta",
+    "source_url": "http://gire.mlib.cnr.it/documentsSource/pubblicazioni/linee_guida_diserbo/Linee_guida_cereali.pdf"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-EAC9480EA6",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "FUTURE_EVENTS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "o_que: removida a frase de leitura do coletor «— e exatamente o segmento em que a ADAMA atua», que nao esta na fonte",
+    "region: de «Bruxelas, Belgica (NAO e na Italia)» para «Bruxelas, Belgica» — a ressalva sai do campo de dado e vai para o_que_nao_prova",
+    "citacao_literal: de um trecho unico costurado com travessoes para dois fragmentos marcados como distintos (linha de data/sede + titulo), porque sao dois pontos diferentes da pagina",
+    "o_que_prova: «A abertura e do italiano Tommaso Cinquemani, da AgroNotizie» passa a «Keynote Opening Speech — Tommaso Cinquemani, AgroNotizie, Politecnico di Milano, Dia 1 as 12:50», como a agenda imprime",
+    "o_que_nao_prova: acrescentado, em primeiro lugar, que o registro nao sustenta nenhuma leitura sobre o segmento de atuacao da ADAMA",
+    "geographic_scope: campo inexistente passa a EUROPEU (conferencia de alcance europeu sediada em Bruxelas; nao toca territorio italiano)",
+    "source_scope: campo inexistente passa a preenchido (site oficial do organizador, pagina do proprio evento)"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "EVENTO_FUTURO_CONFIRMADO",
+    "crop": "transversal (defesa de culturas; a agenda cita cereais e batata no caso frances da ARVALIS)",
+    "region": "Bruxelas, Belgica (NAO e na Italia)",
+    "o_que": "ECCA Crop Protection Regulatory Conference 2026 (CPRC, 2a edicao) — o unico forum europeu que junta o setor POST-PATENT de defensivos com os reguladores de Bruxelas; e exatamente o segmento em que a ADAMA atua",
+    "valor": "2 dias",
+    "unidade": "evento",
+    "periodo": "8-9 de setembro de 2026",
+    "citacao_literal": "8th & 9th September 2026 • Brussels, Belgium | Sheraton Brussels Airport Hotel — II. Crop Protection Regulatory Conference — A Post-Patent Perspective",
+    "source_url": "https://conference.ecca-org.eu/"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-5CC9CB27DA",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "FUTURE_EVENTS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "publication_date: de «NAO_SEI — pagina sem data de publicacao visivel» para «03/02/2026 (3 de fevereiro de 2026, formato italiano)»",
+    "region: de «Bari, Puglia» para «Bari (provincia de Bari), Puglia» — a sede e o campus universitario em Bari, nao a regiao inteira",
+    "geographic_scope: campo inexistente passa a PROVINCIAL (Bari) — nao sobe para REGIONAL/Puglia",
+    "source_scope: campo inexistente passa a preenchido (site oficial da SOI, pagina do grupo de trabalho)",
+    "o_que_nao_prova: acrescentado que a confirmacao das datas foi publicada em 03/02/2026 e tem 7 meses de idade"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "EVENTO_FUTURO_CONFIRMADO",
+    "crop": "horticultura, floricultura e fruticultura",
+    "region": "Bari, Puglia",
+    "o_que": "Giornate Tecniche SOI 2026 (SAIOF2026) — 'Sensoristica ed Intelligenza Artificiale in Ortoflorofrutticoltura', 2a edicao",
+    "valor": "2 dias",
+    "unidade": "evento",
+    "periodo": "10-11 de setembro de 2026",
+    "citacao_literal": "L'obiettivo e sviluppare in due giornate un quadro completo dello stato dell'arte dell'ortoflorofrutticoltura digitale",
+    "source_url": "https://www.soihs.it/soi/gruppi_di_lavoro/plant_sensing_and_artificial_intelligence_in_horticulture/giornate_te.aspx"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-CD65E224E7",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "CROP_ECONOMIC_WEIGHT",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "o_que: a frase do Sul passa a fechar em Puglia + Sicilia + Basilicata (685.355 ha = 60,4% do nacional); Marche (Centro) e Emilia-Romagna (Norte) saem da lista meridional e aparecem a parte, identificadas por macroarea",
+    "citacao_literal: de rotulos italianos ('WHEATD: frumento duro | ART: superficie totale - ettari | HP_Q_EXT: produzione raccolta - quintali'), que NAO existem no endpoint de dados, para o XML literal do endpoint de dados mais cada rotulo atribuido a sua propria codelist",
+    "source_url: de uma unica URL de dados para a URL de dados das 22 areas + as duas URLs de codelist (CL_AGRI_MADRE e CL_TIPO_DATO5) onde os rotulos citados existem literalmente",
+    "geographic_scope: preenchido (estava ausente) como NACIONAL — o valor de cabeca e o total REF_AREA=IT",
+    "source_scope: preenchido (estava ausente)",
+    "o_que_prova: de null para texto explicito",
+    "confidence: normalizado para ALTA (valores reconferidos na fonte em 02/09/2026)"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "area_e_producao",
+    "crop": "frumento duro",
+    "region": "Italia (com quebra pelas 20 regioes)",
+    "o_que": "Frumento duro — a maior area de cultura anual da Italia. Concentracao muito forte no Sul: Puglia 294.300 ha (25,9%), Sicilia 275.895 ha (24,3%), Basilicata 115.160 ha (10,2%), Marche 79.072 ha (7,0%), Emilia-Romagna 68.065 ha (6,0%).",
+    "valor": "1.134.227 ha; 36.182.505 q de producao colhida (= 3.618.250 t)",
+    "unidade": "ha / quintali",
+    "periodo": "2025",
+    "citacao_literal": "WHEATD: frumento duro | ART: superficie totale - ettari | HP_Q_EXT: produzione raccolta - quintali",
+    "source_url": "https://esploradati.istat.it/SDMXWS/rest/data/IT1,101_1015,1.0/A.IT+ITC1+ITC2+ITC3+ITC4+ITDA+ITD1+ITD2+ITD3+ITD4+ITD5+ITE1+ITE2+ITE3+ITE4+ITF1+ITF2+ITF3+ITF4+ITF5+ITF6+ITG1+ITG2.ART+PA+TP_QUIN_EXT+HP_Q_EXT+TP_HECT_EXT+TPT.MAIZE+GRAIZE+WHEATD+COMMEAT+RICE+SOYA+BEETS.?startPeriod=2024"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-0312ECA427",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "CROP_ECONOMIC_WEIGHT",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "o_que: de 'praticamente empatado com o frumento duro como maior area da Italia' para 'area praticamente empatada com a do frumento duro (1.107.789 contra 1.134.227 ha), mas NAO a maior area da Italia' — com os dois numeros maiores (prados e pastagens permanentes 3.536.791 ha; pascoli poveri 1.807.183 ha) nomeados no proprio corpo",
+    "citacao_literal: de 'OLIVTAB_OIL: olive da tavola e da olio | ART: superficie totale - ettari', que nao existe no endpoint de dados, para o XML literal dos dados mais os rotulos atribuidos a codelist CL_AGRI_MADRE",
+    "source_url: acrescentadas a URL de ranking de todas as culturas (A.IT.ART..?startPeriod=2025), que sustenta a nova comparacao, e as duas URLs de codelist",
+    "geographic_scope: preenchido (estava ausente) como NACIONAL",
+    "source_scope: preenchido (estava ausente)",
+    "o_que_prova: de null para texto explicito",
+    "confidence: normalizado para ALTA (valores reconferidos na fonte em 02/09/2026)"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "area_e_producao",
+    "crop": "olivo",
+    "region": "Italia (com quebra pelas 20 regioes)",
+    "o_que": "Olive da tavola e da olio (olivo) — praticamente empatado com o frumento duro como maior area da Italia. Puglia 347.350 ha (31,4%), Calabria 184.682 ha (16,7%), Sicilia 161.751 ha (14,6%), Toscana 81.729 ha (7,4%), Lazio 78.991 ha (7,1%). Presente nas 20 regioes, inclusive Valle d'Aosta com 1 ha.",
+    "valor": "1.107.789 ha; 24.357.826 q de producao colhida (= 2.435.783 t)",
+    "unidade": "ha / quintali",
+    "periodo": "2025",
+    "citacao_literal": "OLIVTAB_OIL: olive da tavola e da olio | ART: superficie totale - ettari",
+    "source_url": "https://esploradati.istat.it/SDMXWS/rest/data/IT1,101_1015,1.0/A.IT+ITC1+ITC2+ITC3+ITC4+ITDA+ITD1+ITD2+ITD3+ITD4+ITD5+ITE1+ITE2+ITE3+ITE4+ITF1+ITF2+ITF3+ITF4+ITF5+ITF6+ITG1+ITG2.ART+PA+TP_QUIN_EXT+HP_Q_EXT+TP_HECT_EXT+TPT.VINEFORTHE+WINESQ+WINESO+WINEES+TABLEGRAPES+OLIV+OLIVTAB_OIL+APPLET.?startPeriod=2024"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-E4082B4987",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "CROP_ECONOMIC_WEIGHT",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "citacao_literal: de rotulos italianos que nao existem no endpoint de dados para o XML literal dos dados mais cada rotulo atribuido a sua codelist de origem",
+    "source_url: acrescentadas as duas URLs de codelist (CL_AGRI_MADRE e CL_TIPO_DATO5)",
+    "o_que: a resa Veneto x Sicilia passa a trazer os numeradores (14.662.869 q e 5.642.785 q) e a ficar marcada como calculo derivado, nao como cifra publicada",
+    "geographic_scope: preenchido (estava ausente) como NACIONAL",
+    "source_scope: preenchido (estava ausente)",
+    "o_que_prova: de null para texto explicito",
+    "confidence: normalizado para ALTA (valores reconferidos na fonte em 02/09/2026)"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "area_e_producao",
+    "crop": "vite (uva da vino)",
+    "region": "Italia (com quebra pelas 20 regioes)",
+    "o_que": "Uva da vino (vite para vinificacao) — Sicilia 118.329 ha (17,0%), Veneto 104.398 ha (15,0%), Puglia 93.655 ha (13,5%), Toscana 60.785 ha (8,8%), Emilia-Romagna 53.169 ha (7,7%). O contraste de produtividade e enorme: Veneto 14,05 t/ha contra Sicilia 4,77 t/ha (calculo meu).",
+    "valor": "694.333 ha; 66.793.717 q de producao colhida (= 6.679.372 t)",
+    "unidade": "ha / quintali",
+    "periodo": "2025",
+    "citacao_literal": "WINEES: uva da vino | ART: superficie totale - ettari | HP_Q_EXT: produzione raccolta - quintali",
+    "source_url": "https://esploradati.istat.it/SDMXWS/rest/data/IT1,101_1015,1.0/A.IT+ITC1+ITC2+ITC3+ITC4+ITDA+ITD1+ITD2+ITD3+ITD4+ITD5+ITE1+ITE2+ITE3+ITE4+ITF1+ITF2+ITF3+ITF4+ITF5+ITF6+ITG1+ITG2.ART+PA+TP_QUIN_EXT+HP_Q_EXT+TP_HECT_EXT+TPT.VINEFORTHE+WINESQ+WINESO+WINEES+TABLEGRAPES+OLIV+OLIVTAB_OIL+APPLET.?startPeriod=2024"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-3CDDA32E89",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "CROP_ECONOMIC_WEIGHT",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "source_url: de https://esploradati.istat.it/SDMXWS/rest/data/IT1,101_1015,1.0/A.IT..MAIZE.?startPeriod=2023 (so nacional, zero linhas regionais) para a consulta das 22 areas com MAIZE, que contem o total IT e as 22 linhas NUTS2 — mais as duas URLs de codelist",
+    "citacao_literal: de 'MAIZE: mais | ART: superficie totale - ettari | 540945' para o XML literal do endpoint de dados (onde 540945 de fato aparece) mais os rotulos atribuidos as codelists onde existem",
+    "o_que: acrescentado que a soma das quatro regioes e 452.601 ha, para o leitor poder refazer os 83,7%",
+    "valor: a resa nacional passa a vir com a conta explicita (55.111.196 q / 540.945 ha = 101,9 q/ha = 10,19 t/ha) e marcada como derivada",
+    "geographic_scope: preenchido (estava ausente) como NACIONAL",
+    "source_scope: preenchido (estava ausente)",
+    "o_que_prova: de null para texto explicito",
+    "confidence: normalizado para ALTA (valores reconferidos na fonte em 02/09/2026)"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "area_e_producao",
+    "crop": "mais",
+    "region": "Italia (com quebra pelas 20 regioes)",
+    "o_que": "Mais (milho) — concentrado no Norte. Veneto 140.425 ha (26,0%), Piemonte 127.293 ha (23,5%), Lombardia 124.998 ha (23,1%), Emilia-Romagna 59.885 ha (11,1%). Essas quatro regioes somam 83,7% da area de milho da Italia.",
+    "valor": "540.945 ha; 55.111.196 q de producao colhida (= 5.511.120 t); resa nacional 10,19 t/ha (calculo meu)",
+    "unidade": "ha / quintali",
+    "periodo": "2025",
+    "citacao_literal": "MAIZE: mais | ART: superficie totale - ettari | 540945",
+    "source_url": "https://esploradati.istat.it/SDMXWS/rest/data/IT1,101_1015,1.0/A.IT..MAIZE.?startPeriod=2023"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-91348B0D0D",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "CROP_ECONOMIC_WEIGHT",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "citacao_literal: de mistura de rotulos inexistentes no endpoint com o numero, para XML literal dos dados mais cada rotulo atribuido a sua codelist de origem",
+    "source_url: acrescentadas as duas URLs de codelist (CL_AGRI_MADRE e CL_TIPO_DATO5)",
+    "o_que: acrescentada a soma das quatro regioes do Norte (342.508 ha = 67,0% do nacional), para o contraste com o frumento duro ficar auditavel",
+    "valor: a resa nacional passa a vir com a conta explicita (25.108.532 q / 511.242 ha = 49,1 q/ha = 4,91 t/ha) e marcada como derivada",
+    "geographic_scope: preenchido (estava ausente) como NACIONAL",
+    "source_scope: preenchido (estava ausente)",
+    "o_que_prova: de null para texto explicito",
+    "confidence: normalizado para ALTA (valores reconferidos na fonte em 02/09/2026)"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "area_e_producao",
+    "crop": "frumento tenero",
+    "region": "Italia (com quebra pelas 20 regioes)",
+    "o_que": "Frumento tenero — Emilia-Romagna 130.006 ha (25,4%), Veneto 91.220 ha (17,8%), Piemonte 67.887 ha (13,3%), Lombardia 53.395 ha (10,4%). Ao contrario do frumento duro, este e cultura de Norte.",
+    "valor": "511.242 ha; 25.108.532 q de producao colhida (= 2.510.853 t); resa nacional 4,91 t/ha (calculo meu)",
+    "unidade": "ha / quintali",
+    "periodo": "2025",
+    "citacao_literal": "COMMEAT: frumento tenero | ART: superficie totale - ettari | 511242",
+    "source_url": "https://esploradati.istat.it/SDMXWS/rest/data/IT1,101_1015,1.0/A.IT+ITC1+ITC2+ITC3+ITC4+ITDA+ITD1+ITD2+ITD3+ITD4+ITD5+ITE1+ITE2+ITE3+ITE4+ITF1+ITF2+ITF3+ITF4+ITF5+ITF6+ITG1+ITG2.ART+PA+TP_QUIN_EXT+HP_Q_EXT+TP_HECT_EXT+TPT.MAIZE+GRAIZE+WHEATD+COMMEAT+RICE+SOYA+BEETS.?startPeriod=2024"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-10233E37BC",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "MARKET_OBSERVATIONS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "region: de \"Italia (nacional)\" para \"nao declarada pela fonte -- rede de rilevazione do ISMEA, cobertura geografica nao publicada na pagina\"",
+    "geographic_scope: de NACIONAL (implicito em \"Italia (nacional)\") para NAO_SEI",
+    "o_que: retirada a palavra \"nacional\"; passa a usar os rotulos literais da fonte -- \"Cereali - Prezzi medi alla produzione - f.co azienda\" (H1) e \"Cereali - Prezzi medi settimanali per prodotto\" (H2)",
+    "periodo: de \"semana 4 de agosto de 2026 (2026-8-4)\" para \"rotulo literal da fonte 2026-8-4 (4a semana de agosto de 2026 na convencao semanal do ISMEA)\" -- mesmo periodo, agora ancorado no rotulo em vez de na traducao do coletor",
+    "source_scope: campo preenchido (o registro cru nao tinha) -- \"rede de rilevazione de precos do ISMEA; a pagina nao lista as pracas nem declara a cobertura\"",
+    "o_que_prova: de null para o enunciado do que a linha efetivamente prova",
+    "o_que_nao_prova: retirada a afirmacao \"E media nacional da rede de rilevacao ISMEA\" (era exatamente a alegacao derrubada); acrescentado que a fonte nao declara a abrangencia da media"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "preco",
+    "crop": "frumento tenero",
+    "region": "Italia (nacional)",
+    "o_que": "Preco medio nacional na producao (franco azienda), media semanal por produto",
+    "valor": "219,57",
+    "unidade": "EUR/t",
+    "periodo": "semana 4 de agosto de 2026 (2026-8-4)",
+    "citacao_literal": "Frumento tenero | 2026-8-4 | 219,57 €/T | 3,8% | -3,0%",
+    "source_url": "https://www.ismeamercati.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/853"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-1274E4A1F4",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "MARKET_OBSERVATIONS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "region: de \"Italia (nacional)\" para \"nao declarada pela fonte -- rede de rilevazione do ISMEA, cobertura geografica nao publicada na pagina\"",
+    "geographic_scope: de NACIONAL (implicito em \"Italia (nacional)\") para NAO_SEI",
+    "o_que: de \"Preco medio nacional por qualidade (Fino / Buono mercantile / Mercantile)\" para o rotulo literal da fonte -- \"Prezzi medi settimanali per varieta\", franco azienda; caiu a palavra \"nacional\" e caiu a palavra \"qualidade\"",
+    "periodo: de \"semana 4 de agosto de 2026\" para \"rotulo literal da fonte 2026-8-4 (4a semana de agosto de 2026 na convencao semanal do ISMEA)\"",
+    "citacao_literal: acrescentadas as duas linhas restantes da mesma tabela da mesma pagina (Buono mercantile e Mercantile), que sustentam os outros dois valores do campo valor -- antes so uma das tres estava citada",
+    "source_scope: campo preenchido (o registro cru nao tinha)",
+    "o_que_prova: de null para o enunciado do que as tres linhas efetivamente provam",
+    "o_que_nao_prova: retirada a glosa do coletor \"Qualidade comercial (proteina/peso especifico) nao e qualidade sanitaria\" -- a fonte nao fala em proteina nem em peso especifico em lugar nenhum, isso era leitura dele; substituida pela constatacao de que a pagina rotula a quebra como varieta e nao define o que Fino/Buono mercantile/Mercantile medem"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "preco",
+    "crop": "frumento tenero",
+    "region": "Italia (nacional)",
+    "o_que": "Preco medio nacional por qualidade (Fino / Buono mercantile / Mercantile)",
+    "valor": "Fino 226,53 · Buono mercantile 217,71 · Mercantile 209,75",
+    "unidade": "EUR/t",
+    "periodo": "semana 4 de agosto de 2026",
+    "citacao_literal": "Frumento tenero - Fino | 2026-8-4 | 226,53 €/T | 3,1% | -2,7%",
+    "source_url": "https://www.ismeamercati.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/854"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-F62E849F33",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "MARKET_OBSERVATIONS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "source_name: de \"ISMEA Mercati (fonte ISTAT)\" para \"ISMEA Mercati\" -- a mencao a ISTAT nao tem nenhum lastro na pagina nem na planilha",
+    "o_que: de \"serie ISTAT via ISMEA\" para \"serie anual publicada pelo ISMEA; a pagina nao declara quem produziu o dado primario\"",
+    "geographic_scope: campo preenchido como NACIONAL (o registro cru nao o tinha), ancorado na legenda literal do grafico \"Frumento tenero - Totale Italia\"",
+    "source_scope: campo preenchido (o registro cru nao tinha)",
+    "valor: mantidos 520.314 ha e 2.562.966 t para 2024, e acrescentadas as series completas 2020-2024 de ambos, que eu li no XML do grafico",
+    "citacao_literal: reescrita para citar UM unico documento (o feed XML do grafico de superficie), em vez de misturar pedacos; a serie de producao, que vem de um SEGUNDO feed, foi movida para o campo o_que_prova com a sua propria identificacao",
+    "o_que_prova: de null para o enunciado do que a serie efetivamente prova",
+    "o_que_nao_prova: acrescentado que a pagina nao declara o produtor do dado primario -- portanto a serie nao pode ser citada como \"dado ISTAT\""
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "superficie",
+    "crop": "frumento tenero",
+    "region": "Italia (nacional)",
+    "o_que": "Superficie total e producao colhida, serie ISTAT via ISMEA, Italia",
+    "valor": "superficie 520.314 ha (2024); producao 2.562.966 t (2024); serie 2020-2024",
+    "unidade": "ha e t",
+    "periodo": "2020-2024",
+    "citacao_literal": "Frumento tenero - Totale Italia · yAxisName=\"ha\" · set label=\"2024\" value=\"520314\"",
+    "source_url": "https://www.ismeamercati.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/2210"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-4733692740",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "AGROMET_CONDITIONS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "source_url: de https://www.arpa.veneto.it/temi-ambientali/agrometeo/bollettini/bollettino-agrometeorologico-regionale (pagina-cartaz, onde a citacao aparece 0 vez) para https://www.arpa.veneto.it/temi-ambientali/agrometeo/file-e-allegati/bollettino_agrometeo_regionale_settimanale.pdf/@@download/file (o PDF, onde a citacao esta na linha 2)",
+    "unidade: de 'edicao semanal' para 'edicao decadal (agregacao de 10 dias)' -- no PDF, 'decadale' 3 vezes e 'settimanale' 0 vez",
+    "o_que: removida a afirmacao 'e o unico documento achado que liga clima a cultura no Veneto de forma oficial' -- o proprio PDF lista cinco boletins fitossanitarios setoriais (viticolo 27.08, frutticolo 26.08, olivicolo 02.09, orticolo 26.08, colture erbacee e industriali 04.06)",
+    "o_que: removida a palavra 'semanal', substituida por 'decadal', que e o que o documento diz de si mesmo",
+    "citacao_literal: de 'BOLLETTINO AGROMETEOROLOGICO REGIONALE N. 21 del 01.09.2026' para 'BOLLETTINO AGROMETEOROLOGICO REGIONALE N. 21 del 01.09.2026 Aggiornamento del 02.09.' (linha 2 do PDF, como lida na conferencia)",
+    "periodo: de '01/09/2026, com atualizacao registrada em 02/09/2026' para 'edicao de 01/09/2026, atualizacao de 02/09/2026; os mapas cobrem a ULTIMA DECADE (10 dias), nao a ultima semana'",
+    "geographic_scope: campo ausente no registro cru, preenchido como REGIONAL",
+    "source_scope: campo ausente no registro cru, preenchido",
+    "confidence: de ALTA para MEDIA -- o link e rolante: aponta sempre para a edicao mais recente, entao amanha ele entrega a n. 22 e a n. 21 deixa de estar naquele endereco",
+    "o_que_prova: de null para o enunciado verificavel"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "fonte_agrometeorologica",
+    "crop": "todas as culturas agrarias",
+    "region": "Veneto (regiao inteira)",
+    "o_que": "A ARPAV publica um Bollettino Agrometeorologico Regionale semanal, reformulado em fevereiro de 2026, que reune dados agrometeorologicos, mapas da semana, previsao e indicacoes para a defesa fitopatologica. Este e o unico documento achado que liga clima a cultura no Veneto de forma oficial.",
+    "valor": "n. 21",
+    "unidade": "edicao semanal",
+    "periodo": "01/09/2026, com atualizacao registrada em 02/09/2026",
+    "citacao_literal": "BOLLETTINO AGROMETEOROLOGICO REGIONALE N. 21 del 01.09.2026",
+    "source_url": "https://www.arpa.veneto.it/temi-ambientali/agrometeo/bollettini/bollettino-agrometeorologico-regionale"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-25F4F85915",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "AGROMET_CONDITIONS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "o_que: de 'Estado do parasitismo na videira no Veneto: o servico oficial registra APENAS aparicoes esporadicas...' para enunciado restrito ao item 'Patogeni' (fungos) dentro da secao Stato parassitario, com aviso explicito de que os demais itens da mesma secao relatam intensidade maior",
+    "citacao_literal: de trecho cortado no meio da frase ('...di Peronospora e infezioni Oidiche') para a frase inteira ('...su femminelle in seguito alle ultime piogge o in vigneti non ben difesi in precedenza.') -- o corte suprimia as condicoes que limitam a afirmacao",
+    "valor: de 'sporadiche / secondarie' para 'sporadiche / secondarie -- SOMENTE para os patogenos fungicos (peronospora e oidio)'",
+    "o_que_nao_prova: acrescentada a lista do que o MESMO boletim relata na MESMA secao com intensidade maior (tignoletta 3a geracao, quatro cocciniglie com melada e fumaginas difundidas, mal dell'esca bem evidente, GLRaV evidente em Pinot grigio, botrite, podridao acida e cicalinas de 2a geracao)",
+    "region/source_scope: acrescentado o numero do boletim (n. 20, de 27/08/2026) e a natureza qualitativa da sintese, sem malha amostral",
+    "geographic_scope: campo ausente no registro cru, preenchido como REGIONAL",
+    "source_scope: campo ausente no registro cru, preenchido",
+    "o_que_prova: de null para o enunciado estreito, limitado ao item Patogeni e a semana de 27/08/2026"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "observacao_fitossanitaria",
+    "crop": "vite (uva)",
+    "region": "Veneto (regiao inteira)",
+    "o_que": "Estado do parasitismo na videira no Veneto: o servico oficial registra apenas aparicoes esporadicas de manchas secundarias de peronospora e infeccoes de oidio nas femminelle, apos as ultimas chuvas ou em vinhedos mal defendidos.",
+    "valor": "sporadiche / secondarie",
+    "unidade": "descricao qualitativa, sem numero",
+    "periodo": "semana de 27/08/2026",
+    "citacao_literal": "Solo sporadiche comparse di macchie secondarie di Peronospora e infezioni Oidiche",
+    "source_url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_20_270826.pdf/bac2bf94-b6c1-46d6-a608-1ff9cb82264d"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-EB63AEC4AA",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "CURRENT_FIELD_SIGNALS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "citacao_literal: de UMA linha que colava a variedade de Agropoli dentro do ponto de Campagna, para as DUAS linhas da tabela separadas, cada uma com seus proprios campos",
+    "citacao_literal: reincluida a linha 2 inteira, que havia sumido do registro (Agropoli, Palombe, Cardone F., Salella-Frantoio-Leccino, Accrescimento del frutto, Nulla)",
+    "variedade do ponto 1: de 'Rotondella / Salella-Frantoio-Leccino' para 'Rotondella' (Salella-Frantoio-Leccino e do ponto 2, Agropoli)",
+    "o_que: lista de culturas de 9 para 12 - acrescentados CASTAGNO, PESCO e Melanzana",
+    "o_que: retirada a afirmacao 'a provincia com o leque mais largo de culturas', porque a contagem que a sustentava estava errada",
+    "o_que: de 'um ponto com captura minima' para 'dois pontos de monitoramento, um com captura minima e outro com nada registrado'",
+    "valor: de null para '2 pontos: Campagna = Minime cattura di mosca; Agropoli = Nulla'",
+    "unidade: de null para 'leitura qualitativa por ponto (sem numero de capturas e sem denominador)'",
+    "geographic_scope: de ausente para ESTACAO (dois pontos de monitoramento nominais, nao a provincia)",
+    "source_scope: de ausente para 'boletim oficial da Provincia di Salerno; rede provincial de monitoramento, com apenas 2 pontos na tabela do OLIVO'",
+    "o_que_prova: de null para o enunciado explicito do que as duas leituras sustentam",
+    "region: de 'Campania (Provincia di Salerno)' para a mesma provincia COM os dois pontos nomeados"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "boletim_fitossanitario",
+    "crop": "olivo",
+    "region": "Campania (Provincia di Salerno)",
+    "o_que": "Bollettino Fitosanitario della Provincia di Salerno N.24 - a provincia com o leque mais largo de culturas: ACTINIDIA, AGRUMI, CILIEGIO, VITE, FRAGOLA, NOCCIOLO, NOCE, OLIVO, POMODORO. Registro do OLIVO.",
+    "valor": null,
+    "unidade": null,
+    "periodo": "N. 24 del 26/08/2026",
+    "citacao_literal": "COLTURA OLIVO - 1 Campagna, Localita Santa Maria La Nova, varieta Rotondella / Salella-Frantoio-Leccino, Stadio Fenologico: Completo indurimento nocciolo, Stato Fitosanitario: Minime cattura di mosca. 2 Agropoli, Palombe, Stadio: Accrescimento del frutto, Stato Fitosanitario: Nulla.",
+    "source_url": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-26-08.pdf"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-49BA29FF51",
+   "QA_STATUS": "SUBSTITUIDO_POR_CORRECAO",
+   "FAMILIA": "CURRENT_FIELD_SIGNALS",
+   "POR_QUE": "a conferencia derrubou e a reconstrucao substituiu. O cru fica aqui pela linhagem, nunca no feed.",
+   "O_QUE_MUDOU": [
+    "periodo: de 'n. 08/2026 (as quatro), validita 31/08/2026-06/09/2026' para DUAS janelas explicitas - 31/08/2026-06/09/2026 (Bolsena, Entroterra Tuscia, Litorale Viterbese) e 01/09/2026-07/09/2026 (Pianura Interna Viterbese)",
+    "o_que: retirada a afirmacao 'na MESMA semana' - a Pianura Interna Viterbese nao esta na mesma semana",
+    "o_que: retirada a afirmacao 'discordam ... ate no numero da edicao' - as quatro sao n. 08/2026; quem tem numero diferente e a Sabina, que nao faz parte deste registro",
+    "valor: de quatro porcentagens soltas para quatro leituras, cada uma carregando sua janela de datas e seu estadio BBCH (Bolsena 0-1% / 31-08 a 06-09 / BBCH 79; Entroterra Tuscia 0-1% / 31-08 a 06-09 / BBCH 79; Litorale Viterbese 0-2% / 31-08 a 06-09 / BBCH 79; Pianura Interna Viterbese 0% / 01-09 a 07-09 / BBCH 75)",
+    "citacao_literal: de um recorte que citava so 2 das 4 zonas para as 4 zonas citadas uma a uma, cada uma com data, BBCH, ataque medido e prescricao",
+    "citacao_literal: corrigido 'contra circa il 90% nas outras quatro zonas' para 'nas outras TRES zonas deste registro' - dentro deste conjunto ha quatro zonas, nao cinco",
+    "citacao_literal: acrescentada a prescricao oposta da Pianura Interna Viterbese (tratamentos 'sporcanti' com zeolite/caulino como escudo solar), que o registro original omitia",
+    "unidade: de '% de azeitonas atacadas sobre 200 amostradas' para a unidade com o metodo impresso no boletim (20 azeitonas por planta, em 10 plantas escolhidas ao acaso por cultivar por hectare, total 200)",
+    "geographic_scope: de ausente para AREALE (zona progettuale sub-provincial)",
+    "source_scope: de ausente para 'OP LATIUM / Agroambiente Lazio - boletins por zona progettuale de difesa guidata; nao e censo regional do Lazio'",
+    "publication_date: de '2026-08-31' seco para '2026-08-31' com a ressalva de que e a data da pagina de listagem, ja que os PDFs nao imprimem data de publicacao propria e a Pianura Interna vale a partir de 01/09/2026",
+    "o_que_prova: de null para o enunciado do que as quatro leituras sustentam"
+   ],
+   "REGISTRO_CRU": {
+    "tipo": "boletim_fitossanitario",
+    "crop": "olivo",
+    "region": "Lazio (Lago di Bolsena, Litorale Viterbese, Entroterra Viterbese-Tuscia, Pianura Interna Viterbese)",
+    "o_que": "As outras 4 zonas do Lazio na MESMA semana. Serve como prova interna de que zona nao representa regiao: elas discordam em fase fenologica, em ataque medido e ate no numero da edicao.",
+    "valor": "Lago di Bolsena 0-1%; Entroterra Tuscia 0-1%; Litorale Viterbese 0-2%; Pianura Interna Viterbese 0%",
+    "unidade": "% de azeitonas atacadas sobre 200 amostradas",
+    "periodo": "n. 08/2026 (as quatro), validita 31/08/2026-06/09/2026",
+    "citacao_literal": "Litorale Viterbese: 'Attacco rilevato: 0-2%' - PRESCRIZIONE: NON EFFETTUARE TRATTAMENTO. Pianura Interna Viterbese: 'Attacco rilevato: 0%' e fase fenologica 'Le drupe hanno raggiunto circa il 70% delle...' (contra '...circa il 90% delle dimensioni finali' nas outras quatro zonas).",
+    "source_url": "https://www.agroambientelazio.it/lotta-guidata/news/bollettini-fitosanitari-per-la-lotta-guidata-alla-mosca-dell-olivo/204/"
+   }
+  },
+  {
+   "CANONICAL_RECORD_ID": "IT-CAN-A6C831C693",
+   "QA_STATUS": "QA_REJECTED",
+   "FAMILIA": "PUBLIC_VOICES",
+   "O_QUE_ESTAVA_ERRADO": "ATRIBUICAO_DE_FALA",
+   "POR_QUE": "a conferencia derrubou este registro sem numera-lo, e por isso ele nao entrou na rodada de reconstrucao. Achado por conteudo. O veredicto: a URL abre e a frase esta na pagina, mas ELA NAO E FALA DELE — no HTML a frase esta dentro de <blockquote> sem aspas, e o destaque editorial que o jornal montou, escrito pelo reporter. ATRIBUICAO DE FALA ERRADA NAO TEM CONSERTO: reescrever o campo nao devolve a frase a boca de ninguem. A pessoa e real e a materia existe; o que nao existe e a citacao dela.",
+   "O_QUE_SOBRA": "a materia continua sendo fonte valida para OUTROS fatos. O que morre e o uso dela como VOZ atribuida a esta pessoa.",
+   "REGISTRO_CRU": {
+    "tipo": "VOZ_AGRICULTOR_COM_CARGO_EM_ORGANIZACAO",
+    "o_que": "Um rizicultor que e vice-presidente do Consorzio Riso del Delta del Po e presidente regional dos rizicultores da Confagricoltura declarou em 11/08/2026 que quem estava com o arroz ainda em seco quando veio o temporal perdeu tudo.",
+    "source_name": "Il Resto del Carlino — edicao de Ferrara",
+    "source_url": "https://www.ilrestodelcarlino.it/ferrara/economia/viaggio-nel-deserto-padano-mais-249a6029",
+    "publication_date": "2026-08-11",
+    "periodo": "final de julho / inicio de agosto de 2026",
+    "crop": "RICE",
+    "region": "Delta do Po — Le Contane, Riva del Po, Berra (provincia de Ferrara)",
+    "observation_class": "CURRENT",
+    "citacao_literal": "Chi aveva il riso nel campo ancora in secca quando si è abbattuto il maltempo ha perso tutto",
+    "confidence": "ALTA",
+    "o_que_prova": "Que Giampaolo Cenacchi, nomeado, com tres papeis declarados na mesma materia (rizicultor; vice-presidente do Consorzio Riso del Delta del Po; presidente regional dos rizicultores da Confagricoltura) e fotografado na trilha do arroz, deu essa leitura publica do granizo/temporal.",
+    "o_que_nao_prova": "Nao mede area nem perda: nao ha hectares, nao ha percentual, nao ha laudo. Nao diz quantas lavouras estavam 'em seco'. E dano de granizo e vento — nao e doenca, nao e praga, e nao gera por si nenhuma oportunidade de defensivo.",
+    "BLOCO": "vozes",
+    "INDICE_NO_BLOCO": 4,
+    "FLUXO": "lastmile1.json",
+    "QA_STATUS": "QA_UNREVIEWED",
+    "QA_POR_QUE": "foi a conferencia, mas o bloco tem 1 queda(s) sem dono identificado — este registro pode ser uma delas",
+    "FOI_A_CONFERENCIA": true,
+    "RAW_RECORD_ID": "IT-RAW-B9D9E9E168",
+    "FAMILIA": "PUBLIC_VOICES",
+    "TIPO_DE_FATO": "VOZ",
+    "CHAVE_CANONICA": "ilrestodelcarlino.it|2026-08-11|rice|um rizicultor que e vice presidente do conso|delta do po le contane riv|VOZ",
+    "CANONICAL_RECORD_ID": "IT-CAN-A6C831C693",
+    "RAW_RECORD_IDS": [
+     "IT-RAW-B9D9E9E168"
+    ],
+    "COLAPSOU_N": 0,
+    "COLAPSOU_DE_BLOCOS": [
+     "vozes"
+    ],
+    "QA_DOS_COLAPSADOS": null,
+    "POR_QUE_ESTE_GANHOU": "unico registro desta chave"
+   }
+  }
+ ]
+}

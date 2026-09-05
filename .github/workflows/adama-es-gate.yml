@@ -1,0 +1,144 @@
+# ═══════════════════════════════════════════════════════════════════════
+# PORTAO DO HANDOFF ADAMA ESPANHA.
+#
+# Le o handoff da branch paralela (sem mesclar), mede campo por campo, roda
+# o red team com as mutacoes que provam que ele tem dentes, e exercita os
+# cinco casos contra o motor dos quatro relogios num Postgres DESCARTAVEL.
+#
+# NAO importa nada. NAO toca no Supabase. Sem secret.
+# ═══════════════════════════════════════════════════════════════════════
+name: adama-es-gate
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/adama_es_gate.py'
+      - 'supabase/ensaios/**'
+      - 'tests/test_adama_es_gate.py'
+      - '.github/workflows/adama-es-gate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  portao:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: eame_ensaio
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready --health-interval 5s
+          --health-timeout 5s --health-retries 20
+    env:
+      PGURL: postgresql://postgres:postgres@localhost:5432/eame_ensaio
+      CINCO: postgresql://postgres:postgres@localhost:5432/eame_cinco
+      CAL: postgresql://postgres:postgres@localhost:5432/eame_calendario
+      PGPASSWORD: postgres
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: 1 · trazer o ref do handoff, sem mesclar
+        run: |
+          set -e
+          git fetch origin claude/adama-es-local-browser:refs/remotes/origin/claude/adama-es-local-browser
+          echo "HANDOFF_HEAD=$(git rev-parse origin/claude/adama-es-local-browser)"
+          git merge-base --is-ancestor origin/claude/adama-es-local-browser HEAD \
+            && { echo "PARADO: o handoff foi mesclado — esta rodada e de gate"; exit 1; } \
+            || echo "MERGED_INTO_MAIN=NO"
+
+      - name: 2 · bancos descartaveis — o ensaio, a interferencia e a ordem
+        run: |
+          set -e
+          montar () {
+            createdb -h localhost -U postgres "$1" 2>/dev/null || true
+            for f in $(ls supabase/migrations/*.sql | grep -v '/008_'); do
+              psql "postgresql://postgres:postgres@localhost:5432/$1" \
+                -v ON_ERROR_STOP=1 -q -f "$f"
+            done
+            psql "postgresql://postgres:postgres@localhost:5432/$1" -v ON_ERROR_STOP=1 \
+              -f supabase/migrations/008_verificacao_pos_aplicacao.sql
+          }
+          export PGPASSWORD=postgres
+          # eame_cinco: so o handoff. Os cinco casos isolados.
+          montar eame_cinco
+          psql "$CINCO" -v ON_ERROR_STOP=1 -q -f supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql
+          # eame_ensaio: as DUAS camadas juntas. A pergunta que importa mais.
+          montar eame_ensaio
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/fixtures/es_calendario_mvp.sql
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql
+          echo "ENSAIO_CARREGADO=PASS"
+
+      - name: 3 · o portao mede, e o red team se testa por mutacao
+        run: |
+          set -e
+          python3 scripts/adama_es_gate.py --dsn "$CINCO" \
+            --dsn-interferencia "$PGURL" | tee /tmp/g
+          grep -q "NAO_PEGOU_TESTE_INUTIL" /tmp/g \
+            && { echo "PARADO: mutacao nao pegou — o red team perdeu os dentes"; exit 1; } \
+            || echo "MUTACOES=TODAS_PEGARAM"
+
+      - name: 4 · o artefato no Git bate com a medicao de agora?
+        run: |
+          set -e
+          python3 scripts/adama_es_gate.py --dsn "$CINCO" \
+            --dsn-interferencia "$PGURL" --build >/dev/null
+          git diff --exit-code -- data/samples/ADAMA-ES-HANDOFF-GATE-V1.json \
+            && echo "PORTAO_REPRODUZIVEL=PASS" \
+            || { echo "PARADO: o artefato versionado nao bate com a medicao"; exit 1; }
+
+      - name: 4b · a ordem canonica das migrations, do zero, com o catalogo em 014
+        run: |
+          set -e
+          createdb -h localhost -U postgres eame_ordem
+          O=postgresql://postgres:postgres@localhost:5432/eame_ordem
+          # Lido do ref da branch paralela. Ler nao e mesclar: o arquivo nao
+          # entra nesta branch, so e aplicado num banco descartavel.
+          git show origin/claude/adama-es-local-browser:supabase/migrations/010_catalogo_publico_fabricante.sql \
+            > /tmp/014_catalogo_publico_fabricante.sql
+          for f in $(ls supabase/migrations/*.sql | grep -v '/008_'); do
+            psql "$O" -v ON_ERROR_STOP=1 -q -f "$f"
+          done
+          psql "$O" -v ON_ERROR_STOP=1 -q -f /tmp/014_catalogo_publico_fabricante.sql
+          psql "$O" -v ON_ERROR_STOP=1 -f supabase/migrations/008_verificacao_pos_aplicacao.sql
+          echo "ORDEM_CANONICA=PASS  001-007, 009-013, catalogo em 014, 008 por ultimo"
+
+      - name: 5 · as regressoes do portao, e as 45 do calendario no banco limpo
+        run: |
+          set -e
+          python3 -m unittest tests.test_adama_es_gate 2>&1 | tail -3
+          # As 45 rodam contra a fixture ES SOZINHA. Com as duas camadas juntas elas
+          # param na nº 12 — e essa parada e o achado C-7, medido no passo 3, nao um
+          # teste a ignorar. Por isso aqui e um banco proprio, e sem "|| true".
+          createdb -h localhost -U postgres eame_calendario
+          for f in $(ls supabase/migrations/*.sql | grep -v '/008_'); do
+            psql "$CAL" -v ON_ERROR_STOP=1 -q -f "$f"
+          done
+          psql "$CAL" -v ON_ERROR_STOP=1 -q -f supabase/fixtures/es_calendario_mvp.sql
+          psql "$CAL" -f supabase/tests/regressoes_calendario.sql 2>&1 | tail -3
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql
+          psql "$PGURL" -f supabase/tests/regressoes_captura.sql 2>&1 | tail -3
+
+      - name: 6 · o veredito, impresso para leitura humana
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json
+          d = json.load(open('data/samples/ADAMA-ES-HANDOFF-GATE-V1.json', encoding='utf-8'))
+          v = d['VEREDITO']
+          print('VEREDITO     =', v['VEREDITO'])
+          print('ES-CASE-001  =', d['ES_CASE_001']['ESTADO'])
+          print('DEFEITOS     =', ', '.join(v['DEFEITOS_ABERTOS']) or 'nenhum')
+          print('BLOQUEIOS    =', ', '.join(v['CONFLITOS_QUE_BLOQUEIAM']) or 'nenhum')
+          i = d['ENSAIO_DE_INTERFERENCIA']
+          print('INTERFERENCIA=', i['ESTADO'],
+                '· duplicados', i.get('DUPLICADOS'),
+                '· NEPTUNE aparece', i.get('JANELAS_DO_NEPTUNE_NA_VIEW'), 'vezes')
+          for x in v['NAO_PODE_ENTRAR_AINDA']:
+              print('  NAO ENTRA: %-42s (%s)' % (x['ESTRUTURA'], x['BLOQUEIO']))
+          PY

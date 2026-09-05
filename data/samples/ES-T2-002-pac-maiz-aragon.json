@@ -1,0 +1,154 @@
+{
+ "SOURCE_ID": "ES-T2-002-pac-maiz-aragon",
+ "source": "Parcelas PAC herbáceos 2025 — declaracoes de solicitantes da PAC, Gobierno de Aragon (opendata.aragon.es)",
+ "URL": "https://opendata.aragon.es/datos/catalogo/dataset/0d0ed861-9c44-4aa3-a77c-b0a4bc37ea7d",
+ "ARQUIVO": "opendata_sga_parcelas_her_2025.csv (102.307.363 bytes, 1.293.690 linhas, campanha 2025)",
+ "SOURCE_LOCATION": "ARAGON (ES)",
+ "FACT_LOCATION": "parcela declarada, com municipio catastral",
+ "ORIGINAL_LANGUAGE": "es",
+ "captured_at": "2026-08-30",
+ "O_QUE_ESTE_DADO_E": "area DECLARADA por quem pediu ajuda da PAC, parcela a parcela. Nao e estimativa estatistica nem sensoriamento: e declaracao administrativa com consequencia legal.",
+ "JUNCAO": "MAIZ = cprodu 4 na campanha 2025. O dicionario de produtos e POR CAMPANHA — em 1995 o codigo do milho era 3. Juntar por cprodu sozinho, sem a campanha, erra a cultura.",
+ "MEDIDO_2025": {
+  "MAIZ_HA_ARAGON": 51752,
+  "POR_PROVINCIA": {
+   "Huesca (22)": 37236,
+   "Zaragoza (50)": 13410,
+   "Teruel (44)": 1106
+  },
+  "MUNICIPIOS_COM_MAIZ": 218
+ },
+ "CONTRACHEQUE_COM_O_MAPA": {
+  "POR_QUE": "37.236 ha era numero grande demais para publicar sem cruzar.",
+  "O_QUE_O_REPOSITORIO_JA_TINHA": "Huesca 39.945 ha de milho grao, indicador SCOT do MAPA (ES-AREA-CEREAIS-MAPA).",
+  "DIFERENCA": "37.236 contra 39.945 = 6,8%% de diferenca.",
+  "LEITURA": "dois instrumentos independentes — declaracao administrativa de subsidio e levantamento estatistico nacional — chegam a menos de 7%% um do outro. Isso e corroboracao forte, nao coincidencia.",
+  "POR_QUE_NAO_BATEM_EXATAMENTE": "nem toda parcela de milho pede PAC, os recortes de \"milho grao\" e \"MAIZ\" podem nao coincidir, e o ano de referencia do MAPA pode nao ser 2025. Nenhuma dessas explicacoes foi verificada — a diferenca fica declarada, nao explicada.",
+  "O_QUE_NAO_FAZER": "nao somar os dois. Sao medidas do mesmo campo por instrumentos diferentes, nao partes de um total."
+ },
+ "ACHADO_O_MILHO_DE_HUESCA_E_CONCENTRADO": {
+  "MEDIDO": "81 municipios declaram milho em Huesca. 10 deles concentram 47.7% da area; 20 concentram 68.4%; 30 concentram 81.2%.",
+  "CURVA": {
+   "top1": 8.0,
+   "top3": 20.8,
+   "top5": 30.4,
+   "top10": 47.7,
+   "top15": 60.5,
+   "top20": 68.4,
+   "top30": 81.2,
+   "top50": 95.8
+  },
+  "ZARAGOZA": "79 municipios, 14.046 ha, top 10 = 64%%. Mesmo formato.",
+  "CONSEQUENCIA": "o caso do milho nao precisa de uma acao provincial. Metade do milho de Huesca cabe em 10 municipios — e escala de ensaio de campo, de ADV e de visita, nao de campanha."
+ },
+ "O_QUE_FALTA_E_POR_QUE": {
+  "NOMES_DOS_MUNICIPIOS": "NAO RESOLVIDOS. O CSV traz CMUNCA, codigo catastral do municipio. A tabela de nomes do portal (Municipios de Aragon) so sai por uma exportacao Oracle Analytics que exige sessao com JavaScript e devolveu HTML, nao CSV.",
+  "POR_QUE_NAO_CHUTEI": "codigo catastral e codigo INE coincidem em muitos municipios e nao em todos. Nomear a cidade errada num mapa de acao e pior do que nao nomear. A forma da concentracao esta medida; os nomes ficam como NAO SEI ate haver tabela.",
+  "COMO_RESOLVER": "qualquer tabela oficial que ligue CPROCA+CMUNCA a nome. Nao foi encontrada por API nesta rodada."
+ },
+ "AMOSTRA_CONCENTRACAO": {
+  "huesca_top20_codigos": [
+   {
+    "CPROCA-CMUNCA": "22-294",
+    "ha": 2895.0,
+    "parcelas": 835
+   },
+   {
+    "CPROCA-CMUNCA": "22-104",
+    "ha": 2448.6,
+    "parcelas": 346
+   },
+   {
+    "CPROCA-CMUNCA": "22-218",
+    "ha": 2199.4,
+    "parcelas": 1443
+   },
+   {
+    "CPROCA-CMUNCA": "22-315",
+    "ha": 1969.6,
+    "parcelas": 1462
+   },
+   {
+    "CPROCA-CMUNCA": "22-253",
+    "ha": 1498.8,
+    "parcelas": 578
+   },
+   {
+    "CPROCA-CMUNCA": "22-140",
+    "ha": 1492.4,
+    "parcelas": 321
+   },
+   {
+    "CPROCA-CMUNCA": "22-241",
+    "ha": 1298.1,
+    "parcelas": 296
+   },
+   {
+    "CPROCA-CMUNCA": "22-301",
+    "ha": 1259.6,
+    "parcelas": 239
+   },
+   {
+    "CPROCA-CMUNCA": "22-162",
+    "ha": 1129.4,
+    "parcelas": 615
+   },
+   {
+    "CPROCA-CMUNCA": "22-176",
+    "ha": 1122.8,
+    "parcelas": 797
+   },
+   {
+    "CPROCA-CMUNCA": "22-172",
+    "ha": 1027.1,
+    "parcelas": 249
+   },
+   {
+    "CPROCA-CMUNCA": "22-190",
+    "ha": 996.7,
+    "parcelas": 346
+   },
+   {
+    "CPROCA-CMUNCA": "22-242",
+    "ha": 975.2,
+    "parcelas": 331
+   },
+   {
+    "CPROCA-CMUNCA": "22-67",
+    "ha": 854.3,
+    "parcelas": 248
+   },
+   {
+    "CPROCA-CMUNCA": "22-336",
+    "ha": 766.5,
+    "parcelas": 150
+   },
+   {
+    "CPROCA-CMUNCA": "22-22",
+    "ha": 644.5,
+    "parcelas": 220
+   },
+   {
+    "CPROCA-CMUNCA": "22-231",
+    "ha": 643.6,
+    "parcelas": 196
+   },
+   {
+    "CPROCA-CMUNCA": "22-82",
+    "ha": 554.8,
+    "parcelas": 331
+   },
+   {
+    "CPROCA-CMUNCA": "22-191",
+    "ha": 533.2,
+    "parcelas": 337
+   },
+   {
+    "CPROCA-CMUNCA": "22-112",
+    "ha": 513.2,
+    "parcelas": 288
+   }
+  ]
+ },
+ "NOTA_DE_ROTA": "o portal de dados abertos de Aragon NAO tem registro de ATRIA nem boletim fitossanitario — procurados e nao encontrados. O equivalente catalao das ADV segue sem par aragones."
+}

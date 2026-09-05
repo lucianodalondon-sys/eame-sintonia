@@ -1,0 +1,1474 @@
+{
+ "DATASET": "IT-GIRE-RESISTENCIA-V2",
+ "SUBSTITUI": "IT-GIRE-RESISTENCIA-V1 — que tinha só o índice, e declarava 22 espécies quando o array tinha 23. Corrigido: o índice do GIRE lista 23.",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-GIRE",
+ "SOURCE_NAME": "GIRE — Gruppo Italiano di lavoro sulla Resistenza agli Erbicidi (CNR)",
+ "source": "http://gire.mlib.cnr.it — ficha a ficha, lidas em 2026-09-02",
+ "SOURCE_LOCATION": "ITALY",
+ "FACT_LOCATION": "ITALY",
+ "ORIGINAL_LANGUAGE": "it",
+ "EVIDENCE_CLASS": "TECHNICAL_AUTHORITY_DECLARATION",
+ "CAPTURED_AT": "2026-09-02",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "ROTA": "gire.ipsp.cnr.it recusa (certificado expirado). O espelho gire.mlib.cnr.it abre por HTTP.",
+ "FICHAS_LIDAS": 23,
+ "FICHAS_NO_INDICE": 23,
+ "LINHAS_DE_RESISTENCIA": 34,
+ "LINHAS_SEM_CITACAO": 0,
+ "O_QUE_ISTO_NAO_E": [
+  "não é mapa de incidência — diz onde foi CONFIRMADA, nunca quanta área tem",
+  "não é lista de daninhas importantes: é lista de daninhas RESISTENTES",
+  "não diz nada sobre produto de nenhum fabricante",
+  "MECANISMO = NÃO SEI significa que a ficha nomeia a família química e não o grupo HRAC. Não é o mesmo que ausência de mecanismo"
+ ],
+ "FICHAS": [
+  {
+   "slug": "Alisma",
+   "nome_italiano": "Mesolaccia comune, piantaggine acquatica, cinquenervi d'acqua, cucchiaio",
+   "nome_scientifico": "Alisma plantago-aquatica L.",
+   "familia": "Alismataceae",
+   "ecologia_resumo": "Ficha: \"Pianta idrofita perenne, dotata di rizoma tuberoso, infestante di risaie e aree umide. In risaia si riproduce prevalentemente per seme.\" Polinizacao entomofila, ciclo primavera-verao, floracao maio-julho, diploide 2n = 14. Distribuicao na Italia: \"comune in tutte le regioni.\" Semente com dormencia mecanica, forma de \"ferro di cavallo\", tegumento externo fortemente lignificado e fibroso; aquenios com tecido que permite flutuacao e dispersao pela agua (idrocora). Emergencia das plantulas a partir de maio, com o arrozal alagado.",
+   "culturas_citadas": [
+    "riso (arroz) — \"Sistema colturale: riso\"; a ecologia cita risaie e aree umide"
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "ALS (gruppo B) — literal: \"erbicidi inibitori dell'ALS (gruppo B)\"",
+     "cultura": "riso (arroz)",
+     "primeiro_caso_ano": "1994 — literal: \"Primo caso accertato nel 1994.\"",
+     "regioes": [
+      "Piemonte",
+      "Lombardia"
+     ],
+     "nota": "Frase integral da ficha: \"Tipo di resistenza: popolazioni resistenti agli erbicidi inibitori dell'ALS (gruppo B) con resistenza incrociata alle solfoniluree e alle triazolopirimidine.\" Ao fim da secao ha um link de mapa rotulado \"Mappa (riso) ALS\" — e um rotulo de link, nao texto de corpo. A ficha nao declara nenhuma outra resistencia; sobre outros mecanismos alem de ALS nesta especie: NAO SEI."
+    }
+   ],
+   "resistencia_multipla": "Resistencia CRUZADA declarada, literal: \"con resistenza incrociata alle solfoniluree e alle triazolopirimidine\" — ou seja, dentro do mesmo grupo ALS, atinge sulfonilureias e triazolopirimidinas. A ficha NAO usa a expressao \"resistenza multipla\" nem cita resistencia a outros mecanismos: quanto a resistencia multipla, NAO SEI.",
+   "gestao_recomendada": "A ficha nao traz o texto da gestao; apenas remete, literal: \"Consulta le linee guida specifiche.\" O conteudo dessas linhas-guia nao esta nesta pagina — NAO SEI o que elas recomendam.",
+   "citacao_literal": "\"Tipo di resistenza: popolazioni resistenti agli erbicidi inibitori dell'ALS (gruppo B) con resistenza incrociata alle solfoniluree e alle triazolopirimidine. Primo caso accertato nel 1994. Regioni interessate: Piemonte, Lombardia.\""
+  },
+  {
+   "slug": "Amaranthus_hyb",
+   "nome_italiano": "Amaranto ibrido, amaranto a spiga verde",
+   "nome_scientifico": "Amaranthus hybridus (sinonimi na ficha: A. patulus, A. chlorostachys, A. quitensis, A. cruentus)",
+   "familia": "Amaranthaceae",
+   "ecologia_resumo": "Ficha: \"Annuale erbacea, a ciclo primaverile estivo. Fiorisce da giugno ad ottobre. Specie a metabolismo C4 molto competitiva, puo infestare mais, soia e in generale tutte le colture estive.\" Monoica, polinizacao predominantemente autogama, diploide 2n = 32. Distribuicao na Italia: \"molto comune in tutte le regioni\", e \"Puo dare origine a ibridi con A. tuberculatus.\" Semente em capsula deiscente que se destaca sozinha na maturacao, facilitando a dispersao; alta producao (300-500 mil sementes por planta); sementes lenticulares, lustrosas, pretas, 0,9-1,2 mm. Variacao dos niveis de dormencia mais alta persistencia do seme dao germinacao muito escalonada e persistencia da populacao no tempo; plantulas emergem de meados de abril em diante.",
+   "culturas_citadas": [
+    "soia (soja) — \"Sistema colturale: soia\"",
+    "mais (milho) — citado na ecologia",
+    "\"tutte le colture estive\" (todas as culturas de verao) — citado na ecologia"
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "A ficha NAO nomeia o mecanismo (nao escreve ALS nem gruppo B). Declara literalmente resistencia cruzada a duas familias quimicas: \"cross-resistenti alle solfoniluree (thifensulfuron-methyl) ed agli imidazolinoni (imazamox)\". Qual mecanismo o GIRE atribui a esta populacao, nesta pagina: NAO SEI.",
+     "cultura": "soia (soja)",
+     "primeiro_caso_ano": "2017 — literal: \"Primo caso 2017.\"",
+     "regioes": [
+      "Veneto",
+      "Friuli Venezia Giulia"
+     ],
+     "nota": "Frase integral: \"Tipo di resistenza: popolazioni cross-resistenti alle solfoniluree (thifensulfuron-methyl) ed agli imidazolinoni (imazamox). Primo caso 2017. Regioni interessate: Veneto, Friuli Venezia Giulia.\" Esta ficha nao traz link de mapa nem qualquer outra resistencia declarada."
+    }
+   ],
+   "resistencia_multipla": "Resistencia CRUZADA declarada, literal: \"popolazioni cross-resistenti alle solfoniluree (thifensulfuron-methyl) ed agli imidazolinoni (imazamox)\" — as duas familias quimicas nomeadas. A ficha nao fala em \"resistenza multipla\" nem cita outros mecanismos: NAO SEI.",
+   "gestao_recomendada": "NAO SEI. Esta ficha nao traz secao de gestao nem remissao a linhas-guia especificas.",
+   "citacao_literal": "\"Tipo di resistenza: popolazioni cross-resistenti alle solfoniluree (thifensulfuron-methyl) ed agli imidazolinoni (imazamox). Primo caso 2017. Regioni interessate: Veneto, Friuli Venezia Giulia.\""
+  },
+  {
+   "slug": "Amaranthus_palm",
+   "nome_italiano": "Amaranto (o titulo da pagina sai como \"Scheda per Amaranto, GIRE\"; o unico nome comum listado e \"Amaranto\")",
+   "nome_scientifico": "Amaranthus palmeri S. Wats",
+   "familia": "Amaranthaceae",
+   "ecologia_resumo": "Ficha: \"Pianta annuale erbacea, a ciclo primaverile-estivo con un metabolismo C4, molto competitiva, in grado di adattarsi a periodi di siccita. Ha una capacita di crescita molto rapida e arriva a raggiungere anche i 3m di altezza.\" Floracao de agosto a outubro; especie dioica, polinizacao alogama. \"Puo infestare soia, mais e in generale tutte le colture estive nonche i bordi di campi e strade.\" A ficha registra o historico americano: \"In America, dove il primo caso di resistenza risale al 1989, e diventata invasiva in tempi rapidi ed ha sviluppato resistenza ad erbicidi con diversi meccanismi d'azione.\" Sobre a Italia diz: \"Distribuzione in Italia: questa e la prima segnalazione di Amaranthus palmeri accertata.\" Planta femea muito prolifica, ate 600.000 sementes sem competicao; sementes de 1-2 mm, lisas, redondas ou em forma de disco, dispersas por gravidade, fluxos de agua ou irrigacao.",
+   "culturas_citadas": [
+    "soia (soja) — \"Sistema colturale: soia\"",
+    "mais (milho) — citado na ecologia",
+    "\"tutte le colture estive\" e \"i bordi di campi e strade\" — citados na ecologia"
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "ALS (gruppo B) — literal: \"erbicidi inibitori dell'ALS (gruppo B)\"",
+     "cultura": "soia (soja)",
+     "primeiro_caso_ano": "2018 — literal: \"Il primo caso di resistenza agli erbicidi inibitori dell'ALS (gruppo B) e stato accertato nel 2018 in Veneto.\"",
+     "regioes": [
+      "Veneto"
+     ],
+     "nota": "Unica resistencia declarada na ficha para a Italia. Atencao para nao misturar paises: o ano de 1989 que aparece na ficha e da AMERICA e nao da Italia — \"In America, dove il primo caso di resistenza risale al 1989\". A ficha diz que na America a especie \"ha sviluppato resistenza ad erbicidi con diversi meccanismi d'azione\", sem nomear quais mecanismos; quais sao: NAO SEI."
+    }
+   ],
+   "resistencia_multipla": "Para a ITALIA a ficha nao declara resistencia multipla nem cruzada: NAO SEI. O unico registro de varios mecanismos e sobre a America e sem nomear os mecanismos, literal: \"In America, dove il primo caso di resistenza risale al 1989, e diventata invasiva in tempi rapidi ed ha sviluppato resistenza ad erbicidi con diversi meccanismi d'azione.\"",
+   "gestao_recomendada": "NAO SEI — a ficha declara que ainda nao existe texto publicado, literal: \"Linee guida specifiche: in fase di preparazione\".",
+   "citacao_literal": "\"Il primo caso di resistenza agli erbicidi inibitori dell'ALS (gruppo B) e stato accertato nel 2018 in Veneto.\""
+  },
+  {
+   "slug": "Amaranthus",
+   "nome_italiano": "Amaranto comune, blito",
+   "nome_scientifico": "Amaranthus retroflexus L.",
+   "familia": "Amaranthaceae",
+   "ecologia_resumo": "Ficha: \"Annuale erbacea, a ciclo primaverile estivo. Fiorisce da giugno ad ottobre. Specie a metabolismo C4 molto competitiva, infesta mais, soia e in generale tutte le colture estive.\" Monoica, polinizacao predominantemente autogama, diploide 2n = 34. Distribuicao na Italia: \"molto comune in tutte le regioni.\" Semente em capsula deiscente que se destaca sozinha na maturacao; alta producao (300-500 mil sementes por planta); sementes lenticulares, lustrosas, pretas, 1-1,2 mm — o tamanho varia com as condicoes de crescimento da planta-mae e parece ligado a exigencias diferentes de germinacao. \"Cambiamenti nel tempo dei livelli di dormienza e una lunga persistenza dei semi nel terreno garantiscono una germinazione molto scalare e una persistenza della popolazione nel tempo.\" Plantulas emergem de meados de abril em diante.",
+   "culturas_citadas": [
+    "soia (soja) — \"Sistema colturale: soia\"",
+    "mais (milho) — citado na ecologia",
+    "\"tutte le colture estive\" (todas as culturas de verao) — citado na ecologia"
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "O corpo do texto NAO nomeia o mecanismo: fala so da familia quimica, literal \"resistenti alle solfoniluree (thifensulfuron-methyl)\". Logo abaixo da secao ha um link de mapa rotulado \"Mappa (dicotiledoni estive) ALS\" — e rotulo de link, nao frase do corpo, e por isso nao trato como mecanismo declarado no texto. O mecanismo afirmado no corpo desta ficha: NAO SEI.",
+     "cultura": "soia (soja)",
+     "primeiro_caso_ano": "2003 — literal: \"Primo caso accertato nel 2003.\"",
+     "regioes": [
+      "Veneto",
+      "Emilia Romagna",
+      "Friuli Venezia Giulia"
+     ],
+     "nota": "Frase integral: \"In Italia sono state segnalate alcune popolazioni resistenti alle solfoniluree (thifensulfuron-methyl). Primo caso accertato nel 2003. Regioni interessate: Veneto, Emilia Romagna, Friuli Venezia Giulia.\" Repare que a ficha diz \"alcune popolazioni\" (algumas populacoes), nao a especie inteira."
+    }
+   ],
+   "resistencia_multipla": "NAO SEI. A ficha nao usa \"resistenza incrociata\", \"cross-resistenti\" nem \"resistenza multipla\": cita uma unica familia quimica, as sulfonilureias (thifensulfuron-methyl).",
+   "gestao_recomendada": "NAO SEI. Esta ficha nao traz secao de gestao nem remissao a linhas-guia especificas.",
+   "citacao_literal": "\"In Italia sono state segnalate alcune popolazioni resistenti alle solfoniluree (thifensulfuron-methyl). Primo caso accertato nel 2003.\""
+  },
+  {
+   "slug": "Amaranthus_tub",
+   "nome_italiano": "Amaranto tubercolato",
+   "nome_scientifico": "Amaranthus tuberculatus (sinonimi: A. rudis, A. tamariscina)",
+   "familia": "Amaranthaceae",
+   "ecologia_resumo": "Anual herbacea de ciclo primavera-verao, floracao de junho a outubro. Especie C4 'molto competitiva', dioica, de polinizacao alogama, diploide 2n=32. A ficha diz que pode infestar milho, soja e em geral todas as culturas de verao. Sobre a Italia: 'non comune fino a pochi anni fa, e diventata invasiva in tempi recenti in alcune regioni dell'Italia centro-settentrionale'. Pode gerar hibridos com A. hybridus. Alta producao de sementes (300-500 mil por planta), germinacao muito escalonada, plantulas emergem de meados de abril a inicio de maio, emergencia mais tardia que A. retroflexus e A. hybridus.",
+   "culturas_citadas": [
+    "soia (soja) — declarada como 'Sistema colturale' na secao de resistencia",
+    "mais (milho) — citado na ecologia como cultura que pode ser infestada",
+    "colture estive (culturas de verao, em geral) — citado na ecologia"
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "A ficha NAO nomeia o mecanismo nem o grupo HRAC. Descreve os quimicos: solfoniluree (tifensulfuron-metile) e imidazolinoni (imazamox). NAO SEI se a ficha classifica isso como ALS/grupo B — ela nao escreve isso.",
+     "cultura": "soia (soja)",
+     "primeiro_caso_ano": "2010",
+     "regioes": [
+      "Veneto",
+      "Friuli Venezia Giulia",
+      "Emilia Romagna"
+     ],
+     "nota": "Frase literal que sustenta o ano e o estado: 'Primo caso nel 2010'. Note que aqui a ficha diz 'Primo caso', sem a palavra 'accertato' que aparece nas fichas de Ammania e Avena."
+    }
+   ],
+   "resistencia_multipla": "A ficha declara resistencia CRUZADA (cross-resistenza), nao multipla: fala em 'popolazioni cross-resistenti' a duas familias quimicas ao mesmo tempo — solfoniluree (tifensulfuron-metile) e imidazolinoni (imazamox). A palavra 'resistenza multipla' NAO aparece nesta ficha.",
+   "gestao_recomendada": "NAO SEI. Esta ficha nao traz secao de gestao nem link para 'linee guida specifiche' no corpo do texto lido.",
+   "citacao_literal": "'popolazioni cross-resistenti alle solfoniluree (tifensulfuron-metile) ed agli imidazolinoni (imazamox)' — GIRE (CNR), ficha Amaranthus tuberculatus."
+  },
+  {
+   "slug": "Ammania",
+   "nome_italiano": "Ammania arrossata",
+   "nome_scientifico": "Ammania coccinea Rottb",
+   "familia": "Lythraceae",
+   "ecologia_resumo": "Planta termofila palustre, de ciclo anual, infestante de valas, canais e lugares alagadicos ('fossi, canali e luoghi acquitrinosi'), podendo chegar a 1 m de altura. Porte herbaceo, caules cilindricos quando jovem e de secao quadrangular na fase adulta, de coloracao avermelhada. Folhas estreitas, lineares, com uma unica nervura central bem evidente, sesseis e opostas. Reproducao exclusivamente por semente na primavera adiantada; fecundacao entomogama. Flores hermafroditas vermelho-purpura em glomerulos na axila das folhas. Frutos em capsula deiscente de 3,5-4,5 mm com numerosas sementes de cerca de 0,5 mm, castanho-claras e lustrosas, pequenas o bastante para serem dispersas pelo vento e/ou por flutuacao na agua. Germinacao favorecida por regime de temperatura de 30/15 C (dia/noite).",
+   "culturas_citadas": [
+    "riso (arroz) — declarada como 'Sistema colturale' na secao de resistencia"
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "Inibidores da ALS (grupo B) — a ficha nomeia explicitamente: 'erbicidi inibitori dell'ALS (gruppo B)', com resistencia cruzada a solfoniluree e triazolopirimidine.",
+     "cultura": "riso (arroz)",
+     "primeiro_caso_ano": "2018",
+     "regioes": [
+      "Piemonte",
+      "Lombardia"
+     ],
+     "nota": "Frase literal que sustenta o ano: 'Primo caso accertato nel 2018.' A ficha usa 'accertado' (comprovado/verificado)."
+    }
+   ],
+   "resistencia_multipla": "A ficha declara resistencia CRUZADA, nao multipla: 'con resistenza incrociata alle solfoniluree e alle triazolopirimidine' — duas familias quimicas dentro do mesmo mecanismo ALS. A expressao 'resistenza multipla' NAO aparece nesta ficha.",
+   "gestao_recomendada": "A ficha nao traz o conteudo da gestao. Ela declara literalmente: 'Linee guida specifiche: in fase di preparazione' — ou seja, as diretrizes especificas estavam em fase de preparacao no texto lido. O que essas diretrizes recomendam: NAO SEI.",
+   "citacao_literal": "'popolazioni resistenti agli erbicidi inibitori dell'ALS (gruppo B) con resistenza incrociata alle solfoniluree' — GIRE (CNR), ficha Ammania coccinea."
+  },
+  {
+   "slug": "Avena",
+   "nome_italiano": "Avena maggiore, avena rossa",
+   "nome_scientifico": "Avena sterilis L.",
+   "familia": "Poaceae",
+   "ecologia_resumo": "Ciclo inverno-primavera; a ficha diz que infesta TODOS os cereais de outono-inverno ('infesta tutti i cereali autunno-vernini') e que consegue facilmente superar o trigo em altura. Planta principalmente autogama, poliploide 2n=42. Floracao entre abril e junho. Ponto agronomico forte: a especie as vezes e difundida junto com a semeadura de culturas contaminadas pelas cariopses da infestante, colhidas junto com as do cereal cultivado — o que, nas palavras da ficha, aumenta o risco de propagar plantas resistentes. Distribuicao na Italia: presente em todas as regioes; comum no centro-sul, mais rara no norte. As espiguetas produzem pares de cariopses heteroblasticas (exigencias de germinacao e niveis de dormencia diferentes), o que causa escalonamento marcado; plantulas emergem do outono ate a primavera e as cariopses ficam viaveis no solo por varios anos.",
+   "culturas_citadas": [
+    "grano duro e tenero (trigo duro e trigo comum) — declarados como 'Sistema colturale'",
+    "cereali autunno-vernini (cereais de outono-inverno, em geral) — citado na ecologia",
+    "frumento (trigo) — citado nos rotulos dos mapas: 'Mappa (frumento) ACCasi' e 'Mappa (frumento) ALS'"
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "Inibidores da ACCasi (grupo A) — nomeado literalmente: 'Resistenza agli erbicidi inibitori dell'ACCasi (gruppo A)'.",
+     "cultura": "grano duro e tenero (trigo duro e trigo comum)",
+     "primeiro_caso_ano": "1992",
+     "regioes": [
+      "Basilicata",
+      "Puglia",
+      "Sicilia",
+      "Veneto (casos esporadicos)",
+      "Emilia Romagna (casos esporadicos)",
+      "Marche (casos esporadicos)",
+      "Abruzzo (casos esporadicos)",
+      "Lazio (casos esporadicos)"
+     ],
+     "nota": "Frase literal que sustenta o ano: 'Primo caso accertato nel 1992.' A lista de regioes e declarada em bloco para a secao inteira de resistencia: 'Regioni interessate: Basilicata, Puglia, Sicilia, ed alcuni casi sporadici in Veneto, Emilia Romagna, Marche, Abruzzo e Lazio.' A ficha separa as tres primeiras dos 'casi sporadici' nas outras cinco. A ficha NAO diz que essa lista vale so para a ACCasi — ela vale para o bloco."
+    },
+    {
+     "mecanismo": "Inibidores da ALS — a ficha diz que ALGUMAS populacoes tem resistencia multipla aos inibidores da ALS: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS.' Existe tambem um mapa proprio rotulado 'Mappa (frumento) ALS'.",
+     "cultura": "grano duro e tenero (trigo duro e trigo comum) — a ficha nao separa a cultura por mecanismo; o 'Sistema colturale' declarado para o bloco e este.",
+     "primeiro_caso_ano": "NAO SEI. A ficha declara um unico ano, 1992, para o bloco de resistencia, sem dizer se ele se refere a ACCasi, a ALS ou a ambos. Nao afirmo 1992 para a ALS.",
+     "regioes": [
+      "NAO SEI — a ficha lista regioes uma vez so, para o bloco inteiro, sem separar por mecanismo"
+     ],
+     "nota": "Aqui a ficha usa a expressao 'resistenza multipla' explicitamente, e apenas para parte das populacoes ('Alcune popolazioni')."
+    }
+   ],
+   "resistencia_multipla": "SIM, declarada literalmente: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS.' Ou seja, populacoes que ja resistem a ACCasi (grupo A) e, alem disso, resistem a inibidores da ALS. A ficha nao diz qual a proporcao dessas populacoes nem em quais regioes elas estao.",
+   "gestao_recomendada": "A ficha NAO escreve as recomendacoes no corpo do texto. Ela apenas remete: 'Consulta le linee guida specifiche.' O conteudo dessas diretrizes especificas: NAO SEI — nao esta nesta pagina.",
+   "citacao_literal": "'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS.' — GIRE (CNR), ficha Avena sterilis."
+  },
+  {
+   "slug": "Chenopodium",
+   "nome_italiano": "Farinello comune",
+   "nome_scientifico": "Chenopodium album L.",
+   "familia": "Chenopodiaceae",
+   "ecologia_resumo": "Especie anual, colonizadora muito adaptavel de zonas frequentemente perturbadas, com crescimento que em competicao pode chegar a tres metros. Morfologicamente muito plastica e variavel, adapta-se as condicoes de crescimento (ex.: xeromorfismo). Ciclo primavera-verao, floracao de junho a setembro, polinizacao tanto autogama quanto alogama; especie poliploide, com varios niveis de ploidia relatados na literatura. Distribuicao na Italia: 'molto comune in tutte le regioni'. Uma planta em ambiente agricola produz facilmente mais de 10.000 sementes, chegando a algumas centenas de milhares; as sementes sao muito longevas no solo, ate algumas dezenas de anos, e compoem boa parte dos bancos de sementes das areas ocupadas. Tem dormencia fisiologica cuja intensidade varia com os fatores ambientais na maturacao. Emergencia a partir de marco, prolongada ate o fim da primavera, sobrepondo-se ao periodo de emergencia das especies de verao.",
+   "culturas_citadas": [
+    "NAO SEI — esta ficha nao declara 'Sistema colturale' nem nomeia nenhuma cultura. Fala apenas em 'ambiente agricolo' de forma generica. Nao infiro milho a partir da atrazina: a ficha nao diz isso."
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "Triazinas (atrazina), grupo C1 — nomeado literalmente: 'Popolazioni resistenti alle Triazine (atrazina) (gruppo C1)'. A ficha nao usa a palavra 'fotossistema'; usa o codigo de grupo C1.",
+     "cultura": "NAO SEI — a ficha nao declara sistema de cultivo para este caso.",
+     "primeiro_caso_ano": "1982",
+     "regioes": [
+      "Piemonte"
+     ],
+     "nota": "Frase literal que sustenta o ano: 'Primi casi accertati: 1982.' Reparar no plural — 'Primi casi', casos no plural, diferente das outras tres fichas do lote, que falam de 'Primo caso' no singular. E o ano mais antigo dos quatro."
+    }
+   ],
+   "resistencia_multipla": "NAO SEI. A ficha nao menciona resistencia multipla nem resistencia cruzada para esta especie. Isso nao quer dizer que nao exista — quer dizer que esta fonte nao fala disso.",
+   "gestao_recomendada": "NAO SEI. Esta ficha nao traz secao de gestao, nem link para 'linee guida specifiche', no corpo do texto lido.",
+   "citacao_literal": "'Popolazioni resistenti alle Triazine (atrazina) (gruppo C1). Primi casi accertati: 1982.' — GIRE (CNR), ficha Chenopodium album."
+  },
+  {
+   "slug": "Sinapis",
+   "nome_italiano": "Senape selvatica",
+   "nome_scientifico": "Sinapis arvensis L.",
+   "familia": "Brassicaceae",
+   "ecologia_resumo": "Nas palavras da ficha: anual infestante das culturas de outono-inverno (\"colture autunno-vernine\"), que coloniza facilmente tambem os incultos. Planta alogama de polinizacao entomofila, com sistema de auto-incompatibilidade; uma flor pode ser polinizada por periodo de ate 2-3 semanas. Grande capacidade competitiva na fase precoce de crescimento. Floracao de abril a outubro em ambiente nao perturbado. Diploide 2n = 18. SOBRE SEMENTES: as sementes de uma mesma planta tem niveis diferentes de dormencia fisiologica conforme a posicao da siliqua na inflorescencia (as siliquas mais baixas produzem sementes mais dormentes); dois fluxos principais de emergencia — um no outono (sementes menos dormentes) e o segundo, mais consistente, no inicio da primavera seguinte; niveis intermediarios de dormencia fazem aparecer plantulas tambem em outros periodos do ano, razao pela qual e classificada ecofisiologicamente como especie indiferente. ATENCAO — CONTRADICAO NO PROPRIO CORPO DO TEXTO: a ficha traz duas linhas de distribuicao seguidas e divergentes: \"Distribuzione in Italia: presente in tutte le regioni, ma piu rara in quelle settentrionali.\" e, logo abaixo, \"Distribuzione in Italia: molto comune in tutte le regioni.\" Nao sei qual das duas e a vigente; as duas estao no texto lido.",
+   "culturas_citadas": [
+    "grano duro e tenero (trigo duro e trigo mole) — literal: \"Sistema colturale: grano duro e tenero.\""
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "Inibidores da enzima ALS — literal: \"Resistenza agli enzimi inibitori dell'ALS (gruppo B)\"",
+     "cultura": "grano duro e tenero (trigo duro e mole) — literal: \"Sistema colturale: grano duro e tenero.\"",
+     "primeiro_caso_ano": "2006 — literal: \"Primo caso accertato nel 2006.\"",
+     "regioes": [
+      "Sicilia (tre casi) — literal: \"Regioni interessate: Sicilia (tre casi) e Toscana (due casi).\"",
+      "Toscana (due casi) — mesma frase literal acima"
+     ],
+     "nota": "A ficha declara UMA unica resistencia para esta especie: ALS, grupo B. AVISO DE LEI 3 (titulo casado nao e ato lido): ao final do bloco aparece o rotulo de link \"Mappa (frumento) ACCasi\". Isso e o nome de um link para um mapa, NAO uma frase do corpo que declare resistencia a ACCasi em Sinapis arvensis. Nao afirmo resistencia a ACCasi nesta especie — o corpo da ficha nao diz isso. Se o mapa importa, ele precisa ser aberto e lido por conta propria."
+    }
+   ],
+   "resistencia_multipla": "NAO SEI. Esta ficha, no corpo lido, nao traz nenhuma frase sobre resistencia multipla nem sobre resistencia cruzada para Sinapis arvensis. Campo vazio na fonte = NAO SEI, e nao \"nao ha\". Uma fonte so nao autoriza concluir ausencia.",
+   "gestao_recomendada": "NAO SEI pelo texto desta ficha. A ficha nao descreve manejo: ela apenas remete, com a frase literal \"Consulta le linee guida specifiche.\", a uma pagina separada de linhas-guia especificas, cujo conteudo NAO esta neste texto e nao foi lido. O que se pode afirmar e so isto: a ficha remete a linhas-guia especificas.",
+   "citacao_literal": "\"Primo caso accertato nel 2006. Regioni interessate: Sicilia (tre casi) e Toscana (due casi).\" (GIRE, ficha Sinapis arvensis, http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Sinapis)"
+  },
+  {
+   "slug": "Solanum",
+   "nome_italiano": "Pomidorella, erba morella",
+   "nome_scientifico": "Solanum nigrum L.",
+   "familia": "Solanaceae",
+   "ecologia_resumo": "Nas palavras da ficha: e infestante somente em zonas irrigadas ou chuvosas — \"non tollera la siccita prolungata\" (nao tolera a seca prolongada). Prospera e torna-se muito competitiva em terrenos ferteis ricos em nitrogenio e fosforo. Tem ciclo de verao e esta presente, alem das areas cultivadas, tambem em incultos e ambientes ruderais. Principalmente autogama, mas com baixa frequencia ocorre tambem polinizacao cruzada. Hexaploide, 2n = 72. Floracao de julho a novembro. Distribuicao na Italia: \"molto comune in tutte le regioni\" (muito comum em todas as regioes). SOBRE SEMENTES: especie muito prolifica, podendo produzir mais de 10.000 sementes por planta; sementes pouco dormentes apos um periodo de pos-maturacao; emergencia a partir de abril e prolongada por todo o periodo de verao.",
+   "culturas_citadas": [
+    "mais (milho) — literal: \"Sistema colturale: mais.\""
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "Triazinas (atrazina), grupo C1 — literal: \"Resistenza alle triazine (atrazina) (gruppo C1).\" OBSERVACAO DE LEI 4: a ficha NAO escreve a palavra \"fotossistema\". O que esta escrito no corpo e \"triazine (atrazina)\" e \"gruppo C1\". Nao afirmo o alvo bioquimico com palavras que a ficha nao usou.",
+     "cultura": "mais (milho) — literal: \"Sistema colturale: mais.\"",
+     "primeiro_caso_ano": "1978 — literal: \"Primo caso accertato nel 1978.\"",
+     "regioes": [
+      "Friuli Venezia-Giulia — literal: \"Regioni interessate: Regioni interessate: Friuli Venezia-Giulia, Veneto, Trentino.\" (o texto da fonte repete \"Regioni interessate:\" duas vezes; e assim que sai da pagina)",
+      "Veneto — mesma frase literal acima",
+      "Trentino — mesma frase literal acima"
+     ],
+     "nota": "A ficha declara UMA unica resistencia para esta especie: triazinas (atrazina), grupo C1. E o caso mais antigo dos tres desta leva: 1978."
+    }
+   ],
+   "resistencia_multipla": "NAO SEI. O corpo desta ficha nao traz nenhuma frase sobre resistencia multipla nem sobre resistencia cruzada em Solanum nigrum. Campo vazio na fonte = NAO SEI, nunca \"nao ha\".",
+   "gestao_recomendada": "NAO SEI pelo texto desta ficha. Ela apenas remete, com a frase literal \"Consulta le linee guida specifiche.\", a uma pagina separada de linhas-guia especificas que nao esta neste texto e nao foi lida.",
+   "citacao_literal": "\"Resistenza alle triazine (atrazina) (gruppo C1). Primo caso accertato nel 1978.\" (GIRE, ficha Solanum nigrum, http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Solanum)"
+  },
+  {
+   "slug": "Sorghum",
+   "nome_italiano": "Sorgo selvatico, sorghetta, melghetto",
+   "nome_scientifico": "Sorghum halepense (L.) Pers.",
+   "familia": "Poaceae",
+   "ecologia_resumo": "Nas palavras da ficha: especie difundida como infestante temivel (\"temibile infestante\") na maior parte das areas agricolas mundiais. Planta perene de ciclo de verao, dotada de robustos rizomas rastejantes. Muito adaptavel e competitiva (metabolismo C4), instala-se em terrenos cultivados, incultos, areas urbanas, zonas marginais perturbadas e ao longo de canais e cursos d'agua, onde pode tornar-se a especie predominante, com altas densidades de povoamento. Se nao geridos corretamente, os rizomas fragmentados pelas operacoes de preparo do solo (\"con le lavorazioni\") podem propagar rapidamente a infestacao. Polinizacao tanto autogama quanto alogama; pode formar hibridos com o sorgo cultivado. Ploidia: 2n = 40. Floracao prolongada de junho a outubro. Distribuicao na Italia: \"molto comune in tutte le regioni\". SOBRE SEMENTES: produz grandes quantidades de sementes (ate 28.000 por planta), formando depositos consistentes no solo; as sementes tem dormencia mecanica (pelos tegumentos) e tambem fisiologica, o que causa germinacao muito escalonada e prolongada na estacao de verao; as plantulas de semente emergem no campo a partir do fim de abril e as plantulas de rizoma um pouco antes, a partir do inicio/meados de abril.",
+   "culturas_citadas": [
+    "soia (soja) — literal: \"Sistemi colturali: soia, pomodoro e melone.\"",
+    "pomodoro (tomate) — mesma frase literal acima",
+    "melone (melao) — mesma frase literal acima"
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "Inibidores da enzima ACCasi, grupo A — literal: \"Resistenza agli enzimi inibitori dell'ACCasi (gruppo A), bassi livelli di resistenza incrociata verso i DIM.\"",
+     "cultura": "soia, pomodoro e melone (soja, tomate e melao) — literal: \"Sistemi colturali: soia, pomodoro e melone.\" ATENCAO: a ficha lista os tres sistemas culturais em bloco, antes do tipo de resistencia; ela NAO diz em qual dos tres o primeiro caso de 2005 foi verificado. Nao sei a cultura especifica do primeiro caso.",
+     "primeiro_caso_ano": "2005 — literal: \"Primo caso accertato nel 2005.\"",
+     "regioes": [
+      "Lombardia — literal: \"Regioni interessate: Lombardia.\" (unica regiao nomeada na ficha)"
+     ],
+     "nota": "AVISO DE LEI 3 (titulo casado nao e ato lido): ao final do bloco aparece o rotulo de link \"Mappa (dicotiledoni estive) ACCasi\". E o nome de um link para um mapa, nao uma frase do corpo. Note que o rotulo diz \"dicotiledoni\" enquanto Sorghum halepense e Poaceae (monocotiledonea) — mais um motivo para nao tratar rotulo de link como conteudo lido."
+    }
+   ],
+   "resistencia_multipla": "A ficha declara RESISTENCIA CRUZADA, em nivel baixo, aos DIM. Frase literal: \"Resistenza agli enzimi inibitori dell'ACCasi (gruppo A), bassi livelli di resistenza incrociata verso i DIM.\" Sobre resistencia MULTIPLA (a mecanismos de acao diferentes): NAO SEI — a ficha nao usa esse termo nem descreve tal caso para esta especie. Das tres fichas desta leva, esta e a unica que menciona resistencia cruzada.",
+   "gestao_recomendada": "NAO SEI como recomendacao formal de manejo: a ficha apenas remete, com a frase literal \"Consulta le linee guida specifiche.\", a uma pagina separada nao lida. O UNICO elemento operacional que esta escrito no corpo desta ficha e um alerta sobre preparo do solo: \"Se non gestiti correttamente, i rizomi frammentati con le lavorazioni possono rapidamente propagare l'infestazione\" — os rizomas fragmentados pelas operacoes de preparo, se mal geridos, propagam rapidamente a infestacao. Isso e uma constatacao ecologica da ficha, nao uma linha-guia de manejo declarada como tal.",
+   "citacao_literal": "\"bassi livelli di resistenza incrociata verso i DIM\" (GIRE, ficha Sorghum halepense, http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Sorghum)"
+  },
+  {
+   "slug": "Panicum",
+   "nome_italiano": "Panico delle risaie, panico dicotomifloro",
+   "nome_scientifico": "Panicum dichotomiflorum Michx.",
+   "familia": "Poaceae",
+   "ecologia_resumo": "Nas palavras da ficha: nativa da America do Norte, presente como adventicia em muitas regioes da Italia continental, com lacunas no centro-sul. Anual (terofita), primaveril-estival; o nome especifico se refere a ramificacao predominantemente dicotomica da inflorescencia escaposa. Emerge no fim da primavera, floresce em pleno verao e tem ciclo fotossintetico C4. Altura de 50 a 100 (200) cm, forma grandes touceiras frouxas. Colmos de prostrados a ereto-ascendentes, ramosos na base. Inflorescencia em grande panicula de ate 20 cm de comprimento e aberta ate cerca de 15 cm de largura. Distingue-se de Panicum capillare pelas folhas sem pelos e com nervura mediana branca geralmente marcada. Distribuicao na Italia: 'molto comune in tutte le regioni'. Sementes (na verdade cariopse) de 2-3 mm, dormentes na maturacao ao contrario de outras gramineas, permanecem viaveis no solo por muito tempo (mais de 10 anos); a disseminacao ocorre por sementes transportadas junto com porcoes da inflorescencia, pelo vento ou pelas atividades agricolas.",
+   "culturas_citadas": [
+    "riso (arroz) — declarado no campo 'Sistema colturale: riso'",
+    "risaie (arrozais) — apenas dentro do nome comum italiano 'Panico delle risaie'"
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "ACCasi (inibidores da ACCase — gruppo A, 1 na nova classificacao HRAC)",
+     "cultura": "riso (arroz)",
+     "primeiro_caso_ano": "1978",
+     "regioes": [
+      "Lombardia"
+     ],
+     "nota": "A ficha declara apenas UMA resistencia. Texto literal do campo de regioes vem duplicado na propria fonte: 'Regioni interessate: Regioni interessate: Lombardia.' — a unica regiao nomeada e a Lombardia. A ficha nao nomeia nenhum principio ativo especifico dentro do grupo A: NAO SEI quais. 1978 e a data mais antiga entre as quatro fichas deste lote."
+    }
+   ],
+   "resistencia_multipla": "NAO SEI. A ficha de Panicum dichotomiflorum nao contem nenhuma frase sobre resistencia multipla ou cruzada — o bloco 'Situazione della resistenza' traz um unico tipo de resistencia e nada mais. Ausencia nesta ficha nao significa que nao exista: significa que esta fonte nao diz.",
+   "gestao_recomendada": "NAO SEI pelo corpo desta ficha. O unico texto sobre manejo e o remissivo 'Consulta le linee guida specifiche.' — um link para outra pagina do GIRE (linhas-guia especificas), cujo conteudo nao foi lido aqui. TITULO CASADO NAO E ATO LIDO: nao afirmo o que essas linhas-guia recomendam.",
+   "citacao_literal": "\"Resistenza agli erbicidi inibitori dell'ACCasi (gruppo A, 1 nella nuova classificazione HRAC). Primo caso accertato nel 1978.\" — ficha GIRE de Panicum dichotomiflorum (gire.mlib.cnr.it, atualizacao declarada 26/08/2026)"
+  },
+  {
+   "slug": "Papaver",
+   "nome_italiano": "Papavero",
+   "nome_scientifico": "Papaver rhoeas L.",
+   "familia": "Papaveraceae",
+   "ecologia_resumo": "Nas palavras da ficha: planta anual, de ciclo invernal-primaveril. Infestante dos cereais de outono-inverno ('cereali autunno-vernini'), prospera tambem em terrenos incultos e em zonas ruderais, pobres e marginais. E uma especie pouco competitiva em relacao as culturas, mas dotada de notavel plasticidade: mesmo com crescimento fortemente limitado por condicoes de competicao, uma planta consegue sempre levar a maturacao ao menos uma capsula com sementes. Estritamente alogama, de polinizacao entomofila com sistema de incompatibilidade gametofitico. Floracao em maio-junho. Especie diploide, 2n = 14. Distribuicao na Italia: 'comune in tutte le regioni'. Especie muito prolifica: uma planta pode potencialmente produzir algumas dezenas de milhares de sementes, e em competicao de 1000 a 5000 sementes. Sementes com forte dormencia primaria, muito longevas (permanecem viaveis no solo ate 10 anos), formam depositos muito consistentes no solo. Emergencia das plantulas principalmente outonal.",
+   "culturas_citadas": [
+    "grano duro e tenero (trigo duro e trigo mole) — campo 'Sistema colturale'",
+    "frumento (trigo) — rotulo dos mapas de resistencia citados na ficha",
+    "cereali autunno-vernini (cereais de outono-inverno) — na ecologia"
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "ALS (inibidores da ALS — gruppo B), 'in particolare alle solfoniluree' (em particular as sulfonilureias)",
+     "cultura": "grano duro e tenero (trigo duro e mole)",
+     "primeiro_caso_ano": "1998",
+     "regioes": [
+      "Toscana",
+      "Lazio",
+      "Puglia",
+      "Basilicata",
+      "Sicilia",
+      "Veneto",
+      "Lombardia (1 caso)",
+      "Piemonte (1 caso)",
+      "Umbria (1 caso)"
+     ],
+     "nota": "A ficha registra 'Mappa (frumento) ALS'. As tres ultimas regioes vem marcadas com '(1 caso)' no proprio texto; para Toscana, Lazio, Puglia, Basilicata, Sicilia e Veneto a ficha nao informa numero de casos — NAO SEI quantos."
+    },
+    {
+     "mecanismo": "Ormonosimili / auxinicos — 2,4-D (gruppo O)",
+     "cultura": "grano duro e tenero (trigo duro e mole)",
+     "primeiro_caso_ano": "1998",
+     "regioes": [
+      "Puglia",
+      "Lazio (1 caso)",
+      "Basilicata (1 caso)"
+     ],
+     "nota": "Texto literal da fonte: 'Regioni interessate: Puglia, Lazio, (1 caso) Basilicata (1 caso).' A virgula antes de '(1 caso)' deixa ambiguo se o '(1 caso)' se refere ao Lazio ou a Puglia — NAO SEI qual das duas leituras a fonte quis. A ficha registra 'Mappa (frumento) 2,4-D'."
+    },
+    {
+     "mecanismo": "Resistencia MULTIPLA: ALS (gruppo B) + 2,4-D (gruppo O)",
+     "cultura": "grano duro e tenero (trigo duro e mole)",
+     "primeiro_caso_ano": "1998",
+     "regioes": [
+      "Puglia",
+      "Lazio (2 casi)",
+      "Basilicata (1 caso)"
+     ],
+     "nota": "Texto literal: 'Regioni interessate: Puglia, Lazio, (2 casi) Basilicata (1 caso).' Mesma ambiguidade de pontuacao do bloco anterior — NAO SEI se '(2 casi)' pertence ao Lazio ou a Puglia. A fonte grafa 'grupo O' (sem o 'p' de gruppo) nesta linha."
+    }
+   ],
+   "resistencia_multipla": "SIM, declarada explicitamente e como terceiro bloco proprio: 'popolazioni con resistenza multipla agli inibitori dell'ALS (gruppo B) e al 2,4-D (grupo O). Primo caso accertato nel 1998.' Regioes: Puglia, Lazio, Basilicata. A ficha NAO usa a expressao 'resistenza incrociata' (resistencia cruzada) em nenhum ponto — sobre cruzada aqui: NAO SEI.",
+   "gestao_recomendada": "NAO SEI pelo corpo desta ficha. O unico texto sobre manejo e o remissivo 'Consulta le linee guida specifiche.' — link para outra pagina do GIRE, nao lida aqui. Nao afirmo o conteudo dessas linhas-guia.",
+   "citacao_literal": "\"popolazioni con resistenza multipla agli inibitori dell'ALS (gruppo B) e al 2,4-D (grupo O). Primo caso accertato nel 1998.\" — ficha GIRE de Papaver rhoeas L. (gire.mlib.cnr.it, atualizacao declarada 26/08/2026)"
+  },
+  {
+   "slug": "Phalaris",
+   "nome_italiano": "Scaiola sterile",
+   "nome_scientifico": "Phalaris paradoxa L.",
+   "familia": "Poaceae",
+   "ecologia_resumo": "Nas palavras da ficha: especie anual de ciclo outonal-primaveril. Difundida no centro-sul da Italia como infestante das culturas de outono-inverno ('colture autunno-vernine'). Principalmente autogama, com baixa percentagem estimada de polinizacao cruzada. Floracao: abril-junho. Diploide: 2n = 14. Distribuicao na Italia: 'comune in Italia centro-meridionale a partire da Liguria ed Emilia'. Sementes com dormencia de tipo fisiologica, que causa escalonamento nas emergencias; formam depositos persistentes no solo. As plantulas emergem no campo no fim do outono, inicio do inverno.",
+   "culturas_citadas": [
+    "grano duro e tenero (trigo duro e trigo mole) — campo 'Sistema colturale'",
+    "frumento (trigo) — rotulo do mapa 'Mappa (frumento) ACCasi'",
+    "colture autunno-vernine (culturas de outono-inverno) — na ecologia"
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "ACCasi (inibidores da ACCase — gruppo A)",
+     "cultura": "grano duro e tenero (trigo duro e mole)",
+     "primeiro_caso_ano": "1998",
+     "regioes": [
+      "Lazio",
+      "Molise",
+      "Puglia"
+     ],
+     "nota": "A ficha declara apenas UMA resistencia e registra 'Mappa (frumento) ACCasi'. Diferente da ficha de Panicum, aqui a fonte cita so 'gruppo A', sem mencionar o numero 1 da nova classificacao HRAC. Nenhum principio ativo especifico e nomeado: NAO SEI quais. A ficha nao informa numero de casos por regiao: NAO SEI."
+    }
+   ],
+   "resistencia_multipla": "NAO SEI. A ficha de Phalaris paradoxa nao traz nenhuma frase sobre resistencia multipla nem cruzada — o bloco 'Situazione della resistenza' e o mais curto das quatro fichas deste lote e cobre so o grupo A. Ausencia nesta fonte nao e prova de inexistencia.",
+   "gestao_recomendada": "NAO SEI pelo corpo desta ficha. O unico texto sobre manejo e o remissivo 'Consulta le linee guida specifiche.' — link para outra pagina do GIRE, nao lida aqui.",
+   "citacao_literal": "\"Resistenza agli enzimi inibitori dell'ACCasi (gruppo A). Primo caso accertato nel 1998. Regioni interessate: Lazio, Molise, Puglia.\" — ficha GIRE de Phalaris paradoxa L. (gire.mlib.cnr.it, atualizacao declarada 26/08/2026)"
+  },
+  {
+   "slug": "Schoenoplectus",
+   "nome_italiano": "Lisca mucronata, zigolo, lancia",
+   "nome_scientifico": "Schoenoplectus (Scirpus) mucronatus (L.) Palla",
+   "familia": "Cyperaceae",
+   "ecologia_resumo": "Nas palavras da ficha: difundido em ambientes umidos, ao longo de cursos d'agua e infestante dos arrozais ('infestante delle risaie'), tem ciclo estival. Perene, reproduz-se no arrozal principalmente por semente. Propaga-se tambem por via vegetativa atraves de rizomas curtos que, com praticas agricolas pouco atentas, podem ser espalhados por todo o talhao causando populacoes densas. Polinizacao anemofila. Poliploide: varios niveis de ploidia relatados na literatura. Floracao de junho a agosto. Distribuicao na Italia: 'comune nella pianura lombardo-piemontese, piu rara nel resto dell'Italia settentrionale, Toscana, Sicilia'. Sementes com forte dormencia fisiologica primaria. Emergencia das plantulas a partir de maio.",
+   "culturas_citadas": [
+    "riso (arroz) — campo 'Sistema colturale: riso'",
+    "risaie (arrozais) — na ecologia e no rotulo 'Mappa (riso) ALS'"
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "ALS (inibidores da ALS — gruppo B), com resistencia CRUZADA a todas as familias quimicas dos inibidores da ALS",
+     "cultura": "riso (arroz)",
+     "primeiro_caso_ano": "1995",
+     "regioes": [
+      "Lombardia",
+      "Piemonte",
+      "Veneto"
+     ],
+     "nota": "A ficha nao apenas declara a resistencia: afirma que esta e a especie com a maior difusao de populacoes resistentes a ALS ('E' la specie con la maggiore diffusione di popolazioni resistenti agli enzimi inibitori dell'ALS'). Registra 'Mappa (riso) ALS'. A ficha nao informa numero de casos por regiao: NAO SEI. Nenhum principio ativo individual e nomeado: NAO SEI quais."
+    }
+   ],
+   "resistencia_multipla": "CRUZADA sim, MULTIPLA nao declarada. Texto literal: 'Presenza di popolazioni con resistenza incrociata verso tutte le famiglie chimiche degli inibitori dell'ALS.' — ou seja, dentro do mesmo mecanismo (ALS, gruppo B), atravessando todas as familias quimicas. A ficha NAO usa em nenhum ponto a expressao 'resistenza multipla' (resistencia a mecanismos diferentes): sobre isso, NAO SEI.",
+   "gestao_recomendada": "NAO SEI pelo corpo desta ficha. O unico texto sobre manejo e o remissivo 'Consulta le linee guida specifiche .' — link para outra pagina do GIRE, nao lida aqui. Nao afirmo o que ela recomenda.",
+   "citacao_literal": "\"E' la specie con la maggiore diffusione di popolazioni resistenti agli enzimi inibitori dell'ALS (gruppo B).\" — ficha GIRE de Schoenoplectus (Scirpus) mucronatus (L.) Palla (gire.mlib.cnr.it, atualizacao declarada 26/08/2026)"
+  },
+  {
+   "slug": "Conyza",
+   "nome_italiano": "NAO SEI — a ficha nao traz nome comum italiano na linha em que as outras fichas trazem. No lugar dele aparece o sinonimo botanico: \"Conyza, Erigeron canadensis L.\"",
+   "nome_scientifico": "Conyza canadensis (L.) Cronq.",
+   "familia": "Asteraceae",
+   "ecologia_resumo": "Nas palavras da ficha: planta anual ou bienal, originaria da America do Norte, de ciclo indiferente e disseminacao anemocora (pelo vento). Infestante comum em centros urbanos, bordas de estrada, aterros/lastros ferroviarios (massicciate), terrenos incultos, culturas arboreas e em situacoes de minimo ou nenhum preparo do solo. Floracao da primavera ate o outono tardio e, em condicoes favoraveis, floresce o ano todo. Especie diploide, 2n = 18. Distribuicao na Italia: comum em todas as regioes, da planicie ate 1200 m. Sementes: especie muito prolifica, uma planta pode potencialmente produzir de 50.000 a 200.000 sementes que podem ser disseminadas a longas distancias, o que a propria ficha liga a dificuldade de manejo da resistencia. Longevidade das sementes no solo documentada ate tres anos. Emergencia das plantulas principalmente invernal. Fruto e um aquenio com semente de 1 mm.",
+   "culturas_citadas": [
+    "uliveto (olival) — sistema colturale declarado no bloco de resistencia",
+    "colture arboree (culturas arboreas) — citadas na ecologia, sem nome de especie",
+    "NOTA: fora essas, a ficha nao nomeia outras culturas. Ambientes nao agricolas citados (centros urbanos, bordas de estrada, incultos) nao sao cultura."
+   ],
+   "resistencias": [
+    {
+     "cultura": "Uliveto (olival) — \"Sistemi colturali: uliveto.\"",
+     "mecanismo": "EPSPs / glifosato — a ficha escreve \"resistente al Glyphosate (gruppo G)\" e rotula o mapa como \"Mappa (colture arboree) EPSPs\"",
+     "primeiro_caso_ano": "2010",
+     "regioes": [
+      "Puglia"
+     ],
+     "nota": "A ficha desce ao municipio: primeiro caso apurado em 2010 no comune di Giovinazzo, provincia de Bari, na Puglia. Nao afirmo nada alem disso — a ficha nao diz quantas populacoes, nem se ha casos em outras regioes. Ausencia de outras regioes nesta fonte NAO significa ausencia no pais."
+    }
+   ],
+   "resistencia_multipla": "NAO SEI — a ficha nao usa as palavras resistenza multipla nem resistenza incrociata para esta especie. O que ela diz, e que e coisa diferente, e que no mundo a especie esta \"tra le specie che evolvono più frequentemente biotipi resistenti agli erbicidi\" (entre as especies que mais frequentemente desenvolvem biotipos resistentes). Isso e frequencia de evolucao de resistencia no mundo, nao declaracao de resistencia multipla ou cruzada na Italia.",
+   "gestao_recomendada": "NAO SEI — esta ficha nao traz secao de gestao nem o link \"Consulta le linee guida specifiche\" que aparece na ficha do Cyperus difformis. A unica frase do corpo que toca manejo e a das sementes: dispersao a longa distancia \"rendendo problematica la gestione della resistenza\" (tornando problematica a gestao da resistencia). Isso e diagnostico do problema, nao recomendacao de manejo.",
+   "citacao_literal": "\"Primo caso accertato nel 2010 nel comune di Giovinazzo (Bari).\" — ficha GIRE Conyza canadensis, secao Situazione della resistenza (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Conyza, ultima atualizacao declarada no rodape: 26/08/2026)"
+  },
+  {
+   "slug": "Cyperus",
+   "nome_italiano": "Zigolo delle risaie",
+   "nome_scientifico": "Cyperus difformis L.",
+   "familia": "Cyperaceae",
+   "ecologia_resumo": "Nas palavras da ficha: planta hidrofita, infestante de arrozal. Em alguns casos se adapta tambem a ambientes nao alagados (com solos de qualquer modo umidos), tornando-se infestante de outras culturas como, por exemplo, o milho em rotacao com o arroz. Tem crescimento rapido e pode formar populacoes muito densas (mais de 500 plantas por metro quadrado), exercendo forte pressao competitiva sobre a cultura. Ciclo estivo e as vezes pode chegar a floracao em seis semanas. Distribuicao na Italia: comum na planicie lombarda e piemontesa, mais raro no resto da planicie padana, na Liguria, Toscana e Sicilia. Sementes: muito pequenas, peso medio de cerca de 20 microgramas; mesmo sob competicao pode produzir entre 5.000 e 50.000 sementes por planta. Forma depositos de sementes persistentes (a semente permanece viavel ate mais de 5-6 anos) e muito consistentes. As sementes tem dormencia e germinam so em condicoes estritamente favoraveis.",
+   "culturas_citadas": [
+    "riso (arroz) — sistema colturale declarado no bloco de resistencia",
+    "mais in rotazione con il riso (milho em rotacao com o arroz) — citado na ecologia como exemplo de outra cultura invadida, NAO como cultura com resistencia declarada"
+   ],
+   "resistencias": [
+    {
+     "cultura": "Riso (arroz) — \"Sistema colturale: riso.\"",
+     "mecanismo": "ALS (gruppo B) — \"erbicidi inibitori dell'ALS (gruppo B)\"; mapa rotulado \"Mappa (riso) ALS\"",
+     "primeiro_caso_ano": "1999",
+     "regioes": [
+      "Piemonte",
+      "Lombardia",
+      "Emilia Romagna",
+      "Veneto",
+      "Sardegna"
+     ],
+     "nota": "A ficha declara, no mesmo bloco, resistencia cruzada dentro do grupo B: as sulfonilureias e as triazolopirimidinas. Ela nao nomeia moleculas individuais nesta especie (diferente da ficha do Cyperus esculentus, que nomeia halosulfuron e azimsulfuron). Nao afirmo mais nada: a ficha nao diz numero de populacoes nem provincia."
+    }
+   ],
+   "resistencia_multipla": "Resistencia CRUZADA declarada, e so dentro do grupo B (ALS). A ficha diz: \"con resistenza incrociata alle solfoniluree e alle triazolopirimidine\" — resistencia cruzada as sulfonilureias e as triazolopirimidinas, que sao duas familias quimicas do mesmo mecanismo ALS. Sobre resistencia MULTIPLA (a mecanismos diferentes entre si): NAO SEI — a ficha nao usa essa expressao aqui.",
+   "gestao_recomendada": "NAO SEI o conteudo. A ficha remete: \"Consulta le linee guida specifiche.\" — ou seja, aponta para as diretrizes especificas do GIRE, mas o texto dessas diretrizes NAO esta neste corpo de ficha. Titulo/link casado nao e ato lido: nao vou inventar o que as linhas-guia dizem. Para saber, e preciso ler a pagina das linee guida specifiche.",
+   "citacao_literal": "\"con resistenza incrociata alle solfoniluree e alle triazolopirimidine. Primo caso accertato nel 1999.\" — ficha GIRE Cyperus difformis, secao Situazione della resistenza (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Cyperus, ultima atualizacao declarada no rodape: 26/08/2026)"
+  },
+  {
+   "slug": "Cyperus_esc",
+   "nome_italiano": "Mandorla di terra",
+   "nome_scientifico": "Cyperus esculentus L.",
+   "familia": "Cyperaceae",
+   "ecologia_resumo": "Nas palavras da ficha: nativa da area mediterranea, e uma infestante capaz de colonizar muitas culturas agrarias, que prefere climas umidos, de tropicais a temperados. Especie C4, poliploide, perene geofita, de ciclo estivo, com polinizacao cruzada, cujo crescimento e reproducao sao largamente influenciados pelo fotoperiodo. Reproduz-se predominantemente por via vegetativa, por rizomas e tuberculos que se propagam no solo. Os tuberculos, irregularmente ovoides, tem diametro de 5-15 mm e podem permanecer dormentes no solo por muitos anos; a germinacao deles ocorre geralmente no fim da primavera. A ficha registra que praticas agronomicas nao apropriadas podem favorecer a difusao dos tuberculos no talhao. Floracao em meados de junho e maturacao das sementes em meados de setembro, ainda que muitas populacoes nao produzam sementes maduras. Distribuicao: presente na maior parte das regioes italianas. Sementes: abundantes, cor do esbranquicado ao amarelo-marrom, triangulares-ovoides, de 1,2 a 1,8 mm; producao e viabilidade bastante variaveis conforme o ambiente e as vezes as sementes produzidas nao sao ferteis. A germinacao comeca quando a temperatura chega a 10 graus C e parece favorecida em climas quentes e secos. As plantulas nascidas de semente frequentemente nao tem vigor suficiente para sobreviver em campo aberto; por isso considera-se que, nas regioes temperadas, o papel das sementes na propagacao desta especie seja bastante limitado.",
+   "culturas_citadas": [
+    "riso (arroz) — sistema colturale declarado no bloco de resistencia",
+    "\"molte colture agrarie\" (muitas culturas agrarias) — a ecologia diz que a especie coloniza muitas culturas, mas NAO nomeia quais. Nao vou preencher esse buraco."
+   ],
+   "resistencias": [
+    {
+     "cultura": "Riso (arroz) — \"Sistema colturale: riso.\"",
+     "mecanismo": "ALS — \"halosulfuron, azimsulfuron (inibitori dell'ALS)\"; mapa rotulado \"Mappa (riso): ALS\"",
+     "primeiro_caso_ano": "2015",
+     "regioes": [
+      "Piemonte",
+      "Lombardia"
+     ],
+     "nota": "Aqui a ficha nomeia as duas moleculas (halosulfuron e azimsulfuron), o que a ficha do Cyperus difformis nao faz. Repare tambem: nesta ficha o GIRE escreve so \"(inibitori dell'ALS)\", sem o rotulo \"gruppo B\" que aparece na do C. difformis — nao vou acrescentar o rotulo que a fonte nao escreveu. Ausencia de outras regioes nesta fonte NAO significa ausencia no pais."
+    }
+   ],
+   "resistencia_multipla": "NAO SEI — a ficha nao usa resistenza multipla nem resistenza incrociata para esta especie. Ela lista dois principios ativos (halosulfuron e azimsulfuron) sob o mesmo mecanismo ALS, mas NAO chama isso de resistencia cruzada; nao vou colocar essa palavra na boca da fonte.",
+   "gestao_recomendada": "NAO SEI — esta ficha nao tem secao de gestao nem o link para as linee guida specifiche. A unica frase do corpo que toca praticas agricolas esta na ecologia, sobre os tuberculos: \"Pratiche agronomiche non appropriate possono quindi favorire la loro diffusione nell'appezzamento\" (praticas agronomicas nao apropriadas podem favorecer a difusao deles no talhao). E um alerta, nao uma recomendacao de manejo de resistencia.",
+   "citacao_literal": "\"Tipo di resistenza: halosulfuron, azimsulfuron (inibitori dell'ALS). Primo caso accertato nel 2015.\" — ficha GIRE Cyperus esculentus (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Cyperus_esc, ultima atualizacao declarada no rodape: 26/08/2026)"
+  },
+  {
+   "slug": "Digitaria",
+   "nome_italiano": "Sanguinella comune",
+   "nome_scientifico": "Digitaria sanguinalis (L.) Scop.",
+   "familia": "Poaceae",
+   "ecologia_resumo": "Nas palavras da ficha: especie anual, de ciclo estivo, difundida em quase todo o territorio nacional, infestante em culturas sachadas/em linha (colture sarchiate), em prados e pomares. A planta tem 20-50 cm e forma amplas touceiras com muitas ramificacoes na base. Floresce de junho a setembro e tem inflorescencia digitada (dai o nome) com 4-6 racemos lineares de 3-8 cm, alguns sesseis, outros pedunculados, com espiguetas violaceas espalhadas na raque. Folhas lineares, lamina pilosa, lanceolada, ondulada e avermelhada na margem, com ligula franjada. Sementes: cada planta pode produzir ate 150.000 sementes, que para germinar precisam de temperaturas elevadas e umidade abundante. A via preferencial de disseminacao e o vento. Espigueta ovoide e achatada, de cerca de 3 mm, com cores do verde claro ao marrom-esverdeado; composta de dois lemas que encerram uma unica cariopse, tambem ovoide e achatada, e duas glumas, uma com um terco a metade do comprimento do lema e a outra muito pequena. A germinacao comeca quando a temperatura media do solo passa de 15 graus C, enquanto temperaturas muito elevadas induzem as sementes a dormencia; por isso o periodo de maior emergencia vai de abril a julho.",
+   "culturas_citadas": [
+    "Soia — sistema colturale declarado no bloco de resistencia",
+    "Riso (arroz) — sistema colturale declarado no bloco de resistencia",
+    "colture sarchiate (culturas sachadas / em linha) — citadas na ecologia, sem nomear especie",
+    "prati (prados) — citados na ecologia",
+    "frutteti (pomares) — citados na ecologia"
+   ],
+   "resistencias": [
+    {
+     "cultura": "Soia e Riso — a ficha escreve \"Sistemi colturali: Soia, Riso.\" num unico bloco, sem separar ano ou regiao por cultura. Nao vou dividir o que a fonte juntou.",
+     "mecanismo": "ACCasi (gruppo A) — \"erbicidi inibitori dell'ACCasi (gruppo A)\"",
+     "primeiro_caso_ano": "2006",
+     "regioes": [
+      "Lombardia",
+      "Veneto"
+     ],
+     "nota": "Duas observacoes honestas sobre o que esta escrito. (1) A ficha nao nomeia nenhuma molecula de ACCasi nesta especie, so o mecanismo e o grupo. (2) O rotulo do mapa nesta ficha e \"Mappa (dicotiledoni estive) ACCasi\" — dicotiledoneas estivas — mas Digitaria sanguinalis e Poaceae, monocotiledonea, como a propria ficha declara na familia. Estou registrando o rotulo como ele aparece; NAO SEI se e erro de rotulacao do site ou se o mapa e compartilhado com outro grupo de especies. Nao concluo nada a partir disso."
+    }
+   ],
+   "resistencia_multipla": "NAO SEI — a ficha nao usa resistenza multipla nem resistenza incrociata para esta especie. Declara um unico mecanismo (ACCasi, grupo A).",
+   "gestao_recomendada": "NAO SEI — esta ficha nao traz secao de gestao nem o link para as linee guida specifiche. Nao ha, no corpo lido, nenhuma frase de recomendacao de manejo.",
+   "citacao_literal": "\"popolazioni resistenti agli erbicidi inibitori dell'ACCasi (gruppo A). Primo caso accertato nel 2006.\" — ficha GIRE Digitaria sanguinalis, secao Situazione della resistenza (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Digitaria, ultima atualizacao declarada no rodape: 26/08/2026)"
+  },
+  {
+   "slug": "Echinochloa",
+   "nome_italiano": "Giavone comune, pianicastrella",
+   "nome_scientifico": "Echinochloa crus-galli (L.) Beauv",
+   "familia": "Poaceae",
+   "ecologia_resumo": "Especie anual de ciclo estival, 'molto diffusa e adattabile' nas palavras da ficha. Coloniza e infesta sistemas de cultivo muito diferentes e todas as culturas mais importantes: tanto arrozais e areas umidas quanto culturas de verao como milho e soja. Tem notavel polimorfismo fenotipico, que a propria ficha diz causar dificuldade para classificar as especies do genero. Planta de metabolismo C4, muito competitiva tambem no aproveitamento dos nutrientes e predominantemente autogama. Floracao de junho a outubro; especie poliploide com varios niveis de ploidia relatados na literatura. Distribuicao na Italia: 'molto comune in tutte le regioni'. Sementes: viaveis no solo por varios anos, mesmo em condicoes de submersao, podendo se tornar o componente principal do banco de sementes em terrenos revolvidos; dormencia de tipo mecanica devida aos tegumentos externos da cariopse, o que tambem provoca escalonamento das emergencias. Germinacao em campo a partir de maio.",
+   "culturas_citadas": [
+    "riso (risaie)",
+    "aree umide",
+    "mais",
+    "soia"
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "Propanile (gruppo C2) — a ficha nomeia o herbicida e o grupo, NAO SEI se ela nomeia o sitio de acao por extenso (nao aparece no corpo do texto)",
+     "cultura": "riso",
+     "primeiro_caso_ano": "2000",
+     "regioes": [
+      "Piemonte",
+      "Lombardia",
+      "Toscana"
+     ],
+     "nota": "Texto da ficha: 'Popolazioni resistenti al propanile (gruppo C2)' e 'Primo caso accertato nel 2000.' Ha remissao a mapa (riso) Propanile."
+    },
+    {
+     "mecanismo": "Inibidores da ALS (gruppo B)",
+     "cultura": "riso",
+     "primeiro_caso_ano": "NAO SEI — esta entrada da ficha nao traz ano de primeiro caso; nao concluir que nao existe",
+     "regioes": [
+      "Piemonte",
+      "Lombardia",
+      "Emilia Romagna",
+      "Toscana",
+      "Sardegna"
+     ],
+     "nota": "Texto: 'Popolazioni resistenti agli erbicidi inibitori dell'ALS (gruppo B).' Unica das cinco entradas da ficha sem ano declarado. Ha remissao a mapa (riso) ALS."
+    },
+    {
+     "mecanismo": "Inibidores da ACCasi (gruppo A)",
+     "cultura": "riso",
+     "primeiro_caso_ano": "2011",
+     "regioes": [
+      "Piemonte",
+      "Lombardia",
+      "Emilia Romagna",
+      "Toscana (1 caso)",
+      "Sardegna (1 caso)"
+     ],
+     "nota": "Texto: 'Popolazioni resistenti agli erbicidi inibitori dell'ACCasi (gruppo A). Primo caso accertato nel 2011.' A ficha marca explicitamente Toscana e Sardegna como '1 caso' cada."
+    },
+    {
+     "mecanismo": "Resistencia multipla: inibidores da ALS (gruppo B) + inibidores da ACCasi (gruppo A)",
+     "cultura": "riso",
+     "primeiro_caso_ano": "2009",
+     "regioes": [
+      "Piemonte",
+      "Lombardia",
+      "Emilia Romagna",
+      "Toscana (1 caso)",
+      "Sardegna (1 caso)"
+     ],
+     "nota": "Texto: 'Popolazioni con resistenza multipla agli erbicidi inibitori dell'ALS (gruppo B) e agli erbicidi inibitori dell'ACCasi (gruppo A). Primo caso accertato nel 2009.' Observacao de leitura: o ano da multipla (2009) e anterior ao ano declarado para a ACCasi isolada (2011) na mesma ficha; a ficha nao explica isso e eu nao vou explicar por ela."
+    },
+    {
+     "mecanismo": "Inibidores da enzima ALS (gruppo B), com resistencia cruzada de alto nivel a todas as familias quimicas do grupo",
+     "cultura": "mais",
+     "primeiro_caso_ano": "2005",
+     "regioes": [
+      "Veneto",
+      "Piemonte",
+      "Toscana"
+     ],
+     "nota": "Texto: 'Popolazioni con alti livelli di resistenza incrociata verso tutte le famiglie chimiche degli inibitori dell'enzima ALS (gruppo B)' e 'Primo caso accertato nel 2005.' Ha remissao a mapa (mais) ALS."
+    }
+   ],
+   "resistencia_multipla": "A ficha declara resistencia multipla em arroz — ALS (gruppo B) + ACCasi (gruppo A), primeiro caso em 2009, em Piemonte, Lombardia, Emilia Romagna, Toscana (1 caso) e Sardegna (1 caso). E declara resistencia CRUZADA em milho: populacoes com altos niveis de resistencia cruzada a TODAS as familias quimicas dos inibidores da ALS (gruppo B), primeiro caso em 2005, em Veneto, Piemonte e Toscana. Sao os dois unicos trechos da ficha que falam de multipla/cruzada.",
+   "gestao_recomendada": "NAO SEI a partir desta ficha. Para os dois sistemas de cultivo (riso e mais) a pagina apenas remete: 'Consulta le linee guida specifiche.' — um link para outra pagina do GIRE, cujo conteudo eu nao li. Nenhuma recomendacao de manejo aparece no corpo desta ficha.",
+   "citacao_literal": "\"alti livelli di resistenza incrociata verso tutte le famiglie chimiche degli inibitori dell'enzima ALS\" — GIRE, scheda Echinochloa crus-galli (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa)"
+  },
+  {
+   "slug": "Eleusine",
+   "nome_italiano": "Eleusine — a ficha repete o nome do genero na linha do nome comum. NAO SEI se existe um nome vulgar italiano distinto; esta ficha nao traz outro.",
+   "nome_scientifico": "Eleusine indica (L.) Gaertn",
+   "familia": "Poaceae",
+   "ecologia_resumo": "Planta anual herbacea, de ciclo primavera-verao, com metabolismo C4. Considerada originaria das zonas tropicais da Africa e da Asia, hoje encontra-se em todas as zonas quentes e temperadas do mundo e e considerada 'tra le infestanti piu problematiche'. Planta monoica autogama, floresce de julho a outubro. Cresce rapidamente em plena luz e umidade e nao tolera sombreamento por outras plantas — por isso consegue se desenvolver em culturas de linhas largas e crescimento lento, mas coloniza principalmente pomares, viveiros, gramados, jardins e beiras de estrada, gracas a tolerancia a estresses como calor, seca, pisoteio e corte. A ficha registra que foi uma das primeiras especies do mundo a evoluir resistencia a glifosato, com a primeira populacao resistente descrita em 1997 na Malasia, e depois em outros paises asiaticos, no Brasil, no Mexico e nos EUA. Distribuicao na Italia: assinalada pela primeira vez no fim do seculo XIX perto de Verona, hoje difundida em todas as regioes. Sementes: uma unica planta pode produzir, sem competicao, ate 40.000 sementes (cariopses), pequenas (2 mm), ovais, escuras, normalmente envoltas pelas glumas na disseminacao; dispersao por gravidade, fluxos de agua ou irrigacao, ou durante operacoes culturais (ex.: corte). Germinacao otima na camada superficial (0-4 cm) e ja a 8 cm de profundidade a plantula nao consegue emergir. Recem-caidas as sementes sao dormentes e so germinam apos exposicao a temperaturas alternadas; germinacao em campo do fim da primavera ate todo o verao. Persistencia media: germinam apos 3-4 anos de enterramento, mas em certas condicoes podem permanecer viaveis por 10 anos.",
+   "culturas_citadas": [
+    "vivaio (viveiro)",
+    "colture arboree perenni (citadas como 'a rischio', sistemas semelhantes ao viveiro)",
+    "frutteti",
+    "tappeti erbosi",
+    "giardini",
+    "bordi stradali",
+    "colture a file larghe e a crescita lenta (mencao generica, sem nomear a cultura)"
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "Glifosato (gruppo G)",
+     "cultura": "vivaio — e a ficha acrescenta que estao 'a rischio anche i sistemi colturali simili, come le colture arboree perenni'",
+     "primeiro_caso_ano": "2019",
+     "regioes": [
+      "Campania"
+     ],
+     "nota": "Texto: 'Il primo caso di resistenza a glifosate (gruppo G) e stato accertato nel 2019 in Campania.' E o UNICO caso de resistencia declarado para a Italia nesta ficha. Ela nao diz que nao ha outros — apenas nao traz outros; portanto, para os demais mecanismos na Italia: NAO SEI."
+    }
+   ],
+   "resistencia_multipla": "Atencao ao recorte geografico, porque a ficha separa os dois planos. FORA DA ITALIA, ela registra que foram encontradas populacoes resistentes a outros herbicidas com mecanismo de acao diferente — ACCasi, PPO, PSII — 'e perfino casi di resistenza multipla'. Esse trecho vem no paragrafo sobre Malasia, outros paises asiaticos, Brasil, Mexico e EUA, e a ficha NAO os atribui a Italia. NA ITALIA, esta ficha declara apenas o caso de glifosato de 2019 na Campania e nao menciona resistencia multipla ou cruzada. Se ha ou nao multipla na Italia: NAO SEI por esta fonte.",
+   "gestao_recomendada": "A propria ficha declara que as diretrizes ainda nao existem publicadas: 'Linee guida specifiche: in fase di preparazione'. Ou seja, diferente das outras fichas deste lote, aqui nao ha nem link para diretriz. Recomendacao de manejo no corpo do texto: NAO SEI.",
+   "citacao_literal": "\"E' stata una delle prime specie ad evolvere resistenza a glifosate a livello mondiale\" — GIRE, scheda Eleusine indica (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Eleusine)"
+  },
+  {
+   "slug": "Lolium",
+   "nome_italiano": "Loietto",
+   "nome_scientifico": "Lolium spp. — a ficha especifica que na Italia duas especies estao envolvidas com resistencia: Lolium rigidum, geralmente difundida nas regioes meridionais, e Lolium multiflorum, nas regioes centro-setentrionais",
+   "familia": "Poaceae",
+   "ecologia_resumo": "Infestante muito difundida, em particular nos cereais de outono-inverno (autunno-vernini) e em pomares, vinhedos e olivais. As plantas do genero sao estritamente alogamas e cruzam-se facilmente formando hibridos interespecificos; a ficha registra tambem hibridos intergenericos ferteis entre Lolium e Festuca, o que gera grande variabilidade genetica e morfologica. Na Italia, L. rigidum predomina no sul e L. multiflorum no centro-norte, e muito frequentemente — especialmente na Italia central — encontram-se plantas com caracteristicas intermediarias entre as duas. Especies diploides, 2n = 14. Floracao de maio a julho. Sementes: alta producao por planta e escassa dormencia sao apontadas pela propria ficha como caracteristicas que favorecem o surgimento e a difusao da resistencia. Do ponto de vista ecofisiologico as sementes sao classificadas como indiferentes, isto e, podem germinar durante todo o ano; nos cereais de outono-inverno a maior parte das emergencias ocorre no outono e no inverno.",
+   "culturas_citadas": [
+    "cereali autunno-vernini",
+    "frumento (nomeado nas remissoes de mapa: 'Mappa (frumento) ACCasi' e 'Mappa (frumento) ALS')",
+    "erba medica (alfafa)",
+    "colture perenni",
+    "vigneti",
+    "noccioleti",
+    "uliveti",
+    "frutteti"
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "Inibidores da ACCasi (gruppo A)",
+     "cultura": "cereali autunno-vernini",
+     "primeiro_caso_ano": "1995",
+     "regioes": [
+      "Emilia Romagna",
+      "Toscana",
+      "Lazio",
+      "Marche",
+      "Abruzzo",
+      "Puglia",
+      "Sardegna"
+     ],
+     "nota": "Texto: 'Resistenza agli erbicidi dell'ACCasi (gruppo A). Primo caso accertato nel 1995.' E a data mais antiga das quatro fichas deste lote. Ha remissao a mapa (frumento) ACCasi."
+    },
+    {
+     "mecanismo": "Inibidores da ALS — a ficha escreve 'inibitori dell'ALS' nesta entrada sem repetir a letra do grupo",
+     "cultura": "cereali autunno-vernini",
+     "primeiro_caso_ano": "NAO SEI — esta entrada nao traz ano de primeiro caso",
+     "regioes": [
+      "Toscana",
+      "Lazio",
+      "Puglia",
+      "Sardegna"
+     ],
+     "nota": "Texto: 'Resistenza agli inibitori dell 'ALS.' seguido de 'Regioni interessate: Toscana, Lazio, Puglia, e Sardegna.' Ha remissao a mapa (frumento) ALS."
+    },
+    {
+     "mecanismo": "Resistencia multipla: inibidores da ACCasi (gruppo A) + inibidores da ALS (gruppo B)",
+     "cultura": "cereali autunno-vernini",
+     "primeiro_caso_ano": "2000",
+     "regioes": [
+      "Toscana",
+      "Lazio",
+      "Puglia",
+      "Sardegna"
+     ],
+     "nota": "Texto: 'Popolazioni con resistenza multipla agli erbicidi inibitori dell'ACCasi (gruppo A) e agli erbicidi inibitori dell'ALS (gruppo B). Primo caso accertato nel 2000.' As regioes sao exatamente as mesmas quatro da entrada de ALS isolada."
+    },
+    {
+     "mecanismo": "Inibidores da ACCasi",
+     "cultura": "erba medica (alfafa)",
+     "primeiro_caso_ano": "NAO SEI — a ficha nao declara ano para este sistema de cultivo",
+     "regioes": [
+      "Emilia Romagna"
+     ],
+     "nota": "Texto: 'Casi di Lolium resistenti agli erbicidi inibitori dell'ACCasi.' Ha remissao a mapa (erba medica) ACCasi."
+    },
+    {
+     "mecanismo": "Glifosato (gruppo G) — a remissao de mapa desta entrada e rotulada 'EPSPs'",
+     "cultura": "colture perenni — a ficha nomeia vinhedos e aveleiras (noccioleti) e, na linha das regioes, olivais (uliveti)",
+     "primeiro_caso_ano": "NAO SEI — a ficha nao declara ano para esta entrada",
+     "regioes": [
+      "Piemonte, nella provincia di Cuneo",
+      "Puglia (a ficha atribui a Puglia os uliveti)"
+     ],
+     "nota": "Texto: 'Casi di Lolium spp. resistenti al glifosate (gruppo G) in vigneti e noccioleti.' e 'Regioni interessate: Piemonte, nella provincia di Cuneo ed uliveti in Puglia.' Ha remissao a mapa (colture arboree) EPSPs. Cuidado de leitura: a linha das regioes e a unica das quatro fichas deste lote que desce ao nivel de provincia (Cuneo)."
+    }
+   ],
+   "resistencia_multipla": "A ficha afirma duas vezes. Primeiro em frase corrida: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS e dell'ACCasi.' Depois como entrada formal: populacoes com resistencia multipla a inibidores da ACCasi (gruppo A) e da ALS (gruppo B), primeiro caso em 2000, em Toscana, Lazio, Puglia e Sardegna. A ficha nao usa a expressao 'resistenza incrociata' (cruzada) em nenhum ponto — sobre resistencia cruzada em Lolium: NAO SEI por esta fonte.",
+   "gestao_recomendada": "NAO SEI a partir desta ficha. Para 'cereali autunno-vernini' e para 'erba medica' a pagina remete a 'Consulta le linee guida specifiche.' — link para outra pagina do GIRE que eu nao li. Para 'colture perenni' nao ha sequer essa remissao no texto. O que a ficha traz, e que e da ecologia e nao recomendacao, e que alta producao de sementes e escassa dormencia favorecem a difusao da resistencia.",
+   "citacao_literal": "\"Alta produzione di semi per pianta e scarsa dormienza ... favoriscono la comparsa e la diffusione della resistenza\" — GIRE, scheda Lolium spp. (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium)"
+  },
+  {
+   "slug": "Oryza",
+   "nome_italiano": "Riso crodo",
+   "nome_scientifico": "Oryza sativa (L.) var. sylvatica",
+   "familia": "Poaceae",
+   "ecologia_resumo": "Especie anual de ciclo estival, muito difundida nos arrozais italianos — a ficha quantifica: '75% della superficie risicola italiana'. Pertence a MESMA especie das variedades de arroz cultivado e por isso, nas palavras da ficha, compartilha muitissimos caracteres com ela. As plantas de arroz vermelho tem notavel polimorfismo fenotipico quanto a porte, formato da paniculana, forma e coloracao das cariopses. Distingue-se do arroz cultivado pela elevada facilidade de degrane das sementes (crodatura), que lhe permite ampla difusao. Sementes: morfologicamente muito diversas em forma (alongadas e largas, curtas e largas, medias), com pericarpo geralmente vermelho, as vezes branco; podem ser aristadas, semi-aristadas ou muticas, vilosas ou glabras, com arista branca ou preta e de comprimentos variados (de poucos mm a mais de 1,5 cm). Apresentam mecanismo de dormencia que impede a germinacao por alguns meses apos a queda ao solo, permitindo atravessar o inverno. Durante a estacao de cultivo, as emergencias muito escalonadas impedem um controle completo da infestante com intervencoes de pre-semeadura, e a germinabilidade permanece elevada mesmo por anos.",
+   "culturas_citadas": [
+    "riso (risaie)",
+    "varieta di riso Clearfield ® (tollerante all'imazamox)"
+   ],
+   "resistencias": [
+    {
+     "mecanismo": "Imazamox — a ficha o identifica entre parenteses como 'inibitore dell' ALS'",
+     "cultura": "varieta di riso Clearfield ® (tollerante all'imazamox)",
+     "primeiro_caso_ano": "2010",
+     "regioes": [
+      "Piemonte",
+      "Lombardia"
+     ],
+     "nota": "Texto: 'Popolazioni di riso crodo resistenti all'erbicida imazamox (inibitore dell' ALS). Primo caso accertato 2010.' Unica resistencia declarada nesta ficha. Ha remissao a mapa (riso) ALS. Ponto de leitura que importa: a ficha ancora o caso ao sistema de cultivo Clearfield, isto e, a variedade de arroz tolerante ao proprio imazamox — nao ao arroz convencional."
+    }
+   ],
+   "resistencia_multipla": "NAO SEI. Esta ficha nao contem nenhuma mencao a resistencia multipla nem a resistencia cruzada. Ausencia nesta unica fonte nao autoriza dizer que nao existe.",
+   "gestao_recomendada": "NAO SEI. Diferente das fichas de Echinochloa e Lolium, esta pagina nao traz nem o link 'Consulta le linee guida specifiche' e nao traz nenhum trecho de recomendacao. O mais proximo disso e uma constatacao de dificuldade de controle, na secao Semi: as emergencias muito escalonadas impedem controle completo com intervencoes de pre-semeadura.",
+   "citacao_literal": "\"La germinabilita rimane elevata anche per anni rendendo questa infestante particolarmente difficile da controllare\" — GIRE, scheda Oryza sativa var. sylvatica (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Oryza)"
+  }
+ ],
+ "LINHAS": [
+  {
+   "ESPECIE": "Alisma plantago-aquatica L.",
+   "ESPECIE_COMUM_IT": "Mesolaccia comune, piantaggine acquatica, cinquenervi d'acqua, cucchiaio",
+   "SLUG": "Alisma",
+   "FAMILIA": "Alismataceae",
+   "MECANISMO": "ALS (gruppo B) — literal: \"erbicidi inibitori dell'ALS (gruppo B)\"",
+   "CULTURA_DECLARADA": "riso (arroz)",
+   "PRIMEIRO_CASO_ANO": "1994 — literal: \"Primo caso accertato nel 1994.\"",
+   "REGIOES": [
+    "Piemonte",
+    "Lombardia"
+   ],
+   "NOTA": "Frase integral da ficha: \"Tipo di resistenza: popolazioni resistenti agli erbicidi inibitori dell'ALS (gruppo B) con resistenza incrociata alle solfoniluree e alle triazolopirimidine.\" Ao fim da secao ha um link de mapa rotulado \"Mappa (riso) ALS\" — e um rotulo de link, nao texto de corpo. A ficha nao declara nenhuma outra resistencia; sobre outros mecanismos alem de ALS nesta especie: NAO SEI.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "Resistencia CRUZADA declarada, literal: \"con resistenza incrociata alle solfoniluree e alle triazolopirimidine\" — ou seja, dentro do mesmo grupo ALS, atinge sulfonilureias e triazolopirimidinas. A ficha NAO usa a expressao \"resistenza multipla\" nem cita resistencia a outros mecanismos: quanto a resistencia multipla, NAO SEI.",
+   "CITACAO_LITERAL": "\"Tipo di resistenza: popolazioni resistenti agli erbicidi inibitori dell'ALS (gruppo B) con resistenza incrociata alle solfoniluree e alle triazolopirimidine. Primo caso accertato nel 1994. Regioni interessate: Piemonte, Lombardia.\"",
+   "ECOLOGIA": "Ficha: \"Pianta idrofita perenne, dotata di rizoma tuberoso, infestante di risaie e aree umide. In risaia si riproduce prevalentemente per seme.\" Polinizacao entomofila, ciclo primavera-verao, floracao maio-julho, diploide 2n = 14. Distribuicao na Italia: \"comune in tutte le regioni.\" Semente com dormencia mecanica, forma de \"ferro di cavallo\", tegumento externo fortemente lignificado e fibroso; aquenios com tecido que permite flutuacao e dispersao pela agua (idrocora). Emergencia das plantulas a partir de maio, com o arrozal alagado.",
+   "GESTAO": "A ficha nao traz o texto da gestao; apenas remete, literal: \"Consulta le linee guida specifiche.\" O conteudo dessas linhas-guia nao esta nesta pagina — NAO SEI o que elas recomendam.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Alisma"
+  },
+  {
+   "ESPECIE": "Amaranthus hybridus (sinonimi na ficha: A. patulus, A. chlorostachys, A. quitensis, A. cruentus)",
+   "ESPECIE_COMUM_IT": "Amaranto ibrido, amaranto a spiga verde",
+   "SLUG": "Amaranthus_hyb",
+   "FAMILIA": "Amaranthaceae",
+   "MECANISMO": "A ficha NAO nomeia o mecanismo (nao escreve ALS nem gruppo B). Declara literalmente resistencia cruzada a duas familias quimicas: \"cross-resistenti alle solfoniluree (thifensulfuron-methyl) ed agli imidazolinoni (imazamox)\". Qual mecanismo o GIRE atribui a esta populacao, nesta pagina: NAO SEI.",
+   "CULTURA_DECLARADA": "soia (soja)",
+   "PRIMEIRO_CASO_ANO": "2017 — literal: \"Primo caso 2017.\"",
+   "REGIOES": [
+    "Veneto",
+    "Friuli Venezia Giulia"
+   ],
+   "NOTA": "Frase integral: \"Tipo di resistenza: popolazioni cross-resistenti alle solfoniluree (thifensulfuron-methyl) ed agli imidazolinoni (imazamox). Primo caso 2017. Regioni interessate: Veneto, Friuli Venezia Giulia.\" Esta ficha nao traz link de mapa nem qualquer outra resistencia declarada.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "Resistencia CRUZADA declarada, literal: \"popolazioni cross-resistenti alle solfoniluree (thifensulfuron-methyl) ed agli imidazolinoni (imazamox)\" — as duas familias quimicas nomeadas. A ficha nao fala em \"resistenza multipla\" nem cita outros mecanismos: NAO SEI.",
+   "CITACAO_LITERAL": "\"Tipo di resistenza: popolazioni cross-resistenti alle solfoniluree (thifensulfuron-methyl) ed agli imidazolinoni (imazamox). Primo caso 2017. Regioni interessate: Veneto, Friuli Venezia Giulia.\"",
+   "ECOLOGIA": "Ficha: \"Annuale erbacea, a ciclo primaverile estivo. Fiorisce da giugno ad ottobre. Specie a metabolismo C4 molto competitiva, puo infestare mais, soia e in generale tutte le colture estive.\" Monoica, polinizacao predominantemente autogama, diploide 2n = 32. Distribuicao na Italia: \"molto comune in tutte le regioni\", e \"Puo dare origine a ibridi con A. tuberculatus.\" Semente em capsula deiscente que se destaca sozinha na maturacao, facilitando a dispersao; alta producao (300-500 mil sementes por planta); sementes lenticulares, lustrosas, pretas, 0,9-1,2 mm. Variacao dos niveis de dormencia mais alta persistencia do seme dao germinacao muito escalonada e persistencia da populacao no tempo; plantulas emergem de meados de abril em diante.",
+   "GESTAO": "NAO SEI. Esta ficha nao traz secao de gestao nem remissao a linhas-guia especificas.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Amaranthus_hyb"
+  },
+  {
+   "ESPECIE": "Amaranthus palmeri S. Wats",
+   "ESPECIE_COMUM_IT": "Amaranto (o titulo da pagina sai como \"Scheda per Amaranto, GIRE\"; o unico nome comum listado e \"Amaranto\")",
+   "SLUG": "Amaranthus_palm",
+   "FAMILIA": "Amaranthaceae",
+   "MECANISMO": "ALS (gruppo B) — literal: \"erbicidi inibitori dell'ALS (gruppo B)\"",
+   "CULTURA_DECLARADA": "soia (soja)",
+   "PRIMEIRO_CASO_ANO": "2018 — literal: \"Il primo caso di resistenza agli erbicidi inibitori dell'ALS (gruppo B) e stato accertato nel 2018 in Veneto.\"",
+   "REGIOES": [
+    "Veneto"
+   ],
+   "NOTA": "Unica resistencia declarada na ficha para a Italia. Atencao para nao misturar paises: o ano de 1989 que aparece na ficha e da AMERICA e nao da Italia — \"In America, dove il primo caso di resistenza risale al 1989\". A ficha diz que na America a especie \"ha sviluppato resistenza ad erbicidi con diversi meccanismi d'azione\", sem nomear quais mecanismos; quais sao: NAO SEI.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "Para a ITALIA a ficha nao declara resistencia multipla nem cruzada: NAO SEI. O unico registro de varios mecanismos e sobre a America e sem nomear os mecanismos, literal: \"In America, dove il primo caso di resistenza risale al 1989, e diventata invasiva in tempi rapidi ed ha sviluppato resistenza ad erbicidi con diversi meccanismi d'azione.\"",
+   "CITACAO_LITERAL": "\"Il primo caso di resistenza agli erbicidi inibitori dell'ALS (gruppo B) e stato accertato nel 2018 in Veneto.\"",
+   "ECOLOGIA": "Ficha: \"Pianta annuale erbacea, a ciclo primaverile-estivo con un metabolismo C4, molto competitiva, in grado di adattarsi a periodi di siccita. Ha una capacita di crescita molto rapida e arriva a raggiungere anche i 3m di altezza.\" Floracao de agosto a outubro; especie dioica, polinizacao alogama. \"Puo infestare soia, mais e in generale tutte le colture estive nonche i bordi di campi e strade.\" A ficha registra o historico americano: \"In America, dove il primo caso di resistenza risale al 1989, e diventata invasiva in tempi rapidi ed ha sviluppato resistenza ad erbicidi con diversi meccanismi d'azione.\" Sobre a Italia diz: \"Distribuzione in Italia: questa e la prima segnalazione di Amaranthus palmeri accertata.\" Planta femea muito prolifica, ate 600.000 sementes sem competicao; sementes de 1-2 mm, lisas, redondas ou em forma de disco, dispersas por gravidade, fluxos de agua ou irrigacao.",
+   "GESTAO": "NAO SEI — a ficha declara que ainda nao existe texto publicado, literal: \"Linee guida specifiche: in fase di preparazione\".",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Amaranthus_palm"
+  },
+  {
+   "ESPECIE": "Amaranthus retroflexus L.",
+   "ESPECIE_COMUM_IT": "Amaranto comune, blito",
+   "SLUG": "Amaranthus",
+   "FAMILIA": "Amaranthaceae",
+   "MECANISMO": "O corpo do texto NAO nomeia o mecanismo: fala so da familia quimica, literal \"resistenti alle solfoniluree (thifensulfuron-methyl)\". Logo abaixo da secao ha um link de mapa rotulado \"Mappa (dicotiledoni estive) ALS\" — e rotulo de link, nao frase do corpo, e por isso nao trato como mecanismo declarado no texto. O mecanismo afirmado no corpo desta ficha: NAO SEI.",
+   "CULTURA_DECLARADA": "soia (soja)",
+   "PRIMEIRO_CASO_ANO": "2003 — literal: \"Primo caso accertato nel 2003.\"",
+   "REGIOES": [
+    "Veneto",
+    "Emilia Romagna",
+    "Friuli Venezia Giulia"
+   ],
+   "NOTA": "Frase integral: \"In Italia sono state segnalate alcune popolazioni resistenti alle solfoniluree (thifensulfuron-methyl). Primo caso accertato nel 2003. Regioni interessate: Veneto, Emilia Romagna, Friuli Venezia Giulia.\" Repare que a ficha diz \"alcune popolazioni\" (algumas populacoes), nao a especie inteira.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "NAO SEI. A ficha nao usa \"resistenza incrociata\", \"cross-resistenti\" nem \"resistenza multipla\": cita uma unica familia quimica, as sulfonilureias (thifensulfuron-methyl).",
+   "CITACAO_LITERAL": "\"In Italia sono state segnalate alcune popolazioni resistenti alle solfoniluree (thifensulfuron-methyl). Primo caso accertato nel 2003.\"",
+   "ECOLOGIA": "Ficha: \"Annuale erbacea, a ciclo primaverile estivo. Fiorisce da giugno ad ottobre. Specie a metabolismo C4 molto competitiva, infesta mais, soia e in generale tutte le colture estive.\" Monoica, polinizacao predominantemente autogama, diploide 2n = 34. Distribuicao na Italia: \"molto comune in tutte le regioni.\" Semente em capsula deiscente que se destaca sozinha na maturacao; alta producao (300-500 mil sementes por planta); sementes lenticulares, lustrosas, pretas, 1-1,2 mm — o tamanho varia com as condicoes de crescimento da planta-mae e parece ligado a exigencias diferentes de germinacao. \"Cambiamenti nel tempo dei livelli di dormienza e una lunga persistenza dei semi nel terreno garantiscono una germinazione molto scalare e una persistenza della popolazione nel tempo.\" Plantulas emergem de meados de abril em diante.",
+   "GESTAO": "NAO SEI. Esta ficha nao traz secao de gestao nem remissao a linhas-guia especificas.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Amaranthus"
+  },
+  {
+   "ESPECIE": "Amaranthus tuberculatus (sinonimi: A. rudis, A. tamariscina)",
+   "ESPECIE_COMUM_IT": "Amaranto tubercolato",
+   "SLUG": "Amaranthus_tub",
+   "FAMILIA": "Amaranthaceae",
+   "MECANISMO": "A ficha NAO nomeia o mecanismo nem o grupo HRAC. Descreve os quimicos: solfoniluree (tifensulfuron-metile) e imidazolinoni (imazamox). NAO SEI se a ficha classifica isso como ALS/grupo B — ela nao escreve isso.",
+   "CULTURA_DECLARADA": "soia (soja)",
+   "PRIMEIRO_CASO_ANO": "2010",
+   "REGIOES": [
+    "Veneto",
+    "Friuli Venezia Giulia",
+    "Emilia Romagna"
+   ],
+   "NOTA": "Frase literal que sustenta o ano e o estado: 'Primo caso nel 2010'. Note que aqui a ficha diz 'Primo caso', sem a palavra 'accertato' que aparece nas fichas de Ammania e Avena.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "A ficha declara resistencia CRUZADA (cross-resistenza), nao multipla: fala em 'popolazioni cross-resistenti' a duas familias quimicas ao mesmo tempo — solfoniluree (tifensulfuron-metile) e imidazolinoni (imazamox). A palavra 'resistenza multipla' NAO aparece nesta ficha.",
+   "CITACAO_LITERAL": "'popolazioni cross-resistenti alle solfoniluree (tifensulfuron-metile) ed agli imidazolinoni (imazamox)' — GIRE (CNR), ficha Amaranthus tuberculatus.",
+   "ECOLOGIA": "Anual herbacea de ciclo primavera-verao, floracao de junho a outubro. Especie C4 'molto competitiva', dioica, de polinizacao alogama, diploide 2n=32. A ficha diz que pode infestar milho, soja e em geral todas as culturas de verao. Sobre a Italia: 'non comune fino a pochi anni fa, e diventata invasiva in tempi recenti in alcune regioni dell'Italia centro-settentrionale'. Pode gerar hibridos com A. hybridus. Alta producao de sementes (300-500 mil por planta), germinacao muito escalonada, plantulas emergem de meados de abril a inicio de maio, emergencia mais tardia que A. retroflexus e A. hybridus.",
+   "GESTAO": "NAO SEI. Esta ficha nao traz secao de gestao nem link para 'linee guida specifiche' no corpo do texto lido.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Amaranthus_tub"
+  },
+  {
+   "ESPECIE": "Ammania coccinea Rottb",
+   "ESPECIE_COMUM_IT": "Ammania arrossata",
+   "SLUG": "Ammania",
+   "FAMILIA": "Lythraceae",
+   "MECANISMO": "Inibidores da ALS (grupo B) — a ficha nomeia explicitamente: 'erbicidi inibitori dell'ALS (gruppo B)', com resistencia cruzada a solfoniluree e triazolopirimidine.",
+   "CULTURA_DECLARADA": "riso (arroz)",
+   "PRIMEIRO_CASO_ANO": "2018",
+   "REGIOES": [
+    "Piemonte",
+    "Lombardia"
+   ],
+   "NOTA": "Frase literal que sustenta o ano: 'Primo caso accertato nel 2018.' A ficha usa 'accertado' (comprovado/verificado).",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "A ficha declara resistencia CRUZADA, nao multipla: 'con resistenza incrociata alle solfoniluree e alle triazolopirimidine' — duas familias quimicas dentro do mesmo mecanismo ALS. A expressao 'resistenza multipla' NAO aparece nesta ficha.",
+   "CITACAO_LITERAL": "'popolazioni resistenti agli erbicidi inibitori dell'ALS (gruppo B) con resistenza incrociata alle solfoniluree' — GIRE (CNR), ficha Ammania coccinea.",
+   "ECOLOGIA": "Planta termofila palustre, de ciclo anual, infestante de valas, canais e lugares alagadicos ('fossi, canali e luoghi acquitrinosi'), podendo chegar a 1 m de altura. Porte herbaceo, caules cilindricos quando jovem e de secao quadrangular na fase adulta, de coloracao avermelhada. Folhas estreitas, lineares, com uma unica nervura central bem evidente, sesseis e opostas. Reproducao exclusivamente por semente na primavera adiantada; fecundacao entomogama. Flores hermafroditas vermelho-purpura em glomerulos na axila das folhas. Frutos em capsula deiscente de 3,5-4,5 mm com numerosas sementes de cerca de 0,5 mm, castanho-claras e lustrosas, pequenas o bastante para serem dispersas pelo vento e/ou por flutuacao na agua. Germinacao favorecida por regime de temperatura de 30/15 C (dia/noite).",
+   "GESTAO": "A ficha nao traz o conteudo da gestao. Ela declara literalmente: 'Linee guida specifiche: in fase di preparazione' — ou seja, as diretrizes especificas estavam em fase de preparacao no texto lido. O que essas diretrizes recomendam: NAO SEI.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Ammania"
+  },
+  {
+   "ESPECIE": "Avena sterilis L.",
+   "ESPECIE_COMUM_IT": "Avena maggiore, avena rossa",
+   "SLUG": "Avena",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "Inibidores da ACCasi (grupo A) — nomeado literalmente: 'Resistenza agli erbicidi inibitori dell'ACCasi (gruppo A)'.",
+   "CULTURA_DECLARADA": "grano duro e tenero (trigo duro e trigo comum)",
+   "PRIMEIRO_CASO_ANO": "1992",
+   "REGIOES": [
+    "Basilicata",
+    "Puglia",
+    "Sicilia",
+    "Veneto (casos esporadicos)",
+    "Emilia Romagna (casos esporadicos)",
+    "Marche (casos esporadicos)",
+    "Abruzzo (casos esporadicos)",
+    "Lazio (casos esporadicos)"
+   ],
+   "NOTA": "Frase literal que sustenta o ano: 'Primo caso accertato nel 1992.' A lista de regioes e declarada em bloco para a secao inteira de resistencia: 'Regioni interessate: Basilicata, Puglia, Sicilia, ed alcuni casi sporadici in Veneto, Emilia Romagna, Marche, Abruzzo e Lazio.' A ficha separa as tres primeiras dos 'casi sporadici' nas outras cinco. A ficha NAO diz que essa lista vale so para a ACCasi — ela vale para o bloco.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "SIM, declarada literalmente: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS.' Ou seja, populacoes que ja resistem a ACCasi (grupo A) e, alem disso, resistem a inibidores da ALS. A ficha nao diz qual a proporcao dessas populacoes nem em quais regioes elas estao.",
+   "CITACAO_LITERAL": "'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS.' — GIRE (CNR), ficha Avena sterilis.",
+   "ECOLOGIA": "Ciclo inverno-primavera; a ficha diz que infesta TODOS os cereais de outono-inverno ('infesta tutti i cereali autunno-vernini') e que consegue facilmente superar o trigo em altura. Planta principalmente autogama, poliploide 2n=42. Floracao entre abril e junho. Ponto agronomico forte: a especie as vezes e difundida junto com a semeadura de culturas contaminadas pelas cariopses da infestante, colhidas junto com as do cereal cultivado — o que, nas palavras da ficha, aumenta o risco de propagar plantas resistentes. Distribuicao na Italia: presente em todas as regioes; comum no centro-sul, mais rara no norte. As espiguetas produzem pares de cariopses heteroblasticas (exigencias de germinacao e niveis de dormencia diferentes), o que causa escalonamento marcado; plantulas emergem do outono ate a primavera e as cariopses ficam viaveis no solo por varios anos.",
+   "GESTAO": "A ficha NAO escreve as recomendacoes no corpo do texto. Ela apenas remete: 'Consulta le linee guida specifiche.' O conteudo dessas diretrizes especificas: NAO SEI — nao esta nesta pagina.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Avena"
+  },
+  {
+   "ESPECIE": "Avena sterilis L.",
+   "ESPECIE_COMUM_IT": "Avena maggiore, avena rossa",
+   "SLUG": "Avena",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "Inibidores da ALS — a ficha diz que ALGUMAS populacoes tem resistencia multipla aos inibidores da ALS: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS.' Existe tambem um mapa proprio rotulado 'Mappa (frumento) ALS'.",
+   "CULTURA_DECLARADA": "grano duro e tenero (trigo duro e trigo comum) — a ficha nao separa a cultura por mecanismo; o 'Sistema colturale' declarado para o bloco e este.",
+   "PRIMEIRO_CASO_ANO": "NAO SEI. A ficha declara um unico ano, 1992, para o bloco de resistencia, sem dizer se ele se refere a ACCasi, a ALS ou a ambos. Nao afirmo 1992 para a ALS.",
+   "REGIOES": [
+    "NAO SEI — a ficha lista regioes uma vez so, para o bloco inteiro, sem separar por mecanismo"
+   ],
+   "NOTA": "Aqui a ficha usa a expressao 'resistenza multipla' explicitamente, e apenas para parte das populacoes ('Alcune popolazioni').",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "SIM, declarada literalmente: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS.' Ou seja, populacoes que ja resistem a ACCasi (grupo A) e, alem disso, resistem a inibidores da ALS. A ficha nao diz qual a proporcao dessas populacoes nem em quais regioes elas estao.",
+   "CITACAO_LITERAL": "'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS.' — GIRE (CNR), ficha Avena sterilis.",
+   "ECOLOGIA": "Ciclo inverno-primavera; a ficha diz que infesta TODOS os cereais de outono-inverno ('infesta tutti i cereali autunno-vernini') e que consegue facilmente superar o trigo em altura. Planta principalmente autogama, poliploide 2n=42. Floracao entre abril e junho. Ponto agronomico forte: a especie as vezes e difundida junto com a semeadura de culturas contaminadas pelas cariopses da infestante, colhidas junto com as do cereal cultivado — o que, nas palavras da ficha, aumenta o risco de propagar plantas resistentes. Distribuicao na Italia: presente em todas as regioes; comum no centro-sul, mais rara no norte. As espiguetas produzem pares de cariopses heteroblasticas (exigencias de germinacao e niveis de dormencia diferentes), o que causa escalonamento marcado; plantulas emergem do outono ate a primavera e as cariopses ficam viaveis no solo por varios anos.",
+   "GESTAO": "A ficha NAO escreve as recomendacoes no corpo do texto. Ela apenas remete: 'Consulta le linee guida specifiche.' O conteudo dessas diretrizes especificas: NAO SEI — nao esta nesta pagina.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Avena"
+  },
+  {
+   "ESPECIE": "Chenopodium album L.",
+   "ESPECIE_COMUM_IT": "Farinello comune",
+   "SLUG": "Chenopodium",
+   "FAMILIA": "Chenopodiaceae",
+   "MECANISMO": "Triazinas (atrazina), grupo C1 — nomeado literalmente: 'Popolazioni resistenti alle Triazine (atrazina) (gruppo C1)'. A ficha nao usa a palavra 'fotossistema'; usa o codigo de grupo C1.",
+   "CULTURA_DECLARADA": "NAO SEI — a ficha nao declara sistema de cultivo para este caso.",
+   "PRIMEIRO_CASO_ANO": "1982",
+   "REGIOES": [
+    "Piemonte"
+   ],
+   "NOTA": "Frase literal que sustenta o ano: 'Primi casi accertati: 1982.' Reparar no plural — 'Primi casi', casos no plural, diferente das outras tres fichas do lote, que falam de 'Primo caso' no singular. E o ano mais antigo dos quatro.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "NAO SEI. A ficha nao menciona resistencia multipla nem resistencia cruzada para esta especie. Isso nao quer dizer que nao exista — quer dizer que esta fonte nao fala disso.",
+   "CITACAO_LITERAL": "'Popolazioni resistenti alle Triazine (atrazina) (gruppo C1). Primi casi accertati: 1982.' — GIRE (CNR), ficha Chenopodium album.",
+   "ECOLOGIA": "Especie anual, colonizadora muito adaptavel de zonas frequentemente perturbadas, com crescimento que em competicao pode chegar a tres metros. Morfologicamente muito plastica e variavel, adapta-se as condicoes de crescimento (ex.: xeromorfismo). Ciclo primavera-verao, floracao de junho a setembro, polinizacao tanto autogama quanto alogama; especie poliploide, com varios niveis de ploidia relatados na literatura. Distribuicao na Italia: 'molto comune in tutte le regioni'. Uma planta em ambiente agricola produz facilmente mais de 10.000 sementes, chegando a algumas centenas de milhares; as sementes sao muito longevas no solo, ate algumas dezenas de anos, e compoem boa parte dos bancos de sementes das areas ocupadas. Tem dormencia fisiologica cuja intensidade varia com os fatores ambientais na maturacao. Emergencia a partir de marco, prolongada ate o fim da primavera, sobrepondo-se ao periodo de emergencia das especies de verao.",
+   "GESTAO": "NAO SEI. Esta ficha nao traz secao de gestao, nem link para 'linee guida specifiche', no corpo do texto lido.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Chenopodium"
+  },
+  {
+   "ESPECIE": "Sinapis arvensis L.",
+   "ESPECIE_COMUM_IT": "Senape selvatica",
+   "SLUG": "Sinapis",
+   "FAMILIA": "Brassicaceae",
+   "MECANISMO": "Inibidores da enzima ALS — literal: \"Resistenza agli enzimi inibitori dell'ALS (gruppo B)\"",
+   "CULTURA_DECLARADA": "grano duro e tenero (trigo duro e mole) — literal: \"Sistema colturale: grano duro e tenero.\"",
+   "PRIMEIRO_CASO_ANO": "2006 — literal: \"Primo caso accertato nel 2006.\"",
+   "REGIOES": [
+    "Sicilia (tre casi) — literal: \"Regioni interessate: Sicilia (tre casi) e Toscana (due casi).\"",
+    "Toscana (due casi) — mesma frase literal acima"
+   ],
+   "NOTA": "A ficha declara UMA unica resistencia para esta especie: ALS, grupo B. AVISO DE LEI 3 (titulo casado nao e ato lido): ao final do bloco aparece o rotulo de link \"Mappa (frumento) ACCasi\". Isso e o nome de um link para um mapa, NAO uma frase do corpo que declare resistencia a ACCasi em Sinapis arvensis. Nao afirmo resistencia a ACCasi nesta especie — o corpo da ficha nao diz isso. Se o mapa importa, ele precisa ser aberto e lido por conta propria.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "NAO SEI. Esta ficha, no corpo lido, nao traz nenhuma frase sobre resistencia multipla nem sobre resistencia cruzada para Sinapis arvensis. Campo vazio na fonte = NAO SEI, e nao \"nao ha\". Uma fonte so nao autoriza concluir ausencia.",
+   "CITACAO_LITERAL": "\"Primo caso accertato nel 2006. Regioni interessate: Sicilia (tre casi) e Toscana (due casi).\" (GIRE, ficha Sinapis arvensis, http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Sinapis)",
+   "ECOLOGIA": "Nas palavras da ficha: anual infestante das culturas de outono-inverno (\"colture autunno-vernine\"), que coloniza facilmente tambem os incultos. Planta alogama de polinizacao entomofila, com sistema de auto-incompatibilidade; uma flor pode ser polinizada por periodo de ate 2-3 semanas. Grande capacidade competitiva na fase precoce de crescimento. Floracao de abril a outubro em ambiente nao perturbado. Diploide 2n = 18. SOBRE SEMENTES: as sementes de uma mesma planta tem niveis diferentes de dormencia fisiologica conforme a posicao da siliqua na inflorescencia (as siliquas mais baixas produzem sementes mais dormentes); dois fluxos principais de emergencia — um no outono (sementes menos dormentes) e o segundo, mais consistente, no inicio da primavera seguinte; niveis intermediarios de dormencia fazem aparecer plantulas tambem em outros periodos do ano, razao pela qual e classificada ecofisiologicamente como especie indiferente. ATENCAO — CONTRADICAO NO PROPRIO CORPO DO TEXTO: a ficha traz duas linhas de distribuicao seguidas e divergentes: \"Distribuzione in Italia: presente in tutte le regioni, ma piu rara in quelle settentrionali.\" e, logo abaixo, \"Distribuzione in Italia: molto comune in tutte le regioni.\" Nao sei qual das duas e a vigente; as duas estao no texto lido.",
+   "GESTAO": "NAO SEI pelo texto desta ficha. A ficha nao descreve manejo: ela apenas remete, com a frase literal \"Consulta le linee guida specifiche.\", a uma pagina separada de linhas-guia especificas, cujo conteudo NAO esta neste texto e nao foi lido. O que se pode afirmar e so isto: a ficha remete a linhas-guia especificas.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Sinapis"
+  },
+  {
+   "ESPECIE": "Solanum nigrum L.",
+   "ESPECIE_COMUM_IT": "Pomidorella, erba morella",
+   "SLUG": "Solanum",
+   "FAMILIA": "Solanaceae",
+   "MECANISMO": "Triazinas (atrazina), grupo C1 — literal: \"Resistenza alle triazine (atrazina) (gruppo C1).\" OBSERVACAO DE LEI 4: a ficha NAO escreve a palavra \"fotossistema\". O que esta escrito no corpo e \"triazine (atrazina)\" e \"gruppo C1\". Nao afirmo o alvo bioquimico com palavras que a ficha nao usou.",
+   "CULTURA_DECLARADA": "mais (milho) — literal: \"Sistema colturale: mais.\"",
+   "PRIMEIRO_CASO_ANO": "1978 — literal: \"Primo caso accertato nel 1978.\"",
+   "REGIOES": [
+    "Friuli Venezia-Giulia — literal: \"Regioni interessate: Regioni interessate: Friuli Venezia-Giulia, Veneto, Trentino.\" (o texto da fonte repete \"Regioni interessate:\" duas vezes; e assim que sai da pagina)",
+    "Veneto — mesma frase literal acima",
+    "Trentino — mesma frase literal acima"
+   ],
+   "NOTA": "A ficha declara UMA unica resistencia para esta especie: triazinas (atrazina), grupo C1. E o caso mais antigo dos tres desta leva: 1978.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "NAO SEI. O corpo desta ficha nao traz nenhuma frase sobre resistencia multipla nem sobre resistencia cruzada em Solanum nigrum. Campo vazio na fonte = NAO SEI, nunca \"nao ha\".",
+   "CITACAO_LITERAL": "\"Resistenza alle triazine (atrazina) (gruppo C1). Primo caso accertato nel 1978.\" (GIRE, ficha Solanum nigrum, http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Solanum)",
+   "ECOLOGIA": "Nas palavras da ficha: e infestante somente em zonas irrigadas ou chuvosas — \"non tollera la siccita prolungata\" (nao tolera a seca prolongada). Prospera e torna-se muito competitiva em terrenos ferteis ricos em nitrogenio e fosforo. Tem ciclo de verao e esta presente, alem das areas cultivadas, tambem em incultos e ambientes ruderais. Principalmente autogama, mas com baixa frequencia ocorre tambem polinizacao cruzada. Hexaploide, 2n = 72. Floracao de julho a novembro. Distribuicao na Italia: \"molto comune in tutte le regioni\" (muito comum em todas as regioes). SOBRE SEMENTES: especie muito prolifica, podendo produzir mais de 10.000 sementes por planta; sementes pouco dormentes apos um periodo de pos-maturacao; emergencia a partir de abril e prolongada por todo o periodo de verao.",
+   "GESTAO": "NAO SEI pelo texto desta ficha. Ela apenas remete, com a frase literal \"Consulta le linee guida specifiche.\", a uma pagina separada de linhas-guia especificas que nao esta neste texto e nao foi lida.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Solanum"
+  },
+  {
+   "ESPECIE": "Sorghum halepense (L.) Pers.",
+   "ESPECIE_COMUM_IT": "Sorgo selvatico, sorghetta, melghetto",
+   "SLUG": "Sorghum",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "Inibidores da enzima ACCasi, grupo A — literal: \"Resistenza agli enzimi inibitori dell'ACCasi (gruppo A), bassi livelli di resistenza incrociata verso i DIM.\"",
+   "CULTURA_DECLARADA": "soia, pomodoro e melone (soja, tomate e melao) — literal: \"Sistemi colturali: soia, pomodoro e melone.\" ATENCAO: a ficha lista os tres sistemas culturais em bloco, antes do tipo de resistencia; ela NAO diz em qual dos tres o primeiro caso de 2005 foi verificado. Nao sei a cultura especifica do primeiro caso.",
+   "PRIMEIRO_CASO_ANO": "2005 — literal: \"Primo caso accertato nel 2005.\"",
+   "REGIOES": [
+    "Lombardia — literal: \"Regioni interessate: Lombardia.\" (unica regiao nomeada na ficha)"
+   ],
+   "NOTA": "AVISO DE LEI 3 (titulo casado nao e ato lido): ao final do bloco aparece o rotulo de link \"Mappa (dicotiledoni estive) ACCasi\". E o nome de um link para um mapa, nao uma frase do corpo. Note que o rotulo diz \"dicotiledoni\" enquanto Sorghum halepense e Poaceae (monocotiledonea) — mais um motivo para nao tratar rotulo de link como conteudo lido.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "A ficha declara RESISTENCIA CRUZADA, em nivel baixo, aos DIM. Frase literal: \"Resistenza agli enzimi inibitori dell'ACCasi (gruppo A), bassi livelli di resistenza incrociata verso i DIM.\" Sobre resistencia MULTIPLA (a mecanismos de acao diferentes): NAO SEI — a ficha nao usa esse termo nem descreve tal caso para esta especie. Das tres fichas desta leva, esta e a unica que menciona resistencia cruzada.",
+   "CITACAO_LITERAL": "\"bassi livelli di resistenza incrociata verso i DIM\" (GIRE, ficha Sorghum halepense, http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Sorghum)",
+   "ECOLOGIA": "Nas palavras da ficha: especie difundida como infestante temivel (\"temibile infestante\") na maior parte das areas agricolas mundiais. Planta perene de ciclo de verao, dotada de robustos rizomas rastejantes. Muito adaptavel e competitiva (metabolismo C4), instala-se em terrenos cultivados, incultos, areas urbanas, zonas marginais perturbadas e ao longo de canais e cursos d'agua, onde pode tornar-se a especie predominante, com altas densidades de povoamento. Se nao geridos corretamente, os rizomas fragmentados pelas operacoes de preparo do solo (\"con le lavorazioni\") podem propagar rapidamente a infestacao. Polinizacao tanto autogama quanto alogama; pode formar hibridos com o sorgo cultivado. Ploidia: 2n = 40. Floracao prolongada de junho a outubro. Distribuicao na Italia: \"molto comune in tutte le regioni\". SOBRE SEMENTES: produz grandes quantidades de sementes (ate 28.000 por planta), formando depositos consistentes no solo; as sementes tem dormencia mecanica (pelos tegumentos) e tambem fisiologica, o que causa germinacao muito escalonada e prolongada na estacao de verao; as plantulas de semente emergem no campo a partir do fim de abril e as plantulas de rizoma um pouco antes, a partir do inicio/meados de abril.",
+   "GESTAO": "NAO SEI como recomendacao formal de manejo: a ficha apenas remete, com a frase literal \"Consulta le linee guida specifiche.\", a uma pagina separada nao lida. O UNICO elemento operacional que esta escrito no corpo desta ficha e um alerta sobre preparo do solo: \"Se non gestiti correttamente, i rizomi frammentati con le lavorazioni possono rapidamente propagare l'infestazione\" — os rizomas fragmentados pelas operacoes de preparo, se mal geridos, propagam rapidamente a infestacao. Isso e uma constatacao ecologica da ficha, nao uma linha-guia de manejo declarada como tal.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Sorghum"
+  },
+  {
+   "ESPECIE": "Panicum dichotomiflorum Michx.",
+   "ESPECIE_COMUM_IT": "Panico delle risaie, panico dicotomifloro",
+   "SLUG": "Panicum",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "ACCasi (inibidores da ACCase — gruppo A, 1 na nova classificacao HRAC)",
+   "CULTURA_DECLARADA": "riso (arroz)",
+   "PRIMEIRO_CASO_ANO": "1978",
+   "REGIOES": [
+    "Lombardia"
+   ],
+   "NOTA": "A ficha declara apenas UMA resistencia. Texto literal do campo de regioes vem duplicado na propria fonte: 'Regioni interessate: Regioni interessate: Lombardia.' — a unica regiao nomeada e a Lombardia. A ficha nao nomeia nenhum principio ativo especifico dentro do grupo A: NAO SEI quais. 1978 e a data mais antiga entre as quatro fichas deste lote.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "NAO SEI. A ficha de Panicum dichotomiflorum nao contem nenhuma frase sobre resistencia multipla ou cruzada — o bloco 'Situazione della resistenza' traz um unico tipo de resistencia e nada mais. Ausencia nesta ficha nao significa que nao exista: significa que esta fonte nao diz.",
+   "CITACAO_LITERAL": "\"Resistenza agli erbicidi inibitori dell'ACCasi (gruppo A, 1 nella nuova classificazione HRAC). Primo caso accertato nel 1978.\" — ficha GIRE de Panicum dichotomiflorum (gire.mlib.cnr.it, atualizacao declarada 26/08/2026)",
+   "ECOLOGIA": "Nas palavras da ficha: nativa da America do Norte, presente como adventicia em muitas regioes da Italia continental, com lacunas no centro-sul. Anual (terofita), primaveril-estival; o nome especifico se refere a ramificacao predominantemente dicotomica da inflorescencia escaposa. Emerge no fim da primavera, floresce em pleno verao e tem ciclo fotossintetico C4. Altura de 50 a 100 (200) cm, forma grandes touceiras frouxas. Colmos de prostrados a ereto-ascendentes, ramosos na base. Inflorescencia em grande panicula de ate 20 cm de comprimento e aberta ate cerca de 15 cm de largura. Distingue-se de Panicum capillare pelas folhas sem pelos e com nervura mediana branca geralmente marcada. Distribuicao na Italia: 'molto comune in tutte le regioni'. Sementes (na verdade cariopse) de 2-3 mm, dormentes na maturacao ao contrario de outras gramineas, permanecem viaveis no solo por muito tempo (mais de 10 anos); a disseminacao ocorre por sementes transportadas junto com porcoes da inflorescencia, pelo vento ou pelas atividades agricolas.",
+   "GESTAO": "NAO SEI pelo corpo desta ficha. O unico texto sobre manejo e o remissivo 'Consulta le linee guida specifiche.' — um link para outra pagina do GIRE (linhas-guia especificas), cujo conteudo nao foi lido aqui. TITULO CASADO NAO E ATO LIDO: nao afirmo o que essas linhas-guia recomendam.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Panicum"
+  },
+  {
+   "ESPECIE": "Papaver rhoeas L.",
+   "ESPECIE_COMUM_IT": "Papavero",
+   "SLUG": "Papaver",
+   "FAMILIA": "Papaveraceae",
+   "MECANISMO": "ALS (inibidores da ALS — gruppo B), 'in particolare alle solfoniluree' (em particular as sulfonilureias)",
+   "CULTURA_DECLARADA": "grano duro e tenero (trigo duro e mole)",
+   "PRIMEIRO_CASO_ANO": "1998",
+   "REGIOES": [
+    "Toscana",
+    "Lazio",
+    "Puglia",
+    "Basilicata",
+    "Sicilia",
+    "Veneto",
+    "Lombardia (1 caso)",
+    "Piemonte (1 caso)",
+    "Umbria (1 caso)"
+   ],
+   "NOTA": "A ficha registra 'Mappa (frumento) ALS'. As tres ultimas regioes vem marcadas com '(1 caso)' no proprio texto; para Toscana, Lazio, Puglia, Basilicata, Sicilia e Veneto a ficha nao informa numero de casos — NAO SEI quantos.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "SIM, declarada explicitamente e como terceiro bloco proprio: 'popolazioni con resistenza multipla agli inibitori dell'ALS (gruppo B) e al 2,4-D (grupo O). Primo caso accertato nel 1998.' Regioes: Puglia, Lazio, Basilicata. A ficha NAO usa a expressao 'resistenza incrociata' (resistencia cruzada) em nenhum ponto — sobre cruzada aqui: NAO SEI.",
+   "CITACAO_LITERAL": "\"popolazioni con resistenza multipla agli inibitori dell'ALS (gruppo B) e al 2,4-D (grupo O). Primo caso accertato nel 1998.\" — ficha GIRE de Papaver rhoeas L. (gire.mlib.cnr.it, atualizacao declarada 26/08/2026)",
+   "ECOLOGIA": "Nas palavras da ficha: planta anual, de ciclo invernal-primaveril. Infestante dos cereais de outono-inverno ('cereali autunno-vernini'), prospera tambem em terrenos incultos e em zonas ruderais, pobres e marginais. E uma especie pouco competitiva em relacao as culturas, mas dotada de notavel plasticidade: mesmo com crescimento fortemente limitado por condicoes de competicao, uma planta consegue sempre levar a maturacao ao menos uma capsula com sementes. Estritamente alogama, de polinizacao entomofila com sistema de incompatibilidade gametofitico. Floracao em maio-junho. Especie diploide, 2n = 14. Distribuicao na Italia: 'comune in tutte le regioni'. Especie muito prolifica: uma planta pode potencialmente produzir algumas dezenas de milhares de sementes, e em competicao de 1000 a 5000 sementes. Sementes com forte dormencia primaria, muito longevas (permanecem viaveis no solo ate 10 anos), formam depositos muito consistentes no solo. Emergencia das plantulas principalmente outonal.",
+   "GESTAO": "NAO SEI pelo corpo desta ficha. O unico texto sobre manejo e o remissivo 'Consulta le linee guida specifiche.' — link para outra pagina do GIRE, nao lida aqui. Nao afirmo o conteudo dessas linhas-guia.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Papaver"
+  },
+  {
+   "ESPECIE": "Papaver rhoeas L.",
+   "ESPECIE_COMUM_IT": "Papavero",
+   "SLUG": "Papaver",
+   "FAMILIA": "Papaveraceae",
+   "MECANISMO": "Ormonosimili / auxinicos — 2,4-D (gruppo O)",
+   "CULTURA_DECLARADA": "grano duro e tenero (trigo duro e mole)",
+   "PRIMEIRO_CASO_ANO": "1998",
+   "REGIOES": [
+    "Puglia",
+    "Lazio (1 caso)",
+    "Basilicata (1 caso)"
+   ],
+   "NOTA": "Texto literal da fonte: 'Regioni interessate: Puglia, Lazio, (1 caso) Basilicata (1 caso).' A virgula antes de '(1 caso)' deixa ambiguo se o '(1 caso)' se refere ao Lazio ou a Puglia — NAO SEI qual das duas leituras a fonte quis. A ficha registra 'Mappa (frumento) 2,4-D'.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "SIM, declarada explicitamente e como terceiro bloco proprio: 'popolazioni con resistenza multipla agli inibitori dell'ALS (gruppo B) e al 2,4-D (grupo O). Primo caso accertato nel 1998.' Regioes: Puglia, Lazio, Basilicata. A ficha NAO usa a expressao 'resistenza incrociata' (resistencia cruzada) em nenhum ponto — sobre cruzada aqui: NAO SEI.",
+   "CITACAO_LITERAL": "\"popolazioni con resistenza multipla agli inibitori dell'ALS (gruppo B) e al 2,4-D (grupo O). Primo caso accertato nel 1998.\" — ficha GIRE de Papaver rhoeas L. (gire.mlib.cnr.it, atualizacao declarada 26/08/2026)",
+   "ECOLOGIA": "Nas palavras da ficha: planta anual, de ciclo invernal-primaveril. Infestante dos cereais de outono-inverno ('cereali autunno-vernini'), prospera tambem em terrenos incultos e em zonas ruderais, pobres e marginais. E uma especie pouco competitiva em relacao as culturas, mas dotada de notavel plasticidade: mesmo com crescimento fortemente limitado por condicoes de competicao, uma planta consegue sempre levar a maturacao ao menos uma capsula com sementes. Estritamente alogama, de polinizacao entomofila com sistema de incompatibilidade gametofitico. Floracao em maio-junho. Especie diploide, 2n = 14. Distribuicao na Italia: 'comune in tutte le regioni'. Especie muito prolifica: uma planta pode potencialmente produzir algumas dezenas de milhares de sementes, e em competicao de 1000 a 5000 sementes. Sementes com forte dormencia primaria, muito longevas (permanecem viaveis no solo ate 10 anos), formam depositos muito consistentes no solo. Emergencia das plantulas principalmente outonal.",
+   "GESTAO": "NAO SEI pelo corpo desta ficha. O unico texto sobre manejo e o remissivo 'Consulta le linee guida specifiche.' — link para outra pagina do GIRE, nao lida aqui. Nao afirmo o conteudo dessas linhas-guia.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Papaver"
+  },
+  {
+   "ESPECIE": "Papaver rhoeas L.",
+   "ESPECIE_COMUM_IT": "Papavero",
+   "SLUG": "Papaver",
+   "FAMILIA": "Papaveraceae",
+   "MECANISMO": "Resistencia MULTIPLA: ALS (gruppo B) + 2,4-D (gruppo O)",
+   "CULTURA_DECLARADA": "grano duro e tenero (trigo duro e mole)",
+   "PRIMEIRO_CASO_ANO": "1998",
+   "REGIOES": [
+    "Puglia",
+    "Lazio (2 casi)",
+    "Basilicata (1 caso)"
+   ],
+   "NOTA": "Texto literal: 'Regioni interessate: Puglia, Lazio, (2 casi) Basilicata (1 caso).' Mesma ambiguidade de pontuacao do bloco anterior — NAO SEI se '(2 casi)' pertence ao Lazio ou a Puglia. A fonte grafa 'grupo O' (sem o 'p' de gruppo) nesta linha.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "SIM, declarada explicitamente e como terceiro bloco proprio: 'popolazioni con resistenza multipla agli inibitori dell'ALS (gruppo B) e al 2,4-D (grupo O). Primo caso accertato nel 1998.' Regioes: Puglia, Lazio, Basilicata. A ficha NAO usa a expressao 'resistenza incrociata' (resistencia cruzada) em nenhum ponto — sobre cruzada aqui: NAO SEI.",
+   "CITACAO_LITERAL": "\"popolazioni con resistenza multipla agli inibitori dell'ALS (gruppo B) e al 2,4-D (grupo O). Primo caso accertato nel 1998.\" — ficha GIRE de Papaver rhoeas L. (gire.mlib.cnr.it, atualizacao declarada 26/08/2026)",
+   "ECOLOGIA": "Nas palavras da ficha: planta anual, de ciclo invernal-primaveril. Infestante dos cereais de outono-inverno ('cereali autunno-vernini'), prospera tambem em terrenos incultos e em zonas ruderais, pobres e marginais. E uma especie pouco competitiva em relacao as culturas, mas dotada de notavel plasticidade: mesmo com crescimento fortemente limitado por condicoes de competicao, uma planta consegue sempre levar a maturacao ao menos uma capsula com sementes. Estritamente alogama, de polinizacao entomofila com sistema de incompatibilidade gametofitico. Floracao em maio-junho. Especie diploide, 2n = 14. Distribuicao na Italia: 'comune in tutte le regioni'. Especie muito prolifica: uma planta pode potencialmente produzir algumas dezenas de milhares de sementes, e em competicao de 1000 a 5000 sementes. Sementes com forte dormencia primaria, muito longevas (permanecem viaveis no solo ate 10 anos), formam depositos muito consistentes no solo. Emergencia das plantulas principalmente outonal.",
+   "GESTAO": "NAO SEI pelo corpo desta ficha. O unico texto sobre manejo e o remissivo 'Consulta le linee guida specifiche.' — link para outra pagina do GIRE, nao lida aqui. Nao afirmo o conteudo dessas linhas-guia.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Papaver"
+  },
+  {
+   "ESPECIE": "Phalaris paradoxa L.",
+   "ESPECIE_COMUM_IT": "Scaiola sterile",
+   "SLUG": "Phalaris",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "ACCasi (inibidores da ACCase — gruppo A)",
+   "CULTURA_DECLARADA": "grano duro e tenero (trigo duro e mole)",
+   "PRIMEIRO_CASO_ANO": "1998",
+   "REGIOES": [
+    "Lazio",
+    "Molise",
+    "Puglia"
+   ],
+   "NOTA": "A ficha declara apenas UMA resistencia e registra 'Mappa (frumento) ACCasi'. Diferente da ficha de Panicum, aqui a fonte cita so 'gruppo A', sem mencionar o numero 1 da nova classificacao HRAC. Nenhum principio ativo especifico e nomeado: NAO SEI quais. A ficha nao informa numero de casos por regiao: NAO SEI.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "NAO SEI. A ficha de Phalaris paradoxa nao traz nenhuma frase sobre resistencia multipla nem cruzada — o bloco 'Situazione della resistenza' e o mais curto das quatro fichas deste lote e cobre so o grupo A. Ausencia nesta fonte nao e prova de inexistencia.",
+   "CITACAO_LITERAL": "\"Resistenza agli enzimi inibitori dell'ACCasi (gruppo A). Primo caso accertato nel 1998. Regioni interessate: Lazio, Molise, Puglia.\" — ficha GIRE de Phalaris paradoxa L. (gire.mlib.cnr.it, atualizacao declarada 26/08/2026)",
+   "ECOLOGIA": "Nas palavras da ficha: especie anual de ciclo outonal-primaveril. Difundida no centro-sul da Italia como infestante das culturas de outono-inverno ('colture autunno-vernine'). Principalmente autogama, com baixa percentagem estimada de polinizacao cruzada. Floracao: abril-junho. Diploide: 2n = 14. Distribuicao na Italia: 'comune in Italia centro-meridionale a partire da Liguria ed Emilia'. Sementes com dormencia de tipo fisiologica, que causa escalonamento nas emergencias; formam depositos persistentes no solo. As plantulas emergem no campo no fim do outono, inicio do inverno.",
+   "GESTAO": "NAO SEI pelo corpo desta ficha. O unico texto sobre manejo e o remissivo 'Consulta le linee guida specifiche.' — link para outra pagina do GIRE, nao lida aqui.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Phalaris"
+  },
+  {
+   "ESPECIE": "Schoenoplectus (Scirpus) mucronatus (L.) Palla",
+   "ESPECIE_COMUM_IT": "Lisca mucronata, zigolo, lancia",
+   "SLUG": "Schoenoplectus",
+   "FAMILIA": "Cyperaceae",
+   "MECANISMO": "ALS (inibidores da ALS — gruppo B), com resistencia CRUZADA a todas as familias quimicas dos inibidores da ALS",
+   "CULTURA_DECLARADA": "riso (arroz)",
+   "PRIMEIRO_CASO_ANO": "1995",
+   "REGIOES": [
+    "Lombardia",
+    "Piemonte",
+    "Veneto"
+   ],
+   "NOTA": "A ficha nao apenas declara a resistencia: afirma que esta e a especie com a maior difusao de populacoes resistentes a ALS ('E' la specie con la maggiore diffusione di popolazioni resistenti agli enzimi inibitori dell'ALS'). Registra 'Mappa (riso) ALS'. A ficha nao informa numero de casos por regiao: NAO SEI. Nenhum principio ativo individual e nomeado: NAO SEI quais.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "CRUZADA sim, MULTIPLA nao declarada. Texto literal: 'Presenza di popolazioni con resistenza incrociata verso tutte le famiglie chimiche degli inibitori dell'ALS.' — ou seja, dentro do mesmo mecanismo (ALS, gruppo B), atravessando todas as familias quimicas. A ficha NAO usa em nenhum ponto a expressao 'resistenza multipla' (resistencia a mecanismos diferentes): sobre isso, NAO SEI.",
+   "CITACAO_LITERAL": "\"E' la specie con la maggiore diffusione di popolazioni resistenti agli enzimi inibitori dell'ALS (gruppo B).\" — ficha GIRE de Schoenoplectus (Scirpus) mucronatus (L.) Palla (gire.mlib.cnr.it, atualizacao declarada 26/08/2026)",
+   "ECOLOGIA": "Nas palavras da ficha: difundido em ambientes umidos, ao longo de cursos d'agua e infestante dos arrozais ('infestante delle risaie'), tem ciclo estival. Perene, reproduz-se no arrozal principalmente por semente. Propaga-se tambem por via vegetativa atraves de rizomas curtos que, com praticas agricolas pouco atentas, podem ser espalhados por todo o talhao causando populacoes densas. Polinizacao anemofila. Poliploide: varios niveis de ploidia relatados na literatura. Floracao de junho a agosto. Distribuicao na Italia: 'comune nella pianura lombardo-piemontese, piu rara nel resto dell'Italia settentrionale, Toscana, Sicilia'. Sementes com forte dormencia fisiologica primaria. Emergencia das plantulas a partir de maio.",
+   "GESTAO": "NAO SEI pelo corpo desta ficha. O unico texto sobre manejo e o remissivo 'Consulta le linee guida specifiche .' — link para outra pagina do GIRE, nao lida aqui. Nao afirmo o que ela recomenda.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Schoenoplectus"
+  },
+  {
+   "ESPECIE": "Conyza canadensis (L.) Cronq.",
+   "ESPECIE_COMUM_IT": "NAO SEI — a ficha nao traz nome comum italiano na linha em que as outras fichas trazem. No lugar dele aparece o sinonimo botanico: \"Conyza, Erigeron canadensis L.\"",
+   "SLUG": "Conyza",
+   "FAMILIA": "Asteraceae",
+   "MECANISMO": "EPSPs / glifosato — a ficha escreve \"resistente al Glyphosate (gruppo G)\" e rotula o mapa como \"Mappa (colture arboree) EPSPs\"",
+   "CULTURA_DECLARADA": "Uliveto (olival) — \"Sistemi colturali: uliveto.\"",
+   "PRIMEIRO_CASO_ANO": "2010",
+   "REGIOES": [
+    "Puglia"
+   ],
+   "NOTA": "A ficha desce ao municipio: primeiro caso apurado em 2010 no comune di Giovinazzo, provincia de Bari, na Puglia. Nao afirmo nada alem disso — a ficha nao diz quantas populacoes, nem se ha casos em outras regioes. Ausencia de outras regioes nesta fonte NAO significa ausencia no pais.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "NAO SEI — a ficha nao usa as palavras resistenza multipla nem resistenza incrociata para esta especie. O que ela diz, e que e coisa diferente, e que no mundo a especie esta \"tra le specie che evolvono più frequentemente biotipi resistenti agli erbicidi\" (entre as especies que mais frequentemente desenvolvem biotipos resistentes). Isso e frequencia de evolucao de resistencia no mundo, nao declaracao de resistencia multipla ou cruzada na Italia.",
+   "CITACAO_LITERAL": "\"Primo caso accertato nel 2010 nel comune di Giovinazzo (Bari).\" — ficha GIRE Conyza canadensis, secao Situazione della resistenza (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Conyza, ultima atualizacao declarada no rodape: 26/08/2026)",
+   "ECOLOGIA": "Nas palavras da ficha: planta anual ou bienal, originaria da America do Norte, de ciclo indiferente e disseminacao anemocora (pelo vento). Infestante comum em centros urbanos, bordas de estrada, aterros/lastros ferroviarios (massicciate), terrenos incultos, culturas arboreas e em situacoes de minimo ou nenhum preparo do solo. Floracao da primavera ate o outono tardio e, em condicoes favoraveis, floresce o ano todo. Especie diploide, 2n = 18. Distribuicao na Italia: comum em todas as regioes, da planicie ate 1200 m. Sementes: especie muito prolifica, uma planta pode potencialmente produzir de 50.000 a 200.000 sementes que podem ser disseminadas a longas distancias, o que a propria ficha liga a dificuldade de manejo da resistencia. Longevidade das sementes no solo documentada ate tres anos. Emergencia das plantulas principalmente invernal. Fruto e um aquenio com semente de 1 mm.",
+   "GESTAO": "NAO SEI — esta ficha nao traz secao de gestao nem o link \"Consulta le linee guida specifiche\" que aparece na ficha do Cyperus difformis. A unica frase do corpo que toca manejo e a das sementes: dispersao a longa distancia \"rendendo problematica la gestione della resistenza\" (tornando problematica a gestao da resistencia). Isso e diagnostico do problema, nao recomendacao de manejo.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Conyza"
+  },
+  {
+   "ESPECIE": "Cyperus difformis L.",
+   "ESPECIE_COMUM_IT": "Zigolo delle risaie",
+   "SLUG": "Cyperus",
+   "FAMILIA": "Cyperaceae",
+   "MECANISMO": "ALS (gruppo B) — \"erbicidi inibitori dell'ALS (gruppo B)\"; mapa rotulado \"Mappa (riso) ALS\"",
+   "CULTURA_DECLARADA": "Riso (arroz) — \"Sistema colturale: riso.\"",
+   "PRIMEIRO_CASO_ANO": "1999",
+   "REGIOES": [
+    "Piemonte",
+    "Lombardia",
+    "Emilia Romagna",
+    "Veneto",
+    "Sardegna"
+   ],
+   "NOTA": "A ficha declara, no mesmo bloco, resistencia cruzada dentro do grupo B: as sulfonilureias e as triazolopirimidinas. Ela nao nomeia moleculas individuais nesta especie (diferente da ficha do Cyperus esculentus, que nomeia halosulfuron e azimsulfuron). Nao afirmo mais nada: a ficha nao diz numero de populacoes nem provincia.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "Resistencia CRUZADA declarada, e so dentro do grupo B (ALS). A ficha diz: \"con resistenza incrociata alle solfoniluree e alle triazolopirimidine\" — resistencia cruzada as sulfonilureias e as triazolopirimidinas, que sao duas familias quimicas do mesmo mecanismo ALS. Sobre resistencia MULTIPLA (a mecanismos diferentes entre si): NAO SEI — a ficha nao usa essa expressao aqui.",
+   "CITACAO_LITERAL": "\"con resistenza incrociata alle solfoniluree e alle triazolopirimidine. Primo caso accertato nel 1999.\" — ficha GIRE Cyperus difformis, secao Situazione della resistenza (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Cyperus, ultima atualizacao declarada no rodape: 26/08/2026)",
+   "ECOLOGIA": "Nas palavras da ficha: planta hidrofita, infestante de arrozal. Em alguns casos se adapta tambem a ambientes nao alagados (com solos de qualquer modo umidos), tornando-se infestante de outras culturas como, por exemplo, o milho em rotacao com o arroz. Tem crescimento rapido e pode formar populacoes muito densas (mais de 500 plantas por metro quadrado), exercendo forte pressao competitiva sobre a cultura. Ciclo estivo e as vezes pode chegar a floracao em seis semanas. Distribuicao na Italia: comum na planicie lombarda e piemontesa, mais raro no resto da planicie padana, na Liguria, Toscana e Sicilia. Sementes: muito pequenas, peso medio de cerca de 20 microgramas; mesmo sob competicao pode produzir entre 5.000 e 50.000 sementes por planta. Forma depositos de sementes persistentes (a semente permanece viavel ate mais de 5-6 anos) e muito consistentes. As sementes tem dormencia e germinam so em condicoes estritamente favoraveis.",
+   "GESTAO": "NAO SEI o conteudo. A ficha remete: \"Consulta le linee guida specifiche.\" — ou seja, aponta para as diretrizes especificas do GIRE, mas o texto dessas diretrizes NAO esta neste corpo de ficha. Titulo/link casado nao e ato lido: nao vou inventar o que as linhas-guia dizem. Para saber, e preciso ler a pagina das linee guida specifiche.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Cyperus"
+  },
+  {
+   "ESPECIE": "Cyperus esculentus L.",
+   "ESPECIE_COMUM_IT": "Mandorla di terra",
+   "SLUG": "Cyperus_esc",
+   "FAMILIA": "Cyperaceae",
+   "MECANISMO": "ALS — \"halosulfuron, azimsulfuron (inibitori dell'ALS)\"; mapa rotulado \"Mappa (riso): ALS\"",
+   "CULTURA_DECLARADA": "Riso (arroz) — \"Sistema colturale: riso.\"",
+   "PRIMEIRO_CASO_ANO": "2015",
+   "REGIOES": [
+    "Piemonte",
+    "Lombardia"
+   ],
+   "NOTA": "Aqui a ficha nomeia as duas moleculas (halosulfuron e azimsulfuron), o que a ficha do Cyperus difformis nao faz. Repare tambem: nesta ficha o GIRE escreve so \"(inibitori dell'ALS)\", sem o rotulo \"gruppo B\" que aparece na do C. difformis — nao vou acrescentar o rotulo que a fonte nao escreveu. Ausencia de outras regioes nesta fonte NAO significa ausencia no pais.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "NAO SEI — a ficha nao usa resistenza multipla nem resistenza incrociata para esta especie. Ela lista dois principios ativos (halosulfuron e azimsulfuron) sob o mesmo mecanismo ALS, mas NAO chama isso de resistencia cruzada; nao vou colocar essa palavra na boca da fonte.",
+   "CITACAO_LITERAL": "\"Tipo di resistenza: halosulfuron, azimsulfuron (inibitori dell'ALS). Primo caso accertato nel 2015.\" — ficha GIRE Cyperus esculentus (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Cyperus_esc, ultima atualizacao declarada no rodape: 26/08/2026)",
+   "ECOLOGIA": "Nas palavras da ficha: nativa da area mediterranea, e uma infestante capaz de colonizar muitas culturas agrarias, que prefere climas umidos, de tropicais a temperados. Especie C4, poliploide, perene geofita, de ciclo estivo, com polinizacao cruzada, cujo crescimento e reproducao sao largamente influenciados pelo fotoperiodo. Reproduz-se predominantemente por via vegetativa, por rizomas e tuberculos que se propagam no solo. Os tuberculos, irregularmente ovoides, tem diametro de 5-15 mm e podem permanecer dormentes no solo por muitos anos; a germinacao deles ocorre geralmente no fim da primavera. A ficha registra que praticas agronomicas nao apropriadas podem favorecer a difusao dos tuberculos no talhao. Floracao em meados de junho e maturacao das sementes em meados de setembro, ainda que muitas populacoes nao produzam sementes maduras. Distribuicao: presente na maior parte das regioes italianas. Sementes: abundantes, cor do esbranquicado ao amarelo-marrom, triangulares-ovoides, de 1,2 a 1,8 mm; producao e viabilidade bastante variaveis conforme o ambiente e as vezes as sementes produzidas nao sao ferteis. A germinacao comeca quando a temperatura chega a 10 graus C e parece favorecida em climas quentes e secos. As plantulas nascidas de semente frequentemente nao tem vigor suficiente para sobreviver em campo aberto; por isso considera-se que, nas regioes temperadas, o papel das sementes na propagacao desta especie seja bastante limitado.",
+   "GESTAO": "NAO SEI — esta ficha nao tem secao de gestao nem o link para as linee guida specifiche. A unica frase do corpo que toca praticas agricolas esta na ecologia, sobre os tuberculos: \"Pratiche agronomiche non appropriate possono quindi favorire la loro diffusione nell'appezzamento\" (praticas agronomicas nao apropriadas podem favorecer a difusao deles no talhao). E um alerta, nao uma recomendacao de manejo de resistencia.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Cyperus_esc"
+  },
+  {
+   "ESPECIE": "Digitaria sanguinalis (L.) Scop.",
+   "ESPECIE_COMUM_IT": "Sanguinella comune",
+   "SLUG": "Digitaria",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "ACCasi (gruppo A) — \"erbicidi inibitori dell'ACCasi (gruppo A)\"",
+   "CULTURA_DECLARADA": "Soia e Riso — a ficha escreve \"Sistemi colturali: Soia, Riso.\" num unico bloco, sem separar ano ou regiao por cultura. Nao vou dividir o que a fonte juntou.",
+   "PRIMEIRO_CASO_ANO": "2006",
+   "REGIOES": [
+    "Lombardia",
+    "Veneto"
+   ],
+   "NOTA": "Duas observacoes honestas sobre o que esta escrito. (1) A ficha nao nomeia nenhuma molecula de ACCasi nesta especie, so o mecanismo e o grupo. (2) O rotulo do mapa nesta ficha e \"Mappa (dicotiledoni estive) ACCasi\" — dicotiledoneas estivas — mas Digitaria sanguinalis e Poaceae, monocotiledonea, como a propria ficha declara na familia. Estou registrando o rotulo como ele aparece; NAO SEI se e erro de rotulacao do site ou se o mapa e compartilhado com outro grupo de especies. Nao concluo nada a partir disso.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "NAO SEI — a ficha nao usa resistenza multipla nem resistenza incrociata para esta especie. Declara um unico mecanismo (ACCasi, grupo A).",
+   "CITACAO_LITERAL": "\"popolazioni resistenti agli erbicidi inibitori dell'ACCasi (gruppo A). Primo caso accertato nel 2006.\" — ficha GIRE Digitaria sanguinalis, secao Situazione della resistenza (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Digitaria, ultima atualizacao declarada no rodape: 26/08/2026)",
+   "ECOLOGIA": "Nas palavras da ficha: especie anual, de ciclo estivo, difundida em quase todo o territorio nacional, infestante em culturas sachadas/em linha (colture sarchiate), em prados e pomares. A planta tem 20-50 cm e forma amplas touceiras com muitas ramificacoes na base. Floresce de junho a setembro e tem inflorescencia digitada (dai o nome) com 4-6 racemos lineares de 3-8 cm, alguns sesseis, outros pedunculados, com espiguetas violaceas espalhadas na raque. Folhas lineares, lamina pilosa, lanceolada, ondulada e avermelhada na margem, com ligula franjada. Sementes: cada planta pode produzir ate 150.000 sementes, que para germinar precisam de temperaturas elevadas e umidade abundante. A via preferencial de disseminacao e o vento. Espigueta ovoide e achatada, de cerca de 3 mm, com cores do verde claro ao marrom-esverdeado; composta de dois lemas que encerram uma unica cariopse, tambem ovoide e achatada, e duas glumas, uma com um terco a metade do comprimento do lema e a outra muito pequena. A germinacao comeca quando a temperatura media do solo passa de 15 graus C, enquanto temperaturas muito elevadas induzem as sementes a dormencia; por isso o periodo de maior emergencia vai de abril a julho.",
+   "GESTAO": "NAO SEI — esta ficha nao traz secao de gestao nem o link para as linee guida specifiche. Nao ha, no corpo lido, nenhuma frase de recomendacao de manejo.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Digitaria"
+  },
+  {
+   "ESPECIE": "Echinochloa crus-galli (L.) Beauv",
+   "ESPECIE_COMUM_IT": "Giavone comune, pianicastrella",
+   "SLUG": "Echinochloa",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "Propanile (gruppo C2) — a ficha nomeia o herbicida e o grupo, NAO SEI se ela nomeia o sitio de acao por extenso (nao aparece no corpo do texto)",
+   "CULTURA_DECLARADA": "riso",
+   "PRIMEIRO_CASO_ANO": "2000",
+   "REGIOES": [
+    "Piemonte",
+    "Lombardia",
+    "Toscana"
+   ],
+   "NOTA": "Texto da ficha: 'Popolazioni resistenti al propanile (gruppo C2)' e 'Primo caso accertato nel 2000.' Ha remissao a mapa (riso) Propanile.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "A ficha declara resistencia multipla em arroz — ALS (gruppo B) + ACCasi (gruppo A), primeiro caso em 2009, em Piemonte, Lombardia, Emilia Romagna, Toscana (1 caso) e Sardegna (1 caso). E declara resistencia CRUZADA em milho: populacoes com altos niveis de resistencia cruzada a TODAS as familias quimicas dos inibidores da ALS (gruppo B), primeiro caso em 2005, em Veneto, Piemonte e Toscana. Sao os dois unicos trechos da ficha que falam de multipla/cruzada.",
+   "CITACAO_LITERAL": "\"alti livelli di resistenza incrociata verso tutte le famiglie chimiche degli inibitori dell'enzima ALS\" — GIRE, scheda Echinochloa crus-galli (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa)",
+   "ECOLOGIA": "Especie anual de ciclo estival, 'molto diffusa e adattabile' nas palavras da ficha. Coloniza e infesta sistemas de cultivo muito diferentes e todas as culturas mais importantes: tanto arrozais e areas umidas quanto culturas de verao como milho e soja. Tem notavel polimorfismo fenotipico, que a propria ficha diz causar dificuldade para classificar as especies do genero. Planta de metabolismo C4, muito competitiva tambem no aproveitamento dos nutrientes e predominantemente autogama. Floracao de junho a outubro; especie poliploide com varios niveis de ploidia relatados na literatura. Distribuicao na Italia: 'molto comune in tutte le regioni'. Sementes: viaveis no solo por varios anos, mesmo em condicoes de submersao, podendo se tornar o componente principal do banco de sementes em terrenos revolvidos; dormencia de tipo mecanica devida aos tegumentos externos da cariopse, o que tambem provoca escalonamento das emergencias. Germinacao em campo a partir de maio.",
+   "GESTAO": "NAO SEI a partir desta ficha. Para os dois sistemas de cultivo (riso e mais) a pagina apenas remete: 'Consulta le linee guida specifiche.' — um link para outra pagina do GIRE, cujo conteudo eu nao li. Nenhuma recomendacao de manejo aparece no corpo desta ficha.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa"
+  },
+  {
+   "ESPECIE": "Echinochloa crus-galli (L.) Beauv",
+   "ESPECIE_COMUM_IT": "Giavone comune, pianicastrella",
+   "SLUG": "Echinochloa",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "Inibidores da ALS (gruppo B)",
+   "CULTURA_DECLARADA": "riso",
+   "PRIMEIRO_CASO_ANO": "NAO SEI — esta entrada da ficha nao traz ano de primeiro caso; nao concluir que nao existe",
+   "REGIOES": [
+    "Piemonte",
+    "Lombardia",
+    "Emilia Romagna",
+    "Toscana",
+    "Sardegna"
+   ],
+   "NOTA": "Texto: 'Popolazioni resistenti agli erbicidi inibitori dell'ALS (gruppo B).' Unica das cinco entradas da ficha sem ano declarado. Ha remissao a mapa (riso) ALS.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "A ficha declara resistencia multipla em arroz — ALS (gruppo B) + ACCasi (gruppo A), primeiro caso em 2009, em Piemonte, Lombardia, Emilia Romagna, Toscana (1 caso) e Sardegna (1 caso). E declara resistencia CRUZADA em milho: populacoes com altos niveis de resistencia cruzada a TODAS as familias quimicas dos inibidores da ALS (gruppo B), primeiro caso em 2005, em Veneto, Piemonte e Toscana. Sao os dois unicos trechos da ficha que falam de multipla/cruzada.",
+   "CITACAO_LITERAL": "\"alti livelli di resistenza incrociata verso tutte le famiglie chimiche degli inibitori dell'enzima ALS\" — GIRE, scheda Echinochloa crus-galli (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa)",
+   "ECOLOGIA": "Especie anual de ciclo estival, 'molto diffusa e adattabile' nas palavras da ficha. Coloniza e infesta sistemas de cultivo muito diferentes e todas as culturas mais importantes: tanto arrozais e areas umidas quanto culturas de verao como milho e soja. Tem notavel polimorfismo fenotipico, que a propria ficha diz causar dificuldade para classificar as especies do genero. Planta de metabolismo C4, muito competitiva tambem no aproveitamento dos nutrientes e predominantemente autogama. Floracao de junho a outubro; especie poliploide com varios niveis de ploidia relatados na literatura. Distribuicao na Italia: 'molto comune in tutte le regioni'. Sementes: viaveis no solo por varios anos, mesmo em condicoes de submersao, podendo se tornar o componente principal do banco de sementes em terrenos revolvidos; dormencia de tipo mecanica devida aos tegumentos externos da cariopse, o que tambem provoca escalonamento das emergencias. Germinacao em campo a partir de maio.",
+   "GESTAO": "NAO SEI a partir desta ficha. Para os dois sistemas de cultivo (riso e mais) a pagina apenas remete: 'Consulta le linee guida specifiche.' — um link para outra pagina do GIRE, cujo conteudo eu nao li. Nenhuma recomendacao de manejo aparece no corpo desta ficha.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa"
+  },
+  {
+   "ESPECIE": "Echinochloa crus-galli (L.) Beauv",
+   "ESPECIE_COMUM_IT": "Giavone comune, pianicastrella",
+   "SLUG": "Echinochloa",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "Inibidores da ACCasi (gruppo A)",
+   "CULTURA_DECLARADA": "riso",
+   "PRIMEIRO_CASO_ANO": "2011",
+   "REGIOES": [
+    "Piemonte",
+    "Lombardia",
+    "Emilia Romagna",
+    "Toscana (1 caso)",
+    "Sardegna (1 caso)"
+   ],
+   "NOTA": "Texto: 'Popolazioni resistenti agli erbicidi inibitori dell'ACCasi (gruppo A). Primo caso accertato nel 2011.' A ficha marca explicitamente Toscana e Sardegna como '1 caso' cada.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "A ficha declara resistencia multipla em arroz — ALS (gruppo B) + ACCasi (gruppo A), primeiro caso em 2009, em Piemonte, Lombardia, Emilia Romagna, Toscana (1 caso) e Sardegna (1 caso). E declara resistencia CRUZADA em milho: populacoes com altos niveis de resistencia cruzada a TODAS as familias quimicas dos inibidores da ALS (gruppo B), primeiro caso em 2005, em Veneto, Piemonte e Toscana. Sao os dois unicos trechos da ficha que falam de multipla/cruzada.",
+   "CITACAO_LITERAL": "\"alti livelli di resistenza incrociata verso tutte le famiglie chimiche degli inibitori dell'enzima ALS\" — GIRE, scheda Echinochloa crus-galli (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa)",
+   "ECOLOGIA": "Especie anual de ciclo estival, 'molto diffusa e adattabile' nas palavras da ficha. Coloniza e infesta sistemas de cultivo muito diferentes e todas as culturas mais importantes: tanto arrozais e areas umidas quanto culturas de verao como milho e soja. Tem notavel polimorfismo fenotipico, que a propria ficha diz causar dificuldade para classificar as especies do genero. Planta de metabolismo C4, muito competitiva tambem no aproveitamento dos nutrientes e predominantemente autogama. Floracao de junho a outubro; especie poliploide com varios niveis de ploidia relatados na literatura. Distribuicao na Italia: 'molto comune in tutte le regioni'. Sementes: viaveis no solo por varios anos, mesmo em condicoes de submersao, podendo se tornar o componente principal do banco de sementes em terrenos revolvidos; dormencia de tipo mecanica devida aos tegumentos externos da cariopse, o que tambem provoca escalonamento das emergencias. Germinacao em campo a partir de maio.",
+   "GESTAO": "NAO SEI a partir desta ficha. Para os dois sistemas de cultivo (riso e mais) a pagina apenas remete: 'Consulta le linee guida specifiche.' — um link para outra pagina do GIRE, cujo conteudo eu nao li. Nenhuma recomendacao de manejo aparece no corpo desta ficha.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa"
+  },
+  {
+   "ESPECIE": "Echinochloa crus-galli (L.) Beauv",
+   "ESPECIE_COMUM_IT": "Giavone comune, pianicastrella",
+   "SLUG": "Echinochloa",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "Resistencia multipla: inibidores da ALS (gruppo B) + inibidores da ACCasi (gruppo A)",
+   "CULTURA_DECLARADA": "riso",
+   "PRIMEIRO_CASO_ANO": "2009",
+   "REGIOES": [
+    "Piemonte",
+    "Lombardia",
+    "Emilia Romagna",
+    "Toscana (1 caso)",
+    "Sardegna (1 caso)"
+   ],
+   "NOTA": "Texto: 'Popolazioni con resistenza multipla agli erbicidi inibitori dell'ALS (gruppo B) e agli erbicidi inibitori dell'ACCasi (gruppo A). Primo caso accertato nel 2009.' Observacao de leitura: o ano da multipla (2009) e anterior ao ano declarado para a ACCasi isolada (2011) na mesma ficha; a ficha nao explica isso e eu nao vou explicar por ela.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "A ficha declara resistencia multipla em arroz — ALS (gruppo B) + ACCasi (gruppo A), primeiro caso em 2009, em Piemonte, Lombardia, Emilia Romagna, Toscana (1 caso) e Sardegna (1 caso). E declara resistencia CRUZADA em milho: populacoes com altos niveis de resistencia cruzada a TODAS as familias quimicas dos inibidores da ALS (gruppo B), primeiro caso em 2005, em Veneto, Piemonte e Toscana. Sao os dois unicos trechos da ficha que falam de multipla/cruzada.",
+   "CITACAO_LITERAL": "\"alti livelli di resistenza incrociata verso tutte le famiglie chimiche degli inibitori dell'enzima ALS\" — GIRE, scheda Echinochloa crus-galli (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa)",
+   "ECOLOGIA": "Especie anual de ciclo estival, 'molto diffusa e adattabile' nas palavras da ficha. Coloniza e infesta sistemas de cultivo muito diferentes e todas as culturas mais importantes: tanto arrozais e areas umidas quanto culturas de verao como milho e soja. Tem notavel polimorfismo fenotipico, que a propria ficha diz causar dificuldade para classificar as especies do genero. Planta de metabolismo C4, muito competitiva tambem no aproveitamento dos nutrientes e predominantemente autogama. Floracao de junho a outubro; especie poliploide com varios niveis de ploidia relatados na literatura. Distribuicao na Italia: 'molto comune in tutte le regioni'. Sementes: viaveis no solo por varios anos, mesmo em condicoes de submersao, podendo se tornar o componente principal do banco de sementes em terrenos revolvidos; dormencia de tipo mecanica devida aos tegumentos externos da cariopse, o que tambem provoca escalonamento das emergencias. Germinacao em campo a partir de maio.",
+   "GESTAO": "NAO SEI a partir desta ficha. Para os dois sistemas de cultivo (riso e mais) a pagina apenas remete: 'Consulta le linee guida specifiche.' — um link para outra pagina do GIRE, cujo conteudo eu nao li. Nenhuma recomendacao de manejo aparece no corpo desta ficha.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa"
+  },
+  {
+   "ESPECIE": "Echinochloa crus-galli (L.) Beauv",
+   "ESPECIE_COMUM_IT": "Giavone comune, pianicastrella",
+   "SLUG": "Echinochloa",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "Inibidores da enzima ALS (gruppo B), com resistencia cruzada de alto nivel a todas as familias quimicas do grupo",
+   "CULTURA_DECLARADA": "mais",
+   "PRIMEIRO_CASO_ANO": "2005",
+   "REGIOES": [
+    "Veneto",
+    "Piemonte",
+    "Toscana"
+   ],
+   "NOTA": "Texto: 'Popolazioni con alti livelli di resistenza incrociata verso tutte le famiglie chimiche degli inibitori dell'enzima ALS (gruppo B)' e 'Primo caso accertato nel 2005.' Ha remissao a mapa (mais) ALS.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "A ficha declara resistencia multipla em arroz — ALS (gruppo B) + ACCasi (gruppo A), primeiro caso em 2009, em Piemonte, Lombardia, Emilia Romagna, Toscana (1 caso) e Sardegna (1 caso). E declara resistencia CRUZADA em milho: populacoes com altos niveis de resistencia cruzada a TODAS as familias quimicas dos inibidores da ALS (gruppo B), primeiro caso em 2005, em Veneto, Piemonte e Toscana. Sao os dois unicos trechos da ficha que falam de multipla/cruzada.",
+   "CITACAO_LITERAL": "\"alti livelli di resistenza incrociata verso tutte le famiglie chimiche degli inibitori dell'enzima ALS\" — GIRE, scheda Echinochloa crus-galli (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa)",
+   "ECOLOGIA": "Especie anual de ciclo estival, 'molto diffusa e adattabile' nas palavras da ficha. Coloniza e infesta sistemas de cultivo muito diferentes e todas as culturas mais importantes: tanto arrozais e areas umidas quanto culturas de verao como milho e soja. Tem notavel polimorfismo fenotipico, que a propria ficha diz causar dificuldade para classificar as especies do genero. Planta de metabolismo C4, muito competitiva tambem no aproveitamento dos nutrientes e predominantemente autogama. Floracao de junho a outubro; especie poliploide com varios niveis de ploidia relatados na literatura. Distribuicao na Italia: 'molto comune in tutte le regioni'. Sementes: viaveis no solo por varios anos, mesmo em condicoes de submersao, podendo se tornar o componente principal do banco de sementes em terrenos revolvidos; dormencia de tipo mecanica devida aos tegumentos externos da cariopse, o que tambem provoca escalonamento das emergencias. Germinacao em campo a partir de maio.",
+   "GESTAO": "NAO SEI a partir desta ficha. Para os dois sistemas de cultivo (riso e mais) a pagina apenas remete: 'Consulta le linee guida specifiche.' — um link para outra pagina do GIRE, cujo conteudo eu nao li. Nenhuma recomendacao de manejo aparece no corpo desta ficha.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa"
+  },
+  {
+   "ESPECIE": "Eleusine indica (L.) Gaertn",
+   "ESPECIE_COMUM_IT": "Eleusine — a ficha repete o nome do genero na linha do nome comum. NAO SEI se existe um nome vulgar italiano distinto; esta ficha nao traz outro.",
+   "SLUG": "Eleusine",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "Glifosato (gruppo G)",
+   "CULTURA_DECLARADA": "vivaio — e a ficha acrescenta que estao 'a rischio anche i sistemi colturali simili, come le colture arboree perenni'",
+   "PRIMEIRO_CASO_ANO": "2019",
+   "REGIOES": [
+    "Campania"
+   ],
+   "NOTA": "Texto: 'Il primo caso di resistenza a glifosate (gruppo G) e stato accertato nel 2019 in Campania.' E o UNICO caso de resistencia declarado para a Italia nesta ficha. Ela nao diz que nao ha outros — apenas nao traz outros; portanto, para os demais mecanismos na Italia: NAO SEI.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "Atencao ao recorte geografico, porque a ficha separa os dois planos. FORA DA ITALIA, ela registra que foram encontradas populacoes resistentes a outros herbicidas com mecanismo de acao diferente — ACCasi, PPO, PSII — 'e perfino casi di resistenza multipla'. Esse trecho vem no paragrafo sobre Malasia, outros paises asiaticos, Brasil, Mexico e EUA, e a ficha NAO os atribui a Italia. NA ITALIA, esta ficha declara apenas o caso de glifosato de 2019 na Campania e nao menciona resistencia multipla ou cruzada. Se ha ou nao multipla na Italia: NAO SEI por esta fonte.",
+   "CITACAO_LITERAL": "\"E' stata una delle prime specie ad evolvere resistenza a glifosate a livello mondiale\" — GIRE, scheda Eleusine indica (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Eleusine)",
+   "ECOLOGIA": "Planta anual herbacea, de ciclo primavera-verao, com metabolismo C4. Considerada originaria das zonas tropicais da Africa e da Asia, hoje encontra-se em todas as zonas quentes e temperadas do mundo e e considerada 'tra le infestanti piu problematiche'. Planta monoica autogama, floresce de julho a outubro. Cresce rapidamente em plena luz e umidade e nao tolera sombreamento por outras plantas — por isso consegue se desenvolver em culturas de linhas largas e crescimento lento, mas coloniza principalmente pomares, viveiros, gramados, jardins e beiras de estrada, gracas a tolerancia a estresses como calor, seca, pisoteio e corte. A ficha registra que foi uma das primeiras especies do mundo a evoluir resistencia a glifosato, com a primeira populacao resistente descrita em 1997 na Malasia, e depois em outros paises asiaticos, no Brasil, no Mexico e nos EUA. Distribuicao na Italia: assinalada pela primeira vez no fim do seculo XIX perto de Verona, hoje difundida em todas as regioes. Sementes: uma unica planta pode produzir, sem competicao, ate 40.000 sementes (cariopses), pequenas (2 mm), ovais, escuras, normalmente envoltas pelas glumas na disseminacao; dispersao por gravidade, fluxos de agua ou irrigacao, ou durante operacoes culturais (ex.: corte). Germinacao otima na camada superficial (0-4 cm) e ja a 8 cm de profundidade a plantula nao consegue emergir. Recem-caidas as sementes sao dormentes e so germinam apos exposicao a temperaturas alternadas; germinacao em campo do fim da primavera ate todo o verao. Persistencia media: germinam apos 3-4 anos de enterramento, mas em certas condicoes podem permanecer viaveis por 10 anos.",
+   "GESTAO": "A propria ficha declara que as diretrizes ainda nao existem publicadas: 'Linee guida specifiche: in fase di preparazione'. Ou seja, diferente das outras fichas deste lote, aqui nao ha nem link para diretriz. Recomendacao de manejo no corpo do texto: NAO SEI.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Eleusine"
+  },
+  {
+   "ESPECIE": "Lolium spp. — a ficha especifica que na Italia duas especies estao envolvidas com resistencia: Lolium rigidum, geralmente difundida nas regioes meridionais, e Lolium multiflorum, nas regioes centro-setentrionais",
+   "ESPECIE_COMUM_IT": "Loietto",
+   "SLUG": "Lolium",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "Inibidores da ACCasi (gruppo A)",
+   "CULTURA_DECLARADA": "cereali autunno-vernini",
+   "PRIMEIRO_CASO_ANO": "1995",
+   "REGIOES": [
+    "Emilia Romagna",
+    "Toscana",
+    "Lazio",
+    "Marche",
+    "Abruzzo",
+    "Puglia",
+    "Sardegna"
+   ],
+   "NOTA": "Texto: 'Resistenza agli erbicidi dell'ACCasi (gruppo A). Primo caso accertato nel 1995.' E a data mais antiga das quatro fichas deste lote. Ha remissao a mapa (frumento) ACCasi.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "A ficha afirma duas vezes. Primeiro em frase corrida: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS e dell'ACCasi.' Depois como entrada formal: populacoes com resistencia multipla a inibidores da ACCasi (gruppo A) e da ALS (gruppo B), primeiro caso em 2000, em Toscana, Lazio, Puglia e Sardegna. A ficha nao usa a expressao 'resistenza incrociata' (cruzada) em nenhum ponto — sobre resistencia cruzada em Lolium: NAO SEI por esta fonte.",
+   "CITACAO_LITERAL": "\"Alta produzione di semi per pianta e scarsa dormienza ... favoriscono la comparsa e la diffusione della resistenza\" — GIRE, scheda Lolium spp. (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium)",
+   "ECOLOGIA": "Infestante muito difundida, em particular nos cereais de outono-inverno (autunno-vernini) e em pomares, vinhedos e olivais. As plantas do genero sao estritamente alogamas e cruzam-se facilmente formando hibridos interespecificos; a ficha registra tambem hibridos intergenericos ferteis entre Lolium e Festuca, o que gera grande variabilidade genetica e morfologica. Na Italia, L. rigidum predomina no sul e L. multiflorum no centro-norte, e muito frequentemente — especialmente na Italia central — encontram-se plantas com caracteristicas intermediarias entre as duas. Especies diploides, 2n = 14. Floracao de maio a julho. Sementes: alta producao por planta e escassa dormencia sao apontadas pela propria ficha como caracteristicas que favorecem o surgimento e a difusao da resistencia. Do ponto de vista ecofisiologico as sementes sao classificadas como indiferentes, isto e, podem germinar durante todo o ano; nos cereais de outono-inverno a maior parte das emergencias ocorre no outono e no inverno.",
+   "GESTAO": "NAO SEI a partir desta ficha. Para 'cereali autunno-vernini' e para 'erba medica' a pagina remete a 'Consulta le linee guida specifiche.' — link para outra pagina do GIRE que eu nao li. Para 'colture perenni' nao ha sequer essa remissao no texto. O que a ficha traz, e que e da ecologia e nao recomendacao, e que alta producao de sementes e escassa dormencia favorecem a difusao da resistencia.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium"
+  },
+  {
+   "ESPECIE": "Lolium spp. — a ficha especifica que na Italia duas especies estao envolvidas com resistencia: Lolium rigidum, geralmente difundida nas regioes meridionais, e Lolium multiflorum, nas regioes centro-setentrionais",
+   "ESPECIE_COMUM_IT": "Loietto",
+   "SLUG": "Lolium",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "Inibidores da ALS — a ficha escreve 'inibitori dell'ALS' nesta entrada sem repetir a letra do grupo",
+   "CULTURA_DECLARADA": "cereali autunno-vernini",
+   "PRIMEIRO_CASO_ANO": "NAO SEI — esta entrada nao traz ano de primeiro caso",
+   "REGIOES": [
+    "Toscana",
+    "Lazio",
+    "Puglia",
+    "Sardegna"
+   ],
+   "NOTA": "Texto: 'Resistenza agli inibitori dell 'ALS.' seguido de 'Regioni interessate: Toscana, Lazio, Puglia, e Sardegna.' Ha remissao a mapa (frumento) ALS.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "A ficha afirma duas vezes. Primeiro em frase corrida: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS e dell'ACCasi.' Depois como entrada formal: populacoes com resistencia multipla a inibidores da ACCasi (gruppo A) e da ALS (gruppo B), primeiro caso em 2000, em Toscana, Lazio, Puglia e Sardegna. A ficha nao usa a expressao 'resistenza incrociata' (cruzada) em nenhum ponto — sobre resistencia cruzada em Lolium: NAO SEI por esta fonte.",
+   "CITACAO_LITERAL": "\"Alta produzione di semi per pianta e scarsa dormienza ... favoriscono la comparsa e la diffusione della resistenza\" — GIRE, scheda Lolium spp. (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium)",
+   "ECOLOGIA": "Infestante muito difundida, em particular nos cereais de outono-inverno (autunno-vernini) e em pomares, vinhedos e olivais. As plantas do genero sao estritamente alogamas e cruzam-se facilmente formando hibridos interespecificos; a ficha registra tambem hibridos intergenericos ferteis entre Lolium e Festuca, o que gera grande variabilidade genetica e morfologica. Na Italia, L. rigidum predomina no sul e L. multiflorum no centro-norte, e muito frequentemente — especialmente na Italia central — encontram-se plantas com caracteristicas intermediarias entre as duas. Especies diploides, 2n = 14. Floracao de maio a julho. Sementes: alta producao por planta e escassa dormencia sao apontadas pela propria ficha como caracteristicas que favorecem o surgimento e a difusao da resistencia. Do ponto de vista ecofisiologico as sementes sao classificadas como indiferentes, isto e, podem germinar durante todo o ano; nos cereais de outono-inverno a maior parte das emergencias ocorre no outono e no inverno.",
+   "GESTAO": "NAO SEI a partir desta ficha. Para 'cereali autunno-vernini' e para 'erba medica' a pagina remete a 'Consulta le linee guida specifiche.' — link para outra pagina do GIRE que eu nao li. Para 'colture perenni' nao ha sequer essa remissao no texto. O que a ficha traz, e que e da ecologia e nao recomendacao, e que alta producao de sementes e escassa dormencia favorecem a difusao da resistencia.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium"
+  },
+  {
+   "ESPECIE": "Lolium spp. — a ficha especifica que na Italia duas especies estao envolvidas com resistencia: Lolium rigidum, geralmente difundida nas regioes meridionais, e Lolium multiflorum, nas regioes centro-setentrionais",
+   "ESPECIE_COMUM_IT": "Loietto",
+   "SLUG": "Lolium",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "Resistencia multipla: inibidores da ACCasi (gruppo A) + inibidores da ALS (gruppo B)",
+   "CULTURA_DECLARADA": "cereali autunno-vernini",
+   "PRIMEIRO_CASO_ANO": "2000",
+   "REGIOES": [
+    "Toscana",
+    "Lazio",
+    "Puglia",
+    "Sardegna"
+   ],
+   "NOTA": "Texto: 'Popolazioni con resistenza multipla agli erbicidi inibitori dell'ACCasi (gruppo A) e agli erbicidi inibitori dell'ALS (gruppo B). Primo caso accertato nel 2000.' As regioes sao exatamente as mesmas quatro da entrada de ALS isolada.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "A ficha afirma duas vezes. Primeiro em frase corrida: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS e dell'ACCasi.' Depois como entrada formal: populacoes com resistencia multipla a inibidores da ACCasi (gruppo A) e da ALS (gruppo B), primeiro caso em 2000, em Toscana, Lazio, Puglia e Sardegna. A ficha nao usa a expressao 'resistenza incrociata' (cruzada) em nenhum ponto — sobre resistencia cruzada em Lolium: NAO SEI por esta fonte.",
+   "CITACAO_LITERAL": "\"Alta produzione di semi per pianta e scarsa dormienza ... favoriscono la comparsa e la diffusione della resistenza\" — GIRE, scheda Lolium spp. (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium)",
+   "ECOLOGIA": "Infestante muito difundida, em particular nos cereais de outono-inverno (autunno-vernini) e em pomares, vinhedos e olivais. As plantas do genero sao estritamente alogamas e cruzam-se facilmente formando hibridos interespecificos; a ficha registra tambem hibridos intergenericos ferteis entre Lolium e Festuca, o que gera grande variabilidade genetica e morfologica. Na Italia, L. rigidum predomina no sul e L. multiflorum no centro-norte, e muito frequentemente — especialmente na Italia central — encontram-se plantas com caracteristicas intermediarias entre as duas. Especies diploides, 2n = 14. Floracao de maio a julho. Sementes: alta producao por planta e escassa dormencia sao apontadas pela propria ficha como caracteristicas que favorecem o surgimento e a difusao da resistencia. Do ponto de vista ecofisiologico as sementes sao classificadas como indiferentes, isto e, podem germinar durante todo o ano; nos cereais de outono-inverno a maior parte das emergencias ocorre no outono e no inverno.",
+   "GESTAO": "NAO SEI a partir desta ficha. Para 'cereali autunno-vernini' e para 'erba medica' a pagina remete a 'Consulta le linee guida specifiche.' — link para outra pagina do GIRE que eu nao li. Para 'colture perenni' nao ha sequer essa remissao no texto. O que a ficha traz, e que e da ecologia e nao recomendacao, e que alta producao de sementes e escassa dormencia favorecem a difusao da resistencia.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium"
+  },
+  {
+   "ESPECIE": "Lolium spp. — a ficha especifica que na Italia duas especies estao envolvidas com resistencia: Lolium rigidum, geralmente difundida nas regioes meridionais, e Lolium multiflorum, nas regioes centro-setentrionais",
+   "ESPECIE_COMUM_IT": "Loietto",
+   "SLUG": "Lolium",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "Inibidores da ACCasi",
+   "CULTURA_DECLARADA": "erba medica (alfafa)",
+   "PRIMEIRO_CASO_ANO": "NAO SEI — a ficha nao declara ano para este sistema de cultivo",
+   "REGIOES": [
+    "Emilia Romagna"
+   ],
+   "NOTA": "Texto: 'Casi di Lolium resistenti agli erbicidi inibitori dell'ACCasi.' Ha remissao a mapa (erba medica) ACCasi.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "A ficha afirma duas vezes. Primeiro em frase corrida: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS e dell'ACCasi.' Depois como entrada formal: populacoes com resistencia multipla a inibidores da ACCasi (gruppo A) e da ALS (gruppo B), primeiro caso em 2000, em Toscana, Lazio, Puglia e Sardegna. A ficha nao usa a expressao 'resistenza incrociata' (cruzada) em nenhum ponto — sobre resistencia cruzada em Lolium: NAO SEI por esta fonte.",
+   "CITACAO_LITERAL": "\"Alta produzione di semi per pianta e scarsa dormienza ... favoriscono la comparsa e la diffusione della resistenza\" — GIRE, scheda Lolium spp. (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium)",
+   "ECOLOGIA": "Infestante muito difundida, em particular nos cereais de outono-inverno (autunno-vernini) e em pomares, vinhedos e olivais. As plantas do genero sao estritamente alogamas e cruzam-se facilmente formando hibridos interespecificos; a ficha registra tambem hibridos intergenericos ferteis entre Lolium e Festuca, o que gera grande variabilidade genetica e morfologica. Na Italia, L. rigidum predomina no sul e L. multiflorum no centro-norte, e muito frequentemente — especialmente na Italia central — encontram-se plantas com caracteristicas intermediarias entre as duas. Especies diploides, 2n = 14. Floracao de maio a julho. Sementes: alta producao por planta e escassa dormencia sao apontadas pela propria ficha como caracteristicas que favorecem o surgimento e a difusao da resistencia. Do ponto de vista ecofisiologico as sementes sao classificadas como indiferentes, isto e, podem germinar durante todo o ano; nos cereais de outono-inverno a maior parte das emergencias ocorre no outono e no inverno.",
+   "GESTAO": "NAO SEI a partir desta ficha. Para 'cereali autunno-vernini' e para 'erba medica' a pagina remete a 'Consulta le linee guida specifiche.' — link para outra pagina do GIRE que eu nao li. Para 'colture perenni' nao ha sequer essa remissao no texto. O que a ficha traz, e que e da ecologia e nao recomendacao, e que alta producao de sementes e escassa dormencia favorecem a difusao da resistencia.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium"
+  },
+  {
+   "ESPECIE": "Lolium spp. — a ficha especifica que na Italia duas especies estao envolvidas com resistencia: Lolium rigidum, geralmente difundida nas regioes meridionais, e Lolium multiflorum, nas regioes centro-setentrionais",
+   "ESPECIE_COMUM_IT": "Loietto",
+   "SLUG": "Lolium",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "Glifosato (gruppo G) — a remissao de mapa desta entrada e rotulada 'EPSPs'",
+   "CULTURA_DECLARADA": "colture perenni — a ficha nomeia vinhedos e aveleiras (noccioleti) e, na linha das regioes, olivais (uliveti)",
+   "PRIMEIRO_CASO_ANO": "NAO SEI — a ficha nao declara ano para esta entrada",
+   "REGIOES": [
+    "Piemonte, nella provincia di Cuneo",
+    "Puglia (a ficha atribui a Puglia os uliveti)"
+   ],
+   "NOTA": "Texto: 'Casi di Lolium spp. resistenti al glifosate (gruppo G) in vigneti e noccioleti.' e 'Regioni interessate: Piemonte, nella provincia di Cuneo ed uliveti in Puglia.' Ha remissao a mapa (colture arboree) EPSPs. Cuidado de leitura: a linha das regioes e a unica das quatro fichas deste lote que desce ao nivel de provincia (Cuneo).",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "A ficha afirma duas vezes. Primeiro em frase corrida: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS e dell'ACCasi.' Depois como entrada formal: populacoes com resistencia multipla a inibidores da ACCasi (gruppo A) e da ALS (gruppo B), primeiro caso em 2000, em Toscana, Lazio, Puglia e Sardegna. A ficha nao usa a expressao 'resistenza incrociata' (cruzada) em nenhum ponto — sobre resistencia cruzada em Lolium: NAO SEI por esta fonte.",
+   "CITACAO_LITERAL": "\"Alta produzione di semi per pianta e scarsa dormienza ... favoriscono la comparsa e la diffusione della resistenza\" — GIRE, scheda Lolium spp. (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium)",
+   "ECOLOGIA": "Infestante muito difundida, em particular nos cereais de outono-inverno (autunno-vernini) e em pomares, vinhedos e olivais. As plantas do genero sao estritamente alogamas e cruzam-se facilmente formando hibridos interespecificos; a ficha registra tambem hibridos intergenericos ferteis entre Lolium e Festuca, o que gera grande variabilidade genetica e morfologica. Na Italia, L. rigidum predomina no sul e L. multiflorum no centro-norte, e muito frequentemente — especialmente na Italia central — encontram-se plantas com caracteristicas intermediarias entre as duas. Especies diploides, 2n = 14. Floracao de maio a julho. Sementes: alta producao por planta e escassa dormencia sao apontadas pela propria ficha como caracteristicas que favorecem o surgimento e a difusao da resistencia. Do ponto de vista ecofisiologico as sementes sao classificadas como indiferentes, isto e, podem germinar durante todo o ano; nos cereais de outono-inverno a maior parte das emergencias ocorre no outono e no inverno.",
+   "GESTAO": "NAO SEI a partir desta ficha. Para 'cereali autunno-vernini' e para 'erba medica' a pagina remete a 'Consulta le linee guida specifiche.' — link para outra pagina do GIRE que eu nao li. Para 'colture perenni' nao ha sequer essa remissao no texto. O que a ficha traz, e que e da ecologia e nao recomendacao, e que alta producao de sementes e escassa dormencia favorecem a difusao da resistencia.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium"
+  },
+  {
+   "ESPECIE": "Oryza sativa (L.) var. sylvatica",
+   "ESPECIE_COMUM_IT": "Riso crodo",
+   "SLUG": "Oryza",
+   "FAMILIA": "Poaceae",
+   "MECANISMO": "Imazamox — a ficha o identifica entre parenteses como 'inibitore dell' ALS'",
+   "CULTURA_DECLARADA": "varieta di riso Clearfield ® (tollerante all'imazamox)",
+   "PRIMEIRO_CASO_ANO": "2010",
+   "REGIOES": [
+    "Piemonte",
+    "Lombardia"
+   ],
+   "NOTA": "Texto: 'Popolazioni di riso crodo resistenti all'erbicida imazamox (inibitore dell' ALS). Primo caso accertato 2010.' Unica resistencia declarada nesta ficha. Ha remissao a mapa (riso) ALS. Ponto de leitura que importa: a ficha ancora o caso ao sistema de cultivo Clearfield, isto e, a variedade de arroz tolerante ao proprio imazamox — nao ao arroz convencional.",
+   "RESISTENCIA_MULTIPLA_DECLARADA": "NAO SEI. Esta ficha nao contem nenhuma mencao a resistencia multipla nem a resistencia cruzada. Ausencia nesta unica fonte nao autoriza dizer que nao existe.",
+   "CITACAO_LITERAL": "\"La germinabilita rimane elevata anche per anni rendendo questa infestante particolarmente difficile da controllare\" — GIRE, scheda Oryza sativa var. sylvatica (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Oryza)",
+   "ECOLOGIA": "Especie anual de ciclo estival, muito difundida nos arrozais italianos — a ficha quantifica: '75% della superficie risicola italiana'. Pertence a MESMA especie das variedades de arroz cultivado e por isso, nas palavras da ficha, compartilha muitissimos caracteres com ela. As plantas de arroz vermelho tem notavel polimorfismo fenotipico quanto a porte, formato da paniculana, forma e coloracao das cariopses. Distingue-se do arroz cultivado pela elevada facilidade de degrane das sementes (crodatura), que lhe permite ampla difusao. Sementes: morfologicamente muito diversas em forma (alongadas e largas, curtas e largas, medias), com pericarpo geralmente vermelho, as vezes branco; podem ser aristadas, semi-aristadas ou muticas, vilosas ou glabras, com arista branca ou preta e de comprimentos variados (de poucos mm a mais de 1,5 cm). Apresentam mecanismo de dormencia que impede a germinacao por alguns meses apos a queda ao solo, permitindo atravessar o inverno. Durante a estacao de cultivo, as emergencias muito escalonadas impedem um controle completo da infestante com intervencoes de pre-semeadura, e a germinabilidade permanece elevada mesmo por anos.",
+   "GESTAO": "NAO SEI. Diferente das fichas de Echinochloa e Lolium, esta pagina nao traz nem o link 'Consulta le linee guida specifiche' e nao traz nenhum trecho de recomendacao. O mais proximo disso e uma constatacao de dificuldade de controle, na secao Semi: as emergencias muito escalonadas impedem controle completo com intervencoes de pre-semeadura.",
+   "FONTE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Oryza"
+  }
+ ]
+}

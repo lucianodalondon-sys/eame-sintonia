@@ -1,0 +1,44 @@
+{
+ "SOURCE_ID": "ES-ROTA-DO-PAR-CROP-ISSUE",
+ "source": "MAPA ROPF — filtro combinado idCultivo + idPlaga no export oficial",
+ "SOURCE_LOCATION": "SPAIN",
+ "FACT_LOCATION": "SPAIN",
+ "ORIGINAL_LANGUAGE": "ES",
+ "captured_at": "2026-08-29",
+ "PERGUNTA": "existe rota ESTRUTURADA que preserve a relacao CROP x ISSUE, sem parser de PDF?",
+ "RESPOSTA": "SIM. O proprio ROPF filtra por cultivo E praga ao mesmo tempo, e a intersecao e feita NO SERVIDOR.",
+ "REQUEST": "POST /regfiweb/Exportaciones/ExportJsonProductos com dataDto[idCultivo] e dataDto[idPlaga]",
+ "PORQUE_NAO_E_PARSER": "o frontend do REGFIWEB tem exatamente tres grids — ProductosGrid, FuncionesGrid e SustanciasGrid. Nao existe grid de usos: a tabela USO x AGENTE x DOSIS so aparece dentro do PDF. Mas a BUSCA aceita cmbCultivosSearch e cmbPlagaSearch juntos, entao a relacao pode ser perguntada em vez de extraida.",
+ "TESTE_DE_OURO": [
+  {
+   "PAR": "TRIGO x SEPTORIOSIS DEL TRIGO (Zymoseptoria tritici, 6240)",
+   "REGISTROS": 95,
+   "ADAMA": 6
+  },
+  {
+   "PAR": "TRIGO x ROYA AMARILLA DEL TRIGO (Puccinia striiformis, 6204)",
+   "REGISTROS": 42,
+   "ADAMA": 5
+  },
+  {
+   "PAR": "CEBADA x SEPTORIOSIS DEL TRIGO",
+   "REGISTROS": 25,
+   "ADAMA": 0,
+   "LEITURA": "a septoriose do trigo nao e autorizada em cevada para nenhum registro ADAMA — o filtro discrimina"
+  },
+  {
+   "PAR": "OLIVO x SEPTORIOSIS DEL TRIGO",
+   "REGISTROS": 0,
+   "LEITURA": "par sem sentido devolve zero; o filtro nao e permissivo"
+  },
+  {
+   "PAR": "TRIGO x SEPTORIOSIS DEL APIO",
+   "REGISTROS": 0,
+   "LEITURA": "praga de outra cultura tambem devolve zero"
+  }
+ ],
+ "CONTRAPROVA_ES_01717": "SORATEL MAX aparece em export(idCultivo=TRIGO) — 459 registros — e NAO aparece em TRIGO x SEPTORIOSIS. Ou seja: o filtro de cultivo e o de par sao independentes e o de par e mais estreito. Isso NAO refuta a rota; mostra que o produto nao tem esse alvo declarado nesse cultivo. Assumir que teria, porque a molecula 'costuma' tratar septoriose, seria inferir alvo a partir de quimica.",
+ "CUSTO": "uma requisicao por par consultado. Nao ha varredura exaustiva 448x708 — o par e perguntado sob demanda, para os CROP x ISSUE que a matriz nacional eleger.",
+ "O_QUE_ISTO_SUBSTITUI": "o parser de tabela do PDF, que fica DESNECESSARIO para o par. O PDF segue sendo dono da DOSE, do prazo de seguranca e das condicoes — campos que a rota do par nao devolve.",
+ "O_QUE_ISTO_NAO_E": "nao e disponibilidade comercial, nao e venda, nao e recomendacao agronomica."
+}

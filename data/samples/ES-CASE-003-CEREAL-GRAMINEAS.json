@@ -1,0 +1,416 @@
+{
+ "CASE_ID": "ES-CASE-003-CEREAL-INVIERNO-GRAMINEAS",
+ "COUNTRY": "ES",
+ "CROP": "TRIGO e CEBADA (cereal de inverno)",
+ "ISSUE": "gramineas de folha estreita, com Vallico (Lolium rigidum) no topo da dose declarada",
+ "REGION": "nacional, com Castilla y Leon concentrando ~1,91 M ha",
+ "source": "MAPA ROPF (pares idCultivo x idPlaga e fichas PDF 19549 e 19548) + ES-CEREAIS-PARES-ROPF + serie RAIF de cereais de inverno para o descarte da septoriose",
+ "SOURCE_LOCATION": "SPAIN (MAPA ROPF) e ANDALUCIA (RAIF cereales)",
+ "FACT_LOCATION": "SPAIN — registros de ambito nacional; a serie de campo lida e de Cordoba, Sevilla e Jaen",
+ "ORIGINAL_LANGUAGE": "ES",
+ "captured_at": "2026-08-30",
+ "CASE_TYPE": "PREPARAR / PRE-SAFRA — nenhum sinal de campo e reivindicado aqui, e isso e deliberado",
+ "POR_QUE_ESTE_ISSUE_E_NAO_SEPTORIA": {
+  "SEPTORIA_FOI_DESCARTADA": "a serie do RAIF (15 campanhas) mostra 2026 com 2,68% de superficie com sintomas, o segundo ano MAIS FRACO. Eleger septoriose agora seria transformar corpus grande em caso, e chamar historico de antecipacao.",
+  "O_CRITERIO_USADO": "janela futura clara + resposta ADAMA registrada + acao possivel antes da safra. Nao tamanho de corpus.",
+  "SINAL_DE_CAMPO": "NENHUM REIVINDICADO. Este caso nao depende de sinal e nao finge ter um."
+ },
+ "APPLICATION_WINDOW": {
+  "LIDA_NA_ETIQUETA": "\"Aplicar en postemergencia del cultivo, desde el estado de 3 hojas hasta el final del ahijamiento de las malas hierbas\" — ACCRESTO 19549 e TOPIK 24 EC 19548.",
+  "ESTADO_EM_30-08-2026": "UPCOMING. A sementeira do cereal de inverno e outubro/novembro; a aplicacao pos-emergencia cai depois disso, aproximadamente novembro a fevereiro.",
+  "TEMPO_ATE_A_JANELA": "da ordem de 2 a 5 meses. A sementeira em si esta a 6-10 semanas.",
+  "CONFIANCA": "a janela do PRODUTO e OBSERVED, esta escrita na etiqueta. O calendario de sementeira e TYPICAL — nao ha leitura de fenologia de cereal por regiao neste repositorio."
+ },
+ "ADAMA_REGISTERED_RESPONSE": {
+  "CONSULTA": "MAPA ROPF, pares idCultivo x idPlaga, respondidos em 2026-08-30",
+  "ESPECIE_EXPLICITA": {
+   "PRODUTOS": [
+    {
+     "REG": "19549",
+     "NOME": "ACCRESTO"
+    },
+    {
+     "REG": "19548",
+     "NOME": "TOPIK 24 EC"
+    }
+   ],
+   "FORMULADO": "CLODINAFOP-PROPARGIL 24% [EC] P/V — o MESMO IdFormulado 3710 nos dois",
+   "CADUCIDAD": "31-07-2027 nos dois",
+   "INSCRICAO": "24-10-1994 nos dois",
+   "LEITURA": "sao duas etiquetas do mesmo produto, nao duas respostas.",
+   "ESPECIES_NOMEADAS_NA_ETIQUETA": [
+    "Avena spp. 170-200 cc/ha",
+    "Alopecurus myosuroides 200-250 cc/ha",
+    "Phalaris spp. anuais e plurianuais 225-300 cc/ha",
+    "Lolium rigidum 225-300 cc/ha"
+   ],
+   "O_QUE_A_DOSE_DIZ": "o vallico partilha a dose mais alta das quatro. Isso e declaracao da propria etiqueta, nao inferencia de eficacia.",
+   "CULTURAS": "trigo e triticale. A etiqueta diz explicitamente \"ni en cultivos diferentes al trigo o triticale\"."
+  },
+  "CATEGORIA_GENERICA": {
+   "TRIGO_x_MONOCOTILEDONEAS_ANUALES": "41 registros, 10 da ADAMA",
+   "CEBADA_x_MONOCOTILEDONEAS_ANUALES": "36 registros, 10 da ADAMA",
+   "QUIMICAS": [
+    "clortoluron 50% e clortoluron 40% + diflufenican",
+    "metribuzina 70%",
+    "pendimetalina 40%",
+    "diflufenican 4% + pendimetalina 40% (ADDITION, via gramineas anuales)"
+   ],
+   "PRODUTOS": [
+    {
+     "REG": "23912",
+     "NOME": "ANIBAL",
+     "FORM": "CLORTOLURON 40% + DIFLUFENICAN 2,5% [SC] P/V",
+     "CAD": "30-06-2028"
+    },
+    {
+     "REG": "15442",
+     "NOME": "CLORTOLURON 50 AN",
+     "FORM": "CLORTOLURON 50% [SC] P/V",
+     "CAD": "30-06-2028"
+    },
+    {
+     "REG": "14578",
+     "NOME": "CLORTUREX FLO",
+     "FORM": "CLORTOLURON 50% [SC] P/V",
+     "CAD": "30-06-2028"
+    },
+    {
+     "REG": "24000",
+     "NOME": "DADORA WG",
+     "FORM": "METRIBUZINA 70% [WG] P/P",
+     "CAD": "24-05-2025"
+    },
+    {
+     "REG": "22065",
+     "NOME": "ECLIPSE 70 WG",
+     "FORM": "METRIBUZINA 70% [WG] P/P",
+     "CAD": ""
+    },
+    {
+     "REG": "24004",
+     "NOME": "LEGACY PLUS",
+     "FORM": "CLORTOLURON 40% + DIFLUFENICAN 2,5% [SC] P/V",
+     "CAD": "30-06-2028"
+    },
+    {
+     "REG": "24035",
+     "NOME": "LEXONE 70 WG",
+     "FORM": "METRIBUZINA 70% [WG] P/P",
+     "CAD": "24-05-2025"
+    },
+    {
+     "REG": "23712",
+     "NOME": "MATECOR WG",
+     "FORM": "METRIBUZINA 70% [WG] P/P",
+     "CAD": "24-05-2025"
+    },
+    {
+     "REG": "25551",
+     "NOME": "ORDAGO SC",
+     "FORM": "PENDIMETALINA 40% [SC] P/V",
+     "CAD": "15-01-2027"
+    },
+    {
+     "REG": "17354",
+     "NOME": "UROTAN",
+     "FORM": "CLORTOLURON 50% [SC] P/V",
+     "CAD": "30-06-2028"
+    }
+   ]
+  }
+ },
+ "A_HIPOTESE_QUE_EU_LEVANTEI_E_MEDI_CONTRA": {
+  "HIPOTESE": "a ADAMA dependeria de UM unico modo de acao (ACCase, o clodinafop) para gramineas em cereal — o que seria risco de portfolio.",
+  "TESTE": "consultei o par generico monocotiledoneas anuales em trigo e em cebada.",
+  "RESULTADO": "REFUTADA. Sao 10 registros ADAMA em cada cultura, com pelo menos quatro quimicas distintas: clortoluron, metribuzina, pendimetalina e diflufenican. O portfolio de gramineas nao e estreito.",
+  "O_QUE_SOBROU_E_E_MAIS_INTERESSANTE": "o estreito nao e a quimica, e o CLAIM POR ESPECIE. So o par clodinafop nomeia Lolium, Alopecurus, Avena e Phalaris. Os outros dez estao registrados contra a categoria generica."
+ },
+ "A_LACUNA_MEDIDA": {
+  "CEBADA_x_VALLICO": "3 registros em toda a Espanha, 0 da ADAMA.",
+  "CEBADA_x_AVENAS_LOCAS": "10 registros, 0 da ADAMA.",
+  "POR_QUE_IMPORTA": "a cebada e a maior cultura da Espanha em area — 2.089.550 ha, acima do trigo. A ADAMA tem 10 registros genericos de monocotiledoneas em cebada e ZERO com especie nomeada. A propria etiqueta do clodinafop exclui a cebada.",
+  "O_QUE_ISSO_NAO_E": "nao e \"a ADAMA nao tem resposta em cebada\": tem dez. E lacuna de ALVO DECLARADO POR ESPECIE, e so isso."
+ },
+ "O_PADRAO_QUE_SE_REPETE": {
+  "OBSERVADO_EM_DOIS_CASOS": "milho x Amaranthus e cereal x gramineas.",
+  "O_PADRAO": "cobertura generica ampla, cobertura por especie estreita. No milho: 7 produtos de folha larga, zero citam Amaranthus, e um concorrente cita. No cereal: 10 produtos de monocotiledoneas por cultura, so um formulado nomeia especie, e ele exclui a cebada.",
+  "POR_QUE_ISSO_VALE": "e a mesma pergunta em duas culturas, medida do mesmo jeito, com o mesmo instrumento. Um caso e anedota; dois com o mesmo metodo e um padrao que da para investigar.",
+  "RESSALVA": "dois nao e uma amostra. Nao foi testado nas outras culturas do portfolio."
+ },
+ "FACTS": [
+  "ACCRESTO e TOPIK 24 EC sao o mesmo formulado (IdFormulado 3710), clodinafop-propargil 24%, caducidad 31-07-2027",
+  "a etiqueta nomeia Lolium rigidum, Alopecurus, Avena e Phalaris com dose por especie",
+  "a etiqueta restringe o uso a trigo e triticale",
+  "ADAMA tem 10 registros de monocotiledoneas anuales em trigo e 10 em cebada, com pelo menos 4 quimicas",
+  "cebada x vallico: 3 registros no pais, 0 ADAMA. cebada x avenas locas: 10, 0 ADAMA",
+  "a janela e pos-emergencia, de 3 folhas do cultivo ao fim do afilhamento das daninhas"
+ ],
+ "INTERPRETATIONS": [
+  "com a sementeira a 6-10 semanas e a aplicacao a 2-5 meses, ha tempo real para preparar material tecnico e decidir portfolio — que e exatamente o que um caso de PREPARAR deve entregar."
+ ],
+ "UNKNOWNS": [
+  "a distribuicao regional do vallico: nenhuma fonte de campo consultada tem o campo de daninha. O RAIF de cereais mede pragas e doencas, nao daninhas.",
+  "COMMERCIAL_CLOCK = NAO SEI",
+  "se os produtos de pre-emergencia da ADAMA controlam populacoes resistentes: nao medido, e o registro nao responde eficacia.",
+  "o estado ATUAL: as populacoes foram coletadas em 2014 e 2015. Sao 11 e 12 anos.",
+  "se \"Clortolurex\" do artigo e o mesmo registro que CLORTUREX FLO no ROPF — nao confirmado em nenhuma fonte",
+  "o grupo da metribuzina e da pendimetalina: o artigo nao os classifica e nao vou classificar por conta propria",
+  "o estado em 2026: o levantamento mais recente e de 2012-2013 e a tendencia era de alta",
+  "a Andaluzia saiu do levantamento de 2012-13 e nao tem dado recente"
+ ],
+ "EVIDENCE_PATHS": [
+  "MAPA ROPF pares: trigo/cebada x 2062, 2017, 2010, 2046, 2030",
+  "fichas 19549 e 19548 baixadas do MAPA e lidas na secao Usos y Dosis",
+  "data/samples/ES-CEREAIS-PARES-ROPF.json",
+  "data/samples/ES-T3-002-raif-cereales-invierno.json para o descarte da septoriose"
+ ],
+ "O_BLOQUEIO_MATERIAL_RESOLVIDO": {
+  "PERGUNTA": "ha resistencia a ACCase em Lolium rigidum na Espanha, com fonte defensavel?",
+  "RESPOSTA": "SIM, e a fonte e explicita.",
+  "ROTA": "Crossref API (gratuita), busca dirigida \"Lolium rigidum ACCase resistance Spain wheat\". Nao foi revisao bibliografica: foram duas consultas.",
+  "FONTE_PRINCIPAL": {
+   "DOI": "10.3389/fpls.2021.625138",
+   "TITULO": "Target-Site and Non-target-Site Resistance Mechanisms Confer Multiple and Cross- Resistance to ALS and ACCase Inhibiting Herbicides in Lolium rigidum From Spain",
+   "REVISTA": "Frontiers in Plant Science",
+   "ANO": 2021,
+   "AUTORES": [
+    "Joel Torra",
+    "José María Montull",
+    "Andreu Taberner",
+    "Nawaporn Onkokesung",
+    "Neil Boonham",
+    "Robert Edwards"
+   ],
+   "O_QUE_O_RESUMO_DIZ_LITERALMENTE": "\"In winter cereals crops in Spain, resistance to acetolactate synthase (ALS)- and acetyl-CoA carboxylase (ACCase)-inhibiting herbicides has become widespread, with farmers having to rely on pre-emergence herbicides over the last two decades to maintain weed control. Recently, lack of control with very long-chain fatty acid synthesis (VLCFAS)-inhibiting herbicides has been reported in HR populations that are difficult to manage by chemical means.\"",
+   "NIVEL_DE_LEITURA": "li o RESUMO no registro do Crossref, nao o texto completo. Tudo que afirmo vem dessa frase.",
+   "A_CONVERGENCIA_QUE_NAO_FOI_PROCURADA": "o primeiro autor e Joel Torra — o mesmo pesquisador que a camada cientifica ja tinha CONFIRMADO por ORCID (0000-0002-8666-6780, Universitat de Lleida) atraves do par MILHO x AMARANTHUS. Duas rotas independentes, partindo de culturas diferentes, chegaram na mesma pessoa."
+  },
+  "FONTE_SECUNDARIA": {
+   "DOI": "10.1016/j.cropro.2017.08.001",
+   "TITULO": "Current status in herbicide resistance in Lolium rigidum in winter cereal fields in Spain: Evolution of resistance 12 years after",
+   "REVISTA": "Crop Protection",
+   "ANO": 2017,
+   "AUTORES": [
+    "Iñigo Loureiro",
+    "Concepción Escorial",
+    "Eva Hernández Plaza",
+    "José L. González Andújar",
+    "María Cristina Chueca"
+   ],
+   "NOTA": "sem resumo no Crossref. Entra como existencia de monitoramento espanhol de 12 anos, nao como afirmacao de conteudo."
+  },
+  "TEXTO_COMPLETO_LIDO": {
+   "QUANDO": "2026-08-30",
+   "ROTA": "frontiersin.org, acesso aberto, HTML completo. Nao foi so o resumo.",
+   "TABELA_1_POPULACOES": [
+    {
+     "BIOTIPO": "ES-MHR 1",
+     "LOCALIDADE": "Calonge de Segarra",
+     "ANO_DE_COLETA": 2015,
+     "PERFIL": "Multiple Herbicide Resistant"
+    },
+    {
+     "BIOTIPO": "ES-MHR 2",
+     "LOCALIDADE": "Calonge de Segarra",
+     "ANO_DE_COLETA": 2015,
+     "PERFIL": "Multiple Herbicide Resistant"
+    },
+    {
+     "BIOTIPO": "ES-MHR 3",
+     "LOCALIDADE": "Calaf",
+     "ANO_DE_COLETA": 2014,
+     "PERFIL": "Multiple Herbicide Resistant"
+    },
+    {
+     "BIOTIPO": "ES-S 1",
+     "LOCALIDADE": "Ballobar",
+     "ANO_DE_COLETA": 2014,
+     "PERFIL": "Susceptible (nunca exposta a herbicida)"
+    }
+   ],
+   "POPULATIONS": "4 — tres resistentes e uma suscetivel de controle",
+   "SAMPLE_GEOGRAPHY_VERIFICADA_OFICIALMENTE": {
+    "METODO": "os tres municipios foram procurados na MESMA tabela oficial usada para o crosswalk do milho (GA_OD_Core resource_id=87, cobertura nacional). Juncao por nome, conferida contra cprovi e comarca agraria.",
+    "Calonge de Segarra": {
+     "cprovi": 8,
+     "PROVINCIA": "Barcelona",
+     "cmunca": 36,
+     "cmunic_INE": 36,
+     "comarca_agraria": "06"
+    },
+    "Calaf": {
+     "cprovi": 8,
+     "PROVINCIA": "Barcelona",
+     "cmunca": 31,
+     "cmunic_INE": 31,
+     "comarca_agraria": "06"
+    },
+    "Ballobar": {
+     "cprovi": 22,
+     "PROVINCIA": "Huesca",
+     "cmunca": 56,
+     "cmunic_INE": 46,
+     "comarca_agraria": "08"
+    },
+    "O_QUE_ISSO_OBRIGA_A_DIZER": "as TRES populacoes resistentes sao da provincia de BARCELONA. A unica populacao de Huesca do estudo e a SUSCETIVEL. Nao existe, neste artigo, medicao de resistencia em Huesca."
+   },
+   "STUDY_GEOGRAPHY": "\"All the fields were located in North-Eastern Spain, with prosulfocarb being the only herbicide applied over several years (>=5 years).\" Os campos de origem sao do nordeste; o artigo nao lista mais localidades alem da Tabela 1.",
+   "AUTHOR_AFFILIATION": "Universitat de Lleida (Torra, Montull, Taberner) e Newcastle University (Onkokesung, Boonham, Edwards). A casa de vegetacao do experimento fica na Universidade de Lleida, 41°37′N 0°38′E — E LOCAL DE EXPERIMENTO, nao origem de populacao.",
+   "A_DISTINCAO_QUE_ISSO_PROTEGE": "afiliacao (Lleida) != local do experimento (Lleida) != origem das populacoes (Barcelona e Huesca). As tres coincidiriam num resumo desatento e nao coincidem no artigo.",
+   "CONTEXTO_HISTORICO_CITADO_NO_ARTIGO": [
+    "primeiro caso espanhol de L. rigidum resistente: nordeste, a chlortoluron (PSII) e diclofop-metil (ACCase), 1995 (Taberner et al.)",
+    "falhas de controle com chlorsulfuron (ALS): regiao do rio Duero, Castilla y Leon, 1999 (de la Carrera et al.)",
+    "\"75% of L. rigidum populations in Catalonia exhibiting HR to these SoA\" (Loureiro et al., 2010, 2017)",
+    "primeiras falhas com SoA fora de ALS/ACCase: Catalunha, 2010 (CPRH 2015)",
+    "\"in north-eastern Spain, grass control was based on chlortoluron for several decades\""
+   ],
+   "RESISTANCE_TYPES": "TSR (target-site) e NTSR/EMR (metabolica, via CYP450). O artigo conclui que sao os primeiros relatos confirmados de resistencia multipla e cruzada de L. rigidum a estas SoA na Espanha e na Europa.",
+   "TABELA_3_PERFIL_MEDIDO": {
+    "LEGENDA": "S suscetivel · LR baixa resistencia (eficacia media abaixo de 90% so na menor dose) · MR resistencia moderada · R resistente",
+    "ES-R 1": {
+     "ALS_iodo+meso": "R",
+     "ALS_pyroxsulam+florasulam": "R",
+     "ACCase_diclofop": "R",
+     "ACCase_clethodim": "R",
+     "PSII_chlortoluron": "MR",
+     "G15_prosulfocarb": "MR",
+     "G15+12_flufenacet+diflufenican": "MR"
+    },
+    "ES-R 2": {
+     "ALS_iodo+meso": "R",
+     "ALS_pyroxsulam+florasulam": "R",
+     "ACCase_diclofop": "R",
+     "ACCase_clethodim": "R",
+     "PSII_chlortoluron": "MR",
+     "G15_prosulfocarb": "MR",
+     "G15+12_flufenacet+diflufenican": "LR"
+    },
+    "ES-R 3": {
+     "ALS_iodo+meso": "R",
+     "ALS_pyroxsulam+florasulam": "-",
+     "ACCase_diclofop": "R",
+     "ACCase_clethodim": "R",
+     "PSII_chlortoluron": "MR",
+     "G15_prosulfocarb": "R",
+     "G15+12_flufenacet+diflufenican": "LR"
+    },
+    "ES-S": "suscetivel a todos"
+   },
+   "HERBICIDE_GROUPS_DECLARADOS_PELO_PROPRIO_ARTIGO": {
+    "chlortoluron": "PS II inhibitor — group 5 HRAC/WSSA",
+    "diclofop-methyl": "ACCase inhibitor",
+    "clethodim": "ACCase inhibitor",
+    "iodosulfuron+mesosulfuron e pyroxsulam+florasulam": "ALS inhibitor — group 2",
+    "prosulfocarb": "group 15, tiocarbamato, inibidor de elongase de acido graxo",
+    "flufenacet": "group 15, oxiacetamida",
+    "diflufenican": "group 12, inibidor de biossintese de carotenoide",
+    "trifluralin": "group 3, dinitroanilina, inibicao de montagem de microtubulo — banida na UE desde 2009",
+    "REGRA": "estes grupos vem do TEXTO do artigo, nao de classificacao minha. Substancia que o artigo nao classifica fica sem grupo aqui."
+   }
+  }
+ },
+ "O_QUE_ISSO_MUDA_NO_CASO": {
+  "CORRECAO_DO_QUE_EU_PUBLIQUEI_NA_RODADA_ANTERIOR": {
+   "O_QUE_EU_ESCREVI": "\"o portfolio generico esta onde a literatura diz que o mercado foi parar\" e \"a arquitetura publica esta melhor posicionada do que os rotulos declaram\".",
+   "POR_QUE_ESTAVA_ERRADO": "eu tinha so o resumo, que diz que os agricultores passaram a depender de pre-emergencia. O texto completo diz QUAL pre-emergencia: prosulfocarb (grupo 15) e, antes disso, que \"ACCase, ALS AND PSII inhibitors resistance is now widespread\". Clortoluron E PSII, declarado no proprio artigo. Nao e a saida: e o terceiro grupo ja comprometido.",
+   "O_QUE_ESTA_CERTO_AGORA": "dos dez registros genericos da ADAMA em monocotiledoneas por cultura, seis sao clortoluron ou metribuzina. O clortoluron e PSII (grupo 5) e as tres populacoes resistentes sao MR a ele. A metribuzina o artigo nao classifica e aqui fica sem grupo."
+  },
+  "O_ACHADO_MAIS_DIRETO": {
+   "O_QUE": "a Tabela 2 do artigo lista os herbicidas testados com marca e empresa. Uma das linhas e: \"Clortolurex · Adama Agriculture · Chlortoluron · PS II inhibitor · BBCH 11-12 · 375, 750, 1500\".",
+   "LEITURA": "um produto de clortoluron da ADAMA esteve entre os testados contra estas populacoes. O resultado para clortoluron foi MR nas tres.",
+   "O_QUE_NAO_AFIRMO": "que \"Clortolurex\" e o mesmo registro que CLORTUREX FLO (14578) do ROPF. Os nomes sao proximos e nao identicos, e nao confirmei a equivalencia em nenhuma fonte. Fica como MESMA EMPRESA e MESMA SUBSTANCIA, nao mesmo registro.",
+   "E_O_QUE_O_ARTIGO_DIZ_DO_RESULTADO": "\"poor controls in terms of fresh weight reduction (22-89%) were observed in the three HR populations when treated with the PS II inhibitor chlortoluron at 0.25 and 0.5x rates. While at field recommended rate (1,500 g ha-1), only ES-resistant 3 population showed a lower percentage of fresh weight reduction (70%) compared to the S population.\"",
+   "A_RESSALVA_QUE_ISSO_OBRIGA": "na DOSE DE CAMPO o clortoluron ainda controlou duas das tres populacoes. \"MR\" nao e \"nao funciona\". Publicar so o MR seria exagerar contra o proprio produto."
+  },
+  "O_QUE_O_ARTIGO_DIZ_DO_DIFLUFENICAN": "\"none of the researched populations showed increased tolerance to the herbicide mixture flufenacet + diflufenican\" — e a Tabela 3 marca MR/LR/LR para essa mistura, sendo LR definido como eficacia abaixo de 90% SO na menor dose. As duas frases convivem porque falam de doses diferentes; nao vou resolver a tensao por interpretacao. E o artigo atribui a atividade principal contra L. rigidum ao FLUFENACET, nao ao diflufenican — e a ADAMA nao tem flufenacet nestes registros.",
+  "A_LEITURA_HONESTA_AGORA": "o produto da ADAMA com claim de especie esta num grupo comprometido (ACCase, R nas tres). O maior bloco generico esta noutro grupo comprometido (PSII, MR nas tres, mas ainda controlando na dose de campo em duas). Isso nao e um portfolio bem posicionado nem um portfolio quebrado: e um portfolio exposto ao mesmo problema que o resto do mercado espanhol, e a evidencia disso agora tem nome, dose e tabela."
+ },
+ "ARQUITETURA_DE_MODO_DE_ACAO": {
+  "PERGUNTA_DA_SECAO_4_2": "a arquitetura publica do portfolio mostra diversidade de modos de acao?",
+  "O_QUE_O_REGISTRO_DECLARA": "substancia ativa, sempre. Sao pelo menos quatro quimicas distintas nos dez registros genericos por cultura.",
+  "O_QUE_O_REGISTRO_NAO_DECLARA": "modo de acao. O campo nao existe no ROPF e nao aparece nas fichas.",
+  "MEDIDO_NAS_96_FICHAS_ADAMA": {
+   "COM_CODIGO_DE_GRUPO_HRAC_IRAC_FRAC": "1 de 96 (ARRODIM)",
+   "COM_A_PALAVRA_RESISTENC*": "33 de 96",
+   "ACCRESTO_E_TOPIK": "nenhum dos dois traz codigo de grupo nem a palavra resistencia",
+   "CONCLUSAO": "nao da para afirmar \"estrategia anti-resistencia\" a partir do material publico: a diversidade quimica esta declarada, a classificacao de modo de acao nao esta. Agrupar as substancias por modo de acao seria classificacao MINHA, nao leitura da fonte, e por isso nao entra como fato."
+  },
+  "ERRO_QUE_ESSA_CONTAGEM_QUASE_PUBLICOU": {
+   "PRIMEIRA_MEDIDA": "34 de 96 fichas com HRAC/IRAC/FRAC.",
+   "CORRIGIDO_PARA": "1 de 96.",
+   "CAUSA": "busca por substring sem limite de palavra e sem distincao de caixa. \"respiracion\" (26 ocorrencias) e \"aspiracion\" (15) contem a sequencia IRAC. Tambem \"fraccion\" e \"fracaso\" contem FRAC.",
+   "LICAO": "sigla curta de agronomia dentro de texto em espanhol precisa de \\b e de caixa. Um acronimo de quatro letras casa dentro de palavra comum."
+  }
+ },
+ "STATUS_REAVALIADO": {
+  "ANTES": "PREPARAR",
+  "DEPOIS": "PREPARAR — e agora com regiao nomeada",
+  "POR_QUE": "as quatro pernas convergem em Castilla y Leon, e a assimetria por modo de acao entre as duas regioes e material para conversa tecnica pre-safra. O caso deixou de depender de uma frase (\"widespread\") e passou a ter numero por regiao e por grupo."
+ },
+ "CONVERGENCIA_REGIONAL": {
+  "PERGUNTA_DA_SECAO_5_2": "existe regiao onde escala de cereal de inverno, resistencia de Lolium, resposta ADAMA e janela proxima convergem?",
+  "RESPOSTA": "PARCIALMENTE, e a parte que falta e a que mais importa.",
+  "ONDE_A_RESISTENCIA_ESTA_MEDIDA": "provincia de Barcelona (Calaf e Calonge de Segarra). Barcelona NAO esta entre as oito maiores provincias de cereal do pais.",
+  "ONDE_ESTA_A_ESCALA": "Burgos 344.804 ha, Valladolid 283.710, Ciudad Real 276.084, Toledo 268.120, Cuenca 262.224, Huesca 260.862, Palencia 256.803, Zaragoza 223.107 (SCOT, total cereais).",
+  "O_QUE_LIGA_OS_DOIS": "o artigo situa TODOS os campos de origem no \"nordeste da Espanha\" e afirma que \"grass control was based on chlortoluron for several decades\" ali. Huesca e Zaragoza somam 483.969 ha e sao nordeste. Mas as populacoes medidas sao de Barcelona, e a unica populacao de Huesca testada foi a SUSCETIVEL.",
+  "CASTILLA_Y_LEON": "a unica citacao e de 1999, regiao do Duero, e so para chlorsulfuron (ALS). Tem 27 anos e cobre um grupo. Nao sustenta um caso pre-safra ali.",
+  "VEREDITO": "ha convergencia de REGIAO AMPLA (nordeste: escala real + historico de resistencia + resposta ADAMA + janela proxima) e NAO ha convergencia de PROVINCIA. Nomear Huesca como territorio de resistencia seria promover a moldura do artigo a medicao, e a unica medicao de Huesca no artigo diz o contrario.",
+  "REAVALIADA": {
+   "RESPOSTA": "SIM, e a regiao tem nome: CASTILLA Y LEON.",
+   "AS_QUATRO_PERNAS": {
+    "ESCALA": "a maior do pais em cereal de inverno — ~1,91 M ha na comunidade, com Burgos, Valladolid e Palencia entre as oito maiores provincias",
+    "RESISTENCIA_MEDIDA": "levantamento aleatorio de 2012-13: PSII 51% R, ALS 75% R, ACCase 74% ainda suscetivel",
+    "RESPOSTA_ADAMA": "clodinafop (ACCase) com Lolium nomeado na etiqueta, restrito a trigo e triticale; mais dez registros genericos de monocotiledoneas",
+    "JANELA": "pos-emergencia, das 3 folhas do cultivo ao fim do afilhamento — sementeira a 6-10 semanas"
+   },
+   "A_PERNA_FRACA": "a idade do dado. 2012-2013, com tendencia de alta declarada no proprio resumo.",
+   "O_QUE_MUDOU_NO_VEREDITO_ANTERIOR": "eu tinha escrito \"NAO ha convergencia de PROVINCIA\" e mantinha o caso sem regiao nomeada. Com o levantamento regional, ha convergencia de REGIAO com as quatro pernas. Provincia continua sem medicao — os levantamentos param em regiao."
+  }
+ },
+ "GEOGRAFIA_DA_RESISTENCIA": {
+  "ESTADO": "REGIONAL_SURVEY_MEASURED — melhor do que MEASURED_SAMPLING_LOCATIONS_ONLY",
+  "COMO_FOI_ACHADO": "os dois levantamentos nacionais que o artigo de 2021 citava estavam sem resumo no Crossref e no Semantic Scholar. Os resumos completos estao no repositorio DIGITAL.CSIC, no modo full de metadados. Duas chamadas, gratuitas.",
+  "LEVANTAMENTO_2012_2013": {
+   "FONTE": "Loureiro, Escorial, Hernandez Plaza, Gonzalez Andujar, Chueca — Crop Protection, 2017. DOI 10.1016/j.cropro.2017.08.001. Handle DIGITAL.CSIC 10261/166722.",
+   "DESENHO": "levantamento ALEATORIO em areas de cereal de Castilla y Leon e Cataluña.",
+   "RESULTADOS_LITERAIS": {
+    "chlortoluron (PSII)": "51% das acessoes de Castilla y Leon resistentes; 92% das de Cataluña",
+    "chlorsulfuron (ALS)": "75% das acessoes das DUAS regioes resistentes",
+    "diclofop-methyl (ACCase)": "Cataluña 83% resistentes; em Castilla y Leon 74% das populacoes AINDA CLASSIFICADAS COMO SUSCETIVEIS",
+    "resistencia multipla": "aumentou consideravelmente, especialmente em Cataluña, onde 75% das acessoes eram resistentes a multiplos herbicidas",
+    "tendencia": "os niveis subiram para os tres herbicidas em Castilla y Leon desde 2000, e para chlortoluron e chlorsulfuron em Cataluña"
+   },
+   "CITACAO": "Lolium rigidum Gaud. is the most prevalent and damaging grass weed of winter cereals in Spain. L. rigidum infestations are frequently treated with herbicides and, consequently, populations have evolved resistance. In 2012–2013 a random survey was conducted across cereal cropping areas of the Castilla-León and Cataluña regions to establish the distribution and frequency of herbicide resistance in L. rigidum populations to chlortoluron (Photosystem II inhibitor), chlorsulfuron (Acetolactate synthase inhibitor) and diclofop-methyl (Acetyl CoA Carboxylase inhibitor), commonly used herbicides for L. rigidum control in Spain. The results of this survey were compared with the results of a previous survey conducted in 2000–02. Resistance to PSII and ALS-inhibiting herbicides was common: 51% and 92% of the accessions collected from Castilla-León and Cataluña respectively were resistant to chlortoluron, while 75% of accessions from both regions were resistant to chlorsulfuron. Resistance to ACCase was more widespread in Cataluña, where 83% of accessions were classified as resistant, than in Castilla-León where 74% of the populations were still classified as susceptible to diclofop-methyl. These results show that resistance levels to all three herbicides had increased in Castilla-León since 2000 and to chlortoluron and chlorsulfuron in Cataluña. The accessions were also treated with the double dose (2X) of each herbicide. The percentage of L. rigidum that now exhibits multiple herbicide"
+  },
+  "LEVANTAMENTO_2000_2002": {
+   "FONTE": "Crop Protection, 2010. DOI 10.1016/j.cropro.2010.07.005. Handle 10261/87400.",
+   "DESENHO": "123 acessoes amostradas aleatoriamente em Castilla y Leon, Cataluña e ANDALUZIA.",
+   "RESULTADOS_LITERAIS": {
+    "regiao mais afetada": "Cataluña, regiao de cultivo intensivo com maior pressao de selecao",
+    "ALS em Cataluña": "60% das acessoes com algum nivel de resistencia a chlorsulfuron",
+    "glifosato em Castilla y Leon": "6,9% das acessoes com alguma resistencia — descrito como problema incipiente",
+    "o resto": "\"For the other herbicides and regions the majority of the accessions remained susceptible\""
+   },
+   "CITACAO": "Lolium rigidum is the most prevalent and damaging grass weed of winter cereals in Spain. L. rigidum infestations are frequently treated with herbicides and, consequently, populations have evolved resistance. The objective of this study was to determine the extent and frequency of herbicide resistance in L. rigidum populations in Spain to the selective herbicides chlortoluron, diclofop-methyl and chlorsulfuron, commonly used for its control in-crop, and to glyphosate. The response to these herbicides was evaluated on 123 accessions surveyed randomly across cereal cropping areas of the regions of Castile and León, Catalonia and Andalusia. The fresh weight and the frequency of undamaged plants were calculated for each accession and herbicide. At the regional level, higher frequencies of accessions displaying resistance occurred in Catalonia, an intensively cropped region with a greater herbicide selection pressure. Of concern is that in this region the 60% of the accessions displayed some level of resistance to the ALS-inhibiting herbicide chlorsulfuron. The 6.9% of the accessions found in Castile and León with some resistance to glyphosate could also indicate an incipient problem of "
+  },
+  "O_QUE_A_SERIE_PERMITE_DIZER": "ha DOIS levantamentos aleatorios, com 12 anos de intervalo, cobrindo as duas regioes que importam. Isso deixou de ser \"widespread\" e virou distribuicao com numero por regiao e por modo de acao.",
+  "O_QUE_A_SERIE_NAO_PERMITE": [
+   "o levantamento mais recente e de 2012-2013. Sao 13-14 anos, e a tendencia media era de ALTA. Nao extrapolar para 2026.",
+   "a Andaluzia entrou no levantamento de 2000-02 e NAO entrou no de 2012-13. Nao ha dado recente para ela.",
+   "nenhum dos dois levantamentos desce a provincia. Regiao e o nivel medido."
+  ]
+ },
+ "A_ASSIMETRIA_QUE_DECIDE_O_CASO": {
+  "O_ACHADO": "a resposta com claim de especie da ADAMA e o clodinafop, um ACCase. E o ACCase e justamente o modo de acao com o quadro MAIS FAVORAVEL em Castilla y Leon: 74% das populacoes ainda suscetiveis em 2012-13. Em Cataluña, 83% resistentes.",
+  "E_O_INVERSO_NO_BLOCO_GENERICO": "seis dos dez registros genericos da ADAMA por cultura sao clortoluron ou metribuzina. O clortoluron e PSII: 51% resistentes em Castilla y Leon e 92% em Cataluña.",
+  "ONDE_ISSO_IMPORTA": "Castilla y Leon concentra a area — Burgos 344.804 ha, Valladolid 283.710 e Palencia 256.803 no total de cereais, so entre as oito maiores provincias. Cataluña nao esta entre elas.",
+  "A_LEITURA": "o produto com claim de especie tem o seu melhor terreno remanescente exatamente onde esta a area, e o seu pior terreno na Cataluña. Isso e o oposto do que eu escrevi na rodada anterior.",
+  "CORRECAO_EXPLICITA_DA_RODADA_ANTERIOR": "eu escrevi que \"o produto com claim de especie esta no grupo comprometido\". Com o levantamento regional na mao, isso e verdade em Cataluña e FALSO em Castilla y Leon, que e onde esta a area. A frase generalizava uma regiao para o pais.",
+  "O_QUE_NAO_AFIRMO": [
+   "nao afirmo eficacia: suscetibilidade em levantamento nao e controle em lavoura, e o levantamento tem 13 anos",
+   "nao afirmo que a ADAMA deve concentrar em Castilla y Leon: isso e decisao comercial e COMMERCIAL_CLOCK e NAO SEI",
+   "nao afirmo nada sobre metribuzina: nenhum dos levantamentos a testou"
+  ]
+ }
+}

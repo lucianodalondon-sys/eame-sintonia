@@ -1,0 +1,544 @@
+[
+ {
+  "domain": "Helper relationships, visual tokens, Field Sales, reference date, localization",
+  "summary": "This domain is the connective tissue: the colour/icon token tables (D.CAT, D.DEPT, D.F_COLOR, D.GROUP_COLOR, D.ATYPE_COLOR, D.STATUS), the formatting helpers (D.fmt, D.ago, D.inkOn, D.setMonths), the single clock (D.TODAY), the competitor crop axis (D.CROP_COLS), and the Field Sales inbound module (D.FIELD_MESSAGES, D.TSR, parseField/sendComposer/simulateInbound). Most of it really is presentation and can stay, but four pieces smuggle facts: D.CAT is not only colour and icon — its `label` (\"Pest Control\"/\"Disease Control\"/\"Weed Control\") is rendered as the big category chip via `catLabel` (portale.html:2450, markup 219 and 305), so every `|| D.CAT.disease` fallback (2819, 3139, 3207) prints a pest/disease/weed CLASSIFICATION that reality did not supply; D.F_COLOR is the enumeration of a 7-value future-signal status vocabulary that the real FUTURE_SIGNALS records do not have (measured: 3/3 real signals have status null, so all 7 filter chips count 0); D.GROUP_COLOR keys a source-group taxonomy that 31/31 real IG.SOURCES records lack (AM sources `group` is null 31/31); and D.FIELD_MESSAGES — 18 explicitly synthetic WhatsApp messages — is merged into `allMessages` (2603) and then rendered on two CORE screens: the Opportunity case panel \"SEGNALI DI CAMPO · N\" (2637, markup 403-408) and the Crop Windows \"WHY PREPARE NOW?\" reason row (2741, markup 764). Field Sales itself is correctly built as a separate INTEGRAZIONI · DEMO nav group, inbound only, with no phone number and no outbound send anywhere in the package. There is exactly one second clock: italy-briefs.js:119 calls `new Date()` for the brief timestamp. Italian is default and the language switch does not reload.",
+  "realSource": "Visual tokens have no real source and do not need one — they move from window.ITALY_DEMO into a new AM.UI namespace in italy-app-model.js. The one fact they currently carry, the pest/disease/weed classification, comes from window.ITALY_CANONICAL.windows[].ISSUE_TYPE (measured 29/29 non-null: PEST 15, DISEASE 9, WEED 5) surfaced as AM.collections.windows.records[].issueType. The reference date comes from AM.referenceDate / AM.REF (2026-09-02, from ITALY_CANONICAL.meta.referenceDate). Localization comes from window.SINTONIA_I18N (371 keys, it + en both complete). Field Sales stays on AM.collections.fieldMessages (18 records, provenance SYNTHETIC_DEMO) but is confined to the isField screen. The competitor crop axis, if it survives, must come from IG.COMP_ACTIVITIES[].crops (Latin binomials plus Italian generics: Zea mays 67, Vitis vinifera 42, cereali 24, Olea europaea 24, colture 59, ... with 320/503 records carrying no crop at all).",
+  "occurrences": [
+   {
+    "file": "portale.html",
+    "line": 2701,
+    "symbol": "D.DEPT",
+    "snippet": "const deptB = s.calDetail ? DEPTS.map(dp => ({ key: ..., color: D.DEPT[dp[0]].color, bars: ... }))",
+    "classification": "VISUAL_ONLY",
+    "reason": "D.DEPT holds only {color,soft}, and all six entries are literally identical (#978B87 / #C3BCBA). It carries no crop, issue, date, source or count. The day offsets in this line come from the local DEPTS array (line 2652), not from D.DEPT.",
+    "replacement": "color: AM.UI.DEPARTMENT[dp[0]].color"
+   },
+   {
+    "file": "portale.html",
+    "line": 2861,
+    "symbol": "D.DEPT",
+    "snippet": "deptPlan: DEPTS.map(dp => ({ dept: deptName(dp[0]), color: D.DEPT[dp[0]].color, range: dw0.occ ? D.fmt(addD(dw0.occ.a, dp[1])) + ' → ' + D.fmt(addD(dw0.occ.a, dp[2])) : '—', ... }))",
+    "classification": "VISUAL_ONLY",
+    "reason": "The D.DEPT read supplies only a colour. NOTE the surrounding expression is NOT visual: dp[1]/dp[2] are invented lead offsets (-210..-10 days) from DEPTS at line 2652 and produce a dated departmental plan. Markup line 737 already labels it 'Sintonia business recommendations, not agronomic facts', so it survives as a labelled rule, not as an observation.",
+    "replacement": "color: AM.UI.DEPARTMENT[dp[0]].color — and move the DEPTS offsets to AM.DEMO.PLANNING_LEAD_RULE (SYNTHETIC_DEMO) so the label on markup 737 is backed by a provenance value"
+   },
+   {
+    "file": "portale.html",
+    "line": 2883,
+    "symbol": "D.DEPT",
+    "snippet": "briefs: [['SALES / RTV', ...], ...].map(b => ({ label: b[1], color: D.DEPT[b[0]].color, soft: D.DEPT[b[0]].soft, go: () => this.openBrief(wd0.caseId, b[0]) }))",
+    "classification": "VISUAL_ONLY",
+    "reason": "Two reads (color and soft) on the same line, both pure brand tokens. The brief titles are hardcoded English literals on the same line — that is a localization defect, not a data one.",
+    "replacement": "color: AM.UI.DEPARTMENT[b[0]].color, soft: AM.UI.DEPARTMENT[b[0]].soft"
+   },
+   {
+    "file": "portale.html",
+    "line": 3086,
+    "symbol": "D.DEPT",
+    "snippet": "const acc = D.DEPT[s.briefDept].color;",
+    "classification": "VISUAL_ONLY",
+    "reason": "Colour only. Also fragile: an unlisted briefDept throws a TypeError because there is no fallback.",
+    "replacement": "const acc = (AM.UI.DEPARTMENT[s.briefDept] || AM.UI.DEPARTMENT.DEFAULT).color;"
+   },
+   {
+    "file": "portale.html",
+    "line": 3403,
+    "symbol": "D.DEPT",
+    "snippet": "ladder: D.LADDER.map(l => ({ days: l[0], dept: l[1] === 'SALES / RTV' ? 'FIELD SALES' : l[1], text: l[2], soft: D.DEPT[l[1]].soft }))",
+    "classification": "VISUAL_ONLY",
+    "reason": "The D.DEPT read is a colour. D.LADDER itself (5 rows, 90/60/45/30/14 days with English action sentences) is an invented business rule and must be labelled, but it is not this symbol.",
+    "replacement": "soft: AM.UI.DEPARTMENT[l[1]].soft — and source the rows from AM.DEMO.PLANNING_LADDER (SYNTHETIC_DEMO)"
+   },
+   {
+    "file": "portale.html",
+    "line": 3419,
+    "symbol": "D.DEPT",
+    "snippet": "{ key: 'fDept', ..., options: [{ v: '', l: T.allDepartments }].concat(Object.keys(D.DEPT).map(v => ({ v, l: L(v) }))) }",
+    "classification": "VISUAL_ONLY",
+    "reason": "Reads only the KEY LIST. The six department names are an ADAMA internal routing taxonomy, not a claim about the external world, so they violate no product law. But a fixture should not own the app's routing vocabulary.",
+    "replacement": "Object.keys(AM.UI.DEPARTMENT).filter(k => k !== 'DEFAULT')"
+   },
+   {
+    "file": "portale.html",
+    "line": 3426,
+    "symbol": "D.DEPT",
+    "snippet": "deptOptions: opts('All departments', Object.keys(D.DEPT))",
+    "classification": "VISUAL_ONLY",
+    "reason": "Same key-list read. Note the literal 'All departments' is hardcoded English while the twin at line 3419 uses T.allDepartments — a localization inconsistency on the same screen.",
+    "replacement": "deptOptions: opts(T.allDepartments, Object.keys(AM.UI.DEPARTMENT).filter(k => k !== 'DEFAULT'))"
+   },
+   {
+    "file": "portale.html",
+    "line": 2819,
+    "symbol": "D.CAT",
+    "snippet": "const kase = D.CASES.find(c => c.crop === k && c.issue === cfg.issue) || D.CASES.find(c => c.crop === k); const cat = kase ? kase.category : D.CAT.disease;",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "This is a FALLBACK that asserts a classification. D.CAT.disease carries label 'Disease Control', which is rendered as the category chip (catLabel, line 2450 -> markup 219/305). When no case matches the crop, the Crop Windows strip still paints the crop blue and calls it Disease Control. That is an invented pest/disease/weed verdict — the fact must come from canonical ISSUE_TYPE (measured 29/29 present).",
+    "replacement": "const w0 = AM.collections.windows.records.find(w => w.crop === k && w.issue === cfg.issue) || AM.collections.windows.records.find(w => w.crop === k); const cat = AM.categoryOf(w0 && w0.issueType); // returns AM.UI.CATEGORY.unknown (grey, label null) when issueType is absent"
+   },
+   {
+    "file": "portale.html",
+    "line": 3139,
+    "symbol": "D.CAT",
+    "snippet": "const realSigs = (APP0 ? APP0.futureSignals.records : []).map(f => Object.assign({}, f, { cat: 'disease', category: D.CAT.disease, color: '#00A0DF', ... }))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The three REAL upstream future signals are force-classified as Disease Control. Measured, IT-FUT-003 has ISSUE 'REGULATORIO' — not a disease at all — and FUTURE_SIGNALS carries no ISSUE_TYPE field of any kind. This paints a fabricated agronomic classification onto a real record on the Future Radar screen.",
+    "replacement": "category: AM.UI.CATEGORY.unknown, cat: null, color: AM.UI.CATEGORY.unknown.color — and gate the category chip on markup 1529/1547 behind a hasCategory flag so no label is printed"
+   },
+   {
+    "file": "portale.html",
+    "line": 3207,
+    "symbol": "D.CAT",
+    "snippet": "category: t.category || D.CAT[t.cat] || D.CAT.disease,",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Two reads on one line. D.CAT[t.cat] is a legitimate key lookup, but the trailing `|| D.CAT.disease` is a fabricated verdict on a science theme with no declared class.",
+    "replacement": "category: AM.categoryOf(t.issueType || t.cat)  // AM.categoryOf falls back to AM.UI.CATEGORY.unknown, never to disease"
+   },
+   {
+    "file": "portale.html",
+    "line": 3406,
+    "symbol": "D.CAT",
+    "snippet": "sendComposer: () => { ... category: c ? c.category : D.CAT.pest }; this.setState({ extraMessages: [m].concat(s.extraMessages), ... }); }",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "This builds a synthetic inbound message inside the labelled Field Sales demo composer, from text the presenter typed. It only ever lands in s.extraMessages. It never reaches a core collection.",
+    "replacement": "KEEP — but tag the record `provenance: AM.PROVENANCE.SYNTHETIC_DEMO` so the leak fix at line 2603 can filter it out by provenance rather than by array origin"
+   },
+   {
+    "file": "portale.html",
+    "line": 2948,
+    "symbol": "D.F_COLOR",
+    "snippet": "const mSignals = A_SIGREAL.filter(x => x.crop === mc.crop).slice(0, 4).map(x => ({ issue: x.issue, region: x.region, status: x.status, color: D.F_COLOR[x.status] || '#978B87', go: () => this.openSignal(x.id) }));",
+    "classification": "VISUAL_ONLY",
+    "reason": "This read is a colour lookup with a grey fallback. It is harmless in itself — but measured, x.status is null on all 3 real signals, so the fallback always fires and the sibling `status: x.status` prints nothing.",
+    "replacement": "color: AM.UI.SIGNAL_STATUS_COLOR[x.status] || AM.UI.NEUTRAL — and suppress the status pill entirely when x.status is null instead of rendering an empty chip"
+   },
+   {
+    "file": "portale.html",
+    "line": 3150,
+    "symbol": "D.F_COLOR",
+    "snippet": "const fStatuses = Object.keys(D.F_COLOR);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "This is the one that hurts. It reads the KEY LIST — the seven-value vocabulary NEW SIGNAL / GAINING ATTENTION / MULTIPLE SIGNALS / WATCH CLOSELY / NEEDS VALIDATION / TIMING APPROACHING / PREPARE — and builds the Future Radar status filter row from it (line 3152). Measured, the real records have no STATUS field: AM.collections.futureSignals.records all have status === null (3/3). With scenarios off, all seven chips read 0 and the screen advertises an assessment vocabulary that upstream never produced.",
+    "replacement": "const fStatuses = [...new Set(AM.collections.futureSignals.records.map(f => f.status).filter(Boolean))];  // today this yields [] — render the whole chip row only when fStatuses.length > 0"
+   },
+   {
+    "file": "portale.html",
+    "line": 3151,
+    "symbol": "D.F_COLOR",
+    "snippet": "const fColor = Object.assign({}, D.F_COLOR, F_ACCENT);",
+    "classification": "VISUAL_ONLY",
+    "reason": "Merges two colour maps. No facts.",
+    "replacement": "const fColor = Object.assign({}, AM.UI.SIGNAL_STATUS_COLOR, F_ACCENT);"
+   },
+   {
+    "file": "portale.html",
+    "line": 2904,
+    "symbol": "D.GROUP_COLOR",
+    "snippet": "sourceCount: sgSources.length, sourceCards: sgSources.map(src => Object.assign({}, src, { color: D.GROUP_COLOR[src.group], go: srcGo(src) })),",
+    "classification": "VISUAL_ONLY",
+    "reason": "A colour-by-group lookup on the Signal Detail screen. It carries no fact by itself. Measured, it is already dead for real data twice over: AM.collections.futureSignals records have no `sources` array (fields are id, crop, issue, region, status, whyNow, sourceIds, evidenceIds, proves, notProves, confidence, provenance, raw), so sgSources is empty for real signals; and AM.collections.sources has group === null on 31/31 records because IG.SOURCES exposes TYPE and ROLE, never GROUP. The 11 keys of D.GROUP_COLOR match only the demo scenario source groups.",
+    "replacement": "color: AM.UI.SOURCE_TYPE_COLOR[src.type] || AM.UI.NEUTRAL — keying on the real IG.SOURCES.TYPE vocabulary (OFFICIAL, MARKET, RESEARCH, COMPANY, PEOPLE, FIELD, TECHNICAL_MEDIA, RESEARCH_INSTITUTION, COOPERATIVE, PRODUCER_ORG, COMPETITOR, ADAMA)"
+   },
+   {
+    "file": "portale.html",
+    "line": 3391,
+    "symbol": "D.TODAY",
+    "snippet": "nav, kpi: K, todayLabel: D.fmt(D.TODAY).toUpperCase(), pageTitle: titles[s.view], crumb, hasCrumb: !!crumb,",
+    "classification": "VISUAL_ONLY",
+    "reason": "Formats the reference date for the header. Measured, the VALUE is already correct: italy-demo-data.js:6 builds TODAY from ITALY_CANONICAL.meta.referenceDate, and D.TODAY === AM.REF === 2026-09-02. So this is a dependency cut, not a value change. Removing it means the app model, not the demo fixture, owns the clock.",
+    "replacement": "todayLabel: AM.UI.fmtDate(AM.REF, T.months).toUpperCase()"
+   },
+   {
+    "file": "portale.html",
+    "line": 3372,
+    "symbol": "D.TODAY",
+    "snippet": "history: pr0.roleCat === 'TECHNICAL SALES REPRESENTATIVES' ? [] : [0,1,2,3,4].map(k => ({ date: D.fmt(new Date(D.TODAY.getTime() - (pr0.lastDays + k * 9) * 864e5)), text: k === 0 ? pr0.recentTopic : ['Content observed on ' + (pr0.crops[0] || 'crop').toLowerCase() + ' season', 'Mention of ' + (pr0.issues[0] || 'issue').toLowerCase() + ' pressure', 'Reference to regional bulletin guidance', 'Connected to Future Radar signal'][k - 1] }))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The D.TODAY read is only the anchor, but the whole expression fabricates five DATED OBSERVATIONS on the Person screen, spaced 9 days apart, with invented sentences ('Reference to regional bulletin guidance'). It fires for REAL researchers too: D.PEOPLE contains 14 records flagged real:true / provenance 'REAL_FACT', and pr0.lastDays for those is the synthetic `20 + i*3` from italy-demo-data.js:398. This is a date, a source and a field observation invented about a named, identifiable person. THIS OCCURRENCE ALSO BELONGS TO THE RESEARCHERS SPEC — coordinate so it is deleted once, not twice.",
+    "replacement": "DELETE_COMPONENT — remove the `history` prop and delete markup lines 2344-2346. AM.collections.researchers exposes id, name, org, role, crops, issues, url and raw; there is no per-person dated activity trail in IG.RESEARCHERS, so nothing can back this panel."
+   },
+   {
+    "file": "portale.html",
+    "line": 3168,
+    "symbol": "D.CROP_COLS",
+    "snippet": "const cropDensity = D.CROP_COLS.map(cr => { const acts = D.ACTIVITIES.filter(a => a.crop === cr || (cr === 'Wheat' && a.crop === 'Durum Wheat')); ... const lvl = acts.length >= 14 ? 'HIGH' : acts.length >= 8 ? 'MEDIUM' : 'LOW'; ... })",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "D.CROP_COLS is a hardcoded six-crop English axis (Grapevine, Maize, Wheat, Olive, Tomato, Apple) chosen to fit the demo activity set. Used as the axis of a HIGH/MEDIUM/LOW communication-density verdict, it decides which crops exist and which get a density label. Against real data it does not resolve: IG.COMP_ACTIVITIES crop terms are Latin binomials and Italian generics (Zea mays 67, Vitis vinifera 42, colture 59, cereali 24, Olea europaea 24, Solanum lycopersicum 12, Citrus 15, ...) and 320 of 503 records carry no crop at all, so an exact match on 'Grapevine' yields 0 everywhere.",
+    "replacement": "const cropDensity = AM.crops.communicationAxis.map(...)  where AM.crops.communicationAxis is derived from IG.COMP_ACTIVITIES crop terms with counts; the level thresholds must be recalibrated against the real denominator and the caption must keep saying communication density, not market importance (§8)"
+   },
+   {
+    "file": "portale.html",
+    "line": 3169,
+    "symbol": "D.CROP_COLS",
+    "snippet": "const compMoments = D.CROP_COLS.map(cr => { const w = D.WINDOWS.filter(x => x.crop === cr || ...)[0]; ... });",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Same fabricated axis, here joining crop -> nearest window -> activity count -> market temp -> product count into a four-card 'moments' strip. Every fact in the card is keyed off a crop list that reality does not use.",
+    "replacement": "AM.crops.communicationAxis, with the window lookup moved to AM.collections.windows.records (canonical crop names: Grapevine, Maize, Olive, Sugar Beet, Apple, Wheat, Durum Wheat, Tomato, Rice, Soybean)"
+   },
+   {
+    "file": "portale.html",
+    "line": 3441,
+    "symbol": "D.CROP_COLS",
+    "snippet": "... whatChanged: D.WHAT_CHANGED, matrix, matrixCols: D.CROP_COLS, upcomingEvents, ...",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Supplies the six column headers of the competitor x crop matrix (markup line 1747, hardwired to `repeat(6,1fr)`). The header row asserts which crops the competitor universe is measured over.",
+    "replacement": "matrixCols: AM.crops.communicationAxis.map(c => c.label) — and change the markup grid from repeat(6,1fr) to repeat({{ matrixColCount }},1fr) so the axis length is data-driven"
+   },
+   {
+    "file": "portale.html",
+    "line": 3443,
+    "symbol": "D.CROP_COLS",
+    "snippet": "compCropOptions: opts('All crops', D.CROP_COLS),",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Builds the competitor crop filter from the fabricated axis, so a real crop present in IG.COMP_ACTIVITIES cannot be selected. Also hardcodes the English 'All crops' while T.allCrops exists.",
+    "replacement": "compCropOptions: opts(T.allCrops, AM.crops.communicationAxis.map(c => c.key), (k) => cl(k))"
+   },
+   {
+    "file": "portale.html",
+    "line": 2532,
+    "symbol": "D.FIELD_MESSAGES",
+    "snippet": "{ layer: T.dsField || 'Field Sales', real: 0, derived: 0, demo: (s.extraMessages || []).length + D.FIELD_MESSAGES.length, note: T.dsSimNote || 'simulated' }",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "This is the provenance panel counting the demo layer AS demo, with real: 0. It is the honest disclosure, not a leak.",
+    "replacement": "demo: (s.extraMessages || []).length + AM.counts.fieldMessages  (KEEP the row)"
+   },
+   {
+    "file": "portale.html",
+    "line": 2603,
+    "symbol": "D.FIELD_MESSAGES",
+    "snippet": "const allMessages = s.extraMessages.concat(D.FIELD_MESSAGES);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "This is the leak point. `allMessages` is not scoped to the Field Sales screen — it is consumed at line 2637 (case detail fieldMessages/fieldCount/noField), 3124 (field KPIs), 3126 (state chips), 3132 (fieldCases), 3148 (fieldSignalIds, which sets the 'NUOVO SEGNALE DAL CAMPO' badge on Future Radar cards, markup 1530), and the nav count at 2606. Two of those are CORE screens. 18 synthetic messages, distributed across 8 real opportunity ids (IT-OPP-001/002/003/004/006/007/009/021), therefore print a field-evidence count and quoted field text on the Opportunity case screen.",
+    "replacement": "const demoMessages = AM.collections.fieldMessages.records.concat(s.extraMessages); — rename and use it ONLY inside the `s.view === 'field'` branch and the labelled nav-integration count. Core screens must not see it."
+   },
+   {
+    "file": "portale.html",
+    "line": 2637,
+    "symbol": "D.FIELD_MESSAGES",
+    "snippet": "fieldMessages: allMessages.filter(m => m.caseId === cs0.id), fieldCount: allMessages.filter(m => m.caseId === cs0.id).length, noField: allMessages.filter(m => m.caseId === cs0.id).length === 0",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Indirect read of D.FIELD_MESSAGES through allMessages. It renders the 'SEGNALI DI CAMPO · N' panel on the core Opportunity case screen (markup 403-408), including the verbatim demo message text in italics. A demo fixture is supplying a field observation, an evidence count and a region on a core screen — §2 forbids exactly this.",
+    "replacement": "REMOVE_SUBCOMPONENT — delete the three props and markup lines 403-408. AM has no real field-message collection; there is nothing to substitute."
+   },
+   {
+    "file": "portale.html",
+    "line": 2741,
+    "symbol": "D.FIELD_MESSAGES",
+    "snippet": "const fms = c.kase ? D.FIELD_MESSAGES.filter(m => m.caseId === c.kase.id) : []; ... why.push({ ok: fms.length > 0, warn: fms.length === 0, t: fms.length ? fms.length + ' Field Sales signal' + (fms.length > 1 ? 's' : '') : 'No Field Sales signal yet' });",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Direct read on the Crop Windows core screen. It emits a green tick reading 'N Field Sales signals' inside 'WHY PREPARE NOW?' (markup 764) and also sets `fieldCount` / `fms` on the row. Demo records are being counted as a reason to act.",
+    "replacement": "REMOVE_SUBCOMPONENT — drop the fms const, the why.push line, and the fieldCount/fms props from the row object. The remaining five why-rows still render."
+   },
+   {
+    "file": "portale.html",
+    "line": 3401,
+    "symbol": "D.FIELD_MESSAGES",
+    "snippet": "simulateInbound: () => this.setState({ extraMessages: (s.extraMessages || []).concat([D.FIELD_MESSAGES[(s.extraMessages || []).length % D.FIELD_MESSAGES.length]]) }),",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Two reads on this line (indexing and .length). Verified by reading the body: it calls this.setState only. It appends to component state, mutates no core collection, and the comment at 3399 states '§14 · Inbound only. The control simulates RECEIPT, never a send.' Correct as designed. One fragility: if the fixture were emptied, `% 0` yields NaN and the array gets undefined.",
+    "replacement": "const fmPool = AM.collections.fieldMessages.records; simulateInbound: () => { if (!fmPool.length) return; this.setState({ extraMessages: (s.extraMessages || []).concat([fmPool[(s.extraMessages || []).length % fmPool.length]]) }); }"
+   },
+   {
+    "file": "italy-app-model.js",
+    "line": 243,
+    "symbol": "D.SIGNALS",
+    "snippet": "const futureScenarios = coll((D.SIGNALS || []).map(x => Object.assign({}, x, { provenance: P.DEMO_SCENARIO })), P.DEMO_SCENARIO, 'presentation scenarios; not evidence, not counted as real');",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "56 generated scenarios, stamped DEMO_SCENARIO, held in their own collection outside the real feed. The view gates them behind s.showScenarios (line 3144) and reports sigCountReal and sigCountScenario separately (3146). This is the model working as intended.",
+    "replacement": "KEEP"
+   },
+   {
+    "file": "portale.html",
+    "line": 2477,
+    "symbol": "D.setMonths",
+    "snippet": "if (D.setMonths && T.months) D.setMonths(T.months);",
+    "classification": "VISUAL_ONLY",
+    "reason": "Mutates the fixture's shared MON array so baked date strings follow the interface language. Pure formatting. But it is a hidden global mutation performed during render, which is why the same helper cannot live in the fixture after migration.",
+    "replacement": "DELETE the call. AM.UI.fmtDate(date, T.months) takes the month names as an argument, so no global is mutated."
+   },
+   {
+    "file": "portale.html",
+    "line": 2680,
+    "symbol": "D.inkOn",
+    "snippet": "ink: D.inkOn(BCOL[c.state]),",
+    "classification": "VISUAL_ONLY",
+    "reason": "Contrast rule: dark ink on light brand fills, white on dark. Five reads total across 2680, 2708, 2710, 2756, 3210. No facts.",
+    "replacement": "ink: AM.UI.inkOn(BCOL[c.state])  (apply identically at lines 2708, 2710, 2756, 3210)"
+   },
+   {
+    "file": "portale.html",
+    "line": 2681,
+    "symbol": "D.fmt",
+    "snippet": "prepFrom: D.fmt(addD(c.occ.a, -PREP)), windowFrom: D.fmt(c.occ.a),",
+    "classification": "VISUAL_ONLY",
+    "reason": "Date formatter, 16 reads across 10 lines (2681 x2, 2743, 2757 x2, 2758, 2844 x2, 2845 x2, 2846 x2, 2861 x2, 3372, 3391). It returns null for a null date, so it never fabricates a date. §21 permits presentation to format a supplied date.",
+    "replacement": "AM.UI.fmtDate(dateObj, T.months) at every one of the 16 call sites"
+   },
+   {
+    "file": "portale.html",
+    "line": 0,
+    "symbol": "D.ago",
+    "snippet": "(no read in portale.html — grep 'D.ago' returns 0 matches)",
+    "classification": "VISUAL_ONLY",
+    "reason": "D.ago is exported but the view never calls it. It is used only inside italy-demo-data.js to bake relative-time strings, which portale.html then re-localizes with LAGO (line 2513). Once the demo arrays that carry those strings stop reaching core screens, nothing reads it.",
+    "replacement": "No portale.html edit. Drop D.ago from the fixture export once italy-demo-data.js is retired."
+   },
+   {
+    "file": "portale.html",
+    "line": 0,
+    "symbol": "D.STATUS",
+    "snippet": "(no `D.STATUS` read — grep returns 0; reached indirectly as c.st, set by italy-demo-data.js:241/263)",
+    "classification": "VISUAL_ONLY",
+    "reason": "D.STATUS maps status code -> {color, text, rank}. It is not read via D.* anywhere in portale.html; the fixture attaches it as `c.st` and the markup renders cs.st.color / c.st.text (16 bindings, e.g. markup 222, 305, 312, 352, 362, 1809, 2095, 2177, 2307, 2332). The status VALUE itself is already canonical: italy-demo-data.js:262 sets c.status = cw.CURRENT_STATUS, and the comment at line 40 records that ACT_NOW is deliberately absent so presentation cannot derive it. Only the colour and the sort rank come from here.",
+    "replacement": "AM.UI.STATUS[record.status] with a DEFAULT entry — and windows/opportunities records should carry `st` from the model, not from the fixture, so the markup binding is unchanged (§24 preserve the visual product)"
+   },
+   {
+    "file": "portale.html",
+    "line": 0,
+    "symbol": "D.ATYPE_COLOR",
+    "snippet": "(no read — grep 'ATYPE_COLOR' in portale.html returns 0)",
+    "classification": "VISUAL_ONLY",
+    "reason": "Dead in the view. All six values are the same grey (#B1A9A7). Used only inside italy-demo-data.js to colour ACTIVITIES. portale.html builds its own CH table at line 2567 instead.",
+    "replacement": "No edit. Remove from the fixture export."
+   },
+   {
+    "file": "portale.html",
+    "line": 0,
+    "symbol": "D.REGIONS",
+    "snippet": "(no direct read — grep 'D.REGIONS' returns 0; reached through D.REGION_STATS at lines 2564 and 2625)",
+    "classification": "VISUAL_ONLY",
+    "reason": "D.REGIONS is the 20 Italian regions with {col,row} grid coordinates for the map tiles — pure layout, and the region names are public geography. But D.REGION_STATS (built from it in italy-demo-data.js:776) attaches `cases` and `signals` COUNTS and derives the tile colour from them; those counts are demo-derived and are rendered on the Radar and Case mini-map. The layout survives; the counts do not.",
+    "replacement": "Move the {name,col,row} grid to AM.UI.REGION_GRID and recompute counts from AM.collections.windows.records grouped by region; a region with no canonical window renders neutral, not coloured"
+   },
+   {
+    "file": "portale.html",
+    "line": 0,
+    "symbol": "D.CO_META",
+    "snippet": "(no read — grep 'CO_META' in portale.html returns 0)",
+    "classification": "VISUAL_ONLY",
+    "reason": "Company label + colour table, consumed only inside italy-demo-data.js when building ACTIVITIES / COMPANIES / MATRIX. The view reads the already-decorated objects.",
+    "replacement": "No edit here. The competitor spec should re-key company colours off IG.COMP_COMPANIES.COMPANY (14 records)."
+   },
+   {
+    "file": "portale.html",
+    "line": 0,
+    "symbol": "D.BULLETINS",
+    "snippet": "(no read — grep 'BULLETINS' in portale.html returns 0)",
+    "classification": "VISUAL_ONLY",
+    "reason": "Dead export. It is a pass-through of window.ITALY_REAL.BULLETINS, consumed only inside italy-demo-data.js:541 when assembling ARCHIVE_ALL.",
+    "replacement": "No edit. Remove from the fixture export."
+   },
+   {
+    "file": "portale.html",
+    "line": 0,
+    "symbol": "D.REALITY",
+    "snippet": "(no read — grep 'REALITY' in portale.html returns 0)",
+    "classification": "VISUAL_ONLY",
+    "reason": "Dead export, pass-through of window.ITALY_REAL.REALITY. Never referenced by the view.",
+    "replacement": "No edit. Remove from the fixture export."
+   },
+   {
+    "file": "portale.html",
+    "line": 0,
+    "symbol": "D.CAL",
+    "snippet": "(no read of `D.CAL` — grep returns 0. The near neighbours ARE read: D.CROP_CAL 5 times, D.OBSERVED once, D.PREP_LEAD once, around lines 2653-2680.)",
+    "classification": "VISUAL_ONLY",
+    "reason": "D.CAL itself (the issue -> [start,end,label] table used by nextWindow() at italy-demo-data.js:637) is never read by the view. Flagging the neighbours because they are easy to confuse with it: D.CROP_CAL supplies crop phenology stage dates and issue windows and IS heavily fact-bearing, and D.PREP_LEAD is a 90-day invented business lead. Both belong to the crop-windows spec, not this one — do not silently delete them here.",
+    "replacement": "No edit for D.CAL. Hand D.CROP_CAL / D.OBSERVED / D.PREP_LEAD to the crop-windows spec."
+   },
+   {
+    "file": "portale.html",
+    "line": 0,
+    "symbol": "D.REAL_STATS",
+    "snippet": "(no read — grep 'REAL_STATS' in portale.html returns 0)",
+    "classification": "VISUAL_ONLY",
+    "reason": "Dead export. It computes a real-vs-total percentage over the demo arrays; the view instead builds its own `dataState` table at line 2526. Note the live dataState table has its own problem (it counts D.ACTIVITIES and D.ARCHIVE, not the app model), but that is the competitor and archive specs.",
+    "replacement": "No edit. Remove from the fixture export; AM.provenanceSummary is the real replacement if a stats panel is ever wanted."
+   }
+  ],
+  "modelChanges": [
+   {
+    "collection": "AM.UI (new namespace on window.ITALY_APP_MODEL)",
+    "why": "Visual tokens are legitimate (§4) but must not live in the demo fixture, because the fixture is going away and because reading them from ITALY_DEMO is what let a colour lookup smuggle a classification label. Moving them makes the view dumb and makes every remaining D.* read a real defect.",
+    "fields": [
+     "CATEGORY: { pest, disease, weed, unknown } — each { key, label, color, dark, soft, ink, body, muted, icon, aShape }",
+     "INK / inkOn(fill) — the contrast table",
+     "STATUS: status code -> { color, text, rank } plus a DEFAULT entry",
+     "DEPARTMENT: department name -> { color, soft } plus a DEFAULT entry",
+     "SIGNAL_STATUS_COLOR: signal status -> color",
+     "SOURCE_TYPE_COLOR: IG.SOURCES.TYPE -> color",
+     "REGION_GRID: [{ name, col, row }] x20",
+     "NEUTRAL: '#8F8886'",
+     "fmtDate(dateOrIso, monthNames) -> 'DD Mmm' or null"
+    ],
+    "derivation": "CATEGORY/INK/STATUS/DEPARTMENT/REGION_GRID are copied VERBATIM from italy-demo-data.js lines 22-66 — they contain no crop, issue, date, source or count, only ADAMA brand constants and grid coordinates, so copying them breaks no rule. Two additions are new: CATEGORY.unknown = { key:'unknown', label:null, color:'#8F8886', dark:'#3A3533', soft:'#B1A9A7', ink:'#fff', body:'#EDEAE9', muted:'#B1A9A7', icon:'', aShape:'' } — label is deliberately null so the catLabel chip can be hidden rather than guessed; and STATUS.DEFAULT / DEPARTMENT.DEFAULT so an unknown key cannot throw. SOURCE_TYPE_COLOR is new, keyed on the 12 TYPE values actually present in IG.SOURCES. fmtDate is D.fmt with the month array passed in instead of read from a mutable module global, which retires D.setMonths."
+   },
+   {
+    "collection": "AM.collections.windows.records[].issueType and AM.categoryOf(issueType)",
+    "why": "This is the one FACT the token table was carrying. It must come from the canonical contract, not from a fallback.",
+    "fields": [
+     "issueType (string: 'PEST' | 'DISEASE' | 'WEED')",
+     "AM.categoryOf(issueType) -> AM.UI.CATEGORY entry"
+    ],
+    "derivation": "issueType = w.ISSUE_TYPE, read straight off ITALY_CANONICAL.windows in the existing map at italy-app-model.js line 70-82. Measured: 29/29 windows carry it (PEST 15, DISEASE 9, WEED 5), 0 null. Cross-check performed: the legacy demo `cat` on all 29 D.CASES agrees with canonical ISSUE_TYPE 29/29, 0 disagreements — so this migration changes no colour on screen today, it only removes the ability to invent one tomorrow. AM.categoryOf = (t) => AM.UI.CATEGORY[String(t||'').toLowerCase()] || AM.UI.CATEGORY.unknown. It must NEVER fall back to disease."
+   },
+   {
+    "collection": "AM.collections.windows.records[].ui (replace the current uiOf join)",
+    "why": "italy-app-model.js:67-71 currently derives ui.icon and ui.color by joining canonical windows to D.WINDOWS on LEGACY_CASE_ID and reading the demo record's category object. That works today (measured: 0/29 records have an empty ui) but it makes the fixture a hard dependency of the real model.",
+    "fields": [
+     "ui.categoryKey",
+     "ui.icon",
+     "ui.color",
+     "ui.order"
+    ],
+    "derivation": "ui = Object.assign({}, AM.categoryOf(w.ISSUE_TYPE), { order: index }). No fixture join. Delete the dwByCase lookup at lines 68-69 and the `uiOf(dwByCase[...])` call at line 71."
+   },
+   {
+    "collection": "AM.DEMO (new, explicitly-labelled demo rules)",
+    "why": "§5 allows labelled demo modes. The planning lead offsets and the escalation ladder are invented ADAMA business rules — they are not observations and not facts about Italy, but they are also not colours. They need a home with a provenance stamp so the screen caption 'business rule (demo configuration), not an agricultural fact' is backed by data rather than by a hardcoded sentence.",
+    "fields": [
+     "PLANNING_LEAD_RULE: [{ dept, fromDays, toDays }] x6 (currently DEPTS at portale.html:2652)",
+     "PLANNING_LADDER: [{ days, dept, text }] x5 (currently D.LADDER)",
+     "PREP_LEAD_DAYS: 90 (currently D.PREP_LEAD)",
+     "provenance: 'SYNTHETIC_DEMO' on the group"
+    ],
+    "derivation": "Copied verbatim from portale.html:2652, italy-demo-data.js:634 and italy-demo-data.js:760. No derivation from real data is possible or claimed — these are configuration, and they must be stamped SYNTHETIC_DEMO so the provenance panel counts them."
+   },
+   {
+    "collection": "AM.collections.fieldMessages (scope change, not a data change)",
+    "why": "The collection is already correct: 18 records, provenance SYNTHETIC_DEMO, note 'optional integration demonstration; never affects core intelligence'. The note is currently false because portale.html merges it into core screens.",
+    "fields": [
+     "(unchanged fields)",
+     "records[].provenance already 'SYNTHETIC_DEMO' — the view must filter on this rather than trusting call-site discipline"
+    ],
+    "derivation": "No new derivation. The change is in portale.html: rename `allMessages` to `demoMessages`, build it as AM.collections.fieldMessages.records.concat(s.extraMessages), and reference it only inside the isField branch and the labelled nav-integration count. Every core-screen consumer (2637, 2741, 3148) is deleted."
+   },
+   {
+    "collection": "AM.crops.communicationAxis (new)",
+    "why": "D.CROP_COLS is a fabricated six-crop English axis. If the competitor matrix and density strip are to keep working, the axis has to come from the records being counted.",
+    "fields": [
+     "key (the raw crop term as published)",
+     "label (display string; Latin binomials are never translated per §11)",
+     "count (activities carrying that term)"
+    ],
+    "derivation": "Group IG.COMP_ACTIVITIES[].crops. Measured distribution: Zea mays 67, colture 59, Vitis vinifera 42, cereali 24, Olea europaea 24, Citrus 15, Solanum lycopersicum 12, Helianthus annuus 9, frutta 8, Malus domestica 5, ortaggi 5, Beta vulgaris 4, Oryza sativa 3, Prunus persica 2, Triticum aestivum 1. CRITICAL CAVEAT to carry into the UI: 320 of 503 activities (63.6%) carry NO crop at all, so the axis covers 183 records, not 503, and the screen must say so. 'colture', 'cereali', 'frutta' and 'ortaggi' are generic Italian buckets, not species — do not silently merge them into a species row."
+   }
+  ],
+  "markupImpact": [
+   "portale.html:85 — `{{ t.lblToday }} · {{ todayLabel }}` in the header. No structural change; todayLabel now comes from AM.REF.",
+   "portale.html:568 — `{{ t.lblToday }} · {{ todayLabel }} 2026`. The literal ' 2026' is hardcoded next to the reference date. If AM.referenceDate ever moves year, the label lies. Replace with a `{{ todayYear }}` prop derived from AM.REF.getFullYear().",
+   "portale.html:684 — same `{{ todayLabel }} 2026` hardcode on the calendar today-marker. Same fix.",
+   "portale.html:219 and 305 — `{{ c.catLabel }}` / `{{ cs.catLabel }}` category chips. Wrap each in `<sc-if value=\"{{ c.hasCategory }}\">` so a record whose issueType is unknown shows no chip instead of showing 'Disease Control'.",
+   "portale.html:221 and 303 — `aria-label=\"{{ c.category.label }}\"` on the category icon. When label is null the icon must not render at all (the unknown token has icon: '').",
+   "portale.html:403-408 — DELETE. The whole 'SEGNALI DI CAMPO · {{ cs.fieldCount }}' panel on the core Opportunity screen, including the `<sc-for list=\"{{ cs.fieldMessages }}\">` loop and the `{{ cs.noField }}` empty state. Demo field messages must not appear on a core screen.",
+   "portale.html:238 — inside the radar card footer, `<sc-if value=\"{{ c.hasField }}\">…{{ t.lblField }} {{ c.fieldCount }}</sc-if>`. DELETE the sc-if block; the field-count badge on a core opportunity card is demo-fed.",
+   "portale.html:737 — `{{ dw.deptPlan }}` rows. Keep the component (it is already captioned 'Sintonia business recommendations, not agronomic facts') but the caption is a hardcoded English literal that must move into SINTONIA_I18N.",
+   "portale.html:764 — `<sc-for list=\"{{ wd.why }}\">`. No markup edit needed; the Field Sales row disappears when portale.html:2746 stops pushing it. Verify the panel still reads sensibly with five rows.",
+   "portale.html:1529 and 1547 — `{{ s.category.icon }}` / `{{ sg.category.dark }}` / `{{ sg.category.soft }}` on Future Radar cards and the signal hero. With realSigs no longer forced to disease these resolve to the neutral unknown token; check the hero contrast still passes on #1C1817.",
+   "portale.html:1552 — `{{ sg.category.soft }}` used as the colour of the 'WHY THIS IS ON THE RADAR' caption. Same neutral-token check.",
+   "portale.html:1747 — `<div style=\"grid-template-columns:70px repeat(6,1fr)\">` with `<sc-for list=\"{{ matrixCols }}\">`. The 6 is hardwired to D.CROP_COLS.length. Make it `repeat({{ matrixColCount }},1fr)` on both the header row and every matrix body row.",
+   "portale.html:2344-2346 — DELETE the `<sc-for list=\"{{ pr.history }}\">` block and its section heading on the Person screen. Five fabricated dated observations, printed about real named researchers.",
+   "portale.html:814-928 — the Field Sales screen. NO structural change: it stays a separate labelled INTEGRAZIONI · DEMO module. Confirmed correct as-is on flow, badge and inbound-only wording.",
+   "portale.html:817 — the Field Sales intro paragraph is a long hardcoded English sentence on an Italian-default screen. Route through SINTONIA_I18N.",
+   "portale.html:855 — 'WHATSAPP · FIELD MESSAGE (SIMULATED)' hardcoded caption. Route through i18n; the '(SIMULATED)' marker must survive translation."
+  ],
+  "fieldsThatDie": [
+   {
+    "field": "Future signal STATUS (the 7-value vocabulary NEW SIGNAL / GAINING ATTENTION / MULTIPLE SIGNALS / WATCH CLOSELY / NEEDS VALIDATION / TIMING APPROACHING / PREPARE)",
+    "usedAt": "portale.html:3150 fStatuses, 3152 futureStatusChips, 3149 visibleSignals color/accent/statusIcon, 2948 mSignals.status, markup 1530 and 1549 status pills",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "IG.FUTURE_SIGNALS has no STATUS field of any kind. Its fields are ID, LEGACY_ID, WHO_IS_TALKING, WHAT_CHANGED, CROP, ISSUE, REGION, WHY_WATCH, HOW_SINTONIA_GOT_HERE, OBSERVED_FACTS, SINTONIA_INTERPRETATION, UNKNOWN, NEXT_WINDOW, PORTFOLIO_CONNECTION, WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY, PROMOTED_TO_RADAR, SOURCE_IDS, PROVENANCE. Measured: status is null on 3/3 real records. With scenarios off, all seven filter chips read 0 and the status pill on every real card is blank. There is no honest derivation — PROMOTED_TO_RADAR is a boolean (false on all 3) and is not a seven-level assessment. The entire status chip row and every status pill on the real cards must go. Do not substitute PROMOTED_TO_RADAR for it and do not redesign the screen to fill the gap."
+   },
+   {
+    "field": "Future signal category / pest-disease-weed class",
+    "usedAt": "portale.html:3139 (`cat: 'disease', category: D.CAT.disease, color: '#00A0DF'`), markup 1529, 1547, 1552, 1590",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "All three real signals are painted Disease Control blue. IT-FUT-003's ISSUE is literally 'REGULATORIO'. There is no ISSUE_TYPE on FUTURE_SIGNALS, so the card must render the neutral unknown token with no category chip and no icon."
+   },
+   {
+    "field": "Source group (GOVERNMENT & OFFICIAL / RESEARCH & SCIENCE / FIELD & PRODUCER ORGANIZATIONS / NEWS & TRADE MEDIA / COMPANIES & MARKET / EVENTS & TRADE FAIRS)",
+    "usedAt": "portale.html:2904 D.GROUP_COLOR[src.group]; also the sourceKpis buckets at 3363-3365 and the sourceGroup filter",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "AM.collections.sources has group === null on 31/31 records, because IG.SOURCES publishes TYPE and ROLE and never GROUP. The six-bucket taxonomy is a demo invention. IG.SOURCES.TYPE has 12 real values (OFFICIAL, MARKET, RESEARCH, COMPANY, PEOPLE, FIELD, TECHNICAL_MEDIA, RESEARCH_INSTITUTION, COOPERATIVE, PRODUCER_ORG, COMPETITOR, ADAMA) and can back a colour and a filter — but it is NOT the same partition, so the six KPI tiles cannot simply be recounted against it. They must be rebuilt on the real TYPE vocabulary or removed."
+   },
+   {
+    "field": "Person activity history — 5 dated observations per person",
+    "usedAt": "portale.html:3372 `history:` prop; markup 2344-2346",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "This is the worst item in the domain. It manufactures five dates spaced 9 days apart from a synthetic `lastDays`, and four invented sentences ('Content observed on X season', 'Mention of Y pressure', 'Reference to regional bulletin guidance', 'Connected to Future Radar signal'). It renders for the 14 people flagged real:true / provenance REAL_FACT — real, named, ORCID-identified researchers. IG.RESEARCHERS carries LAST_ACTIVITY and WORKS_IN_SCOPE but no per-observation trail, so nothing can back this panel. Delete it. Also owned by the researchers spec — coordinate so it is removed once."
+   },
+   {
+    "field": "Field Sales signal count and quoted field text on the Opportunity case screen",
+    "usedAt": "portale.html:2637 (cs.fieldMessages / cs.fieldCount / cs.noField), markup 403-408; and the radar card badge at 3391-era `c.hasField` / `c.fieldCount`, markup 238",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "18 synthetic WhatsApp messages, mapped onto 8 real opportunity ids, printing a region, a date-relative stamp and a verbatim quote on a core screen. Field Sales is a legitimate labelled demo module — but only on its own screen. Nothing real replaces this: there is no ingested field-message collection anywhere in IG."
+   },
+   {
+    "field": "'N Field Sales signals' as a reason to prepare, on Crop Windows",
+    "usedAt": "portale.html:2741 and the why.push at 2746; markup 764",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Same 18 demo records, here promoted to a green tick inside 'WHY PREPARE NOW?'. A demo fixture is supplying a reason to act. The panel keeps its other five rows."
+   },
+   {
+    "field": "Competitor crop axis — the six columns Grapevine, Maize, Wheat, Olive, Tomato, Apple",
+    "usedAt": "portale.html:3168 cropDensity, 3169 compMoments, 3441 matrixCols, 3443 compCropOptions; markup 1747",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Derivable, but honestly it shrinks. Real crop terms in IG.COMP_ACTIVITIES are Latin binomials and Italian generics, and 320 of 503 activities (63.6%) carry no crop at all. Exact string matching on 'Grapevine' returns zero. A real axis exists (15 distinct terms, top: Zea mays 67, colture 59, Vitis vinifera 42) but four of them ('colture', 'cereali', 'frutta', 'ortaggi') are buckets, not species, and the HIGH/MEDIUM/LOW thresholds (>=14 / >=8) were tuned to the demo volume and will be meaningless against the new denominator. The matrix survives only if it publishes the 63.6% uncovered share next to it."
+   },
+   {
+    "field": "Department planning lead offsets (-210..-10 days) and the 90/60/45/30/14-day escalation ladder",
+    "usedAt": "portale.html:2652 DEPTS, 2701 deptB bars, 2861 deptPlan date ranges, 3403 ladder; markup 737",
+    "verdict": "KEEP_AS_LABELLED_DEMO",
+    "note": "These are invented ADAMA business rules, not observations. They are already captioned ('Business rule (demo configuration), not an agricultural fact' at markup 759; 'Sintonia business recommendations, not agronomic facts' at 737). Keep them, but move them into AM.DEMO with provenance SYNTHETIC_DEMO so the provenance panel counts them instead of them counting as derived."
+   },
+   {
+    "field": "D.REAL_STATS, D.REALITY, D.BULLETINS, D.CO_META, D.ATYPE_COLOR, D.CAL",
+    "usedAt": "nowhere in portale.html — measured 0 reads each",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Dead exports. They are consumed only inside italy-demo-data.js while it builds ACTIVITIES / ARCHIVE / COMPANIES. No screen loses anything when the fixture is retired. Listing them so the engineer does not spend time hunting for call sites that do not exist."
+   },
+   {
+    "field": "Region tile case/signal counts on the Radar map and Case mini-map",
+    "usedAt": "portale.html:2564 regionTiles, 2625 cs.miniMap (both via D.REGION_STATS)",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "The {col,row} grid for Italy's 20 regions is pure layout and survives. The `cases` and `signals` counts that drive each tile's fill colour are demo-derived and must be recomputed from AM.collections.windows.records grouped by region. Regions with no canonical window must render neutral, not coloured — and there will be more of those than the current map suggests."
+   }
+  ],
+  "plan": [
+   "1. Add the AM.UI namespace to italy-app-model.js: CATEGORY (pest/disease/weed copied verbatim from italy-demo-data.js:22-26, plus a new `unknown` token with label:null, color:'#8F8886', icon:''), INK + inkOn (from line 29-31), STATUS (from 33-47, plus DEFAULT), DEPARTMENT (from 48-55, plus DEFAULT), REGION_GRID (from 57-66), SIGNAL_STATUS_COLOR, SOURCE_TYPE_COLOR keyed on the 12 real IG.SOURCES.TYPE values, NEUTRAL, and fmtDate(dateOrIso, monthNames). None of these carry a crop, issue, date, source or count, so copying them breaks no rule.",
+   "2. In italy-app-model.js, add `issueType: w.ISSUE_TYPE` to the windows mapper (line 70-82) and export `AM.categoryOf = (t) => AM.UI.CATEGORY[String(t||'').toLowerCase()] || AM.UI.CATEGORY.unknown`. It must never fall back to disease. Then replace the ui join: delete dwByCase (68-69) and uiOf(dwByCase[...]) (71), and set ui from AM.categoryOf(w.ISSUE_TYPE). Verified safe: demo cat agrees with canonical ISSUE_TYPE on 29/29 cases, so no colour changes today.",
+   "3. Add AM.DEMO = { PLANNING_LEAD_RULE (from portale.html:2652), PLANNING_LADDER (from italy-demo-data.js:634), PREP_LEAD_DAYS: 90, provenance: 'SYNTHETIC_DEMO' }.",
+   "4. Add AM.crops.communicationAxis, grouped from IG.COMP_ACTIVITIES[].crops, each entry { key, label, count }, plus AM.crops.uncoveredActivities = 320 and AM.crops.totalActivities = 503 so the view can publish the coverage gap.",
+   "5. REFERENCE DATE. portale.html:3391 -> todayLabel: AM.UI.fmtDate(AM.REF, T.months).toUpperCase(). Add a todayYear prop from AM.REF.getFullYear() and replace the hardcoded ' 2026' in markup 568 and 684. Then fix the one real second clock: italy-briefs.js:119 `new Date().toLocaleString(...)` -> format AM.referenceDate instead, and change the locale from the hardcoded 'en-GB' to the active language. portale.html:2638 (`AM ? AM.REF : new Date('2026-09-02T00:00:00')`) already derives from AM.REF and only needs its literal fallback removed once AM is guaranteed loaded.",
+   "6. VISUAL TOKENS, mechanical pass. Replace D.inkOn -> AM.UI.inkOn at portale.html 2680, 2708, 2710, 2756, 3210 (5 sites). Replace D.fmt -> AM.UI.fmtDate(x, T.months) at 2681 x2, 2743, 2757 x2, 2758, 2844 x2, 2845 x2, 2846 x2, 2861 x2, 3372, 3391 (16 sites). Replace D.DEPT -> AM.UI.DEPARTMENT at 2701, 2861, 2883 x2, 3086 (add the DEFAULT guard), 3403, 3419, 3426. Delete the D.setMonths call at 2477.",
+   "7. CLASSIFICATION FIXES (the fact-bearing part of D.CAT). Line 2819 -> derive from the canonical window's issueType via AM.categoryOf, never `|| D.CAT.disease`. Line 3207 -> AM.categoryOf(t.issueType || t.cat), fallback unknown. Line 3139 -> delete the `cat: 'disease', category: D.CAT.disease, color: '#00A0DF'` triple; use AM.UI.CATEGORY.unknown. Line 3406 -> keep (labelled demo composer) but stamp the record SYNTHETIC_DEMO. Then in decorate() at 2450, make catLabel resolve to '' when category.label is null and add a hasCategory flag; wrap markup 219, 221, 303, 305 accordingly.",
+   "8. FUTURE SIGNAL STATUS. Line 3150 -> derive fStatuses from the distinct non-null statuses actually present in AM.collections.futureSignals.records. Today that array is empty, so render the whole chip row only when it is non-empty. Line 3151 -> AM.UI.SIGNAL_STATUS_COLOR. Line 2948 -> suppress the status pill when status is null rather than printing an empty chip.",
+   "9. SOURCE GROUP. Line 2904 -> key on src.type against AM.UI.SOURCE_TYPE_COLOR. Separately flag to the sources spec that the six sourceKpis buckets at 3363-3365 count a taxonomy that is null 31/31 in real data.",
+   "10. FIELD SALES CONTAINMENT — the biggest behavioural change. Rename `allMessages` (2603) to `demoMessages` and build it from AM.collections.fieldMessages.records.concat(s.extraMessages). Then remove every core-screen consumer: delete cs.fieldMessages / cs.fieldCount / cs.noField at 2637 and markup 403-408; delete the c.hasField badge (markup 238); delete the fms const and the why.push at 2741/2746 plus the fieldCount/fms row props; delete fieldSignalIds at 3148 and the `fromField` badge it drives (markup 1530). Keep demoMessages alive only inside the isField branch (3096-3132), the navIntegrations count (2606) and the dataState demo row (2532).",
+   "11. Harden the demo module: guard simulateInbound (3401) against an empty pool, and keep sendComposer (3406) setState-only. Both were read and verified to mutate no core collection today; the guard is so that stays true when the fixture shrinks.",
+   "12. PERSON HISTORY. Delete the `history` prop at 3372 and markup 2344-2346. Coordinate with the researchers spec so this is removed exactly once.",
+   "13. COMPETITOR CROP AXIS. Replace D.CROP_COLS at 3168, 3169, 3441, 3443 with AM.crops.communicationAxis; change markup 1747 grid from repeat(6,1fr) to repeat({{ matrixColCount }},1fr) on the header and every body row; recalibrate the HIGH/MEDIUM/LOW thresholds against the real denominator and print the 320/503 uncovered share next to the strip.",
+   "14. LOCALIZATION. Fix the two cheap wins first: 'All departments' at 3426 -> T.allDepartments (its twin at 3419 already uses it), and the single leftover Italian value on the EN key `chVideo` in italy-i18n.js. Remove the dead duplicated Italian block at italy-i18n.js:475-482 inside the EN object (harmless today because 503-510 override it, but it is a trap). Then work the backlog by screen, worst first: Market (64 hardcoded runs in markup), Science (51), Signal Detail (40), Competitors (37), Window Detail (34), Crop Windows (32).",
+   "15. Re-measure after the edits: rerun the D.* grep and confirm the only surviving reads in this domain are the ones classified VISUAL_ONLY or EXPLICIT_DEMO, and rerun the string-literal counter to confirm the localization backlog actually shrank."
+  ],
+  "risks": [
+   "The Field Sales containment removes visible content from two core screens (the Opportunity case panel and one Crop Windows why-row). Screens get emptier. §3 says a smaller truthful screen beats a dense fake one, and §12 says do not redesign to compensate — but someone will see the gap and ask for it to be filled. Have the answer ready before the edit lands.",
+   "Deleting the Future Radar status chip row leaves that screen with three real signals, no status, no category and a REGION that literally reads 'NAO SEI — o recorte cientifico e por afiliacao nacional, nao por regiao de estudo'. It will look broken. It is not broken; it is honest. That screen may need a deliberate empty-state, which is a design decision, not an engineering one.",
+   "AM.UI.CATEGORY.unknown has label:null and icon:''. Any markup binding that assumes a non-empty icon URL will render a broken image box. Lines 221, 287, 303, 756, 917, 1530, 1809, 2160, 2177, 2307, 2332 all bind category.icon — every one needs an sc-if guard, and it is easy to miss one.",
+   "D.DEPT currently has all six colours identical (#978B87). Moving to AM.UI.DEPARTMENT is a pure copy, so nothing changes visually — which means a mistake here is silent. Diff the rendered colours, do not trust the copy.",
+   "The competitor crop axis change is the highest-variance item. Swapping in real Latin binomials will change every number in the matrix, the density strip and the compMoments cards at once, and the demo-tuned HIGH/MEDIUM/LOW thresholds will misfire. Consider shipping the axis change behind the competitor spec's own review rather than as part of this one.",
+   "italy-briefs.js:119 currently timestamps briefs with the real wall clock AND formats with 'en-GB'. Changing it to AM.referenceDate means every generated brief will say 02 Sep 2026 forever. That is correct under §6 but will read oddly to a presenter — it needs a caption saying the brief is generated against the intelligence reference date.",
+   "The localization counts are measurements with known noise. 431 markup text runs is a count of visible text fragments between tags, which over-counts split labels and under-counts text hidden inside attributes. 541 dc-script literals comes from a real JS string tokenizer with Italian-detection and CSS filtering, but a spot-read shows some are status codes and internal keys rather than user-visible copy. Treat both as order-of-magnitude ranking signals for prioritising screens, not as a work-item count.",
+   "Line 3372's fabricated history is claimed by both this spec and the researchers spec. If both engineers delete it the second edit conflicts; if neither does, it ships."
+  ],
+  "openQuestions": [
+   "Future Radar has no real status vocabulary. Should the screen show three unstatused signals with a plain 'DA VALIDARE' treatment, or should the whole status dimension disappear until upstream supplies one? This is a product call, not an engineering one.",
+   "IG.SOURCES.TYPE has 12 values and the demo taxonomy had 6 buckets. Is there an intended mapping from the 12 to a smaller presentation grouping, or should the six KPI tiles be replaced by counts over the raw 12?",
+   "Is the competitor crop axis meant to be species-level? Four of the 15 real terms ('colture', 'cereali', 'frutta', 'ortaggi', 96 activities between them) are Italian generic buckets. Merging them into species rows would be a fabrication; keeping them makes a mixed-granularity axis.",
+   "The department list and the planning lead offsets are ADAMA internal routing configuration. §1 says core must not require CRM/sell-in/pipeline — configuration is not that, but should the whole 'WHO SHOULD PREPARE · WHEN' component be moved under the INTEGRAZIONI · DEMO group alongside Field Sales, rather than sitting on a core window screen with a small caption?",
+   "D.KPI.people is 39 of which only 14 are real, and 7 of the demo ones are the synthetic TSR reps that italy-demo-data.js:777 adds with `KPI.people += TSR.length`. That inflated number feeds the Fonti nav count (K.orgs + K.people = 92). It is the sources spec's field, but it is the Field Sales fixture doing the inflating — who fixes it?",
+   "italy-i18n.js has 371 keys per language. Roughly a thousand user-visible strings are outside it. Is the goal full coverage, or Italian-correct on the screens a pilot actually demos (Radar, Crop Windows, Competitors, Field Sales) with English tolerated elsewhere?"
+  ],
+  "confidence": "high"
+ }
+]

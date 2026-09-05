@@ -1,0 +1,612 @@
+{
+ "DATASET": "EU-AGRIFOOD-CEREAL-PRODUCTION-IT",
+ "SOURCE_NAME": "European Commission - Agri-food Data Portal (cereal production API)",
+ "SOURCE_ID": "EU-T10-003",
+ "source": "https://www.ec.europa.eu/agrifood/api/cereal/production",
+ "RESOLVED_URL": "https://api.tech.ec.europa.eu/agrifood/api/cereal/production?memberStateCodes=IT&years=2020,2021,2022,2023,2024,2025,2026",
+ "SOURCE_LOCATION": "EUROPEAN UNION",
+ "FACT_LOCATION": "PAIS - Italia",
+ "ORIGINAL_LANGUAGE": "EN",
+ "EVIDENCE_CLASS": "OFFICIAL_STATISTIC",
+ "CAPTURED_AT": "2026-09-02",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "MEMBER_STATE": "IT",
+ "UNITS_DECLARED_BY_SOURCE": "NAO - a API nao declara unidade em nenhum campo",
+ "UNITS_INFERRED_AND_HOW": "grossProduction em MIL TONELADAS e area em MIL HECTARES. Inferido por dois caminhos: (a) aritmetica interna - grossProduction/area = yield em todas as linhas testadas (3618.25/1134.23=3.190 == yield 3.19); (b) triangulacao com ISMEA AgriMercati 1/2026, que para o milho 2025 publica 'superficie a circa 541 mila ettari', 'rese 10,2 t/ha' e 'produzione 5,5 milioni di tonnellate' - a API devolve 540.95, 10.19 e 5511.12 para o mesmo ano e cultura.",
+ "ANO_MAIS_RECENTE_DISPONIVEL": "2026",
+ "O_ANO_2026_E_DEFINITIVO_OU_ESTIMATIVA": "NAO SEI. A API nao traz campo de status. O pedido years=2027 devolve 404 com a mensagem 'No results found for the selected parameter(s)' - isto e VAZIO de dados, diferente do 404 de rota inexistente.",
+ "ROTAS_TESTADAS_QUE_NAO_EXISTEM": {
+  "nota": "o gateway responde 404 com 'No matching resource found for given API Request' (128 bytes) - isto significa ROTA NAO PUBLICADA, nao ausencia de dado",
+  "paths": [
+   "/agrifood/api/cereal/productions",
+   "/agrifood/api/cereal/balanceSheet",
+   "/agrifood/api/cereal/balanceSheets",
+   "/agrifood/api/cereal/trades",
+   "/agrifood/api/cereal/tradeData",
+   "/agrifood/api/cereal/trade",
+   "/agrifood/api/cereal/balance",
+   "/agrifood/api/cereal/imports",
+   "/agrifood/api/cereal/exports",
+   "/agrifood/api/cereal/tradeflow",
+   "/agrifood/api/cereal/supplyBalance",
+   "/agrifood/api/cereal/balanceSheetData",
+   "/agrifood/api/cereal/marketPrices"
+  ]
+ },
+ "O_QUE_ISTO_NAO_E": [
+  "area colhida NAO e area tratada com defensivo",
+  "producao NAO e oferta disponivel no mercado - falta estoque, importacao e exportacao",
+  "rendimento medio nacional NAO e rendimento de lavoura nenhuma em particular",
+  "queda de area NAO e queda de demanda de insumo"
+ ],
+ "ROWS": [
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2026,
+   "crop": "Barley",
+   "grossProduction": 785.96,
+   "area": 214.18,
+   "yield": 3.67
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2026,
+   "crop": "Durum wheat",
+   "grossProduction": 3588.31,
+   "area": 1131.96,
+   "yield": 3.17
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2026,
+   "crop": "Maize",
+   "grossProduction": 4527.33,
+   "area": 539.61,
+   "yield": 8.39
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2026,
+   "crop": "Triticale",
+   "grossProduction": 79.13,
+   "area": 17.09,
+   "yield": 4.63
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2026,
+   "crop": "Other cereals",
+   "grossProduction": 72.18,
+   "area": 25.51,
+   "yield": 2.83
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2026,
+   "crop": "Sorghum",
+   "grossProduction": 249.86,
+   "area": 46.43,
+   "yield": 5.38
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2026,
+   "crop": "Soft wheat",
+   "grossProduction": 2650.9,
+   "area": 504.6,
+   "yield": 5.25
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2026,
+   "crop": "Rye",
+   "grossProduction": 10.75,
+   "area": 3.58,
+   "yield": 3.0
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2026,
+   "crop": "Oat",
+   "grossProduction": 225.91,
+   "area": 100.74,
+   "yield": 2.24
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2025,
+   "crop": "Barley",
+   "grossProduction": 844.0,
+   "area": 228.83,
+   "yield": 3.69
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2025,
+   "crop": "Durum wheat",
+   "grossProduction": 3618.25,
+   "area": 1134.23,
+   "yield": 3.19
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2025,
+   "crop": "Maize",
+   "grossProduction": 5511.12,
+   "area": 540.95,
+   "yield": 10.19
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2025,
+   "crop": "Other cereals",
+   "grossProduction": 76.31,
+   "area": 26.79,
+   "yield": 2.85
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2025,
+   "crop": "Rye",
+   "grossProduction": 10.41,
+   "area": 3.6,
+   "yield": 2.89
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2025,
+   "crop": "Soft wheat",
+   "grossProduction": 2510.85,
+   "area": 511.24,
+   "yield": 4.91
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2025,
+   "crop": "Sorghum",
+   "grossProduction": 279.53,
+   "area": 48.15,
+   "yield": 5.81
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2025,
+   "crop": "Triticale",
+   "grossProduction": 78.25,
+   "area": 15.73,
+   "yield": 4.97
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2025,
+   "crop": "Oat",
+   "grossProduction": 223.46,
+   "area": 98.09,
+   "yield": 2.28
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2024,
+   "crop": "Sorghum",
+   "grossProduction": 247.75,
+   "area": 43.28,
+   "yield": 5.72
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2024,
+   "crop": "Soft wheat",
+   "grossProduction": 2562.97,
+   "area": 520.31,
+   "yield": 4.93
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2024,
+   "crop": "Rye",
+   "grossProduction": 11.62,
+   "area": 3.69,
+   "yield": 3.15
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2024,
+   "crop": "Other cereals",
+   "grossProduction": 65.53,
+   "area": 23.04,
+   "yield": 2.84
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2024,
+   "crop": "Triticale",
+   "grossProduction": 65.52,
+   "area": 14.85,
+   "yield": 4.41
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2024,
+   "crop": "Maize",
+   "grossProduction": 4924.5,
+   "area": 495.35,
+   "yield": 9.94
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2024,
+   "crop": "Durum wheat",
+   "grossProduction": 3500.08,
+   "area": 1177.44,
+   "yield": 2.97
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2024,
+   "crop": "Barley",
+   "grossProduction": 891.52,
+   "area": 239.08,
+   "yield": 3.73
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2024,
+   "crop": "Oat",
+   "grossProduction": 206.6,
+   "area": 94.32,
+   "yield": 2.19
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2023,
+   "crop": "Oat",
+   "grossProduction": 225.55,
+   "area": 102.6,
+   "yield": 2.2
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2023,
+   "crop": "Maize",
+   "grossProduction": 5331.34,
+   "area": 498.45,
+   "yield": 10.7
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2023,
+   "crop": "Durum wheat",
+   "grossProduction": 3688.05,
+   "area": 1269.29,
+   "yield": 2.91
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2023,
+   "crop": "Barley",
+   "grossProduction": 1158.76,
+   "area": 290.3,
+   "yield": 3.99
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2023,
+   "crop": "Other cereals",
+   "grossProduction": 69.39,
+   "area": 24.19,
+   "yield": 2.87
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2023,
+   "crop": "Triticale",
+   "grossProduction": 73.92,
+   "area": 16.27,
+   "yield": 4.54
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2023,
+   "crop": "Sorghum",
+   "grossProduction": 239.17,
+   "area": 41.09,
+   "yield": 5.82
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2023,
+   "crop": "Soft wheat",
+   "grossProduction": 3039.79,
+   "area": 598.28,
+   "yield": 5.08
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2023,
+   "crop": "Rye",
+   "grossProduction": 10.64,
+   "area": 3.59,
+   "yield": 2.96
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2022,
+   "crop": "Barley",
+   "grossProduction": 1124.29,
+   "area": 267.96,
+   "yield": 4.2
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2022,
+   "crop": "Durum wheat",
+   "grossProduction": 3690.03,
+   "area": 1237.96,
+   "yield": 2.98
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2022,
+   "crop": "Maize",
+   "grossProduction": 4681.93,
+   "area": 563.7,
+   "yield": 8.31
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2022,
+   "crop": "Triticale",
+   "grossProduction": 62.89,
+   "area": 14.58,
+   "yield": 4.31
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2022,
+   "crop": "Sorghum",
+   "grossProduction": 191.16,
+   "area": 36.05,
+   "yield": 5.3
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2022,
+   "crop": "Other cereals",
+   "grossProduction": 74.75,
+   "area": 25.63,
+   "yield": 2.92
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2022,
+   "crop": "Rye",
+   "grossProduction": 10.42,
+   "area": 3.44,
+   "yield": 3.03
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2022,
+   "crop": "Soft wheat",
+   "grossProduction": 2759.75,
+   "area": 538.77,
+   "yield": 5.12
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2022,
+   "crop": "Oat",
+   "grossProduction": 242.28,
+   "area": 104.11,
+   "yield": 2.33
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2021,
+   "crop": "Barley",
+   "grossProduction": 1059.8,
+   "area": 251.77,
+   "yield": 4.21
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2021,
+   "crop": "Durum wheat",
+   "grossProduction": 4065.01,
+   "area": 1228.5,
+   "yield": 3.31
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2021,
+   "crop": "Maize",
+   "grossProduction": 6060.23,
+   "area": 588.6,
+   "yield": 10.3
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2021,
+   "crop": "Other cereals",
+   "grossProduction": 94.45,
+   "area": 30.76,
+   "yield": 3.07
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2021,
+   "crop": "Rye",
+   "grossProduction": 10.89,
+   "area": 3.38,
+   "yield": 3.22
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2021,
+   "crop": "Soft wheat",
+   "grossProduction": 3053.27,
+   "area": 498.11,
+   "yield": 6.13
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2021,
+   "crop": "Sorghum",
+   "grossProduction": 223.46,
+   "area": 37.54,
+   "yield": 5.95
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2021,
+   "crop": "Triticale",
+   "grossProduction": 61.75,
+   "area": 13.21,
+   "yield": 4.67
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2021,
+   "crop": "Oat",
+   "grossProduction": 233.45,
+   "area": 99.49,
+   "yield": 2.35
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2020,
+   "crop": "Sorghum",
+   "grossProduction": 361.69,
+   "area": 52.91,
+   "yield": 6.84
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2020,
+   "crop": "Soft wheat",
+   "grossProduction": 2668.64,
+   "area": 500.8,
+   "yield": 5.33
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2020,
+   "crop": "Rye",
+   "grossProduction": 11.48,
+   "area": 3.58,
+   "yield": 3.21
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2020,
+   "crop": "Other cereals",
+   "grossProduction": 107.03,
+   "area": 33.91,
+   "yield": 3.16
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2020,
+   "crop": "Triticale",
+   "grossProduction": 58.53,
+   "area": 13.04,
+   "yield": 4.49
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2020,
+   "crop": "Durum wheat",
+   "grossProduction": 3885.22,
+   "area": 1210.42,
+   "yield": 3.21
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2020,
+   "crop": "Maize",
+   "grossProduction": 6771.09,
+   "area": 602.86,
+   "yield": 11.23
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2020,
+   "crop": "Oat",
+   "grossProduction": 242.71,
+   "area": 103.46,
+   "yield": 2.35
+  },
+  {
+   "memberStateCode": "IT",
+   "memberStateName": "Italy",
+   "year": 2020,
+   "crop": "Barley",
+   "grossProduction": 1090.63,
+   "area": 263.43,
+   "yield": 4.14
+  }
+ ]
+}

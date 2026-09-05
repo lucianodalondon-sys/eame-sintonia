@@ -1,0 +1,48 @@
+{
+ "DATASET": "EU-AGRIFOOD-WINE-PRICES-IT",
+ "SOURCE_NAME": "European Commission — Agri-food Data Portal",
+ "SOURCE_ID": "EU-T10-002",
+ "source": "https://www.ec.europa.eu/agrifood/api/wine/prices",
+ "RESOLVED_URL": "https://api.tech.ec.europa.eu/agrifood/api/wine/prices?memberStateCodes=IT&years=2024,2025,2026",
+ "REDIRECT_NOTE": "www.ec.europa.eu responde 302 para api.tech.ec.europa.eu. Sem seguir o redirecionamento a resposta e uma pagina de 762 bytes — que NAO e erro e NAO e vazio.",
+ "SOURCE_LOCATION": "EUROPEAN UNION",
+ "FACT_LOCATION": "mercado nomeado dentro do pais",
+ "ORIGINAL_LANGUAGE": "EN",
+ "EVIDENCE_CLASS": "OFFICIAL_MARKET_OBSERVATION",
+ "CAPTURED_AT": "2026-09-02",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "MEMBER_STATE": "IT",
+ "YEARS_REQUESTED": [
+  "2024",
+  "2025",
+  "2026"
+ ],
+ "RECORDS": 190,
+ "PRODUCT_MARKET_PAIRS": 1,
+ "PRICE_IS_TEXT_IN_SOURCE": "sim — \"€237,00\". PRICE_RAW preserva o original; PRICE_NUM e a conversao, e vem None quando o formato nao foi reconhecido. Nunca 0.",
+ "O_QUE_ISTO_NAO_E": [
+  "nao e preco pago pela ADAMA nem por ninguem em particular",
+  "nao e o mesmo estagio comercial entre pracas — ver STAGE",
+  "nao e serie continua: praca que nao cotou na semana nao aparece",
+  "comparar pracas diferentes exige conferir STAGE e UNIT antes"
+ ],
+ "LATEST_BY_PRODUCT_MARKET": [
+  {
+   "PRODUCT": null,
+   "MARKET": "Italy",
+   "MARKETING_YEAR": null,
+   "PRICE_RAW": "€61.75",
+   "PRICE_NUM": 61.75,
+   "UNIT": "Euro / HL.",
+   "STAGE": null,
+   "BEGIN": "30/06/2025",
+   "END": "06/07/2025",
+   "REFERENCE_PERIOD": null,
+   "PREV_PRICE_NUM": 70.88,
+   "YEAR_AGO_PRICE_NUM": 51.05,
+   "YEAR_AGO_END": "07/07/2024",
+   "OBSERVATIONS_IN_SERIES": 190
+  }
+ ]
+}

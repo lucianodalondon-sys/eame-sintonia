@@ -37,6 +37,11 @@ E O SCHEMA É OBSERVADO, NÃO ADIVINHADO
 `esqueleto()` devolve apenas a ESTRUTURA — nomes de campo, tipos, aninhamento —
 sem valores. É o que vai para o log, para que dê para desenhar o parser sem
 baixar artefato e sem expor conteúdo de perfil de ninguém.
+
+PROVENIÊNCIA
+------------
+infraestrutura COMUM, portada sem alteração do piloto italiano.
+Recuperar run existente é leitura, e leitura não tem país.
 """
 import datetime
 import gzip

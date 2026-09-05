@@ -14,9 +14,21 @@ PROMPT = os.path.join(ROOT, 'PROMPT-PARA-NOVA-CONTA-CLAUDE.md')
 SAMPLES = os.path.join(ROOT, 'data', 'samples')
 
 
+MARCADOR = re.compile(r'<!--/?M:?[A-Z0-9_]*-->')
+
+
 def texto(p):
     with open(p, encoding='utf-8') as f:
         return f.read()
+
+
+def sem_marcador(p):
+    """O documento como quem o lê o vê.
+
+    `<!--M:NOME-->280<!--/M-->` e andaime de `metricas_canonicas.py --sync`: para o leitor
+    o que esta ali e o numero. Quem compara numero publicado le por aqui.
+    """
+    return MARCADOR.sub('', texto(p))
 
 
 def amostra(nome):
@@ -96,7 +108,7 @@ class TestSentinelasDoHandoffBatemComOLedger(unittest.TestCase):
 
     def test_os_valores_das_sentinelas_batem(self):
         t = texto(PROMPT)
-        for m, esperado in [('SOURCE_ID_COUNT', 36), ('RAIF_SEASONS_AVAILABLE', 23),
+        for m, esperado in [('SOURCE_ID_COUNT', 37), ('RAIF_SEASONS_AVAILABLE', 23),
                             ('RAIF_READINGS_TOTAL', 148964), ('ES_EXPIRING_6M', 486),
                             ('ES_EXPIRING_12M', 1004), ('ES_ACTIVE_WITH_PAST_EXPIRY', 34),
                             ('VOICE_ES_RESEARCHERS', 152), ('VOICE_ES_VIDEO_CONTENTS', 252),
@@ -109,7 +121,7 @@ class TestSentinelasDoHandoffBatemComOLedger(unittest.TestCase):
 
     def test_a_contagem_de_testes_do_handoff_bate(self):
         n = self.L['TEST_COUNT_CURRENT']['VALUE']
-        self.assertRegex(texto(HANDOFF), rf'\*\*{n} testes',
+        self.assertRegex(sem_marcador(HANDOFF), rf'\*\*{n} testes',
                          'o handoff publica uma contagem de testes que nao e a atual')
         self.assertRegex(texto(PROMPT), rf'Esperado: {n} testes')
 

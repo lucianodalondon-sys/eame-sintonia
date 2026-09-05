@@ -1,0 +1,195 @@
+# ═══════════════════════════════════════════════════════════════════════
+# APLICA A CADEIA CANONICA no Supabase EAME e roda a 008 contra o banco REAL.
+#
+# A ordem NAO mora aqui: mora em scripts/cadeia_canonica.sh, que o CI usa
+# tambem. Duas listas de passos em dois arquivos divergem — e a missao pediu
+# uma ordem so.
+# A 008 e a ULTIMA, nao a oitava: ela confere o que as outras escreveram.
+#
+# Para no primeiro erro, em dois pontos:
+#   · antes de escrever, se o `public` nao estiver vazio;
+#   · em qualquer migration que falhe — sem improvisar conserto no banco.
+#
+# Nao cria bucket, nao carrega dado, nao usa Apify.
+# ═══════════════════════════════════════════════════════════════════════
+name: supabase-migrate
+
+on:
+  workflow_dispatch:
+    inputs:
+      importar:
+        description: >-
+          Alem de aplicar as migrations, executar os imports canonicos
+          (regulatorio ES e catalogo ADAMA ES). Padrao NAO — migrar nao pode
+          virar importar por acidente.
+        type: boolean
+        default: false
+  push:
+    paths: ['.github/workflows/supabase-migrate.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  migrar:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_URL:        ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+      SUPABASE_DB_URL:     ${{ secrets.SUPABASE_DB_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 1 · pre-voo — nao escrever em banco que nao esta como esperado
+        run: |
+          set -e
+          psql "$SUPABASE_DB_URL" -tAc "select 1" >/dev/null 2>/tmp/e \
+            || { echo "DB_CONNECTION=FAIL"; sed -E 's#at "[^"]*"#at "<OMITIDO>"#g' /tmp/e|head -2; exit 1; }
+          echo "DB_CONNECTION=PASS"
+          # information_schema.tables conta VIEWS junto. Na execucao 1 isso passou batido
+          # porque o banco estava vazio (0 = 0); na 2 o mesmo contador leu 23 tabelas + 5
+          # views = 28 e o portao barrou um estado que era, na verdade, o esperado.
+          # pg_tables e o mesmo dono que o inventario final ja usava.
+          n=$(psql "$SUPABASE_DB_URL" -tAc \
+              "select count(*) from pg_tables where schemaname='public'")
+          echo "TABLES_IN_PUBLIC=$n"
+          python3 - <<'PY'
+          import os, re, urllib.parse as U
+          a = U.urlparse(os.environ['SUPABASE_URL']).hostname or ''
+          ra = a.split('.')[0] if a.endswith('supabase.co') else ''
+          d = U.urlparse(os.environ['SUPABASE_DB_URL'])
+          h, u = (d.hostname or ''), (d.username or '')
+          m = re.match(r'db\.([a-z0-9]+)\.supabase\.', h)
+          rd = m.group(1) if m else (u.split('.', 1)[1] if '.' in u else '')
+          print('SAME_PROJECT_CONFIRMED=' + ('YES' if ra and rd and ra == rd else 'NO'))
+          raise SystemExit(0 if (ra and rd and ra == rd) else 1)
+          PY
+          # ANTES: uma lista fixa — 0, 23, 26 ou 30 tabelas. Ela envelhecia a cada
+          # migration e ja estava para tras: o core passou de 30 na 016 e de novo
+          # na 018, e o portao teria barrado um estado que era o esperado.
+          #
+          # Contar tabelas nunca foi a pergunta certa. A pergunta e a cicatriz do
+          # Brasil — la havia coluna e funcao criadas a mao no painel, fora de
+          # qualquer .sql, e "quem for montar este banco do zero amanha monta um
+          # banco que nao funciona". Entao:
+          #
+          #     o public do banco contem algo que ESTE repositorio nao cria?
+          #
+          # Isso e derivavel das migrations, e nao precisa de numero nenhum.
+          excedente=$(psql "$SUPABASE_DB_URL" -tAc \
+            "$(python3 scripts/inventario_esperado.py --sql)")
+          if [ -n "$excedente" ]; then
+            echo "PARADO: public tem tabela que nenhuma migration cria: $excedente"
+            echo "Escrever aqui seria escrever por cima de algo que ninguem declarou."
+            exit 1
+          fi
+          echo "ESTADO_ACEITO=$n tabelas, nenhuma fora do que o Git cria"
+          python3 scripts/inventario_esperado.py | head -1
+
+      - name: 2 · aplicar a cadeia canonica de migrations
+        # A ordem vem do script, nao daqui. O mesmo script roda no CI contra um
+        # Postgres descartavel — e por isso as duas ordens nao podem divergir.
+        run: bash scripts/cadeia_canonica.sh migrations "$SUPABASE_DB_URL"
+
+      - name: 3 · 008 — o banco REAL tem as travas que o Git diz ter?
+        # Inclui os quatro relogios: sem esta conferencia, um banco sem
+        # crop_calendar passaria calado e o portal responderia NO_DATA para
+        # tudo, como se fosse ausencia de fato e nao ausencia de schema.
+        run: |
+          if psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 \
+               -f supabase/migrations/008_verificacao_pos_aplicacao.sql >/tmp/o 2>&1; then
+            echo "POST_APPLY_VERIFICATION=PASS"; grep -i notice /tmp/o | head -3
+          else
+            echo "POST_APPLY_VERIFICATION=FAIL"; grep -iE "faltando|erro|error" /tmp/o | head -12
+            exit 1
+          fi
+
+      - name: 5 · IMPORTS canonicos — regulatorio ES, depois catalogo ES
+        if: inputs.importar
+        run: |
+          set -e
+          # Baseline ANTES de escrever dado. Se o import falhar no meio, o que
+          # ficou registrado aqui e o ponto de partida — e nao se improvisa
+          # DELETE nem TRUNCATE para "voltar".
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'BASELINE_REGISTROS='||count(*) from public.registro_regulatorio"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'BASELINE_CATALOGO_PRODUTOS='||count(*) from public.catalogo_produto"
+          # A ordem vem do mesmo script que o CI usa. Regulatorio ANTES do
+          # catalogo: as 52 ROPF_ONLY nao tem lado de produto e precisam de um
+          # registro existente para satisfazer crosswalk_tem_pelo_menos_um_lado.
+          bash scripts/cadeia_canonica.sh importacoes "$SUPABASE_DB_URL"
+
+      - name: 6 · contadores medidos DO BANCO REAL
+        if: inputs.importar
+        run: |
+          set -e
+          psql "$SUPABASE_DB_URL" -tA -F'=' -c "
+            select 'ROPF_RECORDS', count(*) from public.registro_regulatorio where fonte='MAPA_ROPF'
+            union all select 'ROPF_ONLY_RESOLVED', count(*) from public.catalogo_registro_crosswalk
+                      where estado='ROPF_ONLY' and registro_id is not null
+            union all select 'PRODUCTS', count(*) from public.catalogo_produto
+            union all select 'DOCUMENTS', count(*) from public.catalogo_produto_documento
+            union all select 'CROP_RELATIONS', count(*) from public.catalogo_produto_cultivo
+            union all select 'DECLARED', count(*) from public.catalogo_produto_cultivo
+                      where origem_declaracao='DECLARADO_NO_BLOCO_CULTIVOS'
+            union all select 'CITED', count(*) from public.catalogo_produto_cultivo
+                      where origem_declaracao='CITADO_NO_CORPO_DA_PAGINA'
+            union all select 'CROP_ISSUE', count(*) from public.catalogo_produto_cultivo_agente
+            union all select 'CROP_DOSE', count(*) from public.catalogo_produto_cultivo_dose
+            union all select 'WINDOWS', count(*) from public.catalogo_produto_janela_aplicacao
+            union all select 'LOCAL_REGISTERED', count(*) from public.catalogo_registro_crosswalk
+                      where estado in ('MATCHED_EXACT','MATCHED_WITH_EVIDENCE')
+            union all select 'LOCAL_PRESENT_NOT_PROVED', count(*) from public.catalogo_registro_crosswalk
+                      where estado='ADAMA_SITE_ONLY'" | tee /tmp/cont
+          # O banco manda. Divergiu do esperado, para — nao maquia.
+          esperado="ROPF_RECORDS=96 ROPF_ONLY_RESOLVED=52 PRODUCTS=56 DOCUMENTS=147
+                    CROP_RELATIONS=711 DECLARED=588 CITED=123 CROP_ISSUE=5 CROP_DOSE=26
+                    WINDOWS=3 LOCAL_REGISTERED=44 LOCAL_PRESENT_NOT_PROVED=12"
+          for par in $esperado; do
+            grep -qx "$par" /tmp/cont || { echo "PARADO: divergiu — esperava $par"; exit 1; }
+          done
+          echo "CONTADORES_BATEM=YES"
+
+      - name: 7 · round-trip, isolacao de pais e as leis que sobrevivem
+        if: inputs.importar
+        run: |
+          set -e
+          psql "$SUPABASE_DB_URL" -f supabase/tests/regressoes_regulatorio_es.sql 2>&1 | tee /tmp/rg
+          grep -q "REGRESSOES_REGULATORIO_ES=PASS" /tmp/rg
+          psql "$SUPABASE_DB_URL" -f supabase/tests/regressoes_catalogo_es.sql 2>&1 | tee /tmp/ct
+          grep -q "REGRESSOES_CATALOGO_ES=PASS" /tmp/ct
+          # RAW round-trip: o banco tem de apontar para o objeto preservado.
+          psql "$SUPABASE_DB_URL" -tA -F'=' -c "
+            select 'AVASTEL_BYTES', bytes from public.raw_asset
+             where storage_path like '%Folleto AVASTEL%'
+            union all select 'NEPTUNE_DOCS_COM_RAW', count(*)::bigint
+              from public.catalogo_produto_documento d
+              join public.catalogo_produto p on p.id=d.produto_id
+             where p.nome_publicado='NEPTUNE' and d.raw_asset_id is not null"
+
+      - name: 4 · inventario real, medido do banco
+        if: always()
+        run: |
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'PUBLIC_TABLE_COUNT='||count(*) from pg_tables where schemaname='public'"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'RLS_ENABLED_TABLE_COUNT='||count(*) from pg_tables where schemaname='public' and rowsecurity"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'PUBLIC_VIEW_COUNT='||count(*) from pg_views where schemaname='public'"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'CHECK_CONSTRAINTS='||count(*) from pg_constraint c join pg_namespace n on n.oid=c.connamespace where n.nspname='public' and c.contype='c'"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'UNIQUE_INDEXES='||count(*) from pg_indexes i join pg_class c on c.relname=i.indexname where i.schemaname='public' and c.relkind='i' and exists (select 1 from pg_index x where x.indexrelid=c.oid and x.indisunique)"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'ROWS_TOTAL='||coalesce(sum(n_live_tup),0) from pg_stat_user_tables where schemaname='public'"
+          # Os quatro relogios, contados um a um. Zero linha e resposta valida
+          # aqui — este workflow aplica schema e nao carrega dado nenhum.
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'CLOCK_A_CROP_CALENDAR_ROWS='||count(*) from public.crop_calendar"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'CLOCK_B_ISSUE_WINDOW_ROWS='||count(*) from public.issue_window"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'CLOCK_C_PRODUCT_WINDOW_ROWS='||count(*) from public.registro_uso_janela"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'CLOCK_D_FRESHNESS_RULES='||count(*) from public.freshness_regra"

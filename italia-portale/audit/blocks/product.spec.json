@@ -1,0 +1,375 @@
+[
+ {
+  "domain": "PORTFOLIO / PRODUCT INTELLIGENCE / PRODUCT RELATIONSHIPS",
+  "summary": "Two screens plus a cross-cutting relationship graph. PORTAFOGLIO (portale.html markup 1397-1424, logic 3026-3047) is already clean: it lists AM.products (166 = 163 real registrations + BUDGE/EXELGROW/PARLEAF which are catalog-only) in two deliberately separate tabs, CATALOGO COMMERCIALE (44 catalog items) and UNIVERSO REGOLATORIO (163 registrations), filtered by categoryLabel (ERBICIDI 91 / FUNGICIDI 46 / INSETTICIDI 23 / SPECIALI 6). PRODUCT INTELLIGENCE (markup 1339-1395, logic 2999-3023) shows one product's identity plus three relationship cards (verified / check-needed / not-confirmed) and a separate \"VEDI OPPORTUNITÀ COLLEGATE\" CTA. The identity facts are real (IG.PRODUCTS: name, reg, holder, ai, form, regCat, line, status, expiry, hrac/frac/irac, labelUrl — 163/163 populated). The RELATIONSHIPS are not: italy-app-model.js line 102 builds every product link by walking D.CASES[].productLinks, so which crop x issue x product triples exist at all is decided by a demo fixture (29 demo cases, 80 links). window.ITALY_LABEL_VERDICTS — the real 163-label audit — is loaded but italy-app-model.js never reads it; only italy-demo-data.js line 281 calls LV.verdict() to GRADE the fixture's own candidate list. The measured consequence: 57 distinct triples, of which 42 are LABEL_CHECK_NEEDED invented by the fixture; the visible 10 / 10 / 9 is the portfolioState of the 29 demo opportunity cards.",
+  "realSource": "APP.productRelationships (new canonical collection) fed, in precedence order, by: (1) ITALY_CANONICAL.windows[].PRODUCT_MATCHES — MEASURED EMPTY: all 29 windows have PRODUCT_MATCHES = [], so this tier contributes 0 rows today and exists only so the next HANDOFF load lights it up; (2) window.ITALY_LABEL_VERDICTS — 12 VERIFIED triples + 7 NOT_FOUND triples, audit date 2026-09-02, source \"Claude Code reading of 163 official Italian product labels\"; (3) IG.LINKS — 219 rows, all prov REAL_FACT / evidence REGULATORY_FACT, carrying crop enum + Latin target + product + reg + ai + moa + labelUrl, covering only 19 distinct products; (4) IG.PRODUCTS[].crops + [].line for the RELATED_PORTFOLIO tier. Product identity keeps coming from IG.PRODUCTS (163) joined to ITALY_CATALOG.ITEMS (44, matchState REGULATORY_MATCH_CONFIRMED 41 / NOT_FOUND 3). Windows come from AM.collections.windows (29 canonical), never D.WINDOWS.",
+  "occurrences": [
+   {
+    "file": "italy-app-model.js",
+    "line": 98,
+    "symbol": "D.PRODUCTS",
+    "snippet": "Object.keys(D.PRODUCTS || {}).forEach(k => { if (!byName[norm(k)]) addProduct(k, { ai: (D.PRODUCTS[k] || {}).ai, provenance: P.SYNTHETIC_DEMO }); });",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Injects a demo product entity carrying a demo `ai` string into the same collection the Portafoglio and Product Intelligence screens count and render. MEASURED: all 33 demo product names already exist in IG.PRODUCTS, so this line currently adds 0 records and 0 demo `ai` values — it is a live trapdoor with no current effect, not a needed fallback.",
+    "replacement": "DELETE_COMPONENT — remove the line entirely. AM.products stays 166 (163 regulatory + BUDGE/EXELGROW/PARLEAF from the catalog). Verified by count before/after."
+   },
+   {
+    "file": "italy-app-model.js",
+    "line": 102,
+    "symbol": "D.CASES[].productLinks",
+    "snippet": "(D.CASES || []).forEach(c => (c.productLinks || []).forEach(l => { const e = byName[norm(l.name)]; if (e) e.links.push({ crop: c.crop, issue: c.issue, region: c.region, caseId: c.id, strength: l.strength }); }));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "THE model-level defect. The set of crop x issue x product relationships that exist at all is read from a demo fixture; the label audit only grades that fixture's own guesses. MEASURED: 80 link rows / 57 distinct triples, 42 of them LABEL_CHECK_NEEDED that exist for no reason other than that a demo case listed the product. It also carries `region`, which is a fact (a label is national, it has no region).",
+    "replacement": "Replace with the new builder described in modelChanges: relationships = CANON PRODUCT_MATCHES (0 rows today) > LV.VERIFIED/LV.NOT_FOUND (12 + 7) > IG.LINKS crop+target match (15 rows) > IG.PRODUCTS crop+line match (321 rows, RELATED_PORTFOLIO). Each record keeps windowId, evidenceKind, labelUrl, reg, mappingRule."
+   },
+   {
+    "file": "italy-app-model.js",
+    "line": 125,
+    "symbol": "strengthFor / e.links",
+    "snippet": "const strengthFor = (name, crop, issue) => { const e = productByKey[norm(name)]; if (!e) return 'NO_CONFIRMED_MATCH_CURRENT_READING'; const hit = e.links.find(l => l.crop === crop && l.issue === issue); return hit ? hit.strength : 'NO_CONFIRMED_MATCH_CURRENT_READING'; };",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Silently returns NO_CONFIRMED_MATCH_CURRENT_READING for any triple the demo fixture never listed. That is exactly the rule-10 violation: 'the audit rejected it' and 'nobody ever looked' render identically, and the UI prints the rejection wording.",
+    "replacement": "strengthFor(name, crop, issue) must return one of VERIFIED_LABEL_MATCH | RELATED_PORTFOLIO | LABEL_CHECK_NEEDED | NO_CONFIRMED_MATCH_CURRENT_READING | NOT_ASSESSED, reading APP.productRelationships. NOT_ASSESSED is the new default when no tier matched; only LV.NOT_FOUND may yield NO_CONFIRMED_MATCH_CURRENT_READING."
+   },
+   {
+    "file": "portale.html",
+    "line": 2897,
+    "symbol": "D.PRODUCTS (x3)",
+    "snippet": "hasProduct: !!(sg0 || {}).product, noProduct: !(sg0 || {}).product, p: (sg0 || {}).product ? Object.assign({}, D.PRODUCTS[(sg0 || {}).product], { crops: D.PRODUCTS[(sg0||{}).product].crops.join(', '), targets: ... }) : {}",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "sgPool = real futureSignals (3, from IG.FUTURE_SIGNALS which has PORTFOLIO_CONNECTION and no `product` field) concatenated with demo scenarios only when s.showScenarios is on. So this branch fires ONLY for a DEMO_SCENARIO record. It stays demo — but it renders demo `crops` and `targets` as if they were label facts inside a card that looks identical to the real one.",
+    "replacement": "KEEP the demo branch behind s.showScenarios, but change the read to AM.findProduct(sg0.product) so crops/targets come from IG.PRODUCTS when the name resolves, and add the real branch: for a real signal use raw.PORTFOLIO_CONNECTION and AM.productRelationships filtered by (crop, issue). If neither resolves, render t.prodNotObservable — never D.PRODUCTS."
+   },
+   {
+    "file": "portale.html",
+    "line": 2947,
+    "symbol": "D.PRODUCTS (x2), D.CASES",
+    "snippet": "const mProducts = [...new Set(mCases.map(c => c.products).reduce((a,b)=>a.concat(b),[]))].slice(0,8).map(n => ({ name: n, targets: D.PRODUCTS[n] ? D.PRODUCTS[n].targets.slice(0,2).join(' · ') : '', go: () => this.openProduct(n) }));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Market Pulse crop panel prints a portfolio list under the heading 'PORTFOLIO & RELATED SIGNALS'. Both the list (D.CASES[].products) and the target line (D.PRODUCTS[n].targets) are fixture. mCases also comes from D.CASES.",
+    "replacement": "const mProducts = AM.collections.productRelationships.records.filter(r => r.crop === mc.crop && r.strength !== 'NO_CONFIRMED_MATCH_CURRENT_READING').sort(byStrengthRank).slice(0,8).map(r => ({ name: r.product, targets: (AM.findProduct(r.product).targets||[]).slice(0,2).join(' · '), strengthLabel: T.PSTATE[r.strength], go: () => this.openProduct(r.product) }))"
+   },
+   {
+    "file": "portale.html",
+    "line": 3185,
+    "symbol": "D.CPRODUCTS (x2)",
+    "snippet": "const cp0 = D.CPRODUCTS.find(p => p.name === s.cproductId) || D.CPRODUCTS[0];",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The competitor-product detail view (view 'cproduct') is 100% fixture: 14 invented product names (Belanty, Revysol, Movento, Zorvec...) with invented crops, issues, first/last dates, paid counts and linked cases. The real corpus has IG.COMP_PRODUCTS[36] with a completely different, evidence-backed name set (Exirel, Arc, Spectrum, Cyazypyr, Efficon...) and only four fields: PRODUCT, COMPANY, ADS_REACHING_IT, PROOF ('MARCA_REGISTRADA_NO_TEXTO do anuncio').",
+    "replacement": "cp0 = AM.collections.competitorProducts.records.find(p => p.product === s.cproductId). Real fields available: product, company, adsReachingIt, proof. Activities: IG.COMP_ACTIVITIES filtered on (a.products||[]).includes(product) — MEASURED 102/503 activities carry a products array. crops/issues/first/last/paid/people/cases must be derived from those activities or dropped (see fieldsThatDie)."
+   },
+   {
+    "file": "portale.html",
+    "line": 3379,
+    "symbol": "D.PRODUCT_LIST",
+    "snippet": "sgp('ADAMA PRODUCTS', '#978B87', D.PRODUCT_LIST.filter(p => match(p.name + ' ' + p.ai + ' ' + p.crops.join(' ') + ' ' + p.targets.join(' '))).map(p => ({ label: p.name + ' · ' + p.ai, meta: p.crops.join(', '), go: () => this.openProduct(p.name) })))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Global search can only find 33 of the 166 products the Portafoglio screen shows, and matches on demo `ai`, `crops`, `targets` strings. A user searching an ADAMA product that exists in the registry gets 'not found'.",
+    "replacement": "AM.products.filter(p => match([p.name, (p.ai||[]).join(' '), p.categoryLabel, (p.crops||[]).join(' '), (p.targets||[]).join(' ')].join(' '))).map(p => ({ label: p.name + ' · ' + (p.ai||[]).join(' + '), meta: (p.crops||[]).join(', ') || T.prodNotObservable, go: () => this.openProduct(p.name) })) — or reuse AM.searchIndex entries of kind 'product'."
+   },
+   {
+    "file": "portale.html",
+    "line": 3418,
+    "symbol": "Object.keys(D.PRODUCTS)",
+    "snippet": "{ key: 'fProduct', icon: ICO('recycle-label'), accent: '#00698F', value: s.fProduct, set: this.sel('fProduct'), options: opts(T.allProducts, Object.keys(D.PRODUCTS)) }",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The radar product filter offers 33 options and calls them the ADAMA product universe. It is a vocabulary claim about which products exist, sourced from the fixture, and it is the target of the Product Intelligence 'VEDI OPPORTUNITÀ COLLEGATE' CTA (radarWith({fProduct: e.name})) — so a real product opened from Portafoglio can route to a filter value that does not exist in the list.",
+    "replacement": "options: opts(T.allProducts, AM.collections.productRelationships.records.map(r => r.product).filter(unique).sort()) — only products that actually carry a relationship, so the filter never offers an option that yields zero results."
+   },
+   {
+    "file": "portale.html",
+    "line": 3426,
+    "symbol": "Object.keys(D.PRODUCTS)",
+    "snippet": "productOptions: opts('All ADAMA products', Object.keys(D.PRODUCTS))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Second copy of the same 33-name vocabulary, feeding the other filter bar. Same claim, same defect. (This occurrence is not in the brief's list of 7 — it was found by grep.)",
+    "replacement": "Same expression as line 3418; extract it once into a local const productFilterOptions and use it in both places."
+   },
+   {
+    "file": "portale.html",
+    "line": 2880,
+    "symbol": "D.CASES[].productObjs (D.PRODUCTS objects)",
+    "snippet": "products: wd0.c.productObjs.map((p, i) => Object.assign({}, p, { role: i === 0 ? 'PRIMARY MATCH' : 'RELATED MATCH', ..., targetFit: p.targets.filter(t => wd0.issue.toLowerCase().includes(t.toLowerCase().split(' ')[0]) || ...).join(', ') || p.targets[0], go: () => this.openProduct(p.name) }))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Feeds the window-detail block whose own heading claims 'PRODUCTS TO PREPARE · real Italy portfolio relationships only' (markup line 781). Every value in it is fixture: the product list, p.ai, p.use, p.moa, and targetFit — which is invented on the spot by substring-matching a demo target string against the issue name. Role PRIMARY/RELATED is assigned by array position, not by evidence.",
+    "replacement": "products: AM.collections.productRelationships.records.filter(r => r.windowId === wd0.windowId && r.strength !== 'NO_CONFIRMED_MATCH_CURRENT_READING').sort(byStrengthRank).map(r => ({ name: r.product, role: T.PSTATE[r.strength], roleColor: LV.STRENGTH[r.strength].color, ai: (AM.findProduct(r.product).ai||[]).join(' + '), target: r.target || null, moa: r.moaLabel, labelUrl: r.labelUrl, go: () => this.openProduct(r.product) })). Drop p.use and targetFit (see fieldsThatDie)."
+   },
+   {
+    "file": "portale.html",
+    "line": 2863,
+    "symbol": "D.WINDOWS[].prods",
+    "snippet": "goProduct: () => dw0.prods.length && this.openProduct(dw0.prods[0].name),",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "MEASURED: D.WINDOWS[0].prods is [] and D.WINDOWS has no `prods` key at all (keys are id, caseId, c, crop, region, issue, category, days, remaining, open, confirmed, kind, ...). The CTA is silently dead today and would resurrect a fixture relationship if `prods` ever returned.",
+    "replacement": "goProduct: () => { const r = AM.collections.productRelationships.records.filter(x => x.windowId === dw0.windowId && x.strength !== 'NO_CONFIRMED_MATCH_CURRENT_READING').sort(byStrengthRank)[0]; return r && this.openProduct(r.product); }"
+   },
+   {
+    "file": "portale.html",
+    "line": 2621,
+    "symbol": "cs0.primary / cs0.primaryObj (D.CASES + D.PRODUCTS)",
+    "snippet": "hasPrimary: !!cs0.primary, noPrimary: !cs0.primary, primaryGo: () => this.openProduct(cs0.primary), primaryTargets: cs0.primaryObj ? cs0.primaryObj.targets.join(' · ') : '—', primaryUse: cs0.primaryObj ? cs0.primaryObj.use : '—', primaryMoa: cs0.primaryObj ? cs0.primaryObj.moa : '—',",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The opportunity card's 'COSA OFFRIRE' hero. cs0.primary is picked by italy-demo-data.js from the fixture's own product list; primaryUse ('Post-emergence · crop 2–6 leaves') and primaryMoa ('HRAC 5 (C1) + 27 (F2)') are demo strings. cs.matchCount (markup line 366) is the size of that demo list.",
+    "replacement": "primary = AM.collections.productRelationships.records.filter(r => r.windowId === cs0.windowId).sort(byStrengthRank)[0]; primaryTargets = primary.target || t.prodNotObservable; primaryMoa = primary.moaLabel (from IG.PRODUCTS hrac/frac/irac); primaryUse: REMOVE. matchCount = count of records for that windowId with strength !== NO_CONFIRMED_MATCH_CURRENT_READING."
+   },
+   {
+    "file": "portale.html",
+    "line": 3216,
+    "symbol": "D.CASES[].products via t.caseObjs",
+    "snippet": "products: (biz.rel === 'PORTFOLIO GAP' ? [] : prods.slice(0, 4)).map(n => ({ name: n, go: () => this.openProduct(n) })), productCount: ..., portfolioState: biz.rel === 'PORTFOLIO GAP' ? 'NO CONFIRMED DIRECT MATCH' : (prods.length ? 'VERIFIED PORTFOLIO MATCH' : 'NO CONFIRMED DIRECT MATCH'),",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Cross-domain (Science theme card, markup 1991 and 2130) but it is a product-relationship claim and it is the worst one: `prods` is the union of D.CASES[].products, and any non-empty list is labelled 'VERIFIED PORTFOLIO MATCH' in green with no reference to the label audit at all. A LABEL_CHECK_NEEDED candidate reads as verified.",
+    "replacement": "const rels = AM.collections.productRelationships.records.filter(r => r.crop === t.crop && r.issue === t.issue); products = rels.filter(r => r.strength !== 'NO_CONFIRMED_MATCH_CURRENT_READING').slice(0,4); portfolioState = T.PSTATE[strongestOf(rels)] with LV.STRENGTH[...].color — never a hand-written 'VERIFIED PORTFOLIO MATCH' string."
+   },
+   {
+    "file": "portale.html",
+    "line": 2592,
+    "symbol": "D.CASES[].products via prods",
+    "snippet": "adamaResponse: prods.length ? 'VERIFIED PORTFOLIO RESPONSE' : 'NO CONFIRMED DIRECT RESPONSE', adamaColor: prods.length ? '#00B152' : '#F89E18', adamaProducts: prods.slice(0, 2).join(' + ') || 'portfolio review needed',",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Same pattern in the competitor-activity decorator: presence of any fixture product name is rendered as 'VERIFIED PORTFOLIO RESPONSE' in green. Cross-domain (competitor) but the claim is a portfolio claim.",
+    "replacement": "Same rule as line 3216: derive strength from AM.collections.productRelationships for the activity's (crop, issue); label with T.PSTATE and colour with LV.STRENGTH[...].color."
+   },
+   {
+    "file": "portale.html",
+    "line": 2745,
+    "symbol": "D.CASES[].products via prods",
+    "snippet": "why.push({ ok: prods.length > 0, t: prods.length ? prods.length + ' registered ADAMA match' + (prods.length > 1 ? 'es' : '') : 'No confirmed ADAMA position — portfolio check needed' });",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Prints a COUNT of 'registered ADAMA matches' as a why-now reason. The count is the length of a fixture array, and the word 'registered' asserts regulatory fact.",
+    "replacement": "const rels = AM.collections.productRelationships.records.filter(r => r.windowId === c.windowId); why.push({ ok: rels.some(verified), t: <verifiedCount> + ' verified · ' + <checkCount> + ' to verify (' + LV.AUDIT_DATE + ')' }) — the number must be split by strength class, never collapsed into one 'match' count."
+   },
+   {
+    "file": "portale.html",
+    "line": 3003,
+    "symbol": "D.WINDOWS + e.links",
+    "snippet": "const wins = D.WINDOWS.filter(w => e.links.some(l => l.crop === w.crop && l.issue === w.issue)).slice(0, 4).map(w => ({ label: il(w.issue) + ' · ' + w.region, state: wst(w.canonicalStatus || 'DATE_UNKNOWN'), color: w.open ? '#00B152' : '#B1A9A7', go: () => this.openWindow(w.id) }));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Product Intelligence 'windows for this product'. Both sides are wrong: the join key is the demo-derived e.links, and the window list is D.WINDOWS rather than the 29 canonical windows. w.open is a demo boolean, not the canonical CURRENT_STATUS.",
+    "replacement": "const wins = AM.collections.windows.records.filter(w => rels.some(r => r.windowId === w.windowId)).slice(0,4).map(w => ({ label: il(w.issue) + ' · ' + w.region, state: wst(w.status), color: w.status === 'WINDOW_OPEN' || w.status === 'ACT_NOW' ? '#00B152' : '#B1A9A7', go: () => this.openWindow(w.id) }))"
+   },
+   {
+    "file": "portale.html",
+    "line": 3149,
+    "symbol": "x.product (D.SIGNALS scenarios)",
+    "snippet": "productLabel: x.product || 'Check needed', ... portfolioColor: x.product ? '#00B152' : '#B1A9A7', goProduct: () => x.product ? this.openProduct(x.product) : this.radarWith({ fStatus: 'VALIDATE' })",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "sigAll mixes the 3 real futureSignals with the 56 DEMO_SCENARIO records. Real IG.FUTURE_SIGNALS rows have no `product` field (they have PORTFOLIO_CONNECTION), so every green product chip on this list is a scenario. The green colour asserts a verified match with no audit behind it.",
+    "replacement": "KEEP for scenario rows (labelled SCENARI DIMOSTRATIVI), but drop the green: portfolioColor must come from LV.STRENGTH[strength].color, and for real rows read raw.PORTFOLIO_CONNECTION plus AM.collections.productRelationships filtered by (crop, issue)."
+   },
+   {
+    "file": "portale.html",
+    "line": 3009,
+    "symbol": "e.ai rendered directly",
+    "snippet": "ai: e.ai || T.prodNotObservable,",
+    "classification": "VISUAL_ONLY",
+    "reason": "Not a fixture read, but a measured rendering defect introduced by the real data: AM.products[].ai is an ARRAY for all 163 registered products (the demo `ai` was a string). {{ pd.ai }} therefore renders 'AZOXYSTROBIN,PROTHIOCONAZOLE' with no separator. Carries no false fact, so VISUAL_ONLY.",
+    "replacement": "ai: (Array.isArray(e.ai) ? e.ai.join(' + ') : e.ai) || T.prodNotObservable — same fix needed at line 3379 (search label) and 2880 (p.ai)."
+   },
+   {
+    "file": "portale.html",
+    "line": 3014,
+    "symbol": "e.regulatory.moa",
+    "snippet": "moa: (e.regulatory && (e.regulatory.moa || e.regulatory.MODE_OF_ACTION_DECLARED)) || T.prodNotObservable,",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "MEASURED: IG.PRODUCTS has NO `moa` key and no `MODE_OF_ACTION_DECLARED` key. This expression evaluates to T.prodNotObservable for all 166 products, so the portal declares mode of action unobservable while the real data holds it in hrac (52/163), frac (8/163) and irac (10/163) — 70/163 products carry at least one group.",
+    "replacement": "moa: [...(e.regulatory.hrac||[]).map(g=>'HRAC '+g), ...(e.regulatory.frac||[]).map(g=>'FRAC '+g), ...(e.regulatory.irac||[]).map(g=>'IRAC '+g)].join(' + ') || T.prodNotObservable — 70 products gain a real MoA, the other 93 keep the honest 'NON OSSERVABILE' line."
+   }
+  ],
+  "modelChanges": [
+   {
+    "collection": "productRelationships (NEW, in AM.collections and as AM.productRelationships)",
+    "why": "One canonical relationship truth so no view can invent, promote or hide a portfolio match. Replaces the D.CASES walk at italy-app-model.js:102. Every record answers three questions the screen must be able to show: which product, against which window, and on what evidence.",
+    "fields": [
+     "id",
+     "product",
+     "productKey",
+     "windowId",
+     "legacyCaseId",
+     "crop (canonical CROP_NAME)",
+     "issue (canonical ISSUE_NAME)",
+     "issueType (PEST|DISEASE|WEED)",
+     "region (from the window, never from the label — a label is national)",
+     "strength (VERIFIED_LABEL_MATCH | RELATED_PORTFOLIO | LABEL_CHECK_NEEDED | NO_CONFIRMED_MATCH_CURRENT_READING)",
+     "strengthRank (0..3, from ITALY_LABEL_VERDICTS.STRENGTH[x].rank)",
+     "evidenceKind (CANONICAL_HANDOFF | LABEL_AUDIT | REGULATORY_USE_ROW | CROP_REGISTRATION)",
+     "target (Latin target from IG.LINKS, null for audit/registration tiers)",
+     "reg (registration number)",
+     "labelUrl",
+     "moaLabel (from IG.LINKS.moa, or product hrac/frac/irac)",
+     "auditDate (LV.AUDIT_DATE = 2026-09-02)",
+     "mappingRule (which crop-key row and which issue-target row produced this record; null for tiers 1-2)",
+     "provenance (CANONICAL | REAL_SOURCE | REAL_DERIVED)"
+    ],
+    "derivation": "Iterate the 29 ITALY_CANONICAL.windows. TIER 1 CANONICAL: window.PRODUCT_MATCHES — MEASURED [] on all 29, so 0 rows today; keep the reader. TIER 2 LABEL_AUDIT: for each (crop, issue) match against ITALY_LABEL_VERDICTS.VERIFIED -> VERIFIED_LABEL_MATCH, and against .NOT_FOUND -> NO_CONFIRMED_MATCH_CURRENT_READING; needs an issue-alias table because the audit writes 'Cereal Aphids' and 'Cereal Aphids / BYDV Risk' where the window writes 'Cereal Aphids · BYDV Risk', and 'Diabrotica' where the window writes 'Diabrotica Adults'. Yields 14 verified rows and 15 not-confirmed rows across the 29 windows. TIER 3 REGULATORY_USE_ROW: IG.LINKS rows where LINK.crop is in CROP_KEY[window.CROP_NAME] and LINK.target matches ISSUE_TARGET[window.ISSUE_NAME], and the product was not already graded by tier 2 -> LABEL_CHECK_NEEDED. Yields 15 rows. TIER 4 CROP_REGISTRATION: IG.PRODUCTS where p.crops intersects CROP_KEY[window.CROP_NAME] AND p.line matches the window ISSUE_TYPE (PEST->INSETICIDA, DISEASE->FUNGICIDA, WEED->HERBICIDA), not already graded -> RELATED_PORTFOLIO. Yields 321 rows. WITHOUT the line gate this tier yields 1261 rows (a grapevine herbicide 'related' to Flavescenza Dorata) — the gate is mandatory."
+   },
+   {
+    "collection": "CROP_KEY (new lookup exported on AM, provenance REAL_DERIVED)",
+    "why": "The three real sources speak three crop vocabularies and nothing upstream joins them. Making the join a visible, named table stops each view from inventing its own string match.",
+    "fields": [
+     "windowCropName (e.g. 'Sugar Beet')",
+     "ingestCropEnums (e.g. ['SUGARBEET'])",
+     "note"
+    ],
+    "derivation": "Hand-authored from the measured value sets: CANON.CROP_NAME has Grapevine, Maize, Olive, Sugar Beet, Wheat, Durum Wheat, Apple, Tomato, Rice, Soybean; IG.LINKS.crop has SUGARBEET, WHEAT_GENERIC, SORGHUM, SOYBEAN, TOMATO, POTATO, TRITICALE, BARLEY, MAIZE, GRAPEVINE, COMMON_WHEAT, APPLE, OLIVE, RICE; IG.CROPS adds DURUM_WHEAT, SUNFLOWER, ALFALFA. One judgement call must be recorded in `note`: Wheat -> [COMMON_WHEAT, WHEAT_GENERIC] and Durum Wheat -> [DURUM_WHEAT, WHEAT_GENERIC]. MEASURED: DURUM_WHEAT has PRODUCTS_WITH_USE_ROW_READ = 0, so every Durum Wheat check-needed row would come from the WHEAT_GENERIC ('Frumento') label rows."
+   },
+   {
+    "collection": "ISSUE_TARGET (new lookup exported on AM, provenance REAL_DERIVED, explicitly labelled as a Sintonia mapping)",
+    "why": "IG.LINKS targets are Latin species ('Cercospora beticola', 'Zymoseptoria tritici'); canonical windows name issues in English ('Cercospora Leaf Spot', 'Septoria Leaf Blotch'). Nothing upstream connects them. This is the ONLY hand-authored input in the whole rebuild and it must be visible as such, versioned, and attached to every row it produces via `mappingRule`.",
+    "fields": [
+     "windowIssueName",
+     "targetPatterns (array of Latin genus/species prefixes)",
+     "author",
+     "note"
+    ],
+    "derivation": "22 distinct window issues. MEASURED: only 6 of them have any matching target in the 219 use rows — Diabrotica Adults/Larvae (Diabrotica virgifera, MAIZE), Cercospora Leaf Spot (Cercospora beticola, SUGARBEET), Septoria Leaf Blotch (Zymoseptoria tritici / Septoria tritici, COMMON_WHEAT + WHEAT_GENERIC), Fusarium Head Blight (Fusarium spp, COMMON_WHEAT), Grass weed complex (Digitaria/Echinochloa/Sorghum halepense, MAIZE), Herbicide resistance · rice (Leersia/Glyceria/Echinochloa, RICE). The other 16 issues — including Flavescenza Dorata (Scaphoideus titanus), European Corn Borer (Ostrinia), Olive Fruit Fly (Bactrocera oleae), Codling Moth (Cydia), Grapevine Moth (Lobesia), Downy Mildew (Plasmopara), Tomato Leafminer (Tuta), Powdery Mildew, Wheat Rusts, Mycotoxin Risk — have ZERO matching use rows. If the engineer does not want a hand-authored table at all, tier 3 is dropped and the whole check-needed class goes to 0 rows / 0 windows; the spec's counts assume the table exists."
+   },
+   {
+    "collection": "competitorProducts (NEW)",
+    "why": "To retire D.CPRODUCTS (14 invented competitor products) without deleting the 'cproduct' view, which is a real navigation destination from every competitor activity chip.",
+    "fields": [
+     "id",
+     "product",
+     "company",
+     "adsReachingIt",
+     "proof",
+     "activities (IG.COMP_ACTIVITIES rows whose products[] contains this product)",
+     "activityCount"
+    ],
+    "derivation": "IG.COMP_PRODUCTS[36] verbatim (ID, PRODUCT, COMPANY, ADS_REACHING_IT, PROOF). Activities joined from the 102 of 503 COMP_ACTIVITIES that carry a non-empty products array. adsReachingIt is a PAID-reach count and must keep the REACHED_IN_ITALY wording, never 'targeted Italy'."
+   },
+   {
+    "collection": "products (EXISTING — corrections)",
+    "why": "The Portafoglio and Product Intelligence identity block is already real; three measured defects make it read less true than the data allows.",
+    "fields": [
+     "ai must be exposed as both aiList (array) and aiLabel (joined with ' + ')",
+     "moaLabel derived from hrac/frac/irac (70/163 products gain a real value; today all 166 read NON OSSERVABILE)",
+     "relationships (the product's slice of productRelationships) replacing the demo-built `links`",
+     "verifiedLinks / relatedLinks / checkNeededLinks / rejectedLinks recomputed from that slice",
+     "catalogOnly boolean (BUDGE, EXELGROW, PARLEAF — matchState REGULATORY_MATCH_NOT_FOUND)",
+     "holder (present 163/163: ADAMA ITALIA 85, ADAMA AGAN 35, ADAMA MAKHTESHIM 26, ADAMA DEUTSCHLAND 17)",
+     "expiry (163/163; 15 already past the 2026-09-02 reference date, 41 expire before 2027-01-01)"
+    ],
+    "derivation": "All from IG.PRODUCTS and ITALY_CATALOG.ITEMS, which are already joined. Only the derivations change, not the source."
+   }
+  ],
+  "fieldsThatDie": [
+   {
+    "field": "Application timing / crop stage for a product use ('Post-emergence · crop 2–6 leaves')",
+    "usedAt": "portale.html:2622 primaryUse · portale.html:2880 p.use · markup line 782 'Stage · {{ p.use }}' · italy-demo-data.js PRODUCTS[].use",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "MEASURED, and this is the hardest one: IG.LINKS.timing is non-null on 219/219 rows and every single one holds the identical sentence 'NAO SEI — a coluna de epoca do rotulo nao foi extraida' (I don't know — the label's timing column was not extracted). There is exactly one distinct value. The demo's use strings are the only stage text in the system. Remove the Stage line from the window-detail product card and the primaryUse cell. Do not substitute the window's CROP_STAGE — that is the crop's stage, not the product's authorised application timing, and CROP_STAGE is itself null on all 29 canonical windows (CROP_STAGE_CLASS = NOT_OBSERVED)."
+   },
+   {
+    "field": "targetFit ('this product fits this issue because its target string overlaps the issue name')",
+    "usedAt": "portale.html:2880 targetFit · markup line 782 'Target fit · {{ p.targetFit }}'",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "It is computed in the view by lowercasing a demo target and testing substring containment against the issue name, then falling back to p.targets[0] when nothing matches — so it prints a target that does NOT fit whenever the match fails. That is a fabricated agronomic claim generated by string arithmetic. Replace with the real target only where a REGULATORY_USE_ROW exists (15 rows across 6 windows); elsewhere show nothing."
+   },
+   {
+    "field": "Product dose",
+    "usedAt": "not currently rendered; IG.LINKS.doses was proposed as a new source",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "Do not build a dose component. MEASURED: only 35 of 219 use rows have a non-empty doses array, and the values are water volumes ('500 l/ha', '80-400 l/ha') not product doses. maxApp is null on 219/219. interval is present on 15/219. A dose panel built on this would be wrong four times out of five."
+   },
+   {
+    "field": "region on a product relationship",
+    "usedAt": "italy-app-model.js:102 (l.region from the case) · portale.html markup 1360, 1366, 1372 '{{ r.region }}' on all three relationship cards",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "A label authorisation is national — the product has no regional relationship. Today the region shown is the demo case's region. Keep the line ONLY if it is relabelled as the region of the WINDOW the relationship is attached to (windowId -> canonical REGION, present on 29/29). If the engineer prefers not to relabel, drop the line; do not print a bare region under a label verdict."
+   },
+   {
+    "field": "Competitor product crops, issues, first/last date, paid count, people count, linked cases",
+    "usedAt": "portale.html:3185-3186 cp0.crops, cp0.issues, cp0.first, cp0.last, cp0.paid, cp0.people, cp0.cases · view 'cproduct'",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "IG.COMP_PRODUCTS carries FOUR fields only: PRODUCT, COMPANY, ADS_REACHING_IT, PROOF. There is no crop, no issue, no date, no case link. Crops/issues/dates can be re-derived ONLY from the 102 of 503 activities that name a product, and only where those activities themselves carry crops/issues — that must be measured before the component is kept, not assumed. `cases` (linking a competitor product to an ADAMA opportunity) has no real equivalent at all and must go. Note also that the 14 demo names (Belanty, Revysol, Movento, Zorvec, Pioneer, Kocide 2000, Ampligo, Amistar, Elatus Era, Cabrio Top, Luna Experience, Coragen, Exirel, ARC farm intelligence) overlap the real 36 in only a couple of names, so every existing cproduct deep link will break — the route must fall back gracefully."
+   },
+   {
+    "field": "'VERIFIED PORTFOLIO MATCH' / 'VERIFIED PORTFOLIO RESPONSE' as a green state",
+    "usedAt": "portale.html:3218 (science theme) · portale.html:2592 (competitor activity) · markup 1991 TH.portfolioState · markup 2130 sciImpact.portfolioState",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "These two strings are hand-written in the view and triggered by `prods.length > 0` on a demo array. They are not one of the four audited strength classes and they claim verification that no audit performed. Delete both literals; the only permitted labels are the four in T.PSTATE, coloured from ITALY_LABEL_VERDICTS.STRENGTH."
+   },
+   {
+    "field": "'No confirmed ADAMA position' / 'No registered portfolio match connected.' / 'Portfolio check needed — no confirmed ADAMA label position for this crop × issue.'",
+    "usedAt": "portale.html:2745 · markup line 1233 · markup line 784 · portale.html:3218 'NO CONFIRMED DIRECT MATCH'",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "These are the rule-10 violations. Today they fire whenever a demo array is empty. After the rebuild they must fire ONLY when the record's strength is NO_CONFIRMED_MATCH_CURRENT_READING, which comes exclusively from the 7 audited NOT_FOUND triples — and must always be accompanied by t.absenceRule ('Non trovato in questa lettura delle etichette. Non significa che ADAMA non abbia un prodotto.'). When no tier matched at all, the correct state is a new NOT_ASSESSED / 'ETICHETTE NON ANCORA LETTE PER QUESTA COMBINAZIONE', not an absence claim."
+   },
+   {
+    "field": "The 33-product ADAMA universe",
+    "usedAt": "portale.html:3418, 3426 (filter options) · portale.html:3379 (search) · italy-app-model.js:98",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "133 of the 166 products the Portafoglio screen already displays are invisible to search and to both product filters. This is not a fake fact, it is a missing one — but it makes the portal contradict itself on the same session."
+   },
+   {
+    "field": "31 of the 32 products that currently show a portfolio relationship",
+    "usedAt": "consequence of italy-app-model.js:102 across the whole app",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "The honest cost of the rebuild, stated plainly. MEASURED today: 32 products carry at least one relationship, 31 of them via LABEL_CHECK_NEEDED rows that exist only because a demo case named the product. After the rebuild only 20 products carry an evidence-backed relationship (6 verified, 10 check-needed from real use rows, 6 not-confirmed; COSAYR 200 SC and MAVRIK SMART appear in two classes). A further 111 products gain RELATED_PORTFOLIO rows (registered on the crop, right category, target use row not read), so 113 of 166 products have SOME relationship and 53 have none at all. Products such as SULCOTREK, TOPIK 80 EC, EDAPTIS, GOLTIX, NICOGAN V.O. and AGIL lose their check-needed badges on the specific opportunity cards and keep only crop-level RELATED_PORTFOLIO. They must NOT be hidden — the Portafoglio grid still lists all 166."
+   },
+   {
+    "field": "Mode of action on the Product Intelligence header",
+    "usedAt": "portale.html:3014 pd.moa",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Opposite direction: the screen is currently MORE pessimistic than the data. e.regulatory.moa and .MODE_OF_ACTION_DECLARED do not exist as keys, so all 166 products print 'NON OSSERVABILE DA FONTI ESTERNE'. Building the label from hrac (52/163) + frac (8/163) + irac (10/163) gives 70 products a real declared MoA and leaves 93 honestly unobservable."
+   },
+   {
+    "field": "Commercial performance, sell-in, share, volume",
+    "usedAt": "italy-app-model.js:121 commercialPerformance: P.NOT_OBSERVABLE · markup line 1394 t.prodNoSales",
+    "verdict": "KEEP_AS_LABELLED_DEMO",
+    "note": "Already correct and must stay exactly as is. This is the model behaving the way the whole relationship layer should."
+   }
+  ],
+  "markupImpact": [
+   "portale.html:366 — '{{ cs.matchCount }} portfolio matches': matchCount currently counts demo productLinks that the audit did not reject. Must count productRelationships for cs0.windowId with strength !== NO_CONFIRMED_MATCH_CURRENT_READING, and the wording should split the classes rather than say 'matches'.",
+   "portale.html:781 — heading 'PRODUCTS TO PREPARE · real Italy portfolio relationships only' is literally false today; it labels a fixture list. It becomes true only after the 2880 replacement lands. Do not change the heading before the data.",
+   "portale.html:782 — product card in the window detail. Remove 'Stage · {{ p.use }}' (no real equivalent, 219/219 timing rows say the column was not extracted) and remove 'Target fit · {{ p.targetFit }}' (invented by substring matching). The hardcoded green 'Label · registered · {{ p.moa }}' must become the strength label + colour from ITALY_LABEL_VERDICTS.STRENGTH, because a RELATED_PORTFOLIO row is not 'Label · registered' for that target. {{ p.ai }} must render the joined array.",
+   "portale.html:784 — 'Portfolio check needed — no confirmed ADAMA label position for this crop × issue.' Two different states are collapsed here. Split into (a) audited NOT_FOUND -> the not-confirmed wording plus t.absenceRule, and (b) nothing assessed -> a NOT_ASSESSED wording. Both strings are hardcoded English inside an Italian-default portal.",
+   "portale.html:1233 — 'No registered portfolio match connected.' in the Market Pulse crop panel. Same split; must not say 'no match' when the label simply has not been read.",
+   "portale.html:1339-1395 — Product Intelligence. Line 1347 {{ pd.ai }} renders an array unseparated. ADD a fourth relationship card for RELATED_PORTFOLIO between the check-needed card (1363-1368) and the not-confirmed card (1369-1375), same markup shape, colour #5CC3EE from LV.STRENGTH.RELATED_PORTFOLIO — a new i18n key prodRelatedRel is needed (prodVerifiedRel / prodCheckRel / prodRejectedRel exist, prodRelatedRel does not). On the check-needed rows (1366) add the evidence line: the Latin target and the labelUrl from the use row, so 'to verify' is visibly backed by a registration. Line 1351 'VEDI OPPORTUNITÀ COLLEGATE' CTA and its goOpps route stay exactly as they are.",
+   "portale.html:1376 — pd.noRel currently means 'the fixture listed no case'. After the rebuild it means 'no tier produced a row' — true for 53 of 166 products — and t.prodNoRel ('Nessuna relazione coltura × avversità collegata in questa lettura.') is already worded correctly for that. Keep the string, change what triggers it.",
+   "portale.html:1397-1424 — PORTAFOGLIO: structure, the two tabs, the category select and the card layout all stay. Only line 1419 changes: '{{ p.verified }} ✓ · {{ p.check }} △' must gain the related count and drop nothing, e.g. verified ✓ · check △ · related ○, so a product that loses its fake check-needed badge does not look like it lost its portfolio.",
+   "portale.html:1534 — future-signal card '{{ s.productLabel }}' coloured by s.portfolioColor. Green today whenever a demo scenario names a product. Colour must come from LV.STRENGTH; real signals must read raw.PORTFOLIO_CONNECTION instead.",
+   "portale.html:1991 and 2130 — theme / science-impact 'PORTAFOGLIO' tiles rendering TH.portfolioState and sciImpact.portfolioState. Both print the hand-written 'VERIFIED PORTFOLIO MATCH' green state. Replace the value with T.PSTATE[strength] and the colour with LV.STRENGTH[strength].color; the tile itself is preserved."
+  ],
+  "plan": [
+   "1. In italy-app-model.js, add the two lookup tables CROP_KEY and ISSUE_TARGET as named constants with an explicit comment saying they are Sintonia-authored joins, not upstream data, and that every row they produce carries mappingRule. Export them on the model so a future audit can diff them.",
+   "2. In italy-app-model.js, add buildProductRelationships() implementing the four tiers in order (CANON PRODUCT_MATCHES -> ITALY_LABEL_VERDICTS -> IG.LINKS use rows -> IG.PRODUCTS crop+line registration). Include the issue-alias table for 'Cereal Aphids' / 'Cereal Aphids / BYDV Risk' / 'Cereal Aphids · BYDV Risk' and 'Diabrotica' / 'Diabrotica Adults', or two verified rows are lost. Gate tier 4 by ISSUE_TYPE->line or it produces 1261 rows instead of 321.",
+   "3. Assert the tier-1 reader works even though it returns nothing today, and log the count so the next data load makes it visible: canonicalRelationshipRows = 0 at 2026-09-02.",
+   "4. Delete italy-app-model.js line 98 (the D.PRODUCTS fallback). Confirm AM.counts.products is still 166 — it adds 0 records today, so any change in that number means the deletion was wrong.",
+   "5. Replace italy-app-model.js lines 102-105 with the new collection. Rebuild each product's verifiedLinks / relatedLinks / checkNeededLinks / rejectedLinks from its slice of productRelationships. Add relationships to the product record.",
+   "6. Rewrite strengthFor() to read the new collection and to return NOT_ASSESSED (a fifth, non-audited value) when no tier matched, so 'the audit rejected it' and 'nobody has looked yet' can never render the same.",
+   "7. Add aiLabel (array joined with ' + ') and moaLabel (HRAC/FRAC/IRAC groups) to each product record. Expose competitorProducts from IG.COMP_PRODUCTS.",
+   "8. portale.html: fix the Product Intelligence builder at 2999-3023 — pd.ai from aiLabel, pd.moa from moaLabel, pd.wins from AM.collections.windows joined on windowId (not D.WINDOWS), and add pd.related / pd.hasRelated.",
+   "9. portale.html markup 1339-1395: add the RELATED_PORTFOLIO card, add the evidence line (target + labelUrl) to the check-needed rows, keep the 'VEDI OPPORTUNITÀ COLLEGATE' CTA and the three-card layout untouched.",
+   "10. portale.html: replace the vocabulary reads — line 3379 (D.PRODUCT_LIST -> AM.products), lines 3418 and 3426 (Object.keys(D.PRODUCTS) -> distinct products carrying a relationship, extracted once into a shared const).",
+   "11. portale.html: replace the relationship reads — 2880 (window detail products), 2863 (goProduct), 2621-2623 (case primary/alternatives, removing primaryUse), 2947 (market crop products), 2745 (why-now count, split by class), 2592 and 3216-3219 (delete the hand-written 'VERIFIED PORTFOLIO' literals).",
+   "12. portale.html: retire D.CPRODUCTS at 3185-3186 in favour of AM.collections.competitorProducts, dropping crops/issues/first/last/paid/people/cases unless each is separately measured as derivable from the 102 product-bearing activities. Make the route fall back cleanly when an old demo cproduct id no longer exists.",
+   "13. portale.html markup: remove 'Stage · {{ p.use }}' and 'Target fit · {{ p.targetFit }}' at line 782; split the three absence strings (784, 1233, 2745) into NOT_CONFIRMED (with t.absenceRule) and NOT_ASSESSED.",
+   "14. Add the i18n key prodRelatedRel (it: 'PORTAFOGLIO CORRELATO', en: 'RELATED PORTFOLIO') and a NOT_ASSESSED entry in PSTATE for both languages.",
+   "15. Re-measure and publish, on the Portafoglio note line, the post-rebuild counts alongside LV.AUDIT_DATE: 12 windows verified, 6 to verify, 10 related-portfolio, 1 with no confirmed match — and 20 products carrying evidence-backed relationships out of 166."
+  ],
+  "risks": [
+   "The rebuild's headline number gets WORSE, and that is the point. Window-level portfolio state goes from 10 VERIFIED / 10 LABEL_CHECK_NEEDED / 9 NO_CONFIRMED (measured today, on the 29 opportunity cards) to 12 VERIFIED / 6 LABEL_CHECK_NEEDED / 10 RELATED_PORTFOLIO / 1 NO_CONFIRMED. Verified goes UP (12 vs 10, because 4 audited verified triples were never reachable through the fixture and 2 fixture cards claimed verified without one), but 10 cards drop to the pale-blue RELATED_PORTFOLIO state and one card — Maize · Mycotoxin Risk, IT-WIN-0021 — ends with nothing at all, because no ADAMA fungicide is registered on maize in the 163 rows and 'Mycotoxin Risk' is not a label target. Anyone expecting the screen to get denser will read this as a regression.",
+   "The ISSUE_TARGET table is the one hand-authored input in the entire chain and it decides 15 of the 44 evidence-backed rows. If it is written loosely it manufactures matches; if it is written tightly it starves the check-needed class. It must be versioned, attributed, and surfaced per row via mappingRule — otherwise the rebuild replaces a demo fixture with an undocumented human judgement, which is the same defect wearing a better coat.",
+   "The RELATED_PORTFOLIO tier is enormous and low-value: 321 rows over 29 windows, with individual windows carrying up to 38 related products (Durum Wheat · Resistant grass weeds). It must be collapsed in the UI (a count plus a 'see all' link), never rendered as a list, or the screens become unreadable and the four-class hierarchy loses meaning.",
+   "Tier 1 is empty. The precedence 'HANDOFF V2.1 canonical > verified label verdict' is honoured in code but contributes nothing today: all 29 canonical windows have PRODUCT_MATCHES = []. Do not describe the result as canonical-backed. The strongest real evidence in the system is a 12-verified / 7-not-found audit of 163 labels, dated 2026-09-02, whose own SCOPE_NOTE says it verified the main visible claims and not every connection.",
+   "The label audit is small relative to the screens it governs: 19 audited triples against 29 windows and 166 products. Its NOT_FOUND set is 7 triples covering 6 products, and three of those seven are the same claim (Olive Fruit Fly) repeated across three windows — so a single audit row drives three cards to the palest state.",
+   "IG.LINKS covers 19 of 163 products. IG.CROPS states the gap explicitly and it is severe: GRAPEVINE has 61 products mentioning the crop and 1 with a use row read; DURUM_WHEAT has 14 and 0. Any check-needed count computed from use rows is a floor, not a measurement of the portfolio.",
+   "Deep links break. The competitor-product route ('cproduct') currently addresses 14 demo names; the real set is 36 different names. Old ids, bookmarks and any in-page chip pointing at Belanty/Revysol/Movento will 404 unless a fallback is added.",
+   "Four different ADAMA legal entities hold the 163 registrations (ADAMA ITALIA 85, ADAMA AGAN 35, ADAMA MAKHTESHIM 26, ADAMA DEUTSCHLAND 17) while the catalog is the Italian commercial site. Do not merge holder and seller into one 'ADAMA has this product' claim, and keep the two Portafoglio tabs separate — 41 of 44 catalog items match a registration, 3 (BUDGE, EXELGROW, PARLEAF, all SPECIALI) do not and are marked REGULATORY_MATCH_NOT_FOUND upstream.",
+   "15 of the 163 registrations have an expiry earlier than the 2026-09-02 reference date and 41 expire before 2027-01-01. Nothing in the current portfolio screens reads expiry. Surfacing a verified label match for an expired authorisation would be a new, avoidable false claim — worth guarding even though it is outside the strict scope of this migration.",
+   "D.CASES remains the source of the 29 opportunity objects even after relationships are rebuilt. This spec removes the demo from PRODUCT RELATIONSHIPS only; the opportunity/radar domain owner must handle the rest, and until then the relationship layer will be correct while the card it sits inside is still a scenario."
+  ],
+  "openQuestions": [
+   "Is the ISSUE_TARGET mapping (English issue name -> Latin label target) acceptable as a Sintonia-authored artefact, or must it come from upstream? If it must come from upstream, tier 3 disappears and the result is 12 verified / 0 check-needed / 16 related / 1 no-confirmed across the 29 windows.",
+   "Should Durum Wheat inherit the WHEAT_GENERIC ('Frumento') use rows? DURUM_WHEAT itself has 0 use rows read. Inheriting adds check-needed candidates on two Durum Wheat windows; not inheriting leaves them related-only. This is an agronomic/regulatory call, not an engineering one.",
+   "Should RELATED_PORTFOLIO be gated more tightly than crop + product line? A tighter gate (e.g. same MoA family as an already-verified product) would cut the 321 rows sharply but adds another authored rule.",
+   "The 'region' line under each relationship card: relabel it as the window's region, or delete it? A label authorisation has no region.",
+   "Does the competitor-product view survive at all? IG.COMP_PRODUCTS has four fields. If crops/issues/dates cannot be derived from the 102 product-bearing activities, the view becomes a name, a company, an ad count and a proof string — which may be better folded into the company page than kept as its own route.",
+   "Is a fifth state (NOT_ASSESSED) acceptable alongside the four mandated strength classes, or must 'nothing has been looked at' be expressed as LABEL_CHECK_NEEDED? Collapsing it into LABEL_CHECK_NEEDED would put ~53 products and every unmatched triple into the amber class and re-inflate the number the rebuild is meant to deflate."
+  ],
+  "confidence": "high"
+ }
+]

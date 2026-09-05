@@ -1,0 +1,36 @@
+{
+ "O_QUE_E_ESTA_PASTA": "saida PARCIAL de agentes que estavam rodando quando a missao foi pausada. NAO e dado canonico. NAO foi integrada ao pacote.",
+ "LEI": "papel de trabalho parcial fica separado do dado canonico. Misturar os dois e como guardar o rascunho junto com o contrato assinado: um dia alguem pega o errado.",
+ "PAUSADO_EM": "2026-09-02",
+ "POR_QUE": "pausa de missao para trocar de conta Claude — nao e falha de nada aqui dentro.",
+ "ARQUIVOS": [
+  {
+   "FILE": "ACHADOS-DA-AUDITORIA-NAO-REFUTADOS.json",
+   "PRODUTOR": "workflow v21-auditar-pacote (wf_2c05414f-38d)",
+   "ESTADO": "PARCIAL — 38 dos ~48 agentes concluidos; a fase de REFUTACAO nao rodou",
+   "INTEGRADO": false,
+   "AUTORITATIVO": false,
+   "CONTEUDO": "99 achados brutos de 12 dimensoes de auditoria: 35 marcados BLOQUEIA_ENTREGA, 42 CORRIGIR_ANTES, 22 ANOTAR",
+   "AVISO_CRITICO": "estes achados NAO passaram pelo crivo dos tres ceticos. O desenho do workflow previa que cada achado fosse refutado por 3 agentes independentes e so sobrevivesse o que 2 de 3 nao derrubassem. Essa fase foi interrompida. ALEM DISSO, a auditoria rodou ENQUANTO o pacote estava sendo reescrito — um dos proprios achados diz isso ('SOURCES.json mudou 6 vezes durante a auditoria'). Varios achados ja foram corrigidos depois de medidos. NENHUM pode ser tratado como confirmado sem reverificacao contra o pacote atual.",
+   "O_QUE_FAZER_COM_ELE": "reverificar um a um contra o DESIGN-INGEST atual antes de agir. Os que mencionam SOURCES, _COLECOES.json, cruzamentos sem CLIENT_SAFE e campos em portugues quase certamente ja estao corrigidos."
+  },
+  {
+   "FILE": "auditoria-pacote.json",
+   "PRODUTOR": "workflow v21-auditar-pacote (wf_2c05414f-38d)",
+   "ESTADO": "BRUTO — o journal completo dos 38 agentes, com o que cada um mediu",
+   "INTEGRADO": false,
+   "AUTORITATIVO": false,
+   "CONTEUDO": "resultado integral de cada agente, inclusive o campo O_QUE_MEDI com os comandos e contagens que ele rodou",
+   "PARA_QUE_SERVE": "quando um achado for reverificado, aqui esta como ele foi medido na primeira vez"
+  },
+  {
+   "FILE": "conferencia-de-sentido.json",
+   "PRODUTOR": "workflow v21-conferir-sentido (wf_2afbff77-eb9)",
+   "ESTADO": "VAZIO — interrompido antes de qualquer agente concluir",
+   "INTEGRADO": false,
+   "AUTORITATIVO": false,
+   "CONTEUDO": "nada. Zero agentes concluidos.",
+   "O_QUE_ELE_IA_FAZER": "ler as 1.017 traducoes IT/EN e verificar o que nenhuma trava mecanica alcanca: se o SENTIDO atravessou. Dois leitores por lote (um por lingua) + um juiz para cada desvio marcado. Os lotes de entrada ja estao preparados em .tmp/v21_semantica/ (102 arquivos de 10 frases), mas .tmp/ NAO vai para o Git — refazer com o script indicado no handoff."
+  }
+ ]
+}

@@ -1,0 +1,2563 @@
+{
+ "SOURCE_ID": "ES-ADAMA-PORTFOLIO-ROPF",
+ "source": "MAPA ROPF — export completo + ficha oficial PDF de cada registro ADAMA vigente",
+ "SOURCE_LOCATION": "SPAIN",
+ "FACT_LOCATION": "SPAIN",
+ "ORIGINAL_LANGUAGE": "ES",
+ "captured_at": "2026-08-29",
+ "SOURCE_VERSION": "2026-08-30T01:01:43.7662596+02:00",
+ "REQUEST": "POST /regfiweb/Exportaciones/ExportJsonProductos + GET /Productos/ExportFichaProductoPdfGet",
+ "ADAMA_REGISTRATIONS_TOTAL": 188,
+ "ADAMA_VIGENTE": 96,
+ "ADAMA_CANCELADO": 92,
+ "ADAMA_UNIQUE_FORMULADOS": 116,
+ "EXPIRING_6M": 31,
+ "EXPIRING_12M": 61,
+ "FICHAS_BAIXADAS": 96,
+ "FICHAS_COM_ERRO": 0,
+ "FICHAS_SEM_CULTIVO_RECONHECIDO": 5,
+ "PDF_BYTES_TOTAL": 29284088,
+ "CROP_COUNT": 162,
+ "ISSUE_COUNT": 54,
+ "CROPS_POR_REGISTROS": {
+  "TRIGO": 32,
+  "CEBADA": 31,
+  "ALGODONERO": 22,
+  "TRITICALE": 21,
+  "CÍTRICOS": 21,
+  "AVENA": 20,
+  "TOMATE": 19,
+  "CENTENO": 18,
+  "REMOLACHA AZUCARERA": 18,
+  "PATATA": 18,
+  "BERENJENA": 17,
+  "COLZA": 16,
+  "BRÉCOL": 16,
+  "COLIFLOR": 16,
+  "CONÍFERAS": 14,
+  "ALCACHOFA": 14,
+  "CEBOLLA": 14,
+  "FRONDOSAS": 13,
+  "FRUTALES DE PEPITA": 13,
+  "GIRASOL": 12,
+  "MAÍZ": 12,
+  "ALMENDRO": 12,
+  "FRUTALES DE HUESO": 12,
+  "FRESAL": 11,
+  "COL DE BRUSELAS": 11,
+  "CHALOTE": 11,
+  "ALFALFA": 11,
+  "GUISANTE VERDE": 10,
+  "CEREZO": 10,
+  "CUCURBITÁCEAS": 10,
+  "CALABACÍN": 10,
+  "REPOLLO": 10,
+  "ZANAHORIA": 10,
+  "JUDÍA VERDE": 9,
+  "MELÓN": 9,
+  "PALMÁCEAS": 9,
+  "REMOLACHA FORRAJERA": 9,
+  "SOJA": 9,
+  "ESCAROLA": 9,
+  "LECHUGA": 9,
+  "PEPINO": 9,
+  "MELOCOTONERO": 9,
+  "NARANJO": 9,
+  "HABA VERDE": 9,
+  "PIMIENTO": 8,
+  "LEGUMINOSAS": 8,
+  "LEGUMINOSAS DE GRANO": 8,
+  "ESPINACA": 8,
+  "OLIVO": 7,
+  "CANÓNIGO": 7,
+  "CIRUELO": 7,
+  "BARBAREA": 7,
+  "AVELLANO": 7,
+  "GUISANTE PARA GRANO": 6,
+  "JUDÍA PARA GRANO": 6,
+  "SANDÍA": 6,
+  "BERRO, MASTUERZO": 6,
+  "FRUTALES DE CÁSCARA": 6,
+  "MOSTAZA CHINA": 6,
+  "PEPINILLO": 6,
+  "RÁBANO": 6,
+  "RÚCULA": 6,
+  "FRUTOS CÍTRICOS": 6,
+  "LIMONERO": 6,
+  "ALBARICOQUERO": 6,
+  "VID DE MESA": 6,
+  "VID DE VINIFICACIÓN": 6,
+  "SORGO": 5,
+  "CHIRIVÍA": 5,
+  "MANZANO": 5,
+  "MANZANAS": 5,
+  "PERAS": 5,
+  "GROSELLERO": 5,
+  "GARBANZO": 5,
+  "HABA PARA GRANO": 5,
+  "LENTEJA": 5,
+  "TABACO": 5,
+  "VEZA": 5,
+  "MIJO": 4,
+  "APIO": 4,
+  "ESPÁRRAGO": 4,
+  "LECHUGA Y SIMILARES": 4,
+  "PUERRO": 4,
+  "MAÍZ DULCE": 4,
+  "PALMERA DATILERA": 4,
+  "BERZA , COL": 4,
+  "ARROZ": 4,
+  "APIONABO": 4,
+  "BULBOS": 4,
+  "ENDRINO": 4,
+  "ESPINACAS Y SIMILARES": 3,
+  "NABO": 3,
+  "ARBUSTOS Y PEQUEÑOS ÁRBOLES ORNAMENTALES": 3,
+  "LEGUMINOSAS VERDES (FRESCAS)": 3,
+  "CASTAÑO": 3,
+  "NOGAL": 3,
+  "PISTACHERO": 3,
+  "TRITORDEUM": 3,
+  "ROSALES": 3,
+  "BATATA, BONIATO": 3,
+  "BULBOS HORTÍCOLAS": 3,
+  "CIRUELAS": 3,
+  "CLAVEL": 3,
+  "HORTÍCOLAS": 3,
+  "LÚPULO": 3,
+  "PLATANERA": 3,
+  "TORONJA, POMELO": 3,
+  "ACHICORIA (HOJAS)": 3,
+  "TRÉBOL": 3,
+  "REMOLACHA DE MESA": 2,
+  "COLINABO": 2,
+  "CEREALES DE INVIERNO / PRIMAVERA": 2,
+  "GRANADO": 2,
+  "PERAL": 2,
+  "ORNAMENTALES HERBÁCEAS": 2,
+  "RAÍCES Y TUBÉRCULOS (EXCEPTO REMOLACHA AZUCARERA Y PATATA)": 2,
+  "MAÍZ DE GRANO": 2,
+  "MAÍZ FORRAJERO": 2,
+  "ACELGA": 2,
+  "SACOS": 2,
+  "ACEQUIAS": 2,
+  "BORDES DE ARCÉN Y CUNETAS": 2,
+  "CAMINOS": 2,
+  "CANALES DE RIEGO": 2,
+  "CORTAFUEGOS": 2,
+  "HERBÁCEAS EXTENSIVAS": 2,
+  "HERBÁCEAS INTENSIVAS": 2,
+  "LEÑOSAS": 2,
+  "LINDEROS": 2,
+  "MÁRGENES DE CULTIVOS": 2,
+  "PASTOS Y PRADERAS": 2,
+  "CAMELINA": 2,
+  "CALABAZA": 2,
+  "ALTRAMUZ": 2,
+  "ALFORFÓN": 1,
+  "CEREALES DE VERANO": 1,
+  "HIGUERA": 1,
+  "MEMBRILLERO": 1,
+  "OLEAGINOSAS": 1,
+  "PATATAS": 1,
+  "CAQUI": 1,
+  "CEBOLLETA": 1,
+  "ERIALES": 1,
+  "PATATA DE SIEMBRA": 1,
+  "ALMORTA": 1,
+  "FRAMBUESO": 1,
+  "ALTRAMUZ FORRAJERO": 1,
+  "CHOPOS Y ÁLAMOS": 1,
+  "CÉSPEDES": 1,
+  "ENDIBIA": 1,
+  "ESPARCETA": 1,
+  "ESPECIES VEGETALES": 1,
+  "HABA FORRAJERA": 1,
+  "LEGUMINOSAS FORRAJERAS": 1,
+  "YEROS": 1,
+  "ZULLA": 1,
+  "ALMACENES": 1,
+  "LOCALES Y ALMACENES": 1,
+  "PEREJIL": 1,
+  "PINOS": 1,
+  "RAÍZ DE PEREJIL": 1,
+  "ADORMIDERA": 1
+ },
+ "AGENTES_POR_REGISTROS": {
+  "DICOTILEDÓNEAS ANUALES": 25,
+  "GRAMÍNEAS ANUALES": 17,
+  "MALAS HIERBAS": 16,
+  "MONOCOTILEDÓNEAS ANUALES": 16,
+  "GRAMÍNEAS PLURIANUALES": 10,
+  "ÁFIDOS, PULGONES, APHIDIDAE": 9,
+  "FUSARIOSIS, FUSARIUM SPP.": 7,
+  "BABOSAS, LIMACOS": 5,
+  "CARACOLES": 5,
+  "HELIOTHIS, HELICOVERPA SPP.": 5,
+  "CHINCHES, HETERÓPTEROS": 4,
+  "LEPIDÓPTEROS": 4,
+  "MOSCAS BLANCAS, ALEYRODIDAE": 4,
+  "TEFRÍTIDOS, TEPHRITIDAE": 4,
+  "BOTRYTIS SPP.": 3,
+  "MONILIA, MONILINIA SPP.": 3,
+  "ALTERNARIA SPP.": 3,
+  "COLLETOTRICHUM SPP.": 3,
+  "PERONOSPORACEAE": 3,
+  "SITONAS, SITONA SPP.": 3,
+  "TRIPS": 3,
+  "ÁCAROS": 3,
+  "AVENAS LOCAS, AVENA SPP.": 2,
+  "VALLICO, LOLIUM RIGIDUM": 2,
+  "PHYTOPHTHORA SPP.": 2,
+  "OÍDIO, PODOSPHAERA FULIGINEA": 2,
+  "ROYA, PUCCINIA SPP.": 2,
+  "FIALOFORA, PHIALOPHORA SPP.": 2,
+  "DICOTILEDÓNEAS PLURIANUALES": 2,
+  "AVISPILLA DEL ALMENDRO, EURYTOMA AMYGDALI": 2,
+  "ACLAREO FRUTOS": 1,
+  "BOTRYOSPHAERIA SPP.": 1,
+  "DIAPORTHE SPP.": 1,
+  "PENICILIUM, PENICILLIUM SPP.": 1,
+  "CAPUA, ADOXOPHYES ORANA": 1,
+  "PIRAL DEL MAÍZ, O.NUBILALIS": 1,
+  "BACTERIOSIS": 1,
+  "PSEUDOMONAS SPP.": 1,
+  "ROYAS, PUCCINIACEAE": 1,
+  "VENTURIA SPP.": 1,
+  "XANTHOMONAS SPP.": 1,
+  "CICATRIZACIÓN HERIDAS": 1,
+  "PERONOSPORA SPP.": 1,
+  "ORTÓPTEROS": 1,
+  "ELATÉRIDOS, ELATERIDAE": 1,
+  "MIRIÁPODOS": 1,
+  "TÍPULAS, TIPULIDAE": 1,
+  "CAÑOTA, SORGHUM HALEPENSE": 1,
+  "OÍDIOS, ERYSIPHACEAE": 1,
+  "PODOSPHAERA SPP.": 1,
+  "ARROZ SALVAJE, ORYZA SATIVA": 1,
+  "RICIO DE CEREALES, POACEAE": 1,
+  "MICRODOCHIUM SPP.": 1,
+  "SEPTORIOSIS, SEPTORIA SPP.": 1
+ },
+ "METODO": "o bloco 'Usos y Dosis Autorizados' de cada ficha e delimitado ate o primeiro terminador (Clase de Usuario / Plazo de seguridad / Mitigacion de riesgos / Pagina N) e casado contra o vocabulario oficial do MAPA (448 cultivos, 708 plagas). Nenhum nome e inventado.",
+ "DEFEITO_CORRIGIDO": "a primeira passagem nao delimitava o bloco e lia o texto ambiental que vem depois da tabela. 'CAMINOS' aparecia em 93 dos 96 registros por causa da frase 'evacuacion de aguas ... o de los caminos'. Com o bloco delimitado caiu para 2. Numero que parece achado e chave quebrada.",
+ "CROP_ISSUE_PAIRS": "NAO DERIVADO — cruzar todo cultivo com todo agente da MESMA ficha e produto cartesiano, nao relacao. A tabela do PDF pareia linha a linha, e o texto plano perde a coluna. O par exige leitura posicional que esta rota ainda nao sustenta.",
+ "O_QUE_ISTO_NAO_E": "188 registros != 188 produtos comercializados. Contagem de registro nao e mercado, nao e venda, nao e participacao. EXPIRY != WITHDRAWAL.",
+ "COMMERCIAL_LABEL_STATUS": "NOT_AVAILABLE_FROM_TESTED_SOURCE — a ficha do MAPA e REGISTRATION_RECORD + OFFICIAL_PRODUCT_SHEET. Nenhuma rota publica de etiqueta/prospecto comercial foi testada nesta rodada.",
+ "PDFS_ONDE": "fora do Git, por politica. 28,6 MB em scratchpad; destino e o bucket raw do Storage.",
+ "FICHAS": [
+  {
+   "REG": "ES-00849",
+   "NOME": "0302445",
+   "FORMULADO": "METALDEHIDO 3% [GB] P/P",
+   "CADUCIDAD": "31-08-2026",
+   "PDF_BYTES": 277703,
+   "PDF_SHA256": "37da734119dc6ab5ea17d16ed5aefc5f140b5332dd0f39d473df3db1af96e235",
+   "CULTIVOS": [
+    "ALFORFÓN",
+    "AVENA",
+    "BERENJENA",
+    "CEBADA",
+    "CENTENO",
+    "COLZA",
+    "CONÍFERAS",
+    "FRESAL",
+    "FRONDOSAS",
+    "GIRASOL",
+    "GUISANTE PARA GRANO",
+    "GUISANTE VERDE",
+    "JUDÍA PARA GRANO",
+    "JUDÍA VERDE",
+    "MAÍZ",
+    "MELÓN",
+    "MIJO",
+    "PALMÁCEAS",
+    "PIMIENTO",
+    "REMOLACHA AZUCARERA",
+    "REMOLACHA DE MESA",
+    "REMOLACHA FORRAJERA",
+    "SANDÍA",
+    "SOJA",
+    "SORGO",
+    "TOMATE",
+    "TRIGO",
+    "TRITICALE"
+   ],
+   "AGENTES": [
+    "BABOSAS, LIMACOS",
+    "CARACOLES"
+   ]
+  },
+  {
+   "REG": "19549",
+   "NOME": "ACCRESTO",
+   "FORMULADO": "CLODINAFOP-PROPARGIL 24% [EC] P/V",
+   "CADUCIDAD": "31-07-2027",
+   "PDF_BYTES": 310426,
+   "PDF_SHA256": "8d48b78f2d4e9a44e80a455311708d538a282eeddf5a0cae6190d1ea05a6c1f0",
+   "CULTIVOS": [
+    "AVENA",
+    "TRIGO",
+    "TRITICALE"
+   ],
+   "AGENTES": [
+    "AVENAS LOCAS, AVENA SPP.",
+    "MALAS HIERBAS",
+    "VALLICO, LOLIUM RIGIDUM"
+   ]
+  },
+  {
+   "REG": "25900",
+   "NOME": "ADDITION",
+   "FORMULADO": "DIFLUFENICAN 4% + PENDIMETALINA 40% [SC] P/V",
+   "CADUCIDAD": "15-01-2027",
+   "PDF_BYTES": 312399,
+   "PDF_SHA256": "6fd725bcd6a8f67a64556d11026244c76256cea5575b88e922797b4ce44cecc8",
+   "CULTIVOS": [
+    "CEBADA",
+    "CENTENO",
+    "TRIGO",
+    "TRITICALE"
+   ],
+   "AGENTES": [
+    "GRAMÍNEAS ANUALES",
+    "GRAMÍNEAS PLURIANUALES",
+    "MALAS HIERBAS"
+   ]
+  },
+  {
+   "REG": "19140",
+   "NOME": "AGIL",
+   "FORMULADO": "PROPAQUIZAFOP 10% [EC] P/V",
+   "CADUCIDAD": "28-02-2027",
+   "PDF_BYTES": 347657,
+   "PDF_SHA256": "fc086964e76eb84d75eefa362cf46e8ddc1b5140b4f564ae98c6974e291f6092",
+   "CULTIVOS": [
+    "AVENA"
+   ],
+   "AGENTES": [
+    "GRAMÍNEAS ANUALES",
+    "GRAMÍNEAS PLURIANUALES",
+    "MALAS HIERBAS"
+   ]
+  },
+  {
+   "REG": "24156",
+   "NOME": "ALISTER",
+   "FORMULADO": "DIFLUFENICAN 50% [SC] P/V",
+   "CADUCIDAD": "31-08-2027",
+   "PDF_BYTES": 301219,
+   "PDF_SHA256": "841b8adbac0c12663b6d17adace791674d2545d8805f1fa3effdda2287579bcf",
+   "CULTIVOS": [
+    "AVENA",
+    "CEBADA",
+    "CENTENO",
+    "TRIGO"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "23912",
+   "NOME": "ANIBAL",
+   "FORMULADO": "CLORTOLURON 40% + DIFLUFENICAN 2,5% [SC] P/V",
+   "CADUCIDAD": "30-06-2028",
+   "PDF_BYTES": 306781,
+   "PDF_SHA256": "10a696f5675bb7719177a50189fe8fc14017b87bb27f75f17c669cc5316e680e",
+   "CULTIVOS": [
+    "CEBADA",
+    "OLIVO",
+    "TRIGO"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "MONOCOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "11826",
+   "NOME": "APHOX",
+   "FORMULADO": "PIRIMICARB 50% [WG] P/P",
+   "CADUCIDAD": "31-10-2026",
+   "PDF_BYTES": 279804,
+   "PDF_SHA256": "ff239661a9518eafd540d459e1f9c4184a8afc51516f1fa7f7ea7f2991c75a71",
+   "CULTIVOS": [
+    "ALCACHOFA",
+    "ALMENDRO",
+    "BERENJENA",
+    "BERRO, MASTUERZO",
+    "BRÉCOL",
+    "CANÓNIGO",
+    "CEREZO",
+    "CHIRIVÍA",
+    "CIRUELO",
+    "COL DE BRUSELAS",
+    "COLIFLOR",
+    "COLINABO",
+    "CONÍFERAS",
+    "CUCURBITÁCEAS"
+   ],
+   "AGENTES": [
+    "ÁFIDOS, PULGONES, APHIDIDAE"
+   ]
+  },
+  {
+   "REG": "ES-01637",
+   "NOME": "ARRODIM",
+   "FORMULADO": "CLETODIM 24% [EC] P/V",
+   "CADUCIDAD": "31-08-2027",
+   "PDF_BYTES": 325843,
+   "PDF_SHA256": "cc953a65bdd3ccdbd11bc8f8bd7b017d69ba05bb914da1a846ba40b01c4c9fb1",
+   "CULTIVOS": [
+    "ALGODONERO",
+    "CEBOLLA",
+    "COLZA",
+    "GIRASOL",
+    "LEGUMINOSAS",
+    "LEGUMINOSAS DE GRANO",
+    "REMOLACHA AZUCARERA",
+    "TOMATE"
+   ],
+   "AGENTES": [
+    "MALAS HIERBAS",
+    "MONOCOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "ES-00101",
+   "NOME": "ATHLET",
+   "FORMULADO": "BIFENOX 20%  + CLORTOLURON 50% [SC] P/V",
+   "CADUCIDAD": "31-03-2027",
+   "PDF_BYTES": 305779,
+   "PDF_SHA256": "6dd1cefece9c48658d472d04784bb9c6fccb260aa4c31b0e16373b2615d48f8d",
+   "CULTIVOS": [
+    "CEREALES DE INVIERNO / PRIMAVERA",
+    "CEREALES DE VERANO"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "MONOCOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "ES-01818",
+   "NOME": "AVASTEL",
+   "FORMULADO": "FLUXAPYROXAD 7,5%  + PROTIOCONAZOL 15% [EC] P/V",
+   "CADUCIDAD": "31-10-2027",
+   "PDF_BYTES": 316652,
+   "PDF_SHA256": "2f52f3b4a7daef0ff6bfee7ee9dc79643f073960c9ecd505a28c0d75e8570ac4",
+   "CULTIVOS": [
+    "CEBADA",
+    "TRIGO"
+   ],
+   "AGENTES": [
+    "FUSARIOSIS, FUSARIUM SPP."
+   ]
+  },
+  {
+   "REG": "12812",
+   "NOME": "BABOSIL GRANULADO",
+   "FORMULADO": "METALDEHIDO 5% (ADICIONADO DE COLORANTE) [GB] P/P",
+   "CADUCIDAD": "31-08-2026",
+   "PDF_BYTES": 275836,
+   "PDF_SHA256": "5c140be4a6593273f988d071de1399cdc8002b590a20a2d9995f4396292c9a19",
+   "CULTIVOS": [
+    "ALCACHOFA",
+    "ALGODONERO",
+    "ALMENDRO",
+    "APIO",
+    "AVENA",
+    "BARBAREA",
+    "BERENJENA",
+    "BRÉCOL",
+    "CALABACÍN",
+    "CEBADA",
+    "CEBOLLA",
+    "CENTENO",
+    "CHALOTE",
+    "CHIRIVÍA",
+    "COL DE BRUSELAS",
+    "COLIFLOR",
+    "COLZA",
+    "CONÍFERAS",
+    "CÍTRICOS",
+    "ESCAROLA",
+    "ESPINACAS Y SIMILARES",
+    "ESPÁRRAGO",
+    "FRESAL",
+    "FRONDOSAS",
+    "FRUTALES DE CÁSCARA",
+    "FRUTALES DE HUESO",
+    "FRUTALES DE PEPITA",
+    "GIRASOL",
+    "GRANADO",
+    "HIGUERA",
+    "LECHUGA",
+    "LECHUGA Y SIMILARES",
+    "LEGUMINOSAS",
+    "LEGUMINOSAS DE GRANO",
+    "MAÍZ",
+    "MELÓN",
+    "MIJO",
+    "MOSTAZA CHINA",
+    "NABO",
+    "PALMÁCEAS",
+    "PATATA",
+    "PEPINILLO",
+    "PEPINO",
+    "PIMIENTO",
+    "PUERRO",
+    "REMOLACHA AZUCARERA",
+    "REMOLACHA FORRAJERA",
+    "REPOLLO",
+    "RÁBANO",
+    "RÚCULA",
+    "SANDÍA",
+    "SOJA",
+    "SORGO",
+    "TOMATE",
+    "TRIGO",
+    "TRITICALE",
+    "ZANAHORIA"
+   ],
+   "AGENTES": [
+    "BABOSAS, LIMACOS",
+    "CARACOLES"
+   ]
+  },
+  {
+   "REG": "ES-01767",
+   "NOME": "BANJO",
+   "FORMULADO": "FLUAZINAM 50% [SC] P/V",
+   "CADUCIDAD": "15-04-2027",
+   "PDF_BYTES": 318720,
+   "PDF_SHA256": "7181163f1a3f873ac2bad09098d3d3e6ae641f939744e41679115affe3f72751",
+   "CULTIVOS": [
+    "PATATA",
+    "TOMATE"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "ES-01955",
+   "NOME": "BELLALI",
+   "FORMULADO": "AZOXISTROBIN 7,5% + FOLPET 37,5%  [SC] P/V",
+   "CADUCIDAD": "31-05-2027",
+   "PDF_BYTES": 326295,
+   "PDF_SHA256": "69b3303793be9568270b686c25f15ea73a67f6d5edb1412a3cef8d839b84b809",
+   "CULTIVOS": [
+    "CEBADA",
+    "CENTENO",
+    "TRIGO"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "ES-00215",
+   "NOME": "BENELUS",
+   "FORMULADO": "CIPRODINIL 18,75%  + TEBUCONAZOL 12,5% [EC] P/V",
+   "CADUCIDAD": "31-10-2026",
+   "PDF_BYTES": 316147,
+   "PDF_SHA256": "45a15e8e9a378f838347a39309a827c21b721f2897138345d3c7dc29c26c77dc",
+   "CULTIVOS": [
+    "MANZANO",
+    "MELOCOTONERO",
+    "PERAL"
+   ],
+   "AGENTES": [
+    "BOTRYTIS SPP.",
+    "MONILIA, MONILINIA SPP."
+   ]
+  },
+  {
+   "REG": "ES-00073",
+   "NOME": "BREVIS",
+   "FORMULADO": "METAMITRONA 15% [SG] P/P",
+   "CADUCIDAD": "30-11-2026",
+   "PDF_BYTES": 307317,
+   "PDF_SHA256": "993c6d0fe3e988685e99f3eeee2e3dd83a335a8b645834af29b8a41ec4425de5",
+   "CULTIVOS": [
+    "MANZANO",
+    "PERAL"
+   ],
+   "AGENTES": [
+    "ACLAREO FRUTOS"
+   ]
+  },
+  {
+   "REG": "13174",
+   "NOME": "CARAQUIM",
+   "FORMULADO": "METALDEHIDO 5% (ADICIONADO DE COLORANTE) [GB] P/P",
+   "CADUCIDAD": "31-08-2026",
+   "PDF_BYTES": 274098,
+   "PDF_SHA256": "98edae6bd592ed60d52bdb455c6606a26d5f2a27d7c48b2c2759cbed870142cd",
+   "CULTIVOS": [
+    "ALCACHOFA",
+    "ALGODONERO",
+    "APIO",
+    "ARBUSTOS Y PEQUEÑOS ÁRBOLES ORNAMENTALES",
+    "AVENA",
+    "BARBAREA",
+    "BERENJENA",
+    "BRÉCOL",
+    "CALABACÍN",
+    "CEBADA",
+    "CEBOLLA",
+    "CENTENO",
+    "CHALOTE",
+    "CHIRIVÍA",
+    "COL DE BRUSELAS",
+    "COLIFLOR",
+    "COLZA",
+    "CONÍFERAS",
+    "CÍTRICOS",
+    "ESCAROLA",
+    "ESPINACAS Y SIMILARES",
+    "ESPÁRRAGO",
+    "FRESAL",
+    "FRONDOSAS",
+    "FRUTALES DE CÁSCARA",
+    "FRUTALES DE HUESO",
+    "FRUTALES DE PEPITA",
+    "GIRASOL",
+    "LECHUGA",
+    "LECHUGA Y SIMILARES",
+    "LEGUMINOSAS",
+    "LEGUMINOSAS DE GRANO",
+    "LEGUMINOSAS VERDES (FRESCAS)",
+    "MAÍZ",
+    "MELÓN",
+    "MIJO",
+    "MOSTAZA CHINA",
+    "NABO",
+    "ORNAMENTALES HERBÁCEAS",
+    "PALMÁCEAS",
+    "PATATA",
+    "PEPINILLO",
+    "PEPINO",
+    "PIMIENTO",
+    "PUERRO",
+    "RAÍCES Y TUBÉRCULOS (EXCEPTO REMOLACHA AZUCARERA Y PATATA)",
+    "REMOLACHA AZUCARERA",
+    "REMOLACHA FORRAJERA",
+    "REPOLLO",
+    "RÁBANO",
+    "RÚCULA",
+    "SANDÍA",
+    "SOJA",
+    "SORGO",
+    "TOMATE",
+    "TRIGO",
+    "TRITICALE",
+    "ZANAHORIA"
+   ],
+   "AGENTES": [
+    "BABOSAS, LIMACOS",
+    "CARACOLES"
+   ]
+  },
+  {
+   "REG": "23788",
+   "NOME": "CARFAL WG",
+   "FORMULADO": "FOSETIL-AL 80% [WG] P/P",
+   "CADUCIDAD": "31-10-2026",
+   "PDF_BYTES": 260932,
+   "PDF_SHA256": "6f0da06f3127d7cc19b06c541ee7cf7ec159be879bbc39ef378ed3c90389abf6",
+   "CULTIVOS": [
+    "CALABACÍN",
+    "CUCURBITÁCEAS",
+    "CÍTRICOS",
+    "PEPINO",
+    "TOMATE"
+   ],
+   "AGENTES": [
+    "PHYTOPHTHORA SPP."
+   ]
+  },
+  {
+   "REG": "19574",
+   "NOME": "CITROSOL 500",
+   "FORMULADO": "IMAZALIL 50% [EC] P/V",
+   "CADUCIDAD": "31-05-2027",
+   "PDF_BYTES": 309654,
+   "PDF_SHA256": "84dccb21d1605bcf769ac42fbbeef3fc2f0be1133738e3a3dfc3251a4fead4fa",
+   "CULTIVOS": [
+    "CÍTRICOS",
+    "FRUTOS CÍTRICOS",
+    "LIMONERO",
+    "NARANJO"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "19993",
+   "NOME": "CITROSOL 7,5 LS",
+   "FORMULADO": "IMAZALIL 7,5% (SULFATO) [SL] P/V",
+   "CADUCIDAD": "31-05-2027",
+   "PDF_BYTES": 313518,
+   "PDF_SHA256": "1cf8d4329f79a2a86fc5955cb1fe7352bee7b08bea6de4a5b48af0e532f95d8c",
+   "CULTIVOS": [
+    "CÍTRICOS",
+    "FRUTOS CÍTRICOS",
+    "LIMONERO",
+    "NARANJO"
+   ],
+   "AGENTES": [
+    "BOTRYOSPHAERIA SPP.",
+    "DIAPORTHE SPP.",
+    "PENICILIUM, PENICILLIUM SPP."
+   ]
+  },
+  {
+   "REG": "ES-01370",
+   "NOME": "CLEAVE",
+   "FORMULADO": "FLORASULAM 0,25% + FLUROXIPIR 10% (ESTER METILHEPTIL) [SE] P/V",
+   "CADUCIDAD": "15-02-2027",
+   "PDF_BYTES": 314620,
+   "PDF_SHA256": "797f4d246be87fb4f6b72f97d425b50472eb0de46e98be13a2964ada9160794b",
+   "CULTIVOS": [
+    "AVENA",
+    "CEBADA",
+    "CENTENO",
+    "TRIGO",
+    "TRITICALE"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "15442",
+   "NOME": "CLORTOLURON 50 AN",
+   "FORMULADO": "CLORTOLURON 50% [SC] P/V",
+   "CADUCIDAD": "30-06-2028",
+   "PDF_BYTES": 305414,
+   "PDF_SHA256": "87ef4ed5860e1d042b83d00c54ed82ab98843d090dde628effb7a785ed75073a",
+   "CULTIVOS": [
+    "CEBADA",
+    "TRIGO",
+    "TRITICALE"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "MONOCOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "14578",
+   "NOME": "CLORTUREX FLO",
+   "FORMULADO": "CLORTOLURON 50% [SC] P/V",
+   "CADUCIDAD": "30-06-2028",
+   "PDF_BYTES": 305769,
+   "PDF_SHA256": "55e97ba9b43fe2deb6b11c832a504696ffdafa6dbb8b1ccb64765a13ed140daf",
+   "CULTIVOS": [
+    "CEBADA",
+    "TRIGO",
+    "TRITICALE"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "MONOCOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "ES-01942",
+   "NOME": "COSAYR",
+   "FORMULADO": "CLORANTRANILIPROL 20% [SC] P/V",
+   "CADUCIDAD": "31-05-2028",
+   "PDF_BYTES": 320173,
+   "PDF_SHA256": "47a0b22bfcb43196bef8e2861dbcda360eed951c628c320bea745bec99d3b0bf",
+   "CULTIVOS": [
+    "ALBARICOQUERO",
+    "ALGODONERO",
+    "BERENJENA",
+    "BRÉCOL",
+    "CIRUELO",
+    "COLIFLOR",
+    "MANZANAS",
+    "MANZANO",
+    "MAÍZ",
+    "MAÍZ DE GRANO",
+    "MAÍZ DULCE",
+    "MAÍZ FORRAJERO",
+    "MELOCOTONERO",
+    "MEMBRILLERO",
+    "PATATA",
+    "PERAS",
+    "REPOLLO",
+    "TOMATE",
+    "VID DE MESA",
+    "VID DE VINIFICACIÓN"
+   ],
+   "AGENTES": [
+    "CAPUA, ADOXOPHYES ORANA",
+    "HELIOTHIS, HELICOVERPA SPP.",
+    "PIRAL DEL MAÍZ, O.NUBILALIS"
+   ]
+  },
+  {
+   "REG": "17894",
+   "NOME": "COTERAN-FW",
+   "FORMULADO": "FLUOMETURON 50% [SC] P/V",
+   "CADUCIDAD": "15-01-2030",
+   "PDF_BYTES": 316275,
+   "PDF_SHA256": "11afcae5ae743d7067ceba59d97b949339c551425b3f1b428b6a772b4f567da9",
+   "CULTIVOS": [
+    "ALGODONERO"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "GRAMÍNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "15454",
+   "NOME": "COTTONEX 50 SC",
+   "FORMULADO": "FLUOMETURON 50% [SC] P/V",
+   "CADUCIDAD": "15-01-2030",
+   "PDF_BYTES": 316372,
+   "PDF_SHA256": "8e5a4c7930c0d7a5d0756dc94b7eddd13b1e9ba3da6b424a4091ded8586a7334",
+   "CULTIVOS": [
+    "ALGODONERO"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "GRAMÍNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "24583",
+   "NOME": "COTTONEX NEOPRO",
+   "FORMULADO": "FLUOMETURON 25% + TERBUTILAZINA 20,8% [SC] P/V",
+   "CADUCIDAD": "31-05-2027",
+   "PDF_BYTES": 310354,
+   "PDF_SHA256": "45e66a07bf262ccd548984be9a46eeecf9dad3adf704ea45cca6b95536f47813",
+   "CULTIVOS": [
+    "ALGODONERO"
+   ],
+   "AGENTES": [
+    "MALAS HIERBAS"
+   ]
+  },
+  {
+   "REG": "ES-00979",
+   "NOME": "CUPROXI FLO",
+   "FORMULADO": "OXICLORURO DE COBRE 52% (EXPR. EN CU) [SC] P/V",
+   "CADUCIDAD": "30-06-2029",
+   "PDF_BYTES": 373739,
+   "PDF_SHA256": "e6cf42b369aea186e28f98e9a49ff6c2d27f090e9069bca94b0ebfb126011566",
+   "CULTIVOS": [
+    "ACELGA",
+    "ALCACHOFA",
+    "ALMENDRO",
+    "AVELLANO",
+    "BERENJENA",
+    "BRÉCOL",
+    "CASTAÑO",
+    "CEBOLLA",
+    "CHALOTE",
+    "COLIFLOR",
+    "CONÍFERAS",
+    "CUCURBITÁCEAS",
+    "CÍTRICOS",
+    "FRESAL",
+    "FRONDOSAS",
+    "FRUTALES DE HUESO",
+    "FRUTALES DE PEPITA",
+    "GUISANTE VERDE",
+    "HABA VERDE",
+    "JUDÍA VERDE",
+    "LECHUGA",
+    "LECHUGA Y SIMILARES",
+    "LIMONERO",
+    "MANZANO",
+    "MELOCOTONERO",
+    "MELÓN",
+    "NARANJO",
+    "NOGAL",
+    "OLIVO",
+    "PALMERA DATILERA",
+    "PALMÁCEAS",
+    "PATATA",
+    "PIMIENTO",
+    "PISTACHERO",
+    "TOMATE"
+   ],
+   "AGENTES": [
+    "ALTERNARIA SPP.",
+    "BACTERIOSIS",
+    "COLLETOTRICHUM SPP.",
+    "MONILIA, MONILINIA SPP.",
+    "PERONOSPORACEAE",
+    "PHYTOPHTHORA SPP.",
+    "PSEUDOMONAS SPP.",
+    "ROYAS, PUCCINIACEAE",
+    "VENTURIA SPP.",
+    "XANTHOMONAS SPP."
+   ]
+  },
+  {
+   "REG": "25830",
+   "NOME": "CUSTODIA",
+   "FORMULADO": "AZOXISTROBIN 12% + TEBUCONAZOL 20% [SC] P/V",
+   "CADUCIDAD": "31-05-2027",
+   "PDF_BYTES": 270758,
+   "PDF_SHA256": "db03769f740ee1a3296491ca42439dbb9afaf55f340c738bb911d2454560a27f",
+   "CULTIVOS": [
+    "BERENJENA",
+    "CALABACÍN",
+    "CEBADA",
+    "CEBOLLA",
+    "CUCURBITÁCEAS",
+    "MELÓN",
+    "PEPINO",
+    "PIMIENTO",
+    "TOMATE",
+    "TRIGO",
+    "TRITICALE"
+   ],
+   "AGENTES": [
+    "FUSARIOSIS, FUSARIUM SPP.",
+    "OÍDIO, PODOSPHAERA FULIGINEA",
+    "ROYA, PUCCINIA SPP."
+   ]
+  },
+  {
+   "REG": "ES-01202",
+   "NOME": "DAVAI",
+   "FORMULADO": "IMAZAMOX 8% [SL] P/V",
+   "CADUCIDAD": "30-06-2027",
+   "PDF_BYTES": 316251,
+   "PDF_SHA256": "525c5b8c3683a93a43b7b812ae23db84dbcbdd2f5c81e0b06795d884cb0c51d4",
+   "CULTIVOS": [
+    "GIRASOL"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "GRAMÍNEAS ANUALES",
+    "GRAMÍNEAS PLURIANUALES"
+   ]
+  },
+  {
+   "REG": "15457",
+   "NOME": "DECCOZIL S-7,5",
+   "FORMULADO": "IMAZALIL 7,5% (SULFATO) [SL] P/V",
+   "CADUCIDAD": "31-05-2027",
+   "PDF_BYTES": 313598,
+   "PDF_SHA256": "72ba3719b241bb44b12512bbfa794d3b21169378cc3822ad17723ed004908da5",
+   "CULTIVOS": [
+    "CÍTRICOS",
+    "FRUTOS CÍTRICOS",
+    "LIMONERO",
+    "NARANJO"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "21034",
+   "NOME": "DECCOZIL-50",
+   "FORMULADO": "IMAZALIL 50% [EC] P/V",
+   "CADUCIDAD": "31-05-2027",
+   "PDF_BYTES": 309368,
+   "PDF_SHA256": "59889bb3e12d53c9a7947309039a6e2886da7764b0e54899879212a2a1c16a3c",
+   "CULTIVOS": [
+    "CÍTRICOS",
+    "FRUTOS CÍTRICOS",
+    "LIMONERO",
+    "NARANJO"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "24110",
+   "NOME": "DIFCAN 300 SC",
+   "FORMULADO": "DIFLUFENICAN 30% [SC] P/V",
+   "CADUCIDAD": "31-08-2027",
+   "PDF_BYTES": 259838,
+   "PDF_SHA256": "f491e3e72dc6dbb3ce7c78d3f4e6a705c3b83973f3f4ccf160dbb3356d72dfef",
+   "CULTIVOS": [
+    "CEBADA",
+    "TRIGO"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "ES-01677",
+   "NOME": "DIODE 100",
+   "FORMULADO": "MESOTRIONA 10% [SC] P/V",
+   "CADUCIDAD": "31-05-2033",
+   "PDF_BYTES": 315519,
+   "PDF_SHA256": "adf410121f0b598245bfa49eac27f9b90863c14d82ad1a932df8b6148deac428",
+   "CULTIVOS": [
+    "MAÍZ",
+    "MAÍZ DE GRANO",
+    "MAÍZ DULCE",
+    "MAÍZ FORRAJERO",
+    "SORGO"
+   ],
+   "AGENTES": [
+    "GRAMÍNEAS ANUALES",
+    "GRAMÍNEAS PLURIANUALES"
+   ]
+  },
+  {
+   "REG": "ES-00711",
+   "NOME": "DISCOVERY",
+   "FORMULADO": "FLUROXIPIR 20% (meptil ester) [EC] P/V",
+   "CADUCIDAD": "15-02-2027",
+   "PDF_BYTES": 330273,
+   "PDF_SHA256": "6e277b0168eb59e1ebea801e25689e0855f9461169999f25638af3a3ebc19be8",
+   "CULTIVOS": [],
+   "AGENTES": []
+  },
+  {
+   "REG": "24895",
+   "NOME": "DUNKO",
+   "FORMULADO": "METAZACLORO 50% [SC] P/V",
+   "CADUCIDAD": "31-10-2026",
+   "PDF_BYTES": 311167,
+   "PDF_SHA256": "67158985c5c769936399c92d1ad11a4d7f6791871c0b98ff9b95ccf70baf270b",
+   "CULTIVOS": [
+    "BERZA , COL",
+    "BRÉCOL",
+    "COL DE BRUSELAS",
+    "COLIFLOR",
+    "COLZA",
+    "CÍTRICOS",
+    "REPOLLO"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "MONOCOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "ES-00198",
+   "NOME": "ELEGANT",
+   "FORMULADO": "FLORASULAM 0,625%  + 2,4-D 30% [SE] P/V",
+   "CADUCIDAD": "31-12-2030",
+   "PDF_BYTES": 310199,
+   "PDF_SHA256": "e617d46177b50b76f85aff180f5ec872b0535a6991de2d02d26ac6da64d0a841",
+   "CULTIVOS": [
+    "CEBADA",
+    "TRIGO",
+    "TRITORDEUM"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "ES-01577",
+   "NOME": "ETHOSAT",
+   "FORMULADO": "ETOFUMESATO 50% [SC] P/V",
+   "CADUCIDAD": "31-10-2032",
+   "PDF_BYTES": 308940,
+   "PDF_SHA256": "4604500ec0f0260c07f3b2a6b112ab4c5977498a1c9a51bde2d1a6479ac8bf84",
+   "CULTIVOS": [
+    "REMOLACHA AZUCARERA",
+    "REMOLACHA DE MESA",
+    "REMOLACHA FORRAJERA"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "GRAMÍNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "19994",
+   "NOME": "FOLPAN 80 WDG",
+   "FORMULADO": "FOLPET 80% [WG] P/P",
+   "CADUCIDAD": "28-02-2028",
+   "PDF_BYTES": 329951,
+   "PDF_SHA256": "c2722f7bc39d6daf435037437ae96a79a281f905030d79d7d5ff3dd5be2c6325",
+   "CULTIVOS": [
+    "CONÍFERAS",
+    "FRONDOSAS",
+    "PALMÁCEAS",
+    "PATATA",
+    "ROSALES",
+    "SACOS",
+    "TOMATE",
+    "VID DE MESA",
+    "VID DE VINIFICACIÓN"
+   ],
+   "AGENTES": [
+    "ALTERNARIA SPP.",
+    "BOTRYTIS SPP.",
+    "CICATRIZACIÓN HERIDAS",
+    "FIALOFORA, PHIALOPHORA SPP.",
+    "FUSARIOSIS, FUSARIUM SPP.",
+    "PERONOSPORA SPP.",
+    "PERONOSPORACEAE"
+   ]
+  },
+  {
+   "REG": "24397",
+   "NOME": "FOLPAN GOLD",
+   "FORMULADO": "FOLPET 40% + METALAXIL-M 4,8% [WG] P/P",
+   "CADUCIDAD": "31-01-2028",
+   "PDF_BYTES": 316899,
+   "PDF_SHA256": "e0dede268065dbb3a915e713c632acb902565f1910783954460fafda8bb72bad",
+   "CULTIVOS": [],
+   "AGENTES": []
+  },
+  {
+   "REG": "24761",
+   "NOME": "FOLPAN GOLD N",
+   "FORMULADO": "FOLPET 40% + METALAXIL-M 4,8% [WG] P/P",
+   "CADUCIDAD": "31-01-2028",
+   "PDF_BYTES": 268144,
+   "PDF_SHA256": "2b3158b7d82d88416e1830e375a72f7f481e58b0f36cd1b3e5cc431922f65e57",
+   "CULTIVOS": [],
+   "AGENTES": []
+  },
+  {
+   "REG": "24158",
+   "NOME": "FOX",
+   "FORMULADO": "BIFENOX 48% [SC] P/V",
+   "CADUCIDAD": "31-03-2027",
+   "PDF_BYTES": 253205,
+   "PDF_SHA256": "5d44db9b4bafd5e16aa261f0d8c98243c4172acca2a901c9da622f73ec8df9be",
+   "CULTIVOS": [
+    "CEBADA",
+    "TRIGO"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "24172",
+   "NOME": "FOX-N",
+   "FORMULADO": "BIFENOX 48% [SC] P/V",
+   "CADUCIDAD": "31-03-2027",
+   "PDF_BYTES": 298524,
+   "PDF_SHA256": "bd81a6b49f052707839900020cec1f262360e64837e38a792c650b707dd69760",
+   "CULTIVOS": [
+    "CEBADA",
+    "TRIGO"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "25797",
+   "NOME": "GENTIS",
+   "FORMULADO": "2,4-D ACIDO 36% (2-ETIL-HEXIL ESTER) + FLUROXIPIR 9% (ESTER METILHEPTIL) [EC] P/V",
+   "CADUCIDAD": "15-02-2027",
+   "PDF_BYTES": 264572,
+   "PDF_SHA256": "a422169f8e6d53e1b1afe2ab815b0853dee5a607022ed77fc50585dff1f8534b",
+   "CULTIVOS": [
+    "AVENA",
+    "CEBADA",
+    "CENTENO",
+    "TRIGO",
+    "TRITICALE"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "22478",
+   "NOME": "GOLTIX 700 SC",
+   "FORMULADO": "METAMITRONA 70% [SC] P/V",
+   "CADUCIDAD": "30-11-2026",
+   "PDF_BYTES": 311918,
+   "PDF_SHA256": "12145208d37ee309ae93dce3044f830e313e7118ccb828782df1056794e52438",
+   "CULTIVOS": [
+    "REMOLACHA AZUCARERA",
+    "REMOLACHA FORRAJERA"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "MALAS HIERBAS",
+    "MONOCOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "ES-01603",
+   "NOME": "GOLTIX SILVER",
+   "FORMULADO": "METAMITRONA 35 % + QUINMERAC 6 % [SC] P/V",
+   "CADUCIDAD": "31-12-2026",
+   "PDF_BYTES": 310632,
+   "PDF_SHA256": "5979570257c09c17541f4be24641dc106c478033c22179f21ca4b8cd2ec4442a",
+   "CULTIVOS": [
+    "REMOLACHA AZUCARERA",
+    "REMOLACHA FORRAJERA"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "ES-00564",
+   "NOME": "GOLTIX UNO",
+   "FORMULADO": "ETOFUMESATO 15% + METAMITRONA 35% [SC] P/V",
+   "CADUCIDAD": "30-11-2026",
+   "PDF_BYTES": 310532,
+   "PDF_SHA256": "9cadaf75533de028ce1123ba99804ea2bd5cbe5c0b262351f58d8bcebe997ee0",
+   "CULTIVOS": [
+    "ACELGA",
+    "ESPINACA"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "GRAMÍNEAS ANUALES",
+    "MONOCOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "ES-00742",
+   "NOME": "HERBOLEX",
+   "FORMULADO": "GLIFOSATO 36% (SAL ISOPROPILAMINA) [SL] P/V",
+   "CADUCIDAD": "30-09-2027",
+   "PDF_BYTES": 315972,
+   "PDF_SHA256": "d8334f0510255c8acc1a4d46f9e28ff06ac93e0082ba555e2cd95bd3fec9c1ce",
+   "CULTIVOS": [
+    "ACEQUIAS",
+    "BORDES DE ARCÉN Y CUNETAS",
+    "CAMINOS",
+    "CANALES DE RIEGO",
+    "CORTAFUEGOS",
+    "HERBÁCEAS EXTENSIVAS",
+    "HERBÁCEAS INTENSIVAS",
+    "LEÑOSAS",
+    "LINDEROS",
+    "MÁRGENES DE CULTIVOS",
+    "PASTOS Y PRADERAS"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "DICOTILEDÓNEAS PLURIANUALES",
+    "GRAMÍNEAS ANUALES",
+    "MALAS HIERBAS",
+    "MONOCOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "ES-01876",
+   "NOME": "HIGHCARD",
+   "FORMULADO": "QUIZALOFOP-P-ETIL 10,5% [EC] P/V",
+   "CADUCIDAD": "28-02-2028",
+   "PDF_BYTES": 317351,
+   "PDF_SHA256": "97d2bf03bbc899b2ecc7ff3a349a6b36fb209a1e331a98c5a0e0c9df94e34d65",
+   "CULTIVOS": [
+    "ARROZ"
+   ],
+   "AGENTES": [
+    "GRAMÍNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "ES-00736",
+   "NOME": "KALIF",
+   "FORMULADO": "CLOMAZONA 36% [CS] P/V",
+   "CADUCIDAD": "30-09-2026",
+   "PDF_BYTES": 261429,
+   "PDF_SHA256": "71c6bd22d7406ae212831d80800e5771618ef28d6e9da697dc949d92aba884d4",
+   "CULTIVOS": [
+    "CAMELINA",
+    "COLZA",
+    "OLEAGINOSAS",
+    "PATATA",
+    "PATATAS"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "24942",
+   "NOME": "KENDO",
+   "FORMULADO": "LAMBDA CIHALOTRIN 10% [CS] P/V",
+   "CADUCIDAD": "31-08-2026",
+   "PDF_BYTES": 333723,
+   "PDF_SHA256": "79e95bb8df1b364a118c3c711dff269f798296bc42914d2b6a4df104074a54b5",
+   "CULTIVOS": [
+    "ALCACHOFA",
+    "ALFALFA",
+    "ALGODONERO",
+    "ALMENDRO",
+    "APIONABO",
+    "AVELLANO",
+    "BARBAREA",
+    "BERENJENA",
+    "BERRO, MASTUERZO",
+    "BRÉCOL",
+    "CALABACÍN",
+    "CANÓNIGO",
+    "CAQUI",
+    "CEBADA",
+    "CEBOLLA",
+    "CEBOLLETA",
+    "CENTENO",
+    "CEREZO",
+    "CHALOTE",
+    "COL DE BRUSELAS",
+    "COLIFLOR",
+    "COLZA",
+    "CUCURBITÁCEAS",
+    "CÍTRICOS",
+    "ERIALES",
+    "ESCAROLA",
+    "ESPINACA",
+    "FRESAL",
+    "FRUTALES DE HUESO",
+    "FRUTALES DE PEPITA",
+    "GRANADO",
+    "GROSELLERO",
+    "GUISANTE VERDE",
+    "HABA VERDE",
+    "MANZANAS",
+    "MOSTAZA CHINA",
+    "PERAS"
+   ],
+   "AGENTES": [
+    "AVISPILLA DEL ALMENDRO, EURYTOMA AMYGDALI",
+    "CHINCHES, HETERÓPTEROS",
+    "HELIOTHIS, HELICOVERPA SPP.",
+    "LEPIDÓPTEROS",
+    "MOSCAS BLANCAS, ALEYRODIDAE",
+    "ORTÓPTEROS",
+    "TEFRÍTIDOS, TEPHRITIDAE",
+    "ÁFIDOS, PULGONES, APHIDIDAE"
+   ]
+  },
+  {
+   "REG": "23603",
+   "NOME": "KILSEC",
+   "FORMULADO": "PIRIMICARB 50% [WG] P/P",
+   "CADUCIDAD": "31-10-2026",
+   "PDF_BYTES": 280287,
+   "PDF_SHA256": "677ce4743d45af113cf00793ae20fe4c787f35ba70a9e2514adf9ee23d2a9a4a",
+   "CULTIVOS": [
+    "ALCACHOFA",
+    "ALMENDRO",
+    "BERENJENA",
+    "BERRO, MASTUERZO",
+    "BRÉCOL",
+    "CANÓNIGO",
+    "CEREZO",
+    "CHIRIVÍA",
+    "CIRUELO",
+    "COL DE BRUSELAS",
+    "COLIFLOR",
+    "COLINABO",
+    "CONÍFERAS",
+    "CUCURBITÁCEAS"
+   ],
+   "AGENTES": [
+    "ÁFIDOS, PULGONES, APHIDIDAE"
+   ]
+  },
+  {
+   "REG": "18498",
+   "NOME": "KLARTAN 24 AF",
+   "FORMULADO": "TAU-FLUVALINATO 24% [EW] P/V",
+   "CADUCIDAD": "31-01-2027",
+   "PDF_BYTES": 332768,
+   "PDF_SHA256": "950ab8b1b62b8e173a7e826d6e9aacd24c2124997d42067fe0792d7c9de5e3e1",
+   "CULTIVOS": [
+    "ALCACHOFA",
+    "ALFALFA",
+    "ALGODONERO",
+    "AVENA",
+    "BATATA, BONIATO"
+   ],
+   "AGENTES": [
+    "CHINCHES, HETERÓPTEROS",
+    "SITONAS, SITONA SPP.",
+    "TRIPS",
+    "ÁCAROS",
+    "ÁFIDOS, PULGONES, APHIDIDAE"
+   ]
+  },
+  {
+   "REG": "23858",
+   "NOME": "KLARTAN EW",
+   "FORMULADO": "TAU-FLUVALINATO 24% [EW] P/V",
+   "CADUCIDAD": "31-01-2027",
+   "PDF_BYTES": 333507,
+   "PDF_SHA256": "0f43c6dddb0038b88b8537cb3cf9260dbdbe7dc064865b811046450fd5e15b0a",
+   "CULTIVOS": [
+    "ALCACHOFA",
+    "ALFALFA",
+    "ALGODONERO",
+    "AVENA",
+    "BATATA, BONIATO"
+   ],
+   "AGENTES": [
+    "CHINCHES, HETERÓPTEROS",
+    "SITONAS, SITONA SPP.",
+    "TRIPS",
+    "ÁCAROS",
+    "ÁFIDOS, PULGONES, APHIDIDAE"
+   ]
+  },
+  {
+   "REG": "24928",
+   "NOME": "LAMDEX 2.5 WG",
+   "FORMULADO": "LAMBDA CIHALOTRIN 2,5% [WG] P/P",
+   "CADUCIDAD": "31-08-2026",
+   "PDF_BYTES": 329560,
+   "PDF_SHA256": "2811c6ceef7f740328d11eb32edbc550cbe956c0ca2b2164849029a5ffbe34bd",
+   "CULTIVOS": [
+    "ALFALFA",
+    "ALGODONERO",
+    "ALMENDRO",
+    "APIONABO",
+    "AVELLANO",
+    "AVENA",
+    "BARBAREA",
+    "BERRO, MASTUERZO",
+    "BRÉCOL",
+    "BULBOS",
+    "BULBOS HORTÍCOLAS",
+    "CALABACÍN",
+    "CANÓNIGO",
+    "CEBADA",
+    "CENTENO",
+    "CEREZO",
+    "CIRUELAS",
+    "CLAVEL",
+    "COL DE BRUSELAS",
+    "COLIFLOR",
+    "COLZA",
+    "CUCURBITÁCEAS",
+    "CÍTRICOS",
+    "ESCAROLA",
+    "ESPINACA",
+    "FRESAL",
+    "FRUTALES DE HUESO",
+    "FRUTALES DE PEPITA",
+    "GROSELLERO",
+    "GUISANTE VERDE",
+    "HABA VERDE",
+    "HORTÍCOLAS",
+    "JUDÍA VERDE",
+    "LECHUGA",
+    "LEGUMINOSAS",
+    "LEGUMINOSAS DE GRANO",
+    "LÚPULO",
+    "MANZANAS",
+    "MAÍZ",
+    "MOSTAZA CHINA",
+    "NARANJO",
+    "OLIVO",
+    "PATATA",
+    "PEPINILLO",
+    "PEPINO",
+    "PERAS",
+    "PLATANERA",
+    "REMOLACHA AZUCARERA",
+    "REPOLLO",
+    "RÁBANO",
+    "RÚCULA",
+    "TORONJA, POMELO",
+    "TRIGO",
+    "TRITICALE",
+    "TRITORDEUM"
+   ],
+   "AGENTES": [
+    "AVISPILLA DEL ALMENDRO, EURYTOMA AMYGDALI",
+    "HELIOTHIS, HELICOVERPA SPP.",
+    "LEPIDÓPTEROS",
+    "MOSCAS BLANCAS, ALEYRODIDAE",
+    "TEFRÍTIDOS, TEPHRITIDAE",
+    "ÁFIDOS, PULGONES, APHIDIDAE"
+   ]
+  },
+  {
+   "REG": "17091",
+   "NOME": "LAMDEX EXTRA",
+   "FORMULADO": "LAMBDA CIHALOTRIN 2,5% [WG] P/P",
+   "CADUCIDAD": "31-08-2026",
+   "PDF_BYTES": 329637,
+   "PDF_SHA256": "2da146c8b777c159e373cbea11312e0b1eeda70af9e78fc71a6690ebee1644f6",
+   "CULTIVOS": [
+    "ALFALFA",
+    "ALGODONERO",
+    "ALMENDRO",
+    "APIONABO",
+    "AVELLANO",
+    "AVENA",
+    "BARBAREA",
+    "BERRO, MASTUERZO",
+    "BRÉCOL",
+    "BULBOS",
+    "BULBOS HORTÍCOLAS",
+    "CALABACÍN",
+    "CANÓNIGO",
+    "CEBADA",
+    "CENTENO",
+    "CEREZO",
+    "CIRUELAS",
+    "CLAVEL",
+    "COL DE BRUSELAS",
+    "COLIFLOR",
+    "COLZA",
+    "CUCURBITÁCEAS",
+    "CÍTRICOS",
+    "ESCAROLA",
+    "ESPINACA",
+    "FRESAL",
+    "FRUTALES DE HUESO",
+    "FRUTALES DE PEPITA",
+    "GROSELLERO",
+    "GUISANTE VERDE",
+    "HABA VERDE",
+    "HORTÍCOLAS",
+    "JUDÍA VERDE",
+    "LECHUGA",
+    "LEGUMINOSAS",
+    "LEGUMINOSAS DE GRANO",
+    "LÚPULO",
+    "MANZANAS",
+    "MAÍZ",
+    "NARANJO",
+    "OLIVO",
+    "PATATA",
+    "PEPINILLO",
+    "PEPINO",
+    "PERAS",
+    "PLATANERA",
+    "REMOLACHA AZUCARERA",
+    "REPOLLO",
+    "RÁBANO",
+    "RÚCULA",
+    "TORONJA, POMELO",
+    "TRIGO",
+    "TRITICALE",
+    "TRITORDEUM"
+   ],
+   "AGENTES": [
+    "HELIOTHIS, HELICOVERPA SPP.",
+    "LEPIDÓPTEROS",
+    "MOSCAS BLANCAS, ALEYRODIDAE",
+    "TEFRÍTIDOS, TEPHRITIDAE",
+    "ÁFIDOS, PULGONES, APHIDIDAE"
+   ]
+  },
+  {
+   "REG": "25357",
+   "NOME": "LAMDEX EXTRA N",
+   "FORMULADO": "LAMBDA CIHALOTRIN 2,5% [WG] P/P",
+   "CADUCIDAD": "31-08-2026",
+   "PDF_BYTES": 329368,
+   "PDF_SHA256": "cfa03bd3109dc871fb9ccb79503f2abbf79ddd29a63143c4e27be8170c059e89",
+   "CULTIVOS": [
+    "ALFALFA",
+    "ALGODONERO",
+    "ALMENDRO",
+    "APIONABO",
+    "AVELLANO",
+    "AVENA",
+    "BARBAREA",
+    "BERRO, MASTUERZO",
+    "BRÉCOL",
+    "BULBOS",
+    "BULBOS HORTÍCOLAS",
+    "CALABACÍN",
+    "CANÓNIGO",
+    "CEBADA",
+    "CENTENO",
+    "CEREZO",
+    "CIRUELAS",
+    "CLAVEL",
+    "COL DE BRUSELAS",
+    "COLIFLOR",
+    "COLZA",
+    "CUCURBITÁCEAS",
+    "CÍTRICOS",
+    "ESCAROLA",
+    "ESPINACA",
+    "FRESAL",
+    "FRUTALES DE HUESO",
+    "FRUTALES DE PEPITA",
+    "GROSELLERO",
+    "GUISANTE VERDE",
+    "HABA VERDE",
+    "HORTÍCOLAS",
+    "JUDÍA VERDE",
+    "LECHUGA",
+    "LEGUMINOSAS",
+    "LEGUMINOSAS DE GRANO",
+    "LÚPULO",
+    "MANZANAS",
+    "MAÍZ",
+    "MOSTAZA CHINA",
+    "NARANJO",
+    "OLIVO",
+    "PATATA",
+    "PEPINILLO",
+    "PEPINO",
+    "PERAS",
+    "PLATANERA",
+    "REMOLACHA AZUCARERA",
+    "REPOLLO",
+    "RÁBANO",
+    "RÚCULA",
+    "TORONJA, POMELO",
+    "TRIGO",
+    "TRITICALE"
+   ],
+   "AGENTES": [
+    "HELIOTHIS, HELICOVERPA SPP.",
+    "LEPIDÓPTEROS",
+    "MOSCAS BLANCAS, ALEYRODIDAE",
+    "TEFRÍTIDOS, TEPHRITIDAE",
+    "ÁFIDOS, PULGONES, APHIDIDAE"
+   ]
+  },
+  {
+   "REG": "17502",
+   "NOME": "LEBRON",
+   "FORMULADO": "TEFLUTRIN 0,5% [GR] P/P",
+   "CADUCIDAD": "31-05-2027",
+   "PDF_BYTES": 274862,
+   "PDF_SHA256": "4a8b5c21dd2092e48e1e1346597e1963a87e0688c6fa6ef4408017f80166f530",
+   "CULTIVOS": [
+    "ALGODONERO",
+    "APIO",
+    "BERENJENA",
+    "CAMELINA",
+    "CEBOLLA",
+    "SACOS",
+    "ZANAHORIA"
+   ],
+   "AGENTES": [
+    "ELATÉRIDOS, ELATERIDAE",
+    "MIRIÁPODOS",
+    "TÍPULAS, TIPULIDAE"
+   ]
+  },
+  {
+   "REG": "24004",
+   "NOME": "LEGACY PLUS",
+   "FORMULADO": "CLORTOLURON 40% + DIFLUFENICAN 2,5% [SC] P/V",
+   "CADUCIDAD": "30-06-2028",
+   "PDF_BYTES": 306384,
+   "PDF_SHA256": "e922313b3fd0c56773f386ec832c11f428da60cabd0f366d21aed7d55f337f7b",
+   "CULTIVOS": [
+    "CEBADA",
+    "TRIGO"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "MONOCOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "24082",
+   "NOME": "LEOPARD",
+   "FORMULADO": "QUIZALOFOP-P-ETIL 5% [EC] P/V",
+   "CADUCIDAD": "28-02-2027",
+   "PDF_BYTES": 282602,
+   "PDF_SHA256": "f39cd95465ca449cfd69f19c3e734bbed31645cb6a75093521ed3c3390aa5a2d",
+   "CULTIVOS": [
+    "ACHICORIA (HOJAS)",
+    "ALBARICOQUERO",
+    "ALFALFA",
+    "ALGODONERO",
+    "BERENJENA",
+    "BERZA , COL",
+    "BRÉCOL",
+    "CEBOLLA",
+    "CEREZO",
+    "CHALOTE",
+    "CIRUELO",
+    "COLIFLOR",
+    "COLZA",
+    "CONÍFERAS",
+    "CÍTRICOS",
+    "ENDRINO",
+    "ESPINACA",
+    "FRONDOSAS",
+    "FRUTALES DE CÁSCARA",
+    "FRUTALES DE HUESO",
+    "FRUTALES DE PEPITA",
+    "GARBANZO",
+    "GIRASOL",
+    "GUISANTE PARA GRANO",
+    "GUISANTE VERDE",
+    "HABA PARA GRANO",
+    "HABA VERDE",
+    "JUDÍA PARA GRANO",
+    "JUDÍA VERDE",
+    "LENTEJA",
+    "MELOCOTONERO",
+    "PATATA",
+    "REMOLACHA AZUCARERA",
+    "SOJA",
+    "TABACO",
+    "TOMATE",
+    "TRÉBOL",
+    "VEZA",
+    "ZANAHORIA"
+   ],
+   "AGENTES": [
+    "GRAMÍNEAS ANUALES",
+    "GRAMÍNEAS PLURIANUALES"
+   ]
+  },
+  {
+   "REG": "25641",
+   "NOME": "MAGNATE",
+   "FORMULADO": "IMAZALIL 10% [SL] P/V",
+   "CADUCIDAD": "31-05-2027",
+   "PDF_BYTES": 308775,
+   "PDF_SHA256": "3ec4bd49f1c59e88772d7c3fb8ed5eefa36b5d7431e2a551187069bbdd439ebb",
+   "CULTIVOS": [
+    "PATATA",
+    "PATATA DE SIEMBRA"
+   ],
+   "AGENTES": [
+    "FUSARIOSIS, FUSARIUM SPP."
+   ]
+  },
+  {
+   "REG": "16417",
+   "NOME": "MAVRIK",
+   "FORMULADO": "TAU-FLUVALINATO 24% [EW] P/V",
+   "CADUCIDAD": "31-01-2027",
+   "PDF_BYTES": 332884,
+   "PDF_SHA256": "441a019c2626115aed48c5a47bc2e30f394af39f106404c3d0e020c40584edb5",
+   "CULTIVOS": [
+    "ALCACHOFA",
+    "ALFALFA",
+    "ALGODONERO",
+    "AVENA",
+    "BATATA, BONIATO"
+   ],
+   "AGENTES": [
+    "CHINCHES, HETERÓPTEROS",
+    "SITONAS, SITONA SPP.",
+    "TRIPS",
+    "ÁCAROS",
+    "ÁFIDOS, PULGONES, APHIDIDAE"
+   ]
+  },
+  {
+   "REG": "19995",
+   "NOME": "MERPAN 80 WDG",
+   "FORMULADO": "CAPTAN 80% [WG] P/P",
+   "CADUCIDAD": "30-09-2028",
+   "PDF_BYTES": 331420,
+   "PDF_SHA256": "8ae9f823b7d4da69f5ef625db219e2a34c202e47682b35769d1f8bd65f6cbf1d",
+   "CULTIVOS": [
+    "ALMENDRO",
+    "MELOCOTONERO"
+   ],
+   "AGENTES": [
+    "COLLETOTRICHUM SPP.",
+    "MONILIA, MONILINIA SPP."
+   ]
+  },
+  {
+   "REG": "13188",
+   "NOME": "MERPAN 80 WG",
+   "FORMULADO": "CAPTAN 80% [WG] P/P",
+   "CADUCIDAD": "30-09-2028",
+   "PDF_BYTES": 282642,
+   "PDF_SHA256": "cf73a2530401572220ecbb5c6036afa049a5c6937869bdc9b570b7a2bb5e83f7",
+   "CULTIVOS": [],
+   "AGENTES": [
+    "COLLETOTRICHUM SPP."
+   ]
+  },
+  {
+   "REG": "12470",
+   "NOME": "METALIXON",
+   "FORMULADO": "METALDEHIDO 5% [GB] P/P",
+   "CADUCIDAD": "31-08-2026",
+   "PDF_BYTES": 269048,
+   "PDF_SHA256": "43d34b68e0de3732584ef19de23a03624b85ee2cab113c9c6ee358e22ae48513",
+   "CULTIVOS": [
+    "ALCACHOFA",
+    "ALGODONERO",
+    "APIO",
+    "ARBUSTOS Y PEQUEÑOS ÁRBOLES ORNAMENTALES",
+    "AVENA",
+    "BARBAREA",
+    "BERENJENA",
+    "BRÉCOL",
+    "CALABACÍN",
+    "CEBADA",
+    "CEBOLLA",
+    "CENTENO",
+    "CHALOTE",
+    "CHIRIVÍA",
+    "COL DE BRUSELAS",
+    "COLIFLOR",
+    "COLZA",
+    "CONÍFERAS",
+    "CÍTRICOS",
+    "ESCAROLA",
+    "ESPINACAS Y SIMILARES",
+    "ESPÁRRAGO",
+    "FRESAL",
+    "FRONDOSAS",
+    "FRUTALES DE CÁSCARA",
+    "FRUTALES DE HUESO",
+    "FRUTALES DE PEPITA",
+    "GIRASOL",
+    "LECHUGA",
+    "LECHUGA Y SIMILARES",
+    "LEGUMINOSAS",
+    "LEGUMINOSAS DE GRANO",
+    "LEGUMINOSAS VERDES (FRESCAS)",
+    "MAÍZ",
+    "MELÓN",
+    "MIJO",
+    "MOSTAZA CHINA",
+    "NABO",
+    "ORNAMENTALES HERBÁCEAS",
+    "PALMÁCEAS",
+    "PATATA",
+    "PEPINILLO",
+    "PEPINO",
+    "PIMIENTO",
+    "PUERRO",
+    "RAÍCES Y TUBÉRCULOS (EXCEPTO REMOLACHA AZUCARERA Y PATATA)",
+    "REMOLACHA AZUCARERA",
+    "REMOLACHA FORRAJERA",
+    "REPOLLO",
+    "RÁBANO",
+    "RÚCULA",
+    "SANDÍA",
+    "SOJA",
+    "SORGO",
+    "TOMATE",
+    "TRIGO",
+    "TRITICALE",
+    "ZANAHORIA"
+   ],
+   "AGENTES": [
+    "BABOSAS, LIMACOS",
+    "CARACOLES"
+   ]
+  },
+  {
+   "REG": "12469",
+   "NOME": "METENAL",
+   "FORMULADO": "METALDEHIDO 5% (ADICIONADO DE COLORANTE) [GB] P/P",
+   "CADUCIDAD": "31-08-2026",
+   "PDF_BYTES": 300374,
+   "PDF_SHA256": "0b7f1f94f670de25cb5260232f0fb894e3f77c1d9d7a807e5bcad07205b04584",
+   "CULTIVOS": [
+    "ALCACHOFA",
+    "ALGODONERO",
+    "ALMORTA"
+   ],
+   "AGENTES": [
+    "BABOSAS, LIMACOS",
+    "CARACOLES"
+   ]
+  },
+  {
+   "REG": "ES-00211",
+   "NOME": "NEPTUNE",
+   "FORMULADO": "TEBUCONAZOL 3,6%  + OXICLORURO DE COBRE (exp. como cobre) 36% [SC] P/V",
+   "CADUCIDAD": "15-08-2026",
+   "PDF_BYTES": 275288,
+   "PDF_SHA256": "a78037ecceb03d3dea9c7bacf15c5955393ef8709921438882297ad17c3b0c49",
+   "CULTIVOS": [
+    "OLIVO"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "24887",
+   "NOME": "NICOPERTS",
+   "FORMULADO": "NICOSULFURON 4% [SC] P/V",
+   "CADUCIDAD": "31-03-2027",
+   "PDF_BYTES": 262475,
+   "PDF_SHA256": "86df3f939e39306f40ba91577f7afaa9078431c7733762a899154104cdf1c472",
+   "CULTIVOS": [
+    "MAÍZ",
+    "MAÍZ DULCE"
+   ],
+   "AGENTES": [
+    "CAÑOTA, SORGHUM HALEPENSE",
+    "DICOTILEDÓNEAS ANUALES",
+    "MONOCOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "ES-00474",
+   "NOME": "NIKITA",
+   "FORMULADO": "DICAMBA 31,25%  + MESOTRIONA 15%  + NICOSULFURON 10% [WG] P/P",
+   "CADUCIDAD": "31-03-2027",
+   "PDF_BYTES": 313897,
+   "PDF_SHA256": "9f07fe2c96ca68709bf058c4d319e042d5c759ec1bcac483c2e21c051dbec15f",
+   "CULTIVOS": [],
+   "AGENTES": [
+    "MALAS HIERBAS"
+   ]
+  },
+  {
+   "REG": "13261",
+   "NOME": "NIMROD QUATTRO",
+   "FORMULADO": "BUPIRIMATO 25% [EC] P/V",
+   "CADUCIDAD": "31-01-2027",
+   "PDF_BYTES": 341570,
+   "PDF_SHA256": "67d9f5ae88b6728f264dfe1262c98bc5d5a99e8853ee4e994907bb107bf13714",
+   "CULTIVOS": [
+    "ALBARICOQUERO",
+    "BERENJENA",
+    "CALABACÍN",
+    "CALABAZA",
+    "CONÍFERAS",
+    "CUCURBITÁCEAS",
+    "FRAMBUESO",
+    "FRESAL",
+    "FRONDOSAS",
+    "GROSELLERO",
+    "MANZANO",
+    "MELOCOTONERO",
+    "MELÓN",
+    "PALMERA DATILERA",
+    "PALMÁCEAS",
+    "PEPINO",
+    "PIMIENTO",
+    "ROSALES",
+    "SANDÍA",
+    "TOMATE",
+    "VID DE MESA",
+    "VID DE VINIFICACIÓN"
+   ],
+   "AGENTES": [
+    "OÍDIO, PODOSPHAERA FULIGINEA",
+    "OÍDIOS, ERYSIPHACEAE",
+    "PODOSPHAERA SPP."
+   ]
+  },
+  {
+   "REG": "ES-00499",
+   "NOME": "ORDAGO CAPS",
+   "FORMULADO": "PENDIMETALINA 40% [CS] P/V",
+   "CADUCIDAD": "15-01-2027",
+   "PDF_BYTES": 330414,
+   "PDF_SHA256": "91358884d0a3f8035c9b904580a800226b702435275da293b66a47f2161d4a39",
+   "CULTIVOS": [
+    "ALCACHOFA",
+    "ALMENDRO",
+    "ALTRAMUZ",
+    "ALTRAMUZ FORRAJERO",
+    "ARBUSTOS Y PEQUEÑOS ÁRBOLES ORNAMENTALES",
+    "AVELLANO",
+    "AVENA",
+    "BERENJENA",
+    "CASTAÑO",
+    "CEBADA",
+    "CEBOLLA",
+    "CENTENO",
+    "CEREALES DE INVIERNO / PRIMAVERA",
+    "CHALOTE",
+    "CHOPOS Y ÁLAMOS",
+    "COL DE BRUSELAS",
+    "COLIFLOR",
+    "CONÍFERAS",
+    "CÉSPEDES",
+    "CÍTRICOS",
+    "ENDIBIA",
+    "ESCAROLA",
+    "ESPARCETA",
+    "ESPECIES VEGETALES",
+    "FRESAL",
+    "FRONDOSAS",
+    "FRUTALES DE HUESO",
+    "FRUTALES DE PEPITA",
+    "GARBANZO",
+    "GIRASOL",
+    "GUISANTE PARA GRANO",
+    "HABA FORRAJERA",
+    "HABA PARA GRANO",
+    "JUDÍA PARA GRANO",
+    "LECHUGA",
+    "LEGUMINOSAS",
+    "LEGUMINOSAS DE GRANO",
+    "LEGUMINOSAS FORRAJERAS",
+    "LEGUMINOSAS VERDES (FRESCAS)",
+    "LENTEJA",
+    "MAÍZ",
+    "MAÍZ DULCE",
+    "MELÓN",
+    "NOGAL",
+    "PALMERA DATILERA",
+    "PALMÁCEAS",
+    "PATATA",
+    "PIMIENTO",
+    "PISTACHERO",
+    "PUERRO",
+    "REPOLLO",
+    "SOJA",
+    "TABACO",
+    "TOMATE",
+    "TRIGO",
+    "TRITICALE",
+    "VEZA",
+    "VID DE MESA",
+    "VID DE VINIFICACIÓN",
+    "YEROS",
+    "ZANAHORIA",
+    "ZULLA"
+   ],
+   "AGENTES": [
+    "GRAMÍNEAS ANUALES",
+    "GRAMÍNEAS PLURIANUALES",
+    "MALAS HIERBAS"
+   ]
+  },
+  {
+   "REG": "25551",
+   "NOME": "ORDAGO SC",
+   "FORMULADO": "PENDIMETALINA 40% [SC] P/V",
+   "CADUCIDAD": "15-01-2027",
+   "PDF_BYTES": 324774,
+   "PDF_SHA256": "ad58792f7d21d5e3012881d4620609bcc5e4083ad7394a2f934190362217067c",
+   "CULTIVOS": [
+    "ALCACHOFA",
+    "ALGODONERO",
+    "ALMENDRO"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "MONOCOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "18173",
+   "NOME": "ORTHO PHALTAN FLOW",
+   "FORMULADO": "FOLPET 50% [SC] P/V",
+   "CADUCIDAD": "31-01-2028",
+   "PDF_BYTES": 327694,
+   "PDF_SHA256": "bc875ae57eeee41769add365804e8e14051e4e1f8fbee54bca899b4e49cdd5ca",
+   "CULTIVOS": [
+    "FRONDOSAS",
+    "PATATA",
+    "ROSALES",
+    "TOMATE",
+    "VID DE MESA"
+   ],
+   "AGENTES": [
+    "ALTERNARIA SPP.",
+    "BOTRYTIS SPP.",
+    "FIALOFORA, PHIALOPHORA SPP.",
+    "FUSARIOSIS, FUSARIUM SPP.",
+    "PERONOSPORACEAE"
+   ]
+  },
+  {
+   "REG": "24786",
+   "NOME": "PILCLYN",
+   "FORMULADO": "TEBUCONAZOL 43% [SC] P/V",
+   "CADUCIDAD": "15-08-2026",
+   "PDF_BYTES": 299512,
+   "PDF_SHA256": "ec04b64721b1c9d468a500aecce6448e3998856c75cba85e80052fb29c505e8d",
+   "CULTIVOS": [
+    "CÍTRICOS",
+    "FRUTOS CÍTRICOS"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "ES-01516",
+   "NOME": "POSTSCRIPT 80",
+   "FORMULADO": "IMAZAMOX 8% [SL] P/V",
+   "CADUCIDAD": "30-06-2027",
+   "PDF_BYTES": 316585,
+   "PDF_SHA256": "142bbb575087fe5bc78de80e8634bfa0540e4eb695d6f0234b09b1d47e4b7ea7",
+   "CULTIVOS": [
+    "ARROZ"
+   ],
+   "AGENTES": [
+    "GRAMÍNEAS ANUALES",
+    "GRAMÍNEAS PLURIANUALES"
+   ]
+  },
+  {
+   "REG": "ES-01721",
+   "NOME": "POSTSCRIPT 80 XL",
+   "FORMULADO": "IMAZAMOX 8% [SL] P/V",
+   "CADUCIDAD": "30-06-2028",
+   "PDF_BYTES": 318827,
+   "PDF_SHA256": "207a95738315ad8cad5cd4e1d971188eb44bb5429f80470b9a21d550317a2037",
+   "CULTIVOS": [
+    "ARROZ"
+   ],
+   "AGENTES": [
+    "MALAS HIERBAS"
+   ]
+  },
+  {
+   "REG": "24081",
+   "NOME": "QUIZALOP",
+   "FORMULADO": "QUIZALOFOP-P-ETIL 5% [EC] P/V",
+   "CADUCIDAD": "28-02-2027",
+   "PDF_BYTES": 327932,
+   "PDF_SHA256": "7f7668f250ffa2c2731205bd1b02dacf27c1bbeb9bc8802215aa520eae41822a",
+   "CULTIVOS": [
+    "ACHICORIA (HOJAS)",
+    "ALBARICOQUERO",
+    "ALFALFA",
+    "ALGODONERO",
+    "BERENJENA",
+    "BERZA , COL",
+    "BRÉCOL",
+    "CEBOLLA",
+    "CEREZO",
+    "CHALOTE",
+    "CIRUELO",
+    "COLIFLOR",
+    "COLZA",
+    "CONÍFERAS",
+    "CÍTRICOS",
+    "ENDRINO",
+    "ESPINACA",
+    "FRONDOSAS",
+    "FRUTALES DE CÁSCARA",
+    "FRUTALES DE HUESO",
+    "FRUTALES DE PEPITA",
+    "GARBANZO",
+    "GIRASOL",
+    "GUISANTE PARA GRANO",
+    "GUISANTE VERDE",
+    "HABA PARA GRANO",
+    "HABA VERDE",
+    "JUDÍA PARA GRANO",
+    "JUDÍA VERDE",
+    "LENTEJA",
+    "MELOCOTONERO",
+    "PATATA",
+    "REMOLACHA AZUCARERA",
+    "SOJA",
+    "TABACO",
+    "TOMATE",
+    "TRÉBOL",
+    "VEZA",
+    "ZANAHORIA"
+   ],
+   "AGENTES": [
+    "GRAMÍNEAS ANUALES",
+    "GRAMÍNEAS PLURIANUALES"
+   ]
+  },
+  {
+   "REG": "24598",
+   "NOME": "QUIZALOP 5 EC",
+   "FORMULADO": "QUIZALOFOP-P-ETIL 5% [EC] P/V",
+   "CADUCIDAD": "28-02-2027",
+   "PDF_BYTES": 281829,
+   "PDF_SHA256": "1bb37a3275ac68db173364811df05d7de0fc107669a841b468b31c4f394f6f48",
+   "CULTIVOS": [
+    "ACHICORIA (HOJAS)",
+    "ALBARICOQUERO",
+    "ALFALFA",
+    "ALGODONERO",
+    "BERENJENA",
+    "BERZA , COL",
+    "BRÉCOL",
+    "CEBOLLA",
+    "CEREZO",
+    "CHALOTE",
+    "CIRUELO",
+    "COLIFLOR",
+    "COLZA",
+    "CONÍFERAS",
+    "CÍTRICOS",
+    "ENDRINO",
+    "ESPINACA",
+    "FRONDOSAS",
+    "FRUTALES DE CÁSCARA",
+    "FRUTALES DE HUESO",
+    "FRUTALES DE PEPITA",
+    "GARBANZO",
+    "GIRASOL",
+    "GUISANTE PARA GRANO",
+    "GUISANTE VERDE",
+    "HABA PARA GRANO",
+    "HABA VERDE",
+    "JUDÍA PARA GRANO",
+    "JUDÍA VERDE",
+    "LENTEJA",
+    "MELOCOTONERO",
+    "PATATA",
+    "REMOLACHA AZUCARERA",
+    "SOJA",
+    "TABACO",
+    "TOMATE",
+    "TRÉBOL",
+    "VEZA",
+    "ZANAHORIA"
+   ],
+   "AGENTES": [
+    "GRAMÍNEAS ANUALES",
+    "GRAMÍNEAS PLURIANUALES"
+   ]
+  },
+  {
+   "REG": "23651",
+   "NOME": "SHOGUN",
+   "FORMULADO": "PROPAQUIZAFOP 10% [EC] P/V",
+   "CADUCIDAD": "28-02-2027",
+   "PDF_BYTES": 283476,
+   "PDF_SHA256": "579cce4c04364388702dd64458567274e72cbc45aa61756e4adb4ee9c600336f",
+   "CULTIVOS": [
+    "ALBARICOQUERO",
+    "ALFALFA",
+    "ALGODONERO",
+    "ALMACENES",
+    "ALMENDRO",
+    "ALTRAMUZ",
+    "ARROZ",
+    "AVELLANO",
+    "AVENA",
+    "BERENJENA",
+    "BRÉCOL",
+    "CALABAZA",
+    "CASTAÑO",
+    "CEBOLLA",
+    "CEREZO",
+    "CHALOTE",
+    "CIRUELO",
+    "COLZA",
+    "CONÍFERAS",
+    "CÍTRICOS",
+    "ENDRINO",
+    "ESPÁRRAGO",
+    "FRONDOSAS",
+    "FRUTALES DE PEPITA",
+    "GARBANZO",
+    "GIRASOL",
+    "GUISANTE PARA GRANO",
+    "GUISANTE VERDE",
+    "HABA PARA GRANO",
+    "HABA VERDE",
+    "JUDÍA PARA GRANO",
+    "JUDÍA VERDE",
+    "LENTEJA",
+    "LOCALES Y ALMACENES",
+    "MELOCOTONERO",
+    "MELÓN",
+    "NOGAL",
+    "OLIVO",
+    "PALMERA DATILERA",
+    "PALMÁCEAS",
+    "PATATA",
+    "PEREJIL",
+    "PINOS",
+    "PISTACHERO",
+    "RAÍZ DE PEREJIL",
+    "REMOLACHA AZUCARERA",
+    "REMOLACHA FORRAJERA",
+    "REPOLLO",
+    "SANDÍA",
+    "SOJA",
+    "TABACO",
+    "TOMATE",
+    "VEZA",
+    "VID DE MESA",
+    "VID DE VINIFICACIÓN",
+    "ZANAHORIA"
+   ],
+   "AGENTES": [
+    "ARROZ SALVAJE, ORYZA SATIVA",
+    "GRAMÍNEAS ANUALES",
+    "GRAMÍNEAS PLURIANUALES",
+    "MALAS HIERBAS",
+    "RICIO DE CEREALES, POACEAE"
+   ]
+  },
+  {
+   "REG": "ES-01867",
+   "NOME": "SONAVIO",
+   "FORMULADO": "BIFENOX 48% [SC] P/V",
+   "CADUCIDAD": "31-03-2028",
+   "PDF_BYTES": 314407,
+   "PDF_SHA256": "c71637c4fb6ece02e925360a508ada1a44f94499a19357914d7f9441782a14d5",
+   "CULTIVOS": [
+    "ALCACHOFA",
+    "BULBOS",
+    "CANÓNIGO",
+    "CEBOLLA",
+    "CHALOTE",
+    "ESCAROLA",
+    "LECHUGA",
+    "TOMATE",
+    "ZANAHORIA"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "ES-01665",
+   "NOME": "SORATEL",
+   "FORMULADO": "PROTIOCONAZOL 25% [EC] P/V",
+   "CADUCIDAD": "31-03-2027",
+   "PDF_BYTES": 322204,
+   "PDF_SHA256": "fee532a600723f1cb825bccab7361327398baa4028c8d99aa1cb7279272573af",
+   "CULTIVOS": [
+    "CEBADA",
+    "CENTENO",
+    "COLZA",
+    "TRIGO"
+   ],
+   "AGENTES": [
+    "FUSARIOSIS, FUSARIUM SPP."
+   ]
+  },
+  {
+   "REG": "ES-01717",
+   "NOME": "SORATEL MAX",
+   "FORMULADO": "AZOXISTROBIN 20%  + PROTIOCONAZOL 15% [SC] P/V",
+   "CADUCIDAD": "31-05-2027",
+   "PDF_BYTES": 318402,
+   "PDF_SHA256": "0f9c8984083d317bae1957d4ae968c564b985ca36cfb0a07649eb24714146f92",
+   "CULTIVOS": [
+    "CEBADA",
+    "CENTENO",
+    "TRIGO",
+    "TRITICALE"
+   ],
+   "AGENTES": [
+    "FUSARIOSIS, FUSARIUM SPP.",
+    "MICRODOCHIUM SPP.",
+    "ROYA, PUCCINIA SPP.",
+    "SEPTORIOSIS, SEPTORIA SPP."
+   ]
+  },
+  {
+   "REG": "21739",
+   "NOME": "SPYRALE",
+   "FORMULADO": "DIFENOCONAZOL 10% + FENPROPIDIN 37,5% [EC] P/V",
+   "CADUCIDAD": "31-01-2028",
+   "PDF_BYTES": 270638,
+   "PDF_SHA256": "dbbc14a543d22dc2b64c93a78daaa695cb601baacd2086d8befbc1ad2b9c5df7",
+   "CULTIVOS": [
+    "REMOLACHA AZUCARERA"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "25295",
+   "NOME": "SPYRALE EC",
+   "FORMULADO": "DIFENOCONAZOL 10% + FENPROPIDIN 37,5% [EC] P/V",
+   "CADUCIDAD": "31-01-2028",
+   "PDF_BYTES": 270447,
+   "PDF_SHA256": "133f4a3d80afcb904cc8b310ed749e0f4177941f7bc1d4ff4e13c3a4b8d6c57d",
+   "CULTIVOS": [
+    "REMOLACHA AZUCARERA"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "21850",
+   "NOME": "STOCK LS",
+   "FORMULADO": "IMAZALIL 7,5% (SULFATO) [SL] P/V",
+   "CADUCIDAD": "31-05-2027",
+   "PDF_BYTES": 269249,
+   "PDF_SHA256": "6b2be5c3a723ca8c576101ffb4abf9ac974af5ba1baa25936b9eb451cfab5cce",
+   "CULTIVOS": [
+    "CÍTRICOS",
+    "FRUTOS CÍTRICOS",
+    "LIMONERO",
+    "NARANJO"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "ES-00142",
+   "NOME": "SULCOTREK",
+   "FORMULADO": "SULCOTRIONA 17,3%  + TERBUTILAZINA 32,7% [SC] P/V",
+   "CADUCIDAD": "31-05-2027",
+   "PDF_BYTES": 312944,
+   "PDF_SHA256": "4123cc5bf098cbb7e2b76e7c1a75430a3c9a6ec37a07fd8ba906a64fd4aae808",
+   "CULTIVOS": [
+    "MAÍZ"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "25050",
+   "NOME": "SULTAN N",
+   "FORMULADO": "METAZACLORO 50% [SC] P/V",
+   "CADUCIDAD": "31-10-2026",
+   "PDF_BYTES": 271735,
+   "PDF_SHA256": "086fe176ece5559a3d7ccbedc81c1373801a23994e2f064c5fc0d8e453924b31",
+   "CULTIVOS": [
+    "ADORMIDERA"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "MONOCOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "ES-01366",
+   "NOME": "SUNBRIGHT",
+   "FORMULADO": "ACLONIFEN 30%  + IMAZAMOX 2% [SC] P/V",
+   "CADUCIDAD": "30-06-2027",
+   "PDF_BYTES": 316851,
+   "PDF_SHA256": "db5087e888b5e45208eac3037de7bf773d2620ad8a37b73d160383d5eb908cd4",
+   "CULTIVOS": [
+    "GIRASOL"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "25460",
+   "NOME": "TOLUREX 70 SC",
+   "FORMULADO": "CLORTOLURON 70% [SC] P/V",
+   "CADUCIDAD": "30-06-2028",
+   "PDF_BYTES": 302655,
+   "PDF_SHA256": "0fa61357c52236f7834d6cab02001f239d2176a8c1227b9eb6c4700fe2add6c1",
+   "CULTIVOS": [
+    "CEBADA",
+    "TRIGO",
+    "TRITICALE"
+   ],
+   "AGENTES": [
+    "MALAS HIERBAS"
+   ]
+  },
+  {
+   "REG": "19548",
+   "NOME": "TOPIK 24 EC",
+   "FORMULADO": "CLODINAFOP-PROPARGIL 24% [EC] P/V",
+   "CADUCIDAD": "31-07-2027",
+   "PDF_BYTES": 309245,
+   "PDF_SHA256": "5cd1a8d6e08ab99f373d066590584cbff868b23669451548a76412c5b2772fec",
+   "CULTIVOS": [
+    "AVENA",
+    "TRIGO",
+    "TRITICALE"
+   ],
+   "AGENTES": [
+    "AVENAS LOCAS, AVENA SPP.",
+    "MALAS HIERBAS",
+    "VALLICO, LOLIUM RIGIDUM"
+   ]
+  },
+  {
+   "REG": "22061",
+   "NOME": "TORNADO",
+   "FORMULADO": "METAMITRONA 70% [SC] P/V",
+   "CADUCIDAD": "30-11-2026",
+   "PDF_BYTES": 313228,
+   "PDF_SHA256": "40d76fdeb7b37c213f7439d68025f58bb6dc6d5799490609b32e99590de4702e",
+   "CULTIVOS": [
+    "REMOLACHA AZUCARERA",
+    "REMOLACHA FORRAJERA"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "MALAS HIERBAS",
+    "MONOCOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "ES-00744",
+   "NOME": "TOUCHDOWN ULTIMO",
+   "FORMULADO": "GLIFOSATO 36% (SAL ISOPROPILAMINA) [SL] P/V",
+   "CADUCIDAD": "30-09-2027",
+   "PDF_BYTES": 311003,
+   "PDF_SHA256": "67424b9b279fbeec336310c764cc1e8b5837b84565f0697b351497aaa8f62a5f",
+   "CULTIVOS": [
+    "ACEQUIAS",
+    "BORDES DE ARCÉN Y CUNETAS",
+    "CAMINOS",
+    "CANALES DE RIEGO",
+    "CORTAFUEGOS",
+    "HERBÁCEAS EXTENSIVAS",
+    "HERBÁCEAS INTENSIVAS",
+    "LEÑOSAS",
+    "LINDEROS",
+    "MÁRGENES DE CULTIVOS",
+    "PASTOS Y PRADERAS"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "DICOTILEDÓNEAS PLURIANUALES",
+    "GRAMÍNEAS ANUALES",
+    "MALAS HIERBAS",
+    "MONOCOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "ES-00141",
+   "NOME": "TRIMMER SX",
+   "FORMULADO": "TRIBENURON-METIL 50% [WG] P/P",
+   "CADUCIDAD": "31-07-2027",
+   "PDF_BYTES": 312318,
+   "PDF_SHA256": "cc175d9e83e8120d03d141758222a383129dbb2a34f61f30df3a93bd39e514b8",
+   "CULTIVOS": [
+    "AVENA",
+    "CEBADA",
+    "TRIGO",
+    "TRITICALE"
+   ],
+   "AGENTES": []
+  },
+  {
+   "REG": "25667",
+   "NOME": "TRINITY",
+   "FORMULADO": "CLORTOLURON 25%  + DIFLUFENICAN 4%  + PENDIMETALINA 30% [SC] P/V",
+   "CADUCIDAD": "15-08-2026",
+   "PDF_BYTES": 306996,
+   "PDF_SHA256": "622b14a2f6e16be93256c59b1f43e3e22f9fd312846deb459d066d10403dd12d",
+   "CULTIVOS": [
+    "CEBADA",
+    "CENTENO",
+    "TRIGO",
+    "TRITICALE"
+   ],
+   "AGENTES": [
+    "MALAS HIERBAS"
+   ]
+  },
+  {
+   "REG": "24157",
+   "NOME": "URBOLE",
+   "FORMULADO": "DIFLUFENICAN 50% [SC] P/V",
+   "CADUCIDAD": "31-08-2027",
+   "PDF_BYTES": 255941,
+   "PDF_SHA256": "827a93d5279b07e0bc762e7dda62069d10c9f2f21e975cb72de88491a5a156e8",
+   "CULTIVOS": [
+    "AVENA",
+    "CEBADA",
+    "CENTENO",
+    "TRIGO"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "17354",
+   "NOME": "UROTAN",
+   "FORMULADO": "CLORTOLURON 50% [SC] P/V",
+   "CADUCIDAD": "30-06-2028",
+   "PDF_BYTES": 305559,
+   "PDF_SHA256": "6570100f3b0f9f2624e152893b0842f50af150e108432f3493e19b3f3e603830",
+   "CULTIVOS": [
+    "CEBADA",
+    "TRIGO",
+    "TRITICALE"
+   ],
+   "AGENTES": [
+    "DICOTILEDÓNEAS ANUALES",
+    "MONOCOTILEDÓNEAS ANUALES"
+   ]
+  },
+  {
+   "REG": "ES-01463",
+   "NOME": "VINERGY",
+   "FORMULADO": "FOSFONATOS DE POTASIO 67% (equivalente a 45% en ácido fosfónico) + FOLPET 30% [SC] P/V",
+   "CADUCIDAD": "31-01-2028",
+   "PDF_BYTES": 283616,
+   "PDF_SHA256": "0245416e7536e91ed174373ae6e645420ad3b916c60b1d1e9e3e2f5af7a1ce4e",
+   "CULTIVOS": [
+    "VID DE VINIFICACIÓN"
+   ],
+   "AGENTES": []
+  }
+ ]
+}

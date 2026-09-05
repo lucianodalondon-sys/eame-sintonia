@@ -72,21 +72,60 @@ def duracao_em_segundos(hhmmss):
     return s
 
 
-def chave_de_dedupe(reg):
-    """Identidade estrutural. Nunca o texto."""
-    return (reg['PLATFORM'], reg['EXTERNAL_ID'])
+# Marcador de registro SEM identidade estrutural. Não é uma identidade: é a declaração de
+# que não há nenhuma. Ver `chave_de_dedupe`.
+SEM_ID_ESTRUTURAL = '__SEM_ID_ESTRUTURAL__'
+
+
+def tem_id_estrutural(reg):
+    """O registro traz um EXTERNAL_ID de verdade?
+
+    `NÃO SEI`, vazio e None NÃO são identificadores — são a ausência de um.
+    """
+    v = reg.get('EXTERNAL_ID')
+    if v is None:
+        return False
+    v = str(v).strip()
+    return bool(v) and v != NAO_SEI
+
+
+def chave_de_dedupe(reg, posicao=None):
+    """Identidade estrutural. Nunca o texto — e nunca a ausência de identidade.
+
+    O defeito medido na MISSÃO 10C: quando a rota não devolve `id`, `normalizar_video`
+    grava `EXTERNAL_ID = NÃO SEI`. Com a chave antiga `(PLATFORM, EXTERNAL_ID)`, TODOS os
+    registros sem id compartilhavam a chave `('YOUTUBE', 'NÃO SEI')` e colapsavam num só.
+    Três vídeos distintos viravam um, com `DUPLICATE_COUNT = 2`, a aritmética fechava e o
+    portão dizia PROVED enquanto dois vídeos reais desapareciam.
+
+    `NÃO SEI` é ausência de identidade, e **ausência de identidade não é identidade
+    compartilhada**. Dois registros que não sabemos identificar não são o mesmo registro:
+    são dois registros que não sabemos identificar. Sem id, cada um é único por posição e
+    nunca colapsa — a incerteza preserva conteúdo em vez de destruí-lo.
+    """
+    if tem_id_estrutural(reg):
+        return (reg['PLATFORM'], str(reg['EXTERNAL_ID']).strip())
+    return (reg.get('PLATFORM'), SEM_ID_ESTRUTURAL, posicao)
 
 
 def dedupe(registros):
-    """Colapsa por PLATFORM+EXTERNAL_ID e devolve (únicos, n_colapsados)."""
+    """Colapsa por PLATFORM+EXTERNAL_ID e devolve (únicos, n_colapsados).
+
+    Registro sem identidade estrutural NUNCA colapsa — ver `chave_de_dedupe`.
+    """
     vistos, saida = set(), []
-    for r in registros:
-        k = chave_de_dedupe(r)
+    for i, r in enumerate(registros):
+        k = chave_de_dedupe(r, i)
         if k in vistos:
             continue
         vistos.add(k)
         saida.append(r)
     return saida, len(registros) - len(saida)
+
+
+def sem_id_estrutural(registros):
+    """Quantos registros entraram sem identificador. Nunca pode ficar implícito."""
+    return [r for r in registros if not tem_id_estrutural(r)]
 
 
 def normalizar_video(bruto, *, source_id, run_id, capture_date, papel_por_canal=None,
@@ -164,10 +203,20 @@ def marcar_assunto(reg):
     permitido; deduzir QUEM fala a partir do mesmo texto não é.
     """
     campo = ' '.join(str(reg.get(k) or '') for k in ('TITLE', 'DESCRIPTION'))
-    for nome, rx in VOCAB_CROP.items():
-        if re.search(rx, campo, re.I):
-            reg['CROP'] = nome
-            break
+    # CROP segue a MESMA regra de ISSUE, e por um motivo medido: o `for ... break` que
+    # estava aqui elegia a primeira cultura casada por ORDEM DE INSERÇÃO DO DICIONÁRIO —
+    # desempate silencioso, sem critério declarado e sem teste. Com VOCAB_CROP tendo uma
+    # única chave o defeito era invisível: empate é impossível com um item. Ele nasceria
+    # vivo na segunda cultura, que é exatamente o que o mapa nacional espanhol vai
+    # acrescentar. Medido em sombra sobre os 252 vídeos: OLD != PROPOSED em 0 registros.
+    #
+    # E é a mesma lei que o Sintonia Brasil pagou para aprender: um texto pode falar de N
+    # culturas, e colapsar em `cult_top` perde a informação sem avisar ninguém.
+    achados_crop = [n for n, rx in VOCAB_CROP.items() if re.search(rx, campo, re.I)]
+    if len(achados_crop) == 1:
+        reg['CROP'] = achados_crop[0]
+    elif len(achados_crop) > 1:
+        reg['CROP'] = 'AMBIGUOUS:' + '+'.join(sorted(achados_crop))
     achados = [n for n, rx in VOCAB_ISSUE.items() if re.search(rx, campo, re.I)]
     if len(achados) == 1:
         reg['ISSUE'] = achados[0]
@@ -358,8 +407,8 @@ def pipeline_video(brutos, *, source_id, run_id, capture_date, papel_por_canal=N
     unicos, colapsados = dedupe(normalizados)
     # quem colapsou, e contra qual registro canônico
     canonico, duplicatas = {}, []
-    for r in normalizados:
-        k = chave_de_dedupe(r)
+    for i, r in enumerate(normalizados):
+        k = chave_de_dedupe(r, i)
         if k in canonico:
             duplicatas.append({'DUPLICATE_OF': canonico[k], 'PLATFORM': k[0], 'EXTERNAL_ID': k[1]})
         else:
@@ -377,6 +426,10 @@ def pipeline_video(brutos, *, source_id, run_id, capture_date, papel_por_canal=N
         'UNIQUE_CONTENT_COUNT': len(unicos),
         'UNIQUE_ORIGIN_COUNT': len({r['ORIGIN_ID'] for r in unicos}),
         'DEDUPE_KEY': 'PLATFORM + EXTERNAL_ID',
+        # Sem isto, um lote inteiro sem id vira "tudo duplicata" e ninguem ve.
+        'WITHOUT_STRUCTURAL_ID_COUNT': len(sem_id_estrutural(normalizados)),
+        'REGRA_SEM_ID': ('registro sem EXTERNAL_ID nao colapsa: ausencia de identidade nao '
+                         'e identidade compartilhada'),
         'DUPLICATES': duplicatas,
         'CONTENT_TYPE_COUNTS': tipos,
         'CLASSIFIED_COUNT': sum(n for t, n in tipos.items() if t != NAO_SEI),

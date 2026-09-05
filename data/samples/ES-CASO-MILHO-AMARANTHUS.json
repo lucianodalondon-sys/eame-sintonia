@@ -1,0 +1,74 @@
+{
+ "SOURCE_ID": "ES-CASO-MILHO-AMARANTHUS",
+ "source": "convergencia entre avisos oficiais de Aragon, area do MAPA e registro do ROPF",
+ "SOURCE_LOCATION": "SPAIN",
+ "FACT_LOCATION": "SPAIN (Aragon: Huesca; Cataluna: Lleida)",
+ "ORIGINAL_LANGUAGE": "es",
+ "captured_at": "2026-08-30",
+ "COUNTRY": "ES",
+ "CROP": "MAIZE",
+ "ISSUE": "Amaranthus palmeri",
+ "REGION": [
+  "Huesca (Aragon)",
+  "Lleida (Cataluna)"
+ ],
+ "ESCALA": {
+  "MAIZ_GRANO_HA_NACIONAL": 239087,
+  "HUESCA_HA": 39945,
+  "LLEIDA_HA": 12360,
+  "POSICAO": "Huesca e a 2a provincia de milho grao da Espanha; Lleida a 4a",
+  "FONTE": "MAPA, re1_cereales tabla global, indicador SCOT"
+ },
+ "SINAL_DE_CAMPO": {
+  "ESTADO": "CURRENT_SIGNAL",
+  "EVIDENCIA": [
+   "Aviso 9 · 15/07/2026 · Amaranthus palmeri · Gobierno de Aragon",
+   "Aviso 8 · 08/06/2026 · Amaranthus palmeri · Gobierno de Aragon",
+   "Aviso 17 · 22/10/2025 · Amaranthus palmeri · Gobierno de Aragon"
+  ],
+  "FONTE": "https://www.aragon.es/-/boletin-fitosanitario-de-avisos-e-informaciones",
+  "LEITURA": "tres avisos oficiais em 14 meses, o ultimo a 46 dias da data de captura. O servico fitossanitario de uma comunidade nao emite tres avisos sobre a mesma especie por acaso.",
+  "OBSERVATION_CLOCK": "15/07/2026 — data do aviso mais recente"
+ },
+ "HISTORICO": {
+  "MEDICAO_2020": "185 campos = 12% das parcelas de milho prospectadas em Aragon; mais de 200 ha afetados na Cataluna",
+  "FONTE": "Phytoma, 23/06/2020",
+  "RESSALVA": "este numero e de 2020 e NAO foi reconfirmado para 2026. Nao usar como estado atual.",
+  "MEDIDA_LEGAL": "a Cataluna publicou ordem declarando a existencia da especie e a luta como de interesse publico, com proibicao de semear milho por 3-4 anos nas parcelas afetadas (2020)"
+ },
+ "RESPOSTA_ADAMA_REGISTRADA": {
+  "PAR_ESPECIFICO": {
+   "MAPA_ISSUE": "BLEDOS, AMARANTHUS SPP. (id 2067)",
+   "TOTAL_REGISTER_RESULTS": 1,
+   "ADAMA_RESULTS": 0,
+   "LEITURA": "UM unico registro em toda a Espanha declara Amaranthus como alvo em milho, e nenhum e da ADAMA"
+  },
+  "PAR_GENERICO": {
+   "MAPA_ISSUE": "DICOTILEDONEAS, MALAS HIERBAS DE HOJA ANCHA",
+   "TOTAL_REGISTER_RESULTS": 76,
+   "ADAMA_RESULTS": 3,
+   "ADAMA_REGISTRATION_IDS": [
+    "ES-00499",
+    "ES-00711",
+    "ES-01677"
+   ]
+  },
+  "A_DISTINCAO_QUE_IMPORTA": "a ADAMA tem herbicida de folha larga registrado em milho, e NAO tem Amaranthus como alvo declarado. Dizer que o produto generico responde ao palmeri seria inferir EFICACIA a partir de CATEGORIA — e o problema inteiro do palmeri e resistencia multipla (ALS, glifosato). O registro nao responde essa pergunta.",
+  "SOURCE_VERSION": "ROPF 2026-08-30T01:42:43+02:00"
+ },
+ "RELOGIOS": {
+  "AGRONOMIC_CLOCK": "JANELA FECHADA para a safra 2026. O controle de daninha em milho e pre e pos-emergencia, e em Huesca a sementeira comeca em abril com colheita a partir de julho (MAPA). Em 30/08 o milho esta em enchimento de grao ou colheita: nao ha aplicacao de herbicida a fazer.",
+  "AGRONOMIC_CLOCK_CONFIANCA": "TYPICAL, nao OBSERVED. O calendario oficial do MAPA para Aragon existe em PDF mas o mapeamento de fonte do arquivo esta quebrado e nao foi extraivel; a janela vem de descricao textual do proprio MAPA, nao de tabela lida.",
+  "OBSERVATION_CLOCK": "15/07/2026",
+  "COMMERCIAL_CLOCK": "NAO_SEI — exige dado interno ADAMA"
+ },
+ "STATUS": "FUTURE_CYCLE_OPPORTUNITY",
+ "PORQUE_NAO_E_AGIR_AGORA": "o sinal e atual e a lacuna de portfolio e real, mas a janela agronomica de 2026 ja fechou. Apresentar isto como urgencia seria criar urgencia artificial.",
+ "O_QUE_AINDA_NAO_SABEMOS": [
+  "se os 185 campos de 2020 cresceram, estabilizaram ou recuaram — nao ha medicao 2026 publica localizada",
+  "se os herbicidas de folha larga da ADAMA controlam palmeri resistente — o registro nao responde eficacia",
+  "qual o estagio observado da safra 2026 em Huesca — so temos calendario tipico",
+  "se a ADAMA tem resposta comercial nao refletida no registro — depende do handoff da janela paralela"
+ ],
+ "PROXIMA_JANELA": "sementeira de milho 2027 em Huesca/Lleida, a partir de abril de 2027 — cerca de 7 meses da data de captura"
+}

@@ -1,0 +1,346 @@
+{
+ "CASE_ID": "ES-CASE-002-MAIZ-AMARANTHUS-ARAGON",
+ "COUNTRY": "ES",
+ "CROP": "MAÍZ",
+ "ISSUE": "Amaranthus palmeri (BLEDOS, AMARANTHUS SPP. — id 2067 no ROPF)",
+ "REGION": "Aragon (Huesca) e Cataluna (Lleida)",
+ "source": "MAPA ROPF (par idCultivo x idPlaga, fichas PDF preservadas) + avisos do Gobierno de Aragon + declaracoes PAC 2025 de Aragon + camada cientifica ES-T5-003/004",
+ "SOURCE_LOCATION": "SPAIN (MAPA), ARAGON (avisos e PAC), EUROPE (OpenAlex/ORCID na camada de ciencia)",
+ "FACT_LOCATION": "SPAIN — Huesca (Aragon) e Lleida (Cataluna)",
+ "ORIGINAL_LANGUAGE": "ES",
+ "captured_at": "2026-08-30",
+ "CASE_TYPE": "PLANEJAR PROXIMO CICLO — a janela de 2026 fechou e isso esta provado na etiqueta, nao suposto",
+ "SIGNAL": {
+  "ESTADO": "CURRENT_SIGNAL",
+  "EVIDENCIA": [
+   "Aviso 9 · 15/07/2026",
+   "Aviso 8 · 08/06/2026",
+   "Aviso 17 · 22/10/2025 — todos do Gobierno de Aragon, todos sobre Amaranthus palmeri"
+  ],
+  "SIGNAL_DATE": "2026-07-15",
+  "SIGNAL_FRESHNESS": "46 dias na data de captura",
+  "LEITURA": "tres avisos oficiais em 14 meses sobre a mesma especie. Um servico fitossanitario nao repete isso por acaso."
+ },
+ "SCALE": {
+  "FONTE": "declaracoes PAC 2025 de Aragon, 1.293.690 parcelas",
+  "MAIZ_HA_ARAGON": 51752,
+  "HUESCA": 37236,
+  "ZARAGOZA": 13410,
+  "TERUEL": 1106,
+  "CONTRACHEQUE": "37.236 ha da PAC contra 39.945 ha do MAPA (SCOT) para Huesca: 6,8% entre dois instrumentos independentes. Nao se somam."
+ },
+ "REGIONAL_CONCENTRATION": {
+  "MUNICIPIOS_COM_MAIZ_EM_HUESCA": 81,
+  "TOP10": [
+   {
+    "NOME": "SARIÑENA",
+    "HA": 2895.0,
+    "PARCELAS": 835,
+    "ACUM_PCT": 8.0
+   },
+   {
+    "NOME": "CANDASNOS",
+    "HA": 2448.6,
+    "PARCELAS": 346,
+    "ACUM_PCT": 14.7
+   },
+   {
+    "NOME": "MONZON",
+    "HA": 2199.4,
+    "PARCELAS": 1443,
+    "ACUM_PCT": 20.8
+   },
+   {
+    "NOME": "TAMARITE DE LITERA",
+    "HA": 1969.6,
+    "PARCELAS": 1462,
+    "ACUM_PCT": 26.2
+   },
+   {
+    "NOME": "SAN MIGUEL DEL CINCA",
+    "HA": 1498.8,
+    "PARCELAS": 578,
+    "ACUM_PCT": 30.4
+   },
+   {
+    "NOME": "ESPLUS",
+    "HA": 1492.4,
+    "PARCELAS": 321,
+    "ACUM_PCT": 34.5
+   },
+   {
+    "NOME": "PEÑALBA",
+    "HA": 1298.1,
+    "PARCELAS": 296,
+    "ACUM_PCT": 38.0
+   },
+   {
+    "NOME": "SENA",
+    "HA": 1259.6,
+    "PARCELAS": 239,
+    "ACUM_PCT": 41.5
+   },
+   {
+    "NOME": "GRAÑEN",
+    "HA": 1129.4,
+    "PARCELAS": 615,
+    "ACUM_PCT": 44.6
+   },
+   {
+    "NOME": "ILCHE",
+    "HA": 1122.8,
+    "PARCELAS": 797,
+    "ACUM_PCT": 47.7
+   }
+  ],
+  "TOP20": "68,4%",
+  "TOP30": "81,2%",
+  "DENOMINADOR": "36.273,3 ha somados sobre os 81 municipios de CPROCA=22, campanha 2025, cprodu=4. O total por CPROVI=22 era 37.236 ha; a diferenca de 963 ha e de parcelas cujo municipio catastral cai fora da provincia.",
+  "NOMES": "RESOLVIDOS OFICIALMENTE — 81 de 81, juncao exata por (cprovi, cmunca) contra a tabela GA_OD_Core resource_id=87. Ver ES-T2-003-crosswalk-municipio-aragon.",
+  "TOP20_NOMES": [
+   "SARIÑENA",
+   "CANDASNOS",
+   "MONZON",
+   "TAMARITE DE LITERA",
+   "SAN MIGUEL DEL CINCA",
+   "ESPLUS",
+   "PEÑALBA",
+   "SENA",
+   "GRAÑEN",
+   "ILCHE",
+   "HUERTO",
+   "LALUEZA",
+   "PERALTA DE ALCOFEA",
+   "BELVER DE CINCA",
+   "VALFARTA",
+   "ALCOLEA DE CINCA",
+   "ONTIÑENA",
+   "BINACED",
+   "LANAJA",
+   "CASTEJON DEL PUENTE"
+  ],
+  "POR_QUE_A_RECUSA_ANTERIOR_ESTAVA_CERTA": "em 335 dos 339 municipios de Aragon o codigo catastral difere do codigo INE. Mapear por aproximacao teria nomeado o municipio errado em 99% dos casos.",
+  "O_QUE_OS_NOMES_MOSTRAM": "os 20 primeiros sao os regadios de Monegros, Cinca e Litera. Tamarite de Litera, Alcolea de Cinca, Binaced e Belver fazem fronteira com o Segria de Lleida: o nucleo de milho e um bloco continuo entre Aragon e Catalunha."
+ },
+ "O_TESTE_DECISIVO": {
+  "PERGUNTA": "os registros GENERICOS de dicotiledoneas da ADAMA em milho citam Amaranthus explicitamente?",
+  "METODO": "li o texto das fichas oficiais do MAPA preservadas, dos 7 produtos ADAMA com registro de folha larga ou malas hierbas em milho, e contei as ocorrencias.",
+  "RESULTADO": [
+   {
+    "PRODUTO": "NICOPERTS",
+    "REG": "24887",
+    "CHARS_LIDOS": 5005,
+    "amaranthus": 0,
+    "bledo": 0,
+    "palmeri": 0,
+    "dicotiledoneas": 1,
+    "malas_hierbas": 1
+   },
+   {
+    "PRODUTO": "ORDAGO SC",
+    "REG": "25551",
+    "CHARS_LIDOS": 23907,
+    "amaranthus": 0,
+    "bledo": 0,
+    "palmeri": 0,
+    "dicotiledoneas": 51,
+    "malas_hierbas": 0
+   },
+   {
+    "PRODUTO": "SULCOTREK",
+    "REG": "ES-00142",
+    "CHARS_LIDOS": 7128,
+    "amaranthus": 0,
+    "bledo": 0,
+    "palmeri": 0,
+    "dicotiledoneas": 1,
+    "malas_hierbas": 0
+   },
+   {
+    "PRODUTO": "NIKITA",
+    "REG": "ES-00474",
+    "CHARS_LIDOS": 12173,
+    "amaranthus": 0,
+    "bledo": 0,
+    "palmeri": 0,
+    "dicotiledoneas": 0,
+    "malas_hierbas": 1
+   },
+   {
+    "PRODUTO": "DIODE 100",
+    "REG": "ES-01677",
+    "CHARS_LIDOS": 11342,
+    "amaranthus": 0,
+    "bledo": 0,
+    "palmeri": 0,
+    "dicotiledoneas": 5,
+    "malas_hierbas": 5
+   },
+   {
+    "PRODUTO": "DISCOVERY",
+    "REG": "ES-00711",
+    "CHARS_LIDOS": 15926,
+    "amaranthus": 0,
+    "bledo": 0,
+    "palmeri": 0,
+    "dicotiledoneas": 19,
+    "malas_hierbas": 18
+   },
+   {
+    "PRODUTO": "ORDAGO CAPS",
+    "REG": "ES-00499",
+    "CHARS_LIDOS": 18092,
+    "amaranthus": 0,
+    "bledo": 0,
+    "palmeri": 0,
+    "dicotiledoneas": 44,
+    "malas_hierbas": 53
+   }
+  ],
+  "CONTROLE_QUE_TORNA_O_ZERO_LEGIVEL": "um zero so vale se o formato PODE citar especie. Varri as 96 fichas ADAMA preservadas: 7 delas citam especie de daninha pelo nome — halepense (4), Echinochloa (4), Sorghum (4), Abutilon (2), Cyperus (1), Convolvulus (1). Uma delas e o proprio NICOPERTS, que nomeia Sorghum halepense e Cyperus. Amaranthus e bledo: ZERO em 96 fichas.",
+  "VEREDITO": "GENERIC_WEED_RESPONSE. O formato nomeia especie, a propria etiqueta da ADAMA nomeia especie — e nenhuma nomeia Amaranthus.",
+  "O_QUE_ISSO_NAO_E": "nao e EXPLICIT_SPECIES_RESPONSE e nao e NO_REGULATORY_RESPONSE: a ADAMA tem herbicida de folha larga registrado em milho. E tambem NAO diz que o produto nao funciona. Biologia nao substitui autorizacao, e ausencia de claim nao e ausencia de eficacia. Nenhuma das duas foi medida."
+ },
+ "REGULATORY_RESPONSE": {
+  "CONSULTA": "MAPA ROPF, par idCultivo x idPlaga=2067, respondido em 2026-08-30T05:00+02:00",
+  "MAIZ_2024_x_AMARANTHUS": {
+   "total": 0,
+   "adama": 0
+  },
+  "MAIZ_DE_GRANO_2027_x_AMARANTHUS": {
+   "total": 1,
+   "adama": 0
+  },
+  "MAIZ_DULCE_2025_x_AMARANTHUS": {
+   "total": 0,
+   "adama": 0
+  },
+  "MAIZ_FORRAJERO_2026_x_AMARANTHUS": {
+   "total": 1,
+   "adama": 0
+  },
+  "CORRECAO_DO_QUE_EU_TINHA_ESCRITO": "eu tinha publicado \"1 registro em toda a Espanha\". Medido variante a variante: a variante generica MAIZ tem ZERO, e o unico produto aparece em MAIZ DE GRANO e MAIZ FORRAJERO — e o MESMO registro, contado duas vezes. Um produto, duas variantes de cultura.",
+  "QUEM_TEM": {
+   "REG": "ES-01724",
+   "NOME": "EMIR",
+   "TITULAR": "CORTEVA AGRISCIENCE SPAIN, S.L.U.",
+   "ESTADO": "Vigente",
+   "CADUCIDAD": "31-12-2031",
+   "FORMULADO": "FLORASULAM 1,67% + MESOTRIONA 26,7% [SC] P/V",
+   "INSCRICAO": "18-09-2024",
+   "TRAMITE": "AUTORIZACION PREPARADO POR RECONOCIMIENTO MUTUO"
+  },
+  "O_DETALHE_QUE_MUDA_A_CONVERSA": "o EMIR e florasulam + MESOTRIONA. A ADAMA tem mesotriona registrada em milho — DIODE 100 (mesotriona 10%) e NIKITA (mesotriona 15% em mistura). Mesma substancia, alvo declarado diferente. A lacuna e de CLAIM REGISTRADO, nao necessariamente de quimica. Isso NAO afirma que os produtos ADAMA controlam palmeri: afirma que a diferenca visivel esta no que o registro declara."
+ },
+ "APPLICATION_WINDOW": {
+  "REGRA": "lida na propria ficha do MAPA, produto a produto.",
+  "NICOPERTS_24887": "pos-emergencia quando o milho tem 3-4 folhas",
+  "ORDAGO_SC_25551": "pre-emergencia ou pos-emergencia temprana (1-3 folhas)",
+  "SULCOTREK_ES-00142": "tratamientos en preemergencia",
+  "DIODE_100_ES-01677": "BBCH 00-19",
+  "ESTADO_EM_30-08-2026": "FECHADA. Todas as janelas terminam em BBCH 19 ou antes. Em Aragon o milho e semeado a partir de abril; em 30/08 esta em enchimento de grao ou colheita.",
+  "PROXIMA_JANELA": "sementeira 2027 em Huesca/Lleida, a partir de abril de 2027 — cerca de 7 meses.",
+  "CONFIANCA_DO_CALENDARIO": "a janela do PRODUTO e OBSERVED (esta escrita na etiqueta). O estagio do milho em 30/08 e TYPICAL: nao ha leitura de fenologia de milho em Aragon neste repositorio, so descricao textual do MAPA."
+ },
+ "SCIENCE": {
+  "PAR": "MAIZE x AMARANTHUS — 31 papers, 83 autores distintos, 16 desde 2023",
+  "RESEARCHERS": [
+   {
+    "NOME": "Mercedes Royuela",
+    "ORCID": "0000-0002-1085-2229",
+    "OBRAS_NO_PAR": 15,
+    "IDENTIDADE": "CONFIRMADA (ORCID num-found=1)",
+    "VINCULO": [
+     {
+      "org": "Universidad Publica de Navarra",
+      "pais": "ES",
+      "papel": null,
+      "inicio": null,
+      "fim": null
+     }
+    ],
+    "CANAL_AUTODECLARADO": "nenhum"
+   },
+   {
+    "NOME": "Joel Torra",
+    "ORCID": "0000-0002-8666-6780",
+    "OBRAS_NO_PAR": 10,
+    "IDENTIDADE": "CONFIRMADA (ORCID num-found=1)",
+    "VINCULO": [
+     {
+      "org": "Universitat de Lleida",
+      "pais": "ES",
+      "papel": "Professor",
+      "inicio": "2025",
+      "fim": null
+     }
+    ],
+    "CANAL_AUTODECLARADO": [
+     {
+      "nome": "Weed Science and Plant Ecology Research Group",
+      "url": "http://www.weedresearch.udl.cat/english.htm",
+      "NATUREZA": "PAGINA_INSTITUCIONAL_OU_DE_GRUPO — canal da organizacao, nao da pessoa"
+     }
+    ]
+   },
+   {
+    "NOME": "Mikel Vicente Eceiza",
+    "ORCID": "0000-0002-1684-270X",
+    "OBRAS_NO_PAR": 8,
+    "IDENTIDADE": "CONFIRMADA (ORCID num-found=1)",
+    "VINCULO": [
+     {
+      "org": "Public University of Navarre",
+      "pais": "ES",
+      "papel": null,
+      "inicio": "2019",
+      "fim": null
+     }
+    ],
+    "CANAL_AUTODECLARADO": "nenhum"
+   }
+  ],
+  "POR_QUE_ESTES": "sao as 3 identidades CONFIRMADAS do par (ORCID num-found=1) e as 3 tem vinculo espanhol declarado. Joel Torra e professor na Universitat de Lleida, dentro do proprio territorio do caso.",
+  "O_QUE_NAO_SABEMOS": "se as obras deles no par tratam de palmeri espanhol ou de Amaranthus em geral. O par foi consultado sem filtro de pais nem de especie e o orcamento do OpenAlex esta zerado. Afiliacao NAO e local do estudo."
+ },
+ "PUBLIC_VOICE": "nenhum dos tres declara canal social no ORCID. O unico canal autodeclarado (grupo de malherbologia da UdL) responde 404 no caminho publicado e o endereco novo esta bloqueado pelo proxy desta sessao.",
+ "TECHNICAL_NETWORK": {
+  "O_QUE_E": "50 Agrupacions de Defensa Vegetal registradas na planicie de Lleida, em 39 municipios, todas com contato no registro oficial da Generalitat.",
+  "CLASSIFICACAO": "PUBLIC_TECHNICAL_NETWORK. NAO e PUBLIC_CONTENT_VOICE: prova existencia, identidade profissional e territorio; nao prova o que essas pessoas dizem.",
+  "LIMITE": "nenhuma declara cultura. O registro so tem flag de vinha. Interlocutores localizados, nao vozes de milho.",
+  "FALTA": "o equivalente aragones. Procurei no portal de dados abertos de Aragon: nao ha registro de ATRIA nem boletim fitossanitario.",
+  "INTERSECAO_GEOGRAFICA": {
+   "PERGUNTA": "ha intersecao material entre milho, Lleida e a rede de ADV?",
+   "MEDIDO": "as 50 ADV estao em Segria (30), Pla d'Urgell (11), Garrigues (5), Noguera (3) e Urgell (1) — as comarcas do regadio de Lleida. Do lado aragones, 4 dos 20 municipios de maior area de milho fazem fronteira com o Segria.",
+   "NIVEL_DA_MEDIDA": "COMARCA de um lado, MUNICIPIO do outro. Nao ha area de milho por municipio catalao neste repositorio — o arquivo PAC e de Aragon.",
+   "CLASSIFICACAO": "PUBLIC_TECHNICAL_NETWORK com sobreposicao geografica plausivel e nao medida em hectares do lado catalao. NAO e voz, e nenhuma ADV declarou milho nem Amaranthus."
+  }
+ },
+ "FACTS": [
+  "3 avisos oficiais de Aragon sobre A. palmeri em 14 meses, o ultimo em 15/07/2026",
+  "51.752 ha de milho declarados na PAC 2025 em Aragon; 37.236 em Huesca",
+  "10 municipios concentram 47,7% do milho de Huesca",
+  "um unico produto em toda a Espanha declara Amaranthus como alvo em milho: EMIR, da Corteva",
+  "zero das 96 fichas ADAMA preservadas cita Amaranthus ou bledo",
+  "7 dessas 96 citam alguma especie de daninha pelo nome, entre elas o proprio NICOPERTS",
+  "todas as janelas de etiqueta dos herbicidas ADAMA de folha larga em milho terminam em BBCH 19 ou antes"
+ ],
+ "INTERPRETATIONS": [
+  "a lacuna e de claim registrado, e ela e nomeavel: um concorrente tem o alvo declarado e a ADAMA nao.",
+  "com a janela fechada, o valor deste caso e preparacao, nao venda. Apresentar como urgencia seria fabricar urgencia."
+ ],
+ "UNKNOWNS": [
+  "se os herbicidas ADAMA controlam palmeri resistente — o registro nao responde eficacia e nada aqui responde",
+  "quanto palmeri ha em 2026 e onde: os avisos dizem que existe, nao dizem quanto nem em que parcela",
+  "os nomes dos 10 municipios",
+  "COMMERCIAL_CLOCK = NAO SEI"
+ ],
+ "EVIDENCE_PATHS": [
+  "MAPA ROPF export idCultivo x idPlaga=2067 para as 4 variantes de milho",
+  "fichas PDF preservadas dos 7 produtos ADAMA, secao Usos y Dosis",
+  "varredura de especie nas 96 fichas ADAMA preservadas",
+  "opendata_sga_parcelas_her_2025.csv, Gobierno de Aragon",
+  "ES-CIENCIA-PARES-AUTORES.json e ES-CIENCIA-PARA-VOZ.json",
+  "ES-T6-001-adv-catalunya.json"
+ ]
+}

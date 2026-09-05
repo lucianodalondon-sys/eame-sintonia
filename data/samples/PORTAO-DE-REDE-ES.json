@@ -1,0 +1,115 @@
+{
+ "SOURCE_ID": "PORTAO-DE-REDE-ES",
+ "source": "portao de rede da MISSAO 11R — medicao do proprio ambiente, nao das fontes",
+ "SOURCE_LOCATION": "interno",
+ "FACT_LOCATION": "n/a — descreve o ambiente de execucao",
+ "ORIGINAL_LANGUAGE": "pt",
+ "ESTADO_DO_REGISTRO": "HISTORICO",
+ "AMBIENTE": "OLD_ENVIRONMENT",
+ "STATUS": "BLOCKED",
+ "SUPERSEDED_BY": "PORTAO-DE-REDE-ES-CURRENT",
+ "NAO_LEIA_COMO_ESTADO_ATUAL": "Este arquivo mede um AMBIENTE QUE NAO EXISTE MAIS: aquele em que o gateway recusava o CONNECT com 403. Continua verdadeiro sobre AQUELE ambiente e por isso nao foi apagado. O ambiente corrente esta em PORTAO-DE-REDE-ES-CURRENT e o estado vivo e derivado por scripts/rede.py.",
+ "captured_at": "2026-08-29",
+ "MEDIDO_POR": "scripts/rede.py",
+ "MEDICOES": [
+  {
+   "MISSAO": "11-ES",
+   "RESULTADO": "NETWORK_COLLECTION_READY = NO"
+  },
+  {
+   "MISSAO": "11R-ES",
+   "RESULTADO": "NETWORK_COLLECTION_READY = NO",
+   "NOTA": "segunda medicao independente, mesmo resultado — e propriedade do ambiente, nao acaso de sessao"
+  }
+ ],
+ "HOSTS": [
+  {
+   "HOST": "api.openalex.org",
+   "HTTP_STATUS": "000",
+   "RESULT": "RECUSADO",
+   "PARA_QUE_SERVE": "ciência e pesquisadores (ES-T5-002) — rota gratuita, sem chave",
+   "MOTIVO_DO_GATEWAY": "gateway answered 403 to CONNECT (policy denial or upstream failure)"
+  },
+  {
+   "HOST": "pub.orcid.org",
+   "HTTP_STATUS": "000",
+   "RESULT": "RECUSADO",
+   "PARA_QUE_SERVE": "identidade que atravessa camadas; fecha FRAGMENTAÇÃO e é o que falta em SCIENCE→VOICE",
+   "MOTIVO_DO_GATEWAY": "gateway answered 403 to CONNECT (policy denial or upstream failure)"
+  },
+  {
+   "HOST": "api.ror.org",
+   "HTTP_STATUS": "000",
+   "RESULT": "RECUSADO",
+   "PARA_QUE_SERVE": "localização declarada de instituição — é o que fecha o confundidor de Córdoba",
+   "MOTIVO_DO_GATEWAY": "gateway answered 403 to CONNECT (policy denial or upstream failure)"
+  },
+  {
+   "HOST": "www.youtube.com",
+   "HTTP_STATUS": "000",
+   "RESULT": "RECUSADO",
+   "PARA_QUE_SERVE": "camada de vídeo (ES-T8-001) — VIDEO FIRST depende disto",
+   "MOTIVO_DO_GATEWAY": "gateway answered 403 to CONNECT (policy denial or upstream failure)"
+  },
+  {
+   "HOST": "api.apify.com",
+   "HTTP_STATUS": "000",
+   "RESULT": "RECUSADO",
+   "PARA_QUE_SERVE": "rota paga de vídeo, transcrição e LinkedIn",
+   "MOTIVO_DO_GATEWAY": "gateway answered 403 to CONNECT (policy denial or upstream failure)"
+  },
+  {
+   "HOST": "api.crossref.org",
+   "HTTP_STATUS": "000",
+   "RESULT": "RECUSADO",
+   "PARA_QUE_SERVE": "complemento bibliográfico",
+   "MOTIVO_DO_GATEWAY": "gateway answered 403 to CONNECT (policy denial or upstream failure)"
+  },
+  {
+   "HOST": "www.mapa.gob.es",
+   "HTTP_STATUS": "000",
+   "RESULT": "RECUSADO",
+   "PARA_QUE_SERVE": "registro espanhol e denominações (ES-T4-00x)",
+   "MOTIVO_DO_GATEWAY": "gateway answered 403 to CONNECT (policy denial or upstream failure)"
+  }
+ ],
+ "ESSENCIAIS_RECUSADOS": [
+  "api.openalex.org",
+  "pub.orcid.org",
+  "www.youtube.com",
+  "api.apify.com"
+ ],
+ "NETWORK_COLLECTION_READY": "NO",
+ "MOTIVO_TECNICO": "o gateway responde 403 ao CONNECT. O tunel TLS nao chega a abrir, entao nenhuma requisicao — nem cabecalho de autenticacao — e transmitida.",
+ "CHAVE_APIFY": {
+  "FORNECIDA_NESTA_SESSAO": true,
+  "AUTORIZADA": true,
+  "USADA": false,
+  "CREDITO_CONSUMIDO": "US$ 0,00",
+  "PORQUE_NAO_FOI_USADA": "api.apify.com esta recusada no CONNECT. Testado com chamada autenticada a /v2/users/me e /v2/acts: \"CONNECT tunnel failed, response 403\". O token nunca chega a ser enviado — o bloqueio e anterior a autenticacao.",
+  "NAO_E_PROBLEMA_DE_CHAVE": true,
+  "TOKEN_VERSIONADO": false,
+  "NOTA": "a chave nao foi gasta e continua util em ambiente com egresso liberado."
+ },
+ "O_QUE_ISTO_NAO_SIGNIFICA": "NAO significa que as fontes estao fora do ar, nem que a rota morreu, nem que a coleta e inviavel. SOURCE FAILURE != ZERO, e recusa de gateway != ausencia de fonte. Este arquivo descreve o AMBIENTE.",
+ "O_QUE_DESBLOQUEIA": {
+  "MINIMO_PARA_COLETA_PROFUNDA": [
+   "api.openalex.org",
+   "pub.orcid.org",
+   "www.youtube.com",
+   "api.apify.com"
+  ],
+  "SO_COM_ROTAS_GRATUITAS_JA_RESOLVE": {
+   "pub.orcid.org": "fecha FRAGMENTACAO por ORCID e e o identificador que falta em SCIENCE -> PUBLIC VOICE",
+   "api.ror.org": "fecha o confundidor de Cordoba com localizacao declarada de instituicao",
+   "api.openalex.org": "atualiza ciencia e pesquisadores"
+  },
+  "EXIGE_APIFY": [
+   "video e transcricao",
+   "LinkedIn de pesquisadores e vozes tecnicas",
+   "conteudo de cooperativas",
+   "comunicacao de concorrente"
+  ]
+ },
+ "ESTADO_DAS_FILAS": "inalterado — NOT_TESTED em 20/20 nas duas filas. Nenhuma coleta ocorreu."
+}

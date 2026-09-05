@@ -1,0 +1,48 @@
+{
+ "LAYER": "ADAMA_LINE_OUTRA",
+ "COUNTRY": "IT",
+ "BUILT_AT": "2026-09-02",
+ "SOURCE_ARTIFACTS": [
+  "data/samples/IT-T4-001/ITALY-ADAMA-REGULATORY-INTELLIGENCE.json"
+ ],
+ "PROVENANCE_DEFAULT": "REAL_FACT",
+ "LINE": "OUTRA",
+ "COUNT": 3,
+ "ACTIVE_INGREDIENTS_BY_PRODUCT_COUNT": {
+  "METALDEHYDE": 1,
+  "METAMITRON": 1,
+  "PLANT OILS / RAPE SEED OIL": 1
+ },
+ "PRODUCT_IDS": [
+  "IT-PRD-042",
+  "IT-PRD-086",
+  "IT-PRD-133"
+ ],
+ "RESOLVE_WITH": "ADAMA/adama-italy-products.json — o registro completo vive la, e SO la. Repetir o objeto aqui criaria duas versoes do mesmo produto que divergem em silencio na primeira correcao.",
+ "PRODUCTS_SUMMARY": [
+  {
+   "ID": "IT-PRD-042",
+   "PRODUCT": "LUMA-KL",
+   "ACTIVE_INGREDIENTS": [
+    "METALDEHYDE"
+   ],
+   "EXPIRY": "2026-08-31"
+  },
+  {
+   "ID": "IT-PRD-086",
+   "PRODUCT": "BREVIS",
+   "ACTIVE_INGREDIENTS": [
+    "METAMITRON"
+   ],
+   "EXPIRY": "2026-11-30"
+  },
+  {
+   "ID": "IT-PRD-133",
+   "PRODUCT": "POWERFILM",
+   "ACTIVE_INGREDIENTS": [
+    "PLANT OILS / RAPE SEED OIL"
+   ],
+   "EXPIRY": "2041-10-31"
+  }
+ ]
+}

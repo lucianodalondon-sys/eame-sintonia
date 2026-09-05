@@ -89,8 +89,40 @@ ATORES = {
 LOTES = {
     'A': ['ES-OLIVE-REPILO', 'IT-DURUM_WHEAT-FUSARIUM', 'FR-VINE-DOWNY_MILDEW'],
     'B': ['ES-CEREAL-SEPTORIA', 'IT-VINE-FLAVESCENCE', 'FR-CEREAL-SEPTORIA'],
+    # ── LOTE C · 2026-09-01 ─────────────────────────────────────────────────────
+    # Os lotes A e B ficam INTOCADOS: seus artefatos estão medidos e citados. C é
+    # acréscimo, não revisão.
+    #
+    # POR QUE ESTES TRÊS RECORTES, E NÃO OUTROS. A auditoria do acervo italiano mediu
+    # duas coisas que se contradizem:
+    #   · 90 dos 163 registros ADAMA na Itália (55%) são HERBICIDA;
+    #   · das 147 peças de vídeo italianas coletadas, ZERO é de daninha — A e B só
+    #     cobriram doença (fusariose) e vetor (flavescência).
+    # A voz humana da maior linha do portfólio nunca foi procurada. Estes três recortes
+    # vão exatamente lá, e em nenhum outro lugar.
+    'C': ['IT-MAIZE-WEED', 'IT-CEREAL-WEED', 'IT-SOYBEAN-AMARANTHUS'],
+    # ── LOTE D · 2026-09-01 ─────────────────────────────────────────────────────
+    # As culturas onde o registro ADAMA é GRANDE e a cobertura de voz é ZERO — e que
+    # ainda por cima não têm página de cultura no site italiano:
+    #   SUGARBEET 48 produtos · APPLE 48 · RICE 15 · GRAPEVINE 61 (mas só como doença).
+    # A busca de vídeo custou 0,00 no lote C. Abrir recorte é de graça; só o
+    # comentário é pago. Então o critério aqui é COBERTURA, não economia.
+    'D': ['IT-SUGARBEET-WEED', 'IT-RICE-WEED', 'IT-APPLE-DISEASE', 'IT-VINE-WEED'],
+    # ── LOTE E · 2026-09-02, madrugada ──────────────────────────────────────────
+    # Quatro recortes escolhidos por CRUZAMENTO, nao por curiosidade:
+    #   OLIVE-BACTROCERA  o sinal e CORRENTE (Modena, set/2026, capturas subindo), a
+    #                     ciencia tem 71 obras e 223 autores italianos, e 12 registros
+    #                     ADAMA citam OLIVE. Tres camadas apontando para o mesmo lugar.
+    #   CEREAL-SEPTORIA   61 produtos citam trigo e o recorte ITALIANO nunca existiu — so
+    #                     ES e FR. MAXENTIS e KOJAMI nomeiam Zymoseptoria na linha de uso.
+    #   APPLE-INSECT      «Linea Insetticidi Melo» e novidade 2026 da propria ADAMA, 48
+    #                     registros citam APPLE, e APYZA tem linha de uso para afideos de
+    #                     macieira COM dose. E a unica linha do portfolio com lancamento no ano.
+    #   TOMATO-DISEASE    57 registros citam TOMATO e a colheita e agora.
+    'E': ['IT-OLIVE-BACTROCERA', 'IT-CEREAL-SEPTORIA', 'IT-APPLE-INSECT',
+          'IT-TOMATO-DISEASE'],
 }
-OFFSET_DO_LOTE = {'A': 0, 'B': 2}      # posição inicial no pool, para não colidirem
+OFFSET_DO_LOTE = {'A': 0, 'B': 2, 'C': 4, 'D': 6, 'E': 8}  # posição inicial no pool
 
 # ── TERMOS POR RECORTE ───────────────────────────────────────────────────────────
 # NA LÍNGUA DO PAÍS, sempre. Buscar "septoria wheat" na França devolve literatura
@@ -109,6 +141,41 @@ TERMOS = {
                              'mildiou vigne traitement', 'webinaire mildiou vigne'],
     'FR-CEREAL-SEPTORIA': ['septoriose du ble', 'Zymoseptoria tritici ble',
                            'septoriose ble traitement', 'webinaire septoriose ble'],
+    # ── LOTE C · daninha e herbicida, em italiano ───────────────────────────────
+    # O termo tem de ser o que o técnico italiano DIGITA. "diserbo" é a palavra do
+    # ofício; "controllo delle infestanti" é a do folheto. As duas entram, porque
+    # devolvem gente diferente. E os nomes de espécie entram na forma italiana
+    # corrente (`loietto`, `avena`, `amaranto`), não na latina — quem grava vídeo de
+    # campo fala a corrente, e quem escreve artigo fala a latina.
+    'IT-MAIZE-WEED': ['diserbo del mais', 'infestanti del mais',
+                      'diserbo mais pre-emergenza', 'diserbo mais post-emergenza'],
+    'IT-CEREAL-WEED': ['diserbo dei cereali', 'diserbo del grano infestanti',
+                       'loietto resistente frumento', 'avena resistente diserbo grano'],
+    'IT-SOYBEAN-AMARANTHUS': ['amaranto resistente soia', 'diserbo della soia',
+                              'infestanti resistenti soia', 'resistenza erbicidi soia'],
+    # ── LOTE D ──────────────────────────────────────────────────────────────────
+    # `bietola` e `barbabietola` entram as duas: a primeira é a palavra do campo, a
+    # segunda a do disciplinare. `riso crodo` e `giavone` são os dois nomes que o
+    # risicoltor italiano usa — e nenhum dos dois é o nome latino.
+    'IT-SUGARBEET-WEED': ['diserbo barbabietola da zucchero', 'diserbo bietola',
+                          'infestanti barbabietola', 'diserbo bietola post-emergenza'],
+    'IT-RICE-WEED': ['diserbo del riso', 'riso crodo diserbo',
+                     'giavone risaia', 'diserbo risaia infestanti'],
+    'IT-APPLE-DISEASE': ['ticchiolatura del melo', 'difesa del melo',
+                         'ticchiolatura melo trattamenti', 'melo maculatura bruna'],
+    'IT-VINE-WEED': ['diserbo del vigneto', 'gestione del sottofila vigneto',
+                     'inerbimento vigneto', 'diserbo sottofila vite'],
+    # ── LOTE E ──────────────────────────────────────────────────────────────────
+    # `mosca delle olive` e o nome do oficio; `Bactrocera oleae` e o do artigo. Os dois
+    # entram, porque devolvem gente diferente — tecnico de campo e pesquisador.
+    'IT-OLIVE-BACTROCERA': ['mosca delle olive difesa', 'Bactrocera oleae olivo',
+                            'monitoraggio mosca olivo', 'trattamento mosca olive'],
+    'IT-CEREAL-SEPTORIA': ['septoriosi del frumento', 'malattie fogliari frumento',
+                           'difesa cereali a paglia', 'ruggine gialla frumento'],
+    'IT-APPLE-INSECT': ['afidi del melo difesa', 'carpocapsa del melo',
+                        'insetticidi melo difesa', 'difesa melo insetti'],
+    'IT-TOMATO-DISEASE': ['peronospora del pomodoro', 'difesa pomodoro malattie',
+                          'alternaria pomodoro', 'botrite pomodoro difesa'],
 }
 
 # Locais para a busca do LinkedIn por nome. País, nunca cidade adivinhada.

@@ -1,0 +1,494 @@
+{
+ "COUNTS": {
+  "REAL_META_ADS_COMPETITOR": {
+   "EXISTING_TOTAL": 1340,
+   "ITALY_RELEVANT": 414,
+   "NOTE": "unidade = AD_CARD (cartao de anuncio). AD_REACHED_COUNTRY, nunca AD_TARGETED_COUNTRY.",
+   "PATH": "data/samples/META-EAME/META-ADS-ENTITIES-EAME-V1.json"
+  },
+  "REAL_META_ADS_ADAMA_OWN": {
+   "EXISTING_TOTAL": 7,
+   "ITALY_RELEVANT": 5,
+   "NOTE": "dataset proprio ADAMA, ja limpo de paginas homonimas.",
+   "PATH": "data/samples/META-EAME/META-OWN-ADS-ENTITIES-ADAMA-CLEAN-V1.json"
+  },
+  "REAL_META_AD_EVENTS": {
+   "EXISTING_TOTAL": 1421,
+   "ITALY_RELEVANT": null,
+   "NOTE": "BASELINE_ONLY: sem coleta anterior, nenhum evento e comparativo.",
+   "PATH": "data/samples/META-EAME/META-ADS-EVENTS-EAME-V1.json"
+  },
+  "REAL_META_PAGES": {
+   "EXISTING_TOTAL": 23,
+   "ITALY_RELEVANT": 12,
+   "NOTE": "paginas de anunciante com page_id provado.",
+   "PATH": "data/samples/META-EAME/META-PAGE-IDENTITY-EAME-V1.json"
+  },
+  "REAL_YOUTUBE_VIDEOS": {
+   "EXISTING_TOTAL": 726,
+   "ITALY_RELEVANT": 147,
+   "NOTE": "SENSOR-PILOT (431, ja deduplicado) + ES-T8-001 (252) + CORPUS creators (43). Italia = recortes IT-* do piloto.",
+   "PATH": "data/samples/SENSOR-PILOT/MEDICAO.json + ES-T8-001-videos.json + CREATOR-CONTENT-CORPUS-EAME/CORPUS-MATERIALS.json"
+  },
+  "REAL_TRANSCRIPTS": {
+   "EXISTING_TOTAL": 15,
+   "ITALY_RELEVANT": 5,
+   "NOTE": "SENSOR-PILOT 15 (300008 chars) + ES-T8-001 0. Legenda publica; lingua da legenda pode ser traducao automatica.",
+   "PATH": "data/samples/SENSOR-PILOT/TRANSCRICOES-*.json"
+  },
+  "REAL_COMMENTS": {
+   "EXISTING_TOTAL": 1190,
+   "ITALY_RELEVANT": 265,
+   "NOTE": "SENSOR-PILOT 991 + CORPUS creators 199 + ES-T8-001 0. COMENTARIO != AGRICULTOR; PERGUNTA != RELATO DE CAMPO.",
+   "PATH": "data/samples/SENSOR-PILOT/MEDICAO.json"
+  },
+  "REAL_CREATORS": {
+   "EXISTING_TOTAL": 37,
+   "ITALY_RELEVANT": 25,
+   "NOTE": "EAME total 37 (BY_STATE {\"ACTIVATION_READY\": 10, \"PROMISING\": 15, \"RESEARCH_NEEDED\": 12}). Italia: 25 candidatos, CROP_STATE {\"PARTIAL\": 3, \"NOT_KNOWN\": 15, \"WRONG_ASSIGNMENT\": 3, \"PROVED\": 1, \"NOT_PROVED\": 3}, FIT {\"LOW\": 4, \"NOT_KNOWN\": 17, \"MEDIUM\": 4}.",
+   "PATH": "data/samples/CREATOR-MAP-EAME/WHO-COULD-MARKETING-CALL.json + IT-CREATORS-CONSOLIDATED.json"
+  },
+  "REAL_INSTAGRAM_POSTS": {
+   "EXISTING_TOTAL": 399,
+   "ITALY_RELEVANT": 0,
+   "NOTE": "todo o corpus organico de Instagram e de creators ES/FR. Nenhum item italiano coletado.",
+   "PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-MATERIALS.json"
+  },
+  "REAL_FACEBOOK_ORGANIC": {
+   "EXISTING_TOTAL": 0,
+   "ITALY_RELEVANT": 0,
+   "NOTE": "NAO EXISTE. Todo Facebook do acervo e Meta Ads Library (pago). Nunca apresentar como escuta de Facebook.",
+   "PATH": "-"
+  },
+  "REAL_TWITTER_X_RECORDS": {
+   "EXISTING_TOTAL": 0,
+   "ITALY_RELEVANT": 0,
+   "NOTE": "NAO EXISTE. Nenhuma coleta de X/Twitter foi feita em nenhuma branch.",
+   "PATH": "-"
+  },
+  "REAL_LINKEDIN_RECORDS": {
+   "EXISTING_TOTAL": 372,
+   "ITALY_RELEVANT": 0,
+   "NOTE": "posts LinkedIn: 372, todos do painel ES. Painel italiano: veredito HUMAN_SENSOR_ADDS_NOTHING_IN_THIS_PANEL.",
+   "PATH": "data/samples/ES-T8-002-posts.json + IT-CASOS/IT-SENSORES-HUMANOS-VEREDITO.json"
+  },
+  "REAL_PODCASTS": {
+   "EXISTING_TOTAL": 0,
+   "ITALY_RELEVANT": 0,
+   "NOTE": "nenhum podcast/audio coletado como objeto proprio. Ha gravacoes de convegno/webinar dentro do acervo de video.",
+   "PATH": "-"
+  },
+  "REAL_RESEARCHERS": {
+   "EXISTING_TOTAL": 37,
+   "ITALY_RELEVANT": 25,
+   "NOTE": "corpus profundo: 12 pessoas com identidade provada (EAME). Universo italiano OpenAlex: 25 com ORCID, 22 ativos desde 2024.",
+   "PATH": "data/samples/RESEARCHER-CORPUS-EAME-V1.json + IT-T5-001/ITALY-RESEARCHER-UNIVERSE.json"
+  },
+  "REAL_SCIENCE_RECORDS": {
+   "EXISTING_TOTAL": 763,
+   "ITALY_RELEVANT": 88,
+   "NOTE": "materiais achados 763, dos quais 582 passam nas duas portas (identidade + dominio). COUNTRY_OF_FACT=IT em 88.",
+   "PATH": "data/samples/RESEARCHER-CORPUS-EAME-V1.json"
+  },
+  "REAL_ADAMA_PRODUCTS": {
+   "EXISTING_TOTAL": 163,
+   "ITALY_RELEVANT": 163,
+   "NOTE": "registro do Ministero: 163 vigentes. Catalogo publico adama.com/italia/it: 51 paginas de produto.",
+   "PATH": "data/samples/IT-T4-001/ITALY-ADAMA-REGULATORY-INTELLIGENCE.json + IT-CATALOGO/IT-ADAMA-CATALOG-CENSUS.json"
+  },
+  "REAL_LABEL_RELATIONSHIPS": {
+   "EXISTING_TOTAL": 90,
+   "ITALY_RELEVANT": 90,
+   "NOTE": "pares CULTURA x ALVO lidos na MESMA linha de tabela do rotulo: 90. Linhas de uso autorizado: 49 (com dose: 13). Coverage e PISO: tabela detectada em 80 de 163 rotulos.",
+   "PATH": "data/samples/IT-T4-001/ITALY-ADAMA-REGULATORY-INTELLIGENCE.json"
+  },
+  "REAL_FIELD_BULLETINS": {
+   "EXISTING_TOTAL": 7,
+   "ITALY_RELEVANT": 7,
+   "NOTE": "texto integral preservado: agronotizie-88873-mais-micotossine-2026-02-13.txt, collio-boll-06-vite-2026-05-15.txt, ersa-fvg-boll-07-frumento-orzo-2026-04-20.txt, marche-amap-an-615-2026-04-22.txt, marche-amap-an-616-2026-04-29.txt, umbria-boll-cereali-04-servizio-fitosanitario.txt + LaMMA Grosseto 2026-04-23 (HTML+JSON).",
+   "PATH": "data/samples/IT-T5-SENSORES/*.txt + IT-T3-LAMMA/"
+  },
+  "REAL_NEWS": {
+   "EXISTING_TOTAL": 1,
+   "ITALY_RELEVANT": 1,
+   "NOTE": "unico artigo de imprensa tecnica preservado em texto integral: AgroNotizie 88873, 2026-02-13, mais e micotossinas.",
+   "PATH": "data/samples/IT-T5-SENSORES/agronotizie-88873-mais-micotossine-2026-02-13.txt"
+  },
+  "REAL_COMPETITOR_REGULATORY_EVENTS": {
+   "EXISTING_TOTAL": 21336,
+   "ITALY_RELEVANT": null,
+   "NOTE": "eventos REGULATORIOS e de MARCA (registro, expiracao, marca). NAO sao feiras nem campanhas. Por tipo: {\"TRADEMARK_REGISTRATION\": 6337, \"TRADEMARK_APPLICATION\": 3324, \"EXPIRY\": 3059, \"SELLING_OFF_DEADLINE\": 341, \"LOCAL_REGISTRATION\": 7513, \"REGISTRATION_MODIFIED\": 762}",
+   "PATH": "data/samples/COMPETITOR-EVENTS.json"
+  },
+  "REAL_TRADE_FAIR_EVENTS": {
+   "EXISTING_TOTAL": 0,
+   "ITALY_RELEVANT": 0,
+   "NOTE": "NAO EXISTIA no acervo. Feiras (EIMA, Vinitaly, Enovitis, Fieragricola, Macfrut) so entram por pesquisa nova.",
+   "PATH": "-"
+  },
+  "REAL_OPPORTUNITY_CANDIDATES": {
+   "EXISTING_TOTAL": 3,
+   "ITALY_RELEVANT": 3,
+   "NOTE": "IT-HERO-001 videira x flavescencia (Veneto+Lombardia); IT-HERO-002 milho x piralide/diabrotica (FVG); IT-HERO-003 calendario de vencimentos do portfolio. Rotulo do proprio artefato: CONVERGENCIA QUE MERECE INVESTIGACAO, nao \"oportunidade\".",
+   "PATH": "data/samples/IT-CASOS/ITALY-HERO-CASES-V1.json"
+  },
+  "REAL_FUTURE_RADAR_THEMES": {
+   "EXISTING_TOTAL": 2,
+   "ITALY_RELEVANT": 2,
+   "NOTE": "FT-IT-001 milho x micotoxina; FT-IT-002 trigo/trigo duro x Fusarium/DON. PROMOTED_TO_RADAR = 0.",
+   "PATH": "data/samples/ITALY-RADAR-DO-FUTURO-V1.json"
+  },
+  "REAL_ITALY_REGIONS_WITH_SOURCE": {
+   "EXISTING_TOTAL": 8,
+   "ITALY_RELEVANT": 8,
+   "NOTE": "8 de 20 regioes italianas tem fonte de campo medida.",
+   "PATH": "data/samples/IT-FONTES/ITALY-REGIONAL-COVERAGE-MATRIX.json"
+  },
+  "REAL_ITALY_SOURCES_PROBED": {
+   "EXISTING_TOTAL": 20,
+   "ITALY_RELEVANT": 20,
+   "NOTE": "estado por fonte: {\"GREEN\": 16, \"NOT_REACHED\": 1, \"BLOCKED\": 3}",
+   "PATH": "data/samples/IT-FONTES/ITALY-SOURCE-PROBE.json"
+  }
+ },
+ "DETAIL": {
+  "META_IT_BY_COMPANY": {
+   "Bayer": 69,
+   "Syngenta": 30,
+   "BASF": 127,
+   "Corteva": 79,
+   "FMC": 98,
+   "UPL": 11
+  },
+  "META_IT_BY_PAGE": {
+   "Bayer Crop Science Italia": 68,
+   "Bayer Crop Science Australia": 1,
+   "Syngenta Vegetable Seeds": 14,
+   "Syngenta": 13,
+   "Syngenta Professional Pest Management Italia": 3,
+   "BASF Agricultural Solutions": 124,
+   "BASF Аграрні рішення": 3,
+   "Corteva Agriscience": 79,
+   "FMC Italia": 87,
+   "FMC Moto Srl": 11,
+   "UPL Corp Agri Solutions": 7,
+   "UPL-Ltd": 4
+  },
+  "META_IT_BY_YEAR": {
+   "2019": 1,
+   "2021": 1,
+   "2022": 2,
+   "2023": 2,
+   "2024": 10,
+   "2025": 125,
+   "2026": 273
+  },
+  "META_IT_ACTIVE": {
+   "INACTIVE": 385,
+   "ACTIVE": 27,
+   "NOT_KNOWN": 2
+  },
+  "META_IT_MEDIA": {
+   "VIDEO": 180,
+   "IMAGE": 234
+  },
+  "META_IT_PRODUCTS_PROVED": {
+   "Exirel": 36,
+   "Arc": 26,
+   "Spectrum": 13,
+   "Cyazypyr": 13,
+   "Efficon": 12,
+   "Dagonis": 10,
+   "Enervin": 9,
+   "Coragen": 8,
+   "EliteSea": 7,
+   "Belanty": 6,
+   "F500": 6,
+   "Revysol": 5,
+   "Tanaris": 5,
+   "MAXIA": 5,
+   "Cabrio": 4,
+   "Retengo": 4,
+   "Delan": 4,
+   "Spotlight": 4,
+   "NUVITA": 4,
+   "Initium": 3,
+   "Laser": 3,
+   "Nealta": 2,
+   "Xemium": 2,
+   "Revysion": 2,
+   "Serifel": 2,
+   "RevyPro": 2,
+   "Agrigenius": 2,
+   "Axalion": 2,
+   "Visarel": 2,
+   "Angello": 1,
+   "Envita": 1,
+   "ALLSTAR": 1,
+   "Stomp": 1,
+   "Beyond": 1,
+   "Stratos": 1,
+   "Qalcova": 1
+  },
+  "META_IT_CROP_TERMS": {
+   "Zea mays": 67,
+   "colture": 59,
+   "Vitis vinifera": 42,
+   "cereali": 24,
+   "Olea europaea": 24,
+   "Citrus": 15,
+   "Solanum lycopersicum": 12,
+   "Helianthus annuus": 9,
+   "frutta": 8,
+   "Malus domestica": 5,
+   "ortaggi": 5,
+   "Beta vulgaris": 4,
+   "Oryza sativa": 3,
+   "Prunus persica": 2,
+   "Triticum aestivum": 1
+  },
+  "META_IT_ISSUE_TERMS": {
+   "insetti": 37,
+   "infestanti": 26,
+   "malattie": 23,
+   "Plasmopara viticola": 16,
+   "parassiti": 12,
+   "funghi": 6,
+   "Fusarium": 5,
+   "Amaranthus": 4,
+   "Erysiphe necator": 3,
+   "Botrytis cinerea": 3,
+   "Phyllosticta ampelicida": 2,
+   "Diaporthe neoviticola": 2,
+   "Ceratitis capitata": 2,
+   "Zymoseptoria tritici": 1
+  },
+  "META_IT_ADAMA_PRODUCTS": {
+   "Cazado": 3,
+   "Gilboa": 2
+  },
+  "IT_TRANSCRIPTS": [
+   {
+    "CASE": "IT-DURUM_WHEAT-FUSARIUM",
+    "CHANNEL": "azeri teacher",
+    "TITLE": "Microbial Inoculants for Biocontrol of Fusarium in Durum Wheat",
+    "PUBLISHED_AT": "2026-03-26T22:31:41.000Z",
+    "URL": "https://www.youtube.com/watch?v=E-u_3wCAUNU",
+    "CHARS": 7358,
+    "CAPTION_LANGUAGE_FIELD": "NÃO SEI"
+   },
+   {
+    "CASE": "IT-DURUM_WHEAT-FUSARIUM",
+    "CHANNEL": "OGRAIN - Organic Grain Resources and Information Network",
+    "TITLE": "Fusarium Head Blight Management and Harvesting in Organic Wheat with Prof Damon Smith",
+    "PUBLISHED_AT": "2026-06-16T14:54:23.000Z",
+    "URL": "https://www.youtube.com/watch?v=EsdOflKtFIU",
+    "CHARS": 6237,
+    "CAPTION_LANGUAGE_FIELD": "NÃO SEI"
+   },
+   {
+    "CASE": "IT-DURUM_WHEAT-FUSARIUM",
+    "CHANNEL": "CATECP",
+    "TITLE": "2 3 Green Control of Wheat Fusarium Head Blight",
+    "PUBLISHED_AT": "2026-05-01T07:31:59.000Z",
+    "URL": "https://www.youtube.com/watch?v=mClzxUC9Flc",
+    "CHARS": 4145,
+    "CAPTION_LANGUAGE_FIELD": "NÃO SEI"
+   },
+   {
+    "CASE": "IT-DURUM_WHEAT-FUSARIUM",
+    "CHANNEL": "RealAgriculture",
+    "TITLE": "Timing fungicide to fight fusarium | Wheat School",
+    "PUBLISHED_AT": "2026-06-02T11:37:30.000Z",
+    "URL": "https://www.youtube.com/watch?v=XmzaECDHzLk",
+    "CHARS": 8459,
+    "CAPTION_LANGUAGE_FIELD": "NÃO SEI"
+   },
+   {
+    "CASE": "IT-VINE-FLAVESCENCE",
+    "CHANNEL": "Coldiretti Emilia Romagna",
+    "TITLE": "CONTRASTO ALLA FLAVESCENZA DORATA DELLA VITE A CHE PUNTO SIAMO - 26/02/2026",
+    "PUBLISHED_AT": "2026-03-10T22:42:44.000Z",
+    "URL": "https://www.youtube.com/watch?v=EAkcA_2FDN8",
+    "CHARS": 97710,
+    "CAPTION_LANGUAGE_FIELD": "NÃO SEI"
+   }
+  ],
+  "IT_COMMENTS_BY_SPEECH_TYPE": {
+   "OPINION": 159,
+   "QUESTION": 61,
+   "NOISE": 40,
+   "TECHNICAL_REPLY": 3,
+   "FIRST_PERSON_FIELD_REPORT": 2
+  },
+  "IT_COMMENTS_BY_CASE": {
+   "IT-DURUM_WHEAT-FUSARIUM": 30,
+   "IT-VINE-FLAVESCENCE": 235
+  },
+  "IT_COMMENTS_WITH_COUNTRY_OF_FACT_IT": 24,
+  "IT_VIDEOS_BY_CONTENT_TYPE": {
+   "NOT_ENOUGH_TEXT": 41,
+   "NOISE": 81,
+   "MARKETING": 5,
+   "TECHNICAL_INTERPRETATION": 7,
+   "EVENT_PROMOTION": 12,
+   "RESEARCH_COMMUNICATION": 1
+  },
+  "IT_VIDEOS_WITH_COUNTRY_OF_FACT_IT": 56,
+  "IT_CHANNELS_NON_NOISE": [
+   "A Cielo Aperto",
+   "AIPO verona",
+   "Agronotizie - Notizie per l'agricoltura",
+   "Coldiretti Emilia Romagna",
+   "Comizio Agrario di Mondovì",
+   "Confagricoltura Siena",
+   "Confraternita di Valdobbiadene",
+   "Cornell SIPS",
+   "Infowine",
+   "Matej vignaiuolo in Oslavia",
+   "Milano Pavia TV - Canale 78",
+   "NOCI24",
+   "PinoSchiesari",
+   "Provincia di Asti",
+   "Qdpnews",
+   "Rovigo IN Diretta",
+   "Sata S.r.l.",
+   "Telenorba",
+   "Vini Cordoni",
+   "Vinophila Wine Expo",
+   "Viticoltura Riccardo Castaldi",
+   "meccalloc"
+  ],
+  "IT_CREATORS_HANDLE_STATE": {
+   "RESOLVED": 16,
+   "SEED_HANDLE_LIKELY_WRONG": 4,
+   "HANDLE_UNRESOLVED": 3,
+   "RESOLVED_MINIMAL_PRESENCE": 2
+  },
+  "IT_CREATORS_CROP_STATE": {
+   "PARTIAL": 3,
+   "NOT_KNOWN": 15,
+   "WRONG_ASSIGNMENT": 3,
+   "PROVED": 1,
+   "NOT_PROVED": 3
+  },
+  "IT_CREATORS_FIT": {
+   "LOW": 4,
+   "NOT_KNOWN": 17,
+   "MEDIUM": 4
+  },
+  "IT_CREATORS_CROP_PROVED": [
+   "Leonardo Leggeri"
+  ],
+  "IT_RESEARCHERS_TOP_INSTITUTIONS": {
+   "Università Cattolica del Sacro Cuore": 193,
+   "Institute of Sciences of Food Production": 115,
+   "National Research Council": 88,
+   "University of Milan": 67,
+   "University of Turin": 67,
+   "University of Parma": 43,
+   "University of Udine": 28,
+   "Sapienza University of Rome": 26,
+   "University of Sassari": 22,
+   "University of Bologna": 20,
+   "University of Padua": 20,
+   "University of Perugia": 19,
+   "Cereal Research Centre": 15,
+   "University of Florence": 15,
+   "Istituto Zooprofilattico Sperimentale dell'Umbria e delle Marche": 15
+  },
+  "IT_SCIENCE_SCOPE_BUILT": {
+   "NAME": "MAIZE_MYCOTOXIN",
+   "QUERY": "(maize OR corn) AND (Fusarium OR aflatoxin OR mycotoxin)",
+   "WORKS_TRAVERSED": 208,
+   "AUTHORS_WITH_IT_AFFILIATION": 452,
+   "DETAILED_HERE": 25
+  },
+  "IT_SCIENCE_SCOPES_NOT_BUILT": [
+   "VINE_FLAVESCENCE (135 obras)",
+   "MAIZE_BORER_DIABROTICA (30)",
+   "OLIVE_BACTROCERA (70)",
+   "DURUM_FUSARIUM (78)"
+  ],
+  "ADAMA_IT_REG_CATEGORY": {
+   "DISERBANTE": 77,
+   "FUNGICIDA": 46,
+   "INSETTICIDA": 16,
+   "DISERBANTE-ANTIDOTO AGRONOMICO": 13,
+   "INSETTICIDA-ACARICIDA": 4,
+   "MOLLUSCHICIDA": 1,
+   "AFICIDA": 3,
+   "INSETTICIDA-DISERBANTE": 1,
+   "DIRADANTE": 1,
+   "COADIUVANTE": 1
+  },
+  "ADAMA_IT_CATALOG_CATEGORY": {
+   "INSETTICIDI": 6,
+   "FUNGICIDI": 14,
+   "ERBICIDI": 26,
+   "SPECIALI": 5
+  },
+  "ADAMA_IT_PRODUCTS_BY_CROP_TERM": {
+   "GRAPEVINE": 61,
+   "WHEAT_GENERIC": 61,
+   "TOMATO": 57,
+   "SUGARBEET": 48,
+   "APPLE": 48,
+   "BARLEY": 46,
+   "POTATO": 45,
+   "MAIZE": 36,
+   "SOYBEAN": 33,
+   "SUNFLOWER": 32,
+   "ALFALFA": 25,
+   "TRITICALE": 25,
+   "COMMON_WHEAT": 24,
+   "RICE": 15,
+   "DURUM_WHEAT": 14,
+   "OLIVE": 12,
+   "SORGHUM": 9
+  },
+  "ADAMA_IT_MOA_GROUPS": {
+   "HRAC 1 (A)": 20,
+   "HRAC B": 8,
+   "HRAC G": 7,
+   "HRAC 3 (K1)": 7,
+   "IRAC 3": 6,
+   "FRAC 8": 5,
+   "FRAC 3": 4,
+   "HRAC 2": 4,
+   "HRAC 27 (F2)": 3,
+   "IRAC 3A": 2,
+   "HRAC 5 (C1)": 2,
+   "HRAC 12 (F1)": 2,
+   "HRAC 2 (B)": 2,
+   "HRAC 4 (O)": 2,
+   "FRAC 11": 2,
+   "HRAC 1": 2,
+   "HRAC 5": 1,
+   "FRAC 5": 1,
+   "IRAC 1A": 1,
+   "HRAC O": 1,
+   "IRAC 28": 1
+  },
+  "ADAMA_IT_EXPIRY_BUCKETS": {
+   "ALREADY_PAST": 8,
+   "WITHIN_7_DAYS": 7,
+   "WITHIN_6_CALENDAR_MONTHS": 71,
+   "NO_EXPIRY_DATE": 0
+  },
+  "ADAMA_IT_LABELS_PARSED": "163/163 (100%)",
+  "ADAMA_IT_CATALOG_DOCUMENTS": {
+   "SCHEDA_DI_SICUREZZA": 51,
+   "ETICHETTA": 51,
+   "BROCHURE": 23,
+   "LEAFLET": 1,
+   "COMUNICAZIONE": 13,
+   "ESTENSIONE_USO": 2
+  },
+  "ADAMA_IT_REGISTERED_NOT_IN_CATALOG": 123,
+  "ADAMA_IT_CROSSWALK": {
+   "LOCAL_REGISTERED": 41,
+   "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED": 10
+  }
+ }
+}

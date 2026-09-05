@@ -1,0 +1,1379 @@
+{
+ "SOURCE_ID": "ADAMA-ES-HANDOFF-GATE-V1",
+ "VERSION": "V1",
+ "captured_at": "2026-08-30",
+ "source": "medicao do handoff origin/claude/adama-es-local-browser, lido do Git. Nenhuma linha importada.",
+ "SOURCE_LOCATION": "interno",
+ "FACT_LOCATION": "ES",
+ "ORIGINAL_LANGUAGE": "pt",
+ "O_QUE_ISTO_E": "o portao. Diz se a camada ADAMA Espanha pode entrar no motor dos quatro relogios, e o que precisa acontecer antes.",
+ "NAO_IMPORTOU_NADA": true,
+ "A_LOCALIZACAO": {
+  "REF": "origin/claude/adama-es-local-browser",
+  "HEAD": "0a799f5fae0e3146c3502dcd2002dc5bb2339a9c",
+  "HEAD_CURTO": "0a799f5",
+  "ASSUNTO": "relatorio de preservacao e round-trip, com o unico bloqueio nomeado",
+  "DATA": "2026-08-30T10:39:44-03:00",
+  "PUSHED": true,
+  "COMO_SE_SABE_QUE_ESTA_PUSHED": "o ref lido e origin/..., que so existe porque o remoto o publicou",
+  "MESCLADO_NA_PRINCIPAL": false,
+  "COMMITS_A_FRENTE": 20,
+  "ARQUIVOS": [
+   ".github/workflows/adama-es-censo.yml",
+   "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
+   "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
+   "data/samples/ADAMA-ES-CENSO-MANIFEST.csv",
+   "data/samples/ADAMA-ES-CONFIRMACAO-REGULATORIA-DO-PAR.json",
+   "data/samples/ADAMA-ES-DOCUMENTOS-MANIFEST.csv",
+   "data/samples/ADAMA-ES-MAIZE-PUBLIC-PORTFOLIO-MAP.json",
+   "data/samples/ADAMA-ES-MAIZE-REGULATORY-MAP.json",
+   "data/samples/ADAMA-ES-OLIVE-PUBLIC-PORTFOLIO-MAP.json",
+   "data/samples/ADAMA-ES-PORTFOLIO-POR-CULTIVO.json",
+   "data/samples/ADAMA-ES-PORTFOLIO-POR-ISSUE.json",
+   "data/samples/ADAMA-ES-PRESERVACAO-PLANO.json",
+   "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json",
+   "data/samples/ADAMA-ES-WINTER_CEREALS-PUBLIC-PORTFOLIO-MAP.json",
+   "data/samples/ES-MAPA-VOCABULARIO-IDS.json",
+   "data/samples/PORTAO-ADAMA-ES.json",
+   "docs/adama/CENSO-ADAMA-ES.md",
+   "docs/adama/COLETA-LOCAL-NAVEGADOR-2026-08-30.md",
+   "docs/adama/ENTREGA-ADAMA-ES-PARA-ABA-PRINCIPAL.md",
+   "docs/adama/PRESERVACAO-E-INTEGRACAO-M12.md",
+   "docs/apresentacao/PILOTO-CLASSIFICACAO.md",
+   "docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md",
+   "docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md",
+   "docs/piloto/O-QUE-PODEMOS-DIZER.md",
+   "docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md",
+   "docs/piloto/VEREDITO-M10-HANDOFF.md",
+   "scripts/adama_crosswalk.py",
+   "scripts/adama_es.py",
+   "scripts/adama_es_confirmacao_mapa.py",
+   "scripts/adama_es_portao.py",
+   "scripts/adama_es_visoes.py",
+   "scripts/adama_intelligence.py",
+   "scripts/catalogo_importar.py",
+   "scripts/recolher_lote.sh",
+   "scripts/storage_preservar.py",
+   "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql",
+   "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql",
+   "supabase/migrations/010_catalogo_publico_fabricante.sql",
+   "tests/fixtures/adama-es-produto-sintetico.html",
+   "tests/test_adama_es.py",
+   "tests/test_roundtrip_catalogo.py"
+  ]
+ },
+ "CONTAGENS_MEDIDAS": {
+  "PRODUCTS": 56,
+  "DOCUMENTS": 147,
+  "CROP_RELATIONS_TOTAL": 711,
+  "CROP_RELATIONS_DECLARADAS": 588,
+  "ISSUE_RELATIONS": 176,
+  "USOS_COM_CULTIVO_E_ALVO": 5,
+  "LINHAS_CULTIVO_X_DOSE_SEM_ALVO": 26,
+  "APPLICATION_WINDOWS": 3
+ },
+ "PORTFOLIO_LOCAL": {
+  "REGRA": "existir na Franca, na Italia, no site global ou numa apresentacao global NAO faz um produto ser resposta ADAMA Espanha. So evidencia espanhola faz.",
+  "LOCAL_REGISTERED": 44,
+  "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED": 12,
+  "NOT_KNOWN": 0,
+  "POR_BASE_DE_CASAMENTO": {
+   "REGISTRATION_NUMBER": 41,
+   "NONE": 12,
+   "NAME_AND_COMPOSITION": 3
+  },
+  "PORQUE_NOT_KNOWN_E_ZERO": "os 56 foram observados ao vivo no catalogo espanhol, entao presenca local nunca e desconhecida. O que varia e a prova de registro. NOT_KNOWN passaria a ser diferente de zero se um produto entrasse por uma lista sem observacao propria.",
+  "PORQUE_NENHUM_E_NAO_REGISTRADO": "os 12 sem casamento no ROPF vigente podem ter registro cancelado, registro de outro titular, ou grafia que o crosswalk nao alcancou. AUSENTE_MEDIDO no ROPF vigente nao e AUSENCIA DE REGISTRO.",
+  "LINHAS": [
+   {
+    "PRODUCT": "AGIL",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "19140",
+    "REGISTRATION_ID_NO_REGISTRO": "19140",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "28-02-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "Alister",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "24156",
+    "REGISTRATION_ID_NO_REGISTRO": "24156",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-08-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "ANIBAL",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "23912",
+    "REGISTRATION_ID_NO_REGISTRO": "23912",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "30-06-2028",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "APHOX",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "11826",
+    "REGISTRATION_ID_NO_REGISTRO": "11826",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-10-2026",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "AVASTEL",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-01818",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-01818",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-10-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "BANJO",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-01767",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-01767",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "15-04-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "BASTOS",
+    "ESTADO": "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED",
+    "MATCH_BASIS": "NONE",
+    "REGISTRATION_ID_NO_SITE": "18.087",
+    "REGISTRATION_ID_NO_REGISTRO": null,
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": null,
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es"
+   },
+   {
+    "PRODUCT": "BREVIS",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-00073",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-00073",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "30-11-2026",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "COLTRANE",
+    "ESTADO": "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED",
+    "MATCH_BASIS": "NONE",
+    "REGISTRATION_ID_NO_SITE": "ES-00205",
+    "REGISTRATION_ID_NO_REGISTRO": null,
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": null,
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es"
+   },
+   {
+    "PRODUCT": "COSAYR",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-01942",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-01942",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-05-2028",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "COTTONEX 50 SC",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "15454",
+    "REGISTRATION_ID_NO_REGISTRO": "15454",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "15-01-2030",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "COTTONEX NEOPRO",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "24583",
+    "REGISTRATION_ID_NO_REGISTRO": "24583",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-05-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "CUPROXI FLO",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "NAME_AND_COMPOSITION",
+    "REGISTRATION_ID_NO_SITE": "19232",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-00979",
+    "NUMEROS_DIVERGEM": true,
+    "CADUCIDAD_NO_REGISTRO": "30-06-2029",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "DIODE 100",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-01677",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-01677",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-05-2033",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "DISCOVERY",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-00711",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-00711",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "15-02-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "ELEGANT",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-00198",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-00198",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-12-2030",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "FADEUS",
+    "ESTADO": "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED",
+    "MATCH_BASIS": "NONE",
+    "REGISTRATION_ID_NO_SITE": "25.454",
+    "REGISTRATION_ID_NO_REGISTRO": null,
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": null,
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es"
+   },
+   {
+    "PRODUCT": "FOLPAN 80WDG",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "19994",
+    "REGISTRATION_ID_NO_REGISTRO": "19994",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "28-02-2028",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "FOLPAN GOLD",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "24397",
+    "REGISTRATION_ID_NO_REGISTRO": "24397",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-01-2028",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "GARMIL",
+    "ESTADO": "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED",
+    "MATCH_BASIS": "NONE",
+    "REGISTRATION_ID_NO_SITE": "21.714",
+    "REGISTRATION_ID_NO_REGISTRO": null,
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": null,
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es"
+   },
+   {
+    "PRODUCT": "GOLTIX 700 SC",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "22478",
+    "REGISTRATION_ID_NO_REGISTRO": "22478",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "30-11-2026",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "GOLTIX SILVER",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-01603",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-01603",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-12-2026",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "GOLTIX UNO",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-00564",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-00564",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "30-11-2026",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "HERBOLEX",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-00742",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-00742",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "30-09-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "HIGHCARD",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-01876",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-01876",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "28-02-2028",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "KAMPAI",
+    "ESTADO": "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED",
+    "MATCH_BASIS": "NONE",
+    "REGISTRATION_ID_NO_SITE": "ES-01209",
+    "REGISTRATION_ID_NO_REGISTRO": null,
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": null,
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es"
+   },
+   {
+    "PRODUCT": "KENDO",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "24942",
+    "REGISTRATION_ID_NO_REGISTRO": "24942",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-08-2026",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "KLARTAN EW",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "NAME_AND_COMPOSITION",
+    "REGISTRATION_ID_NO_SITE": "23.858",
+    "REGISTRATION_ID_NO_REGISTRO": "23858",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-01-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "KONA",
+    "ESTADO": "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED",
+    "MATCH_BASIS": "NONE",
+    "REGISTRATION_ID_NO_SITE": "25186",
+    "REGISTRATION_ID_NO_REGISTRO": null,
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": null,
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es"
+   },
+   {
+    "PRODUCT": "LAMDEX EXTRA",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "17091",
+    "REGISTRATION_ID_NO_REGISTRO": "17091",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-08-2026",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "LEBRON",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "17502",
+    "REGISTRATION_ID_NO_REGISTRO": "17502",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-05-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "LEGACY PLUS",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "24004",
+    "REGISTRATION_ID_NO_REGISTRO": "24004",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "30-06-2028",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "MAVITA 250 EC",
+    "ESTADO": "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED",
+    "MATCH_BASIS": "NONE",
+    "REGISTRATION_ID_NO_SITE": "18767",
+    "REGISTRATION_ID_NO_REGISTRO": null,
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": null,
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es"
+   },
+   {
+    "PRODUCT": "MERPAN 80WG",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "13188",
+    "REGISTRATION_ID_NO_REGISTRO": "13188",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "30-09-2028",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "METENAL",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "12469",
+    "REGISTRATION_ID_NO_REGISTRO": "12469",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-08-2026",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "MIRADOR",
+    "ESTADO": "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED",
+    "MATCH_BASIS": "NONE",
+    "REGISTRATION_ID_NO_SITE": "22000",
+    "REGISTRATION_ID_NO_REGISTRO": null,
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": null,
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es"
+   },
+   {
+    "PRODUCT": "NEPTUNE",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-00211",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-00211",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "15-08-2026",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "NICOPERTS",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "NAME_AND_COMPOSITION",
+    "REGISTRATION_ID_NO_SITE": "24.887",
+    "REGISTRATION_ID_NO_REGISTRO": "24887",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-03-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "NIKITA",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-00474",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-00474",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-03-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "NIMROD QUATTRO",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "13261",
+    "REGISTRATION_ID_NO_REGISTRO": "13261",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-01-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "ORDAGO CAPS",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-00499",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-00499",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "15-01-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "ORDAGO SC",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "25551",
+    "REGISTRATION_ID_NO_REGISTRO": "25551",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "15-01-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "ORISOS",
+    "ESTADO": "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED",
+    "MATCH_BASIS": "NONE",
+    "REGISTRATION_ID_NO_SITE": "16.633",
+    "REGISTRATION_ID_NO_REGISTRO": null,
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": null,
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es"
+   },
+   {
+    "PRODUCT": "POSTSCRIPT 80",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-01516",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-01516",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "30-06-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "ROMIN",
+    "ESTADO": "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED",
+    "MATCH_BASIS": "NONE",
+    "REGISTRATION_ID_NO_SITE": "24.762",
+    "REGISTRATION_ID_NO_REGISTRO": null,
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": null,
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es"
+   },
+   {
+    "PRODUCT": "SONAVIO",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-01867",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-01867",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-03-2028",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "SPYRALE",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "21739",
+    "REGISTRATION_ID_NO_REGISTRO": "21739",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-01-2028",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "SULCOTREK",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-00142",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-00142",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-05-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "SULTAN N",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "25050",
+    "REGISTRATION_ID_NO_REGISTRO": "25050",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-10-2026",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "SUNBRIGHT",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-01366",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-01366",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "30-06-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "TOPIK 24EC",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "19548",
+    "REGISTRATION_ID_NO_REGISTRO": "19548",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-07-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "TRICUPROXI F",
+    "ESTADO": "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED",
+    "MATCH_BASIS": "NONE",
+    "REGISTRATION_ID_NO_SITE": "21506",
+    "REGISTRATION_ID_NO_REGISTRO": null,
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": null,
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es"
+   },
+   {
+    "PRODUCT": "TRIMMER SX",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-00141",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-00141",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-07-2027",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "TRINITY",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "25667",
+    "REGISTRATION_ID_NO_REGISTRO": "25667",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "15-08-2026",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   },
+   {
+    "PRODUCT": "TRINITY PACK",
+    "ESTADO": "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED",
+    "MATCH_BASIS": "NONE",
+    "REGISTRATION_ID_NO_SITE": "NÃO SEI",
+    "REGISTRATION_ID_NO_REGISTRO": null,
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": null,
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es"
+   },
+   {
+    "PRODUCT": "VINERGY",
+    "ESTADO": "LOCAL_REGISTERED",
+    "MATCH_BASIS": "REGISTRATION_NUMBER",
+    "REGISTRATION_ID_NO_SITE": "ES-01463",
+    "REGISTRATION_ID_NO_REGISTRO": "ES-01463",
+    "NUMEROS_DIVERGEM": false,
+    "CADUCIDAD_NO_REGISTRO": "31-01-2028",
+    "EVIDENCIA_ESPANHOLA": "pagina observada em adama.com/spain/es + registro no ROPF"
+   }
+  ]
+ },
+ "COBERTURA_POR_CAMPO": [
+  {
+   "CAMPO": "COUNTRY",
+   "ONDE": "PRODUCTS.COUNTRY",
+   "COBERTO": 56,
+   "DE": 56,
+   "ESTADO": "COMPLETO"
+  },
+  {
+   "CAMPO": "PRODUCT",
+   "ONDE": "PRODUCTS.DISPLAY_NAME",
+   "COBERTO": 56,
+   "DE": 56,
+   "ESTADO": "COMPLETO"
+  },
+  {
+   "CAMPO": "HOLDER",
+   "ONDE": "ausente do handoff; derivável do ROPF",
+   "COBERTO": 0,
+   "DE": 56,
+   "ESTADO": "AUSENTE_NO_HANDOFF",
+   "PORQUE": "o site da ADAMA nao publica titular. O ROPF usado e um export FILTRADO por titular ADAMA, entao o titular e propriedade da consulta e nao do registro — precisa ser declarado como tal."
+  },
+  {
+   "CAMPO": "ACTIVE_INGREDIENT",
+   "ONDE": "PRODUCTS.ACTIVE_INGREDIENTS",
+   "COBERTO": 52,
+   "DE": 56,
+   "ESTADO": "PARCIAL",
+   "PORQUE": "AUSENTE_MEDIDO: 4 fichas nao publicam composicao"
+  },
+  {
+   "CAMPO": "FORMULATION",
+   "ONDE": "PRODUCTS.FORMULATION",
+   "COBERTO": 55,
+   "DE": 56,
+   "ESTADO": "PARCIAL"
+  },
+  {
+   "CAMPO": "CROP",
+   "ONDE": "CROP_RELATIONS (588 declaradas)",
+   "COBERTO": 588,
+   "DE": 711,
+   "ESTADO": "COMPLETO_COM_DISTINCAO",
+   "PORQUE": "DECLARADO != CITADO, e o campo DECLARATION_SOURCE separa os dois"
+  },
+  {
+   "CAMPO": "TARGET_ISSUE",
+   "ONDE": "ISSUE_RELATIONS",
+   "COBERTO": 176,
+   "DE": 176,
+   "ESTADO": "CONTAMINADO",
+   "PORQUE": "ISSUE_RELATIONS NAO tem DECLARATION_SOURCE — a distincao que o proprio handoff chama de mais importante foi aplicada a cultivo e nao a alvo. Ver o red team RT-11."
+  },
+  {
+   "CAMPO": "AUTHORIZED_USE",
+   "ONDE": "CROP_ISSUE_RELATIONS",
+   "COBERTO": 5,
+   "DE": 5,
+   "ESTADO": "MINIMO",
+   "PORQUE": "5 usos com cultivo E alvo na mesma linha. Os outros 26 sao CULTIVO x DOSE sem agente, e nao sao uso autorizado."
+  },
+  {
+   "CAMPO": "REGISTRATION_STATUS",
+   "ONDE": "ausente do handoff; ROPF tem",
+   "COBERTO": 43,
+   "DE": 56,
+   "ESTADO": "DERIVAVEL",
+   "PORQUE": "o handoff traz CURRENT_CATALOG_STATUS, que e estado de CATALOGO e nao estado de REGISTRO. Os dois nao sao o mesmo."
+  },
+  {
+   "CAMPO": "AUTHORIZATION_DATE",
+   "ONDE": "nem no handoff nem no ROPF usado",
+   "COBERTO": 0,
+   "DE": 56,
+   "ESTADO": "NAO_COLETADO"
+  },
+  {
+   "CAMPO": "EXPIRY",
+   "ONDE": "ROPF.FICHAS.CADUCIDAD, via numero de registro",
+   "COBERTO": 43,
+   "DE": 56,
+   "ESTADO": "DERIVAVEL"
+  },
+  {
+   "CAMPO": "PHI",
+   "ONDE": "CROP_ISSUE_RELATIONS.PRE_HARVEST_INTERVAL_DAYS",
+   "COBERTO": 0,
+   "DE": 5,
+   "ESTADO": "AUSENTE",
+   "PORQUE": "o HTML nao publica prazo; mora no rotulo em PDF"
+  },
+  {
+   "CAMPO": "APPLICATION_TIMING_LITERAL",
+   "ONDE": "CROP_ISSUE_RELATIONS.ANCHOR.ROW_TEXT",
+   "COBERTO": 5,
+   "DE": 5,
+   "ESTADO": "COMPLETO",
+   "PORQUE": "toda linha carrega o texto literal da linha da tabela"
+  },
+  {
+   "CAMPO": "DOSE",
+   "ONDE": "CROP_ISSUE_RELATIONS + CROP_DOSE_RELATIONS",
+   "COBERTO": 31,
+   "DE": 31,
+   "ESTADO": "COMPLETO"
+  },
+  {
+   "CAMPO": "SOURCE_URL",
+   "ONDE": "todas as estruturas",
+   "COBERTO": 56,
+   "DE": 56,
+   "ESTADO": "COMPLETO"
+  },
+  {
+   "CAMPO": "SOURCE_TYPE",
+   "ONDE": "EVIDENCE_LEVEL + SOURCE_OWNER",
+   "COBERTO": 56,
+   "DE": 56,
+   "ESTADO": "COMPLETO",
+   "PORQUE": "quatro niveis declarados linha a linha"
+  },
+  {
+   "CAMPO": "SOURCE_DATE_OBSERVED_AT",
+   "ONDE": "CAPTURED_AT",
+   "COBERTO": 56,
+   "DE": 56,
+   "ESTADO": "COMPLETO"
+  },
+  {
+   "CAMPO": "EVIDENCE_LOCATOR",
+   "ONDE": "ANCHOR (secao, tabela, linha, texto)",
+   "COBERTO": 31,
+   "DE": 31,
+   "ESTADO": "COMPLETO"
+  },
+  {
+   "CAMPO": "TEMPORAL_RESOLUTION",
+   "ONDE": "nao existe como campo",
+   "COBERTO": 0,
+   "DE": 31,
+   "ESTADO": "AUSENTE",
+   "PORQUE": "o handoff guarda BBCH_FROM/TO como texto e TIMING_FLAGS ao lado. Quem importar tem de DECIDIR a resolucao, e essa decisao nao esta no handoff. Ver o conflito C-3."
+  },
+  {
+   "CAMPO": "LIMITATION_NOT_KNOWN",
+   "ONDE": "literal \"NÃO SEI\" em toda estrutura",
+   "COBERTO": 56,
+   "DE": 56,
+   "ESTADO": "COMPLETO",
+   "PORQUE": "ausencia e escrita, nunca omitida nem zerada"
+  }
+ ],
+ "ENSAIO_DOS_CINCO_CASOS": {
+  "ESTADO": "EXECUTADO",
+  "ONDE": "banco descartavel com 001-012, fixture supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql",
+  "AS_OF": "2026-08-30",
+  "CASOS": [
+   {
+    "CASO": "A",
+    "O_QUE_EXERCE": "produto com cultura, alvo e janela explicita",
+    "CROP": "RICE",
+    "ISSUE": "BROADLEAF_WEEDS",
+    "PRODUTOS_NA_RESPOSTA": [
+     "POSTSCRIPT 80"
+    ],
+    "ESTADO_DA_JANELA": [
+     "NOT_KNOWN"
+    ],
+    "RESOLUCAO": [
+     "PHENOLOGY_STAGE"
+    ],
+    "ESCOPO": [
+     "ISSUE_LEVEL"
+    ],
+    "CADUCIDADE": [
+     "NOT_KNOWN"
+    ],
+    "SOME_AO_PERGUNTAR_POR_ISSUE": false,
+    "REPRESENTADO_SEM_PERDA": true
+   },
+   {
+    "CASO": "B",
+    "O_QUE_EXERCE": "produto de nivel cultura, sem alvo",
+    "CROP": "ALMOND",
+    "ISSUE": "BROADLEAF_WEEDS",
+    "PRODUTOS_NA_RESPOSTA": [
+     "ORDAGO CAPS"
+    ],
+    "ESTADO_DA_JANELA": [
+     "NOT_KNOWN"
+    ],
+    "RESOLUCAO": [
+     "NOT_KNOWN"
+    ],
+    "ESCOPO": [
+     "CROP_LEVEL"
+    ],
+    "CADUCIDADE": [
+     "NOT_KNOWN"
+    ],
+    "SOME_AO_PERGUNTAR_POR_ISSUE": false,
+    "REPRESENTADO_SEM_PERDA": true
+   },
+   {
+    "CASO": "C",
+    "O_QUE_EXERCE": "produto com validade vencida",
+    "CROP": "OLIVE",
+    "ISSUE": "REPILO",
+    "PRODUTOS_NA_RESPOSTA": [
+     "CUPROXI FLO",
+     "NEPTUNE"
+    ],
+    "ESTADO_DA_JANELA": [
+     "ACTIVE",
+     "NOT_KNOWN"
+    ],
+    "RESOLUCAO": [
+     "PHENOLOGY_STAGE",
+     "APPROXIMATE"
+    ],
+    "ESCOPO": [
+     "ISSUE_LEVEL",
+     "ISSUE_LEVEL"
+    ],
+    "CADUCIDADE": [
+     "WITHIN_EXPIRY_DATE",
+     "EXPIRY_DATE_PASSED"
+    ],
+    "SOME_AO_PERGUNTAR_POR_ISSUE": false,
+    "REPRESENTADO_SEM_PERDA": true
+   },
+   {
+    "CASO": "D",
+    "O_QUE_EXERCE": "temporalidade aproximada",
+    "CROP": "BARLEY",
+    "ISSUE": "WEEDS_GENERIC",
+    "PRODUTOS_NA_RESPOSTA": [
+     "TRINITY"
+    ],
+    "ESTADO_DA_JANELA": [
+     "NOT_KNOWN"
+    ],
+    "RESOLUCAO": [
+     "APPROXIMATE"
+    ],
+    "ESCOPO": [
+     "ISSUE_LEVEL"
+    ],
+    "CADUCIDADE": [
+     "NOT_KNOWN"
+    ],
+    "SOME_AO_PERGUNTAR_POR_ISSUE": false,
+    "REPRESENTADO_SEM_PERDA": true
+   },
+   {
+    "CASO": "E",
+    "O_QUE_EXERCE": "dado ausente que precisa continuar NOT_KNOWN",
+    "CROP": "RYE",
+    "ISSUE": "WEEDS_GENERIC",
+    "PRODUTOS_NA_RESPOSTA": [
+     "TRINITY"
+    ],
+    "ESTADO_DA_JANELA": [
+     "NOT_KNOWN"
+    ],
+    "RESOLUCAO": [
+     "NOT_KNOWN"
+    ],
+    "ESCOPO": [
+     "ISSUE_LEVEL"
+    ],
+    "CADUCIDADE": [
+     "NOT_KNOWN"
+    ],
+    "SOME_AO_PERGUNTAR_POR_ISSUE": false,
+    "REPRESENTADO_SEM_PERDA": true
+   }
+  ]
+ },
+ "ENSAIO_DE_INTERFERENCIA": {
+  "ESTADO": "EXECUTADO",
+  "O_QUE_MEDE": "a camada ADAMA carregada POR CIMA do acervo ES que ja existe",
+  "LOG_LINHAS": 10,
+  "REGISTROS_DISTINTOS": 8,
+  "CAPTURAS_A_MAIS_NO_LOG": 2,
+  "REGISTROS_CORRENTES": 8,
+  "DUPLICADOS_NO_ESTADO_CORRENTE": 0,
+  "JANELAS_NO_LOG": 10,
+  "JANELAS_CORRENTES": 9,
+  "JANELAS_DO_NEPTUNE_CORRENTES": 1,
+  "CHAVE_DE_CAPTURA": "UNIQUE NULLS NOT DISTINCT (pais, registration_id, fonte, fonte_versao)",
+  "ESTADO_DO_C7": "RESOLVIDO",
+  "AS_DUAS_COISAS_AO_MESMO_TEMPO": "HISTORY_ROWS > REGISTROS_DISTINTOS (o log continua inteiro) E DUPLICADOS_NO_ESTADO_CORRENTE = 0 (a resposta e uma so). Resolver a duplicacao apagando captura teria trocado um defeito por um pior.",
+  "CAPTURE_NAO_E_REGISTRATION": "uma captura da ficha nao e uma autorizacao. Duas leituras do ROPF no mesmo dia sao um registro, nao dois — e as duas continuam consultaveis."
+ },
+ "RED_TEAM": [
+  {
+   "ID": "RT-1",
+   "HIPOTESE": "o site da ADAMA foi tratado como prova regulatoria",
+   "RESULTADO": "HIPOTESE_DERRUBADA",
+   "PROVA": "so 5 linhas em 918 carregam REGULATORY_FACT, e as 5 tem MAPA_EVIDENCIA com id de cultivo, id de plaga, titular e estado",
+   "DETALHE": "{\"OBSERVED_ON_MANUFACTURER_PAGE\": 887, \"REGULATORY_FACT\": 5, \"MANUFACTURER_TECHNICAL_CLAIM\": 26}"
+  },
+  {
+   "ID": "RT-2",
+   "HIPOTESE": "produto de outro pais vazou para ES",
+   "RESULTADO": "HIPOTESE_DERRUBADA",
+   "PROVA": "as 56 PAGE_URL estao em adama.com/spain/es/",
+   "DETALHE": "[]"
+  },
+  {
+   "ID": "RT-3",
+   "HIPOTESE": "ausencia de resultado virou \"nao existe\"",
+   "RESULTADO": "HIPOTESE_DERRUBADA",
+   "PROVA": "os 12 sem casamento saem como ADAMA_SITE_ONLY, que descreve o que se sabe; nenhum campo de dado afirma nao-existencia. As unicas ocorrencias da palavra estao em campos de REGRA (O_QUE_ISTO_NAO_E: \"falha de download NAO e documento inexistente\"), que enunciam a proibicao em vez de viola-la",
+   "DETALHE": "[]"
+  },
+  {
+   "ID": "RT-4",
+   "HIPOTESE": "alvo ausente fez o produto de nivel cultura sumir",
+   "RESULTADO": "HIPOTESE_DERRUBADA",
+   "PROVA": "as 26 linhas CULTIVO x DOSE ficam, marcadas PAIR_DERIVABLE=false e com o motivo escrito",
+   "DETALHE": ""
+  },
+  {
+   "ID": "RT-5",
+   "HIPOTESE": "validade vencida virou retirada do mercado",
+   "RESULTADO": "HIPOTESE_DERRUBADA",
+   "PROVA": "o handoff nao publica caducidad; ela e derivada do ROPF na importacao, e nenhuma palavra de retirada aparece em campo de dado",
+   "DETALHE": "[]"
+  },
+  {
+   "ID": "RT-6",
+   "HIPOTESE": "temporalidade aproximada virou faixa numerica exata",
+   "RESULTADO": "DEFEITO_CONFIRMADO",
+   "PROVA": "2 de 3 APPLICATION_WINDOWS trazem BBCH 00-00 enquanto o texto ancorado diz \"desde BBCH 00 (semilla seca) hasta BBCH 07\"",
+   "DETALHE": "CEBADA x MALAS HIERBAS; TRIGO x MALAS HIERBAS"
+  },
+  {
+   "ID": "RT-7",
+   "HIPOTESE": "desconhecido virou fechado",
+   "RESULTADO": "HIPOTESE_DERRUBADA",
+   "PROVA": "o artefato nao tem nenhum estado de janela; ele guarda o texto e deixa o estado para o motor derivar de as_of_date",
+   "DETALHE": "[]"
+  },
+  {
+   "ID": "RT-8",
+   "HIPOTESE": "frescor foi persistido como atributo do dado",
+   "RESULTADO": "HIPOTESE_DERRUBADA",
+   "PROVA": "nenhum NOME de campo nem valor de idade ou frescor no artefato; so CAPTURED_AT, que e quando foi observado, e nao quanto tempo faz",
+   "DETALHE": "[]"
+  },
+  {
+   "ID": "RT-9",
+   "HIPOTESE": "o catalogo virou um segundo dono da janela do produto",
+   "RESULTADO": "HIPOTESE_DERRUBADA",
+   "PROVA": "a migration do catalogo cria 15 tabelas catalogo_*, tem janela propria (catalogo_produto_janela_aplicacao) e nao escreve em registro_uso_janela nem em nenhuma tabela do calendario",
+   "DETALHE": "[]"
+  },
+  {
+   "ID": "RT-10",
+   "HIPOTESE": "a mesma evidencia aparece em dois lugares com semantica diferente",
+   "RESULTADO": "DEFEITO_CONFIRMADO",
+   "PROVA": "1 produto(s) tem REGISTRATION_ID diferente em PRODUCTS e em REGULATORY_CROSSWALK.LINHAS, sob o mesmo nome de campo",
+   "DETALHE": "CUPROXI FLO: site=19232 registro=ES-00979"
+  },
+  {
+   "ID": "RT-11",
+   "HIPOTESE": "a distincao DECLARADO != CITADO foi aplicada a cultivo e a alvo",
+   "RESULTADO": "DEFEITO_CONFIRMADO",
+   "PROVA": "ISSUE_RELATIONS nao tem o campo DECLARATION_SOURCE, e 25 produtos que nao sao herbicida carregam o alvo \"MALAS HIERBAS\" — um por produto nao-herbicida, assinatura de menu do site e nao de conteudo de ficha",
+   "DETALHE": "APHOX; AVASTEL; BANJO; BREVIS; COSAYR; CUPROXI FLO; FADEUS; FOLPAN 80WDG; FOLPAN GOLD; GARMIL; KENDO; KLARTAN EW; KONA; LAMDEX EXTRA; LEBRON; MAVITA 250 EC; MERPAN 80WG; METENAL; MIRADOR; NEPTUNE; NIMROD QUATTRO; ORISOS; SPYRALE; TRICUPROXI F; VINERGY"
+  }
+ ],
+ "O_QUE_O_RED_TEAM_MEDE": "o ARTEFATO CRU do handoff, como ele esta na branch paralela. RT-6, RT-10 e RT-11 continuam DEFEITO_CONFIRMADO la, e continuarao ate a origem ser corrigida. O que mudou nesta rodada esta em CORRECOES: a fronteira de importacao passa a tratar os tres, com prova executavel.",
+ "ES_CASE_001": {
+  "DIVERGENCIA": "humano CLOSED x motor NOT_KNOWN",
+  "O_HANDOFF_TRAZ_JANELA_DO_NEPTUNE": 0,
+  "O_HANDOFF_TRAZ_PAR_OLIVO_x_REPILO_DO_NEPTUNE": 0,
+  "CITACOES_DE_FLORACAO_NO_ARTEFATO": 9,
+  "CITACOES_QUE_SERVEM_COMO_EVIDENCIA": 0,
+  "PORQUE_AS_CITACOES_NAO_SERVEM": "as 9 estao em AMBIGUOUS_TERMS e sao rotulos oficiais de USO (\"Inhibición floración\", \"Aclareo floración\"). Nenhuma tem data, nenhuma fala de olival, nenhuma esta ligada ao NEPTUNE. Palavra presente nao e fenologia datada.",
+  "RESOLVE": false,
+  "ESTADO": "ABERTA",
+  "O_QUE_FECHARIA": "a data ou o estadio BBCH de floracao do olival numa fonte datada — o rotulo em PDF do NEPTUNE, ou uma serie de fenologia como a do RAIF — guardada como OBSERVED_CAMPAIGN. Ai a comparacao vira deterministica e o motor decide sozinho.",
+  "ONDE_A_EVIDENCIA_PROVAVELMENTE_ESTA": [
+   {
+    "DOCUMENTO": "L30037I_06_NEPTUNE_COMPLETA (SPECIMEN).pdf",
+    "SHA256": "d04e306e13ddd5ad71b72c5dc2a608971b2af7dd5257c422fd4f7a6e88cc2d63",
+    "BYTES": 657461,
+    "ESTADO": "DOWNLOADED",
+    "ONDE": "disco local do usuario, fora do Git"
+   }
+  ]
+ },
+ "CONFLITOS_COM_O_SCHEMA": [
+  {
+   "ID": "C-1",
+   "GRAVIDADE": "MECANICO",
+   "O_QUE": "duas migrations 010 com o mesmo numero",
+   "ONDE": "principal: 010_calendario_agronomico.sql · handoff: 010_catalogo_publico_fabricante.sql",
+   "E_SEMANTICO": false,
+   "PORQUE_NAO_E_GRAVE": "as 15 tabelas do catalogo se chamam catalogo_* e nenhuma colide com as quatro do calendario. O choque e de numero de arquivo, nao de dominio.",
+   "RESOLUCAO": "renumerar a do catalogo para 013 na hora do merge. Nao mexer no conteudo dela."
+  },
+  {
+   "ID": "C-2",
+   "GRAVIDADE": "NENHUMA_ACAO",
+   "O_QUE": "o catalogo tem janela propria (catalogo_produto_janela_aplicacao)",
+   "ONDE": "handoff, migration do catalogo",
+   "E_SEMANTICO": true,
+   "PORQUE_NAO_E_GRAVE": "o que o FABRICANTE publica e o que o ROTULO autoriza sao duas afirmacoes diferentes e merecem donos diferentes. registro_uso_janela continua filho de registro_uso e unico dono do relogio C.",
+   "RESOLUCAO": "v_product_registered_windows NAO pode passar a ler catalogo_*. A ponte e um importador explicito, com decisao de resolucao temporal registrada linha a linha."
+  },
+  {
+   "ID": "C-3",
+   "GRAVIDADE": "BLOQUEIA_IMPORTACAO",
+   "O_QUE": "o handoff nao tem temporal_resolution, e registro_uso_janela exige",
+   "ONDE": "CROP_ISSUE_RELATIONS.BBCH_FROM/TO sao texto; TIMING_FLAGS ao lado",
+   "E_SEMANTICO": true,
+   "PORQUE_NAO_E_GRAVE": null,
+   "RESOLUCAO": "a decisao PHENOLOGY_STAGE / APPROXIMATE / NOT_KNOWN e do importador e precisa ser explicita e auditavel contra o ANCHOR.ROW_TEXT. Sem essa regra escrita, importar e adivinhar."
+  },
+  {
+   "ID": "C-4",
+   "GRAVIDADE": "BLOQUEIA_IMPORTACAO",
+   "O_QUE": "BBCH 00-00 passa pelo schema e vira CLOSED no motor",
+   "ONDE": "APPLICATION_WINDOWS · TRINITY x cevada e x trigo",
+   "E_SEMANTICO": true,
+   "PORQUE_NAO_E_GRAVE": null,
+   "RESOLUCAO": "consertar na origem (BBCH_TO=07) ou importar como APPROXIMATE com o texto inteiro. A constraint bbch_em_ordem NAO pega, e nao deve pegar: uma janela de um estadio so (BBCH 65-65) e legitima."
+  },
+  {
+   "ID": "C-5",
+   "GRAVIDADE": "ATENCAO",
+   "O_QUE": "titular e NOT NULL em registro_regulatorio e o handoff nao tem titular",
+   "ONDE": "registro_regulatorio.titular",
+   "E_SEMANTICO": true,
+   "PORQUE_NAO_E_GRAVE": "a trava ja impede o pior: os 12 produtos so-site NAO conseguem entrar como registro. O schema aplica sozinho a lei ADAMA WEBSITE != PROVA REGULATORIA.",
+   "RESOLUCAO": "titular vem do ROPF, e precisa ser declarado como propriedade da CONSULTA (export filtrado por titular ADAMA), nao do registro."
+  },
+  {
+   "ID": "C-7",
+   "GRAVIDADE": "BLOQUEIA_IMPORTACAO",
+   "O_QUE": "duas capturas do mesmo registro viram dois registros",
+   "ONDE": "registro_regulatorio UNIQUE (pais, registration_id, fonte_versao); v_product_registered_windows le o log como estado corrente",
+   "E_SEMANTICO": true,
+   "PORQUE_NAO_E_GRAVE": null,
+   "RESOLUCAO": "o importador casa por (pais, registration_id) e a view devolve a captura mais recente, expondo quantas existem. CAPTURE != REGISTRATION. Medido: NEPTUNE aparece 3x no mesmo caso."
+  },
+  {
+   "ID": "C-6",
+   "GRAVIDADE": "ATENCAO",
+   "O_QUE": "importar so o relogio C nao acende nenhuma janela",
+   "ONDE": "ensaio dos cinco casos: 5 de 5 respondem NOT_KNOWN",
+   "E_SEMANTICO": true,
+   "PORQUE_NAO_E_GRAVE": "NOT_KNOWN e a resposta certa. Uma janela em BBCH so pode ser avaliada contra fenologia observada, e hoje so o olivar tem serie (RAIF).",
+   "RESOLUCAO": "a importacao do catalogo precisa vir acompanhada de fenologia observada por cultura, ou o portal ganha 56 produtos que so sabem dizer NOT_KNOWN."
+  }
+ ],
+ "RED_TEAM_MUTACOES": [
+  {
+   "MUTACAO": "site vira prova regulatoria",
+   "ALVO": "RT-1",
+   "RESULTADO": "PEGOU"
+  },
+  {
+   "MUTACAO": "uma pagina passa a ser francesa",
+   "ALVO": "RT-2",
+   "RESULTADO": "PEGOU"
+  },
+  {
+   "MUTACAO": "um estado passa a dizer NAO_REGISTRADO",
+   "ALVO": "RT-3",
+   "RESULTADO": "PEGOU"
+  },
+  {
+   "MUTACAO": "linha sem alvo passa a declarar par derivavel",
+   "ALVO": "RT-4",
+   "RESULTADO": "PEGOU"
+  },
+  {
+   "MUTACAO": "um estado passa a dizer RETIRADO DO MERCADO",
+   "ALVO": "RT-5",
+   "RESULTADO": "PEGOU"
+  },
+  {
+   "MUTACAO": "a janela ganha um estado CLOSED gravado",
+   "ALVO": "RT-7",
+   "RESULTADO": "PEGOU"
+  },
+  {
+   "MUTACAO": "o produto ganha AGE_DAYS persistido",
+   "ALVO": "RT-8",
+   "RESULTADO": "PEGOU"
+  },
+  {
+   "MUTACAO": "os dois numeros de registro passam a divergir sempre",
+   "ALVO": "RT-10",
+   "RESULTADO": "PEGOU"
+  },
+  {
+   "MUTACAO": "consertar BBCH 00-00 para 00-07",
+   "ALVO": "RT-6",
+   "RESULTADO": "PEGOU"
+  },
+  {
+   "MUTACAO": "o catalogo passa a escrever em registro_uso_janela",
+   "ALVO": "RT-9",
+   "RESULTADO": "PEGOU"
+  },
+  {
+   "MUTACAO": "remover as 25 ervas dos nao-herbicidas",
+   "ALVO": "RT-11",
+   "RESULTADO": "PEGOU"
+  }
+ ],
+ "RED_TEAM_PLACAR": {
+  "HIPOTESES_TESTADAS": 11,
+  "DERRUBADAS": 8,
+  "DEFEITOS_CONFIRMADOS": 3
+ },
+ "CORRECOES": {
+  "C-7": {
+   "DEFEITO": "a segunda captura do mesmo registro duplicava o produto no caso",
+   "ONDE_FOI_RESOLVIDO": "supabase/migrations/013_captura_nao_e_registro.sql",
+   "COMO": "f_registro_corrente aplica a regra de seleção por as_of; o log continua inteiro em registro_regulatorio e v_product_registered_windows.",
+   "PROVA": "ensaio: HISTORY_ROWS=2 e CURRENT_STATE_ROWS=1 para ES-00211; o NEPTUNE sai de 3 ocorrências para 1 no mesmo caso.",
+   "CONTRATO": "data/samples/CAPTURE-VS-REGISTRATION-CONTRACT-V1.json",
+   "ESTADO": "RESOLVED"
+  },
+  "RT-6": {
+   "DEFEITO": "BBCH_TO = BBCH_FROM quando o texto não traz separador; a fonte diz \"desde BBCH 00 hasta BBCH 07\" e o artefato guarda 00-00",
+   "CAUSA_MEDIDA": "_bbch() usa BBCH.search() — a PRIMEIRA ocorrência — e faz `m.group(2) or m.group(1)`, derivando o fim do início",
+   "ONDE_FOI_RESOLVIDO": "scripts/adama_es_import_rules.py · normalizar_bbch",
+   "COMO": "a regra nunca deriva o fim a partir do início. Faixa fechada só com traço ou com linguagem que ligue duas menções; ponta aberta vira APPROXIMATE com o texto inteiro.",
+   "JANELAS": [
+    {
+     "CROP": "ARROZ",
+     "ISSUE": "Dicotiledóneas, malas hierbas de hoja ancha",
+     "RAW_TEXT": "Arroz | Dicotiledóneas, malas hierbas de hoja ancha | 0,5 | 1 | 100-400 | Aplicar únicamente en variedades Full Page. Pueden realizarse 2 aplicaciones a 0,4375 l/ha, espaciadas 20 días. Aplicar sin agua e inundar 3-4 días más tarde. Aplicar durante BBCH 12-29. | No procede",
+     "HANDOFF_START": "12",
+     "HANDOFF_END": "29",
+     "PARSED_START": 12,
+     "PARSED_END": 29,
+     "RESOLUCAO": "PHENOLOGY_STAGE",
+     "REGRA": "FAIXA_COM_TRACO",
+     "MUDOU": false
+    },
+    {
+     "CROP": "CEBADA",
+     "ISSUE": "MALAS HIERBAS",
+     "RAW_TEXT": "Cebada | Malas Hierbas | 2 l/ha | En cebada de invierno se podrá realizar una aplicación en post-emergencia temprada del cultivo, o bien, realizar dicha aplicación en pre-emergencia del cultivo, desde BBCH 00 (semilla seca) hasta BBCH 07 (coleòptilo, emergido de la semilla).",
+     "HANDOFF_START": "00",
+     "HANDOFF_END": "00",
+     "PARSED_START": 0,
+     "PARSED_END": 7,
+     "RESOLUCAO": "PHENOLOGY_STAGE",
+     "REGRA": "FAIXA_POR_LINGUAGEM:desde…hasta",
+     "MUDOU": true
+    },
+    {
+     "CROP": "TRIGO",
+     "ISSUE": "MALAS HIERBAS",
+     "RAW_TEXT": "Trigo | Malas Hierbas | 2 l/ha | En trigo de invierno se podrá realizar una aplicación en post-emergencia temprada del cultivo, o bien, realizar dicha aplicación en pre-emergencia del cultivo, desde BBCH 00 (semilla seca) hasta BBCH 07 (coleòptilo, emergido de la semilla).",
+     "HANDOFF_START": "00",
+     "HANDOFF_END": "00",
+     "PARSED_START": 0,
+     "PARSED_END": 7,
+     "RESOLUCAO": "PHENOLOGY_STAGE",
+     "REGRA": "FAIXA_POR_LINGUAGEM:desde…hasta",
+     "MUDOU": true
+    }
+   ],
+   "ESTADO": "RESOLVED"
+  },
+  "RT-11": {
+   "DEFEITO": "relação de alvo sem origem declarada; termo de erva daninha em produto que não é herbicida",
+   "CAUSA_MEDIDA": "ISSUE_RELATIONS nasce de varredura de texto sobre a página inteira (_tokens(texto_todo)). O coletor confere cultivo contra o bloco \"Cultivos\" declarado; para alvo não existe bloco equivalente na fonte, então nenhuma linha tem origem.",
+   "O_QUE_A_MEDICAO_MOSTROU": "a família de termos de erva daninha aparece em 56 de 56 produtos — TODOS. Um termo presente para todo produto não discrimina produto nenhum.",
+   "CORRECAO_DA_LEITURA_ANTERIOR": "a rodada passada disse \"assinatura de menu do site\" contando 25 produtos não-herbicida. O denominador estava errado: são 56 de 56. E o termo literal \"MALAS HIERBAS\" aparece em 46 — os outros 10 têm um termo mais específico que o absorve em _colapsar_sobrepostos. A conclusão fica mais forte, não mais fraca.",
+   "ONDE_FOI_RESOLVIDO": "scripts/adama_es_import_rules.py · classificar_origem_do_issue / pode_virar_alvo_autorizado",
+   "COMO": "classificação por ORIGEM, não por lista de palavras. Só PAIR_TABLE_ROW — linha de tabela ancorada que nomeia cultivo E agente — pode virar alvo autorizado. Varredura de texto fica registrada como PAGE_BODY_TEXT e nunca vira crop_issue.",
+   "POR_QUE_NAO_COPIEI_O_SCHEMA_DE_CULTIVO": "DECLARADO/CITADO existe para cultivo porque a página TEM um bloco \"Cultivos\". Para alvo esse bloco não existe na fonte. Copiar por simetria inventaria uma origem que o dado não tem.",
+   "ORIGENS_MEDIDAS": {
+    "PAGE_BODY_TEXT": 176,
+    "PAIR_TABLE_ROW": 5
+   },
+   "ESTADO": "RESOLVED"
+  },
+  "RT-10": {
+   "DEFEITO": "CUPROXI FLO tem 19232 em PRODUCTS e ES-00979 no crosswalk",
+   "A_INVESTIGACAO": [
+    {
+     "HIPOTESE": "A · são dois sistemas de identificador diferentes",
+     "VEREDITO": "PARCIAL",
+     "EVIDENCIA": "o próprio ROPF usa as duas formas: 62 registros numéricos e 34 no formato ES-nnnnn entre os 96 vigentes. Mas isso não explica este caso — 19232 não está em nenhuma das duas formas."
+    },
+    {
+     "HIPOTESE": "B · um deles é id interno, não número de registro",
+     "VEREDITO": "REFUTADA",
+     "EVIDENCIA": "a página publica literalmente \"Nº de registro: 19232\", e o mesmo campo casa com o ROPF vigente em 43 dos 56 produtos. O campo é número de registro em todo o catálogo."
+    },
+    {
+     "HIPOTESE": "C · erro de extração",
+     "VEREDITO": "REFUTADA",
+     "EVIDENCIA": "COMPOSITION_TEXT_PUBLICADO preserva o texto literal: \"Oxicloruro de cobre, expresado en Cu, 52% p/v (520g/l) Nº de registro: 19232\". O parser leu o que estava escrito."
+    },
+    {
+     "HIPOTESE": "D · entidades distintas com o mesmo nome comercial",
+     "VEREDITO": "NÃO REFUTADA",
+     "EVIDENCIA": "a composição bate exatamente com a do ES-00979 no ROPF (oxicloruro de cobre 52% expr. en Cu, SC), o que torna \"produtos diferentes\" improvável — mas improvável não é refutado."
+    },
+    {
+     "HIPOTESE": "E · NÃO SEI qual dos dois números o Estado reconhece hoje",
+     "VEREDITO": "ESTA É A RESPOSTA",
+     "EVIDENCIA": "19232 não está entre os 96 vigentes capturados. O ROPF declara 92 registros ADAMA CANCELADOS e a lista deles NÃO foi capturada. Sem ela, dizer que 19232 não existe seria AUSENTE_MEDIDO virando ausência."
+    }
+   ],
+   "COMO_FOI_MODELADO": "sem reconciliar. Dois identificadores TIPADOS, cada um com sua fonte:",
+   "IDENTIFICADORES": [
+    {
+     "TIPO": "REGISTRATION_ID_PUBLISHED_BY_MANUFACTURER",
+     "VALOR": "19232",
+     "FONTE": "página pública da ADAMA España",
+     "DATA": "2026-08-30T03:19:24Z",
+     "EVIDENCIA": "Nº de registro: 19232, no texto literal da ficha"
+    },
+    {
+     "TIPO": "REGISTRATION_ID_IN_OFFICIAL_REGISTER",
+     "VALOR": "ES-00979",
+     "FONTE": "MAPA ROPF, export de titular ADAMA",
+     "DATA": "2026-08-29",
+     "EVIDENCIA": "registro vigente com a mesma composição e o mesmo nome comercial"
+    }
+   ],
+   "LINK_BASIS": "NAME_AND_COMPOSITION",
+   "LINK_STATE": "PLAUSIBLE_NOT_PROVED",
+   "A_LEI": "NOME IGUAL != MESMO REGISTRO",
+   "REGRA_DE_IMPORTACAO": "o casamento canônico é SEMPRE pelo número do registro oficial. Quando os dois divergem, a linha carrega os dois campos tipados e o LINK_STATE. Nenhuma consulta usa nome comercial como chave.",
+   "O_QUE_FECHARIA": "consultar o ROPF por 19232 incluindo registros CANCELADOS — uma requisição, não executada nesta rodada.",
+   "ESTADO": "MODELADO_SEM_AMBIGUIDADE"
+  }
+ },
+ "VEREDITO": {
+  "VEREDITO": "HANDOFF_READY_TO_IMPORT",
+  "ESTADO_DOS_DEFEITOS": {
+   "C-7": "RESOLVED",
+   "RT-6": "RESOLVED",
+   "RT-11": "RESOLVED",
+   "RT-10": "MODELADO_SEM_AMBIGUIDADE"
+  },
+  "AINDA_ABERTOS": [],
+  "PORQUE": "C-7 resolvido na 013 com histórico intacto; RT-6 e RT-11 resolvidos na fronteira de importação, com a causa medida no coletor e mutação que reprova o parser antigo; RT-10 modelado como dois identificadores tipados, sem reconciliar por nome. ES-CASE-001 continua ABERTA, como tem de continuar.",
+  "O_QUE_ESTE_VEREDITO_NAO_AUTORIZA": "importar. READY significa que a integração futura não muda o significado — não que ela aconteceu. Nada foi importado nesta rodada.",
+  "PODE_ENTRAR_AGORA": [
+   {
+    "ESTRUTURA": "PRODUCTS (56)",
+    "DESTINO": "catalogo_produto",
+    "PORQUE": "presenca em catalogo publico, com pagina, data e nivel de evidencia. Nao afirma registro nem venda."
+   },
+   {
+    "ESTRUTURA": "CROP_RELATIONS declaradas (588)",
+    "DESTINO": "catalogo_produto_cultivo",
+    "PORQUE": "DECLARADO != CITADO ja esta no dado, campo a campo"
+   },
+   {
+    "ESTRUTURA": "DOCUMENTS (147)",
+    "DESTINO": "catalogo_produto_documento",
+    "PORQUE": "com sha256 e estado de download; raw_asset_id fica NULL ate o byte estar preservado de verdade"
+   },
+   {
+    "ESTRUTURA": "CROP_ISSUE_RELATIONS (5)",
+    "DESTINO": "registro_uso + registro_uso_janela",
+    "PORQUE": "os unicos REGULATORY_FACT, confirmados par a par no MAPA pelo numero de registro. Com a ressalva C-4 na do TRINITY."
+   },
+   {
+    "ESTRUTURA": "REGULATORY_CROSSWALK (108)",
+    "DESTINO": "catalogo_registro_crosswalk",
+    "PORQUE": "a ponte entre catalogo e registro, com o estado de cada entrada e a evidencia do casamento"
+   }
+  ],
+  "NAO_PODE_ENTRAR_AINDA": [
+   {
+    "ESTRUTURA": "ISSUE_RELATIONS (176)",
+    "BLOQUEIO": "RT-11",
+    "PORQUE": "25 linhas dizem que fungicida, inseticida e regulador de crescimento tem \"MALAS HIERBAS\" como alvo. Falta o campo DECLARATION_SOURCE que CROP_RELATIONS tem.",
+    "O_QUE_DESTRAVA": "reprocessar ISSUE_RELATIONS com a mesma regra de CROP_RELATIONS e marcar cada linha DECLARADO ou CITADO"
+   },
+   {
+    "ESTRUTURA": "APPLICATION_WINDOWS (2 de 3)",
+    "BLOQUEIO": "RT-6 · C-4",
+    "PORQUE": "BBCH 00-00 vira CLOSED no motor quando a fonte diz 00-07",
+    "O_QUE_DESTRAVA": "corrigir BBCH_TO na origem, ou importar como APPROXIMATE com o texto inteiro"
+   },
+   {
+    "ESTRUTURA": "qualquer registro que ja exista no acervo",
+    "BLOQUEIO": "C-7",
+    "PORQUE": "a chave natural de registro_regulatorio inclui fonte_versao, entao a segunda captura do MESMO registro cria uma segunda linha. Medido: o NEPTUNE aparece 3x no mesmo caso.",
+    "O_QUE_DESTRAVA": "importador casando por (pais, registration_id) e v_product_registered_windows devolvendo a captura mais recente, com o numero de capturas exposto"
+   },
+   {
+    "ESTRUTURA": "REGISTRATION_ID de PRODUCTS",
+    "BLOQUEIO": "RT-10",
+    "PORQUE": "o numero do site e o numero do registro divergem em pelo menos um produto, sob o mesmo nome de campo",
+    "O_QUE_DESTRAVA": "renomear no artefato: REGISTRATION_ID_PUBLICADO_NO_SITE e REGISTRATION_ID_NO_ROPF. Importar sempre o segundo."
+   }
+  ],
+  "PROCEDIMENTO_DE_IMPORTACAO_QUANDO_DESTRAVAR": [
+   "1 · renumerar 010_catalogo_publico_fabricante.sql para 013 (conflito C-1). Nao tocar no conteudo.",
+   "2 · aplicar 013 no Supabase pelo workflow supabase-migrate, com a 008 rodando por ultimo e estendida para conferir as 15 tabelas catalogo_*.",
+   "3 · preservar os 138 PDFs primeiro: scripts/storage_preservar.py --enviar. So depois de VERIFIED o documento pode apontar raw_asset_id.",
+   "4 · aplicar supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql, que e idempotente, para as estruturas de PODE_ENTRAR_AGORA.",
+   "5 · para o relogio C: importar as 5 CROP_ISSUE_RELATIONS em registro_uso e registro_uso_janela casando SEMPRE pelo numero do ROPF, nunca por nome comercial. Regra de resolucao temporal escrita e auditavel contra ANCHOR.ROW_TEXT — PHENOLOGY_STAGE so quando os dois BBCH aparecem no texto ancorado; caso contrario APPROXIMATE com a frase inteira.",
+   "6 · titular vem do ROPF e e declarado como propriedade da consulta.",
+   "7 · fecha_caducidad vem do ROPF pelo numero de registro. EXPIRY != WITHDRAWAL continua valendo: data vencida entra como data, nunca como retirada.",
+   "8 · rodar supabase/tests/regressoes_calendario.sql e o ensaio dos cinco casos contra o banco ja carregado. Nenhuma das 45 afirmacoes pode cair.",
+   "9 · so entao ISSUE_RELATIONS e APPLICATION_WINDOWS, depois de RT-11 e RT-6 resolvidos na origem."
+  ],
+  "O_QUE_ESTA_RODADA_NAO_FEZ": [
+   "nao importou nenhuma linha no banco canonico",
+   "nao aplicou nada no Supabase",
+   "nao criou migration nova",
+   "nao mesclou a branch do handoff",
+   "nao resolveu ES-CASE-001",
+   "nao leu os 138 PDFs — eles estao no disco do usuario, fora do Git"
+  ]
+ }
+}
