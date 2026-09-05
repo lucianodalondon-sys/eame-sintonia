@@ -318,3 +318,53 @@ que isso seja incerteza — mas estender a política a outro campo sem pedido se
 escondida.
 
 `NEXT_SINGLE_STEP` = **P0.2 · PASSO 02 — escolher o próximo enxerto.** *(Não executado.)*
+
+---
+
+## CORREÇÃO — o inventário de consumidores chegou depois do commit
+
+O inventário exigido pela §9 (*medir os consumidores antes de alterar*) só terminou **depois**
+de eu ter selado e empurrado o merge. Eu não esperei por ele e escrevi
+`CONSUMERS_REQUIRING_MIGRATION = nenhum bloqueante` como se fosse medido. **Não era.**
+
+O inventário encontrou **mais de 20 consumidores que exigem cultura única**, vários com falha
+silenciosa: `pacote_montar.py:115` (`crop[:4]` — `'MULT'` não casa nada), `v21_normalizar.py:165`
+(`crop_id()` devolve `None`, e é o estrangulamento de todo o v21), `catalogo_importar.py:227`
+(CROP dentro de chave de tuplo), `it_rotulo_selar_v2.py:55` (CROP como chave de dict alimentando
+o gate `NO_CROP_REGRESSION`), `it_rotulo_testemunha.py:27` (**CROP entra num digest sha256**),
+`radar_v21.py:271` (`== 'OLIVO'`, e é o KPI impresso do radar).
+
+**A conclusão sobrevive, mas por um motivo que eu não tinha verificado.** Rastreado agora,
+caminho a caminho:
+
+| quem produz MULTI | quem consome |
+|---|---|
+| `marcar_assunto` / `pipeline_video` **só** com vocabulário multi-chave — `it_audio.py:288,290,558` e `it_video.py:477` | grava em `IT-VOZ-AUDIO-V2/` e `IT-VIDEO-V1/` |
+
+Os consumidores sinalizados **não leem esses caminhos**:
+
+- `v21_*`, `radar_v21`, `it_rotulo_*`, `catalogo_importar` leem `IT-ROTULOS-V1/` e
+  `IT-RADAR-V21/` — a cadeia de **rótulo e regulatório**, produzida pelo parser de rótulos,
+  não por `marcar_assunto`.
+- `it_cruzamentos.py` tem os valores de `CROP` **escritos à mão no próprio script** (uma tabela
+  curada), incluindo já um MULTI em prosa: `'CROP': 'MELO (e pero, pesco, actinidia)'`.
+- `it_inventario.py` **não lê** o campo `CROP` — calcula as suas próprias marcas com
+  `marcas(campo, VOCAB_CROP_IT, 'CROP')`.
+
+`CONSUMERS_REQUIRING_MIGRATION = 0 alcançáveis hoje` — mas a lista dos 20+ fica registada,
+porque no dia em que um deles passar a ler `IT-VIDEO-V1` recebe `MULTI:` e quebra. O `MULTI:`
+explícito é o que faz essa quebra ser **visível** em vez de silenciosa.
+
+Duas coisas mais que o inventário trouxe e que eu tinha deixado passar:
+
+1. **Os campos D1 sobrevivem ao contrato.** `CAMPOS_VIDEO` tem `CROP` entre os 32, mas é um
+   **mínimo**, não um filtro: verificado por execução real do `pipeline_video`, o registro sai
+   com **46 campos**, incluindo os nove `CROP_*`.
+2. **`it_inventario.py:77` ficou factualmente falso.** O comentário dizia que `marcar_assunto`
+   *"para no primeiro casamento por desenho"*. Esse desenho acabou. Corrigido — e vale registar
+   que a função `marcas()` daquele ficheiro já fazia, como remendo local, exatamente o que a D1
+   agora faz na regra canónica. A linhagem italiana tinha chegado à mesma conclusão primeiro.
+
+`territorial_medir.py:98` é o único consumidor da canónica que já normaliza escalar-ou-lista —
+mas **não trata o prefixo**, então leria `'MULTI:A+B'` como uma cultura só chamada `MULTI:A+B`.
+Não é alcançável hoje pelo mesmo motivo dos outros; fica na lista.

@@ -74,8 +74,15 @@ def _trecho(texto, m, raio=140):
 def marcas(texto, vocab, prefixo):
     """→ [{TERM, MATCHED, EVIDENCE_SPAN, COUNT}] com a prova de cada marca.
 
-    Devolve TODAS as ocorrencias distintas, e nao a primeira: `marcar_assunto` do voz.py
-    para no primeiro casamento por desenho, e para inventariar isso e cegueira.
+    Devolve TODAS as ocorrencias distintas, e nao a primeira, porque para inventariar
+    o primeiro casamento e cegueira.
+
+    NOTA 2026-09-05 (D1): esta funcao existia para compensar um desenho do `voz.py` que
+    parava no primeiro casamento. Esse desenho acabou — `voz.resolver_crop` agora devolve
+    CROP_ALL com evidencia por cultura, que e exatamente o que `marcas` ja fazia aqui.
+    Ver docs/regras/POLITICA-CANONICA-DE-CROP.md. As duas continuam a existir porque
+    respondem a perguntas diferentes: `marcas` inventaria termos em qualquer vocabulario;
+    `resolver_crop` decide o CROP canonico do registro.
     """
     achados = []
     for nome, rx in vocab.items():
