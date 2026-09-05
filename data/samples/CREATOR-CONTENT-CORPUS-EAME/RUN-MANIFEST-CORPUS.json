@@ -1,0 +1,546 @@
+{
+ "SOURCE_ID": "RUN-MANIFEST",
+ "source": "manifesto de execuções de coleta do SINTONIA EAME",
+ "SOURCE_LOCATION": "interno — metadado de coleta",
+ "FACT_LOCATION": "n/a — descreve execução, não fato do mundo",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-31",
+ "PARA_QUE_SERVE": "dado um registro qualquer, o RUN_ID leva a esta tabela e a tabela diz que ator rodou, com que entrada, quando, quanto custou e onde está a evidência bruta. Sem isto o RUN_ID só agrupa registros entre si.",
+ "CAMPO_DESCONHECIDO": "NOT_PRESERVED significa que o campo existiu na execução e não foi capturado. É confissão, não ausência de dado — e é diferente de NÃO SEI, que é a fonte não informar.",
+ "NUNCA_GRAVAR_TOKEN": "INPUT guarda consulta e parâmetros. Credencial, jamais.",
+ "RUNS": [
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-CM-FB-09",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-comment-scraper",
+   "ACTOR_VERSION": "0.0.591",
+   "STARTED_AT": "2026-08-31T01:05:53.811Z",
+   "FINISHED_AT": "2026-08-31T01:06:03.071Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/p/DFFPKyeuMmf/",
+     "https://www.instagram.com/p/DFXYetSu89l/",
+     "https://www.instagram.com/p/DG7s55MCE9Z/"
+    ],
+    "resultsLimit": 30
+   },
+   "COUNTRY": "NOT_KNOWN",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "amostra de comentários de 3 materiais de FB-09",
+   "DATASET_ID": "dWcYJIUNMPvN40AmN",
+   "ITEM_COUNT_RAW": 3,
+   "ITEM_COUNT_NORMALIZED": 3,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Starting the crawler.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-FB-09.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:06:03Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-CM-FB-10",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-comment-scraper",
+   "ACTOR_VERSION": "0.0.591",
+   "STARTED_AT": "2026-08-31T01:06:04.292Z",
+   "FINISHED_AT": "2026-08-31T01:06:11.815Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/p/DakP-Hgn_Zh/",
+     "https://www.instagram.com/p/Daucc0vk2Ph/",
+     "https://www.instagram.com/p/Dcia_HtikbC/"
+    ],
+    "resultsLimit": 30
+   },
+   "COUNTRY": "NOT_KNOWN",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "amostra de comentários de 3 materiais de FB-10",
+   "DATASET_ID": "gzMu9kkSduqXxHBNo",
+   "ITEM_COUNT_RAW": 10,
+   "ITEM_COUNT_NORMALIZED": 10,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Finished! Total 3 requests: 3 succeeded, 0 failed.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-FB-10.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:06:12Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-01",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-comment-scraper",
+   "ACTOR_VERSION": "0.0.591",
+   "STARTED_AT": "2026-08-31T01:06:13.218Z",
+   "FINISHED_AT": "2026-08-31T01:06:20.640Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/p/DZ-EehvM-Cp/",
+     "https://www.instagram.com/p/DZ2gVpzs3p4/",
+     "https://www.instagram.com/p/DZ4wJCIsB8D/"
+    ],
+    "resultsLimit": 30
+   },
+   "COUNTRY": "NOT_KNOWN",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "amostra de comentários de 3 materiais de PC-01",
+   "DATASET_ID": "Nm1wJSxeKmOPxVyVY",
+   "ITEM_COUNT_RAW": 45,
+   "ITEM_COUNT_NORMALIZED": 45,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Starting the crawler.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-01.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:06:21Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-04",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-comment-scraper",
+   "ACTOR_VERSION": "0.0.591",
+   "STARTED_AT": "2026-08-31T01:06:22.177Z",
+   "FINISHED_AT": "2026-08-31T01:06:37.088Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/p/DW_eIotDDM5/",
+     "https://www.instagram.com/p/DY_6CrvsEmw/",
+     "https://www.instagram.com/p/DZTIrVrDJ-g/",
+     "https://www.instagram.com/p/DZrW9wxsAAF/",
+     "https://www.instagram.com/p/DaC1g2hMTIb/"
+    ],
+    "resultsLimit": 30
+   },
+   "COUNTRY": "NOT_KNOWN",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "amostra de comentários de 5 materiais de PC-04",
+   "DATASET_ID": "P8gkv0hrNhrrh2lFO",
+   "ITEM_COUNT_RAW": 71,
+   "ITEM_COUNT_NORMALIZED": 71,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Crawled 4/5 pages, 0 failed requests, desired concurrency 6.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-04.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:06:38Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-05",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-comment-scraper",
+   "ACTOR_VERSION": "0.0.591",
+   "STARTED_AT": "2026-08-31T01:06:38.864Z",
+   "FINISHED_AT": "2026-08-31T01:06:44.416Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/p/DalI4hsCAv6/",
+     "https://www.instagram.com/p/DbVRq7Pg_fH/",
+     "https://www.instagram.com/p/DcguUNKIbKo/",
+     "https://www.instagram.com/p/DZshM8lIfGK/",
+     "https://www.instagram.com/p/Db34RG3IhyI/",
+     "https://www.instagram.com/p/DbTdGI3ML7X/"
+    ],
+    "resultsLimit": 30
+   },
+   "COUNTRY": "NOT_KNOWN",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "amostra de comentários de 6 materiais de PC-05",
+   "DATASET_ID": "T2gsT7b7LzRdWgcqm",
+   "ITEM_COUNT_RAW": 46,
+   "ITEM_COUNT_NORMALIZED": 46,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Starting the crawler.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-05.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:06:45Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-06",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-comment-scraper",
+   "ACTOR_VERSION": "0.0.591",
+   "STARTED_AT": "2026-08-31T01:06:45.823Z",
+   "FINISHED_AT": "2026-08-31T01:06:51.283Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/p/DZXQOtGM0yb/"
+    ],
+    "resultsLimit": 30
+   },
+   "COUNTRY": "NOT_KNOWN",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "amostra de comentários de 1 materiais de PC-06",
+   "DATASET_ID": "eGtVtf9AIxNmGHQ0k",
+   "ITEM_COUNT_RAW": 14,
+   "ITEM_COUNT_NORMALIZED": 14,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Starting the crawler.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-06.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:06:51Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-07",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-comment-scraper",
+   "ACTOR_VERSION": "0.0.591",
+   "STARTED_AT": "2026-08-31T01:06:52.617Z",
+   "FINISHED_AT": "2026-08-31T01:06:57.648Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/p/DW1vje2AF69/"
+    ],
+    "resultsLimit": 30
+   },
+   "COUNTRY": "NOT_KNOWN",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "amostra de comentários de 1 materiais de PC-07",
+   "DATASET_ID": "nkhQFN58pa06z3lPr",
+   "ITEM_COUNT_RAW": 1,
+   "ITEM_COUNT_NORMALIZED": 1,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Starting the crawler.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-07.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:06:58Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-08",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-comment-scraper",
+   "ACTOR_VERSION": "0.0.591",
+   "STARTED_AT": "2026-08-31T01:06:58.793Z",
+   "FINISHED_AT": "2026-08-31T01:07:04.917Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/p/Db10ZMbqjMF/",
+     "https://www.instagram.com/p/Db1J1cct38S/",
+     "https://www.instagram.com/p/Db2gk4WNeQg/"
+    ],
+    "resultsLimit": 30
+   },
+   "COUNTRY": "NOT_KNOWN",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "amostra de comentários de 3 materiais de PC-08",
+   "DATASET_ID": "EbchzFhDwnOdkoqd8",
+   "ITEM_COUNT_RAW": 9,
+   "ITEM_COUNT_NORMALIZED": 9,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Starting the crawler.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-08.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:07:05Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-IG-FB-09",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-scraper",
+   "ACTOR_VERSION": "0.0.775",
+   "STARTED_AT": "2026-08-31T01:00:55.163Z",
+   "FINISHED_AT": "2026-08-31T01:01:59Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/biocampojoyma/"
+    ],
+    "resultsType": "posts",
+    "resultsLimit": 50,
+    "addParentData": false
+   },
+   "COUNTRY": "ES",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "acervo de @biocampojoyma (alvo 50)",
+   "DATASET_ID": "QDVeu57OAIKQpqOgU",
+   "ITEM_COUNT_RAW": 49,
+   "ITEM_COUNT_NORMALIZED": 49,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "PARTIAL",
+   "ERROR": "status da plataforma: READY. ",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-MATERIALS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-IG-FB-09.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:01:59Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-IG-FB-10",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-scraper",
+   "ACTOR_VERSION": "0.0.775",
+   "STARTED_AT": "2026-08-31T01:02:00.290Z",
+   "FINISHED_AT": "2026-08-31T01:02:34.474Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/terruzapistachos"
+    ],
+    "resultsType": "posts",
+    "resultsLimit": 50,
+    "addParentData": false
+   },
+   "COUNTRY": "ES",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "acervo de @terruzapistachos (alvo 50)",
+   "DATASET_ID": "BuKbyv3xIhc0kgxFn",
+   "ITEM_COUNT_RAW": 50,
+   "ITEM_COUNT_NORMALIZED": 50,
+   "COST_USD": 0.0891,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Crawled 99/103 pages, 0 failed requests, desired concurrency 160.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-MATERIALS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-IG-FB-10.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:02:35Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-01",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-scraper",
+   "ACTOR_VERSION": "0.0.775",
+   "STARTED_AT": "2026-08-31T00:57:57.300Z",
+   "FINISHED_AT": "2026-08-31T00:58:23.261Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/gomierofarm/"
+    ],
+    "resultsType": "posts",
+    "resultsLimit": 50,
+    "addParentData": false
+   },
+   "COUNTRY": "IT",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "acervo de @gomierofarm (alvo 50)",
+   "DATASET_ID": "rRC9uBr10EW4TcuBb",
+   "ITEM_COUNT_RAW": 50,
+   "ITEM_COUNT_NORMALIZED": 50,
+   "COST_USD": 0.048600000000000004,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Scraper finished",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-MATERIALS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-01.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T00:58:24Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-04",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-scraper",
+   "ACTOR_VERSION": "0.0.775",
+   "STARTED_AT": "2026-08-31T00:58:25.422Z",
+   "FINISHED_AT": "2026-08-31T00:58:55.212Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/huerto_ecologico.marc"
+    ],
+    "resultsType": "posts",
+    "resultsLimit": 50,
+    "addParentData": false
+   },
+   "COUNTRY": "ES",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "acervo de @huerto_ecologico.marc (alvo 50)",
+   "DATASET_ID": "BLdSJ0Gz5sVasWkGr",
+   "ITEM_COUNT_RAW": 50,
+   "ITEM_COUNT_NORMALIZED": 50,
+   "COST_USD": 0.1296,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Scraper finished",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-MATERIALS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-04.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T00:58:56Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-05",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-scraper",
+   "ACTOR_VERSION": "0.0.775",
+   "STARTED_AT": "2026-08-31T00:58:57.399Z",
+   "FINISHED_AT": "2026-08-31T00:59:25.017Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/germanagrolife"
+    ],
+    "resultsType": "posts",
+    "resultsLimit": 50,
+    "addParentData": false
+   },
+   "COUNTRY": "ES",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "acervo de @germanagrolife (alvo 50)",
+   "DATASET_ID": "tzFnMycaZpbuPeiUu",
+   "ITEM_COUNT_RAW": 50,
+   "ITEM_COUNT_NORMALIZED": 50,
+   "COST_USD": 0.0432,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Crawled 54/66 pages, 0 failed requests, desired concurrency 160.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-MATERIALS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-05.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T00:59:26Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-06",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-scraper",
+   "ACTOR_VERSION": "0.0.775",
+   "STARTED_AT": "2026-08-31T00:59:27.077Z",
+   "FINISHED_AT": "2026-08-31T00:59:48.036Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/agrosamanta_"
+    ],
+    "resultsType": "posts",
+    "resultsLimit": 50,
+    "addParentData": false
+   },
+   "COUNTRY": "ES",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "acervo de @agrosamanta_ (alvo 50)",
+   "DATASET_ID": "uAUvff6dAI8gjkjjx",
+   "ITEM_COUNT_RAW": 50,
+   "ITEM_COUNT_NORMALIZED": 50,
+   "COST_USD": 0.0864,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Crawled 35/54 pages, 0 failed requests, desired concurrency 160.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-MATERIALS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-06.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T00:59:49Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-07",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-scraper",
+   "ACTOR_VERSION": "0.0.775",
+   "STARTED_AT": "2026-08-31T00:59:50.193Z",
+   "FINISHED_AT": "2026-08-31T01:00:23.273Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/chicurri_agro"
+    ],
+    "resultsType": "posts",
+    "resultsLimit": 50,
+    "addParentData": false
+   },
+   "COUNTRY": "ES",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "acervo de @chicurri_agro (alvo 50)",
+   "DATASET_ID": "klEwZJleV0gRBOQQX",
+   "ITEM_COUNT_RAW": 50,
+   "ITEM_COUNT_NORMALIZED": 50,
+   "COST_USD": 0.1188,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Scraper finished",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-MATERIALS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-07.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:00:24Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-08",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-scraper",
+   "ACTOR_VERSION": "0.0.775",
+   "STARTED_AT": "2026-08-31T01:00:25.453Z",
+   "FINISHED_AT": "2026-08-31T01:00:52.583Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/oliverio_rodfer"
+    ],
+    "resultsType": "posts",
+    "resultsLimit": 50,
+    "addParentData": false
+   },
+   "COUNTRY": "ES",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "acervo de @oliverio_rodfer (alvo 50)",
+   "DATASET_ID": "tPktJQG1XLz6wq4Qj",
+   "ITEM_COUNT_RAW": 50,
+   "ITEM_COUNT_NORMALIZED": 50,
+   "COST_USD": 0.10260000000000001,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Crawled 100/103 pages, 0 failed requests, desired concurrency 160.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-MATERIALS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-08.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:00:53Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-YT-PC-02",
+   "PLATFORM": "YOUTUBE",
+   "ACTOR": "streamers~youtube-scraper",
+   "ACTOR_VERSION": "0.0.283",
+   "STARTED_AT": "2026-08-31T01:04:06.670Z",
+   "FINISHED_AT": "2026-08-31T01:05:07Z",
+   "INPUT": {
+    "startUrls": [
+     {
+      "url": "https://www.youtube.com/@chaineagricole/videos"
+     }
+    ],
+    "maxResults": 50,
+    "sortVideosBy": "NEWEST",
+    "downloadSubtitles": true,
+    "preferAutoGeneratedSubtitles": true,
+    "subtitlesFormat": "plaintext",
+    "saveSubsToKVS": false
+   },
+   "COUNTRY": "FR",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "acervo de @chaineagricole (Chaine Agricole) (alvo 50)",
+   "DATASET_ID": "FUdhwjdSU1Rc9q0tN",
+   "ITEM_COUNT_RAW": 43,
+   "ITEM_COUNT_NORMALIZED": 43,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "PARTIAL",
+   "ERROR": "status da plataforma: READY. ",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-MATERIALS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-YT-PC-02.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:05:07Z"
+  }
+ ]
+}

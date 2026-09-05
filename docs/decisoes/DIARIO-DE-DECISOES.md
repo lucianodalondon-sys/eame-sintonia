@@ -546,6 +546,346 @@ nos cabeçalhos de `scripts/rotulos_ler.py`, `scripts/rotulos_censo.py` e
 
 ---
 
+---
+
+> **COLISÃO DE NUMERAÇÃO — declarada, não resolvida por reescrita.**
+> As duas linhagens numeraram a partir de `D-013` ao mesmo tempo, sem se verem. O bloco acima
+> vem da linhagem canônica (entradas de **2026-08-29**); o bloco abaixo vem da linhagem
+> `eame-agro-creators-map` (entradas de **2026-08-30**). Os IDs `D-013`…`D-026` existem **duas
+> vezes neste ficheiro**, e isso é um facto do histórico, não um erro a corrigir por cima:
+> renumerar falsificaria sob que número cada decisão foi tomada.
+>
+> Nenhuma citação de código alcança os IDs em colisão — as únicas citadas fora deste ficheiro
+> são `D-001`, `D-003`, `D-007` e `D-010`, todas no prefixo intocado.
+>
+> **Ao citar um destes IDs, qualifique a linhagem.** Entradas novas continuam a partir de
+> `D-044` (13 na base + 14 + 17).
+
+### D-013 — Creator e sensor são dois papéis, e nunca uma ficha só
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** a MISSÃO 14 pergunta *"quem já fala com esse público?"*; o EARLY SIGNAL
+  pergunta *"quem enxerga o problema primeiro?"*. A mesma pessoa pode servir às duas, e a
+  tentação de somar as duas num "score de pessoa" é imediata.
+- **Decisão:** contratos separados. `SENSOR_ROLE_LINK` é **ponteiro**, nunca fusão, e
+  nenhum campo do mapa de creators herda valor do universo de sensores.
+- **Motivo:** um pesquisador com âncora ORCID é sensor excelente e pode ser canal inútil;
+  um creator com 400 mil seguidores pode ser canal excelente e sensor inútil. Uma lista
+  somada não responde a nenhuma das duas perguntas.
+- **Consequência:** `test_papel_de_sensor_e_ponteiro_nunca_campo_fundido` proíbe
+  `SENSOR_SCORE`, `AUTHORITY_SCORE`, `INFLUENCE_SCORE` e `RANK` no contrato.
+- **Quem decidiu:** decisão técnica da MISSÃO 14.
+
+---
+
+### D-014 — Produto final não prova lavoura
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** uma seed externa de 25 creators italianos trouxe críticos de vinho e
+  sommeliers de azeite catalogados como candidatos de **viticultura** e **olivicultura**,
+  e um **garden designer** catalogado em **fruticultura**.
+- **Decisão:** `WINE_RELEVANCE` ≠ `VITICULTURE_RELEVANCE` e `OLIVE_OIL_RELEVANCE` ≠
+  `OLIVE_GROWING_RELEVANCE`, em campos distintos. `CROP_STATE` ganha o estado
+  `WRONG_ASSIGNMENT` — "provei que não é" não é a mesma coisa que "não consegui provar".
+- **Motivo:** o custo é comercial, não semântico. Uma ativação de fungicida de videira
+  entregue a uma audiência de consumidores de vinho fala com quem nunca comprará o
+  produto — e o número de seguidores faria isso parecer sucesso. **Medido:** os cinco
+  maiores perfis da seed somam ~452 mil seguidores e **quatro são mídia de vinho**.
+- **Consequência:** 3 dos 10 candidatos validados saíram `WRONG_ASSIGNMENT`.
+- **Quem decidiu:** decisão técnica da MISSÃO 14.
+
+---
+
+### D-015 — Suspeita nossa nunca vira veredito sozinha
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** o portão levanta `SUSPECTED_CHAIN_MISMATCH` por léxico do handle
+  (`wine`, `evo`, `oil`, `sommelier`, `garden`). Foi tentador deixá-lo rebaixar sozinho.
+- **Decisão:** a suspeita **prioriza a checagem** e nunca promove a `WRONG_ASSIGNMENT`.
+- **Motivo:** ela **errou**. `@evolovers` foi suspeito por *"EVO = azeite, produto
+  final"*; a medição mostrou um **produtor pugliês** cuja comunidade nasceu de podas e
+  colheitas no próprio olival. Um portão que confiasse na suspeita teria descartado o
+  melhor olivicultor da lista pelo nome do handle — cometendo, do lado cético, o mesmo
+  erro que a seed cometeu do lado otimista.
+- **Consequência:** `SUSPICION_OUTCOME` registra `CONFIRMED` / `REFUTED_BY_EVIDENCE` por
+  candidato. Nesta rodada: 3 confirmadas, 1 refutada.
+- **Quem decidiu:** decisão técnica da MISSÃO 14.
+
+---
+
+### D-016 — Empresa de defensivo usando creator ≠ ativação de produto fitossanitário
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** a pergunta do dono era binária — *farmfluencers são usados para crop
+  protection na Europa?* Os quatro casos encontrados são todos de empresas de defensivo
+  (BASF, Seipasa, Syngenta, Bayer) contratando creators — mas **nenhum** promove um
+  produto fitossanitário.
+- **Decisão:** três estados por país. `PROVED` exige peça de **categoria** crop protection
+  **com mensagem de produto**; `PARTIAL` cobre empresa de defensivo usando creator para
+  imagem, setor ou evento; `NOT_TESTED` nunca se confunde com `NOT_PROVED`.
+- **Motivo:** colapsar os dois faria a ADAMA concluir que a faixa de ativação de produto
+  já está ocupada — quando ela está, nesta medição, **vazia nos três países**. A diferença
+  entre "o mercado existe" e "esta faixa do mercado existe" é a decisão inteira.
+- **Consequência:** ES `PARTIAL` (3 casos) · FR `PARTIAL` (1) · IT `NOT_PROVED`. E o caso
+  francês registra o custo reputacional: a creator encerrou a parceria após investigação
+  de dois veículos independentes.
+- **Quem decidiu:** decisão técnica da MISSÃO 14.
+
+---
+
+### D-017 — No runner Windows, urllib no lugar de curl
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** `coletor._curl` chama `curl` por subprocess. No runner residencial isso
+  devolveu **stdout vazio de forma intermitente**, e `json.loads(None)` virou um
+  `TypeError` que não diz nada sobre a causa. Medido no mesmo endpoint, com a mesma
+  chave: 21:53 OK · 21:56 falha · 22:00 OK (subprocess direto) · 22:02 falha nos três
+  atores.
+- **Decisão:** `creator_coleta.py` substitui `coletor._curl` por uma implementação
+  `urllib`. A troca é por **substituição**, não por desvio: RAW antes de normalizar,
+  `RUN_MANIFEST`, `ACTOR_VERSION` e `COST_USD` continuam passando pela porta única.
+- **Motivo:** "a plataforma recusou" e "o subprocesso não entregou saída" produzem o mesmo
+  `FAILED` com causas opostas. Sem processo filho, sem pipe e sem shell, a classe inteira
+  do defeito desaparece — e `speaker_universo.py` já provava que urllib funciona na
+  máquina.
+- **Consequência:** a fase seguinte resolveu **25 de 25** perfis por **US$ 0,0624**.
+  Resposta vazia agora é estado com mensagem, nunca `TypeError` mudo.
+- **Quem decidiu:** decisão técnica da MISSÃO 14.
+
+---
+
+### D-018 — Ausência observada num corpus não é ausência no mercado
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO — **corrige uma afirmação publicada pela própria missão**
+- **Contexto:** a rodada 1 publicou que a faixa de ativação de produto fitossanitário
+  estaria livre nos três países, e a chamou de espaço livre. O que havia sido medido era
+  outra coisa: nenhuma evidência **dentro de um corpus pequeno e enviesado** — pesquisa
+  aberta por buscador mais **uma** rota de Instagram.
+- **Decisão:** o estado passa a se chamar `NOT_OBSERVED_IN_MEASURED_CORPUS`, e o veredito
+  viaja com dois campos obrigatórios: `ESTE_ESTADO_NAO_SIGNIFICA` e `CORPUS_MEDIDO`.
+- **Motivo:** `NOT_PROVED` é curto, e **por ser curto foi lido como "não existe"**. O nome
+  novo não cabe numa manchete — que é exatamente o ponto: obriga quem o cita a carregar o
+  escopo junto. A ressalva vive **dentro do JSON** para não se perder entre o dado e o
+  slide.
+- **Consequência:** teste proíbe **afirmar** a frase extrapolada em documento — por linha,
+  aceitando-a quando aparece sendo negada, para que a própria correção possa ser escrita.
+- **Quem decidiu:** correção pedida pelo dono da missão, aplicada na MISSÃO 14 rodada 2.
+
+---
+
+### D-019 — Tipo de relação com marca não é escada
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** patrocinar a categoria de um prêmio, colaborar num evento, colaborar com a
+  pessoa, pagá-la e ativar um produto com ela são cinco fatos distintos. Modelá-los como
+  degraus de uma mesma régua era conveniente e falso.
+- **Decisão:** `TIPOS_DE_RELACAO` é um `frozenset` — **sem índice**. A FORÇA da evidência
+  (`BRAND_RELATIONSHIP_STATE`) e o TIPO da relação (`BRAND_RELATION_TYPE`) passam a ser
+  dimensões separadas.
+- **Motivo:** num contínuo, *"a Syngenta patrocinou uma categoria do AgroInfluye"* vira,
+  três leituras depois, *"a Syngenta ativa produto com creators"*. O `frozenset` torna a
+  comparação de ordem impossível, e um teste guarda a propriedade.
+- **Consequência:** os 4 casos de crop protection ficam legíveis pelo que são: 2
+  patrocínios de ecossistema, 1 colaboração e 1 parceria paga — **nenhuma ativação de
+  produto**.
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 2.
+
+---
+
+### D-020 — Namespace, não lock, para missões concorrentes
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** EARLY SIGNAL e CREATOR MAP rodaram ao mesmo tempo escrevendo no mesmo
+  `RUN-MANIFEST.json`.
+- **Decisão:** cada missão tem manifesto próprio. `pv.MANIFESTO` é redirecionado pelo
+  módulo da missão; o `coletor` continua sendo a porta única. O workflow declara
+  `concurrency` por missão e faz `git add` de **caminhos nomeados**, nunca `-A`.
+- **Motivo:** não era corrida improvável — era **corrida garantida**: `pv.gravar()` lê
+  tudo, junta e reescreve o arquivo inteiro, então quem terminasse por último apagaria o
+  outro. Lock resolveria a escrita e não resolveria o commit; namespace remove o ponto de
+  disputa inteiro. E `git add -A` num runner podia levar, num commit desta missão, um
+  arquivo que a outra estava gravando.
+- **Consequência:** paralelismo entre missões continua permitido, que era o objetivo.
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 2.
+
+---
+
+### D-021 — Identidade primária antes de conteúdo, sempre
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** `ACTIVATION_READY = 0` tinha causa única e nomeada: identidade não
+  resolvida em fonte primária. A tentação era coletar mais conteúdo.
+- **Decisão:** resolver identidade dos candidatos de maior valor **antes** de coletar mais
+  um único post.
+- **Motivo:** os quatro prioritários falharam de **quatro maneiras diferentes** — handle
+  errado, nome errado, pessoa≠persona e pessoa≠empresa. Coletar conteúdo antes teria
+  produzido um dossiê inteiro sobre a pessoa errada, com precisão e tudo. O caso decisivo:
+  `@evolovers`, o handle da seed, está parado desde **2012**; a comunidade real nasceu em
+  2020.
+- **Consequência:** `ACTIVATION_READY` foi de 0 para 2, e os dois só existem porque o
+  handle foi corrigido antes de medir. Custo total da rodada Apify: **≈ US$ 0,13**.
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 2.
+
+---
+
+### D-022 — Hub bom é o que revela gente, não o que tem prestígio
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** 43 hubs registrados, 34 intocados, e nenhum critério para escolher por
+  onde começar além da asserção do dono.
+- **Decisão:** `HUB_YIELD` mede pessoas úteis reveladas: `PEOPLE_DISCOVERED` →
+  `IDENTITIES_PROVED` → `CROP_FIT_PROVED` → `ACTIVATION_READY`, e daí
+  `VALID_CREATORS_PER_HUB`.
+- **Motivo:** medido nesta rodada — **12 publicações da conta de um prêmio renderam 23
+  pessoas, 17 válidas e 4 prontas; uma lista externa de 25 handles rendeu 0 válidas.**
+  Nenhuma medida de tamanho, prestígio ou número de páginas teria previsto isso.
+- **Consequência:** `INVALID` passa a significar *fora do recorte* (outro país, pecuária,
+  patrocinador) — nunca "pessoa ruim"; todos seguem registrados.
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 3.
+
+---
+
+### D-023 — Menção em hub não dá país, nem papel, nem cultura
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** a extração por menções é barata e generosa demais: a conta de um prêmio
+  menciona nomeados, patrocinadores, o local e a própria organizadora.
+- **Decisão:** menção é **rota de descoberta**. País, papel e cultura continuam saindo de
+  evidência própria — de preferência da bio pública da pessoa, com
+  `DECLARATION_TYPE = SELF_DECLARED_PUBLIC_PROFILE`.
+- **Motivo:** medido — `@la_huerta_malagon` escreve *"Guanajuato"* (México) e
+  `@ironfarmer_rc` escreve *"ÉVORA/PORTUGAL"*; o prêmio espanhol criou categoria LATAM.
+  Herdar o país do hub teria posto **dois estrangeiros no mapa espanhol**. E
+  `@santander_es` — um banco — apareceu como se fosse creator.
+- **Consequência:** `NAO_E_CREATOR` é lista curta e explícita do que já foi conferido, não
+  um filtro esperto.
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 3.
+
+---
+
+### D-024 — Pecuária sai do mapa vegetal sem sair da base
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** a **grande vencedora** do AgroInfluye 2026 — `@luciiaacasal`, que levou
+  Maquineros e Melhor Creator Agro — declara *"Ganaderia Casal Vazquez SC"*.
+- **Decisão:** `LIVESTOCK_CREATOR = YES` retira do mapa de proteção de cultivo **vegetal**
+  e entra em `LIVESTOCK_SEPARATE_MAP`. Não é descarte.
+- **Motivo:** a melhor creator do prêmio não serve a uma ativação de fungicida de videira,
+  e mantê-la no mesmo mapa faria o topo da lista responder à pergunta errada. Mas
+  descartá-la perderia três creators fortes para o dia em que houver mapa de pecuária.
+- **Consequência:** 3 creators listados à parte, prontos para esse mapa.
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 3.
+
+---
+
+### D-025 — Conta de empresa agrícola não é creator-pessoa
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO — **corrige uma contagem publicada pela própria missão**
+- **Contexto:** `@biocampojoyma` foi corretamente medido como conta de empresa e mesmo
+  assim entrou numa frase de entrega como *"três produtores reais"*. O dado estava certo;
+  a soma, errada.
+- **Decisão:** campo `ACTIVATION_ENTITY_TYPE` de lista fechada, e **duas listas de saída**:
+  `PERSON_CREATORS_ACTIVATION_READY` e `FARM_BUSINESS_PARTNERS_READY`.
+- **Motivo:** uma exploração com canal forte é um parceiro comercial excelente — e isso é
+  **outra relação**, com outro contrato, outro interlocutor e outro preço. Contá-la como
+  creator-pessoa infla o número que o Marketing usa para planear elenco.
+- **Consequência:** 7 pessoas + 2 empresas, nunca somadas. Quatro testes de regressão.
+- **Quem decidiu:** correção pedida pelo dono, aplicada na MISSÃO 14 rodada 4.
+
+---
+
+### D-026 — Cultura casa por palavra inteira, nunca por substring
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO — **corrige uma medição errada da própria missão**
+- **Contexto:** a primeira prova de cultura por conteúdo devolveu **8 `PROVED`**. Lendo o
+  resultado com desconfiança, **seis eram falsos**: `riz` casava dentro de *nariz* e
+  *matriz*; `mais` (milho em italiano) casava com o *mais* **português** de um perfil de
+  Évora, que saiu "MAIZE PROVED".
+- **Decisão:** casamento por palavra inteira, com acentos normalizados, e **remoção** dos
+  termos curtos ambíguos.
+- **Motivo:** era literalmente o erro que o meu próprio código **citava** do
+  `speaker_universo` — consulta frouxa traz outra população com cara de sucesso. Um termo
+  que precisa de contexto para não errar não é termo, é palpite; por isso foi removido em
+  vez de "melhorado".
+- **Consequência:** 8 → 2 `PROVED`. E uma segunda lei junto: para audiência de consumidor,
+  mencionar a cultura prova **assunto**, não lavoura (`CROP_TOPIC_ONLY`).
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 4.
+
+---
+
+### D-027 — Isolamento de namespace é inteiro ou não é
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** a rodada 3 moveu o **manifesto** da missão para o seu namespace mas deixou
+  o **bruto** em `data/samples/raw-paid/`, partilhado. A suíte quebrou — e quebrou com
+  razão: os testes da casa exigem que todo arquivo daquele diretório resolva pelo
+  manifesto global.
+- **Decisão:** `coletor.RAW_DIR` também aponta para o namespace da missão. A única execução
+  anterior ao isolamento foi migrada do manifesto global para o da missão, com o caminho
+  corrigido.
+- **Motivo:** um bruto sem manifesto que o alcance é um **arquivo órfão**. Ou os dois são
+  globais, ou os dois são da missão — meio isolamento produz exatamente a inconsistência
+  que o manifesto existe para impedir.
+- **Consequência:** medido por **diferença de conjuntos**, não por impressão: as falhas que
+  eu introduzira eram exatamente duas, e saíram. O baseline subiu de 9 para 11+1 por
+  commits da missão Early Signal, ativa no mesmo branch — nenhuma referencia arquivo meu.
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 4.
+
+---
+
+### D-028 — O nome da métrica é parte do contrato
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO — **corrige uma publicação da própria missão**
+- **Contexto:** a rodada 4 publicou `ACTIVATION_READY = 9`. Os nove não eram equivalentes:
+  sete pessoas e duas contas de empresa.
+- **Decisão:** três métricas nomeadas — `PERSON_CREATOR_ACTIVATION_READY`,
+  `FARM_BUSINESS_PARTNER_READY` e, só quando houver razão, a soma
+  `MARKETING_CONTACTABLE_ENTITIES_READY`. **`CREATORS_READY` é métrica proibida.**
+- **Motivo:** o dado já estava correto; foi o **nome** que fez o trabalho que o dado
+  recusava fazer. Um rótulo agregador desfaz, numa linha de slide, uma distinção que custou
+  uma rodada inteira a estabelecer.
+- **Consequência:** a separação viaja no JSON, nas fichas, no artefato de capacidade e em
+  quatro testes — um deles varre os documentos à procura do nome proibido.
+- **Quem decidiu:** correção pedida pelo dono, aplicada na MISSÃO 14 rodada 5.
+
+---
+
+### D-029 — Um "não" medido é entrega, não fracasso
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** `IT × VITE` continuou sem shortlist, e a porta natural (Enovitis in Campo)
+  teve a conta oficial **provada** e rendeu **zero pessoas**.
+- **Decisão:** entregar `ITALY_VITE_CREATOR_CAPABILITY = NOT_READY` com a causa exata, e
+  **não** preencher a tela com creator de vinho consumer-facing.
+- **Motivo:** o padrão está medido e é estrutural — **prémios mencionam pessoas, feiras
+  mencionam empresas**. Abrir mais feiras não resolveria; falta uma porta italiana de
+  pessoas em viticultura. Substituir por mídia de vinho entregaria ao Marketing uma
+  audiência de consumidor no lugar de produtor de uva, que é exatamente o erro que esta
+  missão existe para impedir.
+- **Consequência:** um hub tecnicamente excelente foi `DEMOTED` como fonte de creators sem
+  perder o valor técnico. E `NOT_READY` passou a exigir causa com mais de 40 caracteres, por
+  teste.
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 5.
+
+---
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |

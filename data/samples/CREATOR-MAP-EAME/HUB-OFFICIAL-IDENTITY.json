@@ -1,0 +1,233 @@
+{
+  "SOURCE_ID": "14-MAPA-DE-CREATORS-EAME",
+  "CAPTURED_AT": "2026-08-30",
+  "LAW": "nome de feira != handle. HUB_DISCOVERY só fica ENABLED para hub cuja conta oficial foi MOSTRADA por uma fonte. Sem conta provada, não se raspa — ACCOUNT_NOT_RESOLVED é estado, não falha.",
+  "PRECEDENTE": "nesta mesma rodada eu inferi youtube.com/@DavidForge a partir do nome; a fonte mostrou que o canal se chama \"La Chaîne Agricole\".",
+  "HUBS_TESTED": 9,
+  "BY_STATE": {
+    "ACCOUNT_RESOLVED": 4,
+    "ACCOUNT_PROVED_YIELD_ZERO": 1,
+    "ACCOUNT_NOT_RESOLVED": 1,
+    "NOT_TESTED": 2,
+    "SITE_RESOLVED_ACCOUNT_NOT": 1
+  },
+  "DISCOVERY_ENABLED": [
+    "Premios AgroInfluye",
+    "Fieragricola (Verona)",
+    "SIVAL (Angers)",
+    "EIMA International"
+  ],
+  "DISCOVERY_BLOCKED": [
+    "SITEVI (Montpellier)",
+    "Innov-Agri",
+    "Espoirs de l'influence agricole / Les Blacks Moutons",
+    "FederUnacoma / AGIA-CIA"
+  ],
+  "HUBS": [
+    {
+      "hub": "Premios AgroInfluye",
+      "pais": "ES",
+      "tier": 1,
+      "site": "https://premiosagroinfluye.com/",
+      "contas": [
+        {
+          "plataforma": "INSTAGRAM",
+          "handle": "@agroinfluye",
+          "url": "https://www.instagram.com/agroinfluye/"
+        }
+      ],
+      "fonte": "conta nomeada em resultado de busca sobre o prêmio; raspada com sucesso",
+      "estado": "ACCOUNT_RESOLVED",
+      "descoberta": "ENABLED",
+      "nota": "já rendeu 23 pessoas em 12 publicações",
+      "HUB_ID": "HUBID-ES-Premios_AgroInfluy",
+      "CAPTURE_DATE": "2026-08-30"
+    },
+    {
+      "hub": "Fieragricola (Verona)",
+      "pais": "IT",
+      "tier": 1,
+      "site": "https://www.fieragricola.it/",
+      "contas": [
+        {
+          "plataforma": "INSTAGRAM",
+          "handle": "@fieragricolavr",
+          "url": "https://www.instagram.com/fieragricolavr/"
+        },
+        {
+          "plataforma": "FACEBOOK",
+          "handle": "Fieragricola",
+          "url": "https://www.facebook.com/Fieragricola/"
+        },
+        {
+          "plataforma": "X",
+          "handle": "@fieragricola",
+          "url": "https://x.com/fieragricola"
+        }
+      ],
+      "fonte": "conta oficial nomeada em resultado de busca, com ~23 mil seguidores",
+      "estado": "ACCOUNT_RESOLVED",
+      "descoberta": "ENABLED",
+      "nota": "não raspada nesta rodada — a rodada priorizou CROP_PROOF",
+      "HUB_ID": "HUBID-IT-Fieragricola_(Vero",
+      "CAPTURE_DATE": "2026-08-30"
+    },
+    {
+      "hub": "SIVAL (Angers)",
+      "pais": "FR",
+      "tier": 1,
+      "site": "https://www.sival-angers.com/",
+      "contas": [
+        {
+          "plataforma": "INSTAGRAM",
+          "handle": "@sivalangers",
+          "url": "https://www.instagram.com/sivalangers/"
+        },
+        {
+          "plataforma": "LINKEDIN",
+          "handle": "sival-angers",
+          "url": "https://www.linkedin.com/company/sival-angers/"
+        }
+      ],
+      "fonte": "conta oficial nomeada em resultado de busca (1.316 seguidores, 314 posts)",
+      "estado": "ACCOUNT_RESOLVED",
+      "descoberta": "ENABLED",
+      "nota": "conta pequena — rendimento provável baixo, testar antes de investir",
+      "HUB_ID": "HUBID-FR-SIVAL_(Angers)",
+      "CAPTURE_DATE": "2026-08-30"
+    },
+    {
+      "hub": "EIMA International",
+      "pais": "IT",
+      "tier": 2,
+      "site": "https://www.eima.it/",
+      "contas": [
+        {
+          "plataforma": "INSTAGRAM",
+          "handle": "@eima_international",
+          "url": "https://www.instagram.com/eima_international/"
+        }
+      ],
+      "fonte": "URL de publicação da conta oficial apareceu em resultado de busca",
+      "estado": "ACCOUNT_RESOLVED",
+      "descoberta": "ENABLED",
+      "nota": "RECLASSIFICADO — ver EIMA_SOCIAL_AWARDS abaixo",
+      "HUB_ID": "HUBID-IT-EIMA_International",
+      "CAPTURE_DATE": "2026-08-30"
+    },
+    {
+      "hub": "Enovitis in Campo",
+      "pais": "IT",
+      "tier": 1,
+      "site": "https://www.unioneitalianavini.it/",
+      "contas": [],
+      "contas_resolvidas": [
+        {
+          "plataforma": "INSTAGRAM",
+          "handle": "@enovitis_",
+          "url": "https://www.instagram.com/enovitis_/"
+        }
+      ],
+      "fonte": "RESOLVIDA NA SEGUNDA TENTATIVA, e sem adivinhar: a conta oficial da Fieragricola (@fieragricolavr) mencionou @enovitis_ nas proprias legendas. Uma porta provada abriu a outra — que e exatamente o que o portao de identidade deveria produzir.",
+      "estado": "ACCOUNT_PROVED_YIELD_ZERO",
+      "descoberta": "DEMOTED_AS_CREATOR_HUB",
+      "rendimento_medido": {
+        "SEGUIDORES": 1110,
+        "POSTS_LIDOS": 12,
+        "PESSOAS_DESCOBERTAS": 0
+      },
+      "veredito": "ENOVITIS_SOCIAL_IDENTITY = PROVED. Conta oficial @enovitis_ confirmada pelo site enovitisincampo.it e por publicacoes da propria conta. Mas a extracao devolveu ZERO pessoas em 12 publicacoes. Hub tecnico excelente, hub de CREATORS pobre — exatamente o padrao ja medido nas outras feiras. DEMOTE como fonte de descoberta de creators, mantendo o valor tecnico.",
+      "nota_resolucao": "A raspagem de @enovitis_ NAO devolveu perfil. A mencao deu um CANDIDATO de handle; a resolucao nao o confirmou. Mencao != conta existente, e o estado guarda a diferenca.",
+      "nota": "hub tecnicamente excelente (6.500 visitantes, viticultores e agrónomos, agroquímicos em demonstração) e mesmo assim BLOQUEADO: sem conta provada não se raspa. Resolver a conta é a próxima ação italiana.",
+      "HUB_ID": "HUBID-IT-Enovitis_in_Campo",
+      "CAPTURE_DATE": "2026-08-30"
+    },
+    {
+      "hub": "SITEVI (Montpellier)",
+      "pais": "FR",
+      "tier": 1,
+      "site": "https://www.sitevi.com/",
+      "contas": [],
+      "fonte": "NENHUMA — a busca não devolveu conta oficial",
+      "estado": "ACCOUNT_NOT_RESOLVED",
+      "descoberta": "BLOCKED",
+      "nota": "+1.000 expositores e ~55.000 visitantes profissionais; alto potencial, conta por resolver",
+      "HUB_ID": "HUBID-FR-SITEVI_(Montpellie",
+      "CAPTURE_DATE": "2026-08-30"
+    },
+    {
+      "hub": "Innov-Agri",
+      "pais": "FR",
+      "tier": 1,
+      "site": "NÃO SEI",
+      "contas": [],
+      "fonte": "não pesquisado nesta rodada",
+      "estado": "NOT_TESTED",
+      "descoberta": "BLOCKED",
+      "nota": "",
+      "HUB_ID": "HUBID-FR-Innov-Agri",
+      "CAPTURE_DATE": "2026-08-30"
+    },
+    {
+      "hub": "Espoirs de l'influence agricole / Les Blacks Moutons",
+      "pais": "FR",
+      "tier": 1,
+      "site": "https://www.lesblacksmoutons.com/concours-2025-espoirs-influence-agricole/",
+      "contas": [],
+      "fonte": "site do concurso nomeado em resultado de busca; conta social não resolvida",
+      "estado": "SITE_RESOLVED_ACCOUNT_NOT",
+      "descoberta": "BLOCKED",
+      "nota": "4a edicao em 2026; premia por crescimento de seguidores por rede; entrega de premios no Salon de l'Agriculture; vencedores ganham um ano de SYRPA. Juri inclui creator de PECUARIA — atencao ao recorte.",
+      "HUB_ID": "HUBID-FR-Espoirs_de_l'influ",
+      "CAPTURE_DATE": "2026-08-30"
+    },
+    {
+      "hub": "FederUnacoma / AGIA-CIA",
+      "pais": "IT",
+      "tier": 1,
+      "site": "NÃO SEI",
+      "contas": [],
+      "fonte": "não pesquisado nesta rodada",
+      "estado": "NOT_TESTED",
+      "descoberta": "BLOCKED",
+      "nota": "",
+      "HUB_ID": "HUBID-IT-FederUnacoma_/_AGI",
+      "CAPTURE_DATE": "2026-08-30"
+    }
+  ],
+  "RECLASSIFIED": [
+    {
+      "hub": "EIMA Social Awards",
+      "antes": "MASTER_CREATOR_SOURCE",
+      "depois": "BRAND_EXHIBITOR_COMMUNICATION_HUB",
+      "motivo": "a fonte declara que o prémio foi criado em 2024 para premiar as EMPRESAS que se destacam na promoção da própria participação na feira nas redes sociais. Premia expositor, não creator.",
+      "continua_util_para": [
+        "brand activation",
+        "campaign discovery",
+        "agri communication actors"
+      ],
+      "url": "https://www.eima.it/it/comunicati-stampa-fiera-macchine-agricole-giardinaggio.php"
+    }
+  ],
+  "INTERMEDIARIES": [
+    {
+      "nome": "Wonderland Agency",
+      "pais": "FR",
+      "url": "https://www.wonderland-agency.fr/",
+      "fundadora": "Émilie Vivier-Houvet",
+      "registo": "sociedade registada em Itteville (91760), SIREN 821377579",
+      "linkedin": "https://www.linkedin.com/in/emilie-vivier-houvet-b4985b3b/",
+      "atividade_agri": "a fundadora atua como consultora de social media e influência e GERE PARCERIAS de influenciadores agrícolas; é referência em eventos agrícolas por propor farmer-influencers a salões profissionais como SITEVI",
+      "identidade": "PROVED",
+      "classificacao": "CREATOR_INTERMEDIARY_HUB",
+      "creators_representados": "NOT_RECOVERED — nenhuma lista pública de talentos agrícolas foi encontrada nesta rodada",
+      "contato_publico": "site oficial e LinkedIn da fundadora",
+      "aviso": "NÃO assumir que todo talento da agência é agrícola. A agência declara acompanhar PME em transformação digital em geral.",
+      "fontes": [
+        "https://www.wonderland-agency.fr/",
+        "https://www.societe.com/societe/wonderland-agency-821377579.html",
+        "https://ajcam.org/adherents/emilie-vivier-houvet/"
+      ]
+    }
+  ]
+}
