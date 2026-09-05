@@ -132,17 +132,31 @@ RAW_DIR_DA_MISSAO = os.path.join(cr.BASE, 'raw-paid')
 # o `finally` devolve-os mesmo que a fase rebente a meio. `tests/
 # test_dataset_owner.py` ja provava o padrao em setUp/tearDown; aqui ele vive no
 # proprio modulo, que e onde a troca acontece.
+def _reconciliar_barrada(*_a, **_k):
+    raise RuntimeError(
+        'pv.reconciliar() dentro de escopo_da_missao() escreveria os fragmentos de '
+        'TODOS os donos dentro do manifesto desta missao. Reconcilie fora do escopo.')
+
+
 @contextlib.contextmanager
 def escopo_da_missao():
     """Aponta coletor e proveniencia para o namespace desta missao, e devolve."""
-    antes = (pv.MANIFESTO, coletor.RAW_DIR, coletor._curl)
+    antes = (pv.MANIFESTO, coletor.RAW_DIR, coletor._curl, pv.reconciliar)
     pv.MANIFESTO = MANIFESTO_DA_MISSAO
     coletor.RAW_DIR = RAW_DIR_DA_MISSAO
     coletor._curl = _http
+    # `pv.reconciliar()` deriva o indice a partir de TODOS os fragmentos da casa e
+    # grava-o em `pv.MANIFESTO`. Com o manifesto redirecionado, isso despejaria os
+    # donos todos dentro do namespace desta missao — em silencio, que e a pior
+    # maneira. Nenhum sitio destes scripts chama `registrar(..., reconciliar=True)`
+    # hoje, entao isto nao muda comportamento nenhum: transforma um defeito latente
+    # num erro que se le. A reconciliacao continua permitida FORA do escopo, que e
+    # onde ela faz sentido.
+    pv.reconciliar = _reconciliar_barrada
     try:
         yield
     finally:
-        pv.MANIFESTO, coletor.RAW_DIR, coletor._curl = antes
+        pv.MANIFESTO, coletor.RAW_DIR, coletor._curl, pv.reconciliar = antes
 
 # Atores. Os dois primeiros já foram provados nesta casa (piloto de sensores);
 # os de Instagram/TikTok são novos e por isso a fase `contratos` existe: entrada

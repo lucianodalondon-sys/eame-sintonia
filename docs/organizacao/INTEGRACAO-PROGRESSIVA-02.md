@@ -383,18 +383,69 @@ vive no próprio módulo, que é onde a troca acontece.
 
 ### 10.3 · O teste de contrato
 
-`tests/test_isolamento_missao.py`, 9 testes, prova as cinco propriedades:
+`tests/test_isolamento_missao.py`, **14 testes**. A primeira versão tinha 9 e **não provava
+o que dizia** — a revisão adversarial apanhou-o e a tabela abaixo já é a corrigida:
 
-| # | propriedade | testes |
-|---|---|---|
-| 1 | importar não sequestra `pv.MANIFESTO` (nem `RAW_DIR`, nem `_curl`) | 3 |
-| 2 | dentro do escopo, a missão vê o seu manifesto | 1 |
-| 3 | ao sair, o valor anterior volta | 1 |
-| 4 | em excepção, também volta | 1 |
-| 5 | Creator Map e Creator Corpus não se contaminam | 3 |
+| # | propriedade | testes | como se sabe que provam |
+|---|---|---|---|
+| 1 | importar não sequestra `pv.MANIFESTO`, `RAW_DIR` nem `_curl` | 3 | vermelhos no revert total |
+| 2 | a operação da missão usa o manifesto certo | 3 | correm o `__main__` real |
+| 3 | ao sair, o valor anterior volta | 2 | vermelhos com `yield` nu |
+| 4 | em excepção, também volta | 1 | vermelho com `yield` nu |
+| 5 | Creator Map e Creator Corpus não se contaminam | 2 | vermelhos no revert total |
+| 6 | `pv.reconciliar()` não entra no escopo | 2 | vermelhos sem a guarda |
 
 O quinto inclui `test_a_ordem_de_importacao_deixa_de_decidir_quem_ganha`, que importa os
-dois módulos nas duas ordens: era essa a corrida real.
+dois módulos nas duas ordens: era essa a corrida real. **A propriedade 5 é provada por 2
+testes, não 3** — o terceiro (`test_cada_missao_declara_o_seu_dono_e_sao_diferentes`) fica
+verde com a correcção inteiramente revertida, portanto é guarda do fail-closed e não do
+isolamento. Contá-lo aqui seria inflacionar a prova.
+
+### 10.3.1 · A matriz de mutação, que é a prova de que os testes mordem
+
+Um teste que passa com e sem a correcção não mede a correcção. Cada mutação foi aplicada
+ao código e a suíte corrida contra ela:
+
+| mutação | 1ª versão (9 testes) | versão final (14) |
+|---|---|---|
+| A · revert total dos dois scripts | 8 F / 1 P | **11 F / 3 P** |
+| B · remover o `with` do `__main__`, CM intacto | **9 PASSED — defeito** | **2 F** |
+| C · remover `coletor._curl = _http` do escopo | **9 PASSED — defeito** | **2 F** |
+| D · remover `coletor.RAW_DIR` do escopo | 1 F | 2 F |
+| E · `try/finally` trocado por `yield` nu | 3 F | 5 F |
+| F · remover a guarda do `reconciliar` | — | 1 F |
+
+**B e C eram buracos reais.** Com B, apagar duas linhas devolvia o pior estado possível — a
+fase a escrever no manifesto e no `raw-paid` DA CASA — com nove testes verdes. Com C, a fase
+corria no namespace certo com o transporte HTTP da casa. Nenhum dos dois tinha guarda.
+A correcção foi acrescentar três testes que exercitam o `__main__` de produção por
+`runpy.run_path`, com uma sonda em `apify_pool.pool()` que regista o que a fase VÊ e
+levanta `SystemExit` antes de gastar rede.
+
+### 10.3.2 · A quarta perna que faltava ao escopo
+
+O escopo redirecionava a **vista derivada** (`pv.MANIFESTO`) e não a **fonte** de onde ela é
+derivada. `pv.reconciliar()` lê `carregar_fragmentos()` — todos os donos — e grava em
+`pv.MANIFESTO`. Chamado dentro do escopo, despejaria a casa inteira dentro do namespace
+da missão.
+
+Isto não ficou em teoria. Numa corrida da mutação F, com a guarda removida, o teste chamou
+a função verdadeira e **o ficheiro da missão foi reescrito em disco**:
+
+```
+antes   RUNS = 7   donos = {'CREATOR_MAP_EAME': 7}
+depois  RUNS = 22  donos = {'EARLY_SIGNAL_EAME': 12, 'VOICE_ES': 10}
+```
+
+Não é contaminação: é **substituição**. As sete execuções da própria missão desapareceram.
+O ficheiro foi restaurado e o teste passou a verificar a identidade da guarda ANTES de
+chamar seja o que for — falhar tem de acontecer antes de tocar no disco, nunca depois.
+
+A guarda troca `pv.reconciliar` por uma função que levanta erro explicado enquanto o
+manifesto está redirecionado, e devolve-a no `finally`. Hoje nenhum dos 10 sítios que estes
+scripts chamam usa `registrar(..., reconciliar=True)` — a bandeira é `False` por omissão, e
+o `coletor` diz porquê. **A guarda não muda comportamento nenhum: transforma um defeito
+latente e silencioso num erro que se lê.**
 
 ### 10.4 · Os dois harnesses, e as 5 residuais
 
@@ -446,3 +497,21 @@ ISOLATION_DEFECT = CLOSED
 HEALTH_GATE      = PASS   (nos dois harnesses)
 P0_2_STEP_02     = PASS_AFTER_REPAIR
 ```
+
+### 10.7 · O que fica aberto, e é de outra frente
+
+A revisão adversarial trouxe dois achados verdadeiros que **não** entram aqui, por serem
+fora do que esta missão autorizou. Ficam escritos para não se perderem:
+
+- **`scripts/sensor_coleta.py:274`** faz `coletor._curl = _curl_robusto` no corpo do módulo.
+  É exactamente o defeito que esta secção fecha, noutro ficheiro e noutra missão. Verificado
+  ao vivo: `import sensor_coleta` troca a porta de rede da casa para o resto do processo.
+  `tests/test_isolamento_missao.py` não o cobre — a lista `MISSOES` tem só os dois `creator_*`.
+  **`ISOLATION_DEFECT = CLOSED` vale para os dois coletores nomeados nesta missão, não para
+  a casa inteira.**
+
+- **`RAW_EVIDENCE_PATH`** é montado com a string fixa `data/samples/raw-paid/` enquanto o
+  ficheiro cai no `raw-paid` da missão. O manifesto declara `PRESERVED` a apontar para um
+  caminho que não existe. Pré-existente e idêntico antes e depois desta correcção —
+  registado porque o comentário do código diz *"o isolamento tem de ser INTEIRO"*, e nesta
+  perna ele não é.

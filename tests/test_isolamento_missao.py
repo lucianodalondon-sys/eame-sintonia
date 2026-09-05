@@ -18,6 +18,7 @@ quando a fase rebenta.
 """
 import importlib.util
 import os
+import runpy
 import sys
 import unittest
 
@@ -91,6 +92,11 @@ class TestEscopoAplicaEDevolve(unittest.TestCase):
                     pv.MANIFESTO.endswith(esperado),
                     '%s não apontou para o seu manifesto: %s' % (nome, pv.MANIFESTO))
                 self.assertEqual(mod.RAW_DIR_DA_MISSAO, coletor.RAW_DIR)
+                # A porta de rede PAGA também é da missão. Sem esta linha, apagar
+                # `coletor._curl = _http` de dentro do escopo passava despercebido:
+                # a fase corria no namespace certo com o transporte da casa.
+                self.assertIs(mod._http, coletor._curl,
+                              '%s não trocou a porta de rede dentro do escopo' % nome)
 
     def test_ao_sair_do_escopo_o_valor_anterior_volta(self):
         for i, (nome, _) in enumerate(MISSOES):
@@ -156,6 +162,115 @@ class TestAsDuasMissoesNaoSeContaminam(unittest.TestCase):
                                 'missão sem dono declarado em pv.DONOS')
         self.assertEqual(pv.UNDECLARED_OWNER, pv.dono_da_missao('MISSAO-QUE-NAO-EXISTE'),
                          'o fail-closed foi enfraquecido para conseguir verde')
+
+
+class TestODispatchDeProducaoCorreDentroDoEscopo(unittest.TestCase):
+    """Propriedade 2, provada onde ela importa: no `__main__` que o workflow chama.
+
+    Sem esta classe, apagar `with escopo_da_missao():` do dispatch deixava os nove
+    testes anteriores verdes — o context manager continuava correto e ninguém o
+    usava. A fase real voltava a escrever no manifesto e no `raw-paid` DA CASA.
+    Medido: 9/9 passed com as duas linhas removidas.
+
+    O método é uma sonda no primeiro ponto que toda fase atravessa: `apify_pool.pool()`.
+    Ela regista o que a fase VÊ e levanta `SystemExit` antes de gastar rede ou dinheiro.
+    """
+
+    SONDAS = (
+        ('creator_coleta.py', 'contratos',
+         os.path.join('CREATOR-MAP-EAME', 'RUN-MANIFEST-CREATORS.json')),
+        ('creator_corpus_coleta.py', 'contratos',
+         os.path.join('CREATOR-CONTENT-CORPUS-EAME', 'RUN-MANIFEST-CORPUS.json')),
+    )
+
+    def setUp(self):
+        self.antes = (pv.MANIFESTO, coletor.RAW_DIR, coletor._curl)
+
+    def tearDown(self):
+        pv.MANIFESTO, coletor.RAW_DIR, coletor._curl = self.antes
+
+    def _corre(self, script, fase):
+        """Corre o `__main__` de verdade e devolve o que a fase viu."""
+        import apify_pool as ap
+        visto = {}
+        original, argv = ap.pool, sys.argv
+
+        def sonda():
+            visto['MANIFESTO'] = pv.MANIFESTO
+            visto['RAW_DIR'] = coletor.RAW_DIR
+            visto['CURL'] = coletor._curl
+            raise SystemExit(0)     # para antes de qualquer chamada paga
+
+        ap.pool = sonda
+        sys.argv = [script, fase]
+        try:
+            runpy.run_path(os.path.join(ROOT, 'scripts', script), run_name='__main__')
+        except SystemExit:
+            pass
+        finally:
+            ap.pool, sys.argv = original, argv
+        return visto
+
+    def test_a_fase_real_ve_o_manifesto_e_o_raw_dir_da_missao(self):
+        for script, fase, esperado in self.SONDAS:
+            visto = self._corre(script, fase)
+            self.assertTrue(visto, '%s não chegou à sonda — a fase mudou de forma' % script)
+            self.assertTrue(
+                visto['MANIFESTO'].endswith(esperado),
+                '%s: a fase correu contra %s, não contra o manifesto da missão'
+                % (script, visto['MANIFESTO']))
+            self.assertIn('raw-paid', visto['RAW_DIR'])
+            self.assertNotEqual(
+                self.antes[1], visto['RAW_DIR'],
+                '%s: a fase escreveria o bruto no raw-paid DA CASA' % script)
+
+    def test_a_fase_real_usa_a_porta_de_rede_da_missao(self):
+        for script, fase, _ in self.SONDAS:
+            visto = self._corre(script, fase)
+            self.assertIsNot(
+                self.antes[2], visto['CURL'],
+                '%s: a fase correu com o transporte HTTP da casa' % script)
+
+    def test_depois_do_dispatch_o_global_volta_ao_da_casa(self):
+        for script, fase, _ in self.SONDAS:
+            self._corre(script, fase)
+            self.assertEqual(self.antes[0], pv.MANIFESTO,
+                             '%s deixou pv.MANIFESTO redirecionado' % script)
+            self.assertEqual(self.antes[1], coletor.RAW_DIR)
+            self.assertIs(self.antes[2], coletor._curl)
+
+
+class TestReconciliarNaoEntraNoEscopo(unittest.TestCase):
+    """`pv.reconciliar()` derivaria o índice de TODOS os donos para dentro da missão."""
+
+    def setUp(self):
+        self.antes = (pv.MANIFESTO, coletor.RAW_DIR, coletor._curl, pv.reconciliar)
+
+    def tearDown(self):
+        pv.MANIFESTO, coletor.RAW_DIR, coletor._curl, pv.reconciliar = self.antes
+
+    def test_dentro_do_escopo_reconciliar_falha_alto(self):
+        for i, (nome, _) in enumerate(MISSOES):
+            mod = _carrega(nome, '_iso_rec_%d' % i)
+            with mod.escopo_da_missao():
+                # A identidade PRIMEIRO, e de propósito: se a guarda faltar,
+                # `pv.reconciliar` é a função verdadeira e chamá-la ESCREVE os
+                # fragmentos de todos os donos dentro do manifesto desta missão.
+                # Medido: numa corrida de mutação sem guarda, este ficheiro passou
+                # de 7 execuções de um dono para 22 de três. O teste tem de falhar
+                # antes de tocar no disco, nunca depois.
+                self.assertIsNot(self.antes[3], pv.reconciliar,
+                                 '%s não instalou a guarda do reconciliar' % nome)
+                with self.assertRaises(RuntimeError, msg='%s deixou reconciliar passar' % nome):
+                    pv.reconciliar('2026-09-05')
+
+    def test_fora_do_escopo_reconciliar_continua_a_ser_a_funcao_da_casa(self):
+        for i, (nome, _) in enumerate(MISSOES):
+            mod = _carrega(nome, '_iso_rec2_%d' % i)
+            with mod.escopo_da_missao():
+                pass
+            self.assertIs(self.antes[3], pv.reconciliar,
+                          '%s não devolveu pv.reconciliar' % nome)
 
 
 if __name__ == '__main__':
