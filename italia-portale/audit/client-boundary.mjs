@@ -190,19 +190,24 @@ const SURFACE = CLIENT_SURFACE();
      restare raggiungibili, «nascondere» sarebbe diventato «perdere». Qui si
      prova che ognuno si apre ancora, per id. */
   const surf = m.ctx.MEETING_SURFACE ? m.ctx.MEETING_SURFACE.build('it') : null;
-  const signals = surf ? surf.signals : [];
+  /* LA LEGGE DI RILEVANZA HA DIVISO LA POPOLAZIONE IN QUATTRO.
+     Prima erano due — opportunita e segnali — e la somma era 43. Adesso i casi
+     che non riescono a legarsi a un prodotto ADAMA stanno in radar, in segnali
+     o fra gli errori, e la somma delle QUATTRO continua a essere 43. Contare
+     solo due sarebbe dichiarare perso quello che ha solo cambiato nome. */
+  const signals = surf ? [...surf.signals, ...(surf.radar || []), ...(surf.errored || [])] : [];
   const unreachable = [];
   for (const c of signals) {
     const d = m.vals({ view: 'mcase', mCaseId: c.id, lang: 'it' });
     if (!(d.mc && d.mc.id === c.id)) unreachable.push(c.id);
   }
-  const sum = surf ? surf.commercial.length + surf.signals.length : 0;
+  const sum = surf ? surf.commercial.length + signals.length : 0;
   const ok8 = empty.length === 0 && navAreas >= 6 && unreachable.length === 0
     && sum === SNAP.TOTAL_CASES;
   T('T8', 'le aree restano popolate, e i casi non commerciali restano raggiungibili', ok8,
     empty.length ? 'aree vuote: ' + empty.join(', ')
       : unreachable.length ? `${unreachable.length} segnali non si aprono: ` + unreachable.slice(0, 4).join(', ')
-      : `${surf ? surf.commercial.length : 0} opportunita + ${signals.length} segnali = ${sum} (i casi del motore, nessuno perso) · `
+      : `${surf ? surf.commercial.length : 0} opportunita + ${signals.length} fra radar, segnali ed errori = ${sum} (i casi del motore, nessuno perso) · `
         + areas.map((a) => `${a} ${AM.collections[a].count}`).join(' · '));
 }
 

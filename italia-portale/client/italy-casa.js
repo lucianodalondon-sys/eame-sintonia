@@ -111,7 +111,7 @@ window.ITALY_CASA = {
  "DETERMINISTICO": "SIM — sem relogio, sem aleatorio, chaves ordenadas",
  "DONOS_DA_APRESENTACAO": {
   "meeting-intelligence-snapshot.json": "sha256:aff218e96f1e26f756c75430cb4cfced2c7348313ec945a1f0417bb3b60c5cb7",
-  "meeting-labels.js": "sha256:e321d43bef2a20f01cd84347b3a9716d6b3d52b90f2c179db08f703009d251ea"
+  "meeting-labels.js": "sha256:24b15991c06ab103f3b891ec9a09b6b7f09c661346ae31b6583cc86027bb5617"
  },
  "DO_NOT_SHOW": [
   {
@@ -235,6 +235,10 @@ window.ITALY_CASA = {
   "ALTA": {
    "en": "high",
    "it": "alta"
+  },
+  "AUTHORIZATION_LIVE": {
+   "en": "live authorisation",
+   "it": "autorizzazione viva"
   },
   "BACKGROUND_ONLY": {
    "en": "Background only",
@@ -431,6 +435,10 @@ window.ITALY_CASA = {
   "DECLARA_A_REGRA_DO_MOMENTO": {
    "en": "States the rule of the moment",
    "it": "Dichiara la regola del momento"
+  },
+  "DECLARED_ON_CATALOG_PAGE": {
+   "en": "declared on the product catalogue page",
+   "it": "dichiarata sulla pagina di catalogo del prodotto"
   },
   "DIRECTION_UNKNOWN": {
    "en": "The direction of the source is unknown",
@@ -708,6 +716,10 @@ window.ITALY_CASA = {
    "en": "not recent",
    "it": "non recente"
   },
+  "ON_MINISTERIAL_LABEL": {
+   "en": "on the ministerial label",
+   "it": "sull’etichetta ministeriale"
+  },
   "OPENING_WITHOUT_NEED": {
    "en": "Market opening with no stated need",
    "it": "Apertura di mercato senza necessita dichiarata"
@@ -835,6 +847,30 @@ window.ITALY_CASA = {
   "RELATED_PORTFOLIO": {
    "en": "Related portfolio",
    "it": "Portafoglio collegato"
+  },
+  "RELEVANCE_A_PROVEN": {
+   "en": "ADAMA product proven: crop on the catalogue page, target on the ministerial label, live authorisation.",
+   "it": "Prodotto ADAMA provato: coltura sulla pagina di catalogo, bersaglio sull’etichetta ministeriale, autorizzazione viva."
+  },
+  "RELEVANCE_B_NAMED_ASSET_NO_RISK": {
+   "en": "It names a registered ADAMA product and its substance, but the regulatory fact is APPROVED and not declared at risk: an expiry is not a non-renewal.",
+   "it": "Nomina un prodotto ADAMA registrato e la sua sostanza, ma il fatto regolatorio è APPROVATO e non dichiarato a rischio: una scadenza non è un mancato rinnovo."
+  },
+  "RELEVANCE_B_NO_TARGET": {
+   "en": "An ADAMA product is linked, but the case names no agronomic problem: the product × target relation is not proven.",
+   "it": "C’è un prodotto ADAMA legato, ma il caso non nomina un problema agronomico: la relazione prodotto × bersaglio non è provata."
+  },
+  "RELEVANCE_C_NO_LINK": {
+   "en": "No ADAMA product and no ADAMA substance named: it stays a raw signal.",
+   "it": "Nessun prodotto ADAMA e nessuna sostanza ADAMA nominata: resta un segnale grezzo."
+  },
+  "RELEVANCE_D_LINK_FAILS": {
+   "en": "A product is linked, but the link does not survive the audit: the product’s catalogue page does not declare this crop.",
+   "it": "Il prodotto è legato, ma il legame non regge all’audit: la pagina di catalogo del prodotto non dichiara questa coltura."
+  },
+  "RELEVANCE_E_UNKNOWN": {
+   "en": "Not enough to decide. Fail-closed: it does not rise.",
+   "it": "Non abbastanza per decidere. Fail-closed: non sale."
   },
   "RESISTANCE_RECORD": {
    "en": "Resistance record",
@@ -1244,6 +1280,10 @@ window.ITALY_CASA = {
    "en": "Every number here is a decision — how many opportunities are on the table now, how many are to be prepared, how many only watched — never the size of the archive. Anything carrying a method always travels with its limit beside it.",
    "it": "Ogni numero qui è una decisione — quante opportunità sono sul tavolo adesso, quante vanno preparate, quante solo osservate — mai la dimensione dell’archivio. Ciò che porta un metodo viaggia sempre con il suo limite accanto."
   },
+  "casaLeggeAdama": {
+   "en": "Only what can be tied to an ADAMA product is called an opportunity. The rest stays, under another name.",
+   "it": "Si chiama opportunità solo ciò che si riesce a legare a un prodotto ADAMA. Il resto resta, con un altro nome."
+  },
   "casaNoWindowStated": {
    "en": "The engine states no action window for this department: the state it wrote is shown, and none is inferred from it.",
    "it": "Il motore non dichiara una finestra d’azione per questo reparto: mostra lo stato che ha scritto, e non se ne deduce nessuna."
@@ -1263,6 +1303,10 @@ window.ITALY_CASA = {
   "casaOpenL3": {
    "en": "Evidence — source, method, limits",
    "it": "Evidenza — fonte, metodo, limiti"
+  },
+  "casaProvaAdama": {
+   "en": "ADAMA PROOF",
+   "it": "PROVA ADAMA"
   },
   "casaRadarActNow": {
    "en": "act now",
@@ -1287,6 +1331,14 @@ window.ITALY_CASA = {
   "casaRadarTotals": {
    "en": "45 judged · 44 showable · 1 dropped",
    "it": "45 giudicati · 44 mostrabili · 1 abbattuto"
+  },
+  "casaRestrAdama": {
+   "en": "Expiries of the linked ADAMA product",
+   "it": "Scadenze del prodotto ADAMA legato"
+  },
+  "casaRestrAltro": {
+   "en": "Expiries of other substances cited by the sources — NOT of the ADAMA product",
+   "it": "Scadenze di altre sostanze citate dalle fonti — NON del prodotto ADAMA"
   },
   "casaSecCannotSay": {
    "en": "WHAT CANNOT BE CLAIMED",
@@ -1428,6 +1480,22 @@ window.ITALY_CASA = {
    "en": "PORTFOLIO",
    "it": "PORTAFOGLIO"
   },
+  "surfERRORE": {
+   "en": "NOT PUBLISHABLE",
+   "it": "NON PUBBLICABILE"
+  },
+  "surfOPPORTUNITA": {
+   "en": "OPPORTUNITIES",
+   "it": "OPPORTUNITÀ"
+  },
+  "surfRADAR": {
+   "en": "RADAR · TO VALIDATE",
+   "it": "RADAR · DA VALIDARE"
+  },
+  "surfSEGNALI": {
+   "en": "RAW SIGNALS",
+   "it": "SEGNALI GREZZI"
+  },
   "windowDefinedNo": {
    "en": "No intervention rule stated for this pair",
    "it": "Nessuna regola di intervento dichiarata per questa coppia"
@@ -1454,7 +1522,7 @@ window.ITALY_CASA = {
   }
  },
  "LABELS_FAIL_CLOSED": {
-  "CODIGOS_NO_PACOTE": 309,
+  "CODIGOS_NO_PACOTE": 326,
   "DONO": "italia-portale/client/meeting-labels.js",
   "REGRA": "nenhum codigo sai daqui sem par IT+EN. Nao ha fallback para o codigo cru, nao ha string vazia, e nenhuma linha desaparece em silencio: sem par, a GERACAO falha."
  },
@@ -1732,8 +1800,30 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "LAMBDA-CYHALOTHRIN"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_LAMDEX_EXTRA",
+     "PRODOTTO": "Lamdex® Extra",
+     "REGISTRO": "008259"
+    },
     "PUBBLICAZIONE": "PUBLISHABLE",
     "RACCOMANDAZIONE": "START_RECOMMENDED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "LAMBDA-CYHALOTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-01-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
     "SOGLIA": "NOT_DECLARED",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_ACT_NOW",
@@ -2039,8 +2129,30 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "FLUAZINAM"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_BANJO",
+     "PRODOTTO": "BANJO",
+     "REGISTRO": "013905"
+    },
     "PUBBLICAZIONE": "PUBLISHABLE",
     "RACCOMANDAZIONE": "START_RECOMMENDED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "FLUAZINAM",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_ACT_NOW",
@@ -2339,8 +2451,41 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "TAU-FLUVALINATE"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_MAVRIK_SMART",
+     "PRODOTTO": "MAVRIK SMART",
+     "REGISTRO": "009800"
+    },
     "PUBBLICAZIONE": "PUBLISHABLE",
     "RACCOMANDAZIONE": "CONTINUE_RECOMMENDED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "LAMBDA-CYHALOTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-01-31"
+     },
+     {
+      "ATTIVO": "TAU-FLUVALINATE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-01-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "CHLORANTRANILIPROLE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-05-31"
+     }
+    ],
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_ENDED",
     "STATO_CLIENTE": "CLIENT_ACT_NOW",
@@ -2599,8 +2744,30 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "LAMBDA-CYHALOTHRIN"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_LAMDEX_EXTRA",
+     "PRODOTTO": "Lamdex® Extra",
+     "REGISTRO": "008259"
+    },
     "PUBBLICAZIONE": "PUBLISHABLE",
     "RACCOMANDAZIONE": "START_RECOMMENDED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "LAMBDA-CYHALOTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-01-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
     "SOGLIA": "NOT_DECLARED",
     "STADIO": "STAGE_PEAK",
     "STATO_CLIENTE": "CLIENT_ACT_NOW",
@@ -2871,8 +3038,30 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "FLUAZINAM"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_BANJO",
+     "PRODOTTO": "BANJO",
+     "REGISTRO": "013905"
+    },
     "PUBBLICAZIONE": "PUBLISHABLE",
     "RACCOMANDAZIONE": "START_RECOMMENDED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "FLUAZINAM",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_ACT_NOW",
@@ -3251,8 +3440,56 @@ window.ITALY_CASA = {
      "en": "that literature on the topic exists and that field observation took place.",
      "it": "che esiste letteratura sul tema e che c'è stata osservazione di campo."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "FLUAZINAM",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     },
+     {
+      "ATTIVO": "FOLPET",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
+     },
+     {
+      "ATTIVO": "LAMBDA-CYHALOTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-01-31"
+     },
+     {
+      "ATTIVO": "METALAXYL-M",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2035-05-31"
+     },
+     {
+      "ATTIVO": "TAU-FLUVALINATE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-01-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "AZOXYSTROBIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-05-31"
+     },
+     {
+      "ATTIVO": "CYMOXANIL",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     },
+     {
+      "ATTIVO": "TEBUCONAZOLE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2028-07-31"
+     }
+    ],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_PREPARE_NOW",
@@ -3470,8 +3707,25 @@ window.ITALY_CASA = {
      "en": "",
      "it": ""
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "DIFENOCONAZOLE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2028-01-31"
+     },
+     {
+      "ATTIVO": "FENPROPIDIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-05-15"
+     }
+    ],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NAMED_ASSET_NO_RISK",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_PREPARE_NOW",
@@ -3722,8 +3976,20 @@ window.ITALY_CASA = {
      "en": "",
      "it": ""
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "BUPIRIMATE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-01-31"
+     }
+    ],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NAMED_ASSET_NO_RISK",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_PREPARE_NOW",
@@ -3977,8 +4243,20 @@ window.ITALY_CASA = {
      "en": "",
      "it": ""
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "MESOTRIONE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2032-05-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_PREPARE_NOW",
@@ -4246,8 +4524,20 @@ window.ITALY_CASA = {
      "en": "",
      "it": ""
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "IMAZAMOX",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-06-30"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_PREPARE_NOW",
@@ -4532,8 +4822,25 @@ window.ITALY_CASA = {
      "en": "",
      "it": ""
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "FOLPET",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
+     },
+     {
+      "ATTIVO": "METALAXYL-M",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2035-05-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_PREPARE_NOW",
@@ -4730,8 +5037,14 @@ window.ITALY_CASA = {
      "en": "",
      "it": ""
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NAMED_ASSET_NO_RISK",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_PREPARE_NOW",
@@ -4963,8 +5276,25 @@ window.ITALY_CASA = {
      "en": "",
      "it": ""
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "FLORASULAM",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2030-12-31"
+     },
+     {
+      "ATTIVO": "FLUROXYPYR",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-02-15"
+     }
+    ],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NAMED_ASSET_NO_RISK",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_PREPARE_NOW",
@@ -5263,8 +5593,41 @@ window.ITALY_CASA = {
      "en": "that a competitor publicly communicated about this crop.",
      "it": "che c'è stata comunicazione pubblica di un concorrente su questa coltura."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "PIRIMICARB",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2026-10-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "AZOXYSTROBIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-05-31"
+     },
+     {
+      "ATTIVO": "BUPIRIMATE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-01-31"
+     },
+     {
+      "ATTIVO": "CYMOXANIL",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     },
+     {
+      "ATTIVO": "TEBUCONAZOLE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2028-07-31"
+     }
+    ],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_MONITOR",
@@ -5613,8 +5976,40 @@ window.ITALY_CASA = {
      "en": "that the crop has a published price or measured area, and that there is portfolio in it.",
      "it": "che la coltura ha prezzo pubblicato o superficie misurata, e che c'è portafoglio in essa."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "GLYPHOSATE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2033-12-15"
+     },
+     {
+      "ATTIVO": "LAMBDA-CYHALOTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-01-31"
+     },
+     {
+      "ATTIVO": "MESOTRIONE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2032-05-31"
+     },
+     {
+      "ATTIVO": "NICOSULFURON",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-03-31"
+     },
+     {
+      "ATTIVO": "PIRIMICARB",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2026-10-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_MONITOR",
@@ -6011,8 +6406,45 @@ window.ITALY_CASA = {
      "en": "that a competitor publicly communicated about this crop.",
      "it": "che c'è stata comunicazione pubblica di un concorrente su questa coltura."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "AZOXYSTROBIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-05-31"
+     },
+     {
+      "ATTIVO": "DIFENOCONAZOLE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2028-01-31"
+     },
+     {
+      "ATTIVO": "LAMBDA-CYHALOTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-01-31"
+     },
+     {
+      "ATTIVO": "PIRIMICARB",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2026-10-31"
+     },
+     {
+      "ATTIVO": "PROTHIOCONAZOLE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-03-31"
+     },
+     {
+      "ATTIVO": "TEFLUTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-05-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_MONITOR",
@@ -6306,8 +6738,20 @@ window.ITALY_CASA = {
      "en": "that a competitor publicly communicated about this crop.",
      "it": "che c'è stata comunicazione pubblica di un concorrente su questa coltura."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "LAMBDA-CYHALOTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-01-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_MONITOR",
@@ -6575,8 +7019,25 @@ window.ITALY_CASA = {
      "en": "that the crop has a published price or measured area, and that there is portfolio in it.",
      "it": "che la coltura ha prezzo pubblicato o superficie misurata, e che c'è portafoglio in essa."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "IMAZAMOX",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-06-30"
+     },
+     {
+      "ATTIVO": "LAMBDA-CYHALOTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-01-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_MONITOR",
@@ -6836,8 +7297,20 @@ window.ITALY_CASA = {
      "en": "that a competitor publicly communicated about this crop.",
      "it": "che c'è stata comunicazione pubblica di un concorrente su questa coltura."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "PROPAQUIZAFOP",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-02-28"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_MONITOR",
@@ -7221,8 +7694,40 @@ window.ITALY_CASA = {
      "en": "that a competitor publicly communicated about this crop.",
      "it": "che c'è stata comunicazione pubblica di un concorrente su questa coltura."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "GLYPHOSATE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2033-12-15"
+     },
+     {
+      "ATTIVO": "LAMBDA-CYHALOTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-01-31"
+     },
+     {
+      "ATTIVO": "MESOTRIONE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2032-05-31"
+     },
+     {
+      "ATTIVO": "NICOSULFURON",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-03-31"
+     },
+     {
+      "ATTIVO": "PIRIMICARB",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2026-10-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_MONITOR",
@@ -7506,8 +8011,46 @@ window.ITALY_CASA = {
      "en": "that the crop has a published price or measured area, and that there is portfolio in it.",
      "it": "che la coltura ha prezzo pubblicato o superficie misurata, e che c'è portafoglio in essa."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "AZOXYSTROBIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-05-31"
+     },
+     {
+      "ATTIVO": "DIFENOCONAZOLE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2028-01-31"
+     },
+     {
+      "ATTIVO": "PROTHIOCONAZOLE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-03-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "FLORASULAM",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2030-12-31"
+     },
+     {
+      "ATTIVO": "FLUROXYPYR",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-02-15"
+     },
+     {
+      "ATTIVO": "TEBUCONAZOLE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2028-07-31"
+     }
+    ],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_MONITOR",
@@ -7800,8 +8343,46 @@ window.ITALY_CASA = {
      "en": "that the crop has a published price or measured area, and that there is portfolio in it.",
      "it": "che la coltura ha prezzo pubblicato o superficie misurata, e che c'è portafoglio in essa."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "LAMBDA-CYHALOTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-01-31"
+     },
+     {
+      "ATTIVO": "TAU-FLUVALINATE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-01-31"
+     },
+     {
+      "ATTIVO": "TEFLUTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-05-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "DIFENOCONAZOLE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2028-01-31"
+     },
+     {
+      "ATTIVO": "FENPROPIDIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-05-15"
+     },
+     {
+      "ATTIVO": "PIRIMICARB",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2026-10-31"
+     }
+    ],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_MONITOR",
@@ -8047,8 +8628,20 @@ window.ITALY_CASA = {
      "en": "that the crop has a published price or measured area, and that there is portfolio in it.",
      "it": "che la coltura ha prezzo pubblicato o superficie misurata, e che c'è portafoglio in essa."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "PROPAQUIZAFOP",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-02-28"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_MONITOR",
@@ -8420,8 +9013,56 @@ window.ITALY_CASA = {
      "en": "that a competitor publicly communicated about this crop.",
      "it": "che c'è stata comunicazione pubblica di un concorrente su questa coltura."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "FLUAZINAM",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     },
+     {
+      "ATTIVO": "FOLPET",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
+     },
+     {
+      "ATTIVO": "LAMBDA-CYHALOTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-01-31"
+     },
+     {
+      "ATTIVO": "METALAXYL-M",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2035-05-31"
+     },
+     {
+      "ATTIVO": "TAU-FLUVALINATE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-01-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "AZOXYSTROBIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-05-31"
+     },
+     {
+      "ATTIVO": "CYMOXANIL",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     },
+     {
+      "ATTIVO": "TEBUCONAZOLE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2028-07-31"
+     }
+    ],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_MONITOR",
@@ -8807,8 +9448,51 @@ window.ITALY_CASA = {
      "en": "that a competitor publicly communicated about this crop.",
      "it": "che c'è stata comunicazione pubblica di un concorrente su questa coltura."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "CAPTAN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
+     },
+     {
+      "ATTIVO": "FLUAZINAM",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     },
+     {
+      "ATTIVO": "LAMBDA-CYHALOTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-01-31"
+     },
+     {
+      "ATTIVO": "PIRIMICARB",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2026-10-31"
+     },
+     {
+      "ATTIVO": "PROPAQUIZAFOP",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-02-28"
+     },
+     {
+      "ATTIVO": "TAU-FLUVALINATE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-01-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "CHLORANTRANILIPROLE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-05-31"
+     }
+    ],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_MONITOR",
@@ -9153,8 +9837,56 @@ window.ITALY_CASA = {
      "en": "that the crop has a published price or measured area, and that there is portfolio in it.",
      "it": "che la coltura ha prezzo pubblicato o superficie misurata, e che c'è portafoglio in essa."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "FLUAZINAM",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     },
+     {
+      "ATTIVO": "FOLPET",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
+     },
+     {
+      "ATTIVO": "LAMBDA-CYHALOTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-01-31"
+     },
+     {
+      "ATTIVO": "METALAXYL-M",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2035-05-31"
+     },
+     {
+      "ATTIVO": "TAU-FLUVALINATE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-01-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "AZOXYSTROBIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-05-31"
+     },
+     {
+      "ATTIVO": "CYMOXANIL",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     },
+     {
+      "ATTIVO": "TEBUCONAZOLE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2028-07-31"
+     }
+    ],
+    "RILEVANZA": "B",
+    "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
+    "RILEVANZA_SUPERFICIE": "RADAR",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_MONITOR",
@@ -9419,8 +10151,30 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "LAMBDA-CYHALOTHRIN"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_LAMDEX_EXTRA",
+     "PRODOTTO": "Lamdex® Extra",
+     "REGISTRO": "008259"
+    },
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "NOT_NEEDED_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "LAMBDA-CYHALOTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-01-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
     "SOGLIA": "NOT_DECLARED",
     "STADIO": "STAGE_DECLINING",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -9638,8 +10392,25 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "AZOXYSTROBIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-05-31"
+     },
+     {
+      "ATTIVO": "TEBUCONAZOLE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2028-07-31"
+     }
+    ],
+    "RILEVANZA": "C",
+    "RILEVANZA_PERCHE": "RELEVANCE_C_NO_LINK",
+    "RILEVANZA_SUPERFICIE": "SEGNALI",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -9907,8 +10678,30 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "TAU-FLUVALINATE"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_MAVRIK_SMART",
+     "PRODOTTO": "MAVRIK SMART",
+     "REGISTRO": "009800"
+    },
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "TAU-FLUVALINATE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-01-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -10204,8 +10997,20 @@ window.ITALY_CASA = {
      "en": "that the resistance was recorded in the literature and that products with a declared mode of action exist.",
      "it": "che la resistenza è stata registrata in letteratura e che esistono prodotti con modo d'azione dichiarato."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "PROPAQUIZAFOP",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-02-28"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "D",
+    "RILEVANZA_PERCHE": "RELEVANCE_D_LINK_FAILS",
+    "RILEVANZA_SUPERFICIE": "ERRORE",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -10434,8 +11239,20 @@ window.ITALY_CASA = {
      "en": "that literature on the topic exists and that field observation took place.",
      "it": "che esiste letteratura sul tema e che c'è stata osservazione di campo."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "FLUROXYPYR",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-02-15"
+     }
+    ],
+    "RILEVANZA": "C",
+    "RILEVANZA_PERCHE": "RELEVANCE_C_NO_LINK",
+    "RILEVANZA_SUPERFICIE": "SEGNALI",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -10703,8 +11520,30 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "LAMBDA-CYHALOTHRIN"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_LAMDEX_EXTRA",
+     "PRODOTTO": "Lamdex® Extra",
+     "REGISTRO": "008259"
+    },
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "PROHIBITED_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "LAMBDA-CYHALOTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-01-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
     "SOGLIA": "NOT_DECLARED",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -10942,8 +11781,20 @@ window.ITALY_CASA = {
      "en": "that a competitor publicly communicated about this crop.",
      "it": "che c'è stata comunicazione pubblica di un concorrente su questa coltura."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "FLUROXYPYR",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-02-15"
+     }
+    ],
+    "RILEVANZA": "C",
+    "RILEVANZA_PERCHE": "RELEVANCE_C_NO_LINK",
+    "RILEVANZA_SUPERFICIE": "SEGNALI",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -11164,8 +12015,25 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "NOT_NEEDED_DECLARED",
+    "RESTRIZIONI_ADAMA": [],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "AZOXYSTROBIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-05-31"
+     },
+     {
+      "ATTIVO": "TEBUCONAZOLE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2028-07-31"
+     }
+    ],
+    "RILEVANZA": "C",
+    "RILEVANZA_PERCHE": "RELEVANCE_C_NO_LINK",
+    "RILEVANZA_SUPERFICIE": "SEGNALI",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -11393,8 +12261,25 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "SUSPEND_RECOMMENDED",
+    "RESTRIZIONI_ADAMA": [],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "AZOXYSTROBIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-05-31"
+     },
+     {
+      "ATTIVO": "TEBUCONAZOLE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2028-07-31"
+     }
+    ],
+    "RILEVANZA": "C",
+    "RILEVANZA_PERCHE": "RELEVANCE_C_NO_LINK",
+    "RILEVANZA_SUPERFICIE": "SEGNALI",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -11674,8 +12559,30 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "TAU-FLUVALINATE"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_MAVRIK_SMART",
+     "PRODOTTO": "MAVRIK SMART",
+     "REGISTRO": "009800"
+    },
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "CONCLUDED_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "TAU-FLUVALINATE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-01-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -11975,8 +12882,46 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "FLUAZINAM"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_BANJO",
+     "PRODOTTO": "BANJO",
+     "REGISTRO": "013905"
+    },
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "FLUAZINAM",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     },
+     {
+      "ATTIVO": "FOLPET",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
+     },
+     {
+      "ATTIVO": "METALAXYL-M",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2035-05-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "CYMOXANIL",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     }
+    ],
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -12279,8 +13224,46 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "FLUAZINAM"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_BANJO",
+     "PRODOTTO": "BANJO",
+     "REGISTRO": "013905"
+    },
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "NOT_NEEDED_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "FLUAZINAM",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     },
+     {
+      "ATTIVO": "FOLPET",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
+     },
+     {
+      "ATTIVO": "METALAXYL-M",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2035-05-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "CYMOXANIL",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     }
+    ],
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -12630,8 +13613,46 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "FLUAZINAM"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_BANJO",
+     "PRODOTTO": "BANJO",
+     "REGISTRO": "013905"
+    },
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "CONCLUDED_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "FLUAZINAM",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     },
+     {
+      "ATTIVO": "FOLPET",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
+     },
+     {
+      "ATTIVO": "METALAXYL-M",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2035-05-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "CYMOXANIL",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     }
+    ],
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -12869,8 +13890,20 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "START_RECOMMENDED",
+    "RESTRIZIONI_ADAMA": [],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "CYMOXANIL",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     }
+    ],
+    "RILEVANZA": "C",
+    "RILEVANZA_PERCHE": "RELEVANCE_C_NO_LINK",
+    "RILEVANZA_SUPERFICIE": "SEGNALI",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -13059,8 +14092,20 @@ window.ITALY_CASA = {
      "en": "that the crop has a published price or measured area, and that there is portfolio in it.",
      "it": "che la coltura ha prezzo pubblicato o superficie misurata, e che c'è portafoglio in essa."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "FLUROXYPYR",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-02-15"
+     }
+    ],
+    "RILEVANZA": "C",
+    "RILEVANZA_PERCHE": "RELEVANCE_C_NO_LINK",
+    "RILEVANZA_SUPERFICIE": "SEGNALI",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -13327,8 +14372,30 @@ window.ITALY_CASA = {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "LAMBDA-CYHALOTHRIN"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_LAMDEX_EXTRA",
+     "PRODOTTO": "Lamdex® Extra",
+     "REGISTRO": "008259"
+    },
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "PROHIBITED_DECLARED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "LAMBDA-CYHALOTHRIN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-01-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
     "SOGLIA": "NOT_DECLARED",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -13545,8 +14612,20 @@ window.ITALY_CASA = {
      "en": "that a competitor publicly communicated about this crop.",
      "it": "che c'è stata comunicazione pubblica di un concorrente su questa coltura."
     },
+    "PROVA_ADAMA": null,
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
+    "RESTRIZIONI_ADAMA": [],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "GLYPHOSATE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2033-12-15"
+     }
+    ],
+    "RILEVANZA": "C",
+    "RILEVANZA_PERCHE": "RELEVANCE_C_NO_LINK",
+    "RILEVANZA_SUPERFICIE": "SEGNALI",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -13554,7 +14633,44 @@ window.ITALY_CASA = {
    }
   ],
   "DA_VALIDARE": 17,
+  "ERRORE": 1,
+  "LEGGE_ADAMA": {
+   "APPROVAL_EXPIRY_NAO_E_RISCO": "uma data de expiracao europeia NAO e risco de nao-renovacao. Medido nos 47 factos regulatorios do pacote: EU_STATE=APPROVED e IS_RISK=false em 47/47, e o proprio artefacto declara «APPROVAL EXPIRY IS NOT NON-RENEWAL». Um facto regulatorio NUNCA contribui para a classe A por si so; precisa de facto adicional de risco, que hoje nao existe em registo nenhum.",
+   "BASTA_UM_PRODUTO": "um caso e oportunidade se PELO MENOS UM produto fechar a cadeia inteira. Os outros produtos ligados nao sao a prova e nao a estragam — o cartao nomeia qual deles a carrega. Exigir que TODOS fechassem derrubaria OPP_75C37DED9160, onde Lamdex Extra fecha e MAVRIK SMART nao.",
+   "CADEIA_EXIGIDA": [
+    "PAIS",
+    "CULTURA",
+    "ALVO/PROBLEMA",
+    "PRODUTO ADAMA",
+    "RELACAO produto x cultura (pagina de catalogo)",
+    "RELACAO produto x alvo (rotulo ministerial)",
+    "PROBLEMA OBSERVADO (evidencia que sustenta o sinal ou declara a direccao)",
+    "AUTORIZACAO VIVA (registo + estado)"
+   ],
+   "CLASSES": {
+    "A": "PRODUTO ADAMA PROVADO — publica-se como OPORTUNIDADE",
+    "B": "PLAUSIVEL, NAO PROVADO — fica em RADAR / A VALIDAR",
+    "C": "SEM PRODUTO ADAMA LIGAVEL — fica como SINAL BRUTO",
+    "D": "LIGACAO ERRADA — NAO PUBLICAVEL, e um erro a corrigir",
+    "E": "NAO SEI — dados insuficientes; nunca sobe"
+   },
+   "DATASET": "ADAMA-RELEVANCE-LAW-V1",
+   "LEI": "todo caso promovido como inteligencia relevante tem de ter ligacao factual e defensavel com pelo menos um produto ADAMA. Sem ela, o caso continua a existir — como radar, sinal ou erro — mas nao como oportunidade.",
+   "NAO_ACEITE": [
+    "correspondencia lexical",
+    "mesmo ingrediente activo",
+    "produto parecido",
+    "catalogo generico",
+    "template",
+    "inferencia nao provada",
+    "proximidade de data de expiracao europeia",
+    "alvo escrito no caso sem fonte que o tenha observado"
+   ],
+   "PREENCHER_NAO_PROMOVE": "TARGET_FIT vale ON_MINISTERIAL_LABEL em 65 de 65 correspondencias: e uma constante, e nao distingue nada. Se a lei se apoiasse nela, escrever um alvo no caso promovia-o — medido, 10 dos 21 B subiriam sem nada observado. Por isso o problema agronomico exige evidencia que DECIDA um elo (SUPPORTS_SIGNAL ou SUPPORTS_DIRECTION). Com a regra, preencher o alvo nos 21 B promove UM: OPP_00C5B6E15185, que ja traz 4 sinais de campo e 4 evidencias de sinal — esse subiria por ter facto, nao por ter campo cheio.",
+   "SO_A_PUBLICA": true
+  },
   "MEETING_CUTOFF": "2026-09-04T00:52:54Z",
+  "OPPORTUNITA": 13,
   "ORIZZONTE": "ADESSO",
   "PER_STATO": {
    "CLIENT_ACT_NOW": 5,
@@ -13563,7 +14679,22 @@ window.ITALY_CASA = {
    "CLIENT_TO_VALIDATE": 17
   },
   "PRIORITA_COMMERCIALE": 26,
+  "RADAR": 21,
+  "RILEVANZA_PER_CLASSE": {
+   "A": 13,
+   "B": 21,
+   "C": 8,
+   "D": 1,
+   "E": 0
+  },
+  "RILEVANZA_PER_SUPERFICIE": {
+   "ERRORE": 1,
+   "OPPORTUNITA": 13,
+   "RADAR": 21,
+   "SEGNALI": 8
+  },
   "RULE_VERSION": "V21-69bf448ac934a6d9",
+  "SEGNALI": 8,
   "SOURCE_HEAD": "55c2674",
   "TOTALE": 43
  },

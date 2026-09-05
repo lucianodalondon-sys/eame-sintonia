@@ -249,7 +249,11 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
   /* Il filtro e una LETTURA: taglia l'elenco per uno stato che il motore ha
      gia scritto, e non ne calcola nessuno. */
   var filtro = '';
-  var STATI = ['CLIENT_ACT_NOW','CLIENT_PREPARE_NOW','CLIENT_MONITOR','CLIENT_TO_VALIDATE'];
+  /* Le superfici della legge di rilevanza, nell'ordine in cui si leggono.
+     ERRORE sta in fondo e si chiama per quello che e: non e una popolazione
+     da leggere, e un difetto da correggere. */
+  var STATI = ['OPPORTUNITA','RADAR','SEGNALI','ERRORE'];
+  var CHIAVE = {OPPORTUNITA:'surfOPPORTUNITA', RADAR:'surfRADAR', SEGNALI:'surfSEGNALI', ERRORE:'surfERRORE'};
 
   function row(k, v){
     if (v === null || v === undefined || v === '') return '';
@@ -333,9 +337,22 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
       + row(tt('casaKeyRecommend'), c.RACCOMANDAZIONE ? tt(c.RACCOMANDAZIONE) : null)
       + row(tt('casaKeyThreshold'), c.SOGLIA ? tt(c.SOGLIA) : null));
 
+    /* LA LEGGE PRIMA DELLO STATO. Un lettore non puo confondere «dobbiamo
+       indagare» con «abbiamo un'opportunita ADAMA provata»: la superficie e la
+       sua ragione vengono prima, e solo se il caso e opportunita si mostra
+       anche che tipo di opportunita e. */
     out += sec(tt('casaSecState'),
-        '<span class="tag ' + pillOf(c.STATO_CLIENTE) + '">' + tt(c.STATO_CLIENTE) + '</span>'
-      + '<p>' + tt(c.STATO_CLIENTE + '_WHY') + '</p>'
+        '<span class="tag ' + pillSurf(c.RILEVANZA_SUPERFICIE) + '">' + tt(CHIAVE[c.RILEVANZA_SUPERFICIE]) + '</span>'
+      + '<p>' + tt(c.RILEVANZA_PERCHE) + '</p>'
+      + (c.PROVA_ADAMA
+          ? row(tt('casaProvaAdama'), esc(c.PROVA_ADAMA.PRODOTTO) + ' · ' + esc(c.PROVA_ADAMA.REGISTRO)
+              + ' · ' + esc(c.PROVA_ADAMA.ATTIVI.join(', '))
+              + '<div class="mini">' + tt(c.PROVA_ADAMA.CULTURA) + ' · ' + tt(c.PROVA_ADAMA.BERSAGLIO)
+              + ' · ' + tt(c.PROVA_ADAMA.AUTORIZZAZIONE) + '</div>')
+          : '')
+      + (c.RILEVANZA_SUPERFICIE === 'OPPORTUNITA'
+          ? '<span class="tag ' + pillOf(c.STATO_CLIENTE) + '">' + tt(c.STATO_CLIENTE) + '</span>'
+            + '<p>' + tt(c.STATO_CLIENTE + '_WHY') + '</p>' : '')
       + row(tt('casaKeyPublication'), tt(c.PUBBLICAZIONE)));
 
     return out;
@@ -364,9 +381,20 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
              CITARE UNA CHIAVE NON E CITARE UN PRODOTTO. */
       + row(tt('casaKeyPortfolio'), nomePrincipale(c)));
 
-    out += sec(tt('casaSecLimits'), c.LIMITI.length
-      ? labs(c.LIMITI).map(function(l){ return '<span class="tag">' + l + '</span>'; }).join('')
-      : '<p class="mini">' + tt('casaNoneDeclared') + '</p>');
+    /* DUE LISTE, E MAI UNA. 40 delle 114 scadenze citano una sostanza che non
+       sta in nessun prodotto ADAMA legato al caso: vengono dalle fonti e dalla
+       concorrenza. Mostrare la scadenza del concorrente come se fosse la
+       nostra sarebbe una decisione commerciale presa al contrario. */
+    var scad = function(list){ return list.map(function(r){
+      return '<span class="tag">' + esc(r.ATTIVO) + ' · ' + esc(r.DATA) + '</span>'; }).join(''); };
+    out += sec(tt('casaSecLimits'),
+        (c.LIMITI.length
+          ? labs(c.LIMITI).map(function(l){ return '<span class="tag">' + l + '</span>'; }).join('')
+          : '<p class="mini">' + tt('casaNoneDeclared') + '</p>')
+      + (c.RESTRIZIONI_ADAMA.length
+          ? '<h4 style="margin-top:12px">' + tt('casaRestrAdama') + '</h4>' + scad(c.RESTRIZIONI_ADAMA) : '')
+      + (c.RESTRIZIONI_ALTRO_ATTIVO.length
+          ? '<h4 style="margin-top:12px">' + tt('casaRestrAltro') + '</h4>' + scad(c.RESTRIZIONI_ALTRO_ATTIVO) : ''));
 
     out += sec(tt('casaSecProvenance'),
         row('SOURCE_HEAD', esc(OA.SOURCE_HEAD))
@@ -415,6 +443,11 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
       : stato === 'CLIENT_PREPARE_NOW' ? 'prep'
       : stato === 'CLIENT_MONITOR' ? 'mon' : 'val';
   }
+  /* La superficie viene PRIMA dello stato commerciale: dice se il caso e
+     un'opportunita ADAMA, e solo dopo che tipo di opportunita e. */
+  function pillSurf(s){
+    return s === 'OPPORTUNITA' ? 'ok' : s === 'RADAR' ? 'val' : s === 'ERRORE' ? 'no' : 'mon';
+  }
 
   function titolo(c){
     var p = [];
@@ -431,7 +464,9 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
   function casoHtml(c){
     return '<details class="case" data-caso="' + esc(c.ID) + '" data-stato="' + esc(c.STATO_CLIENTE) + '">'
       + '<summary>'
-      + '<span class="tag ' + pillOf(c.STATO_CLIENTE) + '">' + tt(c.STATO_CLIENTE) + '</span>'
+      + '<span class="tag ' + pillSurf(c.RILEVANZA_SUPERFICIE) + '">' + tt(CHIAVE[c.RILEVANZA_SUPERFICIE]) + '</span>'
+      + (c.RILEVANZA_SUPERFICIE === 'OPPORTUNITA'
+          ? '<span class="tag ' + pillOf(c.STATO_CLIENTE) + '">' + tt(c.STATO_CLIENTE) + '</span>' : '')
       + '<span class="ct">' + esc(titolo(c)) + '</span>'
       + '<span class="cg">' + tt(c.GEOGRAFIA) + '</span>'
       + '</summary><div class="dd">'
@@ -466,21 +501,29 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
   /* ══ IL DISEGNO ═══════════════════════════════════════════════════ */
   function render(){
     document.documentElement.lang = lang;
-    var visibili = filtro ? OA.CASI.filter(function(c){ return c.STATO_CLIENTE === filtro; }) : OA.CASI;
+    var visibili = filtro ? OA.CASI.filter(function(c){ return c.RILEVANZA_SUPERFICIE === filtro; }) : OA.CASI;
 
     var tiles = [
       /* LE 43 DI OGGI, NEL RIQUADRO CHE C'ERA GIA.
          26 e 17 stanno nella stessa coppia di numeri del riquadro del campo,
          e la somma e scritta sotto: due orizzonti non si sommano, ma le due
          meta di UN orizzonte si, ed e questa la riga che lo dice. */
-      { q: lang === 'en' ? 'How many opportunities are <b>on the table now</b>?'
-                         : 'Quante opportunità sono <b>sul tavolo adesso</b>?',
-        big: [{n: OA.PRIORITA_COMMERCIALE, l: t('casaCommercialPriority')},
-              {n: OA.DA_VALIDARE, l: t('casaToValidate')}],
-        lab: OA.TOTALE + ' ' + t('casaCurrentOpps').toLowerCase(),
+      /* LA LEGGE DI RILEVANZA ADAMA, NELLA PRIMA PIEGA.
+         Si chiama opportunita solo cio che si riesce a legare a un prodotto
+         ADAMA. Il resto non sparisce: cambia nome. Le tre righe sommano ai 43
+         perche nessun caso e stato cancellato. */
+      { q: lang === 'en' ? 'How many are <b>proven ADAMA opportunities</b>?'
+                         : 'Quante sono <b>opportunità ADAMA provate</b>?',
+        big: [{n: OA.OPPORTUNITA, l: t('surfOPPORTUNITA')}],
+        lab: t('casaCurrentOpps') + ' ' + mil(OA.TOTALE),
         now: true,
-        sum: mil(OA.PRIORITA_COMMERCIALE) + ' + ' + mil(OA.DA_VALIDARE) + ' = ' + mil(OA.TOTALE),
-        lim: t('casaSplitExplained') },
+        sum: mil(OA.OPPORTUNITA) + ' + ' + mil(OA.RADAR) + ' + ' + mil(OA.SEGNALI)
+             + (OA.ERRORE ? ' + ' + mil(OA.ERRORE) : '') + ' = ' + mil(OA.TOTALE),
+        lim: t('casaLeggeAdama') },
+      { q: lang === 'en' ? 'How many are <b>still to validate</b>?' : 'Quante sono <b>ancora da validare</b>?',
+        big: [{n: OA.RADAR, l: t('surfRADAR')}, {n: OA.SEGNALI, l: t('surfSEGNALI')}],
+        lab: t('casaCurrentOpps') + ' ' + mil(OA.TOTALE),
+        lim: t('RELEVANCE_B_NO_TARGET') },
       { q: lang === 'en' ? 'What must we <b>prepare</b>?' : 'Cosa dobbiamo <b>preparare</b>?',
         big: [{n: RF.PREPARAR, l: t('casaRadarPrepare')}],
         lab: t('casaRadarName'),
@@ -617,8 +660,10 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
       + '<button type="button" data-filtro="" aria-pressed="' + (!filtro) + '">'
       + tt('casaFilterAll') + ' <i>' + mil(OA.TOTALE) + '</i></button>'
       + STATI.map(function(s){
+          var n = OA.RILEVANZA_PER_SUPERFICIE[s] || 0;
+          if (!n) return '';
           return '<button type="button" data-filtro="' + s + '" aria-pressed="' + (filtro === s) + '">'
-            + tt(s) + ' <i>' + mil(OA.PER_STATO[s] || 0) + '</i></button>'; }).join('')
+            + tt(CHIAVE[s]) + ' <i>' + mil(n) + '</i></button>'; }).join('')
       + '</div>'
       + '<p class="mini">' + tt('lblCases') + ' · ' + mil(visibili.length) + ' ' + tt('casaOf') + ' ' + mil(OA.TOTALE) + '</p>'
       + '<div id="casi">' + visibili.map(casoHtml).join('') + '</div>'

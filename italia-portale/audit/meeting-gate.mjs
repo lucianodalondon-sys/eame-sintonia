@@ -152,15 +152,35 @@ check('SNAPSHOT_SOURCE_HEAD_VALID', 'SOURCE_HEAD names the intelligence commit, 
    «43 in una griglia» — e che NESSUNO DEI 43 sia caduto fra le due.
 
        IL CLIENTE VEDE MENO. IL SISTEMA NON PERDE NIENTE. */
-check('CANONICAL_43_RENDERED', 'All 43 canonical cases remain reachable across opportunities and signals', () => {
-  const opp = m.vals({ view: 'radar', lang: 'it', mShown: 999 });
-  const sig = m.vals({ view: 'msignals', lang: 'it', mShown: 999 });
-  const ids = new Set([...opp.meetingCases.map((c) => c.id), ...sig.meetingCases.map((c) => c.id)]);
-  const missing = SNAP.CASES.filter((c) => !ids.has(c.ID)).map((c) => c.ID);
-  const overlap = opp.meetingCases.filter((c) => sig.meetingCases.some((x) => x.id === c.id));
-  return { pass: !missing.length && !overlap.length && ids.size === 43, expected: 43,
-    measured: `${opp.meetingCases.length} opportunita + ${sig.meetingCases.length} segnali = ${ids.size}`,
-    detail: missing.length ? missing.slice(0, 8) : overlap.slice(0, 4).map((c) => 'in entrambi: ' + c.id) };
+check('CANONICAL_43_RENDERED', 'All 43 canonical cases remain reachable across the four surfaces', () => {
+  /* LA LEGGE DI RILEVANZA HA DIVISO LA POPOLAZIONE IN QUATTRO.
+     Tre griglie — opportunita, radar da validare, segnali grezzi — piu il caso
+     che non e pubblicabile e che per questo NON sta in nessuna griglia: si
+     apre solo per id. Contare due schermate sarebbe dichiarare perso quello
+     che ha soltanto cambiato nome.
+
+         NASCONDERE NON E CANCELLARE. NON PUBBLICARE NEMMENO. */
+  const griglie = ['radar', 'mradar', 'msignals'].map((view) => m.vals({ view, lang: 'it', mShown: 999 }));
+  const listas = griglie.map((v) => v.meetingCases.map((c) => c.id));
+  const ids = new Set(listas.flat());
+  /* Le griglie sono DISGIUNTE: un caso in due popolazioni sarebbe due verita. */
+  const overlap = [];
+  for (let i = 0; i < listas.length; i++) {
+    for (let j = i + 1; j < listas.length; j++) {
+      for (const id of listas[i]) if (listas[j].includes(id)) overlap.push(id);
+    }
+  }
+  /* E quello che nessuna griglia mostra tem de continuar a abrir-se por id. */
+  const foraDaGrelha = SNAP.CASES.filter((c) => !ids.has(c.ID)).map((c) => c.ID);
+  const naoAbre = foraDaGrelha.filter((id) => {
+    const d = m.vals({ view: 'mcase', mCaseId: id, lang: 'it' });
+    return !(d.mc && d.mc.id === id);
+  });
+  const total = ids.size + foraDaGrelha.length;
+  return { pass: !overlap.length && !naoAbre.length && total === 43, expected: 43,
+    measured: `${listas[0].length} opportunita + ${listas[1].length} radar + ${listas[2].length} segnali = ${ids.size} in griglia · ${foraDaGrelha.length} non pubblicabile, raggiungibile per id`,
+    detail: naoAbre.length ? naoAbre.map((id) => 'non si apre: ' + id)
+      : overlap.slice(0, 4).map((id) => 'in due popolazioni: ' + id) };
 });
 
 check('CANONICAL_COUNTS_FROM_43_ONLY', 'Every canonical count is computed from the 43, never from D.CASES', () => {
@@ -329,11 +349,17 @@ check('VALIDATION_STATE_NOT_HIDDEN', 'VALIDATION_REQUIRED is shown, never dresse
      deve restare visibile DOVUNQUE il caso si trovi — e la somma delle due
      schermate deve fare ancora 38, altrimenti qualcuno e stato messo a tacere
      invece che spostato. */
-  const v = m.vals({ view: 'radar', lang: 'it', mShown: 999 });
-  const sg = m.vals({ view: 'msignals', lang: 'it', mShown: 999 });
-  const shown = [...v.meetingCases, ...sg.meetingCases]
-    .filter((c) => c.publicationCode === 'VALIDATION_REQUIRED');
-  if (shown.length !== 38) bad.push(`${shown.length} of 38 VALIDATION_REQUIRED cases reachable across both surfaces`);
+  /* Le schermate sono tre dopo la legge di rilevanza, piu il caso non
+     pubblicabile che si apre per id. Lo stato di pubblicazione deve restare
+     visibile DOVUNQUE il caso si trovi, e la somma deve fare ancora 38. */
+  const griglie = ['radar', 'mradar', 'msignals'].map((view) => m.vals({ view, lang: 'it', mShown: 999 }));
+  const inGriglia = griglie.flatMap((v) => v.meetingCases);
+  const ids = new Set(inGriglia.map((c) => c.id));
+  const fuori = SNAP.CASES.filter((c) => !ids.has(c.ID))
+    .map((c) => (m.vals({ view: 'mcase', mCaseId: c.ID, lang: 'it' }) || {}).mc)
+    .filter(Boolean);
+  const shown = [...inGriglia, ...fuori].filter((c) => c.publicationCode === 'VALIDATION_REQUIRED');
+  if (shown.length !== 38) bad.push(`${shown.length} of 38 VALIDATION_REQUIRED cases reachable across the four surfaces`);
   for (const c of shown) if (!c.publication) bad.push(`${c.id}: publication state has no phrase`);
   if (!/\{\{\s*c\.publication\s*\}\}/.test(markup)) bad.push('the card does not bind the publication state');
   return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad.slice(0, 6) };

@@ -46,6 +46,34 @@
    --------------------------------------------------------------------------- */
 (function () {
   const SNAP = () => (typeof window !== 'undefined' && window.MEETING_INTELLIGENCE) || null;
+  /* ══ LA LEGGE DI RILEVANZA ADAMA, LETTA E MAI RICALCOLATA ═══════════════
+     Un caso diventa OPPORTUNITA quando — e solo quando — si riesce a legare
+     il fatto a un prodotto ADAMA in modo difendibile: paese, coltura,
+     bersaglio, prodotto a catalogo, coltura dichiarata sulla pagina del
+     prodotto, bersaglio sull'etichetta ministeriale, autorizzazione viva.
+
+         UN PRODOTTO CHE PUO ESSERE USATO SULLA COLTURA NON E UN PRODOTTO
+         CHE RISOLVE IL PROBLEMA.
+
+     La legge ha UN proprietario, e non e questo file: vive in
+     `scripts/adama_relevance.py` e il suo verdetto arriva stampato in
+     `adama-relevance.js`. Qui si LEGGE. Rivalutarla qui darebbe due leggi con
+     lo stesso nome, e la seconda deciderebbe cosa e un'opportunita senza che
+     nessuno l'abbia approvata.
+
+         IL VALUTATORE E UNO. IL RESTO TRASPORTA. */
+  const REL = () => (typeof window !== 'undefined' && window.ADAMA_RELEVANCE) || null;
+  /* Fail-closed: senza verdetto un caso NON e un'opportunita. L'assenza del
+     pacchetto non promuove niente — declassa tutto a errore, che si vede. */
+  const surfaceOf = (id) => {
+    const r = REL();
+    const v = r && r.VERDETTI && r.VERDETTI[id];
+    return (v && v.SUPERFICIE) || 'ERRORE';
+  };
+  const verdictOf = (id) => {
+    const r = REL();
+    return (r && r.VERDETTI && r.VERDETTI[id]) || null;
+  };
   const LB = () => (typeof window !== 'undefined' && window.MEETING_LABELS) || null;
 
   /* ── THE CLIENT-SAFE BOUNDARY ───────────────────────────────────────────
@@ -544,12 +572,27 @@
       if (!s) return null;
       const L = lang === 'en' ? 'en' : 'it';
       const cases = (s.CASES || []).map((c) => caseOf(c, L));
-      cases.forEach((c) => { c.clientState = clientStateOf(c); });
-      /* Due insiemi disgiunti, e la loro somma e sempre 43: se un caso cadesse
-         fuori da entrambi sarebbe sparito senza che nessuno se ne accorgesse. */
-      const commercial = cases.filter((c) => !!c.clientState)
+      cases.forEach((c) => {
+        c.clientState = clientStateOf(c);
+        const v = verdictOf(c.id);
+        c.relevance = v ? v.CLASSE : 'E';
+        c.relevanceSurface = surfaceOf(c.id);
+        c.relevanceWhy = lab(v && v.PERCHE, L);
+        c.adamaProof = (v && v.PROVA) || null;
+      });
+      /* QUATTRO INSIEMI DISGIUNTI, E LA LORO SOMMA E SEMPRE 43.
+         Niente si cancella: un caso che non regge come opportunita resta
+         intero e raggiungibile, sotto il nome che gli spetta. Se un caso
+         cadesse fuori da tutti e quattro sarebbe sparito senza che nessuno se
+         ne accorgesse — per questo `radar` e `signals` non filtrano per
+         esclusione ma per superficie dichiarata, e `error` raccoglie il
+         resto. */
+      const bySurface = (k) => cases.filter((c) => c.relevanceSurface === k);
+      const commercial = bySurface('OPPORTUNITA')
         .sort((a, b) => CLIENT_ORDER.indexOf(a.clientState) - CLIENT_ORDER.indexOf(b.clientState));
-      const signals = cases.filter((c) => !c.clientState);
+      const radar = bySurface('RADAR');
+      const signals = bySurface('SEGNALI');
+      const errored = bySurface('ERRORE');
       return {
         meta: {
           SOURCE_HEAD: s.SOURCE_HEAD, BUILD_ID: s.BUILD_ID,
@@ -560,7 +603,21 @@
         counts: countsOf(cases),
         commercialCounts: commercialCounts(commercial),
         commercial,
+        radar,
         signals,
+        errored,
+        relevance: {
+          TOTAL: cases.length,
+          OPPORTUNITA: commercial.length,
+          RADAR: radar.length,
+          SEGNALI: signals.length,
+          ERRORE: errored.length,
+          /* Le tre invarianti che questa legge esiste per garantire. */
+          B_AS_OPPORTUNITY: commercial.filter((c) => c.relevance === 'B').length,
+          C_AS_OPPORTUNITY: commercial.filter((c) => c.relevance === 'C').length,
+          D_AS_OPPORTUNITY: commercial.filter((c) => c.relevance === 'D').length,
+          OWNER: (REL() && REL().DONO_DA_LEI) || null,
+        },
         cases,
       };
     },

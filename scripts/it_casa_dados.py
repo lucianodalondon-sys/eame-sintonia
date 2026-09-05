@@ -68,11 +68,19 @@ import io
 import json
 import os
 import re
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# A LEI DE RELEVANCIA TEM UM DONO SO, E NAO E ESTE FICHEIRO. Aqui importa-se e
+# imprime-se o veredito; recalcula-lo aqui daria duas leis com o mesmo nome.
+from adama_relevance import (CONTRATO as LEI_ADAMA, classificar, contar,
+                             restricoes_separadas, SUPERFICIE)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CLI = os.path.join(ROOT, 'italia-portale', 'client')
 UP = os.path.join(CLI, 'upstream')
 OUT = os.path.join(CLI, 'italy-casa.js')
+OUT_REL = os.path.join(CLI, 'adama-relevance.js')
 SNAPSHOT = os.path.join(CLI, 'meeting-intelligence-snapshot.json')
 LABELS_JS = os.path.join(CLI, 'meeting-labels.js')
 SURFACE_JS = os.path.join(CLI, 'meeting-surface.js')
@@ -626,6 +634,19 @@ def main():
                      'RUOLO': C(e.get('ROLE')), 'PERCHE': C(e.get('WHY_CODE'))}
                     for e in (c.get('EVIDENCE_ROLES') or [])]
 
+        # ── A LEI DE RELEVANCIA, LIDA DO SEU DONO ────────────────────────
+        classe, porque = classificar(c)
+        minhas, outras = restricoes_separadas(c)
+        prova = None
+        if classe == 'A':
+            from adama_relevance import produto_que_prova
+            m = produto_que_prova(c)
+            prova = {'PRODOTTO': m.get('PRODUCT_NAME'), 'ID': m.get('PRODUCT_ID'),
+                     'REGISTRO': m.get('REGISTRATION_NUMBER'),
+                     'ATTIVI': list(m.get('ACTIVE_INGREDIENTS') or []),
+                     'CULTURA': C(m.get('CROP_FIT')), 'BERSAGLIO': C(m.get('TARGET_FIT')),
+                     'AUTORIZZAZIONE': C(m.get('REGULATORY_FIT'))}
+
         why = {lg: sem_ponteiro(c.get('WHY_COMMERCIAL_' + lg.upper()) or '') for lg in ('it', 'en')}
         colt, alvo = C(c.get('CROP')), C(c.get('TARGET'))
         return {
@@ -640,6 +661,13 @@ def main():
             'ARCHETIPO': C(c.get('ARCHETYPE')),
             'AMBITO': C(c.get('GEOGRAPHIC_SCOPE')),
             'STATO_CLIENTE': estado,
+            # ── A LEI DE RELEVANCIA ADAMA ────────────────────────────────
+            # A classe decide em que superficie o caso pode aparecer. Nada
+            # desaparece: muda o nome por que e chamado.
+            'RILEVANZA': classe,
+            'RILEVANZA_PERCHE': C(porque),
+            'RILEVANZA_SUPERFICIE': SUPERFICIE[classe],
+            'PROVA_ADAMA': prova,
             'PRIORITA': C(c.get('COMMERCIAL_PRIORITY')),
             'PUBBLICAZIONE': C(c.get('PUBLICATION_STATE')),
             'E_OPPORTUNITA_COMMERCIALE': bool(estado_cliente),
@@ -677,6 +705,16 @@ def main():
             'PRODOTTO_PRINCIPALE': principale,
             'PERCHE_NESSUN_PRINCIPALE': C(c.get('PRIMARY_MATCH_REASON')) if not principale else None,
             # ── L3 · evidenza ────────────────────────────────────────────
+            # ── DUAS LISTAS, E NUNCA UMA ─────────────────────────────────
+            # 40 das 114 restricoes citam um activo que NAO esta em nenhum
+            # produto ADAMA ligado ao caso: vem do superset que inclui os
+            # activos nomeados pelas fontes e pela concorrencia. Mostrar a
+            # expiracao do activo do concorrente como se fosse a nossa nao e
+            # um erro de etiqueta — e uma decisao comercial ao contrario.
+            'RESTRIZIONI_ADAMA': [{'CODICE': C(r.get('CODE')), 'ATTIVO': r.get('ACTIVE_INGREDIENT'),
+                                   'DATA': r.get('DATE')} for r in minhas],
+            'RESTRIZIONI_ALTRO_ATTIVO': [{'CODICE': C(r.get('CODE')), 'ATTIVO': r.get('ACTIVE_INGREDIENT'),
+                                          'DATA': r.get('DATE')} for r in outras],
             'FONTI_URL': list(c.get('SOURCE_URLS') or []),
             'FONTI_CHIAVI': len(c.get('SOURCE_IDS') or []),
             'METODO_NECESSITA': C(c.get('NEED_METHOD')),
@@ -702,6 +740,14 @@ def main():
 
     commerciali = sum(1 for x in casos if x['E_OPPORTUNITA_COMMERCIALE'])
     da_validare = sum(1 for x in casos if not x['E_OPPORTUNITA_COMMERCIALE'])
+    # ── A POPULACAO SEGUNDO A LEI DE RELEVANCIA ──────────────────────────────
+    # 43 continuam a existir. O que muda e onde cada um pode aparecer.
+    por_classe = contar(casos_crus)
+    per_superficie = {}
+    for x in casos:
+        per_superficie[x['RILEVANZA_SUPERFICIE']] = per_superficie.get(x['RILEVANZA_SUPERFICIE'], 0) + 1
+    if sum(por_classe.values()) != total:
+        raise SystemExit('a lei de relevancia perdeu casos: %s de %d' % (por_classe, total))
     if commerciali + da_validare != total:
         raise SystemExit('%d + %d nao fecha em %d' % (commerciali, da_validare, total))
     por_stato = {}
@@ -739,6 +785,14 @@ def main():
             'PRIORITA_COMMERCIALE': commerciali,
             'DA_VALIDARE': da_validare,
             'PER_STATO': por_stato,
+            # A lei nao apaga: os 43 continuam todos, distribuidos por superficie.
+            'RILEVANZA_PER_CLASSE': por_classe,
+            'RILEVANZA_PER_SUPERFICIE': per_superficie,
+            'OPPORTUNITA': per_superficie.get('OPPORTUNITA', 0),
+            'RADAR': per_superficie.get('RADAR', 0),
+            'SEGNALI': per_superficie.get('SEGNALI', 0),
+            'ERRORE': per_superficie.get('ERRORE', 0),
+            'LEGGE_ADAMA': LEI_ADAMA,
             'SOURCE_HEAD': MI['SOURCE_HEAD'],
             'BUILD_ID': MI['BUILD_ID'],
             'MEETING_CUTOFF': MI['MEETING_CUTOFF'],
@@ -885,6 +939,11 @@ def main():
               'casaSpecUpstream', 'casaGapsDeclared', 'casaUnknownsDeclared',
               'casaDropped', 'casaEvidenceOnlyRule', 'casaOf', 'casaShowAll',
               'casaFilterAll', 'casaSensorLegend', 'navMeeting', 'navSignals', 'lblCases',
+              'RELEVANCE_A_PROVEN', 'RELEVANCE_B_NO_TARGET', 'RELEVANCE_B_NAMED_ASSET_NO_RISK',
+              'RELEVANCE_C_NO_LINK', 'RELEVANCE_D_LINK_FAILS', 'RELEVANCE_E_UNKNOWN',
+              'surfOPPORTUNITA', 'surfRADAR', 'surfSEGNALI', 'surfERRORE',
+              'casaProvaAdama', 'casaRestrAdama', 'casaRestrAltro', 'casaLeggeAdama',
+              'DECLARED_ON_CATALOG_PAGE', 'ON_MINISTERIAL_LABEL', 'AUTHORIZATION_LIVE',
               'casaKeyType', 'casaKeyRule', 'casaKeyDocument', 'casaKeyStart', 'casaKeyEnd',
               'casaKeyWindow', 'casaKeyNeed', 'casaKeyPortfolio', 'casaKeyDate',
               'casaKeyCurrency', 'casaKeyConfidence', 'casaKeyDirection', 'casaKeyStage',
@@ -956,6 +1015,27 @@ def main():
                   'silencio: sem par, a GERACAO falha.'),
     }
 
+    # ── O VEREDITO IMPRESSO, PARA QUEM NAO PODE RECALCULAR ──────────────────
+    # `meeting-surface.js` particiona a populacao por este ficheiro e NUNCA
+    # reavalia a lei. O avaliador e um; o resto transporta.
+    vereditos = {x['ID']: {'CLASSE': x['RILEVANZA'], 'SUPERFICIE': x['RILEVANZA_SUPERFICIE'],
+                           'PERCHE': x['RILEVANZA_PERCHE'],
+                           'PROVA': (x['PROVA_ADAMA'] or {}).get('PRODOTTO')}
+                 for x in casos}
+    rel = {'GERADO_POR': 'scripts/it_casa_dados.py + scripts/adama_relevance.py',
+           'DONO_DA_LEI': 'scripts/adama_relevance.py',
+           'LEGGE': LEI_ADAMA, 'TOTALE': total,
+           'PER_CLASSE': por_classe, 'PER_SUPERFICIE': per_superficie,
+           'SOURCE_HEAD': MI['SOURCE_HEAD'], 'BUILD_ID': MI['BUILD_ID'],
+           'VERDETTI': vereditos}
+    js_rel = ('/* GERADO por scripts/it_casa_dados.py — nao editar a mao.\n'
+              '   A LEI vive em scripts/adama_relevance.py e decide-se LA. Este ficheiro\n'
+              '   transporta o veredito para o browser, que nunca o recalcula. */\n'
+              'window.ADAMA_RELEVANCE = '
+              + json.dumps(rel, ensure_ascii=False, indent=1, sort_keys=True) + ';\n')
+    with io.open(OUT_REL, 'w', encoding='utf-8', newline='\n') as f:
+        f.write(js_rel)
+
     corpo = json.dumps(casa, ensure_ascii=False, indent=1, sort_keys=True)
     js = ('/* GERADO por scripts/it_casa_dados.py — nao editar a mao.\n'
           '   Os numeros vem dos donos ja julgados; aqui nao se reconta nada.\n'
@@ -966,8 +1046,13 @@ def main():
         f.write(js)
     print('  escrito : %s' % os.path.relpath(OUT, ROOT))
     print('  sha256  : %s' % hashlib.sha256(js.encode('utf-8')).hexdigest())
+    print('  escrito : %s' % os.path.relpath(OUT_REL, ROOT))
     print('  OPPORTUNITA ATTUALI %d = %d priorita commerciali + %d da validare'
           % (total, commerciali, da_validare))
+    print('  LEI ADAMA · A=%d B=%d C=%d D=%d E=%d  ->  OPPORTUNITA %d · RADAR %d · SEGNALI %d · ERRORE %d'
+          % (por_classe['A'], por_classe['B'], por_classe['C'], por_classe['D'], por_classe['E'],
+             per_superficie.get('OPPORTUNITA', 0), per_superficie.get('RADAR', 0),
+             per_superficie.get('SEGNALI', 0), per_superficie.get('ERRORE', 0)))
     print('  RADAR FUTURO %d totali · %d mostrabili · %d abbattuto · %d preparare · %d monitorare · %d agire ora'
           % (RF['TOTAL'], RF['RENDERABLE'], RF['DROPPED'], prep, moni, RF['ACT_NOW']))
     print('  CAMPO %d · FONTI %d · FITO %d evidence-only'

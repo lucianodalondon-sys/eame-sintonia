@@ -578,6 +578,46 @@
     ITFC_PORTFOLIO_LIMITED: ['portafoglio limitato', 'portfolio limited'],
     ITFC_ROUTE_ALLOWED:     ['rotta viva permessa', 'live route allowed'],
     ITFC_ROUTE_FORBIDDEN:   ['rotta viva vietata', 'live route forbidden'],
+
+    /* ══ LA LEGGE DI RILEVANZA ADAMA ═════════════════════════════════════
+       Un caso diventa OPPORTUNITA quando — e solo quando — si riesce a legare
+       il fatto a un prodotto ADAMA in modo difendibile. Senza quel legame la
+       domanda resta senza risposta: perche questo e un caso per ADAMA?
+
+           UN PRODOTTO CHE PUO ESSERE USATO SULLA COLTURA NON E UN PRODOTTO
+           CHE RISOLVE IL PROBLEMA.
+
+       Niente si cancella: cambia il nome con cui il caso viene chiamato e il
+       posto in cui compare. La legge sta in scripts/adama_relevance.py e si
+       decide LA; queste sono soltanto le sue letture. */
+    surfOPPORTUNITA:   ['OPPORTUNITÀ', 'OPPORTUNITIES'],
+    surfRADAR:         ['RADAR · DA VALIDARE', 'RADAR · TO VALIDATE'],
+    surfSEGNALI:       ['SEGNALI GREZZI', 'RAW SIGNALS'],
+    surfERRORE:        ['NON PUBBLICABILE', 'NOT PUBLISHABLE'],
+    radarEntry:        ['da validare: manca il legame con il prodotto', 'to validate: the product link is missing'],
+    subRadarValidate:  ['Letture con un prodotto ADAMA vicino, ma senza la relazione provata con il problema agronomico. Restano qui finché la prova non esiste.',
+                        'Readings with an ADAMA product nearby, but with no proven relation to the agronomic problem. They stay here until the proof exists.'],
+    RELEVANCE_A_PROVEN: ['Prodotto ADAMA provato: coltura sulla pagina di catalogo, bersaglio sull\u2019etichetta ministeriale, autorizzazione viva.',
+                         'ADAMA product proven: crop on the catalogue page, target on the ministerial label, live authorisation.'],
+    RELEVANCE_B_NO_TARGET: ['C\u2019è un prodotto ADAMA legato, ma il caso non nomina un problema agronomico: la relazione prodotto × bersaglio non è provata.',
+                            'An ADAMA product is linked, but the case names no agronomic problem: the product × target relation is not proven.'],
+    RELEVANCE_B_NAMED_ASSET_NO_RISK: ['Nomina un prodotto ADAMA registrato e la sua sostanza, ma il fatto regolatorio è APPROVATO e non dichiarato a rischio: una scadenza non è un mancato rinnovo.',
+                                      'It names a registered ADAMA product and its substance, but the regulatory fact is APPROVED and not declared at risk: an expiry is not a non-renewal.'],
+    RELEVANCE_C_NO_LINK: ['Nessun prodotto ADAMA e nessuna sostanza ADAMA nominata: resta un segnale grezzo.',
+                          'No ADAMA product and no ADAMA substance named: it stays a raw signal.'],
+    RELEVANCE_D_LINK_FAILS: ['Il prodotto è legato, ma il legame non regge all\u2019audit: la pagina di catalogo del prodotto non dichiara questa coltura.',
+                             'A product is linked, but the link does not survive the audit: the product\u2019s catalogue page does not declare this crop.'],
+    RELEVANCE_E_UNKNOWN: ['Non abbastanza per decidere. Fail-closed: non sale.',
+                          'Not enough to decide. Fail-closed: it does not rise.'],
+    casaProvaAdama:    ['PROVA ADAMA', 'ADAMA PROOF'],
+    casaRestrAdama:    ['Scadenze del prodotto ADAMA legato', 'Expiries of the linked ADAMA product'],
+    casaRestrAltro:    ['Scadenze di altre sostanze citate dalle fonti — NON del prodotto ADAMA',
+                        'Expiries of other substances cited by the sources — NOT of the ADAMA product'],
+    casaLeggeAdama:    ['Si chiama opportunità solo ciò che si riesce a legare a un prodotto ADAMA. Il resto resta, con un altro nome.',
+                        'Only what can be tied to an ADAMA product is called an opportunity. The rest stays, under another name.'],
+    DECLARED_ON_CATALOG_PAGE: ['dichiarata sulla pagina di catalogo del prodotto', 'declared on the product catalogue page'],
+    ON_MINISTERIAL_LABEL:     ['sull\u2019etichetta ministeriale', 'on the ministerial label'],
+    AUTHORIZATION_LIVE:       ['autorizzazione viva', 'live authorisation'],
     /* ── ESEGUIBILITA DEL SENSORE, NON STATO DEL SEGNALE ────────────────
        Tre dei 44 sono stati portati a specifica di osservazione e due sono
        stati abbattuti da chi li ha attaccati. Quel verdetto riguarda il

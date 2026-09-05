@@ -42,6 +42,10 @@
 <script src="italy-app-model.js"></script>
 <script src="meeting-intelligence-snapshot.js"></script>
 <script src="meeting-labels.js"></script>
+<!-- IL VERDETTO DELLA LEGGE DI RILEVANZA, PRIMA DI CHI LO LEGGE.
+     La legge vive in scripts/adama_relevance.py e si decide LA. Questo file
+     trasporta il verdetto; meeting-surface.js lo legge e non lo ricalcola. -->
+<script src="adama-relevance.js"></script>
 <script src="meeting-surface.js"></script>
 <!-- IL PACCHETTO DELLA CASA, LETTO ANCHE QUI.
      `scripts/it_casa_dados.py` e l'adattatore di presentazione, e italy-casa.js
@@ -468,8 +472,9 @@
           <div data-casa-current="{{ meetingCurrent.total }}" style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font-family:var(--font-secondary);font-size:11px;color:#8F8886;margin-top:2px">
             <span style="font-weight:700;letter-spacing:0.12em">{{ meetingCurrent.label }}</span>
             <b style="color:#fff;font-size:13px;font-variant-numeric:tabular-nums">{{ meetingCurrent.total }}</b>
-            <span>· <b style="color:#C9C3C1;font-variant-numeric:tabular-nums">{{ meetingCurrent.commerciali }}</b> {{ meetingCurrent.labelCommerciali }}</span>
-            <span>· <b style="color:#C9C3C1;font-variant-numeric:tabular-nums">{{ meetingCurrent.daValidare }}</b> {{ meetingCurrent.labelDaValidare }}</span>
+            <span>· <b style="color:#C9C3C1;font-variant-numeric:tabular-nums">{{ meetingCurrent.opportunita }}</b> {{ meetingCurrent.labelOpportunita }}</span>
+            <span>· <b style="color:#C9C3C1;font-variant-numeric:tabular-nums">{{ meetingCurrent.radar }}</b> {{ meetingCurrent.labelRadar }}</span>
+            <span>· <b style="color:#C9C3C1;font-variant-numeric:tabular-nums">{{ meetingCurrent.segnali }}</b> {{ meetingCurrent.labelSegnali }}</span>
           </div>
           </sc-if>
         </div>
@@ -541,11 +546,14 @@
            — quelli restano tre — ma la porta che tiene raggiungibili i casi che
            il motore non sostiene come opportunita. Non compare sulla schermata
            dei segnali stessi: da li si torna dal radar, che e nel menu. -->
-      <sc-if value="{{ hasSignalsEntry }}" hint-placeholder-val="{{ true }}">
-        <div style="display:flex;justify-content:center;padding-top:4px">
+      <div style="display:flex;justify-content:center;gap:8px;padding-top:4px;flex-wrap:wrap">
+        <sc-if value="{{ hasRadarEntry }}" hint-placeholder-val="{{ true }}">
+          <span onClick="{{ goRadarValidate }}" data-radar-entry="{{ meetingRadarCount }}" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#8F8886;cursor:pointer;padding:6px 12px;border-radius:9999px;border:1px solid rgba(203,197,195,0.14)" style-hover="color:#C9C3C1;border-color:rgba(203,197,195,0.34)">{{ meetingRadarCount }} {{ mt.radarEntry }} →</span>
+        </sc-if>
+        <sc-if value="{{ hasSignalsEntry }}" hint-placeholder-val="{{ true }}">
           <span onClick="{{ goSignals }}" data-signals-entry="{{ meetingSignalsCount }}" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#8F8886;cursor:pointer;padding:6px 12px;border-radius:9999px;border:1px solid rgba(203,197,195,0.14)" style-hover="color:#C9C3C1;border-color:rgba(203,197,195,0.34)">{{ meetingSignalsCount }} {{ mt.signalsEntry }} →</span>
-        </div>
-      </sc-if>
+        </sc-if>
+      </div>
       <sc-if value="{{ meetingHasMore }}" hint-placeholder-val="{{ false }}"><span onClick="{{ meetingMore }}" data-meeting-more="1" style="align-self:flex-start;display:inline-flex;align-items:center;height:32px;padding:0 16px;border-radius:9999px;cursor:pointer;font-size:11px;font-weight:700;color:#fff;background:rgba(0,152,69,0.16);border:1px solid rgba(0,152,69,0.45)">{{ mt.all }}</span></sc-if>
     </div>
     </sc-if>
@@ -3422,9 +3430,24 @@ class Component extends DCLogic {
     /* UNA GRIGLIA SOLA, DUE INSIEMI DISGIUNTI. Ricostruire una seconda griglia
        per i segnali sarebbe il secondo radar che abbiamo appena tolto: stessa
        scheda, stesso disegno, cambia CHE COSA contiene e come si chiama. */
+    /* ══ TRE POPOLAZIONI, E SI CHIAMANO PER QUELLO CHE SONO ═══════════════
+       Prima la griglia mostrava 26 «opportunita» e teneva 17 «segnali». La
+       legge di rilevanza ha rimisurato: solo 13 riescono a legare il fatto a
+       un prodotto ADAMA. Gli altri non spariscono — cambiano nome.
+
+           IL LETTORE NON PUO CONFONDERE «DOBBIAMO INDAGARE»
+           CON «ABBIAMO UN'OPPORTUNITA ADAMA PROVATA».
+
+       La stessa griglia, la stessa scheda, lo stesso disegno: cambia CHE COSA
+       contiene e come si chiama. Costruire una seconda griglia sarebbe il
+       secondo radar che abbiamo gia tolto una volta. */
     const isSignalsView = s.view === 'msignals';
+    const isRadarView = s.view === 'mradar';
     const meetingSignals = MSURF ? MSURF.signals : [];
-    const meetingAll = MSURF ? (isSignalsView ? MSURF.signals : MSURF.commercial) : [];
+    const meetingRadar = MSURF ? (MSURF.radar || []) : [];
+    const meetingAll = MSURF
+      ? (isSignalsView ? MSURF.signals : (isRadarView ? meetingRadar : MSURF.commercial))
+      : [];
     const meetingCounts = MSURF ? MSURF.commercialCounts : {};
     const meetingEngineCounts = MSURF ? MSURF.counts : {};
     const meetingMeta = MSURF ? MSURF.meta : {};
@@ -3432,6 +3455,9 @@ class Component extends DCLogic {
        mentre si guardano i segnali: un numero di menu che cambia con la
        schermata aperta non e un conteggio, e un riflesso. */
     const meetingCount = MSURF ? MSURF.commercial.length : 0;
+    /* Le tre righe che il lettore deve poter contare, e la quarta che non e
+       una popolazione da leggere ma un difetto da correggere. */
+    const relev = MSURF ? MSURF.relevance : null;
     /* ══ LE 43 ATTUALI VENGONO DAL LORO PADRONE ══════════════════════════
        Il radar mostra le 26 opportunita commerciali; i 17 che restano vivono
        come segnali. La somma — quante letture sono sul tavolo adesso — e la
@@ -3444,18 +3470,28 @@ class Component extends DCLogic {
        E se i due non concordassero, la riga NON stampa un numero: dire quale
        dei due ha ragione non e compito di questa schermata. */
     const CASA_OA = (window.ITALY_CASA && window.ITALY_CASA.OPPORTUNITA_ATTUALI) || null;
-    const casaConcorda = !!(CASA_OA && MSURF
-      && CASA_OA.PRIORITA_COMMERCIALE === MSURF.commercial.length
-      && CASA_OA.DA_VALIDARE === MSURF.signals.length
+    /* Le due catene contano le stesse tre popolazioni, o la riga non stampa
+       niente. Dire quale delle due ha ragione non e compito di questa
+       schermata — e dopo la legge di rilevanza le popolazioni sono queste. */
+    const casaConcorda = !!(CASA_OA && MSURF && MSURF.relevance
+      && CASA_OA.OPPORTUNITA === MSURF.relevance.OPPORTUNITA
+      && CASA_OA.RADAR === MSURF.relevance.RADAR
+      && CASA_OA.SEGNALI === MSURF.relevance.SEGNALI
+      && CASA_OA.ERRORE === MSURF.relevance.ERRORE
       && CASA_OA.TOTALE === MSURF.cases.length
       && CASA_OA.BUILD_ID === MSURF.meta.BUILD_ID);
+    /* La riga di testata smette di dire «26 priorita commerciali»: la legge di
+       rilevanza ha rimisurato, e quello che il lettore deve contare sono le
+       tre popolazioni per nome. Il totale resta 43 — niente e sparito. */
     const meetingCurrent = casaConcorda ? {
       total: CASA_OA.TOTALE,
-      commerciali: CASA_OA.PRIORITA_COMMERCIALE,
-      daValidare: CASA_OA.DA_VALIDARE,
+      opportunita: CASA_OA.OPPORTUNITA,
+      radar: CASA_OA.RADAR,
+      segnali: CASA_OA.SEGNALI,
       label: mtL('casaCurrentOpps'),
-      labelCommerciali: mtL('casaCommercialPriority'),
-      labelDaValidare: mtL('casaToValidate'),
+      labelOpportunita: mtL('surfOPPORTUNITA'),
+      labelRadar: mtL('surfRADAR'),
+      labelSegnali: mtL('surfSEGNALI'),
     } : null;
     /* Il filtro e una LETTURA, non un giudizio: taglia l'elenco per uno stato
        che il motore ha gia scritto, e non ne calcola nessuno. */
@@ -3502,9 +3538,13 @@ class Component extends DCLogic {
     }, mPill(k.on, k.color))));
     /* Una scheda si apre anche se il caso e un SEGNALE: toglierlo dalle
        opportunita non lo rende irraggiungibile — sarebbe perderlo. */
+    /* Una scheda si apre da qualunque delle quattro popolazioni: declassare un
+       caso non lo rende irraggiungibile — sarebbe perderlo. */
     const mcCase = s.mCaseId
       ? (meetingAll.find((c) => c.id === s.mCaseId)
-         || meetingSignals.find((c) => c.id === s.mCaseId) || null)
+         || meetingSignals.find((c) => c.id === s.mCaseId)
+         || meetingRadar.find((c) => c.id === s.mCaseId)
+         || (MSURF ? (MSURF.errored || []).find((c) => c.id === s.mCaseId) : null) || null)
       : null;
     /* Crop and issue display names. The raw value stays the filter key, so filtering,
        window matching and cross-tool lookups are untouched. A name the map does not
@@ -4276,7 +4316,7 @@ class Component extends DCLogic {
          riconciliata. La griglia storica non e cancellata — smette di essere
          resa (vedi `isRadar`), cosi nessun percorso ci finisce dentro.
          Il conteggio viene dall'istantanea, mai scritto a mano. */
-      ['meeting', mtL('navMeeting'), meetingCount],
+      ['meeting', mtL('navMeeting'), relev ? relev.OPPORTUNITA : meetingCount],
       /* I SEGNALI NON SONO UNO STRUMENTO. Stavano qui, accanto al radar, e una
          voce di menu al primo livello dice «sono due cose» — che e proprio la
          lettura sbagliata: i diciassette esistono per non perdere intelligenza,
@@ -4307,7 +4347,7 @@ class Component extends DCLogic {
        Il contatore e lo stesso 43 del pacchetto, e solo quando i due
        conteggi concordano: un numero accanto a una voce di menu che
        nessuno ha ricontato e un numero che prima o poi mente. */
-    const navCasa = { label: mtL('casaCurrentOpps'), count: meetingCurrent ? meetingCurrent.total : 0,
+    const navCasa = { label: mtL('casaCurrentOpps'), count: meetingCurrent ? meetingCurrent.opportunita : 0,
       go: () => { window.location.href = 'casa.html'; },
       bg: 'transparent', border: 'transparent', dot: 'rgba(151,139,135,0.35)',
       color: '#9A9391', weight: 400 };
@@ -9044,18 +9084,25 @@ class Component extends DCLogic {
          indietro e i portoni la usano — ma rende la superficie riconciliata.
          Cosi «un solo radar» non e una voce nascosta nel menu: e l'unica
          griglia che il portale sa disegnare. */
-      isMeeting: s.view === 'meeting' || s.view === 'radar' || s.view === 'msignals', isMcase: s.view === 'mcase',
+      isMeeting: s.view === 'meeting' || s.view === 'radar' || s.view === 'msignals' || s.view === 'mradar', isMcase: s.view === 'mcase',
       isSignalsView,
-      /* La riga dei segnali sta solo sul radar commerciale, e il numero viene
-         contato dalla superficie — mai scritto a mano. */
-      hasSignalsEntry: !isSignalsView && meetingSignals.length > 0,
+      /* LE DUE PORTE STANNO SOTTO LE OPPORTUNITA, E I NUMERI SI CONTANO.
+         Declassare un caso non lo rende irraggiungibile: da qui si arriva ai
+         21 del radar e agli 8 segnali grezzi, con la stessa griglia e la
+         stessa scheda. Le porte non compaiono sulle proprie schermate. */
+      hasSignalsEntry: (s.view !== 'msignals') && meetingSignals.length > 0,
+      hasRadarEntry: (s.view !== 'mradar') && meetingRadar.length > 0,
       meetingSignalsCount: meetingSignals.length,
+      meetingRadarCount: meetingRadar.length,
       goSignals: () => this.go({ view: 'msignals', mStatus: '', mShown: 24 }),
+      goRadarValidate: () => this.go({ view: 'mradar', mStatus: '', mShown: 24 }),
       /* i contatori commerciali esistono solo dove ci sono opportunita */
-      hasCommercialCounts: !isSignalsView,
+      hasCommercialCounts: !isSignalsView && !isRadarView,
       mt: {
-        nav: isSignalsView ? mtL('navSignals') : mtL('navMeeting'),
-        sub: isSignalsView ? mtL('subSignals') : mtL('subMeeting'),
+        nav: isSignalsView ? mtL('surfSEGNALI') : (isRadarView ? mtL('surfRADAR') : mtL('navMeeting')),
+        sub: isSignalsView ? mtL('subSignals') : (isRadarView ? mtL('subRadarValidate') : mtL('subMeeting')),
+        radarEntry: mtL('radarEntry'),
+        adamaLaw: mtL('casaLeggeAdama'),
         signalsNote: mtL('signalsNote'),
         signalsEntry: mtL('signalsEntry'),
         snapshot: mtL('meetingSnapshot'), srcHead: mtL('lblSourceHead'),

@@ -510,18 +510,34 @@ check('CURRENT_OPPORTUNITIES_OWNER_DERIVED', () => {
   if (OA.PRIORITA_COMMERCIALE + OA.DA_VALIDARE !== OA.TOTALE) bad.push('as duas partes nao fecham no total');
   if ((OA.CASI || []).length !== casos.length) bad.push(`o pacote leva ${(OA.CASI || []).length} casos, nao ${casos.length}`);
   if (OA.SOURCE_HEAD !== MI.SOURCE_HEAD || OA.BUILD_ID !== MI.BUILD_ID) bad.push('a casa declara outra proveniencia que o dono');
+  /* ── A DECOMPOSICAO QUE O ECRA MOSTRA E A DA LEI DE RELEVANCIA ──────────
+     Ate a lei existir, a primeira dobra dizia 26 + 17 = 43: a divisao do
+     motor entre prioridade comercial e por validar. A lei rimediu, e a
+     divisao que o cliente le passou a ser outra — quantas se conseguem ligar
+     a um produto ADAMA. O total nao muda, porque nenhum caso desapareceu.
+
+         O QUE MUDOU NAO FOI O NUMERO. FOI A PERGUNTA QUE ELE RESPONDE. */
+  const partes = [OA.OPPORTUNITA, OA.RADAR, OA.SEGNALI, OA.ERRORE].filter((n) => n > 0);
+  if (partes.reduce((a, b) => a + b, 0) !== OA.TOTALE) {
+    bad.push(`as superficies somam ${partes.reduce((a, b) => a + b, 0)}, nao ${OA.TOTALE}`);
+  }
   /* E o ecra tem de o dizer, nas duas linguas e sem o esconder atras de uma dobra. */
   for (const [lg, txt] of [['it', fechada], ['en', abertaEN]]) {
     if (!temNum(txt, OA.TOTALE)) bad.push(`${lg}: o ecra nao mostra ${OA.TOTALE}`);
-    if (!temNum(txt, OA.PRIORITA_COMMERCIALE)) bad.push(`${lg}: o ecra nao mostra ${OA.PRIORITA_COMMERCIALE}`);
-    if (!temNum(txt, OA.DA_VALIDARE)) bad.push(`${lg}: o ecra nao mostra ${OA.DA_VALIDARE}`);
+    for (const n of partes) if (!temNum(txt, n)) bad.push(`${lg}: o ecra nao mostra ${n}`);
   }
   /* A aritmetica dita, nao deixada ao leitor. */
-  const soma = new RegExp(`${OA.PRIORITA_COMMERCIALE}\\s*\\+\\s*${OA.DA_VALIDARE}\\s*=\\s*${OA.TOTALE}`);
-  if (!soma.test(aberta)) bad.push(`a primeira dobra nao explica ${OA.PRIORITA_COMMERCIALE} + ${OA.DA_VALIDARE} = ${OA.TOTALE}`);
+  const soma = new RegExp(partes.join('\\s*\\+\\s*') + `\\s*=\\s*${OA.TOTALE}`);
+  if (!soma.test(aberta)) bad.push(`a primeira dobra nao explica ${partes.join(' + ')} = ${OA.TOTALE}`);
   if (!soma.test(abertaEN)) bad.push('a superficie inglesa nao explica a mesma soma');
+  /* A LEI TEM UM DONO, E O ECRA CONTA O QUE ELE DECIDIU. */
+  if (OA.RILEVANZA_PER_CLASSE.A !== OA.OPPORTUNITA) bad.push('classe A e superficie OPPORTUNITA divergem');
+  for (const k of ['B', 'C', 'D', 'E']) {
+    if (OA.RILEVANZA_PER_CLASSE[k] === undefined) bad.push(`a lei nao conta a classe ${k}`);
+  }
   return { pass: !bad.length, detail: bad.length ? bad : [
-    `${OA.TOTALE} = ${OA.PRIORITA_COMMERCIALE} prioridade comercial + ${OA.DA_VALIDARE} da validare, refeitos a partir do snapshot ${MI.BUILD_ID}`,
+    `${OA.TOTALE} = ${OA.OPPORTUNITA} opportunita + ${OA.RADAR} radar + ${OA.SEGNALI} segnali + ${OA.ERRORE} errore, refeitos a partir do snapshot ${MI.BUILD_ID}`,
+    `a lei de relevancia vive em scripts/adama_relevance.py · A=${OA.RILEVANZA_PER_CLASSE.A} B=${OA.RILEVANZA_PER_CLASSE.B} C=${OA.RILEVANZA_PER_CLASSE.C} D=${OA.RILEVANZA_PER_CLASSE.D} E=${OA.RILEVANZA_PER_CLASSE.E}`,
     `a regra prioridade->estado lida de meeting-surface.js: ${Object.entries(mapa).map(([a, b]) => `${a}->${b}`).join(' · ')}`,
   ] };
 });
@@ -542,21 +558,34 @@ check('HARDCODE_43_CANNOT_PASS', () => {
   const semComentarios = (src, tipo) => (tipo === 'js'
     ? src.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|\s)\/\/[^\n]*/g, ' ')
     : src.replace(new RegExp(TRIPLA + '[\\s\\S]*?' + TRIPLA, 'g'), ' ').replace(/#[^\n]*/g, ' '));
-  const alvos = [OA.TOTALE, OA.PRIORITA_COMMERCIALE, OA.DA_VALIDARE];
+  const alvos = [OA.TOTALE, OA.OPPORTUNITA, OA.RADAR, OA.SEGNALI];
+  /* UM LITERAL, NAO UM PEDACO DE OUTRA COISA.
+     Enquanto a populacao se dizia 43/26/17, um numero nu era inconfundivel.
+     A lei de relevancia trouxe numeros pequenos — 13, 21, 8 — e a busca crua
+     passou a acusar o `8` de «utf-8» e o `13` de «13.216». Um portao que
+     acusa o que nao e defeito ensina a ignora-lo.
+
+         AFINAR O DETECTOR NAO E AFROUXAR A REGRA.
+
+     Continua a proibir-se o literal escrito a mao — inclusive dentro de um
+     array, que e como uma populacao inteira se hardcodeia — e passa a
+     excluir-se so o digito que faz parte de outro token: precedido de hifen
+     colado a letra (utf-8) ou seguido de virgula-e-digito (13.216 / 13,216). */
+  const literal = (n) => new RegExp(`(?<![\\w.])(?<![A-Za-z]-)${n}(?![\\w.])(?![,.]\\d)`);
   for (const [nome, src, tipo] of [['casa.html', html, 'js'], ['it_casa_dados.py', gerador, 'py']]) {
     const corpo = semComentarios(src, tipo);
-    for (const n of alvos) {
-      if (new RegExp(`(?<![\\w.])${n}(?![\\w.])`).test(corpo)) bad.push(`${nome} escreve ${n} no codigo`);
-    }
+    for (const n of alvos) if (literal(n).test(corpo)) bad.push(`${nome} escreve ${n} no codigo`);
   }
-  /* CONTROLO NEGATIVO — um portao que nunca reprovou e decoracao. */
-  const re43 = new RegExp(`(?<![\\w.])${OA.TOTALE}(?![\\w.])`);
-  if (!re43.test(semComentarios(`var totale = ${OA.TOTALE};`, 'js'))) {
-    bad.push('CONTROLO NEGATIVO FALHOU: o detector nao ve o numero escrito a mao');
+  /* CONTROLO NEGATIVO — um portao que nunca reprovou e decoracao. Cinco
+     sondas: tres que TEM de apanhar, duas que nao pode acusar. */
+  const ve = (txt, n, tipo) => literal(n).test(semComentarios(txt, tipo || 'js'));
+  if (!ve(`var totale = ${OA.TOTALE};`, OA.TOTALE)) bad.push('CONTROLO NEGATIVO FALHOU: nao ve o numero escrito a mao');
+  if (!ve(`const pop = [${OA.OPPORTUNITA}, ${OA.RADAR}, ${OA.SEGNALI}];`, OA.OPPORTUNITA)) {
+    bad.push('CONTROLO NEGATIVO FALHOU: nao ve a populacao hardcodeada num array');
   }
-  if (re43.test(semComentarios(`/* sono ${OA.TOTALE} */`, 'js'))) {
-    bad.push('CONTROLO NEGATIVO FALHOU: o detector acusa o numero citado num comentario');
-  }
+  if (!ve(`if (n === ${OA.RADAR}) {}`, OA.RADAR)) bad.push('CONTROLO NEGATIVO FALHOU: nao ve o numero numa comparacao');
+  if (ve(`/* sono ${OA.TOTALE} */`, OA.TOTALE)) bad.push('CONTROLO NEGATIVO FALHOU: acusa o numero citado num comentario');
+  if (ve(`decode('utf-${OA.SEGNALI}')`, OA.SEGNALI)) bad.push('CONTROLO NEGATIVO FALHOU: acusa um digito dentro de outro token');
   return { pass: !bad.length, detail: bad.length ? bad
     : [`${alvos.join(', ')} nao existem como literais na vista nem no gerador — todos derivados`,
        'controlo negativo: um numero escrito a mao SERIA apanhado; o mesmo numero num comentario nao'] };

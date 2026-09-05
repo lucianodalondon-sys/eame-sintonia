@@ -43,6 +43,10 @@ export const DATA_FILES = [
      CATEGORY_SURFACE / ON_SURFACE / AREA_UI tokens rather than restyling. */
   'meeting-intelligence-snapshot.js',
   'meeting-labels.js',
+  /* Il verdetto della legge di rilevanza ADAMA viene PRIMA di chi lo legge:
+     senza di esso `meeting-surface` fallisce chiuso e declassa tutto a errore,
+     che e il comportamento giusto ma non e la superficie da misurare. */
+  'adama-relevance.js',
   'meeting-surface.js',
 ];
 
