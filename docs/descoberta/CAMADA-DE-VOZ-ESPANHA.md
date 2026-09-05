@@ -373,6 +373,24 @@ com nome** — precisa de identificador declarado (ORCID, ROR), que as plataform
 A Espanha está fechada no estado descrito acima. O próximo país começa quando este for
 aceito — não antes.
 
+### ADENDO 2026-09-03 — a Itália foi aberta, e este parágrafo passa a ser histórico
+
+A frase acima descreve o estado **daquela missão**, e continua verdadeira sobre ela. Não é
+mais o estado do repositório.
+
+A camada de voz italiana foi aberta em 2026-09-03 pela missão de descoberta de fontes
+(`docs/descoberta/MISSAO-FONTES-ITALIA-2026-09-03.md`), com o mesmo motor de transcrição e
+o mesmo contrato de campos:
+
+- **9 objetos de áudio público italiano**, 151,7 minutos, **130.935 caracteres** de fala,
+  transcritos **localmente** com `faster-whisper small`, idioma `it` **declarado**, custo
+  **0,00 USD** — `data/samples/IT-VOZ-AUDIO-V1/`.
+- **França continua não aberta.**
+
+**Nenhuma conclusão cross-market foi produzida**, e a lei desta seção continua valendo: a voz
+não antecipa no tempo (`NO_RELIABLE_SIGNAL`), e concordância geográfica não é antecipação
+temporal. O que a Itália acrescentou foi **cobertura**, não uma revisão desse veredito.
+
 ---
 
 ## Z2 · MISSÃO 11 — a coleta não foi executável, e o que sobrou foi derivação

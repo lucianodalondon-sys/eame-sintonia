@@ -1,0 +1,722 @@
+{
+ "SOURCE_ID": "IT-T4-001-ETICHETTA",
+ "CAPTURED_AT": "2026-09-04",
+ "COUNTRY": "IT",
+ "LAYER": "NATIONAL PRODUCT AUTHORIZATION",
+ "DATASET": "IT-ROTULOS-AMOSTRA-ADJUDICADA-V2",
+ "SOURCE": "amostra aleatoria (seed 20260904) de pares em rotulos FORA do gabarito, conferida um a um contra a geometria do rotulo",
+ "POR_QUE": "o gabarito cobre 30 dos 163 e exclui os 6 rotulos mais dificeis. A precisao medida so nele seria otimista por construcao. Esta amostra mede a cauda nao medida.",
+ "N": 25,
+ "CORRECT": 25,
+ "WRONG": 0,
+ "UNCERTAIN": 0,
+ "SAMPLED_PRECISION": 1.0,
+ "RESSALVA": "25 de 25 com zero erro nao prova precisao 1,0; prova que o limite inferior a 95% de confianca fica em torno de 0,86, compativel com os 0,965 medidos no gabarito.",
+ "ADJUDICADOS_DUVIDOSOS": [
+  "015275 SEGALE x IDRELLIA: a lista de alvos dos cereais se repete uma vez por linha de cereal; a faixa da celula de segale contem o centro da entrada. Correto.",
+  "013560 VITE x SIGARAIO: alvo 13pt abaixo da celula, dentro da regra de fronteira; sigaraio (Byctiscus betulae) e praga de videira e a linha da vite traz tignola, cocciniglie, cicaline e sigaraio.",
+  "008259 COLZA x CIMICI: a celula e \"Arachide, girasole, colza, ravizzone, cotone\" e o alvo cai dentro dela.",
+  "017094 PISELLO x INFESTANTI: \"Leguminose da granella (Fagioli e Fagiolini, Piselli): impiegare alla dose di 3 l/ha\"."
+ ],
+ "PAIRS": [
+  {
+   "CROP": "CIPOLLA",
+   "TARGET": "INFESTANTI",
+   "ROUTE": "AUTHORISED_USE_LIST",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_SCOPE_DECLARED": true,
+   "TARGET_DECLARED": true,
+   "CROP_AS_WRITTEN": "può essere impiegato nel diserbo delle seguenti colture alla dose di 1-3 l/ha in 200-400 litri di acqua:",
+   "TARGET_AS_WRITTEN": "Infestanti controllate: Graminacee annuali: Alopecurus spp. (Coda di topo), Avena spp. (Avena) * , Digitaria spp. (Sanguinel- la), Echinochloa spp (Giavone) * , Lolium spp. (Loiett",
+   "PAGE": 0,
+   "CROP_Y": [
+    0,
+    0
+   ],
+   "TARGET_Y": [
+    0,
+    0
+   ],
+   "REGISTRATION_ID": "012279",
+   "PRODUCT": "ERBY 5 EC",
+   "ACTIVE_INGREDIENTS": [
+    "QUIZALOFOP-P-ETHYL"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 012279 · p0 y[0, 0]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "PISELLO",
+   "TARGET": "AFIDI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 37.9,
+   "CROP_AS_WRITTEN": "Orticole aglio, cipolla, carota, cavolfiore, cavolo broccolo, cavolini di Bruxel",
+   "TARGET_AS_WRITTEN": "Afidi (foglie non accartocciate), mosca bianca",
+   "PAGE": 1,
+   "CROP_Y": [
+    394.3,
+    466.2
+   ],
+   "TARGET_Y": [
+    394.4,
+    410.9
+   ],
+   "REGISTRATION_ID": "013590",
+   "PRODUCT": "NINJA",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 013590 · p1 y[394.4, 410.9]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "POMODORO",
+   "TARGET": "INFESTANTI",
+   "ROUTE": "AUTHORISED_USE_LIST",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_SCOPE_DECLARED": true,
+   "TARGET_DECLARED": true,
+   "CROP_AS_WRITTEN": "può essere impiegato nel diserbo delle seguenti colture alla dose di 1-3 l/ha in 200-400 litri di acqua:",
+   "TARGET_AS_WRITTEN": "Infestanti controllate: Graminacee annuali: Alopecurus spp. (Coda di topo), Avena spp. (Avena) * , Digitaria spp. (Sanguinel- la), Echinochloa spp (Giavone) * , Lolium spp. (Loiett",
+   "PAGE": 0,
+   "CROP_Y": [
+    0,
+    0
+   ],
+   "TARGET_Y": [
+    0,
+    0
+   ],
+   "REGISTRATION_ID": "017332",
+   "PRODUCT": "HANUKYS",
+   "ACTIVE_INGREDIENTS": [
+    "QUIZALOFOP-P-ETHYL"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 017332 · p0 y[0, 0]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "ORZO",
+   "TARGET": "CIMICI",
+   "ROUTE": "HEADER_CONTINUATION",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_AS_WRITTEN": "Cereali (orzo, avena, frumento, segale, triticale)",
+   "TARGET_AS_WRITTEN": "Contro afidi (Sitobion avenae, Rhopalosiphum padi), ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana), cimici (Aelia rostrata, Eurygaster maura) e cicaline (Psammotettix alienus) impiega",
+   "PAGE": 1,
+   "CROP_Y": [
+    432.8,
+    477.1
+   ],
+   "TARGET_Y": [
+    432.8,
+    477.1
+   ],
+   "REGISTRATION_ID": "014210",
+   "PRODUCT": "EVURE PRO",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 014210 · p1 y[432.8, 477.1]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "AGRUMI",
+   "TARGET": "INFESTANTI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 34.2,
+   "CROP_AS_WRITTEN": "ARBOREE (AGRUMI, DRUPACEE, OLIVO DA OLIO E DA TAVOLA, MELO, PERO, VITE DA VINO E",
+   "TARGET_AS_WRITTEN": "Applicare in post emergenza delle infestanti in banda lungo la fila, evitando il contatto con foglie e parti del fusto non lignificate.",
+   "PAGE": 3,
+   "CROP_Y": [
+    104.1,
+    140.4
+   ],
+   "TARGET_Y": [
+    104.1,
+    122.3
+   ],
+   "REGISTRATION_ID": "018271",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018271 · p3 y[104.1, 122.3]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "PISELLO",
+   "TARGET": "LEPIDOTTERI",
+   "ROUTE": "HEADER_CONTINUATION",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_AS_WRITTEN": "Legumi da consumo fresco con e senza baccello ed essiccati (pisello, fagiolo, fagiolino, fava, favino, lenticc",
+   "TARGET_AS_WRITTEN": "Contro afidi (Acyrthosiphon pisum, Aphis fabae), tripidi (Thrips angusticeps, Thrips tabaci), lepidotteri (Cydia nigricana, Ostrinia nubilalis) e ditteri cecidomidi (Contarinia pisi) impiegare a 0,3 l",
+   "PAGE": 1,
+   "CROP_Y": [
+    149.5,
+    203.7
+   ],
+   "TARGET_Y": [
+    149.5,
+    203.7
+   ],
+   "REGISTRATION_ID": "014190",
+   "PRODUCT": "MAVRIK EW",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 014190 · p1 y[149.5, 203.7]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "FAGIOLO",
+   "TARGET": "CECIDOMIA",
+   "ROUTE": "HEADER_CONTINUATION",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_AS_WRITTEN": "Legumi da consumo fresco con e senza baccello ed essiccati (pisello, fagiolo, fagiolino, fava, favino, lenticc",
+   "TARGET_AS_WRITTEN": "Contro afidi (Acyrthosiphon pisum, Aphis fabae), tripidi (Thrips angusticeps, Thrips tabaci), lepidotteri (Cydia nigricana, Ostrinia nubilalis) e ditteri cecidomidi (Contarinia pisi) impiegare a 0,3 l",
+   "PAGE": 1,
+   "CROP_Y": [
+    149.5,
+    203.7
+   ],
+   "TARGET_Y": [
+    149.5,
+    203.7
+   ],
+   "REGISTRATION_ID": "014190",
+   "PRODUCT": "MAVRIK EW",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 014190 · p1 y[149.5, 203.7]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "MELONE",
+   "TARGET": "AFIDI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 47.6,
+   "CROP_AS_WRITTEN": "in una fascia patata, melone, zucchino, cetriolino,",
+   "TARGET_AS_WRITTEN": "da zucchero afidi (Aphis fabae) impiegare di seconda foglia e la raccolta.",
+   "PAGE": 0,
+   "CROP_Y": [
+    485.3,
+    526.2
+   ],
+   "TARGET_Y": [
+    477.3,
+    506.9
+   ],
+   "REGISTRATION_ID": "017968",
+   "PRODUCT": "MAVRIK JET",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE",
+    "PIRIMICARB"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p0 y[477.3, 506.9]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "SUSINO",
+   "TARGET": "MOSCA",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 16.6,
+   "CROP_AS_WRITTEN": "Ciliegio, susino",
+   "TARGET_AS_WRITTEN": "Mosca della frutta",
+   "PAGE": 1,
+   "CROP_Y": [
+    232.6,
+    240.0
+   ],
+   "TARGET_Y": [
+    237.5,
+    245.0
+   ],
+   "REGISTRATION_ID": "013560",
+   "PRODUCT": "FORZA",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 013560 · p1 y[237.5, 245.0]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "CAROTA",
+   "TARGET": "AFIDI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 54.5,
+   "CROP_AS_WRITTEN": "Orticole in pieno campo: Fragola, pomodoro, melanzana, peperone, carciofo, cetri",
+   "TARGET_AS_WRITTEN": "Aphis spp.",
+   "PAGE": 2,
+   "CROP_Y": [
+    188.7,
+    279.4
+   ],
+   "TARGET_Y": [
+    227.1,
+    234.5
+   ],
+   "REGISTRATION_ID": "007876",
+   "PRODUCT": "PIRIMOR 17,5",
+   "ACTIVE_INGREDIENTS": [
+    "PIRIMICARB"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 007876 · p2 y[227.1, 234.5]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "MELANZANA",
+   "TARGET": "TRIPIDI",
+   "ROUTE": "HEADER_CONTINUATION",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_AS_WRITTEN": "Melanzana",
+   "TARGET_AS_WRITTEN": "Contro afidi (Aphis gossypii, Myzus persicae, Macrosiphum spp.), tripidi (Frankliniella occidentalis, Thrips tabaci), lepidotteri (Helicoverpa armigera, Spodoptera spp.) impiegare a 0,2 l/ha in 150- 5",
+   "PAGE": 1,
+   "CROP_Y": [
+    83.2,
+    127.4
+   ],
+   "TARGET_Y": [
+    83.2,
+    127.4
+   ],
+   "REGISTRATION_ID": "014210",
+   "PRODUCT": "EVURE PRO",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 014210 · p1 y[83.2, 127.4]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "AGRUMI",
+   "TARGET": "INFESTANTI",
+   "ROUTE": "INLINE_STATEMENT",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_AS_WRITTEN": "ARBOREE (AGRUMI, DRUPACEE, OLIVO DA OLIO E DA TAVOLA, MELO, PERO, VITE DA VINO E",
+   "TARGET_AS_WRITTEN": "Effettuare un massimo di 3 applicazioni l’anno in bande lungo la fila, evitando il contatto con foglie e parti del fusto non lignificate, senza eccedere la dose massima di 10 l/ha.",
+   "PAGE": 0,
+   "CROP_Y": [
+    479.6,
+    542.0
+   ],
+   "TARGET_Y": [
+    479.6,
+    542.0
+   ],
+   "REGISTRATION_ID": "015405",
+   "PRODUCT": "SHAMAL MK PLUS CL",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 015405 · p0 y[479.6, 542.0]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "VITE",
+   "TARGET": "PERONOSPORA",
+   "ROUTE": "HEADER_CONTINUATION",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_AS_WRITTEN": "VITE (da vino e da tavola)",
+   "TARGET_AS_WRITTEN": "Contro peronospora (Plasmopara viticola): impiegare 270 g/ha in un volume d’acqua compreso tra 200 e 1000 L/ha in relazione allo stato vegetativo della coltura. VANTEX può essere applicato dalla fase ",
+   "PAGE": 0,
+   "CROP_Y": [
+    445.9,
+    552.2
+   ],
+   "TARGET_Y": [
+    445.9,
+    552.2
+   ],
+   "REGISTRATION_ID": "017690",
+   "PRODUCT": "VANTEX",
+   "ACTIVE_INGREDIENTS": [
+    "CYMOXANIL"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 017690 · p0 y[445.9, 552.2]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "SPINACIO",
+   "TARGET": "INFESTANTI",
+   "ROUTE": "AUTHORISED_USE_LIST",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_SCOPE_DECLARED": true,
+   "TARGET_DECLARED": true,
+   "CROP_AS_WRITTEN": "linha de dose por cultura",
+   "TARGET_AS_WRITTEN": "SPETTRO D'AZIONE Erbe infestanti sensibili: Amaranto (Amaranthus spp), Farinello (Chenopodium album), Correggiola (Polygonum aviculare), Poligono persicaria (Polygonum persicaria), | Il dosaggio è in ",
+   "PAGE": 0,
+   "CROP_Y": [
+    0,
+    0
+   ],
+   "TARGET_Y": [
+    0,
+    0
+   ],
+   "REGISTRATION_ID": "018814",
+   "PRODUCT": "GOLTIX TOP",
+   "ACTIVE_INGREDIENTS": [
+    "METAMITRON"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 018814 · p0 y[0, 0]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "PESCO",
+   "TARGET": "AFIDI",
+   "ROUTE": "HEADER_CONTINUATION",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_AS_WRITTEN": "Drupacee (pesco, albicocco, nettarino)",
+   "TARGET_AS_WRITTEN": "Contro afidi (Hyalopterus amygdali, Myzus persicae, Brachycaudus persicae), lepidotteri (Anarsia lineatella, Cydia molesta), tripidi (Frankliniella occidentalis, Thrips spp.), cimice asiatica (Halyomo",
+   "PAGE": 0,
+   "CROP_Y": [
+    259.3,
+    358.6
+   ],
+   "TARGET_Y": [
+    259.3,
+    358.6
+   ],
+   "REGISTRATION_ID": "014210",
+   "PRODUCT": "EVURE PRO",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 014210 · p0 y[259.3, 358.6]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "MELANZANA",
+   "TARGET": "INFESTANTI",
+   "ROUTE": "AUTHORISED_USE_LIST",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_SCOPE_DECLARED": true,
+   "TARGET_DECLARED": true,
+   "CROP_AS_WRITTEN": "può essere impiegato nel diserbo delle seguenti colture alla dose di 1-3 l/ha in 200-400 litri di acqua:",
+   "TARGET_AS_WRITTEN": "Infestanti controllate: Graminacee annuali: Alopecurus spp. (Coda di topo), Avena spp. (Avena) * , Digitaria spp. (Sanguinel- la), Echinochloa spp (Giavone) * , Lolium spp. (Loiett",
+   "PAGE": 0,
+   "CROP_Y": [
+    0,
+    0
+   ],
+   "TARGET_Y": [
+    0,
+    0
+   ],
+   "REGISTRATION_ID": "013876",
+   "PRODUCT": "APACHE",
+   "ACTIVE_INGREDIENTS": [
+    "QUIZALOFOP-P-ETHYL"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 013876 · p0 y[0, 0]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "PISELLO",
+   "TARGET": "CECIDOMIA",
+   "ROUTE": "HEADER_CONTINUATION",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_AS_WRITTEN": "Legumi da consumo fresco con e senza baccello ed essiccati (pisello, fagiolo, fagiolino, fava, favino, lenticc",
+   "TARGET_AS_WRITTEN": "Contro afidi (Acyrthosiphon pisum, Aphis fabae), tripidi (Thrips angusticeps, Thrips tabaci), lepidotteri (Cydia nigricana, Ostrinia nubilalis) e ditteri cecidomidi (Contarinia pisi) impiegare a 0,3 l",
+   "PAGE": 1,
+   "CROP_Y": [
+    239.7,
+    320.7
+   ],
+   "TARGET_Y": [
+    239.7,
+    320.7
+   ],
+   "REGISTRATION_ID": "014210",
+   "PRODUCT": "EVURE PRO",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 014210 · p1 y[239.7, 320.7]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "RAVANELLO",
+   "TARGET": "TRIPIDI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 57.9,
+   "CROP_AS_WRITTEN": "Orticole aglio, cipolla, carota, cavolfiore, cavolo broccolo, cavolini di Bruxel",
+   "TARGET_AS_WRITTEN": "Dorifora, cavolaia, tripidi, piralidi",
+   "PAGE": 1,
+   "CROP_Y": [
+    404.2,
+    476.1
+   ],
+   "TARGET_Y": [
+    428.8,
+    436.3
+   ],
+   "REGISTRATION_ID": "008259",
+   "PRODUCT": "LAMDEX EXTRA",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 008259 · p1 y[428.8, 436.3]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "FRAGOLA",
+   "TARGET": "LEPIDOTTERI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 17.8,
+   "CROP_AS_WRITTEN": "Fragola",
+   "TARGET_AS_WRITTEN": "Lepidotteri tortricidi",
+   "PAGE": 1,
+   "CROP_Y": [
+    349.0,
+    356.5
+   ],
+   "TARGET_Y": [
+    353.9,
+    361.4
+   ],
+   "REGISTRATION_ID": "013560",
+   "PRODUCT": "FORZA",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 013560 · p1 y[353.9, 361.4]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "CAVOLO",
+   "TARGET": "INFESTANTI",
+   "ROUTE": "AUTHORISED_USE_LIST",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_SCOPE_DECLARED": true,
+   "TARGET_DECLARED": true,
+   "CROP_AS_WRITTEN": "può essere impiegato nel diserbo delle seguenti colture alla dose di 1-3 l/ha in 200-400 litri di acqua:",
+   "TARGET_AS_WRITTEN": "Infestanti controllate: Graminacee annuali: Alopecurus spp. (Coda di topo), Avena spp. (Avena) * , Digitaria spp. (Sanguinel- la), Echinochloa spp (Giavone) * , Lolium spp. (Loiett",
+   "PAGE": 0,
+   "CROP_Y": [
+    0,
+    0
+   ],
+   "TARGET_Y": [
+    0,
+    0
+   ],
+   "REGISTRATION_ID": "011789",
+   "PRODUCT": "MANAGER",
+   "ACTIVE_INGREDIENTS": [
+    "QUIZALOFOP-P-ETHYL"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 011789 · p0 y[0, 0]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "MELONE",
+   "TARGET": "NOTTUE",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 27.6,
+   "CROP_AS_WRITTEN": "Orticole aglio, cipolla, carota, cavolfiore, cavolo broccolo, cavolini di Bruxel",
+   "TARGET_AS_WRITTEN": "Nottue defogliatrici (allo scoperto)",
+   "PAGE": 2,
+   "CROP_Y": [
+    410.6,
+    482.8
+   ],
+   "TARGET_Y": [
+    475.4,
+    482.8
+   ],
+   "REGISTRATION_ID": "015275",
+   "PRODUCT": "DURAVIS",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 015275 · p2 y[475.4, 482.8]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "MELANZANA",
+   "TARGET": "OIDIO",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 7.3,
+   "CROP_AS_WRITTEN": "Pomodoro Melanzana (uso in serra)",
+   "TARGET_AS_WRITTEN": "Oidio (Leveillula taurica,",
+   "PAGE": 0,
+   "CROP_Y": [
+    393.2,
+    427.6
+   ],
+   "TARGET_Y": [
+    384.4,
+    409.3
+   ],
+   "REGISTRATION_ID": "015232",
+   "PRODUCT": "CUSTODIA ULTRA",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 015232 · p0 y[384.4, 409.3]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "ORZO",
+   "TARGET": "AFIDI",
+   "ROUTE": "HEADER_CONTINUATION",
+   "RELATION": "SUPPORTED_PAIR",
+   "CROP_AS_WRITTEN": "Cereali (orzo, frumento)",
+   "TARGET_AS_WRITTEN": "Contro afidi (Sitobion avenae) e ditteri cecidomidi (Sitodiplosis mosellana) impiegare a 2 l/ha , intervenendo tra inizio spigatura ed inizio maturazione lattea.",
+   "PAGE": 0,
+   "CROP_Y": [
+    366.8,
+    403.9
+   ],
+   "TARGET_Y": [
+    366.8,
+    403.9
+   ],
+   "REGISTRATION_ID": "017968",
+   "PRODUCT": "MAVRIK JET",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE",
+    "PIRIMICARB"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 017968 · p0 y[366.8, 403.9]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "COCOMERO",
+   "TARGET": "TRIPIDI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 57.9,
+   "CROP_AS_WRITTEN": "Orticole aglio, cipolla, carota, cavolfiore, cavolo broccolo, cavolini di Bruxel",
+   "TARGET_AS_WRITTEN": "Dorifora, cavolaia, tripidi, piralidi",
+   "PAGE": 1,
+   "CROP_Y": [
+    404.2,
+    476.1
+   ],
+   "TARGET_Y": [
+    428.8,
+    436.3
+   ],
+   "REGISTRATION_ID": "008259",
+   "PRODUCT": "LAMDEX EXTRA",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 008259 · p1 y[428.8, 436.3]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  },
+  {
+   "CROP": "CIPOLLA",
+   "TARGET": "AFIDI",
+   "ROUTE": "GEOMETRIC_TABLE",
+   "RELATION": "SUPPORTED_PAIR",
+   "ROW_MARGIN": 37.9,
+   "CROP_AS_WRITTEN": "Orticole aglio, cipolla, carota, cavolfiore, cavolo broccolo, cavolini di Bruxel",
+   "TARGET_AS_WRITTEN": "Afidi (foglie non accartocciate), mosca bianca",
+   "PAGE": 1,
+   "CROP_Y": [
+    394.3,
+    466.2
+   ],
+   "TARGET_Y": [
+    394.4,
+    410.9
+   ],
+   "REGISTRATION_ID": "013590",
+   "PRODUCT": "NINJA",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "TAXONOMIC_STATUS": "UNKNOWN",
+   "TAXONOMIC_NOTE": null,
+   "SUBSTANCE_NORMALISATION": null,
+   "PROVENANCE": "MINISTERO_LABEL_PDF · 013590 · p1 y[394.4, 410.9]",
+   "PARSER_VERSION": "it_rotulo_parser/3.4.0"
+  }
+ ]
+}

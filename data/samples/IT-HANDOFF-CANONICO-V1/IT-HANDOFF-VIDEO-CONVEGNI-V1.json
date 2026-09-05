@@ -1,0 +1,260 @@
+{
+ "DATASET": "IT-HANDOFF-VIDEO-CONVEGNI-V1",
+ "LAYER": "HANDOFF_TO_CANONICAL_TRACK",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-HANDOFF-VIDEO-CONVEGNI-V1",
+ "CAPTURED_AT": "2026-09-04",
+ "BRANCH": "claude/retomada-coleta-video-convegni-vz50er",
+ "BASE_HEAD": "34e4ce8767e5e56fd8b6bba9c99e1b53d4beb024",
+
+ "O_QUE_ESTE_ARTEFATO_E": "o entregavel da missao de COLETA E ESTRUTURACAO de evidencia de video/convegno italiano, para ser consumido DEPOIS pela trilha canonica. E imutavel no sentido de que nada aqui e reescrito por uma passagem seguinte: uma passagem nova acrescenta uma versao, nao edita esta.",
+
+ "O_QUE_ESTE_ARTEFATO_NAO_E": "esta missao NAO e dona de ACT_NOW, COMMERCIAL_PRIORITY, PUBLICATION_STATE, WINDOW_OPEN_NOW nem do Opportunity Engine. Nenhum status e nenhum score foi alterado por ela. STATUS_CHANGES = 0. SCORE_CHANGES = 0. Nada aqui foi escrito no portal, no Vercel, em producao nem no snapshot congelado da reuniao. Os campos de faixa (WATCH / NOT_YET) que aparecem citados vieram do agente de cruzamento e sao TRANSCRITOS, nao decididos aqui.",
+
+ "OBJECT_CENSUS": {
+  "TOTAL_OBJECTS_WITH_SPEECH_IN_GIT": 38,
+  "BREAKDOWN": {
+   "IT-CONVEGNO-V1_falas": {"OBJECTS": 17, "CHARS": 2811477},
+   "IT-CONVEGNO-V2_falas_resgatadas": {"OBJECTS": 3, "CHARS": 235619},
+   "IT-VIDEO-V1_falas": {"OBJECTS": 18, "CHARS": 367558}
+  },
+  "TOTAL_TRANSCRIPT_CHARS_IN_GIT": 3414654,
+  "BY_TRANSCRIPT_ORIGIN": {
+   "YOUTUBE_ASR_AUTO": 38,
+   "YOUTUBE_MANUAL": 0,
+   "SINTONIA_WHISPER_LOCAL": 0,
+   "OTHER": 0
+  },
+  "NOTA_SOBRE_ORIGEM": "TODAS as 38 falas de video sao YOUTUBE_ASR_AUTO. Nenhuma e transcricao propria desta casa, e nenhuma foi inventada. A Lei 9 vale sobre todas: transcricao automatica erra nomes proprios e nomes de molecula ('captano' por captan, 'fluxapiroxad' por fluxapyroxad, 'dittian' por dithianon, 'fluazzin' por fluazinam). As citacoes sao preservadas COMO O ASR ESCREVEU, com a leitura entre parenteses."
+ },
+
+ "VOICE_CLASSIFICATION": {
+  "REGRA": "voz da propria ADAMA NAO conta como evidencia independente externa sobre oportunidade ADAMA. Ela vale por linguagem tecnica, posicionamento, temas, produtos/substancias, prioridades e para confronto com o que fontes externas dizem.",
+  "ADAMA_OWN_VOICE_OBJECTS": 2,
+  "ADAMA_OWN_VOICE_LIST": ["wh20ZkHf5Cc", "AOOVhtTQvPA"],
+  "INDEPENDENT_SOURCE_OBJECTS": 36,
+  "CASO_DE_FRONTEIRA_DECLARADO": "wh20ZkHf5Cc tem TRES falantes com TRES classes. Tommaso Cesani (AgroNotizie) e jornalista independente; Massimo Blandino (Universita di Torino) e cientista externo real. Mas o PALCO e da ADAMA, que escolheu e enquadrou os dois. Por isso o objeto inteiro conta como ADAMA_OWN_VOICE, e Blandino recebe a classe INVITED_BY_ADAMA_NOT_INDEPENDENT_ABOUT_ADAMA. Usar a presenca de um professor e de um jornalista para chamar o webinar de fonte independente seria inflar diversidade de evidencia — exatamente o que a missao proibe.",
+  "CASO_DE_FRONTEIRA_2": "AOOVhtTQvPA e publicado por um canal INDEPENDENTE (Giornate Fitopatologiche), mas o falante e declarado 'consulente Adama Italia'. A independencia do canal nao lava a filiacao do falante. Classificado ADAMA_OWN_VOICE."
+ },
+
+ "CROSSINGS": {
+  "GROUPS_PLANNED": 4,
+  "GROUPS_CLOSED_AND_PERSISTED": 1,
+  "GROUPS_LOST_UNPERSISTED": 3,
+  "CLOSED": ["pomacee-drupacee"],
+  "LOST": ["vite", "seminativi", "olivo-agrumi"],
+  "CROSSINGS_PROPOSED": 4,
+  "CROSSINGS_SURVIVED": 2,
+  "CROSSINGS_REFUTED": 2,
+  "PAIRS_DISCARDED_WITH_REASON": 11,
+  "REGRA_DE_PRESERVACAO": "os 11 descartes e os 2 refutados ficam GUARDADOS com o motivo escrito, e nao apenas os 2 sobreviventes. Um beco documentado impede a proxima passagem de gastar o mesmo tempo no mesmo beco. Evidencia negativa nao se apaga.",
+
+  "SURVIVOR_1": {
+   "ID": "MELO_x_GLOMERELLA",
+   "RELATION": "OPENS",
+   "KIND": "FALA_ANTECEDE_INSTITUCIONAL",
+   "CROP": "MELO",
+   "TARGET": "GLOMERELLA LEAF SPOT (GLS) e APPLE BITTER ROT (ABR) — complexo Colletotrichum spp. / Glomerella cingulata",
+   "CLAIM_A": "em 2025-12-05, no palco do AIPP, Riccardo Bugiani (Settore fitosanitario, Regione Emilia-Romagna) ja da a lista de moleculas eficazes contra a Glomerella",
+   "SOURCE_A": "data/samples/IT-CONVEGNO-V1/falas/4ybyIcvgUhg.json — AIPP, 'Il bilancio fitosanitario 2024/2025 delle pomacee - sessione funghi', 2025-12-05, 176.835 car., YOUTUBE_ASR_AUTO",
+   "QUOTE_A": "disponibilita di principi attivi efficaci, quindi captano, dittian, non fluazzin, fluioxonil, fra i chimici, argille acide, bicarbonato e zolfo, fra i cosiddetti impiegabili in agricoltura biologica",
+   "QUOTE_A_LEITURA": "captano (captan), dithianon, fluazinam, fludioxonil — deformacoes evidentes do ASR, declaradas e nao corrigidas silenciosamente",
+   "CLAIM_B": "em 2026-09-02 o boletim FCRR n.28 da mesma regiao publica praticamente a mesma linha",
+   "SOURCE_B": "data/samples/IT-CAMPO-V1/IT-BOLLETTINI-ER-SOSTANZE-ATTIVE-V1.json — bollettini ER, linha Glomerella lida em 2026-08-05, 08-07, 08-19, 08-21 e 09-02",
+   "QUOTE_B": "Glomerella: si segnala la comparsa di sintomi di Bitter rot e GLS in alcuni areali. [...] con Captano, Bicarbonato di potassio e Zolfo, eseguiti per il controllo di ticchiolatura, possono avere efficacia nel contenimento di Glomerella; oppure [...] Dithianon o nelle varieta prossime alla raccolta intervenire con Fludioxonil(*) (Max 2).",
+
+   "PRECEDENCE": {
+    "MEDIDA": true,
+    "FALA": "2025-12-05",
+    "PRIMEIRO_BOLETIM_DA_CAMPANHA_2026_NO_INDICE": "2026-02-26",
+    "TEMPORAL_DISTANCE_DAYS": 83,
+    "AFIRMACAO_DEFENSAVEL": "A fonte A registrou o sinal 83 dias antes do primeiro bollettino da campanha de 2026 encontrado no acervo desta casa, para a mesma regiao.",
+    "AFIRMACAO_PROIBIDA": "'a fala PREVIU o boletim'. Nao ha contrato de previsao nesta casa. PRECEDENCE nao e PREDICTION, e a distincao fica escrita.",
+    "LIMITE_HONESTO": "o indice IT-BOLLETTINI-ER-2026-INDICE.json tem 150 documentos desde 2026-02-26 e apenas 14 tiveram o texto extraido. 2026-08-05 e a primeira data NA NOSSA LEITURA, nao no mundo. Por isso a unica precedencia sustentada e a de 2025-12-05 contra 2026-02-26, que nao depende de leitura ausente."
+   },
+
+   "CLUSTER_NELLE_FONTI_MONITORATE": {
+    "VOZES_INDEPENDENTES_QUE_NOMEIAM_A_DOENCA": 5,
+    "LISTA": [
+     {"REGION": "Emilia-Romagna", "WHO": "Regione ER (Bugiani) e Ri.Nova (Turci)"},
+     {"REGION": "Piemonte", "WHO": "Agrion (Bossolasco)"},
+     {"REGION": "Lombardia/Valtellina", "WHO": "Culatti"},
+     {"REGION": "Trentino-Alto Adige", "WHO": "relator do bilancio"},
+     {"REGION": "Veneto", "WHO": "Tosi"}
+    ],
+    "REGIOES_NAO_FORAM_FUNDIDAS": "cada regiao esta declarada pelo seu proprio falante. A linha operacional do boletim da Emilia-Romagna NAO foi estendida a Piemonte, Trentino nem Lombardia."
+   },
+
+   "PRIMEIRA_DETECCAO_EM_TEMPO_REAL": {
+    "REGION": "Lombardia",
+    "WHO": "Culatti",
+    "DATE": "2025-12-05",
+    "EXACT_QUOTE": "la novita e che facendo le analisi per l'alternaria, poi sugli stessi campioni abbiamo trovato anche Glomerella. Questo e un dato di due giorni fa. [...] GLS l'ho messa questa volta per il primo anno con indicazione di al momento non danni, se solo segnalata.",
+    "POR_QUE_IMPORTA": "e um registro de primeira deteccao regional praticamente em tempo real, dito no palco. A frase 'questo e un dato di due giorni fa' fica preservada literalmente, com a fonte."
+   },
+
+   "CONTRADICAO_PRESERVADA": {
+    "REGION": "Veneto",
+    "WHO": "Tosi",
+    "DIRECTION": "OPOSTA",
+    "EXACT_QUOTE": "qualche marciume di frutti, parlo di Glosporion e affini non certo di GLS e Bitter Rot",
+    "REGRA": "a contradicao PERMANECE. Consenso parcial de quatro regioes NAO vira consenso nacional. O Veneto aponta na direcao contraria e isso e parte do achado, nao ruido a limpar."
+   },
+
+   "TAXONOMIC_CAVEAT": {
+    "OBRIGATORIA": true,
+    "MARCADA_PELO_PROPRIO_AGENTE_ANTES_DO_CETICO": true,
+    "O_QUE_O_ROTULO_ADAMA_ESCREVE": "Gloeosporium",
+    "O_QUE_AS_VOZES_TRATAM": "complexo Colletotrichum spp. / Glomerella cingulata",
+    "POR_QUE_NAO_E_EQUIVALENCIA": "as duas coisas se chamam 'antracnosi del melo' no italiano corrente, mas o casamento e de VOCABULARIO e nao de GENERO. Gloeosporium e Colletotrichum/Glomerella sao generos diferentes.",
+    "TAXONOMIC_MATCH": "NAO_DEFENSAVEL_AINDA",
+    "PRODUCT_MATCH": "NAO_PROMOVIDO",
+    "REGRA_DE_REBAIXAMENTO": "o elo so pode permanecer no nivel de produto/alvo se a equivalencia for defensavel POR FONTE. Se ela cair, o elo desce de BLOCO_DA_CULTURA para SUBSTANCIA_ATIVA. Nao se forca PRODUCT_MATCH.",
+    "O_QUE_DESTRAVA": "ler o texto integral do rotulo dos registros de captan (MERPAN 80 WDG 008102, CAPTHENE 80 WDG 011500, MAKE UP 80 WDG 012156) e verificar se 'Gloeosporium' ali cobre ou nao o complexo Colletotrichum."
+   },
+
+   "LINK_STRENGTH": "BLOCO_DA_CULTURA",
+   "ADAMA_LABEL_PAIRS": [
+    "IT-LBL-262 MERPAN 80 WDG · reg 008102 · MELO x ANTRACNOSE, TARGET_AS_WRITTEN 'Gloeosporium' · AI_CAPTAN",
+    "IT-LBL-583 CAPTHENE 80 WDG · reg 011500 · MELO x ANTRACNOSE 'Gloeosporium' · AI_CAPTAN",
+    "IT-LBL-789 MAKE UP 80 WDG · reg 012156 · MELO x ANTRACNOSE 'Gloeosporium' · AI_CAPTAN",
+    "IT-LBL-260/581/787 · MELO x TICCHIOLATURA 'Venturia spp' · a cobertura de ticchiolatura e o que o boletim diz ter efeito colateral sobre Glomerella"
+   ],
+   "CORRECAO_OBRIGATORIA_DO_PROPRIO_CETICO": "a frase 'CAPTAN e a UNICA das cinco substancias da linha do boletim que a ADAMA tem com MELO no rotulo lido' esta ERRADA. Sao SEIS substancias, nao cinco, e sao DUAS as que a ADAMA tem com MELO no rotulo lido. E uma afirmacao de ausencia refutada pelos proprios arquivos que o cruzamento citava como prova. Erra para MENOS, entao nao derruba a relacao — mas a frase precisa ser corrigida antes de qualquer publicacao.",
+   "EVIDENCE_ROLE": "OPENS",
+   "CONFIDENCE": "HIGH",
+   "FAIXA_TRANSCRITA_DO_AGENTE": "WATCH",
+   "OPPORTUNITY_IDS_TOCADOS": [],
+   "PROMOCAO": "NENHUMA"
+  },
+
+  "SURVIVOR_2": {
+   "ID": "MELO_x_AFIDE_LANIGERO",
+   "RELATION": "WEAKENS",
+   "KIND": "ESFRIA_OPORTUNIDADE",
+   "CROP": "MELO",
+   "TARGET": "AFIDE LANIGERO (Eriosoma lanigerum), com o parassitoide Aphelinus mali como eixo da decisao",
+   "O_ACHADO": "as 35 linhas de rotulo ADAMA de MELO x AFIDI estao TODAS de um dos dois lados que o proprio boletim restringe: 15 sao pirimicarb puro — que o boletim marca '(*) Sostanza attiva Candidata alla Sostituzione' — e 17 sao piretroide puro, que o mesmo boletim, no mesmo paragrafo, pede para limitar a fim de preservar o Aphelinus mali.",
+   "POR_QUE_ISTO_ESFRIA_E_NAO_ESQUENTA": "ha VOLUME de evidencia (35 linhas de rotulo) e o volume aponta para BAIXO. Converter volume em oportunidade seria ler a quantidade e ignorar a direcao. EVIDENCE_ROLE = WEAKENS.",
+   "SIGNAL_DIRECTION": "CONTRA_O_PORTFOLIO",
+   "QUOTE_BOLETIM": "Al superamento della soglia di 10 colonie vitali su 100 organi controllati con infestazione in atto intervenire con Pirimicarb(*), attivi contro l'afide verde o Sali potassici degli acidi grassi. Per favorire la presenza degli antagonisti naturali (tra cui il parassitoide Aphelinus mali) importante limitare per quanto possibile l'impiego di piretroidi",
+   "QUOTE_FALA_1": "faccio mio il titolo di una giornata tecnica organizzata da Agrion quest'estate in cui si parlava di Eriosoma Lanigero anno zero. l'anno zero sara il 2026",
+   "QUOTE_FALA_2": "Sicuramente tra le molecole sperimentate quella che funzionava meglio era lo spiro tetramat che pero e una molecola che sappiamo non si puo piu utilizzare, seguita dal pirimicarb che anche questa ha dei problemi.",
+   "QUOTE_FALA_3": "in Piemonte i trattamenti autunnali non hanno sortito alcun effetto",
+   "SPEAKER_FALA_2_E_3": "Luciana Tavella, Giornate Fitopatologiche, 2026-05-11",
+   "THRESHOLD": "10 colonie vitali su 100 organi controllati",
+   "DOES_NOT_PROVE": "NAO prova pressao de campo — o boletim diz 'situazione al momento ben controllata' e 'un leggero aumento'. Isso e PRONTIDAO, nao demanda. E NAO prova que a ADAMA vai perder venda: 'candidata alla sostituzione' e um estado regulatorio europeu, nao uma revogacao.",
+   "NEGATIVE_EVIDENCE_QUE_FICA": "APYZA WG (018156) e APYZA 500 WG (018165), AI_FLONICAMID, com CROP_APPLE declarado em productsRegulatory e ZERO linhas em productRelationships — rotulo NUNCA LIDO. A assimetria e da NOSSA LEITURA, nao do mundo.",
+   "O_QUE_DESTRAVA": "ler duas paginas: os rotulos dos registros 018156 e 018165. Se algum trouxer MELO com alvo afidico na LINHA DA TABELA, a ADAMA passa a ter em maca uma rota que nao e piretroide nem pirimicarb.",
+   "EVIDENCE_ROLE": "WEAKENS",
+   "FAIXA_TRANSCRITA_DO_AGENTE": "NOT_YET",
+   "OPPORTUNITY_IDS_TOCADOS": ["OPP_56F19FD9F62B"],
+   "PROMOCAO": "NENHUMA"
+  },
+
+  "TENTACAO_RECUSADA_PRESERVADA": {
+   "PAIR": "MELO x GLOMERELLA x FLUAZINAM",
+   "DECISAO": "RECUSADO DE PROPOSITO",
+   "POR_QUE": "a fala do AIPP nomeia fluazinam entre os principi attivi eficazes contra a Glomerella, e a ADAMA tem tres registros de fluazinam com MELO no rotulo (BANJO, EMBRACE, AGHARTA). Mas o rotulo desses tres traz MELO so para TICCHIOLATURA ('Venturia inaequalis') e ALTERNARIA ('Alternaria mali'), e o boletim — que e quem escreve a recomendacao operacional — NAO nomeia fluazinam no paragrafo de Glomerella.",
+   "O_QUE_SERIA_INVENTAR": "montar 'a fala diz que fluazinam funciona' + 'a ADAMA tem fluazinam em melo' seria construir uma afirmacao de eficacia que o rotulo nao assina e que o servico nao fez.",
+   "REGRA": "esta recusa e PRESERVADA e NAO deve ser 'completada' por inferencia numa passagem futura. Sem par lido, nao ha promocao a produto."
+  },
+
+  "DISCARDED_PAIRS_COUNT": 11,
+  "DISCARDED_PAIRS_LOCATION": "data/samples/IT-CRUZAMENTO-V2/IT-CRUZAMENTOS-V2.json → GROUPS['pomacee-drupacee'].not_crossed — os 11 pares com o motivo de cada um, integrais e nao resumidos",
+  "VAZIOS_MEDIDOS": {
+   "ALBICOCCO": "16 pares de rotulo, ZERO sinais em ambos os arquivos de sinais. Cultura com rotulo e sem voz: vazio MEDIDO, nao cruzamento.",
+   "CILIEGIO": "27 pares de rotulo, nenhuma sobreposicao real de eixos — regiao nao bate, janela nao bate.",
+   "PERO": "11 pares; o unico cruzamento possivel ja existe (IT-X-2026-005) e a janela fechou.",
+   "ACTINIDIA": "10 pares; o unico sinal e uma deroga cujo decreto nao foi lido."
+  }
+ },
+
+ "OPEN_CONTRADICTIONS_HERDADAS": [
+  {
+   "ID": "IT-CONTRA-001",
+   "SUBJECT": "resistencia a propanil (HRAC 5 / C2) em Echinochloa crus-galli na Italia",
+   "ESTADO": "ABERTA, nao arbitrada, nao escondida",
+   "ONDE": "data/samples/IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json → OPEN_CONTRADICTIONS"
+  },
+  {
+   "ID": "IT-CONTRA-002",
+   "SUBJECT": "Glomerella no Veneto",
+   "ESTADO": "ABERTA. Quatro regioes descrevem a doenca como emergente e preocupante; o Veneto (Tosi) declara explicitamente que NAO se trata de GLS nem de Bitter Rot. Nao arbitrada.",
+   "ONDE": "este arquivo, CROSSINGS.SURVIVOR_1.CONTRADICAO_PRESERVADA"
+  }
+ ],
+
+ "BLOCKED_OBJECTS": [
+  {
+   "EXTERNAL_ID": "c2bJ4IqqXek",
+   "TITLE": "bilancio fitosanitario delle drupacee",
+   "DURATION_S": 15388,
+   "DURATION_HUMAN": "4h16",
+   "CROPS_DECLARED": {"PESCO": 45, "CILIEGIO": 27, "ALBICOCCO": 16},
+   "STATE": ["NO_ITALIAN_CAPTION", "AUDIO_BINARY_EGRESS_BLOCKED"],
+   "O_QUE_NAO_E": ["NO_AUDIO", "NO_SOURCE", "NO_METADATA", "TEMPORARY_QUEUE"],
+   "DIAGNOSTICO": "nao existe legenda italiana de nenhum tipo — nem manual nem automatica. A rota de timedtext nao resolve porque a legenda simplesmente NAO EXISTE. O metadado abre e lista tres formatos so-audio, mas o binario vem de googlevideo.com e a politica de saida devolve HTTP 403, que NAO cede a espera: cinco tentativas, 403 nas cinco.",
+   "ROTA_DESEJADA_SE_O_AUDIO_ABRIR": "download de audio -> whisper local -> TRANSCRIPT_ORIGIN = SINTONIA_WHISPER_LOCAL",
+   "ROTA_PROIBIDA": "YOUTUBE_ASR_AUTO nao existe para este objeto, e transcricao nao se inventa.",
+   "TENTATIVAS_NESTA_CONTA": "ZERO tentativas de binario googlevideo. A missao proibe gastar cinco tentativas identicas de novo, e a proibicao foi respeitada.",
+   "REMEDICAO_NESTA_CONTA_2026_09_04": {
+    "O_QUE_FOI_MEDIDO": "so metadado e disponibilidade de legenda. Nenhum byte de midia pedido.",
+    "META_ABRIU_NA_TENTATIVA": 5,
+    "META_BOT_CHECK_NAS_TENTATIVAS": [1, 2, 3, 4],
+    "CAPTION_LANGS_OFFERED": [],
+    "CAPTION_IT_FOUND": false,
+    "ACHADO_MAIS_FORTE_QUE_O_ANTERIOR": "a lista de idiomas de legenda voltou VAZIA. Nao e apenas 'sem legenda italiana': este objeto nao oferece legenda em idioma nenhum, nem manual nem automatica. O diagnostico da conta anterior fica confirmado e fica mais preciso.",
+    "AUDIO_ONLY_FORMATS_KBPS": [48, 106, 129],
+    "CONFERE_COM_A_CONTA_ANTERIOR": "sim, os tres formatos so-audio sao exatamente os mesmos (48, 106 e 129 kbps), e a duracao 15.388 s tambem.",
+    "AUDIO_BINARY_ATTEMPTED": false,
+    "ROTA_ALTERNATIVA_TESTADA_UMA_VEZ": {
+     "O_QUE": "leitura da politica do proxy de saida em $HTTPS_PROXY/__agentproxy/status — ler a politica, e nao repetir o caminho bloqueado",
+     "RESULTADO": "selective=false, toolScoped=false, recentRelayFailures=[]. Nao ha allowlist por host para acionar e nao ha falha de relay recente a corrigir.",
+     "CONCLUSAO": "nao existe nesta casa rota que obtenha o audio do YouTube sem passar por googlevideo.com. A rota de audio local (it_audio.py, IT-VOZ-AUDIO) busca MP3 de host de podcast, e nao serve para um video do YouTube.",
+     "O_QUE_NAO_FOI_FEITO": "nao desliguei verificacao TLS e nao removi HTTPS_PROXY."
+    },
+    "VEREDITO": "o bloqueio e LEGITIMO e permanece registrado como tal."
+   }
+  }
+ ],
+
+ "FIX_06_LIMITE": {
+  "DONO_EXISTENTE": "data/samples/IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json → CORRECTIONS_TO_MY_OWN_MEASUREMENTS → FIX-06 → E_O_LIMITE_DESTA_PROPRIA_CORRECAO",
+  "SEGUNDA_REGRA_CRIADA": false,
+  "POR_QUE_NAO": "o FIX-06 ja carrega o proprio limite escrito DENTRO dele. Criar uma segunda regra duplicaria a mesma conclusao em dois lugares e faria as duas divergirem com o tempo.",
+  "A_REGRA": "youtube.com/api/timedtext (LEGENDA) -> bot-check que CEDE a espera. googlevideo.com (BINARIO) -> HTTP 403 pela politica de saida, e NAO cede. A PRIMEIRA E FILA. A SEGUNDA E MURO.",
+  "REMEDIDO_NESTA_CONTA": "sim, e por acaso: -4lUyIORl4A levou bot-check nas tentativas 1 e 2 e devolveu 200 na 3, apos espera, sem credencial. A metade 'fila' da regra foi confirmada por outra conta, em outro contêiner, com outra instalacao do yt-dlp. A metade 'muro' nao foi testada de novo, de proposito."
+ },
+
+ "UNCERTAINTIES": [
+  {
+   "ID": "UNC-01",
+   "WHAT": "2 objetos e 28.473 caracteres do total de 22/3.075.569 declarado no FIX-06 nao foram identificados",
+   "WHY": "os ids nunca foram escritos em arquivo versionado; viviam so na memoria da sessao anterior e no scratchpad que morreu com o contêiner",
+   "O_QUE_NAO_FOI_FEITO": "nao foram adivinhados. Nao existe em IT-VIDEO-V1 nenhum objeto de 28.473 caracteres nem par que some 28.473.",
+   "STATE": "UNKNOWN"
+  },
+  {
+   "ID": "UNC-02",
+   "WHAT": "3 grupos de cruzamento (vite, seminativi, olivo-agrumi) e as leituras de convegno dos lotes A-F nunca foram persistidos",
+   "WHY": "estavam rodando quando a conta anterior esgotou os creditos. Os workflows escreviam em memoria de agente e no scratchpad efemero; so o grupo pomacee-drupacee chegou a virar commit.",
+   "RECUPERAVEL": "os INPUTS sim (as 38 falas e os arquivos de sinais estao todos em git); os OUTPUTS nao. Refazer e possivel e custa fan-out novo, que a missao restringe.",
+   "STATE": "LOST_OUTPUT_INPUTS_INTACT"
+  },
+  {
+   "ID": "UNC-03",
+   "WHAT": "a leitura de rotulo cobre 102 dos 163 registros ADAMA. Toda afirmacao de ausencia construida sobre os 61 restantes e fragil.",
+   "PRECEDENTE": "foi assim que o unico sinal ja refutado desta casa (VITE x COCCINIGLIA) caiu: pelo mesmo arquivo que ele citava como prova.",
+   "STATE": "KNOWN_LIMIT"
+  },
+  {
+   "ID": "UNC-04",
+   "WHAT": "a I e a II sessione do bilancio do olivo (-4lUyIORl4A e azHKlPD3qAg) estao no acervo mas a I NUNCA foi lida por nenhum agente",
+   "WHY": "chegou depois que os workflows de leitura ja tinham sido despachados",
+   "STATE": "COLLECTED_NOT_READ"
+  }
+ ],
+
+ "NOTES": "Nenhuma transcricao inventada. Nenhum resultado negativo apagado. Nenhuma voz ADAMA contada como fonte independente. Nenhuma precedencia convertida em previsao. Nenhuma equivalencia taxonomica assumida. Nenhum produto promovido sem par lido. Portal, producao, Vercel e snapshot da reuniao: intocados."
+}

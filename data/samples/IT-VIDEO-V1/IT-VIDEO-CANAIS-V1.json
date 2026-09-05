@@ -1,0 +1,1167 @@
+{
+ "DATASET": "IT-VIDEO-CANAIS-V1",
+ "SOURCE": "YouTube — feed público por channel_id (videos.xml), sem chave",
+ "SOURCE_ID": "IT-SRCX-036",
+ "CAPTURED_AT": "2026-09-03",
+ "RUN_ID": "IT-VIDEO-2026-09-03",
+ "WINDOW_DAYS": 90,
+ "WINDOW_FROM": "2026-06-05",
+ "CHANNELS_DECLARED": 20,
+ "CHANNELS_WITH_FEED": 20,
+ "ITEMS_IN_WINDOW": 102,
+ "EXCLUDED_AND_WHY": [
+  {
+   "CHANNEL": "Passione Orto · Orto Da Coltivare · Piccoli Orti Grandi Raccolti · Your Hobby · Dall'Orto alla Tavola · ColtivoBio · Bosco di Ogigia · Sweety Farm",
+   "REASON": "HORTICULTURA_DOMESTICA — não observam cultura, alvo, molécula ou região do radar"
+  },
+  {
+   "CHANNEL": "Cornell SIPS · INTA Chubut · El campo es nuestro Aragón TV · Laderas del Naranco",
+   "REASON": "NOT_ITALIAN — estão no acervo canônico entre os 62 canais e não são italianos"
+  },
+  {
+   "CHANNEL": "Telenorba · Qdpnews · Rovigo IN Diretta · Milano Pavia TV · NOCI24",
+   "REASON": "MEDIA_GENERALISTA_LOCAL — cobrem agricultura por notícia, não por técnica. Não é rejeição definitiva: é fora do recorte desta passagem"
+  }
+ ],
+ "ZERO_MEANS": "feed com 0 itens na janela significa NENHUM ITEM PUBLICADO NA JANELA por este canal, nesta leitura. Nunca \"o canal parou\".",
+ "CHANNELS": [
+  {
+   "CHANNEL_ID": "UCktJyIUm3qJJpThrTa8nsHQ",
+   "CHANNEL_NAME": "AIPP — Associazione Italiana Protezione Piante",
+   "DECLARED_ROLE": "SCIENTIFIC_SOCIETY",
+   "ORGANIZATION": "AIPP",
+   "ADAMA_RELEVANCE_REASON": "sociedade científica italiana da proteção das plantas — o próprio negócio da ADAMA",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": null,
+   "CHANNEL_ID_RESOLVED": "UCktJyIUm3qJJpThrTa8nsHQ",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 21549,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 4,
+   "LATEST_IN_FEED": "2026-07-30"
+  },
+  {
+   "CHANNEL_ID": "UCWjrNnyRiWOtCM0zKUcsK5A",
+   "CHANNEL_NAME": "FMC Agro Italia",
+   "DECLARED_ROLE": "COMPANY",
+   "ORGANIZATION": "FMC",
+   "ADAMA_RELEVANCE_REASON": "comunicação técnica de concorrente em italiano, declarada no site da própria empresa",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": null,
+   "CHANNEL_ID_RESOLVED": "UCWjrNnyRiWOtCM0zKUcsK5A",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 20041,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 3,
+   "LATEST_IN_FEED": "2026-06-09"
+  },
+  {
+   "CHANNEL_ID": "UCoA303PgO9oOBWgZ3Nl5GvQ",
+   "CHANNEL_NAME": "Agrintesa",
+   "DECLARED_ROLE": "COOPERATIVE",
+   "ORGANIZATION": "Agrintesa Soc. Coop.",
+   "ADAMA_RELEVANCE_REASON": "cooperativa das pomáceas da Romagna — mesma área de OPP_20D89B04F64D e OPP_DA4B5954F72A",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": null,
+   "CHANNEL_ID_RESOLVED": "UCoA303PgO9oOBWgZ3Nl5GvQ",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 16183,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 4,
+   "LATEST_IN_FEED": "2026-07-27"
+  },
+  {
+   "CHANNEL_ID": "UCJ8RdeFgPyGA8eyVHulEiOg",
+   "CHANNEL_NAME": "CREA",
+   "DECLARED_ROLE": "RESEARCH_INSTITUTION",
+   "ORGANIZATION": "CREA",
+   "ADAMA_RELEVANCE_REASON": "centro nacional de pesquisa agrícola italiano",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": null,
+   "CHANNEL_ID_RESOLVED": "UCJ8RdeFgPyGA8eyVHulEiOg",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 23195,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 9,
+   "LATEST_IN_FEED": "2026-09-02"
+  },
+  {
+   "CHANNEL_ID": "UCDNXhv9mPzYo5FQKkg_oSWw",
+   "CHANNEL_NAME": "UNIBO DISTAL",
+   "DECLARED_ROLE": "UNIVERSITY_DEPARTMENT",
+   "ORGANIZATION": "Università di Bologna",
+   "ADAMA_RELEVANCE_REASON": "a mesma universidade que opera a rede de trappole da cimice em big.csr.unibo.it",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": null,
+   "CHANNEL_ID_RESOLVED": "UCDNXhv9mPzYo5FQKkg_oSWw",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 21457,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 0,
+   "LATEST_IN_FEED": "2025-05-13"
+  },
+  {
+   "CHANNEL_ID": "@agraliastudio",
+   "CHANNEL_NAME": "Agralia Studio Agronomico",
+   "DECLARED_ROLE": "TECHNICAL_ADVISORY",
+   "ORGANIZATION": "Agralia s.r.l.",
+   "ADAMA_RELEVANCE_REASON": "estúdio agronômico privado que publica bollettino de vite na Lombardia",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": "@agraliastudio",
+   "CHANNEL_ID_RESOLVED": "UCqKyeRxPV4sRQ_H8xqaflRA",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 33302,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 15,
+   "LATEST_IN_FEED": "2026-08-12"
+  },
+  {
+   "CHANNEL_ID": "@SIRFI-k9x",
+   "CHANNEL_NAME": "SIRFI",
+   "DECLARED_ROLE": "SCIENTIFIC_SOCIETY",
+   "ORGANIZATION": "SIRFI",
+   "ADAMA_RELEVANCE_REASON": "sociedade italiana de flora infestante — erbicidi são 26 dos 51 produtos ADAMA Italia",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": "@SIRFI-k9x",
+   "CHANNEL_ID_RESOLVED": "UCmlfgJjElRgow9m3Ff69WAQ",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 36384,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 0,
+   "LATEST_IN_FEED": "2026-05-23"
+  },
+  {
+   "CHANNEL_ID": "@rinovaricerche",
+   "CHANNEL_NAME": "Ri.Nova",
+   "DECLARED_ROLE": "RESEARCH_COOPERATIVE",
+   "ORGANIZATION": "Ri.Nova soc. coop.",
+   "ADAMA_RELEVANCE_REASON": "coordena os Gruppi Operativi da Emilia-Romagna e alimenta a rede de trappole",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": "@rinovaricerche",
+   "CHANNEL_ID_RESOLVED": "UCH-UMwlZXbrOb3RrL2GejMA",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 28311,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 6,
+   "LATEST_IN_FEED": "2026-08-26"
+  },
+  {
+   "CHANNEL_ID": "@fondazionemach",
+   "CHANNEL_NAME": "Fondazione Edmund Mach",
+   "DECLARED_ROLE": "RESEARCH_INSTITUTION",
+   "ORGANIZATION": "FEM",
+   "ADAMA_RELEVANCE_REASON": "o CTT assina os bollettini de difesa integrata do Trentino — melo e vite",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": "@fondazionemach",
+   "CHANNEL_ID_RESOLVED": "UCSNRyyZyvqBBMX8z_eJMuSQ",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 17865,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 15,
+   "LATEST_IN_FEED": "2026-09-01"
+  },
+  {
+   "CHANNEL_ID": "@Apofruit",
+   "CHANNEL_NAME": "Apofruit Italia",
+   "DECLARED_ROLE": "COOPERATIVE",
+   "ORGANIZATION": "Apofruit Italia Soc. Coop.",
+   "ADAMA_RELEVANCE_REASON": "uma das maiores OP de fruta da Itália; fragola e pomacee",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": "@Apofruit",
+   "CHANNEL_ID_RESOLVED": "UCmcWdq0fWj0Ycc1Lap7qwWw",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 22045,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 0,
+   "LATEST_IN_FEED": "2026-03-26"
+  },
+  {
+   "CHANNEL_ID": "user/GowanItalia",
+   "CHANNEL_NAME": "Gowan Italia",
+   "DECLARED_ROLE": "COMPANY",
+   "ORGANIZATION": "Gowan Italia",
+   "ADAMA_RELEVANCE_REASON": "concorrente italiano ausente do acervo, com comunicação sobre difesa della vite",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": "user/GowanItalia",
+   "CHANNEL_ID_RESOLVED": "UCAV6kattybtv-gxHvQ9P9cQ",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 23435,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 0,
+   "LATEST_IN_FEED": "2026-03-31"
+  },
+  {
+   "CHANNEL_ID": "user/TerremerseCoop",
+   "CHANNEL_NAME": "Terremerse",
+   "DECLARED_ROLE": "COOPERATIVE_DISTRIBUTOR",
+   "ORGANIZATION": "Terremerse Soc. Coop.",
+   "ADAMA_RELEVANCE_REASON": "cooperativa que também distribui agrofármaco nas culturas de maior peso de rótulo",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": "user/TerremerseCoop",
+   "CHANNEL_ID_RESOLVED": "UCT9J0e6_ZavDzuDJyqm-0mw",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 30184,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 12,
+   "LATEST_IN_FEED": "2026-08-06"
+  },
+  {
+   "CHANNEL_ID": "@myfruitvideo",
+   "CHANNEL_NAME": "Myfruit",
+   "DECLARED_ROLE": "TECHNICAL_MEDIA",
+   "ORGANIZATION": "Myfruit",
+   "ADAMA_RELEVANCE_REASON": "vídeo de ortofrutta italiana",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": "@myfruitvideo",
+   "CHANNEL_ID_RESOLVED": "UCfdN2DQZBfZo-7VgBqotYuQ",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 24078,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 0,
+   "LATEST_IN_FEED": "2026-05-27"
+  },
+  {
+   "CHANNEL_ID": "user/agronotizietv",
+   "CHANNEL_NAME": "AgroNotizie",
+   "DECLARED_ROLE": "TECHNICAL_MEDIA",
+   "ORGANIZATION": "Image Line s.r.l.",
+   "ADAMA_RELEVANCE_REASON": "principal mídia técnica agrícola italiana — a editora é Image Line s.r.l., em imagelinenetwork.com, e NÃO a image-line.com, que é a FL Studio",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": "user/agronotizietv",
+   "CHANNEL_ID_RESOLVED": "UCUs2Mg7jvUTRt7_MSOFYM5Q",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 43358,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 9,
+   "LATEST_IN_FEED": "2026-07-23"
+  },
+  {
+   "CHANNEL_ID": "@informatoreagrario",
+   "CHANNEL_NAME": "L'Informatore Agrario",
+   "DECLARED_ROLE": "TECHNICAL_MEDIA",
+   "ORGANIZATION": "Edizioni L'Informatore Agrario",
+   "ADAMA_RELEVANCE_REASON": "revista técnica agrícola italiana desde 1945",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": "@informatoreagrario",
+   "CHANNEL_ID_RESOLVED": "UCLqKnJJf6VBExBf5qp8N74w",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 25704,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 15,
+   "LATEST_IN_FEED": "2026-07-31"
+  },
+  {
+   "CHANNEL_ID": "@SyngentaItaly",
+   "CHANNEL_NAME": "Syngenta Italia",
+   "DECLARED_ROLE": "COMPANY",
+   "ORGANIZATION": "Syngenta",
+   "ADAMA_RELEVANCE_REASON": "concorrente; o site italiano recusa esta sessão com HTTP 403 e o canal não",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": "@SyngentaItaly",
+   "CHANNEL_ID_RESOLVED": "UCBihPr1JHYRRwh6AIODsJ_w",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 26095,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 1,
+   "LATEST_IN_FEED": "2026-07-28"
+  },
+  {
+   "CHANNEL_ID": "@BayerCropScienceIT",
+   "CHANNEL_NAME": "Bayer Crop Science Italia",
+   "DECLARED_ROLE": "COMPANY",
+   "ORGANIZATION": "Bayer",
+   "ADAMA_RELEVANCE_REASON": "idem — cropscience.bayer.it devolve 403 e o canal responde",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": "@BayerCropScienceIT",
+   "CHANNEL_ID_RESOLVED": "UCovH9SenIW9CMPD9__x2J9w",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 31836,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 9,
+   "LATEST_IN_FEED": "2026-09-03"
+  },
+  {
+   "CHANNEL_ID": "@UPLItalia",
+   "CHANNEL_NAME": "UPL Italia",
+   "DECLARED_ROLE": "COMPANY",
+   "ORGANIZATION": "UPL",
+   "ADAMA_RELEVANCE_REASON": "concorrente; upl-ltd.com/it devolveu HTTP 500 nesta sessão",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": "@UPLItalia",
+   "CHANNEL_ID_RESOLVED": "UCCff86N6YROMgeD56wc2HwQ",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 27370,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 0,
+   "LATEST_IN_FEED": "2026-05-12"
+  },
+  {
+   "CHANNEL_ID": "@EnteNazionaleRisi",
+   "CHANNEL_NAME": "Ente Nazionale Risi",
+   "DECLARED_ROLE": "PUBLIC_BODY",
+   "ORGANIZATION": "Ente Nazionale Risi",
+   "ADAMA_RELEVANCE_REASON": "riso e resistência de Echinochloa — liga a OPP_4C39CCC05EEB; enterisi.it hoje falha TLS com DH_KEY_TOO_SMALL e o canal responde",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": "@EnteNazionaleRisi",
+   "CHANNEL_ID_RESOLVED": "UCchCU_Mpt4oVIoZ4ytKLAEA",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 21488,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 0,
+   "LATEST_IN_FEED": "2025-09-24"
+  },
+  {
+   "CHANNEL_ID": "@certiseuropeitalia4825",
+   "CHANNEL_NAME": "Certis Europe Italia",
+   "DECLARED_ROLE": "COMPANY",
+   "ORGANIZATION": "Certis Belchim",
+   "ADAMA_RELEVANCE_REASON": "concorrente cujo feed publica usi di emergenza",
+   "COUNTRY": "IT",
+   "RESOLVED_FROM_HANDLE": "@certiseuropeitalia4825",
+   "CHANNEL_ID_RESOLVED": "UC87H92OOEce8N7n9Tl9YRPQ",
+   "FEED_STATE": "OK",
+   "FEED_HTTP": 200,
+   "FEED_BYTES": 21409,
+   "ITEMS_IN_FEED": 15,
+   "ITEMS_IN_WINDOW": 0,
+   "LATEST_IN_FEED": "2022-11-29"
+  }
+ ],
+ "ITEMS": [
+  {
+   "id": "yFZ7eTXY2zU",
+   "title": "Webinar ANVE - AIPP: Growing in ANVE 2026 - 30 luglio - Royalties e varietà protette",
+   "date": "2026-07-30",
+   "channelId": "UCktJyIUm3qJJpThrTa8nsHQ",
+   "channelName": "AIPP — Associazione Italiana Protezione Piante",
+   "url": "https://www.youtube.com/watch?v=yFZ7eTXY2zU"
+  },
+  {
+   "id": "ofRkFRzzkno",
+   "title": "Webinar ANVE - AIPP: Growing in ANVE 2026 - 23 luglio - Difesa delle piante ornamentali",
+   "date": "2026-07-24",
+   "channelId": "UCktJyIUm3qJJpThrTa8nsHQ",
+   "channelName": "AIPP — Associazione Italiana Protezione Piante",
+   "url": "https://www.youtube.com/watch?v=ofRkFRzzkno"
+  },
+  {
+   "id": "3tDE1zDHUvU",
+   "title": "Webinar ANVE - AIPP: Growing in ANVE 2026 - 16 luglio - Xylella fastidiosa",
+   "date": "2026-07-17",
+   "channelId": "UCktJyIUm3qJJpThrTa8nsHQ",
+   "channelName": "AIPP — Associazione Italiana Protezione Piante",
+   "url": "https://www.youtube.com/watch?v=3tDE1zDHUvU"
+  },
+  {
+   "id": "ep1KX19XxS8",
+   "title": "Webinar ANVE - AIPP: Growing in ANVE 2026 - 8 luglio -  Popillia japonica",
+   "date": "2026-07-09",
+   "channelId": "UCktJyIUm3qJJpThrTa8nsHQ",
+   "channelName": "AIPP — Associazione Italiana Protezione Piante",
+   "url": "https://www.youtube.com/watch?v=ep1KX19XxS8"
+  },
+  {
+   "id": "SlTx6OqFiGA",
+   "title": "EXIREL® BAIT OLIVO Soluzione innovativa per il controllo della mosca",
+   "date": "2026-06-09",
+   "channelId": "UCWjrNnyRiWOtCM0zKUcsK5A",
+   "channelName": "FMC Agro Italia",
+   "url": "https://www.youtube.com/watch?v=SlTx6OqFiGA"
+  },
+  {
+   "id": "f0Tzdu2j67E",
+   "title": "EXIREL® BAIT OLIVO Distribuzione",
+   "date": "2026-06-09",
+   "channelId": "UCWjrNnyRiWOtCM0zKUcsK5A",
+   "channelName": "FMC Agro Italia",
+   "url": "https://www.youtube.com/watch?v=f0Tzdu2j67E"
+  },
+  {
+   "id": "ah8sT9hB7HU",
+   "title": "EXIREL® BAIT OLIVO Profilo residuale e carenza",
+   "date": "2026-06-09",
+   "channelId": "UCWjrNnyRiWOtCM0zKUcsK5A",
+   "channelName": "FMC Agro Italia",
+   "url": "https://www.youtube.com/watch?v=ah8sT9hB7HU"
+  },
+  {
+   "id": "8gE2JaXRO-Y",
+   "title": "I nostri produttori: le nettarine",
+   "date": "2026-07-27",
+   "channelId": "UCoA303PgO9oOBWgZ3Nl5GvQ",
+   "channelName": "Agrintesa",
+   "url": "https://www.youtube.com/watch?v=8gE2JaXRO-Y"
+  },
+  {
+   "id": "HD4ZaIURPso",
+   "title": "I nostri produttori: le albicocche",
+   "date": "2026-07-06",
+   "channelId": "UCoA303PgO9oOBWgZ3Nl5GvQ",
+   "channelName": "Agrintesa",
+   "url": "https://www.youtube.com/watch?v=HD4ZaIURPso"
+  },
+  {
+   "id": "uruXJezDp3o",
+   "title": "I nostri produttori: le ciliegie",
+   "date": "2026-07-06",
+   "channelId": "UCoA303PgO9oOBWgZ3Nl5GvQ",
+   "channelName": "Agrintesa",
+   "url": "https://www.youtube.com/watch?v=uruXJezDp3o"
+  },
+  {
+   "id": "2jgjJQqcr-s",
+   "title": "I nostri produttori: le fragole",
+   "date": "2026-07-06",
+   "channelId": "UCoA303PgO9oOBWgZ3Nl5GvQ",
+   "channelName": "Agrintesa",
+   "url": "https://www.youtube.com/watch?v=2jgjJQqcr-s"
+  },
+  {
+   "id": "maGiltq9nlo",
+   "title": "COMMERCIO CON L’ESTERO DEI PRODOTTI AGROALIMENTARI",
+   "date": "2026-09-02",
+   "channelId": "UCJ8RdeFgPyGA8eyVHulEiOg",
+   "channelName": "CREA",
+   "url": "https://www.youtube.com/watch?v=maGiltq9nlo"
+  },
+  {
+   "id": "QSNNaWkui4k",
+   "title": "DISPARITÀ SETTORIALI E GEOGRAFICHE NELLE AREE RURALI: ANALISI E PROPOSTE DI POLICY",
+   "date": "2026-07-24",
+   "channelId": "UCJ8RdeFgPyGA8eyVHulEiOg",
+   "channelName": "CREA",
+   "url": "https://www.youtube.com/watch?v=QSNNaWkui4k"
+  },
+  {
+   "id": "AEF-A2AVP7E",
+   "title": "CREA Break: Calabria nel vino/3 - Speciale olio",
+   "date": "2026-07-20",
+   "channelId": "UCJ8RdeFgPyGA8eyVHulEiOg",
+   "channelName": "CREA",
+   "url": "https://www.youtube.com/watch?v=AEF-A2AVP7E"
+  },
+  {
+   "id": "DFq2gKQsLls",
+   "title": "CREA Break: Calabria in wine/2 - Speciale vino",
+   "date": "2026-07-20",
+   "channelId": "UCJ8RdeFgPyGA8eyVHulEiOg",
+   "channelName": "CREA",
+   "url": "https://www.youtube.com/watch?v=DFq2gKQsLls"
+  },
+  {
+   "id": "7P5ocB4Y4YI",
+   "title": "CREA Break: Calabria in wine/1 - Il vino è giovane?",
+   "date": "2026-07-20",
+   "channelId": "UCJ8RdeFgPyGA8eyVHulEiOg",
+   "channelName": "CREA",
+   "url": "https://www.youtube.com/watch?v=7P5ocB4Y4YI"
+  },
+  {
+   "id": "TpeJa6cj1jg",
+   "title": "Certificazione del castagno da frutto",
+   "date": "2026-07-17",
+   "channelId": "UCJ8RdeFgPyGA8eyVHulEiOg",
+   "channelName": "CREA",
+   "url": "https://www.youtube.com/watch?v=TpeJa6cj1jg"
+  },
+  {
+   "id": "D8BW5iP35rM",
+   "title": "Novixgen: primi risultati",
+   "date": "2026-07-08",
+   "channelId": "UCJ8RdeFgPyGA8eyVHulEiOg",
+   "channelName": "CREA",
+   "url": "https://www.youtube.com/watch?v=D8BW5iP35rM"
+  },
+  {
+   "id": "AuYXP_5Hfzc",
+   "title": "CREA Break: Xylella fastidiosa, la ricerca del CREA",
+   "date": "2026-06-26",
+   "channelId": "UCJ8RdeFgPyGA8eyVHulEiOg",
+   "channelName": "CREA",
+   "url": "https://www.youtube.com/watch?v=AuYXP_5Hfzc"
+  },
+  {
+   "id": "i3TdWDHodRY",
+   "title": "PESCA-CHAIN: dal mare alla tavola, innovazione e tracciabilità per la filiera ittica italiana",
+   "date": "2026-06-25",
+   "channelId": "UCJ8RdeFgPyGA8eyVHulEiOg",
+   "channelName": "CREA",
+   "url": "https://www.youtube.com/watch?v=i3TdWDHodRY"
+  },
+  {
+   "id": "ljiqQuxassU",
+   "title": "Aggiornamento Agrometeo Vite – Settimana 32 | Brescia, Bergamo, Mantova e dintorni",
+   "date": "2026-08-12",
+   "channelId": "UCqKyeRxPV4sRQ_H8xqaflRA",
+   "channelName": "Agralia Studio Agronomico",
+   "url": "https://www.youtube.com/watch?v=ljiqQuxassU"
+  },
+  {
+   "id": "zklvzODubuQ",
+   "title": "Ed ecco la risposta al nostro Video Indovinello!",
+   "date": "2026-08-08",
+   "channelId": "UCqKyeRxPV4sRQ_H8xqaflRA",
+   "channelName": "Agralia Studio Agronomico",
+   "url": "https://www.youtube.com/watch?v=zklvzODubuQ"
+  },
+  {
+   "id": "INGnJtElzkg",
+   "title": "Nuovo Video Indovinello dal vigneto! 🍇",
+   "date": "2026-08-07",
+   "channelId": "UCqKyeRxPV4sRQ_H8xqaflRA",
+   "channelName": "Agralia Studio Agronomico",
+   "url": "https://www.youtube.com/watch?v=INGnJtElzkg"
+  },
+  {
+   "id": "kQqw-SfAeyY",
+   "title": "Aggiornamento Agrometeo Vite – Settimana 32 | Inizio agosto 2026",
+   "date": "2026-08-05",
+   "channelId": "UCqKyeRxPV4sRQ_H8xqaflRA",
+   "channelName": "Agralia Studio Agronomico",
+   "url": "https://www.youtube.com/watch?v=kQqw-SfAeyY"
+  },
+  {
+   "id": "elXHpPGvtKA",
+   "title": "trappola tignoletta che funziona",
+   "date": "2026-08-04",
+   "channelId": "UCqKyeRxPV4sRQ_H8xqaflRA",
+   "channelName": "Agralia Studio Agronomico",
+   "url": "https://www.youtube.com/watch?v=elXHpPGvtKA"
+  },
+  {
+   "id": "eoqaRwqMB50",
+   "title": "Aggiornamento Agrometeo Vite – Settimana 31 | Fine luglio 2026",
+   "date": "2026-07-30",
+   "channelId": "UCqKyeRxPV4sRQ_H8xqaflRA",
+   "channelName": "Agralia Studio Agronomico",
+   "url": "https://www.youtube.com/watch?v=eoqaRwqMB50"
+  },
+  {
+   "id": "_cerpdX9RqI",
+   "title": "tignoletta terzo volo e ovodeposizioni in agosto",
+   "date": "2026-07-29",
+   "channelId": "UCqKyeRxPV4sRQ_H8xqaflRA",
+   "channelName": "Agralia Studio Agronomico",
+   "url": "https://www.youtube.com/watch?v=_cerpdX9RqI"
+  },
+  {
+   "id": "KW-Z3JROcko",
+   "title": "Approccio alternativo a Popillia Japonica",
+   "date": "2026-07-25",
+   "channelId": "UCqKyeRxPV4sRQ_H8xqaflRA",
+   "channelName": "Agralia Studio Agronomico",
+   "url": "https://www.youtube.com/watch?v=KW-Z3JROcko"
+  },
+  {
+   "id": "3jVSWfEsOsM",
+   "title": "come intervenire sul vigneto dopo la grandine",
+   "date": "2026-07-24",
+   "channelId": "UCqKyeRxPV4sRQ_H8xqaflRA",
+   "channelName": "Agralia Studio Agronomico",
+   "url": "https://www.youtube.com/watch?v=3jVSWfEsOsM"
+  },
+  {
+   "id": "EmDDkVgfzEM",
+   "title": "Aggiornamento Agrometeo Vite – Fine luglio 2026",
+   "date": "2026-07-23",
+   "channelId": "UCqKyeRxPV4sRQ_H8xqaflRA",
+   "channelName": "Agralia Studio Agronomico",
+   "url": "https://www.youtube.com/watch?v=EmDDkVgfzEM"
+  },
+  {
+   "id": "U6H5wOLv3Vo",
+   "title": "Bollettino agrometeo settimana metà luglio",
+   "date": "2026-07-17",
+   "channelId": "UCqKyeRxPV4sRQ_H8xqaflRA",
+   "channelName": "Agralia Studio Agronomico",
+   "url": "https://www.youtube.com/watch?v=U6H5wOLv3Vo"
+  },
+  {
+   "id": "Q5dscL-_ynI",
+   "title": "AgraliaTech - com'è la situazione del primo vigneto, quello da cui tutto ha avuto inizio :)",
+   "date": "2026-07-14",
+   "channelId": "UCqKyeRxPV4sRQ_H8xqaflRA",
+   "channelName": "Agralia Studio Agronomico",
+   "url": "https://www.youtube.com/watch?v=Q5dscL-_ynI"
+  },
+  {
+   "id": "67b-g9X49GQ",
+   "title": "Dall'algoritmo al campo: intervento su deficit idrico",
+   "date": "2026-07-11",
+   "channelId": "UCqKyeRxPV4sRQ_H8xqaflRA",
+   "channelName": "Agralia Studio Agronomico",
+   "url": "https://www.youtube.com/watch?v=67b-g9X49GQ"
+  },
+  {
+   "id": "acAe_KZkL0w",
+   "title": "Aggiornamento agrometeo vite – Settimana 28 (6-13 luglio 2026)",
+   "date": "2026-07-10",
+   "channelId": "UCqKyeRxPV4sRQ_H8xqaflRA",
+   "channelName": "Agralia Studio Agronomico",
+   "url": "https://www.youtube.com/watch?v=acAe_KZkL0w"
+  },
+  {
+   "id": "2-6s3l6BLkM",
+   "title": "IA e agricoltura di precisione: come ottimizzare il monitoraggio in campo.",
+   "date": "2026-07-09",
+   "channelId": "UCqKyeRxPV4sRQ_H8xqaflRA",
+   "channelName": "Agralia Studio Agronomico",
+   "url": "https://www.youtube.com/watch?v=2-6s3l6BLkM"
+  },
+  {
+   "id": "3VXt-auAq9c",
+   "title": "PER TEA VITE, Innovazione varietale per una viticoltura più sostenibile",
+   "date": "2026-08-26",
+   "channelId": "UCH-UMwlZXbrOb3RrL2GejMA",
+   "channelName": "Ri.Nova",
+   "url": "https://www.youtube.com/watch?v=3VXt-auAq9c"
+  },
+  {
+   "id": "c2nZ5dVvPb0",
+   "title": "Dati ambientali e strumenti digitali per un'agricoltura più efficiente",
+   "date": "2026-07-21",
+   "channelId": "UCH-UMwlZXbrOb3RrL2GejMA",
+   "channelName": "Ri.Nova",
+   "url": "https://www.youtube.com/watch?v=c2nZ5dVvPb0"
+  },
+  {
+   "id": "nZm9otnJOgA",
+   "title": "Un nuovo modo di valorizzare la filiera cerealicola",
+   "date": "2026-07-13",
+   "channelId": "UCH-UMwlZXbrOb3RrL2GejMA",
+   "channelName": "Ri.Nova",
+   "url": "https://www.youtube.com/watch?v=nZm9otnJOgA"
+  },
+  {
+   "id": "MP0tA9NkaNE",
+   "title": "Progetto M or vi sa monitoraggio stato idrico con camera di Scholander",
+   "date": "2026-07-08",
+   "channelId": "UCH-UMwlZXbrOb3RrL2GejMA",
+   "channelName": "Ri.Nova",
+   "url": "https://www.youtube.com/watch?v=MP0tA9NkaNE"
+  },
+  {
+   "id": "YlLB4ozLFbg",
+   "title": "M-AI-SMART: Innovazione intelligente per un mais più sicuro",
+   "date": "2026-06-25",
+   "channelId": "UCH-UMwlZXbrOb3RrL2GejMA",
+   "channelName": "Ri.Nova",
+   "url": "https://www.youtube.com/watch?v=YlLB4ozLFbg"
+  },
+  {
+   "id": "Noo7qL2-sfA",
+   "title": "IRRI-MIA, sensoristica IoT avanzata per un'irrigazione 4.0",
+   "date": "2026-06-10",
+   "channelId": "UCH-UMwlZXbrOb3RrL2GejMA",
+   "channelName": "Ri.Nova",
+   "url": "https://www.youtube.com/watch?v=Noo7qL2-sfA"
+  },
+  {
+   "id": "_J7paZxkrCk",
+   "title": "A come Alpi _ 11^ puntata _ Rubrica FEM_ Stagione 2026",
+   "date": "2026-09-01",
+   "channelId": "UCSNRyyZyvqBBMX8z_eJMuSQ",
+   "channelName": "Fondazione Edmund Mach",
+   "url": "https://www.youtube.com/watch?v=_J7paZxkrCk"
+  },
+  {
+   "id": "DnX3Dh6u3MQ",
+   "title": "A come Alpi _ 10^ puntata _ Rubrica FEM_ Stagione 2026",
+   "date": "2026-08-27",
+   "channelId": "UCSNRyyZyvqBBMX8z_eJMuSQ",
+   "channelName": "Fondazione Edmund Mach",
+   "url": "https://www.youtube.com/watch?v=DnX3Dh6u3MQ"
+  },
+  {
+   "id": "AKZ2yfB_YLo",
+   "title": "Riccardo Velasco  - Direttore generale Fondazione Edmund Mach",
+   "date": "2026-08-20",
+   "channelId": "UCSNRyyZyvqBBMX8z_eJMuSQ",
+   "channelName": "Fondazione Edmund Mach",
+   "url": "https://www.youtube.com/watch?v=AKZ2yfB_YLo"
+  },
+  {
+   "id": "Tx-ir0PQpIQ",
+   "title": "Maurizio  Bottura - Dirigente Centro Trasferimento Tecnologico Fondazione Edmund Mach",
+   "date": "2026-08-20",
+   "channelId": "UCSNRyyZyvqBBMX8z_eJMuSQ",
+   "channelName": "Fondazione Edmund Mach",
+   "url": "https://www.youtube.com/watch?v=Tx-ir0PQpIQ"
+  },
+  {
+   "id": "BcejYD4UpE0",
+   "title": "Presentazione prove sperimentali in viticoltura biologica 2026",
+   "date": "2026-08-05",
+   "channelId": "UCSNRyyZyvqBBMX8z_eJMuSQ",
+   "channelName": "Fondazione Edmund Mach",
+   "url": "https://www.youtube.com/watch?v=BcejYD4UpE0"
+  },
+  {
+   "id": "1hhO7-0X_Us",
+   "title": "Roberto Zanzotti - Tecnologo dell'Unità Agricoltura biologica e qualità del suolo FEM",
+   "date": "2026-08-05",
+   "channelId": "UCSNRyyZyvqBBMX8z_eJMuSQ",
+   "channelName": "Fondazione Edmund Mach",
+   "url": "https://www.youtube.com/watch?v=1hhO7-0X_Us"
+  },
+  {
+   "id": "WZySiYdRXqs",
+   "title": "Daniele Prodorutti - Responsabile Unità Agricoltura biologica e qualità del suolo FEM",
+   "date": "2026-08-05",
+   "channelId": "UCSNRyyZyvqBBMX8z_eJMuSQ",
+   "channelName": "Fondazione Edmund Mach",
+   "url": "https://www.youtube.com/watch?v=WZySiYdRXqs"
+  },
+  {
+   "id": "nnN6GAy6p3E",
+   "title": "Riccardo Velasco - DG Fondazione Edmund Mach",
+   "date": "2026-08-05",
+   "channelId": "UCSNRyyZyvqBBMX8z_eJMuSQ",
+   "channelName": "Fondazione Edmund Mach",
+   "url": "https://www.youtube.com/watch?v=nnN6GAy6p3E"
+  },
+  {
+   "id": "MxQKG2MWCNg",
+   "title": "A come Alpi _9^ puntata _ Rubrica FEM_ Stagione 2026",
+   "date": "2026-08-05",
+   "channelId": "UCSNRyyZyvqBBMX8z_eJMuSQ",
+   "channelName": "Fondazione Edmund Mach",
+   "url": "https://www.youtube.com/watch?v=MxQKG2MWCNg"
+  },
+  {
+   "id": "z6oBXeNXLqQ",
+   "title": "Riccardo Velasco Direttore generale FEM",
+   "date": "2026-07-29",
+   "channelId": "UCSNRyyZyvqBBMX8z_eJMuSQ",
+   "channelName": "Fondazione Edmund Mach",
+   "url": "https://www.youtube.com/watch?v=z6oBXeNXLqQ"
+  },
+  {
+   "id": "eqeLJs593bw",
+   "title": "Bruno Donati Presidente Fondazione De Bellat",
+   "date": "2026-07-29",
+   "channelId": "UCSNRyyZyvqBBMX8z_eJMuSQ",
+   "channelName": "Fondazione Edmund Mach",
+   "url": "https://www.youtube.com/watch?v=eqeLJs593bw"
+  },
+  {
+   "id": "aUzC-EJGsvY",
+   "title": "A come Alpi _8^ puntata _ Rubrica FEM_ Stagione 2026",
+   "date": "2026-07-28",
+   "channelId": "UCSNRyyZyvqBBMX8z_eJMuSQ",
+   "channelName": "Fondazione Edmund Mach",
+   "url": "https://www.youtube.com/watch?v=aUzC-EJGsvY"
+  },
+  {
+   "id": "eTQ56vsSwyM",
+   "title": "A come Alpi _7^ puntata _ Rubrica FEM_ Stagione 2026",
+   "date": "2026-07-22",
+   "channelId": "UCSNRyyZyvqBBMX8z_eJMuSQ",
+   "channelName": "Fondazione Edmund Mach",
+   "url": "https://www.youtube.com/watch?v=eTQ56vsSwyM"
+  },
+  {
+   "id": "QBvUPJrT53g",
+   "title": "A come Alpi _7^ puntata _ Rubrica FEM_ Stagione 2026",
+   "date": "2026-07-20",
+   "channelId": "UCSNRyyZyvqBBMX8z_eJMuSQ",
+   "channelName": "Fondazione Edmund Mach",
+   "url": "https://www.youtube.com/watch?v=QBvUPJrT53g"
+  },
+  {
+   "id": "KDKNvamCECA",
+   "title": "A come Alpi _6^ puntata _ Rubrica FEM_ Stagione 2026",
+   "date": "2026-07-15",
+   "channelId": "UCSNRyyZyvqBBMX8z_eJMuSQ",
+   "channelName": "Fondazione Edmund Mach",
+   "url": "https://www.youtube.com/watch?v=KDKNvamCECA"
+  },
+  {
+   "id": "iD_eGdbyODM",
+   "title": "Doppio Acconto Mais, Sorgo e Soia 2026",
+   "date": "2026-08-06",
+   "channelId": "UCT9J0e6_ZavDzuDJyqm-0mw",
+   "channelName": "Terremerse",
+   "url": "https://www.youtube.com/watch?v=iD_eGdbyODM"
+  },
+  {
+   "id": "WB2SXk5yIH4",
+   "title": "Ortofrutta Experience - Intervista a Davide Babini all'𝐎𝐩𝐞𝐧 𝐃𝐚𝐲 𝐩𝐨𝐦𝐨𝐝𝐨𝐫𝐨 𝐝𝐚 𝐢𝐧𝐝𝐮𝐬𝐭𝐫𝐢𝐚",
+   "date": "2026-07-31",
+   "channelId": "UCT9J0e6_ZavDzuDJyqm-0mw",
+   "channelName": "Terremerse",
+   "url": "https://www.youtube.com/watch?v=WB2SXk5yIH4"
+  },
+  {
+   "id": "LbNasrlmXhE",
+   "title": "Ortofrutta Experience - Intervista a Ilenio Bastoni all'𝐎𝐩𝐞𝐧 𝐃𝐚𝐲 𝐩𝐨𝐦𝐨𝐝𝐨𝐫𝐨 𝐝𝐚 𝐢𝐧𝐝𝐮𝐬𝐭𝐫𝐢𝐚",
+   "date": "2026-07-31",
+   "channelId": "UCT9J0e6_ZavDzuDJyqm-0mw",
+   "channelName": "Terremerse",
+   "url": "https://www.youtube.com/watch?v=LbNasrlmXhE"
+  },
+  {
+   "id": "pTCEso60Og4",
+   "title": "Ortofrutta Experience - 𝐎𝐩𝐞𝐧 𝐃𝐚𝐲 𝐩𝐨𝐦𝐨𝐝𝐨𝐫𝐨 𝐝𝐚 𝐢𝐧𝐝𝐮𝐬𝐭𝐫𝐢𝐚",
+   "date": "2026-07-31",
+   "channelId": "UCT9J0e6_ZavDzuDJyqm-0mw",
+   "channelName": "Terremerse",
+   "url": "https://www.youtube.com/watch?v=pTCEso60Og4"
+  },
+  {
+   "id": "4kPJIOXHm1Y",
+   "title": "Open Day Nocciolo in Campo | Percorsi tecnici per alte prestazioni | Vignanello (VT)",
+   "date": "2026-07-31",
+   "channelId": "UCT9J0e6_ZavDzuDJyqm-0mw",
+   "channelName": "Terremerse",
+   "url": "https://www.youtube.com/watch?v=4kPJIOXHm1Y"
+  },
+  {
+   "id": "c0GsZBQO2KE",
+   "title": "Mappatura Terreno",
+   "date": "2026-06-23",
+   "channelId": "UCT9J0e6_ZavDzuDJyqm-0mw",
+   "channelName": "Terremerse",
+   "url": "https://www.youtube.com/watch?v=c0GsZBQO2KE"
+  },
+  {
+   "id": "NbpnyticbyM",
+   "title": "OP TERREMERSE SEZIONE ORTOFRUTTA",
+   "date": "2026-06-23",
+   "channelId": "UCT9J0e6_ZavDzuDJyqm-0mw",
+   "channelName": "Terremerse",
+   "url": "https://www.youtube.com/watch?v=NbpnyticbyM"
+  },
+  {
+   "id": "U8fv3YDInDM",
+   "title": "Open Day Terremerse “Grano in campo” 2026: le interviste ai nostri partner presenti alla giornata",
+   "date": "2026-06-19",
+   "channelId": "UCT9J0e6_ZavDzuDJyqm-0mw",
+   "channelName": "Terremerse",
+   "url": "https://www.youtube.com/watch?v=U8fv3YDInDM"
+  },
+  {
+   "id": "R01uu-kLqoE",
+   "title": "Open Day “Impianti in Campo”: le interviste",
+   "date": "2026-06-19",
+   "channelId": "UCT9J0e6_ZavDzuDJyqm-0mw",
+   "channelName": "Terremerse",
+   "url": "https://www.youtube.com/watch?v=R01uu-kLqoE"
+  },
+  {
+   "id": "CRs4cb2Qts0",
+   "title": "Open Day “Impianti in Campo”: focus pomodoro da industria",
+   "date": "2026-06-19",
+   "channelId": "UCT9J0e6_ZavDzuDJyqm-0mw",
+   "channelName": "Terremerse",
+   "url": "https://www.youtube.com/watch?v=CRs4cb2Qts0"
+  },
+  {
+   "id": "c4G55FL59uk",
+   "title": "Tutorial Agronomica | DSS Vite: come consultare i modelli previsionali per la difesa del vigneto",
+   "date": "2026-06-10",
+   "channelId": "UCT9J0e6_ZavDzuDJyqm-0mw",
+   "channelName": "Terremerse",
+   "url": "https://www.youtube.com/watch?v=c4G55FL59uk"
+  },
+  {
+   "id": "OxVxZr97E_g",
+   "title": "Tutorial Agronomica | Come utilizzare le Mappe Satellitari per monitorare le colture",
+   "date": "2026-06-10",
+   "channelId": "UCT9J0e6_ZavDzuDJyqm-0mw",
+   "channelName": "Terremerse",
+   "url": "https://www.youtube.com/watch?v=OxVxZr97E_g"
+  },
+  {
+   "id": "MCnd9c2pzd8",
+   "title": "Suolo, resa e reddito: la ricetta rigenerativa di Yara",
+   "date": "2026-07-23",
+   "channelId": "UCUs2Mg7jvUTRt7_MSOFYM5Q",
+   "channelName": "AgroNotizie",
+   "url": "https://www.youtube.com/watch?v=MCnd9c2pzd8"
+  },
+  {
+   "id": "7Ps4g3juOIU",
+   "title": "Infestanti resistenti, perché il controllo comincia dopo la raccolta",
+   "date": "2026-07-21",
+   "channelId": "UCUs2Mg7jvUTRt7_MSOFYM5Q",
+   "channelName": "AgroNotizie",
+   "url": "https://www.youtube.com/watch?v=7Ps4g3juOIU"
+  },
+  {
+   "id": "GpmfcN5huug",
+   "title": "Pnrr e agrivoltaico, come farsi finanziare dalle banche",
+   "date": "2026-07-20",
+   "channelId": "UCUs2Mg7jvUTRt7_MSOFYM5Q",
+   "channelName": "AgroNotizie",
+   "url": "https://www.youtube.com/watch?v=GpmfcN5huug"
+  },
+  {
+   "id": "xd2B0beQMz0",
+   "title": "Le Tea spiegate semplici",
+   "date": "2026-07-14",
+   "channelId": "UCUs2Mg7jvUTRt7_MSOFYM5Q",
+   "channelName": "AgroNotizie",
+   "url": "https://www.youtube.com/watch?v=xd2B0beQMz0"
+  },
+  {
+   "id": "fberiYZvxcg",
+   "title": "L'alba",
+   "date": "2026-07-14",
+   "channelId": "UCUs2Mg7jvUTRt7_MSOFYM5Q",
+   "channelName": "AgroNotizie",
+   "url": "https://www.youtube.com/watch?v=fberiYZvxcg"
+  },
+  {
+   "id": "PGdMQyExeis",
+   "title": "Stress da caldo e biostimolanti: prove su pomodoro in serra",
+   "date": "2026-07-08",
+   "channelId": "UCUs2Mg7jvUTRt7_MSOFYM5Q",
+   "channelName": "AgroNotizie",
+   "url": "https://www.youtube.com/watch?v=PGdMQyExeis"
+  },
+  {
+   "id": "kWsaT12CvNw",
+   "title": "Come difendi le radici delle tue piante?",
+   "date": "2026-06-30",
+   "channelId": "UCUs2Mg7jvUTRt7_MSOFYM5Q",
+   "channelName": "AgroNotizie",
+   "url": "https://www.youtube.com/watch?v=kWsaT12CvNw"
+  },
+  {
+   "id": "oEgRLiI-9zk",
+   "title": "Due anni di legislatura Ue",
+   "date": "2026-06-23",
+   "channelId": "UCUs2Mg7jvUTRt7_MSOFYM5Q",
+   "channelName": "AgroNotizie",
+   "url": "https://www.youtube.com/watch?v=oEgRLiI-9zk"
+  },
+  {
+   "id": "IEJOaUeEVh8",
+   "title": "Sotto controllo",
+   "date": "2026-06-09",
+   "channelId": "UCUs2Mg7jvUTRt7_MSOFYM5Q",
+   "channelName": "AgroNotizie",
+   "url": "https://www.youtube.com/watch?v=IEJOaUeEVh8"
+  },
+  {
+   "id": "U1F_96sSSE8",
+   "title": "Biostimolanti su kiwi: obiettivo rese e qualità",
+   "date": "2026-07-31",
+   "channelId": "UCLqKnJJf6VBExBf5qp8N74w",
+   "channelName": "L'Informatore Agrario",
+   "url": "https://www.youtube.com/watch?v=U1F_96sSSE8"
+  },
+  {
+   "id": "xCTbV-g_CV8",
+   "title": "Biostimolanti su pomodoro: la sfida delle ondate di calore 2026",
+   "date": "2026-07-21",
+   "channelId": "UCLqKnJJf6VBExBf5qp8N74w",
+   "channelName": "L'Informatore Agrario",
+   "url": "https://www.youtube.com/watch?v=xCTbV-g_CV8"
+  },
+  {
+   "id": "hw0quO2aQgY",
+   "title": "Pomodoro: la strategia Haifa per ottimizzare germogliamento, fioritura ed allegagione",
+   "date": "2026-07-15",
+   "channelId": "UCLqKnJJf6VBExBf5qp8N74w",
+   "channelName": "L'Informatore Agrario",
+   "url": "https://www.youtube.com/watch?v=hw0quO2aQgY"
+  },
+  {
+   "id": "SR-JeepORhk",
+   "title": "Stress da caldo su pomodoro: il ruolo dei biostimolanti",
+   "date": "2026-07-15",
+   "channelId": "UCLqKnJJf6VBExBf5qp8N74w",
+   "channelName": "L'Informatore Agrario",
+   "url": "https://www.youtube.com/watch?v=SR-JeepORhk"
+  },
+  {
+   "id": "h2nv7HRXcpo",
+   "title": "Le soluzioni antistress di Certis Belchim a Biostimolanti in Campo 2026",
+   "date": "2026-07-10",
+   "channelId": "UCLqKnJJf6VBExBf5qp8N74w",
+   "channelName": "L'Informatore Agrario",
+   "url": "https://www.youtube.com/watch?v=h2nv7HRXcpo"
+  },
+  {
+   "id": "F-ZvB4tJjM0",
+   "title": "La strategia Corteva a Biostimolanti in Campo 2026",
+   "date": "2026-07-10",
+   "channelId": "UCLqKnJJf6VBExBf5qp8N74w",
+   "channelName": "L'Informatore Agrario",
+   "url": "https://www.youtube.com/watch?v=F-ZvB4tJjM0"
+  },
+  {
+   "id": "CI_cn-H4vaE",
+   "title": "Pomodoro da Industria: come battere il caldo record con i biostimolanti",
+   "date": "2026-07-09",
+   "channelId": "UCLqKnJJf6VBExBf5qp8N74w",
+   "channelName": "L'Informatore Agrario",
+   "url": "https://www.youtube.com/watch?v=CI_cn-H4vaE"
+  },
+  {
+   "id": "IH8jOr0Tzxc",
+   "title": "Biostimolanti, rese e qualità sul pomodoro da industria #agriculture #biostimolanti #biostimulant",
+   "date": "2026-07-06",
+   "channelId": "UCLqKnJJf6VBExBf5qp8N74w",
+   "channelName": "L'Informatore Agrario",
+   "url": "https://www.youtube.com/watch?v=IH8jOr0Tzxc"
+  },
+  {
+   "id": "OUOpZ0mSfR8",
+   "title": "Oliveto Smart a Fieragricola 2026 - Intervista a Enzo Gambin, direttore Aipo",
+   "date": "2026-06-30",
+   "channelId": "UCLqKnJJf6VBExBf5qp8N74w",
+   "channelName": "L'Informatore Agrario",
+   "url": "https://www.youtube.com/watch?v=OUOpZ0mSfR8"
+  },
+  {
+   "id": "CJkSwEuSP-o",
+   "title": "Oliveto Smart a Fieragricola 2026 - Intervista a Silverio Pachioli – Agronomo Fitopatologo",
+   "date": "2026-06-30",
+   "channelId": "UCLqKnJJf6VBExBf5qp8N74w",
+   "channelName": "L'Informatore Agrario",
+   "url": "https://www.youtube.com/watch?v=CJkSwEuSP-o"
+  },
+  {
+   "id": "pgQCP00r8eg",
+   "title": "Oliveto Smart a Fieragricola 2026 - Intervista a Giulia Zuecco – Docente Università di Padova",
+   "date": "2026-06-30",
+   "channelId": "UCLqKnJJf6VBExBf5qp8N74w",
+   "channelName": "L'Informatore Agrario",
+   "url": "https://www.youtube.com/watch?v=pgQCP00r8eg"
+  },
+  {
+   "id": "PbMjiLHnF80",
+   "title": "Più resa, meno stress: pomodoro e biostimolanti in campo a Eboli",
+   "date": "2026-06-24",
+   "channelId": "UCLqKnJJf6VBExBf5qp8N74w",
+   "channelName": "L'Informatore Agrario",
+   "url": "https://www.youtube.com/watch?v=PbMjiLHnF80"
+  },
+  {
+   "id": "T3MYluvI2sw",
+   "title": "Con la Pac 2023-2027 la sostenibilità sociale è scesa in campo",
+   "date": "2026-06-19",
+   "channelId": "UCLqKnJJf6VBExBf5qp8N74w",
+   "channelName": "L'Informatore Agrario",
+   "url": "https://www.youtube.com/watch?v=T3MYluvI2sw"
+  },
+  {
+   "id": "xAyu6nAxilI",
+   "title": "Pac, tra agricoltura e tutela della biodiversità",
+   "date": "2026-06-19",
+   "channelId": "UCLqKnJJf6VBExBf5qp8N74w",
+   "channelName": "L'Informatore Agrario",
+   "url": "https://www.youtube.com/watch?v=xAyu6nAxilI"
+  },
+  {
+   "id": "X8KYfyKmjpM",
+   "title": "Acqua: la Pac insegna a non sprecarne una goccia",
+   "date": "2026-06-18",
+   "channelId": "UCLqKnJJf6VBExBf5qp8N74w",
+   "channelName": "L'Informatore Agrario",
+   "url": "https://www.youtube.com/watch?v=X8KYfyKmjpM"
+  },
+  {
+   "id": "W-W9QMVi-qQ",
+   "title": "Syngenta Italia",
+   "date": "2026-07-28",
+   "channelId": "UCBihPr1JHYRRwh6AIODsJ_w",
+   "channelName": "Syngenta Italia",
+   "url": "https://www.youtube.com/watch?v=W-W9QMVi-qQ"
+  },
+  {
+   "id": "8Keh_bbNBNM",
+   "title": "Preceon: il valore dello stay green",
+   "date": "2026-09-03",
+   "channelId": "UCovH9SenIW9CMPD9__x2J9w",
+   "channelName": "Bayer Crop Science Italia",
+   "url": "https://www.youtube.com/watch?v=8Keh_bbNBNM"
+  },
+  {
+   "id": "FyBJfLVd0ZE",
+   "title": "FieldView: Più efficienza grazie ai dati in tempo reale",
+   "date": "2026-08-05",
+   "channelId": "UCovH9SenIW9CMPD9__x2J9w",
+   "channelName": "Bayer Crop Science Italia",
+   "url": "https://www.youtube.com/watch?v=FyBJfLVd0ZE"
+  },
+  {
+   "id": "oSJkYFLzwzA",
+   "title": "Ambition Aktivator e Cayunis su orzo",
+   "date": "2026-08-03",
+   "channelId": "UCovH9SenIW9CMPD9__x2J9w",
+   "channelName": "Bayer Crop Science Italia",
+   "url": "https://www.youtube.com/watch?v=oSJkYFLzwzA"
+  },
+  {
+   "id": "lx278OElKq8",
+   "title": "FieldView: il valore dei dati in campo",
+   "date": "2026-07-30",
+   "channelId": "UCovH9SenIW9CMPD9__x2J9w",
+   "channelName": "Bayer Crop Science Italia",
+   "url": "https://www.youtube.com/watch?v=lx278OElKq8"
+  },
+  {
+   "id": "WNAzo9rkwOg",
+   "title": "Ambition Aktivator e Ambition Algae Gen2 su vite",
+   "date": "2026-07-28",
+   "channelId": "UCovH9SenIW9CMPD9__x2J9w",
+   "channelName": "Bayer Crop Science Italia",
+   "url": "https://www.youtube.com/watch?v=WNAzo9rkwOg"
+  },
+  {
+   "id": "5tt93yeejYQ",
+   "title": "Ambition Aktivator e Ambition Algae Gen2 su pomodoro",
+   "date": "2026-07-21",
+   "channelId": "UCovH9SenIW9CMPD9__x2J9w",
+   "channelName": "Bayer Crop Science Italia",
+   "url": "https://www.youtube.com/watch?v=5tt93yeejYQ"
+  },
+  {
+   "id": "0NNIg6A97IA",
+   "title": "Come massimizzare la produttività con Preceon e FieldView",
+   "date": "2026-07-16",
+   "channelId": "UCovH9SenIW9CMPD9__x2J9w",
+   "channelName": "Bayer Crop Science Italia",
+   "url": "https://www.youtube.com/watch?v=0NNIg6A97IA"
+  },
+  {
+   "id": "C3B-cayhyaI",
+   "title": "Ambition Aktivator e Ambition Algae Gen2 su olivo",
+   "date": "2026-07-15",
+   "channelId": "UCovH9SenIW9CMPD9__x2J9w",
+   "channelName": "Bayer Crop Science Italia",
+   "url": "https://www.youtube.com/watch?v=C3B-cayhyaI"
+  },
+  {
+   "id": "bEuu6HNsdko",
+   "title": "Difesa del mais da funghi e insetti: strategie, timing di intervento e nuove soluzioni",
+   "date": "2026-06-16",
+   "channelId": "UCovH9SenIW9CMPD9__x2J9w",
+   "channelName": "Bayer Crop Science Italia",
+   "url": "https://www.youtube.com/watch?v=bEuu6HNsdko"
+  }
+ ]
+}

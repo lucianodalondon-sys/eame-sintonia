@@ -1,0 +1,187 @@
+{
+ "DATASET": "IT-FUTURO-SUPERFICIE-VERIFICACAO-V1",
+ "RADAR_COLLECTION": "ITFC",
+ "TOTAL": 45,
+ "SURFACE_CONTRACT": "PASS",
+ "COMPLETE_RENDERABLE": 4,
+ "PARTIAL_RENDERABLE": 40,
+ "DROPPED_RENDERABLE": 1,
+ "ACT_NOW_RENDERABLE": 0,
+ "PREPARE_RENDERABLE": 23,
+ "WATCH_RENDERABLE": 21,
+ "PORTFOLIO_LIMITED": 8,
+ "PORTFOLIO_LIMITED_IDS": [
+  "ITFC-007",
+  "ITFC-009",
+  "ITFC-010",
+  "ITFC-011",
+  "ITFC-016",
+  "ITFC-021",
+  "ITFC-023",
+  "ITFC-028"
+ ],
+ "POR_CLASSE_DE_PORTFOLIO": {
+  "MEDIDO_EXISTE": 20,
+  "MEDIDO_ZERO": 16,
+  "EVIDENCIA_CONGELADA": 2,
+  "CEGO_SEM_CLASSE": 3,
+  "DECLARADO_UNKNOWN": 3
+ },
+ "FORA_DA_SUPERFICIE": [
+  "ITFC-027"
+ ],
+ "UNRESOLVED_SURFACE_DECISIONS": 0,
+ "DECISOES_QUE_O_PORTAL_TERIA_DE_ADIVINHAR": [],
+ "PASSOS": [
+  {
+   "PERGUNTA": "QUAL_COLECCAO_E_CANONICA",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "PREFIXO='ITFC'"
+  },
+  {
+   "PERGUNTA": "QUAL_E_A_CHAVE",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "CHAVE='CAND_ID'"
+  },
+  {
+   "PERGUNTA": "O_QUE_FAZER_COM_A_OUTRA_POPULACAO",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "os 10 ITF- nao tem classificacao declarada"
+  },
+  {
+   "PERGUNTA": "QUANTOS_SAO",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "45 · criterio 45"
+  },
+  {
+   "PERGUNTA": "TODO_SINAL_TEM_FICHA_E_JULGAMENTO",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "0 sem par: []"
+  },
+  {
+   "PERGUNTA": "REGRA_DE_SINAL_COMPLETO",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "RENDERIZAVEL=True — ausente e adivinhacao"
+  },
+  {
+   "PERGUNTA": "CONTEXTO_DE_SINAL_COMPLETO",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "CONTEXTO ausente"
+  },
+  {
+   "PERGUNTA": "REGRA_DE_PARCIAL",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "RENDERIZAVEL=True — ausente e adivinhacao"
+  },
+  {
+   "PERGUNTA": "CONTEXTO_DE_PARCIAL",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "CONTEXTO ausente"
+  },
+  {
+   "PERGUNTA": "REGRA_DE_DERRUBADO",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "RENDERIZAVEL=False — ausente e adivinhacao"
+  },
+  {
+   "PERGUNTA": "CONTEXTO_DE_DERRUBADO",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "CONTEXTO ausente"
+  },
+  {
+   "PERGUNTA": "DERRUBADO_FORA_DA_SUPERFICIE",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "o contrato torna DERRUBADO renderizavel — o congelamento diz «isto nao se apresenta», e DERRUBADO nunca vira oportunidade ativa"
+  },
+  {
+   "PERGUNTA": "PARCIAL_TEM_AVISO",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "PARCIAL renderiza sem aviso declarado"
+  },
+  {
+   "PERGUNTA": "PARCIAL_MOSTRA_LACUNAS",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "PARCIAL nao declara que lacunas tem de aparecer"
+  },
+  {
+   "PERGUNTA": "QUAIS_ESTADOS_TEMPORAIS",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "['PREPARAR', 'MONITORAR']"
+  },
+  {
+   "PERGUNTA": "AGIR_AGORA_DECLARADO_ZERO",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "contrato nao declara AGIR_AGORA = 0"
+  },
+  {
+   "PERGUNTA": "REGRA_DE_TOM_PREPARAR",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "PREPARAR nao declara o que nunca pode parecer"
+  },
+  {
+   "PERGUNTA": "REGRA_DE_TOM_MONITORAR",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "MONITORAR nao declara o que nunca pode parecer"
+  },
+  {
+   "PERGUNTA": "TODO_CARTAO_TEM_OS_CAMPOS_OBRIGATORIOS",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "0 sem campo: []"
+  },
+  {
+   "PERGUNTA": "CONTAGEM_SINAL_COMPLETO",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "4 · criterio 4"
+  },
+  {
+   "PERGUNTA": "CONTAGEM_PARCIAL",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "40 · criterio 40"
+  },
+  {
+   "PERGUNTA": "CONTAGEM_DERRUBADO",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "1 · criterio 1"
+  },
+  {
+   "PERGUNTA": "CONTAGEM_PREPARAR",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "na superficie 23 de 24 nos 45"
+  },
+  {
+   "PERGUNTA": "CONTAGEM_MONITORAR",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "na superficie 21 de 21 nos 45"
+  },
+  {
+   "PERGUNTA": "AGIR_AGORA_NA_SUPERFICIE",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "0 · criterio 0"
+  },
+  {
+   "PERGUNTA": "TOP_3_PRESERVADO",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "['ITFC-009', 'ITFC-016', 'ITFC-018'] · criterio ['ITFC-009', 'ITFC-016', 'ITFC-018']"
+  },
+  {
+   "PERGUNTA": "TOP3_SO_COMPLETO",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "ITFC-009 esta SINAL_COMPLETO"
+  },
+  {
+   "PERGUNTA": "TOP3_SO_COMPLETO",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "ITFC-016 esta SINAL_COMPLETO"
+  },
+  {
+   "PERGUNTA": "TOP3_SO_COMPLETO",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "ITFC-018 esta SINAL_COMPLETO"
+  },
+  {
+   "PERGUNTA": "NENHUMA_DECISAO_EM_ABERTO",
+   "RESPONDIDA_PELO_CONTRATO": true,
+   "DETALHE": "0 decisao(oes) que o portal teria de tomar: []"
+  }
+ ]
+}

@@ -1,0 +1,265 @@
+{
+ "DATASET": "IT-FAMILIA-SUPERFICIE-VERIFICACAO-V1",
+ "FAMILIAS": [
+  {
+   "FAMILIA": "FITOSSANITARIO",
+   "DONO_DA_DECISAO": "ciencia/tecnico",
+   "SURFACE_CONTRACT": "PASS",
+   "PODE_APARECER": 0,
+   "APARECE_COM_METODO": 0,
+   "FICA_FORA": 560,
+   "TOTAL": 560,
+   "SUBCONJUNTOS": [
+    {
+     "NOME": "corpus fitossanitario inteiro",
+     "DESTINO": "FORA",
+     "N": 560
+    }
+   ],
+   "UNRESOLVED_SURFACE_DECISIONS": 0,
+   "DECISOES_QUE_O_PORTAL_TERIA_DE_ADIVINHAR": [],
+   "PASSOS": [
+    {
+     "PERGUNTA": "QUEM_DECIDE",
+     "RESPONDIDA": true,
+     "DETALHE": "DONO_DA_DECISAO ausente"
+    },
+    {
+     "PERGUNTA": "O_QUE_NUNCA_ATRAVESSA",
+     "RESPONDIDA": true,
+     "DETALHE": "lista ausente"
+    },
+    {
+     "PERGUNTA": "QUAIS_SUBCONJUNTOS",
+     "RESPONDIDA": true,
+     "DETALHE": "nenhum subconjunto declarado"
+    },
+    {
+     "PERGUNTA": "TODA_COLECCAO_TEM_DONO",
+     "RESPONDIDA": true,
+     "DETALHE": "0 coleccao(oes) da familia que nenhum subconjunto reclama: []"
+    },
+    {
+     "PERGUNTA": "TOTAL_BATE_COM_O_INVENTARIO",
+     "RESPONDIDA": true,
+     "DETALHE": "contrato 560 · inventario 560 — dois contadores a discordar sobre o mesmo acervo"
+    },
+    {
+     "PERGUNTA": "SOMA_DOS_DESTINOS_IGUAL_AO_TOTAL",
+     "RESPONDIDA": true,
+     "DETALHE": "declarado 560 · contado por destino 560"
+    },
+    {
+     "PERGUNTA": "NENHUMA_DECISAO_EM_ABERTO",
+     "RESPONDIDA": true,
+     "DETALHE": "[]"
+    }
+   ]
+  },
+  {
+   "FAMILIA": "FONTES",
+   "DONO_DA_DECISAO": "coleta",
+   "SURFACE_CONTRACT": "PASS",
+   "PODE_APARECER": 0,
+   "APARECE_COM_METODO": 91,
+   "FICA_FORA": 226,
+   "TOTAL": 317,
+   "SUBCONJUNTOS": [
+    {
+     "NOME": "fontes descobertas",
+     "DESTINO": "COM_METODO",
+     "N": 91
+    },
+    {
+     "NOME": "reconferencia de enderecos",
+     "DESTINO": "FORA",
+     "N": 35
+    },
+    {
+     "NOME": "rejeicoes do lote 2",
+     "DESTINO": "FORA",
+     "N": 95
+    },
+    {
+     "NOME": "fontes rejeitadas na descoberta",
+     "DESTINO": "FORA",
+     "N": 11
+    },
+    {
+     "NOME": "rotas nao alcancadas nesta sessao",
+     "DESTINO": "FORA",
+     "N": 22
+    },
+    {
+     "NOME": "rotas de video medidas",
+     "DESTINO": "FORA",
+     "N": 39
+    },
+    {
+     "NOME": "correccoes as proprias medicoes",
+     "DESTINO": "FORA",
+     "N": 6
+    },
+    {
+     "NOME": "contradicoes em aberto",
+     "DESTINO": "FORA",
+     "N": 1
+    },
+    {
+     "NOME": "handles reconferidos",
+     "DESTINO": "FORA",
+     "N": 17
+    }
+   ],
+   "UNRESOLVED_SURFACE_DECISIONS": 0,
+   "DECISOES_QUE_O_PORTAL_TERIA_DE_ADIVINHAR": [],
+   "PASSOS": [
+    {
+     "PERGUNTA": "QUEM_DECIDE",
+     "RESPONDIDA": true,
+     "DETALHE": "DONO_DA_DECISAO ausente"
+    },
+    {
+     "PERGUNTA": "O_QUE_NUNCA_ATRAVESSA",
+     "RESPONDIDA": true,
+     "DETALHE": "lista ausente"
+    },
+    {
+     "PERGUNTA": "QUAIS_SUBCONJUNTOS",
+     "RESPONDIDA": true,
+     "DETALHE": "nenhum subconjunto declarado"
+    },
+    {
+     "PERGUNTA": "TODA_COLECCAO_TEM_DONO",
+     "RESPONDIDA": true,
+     "DETALHE": "0 coleccao(oes) da familia que nenhum subconjunto reclama: []"
+    },
+    {
+     "PERGUNTA": "TOTAL_BATE_COM_O_INVENTARIO",
+     "RESPONDIDA": true,
+     "DETALHE": "contrato 317 · inventario 317 — dois contadores a discordar sobre o mesmo acervo"
+    },
+    {
+     "PERGUNTA": "SOMA_DOS_DESTINOS_IGUAL_AO_TOTAL",
+     "RESPONDIDA": true,
+     "DETALHE": "declarado 317 · contado por destino 317"
+    },
+    {
+     "PERGUNTA": "NENHUMA_DECISAO_EM_ABERTO",
+     "RESPONDIDA": true,
+     "DETALHE": "[]"
+    }
+   ]
+  },
+  {
+   "FAMILIA": "SINAIS_DE_CAMPO",
+   "DONO_DA_DECISAO": "ciencia/tecnico",
+   "SURFACE_CONTRACT": "PASS",
+   "PODE_APARECER": 28,
+   "APARECE_COM_METODO": 19,
+   "FICA_FORA": 593,
+   "TOTAL": 640,
+   "SUBCONJUNTOS": [
+    {
+     "NOME": "sinais verificados V1",
+     "DESTINO": "CARTAO",
+     "N": 21
+    },
+    {
+     "NOME": "sinais verificados V2",
+     "DESTINO": "COM_METODO",
+     "N": 19
+    },
+    {
+     "NOME": "cruzamentos V1",
+     "DESTINO": "CARTAO",
+     "N": 7
+    },
+    {
+     "NOME": "enriquecimentos confirmados",
+     "DESTINO": "FORA",
+     "N": 5
+    },
+    {
+     "NOME": "cruzamentos V2 (agregado)",
+     "DESTINO": "FORA",
+     "N": 1
+    },
+    {
+     "NOME": "indice dos bollettini ER",
+     "DESTINO": "FORA",
+     "N": 150
+    },
+    {
+     "NOME": "mencoes de substancia nos bollettini",
+     "DESTINO": "FORA",
+     "N": 421
+    },
+    {
+     "NOME": "serie de armadilhas cimice UNIBO",
+     "DESTINO": "FORA",
+     "N": 1
+    },
+    {
+     "NOME": "refutados V1",
+     "DESTINO": "FORA",
+     "N": 3
+    },
+    {
+     "NOME": "refutados V2",
+     "DESTINO": "FORA",
+     "N": 1
+    },
+    {
+     "NOME": "nao cruzados, com o porque",
+     "DESTINO": "FORA",
+     "N": 7
+    },
+    {
+     "NOME": "nao enriquecidos, com o porque",
+     "DESTINO": "FORA",
+     "N": 4
+    }
+   ],
+   "UNRESOLVED_SURFACE_DECISIONS": 0,
+   "DECISOES_QUE_O_PORTAL_TERIA_DE_ADIVINHAR": [],
+   "PASSOS": [
+    {
+     "PERGUNTA": "QUEM_DECIDE",
+     "RESPONDIDA": true,
+     "DETALHE": "DONO_DA_DECISAO ausente"
+    },
+    {
+     "PERGUNTA": "O_QUE_NUNCA_ATRAVESSA",
+     "RESPONDIDA": true,
+     "DETALHE": "lista ausente"
+    },
+    {
+     "PERGUNTA": "QUAIS_SUBCONJUNTOS",
+     "RESPONDIDA": true,
+     "DETALHE": "nenhum subconjunto declarado"
+    },
+    {
+     "PERGUNTA": "TODA_COLECCAO_TEM_DONO",
+     "RESPONDIDA": true,
+     "DETALHE": "0 coleccao(oes) da familia que nenhum subconjunto reclama: []"
+    },
+    {
+     "PERGUNTA": "TOTAL_BATE_COM_O_INVENTARIO",
+     "RESPONDIDA": true,
+     "DETALHE": "contrato 640 · inventario 640 — dois contadores a discordar sobre o mesmo acervo"
+    },
+    {
+     "PERGUNTA": "SOMA_DOS_DESTINOS_IGUAL_AO_TOTAL",
+     "RESPONDIDA": true,
+     "DETALHE": "declarado 640 · contado por destino 640"
+    },
+    {
+     "PERGUNTA": "NENHUMA_DECISAO_EM_ABERTO",
+     "RESPONDIDA": true,
+     "DETALHE": "[]"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1003 @@
+{
+ "SOURCE_ID": "IT-T4-001-ETICHETTA",
+ "CAPTURED_AT": "2026-09-04",
+ "COUNTRY": "IT",
+ "LAYER": "NATIONAL PRODUCT AUTHORIZATION",
+ "DATASET": "IT-ROTULOS-METRICAS-V2",
+ "SOURCE": "medicao de it_rotulo_parser/3.4.0 contra IT-ROTULOS-GOLD-COMPLETE-V1",
+ "NENHUM_ROTULO_DO_GABARITO_FOI_PULADO": true,
+ "MESMO_ESPACO_DE_NOMES": true,
+ "PARSER_VERSION": "it_rotulo_parser/3.4.0",
+ "GOLD": "IT-ROTULOS-GOLD-COMPLETE-V1",
+ "GOLD_LABELS": 30,
+ "GOLD_LABELS_EXCLUDED": 6,
+ "GOLD_PAIRS_TOTAL": 912,
+ "GOLD_PAIRS_IN_VOCAB": 848,
+ "GOLD_PAIRS_VOCAB_GAP": 64,
+ "TP": 738,
+ "FP": 27,
+ "FN": 110,
+ "PRECISION": 0.965,
+ "RECALL": 0.87,
+ "F1": 0.915,
+ "RECALL_INCLUDING_VOCAB_GAP": 0.809,
+ "FALSE_POSITIVE_PAIR_COUNT": 27,
+ "FALSE_NEGATIVE_PAIR_COUNT": 110,
+ "EXPECTED_NO_PAIR_VIOLATIONS": 0,
+ "EXPECTED_NO_PAIR_VIOLATION_LIST": [],
+ "AMBIGUOUS_PROMOTED_TO_PAIR": 0,
+ "AMBIGUOUS_PROMOTED_LIST": [],
+ "SUPPORTED_PAIR_DROPPED_TO_AMBIGUOUS": 4,
+ "ZERO_PAIR_WITH_TARGET_TEXT": 2,
+ "ZERO_PAIR_WITH_TARGET_TEXT_LIST": [
+  "013402",
+  "015592"
+ ],
+ "ZERO_PAIR_WITH_CROP_AND_TARGET_TEXT": 2,
+ "ZERO_PAIR_WITH_CROP_AND_TARGET_TEXT_LIST": [
+  "013402",
+  "015592"
+ ],
+ "BY_LABEL": {
+  "002732": {
+   "PRODUCT": "diserbante barbabietola/spinacio",
+   "FAMILY": "SCOPE_SENTENCE_HERBICIDA",
+   "GOLD_PAIRS_IN_VOCAB": 2,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 2,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 2,
+   "FP": 0,
+   "FN": 0,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "002983": {
+   "PRODUCT": "anti-oidico multicultura",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "GOLD_PAIRS_IN_VOCAB": 12,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 13,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 12,
+   "FP": 1,
+   "FN": 0,
+   "PARSER_SUPPORTED_UNMATCHED": [
+    [
+     "CILIEGIO",
+     "OIDIO"
+    ]
+   ]
+  },
+  "007555": {
+   "PRODUCT": "KLARTAN",
+   "FAMILY": "HEADER_CONTINUATION",
+   "GOLD_PAIRS_IN_VOCAB": 98,
+   "GOLD_PAIRS_VOCAB_GAP": 4,
+   "PARSER_SUPPORTED": 105,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 95,
+   "FP": 0,
+   "FN": 3,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "007603": {
+   "PRODUCT": "diserbante barbabietola",
+   "FAMILY": "SCOPE_SENTENCE_HERBICIDA",
+   "GOLD_PAIRS_IN_VOCAB": 1,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 1,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 1,
+   "FP": 0,
+   "FN": 0,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "007864": {
+   "PRODUCT": "KLARTAN 20 EW",
+   "FAMILY": "HEADER_CONTINUATION",
+   "GOLD_PAIRS_IN_VOCAB": 98,
+   "GOLD_PAIRS_VOCAB_GAP": 4,
+   "PARSER_SUPPORTED": 106,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 95,
+   "FP": 0,
+   "FN": 3,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "008102": {
+   "PRODUCT": "fungicida pomacee/drupacee/frutta a guscio",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "GOLD_PAIRS_IN_VOCAB": 12,
+   "GOLD_PAIRS_VOCAB_GAP": 12,
+   "PARSER_SUPPORTED": 9,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 9,
+   "FP": 0,
+   "FN": 3,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "008601": {
+   "PRODUCT": "fungicida vite/pomodoro (granuli idrodispersibili)",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "GOLD_PAIRS_IN_VOCAB": 8,
+   "GOLD_PAIRS_VOCAB_GAP": 2,
+   "PARSER_SUPPORTED": 7,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 6,
+   "FP": 0,
+   "FN": 2,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "009757": {
+   "PRODUCT": "SPYRALE",
+   "FAMILY": "C_TABELA",
+   "GOLD_PAIRS_IN_VOCAB": 2,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 2,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 2,
+   "FP": 0,
+   "FN": 0,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "009783": {
+   "PRODUCT": "fungicida di post raccolta agrumi",
+   "FAMILY": "GENUINE_ZERO_VOCAB_GAP",
+   "GOLD_PAIRS_IN_VOCAB": 0,
+   "GOLD_PAIRS_VOCAB_GAP": 1,
+   "PARSER_SUPPORTED": 0,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 0,
+   "FP": 0,
+   "FN": 0,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "009790": {
+   "PRODUCT": "CONTATTO 320",
+   "FAMILY": "SCOPE_SENTENCE_HERBICIDA",
+   "GOLD_PAIRS_IN_VOCAB": 1,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 1,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 1,
+   "FP": 0,
+   "FN": 0,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "009800": {
+   "PRODUCT": "MAVRIK 20 EW",
+   "FAMILY": "HEADER_CONTINUATION",
+   "GOLD_PAIRS_IN_VOCAB": 100,
+   "GOLD_PAIRS_VOCAB_GAP": 5,
+   "PARSER_SUPPORTED": 98,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 85,
+   "FP": 3,
+   "FN": 15,
+   "PARSER_SUPPORTED_UNMATCHED": [
+    [
+     "BARBABIETOLA",
+     "APION"
+    ],
+    [
+     "BARBABIETOLA",
+     "PIRALIDE"
+    ],
+    [
+     "BARBABIETOLA",
+     "TRIPIDI"
+    ]
+   ]
+  },
+  "010587": {
+   "PRODUCT": "fungicida vite/pomodoro (sospensione)",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "GOLD_PAIRS_IN_VOCAB": 8,
+   "GOLD_PAIRS_VOCAB_GAP": 2,
+   "PARSER_SUPPORTED": 5,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 4,
+   "FP": 0,
+   "FN": 4,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "011243": {
+   "PRODUCT": "LEOPARD 5 EC",
+   "FAMILY": "GLOBAL_TARGET_SCOPE",
+   "GOLD_PAIRS_IN_VOCAB": 24,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 16,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 16,
+   "FP": 0,
+   "FN": 8,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "012573": {
+   "PRODUCT": "EKO OIL SPRAY",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "GOLD_PAIRS_IN_VOCAB": 162,
+   "GOLD_PAIRS_VOCAB_GAP": 5,
+   "PARSER_SUPPORTED": 157,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 139,
+   "FP": 18,
+   "FN": 23,
+   "PARSER_SUPPORTED_UNMATCHED": [
+    [
+     "BARBABIETOLA",
+     "ACARI"
+    ],
+    [
+     "BARBABIETOLA",
+     "ALEURODIDI"
+    ],
+    [
+     "BARBABIETOLA",
+     "CICALINE"
+    ],
+    [
+     "BARBABIETOLA",
+     "COCCINIGLIE"
+    ],
+    [
+     "BARBABIETOLA",
+     "DITTERI"
+    ],
+    [
+     "BARBABIETOLA",
+     "LEPIDOTTERI"
+    ],
+    [
+     "BARBABIETOLA",
+     "METCALFA"
+    ],
+    [
+     "BARBABIETOLA",
+     "PSILLE"
+    ]
+   ]
+  },
+  "013402": {
+   "PRODUCT": "LUMA KL",
+   "FAMILY": "GLOBAL_TARGET_SCOPE",
+   "GOLD_PAIRS_IN_VOCAB": 0,
+   "GOLD_PAIRS_VOCAB_GAP": 21,
+   "PARSER_SUPPORTED": 0,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 0,
+   "FP": 0,
+   "FN": 0,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "013405": {
+   "PRODUCT": "anti-oidico multicultura (2)",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "GOLD_PAIRS_IN_VOCAB": 9,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 9,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 8,
+   "FP": 1,
+   "FN": 1,
+   "PARSER_SUPPORTED_UNMATCHED": [
+    [
+     "CILIEGIO",
+     "OIDIO"
+    ]
+   ]
+  },
+  "013585": {
+   "PRODUCT": "SOLOFOL",
+   "FAMILY": "INLINE_WITH_CROP_QUALIFIER",
+   "GOLD_PAIRS_IN_VOCAB": 2,
+   "GOLD_PAIRS_VOCAB_GAP": 2,
+   "PARSER_SUPPORTED": 2,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 2,
+   "FP": 0,
+   "FN": 0,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "014386": {
+   "PRODUCT": "OLIONET",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "GOLD_PAIRS_IN_VOCAB": 162,
+   "GOLD_PAIRS_VOCAB_GAP": 5,
+   "PARSER_SUPPORTED": 139,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 139,
+   "FP": 0,
+   "FN": 23,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "015592": {
+   "PRODUCT": "TAIFUN JARDIN",
+   "FAMILY": "WEED_NAMES_MISTAKEN_FOR_CROPS",
+   "GOLD_PAIRS_IN_VOCAB": 0,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 0,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 0,
+   "FP": 0,
+   "FN": 0,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "016152": {
+   "PRODUCT": "SEEDRON",
+   "FAMILY": "C_TABELA",
+   "GOLD_PAIRS_IN_VOCAB": 11,
+   "GOLD_PAIRS_VOCAB_GAP": 1,
+   "PARSER_SUPPORTED": 9,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 9,
+   "FP": 0,
+   "FN": 2,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "016218": {
+   "PRODUCT": "herbicida olivo/cereali",
+   "FAMILY": "SCOPE_SENTENCE_HERBICIDA",
+   "GOLD_PAIRS_IN_VOCAB": 3,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 3,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 3,
+   "FP": 0,
+   "FN": 0,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "016312": {
+   "PRODUCT": "herbicida post-emergenza (2)",
+   "FAMILY": "GLOBAL_TARGET_SCOPE",
+   "GOLD_PAIRS_IN_VOCAB": 19,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 19,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 19,
+   "FP": 0,
+   "FN": 0,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "016823": {
+   "PRODUCT": "ACTIVUS 40 SC",
+   "FAMILY": "GLOBAL_TARGET_SCOPE",
+   "GOLD_PAIRS_IN_VOCAB": 24,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 24,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 24,
+   "FP": 0,
+   "FN": 0,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "017358": {
+   "PRODUCT": "BLAISE ULTRA",
+   "FAMILY": "C_TABELA",
+   "GOLD_PAIRS_IN_VOCAB": 21,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 24,
+   "PARSER_AMBIGUOUS": 4,
+   "TP": 20,
+   "FP": 4,
+   "FN": 1,
+   "PARSER_SUPPORTED_UNMATCHED": [
+    [
+     "AGLIO",
+     "OIDIO"
+    ],
+    [
+     "CETRIOLO",
+     "ELMINTOSPORIOSI"
+    ],
+    [
+     "CIPOLLA",
+     "OIDIO"
+    ],
+    [
+     "ZUCCHINO",
+     "ELMINTOSPORIOSI"
+    ]
+   ]
+  },
+  "017852": {
+   "PRODUCT": "POWERFILM",
+   "FAMILY": "GENUINE_ZERO",
+   "GOLD_PAIRS_IN_VOCAB": 0,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 0,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 0,
+   "FP": 0,
+   "FN": 0,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "017955": {
+   "PRODUCT": "MAGANIC",
+   "FAMILY": "C_TABELA",
+   "GOLD_PAIRS_IN_VOCAB": 9,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 1,
+   "PARSER_AMBIGUOUS": 2,
+   "TP": 1,
+   "FP": 0,
+   "FN": 8,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "018089": {
+   "PRODUCT": "AVASTEL",
+   "FAMILY": "C_TABELA",
+   "GOLD_PAIRS_IN_VOCAB": 15,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 11,
+   "PARSER_AMBIGUOUS": 4,
+   "TP": 11,
+   "FP": 0,
+   "FN": 4,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "018101": {
+   "PRODUCT": "herbicida post-emergenza (1)",
+   "FAMILY": "GLOBAL_TARGET_SCOPE",
+   "GOLD_PAIRS_IN_VOCAB": 15,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 15,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 15,
+   "FP": 0,
+   "FN": 0,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "018156": {
+   "PRODUCT": "APYZA WG",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "GOLD_PAIRS_IN_VOCAB": 15,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 10,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 10,
+   "FP": 0,
+   "FN": 5,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  },
+  "018165": {
+   "PRODUCT": "APYZA 500 WG",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "GOLD_PAIRS_IN_VOCAB": 15,
+   "GOLD_PAIRS_VOCAB_GAP": 0,
+   "PARSER_SUPPORTED": 10,
+   "PARSER_AMBIGUOUS": 0,
+   "TP": 10,
+   "FP": 0,
+   "FN": 5,
+   "PARSER_SUPPORTED_UNMATCHED": []
+  }
+ },
+ "FP_SAMPLE": [
+  [
+   "002983",
+   "CILIEGIO",
+   "OIDIO"
+  ],
+  [
+   "009800",
+   "BARBABIETOLA",
+   "APION"
+  ],
+  [
+   "009800",
+   "BARBABIETOLA",
+   "PIRALIDE"
+  ],
+  [
+   "009800",
+   "BARBABIETOLA",
+   "TRIPIDI"
+  ],
+  [
+   "012573",
+   "BARBABIETOLA",
+   "ACARI"
+  ],
+  [
+   "012573",
+   "BARBABIETOLA",
+   "ALEURODIDI"
+  ],
+  [
+   "012573",
+   "BARBABIETOLA",
+   "CICALINE"
+  ],
+  [
+   "012573",
+   "BARBABIETOLA",
+   "COCCINIGLIE"
+  ],
+  [
+   "012573",
+   "BARBABIETOLA",
+   "DITTERI"
+  ],
+  [
+   "012573",
+   "BARBABIETOLA",
+   "LEPIDOTTERI"
+  ],
+  [
+   "012573",
+   "BARBABIETOLA",
+   "METCALFA"
+  ],
+  [
+   "012573",
+   "BARBABIETOLA",
+   "PSILLE"
+  ],
+  [
+   "012573",
+   "BARBABIETOLA",
+   "TIGNOLE"
+  ],
+  [
+   "012573",
+   "BARBABIETOLA",
+   "TRIPIDI"
+  ],
+  [
+   "012573",
+   "CARCIOFO",
+   "ALTICA"
+  ],
+  [
+   "012573",
+   "CARCIOFO",
+   "CASSIDA"
+  ],
+  [
+   "012573",
+   "CARCIOFO",
+   "CICALINE"
+  ],
+  [
+   "012573",
+   "CARCIOFO",
+   "COCCINIGLIE"
+  ],
+  [
+   "012573",
+   "CARCIOFO",
+   "METCALFA"
+  ],
+  [
+   "012573",
+   "CARCIOFO",
+   "MOSCA"
+  ],
+  [
+   "012573",
+   "CARCIOFO",
+   "PSILLE"
+  ],
+  [
+   "012573",
+   "CARCIOFO",
+   "TIGNOLE"
+  ],
+  [
+   "013405",
+   "CILIEGIO",
+   "OIDIO"
+  ],
+  [
+   "017358",
+   "AGLIO",
+   "OIDIO"
+  ],
+  [
+   "017358",
+   "CETRIOLO",
+   "ELMINTOSPORIOSI"
+  ],
+  [
+   "017358",
+   "CIPOLLA",
+   "OIDIO"
+  ],
+  [
+   "017358",
+   "ZUCCHINO",
+   "ELMINTOSPORIOSI"
+  ]
+ ],
+ "FN_SAMPLE": [
+  [
+   "007555",
+   "AGRUMI",
+   "AFIDI"
+  ],
+  [
+   "007555",
+   "AGRUMI",
+   "TIGNOLE"
+  ],
+  [
+   "007555",
+   "CILIEGIO",
+   "AFIDI"
+  ],
+  [
+   "007864",
+   "AGRUMI",
+   "AFIDI"
+  ],
+  [
+   "007864",
+   "AGRUMI",
+   "TIGNOLE"
+  ],
+  [
+   "007864",
+   "CILIEGIO",
+   "AFIDI"
+  ],
+  [
+   "008102",
+   "MANDORLO",
+   "TICCHIOLATURA"
+  ],
+  [
+   "008102",
+   "NOCCIOLO",
+   "ALTERNARIA"
+  ],
+  [
+   "008102",
+   "NOCCIOLO",
+   "ANTRACNOSI"
+  ],
+  [
+   "008601",
+   "VITE",
+   "MUFFA"
+  ],
+  [
+   "008601",
+   "VITE",
+   "OIDIO"
+  ],
+  [
+   "009800",
+   "AGRUMI",
+   "AFIDI"
+  ],
+  [
+   "009800",
+   "AGRUMI",
+   "TIGNOLE"
+  ],
+  [
+   "009800",
+   "CILIEGIO",
+   "AFIDI"
+  ],
+  [
+   "009800",
+   "ERBA_MEDICA",
+   "AFIDI"
+  ],
+  [
+   "009800",
+   "ERBA_MEDICA",
+   "APION"
+  ],
+  [
+   "009800",
+   "ERBA_MEDICA",
+   "LEPIDOTTERI"
+  ],
+  [
+   "009800",
+   "ERBA_MEDICA",
+   "PIRALIDE"
+  ],
+  [
+   "009800",
+   "ERBA_MEDICA",
+   "TRIPIDI"
+  ],
+  [
+   "009800",
+   "FRAGOLA",
+   "AFIDI"
+  ],
+  [
+   "009800",
+   "FRAGOLA",
+   "LEPIDOTTERI"
+  ],
+  [
+   "009800",
+   "FRAGOLA",
+   "TRIPIDI"
+  ],
+  [
+   "009800",
+   "MELANZANA",
+   "AFIDI"
+  ],
+  [
+   "009800",
+   "MELANZANA",
+   "LEPIDOTTERI"
+  ],
+  [
+   "009800",
+   "MELANZANA",
+   "NOTTUE"
+  ],
+  [
+   "009800",
+   "MELANZANA",
+   "TRIPIDI"
+  ],
+  [
+   "010587",
+   "VITE",
+   "MARCIUME"
+  ],
+  [
+   "010587",
+   "VITE",
+   "MUFFA"
+  ],
+  [
+   "010587",
+   "VITE",
+   "OIDIO"
+  ],
+  [
+   "010587",
+   "VITE",
+   "PERONOSPORA"
+  ],
+  [
+   "011243",
+   "AGRUMI",
+   "INFESTANTI"
+  ],
+  [
+   "011243",
+   "ALBICOCCO",
+   "INFESTANTI"
+  ],
+  [
+   "011243",
+   "CILIEGIO",
+   "INFESTANTI"
+  ],
+  [
+   "011243",
+   "MELO",
+   "INFESTANTI"
+  ],
+  [
+   "011243",
+   "PERO",
+   "INFESTANTI"
+  ],
+  [
+   "011243",
+   "PESCO",
+   "INFESTANTI"
+  ],
+  [
+   "011243",
+   "SUSINO",
+   "INFESTANTI"
+  ],
+  [
+   "011243",
+   "VITE",
+   "INFESTANTI"
+  ],
+  [
+   "012573",
+   "AGRUMI",
+   "ACARI"
+  ],
+  [
+   "012573",
+   "AGRUMI",
+   "AFIDI"
+  ],
+  [
+   "012573",
+   "AGRUMI",
+   "ALEURODIDI"
+  ],
+  [
+   "012573",
+   "AGRUMI",
+   "CIMICI"
+  ],
+  [
+   "012573",
+   "AGRUMI",
+   "COCCINIGLIE"
+  ],
+  [
+   "012573",
+   "AGRUMI",
+   "TRIPIDI"
+  ],
+  [
+   "012573",
+   "CETRIOLO",
+   "COCCINIGLIE"
+  ],
+  [
+   "012573",
+   "CETRIOLO",
+   "LEPIDOTTERI"
+  ],
+  [
+   "012573",
+   "COCOMERO",
+   "COCCINIGLIE"
+  ],
+  [
+   "012573",
+   "COCOMERO",
+   "LEPIDOTTERI"
+  ],
+  [
+   "012573",
+   "MELO",
+   "CICALINE"
+  ],
+  [
+   "012573",
+   "MELO",
+   "LEPIDOTTERI"
+  ],
+  [
+   "012573",
+   "MELONE",
+   "COCCINIGLIE"
+  ],
+  [
+   "012573",
+   "MELONE",
+   "LEPIDOTTERI"
+  ],
+  [
+   "012573",
+   "NOCCIOLO",
+   "LEPIDOTTERI"
+  ],
+  [
+   "012573",
+   "NOCE",
+   "LEPIDOTTERI"
+  ],
+  [
+   "012573",
+   "PATATA",
+   "ALEURODIDI"
+  ],
+  [
+   "012573",
+   "PEPERONE",
+   "ALEURODIDI"
+  ],
+  [
+   "012573",
+   "PERO",
+   "CICALINE"
+  ],
+  [
+   "012573",
+   "PERO",
+   "LEPIDOTTERI"
+  ],
+  [
+   "012573",
+   "POMODORO",
+   "ALEURODIDI"
+  ],
+  [
+   "012573",
+   "ZUCCHINO",
+   "COCCINIGLIE"
+  ]
+ ],
+ "BY_FAMILY": {
+  "C_TABELA": {
+   "LABELS": 5,
+   "TP": 43,
+   "FP": 4,
+   "FN": 15
+  },
+  "GENUINE_ZERO": {
+   "LABELS": 1,
+   "TP": 0,
+   "FP": 0,
+   "FN": 0
+  },
+  "GENUINE_ZERO_VOCAB_GAP": {
+   "LABELS": 1,
+   "TP": 0,
+   "FP": 0,
+   "FN": 0
+  },
+  "GLOBAL_TARGET_SCOPE": {
+   "LABELS": 5,
+   "TP": 74,
+   "FP": 0,
+   "FN": 8
+  },
+  "G_TEXTO_CORRIDO": {
+   "LABELS": 9,
+   "TP": 337,
+   "FP": 20,
+   "FN": 66
+  },
+  "HEADER_CONTINUATION": {
+   "LABELS": 3,
+   "TP": 275,
+   "FP": 3,
+   "FN": 21
+  },
+  "INLINE_WITH_CROP_QUALIFIER": {
+   "LABELS": 1,
+   "TP": 2,
+   "FP": 0,
+   "FN": 0
+  },
+  "SCOPE_SENTENCE_HERBICIDA": {
+   "LABELS": 4,
+   "TP": 7,
+   "FP": 0,
+   "FN": 0
+  },
+  "WEED_NAMES_MISTAKEN_FOR_CROPS": {
+   "LABELS": 1,
+   "TP": 0,
+   "FP": 0,
+   "FN": 0
+  }
+ },
+ "EXCLUDED": [
+  {
+   "LABEL_ID": "008259",
+   "BLOCOS": 393,
+   "WHY": "matriz cultura x alvo x epoca com celulas mescladas em varias paginas; enumerar a mao sem erro nao e defensavel nesta rodada"
+  },
+  {
+   "LABEL_ID": "013560",
+   "BLOCOS": 387,
+   "WHY": "mesma matriz de 008259"
+  },
+  {
+   "LABEL_ID": "004701",
+   "BLOCOS": 131,
+   "WHY": "multi-cultura extenso; enumeracao parcial contaminaria a precisao"
+  },
+  {
+   "LABEL_ID": "007876",
+   "BLOCOS": 260,
+   "WHY": "idem 004701"
+  },
+  {
+   "LABEL_ID": "008189",
+   "BLOCOS": 31,
+   "WHY": "geoinseticida: a tabela alinha cultura, alvo e forma de distribuicao em colunas que o achatamento entrelaca; eu nao consegui separar as linhas com confianca suficiente para chamar de gabarito"
+  },
+  {
+   "LABEL_ID": "008929",
+   "BLOCOS": 36,
+   "WHY": "a declaracao de cultura esta numa pagina que a geometria nao trouxe legivel; sem ela eu enumeraria por suposicao"
+  }
+ ]
+}

@@ -1,0 +1,69 @@
+{
+ "DATASET": "IT-ROTULO-LEITURA-V1",
+ "LAYER": "NATIONAL PRODUCT AUTHORIZATION",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-T4-001-ETICHETTA",
+ "CAPTURED_AT": "2026-09-04",
+ "SOURCE": "etichetta autorizzata do Ministero della Salute, lida do PDF oficial. Documento identico ao baixado pela casa em 2026-08-30: SHA256 confere byte a byte.",
+
+ "POR_QUE_ESTE_ARQUIVO_EXISTE": "porque a resposta muda um numero que a casa vinha repetindo. Ate hoje o acervo declarava UM unico par de rotulo ADAMA em OLIVO (MORAINE 018101). Este e o SEGUNDO, e estava dentro dos 61 rotulos que nunca tinham sido lidos.",
+
+ "PRODUCT": "DICURAN PLUS",
+ "REGISTRATION_ID": "016218",
+ "HOLDER": "ADAMA ITALIA S.R.L.",
+ "ACTIVE_INGREDIENTS": ["CHLOROTOLURON", "DIFLUFENICAN"],
+ "COMPOSITION_AS_WRITTEN": "Clortoluron puro 35.7 g (=400 g/l); Diflufenican puro 2.2 g (=25 g/l)",
+ "FORMULATION": "SOSPENSIONE CONCENTRATA",
+ "REGULATORY_CATEGORY": "DISERBANTE",
+ "STATUS": "Autorizzato in regime di Riconoscimento Reciproco",
+ "EXPIRY": "2027-08-31",
+ "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36530",
+ "LABEL_FILENAME": "16218_etichettaCLP_03022021.pdf",
+ "LABEL_DATE": "2021-02-03",
+ "LABEL_DECREE_AS_WRITTEN": "Etichetta autorizzata con decreto dirigenziale del 27.01.2020 e modificata ai sensi del D.D. 9.08.2016 e ai sensi dell'art.7, comma 1, D.P.R. 55/2012 con validita dal 03.02.2021",
+ "BYTES": 178732,
+ "SHA256": "6198e13068f3cf7009e4389c31f591b53cbaf08dfaeb146f8414d16a758aebbf",
+ "SHA_MATCHES_HOUSE_DOWNLOAD_2026_08_30": true,
+ "TEXT_CHARS": 14491,
+ "PROVENANCE": "REAL_FACT · MINISTERO_LABEL_PDF",
+
+ "USE_ON_OLIVO": {
+  "CROP": "OLIVO",
+  "CROP_AS_WRITTEN_ON_LABEL": "Olivo",
+  "TARGET": "INFESTANTI",
+  "TARGET_KIND": "PLANTA_INFESTANTE",
+  "SCOPE_SENTENCE_AS_WRITTEN": "controllo in pre-emergenza delle infestanti annuali, graminacee e dicotiledoni, di frumento, orzo ed olivo",
+  "TIMING_AS_WRITTEN": "Olivo: applicare il prodotto in pre-emergenza o post-emergenza precoce delle infestanti",
+  "DOSE_AS_WRITTEN": "alla dose di 3-4,5 l/ha",
+  "APPLICATION_METHOD_AS_WRITTEN": "Utilizzare irroratrici a bassa pressione, diluendo la dose indicata in un volume d'acqua di 200-400 l/ha, eseguendo una singola applicazione per stagione",
+  "MAX_APPLICATIONS": "una singola applicazione per stagione",
+  "CONDITION_AS_WRITTEN": "Le infestanti non devono superare lo stadio di plantula",
+  "PHI_AS_WRITTEN": "SOSPENDERE I TRATTAMENTI 21 GIORNI PRIMA DELLA RACCOLTA DELLE OLIVE E 90 GIORNI PRIMA DELLA RACCOLTA DEI CEREALI",
+  "PHI_OLIVE_DAYS": 21,
+  "RESTRICTION_OLIVE_AS_WRITTEN": "In oliveti: non applicare con olive cadute a terra che devono essere [raccolte]",
+  "BUFFER_AS_WRITTEN": "rispettare una fascia di sicurezza non trattata di 20 m dai corpi idrici superficiali, da considerarsi vegetata",
+  "SOIL_RESTRICTION_AS_WRITTEN": "Non applicare su suoli con drenaggio artificiale in primavera e autunno",
+  "LINK_STRENGTH": "LINHA_DA_TABELA",
+  "LINK_MEANS": "a cultura OLIVO e o alvo (infestanti nominadas especie a especie) aparecem na MESMA declaracao de uso do rotulo, com dose, epoca, metodo e carencia proprios."
+ },
+
+ "TARGETS_ON_OLIVO_AS_WRITTEN": {
+  "SENSIBILI_SO_EM_OLIVO": ["Anagallis arvensis (Centonchio)", "Calendula arvensis (fiorrancio selvatico)", "Cerastium glomeratum (Peverina dei campi)", "Lactuca serriola (lattuga selvatica)", "Lamium amplexicaule (Falsa ortica)", "Malva spp. (Malva)", "Silybum marianum (cardo mariano)"],
+  "SENSIBILI_EM_OLIVO_FRUMENTO_ORZO": ["Capsella bursa-pastoris", "Carduus sp.", "Diplotaxis spp.", "Erodium spp.", "Lolium spp.", "Matricaria spp.", "Mercurialis annua", "Papaver rhoeas", "Poa annua", "Poligonum aviculare", "Scandix pecten-veneris", "Sinapsis spp.", "Sonchus spp.", "Stellaria media", "Veronica spp."],
+  "MEDIAMENTE_SENSIBILI_SO_EM_OLIVO": ["Conyza canadensis (Saeppola canadese)", "Fedia cornucopiae (Lattughella)", "Oxalis pes-caprae (acetosella)"],
+  "MEDIAMENTE_SENSIBILI_EM_OLIVO_FRUMENTO_ORZO": ["Avena sterilis", "Fumaria officinalis", "Galium spp."],
+  "NOTA": "o rotulo SEPARA explicitamente o que vale so em olivo do que vale em olivo, frumento e orzo. Essa separacao foi preservada e nao fundida."
+ },
+
+ "OUTRAS_CULTURAS_NO_MESMO_ROTULO": ["FRUMENTO TENERO (1,75-4,5 l/ha)", "FRUMENTO DURO (2-4,5 l/ha)", "ORZO (1,75-4,5 l/ha)"],
+ "RESTRICAO_QUE_NAO_E_DE_OLIVO": "Per l'impiego su cereali non applicare il prodotto tra marzo e agosto, corrispondente al periodo di riproduzione degli uccelli. Esta restricao e dos CEREAIS e NAO foi estendida ao olivo.",
+
+ "O_QUE_ISTO_MUDA": {
+  "ANTES": "OLIVO tinha 1 par de rotulo ADAMA lido: MORAINE 018101 x INFESTANTI.",
+  "AGORA": "OLIVO tem 2 pares de rotulo ADAMA lidos. Os DOIS sao herbicidas contra infestanti.",
+  "O_QUE_NAO_MUDA": "as tres oportunidades de OLIVO continuam bloqueadas por TARGET=null, E_QUANDO=UNKNOWN e ausencia de encaixe comercial. Nenhuma delas e sobre malerbe. Achar um segundo herbicida NAO aquece nenhuma delas.",
+  "O_QUE_ISTO_REFORCA": "a leitura do bilancio nacional do olivo (-4lUyIORl4A, 171.715 caracteres) nao contem UM UNICO bloco sobre gestione delle malerbe, diserbo ou inerbimento. A presenca ADAMA em olivo continua sendo INTEIRAMENTE herbicida, e a conversa fitossanitaria nacional da cultura continua sendo inteiramente sobre outra coisa. O segundo par torna a assimetria mais nitida, e nao menos."
+ },
+
+ "O_QUE_ISTO_NAO_E": "nao e sinal de campo, nao e janela e nao promove nada. E uma autorizacao de rotulo LIDA. STATUS_CHANGES = 0, SCORE_CHANGES = 0."
+}

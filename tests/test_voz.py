@@ -322,7 +322,15 @@ class TestCropNaoDesempataEmSilencio(unittest.TestCase):
             self.voz.VOCAB_CROP.clear()
             self.voz.VOCAB_CROP.update({'OLIVE': r'\bolivar\b', 'CEREAL': r'\btrigo\b'})
             r = self.voz.marcar_assunto({'TITLE': 'ensayo en olivar y trigo', 'DESCRIPTION': ''})
-            self.assertEqual('AMBIGUOUS:CEREAL+OLIVE', r['CROP'])
+            # D1 (POLITICA-CANONICA-DE-CROP.md): a intenção original deste teste continua
+            # de pé — duas culturas NÃO viram uma escolhida em silêncio. O que mudou é o
+            # nome do estado: pluralidade provada é MULTI, não AMBIGUOUS. AMBIGUOUS ficou
+            # reservado para ambiguidade real de mapeamento (mesmo trecho, duas culturas).
+            self.assertEqual('MULTI:CEREAL+OLIVE', r['CROP'])
+            self.assertEqual(['CEREAL', 'OLIVE'], r['CROP_ALL'])
+            self.assertEqual('MULTI', r['CROP_CARDINALITY'])
+            self.assertEqual('RESOLVED', r['CROP_RESOLUTION_STATE'])
+            self.assertEqual('UNKNOWN', r['CROP_PRIMARY'])
         finally:
             self.voz.VOCAB_CROP.clear()
             self.voz.VOCAB_CROP.update(original)

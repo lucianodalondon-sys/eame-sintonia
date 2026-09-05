@@ -1,0 +1,115 @@
+{
+ "DATASET": "IT-TRABALHO-PERDIDO-V1",
+ "LAYER": "HANDOFF_TO_CANONICAL_TRACK",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-TRABALHO-PERDIDO-V1",
+ "CAPTURED_AT": "2026-09-04",
+ "SOURCE": "inventario do trabalho que estava no ar quando a conta anterior esgotou os creditos, medido contra o que esta versionado. Nada foi reexecutado para produzir este arquivo.",
+
+ "REGRA_QUE_ESTE_ARQUIVO_APLICA": "nao reabrir fan-out amplo automaticamente. Primeiro medir INPUTS, resultados ja persistidos, trabalho realmente perdido, custo de reexecucao, valor esperado e duplicacao possivel. So depois priorizar — e a decisao de gastar e do dono da missao, nao minha.",
+
+ "O_QUE_SE_PERDEU_E_O_QUE_NAO": {
+  "INPUTS": "INTACTOS. As 38 falas (3.414.654 caracteres) estao versionadas, e o pacote canonico V2.1 agora tambem esta, pinado em IT-RADAR-V21 e conferivel por SHA.",
+  "OUTPUTS": "PERDIDOS para 3 grupos de cruzamento e para as leituras de convegno que ainda rodavam. Eles viviam em memoria de agente e no scratchpad efemero.",
+  "O_QUE_MUDOU_DESDE_ENTAO": "a causa raiz foi consertada. Ate 2026-09-04 os workflows liam o pacote canonico de um caminho morto: reexecutar naquele estado produziria agente CEGO, que le zero pares e conclui ausencia — o erro mais caro desta casa. Agora ha testemunha WORKFLOW_SURVIVES_NEW_CONTAINER = PASS."
+ },
+
+ "GRUPOS_DE_CRUZAMENTO": [
+  {
+   "GROUP_ID": "pomacee-drupacee",
+   "STATUS": "CLOSED",
+   "OUTPUT_PERSISTIDO": "data/samples/IT-CRUZAMENTO-V2/IT-CRUZAMENTOS-V2.json",
+   "RESULTADO": "4 propostos, 2 sobreviveram, 2 refutados, 11 descartes com motivo",
+   "PROXIMA_ACAO": "nenhuma"
+  },
+  {
+   "GROUP_ID": "vite",
+   "STATUS": "LOST_OUTPUT",
+   "INPUTS": ["8_rnThlsy9Q (vite nord, 169.756)", "VE8gaWinRmY (vite nord, 154.654)", "6eNiYjzPGHw (vite sud, 158.855)"],
+   "INPUT_CHARS": 483265,
+   "PESO_DE_ROTULO": "VITE 96 pares",
+   "SINAIS_JA_VERIFICADOS_NESTA_CULTURA": 6,
+   "DUPLICACAO_POSSIVEL": "IT-CRUZAMENTOS-V1 ja tem cruzamentos de vite; e ha um sinal REFUTADO conhecido (VITE x COCCINIGLIA) que nao pode ser reproposto sem leitura nova de rotulo",
+   "CUSTO_DE_REEXECUCAO": "1 workflow, 2 agentes concorrentes, ~483 mil caracteres de leitura + refutacao",
+   "VALOR_ESPERADO": "ALTO — e a cultura com MAIS sinais ja verificados (6 de 19) e a unica com fala do NORTE e do SUL, o que permite a pergunta que a missao pediu e que ninguem respondeu: duas gravacoes independentes apontam o mesmo alvo?",
+   "PROXIMA_ACAO": "PRIORIDADE 2"
+  },
+  {
+   "GROUP_ID": "seminativi",
+   "STATUS": "LOST_OUTPUT",
+   "INPUTS": ["mIunZ-pH3RY (cereali e soia, 189.979)", "dGmP236Z4uQ (pomodoro e patata, 191.224)"],
+   "INPUT_CHARS": 381203,
+   "PESO_DE_ROTULO": "BARBABIETOLA 239, FRUMENTO 176, ORZO 131, MAIS 112, PATATA 100, SEGALE 82, TRITICALE 71 — de longe o maior peso de rotulo do radar",
+   "DUPLICACAO_POSSIVEL": "baixa; nenhum cruzamento V1 ou V2 cobre estas culturas",
+   "CUSTO_DE_REEXECUCAO": "1 workflow, ~381 mil caracteres",
+   "VALOR_ESPERADO": "MUITO ALTO — e onde o portfolio ADAMA e mais denso, e e a unica trilha que pode encontrar par de rotulo forte. Reforcado por um achado desta rodada: o webinar da propria ADAMA (wh20ZkHf5Cc) e sobre CEREAIS e nomeia AVASTEL/fluxapyroxad, mesosulfuron e pinoxaden. Ha material dos DOIS lados — voz externa e voz da casa — para o mesmo bloco de culturas.",
+   "PROXIMA_ACAO": "PRIORIDADE 1"
+  },
+  {
+   "GROUP_ID": "olivo-agrumi",
+   "STATUS": "LOST_OUTPUT_MAS_PARCIALMENTE_SUBSTITUIDO",
+   "INPUTS": ["-4lUyIORl4A (olivo I, 171.715) — LIDO NESTA RODADA", "azHKlPD3qAg (olivo II, 150.660) — nao lido", "or7l165Qv_c (agrumi, 162.876) — nao lido"],
+   "INPUT_CHARS": 485251,
+   "PESO_DE_ROTULO": "OLIVO 1 par, AGRUMI 17 pares",
+   "O_QUE_JA_FOI_FEITO": "a metade do olivo foi lida nesta rodada e entregue em IT-OLIVO-LEITURA-V2 e IT-OLIVO-ASSIMETRIA-V1, com resultado medido: ZERO substancias ativas ADAMA em 171.715 caracteres.",
+   "VALOR_ESPERADO": "BAIXO para o olivo, MEDIO para os agrumi. A leitura desta rodada desloca a assimetria do olivo para MERCADO e nao para lacuna de leitura: a fala nacional inteira da cultura nao nomeia uma unica molecula da casa. Reler a II sessione tende a confirmar, nao a abrir.",
+   "PROXIMA_ACAO": "PRIORIDADE 4 (agrumi), PRIORIDADE 6 (olivo II)"
+  }
+ ],
+
+ "LEITURAS_DE_CONVEGNO": {
+  "STATUS": "LOST_OUTPUT",
+  "QUANTAS_ESTAVAM_NO_AR": 12,
+  "OBJETOS_JA_LIDOS_INTEGRALMENTE_COM_A_REGUA": [
+   {"ID": "4ybyIcvgUhg", "ONDE": "IT-CRUZAMENTOS-V2, grupo pomacee-drupacee"},
+   {"ID": "uf5bx-oTees", "ONDE": "IT-CRUZAMENTOS-V2"},
+   {"ID": "3m0OxLSK4ro", "ONDE": "IT-CRUZAMENTOS-V2"},
+   {"ID": "D9rKf6p1YY0", "ONDE": "IT-CRUZAMENTOS-V2"},
+   {"ID": "m50xqCqqJP4", "ONDE": "IT-CRUZAMENTOS-V2"},
+   {"ID": "szsLkUd2cy4", "ONDE": "IT-CRUZAMENTOS-V2"},
+   {"ID": "-4lUyIORl4A", "ONDE": "IT-OLIVO-LEITURA-V2, nesta rodada"}
+  ],
+  "OBJETOS_COLHIDOS_E_NUNCA_LIDOS": [
+   {"ID": "mIunZ-pH3RY", "CHARS": 189979, "TITULO": "bilancio cereali e soia", "PESO": "FRUMENTO 176 + ORZO 131 + MAIS 112", "PRIORIDADE": 1},
+   {"ID": "dGmP236Z4uQ", "CHARS": 191224, "TITULO": "bilancio pomodoro e patata", "PESO": "PATATA 100, POMODORO 44", "PRIORIDADE": 1},
+   {"ID": "8_rnThlsy9Q", "CHARS": 169756, "TITULO": "bilancio vite nord Italia", "PESO": "VITE 96", "PRIORIDADE": 2},
+   {"ID": "VE8gaWinRmY", "CHARS": 154654, "TITULO": "bilancio vite nord Italia", "PESO": "VITE 96", "PRIORIDADE": 2},
+   {"ID": "6eNiYjzPGHw", "CHARS": 158855, "TITULO": "bilancio vite sud Italia", "PESO": "VITE 96", "PRIORIDADE": 2},
+   {"ID": "CYV76yVc98s", "CHARS": 175392, "TITULO": "bilancio fragola e piccoli frutti", "PESO": "FRAGOLA 51; declara tambem CILIEGIO", "PRIORIDADE": 3},
+   {"ID": "or7l165Qv_c", "CHARS": 162876, "TITULO": "bilancio agrumi", "PESO": "AGRUMI 17", "PRIORIDADE": 4},
+   {"ID": "GIiPq_NhIiM", "CHARS": 148030, "TITULO": "Giornate Fitopatologiche 2026, manha de 19 marzo", "PESO": "misto", "PRIORIDADE": 5},
+   {"ID": "azHKlPD3qAg", "CHARS": 150660, "TITULO": "bilancio olivo II sessione (mosca)", "PESO": "OLIVO 1", "PRIORIDADE": 6},
+   {"ID": "gDNHhPeng7Y", "CHARS": 176979, "TITULO": "bilancio noce e nocciolo", "PESO": "ZERO pares de rotulo em NOCE e NOCCIOLO, conferido", "PRIORIDADE": 8, "NOTA": "metadado recuperado nesta rodada; a cultura nao esta no radar da casa"},
+   {"ID": "lr4Alw-8VXA", "CHARS": 60123, "TITULO": "tavola rotonda sobre droni", "PESO": "tecnologia, nao cultura", "PRIORIDADE": 9},
+   {"ID": "3tDE1zDHUvU / ep1KX19XxS8 / ofRkFRzzkno / yFZ7eTXY2zU", "CHARS": 350823, "TITULO": "quatro webinars ANVE-AIPP 2026 (Xylella, Popillia, difesa, royalties)", "PESO": "vivaismo ornamental, fora do radar de cultura", "PRIORIDADE": 7}
+  ],
+  "TOTAL_NAO_LIDO": "22 objetos, cerca de 2,1 milhoes de caracteres"
+ },
+
+ "PRIORIZACAO": {
+  "CRITERIO": "ordenado por impacto em oportunidades, lacunas de portfolio, evidencia que pode CORRIGIR conclusao atual, assimetrias, e cruzamentos com precedencia temporal — e nao por ordem de arquivo.",
+  "ORDEM": [
+   {"POSICAO": 1, "O_QUE": "grupo seminativi + as duas leituras que o alimentam (mIunZ-pH3RY, dGmP236Z4uQ)",
+    "PORQUE": "maior peso de rotulo do radar (BARBABIETOLA 239, FRUMENTO 176, ORZO 131, MAIS 112, PATATA 100) e zero cobertura de cruzamento ate hoje. E agora ha material dos dois lados: a voz externa dos bilanci e a voz da propria ADAMA no webinar de cereais, que nomeia AVASTEL, mesosulfuron e pinoxaden. E o unico lugar onde um par de rotulo FORTE e provavel."},
+   {"POSICAO": 2, "O_QUE": "grupo vite + as tres leituras (8_rnThlsy9Q, VE8gaWinRmY, 6eNiYjzPGHw)",
+    "PORQUE": "6 dos 19 sinais de fala ja verificados sao de VITE, e e a unica cultura com gravacao independente do NORTE e do SUL. Responde a pergunta que a missao pediu e que continua sem resposta: duas gravacoes independentes apontam o mesmo alvo? Tem tambem uma oportunidade viva com par de rotulo declarado (Scaphoideus titanus, tau-fluvalinate, seis produtos)."},
+   {"POSICAO": 3, "O_QUE": "CYV76yVc98s (fragola e piccoli frutti)",
+    "PORQUE": "pode CORRIGIR uma conclusao atual. O grupo pomacee-drupacee registrou CILIEGIO como vazio medido — 27 pares de rotulo sem nenhuma voz com regiao e janela compativeis — apoiando-se justamente nesta gravacao, que declara CILIEGIO e cujas regioes nao batiam. Ler o texto integral e o unico modo de confirmar ou derrubar esse vazio."},
+   {"POSICAO": 4, "O_QUE": "or7l165Qv_c (agrumi)", "PORQUE": "17 pares de rotulo, cultura mediterranea sem nenhuma leitura, e vizinha tematica do olivo."},
+   {"POSICAO": 5, "O_QUE": "GIiPq_NhIiM (Giornate Fitopatologiche, 19 marzo manha)", "PORQUE": "unica sessao das Giornate 2026 ainda nao lida; as outras cinco ja renderam."},
+   {"POSICAO": 6, "O_QUE": "azHKlPD3qAg (olivo II, mosca)", "PORQUE": "completa o par do olivo, mas a leitura da I sessione ja mostrou que a cultura nao nomeia molecula da casa. Valor documental, nao comercial."},
+   {"POSICAO": 7, "O_QUE": "os quatro webinars ANVE-AIPP", "PORQUE": "vivaismo ornamental, fora do radar de cultura da ADAMA Italia."},
+   {"POSICAO": 8, "O_QUE": "gDNHhPeng7Y (noce e nocciolo)", "PORQUE": "ZERO pares de rotulo em ambas as culturas, conferido no catalogo. O metadado ja foi recuperado; a leitura nao tem par para cruzar."},
+   {"POSICAO": 9, "O_QUE": "lr4Alw-8VXA (droni)", "PORQUE": "tecnologia de aplicacao, sem eixo de cultura x alvo."}
+  ],
+  "UMA_ACAO_BARATA_QUE_VALE_MAIS_QUE_QUALQUER_LEITURA": {
+   "O_QUE": "ler os 61 rotulos ADAMA que nunca foram lidos, procurando OLIVO e as culturas declaradas vazias",
+   "PORQUE": "toda afirmacao de ausencia desta casa carrega hoje a ressalva de que a cobertura de leitura e 102/163. Foi assim que o unico sinal ja refutado caiu, e e a ressalva que impede fechar a assimetria do OLIVO. Nao e fan-out: e leitura de documento, e resolve de uma vez uma duvida que contamina varias conclusoes.",
+   "CUSTO": "muito menor que um grupo de cruzamento",
+   "NAO_EXECUTADO_NESTA_RODADA": "porque a rodada foi de persistencia e leitura, e porque esta decisao e do dono da missao."
+  }
+ },
+
+ "NAO_REEXECUTEI_NADA_DISTO": "nenhum workflow foi disparado nesta rodada. A missao manda consertar a persistencia ANTES de reabrir fan-out, e a decisao de reabrir e de quem paga por ela.",
+ "NOTES": "STATUS_CHANGES = 0. SCORE_CHANGES = 0. Portal, Vercel, producao e o build da reuniao: intocados."
+}

@@ -1,0 +1,65 @@
+{
+ "DATASET": "IT-GAP-TAXONOMIA-V1",
+ "LAYER": "HANDOFF_TO_CANONICAL_TRACK",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-GAP-TAXONOMIA-V1",
+ "CAPTURED_AT": "2026-09-04",
+ "SOURCE": "medicao de lacuna: a casa tem DUAS testemunhas independentes de que nome comum nao promove equivalencia taxonomica, e nao tem onde escrever essa trava.",
+
+ "ESTE_ARQUIVO_NAO_IMPLEMENTA_NADA": "e um GAP registrado, e nao uma regra nova. A missao manda alimentar o dono se existir e registrar a lacuna se nao existir — nunca inventar implementacao silenciosa. Nao existe dono, entao fica registrado.",
+
+ "PROCURA_POR_DONO": {
+  "PROCUREI_EM": ["scripts/*.py", "docs/**/*.md", "tests/*.py"],
+  "PADROES": ["TAXONOMIC_MATCH", "COMMON_NAME_MATCH", "FIELD_NAME vs LAB", "equivalencia taxonomica"],
+  "RESULTADO": "NENHUM dono em codigo.",
+  "O_MAIS_PROXIMO_QUE_EXISTE": {
+   "ARQUIVOS": ["scripts/normalize_agro.py", "scripts/eppo_gd.py", "data/samples/ES-T4-001/eppo-dictionary.json"],
+   "O_QUE_FAZEM": "normalizam termos de cultura e de alvo contra o EPPO, para FR e ES.",
+   "POR_QUE_NAO_SAO_O_DONO": "sao camada de NORMALIZACAO de vocabulario — resolvem 'como este termo se chama canonicamente'. NAO respondem 'o nome que a fonte usou designa o mesmo GENERO que o rotulo escreve'. Sao coisas diferentes, e o defeito medido esta na segunda."
+  },
+  "ONDE_A_RESSALVA_VIVE_HOJE": "espalhada em prosa dentro de artefatos de evidencia (IT-CRUZAMENTOS-V2, IT-OLIVO-LEITURA-V2, IT-HANDOFF-VIDEO-CONVEGNI-V1). Sobrevive porque alguem a escreveu, e nao porque algo a imponha."
+ },
+
+ "AS_DUAS_TESTEMUNHAS_MEDIDAS": [
+  {
+   "ID": "TAX-01",
+   "CULTURA": "MELO",
+   "O_QUE_O_ROTULO_ESCREVE": "Gloeosporium",
+   "O_QUE_AS_VOZES_TRATAM": "complexo Colletotrichum spp. / Glomerella cingulata",
+   "NOME_COMUM_COMPARTILHADO": "antracnosi del melo",
+   "ESTADO": "SUSPEITADA, nao resolvida. O casamento e de VOCABULARIO e nao de genero.",
+   "ONDE": "data/samples/IT-CRUZAMENTO-V2/IT-CRUZAMENTOS-V2.json",
+   "CONSEQUENCIA_JA_APLICADA": "o elo ficou em BLOCO_DA_CULTURA e NAO foi promovido a PRODUCT_MATCH; se a equivalencia cair, desce para SUBSTANCIA_ATIVA."
+  },
+  {
+   "ID": "TAX-02",
+   "CULTURA": "OLIVO",
+   "REGIAO": "Marche",
+   "O_QUE_O_CAMPO_CHAMAVA": "lebbra (que em italiano designa Colletotrichum)",
+   "O_QUE_O_LABORATORIO_IDENTIFICOU": "Camarosporium",
+   "ESTADO": "MEDIDA E FECHADA. Nao e suspeita: o laboratorio do servico fitossanitario analisou as amostras e o Colletotrichum NAO estava la.",
+   "CITACAO": "non e stata rinvenuto [...] la presenza del [Colletotrichum] responsabile della lebbra, ma bensi del camarosporium",
+   "POR_QUE_ACONTECEU_SEGUNDO_A_FONTE": "la maggior parte degli agricoltori non fa distinzione fra uno o l'altro [...] per loro la lebbra era comunque piu facile da dire",
+   "ONDE": "data/samples/IT-CONVEGNO-V2/IT-OLIVO-LEITURA-V2.json, achado OLIVO-F12",
+   "CONSEQUENCIA": "qualquer contagem de sinal 'lebbra' apoiada em relato de agricultor nas Marche em 2025 esta sobre-estimada."
+  }
+ ],
+
+ "POR_QUE_DUAS_TESTEMUNHAS_MUDAM_O_PESO": "uma ocorrencia e anedota; duas ocorrencias independentes, em culturas diferentes, regioes diferentes e camadas diferentes (uma rotulo x fala, outra campo x laboratorio) descrevem um PADRAO. E o padrao tem uma direcao constante: o nome comum e mais largo que o genero, e quem fala usa o nome largo.",
+
+ "A_TRAVA_QUE_FALTA": {
+  "DISTINCAO_1": "COMMON_NAME_MATCH != TAXONOMIC_MATCH",
+  "DISTINCAO_2": "FIELD_NAME != LAB_IDENTIFICATION",
+  "O_QUE_ELA_TERIA_DE_FAZER": [
+   "carregar, por par, qual das duas coisas foi verificada;",
+   "impedir que um elo suba de SUBSTANCIA_ATIVA para PRODUCT_MATCH apoiado apenas em nome comum;",
+   "marcar como NAO_VERIFICADA toda equivalencia que so tenha nome comum a sustenta-la;",
+   "guardar a fonte da identificacao (rotulo, fala, laboratorio) porque as tres tem pesos diferentes."
+  ],
+  "O_QUE_ELA_NAO_PODE_FAZER": "resolver taxonomia sozinha. A trava registra o ESTADO da equivalencia; quem decide se dois generos sao o mesmo e uma fonte taxonomica, e nao um campo."
+ },
+
+ "ESTADO": "GAP_REGISTRADO_SEM_IMPLEMENTACAO",
+ "PROXIMA_ACAO_SUGERIDA": "quando a trilha canonica definir o dono do contrato de evidencia, alimentar estes dois casos como testes de regressao: TAX-01 deve permanecer NAO_DEFENSAVEL e TAX-02 deve permanecer CONTRADICTS. Se uma implementacao futura promover qualquer um dos dois, ela esta errada.",
+ "NOTES": "STATUS_CHANGES = 0. SCORE_CHANGES = 0. Nenhuma regra paralela foi criada."
+}

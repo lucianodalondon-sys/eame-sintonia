@@ -1,0 +1,6109 @@
+{
+ "SOURCE_ID": "IT-T4-001-ETICHETTA",
+ "CAPTURED_AT": "2026-09-04",
+ "COUNTRY": "IT",
+ "LAYER": "NATIONAL PRODUCT AUTHORIZATION",
+ "DATASET": "IT-ROTULOS-GOLD-COMPLETE-V1",
+ "SOURCE": "gabarito COMPLETO escrito a mao lendo a geometria de cada rotulo; nenhum par foi gerado pelo parser",
+ "COMO_FOI_FEITO": "para cada rotulo eu li os blocos com cultura ou alvo na geometria bbox e enumerei TODOS os pares que a etiqueta sustenta, mais o que ela NAO sustenta (EXPECTED_NO_PAIR) e o que ela deixa em duvida (EXPECTED_AMBIGUOUS). Rotulo cuja exaustividade eu nao consigo defender ficou de fora, declarado em EXCLUDED.",
+ "DOIS_ERROS_DE_GABARITO_CORRIGIDOS": [
+  "008601 e 010587: eu tinha lido o bloco de VITE truncado em 300 caracteres e perdi peronospora, marciume bianco, oidio e muffa grigia. O parser os devolvia e eu os contava como falso positivo.",
+  "008102: eu marquei noce, nocciolo e castagno como EXPECTED_AMBIGUOUS pelo mesmo motivo. A pagina 1 enumera cada um com a sua doenca. O parser estava certo e o gabarito errado."
+ ],
+ "RESUMO": {
+  "LABELS": 30,
+  "PAIRS_TOTAL": 918,
+  "PAIRS_IN_VOCAB": 854,
+  "PAIRS_VOCAB_GAP": 64,
+  "LABELS_EXPECTED_NO_PAIR": 2,
+  "EXPECTED_NO_PAIR_RULES": 35,
+  "EXPECTED_AMBIGUOUS_RULES": 1,
+  "EXCLUDED_LABELS": 6
+ },
+ "ALVO_EQUIVALENTE": {
+  "CECIDOMIA": [
+   "CECIDOMIA",
+   "DITTERI"
+  ],
+  "DITTERI": [
+   "CECIDOMIA",
+   "DITTERI"
+  ],
+  "LEPIDOTTERI": [
+   "LEPIDOTTERI",
+   "NOTTUE"
+  ],
+  "NOTTUE": [
+   "LEPIDOTTERI",
+   "NOTTUE"
+  ],
+  "MUFFA": [
+   "BOTRITE",
+   "MUFFA"
+  ],
+  "BOTRITE": [
+   "BOTRITE",
+   "MUFFA"
+  ],
+  "TIGNOLE": [
+   "CIDIA",
+   "TIGNOLE"
+  ],
+  "CARPOCAPSA": [
+   "CARPOCAPSA",
+   "CIDIA",
+   "LEPIDOTTERI"
+  ],
+  "ANARSIA": [
+   "ANARSIA",
+   "LEPIDOTTERI"
+  ],
+  "PIRALIDE": [
+   "LEPIDOTTERI",
+   "PIRALIDE"
+  ],
+  "LITOCOLLETE": [
+   "LEPIDOTTERI",
+   "LITOCOLLETE"
+  ]
+ },
+ "EXCLUDED": [
+  {
+   "LABEL_ID": "008259",
+   "BLOCOS": 393,
+   "WHY": "matriz cultura x alvo x epoca com celulas mescladas em varias paginas; enumerar a mao sem erro nao e defensavel nesta rodada"
+  },
+  {
+   "LABEL_ID": "013560",
+   "BLOCOS": 387,
+   "WHY": "mesma matriz de 008259"
+  },
+  {
+   "LABEL_ID": "004701",
+   "BLOCOS": 131,
+   "WHY": "multi-cultura extenso; enumeracao parcial contaminaria a precisao"
+  },
+  {
+   "LABEL_ID": "007876",
+   "BLOCOS": 260,
+   "WHY": "idem 004701"
+  },
+  {
+   "LABEL_ID": "008189",
+   "BLOCOS": 31,
+   "WHY": "geoinseticida: a tabela alinha cultura, alvo e forma de distribuicao em colunas que o achatamento entrelaca; eu nao consegui separar as linhas com confianca suficiente para chamar de gabarito"
+  },
+  {
+   "LABEL_ID": "008929",
+   "BLOCOS": 36,
+   "WHY": "a declaracao de cultura esta numa pagina que a geometria nao trouxe legivel; sem ela eu enumeraria por suposicao"
+  }
+ ],
+ "LABELS": {
+  "002732": {
+   "PRODUCT": "diserbante barbabietola/spinacio",
+   "FAMILY": "SCOPE_SENTENCE_HERBICIDA",
+   "EVIDENCE": "\"DISERBANTE SELETTIVO PER LA BARBABIETOLA DA ZUCCHERO E SPINACIO\" mais \"SPETTRO D'AZIONE ERBE INFESTANTI SENSIBILI:\"",
+   "PAIRS": [
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "ERBE INFESTANTI SENSIBILI",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SPINACIO",
+     "TARGET_AS_WRITTEN": "ERBE INFESTANTI SENSIBILI",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "MAIS",
+     "TARGET": "*",
+     "WHY": "mais aparece so em AVVERTENZE AGRONOMICHE, sobre o que semear se a cultura falhar"
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET": "*",
+     "WHY": "idem"
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "002983": {
+   "PRODUCT": "anti-oidico multicultura",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "EVIDENCE": "bloco EPOCHE DI APPLICAZIONE, uma declaracao \"Cultura: contro X\" por cultura",
+   "PAIRS": [
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Podosphaera leucotricha",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Uncinula necator",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Sphaerotheca pannosa",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Sphaerotheca pannosa",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRAGOLA",
+     "TARGET_AS_WRITTEN": "Sphaerotheca macularis",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Podosphaera fusca e Erysiphe cichoracearum",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Podosphaera fusca e Erysiphe cichoracearum",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Podosphaera fusca e Erysiphe cichoracearum",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Podosphaera fusca e Erysiphe cichoracearum",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Leveillula taurica",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "Leveillula taurica",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "Leveillula taurica",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "007555": {
+   "PRODUCT": "KLARTAN",
+   "FAMILY": "HEADER_CONTINUATION",
+   "EVIDENCE": "cada bloco abre com a cultura em linha propria e a linha seguinte comeca em \"Contro ...\"; nao ha dois-pontos",
+   "PAIRS": [
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "afidi (Aphis spp., Toxoptera aurantii)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "tignola degli agrumi (Prays citri)",
+     "TARGET_CANONICAL": "TIGNOLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "afidi (Dysaphis plantaginea, Aphis pomi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia pyrivora, Dasineura pyri)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Adoxophyes orana, Yponomeuta malinellus, Hyphantria cunea)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Cydia pomonella",
+     "TARGET_CANONICAL": "CARPOCAPSA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Phyllonorycter blancardella",
+     "TARGET_CANONICAL": "LITOCOLLETE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "cimici (Halyomorpha halys)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "forme mobili giovanili di cocciniglia",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "psille (Cacopsylla spp.)",
+     "TARGET_CANONICAL": "PSILLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "afidi (Dysaphis plantaginea, Aphis pomi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia pyrivora, Dasineura pyri)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Adoxophyes orana, Yponomeuta malinellus, Hyphantria cunea)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Cydia pomonella",
+     "TARGET_CANONICAL": "CARPOCAPSA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Phyllonorycter blancardella",
+     "TARGET_CANONICAL": "LITOCOLLETE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "cimici (Halyomorpha halys)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "forme mobili giovanili di cocciniglia",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "psille (Cacopsylla spp.)",
+     "TARGET_CANONICAL": "PSILLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "afidi (Hyalopterus amygdali, Myzus persicae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Anarsia lineatella",
+     "TARGET_CANONICAL": "ANARSIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Cydia molesta)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips spp.)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "mosca della frutta (Ceratitis capitata)",
+     "TARGET_CANONICAL": "MOSCA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "afidi (Hyalopterus amygdali, Myzus persicae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Anarsia lineatella",
+     "TARGET_CANONICAL": "ANARSIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Cydia molesta)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips spp.)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "mosca della frutta (Ceratitis capitata)",
+     "TARGET_CANONICAL": "MOSCA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "afidi (Myzus spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "cicaline (Empoasca vitis, Scaphoideus titanus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Drepanothrips reuteri)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "dorifora (Leptinotarsa decemlineata)",
+     "TARGET_CANONICAL": "DORIFORA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "afidi (Myzus persicae, Macrosiphum euphorbia)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CAROTA",
+     "TARGET_AS_WRITTEN": "afidi (Cavariella aegopodii, Myzus persicae, Semiaphis dauci)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "afidi (Aphis gossypii, Myzus persicae, Macrosiphum spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "afidi (Aphis gossypii, Myzus persicae, Macrosiphum spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "afidi (Aphis gossypii, Myzus persicae, Macrosiphum spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "afidi (Aphis gossypii, Myzus persicae, Macrosiphum spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "lepidotteri (Helicoverpa armigera)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "Spodoptera spp.",
+     "TARGET_CANONICAL": "NOTTUE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CAVOLO",
+     "TARGET_AS_WRITTEN": "afidi (Brevicoryne brassicae, Myzus persicae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CAVOLO",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips spp.)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CAVOLO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Pieris spp., Mamestra brassicae)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "LATTUGA",
+     "TARGET_AS_WRITTEN": "afidi (Myzus persicae, Nasonovia ribisnigri)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "LATTUGA",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips spp.)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "LATTUGA",
+     "TARGET_AS_WRITTEN": "miridi (Lygus spp.)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "LATTUGA",
+     "TARGET_AS_WRITTEN": "lepidotteri (Pieris spp., Mamestra brassicae)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "LATTUGA",
+     "TARGET_AS_WRITTEN": "minatori fogliari (Liriomyza spp.)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "afidi (Acyrthosiphon pisum, Aphis fabae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips angusticeps, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Cydia nigricana)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "Ostrinia nubilalis",
+     "TARGET_CANONICAL": "PIRALIDE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia pisi)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "afidi (Acyrthosiphon pisum, Aphis fabae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips angusticeps, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Cydia nigricana)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "Ostrinia nubilalis",
+     "TARGET_CANONICAL": "PIRALIDE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia pisi)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "afidi (Aphis fabae solanella, Capitophorus horni)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips spp.)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Spodoptera spp.)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COLZA",
+     "TARGET_AS_WRITTEN": "afidi (Brevicoryne brassicae, Myzus persicae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COLZA",
+     "TARGET_AS_WRITTEN": "coleotteri (Meligethes aeneus)",
+     "TARGET_CANONICAL": "MELIGETE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COLZA",
+     "TARGET_AS_WRITTEN": "coleotteri (Ceutorhynchus napi, Psylliodes chrysocephala)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "afidi (Sitobion avenae, Rhopalosiphum padi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "cimici (Aelia rostrata, Eurygaster maura)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "cicaline (Psammotettix alienus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "afidi (Sitobion avenae, Rhopalosiphum padi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "cimici (Aelia rostrata, Eurygaster maura)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "cicaline (Psammotettix alienus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "afidi (Sitobion avenae, Rhopalosiphum padi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "cimici (Aelia rostrata, Eurygaster maura)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "cicaline (Psammotettix alienus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "afidi (Sitobion avenae, Rhopalosiphum padi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "cimici (Aelia rostrata, Eurygaster maura)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "cicaline (Psammotettix alienus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "afidi (Sitobion avenae, Rhopalosiphum padi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "cimici (Aelia rostrata, Eurygaster maura)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "cicaline (Psammotettix alienus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "afidi (Aphis fabae, Macrosiphum spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "lepidotteri (Mamestra spp.)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "altica (Chaetocnema tibialis)",
+     "TARGET_CANONICAL": "ALTICA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "cleono (Conorhynchus mendicus)",
+     "TARGET_CANONICAL": "CLEONO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "cassida (Cassida vittata)",
+     "TARGET_CANONICAL": "CASSIDA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "afidi (Acyrthosiphon pisum, Aphis fabae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "coleotteri (Apion pisi)",
+     "TARGET_CANONICAL": "APION",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "coleotteri (Hypera postica, Sitona lineatus, Phytodecta fornicata, Tichius flavus)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "lepidotteri (Cydia nigricana)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "Ostrinia nubilalis",
+     "TARGET_CANONICAL": "PIRALIDE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRAGOLA",
+     "TARGET_AS_WRITTEN": "afidi (Aphis gossypii)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRAGOLA",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRAGOLA",
+     "TARGET_AS_WRITTEN": "lepidotteri (Spodoptera spp.)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "SUSINO",
+     "TARGET": "*",
+     "WHY": "susino nao aparece na lista de usos: \"Drupacee (pesco, albicocco, nettarino)\". Expandir DRUPACEE pelo grupo padrao inventaria autorizacao."
+    },
+    {
+     "CROP": "MAIS",
+     "TARGET": "*",
+     "WHY": "mais nao consta em nenhuma declaracao de uso deste rotulo"
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "007603": {
+   "PRODUCT": "diserbante barbabietola",
+   "FAMILY": "SCOPE_SENTENCE_HERBICIDA",
+   "EVIDENCE": "\"DISERBANTE SELETTIVO PER LA BARBABIETOLA DA ZUCCHERO\" mais \"SPETTRO D'AZIONE ERBE INFESTANTI SENSIBILI: Amaranto ...\"",
+   "PAIRS": [
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "ERBE INFESTANTI SENSIBILI",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "007864": {
+   "PRODUCT": "KLARTAN 20 EW",
+   "FAMILY": "HEADER_CONTINUATION",
+   "EVIDENCE": "mesmas declaracoes de uso de 007555, conferidas bloco a bloco na geometria",
+   "PAIRS": [
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "afidi (Aphis spp., Toxoptera aurantii)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "tignola degli agrumi (Prays citri)",
+     "TARGET_CANONICAL": "TIGNOLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "afidi (Dysaphis plantaginea, Aphis pomi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia pyrivora, Dasineura pyri)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Adoxophyes orana, Yponomeuta malinellus, Hyphantria cunea)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Cydia pomonella",
+     "TARGET_CANONICAL": "CARPOCAPSA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Phyllonorycter blancardella",
+     "TARGET_CANONICAL": "LITOCOLLETE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "cimici (Halyomorpha halys)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "forme mobili giovanili di cocciniglia",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "psille (Cacopsylla spp.)",
+     "TARGET_CANONICAL": "PSILLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "afidi (Dysaphis plantaginea, Aphis pomi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia pyrivora, Dasineura pyri)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Adoxophyes orana, Yponomeuta malinellus, Hyphantria cunea)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Cydia pomonella",
+     "TARGET_CANONICAL": "CARPOCAPSA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Phyllonorycter blancardella",
+     "TARGET_CANONICAL": "LITOCOLLETE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "cimici (Halyomorpha halys)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "forme mobili giovanili di cocciniglia",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "psille (Cacopsylla spp.)",
+     "TARGET_CANONICAL": "PSILLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "afidi (Hyalopterus amygdali, Myzus persicae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Anarsia lineatella",
+     "TARGET_CANONICAL": "ANARSIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Cydia molesta)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips spp.)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "mosca della frutta (Ceratitis capitata)",
+     "TARGET_CANONICAL": "MOSCA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "afidi (Hyalopterus amygdali, Myzus persicae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Anarsia lineatella",
+     "TARGET_CANONICAL": "ANARSIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Cydia molesta)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips spp.)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "mosca della frutta (Ceratitis capitata)",
+     "TARGET_CANONICAL": "MOSCA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "afidi (Myzus spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "cicaline (Empoasca vitis, Scaphoideus titanus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Drepanothrips reuteri)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "dorifora (Leptinotarsa decemlineata)",
+     "TARGET_CANONICAL": "DORIFORA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "afidi (Myzus persicae, Macrosiphum euphorbia)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CAROTA",
+     "TARGET_AS_WRITTEN": "afidi (Cavariella aegopodii, Myzus persicae, Semiaphis dauci)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "afidi (Aphis gossypii, Myzus persicae, Macrosiphum spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "afidi (Aphis gossypii, Myzus persicae, Macrosiphum spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "afidi (Aphis gossypii, Myzus persicae, Macrosiphum spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "afidi (Aphis gossypii, Myzus persicae, Macrosiphum spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "lepidotteri (Helicoverpa armigera)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "Spodoptera spp.",
+     "TARGET_CANONICAL": "NOTTUE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CAVOLO",
+     "TARGET_AS_WRITTEN": "afidi (Brevicoryne brassicae, Myzus persicae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CAVOLO",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips spp.)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CAVOLO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Pieris spp., Mamestra brassicae)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "LATTUGA",
+     "TARGET_AS_WRITTEN": "afidi (Myzus persicae, Nasonovia ribisnigri)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "LATTUGA",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips spp.)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "LATTUGA",
+     "TARGET_AS_WRITTEN": "miridi (Lygus spp.)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "LATTUGA",
+     "TARGET_AS_WRITTEN": "lepidotteri (Pieris spp., Mamestra brassicae)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "LATTUGA",
+     "TARGET_AS_WRITTEN": "minatori fogliari (Liriomyza spp.)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "afidi (Acyrthosiphon pisum, Aphis fabae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips angusticeps, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Cydia nigricana)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "Ostrinia nubilalis",
+     "TARGET_CANONICAL": "PIRALIDE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia pisi)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "afidi (Acyrthosiphon pisum, Aphis fabae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips angusticeps, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Cydia nigricana)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "Ostrinia nubilalis",
+     "TARGET_CANONICAL": "PIRALIDE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia pisi)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "afidi (Aphis fabae solanella, Capitophorus horni)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips spp.)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Spodoptera spp.)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COLZA",
+     "TARGET_AS_WRITTEN": "afidi (Brevicoryne brassicae, Myzus persicae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COLZA",
+     "TARGET_AS_WRITTEN": "coleotteri (Meligethes aeneus)",
+     "TARGET_CANONICAL": "MELIGETE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COLZA",
+     "TARGET_AS_WRITTEN": "coleotteri (Ceutorhynchus napi, Psylliodes chrysocephala)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "afidi (Sitobion avenae, Rhopalosiphum padi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "cimici (Aelia rostrata, Eurygaster maura)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "cicaline (Psammotettix alienus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "afidi (Sitobion avenae, Rhopalosiphum padi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "cimici (Aelia rostrata, Eurygaster maura)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "cicaline (Psammotettix alienus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "afidi (Sitobion avenae, Rhopalosiphum padi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "cimici (Aelia rostrata, Eurygaster maura)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "cicaline (Psammotettix alienus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "afidi (Sitobion avenae, Rhopalosiphum padi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "cimici (Aelia rostrata, Eurygaster maura)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "cicaline (Psammotettix alienus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "afidi (Sitobion avenae, Rhopalosiphum padi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "cimici (Aelia rostrata, Eurygaster maura)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "cicaline (Psammotettix alienus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "afidi (Aphis fabae, Macrosiphum spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "lepidotteri (Mamestra spp.)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "altica (Chaetocnema tibialis)",
+     "TARGET_CANONICAL": "ALTICA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "cleono (Conorhynchus mendicus)",
+     "TARGET_CANONICAL": "CLEONO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "cassida (Cassida vittata)",
+     "TARGET_CANONICAL": "CASSIDA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "afidi (Acyrthosiphon pisum, Aphis fabae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "coleotteri (Apion pisi)",
+     "TARGET_CANONICAL": "APION",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "coleotteri (Hypera postica, Sitona lineatus, Phytodecta fornicata, Tichius flavus)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "lepidotteri (Cydia nigricana)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "Ostrinia nubilalis",
+     "TARGET_CANONICAL": "PIRALIDE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRAGOLA",
+     "TARGET_AS_WRITTEN": "afidi (Aphis gossypii)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRAGOLA",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRAGOLA",
+     "TARGET_AS_WRITTEN": "lepidotteri (Spodoptera spp.)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "SUSINO",
+     "TARGET": "*",
+     "WHY": "susino nao aparece na lista de usos: \"Drupacee (pesco, albicocco, nettarino)\". Expandir DRUPACEE pelo grupo padrao inventaria autorizacao."
+    },
+    {
+     "CROP": "MAIS",
+     "TARGET": "*",
+     "WHY": "mais nao consta em nenhuma declaracao de uso deste rotulo"
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "008102": {
+   "PRODUCT": "fungicida pomacee/drupacee/frutta a guscio",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "EVIDENCE": "declaracoes \"Melo, Cotogno, Pero, Nashi: ... per la protezione da\"",
+   "PAIRS": [
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "ticchiolatura (Venturia spp.)",
+     "TARGET_CANONICAL": "TICCHIOLATURA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Gloeosporium",
+     "TARGET_CANONICAL": "ANTRACNOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "ticchiolatura (Venturia spp.)",
+     "TARGET_CANONICAL": "TICCHIOLATURA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Gloeosporium",
+     "TARGET_CANONICAL": "ANTRACNOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "maculatura bruna del pero (Stemphylium vesicarium)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "mal della bolla (Taphrina deformans)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "corineo (Coryneum beijerinckii)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "cancro dei nodi o fusicocco (Phomopsis amygdali)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "moniliosi (Monilia spp.)",
+     "TARGET_CANONICAL": "MONILIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "corineo (Wilsonomyces carpophilus)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "moniliosi (Monilia spp.)",
+     "TARGET_CANONICAL": "MONILIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "corineo (Wilsonomyces carpophilus)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "moniliosi (Monilia spp.)",
+     "TARGET_CANONICAL": "MONILIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "moniliosi (Monilia spp.)",
+     "TARGET_CANONICAL": "MONILIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "corineo (Wilsonomyces carpophilus)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "fusicocco (Phomopsis amygdali)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "bolla (Taphrina deformans)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "ticchiolatura delle drupacee (Venturia carpophila)",
+     "TARGET_CANONICAL": "TICCHIOLATURA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "corineo (Wilsonomyces carpophilus)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "macchie fogliari rosse (Polystigma ochraceum)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "antracnosi (Gnomonia juglandis)",
+     "TARGET_CANONICAL": "ANTRACNOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CASTAGNO",
+     "TARGET_AS_WRITTEN": "fersa (Mycosphaerella maculiformis)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "alternaria (Alternaria sp.)",
+     "TARGET_CANONICAL": "ALTERNARIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "antracnosi (Colletotrichum sp.)",
+     "TARGET_CANONICAL": "ANTRACNOSI",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "008601": {
+   "PRODUCT": "fungicida vite/pomodoro (granuli idrodispersibili)",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "EVIDENCE": "blocos \"VITE (UVA DA VINO E DA TAVOLA): ...\" e \"POMODORO ...:\"",
+   "PAIRS": [
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Escoriosi (Phomopsis viticola)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Marciume nero (Guignardia bidwellii)",
+     "TARGET_CANONICAL": "MARCIUME",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Peronospora (Plasmopara viticola)",
+     "TARGET_CANONICAL": "PERONOSPORA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Marciume bianco (Coniella diplodiella)",
+     "TARGET_CANONICAL": "MARCIUME",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Oidio (Erysipha necator)",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Muffa grigia (Botrytis cinerea)",
+     "TARGET_CANONICAL": "MUFFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Peronospora (Phytophthora infestans)",
+     "TARGET_CANONICAL": "PERONOSPORA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Alternariosi (Alternaria solani)",
+     "TARGET_CANONICAL": "ALTERNARIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Cladosporiosi (Fulvia fulva)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Septoriosi (Septoria lycopersici)",
+     "TARGET_CANONICAL": "SEPTORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Muffa grigia (Botrytis cinerea)",
+     "TARGET_CANONICAL": "MUFFA",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "009757": {
+   "PRODUCT": "SPYRALE",
+   "FAMILY": "C_TABELA",
+   "EVIDENCE": "celula \"Barbabietola da zucchero\" com a celula de alvo a sua direita/acima na mesma faixa vertical",
+   "PAIRS": [
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "Cercosporiosi (Cercospora beticola)",
+     "TARGET_CANONICAL": "CERCOSPORA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "Oidio (Erysiphe betae)",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET": "MALATTIE_FUNGINE",
+     "WHY": "a frase \"FUNGICIDA PER LA DIFESA DELLA BARBABIETOLA DA ZUCCHERO DALLE MALATTIE FUNGINE\" declara ESCOPO. A doenca autorizada esta na tabela, e e nominada. Criar o par generico duplicaria a autorizacao."
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "009783": {
+   "PRODUCT": "fungicida di post raccolta agrumi",
+   "FAMILY": "GENUINE_ZERO_VOCAB_GAP",
+   "EVIDENCE": "\"FUNGICIDA DI POST RACCOLTA PER IL TRATTAMENTO DEGLI AGRUMI\"; o unico alvo nominado e \"contro Penicillum digitatum\"",
+   "PAIRS": [
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "Penicillum digitatum",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "AGRUMI",
+     "TARGET": "MALATTIE_FUNGINE",
+     "WHY": "a frase de titulo declara CULTURA e categoria, nao alvo"
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "009790": {
+   "PRODUCT": "CONTATTO 320",
+   "FAMILY": "SCOPE_SENTENCE_HERBICIDA",
+   "EVIDENCE": "\"Viene impiegato per il diserbo di: BARBABIETOLA DA ZUCCHERO E DA FORAGGIO - BIETOLA ROSSA:\"",
+   "PAIRS": [
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "infestanti (diserbo)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "AVENA",
+     "TARGET": "*",
+     "WHY": "avena aparece na lista de infestantes, nao como cultura"
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "009800": {
+   "PRODUCT": "MAVRIK 20 EW",
+   "FAMILY": "HEADER_CONTINUATION",
+   "EVIDENCE": "mesmas declaracoes de uso de 007555, com duas adicoes conferidas na geometria",
+   "PAIRS": [
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "afidi (Aphis spp., Toxoptera aurantii)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "tignola degli agrumi (Prays citri)",
+     "TARGET_CANONICAL": "TIGNOLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "afidi (Dysaphis plantaginea, Aphis pomi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia pyrivora, Dasineura pyri)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Adoxophyes orana, Yponomeuta malinellus, Hyphantria cunea)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Cydia pomonella",
+     "TARGET_CANONICAL": "CARPOCAPSA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Phyllonorycter blancardella",
+     "TARGET_CANONICAL": "LITOCOLLETE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "cimici (Halyomorpha halys)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "forme mobili giovanili di cocciniglia",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "psille (Cacopsylla spp.)",
+     "TARGET_CANONICAL": "PSILLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "afidi (Dysaphis plantaginea, Aphis pomi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia pyrivora, Dasineura pyri)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Adoxophyes orana, Yponomeuta malinellus, Hyphantria cunea)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Cydia pomonella",
+     "TARGET_CANONICAL": "CARPOCAPSA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Phyllonorycter blancardella",
+     "TARGET_CANONICAL": "LITOCOLLETE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "cimici (Halyomorpha halys)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "forme mobili giovanili di cocciniglia",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "psille (Cacopsylla spp.)",
+     "TARGET_CANONICAL": "PSILLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "afidi (Hyalopterus amygdali, Myzus persicae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Anarsia lineatella",
+     "TARGET_CANONICAL": "ANARSIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Cydia molesta)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips spp.)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "mosca della frutta (Ceratitis capitata)",
+     "TARGET_CANONICAL": "MOSCA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "afidi (Hyalopterus amygdali, Myzus persicae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Anarsia lineatella",
+     "TARGET_CANONICAL": "ANARSIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Cydia molesta)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips spp.)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "mosca della frutta (Ceratitis capitata)",
+     "TARGET_CANONICAL": "MOSCA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "afidi (Myzus spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "cicaline (Empoasca vitis, Scaphoideus titanus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Drepanothrips reuteri)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "dorifora (Leptinotarsa decemlineata)",
+     "TARGET_CANONICAL": "DORIFORA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "afidi (Myzus persicae, Macrosiphum euphorbia)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CAROTA",
+     "TARGET_AS_WRITTEN": "afidi (Cavariella aegopodii, Myzus persicae, Semiaphis dauci)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "afidi (Aphis gossypii, Myzus persicae, Macrosiphum spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "afidi (Aphis gossypii, Myzus persicae, Macrosiphum spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "afidi (Aphis gossypii, Myzus persicae, Macrosiphum spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "afidi (Aphis gossypii, Myzus persicae, Macrosiphum spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "lepidotteri (Helicoverpa armigera)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "Spodoptera spp.",
+     "TARGET_CANONICAL": "NOTTUE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CAVOLO",
+     "TARGET_AS_WRITTEN": "afidi (Brevicoryne brassicae, Myzus persicae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CAVOLO",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips spp.)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CAVOLO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Pieris spp., Mamestra brassicae)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "LATTUGA",
+     "TARGET_AS_WRITTEN": "afidi (Myzus persicae, Nasonovia ribisnigri)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "LATTUGA",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips spp.)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "LATTUGA",
+     "TARGET_AS_WRITTEN": "miridi (Lygus spp.)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "LATTUGA",
+     "TARGET_AS_WRITTEN": "lepidotteri (Pieris spp., Mamestra brassicae)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "LATTUGA",
+     "TARGET_AS_WRITTEN": "minatori fogliari (Liriomyza spp.)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "afidi (Acyrthosiphon pisum, Aphis fabae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips angusticeps, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Cydia nigricana)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "Ostrinia nubilalis",
+     "TARGET_CANONICAL": "PIRALIDE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia pisi)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "afidi (Acyrthosiphon pisum, Aphis fabae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips angusticeps, Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Cydia nigricana)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "Ostrinia nubilalis",
+     "TARGET_CANONICAL": "PIRALIDE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia pisi)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "afidi (Aphis fabae solanella, Capitophorus horni)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips spp.)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "lepidotteri (Spodoptera spp.)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COLZA",
+     "TARGET_AS_WRITTEN": "afidi (Brevicoryne brassicae, Myzus persicae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COLZA",
+     "TARGET_AS_WRITTEN": "coleotteri (Meligethes aeneus)",
+     "TARGET_CANONICAL": "MELIGETE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COLZA",
+     "TARGET_AS_WRITTEN": "coleotteri (Ceutorhynchus napi, Psylliodes chrysocephala)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "afidi (Sitobion avenae, Rhopalosiphum padi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "cimici (Aelia rostrata, Eurygaster maura)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "cicaline (Psammotettix alienus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "afidi (Sitobion avenae, Rhopalosiphum padi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "cimici (Aelia rostrata, Eurygaster maura)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "cicaline (Psammotettix alienus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "afidi (Sitobion avenae, Rhopalosiphum padi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "cimici (Aelia rostrata, Eurygaster maura)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "cicaline (Psammotettix alienus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "afidi (Sitobion avenae, Rhopalosiphum padi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "cimici (Aelia rostrata, Eurygaster maura)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "cicaline (Psammotettix alienus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "afidi (Sitobion avenae, Rhopalosiphum padi)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "ditteri cecidomidi (Contarinia tritici, Sitodiplosis mosellana)",
+     "TARGET_CANONICAL": "CECIDOMIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "cimici (Aelia rostrata, Eurygaster maura)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "cicaline (Psammotettix alienus)",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "afidi (Aphis fabae, Macrosiphum spp.)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "lepidotteri (Mamestra spp.)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "altica (Chaetocnema tibialis)",
+     "TARGET_CANONICAL": "ALTICA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "cleono (Conorhynchus mendicus)",
+     "TARGET_CANONICAL": "CLEONO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "cassida (Cassida vittata)",
+     "TARGET_CANONICAL": "CASSIDA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "afidi (Acyrthosiphon pisum, Aphis fabae)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "coleotteri (Apion pisi)",
+     "TARGET_CANONICAL": "APION",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "coleotteri (Hypera postica, Sitona lineatus, Phytodecta fornicata, Tichius flavus)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "tripidi (Thrips tabaci)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "lepidotteri (Cydia nigricana)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "Ostrinia nubilalis",
+     "TARGET_CANONICAL": "PIRALIDE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRAGOLA",
+     "TARGET_AS_WRITTEN": "afidi (Aphis gossypii)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRAGOLA",
+     "TARGET_AS_WRITTEN": "tripidi (Frankliniella occidentalis)",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRAGOLA",
+     "TARGET_AS_WRITTEN": "lepidotteri (Spodoptera spp.)",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "cimice asiatica (Halyomorpha halys)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "cimice asiatica (Halyomorpha halys)",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "mosche della frutta (Ceratitis capitata, Bactrocera spp.)",
+     "TARGET_CANONICAL": "MOSCA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Moscerino dei piccoli frutti (Drosophila suzukii)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "SUSINO",
+     "TARGET": "*",
+     "WHY": "susino nao aparece na lista de usos: \"Drupacee (pesco, albicocco, nettarino)\". Expandir DRUPACEE pelo grupo padrao inventaria autorizacao."
+    },
+    {
+     "CROP": "MAIS",
+     "TARGET": "*",
+     "WHY": "mais nao consta em nenhuma declaracao de uso deste rotulo"
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "010587": {
+   "PRODUCT": "fungicida vite/pomodoro (sospensione)",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "EVIDENCE": "mesmas declaracoes de 008601 em formulacao liquida",
+   "PAIRS": [
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Escoriosi (Phomopsis viticola)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Marciume nero (Guignardia bidwellii)",
+     "TARGET_CANONICAL": "MARCIUME",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Peronospora (Plasmopara viticola)",
+     "TARGET_CANONICAL": "PERONOSPORA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Marciume bianco (Coniella diplodiella)",
+     "TARGET_CANONICAL": "MARCIUME",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Oidio (Erysiphe necator)",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Muffa grigia (Botrytis cinerea)",
+     "TARGET_CANONICAL": "MUFFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Peronospora (Phytophthora infestans)",
+     "TARGET_CANONICAL": "PERONOSPORA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Alternaria (Alternaria solani)",
+     "TARGET_CANONICAL": "ALTERNARIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Cladosporiosi (Fulvia fulva)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Septoria (Septoria lycopersici)",
+     "TARGET_CANONICAL": "SEPTORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Muffa grigia (Botrytis cinerea)",
+     "TARGET_CANONICAL": "MUFFA",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "011243": {
+   "PRODUCT": "LEOPARD 5 EC",
+   "FAMILY": "GLOBAL_TARGET_SCOPE",
+   "EVIDENCE": "\"Infestanti controllate: Graminacee annuali ... poliennali ...\" declarado uma vez, e \"LEOPARD 5 EC puo essere impiegato nel diserbo delle seguenti colture\", cada cultura com sua epoca",
+   "PAIRS": [
+    {
+     "CROP": "CAVOLO",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COLZA",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TABACCO",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CIPOLLA",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGLIO",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CAROTA",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "RAVANELLO",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SOIA",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "GIRASOLE",
+     "TARGET_AS_WRITTEN": "Infestanti controllate (graminacee annuali e poliennali)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "AVENA",
+     "TARGET": "*",
+     "WHY": "\"Avena spp. (Avena)\" esta na lista de GRAMINACEE ANNUALI controladas: e a infestante, e nao a cultura."
+    },
+    {
+     "CROP": "RISO",
+     "TARGET": "*",
+     "WHY": "nao consta como cultura autorizada"
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "012573": {
+   "PRODUCT": "EKO OIL SPRAY",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "EVIDENCE": "mesmo texto de uso de OLIONET, mais SEDANO/FINOCCHIO e ORNAMENTALI; conferido bloco a bloco",
+   "PAIRS": [
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Psille",
+     "TARGET_CANONICAL": "PSILLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Tignola",
+     "TARGET_CANONICAL": "TIGNOLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Psille",
+     "TARGET_CANONICAL": "PSILLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Tignola",
+     "TARGET_CANONICAL": "TIGNOLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "uova di Lepidottero",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "uova di Lepidottero",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "uova di Lepidottero",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "uova di Lepidottero",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "uova di Lepidottero",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Tignole",
+     "TARGET_CANONICAL": "TIGNOLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "OLIVO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "OLIVO",
+     "TARGET_AS_WRITTEN": "Tignole",
+     "TARGET_CANONICAL": "TIGNOLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "Cimici",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "Psille",
+     "TARGET_CANONICAL": "PSILLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "Cimici",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "Psille",
+     "TARGET_CANONICAL": "PSILLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "Cimice verde",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "Minatori fogliari",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Cimice verde",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Ditteri agromizidi",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Minatori fogliari",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri e Ditteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Cimice verde",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Ditteri agromizidi",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Minatori fogliari",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri e Ditteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Cimice verde",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Ditteri agromizidi",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Minatori fogliari",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri e Ditteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Cimice verde",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Ditteri agromizidi",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Minatori fogliari",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri e Ditteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "Ditteri agromizidi",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "uova di Dorifora",
+     "TARGET_CANONICAL": "DORIFORA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Ditteri agromizidi",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "uova di Dorifora",
+     "TARGET_CANONICAL": "DORIFORA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "Ditteri agromizidi",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "uova di Dorifora",
+     "TARGET_CANONICAL": "DORIFORA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "Ditteri",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri e Coleotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "Ditteri",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "adulti di Altica",
+     "TARGET_CANONICAL": "ALTICA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "Cassida",
+     "TARGET_CANONICAL": "CASSIDA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "Mosca",
+     "TARGET_CANONICAL": "MOSCA",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "MAIS",
+     "TARGET": "*",
+     "WHY": "mais aparece SO na tabela de coadiuvante de diserbanti (\"Mais | 2,4 D, MCPA, Bentazone\"). Ali a coluna vizinha traz HERBICIDAS, nao alvos: e uma tabela de mistura, nao de uso inseticida."
+    },
+    {
+     "CROP": "SOIA",
+     "TARGET": "*",
+     "WHY": "idem — soia so aparece na tabela de coadiuvante"
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "013402": {
+   "PRODUCT": "LUMA KL",
+   "FAMILY": "GLOBAL_TARGET_SCOPE",
+   "EVIDENCE": "\"LUMA KL distrugge limacce, lumache, chiocciole e gasteropodi in genere infestanti le colture di seguito riportate\" seguido da lista de culturas",
+   "PAIRS": [
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "CAVOLO",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "COLZA",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "GIRASOLE",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "SOIA",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "MAIS",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "SORGO",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "FRAGOLA",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "AGLIO",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "limacce, lumache, chiocciole e gasteropodi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    }
+   ],
+   "EXPECTED_NO_PAIR": [],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": "todos os pares deste rotulo sao VOCAB_GAP: o vocabulario controlado nao tem termo para moluscos. O rotulo autoriza; o vocabulario nao sabe dizer. Isto e lacuna de vocabulario, e nao ausencia de uso."
+  },
+  "013405": {
+   "PRODUCT": "anti-oidico multicultura (2)",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "EVIDENCE": "mesmas declaracoes de 002983, com o bloco de uso intercalado com a prosa de seguranca na mesma faixa geometrica",
+   "PAIRS": [
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Uncinula necator",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRAGOLA",
+     "TARGET_AS_WRITTEN": "Sphaerotheca macularis",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Podosphaera fusca e Erysiphe cichoracearum",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Podosphaera fusca e Erysiphe cichoracearum",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Podosphaera fusca e Erysiphe cichoracearum",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Podosphaera fusca e Erysiphe cichoracearum",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Leveillula taurica",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "Leveillula taurica",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "Leveillula taurica",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "MELO",
+     "TARGET": "*",
+     "WHY": "melo NAO consta nas epoche di applicazione deste rotulo, ao contrario de 002983"
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "013585": {
+   "PRODUCT": "SOLOFOL",
+   "FAMILY": "INLINE_WITH_CROP_QUALIFIER",
+   "EVIDENCE": "\"VITE da VINO: contro Peronospora, Botrite, Escoriosi e Black rot\"",
+   "PAIRS": [
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Peronospora",
+     "TARGET_CANONICAL": "PERONOSPORA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Botrite",
+     "TARGET_CANONICAL": "BOTRITE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Escoriosi",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Black rot",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    }
+   ],
+   "EXPECTED_NO_PAIR": [],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "014386": {
+   "PRODUCT": "OLIONET",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "EVIDENCE": "bloco unico DOSI E MODALITA, uma declaracao \"CULTURA: contro ...\" por grupo, cada grupo com enumeracao entre parenteses",
+   "PAIRS": [
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Psille",
+     "TARGET_CANONICAL": "PSILLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "Tignola",
+     "TARGET_CANONICAL": "TIGNOLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Psille",
+     "TARGET_CANONICAL": "PSILLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "Tignola",
+     "TARGET_CANONICAL": "TIGNOLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "uova di Lepidottero",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "uova di Lepidottero",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "uova di Lepidottero",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "uova di Lepidottero",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "uova di Lepidottero",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Tignole",
+     "TARGET_CANONICAL": "TIGNOLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "OLIVO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "OLIVO",
+     "TARGET_AS_WRITTEN": "Tignole",
+     "TARGET_CANONICAL": "TIGNOLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "Cimici",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "Psille",
+     "TARGET_CANONICAL": "PSILLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "Cicaline",
+     "TARGET_CANONICAL": "CICALINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "Cimici",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "Eriofidi",
+     "TARGET_CANONICAL": "ERIOFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "Metcalfa",
+     "TARGET_CANONICAL": "METCALFA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "Psille",
+     "TARGET_CANONICAL": "PSILLE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "Cimice verde",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "Minatori fogliari",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Cimice verde",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Ditteri agromizidi",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Minatori fogliari",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri e Ditteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Cimice verde",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Ditteri agromizidi",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Minatori fogliari",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri e Ditteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Cimice verde",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Ditteri agromizidi",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Minatori fogliari",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri e Ditteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Cimice verde",
+     "TARGET_CANONICAL": "CIMICI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Cocciniglie",
+     "TARGET_CANONICAL": "COCCINIGLIE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Ditteri agromizidi",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Minatori fogliari",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri e Ditteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "Ditteri agromizidi",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "uova di Dorifora",
+     "TARGET_CANONICAL": "DORIFORA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Ditteri agromizidi",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "uova di Dorifora",
+     "TARGET_CANONICAL": "DORIFORA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "Ditteri agromizidi",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "uova di Dorifora",
+     "TARGET_CANONICAL": "DORIFORA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "Ditteri",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri e Coleotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "Acari",
+     "TARGET_CANONICAL": "ACARI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "Aleurodidi",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "Ditteri",
+     "TARGET_CANONICAL": "DITTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "Tripidi",
+     "TARGET_CANONICAL": "TRIPIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "uova di Lepidotteri",
+     "TARGET_CANONICAL": "LEPIDOTTERI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "Afidi",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "adulti di Altica",
+     "TARGET_CANONICAL": "ALTICA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "Cassida",
+     "TARGET_CANONICAL": "CASSIDA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET_AS_WRITTEN": "Mosca",
+     "TARGET_CANONICAL": "MOSCA",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "FRUMENTO",
+     "TARGET": "*",
+     "WHY": "nenhum cereal consta nos usos deste rotulo"
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [
+    {
+     "CROP": "CASTAGNO",
+     "WHY": "FICO, CACO, RIBES nao pertencem ao vocabulario; a linha \"FICO, CACO, RIBES, NOCE, NOCCIOLO\" sustenta NOCE e NOCCIOLO, que enumerei, e nada alem disso"
+    }
+   ],
+   "NOTA": null
+  },
+  "015592": {
+   "PRODUCT": "TAIFUN JARDIN",
+   "FAMILY": "WEED_NAMES_MISTAKEN_FOR_CROPS",
+   "EVIDENCE": "erbicida para \"ROSE, VIVAI DI FLOREALI, ORNAMENTALI\" — nenhuma destas esta no vocabulario de culturas agricolas",
+   "PAIRS": [],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "AVENA",
+     "TARGET": "*",
+     "WHY": "\"Avena sp. (Avena)\" e infestante anual listada"
+    },
+    {
+     "CROP": "RISO",
+     "TARGET": "*",
+     "WHY": "\"Oriza sativa var. silvatica (Riso crodo)\" e o arroz daninho, infestante"
+    },
+    {
+     "CROP": "AGLIO",
+     "TARGET": "*",
+     "WHY": "\"Alium sp. (Aglio selvatico)\" e infestante vivaz"
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "016152": {
+   "PRODUCT": "SEEDRON",
+   "FAMILY": "C_TABELA",
+   "EVIDENCE": "linhas \"Frumento duro, Frumento tenero: ...\", \"Orzo: ...\", \"Avena: ...\", \"Segale e Triticale: ...\"",
+   "PAIRS": [
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "Fusariosi (Fusarium spp., Microdochium nivale)",
+     "TARGET_CANONICAL": "FUSARIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "Carie (Tilletia caries)",
+     "TARGET_CANONICAL": null,
+     "VOCAB_GAP": true
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "Carbone (Ustilago nuda f.sp. tritici)",
+     "TARGET_CANONICAL": "CARBONE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "Fusariosi (Fusarium spp., Microdochium nivale)",
+     "TARGET_CANONICAL": "FUSARIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "Carbone (Ustilago nuda)",
+     "TARGET_CANONICAL": "CARBONE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "Striatura bruna (Pyrenophora spp.)",
+     "TARGET_CANONICAL": "ELMINTOSPORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "Fusariosi (Fusarium spp., Microdochium nivale)",
+     "TARGET_CANONICAL": "FUSARIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "Carbone (Ustilago avenae)",
+     "TARGET_CANONICAL": "CARBONE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "Fusariosi (Fusarium Microdochium nivale)",
+     "TARGET_CANONICAL": "FUSARIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "Carbone (Urocystis occulta)",
+     "TARGET_CANONICAL": "CARBONE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "Fusariosi (Fusarium Microdochium nivale)",
+     "TARGET_CANONICAL": "FUSARIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "Carbone (Urocystis occulta)",
+     "TARGET_CANONICAL": "CARBONE",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "016218": {
+   "PRODUCT": "herbicida olivo/cereali",
+   "FAMILY": "SCOPE_SENTENCE_HERBICIDA",
+   "EVIDENCE": "\"Frumento duro: applicare ... in pre-emergenza o post-emergenza\"; \"Orzo: ...\"; \"Olivo: applicare il prodotto in pre-emergenza o post-emergenza precoce delle infestanti\"; secao INFESTANTI SENSIBILI enumerada por cultura",
+   "PAIRS": [
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "malerbe da controllare (INFESTANTI SENSIBILI su FRUMENTO)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "malerbe da controllare (INFESTANTI SENSIBILI su ORZO)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "OLIVO",
+     "TARGET_AS_WRITTEN": "infestanti (INFESTANTI SENSIBILI su OLIVO)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "LATTUGA",
+     "TARGET": "*",
+     "WHY": "\"Lactuca serriola (lattuga selvatica)\" e uma INFESTANTE listada, nao a cultura LATTUGA. Promove-la a cultura inverteria o papel na frase."
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET": "*",
+     "WHY": "\"Avena sterilis (Avena)\" aparece como infestante mediamente sensivel"
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "016312": {
+   "PRODUCT": "herbicida post-emergenza (2)",
+   "FAMILY": "GLOBAL_TARGET_SCOPE",
+   "EVIDENCE": "\"Usi autorizzati: ... cipolla, aglio, pomacee, drupacee, agrumi, olivo, nocciolo, mandorlo, noce, prati e pascoli\"",
+   "PAIRS": [
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MAIS",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CIPOLLA",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGLIO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "OLIVO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCCIOLO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MANDORLO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET": "*",
+     "WHY": "so na advertencia de deriva"
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET": "*",
+     "WHY": "so na advertencia de deriva"
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET": "*",
+     "WHY": "so na advertencia de deriva"
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "016823": {
+   "PRODUCT": "ACTIVUS 40 SC",
+   "FAMILY": "GLOBAL_TARGET_SCOPE",
+   "EVIDENCE": "bloco unico com uma declaracao de dose por cultura; secao INFESTANTI SENSIBILI global (graminacee + dicotiledoni)",
+   "PAIRS": [
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRAGOLA",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGLIO",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CARCIOFO",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CAVOLO",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CIPOLLA",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "GIRASOLE",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FAGIOLO",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MAIS",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SOIA",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TABACCO",
+     "TARGET_AS_WRITTEN": "INFESTANTI SENSIBILI (graminacee e dicotiledoni)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "LATTUGA",
+     "TARGET": "*",
+     "WHY": "\"Lactuca serriola (lattuga selvatica)\" e infestante"
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "017358": {
+   "PRODUCT": "BLAISE ULTRA",
+   "FAMILY": "C_TABELA",
+   "EVIDENCE": "tabela Coltura|Patogeno na coluna x~572-625 da pagina 0, ultima linha (Vite) na pagina 1",
+   "PAIRS": [
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "Fusariosi (Fusarium spp.)",
+     "TARGET_CANONICAL": "FUSARIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "Oidio (Erysiphe spp.)",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "Ruggini (Puccinia spp.)",
+     "TARGET_CANONICAL": "RUGGINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "Septoria (Septoria spp.)",
+     "TARGET_CANONICAL": "SEPTORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "Fusariosi (Fusarium spp.)",
+     "TARGET_CANONICAL": "FUSARIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "Oidio (Erysiphe spp.)",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "Ruggini (Puccinia spp.)",
+     "TARGET_CANONICAL": "RUGGINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "Septoria (Septoria spp.)",
+     "TARGET_CANONICAL": "SEPTORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "Oidio (Erysiphe spp.)",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "Ruggini (Puccinia spp.)",
+     "TARGET_CANONICAL": "RUGGINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "Rincosporiosi (Rhynchosporium spp.)",
+     "TARGET_CANONICAL": "RINCOSPORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "Elmintosporiosi (Pyrenophora spp.)",
+     "TARGET_CANONICAL": "ELMINTOSPORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Oidio (Sphaerotheca spp., Erysiphe spp.)",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Oidio (Sphaerotheca spp., Erysiphe spp.)",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Oidio (Erysiphe spp.)",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "Oidio (Leveillula taurica, Sphaerotheca spp.)",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELANZANA",
+     "TARGET_AS_WRITTEN": "Oidio (Leveillula taurica, Sphaerotheca spp.)",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PEPERONE",
+     "TARGET_AS_WRITTEN": "Oidio (Leveillula taurica, Sphaerotheca spp.)",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGLIO",
+     "TARGET_AS_WRITTEN": "Ruggini (Puccinia spp.)",
+     "TARGET_CANONICAL": "RUGGINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CIPOLLA",
+     "TARGET_AS_WRITTEN": "Ruggini (Puccinia spp.)",
+     "TARGET_CANONICAL": "RUGGINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "VITE",
+     "TARGET_AS_WRITTEN": "Oidio (Uncicola necator)",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "017852": {
+   "PRODUCT": "POWERFILM",
+   "FAMILY": "GENUINE_ZERO",
+   "EVIDENCE": "coadiuvante (olio di colza metilestere). Nenhuma declaracao de uso cultura x alvo em todo o documento.",
+   "PAIRS": [],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "COLZA",
+     "TARGET": "*",
+     "WHY": "\"Olio di colza metilestere\" e a COMPOSICAO do produto, nao a cultura tratada. Este e o falso positivo classico deste rotulo."
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "017955": {
+   "PRODUCT": "MAGANIC",
+   "FAMILY": "C_TABELA",
+   "EVIDENCE": "tabela cereais; o bloco achatado mistura as linhas, mas a pagina separa Frumento / Orzo / Segale / Triticale",
+   "PAIRS": [
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "Septoria (Septoria tritici)",
+     "TARGET_CANONICAL": "SEPTORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "Ruggini (Puccinia recondita)",
+     "TARGET_CANONICAL": "RUGGINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "Fusariosi della spiga (Fusarium spp., Microdochium spp.)",
+     "TARGET_CANONICAL": "FUSARIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "Elmintosporiosi (Pyrenophora teres)",
+     "TARGET_CANONICAL": "ELMINTOSPORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "Ramularia (Ramularia collo-cygni)",
+     "TARGET_CANONICAL": "RAMULARIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "Rincosporiosi (Rhyncosporium secalis)",
+     "TARGET_CANONICAL": "RINCOSPORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "Ruggine (Puccinia recondita)",
+     "TARGET_CANONICAL": "RUGGINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "Septoria (Septoria tritici)",
+     "TARGET_CANONICAL": "SEPTORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "Ruggini (Puccinia striiformis e Puccinia recondita)",
+     "TARGET_CANONICAL": "RUGGINE",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "018089": {
+   "PRODUCT": "AVASTEL",
+   "FAMILY": "C_TABELA",
+   "EVIDENCE": "tabela Coltura|Malattia fungina, faixas y: Frumento 347, Orzo 427, Segale 476, Triticale 515",
+   "PAIRS": [
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "Septoriosi (Zymoseptoria tritici)",
+     "TARGET_CANONICAL": "SEPTORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "Oidio (Blumeria graminis sp. tritici)",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "Ruggine gialla (Puccinia striiformis)",
+     "TARGET_CANONICAL": "RUGGINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "Ruggine bruna (Puccinia recondita)",
+     "TARGET_CANONICAL": "RUGGINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "Fusariosi (Fusarium spp., Microdochium spp.)",
+     "TARGET_CANONICAL": "FUSARIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "Rincosporiosi (Rhyncosporium secalis)",
+     "TARGET_CANONICAL": "RINCOSPORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "Elmintosporiosi (Pyrenophora teres)",
+     "TARGET_CANONICAL": "ELMINTOSPORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "Ramularia (Ramularia collo-cygni)",
+     "TARGET_CANONICAL": "RAMULARIA",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "Ruggine bruna (Puccinia hordei)",
+     "TARGET_CANONICAL": "RUGGINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "Oidio (Blumeria graminis sp. hordei)",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "Rincosporiosi (Rhyncosporium secalis)",
+     "TARGET_CANONICAL": "RINCOSPORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "Ruggine bruna (Puccinia recondita)",
+     "TARGET_CANONICAL": "RUGGINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "Septoriosi (Zymoseptoria tritici)",
+     "TARGET_CANONICAL": "SEPTORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "Ruggine gialla (Puccinia striiformis)",
+     "TARGET_CANONICAL": "RUGGINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "Ruggine bruna (Puccinia recondita)",
+     "TARGET_CANONICAL": "RUGGINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "Ruggine gialla (Puccinia striiformis)",
+     "TARGET_CANONICAL": "RUGGINE",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "Septoriosi (Zymoseptoria tritici)",
+     "TARGET_CANONICAL": "SEPTORIOSI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "Oidio (Blumeria graminis)",
+     "TARGET_CANONICAL": "OIDIO",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "018101": {
+   "PRODUCT": "herbicida post-emergenza (1)",
+   "FAMILY": "GLOBAL_TARGET_SCOPE",
+   "EVIDENCE": "\"Usi autorizzati: frumento tenero e duro, segale, triticale, orzo, avena, mais, cipolla, pomacee, drupacee, agrumi, olivo, prati e pascoli, aree non coltivate.\" mais uma declaracao por cultura",
+   "PAIRS": [
+    {
+     "CROP": "FRUMENTO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SEGALE",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "TRITICALE",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ORZO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AVENA",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MAIS",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CIPOLLA",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ALBICOCCO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CILIEGIO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "OLIVO",
+     "TARGET_AS_WRITTEN": "infestanti (elenco Infestanti sensibili / moderatamente sensibili)",
+     "TARGET_CANONICAL": "INFESTANTI",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "BARBABIETOLA",
+     "TARGET": "*",
+     "WHY": "barbabietola aparece so na advertencia de deriva (\"Barbabietola da zucchero ... sono sensibili al prodotto\"): e cultura a PROTEGER, o oposto de cultura autorizada."
+    },
+    {
+     "CROP": "PISELLO",
+     "TARGET": "*",
+     "WHY": "idem — pisello aparece na fascia de seguranca de deriva"
+    },
+    {
+     "CROP": "PATATA",
+     "TARGET": "*",
+     "WHY": "idem"
+    },
+    {
+     "CROP": "ERBA_MEDICA",
+     "TARGET": "*",
+     "WHY": "aparece na deriva e tambem como infestante (\"erba medica (Medicago sativa)\") na lista de sensiveis"
+    },
+    {
+     "CROP": "AGLIO",
+     "TARGET": "*",
+     "WHY": "aglio nao consta em \"Usi autorizzati\" de 018101"
+    },
+    {
+     "CROP": "NOCE",
+     "TARGET": "*",
+     "WHY": "fruttiferi a guscio nao constam em 018101"
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "018156": {
+   "PRODUCT": "APYZA WG",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "EVIDENCE": "mesmo texto de uso de 018165, conferido bloco a bloco",
+   "PAIRS": [
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "afidi (Dysaphis plantaginea, Aphis pomi, Dysaphis pyri)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "afidi (Dysaphis plantaginea, Aphis pomi, Dysaphis pyri)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "afidi (Myzus persicae, Brachycaudus helichrysi, Hyalopterus pruni)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "afidi (Myzus persicae, Brachycaudus helichrysi, Hyalopterus pruni)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "afidi (Myzus persicae e Aphis gossypii)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "mosche bianche (Trialeurodes vaporariorum, Bemisia tabaci)",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Aphis gossypii",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Aphis gossypii",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Aphis gossypii",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Aphis gossypii",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "mosche bianche (Trialeurodes vaporariorum, Bemisia tabaci)",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "mosche bianche (Trialeurodes vaporariorum, Bemisia tabaci)",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "mosche bianche (Trialeurodes vaporariorum, Bemisia tabaci)",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "mosche bianche (Trialeurodes vaporariorum, Bemisia tabaci)",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "afidi (Aphis citricola, Toxoptera aurantii, Myzus persicae, Aphis gossypii)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "MELO",
+     "TARGET": "ERIOSOMA",
+     "WHY": "Eriosoma lanigerum nao aparece neste rotulo"
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  },
+  "018165": {
+   "PRODUCT": "APYZA 500 WG",
+   "FAMILY": "G_TEXTO_CORRIDO",
+   "EVIDENCE": "declaracoes \"Melo e pero: contro afidi (...)\" etc.",
+   "PAIRS": [
+    {
+     "CROP": "MELO",
+     "TARGET_AS_WRITTEN": "afidi (Dysaphis plantaginea, Aphis pomi, Dysaphis pyri)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PERO",
+     "TARGET_AS_WRITTEN": "afidi (Dysaphis plantaginea, Aphis pomi, Dysaphis pyri)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "PESCO",
+     "TARGET_AS_WRITTEN": "afidi (Myzus persicae, Brachycaudus helichrysi, Hyalopterus pruni)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "SUSINO",
+     "TARGET_AS_WRITTEN": "afidi (Myzus persicae, Brachycaudus helichrysi, Hyalopterus pruni)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "afidi (Myzus persicae e Aphis gossypii)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "POMODORO",
+     "TARGET_AS_WRITTEN": "mosche bianche (Trialeurodes vaporariorum, Bemisia tabaci)",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "Aphis gossypii",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "Aphis gossypii",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "Aphis gossypii",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "Aphis gossypii",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "MELONE",
+     "TARGET_AS_WRITTEN": "mosche bianche (Trialeurodes vaporariorum, Bemisia tabaci)",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "CETRIOLO",
+     "TARGET_AS_WRITTEN": "mosche bianche (Trialeurodes vaporariorum, Bemisia tabaci)",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "COCOMERO",
+     "TARGET_AS_WRITTEN": "mosche bianche (Trialeurodes vaporariorum, Bemisia tabaci)",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "ZUCCHINO",
+     "TARGET_AS_WRITTEN": "mosche bianche (Trialeurodes vaporariorum, Bemisia tabaci)",
+     "TARGET_CANONICAL": "ALEURODIDI",
+     "VOCAB_GAP": false
+    },
+    {
+     "CROP": "AGRUMI",
+     "TARGET_AS_WRITTEN": "afidi (Aphis citricola, Toxoptera aurantii, Myzus persicae, Aphis gossypii)",
+     "TARGET_CANONICAL": "AFIDI",
+     "VOCAB_GAP": false
+    }
+   ],
+   "EXPECTED_NO_PAIR": [
+    {
+     "CROP": "MELO",
+     "TARGET": "ERIOSOMA",
+     "WHY": "Eriosoma lanigerum NAO aparece neste rotulo. O conjunto antigo o listava para APYZA; inventa-lo aqui seria promover autorizacao inexistente."
+    }
+   ],
+   "EXPECTED_AMBIGUOUS": [],
+   "NOTA": null
+  }
+ }
+}

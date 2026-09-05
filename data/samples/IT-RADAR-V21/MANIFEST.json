@@ -1,0 +1,173 @@
+{
+ "DATASET": "IT-RADAR-V21",
+ "SOURCE": "copia PINADA do pacote canonico ADAMA Italia V2.1. Nada foi recalculado nem reinterpretado: sao os mesmos blobs git da origem, identificados por SHA.",
+ "SOURCE_ID": "IT-RADAR-V21",
+ "CAPTURED_AT": "2026-09-04",
+ "POR_QUE_EXISTE": "os workflows liam este pacote de um scratchpad efemero que morreu com o contêiner da conta anterior. Sem esta copia versionada, todo agente novo le zero pares e conclui ausencia — que e o erro mais caro desta casa.",
+ "ORIGEM_E_VERIFICAVEL": "ORIGEM_BLOB_SHA e enderecado por conteudo. Se a origem mudar, o SHA muda e `python3 scripts/radar_v21.py verificar` acusa. A copia nao diverge em silencio.",
+ "NAO_E_FONTE_DE_VERDADE": "a fonte de verdade continua sendo o artefato de origem. Esta copia existe para SOBREVIVER a troca de contêiner, e nao para substituir o dono do dado.",
+ "FILES": [
+  {
+   "NOME_LOCAL": "productsRegulatory.json",
+   "ORIGEM_REF": "origin/claude/italy-v2-handoff",
+   "ORIGEM_PATH": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json",
+   "ORIGEM_BLOB_SHA": "dab57a9bf59d56edfbc6fe941da0e26dbdd79d60",
+   "ORIGEM_BYTES": 173867,
+   "ORIGEM_JSON_SHA256": "b7978096fd6f3bee7b7d3ecca3d0f51e72d9fbcecc20e3dd129f509eb4ef3527",
+   "CHAVES_INJETADAS": [
+    "CAPTURED_AT",
+    "PINNED_FROM",
+    "SOURCE",
+    "SOURCE_ID"
+   ],
+   "BYTES": 174430,
+   "SHA256": "d725c171dbc1d581222cde2eb842b7d214cb239f5273b061ab98b19060ca38cd",
+   "O_QUE_E": "163 registros ADAMA vigentes no Ministero della Salute, com ACTIVE_INGREDIENTS. As 53 substancias ativas da casa derivam-se DESTE arquivo."
+  },
+  {
+   "NOME_LOCAL": "productRelationships.json",
+   "ORIGEM_REF": "origin/claude/italy-v2-handoff",
+   "ORIGEM_PATH": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/LABEL-USE/label-use-pairs.json",
+   "ORIGEM_BLOB_SHA": "a045a6ab156c6f4c244a0554327116ae6e102947",
+   "ORIGEM_BYTES": 1983342,
+   "ORIGEM_JSON_SHA256": "6ed25a4f7775351a6547cf3c9597378d5ac89070c977d0112815da19f092e806",
+   "CHAVES_INJETADAS": [
+    "CAPTURED_AT",
+    "PINNED_FROM",
+    "SOURCE",
+    "SOURCE_ID"
+   ],
+   "BYTES": 1983903,
+   "SHA256": "9658d2a350f0d10d28776979750dfb0914fae6ecac23914108557b45e9c8aa6e",
+   "O_QUE_E": "2.030 pares cultura x alvo LIDOS dentro do rotulo autorizado, com LINK_STRENGTH. 102 dos 163 registros tem par lido; 61 nao tem, e isso e um PISO, nao um censo."
+  },
+  {
+   "NOME_LOCAL": "labelTermCensus.json",
+   "ORIGEM_REF": "origin/claude/italy-v2-handoff",
+   "ORIGEM_PATH": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/LABEL-USE/label-term-census.json",
+   "ORIGEM_BLOB_SHA": "bba92deccee1754ec003f817442c1f7b773f835c",
+   "ORIGEM_BYTES": 11916,
+   "ORIGEM_JSON_SHA256": "8f6adf7799eea06cc5710c86613e7a276b278f637d43ac91a451dba3fafc659d",
+   "CHAVES_INJETADAS": [
+    "CAPTURED_AT",
+    "PINNED_FROM",
+    "SOURCE",
+    "SOURCE_ID"
+   ],
+   "BYTES": 12481,
+   "SHA256": "9c5364ad733e869d178ba914bceb310f4f214359c25540872a268b10aae70f1a",
+   "O_QUE_E": "censo dos termos literais do rotulo"
+  },
+  {
+   "NOME_LOCAL": "opportunities.json",
+   "ORIGEM_REF": "origin/claude/italy-v2-handoff",
+   "ORIGEM_PATH": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/OPPORTUNITIES/opportunities.json",
+   "ORIGEM_BLOB_SHA": "f7bcb58da25c13c324dfc1e18a1d9ada563ff72e",
+   "ORIGEM_BYTES": 8985,
+   "ORIGEM_JSON_SHA256": "35b152c46acc96ba5b63300dcd5a0be69c540223c9f703f193199a6ee9d09781",
+   "CHAVES_INJETADAS": [
+    "CAPTURED_AT",
+    "PINNED_FROM",
+    "SOURCE",
+    "SOURCE_ID"
+   ],
+   "BYTES": 9550,
+   "SHA256": "3b2a2d653dd94e032293af56c7d41aa07b9794ddfa9c98699a1b8bb5c517b3dd",
+   "O_QUE_E": "as convergencias que o proprio artefato de origem SE RECUSA a chamar de oportunidade"
+  },
+  {
+   "NOME_LOCAL": "cropWindows.json",
+   "ORIGEM_REF": "origin/claude/italy-v2-handoff",
+   "ORIGEM_PATH": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/CROP-WINDOWS/crop-windows.json",
+   "ORIGEM_BLOB_SHA": "45833d5f74902c84fbb78901a7d77fc0d607b5c7",
+   "ORIGEM_BYTES": 9573,
+   "ORIGEM_JSON_SHA256": "ae94c5e5aa8e065e5e781f10ba56103bd5000a7b827f69c6535c2c73795575b4",
+   "CHAVES_INJETADAS": [
+    "CAPTURED_AT",
+    "PINNED_FROM",
+    "SOURCE",
+    "SOURCE_ID"
+   ],
+   "BYTES": 10134,
+   "SHA256": "1918c24add9ddbea0ea71968e755608d4b755e3f277119715e084867b1855882",
+   "O_QUE_E": "janelas de cultura declaradas"
+  },
+  {
+   "NOME_LOCAL": "adamaCrops.json",
+   "ORIGEM_REF": "origin/claude/italy-v2-handoff",
+   "ORIGEM_PATH": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-crops.json",
+   "ORIGEM_BLOB_SHA": "e3f86672a59e529dee1df65561539e74814b3da1",
+   "ORIGEM_BYTES": 6669,
+   "ORIGEM_JSON_SHA256": "3c27643906318ec9a583a3ab9b1dda0a08ab98214741ca0caa6196e5eaaf3009",
+   "CHAVES_INJETADAS": [
+    "CAPTURED_AT",
+    "PINNED_FROM",
+    "SOURCE",
+    "SOURCE_ID"
+   ],
+   "BYTES": 7226,
+   "SHA256": "fed23a9eee9faa053f70fcd460d59cd3a6b1f6c6f0df25d75837e492035f29cf",
+   "O_QUE_E": "culturas ADAMA"
+  },
+  {
+   "NOME_LOCAL": "adamaFungicides.json",
+   "ORIGEM_REF": "origin/claude/italy-v2-handoff",
+   "ORIGEM_PATH": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-fungicides.json",
+   "ORIGEM_BLOB_SHA": "469e30c4d765002a88bb55ad75750c53fa83c9ed",
+   "ORIGEM_BYTES": 8206,
+   "ORIGEM_JSON_SHA256": "3e7b9e31c96bd311e91565df5aa39606ced6ee32a3eb166e253844742f00cf25",
+   "CHAVES_INJETADAS": [
+    "CAPTURED_AT",
+    "PINNED_FROM",
+    "SOURCE",
+    "SOURCE_ID"
+   ],
+   "BYTES": 8761,
+   "SHA256": "5b814398ad7c2749a958f6d94ec8aca479b2af2d52fc309579e328458460b714",
+   "O_QUE_E": "linha fungicida"
+  },
+  {
+   "NOME_LOCAL": "adamaInsecticides.json",
+   "ORIGEM_REF": "origin/claude/italy-v2-handoff",
+   "ORIGEM_PATH": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-insecticides.json",
+   "ORIGEM_BLOB_SHA": "8d973dacd1447057f36e1ef2e55245cc6529b93d",
+   "ORIGEM_BYTES": 4364,
+   "ORIGEM_JSON_SHA256": "49dc386b0081c238eafbf6f1124ffab819c257d290f25d20d6f0da802e6d18a1",
+   "CHAVES_INJETADAS": [
+    "CAPTURED_AT",
+    "PINNED_FROM",
+    "SOURCE",
+    "SOURCE_ID"
+   ],
+   "BYTES": 4923,
+   "SHA256": "c151fe2188afdb77f1f895e8abed8cfc3e7b66ae5afe78662a29e40e8da4a7ba",
+   "O_QUE_E": "linha inseticida"
+  },
+  {
+   "NOME_LOCAL": "adamaHerbicides.json",
+   "ORIGEM_REF": "origin/claude/italy-v2-handoff",
+   "ORIGEM_PATH": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-herbicides.json",
+   "ORIGEM_BLOB_SHA": "dd92cdf48a2f082595316b79a914d96398fead01",
+   "ORIGEM_BYTES": 15679,
+   "ORIGEM_JSON_SHA256": "fa74900163a892901cb2a6062103aaedabf78603f327a4da43a274440a2491ad",
+   "CHAVES_INJETADAS": [
+    "CAPTURED_AT",
+    "PINNED_FROM",
+    "SOURCE",
+    "SOURCE_ID"
+   ],
+   "BYTES": 16234,
+   "SHA256": "0c19ed9ab3e60b4ade4fe6c231ca02256b87e844cfdfbc05edb494453c3f4564",
+   "O_QUE_E": "linha herbicida"
+  },
+  {
+   "NOME_LOCAL": "activeIngredients.json",
+   "ORIGEM_REF": "origin/claude/italy-v2-handoff",
+   "ORIGEM_PATH": "DERIVADO de build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json",
+   "ORIGEM_BLOB_SHA": "DERIVADO",
+   "BYTES": 2081,
+   "SHA256": "a17e5351bf38463668934384cc8de543cbee44f66a62ea51e825e2d0c2fd88ca",
+   "O_QUE_E": "as 53 substancias ativas ADAMA, derivadas do registro"
+  }
+ ]
+}

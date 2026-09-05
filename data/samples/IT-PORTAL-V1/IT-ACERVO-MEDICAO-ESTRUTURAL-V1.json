@@ -1,0 +1,884 @@
+{
+ "DATASET": "IT-ACERVO-MEDICAO-ESTRUTURAL-V1",
+ "LAYER": "medicao — quantos registos italianos existem e em que estruturas vivem",
+ "CAPTURED_AT": "2026-09-04",
+ "LEI": "coleccao e a FORMA (chave de topo com lista nao vazia de dicionarios), nunca uma lista branca de nomes. Nenhuma chave vira 1: toda chave aparece pelo nome. Este relatorio nao se conta a si proprio porque nao escreve listas de dicionarios.",
+ "FICHEIROS": {
+  "ITALIA": 153,
+  "NAO_ITALIA": 100,
+  "ILEGIVEIS": 0,
+  "ITALIANOS_SEM_COLECCAO": 56
+ },
+ "TOTAL_BRUTO_TODOS_OS_ESCOPOS": 22715,
+ "TOTAL_ITALIA": 9574,
+ "TOTAL_EXCLUIDO_NAO_ITALIA": 13141,
+ "TOTAL_EXCLUIDO_ESCRITURACAO": 362,
+ "TOTAL_ITALIA_SEM_ESCRITURACAO": 9212,
+ "CHAVES_DISTINTAS_TOTAIS": 132,
+ "CHAVES_DE_COLECAO_ITALIA": 84,
+ "CHAVES_DE_ESCRITURACAO": 13,
+ "CHAVES_NAO_RECONHECIDAS": 0,
+ "PORQUE_ZERO": "nao ha lista branca: coleccao e reconhecida pela forma, e toda chave contada aparece pelo nome em TOTAL_POR_CHAVE. O contador que produzia UNKNOWN_COLLECTION_KEY e o inventario V2, que tem registo de chaves; este relatorio nao tem registo e por isso nao tem o que desconhecer.",
+ "TODA_CHAVE_CONTADA_APARECE_NOMEADA": true,
+ "INVARIANTE_SOMA_DAS_CHAVES_IGUAL_AO_TOTAL": true,
+ "INVARIANTE_SOMA_DAS_FAMILIAS_IGUAL_AO_TOTAL": true,
+ "TOTAL_POR_CHAVE": {
+  "PAIRS": {
+   "REGISTOS": 4983,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ROTULOS-AMOSTRA-ADJUDICADA-V2.json",
+    "IT-ROTULOS-PARES-V3.json",
+    "productRelationships.json"
+   ],
+   "N_FICHEIROS": 3
+  },
+  "ITEMS": {
+   "REGISTOS": 1278,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ACERVO-CENSO-V1.json",
+    "IT-BOLLETTINI-ER-2026-INDICE.json",
+    "IT-CANAL-CANDIDATOS-V1.json",
+    "IT-CONVEGNO-RESGATE-V2.json"
+   ],
+   "N_FICHEIROS": 21
+  },
+  "HITS": {
+   "REGISTOS": 421,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-BOLLETTINI-ER-SOSTANZE-ATTIVE-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "ROWS": {
+   "REGISTOS": 363,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-FUTURO-FICHAS-V1.json",
+    "IT-FUTURO-SINAIS-V1.json",
+    "IT-PAIRSET-PROPAGACAO-V1.json",
+    "IT-PORTFOLIO-DELTA-V3.json"
+   ],
+   "N_FICHEIROS": 9
+  },
+  "OBJECTS": {
+   "REGISTOS": 180,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-INSTAGRAM-PERFIS-V1.json",
+    "IT-INSTAGRAM-PERFIS-V2.json",
+    "IT-INSTAGRAM-PERFIS-V3.json"
+   ],
+   "N_FICHEIROS": 3
+  },
+  "PRODUCTS": {
+   "REGISTOS": 163,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "productsRegulatory.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "PRODUCTS_SUMMARY": {
+   "REGISTOS": 160,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "adamaFungicides.json",
+    "adamaHerbicides.json",
+    "adamaInsecticides.json"
+   ],
+   "N_FICHEIROS": 3
+  },
+  "AMBIGUOUS": {
+   "REGISTOS": 141,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ROTULOS-PARES-V3.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "ENTRADAS_AUTORIZADAS": {
+   "REGISTOS": 138,
+   "ESCRITURACAO": true,
+   "PORQUE_ESCRITURACAO": "handoff · a lista que o contrato autorizou",
+   "FICHEIROS": [
+    "IT-HANDOFF-LINHA-B-FONTES-V1.json",
+    "IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json"
+   ],
+   "N_FICHEIROS": 2
+  },
+  "RECORDS": {
+   "REGISTOS": 134,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-VIDEO-V1.json",
+    "IT-VOZ-AUDIO-LOCAIS-V2.json",
+    "IT-VOZ-AUDIO-TRANSCRICOES-V1.json",
+    "IT-VOZ-AUDIO-TRANSCRICOES-V2.json"
+   ],
+   "N_FICHEIROS": 4
+  },
+  "ENTITIES": {
+   "REGISTOS": 119,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-CANAL-REGUA-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "(raiz e lista)": {
+   "REGISTOS": 95,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ROTULOS-CENSO-ZERO-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "REJECTIONS": {
+   "REGISTOS": 95,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-FONTES-REJEICOES-LOTE2-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "SOURCES": {
+   "REGISTOS": 91,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-FONTES-DESCOBERTA-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "EXCLUDED": {
+   "REGISTOS": 80,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ROTULOS-GOLD-COMPLETE-V1.json",
+    "IT-ROTULOS-METRICAS-V2.json",
+    "IT-ROTULOS-PARES-V3.json"
+   ],
+   "N_FICHEIROS": 3
+  },
+  "files": {
+   "REGISTOS": 78,
+   "ESCRITURACAO": true,
+   "PORQUE_ESCRITURACAO": "DATA-CLOCK-manifest · ficheiros vistos numa corrida",
+   "FICHEIROS": [
+    "DATA-CLOCK-manifest.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "RULED": {
+   "REGISTOS": 76,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-FUTURO-JULGADOS-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "SIGNALS": {
+   "REGISTOS": 50,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-CAMPO-SINAIS-VERIFICADOS-V1.json",
+    "IT-CAMPO-SINAIS-VERIFICADOS-V2.json",
+    "IT-FUTURO-RADAR-V1.json"
+   ],
+   "N_FICHEIROS": 3
+  },
+  "COMPARACAO_POR_CULTURA": {
+   "REGISTOS": 50,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ROTULOS-METRICAS-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "REJECTED": {
+   "REGISTOS": 42,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-CONVEGNO-V1.json",
+    "IT-FONTES-DESCOBERTA-V1.json",
+    "IT-FUTURO-NOVOS-CANDIDATOS-V1.json"
+   ],
+   "N_FICHEIROS": 3
+  },
+  "MOTIVO_DE_CADA_QUEDA_OU_PARCIAL": {
+   "REGISTOS": 41,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-FUTURO-SINAIS-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "OUTROS_REBAIXAMENTOS": {
+   "REGISTOS": 39,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-FUTURO-SINAIS-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "VIDEO_ROUTES_MEASURED": {
+   "REGISTOS": 39,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-FONTES-DESCOBERTA-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "LABELS_WITHOUT_SUPPORTED_PAIR_LIST": {
+   "REGISTOS": 35,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ROTULOS-PARES-V3.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "WEB": {
+   "REGISTOS": 35,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-FONTES-RECONFERENCIA-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "PROFILES": {
+   "REGISTOS": 32,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-INSTAGRAM-PERFIS-V1.json",
+    "IT-INSTAGRAM-PERFIS-V2.json",
+    "IT-INSTAGRAM-PERFIS-V3.json"
+   ],
+   "N_FICHEIROS": 3
+  },
+  "REJECTED_WITH_REASON": {
+   "REGISTOS": 31,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-VIDEO-CANAIS-NOVOS-V2.json",
+    "IT-VIDEO-ROTA-90-FONTES-V2.json"
+   ],
+   "N_FICHEIROS": 2
+  },
+  "LOTES_FECHADOS": {
+   "REGISTOS": 31,
+   "ESCRITURACAO": true,
+   "PORQUE_ESCRITURACAO": "IT-SNAPSHOT-ESTADO · lotes de trabalho fechados",
+   "FICHEIROS": [
+    "IT-SNAPSHOT-ESTADO-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "PASSOS": {
+   "REGISTOS": 30,
+   "ESCRITURACAO": true,
+   "PORQUE_ESCRITURACAO": "verificacao · as perguntas que o consumidor fez",
+   "FICHEIROS": [
+    "IT-FUTURO-SUPERFICIE-VERIFICACAO-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "TESTE_MINIMO": {
+   "REGISTOS": 25,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-VOCAB-HANDOFF-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "EVIDENCE": {
+   "REGISTOS": 24,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-VIDEO-ROTA-90-FONTES-V2.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "READ_FROM": {
+   "REGISTOS": 23,
+   "ESCRITURACAO": true,
+   "PORQUE_ESCRITURACAO": "IT-INVENTARIO-FALA · de onde a corrida leu",
+   "FICHEIROS": [
+    "IT-INVENTARIO-FALA-V1.json",
+    "IT-INVENTARIO-FALA-V2.json",
+    "IT-INVENTARIO-FALA-V3.json"
+   ],
+   "N_FICHEIROS": 3
+  },
+  "SUBCONJUNTOS": {
+   "REGISTOS": 22,
+   "ESCRITURACAO": true,
+   "PORQUE_ESCRITURACAO": "contrato de familia · os subconjuntos declarados",
+   "FICHEIROS": [
+    "IT-CONTRATO-FAMILIA-FITOSSANITARIO-V1.json",
+    "IT-CONTRATO-FAMILIA-FONTES-V1.json",
+    "IT-CONTRATO-FAMILIA-SINAIS_DE_CAMPO-V1.json"
+   ],
+   "N_FICHEIROS": 3
+  },
+  "ROUTES_NOT_REACHED_FROM_THIS_SESSION": {
+   "REGISTOS": 22,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-FONTES-DESCOBERTA-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "GOLD": {
+   "REGISTOS": 21,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ROTULOS-GABARITO-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "BY_LABEL": {
+   "REGISTOS": 21,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ROTULOS-METRICAS-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "TOP_UNUSED_WITH_SIGNAL": {
+   "REGISTOS": 20,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ACERVO-CENSO-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "SCOPE_COMBINATION": {
+   "REGISTOS": 20,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ROTULOS-PARES-V3.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "CHANNELS": {
+   "REGISTOS": 20,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-VIDEO-CANAIS-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "adama_next_expiries": {
+   "REGISTOS": 20,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-T4-001-adama-expiries.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "RAZAO_DE_EXCLUSAO": {
+   "REGISTOS": 18,
+   "ESCRITURACAO": true,
+   "PORQUE_ESCRITURACAO": "handoff · porque cada subconjunto ficou fora",
+   "FICHEIROS": [
+    "IT-HANDOFF-LINHA-B-FITOSSANITARIO-V1.json",
+    "IT-HANDOFF-LINHA-B-FONTES-V1.json",
+    "IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json"
+   ],
+   "N_FICHEIROS": 3
+  },
+  "SPEAKERS": {
+   "REGISTOS": 17,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "AOOVhtTQvPA.json",
+    "IT-OLIVO-LEITURA-V2.json",
+    "wh20ZkHf5Cc.json"
+   ],
+   "N_FICHEIROS": 3
+  },
+  "ATTEMPTS": {
+   "REGISTOS": 17,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "-4lUyIORl4A.json",
+    "-4lUyIORl4A.witness.json",
+    "AOOVhtTQvPA.json",
+    "AOOVhtTQvPA.witness.json"
+   ],
+   "N_FICHEIROS": 8
+  },
+  "CROPS": {
+   "REGISTOS": 17,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "adamaCrops.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "TERMS": {
+   "REGISTOS": 17,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "labelTermCensus.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "HANDLES": {
+   "REGISTOS": 17,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-FONTES-RECONFERENCIA-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "PADROES": {
+   "REGISTOS": 16,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-FUTURO-QUEDAS-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "FINDINGS": {
+   "REGISTOS": 16,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-OLIVO-LEITURA-V2.json",
+    "IT-VOZ-ROTA-B-V2.json"
+   ],
+   "N_FICHEIROS": 2
+  },
+  "APPROVED": {
+   "REGISTOS": 14,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-FUTURO-NOVOS-CANDIDATOS-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "EPISODES": {
+   "REGISTOS": 13,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-VOZ-AUDIO-DESCOBERTA-V2.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "SIGNAL_ONLY_IN_SPOKEN": {
+   "REGISTOS": 10,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-VIDEO-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "FILES": {
+   "REGISTOS": 10,
+   "ESCRITURACAO": true,
+   "PORQUE_ESCRITURACAO": "MANIFEST · ficheiros de um pacote",
+   "FICHEIROS": [
+    "MANIFEST.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "WINDOWS": {
+   "REGISTOS": 7,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "cropWindows.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "CROSSINGS": {
+   "REGISTOS": 7,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-CRUZAMENTOS-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "NOT_CROSSED_AND_WHY": {
+   "REGISTOS": 7,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-CRUZAMENTOS-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "CORRECTIONS_TO_MY_OWN_MEASUREMENTS": {
+   "REGISTOS": 6,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-FONTES-DESCOBERTA-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "ARMADILHAS_DECLARADAS": {
+   "REGISTOS": 5,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ROTULOS-GABARITO-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "ENRICHMENTS": {
+   "REGISTOS": 5,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ENRIQUECIMENTO-CONFIRMADAS-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "products_in_force": {
+   "REGISTOS": 4,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "COMPETITOR-azoxy-prothio-italy.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "MEASURED_AND_LEFT_OUT": {
+   "REGISTOS": 4,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-VOZ-AUDIO-DESCOBERTA-V2.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "LIMITES": {
+   "REGISTOS": 4,
+   "ESCRITURACAO": true,
+   "PORQUE_ESCRITURACAO": "handoff · limites declarados por subconjunto",
+   "FICHEIROS": [
+    "IT-HANDOFF-LINHA-B-FONTES-V1.json",
+    "IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json"
+   ],
+   "N_FICHEIROS": 2
+  },
+  "CORRECOES_DAS_MINHAS_PROPRIAS_AFIRMACOES": {
+   "REGISTOS": 4,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ROTULOS-DELTA-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "UNCERTAINTIES": {
+   "REGISTOS": 4,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-HANDOFF-VIDEO-CONVEGNI-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "GRUPOS_DE_CRUZAMENTO": {
+   "REGISTOS": 4,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-TRABALHO-PERDIDO-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "NOT_ENRICHED_AND_WHY": {
+   "REGISTOS": 4,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ENRIQUECIMENTO-CONFIRMADAS-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "FAMILIAS": {
+   "REGISTOS": 3,
+   "ESCRITURACAO": true,
+   "PORQUE_ESCRITURACAO": "verificacao · o resultado por familia",
+   "FICHEIROS": [
+    "IT-FAMILIA-SUPERFICIE-VERIFICACAO-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "AS_TRES_OPORTUNIDADES_DE_OLIVO": {
+   "REGISTOS": 3,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ROTULOS-DELTA-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "CROP_SCOPE_DECLARED": {
+   "REGISTOS": 3,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-ROTULOS-PARES-V3.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "EXCLUDED_AND_WHY": {
+   "REGISTOS": 3,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-VIDEO-CANAIS-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "OPPORTUNITIES": {
+   "REGISTOS": 3,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "opportunities.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "AS_TRES_OPORTUNIDADES_COMO_O_MOTOR_AS_DEIXOU": {
+   "REGISTOS": 3,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-OLIVO-ASSIMETRIA-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "REFUTED_AND_WHY": {
+   "REGISTOS": 3,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-CAMPO-SINAIS-VERIFICADOS-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "CHECKPOINTS": {
+   "REGISTOS": 3,
+   "ESCRITURACAO": true,
+   "PORQUE_ESCRITURACAO": "IT-CHECKPOINT · os checkpoints da missao",
+   "FICHEIROS": [
+    "IT-CHECKPOINT-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "PROXIMA_COLETA_MINIMA": {
+   "REGISTOS": 2,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-CANAL-REGUA-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "DISCORDANCIAS_ENTRE_REFUTADORES": {
+   "REGISTOS": 2,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-FUTURO-SINAIS-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "AS_DUAS_TESTEMUNHAS_MEDIDAS": {
+   "REGISTOS": 2,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-GAP-TAXONOMIA-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "OPEN_CONTRADICTIONS_HERDADAS": {
+   "REGISTOS": 2,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-HANDOFF-VIDEO-CONVEGNI-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "EXCLUIDOS": {
+   "REGISTOS": 1,
+   "ESCRITURACAO": true,
+   "PORQUE_ESCRITURACAO": "handoff · o excluido, com o porque",
+   "FICHEIROS": [
+    "IT-FUTURO-HANDOFF-LINHA-B-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "INCOMPATIBILIDADES": {
+   "REGISTOS": 1,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-VOCAB-HANDOFF-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "SEQUESTROS": {
+   "REGISTOS": 1,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-VOCAB-HANDOFF-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "BLOCKED_OBJECTS": {
+   "REGISTOS": 1,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-HANDOFF-VIDEO-CONVEGNI-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "REFUTED_WITH_REASON": {
+   "REGISTOS": 1,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-CAMPO-SINAIS-VERIFICADOS-V2.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "OPEN_CONTRADICTIONS": {
+   "REGISTOS": 1,
+   "ESCRITURACAO": false,
+   "PORQUE_ESCRITURACAO": null,
+   "FICHEIROS": [
+    "IT-FONTES-DESCOBERTA-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  },
+  "SUSPEITOS_DE_ESCRITA": {
+   "REGISTOS": 1,
+   "ESCRITURACAO": true,
+   "PORQUE_ESCRITURACAO": "IT-SNAPSHOT-ESTADO · ficheiros suspeitos de escrita",
+   "FICHEIROS": [
+    "IT-SNAPSHOT-ESTADO-V1.json"
+   ],
+   "N_FICHEIROS": 1
+  }
+ },
+ "TOTAL_POR_FAMILIA": {
+  "ROTULOS_PORTFOLIO": 6247,
+  "SINAIS_DE_CAMPO": 638,
+  "RADAR_FUTURO": 624,
+  "OPORTUNIDADES": 607,
+  "FITOSSANITARIO": 524,
+  "FONTES": 317,
+  "SOCIAL_INSTAGRAM": 314,
+  "HANDOFF_METODO": 254,
+  "CAMADA_DE_METODO": 25,
+  "OUTROS": 20,
+  "CONCORRENCIA": 4
+ },
+ "CHAVES_SO_FORA_DA_ITALIA": {
+  "ACCOUNTS": 67,
+  "ACHADOS": 206,
+  "ACTORS": 7,
+  "ARQUIVOS": 10,
+  "ATTRIBUTION_CORRECTED": 2,
+  "BASELINE": 157,
+  "BY_ORIGIN": 11,
+  "COMMENTS": 346,
+  "COMMENTS_ITEMS": 991,
+  "CONFIRMED_NAME_CHANGES": 5,
+  "DISCARDED_WITH_REASON": 10,
+  "DOCUMENTS": 1771,
+  "ES_01717": 2,
+  "EXCLUDED_ACCOUNTS": 10,
+  "EXCLUSOES_APLICADAS": 1,
+  "EXECUTION_ORDER": 16,
+  "FAILED_THE_ENTRY_RULE": 1,
+  "ORIGINS": 202,
+  "PEOPLE": 13,
+  "POSTS": 372,
+  "PRESERVED": 10,
+  "QUEUE": 40,
+  "RECUSADOS": 13,
+  "RESEARCHERS": 152,
+  "ROUTES": 18,
+  "RUNS": 71,
+  "SEARCH_UNIVERSE": 24,
+  "SELECTED_CASES": 6,
+  "SERIE": 11,
+  "TESTED_AND_LEFT_OUT": 1,
+  "THE_FIVE": 5,
+  "TRANSCRIPTS": 15,
+  "VIDEOS": 252,
+  "VIDEOS_ITEMS": 431,
+  "adama_crop_target_top": 25,
+  "all_name_change_candidates": 10,
+  "by_province": 7,
+  "favourable_conditions_flag": 14,
+  "matches": 3,
+  "questions": 40,
+  "records": 105,
+  "regions": 6,
+  "routes": 6,
+  "rows": 5730,
+  "sample": 40,
+  "sample_rows": 8,
+  "series": 5,
+  "series_pct_cepas_afectadas": 41
+ }
+}

@@ -1,0 +1,261 @@
+{
+ "DATASET": "IT-SNAPSHOT-V1",
+ "SOURCE": "inventario de estado feito por mim antes de abrir a trilha de INTELIGENCIA em paralelo com a trilha de COLETA. Nada aqui foi coletado: e leitura de disco, de git e de tabela de processos.",
+ "SOURCE_ID": "IT-SNAPSHOT-V1",
+ "CAPTURED_AT": "2026-09-03",
+ "SNAPSHOT_AT_UTC": "2026-09-03T21:50:30Z",
+ "HEAD": "2acd4c549c73dc2bc3a0aed8fface4f267d36f2e",
+ "HEAD_SHORT": "2acd4c5",
+ "TREE_DIRTY": false,
+ "TREE_DIRTY_FILES": [],
+ "TRILHA_A_COLETA_VIVA": {
+  "PROCESSOS_LOCAIS": [
+   "nenhum processo local de coleta rodando"
+  ],
+  "WORKFLOW": {
+   "RUN_ID": "wf_70711204-f34",
+   "AGENTES_INICIADOS": 2,
+   "AGENTES_COM_RESULTADO": 0,
+   "ESTADO": "RODANDO",
+   "ESCREVE_EM": "/tmp/claude-0/-home-user-eame-sintonia/b6cc5475-b0e9-5242-bac3-292cc842a48f/scratchpad/probe/wf3_*.json"
+  }
+ },
+ "REGRA_DE_CONCORRENCIA": {
+  "TRILHA_B_LE": "apenas os arquivos listados em LOTES_FECHADOS, todos versionados no HEAD acima",
+  "TRILHA_B_NAO_TOCA": [
+   "nenhum arquivo em /tmp/claude-0/-home-user-eame-sintonia/b6cc5475-b0e9-5242-bac3-292cc842a48f/scratchpad/probe/wf3_*",
+   "nenhuma fila, cursor ou paginacao da coleta",
+   "nenhum artefato do portal, do Vercel ou de producao"
+  ],
+  "CRITERIO_DE_FECHADO": "arquivo versionado no HEAD, com mtime de mais de 120 s. Arquivo mais novo que isso entra em SUSPEITOS_DE_ESCRITA e NAO e lido como definitivo."
+ },
+ "LOTES_FECHADOS": [
+  {
+   "FILE": "data/samples/IT-VIDEO-V1/IT-VIDEO-CANAIS-V1.json",
+   "BYTES": 39911,
+   "SHA256_16": "66a9a2d565689ae9",
+   "MTIME_UTC": "2026-09-03T12:17:49Z",
+   "AGE_S": 34361
+  },
+  {
+   "FILE": "data/samples/IT-VIDEO-V1/IT-VIDEO-FALAS-V1.json",
+   "BYTES": 25187,
+   "SHA256_16": "c6086b7888684e37",
+   "MTIME_UTC": "2026-09-03T12:21:48Z",
+   "AGE_S": 34122
+  },
+  {
+   "FILE": "data/samples/IT-VIDEO-V1/IT-VIDEO-V1.json",
+   "BYTES": 527301,
+   "SHA256_16": "9429722786e9fe5f",
+   "MTIME_UTC": "2026-09-03T12:22:24Z",
+   "AGE_S": 34086
+  },
+  {
+   "FILE": "data/samples/IT-VOZ-AUDIO-V1/IT-VOZ-AUDIO-TRANSCRICOES-V1.json",
+   "BYTES": 298991,
+   "SHA256_16": "35eb23db70709877",
+   "MTIME_UTC": "2026-09-03T11:36:42Z",
+   "AGE_S": 36828
+  },
+  {
+   "FILE": "data/samples/IT-VOZ-AUDIO-V1/IT-VOZ-SINAL-SO-NA-FALA-V1.json",
+   "BYTES": 2147,
+   "SHA256_16": "8fcedd0fcd43930d",
+   "MTIME_UTC": "2026-09-03T11:36:42Z",
+   "AGE_S": 36828
+  },
+  {
+   "FILE": "data/samples/IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-DESCOBERTA-V2.json",
+   "BYTES": 15008,
+   "SHA256_16": "739cffb2b9890811",
+   "MTIME_UTC": "2026-09-03T19:25:23Z",
+   "AGE_S": 8707
+  },
+  {
+   "FILE": "data/samples/IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-LOCAIS-V2.json",
+   "BYTES": 147426,
+   "SHA256_16": "4bc33b08fc962e98",
+   "MTIME_UTC": "2026-09-03T21:42:08Z",
+   "AGE_S": 502
+  },
+  {
+   "FILE": "data/samples/IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-TRANSCRICOES-V2.json",
+   "BYTES": 310522,
+   "SHA256_16": "739a000282afcba3",
+   "MTIME_UTC": "2026-09-03T21:42:08Z",
+   "AGE_S": 502
+  },
+  {
+   "FILE": "data/samples/IT-VOZ-AUDIO-V2/IT-VOZ-ROTA-B-V2.json",
+   "BYTES": 1057,
+   "SHA256_16": "a45c6c55a681331c",
+   "MTIME_UTC": "2026-09-03T19:27:42Z",
+   "AGE_S": 8568
+  },
+  {
+   "FILE": "data/samples/IT-VOZ-AUDIO-V2/IT-VOZ-VEREDITO-AUDIO-V2.json",
+   "BYTES": 3896,
+   "SHA256_16": "7ce155e4d34fdcd0",
+   "MTIME_UTC": "2026-09-03T20:13:28Z",
+   "AGE_S": 5821
+  },
+  {
+   "FILE": "data/samples/IT-INSTAGRAM-V1/IT-INSTAGRAM-OBJETOS-V1.json",
+   "BYTES": 81999,
+   "SHA256_16": "d1e181b95951a582",
+   "MTIME_UTC": "2026-09-03T17:56:28Z",
+   "AGE_S": 14042
+  },
+  {
+   "FILE": "data/samples/IT-INSTAGRAM-V1/IT-INSTAGRAM-PERFIS-V1.json",
+   "BYTES": 150971,
+   "SHA256_16": "bb74f9f84053597c",
+   "MTIME_UTC": "2026-09-03T17:54:52Z",
+   "AGE_S": 14138
+  },
+  {
+   "FILE": "data/samples/IT-INSTAGRAM-V1/IT-INSTAGRAM-TRANSCRICOES-V1.json",
+   "BYTES": 138880,
+   "SHA256_16": "108a886a0f08898e",
+   "MTIME_UTC": "2026-09-03T18:02:58Z",
+   "AGE_S": 13652
+  },
+  {
+   "FILE": "data/samples/IT-INSTAGRAM-V1/IT-INSTAGRAM-VEREDITO-V1.json",
+   "BYTES": 5656,
+   "SHA256_16": "8741e5b596e5343e",
+   "MTIME_UTC": "2026-09-03T19:17:24Z",
+   "AGE_S": 9186
+  },
+  {
+   "FILE": "data/samples/IT-INSTAGRAM-V2/IT-INSTAGRAM-OBJETOS-V2.json",
+   "BYTES": 33927,
+   "SHA256_16": "fc86903b6e4a97c6",
+   "MTIME_UTC": "2026-09-03T18:13:32Z",
+   "AGE_S": 13017
+  },
+  {
+   "FILE": "data/samples/IT-INSTAGRAM-V2/IT-INSTAGRAM-PERFIS-V2.json",
+   "BYTES": 36795,
+   "SHA256_16": "0398d2c58cc1b79f",
+   "MTIME_UTC": "2026-09-03T18:12:51Z",
+   "AGE_S": 13059
+  },
+  {
+   "FILE": "data/samples/IT-INSTAGRAM-V2/IT-INSTAGRAM-TRANSCRICOES-V2.json",
+   "BYTES": 53290,
+   "SHA256_16": "067fe58f7a316856",
+   "MTIME_UTC": "2026-09-03T18:16:16Z",
+   "AGE_S": 12854
+  },
+  {
+   "FILE": "data/samples/IT-INSTAGRAM-V3/IT-INSTAGRAM-OBJETOS-V3.json",
+   "BYTES": 15425,
+   "SHA256_16": "837d717cd9f42f4b",
+   "MTIME_UTC": "2026-09-03T19:14:53Z",
+   "AGE_S": 9337
+  },
+  {
+   "FILE": "data/samples/IT-INSTAGRAM-V3/IT-INSTAGRAM-PERFIS-V3.json",
+   "BYTES": 80907,
+   "SHA256_16": "40be4685572254c4",
+   "MTIME_UTC": "2026-09-03T19:14:31Z",
+   "AGE_S": 9359
+  },
+  {
+   "FILE": "data/samples/IT-INSTAGRAM-V3/IT-INSTAGRAM-TRANSCRICOES-V3.json",
+   "BYTES": 19913,
+   "SHA256_16": "1d20f9db2f493d63",
+   "MTIME_UTC": "2026-09-03T19:15:52Z",
+   "AGE_S": 9278
+  },
+  {
+   "FILE": "data/samples/IT-CAMPO-V1/IT-BOLLETTINI-ER-2026-INDICE.json",
+   "BYTES": 57374,
+   "SHA256_16": "7b5be6150be39fed",
+   "MTIME_UTC": "2026-09-03T11:36:42Z",
+   "AGE_S": 36828
+  },
+  {
+   "FILE": "data/samples/IT-CAMPO-V1/IT-BOLLETTINI-ER-SOSTANZE-ATTIVE-V1.json",
+   "BYTES": 234240,
+   "SHA256_16": "14c264fd1a322515",
+   "MTIME_UTC": "2026-09-03T11:36:42Z",
+   "AGE_S": 36828
+  },
+  {
+   "FILE": "data/samples/IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V1.json",
+   "BYTES": 121285,
+   "SHA256_16": "ab45656b8cffbb1b",
+   "MTIME_UTC": "2026-09-03T18:53:41Z",
+   "AGE_S": 10608
+  },
+  {
+   "FILE": "data/samples/IT-CAMPO-V1/IT-CIMICE-TRAPPOLE-UNIBO-SERIE.json",
+   "BYTES": 265018,
+   "SHA256_16": "30679d9e353a2d10",
+   "MTIME_UTC": "2026-09-03T11:36:42Z",
+   "AGE_S": 36828
+  },
+  {
+   "FILE": "data/samples/IT-FONTES-V1/IT-FONTES-RECONFERENCIA-V1.json",
+   "BYTES": 15405,
+   "SHA256_16": "ea1e433836fd5fbf",
+   "MTIME_UTC": "2026-09-03T19:18:50Z",
+   "AGE_S": 9100
+  },
+  {
+   "FILE": "data/samples/IT-FONTES-V1/IT-FONTES-REJEICOES-LOTE2-V1.json",
+   "BYTES": 60755,
+   "SHA256_16": "e78e80ce13c1348b",
+   "MTIME_UTC": "2026-09-03T19:12:58Z",
+   "AGE_S": 9452
+  },
+  {
+   "FILE": "data/samples/IT-CRUZAMENTO-V1/IT-CRUZAMENTOS-V1.json",
+   "BYTES": 35269,
+   "SHA256_16": "bfc4cd8a9da5ce01",
+   "MTIME_UTC": "2026-09-03T21:44:17Z",
+   "AGE_S": 373
+  },
+  {
+   "FILE": "data/samples/IT-CRUZAMENTO-V1/IT-ENRIQUECIMENTO-CONFIRMADAS-V1.json",
+   "BYTES": 10919,
+   "SHA256_16": "566e01d02f56c230",
+   "MTIME_UTC": "2026-09-03T19:32:44Z",
+   "AGE_S": 8266
+  },
+  {
+   "FILE": "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json",
+   "BYTES": 22820,
+   "SHA256_16": "21f1f1b0cd2d466b",
+   "MTIME_UTC": "2026-09-03T19:13:55Z",
+   "AGE_S": 9395
+  },
+  {
+   "FILE": "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V2.json",
+   "BYTES": 7438,
+   "SHA256_16": "20358cac92394fe7",
+   "MTIME_UTC": "2026-09-03T19:13:55Z",
+   "AGE_S": 9395
+  },
+  {
+   "FILE": "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V3.json",
+   "BYTES": 9483,
+   "SHA256_16": "981e0b7bc5e1f5b4",
+   "MTIME_UTC": "2026-09-03T19:13:55Z",
+   "AGE_S": 9395
+  }
+ ],
+ "SUSPEITOS_DE_ESCRITA": [
+  {
+   "FILE": "data/samples/IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json",
+   "BYTES": 202838,
+   "SHA256_16": "0757d19c7e38a8d9",
+   "MTIME_UTC": "2026-09-03T21:48:44Z",
+   "AGE_S": 106
+  }
+ ],
+ "TOTAL_FECHADOS": 31
+}

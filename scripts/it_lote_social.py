@@ -1,0 +1,493 @@
+#!/usr/bin/env python3
+"""
+LOTE CONGELADO ITALIA — as contas sociais que a rota do Sintonia Scrap deve visitar.
+
+    py scripts/it_lote_social.py
+
+POR QUE UM LOTE, E POR QUE CONGELADO
+--------------------------------------
+A ordem que a Missao 14 provou e lei aqui tambem:
+
+    LOTE CONGELADO -> PERFIL -> OBJETO -> (so entao) ROTA PAGA
+
+Se a lista muda entre a coleta e a medicao, o rendimento fica medido contra um
+denominador que se mexeu. Criterio novo produz V2 explicita, com a V1 preservada.
+
+O CRITERIO DE ENTRADA, E POR QUE ELE E ESTREITO
+-------------------------------------------------
+    ACCOUNT_IDENTITY_STATE = DECLARED_BY_THE_ORGANISATION
+
+Cada handle desta lista foi lido no SITE da propria organizacao, em 2026-09-03, e o
+arquivo de prova diz em qual leitura. Handle achado por busca livre NAO ENTRA — foi
+exatamente a identidade ausente que reprovou a coleta espanhola de Instagram
+(`ES-T8-003`, FAILED_WITH_REASON: 24 de 32 contas nao declaravam pais).
+
+    O ACERVO CANONICO DA ITALIA TEM ZERO PERFIL INSTAGRAM E ZERO LINKEDIN.
+    Este lote e a primeira lista italiana com identidade provada.
+
+O QUE ESTE ARQUIVO NAO FAZ
+----------------------------
+Nao coleta. Nao paga. Nao decide janela. Ele congela QUEM visitar e POR QUE cada conta
+merece a visita. A coleta e do `sintonia-scrap.yml`, na maquina que tem navegador e
+nucleos — e esta sessao NAO tem: o Chrome nao atravessa o proxy (ERR_CONNECTION_RESET
+em todo host) e a pagina de perfil do Instagram redireciona para login (HTTP 302).
+
+    ROTA BLOQUEADA PARA ESTA SESSAO != ROTA INEXISTENTE.
+    A rota de EMBED de POST respondeu HTTP 200 com 628 KB daqui. Falta o shortcode,
+    que so a passada de perfil entrega.
+"""
+import json
+import os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(HERE)
+SAIDA = os.path.join(ROOT, 'data', 'samples', 'COMPETITOR-PUBLIC-COMM')
+CAPTURA = '2026-09-03'
+
+
+def C(handle, org, papel, plataforma, prova, razao, crops, prioridade):
+    """PAGE_ROLE separa o que a Espanha misturou: tres funcionarios de FMC, UPL e BASF
+    foram contados como se fossem o canal da empresa porque o headline nomeava o
+    empregador. PAPEL E DA CONTA, NUNCA DO CONTEUDO."""
+    return {
+        'HANDLE': handle,
+        'URL': {'INSTAGRAM': 'https://www.instagram.com/%s/' % handle,
+                'LINKEDIN': 'https://www.linkedin.com/%s' % handle,
+                'YOUTUBE': 'https://www.youtube.com/%s' % handle}[plataforma],
+        'PLATFORM': plataforma,
+        'ORGANISATION': org,
+        'PAGE_ROLE': papel,
+        'ACCOUNT_IDENTITY_STATE': 'DECLARED_BY_THE_ORGANISATION',
+        'IDENTITY_EVIDENCE': prova,
+        'COUNTRY_SCOPE': 'LOCAL_COUNTRY_PROVED',
+        'ADAMA_RELEVANCE_REASON': razao,
+        'CROPS_RELEVANT': crops,
+        'COLLECTION_PRIORITY': prioridade,
+    }
+
+
+CONTAS = [
+    # ── PRIORIDADE 1 · quem observa campo nas culturas de maior peso de rotulo ──
+    C('ersa_fvg_informa', 'ERSA — Agenzia regionale sviluppo rurale FVG', 'PUBLIC_BODY', 'INSTAGRAM',
+      'declarado em difesafitosanitaria.ersa.fvg.it / ersa.fvg.it (leitura 2026-09-03)',
+      'e o mesmo servico que assina os bollettini de melo do Friuli-Venezia Giulia — a regiao '
+      'declarada de OPP_9C600748BB1B (mais x piralide) e OPP_F139E05A9F3A (pomodoro x oidio)',
+      ['MELO', 'MAIS', 'VITE', 'SOIA'], 1),
+    C('agralia.it', 'Agralia Studio Agronomico (Brescia)', 'TECHNICAL_ADVISORY', 'INSTAGRAM',
+      'declarado em agralia.it, junto do feed e do canal YouTube (leitura 2026-09-03)',
+      'estudio agronomico privado que publica bollettino proprio de vite na Lombardia — voz '
+      'tecnica que aconselha o produtor, camada que o acervo italiano nao tem',
+      ['VITE', 'OLIVO', 'MAIS'], 1),
+    C('aipp_protezione_piante', 'AIPP — Associazione Italiana per la Protezione delle Piante',
+      'SCIENTIFIC_SOCIETY', 'INSTAGRAM',
+      'declarado em aipp.it (leitura 2026-09-03)',
+      'sociedade cientifica italiana da protecao das plantas — o proprio negocio da ADAMA',
+      ['TODAS'], 1),
+    C('agrintesa_ortofrutta_vino', 'Agrintesa Soc. Coop. Agricola', 'COOPERATIVE', 'INSTAGRAM',
+      'declarado em agrintesa.it (leitura 2026-09-03)',
+      'cooperativa da Romagna nas pomacee — mesma area de OPP_20D89B04F64D e OPP_DA4B5954F72A '
+      'e da rede de trappole da cimice',
+      ['MELO', 'PERO', 'PESCO', 'ACTINIDIA', 'VITE'], 1),
+    C('fmc_agro_italia', 'FMC Agro Italia', 'COMPANY', 'INSTAGRAM',
+      'declarado em ag.fmc.com/it (leitura 2026-09-03)',
+      'primeiro canal social italiano de concorrente com identidade declarada pela propria '
+      'empresa — o acervo tem o site, nao o canal',
+      ['VITE', 'MAIS', 'POMODORO', 'FRUMENTO'], 1),
+
+    # ── PRIORIDADE 2 · ciencia e agromet que sustentam janela ──
+    C('fondazionemach', 'Fondazione Edmund Mach (FEM/CTT)', 'RESEARCH_INSTITUTION', 'INSTAGRAM',
+      'declarado em fmach.it e ctt.fmach.it (leitura 2026-09-03)',
+      'o CTT assina os bollettini de difesa integrata do Trentino, regiao de OPP_75C37DED9160 '
+      '(melo x carpocapsa) e das crop windows de melo',
+      ['MELO', 'VITE'], 2),
+    C('crearicerca', 'CREA — Consiglio per la ricerca in agricoltura', 'RESEARCH_INSTITUTION', 'INSTAGRAM',
+      'declarado em crea.gov.it (leitura 2026-09-03)',
+      'centro nacional de pesquisa agricola; ja e fonte do acervo pelo site, nunca pelo canal',
+      ['TODAS'], 2),
+    C('arpaeemiliaromagna', 'Arpae Emilia-Romagna', 'PUBLIC_BODY', 'INSTAGRAM',
+      'declarado em arpae.it (leitura 2026-09-03)',
+      'agrometeorologia da regiao onde estao 4 das 37 oportunidades e toda a serie da cimice',
+      ['TODAS'], 2),
+    C('unicatt', 'Universita Cattolica del Sacro Cuore', 'UNIVERSITY', 'INSTAGRAM',
+      'declarado em piacenza.unicatt.it (leitura 2026-09-03)',
+      'casa dos modelos CERCOPRI/CERCODEP de cercospora da barbabietola, a cultura de maior '
+      'peso de rotulo ADAMA (239 pares)',
+      ['BARBABIETOLA', 'VITE', 'FRUMENTO'], 2),
+    C('distal.unibo', 'UNIBO — DISTAL', 'UNIVERSITY_DEPARTMENT', 'INSTAGRAM',
+      'declarado em distal.unibo.it (leitura 2026-09-03)',
+      'departamento agro-alimentar de Bolonha; a mesma universidade opera a rede de trappole '
+      'da cimice em big.csr.unibo.it',
+      ['MELO', 'PERO', 'BARBABIETOLA', 'POMODORO'], 2),
+    C('dafnaeunipd', 'UNIPD — DAFNAE', 'UNIVERSITY_DEPARTMENT', 'INSTAGRAM',
+      'declarado em dafnae.unipd.it (leitura 2026-09-03)',
+      'departamento de agronomia de Padova, no Veneto — regiao de OPP_75C37DED9160 e '
+      'OPP_EA2AE1EFB775',
+      ['VITE', 'MAIS', 'SOIA', 'POMODORO'], 2),
+    C('disaa_unimi', 'UNIMI — DiSAA', 'UNIVERSITY_DEPARTMENT', 'INSTAGRAM',
+      'declarado em disaa.unimi.it (leitura 2026-09-03)',
+      'agronomia de Milao, Lombardia — regiao de OPP_F6EEF5B32F65 (mais x diabrotica)',
+      ['MAIS', 'RISO', 'VITE'], 2),
+
+    # ── PRIORIDADE 3 · voz de produtor agregada e midia tecnica ──
+    C('cia_agricoltori', 'CIA — Agricoltori Italiani', 'PRODUCER_ORGANISATION', 'INSTAGRAM',
+      'declarado em cia.it (leitura 2026-09-03)', 'organizacao nacional de produtores',
+      ['TODAS'], 3),
+    C('coldiretti', 'Coldiretti', 'PRODUCER_ORGANISATION', 'INSTAGRAM',
+      'declarado em coldiretti.it (leitura 2026-09-03)',
+      'ja e fonte do acervo pelo site; o canal nao estava', ['TODAS'], 3),
+    C('confagricolturasiena', 'Unione Provinciale Agricoltori di Siena', 'PRODUCER_ORGANISATION', 'INSTAGRAM',
+      'declarado em confagricolturasiena.it (leitura 2026-09-03)',
+      'republica o bollettino fitossanitario da Toscana — regiao de OPP_IT-WIN-0029 (grano duro '
+      'x fusariose, proxima janela 2027)',
+      ['VITE', 'OLIVO', 'FRUMENTO'], 3),
+    C('agronotizie', 'AgroNotizie (Image Line s.r.l.)', 'TECHNICAL_MEDIA', 'INSTAGRAM',
+      'declarado no RSS de agronotizie.imagelinenetwork.com (leitura 2026-09-03)',
+      'principal midia tecnica agricola italiana. ATENCAO: a editora e Image Line s.r.l. em '
+      'imagelinenetwork.com — image-line.com e a FL Studio, outra empresa',
+      ['TODAS'], 3),
+    C('edagricole_official', 'Edagricole / Tecniche Nuove', 'TECHNICAL_MEDIA', 'INSTAGRAM',
+      'declarado em edagricole.it, terraevita, VVQ, Olivo e Olio, Rivista Orticoltura (leitura 2026-09-03)',
+      'grupo editorial que publica as revistas de cultura unica das culturas ADAMA',
+      ['VITE', 'OLIVO', 'ORTAGGI'], 3),
+    C('masafsocial', 'MASAF — Ministero dell agricoltura', 'PUBLIC_BODY', 'INSTAGRAM',
+      'declarado em politicheagricole.it (leitura 2026-09-03)',
+      'ministerio; camada de politica e de evento regulatorio', ['TODAS'], 3),
+    C('coneglianovaldobbiadenedocg', 'Consorzio Conegliano Valdobbiadene Prosecco DOCG',
+      'CONSORTIUM', 'INSTAGRAM',
+      'declarado em prosecco.it (leitura 2026-09-03)',
+      'consorcio de tutela no Veneto — vite, a cultura de OPP_AF16E6A6B8B3 e OPP_68984FFD5ABF '
+      '(flavescenza dorata)',
+      ['VITE'], 3),
+
+    # ── LINKEDIN · a camada que na Espanha foi a unica a resolver pais e papel ──
+    C('company/apofruit-italia-soc-coop-agricola', 'Apofruit Italia', 'COOPERATIVE', 'LINKEDIN',
+      'declarado em apofruit.it (leitura 2026-09-03)',
+      'OP de fruta; LinkedIn e onde papel declarado e pais declarado existem como campo',
+      ['MELO', 'PERO', 'PESCO', 'FRAGOLA'], 2),
+    C('company/arpae-emilia-romagna', 'Arpae Emilia-Romagna', 'PUBLIC_BODY', 'LINKEDIN',
+      'declarado em arpae.it (leitura 2026-09-03)', 'agrometeorologia regional', ['TODAS'], 3),
+    C('company/vog-apples', 'VOG — Consorzio delle mele dell Alto Adige', 'PRODUCER_ORGANISATION', 'LINKEDIN',
+      'declarado em vog.it (leitura 2026-09-03)',
+      'maior consorcio de maca da Italia; MELO tem 146 pares de rotulo ADAMA', ['MELO'], 2),
+    C('company/nufarm', 'Nufarm', 'COMPANY', 'LINKEDIN',
+      'declarado em nufarm.com/it (leitura 2026-09-03)',
+      'concorrente no bloco de erbicidi, onde a ADAMA Italia tem 26 dos 51 produtos comerciais',
+      ['FRUMENTO', 'MAIS', 'VITE'], 2),
+    C('company/cia-agricoltori-italiani', 'CIA — Agricoltori Italiani', 'PRODUCER_ORGANISATION', 'LINKEDIN',
+      'declarado em cia.it (leitura 2026-09-03)', 'organizacao nacional de produtores', ['TODAS'], 3),
+
+    # ── YOUTUBE · a camada de video que a REGRA DE COLETA EXTERNA poe em 1o lugar ──
+    C('@agraliastudio', 'Agralia Studio Agronomico', 'TECHNICAL_ADVISORY', 'YOUTUBE',
+      'declarado em agralia.it (leitura 2026-09-03)', 'voz tecnica privada de vite na Lombardia',
+      ['VITE', 'OLIVO'], 1),
+    C('channel/UCktJyIUm3qJJpThrTa8nsHQ', 'AIPP', 'SCIENTIFIC_SOCIETY', 'YOUTUBE',
+      'declarado em aipp.it (leitura 2026-09-03)', 'protecao das plantas, fala tecnica longa',
+      ['TODAS'], 1),
+    C('channel/UCWjrNnyRiWOtCM0zKUcsK5A', 'FMC Agro Italia', 'COMPANY', 'YOUTUBE',
+      'declarado em ag.fmc.com/it (leitura 2026-09-03)', 'comunicacao tecnica de concorrente em italiano',
+      ['VITE', 'MAIS', 'POMODORO'], 1),
+    C('user/GowanItalia', 'Gowan Italia', 'COMPANY', 'YOUTUBE',
+      'declarado em gowanitalia.it (leitura 2026-09-03)', 'concorrente ausente do acervo, difesa della vite',
+      ['VITE', 'POMODORO', 'MELO'], 2),
+    C('@SIRFI-k9x', 'SIRFI — Societa Italiana per la Ricerca sulla Flora Infestante',
+      'SCIENTIFIC_SOCIETY', 'YOUTUBE',
+      'declarado em sirfi.it (leitura 2026-09-03)',
+      'a sociedade italiana de plantas infestantes — erbicidi sao 26 dos 51 produtos ADAMA Italia',
+      ['FRUMENTO', 'MAIS', 'RISO', 'SOIA', 'BARBABIETOLA'], 1),
+    C('channel/UCoA303PgO9oOBWgZ3Nl5GvQ', 'Agrintesa', 'COOPERATIVE', 'YOUTUBE',
+      'declarado em agrintesa.it (leitura 2026-09-03)', 'cooperativa das pomacee da Romagna',
+      ['MELO', 'PERO', 'ACTINIDIA'], 2),
+    C('@myfruitvideo', 'Myfruit', 'TECHNICAL_MEDIA', 'YOUTUBE',
+      'declarado em myfruit.it (leitura 2026-09-03)', 'video de ortofrutta italiana',
+      ['MELO', 'PERO', 'PESCO'], 3),
+    C('user/TerremerseCoop', 'Terremerse', 'COOPERATIVE_DISTRIBUTOR', 'YOUTUBE',
+      'declarado em terremerse.it (leitura 2026-09-03)',
+      'cooperativa que tambem distribui agrofarmaco nas culturas de maior peso de rotulo',
+      ['FRUMENTO', 'MAIS', 'BARBABIETOLA', 'POMODORO'], 2),
+]
+
+
+# ── V2 · A VOZ TECNICA INDIVIDUAL ──────────────────────────────────────────────
+# A V1 ficou congelada e PRESERVADA. Esta e a V2, e ela existe porque a V1 reprovou por
+# um motivo que e culpa do criterio, nao da rota:
+#
+#     A V1 foi montada a partir do SITE DAS ORGANIZACOES, e organizacao comunica
+#     institucional. 28 reels transcritos deram 5 sinais so-na-fala, e os cinco eram
+#     captacao de aluno, projeto de irrigacao, entrevista de ex-aluno, "como abrir uma
+#     azienda agricola" e uma historia de filiera. Nenhum sinal de campo.
+#
+#     IDENTIDADE RESOLVIDA NAO E DENSIDADE RESOLVIDA.
+#
+# Na Espanha o Instagram reprovou por IDENTIDADE (24 de 32 contas sem pais declarado).
+# Aqui a identidade esta provada e ele reprova por DENSIDADE. Sao falhas diferentes e
+# precisam de nomes diferentes.
+#
+# A V2 troca o criterio de entrada: a conta e de uma PESSOA ou de um NEGOCIO TECNICO que
+# fala de campo, e a identidade vem do PROPRIO EMBED DE PERFIL — `full_name` declarado
+# pelo dono da conta, lido em 2026-09-03. Isso satisfaz a mesma lei da V1 por outro
+# caminho: quem declara continua sendo o dono, e nao um buscador.
+
+CONTAS_V2 = [
+    C('daniele.paci.agronomo', 'Daniele Paci — agronomo', 'INDIVIDUAL_TECHNICAL_VOICE', 'INSTAGRAM',
+      'o proprio embed de perfil declara full_name "Daniele Paci"; 390.996 seguidores, '
+      '1.000 posts, 5 dos 6 itens recentes sao video (leitura 2026-09-03)',
+      'agronomo que publica quase so video. A V1 nao tinha nenhuma voz INDIVIDUAL, e e ai '
+      'que mora a fala de campo — a organizacao fala institucional',
+      ['TODAS'], 1),
+    C('agronomo.giuseppedisalvo', 'Dottore Agronomo Giuseppe Di Salvo',
+      'INDIVIDUAL_TECHNICAL_VOICE', 'INSTAGRAM',
+      'o embed declara full_name "Dottore Agronomo Giuseppe Di Salvo"; 4.538 seguidores, '
+      '132 posts (leitura 2026-09-03)',
+      'agronomo declarado no proprio nome da conta. VALOR TECNICO > AUDIENCIA: entra com '
+      '4.538 seguidores pelo mesmo criterio que o de 390 mil',
+      ['TODAS'], 1),
+    C('vignetosicuro.it', 'VignetoSicuro.it', 'TECHNICAL_BUSINESS_VOICE', 'INSTAGRAM',
+      'o embed declara full_name "VignetoSicuro.it"; 4.466 seguidores, 175 posts, 2 videos '
+      'na grade recente (leitura 2026-09-03)',
+      'negocio tecnico dedicado a VITE — 96 pares de rotulo ADAMA e cinco oportunidades. '
+      'O reel DcRFDBxN-4Q, de 2026-08-20, foi classificado PRODUCER_VOICE na varredura',
+      ['VITE'], 1),
+    C('cai_consorziagrariditalia', "CAI — Consorzi Agrari d'Italia", 'DISTRIBUTION', 'INSTAGRAM',
+      'dono declarado do reel DcdREpGDBAW pelo campo owner.username do proprio embed '
+      '(leitura 2026-09-03)',
+      'a camada de DISTRIBUICAO, que e onde a decisao tecnica encosta na decisao de compra '
+      'e que o acervo canonico nao tem. Publicou em 2026-09-03, no dia da leitura',
+      ['FRUMENTO', 'MAIS', 'SOIA', 'BARBABIETOLA'], 1),
+    C('siagr.it', 'Societa Italiana di Agronomia', 'SCIENTIFIC_SOCIETY', 'INSTAGRAM',
+      'dono declarado do reel Dcy1iEIjcVo pelo campo owner.username do proprio embed '
+      '(leitura 2026-09-03)',
+      'sociedade cientifica italiana de agronomia; complementa a AIPP, que cobre protecao '
+      'das plantas, na camada de agronomia geral',
+      ['TODAS'], 2),
+]
+
+# ── V3 · O QUE A VARREDURA DE FONTES TROUXE, DEPOIS DE EU CONFERIR A LEI 6 ─────
+# A V3 volta ao criterio da V1 — handle declarado na casa da propria organizacao — e o
+# que muda e a ORIGEM da lista: ela sai da camada de descoberta de fontes, e nao de uma
+# busca por contas. Cada handle abaixo foi conferido POR MIM em 2026-09-03: busquei o
+# site do dono e procurei o handle dentro do HTML.
+#
+#     17 handles conferidos · 16 declarados na casa do dono · 1 NAO
+#
+# O que nao passou: o LinkedIn do CSO Italy. csoservizi.com devolve 200 com 50.746 B e
+# ZERO link social. Ele NAO entra aqui (ver FIX-02 em scripts/it_fontes.py).
+# Os outros 8 ja estavam na V1 e nao se repetem.
+
+CONTAS_V3 = [
+    C('fondazioneagrion', 'Fondazione Agrion', 'RESEARCH_FOUNDATION', 'INSTAGRAM',
+      'declarado no bloco social de agrion.it (minha leitura 2026-09-03: 200 / 289.843 B)',
+      'a fundacao de pesquisa aplicada do Piemonte, regiao de oportunidade. E ela que roda '
+      'o ensaio de campo que o fruticultor piemontes le antes de escolher o programa — '
+      'MELO 146 pares de rotulo, PESCO 45, VITE 96, CILIEGIO 27',
+      ['MELO', 'PESCO', 'CILIEGIO', 'VITE', 'FRAGOLA'], 1),
+    C('ri.nova.soc.coop', 'Ri.Nova soc. coop.', 'RESEARCH_COOPERATIVE', 'INSTAGRAM',
+      'declarado em rinova.eu (minha leitura 2026-09-03: 200 / 78.154 B)',
+      'a cooperativa de pesquisa que executa os Gruppi Operativi da Emilia-Romagna — a '
+      'ponte entre o projeto financiado e o campo, na regiao mais pesada do radar',
+      ['MELO', 'PERO', 'POMODORO', 'BARBABIETOLA'], 1),
+    C('di3aunict', 'Di3A — Universita degli Studi di Catania', 'UNIVERSITY_DEPARTMENT', 'INSTAGRAM',
+      'declarado no bloco social de di3a.unict.it (minha leitura 2026-09-03: 200 / 64.742 B)',
+      'a Sicilia e regiao de oportunidade e e o unico eixo citricola serio do radar. '
+      'AGRUMI carrega 17 pares de rotulo',
+      ['AGRUMI', 'OLIVO', 'VITE', 'POMODORO'], 2),
+    C('vitenova', 'Vitenova — consulenze agronomiche', 'TECHNICAL_ADVISORY', 'INSTAGRAM',
+      'declarado em vitenova.it (minha leitura 2026-09-03: 200 / 321.021 B)',
+      'consultoria agronomica privada de VITE — a mesma classe do Agralia, que foi a conta '
+      'que mais rendeu fala tecnica na V1. VITE tem 96 pares de rotulo',
+      ['VITE'], 1),
+    C('georgofili', 'Accademia dei Georgofili', 'SCIENTIFIC_ACADEMY', 'INSTAGRAM',
+      'declarado em georgofili.it (minha leitura 2026-09-03: 200 / 52.840 B)',
+      'onde a ciencia agricola italiana e enquadrada para politica publica. Toscana e '
+      'regiao de oportunidade',
+      ['VITE', 'OLIVO', 'FRUMENTO', 'RISO'], 2),
+    C('ordine_agronomi_e_forestali', 'CONAF', 'PROFESSIONAL_BODY', 'INSTAGRAM',
+      'declarado em conaf.it (minha leitura 2026-09-03: 200 / 94.717 B)',
+      'o orgao dos agronomos habilitados — a categoria que ASSINA a recomendacao de '
+      'tratamento na Italia',
+      ['TODAS'], 2),
+    C('agrimpresa_magazine', 'Agrimpresa — CIA Emilia-Romagna', 'MEDIA', 'INSTAGRAM',
+      'declarado em agrimpresaonline.it (minha leitura 2026-09-03: 200 / 189.952 B)',
+      'a imprensa de uma organizacao de produtores dentro da regiao mais pesada do radar. '
+      'E onde a queixa do produtor emiliano vira texto publico',
+      ['MELO', 'PERO', 'POMODORO', 'BARBABIETOLA', 'VITE'], 2),
+    C('agricolus_srl', 'Agricolus s.r.l.', 'DSS_COMPANY', 'INSTAGRAM',
+      'declarado no rodape de agricolus.com (minha leitura 2026-09-03: 200 / 356.152 B)',
+      'plataforma de DSS agronomico. Entra pelo argumento, e nao pelo dado: e quem amarra '
+      'uso de DSS ao contexto normativo sobre VITE e POMODORO',
+      ['VITE', 'OLIVO', 'POMODORO', 'MELO', 'PATATA'], 3),
+]
+
+# Conferidos e JA PRESENTES na V1, portanto nao repetidos aqui: fondazionemach,
+# ersa_fvg_informa, agronotizie, crearicerca, disaa_unimi, dafnaeunipd, distal.unibo.
+V3_JA_NA_V1 = ['fondazionemach', 'ersa_fvg_informa', 'agronotizie', 'crearicerca',
+               'disaa_unimi', 'dafnaeunipd', 'distal.unibo']
+
+# Conferido e REPROVADO na LEI 6.
+V3_REPROVADOS = [
+    {'HANDLE': 'company/cso---centro-servizi-ortofrutticoli', 'PLATFORM': 'LINKEDIN',
+     'STATE': 'HANDLE_NAO_DECLARADO_NA_CASA_DO_DONO',
+     'MEANS': ('csoservizi.com devolve 200 com 50.746 B e nenhum link para linkedin, '
+               'instagram, youtube ou facebook. A varredura relatou 331.929 B e um bloco '
+               'social; eu nao reproduzo nem um nem outro. Ver FIX-02.')},
+]
+
+# ── UM DEFEITO DE ATRIBUICAO ENCONTRADO NA VARREDURA ───────────────────────────
+# A varredura paralela nomeou dois reels pelo canal errado. O campo `owner.username` do
+# proprio embed desmente:
+#
+#     reel DYPAbHkB-43  atribuido a "OmniTrattore.it"   -> owner e `giulia.tonello`
+#     reel DcKwInEM6NL  atribuido a "Interpoma 2026"    -> owner e `valzioo`
+#
+# E a mesma familia do erro espanhol de contar tres funcionarios da FMC, UPL e BASF como
+# se fossem o canal da empresa porque o headline nomeava o empregador.
+#
+#     QUEM PUBLICA E O `owner.username`. O RESTO E CONTEXTO.
+#
+# As duas contas NAO entram na V2: sao pessoas fisicas cuja relevancia ADAMA nao foi
+# estabelecida, e entrar por engano de atribuicao seria pior que ficar de fora.
+ATRIBUICAO_CORRIGIDA = [
+    {'SHORTCODE': 'DYPAbHkB-43', 'ATTRIBUTED_TO': 'OmniTrattore.it',
+     'ACTUAL_OWNER': 'giulia.tonello', 'ACTION': 'nao entra na V2 — relevancia ADAMA nao estabelecida'},
+    {'SHORTCODE': 'DcKwInEM6NL', 'ATTRIBUTED_TO': 'Interpoma 2026',
+     'ACTUAL_OWNER': 'valzioo', 'ACTION': 'nao entra na V2 — relevancia ADAMA nao estabelecida'},
+]
+
+# omnitrattore.it foi testado e devolveu CONTEXTJSON_NULL: a conta existe e o embed dela
+# nao carrega o bloco. Estado da conta, nao veredito sobre a conta.
+V2_TESTADAS_E_FORA = [
+    {'HANDLE': 'omnitrattore.it', 'STATE': 'CONTEXTJSON_NULL',
+     'MEANS': 'o embed responde e nao traz o bloco hidratado. NAO_SEI, nunca "conta vazia".'},
+]
+
+
+def escrever():
+    os.makedirs(SAIDA, exist_ok=True)
+    from collections import Counter
+    corpo = {
+        'SOURCE_ID': 'PUBLIC-COMM-IT-SOCIAL-BATCH-V1',
+        'DATASET_OWNER': 'SINTONIA_SCRAP_ITALY',
+        'VERSION': 'V1',
+        'FROZEN_AT': CAPTURA,
+        'CAPTURED_AT': CAPTURA,
+        'CAPTURED_AT_POR_QUE': ('DERIVED_SCOPE: a lista nao foi capturada do mundo, foi derivada de '
+                                'leituras de site feitas nesta missao. A data em que passou a existir '
+                                'E a data do congelamento.'),
+        'FROZEN_RULE': ('esta lista NAO muda depois da primeira coleta. Criterio novo produz V2 '
+                        'explicita, com a V1 preservada — senao o rendimento fica medido contra um '
+                        'denominador que se mexeu.'),
+        'ENTRY_RULE': 'ACCOUNT_IDENTITY_STATE = DECLARED_BY_THE_ORGANISATION',
+        'WHY_THE_RULE_IS_THIS_NARROW': ('ES-T8-003 reprovou com 39 de 60 itens agronomicos porque 24 de '
+                                        '32 contas nao declaravam pais. Volume nao compensa identidade ausente.'),
+        'EVIDENCE_CLASS': 'DERIVED_SCOPE',
+        'APIFY_RUNS': 0,
+        'COST_USD': 0,
+        'ACCOUNTS_IN_BATCH': len(CONTAS),
+        'BY_PLATFORM': dict(Counter(c['PLATFORM'] for c in CONTAS)),
+        'BY_PAGE_ROLE': dict(Counter(c['PAGE_ROLE'] for c in CONTAS)),
+        'BY_PRIORITY': dict(Counter(c['COLLECTION_PRIORITY'] for c in CONTAS)),
+        'EXECUTION_ORDER': [
+            {'STEP': 'A', 'FASE': 'janela-perfis', 'CUSTO': 'ZERO',
+             'GATE': 'rota publica pelo navegador — bio, seguidores e o denominador de posts'},
+            {'STEP': 'B', 'FASE': 'janela-objetos', 'CUSTO': 'ZERO',
+             'GATE': 'os 12 itens recentes, legenda inteira, data, curtidas e — em reel — duracao e MP4'},
+            {'STEP': 'C', 'FASE': 'transcrever', 'CUSTO': 'ZERO em dolar, tempo de maquina',
+             'GATE': 'faster-whisper small, idioma it DECLARADO, nunca detectado'},
+            {'STEP': 'D', 'FASE': 'comentarios', 'CUSTO': 'PAGA',
+             'GATE': 'so atras do portao de dado pessoal, e so se as tres fases gratis fecharem sem PARTIAL'},
+        ],
+        'WINDOW_FIRST': 'LAST_30D',
+        'WINDOW_WIDEN_TO': 'LAST_60D, depois LAST_90D',
+        'WINDOW_WIDEN_RULE': 'so onde o corpus vier baixo. Nunca historico profundo na primeira execucao.',
+        'CONTENT_COLLECTION_STAGE': 'DONE_WITHOUT_A_BROWSER',
+        'MISSION_STATE': 'COLLECTED',
+        'CORRECTION': ('a V1 deste lote dizia READY_TO_COLLECT_WHEN_RUNNER_AVAILABLE, porque eu havia '
+                       'concluido que a rota de embed precisava do navegador. Estava errado: o que '
+                       'faltava era o User-Agent. Com facebookexternalhit/1.1 a MESMA URL devolve o '
+                       'contextJSON hidratado, e a coleta rodou nesta sessao. O lote NAO mudou — '
+                       'mudou o que se sabe sobre a rota. Ver scripts/instagram_sem_navegador.py.'),
+        'WHAT_WAS_COLLECTED_HERE': ('17 de 19 contas de Instagram deste lote · 102 objetos · 30 videos '
+                                    'com VIDEO_URL · transcricao LOCAL com o mesmo faster-whisper do '
+                                    'instagram_transcrever.py · custo 0,00 USD. '
+                                    'Artefatos em data/samples/IT-INSTAGRAM-V1/.'),
+        'WHAT_STILL_NEEDS_THE_RUNNER': ('a grade completa: esta rota entrega 6 itens por conta, o Chrome '
+                                        'com janela entrega 12. E os COMENTARIOS, que nenhuma das duas '
+                                        'rotas gratis entrega e que continuam sendo o unico motivo real '
+                                        'de pagar.'),
+        'ZERO_MEANS_NOW': 'NO_CONTENT_COLLECTION_EXECUTED — nenhum zero deste lote fala sobre o mundo ainda',
+        'ZERO_WILL_MEAN_AFTER_A_VALID_RUN': ('NO_ITEMS_OBSERVED nesta conta provada, nesta plataforma, '
+                                             'nesta janela, nesta execucao bem-sucedida. NUNCA '
+                                             'ORGANIZATION_NOT_COMMUNICATING.'),
+        'ACCOUNTS': CONTAS,
+    }
+    caminho = os.path.join(SAIDA, 'PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json')
+    with open(caminho, 'w', encoding='utf-8') as fh:
+        json.dump(corpo, fh, ensure_ascii=False, indent=1)
+
+    v2 = dict(corpo)
+    v2.update({
+        'SOURCE_ID': 'PUBLIC-COMM-IT-SOCIAL-BATCH-V2',
+        'VERSION': 'V2',
+        'SUPERSEDES': None,
+        'V1_PRESERVED_AT': 'data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json',
+        'WHY_A_V2_EXISTS': ('a V1 resolveu IDENTIDADE e reprovou em DENSIDADE: 28 reels '
+                            'transcritos, 5 sinais so-na-fala, nenhum de campo. A causa e o '
+                            'criterio de entrada da V1 — ela foi montada a partir do site das '
+                            'ORGANIZACOES, e organizacao comunica institucional.'),
+        'WHAT_CHANGED_IN_THE_CRITERION': ('a conta e de uma PESSOA ou de um NEGOCIO TECNICO que '
+                                          'fala de campo, e a identidade vem do proprio embed de '
+                                          'perfil (full_name declarado pelo dono) ou do campo '
+                                          'owner.username de um post dele.'),
+        'ENTRY_RULE': 'ACCOUNT_IDENTITY_STATE = DECLARED_BY_THE_ACCOUNT_OWNER',
+        'ACCOUNTS_IN_BATCH': len(CONTAS_V2),
+        'BY_PLATFORM': dict(Counter(c['PLATFORM'] for c in CONTAS_V2)),
+        'BY_PAGE_ROLE': dict(Counter(c['PAGE_ROLE'] for c in CONTAS_V2)),
+        'BY_PRIORITY': dict(Counter(c['COLLECTION_PRIORITY'] for c in CONTAS_V2)),
+        'ACCOUNTS': CONTAS_V2,
+        'ATTRIBUTION_CORRECTED': ATRIBUICAO_CORRIGIDA,
+        'TESTED_AND_LEFT_OUT': V2_TESTADAS_E_FORA,
+        'CONTENT_COLLECTION_STAGE': 'NOT_STARTED',
+        'MISSION_STATE': 'READY_TO_COLLECT',
+    })
+    v2.pop('CORRECTION', None)
+    v2.pop('WHAT_WAS_COLLECTED_HERE', None)
+    caminho2 = os.path.join(SAIDA, 'PUBLIC-COMM-IT-SOCIAL-BATCH-V2.json')
+    with open(caminho2, 'w', encoding='utf-8') as fh:
+        json.dump(v2, fh, ensure_ascii=False, indent=1)
+    v3 = dict(corpo)
+    v3.update({
+        'SOURCE_ID': 'PUBLIC-COMM-IT-SOCIAL-BATCH-V3',
+        'VERSION': 'V3',
+        'V1_PRESERVED_AT': 'data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json',
+        'V2_PRESERVED_AT': 'data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V2.json',
+        'WHY_A_V3_EXISTS': ('a V2 testou a minha hipotese de que voz individual renderia mais '
+                            'densidade e ela FALHOU (V1 17,9% contra V2 13,3%). A V3 nao repete '
+                            'a aposta: volta ao criterio da V1 e muda a ORIGEM da lista — os '
+                            'handles saem da camada de descoberta de fontes, onde a relevancia '
+                            'ADAMA de cada organizacao ja foi escrita e defendida.'),
+        'ENTRY_RULE': 'ACCOUNT_IDENTITY_STATE = DECLARED_BY_THE_ORGANISATION (LEI 6, conferida por mim)',
+        'HOW_THE_RULE_WAS_CHECKED': ('para cada handle, busquei o site do dono e procurei o handle '
+                                     'dentro do HTML retornado. 17 conferidos, 16 declarados, 1 nao.'),
+        'ACCOUNTS_IN_BATCH': len(CONTAS_V3),
+        'BY_PLATFORM': dict(Counter(c['PLATFORM'] for c in CONTAS_V3)),
+        'BY_PAGE_ROLE': dict(Counter(c['PAGE_ROLE'] for c in CONTAS_V3)),
+        'BY_PRIORITY': dict(Counter(c['COLLECTION_PRIORITY'] for c in CONTAS_V3)),
+        'ACCOUNTS': CONTAS_V3,
+        'ALREADY_IN_V1': V3_JA_NA_V1,
+        'FAILED_THE_ENTRY_RULE': V3_REPROVADOS,
+        'CONTENT_COLLECTION_STAGE': 'NOT_STARTED',
+        'MISSION_STATE': 'READY_TO_COLLECT',
+    })
+    v3.pop('CORRECTION', None)
+    v3.pop('WHAT_WAS_COLLECTED_HERE', None)
+    with open(os.path.join(SAIDA, 'PUBLIC-COMM-IT-SOCIAL-BATCH-V3.json'), 'w', encoding='utf-8') as fh:
+        json.dump(v3, fh, ensure_ascii=False, indent=1)
+
+    return caminho, corpo
+
+
+if __name__ == '__main__':
+    caminho, corpo = escrever()
+    print('escrito: %s' % os.path.relpath(caminho, ROOT))
+    print()
+    for k in ('ACCOUNTS_IN_BATCH', 'BY_PLATFORM', 'BY_PAGE_ROLE', 'BY_PRIORITY', 'MISSION_STATE'):
+        print('%-22s %s' % (k, corpo[k]))

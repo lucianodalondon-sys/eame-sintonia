@@ -1,0 +1,133 @@
+{
+ "DATASET": "IT-ROTULOS-DELTA-V1",
+ "LAYER": "HANDOFF_TO_CANONICAL_TRACK",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-ROTULOS-DELTA-V1",
+ "CAPTURED_AT": "2026-09-04",
+ "SOURCE": "confronto entre os 163 rotulos ADAMA LIDOS (IT-ROTULOS-COBERTURA-V1) e o conjunto de 2.030 pares cultura x alvo de productRelationships.json.",
+
+ "A_PERGUNTA_DA_MISSAO": "depois de completar a leitura do universo de rotulos, quais afirmacoes de ausencia, presenca e compatibilidade comercial mudam?",
+
+ "A_RESPOSTA_CURTA": "muda mais do que se esperava, e por um motivo diferente do esperado. O gargalo NUNCA foram os 61 rotulos sem par: era o EXTRATOR DE PARES. Dos 15 rotulos que autorizam OLIVO, 14 ja tinham sido 'lidos' e mesmo assim nao produziram par de olivo. Ler os 61 acrescentou UM. O extrator perdeu os outros 13.",
+
+ "ACHADO_PRINCIPAL_DEFEITO_DE_INSTRUMENTO": {
+  "ID": "FIX-07",
+  "O_QUE_SE_ACREDITAVA": "que a cobertura de 102/163 era o limite das afirmacoes de ausencia, e que ler os 61 restantes fecharia o universo.",
+  "O_QUE_E_VERDADE": "a cobertura de LEITURA agora e 163/163, mas a cobertura de EXTRACAO DE PARES continua incompleta — e o buraco e grande e sistematico. Ele NAO se concentra nos 61: esta espalhado tambem entre os 102 que ja tinham par.",
+  "COMO_FOI_MEDIDO": "para cada cultura, comparei (A) rotulos cujo TEXTO nomeia a cultura dentro de uma frase de uso — com dose, 'contro', 'per il diserbo', carencia ou epoca — contra (B) rotulos com ao menos um par daquela cultura em productRelationships.",
+  "TABELA": [
+   {"CULTURA": "OLIVO", "TEXTO": 15, "PARES": 1, "TETO_DE_PERDA": 14},
+   {"CULTURA": "PERO", "TEXTO": 47, "PARES": 4, "TETO_DE_PERDA": 43},
+   {"CULTURA": "AGRUMI", "TEXTO": 38, "PARES": 6, "TETO_DE_PERDA": 37},
+   {"CULTURA": "VITE", "TEXTO": 72, "PARES": 25, "TETO_DE_PERDA": 51},
+   {"CULTURA": "POMODORO", "TEXTO": 55, "PARES": 18, "TETO_DE_PERDA": 45},
+   {"CULTURA": "PESCO", "TEXTO": 39, "PARES": 11, "TETO_DE_PERDA": 33},
+   {"CULTURA": "PATATA", "TEXTO": 52, "PARES": 27, "TETO_DE_PERDA": 34},
+   {"CULTURA": "CILIEGIO", "TEXTO": 36, "PARES": 10, "TETO_DE_PERDA": 31},
+   {"CULTURA": "ALBICOCCO", "TEXTO": 34, "PARES": 8, "TETO_DE_PERDA": 31},
+   {"CULTURA": "MELO", "TEXTO": 44, "PARES": 30, "TETO_DE_PERDA": 29},
+   {"CULTURA": "FRAGOLA", "TEXTO": 33, "PARES": 11, "TETO_DE_PERDA": 22},
+   {"CULTURA": "NOCE", "TEXTO": 19, "PARES": 0, "TETO_DE_PERDA": 19},
+   {"CULTURA": "NOCCIOLO", "TEXTO": 17, "PARES": 0, "TETO_DE_PERDA": 17},
+   {"CULTURA": "ACTINIDIA", "TEXTO": 1, "PARES": 5, "TETO_DE_PERDA": 0}
+  ],
+  "POR_QUE_E_TETO_E_NAO_CONTAGEM": "uma frase de uso que nomeia a cultura ainda pode ser restricao, e nao autorizacao. Por isso o numero e um TETO de perda. O contexto de cada caso ficou guardado para conferencia.",
+  "ACTINIDIA_ME_CORRIGE": "ACTINIDIA tem 5 pares e so 1 rotulo no meu teste de texto — ou seja, o MEU medidor tambem perde. Registro isso porque um medidor que so acha defeito nos outros nao esta medido.",
+  "CONSEQUENCIA": "toda afirmacao de ausencia apoiada no CONJUNTO DE PARES esta contaminada. Afirmacoes apoiadas no TEXTO DO ROTULO passam a ser defensaveis, porque a leitura agora e 163/163."
+ },
+
+ "OLIVO": {
+  "ANTES": {"PORTFOLIO_STATE": "1 par de rotulo lido", "PRODUCT_MATCHES": ["MORAINE 018101"], "ACTIVE_INGREDIENT_MATCHES": ["FLUROXYPYR"], "COVERAGE_STATE": "INCOMPLETE_COVERAGE", "LEITURA": "so herbicida"},
+  "DEPOIS": {"PORTFOLIO_STATE": "15 rotulos autorizam OLIVO", "PRODUCT_MATCHES": ["EKO OIL SPRAY 012573", "OLIONET 014386", "GLIPHOGAN TOP CL 015096", "TAIFUN MK CL 015401", "SHAMAL MK PLUS CL 015405", "DICURAN PLUS 016218", "TOMIGAN 016312", "HERBITOTAL CL 016387", "KORAVERT 017929", "AKTIVIR 017930", "MORAINE 018101", "GLIPHOGAN TOP CL PFnPE 018270", "HERBITOTAL CL PFnPE 018271", "SHAMAL MK PLUS CL PFnPE 018277", "TAIFUN MK CL PFnPE 018279"], "ACTIVE_INGREDIENT_MATCHES": ["PARAFFIN OIL", "GLYPHOSATE", "FLUROXYPYR", "CHLOROTOLURON", "DIFLUFENICAN"], "COVERAGE_STATE": "COMPLETE_ON_READING"},
+  "DELTA": "+14 rotulos, +4 substancias, e — o que mais importa — a presenca ADAMA em olivo DEIXA de ser exclusivamente herbicida.",
+  "O_ELO_NAO_HERBICIDA": {
+   "PRODUTOS": ["EKO OIL SPRAY 012573", "OLIONET 014386"],
+   "ACTIVE_INGREDIENT": "PARAFFIN OIL (CAS 97862-82-3) — esta ENTRE as 53 substancias ADAMA",
+   "USO_COMO_ESCRITO_NO_ROTULO": "OLIVO (olive da tavola e da mensa): contro Cocciniglie e Tignole",
+   "DOSE_COMO_ESCRITA": "in primavera estate 1,5-2,0 l/hl; in inverno 2,5-3,5 l/hl",
+   "LINK_STRENGTH": "LINHA_DA_TABELA",
+   "POR_QUE_IMPORTA": "os DOIS alvos do rotulo — cocciniglie e tignole — sao discutidos no bilancio fitosanitario nacional do olivo (-4lUyIORl4A e a II sessione). E o proprio bilancio nomeia OLIO MINERALE como meio: 'Per contenere anche questo fitofago puo essere impiegato l'olio minerale sulle giovani neanidi che in genere sono presenti a luglio o agosto' (Friuli, cocciniglia mezzo grano di pepe).",
+   "ESTADO": "CANDIDATO A CRUZAMENTO, e NAO cruzamento fechado. Falta a etapa de refutacao e falta confrontar regiao e janela. Esta camada nao promove."
+  }
+ },
+
+ "CORRECOES_DAS_MINHAS_PROPRIAS_AFIRMACOES": [
+  {
+   "ID": "COR-01",
+   "ONDE": "IT-OLIVO-LEITURA-V2 e IT-OLIVO-ASSIMETRIA-V1 (rodada anterior, commit 24b105b)",
+   "O_QUE_EU_ESCREVI": "18 meios tecnicos nomeados na sessao do olivo, ZERO correspondem as 53 substancias ADAMA. Listei OLIO MINERALE entre os nao-ADAMA.",
+   "O_QUE_E_VERDADE": "PARAFFIN OIL esta entre as 53, e a ADAMA tem DOIS produtos de olio di paraffina autorizados EM OLIVO contra cocciniglie e tignole. A afirmacao 'zero' estava errada: e pelo menos UM.",
+   "POR_QUE_ERREI": "conferi 'OLIO MINERALE' como string contra a lista, e a lista escreve 'PARAFFIN OIL/(CAS 97862-82-3)'. Foi um casamento de vocabulario que falhou — a mesma familia de defeito do FIX-04, e desta vez fui eu.",
+   "O_QUE_MUDA_NA_CONCLUSAO": "a frase 'a assimetria do OLIVO desloca-se de lacuna de leitura para MERCADO' NAO se sustenta. A assimetria era, em boa parte, defeito de extracao de par. Retiro essa conclusao."
+  },
+  {
+   "ID": "COR-02",
+   "ONDE": "IT-TRABALHO-PERDIDO-V1 (rodada anterior)",
+   "O_QUE_EU_ESCREVI": "gDNHhPeng7Y (noce e nocciolo) tem prioridade 8 porque NOCE e NOCCIOLO tem ZERO pares de rotulo, conferido.",
+   "O_QUE_E_VERDADE": "o zero era do conjunto de pares, nao do mundo: 19 rotulos nomeiam NOCE e 17 nomeiam NOCCIOLO dentro de frases de uso.",
+   "O_QUE_MUDA": "a despriorizacao daquele objeto foi decidida sobre um numero errado. A prioridade deve ser reavaliada quando o conjunto de pares for refeito."
+  },
+  {
+   "ID": "COR-03",
+   "ONDE": "IT-CRUZAMENTOS-V2, cruzamento MELO x AFIDE LANIGERO (agente da conta anterior)",
+   "O_QUE_ESTAVA_ESCRITO": "as 35 linhas de rotulo ADAMA de MELO x AFIDI estao TODAS de um dos dois lados que o boletim restringe (pirimicarb ou piretroide). E: 'SEM PAR DE ROTULO: APYZA WG 018156 e APYZA 500 WG 018165 — rotulo NAO LIDO'.",
+   "O_QUE_E_VERDADE": "os dois rotulos APYZA foram lidos agora. APYZA 500 WG declara: 'Melo e pero: contro afidi (Dysaphis plantaginea, Aphis pomi, Dysaphis pyri) intervenire all'inizio dell'infestazione alla dose di 0,12-0,14 kg/ha', com maximo de 3 tratamentos/ano e intervalo de 14 dias. Flonicamid NAO e piretroide nem pirimicarb.",
+   "O_QUE_MUDA": "a sub-afirmacao 'todas de um dos dois lados' esta REFUTADA. Existe um terceiro lado.",
+   "O_QUE_NAO_MUDA": "a relacao do cruzamento continua WEAKENS para o alvo que ele declara. O alvo era ERIOSOMA LANIGERUM (afide lanigero), e Eriosoma NAO aparece em nenhum dos dois rotulos APYZA — zero ocorrencias. Os tres afideos nomeados sao outros. Fechar o gap de MELO x AFIDI generico nao fecha o gap de MELO x Eriosoma.",
+   "PRODUCT_GAP_MELO_x_AFIDI_GENERICO": "CLOSED",
+   "PRODUCT_GAP_MELO_x_ERIOSOMA_LANIGERUM": "CONFIRMED_OPEN"
+  },
+  {
+   "ID": "COR-04",
+   "ONDE": "IT-CAMPO-SINAIS-VERIFICADOS-V1, sinal PESCO x MONILIA",
+   "O_QUE_ESTAVA_EM_DUVIDA": "o sinal afirmava que nenhum dos produtos ADAMA de tebuconazol, difenoconazol e fluxapiroxade esta autorizado em pessego — mas AVASTEL 018089, VINETO 015740 e SEEDRON 016152 tinham ZERO linhas porque o rotulo nunca fora lido. Era afirmacao de ausencia sobre leitura ausente.",
+   "O_QUE_E_VERDADE_AGORA": "os tres foram lidos. AVASTEL: 'Fungicida per frumento, orzo, segale e triticale' — cereais. VINETO: fungicida anti-oidico, zero ocorrencias de pesco ou monilia. SEEDRON: concia de cereais (segale, triticale, fusariosi, carbone), zero ocorrencias.",
+   "O_QUE_MUDA": "a afirmacao de ausencia deixa de ser construida sobre leitura ausente e passa a ser construida sobre leitura FEITA. O sinal fica MAIS forte, nao mais fraco.",
+   "PRODUCT_GAP_PESCO_x_MONILIA": "CONFIRMED_OPEN_BY_READING"
+  }
+ ],
+
+ "DIFENOCONAZOLE": {
+  "TOTAL_DIFENOCONAZOLE_LABELS": 2,
+  "LABELS": [
+   {"REGISTRATION_ID": "009757", "PRODUCT": "SPYRALE", "ESCOPO_COMO_ESCRITO": "FUNGICIDA PER LA DIFESA DELLA BARBABIETOLA DA ZUCCHERO DALLE MALATTIE FUNGINE", "OCORRENCIAS_DE_OLIV": 0},
+   {"REGISTRATION_ID": "017955", "PRODUCT": "MAGANIC", "ESCOPO_COMO_ESCRITO": "Fungicida per frumento [...]", "OCORRENCIAS_DE_OLIV": 0}
+  ],
+  "OLIVO_PRESENT": false,
+  "TARGETS_ON_OLIVO": "NENHUM — nao ha uso de olivo em nenhum dos dois rotulos",
+  "SOBRE_O_ASR": "a palavra deformada 'di disconolo' NAO foi usada como evidencia em momento algum. A conclusao vem dos DOIS rotulos lidos, e nao da reconstrucao do audio. Mesmo que a leitura favoravel do ASR estivesse certa, ela nao abriria rota: nenhum dos dois rotulos de difenoconazole traz olivo.",
+  "OBSERVACAO": "nenhum dos 2 estava entre os 61 — os dois ja tinham par extraido. A pergunta so pode ser respondida assim porque a leitura agora e 163/163."
+ },
+
+ "ABSENCE_RULE": {
+  "UNIVERSE_DECLARED": true,
+  "DENOMINATOR_KNOWN": true,
+  "LABELS_READ": 163,
+  "TOTAL_LABELS": 163,
+  "COVERAGE_COMPLETE_ON_READING": true,
+  "COVERAGE_COMPLETE_ON_PAIR_EXTRACTION": false,
+  "ABSENCE_STATE_PARA_AFIRMACOES_APOIADAS_NO_TEXTO_DO_ROTULO": "DEFENSIBLE",
+  "ABSENCE_STATE_PARA_AFIRMACOES_APOIADAS_NO_CONJUNTO_DE_PARES": "INCOMPLETE_COVERAGE",
+  "FRASE_PERMITIDA_AGORA": "nos 163 rotulos ADAMA lidos, o termo <X> nao aparece em nenhuma frase de uso",
+  "FRASE_AINDA_PROIBIDA": "a ADAMA nao tem produto para <alvo> em <cultura> — enquanto ela se apoiar no conjunto de pares"
+ },
+
+ "CAMPOS_RECALCULADOS": ["PORTFOLIO_MATCHES", "PRIMARY_MATCH", "PRODUCT_GAP", "ACTIVE_INGREDIENT_MATCH", "CROP_FIT", "TARGET_FIT", "REGULATORY_FIT"],
+ "CAMPOS_NAO_TOCADOS": ["WINDOW", "SIGNAL", "THRESHOLD", "PEST_STAGE", "WHY_NOW", "OPPORTUNITY_SCORE", "STATUS", "PUBLICATION_STATE"],
+ "POR_QUE_NAO_TOCADOS": "nao dependem de rotulo. Recalcula-los seria alargar a missao e pisar em camada alheia.",
+
+ "AS_TRES_OPORTUNIDADES_DE_OLIVO": [
+  {"OPPORTUNITY_ID": "OPP_568684853264", "BEFORE": {"PORTFOLIO_STATE": "1 rotulo, herbicida", "PRODUCT_MATCHES": 1, "ACTIVE_INGREDIENT_MATCHES": 1, "COVERAGE_STATE": "INCOMPLETE_COVERAGE"}, "AFTER_163_LABELS": {"PORTFOLIO_STATE": "15 rotulos, 5 substancias, sendo 2 inseticidas", "PRODUCT_MATCHES": 15, "ACTIVE_INGREDIENT_MATCHES": 5, "COVERAGE_STATE": "COMPLETE_ON_READING"}, "DELTA": "PRODUCT_GAP fecha; TARGET continua null", "CLASSIFICACAO": "CLOSED_PRODUCT_GAP", "RESSALVA": "o bloqueio declarado era D_PROBLEMA (sem alvo). Fechar o gap de produto NAO fornece alvo. Continua sem aquecer."},
+  {"OPPORTUNITY_ID": "OPP_B19061BA418B", "BEFORE": {"PORTFOLIO_STATE": "1 rotulo, herbicida", "PRODUCT_MATCHES": 1, "ACTIVE_INGREDIENT_MATCHES": 1, "COVERAGE_STATE": "INCOMPLETE_COVERAGE"}, "AFTER_163_LABELS": {"PORTFOLIO_STATE": "15 rotulos, 5 substancias", "PRODUCT_MATCHES": 15, "ACTIVE_INGREDIENT_MATCHES": 5, "COVERAGE_STATE": "COMPLETE_ON_READING"}, "DELTA": "PRODUCT_GAP fecha; o bloqueio RED_TEAM (comunicacao de concorrente virou participacao de mercado) permanece intocado", "CLASSIFICACAO": "CLOSED_PRODUCT_GAP"},
+  {"OPPORTUNITY_ID": "OPP_EE1E2A3869EE", "BEFORE": {"PORTFOLIO_STATE": "1 rotulo, herbicida", "PRODUCT_MATCHES": 1, "ACTIVE_INGREDIENT_MATCHES": 1, "COVERAGE_STATE": "INCOMPLETE_COVERAGE"}, "AFTER_163_LABELS": {"PORTFOLIO_STATE": "15 rotulos, 5 substancias", "PRODUCT_MATCHES": 15, "ACTIVE_INGREDIENT_MATCHES": 5, "COVERAGE_STATE": "COMPLETE_ON_READING"}, "DELTA": "PRODUCT_GAP fecha; C_TEMPO (sem janela defensavel) permanece", "CLASSIFICACAO": "CLOSED_PRODUCT_GAP"}
+ ],
+ "NENHUMA_DAS_TRES_FOI_AQUECIDA": "produto compativel nao prova sinal nem janela. As tres continuam TO_VALIDATE / PREPARE_NOW como o motor as deixou. STATUS_CHANGES = 0, SCORE_CHANGES = 0.",
+
+ "PROXIMA_ACAO_QUE_ESTA_MISSAO_NAO_FEZ": {
+  "O_QUE": "refazer a extracao de pares cultura x alvo sobre os 163 textos agora versionados, com um parser que entenda TABELA e nao so 'Cultura: contro Alvo'.",
+  "POR_QUE_NAO_FIZ": "tentei, medi o proprio extrator e ele reprovou: 21 de 61 rotulos casaram, e 38 dos 40 'vazios' CONTEM termo de alvo. Um extrator com esse recall produziria um conjunto de pares pior que o atual em alguns pontos e falsamente completo em outros. Publicar isso seria pior que declarar o defeito.",
+  "O_QUE_JA_ESTA_PRONTO_PARA_QUEM_FIZER": "os 163 textos em data/samples/IT-ROTULOS-V1/testo/, versionados, com SHA por arquivo e proveniencia declarada."
+ },
+
+ "NOTES": "Nenhuma coleta nova: os 163 documentos sao byte-identicos aos que a casa baixou em 2026-08-30 (SHA 163/163). Nenhum ruido de ASR usado como evidencia. Nenhuma equivalencia taxonomica assumida. Portal, Vercel, producao e o build da reuniao: intocados."
+}

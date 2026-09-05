@@ -1,0 +1,1007 @@
+{
+ "DATASET": "IT-ROTULOS-METRICAS-V1",
+ "SOURCE_ID": "IT-ROTULOS-METRICAS-V1",
+ "CAPTURED_AT": "2026-09-04",
+ "SOURCE": "medicao do parser contra o gabarito manual, e comparacao do candidato contra productRelationships.json.",
+ "PARSER_VERSION": "it_rotulo_parser/2.0.0",
+ "VEREDITO": "PARTIAL — NAO publicar como substituto",
+ "CONTRA_O_GABARITO": {
+  "TP": 92,
+  "FP": 292,
+  "FN": 54,
+  "PRECISION": 0.2396,
+  "RECALL": 0.6301,
+  "F1": 0.3472,
+  "TRAP_VIOLATIONS": 0,
+  "NENHUM_ROTULO_FOI_PULADO": "um rotulo que nao devolve par conta como falha de recall inteira. Cheguei a escrever a versao que pulava esses casos e ela subiu o recall de 0,63 para 0,77 sem o parser mudar nada — metrica que se auto-elogia.",
+  "POR_QUE_A_PRECISAO_AQUI_ENGANA": "o gabarito e PARCIAL por construcao: em varios rotulos eu enumerei so as linhas que fui ler. Precisao contra gabarito parcial pune o parser por pares que o gabarito nunca listou. Por isso a precisao real foi estimada por amostra adjudicada a mao."
+ },
+ "PRECISAO_POR_AMOSTRA_ADJUDICADA": {
+  "AMOSTRA": 24,
+  "CORRETOS": 23,
+  "INCERTOS": 1,
+  "ERRADOS": 0,
+  "PRECISION_AMOSTRADA": 0.958,
+  "METODO": "24 pares SUPPORTED sorteados (semente 7) de 7 rotulos, conferidos um a um contra CROP_AS_WRITTEN e TARGET_AS_WRITTEN do proprio rotulo.",
+  "RESSALVA": "amostra pequena, adjudicada por mim. Nao substitui gabarito completo."
+ },
+ "O_QUE_FALTA_PARA_PUBLICAR": [
+  "recall 0,63 contra o gabarito — abaixo do exigido",
+  "95 rotulos sem nenhum par suportado (SILENT_EMPTY_WITH_TARGET_TEXT != 0)",
+  "duas familias de forma ainda nao lidas: cabecalho + quebra de linha sem dois-pontos (KLARTAN 007555: 0 de 14), e frase de escopo \"Fungicida per la difesa della BARBABIETOLA dalle malattie fungine\" (SPYRALE, MAGANIC, VINETO)"
+ ],
+ "SILENT_EMPTY_WITH_TARGET_TEXT": 95,
+ "PROVENANCE_COMPLETE": true,
+ "OLD_PAIRS": 2030,
+ "NEW_PAIRS": 1133,
+ "AMBIGUOUS_ROWS": 144,
+ "EXCLUDED_PAIRS": 44,
+ "CONTAGENS_NAO_SAO_COMPARAVEIS": "o conjunto antigo conta o LITERAL do alvo (Eriosoma spp e Dysaphis plantaginea como pares distintos); o novo conta CLASSE canonica. Comparar 2.030 com 1.133 e comparar reguas diferentes. A metrica comparavel e ROTULOS POR CULTURA.",
+ "COMPARACAO_POR_CULTURA": [
+  {
+   "CULTURA": "SUSINO",
+   "OLD_PARES": 0,
+   "NEW_PARES": 38,
+   "OLD_ROTULOS": 0,
+   "NEW_ROTULOS": 19,
+   "DELTA_ROTULOS": 19
+  },
+  {
+   "CULTURA": "PERO",
+   "OLD_PARES": 11,
+   "NEW_PARES": 25,
+   "OLD_ROTULOS": 4,
+   "NEW_ROTULOS": 20,
+   "DELTA_ROTULOS": 16
+  },
+  {
+   "CULTURA": "MELANZANA",
+   "OLD_PARES": 0,
+   "NEW_PARES": 12,
+   "OLD_ROTULOS": 0,
+   "NEW_ROTULOS": 12,
+   "DELTA_ROTULOS": 12
+  },
+  {
+   "CULTURA": "CETRIOLO",
+   "OLD_PARES": 0,
+   "NEW_PARES": 14,
+   "OLD_ROTULOS": 0,
+   "NEW_ROTULOS": 11,
+   "DELTA_ROTULOS": 11
+  },
+  {
+   "CULTURA": "MANDORLO",
+   "OLD_PARES": 0,
+   "NEW_PARES": 30,
+   "OLD_ROTULOS": 0,
+   "NEW_ROTULOS": 11,
+   "DELTA_ROTULOS": 11
+  },
+  {
+   "CULTURA": "MELONE",
+   "OLD_PARES": 0,
+   "NEW_PARES": 11,
+   "OLD_ROTULOS": 0,
+   "NEW_ROTULOS": 11,
+   "DELTA_ROTULOS": 11
+  },
+  {
+   "CULTURA": "NOCCIOLO",
+   "OLD_PARES": 0,
+   "NEW_PARES": 30,
+   "OLD_ROTULOS": 0,
+   "NEW_ROTULOS": 11,
+   "DELTA_ROTULOS": 11
+  },
+  {
+   "CULTURA": "SORGO",
+   "OLD_PARES": 9,
+   "NEW_PARES": 39,
+   "OLD_ROTULOS": 3,
+   "NEW_ROTULOS": 14,
+   "DELTA_ROTULOS": 11
+  },
+  {
+   "CULTURA": "ZUCCHINO",
+   "OLD_PARES": 0,
+   "NEW_PARES": 14,
+   "OLD_ROTULOS": 0,
+   "NEW_ROTULOS": 11,
+   "DELTA_ROTULOS": 11
+  },
+  {
+   "CULTURA": "ALBICOCCO",
+   "OLD_PARES": 16,
+   "NEW_PARES": 37,
+   "OLD_ROTULOS": 8,
+   "NEW_ROTULOS": 18,
+   "DELTA_ROTULOS": 10
+  },
+  {
+   "CULTURA": "PEPERONE",
+   "OLD_PARES": 0,
+   "NEW_PARES": 20,
+   "OLD_ROTULOS": 0,
+   "NEW_ROTULOS": 10,
+   "DELTA_ROTULOS": 10
+  },
+  {
+   "CULTURA": "PESCO",
+   "OLD_PARES": 45,
+   "NEW_PARES": 54,
+   "OLD_ROTULOS": 11,
+   "NEW_ROTULOS": 20,
+   "DELTA_ROTULOS": 9
+  },
+  {
+   "CULTURA": "CARCIOFO",
+   "OLD_PARES": 0,
+   "NEW_PARES": 26,
+   "OLD_ROTULOS": 0,
+   "NEW_ROTULOS": 8,
+   "DELTA_ROTULOS": 8
+  },
+  {
+   "CULTURA": "OLIVO",
+   "OLD_PARES": 1,
+   "NEW_PARES": 11,
+   "OLD_ROTULOS": 1,
+   "NEW_ROTULOS": 9,
+   "DELTA_ROTULOS": 8
+  },
+  {
+   "CULTURA": "AGRUMI",
+   "OLD_PARES": 17,
+   "NEW_PARES": 28,
+   "OLD_ROTULOS": 6,
+   "NEW_ROTULOS": 13,
+   "DELTA_ROTULOS": 7
+  },
+  {
+   "CULTURA": "CILIEGIO",
+   "OLD_PARES": 27,
+   "NEW_PARES": 36,
+   "OLD_ROTULOS": 10,
+   "NEW_ROTULOS": 17,
+   "DELTA_ROTULOS": 7
+  },
+  {
+   "CULTURA": "COCOMERO",
+   "OLD_PARES": 0,
+   "NEW_PARES": 7,
+   "OLD_ROTULOS": 0,
+   "NEW_ROTULOS": 7,
+   "DELTA_ROTULOS": 7
+  },
+  {
+   "CULTURA": "AGLIO",
+   "OLD_PARES": 0,
+   "NEW_PARES": 9,
+   "OLD_ROTULOS": 0,
+   "NEW_ROTULOS": 6,
+   "DELTA_ROTULOS": 6
+  },
+  {
+   "CULTURA": "FAGIOLO",
+   "OLD_PARES": 0,
+   "NEW_PARES": 16,
+   "OLD_ROTULOS": 0,
+   "NEW_ROTULOS": 6,
+   "DELTA_ROTULOS": 6
+  },
+  {
+   "CULTURA": "NOCE",
+   "OLD_PARES": 0,
+   "NEW_PARES": 20,
+   "OLD_ROTULOS": 0,
+   "NEW_ROTULOS": 6,
+   "DELTA_ROTULOS": 6
+  },
+  {
+   "CULTURA": "ORZO",
+   "OLD_PARES": 131,
+   "NEW_PARES": 54,
+   "OLD_ROTULOS": 12,
+   "NEW_ROTULOS": 18,
+   "DELTA_ROTULOS": 6
+  },
+  {
+   "CULTURA": "POMODORO",
+   "OLD_PARES": 44,
+   "NEW_PARES": 66,
+   "OLD_ROTULOS": 18,
+   "NEW_ROTULOS": 24,
+   "DELTA_ROTULOS": 6
+  },
+  {
+   "CULTURA": "COLZA",
+   "OLD_PARES": 56,
+   "NEW_PARES": 42,
+   "OLD_ROTULOS": 7,
+   "NEW_ROTULOS": 12,
+   "DELTA_ROTULOS": 5
+  },
+  {
+   "CULTURA": "PISELLO",
+   "OLD_PARES": 0,
+   "NEW_PARES": 4,
+   "OLD_ROTULOS": 0,
+   "NEW_ROTULOS": 4,
+   "DELTA_ROTULOS": 4
+  },
+  {
+   "CULTURA": "AVENA",
+   "OLD_PARES": 9,
+   "NEW_PARES": 37,
+   "OLD_ROTULOS": 9,
+   "NEW_ROTULOS": 12,
+   "DELTA_ROTULOS": 3
+  },
+  {
+   "CULTURA": "TRITICALE",
+   "OLD_PARES": 71,
+   "NEW_PARES": 26,
+   "OLD_ROTULOS": 9,
+   "NEW_ROTULOS": 12,
+   "DELTA_ROTULOS": 3
+  },
+  {
+   "CULTURA": "CAVOLO",
+   "OLD_PARES": 0,
+   "NEW_PARES": 12,
+   "OLD_ROTULOS": 0,
+   "NEW_ROTULOS": 2,
+   "DELTA_ROTULOS": 2
+  },
+  {
+   "CULTURA": "TABACCO",
+   "OLD_PARES": 26,
+   "NEW_PARES": 19,
+   "OLD_ROTULOS": 7,
+   "NEW_ROTULOS": 9,
+   "DELTA_ROTULOS": 2
+  },
+  {
+   "CULTURA": "FRAGOLA",
+   "OLD_PARES": 51,
+   "NEW_PARES": 17,
+   "OLD_ROTULOS": 11,
+   "NEW_ROTULOS": 12,
+   "DELTA_ROTULOS": 1
+  },
+  {
+   "CULTURA": "ACTINIDIA",
+   "OLD_PARES": 10,
+   "NEW_PARES": 5,
+   "OLD_ROTULOS": 5,
+   "NEW_ROTULOS": 5,
+   "DELTA_ROTULOS": 0
+  },
+  {
+   "CULTURA": "VITE",
+   "OLD_PARES": 96,
+   "NEW_PARES": 62,
+   "OLD_ROTULOS": 25,
+   "NEW_ROTULOS": 25,
+   "DELTA_ROTULOS": 0
+  },
+  {
+   "CULTURA": "GIRASOLE",
+   "OLD_PARES": 39,
+   "NEW_PARES": 41,
+   "OLD_ROTULOS": 12,
+   "NEW_ROTULOS": 11,
+   "DELTA_ROTULOS": -1
+  },
+  {
+   "CULTURA": "ORTAGGI",
+   "OLD_PARES": 1,
+   "NEW_PARES": 0,
+   "OLD_ROTULOS": 1,
+   "NEW_ROTULOS": 0,
+   "DELTA_ROTULOS": -1
+  },
+  {
+   "CULTURA": "SEGALE",
+   "OLD_PARES": 82,
+   "NEW_PARES": 47,
+   "OLD_ROTULOS": 17,
+   "NEW_ROTULOS": 16,
+   "DELTA_ROTULOS": -1
+  },
+  {
+   "CULTURA": "FRUMENTO",
+   "OLD_PARES": 176,
+   "NEW_PARES": 58,
+   "OLD_ROTULOS": 20,
+   "NEW_ROTULOS": 18,
+   "DELTA_ROTULOS": -2
+  },
+  {
+   "CULTURA": "RISO",
+   "OLD_PARES": 15,
+   "NEW_PARES": 4,
+   "OLD_ROTULOS": 6,
+   "NEW_ROTULOS": 4,
+   "DELTA_ROTULOS": -2
+  },
+  {
+   "CULTURA": "MAIS",
+   "OLD_PARES": 112,
+   "NEW_PARES": 27,
+   "OLD_ROTULOS": 20,
+   "NEW_ROTULOS": 17,
+   "DELTA_ROTULOS": -3
+  },
+  {
+   "CULTURA": "SOIA",
+   "OLD_PARES": 28,
+   "NEW_PARES": 41,
+   "OLD_ROTULOS": 8,
+   "NEW_ROTULOS": 5,
+   "DELTA_ROTULOS": -3
+  },
+  {
+   "CULTURA": "LATTUGA",
+   "OLD_PARES": 11,
+   "NEW_PARES": 3,
+   "OLD_ROTULOS": 7,
+   "NEW_ROTULOS": 3,
+   "DELTA_ROTULOS": -4
+  },
+  {
+   "CULTURA": "FLOREALI",
+   "OLD_PARES": 5,
+   "NEW_PARES": 0,
+   "OLD_ROTULOS": 5,
+   "NEW_ROTULOS": 0,
+   "DELTA_ROTULOS": -5
+  },
+  {
+   "CULTURA": "CAROTA",
+   "OLD_PARES": 63,
+   "NEW_PARES": 7,
+   "OLD_ROTULOS": 11,
+   "NEW_ROTULOS": 5,
+   "DELTA_ROTULOS": -6
+  },
+  {
+   "CULTURA": "MAIS_DOLCE",
+   "OLD_PARES": 36,
+   "NEW_PARES": 0,
+   "OLD_ROTULOS": 6,
+   "NEW_ROTULOS": 0,
+   "DELTA_ROTULOS": -6
+  },
+  {
+   "CULTURA": "LEGUMINOSE",
+   "OLD_PARES": 70,
+   "NEW_PARES": 0,
+   "OLD_ROTULOS": 8,
+   "NEW_ROTULOS": 0,
+   "DELTA_ROTULOS": -8
+  },
+  {
+   "CULTURA": "CIPOLLA",
+   "OLD_PARES": 42,
+   "NEW_PARES": 8,
+   "OLD_ROTULOS": 16,
+   "NEW_ROTULOS": 5,
+   "DELTA_ROTULOS": -11
+  },
+  {
+   "CULTURA": "MELO",
+   "OLD_PARES": 146,
+   "NEW_PARES": 20,
+   "OLD_ROTULOS": 30,
+   "NEW_ROTULOS": 18,
+   "DELTA_ROTULOS": -12
+  },
+  {
+   "CULTURA": "PATATA",
+   "OLD_PARES": 100,
+   "NEW_PARES": 25,
+   "OLD_ROTULOS": 27,
+   "NEW_ROTULOS": 15,
+   "DELTA_ROTULOS": -12
+  },
+  {
+   "CULTURA": "CUCURBITACEE",
+   "OLD_PARES": 58,
+   "NEW_PARES": 12,
+   "OLD_ROTULOS": 16,
+   "NEW_ROTULOS": 2,
+   "DELTA_ROTULOS": -14
+  },
+  {
+   "CULTURA": "ERBA_MEDICA",
+   "OLD_PARES": 87,
+   "NEW_PARES": 0,
+   "OLD_ROTULOS": 16,
+   "NEW_ROTULOS": 0,
+   "DELTA_ROTULOS": -16
+  },
+  {
+   "CULTURA": "BARBABIETOLA",
+   "OLD_PARES": 239,
+   "NEW_PARES": 19,
+   "OLD_ROTULOS": 23,
+   "NEW_ROTULOS": 6,
+   "DELTA_ROTULOS": -17
+  },
+  {
+   "CULTURA": "BRASSICACEE",
+   "OLD_PARES": 100,
+   "NEW_PARES": 0,
+   "OLD_ROTULOS": 21,
+   "NEW_ROTULOS": 0,
+   "DELTA_ROTULOS": -21
+  }
+ ],
+ "BY_LABEL": [
+  {
+   "REGISTRATION_ID": "008259",
+   "PRODUCT": "LAMDEX EXTRA",
+   "ESTRUTURA": "D_CELULA_MESCLADA_MULTIPLAS_LINHAS",
+   "EXPECTED": 36,
+   "RECOVERED": 25,
+   "MISSED": [
+    "ALBICOCCO x LEPIDOTTERI",
+    "MELO x CARPOCAPSA",
+    "MELO x CEMIOSTOMA",
+    "MELO x LITOCOLLETE",
+    "PERO x CARPOCAPSA",
+    "PERO x CEMIOSTOMA",
+    "PERO x LITOCOLLETE",
+    "PERO x PSILLE",
+    "PESCO x AFIDI",
+    "PESCO x TRIPIDI",
+    "VITE x TIGNOLE"
+   ],
+   "EXTRA": [
+    "AVENA x AFIDI",
+    "AVENA x CECIDOMIA",
+    "AVENA x IDRELLIA",
+    "AVENA x LEMA",
+    "AVENA x NOTTUE",
+    "AVENA x TRIPIDI",
+    "BARBABIETOLA x AFIDI",
+    "BARBABIETOLA x ALTICA",
+    "BARBABIETOLA x CLEONO",
+    "BARBABIETOLA x LISSO",
+    "COLZA x AFIDI",
+    "COLZA x ALTICA",
+    "COLZA x CECIDOMIA",
+    "COLZA x CIMICI",
+    "COLZA x MELIGETE",
+    "COLZA x NOTTUE",
+    "COLZA x TENTREDINE",
+    "FRUMENTO x AFIDI",
+    "FRUMENTO x CECIDOMIA",
+    "FRUMENTO x IDRELLIA",
+    "FRUMENTO x LEMA",
+    "FRUMENTO x NOTTUE",
+    "FRUMENTO x TRIPIDI",
+    "GIRASOLE x AFIDI",
+    "GIRASOLE x ALTICA",
+    "GIRASOLE x CECIDOMIA",
+    "GIRASOLE x CIMICI",
+    "GIRASOLE x MELIGETE",
+    "GIRASOLE x NOTTUE",
+    "GIRASOLE x TENTREDINE",
+    "MAIS x DIABROTICA",
+    "MAIS x NOTTUE",
+    "MAIS x PIRALIDE",
+    "ORZO x AFIDI",
+    "ORZO x CECIDOMIA",
+    "ORZO x IDRELLIA",
+    "ORZO x LEMA",
+    "ORZO x NOTTUE",
+    "ORZO x TRIPIDI",
+    "PESCO x ANARSIA",
+    "PESCO x CIDIA",
+    "SEGALE x AFIDI",
+    "SEGALE x CECIDOMIA",
+    "SEGALE x IDRELLIA",
+    "SEGALE x LEMA",
+    "SEGALE x NOTTUE",
+    "SEGALE x TRIPIDI",
+    "SOIA x AFIDI",
+    "SOIA x ALTICA",
+    "SOIA x APION",
+    "SOIA x CECIDOMIA",
+    "SOIA x CIMICI",
+    "SOIA x FITONOMO",
+    "SOIA x MELIGETE",
+    "SOIA x NOTTUE",
+    "SOIA x TENTREDINE",
+    "SORGO x AFIDI",
+    "SORGO x CECIDOMIA",
+    "SORGO x IDRELLIA",
+    "SORGO x LEMA",
+    "SORGO x NOTTUE",
+    "SORGO x TRIPIDI"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "018165",
+   "PRODUCT": "APYZA 500 WG",
+   "ESTRUTURA": "B_CULTURA_SEGUIDA_DE_VARIOS_ALVOS",
+   "EXPECTED": 8,
+   "RECOVERED": 5,
+   "MISSED": [
+    "CUCURBITACEE x AFIDI",
+    "CUCURBITACEE x MOSCA",
+    "POMODORO x MOSCA"
+   ],
+   "EXTRA": [
+    "AGRUMI x AFIDI"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "018156",
+   "PRODUCT": "APYZA WG",
+   "ESTRUTURA": "B_CULTURA_SEGUIDA_DE_VARIOS_ALVOS",
+   "EXPECTED": 6,
+   "RECOVERED": 5,
+   "MISSED": [
+    "CUCURBITACEE x AFIDI"
+   ],
+   "EXTRA": [
+    "PERO x AFIDI"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "018089",
+   "PRODUCT": "AVASTEL",
+   "ESTRUTURA": "D_CELULA_MESCLADA_MULTIPLAS_LINHAS",
+   "EXPECTED": 12,
+   "RECOVERED": 8,
+   "MISSED": [
+    "ORZO x OIDIO",
+    "ORZO x RINCOSPORIOSI",
+    "ORZO x RUGGINE",
+    "SEGALE x RINCOSPORIOSI"
+   ],
+   "EXTRA": [
+    "TRITICALE x OIDIO",
+    "TRITICALE x RUGGINE",
+    "TRITICALE x SEPTORIOSI"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "016218",
+   "PRODUCT": "DICURAN PLUS",
+   "ESTRUTURA": "E_ALVO_COMPARTILHADO_POR_VARIAS_CULTURAS",
+   "EXPECTED": 3,
+   "RECOVERED": 2,
+   "MISSED": [
+    "FRUMENTO x INFESTANTI"
+   ],
+   "EXTRA": []
+  },
+  {
+   "REGISTRATION_ID": "012573",
+   "PRODUCT": "EKO OIL SPRAY",
+   "ESTRUTURA": "B_CULTURA_SEGUIDA_DE_VARIOS_ALVOS",
+   "EXPECTED": 27,
+   "RECOVERED": 23,
+   "MISSED": [
+    "BARBABIETOLA x AFIDI",
+    "BARBABIETOLA x ALTICA",
+    "BARBABIETOLA x CASSIDA",
+    "BARBABIETOLA x MOSCA"
+   ],
+   "EXTRA": [
+    "ALBICOCCO x ACARI",
+    "ALBICOCCO x AFIDI",
+    "ALBICOCCO x CICALINE",
+    "ALBICOCCO x COCCINIGLIE",
+    "ALBICOCCO x ERIOFIDI",
+    "ALBICOCCO x LEPIDOTTERI",
+    "ALBICOCCO x METCALFA",
+    "ALBICOCCO x TRIPIDI",
+    "CARCIOFO x ALTICA",
+    "CARCIOFO x CASSIDA",
+    "CARCIOFO x CICALINE",
+    "CARCIOFO x COCCINIGLIE",
+    "CARCIOFO x LEPIDOTTERI",
+    "CARCIOFO x METCALFA",
+    "CARCIOFO x MOSCA",
+    "CARCIOFO x PSILLE",
+    "CARCIOFO x TIGNOLE",
+    "CILIEGIO x ACARI",
+    "CILIEGIO x AFIDI",
+    "CILIEGIO x CICALINE",
+    "CILIEGIO x COCCINIGLIE",
+    "CILIEGIO x ERIOFIDI",
+    "CILIEGIO x LEPIDOTTERI",
+    "CILIEGIO x METCALFA",
+    "CILIEGIO x TRIPIDI",
+    "CUCURBITACEE x ACARI",
+    "CUCURBITACEE x AFIDI",
+    "CUCURBITACEE x ALEURODIDI",
+    "CUCURBITACEE x CIMICI",
+    "CUCURBITACEE x DITTERI",
+    "CUCURBITACEE x TRIPIDI",
+    "FAGIOLO x ACARI",
+    "FAGIOLO x AFIDI",
+    "FAGIOLO x ALEURODIDI",
+    "FAGIOLO x DITTERI",
+    "FAGIOLO x LEPIDOTTERI",
+    "FAGIOLO x TRIPIDI",
+    "MANDORLO x ACARI",
+    "MANDORLO x AFIDI",
+    "MANDORLO x CICALINE",
+    "MANDORLO x COCCINIGLIE",
+    "MANDORLO x ERIOFIDI",
+    "MANDORLO x LEPIDOTTERI",
+    "MANDORLO x METCALFA",
+    "MANDORLO x TRIPIDI",
+    "PATATA x ACARI",
+    "PATATA x AFIDI",
+    "PATATA x DITTERI",
+    "PATATA x DORIFORA",
+    "PATATA x LEPIDOTTERI",
+    "PATATA x TRIPIDI",
+    "PEPERONE x ACARI",
+    "PEPERONE x AFIDI",
+    "PEPERONE x DITTERI",
+    "PEPERONE x DORIFORA",
+    "PEPERONE x LEPIDOTTERI",
+    "PEPERONE x TRIPIDI",
+    "PESCO x ACARI",
+    "PESCO x AFIDI",
+    "PESCO x CICALINE",
+    "PESCO x COCCINIGLIE",
+    "PESCO x ERIOFIDI",
+    "PESCO x LEPIDOTTERI",
+    "PESCO x METCALFA",
+    "PESCO x TRIPIDI",
+    "POMODORO x ACARI",
+    "POMODORO x AFIDI",
+    "POMODORO x DITTERI",
+    "POMODORO x DORIFORA",
+    "POMODORO x LEPIDOTTERI",
+    "POMODORO x TRIPIDI",
+    "SUSINO x ACARI",
+    "SUSINO x AFIDI",
+    "SUSINO x CICALINE",
+    "SUSINO x COCCINIGLIE",
+    "SUSINO x ERIOFIDI",
+    "SUSINO x LEPIDOTTERI",
+    "SUSINO x METCALFA",
+    "SUSINO x TRIPIDI",
+    "VITE x ACARI",
+    "VITE x AFIDI",
+    "VITE x CICALINE",
+    "VITE x COCCINIGLIE",
+    "VITE x ERIOFIDI",
+    "VITE x LEPIDOTTERI",
+    "VITE x METCALFA",
+    "VITE x TIGNOLE",
+    "VITE x TRIPIDI"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "014386",
+   "PRODUCT": "OLIONET",
+   "ESTRUTURA": "B_CULTURA_SEGUIDA_DE_VARIOS_ALVOS",
+   "EXPECTED": 1,
+   "RECOVERED": 1,
+   "MISSED": [],
+   "EXTRA": [
+    "ALBICOCCO x ACARI",
+    "ALBICOCCO x AFIDI",
+    "ALBICOCCO x CICALINE",
+    "ALBICOCCO x COCCINIGLIE",
+    "ALBICOCCO x ERIOFIDI",
+    "ALBICOCCO x LEPIDOTTERI",
+    "ALBICOCCO x METCALFA",
+    "ALBICOCCO x TRIPIDI",
+    "CARCIOFO x ACARI",
+    "CARCIOFO x AFIDI",
+    "CARCIOFO x ALEURODIDI",
+    "CARCIOFO x DITTERI",
+    "CARCIOFO x LEPIDOTTERI",
+    "CARCIOFO x TRIPIDI",
+    "CILIEGIO x ACARI",
+    "CILIEGIO x AFIDI",
+    "CILIEGIO x CICALINE",
+    "CILIEGIO x COCCINIGLIE",
+    "CILIEGIO x ERIOFIDI",
+    "CILIEGIO x LEPIDOTTERI",
+    "CILIEGIO x METCALFA",
+    "CILIEGIO x TRIPIDI",
+    "CUCURBITACEE x ACARI",
+    "CUCURBITACEE x AFIDI",
+    "CUCURBITACEE x ALEURODIDI",
+    "CUCURBITACEE x CIMICI",
+    "CUCURBITACEE x DITTERI",
+    "CUCURBITACEE x TRIPIDI",
+    "FAGIOLO x ACARI",
+    "FAGIOLO x AFIDI",
+    "FAGIOLO x ALEURODIDI",
+    "FAGIOLO x DITTERI",
+    "FAGIOLO x LEPIDOTTERI",
+    "FAGIOLO x TRIPIDI",
+    "MANDORLO x ACARI",
+    "MANDORLO x AFIDI",
+    "MANDORLO x CICALINE",
+    "MANDORLO x COCCINIGLIE",
+    "MANDORLO x ERIOFIDI",
+    "MANDORLO x LEPIDOTTERI",
+    "MANDORLO x METCALFA",
+    "MANDORLO x TRIPIDI",
+    "NOCCIOLO x ACARI",
+    "NOCCIOLO x AFIDI",
+    "NOCCIOLO x CICALINE",
+    "NOCCIOLO x CIMICI",
+    "NOCCIOLO x COCCINIGLIE",
+    "NOCCIOLO x ERIOFIDI",
+    "NOCCIOLO x METCALFA",
+    "NOCCIOLO x PSILLE",
+    "NOCE x ACARI",
+    "NOCE x AFIDI",
+    "NOCE x CICALINE",
+    "NOCE x CIMICI",
+    "NOCE x COCCINIGLIE",
+    "NOCE x ERIOFIDI",
+    "NOCE x METCALFA",
+    "NOCE x PSILLE",
+    "OLIVO x TIGNOLE",
+    "PATATA x ACARI",
+    "PATATA x AFIDI",
+    "PATATA x DITTERI",
+    "PATATA x DORIFORA",
+    "PATATA x LEPIDOTTERI",
+    "PATATA x TRIPIDI",
+    "PEPERONE x ACARI",
+    "PEPERONE x AFIDI",
+    "PEPERONE x DITTERI",
+    "PEPERONE x DORIFORA",
+    "PEPERONE x LEPIDOTTERI",
+    "PEPERONE x TRIPIDI",
+    "PESCO x ACARI",
+    "PESCO x AFIDI",
+    "PESCO x CICALINE",
+    "PESCO x COCCINIGLIE",
+    "PESCO x ERIOFIDI",
+    "PESCO x LEPIDOTTERI",
+    "PESCO x METCALFA",
+    "PESCO x TRIPIDI",
+    "POMODORO x ACARI",
+    "POMODORO x AFIDI",
+    "POMODORO x DITTERI",
+    "POMODORO x DORIFORA",
+    "POMODORO x LEPIDOTTERI",
+    "POMODORO x TRIPIDI",
+    "SUSINO x ACARI",
+    "SUSINO x AFIDI",
+    "SUSINO x CICALINE",
+    "SUSINO x COCCINIGLIE",
+    "SUSINO x ERIOFIDI",
+    "SUSINO x LEPIDOTTERI",
+    "SUSINO x METCALFA",
+    "SUSINO x TRIPIDI",
+    "VITE x ACARI",
+    "VITE x AFIDI",
+    "VITE x CICALINE",
+    "VITE x COCCINIGLIE",
+    "VITE x ERIOFIDI",
+    "VITE x LEPIDOTTERI",
+    "VITE x METCALFA",
+    "VITE x TIGNOLE",
+    "VITE x TRIPIDI"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "007555",
+   "PRODUCT": "KLARTAN 20 EW",
+   "ESTRUTURA": "B_CULTURA_SEGUIDA_DE_VARIOS_ALVOS",
+   "EXPECTED": 14,
+   "RECOVERED": 0,
+   "MISSED": [
+    "AGRUMI x AFIDI",
+    "AGRUMI x TIGNOLE",
+    "MELO x AFIDI",
+    "MELO x CECIDOMIA",
+    "MELO x CIMICI",
+    "MELO x COCCINIGLIE",
+    "MELO x LEPIDOTTERI",
+    "MELO x PSILLE",
+    "PERO x AFIDI",
+    "PERO x CECIDOMIA",
+    "PERO x CIMICI",
+    "PERO x COCCINIGLIE",
+    "PERO x LEPIDOTTERI",
+    "PERO x PSILLE"
+   ],
+   "EXTRA": []
+  },
+  {
+   "REGISTRATION_ID": "002983",
+   "PRODUCT": "NIMROD",
+   "ESTRUTURA": "C_TABELA_CULTURA_ALVO_DOSE",
+   "EXPECTED": 3,
+   "RECOVERED": 2,
+   "MISSED": [
+    "VITE x OIDIO"
+   ],
+   "EXTRA": [
+    "CETRIOLO x OIDIO",
+    "COCOMERO x OIDIO",
+    "MELO x OIDIO",
+    "MELONE x OIDIO",
+    "ZUCCHINO x OIDIO"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "016312",
+   "PRODUCT": "TOMIGAN",
+   "ESTRUTURA": "I_MULTI_CULTURA_NA_MESMA_CELULA",
+   "EXPECTED": 4,
+   "RECOVERED": 2,
+   "MISSED": [
+    "NOCCIOLO x INFESTANTI",
+    "NOCE x INFESTANTI"
+   ],
+   "EXTRA": [
+    "AGLIO x INFESTANTI",
+    "ALBICOCCO x INFESTANTI",
+    "CILIEGIO x INFESTANTI",
+    "CIPOLLA x INFESTANTI",
+    "MELO x INFESTANTI",
+    "PERO x INFESTANTI",
+    "PESCO x INFESTANTI",
+    "SUSINO x INFESTANTI"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "018101",
+   "PRODUCT": "MORAINE",
+   "ESTRUTURA": "I_MULTI_CULTURA_NA_MESMA_CELULA",
+   "EXPECTED": 2,
+   "RECOVERED": 2,
+   "MISSED": [],
+   "EXTRA": [
+    "ALBICOCCO x INFESTANTI",
+    "CILIEGIO x INFESTANTI",
+    "CIPOLLA x INFESTANTI",
+    "MELO x INFESTANTI",
+    "PERO x INFESTANTI",
+    "PESCO x INFESTANTI",
+    "SUSINO x INFESTANTI"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "015096",
+   "PRODUCT": "GLIPHOGAN TOP CL",
+   "ESTRUTURA": "I_MULTI_CULTURA_NA_MESMA_CELULA",
+   "EXPECTED": 6,
+   "RECOVERED": 6,
+   "MISSED": [],
+   "EXTRA": [
+    "MANDORLO x INFESTANTI",
+    "NOCCIOLO x INFESTANTI"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "017929",
+   "PRODUCT": "KORAVERT",
+   "ESTRUTURA": "I_MULTI_CULTURA_NA_MESMA_CELULA",
+   "EXPECTED": 5,
+   "RECOVERED": 5,
+   "MISSED": [],
+   "EXTRA": [
+    "AGRUMI x INFESTANTI",
+    "MANDORLO x INFESTANTI",
+    "NOCCIOLO x INFESTANTI"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "017930",
+   "PRODUCT": "AKTIVIR",
+   "ESTRUTURA": "I_MULTI_CULTURA_NA_MESMA_CELULA",
+   "EXPECTED": 4,
+   "RECOVERED": 4,
+   "MISSED": [],
+   "EXTRA": [
+    "AGRUMI x INFESTANTI",
+    "MANDORLO x INFESTANTI",
+    "NOCCIOLO x INFESTANTI",
+    "PERO x INFESTANTI"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "016387",
+   "PRODUCT": "HERBITOTAL CL",
+   "ESTRUTURA": "I_MULTI_CULTURA_NA_MESMA_CELULA",
+   "EXPECTED": 3,
+   "RECOVERED": 0,
+   "MISSED": [
+    "MELO x INFESTANTI",
+    "OLIVO x INFESTANTI",
+    "VITE x INFESTANTI"
+   ],
+   "EXTRA": []
+  },
+  {
+   "REGISTRATION_ID": "015401",
+   "PRODUCT": "TAIFUN MK CL",
+   "ESTRUTURA": "I_MULTI_CULTURA_NA_MESMA_CELULA",
+   "EXPECTED": 3,
+   "RECOVERED": 0,
+   "MISSED": [
+    "MELO x INFESTANTI",
+    "OLIVO x INFESTANTI",
+    "VITE x INFESTANTI"
+   ],
+   "EXTRA": []
+  },
+  {
+   "REGISTRATION_ID": "015405",
+   "PRODUCT": "SHAMAL MK PLUS CL",
+   "ESTRUTURA": "I_MULTI_CULTURA_NA_MESMA_CELULA",
+   "EXPECTED": 2,
+   "RECOVERED": 2,
+   "MISSED": [],
+   "EXTRA": [
+    "MANDORLO x INFESTANTI",
+    "MELO x INFESTANTI",
+    "NOCCIOLO x INFESTANTI",
+    "NOCE x INFESTANTI",
+    "PERO x INFESTANTI",
+    "VITE x INFESTANTI"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "009757",
+   "PRODUCT": "SPYRALE",
+   "ESTRUTURA": "G_TEXTO_CORRIDO",
+   "EXPECTED": 1,
+   "RECOVERED": 0,
+   "MISSED": [
+    "BARBABIETOLA x MALATTIE_FUNGINE"
+   ],
+   "EXTRA": []
+  },
+  {
+   "REGISTRATION_ID": "017955",
+   "PRODUCT": "MAGANIC",
+   "ESTRUTURA": "G_TEXTO_CORRIDO",
+   "EXPECTED": 1,
+   "RECOVERED": 0,
+   "MISSED": [
+    "FRUMENTO x MALATTIE_FUNGINE"
+   ],
+   "EXTRA": []
+  },
+  {
+   "REGISTRATION_ID": "015740",
+   "PRODUCT": "VINETO",
+   "ESTRUTURA": "G_TEXTO_CORRIDO",
+   "EXPECTED": 1,
+   "RECOVERED": 0,
+   "MISSED": [
+    "VITE x OIDIO"
+   ],
+   "EXTRA": []
+  },
+  {
+   "REGISTRATION_ID": "016152",
+   "PRODUCT": "SEEDRON",
+   "ESTRUTURA": "G_TEXTO_CORRIDO",
+   "EXPECTED": 4,
+   "RECOVERED": 0,
+   "MISSED": [
+    "SEGALE x CARBONE",
+    "SEGALE x FUSARIOSI",
+    "TRITICALE x CARBONE",
+    "TRITICALE x FUSARIOSI"
+   ],
+   "EXTRA": []
+  }
+ ]
+}

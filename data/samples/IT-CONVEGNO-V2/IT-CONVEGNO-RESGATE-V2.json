@@ -1,0 +1,146 @@
+{
+ "DATASET": "IT-CONVEGNO-V2",
+ "LAYER": "SCIENTIFIC_CONFERENCE_SPEECH_ITALY",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-CONVEGNO-V2",
+ "CAPTURED_AT": "2026-09-04",
+ "SOURCE": "resgate dos tres objetos que FECHARAM na conta anterior e cujos bytes nunca foram commitados. Mesma rota da coleta original: youtube.com/api/timedtext, formato json3, sem credencial, sem cookie, 0 USD.",
+ "POR_QUE_ESTE_ARQUIVO_EXISTE": "a conta anterior fechou 22 objetos e escreveu esse numero dentro do FIX-06, mas commitou apenas 17 falas. Os outros bytes viviam no scratchpad efemero /tmp/claude-0/.../b6cc5475-b0e9-5242-bac3-292cc842a48f/, que morreu com o contêiner. O handoff entre contas dizia 'NAO recolher novamente' porque acreditava que os resultados estavam salvos. Nao estavam. Este arquivo e a diferenca entre um objeto preservado e um objeto que sumiu em silencio.",
+ "ISTO_NAO_E_RECOLETA_DOS_22": "os 17 objetos de IT-CONVEGNO-V1 NAO foram tocados: continuam com o mesmo sha, a mesma data de captura e a mesma proveniencia. O que foi recolhido sao exatamente os TRES objetos cujos bytes nao existiam em lugar nenhum.",
+ "PROVA_DE_IDENTIDADE": "CHARS_DELTA = 0 nos tres. O numero de caracteres bate EXATAMENTE com o que a conta anterior mediu (59.137, 4.767 e 171.715). Se fosse outra faixa de legenda, outro idioma ou outra passagem do ASR, o numero nao bateria.",
+ "OBJECTS": 3,
+ "SPEECH_CHARS": 235619,
+ "CUSTO_USD": 0,
+ "FIX_06_REMEDIDO_NESTA_CONTA": {
+  "O_QUE_ACONTECEU": "o objeto -4lUyIORl4A levou bot-check ('Sign in to confirm you are not a bot') nas tentativas 1 e 2, e devolveu HTTP 200 com 3.155.193 B na tentativa 3, depois de espera. Nenhuma credencial, nenhum cookie.",
+  "O_QUE_ISSO_CONFIRMA": "LEGENDA E FILA, e a fila cede a espera. Medido de novo, por outra conta, em outro contêiner, com outra instalacao do yt-dlp.",
+  "O_QUE_ISSO_NAO_ESTENDE": "nada sobre googlevideo.com. O binario de midia continua sendo MURO e nao foi tentado aqui nem uma vez. A distincao do FIX-06 fica como esta: a primeira e fila, a segunda e muro."
+ },
+ "VOZ_ADAMA_x_VOZ_INDEPENDENTE": "dois dos tres objetos sao ADAMA_OWN_VOICE e NAO contam como evidencia externa independente sobre oportunidade ADAMA (secao 16 da missao). Eles valem por linguagem tecnica, posicionamento, temas, produtos e prioridades — e para confrontar com o que fontes externas dizem.",
+ "ITEMS": [
+  {
+   "EXTERNAL_ID": "wh20ZkHf5Cc",
+   "PLATFORM": "YOUTUBE",
+   "URL": "https://www.youtube.com/watch?v=wh20ZkHf5Cc",
+   "TITLE": "ADAMA Italia | WEBINAR: Difesa dei cereali, strategia intelligenti per performance eccellenti.",
+   "PUBLICATION_DATE": "2026-02-18",
+   "CHANNEL_NAME": "Adama Italia",
+   "CHANNEL_ID": "UCtLl6jwUA4UaZI6mDRXm51Q",
+   "DURATION_S": 4277,
+   "SOURCE_TYPE": "COMPANY_WEBINAR",
+   "TRANSCRIPT_ORIGIN": "YOUTUBE_ASR_AUTO",
+   "TRANSCRIPT_LENGTH": 59137,
+   "CHARS_DELTA_VS_PREVIOUS_ACCOUNT": 0,
+   "VOICE_CLASS": "ADAMA_OWN_VOICE",
+   "ATTEMPTS_NEEDED": 1,
+   "IMPORTANCIA": "PRIMEIRA VOZ TECNICA DA PROPRIA ADAMA ITALIA em toda a missao. Ate aqui o acervo so tinha voz externa falando sobre o mercado; aqui a empresa fala por si.",
+   "SPEAKERS": [
+    {
+     "NAME": "Tommaso Cesani",
+     "NAME_AS_ASR_WROTE_IT": "Tommaso 5ani",
+     "ROLE": "MODERATOR",
+     "ORGANIZATION": "AgroNotizie",
+     "VOICE_CLASS": "INDEPENDENT_EXTERNAL_SOURCE",
+     "RESSALVA": "a pessoa e independente; o PALCO e da ADAMA. Nao usar a presenca de um jornalista para chamar o webinar de fonte independente."
+    },
+    {
+     "NAME": "Massimo Blandino",
+     "ROLE": "ACADEMIC_SPEAKER",
+     "ORGANIZATION": "Universita di Torino",
+     "VOICE_CLASS": "INVITED_BY_ADAMA_NOT_INDEPENDENT_ABOUT_ADAMA",
+     "RESSALVA": "cientista externo real, convidado e enquadrado pela ADAMA neste palco. Vale como fala tecnica. NAO vale como voz independente que corrobore oportunidade ADAMA."
+    },
+    {
+     "NAME": "Isotta Zironi",
+     "ROLE": "COMPANY_TECHNICAL_SPEAKER",
+     "ORGANIZATION": "ADAMA Italia",
+     "VOICE_CLASS": "ADAMA_OWN_VOICE"
+    }
+   ],
+   "CROP": ["FRUMENTO", "ORZO", "CEREALI"],
+   "PRODUCT_NAMED": {
+    "AVASTEL": {
+     "MENTIONS": 15,
+     "OWNER": "ADAMA",
+     "ACTIVE_INGREDIENT": "fluxapyroxad",
+     "ASR_SPELLING": "fluxapiroxad",
+     "NA_LISTA_DAS_53": true
+    }
+   },
+   "ACTIVE_INGREDIENT_ALSO_NAMED": [
+    {"NAME": "mesosulfuron", "MENTIONS": 3, "NA_LISTA_DAS_53": true},
+    {"NAME": "pinoxaden", "MENTIONS": 2, "NA_LISTA_DAS_53": true}
+   ],
+   "EXACT_QUOTE": "vi invito calorosamente a fare delle domande eh sia il professor Massimo Blandino e che parlera per primo e sia Isotta Zironi di di Adama che che parlera successivamente",
+   "EXACT_QUOTE_2": "La nuovissima soluzione e Avastel che si collega un po' a tutte le tematiche che gia il professor Blandino ha eh sapientemente spiegato",
+   "EVIDENCE_ROLE": "COMPANY_LANGUAGE_AND_POSITIONING",
+   "SIGNAL_DIRECTION": "NOT_A_FIELD_SIGNAL",
+   "O_QUE_ISTO_NAO_E": "nao e sinal de campo e nao e voz independente. Uma empresa dizendo que o proprio produto resolve nao e evidencia de pressao de campo nem de oportunidade — e declaracao de posicionamento, com o valor que isso tem.",
+   "CONFIDENCE": "HIGH_ON_PROVENANCE_NOT_APPLICABLE_ON_FIELD_SIGNAL"
+  },
+  {
+   "EXTERNAL_ID": "AOOVhtTQvPA",
+   "PLATFORM": "YOUTUBE",
+   "URL": "https://www.youtube.com/watch?v=AOOVhtTQvPA",
+   "TITLE": "GF 2022 - Intervista a Mirco Casagrandi sull’evoluzione nel controllo delle malerbe",
+   "PUBLICATION_DATE": "2022-10-25",
+   "CHANNEL_NAME": "Giornate Fitopatologiche",
+   "CHANNEL_ID": "UCmuo68gCrv47dU3m71jz22Q",
+   "DURATION_S": 331,
+   "SOURCE_TYPE": "CONFERENCE_INTERVIEW",
+   "TRANSCRIPT_ORIGIN": "YOUTUBE_ASR_AUTO",
+   "TRANSCRIPT_LENGTH": 4767,
+   "CHARS_DELTA_VS_PREVIOUS_ACCOUNT": 0,
+   "VOICE_CLASS": "ADAMA_OWN_VOICE",
+   "ATTEMPTS_NEEDED": 1,
+   "SPEAKERS": [
+    {
+     "NAME": "Mirco Casagrandi",
+     "ROLE": "CONSULTANT_INTERVIEWEE",
+     "ORGANIZATION": "consulente ADAMA Italia",
+     "VOICE_CLASS": "ADAMA_OWN_VOICE",
+     "RESSALVA": "o PUBLICADOR e independente (Giornate Fitopatologiche); o FALANTE nao. A independencia do canal nao lava a filiacao do falante."
+    }
+   ],
+   "CROP": ["SEMINATIVI"],
+   "TARGET": ["MALERBE", "INFESTANTI"],
+   "EXACT_QUOTE": "e chiaro che gli erbicidi non sono l'unico Pilastro ma sono uno dei pilastri tutto il resto in mano il produttore con le lavorazioni",
+   "EVIDENCE_ROLE": "COMPANY_LANGUAGE_AND_POSITIONING",
+   "SIGNAL_DIRECTION": "NOT_A_FIELD_SIGNAL",
+   "CORRECAO_DE_TITULO": "o handoff entre contas chamava isto de 'Intervento completo di Mirco Casagrandi'. O titulo REAL, lido do metadado nesta conta, e 'GF 2022 - Intervista a Mirco Casagrandi sull’evoluzione nel controllo delle malerbe'. E uma ENTREVISTA de 331 s, de 2022, e nao um intervento completo. O conteudo continua valendo; a descricao e que estava larga.",
+   "CONFIDENCE": "HIGH_ON_PROVENANCE"
+  },
+  {
+   "EXTERNAL_ID": "-4lUyIORl4A",
+   "PLATFORM": "YOUTUBE",
+   "URL": "https://www.youtube.com/watch?v=-4lUyIORl4A",
+   "TITLE": "Il bilancio fitosanitario 2024/2025 dell'olivo- I sessione",
+   "PUBLICATION_DATE": "2025-12-11",
+   "CHANNEL_NAME": "AIPP Associazione Italiana Protezione Piante",
+   "CHANNEL_ID": "UCktJyIUm3qJJpThrTa8nsHQ",
+   "DURATION_S": 14485,
+   "SOURCE_TYPE": "RESEARCH_TALK",
+   "TRANSCRIPT_ORIGIN": "YOUTUBE_ASR_AUTO",
+   "TRANSCRIPT_LENGTH": 171715,
+   "CHARS_DELTA_VS_PREVIOUS_ACCOUNT": 0,
+   "VOICE_CLASS": "INDEPENDENT_EXTERNAL_SOURCE",
+   "ATTEMPTS_NEEDED": 3,
+   "ATTEMPTS_NOTE": "bot-check nas tentativas 1 e 2, HTTP 200 na tentativa 3 apos espera. E a fila do FIX-06, remedida nesta conta.",
+   "CROP": ["OLIVO"],
+   "PAIRED_WITH": "azHKlPD3qAg",
+   "OBJETOS_DISTINTOS_CONFERIDO": "esta e a I SESSIONE; azHKlPD3qAg, ja no acervo desde IT-CONVEGNO-V1, e a II SESSIONE. Sao dois objetos DISTINTOS e nao uma duplicata: ids distintos, duracoes distintas (14.485 s contra 11.397 s), mesma data de publicacao e mesmo canal. Cada um mantem a sua propria proveniencia. NAO ha duplicacao semantica a resolver.",
+   "EVIDENCE_ROLE": "SCIENTIFIC_SPEECH_NOT_YET_CROSSED",
+   "SIGNAL_DIRECTION": "NOT_YET_READ",
+   "NOTA_ASSIMETRIA": "OLIVO tem UM unico par de rotulo ADAMA lido (MORAINE 018101 x INFESTANTI, um herbicida) e 3 oportunidades. A lacuna e de LEITURA e nao prova ausencia de mercado. Estas duas sessoes sao a maior massa de fala sobre olivo do acervo e ainda NAO foram lidas por nenhum agente.",
+   "CONFIDENCE": "HIGH_ON_PROVENANCE_UNREAD_ON_CONTENT"
+  }
+ ],
+ "GAP_MEDIDO_E_NAO_FECHADO": {
+  "O_QUE_FALTA": "2 objetos e 28.473 caracteres",
+  "CONTA": "o FIX-06 declara 22 objetos e 3.075.569 caracteres colhidos pela rota timedtext. Em git ha 17 objetos do convegno com 2.811.477 caracteres, mais os 3 resgatados aqui com 235.619 — total 20 objetos e 3.047.096 caracteres.",
+  "POR_QUE_NAO_FECHOU": "os ids desses 2 objetos nao estao escritos em nenhum arquivo versionado. Eles existiam apenas na memoria da sessao anterior e no scratchpad que morreu.",
+  "O_QUE_NAO_FIZ": "nao adivinhei quais eram. Procurei em IT-VIDEO-V1 um objeto de 28.473 caracteres e um par que somasse 28.473: nenhum dos dois existe. Inventar dois ids para fechar a aritmetica seria pior que declarar o buraco.",
+  "ESTADO": "UNKNOWN_2_OBJECTS"
+ },
+ "NOTES": "Nenhuma transcricao foi inventada. Nenhuma rota paga foi usada. Nenhuma tentativa de binario googlevideo foi feita. Os 17 objetos de IT-CONVEGNO-V1 nao foram tocados. STATUS_CHANGES = 0, SCORE_CHANGES = 0: nada aqui promove nada."
+}
