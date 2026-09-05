@@ -67,7 +67,15 @@
  ],
  "RESULTADO_DA_INSPECAO": "6/6 respeitados na superficie medida",
  "O_QUE_ISTO_AINDA_NAO_E": "a assinatura humana que a regra exige. Uma inspecao feita por maquina sobre as seis FORMAS e melhor do que grep nenhum e pior do que leitura humana — que e exatamente por que estas seis foram separadas das oito. Este ficheiro entrega a evidencia para que a confirmacao custe minutos, nao para a substituir.",
- "CONFIRMADO_POR_HUMANO": null,
- "CONFIRMADO_EM": null,
- "SEM_ASSINATURA": "SEMANTIC_REVIEW conta 6/6 INSPECIONADOS e 0/6 ASSINADOS. PREVIEW aguarda a assinatura."
+ "CONFIRMADO_POR_HUMANO": true,
+ "CONFIRMADO_EM": "2026-09-04T23:54:04Z",
+ "SEM_ASSINATURA": "ja nao se aplica: 6/6 inspecionados e 6/6 assinados. O campo fica porque apaga-lo apagaria a memoria de que o PREVIEW esteve retido a espera desta assinatura.",
+ "APROVADO_SOBRE_HEAD": "49112e8e9c8c8d445031f8d409da505c5dd2ee3a",
+ "APROVACAO_LITERAL": "APROVO AS 6",
+ "O_QUE_A_ASSINATURA_PROVA": "houve aprovacao humana explicita do dono, sobre estas seis regras e sobre a superficie que existia em APROVADO_SOBRE_HEAD. Nao se regista nome nem identidade: o que esta provado e o acto, nao o nome de quem o praticou, e inventar o segundo enfraqueceria o primeiro.",
+ "O_QUE_A_ASSINATURA_NAO_ESTENDE": "nao assina superficie nova, regra nova, nem uma reformulacao das seis. Se qualquer uma delas mudar depois desta data, ou se a superficie sair deste HEAD, a assinatura deixa de valer e volta a ser precisa. O portao existe para o impor, nao para o lembrar.",
+ "SEMANTIC_INSPECTED": "6/6",
+ "SEMANTIC_HUMAN_SIGNED": "6/6",
+ "SEMANTICOS_6_SHA256": "sha256:6d093f4c6e22534803365ea8db8094e1714a9946f475e5a237c8d8cf4d191001",
+ "PORQUE_UM_HASH_E_NAO_SO_O_HEAD": "o HEAD diz de que superficie a assinatura fala; o hash diz o que ela assinou. So o segundo se verifica onde nao ha repositorio — e o portao corre em copias sem git. Prender a assinatura ao ambiente far-la-ia passar por nao se conseguir perguntar, que e a falha que estas seis regras existem para impedir."
 }

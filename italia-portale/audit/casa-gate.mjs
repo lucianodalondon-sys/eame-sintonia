@@ -26,6 +26,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import vm from 'node:vm';
+import { spawnSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { PT_MARKERS } from './lang.mjs';
@@ -433,6 +434,66 @@ check('ONE_SURFACE_NAME_ONE_POPULATION', () => {
     `navSources «${rot('navSources').join(' / ')}» -> ${donoSources} · ${idsSources.length} SRC_`,
     `«Radar Futuro» fica reservado aos ${canonicos.size} ITFC · interseccao IT-FUT x ITFC = 0`,
     'controlo negativo: os dois nomes canonicos aplicados ao legado SAO apanhados',
+  ] };
+});
+
+/* ── a assinatura humana, e o que ela cobre ──────────────────────────────── */
+/* As seis regras semanticas nao sao grepaveis: proibem uma FORMA de afirmacao,
+   nao uma string. A maquina inspecciona e mostra a evidencia; quem assina e o
+   humano. Este portao nao produz assinatura nenhuma — le a que existe, e recusa
+   se ela nao existir ou se ja nao for sobre esta superficie.
+
+       UMA ASSINATURA QUE VIAJA SOZINHA PARA A VERSAO SEGUINTE
+       NAO E UMA ASSINATURA: E UM CARIMBO.
+
+   Por isso a assinatura fica presa ao HEAD sobre o qual foi dada, e ao conteudo
+   exacto das seis regras nessa altura. Mudar uma delas depois nao invalida o que
+   foi lido: invalida a afirmacao de que continua lido. */
+check('SEMANTIC_HUMAN_SIGNED', () => {
+  const F = path.join(AQUI, 'DO-NOT-SHOW-SEMANTIC-REVIEW.json');
+  if (!fs.existsSync(F)) return { pass: false, detail: ['a ficha de revisao semantica nao existe'] };
+  const S = JSON.parse(fs.readFileSync(F, 'utf8'));
+  const bad = [];
+
+  if ((S.SEMANTICOS_6 || []).length !== 6) bad.push(`a ficha tem ${(S.SEMANTICOS_6 || []).length} regras, nao 6`);
+  if (S.CONFIRMADO_POR_HUMANO !== true) bad.push(`CONFIRMADO_POR_HUMANO = ${JSON.stringify(S.CONFIRMADO_POR_HUMANO)} — sem assinatura humana nao ha PREVIEW`);
+  if (!S.CONFIRMADO_EM) bad.push('a assinatura nao diz quando foi dada');
+  if (!S.APROVACAO_LITERAL) bad.push('a assinatura nao guarda as palavras da aprovacao');
+
+  /* O QUE FOI ASSINADO — verificavel em qualquer lado, sem repositorio.
+     A primeira versao disto prendia a assinatura ao git, e reprovou na copia de
+     sandbox do controlo negativo — que copia so italia-portale/ e nao leva .git.
+     Prender a assinatura ao AMBIENTE fa-la-ia passar por nao se conseguir
+     perguntar, que e a falha que estas seis regras existem para impedir.
+
+         O HEAD DIZ DE QUE SUPERFICIE A ASSINATURA FALA.
+         O HASH DIZ O QUE ELA ASSINOU. So o segundo se verifica em toda a parte. */
+  const canon = JSON.stringify(S.SEMANTICOS_6);
+  const agora = 'sha256:' + crypto.createHash('sha256').update(canon, 'utf8').digest('hex');
+  if (!S.SEMANTICOS_6_SHA256) bad.push('a assinatura nao guarda o hash do que assinou');
+  else if (S.SEMANTICOS_6_SHA256 !== agora)
+    bad.push('as seis regras mudaram depois da aprovacao — e precisa nova assinatura humana');
+
+  /* A LINHAGEM — verificacao adicional, so onde ha repositorio. A sua ausencia
+     nao afrouxa nada: o que garante o essencial e o hash acima. */
+  const cabeca = S.APROVADO_SOBRE_HEAD;
+  let sobre = 'sem repositorio aqui — linhagem nao verificada, conteudo sim';
+  if (!cabeca) bad.push('a assinatura nao diz sobre que HEAD foi dada');
+  else {
+    const raiz = path.resolve(AQUI, '..', '..');
+    const eRepo = spawnSync('git', ['rev-parse', '--git-dir'], { cwd: raiz }).status === 0;
+    if (eRepo) {
+      const existe = spawnSync('git', ['cat-file', '-e', `${cabeca}^{commit}`], { cwd: raiz }).status === 0;
+      if (!existe) bad.push(`APROVADO_SOBRE_HEAD ${cabeca.slice(0, 7)} nao existe neste repositorio`);
+      else if (spawnSync('git', ['merge-base', '--is-ancestor', cabeca, 'HEAD'], { cwd: raiz }).status !== 0)
+        bad.push(`a assinatura foi dada sobre ${cabeca.slice(0, 7)}, que nao esta na historia desta superficie`);
+      else sobre = `${cabeca.slice(0, 7)} e antepassado desta superficie`;
+    }
+  }
+  return { pass: !bad.length, detail: bad.length ? bad : [
+    `INSPECTED 6/6 · HUMAN_SIGNED 6/6 · «${S.APROVACAO_LITERAL}» em ${S.CONFIRMADO_EM}`,
+    `as seis regras batem com o hash assinado: ${agora.slice(0, 23)}…`,
+    sobre,
   ] };
 });
 
