@@ -2,28 +2,120 @@
  "SOURCE_ID": "LINHA-B/DO-NOT-SHOW-QA",
  "O_QUE_ISTO_E": "a ADAPTACAO QA DA LINHA B das 14 regras DO_NOT_SHOW do handoff Human Sensors. A divisao 8 literais / 6 semanticos NAO vem do handoff: o handoff traz 14 regras de igual peso, e quem as separou por testabilidade foi esta linha. Por isso mora aqui e nao no artefacto de origem.",
  "POR_QUE_O_EQUIVALENTE_ITALIANO": "as regras estao escritas em portugues e o ecra e italiano. Um `includes()` da frase portuguesa contra uma pagina italiana passa sempre — nao porque a regra e respeitada, mas porque a frase nunca podia la estar. Medido em 2026-09-04: injetei «copertura BUONA in 72 celle. C'e un problema in questa regione. Spazio libero: 0 sottotitoli.» na casa e o portao deu 14/14.",
- "O_QUE_ISTO_NAO_E": "revisao semantica. Continua a ser grep, agora em duas linguas. As 6 regras semanticas proibem uma LEITURA e nao uma cadeia de caracteres, e nenhuma delas e coberta por este ficheiro.",
+ "O_QUE_ISTO_NAO_E": "revisao semantica. Continua a ser grep, agora em duas linguas. As 6 regras semanticas proibem uma LEITURA e nao uma cadeia de caracteres, e nenhuma delas e coberta por este ficheiro. E continua a nao o ser em tres linguas em vez de duas: mais cobertura de grep nao e um grama de revisao semantica.",
  "A_NEGACAO_E_LEGITIMA": "a casa DIZ as frases proibidas para as negar — «si dice X, mai Y» e «la mappa risponde A. Non risponde B». Isso e a pedagogia certa, e um controlo que a proibisse estaria a exigir que a tela escondesse a propria regra. Por isso a ocorrencia so conta quando NAO ha marcador de negacao na janela anterior.",
  "JANELA_DE_NEGACAO_CHARS": 80,
- "MARCADORES_DE_NEGACAO": ["mai", "non risponde", "non dice", "non ", "nunca", "jamais", "mai come", "invece di"],
+ "MARCADORES_DE_NEGACAO": [
+  "mai",
+  "non risponde",
+  "non dice",
+  "non ",
+  "nunca",
+  "jamais",
+  "mai come",
+  "invece di",
+  "never",
+  "does not",
+  "do not",
+  "not ",
+  "instead of"
+ ],
  "LITERAIS": [
-  { "ACHADO": "04_SOCIAL_YOUTUBE", "PT": "0 legendas",
-    "IT": ["0 sottotitoli", "nessun sottotitolo"] },
-  { "ACHADO": "02_AUTORIZACOES_ADAMA", "PT": "155 autorizações",
-    "IT": ["155 autorizzazioni"] },
-  { "ACHADO": "05_PESSOAS_E_PAPEIS", "PT": "114 pessoas",
-    "IT": ["114 persone"] },
-  { "ACHADO": "05_PESSOAS_E_PAPEIS", "PT": "temos agrônomos e produtores na base",
-    "IT": ["abbiamo agronomi e produttori", "agronomi e produttori nella base"] },
-  { "ACHADO": "06_COBERTURA_TERRITORIAL", "PT": "72 células",
-    "IT": ["copertura BUONA"],
-    "NOTA": "o numero 72 e legitimo — a casa diz «72 con l'espansione territoriale dichiarata». O proibido e o juizo BUONA sobre ele, e e esse que o equivalente italiano persegue." },
-  { "ACHADO": "06_COBERTURA_TERRITORIAL", "PT": "há problema nesta região",
-    "IT": ["c'è un problema in questa regione", "c’è un problema in questa regione", "qui c'è un problema", "qui c’è un problema"] },
-  { "ACHADO": "04_SOCIAL_YOUTUBE", "PT": "61 documentos relevantes",
-    "IT": ["61 documenti rilevanti"] },
-  { "ACHADO": "09_ROTULO_OPORTUNIDADE", "PT": "espaço livre",
-    "IT": ["spazio libero", "asset sottoutilizzato"] }
+  {
+   "ACHADO": "04_SOCIAL_YOUTUBE",
+   "PT": "0 legendas",
+   "IT": [
+    "0 sottotitoli",
+    "nessun sottotitolo"
+   ],
+   "EN": [
+    "0 subtitles",
+    "no subtitles"
+   ]
+  },
+  {
+   "ACHADO": "02_AUTORIZACOES_ADAMA",
+   "PT": "155 autorizações",
+   "IT": [
+    "155 autorizzazioni"
+   ],
+   "EN": [
+    "155 authorisations",
+    "155 authorizations"
+   ]
+  },
+  {
+   "ACHADO": "05_PESSOAS_E_PAPEIS",
+   "PT": "114 pessoas",
+   "IT": [
+    "114 persone"
+   ],
+   "EN": [
+    "114 people",
+    "114 persons"
+   ]
+  },
+  {
+   "ACHADO": "05_PESSOAS_E_PAPEIS",
+   "PT": "temos agrônomos e produtores na base",
+   "IT": [
+    "abbiamo agronomi e produttori",
+    "agronomi e produttori nella base"
+   ],
+   "EN": [
+    "we have agronomists and growers in the base",
+    "agronomists and growers in the base"
+   ]
+  },
+  {
+   "ACHADO": "06_COBERTURA_TERRITORIAL",
+   "PT": "72 células",
+   "IT": [
+    "copertura BUONA"
+   ],
+   "NOTA": "o numero 72 e legitimo — a casa diz «72 con l'espansione territoriale dichiarata». O proibido e o juizo BUONA sobre ele, e e esse que o equivalente italiano persegue.",
+   "EN": [
+    "GOOD coverage",
+    "coverage GOOD"
+   ]
+  },
+  {
+   "ACHADO": "06_COBERTURA_TERRITORIAL",
+   "PT": "há problema nesta região",
+   "IT": [
+    "c'è un problema in questa regione",
+    "c’è un problema in questa regione",
+    "qui c'è un problema",
+    "qui c’è un problema"
+   ],
+   "EN": [
+    "there is a problem in this region",
+    "there is a problem here"
+   ]
+  },
+  {
+   "ACHADO": "04_SOCIAL_YOUTUBE",
+   "PT": "61 documentos relevantes",
+   "IT": [
+    "61 documenti rilevanti"
+   ],
+   "EN": [
+    "61 relevant documents"
+   ]
+  },
+  {
+   "ACHADO": "09_ROTULO_OPORTUNIDADE",
+   "PT": "espaço livre",
+   "IT": [
+    "spazio libero",
+    "asset sottoutilizzato"
+   ],
+   "EN": [
+    "free space",
+    "underused asset",
+    "under-used asset"
+   ]
+  }
  ],
  "SEMANTICOS": [
   "qualquer data de publicação de documento social italiano",
@@ -32,5 +124,6 @@
   "ato europeu e registro nacional confirmam o mesmo fato",
   "X produtos foram retirados do mercado",
   "contagem de registros como participação de mercado"
- ]
+ ],
+ "POR_QUE_ANCHE_L_INGLESE": "a casa desenha-se tambem em INGLES, a um clique. O mesmo argumento que trouxe a coluna italiana vale uma lingua adiante: um grep italiano contra uma pagina inglesa passa sempre, e nao por a regra ser respeitada. Medido em 2026-09-05: com a tabela sem coluna inglesa, a superficie inglesa dizia «It never answers «qui c'è un problema»» — italiano dentro de uma frase inglesa — e foi este detector a apanha-lo, porque a negacao inglesa nao era reconhecida e a frase proibida contou como afirmada. A moldura passou a viajar em par IT+EN e os marcadores de negacao passaram a conhecer as duas linguas."
 }

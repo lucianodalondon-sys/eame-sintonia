@@ -31,6 +31,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { CLIENT, readPortal } from './lib/harness.mjs';
+import { medir, controloNegativo, QA } from './do-not-show.mjs';
 
 const results = [];
 const check = (id, title, fn) => {
@@ -55,9 +56,13 @@ const PINS = J('UPSTREAM-PINS.json');
 
        DUAS LISTAS DA MESMA LEI SÃO DUAS LEIS À ESPERA DE DISCORDAR.
 
-   O ficheiro traz também o equivalente ITALIANO de cada literal — necessário
-   porque as regras estão escritas em português e o ecrã fala italiano. */
-const QA_DNS = JSON.parse(fs.readFileSync(new URL('./DO-NOT-SHOW-QA.json', import.meta.url), 'utf8'));
+   O ficheiro traz também o equivalente ITALIANO e INGLÊS de cada literal —
+   necessário porque as regras estão escritas em português e o ecrã fala as
+   outras duas. E o DETECTOR também é um só, importado de `do-not-show.mjs`:
+   este portão media com `includes()` cru, o da casa media com a janela de
+   negação. Duas leituras da mesma lei, e a mais permissiva dava PASS sem
+   nunca ter disparado. */
+const QA_DNS = QA;
 const DO_NOT_SHOW_LITERAIS = QA_DNS.LITERAIS.map((x) => x.PT);
 const DO_NOT_SHOW_SEMANTICOS = QA_DNS.SEMANTICOS;
 
@@ -205,13 +210,22 @@ check('PORTAL_WITH_METHOD_REQUIRES_LIMIT', 'nothing ships with method and no dec
   return { pass: !bad.length, expected: 0, measured: `${(HS.PORTAL_WITH_METHOD || []).length} com metodo · ${Object.keys(ACH).length} achados em ${baldes.length} baldes`, detail: bad.slice(0, 6) };
 });
 
-check('DO_NOT_SHOW_LITERAL_8_OF_8', 'the eight greppable forbidden strings are absent from the screen', () => {
+check('DO_NOT_SHOW_LITERAL_8_OF_8', 'the eight greppable forbidden strings are absent from the screen, in the three languages', () => {
   const bad = [];
   const html = readPortal();
   if (DO_NOT_SHOW_LITERAIS.length !== 8) bad.push(`a lista literal tem ${DO_NOT_SHOW_LITERAIS.length}, não 8`);
-  for (const s of DO_NOT_SHOW_LITERAIS) if (html.includes(s)) bad.push(`o ecrã diz «${s}»`);
+  /* A LÍNGUA DA REGRA NÃO É A LÍNGUA DO ECRÃ. As regras estão em português e o
+     portal fala italiano e inglês: medir só o português passaria sempre — não
+     por a regra ser respeitada, mas por a frase nunca poder lá estar.
+
+     E a negação pedagógica não conta como afirmação: o portal DIZ a frase
+     proibida para a negar, e proibir isso seria exigir que escondesse a
+     própria regra. É o detector partilhado que sabe a diferença. */
+  for (const lg of ['PT', 'IT', 'EN']) bad.push(...medir(html, lg).map((m) => `${lg} · ${m}`));
+  bad.push(...controloNegativo());
   if ((HS.DO_NOT_SHOW || []).length !== 14) bad.push(`o handoff traz ${(HS.DO_NOT_SHOW || []).length} DO_NOT_SHOW, não 14`);
-  return { pass: !bad.length, expected: 0, measured: `${DO_NOT_SHOW_LITERAIS.length}/8 testados por grep`, detail: bad };
+  const n = QA_DNS.LITERAIS.reduce((a, L) => a + 1 + (L.IT || []).length + (L.EN || []).length, 0);
+  return { pass: !bad.length, expected: 0, measured: `${n} formas testadas nas três línguas · detector partilhado com casa-gate`, detail: bad };
 });
 
 check('DO_NOT_SHOW_SEMANTIC_6_OF_6_REVIEWED', 'the six semantic ones are named, and NOT claimed as automated', () => {

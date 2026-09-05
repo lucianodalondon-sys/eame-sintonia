@@ -43,6 +43,15 @@
 <script src="meeting-intelligence-snapshot.js"></script>
 <script src="meeting-labels.js"></script>
 <script src="meeting-surface.js"></script>
+<!-- IL PACCHETTO DELLA CASA, LETTO ANCHE QUI.
+     `scripts/it_casa_dados.py` e l'adattatore di presentazione, e italy-casa.js
+     e il suo unico pacchetto. La casa lo legge; da qui in avanti lo legge anche
+     il portale, per il numero che i due schermi hanno in comune: quante
+     opportunita sono sul tavolo adesso.
+
+         DUE SCHERMI CHE CONTANO DA SOLI SONO DUE CONTEGGI.
+         UNO DEI DUE SARA SBAGLIATO, E NESSUNO SAPRA QUALE. -->
+<script src="italy-casa.js"></script>
 <script src="vendor/jspdf-2.5.2.umd.min.js"></script>
 <script src="italy-pdf.js"></script>
 <style>
@@ -450,6 +459,19 @@
         <div style="display:flex;flex-direction:column;gap:4px">
           <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:nowrap"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ mt.nav }}</h1><span style="padding:3px 9px;border-radius:9999px;background:rgba(0,152,69,0.16);border:1px solid rgba(0,152,69,0.45);font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.12em;color:#00B152">{{ meetingTotal }}</span></div>
           <div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ mt.sub }}</div>
+          <!-- I TRE NUMERI, E NON SI SOMMANO CON IL RADAR FUTURO.
+               Questa riga viene da window.ITALY_CASA e non da questa schermata:
+               il radar qui sotto conta le opportunita commerciali, e i
+               diciassette che restano vivono come segnali. La somma la tiene il
+               pacchetto, e la casa apre con la stessa cifra. -->
+          <sc-if value="{{ hasMeetingCurrent }}" hint-placeholder-val="{{ true }}">
+          <div data-casa-current="{{ meetingCurrent.total }}" style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font-family:var(--font-secondary);font-size:11px;color:#8F8886;margin-top:2px">
+            <span style="font-weight:700;letter-spacing:0.12em">{{ meetingCurrent.label }}</span>
+            <b style="color:#fff;font-size:13px;font-variant-numeric:tabular-nums">{{ meetingCurrent.total }}</b>
+            <span>· <b style="color:#C9C3C1;font-variant-numeric:tabular-nums">{{ meetingCurrent.commerciali }}</b> {{ meetingCurrent.labelCommerciali }}</span>
+            <span>· <b style="color:#C9C3C1;font-variant-numeric:tabular-nums">{{ meetingCurrent.daValidare }}</b> {{ meetingCurrent.labelDaValidare }}</span>
+          </div>
+          </sc-if>
         </div>
         <!-- L'ISTANTANEA DICHIARA LA PROPRIA PROVENIENZA.
              Un pacchetto che non dice da quale commit viene sembra auditabile
@@ -3410,6 +3432,31 @@ class Component extends DCLogic {
        mentre si guardano i segnali: un numero di menu che cambia con la
        schermata aperta non e un conteggio, e un riflesso. */
     const meetingCount = MSURF ? MSURF.commercial.length : 0;
+    /* ══ LE 43 ATTUALI VENGONO DAL LORO PADRONE ══════════════════════════
+       Il radar mostra le 26 opportunita commerciali; i 17 che restano vivono
+       come segnali. La somma — quante letture sono sul tavolo adesso — e la
+       stessa cifra che apre la casa, e viene da li: `window.ITALY_CASA`, che
+       `scripts/it_casa_dados.py` deriva dall'istantanea canonica.
+
+           SCRIVERE 43 QUI FAREBBE UNA SECONDA VERITA.
+           UNA SECONDA VERITA E QUELLA CHE NON CAMBIA QUANDO IL MOTORE CAMBIA.
+
+       E se i due non concordassero, la riga NON stampa un numero: dire quale
+       dei due ha ragione non e compito di questa schermata. */
+    const CASA_OA = (window.ITALY_CASA && window.ITALY_CASA.OPPORTUNITA_ATTUALI) || null;
+    const casaConcorda = !!(CASA_OA && MSURF
+      && CASA_OA.PRIORITA_COMMERCIALE === MSURF.commercial.length
+      && CASA_OA.DA_VALIDARE === MSURF.signals.length
+      && CASA_OA.TOTALE === MSURF.cases.length
+      && CASA_OA.BUILD_ID === MSURF.meta.BUILD_ID);
+    const meetingCurrent = casaConcorda ? {
+      total: CASA_OA.TOTALE,
+      commerciali: CASA_OA.PRIORITA_COMMERCIALE,
+      daValidare: CASA_OA.DA_VALIDARE,
+      label: mtL('casaCurrentOpps'),
+      labelCommerciali: mtL('casaCommercialPriority'),
+      labelDaValidare: mtL('casaToValidate'),
+    } : null;
     /* Il filtro e una LETTURA, non un giudizio: taglia l'elenco per uno stato
        che il motore ha gia scritto, e non ne calcola nessuno. */
     /* Il filtro lavora sullo STATO CLIENTE, non sullo stato del motore. */
@@ -9012,6 +9059,8 @@ class Component extends DCLogic {
         actives: mtL('lblActives'), moa: mtL('lblMoa'), matchReason: mtL('lblMatchReason'),
       },
       meetingMeta,
+      meetingCurrent,
+      hasMeetingCurrent: !!meetingCurrent,
       meetingCounts,
       meetingKpis,
       meetingStatusBtns,

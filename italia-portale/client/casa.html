@@ -11,11 +11,12 @@
   --ink:#0E0C0B; --ink-2:#171413; --line:#272220;
   --paper:#EDEAE9; --mute:#8F8886; --mute-2:#6E6663; --soft:#B1A9A7;
   --green:#00B152; --green-d:#009845; --green-dd:#00783F; --amber:#F5B317;
+  --blue:#00A0DF;
   --font:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--font);
-  -webkit-font-smoothing:antialiased}
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
 body{padding:0 0 72px}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
@@ -31,20 +32,48 @@ header{padding:26px 0 18px;border-bottom:1px solid var(--line);margin-bottom:30p
 h1{font-size:clamp(22px,3.4vw,32px);line-height:1.2;margin:20px 0 6px;font-weight:700;letter-spacing:-.01em}
 .lede{font-size:14px;color:var(--soft);max-width:66ch;line-height:1.65;margin:0}
 
+/* ── lo scambio di lingua ─────────────────────────────────────────── */
+.lang{display:inline-flex;border:1px solid var(--line);border-radius:9999px;overflow:hidden;flex:none}
+.lang button{appearance:none;background:transparent;border:0;color:var(--mute);
+  font:inherit;font-size:10.5px;font-weight:700;letter-spacing:.12em;
+  padding:7px 14px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--green-dd);color:#fff}
+
 h2{font-size:10.5px;font-weight:700;letter-spacing:.19em;color:var(--mute);
-  margin:38px 0 14px;text-transform:uppercase}
+  margin:38px 0 6px;text-transform:uppercase}
+h2 + .h2sub{font-size:12px;color:var(--mute-2);margin:0 0 15px;line-height:1.6;max-width:76ch}
+
+/* ── i tre livelli ────────────────────────────────────────────────── */
+.lvl{display:inline-flex;align-items:center;gap:8px;font-size:9px;font-weight:700;
+  letter-spacing:.18em;color:var(--mute);border:1px solid var(--line);
+  border-radius:9999px;padding:4px 11px;margin-bottom:11px}
+.lvl b{color:var(--green);font-weight:700}
 
 /* ── prima piega ─────────────────────────────────────────────────── */
-.grid{display:grid;gap:13px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-.tile{background:var(--ink-2);border:1px solid var(--line);border-radius:13px;padding:19px 20px}
+.grid{display:grid;gap:13px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.tile{background:var(--ink-2);border:1px solid var(--line);border-radius:13px;padding:19px 20px;min-width:0}
 .tile .q{font-size:11px;color:var(--mute);line-height:1.45;margin-bottom:13px;min-height:2.9em}
 .n{font-size:40px;font-weight:700;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .n.zero{color:var(--soft)}
-.n small{font-size:13px;font-weight:600;letter-spacing:0;color:var(--mute);margin-left:7px}
 .tile .lab{font-size:12.5px;color:var(--paper);margin-top:9px;font-weight:600}
 .tile .lim{font-size:11px;color:var(--mute-2);line-height:1.55;margin-top:9px}
 .split{display:flex;gap:26px;align-items:flex-end;flex-wrap:wrap}
 .split>div{min-width:74px}
+
+/* ── il blocco delle opportunità attuali ─────────────────────────── */
+.headline{border:1px solid var(--green-dd);border-radius:15px;padding:22px 24px;
+  background:linear-gradient(180deg,rgba(0,120,63,.16),rgba(0,120,63,.05));min-width:0}
+.headline .k{font-size:9.5px;font-weight:700;letter-spacing:.19em;color:var(--green)}
+.headline .big{font-size:clamp(46px,9vw,68px);font-weight:700;line-height:1;
+  letter-spacing:-.04em;font-variant-numeric:tabular-nums;margin:8px 0 2px}
+.parts{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px}
+.parts div{flex:1 1 170px;background:rgba(0,0,0,.32);border:1px solid var(--line);
+  border-radius:10px;padding:12px 14px;min-width:0}
+.parts .pv{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+.parts .pl{font-size:11.5px;color:var(--soft);margin-top:5px;line-height:1.4}
+.horizon{border:1px solid var(--line);border-radius:15px;padding:22px 24px;background:var(--ink-2);min-width:0}
+.horizon .k{font-size:9.5px;font-weight:700;letter-spacing:.19em;color:var(--blue)}
+.two{display:grid;gap:13px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:6px}
 
 /* ── destaque ────────────────────────────────────────────────────── */
 .hero{margin-top:14px;border:1px solid var(--green-dd);border-radius:15px;overflow:hidden;
@@ -55,10 +84,10 @@ h2{font-size:10.5px;font-weight:700;letter-spacing:.19em;color:var(--mute);
 .hero p{margin:0 0 13px;font-size:14px;line-height:1.65;color:var(--paper);max-width:74ch}
 .win{display:flex;gap:11px;flex-wrap:wrap;margin:17px 0 4px}
 .win div{flex:1 1 190px;background:rgba(0,0,0,.32);border:1px solid var(--line);
-  border-radius:10px;padding:13px 15px}
+  border-radius:10px;padding:13px 15px;min-width:0}
 .win .w-l{font-size:10px;letter-spacing:.13em;color:var(--mute);font-weight:700}
 .win .w-v{font-size:19px;font-weight:700;margin-top:5px;font-variant-numeric:tabular-nums}
-.win .w-n{font-size:11px;color:var(--mute-2);margin-top:4px}
+.win .w-n{font-size:11px;color:var(--mute-2);margin-top:4px;overflow-wrap:anywhere}
 .blk{margin:16px 0}
 .blk-l{display:block;font-size:9px;font-weight:700;letter-spacing:.18em;color:var(--mute);
   margin-bottom:8px}
@@ -75,7 +104,7 @@ h2{font-size:10.5px;font-weight:700;letter-spacing:.19em;color:var(--mute);
 /* ── progressive disclosure ──────────────────────────────────────── */
 details{border-top:1px solid var(--line)}
 details>summary{cursor:pointer;list-style:none;padding:14px 2px;font-size:12px;
-  color:var(--mute);display:flex;align-items:center;gap:9px}
+  color:var(--mute);display:flex;align-items:center;gap:9px;flex-wrap:wrap}
 details>summary::-webkit-details-marker{display:none}
 details>summary::before{content:"+";width:17px;height:17px;border:1px solid var(--line);
   border-radius:5px;display:inline-flex;align-items:center;justify-content:center;
@@ -89,10 +118,42 @@ details>summary:hover{color:var(--paper)}
   vertical-align:top}
 .dd th{color:var(--mute);font-weight:600;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase}
 .dd .src{font-size:11px;color:var(--mute-2);margin-top:8px}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
 .tag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.11em;
-  padding:3px 8px;border-radius:5px;border:1px solid var(--line);color:var(--mute);margin-right:6px}
+  padding:3px 8px;border-radius:5px;border:1px solid var(--line);color:var(--mute);
+  margin:0 6px 4px 0;white-space:normal}
 .tag.ok{color:var(--green);border-color:var(--green-dd)}
 .tag.no{color:var(--soft)}
+.tag.act{color:#110E0D;background:#1AB963;border-color:#1AB963}
+.tag.prep{color:var(--blue);border-color:rgba(0,160,223,.45)}
+.tag.mon{color:var(--soft)}
+.tag.val{color:var(--amber);border-color:rgba(245,179,23,.45)}
+
+/* ── il caso ─────────────────────────────────────────────────────── */
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 4px}
+.filters button{appearance:none;background:transparent;border:1px solid var(--line);
+  color:var(--soft);border-radius:9999px;padding:7px 14px;font:inherit;font-size:11px;
+  font-weight:700;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
+.filters button[aria-pressed="true"]{background:rgba(0,152,69,.16);
+  border-color:rgba(0,152,69,.45);color:#fff}
+.filters button i{font-style:normal;opacity:.7;font-variant-numeric:tabular-nums}
+.case{border-top:1px solid var(--line)}
+.case>summary{padding:15px 2px}
+.case .ct{color:var(--paper);font-weight:600;font-size:13.5px;flex:1 1 220px;min-width:0}
+.case .cg{font-size:11px;color:var(--mute-2)}
+.sec{margin:0 0 16px}
+.sec>h4{margin:0 0 7px;font-size:9px;font-weight:700;letter-spacing:.17em;color:var(--mute);
+  text-transform:uppercase}
+.row{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;line-height:1.6;
+  padding:7px 0;border-bottom:1px solid rgba(39,34,32,.7);min-width:0}
+.row .rk{flex:0 0 168px;color:var(--mute);font-size:11px;min-width:0}
+.row .rv{flex:1 1 200px;min-width:0;overflow-wrap:anywhere}
+.chain{display:flex;flex-direction:column;gap:0}
+.chain .ok{color:var(--green)}
+.chain .ko{color:var(--soft)}
+.urls{font-size:11px;line-height:1.7;overflow-wrap:anywhere}
+.urls a{color:var(--blue);text-decoration:underline}
+.mini{font-size:11px;color:var(--mute-2);line-height:1.6;margin-top:8px}
 
 /* ── nota de limite ──────────────────────────────────────────────── */
 .note{margin-top:16px;font-size:11.5px;color:var(--mute-2);line-height:1.7;max-width:80ch}
@@ -104,251 +165,591 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
   letter-spacing:.09em;padding:12px 22px;border-radius:9999px}
 .cta:hover{background:var(--green-d)}
 .foot-n{font-size:11px;color:var(--mute-2);line-height:1.6}
-@media(max-width:640px){.n{font-size:33px}.split{gap:18px}}
+@media(max-width:640px){
+  .wrap{padding:0 16px}
+  .n{font-size:33px}
+  .split{gap:18px}
+  .dd{padding-left:14px}
+  .row .rk{flex:0 0 100%}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-
-<header>
-  <div class="top">
-    <span class="mark" aria-hidden="true">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 12 4l8 16"></path><path d="M7.6 13.6h8.8"></path></svg>
-    </span>
-    <div>
-      <div class="brand">SINTONIA</div>
-      <div class="sub">ADAMA ITALIA · INTELLIGENCE</div>
-    </div>
-    <span class="spacer"></span>
-    <div class="stamp" id="stamp"></div>
-  </div>
-  <h1>Cosa conta oggi in Italia</h1>
-  <p class="lede">Sei domande, una piega. Ogni numero qui è una <b>decisione</b> — quanto preparare,
-  quanto monitorare, quanto si può mostrare — mai la dimensione dell'archivio.
-  Ciò che porta un metodo viaggia sempre con il suo limite accanto.</p>
-</header>
-
-<h2>La prima piega</h2>
-<div class="grid" id="tiles"></div>
-
-<h2>Ciò che merita attenzione adesso</h2>
-<div class="hero">
-  <div class="hero-b">
-    <div class="kicker" id="hero-kick"></div>
-    <h3 id="hero-title"></h3>
-
-    <!-- Tre blocchi, e devono restare tre. Il fatto viene per primo perché è
-         l'unica cosa che non abbiamo scritto noi; la lettura viene dopo, con il
-         nostro nome sopra; la domanda chiude, perché la decisione non nasce
-         qui. Metterli senza etichetta lascia che la lettura si legga come
-         fatto — ed è esattamente così che un portale mente senza dire nulla
-         di falso. -->
-    <div class="blk">
-      <span class="blk-l">FATTO · REGISTRO UFFICIALE</span>
-      <p id="hero-fact"></p>
-      <div class="win" id="hero-win"></div>
-    </div>
-
-    <div class="blk">
-      <span class="blk-l blk-s">LETTURA SINTONIA</span>
-      <p id="hero-read"></p>
-      <p class="limit" id="hero-limit"></p>
-    </div>
-
-    <div class="ask">
-      <b>DOMANDA DI ATTIVAZIONE · PORTAFOGLIO / SVILUPPO MERCATO</b>
-      <span id="hero-ask"></span>
-      <span class="who" id="hero-who"></span>
-    </div>
-  </div>
-  <details>
-    <summary>Come è stato filtrato · l'universo chiuso e i suoi confini</summary>
-    <div class="dd" id="hero-card"></div>
-  </details>
-  <details>
-    <summary>Evidenza · i quattro registri e la fonte originale</summary>
-    <div class="dd" id="hero-detail"></div>
-  </details>
-</div>
-
-<h2>Come lo osserviamo</h2>
-<div id="sens"></div>
-
-<h2>Dove abbiamo occhi</h2>
-<div id="cover"></div>
-
-<footer>
-  <a class="cta" href="portale.html">APRI IL PORTALE COMPLETO</a>
-  <span class="foot-n" id="foot"></span>
-</footer>
-
-</div>
+<div class="wrap" id="app"></div>
 
 <script src="italy-casa.js"></script>
 <script>
 (function(){
   var C = window.ITALY_CASA;
-  var $ = function(id){ return document.getElementById(id); };
-  /* separatore delle migliaia italiano: 13.216, non 13216. Lo stesso numero
-     scritto in due modi sulla stessa pagina fa dubitare di entrambi. */
-  var mil = function(n){ return Number(n).toLocaleString('it-IT'); };
-  var esc = function(s){ return String(s == null ? '' : s)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); };
 
   /* Un portale che non trova i suoi dati deve dirlo, non disegnare zeri.
      Uno zero inventato è indistinguibile da uno zero misurato. */
-  if (!C) {
-    document.body.innerHTML = '<div class="wrap" style="padding:60px 22px">'
-      + '<h1>Dati non caricati</h1><p class="lede">italy-casa.js non è stato trovato. '
-      + 'Questa pagina non disegna numeri che non ha letto.</p></div>';
+  if (!C || !C.OPPORTUNITA_ATTUALI || !C.LABELS) {
+    document.getElementById('app').innerHTML =
+        '<h1 style="margin-top:60px">Dati non caricati</h1>'
+      + '<p class="lede">italy-casa.js non è stato trovato, o non porta il pacchetto '
+      + 'completo. Questa pagina non disegna numeri che non ha letto.</p>';
     return;
   }
 
-  $('stamp').innerHTML = 'DATA DI RIFERIMENTO ' + esc(C.DATA_DE_REFERENCIA)
-    + '<br>registro fitosanitario · snapshot ' + esc(C.DESTAQUE.DATA_DO_SNAPSHOT);
+  /* ── LA LINGUA ────────────────────────────────────────────────────
+     Due lingue, un solo dizionario, e nessuna terza via: `t()` non ha
+     ramo di fallback. Un codice senza frase non arriva qui — il
+     generatore fallisce prima di scrivere il pacchetto — e se per
+     qualche ragione arrivasse, si vede come un buco dichiarato invece
+     che come una sigla dipinta sullo schermo.
 
-  /* ── la prima piega: sei domande, sei risposte ─────────────────── */
-  var RF = C.RADAR_FUTURO, SC = C.SINAIS_DE_CAMPO, FO = C.FONTES, CO = C.COBERTURA;
-  var tiles = [
-    { q:'Cosa dobbiamo <b>preparare</b>?',
-      big:[{n:RF.PREPARAR, l:'da preparare'}],
-      lab:'Radar Futuro',
-      lim:'orizzonte: prossima campagna o oltre. Non sono opportunità di oggi.' },
-    { q:'Cosa dobbiamo <b>monitorare</b>?',
-      big:[{n:RF.MONITORAR, l:'da monitorare'}],
-      lab:'Radar Futuro',
-      lim:'segnali con lettura sufficiente per essere seguiti, non per agire.' },
-    { q:'Qualcosa richiede <b>azione immediata</b>?',
-      big:[{n:RF.AGIR_AGORA, l:'agire ora', zero:true}],
-      lab:'Radar Futuro',
-      lim:RF.LIMITE },
-    { q:'Cosa <b>sta succedendo</b> in campo?',
-      big:[{n:SC.CARTAO, l:'come scheda'},{n:SC.COM_METODO, l:'con metodo'}],
-      lab:SC.VISIVEIS + ' letture visibili',
-      lim:SC.LIMITE },
-    { q:'<b>Dove abbiamo occhi</b>?',
-      big:[{n:FO.COM_METODO, l:'fonti con metodo'}],
-      lab:'Copertura della raccolta',
-      lim:'la mappa risponde «' + FO.RESPONDE + '». Non risponde «' + FO.LIMITE + '».' },
-    { q:'Quale <b>finestra</b> regolatoria pesa?',
-      big:[{n:C.DESTAQUE.DELTA_MESES, l:'mesi di scarto', unit:'~'}],
-      lab:'AZOXYSTROBIN + PROTHIOCONAZOLE',
-      lim:'universo chiuso di ' + C.DESTAQUE.UNIVERSO + ' registri, non un campione.' }
-  ];
-  $('tiles').innerHTML = tiles.map(function(t){
-    var nums = t.big.map(function(b){
-      return '<div><div class="n' + (b.zero ? ' zero' : '') + '">'
-        + (b.unit || '') + b.n + '</div>'
-        + '<div class="lim" style="margin-top:5px">' + esc(b.l) + '</div></div>';
-    }).join('');
-    return '<div class="tile"><div class="q">' + t.q + '</div>'
-      + '<div class="split">' + nums + '</div>'
-      + '<div class="lab">' + esc(t.lab) + '</div>'
-      + '<div class="lim">' + esc(t.lim) + '</div></div>';
-  }).join('');
+         UN CODICE NUDO SULLO SCHERMO E UNA FUGA.
+         UNA RIGA CHE SPARISCE IN SILENZIO SONO DUE. */
+  var lang = (function(){
+    try { var v = localStorage.getItem('sintonia.casa.lang');
+          if (v === 'it' || v === 'en') return v; } catch (e) {}
+    return 'it';
+  })();
 
-  /* ── il destaque ───────────────────────────────────────────────── */
-  var D = C.DESTAQUE;
-  $('hero-kick').textContent = 'FINESTRA AUTORIZZATIVA · UNIVERSO CHIUSO DI ' + D.UNIVERSO + ' REGISTRI';
-  $('hero-title').textContent = D.TITULO;
-  /* Il fatto è il conteggio chiuso; la lettura è la nostra. Il limite non sta
-     dietro una piega: viaggia accanto alla lettura che limita. Una cautela a un
-     clic di distanza è una cautela che non è stata data. */
-  $('hero-fact').textContent = D.FATO.charAt(0).toUpperCase() + D.FATO.slice(1) + '.';
-  $('hero-read').textContent = D.INTERPRETACAO.charAt(0).toUpperCase() + D.INTERPRETACAO.slice(1) + '.';
-  $('hero-limit').textContent = 'Limite: ' + D.TRAVA_DE_INDEPENDENCIA;
-  $('hero-who').textContent = 'Chi decide: ' + D.QUEM_DECIDE + ' — questa pagina non lo decide.';
-  $('hero-win').innerHTML =
-      '<div><div class="w-l">ADAMA ITALIA</div><div class="w-v">' + esc(D.ADAMA_ATE) + '</div>'
-    + '<div class="w-n">MAXENTIS · KOJAMI</div></div>'
-    + '<div><div class="w-l">CAC CHEMICAL</div><div class="w-v">' + esc(D.CONCORRENTE_ATE) + '</div>'
-    + '<div class="w-n">PROMINO XTRA · AMISTAR ERA 240 EC</div></div>'
-    + '<div><div class="w-l">SCARTO</div><div class="w-v">~' + D.DELTA_MESES + ' mesi</div>'
-    + '<div class="w-n">a favore del concorrente</div></div>';
-  $('hero-ask').textContent = D.ACTIVATION_QUESTION;
+  var esc = function(s){ return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;'); };
+  /* separatore delle migliaia: 13.216, non 13216. Lo stesso numero scritto
+     in due modi sulla stessa pagina fa dubitare di entrambi. */
+  var mil = function(n){ return Number(n).toLocaleString(lang === 'en' ? 'en-GB' : 'it-IT'); };
+  var cap = function(s){ s = String(s || ''); return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; };
 
-  $('hero-card').innerHTML =
-      '<p><b>Fatto.</b> ' + esc(D.FATO) + '</p>'
-    + '<p><b>Come è stato filtrato.</b> ' + esc(D.CRITERIO) + '. Universo chiuso: '
-      + esc(D.E_UNIVERSO_FECHADO) + ' — non è un campione.</p>'
-    + '<p><b>Limite.</b> ' + esc(D.TRAVA_DE_INDEPENDENCIA) + '</p>'
-    + '<p><b>Chi decide.</b> ' + esc(D.QUEM_DECIDE) + ' — questa pagina non lo decide.</p>';
+  /* Una frase della nostra cornice arriva sempre in coppia. `p()` non ha ramo
+     di ripiego: se una metà mancasse, il generatore sarebbe già fallito prima
+     di scrivere il pacchetto. Quello che qui NON può succedere è stampare
+     l'italiano dentro una pagina inglese — che è esattamente il difetto che il
+     rilevatore di DO_NOT_SHOW ha trovato quando questa tabella aveva una
+     colonna sola. */
+  function p(pair){
+    if (!pair || typeof pair !== 'object') return '';
+    return pair[lang] || '';
+  }
 
-  $('hero-detail').innerHTML =
-      '<table><thead><tr><th>Prodotto</th><th>Registro</th><th>Titolare</th>'
-    + '<th>Scadenza</th><th>Stato amministrativo</th></tr></thead><tbody>'
-    + D.ITENS.map(function(i){
-        return '<tr><td>' + esc(i.PRODUTO) + '</td><td>' + esc(i.REGISTRO) + '</td>'
-          + '<td>' + esc(i.TITULAR) + '</td><td>' + esc(i.VENCIMENTO) + '</td>'
-          + '<td>' + esc(i.ESTADO_ADMINISTRATIVO) + '</td></tr>'; }).join('')
-    + '</tbody></table>'
-    + '<div class="src">Fonte: ' + esc(D.FONTE) + ' · snapshot ' + esc(D.DATA_DO_SNAPSHOT) + '</div>';
+  function t(code){
+    if (code === null || code === undefined || code === '') return null;
+    var row = C.LABELS[code];
+    if (!row) return null;          /* nessun fallback al codice grezzo */
+    return row[lang] || null;
+  }
+  /* La riga si stampa solo se ha una frase; e se non ce l'ha, si vede che
+     manca — con il codice fra parentesi quadre, mai al posto della frase. */
+  function tt(code){ var v = t(code); return v === null ? (code ? '[' + esc(code) + ']' : '') : esc(v); }
+  function labs(codes){
+    return (codes || []).map(function(c){ return tt(c); }).filter(Boolean);
+  }
 
-  /* ── sensori: solo i sopravvissuti ─────────────────────────────── */
-  var S = C.SENSORES;
-  var sensHtml = S.SOBREVIVERAM.map(function(s){
-    return '<details open><summary><span class="tag ok">SENSORE ATTIVABILE</span> '
-      + esc(s.ID) + ' · ' + esc(s.TITULO) + '</summary><div class="dd">'
-      + '<p><b>Variabile.</b> ' + esc(s.VARIAVEL) + '</p>'
-      + '<p><b>Fonte.</b> ' + esc(s.FONTE) + ' <span class="tag">' + esc(s.AUTORIDADE) + '</span></p>'
-      + '<p><b>Cadenza.</b> ' + esc(s.CADENZA) + '</p>'
-      + '<p><b>Scatta quando.</b> ' + esc(s.SCATTA) + '</p>'
-      + '<p><b>Si invalida quando.</b> ' + esc(s.INVALIDA) + '</p>'
-      + '<p><b>Transizione di stato.</b> ' + esc(s.TRANSICAO)
-      + '. Autorizzata dalla riga? <b>' + esc(s.TRANSICAO_AUTORIZADA) + '</b>. '
-      + 'Osservare non promuove.</p>'
-      + '<p><b>Serve un adattatore.</b> ' + esc(s.ADATTATORE) + '</p>'
-      + '</div></details>'; }).join('');
-  var caduti = S.DERRUBADOS.map(function(s){
-    return '<details><summary><span class="tag no">NON ESEGUIBILE</span> '
-      + esc(s.ID) + ' · ' + esc(s.TITULO) + '</summary><div class="dd">'
-      + '<p><b>Perché non ha retto.</b> ' + esc(s.CAIU_PORQUE) + '</p>'
-      + '<p>L\'autore lo dichiarava <b>' + esc(s.DECLARADA_PELO_AUTOR)
-      + '</b>; il verdetto pubblicato è quello di chi lo ha attaccato. '
-      + 'La specifica completa resta a monte, non su questa pagina.</p>'
-      + '</div></details>'; }).join('');
-  $('sens').innerHTML =
-      '<p class="note">Tre segnali prioritari sono stati portati a specifica di osservazione. '
-    + '<b>Uno ha retto</b>, due sono stati abbattuti da chi li ha attaccati. '
-    + 'Non fabbrichiamo il terzo per tenere il numero: ' + esc(S.REGRA) + '</p>'
-    + sensHtml + caduti
-    + '<p class="note">Nessuno di questi tre autorizza un cambio di stato. '
-    + 'Il Radar Futuro resta valido anche senza sensore su tutti e tre.</p>';
+  var OA = C.OPPORTUNITA_ATTUALI, RF = C.RADAR_FUTURO,
+      SC = C.SINAIS_DE_CAMPO, FO = C.FONTES, CO = C.COBERTURA, D = C.DESTAQUE;
 
-  /* ── copertura ─────────────────────────────────────────────────── */
-  $('cover').innerHTML =
-      '<p class="note">La copertura risponde <b>«' + esc(FO.RESPONDE) + '»</b>. '
-    + 'Non risponde mai <b>«' + esc(FO.LIMITE) + '»</b>. Confondere le due trasforma '
-    + 'la copertura della raccolta in una mappa di pressione agronomica.</p>'
-    + '<details><summary>Come è misurata la copertura</summary><div class="dd">'
-    /* La regola DO_NOT_SHOW su questo strato è esplicita: si dice «72 con
-       l'espansione territoriale dichiarata», mai «copertura BUONA in 72 celle».
-       La prima è la misura; la seconda è un giudizio che nessuno ha dato. */
-    + '<p>' + CO.CELULAS + ' celle territorio × specialità. Con l\'espansione territoriale '
-    + 'dichiarata: ' + CO.COM_EXPANSAO_GOOD + ' celle. Senza di essa: '
-    + CO.SEM_EXPANSAO_GOOD + '.</p>'
-    + '<p><b>L\'espansione è una regola, non un dato.</b> ' + esc(CO.A_EXPANSAO_E) + '</p>'
-    + '<p>Non mostriamo recenza su questo strato: è stato prodotto con una lettura di data '
-    + 'difettosa, ancora da rimisurare.</p></div></details>'
-    + '<details><summary>Autorizzazioni ADAMA · il numero non viaggia da solo</summary><div class="dd">'
-    + '<p>Sotto criterio <b>AMPLIATO</b> (' + esc(C.AUTORIZACOES.CRITERIO_AMPLIADO) + '), '
-    + 'cinque ragioni sociali sommate, snapshot ' + esc(C.AUTORIZACOES.DATA_DO_SNAPSHOT) + ': '
-    + '<b>' + C.AUTORIZACOES.AMPLIADO_CINCO_RAZOES + '</b> registri vigenti con scadenza futura. '
-    + 'Sotto criterio <b>STRICT</b> (' + esc(C.AUTORIZACOES.CRITERIO_STRICT) + '): '
-    + '<b>' + C.AUTORIZACOES.STRICT_CINCO_RAZOES + '</b>.</p>'
-    + '<p><b>Limite.</b> ' + esc(C.AUTORIZACOES.LIMITE) + ' Sommare le cinque ragioni sociali è '
-    + esc(C.AUTORIZACOES.AGRUPAR_AS_CINCO_E) + '.</p>'
-    + '<p><b>Stati senza regola.</b> ' + esc(C.AUTORIZACOES.SEM_DONO) + '</p></div></details>'
-    + '<details><summary>Revocato ≠ Scaduto · perché la data da sola non basta</summary><div class="dd">'
-    + '<p>' + esc(C.REVOGADO_X_SCADUTO.DEMONSTRACAO) + '.</p>'
-    + '<p>Revocato: ' + mil(C.REVOGADO_X_SCADUTO.REVOCATO) + ' · Scaduto: '
-    + mil(C.REVOGADO_X_SCADUTO.SCADUTO) + ' · revocati con scadenza ancora futura: '
-    + mil(C.REVOGADO_X_SCADUTO.REVOCATO_COM_VENCIMENTO_FUTURO) + '.</p>'
-    + '<p><b>Limite.</b> ' + esc(C.REVOGADO_X_SCADUTO.LIMITE) + '</p></div></details>';
+  /* Il filtro e una LETTURA: taglia l'elenco per uno stato che il motore ha
+     gia scritto, e non ne calcola nessuno. */
+  var filtro = '';
+  var STATI = ['CLIENT_ACT_NOW','CLIENT_PREPARE_NOW','CLIENT_MONITOR','CLIENT_TO_VALIDATE'];
 
-  $('foot').innerHTML = 'Lo strato di evidenza — ' + C.EVIDENCIA.FITOSSANITARIO
-    + ' registri di corpus — non ha una griglia propria: '
-    + esc(C.EVIDENCIA.NUNCA_E_GRELHA) + '.';
+  function row(k, v){
+    if (v === null || v === undefined || v === '') return '';
+    return '<div class="row"><div class="rk">' + k + '</div><div class="rv">' + v + '</div></div>';
+  }
+  function sec(title, body){
+    if (!body) return '';
+    return '<div class="sec"><h4>' + title + '</h4>' + body + '</div>';
+  }
+
+  /* ── LIVELLO 2 · GESTIONE ─────────────────────────────────────────
+     Perche, quando, gli incroci, chi puo agire, l'innesco, cosa lo
+     invalida, e lo stato. Sette domande, e nessuna di esse e una
+     raccomandazione: la pagina mostra la mappa, non sceglie la mossa. */
+  function livello2(c){
+    var out = '';
+
+    out += sec(tt('casaSecWhy'),
+        (c.PERCHE[lang] ? '<p>' + esc(cap(c.PERCHE[lang])) + '</p>' : '')
+      + (c.PERCHE_SOLO_CODICI
+          ? '<p class="mini">' + tt('casaEngineDecides') + '</p>' : '')
+      + (c.PERCHE_CODICI.length
+          ? labs(c.PERCHE_CODICI).map(function(l){ return '<span class="tag">' + l + '</span>'; }).join('')
+          : ''));
+
+    /* LA REGOLA NON E LO STATO. Due domande, due risposte, mai una riga
+       sola: e cosi che «la regola e nota» diventa «la finestra e aperta». */
+    var w = c.FINESTRA;
+    var statoOra = w.DEFINITA_TOKEN !== 'YES' ? tt('windowOpenNoRule')
+      : (w.APERTA_ORA === 'YES' ? tt('windowOpenYes')
+        : (w.APERTA_ORA === 'NO' ? tt('windowOpenNo') : tt('windowOpenUnknown')));
+    out += sec(tt('casaSecWindow'),
+        row(tt('lblRule'), w.DEFINITA_TOKEN === 'YES' ? tt('windowDefinedYes') : tt('windowDefinedNo'))
+      + row(tt('lblStateNow'), statoOra)
+      + row(tt('casaKeyType'), w.TIPO ? tt(w.TIPO) : null)
+      + row(tt('casaKeyRule'), w.REGOLA ? tt(w.REGOLA) : null)
+      + row(tt('casaSecMethod'), w.METODO ? tt(w.METODO) : null)
+      + row(tt('casaKeyDocument'), w.DOCUMENTO_CONDIZIONE ? esc(w.DOCUMENTO_CONDIZIONE) : null)
+      + row(tt('casaKeyDocument'), w.DOCUMENTO_REGOLA ? esc(w.DOCUMENTO_REGOLA) : null)
+      + row(tt('casaKeyStart'), w.INIZIO ? esc(w.INIZIO) : null)
+      + row(tt('casaKeyEnd'), w.FINE ? esc(w.FINE) : null));
+
+    out += sec(tt('casaSecChain'), '<div class="chain">' + c.CATENA.map(function(e){
+      return '<div class="row"><div class="rk">' + tt(e.ELO) + '</div><div class="rv '
+        + (e.OK ? 'ok' : 'ko') + '">' + (e.OK ? tt('lblChainOk') : tt('lblChainBroken'))
+        + (e.FATTO_DATA ? ' · ' + esc(e.FATTO_DATA) : '')
+        + (e.FATTO_CODICE ? ' · ' + tt(e.FATTO_CODICE) : '')
+        + '</div></div>';
+    }).join('') + '</div>');
+
+    /* CHI PUO AGIRE — esattamente i reparti che il motore nomina, e la
+       FINESTRA solo dove il motore la dichiara. ACT, PREPARE e WATCH ne
+       hanno una; VALIDATE e NO_ACTION no, e forzarli dentro una delle tre
+       sarebbe decidere al posto suo. */
+    var senzaFinestra = c.AZIONI.some(function(a){ return !a.FINESTRA; });
+    out += sec(tt('casaSecWhoActs'), c.AZIONI.map(function(a){
+      return '<div class="row"><div class="rk">' + tt(a.REPARTO) + '</div><div class="rv">'
+        + (a.FINESTRA ? '<span class="tag ' + (a.FINESTRA === 'WINDOW_ACT_NOW' ? 'act'
+            : a.FINESTRA === 'WINDOW_PREPARE' ? 'prep' : 'mon') + '">' + tt(a.FINESTRA) + '</span>'
+          : '<span class="tag no">' + tt(a.STATO) + '</span>')
+        + '<b>' + tt(a.AZIONE) + '</b> — ' + tt(a.PERCHE)
+        + (a.DIPENDE_DA ? '<div class="mini">' + tt('casaDependsOn') + ': ' + tt(a.DIPENDE_DA) + '</div>' : '')
+        + '</div></div>';
+    }).join('') + (senzaFinestra ? '<p class="mini">' + tt('casaNoWindowStated') + '</p>' : ''));
+
+    var innesco = c.AZIONI.map(function(a){ return a.INNESCO; })
+      .filter(function(v, i, a){ return v && a.indexOf(v) === i; });
+    out += sec(tt('casaSecTrigger'), innesco.length
+      ? innesco.map(function(i){ return '<p>' + tt(i) + '</p>'; }).join('')
+      : '<p class="mini">' + tt('casaNoneDeclared') + '</p>');
+
+    /* COSA LO INVALIDA — l'evidenza che RAFFREDDA il caso. Viene dal motore,
+       in NEED_DIRECTION o in ACTION_RECOMMENDATION_STATE, e si legge come
+       intelligenza: una fonte che dice di NON intervenire e un fatto. */
+    out += sec(tt('casaSecInvalidates'),
+        (c.INVALIDA.length
+          ? labs(c.INVALIDA).map(function(l){ return '<span class="tag val">' + l + '</span>'; }).join('')
+          : '<p class="mini">' + tt('casaNoneDeclared') + '</p>')
+      + row(tt('casaKeyDirection'), c.DIREZIONE ? tt(c.DIREZIONE) : null)
+      + row(tt('casaKeyStage'), c.STADIO ? tt(c.STADIO) : null)
+      + row(tt('casaKeyRecommend'), c.RACCOMANDAZIONE ? tt(c.RACCOMANDAZIONE) : null)
+      + row(tt('casaKeyThreshold'), c.SOGLIA ? tt(c.SOGLIA) : null));
+
+    out += sec(tt('casaSecState'),
+        '<span class="tag ' + pillOf(c.STATO_CLIENTE) + '">' + tt(c.STATO_CLIENTE) + '</span>'
+      + '<p>' + tt(c.STATO_CLIENTE + '_WHY') + '</p>'
+      + row(tt('casaKeyPublication'), tt(c.PUBBLICAZIONE)));
+
+    return out;
+  }
+
+  /* ── LIVELLO 3 · EVIDENZA ────────────────────────────────────────
+     Fonte, metodo, limiti, provenienza, evidenza, confutazione, e cio che
+     NON si puo affermare. L'ultima riga e la piu importante delle sette. */
+  function livello3(c){
+    var out = '';
+    out += sec(tt('casaSecSource'),
+      (c.FONTI_URL.length
+        ? '<div class="urls">' + c.FONTI_URL.map(function(u){
+            return '<div><a href="' + esc(u) + '" rel="noopener noreferrer" target="_blank">'
+              + esc(u) + '</a></div>'; }).join('') + '</div>'
+        : '<p class="mini">' + tt('casaNoneDeclared') + '</p>'));
+
+    out += sec(tt('casaSecMethod'),
+        row(tt('casaKeyWindow'), c.FINESTRA.METODO ? tt(c.FINESTRA.METODO) : null)
+      + row(tt('casaKeyNeed'), c.METODO_NECESSITA ? tt(c.METODO_NECESSITA) : null)
+      /* UN PRODOTTO SI CITA PER NOME, NON PER CHIAVE. CATPRD_LAMDEX_EXTRA e
+         l'identita nel catalogo: a schermo e un token sfuggito, non un
+         prodotto. Il nome sta nella stessa riga del pacchetto — e quello che
+         il lettore puo verificare sull'etichetta.
+
+             CITARE UNA CHIAVE NON E CITARE UN PRODOTTO. */
+      + row(tt('casaKeyPortfolio'), nomePrincipale(c)));
+
+    out += sec(tt('casaSecLimits'), c.LIMITI.length
+      ? labs(c.LIMITI).map(function(l){ return '<span class="tag">' + l + '</span>'; }).join('')
+      : '<p class="mini">' + tt('casaNoneDeclared') + '</p>');
+
+    out += sec(tt('casaSecProvenance'),
+        row('SOURCE_HEAD', esc(OA.SOURCE_HEAD))
+      + row('BUILD_ID', esc(OA.BUILD_ID))
+      + row('Cutoff', esc(OA.MEETING_CUTOFF))
+      + row(tt('casaKeyDate'), esc(c.DATA_SEGNALE || c.DATA_RIFERIMENTO || ''))
+      + row(tt('casaKeyCurrency'), c.ATTUALITA ? tt(c.ATTUALITA) : null)
+      + row(tt('casaKeyConfidence'), c.CONFIDENZA ? tt(c.CONFIDENZA) : null));
+
+    /* L'evidenza si conta e si nomina per RUOLO: quella che sostiene, quella
+       che fa solo da sfondo, e quella che raffredda. Un conteggio senza ruolo
+       fa sembrare quattordici documenti quattordici conferme. */
+    var perRuolo = {};
+    c.EVIDENZE.forEach(function(e){ if (e.RUOLO) perRuolo[e.RUOLO] = (perRuolo[e.RUOLO] || 0) + 1; });
+    out += sec(tt('casaSecEvidence'),
+        '<p>' + mil(c.EVIDENZE_TOTALE) + ' · ' + labs(c.FAMIGLIE).join(' · ') + '</p>'
+      + Object.keys(perRuolo).sort().map(function(r){
+          return '<span class="tag">' + tt(r) + ' <b>' + perRuolo[r] + '</b></span>'; }).join(''));
+
+    out += sec(tt('casaSecRefutation'),
+      c.INVALIDA.length
+        ? labs(c.INVALIDA).map(function(l){ return '<p>' + l + '</p>'; }).join('')
+        : '<p class="mini">' + tt('casaNoneDeclared') + '</p>');
+
+    out += sec(tt('casaSecCannotSay'),
+        (c.NON_PROVA[lang] ? '<p>' + esc(c.NON_PROVA[lang]) + '</p>' : '')
+      + (c.NON_PROVA_COMMERCIALE[lang] ? '<p>' + esc(c.NON_PROVA_COMMERCIALE[lang]) + '</p>' : '')
+      + (c.PROVA[lang] ? '<p class="mini">' + esc(cap(c.PROVA[lang])) + '</p>' : ''));
+
+    return out;
+  }
+
+  /* Il nome del prodotto che il motore ha incoronato — o, se non ne ha
+     incoronato nessuno, la ragione che ha scritto. Nessun ramo qui sceglie
+     un prodotto: se il motore non lo nomina, la pagina non lo nomina. */
+  function nomePrincipale(c){
+    if (!c.PRODOTTO_PRINCIPALE) {
+      return c.PERCHE_NESSUN_PRINCIPALE ? tt(c.PERCHE_NESSUN_PRINCIPALE) : tt('lblNoProducts');
+    }
+    var hit = c.PRODOTTI.filter(function(x){ return x.ID === c.PRODOTTO_PRINCIPALE; })[0];
+    return hit && hit.NOME ? esc(hit.NOME) : tt('lblNoPrimary');
+  }
+
+  function pillOf(stato){
+    return stato === 'CLIENT_ACT_NOW' ? 'act'
+      : stato === 'CLIENT_PREPARE_NOW' ? 'prep'
+      : stato === 'CLIENT_MONITOR' ? 'mon' : 'val';
+  }
+
+  function titolo(c){
+    var p = [];
+    if (c.COLTURA) p.push(t(c.COLTURA));
+    if (c.BERSAGLIO) p.push(t(c.BERSAGLIO));
+    /* UNA SCHEDA SENZA TITOLO NON E UNA SCHEDA. Un caso su 43 non ha ne
+       coltura ne bersaglio: e una data regolatoria europea, e l'assenza del
+       bersaglio e un FATTO che il motore dichiara. Il titolo cade allora
+       sull'ARCHETIPO — l'unica cosa vera che si puo intestare a questa scheda. */
+    if (!p.length) return t(c.ARCHETIPO) || c.ID;
+    return p.join(' · ');
+  }
+
+  function casoHtml(c){
+    return '<details class="case" data-caso="' + esc(c.ID) + '" data-stato="' + esc(c.STATO_CLIENTE) + '">'
+      + '<summary>'
+      + '<span class="tag ' + pillOf(c.STATO_CLIENTE) + '">' + tt(c.STATO_CLIENTE) + '</span>'
+      + '<span class="ct">' + esc(titolo(c)) + '</span>'
+      + '<span class="cg">' + tt(c.GEOGRAFIA) + '</span>'
+      + '</summary><div class="dd">'
+      + livello2(c)
+      + '<details><summary>' + tt('casaOpenL3') + '</summary><div class="dd">'
+      + livello3(c) + '</div></details>'
+      + '</div></details>';
+  }
+
+  /* ── IL REGISTRO DEI 44 ─────────────────────────────────────────── */
+  function ledgerHtml(){
+    return '<div class="scroll"><table><thead><tr>'
+      + '<th>ID</th><th>' + tt('casaColState') + '</th><th>' + tt('casaColAction') + '</th>'
+      + '<th>' + tt('casaColPortfolio') + '</th><th>' + tt('casaColGaps') + '</th></tr></thead><tbody>'
+      + RF.REGISTRO.map(function(r){
+          /* L'ID e il verdetto sul suo SENSORE viaggiano insieme. ITFC-009 e
+             ITFC-018 sono fra i 44 mostrabili e i loro sensori sono stati
+             abbattuti: separare le due letture farebbe leggere «abbattuto»
+             come se il segnale fosse caduto. */
+          return '<tr><td>' + esc(r.ID)
+            + (r.SENSOR ? ' <span class="tag ' + (r.SENSOR === 'SENSOR_EXECUTABLE' ? 'ok' : 'no')
+                + '">' + tt(r.SENSOR) + '</span>' : '') + '</td>'
+            + '<td>' + tt(r.ESTADO) + (r.AVISO ? '<br><span class="tag no">' + tt(r.AVISO) + '</span>' : '') + '</td>'
+            + '<td><span class="tag ' + (r.ACAO === 'PREPARAR' ? 'prep' : 'mon') + '">' + tt(r.ACAO) + '</span></td>'
+            + '<td>' + tt(r.PORTFOLIO_CLASSE) + '<br><span class="mini">' + tt(r.O_CARTAO_PODE) + '</span></td>'
+            + '<td>' + r.DEFEITOS + ' / ' + r.NAO_SABEMOS + '</td></tr>'; }).join('')
+      + '</tbody></table></div>'
+      + '<p class="note">' + tt('casaSpecUpstream') + ' ' + tt('casaSensorLegend')
+      + '. ' + tt('casaGapsDeclared') + ' / ' + tt('casaUnknownsDeclared') + '.</p>';
+  }
+
+  /* ══ IL DISEGNO ═══════════════════════════════════════════════════ */
+  function render(){
+    document.documentElement.lang = lang;
+    var visibili = filtro ? OA.CASI.filter(function(c){ return c.STATO_CLIENTE === filtro; }) : OA.CASI;
+
+    var tiles = [
+      { q: lang === 'en' ? 'What is <b>happening</b> in the field?' : 'Cosa <b>sta succedendo</b> in campo?',
+        big: [{n: SC.CARTAO, l: lang === 'en' ? 'as a card' : 'come scheda'},
+              {n: SC.COM_METODO, l: lang === 'en' ? 'with method' : 'con metodo'}],
+        lab: SC.VISIVEIS + (lang === 'en' ? ' visible readings' : ' letture visibili'),
+        lim: p(SC.LIMITE) },
+      { q: lang === 'en' ? '<b>Where do we have eyes</b>?' : '<b>Dove abbiamo occhi</b>?',
+        big: [{n: FO.COM_METODO, l: t('casaSourcesName')}],
+        lab: lang === 'en' ? 'Collection coverage' : 'Copertura della raccolta',
+        lim: (lang === 'en' ? 'the map answers «' : 'la mappa risponde «') + p(FO.RESPONDE)
+             + (lang === 'en' ? '». It does not answer «' : '». Non risponde «') + p(FO.LIMITE) + '».' },
+      { q: lang === 'en' ? 'Which regulatory <b>window</b> weighs?' : 'Quale <b>finestra</b> regolatoria pesa?',
+        big: [{n: D.DELTA_MESES, l: lang === 'en' ? 'months of gap' : 'mesi di scarto', unit: '~'}],
+        lab: D.TITULO,
+        lim: (lang === 'en' ? 'closed universe of ' : 'universo chiuso di ') + D.UNIVERSO
+             + (lang === 'en' ? ' registrations, not a sample.' : ' registri, non un campione.') }
+    ];
+
+    document.getElementById('app').innerHTML =
+      /* ── testata ────────────────────────────────────────────────── */
+        '<header><div class="top">'
+      + '<span class="mark" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 12 4l8 16"></path><path d="M7.6 13.6h8.8"></path></svg></span>'
+      + '<div><div class="brand">SINTONIA</div><div class="sub">ADAMA ITALIA · INTELLIGENCE</div></div>'
+      + '<span class="spacer"></span>'
+      + '<div class="lang">'
+      + '<button type="button" data-lang="it" aria-pressed="' + (lang === 'it') + '">IT</button>'
+      + '<button type="button" data-lang="en" aria-pressed="' + (lang === 'en') + '">EN</button>'
+      + '</div>'
+      + '<div class="stamp">' + (lang === 'en' ? 'REFERENCE DATE ' : 'DATA DI RIFERIMENTO ')
+      + esc(C.DATA_DE_REFERENCIA) + '<br>' + esc(OA.BUILD_ID) + ' · ' + esc(OA.SOURCE_HEAD) + '</div>'
+      + '</div>'
+      + '<h1>' + tt('casaTitle') + '</h1>'
+      + '<p class="lede">' + tt('casaLede') + '</p></header>'
+
+      /* ── LIVELLO 1 ──────────────────────────────────────────────── */
+      + '<div class="lvl">L1 · <b>' + tt('casaL1') + '</b></div>'
+      + '<p class="h2sub">' + tt('casaL1Sub') + '</p>'
+
+      /* I TRE NUMERI, E NON SI SOMMANO. 43 attuali e 44 di radar sono due
+         orizzonti diversi: il primo e il tavolo di oggi, il secondo la
+         campagna successiva. Sommarli darebbe 87 di niente. */
+      + '<div class="two">'
+      + '<div class="headline">'
+      +   '<div class="k">' + tt('casaCurrentOpps') + '</div>'
+      +   '<div class="big">' + mil(OA.TOTALE) + '</div>'
+      +   '<div class="parts">'
+      +     '<div><div class="pv">' + mil(OA.PRIORITA_COMMERCIALE) + '</div>'
+      +       '<div class="pl">' + tt('casaCommercialPriority') + '</div></div>'
+      +     '<div><div class="pv">' + mil(OA.DA_VALIDARE) + '</div>'
+      +       '<div class="pl">' + tt('casaToValidate') + '</div></div>'
+      +   '</div>'
+      +   '<p class="mini">' + mil(OA.PRIORITA_COMMERCIALE) + ' + ' + mil(OA.DA_VALIDARE)
+      +     ' = ' + mil(OA.TOTALE) + '. ' + tt('casaSplitExplained') + '</p>'
+      + '</div>'
+      + '<div class="horizon">'
+      +   '<div class="k">' + tt('casaRadarName') + '</div>'
+      +   '<div class="parts" style="margin-top:18px">'
+      +     '<div><div class="pv">' + mil(RF.PREPARAR) + '</div><div class="pl">' + tt('casaRadarPrepare') + '</div></div>'
+      +     '<div><div class="pv">' + mil(RF.MONITORAR) + '</div><div class="pl">' + tt('casaRadarMonitor') + '</div></div>'
+      +     '<div><div class="pv" style="color:var(--soft)">' + mil(RF.AGIR_AGORA) + '</div><div class="pl">' + tt('casaRadarActNow') + '</div></div>'
+      +   '</div>'
+      +   '<p class="mini">' + tt('casaDoNotSum') + '</p>'
+      +   '<p class="mini">' + esc(p(RF.LIMITE)) + '</p>'
+      + '</div>'
+      + '</div>'
+
+      + '<div class="grid" style="margin-top:13px">' + tiles.map(function(x){
+          var nums = x.big.map(function(b){
+            return '<div><div class="n' + (b.n === 0 ? ' zero' : '') + '">'
+              + (b.unit || '') + mil(b.n) + '</div>'
+              + '<div class="lim" style="margin-top:5px">' + esc(b.l) + '</div></div>'; }).join('');
+          return '<div class="tile"><div class="q">' + x.q + '</div>'
+            + '<div class="split">' + nums + '</div>'
+            + '<div class="lab">' + esc(x.lab) + '</div>'
+            + '<div class="lim">' + esc(x.lim) + '</div></div>'; }).join('')
+      + '</div>'
+
+      /* ── il destaque ────────────────────────────────────────────── */
+      + '<h2>' + (lang === 'en' ? 'What deserves attention now' : 'Ciò che merita attenzione adesso') + '</h2>'
+      + '<div class="hero"><div class="hero-b">'
+      + '<div class="kicker">' + (lang === 'en' ? 'AUTHORISATION WINDOW · CLOSED UNIVERSE OF '
+          : 'FINESTRA AUTORIZZATIVA · UNIVERSO CHIUSO DI ') + D.UNIVERSO
+      + (lang === 'en' ? ' REGISTRATIONS' : ' REGISTRI') + '</div>'
+      + '<h3>' + esc(D.TITULO) + '</h3>'
+      /* Tre blocchi, e devono restare tre. Il fatto viene per primo perche e
+         l'unica cosa che non abbiamo scritto noi; la lettura viene dopo, con
+         il nostro nome sopra; la domanda chiude, perche la decisione non nasce
+         qui. Metterli senza etichetta lascia che la lettura si legga come
+         fatto — ed e esattamente cosi che un portale mente senza dire nulla
+         di falso. */
+      + '<div class="blk"><span class="blk-l">' + (lang === 'en' ? 'FACT · OFFICIAL REGISTER' : 'FATTO · REGISTRO UFFICIALE') + '</span>'
+      + '<p>' + esc(cap(p(D.FATO))) + '.</p>'
+      + '<div class="win">'
+      + '<div><div class="w-l">ADAMA ITALIA</div><div class="w-v">' + esc(D.ADAMA_ATE) + '</div><div class="w-n">MAXENTIS · KOJAMI</div></div>'
+      + '<div><div class="w-l">CAC CHEMICAL</div><div class="w-v">' + esc(D.CONCORRENTE_ATE) + '</div><div class="w-n">PROMINO XTRA · AMISTAR ERA 240 EC</div></div>'
+      + '<div><div class="w-l">' + (lang === 'en' ? 'GAP' : 'SCARTO') + '</div><div class="w-v">~' + D.DELTA_MESES
+      + (lang === 'en' ? ' months' : ' mesi') + '</div><div class="w-n">'
+      + (lang === 'en' ? 'in the competitor’s favour' : 'a favore del concorrente') + '</div></div>'
+      + '</div></div>'
+      + '<div class="blk"><span class="blk-l blk-s">' + (lang === 'en' ? 'SINTONIA READING' : 'LETTURA SINTONIA') + '</span>'
+      + '<p>' + esc(cap(p(D.INTERPRETACAO))) + '.</p>'
+      + '<p class="limit">' + (lang === 'en' ? 'Limit: ' : 'Limite: ') + esc(p(D.TRAVA_DE_INDEPENDENCIA)) + '</p></div>'
+      + '<div class="ask"><b>' + (lang === 'en' ? 'ACTIVATION QUESTION · PORTFOLIO / MARKET DEVELOPMENT'
+          : 'DOMANDA DI ATTIVAZIONE · PORTAFOGLIO / SVILUPPO MERCATO') + '</b>'
+      + '<span>' + esc(p(D.ACTIVATION_QUESTION)) + '</span>'
+      + '<span class="who">' + (lang === 'en' ? 'Who decides: ' : 'Chi decide: ') + esc(p(D.QUEM_DECIDE))
+      + (lang === 'en' ? ' — this page does not decide it.' : ' — questa pagina non lo decide.') + '</span></div>'
+      + '</div>'
+      + '<details><summary>' + (lang === 'en' ? 'How it was filtered · the closed universe and its edges'
+          : 'Come è stato filtrato · l’universo chiuso e i suoi confini') + '</summary><div class="dd">'
+      + '<p><b>' + (lang === 'en' ? 'Fact.' : 'Fatto.') + '</b> ' + esc(p(D.FATO)) + '</p>'
+      + '<p><b>' + (lang === 'en' ? 'How it was filtered.' : 'Come è stato filtrato.') + '</b> ' + esc(p(D.CRITERIO))
+      + '. ' + (lang === 'en' ? 'Closed universe: ' : 'Universo chiuso: ') + esc(D.E_UNIVERSO_FECHADO)
+      + (lang === 'en' ? ' — it is not a sample.' : ' — non è un campione.') + '</p>'
+      + '<p><b>' + (lang === 'en' ? 'Limit.' : 'Limite.') + '</b> ' + esc(p(D.TRAVA_DE_INDEPENDENCIA)) + '</p>'
+      + '</div></details>'
+      + '<details><summary>' + (lang === 'en' ? 'Evidence · the four registrations and the original source'
+          : 'Evidenza · i quattro registri e la fonte originale') + '</summary><div class="dd">'
+      + '<div class="scroll"><table><thead><tr><th>' + (lang === 'en' ? 'Product' : 'Prodotto')
+      + '</th><th>' + (lang === 'en' ? 'Registration' : 'Registro') + '</th><th>'
+      + (lang === 'en' ? 'Holder' : 'Titolare') + '</th><th>' + (lang === 'en' ? 'Expiry' : 'Scadenza')
+      + '</th><th>' + (lang === 'en' ? 'Administrative state' : 'Stato amministrativo') + '</th></tr></thead><tbody>'
+      + D.ITENS.map(function(i){ return '<tr><td>' + esc(i.PRODUTO) + '</td><td>' + esc(i.REGISTRO)
+          + '</td><td>' + esc(i.TITULAR) + '</td><td>' + esc(i.VENCIMENTO) + '</td><td>'
+          + esc(i.ESTADO_ADMINISTRATIVO) + '</td></tr>'; }).join('')
+      + '</tbody></table></div>'
+      + '<div class="src">' + (lang === 'en' ? 'Source: ' : 'Fonte: ') + esc(D.FONTE)
+      + ' · snapshot ' + esc(D.DATA_DO_SNAPSHOT) + '</div>'
+      + '</div></details></div>'
+
+      /* ── LIVELLO 2 · le 43, una per una ─────────────────────────── */
+      + '<h2 id="gestione">' + tt('casaCurrentOpps') + ' · ' + mil(OA.TOTALE) + '</h2>'
+      + '<div class="lvl">L2 · <b>' + tt('casaL2') + '</b></div>'
+      + '<p class="h2sub">' + tt('casaL2Sub') + ' ' + tt('casaEngineDecides') + '</p>'
+      + '<div class="filters">'
+      + '<button type="button" data-filtro="" aria-pressed="' + (!filtro) + '">'
+      + tt('casaFilterAll') + ' <i>' + mil(OA.TOTALE) + '</i></button>'
+      + STATI.map(function(s){
+          return '<button type="button" data-filtro="' + s + '" aria-pressed="' + (filtro === s) + '">'
+            + tt(s) + ' <i>' + mil(OA.PER_STATO[s] || 0) + '</i></button>'; }).join('')
+      + '</div>'
+      + '<p class="mini">' + tt('lblCases') + ' · ' + mil(visibili.length) + ' ' + tt('casaOf') + ' ' + mil(OA.TOTALE) + '</p>'
+      + '<div id="casi">' + visibili.map(casoHtml).join('') + '</div>'
+
+      /* ── il radar, e i suoi 44 ──────────────────────────────────── */
+      + '<h2>' + tt('casaRadarName') + ' · ' + tt('casaRadarLedger') + '</h2>'
+      + '<p class="h2sub">' + tt('casaRadarTotals') + '. ' + tt('casaDoNotSum') + '</p>'
+      + ledgerHtml()
+      + '<p class="note">' + (lang === 'en'
+          ? 'The dropped one stays out of this surface: ' : 'L’abbattuto resta fuori da questa superficie: ')
+      + tt('casaDropped') + '.</p>'
+
+      /* ── come lo osserviamo ─────────────────────────────────────── */
+      + '<h2>' + (lang === 'en' ? 'How we observe it' : 'Come lo osserviamo') + '</h2>'
+      + '<div class="lvl">L3 · <b>' + tt('casaL3') + '</b></div>'
+      + '<p class="h2sub">' + tt('casaL3Sub') + '</p>'
+      + sensoriHtml()
+
+      /* ── dove abbiamo occhi ─────────────────────────────────────── */
+      + '<h2>' + (lang === 'en' ? 'Where we have eyes' : 'Dove abbiamo occhi') + '</h2>'
+      + coperturaHtml()
+
+      + '<footer><a class="cta" href="portale.html">'
+      + (lang === 'en' ? 'OPEN THE FULL PORTAL' : 'APRI IL PORTALE COMPLETO') + '</a>'
+      + '<span class="foot-n">' + tt('casaEvidenceLayer') + ' — ' + mil(C.EVIDENCIA.FITOSSANITARIO)
+      + (lang === 'en' ? ' corpus records: ' : ' registri di corpus: ') + tt('casaEvidenceOnlyRule')
+      + '.</span></footer>';
+
+    ligar();
+  }
+
+  /* ── i sensori: solo i sopravvissuti ─────────────────────────────── */
+  function sensoriHtml(){
+    var S = C.SENSORES;
+    var vivi = S.SOBREVIVERAM.map(function(s){
+      return '<details><summary><span class="tag ok">'
+        + (lang === 'en' ? 'ACTIVATABLE SENSOR' : 'SENSORE ATTIVABILE') + '</span> '
+        + esc(s.ID) + ' · ' + esc(p(s.TITULO)) + '</summary><div class="dd">'
+        + '<p><b>' + (lang === 'en' ? 'Variable.' : 'Variabile.') + '</b> ' + esc(p(s.VARIAVEL)) + '</p>'
+        + '<p><b>' + (lang === 'en' ? 'Source.' : 'Fonte.') + '</b> ' + esc(p(s.FONTE))
+        + ' <span class="tag">' + esc(s.AUTORIDADE) + '</span></p>'
+        + '<p><b>Cadenza.</b> ' + esc(p(s.CADENZA)) + '</p>'
+        + '<p><b>' + (lang === 'en' ? 'It fires when.' : 'Scatta quando.') + '</b> ' + esc(p(s.SCATTA)) + '</p>'
+        + '<p><b>' + (lang === 'en' ? 'It is invalidated when.' : 'Si invalida quando.') + '</b> ' + esc(p(s.INVALIDA)) + '</p>'
+        + '<p><b>' + (lang === 'en' ? 'State transition.' : 'Transizione di stato.') + '</b> ' + esc(s.TRANSICAO)
+        + '. ' + (lang === 'en' ? 'Authorised by the rule? ' : 'Autorizzata dalla riga? ')
+        + '<b>' + esc(s.TRANSICAO_AUTORIZADA) + '</b>. '
+        + (lang === 'en' ? 'Observing does not promote.' : 'Osservare non promuove.') + '</p>'
+        + '<p><b>' + (lang === 'en' ? 'An adapter is needed.' : 'Serve un adattatore.') + '</b> ' + esc(p(s.ADATTATORE)) + '</p>'
+        + '</div></details>'; }).join('');
+    var caduti = S.DERRUBADOS.map(function(s){
+      return '<details><summary><span class="tag no">'
+        + (lang === 'en' ? 'NOT EXECUTABLE' : 'NON ESEGUIBILE') + '</span> '
+        + esc(s.ID) + ' · ' + esc(p(s.TITULO)) + '</summary><div class="dd">'
+        + '<p><b>' + (lang === 'en' ? 'Why it did not hold.' : 'Perché non ha retto.') + '</b> ' + esc(p(s.CAIU_PORQUE)) + '</p>'
+        + '<p>' + (lang === 'en' ? 'The author declared it ' : 'L’autore lo dichiarava ')
+        + '<b>' + esc(s.DECLARADA_PELO_AUTOR) + '</b>; '
+        + (lang === 'en'
+            ? 'the published verdict is that of whoever attacked it. The full specification stays upstream, not on this page.'
+            : 'il verdetto pubblicato è quello di chi lo ha attaccato. La specifica completa resta a monte, non su questa pagina.')
+        + '</p></div></details>'; }).join('');
+    return '<p class="note">'
+      + (lang === 'en'
+          ? 'Three priority signals were carried to an observation specification. <b>One held</b>, two were knocked down by whoever attacked them. We do not fabricate the third to keep the number: '
+          : 'Tre segnali prioritari sono stati portati a specifica di osservazione. <b>Uno ha retto</b>, due sono stati abbattuti da chi li ha attaccati. Non fabbrichiamo il terzo per tenere il numero: ')
+      + esc(p(C.SENSORES.REGRA)) + '</p>' + vivi + caduti
+      + '<p class="note">' + (lang === 'en'
+          ? 'None of these three authorises a change of state. The Future Radar stands even with no sensor on all three.'
+          : 'Nessuno di questi tre autorizza un cambio di stato. Il Radar Futuro resta valido anche senza sensore su tutti e tre.') + '</p>';
+  }
+
+  /* ── la copertura, e cio che non risponde ────────────────────────── */
+  function coperturaHtml(){
+    var FOx = C.FONTES, CO = C.COBERTURA, A = C.AUTORIZACOES, R = C.REVOGADO_X_SCADUTO;
+    return '<p class="note">'
+      + (lang === 'en' ? 'Coverage answers ' : 'La copertura risponde ')
+      + '<b>«' + esc(p(FOx.RESPONDE)) + '»</b>. '
+      + (lang === 'en' ? 'It never answers ' : 'Non risponde mai ') + '<b>«' + esc(p(FOx.LIMITE)) + '»</b>. '
+      + (lang === 'en'
+          ? 'Confusing the two turns collection coverage into a map of agronomic pressure.'
+          : 'Confondere le due trasforma la copertura della raccolta in una mappa di pressione agronomica.')
+      + '</p>'
+      + '<details><summary>' + (lang === 'en' ? 'How coverage is measured' : 'Come è misurata la copertura')
+      + '</summary><div class="dd">'
+      /* La regola DO_NOT_SHOW su questo strato e esplicita: si dice «72 con
+         l'espansione territoriale dichiarata», mai «copertura BUONA in 72
+         celle». La prima e la misura; la seconda e un giudizio che nessuno
+         ha dato. */
+      + '<p>' + mil(CO.CELULAS) + (lang === 'en'
+          ? ' territory × speciality cells. With the declared territorial expansion: '
+          : ' celle territorio × specialità. Con l’espansione territoriale dichiarata: ')
+      + mil(CO.COM_EXPANSAO_GOOD) + (lang === 'en' ? ' cells. Without it: ' : ' celle. Senza di essa: ')
+      + mil(CO.SEM_EXPANSAO_GOOD) + '.</p>'
+      + '<p><b>' + (lang === 'en' ? 'The expansion is a rule, not a datum.' : 'L’espansione è una regola, non un dato.')
+      + '</b> ' + esc(p(CO.A_EXPANSAO_E)) + '</p>'
+      + '<p>' + (lang === 'en'
+          ? 'We show no recency on this layer: it was produced with a faulty date reading, still to be re-measured.'
+          : 'Non mostriamo recenza su questo strato: è stato prodotto con una lettura di data difettosa, ancora da rimisurare.')
+      + '</p></div></details>'
+      + '<details><summary>' + (lang === 'en'
+          ? 'ADAMA authorisations · the number never travels alone'
+          : 'Autorizzazioni ADAMA · il numero non viaggia da solo') + '</summary><div class="dd">'
+      + '<p>' + (lang === 'en' ? 'Under the ' : 'Sotto criterio ') + '<b>'
+      + (lang === 'en' ? 'BROAD' : 'AMPLIATO') + '</b> (' + esc(p(A.CRITERIO_AMPLIADO)) + '), '
+      + (lang === 'en'
+          ? 'five company names summed, snapshot '
+          : 'cinque ragioni sociali sommate, snapshot ') + esc(A.DATA_DO_SNAPSHOT) + ': <b>'
+      + mil(A.AMPLIADO_CINCO_RAZOES) + '</b> '
+      + (lang === 'en' ? 'live registrations with a future expiry. Under ' : 'registri vigenti con scadenza futura. Sotto criterio ')
+      + '<b>STRICT</b> (' + esc(p(A.CRITERIO_STRICT)) + '): <b>' + mil(A.STRICT_CINCO_RAZOES) + '</b>.</p>'
+      + '<p><b>' + (lang === 'en' ? 'Limit.' : 'Limite.') + '</b> ' + esc(p(A.LIMITE)) + ' '
+      + (lang === 'en' ? 'Summing the five company names is ' : 'Sommare le cinque ragioni sociali è ')
+      + esc(p(A.AGRUPAR_AS_CINCO_E)) + '.</p>'
+      + '<p><b>' + (lang === 'en' ? 'States with no rule.' : 'Stati senza regola.') + '</b> ' + esc(p(A.SEM_DONO)) + '</p>'
+      + '</div></details>'
+      + '<details><summary>' + (lang === 'en'
+          ? 'Revoked ≠ Expired · why the date alone is not enough'
+          : 'Revocato ≠ Scaduto · perché la data da sola non basta') + '</summary><div class="dd">'
+      + '<p>' + esc(p(R.DEMONSTRACAO)) + '.</p>'
+      + '<p>Revocato: ' + mil(R.REVOCATO) + ' · Scaduto: ' + mil(R.SCADUTO) + ' · '
+      + (lang === 'en' ? 'revoked with an expiry still in the future: ' : 'revocati con scadenza ancora futura: ')
+      + mil(R.REVOCATO_COM_VENCIMENTO_FUTURO) + '.</p>'
+      + '<p><b>' + (lang === 'en' ? 'Limit.' : 'Limite.') + '</b> ' + esc(p(R.LIMITE)) + '</p>'
+      + '</div></details>';
+  }
+
+  function ligar(){
+    var app = document.getElementById('app');
+    app.querySelectorAll('[data-lang]').forEach(function(b){
+      b.addEventListener('click', function(){
+        lang = b.getAttribute('data-lang');
+        try { localStorage.setItem('sintonia.casa.lang', lang); } catch (e) {}
+        render();
+      });
+    });
+    app.querySelectorAll('[data-filtro]').forEach(function(b){
+      b.addEventListener('click', function(){
+        filtro = b.getAttribute('data-filtro');
+        render();
+        var g = document.getElementById('gestione');
+        if (g) g.scrollIntoView({ block: 'start' });
+      });
+    });
+  }
+
+  render();
 })();
 </script>
 </body>

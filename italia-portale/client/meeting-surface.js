@@ -530,6 +530,14 @@
     /* Exposed so a gate can prove the boundary on a hand-built deep object
        instead of only on data that happens to be clean today. */
     clientSafe,
+    /* Exposed for the same reason, one rule further: `scripts/it_casa_dados.py`
+       carries the SAME pointer rule into the package it writes, and a gate
+       runs both over all 86 engine sentences and requires identical text.
+       Two implementations of one rule diverge; a gate that compares them
+       cannot let the divergence travel.
+
+           LA REGOLA E UNA. LE IMPLEMENTAZIONI SONO DUE, E SI CONTROLLANO. */
+    dePointer,
     available: () => !!SNAP(),
     build: function (lang) {
       const s = SNAP();

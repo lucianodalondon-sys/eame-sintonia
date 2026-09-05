@@ -30,6 +30,12 @@ import { spawnSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { PT_MARKERS } from './lang.mjs';
+/* UM DETECTOR, E UMA SO VEZ. A regra de negacao — e a propriedade de que
+   a negacao da frase ANTERIOR nao absolve a afirmacao seguinte — vive em
+   audit/do-not-show.mjs, partilhada com lote-completo.mjs. Duas copias da
+   mesma lei divergem, e a que divergir para o lado permissivo passa a dar
+   PASS sem nunca ter disparado. */
+import { medir, controloNegativo, QA } from './do-not-show.mjs';
 
 const require_ = createRequire(import.meta.url);
 const { chromium } = require_('/opt/node22/lib/node_modules/playwright/index.js');
@@ -39,8 +45,6 @@ const RAIZ = path.resolve(AQUI, '..', '..');
 const CLIENTE = path.join(RAIZ, 'italia-portale', 'client');
 const UP = path.join(CLIENTE, 'upstream');
 const J = (f) => JSON.parse(fs.readFileSync(path.join(UP, f), 'utf8'));
-/* A adaptacao QA vive em audit/, nao em upstream/: ela e DESTA linha. */
-const J_AUDIT = (f) => JSON.parse(fs.readFileSync(new URL('./' + f, import.meta.url), 'utf8'));
 
 const RF = J('IT-FUTURO-HANDOFF-LINHA-B-V1.json');
 const SC = J('IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json');
@@ -65,14 +69,80 @@ const pg = await b.newPage({ viewport: { width: 1280, height: 1000 } });
 const erros = [];
 pg.on('pageerror', (e) => erros.push(e.message));
 pg.on('console', (m) => { if (m.type() === 'error') erros.push(m.text()); });
+/* A LINGUA E UM ESTADO DA SUPERFICIE, NAO UM FICHEIRO A PARTE.
+   A casa desenha-se em italiano e em ingles a partir do MESMO pacote. Medir
+   so o italiano deixaria metade do ecra por medir — e e a metade em que um
+   codigo sem frase inglesa apareceria primeiro.
+
+       UMA SUPERFICIE BILINGUE MEDIDA NUMA LINGUA E UMA SUPERFICIE MEDIDA A METADE. */
+const abrirTudo = async () => {
+  /* Uma dobra pode conter outra: abre-se ate nao aparecerem mais. */
+  for (let i = 0; i < 6; i++) {
+    const n = await pg.evaluate(() => {
+      const d = [...document.querySelectorAll('details')].filter((x) => !x.open);
+      d.forEach((x) => { x.open = true; });
+      return d.length;
+    });
+    if (!n) break;
+    await pg.waitForTimeout(120);
+  }
+};
+const trocarLingua = async (lg) => {
+  await pg.evaluate((l) => {
+    const b = document.querySelector(`[data-lang="${l}"]`);
+    if (!b) throw new Error(`sem botao de lingua ${l}`);
+    b.click();
+  }, lg);
+  await pg.waitForTimeout(250);
+};
+
+await pg.addInitScript(() => { try { localStorage.removeItem('sintonia.casa.lang'); } catch (e) {} });
 await pg.goto('file://' + path.join(CLIENTE, 'casa.html'), { waitUntil: 'load' });
 await pg.waitForTimeout(300);
 /* fechada e aberta: o cliente ve as duas */
 const fechada = await pg.evaluate(() => document.body.innerText);
-await pg.evaluate(() => document.querySelectorAll('details').forEach((d) => { d.open = true; }));
-await pg.waitForTimeout(200);
+await abrirTudo();
 const aberta = await pg.evaluate(() => document.body.innerText);
 const CASA = await pg.evaluate(() => window.ITALY_CASA);
+/* Contagens medidas NO DOM, nao no dado: um cartao que o dado traz e o ecra
+   nao desenha continua a nao existir para quem le. */
+const lerDom = () => pg.evaluate(() => {
+  const casos = [...document.querySelectorAll('[data-caso]')];
+  const txt = document.body.innerText;
+  return {
+    casos: casos.length,
+    estados: casos.map((e) => e.getAttribute('data-stato')),
+    /* Cada caso tem de ter as sete seccoes do L2 e uma dobra de L3 dentro. */
+    seccoes: casos.map((e) => e.querySelectorAll(':scope > .dd > .sec').length),
+    comL3: casos.filter((e) => e.querySelector(':scope > .dd > details')).length,
+    /* O registo dos 44, medido no DOM e nao no dado. */
+    ledger: [...document.querySelectorAll('table tbody tr')]
+      .map((r) => (r.cells[0] ? r.cells[0].innerText.trim() : ''))
+      .filter((v) => /^ITFC-\d+/.test(v)).map((v) => v.slice(0, 8)),
+    /* Buracos de etiqueta: `tt()` desenha [codigo] quando o par falta. */
+    buracos: (txt.match(/\[[A-Za-z][A-Za-z0-9_]{3,}\]/g) || []),
+    objetos: (txt.match(/\[object Object\]/g) || []).length,
+    htmlLang: document.documentElement.lang,
+    texto: txt,
+  };
+});
+const domIT = await lerDom();
+await trocarLingua('en');
+await abrirTudo();
+const abertaEN = await pg.evaluate(() => document.body.innerText);
+const domEN = await lerDom();
+/* Larguras reais. O scroll horizontal a 390px nao se ve num viewport de 1280. */
+const larguras = {};
+for (const [nome, w] of [['desktop1440', 1440], ['mobile390', 390]]) {
+  await pg.setViewportSize({ width: w, height: 900 });
+  await pg.waitForTimeout(150);
+  larguras[nome] = await pg.evaluate(() => ({
+    scrollW: document.documentElement.scrollWidth,
+    clientW: document.documentElement.clientWidth,
+  }));
+}
+await pg.setViewportSize({ width: 1280, height: 1000 });
+await trocarLingua('it');
 await b.close();
 
 const temNum = (t, n) => new RegExp('(?<![\\d.,])' + n.toLocaleString('it-IT').replace('.', '[.\\s]?')
@@ -152,10 +222,16 @@ check('PORTAL_WITH_METHOD_HAS_LIMIT', () => {
     SINAIS_DE_CAMPO: CASA.SINAIS_DE_CAMPO, FONTES: CASA.FONTES,
     AUTORIZACOES: CASA.AUTORIZACOES, REVOGADO_X_SCADUTO: CASA.REVOGADO_X_SCADUTO,
     RADAR_FUTURO: CASA.RADAR_FUTURO })) {
-    if (!o.LIMITE || !String(o.LIMITE).trim()) bad.push(`${k} sem limite declarado`);
+    /* O limite viaja em PAR: uma metade em falta e meia cautela, e meia
+       cautela numa lingua e nenhuma cautela para quem le nessa lingua. */
+    for (const lg of ['it', 'en']) {
+      if (!o.LIMITE || !o.LIMITE[lg] || !String(o.LIMITE[lg]).trim()) bad.push(`${k} sem limite declarado em ${lg}`);
+    }
   }
-  if (!CASA.FONTES.RESPONDE) bad.push('FONTES sem o que a cobertura RESPONDE');
-  if (CASA.FONTES.RESPONDE === CASA.FONTES.LIMITE) bad.push('FONTES: responde e limite sao a mesma frase');
+  for (const lg of ['it', 'en']) {
+    if (!CASA.FONTES.RESPONDE || !CASA.FONTES.RESPONDE[lg]) bad.push(`FONTES sem o que a cobertura RESPONDE em ${lg}`);
+    else if (CASA.FONTES.RESPONDE[lg] === CASA.FONTES.LIMITE[lg]) bad.push(`FONTES (${lg}): responde e limite sao a mesma frase`);
+  }
   if (!/Non risponde mai/i.test(aberta)) bad.push('a cobertura nao diz o que NAO responde');
   if (!/Non è quota di mercato|non e quota di mercato/i.test(aberta))
     bad.push('a contagem de autorizacoes nao nega quota de mercado');
@@ -229,68 +305,26 @@ check('NAO_SEI_NAO_VIRA_AFIRMACAO', () => {
 
        A FRASE PROIBIDA, NEGADA, E A REGRA A ENSINAR-SE.
        PROIBI-LA SERIA APAGAR A LICAO PARA SALVAR O GREP. */
-const QA = J_AUDIT('DO-NOT-SHOW-QA.json');
-
-/* → lista de ocorrencias NAO negadas. A janela e a do ficheiro, nao minha. */
-function ocorrenciasNaoNegadas(texto, frase) {
-  const t = texto.toLowerCase();
-  const f = String(frase).toLowerCase();
-  const janela = QA.JANELA_DE_NEGACAO_CHARS;
-  const marcas = QA.MARCADORES_DE_NEGACAO.map((m) => m.toLowerCase());
-  const achados = [];
-  let i = t.indexOf(f);
-  while (i >= 0) {
-    /* A negacao tem de estar na MESMA frase. Medir uma janela crua de N
-       caracteres deixa a proibicao ser absolvida pelo «mai» da frase ANTERIOR —
-       provado ao injetar «La copertura BUONA in 72 celle» logo a seguir ao
-       paragrafo que ja dizia «mai copertura BUONA in 72 celle»: a ocorrencia
-       nova ficou coberta pela negacao velha.
-
-           UMA NEGACAO NA FRASE DE CIMA NAO NEGA A AFIRMACAO DA FRASE DE BAIXO.
-
-       Recorta-se ate a fronteira de frase mais proxima, e nunca alem da janela. */
-    const cru = t.slice(Math.max(0, i - janela), i);
-    const corte = Math.max(cru.lastIndexOf('.'), cru.lastIndexOf('!'), cru.lastIndexOf('?'),
-                           cru.lastIndexOf('\n'), cru.lastIndexOf(';'));
-    const antes = corte >= 0 ? cru.slice(corte + 1) : cru;
-    if (!marcas.some((m) => antes.includes(m))) achados.push(i);
-    i = t.indexOf(f, i + 1);
-  }
-  return achados;
-}
-
 check('LITERAL_PT_CONTROL', () => {
   const bad = [];
   if (QA.LITERAIS.length !== 8) bad.push(`a adaptacao QA declara ${QA.LITERAIS.length} literais, nao 8`);
-  for (const L of QA.LITERAIS) {
-    if (ocorrenciasNaoNegadas(aberta, L.PT).length) bad.push(`a casa afirma «${L.PT}» (${L.ACHADO})`);
-  }
-  /* controle negativo do proprio detector, sem tocar na pagina */
-  const sonda = 'la casa dice 114 pessoas senza metodo';
-  if (!ocorrenciasNaoNegadas(sonda, '114 pessoas').length) bad.push('CONTROLE NEGATIVO PT FALHOU: o detector nao ve a frase afirmada');
-  if (ocorrenciasNaoNegadas('si dice 90 entita, mai 114 pessoas', '114 pessoas').length) bad.push('CONTROLE NEGATIVO PT FALHOU: o detector acusa a frase NEGADA');
+  bad.push(...medir(aberta, 'PT'));
+  bad.push(...controloNegativo());
   return { pass: !bad.length, detail: bad.length ? bad : ['8/8 em portugues, e a negacao pedagogica nao conta como afirmacao'] };
 });
 
-check('LITERAL_IT_CONTROL', () => {
+check('LITERAL_IT_AND_EN_CONTROL', () => {
+  /* A LINGUA REAL DA SUPERFICIE — as duas, e cada uma medida com as SUAS
+     frases. Medir a pagina inglesa com as frases italianas passaria sempre,
+     e nao por a regra ser respeitada: por a frase nunca poder estar la. */
   const bad = [];
-  let n = 0;
-  for (const L of QA.LITERAIS) {
-    if (!L.IT || !L.IT.length) { bad.push(`${L.ACHADO}: «${L.PT}» sem equivalente italiano declarado`); continue; }
-    n += L.IT.length;
-    for (const it of L.IT) {
-      if (ocorrenciasNaoNegadas(aberta, it).length) bad.push(`a casa afirma «${it}» (${L.ACHADO})`);
-    }
-  }
-  /* controle negativo: a mesma leitura proibida, em italiano natural, tem de ser
-     vista quando AFIRMADA e ignorada quando negada. */
-  if (!ocorrenciasNaoNegadas('la copertura BUONA in 72 celle', 'copertura BUONA').length)
-    bad.push('CONTROLE NEGATIVO IT FALHOU: o detector nao ve a frase italiana afirmada');
-  if (ocorrenciasNaoNegadas('si dice 72 dichiarate, mai copertura BUONA in 72 celle', 'copertura BUONA').length)
-    bad.push('CONTROLE NEGATIVO IT FALHOU: o detector acusa a frase italiana NEGADA');
-  if (!ocorrenciasNaoNegadas('mai copertura BUONA in celle. La copertura BUONA e questa.', 'copertura BUONA').length)
-    bad.push('CONTROLE NEGATIVO IT FALHOU: a negacao da frase ANTERIOR absolveu a afirmacao seguinte');
-  return { pass: !bad.length, detail: bad.length ? bad : [`${n} equivalentes italianos declarados para os 8 literais — isto e grep em duas linguas, NAO revisao semantica`] };
+  const nIT = QA.LITERAIS.reduce((a, L) => a + (L.IT || []).length, 0);
+  const nEN = QA.LITERAIS.reduce((a, L) => a + (L.EN || []).length, 0);
+  bad.push(...medir(aberta, 'IT').map((m) => `IT · ${m}`));
+  bad.push(...medir(abertaEN, 'EN').map((m) => `EN · ${m}`));
+  bad.push(...controloNegativo());
+  return { pass: !bad.length, detail: bad.length ? bad
+    : [`${nIT} equivalentes italianos e ${nEN} ingleses para os 8 literais, cada lingua medida com os seus — isto e grep, NAO revisao semantica`] };
 });
 
 check('DO_NOT_SHOW_NAO_DIZER_AUSENTE_DA_CASA', () => {
@@ -435,6 +469,275 @@ check('ONE_SURFACE_NAME_ONE_POPULATION', () => {
     `«Radar Futuro» fica reservado aos ${canonicos.size} ITFC · interseccao IT-FUT x ITFC = 0`,
     'controlo negativo: os dois nomes canonicos aplicados ao legado SAO apanhados',
   ] };
+});
+
+/* ══ AS 43 OPORTUNIDADES ATUAIS ═════════════════════════════════════════════
+   O numero maior da primeira dobra e o que mais facilmente se escreve a mao. E
+   um 43 escrito a mao nao e um erro que se veja: e um numero certo hoje que
+   deixa de mudar quando o motor mudar.
+
+       UM NUMERO DERIVADO E UMA MEDIDA. UM NUMERO ESCRITO E UMA LEMBRANCA.
+
+   Por isso este portao nao pergunta "esta 43 no ecra?" — pergunta "de onde
+   veio o 43 que esta no ecra?", e refaz a conta a partir do dono. */
+const MI = JSON.parse(fs.readFileSync(path.join(CLIENTE, 'meeting-intelligence-snapshot.json'), 'utf8'));
+
+check('CURRENT_OPPORTUNITIES_OWNER_DERIVED', () => {
+  const bad = [];
+  const OA = CASA.OPPORTUNITA_ATTUALI || {};
+  /* A regra prioridade -> estado do cliente e de meeting-surface.js. Le-se de
+     la; copia-la para aqui daria a este portao um terceiro dono da mesma lei. */
+  const surf = fs.readFileSync(path.join(CLIENTE, 'meeting-surface.js'), 'utf8');
+  const bloco = surf.match(/const CLIENT_STATE = \{([\s\S]*?)\n  \};/);
+  if (!bloco) return { pass: false, detail: ['meeting-surface.js: CLIENT_STATE nao encontrado'] };
+  const mapa = Object.fromEntries([...bloco[1].matchAll(/([A-Z_]+):\s*'([A-Z_]+)'/g)].map((m) => [m[1], m[2]]));
+  if (Object.keys(mapa).length !== 3) bad.push(`CLIENT_STATE tem ${Object.keys(mapa).length} entradas, esperadas 3`);
+
+  const casos = MI.CASES || [];
+  const comercial = casos.filter((c) => mapa[c.COMMERCIAL_PRIORITY]).length;
+  const validar = casos.length - comercial;
+  if (MI.TOTAL_CASES !== casos.length) bad.push(`o snapshot diz ${MI.TOTAL_CASES} e traz ${casos.length}`);
+  if (OA.TOTALE !== casos.length) bad.push(`a casa diz ${OA.TOTALE}, o dono traz ${casos.length}`);
+  if (OA.PRIORITA_COMMERCIALE !== comercial) bad.push(`prioridade comercial: casa ${OA.PRIORITA_COMMERCIALE}, dono ${comercial}`);
+  if (OA.DA_VALIDARE !== validar) bad.push(`da validare: casa ${OA.DA_VALIDARE}, dono ${validar}`);
+  if (OA.PRIORITA_COMMERCIALE + OA.DA_VALIDARE !== OA.TOTALE) bad.push('as duas partes nao fecham no total');
+  if ((OA.CASI || []).length !== casos.length) bad.push(`o pacote leva ${(OA.CASI || []).length} casos, nao ${casos.length}`);
+  if (OA.SOURCE_HEAD !== MI.SOURCE_HEAD || OA.BUILD_ID !== MI.BUILD_ID) bad.push('a casa declara outra proveniencia que o dono');
+  /* E o ecra tem de o dizer, nas duas linguas e sem o esconder atras de uma dobra. */
+  for (const [lg, txt] of [['it', fechada], ['en', abertaEN]]) {
+    if (!temNum(txt, OA.TOTALE)) bad.push(`${lg}: o ecra nao mostra ${OA.TOTALE}`);
+    if (!temNum(txt, OA.PRIORITA_COMMERCIALE)) bad.push(`${lg}: o ecra nao mostra ${OA.PRIORITA_COMMERCIALE}`);
+    if (!temNum(txt, OA.DA_VALIDARE)) bad.push(`${lg}: o ecra nao mostra ${OA.DA_VALIDARE}`);
+  }
+  /* A aritmetica dita, nao deixada ao leitor. */
+  const soma = new RegExp(`${OA.PRIORITA_COMMERCIALE}\\s*\\+\\s*${OA.DA_VALIDARE}\\s*=\\s*${OA.TOTALE}`);
+  if (!soma.test(aberta)) bad.push(`a primeira dobra nao explica ${OA.PRIORITA_COMMERCIALE} + ${OA.DA_VALIDARE} = ${OA.TOTALE}`);
+  if (!soma.test(abertaEN)) bad.push('a superficie inglesa nao explica a mesma soma');
+  return { pass: !bad.length, detail: bad.length ? bad : [
+    `${OA.TOTALE} = ${OA.PRIORITA_COMMERCIALE} prioridade comercial + ${OA.DA_VALIDARE} da validare, refeitos a partir do snapshot ${MI.BUILD_ID}`,
+    `a regra prioridade->estado lida de meeting-surface.js: ${Object.entries(mapa).map(([a, b]) => `${a}->${b}`).join(' · ')}`,
+  ] };
+});
+
+check('HARDCODE_43_CANNOT_PASS', () => {
+  /* O portao acima refaz a conta — mas refazer a conta nao impede que alguem
+     escreva o numero na vista e deixe o dado a apodrecer ao lado. Aqui exige-se
+     que o 43, o 26 e o 17 nao existam como literais no codigo que os desenha.
+
+         SE O NUMERO ESTA NO CODIGO, DEIXOU DE SER MEDIDO. */
+  const OA = CASA.OPPORTUNITA_ATTUALI;
+  const html = fs.readFileSync(path.join(CLIENTE, 'casa.html'), 'utf8');
+  const gerador = fs.readFileSync(path.resolve(AQUI, '..', '..', 'scripts', 'it_casa_dados.py'), 'utf8');
+  const bad = [];
+  /* So o CODIGO, nunca o comentario: um numero citado numa nota nao desenha
+     nada, e proibi-lo obrigaria a escrever notas que nao podem explicar-se. */
+  const TRIPLA = String.fromCharCode(34, 34, 34);
+  const semComentarios = (src, tipo) => (tipo === 'js'
+    ? src.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|\s)\/\/[^\n]*/g, ' ')
+    : src.replace(new RegExp(TRIPLA + '[\\s\\S]*?' + TRIPLA, 'g'), ' ').replace(/#[^\n]*/g, ' '));
+  const alvos = [OA.TOTALE, OA.PRIORITA_COMMERCIALE, OA.DA_VALIDARE];
+  for (const [nome, src, tipo] of [['casa.html', html, 'js'], ['it_casa_dados.py', gerador, 'py']]) {
+    const corpo = semComentarios(src, tipo);
+    for (const n of alvos) {
+      if (new RegExp(`(?<![\\w.])${n}(?![\\w.])`).test(corpo)) bad.push(`${nome} escreve ${n} no codigo`);
+    }
+  }
+  /* CONTROLO NEGATIVO — um portao que nunca reprovou e decoracao. */
+  const re43 = new RegExp(`(?<![\\w.])${OA.TOTALE}(?![\\w.])`);
+  if (!re43.test(semComentarios(`var totale = ${OA.TOTALE};`, 'js'))) {
+    bad.push('CONTROLO NEGATIVO FALHOU: o detector nao ve o numero escrito a mao');
+  }
+  if (re43.test(semComentarios(`/* sono ${OA.TOTALE} */`, 'js'))) {
+    bad.push('CONTROLO NEGATIVO FALHOU: o detector acusa o numero citado num comentario');
+  }
+  return { pass: !bad.length, detail: bad.length ? bad
+    : [`${alvos.join(', ')} nao existem como literais na vista nem no gerador — todos derivados`,
+       'controlo negativo: um numero escrito a mao SERIA apanhado; o mesmo numero num comentario nao'] };
+});
+
+check('RADAR_NEVER_SUMMED_WITH_CURRENT', () => {
+  /* 43 atuais e 44 de radar sao dois HORIZONTES. Somados dariam 87 de nada:
+     o primeiro e a mesa de hoje, o segundo a campanha seguinte. */
+  const bad = [];
+  const OA = CASA.OPPORTUNITA_ATTUALI, R = CASA.RADAR_FUTURO;
+  if (OA.ORIZZONTE === R.ORIZZONTE) bad.push('as duas superficies declaram o mesmo horizonte');
+  for (const [lg, txt] of [['it', aberta], ['en', abertaEN]]) {
+    if (temNum(txt, OA.TOTALE + R.RENDERIZAVEIS)) bad.push(`${lg}: a soma proibida ${OA.TOTALE + R.RENDERIZAVEIS} esta no ecra`);
+    if (temNum(txt, OA.TOTALE + R.TOTAL)) bad.push(`${lg}: a soma proibida ${OA.TOTALE + R.TOTAL} esta no ecra`);
+  }
+  if (!/non si somma/i.test(aberta)) bad.push('a casa nao diz que os dois nao se somam');
+  if (!/not added|does not add/i.test(abertaEN)) bad.push('a superficie inglesa nao diz que os dois nao se somam');
+  return { pass: !bad.length, detail: bad.length ? bad
+    : [`${OA.ORIZZONTE} e ${R.ORIZZONTE} sao dois horizontes; ${OA.TOTALE + R.RENDERIZAVEIS} nao aparece em lingua nenhuma`] };
+});
+
+check('LEDGER_44_NAVIGABLE', () => {
+  /* O TOP_3 e enriquecimento, nao universo. Levar tres para o browser fazia do
+     destaque a coleccao inteira, e quem abrisse o Radar via 3 de 44 nao tinha
+     como saber que faltavam 41. */
+  const bad = [];
+  const R = CASA.RADAR_FUTURO;
+  const reg = R.REGISTRO || [];
+  const idDe = (x) => (typeof x === 'string' ? x : (x && (x.ID || x.id)) || null);
+  const rend = new Set((RF.RENDERIZAVEIS || []).map(idDe).filter(Boolean));
+  const excl = new Set((RF.EXCLUIDOS || []).map(idDe).filter(Boolean));
+  if (reg.length !== RF.RENDERABLE) bad.push(`o registo tem ${reg.length} linhas, o handoff diz ${RF.RENDERABLE}`);
+  for (const r of reg) {
+    if (excl.has(r.ID)) bad.push(`${r.ID} esta entre os EXCLUIDOS e esta no registo`);
+    else if (!rend.has(r.ID)) bad.push(`${r.ID} nao esta entre os RENDERIZAVEIS`);
+  }
+  const prep = reg.filter((r) => r.ACAO === 'PREPARAR').length;
+  const moni = reg.filter((r) => r.ACAO === 'MONITORAR').length;
+  if (prep !== RF.PREPARE) bad.push(`PREPARAR: registo ${prep}, handoff ${RF.PREPARE}`);
+  if (moni !== RF.WATCH) bad.push(`MONITORAR: registo ${moni}, handoff ${RF.WATCH}`);
+  if (R.TOTAL !== RF.TOTAL || R.RENDERIZAVEIS !== RF.RENDERABLE || R.DERRUBADOS !== RF.DROPPED) {
+    bad.push(`45/44/1 partiu-se: ${R.TOTAL}/${R.RENDERIZAVEIS}/${R.DERRUBADOS}`);
+  }
+  if (R.AGIR_AGORA !== 0) bad.push(`AGIR_AGORA=${R.AGIR_AGORA}`);
+  /* E NAVEGAVEIS quer dizer no DOM, nao no dado. */
+  for (const [lg, dom] of [['it', domIT], ['en', domEN]]) {
+    const vistos = new Set(dom.ledger);
+    if (vistos.size !== RF.RENDERABLE) bad.push(`${lg}: o ecra desenha ${vistos.size} linhas de registo, nao ${RF.RENDERABLE}`);
+    for (const id of excl) if (vistos.has(id)) bad.push(`${lg}: o derrubado ${id} esta desenhado`);
+  }
+  return { pass: !bad.length, detail: bad.length ? bad
+    : [`${reg.length} ITFC no pacote e ${new Set(domIT.ledger).size} desenhados · ${prep} preparar + ${moni} monitorar + ${R.AGIR_AGORA} agir agora`,
+       `TOP_3 continua enriquecimento: ${reg.filter((r) => r.SENSOR).length} linhas trazem veredito de sensor, ${reg.length} trazem a linha`] };
+});
+
+check('LEVELS_1_2_3_ON_THE_SURFACE', () => {
+  /* Progressive disclosure medida onde ela existe: no DOM. Um nivel que o
+     pacote traz e o ecra nao desenha nao e um nivel. */
+  const bad = [];
+  const OA = CASA.OPPORTUNITA_ATTUALI;
+  for (const [lg, dom] of [['it', domIT], ['en', domEN]]) {
+    if (dom.casos !== OA.TOTALE) bad.push(`${lg}: ${dom.casos} casos no DOM, ${OA.TOTALE} no pacote`);
+    if (dom.comL3 !== dom.casos) bad.push(`${lg}: ${dom.casos - dom.comL3} casos sem dobra de evidencia (L3)`);
+    const magro = dom.seccoes.filter((n) => n < 7).length;
+    if (magro) bad.push(`${lg}: ${magro} casos com menos de 7 seccoes de gestao (L2)`);
+    if (dom.htmlLang !== lg) bad.push(`${lg}: <html lang> diz ${dom.htmlLang}`);
+  }
+  for (const m of ['L1', 'L2', 'L3']) if (!aberta.includes(`${m} ·`)) bad.push(`o nivel ${m} nao esta nomeado`);
+  return { pass: !bad.length, detail: bad.length ? bad
+    : [`L1 primeira dobra · L2 ${domIT.casos} casos com ${Math.min(...domIT.seccoes)}-${Math.max(...domIT.seccoes)} seccoes · L3 ${domIT.comL3} dobras de evidencia`,
+       'medido nas duas linguas'] };
+});
+
+check('LABEL_FAIL_CLOSED_IT_AND_EN', () => {
+  /* `null` em meeting-labels.js PODE fazer desaparecer uma linha: em
+     meeting-surface.js, `labList` filtra as etiquetas nulas e a linha some sem
+     que ninguem veja o buraco. E um defeito real, e fecha-se aqui em vez de
+     se documentar.
+
+         UMA LINHA QUE SOME EM SILENCIO E PIOR DO QUE UM TOKEN A VISTA:
+         O TOKEN VE-SE.
+
+     Fecha-se em tres sitios: o gerador FALHA se um codigo nao tiver par; a
+     vista desenha [codigo] em vez de nada; e este portao reprova se algum
+     [codigo] aparecer no ecra, em qualquer das duas linguas. */
+  const bad = [];
+  const L = CASA.LABELS || {};
+  const n = Object.keys(L).length;
+  if (!n) bad.push('o pacote nao leva dicionario nenhum');
+  for (const [k, v] of Object.entries(L)) {
+    if (!v || !v.it || !v.en) bad.push(`${k} sem par IT+EN no pacote`);
+  }
+  for (const [lg, dom] of [['it', domIT], ['en', domEN]]) {
+    if (dom.buracos.length) bad.push(`${lg}: ${dom.buracos.length} etiqueta(s) em falta no ecra: ${[...new Set(dom.buracos)].slice(0, 6).join(', ')}`);
+    if (dom.objetos) bad.push(`${lg}: ${dom.objetos} par(es) impressos como objecto`);
+  }
+  /* CONTROLO NEGATIVO — o detector de buracos tem de VER um buraco. */
+  if (!/\[[A-Za-z][A-Za-z0-9_]{3,}\]/.test('[codigoInventado]')) {
+    bad.push('CONTROLO NEGATIVO FALHOU: o detector nao ve o marcador de buraco');
+  }
+  if (/\[[A-Za-z][A-Za-z0-9_]{3,}\]/.test('[ab] 43 [X]')) {
+    bad.push('CONTROLO NEGATIVO FALHOU: o detector acusa parenteses que nao sao codigo');
+  }
+  return { pass: !bad.length, detail: bad.length ? bad
+    : [`${n} codigos no pacote, todos com par IT+EN`,
+       'zero buracos desenhados em italiano e em ingles',
+       'dono unico das frases: client/meeting-labels.js — o pacote transporta, nao escreve'] };
+});
+
+check('ACTION_MAP_IS_THE_ENGINE_MAP', () => {
+  /* O mapa de accao mostra os reparos que o MOTOR nomeia — nunca um inventado —
+     e a JANELA so onde o motor a declara. ACT, PREPARE e WATCH tem janela;
+     VALIDATE e NO_ACTION nao tem, e forca-los para dentro de uma das tres
+     seria decidir no lugar do motor. */
+  const bad = [];
+  const OA = CASA.OPPORTUNITA_ATTUALI;
+  const JANELA = { ACT: 'WINDOW_ACT_NOW', PREPARE: 'WINDOW_PREPARE', WATCH: 'WINDOW_MONITOR' };
+  const doMotor = new Set();
+  for (const c of MI.CASES) for (const d of Object.keys(c.ACTION_BY_DEPARTMENT || {})) doMotor.add(d);
+  const noPacote = new Set();
+  let comJanela = 0; let semJanela = 0;
+  for (const c of OA.CASI) {
+    if (!c.AZIONI.length) bad.push(`${c.ID} sem mapa de accao`);
+    if (c.AZIONI.length && c.AZIONI[0].REPARTO !== 'MARKET_DEVELOPMENT') {
+      bad.push(`${c.ID}: Desenvolvimento de Mercado nao e o primeiro destinatario`);
+    }
+    for (const a of c.AZIONI) {
+      noPacote.add(a.REPARTO);
+      const esperada = JANELA[a.STATO] || null;
+      if ((a.FINESTRA || null) !== esperada) bad.push(`${c.ID}/${a.REPARTO}: janela ${a.FINESTRA} para estado ${a.STATO}`);
+      if (esperada) comJanela++; else semJanela++;
+    }
+  }
+  for (const d of noPacote) if (!doMotor.has(d)) bad.push(`o pacote inventa o reparto ${d}`);
+  for (const d of doMotor) if (!noPacote.has(d)) bad.push(`o reparto ${d} do motor nao chega ao pacote`);
+  return { pass: !bad.length, detail: bad.length ? bad
+    : [`${doMotor.size} repartos, exactamente os do motor; Sviluppo Mercato primeiro em ${OA.CASI.length} casos`,
+       `${comJanela} accoes com janela declarada · ${semJanela} sem, e ditas sem`] };
+});
+
+check('DEPOINTER_ONE_RULE_TWO_IMPLEMENTATIONS', () => {
+  /* O gerador leva a mesma regra de ponteiro que meeting-surface.js. Duas
+     implementacoes de uma lei divergem — a nao ser que alguem as compare. */
+  const g = { window: {} };
+  vm.createContext(g);
+  vm.runInContext(fs.readFileSync(path.join(CLIENTE, 'meeting-surface.js'), 'utf8'), g);
+  const dp = g.window.MEETING_SURFACE && g.window.MEETING_SURFACE.dePointer;
+  if (typeof dp !== 'function') return { pass: false, detail: ['meeting-surface.js nao expoe dePointer'] };
+  const porId = Object.fromEntries(CASA.OPPORTUNITA_ATTUALI.CASI.map((c) => [c.ID, c]));
+  const bad = [];
+  let n = 0; let cortados = 0;
+  for (const c of MI.CASES) {
+    for (const [lg, campo] of [['it', 'WHY_COMMERCIAL_IT'], ['en', 'WHY_COMMERCIAL_EN']]) {
+      const esperado = dp(c[campo] || '');
+      const obtido = (porId[c.ID] || {}).PERCHE || {};
+      n++;
+      if (esperado.pointerRemoved) cortados++;
+      if (esperado.text !== (obtido[lg] || '')) bad.push(`${c.ID}/${lg}: o gerador e a superficie discordam`);
+    }
+  }
+  /* CONTROLO NEGATIVO: a regra tem mesmo de cortar alguma coisa. Se cortasse
+     zero, esta comparacao provaria apenas que ambas nao fazem nada. */
+  if (!cortados) bad.push('CONTROLO NEGATIVO FALHOU: a regra do ponteiro nao cortou nenhuma frase');
+  return { pass: !bad.length, detail: bad.length ? bad
+    : [`${n} frases comparadas, ${cortados} com ponteiro cortado — as duas implementacoes concordam em todas`] };
+});
+
+check('VIEW_READS_ONLY_ITALY_CASA', () => {
+  /* Uma cadeia para o browser. A vista nao pode ir buscar dado a outro sitio:
+     se for, ha dois donos de apresentacao e a proxima divergencia e invisivel. */
+  const html = fs.readFileSync(path.join(CLIENTE, 'casa.html'), 'utf8');
+  const scripts = [...html.matchAll(/<script[^>]*src="([^"]+)"/g)].map((m) => m[1]);
+  const globais = [...new Set(html.match(/window\.[A-Z][A-Z0-9_]+/g) || [])];
+  const bad = [];
+  if (scripts.length !== 1 || scripts[0] !== 'italy-casa.js') bad.push(`a vista carrega ${scripts.join(', ') || '(nenhum)'}`);
+  for (const gl of globais) if (gl !== 'window.ITALY_CASA') bad.push(`a vista le ${gl}`);
+  return { pass: !bad.length, detail: bad.length ? bad
+    : [`um so pacote (${scripts[0]}) e um so global (${globais.join(', ')})`] };
+});
+
+check('NO_HORIZONTAL_SCROLL_1440_390', () => {
+  /* Medido nos dois ecras reais, nao inferido do CSS. */
+  const bad = [];
+  for (const [nome, m] of Object.entries(larguras)) {
+    if (m.scrollW > m.clientW) bad.push(`${nome}: scroll ${m.scrollW} > viewport ${m.clientW} (${m.scrollW - m.clientW}px)`);
+  }
+  return { pass: !bad.length, detail: bad.length ? bad
+    : Object.entries(larguras).map(([k, m]) => `${k}: ${m.scrollW}px = ${m.clientW}px`) };
 });
 
 /* ── a assinatura humana, e o que ela cobre ──────────────────────────────── */

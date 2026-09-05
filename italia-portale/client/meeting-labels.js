@@ -435,6 +435,162 @@
     MEASURED_BY_DIMENSION:['misurata per dimensione', 'measured by dimension'],
     YES:                 ['SI', 'YES'],
     NO:                  ['NO', 'NO'],
+
+    /* ══ LA CASA · i tre livelli di lettura ══════════════════════════════
+       Queste righe sono CORNICE, non fatto: nomi di sezione, domande, titoli
+       di livello. Vivono qui e non in casa.html perche il portale ha UN solo
+       proprietario di etichette, e una seconda tabella accanto a questa
+       diverge alla terza volta che qualcuno ne tocca una.
+
+           UNA SUPERFICIE NUOVA NON PORTA UN SECONDO DIZIONARIO.
+
+       `scripts/it_casa_dados.py` le legge da qui e le imballa in
+       italy-casa.js: la casa legge il pacchetto, mai questo file. */
+    casaTitle:         ['Cosa conta oggi in Italia', 'What matters today in Italy'],
+    casaLede:          ['Ogni numero qui è una decisione — quante opportunità sono sul tavolo adesso, quante vanno preparate, quante solo osservate — mai la dimensione dell\u2019archivio. Ciò che porta un metodo viaggia sempre con il suo limite accanto.',
+                        'Every number here is a decision — how many opportunities are on the table now, how many are to be prepared, how many only watched — never the size of the archive. Anything carrying a method always travels with its limit beside it.'],
+    casaL1:            ['COSA STA SUCCEDENDO', 'WHAT IS HAPPENING'],
+    casaL2:            ['GESTIONE', 'MANAGEMENT'],
+    casaL3:            ['EVIDENZA', 'EVIDENCE'],
+    casaL1Sub:         ['Cosa sta succedendo e cosa merita attenzione.', 'What is happening and what deserves attention.'],
+    casaL2Sub:         ['Perché, quando, chi può agire, e cosa lo invaliderebbe.', 'Why, when, who can act, and what would invalidate it.'],
+    casaL3Sub:         ['Fonte, metodo, limiti, provenienza — e ciò che NON si può affermare.', 'Source, method, limits, provenance — and what canNOT be claimed.'],
+
+    /* ── I TRE NUMERI, E NON SI SOMMANO ────────────────────────────────
+       43 opportunità attuali e 44 segnali di Radar Futuro sono due orizzonti
+       diversi. Sommarli darebbe 87 di niente: il primo insieme è il tavolo di
+       oggi, il secondo è la campagna successiva. La casa li dice separati e
+       dice perché. */
+    casaCurrentOpps:   ['OPPORTUNITÀ ATTUALI', 'CURRENT OPPORTUNITIES'],
+    casaCommercialPriority: ['priorità commerciali', 'commercial priorities'],
+    casaToValidate:    ['da validare', 'to validate'],
+    casaSplitExplained:['Le due righe sommano al totale: sono la stessa popolazione, divisa dal verdetto del motore su «regge come opportunità commerciale?».',
+                        'The two rows add up to the total: same population, split by the engine verdict on “does it hold as a commercial opportunity?”.'],
+    casaRadarName:     ['RADAR FUTURO', 'FUTURE RADAR'],
+    casaRadarPrepare:  ['da preparare', 'to prepare'],
+    casaRadarMonitor:  ['da monitorare', 'to monitor'],
+    casaRadarActNow:   ['agire ora', 'act now'],
+    casaDoNotSum:      ['Il Radar Futuro NON si somma alle opportunità attuali: è la campagna successiva, non il tavolo di oggi.',
+                        'The Future Radar is NOT added to the current opportunities: it is the next campaign, not today\u2019s table.'],
+    casaRadarLedger:   ['I segnali giudicati, uno per uno', 'The judged signals, one by one'],
+    casaRadarTotals:   ['45 giudicati · 44 mostrabili · 1 abbattuto', '45 judged · 44 showable · 1 dropped'],
+    casaFieldName:     ['SEGNALI DI CAMPO', 'FIELD SIGNALS'],
+    casaSourcesName:   ['Fonti con metodo', 'Sources with method'],
+    casaEvidenceLayer: ['STRATO DI EVIDENZA', 'EVIDENCE LAYER'],
+
+    /* ── i titoli di sezione dei livelli 2 e 3 ─────────────────────────── */
+    casaSecWhy:        ['PERCHÉ', 'WHY'],
+    casaSecWindow:     ['FINESTRA DELLA COLTURA E DELL\u2019APPLICAZIONE', 'CROP AND APPLICATION WINDOW'],
+    casaSecChain:      ['INCROCI · la catena, anello per anello', 'CROSSINGS · the chain, link by link'],
+    casaSecWhoActs:    ['CHI PUÒ AGIRE', 'WHO CAN ACT'],
+    casaSecTrigger:    ['INNESCO', 'TRIGGER'],
+    casaSecInvalidates:['COSA LO INVALIDA', 'WHAT INVALIDATES IT'],
+    casaSecState:      ['STATO · preparare o monitorare', 'STATE · prepare or monitor'],
+    casaSecSource:     ['FONTE', 'SOURCE'],
+    casaSecMethod:     ['METODO', 'METHOD'],
+    casaSecLimits:     ['LIMITI', 'LIMITATIONS'],
+    casaSecProvenance: ['PROVENIENZA', 'PROVENANCE'],
+    casaSecEvidence:   ['EVIDENZA', 'EVIDENCE'],
+    casaSecRefutation: ['CONFUTAZIONE', 'REFUTATION'],
+    casaSecCannotSay:  ['CIÒ CHE NON SI PUÒ AFFERMARE', 'WHAT CANNOT BE CLAIMED'],
+
+    /* ── righe di servizio della casa ──────────────────────────────────── */
+    casaOpenL2:        ['Gestione — perché, quando, chi', 'Management — why, when, who'],
+    casaOpenL3:        ['Evidenza — fonte, metodo, limiti', 'Evidence — source, method, limits'],
+    casaNoneDeclared:  ['nessuno dichiarato', 'none declared'],
+    casaNoWindowStated:['Il motore non dichiara una finestra d\u2019azione per questo reparto: mostra lo stato che ha scritto, e non se ne deduce nessuna.',
+                        'The engine states no action window for this department: the state it wrote is shown, and none is inferred from it.'],
+    casaEngineDecides: ['Il motore decide. Questa pagina mostra.', 'The engine decides. This page shows.'],
+    casaSpecUpstream:  ['La specifica completa di ogni segnale resta a monte, in portoghese di ricerca: non attraversa questa superficie.',
+                        'The full specification of each signal stays upstream, in Portuguese research prose: it does not cross this surface.'],
+    casaGapsDeclared:  ['difetti dichiarati', 'declared defects'],
+    casaUnknownsDeclared:['cose che ancora non sappiamo', 'things we still do not know'],
+    casaDropped:       ['abbattuto — fuori da questa superficie', 'dropped — outside this surface'],
+    casaEvidenceOnlyRule:['raggiungibile dalla scheda che lo cita, mai come scheda propria',
+                        'reachable from the card that cites it, never as a card of its own'],
+    casaOf:            ['di', 'of'],
+    casaShowAll:       ['Mostra tutte', 'Show all'],
+    casaFilterAll:     ['TUTTE', 'ALL'],
+
+    /* ── LE INTESTAZIONI DI RIGA, IN UNA LINGUA SOLA ────────────────────
+       La prima stesura scriveva «Regola / Rule» e «Data / Date»: due lingue
+       nella stessa etichetta, su una pagina che ha gia uno scambio di lingua.
+       Chi legge in italiano non deve leggere l'inglese accanto — se lo
+       leggesse, lo scambio non servirebbe a niente. */
+    casaKeyType:       ['Tipo', 'Type'],
+    casaKeyRule:       ['Regola', 'Rule'],
+    casaKeyDocument:   ['Documento', 'Document'],
+    casaKeyStart:      ['Inizio', 'Start'],
+    casaKeyEnd:        ['Fine', 'End'],
+    casaKeyWindow:     ['Finestra', 'Window'],
+    casaKeyNeed:       ['Necessità', 'Need'],
+    casaKeyPortfolio:  ['Portafoglio', 'Portfolio'],
+    casaKeyDate:       ['Data', 'Date'],
+    casaKeyCurrency:   ['Attualità', 'Currency'],
+    casaKeyConfidence: ['Confidenza', 'Confidence'],
+    casaKeyDirection:  ['Direzione', 'Direction'],
+    casaKeyStage:      ['Stadio', 'Stage'],
+    casaKeyRecommend:  ['Raccomandazione', 'Recommendation'],
+    casaKeyThreshold:  ['Soglia', 'Threshold'],
+    casaKeyPublication:['Pubblicazione', 'Publication'],
+    casaDependsOn:     ['DIPENDE DA', 'DEPENDS ON'],
+
+    /* ── le colonne del registro dei 44 ─────────────────────────────── */
+    casaColState:      ['STATO', 'STATE'],
+    casaColAction:     ['AZIONE', 'ACTION'],
+    casaColPortfolio:  ['PORTAFOGLIO', 'PORTFOLIO'],
+    casaColGaps:       ['DIFETTI / NON SO', 'DEFECTS / UNKNOWNS'],
+
+    /* ── LA FINESTRA DELL\u2019AZIONE, DOVE IL MOTORE LA DICHIARA ──────────
+       Tre valori e non cinque. ACT, PREPARE e WATCH del motore hanno una
+       finestra; VALIDATE e NO_ACTION non ce l\u2019hanno, e forzarli dentro uno
+       dei tre sarebbe decidere al posto del motore. Dove non c\u2019è, la casa
+       dice che non c\u2019è. */
+    WINDOW_ACT_NOW:    ['AGIRE ORA', 'ACT NOW'],
+    WINDOW_PREPARE:    ['PREPARARE', 'PREPARE'],
+    WINDOW_MONITOR:    ['MONITORARE', 'MONITOR'],
+
+    /* ── i diciassette, chiamati per quello che sono ───────────────────── */
+    CLIENT_TO_VALIDATE:['DA VALIDARE', 'TO VALIDATE'],
+    CLIENT_TO_VALIDATE_WHY: ['Il motore non la sostiene come opportunità commerciale: resta una lettura da validare.',
+                        'The engine does not support it as a commercial opportunity: it stays a reading to validate.'],
+
+    /* ══ IL REGISTRO DEI 44 ITFC ═════════════════════════════════════════
+       Il Radar Futuro arriva congelato: 45 giudicati, 44 mostrabili, 1
+       abbattuto. Il pacchetto porta un vocabolario chiuso — stato, azione,
+       avviso, classe di portafoglio — e nient\u2019altro: la prosa di ricerca
+       resta a monte. Queste sono le letture italiane di quei token. */
+    PARCIAL:           ['lettura parziale', 'partial reading'],
+    SINAL_COMPLETO:    ['segnale completo', 'complete signal'],
+    PREPARAR:          ['PREPARARE', 'PREPARE'],
+    MONITORAR:         ['MONITORARE', 'MONITOR'],
+    LETTURA_PARZIALE:  ['LETTURA PARZIALE', 'PARTIAL READING'],
+    MEDIDO_EXISTE:     ['portafoglio misurato: esiste', 'portfolio measured: it exists'],
+    MEDIDO_ZERO:       ['portafoglio misurato: zero', 'portfolio measured: zero'],
+    EVIDENCIA_CONGELADA:['solo evidenza congelata', 'frozen evidence only'],
+    CEGO_SEM_CLASSE:   ['cieco, senza classe', 'blind, no class'],
+    DECLARADO_UNKNOWN: ['dichiarato NON SO', 'declared UNKNOWN'],
+    CARD_MAY_CITE_MEASURED: ['può citare il portafoglio misurato', 'may cite the measured portfolio'],
+    CARD_MAY_CITE_ZERO:     ['può citare lo zero, CON numeratore e denominatore', 'may cite the zero, WITH numerator and denominator'],
+    CARD_MAY_FROZEN_ONLY:   ['usa SOLO l\u2019evidenza congelata e tracciabile; interrogazione dal vivo VIETATA', 'uses ONLY frozen, traceable evidence; live lookup FORBIDDEN'],
+    CARD_MAY_BLIND_NO:      ['il NO è CIECO, non è assenza reale di portafoglio — deve dirlo', 'the NO is BLIND, it is not a real absence of portfolio — it must say so'],
+    CARD_MAY_UNKNOWN_ONLY:  ['mostra NON SO e il bloccante nominato; NON usa la coppia', 'shows UNKNOWN and the named blocker; does NOT use the pair'],
+    ITFC_PORTFOLIO_LIMITED: ['portafoglio limitato', 'portfolio limited'],
+    ITFC_ROUTE_ALLOWED:     ['rotta viva permessa', 'live route allowed'],
+    ITFC_ROUTE_FORBIDDEN:   ['rotta viva vietata', 'live route forbidden'],
+    /* ── ESEGUIBILITA DEL SENSORE, NON STATO DEL SEGNALE ────────────────
+       Tre dei 44 sono stati portati a specifica di osservazione e due sono
+       stati abbattuti da chi li ha attaccati. Quel verdetto riguarda il
+       SENSORE, non il segnale: ITFC-009 e ITFC-018 restano fra i 44
+       mostrabili del Radar. Le due cose viaggiano insieme ovunque l'id
+       compaia, perche separarle lascerebbe leggere «abbattuto» come se il
+       segnale fosse caduto — e non e caduto.
+
+           IL SENSORE E CADUTO. IL SEGNALE NO. */
+    SENSOR_EXECUTABLE:     ['SENSORE ATTIVABILE', 'ACTIVATABLE SENSOR'],
+    SENSOR_NOT_EXECUTABLE: ['NON ESEGUIBILE', 'NOT EXECUTABLE'],
+    casaSensorLegend:      ['sensore = segnale portato a specifica di osservazione; il verdetto è di chi l\u2019ha attaccata, non di chi l\u2019ha scritta',
+                            'sensor = signal carried to an observation specification; the verdict is the attacker\u2019s, not the author\u2019s'],
   };
 
   const pick = (key, lang) => {
