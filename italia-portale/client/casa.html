@@ -60,20 +60,24 @@ h2 + .h2sub{font-size:12px;color:var(--mute-2);margin:0 0 15px;line-height:1.6;m
 .split{display:flex;gap:26px;align-items:flex-end;flex-wrap:wrap}
 .split>div{min-width:74px}
 
-/* ── il blocco delle opportunità attuali ─────────────────────────── */
-.headline{border:1px solid var(--green-dd);border-radius:15px;padding:22px 24px;
-  background:linear-gradient(180deg,rgba(0,120,63,.16),rgba(0,120,63,.05));min-width:0}
-.headline .k{font-size:9.5px;font-weight:700;letter-spacing:.19em;color:var(--green)}
-.headline .big{font-size:clamp(46px,9vw,68px);font-weight:700;line-height:1;
-  letter-spacing:-.04em;font-variant-numeric:tabular-nums;margin:8px 0 2px}
-.parts{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px}
-.parts div{flex:1 1 170px;background:rgba(0,0,0,.32);border:1px solid var(--line);
-  border-radius:10px;padding:12px 14px;min-width:0}
-.parts .pv{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
-.parts .pl{font-size:11.5px;color:var(--soft);margin-top:5px;line-height:1.4}
-.horizon{border:1px solid var(--line);border-radius:15px;padding:22px 24px;background:var(--ink-2);min-width:0}
-.horizon .k{font-size:9.5px;font-weight:700;letter-spacing:.19em;color:var(--blue)}
-.two{display:grid;gap:13px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:6px}
+/* ── LA PRIMA PIEGA RESTA QUELLA CHE ERA ──────────────────────────
+   Una prima versione di questa pagina dava alle 43 attuali un blocco
+   proprio, con un numero da 68px e un riquadro accanto per il Radar. Il
+   numero era giusto e il disegno no: la piega passava da sei riquadri
+   uguali a due blocchi grandi, e la pagina cresceva da 3 pieghe a 8,8.
+
+       INGERIRE INTELLIGENZA NON E RIDISEGNARE IL GUSCIO.
+
+   I numeri nuovi tornano dentro il riquadro che c'era gia — stessa
+   griglia, stessa scala di 40px, stessa densita. Il 43 usa la coppia di
+   numeri che il riquadro «28 / 19» gia sapeva disegnare. */
+.tile.now{border-color:var(--green-dd);
+  background:linear-gradient(180deg,rgba(0,120,63,.13),rgba(0,120,63,.03))}
+.tile .sum{font-size:11px;color:var(--mute-2);line-height:1.5;margin-top:8px}
+/* La porta agli strumenti, in testata: prima stava solo in fondo, e con la
+   pagina piu lunga era passata dalla piega 2,9 alla 8,7. Uno strumento
+   raggiungibile solo dopo otto schermate e uno strumento tolto di mezzo. */
+.cta.top{padding:9px 16px;font-size:10.5px;letter-spacing:.11em;flex:none}
 
 /* ── destaque ────────────────────────────────────────────────────── */
 .hero{margin-top:14px;border:1px solid var(--green-dd);border-radius:15px;overflow:hidden;
@@ -465,6 +469,31 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
     var visibili = filtro ? OA.CASI.filter(function(c){ return c.STATO_CLIENTE === filtro; }) : OA.CASI;
 
     var tiles = [
+      /* LE 43 DI OGGI, NEL RIQUADRO CHE C'ERA GIA.
+         26 e 17 stanno nella stessa coppia di numeri del riquadro del campo,
+         e la somma e scritta sotto: due orizzonti non si sommano, ma le due
+         meta di UN orizzonte si, ed e questa la riga che lo dice. */
+      { q: lang === 'en' ? 'How many opportunities are <b>on the table now</b>?'
+                         : 'Quante opportunità sono <b>sul tavolo adesso</b>?',
+        big: [{n: OA.PRIORITA_COMMERCIALE, l: t('casaCommercialPriority')},
+              {n: OA.DA_VALIDARE, l: t('casaToValidate')}],
+        lab: OA.TOTALE + ' ' + t('casaCurrentOpps').toLowerCase(),
+        now: true,
+        sum: mil(OA.PRIORITA_COMMERCIALE) + ' + ' + mil(OA.DA_VALIDARE) + ' = ' + mil(OA.TOTALE),
+        lim: t('casaSplitExplained') },
+      { q: lang === 'en' ? 'What must we <b>prepare</b>?' : 'Cosa dobbiamo <b>preparare</b>?',
+        big: [{n: RF.PREPARAR, l: t('casaRadarPrepare')}],
+        lab: t('casaRadarName'),
+        lim: t('casaDoNotSum') },
+      { q: lang === 'en' ? 'What must we <b>monitor</b>?' : 'Cosa dobbiamo <b>monitorare</b>?',
+        big: [{n: RF.MONITORAR, l: t('casaRadarMonitor')}],
+        lab: t('casaRadarName'),
+        lim: lang === 'en' ? 'signals read well enough to be followed, not to act on.'
+                           : 'segnali con lettura sufficiente per essere seguiti, non per agire.' },
+      { q: lang === 'en' ? 'Does anything need <b>immediate action</b>?' : 'Qualcosa richiede <b>azione immediata</b>?',
+        big: [{n: RF.AGIR_AGORA, l: t('casaRadarActNow')}],
+        lab: t('casaRadarName'),
+        lim: p(RF.LIMITE) },
       { q: lang === 'en' ? 'What is <b>happening</b> in the field?' : 'Cosa <b>sta succedendo</b> in campo?',
         big: [{n: SC.CARTAO, l: lang === 'en' ? 'as a card' : 'come scheda'},
               {n: SC.COM_METODO, l: lang === 'en' ? 'with method' : 'con metodo'}],
@@ -488,6 +517,8 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
       + '<span class="mark" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 12 4l8 16"></path><path d="M7.6 13.6h8.8"></path></svg></span>'
       + '<div><div class="brand">SINTONIA</div><div class="sub">ADAMA ITALIA · INTELLIGENCE</div></div>'
       + '<span class="spacer"></span>'
+      + '<a class="cta top" href="portale.html">'
+      + (lang === 'en' ? 'FULL PORTAL' : 'PORTALE COMPLETO') + '</a>'
       + '<div class="lang">'
       + '<button type="button" data-lang="it" aria-pressed="' + (lang === 'it') + '">IT</button>'
       + '<button type="button" data-lang="en" aria-pressed="' + (lang === 'en') + '">EN</button>'
@@ -502,42 +533,15 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
       + '<div class="lvl">L1 · <b>' + tt('casaL1') + '</b></div>'
       + '<p class="h2sub">' + tt('casaL1Sub') + '</p>'
 
-      /* I TRE NUMERI, E NON SI SOMMANO. 43 attuali e 44 di radar sono due
-         orizzonti diversi: il primo e il tavolo di oggi, il secondo la
-         campagna successiva. Sommarli darebbe 87 di niente. */
-      + '<div class="two">'
-      + '<div class="headline">'
-      +   '<div class="k">' + tt('casaCurrentOpps') + '</div>'
-      +   '<div class="big">' + mil(OA.TOTALE) + '</div>'
-      +   '<div class="parts">'
-      +     '<div><div class="pv">' + mil(OA.PRIORITA_COMMERCIALE) + '</div>'
-      +       '<div class="pl">' + tt('casaCommercialPriority') + '</div></div>'
-      +     '<div><div class="pv">' + mil(OA.DA_VALIDARE) + '</div>'
-      +       '<div class="pl">' + tt('casaToValidate') + '</div></div>'
-      +   '</div>'
-      +   '<p class="mini">' + mil(OA.PRIORITA_COMMERCIALE) + ' + ' + mil(OA.DA_VALIDARE)
-      +     ' = ' + mil(OA.TOTALE) + '. ' + tt('casaSplitExplained') + '</p>'
-      + '</div>'
-      + '<div class="horizon">'
-      +   '<div class="k">' + tt('casaRadarName') + '</div>'
-      +   '<div class="parts" style="margin-top:18px">'
-      +     '<div><div class="pv">' + mil(RF.PREPARAR) + '</div><div class="pl">' + tt('casaRadarPrepare') + '</div></div>'
-      +     '<div><div class="pv">' + mil(RF.MONITORAR) + '</div><div class="pl">' + tt('casaRadarMonitor') + '</div></div>'
-      +     '<div><div class="pv" style="color:var(--soft)">' + mil(RF.AGIR_AGORA) + '</div><div class="pl">' + tt('casaRadarActNow') + '</div></div>'
-      +   '</div>'
-      +   '<p class="mini">' + tt('casaDoNotSum') + '</p>'
-      +   '<p class="mini">' + esc(p(RF.LIMITE)) + '</p>'
-      + '</div>'
-      + '</div>'
-
-      + '<div class="grid" style="margin-top:13px">' + tiles.map(function(x){
+      + '<div class="grid">' + tiles.map(function(x){
           var nums = x.big.map(function(b){
             return '<div><div class="n' + (b.n === 0 ? ' zero' : '') + '">'
               + (b.unit || '') + mil(b.n) + '</div>'
               + '<div class="lim" style="margin-top:5px">' + esc(b.l) + '</div></div>'; }).join('');
-          return '<div class="tile"><div class="q">' + x.q + '</div>'
+          return '<div class="tile' + (x.now ? ' now' : '') + '"><div class="q">' + x.q + '</div>'
             + '<div class="split">' + nums + '</div>'
             + '<div class="lab">' + esc(x.lab) + '</div>'
+            + (x.sum ? '<div class="sum">' + esc(x.sum) + '</div>' : '')
             + '<div class="lim">' + esc(x.lim) + '</div></div>'; }).join('')
       + '</div>'
 
@@ -594,10 +598,21 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
       + ' · snapshot ' + esc(D.DATA_DO_SNAPSHOT) + '</div>'
       + '</div></details></div>'
 
-      /* ── LIVELLO 2 · le 43, una per una ─────────────────────────── */
+      /* ── LIVELLO 2 · le 43, una per una ─────────────────────────────
+         DENTRO UNA PIEGA, COME TUTTO IL RESTO DI QUESTA PAGINA.
+         Stese in chiaro, quarantatre schede e quarantaquattro righe di
+         registro portavano la pagina da 3 pieghe a 8,8 sul desktop e a 16 sul
+         telefono, e spingevano la porta agli strumenti dalla piega 2,9 alla
+         8,7. L'intelligenza non si toglie: si mette dove la pagina gia
+         metteva tutto il resto — dietro una piega che si apre.
+
+             CIO CHE SI APRE RESTA RAGGIUNGIBILE.
+             CIO CHE ALLUNGA LA PAGINA DI OTTO SCHERMATE NO. */
       + '<h2 id="gestione">' + tt('casaCurrentOpps') + ' · ' + mil(OA.TOTALE) + '</h2>'
       + '<div class="lvl">L2 · <b>' + tt('casaL2') + '</b></div>'
       + '<p class="h2sub">' + tt('casaL2Sub') + ' ' + tt('casaEngineDecides') + '</p>'
+      + '<details' + (filtro ? ' open' : '') + ' id="l2"><summary>' + tt('casaOpenL2')
+      + ' · ' + mil(OA.TOTALE) + '</summary><div class="dd" style="padding-left:0">'
       + '<div class="filters">'
       + '<button type="button" data-filtro="" aria-pressed="' + (!filtro) + '">'
       + tt('casaFilterAll') + ' <i>' + mil(OA.TOTALE) + '</i></button>'
@@ -607,14 +622,18 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
       + '</div>'
       + '<p class="mini">' + tt('lblCases') + ' · ' + mil(visibili.length) + ' ' + tt('casaOf') + ' ' + mil(OA.TOTALE) + '</p>'
       + '<div id="casi">' + visibili.map(casoHtml).join('') + '</div>'
+      + '</div></details>'
 
       /* ── il radar, e i suoi 44 ──────────────────────────────────── */
       + '<h2>' + tt('casaRadarName') + ' · ' + tt('casaRadarLedger') + '</h2>'
       + '<p class="h2sub">' + tt('casaRadarTotals') + '. ' + tt('casaDoNotSum') + '</p>'
+      + '<details id="ledger"><summary>' + tt('casaRadarLedger') + ' · ' + mil(RF.RENDERIZAVEIS)
+      + '</summary><div class="dd" style="padding-left:0">'
       + ledgerHtml()
       + '<p class="note">' + (lang === 'en'
           ? 'The dropped one stays out of this surface: ' : 'L’abbattuto resta fuori da questa superficie: ')
       + tt('casaDropped') + '.</p>'
+      + '</div></details>'
 
       /* ── come lo osserviamo ─────────────────────────────────────── */
       + '<h2>' + (lang === 'en' ? 'How we observe it' : 'Come lo osserviamo') + '</h2>'
@@ -743,6 +762,10 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
       b.addEventListener('click', function(){
         filtro = b.getAttribute('data-filtro');
         render();
+        /* Il filtro vive dentro la piega: se il ridisegno la richiudesse,
+           il lettore perderebbe il posto dove aveva appena cliccato. */
+        var d = document.getElementById('l2');
+        if (d) d.open = true;
         var g = document.getElementById('gestione');
         if (g) g.scrollIntoView({ block: 'start' });
       });
