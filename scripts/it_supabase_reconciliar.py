@@ -510,6 +510,28 @@ ESCADA = ('CAPTURE', 'NORMALIZATION', 'DEDUP', 'CONTENT_ACQUISITION',
           'INTELLIGENCE_READING', 'CLAIM_EXTRACTION', 'ROUTING', 'CONSUMPTION')
 
 
+PASSOU = {
+    'CAPTURE':              lambda e: e['RAW_STATE'] == 'PRESERVED',
+    'NORMALIZATION':        lambda e: e['NORMALIZATION_STATE'] == 'NORMALIZED',
+    'DEDUP':                lambda e: e['DEDUP_STATE'] in ('UNIQUE', 'DUPLICATE'),
+    'CONTENT_ACQUISITION':  lambda e: e['CONTENT_STATE'] == 'AVAILABLE',
+    'INTELLIGENCE_READING': lambda e: e['CONTENT_READ_STATE'] == 'READ',
+    'CLAIM_EXTRACTION':     lambda e: e['CLAIM_STATE'] in ('EXTRACTED', 'NO_USABLE_CLAIM'),
+    'ROUTING':              lambda e: e['ROUTING_STATE'] == 'ROUTED',
+    'CONSUMPTION':          lambda e: e['CONSUMPTION_STATE'] == 'CONSUMED',
+}
+
+if set(PASSOU) != set(ESCADA):
+    raise Recusado('a escada tem degrau sem regra — item com defeito subiria em silêncio')
+
+
+def _primeiro_degrau_nao_vencido(estados):
+    for nome in ESCADA:
+        if not PASSOU[nome](estados):
+            return nome
+    return ESCADA[-1]
+
+
 def sombra(r, balde_do_item, triagem):
     veredicto, motivo, proxima, reason_code = triagem
 
@@ -547,29 +569,13 @@ def sombra(r, balde_do_item, triagem):
         'CONSUMPTION_STATE': 'PENDING',
     }
 
-    estagio = 'CONSUMPTION'
-    for nome in ESCADA:
-        if nome == 'NORMALIZATION' and estados['NORMALIZATION_STATE'] != 'NORMALIZED':
-            estagio = nome
-            break
-        if nome == 'DEDUP' and estados['DEDUP_STATE'] not in ('UNIQUE', 'DUPLICATE'):
-            estagio = nome
-            break
-        if nome == 'CONTENT_ACQUISITION' and estados['CONTENT_STATE'] != 'AVAILABLE':
-            estagio = nome
-            break
-        if nome == 'INTELLIGENCE_READING' and estados['CONTENT_READ_STATE'] != 'READ':
-            estagio = nome
-            break
-        if nome == 'CLAIM_EXTRACTION' and estados['CLAIM_STATE'] != 'EXTRACTED':
-            estagio = nome
-            break
-        if nome == 'ROUTING' and estados['ROUTING_STATE'] != 'ROUTED':
-            estagio = nome
-            break
-        if nome == 'CONSUMPTION' and estados['CONSUMPTION_STATE'] not in ('CONSUMED',):
-            estagio = nome
-            break
+    # CURRENT_STAGE é o PRIMEIRO estágio que ainda não passou — derivado, nunca digitado.
+    # A tabela cobre os OITO degraus: uma escada com um degrau sem regra colocaria um item
+    # com defeito num estágio adiantado, em silêncio.
+    #
+    # LEXICALLY_SCANNED reprova INTELLIGENCE_READING de propósito. É o degrau inteiro da
+    # missão: 137 documentos param aqui, com o conteúdo disponível no balde.
+    estagio = _primeiro_degrau_nao_vencido(estados)
 
     # Os campos constantes do lote (SHADOW, COLLECTION_ID, SOURCE_ID, SOURCE_FAMILY,
     # CAPTURED_AT, RULE_VERSION_IMITADA) vivem no cabeçalho do artefato, uma vez. Repeti-los

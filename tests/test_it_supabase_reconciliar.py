@@ -158,6 +158,12 @@ class Reconciliacao(unittest.TestCase):
             self.assertIn(s['CURRENT_STAGE'], rec.ESCADA)
             self.assertIn(s['TRIAGE'], ('KEEP', 'DEFER', 'REJECT_WITH_REASON', 'ERROR'))
 
+    def test_a_escada_nao_tem_degrau_sem_regra(self):
+        # Um degrau sem regra colocaria um item com defeito num estagio adiantado, em
+        # silencio. O modulo ja recusa carregar nesse caso; aqui a prova fica visivel.
+        self.assertEqual(set(rec.PASSOU), set(rec.ESCADA))
+        self.assertEqual(len(rec.ESCADA), 8)
+
     def test_a_sombra_nao_se_declara_passaporte(self):
         for s in self.sombras:
             self.assertNotIn('SEALED', s)
