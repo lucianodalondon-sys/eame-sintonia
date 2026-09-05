@@ -96,5 +96,91 @@ Se qualquer um falhar: **`COLLECTION_COMPLETE = NO`**.
 > **Nenhuma coleta paga pode ser declarada entregue sem preservação.**
 > Gastar dinheiro numa rota e perder o bruto é uma coleta que não aconteceu.
 
-O Storage **não é implementado nesta missão**: não existe ainda o dono canônico necessário.
-Esta missão fecha a **regra**, não a infraestrutura.
+Esta missão fecha a **regra**, não a infraestrutura — mas a infraestrutura **já existe**, e a
+medição está registrada na secção E abaixo. A regra acima não muda por causa disso: muda apenas
+o que se sabe sobre o terreno.
+---
+
+## E · ESTADO MEDIDO DO TERRENO — 2026-09-05
+
+Esta secção **não altera nenhuma regra acima**. Ela registra o que foi medido depois de a
+política ter sido escrita, e corrige dois pressupostos: o Storage não é hipótese futura, e a
+contagem de RAW versionado da secção A já não descreve a árvore atual.
+
+### E.1 · A infraestrutura já existe
+
+```
+projeto Supabase ......... eame-sintonia
+Storage .................. bucket privado `raw`
+tabelas .................. public.raw_asset · public.collection_run · public.checkpoint_coleta
+```
+
+`public.raw_asset` já carrega os campos que o PORTÃO DE COLETA exige:
+`run_id`, `storage_path`, `media_type`, `bytes`, `sha256`, `captured_at`, `source_url`,
+`preserved`, `not_preserved_reason`.
+
+```
+STORAGE_EXISTS = SIM
+```
+
+**Consequência prática: não construir um segundo Storage nem um segundo manifesto operacional
+antes de provar necessidade.** O dono canônico que a secção anterior dava por inexistente está lá.
+
+### E.2 · Mas o contrato ainda não fecha
+
+```
+objetos no bucket `raw` .................................. 738
+registros em public.raw_asset ............................ 251
+objetos com par provado em raw_asset ..................... 251
+objetos de Storage ainda sem par provado em raw_asset .... 487
+```
+
+```
+RAW_CONTRACT_FULLY_RECONCILED = NÃO
+```
+
+**Sobre os 487, o que se pode e o que não se pode dizer.** Pode-se dizer apenas isto: são
+objetos que existem no Storage e ainda **não têm par provado** em `raw_asset`. Não foram
+medidos como perdidos, nem como novos, nem como inválidos, nem como duplicados — nenhuma
+dessas leituras tem prova. A reconciliação item a item ainda não foi feita.
+
+> **Procedência de E.1 e E.2:** medição de Supabase feita em 2026-09-05, **não re-medida neste
+> commit** — a missão que o escreve está proibida de tocar em Supabase. Vale como leitura
+> datada, não como estado ao vivo.
+
+Enquanto `RAW_CONTRACT_FULLY_RECONCILED = NÃO`, a REGRA DE TRANSIÇÃO da secção C continua
+integralmente em vigor e `STORAGE_MIGRATION_STATE` permanece **PENDENTE**: nenhum ignore
+global de RAW entra, porque não há prova de que exista uma segunda cópia de cada objeto.
+
+### E.3 · Contagem do RAW já versionado — re-medida contra ESTE HEAD
+
+A secção A fala em **61 blobs `.gz`**. Isso era verdade da árvore anterior ao merge do
+**P0.2 passo 01**. Medido de novo agora, na árvore em que este documento vive:
+
+```
+git ls-files -z 'data/samples' | tr '\0' '\n' | grep -c '\.gz$'   ->  224
+```
+
+```
+.gz versionados AGORA ......................... 224
+.gz versionados em 64e6ad3 (secção A) .........  61
+entraram ...................................... 163   (todos em data/samples/IT-ROTULOS-V1/geometria)
+saíram .........................................   0
+.raw.json versionados ..........................   0
+```
+
+Distribuição: `data/samples/IT-ROTULOS-V1/geometria` (163) · `data/samples/raw-paid` (60) ·
+`data/samples/ES-T4-005` (1).
+
+**A exposição quase quadruplicou, e nenhum objeto se perdeu.** Isso não afrouxa a proibição da
+secção A — reforça-a: um ignore global de `*.gz` sob `data/samples/` hoje removeria 224 objetos
+do controle de versão, não 61.
+
+**Método, e por que ele está escrito aqui.** A contagem usa `git ls-files -z`, não `git ls-tree`.
+`ls-tree` **aspa nomes com acento**, e um `grep` ingênuo sobre a sua saída devolve **214** em vez
+de 224 — perde exatamente os dez ficheiros de sensores com nomes acentuados (Delmotte,
+Mercado-Blanco, Sánchez-Vallet, Carrasco-López, Suffert). A mesma armadilha já custou uma
+medição errada nesta casa, quando devolveu 51 em vez de 61.
+
+> **Qualquer contagem futura de RAW usa `git ls-files -z`. As contagens de 51 e de 214 são
+> artefactos do método errado e não devem voltar a documento nenhum.**
