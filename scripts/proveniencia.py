@@ -75,6 +75,7 @@ UNDECLARED_OWNER = 'UNDECLARED_OWNER'
 DONOS = {
     'EARLY_SIGNAL_EAME': ('13-PILOTO-SENSORES-TECNICOS',),
     'CREATOR_MAP_EAME': ('14-MAPA-DE-CREATORS-EAME',),
+    'CREATOR_CONTENT_CORPUS_EAME': ('15-CREATOR-CONTENT-CORPUS-EAME',),
     # As execuções da rodada de voz espanhola são anteriores à separação de donos. Elas
     # ganham um dono PRÓPRIO em vez de serem empurradas para dentro do Early Signal:
     # atribuí-las a ele inflaria a contagem daquela missão com trabalho que não é dela.
