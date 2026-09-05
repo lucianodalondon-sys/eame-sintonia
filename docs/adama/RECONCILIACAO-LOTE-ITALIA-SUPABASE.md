@@ -3,6 +3,10 @@
 `COUNTRY = IT` · `SOURCE_ID = IT-ADAMA-CATALOG` · `COLLECTION_ID = IT-ADAMA-CATALOG-2026-08-30`
 · `RULE_VERSION = IT-RECONCILE-1.0` · `RECONCILED_AT = 2026-09-05`
 
+> O `COLLECTION_ID` acima é um literal que **esta missão cunhou**, não uma identidade
+> emitida pela execução — a execução não emitiu nenhuma (§9). Fica dito para que ninguém o
+> confunda, mais tarde, com um `RUN_ID` recuperado.
+
 > **Esta missão para na porta da Inteligência.** Ela não classifica relevância, não roteia
 > para capacidade, não abre o Casco, não define política do D1 e não ativa o Passaporte.
 
@@ -55,7 +59,7 @@ Por isso a reconciliação é derivada de **prova preservada**, e o script fixa 
 
 Foi essa separação que evitou o erro mais fácil desta reconciliação: **139 documentos
 aparecem no portal italiano** — mas por `PRODUCT_URL`. O que está no portal é o produto
-pai. Nenhum daqueles PDFs foi lido.
+pai. Nenhum daqueles PDFs foi **lido** (varrido, sim — §5).
 
 ### As três leis do crosswalk
 
