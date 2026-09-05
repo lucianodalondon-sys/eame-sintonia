@@ -35,6 +35,7 @@ sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import asr_local  # noqa: E402
 import youtube_janela as yj  # noqa: E402
 import youtube_transcrever as yt  # noqa: E402
+import youtube_microteste as mt  # noqa: E402
 
 
 def _item(estado, **extra):
@@ -575,6 +576,84 @@ class TestAudioSuspeito(unittest.TestCase):
                      encoding='utf-8').read()
         self.assertIn('vcodec=none', fonte)
         self.assertNotIn("'bestaudio/best'", fonte)
+
+
+class TestVereditoDaMissao(unittest.TestCase):
+    """A taxa que decide a missão, e o denominador que pode transformá-la em mentira.
+
+    RECOVERY_RATE responde "de quantos vídeos sem legenda o whisper resgatou o texto?".
+    Ela só responde isso quando o denominador é feito de vídeos SEM LEGENDA. Neste
+    contêiner, em 2026-09-04 e de novo em 2026-09-05, os dez vídeos do microteste
+    chegaram ao whisper por HTTP 429 — e uma taxa lida sobre esse denominador diria
+    "o YouTube dos concorrentes não tem legenda" quando o fato é "a minha rede não
+    abriu a porta".
+
+        A MESMA FRAÇÃO, COM O MESMO VALOR, RESPONDE DUAS PERGUNTAS DIFERENTES.
+    """
+
+    def _texto(self, **kw):
+        base = {'CAPTION_HITS': 0, 'WHISPER_FALLBACKS': 0, 'WHISPER_SUCCESS': 0,
+                'POR_ESTADO_DE_LEGENDA': {}, 'TOTAL_MACHINE_SECONDS': 0}
+        base.update(kw)
+        return base
+
+    def _linhas(self, *fontes):
+        return [{'TEXT_SOURCE': f, 'VIDEO_ID': 'v%d' % n} for n, f in enumerate(fontes)]
+
+    def test_denominador_de_ausencia_confirmada_e_uma_taxa_de_legenda(self):
+        v = mt._veredito_da_missao(
+            self._linhas('WHISPER_LOCAL', 'WHISPER_LOCAL', 'TITLE_ONLY', 'YOUTUBE_CAPTION'),
+            self._texto(CAPTION_HITS=1, WHISPER_FALLBACKS=3, WHISPER_SUCCESS=2,
+                        POR_ESTADO_DE_LEGENDA={yt.NO_CAPTION_CONFIRMED: 3},
+                        TOTAL_MACHINE_SECONDS=120.0))
+        self.assertEqual(v['RECOVERY_RATE'], round(2 / 3, 3))
+        self.assertEqual(v['RECOVERY_RATE_MEDE_A_LEGENDA'], 'SIM')
+        self.assertEqual(v['CAPTION_INCONCLUSIVE'], 0)
+
+    def test_denominador_de_429_nao_e_uma_taxa_de_legenda(self):
+        """O caso real deste contêiner: dez vídeos, dez 429, zero fato sobre legenda."""
+        v = mt._veredito_da_missao(
+            self._linhas(*(['TITLE_ONLY'] * 10)),
+            self._texto(WHISPER_FALLBACKS=10, WHISPER_SUCCESS=0,
+                        POR_ESTADO_DE_LEGENDA={yt.CAPTION_ENVIRONMENT_FAILURE: 10}))
+        self.assertEqual(v['RECOVERY_RATE'], 0.0)
+        self.assertTrue(v['RECOVERY_RATE_MEDE_A_LEGENDA'].startswith('NAO'))
+        self.assertEqual(v['CAPTION_ABSENT_CONFIRMED'], 0)
+        self.assertEqual(v['CAPTION_INCONCLUSIVE'], 10)
+        self.assertIn('minha rede', v['O_QUE_O_DENOMINADOR_TEM_DENTRO'])
+
+    def test_denominador_zero_nao_vira_zero_por_cento(self):
+        """0/0 não é "o whisper resgatou 0%%". É "ninguém perguntou"."""
+        v = mt._veredito_da_missao(self._linhas('YOUTUBE_CAPTION'),
+                                   self._texto(CAPTION_HITS=1))
+        self.assertEqual(v['RECOVERY_RATE'], yt.NAO_SEI)
+        self.assertIn('NAO_SE_APLICA', v['RECOVERY_RATE_MEDE_A_LEGENDA'])
+
+    def test_cobertura_conta_videos_e_nao_caracteres(self):
+        """Dobrar o texto de quem já falava não cobre quem calava."""
+        v = mt._veredito_da_missao(
+            self._linhas('WHISPER_LOCAL', 'TITLE_ONLY', 'YOUTUBE_CAPTION'),
+            self._texto(CAPTION_HITS=1, WHISPER_FALLBACKS=2, WHISPER_SUCCESS=1,
+                        POR_ESTADO_DE_LEGENDA={yt.NO_CAPTION_CONFIRMED: 2}))
+        self.assertEqual(v['COVERAGE_AFTER'], 2)
+        self.assertEqual(v['VIDEOS_TESTADOS'], 3)
+        self.assertIn('2/3', v['COVERAGE_GAIN'])
+
+    def test_custo_medio_sai_do_acumulado_e_nao_da_rodada_em_cache(self):
+        """A segunda passada do microteste é toda em cache. Ela não torna o lote grátis."""
+        v = mt._veredito_da_missao(
+            self._linhas('WHISPER_LOCAL', 'WHISPER_LOCAL'),
+            self._texto(WHISPER_FALLBACKS=2, WHISPER_SUCCESS=2,
+                        POR_ESTADO_DE_LEGENDA={yt.NO_CAPTION_CONFIRMED: 2},
+                        TOTAL_MACHINE_SECONDS=0.0,
+                        TOTAL_MACHINE_SECONDS_ACUMULADO=99.0))
+        self.assertEqual(v['AVG_MACHINE_SECONDS_PER_TRANSCRIPTION'], 49.5)
+        self.assertEqual(v['ESTIMATED_COST_USD'], 0)
+
+    def test_sem_transcricao_o_custo_medio_e_NOT_KNOWN_e_nao_zero(self):
+        v = mt._veredito_da_missao(self._linhas('TITLE_ONLY'),
+                                   self._texto(WHISPER_FALLBACKS=1))
+        self.assertEqual(v['AVG_MACHINE_SECONDS_PER_TRANSCRIPTION'], yt.NAO_SEI)
 
 
 if __name__ == '__main__':

@@ -266,6 +266,7 @@ def medir():
             'régua se recusa a promover um título a observação técnica. Não é defeito da '
             'régua — é a lição do Xylella escrita dentro dela.'),
         'TEST_OBJECTS': len(linhas),
+        **_veredito_da_missao(linhas, texto),
         'NAO_SEI_BEFORE': antes_c['NAO_SEI'], 'NAO_SEI_AFTER': depois_c['NAO_SEI'],
         'AG_RELEVANT_BEFORE': antes_c['AG_RELEVANT'], 'AG_RELEVANT_AFTER': depois_c['AG_RELEVANT'],
         'FIELD_SIGNAL_BEFORE': antes_c['FIELD_SIGNAL'], 'FIELD_SIGNAL_AFTER': depois_c['FIELD_SIGNAL'],
@@ -319,6 +320,76 @@ def medir():
         else:
             print('  %-28s (nenhum caso deste tipo neste microteste)' % nome)
     return 0
+
+
+def _veredito_da_missao(linhas, texto):
+    """Os campos que a pergunta "vale a pena o whisper?" exige — com o denominador à vista.
+
+    RECOVERY_RATE é a razão mais fácil de mentir deste arquivo inteiro. O numerador é
+    honesto sozinho: WHISPER_SUCCESS é um texto que existe. O denominador não é.
+    Quantos vídeos PRECISARAM do whisper só é uma pergunta sobre a LEGENDA quando o
+    denominador é feito de vídeos que de fato não têm legenda. Um 429 na porta da
+    legenda também empurra o vídeo para o whisper — e uma taxa calculada sobre esse
+    denominador mede a MINHA REDE, com o nome da legenda do concorrente.
+
+        UMA TAXA SEM O DENOMINADOR À VISTA É UMA OPINIÃO COM CASAS DECIMAIS.
+
+    Por isso o denominador é publicado quebrado em duas partes, e a própria taxa
+    carrega um campo dizendo se ela pode ser lida como cobertura de legenda ou se ela
+    é, naquela rodada, um retrato do ambiente.
+    """
+    por_leg = texto.get('POR_ESTADO_DE_LEGENDA') or {}
+    ausente = int(por_leg.get(yt.NO_CAPTION_CONFIRMED, 0))
+    inconclusivo = sum(int(por_leg.get(e, 0)) for e in (
+        yt.CAPTION_ENVIRONMENT_FAILURE, yt.CAPTION_FETCH_FAILURE,
+        yt.CAPTION_PARSE_FAILURE, yt.CAPTION_DELIVERED_EMPTY, yt.CAPTION_NOT_TESTED))
+
+    precisou = int(texto.get('WHISPER_FALLBACKS') or 0)
+    recuperou = int(texto.get('WHISPER_SUCCESS') or 0)
+    taxa = round(recuperou / precisou, 3) if precisou else yt.NAO_SEI
+
+    # Cobertura é uma contagem de vídeos com texto ALÉM do título — não de caracteres.
+    # Um vídeo com 40 mil caracteres e um com 400 contam UM cada: a régua desta casa
+    # decide por conteúdo, e dobrar o texto de quem já falava não cobre quem calava.
+    com_texto = sum(1 for l in linhas if l.get('TEXT_SOURCE') != 'TITLE_ONLY')
+    n = len(linhas)
+
+    maq = texto.get('TOTAL_MACHINE_SECONDS_ACUMULADO', texto.get('TOTAL_MACHINE_SECONDS'))
+    transcritos = sum(1 for l in linhas if l.get('TEXT_SOURCE') == 'WHISPER_LOCAL')
+    media = (round(float(maq) / transcritos, 1)
+             if transcritos and isinstance(maq, (int, float)) else yt.NAO_SEI)
+
+    return {
+        'VIDEOS_TESTADOS': n,
+        'NATIVE_CAPTION_OK': texto.get('CAPTION_HITS'),
+        'CAPTION_ABSENT_CONFIRMED': ausente,
+        'CAPTION_INCONCLUSIVE': inconclusivo,
+        'O_QUE_O_DENOMINADOR_TEM_DENTRO': (
+            'WHISPER_NEEDED = %d. Destes, %d são vídeos que o player declarou SEM faixa '
+            '(NO_CAPTION_CONFIRMED) e %d são confissões sobre a minha rede ou o meu '
+            'leitor. Só a primeira parte é uma pergunta sobre a legenda.'
+            % (precisou, ausente, inconclusivo)),
+        'WHISPER_NEEDED': precisou,
+        'RECOVERY_RATE': taxa,
+        'RECOVERY_RATE_MEDE_A_LEGENDA': (
+            'SIM' if precisou and inconclusivo == 0 else
+            'NAO — %d dos %d vídeos do denominador chegaram ao whisper por falha de '
+            'ambiente, não por ausência de legenda. Nesta rodada a taxa retrata o '
+            'ambiente.' % (inconclusivo, precisou) if precisou else
+            'NAO_SE_APLICA — nenhum vídeo precisou do whisper nesta rodada'),
+        'COVERAGE_BEFORE': 0,
+        'COVERAGE_AFTER': com_texto,
+        'COVERAGE_GAIN': ('%d/%d vídeos passaram a ter texto além do título' % (com_texto, n)),
+        'O_QUE_COVERAGE_NAO_DIZ': (
+            'que a classificação mudou. Texto a mais é matéria-prima; o que a régua faz '
+            'com ele está em NAO_SEI_BEFORE/AFTER, e as duas medidas podem discordar.'),
+        'AVG_MACHINE_SECONDS_PER_TRANSCRIPTION': media,
+        'ESTIMATED_COST_USD': 0,
+        'O_QUE_ESTIMATED_COST_ESCONDERIA': (
+            'nada é faturado porque o reconhecimento roda nesta máquina. A conta que '
+            'existe é AVG_MACHINE_SECONDS_PER_TRANSCRIPTION × número de vídeos, e ela '
+            'é paga em tempo do runner.'),
+    }
 
 
 def _cinco_exemplos(linhas):
