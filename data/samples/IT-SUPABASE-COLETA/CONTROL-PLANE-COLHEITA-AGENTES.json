@@ -207,6 +207,54 @@
       "QUOTE": "os ids so existiam no scratchpad que morreu",
       "SCOPE": "OUTRA COLETA (convegni italianos) — licao adjacente, nao fato deste lote",
       "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "COST",
+      "VALUE": "O lote italiano nao tem CAMPO de custo — nem valor, nem NOT_PRESERVED, nem NOT_APPLICABLE. Grep de custo/cost/usd/apify/credit/orcamento nos dois artefatos do inventario devolve ZERO, e o mesmo vale para os 36 artefatos do acervo que nomeiam SOURCE_ID=IT-ADAMA-CATALOG em 6 branches. E LACUNA DE CAMPO, nao custo zero medido.",
+      "EVIDENCE_PATH": "data/samples/IT-CATALOGO/IT-ADAMA-PRESERVACAO-RELATORIO.json e PLANO.json + varredura dos 36 artefatos que citam IT-ADAMA-CATALOG",
+      "QUOTE": "zero ocorrencias de qualquer termo de custo no inventario canonico dos 195",
+      "SCOPE": "o lote IT/adama-website inteiro",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "REASON_FOR_COLLECTION",
+      "VALUE": "A EXPLICACAO ESTRUTURAL da ausencia de RUN_ID e de custo, e ela vale mais que os dois buracos: a regra da casa diz que TODA ROTA PAGA passa por scripts/coletor.py, que grava o RAW e carimba COST_USD, e e dali que o RUN_ID passa a resolver CONTENT -> RUN_MANIFEST -> INPUT/ACTOR. A coleta italiana foi rota GRATUITA — Chrome com janela na maquina de casa — entao nunca passou por esse cano. Nao ha RUN_ID nem custo POR CONSTRUCAO, nao por negligencia. Um Control Plane que so nasca da rota paga vai continuar cego para toda coleta gratuita.",
+      "EVIDENCE_PATH": "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md (linhas 232-234) + data/samples/IT-CATALOGO/IT-ADAMA-CATALOG-CENSUS.json (BROWSER_ROUTE)",
+      "QUOTE": "Toda rota paga passa por scripts/coletor.py, que grava o RAW antes de normalizar e [carimba] COST_USD. O RUN_ID passa a resolver: CONTENT -> RUN_MANIFEST -> INPUT / ACTOR",
+      "SCOPE": "o lote IT/adama-website — e a arquitetura do registro de execucoes da casa",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "COST",
+      "VALUE": "A lei de contabilidade que a casa ja escreveu e que este lote obriga a respeitar: 'NOT_PRESERVED e um ESTADO, nao um numero' — somar como 0 apagaria a diferenca entre 'custou zero' e 'nao sei quanto custou'. O lote italiano esta no segundo caso, nao no primeiro.",
+      "EVIDENCE_PATH": "scripts/corrigir_custo.py (funcao corrigir)",
+      "QUOTE": "NOT_PRESERVED e um ESTADO, nao um numero",
+      "SCOPE": "regra de contabilidade de custo de toda a casa",
+      "RELIABILITY": "DECLARADO"
+    },
+    {
+      "KIND": "COST",
+      "VALUE": "LICAO ADJACENTE, medida: numa coleta italiana vizinha (SENSOR-PILOT, Apify) o custo ANUNCIADO foi 0,9040 USD e o REAL 5,0440 USD — 5,6x. O coletor leu usageTotalUsd ANTES de a Apify fechar a conta e gravou o valor parcial. Custo lido cedo demais nao e custo.",
+      "EVIDENCE_PATH": "scripts/corrigir_custo.py (docstring) + data/samples/SENSOR-PILOT/RUNS-*.json",
+      "QUOTE": "CUSTO ANUNCIADO 0.9040 · CUSTO REAL 5.0440",
+      "SCOPE": "OUTRA COLETA (SENSOR-PILOT italiano) — licao para o Control Plane",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "COST",
+      "VALUE": "Precedente direto para como medir o custo REAL deste lote, ja que ele nao teve fatura: 'fatura zero dolar NAO e custo zero — o custo real e tempo de maquina', medido como MACHINE_SECONDS_TOTAL na transcricao local por whisper. O lote italiano custou tempo de maquina e de pessoa numa maquina residencial, e ninguem mediu.",
+      "EVIDENCE_PATH": "data/samples/YOUTUBE-TRANSCRICOES/TEXTO.json (claude/whisper-youtube-integration-tkulwy)",
+      "QUOTE": "fatura zero dolar nao e custo zero",
+      "SCOPE": "como medir custo de rota gratuita — precedente aplicavel a este lote",
+      "RELIABILITY": "DECLARADO"
+    },
+    {
+      "KIND": "GAP",
+      "VALUE": "Confirmacao por outro angulo de que o lote nunca foi rota paga: data/samples/raw-paid/ nao contem nenhum bruto italiano. Os 11 arquivos que ha sao espanhois e de gate-test.",
+      "EVIDENCE_PATH": "data/samples/POLITICA-RAW-ROTA-PAGA.json",
+      "QUOTE": "TOTAL_POR_CLASSE: PRODUCTION_RAW 8 arquivos · GATE_TEST_RAW 3",
+      "SCOPE": "o lote IT/adama-website — classificacao de rota",
+      "RELIABILITY": "MEDIDO"
     }
   ]
 }

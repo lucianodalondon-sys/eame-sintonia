@@ -272,9 +272,25 @@ objetos **não emitiu identidade**.
 > *"dado um registro qualquer, o `RUN_ID` leva a esta tabela e a tabela diz que ator rodou,
 > com que entrada, quando, a que custo"*
 
-**3 · Custo: não declarado.** Nenhuma cifra, em nenhum artefato. A rota foi navegador com
-janela na máquina de casa, sem intermediário pago — mas isso é a explicação provável, não
-a medida, e fica marcado assim.
+**3 · Custo: não há o campo.** Não é zero medido — é ausência de campo. Nem valor, nem
+`NOT_PRESERVED`, nem `NOT_APPLICABLE`, em nenhum dos 36 artefatos que nomeiam
+`IT-ADAMA-CATALOG`. A lei da casa já separa os dois casos:
+
+> *"`NOT_PRESERVED` é um **estado**, não um número"* — somar como 0 apagaria a diferença
+> entre *"custou zero"* e *"não sei quanto custou"*.
+
+**E há explicação estrutural, que vale mais que os dois buracos.** A regra de coleta
+externa diz que **toda rota paga** passa por `scripts/coletor.py`, que grava o RAW e
+carimba `COST_USD` — e é dali que o `RUN_ID` passa a resolver
+`CONTENT → RUN_MANIFEST → INPUT / ACTOR`. A coleta italiana foi **rota gratuita**: Chrome
+com janela numa máquina de casa. Nunca passou por esse cano.
+
+> Não há `RUN_ID` nem custo **por construção**, não por negligência. Um Control Plane que
+> nasça só da rota paga continuará cego para toda coleta gratuita — e a coleta gratuita é
+> a que trouxe os 195.
+
+O custo real existe e é de outra natureza: *"fatura zero dólar não é custo zero — o custo
+real é tempo de máquina"*. Ninguém mediu esse tempo aqui.
 
 **4 · O estado por objeto conta as duas rodadas sem que ninguém as tenha escrito.**
 `ALREADY_PRESENT_VERIFIED = 194` + `VERIFIED = 1`. O único `VERIFIED` é a brochura

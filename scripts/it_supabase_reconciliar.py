@@ -676,10 +676,20 @@ def control_plane(relatorio, plano):
         c('COVERAGE', 'PRODUCT_CENSUS_COMPLETE=%s · DOCUMENT_CENSUS_COMPLETE=%s'
           % (relatorio['PRODUCT_CENSUS_COMPLETE'], relatorio['DOCUMENT_CENSUS_COMPLETE']),
           'PRESERVACAO_RELATORIO', 'os dois censos do lote', 'lote inteiro', 'MEDIDO'),
-        c('VOLUME', '%d objetos · %d bytes · maior ativo %d bytes · limite do balde %d bytes'
-          % (plano['RAW_EXPECTED'], plano['BYTES_TOTAIS'], plano['LARGEST_ASSET_BYTES'],
-             plano['LIMITE_BYTES']), 'PRESERVACAO_PLANO', 'contagem do plano',
+        c('VOLUME', '%d objetos · %d bytes · maior ativo %d bytes'
+          % (plano['RAW_EXPECTED'], plano['BYTES_TOTAIS'], plano['LARGEST_ASSET_BYTES']),
+          'PRESERVACAO_PLANO',
+          'os 80.714.570 bytes são medidos três vezes de forma concordante: soma dos BYTES '
+          'locais, soma dos BYTES_DE_VOLTA baixados do balde, e GATE.BYTES_VERIFIED_REMOTELY',
           'lote inteiro', 'MEDIDO'),
+        # O 209.715.200 do plano NÃO é quota do balde: é a constante LIMITE_BYTES =
+        # 200*1024*1024 de adama_it_preservar.py, comparada contra o maior ativo. Chamá-la
+        # de "limite do balde" seria promover um literal do código a medida do serviço.
+        c('LIMIT', 'LIMITE_BYTES = %d é constante do código (200*1024*1024), comparada '
+          'contra o maior ativo, e vale POR OBJETO. A quota total do balde é NOT_KNOWN — '
+          'nunca foi medida' % plano['LIMITE_BYTES'], 'PRESERVACAO_PLANO',
+          'MAIOR_CABE_NO_LIMITE=%s' % plano['MAIOR_CABE_NO_LIMITE'],
+          'o balde raw — o que se sabe e o que não se sabe sobre o limite dele', 'MEDIDO'),
         c('INTEGRITY', 'GATE=%s · SHA_VERIFIED=%d · HASH_MISMATCH=%d · BYTES conferidos %d de %d'
           % (gate['STATE'], gate['SHA_VERIFIED'], gate['HASH_MISMATCH'],
              gate['BYTES_VERIFIED_REMOTELY'], gate['BYTES_EXPECTED']),
