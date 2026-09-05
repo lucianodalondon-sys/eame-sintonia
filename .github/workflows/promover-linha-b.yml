@@ -1,0 +1,133 @@
+# Promove um deployment JA READY para Producao, e prova que o endereco curto
+# passou a servi-lo. Nao constroi nada e nao toca no repositorio.
+#
+# Regra: docs/regras/REGRA-DE-URL-PUBLICA-E-PROMOCAO-VERCEL.md
+#
+# Dispara so a mao: quem aprova a Linha B e uma pessoa, nao um push.
+
+name: promover Linha B para producao
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployment:
+        description: 'Deployment READY a promover (dpl_... ou o hostname efemero)'
+        required: true
+        type: string
+      commit_esperado:
+        description: 'SHA aprovado da Linha B. Se nao bater, o portao fecha e nada e promovido.'
+        required: true
+        type: string
+
+concurrency:
+  group: promocao-producao
+  cancel-in-progress: false
+
+jobs:
+  promover:
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      TEAM_ID: team_jyZYzZOZwYWn06jOCXsrnU9X
+      PROJECT_ID: prj_rKjzMNHiB2ulP8ev5bmYYeUFUTwe
+      PUBLIC_HOST: sintonia-eame-preview.vercel.app
+      # via env, nunca interpolado no shell: input e texto de fora
+      ALVO: ${{ inputs.deployment }}
+      COMMIT_ESPERADO: ${{ inputs.commit_esperado }}
+
+    steps:
+      - name: o token existe
+        run: |
+          test -n "$VERCEL_TOKEN" || {
+            echo "::error::secret VERCEL_TOKEN ausente. Ver o anexo da regra."; exit 1; }
+
+      - name: portao — o alvo esta READY e serve o commit aprovado
+        run: |
+          set -euo pipefail
+          curl -sfS "https://api.vercel.com/v13/deployments/${ALVO}?teamId=${TEAM_ID}" \
+            -H "Authorization: Bearer ${VERCEL_TOKEN}" > alvo.json
+          python3 - <<'PY'
+          import json, os, sys
+          d = json.load(open('alvo.json'))
+          sha = d['meta'].get('githubCommitSha', '')
+          esperado = os.environ['COMMIT_ESPERADO'].strip()
+          print(f"  id     {d['id']}")
+          print(f"  url    {d['url']}")
+          print(f"  state  {d['readyState']}")
+          print(f"  commit {sha}")
+          print(f"  branch {d['meta'].get('githubCommitRef')}")
+          erros = []
+          if d['readyState'] != 'READY':
+              erros.append(f"estado {d['readyState']}, nao READY — esperar a build acabar")
+          if len(esperado) < 7:
+              erros.append(f"commit_esperado '{esperado}' e curto demais para identificar um commit")
+          elif not sha.lower().startswith(esperado.lower()):
+              erros.append(f"commit {sha} nao e o aprovado {esperado}")
+          if erros:
+              for e in erros: print(f"::error::{e}")
+              sys.exit(1)
+          with open(os.environ['GITHUB_ENV'], 'a') as f:
+              f.write(f"ALVO_ID={d['id']}\nALVO_SHA={sha}\n")
+          PY
+
+      - name: promocao nativa
+        run: |
+          set -euo pipefail
+          curl -sfS -X POST \
+            "https://api.vercel.com/v10/projects/${PROJECT_ID}/promote/${ALVO_ID}?teamId=${TEAM_ID}" \
+            -H "Authorization: Bearer ${VERCEL_TOKEN}" -o /dev/null
+          echo "promocao pedida para ${ALVO_ID}"
+
+      - name: provar — o endereco curto resolve para o commit aprovado
+        run: |
+          set -euo pipefail
+          for tentativa in $(seq 1 30); do
+            curl -sfS "https://api.vercel.com/v13/deployments/${PUBLIC_HOST}?teamId=${TEAM_ID}" \
+              -H "Authorization: Bearer ${VERCEL_TOKEN}" > publico.json || true
+            if python3 - <<'PY'
+          import json, os, sys
+          try:
+              d = json.load(open('publico.json'))
+          except Exception:
+              sys.exit(1)
+          m = d.get('meta', {})
+          alvo = os.environ['ALVO_ID']
+          pronto = (
+              d.get('target') == 'production'
+              and d.get('readyState') == 'READY'
+              and m.get('githubCommitSha') == os.environ['ALVO_SHA']
+              and alvo in (m.get('originalDeploymentId'), d.get('id'))
+          )
+          sys.exit(0 if pronto else 1)
+          PY
+            then
+              break
+            fi
+            echo "  ainda nao (${tentativa}/30)"; sleep 10
+          done
+          python3 - <<'PY'
+          import json, os, sys
+          try:
+              d = json.load(open('publico.json'))
+          except Exception as e:
+              print(f"::error::a API nao devolveu o estado do alias: {e}")
+              sys.exit(1)
+          m = d.get('meta', {})
+          alvo = os.environ['ALVO_ID']
+          mesmo = (d.get('target') == 'production'
+                   and m.get('githubCommitSha') == os.environ['ALVO_SHA']
+                   and alvo in (m.get('originalDeploymentId'), d.get('id')))
+          print()
+          print(f"PUBLIC_URL                       = https://{os.environ['PUBLIC_HOST']}")
+          print(f"DEPLOYMENT_URL                   = {d['url']}")
+          print(f"DEPLOYMENT_ID                    = {d['id']}")
+          print(f"PROMOVIDO_DE                     = {m.get('originalDeploymentId')}")
+          print(f"COMMIT                           = {m.get('githubCommitSha')}")
+          print(f"BRANCH                           = {m.get('githubCommitRef')}")
+          print(f"TARGET                           = {d.get('target')}")
+          print(f"ALIAS_POINTS_TO_SAME_DEPLOYMENT  = {'SIM' if mesmo else 'NAO'}")
+          print()
+          if not mesmo:
+              print("::error::o alias nao passou a servir o deployment promovido")
+              sys.exit(1)
+          PY

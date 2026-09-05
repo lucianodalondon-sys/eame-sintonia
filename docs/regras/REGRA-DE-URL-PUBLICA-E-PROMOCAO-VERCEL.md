@@ -169,46 +169,39 @@ Proteção de acesso verificada no mesmo dia: `passwordProtection`, `ssoProtecti
 
 ---
 
-## 8 · ANEXO — automatizar a promoção
+## 8 · ANEXO — o workflow que executa a regra
 
-A promoção precisa de uma credencial da Vercel. Enquanto não existir um `VERCEL_TOKEN`
-nos secrets do repositório, ela é **manual** (ponto 4) e a regra depende de alguém a
-executar.
+`.github/workflows/promover-linha-b.yml`
 
-Com o secret criado, este workflow fecha o ciclo sem ninguém abrir o dashboard.
-Dispara **só à mão** — nunca sozinho — porque quem aprova a Linha B é uma pessoa,
-não um push:
+Dispara **só à mão** (`workflow_dispatch`) — nunca sozinho — porque quem aprova a Linha B
+é uma pessoa, não um push. Pede dois campos:
 
-```yaml
-name: promover Linha B para produção
+| campo | |
+|---|---|
+| `deployment` | o `dpl_...` ou o hostname efémero do Preview **já READY** |
+| `commit_esperado` | o SHA aprovado da Linha B |
 
-on:
-  workflow_dispatch:
-    inputs:
-      deployment:
-        description: 'URL ou ID do deployment READY a promover'
-        required: true
+E tem **três portões, todos fail-closed**:
 
-jobs:
-  promover:
-    runs-on: ubuntu-latest
-    steps:
-      - name: promoção nativa
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: |
-          npx --yes vercel@latest promote "${{ inputs.deployment }}" \
-            --scope london-creative --token "$VERCEL_TOKEN"
+1. **antes de promover** — o alvo tem de estar `READY` **e** o seu `githubCommitSha` tem de
+   ser o commit aprovado. Se o Preview ainda constrói, ou se o ID que alguém colou é de
+   outro commit, nada é promovido;
+2. **a promoção** é a nativa: `POST /v10/projects/{id}/promote/{deploymentId}`. Não
+   constrói, não copia ficheiros, não toca no repositório;
+3. **depois de promover** — resolve `sintonia-eame-preview.vercel.app` contra a API e só dá
+   verde quando o que o alias serve é `target=production`, `READY`, com o commit aprovado e
+   com `originalDeploymentId` igual ao alvo. Espera até 5 minutos; se não bater, **falha** e
+   imprime o que encontrou.
 
-      - name: provar o alias
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: |
-          curl -sf "https://api.vercel.com/v13/deployments/sintonia-eame-preview.vercel.app?teamId=team_jyZYzZOZwYWn06jOCXsrnU9X" \
-            -H "Authorization: Bearer $VERCEL_TOKEN" \
-            | python3 -c 'import sys,json; d=json.load(sys.stdin); print("PUBLIC_URL                       = https://sintonia-eame-preview.vercel.app"); print("DEPLOYMENT_ID                    =", d["id"]); print("DEPLOYMENT_URL                   =", d["url"]); print("COMMIT                           =", d["meta"]["githubCommitSha"]); print("BRANCH                           =", d["meta"]["githubCommitRef"]); print("TARGET                           =", d["target"])'
-```
+> **O SEGUNDO PORTÃO É O QUE FALTAVA.**
+> **PROMOVER SEM VOLTAR A LER O ALIAS É ASSUMIR QUE CORREU BEM.**
 
-O token precisa de âmbito sobre a team London Creative. Cria-se em
-`vercel.com/account/tokens` e guarda-se em **Settings → Secrets and variables → Actions**
-do repositório, com o nome `VERCEL_TOKEN`.
+O job termina imprimindo o bloco de prova do ponto 6, já preenchido — é esse texto que se
+entrega, e é a única coisa que conta como promoção feita.
+
+**Pré-requisito:** o secret `VERCEL_TOKEN`. Cria-se em `vercel.com/account/tokens`, com
+âmbito sobre a team **London Creative**, e guarda-se em **Settings → Secrets and variables
+→ Actions** do repositório, com esse nome exato. Sem ele o primeiro passo pára e diz porquê.
+
+O workflow vive na branch onde esta regra foi escrita; o GitHub só o oferece no menu
+**Actions** depois de ele chegar à branch por omissão do repositório.
