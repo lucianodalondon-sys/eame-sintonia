@@ -12,7 +12,26 @@
   "PORTAL_CHANGED": false,
   "DATASET": "IT-195-COLLECTION-PACKAGE",
   "EVIDENCE_CLASS": "COLLECTION_PACKAGE_CANDIDATE",
-  "STATE": "READY",
+  "STATE": "BLOCKED",
+  "BLOQUEIOS": [
+    {
+      "BLOQUEIO": "NO_COLLECTION_RUN_ROW",
+      "O_QUE_E": "public.raw_asset — a tabela onde os 195 morariam — exige run_id NOT NULL REFERENCES public.collection_run(run_id). Não existe linha de collection_run para este lote, e não existe arquivo de importação do catálogo italiano em supabase/importacoes/.",
+      "PROVA": {
+        "FONTE": "SCHEMA_CANONICO",
+        "DETALHE": "run_id         text not null references public.collection_run(run_id)"
+      },
+      "IMPORTACOES_QUE_EXISTEM": [
+        "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql",
+        "supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql",
+        "supabase/importacoes/IT-CAMADAS-2026-09-02.sql",
+        "supabase/importacoes/IT-LASTMILE-2026-09-02.sql"
+      ],
+      "POR_QUE_NAO_DA_PARA_PREENCHER_DEPOIS": "collection_run.started_at é timestamptz NOT NULL e raw_asset.captured_at também. O preservador italiano tem UMA chamada de relógio em todo o arquivo — datetime.date.today() — então a hora não existe e não pode ser reconstruída. Inventar um horário para satisfazer a coluna seria fabricar proveniência.",
+      "O_QUE_DESTRAVA": "uma linha de collection_run com os campos que SÃO conhecíveis e o resto declarado ausente — do mesmo jeito que a Espanha fez no MESMO DIA, com a MESMA rota gratuita, em supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql"
+    }
+  ],
+  "O_QUE_ESTA_PRONTO_MESMO_BLOQUEADO": "os 195 estão inventariados, reconciliados, triados e com pré-passaporte sombra. O bloqueio não é do pacote — é da PORTA. Nada aqui precisa ser refeito quando a linha de collection_run existir.",
   "PARA_ONDE_ELE_NAO_VAI": "a Inteligência. Este pacote para na porta dela: não classifica relevância, não roteia para capacidade, não abre o Casco e não define a política do D1.",
   "BUCKET": "raw",
   "PREFIXO": "IT/adama-website",

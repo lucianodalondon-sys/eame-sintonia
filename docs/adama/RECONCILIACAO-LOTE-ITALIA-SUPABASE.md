@@ -283,15 +283,14 @@ objetos **não emitiu identidade**.
 > *"`NOT_PRESERVED` é um **estado**, não um número"* — somar como 0 apagaria a diferença
 > entre *"custou zero"* e *"não sei quanto custou"*.
 
-**E há explicação estrutural, que vale mais que os dois buracos.** A regra de coleta
-externa diz que **toda rota paga** passa por `scripts/coletor.py`, que grava o RAW e
-carimba `COST_USD` — e é dali que o `RUN_ID` passa a resolver
-`CONTENT → RUN_MANIFEST → INPUT / ACTOR`. A coleta italiana foi **rota gratuita**: Chrome
-com janela numa máquina de casa. Nunca passou por esse cano.
+A regra de coleta externa diz que **toda rota paga** passa por `scripts/coletor.py`, que
+grava o RAW e carimba `COST_USD` — e é dali que o `RUN_ID` passa a resolver
+`CONTENT → RUN_MANIFEST → INPUT / ACTOR`. A coleta italiana foi **rota gratuita** e não
+passou por esse cano.
 
-> Não há `RUN_ID` nem custo **por construção**, não por negligência. Um Control Plane que
-> nasça só da rota paga continuará cego para toda coleta gratuita — e a coleta gratuita é
-> a que trouxe os 195.
+**Eu escrevi, num commit anterior, que isso explicava a ausência "por construção". Não
+explica, e a correção está em §10:** a Espanha rodou no mesmo dia, pela mesma rota
+gratuita de navegador local, e mesmo assim emitiu `collection_run`.
 
 O custo real existe e é de outra natureza: *"fatura zero dólar não é custo zero — o custo
 real é tempo de máquina"*. Ninguém mediu esse tempo aqui.
@@ -320,7 +319,86 @@ segunda casa para a identidade dos 195.
 
 ---
 
-## 10 · O CHECKPOINT ANTES DA FASE CARA
+## 10 · A PORTA DO ACERVO ESTÁ FECHADA, E NÃO É POR FALTA DE PRIORIDADE
+
+Um crítico de completude perguntou o que ninguém tinha perguntado: **quais campos o
+Control Plane da casa DEFINE?** A resposta reprova a minha própria conclusão anterior.
+
+### O Control Plane já existe, é canônico, e tem schema
+
+`sintonia/canonical:supabase/migrations/001_fundacao_geografia_e_proveniencia.sql`:
+
+```sql
+create table public.collection_run (
+  run_id text not null unique, platform text not null, actor text, actor_version text,
+  input jsonb, query text, mission text, source_country pais not null,
+  started_at timestamptz not null, finished_at timestamptz, dataset_id text,
+  item_count_raw integer, item_count_normalized integer,
+  cost_usd numeric(12,6),
+  cost_method text check (cost_method in ('PLATAFORMA_USAGE_TOTAL','DIFERENCA_DE_SALDO',
+                                          'TABELA_DE_PRECO','NAO_SEI')),
+  source_version text, status run_status not null, error text, ... )
+```
+
+**Não há schema a desenhar.** Há uma linha a existir.
+
+### E os 195 não entram por chave estrangeira
+
+```sql
+create table public.raw_asset (
+  run_id  text not null references public.collection_run(run_id) on delete restrict, ... )
+```
+
+Sem linha em `collection_run`, `raw_asset` recusa os 195. O diagnóstico deixa de ser
+*"faltou anotar o `RUN_ID`"* e passa a ser **"o lote não tem porta de entrada no acervo
+canônico"**.
+
+### A Espanha tem a linha. Mesmo dia, mesma rota gratuita.
+
+`sintonia/canonical:supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql`:
+
+```sql
+insert into public.collection_run (run_id, platform, actor, mission, ...)
+values ('ES-M12-IMPORT-CATALOGO-ADAMA-2026-08-30-a', 'ADAMA_WEBSITE',
+        'scripts/adama_es.py + navegador local', '12-PRESERVAR-E-INTEGRAR-COLETA-LOCAL-ES',
+        ..., 196, 56, 'concluida', ...)
+```
+
+**196 objetos brutos na Espanha, 195 na Itália. Mesma rota, mesmo dia, mesmo bloqueio
+Akamai.** Em `supabase/importacoes/` há `ADAMA-ES-CATALOGO`; **não há `ADAMA-IT-CATALOGO`**.
+Os dois arquivos italianos que existem são de 02/09, da missão de inteligência posterior.
+
+> A perna de importação italiana **nunca foi escrita**. Não é a rota gratuita que explica
+> a ausência — foi essa perna que faltou.
+
+### E o relógio não pode ser reconstruído
+
+`collection_run.started_at` e `raw_asset.captured_at` são `timestamptz NOT NULL`. O
+preservador italiano tem **uma única chamada de relógio em todo o arquivo**:
+
+```python
+hoje = datetime.date.today().isoformat()
+```
+
+Sem `time()`, sem `utcnow()`. A hora **não existe**, e inventar uma para satisfazer a
+coluna seria fabricar procedência. Os campos ausentes de Control Plane **não devem ser
+preenchidos retroativamente** — ficam declarados como ausentes.
+
+### Consequência para o pacote
+
+```
+COLLECTION_PACKAGE_STATE = BLOCKED
+BLOQUEIO                 = NO_COLLECTION_RUN_ROW
+```
+
+O bloqueio **não é do pacote — é da porta.** Os 195 estão inventariados, reconciliados,
+triados e com pré-passaporte sombra. Nada aqui precisa ser refeito quando a linha existir.
+O estado é derivado do schema por `bloqueios()`, e há teste que impede promovê-lo a
+`READY` enquanto a porta estiver fechada.
+
+---
+
+## 11 · O CHECKPOINT ANTES DA FASE CARA
 
 ```
 TOTAL                         = 195
@@ -349,7 +427,7 @@ sugerir o contrário.
 
 ---
 
-## 11 · O QUE NÃO MUDOU
+## 12 · O QUE NÃO MUDOU
 
 ```
 SUPABASE_CHANGED     = NÃO      (nenhuma chamada; não há credencial aqui)
@@ -366,11 +444,15 @@ scripts/voz.py       = intocado
 
 ---
 
-## 12 · O QUE FICA NA PORTA DA INTELIGÊNCIA
+## 13 · O QUE FICA NA PORTA DA INTELIGÊNCIA
 
-`COLLECTION_PACKAGE_STATE = READY`, com **uma** coisa faltando, e ela é pequena:
+`COLLECTION_PACKAGE_STATE = BLOCKED` — na porta do acervo (§10), não no conteúdo. Duas
+coisas ficam, e as duas são pequenas e nomeadas:
 
-> **ler os 137 documentos a partir do balde.**
+**A · uma linha de `collection_run`**, com os campos que são conhecíveis e o resto
+declarado ausente — do mesmo jeito que a Espanha fez, no mesmo dia, pela mesma rota.
+
+**B · ler os 137 documentos a partir do balde.**
 
 Eles estão lá, com hash conferido, a rota da origem está morta, e o texto **já saiu de
 dentro deles uma vez** — a varredura de tipagem provou que o extrator funciona nesse

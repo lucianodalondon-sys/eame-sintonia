@@ -218,7 +218,7 @@
     },
     {
       "KIND": "REASON_FOR_COLLECTION",
-      "VALUE": "A EXPLICACAO ESTRUTURAL da ausencia de RUN_ID e de custo, e ela vale mais que os dois buracos: a regra da casa diz que TODA ROTA PAGA passa por scripts/coletor.py, que grava o RAW e carimba COST_USD, e e dali que o RUN_ID passa a resolver CONTENT -> RUN_MANIFEST -> INPUT/ACTOR. A coleta italiana foi rota GRATUITA — Chrome com janela na maquina de casa — entao nunca passou por esse cano. Nao ha RUN_ID nem custo POR CONSTRUCAO, nao por negligencia. Um Control Plane que so nasca da rota paga vai continuar cego para toda coleta gratuita.",
+      "VALUE": "A regra da casa manda toda ROTA PAGA passar por scripts/coletor.py, que grava o RAW e carimba COST_USD, e e dali que o RUN_ID resolve CONTENT -> RUN_MANIFEST -> INPUT/ACTOR. A coleta italiana foi rota GRATUITA e nao passou por esse cano. MAS ISSO NAO E DESCULPA ESTRUTURAL, e eu escrevi que era: a Espanha rodou no MESMO DIA, pela MESMA rota gratuita de navegador local, e mesmo assim emitiu collection_run. A diferenca nao e a rota — e que a perna de importacao italiana nunca foi escrita.",
       "EVIDENCE_PATH": "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md (linhas 232-234) + data/samples/IT-CATALOGO/IT-ADAMA-CATALOG-CENSUS.json (BROWSER_ROUTE)",
       "QUOTE": "Toda rota paga passa por scripts/coletor.py, que grava o RAW antes de normalizar e [carimba] COST_USD. O RUN_ID passa a resolver: CONTENT -> RUN_MANIFEST -> INPUT / ACTOR",
       "SCOPE": "o lote IT/adama-website — e a arquitetura do registro de execucoes da casa",
@@ -254,6 +254,110 @@
       "EVIDENCE_PATH": "data/samples/POLITICA-RAW-ROTA-PAGA.json",
       "QUOTE": "TOTAL_POR_CLASSE: PRODUCTION_RAW 8 arquivos · GATE_TEST_RAW 3",
       "SCOPE": "o lote IT/adama-website — classificacao de rota",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "RUN_ID",
+      "VALUE": "A COLETA IRMA TEM TUDO O QUE FALTA AOS 195, E CORREU NO MESMO DIA. IT-T4-001-etichette-manifest.json carrega RUN_ID=IT-ETICHETTE-20260830T000216Z, ROUTE, TLS_NOTE, TARGET_TOTAL=163, ATTEMPTED=163, LABELS_OBTAINED=163, COVERAGE_PCT=100.0 e STATE=COMPLETE. As duas coletas sao italianas, da mesma casa, do mesmo 2026-08-30, separadas por cerca de 19 horas. Uma carimba identidade, alvo, tentativa, cobertura e estado. A outra nao carimba nada disso. O Control Plane de Coleta nao precisa ser inventado: uma metade da casa ja o escreve.",
+      "EVIDENCE_PATH": "data/samples/IT-T4-001/IT-T4-001-etichette-manifest.json (chaves de topo)",
+      "QUOTE": "RUN_ID: IT-ETICHETTE-20260830T000216Z · TARGET_TOTAL: 163 · ATTEMPTED: 163 · LABELS_OBTAINED: 163 · COVERAGE_PCT: 100.0 · STATE: COMPLETE",
+      "SCOPE": "comparacao entre duas coletas italianas do mesmo dia — a que tem registro e a que nao tem",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "TEMPORAL_COVERAGE",
+      "VALUE": "Do QUE o material do catalogo fala: 1978-01-16 a 2026-02-04, lido das datas de registro que as proprias fichas publicam (REGISTRATION_ANCHOR_TEXT). E a cobertura temporal dos 139 DOCUMENTOS NAO esta estabelecida: LABEL_DATE e null em 141 de 141, com LABEL_DATE_STATE=NOT_EXTRACTED_PDF_NOT_REACHABLE_HERE. Nao se sabe de quando e cada rotulo preservado.",
+      "EVIDENCE_PATH": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json (REGISTRATION_ANCHOR_TEXT) + LABEL-MANIFEST.json (LABEL_DATE)",
+      "QUOTE": "LABEL_DATE null em 141 de 141",
+      "SCOPE": "cobertura temporal do lote",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "GAP",
+      "VALUE": "O carimbo de tempo por objeto cobre 139 dos 195: so os DOCUMENT tem CAPTURED_AT proprio. As 51 paginas de produto, as 3 capturas e os 2 manifestos herdam a data do lote e nada mais. E os dois artefatos da PRESERVACAO tem exatamente UMA data cada, repetida em captured_at e CAPTURED_AT — nao ha hora de upload, hora do download de volta nem hora de fechamento do portao.",
+      "EVIDENCE_PATH": "data/samples/IT-CATALOGO/IT-ADAMA-PRESERVACAO-PLANO.json e RELATORIO.json (varredura de toda expressao ISO)",
+      "QUOTE": "cada arquivo tem exatamente 2 ocorrencias de data, ambas 2026-08-30",
+      "SCOPE": "granularidade temporal do lote",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "OUTRO",
+      "VALUE": "O unico relogio que amarra a preservacao e EXTERNO ao artefato: o commit b5adc87, 2026-08-30T21:00:50Z. Se a branch se perder, perde-se tambem a unica hora conhecida do fechamento do portao.",
+      "EVIDENCE_PATH": "commit b5adc8736d9845cee3988ff5d9a0b48e0afa54de (claude/adama-it-local-catalog)",
+      "QUOTE": "195 de 195 com bytes conferidos: o RAW italiano fecha, e o portao tem oito condicoes",
+      "SCOPE": "a hora do fechamento do portao",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "OUTRO",
+      "VALUE": "Dois relogios do registro do Ministero convivem no acervo e nao sao o mesmo: PROD_FTS_6_20260824 e PROD_FTS_6_20260831. A inteligencia de 2026-09-02 cruzou o catalogo de 30/08 com o snapshot de 31/08 — o registro e um dia mais novo que o catalogo, e isso esta declarado, nao escondido.",
+      "EVIDENCE_PATH": "research/adama-italy-product-intelligence-deep/LABEL-MANIFEST.json (REGISTRY_FILE, REGISTRY_SNAPSHOT_DATE, CATALOG_CAPTURED_AT)",
+      "QUOTE": "REGISTRY_SNAPSHOT_DATE: 2026-08-31 · CATALOG_CAPTURED_AT: 2026-08-30",
+      "SCOPE": "os dois relogios cruzados na inteligencia posterior",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "SCHEMA",
+      "VALUE": "O CONTROL PLANE DE COLETA JA EXISTE, E CANONICO E TEM SCHEMA. public.collection_run esta em supabase/migrations/001_fundacao_geografia_e_proveniencia.sql, em sintonia/canonical, com run_id, platform, actor, actor_version, input, query, mission, source_country, started_at, finished_at, dataset_id, item_count_raw, item_count_normalized, cost_usd, cost_method (com CHECK que exige declarar COMO o custo foi medido), source_version, status e error. Nao ha schema a desenhar — ha uma linha a existir.",
+      "EVIDENCE_PATH": "sintonia/canonical:supabase/migrations/001_fundacao_geografia_e_proveniencia.sql (linhas 45-75)",
+      "QUOTE": "create table public.collection_run ( run_id text not null unique, ... cost_method text check (cost_method in ('PLATAFORMA_USAGE_TOTAL','DIFERENCA_DE_SALDO','TABELA_DE_PRECO','NAO_SEI'))",
+      "SCOPE": "o Control Plane de Coleta da casa — ele existe",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "GAP",
+      "VALUE": "E OS 195 NAO PODEM ENTRAR NELE POR CHAVE ESTRANGEIRA. public.raw_asset — a tabela onde os 195 morariam — declara run_id text not null references public.collection_run(run_id) on delete restrict. Sem linha de collection_run nao ha importacao possivel. O diagnostico deixa de ser 'faltou anotar o RUN_ID' e passa a ser 'o lote nao tem porta de entrada no acervo canonico'.",
+      "EVIDENCE_PATH": "sintonia/canonical:supabase/migrations/001_fundacao_geografia_e_proveniencia.sql (linha 105)",
+      "QUOTE": "run_id text not null references public.collection_run(run_id) on delete restrict",
+      "SCOPE": "a importabilidade dos 195 no acervo canonico",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "RUN_ID",
+      "VALUE": "A ESPANHA TEM A LINHA QUE A ITALIA NAO TEM — MESMO DIA, MESMA ROTA GRATUITA. supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql, em canonical, insere collection_run com run_id ES-M12-IMPORT-CATALOGO-ADAMA-2026-08-30-a, actor 'scripts/adama_es.py + navegador local', item_count_raw 196, item_count_normalized 56, e capture_method que descreve o mesmo bloqueio Akamai que a Italia enfrentou. Em supabase/importacoes/ nao existe nenhum ADAMA-IT-CATALOGO: os dois arquivos italianos que ha (IT-CAMADAS e IT-LASTMILE, ambos 2026-09-02) sao da missao de inteligencia posterior, nao da preservacao do catalogo.",
+      "EVIDENCE_PATH": "sintonia/canonical:supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql (linhas 19-26) + listagem de supabase/importacoes/",
+      "QUOTE": "values ('ES-M12-IMPORT-CATALOGO-ADAMA-2026-08-30-a', 'ADAMA_WEBSITE', 'scripts/adama_es.py + navegador local', ... 196, 56, 'concluida', ...)",
+      "SCOPE": "comparacao ES x IT — a perna de importacao italiana nunca foi escrita",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "GAP",
+      "VALUE": "E O RELOGIO NAO PODE SER RECONSTRUIDO: collection_run.started_at e raw_asset.captured_at sao timestamptz NOT NULL, e o preservador italiano tem UMA unica chamada de relogio em todo o arquivo — datetime.date.today(). Nao ha time(), nao ha utcnow(). A hora nao existe e inventar uma para satisfazer a coluna seria fabricar proveniencia. Os campos de Control Plane ausentes NAO devem ser preenchidos retroativamente: ficam declarados como ausentes.",
+      "EVIDENCE_PATH": "scripts/adama_it_preservar.py (linha 226, unica chamada de relogio) + o schema canonico",
+      "QUOTE": "hoje = datetime.date.today().isoformat()",
+      "SCOPE": "a reconstrutibilidade do Control Plane deste lote",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "GAP",
+      "VALUE": "O SOURCE_ID do lote nao existe no registro de fontes da casa. 'IT-ADAMA-CATALOG' aparece ZERO vezes nas 5 versoes distintas de docs/fontes/ATLAS-DE-FONTES-EAME.md presentes nas 50 branches, inclusive a canonica, e zero no MAPA-DE-FONTES-ITALIA.md. A ficha da fonte que produziu 195 objetos preservados so existe DENTRO de um artefato de dados (IT-ADAMA-CATALOG-V1.json, chave SOURCES.CATALOG), nunca no atlas.",
+      "EVIDENCE_PATH": "sintonia/canonical:docs/fontes/ATLAS-DE-FONTES-EAME.md (5 versoes, 0 ocorrencias)",
+      "QUOTE": "IT-ADAMA-CATALOG: 0 ocorrencias em b1c5b80, 47a9f43, 35ab44f, 68f1e24, c853b72",
+      "SCOPE": "o registro de fontes da casa",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "OUTRO",
+      "VALUE": "COLISAO DE SOURCE_ID conferida: o id IT-T9-001 nomeia duas coisas diferentes. No ATLAS-DE-FONTES-EAME.md canonico e 'Sites e canais de comunicacao dos CONCORRENTES' (junto com FR-T9-001 e ES-T9-001); no MAPA-DE-FONTES-ITALIA.md e 'adama.com/italia' — que nao e concorrente, e a propria ADAMA. Reportado, nao corrigido: canonical nao e desta missao.",
+      "EVIDENCE_PATH": "sintonia/canonical:docs/fontes/ATLAS-DE-FONTES-EAME.md (secao T9) e claude/sintonia-italy-pilot-b1l401:docs/fontes/MAPA-DE-FONTES-ITALIA.md",
+      "QUOTE": "ATLAS: 'IT-T9-001 · Sites e canais de comunicacao dos concorrentes' | MAPA: 'IT-T9-001 · adama.com/italia'",
+      "SCOPE": "colisao de identificador de fonte — achado a reportar",
+      "RELIABILITY": "MEDIDO"
+    },
+    {
+      "KIND": "REASON_FOR_COLLECTION",
+      "VALUE": "A pergunta de decisao que a coleta serve tem nome e id: IT-CASE-DURUM-FUSARIUM-001 (trigo duro x fusariose). O proprio artefato declara que ela NAO foi fechada pela coleta — ITALY_DECISION_INTELLIGENCE_COMPLETE nao e declarado, e captar a fundacao e responder a pergunta de decisao sao coisas diferentes.",
+      "EVIDENCE_PATH": "data/samples/IT-CATALOGO/IT-ADAMA-CATALOG-V1.json + IT-ADAMA-PRESERVACAO-RELATORIO.json",
+      "QUOTE": "ITALY_DECISION_INTELLIGENCE_COMPLETE: NOT_DECLARED",
+      "SCOPE": "o motivo declarado da coleta",
+      "RELIABILITY": "DECLARADO"
+    },
+    {
+      "KIND": "OUTRO",
+      "VALUE": "A politica canonica que governa este lote foi escrita SEIS DIAS DEPOIS dele: docs/regras/POLITICA-CANONICA-DE-RAW.md, datada 2026-09-05, estado CANONICA, escopo 'todo RAW de rota paga e de rota publica'. Ela impoe a ordem que o lote italiano ja cumpre sem ser nomeado: 'o bruto so sai do Git quando houver prova de que chegou noutro lugar'. Nao existe decisao D-nnn sobre o Supabase, o bucket 'raw' ou a preservacao italiana em nenhuma das 8 versoes do DIARIO.",
+      "EVIDENCE_PATH": "sintonia/canonical:docs/regras/POLITICA-CANONICA-DE-RAW.md + docs/decisoes/DIARIO-DE-DECISOES.md",
+      "QUOTE": "o bruto so sai do Git quando houver prova de que chegou noutro lugar",
+      "SCOPE": "a politica que governa o RAW italiano",
       "RELIABILITY": "MEDIDO"
     }
   ]

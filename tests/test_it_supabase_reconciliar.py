@@ -170,6 +170,16 @@ class Reconciliacao(unittest.TestCase):
         # e o objeto do 520 continua PRESERVADO: HTTP_5XX != OBJECT_NOT_PRESERVED
         self.assertEqual(ambiguos[0]['PRESERVATION_STATE'], 'ALREADY_PRESENT_VERIFIED')
 
+    def test_nao_repetimos_decisao_que_tem_outro_dono(self):
+        # O veredicto regulatorio das 51 fichas tem dono, e o dono nao e este arquivo.
+        # PRODUCTS-COMMERCIAL carrega a versao ANTERIOR desse estado; copia-la para ca
+        # seria deixar um estado velho sobreviver contradizendo o final.
+        for r in self.linhas:
+            f = r['FATO_DERIVADO']
+            if f and f.get('ONDE') == 'PRODUTOS_COMERCIAIS':
+                self.assertNotIn('CROSSWALK_STATE', f, r['OBJETO'])
+                self.assertIn('VEREDICTO_REGULATORIO_TEM_OUTRO_DONO', f, r['OBJETO'])
+
     def test_a_escada_nao_tem_degrau_sem_regra(self):
         # Um degrau sem regra colocaria um item com defeito num estagio adiantado, em
         # silencio. O modulo ja recusa carregar nesse caso; aqui a prova fica visivel.
@@ -193,6 +203,31 @@ class Reconciliacao(unittest.TestCase):
         self.assertEqual(json.dumps(self.sombras, sort_keys=True),
                          json.dumps(sombras2, sort_keys=True))
         self.assertEqual(conta2['TOTAL_ACCOUNTED'], rec.RAW_EXPECTED)
+
+
+@unittest.skipUnless(PROVAS, SEM_PROVAS)
+class PortaDoAcervo(unittest.TestCase):
+    """O pacote nao pode se declarar pronto se a porta esta fechada."""
+
+    def test_o_bloqueio_e_derivado_do_schema_canonico(self):
+        travas = rec.bloqueios()
+        # public.raw_asset exige run_id NOT NULL referenciando collection_run. Enquanto
+        # nao houver linha, o pacote e BLOCKED — e o teste existe para que ninguem o
+        # promova a READY sem que a porta abra.
+        for t in travas:
+            self.assertTrue(t['PROVA'])
+            self.assertEqual(t['PROVA']['FONTE'], 'SCHEMA_CANONICO')
+            self.assertTrue(t['O_QUE_DESTRAVA'])
+            self.assertTrue(t['POR_QUE_NAO_DA_PARA_PREENCHER_DEPOIS'])
+
+    def test_o_estado_do_pacote_acompanha_o_bloqueio(self):
+        caminho = os.path.join(rec.SAIDA, 'IT-195-COLLECTION-PACKAGE.json')
+        if not os.path.exists(caminho):
+            self.skipTest('pacote ainda nao foi gerado')
+        with open(caminho, encoding='utf-8') as fh:
+            pacote = json.load(fh)
+        esperado = 'BLOCKED' if pacote['BLOQUEIOS'] else 'READY'
+        self.assertEqual(pacote['STATE'], esperado)
 
 
 class Artefatos(unittest.TestCase):

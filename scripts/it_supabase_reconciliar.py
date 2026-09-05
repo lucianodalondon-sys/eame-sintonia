@@ -118,6 +118,11 @@ FONTES = (
      'RAMO': 'claude/retomada-coleta-video-convegni-vz50er',
      'CAMINHO': 'data/samples/IT-ROTULOS-V1/IT-ROTULOS-COBERTURA-V1.json',
      'PAPEL': 'COBERTURA da rota Ministero · onde o texto lido foi persistido'},
+    {'NOME': 'SCHEMA_CANONICO',
+     'BLOB': '8afa5826994e13f6950712111a07ec13d5cb4f49',
+     'RAMO': 'sintonia/canonical',
+     'CAMINHO': 'supabase/migrations/001_fundacao_geografia_e_proveniencia.sql',
+     'PAPEL': 'SCHEMA · public.collection_run e public.raw_asset — a porta de entrada do acervo canônico'},
     {'NOME': 'ROTULOS_MANIFESTO',
      'BLOB': '2ab06a043ee708416269a55094f0ddacb441281f',
      'RAMO': 'claude/adama-italia-product-intelligence-deep',
@@ -310,8 +315,24 @@ def reconciliar():
                     'PRODUTO': p.get('PRODUCT_NAME'),
                     'CAMPOS_DERIVADOS': campos,
                     'DOCUMENT_LINKS_ON_PAGE': p.get('DOCUMENT_LINKS_ON_PAGE'),
-                    'CROSSWALK_STATE': (p.get('CROSSWALK') or {}).get('STATE'),
                     'ALL_DOCUMENTS_ROUTE_STATE': p.get('ALL_DOCUMENTS_ROUTE_STATE'),
+                    # O veredicto regulatório da página NÃO entra aqui, de propósito. O
+                    # CROSSWALK que PRODUCTS-COMMERCIAL carrega é a versão ANTERIOR: no
+                    # mesmo dia (BUILT_AT 2026-09-02) a casa fechou o assunto noutro
+                    # arquivo, que resolve 8 dos 10 que aquele deixa NOT_PROVED e ainda
+                    # cria uma classe que ele não tem. Copiar o estado velho para cá seria
+                    # deixá-lo sobreviver contradizendo o estado final — e o dono desse
+                    # estado é o arquivo dos 43, que esta missão não toca.
+                    'VEREDICTO_REGULATORIO_TEM_OUTRO_DONO': {
+                        'DONO': 'research/adama-italy-product-intelligence-deep/'
+                                'COMMERCIAL-REGULATORY-RECONCILIATION.json',
+                        'SEGUNDA_LEITURA': 'data/samples/IT-CATALOGO/'
+                                           'IT-ADAMA-CATALOG-CENSUS-2026-09-02.json '
+                                           '(bloco RECONCILIATION_51)',
+                        'POR_QUE_NAO_ESTA_AQUI': 'esta reconciliação é sobre COLETA, não '
+                                                 'sobre registro. Repetir a decisão do dono '
+                                                 'só cria uma segunda grafia dela.',
+                    },
                 }
                 ev.append(prova('PRODUTOS_COMERCIAIS',
                                 'HTML lido e virou fato: %s · produto %s'
@@ -843,6 +864,59 @@ def montar():
     return relatorio, plano, linhas, sombras, contabilidade
 
 
+def _importacoes_canonicas():
+    """Lista os arquivos de importação que existem hoje em sintonia/canonical."""
+    try:
+        saida = subprocess.run(
+            ['git', 'ls-tree', '-r', '--name-only', 'origin/sintonia/canonical',
+             'supabase/importacoes/'],
+            cwd=ROOT, check=True, capture_output=True).stdout.decode('utf-8')
+    except subprocess.CalledProcessError:
+        return None      # canonical não está neste clone: declarado, não inventado
+    return sorted(l.strip() for l in saida.splitlines() if l.strip())
+
+
+def bloqueios():
+    """O que impede este pacote de entrar no acervo canônico. Derivado, não digitado.
+
+    Esta é a pergunta que a missão quase não fez. O Control Plane de Coleta NÃO precisa
+    ser desenhado: ele já existe, é canônico, e chama-se `public.collection_run`. O que
+    falta é uma linha nele — e sem essa linha os 195 não entram por CHAVE ESTRANGEIRA,
+    não por falta de prioridade.
+    """
+    schema = _blob(FONTES_POR_NOME['SCHEMA_CANONICO']['BLOB']).decode('utf-8')
+    achados = []
+
+    fk = 'run_id         text not null references public.collection_run(run_id)'
+    if fk in schema:
+        importacoes = _importacoes_canonicas()
+        tem_it = None if importacoes is None else any(
+            'ADAMA-IT' in i or 'IT-CATALOGO' in i for i in importacoes)
+        if tem_it is False:
+            achados.append({
+                'BLOQUEIO': 'NO_COLLECTION_RUN_ROW',
+                'O_QUE_E': 'public.raw_asset — a tabela onde os 195 morariam — exige '
+                           'run_id NOT NULL REFERENCES public.collection_run(run_id). '
+                           'Não existe linha de collection_run para este lote, e não '
+                           'existe arquivo de importação do catálogo italiano em '
+                           'supabase/importacoes/.',
+                'PROVA': prova('SCHEMA_CANONICO', fk),
+                'IMPORTACOES_QUE_EXISTEM': importacoes,
+                'POR_QUE_NAO_DA_PARA_PREENCHER_DEPOIS':
+                    'collection_run.started_at é timestamptz NOT NULL e raw_asset.captured_at '
+                    'também. O preservador italiano tem UMA chamada de relógio em todo o '
+                    'arquivo — datetime.date.today() — então a hora não existe e não pode ser '
+                    'reconstruída. Inventar um horário para satisfazer a coluna seria fabricar '
+                    'proveniência.',
+                'O_QUE_DESTRAVA':
+                    'uma linha de collection_run com os campos que SÃO conhecíveis e o resto '
+                    'declarado ausente — do mesmo jeito que a Espanha fez no MESMO DIA, com a '
+                    'MESMA rota gratuita, em supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql',
+            })
+
+    return achados
+
+
 CABECALHO = {
     'SOURCE_ID': SOURCE_ID,
     'SOURCE_COUNTRY': 'IT',
@@ -953,12 +1027,18 @@ def main():
     })
 
     pacote = dict(CABECALHO)
+    travas = bloqueios()
     keep = [r for r in linhas if r['TRIAGE'] == 'KEEP']
     defer = [r for r in linhas if r['TRIAGE'] == 'DEFER']
     pacote.update({
         'DATASET': 'IT-195-COLLECTION-PACKAGE',
         'EVIDENCE_CLASS': 'COLLECTION_PACKAGE_CANDIDATE',
-        'STATE': 'READY',
+        'STATE': 'BLOCKED' if travas else 'READY',
+        'BLOQUEIOS': travas,
+        'O_QUE_ESTA_PRONTO_MESMO_BLOQUEADO':
+            'os 195 estão inventariados, reconciliados, triados e com pré-passaporte sombra. '
+            'O bloqueio não é do pacote — é da PORTA. Nada aqui precisa ser refeito quando a '
+            'linha de collection_run existir.',
         'PARA_ONDE_ELE_NAO_VAI': 'a Inteligência. Este pacote para na porta dela: não classifica '
                                  'relevância, não roteia para capacidade, não abre o Casco e não '
                                  'define a política do D1.',

@@ -59,7 +59,7 @@ PASSO 3 — RODAR A SUÍTE
 
 python3 -m unittest discover -s tests
 
-Esperado: 351 testes, OK, 0 falhas, 0 erros.
+Esperado: 354 testes, OK, 0 falhas, 0 erros.
 Se divergir, reporte o número real e o teste que falhou. NÃO conserte ainda.
 
 Nota: pytest NÃO está instalado. Use unittest. Só biblioteca padrão do Python 3.11.
