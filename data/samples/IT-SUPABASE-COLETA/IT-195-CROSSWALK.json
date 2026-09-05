@@ -116,8 +116,8 @@
     "POR_BALDE": {
       "ALREADY_CONSUMED": 53,
       "KNOWN_NOT_CONSUMED": 137,
-      "ALREADY_ACCOUNTED": 3,
-      "SUPABASE_ONLY": 2,
+      "ALREADY_ACCOUNTED": 2,
+      "SUPABASE_ONLY": 3,
       "AMBIGUOUS": 0,
       "UNKNOWN": 0
     },
@@ -12686,8 +12686,8 @@
       "CONTENT_READ_STATE": "NOT_READ",
       "FATO_DERIVADO": null,
       "RECUSA_DECLARADA": null,
-      "BALDE": "ALREADY_ACCOUNTED",
-      "BALDE_POR_QUE": "a razão DOCUMENT_CENSUS_INCOMPLETE_REASON=ROBOTS_DISALLOWS_AJAX_ROUTE é uma decisão derivada de ler este arquivo — a cópia no balde é a testemunha dela",
+      "BALDE": "SUPABASE_ONLY",
+      "BALDE_POR_QUE": "a tentação era chamar isto de ALREADY_ACCOUNTED, porque a razão DOCUMENT_CENSUS_INCOMPLETE_REASON=ROBOTS_DISALLOWS_AJAX_ROUTE parece derivar dele. Não deriva: a razão é string literal em adama_it_preservar.py:262, e o único código da casa que PARSEIA robots.txt busca o arquivo AO VIVO pela rede, nunca a cópia preservada. `captures` aparece uma vez em todo o código italiano — a tupla que só lista o diretório e calcula o hash. Espécie vem do nome da pasta, e classificador não é consumo",
       "TRIAGE": "DEFER",
       "TRIAGE_REASON": "ROLE_DECLARED_NO_READING_YET",
       "NEXT_ACTION": "decidir na abertura da Inteligência se este objeto vira leitura ou fica como testemunha da captura",

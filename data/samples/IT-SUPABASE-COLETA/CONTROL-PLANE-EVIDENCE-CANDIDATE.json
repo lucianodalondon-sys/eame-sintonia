@@ -14,12 +14,12 @@
   "EVIDENCE_CLASS": "CONTROL_PLANE_EVIDENCE_CANDIDATE",
   "CANONICAL": false,
   "O_QUE_ISTO_NAO_E": "não é o Control Plane de Coleta, não é estado canônico e não define schema. É o que a casa JÁ escreveu sobre esta coleta, preservado com a prova ao lado, para que o dia em que o Control Plane existir não comece com uma página em branco.",
-  "TOTAL": 13,
+  "TOTAL": 14,
   "POR_KIND": {
     "ATTEMPT": 1,
     "COVERAGE": 1,
     "FAILURE": 2,
-    "GAP": 1,
+    "GAP": 2,
     "INTEGRITY": 1,
     "LAST_COLLECTION_DATE": 1,
     "REASON_FOR_COLLECTION": 1,
@@ -158,6 +158,16 @@
       "EVIDENCE": {
         "FONTE": "PRESERVACAO_RELATORIO",
         "DETALHE": "declarações de escopo do lote"
+      }
+    },
+    {
+      "KIND": "GAP",
+      "VALUE": "três arquivos do acervo que a casa LÊ não estão entre os 195 preservados: amostra-10.json, documentos-amostra.json, documentos-censo.json",
+      "SCOPE": "reprodutibilidade do censo completo (51 produtos / 141 links)",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "PRESERVACAO_PLANO",
+        "DETALHE": "os dois MANIFEST preservados (indice-captura.json, enumeracao.json) são exatamente os que têm consumidor nomeado; os outros três, também com consumidor, ficaram fora do balde e só existem no disco da máquina que coletou"
       }
     }
   ]

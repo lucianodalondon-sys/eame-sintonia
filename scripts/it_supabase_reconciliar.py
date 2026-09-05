@@ -668,6 +668,22 @@ def control_plane(relatorio, plano):
           'PRESERVACAO_RELATORIO', 'declarações de escopo do lote', 'lote inteiro', 'DECLARADO'),
     ]
 
+    # A lacuna que o crosswalk encontrou olhando para o lado. O código italiano abre uma
+    # lista FECHADA de arquivos do acervo; dois deles foram preservados e três não. Os três
+    # que ficaram de fora são justamente aqueles de que o censo completo depende — e eles
+    # só existem no disco da máquina que coletou. Se aquela máquina se perder, o censo não
+    # é re-derivável, e nenhum dos 195 avisa isso.
+    saida.append(c(
+        'GAP',
+        'três arquivos do acervo que a casa LÊ não estão entre os 195 preservados: '
+        'amostra-10.json, documentos-amostra.json, documentos-censo.json',
+        'PRESERVACAO_PLANO',
+        'os dois MANIFEST preservados (indice-captura.json, enumeracao.json) são '
+        'exatamente os que têm consumidor nomeado; os outros três, também com consumidor, '
+        'ficaram fora do balde e só existem no disco da máquina que coletou',
+        'reprodutibilidade do censo completo (51 produtos / 141 links)',
+        'MEDIDO'))
+
     colheita = os.path.join(SAIDA, 'CONTROL-PLANE-COLHEITA-AGENTES.json')
     if os.path.exists(colheita):
         with open(colheita, encoding='utf-8') as fh:
@@ -700,9 +716,14 @@ def bordas_declaradas(itens):
             'papel declarado e consumidor nomeado: scripts/adama_it_catalogo.py e '
             'scripts/adama_it_preservar.py partem desta enumeração'),
         'data/raw/IT/adama-website/captures/robots.txt': (
-            'ALREADY_ACCOUNTED',
-            'a razão DOCUMENT_CENSUS_INCOMPLETE_REASON=ROBOTS_DISALLOWS_AJAX_ROUTE é uma '
-            'decisão derivada de ler este arquivo — a cópia no balde é a testemunha dela'),
+            'SUPABASE_ONLY',
+            'a tentação era chamar isto de ALREADY_ACCOUNTED, porque a razão '
+            'DOCUMENT_CENSUS_INCOMPLETE_REASON=ROBOTS_DISALLOWS_AJAX_ROUTE parece derivar '
+            'dele. Não deriva: a razão é string literal em adama_it_preservar.py:262, e o '
+            'único código da casa que PARSEIA robots.txt busca o arquivo AO VIVO pela rede, '
+            'nunca a cópia preservada. `captures` aparece uma vez em todo o código italiano '
+            '— a tupla que só lista o diretório e calcula o hash. Espécie vem do nome da '
+            'pasta, e classificador não é consumo'),
         'data/raw/IT/adama-website/captures/sitemap-italia-it.xml': (
             'SUPABASE_ONLY',
             'nenhum censo o conta e nenhum artefato deriva fato dele; fora do balde só a '

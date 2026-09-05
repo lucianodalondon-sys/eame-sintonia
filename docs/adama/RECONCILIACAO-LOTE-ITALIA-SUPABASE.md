@@ -72,8 +72,8 @@ pai. Nenhum daqueles PDFs foi lido.
 |---|---:|---|
 | `ALREADY_CONSUMED` | **53** | 51 páginas de produto lidas e viradas em fato (`ACTIVE_INGREDIENT`, `FORMULATION`, `PACKAGE_SIZE`, `TABLES`) + 2 PDFs cujos bytes a casa leu pela rota Ministero, com o texto persistido |
 | `KNOWN_NOT_CONSUMED` | **137** | **varridos lexicamente e nunca lidos** — ver §5 |
-| `ALREADY_ACCOUNTED` | **3** | papel declarado e consumidor nomeado: `indice-captura.json` e `enumeracao.json` alimentam `adama_it_preservar.py`/`adama_it_catalogo.py`; `robots.txt` é a testemunha de `ROBOTS_DISALLOWS_AJAX_ROUTE` |
-| `SUPABASE_ONLY` | **2** | `home-italia-it.html` e `sitemap-italia-it.xml`: fora do balde, só a prova de preservação os conhece |
+| `ALREADY_ACCOUNTED` | **2** | os dois `MANIFEST`: `enumeracao.json` (o censo copia 9 campos do conteúdo dele) e `indice-captura.json` (um teste adversarial o lê linha a linha) |
+| `SUPABASE_ONLY` | **3** | os três `CAPTURE`: `home-italia-it.html`, `sitemap-italia-it.xml`, `robots.txt` — ver §6 |
 | `AMBIGUOUS` | **0** | — |
 | `UNKNOWN` | **0** | — |
 | **TOTAL_ACCOUNTED** | **195** | |
@@ -168,11 +168,47 @@ pela porta da ADAMA. A distinção está escrita no artefato.
 |---|---:|---|
 | `INTELLIGENCE_READING` | **137** | conteúdo disponível no balde, varrido, nunca lido |
 | `ROUTING` | **53** | lido, com fato extraído — rotear é pergunta da Inteligência |
-| `NORMALIZATION` | **5** | não estão em censo nenhum; não têm projeção estruturada |
+| `NORMALIZATION` | **5** | não estão em censo nenhum; não têm projeção estruturada (ver §6) |
 
 ---
 
-## 6 · A PENEIRA TÉCNICA — A PRIMEIRA PERGUNTA NÃO É RELEVÂNCIA
+## 6 · OS CINCO CASOS DE BORDA, E O `robots.txt` QUE EU CLASSIFIQUEI ERRADO
+
+Cinco objetos não são contados como material por nenhum censo. Eu havia classificado
+`robots.txt` como `ALREADY_ACCOUNTED`, com o raciocínio de que
+`DOCUMENT_CENSUS_INCOMPLETE_REASON = ROBOTS_DISALLOWS_AJAX_ROUTE` derivava de lê-lo. **Não
+deriva.** A verificação mostrou, e conferi de novo por conta própria:
+
+- a razão é **string literal** em `adama_it_preservar.py:262` — não há leitura de arquivo
+  por perto;
+- `captures` aparece **uma única vez** em todo o código italiano: a tupla
+  `('captures', 'CAPTURE', None)`, que só percorre o diretório e calcula o hash;
+- o único código da casa que **parseia** `robots.txt` está noutra branch e busca o arquivo
+  **ao vivo pela rede**, nunca a cópia preservada.
+
+**A espécie dele vem do nome da pasta, e classificador não é consumo.** → `SUPABASE_ONLY`.
+
+A linha divisória, medida e não suposta: o código italiano abre uma lista **fechada** de
+arquivos do acervo — `amostra-10.json`, `documentos-amostra.json`, `documentos-censo.json`,
+`enumeracao.json`, `indice-captura.json`. Os dois `MANIFEST` preservados são exatamente os
+dois que têm consumidor. Os três `CAPTURE` não são abertos por ninguém.
+
+### A lacuna que apareceu olhando para o lado
+
+Simetricamente: **três** arquivos do acervo que a casa **lê** ficaram **fora** dos 195 —
+`amostra-10.json`, `documentos-amostra.json`, `documentos-censo.json`. São justamente
+aqueles de que o censo completo (51 produtos / 141 links) depende.
+
+> Eles não estão no Git (`data/raw` é ignorado) e não estão no balde. Existem **só** no
+> disco da máquina que coletou. Se aquela máquina se perder, **o censo completo não é
+> re-derivável** — e nenhum dos 195 avisa isso.
+
+Está registrado como `GAP` em `CONTROL-PLANE-EVIDENCE-CANDIDATE.json`. Não é desta missão
+resolver; é desta missão não deixar passar em silêncio.
+
+---
+
+## 7 · A PENEIRA TÉCNICA — A PRIMEIRA PERGUNTA NÃO É RELEVÂNCIA
 
 | veredicto | n | motivo |
 |---|---:|---|
@@ -191,7 +227,7 @@ e há teste que reprova um item em `DEFER` sem `NEXT_ACTION`.
 
 ---
 
-## 7 · PRÉ-PASSAPORTE SOMBRA — O QUE ELE É, E O QUE ELE NÃO É
+## 8 · PRÉ-PASSAPORTE SOMBRA — O QUE ELE É, E O QUE ELE NÃO É
 
 `data/samples/IT-SUPABASE-COLETA/IT-195-PRE-PASSAPORTE-SOMBRA.json`
 
@@ -212,7 +248,7 @@ Três decisões ficam **abertas e escritas**, em vez de resolvidas por conveniê
 
 ---
 
-## 8 · CONTROL_PLANE_EVIDENCE_CANDIDATE
+## 9 · CONTROL_PLANE_EVIDENCE_CANDIDATE
 
 `data/samples/IT-SUPABASE-COLETA/CONTROL-PLANE-EVIDENCE-CANDIDATE.json`
 
@@ -226,7 +262,7 @@ Cada candidato traz `KIND`, `VALUE`, `SCOPE`, `RELIABILITY` (`MEDIDO` · `DECLAR
 
 ---
 
-## 9 · O CHECKPOINT ANTES DA FASE CARA
+## 10 · O CHECKPOINT ANTES DA FASE CARA
 
 ```
 TOTAL                         = 195
@@ -255,7 +291,7 @@ sugerir o contrário.
 
 ---
 
-## 10 · O QUE NÃO MUDOU
+## 11 · O QUE NÃO MUDOU
 
 ```
 SUPABASE_CHANGED     = NÃO      (nenhuma chamada; não há credencial aqui)
@@ -272,7 +308,7 @@ scripts/voz.py       = intocado
 
 ---
 
-## 11 · O QUE FICA NA PORTA DA INTELIGÊNCIA
+## 12 · O QUE FICA NA PORTA DA INTELIGÊNCIA
 
 `COLLECTION_PACKAGE_STATE = READY`, com **uma** coisa faltando, e ela é pequena:
 
