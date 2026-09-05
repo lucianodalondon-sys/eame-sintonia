@@ -158,6 +158,18 @@ class Reconciliacao(unittest.TestCase):
             self.assertIn(s['CURRENT_STAGE'], rec.ESCADA)
             self.assertIn(s['TRIAGE'], ('KEEP', 'DEFER', 'REJECT_WITH_REASON', 'ERROR'))
 
+    def test_nenhum_campo_da_prova_e_descartado_em_silencio(self):
+        # RESPOSTA_AMBIGUA — o 520 de um objeto — quase se perdeu porque o inventario
+        # copiava uma lista fixa de chaves. Agora campo novo na fonte PARA o script.
+        fonte = rec.carregar('PRESERVACAO_RELATORIO')['ITENS']
+        vistos = {k for x in fonte for k in x}
+        self.assertTrue(vistos <= rec.CAMPOS_DO_INVENTARIO)
+        ambiguos = [r for r in self.linhas if r['RESPOSTA_AMBIGUA']]
+        self.assertEqual(len(ambiguos), 1)
+        self.assertEqual(ambiguos[0]['RESPOSTA_AMBIGUA']['HTTP_NO_UPLOAD'], 520)
+        # e o objeto do 520 continua PRESERVADO: HTTP_5XX != OBJECT_NOT_PRESERVED
+        self.assertEqual(ambiguos[0]['PRESERVATION_STATE'], 'ALREADY_PRESENT_VERIFIED')
+
     def test_a_escada_nao_tem_degrau_sem_regra(self):
         # Um degrau sem regra colocaria um item com defeito num estagio adiantado, em
         # silencio. O modulo ja recusa carregar nesse caso; aqui a prova fica visivel.

@@ -180,11 +180,30 @@ def item_id(basis):
 
 # ── 3 · CROSSWALK ──────────────────────────────────────────────────────────────────
 
+# Os campos que a prova de preservação traz por objeto. A lista é FECHADA de propósito:
+# um campo novo na fonte tem de PARAR este script, não escorregar para fora do inventário em
+# silêncio. Foi assim que RESPOSTA_AMBIGUA — o 520 de um objeto — quase se perdeu: a versão
+# anterior copiava uma lista fixa de chaves e descartava o resto sem dizer.
+CAMPOS_DO_INVENTARIO = frozenset((
+    'ESPECIE', 'ARQUIVO_LOCAL', 'OBJETO', 'SHA256', 'BYTES', 'MEDIA_TYPE',
+    'ORIGINAL_FILENAME', 'SOURCE_URL', 'PRODUCT_URL', 'PROVENANCE', 'PROVENANCE_COUNT',
+    'COUNTRY', 'ESTADO', 'SHA256_REMOTO', 'BYTES_DE_VOLTA', 'VERIFICACAO', 'PRESERVADO',
+    'RESPOSTA_AMBIGUA',
+))
+
+
 def reconciliar():
     relatorio = carregar('PRESERVACAO_RELATORIO')
     itens = relatorio['ITENS']
     if len(itens) != RAW_EXPECTED:
         raise Recusado('inventário com %d itens; o lote declarado é %d' % (len(itens), RAW_EXPECTED))
+
+    desconhecidos = sorted({k for x in itens for k in x} - CAMPOS_DO_INVENTARIO)
+    if desconhecidos:
+        raise Recusado(
+            'a prova de preservação trouxe campo que este script não conhece: %s. '
+            'Campo desconhecido é declarado, nunca descartado — decida o que ele significa '
+            'e acrescente a CAMPOS_DO_INVENTARIO.' % ', '.join(desconhecidos))
 
     plano = carregar('PRESERVACAO_PLANO')
     censo_doc = carregar('CATALOGO_CENSO')
@@ -254,6 +273,9 @@ def reconciliar():
             'PRESERVED': bool(x.get('PRESERVADO')),
             'BYTES_VERIFIED_REMOTELY': x.get('BYTES_DE_VOLTA'),
             'SHA256_REMOTO': x.get('SHA256_REMOTO'),
+            # O que o Storage respondeu quando a resposta não foi limpa. Presente em 1 dos
+            # 195 e ausente nos outros 194 — e ausente é uma informação, não um buraco.
+            'RESPOSTA_AMBIGUA': x.get('RESPOSTA_AMBIGUA'),
             'CONTENT_SHARED_WITH': [o for o in conteudo_repetido.get(x['SHA256'], []) if o != x['OBJETO']],
             'EVIDENCIA': [],
             'EVIDENCIA_DE_CONTEXTO': [],
@@ -855,7 +877,7 @@ def main():
                                      'ORIGINAL_FILENAME', 'SHA256', 'BYTES', 'MEDIA_TYPE',
                                      'SOURCE_URL', 'PRODUCT_URL', 'PROVENANCE_COUNT',
                                      'PRESERVATION_STATE', 'BYTES_VERIFIED_REMOTELY',
-                                     'CONTENT_SHARED_WITH')} for r in linhas],
+                                     'RESPOSTA_AMBIGUA', 'CONTENT_SHARED_WITH')} for r in linhas],
     })
 
     crosswalk = dict(CABECALHO)
@@ -883,7 +905,7 @@ def main():
                    if k not in ('ARQUIVO_LOCAL', 'ORIGINAL_FILENAME', 'SHA256', 'BYTES',
                                 'MEDIA_TYPE', 'SOURCE_URL', 'PRODUCT_URL', 'PROVENANCE_COUNT',
                                 'PRESERVATION_STATE', 'PRESERVED', 'BYTES_VERIFIED_REMOTELY',
-                                'SHA256_REMOTO', 'IDENTITY_BASIS')}
+                                'SHA256_REMOTO', 'RESPOSTA_AMBIGUA', 'IDENTITY_BASIS')}
                   for r in linhas],
     })
 
