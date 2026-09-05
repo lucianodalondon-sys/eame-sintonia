@@ -14,21 +14,23 @@
   "EVIDENCE_CLASS": "CONTROL_PLANE_EVIDENCE_CANDIDATE",
   "CANONICAL": false,
   "O_QUE_ISTO_NAO_E": "não é o Control Plane de Coleta, não é estado canônico e não define schema. É o que a casa JÁ escreveu sobre esta coleta, preservado com a prova ao lado, para que o dia em que o Control Plane existir não comece com uma página em branco.",
-  "TOTAL": 31,
+  "TOTAL": 39,
   "POR_KIND": {
     "ATTEMPT": 6,
     "COST": 1,
-    "COVERAGE": 1,
-    "FAILURE": 6,
-    "GAP": 4,
+    "COVERAGE": 3,
+    "CURSOR": 1,
+    "FAILURE": 7,
+    "GAP": 6,
     "INTEGRITY": 1,
     "LAST_COLLECTION_DATE": 2,
+    "LAST_ITEM": 1,
     "OUTRO": 2,
     "REASON_FOR_COLLECTION": 1,
     "RUN_ID": 1,
     "SCOPE_DECLARATION": 1,
     "SOURCE": 1,
-    "STOP_POINT": 2,
+    "STOP_POINT": 3,
     "TEMPORAL_COVERAGE": 1,
     "VOLUME": 1
   },
@@ -392,6 +394,110 @@
         "RAMO": null,
         "BLOB": null,
         "DETALHE": "run 33338165630, run 33338012108 — piloto de sensores, outra coleta"
+      }
+    },
+    {
+      "KIND": "CURSOR",
+      "VALUE": "NAO EXISTE, e a ausencia tem causa estrutural medida: a coleta nao foi paginada. Foi sitemap (261 locs) -> 51 fichas de produto -> colheita dos links que cada ficha mostra. Nao ha estado de paginacao a retomar. O que existe e uma ROTA que nunca foi aberta.",
+      "SCOPE": "o lote IT/adama-website inteiro",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "COLHEITA_DE_AGENTES",
+        "CAMINHO": "data/samples/IT-CATALOGO/IT-ADAMA-CATALOG-CENSUS.json (bloco ENUMERATION) + scripts/adama_it_catalogo.py",
+        "RAMO": null,
+        "BLOB": null,
+        "DETALHE": "ENUMERATION: SITEMAP_LOCS_TOTAL 261 · SITEMAP_PRODUCT_URLS 51 · UNIQUE_PRODUCT_URLS 51 · DUPLICATE_URLS 0 · ROBOTS_BLOCKED 0"
+      }
+    },
+    {
+      "KIND": "LAST_ITEM",
+      "VALUE": "O mais proximo de um cursor que este lote tem: o ultimo objeto baixado foi MEDIA_ID 7601 — documents/7601-Brochure-Cosayr-200-SC---Vite.pdf — em 2026-08-30T19:21:36+00:00. A janela inteira de download dos 141 links durou 3 minutos e 6 segundos, de 19:18:30 a 19:21:36 UTC.",
+      "SCOPE": "a coleta dos documentos do lote",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "COLHEITA_DE_AGENTES",
+        "CAMINHO": "data/samples/IT-CATALOGO/IT-ADAMA-CATALOG-CENSUS.json (DOCUMENTS[].CAPTURED_AT e MEDIA_ID)",
+        "RAMO": null,
+        "BLOB": null,
+        "DETALHE": "primeiro 2026-08-30T19:18:30+00:00 · ultimo 2026-08-30T19:21:36+00:00 (MEDIA_ID 7601)"
+      }
+    },
+    {
+      "KIND": "STOP_POINT",
+      "VALUE": "A rota exata que ficou fechada, com endereco: /italia/it/ajax/product/documents/<id>/nojs — a lista 'Tutti i documenti' de cada produto. O robots.txt da propria ADAMA proibe */ajax/, e a casa parou ali por decisao. ROBOTS_BLOCKED = 0 na enumeracao: nada foi buscado contra a proibicao.",
+      "SCOPE": "o universo de documentos por produto",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "COLHEITA_DE_AGENTES",
+        "CAMINHO": "data/samples/IT-CATALOGO/IT-ADAMA-CATALOG-CENSUS.json (bloco ROBOTS) + PRODUCTS[].ALL_DOCUMENTS_ROUTE",
+        "RAMO": null,
+        "BLOB": null,
+        "DETALHE": "DISALLOWS_USED: ['/italia/en/', '*/ajax/'] · CONSEQUENCE: os documentos medidos sao os que a pagina mostra — pode haver mais"
+      }
+    },
+    {
+      "KIND": "GAP",
+      "VALUE": "Os 141 links de documento sao um PISO, nao um teto. O numero real de documentos por produto e desconhecido, e permanece desconhecido enquanto a rota /ajax/ estiver proibida.",
+      "SCOPE": "o universo de documentos por produto",
+      "RELIABILITY": "DECLARADO",
+      "EVIDENCE": {
+        "FONTE": "COLHEITA_DE_AGENTES",
+        "CAMINHO": "data/samples/IT-CATALOGO/IT-ADAMA-PRESERVACAO-PLANO.json (DOCUMENT_CENSUS_NOTE)",
+        "RAMO": null,
+        "BLOB": null,
+        "DETALHE": "os documentos preservados sao os que a pagina de produto mostra"
+      }
+    },
+    {
+      "KIND": "COVERAGE",
+      "VALUE": "210 das 261 URLs da sitemap ficaram UNCLASSIFIED: so 51 foram classificadas como pagina de produto e visitadas. O que ha nas outras 210 nao foi medido.",
+      "SCOPE": "a enumeracao do site que definiu o que entrou no lote",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "COLHEITA_DE_AGENTES",
+        "CAMINHO": "data/samples/IT-CATALOGO/IT-ADAMA-CATALOG-CENSUS.json (ENUMERATION.UNCLASSIFIED_URLS)",
+        "RAMO": null,
+        "BLOB": null,
+        "DETALHE": "UNCLASSIFIED_URLS: 210 · SITEMAP_LOCS_TOTAL: 261 · UNIQUE_PRODUCT_URLS: 51"
+      }
+    },
+    {
+      "KIND": "COVERAGE",
+      "VALUE": "123 registros italianos de titular ADAMA nao tem ficha no catalogo publico medido. O proprio censo declara o que isso NAO significa — nao e DISCONTINUED, nao e UNAVAILABLE, nao e NOT_SOLD: a vitrine e menor que o portfolio, e isso e um resultado, nao uma falha de coleta.",
+      "SCOPE": "a relacao entre o lote coletado e o portfolio registrado",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "COLHEITA_DE_AGENTES",
+        "CAMINHO": "data/samples/IT-CATALOGO/IT-ADAMA-CATALOG-CENSUS.json (REGISTERED_BUT_NOT_IN_PUBLIC_CATALOG)",
+        "RAMO": null,
+        "BLOB": null,
+        "DETALHE": "COUNT: 123 · WHY: o catalogo e a vitrine que a empresa escolhe montar; o registro e o ato da autoridade"
+      }
+    },
+    {
+      "KIND": "FAILURE",
+      "VALUE": "A rota do Ministero tambem esta quebrada por TLS: fitosanitari.salute.gov.it serve cadeia incompleta (so a folha, sem o intermediario) e emite Public-Key-Pins malformado que aborta o curl. Medido em 2026-09-02 com HTTP 000 e 0 bytes.",
+      "SCOPE": "a rota alternativa de leitura dos rotulos",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "COLHEITA_DE_AGENTES",
+        "CAMINHO": "scripts/italia_etichette.py (claude/sintonia-italy-pilot-b1l401) + data/raw/IT-ROTULOS/_MANIFESTO.json",
+        "RAMO": null,
+        "BLOB": null,
+        "DETALHE": "a correcao nao foi desligar a verificacao: foi completar a cadeia"
+      }
+    },
+    {
+      "KIND": "GAP",
+      "VALUE": "LICAO DE UMA COLETA VIZINHA, registrada aqui porque e exatamente o defeito que um Control Plane existe para impedir: a retomada do convegno italiano admitiu buraco aritmetico — 2 objetos e 28.473 caracteres perdidos porque os ids so existiam num scratchpad que morreu.",
+      "SCOPE": "OUTRA COLETA (convegni italianos) — licao adjacente, nao fato deste lote",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "COLHEITA_DE_AGENTES",
+        "CAMINHO": "data/samples/IT-CONVEGNO-V2/ (claude/retomada-coleta-video-convegni-vz50er)",
+        "RAMO": null,
+        "BLOB": null,
+        "DETALHE": "os ids so existiam no scratchpad que morreu"
       }
     }
   ]
