@@ -396,6 +396,29 @@ triados e com pré-passaporte sombra. Nada aqui precisa ser refeito quando a lin
 O estado é derivado do schema por `bloqueios()`, e há teste que impede promovê-lo a
 `READY` enquanto a porta estiver fechada.
 
+### Três achados adjacentes, reportados e não corrigidos
+
+`sintonia/canonical` não é desta missão. Estes ficam escritos para quem for mexer nela:
+
+1. **A ressalva morre na fronteira das camadas.** O artefato que carrega
+   `DOCUMENT_CENSUS_COMPLETE = false` vive em **1** branch. O que trata os 141 documentos
+   como universo fechado vive em **15**, inclusive canonical. Quem lê a camada propagada
+   conclui que o catálogo italiano tem 141 documentos — e o único arquivo que diz *"pode
+   haver mais"* não propagou.
+2. **Um número errado no arquivo de maior superfície.**
+   `scripts/adama_it_intelligence.py:158`, em canonical, comenta *"são 7"* produtos com
+   autorização de outra empresa. Todos os artefatos de dados dizem **6**. A correção
+   chegou aos dados e ao README, e não chegou ao código que roda.
+3. **`IT-T9-001` nomeia duas coisas.** No atlas canônico é *"sites e canais de comunicação
+   dos concorrentes"*; no mapa italiano é *"adama.com/italia"* — que não é concorrente, é
+   a própria ADAMA.
+
+E uma ressalva sobre **este** trabalho: o corpus que os agentes varreram é um instantâneo
+das 50 branches tirado no início da missão, e não contém os artefatos que a missão gravou
+depois. Toda frase do tipo *"varri 2.751 blobs e achei 0"* é verdadeira sobre esse
+instantâneo. O crosswalk não depende dele: as fontes são fixadas por SHA de blob e lidas
+do object store.
+
 ---
 
 ## 11 · O CHECKPOINT ANTES DA FASE CARA

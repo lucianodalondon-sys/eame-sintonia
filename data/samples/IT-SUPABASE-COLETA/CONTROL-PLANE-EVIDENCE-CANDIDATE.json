@@ -14,19 +14,19 @@
   "EVIDENCE_CLASS": "CONTROL_PLANE_EVIDENCE_CANDIDATE",
   "CANONICAL": false,
   "O_QUE_ISTO_NAO_E": "não é o Control Plane de Coleta, não é estado canônico e não define schema. É o que a casa JÁ escreveu sobre esta coleta, preservado com a prova ao lado, para que o dia em que o Control Plane existir não comece com uma página em branco.",
-  "TOTAL": 59,
+  "TOTAL": 64,
   "POR_KIND": {
     "ATTEMPT": 6,
     "COST": 5,
     "COVERAGE": 3,
     "CURSOR": 1,
     "FAILURE": 7,
-    "GAP": 11,
+    "GAP": 12,
     "INTEGRITY": 1,
     "LAST_COLLECTION_DATE": 2,
     "LAST_ITEM": 1,
     "LIMIT": 1,
-    "OUTRO": 6,
+    "OUTRO": 10,
     "REASON_FOR_COLLECTION": 3,
     "RUN_ID": 3,
     "SCHEMA": 1,
@@ -757,6 +757,71 @@
         "RAMO": null,
         "BLOB": null,
         "DETALHE": "o bruto so sai do Git quando houver prova de que chegou noutro lugar"
+      }
+    },
+    {
+      "KIND": "GAP",
+      "VALUE": "A RESSALVA MORRE NA FRONTEIRA DAS CAMADAS, e a medida e brutal: o artefato que CARREGA a ressalva (IT-ADAMA-CATALOG-CENSUS.json, com DOCUMENT_CENSUS_COMPLETE=false e ROBOTS_DISALLOWS_AJAX_ROUTE) vive em 1 branch; o que a PERDE (LABEL-MANIFEST.json, que trata os 141 como universo fechado com AUDIT.DOCUMENTS=141) vive em 15, inclusive canonical. Quem le a camada propagada conclui que o catalogo italiano tem 141 documentos. O unico artefato que diz 'pode haver mais' nao propagou.",
+      "SCOPE": "como a qualificacao do lote se perde ao subir de camada",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "COLHEITA_DE_AGENTES",
+        "CAMINHO": "mapa blob->branch das 50 branches: CENSUS.json em 1, LABEL-MANIFEST.json em 15",
+        "RAMO": null,
+        "BLOB": null,
+        "DETALHE": "CENSUS 1 branch · LABEL-MANIFEST 15 branches"
+      }
+    },
+    {
+      "KIND": "OUTRO",
+      "VALUE": "NUMERO ERRADO NO ARQUIVO DE MAIOR SUPERFICIE: scripts/adama_it_intelligence.py, linha 158, em sintonia/canonical e em 15 branches, comenta 'Um produto do catalogo cuja autorizacao e de outra empresa existe — sao 7'. Todos os artefatos de dados dizem 6: BUILD-SUMMARY (COMMERCIAL_AND_REGULATORY_OTHER_HOLDER=6), CENSUS-2026-09-02 (REGISTERED_TO_NON_ADAMA_HOLDER=6) e a RECONCILIACAO (6 linhas). A correcao chegou aos dados e ao README e nao chegou ao codigo. Reportado, nao corrigido: canonical nao e desta missao.",
+      "SCOPE": "achado menor em magnitude, maximo em superficie — a reportar",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "COLHEITA_DE_AGENTES",
+        "CAMINHO": "sintonia/canonical:scripts/adama_it_intelligence.py (linha 158)",
+        "RAMO": null,
+        "BLOB": null,
+        "DETALHE": "Um produto do catalogo cuja autorizacao e de outra empresa existe — sao 7 —"
+      }
+    },
+    {
+      "KIND": "OUTRO",
+      "VALUE": "O FUNIL COMPLETO, que ninguem tinha medido de ponta a ponta: 195 objetos preservados -> 51 fichas lidas -> 10 registros publicaveis na camada de entrega -> 8 CLIENT_SAFE. E a distancia entre o que foi coletado e o que sustenta afirmacao ao cliente.",
+      "SCOPE": "OUTRA CAMADA (entrega) — medida do funil, nao fato deste lote",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "COLHEITA_DE_AGENTES",
+        "CAMINHO": "build/ITALY-REALITY-HANDOFF-V2/COMMERCIAL-CATALOG.json (claude/italy-portal-final-integration-8nwnwj)",
+        "RAMO": null,
+        "BLOB": null,
+        "DETALHE": "10 registros, 8 CLIENT_SAFE"
+      }
+    },
+    {
+      "KIND": "OUTRO",
+      "VALUE": "O HANDOFF QUE MANDOU FAZER A COLETA PRESCREVEU OUTRA COISA, E NADA DECLARA A TROCA. docs/operacao/HANDOFF-COLETA-LOCAL-ADAMA-ITALIA.md prescreve SOURCE_ID=IT-T9-001, o script scripts/handoff-local/coletar_adama_italia.py e um MANIFEST.json. O que foi executado usou SOURCE_ID=IT-ADAMA-CATALOG, outros scripts (adama_it_*.py) e outro layout de manifesto (indice-captura.json + enumeracao.json). Nenhum artefato aposenta o handoff nem registra a divergencia.",
+      "SCOPE": "divergencia entre o desenho da coleta e a execucao dela",
+      "RELIABILITY": "MEDIDO",
+      "EVIDENCE": {
+        "FONTE": "COLHEITA_DE_AGENTES",
+        "CAMINHO": "claude/sintonia-italy-pilot-b1l401:docs/operacao/HANDOFF-COLETA-LOCAL-ADAMA-ITALIA.md contra claude/adama-it-local-catalog:scripts/adama_it_preservar.py",
+        "RAMO": null,
+        "BLOB": null,
+        "DETALHE": "handoff: MANIFEST.json com URL, HTTP, content-type, bytes, SHA-256 e hora por arquivo"
+      }
+    },
+    {
+      "KIND": "OUTRO",
+      "VALUE": "RESSALVA METODOLOGICA DESTA PROPRIA RECONCILIACAO: o corpus varrido pelos agentes foi um instantaneo das 50 branches tirado no inicio da missao, e ele NAO contem os artefatos que esta missao gravou depois. Toda afirmacao da forma 'varri os 2.751 blobs e achei 0' e verdadeira sobre esse instantaneo. Nao afeta o crosswalk, cujas fontes sao fixadas por SHA de blob e lidas do objeto store, nao do instantaneo.",
+      "SCOPE": "limite declarado do metodo desta missao",
+      "RELIABILITY": "DECLARADO",
+      "EVIDENCE": {
+        "FONTE": "COLHEITA_DE_AGENTES",
+        "CAMINHO": "scratchpad/allblobs.tsv (instantaneo) contra FONTES_DE_PROVA (fixadas por blob)",
+        "RAMO": null,
+        "BLOB": null,
+        "DETALHE": "o crosswalk le blob por SHA; o instantaneo so serviu a varredura exploratoria"
       }
     }
   ]
