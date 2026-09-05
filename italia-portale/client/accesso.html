@@ -289,9 +289,18 @@
   });
   applyLang(readLang());
 
+  /* SI ENTRA NEL PORTALE, NON IN UNA SUA VISTA.
+     Questa riga mandava a casa.html: chi faceva l'accesso arrivava alla vista
+     esecutiva — sei riquadri e nessun menu — e gli strumenti restavano dietro
+     un link solo. Il portale non era sparito: era smesso di essere la porta.
+
+         LA PORTA DI CASA DA SUL CORRIDOIO, NON SU UNA STANZA.
+
+     La vista esecutiva resta intera e si raggiunge dal menu del portale, che e
+     dove stanno tutte le altre. */
   document.getElementById('access').addEventListener('submit', function (e) {
     e.preventDefault();
-    window.location.href = 'casa.html';
+    window.location.href = 'portale.html';
   });
 
   /* ── Europe map · Natural Earth geometry via world-atlas ── */

@@ -4295,7 +4295,23 @@ class Component extends DCLogic {
     const navIntegrations = [['field', T.navField, allMessages.length]];
     const activeOf = { radar: 'radar', case: 'radar', brief: 'radar', meeting: 'meeting', mcase: 'meeting', field: 'field', windows: 'windows', window: 'windows', market: 'market', signal: 'future', future: 'future', competitors: 'competitors', company: 'competitors', event: 'competitors', cproduct: 'competitors', science: 'science', theme: 'science', archive: 'archive', portfolio: 'portfolio', product: 'portfolio', voices: 'voices', sources: 'sources', source: 'sources', person: 'sources', search: '' };
     /* §4 · The green/amber accents, the dot and the active tint are presentation only and stay. */
-    const nav = navDef.map(n => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => n[0] === 'competitors' ? this.compWith({}) : n[0] === 'radar' ? this.radarWith({ showAll: false }) : this.go({ view: n[0] }), bg: on ? 'rgba(0,152,69,0.13)' : 'transparent', border: on ? 'rgba(0,152,69,0.40)' : 'transparent', dot: on ? '#009845' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
+    /* ══ LA VISTA ESECUTIVA STA NEL MENU, COME TUTTE LE ALTRE ═════════════
+       `casa.html` e una PAGINA, non una vista di questo guscio: la sua voce
+       non chiama `go()` ma cambia indirizzo. Tutto il resto — il disegno, la
+       pastiglia, il contatore — e la voce di menu che c'era gia. Costruire
+       una seconda barra per una sola destinazione sarebbe il secondo guscio
+       che questa correzione esiste per non fare.
+
+           UNA DESTINAZIONE IN PIU NON E UN MENU IN PIU.
+
+       Il contatore e lo stesso 43 del pacchetto, e solo quando i due
+       conteggi concordano: un numero accanto a una voce di menu che
+       nessuno ha ricontato e un numero che prima o poi mente. */
+    const navCasa = { label: mtL('casaCurrentOpps'), count: meetingCurrent ? meetingCurrent.total : 0,
+      go: () => { window.location.href = 'casa.html'; },
+      bg: 'transparent', border: 'transparent', dot: 'rgba(151,139,135,0.35)',
+      color: '#9A9391', weight: 400 };
+    const nav = [navCasa].concat(navDef.map(n => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => n[0] === 'competitors' ? this.compWith({}) : n[0] === 'radar' ? this.radarWith({ showAll: false }) : this.go({ view: n[0] }), bg: on ? 'rgba(0,152,69,0.13)' : 'transparent', border: on ? 'rgba(0,152,69,0.40)' : 'transparent', dot: on ? '#009845' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; }));
     const navIntegrationItems = navIntegrations.map(n => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => this.go({ view: n[0] }), bg: on ? 'rgba(245,179,23,0.13)' : 'transparent', border: on ? 'rgba(245,179,23,0.40)' : 'transparent', dot: on ? '#F5B317' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
     // ---- case · opportunity detail
     /* §2 · The detail must open the SAME entity the card opened. The 29 legacy
