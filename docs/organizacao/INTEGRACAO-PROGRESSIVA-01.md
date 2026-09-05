@@ -186,3 +186,135 @@ culturas.** Três saídas, nenhuma derivável da evidência:
 
 Decidida D1 e registada como política — no molde da `POLITICA-CANONICA-DE-RAW`, que destravou 122
 commits — este enxerto entra inteiro. *(Não executado.)*
+
+---
+---
+
+# D1 · FECHADA — E O PASSO 01 DESTRAVOU
+
+O bloqueio de §3.3 foi fechado por `docs/regras/POLITICA-CANONICA-DE-CROP.md`
+(`RULE_VERSION CROP-D1-2026-09-05`). O mesmo enxerto foi repetido contra o mesmo HEAD e passou.
+
+## A decisão
+
+`CROP_MODEL = CROP_ALL + CROP_PRIMARY` · `MULTI_CROP_SEPARATED_FROM_AMBIGUITY = SIM` ·
+`FIRST_MATCH_CANONICAL = NÃO`
+
+As duas linhagens tinham razão sobre metade do problema, e o erro comum era o mesmo:
+**tratar pluralidade e incerteza como a mesma coisa.** Agora são campos diferentes.
+`AMBIGUOUS` passa a significar apenas ambiguidade **real de mapeamento** — o mesmo trecho de
+texto reivindicado por duas culturas. Culturas diferentes em trechos diferentes são
+`MULTI` + `RESOLVED`.
+
+## As 17 falas italianas — o mesmo corpus, medido de novo
+
+```
+TOTAL = 17
+SINGLE = 0    MULTI = 17    NONE = 0
+RESOLVED = 17 · AMBIGUOUS = 0 · NO_CROP = 0
+CROP_PRIMARY_PROVED = 0
+```
+
+A regra anterior marcava estas mesmas 17 falas como **incertas**. Elas nunca foram: são
+palestras de convegno que cobrem de 3 a 20 culturas cada, e agora sabemos exatamente quais,
+com `MATCHED_TERM` e `EVIDENCE_SPAN` por cultura. `CROP_PRIMARY_PROVED = 0` é honesto e
+esperado — não existe ainda regra provada de principalidade, e inventar uma para dar um número
+bonito seria o oposto desta política.
+
+## Compatibilidade — medida, não assumida
+
+O campo `CROP` **continua a existir**. Removê-lo faria o consumidor antigo ler a chave ausente
+como **ausência de cultura**, que é exatamente o que a §9 proíbe. Valores:
+
+| estado | `CROP` |
+|---|---|
+| `SINGLE` + `RESOLVED` | o nome da cultura — **idêntico ao anterior** |
+| `MULTI` | `MULTI:<A>+<B>+…` — explícito e barulhento, para que quem exige cultura única pare |
+| `AMBIGUOUS` | `AMBIGUOUS:<A>+<B>` — o idioma que a casa já usa em `ISSUE` |
+| `NONE` | chave ausente, como sempre foi |
+
+> **Camada espanhola: `OLD != NEW` em 0 de 252 vídeos.** `VOCAB_CROP` espanhol tem **uma**
+> chave (`OLIVE`), onde o empate é impossível — logo `SINGLE` é sempre o resultado e o campo
+> fica byte-a-byte igual. Toda a mudança de comportamento está na camada italiana, onde
+> `VOCAB_CROP_IT` tem 25 chaves.
+
+## Testes
+
+`tests/test_crop_d1.py` — **15 testes**, um por lei. Inclui o que prova a lei ao contrário:
+`test_o_legado_SIM_muda_com_a_ordem_e_por_isso_nao_e_canonico` embaralha o vocabulário 30 vezes
+e exige que `CROP_LEGACY_FIRST` seja **instável** — é a demonstração viva de por que first-match
+não podia ser fato canônico.
+
+Um único teste existente falhou: `TestCropNaoDesempataEmSilencio::test_duas_culturas…_AMBIGUOUS`,
+que codificava a política **anterior**. Atualizado preservando a sua intenção original (duas
+culturas não viram uma escolhida em silêncio) e passando a exigir os cinco campos novos.
+
+## Portões
+
+```
+CANONICAL_CONTENT_LOST     = 0
+SOURCE_CONTENT_LOST        = 0
+NEW_TRACKED_IGNORED        = 0     (mantém-se 1 pré-existente)
+NEW_WORKFLOW_BREAKAGES     = 0     (a ref traz 0 workflows)
+NEW_TEST_REGRESSIONS       = 0
+UNKNOWN_CONFLICTS          = 0
+NEW_SEMANTIC_REGRESSIONS   = 0
+
+DICTIONARY_ORDER_AFFECTS_CANONICAL_CROP = NÃO
+FIRST_MATCH_USED_AS_CANONICAL_FACT      = NÃO
+MULTI_CROP_COLLAPSED_TO_AMBIGUOUS       = NÃO
+```
+
+`NEW_TEST_REGRESSIONS` foi medido por **comparação de nomes de falha** em três árvores, não por
+contagem bruta: canónica `2b6e35f` = 50 falhas · origem `0cfc182` = 8 · mesclada = 55. A
+diferença de conjuntos é **vazia** — toda falha da mesclada já falhava numa das origens. E o
+merge **consertou** `test_branch_vivo_nao_e_alvo_congelado`.
+
+> **Um erro meu, apanhado antes de commitar.** A primeira tentativa de resolver `voz.py`
+> reconstruiu o ficheiro a partir do lado da origem e **apagou** a capacidade de identidade da
+> canónica (`SEM_ID_ESTRUTURAL`, `WITHOUT_STRUCTURAL_ID_COUNT`, `tem_id_estrutural`). O portão
+> de não perda apanhou-o. Refeito resolvendo **apenas o trecho em conflito** sobre o que o git
+> já tinha auto-mesclado — as duas capacidades sobrevivem.
+
+## Ganho
+
+| | antes `2b6e35f` | depois `5d3a31c` |
+|---|---:|---:|
+| `DATA_BLOBS` | 388 | **859** |
+| `SCRIPT_PATHS` | 143 | **187** |
+| `WORKFLOWS` | 18 | 18 |
+
+**Denominador declarado:** caminhos versionados, `git ls-tree -rz` (NUL-safe).
+Contagens históricas preservadas como corrigido: canário `187 → 388` dados, `52 → 143` scripts,
+`10 → 18` workflows.
+
+## Classificação do ref
+
+`REF_CLASSIFICATION = CANONICAL_INPUT` — o ref entrou **inteiro**. A parte que estava pendente
+(`scripts/voz.py`) deixou de ser conflito semântico porque a pergunta passou a ter um dono e uma
+regra. A branch original não é apagada.
+
+`CONSUMERS_REQUIRING_MIGRATION` = nenhum bloqueante medido: a camada espanhola não muda, e a
+camada italiana chega junto com os seus próprios scripts. Consumidor que venha a exigir cultura
+única diante de `MULTI` deve `BLOCK`/`DEFER`/`UNKNOWN`, nunca escolher o primeiro.
+
+---
+
+```
+D1_POLICY            = PASS
+MERGE_RETRIED        = SIM
+MERGE_VERDICT        = PASS   (5d3a31c, pais 2b6e35f + 0cfc182)
+P0_2_STEP_01         = PASS
+CANONICAL_LINEAGE_STATE        = CANDIDATE_INTEGRATION
+DEFAULT_BRANCH_CHANGE_SAFE_NOW = NÃO
+```
+
+`PREEXISTING_DEBT` registada e **não corrigida**: `scripts/proveniencia.py:175` e
+`tests/test_comunicacao.py:222`.
+
+Pergunta aberta, **não decidida**: `ISSUE` continua com `AMBIGUOUS:A+B` para múltiplos achados.
+O mesmo raciocínio da D1 provavelmente aplica-se — um texto pode tratar de várias doenças sem
+que isso seja incerteza — mas estender a política a outro campo sem pedido seria criar política
+escondida.
+
+`NEXT_SINGLE_STEP` = **P0.2 · PASSO 02 — escolher o próximo enxerto.** *(Não executado.)*
