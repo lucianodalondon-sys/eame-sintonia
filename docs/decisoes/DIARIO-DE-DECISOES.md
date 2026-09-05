@@ -213,6 +213,38 @@ Regras do diário:
 
 ---
 
+### D-013 — Toda unidade de informação tem passaporte, e o histórico é o dono do estado
+
+- **Data:** 2026-09-05
+- **Estado:** DECIDIDO
+- **Contexto:** o acervo tinha 2.960 unidades de informação e nenhuma delas tinha
+  identidade própria — um vídeo era "a linha 37 de `ES-T8-001-videos.json`". O incidente
+  que forçou a decisão: **1.005.157 caracteres de transcrição** (705.149 em ES-T8-001 +
+  300.008 no SENSOR-PILOT) existiam, tinham sido pagos, e nenhum estado do sistema dizia
+  que ninguém os tinha lido. Não havia mentira em lugar nenhum — havia **ausência**, e
+  ausência de selo era indistinguível de reprovação.
+- **Decisão:** todo item recebe `ITEM_ID` permanente na entrada, derivado de uma chave
+  natural **global** (nunca de arquivo, caminho ou URL). O estado do item é **projeção**
+  de um log de eventos append-only, `data/passaporte/EVENTOS.jsonl`, que é o único dono
+  canônico. Nenhum item pode parar sem `REASON_CODE` e `NEXT_ACTION`. Varredura lexical é
+  `LEXICALLY_SCANNED` e **nunca** vira `READ`. `OPPORTUNITY` é uma capacidade entre
+  dezesseis, nunca o funil. Informação nova sem passaporte é `REJECT_PIPELINE`.
+- **Motivo:** "não foi lido" e "não serve" produziam o mesmo silêncio e significam o
+  oposto — é a mesma família de erro de D-012 (`"não consegui ver"` e `"não há nada"`).
+  E porque o estado precisava ter um dono só: dois arquivos com a mesma decisão produzem,
+  em seis meses, duas verdades.
+- **Consequência:** 2.960 passaportes, 33.886 eventos, 41 provas novas. A identidade
+  global revelou que **48 vídeos e 79 comentários foram comprados duas vezes** por duas
+  missões que não podiam saber uma da outra. `ITEMS_WITHOUT_PASSPORT`,
+  `UNEXPLAINED_STAGE_DROPS`, `TRANSCRIPT_AVAILABLE_BUT_UNTRACKED` e
+  `VALID_INTELLIGENCE_WITH_UNKNOWN_CONSUMPTION_STATE` são todos 0, e
+  `PASSPORT_ENFORCEMENT = ACTIVE`. O preço declarado: o log ocupa 12,7 MB em texto
+  (862 KB comprimidos), e três fontes citadas por casos (`EU-T2-001`, `EU-T2-002`,
+  `IT-T3-001`) continuam sem snapshot preservado — o portão as imprime a cada execução.
+- **Quem decidiu:** decisão técnica da MISSÃO DO PASSAPORTE DA INFORMAÇÃO.
+
+---
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |

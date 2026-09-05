@@ -145,6 +145,8 @@ Nenhuma fonte foi pesquisada, nenhum dado foi coletado, nenhuma capacidade foi a
 │   ├── cruzamentos/    MATRIZ-DE-CRUZAMENTOS-EAME.md — A + B, e com que chave
 │   ├── ferramentas/    CATALOGO-DE-FERRAMENTAS-EAME.md — com o que se faz
 │   ├── decisoes/       DIARIO-DE-DECISOES.md — toda decisão, com data e motivo
+│   ├── passaporte/     CONTRATO-DO-PASSAPORTE.md — identidade, estado e histórico de
+│   │                   toda unidade de informação (D-013)
 │   └── apresentacao/   CASOS-PARA-APRESENTACAO.md — o que se mostra e com que estado
 ├── research/
 │   ├── europe/         camada comum europeia
@@ -155,6 +157,8 @@ Nenhuma fonte foi pesquisada, nenhum dado foi coletado, nenhuma capacidade foi a
 │   └── competitors/
 ├── data/
 │   ├── samples/        amostras reais, com procedência (versionado)
+│   ├── passaporte/     EVENTOS.jsonl — o log append-only que é dono do estado de
+│   │                   cada unidade de informação
 │   ├── raw/            bruto, como saiu da fonte (não versionado)
 │   └── normalized/     normalizado (não versionado)
 ├── prototype/
@@ -181,3 +185,8 @@ documento canônico e para o commit — não fica só na conversa.
    comprovadamente vale para todos.
 6. **Legalidade e licença fazem parte da ficha da fonte.** Acesso técnico possível não é
    permissão de uso.
+7. **Nada entra sem passaporte.** Toda unidade de informação recebe `ITEM_ID` permanente
+   na entrada, e o estado dela é projeção de um histórico append-only. Informação nova sem
+   passaporte é `REJECT_PIPELINE`, nunca `WARN_AND_CONTINUE`. Contrato em
+   `docs/passaporte/CONTRATO-DO-PASSAPORTE.md` (D-013); portão em
+   `python3 scripts/passaporte_portao.py`.
