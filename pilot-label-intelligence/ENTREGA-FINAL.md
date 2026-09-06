@@ -126,7 +126,7 @@ existe exatamente para isso: mostrar sem integrar.
 
     PACKAGE_PATH  = pilot-label-intelligence/
     PACKAGE_FILES = 40 arquivos versionados
-    PACKAGE_HASH  = f71ac174e6d536d47d6714c5e1c4c58bc9e54afe98e9a3fd60dbc59fb47fa55b
+    PACKAGE_HASH  = 3a158bcc02d6ac695b58292ba9b7fa06194169c4bbad9baa3e50b8a28da77153
 
 O hash e o sha256 sobre o caminho e o conteudo de cada arquivo versionado do
 piloto, em ordem, exceto este relatorio. Nao cobre os instantaneos do registro

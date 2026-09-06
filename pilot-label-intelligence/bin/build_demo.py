@@ -320,9 +320,14 @@ def main():
     <li><b>Nem todo par cultura x alvo e uma linha de tabela.</b> Dos
       {d["TOTAL_USE_ROWS"]:,} pares, {d["USE_ROWS_FROM_TABLE_GEOMETRY"]:,} saem da geometria da
       tabela e trazem pagina; {d["USE_ROWS_FROM_TEXT_INFERENCE"]:,} foram montados a partir de prosa
-      ou de lista, e {d["USE_ROWS_WITHOUT_PAGE"]:,} nao preservaram pagina. Nenhum par carrega
-      citacao literal: esta versao do parser da casa nao gravou <code>SOURCE_QUOTE</code>. A frase
-      correta e "par extraido pelo nosso leitor a partir do rotulo", nunca "o rotulo diz".</li>
+      ou de lista, e {d["USE_ROWS_WITHOUT_PAGE"]:,} nao preservaram pagina. A frase correta e
+      "par extraido pelo nosso leitor a partir do rotulo", nunca "o rotulo diz".</li>
+    <li><b>Nenhum par traz citacao literal, e nao foi por falta de tentar.</b> Recuperar o trecho
+      pela faixa y devolveu 921 citacoes; a conferencia contra o texto que o proprio parser leu
+      reprovou 913, e 5 das 8 restantes ainda estavam erradas na leitura manual. A causa e
+      estrutural: o par guarda pagina e <i>y</i>, nao guarda <i>x</i>, e a etichetta e paisagem com
+      varias colunas — a mesma altura atravessa colunas sem relacao. Nenhuma citacao foi publicada.
+      <code>QUOTE_RECOVERY_STATE = IMPOSSIBLE_WITHOUT_X_COORDINATE</code>.</li>
     <li><b>Presenca no registro nao e presenca no mercado.</b> O registro diz o que esta
       autorizado, nunca o que esta sendo vendido.</li>
     <li><b>A precisao do leitor de cultura x alvo foi medida em 30 dos 163 rotulos</b>
