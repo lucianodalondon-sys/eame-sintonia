@@ -2100,8 +2100,38 @@
      collection — never from a case fixture. The full record is kept beside the
      short link so a product page can show the window and the evidence without
      a second lookup. */
+  /* ── LA CHIAVE SBAGLIATA ───────────────────────────────────────────────
+     Questo aggancio cercava `byName[U(r.product)]`: il nome messo in
+     MAIUSCOLO. Ma `byName` non e indicizzato cosi — le sue chiavi passano da
+     PKEY, che toglie spazi, punteggiatura e il segno di marchio. Percio
+     «LAMDEX EXTRA» cercava LAMDEX EXTRA dentro un indice che conosce
+     LAMDEXEXTRA, e non trovava niente.
+
+     Ne usciva che si agganciavano solo i nomi senza spazi. MISURATO:
+     seicentocinquantasei legami arrivavano al prodotto su duemilatrenta
+     relazioni — millletrecentosettantaquattro cadevano. Sul Portafoglio
+     trentanove schede su cinquantuno mostravano «0 ✓ · 0 ○» avendo, nel
+     corpus delle etichette, righe d'uso autorizzate.
+
+         UNA SCHEDA CHE DICE ZERO PERCHE LA CHIAVE NON COMBACIA STA MENTENDO
+         CON PRECISIONE.
+
+     Si usa la stessa risoluzione che usa tutto il resto del modello — chiave
+     normalizzata, poi le sue varianti dichiarate — e, se il nome ancora non
+     basta, il NUMERO DI REGISTRAZIONE, che e un identificativo dichiarato e
+     non una somiglianza di lettere. Nessun aggancio nuovo per assonanza:
+     duemilatrenta su duemilatrenta risolvono, e zero restano orfane. */
+  const perRegistrazione = {};
+  for (const k in byName) {
+    const e = byName[k];
+    const reg = e && ((e.regulatory && (e.regulatory.reg || e.regulatory.regId)) || e.reg || e.regId);
+    if (reg && !perRegistrazione[String(reg)]) perRegistrazione[String(reg)] = e;
+  }
   productRelationships.records.forEach((r) => {
-    const e = byName[U(r.product)];
+    const k0 = PKEY(r.product);
+    const e = byName[k0]
+      || PKEY_ALTS(r.product).map((a) => byName[a]).find(Boolean)
+      || (r.reg ? perRegistrazione[String(r.reg)] : null);
     if (e) {
       e.links.push({ crop: r.crop, issue: r.issue, strength: r.strength, evidence: r.evidence, source: r.source, windowId: r.windowId, region: r.region, evidenceKind: r.evidenceKind, labelUrl: r.labelUrl, caseId: null });
       e.relationships.push(r);
