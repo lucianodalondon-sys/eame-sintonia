@@ -2680,6 +2680,7 @@
       <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:10px">
         <div style="grid-column:span 12;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
           <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.srcLatestCaptures }} · {{ sr.itemCount }}</div><span onClick="{{ sr.goArchive }}" style="font-size:10px;font-weight:700;color:#00B152;cursor:pointer">{{ t.srcOpenInArchive }} →</span></div>
+          <sc-if value="{{ sr.hasMore }}" hint-placeholder-val="{{ false }}"><div style="font-size:10.5px;color:#B1A9A7;line-height:1.5;padding-bottom:2px">{{ sr.moreNote }}</div></sc-if>
           <sc-for list="{{ sr.items }}" as="a" hint-placeholder-count="8"><div onClick="{{ a.open }}" style="display:grid;grid-template-columns:60px 1fr 120px;gap:10px;align-items:center;font-size:11px;padding:6px 0;border-bottom:1px dotted rgba(151,139,135,0.35);cursor:pointer"><span style="color:#B1A9A7;font-weight:600">{{ a.date }}</span><div style="display:flex;flex-direction:column;min-width:0"><span style="color:#EDEAE9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ a.title }}</span><span style="font-size:10px;color:#8F8886">{{ a.typeL }} · {{ a.subtitle }}</span></div><span style="font-size:10px;font-weight:700;color:{{ a.linkColor }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ a.linkLabel }}</span></div></sc-for>
         </div>
       </div>
@@ -8722,26 +8723,88 @@ class Component extends DCLogic {
        5. Nothing is rendered for the 26 and 'non noto' for the 5. The column is empty on
        31/31 rows today: the markup should drop it. */
     const srcWhat = (x) => arcNar(x.role) || (x.role && x.role.state === 'NOT_ESTABLISHED' ? ARL('non noto', 'not known') : '');
-    /* The archive is the only honest 'related' number a source has. Joined on sourceId, the
-       key the model added for exactly this: OpenAlex 88, AgriFood 77, Meta 414, YouTube 106,
-       GIRE 34, five publishers 1-2 each — and 20 of 31 sources back zero archive rows. That
-       is the true state of the registry: two thirds of it is a listening list. */
+    /* QUANTO CI HA DATO QUESTA FONTE.
+       La riga contava le righe dell'archivio. Quando il registro aveva
+       trentuno voci era la lettura giusta: l'archivio indicizza cio che
+       ACCADE — comunicazione osservata, bollettini, prezzi, scienza, voci,
+       resistenze, finestre — e quasi tutto il registro finiva li dentro.
+
+       Il registro adesso ha centottantanove voci e il modello novemilaseicento
+       record. L'archivio ne indicizza millecentoquattordici, e le tavole di
+       riferimento — economia delle colture, relazioni d'etichetta, righe d'uso
+       autorizzate, sostanze — non ci entrano per disegno. Cosi ISTAT diceva
+       ZERO mentre alimenta duemilanovecentosettanta record, YouTube diceva
+       ZERO con trecentottantanove, la libreria degli annunci ZERO con
+       quattrocentotrentadue. Centosei righe su centottantanove dicevano zero
+       avendo qualcosa.
+
+           UNA FONTE CHE NON STA NELL'INDICE NON E UNA FONTE CHE NON HA DATO
+           NIENTE. ASSENZA DI RISULTATO NON E ZERO.
+
+       Il conteggio passa al modello intero. I due nomi che un record puo usare
+       per la propria fonte — quello del registro e quello breve — valgono
+       entrambi, perche le collezioni usano ora l'uno ora l'altro e contare su
+       uno solo e contare meta. La scheda della fonte continua a ELENCARE cio
+       che l'archivio sa aprire, e lo dice. */
+    const srcModelCount = (() => {
+      const conta = {}, C0 = APP0;
+      if (!C0) return conta;
+      for (const nome in C0) {
+        if (nome === 'archive' || nome === 'sources') continue;
+        const rec = (C0[nome] && C0[nome].records) || [];
+        for (const r of rec) {
+          if (!r) continue;
+          const ids = {};
+          if (Array.isArray(r.sourceIds)) for (const x of r.sourceIds) if (x) ids[String(x)] = 1;
+          if (r.sourceId) ids[String(r.sourceId)] = 1;
+          for (const k in ids) conta[k] = (conta[k] || 0) + 1;
+        }
+      }
+      return conta;
+    })();
     const srcCount = arcRows.reduce((a, r) => { if (r.sourceId) a[r.sourceId] = (a[r.sourceId] || 0) + 1; return a; }, {});
+    /* Una fonte porta due nomi e li dichiara entrambi nel proprio record: si
+       prende il piu alto dei conteggi che le appartengono, mai la loro somma —
+       sommarli conterebbe due volte lo stesso record. */
+    const srcTotale = (x) => {
+      const chiavi = [x.id, x.sourceId].concat(Array.isArray(x.sourceIds) ? x.sourceIds : []).filter(Boolean).map(String);
+      let n = 0;
+      for (const k of chiavi) { const v = srcModelCount[k] || 0; if (v > n) n = v; }
+      const inArchivio = srcCount[x.sourceId] || 0;
+      return inArchivio > n ? inArchivio : n;
+    };
     /* The row is BUILT, not spread. The source record carries roleText, limitationsText and
        raw.* — the Portuguese Sintonia working notes behind the two narrative fields — and a
        spread would hand all of them to the template layer even though no binding prints
        them. Nothing internal leaves this function. */
     const srcDeco = (x) => {
-      const acc = SRC_ACC_L[x.accessStatus] || ['—', '—', '#8F8886'];
+      /* CENTOCINQUANTOTTO DELLE CENTOTTANTANOVE FONTI NON SONO STATE RIVISTE.
+         Il pacchetto lo dichiara riga per riga — `qaStatus` — e il portale non
+         leggeva quel campo da nessuna parte. Sullo schermo le trentuno riviste
+         e le centocinquantotto non riviste si distinguevano per un trattino
+         nella colonna dello stato: un trattino dice «non pervenuto», non dice
+         «raccolta fatta, lettura no».
+
+             RACCOLTA REALIZZATA NON E LETTURA REALIZZATA. UN TRATTINO NASCONDE
+             LA DIFFERENZA; UNA PAROLA LA MOSTRA.
+
+         Non si nasconde nessuna riga: si nomina lo stato che la riga ha
+         davvero. Le fonti non riviste portano record veri — bollettini
+         regionali, Ente Nazionale Risi, CREA, SIAS — e restano leggibili; ma
+         chi guarda vede subito quali sono passate da una revisione e quali no. */
+      const nonRivista = !x.accessStatus && x.qaStatus === 'QA_UNREVIEWED';
+      const acc = SRC_ACC_L[x.accessStatus]
+        || (nonRivista ? [ 'Da rivedere', 'To review', '#F5B317' ] : ['—', '—', '#8F8886']);
       return {
         id: x.id || '', sourceId: x.sourceId || '', name: x.name || '', url: x.url || '',
+        qaReviewed: x.qaStatus === 'EVIDENCE_SOURCED',
         group: x.group || '', accessStatus: x.accessStatus || '', provenance: x.provenance || '',
         go: () => this.openSource(x.sourceId || x.id),
         groupColor: (x.ui && x.ui.color) || '#8F8886',
         type: stypeL(x.type), what: srcWhat(x), freq: srcFreq(x),
         cov: arcKn(x.geography) || '—',
         last: srcLast(x) || ARL('non disponibile', 'not available'),
-        related: srcCount[x.sourceId] || 0,
+        related: srcTotale(x), inArchive: srcCount[x.sourceId] || 0,
         health: ARL(acc[0], acc[1]), healthShort: ARL(acc[0], acc[1]), healthColor: acc[2]
       };
     };
@@ -8903,6 +8966,18 @@ class Component extends DCLogic {
       name: sr0.name || ARL('Fonte non trovata nel registro', 'Source not found in the registry'),
       group: sgrpL(sr0.group) || '', topics: [], cases: [],
       itemCount: srItems.length,
+      /* L'elenco qui sotto mostra cio che l'ARCHIVIO sa aprire. Il registro
+         puo aver dato molto di piu: ISTAT alimenta duemilanovecentosettanta
+         record di economia delle colture, e l'archivio — che indicizza cio che
+         ACCADE, non le tavole di riferimento — non ne apre nessuno. Se la
+         schermata precedente dice duemilanovecentosettanta e questa dice zero,
+         una delle due sta mentendo. Nessuna delle due: dicono due cose
+         diverse, e adesso lo dichiarano. */
+      total: srcTotale(sr0),
+      hasMore: srcTotale(sr0) > srItems.length,
+      moreNote: ARL(
+        'Questa fonte alimenta ' + srcTotale(sr0) + ' record del modello. L\'archivio ne apre ' + srItems.length + ': indicizza cio che accade — comunicazione osservata, bollettini, prezzi, scienza, voci — non le tavole di riferimento.',
+        'This source feeds ' + srcTotale(sr0) + ' records in the model. The archive opens ' + srItems.length + ' of them: it indexes what happens — observed communication, bulletins, prices, science, voices — not the reference tables.'),
       items: srItems.slice()
         .sort((x, y) => (y.dateISO || '').localeCompare(x.dateISO || ''))
         .slice(0, 8)
