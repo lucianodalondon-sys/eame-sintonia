@@ -2766,6 +2766,11 @@ class Component extends DCLogic {
      Si legge SOLO il nome della vista, e solo se e una delle viste note: un
      indirizzo non puo iniettare stato ne aprire una schermata che il menu non
      offre. Senza frammento, o con uno sconosciuto, si entra dove si entrava. */
+  /* UN SOLO MAPPA VISTA -> CAPACITA. Lo leggeva la barra per accendere la voce
+     attiva; adesso lo legge anche l'indirizzo, per non finire con due verita su
+     dove il lettore si trova. */
+  static CAPABILITY_OF = { radar: 'radar', case: 'radar', brief: 'radar', meeting: 'meeting', mcase: 'meeting', field: 'field', windows: 'windows', window: 'windows', market: 'market', signal: 'future', future: 'future', competitors: 'competitors', company: 'competitors', event: 'competitors', cproduct: 'competitors', science: 'science', theme: 'science', archive: 'archive', portfolio: 'portfolio', product: 'portfolio', voices: 'voices', sources: 'sources', source: 'sources', person: 'sources', search: '' };
+
   static VIEW_FROM_HASH() {
     const AMMESSE = ['meeting', 'future', 'windows', 'market', 'voices', 'competitors',
       'science', 'portfolio', 'archive', 'sources', 'field'];
@@ -2941,6 +2946,27 @@ class Component extends DCLogic {
       if (v && v !== this.state.view) this.go({ view: v });
     });
   }
+  /* L'INDIRIZZO DEVE SEGUIRE IL LETTORE, NON SOLO PORTARLO.
+     Misurato: si entrava su #windows, si cliccava Portafoglio, l'indirizzo
+     restava #windows — e un F5 riportava alle Finestre. L'indirizzo diceva una
+     cosa e lo schermo un'altra, e il ricaricamento dava ragione all'indirizzo.
+
+         UN INDIRIZZO CHE NON SEGUE E PEGGIO DI UN INDIRIZZO CHE NON C'E:
+         IL PRIMO MENTE, IL SECONDO TACE.
+
+     Il frammento nomina la CAPACITA, non la schermata: aprendo un prodotto
+     resta #portfolio, cosi un F5 dentro un dettaglio riporta allo strumento
+     giusto invece che al radar. replaceState, non push: la storia di
+     navigazione e gia tenuta da navHistory e non va raddoppiata. */
+  _syncHash(view) {
+    if (typeof window === 'undefined' || !window.history || !window.history.replaceState) return;
+    const cap = Component.CAPABILITY_OF[view] || view;
+    if (!cap) return;
+    try {
+      const atual = String(window.location.hash || '').replace(/^#/, '');
+      if (atual !== cap) window.history.replaceState(window.history.state, '', '#' + cap);
+    } catch (e) { /* file:// */ }
+  }
   go(patch) {
     this._wireHash();
     const s = this.state || {};
@@ -2948,6 +2974,7 @@ class Component extends DCLogic {
     for (const k in s) if (k !== 'navHistory') snap[k] = s[k];
     const hist = (s.navHistory || []).concat([snap]).slice(-20);
     this.setState(Object.assign({ archiveId: null, showNotifs: false }, patch, { navHistory: hist }));
+    if (patch && patch.view) this._syncHash(patch.view);
     if (typeof window !== 'undefined' && window.scrollTo) window.scrollTo(0, 0);
   }
   back() {
@@ -4373,7 +4400,7 @@ class Component extends DCLogic {
       ['sources', T.navSources, navN('sources')]
     ];
     const navIntegrations = [['field', T.navField, allMessages.length]];
-    const activeOf = { radar: 'radar', case: 'radar', brief: 'radar', meeting: 'meeting', mcase: 'meeting', field: 'field', windows: 'windows', window: 'windows', market: 'market', signal: 'future', future: 'future', competitors: 'competitors', company: 'competitors', event: 'competitors', cproduct: 'competitors', science: 'science', theme: 'science', archive: 'archive', portfolio: 'portfolio', product: 'portfolio', voices: 'voices', sources: 'sources', source: 'sources', person: 'sources', search: '' };
+    const activeOf = Component.CAPABILITY_OF;
     /* §4 · The green/amber accents, the dot and the active tint are presentation only and stay. */
     /* ══ LA VISTA ESECUTIVA STA NEL MENU, COME TUTTE LE ALTRE ═════════════
        `casa.html` e una PAGINA, non una vista di questo guscio: la sua voce
