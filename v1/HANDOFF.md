@@ -67,6 +67,16 @@ SF-16) estao nomeados na secao L da ENTREGA, com o motivo.
 
 `2.926 -> 2.875` pares publicados. Portoes 19/19, ruido 12/12, tela 28/28.
 
+## O BUILD QUE ESTA SESSAO DEIXA
+
+    v1/casco/label-intelligence.html
+    sha256  862b9e5c035d2ac35d2dad309cfde4eeccb19fdb5f668aa91ec21040dd7f09be
+
+Reproduzivel: `python3 v1/fonte/recoletar.py .` e `sh v1/casco/build.sh` a
+partir deste commit devolvem o mesmo arquivo. O alvo que o arbitro da rodada 3
+julgou era `7e4ea2a7b445fafa...` e tambem volta byte a byte a partir do commit
+`d08668c` — foi assim que a reconstrucao dos pares foi provada.
+
 ## COMO CONTINUAR
 
 ```sh

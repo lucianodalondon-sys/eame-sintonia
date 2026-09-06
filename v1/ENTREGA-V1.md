@@ -9,11 +9,11 @@ portal, nao escreve em `sintonia/canonical`, nao faz deploy.
 
     BRANCH        claude/label-intelligence-v1-italy
     PILOT_HEAD    df3a4fd0029e74d16f171e5070b13ec4f3345d64   (base, missao 1)
-    BUILD_HEAD    b371b74ec5238d94c01d5518afe2cad233593ad0
+    BUILD_HEAD    4d45655e25506f6621365fd2be912303fa361b4c
                   o commit cujo build foi medido para escrever este documento.
                   O commit que ATUALIZA este documento vem depois dele, e por
                   isso nao pode citar o proprio hash.
-    COMMITS       24 desde PILOT_HEAD ate BUILD_HEAD
+    COMMITS       26 desde PILOT_HEAD ate BUILD_HEAD
     RULESET       v1/inteligencia/REGRAS.md@5
 
     CANONICAL_TOUCHED = NAO
