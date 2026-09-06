@@ -123,6 +123,9 @@ Saida: PARES-FIOS-CHECK.json, com um veredito por chave `reg#i` e a coordenada
 que o sustenta.
 """
 import argparse, json, os, re, sys
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+from selo import selo
 from collections import Counter
 
 RXP = re.compile(r'<page width="([\d.]+)" height="([\d.]+)">(.*?)</page>', re.S)
@@ -870,6 +873,7 @@ def main():
 
     saida = {
         'DATASET': 'V1-PARES-FIOS-CHECK',
+        'PRODUCED_BY': selo(__file__),
         'RULE_ID': 'R-14',
         'O_QUE_ISTO_E': ('conferencia do PAR DE USO (cultura x alvo) contra os fios desenhados '
                          'da tabela, do mesmo jeito que R-11 confere a linha de dose'),

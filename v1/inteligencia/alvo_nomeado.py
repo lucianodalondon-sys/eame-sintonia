@@ -68,6 +68,9 @@ Nao e o inverso de R-13 tambem: R-13 pergunta se o texto do ALVO DE UMA LINHA DE
 DOSE existe no documento; esta pergunta e sobre o NOME NORMALIZADO do par de uso.
 """
 import argparse, json, os, re, subprocess, sys, unicodedata
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+from selo import selo
 from collections import Counter
 
 
@@ -201,6 +204,7 @@ def main():
 
     saida = {
         'DATASET': 'V1-ALVO-NOMEADO',
+        'PRODUCED_BY': selo(__file__),
         'RULE_ID': 'R-17',
         'O_QUE_ISTO_E': ('o nome do alvo que a ferramenta publica esta escrito no rotulo?'),
         'O_QUE_ISTO_NAO_E': ('nao diz que o par esta errado e nao remove nada: Cydia pomonella '

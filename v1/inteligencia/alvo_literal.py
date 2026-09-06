@@ -79,6 +79,9 @@ diagramacao ele pode voltar a recuperar, e essa e uma afirmacao sobre o futuro
 que eu nao medi.
 """
 import argparse, json, os, re, subprocess, sys, unicodedata
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+from selo import selo
 
 RXP = re.compile(r'<page width="([\d.]+)" height="([\d.]+)">(.*?)</page>', re.S)
 RXW = re.compile(r'<word xMin="([\d.]+)" yMin="([\d.]+)" xMax="([\d.]+)" yMax="([\d.]+)">([^<]*)</word>')
@@ -266,6 +269,7 @@ def main():
                                 "DOSE_PER_HECTARE_UNIT": r.get("DOSE_PER_HECTARE_UNIT")})
     saida = {
         "DATASET": "V1-ALVO-LITERAL",
+        "PRODUCED_BY": selo(__file__),
         "RULE_ID": "R-13",
         "O_QUE_ISTO_E": "o texto do alvo da linha de dose aparece literalmente no texto do rotulo",
         "O_QUE_ISTO_NAO_E": ("NAO e um detector de fusao de linha. Nao separa alvo quebrado em "

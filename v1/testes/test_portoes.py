@@ -73,6 +73,43 @@ pct = round(100.0 * (len(OBJ) - len(sem)) / len(OBJ), 1)
 ok("MATERIAL_CLAIMS_WITH_EVIDENCE", f"{pct}% ({len(OBJ)-len(sem)}/{len(OBJ)})") if not sem \
     else fail("MATERIAL_CLAIMS_WITH_EVIDENCE", f"{pct}% — {len(sem)} sem rota completa: {sem[:3]}")
 
+# --- 6b. a rota LEVA A UM DOCUMENTO QUE EXISTE, e nao so a uma string
+#
+# O portao acima mede PRESENCA DE CAMPO. A lente P apontou os 210 objetos para
+# `PROD_FTS_6_19990101.csv` (arquivo que nao existe), com sha `deadbeef...` e
+# EVIDENCE_LOCATION "linha 999 do arquivo que nao existe" — e ele deu
+# `100.0% (210/210)`. Uma rota completa para o nada tinha cobertura total.
+#
+# Este confere o documento: para toda referencia da forma "<arquivo>
+# sha256=<prefixo>", o arquivo tem de estar em disco e o sha256 dele tem de
+# comecar pelo prefixo declarado. Nao inventa nada — le o mesmo instantaneo que
+# a esteira leu.
+_ev, _conf_ev = [], 0
+_RX_DOC = re.compile(r"^(\S+\.csv)\s+sha256=([0-9a-f]{8,})")
+_dir_snap = "pilot-label-intelligence/registry/snapshots"
+for _o in OBJ:
+    for _k in ("SOURCE_DOCUMENT_AFTER", "SOURCE_DOCUMENT_BEFORE"):
+        _m = _RX_DOC.match(str(_o.get(_k) or ""))
+        if not _m:
+            continue
+        _conf_ev += 1
+        _arq = os.path.join(_dir_snap, os.path.basename(_m.group(1)))
+        if not os.path.exists(_arq):
+            _ev.append(f"{_o['INTELLIGENCE_OBJECT_ID']}.{_k}: {_m.group(1)} nao esta em disco")
+            continue
+        import hashlib as _hl
+        with open(_arq, "rb") as _fh:
+            _sh = _hl.sha256(_fh.read()).hexdigest()
+        if not _sh.startswith(_m.group(2)):
+            _ev.append(f"{_o['INTELLIGENCE_OBJECT_ID']}.{_k}: {_m.group(1)} tem sha {_sh[:16]}, "
+                       f"o objeto declara {_m.group(2)[:16]}")
+if not _conf_ev:
+    _ev.append("nenhuma referencia de documento com sha foi encontrada para conferir")
+
+ok("EVIDENCE_ROUTE_REACHES_A_REAL_DOCUMENT",
+   f"{_conf_ev} referencias a documento conferidas em disco: o arquivo existe e o sha256 bate") \
+    if not _ev else fail("EVIDENCE_ROUTE_REACHES_A_REAL_DOCUMENT", " | ".join(_ev[:4]))
+
 # --- 7. nenhum "-" / "N/A" significando desconhecido no HTML renderizado
 suspeitos = re.findall(r"<td[^>]*>\s*(?:-|N/A|n/a|none|null|undefined)\s*</td>", HTML)
 ok("UNKNOWN_HIDDEN_OR_FILLED", "nenhuma celula com traco/N-A no template") if not suspeitos \
@@ -163,7 +200,14 @@ else:
 # payload a cada build.
 _exc = json.load(open("v1/dados/EXCLUSAO.json", encoding="utf-8"))
 _cam = _exc.get("PAIRS_PATH", "")
-if os.path.exists(_cam):
+# CAMINHO ABSOLUTO GRAVADO NUM ARTEFATO NAO E ANCORA, E O ARQUIVO DE OUTRA
+# MAQUINA. Se o que veio gravado for absoluto, o portao recusa em vez de sair
+# lendo um arquivo que nao e o do repositorio sob teste.
+if os.path.isabs(_cam):
+    fail("REUSE_ANCHORED_ON_FILE_HASH",
+         f"PAIRS_PATH esta gravado como caminho ABSOLUTO ({_cam}): num clone isto confere o "
+         f"arquivo de outra maquina. Regrave EXCLUSAO.json com v1/coleta/exclusao.py")
+elif os.path.exists(_cam):
     import hashlib
     with open(_cam, "rb") as _fh:
         _s = hashlib.sha256(_fh.read()).hexdigest()
@@ -571,6 +615,78 @@ ok("SHARED_GEOMETRY_CALLS_MATCH_SIGNATURE",
    f"{_chk} chamadas as funcoes de geometria de par_validar conferidas contra a assinatura "
    f"de verdade, em todos os modulos de v1/inteligencia") \
     if not _as else fail("SHARED_GEOMETRY_CALLS_MATCH_SIGNATURE", " | ".join(_as[:5]))
+
+# --- 15j. o JSON servido saiu DESTE codigo
+#
+# O buraco que o teste de mutacao da rodada 4 mostrou, e o mais fundo de todos:
+# os portoes leem v1/dados/*.json como fonte de verdade e nenhum recomputa. Com
+# R-15 estourando na primeira linha util, ou com um `raise` posto de proposito
+# logo apos os imports, tudo continuava verde sobre o artefato da execucao
+# anterior. O erro existia; faltava o teste.
+#
+# Cada modulo grava agora, na propria saida, o sha256 do arquivo de codigo que a
+# produziu (v1/inteligencia/selo.py). Este portao recalcula. Ele NAO prova que a
+# regra esta certa — prova que o JSON servido saiu do codigo que esta em disco,
+# que e a pergunta que nenhum portao fazia.
+_sl, _conf_sl = [], 0
+try:
+    import hashlib as _hl
+    for _art in sorted(os.listdir("v1/dados")):
+        if not _art.endswith(".json"):
+            continue
+        _d = json.load(open(os.path.join("v1/dados", _art), encoding="utf-8"))
+        _pb = _d.get("PRODUCED_BY") if isinstance(_d, dict) else None
+        if not _pb:
+            continue
+        _conf_sl += 1
+        _nome = _pb.get("MODULE", "")
+        _cand = [os.path.join(_d0, _nome) for _d0 in
+                 ("v1/inteligencia", "v1/coleta", "v1/casco", "v1/fonte")]
+        _cam2 = next((c for c in _cand if os.path.exists(c)), None)
+        if _cam2 is None:
+            _sl.append(f"{_art}: diz ter sido feito por {_nome}, que nao esta no repositorio")
+            continue
+        with open(_cam2, "rb") as _fh:
+            _sh2 = _hl.sha256(_fh.read()).hexdigest()
+        if _sh2 != _pb.get("MODULE_SHA256"):
+            _sl.append(f"{_art}: foi gerado por uma versao de {_nome} que nao e a que esta em "
+                       f"disco (artefato {str(_pb.get('MODULE_SHA256'))[:12]}, codigo "
+                       f"{_sh2[:12]}) — rode o modulo de novo")
+    # E O CONTRARIO TAMBEM: todo modulo que sabe se selar TEM de ter selado a
+    # sua saida. Sem isto o portao so olha o que ja tem selo, e um artefato que
+    # perdeu o selo (porque o modulo quebrou, ou porque ninguem o rodou depois de
+    # mexer nele) some do campo de visao em silencio — que e exatamente o
+    # defeito que este portao existe para fechar.
+    _esperados = 0
+    for _dir in ("v1/inteligencia", "v1/coleta"):
+        for _f in sorted(os.listdir(_dir)):
+            if not _f.endswith(".py"):
+                continue
+            _src = open(os.path.join(_dir, _f), encoding="utf-8").read()
+            if "from selo import selo" not in _src or "PRODUCED_BY" not in _src:
+                continue
+            _m = re.search(r'--out["\']\s*,\s*default=["\']([^"\']+)["\']', _src)
+            if not _m:
+                _sl.append(f"{_f} se sela mas nao declara --out: nao da para conferir a saida")
+                continue
+            _esperados += 1
+            _saida = _m.group(1)
+            if not os.path.exists(_saida):
+                _sl.append(f"{_f} se sela e a saida {_saida} nao existe")
+                continue
+            _dd = json.load(open(_saida, encoding="utf-8"))
+            if not (isinstance(_dd, dict) and _dd.get("PRODUCED_BY")):
+                _sl.append(f"{_saida} nao carrega PRODUCED_BY, e {_f} sabe grava-lo — "
+                           f"o modulo nao foi rodado depois da ultima mudanca, ou quebrou")
+    if _conf_sl < _esperados:
+        _sl.append(f"{_esperados} modulos se selam e so {_conf_sl} artefatos tem selo")
+except Exception as _e:
+    _sl.append(f"selos nao puderam ser conferidos: {_e}")
+
+ok("ARTIFACTS_MATCH_THE_CODE_THAT_MADE_THEM",
+   f"{_conf_sl} artefatos carregam o sha256 do modulo que os produziu e os {_conf_sl} conferem "
+   f"com o codigo em disco; {_esperados} modulos sabem se selar e os {_esperados} selaram") \
+    if not _sl else fail("ARTIFACTS_MATCH_THE_CODE_THAT_MADE_THEM", " | ".join(_sl[:4]))
 
 # --- 16. dose nunca escolhida entre candidatas discordantes
 r = subprocess.run(["node", "v1/testes/test_casco.js"], capture_output=True, text=True)

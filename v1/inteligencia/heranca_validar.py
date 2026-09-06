@@ -73,6 +73,9 @@ Saida: HERANCA-CHECK.json, um veredito por `reg#i` para MAX e outro para
 INTERVALO, com a coordenada ou a frase que o sustenta.
 """
 import argparse, json, os, re, sys
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+from selo import selo
 from collections import Counter
 
 # "2 applicazioni a distanza di 7-12 giorni: carciofo, cetriolo, ..."
@@ -308,6 +311,7 @@ def main():
 
     saida = {
         "DATASET": "V1-HERANCA-CHECK",
+        "PRODUCED_BY": selo(__file__),
         "RULE_ID": "R-15",
         "O_QUE_ISTO_E": ("conferencia de MAX. APLICACOES e INTERVALO herdados de celula "
                          "mesclada contra os fios da coluna do valor, e contra a nota da "

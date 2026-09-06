@@ -26,6 +26,9 @@ outra cultura. Medido: por token o modulo acusava 60 pares; por frase inteira,
 40 — e as 20 de diferenca eram todas MAIS contra o teto de MAIS DOLCE.
 """
 import argparse, json, os, re, subprocess, sys, unicodedata
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+from selo import selo
 
 CABECALHO = re.compile(r'non superare le seguenti dosi per ettaro\s*:?', re.I)
 ITEM = re.compile(r'^\s*([a-zà-ÿ][a-zà-ÿ ,\'\-]{2,90}?)\s*:\s*([\d.,]+)\s*(kg|g|l|ml)\s*/\s*ha\b', re.I)
@@ -183,6 +186,7 @@ def main():
 
     saida = {
         'DATASET': 'V1-TETO-DOSE',
+        'PRODUCED_BY': selo(__file__),
         'RULE_ID': 'R-12',
         'O_QUE_ISTO_E': ('teto de dose por cultura escrito na etichetta FORA da tabela de usos, '
                          'lido literalmente'),

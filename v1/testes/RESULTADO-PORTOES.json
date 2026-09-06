@@ -1,6 +1,6 @@
 {
  "SUITE": "PORTOES-V1",
- "PASS": 25,
+ "PASS": 27,
  "FAIL": 0,
  "RESULTS": [
   {
@@ -34,6 +34,11 @@
    "DETALHE": "100.0% (210/210)"
   },
   {
+   "GATE": "EVIDENCE_ROUTE_REACHES_A_REAL_DOCUMENT",
+   "STATE": "PASS",
+   "DETALHE": "87 referencias a documento conferidas em disco: o arquivo existe e o sha256 bate"
+  },
+  {
    "GATE": "UNKNOWN_HIDDEN_OR_FILLED",
    "STATE": "PASS",
    "DETALHE": "nenhuma celula com traco/N-A no template"
@@ -61,7 +66,7 @@
   {
    "GATE": "CANONICAL_TOUCHED",
    "STATE": "PASS",
-   "DETALHE": "nenhum dos 45 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
+   "DETALHE": "nenhum dos 46 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
   },
   {
    "GATE": "REUSE_ANCHORED_ON_FILE_HASH",
@@ -122,6 +127,11 @@
    "GATE": "SHARED_GEOMETRY_CALLS_MATCH_SIGNATURE",
    "STATE": "PASS",
    "DETALHE": "11 chamadas as funcoes de geometria de par_validar conferidas contra a assinatura de verdade, em todos os modulos de v1/inteligencia"
+  },
+  {
+   "GATE": "ARTIFACTS_MATCH_THE_CODE_THAT_MADE_THEM",
+   "STATE": "PASS",
+   "DETALHE": "12 artefatos carregam o sha256 do modulo que os produziu e os 12 conferem com o codigo em disco; 12 modulos sabem se selar e os 12 selaram"
   },
   {
    "GATE": "CASCO_RENDER_TEST",

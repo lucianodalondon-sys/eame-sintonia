@@ -59,6 +59,9 @@ Saida: DOSES-CULTURA-CHECK.json, com um veredito por linha e a coordenada que
 o sustenta. Quem consome: dose_plausibilidade / objetos / payload.
 """
 import argparse, json, os, re, subprocess, sys
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+from selo import selo
 
 RXP = re.compile(r'<page width="([\d.]+)" height="([\d.]+)">(.*?)</page>', re.S)
 RXW = re.compile(r'<word xMin="([\d.]+)" yMin="([\d.]+)" xMax="([\d.]+)" yMax="([\d.]+)">([^<]*)</word>')
@@ -213,6 +216,7 @@ def main():
                 })
     saida = {
         'DATASET': 'V1-DOSE-CULTURA-CHECK',
+        'PRODUCED_BY': selo(__file__),
         'RULE_ID': 'R-11',
         'O_QUE_ISTO_E': ('conferencia da CULTURA de cada linha de dose contra os fios '
                          'desenhados da tabela, do mesmo jeito que dose_validar confere o valor'),

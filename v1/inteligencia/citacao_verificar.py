@@ -117,6 +117,9 @@ frase obviamente literal merece saber que a causa pode ser a ordem da esteira, e
 nao o documento.
 """
 import argparse, hashlib, json, os, re, subprocess, sys, unicodedata
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+from selo import selo
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -365,6 +368,7 @@ def main():
         tot.update(c)
     saida = {
         'DATASET': 'V1-CITACAO-CHECK',
+        'PRODUCED_BY': selo(__file__),
         'RULE_ID': 'R-18',
         'O_QUE_ISTO_E': 'toda frase que a ferramenta imprime entre aspas existe no documento?',
         'O_QUE_ISTO_NAO_E': ('nao julga se a frase e relevante nem se o fato esta certo: julga '

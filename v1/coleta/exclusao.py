@@ -84,6 +84,10 @@ continua sendo medida no `-layout`, porque la a pergunta e de VIZINHANCA e o
 salto de coluna e justamente o que precisa aparecer.
 """
 import argparse, glob, json, os, re, subprocess, sys, unicodedata
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.dirname(
+    _os.path.abspath(__file__))), 'inteligencia'))
+from selo import selo
 from collections import defaultdict
 
 # Marcadores de exclusao em italiano. Lista fechada e medida sobre os 163
@@ -551,6 +555,7 @@ def main():
         sha_pares = hashlib.sha256(fh.read()).hexdigest()
     saida = {
         "DATASET": "V1-EXCLUSAO",
+        "PRODUCED_BY": selo(__file__),
         # IDENTIDADE DO VINCULO. O veredito e gravado por posicao ("reg#i"), e
         # posicao sem identidade e um vinculo que se rompe em silencio: se o
         # leitor de origem mudar e parar de emitir um par, todos os vereditos
@@ -558,7 +563,16 @@ def main():
         # Conferido hoje: 0 chaves divergentes em 2928. O que faltava era a
         # GUARDA, nao o alinhamento — e guarda que so existe depois do acidente
         # nao e guarda.
-        "PAIRS_PATH": os.path.abspath(a.pares),
+        # CAMINHO RELATIVO AO REPOSITORIO, e nao absoluto.
+        #
+        # Era os.path.abspath(a.pares), isto e, o caminho na maquina de quem
+        # rodou. O portao REUSE_ANCHORED_ON_FILE_HASH abria ESSE caminho: num
+        # clone, em CI, ou em qualquer outra maquina ele ou nao achava nada ou
+        # — pior — conferia o arquivo da maquina do autor e dizia PASS sobre um
+        # arquivo que nao e o entregue. Medido pela lente P rodando num clone:
+        # o portao passou lendo /home/user/... enquanto o repositorio sob teste
+        # tinha outro conteudo.
+        "PAIRS_PATH": os.path.relpath(os.path.abspath(a.pares), os.getcwd()),
         "PAIRS_SHA256": sha_pares,
         "PAIRS_COUNT": len(pares),
         "VERDICT_KEY_TRIPLE": {f"{p['REGISTRATION_ID']}#{i}":

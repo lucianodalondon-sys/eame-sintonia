@@ -55,6 +55,9 @@ documento NAO desenhou o risco — nesse caso continua valendo o
     DOSE_ROW_BAND_NOT_CHECKED             sem PDF, sem fios ou sem palavra na banda
 """
 import argparse, json, os, sys
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+from selo import selo
 from collections import Counter
 
 COBRE = 0.6      # a mesma fracao de fios.mesma_celula e de par_validar
@@ -144,6 +147,7 @@ def main():
 
     saida = {
         'DATASET': 'V1-BANDA-FIO-CHECK',
+        'PRODUCED_BY': selo(__file__),
         'RULE_ID': 'R-22',
         'O_QUE_ISTO_E': ('a banda que o extrator leu como UMA linha de dose contem um fio '
                          'horizontal desenhado por dentro?'),

@@ -50,6 +50,9 @@ A tela passa a mostrar a frase. Quem precisa da data le a frase; o que a
 ferramenta nao faz e afirmar que a data nao existe.
 """
 import argparse, json, os, re, subprocess, sys, unicodedata
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+from selo import selo
 from collections import Counter
 
 # Formas medidas no acervo, com o numero de rotulos em que cada uma ocorre.
@@ -134,6 +137,7 @@ def main():
 
     saida = {
         "DATASET": "V1-VIGENCIA-ETICHETTA",
+        "PRODUCED_BY": selo(__file__),
         "RULE_ID": "R-19",
         "O_QUE_ISTO_E": ("a etichetta declara desde quando ela vale? em que forma, e com que "
                          "frase literal"),

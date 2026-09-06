@@ -86,6 +86,9 @@ so pode nascer de prova documental ou taxonomica; semelhanca de escrita nao e
 prova, e "fagiolino parece fagiolo" e semelhanca de escrita.
 """
 import argparse, json, os, re, subprocess, sys, unicodedata
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+from selo import selo
 from collections import Counter
 
 # Descricoes que o proprio extrator escreve no lugar da celula, quando nao ha
@@ -186,6 +189,7 @@ def main():
 
     saida = {
         'DATASET': 'V1-CULTURA-NOMEADA',
+        'PRODUCED_BY': selo(__file__),
         'RULE_ID': 'R-21',
         'O_QUE_ISTO_E': 'o nome da CULTURA que a ferramenta publica esta escrito no rotulo?',
         'O_QUE_ISTO_NAO_E': ('nao diz que o par esta errado e nao remove nada; nao sabe se '

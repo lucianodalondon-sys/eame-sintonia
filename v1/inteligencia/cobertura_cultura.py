@@ -52,6 +52,9 @@ diferentes e as duas ficam na tela, com o denominador de cada uma escrito ao
 lado. Cobertura como numero unico foi o defeito da rodada 1.
 """
 import argparse, json, os, re, sys, unicodedata
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+from selo import selo
 from collections import Counter, defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -149,6 +152,7 @@ def main():
     lidas = cont['CROP_BLOCK_READ']
     saida = {
         'DATASET': 'V1-COBERTURA-CULTURA',
+        'PRODUCED_BY': selo(__file__),
         'RULE_ID': 'R-20',
         'O_QUE_ISTO_E': ('cobertura de uso contada por CELULA DE CULTURA DESENHADA, e nao por '
                          'rotulo'),
@@ -161,6 +165,15 @@ def main():
         'COUNTS': dict(cont.most_common()),
         'USE_VOCABULARY_SIZE': len(VOC_USO),
         'OPEN_VOCABULARY_SIZE': len(VOC),
+        # OS NOMES, e nao so o tamanho. A tela de cobertura trazia uma lista de
+        # nove nomes DIGITADA A MAO no app.js ("PORRO, FINOCCHIO, LATTUGHE,
+        # SCAROLE, RUCOLA, SEDANO, CAVOLFIORE, POMACEE, FRUMENTO"), numa
+        # ferramenta cujo README promete que nenhum numero e digitado. A lista
+        # estava errada de duas maneiras: FRUMENTO ESTA no vocabulario de uso e
+        # tem 110 pares publicados — a mesma caixa dizia que ele nao estava e
+        # depois listava ele entre os 46 —, e ela nao mudou uma letra quando os
+        # numeros de R-20 mudaram entre dois builds. Aqui e derivado.
+        'IN_DOSE_TABLE_NOT_IN_USE_VOCABULARY': sorted(VOC - VOC_USO),
         'BY_LABEL': porreg,
         'NOT_READ': naolidas,
     }

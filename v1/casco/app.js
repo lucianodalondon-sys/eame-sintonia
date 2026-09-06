@@ -906,8 +906,16 @@ function viewProduto(reg) {
       <tr><th>Vigencia declarada NA PROPRIA etichetta</th>
         <td><span class="unknown">VALIDITY_PHRASE_PRESENT_FORM_NOT_READ</span>
           <div class="meta"><b>o rotulo declara vigencia, e este leitor nao sabe estruturar esta
-          forma.</b> Ele conhece &ldquo;valida dal X al Y&rdquo;, que existe em 1 dos 163
-          documentos; este escreve <code>${esc(p.label_validity_form)}</code>, que existe em 112.
+          forma.</b> Ele conhece &ldquo;valida dal X al Y&rdquo;, que existe em
+          ${((P.vigencia||{}).FORMS_MEASURED||{})['valida dal X al Y'] ?? val('NOT_KNOWN')} dos 163
+          documentos; este escreve <code>${esc(p.label_validity_form)}</code>, que existe em
+          ${/* O NUMERO E DA FORMA DESTE PRODUTO, e nao um 112 colado. Era literal no
+                codigo, e a frase muda de produto: medido, 46 fichas dizem
+                "decreto dirigenziale del X" (que ocorre em 145) e 2 dizem
+                "etichetta autorizzata con X" (que ocorre em 150) — 48 de 160
+                fichas imprimiam o numero de outra forma. O payload ja carregava
+                FORMS_MEASURED e nenhuma tela o lia. */
+            ((P.vigencia||{}).FORMS_MEASURED||{})[p.label_validity_form] ?? val('NOT_KNOWN')}.
           Dizer <code>NOT_PRESENT</code> aqui seria publicar
           <code>PARSER_FAILURE</code> como <code>REGULATORY_ABSENCE</code>.
           O documento escreve: <i>&ldquo;${esc(p.label_validity_literal)}&rdquo;</i>
@@ -915,6 +923,22 @@ function viewProduto(reg) {
           no acervo prova que a data do &ldquo;modificata ai sensi ... con validita dal&rdquo; e o
           mesmo fato que a data do &ldquo;valida dal ... al ...&rdquo;. Quem precisa dela le a
           frase.</div></div></td></tr>` : ''}
+      ${/* R-05 · A LINHA INTEIRA SUMIA. Dois produtos (011526 SULTAN e 014380
+            CLORMET) tem label_validity_state=VALIDITY_PHRASE_NOT_FOUND e
+            label_valid_to=NOT_PRESENT: o primeiro ramo exige o outro estado, o
+            segundo exige um valor nao-UNK, e nenhum dos dois dispara. A ficha
+            deixava de ter a linha, e o leitor nao distinguia "nao achamos frase
+            de vigencia" de "esta tela nao tem nada a dizer" — que e a distincao
+            que esta ferramenta existe para manter. O token nao aparecia uma
+            unica vez nos 16,7 MB renderizados. */
+        p.label_validity_state === 'VALIDITY_PHRASE_NOT_FOUND' ? `
+      <tr><th>Vigencia declarada NA PROPRIA etichetta</th>
+        <td><span class="unknown">VALIDITY_PHRASE_NOT_FOUND</span>
+          <div class="meta">este leitor <b>procurou</b> nas tres leituras do PDF e nao achou
+          nenhuma das formas de declaracao de vigencia que ele conhece. Isto e
+          <b>busca que nao achou</b>, nao ausencia provada: a etichetta pode declarar vigencia
+          numa forma que este leitor nao conhece.
+          <code>PARSER_FAILURE != REGULATORY_ABSENCE</code></div></td></tr>` : ''}
       ${p.label_valid_to && !isUnk(p.label_valid_to) ? `
       <tr><th>Vigencia declarada NA PROPRIA etichetta</th>
         <td${(hojeISO() && p.label_valid_to < hojeISO()) ? ' style="color:var(--bad)"' : ''}>
@@ -1662,7 +1686,9 @@ function viewCrop() {
         ${n('DOSE_NOT_PROVED_TARGET_NOT_LITERAL')?`<li><span class="unknown">DOSE_NOT_PROVED_TARGET_NOT_LITERAL</span>
           <b>${n('DOSE_NOT_PROVED_TARGET_NOT_LITERAL')}</b> — ha valor lido, mas o texto do alvo nao
           foi encontrado literalmente no rotulo. O numero fica a um clique e nao e a resposta.</li>`:''}
-      </ul>
+        ${/* o </ul> estava AQUI, e os quatro <li> abaixo ficavam fora de lista
+              nenhuma: 168 pares perdiam o marcador. Achado da lente R, medido
+              no HTML renderizado (3 <ul> para 4 </ul> neste bloco). */''}
         ${n('CROP_IDENTITY_NOT_PROVED')?`<li><span class="unknown">CROP_IDENTITY_NOT_PROVED</span>
           <b>${n('CROP_IDENTITY_NOT_PROVED')}</b> — a etichetta escreve mais de uma forma do mesmo
           nome curto (&ldquo;Barbabietola da zucchero&rdquo; e &ldquo;barbabietola da foraggio&rdquo;),
@@ -1749,6 +1775,16 @@ function viewCrop() {
             Outros <b>${nflex}</b> sao so plural italiano (&ldquo;cavoli&rdquo; para CAVOLO) e
             esses <b>fecham</b> a coluna: a palavra e a mesma.</li>
         </ul>
+        ${(() => { const oc = (pc.OPEN_CELL_ABSOLUTIONS) || 0;
+          if (!oc) return '';
+          return `<div class="meta" style="margin-top:6px"><b>${oc}</b> das <b>${prov}</b>
+            absolvicoes venceram com uma celula que tem <b>um lado nao desenhado</b>: quando falta
+            fio acima (ou abaixo) da palavra, a regra fecha o lado que falta com a borda da
+            pagina, e isso e escolha do codigo e nao traco do documento. A maior delas tem
+            <b>${pc.OPEN_CELL_MAX_BAND_PT} pt</b>, abaixo da maior celula FECHADA que provou um
+            par no acervo (${pc.CLOSED_CELL_MAX_BAND_PT} pt) — o portao
+            <code>OPEN_CELL_DID_NOT_PROVE_A_PAIR</code> cai se essa relacao se inverter.
+            <span class="unknown">OPEN_CELL_ABSOLUTIONS</span></div>`;})()}
         <div class="meta" style="margin-top:6px">Do lado da prova, o mesmo defeito tinha uma
         segunda cara: <b>${ancora}</b> pares tinham selo verde de geometria porque a celula
         desenhada fechou pelo <b>titulo do grupo</b> (&ldquo;ORTICOLE (... FAGIOLINO ...)&rdquo;,
@@ -2108,10 +2144,26 @@ function viewCov() {
     falta, nao o total. As duas coberturas ficam na tela porque contam coisas diferentes —
     cobertura como numero unico foi o defeito da rodada 1.</div>
     <div class="meta" style="margin-top:6px">O vocabulario de uso e uma lista FECHADA de
-    <b>${VOCAB_USO.length}</b> nomes. Nomes que a etichetta escreve e que ele nao tem — medido:
-    <code>PORRO</code>, <code>FINOCCHIO</code>, <code>LATTUGHE</code>, <code>SCAROLE</code>,
-    <code>RUCOLA</code>, <code>SEDANO</code>, <code>CAVOLFIORE</code>, <code>POMACEE</code>,
-    <code>FRUMENTO</code> — nao viram par de uso mesmo quando o rotulo os autoriza. A tela
+    <b>${VOCAB_USO.length}</b> nomes. ${(() => {
+      // A LISTA ERA DIGITADA A MAO, numa tela que promete que nenhum numero e
+      // digitado. Ela dizia que FRUMENTO nao estava no vocabulario — e FRUMENTO
+      // esta, com 110 pares publicados, listado entre os 46 nomes duas linhas
+      // abaixo, na mesma caixa. E ela nao mudou uma letra quando os numeros de
+      // R-20 mudaram entre dois builds. Agora vem de R-20, derivada: sao as
+      // raizes que a TABELA DE DOSE conhece e o vocabulario de uso nao tem.
+      const fora = ((P.coverage_crop_cell || {}).IN_DOSE_TABLE_NOT_IN_USE_VOCABULARY) || [];
+      if (!fora.length) return `A lista dos nomes que a etichetta escreve e ele nao tem
+        ${val('NOT_MEASURED')} — R-20 nao publicou <code>IN_DOSE_TABLE_NOT_IN_USE_VOCABULARY</code>.`;
+      return `Raizes que a TABELA DE DOSE escreve e que o vocabulario de uso <b>nao</b> tem
+        (<b>${fora.length}</b>, medidas por <code>R-20</code>):
+        ${fora.map(x => `<code>${esc(x)}</code>`).join(' ')} — nao viram par de uso mesmo quando o
+        rotulo os autoriza. <b>Sao RAIZES</b> (o corte da ultima vogal), tiradas da celula de
+        cultura da tabela de dose, e algumas sao pedaco de frase e nao nome de cultura
+        (<code>duro</code> de &ldquo;grano tenero e duro&rdquo;, <code>trann</code> de
+        &ldquo;tranne&rdquo;, <code>terren</code> de &ldquo;terreni agrari&rdquo;). A lista e
+        derivada e nao curada: preferimos mostrar o ruido a digitar a lista a mao — a versao
+        anterior era digitada, dizia que <code>FRUMENTO</code> nao estava no vocabulario (esta,
+        com 110 pares publicados) e nao mudou quando os numeros de R-20 mudaram.`;})()} A tela
     CULTURA x ALVO responde <code>CROP_NOT_IN_USE_VOCABULARY</code> nesses casos.
     <div class="meta">Os ${VOCAB_USO.length} nomes: <code>${esc(VOCAB_USO.join(', '))}</code></div></div>
     </div>`;})()}
