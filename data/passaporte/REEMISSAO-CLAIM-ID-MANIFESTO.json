@@ -1,0 +1,35 @@
+{
+  "RULE_VERSION": "CLAIM-ID-2026-09-06",
+  "OPERACAO": "REEMISSAO_DE_IDENTIDADE_DE_AFIRMACAO",
+  "READ_ALONE": "FORBIDDEN — este segmento só tem sentido concatenado ao log canônico, nesta ordem: EVENTOS.jsonl + EVENTOS-REEMISSAO-CLAIM-ID.jsonl",
+  "APPLIES_TO": {
+    "FILE": "data/passaporte/EVENTOS.jsonl",
+    "BRANCH": "claude/sintonia-information-passport-bbtps0",
+    "SHA256": "e3c70cec9d8583b7396edc9bc334557383d353545fb3942ac62777d11c71b498",
+    "EVENT_COUNT": 33886,
+    "FILE_SIZE": 12806353
+  },
+  "SEGMENTO": {
+    "FILE": "data/passaporte/EVENTOS-REEMISSAO-CLAIM-ID.jsonl",
+    "SHA256": "7c2aa161268435a980bda0f433af079c2734b03fb5480cf2a132d9c035e79da9",
+    "EVENT_COUNT": 187,
+    "CLAIM_ID_REISSUED": 155,
+    "CLAIM_LINK_ORPHANED": 32
+  },
+  "GARANTIAS": {
+    "OLD_EVENTS_MODIFIED": 0,
+    "OLD_EVENTS_DELETED": 0,
+    "OLD_EVENTS_REORDERED": 0,
+    "ORFAOS_RESOLVIDOS_POR_INFERENCIA": 0
+  },
+  "NAO_AUTORIZADO_E_NAO_FEITO": [
+    "full backfill",
+    "promoção do passaporte",
+    "alteração do portal",
+    "deploy",
+    "mudança de inteligência",
+    "resolver os 32 órfãos por inferência",
+    "UNIVERSE_COMPLETENESS = PASS",
+    "PASSPORT_READY = YES"
+  ]
+}

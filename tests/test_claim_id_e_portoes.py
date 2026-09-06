@@ -458,6 +458,143 @@ def test_o_portal_nao_declara_capacidade():
 
 
 # ══════════════════════════════════════════════════════════════════════════════════
+# 12 · O ESTADO ATIVO, DEPOIS DA REEMISSÃO — medido do zero
+# ══════════════════════════════════════════════════════════════════════════════════
+
+def _segmento():
+    return os.path.join(RAIZ, 'data', 'passaporte', 'EVENTOS-REEMISSAO-CLAIM-ID.jsonl')
+
+
+def _reemitido():
+    return os.path.isfile(_segmento()) and _log_disponivel()
+
+
+def _estado_ativo():
+    from passaporte_reemitir import dobrar_identidade
+    antigos = ler_eventos(REF)
+    novos = [json.loads(l) for l in open(_segmento(), encoding='utf-8') if l.strip()]
+    return antigos, novos, dobrar_identidade(antigos + novos)
+
+
+def test_ativo_o_historico_antigo_nao_foi_alterado():
+    """Append-only, provado pelo hash do arquivo e pelo prefixo íntegro."""
+    if not _reemitido():
+        print('      (pulado: NAO_MEDIDO — reemissão não aplicada)')
+        return
+    from passaporte_reemitir import sha256_de
+    man = json.load(open(os.path.join(RAIZ, 'data', 'passaporte',
+                                      'REEMISSAO-CLAIM-ID-MANIFESTO.json'),
+                         encoding='utf-8'))
+    canonico = os.path.join(REF, 'data', 'passaporte', 'EVENTOS.jsonl')
+    assert sha256_de(canonico) == man['APPLIES_TO']['SHA256'], \
+        'o log canônico mudou depois da reemissão'
+    antigos, novos, _ = _estado_ativo()
+    assert len(antigos) == man['APPLIES_TO']['EVENT_COUNT'] == 33886
+    assert len(novos) == 187
+
+
+def test_ativo_uma_identidade_por_afirmacao_e_zero_colisao():
+    if not _reemitido():
+        print('      (pulado: NAO_MEDIDO — reemissão não aplicada)')
+        return
+    _, _, ativo = _estado_ativo()
+    r = portao_claim_id(ativo)
+    assert r['PROVED'] is True, f"o estado ativo reprova: {r['BLOQUEIO']}"
+    assert r['CLAIMS_TOTAL'] == 55
+    assert r['CLAIM_IDS_TOTAL'] == 55
+    assert r['COLLIDING_IDS'] == 0
+    assert r['ROUTES_ON_AMBIGUOUS_ID'] == 0
+
+
+def test_ativo_rota_direct_aponta_para_o_claim_certo():
+    if not _reemitido():
+        print('      (pulado: NAO_MEDIDO — reemissão não aplicada)')
+        return
+    _, _, ativo = _estado_ativo()
+    direct = [e for e in ativo if e.get('RELEVANCE') == 'DIRECT']
+    assert len(direct) == 48
+    for r in direct:
+        caso = chave_local(r)
+        assert caso, 'rota DIRECT sem caso declarado'
+        assert caso in str(r.get('CLAIM_ID')), \
+            f"rota DIRECT de {caso} aponta para {r.get('CLAIM_ID')}"
+
+
+def test_ativo_nenhuma_rota_aponta_para_claim_inexistente():
+    if not _reemitido():
+        print('      (pulado: NAO_MEDIDO — reemissão não aplicada)')
+        return
+    _, _, ativo = _estado_ativo()
+    existentes = {e['CLAIM_ID'] for e in ativo
+                  if e.get('EVENT_TYPE') == 'CLAIMS_EXTRACTED' and e.get('CLAIM_ID')}
+    apontam = [e for e in ativo
+               if e.get('EVENT_TYPE') in ('ROUTED_TO_CAPABILITY', 'CONSUMED_BY_CAPABILITY')
+               and e.get('CLAIM_ID') and e['CLAIM_ID'] not in existentes]
+    assert not apontam, f'{len(apontam)} rotas apontam para claim inexistente'
+
+
+def test_ativo_orfa_continua_orfa_e_sem_dono_inventado():
+    if not _reemitido():
+        print('      (pulado: NAO_MEDIDO — reemissão não aplicada)')
+        return
+    _, _, ativo = _estado_ativo()
+    orfas = [e for e in ativo if e.get('CLAIM_LINK_STATE') == 'ORPHANED']
+    assert len(orfas) == 32
+    for o in orfas:
+        assert o.get('CLAIM_ID') is None, 'uma órfã recebeu dono'
+        assert o.get('CAPABILITY_ID') == 'OPPORTUNITY'
+
+
+def test_ativo_o_caso_testemunha_esta_separado():
+    if not _reemitido():
+        print('      (pulado: NAO_MEDIDO — reemissão não aplicada)')
+        return
+    _, _, ativo = _estado_ativo()
+    alvo = [e for e in ativo
+            if e.get('EVENT_TYPE') == 'CLAIMS_EXTRACTED'
+            and e.get('ITEM_ID') == 'ITEM-3CA2E441A6D5FD7A']
+    ids = {e['CLAIM_ID'] for e in alvo}
+    assert len(alvo) == 2 and len(ids) == 2, 'França e Espanha ainda dividem identidade'
+    assert any('CASE-005' in i for i in ids) and any('CASE-006' in i for i in ids)
+
+
+def test_ativo_todo_evento_de_reemissao_e_rastreavel():
+    if not _reemitido():
+        print('      (pulado: NAO_MEDIDO — reemissão não aplicada)')
+        return
+    _, novos, _ = _estado_ativo()
+    ids_antigos = {e.get('EVENT_ID') for e in ler_eventos(REF)}
+    for e in novos:
+        assert e['PREVIOUS_EVENT_REFERENCE'] in ids_antigos, \
+            'evento de reemissão aponta para um evento que não existe'
+        assert e['RULE_VERSION'] and e['ACTOR'] and e['EVENT_ID']
+        if e['EVENT_TYPE'] == 'CLAIM_ID_REISSUED':
+            assert e['OLD_CLAIM_ID'] and e['NEW_CLAIM_ID'] and e['REISSUE_REASON']
+        else:
+            assert e['RECOVERY_STATE'] == 'UNRECOVERABLE' and e['ORPHAN_REASON']
+            assert e['CASE_ID'] is None, 'um órfão ganhou CASE_ID inferido'
+
+
+def test_ativo_o_segmento_nao_pode_ser_lido_sozinho():
+    if not _reemitido():
+        print('      (pulado: NAO_MEDIDO — reemissão não aplicada)')
+        return
+    man = json.load(open(os.path.join(RAIZ, 'data', 'passaporte',
+                                      'REEMISSAO-CLAIM-ID-MANIFESTO.json'),
+                         encoding='utf-8'))
+    assert man['READ_ALONE'].startswith('FORBIDDEN')
+    assert man['GARANTIAS']['OLD_EVENTS_MODIFIED'] == 0
+    assert man['GARANTIAS']['ORFAOS_RESOLVIDOS_POR_INFERENCIA'] == 0
+
+
+def test_ativo_o_universo_continua_reprovando():
+    """O FAIL do universo não pode ter sido maquiado pela reemissão."""
+    r = portao_universo(RAIZ, None)
+    assert r['PROVED'] is False
+    assert r['MOTIVO'] == 'EXPECTED_UNIVERSE_NOT_DECLARED'
+
+
+# ══════════════════════════════════════════════════════════════════════════════════
 
 if __name__ == '__main__':
     try:
