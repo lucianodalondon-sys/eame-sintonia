@@ -754,11 +754,15 @@
         </sc-for>
         <div style="display:flex;flex-direction:column;gap:4px">
           <sc-for list="{{ mcEvidence }}" as="e" hint-placeholder-count="6">
-            <div data-evidence-role="{{ e.roleToken }}" style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;padding:6px 9px;border-radius:8px;background:#211D1C">
-              <span style="font-size:10px;font-variant-numeric:tabular-nums;color:#8F8886">{{ e.id }}</span>
+            <div data-evidence-role="{{ e.roleToken }}" data-evidence-id="{{ e.id }}" style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;padding:6px 9px;border-radius:8px;background:#211D1C">
+              <span style="width:6px;height:6px;border-radius:50%;background:{{ e.famColor }};flex:0 0 6px;align-self:center"></span>
+              <span style="font-size:11.5px;color:#fff">{{ e.short }}</span>
+              <span style="font-size:10px;color:#C9C3C1">{{ e.meta }}</span>
               <span style="font-size:11px;color:#EDEAE9">{{ e.role }}</span>
               <span style="font-size:10px;color:#C9C3C1">{{ e.why }}</span>
               <span style="font-size:10px;color:#8F8886">{{ e.familyLabel }}</span>
+              <span onClick="{{ e.go }}" style="font-size:10px;font-weight:700;letter-spacing:0.06em;color:{{ e.openColor }};cursor:{{ e.cursor }}">{{ e.openL }}</span>
+              <span style="font-size:9.5px;font-variant-numeric:tabular-nums;color:#6F6764">{{ e.ref }}</span>
             </div>
           </sc-for>
         </div>
@@ -5048,6 +5052,59 @@ class Component extends DCLogic {
       n: csEvidenceRows.filter((r) => r.famL === (csEVFAM[f] || f)).length
     }));
     const csEvUnresolved = csEvidenceRows.filter((r) => !r.resolved).length;
+
+    /* ── LE STESSE PROVE, NELLA SCHEDA CHE LA RIUNIONE APRE ──────────────────
+       Lo stesso caso ha DUE schede. La `case`, raggiungibile dal radar, risolve
+       ogni prova in un nome umano e offre «Apri». La `mcase` — quella che il
+       portale apre — stampava l'IDENTIFICATIVO NUDO: misurato, 384 righe nelle
+       43 schede e ZERO con nome, mentre la `case` degli stessi 43 ne nomina
+       639 su 639.
+
+           DUE SCHEDE DELLO STESSO CASO, E QUELLA CHE SI APRE ERA LA POVERA.
+
+       Non si scrive un secondo risolutore: si usa QUESTO. `csAllIdx`,
+       `CS_NAME`, `CS_GO`, `CS_FAM_OF_COLL` e `CS_FAM_OF_PFX` sono gia il
+       registro vivo del modello, e la legge di sopra vale identica qui:
+
+           SE IL NOME NON C'E, SI DICE LA FAMIGLIA — MAI L'ID AL SUO POSTO.
+           L'ID RESTA ACCANTO, COME RIFERIMENTO.
+
+       La riga della riunione tiene RUOLO e PERCHE (che la `case` non ha, e che
+       sono la lettura commerciale) e guadagna il nome, la famiglia e «Apri». */
+    const mcEvidenceRows = ((mcCase && mcCase.evidence && mcCase.evidence.rows) || []).map((e) => {
+      const eid = e.id;
+      const hit = csAllIdx[eid];
+      const fam = (hit ? (CS_FAM_OF_COLL[hit.coll] || '') : '')
+        || e.family
+        || ((CS_FAM_OF_PFX.find((x) => String(eid).startsWith(x[0])) || [])[1] || '');
+      const famL = fam ? (csEVFAM[fam] || String(fam).replace(/_/g, ' ')) : '';
+      const nameFn = hit && CS_NAME[hit.coll];
+      const label = (nameFn && String(nameFn(hit.r) || '').trim()) || '';
+      const goFn = (hit && CS_GO[hit.coll]) ? CS_GO[hit.coll](hit.r) : null;
+      const human = label || (famL
+        ? famL + (hit ? '' : ' · ' + (T.lblUnresolvedRef || 'cited, not in this package'))
+        : (T.lblUnresolvedRef || 'cited, not in this package'));
+      const r0 = hit ? hit.r : null;
+      const evPair = r0 ? [r0.crop, r0.issue].filter(Boolean).join(' × ') : '';
+      const evWhen = r0 ? (r0.date || r0.dateISO || r0.publishedAt || '') : '';
+      const evWhere = r0 ? (r0.region || (r0.regionNames || []).join(', ') || '') : '';
+      return Object.assign({}, e, {
+        famL, fam,
+        famColor: (AM && AM.evidenceUI) ? AM.evidenceUI(fam) : '#978B87',
+        label: human.slice(0, 100),
+        short: human.length > 62 ? human.slice(0, 62).replace(/[\s·—-]+$/, '') + '…' : human,
+        fact: (evPair && human.indexOf(evPair) < 0) ? evPair : '',
+        meta: [evWhen, evWhere].filter(Boolean).join(' · '),
+        ref: eid,
+        resolved: !!hit,
+        go: goFn || (() => {}),
+        canOpen: !!goFn,
+        openL: goFn ? (T.lblOpenRecord || 'Open') : '',
+        cursor: goFn ? 'pointer' : 'default',
+        openColor: goFn ? '#00B152' : '#8F8886',
+      });
+    });
+    const mcEvUnresolved = mcEvidenceRows.filter((r) => !r.resolved).length;
 
     /* ── i prodotti, per NOME ─────────────────────────────────────────────── */
     const csProductRows = ((csRec && csRec.productLinks) || []).map((l) => {
@@ -9507,7 +9564,7 @@ class Component extends DCLogic {
       mcChain: mcCase ? mcCase.whyNow.links.map((l) => Object.assign({}, l, { dot: l.ok ? '#1AB963' : '#F5B317' })) : [],
       mcWhyCodes: mcCase ? mcCase.whyNow.codes : [],
       mcWhyCommercialCodes: mcCase ? mcCase.whyCommercialCodes : [],
-      mcEvidence: mcCase ? mcCase.evidence.rows : [],
+      mcEvidence: mcEvidenceRows, mcEvUnresolved,
       mcNegatives: mcCase ? mcCase.evidence.negatives : [],
       mcCooling: mcCase ? mcCase.evidence.cooling : [],
       mcMissingList: mcCase ? mcCase.missing : [],
