@@ -359,6 +359,62 @@ ecrãs certos, zero erros de consola. `casa-gate` continua 30/30.
 ---
 
 
+### O red team, e o que ele encontrou que o meu portão não via
+
+Sete lentes independentes, 35 achados brutos, cada um contestado por um segundo
+leitor. **5 sobreviveram**, e re-medi todos na árvore de agora.
+
+**O bloqueador — corrigido.** O portal **recalculava no browser** a relevância
+ADAMA a partir dos elos de produto do registo. Existe um veredicto **publicado**
+(`ADAMA_RELEVANCE.VERDETTI`) e o portal nunca o lia — **zero ocorrências**.
+Cinco casos em 43 afirmavam «un prodotto ADAMA ha una corrispondenza verificata
+su etichetta per questo caso» onde o veredicto diz `PROVA: null`; quatro de
+classe C · SEGNALI, o quinto de classe D — o que a lei chama ligação errada e
+não publicável.
+
+> **DUAS LEIS COM O MESMO NOME NÃO SÃO UMA SEGUNDA OPINIÃO: SÃO UMA A FALAR NO
+> LUGAR DA OUTRA.**
+
+Depois: **0 contradições**, e os 13 casos que afirmam «oportunidade de produto»
+são exatamente os 13 que a lei declara provados — os mesmos identificadores.
+
+**Três sérios — corrigidos.**
+
+- **Três fichas italianas diziam «VALIDATE NOW»**: o dicionário do ecrã não tem
+  `VALIDATE_NOW` e caía no token do motor, em inglês, dentro da interface
+  italiana. A frase «VALIDARE ORA» já existia no dicionário da reunião.
+- **174 comandos que não levavam a lado nenhum**: as 29 Janelas ofereciam seis
+  documentos cada via `legacyCaseId`, e **nenhuma** das 43 oportunidades declara
+  já um `legacyCaseId` (medido: zero). A linha deixa de ser oferecida enquanto a
+  janela não souber a que oportunidade pertence — e volta sozinha se o pacote
+  reatar os dois mundos.
+- **A tinta da área promovida a tinta de texto**: nos botões dos documentos a
+  cor da área era o texto **e** o contorno, sem canal de reserva — MARKETING a
+  **2,39:1**, em todas as fichas e nas duas línguas. Na ficha do mapa a mesma
+  tinta serve bem, porque ali é a linha e o texto tem o seu próprio ink a
+  13,54:1.
+
+**Um sério — confirmado e NÃO corrigido.** 12 linhas dizem «Nessun segnale di
+campo corrente» em casos cujo registo declara o sinal **corrente** — um deles
+com `NEED_DIRECTION: NO_ACTION_RECOMMENDED`, isto é, o campo falou e o que disse
+foi «não mexer». O código `SEM_SINAL_ATUAL` significa «sem sinal de uma
+necessidade», não «sem sinal». A frase errada vive no **pacote a montante**
+(`italy-casa.js`), não só no portal: reescrevê-la seria reinterpretar o
+vocabulário do motor. **É defeito; o dono é a camada de inteligência.**
+
+**Duas críticas ao meu próprio trabalho, ambas certas.** O meu portão declarava
+`MAPA_ANTIGO_VISIVEL = NÃO` medindo só ecrãs — e o **PDF que o cliente descarrega**
+reimprimia o mapa de sete áreas. E declarava `ações inventadas = 0` aceitando a
+**dependência** no lugar da **prova**. Ambos corrigidos, e o portão passou a
+medir também a fonte dos documentos.
+
+**Um falso zero meu, apanhado a tempo.** A primeira medição do achado do sinal
+deu 0 porque comparei `signalCurrency` com `'CURRENT'` — e o campo já chega
+traduzido («corrente»). Quase reportei um defeito real como refutado.
+
+---
+
+
 ## J · O QUE FOI MEDIDO E ESTÁ VERDE
 
 ```
