@@ -378,9 +378,27 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
               + '<div class="mini">' + tt(c.PROVA_ADAMA.CULTURA) + ' · ' + tt(c.PROVA_ADAMA.BERSAGLIO)
               + ' · ' + tt(c.PROVA_ADAMA.AUTORIZZAZIONE) + '</div>')
           : '')
+      /* ── LA FRASE NON PUO CONTRADDIRE LA CATENA STAMPATA SOPRA ────────
+         «AGIRE ORA» porta una motivazione scritta: «La catena regge fino al
+         prodotto: si puo parlare con il cliente». MISURATO sul pacchetto:
+         cinque casi stanno in CLIENT_ACT_NOW e TRE di essi hanno
+         CATENA_COMPLETA = false, con i codici SEM_JANELA_ABERTA_AGORA e
+         SEM_TEMPO_PARA_ACAO. Sulla stessa scheda, poche righe piu su, la
+         catena stampa due volte «anello mancante».
+
+             UNA SCHEDA CHE DICE «LA CATENA REGGE» SOPRA UNA CATENA CHE
+             DICHIARA DUE ANELLI ROTTI NON E AMBIGUA: E FALSA.
+
+         Lo stato non si tocca — viene dal motore e non e questa la sede per
+         cambiarlo. Cambia la FRASE: dove la catena non regge, si stampano le
+         parole che la catena stessa porta, gia scritte nel pacchetto in
+         italiano e in inglese. Non si inventa nulla: si smette di affermare
+         il contrario di cio che si e appena mostrato. */
       + (c.RILEVANZA_SUPERFICIE === 'OPPORTUNITA'
           ? '<span class="tag ' + pillOf(c.STATO_CLIENTE) + '">' + tt(c.STATO_CLIENTE) + '</span>'
-            + '<p>' + tt(c.STATO_CLIENTE + '_WHY') + '</p>' : '')
+            + '<p>' + (c.CATENA_COMPLETA === false && Array.isArray(c.CATENA_CODICI) && c.CATENA_CODICI.length
+                ? c.CATENA_CODICI.map(function (k) { return tt(k); }).join(' · ')
+                : tt(c.STATO_CLIENTE + '_WHY')) + '</p>' : '')
       + row(tt('casaKeyPublication'), tt(c.PUBBLICAZIONE)));
 
     return out;
