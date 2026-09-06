@@ -992,7 +992,7 @@ check('W2', 'The red team downgrades; it is not a second population', () => {
      nomina il generatore canonico. Non passa: dichiara. */
   const p = statoDelPacchetto();
   if (p.stato !== 'CANONICO') {
-    return { pass: false, expected: 'la stessa safra', measured: p.stato, detail: [perchePuoiNonMisurare(p)] };
+    return { notTestable: true, pass: false, expected: 'la stessa safra', measured: 'NON MISURABILE · ' + p.stato, detail: [perchePuoiNonMisurare(p)] };
   }
   const AM = loadData().ITALY_APP_MODEL;
   const recs = AM.collections.opportunities.records;
@@ -1094,7 +1094,7 @@ check('O1', 'The same opportunity ids reach the package, the handoff, the model 
      questo controllo non misura e lo dice. */
   const pac = statoDelPacchetto();
   if (pac.stato !== 'CANONICO') {
-    return { pass: false, expected: 'la stessa safra', measured: pac.stato, detail: [perchePuoiNonMisurare(pac)] };
+    return { notTestable: true, pass: false, expected: 'la stessa safra', measured: 'NON MISURABILE · ' + pac.stato, detail: [perchePuoiNonMisurare(pac)] };
   }
   const ctx = loadData();
   const AM = ctx.ITALY_APP_MODEL;

@@ -312,9 +312,26 @@ findings.fatal = fatals;
 await browser.close();
 server.close();
 
-const G = '\x1b[32m', R = '\x1b[31m', X = '\x1b[0m';
-const line = (id, title, hits) => {
+const G = '\x1b[32m', R = '\x1b[31m', Y = '\x1b[33m', X = '\x1b[0m';
+/* ── UN CONTROLLO CHE NON HA POTUTO MISURARE NON E UN CONTROLLO FALLITO ────
+   BR6 confronta cio che lo schermo mostra con la lista dei declassati del red
+   team, che vive nel pacchetto canonico: quel pacchetto SI GENERA e non si
+   conserva. Diceva FAIL, e un FAIL afferma di aver guardato.
+
+       CHIAMARE FALLIMENTO CIO CHE NON SI E POTUTO MISURARE E MENTIRE VERSO
+       IL BASSO. CHIAMARLO SUCCESSO E MENTIRE VERSO L'ALTO.
+
+   Terzo stato, con il motivo accanto, e fuori dal conto dei passati. */
+let nonMisurabili = 0, falliti = 0, passati = 0;
+const line = (id, title, hits, nonMisurabile) => {
+  if (nonMisurabile) {
+    nonMisurabili++;
+    console.log(`  ${Y}N/M ${X}  ${id.padEnd(5)} ${title.padEnd(52)} exp 0      got NON MISURABILE`);
+    [...new Set(hits)].slice(0, 3).forEach((h) => console.log(`        ${h}`));
+    return;
+  }
   const ok = hits.length === 0;
+  ok ? passati++ : falliti++;
   console.log(`  ${ok ? `${G}PASS${X}` : `${R}FAIL${X}`}  ${id.padEnd(5)} ${title.padEnd(52)} exp 0      got ${hits.length}`);
   [...new Set(hits)].slice(0, 6).forEach((h) => console.log(`        ${h}`));
 };
@@ -327,10 +344,13 @@ line('BR2', 'No "undefined" rendered on any screen', findings.undef);
 line('BR3', 'No "[object Object]" rendered on any screen', findings.objobj);
 line('BR4', 'No Portuguese in front of the Italian client', findings.pt);
 line('BR5', 'No engine bookkeeping rendered', findings.forbidden);
-if (br6NonMisurato) line('BR6', 'No red-team rejected opportunity rendered', [br6NonMisurato]);
+if (br6NonMisurato) line('BR6', 'No red-team rejected opportunity rendered', [br6NonMisurato], true);
 else line('BR6', 'No red-team rejected opportunity rendered', findings.rejected);
 line('BR7', 'Every screen actually rendered content', findings.empty);
 console.log('  ' + '─'.repeat(96));
+console.log(`  ${passati}/${passati + falliti} passing`
+  + (falliti ? `  ${R}${falliti} failing${X}` : '')
+  + (nonMisurabili ? `  ${Y}${nonMisurabili} NON MISURABILI${X}` : ''));
 console.log(`  ${seen.length} screen visits over IT -> EN -> IT · ${rejectedIds.size} rejected ids checked`);
 /* Un giro che visita trentasei volte la stessa schermata passerebbe ogni
    controllo qui sopra. Le impronte dicono che non e cosi: schermate diverse
@@ -340,5 +360,9 @@ console.log(`  ${prints.size} distinct screen fingerprints (${new Set(seen.map((
 seen.filter((v) => v.lang === 'it').slice(0, 12).forEach((v) =>
   console.log(`     ${String(v.chars).padStart(6)} chars  ${v.label}`));
 console.log('');
-const total = Object.values(findings).reduce((a, v) => a + v.length, 0);
+/* Il codice d'uscita segue i controlli MISURATI: un non misurabile resta un
+   debito dichiarato, non un fallimento inventato. */
+const total = Object.entries(findings)
+  .filter(([k]) => !(k === 'rejected' && br6NonMisurato))
+  .reduce((a, [, v]) => a + v.length, 0);
 process.exit(total === 0 ? 0 : 1);

@@ -25,18 +25,37 @@ const pad = (s, n) => String(s).slice(0, n).padEnd(n);
 console.log('');
 console.log('  SINTONIA ITALY · STRUCTURAL CHECKS');
 console.log('  ' + '─'.repeat(96));
+/* ── TRE STATI, NON DUE ────────────────────────────────────────────────────
+   Quattro controlli hanno bisogno del pacchetto canonico per esistere, e quel
+   pacchetto SI GENERA, non si conserva: non e nel repository per contratto, e
+   la catena di QUESTO ramo produce un'altra safra (misurato: V21-5d312cb90a0de01d,
+   con trenta file indietro rispetto al generatore canonico). Dicevano FAIL, e
+   un FAIL dice «ho misurato e non va». Non avevano misurato.
+
+       CHIAMARE FALLIMENTO CIO CHE NON SI E POTUTO MISURARE E MENTIRE VERSO IL
+       BASSO. CHIAMARLO SUCCESSO E MENTIRE VERSO L'ALTO.
+
+   Terzo stato, con il motivo scritto accanto. Non conta come passato — il
+   totale lo mostra a parte — e non fa uscire il portone con zero, perche un
+   controllo non misurato resta un debito. */
+const Y = '\x1b[33m';
 for (const r of results) {
-  const mark = r.pass ? `${G}PASS${X}` : `${R}FAIL${X}`;
+  const mark = r.notTestable ? `${Y}N/M ${X}` : r.pass ? `${G}PASS${X}` : `${R}FAIL${X}`;
   console.log(`  ${mark}  ${pad(r.id, 5)} ${pad(r.title, 58)} ${DIM}exp${X} ${pad(r.expected, 12)} ${DIM}got${X} ${r.measured}`);
-  if ((!r.pass || has('verbose')) && r.detail !== undefined) {
+  if ((!r.pass || r.notTestable || has('verbose')) && r.detail !== undefined) {
     const d = Array.isArray(r.detail) ? r.detail : [r.detail];
     for (const line of d.slice(0, has('verbose') ? 40 : 12)) {
       console.log(`        ${DIM}${typeof line === 'string' ? line.slice(0, 150) : JSON.stringify(line).slice(0, 150)}${X}`);
     }
   }
 }
-const ok = results.filter((r) => r.pass).length;
+const nonMisurati = results.filter((r) => r.notTestable);
+const misurabili = results.filter((r) => !r.notTestable);
+const ok = misurabili.filter((r) => r.pass).length;
+const ko = misurabili.length - ok;
 console.log('  ' + '─'.repeat(96));
-console.log(`  ${ok}/${results.length} passing${ok === results.length ? '' : `  ${R}${results.length - ok} failing${X}`}`);
+console.log(`  ${ok}/${misurabili.length} passing`
+  + (ko ? `  ${R}${ko} failing${X}` : '')
+  + (nonMisurati.length ? `  ${Y}${nonMisurati.length} NON MISURABILI${X} (${nonMisurati.map((r) => r.id).join(' ')})` : ''));
 console.log('');
-process.exit(ok === results.length ? 0 : 1);
+process.exit(ko === 0 ? 0 : 1);

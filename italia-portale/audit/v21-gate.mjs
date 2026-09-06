@@ -195,7 +195,24 @@ const assinaturaAtual = crypto.createHash('sha256')
 const assinaturaOk = H.languageGate === assinaturaAtual;
 line(assinaturaOk, 'V4', 'The shipped package was built with the CURRENT language gate',
   assinaturaAtual, H.languageGate || 'not stamped');
-if (!assinaturaOk) console.log('        rebuild with: python3 scripts/site_v21_ingest.py');
+if (!assinaturaOk) {
+  /* V4 HA MISURATO, E RESTA UN FALLIMENTO. Non e come W2, O1 e BR6: quelli non
+     hanno potuto guardare: questo ha guardato e ha trovato una divergenza vera —
+     il file imbarcato porta la firma di una lista di marcatori piu vecchia.
+
+         UN CONTROLLO CHE HA MISURATO NON DIVENTA «NON MISURABILE» PERCHE LA
+         CURA E FUORI PORTATA.
+
+     La cura, pero, e fuori portata qui: `site_v21_ingest.py` legge il pacchetto
+     V2.1 in build/, che non e nel repository, e la catena di questo ramo
+     produrrebbe un'altra safra (V21-5d312cb90a0de01d). Cio che questa firma
+     sorveglia — prosa portoghese davanti al cliente italiano — e misurato
+     ASSENTE altrove: browser BR4 e meeting-browser NO_PORTUGUESE_ON_SCREEN,
+     entrambi zero. Il debito e la rigenerazione, non una parola a schermo. */
+  console.log('        rebuild with: python3 scripts/site_v21_ingest.py');
+  console.log('        richiede il pacchetto canonico in build/ — assente per contratto in questo repository');
+  console.log('        cio che la firma sorveglia e misurato assente: BR4 = 0 · NO_PORTUGUESE_ON_SCREEN = 0');
+}
 console.log('  ' + '─'.repeat(96));
 console.log(`  state tokens shipped: ${estados.size}`);
 console.log('');
