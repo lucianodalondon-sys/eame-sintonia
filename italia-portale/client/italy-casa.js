@@ -897,8 +897,8 @@ window.ITALY_CASA = {
    "it": "Nessuna fonte dichiara una regola di intervento per questa coppia"
   },
   "SALES_READY": {
-   "en": "SALES READY",
-   "it": "PRONTO PER LA VENDITA"
+   "en": "PRIORITY TO INVESTIGATE NOW",
+   "it": "PRIORITÀ DA VALUTARE ORA"
   },
   "SCIENTIFIC_RECORD": {
    "en": "Scientific record",

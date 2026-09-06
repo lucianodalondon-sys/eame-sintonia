@@ -337,12 +337,36 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
        hanno una; VALIDATE e NO_ACTION no, e forzarli dentro una delle tre
        sarebbe decidere al posto suo. */
     var senzaFinestra = c.AZIONI.some(function(a){ return !a.FINESTRA; });
+    /* ── UN CODICE DI CATENA NON E UN VERDETTO SUL MONDO ─────────────
+       `SEM_SINAL_ATUAL` nasce nella catena del PERCHE ORA e significa: l'anello
+       del segnale non e chiuso — il segnale non porta una direzione di
+       necessita positiva per questa coppia. Stampato da solo come motivo
+       d'azione veniva letto con la sua frase piena, «Nessun segnale di campo
+       corrente», che dice un'altra cosa: che il campo tace.
+
+       MISURATO su questo stesso pacchetto: trentasette righe portano quel
+       codice, e DODICI stanno su casi la cui ATTUALITA e CURRENT. Tre hanno
+       DIREZIONE = NO_ACTION_RECOMMENDED, due finestra conclusa, uno intervento
+       sospeso, uno menzione neutra: il campo ha parlato, e cio che ha detto e
+       la ragione per non muoversi.
+
+           NEGARE UN FATTO PROVATO E LO SPECCHIO DI INVENTARNE UNO.
+
+       Dove il segnale c'e, la riga porta il nome vero dell'anello — gia
+       pubblicato — e accanto la frase che il pacchetto assegna alla direzione.
+       Nessuna parola nuova: due frasi gia scritte, unite dal separatore che
+       questa pagina usa ovunque. */
+    var motivoAzione = function(a){
+      if (a.PERCHE !== 'SEM_SINAL_ATUAL' || c.ATTUALITA !== 'CURRENT') return tt(a.PERCHE);
+      var dir = tt(c.DIREZIONE || 'UNKNOWN');
+      return tt('SINAL_ATUAL') + (dir ? ' · ' + dir : '');
+    };
     out += sec(tt('casaSecWhoActs'), c.AZIONI.map(function(a){
       return '<div class="row"><div class="rk">' + tt(a.REPARTO) + '</div><div class="rv">'
         + (a.FINESTRA ? '<span class="tag ' + (a.FINESTRA === 'WINDOW_ACT_NOW' ? 'act'
             : a.FINESTRA === 'WINDOW_PREPARE' ? 'prep' : 'mon') + '">' + tt(a.FINESTRA) + '</span>'
           : '<span class="tag no">' + tt(a.STATO) + '</span>')
-        + '<b>' + tt(a.AZIONE) + '</b> — ' + tt(a.PERCHE)
+        + '<b>' + tt(a.AZIONE) + '</b> — ' + motivoAzione(a)
         + (a.DIPENDE_DA ? '<div class="mini">' + tt('casaDependsOn') + ': ' + tt(a.DIPENDE_DA) + '</div>' : '')
         + '</div></div>';
     }).join('') + (senzaFinestra ? '<p class="mini">' + tt('casaNoWindowStated') + '</p>' : ''));

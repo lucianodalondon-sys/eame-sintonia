@@ -110,7 +110,24 @@
     FUTURE_PREPARATION: ['PREPARAZIONE FUTURA', 'FUTURE PREPARATION'],
 
     /* ── COMMERCIAL_PRIORITY ────────────────────────────────────────── */
-    SALES_READY:           ['PRONTO PER LA VENDITA', 'SALES READY'],
+    /* ── DECISIONE DI PRODOTTO · NON SI DICHIARA UNA VENDITA ──────────────
+       «PRONTO PER LA VENDITA» / «SALES READY» affermava una conclusione di
+       vendita su cinque casi di quarantatre. La legge del prodotto, per questo
+       modulo, e scritta e dice il contrario:
+
+           OUTPUT  PRIORITY TO INVESTIGATE   <- nunca SALES OPPORTUNITY
+           ESTADOS DATA_PROVED = SIM · DECISION_PROVED = NAO
+
+       Il dato e provato; la DECISIONE no. Un'etichetta che dice «pronto per la
+       vendita» promette la seconda usando la prima.
+
+           IL DATO PROVATO DICE CHE VALE LA PENA GUARDARE. NON DICE CHE SI PUO
+           VENDERE.
+
+       Il gradino resta il primo della scala commerciale — cambia cio che
+       promette: una priorita da valutare adesso, non una vendita pronta.
+       L'inglese porta le parole della legge. */
+    SALES_READY:           ['PRIORITÀ DA VALUTARE ORA', 'PRIORITY TO INVESTIGATE NOW'],
     STRATEGIC_OPPORTUNITY: ['OPPORTUNITA STRATEGICA', 'STRATEGIC OPPORTUNITY'],
     COMMERCIAL_WATCH:      ['OSSERVAZIONE COMMERCIALE', 'COMMERCIAL WATCH'],
 

@@ -287,10 +287,62 @@
 
   /* ── THE ACTION MAP · exactly the engine's departments ──────────────── */
   const DEPT_ORDER = ['MARKET_DEVELOPMENT', 'COMMERCIAL', 'MARKETING', 'TECHNICAL_SCIENTIFIC', 'SUPPLY'];
+  /* ══ UN CODICE DI CATENA NON E UN VERDETTO SUL MONDO ══════════════════════
+     `SEM_SINAL_ATUAL` nasce nella catena del PERCHE ORA, dove significa: l'anello
+     SINAL_ATUAL non e chiuso — il segnale non porta una direzione di necessita
+     positiva per questa coppia. Riusato come motivo d'azione veniva letto con la
+     sua frase piena, «Nessun segnale di campo corrente», che e un'altra
+     affermazione: dice che il campo tace.
+
+     MISURATO: trentasette righe portano quel codice; DODICI stanno su casi il cui
+     record dichiara SIGNAL_CURRENCY = CURRENT. Tre di quei dodici hanno
+     NEED_DIRECTION = NO_ACTION_RECOMMENDED, due WINDOW_CONCLUDED, uno
+     ACTION_SUSPENDED, uno NEUTRAL_MENTION: il campo ha parlato, e cio che ha
+     detto e proprio la ragione per non muoversi. Gli altri cinque hanno la
+     direzione non dichiarata.
+
+         NEGARE UN FATTO PROVATO E LO SPECCHIO DI INVENTARNE UNO.
+
+     Dove il segnale c'e, la riga smette di negarlo: porta il codice vero —
+     SINAL_ATUAL, gia pubblicato — e accanto la frase che il motore stessa
+     assegna alla direzione. Nessuna parola nuova: due frasi gia scritte, unite
+     dal separatore che il portale usa ovunque. Dove il segnale non c'e, il
+     codice resta quello di prima. */
+  function motivoDelSegnale(c, a, lang) {
+    if (a.WHY_CODE !== 'SEM_SINAL_ATUAL' || c.SIGNAL_CURRENCY !== 'CURRENT') {
+      return { token: a.WHY_CODE, frase: lab(a.WHY_CODE, lang) };
+    }
+    const corrente = lab('SINAL_ATUAL', lang);
+    const direzione = lab(c.NEED_DIRECTION || 'UNKNOWN', lang);
+    return {
+      token: 'SINAL_ATUAL',
+      frase: direzione ? (corrente + ' · ' + direzione) : corrente,
+    };
+  }
+
+  /* ══ LO STATO DICE IN CHE CONDIZIONE SIAMO. L'AZIONE DICE COSA FARE ══════
+     Su TRE righe delle duecentoquindici il motore emette lo stesso identificativo
+     nei due campi: ACTION_STATE = PREPARE e ACTION = PREPARE. La riga usciva
+     «PREPARARE — PREPARARE»: la colonna dell'azione ripeteva la condizione e non
+     aggiungeva niente.
+
+         SE LO STATO E L'AZIONE SONO LA STESSA PAROLA, UNA DELLE DUE COLONNE
+         NON STA RISPONDENDO ALLA PROPRIA DOMANDA.
+
+     Non si inventa un'azione che il motore non ha dichiarato, e non si cambia
+     ne il suo codice ne la sua frase: il motore ha detto PREPARE e il portale
+     non lo contraddice. Si DICHIARA che l'azione non e distinta dallo stato, e
+     la superficie smette di stampare due volte la stessa parola: al suo posto
+     restano la dipendenza e l'innesco, che gia rispondono a «che cosa lo
+     scioglierebbe» — qui «finestra aperta adesso». Provenienza intatta,
+     colonna che smette di ripetersi. */
+  const azioneDistinta = (a) => !(a.ACTION && a.ACTION_STATE && a.ACTION === a.ACTION_STATE);
+
   function actionsOf(c, lang) {
     const by = c.ACTION_BY_DEPARTMENT || {};
     return DEPT_ORDER.filter((d) => by[d]).map((d) => {
       const a = by[d];
+      const motivo = motivoDelSegnale(c, a, lang);
       return {
         DEPARTMENT: d,
         deptLabel: lab(d, lang),
@@ -298,8 +350,10 @@
         state: lab(a.ACTION_STATE, lang),
         actionToken: qual('ACTION', a.ACTION),
         action: lab(a.ACTION, lang),
-        whyToken: a.WHY_CODE,
-        why: lab(a.WHY_CODE, lang),
+        /* falso quando il motore emette lo stesso identificativo nei due campi */
+        actionDistinct: azioneDistinta(a),
+        whyToken: motivo.token,
+        why: motivo.frase,
         dependency: lab(a.DEPENDENCY, lang),
         /* NEXT_TRIGGER arrives as Portuguese research prose. It is a closed
            vocabulary of two, so it is translated by exact value. An
