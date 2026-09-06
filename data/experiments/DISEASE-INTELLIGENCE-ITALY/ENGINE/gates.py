@@ -151,12 +151,34 @@ def evaluate(as_of=dt.date(2026, 9, 6)):
                     f"code table rather than the first), and two of its labels remain "
                     f"unresolved. 0 case-conditional branches remains true."}
 
-    # J — it is not a duplicate of something the portal already has
-    g["J_NOT_DUPLICATE"] = {
-        "VERDICT": NT,
-        "EVIDENCE": "cannot be settled from this branch alone: it requires reading the portal's "
-                    "current capability inventory, which this mission is forbidden to touch. "
-                    "NOT_TESTABLE is not a pass."}
+    # J — ANSWERED 2026-09-06. The old NOT_TESTABLE reason was wrong twice: the mission forbids
+    # MODIFYING the portal, not READING it, and the inventory is in this branch's own working
+    # tree. Read-only, nothing modified.
+    snap = "/home/user/eame-sintonia/italia-portale/client/meeting-intelligence-snapshot.json"
+    jv = FAIL, "inventory not readable"
+    if os.path.exists(snap):
+        S = json.load(open(snap))
+        def _walk(o):
+            if isinstance(o, dict):
+                yield o
+                for x in o.values(): yield from _walk(x)
+            elif isinstance(o, list):
+                for x in o: yield from _walk(x)
+        cases = [d for d in _walk(S) if isinstance(d, dict) and "ARCHETYPE" in d]
+        fp = [c for c in cases if c.get("ARCHETYPE") == "O1_FIELD_PRESSURE"]
+        targets = {str(c.get("TARGET")) for c in cases}
+        olive = [t for t in targets if "OLIVE" in t.upper() or "BACTROCERA" in t.upper()]
+        vine_tosc = [c for c in fp if c.get("GEOGRAPHY") == "REGION_TOSCANA"
+                     and c.get("CROP") == "CROP_GRAPEVINE"]
+        jv = ("PARTIALLY_OVERLAPS",
+              f"the portal already ships {len(fp)} O1_FIELD_PRESSURE ('Pressione in campo') "
+              f"cases out of {len(cases)}, {len(vine_tosc)} of them vine x Toscana at provincial "
+              f"scope — the very cell this capability must stay SILENT on — while its whole "
+              f"TARGET vocabulary contains {len(olive)} olive targets. COVERAGE INVERSION: the "
+              f"portal covers the cell we cannot publish and has no words for the cell we can. "
+              f"Neither a pass nor a clean fail.")
+    g["J_NOT_DUPLICATE"] = {"VERDICT": jv[0] if jv[0] in (PASS, FAIL, NT) else NT,
+                            "ANSWER": jv[0], "EVIDENCE": jv[1]}
 
     n_pass = sum(1 for x in g.values() if x["VERDICT"] == PASS)
     n_fail = sum(1 for x in g.values() if x["VERDICT"] == FAIL)

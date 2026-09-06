@@ -463,3 +463,139 @@ was not worth this morning.
 proudest property — *fails loudly to UNKNOWN, never quietly to zero* — was **false** the first
 time it met a case it had not been built for, and I would not have discovered that by testing it
 on the cases I chose for it.
+
+---
+---
+
+# FIFTH ROUND — the conclusion itself was wrong
+
+## C25 — FATAL, CONCEDED · **"one cell qualifies" is a property of the DATE, not of the cell.**
+
+The mission's headline finding — olive 8/10 publishable, vine 0/10, therefore *the capability
+belongs to the cell* — was measured at a single `AS_OF`: **6 September 2026**, which is simply
+today. Re-run with the identical code and the identical declared gate at other dates in the same
+season, **the verdict inverts.** My own re-run:
+
+```
+AS_OF        OLIVE pub   stab   lat | VINE pub   stab   lat
+2026-06-01           0  1.000   227 |        5  0.849     0
+2026-06-15           0  1.000   241 |        6  0.842     0
+2026-07-01           0  0.864     0 |        4  0.764     0
+2026-07-15           2  0.833     0 |        3  0.698     0
+2026-08-01           6  0.816     1 |        1  0.584     3
+2026-08-15           7  0.856     1 |        3  0.637     8
+2026-09-06           8  0.918     2 |        0  0.596     2
+```
+
+On **15 June the vine cell publishes 6 provinces and the olive cell publishes none.** 6 September
+is the peak of the olive-fly season and roughly two months past the end of the oidio season. I
+did not choose the date to flatter the result — it is today — but the result is a property of the
+date all the same, and I presented it as a property of the cell. Checkpoint 11 disclosed
+"(2/10 at mid-season)" for the vine in a single parenthesis; the measured mid-season figure is
+**5–6/10**, and on those dates the olive figure is **zero**.
+
+Note also that OLIVE stability reads a perfect **1.000** on 1 and 15 June — with latency 227 and
+241 days and nothing publishable. A stability of 1.000 there means "consistently UNKNOWN", not
+"consistently right". A headline stability number is meaningless without the latency beside it.
+
+**What survives, and what does not.**
+- Does **not** survive: "the olive cell qualifies and the vine cell does not"; "one cell
+  qualifies"; the 8/10-vs-0/10 contrast as evidence for the cell principle.
+- **Survives, sharpened**: the capability is a property of **REGION × CROP × ISSUE × DATE**. On
+  any given day only a few cells can be published, and which ones changes through the season.
+- **Survives, and is date-independent**: C11. The vine case's province agreement is confounded
+  by survey effort (effort ρ +0.738 vs disease ρ +0.229) — computed over whole seasons, so it
+  holds on every date, including the June dates where the vine passes the publication gate.
+  **Passing the publication gate is not the same as having trustworthy internal consistency**,
+  and I had conflated the two.
+
+**Commercial consequence, which is worse than the scientific one**: the olive campaign runs late
+June to late October. For roughly eight months a year the olive view has nothing to render and
+would read "updated 241 days ago". A single-cell feature is dark most of the year; a
+continuously-useful feature needs several cells — which is precisely what "one cell qualifies"
+denies.
+
+## C26 — CONCEDED · **`HIGHER_THAN_USUAL` can fire on four groves out of 119.**
+
+The class is a pure rank statistic with **no floor on the size of the effect**. Early in the
+season every baseline is a run of zeros, so a single detection scores percentile ~1.0 and is
+published as HIGHER. At `AS_OF 2026-07-15` the engine emits HIGHER for Grosseto on **4 of 119
+sites** (readings 9/6/5/2 %), for Firenze on **1 of 68**, for Livorno on **1 of 41** — and not
+one of those six sites reaches the source's own red band of ≥10 %. Grosseto's HIGHER clears the
+publication gate and would be rendered.
+
+`HIGHER_THAN_USUAL` is the only word in the vocabulary that can trigger spending. The declared
+`UNKNOWN_RULE` guards `n_sites` and baseline depth; **nothing guards a degenerate all-zero
+baseline, and the publication gate tests stability and coverage, not effect size.**
+
+## C27 — CONCEDED · the published variable is the **lagging** one, and the choice was never justified.
+
+The source exposes `-1001 attiva` (live, still-killable population) and `-1002 dannosa` (damage
+the fruit already carries) from the same visit. I published `dannosa`. My own join:
+
+```
+51 021 visits with both readings:  attiva > 0 in 57.8%   dannosa > 0 in 32.7%
+attiva > 0 AND dannosa == 0:       16 461 visits = 32.3%
+mentions of 'attiva' or '-1001' in any .md of this experiment: ZERO
+```
+
+Same day, same engine: Lucca reads **0.000** on the published variable and **0.500** on the live
+one; Livorno 0.117 vs 0.584. All 79 251 rows of `-1001` were fetched, hashed and stored, and no
+rationale for the choice exists anywhere.
+
+**Measured honestly, the *class* is robust**: on 6 September both variables give 8 LOWER,
+1 TYPICAL, 1 UNKNOWN. So the relative statement survives the choice; **the absolute number a
+user would read does not**, and the choice of the damage-already-done variable over the
+still-actionable one was never argued.
+
+## C28 — CONCEDED · **gate J is answerable, and the answer is `PARTIALLY_OVERLAPS`.**
+
+My reason for `NOT_TESTABLE` — "requires reading the portal's capability inventory, which this
+mission is forbidden to touch" — was wrong twice. The mission forbids **modifying**, not
+**reading**; and the inventory is in this branch's own working tree. Read-only, verified myself:
+
+```
+italia-portale/client/meeting-intelligence-snapshot.json
+  43 cases, of which 17 carry ARCHETYPE = O1_FIELD_PRESSURE  ("Pressione in campo")
+  including CROP_GRAPEVINE x ISSUE_POWDERY_MILDEW x REGION_TOSCANA at PROVINCIAL scope
+  the complete TARGET vocabulary contains NO olive target
+```
+
+**Coverage inversion, and it is the sharpest thing found all day:** the portal already ships a
+provincial *Field pressure* card for the cell my capability must stay **silent** on, and has no
+vocabulary at all for the cell it can publish.
+
+`J_NOT_DUPLICATE = PARTIALLY_OVERLAPS` — neither a pass nor a clean fail.
+
+## C29 — CONCEDED · `ADAMA_PRODUCT_RELATION = NOT_PROVED` was stated for a **false reason**.
+
+I wrote, twice, that no approved-use handoff had been received from the regulatory lane. **It
+had.** `italia-portale/client/italy-label-verdicts.js` is in this working tree, applied
+02 September 2026 from an audit of 163 official Italian labels, and it adjudicates **exactly my
+qualifying cell**:
+
+```
+NOT_FOUND = [ ['Olive','Olive Fruit Fly','KLARTAN 20 EW'],
+              ['Olive','Olive Fruit Fly','KLARTAN SMART'],
+              ['Olive','Olive Fruit Fly','MAVRIK SMART'], ... ]
+governed by: "ABSENCE IN OUR READING  ≠  ABSENCE IN THE WORLD"
+```
+
+The verdict `NOT_PROVED` stands, but for a better-evidenced and commercially harder reason: the
+regulatory lane read the labels and found **no ADAMA product on label for Olive × Olive Fruit Fly
+in that reading** — which its own rule says is not proof of absence in the world.
+
+**The commercial sting must be said plainly**: the one cell that qualifies agronomically today is
+a cell where our own label reading found nothing to sell.
+
+## C30 — CONCEDED, PARTIALLY · CAP-014 / CAP-015 already exist in the project's own atlas.
+
+`docs/capacidades/ATLAS-DE-CAPACIDADES-EAME.md` carries CAP-014 *"Medir pressão de doença por
+província e por semana, em número"* and CAP-015 *"Detectar que a doença é regional, não
+nacional"*, both `CONFIDENCE: COMPROVADO`. **For Spain** (RAIF Andalucía), not Italy.
+
+So the capability *concept* was already registered as proven on another source and country. What
+this mission adds — and what should have been claimed as the delta instead of as the capability —
+is: **Italy**; the prior-season baseline and percentile class; the publication gate; the
+135-point stability grid; and the effort-confound test that CAP-015's own red-team lesson
+anticipates.

@@ -12,18 +12,34 @@ Todos os números abaixo saem de artefactos em disco, não de memória:
 
 ## A — RESPOSTA DIRETA
 
-**SIM, para UMA célula. Não como plataforma.**
+**SIM, mas para um conjunto ROTATIVO e pequeno de células — nunca como plataforma.**
 `DESERVES_FUTURE_INTEGRATION = YES_SCOPED`
 
-A capacidade não é propriedade da ferramenta. É propriedade da célula
-**REGIÃO × CULTURA × PROBLEMA**. Mesmo código, mesma região, mesmo dia:
+A capacidade é propriedade de **REGIÃO × CULTURA × PROBLEMA × DATA**. Esta última palavra é uma
+correção minha, feita depois de o red team a exigir: eu tinha escrito que a célula da oliveira
+qualifica e a da videira não. **Isso era uma propriedade do dia 6 de setembro, não das células.**
+A minha própria re-execução, mesmo código, mesmo gate declarado:
 
 ```
-Toscana x oliveira x Bactrocera oleae ...... 8/10 províncias publicáveis
-Toscana x videira  x oídio ................. 0/10 províncias publicáveis
+AS_OF        OLIVEIRA pub   estab   latência | VIDEIRA pub   estab   latência
+2026-06-01              0   1.000       227d |           5   0.849        0d
+2026-06-15              0   1.000       241d |           6   0.842        0d
+2026-08-01              6   0.816         1d |           1   0.584        3d
+2026-09-06              8   0.918         2d |           0   0.596        2d
 ```
 
-Um portal que envie isto tem de o enviar por célula — e tem de conseguir não dizer nada.
+**A 15 de junho o veredicto está exatamente invertido.** E a estabilidade de 1.000 da oliveira em
+junho significa "consistentemente UNKNOWN", não "consistentemente certo" — um número de
+estabilidade sem a latência ao lado não quer dizer nada.
+
+O que sobrevive, e é mais útil do que o que caiu: **num dia qualquer só um punhado de células
+pode ser publicado, e quais mudam ao longo da estação.** Um portal que envie isto tem de o enviar
+por célula E por data — e tem de conseguir não dizer nada, durante meses.
+
+**Consequência comercial, pior que a científica:** a campanha da azeitona corre de final de junho
+a final de outubro. Durante cerca de **oito meses por ano a vista da oliveira não tem nada para
+mostrar** e leria "atualizado há 241 dias". Uma funcionalidade de uma célula só está apagada a
+maior parte do ano.
 
 ## B — OS CASOS ELEITOS (FASE 1)
 
@@ -166,10 +182,24 @@ AGRONOMIC_INTELLIGENCE_VALUE = PROVED      OLIVO x BACTROCERA x TOSCANA
 ADAMA_PRODUCT_RELATION       = NOT_PROVED
 ```
 
-`NOT_PROVED` aqui significa exatamente uma coisa: não chegou handoff de uso aprovado da via
-regulatória (`claude/label-intelligence-v1-italy`), logo nenhum produto pode ser ligado a
-nenhuma célula. **Não significa que não exista relação, e não mata a capacidade** — cada
-afirmação agronómica acima sustenta-se sozinha sem nomear um único produto.
+**Correção (C29): a razão que eu tinha dado para isto era falsa.** Escrevi duas vezes que não
+tinha chegado handoff da via regulatória. **Tinha.** `italia-portale/client/italy-label-verdicts.js`
+está nesta árvore de trabalho, aplicado a 02/09/2026 a partir de 163 rótulos oficiais italianos, e
+adjudica **exatamente a célula que qualifica**:
+
+```
+NOT_FOUND = [ ['Olive','Olive Fruit Fly','KLARTAN 20 EW'],
+              ['Olive','Olive Fruit Fly','KLARTAN SMART'],
+              ['Olive','Olive Fruit Fly','MAVRIK SMART'], ... ]
+regra que o governa: "ABSENCE IN OUR READING  ≠  ABSENCE IN THE WORLD"
+```
+
+`NOT_PROVED` mantém-se, por uma razão melhor documentada e comercialmente mais dura: a via
+regulatória leu os rótulos e **não encontrou produto ADAMA em rótulo para Olive × Olive Fruit
+Fly nessa leitura** — o que, pela sua própria regra, não é prova de ausência no mundo.
+
+**A ferroada comercial, dita sem rodeios: a única célula que qualifica agronomicamente hoje é uma
+célula onde a nossa própria leitura de rótulos não encontrou nada para vender.**
 
 ## K — GATES A–J (FASE 9)
 
@@ -184,12 +214,12 @@ afirmação agronómica acima sustenta-se sozinha sem nomear um único produto.
 | G DISCRIMINATES_BETWEEN_SEASONS | PASS | quota da classe dominante 0.42 / 0.67 |
 | H REFRESHABLE_WITHOUT_RESEARCH | PASS | **estava invertido** (exigia `delta_rows == 0`: um refresh que funciona falhava, uma fonte morta passava); agora deteta 3 formas de falha silenciosa e exige que um controlo negativo dispare |
 | I GENERALIZES | PASS | **era um `PASS` constante**; agora corre o 4º caso ponta-a-ponta e falha se a série não variar |
-| **J NOT_DUPLICATE** | **NOT_TESTABLE** | exige o inventário de capacidades do portal — em arbitragem |
+| **J NOT_DUPLICATE** | **PARTIALLY_OVERLAPS** | **corrigido**: era respondível a partir desta própria branch (ler ≠ tocar). O portal já envia 17 casos `O1_FIELD_PRESSURE` ("Pressione in campo"), incluindo videira × oídio × Toscana a nível provincial — e **não tem vocabulário nenhum para a oliveira**. Inversão de cobertura: o portal cobre a célula em que esta capacidade se tem de calar, e não tem palavras para a única que ela publica |
 
 ```
-PASS = 9   FAIL = 0   NOT_TESTABLE = 1
+PASS = 9   FAIL = 0   PARTIALLY_OVERLAPS = 1
 ```
-`NOT_TESTABLE` não conta como aprovação.
+O gate J deixou de ser `NOT_TESTABLE`: foi respondido, e a resposta não é uma aprovação.
 
 ## L — A ÚNICA CÉLULA QUE QUALIFICA HOJE
 

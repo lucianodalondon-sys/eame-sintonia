@@ -37,6 +37,12 @@ and the words "no data". It is never omitted, never zero, never grey-as-low, nev
 from neighbours, and never dropped from a map by leaving the polygon uncoloured in the same
 palette as the low class.
 
+**R2a — the unit is printed, every time.** The mock above shows `11.7%` for Livorno. In this
+trade *"% infestazione dannosa"* means **percent of dissected olives**, and that number for
+Livorno on the same day is **0.22%** — a 50× collision. `answer_sheet.py` emits
+`UNITS = "share of monitored sites with the issue present"`; this spec dropped it and must not.
+Print the unit, or print the trade's metric, never a bare percentage.
+
 **R2 — the site count sits next to every value.** 30.0% over 10 sites and 5.8% over 156 sites
 are different statements and must look different.
 
@@ -54,6 +60,10 @@ days ago" sit in the header. A view that cannot state its own latency must not r
 anywhere on this view, until the regulatory lane delivers an approved use carrying
 `REGISTRATION_ID`, `AUTHORIZED_USE_PROVED`, `SOURCE_PDF` and `SOURCE_HASH`. Today
 `ADAMA_PRODUCT_RELATION = NOT_PROVED`.
+
+**R7a — the view goes dark for months, and says so.** The olive campaign runs late June to late
+October. Outside it there is no 28-day window to populate and the honest header is "no
+observations for 241 days". The view must render that state deliberately, not as an error.
 
 **R7 — an in-progress season is labelled.** Any season chart including the current season shows
 "season in progress, week N of ~M". The 28-day comparison is unaffected and says so.

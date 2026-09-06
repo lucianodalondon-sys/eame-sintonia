@@ -43,6 +43,7 @@ from contracts import EvidenceRole, Missing, Cutoff
 from run_case import build_scale
 
 WINDOW_DAYS, MIN_SITES, MIN_BASE, HIGH_P, LOW_P = 28, 8, 5, 0.80, 0.20
+MIN_POSITIVE_SITES = 5      # a rank is not an effect: HIGHER needs this many positive sites
 UNKNOWN_NO_DATA, UNKNOWN_NO_BASELINE = "UNKNOWN_NO_DATA", "UNKNOWN_NO_BASELINE"
 HIGHER, TYPICAL, LOWER = "HIGHER_THAN_USUAL", "TYPICAL_FOR_THE_DATE", "LOWER_THAN_USUAL"
 
@@ -228,6 +229,7 @@ def assert_outcome_admissible(case_dir, var_id, evidence_role):
 def current_pressure(case_dir, var_id, as_of, metric="INCIDENCE",
                      window_days=WINDOW_DAYS, min_sites=MIN_SITES,
                      min_base=MIN_BASE, high_p=HIGH_P, low_p=LOW_P, _pre=None,
+                     min_positive_sites=MIN_POSITIVE_SITES,
                      evidence_role=EvidenceRole.OFFICIAL_OBSERVATION):
     rows, scale, meta = _pre if _pre else load_rows(case_dir, var_id)
     role = assert_outcome_admissible(case_dir, var_id, evidence_role)
@@ -290,7 +292,20 @@ def current_pressure(case_dir, var_id, as_of, metric="INCIDENCE",
             below = sum(1 for _, b in base if b < v) + 0.5 * sum(1 for _, b in base if b == v)
             p = below / len(base)
             rec["PERCENTILE"] = round(p, 4)
-            rec["STATE"] = HIGHER if p >= high_p else (LOWER if p <= low_p else TYPICAL)
+            st = HIGHER if p >= high_p else (LOWER if p <= low_p else TYPICAL)
+            # EFFECT-SIZE FLOOR, added 2026-09-06. The class was a PURE RANK STATISTIC with no
+            # floor. Early in a season every baseline is a run of zeros, so ONE detection scores
+            # percentile ~1.0 and was published as HIGHER_THAN_USUAL — on 2026-07-15 the engine
+            # emitted HIGHER for Grosseto off 4 sites out of 119, for Firenze off 1 of 68, for
+            # Livorno off 1 of 41, and not one of those six sites reached the source's own red
+            # band. HIGHER is the only word here that can trigger spending, so it is the one word
+            # that must not fire on noise. A rank alone is not an effect.
+            if st == HIGHER and (cur["n_sites"] * v) < min_positive_sites:
+                st = TYPICAL
+                rec["HIGHER_WITHHELD"] = (f"rank says higher, but only "
+                                          f"{round(cur['n_sites'] * v, 1)} of {cur['n_sites']} "
+                                          f"sites are positive (floor {min_positive_sites})")
+            rec["STATE"] = st
         out["PROVINCES"][prov] = rec
     return out
 
