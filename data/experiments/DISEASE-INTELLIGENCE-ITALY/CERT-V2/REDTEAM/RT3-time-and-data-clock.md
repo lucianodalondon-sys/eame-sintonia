@@ -212,14 +212,48 @@ cutoff, which is precisely the property its own comment claims it now has. The m
 simple: `honest` and `leaked` are both computed by the patched engine, so both shift together
 and still differ by the lower bound.
 
+**CONFIRMED AGAINST THE REAL `gates.evaluate`, not my transcription.**
+`rt3_e8_gates_time.py` runs `ENGINE/gates.py:evaluate()` end to end (live probes included) at
+the default `AS_OF` and again with `_window_value`'s upper bound removed:
+
+| | PASS | FAIL | NOT_TESTABLE | gate B |
+|---|---|---|---|---|
+| RUN1 default `AS_OF` | 8 | 2 | 0 | **PASS** |
+| RUN3 **upper cutoff removed** | 8 | 2 | 0 | **PASS** |
+
+**10 of 10** gate verdicts identical, and gate B emits the byte-identical evidence sentence —
+"…changes 18 published province-cells — so the cutoff is LOAD-BEARING and this gate can detect
+its removal" — in a run where the cutoff **has been removed**. (RUN1 reproduces the shipped
+`ENGINE/gates.json` exactly on 9 of 10 gates; only J differs, FAIL here vs NOT_TESTABLE
+shipped, because the portal snapshot it reads is at a Linux path absent on this machine.)
+
+**A fourth defect, found only by the real run.** At `AS_OF + 30d` gate B returns
+`NOT_TESTABLE` — and still prints:
+
+> "**0** observations in the archive are dated after the cutoff, **0** of them inside the
+> published window, and moving the cutoff forward changes **0** published province-cells —
+> **so the cutoff is LOAD-BEARING and this gate can detect its removal**…"
+
+The evidence string is a single f-string emitted unconditionally, with its conclusion written
+into the template rather than derived from the verdict. It asserts "LOAD-BEARING" while
+reporting 0, 0, 0. Anything reading `EVIDENCE` without also reading `VERDICT` is misinformed.
+
+**A fifth, about fragility.** Gate B is testable today only because of those **15 rows of
+35,065** dated 2026-09-07 in one case. Move `AS_OF` forward 30 days and `fut` drops to 0 and
+the gate goes `NOT_TESTABLE`, which `gates.py`'s own header says "is NOT counted as a pass".
+The gate's ability to run at all depends on the source happening to be one day ahead of the
+chosen cutoff.
+
 **Two aggravating findings from the same file.**
 
 1. `CUTOFF_LABEL == "NOWCAST"` is still a conjunct of the predicate and is a **constant**.
    `Cutoff.is_forecast()` (`ENGINE/contracts.py:120`) returns
    `issue_date < target_window_start`; `current_pressure.py:263` constructs
    `Cutoff("current_pressure", as_of, lo, hi)` with `lo = as_of - 27d`, so the test is
-   `as_of < as_of - 27d` — False for every input. `gates.py` diagnoses this about the old
-   version of the gate and then leaves the term in the new one.
+   `as_of < as_of - 27d` — False for every input. Enumerated: **654** constructions over
+   6 window lengths (1, 7, 14, 28, 42, 365 days) x 109 cutoff dates spanning 2006-2016 yield
+   **1** distinct label, `NOWCAST`; `FORECAST` is unreachable. `gates.py` diagnoses exactly
+   this about the old version of the gate and then leaves the term in the new one.
 2. `Cutoff.assert_no_day_leakage` — the contract's *actual* enforcement of "no observation
    after the cutoff reaches a number" — is defined at `ENGINE/contracts.py:115` and has
    **0 callers** in `ENGINE/` and `CASES/`. `Cutoff` is instantiated exactly **once** in the
@@ -299,12 +333,13 @@ complete table the source serves today, and re-publishes under each.
 **REPRODUCED: PARTLY.**
 
 **NUMBERS — row revision.** **11 of 12** season probes returned content **identical** to the
-archive: 0 delta rows, identical content hash, and **0 changed `val` in 30,315 common visits**
+archive: 0 delta rows, identical content hash, and **0 changed `val` in 29,448 common visits**
 across vine 2015/2019/2020/2024/2025/2026 and olive 2015/2019/2020/2024/2025. The single
 exception is the **open** season: olive 2026, 2,928 stored vs 2,928 live, **36 rows only in
 stored and 36 only in live (1.2%)**, with 0 changed `val` among the 2,892 common — the open
-season is being re-keyed or re-dated as it runs. Closed seasons behave as immutable over this
-observation window.
+season is being re-keyed or re-dated as it runs. Across all 12 probes: **32,340** common
+visits, **0** with a changed `val`. Closed seasons behave as immutable over this observation
+window.
 
 **NUMBERS — scale drift.** The shipped vine index stores **16** codes; the source serves
 **74** for 2025/2026 today. That looks alarming and is not: for `id_survey_var` 39 specifically
@@ -411,7 +446,14 @@ moves the badge from 2 to 375 days. That specific past defect is genuinely fixed
 | +365d | 364 | False | 0 of 10 |
 | +730d | 729 | False | 0 of 10 |
 
-Two findings, and they point in opposite directions, so both are stated.
+**NUMBERS — the real `gates.evaluate`, run end to end at `AS_OF + 30d`** (`rt3_e8_gates_time.py`):
+
+| | PASS | FAIL | NOT_TESTABLE | gate H | latency per case |
+|---|---|---|---|---|---|
+| default `AS_OF` 2026-09-06 | 8 | 2 | 0 | **PASS** | olive **2**, vine **2** |
+| `AS_OF` 2026-10-06 (+30d) | 6 | 3 | 1 | **FAIL** | olive **32**, vine **29** |
+
+Three findings, and they point in opposite directions, so all three are stated.
 
 1. **The predicate does work.** Given a later `AS_OF`, gate H goes red at +30 days. It is not
    frozen-true by construction.
@@ -645,15 +687,16 @@ Stated as plainly as the accusations, because these are the load-bearing parts.
   It is unreachable in all three archives (7 Dec/Jan rows of 120,133, 0 readable) and fully
   reachable in a plausible synthetic one. *Settled by:* running the engine against one real
   winter-monitored crop x issue.
-- **Whether `gates.evaluate` at `AS_OF + 30d` changes any verdict other than H.** The full
-  three-condition run against the real `gates.py` was still executing when this report was
-  written; the per-gate predicates for B and H were evaluated verbatim and are reported above.
-  Results land in `rt3_e8_gates_time.json`. *Settled by:* letting that run finish
-  (~15-20 min per condition, dominated by `denominator_guard` re-reading the entire denominator
-  archive from disk on each of the 135 `sensitivity` grid points).
 - **Whether any consumer of the output reads `DATA_LATENCY_DAYS` per province.** There is only
   a region-wide value to read. *Settled by:* inspecting the consuming UI, which is out of scope
   for this lens.
+- **Why gate G FAILs at every `AS_OF` I tested** (default, +30d, and with the cutoff removed —
+  3 of 3 runs). It is a real FAIL in the shipped `ENGINE/gates.json` too, so it is not something
+  I introduced, but discrimination between seasons is outside this lens and I did not
+  investigate it. *Settled by:* the discrimination/effect-size lens.
+- **Whether the 36 re-keyed rows in olive 2026 (A6) are corrections or re-pivots.** `val` is
+  unchanged on every common visit, so no measurement moved; the visit identity did.
+  *Settled by:* asking the source what `id_survey` means for an open season.
 
 ---
 

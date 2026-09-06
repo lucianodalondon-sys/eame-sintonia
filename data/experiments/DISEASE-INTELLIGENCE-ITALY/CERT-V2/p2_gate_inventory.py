@@ -198,9 +198,17 @@ LETTER = {k[0]: k for k in GATES}
 
 
 def main():
+    # Mine, plus the independent red team's own mutations (REDTEAM/R*.json). A survival is a
+    # survival whoever found it, and five of the six gates this inventory first called healthy
+    # were broken by attacks I had not thought of.
     muts = collections.defaultdict(list)
-    for p in sorted(glob.glob(os.path.join(MUT, "*.json"))):
-        m = json.load(open(p))
+    for p in (sorted(glob.glob(os.path.join(MUT, "*.json"))) +
+              sorted(glob.glob(os.path.join(HERE, "REDTEAM", "R0*.json")))):
+        m = json.load(open(p, encoding="utf-8"))
+        if "TARGET_GATE" not in m:
+            continue
+        m["FOUND_BY"] = "certification" if os.path.dirname(p).endswith("MUTANTS") \
+            else "independent red team"
         muts[m["TARGET_GATE"]].append(m)
 
     rows, invalid, tautological = [], [], []
@@ -215,7 +223,8 @@ def main():
         defects = list(STATIC_DEFECTS.get(g, []))
         if survived:
             defects.append("T6: survives a mutation that destroys its own property -> " +
-                           "; ".join(f"{m['ID']} ({m['PROPERTY_DESTROYED']})" for m in survived))
+                           "; ".join(f"{m['ID']} [{m.get('FOUND_BY','?')}] "
+                                     f"({m['PROPERTY_DESTROYED']})" for m in survived))
         valid = not defects
         if not valid:
             invalid.append(g)
@@ -225,6 +234,7 @@ def main():
                      "MUTATIONS_RUN": [m["ID"] for m in mine],
                      "MUTATIONS_KILLED": [m["ID"] for m in killed],
                      "MUTATIONS_SURVIVED": [m["ID"] for m in survived],
+                     "SURVIVALS_FOUND_BY": {m["ID"]: m.get("FOUND_BY") for m in survived},
                      "OTHER_OUTCOMES": {m["ID"]: m.get("OUTCOME") for m in other},
                      # a gate that is ALREADY FAILING on the shipped data has demonstrated it
                      # can fail; if a positive control also shows it can pass, both halves of

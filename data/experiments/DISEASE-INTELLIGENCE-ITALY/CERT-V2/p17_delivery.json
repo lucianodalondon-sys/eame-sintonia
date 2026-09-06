@@ -1,0 +1,412 @@
+{
+ "SOURCE_ENTRY_BRANCH": "claude/pilot-disease-evolution-vite-veneto",
+ "SOURCE_ENTRY_HEAD": "d7631a29aeef46e1e528ce31cc38059436477dda",
+ "SOURCE_ENTRY_CONTAINS_THE_FINAL_PILOT": false,
+ "SOURCE_BRANCH": "claude/disease-intelligence-italy-overnight",
+ "SOURCE_HEAD": "a4d19ddf36f3fa4b187e8563d1d4226d399a4daf",
+ "BRANCH": "claude/disease-pressure-certification-v2",
+ "HEAD": "a2a9820e82d6d52765170bda1b7e303be98cabaa",
+ "WORKTREE_CLEAN": false,
+ "UNTRACKED_DEPENDENCIES": 1,
+ "CLEAN_CHECKOUT_REPRODUCIBLE": "NO",
+ "RESULT_DRIFT": {
+  "gate_C_disagreeing_season_cells": {
+   "committed": 19,
+   "clean_checkout": 18,
+   "observed_across_file_orders": [
+    18,
+    19
+   ]
+  },
+  "gate_F_olive_label_stability": {
+   "committed": 0.918,
+   "clean_checkout": 0.924,
+   "observed_across_file_orders": [
+    0.918,
+    0.921,
+    0.922,
+    0.923,
+    0.924
+   ]
+  },
+  "gate_G_olive_dominant_share": {
+   "committed": 0.424,
+   "clean_checkout": 0.432,
+   "observed_across_file_orders": [
+    0.424,
+    0.432,
+    0.439,
+    0.447
+   ]
+  },
+  "gate_J": {
+   "committed": "NOT_TESTABLE (PARTIALLY_OVERLAPS)",
+   "clean_checkout": "FAIL (inventory not readable)"
+  }
+ },
+ "SUITE_VERDICT_COMMITTED": {
+  "A_OUTCOME_IS_OBSERVED": "PASS",
+  "B_NOT_SOLD_AS_FORECAST": "PASS",
+  "C_REGIONAL_NOT_NATIONAL": "PASS",
+  "D_UNKNOWN_IS_VISIBLE": "PASS",
+  "E_REPRODUCIBLE": "PASS",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT": "PASS",
+  "G_DISCRIMINATES_BETWEEN_SEASONS": "FAIL",
+  "H_REFRESHABLE_WITHOUT_RESEARCH": "PASS",
+  "I_GENERALIZES": "PASS",
+  "J_NOT_DUPLICATE": "NOT_TESTABLE"
+ },
+ "SUITE_VERDICT_CLEAN_CHECKOUT": {
+  "A_OUTCOME_IS_OBSERVED": "PASS",
+  "B_NOT_SOLD_AS_FORECAST": "PASS",
+  "C_REGIONAL_NOT_NATIONAL": "PASS",
+  "D_UNKNOWN_IS_VISIBLE": "PASS",
+  "E_REPRODUCIBLE": "PASS",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT": "PASS",
+  "G_DISCRIMINATES_BETWEEN_SEASONS": "FAIL",
+  "H_REFRESHABLE_WITHOUT_RESEARCH": "PASS",
+  "I_GENERALIZES": "PASS",
+  "J_NOT_DUPLICATE": "FAIL"
+ },
+ "DRIFT_CAUSE": {
+  "WHERE": "current_pressure.denominator_guard",
+  "WHAT": "den[id_survey] assigned while iterating an UNSORTED glob.glob(); id_survey is not unique across season files, so the last file the filesystem hands over wins the key",
+  "JOIN_KEY_STATS": {
+   "denominator_var": 1,
+   "id_survey_keys": 52250,
+   "keys_in_more_than_one_file": 14649,
+   "keys_with_conflicting_values": 2443,
+   "keys_where_the_conflict_flips_DROP_vs_KEEP": 1759,
+   "example": {
+    "1": {
+     "values": [
+      "0",
+      "100"
+     ],
+     "files": [
+      "c2_s1_v1_2010.json",
+      "c2_s1_v1_2011.json",
+      "c2_s1_v1_2012.json",
+      "c2_s1_v1_2013.json",
+      "c2_s1_v1_2014.json",
+      "c2_s1_v1_2015.json",
+      "c2_s1_v1_2016.json",
+      "c2_s1_v1_2017.json",
+      "c2_s1_v1_2019.json"
+     ]
+    },
+    "24": {
+     "values": [
+      "0",
+      "100"
+     ],
+     "files": [
+      "c2_s1_v1_2011.json",
+      "c2_s1_v1_2013.json",
+      "c2_s1_v1_2016.json",
+      "c2_s1_v1_2019.json"
+     ]
+    }
+   }
+  }
+ },
+ "UNIT_OF_ANALYSIS": "REGION x CROP x ISSUE x DATE (x PROVINCE)",
+ "REGION_X_CROP_X_ISSUE_X_DATE": "PASS as a phenomenon, FAIL as a representation",
+ "UNIT_EVIDENCE": {
+  "CELLS": 25,
+  "CELLS_CHANGING_STATE_ALL_DATES": 22,
+  "CELLS_CHANGING_STATE_WITHIN_2026": 21,
+  "PILOT_C25_TABLE_REPRODUCED": true,
+  "SIDE_BY_SIDE": {
+   "2026-06-15": {
+    "OLIVE": {
+     "PILOT_C25": "0/10",
+     "RE_MEASURED_STRICT": "0/10",
+     "RE_MEASURED_LOOSE": "0/10",
+     "LATENCY": 241,
+     "AGREES": true
+    },
+    "VINE": {
+     "PILOT_C25": "6/10",
+     "RE_MEASURED_STRICT": "6/10",
+     "RE_MEASURED_LOOSE": "9/10",
+     "LATENCY": 0,
+     "AGREES": true
+    }
+   },
+   "2026-08-01": {
+    "OLIVE": {
+     "PILOT_C25": "6/10",
+     "RE_MEASURED_STRICT": "6/10",
+     "RE_MEASURED_LOOSE": "9/10",
+     "LATENCY": 1,
+     "AGREES": true
+    },
+    "VINE": {
+     "PILOT_C25": "1/10",
+     "RE_MEASURED_STRICT": "1/10",
+     "RE_MEASURED_LOOSE": "9/10",
+     "LATENCY": 3,
+     "AGREES": true
+    }
+   },
+   "2026-09-06": {
+    "OLIVE": {
+     "PILOT_C25": "8/10",
+     "RE_MEASURED_STRICT": "8/10",
+     "RE_MEASURED_LOOSE": "9/10",
+     "LATENCY": 2,
+     "AGREES": true
+    },
+    "VINE": {
+     "PILOT_C25": "0/10",
+     "RE_MEASURED_STRICT": "0/10",
+     "RE_MEASURED_LOOSE": "9/10",
+     "LATENCY": 2,
+     "AGREES": true
+    }
+   }
+  },
+  "ENGINE_OUTPUT_CARRIES": {
+   "CARRIES_DATE": true,
+   "CARRIES_REGION": false,
+   "CARRIES_CROP": false,
+   "CARRIES_ISSUE": false
+  }
+ },
+ "GATES_TOTAL": 10,
+ "VALID_GATES": 1,
+ "INVALID_GATES": 9,
+ "INVALID": [
+  "A_OUTCOME_IS_OBSERVED",
+  "B_NOT_SOLD_AS_FORECAST",
+  "C_REGIONAL_NOT_NATIONAL",
+  "D_UNKNOWN_IS_VISIBLE",
+  "E_REPRODUCIBLE",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT",
+  "H_REFRESHABLE_WITHOUT_RESEARCH",
+  "I_GENERALIZES",
+  "J_NOT_DUPLICATE"
+ ],
+ "TAUTOLOGICAL_GATES": 1,
+ "TAUTOLOGICAL": [
+  "J_NOT_DUPLICATE"
+ ],
+ "GATES_WITH_REAL_NEGATIVE_CONTROL": 8,
+ "MUTATION_TESTS": 33,
+ "MUTATIONS_CAUGHT": 14,
+ "MUTATIONS_NOT_CAUGHT": 8,
+ "CROSS_CUTTING_MUTATIONS": {
+  "M20": {
+   "what": "observed values replaced by code ids",
+   "outcome": "UNDETECTED_BY_SUITE",
+   "detected_by": []
+  },
+  "M21": {
+   "what": "crop swapped: olive case served the vine archive",
+   "outcome": "DETECTED_BY_SUITE",
+   "detected_by": [
+    "H_REFRESHABLE_WITHOUT_RESEARCH"
+   ]
+  },
+  "M22": {
+   "what": "every observation date shifted one year forward",
+   "outcome": "UNDETECTED_BY_SUITE",
+   "detected_by": []
+  },
+  "M23": {
+   "what": "source url and file hashes removed",
+   "outcome": "UNDETECTED_BY_SUITE",
+   "detected_by": []
+  },
+  "M24": {
+   "what": "signal inverted",
+   "outcome": "DETECTED_BY_SUITE",
+   "detected_by": [
+    "F_LABEL_NOT_PARAMETER_ARTEFACT"
+   ]
+  },
+  "M25": {
+   "what": "universe zeroed",
+   "outcome": "SUITE_CRASHED_NO_VERDICT",
+   "detected_by": null
+  },
+  "M26": {
+   "what": "evidence link broken on every cell",
+   "outcome": "UNDETECTED_BY_SUITE",
+   "detected_by": []
+  }
+ },
+ "DATE_SENSITIVITY_TEST": "PASS",
+ "CELLS_CHANGING_STATE_BY_DATE": 22,
+ "EFFECT_FLOOR": "NOT_PROVED",
+ "EFFECT_FLOOR_REASON": "The floor does what it says \u2014 it removes rank-HIGHER calls that rest on very few positive sites \u2014 and on this sample it removes exactly the pathology it was built for. What is NOT proved is that it discriminates signal from noise. 3 of the 71 floor values tried give the identical partition, so the number 5 is not selected by the data. On this sample it is reproduced to within 0 cells by a plain incidence threshold of 0.41, which means it is selecting severity and not a count of sites. It makes a HIGHER call arithmetically impossible in 142 of 282 classified cells. It is absent from the module's own parameter list, from the emitted PARAMS block and from the sensitivity grid, so gate F has never varied it. And 8 of the 9 withheld cells are the highest value ever recorded at that window in that province.",
+ "EFFECT_FLOOR_WITHDRAWN_CLAIM": "p5's EFFECT_FLOOR = PROVED, and its 0 false positives / 0 false negatives, which were tautological",
+ "EFFECT_FLOOR_EVIDENCE": {
+  "T_VALUES_GIVING_THE_SHIPPED_PARTITION": [
+   5,
+   6,
+   7
+  ],
+  "DISTINCT_PARTITIONS_T_0_TO_70": 27,
+  "EQUIVALENT_PLAIN_INCIDENCE_THRESHOLD": {
+   "threshold": 0.41,
+   "cells_where_it_disagrees": 0
+  },
+  "CELLS_THAT_CAN_NEVER_PRODUCE_HIGHER": 142,
+  "WHERE_THE_KEPT_CALLS_LIVE": {
+   "KEPT_BY_CROP": {
+    "OLIVE": 31
+   },
+   "WITHHELD_BY_CROP": {
+    "OLIVE": 3,
+    "VINE": 5,
+    "WHEAT": 1
+   },
+   "KEPT_IN_2026": 0,
+   "KEPT_IN_HISTORICAL_REPLAYS": 31,
+   "WITHHELD_IN_2026": 4,
+   "RANK_HIGHER_IN_2026": 4
+  },
+  "WITHHELD_CELLS_THAT_ARE_RECORDS": 8,
+  "IS_THE_FLOOR_DECLARED": {
+   "IN_THE_DOCSTRING_PARAMETER_LIST": false,
+   "IN_THE_EMITTED_PARAMS_BLOCK": false,
+   "EMITTED_PARAMS": [
+    "WINDOW_DAYS",
+    "MIN_SITES",
+    "MIN_BASE",
+    "HIGH_P",
+    "LOW_P"
+   ],
+   "IN_THE_SENSITIVITY_GRID": false,
+   "READ": "gate F measures how much the label depends on the parameters. A parameter outside the grid is a parameter the label is never tested against."
+  }
+ },
+ "EFFECT_FALSE_POSITIVES": "NOT_MEASURABLE_BY_THE_TEST_I_FIRST_USED",
+ "EFFECT_FALSE_NEGATIVES": 8,
+ "REFRESH_FAIL_CLOSED": "FAIL",
+ "REFRESH_EVIDENCE": {
+  "EMPTY_REFRESH_IS_REFUSED_A_WRITE": true,
+  "GOOD_DATA_SURVIVES_AN_EMPTY_REFRESH": true,
+  "GOOD_DATA_SURVIVES_A_NETWORK_ERROR": false,
+  "WHAT_A_NETWORK_ERROR_DOES": "the raw files stay on disk, but collect_generic rebuilds collection_index.json from scratch every run and a failed request yields no code table, so idx['codes'] and idx['vars'] come back NULL. value_mode then returns UNSUPPORTED and current_pressure refuses the whole case. The archive is intact and unreadable. It fails CLOSED and LOUD, which is the right direction \u2014 but one failed refresh bricks a case until a full re-collection succeeds.",
+  "WHAT_THE_BROKEN_HASH_CHAIN_MEANS": "load_rows only verifies a raw file if the index still names it (`if by_file.get(base) and ...`). After ANY refresh that does not re-request every archived year, the older files vanish from the index and are loaded WITHOUT their sha256 being checked. Nothing reports this; the number of hashes verified simply drops.",
+  "ANY_REFRESH_CLOCK_FIELD_EXISTS": false,
+  "MISSING_CLOCK_FIELDS": [
+   "REFRESH_ATTEMPT_AT",
+   "REFRESH_STATUS",
+   "LAST_GOOD_OBSERVATION_AT",
+   "SOURCE_PUBLISHED_AT",
+   "FILE_WRITTEN_AT",
+   "COLLECTED_AT"
+  ],
+  "FILE_MTIME_DOES_NOT_LEAK_INTO_LATENCY": true,
+  "AS_OF_IS_A_HARDCODED_CONSTANT": true,
+  "REFRESH_FAIL_CLOSED": "FAIL",
+  "REFRESH_FAIL_CLOSED_REASON": "the write guard works: an empty response is refused and the last good observation survives, in both the empty-refresh and the partial-refresh scenario. But there is no refresh STATE at all \u2014 no attempt time, no status, no last-good marker \u2014 and every refresh silently drops the hash chain of every file it did not re-request. Failing closed requires knowing that you failed, and nothing here records it.",
+  "LATENCY_MEASUREMENT_TRUTHFUL": "PASS",
+  "LATENCY_MEASUREMENT_REASON": "DATA_LATENCY_DAYS is computed from the newest READABLE observation, not from the newest row and not from the file. Backdating a raw file to 2001 and touching it to now both leave the latency at 445 days.",
+  "FRESHNESS_CERTIFICATION_HAS_A_FROZEN_CLOCK": "FAIL",
+  "FROZEN_CLOCK_REASON": "gate H certifies DATA_LATENCY_DAYS <= 21, but gates.evaluate's as_of is the hardcoded constant 2026-09-06. On this archive the same suite reports the same latency in 2027 and in 2040. Nothing in the certification reads a real clock, so a capability called CURRENT_PRESSURE can be certified current forever.",
+  "LATENCY_TRUTHFUL": "PASS_WITH_A_FROZEN_REFERENCE"
+ },
+ "LATENCY_TRUTHFUL": "PASS_WITH_A_FROZEN_REFERENCE",
+ "CODE_VS_VALUE_GATE": "FAIL",
+ "CODE_AS_VALUE_FALSE_CLAIMS": 45,
+ "CODE_VS_VALUE_SUBTESTS": {
+  "REFUSES_WHEN_THE_VALUES_ARE_CODE_IDS": true,
+  "DOES_NOT_FALSE_REFUSE_A_GENUINE_MEASUREMENT": true,
+  "ORDINAL_CASE_FAILS_TO_UNKNOWN_NOT_TO_A_NUMBER": true,
+  "GUARD_IS_REACHABLE_ON_ANY_REAL_CASE": false,
+  "NO_PUBLISHABLE_CONTAMINATED_BAND": false
+ },
+ "GEOGRAPHY_GATE": "FAIL",
+ "SOURCE_LOCATION_AS_FACT_LOCATION": 30,
+ "CROP_NORMALIZATION": "FAIL",
+ "CROPS_IN_DATA": [
+  "OLIVO",
+  "VITE",
+  "FRUMENTO"
+ ],
+ "CROPS_CANONICALIZED": [],
+ "CROPS_NOT_CANONICALIZED": [
+  "OLIVO",
+  "VITE",
+  "FRUMENTO"
+ ],
+ "OLIVE_SIGNAL": {
+  "2026-09-06": {
+   "PUBLISHED": "8/10",
+   "LATENCY_DAYS": 2,
+   "STATES": {
+    "Arezzo": "LOWER_THAN_USUAL",
+    "Firenze": "LOWER_THAN_USUAL",
+    "Grosseto": "LOWER_THAN_USUAL",
+    "Livorno": "LOWER_THAN_USUAL",
+    "Lucca": "LOWER_THAN_USUAL",
+    "Pisa": "LOWER_THAN_USUAL",
+    "Pistoia": "LOWER_THAN_USUAL",
+    "Siena": "LOWER_THAN_USUAL"
+   }
+  },
+  "2026-06-15": {
+   "PUBLISHED": "0/10",
+   "LATENCY_DAYS": 241
+  },
+  "NOTE": "a state without its date is not a result"
+ },
+ "OLIVE_ADAMA_PRODUCT_RELATION": "NOT_FOUND",
+ "OLIVE_ADAMA_SCOPE": "three named products were checked against the Olive x Olive Fruit Fly pair and none of the three was found on a label for it, in that reading. The handoff's own rule governs the sentence: ABSENCE IN OUR READING is not ABSENCE IN THE WORLD.",
+ "NEGATIVE_CONTROLS": 8,
+ "FALSE_POSITIVES": 0,
+ "FALSE_NEGATIVES": "UNKNOWN_GROUND_TRUTH",
+ "UNKNOWN_GROUND_TRUTH": "A false negative is a cell where the pressure really was higher than usual and the instrument said TYPICAL or UNKNOWN. Deciding that needs an independent register of olive-fly and oidio pressure in Tuscany by province and date. This repository does not contain one, and the source under test cannot be its own referee. The rate is NOT KNOWN and no number is offered.",
+ "NEGATIVE_CONTROLS_VERDICT": "PASS",
+ "INDEPENDENT_REPRODUCTIONS": 3,
+ "INDEPENDENT_REPRODUCTION_AGREE": 25,
+ "INDEPENDENT_REPRODUCTION_DISAGREE": 0,
+ "REPRODUCIBILITY_OF_ARTEFACTS": "FAIL",
+ "REFERENCES_A_FRESH_CLONE_CANNOT_RESOLVE": [
+  {
+   "SOURCE_FILE": "data/experiments/DISEASE-INTELLIGENCE-ITALY/ENGINE/gates.py",
+   "KIND": "ABSOLUTE_PATH",
+   "VALUE": "/home/user/eame-sintonia/italia-portale/client/meeting-intelligence-snapshot.json",
+   "STATE": "ABSENT",
+   "LINE": 241
+  }
+ ],
+ "INDEPENDENT_RED_TEAM_REPORTS": [
+  "RT1-statistics-and-effect-floor.md",
+  "RT2-agronomy-and-false-signal.md",
+  "RT3-time-and-data-clock.md",
+  "RT4-geography-and-semantics.md",
+  "RT6-gates-mutations-and-adama.md"
+ ],
+ "INDEPENDENT_RED_TEAM_MUTATIONS": {
+  "R01": "SURVIVED",
+  "R02": "SURVIVED",
+  "R03": "SURVIVED",
+  "R04": "SURVIVED",
+  "R05": "SURVIVED"
+ },
+ "GATES_THAT_PASS_ON_SHIPPED_DATA_AND_SURVIVE_A_MUTATION_OF_THEIR_OWN_PROPERTY": [
+  "A_OUTCOME_IS_OBSERVED",
+  "B_NOT_SOLD_AS_FORECAST",
+  "C_REGIONAL_NOT_NATIONAL",
+  "D_UNKNOWN_IS_VISIBLE",
+  "E_REPRODUCIBLE",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT",
+  "H_REFRESHABLE_WITHOUT_RESEARCH",
+  "I_GENERALIZES"
+ ],
+ "PORTAL_INTEGRATION": "NO",
+ "OPPORTUNITY_INTEGRATION": "NO",
+ "FUTURE_RADAR_INTEGRATION": "NO",
+ "COMMITS": [
+  "a2a9820 cert-v2 step 15: the red team broke my own certification in three places, and I concede all three",
+  "7b12110 cert-v2 steps 2-3: 28 mutations against ten gates, and three gates that do not notice",
+  "61041f9 cert-v2 steps 4-14: the instrument measured against itself, including three of my own bad tests",
+  "28a445c cert-v2 step 1: the clean checkout does not reproduce, and the cause is the machine"
+ ]
+}

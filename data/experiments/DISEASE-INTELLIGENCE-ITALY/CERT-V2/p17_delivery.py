@@ -120,15 +120,27 @@ def main():
     d["CELLS_CHANGING_STATE_BY_DATE"] = (p4 or {}).get(
         "CELLS_CHANGING_STATE_ACROSS_ALL_DATES")
 
-    d["EFFECT_FLOOR"] = "PROVED_WITHIN_A_STATED_SCOPE"
+    p5b = load("p5b_effect_floor_retest.json")
+    d["EFFECT_FLOOR"] = (p5b or {}).get("EFFECT_FLOOR")
+    d["EFFECT_FLOOR_REASON"] = (p5b or {}).get("EFFECT_FLOOR_REASON")
+    d["EFFECT_FLOOR_WITHDRAWN_CLAIM"] = (p5b or {}).get("WITHDRAWN")
     d["EFFECT_FLOOR_EVIDENCE"] = {
-        "withheld": (p5 or {}).get("HIGHER_WITHHELD_BY_FLOOR"),
-        "kept": (p5 or {}).get("HIGHER_KEPT"),
-        "positive_sites_of_withheld": (p5 or {}).get("POSITIVE_SITES_OF_WITHHELD"),
-        "positive_sites_of_kept": (p5 or {}).get("POSITIVE_SITES_OF_KEPT"),
-        "by_crop": (p5 or {}).get("BY_CROP")}
-    d["EFFECT_FALSE_POSITIVES"] = (p5 or {}).get("FALSE_POSITIVE_TEST", {}).get("COUNT")
-    d["EFFECT_FALSE_NEGATIVES"] = (p5 or {}).get("FALSE_NEGATIVE_TEST", {}).get("COUNT")
+        "T_VALUES_GIVING_THE_SHIPPED_PARTITION": (p5b or {}).get("T1_SWEEP", {}).get(
+            "T_VALUES_GIVING_EXACTLY_THE_SHIPPED_PARTITION"),
+        "DISTINCT_PARTITIONS_T_0_TO_70": (p5b or {}).get("T1_SWEEP", {}).get(
+            "DISTINCT_PARTITIONS_OVER_T_0_TO_70"),
+        "EQUIVALENT_PLAIN_INCIDENCE_THRESHOLD": (p5b or {}).get(
+            "T2_INDEPENDENT_YARDSTICK", {}).get("CLOSEST_PLAIN_INCIDENCE_THRESHOLD"),
+        "CELLS_THAT_CAN_NEVER_PRODUCE_HIGHER": (p5b or {}).get(
+            "T3_MADE_IMPOSSIBLE", {}).get("CELLS_THAT_CAN_NEVER_PRODUCE_A_HIGHER_CALL"),
+        "WHERE_THE_KEPT_CALLS_LIVE": (p5b or {}).get("T4_WHERE_THE_KEPT_CALLS_LIVE"),
+        "WITHHELD_CELLS_THAT_ARE_RECORDS": (p5b or {}).get(
+            "T5_WITHHELD_RECORDS", {}).get(
+            "WITHHELD_CELLS_THAT_ARE_THE_HIGHEST_EVER_RECORDED_AT_THAT_WINDOW"),
+        "IS_THE_FLOOR_DECLARED": (p5b or {}).get("T6_IS_THE_FLOOR_DECLARED")}
+    d["EFFECT_FALSE_POSITIVES"] = "NOT_MEASURABLE_BY_THE_TEST_I_FIRST_USED"
+    d["EFFECT_FALSE_NEGATIVES"] = (p5b or {}).get("T5_WITHHELD_RECORDS", {}).get(
+        "WITHHELD_CELLS_THAT_ARE_THE_HIGHEST_EVER_RECORDED_AT_THAT_WINDOW")
 
     d["REFRESH_FAIL_CLOSED"] = (p6 or {}).get("VERDICT", {}).get("REFRESH_FAIL_CLOSED")
     d["REFRESH_EVIDENCE"] = {k: v for k, v in (p6 or {}).get("VERDICT", {}).items()
@@ -173,6 +185,11 @@ def main():
         "NOT_REPRODUCIBLE_REFERENCES")
 
     d["INDEPENDENT_RED_TEAM_REPORTS"] = rt
+    d["INDEPENDENT_RED_TEAM_MUTATIONS"] = {
+        os.path.basename(p)[:-5]: json.load(open(p, encoding="utf-8")).get("OUTCOME")
+        for p in sorted(glob.glob(os.path.join(HERE, "REDTEAM", "R0*.json")))}
+    d["GATES_THAT_PASS_ON_SHIPPED_DATA_AND_SURVIVE_A_MUTATION_OF_THEIR_OWN_PROPERTY"] = [
+        g["GATE_ID"] for g in (p2 or {}).get("GATES", []) if g.get("MUTATIONS_SURVIVED")]
     d["PORTAL_INTEGRATION"] = "NO"
     d["OPPORTUNITY_INTEGRATION"] = "NO"
     d["FUTURE_RADAR_INTEGRATION"] = "NO"

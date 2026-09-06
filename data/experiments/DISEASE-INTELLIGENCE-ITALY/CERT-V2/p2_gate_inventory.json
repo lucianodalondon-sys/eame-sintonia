@@ -1,13 +1,16 @@
 {
  "GATES_TOTAL": 10,
- "VALID_GATES": 4,
- "INVALID_GATES": 6,
+ "VALID_GATES": 1,
+ "INVALID_GATES": 9,
  "INVALID": [
+  "A_OUTCOME_IS_OBSERVED",
   "B_NOT_SOLD_AS_FORECAST",
+  "C_REGIONAL_NOT_NATIONAL",
   "D_UNKNOWN_IS_VISIBLE",
   "E_REPRODUCIBLE",
   "F_LABEL_NOT_PARAMETER_ARTEFACT",
   "H_REFRESHABLE_WITHOUT_RESEARCH",
+  "I_GENERALIZES",
   "J_NOT_DUPLICATE"
  ],
  "TAUTOLOGICAL_GATES": 1,
@@ -15,9 +18,9 @@
   "J_NOT_DUPLICATE"
  ],
  "GATES_WITH_REAL_NEGATIVE_CONTROL": 8,
- "MUTATION_TESTS": 28,
+ "MUTATION_TESTS": 33,
  "MUTATIONS_CAUGHT": 14,
- "MUTATIONS_NOT_CAUGHT": 3,
+ "MUTATIONS_NOT_CAUGHT": 8,
  "CROSS_CUTTING_MUTATIONS": {
   "M20": {
    "what": "observed values replaced by code ids",
@@ -74,19 +77,27 @@
    "HISTORY": "was a self-certifying constant until 2026-09-06; rewritten twice",
    "MUTATIONS_RUN": [
     "M01",
-    "M02"
+    "M02",
+    "R05"
    ],
    "MUTATIONS_KILLED": [
     "M01",
     "M02"
    ],
-   "MUTATIONS_SURVIVED": [],
+   "MUTATIONS_SURVIVED": [
+    "R05"
+   ],
+   "SURVIVALS_FOUND_BY": {
+    "R05": "independent red team"
+   },
    "OTHER_OUTCOMES": {},
    "HAS_A_REAL_NEGATIVE_CONTROL": true,
    "CAN_IT_PASS": true,
    "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
-   "DEFECTS": [],
-   "VALID": true
+   "DEFECTS": [
+    "T6: survives a mutation that destroys its own property -> R05 [independent red team] (every value replaced by a calendar model; role and schema untouched)"
+   ],
+   "VALID": false
   },
   {
    "GATE_ID": "B_NOT_SOLD_AS_FORECAST",
@@ -107,12 +118,15 @@
    "MUTATIONS_SURVIVED": [
     "M03"
    ],
+   "SURVIVALS_FOUND_BY": {
+    "M03": "certification"
+   },
    "OTHER_OUTCOMES": {},
    "HAS_A_REAL_NEGATIVE_CONTROL": false,
    "CAN_IT_PASS": "SEE_DEFECTS",
    "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
    "DEFECTS": [
-    "T6: survives a mutation that destroys its own property -> M03 (the time cutoff is removed)"
+    "T6: survives a mutation that destroys its own property -> M03 [certification] (the time cutoff is removed)"
    ],
    "VALID": false
   },
@@ -130,19 +144,27 @@
    "HISTORY": "v1 was any('ITALY' in key), which could only fail if the API renamed a province",
    "MUTATIONS_RUN": [
     "M04",
-    "M05"
+    "M05",
+    "R01"
    ],
    "MUTATIONS_KILLED": [
     "M04",
     "M05"
    ],
-   "MUTATIONS_SURVIVED": [],
+   "MUTATIONS_SURVIVED": [
+    "R01"
+   ],
+   "SURVIVALS_FOUND_BY": {
+    "R01": "independent red team"
+   },
    "OTHER_OUTCOMES": {},
    "HAS_A_REAL_NEGATIVE_CONTROL": true,
    "CAN_IT_PASS": true,
    "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
-   "DEFECTS": [],
-   "VALID": true
+   "DEFECTS": [
+    "T6: survives a mutation that destroys its own property -> R01 [independent red team] (published cells harmonised to one class per case; history untouched)"
+   ],
+   "VALID": false
   },
   {
    "GATE_ID": "D_UNKNOWN_IS_VISIBLE",
@@ -166,12 +188,15 @@
    "MUTATIONS_SURVIVED": [
     "M07"
    ],
+   "SURVIVALS_FOUND_BY": {
+    "M07": "certification"
+   },
    "OTHER_OUTCOMES": {},
    "HAS_A_REAL_NEGATIVE_CONTROL": true,
    "CAN_IT_PASS": true,
    "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
    "DEFECTS": [
-    "T6: survives a mutation that destroys its own property -> M07 (missing read as zero (FAILURE == ZERO))"
+    "T6: survives a mutation that destroys its own property -> M07 [certification] (missing read as zero (FAILURE == ZERO))"
    ],
    "VALID": false
   },
@@ -199,12 +224,15 @@
    "MUTATIONS_SURVIVED": [
     "M27"
    ],
+   "SURVIVALS_FOUND_BY": {
+    "M27": "certification"
+   },
    "OTHER_OUTCOMES": {},
    "HAS_A_REAL_NEGATIVE_CONTROL": true,
    "CAN_IT_PASS": true,
    "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
    "DEFECTS": [
-    "T6: survives a mutation that destroys its own property -> M27 (file order fixed but different (the real cross-machine defect))"
+    "T6: survives a mutation that destroys its own property -> M27 [certification] (file order fixed but different (the real cross-machine defect))"
    ],
    "VALID": false
   },
@@ -221,18 +249,25 @@
    "EXTERNAL_DEPENDENCY": "none",
    "HISTORY": "unchanged. NOTE the predicate is any(), not all(): the vine case sits at 0.596 and the gate passes on the olive alone.",
    "MUTATIONS_RUN": [
-    "M10"
+    "M10",
+    "R02"
    ],
    "MUTATIONS_KILLED": [
     "M10"
    ],
-   "MUTATIONS_SURVIVED": [],
+   "MUTATIONS_SURVIVED": [
+    "R02"
+   ],
+   "SURVIVALS_FOUND_BY": {
+    "R02": "independent red team"
+   },
    "OTHER_OUTCOMES": {},
    "HAS_A_REAL_NEGATIVE_CONTROL": true,
    "CAN_IT_PASS": true,
    "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
    "DEFECTS": [
-    "SCOPE: the predicate is any(), so one stable case carries the gate while the other sits at 0.596. It certifies 'a label somewhere is stable', not 'the label is stable'."
+    "SCOPE: the predicate is any(), so one stable case carries the gate while the other sits at 0.596. It certifies 'a label somewhere is stable', not 'the label is stable'.",
+    "T6: survives a mutation that destroys its own property -> R02 [independent red team] (one of the two cases' labels made a 100% parameter artefact)"
    ],
    "VALID": false
   },
@@ -254,6 +289,7 @@
    ],
    "MUTATIONS_KILLED": [],
    "MUTATIONS_SURVIVED": [],
+   "SURVIVALS_FOUND_BY": {},
    "OTHER_OUTCOMES": {
     "M11": "ALREADY_FAILING",
     "M12": "POSITIVE_CONTROL_OK"
@@ -280,7 +316,8 @@
     "M13",
     "M14",
     "M15",
-    "M16"
+    "M16",
+    "R04"
    ],
    "MUTATIONS_KILLED": [
     "M13",
@@ -288,14 +325,20 @@
     "M15",
     "M16"
    ],
-   "MUTATIONS_SURVIVED": [],
+   "MUTATIONS_SURVIVED": [
+    "R04"
+   ],
+   "SURVIVALS_FOUND_BY": {
+    "R04": "independent red team"
+   },
    "OTHER_OUTCOMES": {},
    "HAS_A_REAL_NEGATIVE_CONTROL": true,
    "CAN_IT_PASS": true,
    "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
    "DEFECTS": [
     "T5: requires a live third-party endpoint. Offline, the gate cannot be evaluated at all.",
-    "FROZEN CLOCK: latency is compared against a hardcoded AS_OF, so the freshness certification never expires."
+    "FROZEN CLOCK: latency is compared against a hardcoded AS_OF, so the freshness certification never expires.",
+    "T6: survives a mutation that destroys its own property -> R04 [independent red team] (every refresh answers with the wrong series (olive for both))"
    ],
    "VALID": false
   },
@@ -313,19 +356,27 @@
    "HISTORY": "v1 was a hardcoded PASS constant. v2 read /tmp. v3 (shipped) reads the repo.",
    "MUTATIONS_RUN": [
     "M17",
-    "M18"
+    "M18",
+    "R03"
    ],
    "MUTATIONS_KILLED": [
     "M17",
     "M18"
    ],
-   "MUTATIONS_SURVIVED": [],
+   "MUTATIONS_SURVIVED": [
+    "R03"
+   ],
+   "SURVIVALS_FOUND_BY": {
+    "R03": "independent red team"
+   },
    "OTHER_OUTCOMES": {},
    "HAS_A_REAL_NEGATIVE_CONTROL": true,
    "CAN_IT_PASS": true,
    "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
-   "DEFECTS": [],
-   "VALID": true
+   "DEFECTS": [
+    "T6: survives a mutation that destroys its own property -> R03 [independent red team] (the unseen case is never run; season_outcomes is a stub)"
+   ],
+   "VALID": false
   },
   {
    "GATE_ID": "J_NOT_DUPLICATE",
@@ -344,6 +395,7 @@
    ],
    "MUTATIONS_KILLED": [],
    "MUTATIONS_SURVIVED": [],
+   "SURVIVALS_FOUND_BY": {},
    "OTHER_OUTCOMES": {
     "M19": "REPAIR_PROBE"
    },
