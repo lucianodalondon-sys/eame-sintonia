@@ -103,9 +103,29 @@ def provenance(dest, url, date, cached):
     }
 
 
+# A coluna-chave do registro. Se ela sumir, o differ nao esta comparando
+# registros: esta comparando None com None, e todo produto "sai" e "entra".
+CHAVE = "num_registrazione"
+
+
 def read_rows(path):
-    with open(path, encoding="utf-8", errors="replace", newline="") as fh:
-        return list(csv.DictReader(fh, delimiter=";"))
+    """Le o CSV oficial. utf-8-SIG, nao utf-8.
+
+    Medido: comparar o instantaneo real com uma copia identica que difere APENAS
+    por um BOM de 3 bytes fabricava 603 eventos regulatorios — 602 PRODUCT_REMOVED
+    e 1 PRODUCT_ADDED. O BOM renomeia a primeira coluna para "\ufeffnum_registrazione",
+    a chave some, e cada produto e lido como se tivesse deixado o registro.
+
+    Um byte invisivel nao revoga 602 autorizacoes.
+    """
+    with open(path, encoding="utf-8-sig", errors="replace", newline="") as fh:
+        rows = list(csv.DictReader(fh, delimiter=";"))
+    if rows and CHAVE not in rows[0]:
+        raise ValueError(
+            f"{path}: a coluna-chave {CHAVE!r} nao existe neste arquivo "
+            f"(colunas: {list(rows[0])[:4]}...). Comparar assim inventaria "
+            f"entrada e saida de todos os produtos. PARSER_FAILURE != REGULATORY_ABSENCE")
+    return rows
 
 
 def adama_rows(rows):
@@ -189,8 +209,27 @@ def contar_diffs_de_campo(old_idx, new_idx, normalizar):
     return n
 
 
+LIMITE_MOVIMENTO = 0.25   # 25% do conjunto entrando ou saindo de uma semana para outra
+
+
+def checa_sanidade(old_idx, new_idx, old_meta, new_meta):
+    """Recusa comparar dois instantaneos que nao parecem o mesmo dataset.
+
+    Entrada ou saida de um quarto do conjunto em uma semana nao e regulacao: e
+    defeito de leitura. Melhor parar e dizer do que emitir 600 revogas.
+    """
+    base = max(len(old_idx), 1)
+    mexeu = len(set(old_idx) ^ set(new_idx))
+    if mexeu / base > LIMITE_MOVIMENTO:
+        raise ValueError(
+            f'movimento implausivel entre {old_meta.get("date")} e {new_meta.get("date")}: '
+            f'{mexeu} registros entraram ou sairam de um conjunto de {base} '
+            f'({100*mexeu/base:.0f}%). Isto e falha de leitura, nao mudanca regulatoria')
+
+
 def diff(old_idx, new_idx, old_meta, new_meta):
     """Eventos de mudanca entre dois instantaneos oficiais consecutivos."""
+    checa_sanidade(old_idx, new_idx, old_meta, new_meta)
     events = []
     def ev(reg, row, kind, field, before, after):
         events.append({

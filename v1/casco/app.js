@@ -29,12 +29,18 @@ const CAPS = {REGULATORY:'Regulatory', DEVELOPMENT_MARKET:'Desenv. de Mercado',
 // a tela dizer NOT_KNOWN para dose que existe e esta provada.
 const nrm = s => String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'')
   .toUpperCase().replace(/[^A-Z0-9 ]+/g,' ').replace(/\s+/g,' ').trim();
-function casa(a, b) {            // um contem o outro, apos normalizar
-  const x = nrm(a), y = nrm(b);
-  if (!x || !y) return false;
-  if (x === y) return true;
-  return x.split(' ').some(t => t.length > 3 && y.includes(t))
-      || y.split(' ').some(t => t.length > 3 && x.includes(t));
+// Casamento por TOKEN INTEIRO. A primeira versao casava por conteudo de
+// substring e produziu um erro grave: nrm('Melo, pero') contem o token MELO, e
+// 'MELONE'.includes('MELO') e verdadeiro — entao a dose de macieira e pereira
+// aparecia como dose autorizada de MELAO. Substring nao e identidade botanica.
+function tokens(s) {
+  return new Set(nrm(s).split(/[ ,;/()]+/).filter(t => t.length > 2));
+}
+function casa(a, b) {
+  const x = tokens(a), y = tokens(b);
+  if (!x.size || !y.size) return false;
+  for (const t of x) if (y.has(t)) return true;   // token inteiro em comum
+  return false;
 }
 // A validade tem de aparecer igual em TODA tela. Antes, CULTURA x ALVO mostrava
 // "2026-08-15" seco enquanto CALENDARIO e PRODUTO 360 marcavam o mesmo produto
@@ -123,15 +129,21 @@ function evUso(reg, i) {
   <dl>
     <dt>Cultura</dt><dd>${val(u.crop)}</dd>
     <dt>Alvo</dt><dd>${val(u.target)}</dd>
-    <dt>Como esta escrito no rotulo</dt><dd>${val(u.crop_raw)} &middot; ${val(u.target_raw)}</dd>
+    <dt>Token de origem lido pelo extrator</dt><dd>${val(u.crop_raw)} &middot; ${val(u.target_raw)}
+      <div class="meta"><b>Isto NAO e citacao do rotulo.</b> E o texto que o extrator guardou como
+      origem do par, e as vezes e rotulo interno do proprio leitor (por exemplo
+      &ldquo;linha de dose por cultura&rdquo;, que e portugues e nao pode estar numa etichetta
+      italiana). A citacao literal esta no campo abaixo.</div></dd>
     <dt>Classe de evidencia</dt><dd><span class="pill ${u.evidence==='TABLE_GEOMETRY'?'p-ok':'p-dim'}">${esc(u.evidence)}</span>
       <div class="meta">${u.evidence==='TABLE_GEOMETRY'
-        ? ('linha lida da geometria da tabela' + (isUnk(u.page)
-            ? ', mas a pagina nao foi preservada por este leitor'
-            : ', com pagina no documento'))
+        ? 'linha lida da geometria da tabela; o indice de pagina do leitor de uso nao foi validado e nao e publicado'
         :'par montado a partir de prosa ou lista do rotulo, nao de uma linha de tabela'}</div></dd>
     <dt>Rota do extrator</dt><dd class="mono">${val(u.route)}</dd>
-    <dt>Pagina</dt><dd>${val(u.page)}</dd>
+    <dt>Pagina</dt><dd>${isUnk(u.page)?val(u.page):
+      `<span class="unknown">NOT_VALIDATED</span>
+       <span class="meta">o leitor de uso grava um indice de pagina que nao foi validado contra
+       o documento (e 0-indexado na origem). Nao publicamos numero de pagina para par de uso
+       ate valida-lo.</span>`}</dd>
     <dt>Citacao literal</dt><dd>${val(u.quote)}
       <div class="meta">os pares reusados nao gravam coordenada x e a etichetta tem varias
       colunas por pagina; o trecho literal nao e recuperavel. Tentado e medido no piloto.</div></dd>
@@ -361,7 +373,9 @@ function viewTimeline() {
         <td>${x.bytes.toLocaleString('pt-BR')}</td>
         <td>${x.adama_active}</td>
         <td class="meta">${x.republished.length ? x.republished.join(', ') : '<span class="meta">—</span>'}</td>
-        <td>${evs.length ? `<b style="color:var(--ok)">${evs.length}</b>` : '<span class="meta">nenhum</span>'}</td>
+        <td>${jan===null ? val('NOT_APPLICABLE')+'<div class="meta">ainda nao existe versao seguinte</div>'
+              : evs.length ? `<b style="color:var(--ok)">${evs.length}</b>`
+              : '<span class="meta">nenhum</span>'}</td>
         <td><a href="${esc(x.url)}" target="_blank">CSV</a></td></tr>`;}).join('')}
     </tbody></table></div>`;
 }
@@ -394,7 +408,8 @@ function viewCrop() {
         <td class="mono">${esc(l.p.reg)}</td>
         <td>${esc(l.u.crop)}</td><td>${esc(l.u.target)}</td>
         <td>${l.d ? (isUnk(l.d.dose_ha)?val(l.d.dose_ha):esc(l.d.dose_ha+' '+l.d.unit_ha)+
-             (l.d.rule_check==='CONTRADICTED_BY_RULE'?' <span class="pill p-bad">REVISAR</span>':''))
+             (l.d.rule_check==='CONTRADICTED_BY_RULE'?' <span class="pill p-bad">REVISAR</span>':'')
+             + ` <button class="ev" onclick="evDose('${l.p.reg}',${l.p.doses.indexOf(l.d)})">prova da dose</button>`)
              : val('NOT_KNOWN')}</td>
         <td><span class="pill ${l.u.evidence==='TABLE_GEOMETRY'?'p-ok':'p-dim'}">${l.u.evidence==='TABLE_GEOMETRY'?'TABELA':'TEXTO'}</span></td>
         <td>${validade(l.p)}</td>
@@ -449,7 +464,13 @@ function viewAction() {
       return r ? {o, r} : null;
     }).filter(Boolean);
     const porEstado = {};
-    meus.forEach(x => (porEstado[x.r.ROUTING_STATE] = porEstado[x.r.ROUTING_STATE]||[]).push(x));
+    // Agrupa por ESTADO + REGRA: um grupo so pode anunciar uma regra se todas as
+    // linhas dele vierem dela. Antes o cabecalho pegava a regra do primeiro
+    // objeto e a estampava sobre 210 linhas com regras diferentes.
+    meus.forEach(x => {
+      const k = x.r.ROUTING_STATE + '||' + x.r.RULE_ID;
+      (porEstado[k] = porEstado[k]||[]).push(x);
+    });
     const rtvNota = c === 'COMMERCIAL_RTV'
       ? `<div class="lei">O campo nao recebe fato regulatorio bruto. Regra <code>C-05</code>:
          tudo fica <code>NOT_RELEVANT</code> ate o portao <code>G-01</code>, que exige prova e
@@ -458,10 +479,10 @@ function viewAction() {
       : '';
     if (!meus.length) return `<div class="block"><h3>${CAPS[c]}</h3>${rtvNota}
       <div class="meta">nenhum objeto alcanca esta capacidade</div></div>`;
-    const linha = (est, lista) => `<div style="margin:9px 0">
+    const linha = (chave, lista) => { const [est, rid] = chave.split('||'); return `<div style="margin:9px 0">
       <span class="pill ${est==='RELEVANT'?'p-ok':est==='POTENTIALLY_RELEVANT'?'p-warn':est==='NOT_RELEVANT'?'p-dim':'p-unk'}">${est}</span>
       ${est==='UNKNOWN'?'<span class="meta">— nenhuma regra cobre este tipo para esta area. <b>Isto nao diz que a area nao precisa olhar; diz que nao sabemos.</b></span>':''}
-      <span class="meta">${lista.length} objeto(s) &middot; regra ${esc(lista[0].r.RULE_ID)} — ${esc(lista[0].r.JUSTIFICATION)}</span>
+      <span class="meta">${lista.length} objeto(s) &middot; regra <code>${esc(rid)}</code> — ${esc(lista[0].r.JUSTIFICATION)}</span>
       <div class="tw" style="margin-top:6px"><table>
         <thead><tr><th>Produto</th><th>Tipo</th><th>Antes &rarr; Depois</th><th>Janela</th><th>Prova</th><th></th></tr></thead>
         <tbody>${lista.slice(0,60).map(({o}) => `<tr>
@@ -472,10 +493,12 @@ function viewAction() {
           <td><span class="pill ${PROOF[o.PROOF_STATE]||'p-dim'}">${esc(o.PROOF_STATE)}</span></td>
           <td><button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">evidencia</button></td>
         </tr>`).join('')}</tbody></table></div>
-      ${lista.length>60?`<div class="meta">mostrando 60 de ${lista.length}</div>`:''}</div>`;
+      ${lista.length>60?`<div class="meta">mostrando 60 de ${lista.length}</div>`:''}</div>`; };
     return `<div class="block"><h3>${CAPS[c]} <span class="meta">(${meus.length})</span></h3>${rtvNota}
-      ${['RELEVANT','POTENTIALLY_RELEVANT','UNKNOWN','NEEDS_REVIEW','NOT_RELEVANT']
-        .filter(e => porEstado[e]).map(e => linha(e, porEstado[e])).join('')}</div>`;
+      ${Object.keys(porEstado).sort((a,b)=>{
+          const o={RELEVANT:0,POTENTIALLY_RELEVANT:1,UNKNOWN:2,NEEDS_REVIEW:3,NOT_RELEVANT:4};
+          return (o[a.split('||')[0]]??9)-(o[b.split('||')[0]]??9);
+        }).map(k => linha(k, porEstado[k])).join('')}</div>`;
   });
   $('#v-action').innerHTML = `
   <div class="lei">Roteamento diz <b>quem pode precisar olhar</b>, nunca <b>o que fazer</b>.
@@ -528,7 +551,7 @@ function viewReview() {
       return `<tr><td>${esc(o.PRODUCT_NAME)}</td><td class="mono">${esc(o.REGISTRATION_ID)}</td>
       <td class="meta">${esc(p.activity||'NOT_KNOWN')}</td>
       <td><code>${esc(p.dose_state||'NOT_ATTEMPTED')}</code></td>
-      <td>${p.uses?p.uses.length:0}</td>
+      <td>${p.uses&&p.uses.length?p.uses.length:val('NOT_KNOWN')}</td>
       <td><button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">evidencia</button></td></tr>`;
     }).join('')}</tbody></table></div>`;
 }
