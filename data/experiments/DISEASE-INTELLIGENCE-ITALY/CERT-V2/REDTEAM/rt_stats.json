@@ -1,0 +1,435 @@
+{
+ "A1_RESOLUTION": {
+  "BASELINE_N_HISTOGRAM": {
+   "5": 20,
+   "6": 18,
+   "7": 20,
+   "8": 16,
+   "9": 13,
+   "10": 13,
+   "11": 17,
+   "12": 15,
+   "13": 18,
+   "14": 12,
+   "15": 13,
+   "16": 12,
+   "17": 14,
+   "18": 28,
+   "19": 25,
+   "20": 28
+  },
+  "BASELINE_N_MIN": 5,
+  "BASELINE_N_MEDIAN": 13.0,
+  "BASELINE_N_MAX": 20,
+  "PERCENTILE_GRID_STEP_MIN": 0.025,
+  "PERCENTILE_GRID_STEP_MAX": 0.1,
+  "LABELS_ONE_SEASON_FROM_FLIPPING": "83/282",
+  "BY_STATE": {
+   "HIGHER_THAN_USUAL": 17,
+   "LOWER_THAN_USUAL": 25,
+   "TYPICAL_FOR_THE_DATE": 41
+  },
+  "HIGHER_ONE_SEASON_FROM_FLIPPING": "17/40"
+ },
+ "A2_ATTAINABILITY": {
+  "CELLS_WHERE_NO_ACHIEVABLE_VALUE_COULD_PRODUCE_LOWER": "107/282",
+  "CELLS_WHERE_NO_ACHIEVABLE_VALUE_COULD_PRODUCE_HIGHER": "0/282",
+  "CURRENT_VALUE_IS_EXACTLY_ZERO": "133/282",
+  "STATE_OF_THE_ZERO_VALUED_CELLS": {
+   "TYPICAL_FOR_THE_DATE": 92,
+   "LOWER_THAN_USUAL": 41
+  },
+  "OF_THOSE_NOT_CALLED_LOWER": 92,
+  "ZERO_RULE_BY_BASELINE_N": {
+   "5": "a current value of 0 is LOWER only if at most 2 of 5 baseline seasons are 0",
+   "6": "a current value of 0 is LOWER only if at most 2 of 6 baseline seasons are 0",
+   "7": "a current value of 0 is LOWER only if at most 2 of 7 baseline seasons are 0",
+   "8": "a current value of 0 is LOWER only if at most 3 of 8 baseline seasons are 0",
+   "9": "a current value of 0 is LOWER only if at most 3 of 9 baseline seasons are 0",
+   "10": "a current value of 0 is LOWER only if at most 4 of 10 baseline seasons are 0",
+   "11": "a current value of 0 is LOWER only if at most 4 of 11 baseline seasons are 0",
+   "12": "a current value of 0 is LOWER only if at most 4 of 12 baseline seasons are 0",
+   "13": "a current value of 0 is LOWER only if at most 5 of 13 baseline seasons are 0",
+   "14": "a current value of 0 is LOWER only if at most 5 of 14 baseline seasons are 0",
+   "15": "a current value of 0 is LOWER only if at most 6 of 15 baseline seasons are 0",
+   "16": "a current value of 0 is LOWER only if at most 6 of 16 baseline seasons are 0",
+   "17": "a current value of 0 is LOWER only if at most 6 of 17 baseline seasons are 0",
+   "18": "a current value of 0 is LOWER only if at most 7 of 18 baseline seasons are 0",
+   "19": "a current value of 0 is LOWER only if at most 7 of 19 baseline seasons are 0",
+   "20": "a current value of 0 is LOWER only if at most 8 of 20 baseline seasons are 0",
+   "21": "a current value of 0 is LOWER only if at most 8 of 21 baseline seasons are 0"
+  }
+ },
+ "A3_TIES": {
+  "CELLS_WITH_AT_LEAST_ONE_TIED_BASELINE_SEASON": "133/282",
+  "LABEL_CHANGES_IF_TIES_COUNT_AS_BELOW(0)": "93/282",
+  "LABEL_CHANGES_IF_TIES_COUNT_AS_BELOW(1)": "48/282",
+  "LABEL_DEPENDS_ON_THE_TIE_CONVENTION": "114/282",
+  "HIGHER_THAT_EXISTS_ONLY_BECAUSE_OF_THE_HALF_TIE": "0/40",
+  "LOWER_THAT_EXISTS_ONLY_BECAUSE_OF_THE_HALF_TIE": "20/79",
+  "TIE_DRIVEN_HIGHER_ROWS": [],
+  "TIE_DRIVEN_LOWER_ROWS": [
+   {
+    "CROP": "OLIVE",
+    "DATE": "2026-08-01",
+    "PROVINCE": "Lucca",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.2,
+    "N_BELOW": 0,
+    "N_EQUAL": 8,
+    "BASELINE_N": 20,
+    "n_sites": 14,
+    "n_pos": 0
+   },
+   {
+    "CROP": "OLIVE",
+    "DATE": "2026-08-01",
+    "PROVINCE": "Pisa",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.15,
+    "N_BELOW": 0,
+    "N_EQUAL": 6,
+    "BASELINE_N": 20,
+    "n_sites": 19,
+    "n_pos": 0
+   },
+   {
+    "CROP": "OLIVE",
+    "DATE": "2026-08-15",
+    "PROVINCE": "Pistoia",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.1842,
+    "N_BELOW": 0,
+    "N_EQUAL": 7,
+    "BASELINE_N": 19,
+    "n_sites": 9,
+    "n_pos": 0
+   },
+   {
+    "CROP": "OLIVE",
+    "DATE": "2026-09-01",
+    "PROVINCE": "Arezzo",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.125,
+    "N_BELOW": 0,
+    "N_EQUAL": 5,
+    "BASELINE_N": 20,
+    "n_sites": 17,
+    "n_pos": 0
+   },
+   {
+    "CROP": "VINE",
+    "DATE": "2026-07-01",
+    "PROVINCE": "Pisa",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.1842,
+    "N_BELOW": 0,
+    "N_EQUAL": 7,
+    "BASELINE_N": 19,
+    "n_sites": 20,
+    "n_pos": 0
+   },
+   {
+    "CROP": "VINE",
+    "DATE": "2026-07-01",
+    "PROVINCE": "Siena",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.1944,
+    "N_BELOW": 0,
+    "N_EQUAL": 7,
+    "BASELINE_N": 18,
+    "n_sites": 29,
+    "n_pos": 0
+   },
+   {
+    "CROP": "VINE",
+    "DATE": "2026-07-15",
+    "PROVINCE": "Siena",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.1842,
+    "N_BELOW": 0,
+    "N_EQUAL": 7,
+    "BASELINE_N": 19,
+    "n_sites": 29,
+    "n_pos": 0
+   },
+   {
+    "CROP": "VINE",
+    "DATE": "2026-08-01",
+    "PROVINCE": "Grosseto",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.1944,
+    "N_BELOW": 0,
+    "N_EQUAL": 7,
+    "BASELINE_N": 18,
+    "n_sites": 19,
+    "n_pos": 0
+   },
+   {
+    "CROP": "VINE",
+    "DATE": "2026-08-01",
+    "PROVINCE": "Lucca",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.1944,
+    "N_BELOW": 0,
+    "N_EQUAL": 7,
+    "BASELINE_N": 18,
+    "n_sites": 9,
+    "n_pos": 0
+   },
+   {
+    "CROP": "VINE",
+    "DATE": "2026-08-01",
+    "PROVINCE": "Massa-Carrara",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.1875,
+    "N_BELOW": 0,
+    "N_EQUAL": 3,
+    "BASELINE_N": 8,
+    "n_sites": 8,
+    "n_pos": 0
+   },
+   {
+    "CROP": "VINE",
+    "DATE": "2026-08-01",
+    "PROVINCE": "Pisa",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.1579,
+    "N_BELOW": 0,
+    "N_EQUAL": 6,
+    "BASELINE_N": 19,
+    "n_sites": 20,
+    "n_pos": 0
+   },
+   {
+    "CROP": "VINE",
+    "DATE": "2026-08-01",
+    "PROVINCE": "Siena",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.1579,
+    "N_BELOW": 0,
+    "N_EQUAL": 6,
+    "BASELINE_N": 19,
+    "n_sites": 29,
+    "n_pos": 0
+   },
+   {
+    "CROP": "VINE",
+    "DATE": "2026-08-15",
+    "PROVINCE": "Lucca",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.1538,
+    "N_BELOW": 0,
+    "N_EQUAL": 4,
+    "BASELINE_N": 13,
+    "n_sites": 9,
+    "n_pos": 0
+   },
+   {
+    "CROP": "VINE",
+    "DATE": "2026-08-15",
+    "PROVINCE": "Pisa",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.1111,
+    "N_BELOW": 0,
+    "N_EQUAL": 4,
+    "BASELINE_N": 18,
+    "n_sites": 18,
+    "n_pos": 0
+   },
+   {
+    "CROP": "VINE",
+    "DATE": "2026-09-01",
+    "PROVINCE": "Massa-Carrara",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.2,
+    "N_BELOW": 0,
+    "N_EQUAL": 2,
+    "BASELINE_N": 5,
+    "n_sites": 8,
+    "n_pos": 0
+   },
+   {
+    "CROP": "VINE",
+    "DATE": "2026-09-01",
+    "PROVINCE": "Siena",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.1923,
+    "N_BELOW": 0,
+    "N_EQUAL": 5,
+    "BASELINE_N": 13,
+    "n_sites": 29,
+    "n_pos": 0
+   },
+   {
+    "CROP": "VINE",
+    "DATE": "2026-09-06",
+    "PROVINCE": "Livorno",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.2,
+    "N_BELOW": 0,
+    "N_EQUAL": 2,
+    "BASELINE_N": 5,
+    "n_sites": 21,
+    "n_pos": 0
+   },
+   {
+    "CROP": "VINE",
+    "DATE": "2026-09-06",
+    "PROVINCE": "Lucca",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.2,
+    "N_BELOW": 0,
+    "N_EQUAL": 2,
+    "BASELINE_N": 5,
+    "n_sites": 9,
+    "n_pos": 0
+   },
+   {
+    "CROP": "VINE",
+    "DATE": "2026-09-06",
+    "PROVINCE": "Massa-Carrara",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.2,
+    "N_BELOW": 0,
+    "N_EQUAL": 2,
+    "BASELINE_N": 5,
+    "n_sites": 8,
+    "n_pos": 0
+   },
+   {
+    "CROP": "VINE",
+    "DATE": "2012-09-06",
+    "PROVINCE": "Siena",
+    "VALUE": 0.0,
+    "PERCENTILE": 0.2,
+    "N_BELOW": 0,
+    "N_EQUAL": 2,
+    "BASELINE_N": 5,
+    "n_sites": 32,
+    "n_pos": 0
+   }
+  ],
+  "CLASS_DISTRIBUTION_UNDER_EACH_TIE_CONVENTION": {
+   "SHIPPED_below+0.5eq": {
+    "HIGHER_THAN_USUAL": 40,
+    "TYPICAL_FOR_THE_DATE": 163,
+    "LOWER_THAN_USUAL": 79
+   },
+   "MIN_below_only": {
+    "HIGHER_THAN_USUAL": 40,
+    "LOWER_THAN_USUAL": 172,
+    "TYPICAL_FOR_THE_DATE": 70
+   },
+   "MAX_below+eq": {
+    "HIGHER_THAN_USUAL": 68,
+    "TYPICAL_FOR_THE_DATE": 155,
+    "LOWER_THAN_USUAL": 59
+   }
+  }
+ },
+ "A4_ZERO_BASELINE": {
+  "HIGHER_NO_FLOOR": 40,
+  "HIGHER_SHIPPED": 31,
+  "HIGHER_WHERE_EVERY_BASELINE_SEASON_IS_ZERO": "1/40",
+  "HIGHER_WHERE_THE_BASELINE_MEDIAN_IS_ZERO": "8/40",
+  "SHIPPED_HIGHER_WHERE_EVERY_BASELINE_SEASON_IS_ZERO": "0/31",
+  "SHIPPED_HIGHER_WHERE_THE_BASELINE_MEDIAN_IS_ZERO": "0/31",
+  "SMALLEST_INCIDENCE_EVER_PUBLISHED_AS_HIGHER": 0.55,
+  "SMALLEST_POSITIVE_SITES_EVER_PUBLISHED_AS_HIGHER": 7
+ },
+ "A5_NULL": {
+  "NULL": "leave-one-out exchangeability: the current season is swapped with each usable baseline season at the same calendar window; all n+1 assignments enumerated exactly",
+  "CLASSIFIED_CELLS": 282,
+  "EXPECTED_HIGHER_NO_FLOOR": 62.6,
+  "OBSERVED_HIGHER_NO_FLOOR": 40,
+  "EXPECTED_LOWER": 46.0,
+  "OBSERVED_LOWER": 79,
+  "EXPECTED_HIGHER_WITH_FLOOR": 46.3,
+  "OBSERVED_HIGHER_WITH_FLOOR": 31,
+  "MC_REPLICATES": 20000,
+  "P_OBSERVED_HIGHER_>=_NULL": 0.9999,
+  "P_OBSERVED_LOWER_>=_NULL": 0.0,
+  "P_OBSERVED_HIGHER_WITH_FLOOR_>=_NULL": 0.9972,
+  "NULL_HIGHER_2.5_50_97.5_PCT": [
+   49,
+   62,
+   76
+  ],
+  "CAVEAT": "the Monte-Carlo p-values treat the 282 cells as independent; they are not (25 province-cells x 30 dates, and the eleven 2026 windows overlap). The EXPECTED counts are unbiased under any dependence (linearity); only the p-values are optimistic. Sub-samples with one window per season are below.",
+  "SUBSAMPLES": {
+   "2026_DATES_ONLY": {
+    "N": 132,
+    "HIGHER_obs/exp_no_floor": "4/26.1",
+    "HIGHER_obs/exp_shipped": "0/12.8",
+    "LOWER_obs/exp": "40/15.2"
+   },
+   "PRIOR_SEP6_ONLY": {
+    "N": 150,
+    "HIGHER_obs/exp_no_floor": "36/36.5",
+    "HIGHER_obs/exp_shipped": "31/33.4",
+    "LOWER_obs/exp": "39/30.9"
+   },
+   "CROP_OLIVE": {
+    "N": 166,
+    "HIGHER_obs/exp_no_floor": "34/38.5",
+    "HIGHER_obs/exp_shipped": "31/36.7",
+    "LOWER_obs/exp": "58/37.2"
+   },
+   "CROP_VINE": {
+    "N": 107,
+    "HIGHER_obs/exp_no_floor": "5/22.2",
+    "HIGHER_obs/exp_shipped": "0/8.5",
+    "LOWER_obs/exp": "21/8.8"
+   },
+   "CROP_WHEAT": {
+    "N": 9,
+    "HIGHER_obs/exp_no_floor": "1/1.8",
+    "HIGHER_obs/exp_shipped": "0/1.1",
+    "LOWER_obs/exp": "0/0.0"
+   }
+  }
+ },
+ "A6_N_SITES": {
+  "CLASS_BY_N_SITES_BUCKET_FLOOR_OFF": {
+   "15-39": {
+    "HIGHER_THAN_USUAL": "22/150",
+    "TYPICAL_FOR_THE_DATE": "91/150",
+    "LOWER_THAN_USUAL": "37/150"
+   },
+   "40+": {
+    "HIGHER_THAN_USUAL": "11/61",
+    "TYPICAL_FOR_THE_DATE": "29/61",
+    "LOWER_THAN_USUAL": "21/61"
+   },
+   "8-14": {
+    "HIGHER_THAN_USUAL": "7/71",
+    "TYPICAL_FOR_THE_DATE": "43/71",
+    "LOWER_THAN_USUAL": "21/71"
+   }
+  },
+  "CLASS_BY_N_SITES_BUCKET_SHIPPED": {
+   "15-39": {
+    "HIGHER_THAN_USUAL": "21/150",
+    "TYPICAL_FOR_THE_DATE": "92/150",
+    "LOWER_THAN_USUAL": "37/150"
+   },
+   "40+": {
+    "HIGHER_THAN_USUAL": "8/61",
+    "TYPICAL_FOR_THE_DATE": "32/61",
+    "LOWER_THAN_USUAL": "21/61"
+   },
+   "8-14": {
+    "HIGHER_THAN_USUAL": "2/71",
+    "TYPICAL_FOR_THE_DATE": "48/71",
+    "LOWER_THAN_USUAL": "21/71"
+   }
+  },
+  "MEDIAN_N_SITES_BY_CLASS": {
+   "HIGHER_THAN_USUAL": 33.5,
+   "LOWER_THAN_USUAL": 21,
+   "TYPICAL_FOR_THE_DATE": 24
+  },
+  "INCIDENCE_GRID_STEP": "1/n_sites; smallest non-zero incidence expressible per bucket: 8 sites -> 0.125, 14 -> 0.0714, 40 -> 0.025, 119 -> 0.0084"
+ }
+}

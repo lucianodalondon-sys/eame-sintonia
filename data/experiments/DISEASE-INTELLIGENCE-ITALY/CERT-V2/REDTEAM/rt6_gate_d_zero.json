@@ -1,0 +1,100 @@
+{
+ "AS_OF": "2026-09-06",
+ "SHIPPED": {
+  "OLIVO x BACTROCERA x TOSCANA": {
+   "n_published_province_cells": 10,
+   "STATES": {
+    "LOWER_THAN_USUAL": 8,
+    "TYPICAL_FOR_THE_DATE": 1,
+    "UNKNOWN_NO_DATA": 1
+   },
+   "n_UNKNOWN": 1,
+   "UNKNOWN_PROVINCES": [
+    "Prato"
+   ]
+  },
+  "VITE x OIDIO x TOSCANA": {
+   "n_published_province_cells": 10,
+   "STATES": {
+    "TYPICAL_FOR_THE_DATE": 5,
+    "LOWER_THAN_USUAL": 4,
+    "UNKNOWN_NO_DATA": 1
+   },
+   "n_UNKNOWN": 1,
+   "UNKNOWN_PROVINCES": [
+    "Prato"
+   ]
+  }
+ },
+ "M07_v3_REPLAYED": {
+  "cells_rewritten_as_VALUE_0.0_LOWER_THAN_USUAL": {
+   "OLIVO x BACTROCERA x TOSCANA": [
+    "Prato"
+   ],
+   "VITE x OIDIO x TOSCANA": [
+    "Prato"
+   ]
+  },
+  "n_cells_rewritten": {
+   "OLIVO x BACTROCERA x TOSCANA": 1,
+   "VITE x OIDIO x TOSCANA": 1
+  },
+  "n_real_UNKNOWN_cells_left": {
+   "OLIVO x BACTROCERA x TOSCANA": 0,
+   "VITE x OIDIO x TOSCANA": 0
+  },
+  "synthetic_alibi_cells_added": {
+   "OLIVO x BACTROCERA x TOSCANA": 1,
+   "VITE x OIDIO x TOSCANA": 1
+  },
+  "GATE_D_unk_counter_sees": {
+   "OLIVO x BACTROCERA x TOSCANA": 1,
+   "VITE x OIDIO x TOSCANA": 1
+  },
+  "GATE_D_VERDICT": "PASS",
+  "READ_PLAINLY": "every province that the engine could not measure is now published as '0.0, LOWER_THAN_USUAL' \u2014 'we did not look' rendered as 'there is nothing there' \u2014 and gate D reports UNKNOWN_IS_VISIBLE = PASS because one fake UNKNOWN cell was appended."
+ },
+ "HOW_BIG_IS_THIS_MUTATION": {
+  "real_UNKNOWN_cells_in_the_shipped_output": {
+   "OLIVO x BACTROCERA x TOSCANA": 1,
+   "VITE x OIDIO x TOSCANA": 1
+  },
+  "published_cells_per_case": {
+   "OLIVO x BACTROCERA x TOSCANA": 10,
+   "VITE x OIDIO x TOSCANA": 10
+  },
+  "NOTE": "the mutation destroys 100% of the cells the property applies to, but that is 2 cells out of 20 published today. M07 v2 was withdrawn for exactly this reason (unknown[1:] was empty); v3 works only because it appends an alibi."
+ },
+ "FAILURE_NOT_ZERO_ASSERTION": {
+  "ONLY_LIVE_CALL_SITE": "ENGINE/current_pressure.py:274",
+  "ARGUMENTS_PASSED": "Missing.NOT_KNOWN, None   (two constants)",
+  "call_site_text_found": true,
+  "PROBE": [
+   {
+    "state": "NOT_KNOWN",
+    "value": null,
+    "RESULT": "no exception",
+    "why": "the arguments the shipped runner actually passes"
+   },
+   {
+    "state": "NOT_KNOWN",
+    "value": 0.0,
+    "RESULT": "RAISED: REFUSED: NOT_KNOWN coerced to zero. FAILURE != ZERO.",
+    "why": "what the runner would pass if it passed the cell"
+   },
+   {
+    "state": "NOT_KNOWN",
+    "value": 0,
+    "RESULT": "RAISED: REFUSED: NOT_KNOWN coerced to zero. FAILURE != ZERO.",
+    "why": "integer zero"
+   },
+   {
+    "state": "INSUFFICIENT_DATA",
+    "value": 0.0,
+    "RESULT": "RAISED: REFUSED: INSUFFICIENT_DATA coerced to zero. FAILURE != ZERO.",
+    "why": "the other NEVER_ZERO state"
+   }
+  ],
+  "CONCLUSION": "the shipped call passes value=None, which is not in (0, 0.0, '0'), so it cannot raise for any input. The assertion gate D cites as evidence is a no-op at its only live call site."
+ }
+}

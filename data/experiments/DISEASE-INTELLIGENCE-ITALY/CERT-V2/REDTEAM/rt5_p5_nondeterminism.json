@@ -1,0 +1,240 @@
+{
+ "N1_text_open_without_encoding": {
+  "python_files_scanned": 10,
+  "open_calls": 25,
+  "with_explicit_encoding": 0,
+  "this_interpreter_locale_encoding": "cp1252",
+  "MEANING": "open() in text mode decodes with the platform's preferred encoding. The same bytes therefore decode differently on a cp1252 Windows box and a UTF-8 Linux box."
+ },
+ "N2_non_ascii_bytes_present": {
+  "OLIVO-BACTROCERA-TOSCANA": {
+   "files_checked": 85,
+   "files_with_non_ascii_bytes": 20,
+   "examples": [
+    [
+     "c2_s1_v-1001_2020.json",
+     21
+    ],
+    [
+     "c2_s1_v-1001_2021.json",
+     39
+    ],
+    [
+     "c2_s1_v-1001_2022.json",
+     69
+    ],
+    [
+     "c2_s1_v-1001_2023.json",
+     88
+    ],
+    [
+     "c2_s1_v-1001_2024.json",
+     69
+    ]
+   ],
+   "a_file_that_decodes_DIFFERENTLY_under_cp1252": "c2_s1_v1_2024.json"
+  },
+  "VITE-OIDIO-TOSCANA": {
+   "files_checked": 41,
+   "files_with_non_ascii_bytes": 2,
+   "examples": [
+    [
+     "c3_s8_v39_2012.json",
+     10
+    ],
+    [
+     "c3_s8_v40_2012.json",
+     10
+    ]
+   ],
+   "a_file_that_decodes_DIFFERENTLY_under_cp1252": "c3_s8_v40_2012.json"
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA": {
+   "files_checked": 15,
+   "files_with_non_ascii_bytes": 0,
+   "examples": [],
+   "a_file_that_decodes_DIFFERENTLY_under_cp1252": null
+  }
+ },
+ "N3_PYTHONHASHSEED": {
+  "seeds_tried": [
+   "0",
+   "1",
+   "12345"
+  ],
+  "all_outputs_identical": true,
+  "n_distinct_outputs": 1
+ },
+ "N4_id_survey_key_types": {
+  "OLIVO-BACTROCERA-TOSCANA": {
+   "DENOMINATOR_VAR": 1,
+   "id_survey_types_in_denominator_files": {
+    "int": 53416,
+    "str": 25835
+   },
+   "id_survey_types_in_outcome_files": {
+    "int": 53416,
+    "str": 25835
+   },
+   "TYPES_MATCH": true
+  },
+  "VITE-OIDIO-TOSCANA": {
+   "DENOMINATOR_VAR": null,
+   "id_survey_types_in_denominator_files": {},
+   "id_survey_types_in_outcome_files": {
+    "int": 26177,
+    "str": 8888
+   },
+   "TYPES_MATCH": null
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA": {
+   "DENOMINATOR_VAR": null,
+   "id_survey_types_in_denominator_files": {},
+   "id_survey_types_in_outcome_files": {
+    "int": 3072,
+    "str": 2745
+   },
+   "TYPES_MATCH": null
+  }
+ },
+ "N5_date_string_shapes": {
+  "OLIVO-BACTROCERA-TOSCANA": {
+   "rows_with_a_date": 79251,
+   "date_shapes": {
+    "plain_YYYY-MM-DD": 79251
+   },
+   "ALL_plain_ISO": true
+  },
+  "VITE-OIDIO-TOSCANA": {
+   "rows_with_a_date": 35065,
+   "date_shapes": {
+    "plain_YYYY-MM-DD": 35065
+   },
+   "ALL_plain_ISO": true
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA": {
+   "rows_with_a_date": 5817,
+   "date_shapes": {
+    "plain_YYYY-MM-DD": 5817
+   },
+   "ALL_plain_ISO": true
+  }
+ },
+ "N6_week_values": {
+  "OLIVO-BACTROCERA-TOSCANA": {
+   "week_values_int_cannot_parse": {},
+   "n_bad": 0
+  },
+  "VITE-OIDIO-TOSCANA": {
+   "week_values_int_cannot_parse": {},
+   "n_bad": 0
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA": {
+   "week_values_int_cannot_parse": {},
+   "n_bad": 0
+  }
+ },
+ "N7_SEVERITY_is_float_order_sensitive_but": {
+  "per_file": {
+   "collect_generic.py": {
+    "passes_SEVERITY": false,
+    "mentions_SEVERITY": 0
+   },
+   "effort_confound.py": {
+    "passes_SEVERITY": false,
+    "mentions_SEVERITY": 0
+   },
+   "province_agreement.py": {
+    "passes_SEVERITY": false,
+    "mentions_SEVERITY": 0
+   },
+   "run_case.py": {
+    "passes_SEVERITY": false,
+    "mentions_SEVERITY": 0
+   },
+   "answer_sheet.py": {
+    "passes_SEVERITY": false,
+    "mentions_SEVERITY": 0
+   },
+   "automation_probe.py": {
+    "passes_SEVERITY": false,
+    "mentions_SEVERITY": 0
+   },
+   "contracts.py": {
+    "passes_SEVERITY": false,
+    "mentions_SEVERITY": 1
+   },
+   "current_pressure.py": {
+    "passes_SEVERITY": false,
+    "mentions_SEVERITY": 1
+   },
+   "gates.py": {
+    "passes_SEVERITY": false,
+    "mentions_SEVERITY": 0
+   },
+   "refresh_coverage.py": {
+    "passes_SEVERITY": false,
+    "mentions_SEVERITY": 0
+   }
+  },
+  "metric_used_by_gates_py": "INCIDENCE (the default; no caller passes SEVERITY)",
+  "INCIDENCE_arithmetic": "sum(1 for v in vals if v>0)/len(vals) -- integer counts, so summation order cannot change it",
+  "VERDICT": "float summation order exists in SEVERITY only, and SEVERITY reaches no gate"
+ },
+ "N8_denominator_glob": {
+  "pattern": "*_v1_*.json",
+  "matches": [
+   "c2_s1_v1_2006.json",
+   "c2_s1_v1_2007.json",
+   "c2_s1_v1_2008.json",
+   "c2_s1_v1_2009.json",
+   "c2_s1_v1_2010.json",
+   "c2_s1_v1_2011.json",
+   "c2_s1_v1_2012.json",
+   "c2_s1_v1_2013.json",
+   "c2_s1_v1_2014.json",
+   "c2_s1_v1_2015.json",
+   "c2_s1_v1_2016.json",
+   "c2_s1_v1_2017.json",
+   "c2_s1_v1_2018.json",
+   "c2_s1_v1_2019.json",
+   "c2_s1_v1_2020.json",
+   "c2_s1_v1_2021.json",
+   "c2_s1_v1_2022.json",
+   "c2_s1_v1_2023.json",
+   "c2_s1_v1_2024.json",
+   "c2_s1_v1_2025.json",
+   "c2_s1_v1_2026.json"
+  ],
+  "all_files_in_RAW": 84,
+  "does_it_leak_v-1001_or_v-1002": []
+ },
+ "N9_writes_relative_to_CWD": {
+  "files": {
+   "answer_sheet.py": [
+    "answer_sheet.json"
+   ],
+   "gates.py": [
+    "gates.json"
+   ],
+   "refresh_coverage.py": [
+    "regional_coverage.json"
+   ]
+  },
+  "MEANING": "the committed artefact is only overwritten when the script is launched from the directory that holds it; run from anywhere else the stale copy survives"
+ },
+ "N10_network_inside_the_gate_run": {
+  "gate_H_calls": "automation_probe.fetch() x3, live HTTP GET",
+  "endpoint": "https://agroambiente.info.regione.toscana.it/agro18/api/dati/get_aedita_data",
+  "offline_behaviour": "fetch() returns HTTP=None -> reachable=0 -> gate H FAIL",
+  "MEANING": "gates.json is not a function of the repository alone; it is a function of the repository AND of what a third-party server returns on the day of the run"
+ },
+ "N11_absolute_paths_in_ENGINE": {
+  "found": [
+   "/home/user/eame-sintonia/italia-portale/client/meeting-intelligence-snapshot.json"
+  ],
+  "exists_on_this_machine": {
+   "/home/user/eame-sintonia/italia-portale/client/meeting-intelligence-snapshot.json": false
+  }
+ }
+}

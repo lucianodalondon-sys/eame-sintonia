@@ -1,0 +1,46 @@
+{
+ "HARDCODED_PATH": "/home/user/eame-sintonia/italia-portale/client/meeting-intelligence-snapshot.json",
+ "HARDCODED_PATH_EXISTS_ON_THIS_CHECKOUT": false,
+ "HARDCODED_PATH_RESOLVES_TO": "C:\\home\\user\\eame-sintonia\\italia-portale\\client\\meeting-intelligence-snapshot.json",
+ "IN_REPO_COPY": "C:\\cert-v2-disease-pressure\\italia-portale\\client\\meeting-intelligence-snapshot.json",
+ "IN_REPO_COPY_EXISTS": true,
+ "BRANCH_file_absent": {
+  "jv0": "FAIL",
+  "VERDICT": "FAIL",
+  "COUNTS": null
+ },
+ "BRANCH_file_present_repo_copy": {
+  "jv0": "PARTIALLY_OVERLAPS",
+  "VERDICT": "NOT_TESTABLE",
+  "COUNTS": {
+   "n_cases": 43,
+   "n_O1_FIELD_PRESSURE": 17,
+   "n_vine_x_Toscana_field_pressure": 3,
+   "n_olive_TARGETS_in_whole_vocabulary": 0
+  }
+ },
+ "BRANCH_the_shipped_gate_takes_on_this_checkout": {
+  "jv0": "FAIL",
+  "VERDICT": "FAIL",
+  "COUNTS": null
+ },
+ "LITERALS_EVER_ASSIGNED_TO_jv0": [
+  "\"PARTIALLY_OVERLAPS\"",
+  "FAIL"
+ ],
+ "REACHABLE_VERDICTS": [
+  "FAIL",
+  "NOT_TESTABLE"
+ ],
+ "CAN_GATE_J_RETURN_PASS": false,
+ "CONSEQUENCE": "gates.evaluate() sets DESERVES_FUTURE_INTEGRATION = YES_SCOPED only when n_fail == 0 and n_pass >= 8. Gate J can only ever contribute a FAIL or a NOT_TESTABLE, never a PASS, so the headline can never be reached with J readable-and-overlapping AND any other gate failing. The 'analysis' inside gate J \u2014 17 of 43, 3 vine cells, 0 olive targets \u2014 is computed and then discarded: the verdict is a function of os.path.exists() alone.",
+ "COMMITTED_gates.json": {
+  "J_VERDICT": "NOT_TESTABLE",
+  "J_ANSWER": "PARTIALLY_OVERLAPS",
+  "PASS": 8,
+  "FAIL": 1,
+  "NOT_TESTABLE": 1,
+  "DESERVES_FUTURE_INTEGRATION": "NO"
+ },
+ "WHAT_THIS_CHECKOUT_WOULD_PRODUCE_FOR_J": "FAIL"
+}

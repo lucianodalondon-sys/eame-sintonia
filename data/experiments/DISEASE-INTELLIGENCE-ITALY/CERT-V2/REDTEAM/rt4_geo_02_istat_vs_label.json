@@ -1,0 +1,206 @@
+{
+ "N_ROWS_ALL_CASES": 120133,
+ "PER_CASE": {
+  "OLIVO-BACTROCERA-TOSCANA": {
+   "AGREE": 77850,
+   "ADMIN_REFORM_PRATO": 1401
+  },
+  "VITE-OIDIO-TOSCANA": {
+   "AGREE": 34225,
+   "ADMIN_REFORM_PRATO": 810,
+   "MISLABEL": 30
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA": {
+   "AGREE": 5817
+  }
+ },
+ "DISAGREEMENTS": {},
+ "AGREE": 117892,
+ "DISAGREE": 2241,
+ "DISAGREEMENT_BREAKDOWN": [
+  {
+   "KIND": "ADMIN_REFORM_PRATO",
+   "PROV_FROM_ISTAT_CODE": "Firenze",
+   "PROV_FROM_LABEL": "Prato",
+   "COMUNE": "CARMIGNANO",
+   "N_ROWS": 1422
+  },
+  {
+   "KIND": "ADMIN_REFORM_PRATO",
+   "PROV_FROM_ISTAT_CODE": "Firenze",
+   "PROV_FROM_LABEL": "Prato",
+   "COMUNE": "VAIANO",
+   "N_ROWS": 242
+  },
+  {
+   "KIND": "ADMIN_REFORM_PRATO",
+   "PROV_FROM_ISTAT_CODE": "Firenze",
+   "PROV_FROM_LABEL": "Prato",
+   "COMUNE": "PRATO",
+   "N_ROWS": 238
+  },
+  {
+   "KIND": "ADMIN_REFORM_PRATO",
+   "PROV_FROM_ISTAT_CODE": "Firenze",
+   "PROV_FROM_LABEL": "Prato",
+   "COMUNE": "MONTEMURLO",
+   "N_ROWS": 232
+  },
+  {
+   "KIND": "ADMIN_REFORM_PRATO",
+   "PROV_FROM_ISTAT_CODE": "Firenze",
+   "PROV_FROM_LABEL": "Prato",
+   "COMUNE": "POGGIO A CAIANO",
+   "N_ROWS": 77
+  },
+  {
+   "KIND": "MISLABEL",
+   "PROV_FROM_ISTAT_CODE": "Firenze",
+   "PROV_FROM_LABEL": "Siena",
+   "COMUNE": "VICCHIO",
+   "N_ROWS": 30
+  }
+ ],
+ "MISLABEL_ROWS": {
+  "N": 30,
+  "OF": 120133,
+  "DISTINCT_FIELDS": [
+   5082
+  ],
+  "DISTINCT_ADMIN_CODES": [
+   48049
+  ],
+  "DISTINCT_COMUNI": [
+   "VICCHIO"
+  ],
+  "DISTINCT_NAME_5": [
+   "Basso Mugello"
+  ],
+  "NOME_AREA": [
+   "Siena"
+  ],
+  "NAME_3": [
+   "Firenze"
+  ],
+  "ID_AREA": [
+   38
+  ],
+  "ADMIN_CODE_3": [
+   2
+  ],
+  "ORG_NAME": [
+   "unipi"
+  ],
+  "YEARS": [
+   "2021",
+   "2022",
+   "2023",
+   "2024"
+  ],
+  "DATE_RANGE": [
+   "2021-05-25",
+   "2024-07-08"
+  ],
+  "LATLON": [
+   "43.992692,11.5226109"
+  ],
+  "CASES": {
+   "VITE-OIDIO-TOSCANA": 30
+  },
+  "SAMPLE": [
+   {
+    "id_field": 5082,
+    "id_survey": "256685",
+    "date": "2021-06-22",
+    "nome_area": "Siena",
+    "name_3": "Firenze",
+    "admin_code": 48049,
+    "name_4": "VICCHIO",
+    "name_5": "Basso Mugello",
+    "lat": "43.992692",
+    "lon": "11.5226109",
+    "val": "782"
+   },
+   {
+    "id_field": 5082,
+    "id_survey": "253188",
+    "date": "2021-05-25",
+    "nome_area": "Siena",
+    "name_3": "Firenze",
+    "admin_code": 48049,
+    "name_4": "VICCHIO",
+    "name_5": "Basso Mugello",
+    "lat": "43.992692",
+    "lon": "11.5226109",
+    "val": "782"
+   },
+   {
+    "id_field": 5082,
+    "id_survey": "257671",
+    "date": "2021-06-29",
+    "nome_area": "Siena",
+    "name_3": "Firenze",
+    "admin_code": 48049,
+    "name_4": "VICCHIO",
+    "name_5": "Basso Mugello",
+    "lat": "43.992692",
+    "lon": "11.5226109",
+    "val": "782"
+   },
+   {
+    "id_field": 5082,
+    "id_survey": "390821",
+    "date": "2022-06-06",
+    "nome_area": "Siena",
+    "name_3": "Firenze",
+    "admin_code": 48049,
+    "name_4": "VICCHIO",
+    "name_5": "Basso Mugello",
+    "lat": "43.992692",
+    "lon": "11.5226109",
+    "val": "782"
+   },
+   {
+    "id_field": 5082,
+    "id_survey": "388576",
+    "date": "2022-05-03",
+    "nome_area": "Siena",
+    "name_3": "Firenze",
+    "admin_code": 48049,
+    "name_4": "VICCHIO",
+    "name_5": "Basso Mugello",
+    "lat": "43.992692",
+    "lon": "11.5226109",
+    "val": "782"
+   }
+  ]
+ },
+ "PRATO": {
+  "N_ROWS_LABELLED_PRATO": 2211,
+  "OF": 120133,
+  "CODE_PREFIXES_SEEN": {
+   "48": 2211
+  },
+  "COMUNI": {
+   "MONTEMURLO": 232,
+   "PRATO": 238,
+   "CARMIGNANO": 1422,
+   "VAIANO": 242,
+   "POGGIO A CAIANO": 77
+  },
+  "ANY_MODERN_100_CODE": false,
+  "COMUNI_NOT_IN_PRATO_PROVINCE": [],
+  "PRATO_COMUNI_LABELLED_FIRENZE": {}
+ },
+ "NOME_AREA_VS_NAME_3": {
+  "N": 30,
+  "OF": 120133,
+  "PAIRS": {
+   "nome_area=Siena | name_3=Firenze": 30
+  }
+ },
+ "ADMIN_CODE_3_VS_ID_AREA": {
+  "N": 30,
+  "OF": 120133
+ }
+}

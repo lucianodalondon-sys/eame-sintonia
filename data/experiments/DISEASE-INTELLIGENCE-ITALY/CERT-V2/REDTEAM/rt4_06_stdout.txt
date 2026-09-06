@@ -1,0 +1,275 @@
+Could not find platform independent libraries <prefix>
+{
+ "G1_COORDINATES_REACH_A_PUBLISHED_NUMBER": {
+  "OLIVO x BACTROCERA": {
+   "N_ROWS_TOUCHED": 79251,
+   "IDENTICAL_AFTER_MOVING_EVERY_POINT_TO_THE_SAHARA": true,
+   "IDENTICAL_AFTER_DELETING_lat_lon_ENTIRELY": true
+  },
+  "VITE x OIDIO": {
+   "N_ROWS_TOUCHED": 35065,
+   "IDENTICAL_AFTER_MOVING_EVERY_POINT_TO_THE_SAHARA": true,
+   "IDENTICAL_AFTER_DELETING_lat_lon_ENTIRELY": true
+  },
+  "FRUMENTO (var 372)": {
+   "N_ROWS_TOUCHED": 5817,
+   "IDENTICAL_AFTER_MOVING_EVERY_POINT_TO_THE_SAHARA": true,
+   "IDENTICAL_AFTER_DELETING_lat_lon_ENTIRELY": true
+  }
+ },
+ "G1b_WHICH_ROW_FIELDS_ARE_LOAD_BEARING": {
+  "OLIVO x BACTROCERA": {
+   "admin_code": "IGNORED (output identical)",
+   "admin_code_3": "IGNORED (output identical)",
+   "name_3": "IGNORED (output identical)",
+   "name_4": "IGNORED (output identical)",
+   "name_5": "IGNORED (output identical)",
+   "org_name": "IGNORED (output identical)",
+   "id_org": "IGNORED (output identical)",
+   "uid": "IGNORED (output identical)",
+   "cultivar": "IGNORED (output identical)",
+   "name": "IGNORED (output identical)",
+   "id_area": "IGNORED (output identical)",
+   "week": "LOAD-BEARING (output changed)",
+   "nome_area": "LOAD-BEARING (output changed)"
+  },
+  "VITE x OIDIO": {
+   "admin_code": "IGNORED (output identical)",
+   "admin_code_3": "IGNORED (output identical)",
+   "name_3": "IGNORED (output identical)",
+   "name_4": "IGNORED (output identical)",
+   "name_5": "IGNORED (output identical)",
+   "org_name": "IGNORED (output identical)",
+   "id_org": "IGNORED (output identical)",
+   "uid": "IGNORED (output identical)",
+   "cultivar": "IGNORED (output identical)",
+   "name": "IGNORED (output identical)",
+   "id_area": "IGNORED (output identical)",
+   "week": "IGNORED (output identical)",
+   "nome_area": "LOAD-BEARING (output changed)"
+  },
+  "FRUMENTO (var 372)": {
+   "admin_code": "IGNORED (output identical)",
+   "admin_code_3": "IGNORED (output identical)",
+   "name_3": "IGNORED (output identical)",
+   "name_4": "IGNORED (output identical)",
+   "name_5": "IGNORED (output identical)",
+   "org_name": "IGNORED (output identical)",
+   "id_org": "IGNORED (output identical)",
+   "uid": "IGNORED (output identical)",
+   "cultivar": "IGNORED (output identical)",
+   "name": "IGNORED (output identical)",
+   "id_area": "IGNORED (output identical)",
+   "week": "IGNORED (output identical)",
+   "nome_area": "LOAD-BEARING (output changed)"
+  }
+ },
+ "G2_PROVINCE_MISLABEL": {
+  "ROWS_REASSIGNED": 46,
+  "TODAY_CELLS_CHANGED": 0,
+  "TODAY_DETAIL": {},
+  "WALKFORWARD_CELLS_CHANGED": 0,
+  "WALKFORWARD_DETAIL": {},
+  "N_SWEEP_DATES": 104,
+  "SWEEP_CELLS_CHANGED": 4,
+  "SWEEP_DETAIL": {
+   "2023-06-25/Siena": {
+    "STATE": [
+     "TYPICAL_FOR_THE_DATE",
+     "TYPICAL_FOR_THE_DATE"
+    ],
+    "VALUE": [
+     0.0952,
+     0.1
+    ]
+   },
+   "2023-07-02/Siena": {
+    "STATE": [
+     "TYPICAL_FOR_THE_DATE",
+     "TYPICAL_FOR_THE_DATE"
+    ],
+    "VALUE": [
+     0.0909,
+     0.0952
+    ]
+   },
+   "2023-07-09/Siena": {
+    "STATE": [
+     "TYPICAL_FOR_THE_DATE",
+     "TYPICAL_FOR_THE_DATE"
+    ],
+    "VALUE": [
+     0.087,
+     0.0909
+    ]
+   },
+   "2023-07-16/Siena": {
+    "STATE": [
+     "TYPICAL_FOR_THE_DATE",
+     "TYPICAL_FOR_THE_DATE"
+    ],
+    "VALUE": [
+     0.087,
+     0.0909
+    ]
+   }
+  },
+  "SWEEP_STATE_CHANGES_ONLY": {}
+ },
+ "G3_INHERITANCE": {
+  "CHECKED": 3150,
+  "VIOLATIONS": [],
+  "CELLS_WITH_ZERO_VISITS": 1352,
+  "CELLS_CLASSED": 919,
+  "PROVINCES_ABSENT_FROM_OUTPUT": {},
+  "INHERITANCE_FOUND": false
+ },
+ "G4_AGGREGATION": {
+  "ALL_PROVINCE_KEYS_EVER_EMITTED": [
+   "Arezzo",
+   "Firenze",
+   "Grosseto",
+   "Livorno",
+   "Lucca",
+   "Massa-Carrara",
+   "Pisa",
+   "Pistoia",
+   "Prato",
+   "Siena"
+  ],
+  "NON_PROVINCE_KEYS": [],
+  "ANY_REGION_OR_NATIONAL_KEY": false,
+  "answer_sheet_2_WHERE_REGIONAL_UNIT": "province (hardcoded string)",
+  "NOTE": "current_pressure has exactly one geographic grouping statement, current_pressure.py:253  p = r.get('nome_area')"
+ },
+ "G5_ORDINAL_TRUNCATION": {
+  "FRUMENTO var 372 (Intensita Oidio)": {
+   "UNRESOLVED_LABELS": [
+    "50 - gravissina",
+    "75 - completa"
+   ],
+   "UNRESOLVED_CODE_IDS": [
+    "1605",
+    "1629"
+   ],
+   "N_OBSERVATIONS_CARRYING_A_DROPPED_CODE": 3,
+   "OF_TOTAL_ROWS": 5817,
+   "PCT": 0.0516,
+   "BY_CODE": {
+    "1629": 3
+   }
+  },
+  "VITE var 39": {
+   "UNRESOLVED_LABELS": [],
+   "UNRESOLVED_CODE_IDS": [],
+   "N_OBSERVATIONS_CARRYING_A_DROPPED_CODE": 0,
+   "OF_TOTAL_ROWS": 35065,
+   "PCT": 0.0,
+   "BY_CODE": {}
+  },
+  "SCALE_AFTER_RESTORING_THE_DROPPED_WORDS": {
+   "1599": [
+    "Nessuna",
+    0
+   ],
+   "1628": [
+    "5 - lieve",
+    1
+   ],
+   "1602": [
+    "10 - media",
+    2
+   ],
+   "1603": [
+    "25 - grave",
+    3
+   ],
+   "1629": [
+    "50 - gravissina",
+    4
+   ],
+   "1605": [
+    "75 - completa",
+    5
+   ]
+  },
+  "EFFECT_ON_var372_TODAY": {},
+  "EFFECT_ON_var372_WALKFORWARD_1_JUNE": {},
+  "N_WALKFORWARD_CELLS": 70
+ },
+ "G6_CATEGORY_ERROR": {
+  "FRUMENTO var 381 LOCALIZZAZIONE Septoria": {
+   "ENGINE_REFUSED": false,
+   "VALUE_MODE": "ORDINAL",
+   "SCALE_SIZE": 1,
+   "SCALE": {
+    "1621": [
+     "No",
+     0
+    ]
+   },
+   "UNRESOLVED": [
+    "Terzultima foglia",
+    "Penultima foglia",
+    "Ultima foglia",
+    "Spiga"
+   ],
+   "TODAY": {},
+   "WALKFORWARD_1_JUNE_CLASS_COUNTS": {},
+   "N_CLASSED_CELLS": 0,
+   "ALL_VALUES_ARE_ZERO": true
+  },
+  "FRUMENTO var 371 LOCALIZZAZIONE Oidio": {
+   "ENGINE_REFUSED": false,
+   "VALUE_MODE": "ORDINAL",
+   "SCALE_SIZE": 3,
+   "SCALE": {
+    "1614": [
+     "No",
+     0
+    ],
+    "1615": [
+     "Parte bassa",
+     1
+    ],
+    "1616": [
+     "Parte alta",
+     2
+    ]
+   },
+   "UNRESOLVED": [
+    "Penultima foglia",
+    "Ultima foglia",
+    "Spiga"
+   ],
+   "TODAY": {},
+   "WALKFORWARD_1_JUNE_CLASS_COUNTS": {},
+   "N_CLASSED_CELLS": 0,
+   "ALL_VALUES_ARE_ZERO": true
+  },
+  "VITE var 42 PRODOTTO (fungicide applied)": {
+   "ENGINE_REFUSED": false,
+   "VALUE_MODE": "ORDINAL",
+   "SCALE_SIZE": 1,
+   "SCALE": {
+    "306": [
+     "nessuno",
+     0
+    ]
+   },
+   "UNRESOLVED": [
+    "zolfo",
+    "IBE",
+    "quinoxifen",
+    "dinocap",
+    "strobilurine",
+    "Ampelomices q.",
+    "altro"
+   ],
+   "TODAY": {},
+   "WALKFORWARD_1_JUNE_CLASS_COUNTS": {},
+   "N_CLASSED_CELLS": 0,
+   "ALL_VALUES_ARE_ZERO": true
+  }
+ }
+}

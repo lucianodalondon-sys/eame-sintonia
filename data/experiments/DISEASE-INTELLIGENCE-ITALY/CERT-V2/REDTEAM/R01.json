@@ -1,0 +1,40 @@
+{
+ "ID": "R01",
+ "TARGET_GATE": "C",
+ "PROPERTY_DESTROYED": "published cells harmonised to one class per case; history untouched",
+ "BASELINE_VERDICTS": {
+  "A_OUTCOME_IS_OBSERVED": "PASS",
+  "B_NOT_SOLD_AS_FORECAST": "PASS",
+  "C_REGIONAL_NOT_NATIONAL": "PASS",
+  "D_UNKNOWN_IS_VISIBLE": "PASS",
+  "E_REPRODUCIBLE": "PASS",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT": "PASS",
+  "G_DISCRIMINATES_BETWEEN_SEASONS": "FAIL",
+  "H_REFRESHABLE_WITHOUT_RESEARCH": "PASS",
+  "I_GENERALIZES": "PASS",
+  "J_NOT_DUPLICATE": "FAIL"
+ },
+ "CWD_FOR_RUN": "C:\\cert-v2-disease-pressure\\data\\experiments\\DISEASE-INTELLIGENCE-ITALY\\CERT-V2",
+ "AS_OF": "2026-09-06",
+ "VERDICTS": {
+  "A_OUTCOME_IS_OBSERVED": "PASS",
+  "B_NOT_SOLD_AS_FORECAST": "PASS",
+  "C_REGIONAL_NOT_NATIONAL": "PASS",
+  "D_UNKNOWN_IS_VISIBLE": "PASS",
+  "E_REPRODUCIBLE": "PASS",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT": "PASS",
+  "G_DISCRIMINATES_BETWEEN_SEASONS": "FAIL",
+  "H_REFRESHABLE_WITHOUT_RESEARCH": "PASS",
+  "I_GENERALIZES": "PASS",
+  "J_NOT_DUPLICATE": "FAIL"
+ },
+ "EVIDENCE_OF_TARGET": "no aggregate key above the province exists in the output, AND the province unit is load-bearing: provinces of the same region carry DIFFERENT classes in 16 season-cells of the walk-forward, and in 0/2 cases today. If they always agreed, a national figure would be equivalent and this gate would fail.",
+ "CHANGED_GATES": [],
+ "OUTCOME": "SURVIVED",
+ "SUITE_TOTALS": {
+  "PASS": 8,
+  "FAIL": 2,
+  "NOT_TESTABLE": 0,
+  "DESERVES_FUTURE_INTEGRATION": "NO"
+ }
+}

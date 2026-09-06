@@ -1,0 +1,120 @@
+{
+ "AST_SCAN": {
+  "N_FILES_SCANNED": 10,
+  "PER_FILE": {
+   "CASES/collect_generic.py": {
+    "CLOCK_CALLS": [],
+    "HARDCODED_DATE_LITERALS": [],
+    "DATE_DEFAULT_ARGUMENTS": []
+   },
+   "CASES/effort_confound.py": {
+    "CLOCK_CALLS": [],
+    "HARDCODED_DATE_LITERALS": [],
+    "DATE_DEFAULT_ARGUMENTS": []
+   },
+   "CASES/province_agreement.py": {
+    "CLOCK_CALLS": [],
+    "HARDCODED_DATE_LITERALS": [],
+    "DATE_DEFAULT_ARGUMENTS": []
+   },
+   "CASES/run_case.py": {
+    "CLOCK_CALLS": [],
+    "HARDCODED_DATE_LITERALS": [],
+    "DATE_DEFAULT_ARGUMENTS": []
+   },
+   "ENGINE/answer_sheet.py": {
+    "CLOCK_CALLS": [],
+    "HARDCODED_DATE_LITERALS": [
+     {
+      "line": 117,
+      "expr": "dt.date(2026, 9, 6)"
+     }
+    ],
+    "DATE_DEFAULT_ARGUMENTS": []
+   },
+   "ENGINE/automation_probe.py": {
+    "CLOCK_CALLS": [
+     {
+      "line": 13,
+      "call": "time.time()"
+     },
+     {
+      "line": 41,
+      "call": "time.time()"
+     },
+     {
+      "line": 45,
+      "call": "time.time()"
+     }
+    ],
+    "HARDCODED_DATE_LITERALS": [],
+    "DATE_DEFAULT_ARGUMENTS": []
+   },
+   "ENGINE/contracts.py": {
+    "CLOCK_CALLS": [],
+    "HARDCODED_DATE_LITERALS": [],
+    "DATE_DEFAULT_ARGUMENTS": []
+   },
+   "ENGINE/current_pressure.py": {
+    "CLOCK_CALLS": [],
+    "HARDCODED_DATE_LITERALS": [
+     {
+      "line": 364,
+      "expr": "dt.date(y, month, day)"
+     }
+    ],
+    "DATE_DEFAULT_ARGUMENTS": []
+   },
+   "ENGINE/gates.py": {
+    "CLOCK_CALLS": [],
+    "HARDCODED_DATE_LITERALS": [
+     {
+      "line": 20,
+      "expr": "dt.date(2026, 9, 6)"
+     }
+    ],
+    "DATE_DEFAULT_ARGUMENTS": [
+     {
+      "func": "evaluate",
+      "line": 20,
+      "arg": "as_of",
+      "default": "dt.date(2026, 9, 6)"
+     }
+    ]
+   },
+   "ENGINE/refresh_coverage.py": {
+    "CLOCK_CALLS": [],
+    "HARDCODED_DATE_LITERALS": [
+     {
+      "line": 12,
+      "expr": "dt.date(2026, 9, 6)"
+     }
+    ],
+    "DATE_DEFAULT_ARGUMENTS": []
+   }
+  },
+  "TOTAL_CLOCK_CALLS": 3,
+  "FILES_WITH_CLOCK_CALLS": [
+   "ENGINE/automation_probe.py"
+  ]
+ },
+ "RUNTIME_CLOCK_TRAP": {
+  "STEPS": {
+   "load_rows": "OK",
+   "current_pressure": "OK",
+   "hindcast": "OK",
+   "sensitivity": "OK"
+  },
+  "VERDICT": "NO CLOCK REACHES A PUBLISHED NUMBER"
+ },
+ "FROZEN_CLOCK_EQUIVALENCE": {
+  "SYSTEM_CLOCKS_TESTED": [
+   "clock_2026",
+   "clock_1999",
+   "clock_2099"
+  ],
+  "ALL_OUTPUTS_BYTE_IDENTICAL": true,
+  "N_DISTINCT_OUTPUTS": 1,
+  "OUTPUT_LENGTH_BYTES": 9770
+ }
+}

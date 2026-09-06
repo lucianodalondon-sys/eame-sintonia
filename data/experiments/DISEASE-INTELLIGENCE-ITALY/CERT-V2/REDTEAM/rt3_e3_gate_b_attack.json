@@ -1,0 +1,430 @@
+{
+ "AS_OF": "2026-09-06",
+ "B0_SHIPPED": {
+  "LABEL": "shipped engine, unmodified",
+  "fut": 15,
+  "used_fut": 15,
+  "load_bearing": 18,
+  "VERDICT": "PASS",
+  "DETAIL": {
+   "OLIVO x BACTROCERA x TOSCANA": {
+    "n_future_rows": 0,
+    "changed_cells": [
+     "Arezzo",
+     "Firenze",
+     "Grosseto",
+     "Livorno",
+     "Lucca",
+     "Massa-Carrara",
+     "Pisa",
+     "Pistoia",
+     "Siena"
+    ],
+    "honest": {
+     "Arezzo": "LOWER_THAN_USUAL",
+     "Firenze": "LOWER_THAN_USUAL",
+     "Grosseto": "LOWER_THAN_USUAL",
+     "Livorno": "LOWER_THAN_USUAL",
+     "Lucca": "LOWER_THAN_USUAL",
+     "Massa-Carrara": "TYPICAL_FOR_THE_DATE",
+     "Pisa": "LOWER_THAN_USUAL",
+     "Pistoia": "LOWER_THAN_USUAL",
+     "Prato": "UNKNOWN_NO_DATA",
+     "Siena": "LOWER_THAN_USUAL"
+    },
+    "leaked": {
+     "Arezzo": "UNKNOWN_NO_DATA",
+     "Firenze": "UNKNOWN_NO_DATA",
+     "Grosseto": "UNKNOWN_NO_DATA",
+     "Livorno": "UNKNOWN_NO_DATA",
+     "Lucca": "UNKNOWN_NO_DATA",
+     "Massa-Carrara": "UNKNOWN_NO_DATA",
+     "Pisa": "UNKNOWN_NO_DATA",
+     "Pistoia": "UNKNOWN_NO_DATA",
+     "Prato": "UNKNOWN_NO_DATA",
+     "Siena": "UNKNOWN_NO_DATA"
+    }
+   },
+   "VITE x OIDIO x TOSCANA": {
+    "n_future_rows": 15,
+    "changed_cells": [
+     "Arezzo",
+     "Firenze",
+     "Grosseto",
+     "Livorno",
+     "Lucca",
+     "Massa-Carrara",
+     "Pisa",
+     "Pistoia",
+     "Siena"
+    ],
+    "honest": {
+     "Arezzo": "TYPICAL_FOR_THE_DATE",
+     "Firenze": "TYPICAL_FOR_THE_DATE",
+     "Grosseto": "TYPICAL_FOR_THE_DATE",
+     "Livorno": "LOWER_THAN_USUAL",
+     "Lucca": "LOWER_THAN_USUAL",
+     "Massa-Carrara": "LOWER_THAN_USUAL",
+     "Pisa": "LOWER_THAN_USUAL",
+     "Pistoia": "TYPICAL_FOR_THE_DATE",
+     "Prato": "UNKNOWN_NO_DATA",
+     "Siena": "TYPICAL_FOR_THE_DATE"
+    },
+    "leaked": {
+     "Arezzo": "UNKNOWN_NO_DATA",
+     "Firenze": "UNKNOWN_NO_DATA",
+     "Grosseto": "UNKNOWN_NO_DATA",
+     "Livorno": "UNKNOWN_NO_DATA",
+     "Lucca": "UNKNOWN_NO_DATA",
+     "Massa-Carrara": "UNKNOWN_NO_DATA",
+     "Pisa": "UNKNOWN_NO_DATA",
+     "Pistoia": "UNKNOWN_NO_DATA",
+     "Prato": "UNKNOWN_NO_DATA",
+     "Siena": "UNKNOWN_NO_DATA"
+    }
+   }
+  }
+ },
+ "A1_CONFOUND_DECOMPOSITION": {
+  "OLIVO x BACTROCERA x TOSCANA": {
+   "N_FUTURE_ROWS": 0,
+   "N_ROWS_TOTAL": 79251,
+   "GATE_B_CHANGED_CELLS  (honest vs as_of+30, future present)": [
+    "Arezzo",
+    "Firenze",
+    "Grosseto",
+    "Livorno",
+    "Lucca",
+    "Massa-Carrara",
+    "Pisa",
+    "Pistoia",
+    "Siena"
+   ],
+   "WINDOW_SLIDE_ALONE_CHANGED_CELLS (honest vs as_of+30, future DELETED)": [
+    "Arezzo",
+    "Firenze",
+    "Grosseto",
+    "Livorno",
+    "Lucca",
+    "Massa-Carrara",
+    "Pisa",
+    "Pistoia",
+    "Siena"
+   ],
+   "ATTRIBUTABLE_TO_UPPER_CUTOFF (as_of+30 with vs without future rows)": [],
+   "N_GATE": 9,
+   "N_SLIDE_ALONE": 9,
+   "N_CUTOFF_ONLY": 0,
+   "N_PROVINCES": 10
+  },
+  "VITE x OIDIO x TOSCANA": {
+   "N_FUTURE_ROWS": 15,
+   "N_ROWS_TOTAL": 35065,
+   "GATE_B_CHANGED_CELLS  (honest vs as_of+30, future present)": [
+    "Arezzo",
+    "Firenze",
+    "Grosseto",
+    "Livorno",
+    "Lucca",
+    "Massa-Carrara",
+    "Pisa",
+    "Pistoia",
+    "Siena"
+   ],
+   "WINDOW_SLIDE_ALONE_CHANGED_CELLS (honest vs as_of+30, future DELETED)": [
+    "Arezzo",
+    "Firenze",
+    "Grosseto",
+    "Livorno",
+    "Lucca",
+    "Massa-Carrara",
+    "Pisa",
+    "Pistoia",
+    "Siena"
+   ],
+   "ATTRIBUTABLE_TO_UPPER_CUTOFF (as_of+30 with vs without future rows)": [],
+   "N_GATE": 9,
+   "N_SLIDE_ALONE": 9,
+   "N_CUTOFF_ONLY": 0,
+   "N_PROVINCES": 10
+  }
+ },
+ "A2_CUTOFF_REMOVED_ALL_WINDOWS": {
+  "LABEL": "hi unbounded in EVERY window (current AND baseline) -- cutoff removed",
+  "fut": 15,
+  "used_fut": 15,
+  "load_bearing": 18,
+  "VERDICT": "PASS",
+  "DETAIL": {
+   "OLIVO x BACTROCERA x TOSCANA": {
+    "n_future_rows": 0,
+    "changed_cells": [
+     "Arezzo",
+     "Firenze",
+     "Grosseto",
+     "Livorno",
+     "Lucca",
+     "Massa-Carrara",
+     "Pisa",
+     "Pistoia",
+     "Siena"
+    ],
+    "honest": {
+     "Arezzo": "LOWER_THAN_USUAL",
+     "Firenze": "LOWER_THAN_USUAL",
+     "Grosseto": "LOWER_THAN_USUAL",
+     "Livorno": "LOWER_THAN_USUAL",
+     "Lucca": "LOWER_THAN_USUAL",
+     "Massa-Carrara": "LOWER_THAN_USUAL",
+     "Pisa": "LOWER_THAN_USUAL",
+     "Pistoia": "LOWER_THAN_USUAL",
+     "Prato": "UNKNOWN_NO_DATA",
+     "Siena": "LOWER_THAN_USUAL"
+    },
+    "leaked": {
+     "Arezzo": "UNKNOWN_NO_DATA",
+     "Firenze": "UNKNOWN_NO_DATA",
+     "Grosseto": "UNKNOWN_NO_DATA",
+     "Livorno": "UNKNOWN_NO_DATA",
+     "Lucca": "UNKNOWN_NO_DATA",
+     "Massa-Carrara": "UNKNOWN_NO_DATA",
+     "Pisa": "UNKNOWN_NO_DATA",
+     "Pistoia": "UNKNOWN_NO_DATA",
+     "Prato": "UNKNOWN_NO_DATA",
+     "Siena": "UNKNOWN_NO_DATA"
+    }
+   },
+   "VITE x OIDIO x TOSCANA": {
+    "n_future_rows": 15,
+    "changed_cells": [
+     "Arezzo",
+     "Firenze",
+     "Grosseto",
+     "Livorno",
+     "Lucca",
+     "Massa-Carrara",
+     "Pisa",
+     "Pistoia",
+     "Siena"
+    ],
+    "honest": {
+     "Arezzo": "LOWER_THAN_USUAL",
+     "Firenze": "LOWER_THAN_USUAL",
+     "Grosseto": "LOWER_THAN_USUAL",
+     "Livorno": "LOWER_THAN_USUAL",
+     "Lucca": "LOWER_THAN_USUAL",
+     "Massa-Carrara": "LOWER_THAN_USUAL",
+     "Pisa": "LOWER_THAN_USUAL",
+     "Pistoia": "LOWER_THAN_USUAL",
+     "Prato": "UNKNOWN_NO_DATA",
+     "Siena": "LOWER_THAN_USUAL"
+    },
+    "leaked": {
+     "Arezzo": "UNKNOWN_NO_DATA",
+     "Firenze": "UNKNOWN_NO_DATA",
+     "Grosseto": "UNKNOWN_NO_DATA",
+     "Livorno": "UNKNOWN_NO_DATA",
+     "Lucca": "UNKNOWN_NO_DATA",
+     "Massa-Carrara": "UNKNOWN_NO_DATA",
+     "Pisa": "UNKNOWN_NO_DATA",
+     "Pistoia": "UNKNOWN_NO_DATA",
+     "Prato": "UNKNOWN_NO_DATA",
+     "Siena": "UNKNOWN_NO_DATA"
+    }
+   }
+  }
+ },
+ "A2b_CUTOFF_REMOVED_CURRENT_WINDOW_ONLY": {
+  "LABEL": "hi unbounded only for the CURRENT window (baselines untouched)",
+  "fut": 15,
+  "used_fut": 15,
+  "load_bearing": 18,
+  "VERDICT": "PASS",
+  "DETAIL": {
+   "OLIVO x BACTROCERA x TOSCANA": {
+    "n_future_rows": 0,
+    "changed_cells": [
+     "Arezzo",
+     "Firenze",
+     "Grosseto",
+     "Livorno",
+     "Lucca",
+     "Massa-Carrara",
+     "Pisa",
+     "Pistoia",
+     "Siena"
+    ],
+    "honest": {
+     "Arezzo": "LOWER_THAN_USUAL",
+     "Firenze": "LOWER_THAN_USUAL",
+     "Grosseto": "LOWER_THAN_USUAL",
+     "Livorno": "LOWER_THAN_USUAL",
+     "Lucca": "LOWER_THAN_USUAL",
+     "Massa-Carrara": "TYPICAL_FOR_THE_DATE",
+     "Pisa": "LOWER_THAN_USUAL",
+     "Pistoia": "LOWER_THAN_USUAL",
+     "Prato": "UNKNOWN_NO_DATA",
+     "Siena": "LOWER_THAN_USUAL"
+    },
+    "leaked": {
+     "Arezzo": "UNKNOWN_NO_DATA",
+     "Firenze": "UNKNOWN_NO_DATA",
+     "Grosseto": "UNKNOWN_NO_DATA",
+     "Livorno": "UNKNOWN_NO_DATA",
+     "Lucca": "UNKNOWN_NO_DATA",
+     "Massa-Carrara": "UNKNOWN_NO_DATA",
+     "Pisa": "UNKNOWN_NO_DATA",
+     "Pistoia": "UNKNOWN_NO_DATA",
+     "Prato": "UNKNOWN_NO_DATA",
+     "Siena": "UNKNOWN_NO_DATA"
+    }
+   },
+   "VITE x OIDIO x TOSCANA": {
+    "n_future_rows": 15,
+    "changed_cells": [
+     "Arezzo",
+     "Firenze",
+     "Grosseto",
+     "Livorno",
+     "Lucca",
+     "Massa-Carrara",
+     "Pisa",
+     "Pistoia",
+     "Siena"
+    ],
+    "honest": {
+     "Arezzo": "TYPICAL_FOR_THE_DATE",
+     "Firenze": "TYPICAL_FOR_THE_DATE",
+     "Grosseto": "TYPICAL_FOR_THE_DATE",
+     "Livorno": "LOWER_THAN_USUAL",
+     "Lucca": "LOWER_THAN_USUAL",
+     "Massa-Carrara": "LOWER_THAN_USUAL",
+     "Pisa": "LOWER_THAN_USUAL",
+     "Pistoia": "TYPICAL_FOR_THE_DATE",
+     "Prato": "UNKNOWN_NO_DATA",
+     "Siena": "TYPICAL_FOR_THE_DATE"
+    },
+    "leaked": {
+     "Arezzo": "UNKNOWN_NO_DATA",
+     "Firenze": "UNKNOWN_NO_DATA",
+     "Grosseto": "UNKNOWN_NO_DATA",
+     "Livorno": "UNKNOWN_NO_DATA",
+     "Lucca": "UNKNOWN_NO_DATA",
+     "Massa-Carrara": "UNKNOWN_NO_DATA",
+     "Pisa": "UNKNOWN_NO_DATA",
+     "Pistoia": "UNKNOWN_NO_DATA",
+     "Prato": "UNKNOWN_NO_DATA",
+     "Siena": "UNKNOWN_NO_DATA"
+    }
+   }
+  }
+ },
+ "A3_REAL_EFFECT_OF_REMOVING_CUTOFF_TODAY": {
+  "OLIVO x BACTROCERA x TOSCANA": {
+   "CHANGED_CELLS_WHEN_CUTOFF_REMOVED": [],
+   "N_CHANGED": 0,
+   "N_PROVINCES": 10,
+   "honest": {
+    "Arezzo": "LOWER_THAN_USUAL",
+    "Firenze": "LOWER_THAN_USUAL",
+    "Grosseto": "LOWER_THAN_USUAL",
+    "Livorno": "LOWER_THAN_USUAL",
+    "Lucca": "LOWER_THAN_USUAL",
+    "Massa-Carrara": "TYPICAL_FOR_THE_DATE",
+    "Pisa": "LOWER_THAN_USUAL",
+    "Pistoia": "LOWER_THAN_USUAL",
+    "Prato": "UNKNOWN_NO_DATA",
+    "Siena": "LOWER_THAN_USUAL"
+   },
+   "no_cutoff": {
+    "Arezzo": "LOWER_THAN_USUAL",
+    "Firenze": "LOWER_THAN_USUAL",
+    "Grosseto": "LOWER_THAN_USUAL",
+    "Livorno": "LOWER_THAN_USUAL",
+    "Lucca": "LOWER_THAN_USUAL",
+    "Massa-Carrara": "TYPICAL_FOR_THE_DATE",
+    "Pisa": "LOWER_THAN_USUAL",
+    "Pistoia": "LOWER_THAN_USUAL",
+    "Prato": "UNKNOWN_NO_DATA",
+    "Siena": "LOWER_THAN_USUAL"
+   },
+   "honest_sites": {
+    "Arezzo": 17,
+    "Firenze": 73,
+    "Grosseto": 156,
+    "Livorno": 77,
+    "Lucca": 14,
+    "Massa-Carrara": 10,
+    "Pisa": 45,
+    "Pistoia": 16,
+    "Prato": 7,
+    "Siena": 61
+   },
+   "no_cutoff_sites": {
+    "Arezzo": 17,
+    "Firenze": 73,
+    "Grosseto": 156,
+    "Livorno": 77,
+    "Lucca": 14,
+    "Massa-Carrara": 10,
+    "Pisa": 45,
+    "Pistoia": 16,
+    "Prato": 7,
+    "Siena": 61
+   }
+  },
+  "VITE x OIDIO x TOSCANA": {
+   "CHANGED_CELLS_WHEN_CUTOFF_REMOVED": [],
+   "N_CHANGED": 0,
+   "N_PROVINCES": 10,
+   "honest": {
+    "Arezzo": "TYPICAL_FOR_THE_DATE",
+    "Firenze": "TYPICAL_FOR_THE_DATE",
+    "Grosseto": "TYPICAL_FOR_THE_DATE",
+    "Livorno": "LOWER_THAN_USUAL",
+    "Lucca": "LOWER_THAN_USUAL",
+    "Massa-Carrara": "LOWER_THAN_USUAL",
+    "Pisa": "LOWER_THAN_USUAL",
+    "Pistoia": "TYPICAL_FOR_THE_DATE",
+    "Prato": "UNKNOWN_NO_DATA",
+    "Siena": "TYPICAL_FOR_THE_DATE"
+   },
+   "no_cutoff": {
+    "Arezzo": "TYPICAL_FOR_THE_DATE",
+    "Firenze": "TYPICAL_FOR_THE_DATE",
+    "Grosseto": "TYPICAL_FOR_THE_DATE",
+    "Livorno": "LOWER_THAN_USUAL",
+    "Lucca": "LOWER_THAN_USUAL",
+    "Massa-Carrara": "LOWER_THAN_USUAL",
+    "Pisa": "LOWER_THAN_USUAL",
+    "Pistoia": "TYPICAL_FOR_THE_DATE",
+    "Prato": "UNKNOWN_NO_DATA",
+    "Siena": "TYPICAL_FOR_THE_DATE"
+   },
+   "honest_sites": {
+    "Arezzo": 20,
+    "Firenze": 29,
+    "Grosseto": 20,
+    "Livorno": 21,
+    "Lucca": 9,
+    "Massa-Carrara": 8,
+    "Pisa": 19,
+    "Pistoia": 10,
+    "Prato": 4,
+    "Siena": 29
+   },
+   "no_cutoff_sites": {
+    "Arezzo": 20,
+    "Firenze": 29,
+    "Grosseto": 20,
+    "Livorno": 21,
+    "Lucca": 9,
+    "Massa-Carrara": 8,
+    "Pisa": 19,
+    "Pistoia": 10,
+    "Prato": 4,
+    "Siena": 29
+   }
+  }
+ }
+}

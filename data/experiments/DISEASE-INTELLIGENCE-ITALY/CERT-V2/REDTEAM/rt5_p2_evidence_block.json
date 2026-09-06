@@ -1,0 +1,529 @@
+{
+ "EXPRESSION_UNDER_TEST": "sorted(h.values())[:1] and list(sorted(h.items()))[-1]",
+ "TOY": {
+  "dict": {
+   "b.json": "aaa",
+   "a.json": "zzz",
+   "c.json": "mmm"
+  },
+  "left_operand_discarded": [
+   "aaa"
+  ],
+  "value_returned": [
+   "c.json",
+   "mmm"
+  ],
+  "IS_IT_A_HASH": false,
+  "READS_AS": "a 2-item [filename, sha256] of the alphabetically LAST filename; the left operand (lowest hash) is evaluated and thrown away"
+ },
+ "TOY_EMPTY": {
+  "value_returned": []
+ },
+ "PER_CASE": {
+  "OLIVO x BACTROCERA x TOSCANA": {
+   "n_published_cells_with_EVIDENCE": 9,
+   "DISTINCT_EVIDENCE_BLOCKS_ACROSS_PROVINCES": 1,
+   "THE_EVIDENCE_BLOCK": {
+    "RAW_FILES": [
+     "c2_s1_v-1002_2006.json",
+     "c2_s1_v-1002_2007.json",
+     "c2_s1_v-1002_2008.json",
+     "c2_s1_v-1002_2009.json",
+     "c2_s1_v-1002_2010.json",
+     "c2_s1_v-1002_2011.json",
+     "c2_s1_v-1002_2012.json",
+     "c2_s1_v-1002_2013.json",
+     "c2_s1_v-1002_2014.json",
+     "c2_s1_v-1002_2015.json",
+     "c2_s1_v-1002_2016.json",
+     "c2_s1_v-1002_2017.json",
+     "c2_s1_v-1002_2018.json",
+     "c2_s1_v-1002_2019.json",
+     "c2_s1_v-1002_2020.json",
+     "c2_s1_v-1002_2021.json",
+     "c2_s1_v-1002_2022.json",
+     "c2_s1_v-1002_2023.json",
+     "c2_s1_v-1002_2024.json",
+     "c2_s1_v-1002_2025.json",
+     "c2_s1_v-1002_2026.json"
+    ],
+    "RAW_SHA256": [
+     "c2_s1_v-1002_2026.json",
+     "249ce769b628d19428bc5b55ab9e56bed6b6413b320605bafcafb84b92430002"
+    ],
+    "ROLE": "OFFICIAL_OBSERVATION",
+    "SOURCE": "https://agroambiente.info.regione.toscana.it/agro18/api/dati/get_aedita_data",
+    "WINDOW": [
+     "2026-08-10",
+     "2026-09-06"
+    ]
+   },
+   "RAW_SHA256_field": [
+    "c2_s1_v-1002_2026.json",
+    "249ce769b628d19428bc5b55ab9e56bed6b6413b320605bafcafb84b92430002"
+   ],
+   "RAW_SHA256_is_the_alphabetically_last_outcome_file": true,
+   "n_RAW_FILES_named": 21,
+   "n_files_in_the_case_on_disk": 84,
+   "DENOMINATOR_VAR": 1,
+   "n_denominator_files_read_by_the_pipeline": 21,
+   "denominator_files_named_in_EVIDENCE": [],
+   "PER_PROVINCE_TRUE_PROVENANCE": {
+    "Arezzo": {
+     "files_behind_the_published_VALUE": [
+      "c2_s1_v-1002_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c2_s1_v-1002_2006.json",
+      "c2_s1_v-1002_2007.json",
+      "c2_s1_v-1002_2008.json",
+      "c2_s1_v-1002_2009.json",
+      "c2_s1_v-1002_2010.json",
+      "c2_s1_v-1002_2011.json",
+      "c2_s1_v-1002_2012.json",
+      "c2_s1_v-1002_2013.json",
+      "c2_s1_v-1002_2014.json",
+      "c2_s1_v-1002_2015.json",
+      "c2_s1_v-1002_2016.json",
+      "c2_s1_v-1002_2017.json",
+      "c2_s1_v-1002_2018.json",
+      "c2_s1_v-1002_2019.json",
+      "c2_s1_v-1002_2020.json",
+      "c2_s1_v-1002_2021.json",
+      "c2_s1_v-1002_2022.json",
+      "c2_s1_v-1002_2023.json",
+      "c2_s1_v-1002_2024.json",
+      "c2_s1_v-1002_2025.json"
+     ],
+     "n_files_actually_used": 21
+    },
+    "Firenze": {
+     "files_behind_the_published_VALUE": [
+      "c2_s1_v-1002_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c2_s1_v-1002_2006.json",
+      "c2_s1_v-1002_2007.json",
+      "c2_s1_v-1002_2008.json",
+      "c2_s1_v-1002_2009.json",
+      "c2_s1_v-1002_2010.json",
+      "c2_s1_v-1002_2011.json",
+      "c2_s1_v-1002_2012.json",
+      "c2_s1_v-1002_2013.json",
+      "c2_s1_v-1002_2014.json",
+      "c2_s1_v-1002_2015.json",
+      "c2_s1_v-1002_2016.json",
+      "c2_s1_v-1002_2017.json",
+      "c2_s1_v-1002_2018.json",
+      "c2_s1_v-1002_2019.json",
+      "c2_s1_v-1002_2020.json",
+      "c2_s1_v-1002_2021.json",
+      "c2_s1_v-1002_2022.json",
+      "c2_s1_v-1002_2023.json",
+      "c2_s1_v-1002_2024.json",
+      "c2_s1_v-1002_2025.json"
+     ],
+     "n_files_actually_used": 21
+    },
+    "Grosseto": {
+     "files_behind_the_published_VALUE": [
+      "c2_s1_v-1002_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c2_s1_v-1002_2006.json",
+      "c2_s1_v-1002_2007.json",
+      "c2_s1_v-1002_2008.json",
+      "c2_s1_v-1002_2009.json",
+      "c2_s1_v-1002_2010.json",
+      "c2_s1_v-1002_2011.json",
+      "c2_s1_v-1002_2012.json",
+      "c2_s1_v-1002_2013.json",
+      "c2_s1_v-1002_2014.json",
+      "c2_s1_v-1002_2015.json",
+      "c2_s1_v-1002_2016.json",
+      "c2_s1_v-1002_2017.json",
+      "c2_s1_v-1002_2018.json",
+      "c2_s1_v-1002_2019.json",
+      "c2_s1_v-1002_2020.json",
+      "c2_s1_v-1002_2021.json",
+      "c2_s1_v-1002_2022.json",
+      "c2_s1_v-1002_2023.json",
+      "c2_s1_v-1002_2024.json",
+      "c2_s1_v-1002_2025.json"
+     ],
+     "n_files_actually_used": 21
+    },
+    "Livorno": {
+     "files_behind_the_published_VALUE": [
+      "c2_s1_v-1002_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c2_s1_v-1002_2006.json",
+      "c2_s1_v-1002_2007.json",
+      "c2_s1_v-1002_2008.json",
+      "c2_s1_v-1002_2009.json",
+      "c2_s1_v-1002_2010.json",
+      "c2_s1_v-1002_2011.json",
+      "c2_s1_v-1002_2012.json",
+      "c2_s1_v-1002_2013.json",
+      "c2_s1_v-1002_2014.json",
+      "c2_s1_v-1002_2015.json",
+      "c2_s1_v-1002_2016.json",
+      "c2_s1_v-1002_2017.json",
+      "c2_s1_v-1002_2018.json",
+      "c2_s1_v-1002_2019.json",
+      "c2_s1_v-1002_2020.json",
+      "c2_s1_v-1002_2021.json",
+      "c2_s1_v-1002_2022.json",
+      "c2_s1_v-1002_2023.json",
+      "c2_s1_v-1002_2024.json",
+      "c2_s1_v-1002_2025.json"
+     ],
+     "n_files_actually_used": 21
+    },
+    "Lucca": {
+     "files_behind_the_published_VALUE": [
+      "c2_s1_v-1002_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c2_s1_v-1002_2006.json",
+      "c2_s1_v-1002_2007.json",
+      "c2_s1_v-1002_2008.json",
+      "c2_s1_v-1002_2009.json",
+      "c2_s1_v-1002_2010.json",
+      "c2_s1_v-1002_2011.json",
+      "c2_s1_v-1002_2012.json",
+      "c2_s1_v-1002_2013.json",
+      "c2_s1_v-1002_2014.json",
+      "c2_s1_v-1002_2015.json",
+      "c2_s1_v-1002_2016.json",
+      "c2_s1_v-1002_2017.json",
+      "c2_s1_v-1002_2018.json",
+      "c2_s1_v-1002_2019.json",
+      "c2_s1_v-1002_2020.json",
+      "c2_s1_v-1002_2021.json",
+      "c2_s1_v-1002_2022.json",
+      "c2_s1_v-1002_2023.json",
+      "c2_s1_v-1002_2024.json",
+      "c2_s1_v-1002_2025.json"
+     ],
+     "n_files_actually_used": 21
+    },
+    "Massa-Carrara": {
+     "files_behind_the_published_VALUE": [
+      "c2_s1_v-1002_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c2_s1_v-1002_2006.json",
+      "c2_s1_v-1002_2016.json",
+      "c2_s1_v-1002_2017.json",
+      "c2_s1_v-1002_2018.json",
+      "c2_s1_v-1002_2020.json",
+      "c2_s1_v-1002_2021.json",
+      "c2_s1_v-1002_2024.json",
+      "c2_s1_v-1002_2025.json"
+     ],
+     "n_files_actually_used": 9
+    },
+    "Pisa": {
+     "files_behind_the_published_VALUE": [
+      "c2_s1_v-1002_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c2_s1_v-1002_2006.json",
+      "c2_s1_v-1002_2007.json",
+      "c2_s1_v-1002_2008.json",
+      "c2_s1_v-1002_2009.json",
+      "c2_s1_v-1002_2010.json",
+      "c2_s1_v-1002_2011.json",
+      "c2_s1_v-1002_2012.json",
+      "c2_s1_v-1002_2013.json",
+      "c2_s1_v-1002_2014.json",
+      "c2_s1_v-1002_2015.json",
+      "c2_s1_v-1002_2016.json",
+      "c2_s1_v-1002_2017.json",
+      "c2_s1_v-1002_2018.json",
+      "c2_s1_v-1002_2019.json",
+      "c2_s1_v-1002_2020.json",
+      "c2_s1_v-1002_2021.json",
+      "c2_s1_v-1002_2022.json",
+      "c2_s1_v-1002_2023.json",
+      "c2_s1_v-1002_2024.json",
+      "c2_s1_v-1002_2025.json"
+     ],
+     "n_files_actually_used": 21
+    },
+    "Pistoia": {
+     "files_behind_the_published_VALUE": [
+      "c2_s1_v-1002_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c2_s1_v-1002_2006.json",
+      "c2_s1_v-1002_2007.json",
+      "c2_s1_v-1002_2008.json",
+      "c2_s1_v-1002_2009.json",
+      "c2_s1_v-1002_2010.json",
+      "c2_s1_v-1002_2011.json",
+      "c2_s1_v-1002_2012.json",
+      "c2_s1_v-1002_2013.json",
+      "c2_s1_v-1002_2014.json",
+      "c2_s1_v-1002_2015.json",
+      "c2_s1_v-1002_2016.json",
+      "c2_s1_v-1002_2017.json",
+      "c2_s1_v-1002_2018.json",
+      "c2_s1_v-1002_2019.json",
+      "c2_s1_v-1002_2020.json",
+      "c2_s1_v-1002_2021.json",
+      "c2_s1_v-1002_2022.json",
+      "c2_s1_v-1002_2023.json",
+      "c2_s1_v-1002_2024.json",
+      "c2_s1_v-1002_2025.json"
+     ],
+     "n_files_actually_used": 21
+    },
+    "Siena": {
+     "files_behind_the_published_VALUE": [
+      "c2_s1_v-1002_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c2_s1_v-1002_2006.json",
+      "c2_s1_v-1002_2007.json",
+      "c2_s1_v-1002_2008.json",
+      "c2_s1_v-1002_2009.json",
+      "c2_s1_v-1002_2010.json",
+      "c2_s1_v-1002_2011.json",
+      "c2_s1_v-1002_2012.json",
+      "c2_s1_v-1002_2013.json",
+      "c2_s1_v-1002_2014.json",
+      "c2_s1_v-1002_2015.json",
+      "c2_s1_v-1002_2016.json",
+      "c2_s1_v-1002_2017.json",
+      "c2_s1_v-1002_2018.json",
+      "c2_s1_v-1002_2019.json",
+      "c2_s1_v-1002_2020.json",
+      "c2_s1_v-1002_2021.json",
+      "c2_s1_v-1002_2022.json",
+      "c2_s1_v-1002_2023.json",
+      "c2_s1_v-1002_2024.json",
+      "c2_s1_v-1002_2025.json"
+     ],
+     "n_files_actually_used": 21
+    }
+   },
+   "distinct_true_file_sets_across_provinces": 1,
+   "files_the_case_uses_at_all_for_this_var": 21,
+   "FIELDS_IN_EVIDENCE": [
+    "RAW_FILES",
+    "RAW_SHA256",
+    "ROLE",
+    "SOURCE",
+    "WINDOW"
+   ],
+   "row_level_identifiers_recorded": []
+  },
+  "VITE x OIDIO x TOSCANA": {
+   "n_published_cells_with_EVIDENCE": 9,
+   "DISTINCT_EVIDENCE_BLOCKS_ACROSS_PROVINCES": 1,
+   "THE_EVIDENCE_BLOCK": {
+    "RAW_FILES": [
+     "c3_s8_v39_2006.json",
+     "c3_s8_v39_2007.json",
+     "c3_s8_v39_2008.json",
+     "c3_s8_v39_2009.json",
+     "c3_s8_v39_2010.json",
+     "c3_s8_v39_2012.json",
+     "c3_s8_v39_2013.json",
+     "c3_s8_v39_2014.json",
+     "c3_s8_v39_2015.json",
+     "c3_s8_v39_2016.json",
+     "c3_s8_v39_2017.json",
+     "c3_s8_v39_2018.json",
+     "c3_s8_v39_2019.json",
+     "c3_s8_v39_2020.json",
+     "c3_s8_v39_2021.json",
+     "c3_s8_v39_2022.json",
+     "c3_s8_v39_2023.json",
+     "c3_s8_v39_2024.json",
+     "c3_s8_v39_2025.json",
+     "c3_s8_v39_2026.json"
+    ],
+    "RAW_SHA256": [
+     "c3_s8_v39_2026.json",
+     "374c5463b3a8c9d4c3419b86c48b0aedf42234c50ff9322c50cb094f61998e10"
+    ],
+    "ROLE": "OFFICIAL_OBSERVATION",
+    "SOURCE": "https://agroambiente.info.regione.toscana.it/agro18/api/dati/get_aedita_data",
+    "WINDOW": [
+     "2026-08-10",
+     "2026-09-06"
+    ]
+   },
+   "RAW_SHA256_field": [
+    "c3_s8_v39_2026.json",
+    "374c5463b3a8c9d4c3419b86c48b0aedf42234c50ff9322c50cb094f61998e10"
+   ],
+   "RAW_SHA256_is_the_alphabetically_last_outcome_file": true,
+   "n_RAW_FILES_named": 20,
+   "n_files_in_the_case_on_disk": 40,
+   "DENOMINATOR_VAR": null,
+   "n_denominator_files_read_by_the_pipeline": 0,
+   "denominator_files_named_in_EVIDENCE": [],
+   "PER_PROVINCE_TRUE_PROVENANCE": {
+    "Arezzo": {
+     "files_behind_the_published_VALUE": [
+      "c3_s8_v39_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c3_s8_v39_2006.json",
+      "c3_s8_v39_2007.json",
+      "c3_s8_v39_2009.json",
+      "c3_s8_v39_2010.json",
+      "c3_s8_v39_2012.json",
+      "c3_s8_v39_2013.json",
+      "c3_s8_v39_2014.json",
+      "c3_s8_v39_2015.json",
+      "c3_s8_v39_2016.json",
+      "c3_s8_v39_2019.json",
+      "c3_s8_v39_2020.json",
+      "c3_s8_v39_2023.json",
+      "c3_s8_v39_2025.json"
+     ],
+     "n_files_actually_used": 14
+    },
+    "Firenze": {
+     "files_behind_the_published_VALUE": [
+      "c3_s8_v39_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c3_s8_v39_2006.json",
+      "c3_s8_v39_2007.json",
+      "c3_s8_v39_2008.json",
+      "c3_s8_v39_2009.json",
+      "c3_s8_v39_2010.json",
+      "c3_s8_v39_2012.json",
+      "c3_s8_v39_2014.json",
+      "c3_s8_v39_2015.json",
+      "c3_s8_v39_2016.json",
+      "c3_s8_v39_2018.json",
+      "c3_s8_v39_2019.json",
+      "c3_s8_v39_2020.json"
+     ],
+     "n_files_actually_used": 13
+    },
+    "Grosseto": {
+     "files_behind_the_published_VALUE": [
+      "c3_s8_v39_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c3_s8_v39_2007.json",
+      "c3_s8_v39_2008.json",
+      "c3_s8_v39_2009.json",
+      "c3_s8_v39_2010.json",
+      "c3_s8_v39_2014.json",
+      "c3_s8_v39_2018.json",
+      "c3_s8_v39_2020.json"
+     ],
+     "n_files_actually_used": 8
+    },
+    "Livorno": {
+     "files_behind_the_published_VALUE": [
+      "c3_s8_v39_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c3_s8_v39_2007.json",
+      "c3_s8_v39_2008.json",
+      "c3_s8_v39_2009.json",
+      "c3_s8_v39_2010.json",
+      "c3_s8_v39_2014.json"
+     ],
+     "n_files_actually_used": 6
+    },
+    "Lucca": {
+     "files_behind_the_published_VALUE": [
+      "c3_s8_v39_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c3_s8_v39_2006.json",
+      "c3_s8_v39_2007.json",
+      "c3_s8_v39_2008.json",
+      "c3_s8_v39_2009.json",
+      "c3_s8_v39_2010.json"
+     ],
+     "n_files_actually_used": 6
+    },
+    "Massa-Carrara": {
+     "files_behind_the_published_VALUE": [
+      "c3_s8_v39_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c3_s8_v39_2006.json",
+      "c3_s8_v39_2007.json",
+      "c3_s8_v39_2008.json",
+      "c3_s8_v39_2009.json",
+      "c3_s8_v39_2010.json"
+     ],
+     "n_files_actually_used": 6
+    },
+    "Pisa": {
+     "files_behind_the_published_VALUE": [
+      "c3_s8_v39_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c3_s8_v39_2006.json",
+      "c3_s8_v39_2007.json",
+      "c3_s8_v39_2008.json",
+      "c3_s8_v39_2009.json",
+      "c3_s8_v39_2010.json",
+      "c3_s8_v39_2014.json",
+      "c3_s8_v39_2019.json",
+      "c3_s8_v39_2025.json"
+     ],
+     "n_files_actually_used": 9
+    },
+    "Pistoia": {
+     "files_behind_the_published_VALUE": [
+      "c3_s8_v39_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c3_s8_v39_2007.json",
+      "c3_s8_v39_2008.json",
+      "c3_s8_v39_2009.json",
+      "c3_s8_v39_2010.json",
+      "c3_s8_v39_2016.json"
+     ],
+     "n_files_actually_used": 6
+    },
+    "Siena": {
+     "files_behind_the_published_VALUE": [
+      "c3_s8_v39_2026.json"
+     ],
+     "files_behind_the_BASELINE": [
+      "c3_s8_v39_2006.json",
+      "c3_s8_v39_2007.json",
+      "c3_s8_v39_2008.json",
+      "c3_s8_v39_2009.json",
+      "c3_s8_v39_2010.json",
+      "c3_s8_v39_2012.json",
+      "c3_s8_v39_2013.json",
+      "c3_s8_v39_2014.json",
+      "c3_s8_v39_2015.json",
+      "c3_s8_v39_2016.json",
+      "c3_s8_v39_2018.json",
+      "c3_s8_v39_2023.json"
+     ],
+     "n_files_actually_used": 13
+    }
+   },
+   "distinct_true_file_sets_across_provinces": 1,
+   "files_the_case_uses_at_all_for_this_var": 16,
+   "FIELDS_IN_EVIDENCE": [
+    "RAW_FILES",
+    "RAW_SHA256",
+    "ROLE",
+    "SOURCE",
+    "WINDOW"
+   ],
+   "row_level_identifiers_recorded": []
+  }
+ }
+}

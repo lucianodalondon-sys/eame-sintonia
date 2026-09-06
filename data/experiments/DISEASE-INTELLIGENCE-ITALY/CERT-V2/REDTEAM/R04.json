@@ -1,0 +1,40 @@
+{
+ "ID": "R04",
+ "TARGET_GATE": "H",
+ "PROPERTY_DESTROYED": "every refresh answers with the wrong series (olive for both)",
+ "BASELINE_VERDICTS": {
+  "A_OUTCOME_IS_OBSERVED": "PASS",
+  "B_NOT_SOLD_AS_FORECAST": "PASS",
+  "C_REGIONAL_NOT_NATIONAL": "PASS",
+  "D_UNKNOWN_IS_VISIBLE": "PASS",
+  "E_REPRODUCIBLE": "PASS",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT": "PASS",
+  "G_DISCRIMINATES_BETWEEN_SEASONS": "FAIL",
+  "H_REFRESHABLE_WITHOUT_RESEARCH": "PASS",
+  "I_GENERALIZES": "PASS",
+  "J_NOT_DUPLICATE": "FAIL"
+ },
+ "CWD_FOR_RUN": "C:\\cert-v2-disease-pressure\\data\\experiments\\DISEASE-INTELLIGENCE-ITALY\\CERT-V2",
+ "AS_OF": "2026-09-06",
+ "VERDICTS": {
+  "A_OUTCOME_IS_OBSERVED": "PASS",
+  "B_NOT_SOLD_AS_FORECAST": "PASS",
+  "C_REGIONAL_NOT_NATIONAL": "PASS",
+  "D_UNKNOWN_IS_VISIBLE": "PASS",
+  "E_REPRODUCIBLE": "PASS",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT": "PASS",
+  "G_DISCRIMINATES_BETWEEN_SEASONS": "FAIL",
+  "H_REFRESHABLE_WITHOUT_RESEARCH": "PASS",
+  "I_GENERALIZES": "PASS",
+  "J_NOT_DUPLICATE": "FAIL"
+ },
+ "EVIDENCE_OF_TARGET": "2/2 probes reachable in one unauthenticated GET, ~2s, EUR 0; row counts held or grew (a refresh that GAINS rows is the success case, not the failure case); 2/2 returned a non-null measurement column. THREE silent-failure shapes must be treated as FAILURE, not as 'no disease': rowCount 0; full rowCount with an all-null value column; and top-level ok:false with a message the client discards. A deliberate negative control (a variable that does not exist in the requested schema, which the source answers with a full null row set) DID trip the detector \u2014 without that line this gate could not show it is able to fail. The probe is RE-RUN inside this gate, not read from a cached file. Latency per case {'OLIVO x BACTROCERA x TOSCANA': 2, 'VITE x OIDIO x TOSCANA': 2} (must be <= 21 days: a capability named CURRENT_PRESSURE has to be certified against the data actually being current, which no gate checked until now).",
+ "CHANGED_GATES": [],
+ "OUTCOME": "SURVIVED",
+ "SUITE_TOTALS": {
+  "PASS": 8,
+  "FAIL": 2,
+  "NOT_TESTABLE": 0,
+  "DESERVES_FUTURE_INTEGRATION": "NO"
+ }
+}

@@ -1,0 +1,163 @@
+{
+ "C0_control": {
+  "DATA_LATENCY_DAYS": 2,
+  "STATES": {
+   "TYPICAL_FOR_THE_DATE": 5,
+   "LOWER_THAN_USUAL": 4,
+   "UNKNOWN_NO_DATA": 1
+  },
+  "N_CLASSED": 9
+ },
+ "AS_OF_SWEEP_ARCHIVE_FROZEN": {
+  "AS_OF+0d = 2026-09-06": {
+   "DATA_LATENCY_DAYS": 2,
+   "GATE_H_FRESH_PREDICATE (latency<=21)": true,
+   "N_CLASSED": 9,
+   "STATES": {
+    "TYPICAL_FOR_THE_DATE": 5,
+    "LOWER_THAN_USUAL": 4,
+    "UNKNOWN_NO_DATA": 1
+   }
+  },
+  "AS_OF+7d = 2026-09-13": {
+   "DATA_LATENCY_DAYS": 6,
+   "GATE_H_FRESH_PREDICATE (latency<=21)": true,
+   "N_CLASSED": 9,
+   "STATES": {
+    "TYPICAL_FOR_THE_DATE": 6,
+    "LOWER_THAN_USUAL": 3,
+    "UNKNOWN_NO_DATA": 1
+   }
+  },
+  "AS_OF+21d = 2026-09-27": {
+   "DATA_LATENCY_DAYS": 20,
+   "GATE_H_FRESH_PREDICATE (latency<=21)": true,
+   "N_CLASSED": 3,
+   "STATES": {
+    "TYPICAL_FOR_THE_DATE": 3,
+    "UNKNOWN_NO_BASELINE": 2,
+    "UNKNOWN_NO_DATA": 5
+   }
+  },
+  "AS_OF+22d = 2026-09-28": {
+   "DATA_LATENCY_DAYS": 21,
+   "GATE_H_FRESH_PREDICATE (latency<=21)": true,
+   "N_CLASSED": 1,
+   "STATES": {
+    "UNKNOWN_NO_DATA": 7,
+    "UNKNOWN_NO_BASELINE": 2,
+    "TYPICAL_FOR_THE_DATE": 1
+   }
+  },
+  "AS_OF+30d = 2026-10-06": {
+   "DATA_LATENCY_DAYS": 29,
+   "GATE_H_FRESH_PREDICATE (latency<=21)": false,
+   "N_CLASSED": 0,
+   "STATES": {
+    "UNKNOWN_NO_DATA": 10
+   }
+  },
+  "AS_OF+60d = 2026-11-05": {
+   "DATA_LATENCY_DAYS": 59,
+   "GATE_H_FRESH_PREDICATE (latency<=21)": false,
+   "N_CLASSED": 0,
+   "STATES": {
+    "UNKNOWN_NO_DATA": 10
+   }
+  },
+  "AS_OF+180d = 2027-03-05": {
+   "DATA_LATENCY_DAYS": 179,
+   "GATE_H_FRESH_PREDICATE (latency<=21)": false,
+   "N_CLASSED": 0,
+   "STATES": {
+    "UNKNOWN_NO_DATA": 10
+   }
+  },
+  "AS_OF+365d = 2027-09-06": {
+   "DATA_LATENCY_DAYS": 364,
+   "GATE_H_FRESH_PREDICATE (latency<=21)": false,
+   "N_CLASSED": 0,
+   "STATES": {
+    "UNKNOWN_NO_DATA": 10
+   }
+  },
+  "AS_OF+730d = 2028-09-05": {
+   "DATA_LATENCY_DAYS": 729,
+   "GATE_H_FRESH_PREDICATE (latency<=21)": false,
+   "N_CLASSED": 0,
+   "STATES": {
+    "UNKNOWN_NO_DATA": 10
+   }
+  }
+ },
+ "C1_backdated_mtime_5_years": {
+  "MTIME_NOW": "2021-09-07",
+  "DATA_LATENCY_DAYS": 2,
+  "STATES": {
+   "TYPICAL_FOR_THE_DATE": 5,
+   "LOWER_THAN_USUAL": 4,
+   "UNKNOWN_NO_DATA": 1
+  },
+  "N_CLASSED": 9,
+  "INTERPRETATION": "if latency is unchanged, file mtime is NOT an input"
+ },
+ "C2_val_column_nulled_latest_year": {
+  "FILE": "c3_s8_v39_2026.json",
+  "N_ROWS": 2515,
+  "N_NON_NULL_BEFORE": 2515,
+  "N_NON_NULL_AFTER": 0,
+  "DATA_LATENCY_DAYS": 375,
+  "STATES": {
+   "UNKNOWN_NO_DATA": 10
+  },
+  "N_CLASSED": 0,
+  "INTERPRETATION": "rows and dates untouched; only readability removed"
+ },
+ "C3_latest_year_file_deleted": {
+  "REMOVED": "c3_s8_v39_2026.json",
+  "DATA_LATENCY_DAYS": 375,
+  "STATES": {
+   "UNKNOWN_NO_DATA": 10
+  },
+  "N_CLASSED": 0
+ },
+ "C4_observation_dates_shifted_back_400d": {
+  "FILE": "c3_s8_v39_2026.json",
+  "DATA_LATENCY_DAYS": 375,
+  "STATES": {
+   "UNKNOWN_NO_DATA": 10
+  },
+  "N_CLASSED": 0
+ },
+ "C5_one_single_fresh_row_added": {
+  "FILE": "c3_s8_v39_2026.json",
+  "N_ROWS_AT_AS_OF": 1,
+  "PROVINCE_OF_THAT_ROW": "Arezzo",
+  "DATA_LATENCY_DAYS": 0,
+  "STATES": {
+   "UNKNOWN_NO_DATA": 10
+  },
+  "N_CLASSED": 0,
+  "INTERPRETATION": "ONE readable row anywhere in the region resets the freshness badge"
+ },
+ "C6_future_dated_rows_added": {
+  "N_FUTURE_ROWS_ADDED": 50,
+  "DATA_LATENCY_DAYS": 2,
+  "STATES": {
+   "TYPICAL_FOR_THE_DATE": 5,
+   "LOWER_THAN_USUAL": 4,
+   "UNKNOWN_NO_DATA": 1
+  },
+  "N_CLASSED": 9,
+  "INTERPRETATION": "latency must not go negative"
+ },
+ "C7_only_Siena_kept_current": {
+  "DATA_LATENCY_DAYS": 4,
+  "STATES": {
+   "UNKNOWN_NO_DATA": 9,
+   "TYPICAL_FOR_THE_DATE": 1
+  },
+  "N_CLASSED": 1,
+  "INTERPRETATION": "one published DATA_LATENCY_DAYS covers the whole region; if it stays small while 9 of 10 provinces are 900 days stale, the badge is a region-wide maximum-freshness, not a per-cell one"
+ }
+}

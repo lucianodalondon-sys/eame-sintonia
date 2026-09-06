@@ -1,0 +1,396 @@
+{
+ "I1_ISSUE_LABEL": {
+  "FILE": "C:\\cert-v2-disease-pressure\\data\\experiments\\DISEASE-INTELLIGENCE-ITALY\\CERT-V2\\p4_cell_state_by_date.json",
+  "EXISTS": true,
+  "CELL_KEYS_CONTAINING_SEPTORIA": [],
+  "N_CELL_KEYS": 0,
+  "N_TOTAL_CELL_KEYS": 0,
+  "N_CELL_DATE_STATES_UNDER_THOSE_KEYS": 0,
+  "N_RECORDS_WITH_ISSUE_SEPTORIA": 150,
+  "THEIR_CROP_AND_REGION": [
+   [
+    "TOSCANA",
+    "WHEAT"
+   ]
+  ],
+  "STATES_THEY_CARRY": {
+   "UNKNOWN_NO_DATA": 137,
+   "TYPICAL_FOR_THE_DATE": 9,
+   "UNKNOWN_NO_BASELINE": 4
+  },
+  "VAR_372_NAME_IN_SOURCE_SCHEMA": "Intensit&agrave;<br/> Oidio",
+  "WHERE_THE_STRING_SEPTORIA_IS_ASSIGNED": "CERT-V2/p4_date_and_floor.py:38  ('TOSCANA', 'WHEAT', 'SEPTORIA', CASES/FRUMENTO-SEPTORIA-TOSCANA, 372) -- a hand-typed literal, not read from the source"
+ },
+ "I2_ORDER_N": {
+  "VITE-OIDIO-TOSCANA :: var 39": {
+   "ORDER_N_SEQUENCE": [
+    [
+     0,
+     "nessuna"
+    ],
+    [
+     3,
+     "bassa"
+    ],
+    [
+     5,
+     "media"
+    ],
+    [
+     10,
+     "alta"
+    ]
+   ],
+   "ORDER_N_MATCHES_TRUE_ORDER": true,
+   "WORD_LADDER_COVERS": "4/4",
+   "WORD_LADDER_DROPS": [],
+   "ORDER_N_COVERS": "4/4"
+  },
+  "VITE-OIDIO-TOSCANA :: var 40": {
+   "ORDER_N_SEQUENCE": [
+    [
+     0,
+     "nessuna"
+    ],
+    [
+     1,
+     "1-5%"
+    ],
+    [
+     5,
+     "5-10%"
+    ],
+    [
+     10,
+     ">10%"
+    ]
+   ],
+   "ORDER_N_MATCHES_TRUE_ORDER": true,
+   "WORD_LADDER_COVERS": "4/4",
+   "WORD_LADDER_DROPS": [],
+   "ORDER_N_COVERS": "4/4"
+  },
+  "VITE-OIDIO-TOSCANA :: var 42": {
+   "ORDER_N_SEQUENCE": [
+    [
+     306,
+     "nessuno"
+    ],
+    [
+     307,
+     "zolfo"
+    ],
+    [
+     308,
+     "IBE"
+    ],
+    [
+     309,
+     "quinoxifen"
+    ],
+    [
+     310,
+     "dinocap"
+    ],
+    [
+     311,
+     "strobilurine"
+    ],
+    [
+     312,
+     "Ampelomices q."
+    ],
+    [
+     313,
+     "altro"
+    ]
+   ],
+   "ORDER_N_MATCHES_TRUE_ORDER": "NOT_ORDINAL_VAR",
+   "WORD_LADDER_COVERS": "1/8",
+   "WORD_LADDER_DROPS": [
+    "zolfo",
+    "IBE",
+    "quinoxifen",
+    "dinocap",
+    "strobilurine",
+    "Ampelomices q.",
+    "altro"
+   ],
+   "ORDER_N_COVERS": "8/8"
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA :: var 371": {
+   "ORDER_N_SEQUENCE": [
+    [
+     0,
+     "No"
+    ],
+    [
+     11,
+     "Parte bassa"
+    ],
+    [
+     22,
+     "Parte alta"
+    ],
+    [
+     44,
+     "Penultima foglia"
+    ],
+    [
+     55,
+     "Ultima foglia"
+    ],
+    [
+     66,
+     "Spiga"
+    ]
+   ],
+   "ORDER_N_MATCHES_TRUE_ORDER": true,
+   "WORD_LADDER_COVERS": "3/6",
+   "WORD_LADDER_DROPS": [
+    "Penultima foglia",
+    "Ultima foglia",
+    "Spiga"
+   ],
+   "ORDER_N_COVERS": "6/6"
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA :: var 372": {
+   "ORDER_N_SEQUENCE": [
+    [
+     0,
+     "Nessuna"
+    ],
+    [
+     5,
+     "5 - lieve"
+    ],
+    [
+     10,
+     "10 - media"
+    ],
+    [
+     25,
+     "25 - grave"
+    ],
+    [
+     50,
+     "50 - gravissina"
+    ],
+    [
+     75,
+     "75 - completa"
+    ]
+   ],
+   "ORDER_N_MATCHES_TRUE_ORDER": true,
+   "WORD_LADDER_COVERS": "4/6",
+   "WORD_LADDER_DROPS": [
+    "50 - gravissina",
+    "75 - completa"
+   ],
+   "ORDER_N_COVERS": "6/6"
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA :: var 381": {
+   "ORDER_N_SEQUENCE": [
+    [
+     1,
+     "No"
+    ],
+    [
+     22,
+     "Terzultima foglia"
+    ],
+    [
+     44,
+     "Penultima foglia"
+    ],
+    [
+     55,
+     "Ultima foglia"
+    ],
+    [
+     66,
+     "Spiga"
+    ]
+   ],
+   "ORDER_N_MATCHES_TRUE_ORDER": true,
+   "WORD_LADDER_COVERS": "1/5",
+   "WORD_LADDER_DROPS": [
+    "Terzultima foglia",
+    "Penultima foglia",
+    "Ultima foglia",
+    "Spiga"
+   ],
+   "ORDER_N_COVERS": "5/5"
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA :: var 382": {
+   "ORDER_N_SEQUENCE": [
+    [
+     0,
+     "Nessuna"
+    ],
+    [
+     5,
+     "5 - lieve"
+    ],
+    [
+     10,
+     "10 - media"
+    ],
+    [
+     25,
+     "25 - grave"
+    ],
+    [
+     50,
+     "50 - gravissima"
+    ],
+    [
+     75,
+     "75 - completa"
+    ]
+   ],
+   "ORDER_N_MATCHES_TRUE_ORDER": true,
+   "WORD_LADDER_COVERS": "4/6",
+   "WORD_LADDER_DROPS": [
+    "50 - gravissima",
+    "75 - completa"
+   ],
+   "ORDER_N_COVERS": "6/6"
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA :: var 383": {
+   "ORDER_N_SEQUENCE": [
+    [
+     0,
+     "Nessuna"
+    ],
+    [
+     5,
+     "5 - lieve"
+    ],
+    [
+     10,
+     "10 - media"
+    ],
+    [
+     25,
+     "25 - grave"
+    ],
+    [
+     50,
+     "50 - gravissima"
+    ],
+    [
+     90,
+     "90 - completa"
+    ]
+   ],
+   "ORDER_N_MATCHES_TRUE_ORDER": true,
+   "WORD_LADDER_COVERS": "4/6",
+   "WORD_LADDER_DROPS": [
+    "50 - gravissima",
+    "90 - completa"
+   ],
+   "ORDER_N_COVERS": "6/6"
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA :: var 384": {
+   "ORDER_N_SEQUENCE": [
+    [
+     0,
+     "Nessuna"
+    ],
+    [
+     5,
+     "Bassa <10%"
+    ],
+    [
+     15,
+     "Media 10-25%"
+    ],
+    [
+     50,
+     "Alta >25%"
+    ]
+   ],
+   "ORDER_N_MATCHES_TRUE_ORDER": true,
+   "WORD_LADDER_COVERS": "4/4",
+   "WORD_LADDER_DROPS": [],
+   "ORDER_N_COVERS": "4/4"
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA :: var 385": {
+   "ORDER_N_SEQUENCE": [
+    [
+     0,
+     "Nessuna"
+    ],
+    [
+     5,
+     "Bassa <5%"
+    ],
+    [
+     15,
+     "Media 5-25%"
+    ],
+    [
+     50,
+     "Alta >25%"
+    ]
+   ],
+   "ORDER_N_MATCHES_TRUE_ORDER": true,
+   "WORD_LADDER_COVERS": "4/4",
+   "WORD_LADDER_DROPS": [],
+   "ORDER_N_COVERS": "4/4"
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA :: var 386": {
+   "ORDER_N_SEQUENCE": [
+    [
+     0,
+     "Nessuna"
+    ],
+    [
+     5,
+     "Bassa <5%"
+    ],
+    [
+     15,
+     "Media 5-25%"
+    ],
+    [
+     50,
+     "Alta >25%"
+    ]
+   ],
+   "ORDER_N_MATCHES_TRUE_ORDER": true,
+   "WORD_LADDER_COVERS": "4/4",
+   "WORD_LADDER_DROPS": [],
+   "ORDER_N_COVERS": "4/4"
+  },
+  "_SUMMARY": {
+   "N_ORDINAL_CODE_TABLES_IN_THE_THREE_CASES": 10,
+   "ORDER_N_GIVES_THE_CORRECT_ORDER_IN": 10,
+   "ORDER_N_WRONG_IN": 0,
+   "WRONG_ONES": [],
+   "TOTAL_LABELS": 57,
+   "LABELS_THE_WORD_LADDER_RESOLVES": 37
+  }
+ },
+ "I2b_THE_CITED_COUNTEREXAMPLE": {
+  "CLAIM_IN_run_case.py_LINES_9_13": "order_n is unreliable (peronospora leaf: media=3 ranks below bassa=5)",
+  "media_AND_bassa_ENTRIES_IN_THE_THREE_CASES": {
+   "VITE-OIDIO-TOSCANA": [
+    [
+     39,
+     "bassa",
+     3
+    ],
+    [
+     39,
+     "media",
+     5
+    ]
+   ]
+  },
+  "IS_THE_CITED_INVERSION_PRESENT_IN_ANY_OF_THE_THREE_CASES": false,
+  "NOTE": "the counter-example that justifies discarding order_n comes from a peronospora variable in DISEASE-INTELLIGENCE-ITALY/TOSCANA, not from any of the three cases this engine is certified on",
+  "TOSCANA_CASE_CODE_TABLE": []
+ }
+}

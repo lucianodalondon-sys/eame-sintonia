@@ -1,0 +1,295 @@
+{
+ "WITHDRAWN": "p5's EFFECT_FLOOR = PROVED, and its 0 false positives / 0 false negatives, which were tautological",
+ "T1_SWEEP": {
+  "DISTINCT_PARTITIONS_OVER_T_0_TO_70": 27,
+  "HIGHER_COUNT_BY_T": {
+   "0": 40,
+   "1": 38,
+   "2": 37,
+   "3": 35,
+   "4": 32,
+   "5": 31,
+   "6": 31,
+   "7": 31,
+   "8": 30,
+   "9": 30,
+   "10": 30,
+   "11": 29,
+   "12": 29,
+   "13": 29,
+   "14": 29,
+   "15": 29,
+   "16": 29,
+   "17": 29,
+   "18": 29,
+   "19": 28,
+   "20": 28,
+   "21": 27,
+   "22": 27,
+   "23": 25,
+   "24": 23,
+   "25": 21,
+   "26": 21,
+   "27": 19,
+   "28": 19,
+   "29": 19,
+   "30": 16,
+   "31": 15,
+   "32": 14,
+   "33": 13,
+   "34": 9,
+   "35": 8,
+   "36": 6,
+   "37": 6,
+   "38": 6,
+   "39": 6,
+   "40": 6,
+   "41": 6,
+   "42": 5,
+   "43": 5,
+   "44": 5,
+   "45": 5,
+   "46": 5,
+   "47": 4,
+   "48": 4,
+   "49": 4,
+   "50": 4,
+   "51": 4,
+   "52": 4,
+   "53": 3,
+   "54": 3,
+   "55": 3,
+   "56": 2,
+   "57": 2,
+   "58": 2,
+   "59": 1,
+   "60": 1,
+   "61": 1,
+   "62": 1,
+   "63": 1,
+   "64": 1,
+   "65": 1,
+   "66": 1,
+   "67": 1,
+   "68": 1,
+   "69": 1,
+   "70": 0
+  },
+  "T_VALUES_GIVING_EXACTLY_THE_SHIPPED_PARTITION": [
+   5,
+   6,
+   7
+  ],
+  "READ": "if a wide band of T gives the identical answer, the value 5 was not selected by the data; it sits somewhere inside that band."
+ },
+ "T2_INDEPENDENT_YARDSTICK": {
+  "INCIDENCE_OF_WITHHELD": {
+   "n": 9,
+   "min": 0.0147,
+   "median": 0.1333,
+   "max": 0.4
+  },
+  "INCIDENCE_OF_KEPT": {
+   "n": 31,
+   "min": 0.55,
+   "median": 0.9355,
+   "max": 1.0
+  },
+  "N_SITES_OF_WITHHELD": {
+   "n": 9,
+   "min": 10,
+   "median": 14,
+   "max": 119
+  },
+  "N_SITES_OF_KEPT": {
+   "n": 31,
+   "min": 8,
+   "median": 35,
+   "max": 100
+  },
+  "CLOSEST_PLAIN_INCIDENCE_THRESHOLD": {
+   "threshold": 0.41,
+   "cells_where_it_disagrees": 0
+  },
+  "READ": "if a plain incidence threshold reproduces the floor exactly, then what the floor selects is severity, not the number of positive sites, and it should be stated that way."
+ },
+ "T3_MADE_IMPOSSIBLE": {
+  "CLASSIFIED_CELLS": 282,
+  "CELLS_THAT_CAN_NEVER_PRODUCE_A_HIGHER_CALL": 142,
+  "RATE": 0.5035,
+  "EXAMPLES": [
+   {
+    "CROP": "OLIVE",
+    "PROVINCE": "Firenze",
+    "DATE": "2026-07-15",
+    "n_sites": 68,
+    "incidence_required": 0.074,
+    "highest_ever_at_this_window": 0.015
+   },
+   {
+    "CROP": "OLIVE",
+    "PROVINCE": "Grosseto",
+    "DATE": "2026-07-15",
+    "n_sites": 119,
+    "incidence_required": 0.042,
+    "highest_ever_at_this_window": 0.034
+   },
+   {
+    "CROP": "OLIVE",
+    "PROVINCE": "Livorno",
+    "DATE": "2026-07-15",
+    "n_sites": 41,
+    "incidence_required": 0.122,
+    "highest_ever_at_this_window": 0.024
+   },
+   {
+    "CROP": "OLIVE",
+    "PROVINCE": "Lucca",
+    "DATE": "2026-07-15",
+    "n_sites": 14,
+    "incidence_required": 0.357,
+    "highest_ever_at_this_window": 0
+   },
+   {
+    "CROP": "OLIVE",
+    "PROVINCE": "Pisa",
+    "DATE": "2026-07-15",
+    "n_sites": 15,
+    "incidence_required": 0.333,
+    "highest_ever_at_this_window": 0
+   },
+   {
+    "CROP": "OLIVE",
+    "PROVINCE": "Pistoia",
+    "DATE": "2026-07-15",
+    "n_sites": 14,
+    "incidence_required": 0.357,
+    "highest_ever_at_this_window": 0
+   },
+   {
+    "CROP": "OLIVE",
+    "PROVINCE": "Siena",
+    "DATE": "2026-07-15",
+    "n_sites": 31,
+    "incidence_required": 0.161,
+    "highest_ever_at_this_window": 0
+   },
+   {
+    "CROP": "OLIVE",
+    "PROVINCE": "Arezzo",
+    "DATE": "2026-08-01",
+    "n_sites": 17,
+    "incidence_required": 0.294,
+    "highest_ever_at_this_window": 0
+   }
+  ],
+  "READ": "a floor stated in absolute positive sites is a stricter incidence requirement in a small province than in a large one. These cells are structurally silent."
+ },
+ "T4_WHERE_THE_KEPT_CALLS_LIVE": {
+  "KEPT_BY_CROP": {
+   "OLIVE": 31
+  },
+  "WITHHELD_BY_CROP": {
+   "OLIVE": 3,
+   "VINE": 5,
+   "WHEAT": 1
+  },
+  "KEPT_IN_2026": 0,
+  "KEPT_IN_HISTORICAL_REPLAYS": 31,
+  "WITHHELD_IN_2026": 4,
+  "RANK_HIGHER_IN_2026": 4
+ },
+ "T5_WITHHELD_RECORDS": {
+  "WITHHELD_CELLS_THAT_ARE_THE_HIGHEST_EVER_RECORDED_AT_THAT_WINDOW": 8,
+  "ROWS": [
+   {
+    "CROP": "OLIVE",
+    "PROVINCE": "Firenze",
+    "DATE": "2026-07-15",
+    "VALUE": 0.0147,
+    "n_sites": 68,
+    "n_positive_sites": 1.0,
+    "highest_ever_at_this_window": 0.0147
+   },
+   {
+    "CROP": "OLIVE",
+    "PROVINCE": "Grosseto",
+    "DATE": "2026-07-15",
+    "VALUE": 0.0336,
+    "n_sites": 119,
+    "n_positive_sites": 4.0,
+    "highest_ever_at_this_window": 0.0336
+   },
+   {
+    "CROP": "OLIVE",
+    "PROVINCE": "Livorno",
+    "DATE": "2026-07-15",
+    "VALUE": 0.0244,
+    "n_sites": 41,
+    "n_positive_sites": 1.0,
+    "highest_ever_at_this_window": 0.0244
+   },
+   {
+    "CROP": "VINE",
+    "PROVINCE": "Firenze",
+    "DATE": "2018-09-06",
+    "VALUE": 0.1429,
+    "n_sites": 14,
+    "n_positive_sites": 2.0,
+    "highest_ever_at_this_window": 0.1429
+   },
+   {
+    "CROP": "VINE",
+    "PROVINCE": "Pisa",
+    "DATE": "2019-09-06",
+    "VALUE": 0.3,
+    "n_sites": 10,
+    "n_positive_sites": 3.0,
+    "highest_ever_at_this_window": 0.3
+   },
+   {
+    "CROP": "VINE",
+    "PROVINCE": "Arezzo",
+    "DATE": "2020-09-06",
+    "VALUE": 0.1667,
+    "n_sites": 12,
+    "n_positive_sites": 2.0,
+    "highest_ever_at_this_window": 0.1667
+   },
+   {
+    "CROP": "VINE",
+    "PROVINCE": "Grosseto",
+    "DATE": "2020-09-06",
+    "VALUE": 0.4,
+    "n_sites": 10,
+    "n_positive_sites": 4.0,
+    "highest_ever_at_this_window": 0.4
+   },
+   {
+    "CROP": "WHEAT",
+    "PROVINCE": "Arezzo",
+    "DATE": "2026-04-15",
+    "VALUE": 0.0833,
+    "n_sites": 12,
+    "n_positive_sites": 1.0,
+    "highest_ever_at_this_window": 0.0833
+   }
+  ],
+  "READ": "these are candidate false negatives that owe nothing to the floor's own definition. p5 reported 0 false negatives and this is what it missed."
+ },
+ "T6_IS_THE_FLOOR_DECLARED": {
+  "IN_THE_DOCSTRING_PARAMETER_LIST": false,
+  "IN_THE_EMITTED_PARAMS_BLOCK": false,
+  "EMITTED_PARAMS": [
+   "WINDOW_DAYS",
+   "MIN_SITES",
+   "MIN_BASE",
+   "HIGH_P",
+   "LOW_P"
+  ],
+  "IN_THE_SENSITIVITY_GRID": false,
+  "READ": "gate F measures how much the label depends on the parameters. A parameter outside the grid is a parameter the label is never tested against."
+ },
+ "EFFECT_FLOOR": "NOT_PROVED",
+ "EFFECT_FLOOR_REASON": "The floor does what it says \u2014 it removes rank-HIGHER calls that rest on very few positive sites \u2014 and on this sample it removes exactly the pathology it was built for. What is NOT proved is that it discriminates signal from noise. 3 of the 71 floor values tried give the identical partition, so the number 5 is not selected by the data. On this sample it is reproduced to within 0 cells by a plain incidence threshold of 0.41, which means it is selecting severity and not a count of sites. It makes a HIGHER call arithmetically impossible in 142 of 282 classified cells. It is absent from the module's own parameter list, from the emitted PARAMS block and from the sensitivity grid, so gate F has never varied it. And 8 of the 9 withheld cells are the highest value ever recorded at that window in that province."
+}

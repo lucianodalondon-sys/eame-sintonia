@@ -1,0 +1,313 @@
+{
+ "BASELINE_UNTOUCHED_COPY": {
+  "SCENARIO": "untouched copy of the shipped case",
+  "INDEX": {
+   "N_REQUESTS": 42,
+   "N_WITH_FILE": 40,
+   "N_ok_false": 0,
+   "N_REFUSED_WRITE": 0,
+   "TOP_LEVEL_KEYS": [
+    "api",
+    "codes",
+    "crop",
+    "requests",
+    "schema",
+    "vars"
+   ],
+   "HAS_ANY_TIMESTAMP_FIELD": [],
+   "REQUEST_KEYS_SEEN": [
+    "file",
+    "n_rows",
+    "ok",
+    "rowCount",
+    "sha256",
+    "var",
+    "year"
+   ]
+  },
+  "HASH_CHAIN": {
+   "N_FILES_ON_DISK": 40,
+   "N_VERIFIED_OK": 40,
+   "N_MISMATCH": 0,
+   "MISMATCHED": [],
+   "N_ON_DISK_BUT_UNINDEXED_SO_UNCHECKED": 0,
+   "UNINDEXED_SAMPLE": []
+  },
+  "LOAD_ROWS": {
+   "RESULT": "OK",
+   "N_ROWS": 35065,
+   "N_READABLE": 35064,
+   "VALUE_MODE": "ORDINAL",
+   "LAST_READABLE_OBSERVATION": "2026-09-07"
+  },
+  "CURRENT_PRESSURE": {
+   "RESULT": "OK",
+   "DATA_LATENCY_DAYS": 2,
+   "STATES": {
+    "TYPICAL_FOR_THE_DATE": 5,
+    "LOWER_THAN_USUAL": 4,
+    "UNKNOWN_NO_DATA": 1
+   },
+   "N_PUBLISHED_CLASSES": 9
+  }
+ },
+ "SCENARIOS": {
+  "A_GOOD": {
+   "SCENARIO": "A_GOOD",
+   "INDEX": {
+    "N_REQUESTS": 21,
+    "N_WITH_FILE": 20,
+    "N_ok_false": 0,
+    "N_REFUSED_WRITE": 0,
+    "TOP_LEVEL_KEYS": [
+     "api",
+     "codes",
+     "crop",
+     "requests",
+     "schema",
+     "vars"
+    ],
+    "HAS_ANY_TIMESTAMP_FIELD": [],
+    "REQUEST_KEYS_SEEN": [
+     "file",
+     "n_rows",
+     "non_null_values",
+     "ok",
+     "rowCount",
+     "sha256",
+     "var",
+     "year"
+    ]
+   },
+   "HASH_CHAIN": {
+    "N_FILES_ON_DISK": 40,
+    "N_VERIFIED_OK": 19,
+    "N_MISMATCH": 1,
+    "MISMATCHED": [
+     "c3_s8_v39_2012.json"
+    ],
+    "N_ON_DISK_BUT_UNINDEXED_SO_UNCHECKED": 20,
+    "UNINDEXED_SAMPLE": [
+     "c3_s8_v40_2006.json",
+     "c3_s8_v40_2007.json",
+     "c3_s8_v40_2008.json",
+     "c3_s8_v40_2009.json",
+     "c3_s8_v40_2010.json",
+     "c3_s8_v40_2012.json"
+    ]
+   },
+   "LOAD_ROWS": {
+    "RESULT": "ValueError: REFUSED: c3_s8_v39_2012.json does not match its collected sha256"
+   },
+   "CURRENT_PRESSURE": {
+    "RESULT": "not reached"
+   },
+   "COLLECTOR_STDOUT": [
+    "var 39: 35065 rows across 2006-2026",
+    "requests=21 with_rows=20 HTTP-ok-ZERO-rows=1"
+   ],
+   "COLLECTOR_RAISED": null,
+   "YEARS_REQUESTED": [
+    2006,
+    2026
+   ]
+  },
+  "B_NULLS": {
+   "SCENARIO": "B_NULLS",
+   "INDEX": {
+    "N_REQUESTS": 21,
+    "N_WITH_FILE": 0,
+    "N_ok_false": 0,
+    "N_REFUSED_WRITE": 20,
+    "TOP_LEVEL_KEYS": [
+     "api",
+     "codes",
+     "crop",
+     "requests",
+     "schema",
+     "vars"
+    ],
+    "HAS_ANY_TIMESTAMP_FIELD": [],
+    "REQUEST_KEYS_SEEN": [
+     "REFUSED_WRITE",
+     "n_rows",
+     "non_null_values",
+     "ok",
+     "rowCount",
+     "var",
+     "year"
+    ]
+   },
+   "HASH_CHAIN": {
+    "N_FILES_ON_DISK": 40,
+    "N_VERIFIED_OK": 0,
+    "N_MISMATCH": 0,
+    "MISMATCHED": [],
+    "N_ON_DISK_BUT_UNINDEXED_SO_UNCHECKED": 40,
+    "UNINDEXED_SAMPLE": [
+     "c3_s8_v39_2006.json",
+     "c3_s8_v39_2007.json",
+     "c3_s8_v39_2008.json",
+     "c3_s8_v39_2009.json",
+     "c3_s8_v39_2010.json",
+     "c3_s8_v39_2012.json"
+    ]
+   },
+   "LOAD_ROWS": {
+    "RESULT": "OK",
+    "N_ROWS": 35065,
+    "N_READABLE": 35064,
+    "VALUE_MODE": "ORDINAL",
+    "LAST_READABLE_OBSERVATION": "2026-09-07"
+   },
+   "CURRENT_PRESSURE": {
+    "RESULT": "OK",
+    "DATA_LATENCY_DAYS": 2,
+    "STATES": {
+     "TYPICAL_FOR_THE_DATE": 5,
+     "LOWER_THAN_USUAL": 4,
+     "UNKNOWN_NO_DATA": 1
+    },
+    "N_PUBLISHED_CLASSES": 9
+   },
+   "COLLECTOR_STDOUT": [
+    "    REFUSED to write var 39 2023: 1244 rows, 0 readable values",
+    "    REFUSED to write var 39 2024: 1398 rows, 0 readable values",
+    "    REFUSED to write var 39 2025: 1293 rows, 0 readable values",
+    "    REFUSED to write var 39 2026: 2515 rows, 0 readable values",
+    "  var 39: 35065 rows across 2006-2026",
+    "requests=21 with_rows=20 HTTP-ok-ZERO-rows=1"
+   ],
+   "COLLECTOR_RAISED": null,
+   "YEARS_REQUESTED": [
+    2006,
+    2026
+   ]
+  },
+  "C_DOWN": {
+   "SCENARIO": "C_DOWN",
+   "INDEX": {
+    "N_REQUESTS": 21,
+    "N_WITH_FILE": 0,
+    "N_ok_false": 21,
+    "N_REFUSED_WRITE": 0,
+    "TOP_LEVEL_KEYS": [
+     "api",
+     "codes",
+     "crop",
+     "requests",
+     "schema",
+     "vars"
+    ],
+    "HAS_ANY_TIMESTAMP_FIELD": [],
+    "REQUEST_KEYS_SEEN": [
+     "n_rows",
+     "non_null_values",
+     "ok",
+     "rowCount",
+     "var",
+     "year"
+    ]
+   },
+   "HASH_CHAIN": {
+    "N_FILES_ON_DISK": 40,
+    "N_VERIFIED_OK": 0,
+    "N_MISMATCH": 0,
+    "MISMATCHED": [],
+    "N_ON_DISK_BUT_UNINDEXED_SO_UNCHECKED": 40,
+    "UNINDEXED_SAMPLE": [
+     "c3_s8_v39_2006.json",
+     "c3_s8_v39_2007.json",
+     "c3_s8_v39_2008.json",
+     "c3_s8_v39_2009.json",
+     "c3_s8_v39_2010.json",
+     "c3_s8_v39_2012.json"
+    ]
+   },
+   "LOAD_ROWS": {
+    "RESULT": "ValueError: REFUSED: var 39 is neither coded nor numeric in the source metadata"
+   },
+   "CURRENT_PRESSURE": {
+    "RESULT": "not reached"
+   },
+   "COLLECTOR_STDOUT": [
+    "var 39: 0 rows across 2006-2026",
+    "requests=21 with_rows=0 HTTP-ok-ZERO-rows=0"
+   ],
+   "COLLECTOR_RAISED": null,
+   "YEARS_REQUESTED": [
+    2006,
+    2026
+   ]
+  },
+  "D_PARTIAL_GOOD_LAST_2_YEARS": {
+   "SCENARIO": "D_PARTIAL_GOOD_LAST_2_YEARS",
+   "INDEX": {
+    "N_REQUESTS": 2,
+    "N_WITH_FILE": 2,
+    "N_ok_false": 0,
+    "N_REFUSED_WRITE": 0,
+    "TOP_LEVEL_KEYS": [
+     "api",
+     "codes",
+     "crop",
+     "requests",
+     "schema",
+     "vars"
+    ],
+    "HAS_ANY_TIMESTAMP_FIELD": [],
+    "REQUEST_KEYS_SEEN": [
+     "file",
+     "n_rows",
+     "non_null_values",
+     "ok",
+     "rowCount",
+     "sha256",
+     "var",
+     "year"
+    ]
+   },
+   "HASH_CHAIN": {
+    "N_FILES_ON_DISK": 40,
+    "N_VERIFIED_OK": 2,
+    "N_MISMATCH": 0,
+    "MISMATCHED": [],
+    "N_ON_DISK_BUT_UNINDEXED_SO_UNCHECKED": 38,
+    "UNINDEXED_SAMPLE": [
+     "c3_s8_v39_2006.json",
+     "c3_s8_v39_2007.json",
+     "c3_s8_v39_2008.json",
+     "c3_s8_v39_2009.json",
+     "c3_s8_v39_2010.json",
+     "c3_s8_v39_2012.json"
+    ]
+   },
+   "LOAD_ROWS": {
+    "RESULT": "OK",
+    "N_ROWS": 35065,
+    "N_READABLE": 35064,
+    "VALUE_MODE": "ORDINAL",
+    "LAST_READABLE_OBSERVATION": "2026-09-07"
+   },
+   "CURRENT_PRESSURE": {
+    "RESULT": "OK",
+    "DATA_LATENCY_DAYS": 2,
+    "STATES": {
+     "TYPICAL_FOR_THE_DATE": 5,
+     "LOWER_THAN_USUAL": 4,
+     "UNKNOWN_NO_DATA": 1
+    },
+    "N_PUBLISHED_CLASSES": 9
+   },
+   "COLLECTOR_STDOUT": [
+    "var 39: 3808 rows across 2025-2026",
+    "requests=2 with_rows=2 HTTP-ok-ZERO-rows=0"
+   ],
+   "COLLECTOR_RAISED": null,
+   "YEARS_REQUESTED": [
+    2025,
+    2026
+   ]
+  }
+ }
+}

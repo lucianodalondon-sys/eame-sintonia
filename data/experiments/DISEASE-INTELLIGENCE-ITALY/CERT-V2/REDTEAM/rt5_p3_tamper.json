@@ -1,0 +1,161 @@
+{
+ "BASELINE_untouched": {
+  "RAN": true,
+  "STATES": {
+   "Arezzo": "LOWER_THAN_USUAL",
+   "Firenze": "LOWER_THAN_USUAL",
+   "Grosseto": "LOWER_THAN_USUAL",
+   "Livorno": "LOWER_THAN_USUAL",
+   "Lucca": "LOWER_THAN_USUAL",
+   "Massa-Carrara": "TYPICAL_FOR_THE_DATE",
+   "Pisa": "LOWER_THAN_USUAL",
+   "Pistoia": "LOWER_THAN_USUAL",
+   "Prato": "UNKNOWN_NO_DATA",
+   "Siena": "LOWER_THAN_USUAL"
+  },
+  "VALUES": {
+   "Arezzo": 0.0,
+   "Firenze": 0.0,
+   "Grosseto": 0.0577,
+   "Livorno": 0.1169,
+   "Lucca": 0.0,
+   "Massa-Carrara": 0.3,
+   "Pisa": 0.1111,
+   "Pistoia": 0.0,
+   "Prato": null,
+   "Siena": 0.1311
+  },
+  "dropped_by_guard": 3397
+ },
+ "T1_corrupt_OUTCOME_file": {
+  "file": "c2_s1_v-1002_2026.json",
+  "values_changed": 400,
+  "listed_in_index": true,
+  "has_sha256_in_index": true,
+  "RESULT": {
+   "RAN": false,
+   "REFUSED_WITH": "ValueError: REFUSED: c2_s1_v-1002_2026.json does not match its collected sha256"
+  }
+ },
+ "T2_corrupt_DENOMINATOR_file": {
+  "file": "c2_s1_v1_2026.json",
+  "values_changed": 400,
+  "listed_in_index_with_sha256": true,
+  "RESULT": {
+   "RAN": true,
+   "STATES": {
+    "Arezzo": "UNKNOWN_NO_DATA",
+    "Firenze": "LOWER_THAN_USUAL",
+    "Grosseto": "LOWER_THAN_USUAL",
+    "Livorno": "LOWER_THAN_USUAL",
+    "Lucca": "LOWER_THAN_USUAL",
+    "Massa-Carrara": "TYPICAL_FOR_THE_DATE",
+    "Pisa": "LOWER_THAN_USUAL",
+    "Pistoia": "LOWER_THAN_USUAL",
+    "Prato": "UNKNOWN_NO_DATA",
+    "Siena": "LOWER_THAN_USUAL"
+   },
+   "VALUES": {
+    "Arezzo": null,
+    "Firenze": 0.0,
+    "Grosseto": 0.0577,
+    "Livorno": 0.1169,
+    "Lucca": 0.0,
+    "Massa-Carrara": 0.3,
+    "Pisa": 0.1111,
+    "Pistoia": 0.0,
+    "Prato": null,
+    "Siena": 0.1311
+   },
+   "dropped_by_guard": 3793
+  },
+  "STATES_CHANGED_vs_BASELINE": [
+   "Arezzo"
+  ],
+  "VALUES_CHANGED_vs_BASELINE": [
+   "Arezzo"
+  ],
+  "dropped_delta": 396
+ },
+ "T3_index_entry_deleted": {
+  "file": "c2_s1_v-1002_2026.json",
+  "values_changed": 400,
+  "RESULT": {
+   "RAN": true,
+   "STATES": {
+    "Arezzo": "HIGHER_THAN_USUAL",
+    "Firenze": "HIGHER_THAN_USUAL",
+    "Grosseto": "LOWER_THAN_USUAL",
+    "Livorno": "LOWER_THAN_USUAL",
+    "Lucca": "LOWER_THAN_USUAL",
+    "Massa-Carrara": "TYPICAL_FOR_THE_DATE",
+    "Pisa": "LOWER_THAN_USUAL",
+    "Pistoia": "LOWER_THAN_USUAL",
+    "Prato": "UNKNOWN_NO_DATA",
+    "Siena": "LOWER_THAN_USUAL"
+   },
+   "VALUES": {
+    "Arezzo": 1.0,
+    "Firenze": 0.8767,
+    "Grosseto": 0.0577,
+    "Livorno": 0.1169,
+    "Lucca": 0.0,
+    "Massa-Carrara": 0.3,
+    "Pisa": 0.1111,
+    "Pistoia": 0.0,
+    "Prato": null,
+    "Siena": 0.1311
+   },
+   "dropped_by_guard": 3397
+  }
+ },
+ "T4_sha256_set_to_null": {
+  "file": "c2_s1_v-1002_2026.json",
+  "values_changed": 400,
+  "RESULT": {
+   "RAN": true,
+   "STATES": {
+    "Arezzo": "HIGHER_THAN_USUAL",
+    "Firenze": "HIGHER_THAN_USUAL",
+    "Grosseto": "LOWER_THAN_USUAL",
+    "Livorno": "LOWER_THAN_USUAL",
+    "Lucca": "LOWER_THAN_USUAL",
+    "Massa-Carrara": "TYPICAL_FOR_THE_DATE",
+    "Pisa": "LOWER_THAN_USUAL",
+    "Pistoia": "LOWER_THAN_USUAL",
+    "Prato": "UNKNOWN_NO_DATA",
+    "Siena": "LOWER_THAN_USUAL"
+   },
+   "VALUES": {
+    "Arezzo": 1.0,
+    "Firenze": 0.8767,
+    "Grosseto": 0.0577,
+    "Livorno": 0.1169,
+    "Lucca": 0.0,
+    "Massa-Carrara": 0.3,
+    "Pisa": 0.1111,
+    "Pistoia": 0.0,
+    "Prato": null,
+    "Siena": 0.1311
+   },
+   "dropped_by_guard": 3397
+  }
+ },
+ "T5_RAW_SHA256_under_hindcast": {
+  "2015": {
+   "RAW_SHA256_names": "c2_s1_v-1002_2026.json",
+   "file_the_window_rows_are_actually_in": "c2_s1_v-1002_2015.json",
+   "CORRECT": false
+  },
+  "2020": {
+   "RAW_SHA256_names": "c2_s1_v-1002_2026.json",
+   "file_the_window_rows_are_actually_in": "c2_s1_v-1002_2020.json",
+   "CORRECT": false
+  },
+  "2026": {
+   "RAW_SHA256_names": "c2_s1_v-1002_2026.json",
+   "file_the_window_rows_are_actually_in": "c2_s1_v-1002_2026.json",
+   "CORRECT": true
+  }
+ }
+}

@@ -31,11 +31,19 @@ sys.path.insert(0, os.path.join(HERE, "..", "ENGINE"))
 sys.path.insert(0, os.path.join(HERE, "..", "CASES"))
 import current_pressure as cp
 
+# CORRECTED 2026-09-06 after an independent red team read the source's own variable names.
+# The third case is stored as CASES/FRUMENTO-SEPTORIA-TOSCANA and every write-up in the pilot
+# calls it "frumento x septoria". It collects ONLY id_survey_var 372, which that same case's
+# collection_index declares as "Intensita' Oidio". Septoria is id_survey_var 382, in the same
+# schema, and was never collected. The generalisation case measures WHEAT x POWDERY MILDEW.
+# The first version of this file typed "SEPTORIA" here, so 150 of my own certified records
+# carried the wrong disease. Corrected, and the wrong label is named rather than quietly
+# replaced.
 CASES = [("TOSCANA", "OLIVE", "BACTROCERA_OLEAE_DAMAGING",
           os.path.join(HERE, "..", "CASES", "OLIVO-BACTROCERA-TOSCANA"), -1002),
          ("TOSCANA", "VINE", "OIDIO_LEAF",
           os.path.join(HERE, "..", "CASES", "VITE-OIDIO-TOSCANA"), 39),
-         ("TOSCANA", "WHEAT", "SEPTORIA",
+         ("TOSCANA", "WHEAT", "OIDIO_INTENSITY_var372_NOT_SEPTORIA",
           os.path.join(HERE, "..", "CASES", "FRUMENTO-SEPTORIA-TOSCANA"), 372)]
 
 # Real dates spanning the 2026 season, including the two the pilot itself named.
@@ -189,6 +197,15 @@ def main():
     by_crop.update((r["CROP"], "KEPT_HIGHER") for r in kept)
 
     step5 = {
+        "RETRACTED": "The FALSE_POSITIVE_TEST and FALSE_NEGATIVE_TEST below are TAUTOLOGIES "
+                     "and their zeros mean nothing. `kept` is defined as STATE == HIGHER, "
+                     "which the floor only allows when n_sites*INCIDENCE >= 5; filtering "
+                     "`kept` for < 5 is therefore empty by construction. `withheld` is "
+                     "defined as a rank-HIGHER the floor downgraded, which requires < 5; "
+                     "filtering it for >= 5 is empty by construction. Both would print 0 for "
+                     "a floor of 1, of 5 or of 70. Found by an independent red team, "
+                     "reproduced, and conceded. The honest re-test is in "
+                     "p5b_effect_floor_retest.py; this block is kept so the error is visible.",
         "FLOOR": {"PARAMETER": "MIN_POSITIVE_SITES", "VALUE": cp.MIN_POSITIVE_SITES,
                   "RULE": "a HIGHER_THAN_USUAL rank is downgraded to TYPICAL unless "
                           "n_sites * INCIDENCE >= MIN_POSITIVE_SITES"},

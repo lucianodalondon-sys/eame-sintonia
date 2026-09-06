@@ -1,0 +1,205 @@
+{
+ "1_WHAT_THE_HANDOFF_ADJUDICATES": {
+  "UNIT": "a PRODUCT x CROP x ISSUE triple; key(crop, issue, product) joined by '|'",
+  "NOT_a_product": "a product alone has no verdict; KLARTAN 20 EW is only adjudicated against Olive|Olive Fruit Fly",
+  "NOT_a_pair": "a crop x issue pair alone has no verdict either",
+  "NOT_a_portfolio": "no statement is made about a portfolio",
+  "n_VERIFIED_triples": 12,
+  "n_NOT_FOUND_triples": 7,
+  "n_triples_total": 19,
+  "distinct_products_adjudicated": [
+   "COSAYR 200 SC",
+   "CUSTODIA ULTRA",
+   "EVURE PRO",
+   "FORZA",
+   "KLARTAN 20 EW",
+   "KLARTAN SMART",
+   "MAVRIK EW",
+   "MAVRIK SMART",
+   "MAXENTIS",
+   "MIRADOR TURBO"
+  ],
+  "distinct_crop_x_issue_pairs_adjudicated": [
+   "Apple|Codling Moth",
+   "Durum Wheat|Fusarium Head Blight",
+   "Grapevine|Downy Mildew",
+   "Grapevine|Flavescenza Dorata",
+   "Grapevine|Grapevine Moth",
+   "Maize|Diabrotica",
+   "Maize|Diabrotica Adults",
+   "Maize|European Corn Borer",
+   "Olive|Olive Fruit Fly",
+   "Sugar Beet|Cercospora Leaf Spot",
+   "Tomato|Tomato Leafminer",
+   "Wheat|Cereal Aphids",
+   "Wheat|Cereal Aphids / BYDV Risk",
+   "Wheat|Fusarium Head Blight",
+   "Wheat|Septoria Leaf Blotch"
+  ],
+  "DEFAULT_FOR_ANYTHING_ELSE": "LABEL_CHECK_NEEDED",
+  "STRENGTH_LEVELS_DEFINED": [
+   "LABEL_CHECK_NEEDED",
+   "NO_CONFIRMED_MATCH_CURRENT_READING",
+   "RELATED_PORTFOLIO",
+   "VERIFIED_LABEL_MATCH"
+  ],
+  "STRENGTH_LEVELS_verdict_CAN_RETURN": [
+   "LABEL_CHECK_NEEDED",
+   "NO_CONFIRMED_MATCH_CURRENT_READING",
+   "VERIFIED_LABEL_MATCH"
+  ],
+  "STRENGTH_LEVEL_NEVER_RETURNED": [
+   "RELATED_PORTFOLIO"
+  ],
+  "SEMANTIC_RULE_IN_THE_FILE": "Absence in this reading is not absence in the world."
+ },
+ "2_IS_NOT_FOUND_TOO_STRONG": {
+  "WORD_THE_HANDOFF_USES": "NO_CONFIRMED_MATCH_CURRENT_READING",
+  "WORD_THE_CERTIFICATION_USES": "NOT_FOUND",
+  "p10_ALLOWED_VOCABULARY": [
+   "PROVED",
+   "NOT_FOUND",
+   "UNKNOWN"
+  ],
+  "MAPPING_APPLIED_BY_p10": "NO_CONFIRMED_MATCH_CURRENT_READING -> NOT_FOUND",
+  "WHAT_IS_LOST": "the qualifier CURRENT_READING. The handoff's own header says a product missing from this reading is NOT evidence that ADAMA has no product; the substituted word carries the opposite everyday sense.",
+  "MITIGATION_PRESENT_IN_p10": "the JSON's WHAT_THIS_DOES_NOT_SAY block restores the qualifier in prose, in four sentences, below the field."
+ },
+ "3_IS_IT_TOO_WEAK_THE_PORTFOLIO_DENOMINATOR": {
+  "products_in_the_shipped_ADAMA_Italy_catalog_layer": 44,
+  "catalog_RESEARCH_BASELINE_total": 51,
+  "distinct_products_the_label_audit_adjudicated_ANYWHERE": 10,
+  "of_those_present_in_the_catalog_layer": [
+   "COSAYR 200 SC",
+   "MAVRIK SMART",
+   "MAXENTIS"
+  ],
+  "of_those_absent_from_the_catalog_layer": [
+   "CUSTODIA ULTRA",
+   "EVURE PRO",
+   "FORZA",
+   "KLARTAN 20 EW",
+   "KLARTAN SMART",
+   "MAVRIK EW",
+   "MIRADOR TURBO"
+  ],
+  "products_adjudicated_against_Olive_x_Olive_Fruit_Fly": [
+   "KLARTAN 20 EW",
+   "KLARTAN SMART",
+   "MAVRIK SMART"
+  ],
+  "olive_triples_marked_VERIFIED": [],
+  "olive_triples_marked_NOT_FOUND": [
+   [
+    "Olive",
+    "Olive Fruit Fly",
+    "KLARTAN 20 EW"
+   ],
+   [
+    "Olive",
+    "Olive Fruit Fly",
+    "KLARTAN SMART"
+   ],
+   [
+    "Olive",
+    "Olive Fruit Fly",
+    "MAVRIK SMART"
+   ]
+  ],
+  "SO_THE_UNKNOWN_REMAINDER_IS": "44 catalog products minus the 10 adjudicated anywhere = 41 catalog products never tested against ANY crop x issue, plus every product not in this catalog layer at all (the catalog file itself records a gap against its own research baseline of 51).",
+  "WIDER_CLAIM_THE_EVIDENCE_DOES_SUPPORT": "inside this reading, the olive crop has 0 VERIFIED triples of any kind — not merely 0 for the fruit fly. The certification states this correctly but files it under WHAT_THIS_DOES_NOT_SAY rather than as a finding."
+ },
+ "4_SIGNAL_TO_OPPORTUNITY_IN_THE_PORTAL": {
+  "FILE": "italia-portale/client/meeting-intelligence-snapshot.json",
+  "n_cases_total": 43,
+  "n_O1_FIELD_PRESSURE": 17,
+  "every_case_ID_starts_with": [
+   "OPP"
+  ],
+  "commercial_fields_carried_by_a_FIELD_PRESSURE_case": [
+   "ACTION_BY_DEPARTMENT",
+   "ACTION_CHAIN_LINKS",
+   "ACTION_RECOMMENDATION_EVIDENCE_ID",
+   "ACTION_RECOMMENDATION_EXCERPT__PT_ONLY",
+   "ACTION_RECOMMENDATION_STATE",
+   "COMMERCIAL_DOES_NOT_PROVE_EN",
+   "COMMERCIAL_DOES_NOT_PROVE_IT",
+   "COMMERCIAL_MAGNITUDE",
+   "COMMERCIAL_MAGNITUDE_DIMENSIONS",
+   "COMMERCIAL_PRIORITY",
+   "COMMERCIAL_PRODUCT_COUNT",
+   "COMMERCIAL_TIMING_BASIS",
+   "MATCHED_COMMERCIAL_PRODUCT_IDS",
+   "MATCHED_COMMERCIAL_PRODUCT_NAMES",
+   "MODE_OF_ACTION_CODES",
+   "MODE_OF_ACTION_STATE",
+   "OPPORTUNITY_SCORE",
+   "OPPORTUNITY_STATE",
+   "PORTFOLIO_MATCHES",
+   "PRODUCT_LINK_STATE",
+   "PRODUCT_MATCH_CONFIDENCE",
+   "PRODUCT_RESTRICTIONS",
+   "WHY_COMMERCIAL_CODES",
+   "WHY_COMMERCIAL_EN",
+   "WHY_COMMERCIAL_IT",
+   "WHY_COMMERCIAL__REFERS_TO_FIELDS"
+  ],
+  "OPPORTUNITY_STATE_distribution": {
+   "OPPORTUNITY_CONFIRMED": 17
+  },
+  "COMMERCIAL_PRIORITY_distribution": {
+   "TO_VALIDATE": 12,
+   "SALES_READY": 5
+  },
+  "PRODUCT_LINK_STATE_distribution": {
+   "VERIFIED_LABEL_MATCH": 17
+  },
+  "n_field_pressure_cases_naming_at_least_one_commercial_product": 13,
+  "distinct_products_named_on_field_pressure_cases": [
+   "BANJO",
+   "FOLPAN GOLD",
+   "Lamdex® Extra",
+   "MAVRIK SMART"
+  ],
+  "ACTION_RECOMMENDATION_STATE_distribution": {
+   "NOT_NEEDED_DECLARED": 3,
+   "RECOMMENDATION_NOT_DECLARED": 3,
+   "START_RECOMMENDED": 5,
+   "CONTINUE_RECOMMENDED": 1,
+   "PROHIBITED_DECLARED": 2,
+   "SUSPEND_RECOMMENDED": 1,
+   "CONCLUDED_DECLARED": 2
+  }
+ },
+ "4b_IS_NO_PRODUCT_READ_AS_THIS_CELL_DOES_NOT_MATTER": {
+  "MECHANISM": "WHY_NOW_CHAIN has five links; VINCULO_COM_PORTFOLIO ('link to the portfolio') is one of them. A case with no portfolio link fails that link and collects the code SEM_VINCULO_COM_PORTFOLIO.",
+  "n_field_pressure_cases_with_portfolio_link_TRUE": 13,
+  "n_field_pressure_cases_with_portfolio_link_FALSE": 4,
+  "OPPORTUNITY_SCORE_when_linked": [
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   11,
+   11,
+   11
+  ],
+  "OPPORTUNITY_SCORE_when_not_linked": [
+   10,
+   10,
+   10,
+   10
+  ],
+  "COMMERCIAL_PRIORITY_when_not_linked": {
+   "TO_VALIDATE": 4
+  },
+  "n_cases_carrying_the_code_SEM_VINCULO_COM_PORTFOLIO": 29,
+  "LABEL_SHOWN_TO_THE_USER_FOR_A_MISSING_PRODUCT": "COMMERCIAL_PRODUCT_MISSING -> 'Nessun prodotto del catalogo su questa coppia' / 'No catalogue product on this pair'  (italia-portale/client/meeting-labels.js:183)"
+ }
+}

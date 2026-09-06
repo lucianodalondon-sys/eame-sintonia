@@ -1,0 +1,88 @@
+{
+ "GRID": "168 classified province-season cells at 6 September, 16 seasons",
+ "PER_CROP": {
+  "OLIVE": {
+   "N_CELLS": 132,
+   "OBSERVED_COUNTS": {
+    "HIGHER_THAN_USUAL": 31,
+    "TYPICAL_FOR_THE_DATE": 57,
+    "LOWER_THAN_USUAL": 44
+   },
+   "OBSERVED_DOMINANT_SHARE": 0.432,
+   "OBSERVED_VERDICT": "PASS",
+   "NULL_DOMINANT_SHARE_2.5_50_97.5": [
+    0.439,
+    0.523,
+    0.606
+   ],
+   "NULL_MAX_SEEN": 0.72,
+   "PROBABILITY_A_NO_SEASON_EFFECT_NULL_PASSES_GATE_G": 1.0,
+   "NULL_MEAN_CLASS_MIX": {
+    "HIGHER_THAN_USUAL": 31.6,
+    "TYPICAL_FOR_THE_DATE": 68.8,
+    "LOWER_THAN_USUAL": 31.6
+   }
+  },
+  "VINE": {
+   "N_CELLS": 36,
+   "OBSERVED_COUNTS": {
+    "HIGHER_THAN_USUAL": 0,
+    "TYPICAL_FOR_THE_DATE": 29,
+    "LOWER_THAN_USUAL": 7
+   },
+   "OBSERVED_DOMINANT_SHARE": 0.806,
+   "OBSERVED_VERDICT": "FAIL",
+   "NULL_DOMINANT_SHARE_2.5_50_97.5": [
+    0.667,
+    0.778,
+    0.889
+   ],
+   "NULL_MAX_SEEN": 1.0,
+   "PROBABILITY_A_NO_SEASON_EFFECT_NULL_PASSES_GATE_G": 0.3367,
+   "NULL_MEAN_CLASS_MIX": {
+    "HIGHER_THAN_USUAL": 4.6,
+    "TYPICAL_FOR_THE_DATE": 28.3,
+    "LOWER_THAN_USUAL": 3.1
+   }
+  },
+  "ALL_CROPS": {
+   "N_CELLS": 168,
+   "OBSERVED_COUNTS": {
+    "HIGHER_THAN_USUAL": 31,
+    "TYPICAL_FOR_THE_DATE": 86,
+    "LOWER_THAN_USUAL": 51
+   },
+   "OBSERVED_DOMINANT_SHARE": 0.512,
+   "OBSERVED_VERDICT": "PASS",
+   "NULL_DOMINANT_SHARE_2.5_50_97.5": [
+    0.506,
+    0.577,
+    0.649
+   ],
+   "NULL_MAX_SEEN": 0.72,
+   "PROBABILITY_A_NO_SEASON_EFFECT_NULL_PASSES_GATE_G": 1.0,
+   "NULL_MEAN_CLASS_MIX": {
+    "HIGHER_THAN_USUAL": 36.1,
+    "TYPICAL_FOR_THE_DATE": 97.1,
+    "LOWER_THAN_USUAL": 34.7
+   }
+  }
+ },
+ "WHAT_THE_BAR_MEANS": {
+  "MINIMUM_POSSIBLE_DOMINANT_SHARE_WITH_3_CLASSES": 0.333,
+  "BAR": 0.75,
+  "NOTE": "a labeller that assigned the three classes uniformly at random, ignoring the data entirely, has an expected dominant share of about 0.36 and passes; the gate can only fail a labeller that is nearly constant",
+  "UNIFORM_RANDOM_LABELLER": {
+   "MEDIAN_DOMINANT_SHARE": 0.369,
+   "PASSES_GATE_G": "2000/2000"
+  },
+  "ALWAYS_TYPICAL_LABELLER": {
+   "MEDIAN_DOMINANT_SHARE": 1.0,
+   "PASSES_GATE_G": "0/2000"
+  },
+  "NOMINAL_RANK_LABELLER_20_60_20": {
+   "MEDIAN_DOMINANT_SHARE": 0.601,
+   "PASSES_GATE_G": "2000/2000"
+  }
+ }
+}

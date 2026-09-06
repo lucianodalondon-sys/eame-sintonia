@@ -1,0 +1,141 @@
+{
+ "MACHINE": {
+  "sys.getdefaultencoding": "utf-8",
+  "locale.getpreferredencoding(False)": "cp1252",
+  "sys.platform": "win32",
+  "PYTHONUTF8": null,
+  "PYTHONIOENCODING": null
+ },
+ "NON_ASCII_CENSUS": {
+  "OLIVO-BACTROCERA-TOSCANA": {
+   "N_RAW_FILES": 84,
+   "N_FILES_CONTAINING_NON_ASCII": 20,
+   "N_ROWS_TOTAL": 317004,
+   "N_ROWS_CONTAINING_NON_ASCII": 448,
+   "PCT_ROWS_NON_ASCII": 0.1413,
+   "NON_ASCII_CHARS_SEEN": {
+    "\u2019": 248,
+    "\u00e0": 200
+   },
+   "COLLECTION_INDEX_NON_ASCII_CHARS": 0
+  },
+  "VITE-OIDIO-TOSCANA": {
+   "N_RAW_FILES": 40,
+   "N_FILES_CONTAINING_NON_ASCII": 2,
+   "N_ROWS_TOTAL": 70130,
+   "N_ROWS_CONTAINING_NON_ASCII": 10,
+   "PCT_ROWS_NON_ASCII": 0.0143,
+   "NON_ASCII_CHARS_SEEN": {
+    "\u00e0": 10
+   },
+   "COLLECTION_INDEX_NON_ASCII_CHARS": 0
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA": {
+   "N_RAW_FILES": 14,
+   "N_FILES_CONTAINING_NON_ASCII": 0,
+   "N_ROWS_TOTAL": 5817,
+   "N_ROWS_CONTAINING_NON_ASCII": 0,
+   "PCT_ROWS_NON_ASCII": 0.0,
+   "NON_ASCII_CHARS_SEEN": {},
+   "COLLECTION_INDEX_NON_ASCII_CHARS": 0
+  }
+ },
+ "SHIPPED_ARCHIVE_VERIFICATION": {
+  "OLIVO-BACTROCERA-TOSCANA": {
+   "N_FILES_ON_DISK": 84,
+   "N_FILES_IN_INDEX_WITH_SHA": 84,
+   "N_VERIFIED_OK": 84,
+   "N_MISMATCH": 0,
+   "MISMATCHED": [],
+   "N_ON_DISK_BUT_NOT_IN_INDEX (hash check SKIPPED for these)": 0,
+   "UNINDEXED": []
+  },
+  "VITE-OIDIO-TOSCANA": {
+   "N_FILES_ON_DISK": 40,
+   "N_FILES_IN_INDEX_WITH_SHA": 40,
+   "N_VERIFIED_OK": 40,
+   "N_MISMATCH": 0,
+   "MISMATCHED": [],
+   "N_ON_DISK_BUT_NOT_IN_INDEX (hash check SKIPPED for these)": 0,
+   "UNINDEXED": []
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA": {
+   "N_FILES_ON_DISK": 14,
+   "N_FILES_IN_INDEX_WITH_SHA": 14,
+   "N_VERIFIED_OK": 14,
+   "N_MISMATCH": 0,
+   "MISMATCHED": [],
+   "N_ON_DISK_BUT_NOT_IN_INDEX (hash check SKIPPED for these)": 0,
+   "UNINDEXED": []
+  }
+ },
+ "WRITE_VS_HASH_REPRO": {
+  "SAMPLE_SOURCE": "OLIVO-BACTROCERA-TOSCANA\\RAW\\c2_s1_v-1001_2020.json",
+  "SAMPLE_HAS_NON_ASCII": true,
+  "NON_ASCII_IN_SAMPLE": [
+   "\u2019"
+  ],
+  "BYTES_WRITTEN_TO_DISK": 1112,
+  "BYTES_OF_blob.encode()": 1118,
+  "SHA256_RECORDED_IN_INDEX": "f90920982f6aa7fdaede5bdcd3c7181a0e7ecfb5eadbf87eb87e7d131758052f",
+  "SHA256_OF_FILE_ON_DISK": "f7488b12dcb8ca777248f3c199c5e6f62da4fc011a279d892e749495767ca296",
+  "HASHES_AGREE": false,
+  "FILE_STILL_PARSES_AS_UTF8": "NO -- UnicodeDecodeError: 'utf-8' codec can't decode byte 0x92 in position 117: invalid start byte"
+ },
+ "CHAR_BEHAVIOUR_UNDER_LOCALE_ENCODING": {
+  "\u00ec": {
+   "cp1252_ok": true,
+   "cp1252_bytes": "ec",
+   "utf8_bytes": "c3ac",
+   "BYTES_DIFFER": true
+  },
+  "\u00e0": {
+   "cp1252_ok": true,
+   "cp1252_bytes": "e0",
+   "utf8_bytes": "c3a0",
+   "BYTES_DIFFER": true
+  },
+  "\u00e8": {
+   "cp1252_ok": true,
+   "cp1252_bytes": "e8",
+   "utf8_bytes": "c3a8",
+   "BYTES_DIFFER": true
+  },
+  "\u00f2": {
+   "cp1252_ok": true,
+   "cp1252_bytes": "f2",
+   "utf8_bytes": "c3b2",
+   "BYTES_DIFFER": true
+  },
+  "\u00f9": {
+   "cp1252_ok": true,
+   "cp1252_bytes": "f9",
+   "utf8_bytes": "c3b9",
+   "BYTES_DIFFER": true
+  },
+  "\u2019": {
+   "cp1252_ok": true,
+   "cp1252_bytes": "92",
+   "utf8_bytes": "e28099",
+   "BYTES_DIFFER": true
+  },
+  "\u2013": {
+   "cp1252_ok": true,
+   "cp1252_bytes": "96",
+   "utf8_bytes": "e28093",
+   "BYTES_DIFFER": true
+  },
+  "\u010d": {
+   "cp1252_ok": false,
+   "ERROR": "UnicodeEncodeError: 'charmap' codec can't encode character '\\u010d' in position 0: character maps to <undefined>",
+   "utf8_bytes": "c48d",
+   "BYTES_DIFFER": true
+  },
+  "\u20ac": {
+   "cp1252_ok": true,
+   "cp1252_bytes": "80",
+   "utf8_bytes": "e282ac",
+   "BYTES_DIFFER": true
+  }
+ }
+}

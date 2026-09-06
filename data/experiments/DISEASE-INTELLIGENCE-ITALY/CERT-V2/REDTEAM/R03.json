@@ -1,0 +1,40 @@
+{
+ "ID": "R03",
+ "TARGET_GATE": "I",
+ "PROPERTY_DESTROYED": "the unseen case is never run; season_outcomes is a stub",
+ "BASELINE_VERDICTS": {
+  "A_OUTCOME_IS_OBSERVED": "PASS",
+  "B_NOT_SOLD_AS_FORECAST": "PASS",
+  "C_REGIONAL_NOT_NATIONAL": "PASS",
+  "D_UNKNOWN_IS_VISIBLE": "PASS",
+  "E_REPRODUCIBLE": "PASS",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT": "PASS",
+  "G_DISCRIMINATES_BETWEEN_SEASONS": "FAIL",
+  "H_REFRESHABLE_WITHOUT_RESEARCH": "PASS",
+  "I_GENERALIZES": "PASS",
+  "J_NOT_DUPLICATE": "FAIL"
+ },
+ "CWD_FOR_RUN": "C:\\cert-v2-disease-pressure\\data\\experiments\\DISEASE-INTELLIGENCE-ITALY\\CERT-V2",
+ "AS_OF": "2026-09-06",
+ "VERDICTS": {
+  "A_OUTCOME_IS_OBSERVED": "PASS",
+  "B_NOT_SOLD_AS_FORECAST": "PASS",
+  "C_REGIONAL_NOT_NATIONAL": "PASS",
+  "D_UNKNOWN_IS_VISIBLE": "PASS",
+  "E_REPRODUCIBLE": "PASS",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT": "PASS",
+  "G_DISCRIMINATES_BETWEEN_SEASONS": "FAIL",
+  "H_REFRESHABLE_WITHOUT_RESEARCH": "PASS",
+  "I_GENERALIZES": "PASS",
+  "J_NOT_DUPLICATE": "FAIL"
+ },
+ "EVIDENCE_OF_TARGET": "unseen 4th case run end-to-end: 14 seasons, 13 distinct SITE_INCIDENCE values (a series that never varies is a decoding failure, not a measurement); scale derived by ['STUB_NEVER_READ_THE_CASE'], unresolved labels []. Honest reuse rate is 3/4 = 75%, NOT the 100% previously claimed: the 4th case required TWO generic extensions (compound labels like 'Bassa <5%', and taking the most complete code table rather than the first), and two of its labels remain unresolved. 0 case-conditional branches remains true.",
+ "CHANGED_GATES": [],
+ "OUTCOME": "SURVIVED",
+ "SUITE_TOTALS": {
+  "PASS": 8,
+  "FAIL": 2,
+  "NOT_TESTABLE": 0,
+  "DESERVES_FUTURE_INTEGRATION": "NO"
+ }
+}

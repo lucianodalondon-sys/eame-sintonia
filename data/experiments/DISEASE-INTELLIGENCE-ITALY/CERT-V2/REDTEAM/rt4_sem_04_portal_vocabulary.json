@@ -1,0 +1,252 @@
+{
+ "Q1_DATA": {
+  "OLIVO-BACTROCERA-TOSCANA": {
+   "ROW_KEYS": [
+    "admin_code",
+    "admin_code_3",
+    "cultivar",
+    "date",
+    "id_area",
+    "id_field",
+    "id_org",
+    "id_survey",
+    "lat",
+    "lon",
+    "name",
+    "name_3",
+    "name_4",
+    "name_5",
+    "nome_area",
+    "org_name",
+    "uid",
+    "val",
+    "week"
+   ],
+   "ANY_KEY_NAMING_THE_CROP": [],
+   "cultivar_NON_EMPTY": "5083/79251",
+   "cultivar_VALUES_SAMPLE": [
+    " Frantoio - Leccino - Pendolino",
+    "FRANTOIO",
+    "FRANTOIO - LAZZERO - LECCINO",
+    "FRANTOIO - LECCINO - MAURINO",
+    "Frantoio ",
+    "Frantoio - Leccino - Maurino - Moraiolo",
+    "Frantoio Leccino",
+    "Frantoio Leccino ",
+    "Frantoio Leccino Moraiolo",
+    "Frantoio Leccino Moraiolo Pendolino",
+    "Frantoio Leccino Pendolino",
+    "Frantoio Leccino Pendolino Moraiolo"
+   ],
+   "ANY_KEY_NAMING_THE_ISSUE": [],
+   "ANY_KEY_NAMING_THE_REGION": [],
+   "CROP_SIGNAL_LOCATION": "collection_index.crop = 2 (an integer id, not a name); no crop field on any row",
+   "ISSUE_SIGNAL_LOCATION": "collection_index.vars[id_survey_var=-1002].name = 'Dannosa' (+ schema=1)",
+   "REGION_SIGNAL_LOCATION": "no region field on any row; only nome_area (province)"
+  },
+  "VITE-OIDIO-TOSCANA": {
+   "ROW_KEYS": [
+    "admin_code",
+    "admin_code_3",
+    "cultivar",
+    "date",
+    "id_area",
+    "id_field",
+    "id_org",
+    "id_survey",
+    "lat",
+    "lon",
+    "name",
+    "name_3",
+    "name_4",
+    "name_5",
+    "nome_area",
+    "org_name",
+    "uid",
+    "val",
+    "week"
+   ],
+   "ANY_KEY_NAMING_THE_CROP": [],
+   "cultivar_NON_EMPTY": "139/35065",
+   "cultivar_VALUES_SAMPLE": [
+    "Sangiovese",
+    "Sangiovese ",
+    "sangiovese"
+   ],
+   "ANY_KEY_NAMING_THE_ISSUE": [],
+   "ANY_KEY_NAMING_THE_REGION": [],
+   "CROP_SIGNAL_LOCATION": "collection_index.crop = 3 (an integer id, not a name); no crop field on any row",
+   "ISSUE_SIGNAL_LOCATION": "collection_index.vars[id_survey_var=39].name = 'Presenza su foglie' (+ schema=8)",
+   "REGION_SIGNAL_LOCATION": "no region field on any row; only nome_area (province)"
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA": {
+   "ROW_KEYS": [
+    "admin_code",
+    "admin_code_3",
+    "cultivar",
+    "date",
+    "id_area",
+    "id_field",
+    "id_org",
+    "id_survey",
+    "lat",
+    "lon",
+    "name",
+    "name_3",
+    "name_4",
+    "name_5",
+    "nome_area",
+    "org_name",
+    "uid",
+    "val",
+    "week"
+   ],
+   "ANY_KEY_NAMING_THE_CROP": [],
+   "cultivar_NON_EMPTY": "2745/5817",
+   "cultivar_VALUES_SAMPLE": [
+    "Albagran",
+    "Altamira",
+    "Andriolo",
+    "Antalis",
+    "Antigua",
+    "Anvergur",
+    "Anzio",
+    "Apulia",
+    "Ardes",
+    "Atlanta",
+    "Augusto",
+    "Aurica"
+   ],
+   "ANY_KEY_NAMING_THE_ISSUE": [],
+   "ANY_KEY_NAMING_THE_REGION": [],
+   "CROP_SIGNAL_LOCATION": "collection_index.crop = 19 (an integer id, not a name); no crop field on any row",
+   "ISSUE_SIGNAL_LOCATION": "collection_index.vars[id_survey_var=372].name = 'Intensit&agrave;<br/> Oidio' (+ schema=74)",
+   "REGION_SIGNAL_LOCATION": "no region field on any row; only nome_area (province)"
+  }
+ },
+ "Q2_ENGINE": {
+  "CURRENT_PRESSURE_TOP_LEVEL_KEYS": [
+   "AS_OF",
+   "CUTOFF_LABEL",
+   "DATA_LATENCY_DAYS",
+   "DENOMINATOR_GUARD",
+   "EVIDENCE_ROLE",
+   "METRIC",
+   "PARAMS",
+   "PROVINCES",
+   "SEASON_STATE",
+   "SOURCE",
+   "VALUE_MODE",
+   "WINDOW"
+  ],
+  "PER_PROVINCE_KEYS": [
+   "BASELINE_MEDIAN",
+   "BASELINE_N",
+   "BASELINE_SEASONS",
+   "EVIDENCE",
+   "PERCENTILE",
+   "STATE",
+   "VALUE",
+   "n_sites",
+   "n_visits"
+  ],
+  "CARRIES_DATE": "YES -- AS_OF, WINDOW, CUTOFF_LABEL",
+  "CARRIES_REGION": "NO -- the only geographic token is the PROVINCES dict key, which is the raw nome_area string. No region field exists anywhere in the output object.",
+  "CARRIES_CROP": "NO",
+  "CARRIES_ISSUE": "NO",
+  "SOURCE_FIELD_IS": "https://agroambiente.info.regione.toscana.it/agro18/api/dati/get_aedita_data",
+  "PROVINCE_KEYS_EMITTED": [
+   "Arezzo",
+   "Firenze",
+   "Grosseto",
+   "Livorno",
+   "Lucca",
+   "Massa-Carrara",
+   "Pisa",
+   "Pistoia",
+   "Prato",
+   "Siena"
+  ],
+  "WHERE_CROP_AND_ISSUE_COME_FROM": "ENGINE/gates.py:26 passes the literal strings 'issue', 'crop', 'region' to answer_sheet()",
+  "GATES_LINE_26_PRODUCES": "In the 28 days to 2026-09-06, official scouts scored 342 visits for issue across 165 monitored crop sites in region. 0 of those sites had it present; 165 did not."
+ },
+ "Q3_PORTAL": {
+  "SNAPSHOT_PATH": "C:\\cert-v2-disease-pressure\\italia-portale\\client\\meeting-intelligence-snapshot.json",
+  "EXISTS": true,
+  "N_CASES_IN_PORTAL": 43,
+  "CROP_VOCABULARY": {
+   "CROP_GRAPEVINE": 16,
+   "CROP_MAIZE": 6,
+   "CROP_TOMATO": 3,
+   "CROP_RICE": 3,
+   "CROP_OLIVE": 3,
+   "CROP_SUGAR_BEET": 2,
+   "CROP_SOYBEAN": 2,
+   "CROP_APPLE": 2,
+   "CROP_BARLEY": 2,
+   "CROP_WHEAT_GENERIC": 1,
+   "CROP_CITRUS": 1,
+   "None": 1,
+   "CROP_VEGETABLES": 1
+  },
+  "TARGET_VOCABULARY": {
+   "None": 25,
+   "ISSUE_DOWNY_MILDEW": 4,
+   "ISSUE_POWDERY_MILDEW": 3,
+   "ISSUE_GRAPE_MOTH": 2,
+   "ISSUE_SCAPHOIDEUS": 2,
+   "ISSUE_BOTRYTIS": 2,
+   "ISSUE_CORN_BORER": 2,
+   "ISSUE_ECHINOCHLOA": 1,
+   "ISSUE_CODLING_MOTH": 1,
+   "ISSUE_DIABROTICA": 1
+  },
+  "GEOGRAPHY_VOCABULARY": {
+   "GEO_ITALY": 19,
+   "GEO_EU": 7,
+   "REGION_UMBRIA": 4,
+   "REGION_FRIULI_VENEZIA_GIULIA": 3,
+   "REGION_EMILIA_ROMAGNA": 3,
+   "REGION_TOSCANA": 3,
+   "REGION_VENETO": 2,
+   "REGION_LOMBARDIA": 2
+  },
+  "ARCHETYPE_VOCABULARY": {
+   "O1_FIELD_PRESSURE": 17,
+   "O4_COMPETITIVE_OPENING": 9,
+   "O5_REGULATORY_PREPARATION": 7,
+   "O2_MARKET_MOMENT": 7,
+   "O6_SCIENCE_TO_FIELD": 2,
+   "O3_RESISTANCE_MOA": 1
+  },
+  "CAN_THE_PORTAL_NAME_OUR_THREE_CELLS": {
+   "OLIVO (olive)": {
+    "CROP_TOKEN": [
+     "CROP_OLIVE"
+    ],
+    "ISSUE_TOKEN": "ABSENT"
+   },
+   "VITE (grapevine)": {
+    "CROP_TOKEN": [
+     "CROP_GRAPEVINE"
+    ],
+    "ISSUE_TOKEN": [
+     "ISSUE_POWDERY_MILDEW"
+    ]
+   },
+   "FRUMENTO (wheat)": {
+    "CROP_TOKEN": [
+     "CROP_WHEAT_GENERIC"
+    ],
+    "ISSUE_TOKEN": "ABSENT"
+   },
+   "TOSCANA": {
+    "GEO_TOKEN": [
+     "REGION_TOSCANA"
+    ]
+   }
+  },
+  "ANY_PROVINCE_LEVEL_GEO_TOKEN": "ABSENT",
+  "GEO_GRANULARITY": "every GEOGRAPHY token is a REGION or a COUNTRY; the portal has no province-level token"
+ }
+}

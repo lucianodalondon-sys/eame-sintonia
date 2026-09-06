@@ -1,0 +1,54 @@
+{
+ "AS_OF": "2026-09-06",
+ "GATE_E_PREDICATE": {
+  "SHAPE": "json.dumps(f(x)) == json.dumps(f(x)), both inside one process",
+  "NOTE": "under any DETERMINISTIC patch both sides are computed with the patch in force, so they are equal and the gate passes. Only intra-process non-determinism can fail it.",
+  "RECOMPUTED_UNDER_M27": {
+   "a_equals_b": true,
+   "VERDICT_THE_PREDICATE_RETURNS": "PASS"
+  }
+ },
+ "DID_M27_CHANGE_TODAYS_PUBLISHED_OUTPUT": {
+  "OLIVO x BACTROCERA x TOSCANA": {
+   "n_cells": 10,
+   "M27_vs_unpatched_cells_with_different_STATE": [],
+   "M27_vs_unpatched_cells_with_different_VALUE": [],
+   "M27_vs_unpatched_cells_with_different_n_visits": [],
+   "M27_vs_unpatched_cells_with_different_BASELINE_MEDIAN": [
+    "Arezzo",
+    "Grosseto",
+    "Livorno"
+   ],
+   "M27_vs_unpatched_WHOLE_CASE_JSON_identical": false,
+   "ASC_vs_unpatched_WHOLE_CASE_JSON_identical": true,
+   "DENOMINATOR_VAR_declared": 1
+  },
+  "VITE x OIDIO x TOSCANA": {
+   "n_cells": 10,
+   "M27_vs_unpatched_cells_with_different_STATE": [],
+   "M27_vs_unpatched_cells_with_different_VALUE": [],
+   "M27_vs_unpatched_cells_with_different_n_visits": [],
+   "M27_vs_unpatched_cells_with_different_BASELINE_MEDIAN": [],
+   "M27_vs_unpatched_WHOLE_CASE_JSON_identical": true,
+   "ASC_vs_unpatched_WHOLE_CASE_JSON_identical": true,
+   "DENOMINATOR_VAR_declared": null
+  }
+ },
+ "SHA256_COVERAGE_OF_THE_FILES_GATE_E_CITES": {
+  "OLIVO x BACTROCERA x TOSCANA": {
+   "raw_files_on_disk": 84,
+   "raw_files_this_variable_loads": 21,
+   "of_those_with_a_recorded_sha256": 21,
+   "of_those_loaded_with_NO_hash_check": [],
+   "files_on_disk_absent_from_the_index": []
+  },
+  "VITE x OIDIO x TOSCANA": {
+   "raw_files_on_disk": 40,
+   "raw_files_this_variable_loads": 20,
+   "of_those_with_a_recorded_sha256": 20,
+   "of_those_loaded_with_NO_hash_check": [],
+   "files_on_disk_absent_from_the_index": []
+  }
+ },
+ "SHA256_NOTE": "load_rows checks a hash only when `by_file.get(base)` is truthy. A file present in RAW/ but absent from collection_index.json, or listed with a null sha256, is loaded unverified. Gate E does not run any hash check of its own; the sentence in its EVIDENCE describes load_rows."
+}

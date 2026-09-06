@@ -1,0 +1,1340 @@
+{
+ "A_REAL_CODE_TABLES": {
+  "VITE-OIDIO-TOSCANA :: var 39 (Presenza su foglie)": {
+   "N_LABELS": 4,
+   "N_IN_SCALE": 4,
+   "N_UNRESOLVED": 0,
+   "UNRESOLVED": [],
+   "METHODS": [
+    "WORD_LADDER"
+   ],
+   "VERDICT": "ORDER_PRESERVED",
+   "DETAIL": {
+    "SURVIVING_ORDER": [
+     "nessuna",
+     "bassa",
+     "media",
+     "alta"
+    ],
+    "TRUE_ORDER": [
+     "nessuna",
+     "bassa",
+     "media",
+     "alta"
+    ],
+    "DROPPED_FROM_SCALE": [],
+    "N_DROPPED_OF_TOTAL": "0/4",
+    "COLLAPSED_ONTO_SAME_ORDINAL": {}
+   },
+   "LABELS": [
+    {
+     "code": 782,
+     "label": "nessuna",
+     "source_order_n": 0,
+     "source_icon": "no.gif",
+     "RANK": 0,
+     "HOW": "WORD_LADDER",
+     "ORDINAL": 0,
+     "IN_SCALE": true
+    },
+    {
+     "code": 783,
+     "label": "bassa",
+     "source_order_n": 3,
+     "source_icon": "paw_gr.gif",
+     "RANK": 1,
+     "HOW": "WORD_LADDER",
+     "ORDINAL": 1,
+     "IN_SCALE": true
+    },
+    {
+     "code": 784,
+     "label": "media",
+     "source_order_n": 5,
+     "source_icon": "paw_yl",
+     "RANK": 2,
+     "HOW": "WORD_LADDER",
+     "ORDINAL": 2,
+     "IN_SCALE": true
+    },
+    {
+     "code": 785,
+     "label": "alta",
+     "source_order_n": 10,
+     "source_icon": "paw_rd.gif",
+     "RANK": 3,
+     "HOW": "WORD_LADDER",
+     "ORDINAL": 3,
+     "IN_SCALE": true
+    }
+   ]
+  },
+  "VITE-OIDIO-TOSCANA :: var 40 (presenza su grappoli)": {
+   "N_LABELS": 4,
+   "N_IN_SCALE": 4,
+   "N_UNRESOLVED": 0,
+   "UNRESOLVED": [],
+   "METHODS": [
+    "BAND_LOWER_BOUND",
+    "BAND_OPEN_UPPER",
+    "WORD_LADDER"
+   ],
+   "VERDICT": "ORDER_PRESERVED",
+   "DETAIL": {
+    "SURVIVING_ORDER": [
+     "nessuna",
+     "1-5%",
+     "5-10%",
+     ">10%"
+    ],
+    "TRUE_ORDER": [
+     "nessuna",
+     "1-5%",
+     "5-10%",
+     ">10%"
+    ],
+    "DROPPED_FROM_SCALE": [],
+    "N_DROPPED_OF_TOTAL": "0/4",
+    "COLLAPSED_ONTO_SAME_ORDINAL": {}
+   },
+   "LABELS": [
+    {
+     "code": 786,
+     "label": "nessuna",
+     "source_order_n": 0,
+     "source_icon": "no.gif",
+     "RANK": 0,
+     "HOW": "WORD_LADDER",
+     "ORDINAL": 0,
+     "IN_SCALE": true
+    },
+    {
+     "code": 787,
+     "label": "1-5%",
+     "source_order_n": 1,
+     "source_icon": "paw_gr.gif",
+     "RANK": 1.0,
+     "HOW": "BAND_LOWER_BOUND",
+     "ORDINAL": 1,
+     "IN_SCALE": true
+    },
+    {
+     "code": 788,
+     "label": "5-10%",
+     "source_order_n": 5,
+     "source_icon": "paw_yl.gif",
+     "RANK": 5.0,
+     "HOW": "BAND_LOWER_BOUND",
+     "ORDINAL": 2,
+     "IN_SCALE": true
+    },
+    {
+     "code": 789,
+     "label": ">10%",
+     "source_order_n": 10,
+     "source_icon": "paw_rd.gif",
+     "RANK": 10.5,
+     "HOW": "BAND_OPEN_UPPER",
+     "ORDINAL": 3,
+     "IN_SCALE": true
+    }
+   ]
+  },
+  "VITE-OIDIO-TOSCANA :: var 42 (prodotto (ACTIVE SUBSTANCE APPLIED))": {
+   "N_LABELS": 8,
+   "N_IN_SCALE": 1,
+   "N_UNRESOLVED": 7,
+   "UNRESOLVED": [
+    "zolfo",
+    "IBE",
+    "quinoxifen",
+    "dinocap",
+    "strobilurine",
+    "Ampelomices q.",
+    "altro"
+   ],
+   "METHODS": [
+    "NOT_ORDINAL",
+    "WORD_LADDER"
+   ],
+   "VERDICT": "CATEGORY_ERROR",
+   "DETAIL": "this variable is not ordinal at all; the engine still builds a scale for it with 1 of 8 labels",
+   "LABELS": [
+    {
+     "code": 306,
+     "label": "nessuno",
+     "source_order_n": 306,
+     "source_icon": "no.gif",
+     "RANK": 0,
+     "HOW": "WORD_LADDER",
+     "ORDINAL": 0,
+     "IN_SCALE": true
+    },
+    {
+     "code": 307,
+     "label": "zolfo",
+     "source_order_n": 307,
+     "source_icon": "s.gif",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    },
+    {
+     "code": 308,
+     "label": "IBE",
+     "source_order_n": 308,
+     "source_icon": "paw_pr",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    },
+    {
+     "code": 309,
+     "label": "quinoxifen",
+     "source_order_n": 309,
+     "source_icon": "pri_rd",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    },
+    {
+     "code": 310,
+     "label": "dinocap",
+     "source_order_n": 310,
+     "source_icon": "cub_rd",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    },
+    {
+     "code": 311,
+     "label": "strobilurine",
+     "source_order_n": 311,
+     "source_icon": "paw_cy",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    },
+    {
+     "code": 312,
+     "label": "Ampelomices q.",
+     "source_order_n": 312,
+     "source_icon": "fungo.gif",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    },
+    {
+     "code": 313,
+     "label": "altro",
+     "source_order_n": 313,
+     "source_icon": "puntoIn.gif",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    }
+   ]
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA :: var 371 (Localizzazione Oidio (WHERE on the plant))": {
+   "N_LABELS": 6,
+   "N_IN_SCALE": 3,
+   "N_UNRESOLVED": 3,
+   "UNRESOLVED": [
+    "Penultima foglia",
+    "Ultima foglia",
+    "Spiga"
+   ],
+   "METHODS": [
+    "NOT_ORDINAL",
+    "WORD_LADDER",
+    "WORD_LADDER_IN_COMPOUND_LABEL"
+   ],
+   "VERDICT": "ORDER_PRESERVED_BUT_TRUNCATED",
+   "DETAIL": {
+    "SURVIVING_ORDER": [
+     "No",
+     "Parte bassa",
+     "Parte alta"
+    ],
+    "TRUE_ORDER": [
+     "No",
+     "Parte bassa",
+     "Parte alta",
+     "Penultima foglia",
+     "Ultima foglia",
+     "Spiga"
+    ],
+    "DROPPED_FROM_SCALE": [
+     "Penultima foglia",
+     "Ultima foglia",
+     "Spiga"
+    ],
+    "N_DROPPED_OF_TOTAL": "3/6",
+    "COLLAPSED_ONTO_SAME_ORDINAL": {}
+   },
+   "LABELS": [
+    {
+     "code": 1614,
+     "label": "No",
+     "source_order_n": 0,
+     "source_icon": "no.gif",
+     "RANK": 0,
+     "HOW": "WORD_LADDER",
+     "ORDINAL": 0,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1615,
+     "label": "Parte bassa",
+     "source_order_n": 11,
+     "source_icon": "cub_bl",
+     "RANK": 1,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL",
+     "ORDINAL": 1,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1616,
+     "label": "Parte alta",
+     "source_order_n": 22,
+     "source_icon": "cub_gr",
+     "RANK": 3,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL",
+     "ORDINAL": 2,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1618,
+     "label": "Penultima foglia",
+     "source_order_n": 44,
+     "source_icon": "cub_or",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    },
+    {
+     "code": 1619,
+     "label": "Ultima foglia",
+     "source_order_n": 55,
+     "source_icon": "cub_rd",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    },
+    {
+     "code": 1620,
+     "label": "Spiga",
+     "source_order_n": 66,
+     "source_icon": "tri_rd",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    }
+   ]
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA :: var 372 (Intensita Oidio)": {
+   "N_LABELS": 6,
+   "N_IN_SCALE": 4,
+   "N_UNRESOLVED": 2,
+   "UNRESOLVED": [
+    "50 - gravissina",
+    "75 - completa"
+   ],
+   "METHODS": [
+    "NOT_ORDINAL",
+    "WORD_LADDER",
+    "WORD_LADDER_IN_COMPOUND_LABEL"
+   ],
+   "VERDICT": "ORDER_PRESERVED_BUT_TRUNCATED",
+   "DETAIL": {
+    "SURVIVING_ORDER": [
+     "Nessuna",
+     "5 - lieve",
+     "10 - media",
+     "25 - grave"
+    ],
+    "TRUE_ORDER": [
+     "Nessuna",
+     "5 - lieve",
+     "10 - media",
+     "25 - grave",
+     "50 - gravissina",
+     "75 - completa"
+    ],
+    "DROPPED_FROM_SCALE": [
+     "50 - gravissina",
+     "75 - completa"
+    ],
+    "N_DROPPED_OF_TOTAL": "2/6",
+    "COLLAPSED_ONTO_SAME_ORDINAL": {}
+   },
+   "LABELS": [
+    {
+     "code": 1599,
+     "label": "Nessuna",
+     "source_order_n": 0,
+     "source_icon": "no.gif",
+     "RANK": 0,
+     "HOW": "WORD_LADDER",
+     "ORDINAL": 0,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1628,
+     "label": "5 - lieve",
+     "source_order_n": 5,
+     "source_icon": "cub_bl",
+     "RANK": 1,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL",
+     "ORDINAL": 1,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1602,
+     "label": "10 - media",
+     "source_order_n": 10,
+     "source_icon": "cub_yl",
+     "RANK": 2,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL",
+     "ORDINAL": 2,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1603,
+     "label": "25 - grave",
+     "source_order_n": 25,
+     "source_icon": "cub_or",
+     "RANK": 3,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL",
+     "ORDINAL": 3,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1629,
+     "label": "50 - gravissina",
+     "source_order_n": 50,
+     "source_icon": "cub_rd",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    },
+    {
+     "code": 1605,
+     "label": "75 - completa",
+     "source_order_n": 75,
+     "source_icon": "tri_rd",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    }
+   ]
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA :: var 381 (Localizzazione Septoria (WHERE on the plant))": {
+   "N_LABELS": 5,
+   "N_IN_SCALE": 1,
+   "N_UNRESOLVED": 4,
+   "UNRESOLVED": [
+    "Terzultima foglia",
+    "Penultima foglia",
+    "Ultima foglia",
+    "Spiga"
+   ],
+   "METHODS": [
+    "NOT_ORDINAL",
+    "WORD_LADDER"
+   ],
+   "VERDICT": "ORDER_PRESERVED_BUT_TRUNCATED",
+   "DETAIL": {
+    "SURVIVING_ORDER": [
+     "No"
+    ],
+    "TRUE_ORDER": [
+     "No",
+     "Terzultima foglia",
+     "Penultima foglia",
+     "Ultima foglia",
+     "Spiga"
+    ],
+    "DROPPED_FROM_SCALE": [
+     "Terzultima foglia",
+     "Penultima foglia",
+     "Ultima foglia",
+     "Spiga"
+    ],
+    "N_DROPPED_OF_TOTAL": "4/5",
+    "COLLAPSED_ONTO_SAME_ORDINAL": {}
+   },
+   "LABELS": [
+    {
+     "code": 1621,
+     "label": "No",
+     "source_order_n": 1,
+     "source_icon": "no.gif",
+     "RANK": 0,
+     "HOW": "WORD_LADDER",
+     "ORDINAL": 0,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1623,
+     "label": "Terzultima foglia",
+     "source_order_n": 22,
+     "source_icon": "cub_gr",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    },
+    {
+     "code": 1625,
+     "label": "Penultima foglia",
+     "source_order_n": 44,
+     "source_icon": "cub_or",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    },
+    {
+     "code": 1626,
+     "label": "Ultima foglia",
+     "source_order_n": 55,
+     "source_icon": "cub_rd",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    },
+    {
+     "code": 1627,
+     "label": "Spiga",
+     "source_order_n": 66,
+     "source_icon": "tri_rd",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    }
+   ]
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA :: var 382 (Intensita Septoria)": {
+   "N_LABELS": 6,
+   "N_IN_SCALE": 4,
+   "N_UNRESOLVED": 2,
+   "UNRESOLVED": [
+    "50 - gravissima",
+    "75 - completa"
+   ],
+   "METHODS": [
+    "NOT_ORDINAL",
+    "WORD_LADDER",
+    "WORD_LADDER_IN_COMPOUND_LABEL"
+   ],
+   "VERDICT": "ORDER_PRESERVED_BUT_TRUNCATED",
+   "DETAIL": {
+    "SURVIVING_ORDER": [
+     "Nessuna",
+     "5 - lieve",
+     "10 - media",
+     "25 - grave"
+    ],
+    "TRUE_ORDER": [
+     "Nessuna",
+     "5 - lieve",
+     "10 - media",
+     "25 - grave",
+     "50 - gravissima",
+     "75 - completa"
+    ],
+    "DROPPED_FROM_SCALE": [
+     "50 - gravissima",
+     "75 - completa"
+    ],
+    "N_DROPPED_OF_TOTAL": "2/6",
+    "COLLAPSED_ONTO_SAME_ORDINAL": {}
+   },
+   "LABELS": [
+    {
+     "code": 1592,
+     "label": "Nessuna",
+     "source_order_n": 0,
+     "source_icon": "no.gif",
+     "RANK": 0,
+     "HOW": "WORD_LADDER",
+     "ORDINAL": 0,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1594,
+     "label": "5 - lieve",
+     "source_order_n": 5,
+     "source_icon": "cub_gr",
+     "RANK": 1,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL",
+     "ORDINAL": 1,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1595,
+     "label": "10 - media",
+     "source_order_n": 10,
+     "source_icon": "cub_yl",
+     "RANK": 2,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL",
+     "ORDINAL": 2,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1596,
+     "label": "25 - grave",
+     "source_order_n": 25,
+     "source_icon": "cub_or",
+     "RANK": 3,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL",
+     "ORDINAL": 3,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1597,
+     "label": "50 - gravissima",
+     "source_order_n": 50,
+     "source_icon": "cub_rd",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    },
+    {
+     "code": 1598,
+     "label": "75 - completa",
+     "source_order_n": 75,
+     "source_icon": "tri_rd",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    }
+   ]
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA :: var 383 (Intensita Fusariosi)": {
+   "N_LABELS": 6,
+   "N_IN_SCALE": 4,
+   "N_UNRESOLVED": 2,
+   "UNRESOLVED": [
+    "50 - gravissima",
+    "90 - completa"
+   ],
+   "METHODS": [
+    "NOT_ORDINAL",
+    "WORD_LADDER",
+    "WORD_LADDER_IN_COMPOUND_LABEL"
+   ],
+   "VERDICT": "ORDER_PRESERVED_BUT_TRUNCATED",
+   "DETAIL": {
+    "SURVIVING_ORDER": [
+     "Nessuna",
+     "5 - lieve",
+     "10 - media",
+     "25 - grave"
+    ],
+    "TRUE_ORDER": [
+     "Nessuna",
+     "5 - lieve",
+     "10 - media",
+     "25 - grave",
+     "50 - gravissima",
+     "90 - completa"
+    ],
+    "DROPPED_FROM_SCALE": [
+     "50 - gravissima",
+     "90 - completa"
+    ],
+    "N_DROPPED_OF_TOTAL": "2/6",
+    "COLLAPSED_ONTO_SAME_ORDINAL": {}
+   },
+   "LABELS": [
+    {
+     "code": 1606,
+     "label": "Nessuna",
+     "source_order_n": 0,
+     "source_icon": "no.gif",
+     "RANK": 0,
+     "HOW": "WORD_LADDER",
+     "ORDINAL": 0,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1608,
+     "label": "5 - lieve",
+     "source_order_n": 5,
+     "source_icon": "cub_gr",
+     "RANK": 1,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL",
+     "ORDINAL": 1,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1609,
+     "label": "10 - media",
+     "source_order_n": 10,
+     "source_icon": "cub_yl",
+     "RANK": 2,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL",
+     "ORDINAL": 2,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1610,
+     "label": "25 - grave",
+     "source_order_n": 25,
+     "source_icon": "cub_or",
+     "RANK": 3,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL",
+     "ORDINAL": 3,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1611,
+     "label": "50 - gravissima",
+     "source_order_n": 50,
+     "source_icon": "cub_rd",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    },
+    {
+     "code": 1613,
+     "label": "90 - completa",
+     "source_order_n": 90,
+     "source_icon": "tri_rd",
+     "RANK": null,
+     "HOW": "NOT_ORDINAL",
+     "ORDINAL": null,
+     "IN_SCALE": false
+    }
+   ]
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA :: var 384 (Frequenza Oidio)": {
+   "N_LABELS": 4,
+   "N_IN_SCALE": 4,
+   "N_UNRESOLVED": 0,
+   "UNRESOLVED": [],
+   "METHODS": [
+    "WORD_LADDER",
+    "WORD_LADDER_IN_COMPOUND_LABEL_WITH_BAND"
+   ],
+   "VERDICT": "ORDER_PRESERVED",
+   "DETAIL": {
+    "SURVIVING_ORDER": [
+     "Nessuna",
+     "Bassa <10%",
+     "Media 10-25%",
+     "Alta >25%"
+    ],
+    "TRUE_ORDER": [
+     "Nessuna",
+     "Bassa <10%",
+     "Media 10-25%",
+     "Alta >25%"
+    ],
+    "DROPPED_FROM_SCALE": [],
+    "N_DROPPED_OF_TOTAL": "0/4",
+    "COLLAPSED_ONTO_SAME_ORDINAL": {}
+   },
+   "LABELS": [
+    {
+     "code": 1630,
+     "label": "Nessuna",
+     "source_order_n": 0,
+     "source_icon": "no.gif",
+     "RANK": 0,
+     "HOW": "WORD_LADDER",
+     "ORDINAL": 0,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1631,
+     "label": "Bassa <10%",
+     "source_order_n": 5,
+     "source_icon": "cub_gr",
+     "RANK": 1,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL_WITH_BAND",
+     "ORDINAL": 1,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1632,
+     "label": "Media 10-25%",
+     "source_order_n": 15,
+     "source_icon": "cub_yl",
+     "RANK": 2,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL_WITH_BAND",
+     "ORDINAL": 2,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1633,
+     "label": "Alta >25%",
+     "source_order_n": 50,
+     "source_icon": "cub_rd",
+     "RANK": 3,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL_WITH_BAND",
+     "ORDINAL": 3,
+     "IN_SCALE": true
+    }
+   ]
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA :: var 385 (Frequenza Septoria)": {
+   "N_LABELS": 4,
+   "N_IN_SCALE": 4,
+   "N_UNRESOLVED": 0,
+   "UNRESOLVED": [],
+   "METHODS": [
+    "WORD_LADDER",
+    "WORD_LADDER_IN_COMPOUND_LABEL_WITH_BAND"
+   ],
+   "VERDICT": "ORDER_PRESERVED",
+   "DETAIL": {
+    "SURVIVING_ORDER": [
+     "Nessuna",
+     "Bassa <5%",
+     "Media 5-25%",
+     "Alta >25%"
+    ],
+    "TRUE_ORDER": [
+     "Nessuna",
+     "Bassa <5%",
+     "Media 5-25%",
+     "Alta >25%"
+    ],
+    "DROPPED_FROM_SCALE": [],
+    "N_DROPPED_OF_TOTAL": "0/4",
+    "COLLAPSED_ONTO_SAME_ORDINAL": {}
+   },
+   "LABELS": [
+    {
+     "code": 1634,
+     "label": "Nessuna",
+     "source_order_n": 0,
+     "source_icon": "no.gif",
+     "RANK": 0,
+     "HOW": "WORD_LADDER",
+     "ORDINAL": 0,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1635,
+     "label": "Bassa <5%",
+     "source_order_n": 5,
+     "source_icon": "cub_gr",
+     "RANK": 1,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL_WITH_BAND",
+     "ORDINAL": 1,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1636,
+     "label": "Media 5-25%",
+     "source_order_n": 15,
+     "source_icon": "cub_yl",
+     "RANK": 2,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL_WITH_BAND",
+     "ORDINAL": 2,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1637,
+     "label": "Alta >25%",
+     "source_order_n": 50,
+     "source_icon": "cub_rd",
+     "RANK": 3,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL_WITH_BAND",
+     "ORDINAL": 3,
+     "IN_SCALE": true
+    }
+   ]
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA :: var 386 (Frequenza Fusariosi)": {
+   "N_LABELS": 4,
+   "N_IN_SCALE": 4,
+   "N_UNRESOLVED": 0,
+   "UNRESOLVED": [],
+   "METHODS": [
+    "WORD_LADDER",
+    "WORD_LADDER_IN_COMPOUND_LABEL_WITH_BAND"
+   ],
+   "VERDICT": "ORDER_PRESERVED",
+   "DETAIL": {
+    "SURVIVING_ORDER": [
+     "Nessuna",
+     "Bassa <5%",
+     "Media 5-25%",
+     "Alta >25%"
+    ],
+    "TRUE_ORDER": [
+     "Nessuna",
+     "Bassa <5%",
+     "Media 5-25%",
+     "Alta >25%"
+    ],
+    "DROPPED_FROM_SCALE": [],
+    "N_DROPPED_OF_TOTAL": "0/4",
+    "COLLAPSED_ONTO_SAME_ORDINAL": {}
+   },
+   "LABELS": [
+    {
+     "code": 1638,
+     "label": "Nessuna",
+     "source_order_n": 0,
+     "source_icon": "no.gif",
+     "RANK": 0,
+     "HOW": "WORD_LADDER",
+     "ORDINAL": 0,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1639,
+     "label": "Bassa <5%",
+     "source_order_n": 5,
+     "source_icon": "cub_rd",
+     "RANK": 1,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL_WITH_BAND",
+     "ORDINAL": 1,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1640,
+     "label": "Media 5-25%",
+     "source_order_n": 15,
+     "source_icon": "cub_yl",
+     "RANK": 2,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL_WITH_BAND",
+     "ORDINAL": 2,
+     "IN_SCALE": true
+    },
+    {
+     "code": 1641,
+     "label": "Alta >25%",
+     "source_order_n": 50,
+     "source_icon": "cub_rd",
+     "RANK": 3,
+     "HOW": "WORD_LADDER_IN_COMPOUND_LABEL_WITH_BAND",
+     "ORDINAL": 3,
+     "IN_SCALE": true
+    }
+   ]
+  }
+ },
+ "B_VOCABULARY_PROBE": [
+  {
+   "label": "Nulla",
+   "folded": "nulla",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Assente/Bassa",
+   "folded": "assente/bassa",
+   "RANK": 0,
+   "HOW": "WORD_LADDER_IN_COMPOUND_LABEL"
+  },
+  {
+   "label": "Molto alta",
+   "folded": "molto alta",
+   "RANK": 3,
+   "HOW": "WORD_LADDER_IN_COMPOUND_LABEL"
+  },
+  {
+   "label": "Molto bassa",
+   "folded": "molto bassa",
+   "RANK": 1,
+   "HOW": "WORD_LADDER_IN_COMPOUND_LABEL"
+  },
+  {
+   "label": "Bassissima",
+   "folded": "bassissima",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Altissima",
+   "folded": "altissima",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Elevatissima",
+   "folded": "elevatissima",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Trascurabile",
+   "folded": "trascurabile",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Diffusa",
+   "folded": "diffusa",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Forte",
+   "folded": "forte",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Debole",
+   "folded": "debole",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Intensa",
+   "folded": "intensa",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Assenza",
+   "folded": "assenza",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Presente",
+   "folded": "presente",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Non rilevata",
+   "folded": "non rilevata",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Non rilevato",
+   "folded": "non rilevato",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Non si rileva",
+   "folded": "non si rileva",
+   "RANK": 3,
+   "HOW": "WORD_LADDER_IN_COMPOUND_LABEL"
+  },
+  {
+   "label": "Nessun sintomo",
+   "folded": "nessun sintomo",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Sintomi assenti",
+   "folded": "sintomi assenti",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Medio-alta",
+   "folded": "medio-alta",
+   "RANK": 3,
+   "HOW": "WORD_LADDER_IN_COMPOUND_LABEL"
+  },
+  {
+   "label": "Bassa/Media",
+   "folded": "bassa/media",
+   "RANK": 1,
+   "HOW": "WORD_LADDER_IN_COMPOUND_LABEL"
+  },
+  {
+   "label": "Media-Alta",
+   "folded": "media-alta",
+   "RANK": 2,
+   "HOW": "WORD_LADDER_IN_COMPOUND_LABEL"
+  },
+  {
+   "label": "Nessuna/Alta",
+   "folded": "nessuna/alta",
+   "RANK": 0,
+   "HOW": "WORD_LADDER_IN_COMPOUND_LABEL"
+  },
+  {
+   "label": "Alta/Nessuna",
+   "folded": "alta/nessuna",
+   "RANK": 0,
+   "HOW": "WORD_LADDER_IN_COMPOUND_LABEL"
+  },
+  {
+   "label": "Bassa",
+   "folded": "bassa",
+   "RANK": 1,
+   "HOW": "WORD_LADDER"
+  },
+  {
+   "label": "Alta",
+   "folded": "alta",
+   "RANK": 3,
+   "HOW": "WORD_LADDER"
+  },
+  {
+   "label": "Media",
+   "folded": "media",
+   "RANK": 2,
+   "HOW": "WORD_LADDER"
+  },
+  {
+   "label": "Nessuna",
+   "folded": "nessuna",
+   "RANK": 0,
+   "HOW": "WORD_LADDER"
+  },
+  {
+   "label": "0 - nulla",
+   "folded": "0 - nulla",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "1 - lieve",
+   "folded": "1 - lieve",
+   "RANK": 1,
+   "HOW": "WORD_LADDER_IN_COMPOUND_LABEL"
+  },
+  {
+   "label": "grave",
+   "folded": "grave",
+   "RANK": 3,
+   "HOW": "WORD_LADDER"
+  },
+  {
+   "label": "gravissima",
+   "folded": "gravissima",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "gravissina",
+   "folded": "gravissina",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "completa",
+   "folded": "completa",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Sporadica",
+   "folded": "sporadica",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Localizzata",
+   "folded": "localizzata",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Generalizzata",
+   "folded": "generalizzata",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Focolai",
+   "folded": "focolai",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Iniziale",
+   "folded": "iniziale",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Avanzata",
+   "folded": "avanzata",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "n.d.",
+   "folded": "n.d.",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "N.D.",
+   "folded": "n.d.",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Non applicabile",
+   "folded": "non applicabile",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "Da verificare",
+   "folded": "da verificare",
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  },
+  {
+   "label": "si",
+   "folded": "si",
+   "RANK": 3,
+   "HOW": "WORD_LADDER"
+  },
+  {
+   "label": "no",
+   "folded": "no",
+   "RANK": 0,
+   "HOW": "WORD_LADDER"
+  },
+  {
+   "label": "SI",
+   "folded": "si",
+   "RANK": 3,
+   "HOW": "WORD_LADDER"
+  },
+  {
+   "label": "NO",
+   "folded": "no",
+   "RANK": 0,
+   "HOW": "WORD_LADDER"
+  }
+ ],
+ "B_SUMMARY": {
+  "N_PROBED": 48,
+  "N_UNRESOLVED": 29,
+  "N_RESOLVED": 19
+ },
+ "B_ASKED_EXPLICITLY": {
+  "Assente/Bassa": {
+   "RANK": 0,
+   "HOW": "WORD_LADDER_IN_COMPOUND_LABEL"
+  },
+  "Molto alta": {
+   "RANK": 3,
+   "HOW": "WORD_LADDER_IN_COMPOUND_LABEL"
+  },
+  "Nulla": {
+   "RANK": null,
+   "HOW": "NOT_ORDINAL"
+  }
+ },
+ "B_WORD_RANK_MATCH_ORDER": [
+  "moderata",
+  "nessuna",
+  "nessuno",
+  "assente",
+  "elevata",
+  "scarsa",
+  "bassa",
+  "lieve",
+  "media",
+  "grave",
+  "alta",
+  "no",
+  "si"
+ ],
+ "C_ORDER_DEPENDENCE": {
+  "OLIVO-BACTROCERA-TOSCANA": "NO CODE TABLE (numeric case)",
+  "VITE-OIDIO-TOSCANA": {
+   "39": {
+    "ORDER_INDEPENDENT_OVER_200_SHUFFLES": true
+   },
+   "40": {
+    "ORDER_INDEPENDENT_OVER_200_SHUFFLES": true
+   },
+   "42": {
+    "ORDER_INDEPENDENT_OVER_200_SHUFFLES": true
+   }
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA": {
+   "385": {
+    "ORDER_INDEPENDENT_OVER_200_SHUFFLES": true
+   },
+   "371": {
+    "ORDER_INDEPENDENT_OVER_200_SHUFFLES": true
+   },
+   "384": {
+    "ORDER_INDEPENDENT_OVER_200_SHUFFLES": true
+   },
+   "383": {
+    "ORDER_INDEPENDENT_OVER_200_SHUFFLES": true
+   },
+   "386": {
+    "ORDER_INDEPENDENT_OVER_200_SHUFFLES": true
+   },
+   "382": {
+    "ORDER_INDEPENDENT_OVER_200_SHUFFLES": true
+   },
+   "372": {
+    "ORDER_INDEPENDENT_OVER_200_SHUFFLES": true
+   },
+   "381": {
+    "ORDER_INDEPENDENT_OVER_200_SHUFFLES": true
+   }
+  },
+  "ORDINAL_IS_A_DENSE_RERANK_NOT_AN_ABSOLUTE_LEVEL": {
+   "var_384_full_table": {
+    "1630": [
+     "Nessuna",
+     0
+    ],
+    "1631": [
+     "Bassa <10%",
+     1
+    ],
+    "1632": [
+     "Media 10-25%",
+     2
+    ],
+    "1633": [
+     "Alta >25%",
+     3
+    ]
+   },
+   "var_384_with_Bassa_removed": {
+    "1630": [
+     "Nessuna",
+     0
+    ],
+    "1632": [
+     "Media 10-25%",
+     1
+    ],
+    "1633": [
+     "Alta >25%",
+     2
+    ]
+   },
+   "NOTE": "ordinal = ranks.index(rank), so deleting ONE code shifts the ordinal of every code above it. The ordinal is a position in the SURVIVING set, not a level."
+  }
+ }
+}

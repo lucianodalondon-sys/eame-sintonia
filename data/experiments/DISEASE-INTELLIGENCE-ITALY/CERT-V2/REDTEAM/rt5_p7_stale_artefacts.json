@@ -1,0 +1,146 @@
+{
+ "S1_answer_sheet_json": {
+  "BYTE_IDENTICAL": false,
+  "leaf_fields_compared": 272,
+  "leaf_fields_that_DIFFER": 2,
+  "committed_at": "5c90455 (current_pressure.py changed at e44515d and a4d19dd afterwards)",
+  "DIFFS": [
+   {
+    "field": ".OLIVO-BACTROCERA-TOSCANA.3_HOW_MUCH.Grosseto.BASELINE_MEDIAN",
+    "COMMITTED": 0.4633,
+    "RECOMPUTED_TODAY": 0.4762
+   },
+   {
+    "field": ".OLIVO-BACTROCERA-TOSCANA.8_WHAT_WE_DO_NOT_KNOW.PARAMETER_DEPENDENCE.MEAN_LABEL_STABILITY",
+    "COMMITTED": 0.918,
+    "RECOMPUTED_TODAY": 0.924
+   }
+  ],
+  "PUBLISHED_STATES_committed": {
+   "Arezzo": "LOWER_THAN_USUAL",
+   "Firenze": "LOWER_THAN_USUAL",
+   "Grosseto": "LOWER_THAN_USUAL",
+   "Livorno": "LOWER_THAN_USUAL",
+   "Lucca": "LOWER_THAN_USUAL",
+   "Pisa": "LOWER_THAN_USUAL",
+   "Pistoia": "LOWER_THAN_USUAL",
+   "Siena": "LOWER_THAN_USUAL"
+  },
+  "PUBLISHED_STATES_recomputed": {
+   "Arezzo": "LOWER_THAN_USUAL",
+   "Firenze": "LOWER_THAN_USUAL",
+   "Grosseto": "LOWER_THAN_USUAL",
+   "Livorno": "LOWER_THAN_USUAL",
+   "Lucca": "LOWER_THAN_USUAL",
+   "Pisa": "LOWER_THAN_USUAL",
+   "Pistoia": "LOWER_THAN_USUAL",
+   "Siena": "LOWER_THAN_USUAL"
+  }
+ },
+ "S2_effect_size_floor_vs_walk_forward": {
+  "OLIVO-BACTROCERA-TOSCANA": {
+   "G_without_the_floor": 0.432,
+   "G_with_the_floor": 0.432,
+   "class_counts_without": {
+    "H": 31,
+    "T": 57,
+    "L": 44
+   },
+   "class_counts_with": {
+    "H": 31,
+    "T": 57,
+    "L": 44
+   },
+   "walk_forward_cells_the_floor_CHANGES": 0,
+   "n_cells": 200
+  },
+  "VITE-OIDIO-TOSCANA": {
+   "G_without_the_floor": 0.667,
+   "G_with_the_floor": 0.806,
+   "class_counts_without": {
+    "H": 5,
+    "T": 24,
+    "L": 7
+   },
+   "class_counts_with": {
+    "H": 0,
+    "T": 29,
+    "L": 7
+   },
+   "walk_forward_cells_the_floor_CHANGES": 5,
+   "n_cells": 190
+  }
+ },
+ "S3_gates_final_txt_vs_gates_json": {
+  "gates_final_txt_last_written_at": "e44515d (gates.py changed at 5cf2e48 and a4d19dd afterwards)",
+  "rows": [
+   {
+    "gate": "A_OUTCOME_IS_OBSERVED",
+    "gates_final_txt": "PASS",
+    "gates_json": "PASS",
+    "AGREE": true
+   },
+   {
+    "gate": "B_NOT_SOLD_AS_FORECAST",
+    "gates_final_txt": "PASS",
+    "gates_json": "PASS",
+    "AGREE": true
+   },
+   {
+    "gate": "C_REGIONAL_NOT_NATIONAL",
+    "gates_final_txt": "PASS",
+    "gates_json": "PASS",
+    "AGREE": true
+   },
+   {
+    "gate": "D_UNKNOWN_IS_VISIBLE",
+    "gates_final_txt": "PASS",
+    "gates_json": "PASS",
+    "AGREE": true
+   },
+   {
+    "gate": "E_REPRODUCIBLE",
+    "gates_final_txt": "PASS",
+    "gates_json": "PASS",
+    "AGREE": true
+   },
+   {
+    "gate": "F_LABEL_NOT_PARAMETER_ARTEFACT",
+    "gates_final_txt": "PASS",
+    "gates_json": "PASS",
+    "AGREE": true
+   },
+   {
+    "gate": "G_DISCRIMINATES_BETWEEN_SEASONS",
+    "gates_final_txt": "PASS",
+    "gates_json": "FAIL",
+    "AGREE": false
+   },
+   {
+    "gate": "H_REFRESHABLE_WITHOUT_RESEARCH",
+    "gates_final_txt": "PASS",
+    "gates_json": "PASS",
+    "AGREE": true
+   },
+   {
+    "gate": "I_GENERALIZES",
+    "gates_final_txt": "PASS",
+    "gates_json": "PASS",
+    "AGREE": true
+   },
+   {
+    "gate": "J_NOT_DUPLICATE",
+    "gates_final_txt": "NOT_TESTABLE",
+    "gates_json": "NOT_TESTABLE",
+    "AGREE": true
+   }
+  ],
+  "n_disagreeing": 1,
+  "tally_line_in_txt": [
+   "NOT_TESTABLE  J_NOT_DUPLICATE",
+   "              cannot be settled from this branch alone: it requires reading the portal's current capability inventory, which this mission is forbidden to touch. NOT_TESTABLE is not a pass.",
+   "PASS=9  FAIL=0  NOT_TESTABLE=1"
+  ],
+  "tally_in_json": "PASS=8 FAIL=1 NOT_TESTABLE=1"
+ }
+}

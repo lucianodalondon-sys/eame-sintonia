@@ -1,4 +1,5 @@
 {
+ "RETRACTED": "The FALSE_POSITIVE_TEST and FALSE_NEGATIVE_TEST below are TAUTOLOGIES and their zeros mean nothing. `kept` is defined as STATE == HIGHER, which the floor only allows when n_sites*INCIDENCE >= 5; filtering `kept` for < 5 is therefore empty by construction. `withheld` is defined as a rank-HIGHER the floor downgraded, which requires < 5; filtering it for >= 5 is empty by construction. Both would print 0 for a floor of 1, of 5 or of 70. Found by an independent red team, reproduced, and conceded. The honest re-test is in p5b_effect_floor_retest.py; this block is kept so the error is visible.",
  "FLOOR": {
   "PARAMETER": "MIN_POSITIVE_SITES",
   "VALUE": 5,
@@ -196,7 +197,7 @@
   {
    "REGION": "TOSCANA",
    "CROP": "WHEAT",
-   "ISSUE": "SEPTORIA",
+   "ISSUE": "OIDIO_INTENSITY_var372_NOT_SEPTORIA",
    "DATE": "2026-04-15",
    "PROVINCE": "Arezzo",
    "STATE": "TYPICAL_FOR_THE_DATE",
