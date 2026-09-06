@@ -97,6 +97,20 @@ def filtra(lab):
             r["REVIEW_NOTE"] = ("; ".join(motivos) +
                                 ". Rebaixada por implausibilidade, nao por contradicao de fio")
             r["PLAUSIBILITY_REJECTED"] = True
+            # PRESERVA o veredito do fio desenhado antes de sobrescrever. Sem
+            # isso a tela dizia "aqui nenhum fio contradisse nada" sobre linhas
+            # cujo veredito de fio tinha sido apagado por este proprio modulo —
+            # um negativo que a ferramenta nao podia provar porque tinha
+            # destruido a prova.
+            # IDEMPOTENTE: rodar duas vezes nao pode fazer o modulo preservar o
+            # proprio carimbo como se fosse o veredito do fio. Se o valor atual
+            # ja e PLAUSIBILITY_REJECTED, o anterior verdadeiro e o que ja
+            # estava guardado — e, se nao ha nenhum, e porque o validador de
+            # fios nunca conferiu esta linha (ela nao tem valor para conferir).
+            _antes = r.get("DOSE_RULE_CHECK", "NOT_CHECKED")
+            if _antes == "PLAUSIBILITY_REJECTED":
+                _antes = r.get("DOSE_RULE_CHECK_BEFORE_PLAUSIBILITY", "NOT_CHECKED")
+            r["DOSE_RULE_CHECK_BEFORE_PLAUSIBILITY"] = _antes
             r["DOSE_RULE_CHECK"] = "PLAUSIBILITY_REJECTED"
     return lab, c
 

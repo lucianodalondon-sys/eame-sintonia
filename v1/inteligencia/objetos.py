@@ -427,6 +427,13 @@ def main():
                                         else "PLAUSIBILITY_FILTER"),
                     DEMOTION_RULE=diz(r.get("REVIEW_NOTE") or r.get("DOSE_RULE_CHECK"),
                                       "NOT_KNOWN"),
+                    # O que o fio desenhado dizia ANTES da heuristica passar por
+                    # cima. Em 2 das 6 linhas ele dizia CONFIRMED_BY_RULE: o
+                    # documento confirmava o valor e a heuristica derrubou assim
+                    # mesmo. A tela nao pode chamar isso de "nenhum fio
+                    # contradisse nada".
+                    RULE_CHECK_BEFORE_DEMOTION=diz(
+                        r.get("DOSE_RULE_CHECK_BEFORE_PLAUSIBILITY"), "NOT_CHECKED"),
                     AFFECTED_CROP=cul, AFFECTED_TARGET=alv,
                     AFFECTED_USE=f'{cul} x {alv}',
                     EVIDENCE_LOCATION=f'pagina {diz(r.get("SOURCE_PAGE"), "NOT_PRESERVED")}, {it["PDF_URL"]}',

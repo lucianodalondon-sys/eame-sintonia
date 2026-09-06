@@ -146,6 +146,26 @@ else:
                    "PROBLEMA": f"esperado 1 EXPIRY_CHANGED, obtido {len(ev)}"})
     print(f"  FAIL  controle positivo: esperado 1 evento, obtido {len(ev)}")
 
+# --- ataque: coluna VIGIADA renomeada
+#
+# A blindagem do BOM protegia a coluna-chave. Uma coluna VIGIADA que mude de
+# nome faz .get() devolver None em todo produto e o differ emitir uma mudanca
+# falsa por produto — a mesma catastrofe, por outra porta. O differ tem de
+# PARAR, nao inventar.
+_dst = os.path.join(tempfile.gettempdir(), "coluna-vigiada-renomeada.csv")
+with open(BASE, encoding="utf-8-sig", errors="replace") as _fh:
+    _linhas = _fh.read().split("\n")
+_linhas[0] = _linhas[0].replace("stato_amministrativo", "stato_amministrativo_v2")
+with open(_dst, "w", encoding="utf-8") as _fh:
+    _fh.write("\n".join(_linhas))
+try:
+    RI.read_rows(_dst)
+    FALHAS.append({"TESTE": "coluna vigiada renomeada",
+                   "LEI": "PARSER_FAILURE != REGULATORY_ABSENCE",
+                   "EVENTOS_FABRICADOS": "leu sem reclamar", "AMOSTRA": []})
+except ValueError:
+    PASSOU.append("coluna vigiada renomeada: o differ recusou comparar e disse por que")
+
 # --- CONTROLE POSITIVO 2: status real muda
 def muda_status(r):
     if r.get("num_registrazione", "").strip() == "015275":

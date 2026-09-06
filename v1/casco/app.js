@@ -1037,15 +1037,19 @@ function viewAction() {
 function tabRev(lista) {
   return `<div class="tw"><table>
     <thead><tr><th>Produto</th><th>Cultura lida</th><th>Alvo lido</th><th>Valor rebaixado</th>
-      <th>Regra que rebaixou</th><th>Onde</th><th></th></tr></thead>
+      <th>Regra que rebaixou</th><th>O que o fio dizia antes</th><th>Onde</th><th></th></tr></thead>
     <tbody>${lista.map(o => `<tr>
       <td>${esc(o.PRODUCT_NAME)}<div class="mono meta">${esc(o.REGISTRATION_ID)}</div></td>
       <td>${fragmento(o.AFFECTED_CROP)}</td><td>${fragmento(o.AFFECTED_TARGET)}</td>
       <td style="color:var(--bad)">${val(o.BEFORE_VALUE)}</td>
       <td class="meta">${val(o.DEMOTION_RULE)}</td>
+      <td class="meta">${o.RULE_CHECK_BEFORE_DEMOTION==='CONFIRMED_BY_RULE'
+        ? `<b style="color:var(--warn)">CONFIRMED_BY_RULE</b>
+           <div class="meta">o fio desenhado CONFIRMAVA este valor; a heuristica passou por cima</div>`
+        : val(o.RULE_CHECK_BEFORE_DEMOTION)}</td>
       <td class="meta">${val(o.EVIDENCE_LOCATION)}</td>
       <td><button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">evidencia</button></td>
-    </tr>`).join('') || '<tr><td colspan=7 class="meta">nenhuma</td></tr>'}</tbody></table></div>`;
+    </tr>`).join('') || '<tr><td colspan=8 class="meta">nenhuma</td></tr>'}</tbody></table></div>`;
 }
 
 // S10 · fragmentos de parser publicados com cara de nome de cultura: FOLPAN GOLD
@@ -1096,11 +1100,15 @@ function viewReview() {
 
   <h2>Dose rebaixada por filtro de plausibilidade (${porPlaus.length})</h2>
   <div class="lei" style="border-left-color:var(--unk)"><b>Grau de evidencia diferente do bloco de
-    cima.</b> Aqui nenhum fio contradisse nada: uma <b>heuristica nossa</b> (regras
-    <code>P-01</code> a <code>P-05</code>) julgou que a linha nao parece uma linha de dose — por
-    exemplo, uma celula que comeca por palavra funcional italiana, sinal de que o extrator cortou
-    a celula no meio. A heuristica pode estar errada nos dois sentidos, e por isso o item vem
-    para revisao humana em vez de ser apagado.</div>
+    cima.</b> Aqui a rebaixa veio de uma <b>heuristica nossa</b> (regras <code>P-01</code> a
+    <code>P-05</code>, escritas em <code>REGRAS.md</code>), que julgou que a linha nao parece uma
+    linha de dose — por exemplo, uma celula que comeca por palavra funcional italiana, sinal de
+    que o extrator cortou a celula no meio. A heuristica pode estar errada nos dois sentidos, e
+    por isso o item vem para revisao humana em vez de ser apagado.
+    <b>A coluna &ldquo;o que o fio dizia antes&rdquo; mostra o veredito da medida do documento que
+    esta heuristica sobrescreveu</b> — onde ele diz <code>CONFIRMED_BY_RULE</code>, o fio
+    desenhado confirmava o valor e a heuristica derrubou assim mesmo. Dizer que &ldquo;nenhum fio
+    contradisse nada&rdquo; seria afirmar um negativo cuja prova este modulo tinha apagado.</div>
   ${tabRev(porPlaus)}
 
   <h2>Rotulos cuja tabela de uso nao foi lida (${dq.length})</h2>

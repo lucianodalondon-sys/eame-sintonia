@@ -1192,7 +1192,8 @@
      "NEEDS_REVIEW": true,
      "REVIEW_NOTE": "P-03 linha sem dose, maximo ou intervalo num rotulo que tem outras com valor. Rebaixada por implausibilidade, nao por contradicao de fio",
      "PLAUSIBILITY_REJECTED": true,
-     "DOSE_RULE_CHECK": "PLAUSIBILITY_REJECTED"
+     "DOSE_RULE_CHECK": "PLAUSIBILITY_REJECTED",
+     "DOSE_RULE_CHECK_BEFORE_PLAUSIBILITY": "NOT_CHECKED"
     },
     {
      "REGISTRATION_ID": "008189",
@@ -1315,7 +1316,8 @@
      "NEEDS_REVIEW": true,
      "REVIEW_NOTE": "P-03 linha sem dose, maximo ou intervalo num rotulo que tem outras com valor. Rebaixada por implausibilidade, nao por contradicao de fio",
      "PLAUSIBILITY_REJECTED": true,
-     "DOSE_RULE_CHECK": "PLAUSIBILITY_REJECTED"
+     "DOSE_RULE_CHECK": "PLAUSIBILITY_REJECTED",
+     "DOSE_RULE_CHECK_BEFORE_PLAUSIBILITY": "NOT_CHECKED"
     },
     {
      "REGISTRATION_ID": "008189",
@@ -5327,7 +5329,8 @@
      "DOSE_RULE_CHECK": "PLAUSIBILITY_REJECTED",
      "NEEDS_REVIEW": true,
      "REVIEW_NOTE": "P-05 crop comeca por palavra funcional ('da vino'): a celula foi cortada. Rebaixada por implausibilidade, nao por contradicao de fio",
-     "PLAUSIBILITY_REJECTED": true
+     "PLAUSIBILITY_REJECTED": true,
+     "DOSE_RULE_CHECK_BEFORE_PLAUSIBILITY": "CONFIRMED_BY_RULE"
     }
    ]
   },
@@ -13665,7 +13668,8 @@
      "NEEDS_REVIEW": true,
      "REVIEW_NOTE": "P-03 linha sem dose, maximo ou intervalo num rotulo que tem outras com valor. Rebaixada por implausibilidade, nao por contradicao de fio",
      "PLAUSIBILITY_REJECTED": true,
-     "DOSE_RULE_CHECK": "PLAUSIBILITY_REJECTED"
+     "DOSE_RULE_CHECK": "PLAUSIBILITY_REJECTED",
+     "DOSE_RULE_CHECK_BEFORE_PLAUSIBILITY": "NOT_CHECKED"
     },
     {
      "REGISTRATION_ID": "014479",
@@ -13788,7 +13792,8 @@
      "NEEDS_REVIEW": true,
      "REVIEW_NOTE": "P-03 linha sem dose, maximo ou intervalo num rotulo que tem outras com valor. Rebaixada por implausibilidade, nao por contradicao de fio",
      "PLAUSIBILITY_REJECTED": true,
-     "DOSE_RULE_CHECK": "PLAUSIBILITY_REJECTED"
+     "DOSE_RULE_CHECK": "PLAUSIBILITY_REJECTED",
+     "DOSE_RULE_CHECK_BEFORE_PLAUSIBILITY": "NOT_CHECKED"
     },
     {
      "REGISTRATION_ID": "014479",
@@ -16054,7 +16059,8 @@
      "DOSE_RULE_CHECK": "PLAUSIBILITY_REJECTED",
      "NEEDS_REVIEW": true,
      "REVIEW_NOTE": "P-05 crop comeca por palavra funcional ('da vino'): a celula foi cortada. Rebaixada por implausibilidade, nao por contradicao de fio",
-     "PLAUSIBILITY_REJECTED": true
+     "PLAUSIBILITY_REJECTED": true,
+     "DOSE_RULE_CHECK_BEFORE_PLAUSIBILITY": "CONFIRMED_BY_RULE"
     }
    ]
   },
@@ -21909,9 +21915,9 @@
   }
  ],
  "DOSE_RULE_VALIDATION": {
-  "CHECKED": 660,
+  "CHECKED": 647,
   "OK": 647,
-  "CONTRADICTED": 13,
+  "CONTRADICTED": 0,
   "UNVERIFIABLE_NO_RULES": 0,
   "NOT_LOCATED": 122
  },

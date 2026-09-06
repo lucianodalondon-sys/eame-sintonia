@@ -125,6 +125,18 @@ def read_rows(path):
             f"{path}: a coluna-chave {CHAVE!r} nao existe neste arquivo "
             f"(colunas: {list(rows[0])[:4]}...). Comparar assim inventaria "
             f"entrada e saida de todos os produtos. PARSER_FAILURE != REGULATORY_ABSENCE")
+    # A blindagem do BOM cuidou da coluna-chave e deixou as VIGIADAS nuas. Se a
+    # fonte renomear (ou o BOM atingir) qualquer coluna vigiada, .get() devolve
+    # None, a normalizacao devolve "" e o differ emite uma mudanca para cada
+    # produto — a mesma catastrofe do BOM, so que por outra porta. Coluna
+    # vigiada que some e falha de leitura, nao mudanca regulatoria.
+    if rows:
+        faltando = sorted(c for c in WATCHED if c not in rows[0])
+        if faltando:
+            raise ValueError(
+                f"{path}: colunas vigiadas ausentes {faltando}. Comparar assim emitiria uma "
+                f"mudanca falsa por produto em cada uma delas. "
+                f"PARSER_FAILURE != REGULATORY_ABSENCE")
     return rows
 
 

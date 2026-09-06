@@ -59,6 +59,24 @@ A ferramenta mostra os dois campos e nao conclui saida de mercado.
 
 Medido no acervo: `N-01` sozinha responde por 496 das 528 diferencas brutas.
 
+## 4b · Regras de plausibilidade de dose (`P-*`)
+
+Estas regras nao dizem o que a etichetta autoriza. Elas dizem que **a nossa
+leitura de uma linha nao parece uma leitura de linha de dose**, e por isso a
+linha vai para revisao humana em vez de virar numero na tela. Sao HEURISTICA
+nossa, escrita por nos, e a interface e obrigada a apresenta-las com grau de
+evidencia menor que o fio desenhado da tabela — que e medida do documento.
+A tela citava `P-01` a `P-05` e este documento nao as continha: uma regra citada
+e nao escrita e uma regra que ninguem pode conferir.
+
+| id | quando dispara | efeito |
+|---|---|---|
+| `P-01` | nenhuma linha da tabela candidata tem dose (nem por concentracao nem por hectare) | a "tabela" inteira e descartada: o extrator achou tabela onde havia prosa |
+| `P-02` | o alvo comeca por marcador de lista ou simbolo (bullet, quadrado, traco) | fragmento de prosa, nao celula |
+| `P-03` | linha sem dose, sem maximo e sem intervalo, num rotulo cujas outras linhas tem valor | a linha nao carrega nada que so uma linha de dose carregaria |
+| `P-04` | cultura ou alvo com menos de 3 caracteres uteis | curto demais para ser identidade |
+| `P-05` | cultura ou alvo comeca por palavra funcional italiana (`da`, `della`, `di`, `del`, `in`, `con`...) | a celula foi cortada no meio pelo extrator |
+
 ## 5 · Regras de janela temporal (`T-*`)
 
 | id | condicao | janela | por que |
