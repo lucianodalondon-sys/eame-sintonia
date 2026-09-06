@@ -287,9 +287,24 @@ function juntaDose(p, u) {
     const caidas = todas.filter(x => !linhaPublicavel(p, x)
       && (nrm(x.crop) === nrm(u.crop) || culturaNaCelula(u.crop, x.crop))
       && contido(u.target, x.target));
-    if (caidas.length)
-      return {...base, estado: 'DOSE_ROW_CONTRADICTED_BY_R11_FOR_THIS_PAIR',
-              d: null, cand: [], caidas};
+    if (caidas.length) {
+      // O TOKEN TEM DE DIZER QUAL REGRA DERRUBOU A LINHA, e nao supor uma.
+      //
+      // O nome anterior era DOSE_ROW_CONTRADICTED_BY_R11_FOR_THIS_PAIR e valia
+      // para QUALQUER linha caida — inclusive as que cairam por NOT_LOCATED,
+      // que e falha do localizador e nunca chegou a comparar cultura nenhuma,
+      // e agora tambem para as que caem por R-22. Afirmar "R-11 contradisse"
+      // sobre uma linha que R-11 aprovou e a mesma classe de mentira que a
+      // ferramenta existe para nao cometer.
+      const causa = caidas.some(x => x.crop_check === 'CROP_ASSIGNMENT_CONTRADICTED_BY_RULE')
+          ? 'DOSE_ROW_CONTRADICTED_BY_R11_FOR_THIS_PAIR'
+        : caidas.some(x => x.band_check === 'DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE')
+          ? 'DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE_FOR_THIS_PAIR'
+        : caidas.some(x => x.rule_check === 'PLAUSIBILITY_REJECTED')
+          ? 'DOSE_ROW_REJECTED_BY_PLAUSIBILITY_FOR_THIS_PAIR'
+        : 'DOSE_ROW_NOT_LOCATED_FOR_THIS_PAIR';
+      return {...base, estado: causa, d: null, cand: [], caidas};
+    }
     return {...base, estado: 'NO_DOSE_ROW_FOR_THIS_PAIR', d: null, cand: []};
   }
   // Uma candidata SEM valor lido nao discorda de nada: ela nao diz nada. A
@@ -1187,6 +1202,22 @@ function celulaDose(l) {
       diferentes, com doses diferentes: em LAMDEX EXTRA a beterraba <i>da zucchero</i> tem teto de
       800 g/ha e a linha de <i>Foraggere</i> chega a 1200. <b>A ferramenta nao escolhe qual delas e
       esta.</b></div>${desc}`;
+  if (j.estado === 'DOSE_ROW_NOT_LOCATED_FOR_THIS_PAIR')
+    return `<span class="unknown">DOSE_ROW_NOT_LOCATED_FOR_THIS_PAIR</span>
+      <div class="meta">ha linha de dose para este par e ela caiu — mas caiu porque o
+      <b>localizador nao encontrou o valor no documento</b> (<code>NOT_LOCATED</code>), e nao
+      porque alguma regra tenha provado que a linha e de outra cultura. R-11 nao disse nada
+      contra este par</div>${desc}`;
+  if (j.estado === 'DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE_FOR_THIS_PAIR')
+    return `<span class="unknown">DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE_FOR_THIS_PAIR</span>
+      <div class="meta">ha linha de dose para este par e ela caiu porque a banda de onde foi
+      lida tem um <b>fio horizontal desenhado por dentro</b>: sao duas linhas coladas e o
+      numero pode ser da de baixo (<code>R-22</code>)</div>${desc}`;
+  if (j.estado === 'DOSE_ROW_REJECTED_BY_PLAUSIBILITY_FOR_THIS_PAIR')
+    return `<span class="unknown">DOSE_ROW_REJECTED_BY_PLAUSIBILITY_FOR_THIS_PAIR</span>
+      <div class="meta">ha linha de dose para este par e ela caiu no <b>teste de
+      plausibilidade da tabela</b> (R-10b): o que o extrator leu como tabela nao se comporta
+      como uma</div>${desc}`;
   if (j.estado === 'DOSE_ROW_CONTRADICTED_BY_R11_FOR_THIS_PAIR')
     return `<span class="unknown">DOSE_ROW_CONTRADICTED_BY_R11_FOR_THIS_PAIR</span>
       <div class="meta"><b>Havia</b> ${j.caidas.length} linha(s) de dose para este par, e ela(s)
@@ -1585,9 +1616,17 @@ function viewCrop() {
           <b>${n('CROP_IDENTITY_NOT_PROVED')}</b> — a etichetta escreve mais de uma forma do mesmo
           nome curto (&ldquo;Barbabietola da zucchero&rdquo; e &ldquo;barbabietola da foraggio&rdquo;),
           com doses diferentes, e o vocabulario colapsa as duas. A ferramenta nao escolhe.</li>`:''}
-        ${n('DOSE_ROW_CONTRADICTED_BY_R11_FOR_THIS_PAIR')?`<li><span class="unknown">DOSE_ROW_CONTRADICTED_BY_R11_FOR_THIS_PAIR</span>
-          <b>${n('DOSE_ROW_CONTRADICTED_BY_R11_FOR_THIS_PAIR')}</b> — <b>havia</b> linha para este
-          par e ela foi reprovada pelos fios. Diferente de nao haver linha.</li>`:''}
+        ${[['DOSE_ROW_CONTRADICTED_BY_R11_FOR_THIS_PAIR',
+            'reprovada por <b>R-11</b>: os fios provam que a linha e de outra cultura'],
+           ['DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE_FOR_THIS_PAIR',
+            'reprovada por <b>R-22</b>: a banda tem um fio desenhado por dentro, sao duas linhas'],
+           ['DOSE_ROW_REJECTED_BY_PLAUSIBILITY_FOR_THIS_PAIR',
+            'reprovada por <b>R-10b</b>: o que foi lido como tabela nao se comporta como uma'],
+           ['DOSE_ROW_NOT_LOCATED_FOR_THIS_PAIR',
+            'caiu por <code>NOT_LOCATED</code> — falha do <b>localizador</b>, e nao regra nenhuma provando nada contra o par']
+          ].filter(([k]) => n(k)).map(([k, porque]) => `<li><span class="unknown">${k}</span>
+          <b>${n(k)}</b> — <b>havia</b> linha para este par e ela caiu: ${porque}. Diferente de
+          nao haver linha.</li>`).join('')}
       </ul>
       ${(() => {
         // SF-08 · a frase dizia "No acervo inteiro: 76 linhas descartadas por
