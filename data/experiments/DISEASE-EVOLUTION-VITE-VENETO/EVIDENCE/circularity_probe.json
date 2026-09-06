@@ -1,0 +1,394 @@
+{
+ "note": "DIAGNOSTIC ONLY. Target-season weather is never used as a predictor.",
+ "target_season_window": "Apr 1 - Aug 31 of year Y",
+ "regimes": {
+  "CUTOFF_A_PRESEASON": {
+   "leakage_violations": 0,
+   "years": [
+    1992,
+    1993,
+    1994,
+    1995,
+    1996,
+    1997,
+    1998,
+    1999,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "per_target": {
+    "ts_precip_sum": {
+     "n_years": 34,
+     "strongest_antecedent_links": [
+      {
+       "feature": "prevseason_gdd10",
+       "spearman": 0.479,
+       "p_permutation": 0.00435
+      },
+      {
+       "feature": "prevseason_tmean",
+       "spearman": 0.459,
+       "p_permutation": 0.0058
+      },
+      {
+       "feature": "prevseason_tmin_mean",
+       "spearman": 0.387,
+       "p_permutation": 0.02325
+      },
+      {
+       "feature": "winter_rh75_days",
+       "spearman": 0.304,
+       "p_permutation": 0.0853
+      },
+      {
+       "feature": "autumn_max_wet_run",
+       "spearman": -0.284,
+       "p_permutation": 0.10289
+      },
+      {
+       "feature": "winter_rh_mean",
+       "spearman": 0.279,
+       "p_permutation": 0.11749
+      }
+     ],
+     "max_abs_spearman": 0.479,
+     "n_features_screened": 40
+    },
+    "ts_rain_days": {
+     "n_years": 34,
+     "strongest_antecedent_links": [
+      {
+       "feature": "prev2season_tmin_mean",
+       "spearman": -0.428,
+       "p_permutation": 0.01215
+      },
+      {
+       "feature": "prev2season_rain_days",
+       "spearman": 0.413,
+       "p_permutation": 0.0158
+      },
+      {
+       "feature": "autumn_gdd10",
+       "spearman": -0.37,
+       "p_permutation": 0.03265
+      },
+      {
+       "feature": "autumn_tmin_mean",
+       "spearman": -0.349,
+       "p_permutation": 0.0415
+      },
+      {
+       "feature": "autumn_tmean",
+       "spearman": -0.33,
+       "p_permutation": 0.05675
+      },
+      {
+       "feature": "winter_rain_days",
+       "spearman": 0.33,
+       "p_permutation": 0.0587
+      }
+     ],
+     "max_abs_spearman": 0.428,
+     "n_features_screened": 40
+    },
+    "ts_infection_events_10_10": {
+     "n_years": 34,
+     "strongest_antecedent_links": [
+      {
+       "feature": "prevseason_gdd10",
+       "spearman": 0.381,
+       "p_permutation": 0.02855
+      },
+      {
+       "feature": "prevseason_tmean",
+       "spearman": 0.368,
+       "p_permutation": 0.03415
+      },
+      {
+       "feature": "winter_rh75_days",
+       "spearman": 0.36,
+       "p_permutation": 0.04045
+      },
+      {
+       "feature": "autumn_max_wet_run",
+       "spearman": -0.35,
+       "p_permutation": 0.042
+      },
+      {
+       "feature": "winter_rh_mean",
+       "spearman": 0.314,
+       "p_permutation": 0.07615
+      },
+      {
+       "feature": "autumn_rh_mean",
+       "spearman": -0.291,
+       "p_permutation": 0.0961
+      }
+     ],
+     "max_abs_spearman": 0.381,
+     "n_features_screened": 40
+    },
+    "ts_rh75_days": {
+     "n_years": 34,
+     "strongest_antecedent_links": [
+      {
+       "feature": "winter_rh75_days",
+       "spearman": 0.423,
+       "p_permutation": 0.0149
+      },
+      {
+       "feature": "prevseason_gdd10",
+       "spearman": 0.367,
+       "p_permutation": 0.03335
+      },
+      {
+       "feature": "winter_rh_mean",
+       "spearman": 0.354,
+       "p_permutation": 0.04385
+      },
+      {
+       "feature": "prevseason_tmean",
+       "spearman": 0.334,
+       "p_permutation": 0.0529
+      },
+      {
+       "feature": "winter_precip_sum",
+       "spearman": 0.285,
+       "p_permutation": 0.10319
+      },
+      {
+       "feature": "autumn_max_wet_run",
+       "spearman": -0.28,
+       "p_permutation": 0.10749
+      }
+     ],
+     "max_abs_spearman": 0.423,
+     "n_features_screened": 40
+    }
+   }
+  },
+  "CUTOFF_B_TRUE_12M": {
+   "leakage_violations": 0,
+   "years": [
+    1992,
+    1993,
+    1994,
+    1995,
+    1996,
+    1997,
+    1998,
+    1999,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "per_target": {
+    "ts_precip_sum": {
+     "n_years": 34,
+     "strongest_antecedent_links": [
+      {
+       "feature": "prevseason_gdd10",
+       "spearman": 0.479,
+       "p_permutation": 0.00435
+      },
+      {
+       "feature": "prevseason_tmean",
+       "spearman": 0.459,
+       "p_permutation": 0.0058
+      },
+      {
+       "feature": "prevseason_tmin_mean",
+       "spearman": 0.387,
+       "p_permutation": 0.02325
+      },
+      {
+       "feature": "prevwinter_wet_spells_2d",
+       "spearman": 0.359,
+       "p_permutation": 0.03935
+      },
+      {
+       "feature": "prevwinter_frost_days",
+       "spearman": -0.341,
+       "p_permutation": 0.05005
+      },
+      {
+       "feature": "prevautumn_frost_days",
+       "spearman": -0.33,
+       "p_permutation": 0.05795
+      }
+     ],
+     "max_abs_spearman": 0.479,
+     "n_features_screened": 40
+    },
+    "ts_rain_days": {
+     "n_years": 34,
+     "strongest_antecedent_links": [
+      {
+       "feature": "prev2season_tmin_mean",
+       "spearman": -0.428,
+       "p_permutation": 0.01215
+      },
+      {
+       "feature": "prev2season_rain_days",
+       "spearman": 0.413,
+       "p_permutation": 0.0158
+      },
+      {
+       "feature": "prevautumn_rh_mean",
+       "spearman": 0.29,
+       "p_permutation": 0.0969
+      },
+      {
+       "feature": "prevseason_precip_sum",
+       "spearman": -0.281,
+       "p_permutation": 0.10949
+      },
+      {
+       "feature": "prevautumn_precip_sum",
+       "spearman": 0.269,
+       "p_permutation": 0.12424
+      },
+      {
+       "feature": "prevseason_rain_days",
+       "spearman": 0.264,
+       "p_permutation": 0.13179
+      }
+     ],
+     "max_abs_spearman": 0.428,
+     "n_features_screened": 40
+    },
+    "ts_infection_events_10_10": {
+     "n_years": 34,
+     "strongest_antecedent_links": [
+      {
+       "feature": "prevwinter_wet_spells_2d",
+       "spearman": 0.392,
+       "p_permutation": 0.0235
+      },
+      {
+       "feature": "prevseason_gdd10",
+       "spearman": 0.381,
+       "p_permutation": 0.02855
+      },
+      {
+       "feature": "prevseason_tmean",
+       "spearman": 0.368,
+       "p_permutation": 0.03415
+      },
+      {
+       "feature": "prevautumn_frost_days",
+       "spearman": -0.367,
+       "p_permutation": 0.0327
+      },
+      {
+       "feature": "prevwinter_rh_mean",
+       "spearman": 0.344,
+       "p_permutation": 0.04975
+      },
+      {
+       "feature": "prevseason_precip_sum",
+       "spearman": -0.282,
+       "p_permutation": 0.10754
+      }
+     ],
+     "max_abs_spearman": 0.392,
+     "n_features_screened": 40
+    },
+    "ts_rh75_days": {
+     "n_years": 34,
+     "strongest_antecedent_links": [
+      {
+       "feature": "prevseason_gdd10",
+       "spearman": 0.367,
+       "p_permutation": 0.03335
+      },
+      {
+       "feature": "prevseason_tmean",
+       "spearman": 0.334,
+       "p_permutation": 0.0529
+      },
+      {
+       "feature": "prevwinter_wet_spells_2d",
+       "spearman": 0.273,
+       "p_permutation": 0.12134
+      },
+      {
+       "feature": "prev2season_rh_mean",
+       "spearman": -0.251,
+       "p_permutation": 0.15374
+      },
+      {
+       "feature": "prev2season_frost_days",
+       "spearman": -0.243,
+       "p_permutation": 0.16684
+      },
+      {
+       "feature": "prevwinter_rain_days",
+       "spearman": 0.24,
+       "p_permutation": 0.17654
+      }
+     ],
+     "max_abs_spearman": 0.367,
+     "n_features_screened": 40
+    }
+   }
+  }
+ },
+ "max_abs_spearman_any_link": 0.479,
+ "CIRCULARITY_VERDICT": "LOW \u2014 antecedent blocks carry little information about the target season's own weather, so a model built on them is not covertly restating it",
+ "caveat": "Screening ~50 features x 4 targets means the LARGEST |rho| is inflated by selection. The permutation p-values shown are per-link and NOT corrected for that screening. Read the verdict from the magnitude, not from the p-value.",
+ "INTERPRETATION_BOTH_DIRECTIONS": {
+  "good_news": "Over 34 seasons (1992-2025), the strongest link between ANY antecedent feature and ANY target-season infection driver is |rho| = 0.479, and that is the maximum of ~160 screened links, so it is inflated by selection. The antecedent blocks are therefore NOT a disguised copy of the target season's own weather. A model built on them cannot be covertly circular.",
+  "bad_news": "The same number is the ceiling on the weather pathway. If ARPAV severity is largely driven by the target season's own rain -- which the reports themselves assert, sentence after sentence -- and antecedent weather explains at most ~23% of the variance of that rain (rho^2 = 0.479^2, before correcting for selection), then a 12M outlook built on antecedent WEATHER has very little physical room to have skill. Low circularity and low predictability are the same measurement read from two sides.",
+  "the_one_remaining_pathway": "Inoculum carryover. Peronospora overwinters as oospores produced by LAST season's epidemic. That pathway is a disease->disease link, not a weather->disease link, and it is exactly what BASELINE_PERSISTENCE tests: predict year Y's class from year Y-1's class, using no weather at all. If persistence beats climatology, the carryover signal is real and the outlook has a physical basis. If it does not, the 12M product has no demonstrated mechanism.",
+  "consequence_for_the_demo": "Whatever the labels turn out to be, the honest headline is bounded in advance by this probe. A 12M peronospora outlook for Veneto should be presented as an INOCULUM-AND-CLIMATOLOGY prior, not as a weather forecast, and the 24M product is a SCENARIO with no predictive claim attached at all.",
+  "computed_on": "34 seasons of ERA5, independent of any disease label \u2014 this conclusion does not depend on the outcome coding surviving Gate A"
+ }
+}
