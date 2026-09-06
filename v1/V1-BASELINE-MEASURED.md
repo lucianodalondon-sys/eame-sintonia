@@ -25,7 +25,7 @@ de fios. O script nao le `ENTREGA-FINAL.md`, nao le `AUDITORIA.json` e nao le
     HISTORICAL_SNAPSHOTS      = 60
     DISTINCT_HISTORICAL_DOCS  = 54
     RAW_CHANGES               = 528
-    TRUE_CHANGES              = 34
+    TRUE_CHANGES              = 36
     FALSE_CHANGE_NOISE        = 496   (93,9%)
     PHI_PROVED                = 0
     PHI_NOT_PROVED            = 163
@@ -95,11 +95,22 @@ herbicidas italianos **nao publica tabela**: declara dose em prosa
 `20250714..20260831`. Seis semanas republicaram arquivo identico por sha256 e
 nao contam como versao.
 
-**MUDANCAS: 528 brutas, 34 reais.** Comparando so registros presentes nos dois
+**MUDANCAS: 528 brutas, 36 reais.** Comparando so registros presentes nos dois
 instantaneos e so campos, sem normalizar da 528 diferencas; normalizando campo
 multivalorado da 32. As 496 de diferenca sao a fonte reordenando a lista de
 indicacoes de perigo entre publicacoes. Com entrada e saida de produto, os 32
-viram 34 eventos: 25 de validade, 4 produtos novos, 3 de estado, 2 de revoga.
+viram 36 eventos: 27 de validade, 4 produtos novos, 3 de estado, 2 de revoga.
+
+> **Este numero mudou de 34 para 36 durante a V1, e a razao esta escrita.** A
+> primeira versao aplicava a supressao de oscilacao (`N-03`) a **todos** os
+> campos. Com isso ela apagava uma sequencia real de validade da POWERFILM
+> (31/03/2026 -> 31/10/2041 -> 31/03/2026): tres leituras oficiais consecutivas,
+> todas provadas, viraram zero evento porque a terceira voltava ao valor da
+> primeira. Oscilacao so e ruido em **lista multivalorada**, onde a fonte
+> reordena os proprios itens; numa data ela pode ser uma prorrogacao seguida de
+> retificacao, que e fato. `N-03` foi restrita a campos multivalorados e os dois
+> eventos voltaram. Se este documento ainda dissesse 34, ele estaria defendendo
+> a versao errada da regra.
 
 **PHI_PROVED = 0.** Por decisao, nao por ausencia. O extrator de carencia do
 piloto esta marcado `PROTOTYPE_NOT_SHIPPED`: 2 de 15 rotulos, com a primeira
@@ -107,6 +118,22 @@ linha de cada bloco contaminada por coluna vizinha. Nenhum PHI e publicado.
 
     PHI_NOT_PROVED = 163
     NAO significa que as etichette nao tragam carencia. Significa que nao lemos.
+
+## Reconciliacao com o que a ferramenta publica
+
+Esta medicao **le a fonte e reexecuta os extratores**. A ferramenta publica o
+que sobra **depois** da camada de inteligencia. Os dois numeros nao tem de ser
+iguais; tem de ser explicados. A reconciliacao e calculada, nao digitada, em
+`v1/BASELINE-RAW.json` -> `RECONCILIATION_WITH_PUBLISHED`:
+
+| grandeza | medido aqui (cru) | publicado | delta | mecanismo |
+|---|---|---|---|---|
+| mudancas reais | 36 | 36 | **0** | mesmo differ, mesma normalizacao. Delta diferente de zero aqui seria **defeito**, nao decisao |
+| linhas de dose distintas | 519 | 510 | **9** | filtro de plausibilidade `P-01`..`P-05` |
+| rotulos com linha de dose | 23 | 21 | **2** | `P-01`: duas tabelas que o extrator achou onde nao havia (prosa lida como tabela) |
+
+O delta de dose **e** o filtro. Se ele fosse zero, o filtro nao estaria rodando.
+O delta de mudanca e zero, e tem de continuar zero.
 
 ## O que mudou em relacao ao que o piloto publicou
 

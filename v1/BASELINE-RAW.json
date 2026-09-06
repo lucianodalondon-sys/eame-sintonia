@@ -42,11 +42,11 @@
  "FIELD_DIFFS_AFTER_NORMALISATION": 32,
  "FALSE_CHANGE_NOISE": 496,
  "FALSE_CHANGE_NOISE_SHARE_PCT": 93.9,
- "TRUE_CHANGES": 34,
- "TEXT_ONLY_CHANGES": 2,
+ "TRUE_CHANGES": 36,
+ "TEXT_ONLY_CHANGES": 0,
  "TRUE_CHANGES_BY_TYPE": {
   "PRODUCT_ADDED": 4,
-  "EXPIRY_CHANGED": 25,
+  "EXPIRY_CHANGED": 27,
   "STATUS_CHANGED": 3,
   "REVOCATION_EFFECT_CHANGED": 1,
   "REVOCATION_DECREE_CHANGED": 1
@@ -67,5 +67,19 @@
  "DOSE_METHOD": "dose_extrair + dose_validar reexecutados sobre os 163 PDFs",
  "PHI_PROVED": 0,
  "PHI_NOT_PROVED": 163,
- "PHI_NOTE": "o extrator de carencia do piloto esta marcado PROTOTYPE_NOT_SHIPPED: 2 de 15 rotulos, com a primeira linha de cada bloco contaminada. Nenhum PHI e publicado, entao PHI_PROVED = 0 por decisao, nao por ausencia de carencia nas etichette"
+ "PHI_NOTE": "o extrator de carencia do piloto esta marcado PROTOTYPE_NOT_SHIPPED: 2 de 15 rotulos, com a primeira linha de cada bloco contaminada. Nenhum PHI e publicado, entao PHI_PROVED = 0 por decisao, nao por ausencia de carencia nas etichette",
+ "RECONCILIATION_WITH_PUBLISHED": {
+  "O_QUE_ISTO_E": "diferenca entre a RELEITURA CRUA da fonte (este arquivo) e o que a ferramenta publica, com o mecanismo que explica cada delta",
+  "TRUE_CHANGES_MEASURED": 36,
+  "TRUE_CHANGES_PUBLISHED": 36,
+  "TRUE_CHANGES_DELTA": 0,
+  "DOSE_ROWS_MEASURED_DISTINCT": 519,
+  "DOSE_ROWS_PUBLISHED_DISTINCT": 510,
+  "DOSE_ROWS_DELTA": 9,
+  "DOSE_LABELS_MEASURED": 23,
+  "DOSE_LABELS_PUBLISHED": 21,
+  "DOSE_LABELS_DELTA": 2,
+  "POR_QUE_O_DELTA_DE_DOSE": "a releitura crua nao aplica o filtro de plausibilidade v1/inteligencia/dose_plausibilidade.py (regras P-01 a P-05), que descarta tabela que o extrator achou onde nao havia. O delta E o filtro; se ele fosse zero, o filtro nao estaria rodando",
+  "POR_QUE_O_DELTA_DE_MUDANCA": "ambos os lados rodam o mesmo differ com a mesma normalizacao; delta diferente de zero aqui e defeito, nao decisao"
+ }
 }

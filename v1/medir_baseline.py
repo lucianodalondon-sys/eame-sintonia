@@ -205,6 +205,39 @@ R["PHI_NOTE"] = ("o extrator de carencia do piloto esta marcado PROTOTYPE_NOT_SH
                  "Nenhum PHI e publicado, entao PHI_PROVED = 0 por decisao, nao por ausencia "
                  "de carencia nas etichette")
 
+# RECONCILIACAO. Esta medicao le a FONTE e reexecuta os extratores; a ferramenta
+# publica o que sobra depois da camada de inteligencia. Os dois numeros nao tem
+# de ser iguais — tem de ser explicados. Antes eles apareciam em telas
+# diferentes sem que nada dissesse por que diferiam, e isso e a mesma doenca de
+# publicar cobertura como numero unico.
+try:
+    _pay = json.load(open("v1/dados/CASCO-PAYLOAD.json", encoding="utf-8"))
+    _pub_rows = sum(len(x["doses"]) for x in _pay["products"])
+    _pub_labs = sum(1 for x in _pay["products"] if x["doses"])
+    R["RECONCILIATION_WITH_PUBLISHED"] = {
+        "O_QUE_ISTO_E": ("diferenca entre a RELEITURA CRUA da fonte (este arquivo) e o que a "
+                         "ferramenta publica, com o mecanismo que explica cada delta"),
+        "TRUE_CHANGES_MEASURED": R["TRUE_CHANGES"],
+        "TRUE_CHANGES_PUBLISHED": _pay["history"]["true_changes"],
+        "TRUE_CHANGES_DELTA": R["TRUE_CHANGES"] - _pay["history"]["true_changes"],
+        "DOSE_ROWS_MEASURED_DISTINCT": R["DOSE_ROWS_DISTINCT"],
+        "DOSE_ROWS_PUBLISHED_DISTINCT": _pub_rows,
+        "DOSE_ROWS_DELTA": R["DOSE_ROWS_DISTINCT"] - _pub_rows,
+        "DOSE_LABELS_MEASURED": R["DOSE_LABELS_WITH_ROWS"],
+        "DOSE_LABELS_PUBLISHED": _pub_labs,
+        "DOSE_LABELS_DELTA": R["DOSE_LABELS_WITH_ROWS"] - _pub_labs,
+        "POR_QUE_O_DELTA_DE_DOSE": ("a releitura crua nao aplica o filtro de plausibilidade "
+                                    "v1/inteligencia/dose_plausibilidade.py (regras P-01 a P-05), "
+                                    "que descarta tabela que o extrator achou onde nao havia. "
+                                    "O delta E o filtro; se ele fosse zero, o filtro nao estaria "
+                                    "rodando"),
+        "POR_QUE_O_DELTA_DE_MUDANCA": ("ambos os lados rodam o mesmo differ com a mesma "
+                                       "normalizacao; delta diferente de zero aqui e defeito, "
+                                       "nao decisao"),
+    }
+except Exception as _e:                       # payload ainda nao construido
+    R["RECONCILIATION_WITH_PUBLISHED"] = {"STATE": "NOT_CHECKED", "WHY": str(_e)}
+
 json.dump(R, open("v1/BASELINE-RAW.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 for k, v in R.items():
     if isinstance(v, dict):

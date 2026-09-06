@@ -87,8 +87,29 @@ else:
 proibido = ["stop selling", "pare de vender", "retirar do mercado", "withdrawn",
             "queda de demanda", "demand drop", "stock risk", "risco de estoque",
             "reduza estoque", "fora do mercado"]
-achou = [p for p in proibido if p in HTML.lower()]
-ok("EXPIRY_AS_WITHDRAWAL", "nenhuma frase de retirada/demanda/estoque na interface") if not achou \
+
+# UMA excecao, declarada e literal. REGRAS.md secao 5 obriga a glosa
+#   ACT_NOW aqui significa "olhe hoje", nunca "pare de vender"
+# e sem ela a unica frase imperativa em ingles do produto viaja sem contrato.
+# Proibir a frase ate dentro da propria negacao dela deixaria a ferramenta sem
+# poder dizer o que ela NAO esta dizendo. A excecao e so esta: a glosa e
+# recortada do HTML e o resto do documento continua sob a regra inteira. Se a
+# glosa sumir, isto FALHA — nao passa por omissao.
+GLOSA = ("aqui significa\n  &ldquo;olhe hoje&rdquo;, nunca &ldquo;pare de vender&rdquo;")
+GLOSA_RENDER = 'aqui significa\n  “olhe hoje”, nunca “pare de vender”'
+corpo = HTML
+achou_glosa = 0
+for g in (GLOSA, GLOSA_RENDER):
+    achou_glosa += corpo.count(g)
+    corpo = corpo.replace(g, " [GLOSA_ACT_NOW] ")
+if not achou_glosa:
+    fail("EXPIRY_AS_WITHDRAWAL", "a glosa obrigatoria de ACT_NOW ('olhe hoje', nunca "
+                                 "'pare de vender') nao esta na interface")
+    proibido = []
+achou = [p for p in proibido if p in corpo.lower()]
+ok("EXPIRY_AS_WITHDRAWAL",
+   f"nenhuma frase de retirada/demanda/estoque fora da glosa obrigatoria "
+   f"({achou_glosa} ocorrencia(s) da glosa)") if achou_glosa and not achou \
     else fail("EXPIRY_AS_WITHDRAWAL", f"frases encontradas: {achou}")
 
 # --- 10. parser failure nunca apresentado como ausencia regulatoria

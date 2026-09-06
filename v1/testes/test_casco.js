@@ -22,11 +22,14 @@ global.document = {
   querySelectorAll() { return []; },
   addEventListener() {},
 };
-global.window = { scrollTo() {}, addEventListener() {} };
-global.P = JSON.parse(fs.readFileSync(path.join(RAIZ, 'v1/dados/CASCO-PAYLOAD.json'), 'utf8'));
-
+// Carrega o payload como o NAVEGADOR carrega: por window.__PAYLOAD__, deixando
+// o proprio app.js declarar P. Injetar P por fora escondia um erro real de
+// ordem de declaracao (TDZ) que deixava a ferramenta em branco no Chromium.
+global.window = { scrollTo() {}, addEventListener() {},
+  __PAYLOAD__: JSON.parse(fs.readFileSync(path.join(RAIZ, 'v1/dados/CASCO-PAYLOAD.json'), 'utf8')) };
 const fonte = fs.readFileSync(path.join(RAIZ, 'v1/casco/app.js'), 'utf8');
-(0, eval)(fonte.replace(/^const P = .*$/m, ''));
+(0, eval)(fonte);
+global.P = window.__PAYLOAD__;
 
 const testes = [];
 const teste = (nome, fn) => testes.push([nome, fn]);

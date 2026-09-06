@@ -141,10 +141,26 @@ def oid(*partes):
     return "IO-" + hashlib.sha256("|".join(str(p) for p in partes).encode()).hexdigest()[:16]
 
 
-def janela(tipo, dias, novo):
+# Estados administrativos que a FONTE declara e que significam "a autorizacao
+# nao esta em vigor agora". Medidos no instantaneo vigente sobre os 17.695
+# produtos do registro inteiro, nao inventados: Revocato 13.216, Scaduto 765,
+# Sospeso 3. Qualquer estado fora desta lista NAO e classificado por T-08.
+ESTADOS_FORA_DE_VIGOR = ("revocato", "scaduto", "sospeso")
+
+
+def janela(tipo, dias, novo, antes=None, depois=None):
     """T-*: janela temporal, sempre com a regra que a produziu."""
     if tipo in ("NEEDS_HUMAN_REVIEW", "DATA_QUALITY_EVENT"):
         return "UNKNOWN", "T-07"
+    # T-08 · a unica revoga real do corpus recebia NO_ACTION_YET ("nada na fonte
+    # pede tempo") enquanto uma prorrogacao de rotina recebia PLAN_NEXT_CYCLE.
+    # Um ato administrativo datado sobre a validade do proprio registro e
+    # exatamente o que uma janela serve para marcar. Isto continua sendo QUANDO
+    # OLHAR e nada mais: EXPIRY != WITHDRAWAL, e nenhuma ACTION nasce daqui.
+    if tipo == "REVOCATION_ACT_CHANGE":
+        return "ACT_NOW", "T-08"
+    if tipo == "STATUS_CHANGE" and str(depois or "").strip().lower() in ESTADOS_FORA_DE_VIGOR:
+        return "ACT_NOW", "T-08"
     if tipo == "EXPIRY_EVENT":
         return "ACT_NOW", "T-01"
     if isinstance(dias, int):
@@ -200,7 +216,8 @@ def roteia(tipo):
 def base(tipo, item, **kw):
     """Molde comum de todo intelligence object."""
     dias = item.get("DAYS_TO_EXPIRY")
-    jan, jrule = janela(tipo, dias, kw.pop("novo", False))
+    jan, jrule = janela(tipo, dias, kw.pop("novo", False),
+                        kw.get("BEFORE_VALUE"), kw.get("AFTER_VALUE"))
     sig, srule = SIGNIFICADO.get(tipo, ("NOT_PROVED", None))
     o = {
         "INTELLIGENCE_OBJECT_ID": oid(tipo, item["REGISTRATION_ID"],
@@ -384,15 +401,31 @@ def main():
                 rej = diz(r.get("DOSE_PER_HECTARE_REJECTED"), "NOT_PRESERVED")
                 objs.append(base(
                     "NEEDS_HUMAN_REVIEW", it,
-                    FACT=(f'a dose lida para {cul} x {alv} foi rebaixada: um fio desenhado '
-                          f'da tabela separa a linha do valor. '
+                    FACT=((f'a dose lida para {cul} x {alv} foi rebaixada: um fio desenhado '
+                           f'da tabela separa a linha do valor. '
+                           if r.get("DOSE_RULE_CHECK") != "PLAUSIBILITY_REJECTED" else
+                           f'a dose lida para {cul} x {alv} foi rebaixada por FILTRO DE '
+                           f'PLAUSIBILIDADE ({r.get("REVIEW_NOTE") or "regra P-*"}) — '
+                           f'uma heuristica nossa, nao uma medida do documento. ')
                           + (f'O valor recusado foi {rej}.' if rej != "NOT_PRESERVED"
                              else 'Este leitor NAO preservou qual valor recusou '
                                   '(NOT_PRESERVED): sabe-se que houve recusa, nao o que '
                                   'foi recusado.')),
                     BEFORE_VALUE=rej,
                     AFTER_VALUE="NOT_PRESENT",
-                    PROOF_STATE="NOT_PROVED", CONFIDENCE_STATE="RULE_CONTRADICTION",
+                    PROOF_STATE="NOT_PROVED",
+                    # Duas maquinas diferentes rebaixam dose, e a tela chamava as
+                    # duas de "contradicao de fio". Fio desenhado e medida
+                    # geometrica; plausibilidade e heuristica escrita por nos.
+                    # Sao graus de evidencia diferentes e tem de aparecer assim.
+                    CONFIDENCE_STATE=("RULE_CONTRADICTION"
+                                      if r.get("DOSE_RULE_CHECK") != "PLAUSIBILITY_REJECTED"
+                                      else "PLAUSIBILITY_HEURISTIC"),
+                    DEMOTION_MECHANISM=("DRAWN_TABLE_RULE"
+                                        if r.get("DOSE_RULE_CHECK") != "PLAUSIBILITY_REJECTED"
+                                        else "PLAUSIBILITY_FILTER"),
+                    DEMOTION_RULE=diz(r.get("REVIEW_NOTE") or r.get("DOSE_RULE_CHECK"),
+                                      "NOT_KNOWN"),
                     AFFECTED_CROP=cul, AFFECTED_TARGET=alv,
                     AFFECTED_USE=f'{cul} x {alv}',
                     EVIDENCE_LOCATION=f'pagina {diz(r.get("SOURCE_PAGE"), "NOT_PRESERVED")}, {it["PDF_URL"]}',

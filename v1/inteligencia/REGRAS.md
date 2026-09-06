@@ -68,6 +68,7 @@ Medido no acervo: `N-01` sozinha responde por 496 das 528 diferencas brutas.
 | `T-05` | mudanca real detectada nos ultimos 30 dias de janela observada | `PREPARE` | o fato e novo para nos |
 | `T-06` | qualquer outro caso | `NO_ACTION_YET` | nada na fonte pede tempo |
 | `T-07` | dado em revisao | `UNKNOWN` | nao se atribui tempo a fato nao provado |
+| `T-08` | `REVOCATION_ACT_CHANGE`, ou `STATUS_CHANGE` cujo estado NOVO e um dos que a fonte declara fora de vigor (`Revocato`, `Scaduto`, `Sospeso` — medidos no instantaneo vigente: 13.216 / 765 / 3 dos 17.695 produtos do registro) | `ACT_NOW` | um ato administrativo **datado** sobre a validade do proprio registro e exatamente o que uma janela marca. Antes estes caiam em `T-06` (&ldquo;nada na fonte pede tempo&rdquo;) enquanto uma prorrogacao de rotina recebia `PLAN_NEXT_CYCLE`: a unica revoga real do corpus era o item de menor urgencia da tela. `ACT_NOW` aqui significa **olhe hoje**; `EXPIRY != WITHDRAWAL` continua valendo e nenhuma `ACTION` nasce desta regra |
 
 `ACT_NOW` aqui significa **"olhe hoje"**, nunca "pare de vender".
 

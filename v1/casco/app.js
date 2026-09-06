@@ -6,6 +6,13 @@ const $$ = s => [...document.querySelectorAll(s)];
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c =>
   ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+// O payload tem de existir antes de qualquer constante derivada dele. Estava
+// declarado 130 linhas abaixo das constantes de relogio que o leem: no
+// navegador isso e "Cannot access 'P' before initialization" e a ferramenta
+// inteira abria em branco. O teste de render nao pegou porque injetava P por
+// fora; agora ele carrega window.__PAYLOAD__ como o navegador carrega.
+const P = window.__PAYLOAD__;
+
 // Tokens que significam AUSENCIA DE CONHECIMENTO. Nunca vira "-", "0" ou "N/A".
 const UNK = ['NOT_KNOWN','NOT_PROVED','NOT_PRESERVED','NOT_PRESENT','UNKNOWN',
              'NOT_APPLICABLE','NOT_ATTEMPTED','NOT_EMITTED_BY_THIS_TOOL','NOT_CHECKED'];
@@ -14,10 +21,60 @@ const isUnk = v => UNK.includes(String(v));
 const val = v => isUnk(v) ? `<span class="unknown" title="a fonte nao sustenta este campo">${esc(v)}</span>`
                           : esc(v);
 
+// ---------------------------------------------------------------- RELOGIO
+// Este arquivo e distribuido sozinho. Todo numero de dias vinha congelado do
+// momento do build: aberto no ano que vem a pagina continuaria afirmando
+// "vence em 6 dias" e "hoje 2026-09-06" no presente. Numero de dia agora e
+// recalculado contra o relogio de quem abre, e a pagina diz as TRES datas que
+// nao sao a mesma: a do dado, a do build, e a de hoje.
+const iso = d => d.toISOString().slice(0,10);
+const HOJE = (() => { try { return iso(new Date()); } catch (e) { return null; } })();
+const DIA = 86400000;
+function dias(ate) {                     // dias de HOJE ate a data ISO 'ate'
+  if (!HOJE || !/^\d{4}-\d{2}-\d{2}$/.test(String(ate))) return null;
+  return Math.round((Date.parse(ate) - Date.parse(HOJE)) / DIA);
+}
+const dISO = s => /^\d{8}$/.test(String(s)) ? `${String(s).slice(0,4)}-${String(s).slice(4,6)}-${String(s).slice(6,8)}` : String(s);
+// dte do produto, recalculado. Cai para o valor do build so se nao houver relogio.
+function dte(p) {
+  const d = dias(p.expiry);
+  return d === null ? (typeof p.dte === 'number' ? p.dte : null) : d;
+}
+const DATA_DATE = dISO(P.DATA_DATE);
+const ULTIMA_MUDANCA = dISO(P.NEWEST_CHANGE_AT);
+const IDADE = dias(DATA_DATE);           // negativo = o dado tem essa idade
+
+// S1 · REGRAS.md secao 5 obriga uma glosa em cima de ACT_NOW, dizendo que ele
+// significa "olhe hoje" e nunca uma ordem comercial. Ela nao aparecia em
+// nenhuma das nove telas: a unica frase imperativa em ingles do produto
+// viajava sem o seu proprio contrato. O texto literal esta em GLOSA_JANELA
+// logo abaixo, e o portao EXPIRY_AS_WITHDRAWAL recorta exatamente esse texto
+// e mais nada.
+const GLOSA_JANELA = `<div class="lei"><b><code>ACT_NOW</code> aqui significa
+  &ldquo;olhe hoje&rdquo;, nunca &ldquo;pare de vender&rdquo;.</b> A janela e sobre
+  <b>quando olhar</b>, nunca sobre o que fazer com o produto no mercado. Nenhuma janela desta
+  ferramenta autoriza decisao comercial: <code>EXPIRY != WITHDRAWAL</code>, e
+  <code>ACTION</code> nao e emitida por esta ferramenta em nenhuma hipotese.</div>`;
 const WIN = {ACT_NOW:['act','p-act','ACT NOW'], PREPARE:['prep','p-warn','PREPARE'],
              MONITOR:['mon','p-ok','MONITOR'], PLAN_NEXT_CYCLE:['mon','p-dim','PLAN NEXT CYCLE'],
              NO_ACTION_YET:['','p-dim','NO ACTION YET'], UNKNOWN:['unk','p-unk','UNKNOWN']};
 const PROOF = {PROVED:'p-ok', NOT_PROVED:'p-unk', NEEDS_REVIEW:'p-rev'};
+// Aviso de idade, repetido em toda tela que imprime contagem de dias.
+function avisoRelogio() {
+  if (!HOJE) return `<div class="lei"><b>Sem relogio.</b> Este navegador nao devolveu a data de
+    hoje: as contagens de dias abaixo sao as do momento do build
+    (<code>${esc(P.BUILT_AT)}</code>) e <b>nao</b> foram atualizadas.</div>`;
+  const idade = IDADE === null ? null : -IDADE;
+  return `<div class="lei"><b>Tres datas, e elas nao sao a mesma.</b>
+    Dado: instantaneo oficial <code>${esc(P.DATA_SNAPSHOT_ID)}</code> de <b>${esc(DATA_DATE)}</b>
+    &middot; mudanca provada mais recente dentro dele: <b>${esc(ULTIMA_MUDANCA)}</b>
+    &middot; ferramenta montada em <code>${esc(P.BUILT_AT)}</code>
+    &middot; hoje, neste navegador: <b>${esc(HOJE)}</b>.
+    ${idade !== null && idade > 0 ? `O dado tem <b>${idade} dia(s)</b>. ` : ''}
+    As contagens de dias desta tela sao recalculadas contra hoje; <b>o conteudo nao</b> —
+    nada foi coletado depois de ${esc(DATA_DATE)}. <span class="unknown">O que mudou desde
+    ${esc(DATA_DATE)} nao e NOT_KNOWN por opiniao: nao foi coletado.</span></div>`;
+}
 const CAPS = {REGULATORY:'Regulatory', DEVELOPMENT_MARKET:'Desenv. de Mercado',
               COMMERCIAL_RTV:'Comercial / RTV', MARKETING_PRODUCT:'Marketing / Produto',
               SUPPLY:'Supply', INTELLIGENCE:'Inteligencia',
@@ -74,14 +131,14 @@ function juntaDose(p, u) {
 // como vencido-e-ainda-ativo. Mesma data, tres leituras diferentes.
 function validade(p) {
   if (isUnk(p.expiry)) return val(p.expiry);
-  if (typeof p.dte === 'number' && p.dte < 0)
+  const D = dte(p);
+  if (typeof D === 'number' && D < 0)
     return `<span style="color:var(--bad)">${esc(p.expiry)}</span>
             <span class="pill p-bad" title="a validade passou e o registro ainda lista o produto como ativo. Vencer nao e ser revogado.">VENCIDA</span>`;
-  if (typeof p.dte === 'number' && p.dte <= 90)
-    return `${esc(p.expiry)} <span class="pill p-warn">${p.dte}d</span>`;
+  if (typeof D === 'number' && D <= 90)
+    return `${esc(p.expiry)} <span class="pill p-warn">${D}d</span>`;
   return esc(p.expiry);
 }
-const P = window.__PAYLOAD__;
 const byReg = Object.fromEntries(P.products.map(p => [p.reg, p]));
 
 // ---------------------------------------------------------------- evidencia
@@ -235,8 +292,22 @@ function cardObj(o) {
   </div>`;
 }
 
+// S13 · a tela respondia "36 mudancas" a qualquer pergunta, porque a janela
+// dela era os 14 meses inteiros. Quem pergunta "o que mudou nos ultimos 30
+// dias?" merece a resposta honesta, que aqui e ZERO — a mudanca provada mais
+// recente e de 20260720. Zero e uma resposta; 36 nao era.
+let JANELA_DIAS = 0;                       // 0 = janela inteira observada
+function setJanela(d) { JANELA_DIAS = Number(d) || 0; viewToday(); }
+window.setJanela = setJanela;
+function dentroDaJanela(o) {
+  if (!JANELA_DIAS) return true;
+  const d = dias(dISO(o.DETECTED_AT));
+  return d !== null && -d <= JANELA_DIAS;
+}
+
 function viewToday() {
-  const provados = P.objects.filter(o => o.PROOF_STATE === 'PROVED');
+  const todosProvados = P.objects.filter(o => o.PROOF_STATE === 'PROVED');
+  const provados = todosProvados.filter(dentroDaJanela);
   const rev = P.objects.filter(o => o.OBJECT_TYPE === 'NEEDS_HUMAN_REVIEW');
   const dq = P.objects.filter(o => o.OBJECT_TYPE === 'DATA_QUALITY_EVENT');
   const exp = provados.filter(o => o.OBJECT_TYPE === 'EXPIRY_EVENT');
@@ -247,17 +318,35 @@ function viewToday() {
     (ordem[a.TIME_WINDOW]??9) - (ordem[b.TIME_WINDOW]??9) ||
     String(b.DETECTED_AT).localeCompare(String(a.DETECTED_AT)));
   const condicoes = exp.slice().sort((a,b) => String(a.VALID_FROM).localeCompare(String(b.VALID_FROM)));
+  const OPC = [[30,'30 dias'],[90,'90 dias'],[365,'12 meses'],[0,'janela inteira observada']];
   $('#v-today').innerHTML = `
+  ${avisoRelogio()}
+  ${GLOSA_JANELA}
+  <div class="block" style="padding:9px 12px">
+    <b>Janela:</b>
+    ${OPC.map(([d,l]) => `<button class="ev" style="${JANELA_DIAS===d?'outline:2px solid var(--ok)':''}"
+       onclick="setJanela(${d})">${l}</button>`).join(' ')}
+    <div class="meta" style="margin-top:5px">${JANELA_DIAS
+      ? `contando para tras a partir de <b>hoje</b> (${esc(HOJE||P.BUILT_AT)}), nao a partir da data
+         do dado. ${mudancas.length===0 && condicoes.length===0
+           ? `<b>Nesta janela nao ha nada</b> — e isso e uma resposta, nao uma falha: a mudanca
+              provada mais recente do conjunto e de <b>${esc(ULTIMA_MUDANCA)}</b>, e nada foi
+              coletado depois de ${esc(DATA_DATE)}.` : ''}`
+      : `todos os ${todosProvados.length} objetos provados das ${P.versions.length} versoes
+         observadas (${esc(P.history.window)}).`}</div>
+  </div>
   <div class="cards">
-    <div class="kpi"><b>${provados.filter(o=>o.OBJECT_TYPE!=='EXPIRY_EVENT').length}</b><span>mudancas provadas na janela</span></div>
+    <div class="kpi"><b>${mudancas.length}</b><span>mudancas provadas ${JANELA_DIAS?`nos ultimos ${JANELA_DIAS} dias`:'na janela observada'}</span></div>
     <div class="kpi"><b style="color:var(--bad)">${exp.length}</b><span>validade vencida e ainda listado ativo</span></div>
     <div class="kpi"><b style="color:var(--rev)">${rev.length}</b><span>itens que a maquina recusou adivinhar</span></div>
     <div class="kpi"><b style="color:var(--unk)">${dq.length}</b><span>estados de leitura a resolver</span></div>
-    <div class="kpi"><b class="mono" style="font-size:15px">${esc(P.history.window)}</b><span>janela observada</span></div>
+    <div class="kpi"><b class="mono" style="font-size:15px">${esc(P.history.window)}</b><span>janela observada (coleta)</span></div>
   </div>
   <div class="lei"><b>${P.history.raw_field_diffs}</b> diferencas brutas entre os instantaneos oficiais.
     <b>${P.history.noise}</b> (${P.history.noise_pct}%) sao a fonte reordenando a propria lista e nao viram evento.
-    Restam <b>${P.history.true_changes}</b> mudancas reais. O que voce ve abaixo ja passou por esse filtro.</div>
+    Restam <b>${P.history.true_changes}</b> mudancas reais na janela inteira observada.
+    ${JANELA_DIAS?`Voce esta olhando um recorte de <b>${JANELA_DIAS} dias</b> dentro dela.`:''}
+    O que voce ve abaixo ja passou por esse filtro.</div>
   <h2>Mudou entre dois instantaneos oficiais (${mudancas.length})</h2>
   <div class="meta" style="margin-bottom:8px">Um campo do registro tinha um valor e passou a ter
     outro. Cada card mostra o antes, o depois, e os dois documentos que provam.</div>
@@ -274,7 +363,7 @@ function viewToday() {
     <tbody>${condicoes.map(o => {
       const p2 = byReg[o.REGISTRATION_ID] || {};
       return `<tr><td class="mono" style="color:var(--bad)">${esc(o.VALID_FROM)}</td>
-      <td>${typeof p2.dte === 'number' ? (-p2.dte)+'d' : val('NOT_KNOWN')}</td>
+      <td>${typeof dte(p2) === 'number' ? (-dte(p2))+'d' : val('NOT_KNOWN')}</td>
       <td>${esc(o.PRODUCT_NAME)}</td><td class="mono">${esc(o.REGISTRATION_ID)}</td>
       <td>${val(p2.status)}</td>
       <td><button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">evidencia</button></td></tr>`;
@@ -286,7 +375,8 @@ function viewProduto(reg) {
   const p = byReg[reg] || P.products[0];
   $('#psel').value = p.reg;
   const objs = P.objects.filter(o => o.REGISTRATION_ID === p.reg);
-  const venc = typeof p.dte === 'number' && p.dte < 0;
+  const D = dte(p);
+  const venc = typeof D === 'number' && D < 0;
   const porCultura = {};
   p.uses.forEach((u,i) => (porCultura[u.crop] = porCultura[u.crop]||[]).push({...u, i}));
   $('#pdet').innerHTML = `
@@ -308,7 +398,7 @@ function viewProduto(reg) {
       <tr><th>Estado administrativo</th><td>${val(p.status)}</td></tr>
       <tr><th>Registrado em</th><td>${val(p.registered_at)}</td></tr>
       <tr><th>Validade</th><td${venc?' style="color:var(--bad)"':''}>${val(p.expiry)}
-        ${venc?` &mdash; vencida ha ${-p.dte} dias e o registro ainda o lista como &ldquo;${esc(p.status)}&rdquo;.
+        ${venc?` &mdash; vencida ha ${-D} dias e o registro ainda o lista como &ldquo;${esc(p.status)}&rdquo;.
         <span class="meta">EXPIRY != WITHDRAWAL — a ferramenta nao conclui saida de mercado</span>`:''}</td></tr>
       ${p.revoke_effective!==undefined ? `
       <tr><th>Perigo declarado</th><td>${val(p.hazard)}</td></tr>
@@ -366,7 +456,7 @@ function viewProduto(reg) {
     ${p.doses.length ? `<div class="tw"><table>
       <thead><tr><th>Cultura</th><th>Alvo</th><th>Dose/ha</th><th>Max</th><th>Intervalo</th><th>Fios</th><th></th></tr></thead>
       <tbody>${p.doses.map((d,i) => `<tr>
-        <td>${esc(d.crop)}</td><td>${esc(d.target)}</td>
+        <td>${fragmento(d.crop)}</td><td>${fragmento(d.target)}</td>
         <td>${isUnk(d.dose_ha)?val(d.dose_ha):esc(d.dose_ha+' '+d.unit_ha)}</td>
         <td>${val(d.max_app)}</td><td>${val(d.interval)}</td>
         <td><span class="pill ${d.rule_check==='CONFIRMED_BY_RULE'?'p-ok':d.rule_check==='CONTRADICTED_BY_RULE'?'p-bad':'p-unk'}"
@@ -532,20 +622,22 @@ window.viewCrop = viewCrop;
 // ---------------------------------------------------------------- 5 · CALENDAR
 function viewCal() {
   const fx = [[30,'30 dias'],[90,'90 dias'],[180,'180 dias'],[365,'12 meses']];
-  const venc = P.products.filter(p => typeof p.dte === 'number' && p.dte < 0);
+  const venc = P.products.filter(p => typeof dte(p) === 'number' && dte(p) < 0);
   const bloco = (lo,hi,lbl) => {
-    const l = P.products.filter(p => typeof p.dte === 'number' && p.dte >= lo && p.dte <= hi)
-      .sort((a,b) => a.dte - b.dte);
+    const l = P.products.filter(p => typeof dte(p) === 'number' && dte(p) >= lo && dte(p) <= hi)
+      .sort((a,b) => dte(a) - dte(b));
     return `<div class="block"><h3>${lbl} <span class="meta">(${l.length})</span></h3>
     ${l.length ? `<div class="tw"><table>
       <thead><tr><th>Validade</th><th>Faltam</th><th>Produto</th><th>Registro</th><th>Estado</th><th>Usos lidos</th><th></th></tr></thead>
-      <tbody>${l.map(p=>`<tr><td class="mono">${esc(p.expiry)}</td><td>${p.dte}d</td>
+      <tbody>${l.map(p=>`<tr><td class="mono">${esc(p.expiry)}</td><td>${dte(p)}d</td>
         <td>${esc(p.name)}</td><td class="mono">${esc(p.reg)}</td><td class="meta">${esc(p.status)}</td>
         <td>${p.uses.length||'<span class="unknown">NOT_KNOWN</span>'}</td>
         <td><button class="ev" onclick="evProd('${p.reg}')">prova</button></td></tr>`).join('')}
       </tbody></table></div>` : '<div class="meta">nenhum produto nesta janela</div>'}</div>`;
   };
   $('#v-cal').innerHTML = `
+  ${avisoRelogio()}
+  ${GLOSA_JANELA}
   <div class="lei">Todas as datas abaixo vem do campo <code>data_scadenza_autorizzazione</code> do
     registro oficial. <b>A ferramenta nao cria prazo que nao esta na fonte</b> — nao ha deadline de
     revisao inventado aqui. E vencimento nao e revogacao.</div>
@@ -555,7 +647,7 @@ function viewCal() {
     <div class="tw" style="margin-top:8px"><table>
       <thead><tr><th>Validade</th><th>Ha</th><th>Produto</th><th>Registro</th><th>Estado declarado</th><th></th></tr></thead>
       <tbody>${venc.sort((a,b)=>a.expiry.localeCompare(b.expiry)).map(p=>`<tr>
-        <td class="mono" style="color:var(--bad)">${esc(p.expiry)}</td><td>${-p.dte}d</td>
+        <td class="mono" style="color:var(--bad)">${esc(p.expiry)}</td><td>${-dte(p)}d</td>
         <td>${esc(p.name)}</td><td class="mono">${esc(p.reg)}</td><td>${esc(p.status)}</td>
         <td><button class="ev" onclick="evProd('${p.reg}')">prova</button></td></tr>`).join('')}
       </tbody></table></div></div>
@@ -566,6 +658,13 @@ function viewCal() {
 }
 
 // ---------------------------------------------------------------- 6 · ACTION CENTER
+// S5 · o corte em 60 linhas era mudo: 150 objetos sumiam da tela cujo proposito
+// e ser a caixa de entrada de uma area. Continua havendo corte (a tela tem de
+// abrir), mas ele e dito, contado, e reversivel em um clique.
+let LIMITE = 60;
+function setLimite(n) { LIMITE = Number(n) || 60; viewAction(); }
+window.setLimite = setLimite;
+
 function viewAction() {
   const caps = Object.keys(CAPS);
   const blocos = caps.map(c => {
@@ -617,7 +716,7 @@ function viewAction() {
       <span class="meta">${lista.length} objeto(s) &middot; regra <code>${esc(rid)}</code> — ${por}</span>
       <div class="tw" style="margin-top:6px"><table>
         <thead><tr><th>Produto</th><th>Tipo</th><th>Antes &rarr; Depois</th><th>Janela</th><th>Prova</th><th></th></tr></thead>
-        <tbody>${lista.slice(0,60).map(({o}) => `<tr>
+        <tbody>${lista.slice(0, LIMITE).map(({o}) => `<tr>
           <td>${esc(o.PRODUCT_NAME||'NOT_KNOWN')}<div class="mono meta">${esc(o.REGISTRATION_ID)}</div></td>
           <td>${esc(o.CHANGE_TYPE)}</td>
           <td>${val(o.BEFORE_VALUE)} &rarr; ${val(o.AFTER_VALUE)}</td>
@@ -625,14 +724,40 @@ function viewAction() {
           <td><span class="pill ${PROOF[o.PROOF_STATE]||'p-dim'}">${esc(o.PROOF_STATE)}</span></td>
           <td><button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">evidencia</button></td>
         </tr>`).join('')}</tbody></table></div>
-      ${lista.length>60?`<div class="meta">mostrando 60 de ${lista.length}</div>`:''}</div>`; };
-    return `<div class="block"><h3>${CAPS[c]} <span class="meta">(${meus.length})</span></h3>${rtvNota}
+      ${lista.length>LIMITE?`<div class="meta"><b>mostrando ${LIMITE} de ${lista.length}</b> —
+        ${lista.length-LIMITE} objeto(s) deste grupo nao estao nesta tela.
+        <button class="ev" onclick="setLimite(${lista.length})">mostrar todos os ${lista.length}</button>
+        ${LIMITE>60?`<button class="ev" onclick="setLimite(60)">voltar a 60</button>`:''}</div>`:''}</div>`; };
+    // S6 · "(210)" queria dizer duas coisas opostas com o mesmo estilo: em
+    // Regulatory, 210 itens roteados para voce; em Marketing, 210 itens que
+    // NENHUMA regra soube rotear — uma fila vazia com cara de fila cheia.
+    // Agora o cabecalho separa o que chegou do que ninguem soube endereçar.
+    const roteados = meus.filter(x => x.r.ROUTING_STATE === 'RELEVANT' ||
+                                      x.r.ROUTING_STATE === 'POTENTIALLY_RELEVANT').length;
+    const semRegra = meus.filter(x => x.r.ROUTING_STATE === 'UNKNOWN').length;
+    const barrados = meus.filter(x => x.r.ROUTING_STATE === 'NOT_RELEVANT').length;
+    const cabecalho = `<h3>${CAPS[c]}
+      <span class="meta">&mdash; ${roteados ? `<b>${roteados}</b> roteado(s) por regra` : '<b>0</b> roteados'}
+      ${semRegra ? ` &middot; <span class="unknown">${semRegra} sem regra (UNKNOWN)</span>` : ''}
+      ${barrados ? ` &middot; ${barrados} barrado(s) por portao` : ''}</span></h3>
+      ${roteados === 0 && semRegra > 0 ? `<div class="lei" style="border-left-color:var(--unk)">
+        <b>Esta fila esta vazia, e o numero grande ao lado nao e a fila.</b> Nenhuma regra
+        roteia qualquer objeto desta versao para esta area: os ${semRegra} sao objetos que
+        chegaram ate aqui e sairam como <code>UNKNOWN</code>.
+        ${(c === 'MARKETING_PRODUCT' || c === 'DEVELOPMENT_MARKET') ? `Isto e estrutural, nao um
+        mes parado: as regras <code>C-03</code>, <code>C-04</code> e <code>C-06</code> consomem
+        <code>CROP_USE_ADDED/REMOVED</code>, <code>TARGET_USE_ADDED/REMOVED</code>,
+        <code>DOSE_CHANGE</code> e <code>RESTRICTION_CHANGE</code>, e <b>nenhum desses tipos tem
+        emissor nesta versao</b> — o motor de mudanca compara campos do registro oficial e ainda
+        nao compara duas leituras de rotulo. Enquanto isso nao existir, esta area recebe zero, e
+        a ferramenta prefere dizer isso a fingir uma caixa de entrada.` : ''}</div>` : ''}`;
+    return `<div class="block">${cabecalho}${rtvNota}
       ${Object.keys(porEstado).sort((a,b)=>{
           const o={RELEVANT:0,POTENTIALLY_RELEVANT:1,UNKNOWN:2,NEEDS_REVIEW:3,NOT_RELEVANT:4};
           return (o[JSON.parse(a)[0]]??9)-(o[JSON.parse(b)[0]]??9);
         }).map(k => linha(k, porEstado[k])).join('')}</div>`;
   });
-  $('#v-action').innerHTML = `
+  $('#v-action').innerHTML = GLOSA_JANELA + `
   <div class="lei">Roteamento diz <b>quem pode precisar olhar</b>, nunca <b>o que fazer</b>.
     Cada estado abaixo aponta a regra <code>C-*</code> que o autoriza, em
     <code>v1/inteligencia/REGRAS.md</code>. Tipo de evento sem regra sai <code>UNKNOWN</code>.
@@ -641,8 +766,44 @@ function viewAction() {
 }
 
 // ---------------------------------------------------------------- 7 · REVIEW QUEUE
+function tabRev(lista) {
+  return `<div class="tw"><table>
+    <thead><tr><th>Produto</th><th>Cultura lida</th><th>Alvo lido</th><th>Valor rebaixado</th>
+      <th>Regra que rebaixou</th><th>Onde</th><th></th></tr></thead>
+    <tbody>${lista.map(o => `<tr>
+      <td>${esc(o.PRODUCT_NAME)}<div class="mono meta">${esc(o.REGISTRATION_ID)}</div></td>
+      <td>${fragmento(o.AFFECTED_CROP)}</td><td>${fragmento(o.AFFECTED_TARGET)}</td>
+      <td style="color:var(--bad)">${val(o.BEFORE_VALUE)}</td>
+      <td class="meta">${val(o.DEMOTION_RULE)}</td>
+      <td class="meta">${val(o.EVIDENCE_LOCATION)}</td>
+      <td><button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">evidencia</button></td>
+    </tr>`).join('') || '<tr><td colspan=7 class="meta">nenhuma</td></tr>'}</tbody></table></div>`;
+}
+
+// S10 · fragmentos de parser publicados com cara de nome de cultura: FOLPAN GOLD
+// mostrava CULTURA "da vino" e ALVO "della vite (Plasmopara" — as metades finais
+// de "VITE da vino" e "Peronospora della vite (Plasmopara viticola)". Continuam
+// visiveis, porque apagar evidencia de leitura errada e pior; mas a tela agora
+// diz que aquilo e um fragmento, nao um nome.
+const FUNCIONAL = /^(da |della |dello |dei |delle |degli |di |del |al |alla |in |con |per |su |e |ed |o )/i;
+function fragmento(v) {
+  if (isUnk(v)) return val(v);
+  const t = String(v);
+  if (!FUNCIONAL.test(t) && !/\($/.test(t.trim()) && !/\([^)]*$/.test(t)) return esc(t);
+  return `<span class="unknown" title="o extrator cortou a celula: isto e um pedaco de texto, nao um nome de cultura ou alvo">FRAGMENTO_DE_LEITURA</span>
+    <div class="meta">o extrator guardou &ldquo;${esc(t)}&rdquo;, que comeca por palavra funcional
+    italiana ou tem parentese aberto sem fechar: e a metade de uma celula, nao um nome</div>`;
+}
+
 function viewReview() {
   const rev = P.objects.filter(o => o.OBJECT_TYPE === 'NEEDS_HUMAN_REVIEW');
+  // S9 · a tela chamava "contradicao de fio" um conjunto produzido por DOIS
+  // mecanismos com graus de evidencia diferentes: o fio desenhado e uma medida
+  // do documento; o filtro de plausibilidade e uma heuristica que nos
+  // escrevemos. Juntar os dois debaixo do nome do mais forte inflava a
+  // evidencia do mais fraco.
+  const porFio = rev.filter(o => o.DEMOTION_MECHANISM !== 'PLAUSIBILITY_FILTER');
+  const porPlaus = rev.filter(o => o.DEMOTION_MECHANISM === 'PLAUSIBILITY_FILTER');
   const dq = P.objects.filter(o => o.OBJECT_TYPE === 'DATA_QUALITY_EVENT');
   const semUso = P.products.filter(p => !p.uses.length);
   const semDose = P.products.filter(p => !p.doses.length);
@@ -651,26 +812,28 @@ function viewReview() {
     Nenhum item aqui e uma afirmacao sobre o produto — todos sao afirmacoes sobre o
     <b>nosso estado de leitura</b>. <code>PARSER_FAILURE != REGULATORY_ABSENCE</code></div>
   <div class="cards">
-    <div class="kpi"><b style="color:var(--rev)">${rev.length}</b><span>doses rebaixadas por contradicao de fio</span></div>
+    <div class="kpi"><b style="color:var(--rev)">${porFio.length}</b><span>doses rebaixadas por fio desenhado (medida)</span></div>
+    <div class="kpi"><b style="color:var(--rev)">${porPlaus.length}</b><span>doses rebaixadas por plausibilidade (heuristica nossa)</span></div>
     <div class="kpi"><b style="color:var(--unk)">${dq.length}</b><span>rotulos sem tabela de uso lida</span></div>
     <div class="kpi"><b style="color:var(--unk)">${semUso.length}</b><span>produtos sem par cultura x alvo</span></div>
     <div class="kpi"><b style="color:var(--unk)">${semDose.length}</b><span>produtos sem dose estruturada</span></div>
-    <div class="kpi"><b style="color:var(--unk)">${P.products.length}</b><span>produtos sem PHI (nao publicado)</span></div>
+    <div class="kpi"><b style="color:var(--unk)">${P.products.length}</b><span>fichas sem PHI (nao publicado)</span></div>
   </div>
 
-  <h2>Dose rebaixada: o fio da tabela contradiz o valor (${rev.length})</h2>
+  <h2>Dose rebaixada porque o fio desenhado da tabela contradiz o valor (${porFio.length})</h2>
   <div class="meta" style="margin-bottom:8px">O extrator leu um valor; os fios desenhados da tabela
-    mostram que ele pertence a outra linha. O valor foi <b>rebaixado, nao corrigido no palpite</b> —
-    trocar um erro por outro nao e conserto.</div>
-  <div class="tw"><table>
-    <thead><tr><th>Produto</th><th>Cultura</th><th>Alvo</th><th>Valor rebaixado</th><th>Onde</th><th></th></tr></thead>
-    <tbody>${rev.map(o => `<tr>
-      <td>${esc(o.PRODUCT_NAME)}<div class="mono meta">${esc(o.REGISTRATION_ID)}</div></td>
-      <td>${val(o.AFFECTED_CROP)}</td><td>${val(o.AFFECTED_TARGET)}</td>
-      <td style="color:var(--bad)">${val(o.BEFORE_VALUE)}</td>
-      <td class="meta">${val(o.EVIDENCE_LOCATION)}</td>
-      <td><button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">evidencia</button></td>
-    </tr>`).join('') || '<tr><td colspan=6 class="meta">nenhuma</td></tr>'}</tbody></table></div>
+    mostram que ele pertence a outra linha. Isto e uma <b>medida do documento</b>. O valor foi
+    <b>rebaixado, nao corrigido no palpite</b> — trocar um erro por outro nao e conserto.</div>
+  ${tabRev(porFio)}
+
+  <h2>Dose rebaixada por filtro de plausibilidade (${porPlaus.length})</h2>
+  <div class="lei" style="border-left-color:var(--unk)"><b>Grau de evidencia diferente do bloco de
+    cima.</b> Aqui nenhum fio contradisse nada: uma <b>heuristica nossa</b> (regras
+    <code>P-01</code> a <code>P-05</code>) julgou que a linha nao parece uma linha de dose — por
+    exemplo, uma celula que comeca por palavra funcional italiana, sinal de que o extrator cortou
+    a celula no meio. A heuristica pode estar errada nos dois sentidos, e por isso o item vem
+    para revisao humana em vez de ser apagado.</div>
+  ${tabRev(porPlaus)}
 
   <h2>Rotulos cuja tabela de uso nao foi lida (${dq.length})</h2>
   <div class="lei">A maioria dos herbicidas italianos declara dose em <b>prosa</b>
@@ -700,6 +863,15 @@ function viewCov() {
   <div class="lei"><b>Nao existe um numero unico de cobertura nesta ferramenta.</b>
     Cada linha abaixo conta uma coisa diferente e <b>nenhuma implica a seguinte</b>:
     ter o PDF nao e ter lido, ter lido nao e ter estruturado o uso, e ter o uso nao e ter a dose.</div>
+  <div class="lei" style="border-left-color:var(--unk)"><b>Dois denominadores, e eles nao sao o
+    mesmo universo.</b> A cobertura abaixo denomina por <b>${P.coverage.LABEL_DISCOVERY_COVERAGE.OF}</b>:
+    os produtos ADAMA <b>no conjunto ativo</b> do instantaneo vigente, que sao os que a coleta
+    percorreu. O seletor de PRODUTO 360 oferece <b>${P.products.length}</b> fichas, porque
+    ${P.products.filter(p=>p.out_of_active_set).length} registros aparecem em eventos do historico
+    <b>sem estar no conjunto ativo</b> (${P.products.filter(p=>p.out_of_active_set).map(p=>esc(p.reg)+' '+esc(p.name)).join(', ')}).
+    Eles tem ficha porque a linha oficial deles foi lida; <b>nao</b> entram na cobertura porque
+    nenhum rotulo foi coletado para eles. Somar os dois numeros seria contar universos
+    diferentes.</div>
   <div class="block"><h3>Cobertura por etapa</h3>
     <div class="tw"><table><tbody>${Object.entries(c).map(([k,o]) => barra(k,o)).join('')}</tbody></table></div>
     <div class="meta" style="margin-top:9px">${esc(P.coverage_note)}</div></div>
@@ -713,6 +885,31 @@ function viewCov() {
       <tr><td>Ruido de serializacao suprimido</td><td><b>${P.history.noise}</b> (${P.history.noise_pct}%)</td></tr>
       <tr><td>Eventos regulatorios</td><td><b style="color:var(--ok)">${P.history.true_changes}</b></td></tr>
     </tbody></table></div></div>
+  ${(() => { const r = P.reconciliation || {};
+    if (r.STATE === 'NOT_CHECKED' || r.TRUE_CHANGES_MEASURED === undefined)
+      return `<div class="block"><h3>Reconciliacao com a releitura crua da fonte</h3>
+        <div class="meta">${val('NOT_CHECKED')} — a recontagem independente nao rodou neste build</div></div>`;
+    // Os numeros desta ferramenta e os da recontagem independente apareciam em
+    // lugares diferentes sem que nada dissesse por que diferiam. Diferenca sem
+    // mecanismo e a mesma doenca de publicar cobertura como numero unico.
+    const lin = (k, m, pb, d, por) => `<tr><td>${k}</td><td><b>${m}</b></td><td><b>${pb}</b></td>
+      <td style="color:${d?'var(--warn)':'var(--ok)'}"><b>${d}</b></td><td class="meta">${por}</td></tr>`;
+    return `<div class="block"><h3>Reconciliacao com a releitura crua da fonte</h3>
+      <div class="meta" style="margin-bottom:8px"><code>v1/medir_baseline.py</code> le a fonte e
+        reexecuta os extratores sem a camada de inteligencia. Esta ferramenta publica o que sobra
+        <b>depois</b> dela. Os dois numeros nao tem de ser iguais &mdash; tem de ser
+        <b>explicados</b>.</div>
+      <div class="tw"><table>
+        <thead><tr><th>Grandeza</th><th>Releitura crua</th><th>Publicado</th><th>Delta</th>
+          <th>Mecanismo</th></tr></thead>
+        <tbody>
+        ${lin('mudancas reais', r.TRUE_CHANGES_MEASURED, r.TRUE_CHANGES_PUBLISHED,
+              r.TRUE_CHANGES_DELTA, esc(r.POR_QUE_O_DELTA_DE_MUDANCA||''))}
+        ${lin('linhas de dose distintas', r.DOSE_ROWS_MEASURED_DISTINCT, r.DOSE_ROWS_PUBLISHED_DISTINCT,
+              r.DOSE_ROWS_DELTA, esc(r.POR_QUE_O_DELTA_DE_DOSE||''))}
+        ${lin('rotulos com linha de dose', r.DOSE_LABELS_MEASURED, r.DOSE_LABELS_PUBLISHED,
+              r.DOSE_LABELS_DELTA, 'P-01: tabela que o extrator achou onde nao havia')}
+        </tbody></table></div></div>`; })()}
   <div class="block"><h3>O que esta versao declaradamente nao faz</h3>
     <ul class="meta" style="line-height:1.8">
       <li>nao emite <code>ACTION</code> — o parser nao produz acao;</li>
@@ -745,8 +942,8 @@ function viewSearch() {
     <tbody>${prods.slice(0,80).map(p=>`<tr>
       <td><a onclick="go('produto');viewProduto('${p.reg}')" style="cursor:pointer">${esc(p.name)}</a></td>
       <td class="mono">${esc(p.reg)}</td><td class="meta">${esc(p.holder)}</td>
-      <td class="meta">${val(p.actives)}</td><td>${val(p.expiry)}</td>
-      <td>${p.uses.length||'<span class="unknown">0 lidos</span>'}</td>
+      <td class="meta">${val(p.actives)}</td><td>${validade(p)}</td>
+      <td>${p.uses.length||val('NOT_KNOWN')}</td>
       <td>${p.doses.length||'<span class="unknown">NOT_KNOWN</span>'}</td>
       <td><button class="ev" onclick="evProd('${p.reg}')">prova</button></td></tr>`).join('')}
     </tbody></table></div>` : '<div class="meta">nenhum produto</div>'}
@@ -776,5 +973,13 @@ $('#psel').innerHTML = P.products.slice().sort((a,b)=>a.name.localeCompare(b.nam
 $('#psel').addEventListener('change', () => viewProduto($('#psel').value));
 ['cq','ct'].forEach(id => $('#'+id).addEventListener('input', viewCrop));
 $('#sq').addEventListener('input', viewSearch);
+
+// A tarja de datas do cabecalho, preenchida pelo relogio de quem abre.
+$('#relogio').innerHTML = HOJE
+  ? `dado: <b>${esc(DATA_DATE)}</b> (${esc(P.DATA_SNAPSHOT_ID)}) &middot; ultima mudanca provada:
+     <b>${esc(ULTIMA_MUDANCA)}</b> &middot; montado em ${esc(P.BUILT_AT)} &middot;
+     hoje: <b>${esc(HOJE)}</b>${IDADE !== null && -IDADE > 0 ? ` &middot; o dado tem ${-IDADE} dia(s)` : ''}`
+  : `dado: <b>${esc(DATA_DATE)}</b> &middot; montado em ${esc(P.BUILT_AT)} &middot;
+     <span class="unknown">SEM_RELOGIO</span> — este navegador nao devolveu a data de hoje`;
 
 go('today');

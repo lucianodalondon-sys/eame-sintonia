@@ -255,6 +255,15 @@ def main():
         "VERSION": "V1",
         "COUNTRY": "IT",
         "BUILT_AT": a.hoje,
+        # A DATA DO DADO NAO E A DATA DO BUILD. O cabecalho dizia "dados de
+        # 2026-09-06", que e o dia em que a ferramenta foi montada; o
+        # instantaneo oficial mais novo e de 2026-08-31, e a mudanca mais nova
+        # dentro dele e mais antiga ainda. Tres datas diferentes, uma so
+        # impressa: era a errada.
+        "DATA_DATE": versoes[-1]["date"] if versoes else "NOT_KNOWN",
+        "DATA_SNAPSHOT_ID": pkg["REGISTRY_SNAPSHOT_ID"],
+        "NEWEST_CHANGE_AT": max((o.get("DETECTED_AT") or "" for o in objetos
+                                 if o.get("PROOF_STATE") == "PROVED"), default="") or "NOT_KNOWN",
         "RUN": pkg["COLLECTION_RUN_ID"],
         "RULESET_VERSION": io_["RULESET_VERSION"],
         "SOURCE_AUTHORITY": pkg["SOURCE_AUTHORITY"],
@@ -286,6 +295,10 @@ def main():
             "marker_dropped": exc["MARCADOR_DESCARTADO"],
             "list": exc["RETIRADOS"],
         },
+        "reconciliation": (json.load(open("v1/BASELINE-RAW.json", encoding="utf-8"))
+                           .get("RECONCILIATION_WITH_PUBLISHED")
+                           if os.path.exists("v1/BASELINE-RAW.json") else
+                           {"STATE": "NOT_CHECKED"}),
         "by_type": io_["BY_TYPE"],
         "by_proof": io_["BY_PROOF_STATE"],
         "by_window": io_["BY_TIME_WINDOW"],

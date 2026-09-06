@@ -19,9 +19,9 @@
   "NOT_PROVED": 159
  },
  "BY_TIME_WINDOW": {
-  "PLAN_NEXT_CYCLE": 31,
-  "NO_ACTION_YET": 5,
-  "ACT_NOW": 15,
+  "PLAN_NEXT_CYCLE": 30,
+  "NO_ACTION_YET": 1,
+  "ACT_NOW": 20,
   "UNKNOWN": 159
  },
  "OBJECTS_LIST": [
@@ -1418,8 +1418,8 @@
    "BUSINESS_IMPLICATION_NOTE": "portao G-03 fechado: nao existe regra B-* nesta versao. Implicacao de negocio nao e derivada automaticamente",
    "RECOMMENDED_REVIEW": "conferir na ficha oficial do registro",
    "ACTION": "NOT_EMITTED_BY_THIS_TOOL",
-   "TIME_WINDOW": "NO_ACTION_YET",
-   "TIME_WINDOW_RULE": "T-06",
+   "TIME_WINDOW": "ACT_NOW",
+   "TIME_WINDOW_RULE": "T-08",
    "CAPABILITY_ROUTING": [
     {
      "CAPABILITY_ID": "REGULATORY",
@@ -1503,8 +1503,8 @@
    "BUSINESS_IMPLICATION_NOTE": "portao G-03 fechado: nao existe regra B-* nesta versao. Implicacao de negocio nao e derivada automaticamente",
    "RECOMMENDED_REVIEW": "conferir na ficha oficial do registro",
    "ACTION": "NOT_EMITTED_BY_THIS_TOOL",
-   "TIME_WINDOW": "NO_ACTION_YET",
-   "TIME_WINDOW_RULE": "T-06",
+   "TIME_WINDOW": "ACT_NOW",
+   "TIME_WINDOW_RULE": "T-08",
    "CAPABILITY_ROUTING": [
     {
      "CAPABILITY_ID": "REGULATORY",
@@ -2268,8 +2268,8 @@
    "BUSINESS_IMPLICATION_NOTE": "portao G-03 fechado: nao existe regra B-* nesta versao. Implicacao de negocio nao e derivada automaticamente",
    "RECOMMENDED_REVIEW": "conferir na ficha oficial do registro",
    "ACTION": "NOT_EMITTED_BY_THIS_TOOL",
-   "TIME_WINDOW": "NO_ACTION_YET",
-   "TIME_WINDOW_RULE": "T-06",
+   "TIME_WINDOW": "ACT_NOW",
+   "TIME_WINDOW_RULE": "T-08",
    "CAPABILITY_ROUTING": [
     {
      "CAPABILITY_ID": "REGULATORY",
@@ -2353,8 +2353,8 @@
    "BUSINESS_IMPLICATION_NOTE": "portao G-03 fechado: nao existe regra B-* nesta versao. Implicacao de negocio nao e derivada automaticamente",
    "RECOMMENDED_REVIEW": "conferir na ficha oficial do registro",
    "ACTION": "NOT_EMITTED_BY_THIS_TOOL",
-   "TIME_WINDOW": "NO_ACTION_YET",
-   "TIME_WINDOW_RULE": "T-06",
+   "TIME_WINDOW": "ACT_NOW",
+   "TIME_WINDOW_RULE": "T-08",
    "CAPABILITY_ROUTING": [
     {
      "CAPABILITY_ID": "REGULATORY",
@@ -3033,8 +3033,8 @@
    "BUSINESS_IMPLICATION_NOTE": "portao G-03 fechado: nao existe regra B-* nesta versao. Implicacao de negocio nao e derivada automaticamente",
    "RECOMMENDED_REVIEW": "conferir na ficha oficial do registro",
    "ACTION": "NOT_EMITTED_BY_THIS_TOOL",
-   "TIME_WINDOW": "PLAN_NEXT_CYCLE",
-   "TIME_WINDOW_RULE": "T-04",
+   "TIME_WINDOW": "ACT_NOW",
+   "TIME_WINDOW_RULE": "T-08",
    "CAPABILITY_ROUTING": [
     {
      "CAPABILITY_ID": "REGULATORY",
@@ -4869,13 +4869,13 @@
    "RAW_AFTER": "NOT_PRESERVED",
    "CHANGE_TYPE": "NEEDS_HUMAN_REVIEW",
    "PROOF_STATE": "NOT_PROVED",
-   "CONFIDENCE_STATE": "RULE_CONTRADICTION",
+   "CONFIDENCE_STATE": "PLAUSIBILITY_HEURISTIC",
    "SOURCE_DOCUMENT_BEFORE": "NOT_APPLICABLE",
    "SOURCE_DOCUMENT_AFTER": "sha256=404e95b4f8dd5769d3f4e9f3da9efbdec39297e5d78cf6b6e449bfb0776747fc",
    "EVIDENCE_LOCATION": "pagina 1, https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
    "PARSER_VERSION": "v1/dose_extrair + dose_validar",
    "RULESET_VERSION": "v1/inteligencia/REGRAS.md@3",
-   "FACT": "a dose lida para Mais, Mais Dolce, Sorgo x Hylemya sp., Scutigerella immaculata, Tipula sp. foi rebaixada: um fio desenhado da tabela separa a linha do valor. Este leitor NAO preservou qual valor recusou (NOT_PRESERVED): sabe-se que houve recusa, nao o que foi recusado.",
+   "FACT": "a dose lida para Mais, Mais Dolce, Sorgo x Hylemya sp., Scutigerella immaculata, Tipula sp. foi rebaixada por FILTRO DE PLAUSIBILIDADE (P-03 linha sem dose, maximo ou intervalo num rotulo que tem outras com valor. Rebaixada por implausibilidade, nao por contradicao de fio) — uma heuristica nossa, nao uma medida do documento. Este leitor NAO preservou qual valor recusou (NOT_PRESERVED): sabe-se que houve recusa, nao o que foi recusado.",
    "DERIVED_REGULATORY_MEANING": "NOT_PROVED",
    "DERIVED_BY_RULE": "NOT_PROVED",
    "POTENTIAL_BUSINESS_IMPLICATION": "NOT_PROVED",
@@ -4931,6 +4931,8 @@
    "AFFECTED_CROP": "Mais, Mais Dolce, Sorgo",
    "AFFECTED_TARGET": "Hylemya sp., Scutigerella immaculata, Tipula sp.",
    "AFFECTED_USE": "Mais, Mais Dolce, Sorgo x Hylemya sp., Scutigerella immaculata, Tipula sp.",
+   "DEMOTION_MECHANISM": "PLAUSIBILITY_FILTER",
+   "DEMOTION_RULE": "P-03 linha sem dose, maximo ou intervalo num rotulo que tem outras com valor. Rebaixada por implausibilidade, nao por contradicao de fio",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876"
   },
   {
@@ -4953,13 +4955,13 @@
    "RAW_AFTER": "NOT_PRESERVED",
    "CHANGE_TYPE": "NEEDS_HUMAN_REVIEW",
    "PROOF_STATE": "NOT_PROVED",
-   "CONFIDENCE_STATE": "RULE_CONTRADICTION",
+   "CONFIDENCE_STATE": "PLAUSIBILITY_HEURISTIC",
    "SOURCE_DOCUMENT_BEFORE": "NOT_APPLICABLE",
    "SOURCE_DOCUMENT_AFTER": "sha256=404e95b4f8dd5769d3f4e9f3da9efbdec39297e5d78cf6b6e449bfb0776747fc",
    "EVIDENCE_LOCATION": "pagina 1, https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
    "PARSER_VERSION": "v1/dose_extrair + dose_validar",
    "RULESET_VERSION": "v1/inteligencia/REGRAS.md@3",
-   "FACT": "a dose lida para Cavolo cappuccio, Cavolfiore, Cavolo broccolo x radicum foi rebaixada: um fio desenhado da tabela separa a linha do valor. Este leitor NAO preservou qual valor recusou (NOT_PRESERVED): sabe-se que houve recusa, nao o que foi recusado.",
+   "FACT": "a dose lida para Cavolo cappuccio, Cavolfiore, Cavolo broccolo x radicum foi rebaixada por FILTRO DE PLAUSIBILIDADE (P-03 linha sem dose, maximo ou intervalo num rotulo que tem outras com valor. Rebaixada por implausibilidade, nao por contradicao de fio) — uma heuristica nossa, nao uma medida do documento. Este leitor NAO preservou qual valor recusou (NOT_PRESERVED): sabe-se que houve recusa, nao o que foi recusado.",
    "DERIVED_REGULATORY_MEANING": "NOT_PROVED",
    "DERIVED_BY_RULE": "NOT_PROVED",
    "POTENTIAL_BUSINESS_IMPLICATION": "NOT_PROVED",
@@ -5015,6 +5017,8 @@
    "AFFECTED_CROP": "Cavolo cappuccio, Cavolfiore, Cavolo broccolo",
    "AFFECTED_TARGET": "radicum",
    "AFFECTED_USE": "Cavolo cappuccio, Cavolfiore, Cavolo broccolo x radicum",
+   "DEMOTION_MECHANISM": "PLAUSIBILITY_FILTER",
+   "DEMOTION_RULE": "P-03 linha sem dose, maximo ou intervalo num rotulo que tem outras com valor. Rebaixada por implausibilidade, nao por contradicao de fio",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876"
   },
   {
@@ -5099,6 +5103,8 @@
    "AFFECTED_CROP": "Cavolo cappuccio",
    "AFFECTED_TARGET": "Cimici",
    "AFFECTED_USE": "Cavolo cappuccio x Cimici",
+   "DEMOTION_MECHANISM": "DRAWN_TABLE_RULE",
+   "DEMOTION_RULE": "um fio desenhado da tabela separa esta linha do valor que ela recebera; o valor foi rebaixado, nao substituido",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43586"
   },
   {
@@ -5183,6 +5189,8 @@
    "AFFECTED_CROP": "Cavolo cappuccio",
    "AFFECTED_TARGET": "Nottue defogliatrici (allo scoperto)",
    "AFFECTED_USE": "Cavolo cappuccio x Nottue defogliatrici (allo scoperto)",
+   "DEMOTION_MECHANISM": "DRAWN_TABLE_RULE",
+   "DEMOTION_RULE": "um fio desenhado da tabela separa esta linha do valor que ela recebera; o valor foi rebaixado, nao substituido",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43586"
   },
   {
@@ -5267,6 +5275,8 @@
    "AFFECTED_CROP": "Porro",
    "AFFECTED_TARGET": "Nottue defogliatrici (allo scoperto)",
    "AFFECTED_USE": "Porro x Nottue defogliatrici (allo scoperto)",
+   "DEMOTION_MECHANISM": "DRAWN_TABLE_RULE",
+   "DEMOTION_RULE": "um fio desenhado da tabela separa esta linha do valor que ela recebera; o valor foi rebaixado, nao substituido",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43586"
   },
   {
@@ -5351,6 +5361,8 @@
    "AFFECTED_CROP": "Porro",
    "AFFECTED_TARGET": "Dorifora, cavolaia, tripidi, piralidi",
    "AFFECTED_USE": "Porro x Dorifora, cavolaia, tripidi, piralidi",
+   "DEMOTION_MECHANISM": "DRAWN_TABLE_RULE",
+   "DEMOTION_RULE": "um fio desenhado da tabela separa esta linha do valor que ela recebera; o valor foi rebaixado, nao substituido",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43586"
   },
   {
@@ -5435,6 +5447,8 @@
    "AFFECTED_CROP": "Porro",
    "AFFECTED_TARGET": "Nottue defogliatrici (allo scoperto)",
    "AFFECTED_USE": "Porro x Nottue defogliatrici (allo scoperto)",
+   "DEMOTION_MECHANISM": "DRAWN_TABLE_RULE",
+   "DEMOTION_RULE": "um fio desenhado da tabela separa esta linha do valor que ela recebera; o valor foi rebaixado, nao substituido",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43586"
   },
   {
@@ -7557,13 +7571,13 @@
    "RAW_AFTER": "NOT_PRESERVED",
    "CHANGE_TYPE": "NEEDS_HUMAN_REVIEW",
    "PROOF_STATE": "NOT_PROVED",
-   "CONFIDENCE_STATE": "RULE_CONTRADICTION",
+   "CONFIDENCE_STATE": "PLAUSIBILITY_HEURISTIC",
    "SOURCE_DOCUMENT_BEFORE": "NOT_APPLICABLE",
    "SOURCE_DOCUMENT_AFTER": "sha256=e9a84070b37d45e5fba0c2fb3a55ac2f2261ee6c1c45810a86ff21cbc6905a9c",
    "EVIDENCE_LOCATION": "pagina 1, https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46374",
    "PARSER_VERSION": "v1/dose_extrair + dose_validar",
    "RULESET_VERSION": "v1/inteligencia/REGRAS.md@3",
-   "FACT": "a dose lida para da vino x della vite (Plasmopara foi rebaixada: um fio desenhado da tabela separa a linha do valor. Este leitor NAO preservou qual valor recusou (NOT_PRESERVED): sabe-se que houve recusa, nao o que foi recusado.",
+   "FACT": "a dose lida para da vino x della vite (Plasmopara foi rebaixada por FILTRO DE PLAUSIBILIDADE (P-05 crop comeca por palavra funcional ('da vino'): a celula foi cortada. Rebaixada por implausibilidade, nao por contradicao de fio) — uma heuristica nossa, nao uma medida do documento. Este leitor NAO preservou qual valor recusou (NOT_PRESERVED): sabe-se que houve recusa, nao o que foi recusado.",
    "DERIVED_REGULATORY_MEANING": "NOT_PROVED",
    "DERIVED_BY_RULE": "NOT_PROVED",
    "POTENTIAL_BUSINESS_IMPLICATION": "NOT_PROVED",
@@ -7619,6 +7633,8 @@
    "AFFECTED_CROP": "da vino",
    "AFFECTED_TARGET": "della vite (Plasmopara",
    "AFFECTED_USE": "da vino x della vite (Plasmopara",
+   "DEMOTION_MECHANISM": "PLAUSIBILITY_FILTER",
+   "DEMOTION_RULE": "P-05 crop comeca por palavra funcional ('da vino'): a celula foi cortada. Rebaixada por implausibilidade, nao por contradicao de fio",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46374"
   },
   {
@@ -8207,6 +8223,8 @@
    "AFFECTED_CROP": "Porro",
    "AFFECTED_TARGET": "Nottue defogliatrici (allo scoperto)",
    "AFFECTED_USE": "Porro x Nottue defogliatrici (allo scoperto)",
+   "DEMOTION_MECHANISM": "DRAWN_TABLE_RULE",
+   "DEMOTION_RULE": "um fio desenhado da tabela separa esta linha do valor que ela recebera; o valor foi rebaixado, nao substituido",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43588"
   },
   {
@@ -8291,6 +8309,8 @@
    "AFFECTED_CROP": "Porro",
    "AFFECTED_TARGET": "Nottue defogliatrici (allo scoperto)",
    "AFFECTED_USE": "Porro x Nottue defogliatrici (allo scoperto)",
+   "DEMOTION_MECHANISM": "DRAWN_TABLE_RULE",
+   "DEMOTION_RULE": "um fio desenhado da tabela separa esta linha do valor que ela recebera; o valor foi rebaixado, nao substituido",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43588"
   },
   {
@@ -8459,6 +8479,8 @@
    "AFFECTED_CROP": "Porro",
    "AFFECTED_TARGET": "Nottue defogliatrici (allo scoperto)",
    "AFFECTED_USE": "Porro x Nottue defogliatrici (allo scoperto)",
+   "DEMOTION_MECHANISM": "DRAWN_TABLE_RULE",
+   "DEMOTION_RULE": "um fio desenhado da tabela separa esta linha do valor que ela recebera; o valor foi rebaixado, nao substituido",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43587"
   },
   {
@@ -8543,6 +8565,8 @@
    "AFFECTED_CROP": "Porro",
    "AFFECTED_TARGET": "Nottue defogliatrici (allo scoperto)",
    "AFFECTED_USE": "Porro x Nottue defogliatrici (allo scoperto)",
+   "DEMOTION_MECHANISM": "DRAWN_TABLE_RULE",
+   "DEMOTION_RULE": "um fio desenhado da tabela separa esta linha do valor que ela recebera; o valor foi rebaixado, nao substituido",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43587"
   },
   {
@@ -9657,13 +9681,13 @@
    "RAW_AFTER": "NOT_PRESERVED",
    "CHANGE_TYPE": "NEEDS_HUMAN_REVIEW",
    "PROOF_STATE": "NOT_PROVED",
-   "CONFIDENCE_STATE": "RULE_CONTRADICTION",
+   "CONFIDENCE_STATE": "PLAUSIBILITY_HEURISTIC",
    "SOURCE_DOCUMENT_BEFORE": "NOT_APPLICABLE",
    "SOURCE_DOCUMENT_AFTER": "sha256=f9b5d2c72151e83a0b01b4063bfe3306e59a9432f914403a1494a8859ca670a4",
    "EVIDENCE_LOCATION": "pagina 1, https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
    "PARSER_VERSION": "v1/dose_extrair + dose_validar",
    "RULESET_VERSION": "v1/inteligencia/REGRAS.md@3",
-   "FACT": "a dose lida para Mais, Mais Dolce, Sorgo x Hylemya sp., Scutigerella immaculata, Tipula sp. foi rebaixada: um fio desenhado da tabela separa a linha do valor. Este leitor NAO preservou qual valor recusou (NOT_PRESERVED): sabe-se que houve recusa, nao o que foi recusado.",
+   "FACT": "a dose lida para Mais, Mais Dolce, Sorgo x Hylemya sp., Scutigerella immaculata, Tipula sp. foi rebaixada por FILTRO DE PLAUSIBILIDADE (P-03 linha sem dose, maximo ou intervalo num rotulo que tem outras com valor. Rebaixada por implausibilidade, nao por contradicao de fio) — uma heuristica nossa, nao uma medida do documento. Este leitor NAO preservou qual valor recusou (NOT_PRESERVED): sabe-se que houve recusa, nao o que foi recusado.",
    "DERIVED_REGULATORY_MEANING": "NOT_PROVED",
    "DERIVED_BY_RULE": "NOT_PROVED",
    "POTENTIAL_BUSINESS_IMPLICATION": "NOT_PROVED",
@@ -9719,6 +9743,8 @@
    "AFFECTED_CROP": "Mais, Mais Dolce, Sorgo",
    "AFFECTED_TARGET": "Hylemya sp., Scutigerella immaculata, Tipula sp.",
    "AFFECTED_USE": "Mais, Mais Dolce, Sorgo x Hylemya sp., Scutigerella immaculata, Tipula sp.",
+   "DEMOTION_MECHANISM": "PLAUSIBILITY_FILTER",
+   "DEMOTION_RULE": "P-03 linha sem dose, maximo ou intervalo num rotulo que tem outras com valor. Rebaixada por implausibilidade, nao por contradicao de fio",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877"
   },
   {
@@ -9741,13 +9767,13 @@
    "RAW_AFTER": "NOT_PRESERVED",
    "CHANGE_TYPE": "NEEDS_HUMAN_REVIEW",
    "PROOF_STATE": "NOT_PROVED",
-   "CONFIDENCE_STATE": "RULE_CONTRADICTION",
+   "CONFIDENCE_STATE": "PLAUSIBILITY_HEURISTIC",
    "SOURCE_DOCUMENT_BEFORE": "NOT_APPLICABLE",
    "SOURCE_DOCUMENT_AFTER": "sha256=f9b5d2c72151e83a0b01b4063bfe3306e59a9432f914403a1494a8859ca670a4",
    "EVIDENCE_LOCATION": "pagina 1, https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
    "PARSER_VERSION": "v1/dose_extrair + dose_validar",
    "RULESET_VERSION": "v1/inteligencia/REGRAS.md@3",
-   "FACT": "a dose lida para Cavolo cappuccio, Cavolfiore, Cavolo broccolo x radicum foi rebaixada: um fio desenhado da tabela separa a linha do valor. Este leitor NAO preservou qual valor recusou (NOT_PRESERVED): sabe-se que houve recusa, nao o que foi recusado.",
+   "FACT": "a dose lida para Cavolo cappuccio, Cavolfiore, Cavolo broccolo x radicum foi rebaixada por FILTRO DE PLAUSIBILIDADE (P-03 linha sem dose, maximo ou intervalo num rotulo que tem outras com valor. Rebaixada por implausibilidade, nao por contradicao de fio) — uma heuristica nossa, nao uma medida do documento. Este leitor NAO preservou qual valor recusou (NOT_PRESERVED): sabe-se que houve recusa, nao o que foi recusado.",
    "DERIVED_REGULATORY_MEANING": "NOT_PROVED",
    "DERIVED_BY_RULE": "NOT_PROVED",
    "POTENTIAL_BUSINESS_IMPLICATION": "NOT_PROVED",
@@ -9803,6 +9829,8 @@
    "AFFECTED_CROP": "Cavolo cappuccio, Cavolfiore, Cavolo broccolo",
    "AFFECTED_TARGET": "radicum",
    "AFFECTED_USE": "Cavolo cappuccio, Cavolfiore, Cavolo broccolo x radicum",
+   "DEMOTION_MECHANISM": "PLAUSIBILITY_FILTER",
+   "DEMOTION_RULE": "P-03 linha sem dose, maximo ou intervalo num rotulo que tem outras com valor. Rebaixada por implausibilidade, nao por contradicao de fio",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877"
   },
   {
@@ -10727,6 +10755,8 @@
    "AFFECTED_CROP": "Porro",
    "AFFECTED_TARGET": "Nottue defogliatrici (allo scoperto)",
    "AFFECTED_USE": "Porro x Nottue defogliatrici (allo scoperto)",
+   "DEMOTION_MECHANISM": "DRAWN_TABLE_RULE",
+   "DEMOTION_RULE": "um fio desenhado da tabela separa esta linha do valor que ela recebera; o valor foi rebaixado, nao substituido",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43526"
   },
   {
@@ -10917,13 +10947,13 @@
    "RAW_AFTER": "NOT_PRESERVED",
    "CHANGE_TYPE": "NEEDS_HUMAN_REVIEW",
    "PROOF_STATE": "NOT_PROVED",
-   "CONFIDENCE_STATE": "RULE_CONTRADICTION",
+   "CONFIDENCE_STATE": "PLAUSIBILITY_HEURISTIC",
    "SOURCE_DOCUMENT_BEFORE": "NOT_APPLICABLE",
    "SOURCE_DOCUMENT_AFTER": "sha256=ddb0318f348db0ea4c60f057fdbb91fc909662355a12c9fe9055d846a0b8cbf4",
    "EVIDENCE_LOCATION": "pagina 1, https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46359",
    "PARSER_VERSION": "v1/dose_extrair + dose_validar",
    "RULESET_VERSION": "v1/inteligencia/REGRAS.md@3",
-   "FACT": "a dose lida para da vino x della vite (Plasmopara foi rebaixada: um fio desenhado da tabela separa a linha do valor. Este leitor NAO preservou qual valor recusou (NOT_PRESERVED): sabe-se que houve recusa, nao o que foi recusado.",
+   "FACT": "a dose lida para da vino x della vite (Plasmopara foi rebaixada por FILTRO DE PLAUSIBILIDADE (P-05 crop comeca por palavra funcional ('da vino'): a celula foi cortada. Rebaixada por implausibilidade, nao por contradicao de fio) — uma heuristica nossa, nao uma medida do documento. Este leitor NAO preservou qual valor recusou (NOT_PRESERVED): sabe-se que houve recusa, nao o que foi recusado.",
    "DERIVED_REGULATORY_MEANING": "NOT_PROVED",
    "DERIVED_BY_RULE": "NOT_PROVED",
    "POTENTIAL_BUSINESS_IMPLICATION": "NOT_PROVED",
@@ -10979,6 +11009,8 @@
    "AFFECTED_CROP": "da vino",
    "AFFECTED_TARGET": "della vite (Plasmopara",
    "AFFECTED_USE": "da vino x della vite (Plasmopara",
+   "DEMOTION_MECHANISM": "PLAUSIBILITY_FILTER",
+   "DEMOTION_RULE": "P-05 crop comeca por palavra funcional ('da vino'): a celula foi cortada. Rebaixada por implausibilidade, nao por contradicao de fio",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46359"
   },
   {
@@ -14759,6 +14791,8 @@
    "AFFECTED_CROP": "Porro",
    "AFFECTED_TARGET": "Nottue defogliatrici (allo scoperto)",
    "AFFECTED_USE": "Porro x Nottue defogliatrici (allo scoperto)",
+   "DEMOTION_MECHANISM": "DRAWN_TABLE_RULE",
+   "DEMOTION_RULE": "um fio desenhado da tabela separa esta linha do valor que ela recebera; o valor foi rebaixado, nao substituido",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43525"
   },
   {
@@ -14843,6 +14877,8 @@
    "AFFECTED_CROP": "Porro",
    "AFFECTED_TARGET": "Nottue defogliatrici (allo scoperto)",
    "AFFECTED_USE": "Porro x Nottue defogliatrici (allo scoperto)",
+   "DEMOTION_MECHANISM": "DRAWN_TABLE_RULE",
+   "DEMOTION_RULE": "um fio desenhado da tabela separa esta linha do valor que ela recebera; o valor foi rebaixado, nao substituido",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43525"
   },
   {
@@ -14927,6 +14963,8 @@
    "AFFECTED_CROP": "Porro",
    "AFFECTED_TARGET": "Dorifora, cavolaia, tripidi, piralidi",
    "AFFECTED_USE": "Porro x Dorifora, cavolaia, tripidi, piralidi",
+   "DEMOTION_MECHANISM": "DRAWN_TABLE_RULE",
+   "DEMOTION_RULE": "um fio desenhado da tabela separa esta linha do valor que ela recebera; o valor foi rebaixado, nao substituido",
    "SOURCE_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43525"
   },
   {
