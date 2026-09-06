@@ -171,10 +171,37 @@ def _window_value(rows, scale, lo, hi, mode="ORDINAL"):
             "SEVERITY": round(mean(vals), 4)}
 
 
+def assert_outcome_admissible(case_dir, var_id, evidence_role):
+    """Gate A, ENFORCED instead of self-certified.
+
+    Until 2026-09-06 this module wrote EVIDENCE_ROLE = OFFICIAL_OBSERVATION into every output as
+    a CONSTANT. Nothing checked it. Fed a rainfall series it would have stamped a weather model's
+    number as an official field observation and passed its own gate A. The red team demonstrated
+    exactly that, and it reproduced against my own source.
+
+    Two things are now required and both are checked:
+      1. the caller must declare the role, and it must be admissible as ground truth
+         (contracts.EvidenceRole.assert_admissible_as_outcome — MODELLED_RISK and FORECAST
+         are refused);
+      2. the variable must actually exist in the SURVEY schema metadata the source returned
+         for this case. A weather series has no id_survey_var and cannot pass.
+    """
+    EvidenceRole.assert_admissible_as_outcome(evidence_role)
+    idx = json.load(open(os.path.join(case_dir, "collection_index.json")))
+    declared = {v["id_survey_var"] for v in (idx.get("vars") or [])}
+    if declared and var_id not in declared:
+        raise ValueError(f"REFUSED: var {var_id} is not a survey variable of this case "
+                         f"(declared survey vars: {sorted(declared)}). "
+                         f"A predictor is not an outcome.")
+    return evidence_role
+
+
 def current_pressure(case_dir, var_id, as_of, metric="INCIDENCE",
                      window_days=WINDOW_DAYS, min_sites=MIN_SITES,
-                     min_base=MIN_BASE, high_p=HIGH_P, low_p=LOW_P, _pre=None):
+                     min_base=MIN_BASE, high_p=HIGH_P, low_p=LOW_P, _pre=None,
+                     evidence_role=EvidenceRole.OFFICIAL_OBSERVATION):
     rows, scale, meta = _pre if _pre else load_rows(case_dir, var_id)
+    role = assert_outcome_admissible(case_dir, var_id, evidence_role)
     mode = meta["VALUE_MODE"]
     if mode == "UNSUPPORTED":
         raise ValueError(f"REFUSED: var {var_id} is neither coded nor numeric in the source metadata")
@@ -186,7 +213,7 @@ def current_pressure(case_dir, var_id, as_of, metric="INCIDENCE",
 
     latest = max((r["_d"] for r in rows if r["_d"] <= as_of), default=None)
     out = {"AS_OF": as_of.isoformat(), "WINDOW": [lo.isoformat(), hi.isoformat()],
-           "METRIC": metric, "VALUE_MODE": mode, "EVIDENCE_ROLE": EvidenceRole.OFFICIAL_OBSERVATION,
+           "METRIC": metric, "VALUE_MODE": mode, "EVIDENCE_ROLE": role,
            "CUTOFF_LABEL": Cutoff("current_pressure", as_of, lo, hi).label(),
            "DATA_LATENCY_DAYS": (as_of - latest).days if latest else None,
            "SOURCE": meta["api"], "PARAMS": {"WINDOW_DAYS": window_days, "MIN_SITES": min_sites,

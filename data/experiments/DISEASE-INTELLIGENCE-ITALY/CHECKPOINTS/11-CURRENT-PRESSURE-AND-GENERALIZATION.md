@@ -64,9 +64,18 @@ Internal consistency (province agreement, generic test, within-province year-shu
 
 | case | positive pairs | mean ρ | p |
 |---|---|---|---|
-| BACTROCERA | 36/36 | **+0.770** | 0.00033 |
+| BACTROCERA | 36/36 | +0.770 | 0.00033 |
 | PERONOSPORA (calibration) | 36/36 | +0.622 | 0.00033 |
 | OIDIO | 27/36 (**9 non-positive**, corrected — see C1) | +0.245 | 0.00067 |
+
+**These are the mean-of-site-max metric. On `INCIDENCE`, the metric actually published, the
+numbers are BACTROCERA ρ +0.449 and OIDIO ρ +0.229 (C9).** The claim that the pest case is
+"stronger than the calibration case" is withdrawn — it compared different metrics.
+
+**And OIDIO's agreement is withdrawn as evidence entirely (C11):** survey *effort* agrees across
+its provinces at ρ +0.738 while the disease agrees at only +0.229, so its consistency is the
+monitoring programme's, not the biology's. For BACTROCERA the disease (+0.449) exceeds effort
+(+0.252), and it survives.
 
 Leave-shared-organisation-out, because the old independence warrant was false (C4):
 BACTROCERA drop `ota`+`aprol` → 36/36 ρ +0.731; OIDIO drop `unipi` → 6/6 ρ +0.537.
@@ -235,8 +244,14 @@ the gate. A tool that stays silent when it cannot speak is the finding, not the 
 
 ```
 AGRONOMIC_INTELLIGENCE_VALUE = PROVED for OLIVO x BACTROCERA x TOSCANA
-                                       (8 provinces, 21 seasons, 2-day latency, stability 0.927)
-                             = WEAK   for VITE x OIDIO x TOSCANA (0 provinces pass today's gate)
+                                       (8 provinces, 20 complete seasons + 1 in progress,
+                                        2-day latency, label stability 0.927,
+                                        province agreement on the published metric rho +0.449,
+                                        which exceeds the effort agreement of +0.252)
+                             = NOT_PROVED for VITE x OIDIO x TOSCANA
+                                       (0 provinces pass today's gate, label stability 0.651,
+                                        and its province agreement is withdrawn because survey
+                                        effort agrees more strongly than the disease does)
 
 ADAMA_PRODUCT_RELATION       = NOT_PROVED
 ```

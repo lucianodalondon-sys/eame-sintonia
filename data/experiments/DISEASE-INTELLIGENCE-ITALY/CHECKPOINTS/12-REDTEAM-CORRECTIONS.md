@@ -173,3 +173,90 @@ guarded in code with their impact measured at 0/10 and 2/200 cells.
 
 The capability's case rests where it did: **one region, two independent panels, the olive case
 carrying it.**
+
+---
+---
+
+# SECOND ROUND — four more, verified the same way
+
+## C9 — CONCEDED, and this one changes a headline · the cases were compared **across metrics**.
+
+The province-agreement test summarises a province-season as the **mean of site-maxima**. For an
+ordinal case that is a mean of ordinals; for the olive case it is a mean of percentages. The
+metric CURRENT_PRESSURE actually **publishes** is `INCIDENCE` — the share of sites with the issue
+present. Re-run on the published metric:
+
+| case | mean-of-site-max (what I headlined) | **INCIDENCE (what I publish)** |
+|---|---|---|
+| BACTROCERA | 36/36, ρ **+0.770** | 35/36, ρ **+0.449** |
+| OIDIO | 27/36, ρ +0.245 | 26/36, ρ +0.229 |
+
+**Corrected**: the internal-consistency evidence supporting the *published* metric for the olive
+case is **ρ +0.449**, not +0.770. The claim "stronger than the calibration case (+0.622)" is
+**withdrawn** — it compared a mean-of-percentages against a mean-of-ordinals. The olive case
+still beats the vine case on both metrics; it is no longer claimed to beat the calibration case
+on any.
+
+## C10 — CONCEDED · **Gate A was self-certifying**, and it failed against my own source.
+
+`current_pressure.py` wrote `EVIDENCE_ROLE = OFFICIAL_OBSERVATION` into every output as a
+**constant**. Nothing checked it. Fed a rainfall series it would have stamped a weather number
+as an official field observation and **passed its own gate A**.
+
+Fixed and tested. `assert_outcome_admissible()` now requires two things:
+```
+MODELLED_RISK as outcome   -> REFUSED (contracts.EvidenceRole)
+FORECAST as outcome        -> REFUSED
+non-survey variable        -> REFUSED (not in this case's survey-schema metadata)
+legitimate outcome         -> OFFICIAL_OBSERVATION
+```
+Gate A is re-evaluated **after** the fix and passes. Before the fix it was not enforced, and the
+earlier PASS was worth nothing. Said plainly rather than quietly re-run.
+
+## C11 — CONFIRMED, and it is the strongest single discriminator found · **effort agreement**.
+
+Does survey *effort* (visits per site) agree across provinces more than the disease does? If it
+does, the "internal consistency" is consistency of the monitoring programme, not of the biology.
+
+```
+OIDIO       EFFORT 36/36 rho +0.738   DISEASE 26/36 rho +0.229   -> EFFORT AGREES MORE
+BACTROCERA  EFFORT 29/36 rho +0.252   DISEASE 35/36 rho +0.449   -> disease exceeds effort
+```
+
+**Oidio's province agreement is not separable from survey effort and is hereby withdrawn as
+evidence.** The olive case passes cleanly: its biological signal is roughly twice the effort
+signal. This is the sharpest evidence in the whole mission that the capability belongs to the
+*cell*, not the tool, and it points the same way as every other test: **the olive case carries
+it, the oidio case does not.**
+
+## C12 — CONFIRMED as latent, **did not fire** · numeric fallback on unmapped ordinal codes.
+
+`run_case.py` falls back to `float(val)` when a code is not in the derived scale — which would
+turn a code **id** (e.g. 782) into a magnitude. Checked directly: the oidio scale covers
+`['782','783','784','785']` and `['786','787','788','789']` with **zero unmapped values in
+35 064 rows**. The bug is real and never fired here. `current_pressure.read_value()` is already
+immune by construction — it decides ORDINAL vs NUMERIC up front from the source's metadata and
+returns MISSING for an unmapped code rather than a number.
+
+## C13 — CONFIRMED for the calibration archive, **not** for the two new cases · one file per (var, year).
+
+`glob(*_v{var}_*.json)` keeps whatever the pattern matches. Measured: the two new cases have
+**exactly 1** file per (var, year); the calibration archive `TOSCANA/RAW/` has up to **4** per
+key (287 files over 140 keys). The generic runner was never pointed at that archive — the
+calibration case has its own scripts — but the defect is real for reuse and is recorded rather
+than argued away.
+
+---
+
+## STANDING AFTER BOTH ROUNDS
+
+Withdrawn: geographic generalization (C3); "stronger than the calibration case" (C9); **oidio's
+province agreement as evidence** (C11).
+Corrected: season count (C7), negative-pair count (C1), "three cases" (C2), the published
+metric's ρ (C9).
+Fixed in code: false independence warrant (C4), zero-denominator guard (C5), season-completeness
+flag (C7), enforced evidence role (C10).
+Refuted or not reproduced at the stated magnitude: C8, C12, C13 (latent only).
+
+Gates: still 9 PASS / 0 FAIL / 1 NOT_TESTABLE — but gate A now passes **because it is enforced**,
+not because it was asserted.
