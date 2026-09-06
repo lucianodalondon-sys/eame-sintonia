@@ -954,24 +954,6 @@
           </div>
           </sc-if>
 
-          <sc-if value="{{ cs.hasActionMap }}" hint-placeholder-val="{{ true }}">
-          <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
-            <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblActionMap }}</div>
-            <div style="font-size:11px;line-height:1.5;color:#B1A9A7">{{ t.lblActionMapNote }}</div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px">
-              <sc-for list="{{ cs.actionMapRows }}" as="a" hint-placeholder-count="3">
-                <div data-area="{{ a.area }}" data-area-name="{{ a.areaL }}" data-area-mode="{{ a.modeL }}" style="position:relative;overflow:hidden;border-radius:10px;background:{{ a.surface }};border:1px solid {{ a.edge }};border-top:3px solid {{ a.color }};padding:11px 12px 10px;display:flex;flex-direction:column;gap:4px;min-height:66px">
-                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
-                    <span style="font-size:13px;font-weight:700;color:#FFFFFF;line-height:1.2;overflow-wrap:anywhere">{{ a.areaL }}</span>
-                    <span style="font-family:var(--font-secondary);font-size:10px;font-weight:700;color:#FFFFFF;font-variant-numeric:tabular-nums">{{ a.ordinal }}</span>
-                  </div>
-                  <span style="display:inline-flex;align-self:flex-start;align-items:center;min-height:24px;padding:2px 9px;border-radius:9999px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.30);font-size:10px;font-weight:700;letter-spacing:0.06em;color:#FFFFFF">{{ a.modeL }}</span>
-                  <sc-if value="{{ a.isFirst }}" hint-placeholder-val="{{ true }}"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#C9C3C1">{{ t.lblFirstActor }}</span></sc-if>
-                </div>
-              </sc-for>
-            </div>
-          </div>
-          </sc-if>
 
           <!-- «PRODOTTI ADAMA COLLEGATI» E STATO TOLTO DA QUI, NON NASCOSTO:
                erano gli stessi nomi e gli stessi stati che l'eroe ora mostra
@@ -4778,11 +4760,16 @@ class Component extends DCLogic {
 
        Qui non si inventa niente: si legge il record. Ogni riga che segue nasce
        da un campo che esiste, e quando il campo non c'e la sezione non appare. */
+    /* Le CINQUE aree canoniche verso il reparto che firma il documento.
+       Prima questa tavola parlava la lingua della mappa vecchia a sette —
+       SCIENCE_TECHNICAL, REGULATORY, PORTFOLIO — e quella mappa non e piu una
+       superficie. Il documento REGULATORY / PORTFOLIO non si perde: resta
+       raggiungibile dalla schermata delle Finestre Colturali, che offre tutti
+       e sei i reparti del generatore. */
     const CS_BRIEF_DEPT = {
-      COMMERCIAL: 'SALES / RTV', MARKETING: 'MARKETING',
-      MARKET_DEVELOPMENT: 'MARKET DEVELOPMENT', SCIENCE_TECHNICAL: 'TECHNICAL / SCIENCE',
-      REGULATORY: 'REGULATORY / PORTFOLIO', PORTFOLIO: 'REGULATORY / PORTFOLIO',
-      SUPPLY: 'SUPPLY'
+      MARKETING: 'MARKETING', COMMERCIAL: 'SALES / RTV',
+      MARKET_DEVELOPMENT: 'MARKET DEVELOPMENT',
+      TECHNICAL_SCIENTIFIC: 'TECHNICAL / SCIENCE', SUPPLY: 'SUPPLY',
     };
     const csBriefDept = (a) => CS_BRIEF_DEPT[a] || 'SALES / RTV';
     /* `resolvedThrough` e una NOTA DI TRACCIAMENTO del motore. Sotto il nome di
@@ -4828,20 +4815,27 @@ class Component extends DCLogic {
        primo che il motore nomina, non una nostra graduatoria. Sui 43 casi
        MARKET_DEVELOPMENT e presente 43 volte ed e primo in quasi tutti — resta
        l'attore centrale perche il modello lo dice, non perche lo decidiamo. */
-    const csActionMap = ((csRec && csRec.actionMap) || []).map((a, i) => {
+    /* ══ LA MAPPA VECCHIA A SETTE AREE NON E PIU UNA SUPERFICIE ══════════════
+       Sulle stesse quarantatre opportunita esistevano DUE mappe delle azioni:
+       questa, sette aree in centotrentaquattro righe, instradate a scelta; e
+       quella della riunione, cinque aree su tutti i quarantatre. Il medesimo
+       reparto portava due codici e due nomi — SCIENCE_TECHNICAL contro
+       TECHNICAL_SCIENTIFIC, «SVILUPPO DI MERCATO» contro «SVILUPPO MERCATO»,
+       «APPROVVIGIONAMENTO» contro «SUPPLY».
+
+           DUE MAPPE DELLE AZIONI SULLA STESSA OPPORTUNITA NON SONO DUE
+           LETTURE: SONO UNA CONTRADDIZIONE CHE IL LETTORE DEVE ARBITRARE.
+
+       La decisione di prodotto ha scelto: canonica e la mappa della riunione,
+       cinque aree, su tutte le opportunita. Il riquadro che disegnava le sette
+       e stato tolto da questa scheda.
+
+       Quello che resta qui non e una mappa: sono i pulsanti del MATERIALE
+       COMMERCIALE, e adesso parlano la lingua canonica — le cinque aree, con
+       le etichette della riunione, non piu quelle della mappa ritirata. */
+    const csActionMap = ((AM && AM.AREE_CANONICHE) || []).map((a) => {
       const u = (AM && AM.areaUI) ? AM.areaUI(a) : { line: '#978B87', surface: '#564F4D', ink: '#C9C3C1' };
-      const st = (csRec && csRec.status) || csStatus;
-      const modeKey = st === 'ACT_NOW' ? 'LOOK' : st === 'PREPARE_NOW' ? 'PREPARE'
-        : st === 'TO_VALIDATE' ? 'VALIDATE' : 'MONITOR';
-      return {
-        area: a,
-        areaL: csV21[a] || String(a).replace(/_/g, ' '),
-        color: u.line, surface: u.surface, ink: u.ink,
-        edge: i === 0 ? ONS.chipEdge : ONS.wellEdge,
-        ordinal: String(i + 1),
-        isFirst: i === 0,
-        modeL: (T.AREAMODE || {})[modeKey] || ''
-      };
+      return { area: a, areaL: mtL(a) || String(a).replace(/_/g, ' '), color: u.line };
     });
 
     /* ── le prove, per id, verso il record vero ────────────────────────────
@@ -5201,7 +5195,6 @@ class Component extends DCLogic {
          Nessuno di questi campi e nuovo nel modello: erano tutti li, e la
          proiezione li lasciava cadere. Ogni `has*` e la condizione perche la
          sezione esista — una sezione senza dati non si disegna vuota. */
-      actionMapRows: csActionMap, hasActionMap: csActionMap.length > 0,
       evidenceRows: csEvidenceRows, hasEvidenceRows: csEvidenceRows.length > 0,
       evFamRows: csEvFamRows, evUnresolved: csEvUnresolved, hasUnresolved: csEvUnresolved > 0,
       productRows: csProductRows, hasProductRows: csProductRows.length > 0,

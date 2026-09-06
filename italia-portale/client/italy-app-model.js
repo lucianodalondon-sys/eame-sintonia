@@ -716,24 +716,37 @@
      e COMMERCIAL (#F89E18) sono vicine di tinta e non si incontrano mai: sui
      43 casi REGULATORY compare solo con PORTFOLIO, SUPPLY e
      MARKET_DEVELOPMENT. */
-  const AREA_UI = {
-    /* L'inchiostro di SVILUPPO MERCATO era #7BE0A6 — un verde chiaro che il
-       manuale non contiene e che nessuna regola scritta qui derivava: il
-       portone del colore lo segnalava, uno solo, sulla scheda. La tinta della
-       linea resta corporativa (#00B152) e la massa resta il verde profondo:
-       cambia solo la tinta del testo, presa dalla tavolozza pubblicata
-       (verde molto chiaro), che sulla stessa massa legge 6.98:1 invece di
-       4.95:1.
+  /* ══ CINQUE AREE, UN SOLO CODICE PER AREA ═════════════════════════════════
+     Questa tavola aveva sette voci e una si chiamava SCIENCE_TECHNICAL. Il
+     motore della riunione — la mappa delle azioni canonica — chiede invece
+     TECHNICAL_SCIENTIFIC. Nessuno dei due nomi era sbagliato da solo; insieme
+     erano un buco: `areaUI('TECHNICAL_SCIENTIFIC')` non trovava niente e
+     cadeva sul grigio di riserva.
 
-           UN VERDE INVENTATO NON DIVENTA APPROVATO PERCHE STA BENE. */
+     MISURATO sullo schermo, prima: TECNICO / SCIENTIFICO e SUPPLY uscivano con
+     la STESSA linea #978B87, lo STESSO fondo e lo STESSO inchiostro. Due delle
+     cinque aree erano indistinguibili.
+
+         DUE NOMI PER UN REPARTO NON SONO UN DETTAGLIO DI NOMENCLATURA:
+         SONO UN REPARTO CHE PERDE IL PROPRIO COLORE.
+
+     Le aree sono ora CINQUE — quelle della mappa canonica — con un codice solo
+     per ciascuna. L'azzurro che stava sotto SCIENCE_TECHNICAL passa a
+     TECHNICAL_SCIENTIFIC: la tinta non cambia, cambia la chiave sotto cui vive.
+     PORTFOLIO e REGULATORY escono perche erano aree della mappa vecchia a
+     sette, che non e piu una superficie del portale.
+
+     L'inchiostro di SVILUPPO MERCATO resta il verde molto chiaro della
+     tavolozza pubblicata: sulla propria massa legge 6.98:1. */
+  const AREA_UI = {
     MARKET_DEVELOPMENT: { line: '#00B152', surface: '#005E2B', ink: '#E3F4EA' },
     COMMERCIAL: { line: '#F89E18', surface: '#72490B', ink: '#F89E18' },
-    SCIENCE_TECHNICAL: { line: '#00A0DF', surface: '#00587B', ink: '#5CC3EE' },
     MARKETING: { line: '#9D1D96', surface: '#8F1A88', ink: '#EDEAE9' },
-    PORTFOLIO: { line: '#7DB41E', surface: '#3E5A0F', ink: '#93CC23' },
-    REGULATORY: { line: '#F5B317', surface: '#694D0A', ink: '#F5B317' },
+    TECHNICAL_SCIENTIFIC: { line: '#00A0DF', surface: '#00587B', ink: '#5CC3EE' },
     SUPPLY: { line: '#978B87', surface: '#564F4D', ink: '#C9C3C1' },
   };
+  /* L'ordine e il contratto: quello in cui la decisione le ha elencate. */
+  const AREE_CANONICHE = ['MARKETING', 'COMMERCIAL', 'MARKET_DEVELOPMENT', 'TECHNICAL_SCIENTIFIC', 'SUPPLY'];
   const areaUI = (a) => AREA_UI[a] || { line: '#978B87', surface: '#564F4D', ink: '#C9C3C1' };
 
   /* ══ LE FAMIGLIE DI PROVA ═════════════════════════════════════════════════
@@ -4822,7 +4835,7 @@
     KNOWLEDGE, narrative,
     CATEGORY_UI, categoryOf, categoryFromProducts,
     adamaRelevance, geographyLabel, RELEVANCE_LABEL, RELEVANCE_WHY, rtvEligibility, RTV_BLOCKER_LABEL,
-    CATEGORY_SURFACE, categorySurface, ON_SURFACE, ON_SURFACE_STATE, ACT_PILL, AREA_UI, areaUI,
+    CATEGORY_SURFACE, categorySurface, ON_SURFACE, ON_SURFACE_STATE, ACT_PILL, AREA_UI, AREE_CANONICHE, areaUI,
     EVIDENCE_UI, evidenceUI,
 
     /* presentation tokens — icon, colour, order, grid. No facts live here. */

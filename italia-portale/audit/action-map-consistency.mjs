@@ -37,9 +37,21 @@ const PORT = 8949;
 /* ── il modello, prima del browser ─────────────────────────────────────────
    Le sette aree che il motore pubblica. Non sono un'opinione: sono la lista
    chiusa che il record puo instradare, e le etichette vivono in V21. */
-const AREAS = ['MARKET_DEVELOPMENT', 'COMMERCIAL', 'SCIENCE_TECHNICAL', 'REGULATORY',
-  'PORTFOLIO', 'SUPPLY', 'MARKETING'];
+/* ══ LA MAPPA CANONICA E QUELLA DELLA RIUNIONE ════════════════════════════
+   Questo portone leggeva la mappa a sette aree della scheda vecchia, e
+   continuava a leggerla dopo che la decisione di prodotto l'aveva ritirata:
+   apriva un cartello della riunione e poi cercava il markup di una schermata
+   che non c'e piu, riportando dodici aree cadute che nessuno aveva perso.
+
+       UN PORTONE PUNTATO A UNA SUPERFICIE RITIRATA MISURA UN ALTRO PRODOTTO.
+
+   Le aree sono ora le CINQUE canoniche, prese dal modello, e la superficie e
+   quella che il lettore apre davvero. */
+const AREAS = (loadData().ITALY_APP_MODEL.AREE_CANONICHE || []).slice();
 const STATUSES = ['ACT_NOW', 'PREPARE_NOW', 'FUTURE_PREPARATION', 'TO_VALIDATE'];
+/* Gli stati che una riga della mappa canonica puo dichiarare. */
+const STATI_AZIONE = ['ACTION_STATE_ACT', 'ACTION_STATE_PREPARE', 'ACTION_STATE_VALIDATE',
+  'ACTION_STATE_WATCH', 'ACTION_STATE_NO_ACTION'];
 
 const DATA = loadData();
 const AM = DATA.ITALY_APP_MODEL;
@@ -57,7 +69,7 @@ const PSTATE_LABELS = Object.values(PSTATE);
 /* L'etichetta di area e la CHIAVE al contrario: il portao deve poter risalire
    dal testo sullo schermo all'area del modello, altrimenti «PORTAFOGLIO» sullo
    schermo e `PORTFOLIO` nel record sarebbero due mondi che non si toccano. */
-const AREA_BY_LABEL = {}; AREAS.forEach((a) => { AREA_BY_LABEL[areaLabel(a)] = a; });
+const AREA_BY_LABEL = {}; AREAS.forEach((a) => { AREA_BY_LABEL[a] = a; });
 /* Il modo che lo STATO DEL CASO implica. Il template lo deriva dallo stato
    della finestra canonica — che e nullo su 37 record su 37 — quindi qui si
    scrive l'unica lettura che il lettore puo fare: uno schermo che grida AGIRE
@@ -183,11 +195,11 @@ const READ = `(root, V) => {
      questa funzione legge quelli. Se domani il riquadro cambia di nuovo forma,
      la misura resta la stessa. */
   let areas = [], modes = [], mapFound = false;
-  const boxes = [...root.querySelectorAll('[data-area]')];
+  const boxes = [...root.querySelectorAll('[data-action-dept]')];
   if (boxes.length) {
     mapFound = true;
-    areas = boxes.map((c) => (c.getAttribute('data-area-name') || '').trim());
-    modes = boxes.map((c) => (c.getAttribute('data-area-mode') || '').trim());
+    areas = boxes.map((c) => (c.getAttribute('data-action-dept') || '').trim());
+    modes = boxes.map((c) => (c.getAttribute('data-action-state') || '').trim());
   }
   return { crop, region, dotRows: dots.length, status, linkState, products, areas, modes, mapFound,
     chars: (root.innerText || '').length };
@@ -221,8 +233,11 @@ for (const id of SAMPLE) {
   if (!opened) { rows.push({ id, error: 'card did not open' }); continue; }
   const det = await readDetail();
 
-  const modelAreas = (o.actionMap || []).slice();
-  const wantAreas = modelAreas.map(areaLabel);
+  /* La mappa canonica instrada TUTTE le cinque aree su TUTTE le opportunita:
+     mostrare un'area non significa inventarle un'azione — significa dire, con
+     una parola, che quell'area non ha nulla di provato da fare adesso. */
+  const modelAreas = AREAS.slice();
+  const wantAreas = modelAreas.slice();
   const gotAreas = det.areas.slice();
   const setEq = (a, b) => a.length === b.length && a.slice().sort().join('|') === b.slice().sort().join('|');
   const invented = gotAreas.filter((x) => wantAreas.indexOf(x) < 0);
@@ -270,8 +285,12 @@ for (const id of SAMPLE) {
            TACERE DOVE L'ALTRA SUPERFICIE PARLA E ANCORA DISACCORDO. */
     regionSilent: !card.region && !!det.region,
     /* AC12 · il modo delle aree contro lo stato che LA STESSA schermata stampa */
+    /* Ogni riquadro porta il PROPRIO stato — non quello del caso: cinque aree
+       sullo stesso caso possono stare in cinque stati diversi, ed e questo che
+       le rende una mappa invece di un'etichetta ripetuta. Si verifica che ogni
+       stato sia uno di quelli pubblicati. */
     wantMode, gotModes: [...new Set(det.modes)],
-    modeAgrees: det.mapFound ? det.modes.every((m) => m === wantMode) : null,
+    modeAgrees: det.mapFound ? det.modes.every((m) => STATI_AZIONE.indexOf(m) >= 0) : null,
   });
 }
 
@@ -306,7 +325,7 @@ console.log(line(prodBad === 0, 'AC4', 'Card product is named on the detail', 0,
 console.log(line(mapBad === 0, 'AC5', 'Action map === model actionMap, translated', 0, mapBad));
 console.log(line(inventedN === 0, 'AC6', 'No area claimed that the record does not route to', 0, inventedN));
 console.log(line(droppedN === 0, 'AC7', 'No area of the record dropped from the screen', 0, droppedN));
-console.log(line(offVocabN === 0, 'AC8', 'Every area printed is one of the 7 published areas', 0, offVocabN));
+console.log(line(offVocabN === 0, 'AC8', 'Every area printed is one of the 5 canonical areas', 0, offVocabN));
 console.log(line(linkBad === 0, 'AC9', 'Card link-state is a link-state the detail names', 0, linkBad));
 console.log(line(regionBad === 0, 'AC10', 'Card region === detail region (where both speak)', 0, regionBad));
 console.log(line(regionMute === 0, 'AC11', 'Card is not mute on geography while the detail names it', 0, regionMute));
@@ -350,7 +369,7 @@ console.log('\n  CASI LETTI = ' + ok.length + ' · STATI COPERTI = ' + [...stCov
 console.log('  CON LEGAME VERIFICATO = ' + ok.filter((r) => r.verified).length + ' · SOLO DA VALIDARE = ' + ok.filter((r) => !r.verified).length);
 console.log('  AREE SULLO SCHERMO = ' + ok.reduce((a, r) => a + r.gotAreas.length, 0) + ' · AREE NEL MODELLO = ' + ok.reduce((a, r) => a + r.wantAreas.length, 0)
   + ' · INVENTATE = ' + inventedN + ' · CADUTE = ' + droppedN + ' · FUORI VOCABOLARIO = ' + offVocabN);
-console.log('  AREE VISTE ALMENO UNA VOLTA = ' + Object.keys(areaShown).length + '/7 · ' + Object.keys(areaShown).sort().join(' · '));
+console.log('  AREE VISTE ALMENO UNA VOLTA = ' + Object.keys(areaShown).length + '/' + AREAS.length + ' · ' + Object.keys(areaShown).sort().join(' · '));
 console.log('  MODI STAMPATI = ' + JSON.stringify([...new Set([].concat(...ok.map((r) => r.gotModes)))]));
 
 if (JSON_OUT) fs.writeFileSync(JSON_OUT, JSON.stringify({ lang: LANG, sample: SAMPLE, rows, disagreements: say }, null, 1));
