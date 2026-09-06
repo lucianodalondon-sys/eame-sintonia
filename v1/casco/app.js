@@ -17,7 +17,8 @@ const P = window.__PAYLOAD__;
 const UNK = ['NOT_KNOWN','NOT_PROVED','NOT_PRESERVED','NOT_PRESENT','UNKNOWN',
              'NOT_APPLICABLE','NOT_ATTEMPTED','NOT_EMITTED_BY_THIS_TOOL','NOT_CHECKED',
              'NOT_COLLECTED','NOT_VALIDATED','NOT_LOCATED','NOT_PARSED','NOT_IN_SNAPSHOT',
-             'NOT_COMPUTED_WITHOUT_CLOCK','NOT_RECONSTRUCTABLE','NOT_PROVED_BY_RULE'];
+             'NOT_COMPUTED_WITHOUT_CLOCK','NOT_RECONSTRUCTABLE','NOT_PROVED_BY_RULE',
+             'NOT_IMPLEMENTED'];
 // A lista era uma enumeracao, e por isso ficou para tras: quando a coleta
 // passou a emitir NOT_COLLECTED, val() caiu no ramo de valor comum e a ficha
 // publicou o token dentro do atributo de um link — um link vivo para uma
@@ -752,6 +753,17 @@ function celulaDose(l) {
     .test(String(j.d.crop || '')) ? `<div class="meta"><b>A celula de cultura do rotulo traz
     escopo:</b> <i>&ldquo;${esc(j.d.crop)}&rdquo;</i>. A autorizacao vale nesse escopo, e o nome
     curto da cultura na coluna ao lado nao o carrega.</div>` : '';
+  // R-13 · o texto do alvo desta linha existe literalmente no rotulo? NAO
+  // rebaixa nada: o teste nao sabe separar alvo quebrado em coluna de alvo
+  // FUNDIDO (a fusao existe e esta provada em 008259), e rebaixar 180 linhas
+  // por um teste que nao distingue os dois casos apagaria uso verdadeiro.
+  const literal = j.d.target_literal === 'TARGET_TEXT_NOT_FOUND_LITERALLY'
+    ? `<div class="meta"><span class="unknown">TARGET_TEXT_NOT_FOUND_LITERALLY</span>
+       o texto deste alvo nao foi encontrado literalmente no rotulo. Pode ser alvo quebrado entre
+       colunas (comum, inofensivo) ou <b>fusao de duas linhas da tabela</b> (existe: em 008259 o
+       alvo &ldquo;Nottue defogliatrici (allo scoperto) tentredine&rdquo; junta duas linhas e
+       recebe a dose da errada). <b>Esta ferramenta nao sabe separar os dois casos</b>, entao nao
+       rebaixa a linha e avisa.</div>` : '';
   const nota = j.estado === 'EXACT_MATCH' ? ''
     : `<div class="meta">a linha de dose fala de &ldquo;${esc(j.d.crop)}&rdquo; &middot;
         &ldquo;${esc(j.d.target)}&rdquo;${j.cand.length>1?` (${j.cand.length} linhas, mesmo valor)`:''}${j.mudos?`; mais ${j.mudos} duplicata(s) sem valor lido`:''}.
@@ -775,7 +787,7 @@ function celulaDose(l) {
     <span class="pill ${cls}" title="${esc(j.estado)}">${esc(rot)}</span>
     ${excede?'<span class="pill p-bad">ACIMA DO TETO DO ROTULO</span>':''}
     <button class="ev" onclick="evDose('${l.p.reg}',${l.p.doses.indexOf(j.d)})">prova da dose</button>
-    ${nota}${escopo}${avisoTeto}${notaNaoLida}${desc}`;
+    ${nota}${escopo}${literal}${avisoTeto}${notaNaoLida}${desc}`;
 }
 function evAmbigua(reg, idx) {
   const p = byReg[reg];

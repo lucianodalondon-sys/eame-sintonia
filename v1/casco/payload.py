@@ -59,6 +59,7 @@ def main():
     ap.add_argument("--snapshots", default="pilot-label-intelligence/registry/snapshots")
     ap.add_argument("--teto", default="v1/dados/TETO-DOSE.json")
     ap.add_argument("--cultura", default="v1/dados/DOSES-CULTURA-CHECK.json")
+    ap.add_argument("--alvoliteral", default="v1/dados/ALVO-LITERAL.json")
     ap.add_argument("--hoje", required=True)
     ap.add_argument("--out", default="v1/dados/CASCO-PAYLOAD.json")
     a = ap.parse_args()
@@ -132,6 +133,8 @@ def main():
                          "casco publica dose acima do teto do rotulo e dose de outra cultura. "
                          "Rode v1/inteligencia/teto_dose.py e v1/inteligencia/cultura_validar.py")
     vc = cultura["VERDICT"]
+    alv = json.load(open(a.alvoliteral, encoding="utf-8")) if os.path.exists(a.alvoliteral) else None
+    va = alv["VERDICT"] if alv else {}
 
     # doses por produto, ja deduplicadas
     doses = {}
@@ -146,6 +149,7 @@ def main():
                 seen.add(k)
                 out.append({
                     "crop_check": vc.get(f'{lab["REGISTRATION_ID"]}#{_i}', "NOT_CHECKED"),
+                    "target_literal": va.get(f'{lab["REGISTRATION_ID"]}#{_i}', "TARGET_TEXT_NOT_CHECKED"),
                     "crop": r.get("CROP"), "target": r.get("TARGET"),
                     "crop_inherited": bool(r.get("CROP_INHERITED")),
                     "dose_conc": r.get("DOSE_CONCENTRATION"),
@@ -345,6 +349,8 @@ def main():
         "ceiling": {k: v for k, v in teto.items() if k != "CEILINGS"},
         "crop_check": {k: v for k, v in cultura.items() if k not in ("VERDICT", "CONTRADICTED")},
         "crop_check_list": cultura["CONTRADICTED"],
+        "target_literal": ({k: v for k, v in alv.items() if k not in ("VERDICT", "NOT_FOUND")}
+                           if alv else {"STATE": "NOT_CHECKED"}),
         "by_type": io_["BY_TYPE"],
         "by_proof": io_["BY_PROOF_STATE"],
         "by_window": io_["BY_TIME_WINDOW"],

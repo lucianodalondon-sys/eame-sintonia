@@ -48,6 +48,9 @@ python3 v1/inteligencia/cultura_validar.py --fios /tmp/fioscache --bbox /tmp/bbo
 echo "== 10e · R-12: teto de dose por cultura escrito FORA da tabela"
 python3 v1/inteligencia/teto_dose.py
 
+echo "== 10f · R-13: o texto do alvo existe literalmente no rotulo?"
+python3 v1/inteligencia/alvo_literal.py
+
 echo "== 11 · COLETA: empacotar com proveniencia e coberturas separadas"
 python3 v1/coleta/empacotar.py --run-id "$RUN"
 
