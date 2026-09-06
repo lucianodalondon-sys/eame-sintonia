@@ -75,7 +75,7 @@ INTERVALO, com a coordenada ou a frase que o sustenta.
 import argparse, json, os, re, sys
 import sys as _sys, os as _os
 _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
-from selo import selo
+from selo import selo, gravar
 from collections import Counter
 
 # "2 applicazioni a distanza di 7-12 giorni: carciofo, cetriolo, ..."
@@ -329,7 +329,7 @@ def main():
         [c for c in contra if c["FIELD"] == "MAX_APPLICATIONS"
          and c["LABEL_SAYS"] != "VALUE_BELONGS_TO_ANOTHER_ROW"])
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
-    json.dump(saida, open(a.out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    gravar(saida, a.out)
     for k, v in saida["COUNTS"].items():
         print(f"  {v:>5}  {k}", file=sys.stderr)
     return 0

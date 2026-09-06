@@ -87,7 +87,7 @@ import argparse, glob, json, os, re, subprocess, sys, unicodedata
 import sys as _sys, os as _os
 _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.dirname(
     _os.path.abspath(__file__))), 'inteligencia'))
-from selo import selo
+from selo import selo, gravar
 from collections import defaultdict
 
 # Marcadores de exclusao em italiano. Lista fechada e medida sobre os 163
@@ -613,7 +613,7 @@ def main():
         "RETIRADOS": retirados,
     }
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
-    json.dump(saida, open(a.out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    gravar(saida, a.out)
     print(f"  rotulos lidos {len(rotulos)} | com janela de exclusao {n_lab_ex} "
           f"| pares {len(pares)} | retirados {n_ret} "
           f"| nome fora do vocabulario do rotulo {len(nao_achados)}", file=sys.stderr)

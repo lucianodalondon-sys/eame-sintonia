@@ -357,6 +357,35 @@ function excedeTeto(d, t) {
 // A validade tem de aparecer igual em TODA tela. Antes, CULTURA x ALVO mostrava
 // "2026-08-15" seco enquanto CALENDARIO e PRODUTO 360 marcavam o mesmo produto
 // como vencido-e-ainda-ativo. Mesma data, tres leituras diferentes.
+// A DATA DA FONTE E A DATA DO DOCUMENTO NAO SAO O MESMO FATO.
+//
+// `label_effective` vem do manifesto da fonte, fora deste repositorio, e a ficha
+// a chamava de "data declarada pela fonte, nao inferida" — o que e verdade sobre
+// a NOSSA esteira e nao diz nada sobre a da fonte. Medido: em 42 dos 166
+// produtos essa data coincide EXATAMENTE com a data do DECRETO e o PDF nao
+// escreve nenhuma frase "valida dal", enquanto a mesma ficha diz, duas linhas
+// abaixo, que esta ferramenta NAO converte a data do decreto em vigencia.
+// A ferramenta nao pode resolver isso — a proveniencia nao esta aqui. Pode
+// mostrar as duas datas e nomear a coincidencia.
+function fonteVsDocumento(p) {
+  const e = p.label_effective_vs_document;
+  if (!e || e === 'SOURCE_DATE_MATCHES_VALIDITY_PHRASE') return '';
+  const d = p.label_dates_in_document || {};
+  const lista = k => (d[k] || []).length ? (d[k] || []).map(x => `<code>${esc(x)}</code>`).join(' ')
+                                         : val('NOT_PRESENT');
+  if (e === 'SOURCE_DATE_MATCHES_DECREE_ONLY')
+    return `<div class="meta"><span class="unknown">SOURCE_DATE_MATCHES_DECREE_ONLY</span>
+      esta data <b>coincide exatamente com a data do DECRETO</b> escrita no documento
+      (${lista('DECRETO')}), e o documento <b>nao escreve nenhuma frase &ldquo;valida dal&rdquo;</b>.
+      De onde a fonte tirou a data esta no manifesto dela, que <b>nao esta neste repositorio</b>:
+      a coincidencia e medida, a derivacao nao. Repare que a linha abaixo diz que esta ferramenta
+      <b>nao</b> converte a data do decreto em vigencia.</div>`;
+  if (e === 'SOURCE_DATE_NOT_FOUND_IN_DOCUMENT')
+    return `<div class="meta"><span class="unknown">SOURCE_DATE_NOT_FOUND_IN_DOCUMENT</span>
+      esta data nao aparece no documento em nenhuma das formas que este leitor conhece —
+      &ldquo;valida dal&rdquo;: ${lista('VALIDA_DAL')} &middot; decreto: ${lista('DECRETO')}</div>`;
+  return '';
+}
 function validade(p) {
   if (isUnk(p.expiry)) return val(p.expiry);
   const D = dte(p);
@@ -431,7 +460,9 @@ function evProd(reg) {
     <dt>sha256 do PDF</dt><dd class="mono">${val(p.pdf_sha)}</dd>
     <dt>Bytes</dt><dd>${val(p.pdf_bytes)}</dd>
     <dt>Etichetta em vigor desde</dt><dd>${val(p.label_effective)}
-      <div class="meta">data declarada pela fonte, nao inferida</div></dd>
+      <div class="meta">data declarada pela FONTE (o manifesto de coleta), nao inferida por esta
+      esteira. Como a fonte chegou a ela nao esta neste repositorio.</div>
+      ${fonteVsDocumento(p)}</dd>
     <dt>Capturado em</dt><dd>${val(p.captured_at)}</dd>
     <dt>Run de coleta</dt><dd class="mono">${val(p.run)}</dd>
     <dt>Estados de leitura</dt><dd>${Object.entries(p.states).map(([k,v])=>
@@ -901,7 +932,7 @@ function viewProduto(reg) {
       <tr><th>Revoga &middot; motivo</th><td>${val(p.revoke_reason)}</td></tr>
       <tr><th>Revoga &middot; decreto</th><td>${val(p.revoke_decree)}</td></tr>
       <tr><th>Revoga &middot; decorrencia</th><td>${val(p.revoke_effective)}</td></tr>` : ''}
-      <tr><th>Etichetta em vigor desde</th><td>${val(p.label_effective)}</td></tr>
+      <tr><th>Etichetta em vigor desde</th><td>${val(p.label_effective)}${fonteVsDocumento(p)}</td></tr>
       ${p.label_validity_state === 'VALIDITY_PHRASE_PRESENT_FORM_NOT_READ' ? `
       <tr><th>Vigencia declarada NA PROPRIA etichetta</th>
         <td><span class="unknown">VALIDITY_PHRASE_PRESENT_FORM_NOT_READ</span>
@@ -2059,7 +2090,15 @@ function viewReview() {
   <div class="cards">
     <div class="kpi"><b style="color:var(--rev)">${porFio.length}</b><span>doses rebaixadas por fio desenhado (medida)</span></div>
     <div class="kpi"><b style="color:var(--rev)">${porPlaus.length}</b><span>doses rebaixadas por plausibilidade (heuristica nossa)</span></div>
-    <div class="kpi"><b style="color:var(--unk)">${dq.length}</b><span>rotulos sem tabela de uso lida</span></div>
+    ${/* O ROTULO DIZIA MAIS DO QUE O NUMERO CONTA. `dq.length` sao os rotulos com
+          um DATA_QUALITY_EVENT do leitor de TABELA DE DOSE; 105 dos 140 tem
+          pares de uso lidos, e a propria tabela abaixo mostra a coluna "Pares
+          lidos" com 1.519 deles. "Sem tabela de uso lida" e falso sobre 105
+          desses 140. Achado da lente R, medido na tabela renderizada. */''}
+    <div class="kpi"><b style="color:var(--unk)">${dq.length}</b><span>rotulos em que o leitor de
+      TABELA DE DOSE nao leu tabela${(() => {
+        const comPar = dq.filter(o => (byReg[o.REGISTRATION_ID]||{uses:[]}).uses.length).length;
+        return comPar ? ` — ${comPar} deles tem par de uso lido por outra rota` : '';})()}</span></div>
     <div class="kpi"><b style="color:var(--unk)">${semUso.length}</b><span>produtos sem par cultura x alvo</span></div>
     <div class="kpi"><b style="color:var(--unk)">${semDose.length}</b><span>produtos sem dose estruturada</span></div>
     <div class="kpi"><b style="color:var(--unk)">${P.products.length}</b><span>fichas sem PHI (nao publicado)</span></div>
@@ -2084,10 +2123,18 @@ function viewReview() {
     contradisse nada&rdquo; seria afirmar um negativo cuja prova este modulo tinha apagado.</div>
   ${tabRev(porPlaus)}
 
-  <h2>Rotulos cuja tabela de uso nao foi lida (${dq.length})</h2>
+  <h2>Rotulos em que o leitor de TABELA DE DOSE nao leu tabela (${dq.length})</h2>
   <div class="lei">A maioria dos herbicidas italianos declara dose em <b>prosa</b>
     (&ldquo;alla dose di 1-3 l/ha&rdquo;), nao em tabela. Este leitor le tabela.
-    <b>Nenhum destes produtos e um produto sem uso ou sem dose.</b></div>
+    <b>Nenhum destes produtos e um produto sem uso ou sem dose.</b>
+    ${(() => { const comPar = dq.filter(o => (byReg[o.REGISTRATION_ID]||{uses:[]}).uses.length);
+      const nPar = comPar.reduce((a,o)=>a+byReg[o.REGISTRATION_ID].uses.length,0);
+      if (!comPar.length) return '';
+      return `<div class="meta" style="margin-top:5px"><b>${comPar.length} destes ${dq.length}
+        tem par de uso lido</b> — ${nPar} pares no total, pela coluna abaixo. O titulo desta tela
+        dizia &ldquo;sem tabela de uso lida&rdquo;, e isso era falso sobre esses
+        ${comPar.length}: o que falhou foi o leitor de TABELA DE DOSE, nao a leitura de uso.
+        </div>`;})()}</div>
   <div class="tw"><table>
     <thead><tr><th>Produto</th><th>Registro</th><th>Atividade</th><th>Estado do leitor</th><th>Pares lidos</th><th></th></tr></thead>
     <tbody>${dq.slice(0,200).map(o => {
@@ -2221,9 +2268,23 @@ function viewCov() {
 function viewSearch() {
   const q = ($('#sq').value||'').trim().toLowerCase();
   if (!q) { $('#sres').innerHTML = '<div class="meta">digite um produto, registro, cultura, alvo, substancia ativa, estado ou tipo de mudanca</div>'; return; }
-  const prods = P.products.filter(p =>
-    [p.name,p.reg,p.actives,p.holder,p.status,p.activity,p.formulation].join(' ').toLowerCase().includes(q)
-    || p.uses.some(u => (u.crop+' '+u.target).toLowerCase().includes(q)));
+  // QUAL CAMPO CASOU. O registro entrava no mesmo balaio que nome, ativos e
+  // titular, com `includes` cru: buscar "600" — que e um valor de dose que esta
+  // ferramenta publica — trazia sete produtos cujo UNICO campo casado era o
+  // NUMERO DE REGISTRO, e a tela nao dizia isso. Medido pela lente N: em 18 de
+  // 29 consultas numericas, 100 linhas de produto vinham so por registro.
+  // Buscar por registro e comportamento pedido (o proprio campo convida a
+  // isso); o defeito era o ruido silencioso. Agora cada linha diz por onde veio.
+  const ondeCasou = p => {
+    const onde = [];
+    if (String(p.name||'').toLowerCase().includes(q)) onde.push('nome');
+    if (String(p.reg||'').toLowerCase().includes(q)) onde.push('registro');
+    if ([p.actives,p.holder,p.status,p.activity,p.formulation]
+        .join(' ').toLowerCase().includes(q)) onde.push('ficha');
+    if (p.uses.some(u => (u.crop+' '+u.target).toLowerCase().includes(q))) onde.push('uso');
+    return onde;
+  };
+  const prods = P.products.filter(p => ondeCasou(p).length);
   const objs = P.objects.filter(o =>
     [o.PRODUCT_NAME,o.REGISTRATION_ID,o.CHANGE_TYPE,o.FACT,o.BEFORE_VALUE,o.AFTER_VALUE]
       .join(' ').toLowerCase().includes(q));
@@ -2233,10 +2294,15 @@ function viewSearch() {
     leva a prova.</div>
   <h2>Produtos (${prods.length})</h2>
   ${prods.length ? `<div class="tw"><table>
-    <thead><tr><th>Produto</th><th>Registro</th><th>Titular</th><th>Ativos</th><th>Validade</th><th>Usos</th><th>Doses</th><th></th></tr></thead>
+    <thead><tr><th>Produto</th><th>Registro</th><th>Casou em</th><th>Titular</th><th>Ativos</th><th>Validade</th><th>Usos</th><th>Doses</th><th></th></tr></thead>
     <tbody>${prods.slice(0,80).map(p=>`<tr>
       <td><a onclick="go('produto');viewProduto('${p.reg}')" style="cursor:pointer">${esc(p.name)}</a></td>
-      <td class="mono">${esc(p.reg)}</td><td class="meta">${esc(p.holder)}</td>
+      <td class="mono">${esc(p.reg)}</td>
+      <td class="meta">${(() => { const o = ondeCasou(p);
+        return o.map(x => x === 'registro' && o.length === 1
+          ? `<span class="unknown" title="o unico campo que casou foi o NUMERO DE REGISTRO: se voce buscava uma dose, uma cultura ou um alvo, esta linha nao e sobre isso">so registro</span>`
+          : `<code>${esc(x)}</code>`).join(' ');})()}</td>
+      <td class="meta">${esc(p.holder)}</td>
       <td class="meta">${val(p.actives)}</td><td>${validade(p)}</td>
       <td>${contagem(p,'uses','LABEL_READ')}</td>
       <td>${contagem(p,'doses','LABEL_READ')}</td>

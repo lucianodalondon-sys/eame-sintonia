@@ -119,7 +119,7 @@ nao o documento.
 import argparse, hashlib, json, os, re, subprocess, sys, unicodedata
 import sys as _sys, os as _os
 _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
-from selo import selo
+from selo import selo, gravar
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -382,7 +382,7 @@ def main():
         'DETAIL': det,
     }
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
-    json.dump(saida, open(a.out, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    gravar(saida, a.out)
     for k, v in fam.items():
         print(f'  {k:22} {v}', file=sys.stderr)
     print(f'\n  TOTAL {dict(tot.most_common())}', file=sys.stderr)

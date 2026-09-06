@@ -305,8 +305,14 @@ teste('PORTFOLIO · autorizado NA CULTURA nao vira autorizado PARA O ALVO', () =
   let colapso = 0, ex = null;
   P.products.forEach(p => (p.uses||[]).forEach(u => {
     // um par so pode carregar o selo FATO se as DUAS colunas fecharem
+    // A FORMULA AQUI TEM DE SER A DE TRES COLUNAS, como payload.py a escreve.
+    // Enquanto ela era de duas, tirar `crop_name` do selo produzia um payload
+    // BYTE-IDENTICO e nenhum teste caia — e se um dia crop_name passasse a
+    // pesar, era este teste que reprovaria o comportamento CORRETO. Medido pela
+    // lente P: `target_name` estava protegido e `crop_name` nao.
     const deveria = u.pair_check === 'PAIR_CONSISTENT_WITH_RULES'
-                 && u.target_name === 'TARGET_NAME_LITERAL';
+                 && u.target_name === 'TARGET_NAME_LITERAL'
+                 && ['CROP_NAME_LITERAL', 'CROP_NAME_INFLECTED_IN_LABEL'].includes(u.crop_name);
     if (u.fact !== deveria) { colapso++; ex = ex || [p.reg, u.crop, u.target]; }
   }));
   afirma(colapso === 0, `${colapso} pares com selo FATO incoerente com as duas colunas (ex ${ex})`);
@@ -403,14 +409,22 @@ teste('PORTFOLIO · rota que R-14 nao testa nunca carrega selo de prova', () => 
 
 teste('SF-12/SF-07 · a ferramenta nao cita frase que o rotulo nao escreve', () => {
   // nenhuma celula NAO CONTIGUA pode aparecer entre aspas
+  //
+  // O ORACULO E DESTE TESTE, e nao do app.js. A versao anterior usava
+  // `citavel(...)` — a propria funcao sob teste — para escolher a amostra: a
+  // lente P mostrou que afrouxar `citavel` ENCOLHIA a amostra e o teste
+  // continuava passando, enquanto 116 celulas de cultura, 277 de par e 83 de
+  // alvo voltavam a sair entre aspas como frase do rotulo. Teste cujo oraculo e
+  // a coisa testada nao testa nada.
+  const CITAVEL_AQUI = e => e === 'QUOTE_VERBATIM';
   let mau = 0, n = 0, ex = null;
   P.products.forEach(p => (p.doses||[]).forEach((d,i) => {
-    if (citavel(d.crop_cell_state) && citavel(d.target_cell_state)) return;
+    if (CITAVEL_AQUI(d.crop_cell_state) && CITAVEL_AQUI(d.target_cell_state)) return;
     n++;
     evDose(p.reg, i);
     const h = html('#dr');
     if (!h.includes('CELL_TEXT_NOT_RECOVERABLE')) { mau++; ex = ex || [p.reg, d.crop]; }
-    if (!citavel(d.crop_cell_state) && h.includes('&ldquo;'+d.crop+'&rdquo;')) {
+    if (!CITAVEL_AQUI(d.crop_cell_state) && h.includes('&ldquo;'+d.crop+'&rdquo;')) {
       mau++; ex = ex || [p.reg, d.crop, 'citada entre aspas'];
     }
   }));

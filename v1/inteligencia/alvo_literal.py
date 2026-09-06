@@ -81,7 +81,7 @@ que eu nao medi.
 import argparse, json, os, re, subprocess, sys, unicodedata
 import sys as _sys, os as _os
 _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
-from selo import selo
+from selo import selo, gravar
 
 RXP = re.compile(r'<page width="([\d.]+)" height="([\d.]+)">(.*?)</page>', re.S)
 RXW = re.compile(r'<word xMin="([\d.]+)" yMin="([\d.]+)" xMax="([\d.]+)" yMax="([\d.]+)">([^<]*)</word>')
@@ -297,7 +297,7 @@ def main():
         "NOT_FOUND": achados,
     }
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
-    json.dump(saida, open(a.out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    gravar(saida, a.out)
     print(f"  alvos: literais {n_ok} (dos quais {n_col} so apos remontar por coluna) | "
           f"NAO literais {n_nao} | nao conferiveis {n_sem} "
           f"(nenhuma linha rebaixada por este modulo)", file=sys.stderr)

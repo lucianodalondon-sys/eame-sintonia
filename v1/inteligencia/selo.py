@@ -43,3 +43,37 @@ def selo(arquivo_do_modulo):
     except OSError:
         return {'MODULE': os.path.basename(cam), 'MODULE_SHA256': 'NOT_READABLE'}
     return {'MODULE': os.path.basename(cam), 'MODULE_SHA256': sha}
+
+
+def conteudo_sha(saida):
+    """sha256 do CONTEUDO da saida, com o proprio selo de fora.
+
+    O selo do produtor prova que o JSON saiu deste codigo. Nao prova que ninguem
+    mexeu no JSON depois. O teste de mutacao da rodada 4 inverteu, a mao, oito
+    vereditos de oito regras diferentes — com os cabecalhos de contagem
+    ajustados junto — e os 27 portoes, os 50 testes de render e os 12 de ruido
+    continuaram verdes. Tambem calou o portao de celula aberta subindo, no mesmo
+    arquivo, o teto contra o qual ele comparava.
+
+    Com o sha do conteudo, qualquer edicao a mao num artefato selado e detectada
+    pelo portao ARTIFACTS_MATCH_THE_CODE_THAT_MADE_THEM. Continua sendo possivel
+    recalcular o sha depois de editar — mas ai nao e mais uma edicao discreta:
+    e reescrever o selo, e isso aparece no diff.
+    """
+    import json
+    corpo = {k: v for k, v in saida.items() if k != 'PRODUCED_BY'}
+    return hashlib.sha256(
+        json.dumps(corpo, ensure_ascii=False, sort_keys=True,
+                   separators=(',', ':')).encode()).hexdigest()
+
+
+def gravar(saida, caminho):
+    """Sela o conteudo e grava. Substitui o json.dump direto dos modulos."""
+    import json
+    if isinstance(saida.get('PRODUCED_BY'), dict):
+        saida['PRODUCED_BY']['CONTENT_SHA256'] = conteudo_sha(saida)
+    d = os.path.dirname(caminho)
+    if d:
+        os.makedirs(d, exist_ok=True)
+    with open(caminho, 'w', encoding='utf-8') as fh:
+        json.dump(saida, fh, ensure_ascii=False, indent=1)

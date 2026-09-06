@@ -1,7 +1,7 @@
 {
  "SUITE": "PORTOES-V1",
- "PASS": 27,
- "FAIL": 0,
+ "PASS": 26,
+ "FAIL": 1,
  "RESULTS": [
   {
    "GATE": "UNPROVED_ACTION_ROUTING",
@@ -41,12 +41,12 @@
   {
    "GATE": "UNKNOWN_HIDDEN_OR_FILLED",
    "STATE": "PASS",
-   "DETALHE": "nenhuma celula com traco/N-A em 10756311 caracteres de tela renderizada (render: 3556 blocos, 10756311 caracteres)"
+   "DETALHE": "nenhuma celula com traco/N-A em 10783209 caracteres de tela renderizada (render: 3556 blocos, 10783209 caracteres)"
   },
   {
    "GATE": "UNKNOWN_VISIBLE",
    "STATE": "PASS",
-   "DETALHE": "42 tokens de ignorancia distintos aparecem com o proprio nome na tela"
+   "DETALHE": "44 tokens de ignorancia distintos aparecem com o proprio nome na tela"
   },
   {
    "GATE": "EXPIRY_AS_WITHDRAWAL",
@@ -60,13 +60,13 @@
   },
   {
    "GATE": "ISOLATION",
-   "STATE": "PASS",
-   "DETALHE": "69 arquivos, todos dentro de v1/ e pilot/"
+   "STATE": "FAIL",
+   "DETALHE": "arquivos fora do escopo: ['.gitignore']"
   },
   {
    "GATE": "CANONICAL_TOUCHED",
    "STATE": "PASS",
-   "DETALHE": "nenhum dos 47 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
+   "DETALHE": "nenhum dos 48 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
   },
   {
    "GATE": "REUSE_ANCHORED_ON_FILE_HASH",

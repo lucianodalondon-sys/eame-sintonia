@@ -28,7 +28,7 @@ outra cultura. Medido: por token o modulo acusava 60 pares; por frase inteira,
 import argparse, json, os, re, subprocess, sys, unicodedata
 import sys as _sys, os as _os
 _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
-from selo import selo
+from selo import selo, gravar
 
 CABECALHO = re.compile(r'non superare le seguenti dosi per ettaro\s*:?', re.I)
 ITEM = re.compile(r'^\s*([a-zà-ÿ][a-zà-ÿ ,\'\-]{2,90}?)\s*:\s*([\d.,]+)\s*(kg|g|l|ml)\s*/\s*ha\b', re.I)
@@ -207,7 +207,7 @@ def main():
         'CEILINGS': por_reg,
     }
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
-    json.dump(saida, open(a.out, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    gravar(saida, a.out)
     print(f'  rotulos com teto por cultura: {len(por_reg)} | com nota de dose nao lida por '
           f'este modulo: {len(com_outras)}', file=sys.stderr)
     for reg, ts in list(por_reg.items())[:2]:

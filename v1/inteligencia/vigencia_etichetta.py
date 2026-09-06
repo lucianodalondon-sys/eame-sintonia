@@ -52,7 +52,7 @@ ferramenta nao faz e afirmar que a data nao existe.
 import argparse, json, os, re, subprocess, sys, unicodedata
 import sys as _sys, os as _os
 _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
-from selo import selo
+from selo import selo, gravar
 from collections import Counter
 
 # Formas medidas no acervo, com o numero de rotulos em que cada uma ocorre.
@@ -100,6 +100,23 @@ def citacao(t, m):
     return re.sub(r"\s+", " ", t[a:b]).strip()
 
 
+RX_VALIDA = re.compile(r"valid[ai]t?[aa]?\s+dal\s+(\d{1,2})[./](\d{1,2})[./](\d{4})", re.I)
+RX_DECRETO = re.compile(r"decreto\s+dirigenziale\s+del\s+(\d{1,2})[./ ](\d{1,2}|[a-z]+)[./ ](\d{4})",
+                        re.I)
+_MES = {"gennaio": 1, "febbraio": 2, "marzo": 3, "aprile": 4, "maggio": 5, "giugno": 6,
+        "luglio": 7, "agosto": 8, "settembre": 9, "ottobre": 10, "novembre": 11, "dicembre": 12}
+
+
+def _iso(m):
+    """AAAA-MM-DD a partir do casamento, ou None se o mes nao for reconhecido."""
+    d, mes, ano = m.group(1), m.group(2), m.group(3)
+    mes = _MES.get(str(mes).lower(), mes)
+    try:
+        return f"{int(ano):04d}-{int(mes):02d}-{int(d):02d}"
+    except (TypeError, ValueError):
+        return None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pacote", default="v1/dados/COLLECTION-PACKAGE.json")
@@ -134,6 +151,19 @@ def main():
                    else "VALIDITY_PHRASE_PRESENT_FORM_NOT_READ")
             ver[reg] = {"STATE": est, "QUOTE": cit, "FORM": nome}
         cont[est] += 1
+        # AS DATAS QUE O PROPRIO DOCUMENTO ESCREVE, cruas, para quem quiser
+        # comparar com a data que a FONTE declara (label_effective).
+        #
+        # Medido na rodada 4: em 42 dos 166 produtos a data que a ficha imprime
+        # como "Etichetta em vigor desde" coincide EXATAMENTE com a data do
+        # DECRETO, e o PDF nao tem nenhuma frase "valida dal". A proveniencia
+        # dessa data e o manifesto de sintonia/canonical, que nao esta neste
+        # repositorio — entao NAO afirmo que ela foi derivada do decreto. Afirmo
+        # a coincidencia, que e medivel aqui, e deixo o leitor ver as duas.
+        ver[reg]["DATES_IN_LABEL"] = {
+            "VALIDA_DAL": sorted({d for d in (_iso(m) for m in RX_VALIDA.finditer(t)) if d}),
+            "DECRETO": sorted({d for d in (_iso(m) for m in RX_DECRETO.finditer(t)) if d}),
+        }
 
     saida = {
         "DATASET": "V1-VIGENCIA-ETICHETTA",
@@ -145,11 +175,16 @@ def main():
                              "que a data do 'modificata ai sensi ... con validita dal' e o mesmo "
                              "fato que a do 'valida dal X al Y'"),
         "FORMS_MEASURED": {n: c for _p, n, c, _e in FORMAS},
+        "DATES_IN_LABEL_NOTA": ("as datas que o PROPRIO documento escreve, cruas. Servem para "
+                                "comparar com a data que a FONTE declara (label_effective), cuja "
+                                "proveniencia esta no manifesto de sintonia/canonical e nao neste "
+                                "repositorio. A comparacao e uma coincidencia medida, nao uma "
+                                "afirmacao sobre como a fonte derivou a data"),
         "COUNTS": dict(cont.most_common()),
         "VERDICT": ver,
     }
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
-    json.dump(saida, open(a.out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    gravar(saida, a.out)
     for k, v in cont.most_common():
         print(f"  {v:5}  {k}", file=sys.stderr)
     return 0

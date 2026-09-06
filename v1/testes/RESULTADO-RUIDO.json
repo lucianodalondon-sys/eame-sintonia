@@ -1,7 +1,7 @@
 {
  "SUITE": "FALSE-CHANGE-NOISE-TEST",
  "O_QUE_ISTO_TESTA": "se o motor fabrica mudanca a partir de perturbacao que nao muda regulacao nenhuma, e se ainda assim enxerga mudanca real",
- "PASSOU": 12,
+ "PASSOU": 13,
  "FALHOU": 0,
  "FALSE_CHANGE_NOISE_TEST": "PASS",
  "TESTES_OK": [
@@ -43,6 +43,10 @@
   },
   {
    "TESTE": "controle positivo: mudanca real e detectada",
+   "LEI": "R-01"
+  },
+  {
+   "TESTE": "controle positivo nos 10 campos vigiados",
    "LEI": "R-01"
   },
   "coluna vigiada renomeada: o differ recusou comparar e disse por que",

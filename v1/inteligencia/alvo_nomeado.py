@@ -70,7 +70,7 @@ DOSE existe no documento; esta pergunta e sobre o NOME NORMALIZADO do par de uso
 import argparse, json, os, re, subprocess, sys, unicodedata
 import sys as _sys, os as _os
 _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
-from selo import selo
+from selo import selo, gravar
 from collections import Counter
 
 
@@ -223,7 +223,7 @@ def main():
         'NOT_IN_LABEL': det,
     }
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
-    json.dump(saida, open(a.out, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    gravar(saida, a.out)
     for k, v in cont.most_common():
         print(f'  {v:5}  {k}', file=sys.stderr)
     return 0

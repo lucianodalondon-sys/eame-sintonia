@@ -146,6 +146,78 @@ else:
                    "PROBLEMA": f"esperado 1 EXPIRY_CHANGED, obtido {len(ev)}"})
     print(f"  FAIL  controle positivo: esperado 1 evento, obtido {len(ev)}")
 
+# --- CONTROLE POSITIVO PARA OS DEZ CAMPOS VIGIADOS, E NAO PARA DOIS
+#
+# Ate a rodada 4 havia controle positivo so para `data_scadenza_autorizzazione`
+# e `stato_amministrativo`. O teste de mutacao mostrou o preco: removendo
+# `"sostanze_attive": "ACTIVE_INGREDIENT_CHANGED"` de WATCHED, os 12 testes de
+# ruido e os 27 portoes continuavam verdes — e mudanca real de SUBSTANCIA ATIVA
+# passava a emitir ZERO eventos. Ficavam sem controle: titular, substancia
+# ativa, formulacao, nome do produto, indicacoes de perigo e os tres campos de
+# revoga.
+#
+# Um filtro de ruido que so sabe dizer "isto nao e mudanca" nao e um filtro: e
+# um silenciador. Cada campo vigiado tem de ter um caso em que a mudanca PASSA.
+#
+# E A LISTA ESPERADA MORA AQUI, no teste, e nao em RI.WATCHED. Iterar sobre
+# WATCHED faria o teste desaparecer junto com o campo removido — que e
+# exatamente a mutacao a pegar. O oraculo do teste nao pode ser a coisa testada.
+_ESPERADOS = {
+    "ragione_sociale": "HOLDER_CHANGED",
+    "data_scadenza_autorizzazione": "EXPIRY_CHANGED",
+    "stato_amministrativo": "STATUS_CHANGED",
+    "sostanze_attive": "ACTIVE_INGREDIENT_CHANGED",
+    "descrizione_formulazione": "FORMULATION_CHANGED",
+    "denominazione_prodotto": "PRODUCT_NAME_CHANGED",
+    "indicazioni_di_pericolo": "HAZARD_CHANGED",
+    "motivo_della revoca": "REVOCATION_REASON_CHANGED",
+    "data_decreto_revoca": "REVOCATION_DECREE_CHANGED",
+    "data_decorrenza_revoca": "REVOCATION_EFFECT_CHANGED",
+}
+_VALOR_NOVO = {
+    "ragione_sociale": "OUTRA EMPRESA S.P.A.",
+    "data_scadenza_autorizzazione": "31/12/2099",
+    "stato_amministrativo": "Revocato",
+    "sostanze_attive": "SOSTANZA INVENTATA 100 G/L",
+    "descrizione_formulazione": "FORMULAZIONE INVENTATA",
+    "denominazione_prodotto": "NOME INVENTADO XYZ",
+    "indicazioni_di_pericolo": "H999",
+    "motivo_della revoca": "MOTIVO INVENTADO",
+    "data_decreto_revoca": "01/01/2099",
+    "data_decorrenza_revoca": "02/01/2099",
+}
+_sem_controle, _com_controle = [], []
+for _campo, _tipo in sorted(_ESPERADOS.items()):
+    if _campo not in RI.WATCHED:
+        _sem_controle.append(f"{_campo} saiu de WATCHED: mudanca real nele nao emite evento nenhum")
+        continue
+    if RI.WATCHED[_campo] != _tipo:
+        _sem_controle.append(f"{_campo}: WATCHED diz {RI.WATCHED[_campo]}, o teste espera {_tipo}")
+        continue
+
+    def _muda(r, _c=_campo, _v=_VALOR_NOVO[_campo]):
+        if r.get("num_registrazione", "").strip() == "015275":
+            r[_c] = _v
+    _D = perturba(A, _muda)
+    _ev = reais(eventos(A, _D))
+    _tipos = {e["CHANGE_TYPE"] for e in _ev}
+    if _tipo in _tipos:
+        _com_controle.append(_campo)
+    else:
+        _sem_controle.append(f"{_campo}: mudanca real nao emitiu {_tipo} (emitiu {_tipos or 'nada'})")
+
+for _extra in sorted(set(RI.WATCHED) - set(_ESPERADOS)):
+    _sem_controle.append(f"{_extra} entrou em WATCHED e nao tem controle positivo neste teste")
+if not _sem_controle:
+    PASSOU.append({"TESTE": "controle positivo nos 10 campos vigiados", "LEI": "R-01"})
+    print(f"  ok    controle positivo: mudanca real E detectada nos {len(_com_controle)} "
+          f"campos vigiados")
+else:
+    FALHAS.append({"TESTE": "controle positivo nos campos vigiados", "LEI": "R-01",
+                   "PROBLEMA": "; ".join(_sem_controle[:4])})
+    print(f"  FAIL  controle positivo: {len(_sem_controle)} campos vigiados sem deteccao: "
+          f"{_sem_controle[:2]}")
+
 # --- ataque: coluna VIGIADA renomeada
 #
 # A blindagem do BOM protegia a coluna-chave. Uma coluna VIGIADA que mude de

@@ -57,7 +57,7 @@ documento NAO desenhou o risco — nesse caso continua valendo o
 import argparse, json, os, sys
 import sys as _sys, os as _os
 _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
-from selo import selo
+from selo import selo, gravar
 from collections import Counter
 
 COBRE = 0.6      # a mesma fracao de fios.mesma_celula e de par_validar
@@ -162,7 +162,7 @@ def main():
         'CROSSED': det,
     }
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
-    json.dump(saida, open(a.out, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    gravar(saida, a.out)
     for k, v in saida['COUNTS'].items():
         print(f'  {v:5}  {k}', file=sys.stderr)
     return 0

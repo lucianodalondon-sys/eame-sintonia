@@ -275,6 +275,16 @@ def main():
             # fatos; a terceira nasceu de 23 pares em que a cultura publicada
             # nao e palavra nenhuma do documento.
             #
+            # E FICA DITO O TAMANHO DELA HOJE: dos pares que R-14 absolve, 100%
+            # tem CROP_NAME_LITERAL — os 23 CROP_NAME_NOT_IN_LABEL e os 31
+            # INFLECTED ja caem por outra coluna. Ou seja, no censo de hoje a
+            # terceira coluna nao derruba nem sustenta nenhum fato sozinha:
+            # tirar `crop_name` desta formula produz um payload byte-identico.
+            # Isso NAO e motivo para tira-la — o defeito que ela nomeia e real e
+            # foi medido no documento —, mas "medido contra o CODIGO" e "medido
+            # contra o CENSO" sao duas coisas, e este modulo ja errou essa
+            # distincao antes (TARGET_UNDER_CROP_HEADER, SF-01).
+            #
             # CROP_NAME_INFLECTED_IN_LABEL FECHA a coluna, e isto e uma decisao
             # com motivo medido: sao 31 pares em que a etichetta escreve
             # "cavoli" e a ferramenta publica CAVOLO. A palavra E a mesma, no
@@ -403,6 +413,25 @@ def main():
             # conhece a forma "valida dal X al Y", que existe em 1. Agora o
             # estado tem nome proprio e a frase vai junto.
             "label_validity_state": vig.get(reg, {}).get("STATE", "VALIDITY_NOT_CHECKED"),
+            # A DATA DA FONTE E A DATA DO DOCUMENTO, LADO A LADO.
+            #
+            # `label_effective` vem do manifesto de sintonia/canonical, que nao
+            # esta neste repositorio. Medido na rodada 4: em 42 dos 166 produtos
+            # ela coincide EXATAMENTE com a data do DECRETO e o PDF nao escreve
+            # nenhuma frase "valida dal" — enquanto a mesma ficha imprime, duas
+            # linhas abaixo, que a ferramenta NAO converte a data do decreto em
+            # vigencia. Nao afirmo que a fonte derivou uma da outra; publico a
+            # coincidencia, que e medivel aqui, com nome proprio.
+            "label_effective_vs_document": (
+                lambda d, eff: (
+                    "SOURCE_DATE_NOT_COMPARABLE" if not d or str(eff or "").startswith("NOT_")
+                    else "SOURCE_DATE_MATCHES_VALIDITY_PHRASE" if eff in (d.get("VALIDA_DAL") or [])
+                    else "SOURCE_DATE_MATCHES_DECREE_ONLY"
+                    if eff in (d.get("DECRETO") or []) and not (d.get("VALIDA_DAL") or [])
+                    else "SOURCE_DATE_NOT_FOUND_IN_DOCUMENT")
+            )(vig.get(reg, {}).get("DATES_IN_LABEL"), i["LABEL_EFFECTIVE_AT"]),
+            "label_dates_in_document": vig.get(reg, {}).get("DATES_IN_LABEL")
+                                       or {"VALIDA_DAL": [], "DECRETO": []},
             "label_validity_form": vig.get(reg, {}).get("FORM"),
             "label_validity_literal": vig.get(reg, {}).get("QUOTE"),
             "captured_at": i["CAPTURED_AT"],

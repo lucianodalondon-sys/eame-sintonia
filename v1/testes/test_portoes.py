@@ -492,6 +492,27 @@ try:
             if not _tem and _pv.get(f"{_reg}#{_i}") == "PAIR_CONSISTENT_WITH_RULES":
                 _cn.append(f"R-14 absolveu {_reg}#{_i} ({_x['CROP']}) e o documento nao "
                            f"escreve esse nome")
+        # E A RECONTAGEM TEM DE CONCORDAR COM O TOKEN PUBLICADO, par a par.
+        #
+        # A versao anterior deste portao recontava e conferia um caso NOMEADO
+        # (018270#10). O teste de mutacao mostrou o preco: inverter o veredito
+        # do irmao 018279#10 — mesmo produto, mesmo defeito — passava, porque o
+        # portao nunca perguntava se o que ele acabou de remedir bate com o que
+        # o artefato diz. Agora pergunta, nos 2.928.
+        _cn_pub = json.load(open("v1/dados/CULTURA-NOMEADA.json", encoding="utf-8"))["VERDICT"]
+        _discorda = 0
+        for _k, _v in _cn_pub.items():
+            if _v == "CROP_NAME_NOT_CHECKED":
+                continue
+            _eu = "CROP_NAME_NOT_IN_LABEL" if _k in _pego else "CROP_NAME_ESTA_NO_DOCUMENTO"
+            _ele = ("CROP_NAME_NOT_IN_LABEL" if _v == "CROP_NAME_NOT_IN_LABEL"
+                    else "CROP_NAME_ESTA_NO_DOCUMENTO")
+            if _eu != _ele:
+                _discorda += 1
+                if _discorda <= 3:
+                    _cn.append(f"{_k}: a recontagem diz {_eu} e CULTURA-NOMEADA.json diz {_v}")
+        if _discorda > 3:
+            _cn.append(f"...e mais {_discorda - 3} pares em desacordo")
         if "018270#10" not in _pego:
             _cn.append("CONTROLE NEGATIVO FALHOU: 018270#10 (FAGIOLO, a etichetta escreve "
                        "FAGIOLINO) nao foi pego pela recontagem — o portao parou de medir")
@@ -700,6 +721,22 @@ try:
             _sl.append(f"{_art}: foi gerado por uma versao de {_nome} que nao e a que esta em "
                        f"disco (artefato {str(_pb.get('MODULE_SHA256'))[:12]}, codigo "
                        f"{_sh2[:12]}) — rode o modulo de novo")
+            continue
+        # E O CONTEUDO. O selo do produtor prova que o JSON saiu deste codigo;
+        # nao prova que ninguem mexeu nele depois. O teste de mutacao inverteu a
+        # mao oito vereditos de oito regras, com os cabecalhos de contagem
+        # ajustados junto, e nada acusou.
+        _esp = _pb.get("CONTENT_SHA256")
+        if not _esp:
+            _sl.append(f"{_art}: tem selo de modulo e nao tem CONTENT_SHA256 — foi gerado antes "
+                       f"do selo de conteudo, rode o modulo de novo")
+            continue
+        _corpo = {k: v for k, v in _d.items() if k != "PRODUCED_BY"}
+        _real = _hl.sha256(json.dumps(_corpo, ensure_ascii=False, sort_keys=True,
+                                      separators=(",", ":")).encode()).hexdigest()
+        if _real != _esp:
+            _sl.append(f"{_art}: o CONTEUDO nao e o que {_nome} gravou "
+                       f"(selo {_esp[:12]}, medido {_real[:12]}) — o arquivo foi editado depois")
     # E O CONTRARIO TAMBEM: todo modulo que sabe se selar TEM de ter selado a
     # sua saida. Sem isto o portao so olha o que ja tem selo, e um artefato que
     # perdeu o selo (porque o modulo quebrou, ou porque ninguem o rodou depois de
