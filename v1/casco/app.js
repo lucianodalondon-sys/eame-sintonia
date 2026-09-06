@@ -89,7 +89,7 @@ function janelaAgora(o) {
   if (o.OBJECT_TYPE === 'REVOCATION_ACT_CHANGE') return ['ACT_NOW', 'T-08'];
   if (o.OBJECT_TYPE === 'STATUS_CHANGE' &&
       FORA_DE_VIGOR.includes(String(o.AFTER_VALUE || '').trim().toLowerCase()))
-    return ['ACT_NOW', 'T-08'];
+    return ['ACT_NOW', 'T-09'];
   const p = byReg[o.REGISTRATION_ID];
   const d = p ? dte(p) : null;
   if (d === null || typeof d !== 'number') return [o.TIME_WINDOW, o.TIME_WINDOW_RULE];
@@ -571,6 +571,17 @@ function viewProduto(reg) {
       <tr><th>Revoga &middot; decreto</th><td>${val(p.revoke_decree)}</td></tr>
       <tr><th>Revoga &middot; decorrencia</th><td>${val(p.revoke_effective)}</td></tr>` : ''}
       <tr><th>Etichetta em vigor desde</th><td>${val(p.label_effective)}</td></tr>
+      ${p.label_valid_to && !isUnk(p.label_valid_to) ? `
+      <tr><th>Vigencia declarada NA PROPRIA etichetta</th>
+        <td${(HOJE && p.label_valid_to < HOJE) ? ' style="color:var(--bad)"' : ''}>
+          ${esc(p.label_valid_from)} &rarr; <b>${esc(p.label_valid_to)}</b>
+          ${(HOJE && p.label_valid_to < HOJE)
+            ? ` &mdash; <b>a vigencia que o proprio documento declara ja terminou</b>`
+            : ''}
+          <div class="meta">o documento escreve: <i>&ldquo;${esc(p.label_validity_quote)}&rdquo;</i>.
+          A ferramenta guardava so o &ldquo;dal&rdquo; e ficava com a metade que envelhece bem.
+          Isto e o que a ETICHETTA diz sobre si mesma, e nao se confunde com a validade da
+          AUTORIZACAO no registro, que esta na linha acima.</div></td></tr>` : ''}
       <tr><th>Documento</th><td class="mono">${val(p.pdf_sha)}</td></tr>
     </tbody></table></div>
   </div>

@@ -44,6 +44,42 @@ def dt(s):
         return None
 
 
+MESES_IT = {"gennaio": 1, "febbraio": 2, "marzo": 3, "aprile": 4, "maggio": 5, "giugno": 6,
+            "luglio": 7, "agosto": 8, "settembre": 9, "ottobre": 10, "novembre": 11,
+            "dicembre": 12}
+RX_VIGENCIA = re.compile(
+    r"valida\s+dal\s+(\d{1,2})\s+([a-z]+)\s+(\d{4})\s+al\s+(\d{1,2})\s+([a-z]+)\s+(\d{4})", re.I)
+
+
+def validade_da_etichetta(reg, pdfs, cache):
+    """Janela de vigencia que a PROPRIA etichetta declara, quando ela declara."""
+    import subprocess, unicodedata
+    os.makedirs(cache, exist_ok=True)
+    alvo = os.path.join(cache, f"{reg}.txt")
+    if not os.path.exists(alvo) or os.path.getsize(alvo) == 0:
+        pdf = os.path.join(pdfs, f"{reg}.pdf")
+        if not os.path.exists(pdf):
+            return {"LABEL_VALID_FROM": "NOT_CHECKED", "LABEL_VALID_TO": "NOT_CHECKED"}
+        try:
+            subprocess.run(["pdftotext", "-layout", pdf, alvo], check=True,
+                           capture_output=True, timeout=180)
+        except Exception:
+            return {"LABEL_VALID_FROM": "NOT_CHECKED", "LABEL_VALID_TO": "NOT_CHECKED"}
+    t = open(alvo, encoding="utf-8", errors="replace").read()
+    t = "".join(c for c in unicodedata.normalize("NFD", t)
+                if unicodedata.category(c) != "Mn").lower()
+    t = re.sub(r"\s+", " ", t)
+    m = RX_VIGENCIA.search(t)
+    if not m:
+        return {"LABEL_VALID_FROM": "NOT_PRESENT", "LABEL_VALID_TO": "NOT_PRESENT"}
+    def iso(d, mes, ano):
+        n = MESES_IT.get(mes)
+        return f"{ano}-{n:02d}-{int(d):02d}" if n else "NOT_PARSED"
+    return {"LABEL_VALID_FROM": iso(m.group(1), m.group(2), m.group(3)),
+            "LABEL_VALID_TO": iso(m.group(4), m.group(5), m.group(6)),
+            "LABEL_VALIDITY_QUOTE": m.group(0)}
+
+
 def main():
     import argparse
     ap = argparse.ArgumentParser()
@@ -52,6 +88,7 @@ def main():
                     default="https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv")
     ap.add_argument("--pdfdir", default=f"{P}/labels/pdf")
     ap.add_argument("--run-id", required=True)
+    ap.add_argument("--cachetxt", default="/tmp/tetotxt")
     ap.add_argument("--out", default="v1/dados/COLLECTION-PACKAGE.json")
     a = ap.parse_args()
 
@@ -124,6 +161,14 @@ def main():
             "PDF_SHA256": (sha(pdf) if tem_pdf else "NOT_KNOWN"),
             "PDF_BYTES": (os.path.getsize(pdf) if tem_pdf else "NOT_KNOWN"),
             "LABEL_EFFECTIVE_AT": mm.get("MANIFEST_LABEL_DATE", "NOT_KNOWN"),
+            # A etichetta as vezes declara a PROPRIA janela de vigencia, e a
+            # ferramenta guardava so o inicio. 002732 (GOLTIX) escreve
+            # "Etichetta autorizzata con Decreto Dirigenziale del 22 luglio 2024
+            # valida dal 22 luglio 2024 al 18 novembre 2024": guardar so o
+            # "dal" e ficar com a metade que envelhece bem. E o unico rotulo do
+            # corpus que traz a frase — medido nos 163 — e por isso mesmo o
+            # unico caso em que a omissao passaria despercebida.
+            **validade_da_etichetta(reg, a.pdfdir, a.cachetxt),
             "REGISTRY_SNAPSHOT_ID": snap_id,
             "REGISTRY_SNAPSHOT_SHA256": snap_sha,
             "CAPTURED_AT": mm.get("BASELINE_CAPTURED_AT") or man.get("CAPTURED_AT", "NOT_KNOWN"),

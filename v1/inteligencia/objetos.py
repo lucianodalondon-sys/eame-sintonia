@@ -160,8 +160,12 @@ def janela(tipo, dias, novo, antes=None, depois=None):
     # OLHAR e nada mais: EXPIRY != WITHDRAWAL, e nenhuma ACTION nasce daqui.
     if tipo == "REVOCATION_ACT_CHANGE":
         return "ACT_NOW", "T-08"
+    # T-09, nao T-08: aqui mudou o ESTADO, e nem sempre ha ato datado por tras.
+    # Em 014225/014227 (Revocato -> Scaduto) os tres campos de revoga sao "-" nos
+    # 60 instantaneos: chamar isso de "ato administrativo datado" descrevia um
+    # documento que a fonte nao traz.
     if tipo == "STATUS_CHANGE" and str(depois or "").strip().lower() in ESTADOS_FORA_DE_VIGOR:
-        return "ACT_NOW", "T-08"
+        return "ACT_NOW", "T-09"
     if tipo == "EXPIRY_EVENT":
         return "ACT_NOW", "T-01"
     if isinstance(dias, int):
