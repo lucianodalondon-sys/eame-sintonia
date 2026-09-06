@@ -41,16 +41,36 @@ for (const c of CANONICHE) {
 }
 
 /* ── 3 · nessuna azione inventata ────────────────────────────────────────── */
+/* ── DUE NUMERI, NON UNO ───────────────────────────────────────────────────
+   La prima versione di questo controllo accettava la DIPENDENZA al posto della
+   PROVA e stampava «azioni inventate = 0». Misurato: delle 57 righe che
+   raccomandano qualcosa, 26 non portano NESSUNA prova — sono tutte
+   «Stabilire la condizione della finestra», la cui ragione dichiarata e
+   proprio che la condizione e ignota.
+
+       CHIEDERE DI ACCERTARE CIO CHE NON SI SA NON E INVENTARE:
+       E LA RISPOSTA ONESTA A UN'ASSENZA.
+       MA UN PORTONE CHE NON DISTINGUE I DUE CASI NON LO STA DIMOSTRANDO.
+
+   Si contano quindi separatamente: le righe che raccomandano senza ragione
+   alcuna (inventate) e quelle la cui unica base e una dipendenza dichiarata
+   (da accertare). Le seconde non sono un difetto — sono un numero che chi
+   legge il rapporto ha il diritto di vedere. */
 const AGISCE = new Set(['ACTION_STATE_ACT', 'ACTION_STATE_PREPARE', 'ACTION_STATE_VALIDATE']);
 const inventate = [];
+const soloDipendenza = [];
+let raccomandano = 0;
 for (const r of righe) {
-  const raccomanda = AGISCE.has(r.stateToken);
+  if (!AGISCE.has(r.stateToken)) continue;
+  raccomandano++;
   const senzaPerche = !r.why || !String(r.why).trim();
   const senzaProva = !r.evidence || (Array.isArray(r.evidence) ? !r.evidence.length : !String(r.evidence).trim());
   const senzaDipendenza = !r.dependency || !String(r.dependency).trim();
-  if (raccomanda && (senzaPerche || (senzaProva && senzaDipendenza))) {
+  if (senzaPerche || (senzaProva && senzaDipendenza)) {
     inventate.push({ id: r.id, dept: r.DEPARTMENT, stato: r.stateToken, azione: r.actionToken,
       perche: senzaPerche ? 'senza perche' : 'senza prova ne dipendenza' });
+  } else if (senzaProva) {
+    soloDipendenza.push({ azione: r.actionToken, perche: r.whyToken });
   }
 }
 
@@ -132,6 +152,12 @@ if (RESIDUI_DOCUMENTO.length) console.log('    residui nei documenti scaricati:'
 for (const [k, n] of codiciFuori) console.log('    codice di reparto fuori dalle cinque:', k, '×', n);
 console.log('NOMI_DUPLICATI_PER_REPARTO       = ' + doppi);
 console.log('ACOES_INVENTADAS_ENCONTRADAS     = ' + inventate.length);
+const perAzione = {};
+for (const x of soloDipendenza) perAzione[x.azione + ' · ' + x.perche] = (perAzione[x.azione + ' · ' + x.perche] || 0) + 1;
+console.log('righe che raccomandano           = ' + raccomandano +
+  ' · con prova ' + (raccomandano - soloDipendenza.length - inventate.length) +
+  ' · con la sola dipendenza dichiarata ' + soloDipendenza.length);
+for (const k of Object.keys(perAzione)) console.log('    ', perAzione[k], '×', k);
 for (const i of inventate.slice(0, 10)) console.log('    ', i.id, i.dept, i.stato, '·', i.perche);
 console.log('righe di azione misurate         = ' + righe.length + ' (attese ' + (CASI.length * CANONICHE.length * 2) + ')');
 process.exitCode = (incompleti.length || vecchioVisibile || doppi || inventate.length) ? 1 : 0;

@@ -745,6 +745,28 @@
     TECHNICAL_SCIENTIFIC: { line: '#00A0DF', surface: '#00587B', ink: '#5CC3EE' },
     SUPPLY: { line: '#978B87', surface: '#564F4D', ink: '#C9C3C1' },
   };
+  /* ══ I CINQUE STATI DEVONO DISTINGUERSI, NON SOLO LEGGERSI ═══════════════
+     MISURATO sulla mappa canonica: ogni proprieta di stile del riquadro —
+     linea, fondo, inchiostro — e funzione del REPARTO. Dello stato non
+     dipendeva niente: cinque stati, una sola faccia. AGIRE e NESSUN MOVIMENTO
+     uscivano identici, e la differenza stava solo nella parola.
+
+         UNA LISTA DI SCATOLE UGUALI NON DICE CHI PUO AGIRE ADESSO.
+         E la frase che questo stesso file scrive per le aree — vale anche
+         per gli stati.
+
+     Nessuna tinta nuova: sono cinque voci gia pubblicate nella tavolozza.
+     MISURATO su tutte e cinque le masse di area, il contrasto piu basso e
+     4,52:1 (nessuna azione, su commerciale) e il piu alto 9,30:1. */
+  const ACTION_STATE_UI = {
+    ACTION_STATE_ACT:       { ink: '#00B152' },
+    ACTION_STATE_VALIDATE:  { ink: '#F5B317' },
+    ACTION_STATE_PREPARE:   { ink: '#5CC3EE' },
+    ACTION_STATE_WATCH:     { ink: '#C9C3C1' },
+    ACTION_STATE_NO_ACTION: { ink: '#8F8886' },
+  };
+  const actionStateUI = (k) => ACTION_STATE_UI[k] || { ink: '#C9C3C1' };
+
   /* L'ordine e il contratto: quello in cui la decisione le ha elencate. */
   const AREE_CANONICHE = ['MARKETING', 'COMMERCIAL', 'MARKET_DEVELOPMENT', 'TECHNICAL_SCIENTIFIC', 'SUPPLY'];
   const areaUI = (a) => AREA_UI[a] || { line: '#978B87', surface: '#564F4D', ink: '#C9C3C1' };
@@ -4836,6 +4858,7 @@
     CATEGORY_UI, categoryOf, categoryFromProducts,
     adamaRelevance, geographyLabel, RELEVANCE_LABEL, RELEVANCE_WHY, rtvEligibility, RTV_BLOCKER_LABEL,
     CATEGORY_SURFACE, categorySurface, ON_SURFACE, ON_SURFACE_STATE, ACT_PILL, AREA_UI, AREE_CANONICHE, areaUI,
+    ACTION_STATE_UI, actionStateUI,
     EVIDENCE_UI, evidenceUI,
 
     /* presentation tokens — icon, colour, order, grid. No facts live here. */
