@@ -365,26 +365,26 @@ Escrito como limitacao porque e limitacao, nao como nota de rodape:
 
 ## P · DEMO_READY = **NAO**
 
-Nao por prudencia retorica: por tres razoes nomeaveis.
+Nao por prudencia retorica: por duas razoes nomeaveis.
 
-    1  Nao existe detector de fusao de linha. O que existe e a recusa de
-       responder onde a fusao seria possivel: 152 pares cujo alvo nao foi
-       encontrado literalmente no rotulo deixaram de exibir numero. Isso fecha
-       o buraco pelo lado da abstencao, ao custo de 152 respostas que
-       provavelmente estavam certas — a maioria e alvo quebrado entre colunas,
-       nao fusao. E abstencao declarada, nao capacidade.
+    1  NENHUM ARBITRO ADJUDICOU ESTE BUILD. O ultimo veredito (rodada 2, 13
+       MUST_FIX) e sobre o build anterior; doze deles foram corrigidos e o
+       decimo terceiro foi fechado por abstencao, mas quem mede o resultado
+       disso nao pode ser quem o produziu. Declarar SIM aqui seria eu me
+       aprovando, e a ferramenta inteira existe para nao aceitar afirmacao sem
+       verificacao de fora.
 
-    2  Nenhum arbitro adjudicou este build. O ultimo veredito (rodada 2, 13
-       MUST_FIX) e sobre o build anterior. Declarar SIM sem uma terceira rodada
-       seria eu me aprovando.
-
-    3  20 SHOULD_FIX da rodada 2 foram enderecados em parte, nao em todo.
+    2  Os 20 SHOULD_FIX da rodada 2 foram enderecados em parte, nao em todo.
 
     O que faria virar SIM, na ordem:
       a) uma terceira rodada adversarial contra ESTE build, com arbitro;
-      b) detector de fusao de linha, ou remocao das doses cujo alvo nao e
-         literal (180 linhas) enquanto nao houver detector;
-      c) fechar os SHOULD_FIX remanescentes.
+      b) fechar os SHOULD_FIX remanescentes;
+      c) um detector de fusao de linha de verdade, que devolveria as 152
+         respostas hoje perdidas pela abstencao.
+
+    Nao esta na lista "corrigir MF-04": ele esta fechado pelo lado da
+    abstencao, que e o lado seguro, e a entrega diz isso em vez de chamar
+    abstencao de capacidade.
 
     A metade do REGISTRO desta ferramenta esta solida e foi verificada de fora:
     373 sha256 recalculados sem divergencia, 528/496/36 reproduzido em
