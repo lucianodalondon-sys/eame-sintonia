@@ -85,8 +85,39 @@ else {
      Quello che conta non e quali righe ci sono: e che nulla di audit/ venga
      SERVITO — e questo lo decide `outputDirectory`, non l'ignore — e che cio
      che sale sia esattamente la chiusura, non una cartella intera. */
-  const CHIUSURA = ['build-gate.mjs', 'ingestion-provenance.mjs',
-                    'CANONICAL-PACKAGE-CONTRACT.json', 'lib/harness.mjs'];
+  /* LA CHIUSURA SI CALCOLA, NON SI SCRIVE.
+     Questa lista era a mano. Il giorno in cui `ingestion-provenance.mjs` ha
+     importato un modulo nuovo — `lib/pacote.mjs` — la lista e rimasta indietro,
+     il file non e salito, e la build e morta in MODULE_NOT_FOUND: tre deploy di
+     seguito in ERROR. Il controllo era verde mentre succedeva.
+
+         UNA LISTA SCRITTA A MANO NON E UNA CHIUSURA. E UNA PROMESSA.
+
+     Adesso si parte da cio che `prebuild` esegue davvero e si seguono gli
+     `import` relativi, transitivamente, piu i file letti per nome dentro
+     audit/. Aggiungere un import fa fallire QUI, prima della Vercel. */
+  const chiusuraDaImports = () => {
+    const AUDIT = path.join(ROOT, 'italia-portale', 'audit');
+    const visti = new Set();
+    const coda = ['build-gate.mjs'];
+    while (coda.length) {
+      const rel = coda.shift();
+      if (visti.has(rel)) continue;
+      visti.add(rel);
+      const f = path.join(AUDIT, rel);
+      if (!fs.existsSync(f)) continue;
+      const src = fs.readFileSync(f, 'utf8');
+      for (const m of src.matchAll(/(?:^|\n)\s*import[^'"]*['"](\.[^'"]+)['"]/g)) {
+        coda.push(path.relative(AUDIT, path.resolve(path.dirname(f), m[1])).split(path.sep).join('/'));
+      }
+      /* i file letti per nome, non importati: il contratto canonico */
+      for (const m of src.matchAll(/['"]([A-Z0-9-]+\.json)['"]/g)) {
+        if (fs.existsSync(path.join(AUDIT, m[1]))) coda.push(m[1]);
+      }
+    }
+    return [...visti].sort();
+  };
+  const CHIUSURA = chiusuraDaImports();
   const righe = vi.split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('#'));
   const chiudeAudit = righe.includes('/italia-portale/audit')
                    || righe.includes('/italia-portale/audit/*');
