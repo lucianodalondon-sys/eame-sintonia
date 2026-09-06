@@ -54,8 +54,10 @@ linha que as aplica — e cada uma vem com quantas vezes ela DISPARA no censo:
 
     ROUTE_NOT_GEOMETRIC          1.056   a rota nao afirma ter lido tabela
     ANCHOR_NOT_FOUND               258   cultura e alvo nunca na mesma pagina
-    NO_DRAWN_CELL                  170   convivem, mas a coluna nao e riscada
-    CROP_ALSO_OUTSIDE_TABLE        108   parte das ocorrencias fora de celula
+    NO_DRAWN_CELL                  112   convivem, mas a coluna nao e riscada
+    CROP_ALSO_OUTSIDE_TABLE        106   parte das ocorrencias fora de celula,
+                                         e o alvo NAO tem outro dono
+    TABLE_NOT_DESCRIBING_ITS_TEXT   58   a grade existe e nao descreve o texto
     CROP_NAME_NOT_THE_ANCHOR        13   a celula fechou pelo TITULO do grupo
     TARGET_UNDER_CROP_HEADER         0   <- CODIGO MORTO NO ACERVO DE HOJE
 
@@ -76,9 +78,18 @@ ABSOLVER.
 
 ## O que foi medido com esta regra
 
-47 pares contraditos, e os 47 estao na lista que o arbitro da rodada 3 mediu por
-conta propria, com outro instrumento e a partir de coordenadas que este
-repositorio nao tem:
+49 pares contraditos. Os 47 primeiros estao na lista que o arbitro da rodada 3
+mediu por conta propria, com outro instrumento e a partir de coordenadas que este
+repositorio nao tem; os outros 2 sao de mecanismo diferente e vieram da rodada 4
+(TARGET_BELONGS_TO_ANOTHER_CROP_CELL, ver `alvo_tem_outro_dono`):
+
+    018067 MAXENTIS · 019095 KOJAMI   SEGALE x OIDIO. A tabela empilha ORZO
+                               (que tem OIDIO), SEGALE (que tem Rincosporiosi
+                               e Ruggine) e TRITICALE. O par sobrevivia pela
+                               palavra "segale" na LINHA DE TITULO do produto,
+                               fora de celula nenhuma.
+
+E os 47 da rodada 3, por CROP_CELL_DOES_NOT_CONTAIN_TARGET:
 
     012573 EKO OIL SPRAY  18   BARBABIETOLA fica com os 4 alvos que a etichetta
                                lhe da e CARCIOFO com os 6 — os 18 restantes sao
@@ -307,6 +318,59 @@ def celula_coerente(pg, topo, base, tx0, tx1, folga=2.0):
     return True
 
 
+def alvo_tem_outro_dono(pgs, rc, rp, ra, voc_reg, segmentos, pdf):
+    """TODO glifo deste alvo mora na celula desenhada de OUTRA cultura?
+
+    A abstencao CROP_ALSO_OUTSIDE_TABLE existe por um motivo bom: parte das
+    ocorrencias do nome da cultura esta fora de celula desenhada, e a
+    autorizacao pode estar justamente numa delas — condenar com base so nas
+    celulas seria afirmar sobre o que nao foi medido. Medido em 008102 MERPAN.
+
+    Mas a frase "pode estar la" e uma afirmacao, e ela pode ser FALSA. Se todo
+    glifo deste alvo na pagina ja mora dentro de uma celula desenhada que
+    contem OUTRA cultura do rotulo e NAO contem esta, entao o alvo ja tem dono
+    geometrico e a autorizacao nao pode estar na ocorrencia solta.
+
+    Medido em 018067 MAXENTIS e 019095 KOJAMI: a tabela empilha ORZO (com
+    Rincosporiosi, Maculatura, Elimintosporiosi, Ramularia, Ruggini e OIDIO),
+    depois SEGALE (com Rincosporiosi e Ruggine) e depois TRITICALE. A palavra
+    "segale" tambem aparece na linha de titulo do produto ("Fungicida per
+    frumento, orzo, segale e triticale"), que nao esta em celula nenhuma — e
+    era essa ocorrencia de TITULO que salvava o par. Os dois glifos de "Oidio"
+    da pagina estao um na celula do ORZO e outro na tabela do FRUMENTO. SEGALE
+    x OIDIO e um uso que a etichetta nao autoriza, e saia publicado.
+
+    CONTROLES, medidos sobre os 1.872 pares de rota testavel antes de o teste
+    entrar:
+      absolvidos por R-14 (1.276)   0 acusados  <- nunca contradiz a geometria
+      ja condenados por R-14 (47)  13 acusados  <- concorda por outro caminho
+      CROP_ALSO_OUTSIDE_TABLE(108)  2 acusados  <- so os dois de 018067/019095
+      NO_DRAWN_CELL (170)           0 acusados
+    Nao ha numero novo aqui: o teste reusa `celula` e `celula_coerente` como
+    estao, e o vocabulario e o das culturas que o proprio rotulo publica.
+    """
+    total = donos = 0
+    for pi, pg in enumerate(pgs):
+        als = [(x0, y0, x1, y1) for x0, y0, x1, y1, t in pg if radical(t) in ra]
+        if not als or not any(radical(t) in rc for *_, t in pg):
+            continue
+        sg = segmentos(pdf, pi + 1)
+        if sg is None:
+            continue
+        seg, altura = sg
+        for ax0, ay0, ax1, ay1 in als:
+            total += 1
+            cel = celula(ax0, ax1, (ay0 + ay1) / 2, seg, altura)
+            if cel is None or not celula_coerente(pg, *cel):
+                continue
+            topo, base, tx0, tx1 = cel
+            dentro = {radical(t) for wx0, wy0, wx1, wy1, t in pg
+                      if topo < (wy0 + wy1) / 2 < base and tx0 - 1 <= wx0 <= tx1 + 1}
+            if (dentro & voc_reg) - {rp} and not (dentro & set(rc)):
+                donos += 1
+    return total > 0 and total == donos
+
+
 def celula(x0, x1, cy, seg, altura):
     """Banda y da celula desenhada que contem a palavra, e a largura da tabela.
 
@@ -372,6 +436,11 @@ def main():
             pgs = palavras(pdf, a.bbox)
         except Exception:
             pgs = []
+        # as culturas que ESTE rotulo publica, em radical. Vocabulario do
+        # documento, nao do acervo: quem pode ser dono de um alvo aqui e uma
+        # cultura deste rotulo.
+        voc_reg = {r for y in por_reg[reg]
+                   for r in [radical(str(y.get('CROP') or '').split('_')[0])] if len(r) >= 4}
         for i, x in enumerate(por_reg[reg]):
             chave = f'{reg}#{i}'
             rc = raizes_cultura(x.get('CROP'), x.get('CROP_AS_WRITTEN'))
@@ -394,6 +463,7 @@ def main():
             pelo_titulo = None      # a celula fechou, mas pela raiz do TITULO do grupo
             houve_celula = False    # alguma ocorrencia da cultura tem celula desenhada
             fora_de_celula = False  # e alguma NAO tem
+            celula_incoerente = False  # havia grade, e ela nao descreve o texto
             sob_cabecalho = False   # o alvo esta abaixo da cultura, na mesma coluna
             houve_convivio = False  # cultura e alvo na mesma pagina
             perto = None
@@ -414,7 +484,17 @@ def main():
                     c = (cy0 + cy1) / 2
                     cel = celula(x0, x1, c, seg, altura)
                     if cel is not None and not celula_coerente(pg, *cel):
+                        # NAO E "SEM GRADE". A grade existe: o que ela nao faz e
+                        # descrever o texto que esta dentro dela. Sao duas
+                        # ignorancias diferentes e ate a rodada 4 as duas saiam
+                        # com o mesmo nome, NO_DRAWN_CELL, que a tela lia como
+                        # "a coluna da cultura nesta pagina nao tem grade
+                        # desenhada". Medido: em 58 dos 170 casos havia >=3 fios
+                        # atravessando a coluna — a frase da tela era falsa
+                        # sobre o documento. Em 008259 a coluna de "Pesco" e
+                        # atravessada por 15 e 17 fios.
                         cel = None
+                        celula_incoerente = True
                     if cel is None:
                         fora_de_celula = True
                         continue
@@ -498,11 +578,34 @@ def main():
                 # bloco de uso (prosa sublinhada, sem grade); pela ocorrencia da
                 # descricao a regra condenava MELO x TICCHIOLATURA, que o bloco
                 # de uso autoriza duas linhas abaixo.
-                ver[chave] = 'PAIR_NOT_CHECKABLE_CROP_ALSO_OUTSIDE_TABLE'
+                #
+                # A RESSALVA DA RESSALVA: "a autorizacao pode estar la" e uma
+                # afirmacao, e da para testa-la. Ver alvo_tem_outro_dono.
+                if alvo_tem_outro_dono(pgs, rc, rp, ra, voc_reg, segmentos, pdf):
+                    ver[chave] = 'PAIR_CONTRADICTED_BY_RULE'
+                    pg1, cy, ay = perto or ('NOT_KNOWN', 'NOT_KNOWN', 'NOT_KNOWN')
+                    contra.append({
+                        'KEY': chave, 'REGISTRATION_ID': reg, 'PRODUCT': x.get('PRODUCT'),
+                        'CROP': x.get('CROP'), 'TARGET': x.get('TARGET'),
+                        'CROP_AS_WRITTEN': x.get('CROP_AS_WRITTEN'),
+                        'TARGET_AS_WRITTEN': x.get('TARGET_AS_WRITTEN'),
+                        'ROUTE': x.get('ROUTE'), 'PAGE_TESTED': pg1,
+                        'CROP_TOKEN_Y': cy, 'TARGET_ANCHOR_Y': ay,
+                        'MECHANISM': 'TARGET_BELONGS_TO_ANOTHER_CROP_CELL',
+                        'PROOF': (f'o nome "{rc[0]}" tambem ocorre fora de celula desenhada '
+                                  f'(pagina {pg1}), e por isso este par era abstencao. Mas '
+                                  f'TODO glifo do alvo "{x.get("TARGET")}" nesta etichetta '
+                                  f'mora dentro da celula desenhada de OUTRA cultura do mesmo '
+                                  f'rotulo — o alvo ja tem dono, e a autorizacao nao pode '
+                                  f'estar na ocorrencia solta'),
+                    })
+                else:
+                    ver[chave] = 'PAIR_NOT_CHECKABLE_CROP_ALSO_OUTSIDE_TABLE'
             elif houve_celula:
                 ver[chave] = 'PAIR_CONTRADICTED_BY_RULE'
                 pg1, cy, ay = perto or ('NOT_KNOWN', 'NOT_KNOWN', 'NOT_KNOWN')
                 contra.append({
+                    'MECHANISM': 'CROP_CELL_DOES_NOT_CONTAIN_TARGET',
                     'KEY': chave, 'REGISTRATION_ID': reg, 'PRODUCT': x.get('PRODUCT'),
                     'CROP': x.get('CROP'), 'TARGET': x.get('TARGET'),
                     'CROP_AS_WRITTEN': x.get('CROP_AS_WRITTEN'),
@@ -515,6 +618,8 @@ def main():
                               f'ou fora da largura da tabela). A etichetta nao autoriza este uso '
                               f'nesta celula'),
                 })
+            elif houve_convivio and celula_incoerente:
+                ver[chave] = 'PAIR_NOT_CHECKABLE_TABLE_NOT_DESCRIBING_ITS_TEXT'
             elif houve_convivio:
                 ver[chave] = 'PAIR_NOT_CHECKABLE_NO_DRAWN_CELL'
             else:

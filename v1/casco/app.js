@@ -859,7 +859,16 @@ function viewProduto(reg) {
             us.length-fa?`<span class="pill p-unk" title="uma das tres colunas nao fecha">NAO_VERIFICADO ${us.length-fa}</span> `:''}
             <div class="meta">${ok} com fio conferido &middot; ${us.length-ok} sem teste de fio${
               nl?` &middot; <span class="unknown">${nl} com nome de alvo vindo de taxonomia</span>`:''}${
-              nc?` &middot; <span class="unknown">${nc} com NOME DE CULTURA que o rotulo nao escreve</span>`:''}</div>`;})()}
+              nc?` &middot; <span class="unknown">${nc} com NOME DE CULTURA que o rotulo nao escreve</span>`:''}</div>
+            ${(()=>{ // O NOME DA IGNORANCIA, e nao so a contagem dela. "sem teste de fio"
+                     // junta cinco motivos diferentes num numero, e um deles chegou a
+                     // AFIRMAR que a coluna nao tinha grade onde ela tem 17 fios.
+              const est=[...new Set(us.map(x=>x.pair_check))].filter(
+                x=>x && x!=='PAIR_CONSISTENT_WITH_RULES' && PAR_ROTULO[x]);
+              if(!est.length) return '';
+              return `<div class="meta">${est.map(x=>
+                `<span class="unknown" title="${esc(PAR_ROTULO[x][2])}">${esc(PAR_ROTULO[x][1])}</span>`
+              ).join(' &middot; ')}</div>`;})()}`;})()}
           ${(()=>{ // o estado da conferencia R-10 existia no payload e nunca aparecia:
                    // 12 pares publicados como CROP_NAME_NOT_FOUND_IN_LABEL_TEXT (o rotulo
                    // escreve "Grano", o leitor normaliza para FRUMENTO) eram desenhados
@@ -1273,10 +1282,19 @@ const PAR_ROTULO = {
     'par lido de prosa, nao de tabela: nao ha geometria a conferir. NOT_CHECKED, nao aprovado'],
   PAIR_NOT_CHECKABLE_NO_DRAWN_CELL: ['p-unk', 'TABELA · SEM CELULA DESENHADA',
     'a coluna da cultura nesta pagina nao tem grade desenhada: onde nao ha fio, mescla e inferencia'],
+  // SEM GRADE e GRADE QUE NAO DESCREVE O TEXTO sao duas ignorancias diferentes,
+  // e ate a rodada 4 as duas saiam com o nome da primeira. Medido: em 58 dos
+  // 170 casos havia grade — em 008259 a coluna de "Pesco" e atravessada por 15
+  // e 17 fios — e a tela dizia que nao havia. Token de ignorancia que descreve
+  // errado o documento e pior que ausencia de token, porque parece medicao.
+  PAIR_NOT_CHECKABLE_TABLE_NOT_DESCRIBING_ITS_TEXT: ['p-unk', 'TABELA · GRADE NAO DESCREVE O TEXTO',
+    'a grade existe e foi lida, mas alguma linha que comeca dentro dela termina fora: o que parecia celula e risco de titulo, e o teste nao se aplica'],
   PAIR_NOT_CHECKABLE_ANCHOR_NOT_FOUND: ['p-unk', 'TABELA · ALVO NAO LOCALIZADO',
     'o nome deste alvo nao ocorre na pagina, entao nao ha o que localizar na celula'],
   PAIR_NOT_CHECKABLE_CROP_ALSO_OUTSIDE_TABLE: ['p-unk', 'TABELA · EVIDENCIA MISTA',
-    'parte das ocorrencias do nome da cultura esta dentro de celula desenhada e parte nao: o teste nao alcanca todas'],
+    'parte das ocorrencias do nome da cultura esta dentro de celula desenhada e parte nao: o teste nao alcanca todas. So fica assim quando algum glifo do alvo NAO mora na celula de outra cultura — se todos moram, o alvo tem dono e o par e condenado'],
+  PAIR_NOT_CHECKABLE_CROP_NAME_NOT_THE_ANCHOR: ['p-unk', 'TABELA · CELULA FECHOU PELO TITULO',
+    'a celula desenhada casou pelo TITULO do grupo ("ORTICOLE (...)", "Grano tenero e duro") e nao pelo nome da cultura publicada: a geometria provou que o titulo e o alvo dividem uma celula, nao que a cultura esta no grupo'],
   PAIR_NOT_CHECKABLE_TARGET_UNDER_CROP_HEADER: ['p-unk', 'TABELA · CABECALHO DE BLOCO',
     'o alvo esta abaixo da cultura e na mesma coluna: o desenho e titulo-em-cima, e o teste de coluna nao se aplica'],
 };

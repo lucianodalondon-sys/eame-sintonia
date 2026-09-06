@@ -700,6 +700,58 @@ teste('RT4 · celula fechada pelo TITULO do grupo nao e prova do par', () => {
   return `${pelo.length} pares em ${regs.length} rotulos (${regs.slice(0,4).join(', ')})`;
 });
 
+teste('RT4 · alvo que ja tem dono geometrico nao sobrevive por ocorrencia solta', () => {
+  // Achado SERIOUS da lente F: 018067 MAXENTIS e 019095 KOJAMI publicavam
+  // SEGALE x OIDIO. A tabela desenhada empilha ORZO (que tem OIDIO), depois
+  // SEGALE (que tem so Rincosporiosi e Ruggine). O par sobrevivia porque a
+  // palavra "segale" tambem aparece na LINHA DE TITULO do produto, fora de
+  // celula nenhuma — e a abstencao EVIDENCIA MISTA dizia "a autorizacao pode
+  // estar la". Nao podia: os dois glifos de OIDIO ja moram em celula de outra
+  // cultura.
+  ['018067', '019095'].forEach(reg => {
+    const p = P.products.find(x => x.reg === reg);
+    afirma(p, `${reg} ausente`);
+    const alvos = (p.uses||[]).filter(u => u.crop === 'SEGALE').map(u => u.target).sort();
+    afirma(!alvos.includes('OIDIO'),
+      `${reg} ainda publica SEGALE x OIDIO como uso autorizado`);
+    afirma(alvos.length === 2,
+      `${reg}: SEGALE devia ficar com os 2 alvos da celula dele, tem ${alvos.length}`);
+    const w = (p.uses_contraditos||[]).find(y => y.CROP === 'SEGALE' && y.TARGET === 'OIDIO');
+    afirma(w, `${reg} nao lista SEGALE x OIDIO entre os contraditos`);
+    afirma(w.MECHANISM === 'TARGET_BELONGS_TO_ANOTHER_CROP_CELL',
+      `${reg}: o mecanismo da condenacao nao esta nomeado`);
+    viewProduto(reg);
+    afirma(html('#pdet').includes('ja tem dono'),
+      `${reg} nao mostra a prova de que o alvo tem outro dono`);
+  });
+  return 'SEGALE fica com RUGGINE e RINCOSPORIOSI, que e o que a celula desenhada diz';
+});
+
+teste('RT4 · "sem celula desenhada" nao pode ser dito onde a grade existe', () => {
+  // Achado SERIOUS da lente F: em 58 dos 170 PAIR_NOT_CHECKABLE_NO_DRAWN_CELL a
+  // coluna da cultura E atravessada por >=3 fios — em 008259 por 15 e 17. A
+  // tela afirmava "a coluna da cultura nesta pagina nao tem grade desenhada",
+  // uma frase falsa sobre o documento. Token de ignorancia com nome errado
+  // parece medicao e nao e.
+  const inc = [], sem = [];
+  P.products.forEach(p => (p.uses||[]).forEach(u => {
+    if (u.pair_check === 'PAIR_NOT_CHECKABLE_TABLE_NOT_DESCRIBING_ITS_TEXT') inc.push([p.reg, u.crop]);
+    if (u.pair_check === 'PAIR_NOT_CHECKABLE_NO_DRAWN_CELL') sem.push([p.reg, u.crop]);
+  }));
+  afirma(inc.length > 0, 'nenhum par com grade incoerente — o estado novo nao esta chegando a tela');
+  afirma(sem.length > 0, 'nenhum par sem grade — os dois estados viraram um so');
+  const p = P.products.find(x => x.reg === '008259');
+  afirma(p, '008259 ausente');
+  const pesco = (p.uses||[]).filter(u => u.crop === 'PESCO');
+  afirma(pesco.length > 0, '008259 sem pares de PESCO');
+  afirma(pesco.every(u => u.pair_check !== 'PAIR_NOT_CHECKABLE_NO_DRAWN_CELL'),
+    '008259 PESCO ainda diz que a coluna nao tem grade, e ela tem 15 e 17 fios');
+  viewProduto('008259');
+  afirma(html('#pdet').includes('GRADE NAO DESCREVE O TEXTO'),
+    'a ficha de 008259 nao mostra o nome certo da ignorancia');
+  return `${inc.length} com grade que nao descreve o texto · ${sem.length} realmente sem grade`;
+});
+
 teste('zero medido, nao coletado e nao sei sao tres respostas diferentes', () => {
   const lido = P.products.find(p => p.states && p.states.LABEL_READ && !p.uses.length);
   const naoColetado = P.products.find(p => p.states && p.states.LABEL_DOWNLOADED === false);
