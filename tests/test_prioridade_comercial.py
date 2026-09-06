@@ -410,7 +410,7 @@ class TestMaterialExterno(unittest.TestCase):
               'BLOCKING_GATES': [], 'RED_TEAM_FINDINGS': [],
               'NEED_EXCERPT': 'danos em aumento', 'WINDOW_KIND': None}
     CATALOGO = [{'NAME': 'MAVRIK SMART',
-                 'CROPS_DECLARED_ON_SITE': ['CEREALI', 'POMACEE', 'VITE']}]
+                 'CROPS_DECLARED_BY_PRODUCT': ['CEREALI', 'POMACEE', 'VITE']}]
 
     def test_T13_sales_ready_sem_pendencia_pode_sair(self):
         e, b = CM.externo(dict(self.PRONTO), self.CATALOGO)
@@ -436,13 +436,55 @@ class TestMaterialExterno(unittest.TestCase):
         """Medido: `Lamdex® Extra` tem rótulo em MELO × CARPOCAPSA, e a página
         de catálogo dele declara MAIS, POMODORO e VITE — macieira não está lá."""
         so_lamdex = [{'NAME': 'Lamdex® Extra',
-                      'CROPS_DECLARED_ON_SITE': ['MAIS', 'POMODORO', 'VITE']}]
+                      'CROPS_DECLARED_BY_PRODUCT': ['MAIS', 'POMODORO', 'VITE']}]
         e, b = CM.externo(dict(self.PRONTO), so_lamdex)
         self.assertEqual(CM.EXTERNAL_VALIDATION_REQUIRED, e)
         self.assertIn('CATALOG_DOES_NOT_DECLARE_CROP', b)
         # e o mesmo caso passa quando um produto do catálogo declara POMACEE
         self.assertEqual(CM.EXTERNAL_YES,
                          CM.externo(dict(self.PRONTO), so_lamdex + self.CATALOGO)[0])
+
+    def test_T16b_ausencia_no_rastreio_nao_e_ausencia_no_produto(self):
+        """As duas recusas bloqueiam. Mas nao dizem a mesma coisa.
+
+            NAO DECLARA  e uma resposta da FONTE.
+            NAO SEI      e uma resposta sobre NOS.
+
+        Enquanto as duas saiam com o mesmo codigo, o cartao publicava como
+        recusa do catalogo o que era limite do nosso rastreio — e foi assim
+        que 656 pares produto x cultura viraram «o produto nao tem cultura».
+        """
+        sem_ficha = [{'NAME': 'PRODUTO SEM FICHA LIDA'}]
+        e, b = CM.externo(dict(self.PRONTO), sem_ficha)
+        self.assertEqual(CM.EXTERNAL_VALIDATION_REQUIRED, e)
+        self.assertIn('CATALOG_CROP_UNKNOWN', b)
+        self.assertNotIn('CATALOG_DOES_NOT_DECLARE_CROP', b,
+                         'nao saber viraria recusa da fonte')
+        # e o estado de tres valores diz as tres coisas por nome
+        self.assertEqual('UNKNOWN',
+                         CM.catalogo_estado_de_cultura('CROP_APPLE', sem_ficha)[0])
+        self.assertEqual('NOT_DECLARED', CM.catalogo_estado_de_cultura(
+            'CROP_APPLE',
+            [{'NAME': 'X', 'CROPS_DECLARED_BY_PRODUCT': ['MAIS']}])[0])
+        self.assertEqual('DECLARED', CM.catalogo_estado_de_cultura(
+            'CROP_APPLE',
+            [{'NAME': 'X', 'CROPS_DECLARED_BY_PRODUCT': ['POMACEE']}])[0])
+
+    def test_T16c_a_pagina_de_cultura_nao_e_a_ficha_do_produto(self):
+        """Descoberto por pagina prova a cultura; nao prova o silencio dela.
+
+        Um produto alcancado so por pagina de cultura DECLARA aquela cultura —
+        e nao autoriza dizer que as outras nao existem, porque a ficha dele nao
+        foi lida.
+        """
+        so_pagina = [{'NAME': 'X', 'CROPS_DISCOVERED_VIA_CROP_PAGE': ['POMACEE']}]
+        self.assertEqual('DECLARED',
+                         CM.catalogo_estado_de_cultura('CROP_APPLE', so_pagina)[0])
+        self.assertEqual('CATALOG_CROP_PAGE',
+                         CM.catalogo_estado_de_cultura('CROP_APPLE', so_pagina)[2])
+        # a MESMA lista, perguntada por outra cultura, e NAO SEI — nunca «nao»
+        self.assertEqual('UNKNOWN',
+                         CM.catalogo_estado_de_cultura('CROP_MAIZE', so_pagina)[0])
 
     def test_T17_recomendacao_sem_frase_da_fonte_nao_sai(self):
         e, b = CM.externo(dict(self.PRONTO, NEED_EXCERPT=''), self.CATALOGO)

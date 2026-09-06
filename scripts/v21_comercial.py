@@ -324,23 +324,71 @@ def prioridade(o):
 
 
 def catalogo_declara_cultura(crop, produtos_casados):
-    """A página pública do produto nomeia esta cultura?
-
-    ⚠️ Medido nesta revisão: `Lamdex® Extra` tem rótulo ministerial em
-    `MELO × CARPOCAPSA`, e a página de catálogo dele declara
-    `['MAIS', 'POMODORO', 'VITE']` — macieira não está lá. O rótulo autoriza; o
-    catálogo público não anuncia. Para uso interno as duas coisas convivem; para
-    material que sai de casa, a segunda é a que o leitor vai conferir.
+    """Alguma casa do catálogo nomeia esta cultura? (verdadeiro/falso)
 
         O RÓTULO DIZ O QUE É PERMITIDO. O CATÁLOGO DIZ O QUE A EMPRESA OFERECE.
         MATERIAL EXTERNO NÃO PODE PROMETER MAIS DO QUE O CATÁLOGO ANUNCIA.
+
+    Essa lei fica. O que estava errado era a MEDIÇÃO que a sustentava aqui.
+
+    ⚠️ CORRIGIDO: a versão anterior desta função usava como exemplo que
+    `Lamdex® Extra` tem rótulo em `MELO × CARPOCAPSA` e que a página de catálogo
+    dele declara só `['MAIS', 'POMODORO', 'VITE']` — logo macieira «não está
+    lá». Medido contra o censo versionado do catálogo: a ficha do próprio
+    Lamdex® Extra declara **67 culturas, e `Melo` é uma delas**. As três da
+    lista antiga não eram o que a ficha declara: eram as três PÁGINAS DE CULTURA
+    por onde se chegou ao produto.
+
+        O EXEMPLO QUE JUSTIFICAVA O PORTÃO ERA O PRÓPRIO DEFEITO QUE ELE
+        DEVIA APANHAR.
+
+    Por isso a resposta booleana deixou de ser suficiente e vive agora em
+    `catalogo_estado_de_cultura`, com três valores. Esta função continua para
+    quem só precisa de «declara ou não».
+    """
+    return catalogo_estado_de_cultura(crop, produtos_casados)[0] == 'DECLARED', \
+        catalogo_estado_de_cultura(crop, produtos_casados)[1]
+
+
+# ── AS DUAS CASAS DO CATÁLOGO, E O ESTADO QUE FALTAVA ───────────────────────
+# `CROPS_DECLARED_BY_PRODUCT` é o que a FICHA DO PRODUTO declara.
+# `CROPS_DISCOVERED_VIA_CROP_PAGE` é por que PÁGINA DE CULTURA chegámos a ele —
+# e só sete páginas foram lidas.
+#
+# Enquanto as duas se chamavam `CROPS_DECLARED_ON_SITE`, um produto a que não
+# se chegou por página lia-se como um produto sem cultura, e daí como um produto
+# que NÃO PERTENCE à cultura. São coisas diferentes, e a diferença tem nome:
+#
+#     NÃO DECLARA  é uma resposta da fonte.
+#     NÃO SEI      é uma resposta sobre nós.
+#
+# Legado declarado: `CROPS_DECLARED_ON_SITE` ainda é lido, porque pacotes e
+# fixtures anteriores a esta correção o trazem. Ele entra como a casa FRACA —
+# descoberta por página —, nunca como declaração do produto.
+def catalogo_estado_de_cultura(crop, produtos_casados):
+    """→ (ESTADO, nome do produto que respondeu, casa que respondeu).
+
+    DECLARED      alguma casa do catálogo nomeia esta cultura.
+    NOT_DECLARED  a ficha do próprio produto é conhecida e NÃO a nomeia.
+    UNKNOWN       não há ficha para perguntar. Ausência de rastreio, não de produto.
     """
     import v21_normalizar as N
+    tinha_ficha = False
     for p in produtos_casados:
-        for termo in (p.get('CROPS_DECLARED_ON_SITE') or []):
+        declaradas = p.get('CROPS_DECLARED_BY_PRODUCT') or []
+        descobertas = (p.get('CROPS_DISCOVERED_VIA_CROP_PAGE')
+                       or p.get('CROPS_DECLARED_ON_SITE') or [])
+        if declaradas:
+            tinha_ficha = True
+        for termo in declaradas:
             if crop in N.crops_no_texto(termo):
-                return True, p.get('NAME')
-    return False, None
+                return 'DECLARED', p.get('NAME'), 'CATALOG_PRODUCT_SHEET'
+        for termo in descobertas:
+            if crop in N.crops_no_texto(termo):
+                return 'DECLARED', p.get('NAME'), 'CATALOG_CROP_PAGE'
+    if not produtos_casados:
+        return 'UNKNOWN', None, None
+    return ('NOT_DECLARED' if tinha_ficha else 'UNKNOWN'), None, None
 
 
 def externo(o, produtos_casados=()):
@@ -362,7 +410,13 @@ def externo(o, produtos_casados=()):
         b.append('NO_SOURCE_SENTENCE')
     if o.get('WINDOW_KIND') == 'PREPARATION':
         b.append('WINDOW_IS_ADMINISTRATIVE')
-    declara, _quem = catalogo_declara_cultura(o.get('CROP'), produtos_casados)
-    if not declara:
+    # O PORTÃO NÃO AFROUXA — só passa a dizer a verdade sobre por que barra.
+    # «não declara» e «não sei» barram os dois: material que sai de casa não
+    # pode prometer o que o catálogo não mostra. Mas chamar «não sei» de «não
+    # declara» era publicar como recusa da fonte o que era limite do rastreio.
+    estado, _quem, _casa = catalogo_estado_de_cultura(o.get('CROP'), produtos_casados)
+    if estado == 'NOT_DECLARED':
         b.append('CATALOG_DOES_NOT_DECLARE_CROP')
+    elif estado != 'DECLARED':
+        b.append('CATALOG_CROP_UNKNOWN')
     return (EXTERNAL_VALIDATION_REQUIRED if b else EXTERNAL_YES), b

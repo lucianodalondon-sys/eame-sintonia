@@ -263,6 +263,38 @@ def main():
     meu_cat = {re.sub(r'[^a-z0-9]', '', (p.get('NOME_NO_CATALOGO') or '')
                       .replace('®', '').lower()): p
                for p in le(os.path.join(LM, 'IT-ADAMA-CATALOGO.json'), 'PRODUTOS')}
+
+    # ══ AS DUAS CULTURAS QUE SE CHAMAVAM PELO MESMO NOME ═════════════════════
+    # `CULTURAS_DECLARADAS_NO_SITE` significava, no dono que a produz, uma coisa
+    # só: «em que PÁGINA DE CULTURA cheguei a este produto» — e só sete páginas
+    # foram lidas (vite, mais, riso, cereali, pomodoro, pomacee, soia). A jusante
+    # ela era lida como «que culturas a ficha do produto declara», e daí como «o
+    # produto não pertence a esta cultura».
+    #
+    #     AUSÊNCIA NO RASTREIO NÃO É AUSÊNCIA NO PRODUTO.
+    #
+    # O próprio ficheiro do dono já dizia isto, e com todas as letras, em
+    # `CULTURA_LEIA_ASSIM`: «chegamos a este produto por link de outra ficha, não
+    # por página de cultura. Não ter cultura aqui NÃO significa que ele não
+    # tenha.»
+    #
+    #     A DECLARAÇÃO ESTAVA CERTA. O CONSUMIDOR A JUSANTE É QUE NÃO A LEU.
+    #
+    # MEDIDO: o censo versionado do catálogo traz 711 pares produto × cultura
+    # sobre 149 culturas; o pacote levava 55, sobre 7. Os 656 que faltavam não
+    # eram produtos sem cultura: eram produtos a que não se chegou por página.
+    #
+    # A correcção NÃO funde as duas: separa-as, e cada uma passa a viajar com o
+    # nome do que é. A chave da junção é o SLUG DA URL — o nome comercial é
+    # escrito de quatro maneiras («Activus® ME», «ACTIVUS ME», «activus-me») e
+    # junta 36 de 38; o slug junta 51 de 51.
+    censo_por_slug = {}
+    _cen = os.path.join(ROOT, 'data', 'samples', 'IT-CATALOGO',
+                        'IT-ADAMA-CATALOG-CENSUS-2026-09-02.json')
+    if os.path.exists(_cen):
+        for _p in (json.load(open(_cen, encoding='utf-8')).get('PRODUCTS') or []):
+            censo_por_slug[str(_p.get('URL') or '').rstrip('/').rsplit('/', 1)[-1]
+                           .lower()] = _p
     com_out = []
     for cat, slugs in CATALOGO_51.items():
         for s in slugs:
@@ -274,12 +306,24 @@ def main():
             evid = ['sitemap oficial do adama.com + ficha de produto lida']
             if det:
                 evid.append('pagina de cultura do site (leitura independente)')
+            # DUAS PERGUNTAS DIFERENTES, DUAS RESPOSTAS QUE NAO SE SOMAM.
+            descobertas = list(det.get('CULTURAS_DECLARADAS_NO_SITE') or [])
+            fichadocenso = censo_por_slug.get(s)
+            declaradas = list((fichadocenso or {}).get('CROPS_DECLARED_ON_PAGE') or [])
+            if fichadocenso:
+                evid.append('censo do catalogo: a ficha do proprio produto')
+            # O termo que o normalizador nao conhece NAO desaparece: fica
+            # nomeado. Um vocabulario incompleto e um facto sobre nos, nao
+            # sobre o produto.
+            nao_reconhecidas = sorted({x for x in declaradas if not N.crop_id(x)})
             com_out.append(base(
                 'CATPRD_' + re.sub(r'[^A-Z0-9]+', '_', s.upper()).strip('_'),
                 'CATALOG_PRODUCT', 'REAL_SOURCE_LAST_MILE',
                 'QA_PASS', ['https://www.adama.com/italia/it/prodotti/%s/%s'
                             % (cat, s)], '2026-09-02',
-                [N.crop_id(c) for c in (det.get('CULTURAS_DECLARADAS_NO_SITE') or [])],
+                sorted({c for c in (
+                    [N.crop_id(x) for x in descobertas]
+                    + [N.crop_id(x) for x in declaradas]) if c}),
                 [], ['GEO_ITALY'], 'NACIONAL',
                 extra={
                     'NAME': det.get('NOME_NO_CATALOGO') or nome,
@@ -289,7 +333,22 @@ def main():
                                         else 'caminho da URL, confirmado pela ficha'),
                     'PUBLIC_CATALOG_URL': 'https://www.adama.com/italia/it/prodotti/%s/%s'
                                           % (cat, s),
-                    'CROPS_DECLARED_ON_SITE': det.get('CULTURAS_DECLARADAS_NO_SITE') or [],
+                    'CROPS_DECLARED_BY_PRODUCT': declaradas,
+                    'CROPS_DISCOVERED_VIA_CROP_PAGE': descobertas,
+                    'CROPS_NOT_RECOGNISED': nao_reconhecidas,
+                    'CROPS_NOT_RECOGNISED_COUNT': len(nao_reconhecidas),
+                    'CROP_DECLARATION_STATE': (
+                        'DECLARED_BY_PRODUCT' if declaradas else
+                        'DISCOVERED_VIA_CROP_PAGE_ONLY' if descobertas else
+                        'UNKNOWN'),
+                    'CROP_SEMANTICS_LAW':
+                        'CROPS_DECLARED_BY_PRODUCT e o que a FICHA DO PRODUTO '
+                        'declara. CROPS_DISCOVERED_VIA_CROP_PAGE e por que '
+                        'PAGINA DE CULTURA chegamos a ele, e so sete paginas '
+                        'foram lidas. NAO TER SIDO ENCONTRADO POR UMA PAGINA '
+                        'NAO E O PRODUTO NAO TER A CULTURA. As duas listas '
+                        'nunca se somam num numero so, e CROP_IDS e a UNIAO '
+                        'delas — nao a segunda sozinha, como era ate aqui.',
                     'ACTIVE_INGREDIENTS': det.get('ATIVOS_NA_PAGINA'),
                     'REGISTRATION_NUMBER_ON_PAGE': det.get('REGISTRO_NA_PAGINA'),
                     'CATALOG_EVIDENCE': evid,
