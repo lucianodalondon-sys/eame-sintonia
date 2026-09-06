@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SINTONIA — LABEL INTELLIGENCE · ADAMA Italia</title>
+<style>/*CSS*/</style></head><body>
+<div class="wrap">
+<header class="top">
+  <h1>SINTONIA &mdash; LABEL INTELLIGENCE</h1>
+  <span class="sub">ADAMA Italia &middot; {VERSION} &middot; dados de {BUILT_AT} &middot;
+  fonte: {AUTHORITY} &middot; regras <code>{RULESET}</code></span>
+</header>
+<nav>
+  <a class="on" data-v="today">O QUE MUDOU</a>
+  <a data-v="produto">PRODUTO 360</a>
+  <a data-v="timeline">LINHA DO TEMPO</a>
+  <a data-v="crop">CULTURA &times; ALVO</a>
+  <a data-v="cal">CALENDARIO</a>
+  <a data-v="action">POR AREA</a>
+  <a data-v="review">FILA DE REVISAO</a>
+  <a data-v="cov">COBERTURA</a>
+  <a data-v="search">BUSCA</a>
+</nav>
+<section class="view on" id="v-today"></section>
+<section class="view" id="v-produto">
+  <div class="filters"><select id="psel"></select></div>
+  <div id="pdet"></div>
+</section>
+<section class="view" id="v-timeline"></section>
+<section class="view" id="v-crop">
+  <div class="filters">
+    <input id="cq" placeholder="cultura (ex.: vite, frumento)" size="26">
+    <input id="ct" placeholder="alvo (ex.: peronospora, fusariosi)" size="26">
+  </div>
+  <div id="cres"></div>
+</section>
+<section class="view" id="v-cal"></section>
+<section class="view" id="v-action"></section>
+<section class="view" id="v-review"></section>
+<section class="view" id="v-cov"></section>
+<section class="view" id="v-search">
+  <div class="filters"><input id="sq" placeholder="produto, registro, cultura, alvo, ativo, estado..." size="52"></div>
+  <div id="sres"></div>
+</section>
+<footer>
+  Fonte oficial: {AUTHORITY} &mdash; Banca dati prodotti fitosanitari, licenca {LICENSE}.
+  Cultura &times; alvo reusado de <code>sintonia/canonical @ bdb57cf</code>.
+  Ferramenta <b>paralela</b>: nao toca canonical, P0.2, Passaporte, Universal, Supabase nem o portal oficial.
+  Nao emite acao.
+</footer>
+</div>
+<aside class="drawer" id="dr"></aside>
+<script id="payload" type="application/json">/*PAYLOAD*/</script>
+<script>window.__PAYLOAD__ = JSON.parse(document.getElementById('payload').textContent);</script>
+<script>/*JS*/</script>
+</body></html>
