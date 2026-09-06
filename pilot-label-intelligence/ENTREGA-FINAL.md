@@ -61,7 +61,9 @@ Gerado de artefatos por `bin/relatorio.py`. Nenhum numero aqui foi digitado a ma
 
     COMPETITOR_ROUTE              = SAME_ROUTE_PROVED (4 casos, 4 titulares)
     COMPETITOR_EXTENSION          = FEASIBLE_NOW (nao executada, por escopo)
-    AUTOMATION_COVERAGE           = 7 de 9 passos da esteira rodam sozinhos
+    AUTOMATION_COVERAGE           = das 14 tarefas classificadas em docs/ROI-SUBSTITUICAO.md,
+                                    7 rodam sozinhas, 3 rodam com revisao,
+                                    2 continuam humanas, 2 nao estao provadas
 
 ## Substituicao do trabalho manual
 
@@ -125,8 +127,8 @@ existe exatamente para isso: mostrar sem integrar.
 ## O pacote
 
     PACKAGE_PATH  = pilot-label-intelligence/
-    PACKAGE_FILES = 40 arquivos versionados
-    PACKAGE_HASH  = 3a158bcc02d6ac695b58292ba9b7fa06194169c4bbad9baa3e50b8a28da77153
+    PACKAGE_FILES = 43 arquivos versionados
+    PACKAGE_HASH  = 9ccdf985102ae4b83d03e487286c5da00f3a920a74766416db368f367aa43cdd
 
 O hash e o sha256 sobre o caminho e o conteudo de cada arquivo versionado do
 piloto, em ordem, exceto este relatorio. Nao cobre os instantaneos do registro

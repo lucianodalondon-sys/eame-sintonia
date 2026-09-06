@@ -29,17 +29,22 @@ numero de economia seria a mesma doenca que o piloto inteiro tenta evitar.
 
 ## O resumo que cabe numa frase
 
-Da esteira de nove passos, **sete rodam sozinhos hoje** e foram rodados de
-verdade sobre o universo inteiro. Dois precisam de revisao humana por amostragem,
-com a taxa de erro medida e publicada. Dois pedacos continuam humanos por
-natureza, e um deles — interpretar o que a mudanca significa para o negocio —
-provavelmente e o pedaco que o cliente mais valoriza e o que menos deveria querer
-automatizar.
+Das catorze tarefas da tabela acima, **sete rodam sozinhas hoje** e foram rodadas
+de verdade sobre o universo inteiro de 163 produtos. **Tres** rodam com revisao
+humana por amostragem, com a taxa de erro medida e publicada. **Duas** continuam
+humanas por natureza — e uma delas, interpretar o que a mudanca significa para o
+negocio, provavelmente e a que o cliente mais valoriza e a que menos deveria
+querer automatizar. **Duas** nao estao provadas e o piloto diz isso em vez de
+prometer.
+
+    7 FULLY_AUTOMATABLE + 3 AUTOMATABLE_WITH_REVIEW + 2 HUMAN_REQUIRED
+      + 2 NOT_PROVED = 14
 
 ## A pergunta para o cliente
 
 > Destas catorze tarefas, quais voces pagam hoje?
 
-As sete primeiras ja estao substituidas nesta branch, com evidencia clicavel.
-As duas seguintes estao substituidas com revisao. As ultimas nao estao, e o
-piloto diz isso antes de perguntarem.
+As sete marcadas `FULLY_AUTOMATABLE` ja estao substituidas nesta branch, com
+evidencia clicavel. As tres `AUTOMATABLE_WITH_REVIEW` estao substituidas com
+conferencia por amostra. As quatro restantes nao estao, e o piloto diz isso antes
+de perguntarem.

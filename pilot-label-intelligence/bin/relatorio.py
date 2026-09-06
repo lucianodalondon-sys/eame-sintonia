@@ -129,7 +129,9 @@ Gerado de artefatos por `bin/relatorio.py`. Nenhum numero aqui foi digitado a ma
 
     COMPETITOR_ROUTE              = SAME_ROUTE_PROVED ({len(cc.get("SAMPLE", []))} casos, 4 titulares)
     COMPETITOR_EXTENSION          = FEASIBLE_NOW (nao executada, por escopo)
-    AUTOMATION_COVERAGE           = 7 de 9 passos da esteira rodam sozinhos
+    AUTOMATION_COVERAGE           = das 14 tarefas classificadas em docs/ROI-SUBSTITUICAO.md,
+                                    7 rodam sozinhas, 3 rodam com revisao,
+                                    2 continuam humanas, 2 nao estao provadas
 
 ## Substituicao do trabalho manual
 
