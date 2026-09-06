@@ -2,7 +2,7 @@
    A LEI vive em scripts/adama_relevance.py e decide-se LA. Este ficheiro
    transporta o veredito para o browser, que nunca o recalcula. */
 window.ADAMA_RELEVANCE = {
- "BUILD_ID": "V21-69bf448ac934a6d9",
+ "BUILD_ID": "V21-044e4924854d5f0a",
  "DONO_DA_LEI": "scripts/adama_relevance.py",
  "GERADO_POR": "scripts/it_casa_dados.py + scripts/adama_relevance.py",
  "LEGGE": {
@@ -53,7 +53,7 @@ window.ADAMA_RELEVANCE = {
   "RADAR": 21,
   "SEGNALI": 8
  },
- "SOURCE_HEAD": "55c2674",
+ "SOURCE_HEAD": "5fac11f",
  "TOTALE": 43,
  "VERDETTI": {
   "OPP_00C5B6E15185": {
@@ -149,7 +149,7 @@ window.ADAMA_RELEVANCE = {
   "OPP_75C37DED9160": {
    "CLASSE": "A",
    "PERCHE": "RELEVANCE_A_PROVEN",
-   "PROVA": "MAVRIK SMART",
+   "PROVA": "Lamdex® Extra",
    "SUPERFICIE": "OPPORTUNITA"
   },
   "OPP_81C053E9DCD3": {

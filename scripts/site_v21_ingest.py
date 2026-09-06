@@ -307,6 +307,47 @@ FAMILIAS = {
         # nomeia a substancia do NOSSO produto, que e fato e nao prosa.
         'CASE_ACTIVE_INGREDIENTS',
         'NEED_DIRECTION', 'NEED_EVIDENCE_ID', 'NEED_METHOD',
+        # ── A CAMADA QUE DECLARA O CORTE (safra V21-044e4924854d5f0a) ────────
+        # O motor passou a registar, cartao a cartao, o que CONSULTOU, o que
+        # ACHOU e o que DEIXOU DE FORA. Sem estes campos o portal continua a
+        # mostrar o resultado sem nunca poder dizer o tamanho do que ficou por
+        # mostrar — e um corte que ninguem consegue ver e um corte que ninguem
+        # discute.
+        #
+        #     UM NUMERO SEM O SEU DENOMINADOR NAO E UMA MEDIDA: E UMA ESCOLHA
+        #     QUE SE APRESENTA COMO UM FACTO.
+        #
+        # Medido nos 43: 24 familias consultadas por cartao (1032 consultas),
+        # 115 com correspondencia, 303 so por cultura, 338 nao encontradas, 276
+        # sem chave de cultura; EVIDENCE_SCAN 1529 encontradas, 359 usadas,
+        # 1170 omitidas e ditas; PORTFOLIO 361 oferecidos, 86 excluidos com
+        # razao, 80 fora por teto de apresentacao.
+        'CROSS_INTELLIGENCE_SCAN',
+        'CROSS_INTELLIGENCE_FAMILIES_CONSULTED', 'CROSS_INTELLIGENCE_FAMILIES_WITH_MATCH',
+        'CROSS_INTELLIGENCE_FAMILIES_CROP_ONLY', 'CROSS_INTELLIGENCE_FAMILIES_NOT_FOUND',
+        'CROSS_INTELLIGENCE_FAMILIES_NO_CROP_KEY',
+        'EVIDENCE_SCAN', 'EVIDENCE_SCAN_TOTAL_FOUND', 'EVIDENCE_SCAN_TOTAL_USED',
+        'EVIDENCE_SCAN_TOTAL_OMITTED',
+        'PORTFOLIO_EXCLUDED_BY_REASON', 'PORTFOLIO_EXCLUDED_COUNT',
+        'PORTFOLIO_OFFERED_TO_CARD', 'PORTFOLIO_NOT_PROMOTED_COUNT',
+        'PORTFOLIO_LIST_CAP', 'PORTFOLIO_LIST_OMITTED', 'PORTFOLIO_LIST_OMITTED_NAMES',
+        'PORTFOLIO_LIST_TOTAL_BEFORE_CAP',
+        'PORTFOLIO_SCAN_FOUND', 'PORTFOLIO_SCAN_LINKED', 'PORTFOLIO_SCAN_LINKED_NAMES',
+        'PORTFOLIO_SCAN_NOT_LINKED', 'PORTFOLIO_SCAN_NOT_LINKED_NAMES', 'PORTFOLIO_SCAN_UNKNOWN',
+        'PORTFOLIO_CROP_FILTER_APPLIED', 'PORTFOLIO_CROP_AUTHORITY_HOUSES',
+        'SOURCE_URLS_TOTAL_FOUND', 'SOURCE_URLS_TOTAL_SHOWN', 'SOURCE_URLS_TOTAL_OMITTED',
+        # ⚠️ NAO ATRAVESSAM, E ESTA E A RAZAO ESCRITA:
+        #   *_LAW, *_DOES_NOT_PROVE, *_REASON, PORTFOLIO_EXCLUDED_SCOPE_LAW
+        #     sao PROSA DE PESQUISA EM PORTUGUES e nenhum tem par IT/EN.
+        #   PORTFOLIO_EXCLUDED_WITH_REASON leva REASON_MEANS, prosa portuguesa
+        #     ANINHADA numa lista. A lista de permissao filtra ao nivel do
+        #     campo, e um campo com prosa la dentro atravessaria inteiro.
+        #     O que atravessa e PORTFOLIO_EXCLUDED_BY_REASON: os mesmos cinco
+        #     CODIGOS com a sua contagem. A frase de cada codigo vive no
+        #     dicionario de lingua do portal, do lado de ca — como ja acontece
+        #     com WHY_COMMERCIAL_CODES e EXTERNAL_BLOCKER_CODES.
+        #
+        #         PROSA QUE NAO EMBARCA NAO VAZA.
     ), ('WHAT_IT_PROVES', 'WHAT_IT_DOES_NOT_PROVE')),
 
     'agrometConditions': ('AGROMET-CONDITIONS.json', (

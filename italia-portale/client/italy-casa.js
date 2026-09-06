@@ -110,8 +110,8 @@ window.ITALY_CASA = {
  },
  "DETERMINISTICO": "SIM — sem relogio, sem aleatorio, chaves ordenadas",
  "DONOS_DA_APRESENTACAO": {
-  "meeting-intelligence-snapshot.json": "sha256:aff218e96f1e26f756c75430cb4cfced2c7348313ec945a1f0417bb3b60c5cb7",
-  "meeting-labels.js": "sha256:24b15991c06ab103f3b891ec9a09b6b7f09c661346ae31b6583cc86027bb5617"
+  "meeting-intelligence-snapshot.json": "sha256:c995ba6947656deb891008e2aa2cb162001a972192293b243c536e6f42637219",
+  "meeting-labels.js": "sha256:8ea7e824d12866626441acc8f10fa2525116241cde054be7122808a06adf6c2a"
  },
  "DO_NOT_SHOW": [
   {
@@ -555,10 +555,6 @@ window.ITALY_CASA = {
   "LABEL_AND_CATALOG": {
    "en": "Label and catalogue",
    "it": "Etichetta e catalogo"
-  },
-  "LABEL_ONLY": {
-   "en": "Label only",
-   "it": "Solo etichetta"
   },
   "LABEL_USE_RELATIONSHIP": {
    "en": "Label use relationship",
@@ -1522,7 +1518,7 @@ window.ITALY_CASA = {
   }
  },
  "LABELS_FAIL_CLOSED": {
-  "CODIGOS_NO_PACOTE": 326,
+  "CODIGOS_NO_PACOTE": 325,
   "DONO": "italia-portale/client/meeting-labels.js",
   "REGRA": "nenhum codigo sai daqui sem par IT+EN. Nao ha fallback para o codigo cru, nao ha string vazia, e nenhuma linha desaparece em silencio: sem par, a GERACAO falha."
  },
@@ -1542,7 +1538,7 @@ window.ITALY_CASA = {
   "RECENCIA_TERRITORIAL": "a camada territorial foi produzida com a leitura de data defeituosa do achado 07. Mostra-se cobertura, nunca recencia."
  },
  "OPPORTUNITA_ATTUALI": {
-  "BUILD_ID": "V21-69bf448ac934a6d9",
+  "BUILD_ID": "V21-044e4924854d5f0a",
   "CASI": [
    {
     "AMBITO": "PROVINCIAL",
@@ -2423,7 +2419,7 @@ window.ITALY_CASA = {
         "DATA": "2029-01-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      },
      {
       "ATTIVI": [
@@ -2453,14 +2449,14 @@ window.ITALY_CASA = {
     },
     "PROVA_ADAMA": {
      "ATTIVI": [
-      "TAU-FLUVALINATE"
+      "LAMBDA-CYHALOTHRIN"
      ],
      "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
      "BERSAGLIO": "ON_MINISTERIAL_LABEL",
      "CULTURA": "DECLARED_ON_CATALOG_PAGE",
-     "ID": "CATPRD_MAVRIK_SMART",
-     "PRODOTTO": "MAVRIK SMART",
-     "REGISTRO": "009800"
+     "ID": "CATPRD_LAMDEX_EXTRA",
+     "PRODOTTO": "Lamdex® Extra",
+     "REGISTRO": "008259"
     },
     "PUBBLICAZIONE": "PUBLISHABLE",
     "RACCOMANDAZIONE": "CONTINUE_RECOMMENDED",
@@ -4187,6 +4183,9 @@ window.ITALY_CASA = {
      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02011R0540-20260721",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=44334",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45941",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46066",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46068",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46072",
      "https://www.hracglobal.com/tools/classification-lookup"
     ],
     "GEOGRAFIA": "GEO_EU",
@@ -4235,7 +4234,7 @@ window.ITALY_CASA = {
         "DATA": "2032-05-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
     "PRODOTTO_PRINCIPALE": "CATPRD_DIODER",
@@ -4997,11 +4996,20 @@ window.ITALY_CASA = {
      "REGOLA": "RULE_NOT_DECLARED",
      "TIPO": null
     },
-    "FONTI_CHIAVI": 3,
+    "FONTI_CHIAVI": 5,
     "FONTI_URL": [
      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02011R0540-20260721",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38762",
-     "https://www.hracglobal.com/tools/classification-lookup"
+     "https://irac-online.org/mode-of-action/classification-online/",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=29317",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=30797",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=34291",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=34292",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=34293",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=34297",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=35578",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=35579",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=35580",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=35626"
     ],
     "GEOGRAFIA": "GEO_EU",
     "ID": "OPP_B9206ACFC797",
@@ -5585,7 +5593,7 @@ window.ITALY_CASA = {
         "DATA": "2026-10-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
     "PRODOTTO_PRINCIPALE": "CATPRD_PIRIMOR_50",
@@ -5888,7 +5896,7 @@ window.ITALY_CASA = {
         "DATA": "2032-05-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      },
      {
       "ATTIVI": [
@@ -5948,7 +5956,7 @@ window.ITALY_CASA = {
         "DATA": "2026-10-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      },
      {
       "ATTIVI": [
@@ -5968,7 +5976,7 @@ window.ITALY_CASA = {
         "DATA": "2033-12-15"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
     "PRODOTTO_PRINCIPALE": null,
@@ -6305,7 +6313,7 @@ window.ITALY_CASA = {
         "DATA": "2029-01-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      },
      {
       "ATTIVI": [
@@ -6378,7 +6386,7 @@ window.ITALY_CASA = {
         "DATA": "2026-10-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      },
      {
       "ATTIVI": [
@@ -6398,7 +6406,7 @@ window.ITALY_CASA = {
         "DATA": "2027-05-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
     "PRODOTTO_PRINCIPALE": null,
@@ -6730,7 +6738,7 @@ window.ITALY_CASA = {
         "DATA": "2029-01-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
     "PRODOTTO_PRINCIPALE": "CATPRD_LAMDEX_EXTRA",
@@ -7011,7 +7019,7 @@ window.ITALY_CASA = {
         "DATA": "2029-01-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
     "PRODOTTO_PRINCIPALE": null,
@@ -7289,7 +7297,7 @@ window.ITALY_CASA = {
         "DATA": "2027-02-28"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
     "PRODOTTO_PRINCIPALE": "CATPRD_AGIL",
@@ -7606,7 +7614,7 @@ window.ITALY_CASA = {
         "DATA": "2032-05-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      },
      {
       "ATTIVI": [
@@ -7666,7 +7674,7 @@ window.ITALY_CASA = {
         "DATA": "2026-10-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      },
      {
       "ATTIVI": [
@@ -7686,7 +7694,7 @@ window.ITALY_CASA = {
         "DATA": "2033-12-15"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
     "PRODOTTO_PRINCIPALE": null,
@@ -7977,7 +7985,7 @@ window.ITALY_CASA = {
         "DATA": "2027-03-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      },
      {
       "ATTIVI": [
@@ -8003,7 +8011,7 @@ window.ITALY_CASA = {
         "DATA": "2027-03-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
     "PRODOTTO_PRINCIPALE": null,
@@ -8295,7 +8303,7 @@ window.ITALY_CASA = {
         "DATA": "2029-01-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      },
      {
       "ATTIVI": [
@@ -8315,7 +8323,7 @@ window.ITALY_CASA = {
         "DATA": "2027-01-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      },
      {
       "ATTIVI": [
@@ -8335,7 +8343,7 @@ window.ITALY_CASA = {
         "DATA": "2027-05-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
     "PRODOTTO_PRINCIPALE": null,
@@ -8620,7 +8628,7 @@ window.ITALY_CASA = {
         "DATA": "2027-02-28"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
     "PRODOTTO_PRINCIPALE": "CATPRD_AGIL",
@@ -9380,7 +9388,7 @@ window.ITALY_CASA = {
         "DATA": "2029-01-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      },
      {
       "ATTIVI": [
@@ -9440,7 +9448,7 @@ window.ITALY_CASA = {
         "DATA": "2026-10-31"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
     "PRODOTTO_PRINCIPALE": null,
@@ -10989,7 +10997,7 @@ window.ITALY_CASA = {
         "DATA": "2027-02-28"
        }
       ],
-      "VALIDAZIONE": "LABEL_ONLY"
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
     "PRODOTTO_PRINCIPALE": "CATPRD_AGIL",
@@ -14669,7 +14677,7 @@ window.ITALY_CASA = {
    "PREENCHER_NAO_PROMOVE": "TARGET_FIT vale ON_MINISTERIAL_LABEL em 65 de 65 correspondencias: e uma constante, e nao distingue nada. Se a lei se apoiasse nela, escrever um alvo no caso promovia-o — medido, 10 dos 21 B subiriam sem nada observado. Por isso o problema agronomico exige evidencia que DECIDA um elo (SUPPORTS_SIGNAL ou SUPPORTS_DIRECTION). Com a regra, preencher o alvo nos 21 B promove UM: OPP_00C5B6E15185, que ja traz 4 sinais de campo e 4 evidencias de sinal — esse subiria por ter facto, nao por ter campo cheio.",
    "SO_A_PUBLICA": true
   },
-  "MEETING_CUTOFF": "2026-09-04T00:52:54Z",
+  "MEETING_CUTOFF": "2026-09-06T22:27:00Z",
   "OPPORTUNITA": 13,
   "ORIZZONTE": "ADESSO",
   "PER_STATO": {
@@ -14693,9 +14701,9 @@ window.ITALY_CASA = {
    "RADAR": 21,
    "SEGNALI": 8
   },
-  "RULE_VERSION": "V21-69bf448ac934a6d9",
+  "RULE_VERSION": "V21-044e4924854d5f0a",
   "SEGNALI": 8,
-  "SOURCE_HEAD": "55c2674",
+  "SOURCE_HEAD": "5fac11f",
   "TOTALE": 43
  },
  "RADAR_FUTURO": {

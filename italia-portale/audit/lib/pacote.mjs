@@ -26,6 +26,35 @@ const RAIZ = path.resolve(HERE, '..', '..', '..');
 export const PACOTE_DIR = path.join(RAIZ, 'build', 'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST');
 export const CONTRATO = JSON.parse(fs.readFileSync(path.resolve(HERE, '..', 'CANONICAL-PACKAGE-CONTRACT.json'), 'utf8'));
 
+/* ── O CHECKPOINT AUTORIZADO TEM UM DONO SO, E E ESTE ────────────────────────
+   O contrato ja dizia isto de si proprio: «Um so dono: este ficheiro. Quem
+   verifica em JS e quem verifica em Python leem daqui, para a regra nao existir
+   em duas linguas e divergir na terceira vez que alguem a mudar.»
+
+   Nao era verdade. O sha do checkpoint e o BUILD_ID estavam escritos A MAO em
+   meeting-gate.mjs, surface-contract.mjs e lote-completo.mjs. Ao promover uma
+   safra nova, tres portoes reprovaram a dizer que o pacote nao era o
+   autorizado — quando o que estava desactualizado eram eles.
+
+       UMA REGRA COPIADA PARA QUATRO FICHEIROS E QUATRO REGRAS QUE VAO DIVERGIR,
+       E A PRIMEIRA A DIVERGIR E SEMPRE A QUE NINGUEM SE LEMBROU DE MUDAR.
+
+   O sha viaja curto no snapshot (7) e longo no contrato (40): compara-se pelo
+   prefixo, nas duas direccoes, para que nenhuma das duas formas seja a «certa». */
+export const CHECKPOINT = {
+  sha: String((CONTRATO.CANONICAL_GENERATOR || {}).COMMIT || ''),
+  buildId: String(CONTRATO.EXPECTED_BUILD_ID || ''),
+  linhagem: String((CONTRATO.CANONICAL_GENERATOR || {}).LINHAGEM || ''),
+};
+CHECKPOINT.sha7 = CHECKPOINT.sha.slice(0, 7);
+
+/** true quando `x` nomeia o mesmo commit do checkpoint, curto ou longo. */
+export function mesmoCheckpoint(x) {
+  const a = String(x || '');
+  if (!a || !CHECKPOINT.sha) return false;
+  return CHECKPOINT.sha.startsWith(a) || a.startsWith(CHECKPOINT.sha7);
+}
+
 /**
  * ASSENTE      · non c'e pacchetto sul disco (il caso normale: e ignorato da git)
  * SAFRA_VECCHIA· c'e, ma il suo BUILD_ID e uno di quelli che il contratto nomina come vecchi
