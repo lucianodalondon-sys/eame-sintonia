@@ -32,6 +32,9 @@ import { chromium } from 'playwright-core';
 import { PT_MARKERS } from './lang.mjs';
 import { loadData } from './lib/harness.mjs';
 import { navMap } from './lib/nav-names.mjs';
+import vmDeep from 'node:vm';
+import fsDeep from 'node:fs';
+import pathDeep from 'node:path';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const CLIENT = path.resolve(HERE, '..', 'client');
@@ -176,26 +179,56 @@ const clickText = async (t) => {
 
 /* Le schede del radar, lette come le legge l'occhio: un blocco cliccabile alto
    quanto una scheda, con il proprio testo dentro. */
-const cards = () => page.evaluate(() => [...document.querySelectorAll('div')]
-  .filter((e) => {
-    const cs = getComputedStyle(e);
-    if (cs.cursor !== 'pointer') return false;
+/* LA SCHEDA E QUELLA CHE IL MARKUP DICHIARA, NON QUELLA ALTA 200 PIXEL.
+   La banda era 200-520 px. Misurato nel Chromium: le schede pubblicabili
+   stanno a 186 px e quelle da validare a 211 — quindi questo filtro vedeva
+   SOLO le seconde, e il giro concludeva «zero schede pubblicabili
+   raggiungibili» su un radar che ne mostra cinque.
+
+       UN OGGETTO RICONOSCIUTO DALLA SUA ALTEZZA E UN FONT MISURATO,
+       NON UN PRODOTTO MISURATO.
+
+   `[data-case]` e l'attributo che la scheda porta apposta. La regola
+   geometrica resta come riserva, larga, se un giorno l'attributo sparisse. */
+const CARD_SEL = '[data-case]';
+const cardEls = () => page.evaluate((sel) => {
+  const marked = [...document.querySelectorAll(sel)];
+  if (marked.length) return marked.length;
+  const all = [...document.querySelectorAll('div')].filter((e) => {
+    if (getComputedStyle(e).cursor !== 'pointer') return false;
     const h = e.getBoundingClientRect().height;
-    return h >= 200 && h <= 520 && (e.innerText || '').trim().length > 40;
-  })
-  .map((e, i) => ({ i, text: (e.innerText || '').trim() })));
+    return h >= 120 && h <= 640 && (e.innerText || '').trim().length > 40;
+  });
+  return all.filter((e) => !all.some((o) => o !== e && o.contains(e))).length;
+}, CARD_SEL);
+
+const cards = () => page.evaluate((sel) => {
+  let els = [...document.querySelectorAll(sel)];
+  if (!els.length) {
+    const all = [...document.querySelectorAll('div')].filter((e) => {
+      if (getComputedStyle(e).cursor !== 'pointer') return false;
+      const h = e.getBoundingClientRect().height;
+      return h >= 120 && h <= 640 && (e.innerText || '').trim().length > 40;
+    });
+    els = all.filter((e) => !all.some((o) => o !== e && o.contains(e)));
+  }
+  return els.map((e, i) => ({ i, text: (e.innerText || '').trim() }));
+}, CARD_SEL);
 
 const openCard = async (i) => {
-  const ok = await page.evaluate((idx) => {
-    const els = [...document.querySelectorAll('div')].filter((e) => {
-      const cs = getComputedStyle(e);
-      if (cs.cursor !== 'pointer') return false;
-      const h = e.getBoundingClientRect().height;
-      return h >= 200 && h <= 520 && (e.innerText || '').trim().length > 40;
-    });
+  const ok = await page.evaluate(({ idx, sel }) => {
+    let els = [...document.querySelectorAll(sel)];
+    if (!els.length) {
+      const all = [...document.querySelectorAll('div')].filter((e) => {
+        if (getComputedStyle(e).cursor !== 'pointer') return false;
+        const h = e.getBoundingClientRect().height;
+        return h >= 120 && h <= 640 && (e.innerText || '').trim().length > 40;
+      });
+      els = all.filter((e) => !all.some((o) => o !== e && o.contains(e)));
+    }
     if (!els[idx]) return false;
     els[idx].click(); return true;
-  }, i);
+  }, { idx: i, sel: CARD_SEL });
   if (ok) await page.waitForTimeout(520);
   return ok;
 };
@@ -204,20 +237,42 @@ const openCard = async (i) => {
    Erano scritti a mano qui, e quando navFuture/navSources sono cambiati
    questo file ha smesso di trovarle senza dirlo. */
 const NAV = { it: navMap('it'), en: navMap('en') };
-const VERIFIED = { it: 'CONVERGENZA VERIFICATA', en: 'VERIFIED CONVERGENCE' };
-const TOVALID = { it: 'DA VALIDARE', en: 'TO VALIDATE' };
+/* LE DUE FAMIGLIE DI SCHEDE, CON LE PAROLE DEL DIZIONARIO.
+   Erano «CONVERGENZA VERIFICATA» e «DA VALIDARE», che la superficie della
+   riunione non scrive piu: la scheda dichiara se e PUBBLICABILE o se
+   RICHIEDE VALIDAZIONE. Il giro cercava due parole morte e concludeva «zero
+   schede raggiungibili» su un radar che ne mostra tredici. */
+const LBL = (() => {
+  const ctx = { document: undefined }; ctx.window = ctx; ctx.globalThis = ctx;
+  vmDeep.createContext(ctx);
+  vmDeep.runInContext(fsDeep.readFileSync(pathDeep.join(CLIENT, 'meeting-labels.js'), 'utf8'), ctx, { filename: 'meeting-labels.js' });
+  return ctx.MEETING_LABELS;
+})();
+const VERIFIED = { it: LBL.get('PUBLISHABLE', 'it'), en: LBL.get('PUBLISHABLE', 'en') };
+const TOVALID = { it: LBL.get('VALIDATION_REQUIRED', 'it'), en: LBL.get('VALIDATION_REQUIRED', 'en') };
 const AWAITING = { it: 'IN ATTESA DI LOCALIZZAZIONE', en: 'AWAITING LOCALIZATION' };
 
 /* Che cosa una scheda di dettaglio deve poter dire di se. Assente non e
    sbagliato — molti casi non hanno bersaglio — ma si registra, perche una
    scheda che non dice NULLA di questo non e presentabile. */
+/* I PANNELLI SI CERCANO DOVE IL MARKUP LI DICHIARA.
+   Erano sei espressioni regolari su titoli italiani — «FORZA DELL'EVIDENZA»,
+   «FONTI DIETRO QUESTO CASO», «FINESTRA DI APPLICAZIONE» — che la superficie
+   della riunione ha riscritto in «EVIDENZE», «FONTI» e «FINESTRA». Il riepilogo
+   stampava percio «absent: evidence,sources,window» sotto un dettaglio che
+   mostra sette evidenze, sette indirizzi di fonte e la finestra con regola e
+   stato. Una riga di riepilogo che mente e peggio di una riga assente.
+
+       IL PANNELLO C'E O NON C'E. IL SUO TITOLO E UN'ALTRA DOMANDA. */
 const FIELD_PROBES = [
-  ['archetype', /(PRESSIONE IN CAMPO|MOMENTO DI MERCATO|RESISTENZA|APERTURA COMPETITIVA|PREPARAZIONE NORMATIVA|DALLA SCIENZA AL CAMPO|FIELD PRESSURE|MARKET MOMENT|RESISTANCE|COMPETITIVE OPENING|REGULATORY PREPARATION|SCIENCE TO FIELD)/i],
-  ['convergence', /(CONVERGENZA VERIFICATA|DA VALIDARE|VERIFIED CONVERGENCE|TO VALIDATE)/i],
-  ['portfolio', /(PORTAFOGLIO|PORTFOLIO|ETICHETTA|LABEL)/i],
-  ['evidence', /(FORZA DELL.EVIDENZA|EVIDENCE STRENGTH)/i],
-  ['sources', /(FONTI DIETRO QUESTO CASO|SOURCES BEHIND THIS CASE)/i],
-  ['window', /(FINESTRA DI APPLICAZIONE|APPLICATION WINDOW)/i],
+  ['archetype', '[data-meeting-hero]'],
+  ['whyCommercial', '[data-meeting-why-commercial]'],
+  ['portfolio', '[data-meeting-products]'],
+  ['whyNow', '[data-meeting-why-now]'],
+  ['actionMap', '[data-action-dept]'],
+  ['evidence', '[data-meeting-evidence]'],
+  ['sources', '[data-source-id]'],
+  ['window', '[data-meeting-window]'],
 ];
 
 const caseReports = [];
@@ -250,8 +305,11 @@ const inspectCase = async (lang, idx, expectKind) => {
     return best || '';
   });
 
-  const present = {};
-  for (const [k, re] of FIELD_PROBES) present[k] = re.test(txt);
+  const present = await page.evaluate((probes) => {
+    const out = {};
+    for (const [k, sel] of probes) out[k] = document.querySelector(sel) !== null;
+    return out;
+  }, FIELD_PROBES);
 
   /* Defect 2 · una scheda senza titolo comprensibile */
   if (!title || title.length < 3) findings.noTitle.push(`${lang} case#${idx}: no readable title`);
@@ -263,8 +321,17 @@ const inspectCase = async (lang, idx, expectKind) => {
   }
 
   /* Defect 4 · l'evidenza citata contro l'evidenza mostrata */
-  const m = txt.match(/(\d+)\s+(elementi di evidenza registrati|recorded evidence statements)/i);
-  const shown = m ? Number(m[1]) : null;
+  /* IL CONTO CHE NON TROVA NIENTE NON PUO FALLIRE.
+     Cercava «N elementi di evidenza registrati», una frase che la superficie
+     della riunione non scrive: `shown` era null su tutti e dodici i casi, e
+     questo controllo non poteva diventare rosso nemmeno su un caso vuoto.
+
+         UN CONTROLLO CHE NON MISURA NON E UN CONTROLLO VERDE. E UN CONTROLLO
+         CHE NON C'E.
+
+     Adesso conta le righe che il pannello disegna — una per prova, ciascuna
+     con il proprio ruolo e la propria fonte. */
+  const shown = await page.evaluate(() => document.querySelectorAll('[data-evidence-role]').length);
   if (shown === 0) findings.zeroEvidence.push(`${lang} case#${idx}: shows 0 evidence on "${title.slice(0, 40)}"`);
 
   caseReports.push({ lang, idx, kind: expectKind, title: title.slice(0, 48), evidence: shown, present });
@@ -308,8 +375,13 @@ const tour = async (lang) => {
 
        Quindi: fra tutti i candidati, il piu profondo che sia davvero
        cliccabile. */
+    /* IL MARKUP LO DICHIARA: [data-meeting-more]. Cercarlo per il testo
+       «VEDI TUTTE» significava rincorrere una frase che il dizionario puo
+       riscrivere — e infatti l'ha riscritta. Il testo resta come riserva. */
+    const marked = document.querySelector('[data-meeting-more]');
+    if (marked) { marked.click(); return true; }
     const cands = [...document.querySelectorAll('span,div')]
-      .filter((e) => /VEDI TUTTE|VIEW ALL|MOSTRA TUTT/i.test((e.textContent || '').trim())
+      .filter((e) => /VEDI TUTTE|VIEW ALL|MOSTRA TUTT|TUTTE LE|ALL \d/i.test((e.textContent || '').trim())
         && (e.textContent || '').length < 60);
     const hit = cands.reverse().find((e) => getComputedStyle(e).cursor === 'pointer');
     if (!hit) return false;
@@ -324,8 +396,19 @@ const tour = async (lang) => {
      dodici schede della prima pagina senza dirlo, trovando solo due
      convergenze verificate delle nove. Il salto era invisibile esattamente
      come il difetto che avrebbe dovuto trovare. */
-  if (!all) findings.empty.push(`${lang} pagination: the "view all" control was not found`);
-  else if (!(after > before)) findings.empty.push(`${lang} pagination: "view all" changed nothing (${before} -> ${after})`);
+  /* IL CONTROLLO DELLE ALTRE ESISTE SOLO SE CE NE SONO ALTRE.
+     Questa prova nacque quando il radar mostrava dodici di trentasette. Dopo
+     la legge di rilevanza le opportunita sono tredici e la schermata ne mostra
+     ventiquattro: non c'e nessuna seconda pagina, e pretenderla era pretendere
+     un pulsante che sarebbe una bugia. Si chiede al modello quante sono, e si
+     esige il controllo SOLO quando ne restano fuori. */
+  const totali = await page.evaluate(() => {
+    const s2 = window.MEETING_SURFACE && window.MEETING_SURFACE.build('it');
+    return s2 ? s2.commercial.length : null;
+  });
+  const mancano = totali !== null && totali > before;
+  if (mancano && !all) findings.empty.push(`${lang} pagination: ${totali} cases, ${before} shown, and no "view all" control`);
+  else if (mancano && !(after > before)) findings.empty.push(`${lang} pagination: "view all" changed nothing (${before} -> ${after})`);
 
   const list = await cards();
   const verifiedIdx = list.filter((c) => c.text.includes(VERIFIED[lang])).map((c) => c.i);
@@ -333,8 +416,8 @@ const tour = async (lang) => {
 
   /* Tre e tre, e di archetipi diversi dove il pacchetto ne offre di diversi:
      leggere tre volte lo stesso archetipo non e leggere tre casi. */
-  if (verifiedIdx.length < 3) findings.empty.push(`${lang} radar: only ${verifiedIdx.length} verified convergence cards reachable, wanted 3`);
-  if (validateIdx.length < 3) findings.empty.push(`${lang} radar: only ${validateIdx.length} to-validate cards reachable, wanted 3`);
+  if (verifiedIdx.length < 3) findings.empty.push(`${lang} radar: only ${verifiedIdx.length} publishable cards reachable, wanted 3`);
+  if (validateIdx.length < 3) findings.empty.push(`${lang} radar: only ${validateIdx.length} validation-required cards reachable, wanted 3`);
   const spread = (idxs) => {
     const seen = new Set(), out = [];
     for (const i of idxs) {
