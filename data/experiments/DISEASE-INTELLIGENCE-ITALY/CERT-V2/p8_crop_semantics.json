@@ -1,0 +1,198 @@
+{
+ "AS_OF": "2026-09-06",
+ "ENGINE_OUTPUT_SHAPE": {
+  "TOP_LEVEL_KEYS": [
+   "AS_OF",
+   "CUTOFF_LABEL",
+   "DATA_LATENCY_DAYS",
+   "DENOMINATOR_GUARD",
+   "EVIDENCE_ROLE",
+   "METRIC",
+   "PARAMS",
+   "PROVINCES",
+   "SEASON_STATE",
+   "SOURCE",
+   "VALUE_MODE",
+   "WINDOW"
+  ],
+  "PER_PROVINCE_KEYS": [
+   "BASELINE_MEDIAN",
+   "BASELINE_N",
+   "BASELINE_SEASONS",
+   "EVIDENCE",
+   "PERCENTILE",
+   "STATE",
+   "VALUE",
+   "n_sites",
+   "n_visits"
+  ],
+  "CARRIES_DATE": true,
+  "CARRIES_REGION": false,
+  "CARRIES_CROP": false,
+  "CARRIES_ISSUE": false,
+  "CROP_VOCABULARY_IN_ENGINE_SOURCE": false,
+  "HOW_THE_CROP_IS_CARRIED_TODAY": "as a directory name (CASES/<CROP>-<ISSUE>-<REGION>) and as a free-text argument the caller passes to answer_sheet(); in ENGINE/gates.py:26 that argument is the literal placeholder string \"crop\". Nothing validates it against any vocabulary.",
+  "CONSEQUENCE": "two of the four dimensions of the declared unit of analysis (REGION x CROP x ISSUE x DATE) exist only in a folder name. A cell cannot be joined to a product, a label or a portal card without a human retyping them."
+ },
+ "DATA_HAS_SIGNAL": {
+  "OLIVO": {
+   "source_crop_id": 2,
+   "survey_var": -1002,
+   "n_rows": 79251,
+   "n_readable_values": 78019,
+   "VALUE_MODE": "NUMERIC",
+   "scale_size": 0,
+   "scale_unresolved": [],
+   "n_seasons_with_enough_sites": 21,
+   "distinct_site_incidence_values": 20,
+   "DATA_HAS_SIGNAL": true,
+   "PUBLISHABLE_TODAY": 9,
+   "DATA_LATENCY_DAYS": 2
+  },
+  "VITE": {
+   "source_crop_id": 3,
+   "survey_var": 39,
+   "n_rows": 35065,
+   "n_readable_values": 35064,
+   "VALUE_MODE": "ORDINAL",
+   "scale_size": 4,
+   "scale_unresolved": [],
+   "n_seasons_with_enough_sites": 20,
+   "distinct_site_incidence_values": 20,
+   "DATA_HAS_SIGNAL": true,
+   "PUBLISHABLE_TODAY": 9,
+   "DATA_LATENCY_DAYS": 2
+  },
+  "FRUMENTO": {
+   "source_crop_id": 19,
+   "survey_var": 372,
+   "n_rows": 5817,
+   "n_readable_values": 5813,
+   "VALUE_MODE": "ORDINAL",
+   "scale_size": 4,
+   "scale_unresolved": [
+    "50 - gravissina",
+    "75 - completa"
+   ],
+   "n_seasons_with_enough_sites": 14,
+   "distinct_site_incidence_values": 9,
+   "DATA_HAS_SIGNAL": true,
+   "PUBLISHABLE_TODAY": 0,
+   "DATA_LATENCY_DAYS": 81
+  },
+  "MAIS": {
+   "DATA_HAS_SIGNAL": "NOT_COLLECTED_BY_THIS_PILOT",
+   "NOTE": "no maize case exists in CASES/, and the pilot's own Italy census (CENSUS/italy_census.json, 25 candidates) contains no maize candidate. This is an absence of COLLECTION, not a measured absence of the phenomenon.",
+   "CENSUS_CROPS_SEEN": [
+    "Frumento (wheat)",
+    "Multi-crop, host-by-host (vine among them; the CSV names the",
+    "Olivo (597,277 of 688,631 samples), plus mandorlo, ciliegio,",
+    "Olivo (Olea europaea) ~597.277 of the records, plus mandorlo",
+    "Olivo (olive)",
+    "Olivo (plus mandorlo, ciliegio, agrumi, oleandro and other h",
+    "Polyphagous quarantine pest; vine (Vitis) is among its princ",
+    "Polyphagous \u2014 pheromone traps sited in fruit orchards (pear,",
+    "Polyphagous; survey targets Ligurian farm holdings including",
+    "Vite",
+    "Vite (Chardonnay, Nebbiolo and other varieties depending on ",
+    "Vite (Vitis vinifera)",
+    "Vite (site type recorded as 'vigneto' / 'Orchard/vineyard')",
+    "Vite (uva da vino)",
+    "Vite (uva da vino: Montepulciano, Pecorino, Trebbiano, Chard",
+    "Vite da vino"
+   ]
+  }
+ },
+ "PORTAL": {
+  "n_cases": 43,
+  "CROPS": [
+   "CROP_APPLE",
+   "CROP_BARLEY",
+   "CROP_CITRUS",
+   "CROP_GRAPEVINE",
+   "CROP_MAIZE",
+   "CROP_OLIVE",
+   "CROP_RICE",
+   "CROP_SOYBEAN",
+   "CROP_SUGAR_BEET",
+   "CROP_TOMATO",
+   "CROP_VEGETABLES",
+   "CROP_WHEAT_GENERIC",
+   "None"
+  ],
+  "TARGETS": [
+   "ISSUE_BOTRYTIS",
+   "ISSUE_CODLING_MOTH",
+   "ISSUE_CORN_BORER",
+   "ISSUE_DIABROTICA",
+   "ISSUE_DOWNY_MILDEW",
+   "ISSUE_ECHINOCHLOA",
+   "ISSUE_GRAPE_MOTH",
+   "ISSUE_POWDERY_MILDEW",
+   "ISSUE_SCAPHOIDEUS",
+   "None"
+  ],
+  "GEOGRAPHIES": [
+   "GEO_EU",
+   "GEO_ITALY",
+   "REGION_EMILIA_ROMAGNA",
+   "REGION_FRIULI_VENEZIA_GIULIA",
+   "REGION_LOMBARDIA",
+   "REGION_TOSCANA",
+   "REGION_UMBRIA",
+   "REGION_VENETO"
+  ],
+  "FIELD_PRESSURE_BY_CROP_GEO": [
+   "CROP_APPLE|REGION_VENETO|ISSUE_CODLING_MOTH",
+   "CROP_GRAPEVINE|REGION_EMILIA_ROMAGNA|ISSUE_BOTRYTIS",
+   "CROP_GRAPEVINE|REGION_EMILIA_ROMAGNA|ISSUE_DOWNY_MILDEW",
+   "CROP_GRAPEVINE|REGION_EMILIA_ROMAGNA|ISSUE_GRAPE_MOTH",
+   "CROP_GRAPEVINE|REGION_FRIULI_VENEZIA_GIULIA|ISSUE_DOWNY_MILDEW",
+   "CROP_GRAPEVINE|REGION_FRIULI_VENEZIA_GIULIA|ISSUE_POWDERY_MILDEW",
+   "CROP_GRAPEVINE|REGION_TOSCANA|ISSUE_BOTRYTIS",
+   "CROP_GRAPEVINE|REGION_TOSCANA|ISSUE_POWDERY_MILDEW",
+   "CROP_GRAPEVINE|REGION_TOSCANA|ISSUE_SCAPHOIDEUS",
+   "CROP_GRAPEVINE|REGION_UMBRIA|ISSUE_DOWNY_MILDEW",
+   "CROP_GRAPEVINE|REGION_UMBRIA|ISSUE_GRAPE_MOTH",
+   "CROP_GRAPEVINE|REGION_UMBRIA|ISSUE_POWDERY_MILDEW",
+   "CROP_GRAPEVINE|REGION_UMBRIA|ISSUE_SCAPHOIDEUS",
+   "CROP_MAIZE|REGION_FRIULI_VENEZIA_GIULIA|ISSUE_CORN_BORER",
+   "CROP_MAIZE|REGION_LOMBARDIA|ISSUE_CORN_BORER",
+   "CROP_MAIZE|REGION_LOMBARDIA|ISSUE_DIABROTICA",
+   "CROP_TOMATO|REGION_VENETO|ISSUE_DOWNY_MILDEW"
+  ]
+ },
+ "PORTAL_CAN_RENDER_CROP": {
+  "OLIVO": true,
+  "VITE": true,
+  "FRUMENTO": true,
+  "MAIS": true
+ },
+ "PORTAL_HAS_ISSUE_WORD": {
+  "OLIVE_FRUIT_FLY": false,
+  "OIDIO_POWDERY_MILDEW": true,
+  "SEPTORIA": false
+ },
+ "GATE_J_CLAIM_RECHECKED": {
+  "GATE_J_SAID": "its whole TARGET vocabulary contains 0 olive targets ... the portal has no words for the cell we can [publish]",
+  "MEASURED": {
+   "olive_ISSUE_words": [],
+   "olive_CROP_word_present": true,
+   "n_cases_using_CROP_OLIVE": null
+  },
+  "CORRECTION": "the first half is right and the conclusion overshoots. The portal HAS the crop word CROP_OLIVE (three cases carry it) and lacks the ISSUE word and any provincial olive geography. 'No vocabulary for the olive' is not what the file says; 'no field-pressure capability for olive x olive-fly x province' is."
+ },
+ "CROP_NORMALIZATION": "FAIL",
+ "CROPS_IN_DATA": [
+  "OLIVO",
+  "VITE",
+  "FRUMENTO"
+ ],
+ "CROPS_CANONICALIZED": [],
+ "CROPS_NOT_CANONICALIZED": [
+  "OLIVO",
+  "VITE",
+  "FRUMENTO"
+ ],
+ "SEMANTIC_COVERAGE": "SEMANTIC_COVERAGE_FAIL"
+}

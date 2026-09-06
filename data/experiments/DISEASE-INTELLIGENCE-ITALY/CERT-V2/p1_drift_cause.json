@@ -1,0 +1,89 @@
+{
+ "AS_OF": "2026-09-06",
+ "H1_ORDER_DEPENDENCE": {
+  "OLIVO x BACTROCERA x TOSCANA": {
+   "DECLARES_DENOMINATOR_VAR": true,
+   "PROVINCE_CELLS": 10,
+   "CELLS_THAT_CHANGE_WITH_FILE_ORDER": 0,
+   "CHANGED": {},
+   "STATE_CHANGES": []
+  },
+  "VITE x OIDIO x TOSCANA": {
+   "DECLARES_DENOMINATOR_VAR": false,
+   "PROVINCE_CELLS": 10,
+   "CELLS_THAT_CHANGE_WITH_FILE_ORDER": 0,
+   "CHANGED": {},
+   "STATE_CHANGES": []
+  }
+ },
+ "H2_JOIN_KEY": {
+  "OLIVO x BACTROCERA x TOSCANA": {
+   "denominator_var": 1,
+   "id_survey_keys": 52250,
+   "keys_in_more_than_one_file": 14649,
+   "keys_with_conflicting_values": 2443,
+   "keys_where_the_conflict_flips_DROP_vs_KEEP": 1759,
+   "example": {
+    "1": {
+     "values": [
+      "0",
+      "100"
+     ],
+     "files": [
+      "c2_s1_v1_2010.json",
+      "c2_s1_v1_2011.json",
+      "c2_s1_v1_2012.json",
+      "c2_s1_v1_2013.json",
+      "c2_s1_v1_2014.json",
+      "c2_s1_v1_2015.json",
+      "c2_s1_v1_2016.json",
+      "c2_s1_v1_2017.json",
+      "c2_s1_v1_2019.json"
+     ]
+    },
+    "24": {
+     "values": [
+      "0",
+      "100"
+     ],
+     "files": [
+      "c2_s1_v1_2011.json",
+      "c2_s1_v1_2013.json",
+      "c2_s1_v1_2016.json",
+      "c2_s1_v1_2019.json"
+     ]
+    }
+   }
+  },
+  "VITE x OIDIO x TOSCANA": {
+   "denominator_var": null,
+   "note": "no denominator guard runs for this case"
+  }
+ },
+ "GATE_NUMBERS_BY_FILE_ORDER": {
+  "asc": {
+   "GATE_F_MEAN_AGREEMENT": 0.924,
+   "GATE_G_DOMINANT_SHARE": 0.432,
+   "n_classified": 132
+  },
+  "desc": {
+   "GATE_F_MEAN_AGREEMENT": 0.924,
+   "GATE_G_DOMINANT_SHARE": 0.424,
+   "n_classified": 132
+  }
+ },
+ "COMMITTED_AT_a4d19dd": {
+  "GATE_F_MEAN_AGREEMENT": 0.918,
+  "GATE_G_DOMINANT_SHARE": 0.424
+ },
+ "VERDICT": {
+  "H1_ORDER_DEPENDENCE_PROVED": false,
+  "H2_JOIN_KEY_NOT_UNIQUE": true,
+  "DISTINCT_GATE_F_VALUES_OBSERVED": [
+   0.918,
+   0.924
+  ],
+  "REPRODUCIBLE_FROM_CLEAN_CHECKOUT": false,
+  "NOTE": "gate J's drift has a separate and simpler cause, recorded in p2_gate_inventory."
+ }
+}

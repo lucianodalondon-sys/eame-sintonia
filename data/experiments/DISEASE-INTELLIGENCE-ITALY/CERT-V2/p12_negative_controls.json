@@ -1,0 +1,146 @@
+{
+ "CONTROLS": [
+  {
+   "ID": "N1",
+   "CELL": "TOSCANA x OLIVE x BACTROCERA x 2026-03-15",
+   "WHY_THE_ANSWER_MUST_BE_UNKNOWN": "olive-fly scouting has not started; the newest readable observation is from the previous autumn",
+   "RESULT": {
+    "OUTCOME": "RAN",
+    "n_classed": 0,
+    "n_provinces": 10,
+    "states": {
+     "Arezzo": "UNKNOWN_NO_DATA",
+     "Firenze": "UNKNOWN_NO_DATA",
+     "Grosseto": "UNKNOWN_NO_DATA",
+     "Livorno": "UNKNOWN_NO_DATA",
+     "Lucca": "UNKNOWN_NO_DATA",
+     "Massa-Carrara": "UNKNOWN_NO_DATA",
+     "Pisa": "UNKNOWN_NO_DATA",
+     "Pistoia": "UNKNOWN_NO_DATA",
+     "Prato": "UNKNOWN_NO_DATA",
+     "Siena": "UNKNOWN_NO_DATA"
+    },
+    "DATA_LATENCY_DAYS": 149
+   }
+  },
+  {
+   "ID": "N2",
+   "CELL": "TOSCANA x WHEAT x SEPTORIA x 2026-09-06",
+   "WHY_THE_ANSWER_MUST_BE_UNKNOWN": "the wheat is harvested; the survey stopped in June",
+   "RESULT": {
+    "OUTCOME": "RAN",
+    "n_classed": 0,
+    "n_provinces": 5,
+    "states": {
+     "Arezzo": "UNKNOWN_NO_DATA",
+     "Firenze": "UNKNOWN_NO_DATA",
+     "Grosseto": "UNKNOWN_NO_DATA",
+     "Pisa": "UNKNOWN_NO_DATA",
+     "Siena": "UNKNOWN_NO_DATA"
+    },
+    "DATA_LATENCY_DAYS": 81
+   }
+  },
+  {
+   "ID": "N3",
+   "CELL": "TOSCANA x OLIVE x BACTROCERA x 2001-09-06",
+   "WHY_THE_ANSWER_MUST_BE_UNKNOWN": "the archive starts in 2006",
+   "RESULT": {
+    "OUTCOME": "RAN",
+    "n_classed": 0,
+    "n_provinces": 10,
+    "states": {
+     "Arezzo": "UNKNOWN_NO_DATA",
+     "Firenze": "UNKNOWN_NO_DATA",
+     "Grosseto": "UNKNOWN_NO_DATA",
+     "Livorno": "UNKNOWN_NO_DATA",
+     "Lucca": "UNKNOWN_NO_DATA",
+     "Massa-Carrara": "UNKNOWN_NO_DATA",
+     "Pisa": "UNKNOWN_NO_DATA",
+     "Pistoia": "UNKNOWN_NO_DATA",
+     "Prato": "UNKNOWN_NO_DATA",
+     "Siena": "UNKNOWN_NO_DATA"
+    },
+    "DATA_LATENCY_DAYS": null
+   }
+  },
+  {
+   "ID": "N4",
+   "CELL": "provinces not monitored for wheat, 2026-05-15",
+   "WHY_THE_ANSWER_MUST_BE_UNKNOWN": "the wheat programme covers a handful of provinces; the rest have no visits and must not inherit a neighbour",
+   "RESULT": {
+    "OUTCOME": "RAN",
+    "n_classed": 2,
+    "n_provinces": 5,
+    "states": {
+     "Arezzo": "TYPICAL_FOR_THE_DATE",
+     "Firenze": "UNKNOWN_NO_DATA",
+     "Grosseto": "TYPICAL_FOR_THE_DATE",
+     "Pisa": "UNKNOWN_NO_BASELINE",
+     "Siena": "UNKNOWN_NO_DATA"
+    },
+    "DATA_LATENCY_DAYS": 2
+   },
+   "UNKNOWN_PROVINCES": [
+    "Firenze",
+    "Pisa",
+    "Siena"
+   ]
+  },
+  {
+   "ID": "N5",
+   "CELL": "crop 3 / schema 8 / survey_var 50 (does not exist)",
+   "WHY_THE_ANSWER_MUST_BE_A_FAILURE": "the source answers HTTP 200, ok:true, the schema's FULL visit skeleton and every value null. Read as data this is 'nobody found anything anywhere'.",
+   "RESULT": {
+    "HTTP": 200,
+    "ok": false,
+    "n_rows": 2515,
+    "non_null_values": 0,
+    "SILENT_FAILURE": "FULL_ROWCOUNT_BUT_EVERY_VALUE_NULL",
+    "error": null
+   },
+   "DETECTOR_TRIPPED": true
+  },
+  {
+   "ID": "N6",
+   "CELL": "a variable that is not a survey variable of the case",
+   "WHY_THE_ANSWER_MUST_BE_A_REFUSAL": "a predictor is not an outcome",
+   "RESULT": {
+    "OUTCOME": "REFUSED",
+    "message": "REFUSED: var 999999 is not a survey variable of this case (declared survey vars: [39, 40, 41, 42]). A predictor is not an outcome."
+   }
+  },
+  {
+   "ID": "N7",
+   "CELL": "the olive case offered as MODELLED_RISK",
+   "WHY_THE_ANSWER_MUST_BE_A_REFUSAL": "RISK_FORECAST != DISEASE_PRESENCE",
+   "RESULT": {
+    "OUTCOME": "REFUSED",
+    "message": "REFUSED: evidence_role=MODELLED_RISK cannot be an OUTCOME. RISK_FORECAST != DISEASE_PRESENCE; a model output is not an observation."
+   }
+  },
+  {
+   "ID": "N8",
+   "CELL": "TOSCANA x MAIZE x anything",
+   "WHY_THE_ANSWER_MUST_BE_UNKNOWN": "no maize case exists in this pilot and none is in its Italy census",
+   "RESULT": {
+    "OUTCOME": "NO_CASE_ON_DISK",
+    "cases_present": [
+     "FRUMENTO-SEPTORIA-TOSCANA",
+     "OLIVO-BACTROCERA-TOSCANA",
+     "VITE-OIDIO-TOSCANA"
+    ]
+   },
+   "MUST_NOT_BE_REPORTED_AS": "absence of maize disease in Toscana"
+  }
+ ],
+ "NEGATIVE_CONTROLS": 8,
+ "FALSE_POSITIVES_ON_STRUCTURAL_CONTROLS": 0,
+ "SILENT_FAILURE_DETECTOR_TRIPS": true,
+ "NON_OUTCOME_VARIABLE_REFUSED": true,
+ "MODELLED_ROLE_REFUSED": true,
+ "FALSE_NEGATIVES": "UNKNOWN_GROUND_TRUTH",
+ "UNKNOWN_GROUND_TRUTH": "A false negative is a cell where the pressure really was higher than usual and the instrument said TYPICAL or UNKNOWN. Deciding that needs an independent register of olive-fly and oidio pressure in Tuscany by province and date. This repository does not contain one, and the source under test cannot be its own referee. The rate is NOT KNOWN and no number is offered.",
+ "WHAT_THE_CONTROLS_DO_AND_DO_NOT_PROVE": "They prove the instrument goes silent where silence is the only correct answer, which is the property most easily lost. They do not prove that the classes it does publish are agronomically right.",
+ "NEGATIVE_CONTROLS_VERDICT": "PASS"
+}

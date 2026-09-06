@@ -1,0 +1,490 @@
+{
+ "ISTAT_PROVINCE_CODES_USED": {
+  "45": "Massa-Carrara",
+  "46": "Lucca",
+  "47": "Pistoia",
+  "48": "Firenze",
+  "49": "Livorno",
+  "50": "Pisa",
+  "51": "Arezzo",
+  "52": "Siena",
+  "53": "Grosseto",
+  "100": "Prato"
+ },
+ "CASES": {
+  "OLIVE": {
+   "n_rows": 79251,
+   "TEST1_PROVINCE_STRING_VS_ISTAT_CODE": {
+    "agree": 77850,
+    "disagree": 1401,
+    "unresolvable": 0,
+    "agreement_rate": 0.9823,
+    "disagreements": [
+     {
+      "nome_area": "Prato",
+      "admin_code": 48029,
+      "istat_says": "Firenze",
+      "name_4": "MONTEMURLO"
+     },
+     {
+      "nome_area": "Prato",
+      "admin_code": 48029,
+      "istat_says": "Firenze",
+      "name_4": "MONTEMURLO"
+     },
+     {
+      "nome_area": "Prato",
+      "admin_code": 48029,
+      "istat_says": "Firenze",
+      "name_4": "MONTEMURLO"
+     },
+     {
+      "nome_area": "Prato",
+      "admin_code": 48029,
+      "istat_says": "Firenze",
+      "name_4": "MONTEMURLO"
+     },
+     {
+      "nome_area": "Prato",
+      "admin_code": 48029,
+      "istat_says": "Firenze",
+      "name_4": "MONTEMURLO"
+     }
+    ],
+    "ALL_EXPLAINED_BY_THE_1992_PRATO_REFORM": true,
+    "UNEXPLAINED_DISAGREEMENTS": 0,
+    "INTEGRATION_RISK": "admin_code is a LEGACY code for the Prato comuni; a join on it moves those rows into Firenze. The engine does not join on admin_code, so the pilot is not affected \u2014 anything downstream that does, is."
+   },
+   "TEST2_ORG_IS_NOT_A_PROVINCE_PROXY": {
+    "n_orgs": 20,
+    "orgs_confined_to_one_province": 7,
+    "orgs_spanning_provinces": 13,
+    "max_provinces_per_org": 10,
+    "provinces_served_by_more_than_one_org": 10,
+    "detail": {
+     "ARSIA": [
+      "Livorno",
+      "Massa-Carrara",
+      "Pisa",
+      "Siena"
+     ],
+     "Apot": [
+      "Arezzo",
+      "Grosseto",
+      "Livorno",
+      "Lucca",
+      "Massa-Carrara",
+      "Pisa",
+      "Pistoia",
+      "Siena"
+     ],
+     "Assoprolfipo": [
+      "Arezzo",
+      "Firenze",
+      "Pistoia",
+      "Prato",
+      "Siena"
+     ],
+     "Biodistertto FIesole": [
+      "Firenze",
+      "Pistoia"
+     ],
+     "Bo": [
+      "Firenze"
+     ],
+     "Cetona": [
+      "Siena"
+     ],
+     "Confoliva": [
+      "Livorno",
+      "Pisa"
+     ],
+     "ERATA": [
+      "Arezzo",
+      "Livorno",
+      "Lucca"
+     ],
+     "ETRURIA": [
+      "Livorno",
+      "Pisa"
+     ],
+     "OLMA": [
+      "Grosseto",
+      "Livorno",
+      "Pisa"
+     ],
+     "PIF Chianti Classico": [
+      "Firenze",
+      "Siena"
+     ],
+     "Scuola Superiore Sant'Anna": [
+      "Pisa"
+     ],
+     "Varie": [
+      "Prato"
+     ],
+     "aprol": [
+      "Arezzo",
+      "Firenze",
+      "Grosseto",
+      "Livorno",
+      "Lucca",
+      "Massa-Carrara",
+      "Pisa",
+      "Pistoia",
+      "Prato",
+      "Siena"
+     ],
+     "montalbano": [
+      "Firenze",
+      "Pisa",
+      "Pistoia",
+      "Prato"
+     ],
+     "nostrato": [
+      "Massa-Carrara"
+     ],
+     "org": [
+      "Grosseto"
+     ],
+     "ota": [
+      "Arezzo",
+      "Firenze",
+      "Grosseto",
+      "Livorno",
+      "Lucca",
+      "Massa-Carrara",
+      "Pisa",
+      "Pistoia",
+      "Prato",
+      "Siena"
+     ],
+     "siena": [
+      "Siena"
+     ],
+     "terreetruria": [
+      "Firenze",
+      "Grosseto",
+      "Livorno",
+      "Pisa",
+      "Pistoia",
+      "Prato",
+      "Siena"
+     ]
+    }
+   },
+   "TEST3_COORDINATES": {
+    "georeferenced_rows": 54126,
+    "pct_georeferenced": 68.3,
+    "3a_rows_outside_the_tuscany_bounding_box": 1117,
+    "3b_comuni_carrying_more_than_one_province_name": 0,
+    "3b_examples": {},
+    "3c_fields_whose_coordinates_move_at_all": 132,
+    "3c_fields_that_move_more_than_5km": 86,
+    "3c_examples": {
+     "1156": [
+      [
+       5.416,
+       45.21
+      ],
+      [
+       43.363,
+       11.985
+      ]
+     ],
+     "1155": [
+      [
+       5.411,
+       45.192
+      ],
+      [
+       43.341,
+       11.975
+      ]
+     ],
+     "1154": [
+      [
+       5.454,
+       45.103
+      ],
+      [
+       43.226,
+       12.03
+      ]
+     ],
+     "1152": [
+      [
+       5.281,
+       45.185
+      ],
+      [
+       43.35,
+       11.755
+      ]
+     ],
+     "2553": [
+      [
+       5.234,
+       45.282
+      ],
+      [
+       43.475,
+       11.692
+      ]
+     ]
+    }
+   },
+   "TEST4_NO_INHERITANCE": {
+    "provinces_with_zero_sites_in_window": [],
+    "their_states": {},
+    "any_of_them_carries_a_class": false
+   }
+  },
+  "VINE": {
+   "n_rows": 35065,
+   "TEST1_PROVINCE_STRING_VS_ISTAT_CODE": {
+    "agree": 34225,
+    "disagree": 840,
+    "unresolvable": 0,
+    "agreement_rate": 0.976,
+    "disagreements": [
+     {
+      "nome_area": "Prato",
+      "admin_code": 48009,
+      "istat_says": "Firenze",
+      "name_4": "CARMIGNANO"
+     },
+     {
+      "nome_area": "Prato",
+      "admin_code": 48009,
+      "istat_says": "Firenze",
+      "name_4": "CARMIGNANO"
+     },
+     {
+      "nome_area": "Prato",
+      "admin_code": 48009,
+      "istat_says": "Firenze",
+      "name_4": "CARMIGNANO"
+     },
+     {
+      "nome_area": "Prato",
+      "admin_code": 48009,
+      "istat_says": "Firenze",
+      "name_4": "CARMIGNANO"
+     },
+     {
+      "nome_area": "Prato",
+      "admin_code": 48009,
+      "istat_says": "Firenze",
+      "name_4": "CARMIGNANO"
+     }
+    ],
+    "ALL_EXPLAINED_BY_THE_1992_PRATO_REFORM": false,
+    "UNEXPLAINED_DISAGREEMENTS": 30,
+    "INTEGRATION_RISK": "admin_code is a LEGACY code for the Prato comuni; a join on it moves those rows into Firenze. The engine does not join on admin_code, so the pilot is not affected \u2014 anything downstream that does, is."
+   },
+   "TEST2_ORG_IS_NOT_A_PROVINCE_PROXY": {
+    "n_orgs": 7,
+    "orgs_confined_to_one_province": 3,
+    "orgs_spanning_provinces": 4,
+    "max_provinces_per_org": 10,
+    "provinces_served_by_more_than_one_org": 10,
+    "detail": {
+     "BASF": [
+      "Siena"
+     ],
+     "CIPAAT": [
+      "Arezzo",
+      "Firenze",
+      "Livorno",
+      "Lucca",
+      "Massa-Carrara",
+      "Pisa",
+      "Prato",
+      "Siena"
+     ],
+     "Castelli del Greve Pesa": [
+      "Firenze"
+     ],
+     "ERATA": [
+      "Arezzo",
+      "Grosseto",
+      "Livorno",
+      "Lucca",
+      "Pisa",
+      "Pistoia",
+      "Siena"
+     ],
+     "IRIPA": [
+      "Arezzo",
+      "Firenze",
+      "Grosseto",
+      "Livorno",
+      "Lucca",
+      "Massa-Carrara",
+      "Pisa",
+      "Siena"
+     ],
+     "siena": [
+      "Siena"
+     ],
+     "unipi": [
+      "Arezzo",
+      "Firenze",
+      "Grosseto",
+      "Livorno",
+      "Lucca",
+      "Massa-Carrara",
+      "Pisa",
+      "Pistoia",
+      "Prato",
+      "Siena"
+     ]
+    }
+   },
+   "TEST3_COORDINATES": {
+    "georeferenced_rows": 20155,
+    "pct_georeferenced": 57.5,
+    "3a_rows_outside_the_tuscany_bounding_box": 71,
+    "3b_comuni_carrying_more_than_one_province_name": 1,
+    "3b_examples": {
+     "48049": [
+      "Firenze",
+      "Siena"
+     ]
+    },
+    "3c_fields_whose_coordinates_move_at_all": 145,
+    "3c_fields_that_move_more_than_5km": 74,
+    "3c_examples": {
+     "3533": [
+      [
+       43.529,
+       11.912
+      ],
+      [
+       43.534,
+       11.918
+      ],
+      [
+       45.534,
+       11.918
+      ]
+     ],
+     "3537": [
+      [
+       43.498,
+       11.907
+      ],
+      [
+       43.526,
+       11.761
+      ]
+     ],
+     "3584": [
+      [
+       43.178,
+       11.915
+      ],
+      [
+       43.544,
+       11.865
+      ]
+     ],
+     "3520": [
+      [
+       43.216,
+       11.961
+      ],
+      [
+       43.49,
+       11.271
+      ],
+      [
+       43.49,
+       11.571
+      ]
+     ],
+     "3514": [
+      [
+       43.523,
+       12.067
+      ],
+      [
+       43.545,
+       11.677
+      ]
+     ]
+    }
+   },
+   "TEST4_NO_INHERITANCE": {
+    "provinces_with_zero_sites_in_window": [],
+    "their_states": {},
+    "any_of_them_carries_a_class": false
+   }
+  },
+  "WHEAT": {
+   "n_rows": 5817,
+   "TEST1_PROVINCE_STRING_VS_ISTAT_CODE": {
+    "agree": 5817,
+    "disagree": 0,
+    "unresolvable": 0,
+    "agreement_rate": 1.0,
+    "disagreements": [],
+    "ALL_EXPLAINED_BY_THE_1992_PRATO_REFORM": true,
+    "UNEXPLAINED_DISAGREEMENTS": 0,
+    "INTEGRATION_RISK": "admin_code is a LEGACY code for the Prato comuni; a join on it moves those rows into Firenze. The engine does not join on admin_code, so the pilot is not affected \u2014 anything downstream that does, is."
+   },
+   "TEST2_ORG_IS_NOT_A_PROVINCE_PROXY": {
+    "n_orgs": 1,
+    "orgs_confined_to_one_province": 0,
+    "orgs_spanning_provinces": 1,
+    "max_provinces_per_org": 4,
+    "provinces_served_by_more_than_one_org": 0,
+    "detail": {
+     "unifi": [
+      "Arezzo",
+      "Firenze",
+      "Grosseto",
+      "Pisa"
+     ]
+    }
+   },
+   "TEST3_COORDINATES": {
+    "georeferenced_rows": 3925,
+    "pct_georeferenced": 67.5,
+    "3a_rows_outside_the_tuscany_bounding_box": 0,
+    "3b_comuni_carrying_more_than_one_province_name": 0,
+    "3b_examples": {},
+    "3c_fields_whose_coordinates_move_at_all": 1,
+    "3c_fields_that_move_more_than_5km": 0,
+    "3c_examples": {}
+   },
+   "TEST4_NO_INHERITANCE": {
+    "provinces_with_zero_sites_in_window": [
+     "Arezzo",
+     "Firenze",
+     "Grosseto",
+     "Pisa",
+     "Siena"
+    ],
+    "their_states": {
+     "Arezzo": "UNKNOWN_NO_DATA",
+     "Firenze": "UNKNOWN_NO_DATA",
+     "Grosseto": "UNKNOWN_NO_DATA",
+     "Pisa": "UNKNOWN_NO_DATA",
+     "Siena": "UNKNOWN_NO_DATA"
+    },
+    "any_of_them_carries_a_class": false
+   }
+  }
+ },
+ "GEOGRAPHY_GATE": "FAIL",
+ "SUBTESTS": {
+  "T1_province_string_matches_istat_code_or_a_named_reform": false,
+  "T2_org_is_not_a_province_proxy": true,
+  "T3_coordinates_consistent": false,
+  "T4_no_inheritance_into_empty_provinces": true
+ },
+ "SOURCE_LOCATION_AS_FACT_LOCATION": 30,
+ "CORRECTION_OF_MY_OWN_FIRST_RUN": "The first version of TEST3 asked whether a field is nearer another province's centroid than its own, with 15 km of slack, and reported 39,131 misplaced olive rows. That was my instrument, not the data: on ten irregular provinces the test flags every edge field. It was replaced with three questions that can only fail for a real reason. GEOGRAPHY_GATE was FAIL on that run and the FAIL was mine."
+}

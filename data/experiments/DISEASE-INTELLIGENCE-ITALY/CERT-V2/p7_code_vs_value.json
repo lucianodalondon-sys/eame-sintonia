@@ -1,0 +1,155 @@
+{
+ "AS_OF": "2026-09-06",
+ "GUARD": "current_pressure.assert_scale_decodes",
+ "GUARD_THRESHOLD": 0.9,
+ "RETRACTION": "the first version of this file reported CODE_AS_VALUE_FALSE_CLAIMS = 63. That number was an artefact of my own test: it injected code ids drawn from a code table the olive case does not have, so no values were changed. Withdrawn.",
+ "Q1_STATE_OF_THE_REAL_CASES": {
+  "WHEAT": {
+   "var": 372,
+   "VALUE_MODE": "ORDINAL",
+   "source_declares_widget": "select",
+   "code_table_entries_in_case": 41,
+   "code_table_entries_for_THIS_var": 6,
+   "share_of_values_that_are_code_ids_of_ANY_var": 1.0,
+   "GUARD_CAN_EVER_RUN_ON_THIS_CASE": false,
+   "WHY_NOT": "mode is ORDINAL: the case HAS a code table for this variable, so the values are decoded through it and the guard returns immediately",
+   "sample_values": [
+    "1599",
+    "1602",
+    "1603",
+    "1628",
+    "1629"
+   ]
+  },
+  "OLIVE": {
+   "var": -1002,
+   "VALUE_MODE": "NUMERIC",
+   "source_declares_widget": "numeric",
+   "code_table_entries_in_case": 0,
+   "code_table_entries_for_THIS_var": 0,
+   "share_of_values_that_are_code_ids_of_ANY_var": 0.0,
+   "GUARD_CAN_EVER_RUN_ON_THIS_CASE": false,
+   "WHY_NOT": "the case carries NO code table at all, so the guard has nothing to compare against and returns immediately",
+   "sample_values": [
+    "-1.0",
+    "-3.0",
+    "-5",
+    "0",
+    "0.0",
+    "0.2"
+   ]
+  },
+  "VINE": {
+   "var": 39,
+   "VALUE_MODE": "ORDINAL",
+   "source_declares_widget": "select",
+   "code_table_entries_in_case": 16,
+   "code_table_entries_for_THIS_var": 4,
+   "share_of_values_that_are_code_ids_of_ANY_var": 1.0,
+   "GUARD_CAN_EVER_RUN_ON_THIS_CASE": false,
+   "WHY_NOT": "mode is ORDINAL: the case HAS a code table for this variable, so the values are decoded through it and the guard returns immediately",
+   "sample_values": [
+    "782",
+    "783",
+    "784",
+    "785"
+   ]
+  }
+ },
+ "GUARD_IS_INERT_ON_EVERY_REAL_CASE": true,
+ "Q2_WHAT_ACTUALLY_FIXED_THE_WHEAT_CASE": {
+  "code_table_entries_for_var_372_today": 6,
+  "VALUE_MODE_today": "ORDINAL",
+  "derived_scale_size": 4,
+  "WITH_THE_CODE_TABLE_REMOVED": {
+   "VALUE_MODE": "UNSUPPORTED",
+   "RESULT": {
+    "OUTCOME": "REFUSED",
+    "message": "REFUSED: var 372 is neither coded nor numeric in the source metadata"
+   }
+  },
+  "READ": "the wheat defect is held shut by the CODE TABLE the collector now stores (the 'most complete table' fix in collect_generic.py), not by assert_scale_decodes. Remove the table and the guard is what stands between the engine and an agronomic sentence built out of identifiers."
+ },
+ "Q3_THE_CLIFF": {
+  "BY_SHARE_OF_VALUES_THAT_ARE_CODE_IDS": {
+   "0.00": {
+    "OUTCOME": "PUBLISHED",
+    "n_provinces_classed": 0,
+    "message": null
+   },
+   "0.50": {
+    "OUTCOME": "PUBLISHED",
+    "n_provinces_classed": 0,
+    "message": null
+   },
+   "0.80": {
+    "OUTCOME": "PUBLISHED",
+    "n_provinces_classed": 0,
+    "message": null
+   },
+   "0.85": {
+    "OUTCOME": "PUBLISHED",
+    "n_provinces_classed": 0,
+    "message": null
+   },
+   "0.89": {
+    "OUTCOME": "PUBLISHED",
+    "n_provinces_classed": 0,
+    "message": null
+   },
+   "0.90": {
+    "OUTCOME": "PUBLISHED",
+    "n_provinces_classed": 0,
+    "message": null
+   },
+   "0.95": {
+    "OUTCOME": "REFUSED",
+    "n_provinces_classed": null,
+    "message": "REFUSED: 95% of the values of this variable are id_survey_code values of this very case. The source declares it numeric and is serving codes. A code id is not a magnitude."
+   },
+   "1.00": {
+    "OUTCOME": "REFUSED",
+    "n_provinces_classed": null,
+    "message": "REFUSED: 100% of the values of this variable are id_survey_code values of this very case. The source declares it numeric and is serving codes. A code id is not a magnitude."
+   }
+  },
+  "READ": "every share that still says PUBLISHED is a configuration in which the engine emits a class computed from identifiers. The threshold is 0.90 by declaration; what matters is how much of the space below it is publishable."
+ },
+ "Q4_NO_FALSE_REFUSAL_ON_A_GENUINE_MEASUREMENT": {
+  "share_of_code_ids": 0.0,
+  "RESULT": {
+   "OUTCOME": "PUBLISHED",
+   "n_provinces_classed": 0,
+   "states": {
+    "Arezzo": "UNKNOWN_NO_DATA",
+    "Firenze": "UNKNOWN_NO_DATA",
+    "Grosseto": "UNKNOWN_NO_DATA",
+    "Pisa": "UNKNOWN_NO_DATA"
+   }
+  }
+ },
+ "Q5_ORDINAL_CASE_FED_FOREIGN_CODE_IDS": {
+  "n_foreign_ids": 41,
+  "GUARD_RUNS_IN_ORDINAL_MODE": false,
+  "RESULT": {
+   "OUTCOME": "PUBLISHED",
+   "n_provinces_classed": 0,
+   "states": {
+    "Arezzo": "UNKNOWN_NO_DATA",
+    "Firenze": "UNKNOWN_NO_DATA",
+    "Grosseto": "UNKNOWN_NO_DATA",
+    "Livorno": "UNKNOWN_NO_DATA",
+    "Lucca": "UNKNOWN_NO_DATA",
+    "Massa-Carrara": "UNKNOWN_NO_DATA",
+    "Pisa": "UNKNOWN_NO_DATA",
+    "Pistoia": "UNKNOWN_NO_DATA",
+    "Prato": "UNKNOWN_NO_DATA",
+    "Siena": "UNKNOWN_NO_DATA"
+   }
+  },
+  "READ": "in ORDINAL mode an unrecognised code decodes to None, which is MISSING, which is never zero. The case fails to UNKNOWN rather than to a number. That is the right failure, and it is delivered by read_value, not by the code-vs-value guard."
+ },
+ "CODE_AS_VALUE_FALSE_CLAIMS": 0,
+ "CODE_VS_VALUE_GATE": "FAIL",
+ "SCOPE_OF_THE_PASS": "The guard does what it says WHERE IT RUNS. It does not run on either published case nor on the case it was written for. Its protection is real and currently unreachable."
+}

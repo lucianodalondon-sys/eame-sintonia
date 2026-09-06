@@ -1,0 +1,33 @@
+{
+ "ID": "M03",
+ "TARGET_GATE": "B",
+ "PROPERTY_DESTROYED": "the time cutoff is removed",
+ "BASELINE_VERDICTS": {
+  "A_OUTCOME_IS_OBSERVED": "PASS",
+  "B_NOT_SOLD_AS_FORECAST": "PASS",
+  "C_REGIONAL_NOT_NATIONAL": "PASS",
+  "D_UNKNOWN_IS_VISIBLE": "PASS",
+  "E_REPRODUCIBLE": "PASS",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT": "PASS",
+  "G_DISCRIMINATES_BETWEEN_SEASONS": "FAIL",
+  "H_REFRESHABLE_WITHOUT_RESEARCH": "PASS",
+  "I_GENERALIZES": "PASS",
+  "J_NOT_DUPLICATE": "FAIL"
+ },
+ "AS_OF": "2026-09-06",
+ "VERDICTS": {
+  "A_OUTCOME_IS_OBSERVED": "PASS",
+  "B_NOT_SOLD_AS_FORECAST": "PASS",
+  "C_REGIONAL_NOT_NATIONAL": "PASS",
+  "D_UNKNOWN_IS_VISIBLE": "PASS",
+  "E_REPRODUCIBLE": "PASS",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT": "PASS",
+  "G_DISCRIMINATES_BETWEEN_SEASONS": "FAIL",
+  "H_REFRESHABLE_WITHOUT_RESEARCH": "PASS",
+  "I_GENERALIZES": "PASS",
+  "J_NOT_DUPLICATE": "FAIL"
+ },
+ "EVIDENCE_OF_TARGET": "15 observations in the archive are dated after the cutoff, 15 of them inside the published window, and moving the cutoff forward changes 18 published province-cells \u2014 so the cutoff is LOAD-BEARING and this gate can detect its removal, which the previous version could not. EARLY_WARNING and both OUTLOOK capabilities remain NOT_PROVED.",
+ "CHANGED_GATES": [],
+ "OUTCOME": "SURVIVED"
+}

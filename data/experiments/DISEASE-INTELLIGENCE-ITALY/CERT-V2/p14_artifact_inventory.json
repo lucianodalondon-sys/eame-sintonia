@@ -1,0 +1,182 @@
+{
+ "REPO": "C:/cert-v2-disease-pressure",
+ "PY_FILES_SCANNED": 19,
+ "FINDINGS": [
+  {
+   "SOURCE_FILE": "data/experiments/DISEASE-INTELLIGENCE-ITALY/ENGINE/automation_probe.py",
+   "KIND": "NETWORK",
+   "VALUE": "https://agroambiente.info.regione.toscana.it/agro18/api/dati/get_aedita_data",
+   "STATE": "NETWORK",
+   "LINE": 5
+  },
+  {
+   "SOURCE_FILE": "data/experiments/DISEASE-INTELLIGENCE-ITALY/ENGINE/gates.py",
+   "KIND": "ABSOLUTE_PATH",
+   "VALUE": "/home/user/eame-sintonia/italia-portale/client/meeting-intelligence-snapshot.json",
+   "STATE": "ABSENT",
+   "LINE": 241
+  },
+  {
+   "SOURCE_FILE": "data/experiments/DISEASE-INTELLIGENCE-ITALY/CASES/collect_generic.py",
+   "KIND": "NETWORK",
+   "VALUE": "https://agroambiente.info.regione.toscana.it/agro18/api/dati/get_aedita_data",
+   "STATE": "NETWORK",
+   "LINE": 7
+  },
+  {
+   "SOURCE_FILE": "data/experiments/DISEASE-INTELLIGENCE-ITALY/TOSCANA/collect.py",
+   "KIND": "NETWORK",
+   "VALUE": "https://agroambiente.info.regione.toscana.it/agro18/api/dati/get_aedita_data",
+   "STATE": "NETWORK",
+   "LINE": 17
+  },
+  {
+   "SOURCE_FILE": "data/experiments/DISEASE-INTELLIGENCE-ITALY/TOSCANA/fetch_weather.py",
+   "KIND": "NETWORK",
+   "VALUE": "https://power.larc.nasa.gov/api/temporal/daily/point?",
+   "STATE": "NETWORK",
+   "LINE": 28
+  },
+  {
+   "SOURCE_FILE": "data/experiments/DISEASE-INTELLIGENCE-ITALY/ABRUZZO/collect.py",
+   "KIND": "NETWORK",
+   "VALUE": "https://agroambiente.regione.abruzzo.it/api/dati/get_aedita_data",
+   "STATE": "NETWORK",
+   "LINE": 15
+  }
+ ],
+ "NOT_REPRODUCIBLE_REFERENCES": [
+  {
+   "SOURCE_FILE": "data/experiments/DISEASE-INTELLIGENCE-ITALY/ENGINE/gates.py",
+   "KIND": "ABSOLUTE_PATH",
+   "VALUE": "/home/user/eame-sintonia/italia-portale/client/meeting-intelligence-snapshot.json",
+   "STATE": "ABSENT",
+   "LINE": 241
+  }
+ ],
+ "NAMED_EVIDENCE_ARTEFACTS": {
+  "data/experiments/DISEASE-INTELLIGENCE-ITALY/ENGINE/gates.json": {
+   "IN_GIT": true,
+   "ON_DISK": true,
+   "sha256": "dea0465c0cc77d79"
+  },
+  "data/experiments/DISEASE-INTELLIGENCE-ITALY/ENGINE/answer_sheet.json": {
+   "IN_GIT": true,
+   "ON_DISK": true,
+   "sha256": "f0c2df8cf1ef7e47"
+  },
+  "data/experiments/DISEASE-INTELLIGENCE-ITALY/ENGINE/capability_matrix.json": {
+   "IN_GIT": true,
+   "ON_DISK": true,
+   "sha256": "6e69f7e91bdf853c"
+  },
+  "data/experiments/DISEASE-INTELLIGENCE-ITALY/ENGINE/automation_probe.json": {
+   "IN_GIT": true,
+   "ON_DISK": true,
+   "sha256": "e3cf4ef55f30e920"
+  },
+  "data/experiments/DISEASE-INTELLIGENCE-ITALY/ENGINE/regional_coverage.json": {
+   "IN_GIT": true,
+   "ON_DISK": true,
+   "sha256": "5b6771e414fdb9e4"
+  },
+  "data/experiments/DISEASE-INTELLIGENCE-ITALY/CASES/OLIVO-BACTROCERA-TOSCANA/collection_index.json": {
+   "IN_GIT": true,
+   "ON_DISK": true,
+   "sha256": "4ecd1b4f0e36f13e"
+  },
+  "data/experiments/DISEASE-INTELLIGENCE-ITALY/CASES/VITE-OIDIO-TOSCANA/collection_index.json": {
+   "IN_GIT": true,
+   "ON_DISK": true,
+   "sha256": "a198c37ccfbb54b2"
+  },
+  "data/experiments/DISEASE-INTELLIGENCE-ITALY/CASES/FRUMENTO-SEPTORIA-TOSCANA/collection_index.json": {
+   "IN_GIT": true,
+   "ON_DISK": true,
+   "sha256": "680e74cb0410731a"
+  },
+  "italia-portale/client/meeting-intelligence-snapshot.json": {
+   "IN_GIT": true,
+   "ON_DISK": true,
+   "sha256": "d0f35d4762b44759"
+  },
+  "italia-portale/client/italy-label-verdicts.js": {
+   "IN_GIT": true,
+   "ON_DISK": true,
+   "sha256": "af3e39a7acf9baf3"
+  }
+ },
+ "COLLECTION_INDEX_CLOCK_FIELDS": {
+  "OLIVO-BACTROCERA-TOSCANA": {
+   "INDEX_KEYS": [
+    "DENOMINATOR_VAR",
+    "api",
+    "codes",
+    "crop",
+    "requests",
+    "schema",
+    "vars"
+   ],
+   "REQUEST_KEYS": [
+    "file",
+    "n_rows",
+    "ok",
+    "rowCount",
+    "sha256",
+    "var",
+    "year"
+   ],
+   "HAS_REFRESH_ATTEMPT_AT": false,
+   "HAS_COLLECTED_AT": false,
+   "HAS_REFRESH_STATUS": false,
+   "HAS_SOURCE_PUBLISHED_AT": false
+  },
+  "VITE-OIDIO-TOSCANA": {
+   "INDEX_KEYS": [
+    "api",
+    "codes",
+    "crop",
+    "requests",
+    "schema",
+    "vars"
+   ],
+   "REQUEST_KEYS": [
+    "file",
+    "n_rows",
+    "ok",
+    "rowCount",
+    "sha256",
+    "var",
+    "year"
+   ],
+   "HAS_REFRESH_ATTEMPT_AT": false,
+   "HAS_COLLECTED_AT": false,
+   "HAS_REFRESH_STATUS": false,
+   "HAS_SOURCE_PUBLISHED_AT": false
+  },
+  "FRUMENTO-SEPTORIA-TOSCANA": {
+   "INDEX_KEYS": [
+    "api",
+    "codes",
+    "crop",
+    "requests",
+    "schema",
+    "vars"
+   ],
+   "REQUEST_KEYS": [
+    "file",
+    "n_rows",
+    "ok",
+    "rowCount",
+    "sha256",
+    "var",
+    "year"
+   ],
+   "HAS_REFRESH_ATTEMPT_AT": false,
+   "HAS_COLLECTED_AT": false,
+   "HAS_REFRESH_STATUS": false,
+   "HAS_SOURCE_PUBLISHED_AT": false
+  }
+ },
+ "REPRODUCIBILITY": "FAIL"
+}

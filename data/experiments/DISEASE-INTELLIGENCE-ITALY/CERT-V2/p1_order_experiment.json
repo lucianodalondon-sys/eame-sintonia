@@ -1,0 +1,35 @@
+{
+ "EXPERIMENT": "the SAME bytes, the SAME code, six different file-iteration orders",
+ "WHY": "current_pressure.denominator_guard builds den[id_survey] while iterating an UNSORTED glob.glob(). id_survey is not unique across the archive (14,649 keys appear in more than one season file; 2,443 carry conflicting values; 1,759 of those conflicts flip DROP vs KEEP). Whichever file the filesystem hands over LAST wins the key, so the published numbers are a property of the directory listing order of the machine that ran it.",
+ "METHOD": "glob.glob is replaced, for the duration of one process, by a deterministic shuffle with a fixed seed. Nothing in ENGINE/ or CASES/ is edited. This is exactly what a different filesystem does to the shipped code.",
+ "SCRIPT": "CERT-V2/p1_drift_cause.py (asc/desc) and the six-seed shuffle recorded here",
+ "COMMITTED_AT_a4d19dd": {
+  "GATE_C_disagreeing_season_cells": 19,
+  "GATE_F_olive_mean_agreement": 0.918,
+  "GATE_G_olive_dominant_share": 0.424
+ },
+ "OBSERVED_BY_FILE_ORDER": [
+  {"seed": 1, "GATE_F": 0.922, "GATE_C_disagreeing": 19, "GATE_G_olive_dom": 0.439},
+  {"seed": 2, "GATE_F": 0.924, "GATE_C_disagreeing": 18, "GATE_G_olive_dom": 0.424},
+  {"seed": 3, "GATE_F": 0.922, "GATE_C_disagreeing": 18, "GATE_G_olive_dom": 0.447},
+  {"seed": 4, "GATE_F": 0.923, "GATE_C_disagreeing": 18, "GATE_G_olive_dom": 0.432},
+  {"seed": 5, "GATE_F": 0.923, "GATE_C_disagreeing": 19, "GATE_G_olive_dom": 0.447},
+  {"seed": 6, "GATE_F": 0.921, "GATE_C_disagreeing": 19, "GATE_G_olive_dom": 0.432},
+  {"seed": "asc", "GATE_F": 0.924, "GATE_C_disagreeing": null, "GATE_G_olive_dom": 0.432},
+  {"seed": "desc", "GATE_F": 0.924, "GATE_C_disagreeing": null, "GATE_G_olive_dom": 0.424},
+  {"seed": "this Windows checkout, unpatched", "GATE_F": 0.924, "GATE_C_disagreeing": 18, "GATE_G_olive_dom": 0.432}
+ ],
+ "DISTINCT_VALUES_OBSERVED": {
+  "GATE_F": [0.918, 0.921, 0.922, 0.923, 0.924],
+  "GATE_C_disagreeing": [18, 19],
+  "GATE_G_olive_dom": [0.424, 0.432, 0.439, 0.447]
+ },
+ "FINDING": "The committed value 0.918 was not reproduced by ANY of the eight orders tried, including the two extreme ones. It is not a property of the data; it is a property of the machine that produced it. The published headline number for the one cell that qualifies -- 'ESTABILIDADE 0.918' in FINAL-DELIVERY-A-R.md section L -- is therefore not reproducible from this repository.",
+ "SCOPE_OF_THE_DEFECT": "Only OLIVO declares DENOMINATOR_VAR, and only OLIVO drifted. VITE reproduced to the digit (0.596 stability, 0.806 dominant share) under every order. The defect is in the denominator join, not in the pressure definition.",
+ "TWO_SEPARATE_BUGS": {
+  "ORDER_DEPENDENCE": "unsorted glob.glob + last-writer-wins dict assignment",
+  "JOIN_KEY_NOT_UNIQUE": "id_survey repeats across season files, so even under a FIXED order the denominator joined to a visit can come from a different season. This one is wrong in every order and is the more serious of the two."
+ },
+ "TODAYS_PUBLISHED_CELLS": "0 of 10 province cells change class with file order on 2026-09-06. The drift is visible in the walk-forward and in the stability grid, not in today's ten cells. Recorded as measured, not softened: an unstable instrument that happens to be stable on one date is still unstable.",
+ "REPRODUCIBLE_FROM_CLEAN_CHECKOUT": "NO"
+}
