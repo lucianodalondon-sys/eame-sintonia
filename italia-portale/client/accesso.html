@@ -300,7 +300,18 @@
      dove stanno tutte le altre. */
   document.getElementById('access').addEventListener('submit', function (e) {
     e.preventDefault();
-    window.location.href = 'portale.html';
+    /* ══ SI ENTRA DALL'INTELLIGENZA, NON DALL'INVENTARIO ═══════════════════
+       L'accesso finiva sul radar: la prima cosa che il lettore vedeva era una
+       barra di strumenti. `casa.html` risponde invece alle domande — cosa sta
+       succedendo, cosa preparare, cosa monitorare, dove abbiamo occhi, quale
+       finestra pesa — e porta 44 voci di Radar Futuro, la copertura e i
+       sensori, che il portale non mostra da nessuna parte.
+
+           SI APRE SU CIO CHE SAPPIAMO, NON SU CIO CHE ABBIAMO COSTRUITO.
+
+       La casa ha adesso le sue porte verso gli strumenti, quindi entrare da
+       qui non lascia piu niente dietro un link solo. */
+    window.location.href = 'casa.html';
   });
 
   /* ── Europe map · Natural Earth geometry via world-atlas ── */

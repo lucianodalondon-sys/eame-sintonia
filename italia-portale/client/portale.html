@@ -169,6 +169,14 @@
           <span style="font-size:10px;font-weight:600;color:#8F8886;font-variant-numeric:tabular-nums">{{ n.count }}</span>
         </div>
       </sc-for>
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.16em;color:#F5B317;padding:0 8px 6px">{{ t.navEvidenceGroup }}</div>
+            <sc-for list="{{ navEvidence }}" as="n" hint-placeholder-count="8">
+        <div onClick="{{ n.go }}" style="display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:9px;cursor:pointer;background:{{ n.bg }};border:1px solid {{ n.border }}" style-hover="background:rgba(255,255,255,0.05)">
+          <span style="width:6px;height:6px;border-radius:50%;background:{{ n.dot }};flex:0 0 6px"></span>
+          <span style="font-size:12.5px;font-weight:{{ n.weight }};color:{{ n.color }};flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="{{ n.label }}">{{ n.label }}</span>
+          <span style="font-size:10px;font-weight:600;color:#8F8886;font-variant-numeric:tabular-nums">{{ n.count }}</span>
+        </div>
+      </sc-for>
       </div>
       <div style="display:flex;flex-direction:column;gap:2px;padding-top:10px;margin-top:6px;border-top:1px solid rgba(255,255,255,0.08)">
         <div style="font-size:10px;font-weight:700;letter-spacing:0.16em;color:#F5B317;padding:0 8px 6px">{{ t.navIntegrations }}</div>
@@ -2747,7 +2755,27 @@ class Component extends DCLogic {
      V21-69bf448ac934a6d9 e combacia 5/5. Il checkpoint precedente era
      b3935bd / V21-358954754db5ea2f: gli stessi 43 casi con gli stessi
      valori — a cambiare e stato il CONTRATTO, non il dato. */
-  state = { view: 'meeting', caseId: null, mCaseId: null, mStatus: '', mShown: 24, companyId: null, themeId: null, personId: null, sourceId: null, archiveId: null,
+  /* ══ LA CASA PUNTA A UNO STRUMENTO, E LO STRUMENTO SI APRE ═══════════════
+     `casa.html` e la prima pagina: mostra l'intelligenza e poi manda agli
+     strumenti. Senza un indirizzo per vista, ogni suo collegamento arrivava
+     sulla stessa schermata — «vai alle finestre colturali» apriva il radar.
+
+         UN COLLEGAMENTO CHE ARRIVA SEMPRE NELLO STESSO POSTO NON E UN
+         COLLEGAMENTO. E UN PULSANTE CON UN'ETICHETTA SBAGLIATA.
+
+     Si legge SOLO il nome della vista, e solo se e una delle viste note: un
+     indirizzo non puo iniettare stato ne aprire una schermata che il menu non
+     offre. Senza frammento, o con uno sconosciuto, si entra dove si entrava. */
+  static VIEW_FROM_HASH() {
+    const AMMESSE = ['meeting', 'future', 'windows', 'market', 'voices', 'competitors',
+      'science', 'portfolio', 'archive', 'sources', 'field'];
+    try {
+      const h = String((typeof window !== 'undefined' && window.location && window.location.hash) || '').replace(/^#/, '');
+      return AMMESSE.includes(h) ? h : 'meeting';
+    } catch (e) { return 'meeting'; }
+  }
+
+  state = { view: Component.VIEW_FROM_HASH(), caseId: null, mCaseId: null, mStatus: '', mShown: 24, companyId: null, themeId: null, personId: null, sourceId: null, archiveId: null,
     fCrop: '', fIssue: '', fRegion: '', fStatus: '', fProduct: '', fDept: '', sort: 'relevant', showAll: false, query: '', committedQuery: '',
     futureStatus: '', futureSource: '', futureShown: 16, compView: 'feed', fCompany: '', fType: '', fPeriod: '', compShown: 12, eventId: null, cproductId: null,
     showDataState: false,
@@ -2902,7 +2930,19 @@ class Component extends DCLogic {
      stack itself, which is what makes back() restore filters and scroll targets and
      not just the view name. Depth is capped at 20 so a long session cannot grow the
      state object without bound. */
+  /* Cambiare SOLO il frammento non ricarica il documento. Chi arriva dalla casa
+     fa un caricamento vero e lo stato iniziale basta; questo copre il caso di
+     chi e gia dentro e cambia indirizzo. Si arma alla prima navigazione. */
+  _wireHash() {
+    if (this._hashWired || typeof window === 'undefined' || !window.addEventListener) return;
+    this._hashWired = true;
+    window.addEventListener('hashchange', () => {
+      const v = Component.VIEW_FROM_HASH();
+      if (v && v !== this.state.view) this.go({ view: v });
+    });
+  }
   go(patch) {
+    this._wireHash();
     const s = this.state || {};
     const snap = {};
     for (const k in s) if (k !== 'navHistory') snap[k] = s[k];
@@ -4356,7 +4396,26 @@ class Component extends DCLogic {
       go: () => { window.location.href = 'casa.html'; },
       bg: 'transparent', border: 'transparent', dot: 'rgba(151,139,135,0.35)',
       color: '#9A9391', weight: 400 };
-    const nav = [navCasa].concat(navDef.map(n => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => n[0] === 'competitors' ? this.compWith({}) : n[0] === 'radar' ? this.radarWith({ showAll: false }) : this.go({ view: n[0] }), bg: on ? 'rgba(0,152,69,0.13)' : 'transparent', border: on ? 'rgba(0,152,69,0.40)' : 'transparent', dot: on ? '#009845' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; }));
+    /* ══ DUE STRUMENTI, E SOTTO DI LORO L'EVIDENZA ═══════════════════════════
+       C'erano undici voci di pari livello, e la prima ripeteva il numero della
+       seconda. Chi apriva il portale leggeva «undici strumenti», non «due
+       domande e le prove che le reggono».
+
+           UNDICI VOCI ALLO STESSO LIVELLO NON SONO UN MENU. SONO UN INVENTARIO.
+
+       L'architettura di prodotto (docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md,
+       porta unica) dice due cose che questa barra non diceva: che gli strumenti
+       principali sono DUE, e che scienza, mercato, evidenza e contesto stanno
+       «per baixo, nao no menu» — sotto, non accanto.
+
+       NIENTE E STATO TOLTO. Le stesse dieci destinazioni restano raggiungibili
+       con un click: cambia il livello, non l'accesso. E la voce della casa esce
+       dalla barra perche la casa e adesso la PRIMA PAGINA — ripeterla qui era
+       stampare due volte lo stesso numero. */
+    const STRUMENTI = ['meeting', 'portfolio'];
+    const navRow = (n) => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => n[0] === 'competitors' ? this.compWith({}) : n[0] === 'radar' ? this.radarWith({ showAll: false }) : this.go({ view: n[0] }), bg: on ? 'rgba(0,152,69,0.13)' : 'transparent', border: on ? 'rgba(0,152,69,0.40)' : 'transparent', dot: on ? '#009845' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; };
+    const nav = navDef.filter(n => STRUMENTI.includes(n[0])).map(navRow);
+    const navEvidence = navDef.filter(n => !STRUMENTI.includes(n[0])).map(navRow);
     const navIntegrationItems = navIntegrations.map(n => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => this.go({ view: n[0] }), bg: on ? 'rgba(245,179,23,0.13)' : 'transparent', border: on ? 'rgba(245,179,23,0.40)' : 'transparent', dot: on ? '#F5B317' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
     // ---- case · opportunity detail
     /* §2 · The detail must open the SAME entity the card opened. The 29 legacy
@@ -9068,7 +9127,7 @@ class Component extends DCLogic {
     const todayLabel = (REFP[2] + ' ' + (REF_MON[Number(REFP[1]) - 1] || '')).trim().toUpperCase();
 
     return {
-      nav, kpi: K, todayLabel, pageTitle: titles[s.view], crumb, hasCrumb: !!crumb,
+      nav, navEvidence, kpi: K, todayLabel, pageTitle: titles[s.view], crumb, hasCrumb: !!crumb,
 
       /* ══ SUPERFICIE CANONICA DELLA RIUNIONE ═══════════════════════════════
          Ogni valore qui sotto e gia stato deciso dal motore e copiato

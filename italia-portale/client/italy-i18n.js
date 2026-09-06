@@ -17,14 +17,15 @@
 
     // ── navigation ───────────────────────────────────────
     navRadar: 'Radar delle Opportunità',
-    navFuture: 'Archivio segnali V21',
+    navEvidenceGroup: 'EVIDENZA E CONTESTO',
+    navFuture: 'Radar Futuro',
     navWindows: 'Finestre Colturali',
     navMarket: 'Polso di Mercato',
     navField: 'Rete Commerciale di Campo',
     navCompetitors: 'Concorrenza',
     navScience: 'Intelligence Scientifica',
     navArchive: 'Archivio',
-    navSources: 'Archivio fonti V21',
+    navSources: 'Fonti',
 
     // ── page subtitles ───────────────────────────────────
     /* La riga di scuse non serve piu: la schermata che la portava non si
@@ -668,14 +669,15 @@
     logout: 'SIGN OUT',
 
     navRadar: 'Opportunity Radar',
-    navFuture: 'V21 Signal Archive',
+    navEvidenceGroup: 'EVIDENCE AND CONTEXT',
+    navFuture: 'Future Radar',
     navWindows: 'Crop Windows',
     navMarket: 'Market Pulse',
     navField: 'Field Sales Channel',
     navCompetitors: 'Competitor Watch',
     navScience: 'Scientific Intelligence',
     navArchive: 'Archive',
-    navSources: 'V21 Source Archive',
+    navSources: 'Sources',
 
     subRadar: 'Where ADAMA can act or prepare now — pest pressure, crop timing and portfolio fit.',
     subWindows: 'Field clock and business clock on one rolling timeline — when the crop needs protection, and when the commercial work has to start.',

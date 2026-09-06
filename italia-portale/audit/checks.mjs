@@ -317,20 +317,24 @@ check('N1', 'Nav counts match the active normalized collections', () => {
   const m = mount();
   const AM = m.AM;
   const v = m.vals({ view: 'radar' });
-  const nav = v.nav || [];
+  /* LA BARRA HA DUE GRUPPI, E LE DESTINAZIONI SONO LE STESSE.
+     Gli strumenti stanno in `nav`, l'evidenza e il contesto in `navEvidence`.
+     Contare solo il primo direbbe «nove voci sparite» su una barra che le
+     mostra tutte: sarebbe il controllo a mentire, non il menu.
+
+         UN GRUPPO NUOVO NON E UNA VOCE PERSA. */
+  const nav = (v.nav || []).concat(v.navEvidence || []);
   /* Checking three badges let a real one through: the opportunity badge showed
      29 — the canonical WINDOW count — standing in for a feed of 3. Every badge
      is checked by position now, because a badge nobody checks is one that
      drifts back to whatever number looks fuller. */
   const expect = [
-    /* LA VOCE DELLA CASA. `casa.html` e una PAGINA, e la sua voce di menu
-       stampa un numero solo quando le due catene — `italy-casa.js` e
-       `meeting-surface` — concordano su BUILD_ID e sulle tre popolazioni.
-       Il numero e quello delle OPPORTUNITA, non il totale dei 43. Quando non
-       concordano la voce deve TACERE, e questo controllo lo vedrebbe come
-       0 !== 13. */
-    (() => { const CASA = m.ctx.ITALY_CASA && m.ctx.ITALY_CASA.OPPORTUNITA_ATTUALI;
-             return CASA ? CASA.OPPORTUNITA : 0; })(),
+    /* LA VOCE DELLA CASA NON E PIU NELLA BARRA: `casa.html` e la PRIMA PAGINA,
+       e ripetere qui il suo numero stampava due volte lo stesso 13. Resta il
+       radar, che e la voce dello strumento.
+
+       L'ORDINE E QUELLO DELLA BARRA LETTA PER INTERO: prima gli strumenti,
+       poi l'evidenza — cioe l'ordine di `navDef`, che non e cambiato. */
     /* UN SOLO RADAR, E IL SUO NUMERO HA UNA SOLA FONTE LEGITTIMA:
        l'istantanea della riunione. La voce storica — servita dal pacchetto
        PRIMA della riconciliazione — non e piu nel menu, quindi qui sparisce
@@ -342,13 +346,16 @@ check('N1', 'Nav counts match the active normalized collections', () => {
     /* I SEGNALI NON HANNO PIU UN BADGE: non sono uno strumento, e la voce di
        primo livello e stata tolta. Restano raggiungibili da una riga in fondo
        al radar, e il loro numero non e un contatore di menu. */
+    /* IL PORTAFOGLIO SALE, PERCHE E UNO STRUMENTO. La barra ha due gruppi e
+       questa lista li segue nell'ordine in cui l'occhio li incontra: prima i
+       due strumenti, poi l'evidenza. La sorgente di ogni numero non cambia. */
+    AM.collections.products.count,
     AM.collections.futureSignals.count,
     AM.collections.cropWindows.count,
     AM.collections.marketObservations.count,
     AM.collections.publicVoices.count,
     AM.collections.competitorActivities.count,
     AM.collections.scienceRecords.count,
-    AM.collections.products.count,
     AM.collections.archive.count,
     AM.collections.sources.count,
   ];
@@ -954,7 +961,9 @@ check('W1', 'The 29 canonical crop windows are never collapsed to the 7 field re
      la riga di navigazione e il calendario contano 29, non 7. */
   const m = mount();
   const v = m.vals({ view: 'windows', lang: 'it' });
-  const navW = (v.nav || []).find((n) => /finestre/i.test(String(n.label || '')));
+  /* La barra ha due gruppi: le finestre stanno sotto EVIDENZA E CONTESTO, che
+     e un livello, non una sparizione. Si cerca in tutta la barra. */
+  const navW = (v.nav || []).concat(v.navEvidence || []).find((n) => /finestre/i.test(String(n.label || '')));
   if (!navW) bad.push('the windows nav entry is gone');
   else if (navW.count !== 29) bad.push(`nav shows ${navW.count} windows, expected 29`);
   if (C.windowCalendarRows && C.windowCalendarRows.count !== 29) {
