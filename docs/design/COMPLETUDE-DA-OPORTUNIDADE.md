@@ -15,19 +15,26 @@ Chegou um relato: **uma oportunidade de VITE DA VINO mostrava um único produto
 ADAMA**, havendo vários.
 
 O relato está certo, e a causa não é a que ele sugere. O motor **não** escolhe um
-produto cedo demais. Ele encontra vários, e há **quatro reduções em série** entre
+produto cedo demais. Ele encontra vários, e há **cinco reduções em série** entre
 o acervo e o ecrã — nenhuma delas visível de dentro da seguinte.
 
 ```
-2.171  produtos ADAMA que o acervo tem para as culturas dos 43 cartões
-  463  os que o rótulo ministerial autoriza para o PAR do caso
-  280  os que sobrevivem ao corte  produtos[:12]  em v21_oportunidades.py
-   65  os que chegam ao ecrã depois de cruzados com o catálogo comercial
+2.154  produtos ADAMA que as quatro casas têm para as culturas dos 43 cartões
+  768  os que o rótulo ministerial nomeia nessas culturas
+  721  os que sobram depois do portão CLIENT_SAFE            −47
+  361  os que o ARQUÉTIPO escolhe olhar (par, cultura ou substância)
+  280  os que sobrevivem ao corte  produtos[:12]              −81, em 10 cartões
+   65  os que casam com o catálogo comercial por nº de registo −215, nos 43
 ```
 
 > **UM PRODUTO NO ECRÃ NÃO É UMA ESCOLHA PRECOCE: É UM FUNIL SEM CONTADOR.**
 > O que faltava não era procurar mais — era dizer, em cada degrau, quantos
 > ficaram para trás e porquê.
+
+**E há duas telas vivas, com listas diferentes para o mesmo cartão.**
+`casa.html` mostra `PORTFOLIO_MATCHES` — 65 lugares de produto nos 43 cartões.
+`portale.html` cai em `PRODUCT_RELATIONSHIPS` (`italy-app-model.js:3802` →
+`portale.html:3184`) — 280. **Os 43 cartões divergem entre as duas portas.**
 
 ---
 
@@ -276,24 +283,65 @@ letras:
 
 Sem aviso, sem contador, sem campo que diga quantos ficaram de fora.
 
-- **19 dos 43 cartões** perdem produtos aqui.
-- **184 produtos** caem no total.
-- O pior: `OPP_2BDE8FC566CE` (beterraba) — 23 autorizados, **1** no cartão.
+Para isolar o que **este** corte tira, é preciso reconstruir o que entrou nele —
+e o recorte é diferente por arquétipo, todos legítimos: O1 e O3 recebem o par
+cultura × alvo, O2/O4/O6 a cultura inteira, O5 os produtos da substância que
+expira. **Confundir o recorte com a perda é culpar o arquétipo por responder à
+pergunta que lhe foi feita.**
+
+Medido, degrau isolado: **10 cartões cortados, 81 produtos removidos.**
+
+| cartão | cultura | entrou | corte |
+|---|---|---:|---:|
+| `OPP_E1A1D73F07BF` | melo (O4) | 29 | **17** |
+| `OPP_00C5B6E15185` · `BCD174C535AC` · `F383CF46E5BF` | vite (O6/O4/O2) | 25 | **13** cada |
+| `OPP_314CBAE48A5C` · `576D71D702F0` · `8E210567B01F` | pomodoro, mais, mais | 18 | **6** cada |
+| `OPP_5D03565DB4C3` | frumento (O4) | 16 | **4** |
+| `OPP_9AB924CA36C8` | barbabietola (O2) | 14 | **2** |
+| `OPP_AA1A1FF77C8D` | vite (O5, FOLPET) | 13 | **1** |
 
 O mesmo ficheiro faz o mesmo com as fontes na linha 844: `SOURCE_URLS[:12]`.
 
----
+> **CORREÇÃO, e ela importa.** A primeira versão desta medição publicou
+> «19 cartões, 184 produtos». Esse campo chamava-se `PERDIDO_PELO_CORTE_12` e
+> media `universo − mostrados` — o que empilha três mecanismos diferentes num
+> nome só. A verificação adversarial derrubou-o, e com razão. Dos 184: **81**
+> saem do corte, **47** do portão `CLIENT_SAFE` (das 2.030 duplas de rótulo só
+> 1.512 chegam ao motor), e o resto é o **recorte do arquétipo**, que não é
+> perda.
+>
+> **UMA PERDA SEM DONO ACUSA O SUSPEITO MAIS VISÍVEL.**
 
-## 5 · A terceira redução, no ecrã
+## 5 · A redução que mais corta, e onde ela realmente mora
 
-`PORTFOLIO_MATCHES` só deixa passar produtos com
-`VALIDATION_STATE = LABEL_AND_CATALOG` — rótulo **e** catálogo. Dos 280 produtos
-que o pacote leva, **65 chegam ao ecrã**; **215 caem aqui**.
+Dos 280 produtos que o pacote leva, **65 chegam a `casa.html`**; **215 caem**, e
+desta vez em **todos os 43 cartões**.
 
-Esse cruzamento é defensável como regra comercial — o que não é defensável é ele
-correr contra o catálogo mutilado do §3, e sem dizer quantos excluiu.
+O mecanismo **não é um filtro de tela** — corrigindo o que esta medição afirmou
+primeiro. `meeting_snapshot.py` e `it_casa_dados.py` copiam `PORTFOLIO_MATCHES`
+tal e qual. Quem corta é o motor, em `scripts/v21_comercial.py:191`:
 
----
+```python
+def casar(rotulos, ix_comercial):
+    for r in rotulos:
+        for p in ix_comercial.get(num(r.get('REGISTRATION_NUMBER')), []):
+```
+
+Só passa o produto cujo **número de registo** casa com o catálogo comercial de
+51 produtos. Os 65 sobreviventes trazem `MATCH_REASON = REGISTRATION_NUMBER_JOIN`
+e dividem-se em **41 `LABEL_AND_CATALOG` + 24 `LABEL_ONLY`** — e os 24
+`LABEL_ONLY` **chegam ao ecrã**, em 14 dos 43 cartões. A regra não é «tem de
+estar no catálogo com a cultura declarada»; é «tem de estar no catálogo».
+
+E é aqui que o §3 dói: esses 24 trazem `CROP_FIT: UNKNOWN` — o catálogo tem o
+produto e **não declara a cultura**, porque só sete páginas de cultura foram
+lidas.
+
+A regra comercial em si é defensável: não se vende o que não está no catálogo. O
+que não é defensável é ela correr contra um catálogo mutilado, e sem contador.
+
+Razão do produto principal, contada nos 43: `SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER`
+26 · `UNICO_PRODUTO_DO_CATALOGO_NO_PAR` 17.
 
 ## 6 · O vazamento inverso: produtos a mais, na cultura errada
 
@@ -312,7 +360,13 @@ produtos que contêm a substância que expira — sem filtrar por cultura.
 **4 cartões, 6 produtos.** É o erro de agregar-e-afirmar: verdadeiro do conjunto
 de uma substância, afirmado do membro de uma cultura.
 
----
+**Onde isto aparece, e onde não aparece.** Os seis estão em
+`PRODUCT_RELATIONSHIPS` — logo em `italy-app-model.js` `adamaProducts` e em
+`portale.html`. **Nenhum passa a `PORTFOLIO_MATCHES`**, portanto nenhum é
+visível em `casa.html`: o cruzamento com o catálogo (§5) apanha-os por acidente,
+não por regra. É o mesmo filtro que apaga produtos legítimos a apagar estes.
+
+> **UM FILTRO QUE ACERTA POR ACIDENTE NÃO É UM PORTÃO: É SORTE COM SINTAXE.**
 
 ## 7 · A completude de cruzamento — 26 famílias contra 43 cartões
 
@@ -360,9 +414,9 @@ OPPORTUNITIES_WITH_MULTISOURCE_CONVERGENCE = 18 (≥ 3 famílias com match forte
 - **1.115 vídeos** em `data/samples/SENSOR-PILOT/`, nunca ingeridos no pacote.
   E o par cultura×alvo deles vem do **termo de busca**, não do conteúdo:
   `CROP_ISSUE_BASIS = "declarado pela consulta, não lido do título"`.
-- **48 transcrições pedidas, 1 com texto.** As outras 47 são `REQUESTED_EMPTY` —
-  um estado, não uma ausência.
-- **3.737 comentários** e **102 canais**, no mesmo corpus, no mesmo estado.
+- **48 transcrições pedidas, 28 com texto.** As outras 20 são `REQUESTED_EMPTY` —
+  um estado, não uma ausência. E nenhuma das 48 entrou no pacote.
+- **3.737 comentários** e **102 canais** no corpus bruto.
 
 > **CONTAR ISTO COMO ZERO MENTE SOBRE O ACERVO.**
 > **CONTAR COMO MATCH MENTE SOBRE A EVIDÊNCIA.**
@@ -380,8 +434,21 @@ E uma que é carregada e **deitada fora**: `PUBLIC-VOICES` entra em `main()`
 direta: a regra de red team da linha 372 — *«voz isolada tratada como
 incidência»* — **nunca pode disparar**, porque nenhuma voz chega à evidência.
 
-Fora do pacote, e nunca ingeridos: o corpus de vídeo/transcrição/comentário e o
-censo do catálogo ADAMA.
+**Correção sobre o corpus de vídeo.** Ele **não** ficou todo de fora, e dizer
+que ficou seria caluniar a cadeia. `scripts/pacote_camadas.py:25` lê
+`SENSOR-PILOT/MEDICAO.json` e `v21_ingest_b.py` transforma o resultado em
+`PUBLIC-VOICES` e `PUBLIC-CHANNELS`. O que passou, medido:
+
+| do corpus bruto | chegou ao pacote |
+|---|---|
+| 3.737 comentários | **79 vozes** (58 `AUDIENCE_COMMENT` + 21 `IDENTIFIED_VOICE`) |
+| 102 canais | **62** |
+| 1.115 vídeos (1.071 distintos) | **0 como família própria** — 40 são citados por uma voz |
+| 48 transcrições | **0** |
+
+Ou seja: a **voz** atravessou, o **vídeo** e a **transcrição** não. E a voz que
+atravessou é carregada pelo motor e nunca usada. O censo do catálogo ADAMA,
+esse, nunca foi ingerido.
 
 ---
 

@@ -230,6 +230,51 @@ TEMA_CROP = {
 }
 
 
+def _num(x):
+    return re.sub(r'\D', '', str(x or '')).lstrip('0').zfill(6)
+
+
+def _entrada_do_arquetipo(o, rot_por_crop, rot_por_par, pkg):
+    """Quantos produtos o arquetipo POS na mao de `emitir`, antes do corte.
+
+    Isolar o corte exige reconstruir o que entrou nele. Cada arquetipo tem um
+    recorte proprio, e nenhum e errado — sao perguntas diferentes:
+
+      O1, O3   o par cultura x alvo. A pergunta e sobre um problema observado.
+      O2, O4, O6  a cultura inteira. A pergunta e sobre a cultura, sem alvo.
+      O5       os produtos que contem a SUBSTANCIA que expira, venham da
+               cultura que vierem. A pergunta e de portfolio e de supply.
+
+        CONFUNDIR O RECORTE COM A PERDA E CULPAR O ARQUETIPO POR RESPONDER
+        A PERGUNTA QUE LHE FOI FEITA.
+    """
+    arq, crop, alvo = o.get('ARCHETYPE'), o.get('CROP'), o.get('TARGET')
+    if arq in ('O1_FIELD_PRESSURE', 'O3_RESISTANCE_MOA'):
+        return len(rot_por_par.get((crop, alvo), set())) if (crop and alvo) else None
+    if arq in ('O2_MARKET_MOMENT', 'O4_COMPETITIVE_OPENING', 'O6_SCIENCE_TO_FIELD'):
+        return len(rot_por_crop.get(crop, set())) if crop else None
+    if arq == 'O5_REGULATORY_PREPARATION':
+        # O cartao nao guarda de que substancia nasceu, entao procura-se o fato
+        # regulatorio cujo conjunto de produtos CONTEM o que o cartao mostra —
+        # e, havendo mais de um, o menor. Nao havendo nenhum, e NAO SEI, e fica
+        # None: inventar aqui seria fabricar o denominador da propria acusacao.
+        reg = {_num(p.get('REGISTRATION_NUMBER')): p
+               for p in pkg.get('productsRegulatory', []) if p.get('CLIENT_SAFE')}
+        mostrados = set(o.get('PRODUCT_RELATIONSHIPS') or [])
+        melhor = None
+        for f in pkg.get('regulatoryFutureFacts', []):
+            if not f.get('CLIENT_SAFE'):
+                continue
+            nomes = {reg[_num(x)].get('NAME')
+                     for x in (f.get('ITALIAN_REGISTRATIONS') or [])
+                     if _num(x) in reg}
+            nomes.discard(None)
+            if nomes and mostrados <= nomes and (melhor is None or len(nomes) < melhor):
+                melhor = len(nomes)
+        return melhor
+    return None
+
+
 def _lista(r, campo):
     v = r.get(campo)
     return v if isinstance(v, list) else ([] if v is None else [v])
@@ -286,14 +331,33 @@ def main():
     # -- O UNIVERSO ADAMA POR CULTURA, DAS TRES CASAS QUE O GUARDAM ---------
     # O motor so conhece a primeira. As outras duas existem, estao versionadas
     # e nunca foram perguntadas.
-    rot_por_crop = defaultdict(set)          # rotulo ministerial
-    rot_por_par = defaultdict(set)           # rotulo, cultura x alvo
+    # ⚠️ O MOTOR SO VE O QUE PASSA NO PORTAO CLIENT_SAFE.
+    # `cs = {k: [x for x in v if x.get('CLIENT_SAFE')] ...}` em
+    # v21_oportunidades.main(). Das 2.030 duplas de rotulo, 1.512 sao
+    # client-safe: 518 nunca chegam ao motor. Medir o universo sem este filtro
+    # acusa o motor de nao ter olhado para o que ele nao podia ver.
+    #
+    #     UM DENOMINADOR MAIOR QUE O QUE O MOTOR RECEBE NAO MEDE O MOTOR:
+    #     MEDE A DISTANCIA ATE UM MOTOR QUE NAO EXISTE.
+    #
+    # Entao contam-se OS DOIS: o acervo inteiro (o que existe) e o que o portao
+    # deixa passar (o que o motor pode olhar). A diferenca tem nome proprio.
+    def _cs(col):
+        return [x for x in pkg.get(col, []) if x.get('CLIENT_SAFE')]
+
+    rot_por_crop = defaultdict(set)          # rotulo ministerial, CLIENT_SAFE
+    rot_por_par = defaultdict(set)           # rotulo CLIENT_SAFE, cultura x alvo
+    rot_todos_por_crop = defaultdict(set)    # rotulo inteiro, sem portao
     for r in pkg['productRelationships']:
         for c in _lista(r, 'CROP_IDS'):
-            if r.get('PRODUCT_NAME'):
-                rot_por_crop[c].add(r['PRODUCT_NAME'])
-                for i in _lista(r, 'ISSUE_IDS'):
-                    rot_por_par[(c, i)].add(r['PRODUCT_NAME'])
+            if not r.get('PRODUCT_NAME'):
+                continue
+            rot_todos_por_crop[c].add(r['PRODUCT_NAME'])
+            if not r.get('CLIENT_SAFE'):
+                continue
+            rot_por_crop[c].add(r['PRODUCT_NAME'])
+            for i in _lista(r, 'ISSUE_IDS'):
+                rot_por_par[(c, i)].add(r['PRODUCT_NAME'])
     com_por_crop = defaultdict(set)          # catalogo comercial, ja no pacote
     for p in pkg['productsCommercial']:
         for c in _lista(p, 'CROP_IDS'):
@@ -419,25 +483,49 @@ def main():
         classes = Counter(f['CLASSE_AUTOMATICA'] for f in fora)
         fecha = encontrados == ligados + classes['B_NAO_LIGADO'] + classes['C_NAO_SEI']
 
-        # ---- O FUNIL, DEGRAU A DEGRAU --------------------------------------
-        # 1 ACERVO      todos os produtos ADAMA da cultura, nas tres casas
-        # 2 ROTULO_PAR  os que o rotulo autoriza para o ALVO do caso
-        # 3 MOTOR       os que sobrevivem ao corte [:12] em v21_oportunidades
-        # 4 ECRA        os que sobrevivem ao cruzamento com o catalogo comercial
-        no_par = len(rot_por_par.get((crop, alvo), set())) if alvo else len(univ_rot)
+        # ---- O FUNIL, DEGRAU A DEGRAU, CADA PERDA COM O SEU DONO -----------
+        # A primeira versao desta conta tinha UM degrau chamado
+        # PERDIDO_PELO_CORTE_12 e ele media `universo - mostrados` — o que
+        # empilha tres mecanismos diferentes num nome so e culpa o corte por
+        # perdas que nao sao dele. Medido: dos 184 que aquele campo somava, so
+        # 81 saem do corte; o resto e o portao CLIENT_SAFE e o RECORTE DO
+        # ARQUETIPO (O5 escolhe por substancia, nao por cultura).
+        #
+        #     UMA PERDA SEM DONO ACUSA O SUSPEITO MAIS VISIVEL.
+        #     CADA DEGRAU RESPONDE PELO SEU, OU A CONTA NAO ENSINA NADA.
+        #
+        # 1 ACERVO     tudo o que as quatro casas tem para a cultura
+        # 2 PORTAO     o que CLIENT_SAFE deixa o motor ver
+        # 3 ARQUETIPO  o que o arquetipo escolhe olhar (o par, a cultura, ou a
+        #              substancia — sao recortes diferentes e legitimos)
+        # 4 CORTE      o que sobra depois de produtos[:12]
+        # 5 CATALOGO   o que casa com o catalogo comercial por numero de registo
         s = snap.get(o['ID']) or {}
         k = casa.get(o['ID']) or {}
+        entrada = _entrada_do_arquetipo(o, rot_por_crop, rot_por_par, pkg)
+        no_par = len(rot_por_par.get((crop, alvo), set())) if alvo else len(univ_rot)
+        pm = len(s.get('PORTFOLIO_MATCHES') or [])
         funil = {
-            '1_ACERVO': encontrados,
-            '2_ROTULO_NO_PAR_DO_CASO': no_par,
-            '3_MOTOR_APOS_CORTE_12': len(mostrados),
-            '4_ECRA_APOS_CRUZAR_CATALOGO': len(k.get('PRODOTTI') or []),
-            'PERDIDO_DO_ACERVO_AO_ROTULO': encontrados - no_par,
-            'PERDIDO_PELO_CORTE_12': max(0, no_par - len(mostrados)),
-            'PERDIDO_PELO_CRUZAMENTO_CATALOGO':
-                max(0, len(mostrados) - len(k.get('PRODOTTI') or []))
-                if o['ID'] in casa else None,
+            '1_ACERVO_QUATRO_CASAS': encontrados,
+            '2_ROTULO_INTEIRO_DA_CULTURA': len(rot_todos_por_crop.get(crop, set())),
+            '3_ROTULO_APOS_PORTAO_CLIENT_SAFE': len(univ_rot),
+            '4_ENTRADA_DO_ARQUETIPO': entrada,
+            '5_APOS_CORTE_12': len(mostrados),
+            '6_APOS_CASAR_COM_CATALOGO': pm,
+            'ROTULO_NO_PAR_DO_CASO': no_par,
+            'PERDIDO_PELO_PORTAO_CLIENT_SAFE':
+                len(rot_todos_por_crop.get(crop, set())) - len(univ_rot),
+            'PERDIDO_PELO_CORTE_12': (max(0, entrada - 12)
+                                      if entrada is not None else None),
+            'PERDIDO_AO_CASAR_COM_CATALOGO': len(mostrados) - pm,
             'RAZAO_DO_PRINCIPAL': s.get('PRIMARY_MATCH_REASON'),
+            # DUAS TELAS VIVAS, DUAS LISTAS DIFERENTES. casa.html mostra
+            # PORTFOLIO_MATCHES; portale.html cai em PRODUCT_RELATIONSHIPS
+            # (italy-app-model.js:3802 -> portale.html:3184). O mesmo cartao tem
+            # dois numeros de produto conforme a porta por onde se entra.
+            'NO_ECRA_CASA': len(k.get('PRODOTTI') or []),
+            'NO_ECRA_PORTALE': len(mostrados),
+            'AS_DUAS_TELAS_DIVERGEM': len(k.get('PRODOTTI') or []) != len(mostrados),
             'VALIDACOES_NO_ECRA': sorted({p.get('VALIDAZIONE')
                                           for p in (k.get('PRODOTTI') or [])}),
         }
@@ -588,17 +676,22 @@ def main():
         'CASOS_TESTEMUNHA': testemunhas,
         'TOTAIS': {
             'OPORTUNIDADES': len(fichas),
-            'COM_PRODUTO_ADAMA_PERDIDO': sum(
-                1 for f in fichas if f['FUNIL']['PERDIDO_PELO_CORTE_12'] > 0
-                or (f['FUNIL']['PERDIDO_PELO_CRUZAMENTO_CATALOGO'] or 0) > 0),
+            'CARTOES_CORTADOS_PELO_TETO_12': sum(
+                1 for f in fichas if (f['FUNIL']['PERDIDO_PELO_CORTE_12'] or 0) > 0),
+            'PRODUTOS_REMOVIDOS_PELO_TETO_12': sum(
+                (f['FUNIL']['PERDIDO_PELO_CORTE_12'] or 0) for f in fichas),
+            'CARTOES_SEM_ENTRADA_RECONSTRUIDA': sum(
+                1 for f in fichas if f['FUNIL']['PERDIDO_PELO_CORTE_12'] is None),
+            'PRODUTOS_PERDIDOS_AO_CASAR_COM_CATALOGO': sum(
+                f['FUNIL']['PERDIDO_AO_CASAR_COM_CATALOGO'] for f in fichas),
+            'PRODUTOS_PERDIDOS_PELO_PORTAO_CLIENT_SAFE': sum(
+                f['FUNIL']['PERDIDO_PELO_PORTAO_CLIENT_SAFE'] for f in fichas),
+            'CARTOES_EM_QUE_AS_DUAS_TELAS_DIVERGEM': sum(
+                1 for f in fichas if f['FUNIL']['AS_DUAS_TELAS_DIVERGEM']),
             'COM_VARREDURA_DE_PORTFOLIO_INCOMPLETA': sum(
                 1 for f in fichas
                 if f['PORTFOLIO']['PRODUTOS_ADAMA_ENCONTRADOS'] >
-                f['FUNIL']['3_MOTOR_APOS_CORTE_12']),
-            'PRODUTOS_PERDIDOS_PELO_CORTE_12': sum(
-                f['FUNIL']['PERDIDO_PELO_CORTE_12'] for f in fichas),
-            'PRODUTOS_PERDIDOS_PELO_CRUZAMENTO_CATALOGO': sum(
-                (f['FUNIL']['PERDIDO_PELO_CRUZAMENTO_CATALOGO'] or 0) for f in fichas),
+                f['FUNIL']['5_APOS_CORTE_12']),
             'CONTA_DO_PORTFOLIO_FECHA_EM_TODAS': all(
                 f['PORTFOLIO']['CONTA_FECHA'] for f in fichas),
             'COM_PRODUTO_MOSTRADO_SEM_LASTRO': sum(
