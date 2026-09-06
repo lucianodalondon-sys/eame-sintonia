@@ -700,8 +700,7 @@
     [
      "CHASER-S",
      [
-      "REGISTO_MINISTERIAL",
-      "ROTULO"
+      "REGISTO_MINISTERIAL"
      ]
     ],
     [
@@ -895,8 +894,7 @@
      [
       "CATALOGO_NO_PACOTE",
       "CENSO_DA_FICHA",
-      "REGISTO_MINISTERIAL",
-      "ROTULO"
+      "REGISTO_MINISTERIAL"
      ]
     ],
     [
@@ -937,7 +935,7 @@
     ]
    ],
    "POR_FONTE": {
-    "ROTULO": 20,
+    "ROTULO": 18,
     "CATALOGO_NO_PACOTE": 6,
     "CENSO_DA_FICHA": 12,
     "REGISTO_MINISTERIAL": 36
@@ -970,7 +968,6 @@
      "XINTECH 50"
     ],
     "ISSUE_WEEDS_GENERIC": [
-     "CHASER-S",
      "DIODE",
      "GLIPHOGAN TOP CL PFNPE",
      "HERBITOTAL CL PFNPE",
@@ -978,17 +975,10 @@
      "NICOGAN V.O.",
      "RENDER V.O.",
      "SHAMAL MK PLUS CL PFNPE",
-     "SULCOTREK",
      "TAIFUN  MK CL PFNPE"
     ],
-    "ISSUE_AMARANTHUS": [
-     "CHASER-S",
-     "SULCOTREK"
-    ],
-    "ISSUE_ECHINOCHLOA": [
-     "CHASER-S",
-     "SULCOTREK"
-    ]
+    "ISSUE_AMARANTHUS": [],
+    "ISSUE_ECHINOCHLOA": []
    },
    "CONCORRENCIA": {
     "PECAS": 70,
@@ -1083,10 +1073,13 @@
  },
  "TOTAIS": {
   "OPORTUNIDADES": 43,
-  "COM_PRODUTO_ADAMA_PERDIDO": 43,
+  "CARTOES_CORTADOS_PELO_TETO_12": 10,
+  "PRODUTOS_REMOVIDOS_PELO_TETO_12": 81,
+  "CARTOES_SEM_ENTRADA_RECONSTRUIDA": 0,
+  "PRODUTOS_PERDIDOS_AO_CASAR_COM_CATALOGO": 215,
+  "PRODUTOS_PERDIDOS_PELO_PORTAO_CLIENT_SAFE": 47,
+  "CARTOES_EM_QUE_AS_DUAS_TELAS_DIVERGEM": 43,
   "COM_VARREDURA_DE_PORTFOLIO_INCOMPLETA": 41,
-  "PRODUTOS_PERDIDOS_PELO_CORTE_12": 184,
-  "PRODUTOS_PERDIDOS_PELO_CRUZAMENTO_CATALOGO": 215,
   "CONTA_DO_PORTFOLIO_FECHA_EM_TODAS": true,
   "COM_PRODUTO_MOSTRADO_SEM_LASTRO": 5,
   "CRUZAMENTOS_ENCONTRADOS": 122,
@@ -1193,21 +1186,31 @@
  ],
  "MOTOR_CARREGA": [
   "ACTIVE-INGREDIENTS",
+  "AGROMET-CONDITIONS",
+  "CLIENT-SAFE-CROSSINGS",
   "COMPETITOR-ACTIVITIES",
   "CROP-ECONOMIC-WEIGHT",
   "CROP-WINDOWS",
   "CURRENT-FIELD-SIGNALS",
+  "EVENTS",
+  "FUTURE-EVENTS",
+  "FUTURE-SIGNALS",
   "MARKET-OBSERVATIONS",
+  "NEWS",
   "PRODUCT-ACTIVE-INGREDIENTS",
   "PRODUCT-RELATIONSHIPS",
   "PRODUCTS-COMMERCIAL",
   "PRODUCTS-REGULATORY",
+  "PUBLIC-CHANNELS",
   "PUBLIC-VOICES",
+  "REGULATORY-FUTURE",
   "REGULATORY-FUTURE-FACTS",
+  "RELATIONSHIPS",
+  "RESEARCHERS",
   "RESISTANCE",
   "SCIENCE"
  ],
- "MOTOR_USA": [
+ "MOTOR_USA_COMO_EVIDENCIA": [
   "ACTIVE-INGREDIENTS",
   "COMPETITOR-ACTIVITIES",
   "CROP-ECONOMIC-WEIGHT",
@@ -1222,9 +1225,21 @@
   "RESISTANCE",
   "SCIENCE"
  ],
- "MOTOR_CARREGA_E_NAO_USA": [
-  "PUBLIC-VOICES"
+ "MOTOR_APENAS_CONSULTA": [
+  "AGROMET-CONDITIONS",
+  "CLIENT-SAFE-CROSSINGS",
+  "EVENTS",
+  "FUTURE-EVENTS",
+  "FUTURE-SIGNALS",
+  "NEWS",
+  "PUBLIC-CHANNELS",
+  "PUBLIC-VOICES",
+  "REGULATORY-FUTURE",
+  "RELATIONSHIPS",
+  "RESEARCHERS"
  ],
+ "MOTOR_CARREGA_E_NAO_TOCA": [],
+ "MOTOR_LEI": "USA_COMO_EVIDENCIA funda ou apoia caso. APENAS_CONSULTA pergunta e regista o resultado, sem ligar nada. CARREGA_E_NAO_TOCA e o silencio: lida do disco e deitada fora.",
  "FICHAS": [
   {
    "ID": "OPP_00C5B6E15185",
@@ -1234,14 +1249,20 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CANDIDATE",
    "FUNIL": {
-    "1_ACERVO": 71,
-    "2_ROTULO_NO_PAR_DO_CASO": 25,
-    "3_MOTOR_APOS_CORTE_12": 12,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 4,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 46,
+    "1_ACERVO_QUATRO_CASAS": 71,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 25,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 25,
+    "4_ENTRADA_DO_ARQUETIPO": 25,
+    "5_APOS_CORTE_12": 12,
+    "6_APOS_CASAR_COM_CATALOGO": 4,
+    "ROTULO_NO_PAR_DO_CASO": 25,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 13,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 8,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 8,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 4,
+    "NO_ECRA_PORTALE": 12,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -1894,7 +1915,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -1912,7 +1933,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -1921,7 +1942,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -1930,7 +1951,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -1957,7 +1978,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -1966,7 +1987,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -1975,7 +1996,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -2024,7 +2045,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -2033,7 +2054,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -2042,7 +2063,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -2051,7 +2072,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -2128,20 +2149,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -2152,14 +2162,20 @@
    "GEOGRAFIA": "REGION_UMBRIA",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 71,
-    "2_ROTULO_NO_PAR_DO_CASO": 5,
-    "3_MOTOR_APOS_CORTE_12": 5,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 66,
+    "1_ACERVO_QUATRO_CASAS": 71,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 25,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 25,
+    "4_ENTRADA_DO_ARQUETIPO": 5,
+    "5_APOS_CORTE_12": 5,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 5,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 4,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 4,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 5,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -2882,7 +2898,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -2900,7 +2916,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -2909,7 +2925,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -2918,7 +2934,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -2945,7 +2961,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -2954,7 +2970,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -2963,7 +2979,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -3012,7 +3028,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -3021,7 +3037,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -3030,7 +3046,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -3039,7 +3055,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -3116,20 +3132,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -3140,14 +3145,20 @@
    "GEOGRAFIA": "REGION_FRIULI_VENEZIA_GIULIA",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 71,
-    "2_ROTULO_NO_PAR_DO_CASO": 2,
-    "3_MOTOR_APOS_CORTE_12": 2,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 0,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 69,
+    "1_ACERVO_QUATRO_CASAS": 71,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 25,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 25,
+    "4_ENTRADA_DO_ARQUETIPO": 2,
+    "5_APOS_CORTE_12": 2,
+    "6_APOS_CASAR_COM_CATALOGO": 0,
+    "ROTULO_NO_PAR_DO_CASO": 2,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 2,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 2,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 0,
+    "NO_ECRA_PORTALE": 2,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": []
    },
    "PORTFOLIO": {
@@ -3891,7 +3902,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -3909,7 +3920,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -3918,7 +3929,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -3927,7 +3938,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -3954,7 +3965,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -3963,7 +3974,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -3972,7 +3983,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -4021,7 +4032,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -4030,7 +4041,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4039,7 +4050,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4048,7 +4059,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4125,20 +4136,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -4149,21 +4149,27 @@
    "GEOGRAFIA": "GEO_EU",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 30,
-    "2_ROTULO_NO_PAR_DO_CASO": 23,
-    "3_MOTOR_APOS_CORTE_12": 1,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 0,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 7,
-    "PERDIDO_PELO_CORTE_12": 22,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 1,
+    "1_ACERVO_QUATRO_CASAS": 23,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 23,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 14,
+    "4_ENTRADA_DO_ARQUETIPO": 1,
+    "5_APOS_CORTE_12": 1,
+    "6_APOS_CASAR_COM_CATALOGO": 0,
+    "ROTULO_NO_PAR_DO_CASO": 14,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 9,
+    "PERDIDO_PELO_CORTE_12": 0,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 1,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 0,
+    "NO_ECRA_PORTALE": 1,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": []
    },
    "PORTFOLIO": {
-    "PRODUTOS_ADAMA_ENCONTRADOS": 30,
+    "PRODUTOS_ADAMA_ENCONTRADOS": 23,
     "LIGADOS": 1,
     "NAO_LIGADOS": 0,
-    "NAO_SEI": 29,
+    "NAO_SEI": 22,
     "CONTA_FECHA": true,
     "MOSTRADOS_PELA_OPORTUNIDADE": [
      "SPYRALE"
@@ -4198,19 +4204,9 @@
       "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
      },
      {
-      "PRODUTO": "CONTATTO 320",
+      "PRODUTO": "Contatto® 320",
       "FONTES": [
-       "CENSO_FORA_DO_PACOTE",
-       "ROTULO"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
-      "PRODUTO": "CONTATTO DOUBLE SC",
-      "FONTES": [
-       "ROTULO"
+       "CENSO_FORA_DO_PACOTE"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -4235,55 +4231,9 @@
       "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
      },
      {
-      "PRODUTO": "GOLD-BEET",
+      "PRODUTO": "Goltix®",
       "FONTES": [
-       "ROTULO"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
-      "PRODUTO": "GOLDBEET SUPER",
-      "FONTES": [
-       "ROTULO"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
-      "PRODUTO": "GOLTIX",
-      "FONTES": [
-       "CENSO_FORA_DO_PACOTE",
-       "ROTULO"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
-      "PRODUTO": "GOLTIX 700 SC",
-      "FONTES": [
-       "ROTULO"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
-      "PRODUTO": "GOLTIX BETA",
-      "FONTES": [
-       "ROTULO"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
-      "PRODUTO": "GOLTIX SUPER",
-      "FONTES": [
-       "ROTULO"
+       "CENSO_FORA_DO_PACOTE"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -4382,15 +4332,6 @@
       "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
      },
      {
-      "PRODUTO": "NORTIM",
-      "FONTES": [
-       "ROTULO"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
       "PRODUTO": "OLIONET",
       "FONTES": [
        "ROTULO"
@@ -4438,7 +4379,7 @@
      }
     ],
     "UNIVERSO_POR_FONTE": {
-     "ROTULO_MINISTERIAL": 23,
+     "ROTULO_MINISTERIAL": 14,
      "CATALOGO_NO_PACOTE": 0,
      "CENSO_FORA_DO_PACOTE": 12,
      "REGISTO_MINISTERIAL": 0
@@ -4501,7 +4442,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4519,7 +4460,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4528,7 +4469,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -4537,7 +4478,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4564,7 +4505,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4573,7 +4514,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4582,7 +4523,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4627,7 +4568,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4636,7 +4577,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4645,7 +4586,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4654,7 +4595,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4742,20 +4683,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -4766,14 +4696,20 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 69,
-    "2_ROTULO_NO_PAR_DO_CASO": 18,
-    "3_MOTOR_APOS_CORTE_12": 12,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 51,
+    "1_ACERVO_QUATRO_CASAS": 69,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 18,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 18,
+    "4_ENTRADA_DO_ARQUETIPO": 18,
+    "5_APOS_CORTE_12": 12,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 18,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 6,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 11,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 11,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 12,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_ONLY"
     ]
@@ -5402,7 +5338,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -5420,7 +5356,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5429,7 +5365,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -5438,7 +5374,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5465,7 +5401,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5474,7 +5410,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5483,7 +5419,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5532,7 +5468,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5541,7 +5477,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5550,7 +5486,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5559,7 +5495,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5643,20 +5579,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -5667,14 +5592,20 @@
    "GEOGRAFIA": "REGION_EMILIA_ROMAGNA",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 71,
-    "2_ROTULO_NO_PAR_DO_CASO": 5,
-    "3_MOTOR_APOS_CORTE_12": 5,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 66,
+    "1_ACERVO_QUATRO_CASAS": 71,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 25,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 25,
+    "4_ENTRADA_DO_ARQUETIPO": 5,
+    "5_APOS_CORTE_12": 5,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 5,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 4,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 4,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 5,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -6397,7 +6328,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -6415,7 +6346,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -6424,7 +6355,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -6433,7 +6364,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -6460,7 +6391,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -6469,7 +6400,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -6478,7 +6409,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -6527,7 +6458,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -6536,7 +6467,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -6545,7 +6476,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -6554,7 +6485,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -6631,20 +6562,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -6655,14 +6575,20 @@
    "GEOGRAFIA": "REGION_UMBRIA",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 71,
-    "2_ROTULO_NO_PAR_DO_CASO": 6,
-    "3_MOTOR_APOS_CORTE_12": 6,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 65,
+    "1_ACERVO_QUATRO_CASAS": 71,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 25,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 25,
+    "4_ENTRADA_DO_ARQUETIPO": 6,
+    "5_APOS_CORTE_12": 6,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 6,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 5,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 5,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 6,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -7383,7 +7309,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -7401,7 +7327,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -7410,7 +7336,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -7419,7 +7345,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -7446,7 +7372,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7455,7 +7381,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -7464,7 +7390,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -7513,7 +7439,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -7522,7 +7448,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7531,7 +7457,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7540,7 +7466,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7617,20 +7543,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -7641,14 +7556,20 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CANDIDATE",
    "FUNIL": {
-    "1_ACERVO": 23,
-    "2_ROTULO_NO_PAR_DO_CASO": 6,
-    "3_MOTOR_APOS_CORTE_12": 5,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 17,
-    "PERDIDO_PELO_CORTE_12": 1,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 4,
+    "1_ACERVO_QUATRO_CASAS": 23,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 6,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 5,
+    "4_ENTRADA_DO_ARQUETIPO": 5,
+    "5_APOS_CORTE_12": 5,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 5,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 1,
+    "PERDIDO_PELO_CORTE_12": 0,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 4,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 5,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_ONLY"
     ]
@@ -7656,8 +7577,8 @@
    "PORTFOLIO": {
     "PRODUTOS_ADAMA_ENCONTRADOS": 23,
     "LIGADOS": 5,
-    "NAO_LIGADOS": 17,
-    "NAO_SEI": 1,
+    "NAO_LIGADOS": 18,
+    "NAO_SEI": 0,
     "CONTA_FECHA": true,
     "MOSTRADOS_PELA_OPORTUNIDADE": [
      "AGIL",
@@ -7744,16 +7665,15 @@
       "MOTIVO": "o rotulo nao nomeia este produto para o alvo do caso"
      },
      {
-      "PRODUTO": "HIGHCARD",
+      "PRODUTO": "Highcard®",
       "FONTES": [
        "CATALOGO_NO_PACOTE",
        "CENSO_FORA_DO_PACOTE",
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
-      "AUTORIZADO_NO_PAR_DO_CASO": true,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
+      "AUTORIZADO_NO_PAR_DO_CASO": false,
+      "CLASSE_AUTOMATICA": "B_NAO_LIGADO",
+      "MOTIVO": "o rotulo nao nomeia este produto para o alvo do caso"
      },
      {
       "PRODUTO": "Max-Ace® Rice Cropping Solution",
@@ -7840,7 +7760,7 @@
      }
     ],
     "UNIVERSO_POR_FONTE": {
-     "ROTULO_MINISTERIAL": 6,
+     "ROTULO_MINISTERIAL": 5,
      "CATALOGO_NO_PACOTE": 7,
      "CENSO_FORA_DO_PACOTE": 9,
      "REGISTO_MINISTERIAL": 15
@@ -7912,7 +7832,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7930,7 +7850,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7939,7 +7859,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -7948,7 +7868,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7975,7 +7895,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7984,7 +7904,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7993,7 +7913,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8042,7 +7962,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8051,7 +7971,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8060,7 +7980,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8069,7 +7989,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8150,20 +8070,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -8174,14 +8083,20 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CANDIDATE",
    "FUNIL": {
-    "1_ACERVO": 14,
-    "2_ROTULO_NO_PAR_DO_CASO": 1,
-    "3_MOTOR_APOS_CORTE_12": 1,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 0,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 13,
+    "1_ACERVO_QUATRO_CASAS": 14,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 1,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 1,
+    "4_ENTRADA_DO_ARQUETIPO": 1,
+    "5_APOS_CORTE_12": 1,
+    "6_APOS_CASAR_COM_CATALOGO": 0,
+    "ROTULO_NO_PAR_DO_CASO": 1,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 1,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 1,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 0,
+    "NO_ECRA_PORTALE": 1,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": []
    },
    "PORTFOLIO": {
@@ -8380,7 +8295,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -8398,7 +8313,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -8407,7 +8322,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 10,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -8416,7 +8331,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8443,7 +8358,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8452,7 +8367,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8461,7 +8376,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8508,7 +8423,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8517,7 +8432,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8526,7 +8441,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8535,7 +8450,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8611,20 +8526,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -8635,14 +8539,20 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 43,
-    "2_ROTULO_NO_PAR_DO_CASO": 20,
-    "3_MOTOR_APOS_CORTE_12": 12,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 5,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 23,
-    "PERDIDO_PELO_CORTE_12": 8,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 7,
+    "1_ACERVO_QUATRO_CASAS": 43,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 20,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 18,
+    "4_ENTRADA_DO_ARQUETIPO": 18,
+    "5_APOS_CORTE_12": 12,
+    "6_APOS_CASAR_COM_CATALOGO": 5,
+    "ROTULO_NO_PAR_DO_CASO": 18,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 2,
+    "PERDIDO_PELO_CORTE_12": 6,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 7,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 5,
+    "NO_ECRA_PORTALE": 12,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG",
      "LABEL_ONLY"
@@ -8729,8 +8639,7 @@
      {
       "PRODUTO": "CHASER-S",
       "FONTES": [
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -8919,8 +8828,7 @@
       "FONTES": [
        "CATALOGO_NO_PACOTE",
        "CENSO_FORA_DO_PACOTE",
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -8968,7 +8876,7 @@
      }
     ],
     "UNIVERSO_POR_FONTE": {
-     "ROTULO_MINISTERIAL": 20,
+     "ROTULO_MINISTERIAL": 18,
      "CATALOGO_NO_PACOTE": 6,
      "CENSO_FORA_DO_PACOTE": 12,
      "REGISTO_MINISTERIAL": 36
@@ -9031,7 +8939,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -9049,7 +8957,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -9058,7 +8966,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 13,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -9067,7 +8975,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -9094,7 +9002,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -9103,7 +9011,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -9112,7 +9020,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -9160,7 +9068,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -9169,7 +9077,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -9178,7 +9086,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -9187,7 +9095,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -9266,20 +9174,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -9290,24 +9187,30 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CANDIDATE",
    "FUNIL": {
-    "1_ACERVO": 74,
-    "2_ROTULO_NO_PAR_DO_CASO": 20,
-    "3_MOTOR_APOS_CORTE_12": 12,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 5,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 54,
-    "PERDIDO_PELO_CORTE_12": 8,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 7,
+    "1_ACERVO_QUATRO_CASAS": 73,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 20,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 16,
+    "4_ENTRADA_DO_ARQUETIPO": 16,
+    "5_APOS_CORTE_12": 12,
+    "6_APOS_CASAR_COM_CATALOGO": 5,
+    "ROTULO_NO_PAR_DO_CASO": 16,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 4,
+    "PERDIDO_PELO_CORTE_12": 4,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 7,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 5,
+    "NO_ECRA_PORTALE": 12,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG",
      "LABEL_ONLY"
     ]
    },
    "PORTFOLIO": {
-    "PRODUTOS_ADAMA_ENCONTRADOS": 74,
+    "PRODUTOS_ADAMA_ENCONTRADOS": 73,
     "LIGADOS": 12,
     "NAO_LIGADOS": 0,
-    "NAO_SEI": 62,
+    "NAO_SEI": 61,
     "CONTA_FECHA": true,
     "MOSTRADOS_PELA_OPORTUNIDADE": [
      "APHOX",
@@ -9328,8 +9231,7 @@
      {
       "PRODUTO": "ACTIGAN DFF",
       "FONTES": [
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -9465,10 +9367,9 @@
       "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
      },
      {
-      "PRODUTO": "ELEGANT 2FD",
+      "PRODUTO": "Elegant® 2fd",
       "FONTES": [
-       "CENSO_FORA_DO_PACOTE",
-       "ROTULO"
+       "CENSO_FORA_DO_PACOTE"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -9487,15 +9388,6 @@
       "PRODUTO": "FALCON MK",
       "FONTES": [
        "REGISTO_MINISTERIAL"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
-      "PRODUTO": "FOX",
-      "FONTES": [
-       "ROTULO"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -9771,11 +9663,10 @@
       "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
      },
      {
-      "PRODUTO": "STOPPER P",
+      "PRODUTO": "Stopper P",
       "FONTES": [
        "CENSO_FORA_DO_PACOTE",
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -9906,7 +9797,7 @@
      }
     ],
     "UNIVERSO_POR_FONTE": {
-     "ROTULO_MINISTERIAL": 20,
+     "ROTULO_MINISTERIAL": 16,
      "CATALOGO_NO_PACOTE": 8,
      "CENSO_FORA_DO_PACOTE": 20,
      "REGISTO_MINISTERIAL": 61
@@ -9969,7 +9860,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -9987,7 +9878,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -9996,7 +9887,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -10005,7 +9896,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -10032,7 +9923,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -10041,7 +9932,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -10050,7 +9941,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -10086,7 +9977,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -10095,7 +9986,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -10104,7 +9995,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -10113,7 +10004,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -10198,20 +10089,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -10222,14 +10102,20 @@
    "GEOGRAFIA": "REGION_EMILIA_ROMAGNA",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 71,
-    "2_ROTULO_NO_PAR_DO_CASO": 3,
-    "3_MOTOR_APOS_CORTE_12": 3,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 68,
+    "1_ACERVO_QUATRO_CASAS": 71,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 25,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 25,
+    "4_ENTRADA_DO_ARQUETIPO": 3,
+    "5_APOS_CORTE_12": 3,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 3,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 2,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 2,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 3,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -10971,7 +10857,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -10989,7 +10875,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -10998,7 +10884,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -11007,7 +10893,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -11034,7 +10920,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11043,7 +10929,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -11052,7 +10938,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -11101,7 +10987,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -11110,7 +10996,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11119,7 +11005,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11128,7 +11014,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11205,20 +11091,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -11229,14 +11104,20 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 16,
-    "2_ROTULO_NO_PAR_DO_CASO": 6,
-    "3_MOTOR_APOS_CORTE_12": 6,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 10,
+    "1_ACERVO_QUATRO_CASAS": 16,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 6,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 6,
+    "4_ENTRADA_DO_ARQUETIPO": 6,
+    "5_APOS_CORTE_12": 6,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 6,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 5,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 5,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 6,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_ONLY"
     ]
@@ -11412,7 +11293,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11430,7 +11311,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11439,7 +11320,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11448,7 +11329,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11475,7 +11356,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11484,7 +11365,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11493,7 +11374,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11529,7 +11410,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11538,7 +11419,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11547,7 +11428,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11556,7 +11437,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11632,20 +11513,9 @@
     "TRANSCRICOES"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -11656,14 +11526,20 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CANDIDATE",
    "FUNIL": {
-    "1_ACERVO": 40,
-    "2_ROTULO_NO_PAR_DO_CASO": 8,
-    "3_MOTOR_APOS_CORTE_12": 8,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 2,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 32,
+    "1_ACERVO_QUATRO_CASAS": 40,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 8,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 8,
+    "4_ENTRADA_DO_ARQUETIPO": 8,
+    "5_APOS_CORTE_12": 8,
+    "6_APOS_CASAR_COM_CATALOGO": 2,
+    "ROTULO_NO_PAR_DO_CASO": 8,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 6,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 6,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 2,
+    "NO_ECRA_PORTALE": 8,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG",
      "LABEL_ONLY"
@@ -12050,7 +11926,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12068,7 +11944,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12077,7 +11953,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -12086,7 +11962,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12113,7 +11989,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12122,7 +11998,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12131,7 +12007,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12178,7 +12054,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -12187,7 +12063,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12196,7 +12072,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12205,7 +12081,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12289,20 +12165,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -12313,14 +12178,20 @@
    "GEOGRAFIA": "GEO_EU",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 69,
-    "2_ROTULO_NO_PAR_DO_CASO": 18,
-    "3_MOTOR_APOS_CORTE_12": 5,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 0,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 51,
-    "PERDIDO_PELO_CORTE_12": 13,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 5,
+    "1_ACERVO_QUATRO_CASAS": 69,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 18,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 18,
+    "4_ENTRADA_DO_ARQUETIPO": 5,
+    "5_APOS_CORTE_12": 5,
+    "6_APOS_CASAR_COM_CATALOGO": 0,
+    "ROTULO_NO_PAR_DO_CASO": 18,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
+    "PERDIDO_PELO_CORTE_12": 0,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 5,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 0,
+    "NO_ECRA_PORTALE": 5,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": []
    },
    "PORTFOLIO": {
@@ -13018,7 +12889,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -13036,7 +12907,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13045,7 +12916,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -13054,7 +12925,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13081,7 +12952,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13090,7 +12961,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13099,7 +12970,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13148,7 +13019,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13157,7 +13028,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13166,7 +13037,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13175,7 +13046,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13259,20 +13130,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -13283,14 +13143,20 @@
    "GEOGRAFIA": "REGION_VENETO",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 60,
-    "2_ROTULO_NO_PAR_DO_CASO": 12,
-    "3_MOTOR_APOS_CORTE_12": 12,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 2,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 48,
+    "1_ACERVO_QUATRO_CASAS": 60,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 30,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 29,
+    "4_ENTRADA_DO_ARQUETIPO": 12,
+    "5_APOS_CORTE_12": 12,
+    "6_APOS_CASAR_COM_CATALOGO": 2,
+    "ROTULO_NO_PAR_DO_CASO": 12,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 1,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 10,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 10,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 2,
+    "NO_ECRA_PORTALE": 12,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG",
      "LABEL_ONLY"
@@ -13456,8 +13322,7 @@
      {
       "PRODUTO": "EKO OIL SPRAY",
       "FONTES": [
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "B_NAO_LIGADO",
@@ -13779,7 +13644,7 @@
      }
     ],
     "UNIVERSO_POR_FONTE": {
-     "ROTULO_MINISTERIAL": 30,
+     "ROTULO_MINISTERIAL": 29,
      "CATALOGO_NO_PACOTE": 7,
      "CENSO_FORA_DO_PACOTE": 17,
      "REGISTO_MINISTERIAL": 48
@@ -13859,7 +13724,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 1,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH",
@@ -13879,7 +13744,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13888,7 +13753,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 14,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -13897,7 +13762,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13924,7 +13789,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13933,7 +13798,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13942,7 +13807,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13991,7 +13856,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14000,7 +13865,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14009,7 +13874,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14018,7 +13883,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14102,20 +13967,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -14126,14 +13980,20 @@
    "GEOGRAFIA": "REGION_LOMBARDIA",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 43,
-    "2_ROTULO_NO_PAR_DO_CASO": 5,
-    "3_MOTOR_APOS_CORTE_12": 5,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 38,
+    "1_ACERVO_QUATRO_CASAS": 43,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 20,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 18,
+    "4_ENTRADA_DO_ARQUETIPO": 5,
+    "5_APOS_CORTE_12": 5,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 5,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 2,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 4,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 4,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 5,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -14231,8 +14091,7 @@
      {
       "PRODUTO": "CHASER-S",
       "FONTES": [
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "B_NAO_LIGADO",
@@ -14473,8 +14332,7 @@
       "FONTES": [
        "CATALOGO_NO_PACOTE",
        "CENSO_FORA_DO_PACOTE",
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "B_NAO_LIGADO",
@@ -14522,7 +14380,7 @@
      }
     ],
     "UNIVERSO_POR_FONTE": {
-     "ROTULO_MINISTERIAL": 20,
+     "ROTULO_MINISTERIAL": 18,
      "CATALOGO_NO_PACOTE": 6,
      "CENSO_FORA_DO_PACOTE": 12,
      "REGISTO_MINISTERIAL": 36
@@ -14598,7 +14456,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14616,7 +14474,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -14625,7 +14483,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 13,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -14634,7 +14492,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -14661,7 +14519,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14670,7 +14528,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 1,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH",
@@ -14681,7 +14539,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14730,7 +14588,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -14739,7 +14597,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -14748,7 +14606,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14757,7 +14615,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14836,20 +14694,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -14860,14 +14707,20 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 23,
-    "2_ROTULO_NO_PAR_DO_CASO": 6,
-    "3_MOTOR_APOS_CORTE_12": 5,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 17,
-    "PERDIDO_PELO_CORTE_12": 1,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 4,
+    "1_ACERVO_QUATRO_CASAS": 23,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 6,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 5,
+    "4_ENTRADA_DO_ARQUETIPO": 5,
+    "5_APOS_CORTE_12": 5,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 5,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 1,
+    "PERDIDO_PELO_CORTE_12": 0,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 4,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 5,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_ONLY"
     ]
@@ -14963,12 +14816,11 @@
       "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
      },
      {
-      "PRODUTO": "HIGHCARD",
+      "PRODUTO": "Highcard®",
       "FONTES": [
        "CATALOGO_NO_PACOTE",
        "CENSO_FORA_DO_PACOTE",
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -15059,7 +14911,7 @@
      }
     ],
     "UNIVERSO_POR_FONTE": {
-     "ROTULO_MINISTERIAL": 6,
+     "ROTULO_MINISTERIAL": 5,
      "CATALOGO_NO_PACOTE": 7,
      "CENSO_FORA_DO_PACOTE": 9,
      "REGISTO_MINISTERIAL": 15
@@ -15122,7 +14974,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15140,7 +14992,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15149,7 +15001,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -15158,7 +15010,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15185,7 +15037,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15194,7 +15046,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15203,7 +15055,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15247,7 +15099,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15256,7 +15108,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15265,7 +15117,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15274,7 +15126,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15355,20 +15207,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -15379,14 +15220,20 @@
    "GEOGRAFIA": "GEO_EU",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 43,
-    "2_ROTULO_NO_PAR_DO_CASO": 20,
-    "3_MOTOR_APOS_CORTE_12": 2,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 23,
-    "PERDIDO_PELO_CORTE_12": 18,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 1,
+    "1_ACERVO_QUATRO_CASAS": 43,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 20,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 18,
+    "4_ENTRADA_DO_ARQUETIPO": 2,
+    "5_APOS_CORTE_12": 2,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 18,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 2,
+    "PERDIDO_PELO_CORTE_12": 0,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 1,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 2,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_ONLY"
     ]
@@ -15481,8 +15328,7 @@
      {
       "PRODUTO": "CHASER-S",
       "FONTES": [
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -15755,8 +15601,7 @@
       "FONTES": [
        "CATALOGO_NO_PACOTE",
        "CENSO_FORA_DO_PACOTE",
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -15804,7 +15649,7 @@
      }
     ],
     "UNIVERSO_POR_FONTE": {
-     "ROTULO_MINISTERIAL": 20,
+     "ROTULO_MINISTERIAL": 18,
      "CATALOGO_NO_PACOTE": 6,
      "CENSO_FORA_DO_PACOTE": 12,
      "REGISTO_MINISTERIAL": 36
@@ -15867,7 +15712,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15885,7 +15730,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -15894,7 +15739,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 13,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -15903,7 +15748,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -15930,7 +15775,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15939,7 +15784,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -15948,7 +15793,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15996,7 +15841,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -16005,7 +15850,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -16014,7 +15859,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16023,7 +15868,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16102,20 +15947,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -16126,14 +15960,20 @@
    "GEOGRAFIA": "GEO_EU",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 40,
-    "2_ROTULO_NO_PAR_DO_CASO": 8,
-    "3_MOTOR_APOS_CORTE_12": 4,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 32,
-    "PERDIDO_PELO_CORTE_12": 4,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 3,
+    "1_ACERVO_QUATRO_CASAS": 40,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 8,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 8,
+    "4_ENTRADA_DO_ARQUETIPO": 4,
+    "5_APOS_CORTE_12": 4,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 8,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
+    "PERDIDO_PELO_CORTE_12": 0,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 3,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 4,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -16578,7 +16418,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16596,7 +16436,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16605,7 +16445,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -16614,7 +16454,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16641,7 +16481,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16650,7 +16490,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16659,7 +16499,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16706,7 +16546,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -16715,7 +16555,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16724,7 +16564,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16733,7 +16573,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16817,20 +16657,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -16841,14 +16670,20 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CANDIDATE",
    "FUNIL": {
-    "1_ACERVO": 43,
-    "2_ROTULO_NO_PAR_DO_CASO": 20,
-    "3_MOTOR_APOS_CORTE_12": 12,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 5,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 23,
-    "PERDIDO_PELO_CORTE_12": 8,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 7,
+    "1_ACERVO_QUATRO_CASAS": 43,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 20,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 18,
+    "4_ENTRADA_DO_ARQUETIPO": 18,
+    "5_APOS_CORTE_12": 12,
+    "6_APOS_CASAR_COM_CATALOGO": 5,
+    "ROTULO_NO_PAR_DO_CASO": 18,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 2,
+    "PERDIDO_PELO_CORTE_12": 6,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 7,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 5,
+    "NO_ECRA_PORTALE": 12,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG",
      "LABEL_ONLY"
@@ -16935,8 +16770,7 @@
      {
       "PRODUTO": "CHASER-S",
       "FONTES": [
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -17125,8 +16959,7 @@
       "FONTES": [
        "CATALOGO_NO_PACOTE",
        "CENSO_FORA_DO_PACOTE",
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -17174,7 +17007,7 @@
      }
     ],
     "UNIVERSO_POR_FONTE": {
-     "ROTULO_MINISTERIAL": 20,
+     "ROTULO_MINISTERIAL": 18,
      "CATALOGO_NO_PACOTE": 6,
      "CENSO_FORA_DO_PACOTE": 12,
      "REGISTO_MINISTERIAL": 36
@@ -17237,7 +17070,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -17255,7 +17088,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -17264,7 +17097,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 13,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -17273,7 +17106,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -17300,7 +17133,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -17309,7 +17142,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -17318,7 +17151,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -17366,7 +17199,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -17375,7 +17208,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -17384,7 +17217,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -17393,7 +17226,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -17472,20 +17305,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -17496,23 +17318,29 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 54,
-    "2_ROTULO_NO_PAR_DO_CASO": 12,
-    "3_MOTOR_APOS_CORTE_12": 8,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 2,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 42,
-    "PERDIDO_PELO_CORTE_12": 4,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 6,
+    "1_ACERVO_QUATRO_CASAS": 53,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 12,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 8,
+    "4_ENTRADA_DO_ARQUETIPO": 8,
+    "5_APOS_CORTE_12": 8,
+    "6_APOS_CASAR_COM_CATALOGO": 2,
+    "ROTULO_NO_PAR_DO_CASO": 8,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 4,
+    "PERDIDO_PELO_CORTE_12": 0,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 6,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 2,
+    "NO_ECRA_PORTALE": 8,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_ONLY"
     ]
    },
    "PORTFOLIO": {
-    "PRODUTOS_ADAMA_ENCONTRADOS": 54,
+    "PRODUTOS_ADAMA_ENCONTRADOS": 53,
     "LIGADOS": 8,
     "NAO_LIGADOS": 0,
-    "NAO_SEI": 46,
+    "NAO_SEI": 45,
     "CONTA_FECHA": true,
     "MOSTRADOS_PELA_OPORTUNIDADE": [
      "BLAISE ULTRA",
@@ -17529,8 +17357,7 @@
      {
       "PRODUTO": "ACTIGAN DFF",
       "FONTES": [
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -17609,10 +17436,9 @@
       "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
      },
      {
-      "PRODUTO": "ELEGANT 2FD",
+      "PRODUTO": "Elegant® 2fd",
       "FONTES": [
-       "CENSO_FORA_DO_PACOTE",
-       "ROTULO"
+       "CENSO_FORA_DO_PACOTE"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -17649,15 +17475,6 @@
       "PRODUTO": "FORZA",
       "FONTES": [
        "REGISTO_MINISTERIAL"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
-      "PRODUTO": "FOX",
-      "FONTES": [
-       "ROTULO"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -17882,11 +17699,10 @@
       "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
      },
      {
-      "PRODUTO": "STOPPER P",
+      "PRODUTO": "Stopper P",
       "FONTES": [
        "CENSO_FORA_DO_PACOTE",
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -17952,7 +17768,7 @@
      }
     ],
     "UNIVERSO_POR_FONTE": {
-     "ROTULO_MINISTERIAL": 12,
+     "ROTULO_MINISTERIAL": 8,
      "CATALOGO_NO_PACOTE": 0,
      "CENSO_FORA_DO_PACOTE": 14,
      "REGISTO_MINISTERIAL": 46
@@ -18015,7 +17831,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18033,7 +17849,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18042,7 +17858,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18051,7 +17867,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18078,7 +17894,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18087,7 +17903,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18096,7 +17912,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18142,7 +17958,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18151,7 +17967,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18160,7 +17976,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18169,7 +17985,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18245,20 +18061,9 @@
     "TRANSCRICOES"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -18269,23 +18074,29 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CANDIDATE",
    "FUNIL": {
-    "1_ACERVO": 30,
-    "2_ROTULO_NO_PAR_DO_CASO": 23,
-    "3_MOTOR_APOS_CORTE_12": 12,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 3,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 7,
-    "PERDIDO_PELO_CORTE_12": 11,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 9,
+    "1_ACERVO_QUATRO_CASAS": 23,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 23,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 14,
+    "4_ENTRADA_DO_ARQUETIPO": 14,
+    "5_APOS_CORTE_12": 12,
+    "6_APOS_CASAR_COM_CATALOGO": 3,
+    "ROTULO_NO_PAR_DO_CASO": 14,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 9,
+    "PERDIDO_PELO_CORTE_12": 2,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 9,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 3,
+    "NO_ECRA_PORTALE": 12,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_ONLY"
     ]
    },
    "PORTFOLIO": {
-    "PRODUTOS_ADAMA_ENCONTRADOS": 30,
+    "PRODUTOS_ADAMA_ENCONTRADOS": 23,
     "LIGADOS": 12,
     "NAO_LIGADOS": 0,
-    "NAO_SEI": 18,
+    "NAO_SEI": 11,
     "CONTA_FECHA": true,
     "MOSTRADOS_PELA_OPORTUNIDADE": [
      "EVURE PRO",
@@ -18331,74 +18142,18 @@
       "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
      },
      {
-      "PRODUTO": "CONTATTO 320",
+      "PRODUTO": "Contatto® 320",
       "FONTES": [
-       "CENSO_FORA_DO_PACOTE",
-       "ROTULO"
+       "CENSO_FORA_DO_PACOTE"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
       "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
      },
      {
-      "PRODUTO": "CONTATTO DOUBLE SC",
+      "PRODUTO": "Goltix®",
       "FONTES": [
-       "ROTULO"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
-      "PRODUTO": "GOLD-BEET",
-      "FONTES": [
-       "ROTULO"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
-      "PRODUTO": "GOLDBEET SUPER",
-      "FONTES": [
-       "ROTULO"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
-      "PRODUTO": "GOLTIX",
-      "FONTES": [
-       "CENSO_FORA_DO_PACOTE",
-       "ROTULO"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
-      "PRODUTO": "GOLTIX 700 SC",
-      "FONTES": [
-       "ROTULO"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
-      "PRODUTO": "GOLTIX BETA",
-      "FONTES": [
-       "ROTULO"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
-      "PRODUTO": "GOLTIX SUPER",
-      "FONTES": [
-       "ROTULO"
+       "CENSO_FORA_DO_PACOTE"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -18417,15 +18172,6 @@
       "PRODUTO": "Mavita® 250 EC",
       "FONTES": [
        "CENSO_FORA_DO_PACOTE"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
-      "PRODUTO": "NORTIM",
-      "FONTES": [
-       "ROTULO"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -18469,7 +18215,7 @@
      }
     ],
     "UNIVERSO_POR_FONTE": {
-     "ROTULO_MINISTERIAL": 23,
+     "ROTULO_MINISTERIAL": 14,
      "CATALOGO_NO_PACOTE": 0,
      "CENSO_FORA_DO_PACOTE": 12,
      "REGISTO_MINISTERIAL": 0
@@ -18532,7 +18278,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18550,7 +18296,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18559,7 +18305,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -18568,7 +18314,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18595,7 +18341,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18604,7 +18350,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18613,7 +18359,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18658,7 +18404,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18667,7 +18413,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18676,7 +18422,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18685,7 +18431,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18773,20 +18519,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -18797,14 +18532,20 @@
    "GEOGRAFIA": "REGION_FRIULI_VENEZIA_GIULIA",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 43,
-    "2_ROTULO_NO_PAR_DO_CASO": 5,
-    "3_MOTOR_APOS_CORTE_12": 5,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 38,
+    "1_ACERVO_QUATRO_CASAS": 43,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 20,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 18,
+    "4_ENTRADA_DO_ARQUETIPO": 5,
+    "5_APOS_CORTE_12": 5,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 5,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 2,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 4,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 4,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 5,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -18902,8 +18643,7 @@
      {
       "PRODUTO": "CHASER-S",
       "FONTES": [
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "B_NAO_LIGADO",
@@ -19144,8 +18884,7 @@
       "FONTES": [
        "CATALOGO_NO_PACOTE",
        "CENSO_FORA_DO_PACOTE",
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "B_NAO_LIGADO",
@@ -19193,7 +18932,7 @@
      }
     ],
     "UNIVERSO_POR_FONTE": {
-     "ROTULO_MINISTERIAL": 20,
+     "ROTULO_MINISTERIAL": 18,
      "CATALOGO_NO_PACOTE": 6,
      "CENSO_FORA_DO_PACOTE": 12,
      "REGISTO_MINISTERIAL": 36
@@ -19269,7 +19008,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -19287,7 +19026,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -19296,7 +19035,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 13,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -19305,7 +19044,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -19332,7 +19071,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -19341,7 +19080,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -19350,7 +19089,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -19399,7 +19138,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -19408,7 +19147,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -19417,7 +19156,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -19426,7 +19165,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -19505,20 +19244,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -19529,14 +19257,20 @@
    "GEOGRAFIA": "GEO_EU",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 71,
-    "2_ROTULO_NO_PAR_DO_CASO": 25,
-    "3_MOTOR_APOS_CORTE_12": 12,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 46,
-    "PERDIDO_PELO_CORTE_12": 13,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 11,
+    "1_ACERVO_QUATRO_CASAS": 71,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 25,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 25,
+    "4_ENTRADA_DO_ARQUETIPO": 13,
+    "5_APOS_CORTE_12": 12,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 25,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
+    "PERDIDO_PELO_CORTE_12": 1,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 11,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 12,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -20212,7 +19946,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20230,7 +19964,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20239,7 +19973,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20248,7 +19982,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20275,7 +20009,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20284,7 +20018,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20293,7 +20027,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20342,7 +20076,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20351,7 +20085,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20360,7 +20094,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20369,7 +20103,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20446,20 +20180,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -20470,14 +20193,20 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 14,
-    "2_ROTULO_NO_PAR_DO_CASO": 1,
-    "3_MOTOR_APOS_CORTE_12": 1,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 0,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 13,
+    "1_ACERVO_QUATRO_CASAS": 14,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 1,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 1,
+    "4_ENTRADA_DO_ARQUETIPO": 1,
+    "5_APOS_CORTE_12": 1,
+    "6_APOS_CASAR_COM_CATALOGO": 0,
+    "ROTULO_NO_PAR_DO_CASO": 1,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 1,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 1,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 0,
+    "NO_ECRA_PORTALE": 1,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": []
    },
    "PORTFOLIO": {
@@ -20676,7 +20405,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20694,7 +20423,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20703,7 +20432,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 10,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20712,7 +20441,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20739,7 +20468,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20748,7 +20477,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20757,7 +20486,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20804,7 +20533,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20813,7 +20542,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20822,7 +20551,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20831,7 +20560,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20907,20 +20636,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -20931,14 +20649,20 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CANDIDATE",
    "FUNIL": {
-    "1_ACERVO": 23,
-    "2_ROTULO_NO_PAR_DO_CASO": 6,
-    "3_MOTOR_APOS_CORTE_12": 5,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 17,
-    "PERDIDO_PELO_CORTE_12": 1,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 4,
+    "1_ACERVO_QUATRO_CASAS": 23,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 6,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 5,
+    "4_ENTRADA_DO_ARQUETIPO": 5,
+    "5_APOS_CORTE_12": 5,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 5,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 1,
+    "PERDIDO_PELO_CORTE_12": 0,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 4,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 5,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_ONLY"
     ]
@@ -21034,12 +20758,11 @@
       "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
      },
      {
-      "PRODUTO": "HIGHCARD",
+      "PRODUTO": "Highcard®",
       "FONTES": [
        "CATALOGO_NO_PACOTE",
        "CENSO_FORA_DO_PACOTE",
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -21130,7 +20853,7 @@
      }
     ],
     "UNIVERSO_POR_FONTE": {
-     "ROTULO_MINISTERIAL": 6,
+     "ROTULO_MINISTERIAL": 5,
      "CATALOGO_NO_PACOTE": 7,
      "CENSO_FORA_DO_PACOTE": 9,
      "REGISTO_MINISTERIAL": 15
@@ -21193,7 +20916,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21211,7 +20934,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21220,7 +20943,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -21229,7 +20952,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21256,7 +20979,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21265,7 +20988,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21274,7 +20997,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21318,7 +21041,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21327,7 +21050,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21336,7 +21059,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21345,7 +21068,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21426,20 +21149,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -21450,14 +21162,20 @@
    "GEOGRAFIA": "GEO_EU",
    "ESTADO": "OPPORTUNITY_CANDIDATE",
    "FUNIL": {
-    "1_ACERVO": 0,
-    "2_ROTULO_NO_PAR_DO_CASO": 0,
-    "3_MOTOR_APOS_CORTE_12": 1,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 0,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 0,
+    "1_ACERVO_QUATRO_CASAS": 0,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 0,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 0,
+    "4_ENTRADA_DO_ARQUETIPO": 1,
+    "5_APOS_CORTE_12": 1,
+    "6_APOS_CASAR_COM_CATALOGO": 0,
+    "ROTULO_NO_PAR_DO_CASO": 0,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 1,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 1,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 0,
+    "NO_ECRA_PORTALE": 1,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": []
    },
    "PORTFOLIO": {
@@ -21537,7 +21255,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21555,7 +21273,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21564,7 +21282,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21573,7 +21291,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21600,7 +21318,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21609,7 +21327,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21618,7 +21336,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21654,7 +21372,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21663,7 +21381,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21672,7 +21390,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21681,7 +21399,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21749,20 +21467,9 @@
     "TRANSCRICOES"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -21773,14 +21480,20 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 71,
-    "2_ROTULO_NO_PAR_DO_CASO": 25,
-    "3_MOTOR_APOS_CORTE_12": 12,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 4,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 46,
+    "1_ACERVO_QUATRO_CASAS": 71,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 25,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 25,
+    "4_ENTRADA_DO_ARQUETIPO": 25,
+    "5_APOS_CORTE_12": 12,
+    "6_APOS_CASAR_COM_CATALOGO": 4,
+    "ROTULO_NO_PAR_DO_CASO": 25,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 13,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 8,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 8,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 4,
+    "NO_ECRA_PORTALE": 12,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -22433,7 +22146,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -22451,7 +22164,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -22460,7 +22173,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -22469,7 +22182,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -22496,7 +22209,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -22505,7 +22218,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -22514,7 +22227,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -22563,7 +22276,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -22572,7 +22285,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -22581,7 +22294,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -22590,7 +22303,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -22667,20 +22380,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -22691,14 +22393,20 @@
    "GEOGRAFIA": "REGION_UMBRIA",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 71,
-    "2_ROTULO_NO_PAR_DO_CASO": 2,
-    "3_MOTOR_APOS_CORTE_12": 2,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 0,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 69,
+    "1_ACERVO_QUATRO_CASAS": 71,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 25,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 25,
+    "4_ENTRADA_DO_ARQUETIPO": 2,
+    "5_APOS_CORTE_12": 2,
+    "6_APOS_CASAR_COM_CATALOGO": 0,
+    "ROTULO_NO_PAR_DO_CASO": 2,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 2,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 2,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 0,
+    "NO_ECRA_PORTALE": 2,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": []
    },
    "PORTFOLIO": {
@@ -23442,7 +23150,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -23460,7 +23168,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -23469,7 +23177,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -23478,7 +23186,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -23505,7 +23213,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -23514,7 +23222,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -23523,7 +23231,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -23572,7 +23280,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -23581,7 +23289,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -23590,7 +23298,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -23599,7 +23307,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -23676,20 +23384,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -23700,14 +23397,20 @@
    "GEOGRAFIA": "REGION_TOSCANA",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 71,
-    "2_ROTULO_NO_PAR_DO_CASO": 2,
-    "3_MOTOR_APOS_CORTE_12": 2,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 0,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 69,
+    "1_ACERVO_QUATRO_CASAS": 71,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 25,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 25,
+    "4_ENTRADA_DO_ARQUETIPO": 2,
+    "5_APOS_CORTE_12": 2,
+    "6_APOS_CASAR_COM_CATALOGO": 0,
+    "ROTULO_NO_PAR_DO_CASO": 2,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 2,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 2,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 0,
+    "NO_ECRA_PORTALE": 2,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": []
    },
    "PORTFOLIO": {
@@ -24451,7 +24154,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -24469,7 +24172,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -24478,7 +24181,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -24487,7 +24190,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -24514,7 +24217,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -24523,7 +24226,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -24532,7 +24235,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -24581,7 +24284,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -24590,7 +24293,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -24599,7 +24302,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -24608,7 +24311,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -24685,20 +24388,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -24709,14 +24401,20 @@
    "GEOGRAFIA": "REGION_TOSCANA",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 71,
-    "2_ROTULO_NO_PAR_DO_CASO": 6,
-    "3_MOTOR_APOS_CORTE_12": 6,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 65,
+    "1_ACERVO_QUATRO_CASAS": 71,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 25,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 25,
+    "4_ENTRADA_DO_ARQUETIPO": 6,
+    "5_APOS_CORTE_12": 6,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 6,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 5,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 5,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 6,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -25437,7 +25135,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -25455,7 +25153,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -25464,7 +25162,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -25473,7 +25171,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -25500,7 +25198,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -25509,7 +25207,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -25518,7 +25216,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -25567,7 +25265,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -25576,7 +25274,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -25585,7 +25283,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -25594,7 +25292,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -25671,20 +25369,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -25695,14 +25382,20 @@
    "GEOGRAFIA": "REGION_FRIULI_VENEZIA_GIULIA",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 71,
-    "2_ROTULO_NO_PAR_DO_CASO": 12,
-    "3_MOTOR_APOS_CORTE_12": 12,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 2,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 59,
+    "1_ACERVO_QUATRO_CASAS": 71,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 25,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 25,
+    "4_ENTRADA_DO_ARQUETIPO": 12,
+    "5_APOS_CORTE_12": 12,
+    "6_APOS_CASAR_COM_CATALOGO": 2,
+    "ROTULO_NO_PAR_DO_CASO": 12,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 10,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 10,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 2,
+    "NO_ECRA_PORTALE": 12,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -26376,7 +26069,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -26394,7 +26087,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -26403,7 +26096,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -26412,7 +26105,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -26439,7 +26132,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -26448,7 +26141,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -26457,7 +26150,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -26506,7 +26199,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -26515,7 +26208,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -26524,7 +26217,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -26533,7 +26226,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -26610,20 +26303,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -26634,14 +26316,20 @@
    "GEOGRAFIA": "REGION_UMBRIA",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 71,
-    "2_ROTULO_NO_PAR_DO_CASO": 12,
-    "3_MOTOR_APOS_CORTE_12": 12,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 2,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 59,
+    "1_ACERVO_QUATRO_CASAS": 71,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 25,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 25,
+    "4_ENTRADA_DO_ARQUETIPO": 12,
+    "5_APOS_CORTE_12": 12,
+    "6_APOS_CASAR_COM_CATALOGO": 2,
+    "ROTULO_NO_PAR_DO_CASO": 12,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 10,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 10,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 2,
+    "NO_ECRA_PORTALE": 12,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -27315,7 +27003,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -27333,7 +27021,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -27342,7 +27030,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -27351,7 +27039,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -27378,7 +27066,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -27387,7 +27075,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -27396,7 +27084,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -27445,7 +27133,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -27454,7 +27142,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -27463,7 +27151,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -27472,7 +27160,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -27549,20 +27237,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -27573,14 +27250,20 @@
    "GEOGRAFIA": "REGION_EMILIA_ROMAGNA",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 71,
-    "2_ROTULO_NO_PAR_DO_CASO": 12,
-    "3_MOTOR_APOS_CORTE_12": 12,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 2,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 59,
+    "1_ACERVO_QUATRO_CASAS": 71,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 25,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 25,
+    "4_ENTRADA_DO_ARQUETIPO": 12,
+    "5_APOS_CORTE_12": 12,
+    "6_APOS_CASAR_COM_CATALOGO": 2,
+    "ROTULO_NO_PAR_DO_CASO": 12,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 10,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 10,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 2,
+    "NO_ECRA_PORTALE": 12,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -28254,7 +27937,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -28272,7 +27955,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -28281,7 +27964,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -28290,7 +27973,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -28317,7 +28000,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -28326,7 +28009,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -28335,7 +28018,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -28384,7 +28067,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -28393,7 +28076,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -28402,7 +28085,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -28411,7 +28094,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -28488,20 +28171,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -28512,14 +28184,20 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 60,
-    "2_ROTULO_NO_PAR_DO_CASO": 30,
-    "3_MOTOR_APOS_CORTE_12": 12,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 6,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 30,
-    "PERDIDO_PELO_CORTE_12": 18,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 6,
+    "1_ACERVO_QUATRO_CASAS": 60,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 30,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 29,
+    "4_ENTRADA_DO_ARQUETIPO": 29,
+    "5_APOS_CORTE_12": 12,
+    "6_APOS_CASAR_COM_CATALOGO": 6,
+    "ROTULO_NO_PAR_DO_CASO": 29,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 1,
+    "PERDIDO_PELO_CORTE_12": 17,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 6,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 6,
+    "NO_ECRA_PORTALE": 12,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG",
      "LABEL_ONLY"
@@ -28625,8 +28303,7 @@
      {
       "PRODUTO": "EKO OIL SPRAY",
       "FONTES": [
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -29011,7 +28688,7 @@
      }
     ],
     "UNIVERSO_POR_FONTE": {
-     "ROTULO_MINISTERIAL": 30,
+     "ROTULO_MINISTERIAL": 29,
      "CATALOGO_NO_PACOTE": 7,
      "CENSO_FORA_DO_PACOTE": 17,
      "REGISTO_MINISTERIAL": 48
@@ -29074,7 +28751,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -29092,7 +28769,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29101,7 +28778,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 14,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -29110,7 +28787,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29137,7 +28814,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29146,7 +28823,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29155,7 +28832,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29202,7 +28879,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29211,7 +28888,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29220,7 +28897,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29229,7 +28906,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29313,20 +28990,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -29337,21 +29003,27 @@
    "GEOGRAFIA": "GEO_EU",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 54,
-    "2_ROTULO_NO_PAR_DO_CASO": 12,
-    "3_MOTOR_APOS_CORTE_12": 3,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 0,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 42,
-    "PERDIDO_PELO_CORTE_12": 9,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 3,
+    "1_ACERVO_QUATRO_CASAS": 53,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 12,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 8,
+    "4_ENTRADA_DO_ARQUETIPO": 3,
+    "5_APOS_CORTE_12": 3,
+    "6_APOS_CASAR_COM_CATALOGO": 0,
+    "ROTULO_NO_PAR_DO_CASO": 8,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 4,
+    "PERDIDO_PELO_CORTE_12": 0,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 3,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 0,
+    "NO_ECRA_PORTALE": 3,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": []
    },
    "PORTFOLIO": {
-    "PRODUTOS_ADAMA_ENCONTRADOS": 54,
+    "PRODUTOS_ADAMA_ENCONTRADOS": 53,
     "LIGADOS": 2,
     "NAO_LIGADOS": 0,
-    "NAO_SEI": 52,
+    "NAO_SEI": 51,
     "CONTA_FECHA": true,
     "MOSTRADOS_PELA_OPORTUNIDADE": [
      "ANTARKTIS",
@@ -29365,8 +29037,7 @@
      {
       "PRODUTO": "ACTIGAN DFF",
       "FONTES": [
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -29495,15 +29166,6 @@
       "PRODUTO": "FORZA",
       "FONTES": [
        "REGISTO_MINISTERIAL"
-      ],
-      "AUTORIZADO_NO_PAR_DO_CASO": false,
-      "CLASSE_AUTOMATICA": "C_NAO_SEI",
-      "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
-     },
-     {
-      "PRODUTO": "FOX",
-      "FONTES": [
-       "ROTULO"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -29778,11 +29440,10 @@
       "MOTIVO": "sem alvo declarado no caso: nada permite aceitar nem rejeitar"
      },
      {
-      "PRODUTO": "STOPPER P",
+      "PRODUTO": "Stopper P",
       "FONTES": [
        "CENSO_FORA_DO_PACOTE",
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "C_NAO_SEI",
@@ -29848,7 +29509,7 @@
      }
     ],
     "UNIVERSO_POR_FONTE": {
-     "ROTULO_MINISTERIAL": 12,
+     "ROTULO_MINISTERIAL": 8,
      "CATALOGO_NO_PACOTE": 0,
      "CENSO_FORA_DO_PACOTE": 14,
      "REGISTO_MINISTERIAL": 46
@@ -29911,7 +29572,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29929,7 +29590,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29938,7 +29599,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29947,7 +29608,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29974,7 +29635,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29983,7 +29644,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29992,7 +29653,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30038,7 +29699,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30047,7 +29708,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30056,7 +29717,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30065,7 +29726,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30141,20 +29802,9 @@
     "TRANSCRICOES"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -30165,14 +29815,20 @@
    "GEOGRAFIA": "REGION_VENETO",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 69,
-    "2_ROTULO_NO_PAR_DO_CASO": 6,
-    "3_MOTOR_APOS_CORTE_12": 6,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 0,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 63,
+    "1_ACERVO_QUATRO_CASAS": 69,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 18,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 18,
+    "4_ENTRADA_DO_ARQUETIPO": 6,
+    "5_APOS_CORTE_12": 6,
+    "6_APOS_CASAR_COM_CATALOGO": 0,
+    "ROTULO_NO_PAR_DO_CASO": 6,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 6,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 6,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 0,
+    "NO_ECRA_PORTALE": 6,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": []
    },
    "PORTFOLIO": {
@@ -30862,7 +30518,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 1,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH",
@@ -30882,7 +30538,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30891,7 +30547,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -30900,7 +30556,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30927,7 +30583,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30936,7 +30592,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30945,7 +30601,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30994,7 +30650,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31003,7 +30659,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31012,7 +30668,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31021,7 +30677,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31105,20 +30761,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -31129,14 +30774,20 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CANDIDATE",
    "FUNIL": {
-    "1_ACERVO": 14,
-    "2_ROTULO_NO_PAR_DO_CASO": 1,
-    "3_MOTOR_APOS_CORTE_12": 1,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 0,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 13,
+    "1_ACERVO_QUATRO_CASAS": 14,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 1,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 1,
+    "4_ENTRADA_DO_ARQUETIPO": 1,
+    "5_APOS_CORTE_12": 1,
+    "6_APOS_CASAR_COM_CATALOGO": 0,
+    "ROTULO_NO_PAR_DO_CASO": 1,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 1,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 1,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 0,
+    "NO_ECRA_PORTALE": 1,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": []
    },
    "PORTFOLIO": {
@@ -31335,7 +30986,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -31353,7 +31004,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -31362,7 +31013,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 10,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -31371,7 +31022,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31398,7 +31049,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31407,7 +31058,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31416,7 +31067,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31463,7 +31114,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31472,7 +31123,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31481,7 +31132,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31490,7 +31141,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31566,20 +31217,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -31590,14 +31230,20 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 71,
-    "2_ROTULO_NO_PAR_DO_CASO": 25,
-    "3_MOTOR_APOS_CORTE_12": 12,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 4,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 46,
+    "1_ACERVO_QUATRO_CASAS": 71,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 25,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 25,
+    "4_ENTRADA_DO_ARQUETIPO": 25,
+    "5_APOS_CORTE_12": 12,
+    "6_APOS_CASAR_COM_CATALOGO": 4,
+    "ROTULO_NO_PAR_DO_CASO": 25,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 13,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 8,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 8,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 4,
+    "NO_ECRA_PORTALE": 12,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -32250,7 +31896,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -32268,7 +31914,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -32277,7 +31923,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -32286,7 +31932,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -32313,7 +31959,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -32322,7 +31968,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -32331,7 +31977,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -32380,7 +32026,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -32389,7 +32035,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -32398,7 +32044,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -32407,7 +32053,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -32484,20 +32130,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -32508,14 +32143,20 @@
    "GEOGRAFIA": "REGION_LOMBARDIA",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 43,
-    "2_ROTULO_NO_PAR_DO_CASO": 5,
-    "3_MOTOR_APOS_CORTE_12": 5,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 38,
+    "1_ACERVO_QUATRO_CASAS": 43,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 20,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 18,
+    "4_ENTRADA_DO_ARQUETIPO": 5,
+    "5_APOS_CORTE_12": 5,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 5,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 2,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 4,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 4,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 5,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -32613,8 +32254,7 @@
      {
       "PRODUTO": "CHASER-S",
       "FONTES": [
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "B_NAO_LIGADO",
@@ -32855,8 +32495,7 @@
       "FONTES": [
        "CATALOGO_NO_PACOTE",
        "CENSO_FORA_DO_PACOTE",
-       "REGISTO_MINISTERIAL",
-       "ROTULO"
+       "REGISTO_MINISTERIAL"
       ],
       "AUTORIZADO_NO_PAR_DO_CASO": false,
       "CLASSE_AUTOMATICA": "B_NAO_LIGADO",
@@ -32904,7 +32543,7 @@
      }
     ],
     "UNIVERSO_POR_FONTE": {
-     "ROTULO_MINISTERIAL": 20,
+     "ROTULO_MINISTERIAL": 18,
      "CATALOGO_NO_PACOTE": 6,
      "CENSO_FORA_DO_PACOTE": 12,
      "REGISTO_MINISTERIAL": 36
@@ -32983,7 +32622,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -33001,7 +32640,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -33010,7 +32649,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 13,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -33019,7 +32658,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -33046,7 +32685,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -33055,7 +32694,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 1,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH",
@@ -33066,7 +32705,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -33115,7 +32754,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -33124,7 +32763,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -33133,7 +32772,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -33142,7 +32781,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -33221,20 +32860,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -33245,14 +32873,20 @@
    "GEOGRAFIA": "REGION_TOSCANA",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 71,
-    "2_ROTULO_NO_PAR_DO_CASO": 3,
-    "3_MOTOR_APOS_CORTE_12": 3,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 1,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 68,
+    "1_ACERVO_QUATRO_CASAS": 71,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 25,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 25,
+    "4_ENTRADA_DO_ARQUETIPO": 3,
+    "5_APOS_CORTE_12": 3,
+    "6_APOS_CASAR_COM_CATALOGO": 1,
+    "ROTULO_NO_PAR_DO_CASO": 3,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 2,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 2,
     "RAZAO_DO_PRINCIPAL": "UNICO_PRODUTO_DO_CATALOGO_NO_PAR",
+    "NO_ECRA_CASA": 1,
+    "NO_ECRA_PORTALE": 3,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": [
      "LABEL_AND_CATALOG"
     ]
@@ -33994,7 +33628,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -34012,7 +33646,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -34021,7 +33655,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -34030,7 +33664,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -34057,7 +33691,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34066,7 +33700,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -34075,7 +33709,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -34124,7 +33758,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -34133,7 +33767,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34142,7 +33776,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34151,7 +33785,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34228,20 +33862,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -34252,14 +33875,20 @@
    "GEOGRAFIA": "GEO_ITALY",
    "ESTADO": "OPPORTUNITY_CONFIRMED",
    "FUNIL": {
-    "1_ACERVO": 1,
-    "2_ROTULO_NO_PAR_DO_CASO": 1,
-    "3_MOTOR_APOS_CORTE_12": 1,
-    "4_ECRA_APOS_CRUZAR_CATALOGO": 0,
-    "PERDIDO_DO_ACERVO_AO_ROTULO": 0,
+    "1_ACERVO_QUATRO_CASAS": 1,
+    "2_ROTULO_INTEIRO_DA_CULTURA": 1,
+    "3_ROTULO_APOS_PORTAO_CLIENT_SAFE": 1,
+    "4_ENTRADA_DO_ARQUETIPO": 1,
+    "5_APOS_CORTE_12": 1,
+    "6_APOS_CASAR_COM_CATALOGO": 0,
+    "ROTULO_NO_PAR_DO_CASO": 1,
+    "PERDIDO_PELO_PORTAO_CLIENT_SAFE": 0,
     "PERDIDO_PELO_CORTE_12": 0,
-    "PERDIDO_PELO_CRUZAMENTO_CATALOGO": 1,
+    "PERDIDO_AO_CASAR_COM_CATALOGO": 1,
     "RAZAO_DO_PRINCIPAL": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "NO_ECRA_CASA": 0,
+    "NO_ECRA_PORTALE": 1,
+    "AS_DUAS_TELAS_DIVERGEM": true,
     "VALIDACOES_NO_ECRA": []
    },
    "PORTFOLIO": {
@@ -34337,7 +33966,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34355,7 +33984,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34364,7 +33993,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34373,7 +34002,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34400,7 +34029,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34409,7 +34038,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34418,7 +34047,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34454,7 +34083,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -34463,7 +34092,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34472,7 +34101,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34481,7 +34110,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34546,20 +34175,9 @@
     "TRANSCRICOES"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   }
  ]

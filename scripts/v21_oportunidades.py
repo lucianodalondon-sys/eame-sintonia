@@ -380,7 +380,18 @@ def main():
         'COMPETITOR-ACTIVITIES', 'MARKET-OBSERVATIONS', 'CROP-ECONOMIC-WEIGHT',
         'PRODUCT-RELATIONSHIPS', 'PRODUCTS-COMMERCIAL', 'PRODUCTS-REGULATORY',
         'ACTIVE-INGREDIENTS', 'PRODUCT-ACTIVE-INGREDIENTS',
-        'REGULATORY-FUTURE-FACTS', 'PUBLIC-VOICES')}
+        'REGULATORY-FUTURE-FACTS', 'PUBLIC-VOICES',
+        # ── AS QUE FALTAVAM, E QUE ENTRAM PARA SEREM PERGUNTADAS ───────────
+        # Nao para fundar caso: para RESPONDER. Ate aqui o motor lia catorze
+        # coleccoes e o acervo tinha vinte e cinco — e as onze restantes nao
+        # apareciam sequer como zero. Um cartao que nunca perguntou ao clima
+        # nao pode dizer «nao ha clima»: nao ha diferenca, no ficheiro, entre
+        # «procurei e nao achei» e «nunca olhei».
+        #
+        #     ZERO MEDIDO E RESULTADO. ZERO POR OMISSAO E SILENCIO.
+        'AGROMET-CONDITIONS', 'EVENTS', 'FUTURE-EVENTS', 'FUTURE-SIGNALS',
+        'NEWS', 'PUBLIC-CHANNELS', 'REGULATORY-FUTURE', 'RESEARCHERS',
+        'RELATIONSHIPS', 'CLIENT-SAFE-CROSSINGS')}
     cs = {k: [x for x in v if x.get('CLIENT_SAFE')] for k, v in C.items()}
 
     lbl_crop = _ix(cs['PRODUCT-RELATIONSHIPS'], 'CROP_IDS')
@@ -552,6 +563,150 @@ def main():
 
     brutos, rejeitados = [], []
 
+    # ── O CORTE PASSA A TER CONTADOR ─────────────────────────────────────────
+    # `PRODUCT_RELATIONSHIPS` era `produtos[:12]`, e mais nada. Doze e um limite
+    # de LISTA, nao um resultado de varredura — mas, sem nenhum campo ao lado a
+    # dizer quantos ficaram de fora, quem le o cartao nao tem como distinguir
+    # «a ADAMA tem doze produtos» de «a ADAMA tem vinte e cinco e mostrei doze».
+    #
+    # MEDIDO em 2026-09-06 sobre o pacote servido (V21-69bf448ac934a6d9), por
+    # scripts/v21_completude_oportunidade.py: 19 dos 43 cartoes perdem produto
+    # aqui, 184 produtos ao todo. O pior corta 23 autorizados para 1.
+    #
+    #     UM CORTE SEM CONTADOR NAO E UM RESUMO: E UMA AFIRMACAO DE TOTAL.
+    #
+    # O corte FICA — mudar o tamanho da lista mudaria o ecra, e isto e contrato,
+    # nao casco. O que passa a existir e a conta que ele devia sempre ter tido,
+    # e ela e obrigada a fechar:
+    #
+    #     ENCONTRADOS = LIGADOS + NAO_LIGADOS + NAO_SEI
+    #
+    # LIGADOS   o rotulo ministerial nomeia o produto para a cultura E o alvo.
+    # NAO_LIGADOS  existe na cultura, e o rotulo nao o nomeia para este alvo.
+    # NAO_SEI   o caso nao tem alvo declarado: nada permite aceitar nem rejeitar.
+    #
+    # A classe NAO SEI nao e falha de varredura. E o resultado honesto quando a
+    # pergunta nao tem alvo — e sem ela a conta so fecharia a mentir.
+    TETO_DA_LISTA = 12
+
+    def varredura(crop, alvo, produtos):
+        universo = sorted({r.get('PRODUCT_NAME')
+                           for r in lbl_crop.get(crop, [])
+                           if r.get('PRODUCT_NAME')}) if crop else []
+        no_par = sorted({r.get('PRODUCT_NAME')
+                         for r in lbl_crop.get(crop, [])
+                         if alvo in (r.get('ISSUE_IDS') or []) and r.get('PRODUCT_NAME')}) \
+            if (crop and alvo) else []
+        ligados = [p for p in universo if p in set(no_par)]
+        nao_ligados = [p for p in universo if alvo and p not in set(no_par)]
+        nao_sei = [p for p in universo if not alvo]
+        omitidos = list(produtos[TETO_DA_LISTA:])
+        v = {
+            'PORTFOLIO_SCAN_FOUND': len(universo),
+            'PORTFOLIO_SCAN_LINKED': len(ligados),
+            'PORTFOLIO_SCAN_NOT_LINKED': len(nao_ligados),
+            'PORTFOLIO_SCAN_UNKNOWN': len(nao_sei),
+            'PORTFOLIO_SCAN_LINKED_NAMES': ligados,
+            'PORTFOLIO_SCAN_NOT_LINKED_REASON': (
+                'o rotulo ministerial existe para esta cultura e NAO nomeia este '
+                'produto para o alvo do caso' if alvo else None),
+            'PORTFOLIO_SCAN_UNKNOWN_REASON': (
+                None if alvo else
+                'o caso nao declara alvo: nada no acervo permite aceitar nem '
+                'rejeitar a relacao produto x problema'),
+            'PORTFOLIO_LIST_CAP': TETO_DA_LISTA,
+            'PORTFOLIO_LIST_TOTAL_BEFORE_CAP': len(produtos),
+            'PORTFOLIO_LIST_OMITTED': len(omitidos),
+            'PORTFOLIO_LIST_OMITTED_NAMES': omitidos,
+            'PORTFOLIO_SCAN_LAW': (
+                'ENCONTRADOS = LIGADOS + NAO_LIGADOS + NAO_SEI, e a conta fecha ou '
+                'a varredura falhou. O universo aqui e o do ROTULO MINISTERIAL '
+                'desta cultura — nao e o portfolio inteiro: o catalogo comercial e '
+                'o registo tem outras casas, e a completude entre elas mede-se em '
+                'scripts/v21_completude_oportunidade.py.'),
+            'PORTFOLIO_SCAN_DOES_NOT_PROVE': (
+                'produto disponivel para a cultura NAO e produto indicado para este '
+                'caso. LIGADO diz que o rotulo nomeia o par, e nada mais: nao prova '
+                'eficacia, dose, selectividade nem que o produtor va tratar.'),
+        }
+        assert v['PORTFOLIO_SCAN_FOUND'] == (
+            v['PORTFOLIO_SCAN_LINKED'] + v['PORTFOLIO_SCAN_NOT_LINKED']
+            + v['PORTFOLIO_SCAN_UNKNOWN']), (crop, alvo)
+        return v
+
+    # ── A CONSULTA A TODO O ACERVO, QUE NAO PROMOVE NADA ─────────────────────
+    # Regra, e ela e estreita de proposito:
+    #
+    #     O CARTAO TEM DE PERGUNTAR A TODAS AS FAMILIAS.
+    #     NAO TEM DE ACHAR EM TODAS. E ACHAR AQUI NAO LIGA NADA.
+    #
+    # Este registo NAO entra em EVIDENCE_IDS, NAO entra no score, NAO abre nem
+    # fecha portao e NAO muda estado nenhum. Se entrasse, uma familia nova
+    # mudaria julgamentos ja emitidos — e isso nao e medir o acervo, e reescrever
+    # a leitura por baixo de quem a leu. Ele responde uma pergunta so: esta
+    # familia foi perguntada, e o que devolveu?
+    #
+    # MATCH        nomeia a cultura E o alvo do caso (ou a regiao, onde a
+    #              familia nao tem alvo). E a unica que se pode chamar ligacao.
+    # CROP_ONLY    nomeia a cultura, e mais nada. Contexto, nunca prova:
+    #              um herbicida de videira nao diz nada sobre a flavescencia.
+    # NOT_FOUND    perguntei, e o acervo nao tem.
+    # NO_CROP_KEY  a familia nao se deixa cruzar por cultura. Nao e ausencia
+    #              de dado: e ausencia de chave, e isso tambem e uma medida.
+    FAMILIAS_CRUZADAS = {
+        'FIELD_SIGNAL': ('CURRENT-FIELD-SIGNALS', True),
+        'CROP_WINDOW': ('CROP-WINDOWS', True),
+        'RESISTANCE': ('RESISTANCE', True),
+        'SCIENCE': ('SCIENCE', True),
+        'COMPETITOR': ('COMPETITOR-ACTIVITIES', True),
+        'MARKET': ('MARKET-OBSERVATIONS', True),
+        'ECONOMIC_WEIGHT': ('CROP-ECONOMIC-WEIGHT', True),
+        'LABEL_USE': ('PRODUCT-RELATIONSHIPS', True),
+        'COMMERCIAL_CATALOG': ('PRODUCTS-COMMERCIAL', True),
+        'REGULATORY_REGISTRY': ('PRODUCTS-REGULATORY', True),
+        'PUBLIC_VOICE': ('PUBLIC-VOICES', True),
+        'AGROMET': ('AGROMET-CONDITIONS', True),
+        'EVENT': ('EVENTS', True),
+        'FUTURE_EVENT': ('FUTURE-EVENTS', True),
+        'FUTURE_SIGNAL': ('FUTURE-SIGNALS', True),
+        'NEWS': ('NEWS', True),
+        'REGULATORY_FUTURE': ('REGULATORY-FUTURE', True),
+        'REGULATORY_FUTURE_FACT': ('REGULATORY-FUTURE-FACTS', True),
+        'ACTIVE_INGREDIENT': ('ACTIVE-INGREDIENTS', False),
+        'PRODUCT_ACTIVE_INGREDIENT': ('PRODUCT-ACTIVE-INGREDIENTS', False),
+        'PUBLIC_CHANNEL': ('PUBLIC-CHANNELS', False),
+        'RESEARCHER': ('RESEARCHERS', False),
+        'RELATIONSHIP': ('RELATIONSHIPS', False),
+        'CLIENT_SAFE_CROSSING': ('CLIENT-SAFE-CROSSINGS', False),
+    }
+
+    def consulta_o_acervo(crop, alvo, geo):
+        out = {}
+        for fam, (col, tem_chave) in sorted(FAMILIAS_CRUZADAS.items()):
+            regs = cs.get(col) or []
+            if not tem_chave or not crop:
+                out[fam] = {'CONSULTED': True, 'RESULT': 'NO_CROP_KEY',
+                            'MATCH': 0, 'CROP_ONLY': 0, 'IN_FAMILY': len(regs)}
+                continue
+            forte, so_cultura = [], []
+            for r in regs:
+                if crop not in (r.get('CROP_IDS') or []):
+                    continue
+                so_cultura.append(r)
+                if alvo and alvo in (r.get('ISSUE_IDS') or []):
+                    forte.append(r)
+                elif not alvo and geo and geo in (r.get('REGION_IDS') or []):
+                    forte.append(r)
+            out[fam] = {
+                'CONSULTED': True,
+                'RESULT': ('MATCH' if forte else
+                           'CROP_ONLY' if so_cultura else 'NOT_FOUND'),
+                'MATCH': len(forte), 'CROP_ONLY': len(so_cultura),
+                'IN_FAMILY': len(regs),
+                'EVIDENCE': [r['ID'] for r in forte[:8] if r.get('ID')],
+            }
+        return out
+
     def emitir(arquetipo, crop, alvo, geo, escopo, apoios, link, produtos,
                numeros, dim, acao, rotulos=(), pinos=()):
         T = TEXTO[arquetipo]
@@ -571,7 +726,7 @@ def main():
              'WINDOW_STATE': jest, 'WINDOW_FIELD': jcampo, 'WINDOW_KIND': jtipo,
              'SIGNAL_DATE': sdata, 'SIGNAL_AGE_DAYS': sidade,
              'PRODUCT_LINK_STATE': link,
-             'PRODUCT_RELATIONSHIPS': produtos[:12],
+             'PRODUCT_RELATIONSHIPS': produtos[:TETO_DA_LISTA],
              'EVIDENCE_IDS': [a['ID'] for a in apoios],
              'EVIDENCE_FAMILIES': sorted({a.get('ENTITY_TYPE') for a in apoios}),
              'WHY_NOW': porque_agora, 'ADAMA_RELEVANCE': relevancia,
@@ -579,6 +734,29 @@ def main():
              'WHAT_IT_PROVES': prova, 'WHAT_IT_DOES_NOT_PROVE': nao_prova,
              'SCORE_DIMENSIONS': dim, 'OPPORTUNITY_SCORE': score(dim),
              'ACTION_MAP': acao}
+        o.update(varredura(crop, alvo, produtos))
+        scan = consulta_o_acervo(crop, alvo, geo)
+        o['CROSS_INTELLIGENCE_SCAN'] = scan
+        o['CROSS_INTELLIGENCE_FAMILIES_CONSULTED'] = len(scan)
+        o['CROSS_INTELLIGENCE_FAMILIES_WITH_MATCH'] = sorted(
+            k for k, v in scan.items() if v['RESULT'] == 'MATCH')
+        o['CROSS_INTELLIGENCE_FAMILIES_CROP_ONLY'] = sorted(
+            k for k, v in scan.items() if v['RESULT'] == 'CROP_ONLY')
+        o['CROSS_INTELLIGENCE_FAMILIES_NOT_FOUND'] = sorted(
+            k for k, v in scan.items() if v['RESULT'] == 'NOT_FOUND')
+        o['CROSS_INTELLIGENCE_FAMILIES_NO_CROP_KEY'] = sorted(
+            k for k, v in scan.items() if v['RESULT'] == 'NO_CROP_KEY')
+        o['CROSS_INTELLIGENCE_LAW'] = (
+            'a oportunidade CONSULTA todas as familias e nao precisa de achar em '
+            'todas. Este registo nao entra em EVIDENCE_IDS, nao entra no score e '
+            'nao move portao nenhum: existe para que NOT_FOUND seja um zero '
+            'MEDIDO, e nao o silencio de uma familia que nunca foi perguntada.')
+        o['CROSS_INTELLIGENCE_DOES_NOT_PROVE'] = (
+            'CROP_ONLY nao e ligacao. Um registo que nomeia a cultura e nao o '
+            'alvo do caso e contexto, e promove-lo a evidencia seria ligar por '
+            'cultura — exactamente o que esta lei proibe. E o corpus de video, '
+            'as transcricoes e o censo do catalogo NAO estao aqui: nunca foram '
+            'ingeridos no pacote, e por isso nao ha familia para perguntar.')
         o.update(camada_comercial(o, apoios, rotulos, pinos))
         o['STATUS'] = estado_temporal(dias, arquetipo, jest != 'UNKNOWN')
         if o['STATUS'] == 'WATCH' and sidade is not None and sidade <= 30:
@@ -867,6 +1045,12 @@ def gravar(brutos, C, cs):
                            'dentro e frase nova a cada build e nunca fica traduzida.',
             'PRODUCT_LINK_STATE': o['PRODUCT_LINK_STATE'],
             'PRODUCT_RELATIONSHIPS': o['PRODUCT_RELATIONSHIPS'],
+            # A varredura viaja INTEIRA para o registro. Deixar estes campos no
+            # objeto de trabalho e nao os copiar aqui seria o mesmo silencio de
+            # antes, so que uma camada mais abaixo.
+            **{k: o[k] for k in o if k.startswith('PORTFOLIO_SCAN_')
+               or k.startswith('PORTFOLIO_LIST_')
+               or k.startswith('CROSS_INTELLIGENCE_')},
             'EVIDENCE_IDS': o['EVIDENCE_IDS'],
             'EVIDENCE_FAMILIES': o['EVIDENCE_FAMILIES'],
             'EVIDENCE_COUNT': len(o['EVIDENCE_IDS']),
