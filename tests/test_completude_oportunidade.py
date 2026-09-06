@@ -144,8 +144,15 @@ class TestCruzamentoDeInteligencia(unittest.TestCase):
         EVIDENCE_FAMILIES: elas SAO a evidencia do arquetipo O1, e ja eram
         antes deste scan existir. O que se proibe e o scan ACRESCENTAR.
         """
+        # Compara-se por CONJUNTO, nao por lista: a ORDEM de EVIDENCE_IDS nao e
+        # invariante entre linhagens — o gerador canonico ordena, esta nao — e um
+        # teste que reprova por ordem reprova pela razao errada, exactamente onde
+        # o handoff precisa de ser lido.
+        #
+        #     UM TESTE QUE FALHA POR ORDEM NAO ESTA A GUARDAR O CONTEUDO.
         for o, apoios in self.brutos:
-            self.assertEqual([a['ID'] for a in apoios], o['EVIDENCE_IDS'],
+            self.assertEqual(sorted({a['ID'] for a in apoios}),
+                             sorted(set(o['EVIDENCE_IDS'])),
                              'o scan acrescentou evidencia em %s' % o['ID'])
             # O scan PODE achar o que a evidencia nao cita — e isso que o torna
             # uma leitura do acervo, e nao uma segunda porta para a evidencia.
