@@ -1,0 +1,53 @@
+{
+ "note": "DIAGNOSTIC. Uses target-season weather deliberately. Never a forecast, never read by backtest.py.",
+ "n_seasons": 20,
+ "correlations": [
+  {
+   "feature": "ts_precip_sum",
+   "spearman": 0.612,
+   "p_permutation": 0.0048
+  },
+  {
+   "feature": "ts_rh_mean",
+   "spearman": 0.595,
+   "p_permutation": 0.0061
+  },
+  {
+   "feature": "ts_heavy_days",
+   "spearman": 0.57,
+   "p_permutation": 0.0103
+  },
+  {
+   "feature": "ts_rain_days",
+   "spearman": 0.559,
+   "p_permutation": 0.01195
+  },
+  {
+   "feature": "ts_rh75_days",
+   "spearman": 0.502,
+   "p_permutation": 0.02545
+  },
+  {
+   "feature": "ts_infection_events_10_10",
+   "spearman": 0.332,
+   "p_permutation": 0.15354
+  },
+  {
+   "feature": "ts_tmean",
+   "spearman": -0.205,
+   "p_permutation": 0.38368
+  }
+ ],
+ "cheating_model": {
+  "feature_chosen_after_seeing_answers": "ts_precip_sum",
+  "n": 20,
+  "accuracy": 0.55,
+  "mean_abs_class_dist": 0.5,
+  "blunders_2class": 1,
+  "p_permutation": 0.04035
+ },
+ "honest_antecedent_best_accuracy": 0.4,
+ "climatology_baseline": 0.4,
+ "max_abs_spearman": 0.612,
+ "VERDICT": "PATHWAY_REAL_BUT_NOT_KNOWABLE_IN_ADVANCE \u2014 the season's own weather does predict the index, but antecedent weather does not. A 12M outlook is therefore blocked by the horizon, not by the data quality, and the honest product is a within-season warning."
+}
