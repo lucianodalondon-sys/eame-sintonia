@@ -1495,8 +1495,14 @@ const PAR_ROTULO = {
     'os riscos que atravessam a coluna tem as duas pontas da linha de texto acima deles: sao sublinhado de titulo, e sublinhado nao fecha celula'],
   PAIR_NOT_CHECKABLE_TABLE_NOT_DESCRIBING_ITS_TEXT: ['p-unk', 'TABELA · GRADE NAO DESCREVE O TEXTO',
     'a grade existe e foi lida, mas alguma linha que comeca dentro dela termina fora: o que parecia celula e risco de titulo, e o teste nao se aplica'],
-  PAIR_NOT_CHECKABLE_ANCHOR_NOT_FOUND: ['p-unk', 'TABELA · ALVO NAO LOCALIZADO',
-    'o nome deste alvo nao ocorre na pagina, entao nao ha o que localizar na celula'],
+  // A FRASE DIZIA MAIS DO QUE A REGRA TESTOU. R-14 nao olha "a pagina" do par —
+  // 1.427 pares nem preservaram PAGE — ele varre TODAS as paginas e so cai aqui
+  // quando o nome da cultura e o do alvo NUNCA aparecem na MESMA pagina. Dizer
+  // "o nome deste alvo nao ocorre na pagina" e uma afirmacao sobre o documento
+  // que a regra nao fez: em muitos destes o alvo ocorre, e o que falta e a
+  // coincidencia com a cultura. Medido pela lente L: falso em 80 dos 256.
+  PAIR_NOT_CHECKABLE_ANCHOR_NOT_FOUND: ['p-unk', 'TABELA · CULTURA E ALVO NUNCA NA MESMA PAGINA',
+    'em nenhuma pagina do PDF o nome desta cultura e um glifo deste alvo aparecem juntos — o alvo pode estar escrito noutra pagina, ou com outro nome (o rotulo costuma usar o binomio latino). Nao ha celula a testar, e isto NAO diz que o alvo nao esta no documento'],
   PAIR_NOT_CHECKABLE_CROP_ALSO_OUTSIDE_TABLE: ['p-unk', 'TABELA · EVIDENCIA MISTA',
     'parte das ocorrencias do nome da cultura esta dentro de celula desenhada e parte nao: o teste nao alcanca todas. So fica assim quando algum glifo do alvo NAO mora na celula de outra cultura — se todos moram, o alvo tem dono e o par e condenado'],
   PAIR_NOT_CHECKABLE_CROP_NAME_NOT_THE_ANCHOR: ['p-unk', 'TABELA · CELULA FECHOU PELO TITULO',
