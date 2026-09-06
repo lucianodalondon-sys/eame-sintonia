@@ -97,6 +97,7 @@
   <main style="flex:1;min-width:0;display:flex;flex-direction:column">
     <header style="position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;padding:0 22px;height:48px;background:rgba(14,17,17,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(203,197,195,0.10)">
       <div style="display:flex;align-items:center;gap:8px;font-size:10.5px;letter-spacing:0.10em;color:#8F8886;flex:1;min-width:0;white-space:nowrap;overflow:hidden">
+        <sc-if value="{{ canBack }}" hint-placeholder-val="{{ false }}"><span onClick="{{ goBack }}" title="{{ backLabel }}" style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:7px;border:1px solid rgba(203,197,195,0.20);color:#D6D2D0;cursor:pointer;font-size:12px;line-height:1" style-hover="border-color:#009845;color:#fff">←</span></sc-if>
         <span style="color:#fff;font-weight:700">{{ pageTitle }}</span>
         <sc-if value="{{ hasCrumb }}" hint-placeholder-val="{{ false }}"><span style="color:#8F8886">/</span><span style="overflow:hidden;text-overflow:ellipsis">{{ crumb }}</span></sc-if>
       </div>
@@ -2385,6 +2386,33 @@ class Component extends DCLogic {
     productId: null, portTab: 'commercial', portCat: '',
     windowId: null, wCrop: '', wBucket: '', calCrop: 'Durum Wheat', calRegion: null, calStart: 7, calH: 12, calBucket: '', calMode: 'calendar', calDetail: false, signalId: null, sigGroup: '', evidenceIdx: null, briefDept: null, copied: false, showNotifs: false, fieldState: '', showComposer: false, composerText: '', extraMessages: [] };
 
+  /* ── navigation history ───────────────────────────────────────────────
+     Every screen change goes through go(). Before it lands, the current
+     screen is pushed onto _nav, and a matching entry is pushed onto the
+     browser history so the browser's own Back button walks the portal
+     instead of leaving it. Language and the in-progress composer are user
+     state, not a location, so they are never restored by Back. */
+  _nav = [];
+  _navKeys() { return Object.keys(this.state).filter(k => !['lang', 'copied', 'showNotifs', 'showComposer', 'composerText', 'extraMessages'].includes(k)); }
+  _navSnapshot() { const o = {}; for (const k of this._navKeys()) o[k] = this.state[k]; return o; }
+  _wireHistory() {
+    if (this._historyWired || typeof window === 'undefined' || !window.addEventListener || !window.history) return;
+    this._historyWired = true;
+    try { window.history.replaceState({ sintonia: 0 }, ''); } catch (e) { /* file:// */ }
+    window.addEventListener('popstate', () => { if (this._nav.length) this.back(true); });
+  }
+  /** Return to the screen the user came from. fromPopstate skips history.back(). */
+  back(fromPopstate) {
+    if (!this._nav.length) return false;
+    const prev = this._nav.pop();
+    this.setState(prev);
+    if (typeof window !== 'undefined' && window.scrollTo) window.scrollTo(0, 0);
+    if (!fromPopstate && typeof window !== 'undefined' && window.history && window.history.back) { try { this._skipPop = true; window.history.back(); } catch (e) { /* noop */ } }
+    return true;
+  }
+  goBack() { return this.back(); }
+  canGoBack() { return this._nav.length > 0; }
+
   openWindow(id) { this.go({ view: 'window', windowId: id }); }
   openEvent(id) { this.go({ view: 'event', eventId: id }); }
   openCProduct(name) { this.go({ view: 'cproduct', cproductId: name }); }
@@ -2409,10 +2437,16 @@ class Component extends DCLogic {
 
   /* §6 · A product is an entity, not a radar filter. */
   openProduct(name) {
-    this.setState({ view: 'product', productId: String(name || '').trim().toUpperCase(), archiveId: null, showNotifs: false });
-    window.scrollTo(0, 0);
+    this.go({ view: 'product', productId: String(name || '').trim().toUpperCase() });
   }
-  go(patch) { this.setState(Object.assign({ archiveId: null, showNotifs: false }, patch)); if (typeof window !== 'undefined') window.scrollTo(0, 0); }
+  go(patch) {
+    this._wireHistory();
+    this._nav.push(this._navSnapshot());
+    if (this._nav.length > 60) this._nav.shift();
+    if (typeof window !== 'undefined' && window.history && window.history.pushState) { try { window.history.pushState({ sintonia: this._nav.length }, ''); } catch (e) { /* file:// */ } }
+    this.setState(Object.assign({ archiveId: null, showNotifs: false }, patch));
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
+  }
   openCase(id) { this.go({ view: 'case', caseId: id }); }
   openCompany(name) { this.go({ view: 'company', companyId: name }); }
   openTheme(id) { this.go({ view: 'theme', themeId: id }); }
@@ -3423,6 +3457,7 @@ class Component extends DCLogic {
 
     return {
       nav, kpi: K, todayLabel: D.fmt(D.TODAY).toUpperCase(), pageTitle: titles[s.view], crumb, hasCrumb: !!crumb,
+      canBack: this.canGoBack(), goBack: () => this.back(), backLabel: (s.lang === 'it' ? 'Indietro' : 'Back'),
       query: s.query, onQuery: (e) => this.setState({ query: e.target.value }), onQueryKey: (e) => { if (e.key === 'Enter' && s.query.trim()) this.go({ view: 'search', committedQuery: s.query }); },
       isSignal: s.view === 'signal', sg, hasEvidence: !!ev, ev: ev || {}, closeEvidence: () => this.setState({ evidenceIdx: null }),
       isProduct: s.view === 'product', pd: pd || {}, hasPd: !!pd,
