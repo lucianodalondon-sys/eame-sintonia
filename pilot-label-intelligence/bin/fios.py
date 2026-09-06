@@ -22,6 +22,23 @@ que o leitor humano ve, que e o mesmo criterio do gabarito feito a mao.
 Devolve as coordenadas ja no espaco do `-bbox-layout` (origem no topo, em pontos),
 para casar direto com as palavras.
 
+## Nem toda etichetta tem grade desenhada
+
+Medido nos 15 produtos da demo: DURAVIS e ELTIRA tem 136 segmentos na pagina da
+tabela, APHOX tem 75, e a maioria dos outros fica entre 3 e 22 — ou seja, a
+tabela de usos deles **nao tem fio desenhado**, e a separacao de linha e so
+espaco em branco.
+
+Consequencia direta para quem usa este modulo: onde ha grade, a mescla e
+PROVADA; onde nao ha, ela continua sendo inferencia, e o leitor tem de cair para
+o comportamento conservador em vez de fingir que provou. Os dois casos existem no
+mesmo acervo.
+
+(De quebra: DURAVIS e ELTIRA sao documentos diferentes — sha256 diferente, 16 mil
+contra 34 mil caracteres — e mesmo assim tem os 136 segmentos IDENTICOS na pagina
+da tabela. Nao e cache: e a mesma tabela de usos de lambda-cialotrina publicada
+sob duas marcas.)
+
 ## O detalhe que faz a coisa funcionar: o fio tem inicio e fim
 
 Uma celula mesclada nao e "sem fio entre as linhas". E **sem fio NAQUELA COLUNA**.
@@ -33,7 +50,7 @@ os dois casos e responde sempre "celulas diferentes".
 Por isso cada fio horizontal e guardado como SEGMENTO (y, x_inicio, x_fim), e a
 pergunta e sempre feita com a faixa x da coluna junto.
 """
-import argparse, json, os, subprocess, sys, tempfile
+import argparse, hashlib, json, os, subprocess, sys, tempfile
 
 
 def _pgm(path):
@@ -68,14 +85,19 @@ def fios(pdf, pagina, dpi=150, escuro=128, minimo_pt=60.0, cache=None):
     contigua separa os dois sem depender de limiar fino.
     """
     tmpd = cache or tempfile.mkdtemp()
-    pref = os.path.join(tmpd, f"p{pagina}")
+    # A chave do cache tem de conter o DOCUMENTO. Sem isso todos os rotulos
+    # compartilham /cache/p3-3.pgm e a segunda etichetta em diante le os fios da
+    # primeira — em silencio, com numeros plausiveis. Foi medido: quinze rotulos
+    # devolveram exatamente 136 segmentos, que eram os do 015275.
+    chave = hashlib.sha256(os.path.abspath(pdf).encode()).hexdigest()[:12]
+    pref = os.path.join(tmpd, f"{chave}-p{pagina}")
     alvo = f"{pref}-{pagina}.pgm"
     if not os.path.exists(alvo):
         subprocess.run(["pdftoppm", "-gray", "-r", str(dpi),
                         "-f", str(pagina), "-l", str(pagina), pdf, pref],
                        check=True, capture_output=True)
         cand = [f for f in os.listdir(tmpd)
-                if f.startswith(os.path.basename(pref)) and f.endswith(".pgm")]
+                if f.startswith(os.path.basename(pref) + "-") and f.endswith(".pgm")]
         if not cand:
             return {"H": [], "V": [], "STATE": "RENDER_FAILED"}
         alvo = os.path.join(tmpd, sorted(cand)[0])
