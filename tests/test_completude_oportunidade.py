@@ -633,6 +633,46 @@ class TestNaoSeiNaoViraZero(unittest.TestCase):
             self.assertTrue(apoios, 'cartao sem apoio nenhum: %s' % o['ID'])
             self.assertTrue(o['EVIDENCE_IDS'], o['ID'])
 
+    def test_a_chave_do_indice_de_cultura_nao_funde_produtos_distintos(self):
+        """A autoridade de cultura junta por NOME NORMALIZADO. Isso e o que faz
+        «Avastel®» e «AVASTEL» serem o mesmo produto — e e tambem o que faria
+        dois produtos DIFERENTES trocarem culturas em silencio.
+
+        A trava e o numero de registo: se duas grafias que a chave funde
+        tiverem numeros de registo diferentes, nao sao grafias — sao produtos,
+        e a fusao passou a emprestar cultura de um ao outro.
+
+            UMA CHAVE QUE UNE GRAFIAS TAMBEM UNE HOMONIMOS.
+            O QUE SEPARA OS DOIS CASOS E O REGISTO, NAO O NOME.
+        """
+        import re as _re
+        from collections import defaultdict
+        base = os.path.join(ING, '%s.json')
+
+        def le(n):
+            return json.load(open(base % n, encoding='utf-8'))['RECORDS']
+
+        def chave(n):
+            return _re.sub(r'[^a-z0-9]', '', str(n or '').lower())
+
+        def num(x):
+            return _re.sub(r'\D', '', str(x or '')).lstrip('0').zfill(6)
+        registos = defaultdict(set)
+        for p in le('PRODUCTS-REGULATORY'):
+            if p.get('CLIENT_SAFE'):
+                registos[chave(p.get('NAME'))].add(num(p.get('REGISTRATION_NUMBER')))
+        for p in le('PRODUCTS-COMMERCIAL'):
+            if not p.get('CLIENT_SAFE'):
+                continue
+            n = num(p.get('MATCHED_REGULATORY_ID')
+                    or p.get('REGISTRATION_NUMBER_ON_PAGE'))
+            if n != '000000':
+                registos[chave(p.get('NAME'))].add(n)
+        colididos = {a: sorted(b) for a, b in registos.items() if len(b) > 1}
+        self.assertEqual({}, colididos,
+                         'a chave de nome funde produtos com registos '
+                         'diferentes: %s' % colididos)
+
     def test_cartao_sem_cultura_declara_que_nao_filtrou(self):
         """Nao filtrar tem de ser dito. Silencio leria-se como «filtrei e passou»."""
         for o, _ in self.brutos:
