@@ -7664,7 +7664,15 @@ class Component extends DCLogic {
     const CISS = CX('competitorIssueDensity');
     const CMX = CX('competitorMatrix');
     const CWM = CX('competitorWindowMoments').records;
-    const CEVENTS = CX('futureEvents').records;
+    /* O REGISTO DO SECTOR, NAO O RECORTE DA PARTICIPACAO.
+       Esta lista mostra os eventos do sector; `futureEvents` e o recorte de 14
+       de quem ja teve a participacao verificada, e o modelo so aceita 2 deles
+       (os outros 12 chegam sem nome, sem cultura e sem data propria). Ler o
+       recorte pelo registo punha DOIS cartoes onde o pacote tem DEZOITO com
+       nome, data, local, organizador e URL oficial. Os 14 continuam aqui: sao
+       um subconjunto de `events`, e os que trazem CONFIRMED_PARTICIPATION
+       continuam a traze-la. */
+    const CEVENTS = CX('events').records;
     const EN = s.lang === 'en';
     const TX = (it, en) => (EN ? en : it);
     /* THE NARRATIVE RULE · upstream prose is a Portuguese working note unless an

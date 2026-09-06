@@ -3379,8 +3379,18 @@
     },
   ], 'traceable source registry; the group is derived from TYPE through a table written out in full');
 
-  const futureEvents = build('futureEvents', [
-    V21('futureEvents', (e) => {
+  /* ── UM EVENTO E UM EVENTO, VENHA DE QUAL FAMILIA VIER ───────────────────
+     O pacote publica DUAS familias de evento e elas partilham 62 campos:
+     `events` (40) e o registo do sector, `futureEvents` (14) e o recorte de
+     quem ja teve a participacao verificada. O adaptador e o mesmo, e por isso
+     esta escrito UMA vez — duas copias divergem, e a divergencia so aparece
+     quando ja custou.
+
+     START_DATE nao existe em EVENTS.json; o que existe e DATE, que traz a
+     faixa ('2026-02-04 a 2026-02-07'). `isoRange` ja a parte. Um evento sem
+     nome nao e um evento: `validate` recusa-o, a recusa e contada, e a
+     aritmetica do motor continua a fechar. */
+  const v21Evento = (e) => {
       /* The package parses the date itself and says how precisely. A range that
          it could not parse arrives as a state, not as a guessed day. */
       const startDate = v21S(e.START_DATE) || isoRange(v21S(e.DATE))[0];
@@ -3402,7 +3412,11 @@
         note: v21Text(e, 'NOTE'),
         daysFromRef: daysFrom(startDate), daysToStart: daysFrom(startDate),
       });
-    }, (r) => (!r.id ? 'no ID' : !r.name ? 'no event name' : null)),
+  };
+  const v21EventoValido = (r) => (!r.id ? 'no ID' : !r.name ? 'no event name' : null);
+
+  const futureEvents = build('futureEvents', [
+    V21('futureEvents', v21Evento, v21EventoValido),
     {
       source: 'ITALY_INGEST.EVENTS',
       precedence: P.REAL_SOURCE,
@@ -3442,6 +3456,24 @@
       validate: (r) => (!r.id ? 'no ID' : !r.name ? 'no event name' : null),
     },
   ], 'real sector events; a date range is split, never flattened');
+
+  /* ── O REGISTO DO SECTOR, QUE ANTES NINGUEM LIA ──────────────────────────
+     `events` era um ALIAS de `futureEvents` na tabela das coleccoes. O modelo
+     expunha uma coleccao com o nome de uma familia do pacote e o conteudo de
+     outra: 40 registos publicados, 2 alcancaveis, e nenhum numero vermelho em
+     lado nenhum.
+
+         UM ALIAS E UMA PERDA QUE SE APRESENTA COMO UM NUMERO CERTO.
+
+     Medido no pacote canonico: dos 40, DEZOITO trazem nome, data, local,
+     organizador, sector e URL oficial — Fieragricola 2026, Macfrut 2026,
+     Enovitis in Campo 2026, os campos da Universita di Perugia e as giornate
+     in campo da Emilia-Romagna, Piemonte, Lombardia, Puglia e Veneto. Os
+     outros 22 nao tem nome nenhum e sao recusados aqui, contados na recusa.
+     `audit/cadeia-de-familias.mjs` T1/T4 e o portao que apanhou isto. */
+  const events = build('events', [
+    V21('events', v21Evento, v21EventoValido),
+  ], 'sector event registry; an event without a name is refused, not renamed');
 
   const news = build('news', [
     V21('news', (n) => Object.assign(v21Env(n), {
@@ -4556,7 +4588,7 @@
     regulatoryFuture, regulatoryFutureFacts, agrometConditions, futureEvents,
     opportunities, futureSignals,
     /* registry */
-    sources, events: futureEvents, news,
+    sources, events, news,
     /* graph */
     relationships, clientSafeCrossings,
     /* derived */
