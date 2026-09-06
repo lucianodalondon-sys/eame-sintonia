@@ -166,6 +166,7 @@
         "EVIDENCE_CLASS": ["PRIMARY_SOURCE_RAW", "PRIMARY_SOURCE_PROBE", "OFFICIAL_DOCUMENT", "OFFICIAL_STATISTIC", "OFFICIAL_MARKET_OBSERVATION", "SCIENTIFIC_LITERATURE", "REGULATORY_FACT", "DERIVED_INTERPRETATION", "DERIVED_SCOPE", "DERIVED_MEASUREMENT", "DERIVED_IDENTITY", "TECHNICAL_AUTHORITY_DECLARATION"],
         "MODELO_DE_IDENTIDADE": "tabela 'Qualidade de fonte, declarada campo a campo' (PRIMÁRIA vs secundária)"
       },
+      "BUSCA_QUE_PROVOU_AUSENCIA": "grep por PROOF_STATE|EVIDENCE_STRENGTH|FORCA_DA_PROVA em data/ e scripts/: zero como campo geral. O que existe são três vocabulários POR DIMENSÃO que não se comparam (IDENTITY_STATE 5 valores, GEOGRAPHY_STATE 4, TIME_STATE 4) e um CONFIDENCE escalar. Nenhum CLAIM carrega força de prova própria.",
       "SUBSTITUI": "CONFIDENCE (568 ocorrências: HIGH 326 · NONE 148 · MEDIUM 70 · LOW 2 + 8 textos livres que já pedem prova POR EIXO)",
       "CONFLITOS": ["OFFICIAL_DOCUMENT (2.030) e DOCUMENTO_OFICIAL (2.030) são o mesmo valor em duas línguas"],
       "RECOMENDACAO": "criar PROOF_STATE por eixo; unificar EVIDENCE_CLASS em uma língua; aposentar CONFIDENCE — escala vaga não substitui prova" },
