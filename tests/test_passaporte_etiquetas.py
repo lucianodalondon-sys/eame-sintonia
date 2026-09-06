@@ -251,6 +251,54 @@ def test_sem_conflito_nao_inventa_conflito():
 
 
 # ══════════════════════════════════════════════════════════════════════════════════
+# LEI 8b · IDENTIDADE NUNCA VEM DA POSIÇÃO — a lei que D11 violou
+# ══════════════════════════════════════════════════════════════════════════════════
+
+import hashlib                                                   # noqa: E402
+
+
+def claim_id_por_ordinal(item, ordinal):
+    """A regra do PASSPORT-1.0 (passaporte.py:94). Está aqui para ser REPROVADA."""
+    return 'CLAIM-%s-%02d' % (item.split('-', 1)[1], int(ordinal))
+
+
+def claim_id_por_conteudo(item, texto):
+    """A correção: o id nasce do texto, não da posição na lista."""
+    h = hashlib.sha1(f'{item}|{texto}'.encode('utf-8')).hexdigest()[:16].upper()
+    return f'CLAIM-{h}'
+
+
+def test_id_derivado_de_ordinal_colide_entre_extracoes():
+    """Prova que a regra antiga colide — é o defeito D11, exercido.
+
+    Duas extrações do mesmo item, com afirmações DIFERENTES, produzem o MESMO id.
+    """
+    item = 'ITEM-3CA2E441A6D5FD7A'
+    a = claim_id_por_ordinal(item, 1)   # 1ª extração, CASE-005
+    b = claim_id_por_ordinal(item, 1)   # 2ª extração, CASE-006 — outro texto
+    assert a == b, 'a regra antiga deveria colidir; se não colide, o defeito mudou'
+
+
+def test_id_derivado_do_conteudo_nao_colide():
+    item = 'ITEM-3CA2E441A6D5FD7A'
+    a = claim_id_por_conteudo(item, 'CASE-005 — a janela da própria cultura')
+    b = claim_id_por_conteudo(item, 'CASE-006 — a janela errada, a resposta invertida')
+    assert a != b, 'duas afirmações diferentes receberam o mesmo CLAIM_ID'
+
+
+def test_o_mesmo_texto_no_mesmo_item_e_o_mesmo_claim():
+    """Estável: reextrair a mesma afirmação não cria claim novo."""
+    item, texto = 'ITEM-X', 'a peronospora foi encontrada em Verona'
+    assert claim_id_por_conteudo(item, texto) == claim_id_por_conteudo(item, texto)
+
+
+def test_o_mesmo_texto_em_itens_diferentes_sao_claims_diferentes():
+    """Duas fontes que dizem a mesma coisa são DUAS afirmações — não uma."""
+    texto = 'a peronospora foi encontrada em Verona'
+    assert claim_id_por_conteudo('ITEM-A', texto) != claim_id_por_conteudo('ITEM-B', texto)
+
+
+# ══════════════════════════════════════════════════════════════════════════════════
 # LEI 9 · O TOKEN `PROVED` NÃO PODE SER COMPARADO ENTRE EIXOS
 # ══════════════════════════════════════════════════════════════════════════════════
 

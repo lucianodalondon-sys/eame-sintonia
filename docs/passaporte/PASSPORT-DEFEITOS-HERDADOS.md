@@ -25,6 +25,165 @@
 | D8 | `_sabido()` cego para sentinela com sufixo — 1.312 valores no acervo | **ALTA** | causa raiz de D1 |
 | D9 | Independência existe em `voz.py` e **não foi herdada** pelo passaporte | **ALTA** | transporte ausente |
 | D10 | Profundidade de leitura não é estado — escopo mora em prosa | MÉDIA | lacuna |
+| **D11** | **`CLAIM_ID` não é identidade — 12 de 22 colididos, 83% das rotas afetadas** | **ALTA** | **vivo e materializado** |
+| D12 | `admitir()` não valida `raw_state` contra o vocabulário | **ALTA** | latente |
+| D13 | Esquema do evento é aberto; `CAMPOS_EVENTO` é código morto | **ALTA** | latente |
+| D14 | `REASON` carrega três vocabulários diferentes no mesmo campo | **ALTA** | vivo |
+| D15 | `CAPTURE` aprova `NOT_PRESERVED` — 335 itens sobem sem bruto | MÉDIA | vivo |
+| D16 | Vocabulários abertos nunca validados; gramática de `IDENTITY_BASIS` só em lambdas | **ALTA** | latente |
+
+---
+
+## D11 · `CLAIM_ID` NÃO É IDENTIDADE — e a colisão já aconteceu
+
+**O defeito mais grave desta lista, porque atinge a camada que os cruzamentos vão usar.**
+
+```python
+# scripts/passaporte.py:94
+def claim_id(item, ordinal):
+    return 'CLAIM-%s-%02d' % (item.split('-', 1)[1], int(ordinal))
+
+# scripts/passaporte.py:366
+for i, texto in enumerate(claims, 1):      # ← reinicia em 1 a CADA extração
+    cid = claim_id(item, i)
+```
+
+O identificador é `item + ordinal`, e o ordinal **recomeça em 1 toda vez**. Extrair claims
+duas vezes do mesmo item produz os **mesmos** `CLAIM_ID` para textos diferentes.
+
+**Não é risco. É ocorrência, medida no log gravado:**
+
+```
+eventos CLAIMS_EXTRACTED                              55
+CLAIM_ID distintos                                    22
+   colididos (mais de um texto no mesmo id)           12    ← 54%
+   limpos                                             10
+
+eventos de rota/consumo ligados a CLAIM_ID            72
+   pendurados num CLAIM_ID COLIDIDO                   60    ← 83%
+```
+
+E o exemplo é o pior possível — dois casos que foram escritos **de propósito** para se
+contradizerem, compartilhando um identificador:
+
+```
+CLAIM-3CA2E441A6D5FD7A-01   (item ITEM-3CA2E441A6D5FD7A)
+   texto: CASE-005 — A safra francesa de 2024 vista pelo clima da própria janela
+   texto: CASE-006 — A mesma pergunta, a janela errada, a resposta invertida
+   rota : ROUTED_TO_CAPABILITY · COUNTRY_CROP_PULSE · DIRECT
+   rota : CONSUMED_BY_CAPABILITY · COUNTRY_CROP_PULSE
+   rota : ROUTED_TO_CAPABILITY · OPPORTUNITY · BLOCKED
+```
+
+**Não há como dizer qual dos dois foi consumido.** A tabela `CLAIM_ID × CAPABILITY_ID`,
+que é o coração do roteamento multicapacidade, está 83% apoiada em identificador ambíguo.
+
+> Ironia medida: o contrato acertou a identidade do **item** (base global, opaca, com
+> teste) e errou a identidade do **claim** exatamente pelo motivo que ele mesmo proíbe —
+> derivar identidade de posição.
+
+---
+
+## D12 · `admitir()` não valida `raw_state`
+
+`selar()` recusa estado fora do vocabulário (`passaporte.py:318-324`). `admitir()` **não**:
+
+```python
+# scripts/passaporte.py:284-289 — os oito campos obrigatórios
+faltando = [n for n, v in (
+    ('IDENTITY_BASIS', identity_basis), ('COLLECTION_ID', collection_id),
+    ('SOURCE_ID', source_id), ('SOURCE_FAMILY', source_family),
+    ('SOURCE_REFERENCE', source_reference), ('CAPTURED_AT', captured_at),
+    ('CONTENT_TYPE', content_type), ('ACTOR', actor),
+) if not v]                                    # ← raw_state NÃO está na lista
+
+# linha 301 — e vai direto para o evento, sem passar pelo vocabulário
+ev = self._evento(iid, 'ITEM_CAPTURED', ..., to_state=raw_state, ...)
+```
+
+A porta que o contrato declara **fechada** (`FAIL_CLOSED`, §6) tem uma fresta no primeiro
+evento de todo item. O portão exercita 11 recusas e **nenhuma delas é esta**.
+
+---
+
+## D13 · O esquema do evento é aberto, e o campo que o fecharia é código morto
+
+```python
+# scripts/passaporte.py:221
+CAMPOS_EVENTO = ('EVENT_ID', 'ITEM_ID', 'EVENT_TYPE', 'TIMESTAMP', 'ACTOR', ...)
+# grep CAMPOS_EVENTO no arquivo: 1 ocorrência — a própria definição
+
+# scripts/passaporte.py:354
+for k, v in (extra or {}).items():
+    if v is not None:
+        ev[k] = v                              # ← qualquer chave entra
+```
+
+O contrato §3 promete *"dez campos, sempre presentes"*. O código aceita qualquer chave via
+`extra=`, e a tupla que declararia o esquema nunca é consultada. Foi por essa porta que
+`CLAIM_ID`, `CAPABILITY_ID`, `RELEVANCE`, `BLOCKER`, `CONTENT_CHARS` e `IDENTITY_BASIS`
+entraram — todos úteis, **nenhum declarado**.
+
+---
+
+## D14 · `REASON` é três campos disfarçados de um
+
+| quando o evento é… | `REASON` carrega | vocabulário |
+|---|---|---|
+| `STOPPED_WITH_REASON` | código de motivo | **fechado** (`MOTIVOS`, validado em `passaporte.py:325`) |
+| `CLAIMS_EXTRACTED` | o **texto da afirmação** | aberto (`passaporte.py:371`) |
+| `ROUTED_TO_CAPABILITY` | o **porquê da rota** | aberto (`passaporte.py:387`) |
+| `CROP_DECLARED` | o **valor da cultura** | aberto — ver D4 |
+| `TIME_RESOLVED` | a **data** | aberto — ver D1 |
+
+Cinco significados, um slot. Não existem `CLAIM_TEXT`, `ROUTING_WHY`, `CROP`, nem
+`FACT_TIME` como campos próprios. É a mesma doença de D4, e a causa de D1: **quando valor
+e motivo dividem campo, nenhuma trava consegue distinguir os dois.**
+
+---
+
+## D15 · `CAPTURE` aprova item cujo bruto não foi preservado
+
+```python
+# scripts/passaporte.py:551
+if item['RAW_STATE'] in ('PRESERVED', 'NOT_PRESERVED'):
+    return 'PASSED', None                      # ← NOT_PRESERVED passa, sem motivo
+```
+
+```
+RAW_STATE na captura:  PRESERVED 2.625  ·  NOT_PRESERVED 335
+```
+
+**335 itens sobem a escada inteira sem bruto preservado e sem `REASON_CODE`.** O balanço
+anterior declara isso como política consciente (D-003: bruto de rota gratuita e HTML pesado
+vivem fora do Git) — e a política é legítima. O defeito é que ela é aplicada **em silêncio,
+no verdicto**, em vez de virar um `STOPPED_WITH_REASON` com motivo declarado. Quem lê a
+contabilidade não distingue *"o bruto está lá"* de *"decidimos não guardar o bruto"*.
+
+---
+
+## D16 · Vocabulários abertos, e a gramática da identidade em 18 lambdas
+
+`CONTENT_TYPE`, `ITEM_CLASS`, `SOURCE_FAMILY`, `SOURCE_ID` e `COLLECTION_ID` são exigidos
+como **não-vazios** e nunca validados contra vocabulário. O portão compara
+`CONTENT_TYPE == 'TRANSCRIPT'` (`passaporte.py:751`) enquanto os próprios testes do portão
+admitem `content_type='T'` (`passaporte_portao.py:88`) e `content_type='VIDEO'` (linha 149).
+
+E a gramática de `IDENTITY_BASIS` — `PLATAFORMA:TIPO:ID_EXTERNO`, a coisa de que **toda**
+identidade do sistema depende — não existe como constante nem como função. Ela vive em 18
+lambdas embutidas no portão:
+
+```python
+# passaporte_portao.py:38
+('ES-T8-001-videos.json', 'VIDEOS', lambda i: 'YOUTUBE:VIDEO:%s' % i['EXTERNAL_ID']),
+# passaporte_portao.py:52
+lambda i: 'YOUTUBE:TRANSCRIPT:%s:%s' % (bf._vid(i['SOURCE_URL']), i['CAPTION_SOURCE'])
+```
+
+`item_id()` aceita **qualquer** string (`passaporte.py:91`). O portão
+`ITEMS_WITHOUT_PASSPORT` compara duas implementações da mesma gramática — e é essa
+duplicação que o contrato chama de *"caminho independente"*. É uma boa prova de
+consistência e uma **má** proteção de formato: as duas podem estar erradas do mesmo jeito.
 
 ---
 

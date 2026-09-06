@@ -68,23 +68,42 @@ em 197 itens com dois ou mais selos de identidade.
 
 ## F · DEFEITOS HERDADOS
 
-Dez, medidos e reproduzíveis — detalhe em [`PASSPORT-DEFEITOS-HERDADOS.md`](PASSPORT-DEFEITOS-HERDADOS.md).
+Dezesseis, medidos e reproduzíveis — detalhe em [`PASSPORT-DEFEITOS-HERDADOS.md`](PASSPORT-DEFEITOS-HERDADOS.md).
+
+### Os que já se materializaram no artefato gravado
 
 | # | defeito | número |
 |---|---|---|
+| **D11** | **`CLAIM_ID` não é identidade — o ordinal reinicia a cada extração** | **12 de 22 colididos · 83% das rotas penduradas em id ambíguo** |
 | **D1** | `TIME_RESOLVED → PROVED` com motivo literal *"NÃO SEI"* | **346 eventos** |
-| **D8** | causa raiz: `_sabido()` é igualdade exata e não vê sentinela com sufixo | **1.312 valores, 46 campos** |
-| **D2** | identidade ausente colapsa linhas distintas | 3 linhas → 1 item |
 | **D3** | universo parcial: 3 arquivos do acervo canônico fora do passaporte | **33 registros, 144.802 caracteres** |
+| **D2** | identidade ausente colapsa linhas distintas | 3 linhas → 1 item |
 | **D4** | o valor da dimensão mora em prosa; `'VINE'` e `"['VINE']"` coexistem | 87 eventos |
 | **D5** | a projeção arbitra conflito por recência, sem estado de conflito | 197 itens |
 | **D6** | `PUBLISHED_AT` vira tempo sem dizer que tempo é | 1.478 itens |
+| **D15** | `CAPTURE` aprova `NOT_PRESERVED` sem motivo declarado | 335 itens |
+| **D14** | `REASON` carrega cinco significados no mesmo campo | 5 vocabulários |
+
+### Os que são fresta aberta, ainda não exercida
+
+| # | defeito | onde |
+|---|---|---|
+| **D8** | causa raiz de D1: `_sabido()` é igualdade exata e não vê sentinela com sufixo | **1.312 valores, 46 campos** |
+| **D12** | `admitir()` não valida `raw_state` — a porta fechada tem fresta no 1º evento | `passaporte.py:284` |
+| **D13** | esquema do evento é aberto; `CAMPOS_EVENTO` é código morto | `passaporte.py:221,354` |
+| **D16** | vocabulários nunca validados; gramática de `IDENTITY_BASIS` em 18 lambdas | `passaporte_portao.py:38-64` |
 | **D7** | três vocabulários de capacidade, mapa só em código | 22 · 10 · 16 |
 | **D9** | independência existe em `voz.py` e não foi **transportada** | portão mede 241/9/2 |
 | **D10** | profundidade de leitura não é estado; `TRANSCRIPT_READ` nunca emitido | 0 eventos |
 
 **Quatro hipóteses minhas foram derrubadas pela medição** e estão registradas como tal na
 §9 daquele documento — inclusive uma derrubada pelo meu próprio script de censo.
+
+> **D11 é o achado que muda a conclusão.** Antes dele, a camada de roteamento parecia
+> pequena mas sadia (48 rotas, motivo declarado, `OPPORTUNITY` bloqueado de propósito).
+> Medida a identidade do claim, 83% dessas rotas apontam para um identificador que carrega
+> mais de uma afirmação — inclusive um par de casos escritos **de propósito** para se
+> contradizerem. A camada não é pequena e sadia: é pequena e ambígua.
 
 ## G · HIERARQUIA UNIVERSAL CONGELADA
 
@@ -268,16 +287,25 @@ culturas diferentes, `PUBLISHED_AT` como tempo do fato em 1.478 itens, e `UNKNOW
 
 Nesta ordem, e nenhum deles é coleta:
 
-1. **Corrigir `_sabido()`** para reconhecer a sentinela com sufixo (D8). É uma função, e
+1. **Consertar `CLAIM_ID` (D11).** É o mais grave e o mais barato: derivar de
+   `sha1(ITEM_ID + texto do claim)`, nunca do ordinal. Os 22 ids gravados precisam ser
+   **reemitidos**, não corrigidos no lugar — o log é append-only. Enquanto isso não for
+   feito, **nenhuma tabela `CLAIM_ID × CAPABILITY_ID` deve ser lida como verdade.**
+2. **Corrigir `_sabido()`** para reconhecer a sentinela com sufixo (D8). É uma função, e
    destrava D1. Os 1.312 valores do acervo **não mudam** — muda quem os lê.
-2. **Herdar de `voz.py:106`** o desempate por posição na derivação de `ITEM_ID` (D2).
-3. **Declarar o mapa `ÁREA → CAPABILITY_ID → CAP-###`** em documento, tirando-o do código.
+3. **Fechar a porta de entrada (D12, D13, D16):** validar `raw_state` em `admitir()`,
+   usar `CAMPOS_EVENTO` como lista branca, e tirar a gramática de `IDENTITY_BASIS` das 18
+   lambdas para uma função com teste.
+4. **Herdar de `voz.py:106`** o desempate por posição na derivação de `ITEM_ID` (D2).
+5. **Declarar o mapa `ÁREA → CAPABILITY_ID → CAP-###`** em documento, tirando-o do código.
    Sem inventar capacidade.
-4. **Quebrar `TIME_STATE`** em `PUBLISHED_AT` · `OBSERVED_AT` · `CAPTURED_AT` ·
+6. **Quebrar `TIME_STATE`** em `PUBLISHED_AT` · `OBSERVED_AT` · `CAPTURED_AT` ·
    `VALID_FROM` · `VALID_UNTIL`, cada um com estado próprio.
-5. **Adotar `POLITICA-CANONICA-DE-CROP.md`** no passaporte e aposentar `CROP_STATE`.
-6. **Transportar `ORIGINALIDADE`** para o passaporte e estendê-la além de vídeo.
-7. Só então reavaliar `FULL_BACKFILL`.
+7. **Adotar `POLITICA-CANONICA-DE-CROP.md`** no passaporte e aposentar `CROP_STATE`.
+8. **Transportar `ORIGINALIDADE`** para o passaporte e estendê-la além de vídeo.
+9. **Dar campo próprio ao que hoje divide `REASON`** (D14): `CLAIM_TEXT`, `ROUTING_WHY`,
+   `CROP`, `FACT_TIME`.
+10. Só então reavaliar `FULL_BACKFILL`.
 
 **Decisões que não são minhas e ficam abertas:** qual dos três conceitos fica com o nome
 `FAMILY_ID`; qual língua vence em `EVIDENCE_CLASS`; e quem é o dono do mapa de capacidades.
