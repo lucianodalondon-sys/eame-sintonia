@@ -399,10 +399,18 @@ let detail = null;
 /* 5 · o mapa das accoes: a seccao que diz a quem o caso pertence */
 {
   const txt = await screenText(jp);
-  const areas = ['SVILUPPO DI MERCATO', 'PORTAFOGLIO', 'COMMERCIALE', 'MARKETING', 'NORMATIVO',
-    'TECNICO E SCIENTIFICO', 'APPROVVIGIONAMENTO'].filter((a) => txt.includes(a));
-  step('J5', 'the action map is on the detail', txt.includes('MAPPA DELLE AZIONI') && areas.length > 0,
-    `"MAPPA DELLE AZIONI" ${txt.includes('MAPPA DELLE AZIONI') ? 'present' : 'ABSENT'} · ${areas.length} department(s) named`);
+  /* I NOMI DELLE AREE NON SI SCRIVONO QUI.
+     Questa riga portava i sette nomi della mappa ritirata e ne trovava tre —
+     quelli che le due mappe avevano in comune — e passava lo stesso, perche
+     chiedeva «almeno una». Un pollice su un telefono deve vedere TUTTE E
+     CINQUE le aree canoniche, o la mappa non e una mappa.
+
+         CHIEDERE «ALMENO UNA» A UNA MAPPA DI CINQUE E NON GUARDARLA. */
+  const CANON = (ctx.ITALY_APP_MODEL.AREE_CANONICHE || [])
+    .map((k) => ctx.MEETING_LABELS.get(k, 'it')).filter(Boolean);
+  const areas = CANON.filter((a) => txt.includes(a));
+  step('J5', 'the action map is on the detail', txt.includes('MAPPA DELLE AZIONI') && areas.length === CANON.length,
+    `"MAPPA DELLE AZIONI" ${txt.includes('MAPPA DELLE AZIONI') ? 'present' : 'ABSENT'} · ${areas.length}/${CANON.length} aree nominate`);
 }
 
 /* 6 · executar uma chamada a acao. A de voltar nao conta: voltar e o passo 7.

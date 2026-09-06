@@ -3304,7 +3304,16 @@ class Component extends DCLogic {
         key: n.key, value: n.value,
         label: (T0.V21NUM && T0.V21NUM[n.key]) || String(n.key).replace(/_/g, ' ').toLowerCase(),
       })),
-      actionMapL: (c.actionMap || []).map((a) => (T0.V21 && T0.V21[a]) || String(a).replace(/_/g, ' ')),
+      /* `actionMapL` — i nomi della mappa a SETTE aree — e stato tolto. Nessun
+         nodo del markup lo legava; restava calcolato su ogni caso e portava con
+         se PORTAFOGLIO, SVILUPPO DI MERCATO, TECNICO E SCIENTIFICO, cioe il
+         vocabolario che la decisione di prodotto ha ritirato.
+
+             UNA PROPRIETA MORTA CHE PORTA IL NOME VECCHIO E UN NOME VECCHIO
+             CHE ASPETTA UN BINDING.
+
+         `c.actionMap` resta intatto sul record: l'intelligenza non si tocca,
+         si smette di tradurla per uno schermo che non esiste piu. */
       dateStateL: (() => { const d = raw('dateState', 'DATE_STATE'); return d ? ((T0.DSTATE && T0.DSTATE[d]) || String(d).replace(/_/g, ' ')) : ''; })(),
       stageL: c.stage ? ((T0.OBSCLASS && T0.OBSCLASS[c.stage]) || String(c.stage).replace(/_/g, ' ')) : '',
       signalL: c.signal ? ((T0.OBSCLASS && T0.OBSCLASS[c.signal]) || String(c.signal).replace(/_/g, ' ')) : '',
@@ -3331,7 +3340,8 @@ class Component extends DCLogic {
 
          Il valore resta quello del motore; `departmentsL` porta i nomi. */
       departments: (c.departments || []).slice(),
-      departmentsL: (c.departments || []).map((d) => (T0.V21 && T0.V21[d]) || (this._L ? this._L(d) : d)),
+      /* Anche `departmentsL` esce, per la stessa ragione e con la stessa cura:
+         `departments` — la chiave del motore — resta. */
       evidenceLabel: c.evidenceLabel ? (this._L ? this._L(c.evidenceLabel) : c.evidenceLabel) : '',
       /* ── LA CATEGORIA E LA SUPERFICIE ─────────────────────────────────────
          Qui sopra c'era scritto il contrario, e la riga diceva `#3A3533` fisso

@@ -15,6 +15,7 @@
        LA CONTRADDIZIONE SI VEDE NEL DOM.
    --------------------------------------------------------------------------- */
 import fs from 'node:fs';
+import { navName } from './lib/nav-names.mjs';
 import path from 'node:path';
 import { serve, open, clickTitle, clickSelector, screenText, clickables, CLIENT } from './lib/drive.mjs';
 
@@ -40,7 +41,18 @@ const findings = [];
 const fail = (id, msg) => findings.push({ id, msg });
 const visited = [];
 
-const NAV_LABEL = { it: 'Radar Canonico', en: 'Canonical Radar' };
+/* IL NOME DELLA VOCE NON SI SCRIVE QUI.
+   Questa riga diceva «Radar Canonico» / «Canonical Radar»: il nome che la voce
+   di menu portava quando esistevano DUE radar. Da quando ne esiste uno solo la
+   voce si chiama «Radar delle Opportunita», e questo portone ha continuato a
+   cercare il nome vecchio — quattro volte, due larghezze per due lingue —
+   dichiarando irraggiungibile una schermata che si apre al primo clic.
+
+       UN PORTONE CHE CERCA UN NOME RITIRATO NON MISURA IL PORTALE:
+       MISURA LA PROPRIA MEMORIA.
+
+   Il nome viene ora dal dizionario, dove il portale lo tiene. */
+const NAV_LABEL = { it: navName('it', 'navMeeting'), en: navName('en', 'navMeeting') };
 
 const setLang = async (page, code) => {
   const ok = await page.evaluate((want) => {
