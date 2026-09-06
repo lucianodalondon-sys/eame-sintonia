@@ -1040,7 +1040,7 @@
             <div style="font-size:11px;line-height:1.5;color:#B1A9A7">{{ t.lblCommercialMaterialNote }}</div>
             <div style="display:flex;flex-wrap:wrap;gap:8px">
               <sc-for list="{{ cs.briefRows }}" as="b" hint-placeholder-count="3">
-                <span onClick="{{ b.go }}" data-brief-dept="{{ b.dept }}" style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:9999px;background:rgba(255,255,255,0.04);border:1px solid {{ b.color }};color:{{ b.color }};font-size:11px;font-weight:700;letter-spacing:0.04em;cursor:pointer;white-space:nowrap" style-hover="background:rgba(0,177,82,0.14)">{{ b.areaL }}</span>
+                <span onClick="{{ b.go }}" data-brief-dept="{{ b.dept }}" style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:9999px;background:rgba(255,255,255,0.04);border:1px solid rgba(203,197,195,0.34);color:{{ b.color }};font-size:11px;font-weight:700;letter-spacing:0.04em;cursor:pointer;white-space:nowrap" style-hover="background:rgba(0,177,82,0.14)">{{ b.areaL }}</span>
               </sc-for>
             </div>
           </div>
@@ -1401,7 +1401,7 @@
           <div style="font-size:10px;color:#8F8886">{{ t.noVolumeNote }}</div>
         </div>
         <div style="grid-column:span 5;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
-          <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886;padding-top:6px">{{ t.wdBriefsTitle }}</div>
+          <sc-if value="{{ wd.hasBriefs }}" hint-placeholder-val="{{ false }}"><div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886;padding-top:6px">{{ t.wdBriefsTitle }}</div></sc-if>
           <div style="display:flex;flex-wrap:wrap;gap:5px"><sc-for list="{{ wd.briefs }}" as="b" hint-placeholder-count="5"><span onClick="{{ b.go }}" style="cursor:pointer;padding:5px 10px;border-radius:9999px;border:1px solid {{ b.color }}88;color:{{ b.soft }};font-size:10px;font-weight:700;letter-spacing:0.06em" style-hover="background:rgba(255,255,255,0.06)">{{ b.label }}</span></sc-for></div>
         </div>
       </div>
@@ -3643,7 +3643,19 @@ class Component extends DCLogic {
     /* Gli stati e i reparti del motore V2.1 hanno un nome nelle due lingue in
        T.V21; WSTATUS resta per il vocabolario delle finestre colturali, che e
        un'altra cosa e continua a esistere. */
-    const oppStatusLabel = (k) => (T.V21 && T.V21[k]) || wst(k);
+    /* UN CODICE SENZA FRASE NON DEVE USCIRE VESTITO DA PAROLA.
+       Questa riga ripiegava su `k.replace(/_/g,' ')`: il dizionario V21 non ha
+       VALIDATE_NOW, e cosi TRE schede su quarantatre mostravano al lettore
+       italiano «VALIDATE NOW» — il token del motore, in inglese, dentro
+       l'interfaccia italiana. La frase pero esiste gia, pubblicata: la
+       superficie della riunione la usa da sempre («VALIDARE ORA»).
+
+           DUE SCHERMATE DELLA STESSA OPPORTUNITA NON POSSONO CHIAMARE LO
+           STESSO STATO CON DUE PAROLE, UNA DELLE QUALI E UN CODICE.
+
+       Si cerca prima nel dizionario della schermata, poi in quello della
+       riunione, e solo alla fine si ripiega. */
+    const oppStatusLabel = (k) => (T.V21 && T.V21[k]) || mtL(k) || wst(k);
     const oppDeptLabel = (k) => (T.V21 && T.V21[k]) || String(k || '').replace(/_/g, ' ');
     const dst = (k) => (T.DSTATE && T.DSTATE[k]) || String(k || '').replace(/_/g, ' ');
     const obs = (k) => (T.OBSCLASS && T.OBSCLASS[k]) || String(k || '').replace(/_/g, ' ');
@@ -4877,7 +4889,22 @@ class Component extends DCLogic {
     };
     const csActionMap = ((AM && AM.AREE_CANONICHE) || []).map((a) => {
       const u = (AM && AM.areaUI) ? AM.areaUI(a) : { line: '#978B87', surface: '#564F4D', ink: '#C9C3C1' };
-      return { area: a, areaL: T[CS_BRIEF_TITOLO[a]] || mtL(a) || String(a).replace(/_/g, ' '), color: u.line };
+      /* LA TINTA DELL'AREA E UN ACCENTO, NON UN INCHIOSTRO.
+         Il pulsante la usava come COLORE DEL TESTO e come bordo, senza un
+         canale di riserva: MARKETING (#9D1D96) su questo fondo misura 2,39:1
+         — illeggibile, su tutte le schede e in tutte e due le lingue. Sulla
+         scheda della mappa la stessa tinta va benissimo, perche li e la linea
+         e il testo ha il proprio inchiostro a 13,54:1.
+
+             UNA TINTA PROMOSSA A INCHIOSTRO NON E PIU UN ACCENTO: E UN TESTO
+             CHE NON SI LEGGE.
+
+         E poi questi pulsanti non aprono un'area: aprono un documento. Dargli
+         il colore dell'area rimetterebbe addosso al documento l'identita che
+         gli abbiamo appena tolto dal nome. Inchiostro secondario pubblicato,
+         come gia fa la stessa riga sulla schermata delle Finestre. */
+      return { area: a, areaL: T[CS_BRIEF_TITOLO[a]] || mtL(a) || String(a).replace(/_/g, ' '),
+        color: '#C9C3C1', accent: u.line };
     });
 
     /* ── le prove, per id, verso il record vero ────────────────────────────
@@ -5940,6 +5967,15 @@ class Component extends DCLogic {
     const wdVerdict = wdR.labelVerdictState || 'LABEL_CHECK_NEEDED';
     const wdReg = wdR.regulatory;
     const wdPrep = wPrep(wdR);
+    /* L'opportunita a cui questa finestra appartiene, se il modello la conosce.
+       Si risolve come la risolve `openCase`: per identificativo, mai per nome. */
+    const briefTarget = (() => {
+      if (!wdR || !wdR.legacyCaseId || !APP0) return null;
+      const rec = APP0.opportunities.records || [];
+      const hit = rec.find((o) => o.id === wdR.legacyCaseId
+        || String(o.legacyCaseId || '') === String(wdR.legacyCaseId));
+      return hit ? hit.id : null;
+    })();
     const wd = Object.assign(wDeco(wdR), {
       /* the case link survives only because LEGACY_CASE_ID is filled 29/29 */
       openCase: () => wdR.legacyCaseId && this.openCase(wdR.legacyCaseId),
@@ -6017,7 +6053,24 @@ class Component extends DCLogic {
         const reached = wdR.daysToStart <= l[0];
         return { days: l[0], dept: l[1], deptLabel: l[1] === 'SALES / RTV' ? 'FIELD SALES' : l[1], text: wIT ? l[3] : l[2], soft: W_DEPT_S, numColor: reached ? '#fff' : '#8F8886', dot: reached ? W_DEPT_C : 'rgba(255,255,255,0.12)', state: reached ? (wIT ? 'RAGGIUNTO' : 'REACHED') : ((wIT ? 'TRA ' : 'IN ') + (wdR.daysToStart - l[0]) + (wIT ? 'G' : 'D')), stateColor: reached ? '#00B152' : '#8F8886', brief: () => wdR.legacyCaseId && this.openBrief(wdR.legacyCaseId, l[1]) };
       }),
-      briefs: [['SALES / RTV', T.wdBriefSales], ['MARKETING', T.wdBriefMarketing], ['MARKET DEVELOPMENT', T.wdBriefMktDev], ['TECHNICAL / SCIENCE', T.wdBriefTech], ['REGULATORY / PORTFOLIO', T.wdBriefReg], ['SUPPLY', T.wdBriefSupply]].map(b => ({ label: b[1], color: W_DEPT_C, soft: W_DEPT_S, go: () => wdR.legacyCaseId && this.openBrief(wdR.legacyCaseId, b[0]) })),
+      /* ── SEI COMANDI CHE NON PORTAVANO DA NESSUNA PARTE ──────────────────
+         Questi pulsanti aprono il documento di un reparto passando per
+         `legacyCaseId`, che ogni finestra porta nella forma IT-OPP-001. Nessuna
+         opportunita del modello dichiara piu un `legacyCaseId`: MISURATO,
+         ZERO su quarantatre. Le ventinove finestre offrivano quindi sei
+         comandi ciascuna — CENTOSETTANTAQUATTRO rotte — e ognuna apriva una
+         schermata che non si rende: `br` vuoto, `isBrief` falso, la sola
+         testata.
+
+             UN COMANDO CHE PROMETTE UN DOCUMENTO E CONSEGNA UNA PAGINA VUOTA
+             NON E UN DETTAGLIO DI NAVIGAZIONE: E UNA PROMESSA ROTTA.
+
+         Non si cancella la riga: si smette di offrirla finche la finestra non
+         sa a quale opportunita appartiene. Il giorno in cui il pacchetto a
+         monte riallaccia i due mondi, i pulsanti tornano da soli. */
+      briefCase: briefTarget,
+      hasBriefs: !!briefTarget,
+      briefs: !briefTarget ? [] : [['SALES / RTV', T.wdBriefSales], ['MARKETING', T.wdBriefMarketing], ['MARKET DEVELOPMENT', T.wdBriefMktDev], ['TECHNICAL / SCIENCE', T.wdBriefTech], ['REGULATORY / PORTFOLIO', T.wdBriefReg], ['SUPPLY', T.wdBriefSupply]].map(b => ({ label: b[1], color: W_DEPT_C, soft: W_DEPT_S, go: () => this.openBrief(briefTarget, b[0]) })),
       /* ITALY_DEMO.SIGNALS was the 56-record presentation set the model already fences off as
          DEMO_SCENARIO. Real supply is 3 futureSignals for the whole country, and their
          REGION field literally reads "NAO SEI ..." while every prose field is

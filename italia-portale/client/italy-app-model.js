@@ -851,10 +851,37 @@
     return '';
   };
 
+  /* ══ LA LEGGE HA UN PROPRIETARIO ══════════════════════════════════════════
+     Questa funzione ricalcola nel browser perche ADAMA dovrebbe interessarsi a
+     un caso, leggendo i legami di prodotto del record. Esiste pero un verdetto
+     PUBBLICATO — `ADAMA_RELEVANCE.VERDETTI` — che per ogni caso dichiara la
+     classe, la superficie e, soprattutto, se una PROVA esiste. Il portale non
+     lo leggeva: zero occorrenze in tutto il file della schermata.
+
+     MISURATO: cinque casi su quarantatre uscivano con «Opportunita di prodotto
+     — un prodotto ADAMA ha una corrispondenza verificata su etichetta per
+     questo caso» mentre il verdetto pubblicato per quegli stessi cinque dice
+     PROVA: null. Quattro sono di classe C · SEGNALI; il quinto e di classe D,
+     quello che la legge chiama collegamento sbagliato e non pubblicabile.
+
+         DUE LEGGI CON LO STESSO NOME NON SONO UNA SECONDA OPINIONE:
+         SONO UNA CHE PARLA AL POSTO DELL'ALTRA.
+
+     Il ricalcolo resta — e utile e non e questa la sede per rifarlo — ma
+     l'unica voce che AFFERMA un legame provato, PRODUCT_OPPORTUNITY, non puo
+     piu essere emessa contro il verdetto. Dove la legge dice che la prova non
+     c'e, la voce non esce e il caso ricade su VALIDATION_REQUIRED, che e la
+     lettura vera. Le altre voci — che descrivono l'area di interesse, non una
+     prova — non sono toccate. Fallisce chiuso: se il verdetto manca, la voce
+     esce come prima. */
   const adamaRelevance = (o) => {
     if (!o) return [];
     const links = Array.isArray(o.productLinks) ? o.productLinks : [];
-    const verified = links.filter((l) => l && l.strength === 'VERIFIED_LABEL_MATCH').length;
+    const verificati = links.filter((l) => l && l.strength === 'VERIFIED_LABEL_MATCH').length;
+    const legge = (typeof window !== 'undefined' && window.ADAMA_RELEVANCE
+      && window.ADAMA_RELEVANCE.VERDETTI) ? window.ADAMA_RELEVANCE.VERDETTI[o.id] : null;
+    const proibitoAffermare = !!legge && (legge.PROVA === null || legge.PROVA === undefined);
+    const verified = proibitoAffermare ? 0 : verificati;
     const areas = Array.isArray(o.actionMap) ? o.actionMap : [];
     const a = o.archetype;
     const out = [];
