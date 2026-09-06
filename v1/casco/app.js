@@ -889,6 +889,15 @@ function viewProduto(reg) {
       publicado como <b>autorizados</b> foram retirados desta ficha, porque a unica ocorrencia do
       nome da cultura no texto do rotulo esta <b>dentro</b> de uma janela de exclusao. Regra
       <code>${esc(P.exclusion.rule)}</code>.
+      ${(() => { const nu = P.exclusion.marker_not_used || {};
+        const ks = Object.keys(nu); if (!ks.length) return '';
+        return `<div class="meta" style="margin-top:6px"><b>E o que esta regra NAO usa</b>, com
+          nome e numero: ${ks.map(k => `<code>${esc(k)}</code> (${nu[k]})`).join(' &middot; ')}.
+          <span class="unknown">EXCLUSION_MARKER_NOT_USED</span> — medido: nenhuma das janelas
+          que essas formas abrem nomeia uma cultura publicada aqui como uso autorizado; no
+          acervo de hoje elas restringem o MODO (&ldquo;in prossimita delle acque&rdquo;,
+          &ldquo;in serra&rdquo;) e nao a cultura. Isto <b>nao</b> quer dizer que nao ha
+          exclusao nesses rotulos.</div>`;})()}
       <div class="tw" style="margin-top:8px"><table>
         <thead><tr><th>Cultura retirada</th><th>Alvo</th><th>Frase do rotulo que a exclui</th></tr></thead>
         <tbody>${p.uses_retirados.map(w => `<tr>

@@ -116,6 +116,36 @@ MARCADOR_DESCARTADO = {
               "as 3 ocorrencias medidas no corpus sao compatibilidade de calda, "
               "nao escopo de cultura")
 }
+
+# FORMAS NEGATIVAS QUE EXISTEM NO ACERVO E QUE ESTA REGRA NAO USA.
+#
+# A rodada 4 do red team apontou que a lista acima cobre "non impiegare su" e
+# "non utilizzare su" mas nao as formas com "in", nem "non applicare". A
+# pergunta e legitima e a resposta e uma MEDICAO, nao uma opiniao: ao lado de
+# cada forma esta em quantos dos 128 rotulos do acervo ela ocorre, e para todas
+# elas foi medida a mesma coisa —
+#
+#   ABRINDO A JANELA DEPOIS DO MARCADOR COM A MESMA REGRA DE FIM DE JANELA DESTE
+#   MODULO, **ZERO** DAS 32 JANELAS NOMEIA UMA CULTURA QUE A FERRAMENTA PUBLICA
+#   HOJE COMO USO AUTORIZADO.
+#
+# Ou seja: acrescentar estes marcadores nao retiraria hoje nenhuma autorizacao
+# falsa. O que eles fazem, no acervo de hoje, e restricao de MODO ("non
+# applicare in prossimita delle acque", "non impiegare in serra") e nao de
+# cultura. Pela doutrina do proprio modulo — marcador ambiguo retira uso real —
+# o preco de inclui-los e maior que o ganho medido, que e zero.
+#
+# Isto NAO e "nao ha exclusao nestes rotulos". E EXCLUSION_MARKER_NOT_USED, com
+# nome e numero, e o portao MEASURED_CONSTANTS_ARE_MEASURED reconta a lista e
+# reconta o zero a cada execucao — se um rotulo novo trouxer "non applicare su
+# pomodoro", o portao cai e alguem tem de decidir.
+MARCADORES_CANDIDATOS_NAO_USADOS = [
+    ("non impiegare in", 13),
+    ("non applicare in", 9),
+    ("non utilizzare in", 5),
+    ("non applicare il prodotto su", 4),
+    ("non applicare su", 1),
+]
 RX_MARCADOR = re.compile(r"\b(" + "|".join(sorted(MARCADORES, key=len, reverse=True)) + r")\b")
 
 # Fim da janela: ponto, ponto-e-virgula, dois-pontos, quebra de linha, ou uma
@@ -541,6 +571,13 @@ def main():
                              "origem e nao decide dose"),
         "RULE_ID": "R-10",
         "MARCADORES": MARCADORES,
+        "EXCLUSION_MARKER_NOT_USED": {m: n for m, n in MARCADORES_CANDIDATOS_NAO_USADOS},
+        "EXCLUSION_MARKER_NOT_USED_NOTA": (
+            "formas negativas presentes no acervo que esta regra NAO usa. Medido: as 32 "
+            "janelas que elas abrem nao nomeiam nenhuma cultura publicada como uso "
+            "autorizado — no acervo de hoje sao restricao de MODO (prossimita delle acque, "
+            "in serra), nao de cultura. Nao e ausencia de exclusao: e marcador nao usado, "
+            "com nome e numero, reconferido pelo portao a cada execucao"),
         "MARCADOR_DESCARTADO": MARCADOR_DESCARTADO,
         "MARCADOR_OCORRENCIAS": dict(sorted(marcador_hits.items(), key=lambda kv: -kv[1])),
         "PREFIXO_MIN": PREFIXO_MIN,

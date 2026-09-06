@@ -282,6 +282,50 @@ try:
 except Exception as _e:
     _div.append(f"SUCESSAO nao pode ser recontada: {_e}")
 try:
+    # Marcadores de exclusao MEDIDOS E NAO USADOS. Duas afirmacoes, e as duas sao
+    # reconferidas: em quantos rotulos cada forma ocorre, e que nenhuma das
+    # janelas que elas abrem nomeia uma cultura publicada como uso autorizado.
+    # A segunda e a que importa: se um rotulo novo trouxer "non applicare su
+    # pomodoro", este portao cai e alguem tem de decidir se o marcador entra.
+    from exclusao import (MARCADORES_CANDIDATOS_NAO_USADOS, RX_FIM, JANELA_MAX,
+                          sem_acento as _sa_exc)
+    _pares_j = json.load(open("v1/dados/IT-ROTULOS-PARES-RECONSTRUIDO.json",
+                              encoding="utf-8"))["PAIRS"]
+    _regs_j = {x["REGISTRATION_ID"] for x in _pares_j}
+    _tx = {}
+    for _r in sorted(_regs_j):
+        _f = os.path.join("/tmp/exclusao-txt", f"{_r}.txt")
+        if os.path.exists(_f):
+            _tx[_r] = _sa_exc(open(_f, encoding="utf-8", errors="replace").read())
+    _pub = {p_["reg"]: sorted({u["crop"] for u in p_.get("uses", [])})
+            for p_ in json.load(open("v1/dados/CASCO-PAYLOAD.json",
+                                     encoding="utf-8"))["products"]}
+    if not _tx:
+        _div.append("MARCADORES NAO USADOS: sem texto em /tmp/exclusao-txt para recontar")
+    _nomeia = 0
+    for _m, _n in MARCADORES_CANDIDATOS_NAO_USADOS:
+        _rx = re.compile(r"\b" + re.escape(_m) + r"\b")
+        _rr = [_r for _r, _t in _tx.items() if _rx.search(_t)]
+        _conferidas += 1
+        if len(_rr) != _n:
+            _div.append(f"MARCADOR NAO USADO {_m!r}: declarado {_n} rotulos, medido {len(_rr)}")
+        for _r in _rr:
+            for _mm in _rx.finditer(_tx[_r]):
+                _j = _mm.end()
+                _fim = RX_FIM.search(_tx[_r], _j)
+                _jan = re.sub(r"\s+", " ", _tx[_r][_mm.start():min(
+                    _fim.start() if _fim else len(_tx[_r]), _j + JANELA_MAX)])
+                for _c in _pub.get(_r, []):
+                    _ps = [q for q in _sa_exc(_c).split("_") if len(q) >= 4]
+                    if _ps and all(re.search(r"\b" + re.escape(q), _jan) for q in _ps):
+                        _nomeia += 1
+                        _div.append(f"MARCADOR NAO USADO {_m!r} em {_r}: a janela nomeia "
+                                    f"{_c}, que a ferramenta publica como uso autorizado")
+                        break
+    _conferidas += 1
+except Exception as _e:
+    _div.append(f"MARCADORES NAO USADOS nao pode ser recontado: {_e}")
+try:
     from teto_dose import RESTRICOES_FORA_DA_TABELA
     _lay = _textos("/tmp/tetotxt")
     if not _lay:
@@ -295,7 +339,8 @@ except Exception as _e:
     _div.append(f"RESTRICOES nao pode ser recontada: {_e}")
 
 ok("MEASURED_CONSTANTS_ARE_MEASURED",
-   f"{_conferidas} constantes que se dizem medidas foram recontadas contra os 163 rotulos") \
+   f"{_conferidas} constantes que se dizem medidas foram recontadas contra o texto dos "
+   f"rotulos em disco (163 PDFs; 128 deles no acervo de pares)") \
     if not _div else fail("MEASURED_CONSTANTS_ARE_MEASURED", " | ".join(_div))
 
 # --- 15e. o NOME DA CULTURA publicado e uma palavra do documento
@@ -372,6 +417,38 @@ ok("CROP_NAME_IS_THE_LABEL_WORD",
    f"nenhum selo FATO se apoia em nome de cultura que o documento nao escreve "
    f"(controle negativo 018270 FAGIOLO pego)") \
     if not _cn else fail("CROP_NAME_IS_THE_LABEL_WORD", " | ".join(_cn[:6]))
+
+# --- 15f. o teste do alvo da linha de dose nao tem buraco silencioso
+#
+# R-13 tinha um portao `len(alvo) < 8` sem motivo escrito, e ele calava 71
+# linhas de dose como TARGET_TEXT_NOT_CHECKED. NOT_CHECKED e um token honesto
+# quando o teste nao se aplica; nao e honesto quando o teste foi desligado por
+# um numero que ninguem justificou. Este portao reconta as linhas caladas.
+_ac = []
+try:
+    _als = json.load(open("v1/dados/ALVO-LITERAL.json", encoding="utf-8"))
+    _dos = json.load(open("pilot-label-intelligence/demo/IT-DOSES.json", encoding="utf-8"))
+    _semtexto = {l["REGISTRATION_ID"] for l in _dos["LABELS"]
+                 if not os.path.exists(f"pilot-label-intelligence/labels/pdf/"
+                                       f"{l['REGISTRATION_ID']}.pdf")}
+    _mudo = [k for k, v in _als["VERDICT"].items()
+             if v == "TARGET_TEXT_NOT_CHECKED" and k.split("#")[0] not in _semtexto]
+    if _mudo:
+        _cn_ex = ", ".join(_mudo[:5])
+        _ac.append(f"{len(_mudo)} linhas de dose com PDF em disco saem NOT_CHECKED ({_cn_ex})")
+    if _als.get("ROWS_FOUND_LITERALLY", 0) + _als.get("ROWS_NOT_FOUND_LITERALLY", 0) \
+            != len(_als["VERDICT"]) - _als.get("ROWS_NOT_CHECKED", 0):
+        _ac.append("as contagens de R-13 nao fecham com o proprio VERDICT")
+    if _als.get("ROWS_NOT_FOUND_LITERALLY", 0) == 0:
+        _ac.append("R-13 parou de reprovar qualquer linha — o teste virou carimbo")
+except Exception as _e:
+    _ac.append(f"R-13 nao pode ser reconferido: {_e}")
+
+ok("TARGET_TEXT_TEST_HAS_NO_SILENT_HOLE",
+   f"todas as linhas de dose com PDF em disco foram testadas por R-13; "
+   f"{json.load(open('v1/dados/ALVO-LITERAL.json', encoding='utf-8'))['ROWS_NOT_FOUND_LITERALLY']} "
+   f"continuam reprovadas, entao o teste ainda discrimina") \
+    if not _ac else fail("TARGET_TEXT_TEST_HAS_NO_SILENT_HOLE", " | ".join(_ac))
 
 # --- 16. dose nunca escolhida entre candidatas discordantes
 r = subprocess.run(["node", "v1/testes/test_casco.js"], capture_output=True, text=True)

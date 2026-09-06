@@ -525,6 +525,8 @@ def main():
             "name_not_in_label_text": exc["PAIRS_CROP_NAME_NOT_IN_LABEL_TEXT"],
             "markers": exc["MARCADOR_OCORRENCIAS"],
             "marker_dropped": exc["MARCADOR_DESCARTADO"],
+            "marker_not_used": exc.get("EXCLUSION_MARKER_NOT_USED", {}),
+            "marker_not_used_note": exc.get("EXCLUSION_MARKER_NOT_USED_NOTA", "NOT_KNOWN"),
             "list": exc["RETIRADOS"],
         },
         "reconciliation": (json.load(open("v1/BASELINE-RAW.json", encoding="utf-8"))

@@ -163,6 +163,44 @@ def main():
         colcache[reg] = out
         return out
 
+    def contido(alvo, t):
+        """`alvo in t`, mas sem cortar palavra em nenhuma das duas pontas.
+
+        O teste era substring cru, e por isso vinha com um portao `len(alvo) < 8`
+        que nao tinha motivo escrito em lugar nenhum. Ele existia para o
+        substring nao casar por acaso — e o preco eram 71 linhas de dose que
+        NUNCA foram testadas e saiam como TARGET_TEXT_NOT_CHECKED: 45 'cimici',
+        9 'tripidi', 9 'afidi', 4 'altica', 2 'radicum', 2 'prima'.
+        NOT_CHECKED e um token honesto, mas 71 linhas caladas por um portao sem
+        motivo sao um buraco, nao uma abstencao.
+
+        Com a fronteira de palavra o portao pode cair para 4 letras. Medido nas
+        duas direcoes antes de trocar: (a) nenhuma das linhas hoje aprovadas por
+        substring seria recusada pela fronteira — zero regressoes; (b) as 71
+        curtas aparecem TODAS literalmente no rotulo, entao o portao nao estava
+        escondendo contradicao, estava escondendo confirmacao.
+
+        E fica dito o que isto NAO conserta: 008189#9 publica o alvo 'radicum',
+        que e a cauda de "Delia radicum" cortada pelo extrator. A palavra
+        'radicum' ESTA escrita no rotulo, entao R-13 a aprova — e com razao,
+        porque a pergunta de R-13 e "este texto existe no documento?". Quem
+        acharia esse defeito e um detector de FUSAO/TRUNCAMENTO de linha, e ele
+        continua NOT_IMPLEMENTED, pelos tres motivos medidos em WHY_NOT_IMPLEMENTED.
+        """
+        i = t.find(alvo)
+        while i >= 0:
+            antes = i == 0 or not (t[i - 1].isalpha() and alvo[0].isalpha())
+            j = i + len(alvo)
+            depois = j >= len(t) or not (t[j].isalpha() and alvo[-1].isalpha())
+            if antes and depois:
+                return True
+            i = t.find(alvo, i + 1)
+        return False
+
+    # Piso de tamanho do alvo. 4 letras porque abaixo disso a palavra nao e um
+    # nome de praga, e nao 8, que era o valor antigo e sem justificativa.
+    MIN_ALVO = 4
+
     for lab in d["LABELS"]:
         reg = lab["REGISTRATION_ID"]
         if reg not in cache:
@@ -172,11 +210,11 @@ def main():
         for i, r in enumerate(lab.get("ROWS") or []):
             chave = f"{reg}#{i}"
             alvo = nrm(r.get("TARGET"))
-            if t is None or len(alvo) < 8:
+            if t is None or len(alvo) < MIN_ALVO:
                 ver[chave] = "TARGET_TEXT_NOT_CHECKED"; n_sem += 1; continue
-            if alvo in t:
+            if contido(alvo, t):
                 ver[chave] = "TARGET_TEXT_FOUND_LITERALLY"; n_ok += 1
-            elif any(alvo in c for c in colunas(reg)):
+            elif any(contido(alvo, c) for c in colunas(reg)):
                 # SF-01 · achado na reconstrucao POR COLUNA. Nao e um achado mais
                 # fraco: e o mesmo documento lido do jeito certo. O que era
                 # "quebra de coluna" agora e frase.
@@ -203,6 +241,9 @@ def main():
                                 "alvo multiplo legitimo (Pomacee x Dysaphis/Eriosoma/Aphis); "
                                 "ancoragem por fios nas duas pontas do alvo acusa ZERO porque a "
                                 "banda do extrator nao contem as duas pontas do alvo fundido"),
+        "MATCH": ("substring com fronteira de palavra nas duas pontas; piso de "
+                  f"{MIN_ALVO} letras. Era substring cru com piso de 8, e o piso "
+                  "calava 71 linhas de dose sem motivo escrito"),
         "TEXT_RECONSTRUCTION": ("por COLUNA, com os fios verticais de fios.py e as caixas de "
                                 "palavra do pdftotext -bbox-layout; o texto da pagina inteira "
                                 "vale como segunda chance"),

@@ -1,6 +1,6 @@
 {
  "SUITE": "PORTOES-V1",
- "PASS": 21,
+ "PASS": 22,
  "FAIL": 0,
  "RESULTS": [
   {
@@ -56,12 +56,12 @@
   {
    "GATE": "ISOLATION",
    "STATE": "PASS",
-   "DETALHE": "64 arquivos, todos dentro de v1/ e pilot/"
+   "DETALHE": "66 arquivos, todos dentro de v1/ e pilot/"
   },
   {
    "GATE": "CANONICAL_TOUCHED",
    "STATE": "PASS",
-   "DETALHE": "nenhum dos 33 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
+   "DETALHE": "nenhum dos 34 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
   },
   {
    "GATE": "REUSE_ANCHORED_ON_FILE_HASH",
@@ -96,12 +96,17 @@
   {
    "GATE": "MEASURED_CONSTANTS_ARE_MEASURED",
    "STATE": "PASS",
-   "DETALHE": "18 constantes que se dizem medidas foram recontadas contra os 163 rotulos"
+   "DETALHE": "24 constantes que se dizem medidas foram recontadas contra o texto dos rotulos em disco (163 PDFs; 128 deles no acervo de pares)"
   },
   {
    "GATE": "CROP_NAME_IS_THE_LABEL_WORD",
    "STATE": "PASS",
    "DETALHE": "2928 pares reconferidos contra o texto dos PDFs; nenhuma absolvicao de R-14 e nenhum selo FATO se apoia em nome de cultura que o documento nao escreve (controle negativo 018270 FAGIOLO pego)"
+  },
+  {
+   "GATE": "TARGET_TEXT_TEST_HAS_NO_SILENT_HOLE",
+   "STATE": "PASS",
+   "DETALHE": "todas as linhas de dose com PDF em disco foram testadas por R-13; 61 continuam reprovadas, entao o teste ainda discrimina"
   },
   {
    "GATE": "CASCO_RENDER_TEST",
