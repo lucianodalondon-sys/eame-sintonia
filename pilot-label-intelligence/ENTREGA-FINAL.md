@@ -121,3 +121,26 @@ Tres razoes, nesta ordem:
 
 O que ja pode ir para conversa com o cliente e a demo shadow desta branch, que
 existe exatamente para isso: mostrar sem integrar.
+
+## O pacote
+
+    PACKAGE_PATH  = pilot-label-intelligence/
+    PACKAGE_FILES = 40 arquivos versionados
+    PACKAGE_HASH  = 2e71848044d80ff26604b1b0ec56799d7c0db3f5d9730ef8b93bd8363b03c648
+
+O hash e o sha256 sobre o caminho e o conteudo de cada arquivo versionado do
+piloto, em ordem, exceto este relatorio. Nao cobre os instantaneos do registro
+nem os PDFs dos rotulos, que o git ignora de proposito: sao 280 MB e 33 MB
+rebaixaveis da fonte oficial, e cada um ja tem o proprio sha256 publicado em
+`registry/IT-REGISTRO-VERSOES.json` e `labels/IT-ROTULOS-REVERIFICACAO.json`.
+
+Para conferir:
+
+```bash
+python3 pilot-label-intelligence/bin/auditar.py     # 18 checagens, recontadas da fonte
+python3 pilot-label-intelligence/bin/relatorio.py   # regera este arquivo e o hash
+```
+
+## Ao terminar, para
+
+Nao integrar em nenhum outro sistema.

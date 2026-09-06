@@ -6,7 +6,7 @@ Nenhum numero deste relatorio e digitado a mao. Se um artefato mudar, o
 relatorio muda junto. Se um artefato faltar, o campo sai como NOT_PRODUCED em
 vez de sair bonito.
 """
-import argparse, json, os, sys
+import argparse, hashlib, json, os, subprocess, sys
 
 def le(p, default=None):
     if os.path.exists(p):
@@ -47,6 +47,24 @@ def main():
         os.path.exists(f"{B}/demo/label-intelligence.html"),
         al.get("ALERTS_TOTAL", 0) > 0,
     ])
+
+    # Hash do pacote: sha256 sobre o conteudo de cada arquivo VERSIONADO do
+    # piloto, em ordem de caminho. Nao inclui o proprio relatorio (que contem o
+    # hash) nem o que o git ignora (instantaneos e PDFs, que sao rebaixaveis da
+    # fonte oficial e conferiveis pelos hashes ja publicados).
+    try:
+        arquivos = sorted(subprocess.run(
+            ["git", "ls-files", B], capture_output=True, text=True,
+            check=True).stdout.split())
+    except Exception:
+        arquivos = []
+    arquivos = [f for f in arquivos if not f.endswith("ENTREGA-FINAL.md")]
+    h = hashlib.sha256()
+    for f in arquivos:
+        h.update(f.encode())
+        with open(f, "rb") as fh:
+            h.update(hashlib.sha256(fh.read()).digest())
+    pkg_hash = h.hexdigest()
 
     T = f"""# ENTREGA FINAL — LABEL INTELLIGENCE PILOT · ITALIA
 
@@ -171,6 +189,29 @@ Tres razoes, nesta ordem:
 
 O que ja pode ir para conversa com o cliente e a demo shadow desta branch, que
 existe exatamente para isso: mostrar sem integrar.
+
+## O pacote
+
+    PACKAGE_PATH  = pilot-label-intelligence/
+    PACKAGE_FILES = {len(arquivos)} arquivos versionados
+    PACKAGE_HASH  = {pkg_hash}
+
+O hash e o sha256 sobre o caminho e o conteudo de cada arquivo versionado do
+piloto, em ordem, exceto este relatorio. Nao cobre os instantaneos do registro
+nem os PDFs dos rotulos, que o git ignora de proposito: sao 280 MB e 33 MB
+rebaixaveis da fonte oficial, e cada um ja tem o proprio sha256 publicado em
+`registry/IT-REGISTRO-VERSOES.json` e `labels/IT-ROTULOS-REVERIFICACAO.json`.
+
+Para conferir:
+
+```bash
+python3 pilot-label-intelligence/bin/auditar.py     # 18 checagens, recontadas da fonte
+python3 pilot-label-intelligence/bin/relatorio.py   # regera este arquivo e o hash
+```
+
+## Ao terminar, para
+
+Nao integrar em nenhum outro sistema.
 """
     open(a.out, "w", encoding="utf-8").write(T)
     print(f"  escrito {a.out}", file=sys.stderr)
