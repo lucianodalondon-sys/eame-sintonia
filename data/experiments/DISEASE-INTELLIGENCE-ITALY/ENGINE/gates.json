@@ -3,15 +3,33 @@
  "GATES": {
   "A_OUTCOME_IS_OBSERVED": {
    "VERDICT": "PASS",
-   "EVIDENCE": "ENFORCED, not stamped: assert_outcome_admissible() refuses MODELLED_RISK, refuses FORECAST, and refuses any variable absent from the case's survey-schema metadata \u2014 all three tested. Until 2026-09-06 the role was a constant in the output and this gate certified itself."
+   "REFUSAL_TESTS": [
+    [
+     "MODELLED_RISK",
+     "REFUSED"
+    ],
+    [
+     "FORECAST",
+     "REFUSED"
+    ],
+    [
+     "CONTEXT",
+     "REFUSED"
+    ],
+    [
+     "non-survey var",
+     "REFUSED"
+    ]
+   ],
+   "EVIDENCE": "four inadmissible inputs offered to the shipped module and their outcomes recorded: [('MODELLED_RISK', 'REFUSED'), ('FORECAST', 'REFUSED'), ('CONTEXT', 'REFUSED'), ('non-survey var', 'REFUSED')]. The gate fails if ANY is accepted. Before this rewrite it read back its own default argument."
   },
   "B_NOT_SOLD_AS_FORECAST": {
    "VERDICT": "PASS",
-   "EVIDENCE": "the archive contains 15 observations dated after the cutoff, 15 of them inside the published window; the cutoff excludes every one, so the test can fail and does not. EARLY_WARNING and both OUTLOOK capabilities remain NOT_PROVED."
+   "EVIDENCE": "15 observations in the archive are dated after the cutoff, 15 of them inside the published window, and moving the cutoff forward changes 18 published province-cells \u2014 so the cutoff is LOAD-BEARING and this gate can detect its removal, which the previous version could not. EARLY_WARNING and both OUTLOOK capabilities remain NOT_PROVED."
   },
   "C_REGIONAL_NOT_NATIONAL": {
    "VERDICT": "PASS",
-   "EVIDENCE": "the unit is the province; no aggregate above the region exists in the output, and Toscana vs Abruzzo do not co-move (rho +0.190, p 0.67)"
+   "EVIDENCE": "no aggregate key above the province exists in the output, AND the province unit is load-bearing: provinces of the same region carry DIFFERENT classes in 19 season-cells of the walk-forward, and in 2/2 cases today. If they always agreed, a national figure would be equivalent and this gate would fail."
   },
   "D_UNKNOWN_IS_VISIBLE": {
    "VERDICT": "PASS",
@@ -26,12 +44,12 @@
    "EVIDENCE": "135-point parameter grid (window, min_sites, baseline depth, thresholds), mean label stability {'OLIVO x BACTROCERA x TOSCANA': 0.918, 'VITE x OIDIO x TOSCANA': 0.596}; cells below 0.8 are withheld rather than published"
   },
   "G_DISCRIMINATES_BETWEEN_SEASONS": {
-   "VERDICT": "PASS",
-   "EVIDENCE": "walk-forward dominant-class share {'OLIVO x BACTROCERA x TOSCANA': 0.424, 'VITE x OIDIO x TOSCANA': 0.667} (<=0.75 required); provinces disagree inside the same season"
+   "VERDICT": "FAIL",
+   "EVIDENCE": "walk-forward dominant-class share {'OLIVO x BACTROCERA x TOSCANA': 0.424, 'VITE x OIDIO x TOSCANA': 0.806} (<=0.75 required); provinces disagree inside the same season"
   },
   "H_REFRESHABLE_WITHOUT_RESEARCH": {
    "VERDICT": "PASS",
-   "EVIDENCE": "2/2 probes reachable in one unauthenticated GET, ~2s, EUR 0; row counts held or grew (a refresh that GAINS rows is the success case, not the failure case); 2/2 returned a non-null measurement column. THREE silent-failure shapes must be treated as FAILURE, not as 'no disease': rowCount 0; full rowCount with an all-null value column; and top-level ok:false with a message the client discards. A deliberate negative control (a variable that does not exist in the requested schema, which the source answers with a full null row set) DID trip the detector \u2014 without that line this gate could not show it is able to fail."
+   "EVIDENCE": "2/2 probes reachable in one unauthenticated GET, ~2s, EUR 0; row counts held or grew (a refresh that GAINS rows is the success case, not the failure case); 2/2 returned a non-null measurement column. THREE silent-failure shapes must be treated as FAILURE, not as 'no disease': rowCount 0; full rowCount with an all-null value column; and top-level ok:false with a message the client discards. A deliberate negative control (a variable that does not exist in the requested schema, which the source answers with a full null row set) DID trip the detector \u2014 without that line this gate could not show it is able to fail. The probe is RE-RUN inside this gate, not read from a cached file. Latency per case {'OLIVO x BACTROCERA x TOSCANA': 2, 'VITE x OIDIO x TOSCANA': 2} (must be <= 21 days: a capability named CURRENT_PRESSURE has to be certified against the data actually being current, which no gate checked until now)."
   },
   "I_GENERALIZES": {
    "VERDICT": "PASS",
@@ -39,12 +57,13 @@
   },
   "J_NOT_DUPLICATE": {
    "VERDICT": "NOT_TESTABLE",
-   "EVIDENCE": "cannot be settled from this branch alone: it requires reading the portal's current capability inventory, which this mission is forbidden to touch. NOT_TESTABLE is not a pass."
+   "ANSWER": "PARTIALLY_OVERLAPS",
+   "EVIDENCE": "the portal already ships 17 O1_FIELD_PRESSURE ('Pressione in campo') cases out of 43, 3 of them vine x Toscana at provincial scope \u2014 the very cell this capability must stay SILENT on \u2014 while its whole TARGET vocabulary contains 0 olive targets. COVERAGE INVERSION: the portal covers the cell we cannot publish and has no words for the cell we can. Neither a pass nor a clean fail."
   }
  },
- "PASS": 9,
- "FAIL": 0,
+ "PASS": 8,
+ "FAIL": 1,
  "NOT_TESTABLE": 1,
  "PORTAL_INTEGRATION": "NO",
- "DESERVES_FUTURE_INTEGRATION": "YES_SCOPED"
+ "DESERVES_FUTURE_INTEGRATION": "NO"
 }

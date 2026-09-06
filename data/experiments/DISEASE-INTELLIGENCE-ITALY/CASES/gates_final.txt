@@ -1,0 +1,24 @@
+PASS          A_OUTCOME_IS_OBSERVED
+              four inadmissible inputs offered to the shipped module and their outcomes recorded: [('MODELLED_RISK', 'REFUSED'), ('FORECAST', 'REFUSED'), ('CONTEXT', 'REFUSED'), ('non-survey var', 'REFUSED')]. The gate fails if ANY is accepted. Before this rewrite it read back its own default argument.
+PASS          B_NOT_SOLD_AS_FORECAST
+              15 observations in the archive are dated after the cutoff, 15 of them inside the published window, and moving the cutoff forward changes 18 published province-cells — so the cutoff is LOAD-BEARING and this gate can detect its removal, which the previous version could not. EARLY_WARNING and both OUTLOOK capabilities remain NOT_PROVED.
+PASS          C_REGIONAL_NOT_NATIONAL
+              no aggregate key above the province exists in the output, AND the province unit is load-bearing: provinces of the same region carry DIFFERENT classes in 19 season-cells of the walk-forward, and in 2/2 cases today. If they always agreed, a national figure would be equivalent and this gate would fail.
+PASS          D_UNKNOWN_IS_VISIBLE
+              UNKNOWN provinces published today: {'OLIVO x BACTROCERA x TOSCANA': 1, 'VITE x OIDIO x TOSCANA': 1}; Missing.NEVER_ZERO is asserted on every empty cell
+PASS          E_REPRODUCIBLE
+              byte-identical re-run; AS_OF is an input not the clock; every raw file sha256-checked against the collection index
+PASS          F_LABEL_NOT_PARAMETER_ARTEFACT
+              135-point parameter grid (window, min_sites, baseline depth, thresholds), mean label stability {'OLIVO x BACTROCERA x TOSCANA': 0.918, 'VITE x OIDIO x TOSCANA': 0.596}; cells below 0.8 are withheld rather than published
+FAIL          G_DISCRIMINATES_BETWEEN_SEASONS
+              walk-forward dominant-class share {'OLIVO x BACTROCERA x TOSCANA': 0.424, 'VITE x OIDIO x TOSCANA': 0.806} (<=0.75 required); provinces disagree inside the same season
+PASS          H_REFRESHABLE_WITHOUT_RESEARCH
+              2/2 probes reachable in one unauthenticated GET, ~2s, EUR 0; row counts held or grew (a refresh that GAINS rows is the success case, not the failure case); 2/2 returned a non-null measurement column. THREE silent-failure shapes must be treated as FAILURE, not as 'no disease': rowCount 0; full rowCount with an all-null value column; and top-level ok:false with a message the client discards. A deliberate negative control (a variable that does not exist in the requested schema, which the source answers with a full null row set) DID trip the detector — without that line this gate could not show it is able to fail. The probe is RE-RUN inside this gate, not read from a cached file. Latency per case {'OLIVO x BACTROCERA x TOSCANA': 2, 'VITE x OIDIO x TOSCANA': 2} (must be <= 21 days: a capability named CURRENT_PRESSURE has to be certified against the data actually being current, which no gate checked until now).
+PASS          I_GENERALIZES
+              unseen 4th case run end-to-end: 14 seasons, 9 distinct SITE_INCIDENCE values (a series that never varies is a decoding failure, not a measurement); scale derived by ['NOT_ORDINAL', 'WORD_LADDER', 'WORD_LADDER_IN_COMPOUND_LABEL'], unresolved labels ['50 - gravissina', '75 - completa']. Honest reuse rate is 3/4 = 75%, NOT the 100% previously claimed: the 4th case required TWO generic extensions (compound labels like 'Bassa <5%', and taking the most complete code table rather than the first), and two of its labels remain unresolved. 0 case-conditional branches remains true.
+NOT_TESTABLE  J_NOT_DUPLICATE
+              the portal already ships 17 O1_FIELD_PRESSURE ('Pressione in campo') cases out of 43, 3 of them vine x Toscana at provincial scope — the very cell this capability must stay SILENT on — while its whole TARGET vocabulary contains 0 olive targets. COVERAGE INVERSION: the portal covers the cell we cannot publish and has no words for the cell we can. Neither a pass nor a clean fail.
+
+PASS=8  FAIL=1  NOT_TESTABLE=1
+DESERVES_FUTURE_INTEGRATION = NO
+PORTAL_INTEGRATION = NO

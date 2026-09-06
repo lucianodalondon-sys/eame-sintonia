@@ -253,7 +253,11 @@ def current_pressure(case_dir, var_id, as_of, metric="INCIDENCE",
         p = r.get("nome_area")
         if p: by_prov[p].append(r)
 
-    latest = max((r["_d"] for r in rows if r["_d"] <= as_of), default=None)
+    # Latency must be measured from the latest READABLE VALUE, not the latest date present.
+    # A measurement column that is 100% empty used to report a 2-day-fresh source, so the
+    # freshness gauge lied in exactly the case where it mattered most.
+    latest = max((r["_d"] for r in rows
+                  if r["_d"] <= as_of and read_value(r, scale, mode) is not None), default=None)
     out = {"AS_OF": as_of.isoformat(), "WINDOW": [lo.isoformat(), hi.isoformat()],
            "METRIC": metric, "VALUE_MODE": mode, "EVIDENCE_ROLE": role,
            "CUTOFF_LABEL": Cutoff("current_pressure", as_of, lo, hi).label(),

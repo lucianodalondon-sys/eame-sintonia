@@ -49,7 +49,18 @@ if __name__ == "__main__":
                 idx["codes"] = cand["data"]
                 idx["vars"] = [x for x in (fb.get("survey_var") or {}).get("data") or []
                                if x["id_survey_schema"] == schema]
-            rec = {"var": v, "year": y, "ok": ok, "rowCount": rc, "n_rows": len(rows)}
+            # A null response must NEVER overwrite a good archive file. The source answers an
+            # unrecognised survey_var with the schema's FULL visit skeleton and `val` null on
+            # every row — same rowCount, same dates, same provinces. Writing that file turned
+            # eight publishable provinces into UNKNOWN in one refresh while the sha256 check
+            # passed (the same run rewrote the index) and the latency badge still read 2 days.
+            non_null = sum(1 for r in rows if isinstance(r, dict) and r.get("val") not in (None, ""))
+            rec = {"var": v, "year": y, "ok": ok, "rowCount": rc, "n_rows": len(rows),
+                   "non_null_values": non_null}
+            if rows and non_null == 0:
+                rec["REFUSED_WRITE"] = "FULL_ROWCOUNT_BUT_EVERY_VALUE_NULL"
+                print(f"    REFUSED to write var {v} {y}: {len(rows)} rows, 0 readable values")
+                rows = []
             if rows:
                 fn = f"c{crop}_s{schema}_v{v}_{y}.json"
                 blob = json.dumps(rows, ensure_ascii=False)

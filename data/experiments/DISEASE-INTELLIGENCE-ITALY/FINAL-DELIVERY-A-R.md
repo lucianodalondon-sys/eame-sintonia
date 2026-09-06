@@ -12,8 +12,22 @@ Todos os números abaixo saem de artefactos em disco, não de memória:
 
 ## A — RESPOSTA DIRETA
 
-**SIM, mas para um conjunto ROTATIVO e pequeno de células — nunca como plataforma.**
-`DESERVES_FUTURE_INTEGRATION = YES_SCOPED`
+**AINDA NÃO.** A medição sobrevive; o aparelho que a certifica não.
+
+```
+ÁRBITRO INDEPENDENTE ....... NOT_YET
+SUITE DO PRÓPRIO AUTOR ..... NO   (8 PASS / 1 FAIL / 1 NOT_TESTABLE)
+PORTAL_INTEGRATION ......... NO
+```
+
+Escrevi `YES_SCOPED` esta manhã. Um árbitro que não escreveu nada disto discordou de **cinco dos
+meus dez gates** e eu concedi os cinco depois de os verificar contra o meu próprio código. A sua
+frase é a descrição mais justa do resultado:
+
+> *"A medição agronómica subjacente à célula da oliveira sobreviveu a tudo o que lhe atirei. É o
+> aparelho que a certifica, não a medição, que ainda não é de confiança."*
+
+O que a capacidade **é**, quando qualifica, mantém-se abaixo — e é útil.
 
 A capacidade é propriedade de **REGIÃO × CULTURA × PROBLEMA × DATA**. Esta última palavra é uma
 correção minha, feita depois de o red team a exigir: eu tinha escrito que a célula da oliveira

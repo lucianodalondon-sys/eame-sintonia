@@ -599,3 +599,104 @@ this mission adds — and what should have been claimed as the delta instead of 
 is: **Italy**; the prior-season baseline and percentile class; the publication gate; the
 135-point stability grid; and the effort-confound test that CAP-015's own red-team lesson
 anticipates.
+
+---
+---
+
+# SIXTH ROUND — THE INDEPENDENT ARBITER, AND THE VERDICT CHANGES
+
+An arbiter that wrote none of this ruled on all ten gates and on the verdict.
+
+## THE RULING
+
+```
+ARBITER VERDICT: NOT_YET        (author had claimed YES_SCOPED)
+```
+
+> *"The capability is real and the olive cell's evidence survives independent reproduction — but
+> the package that certifies it does not, and the author's own headline verdict is false as
+> stated."*
+
+It disagreed with **five** of my ten gate verdicts. I verified each against my own source and
+**conceded all five.**
+
+| gate | I said | arbiter | why it was right |
+|---|---|---|---|
+| A | PASS | NOT_TESTABLE | still self-referential after C10: it read back the role `gates.py` itself supplied via a **default argument**, and an inadmissible role *raises* rather than arriving as FAIL |
+| B | PASS | NOT_TESTABLE | **my C14 fix did not fix C14.** The arbiter removed the cutoff filter; six published cells changed class and gate B still returned PASS with its evidence sentence now factually false |
+| C | PASS | NOT_TESTABLE | a **fourth tautology, which I never found**: `any("ITALY" in key)` can fail only if the regional API renames a Tuscan province |
+| H | PASS | FAIL | it did not probe — it `json.load`ed a **cached file**; and `grew_or_held` was a *list evaluated for truthiness*, not an `all()`, so one case could lose 900 rows and it still passed |
+| I | PASS | FAIL | the evidence lived in **`/tmp/WHEAT4`, outside git**, while a byte-identical copy sat unused in the repo. **From a clean checkout the suite returned 8 PASS / 1 FAIL / NO** |
+
+**Four tautologies in a ten-gate suite — three I conceded, one the arbiter found *after* my
+concession.** In its words, that *"confirms rather than closes the pattern the author himself
+named."*
+
+On whether I was marking my own homework:
+
+> *"Yes, structurally and unavoidably… The self-marking is concentrated exactly where it always
+> concentrates — in the pass/fail apparatus, not the arithmetic. Every number I could
+> independently re-derive held… The corrosive part is narrower and real: the same author chose
+> which mutations to test his gates against, and never ran the obvious one — delete the current
+> season and see whether a suite named CURRENT_PRESSURE notices. **It does not.**"*
+
+It also upheld a defect I had half-fixed: **a null refresh could overwrite the good archive**, and
+every alarm stayed silent — the sha256 check passed because the same run rewrote the index, and
+`DATA_LATENCY_DAYS` still read **2 days** because it was computed from row *dates*, never from a
+value being present. Eight publishable provinces to zero in one refresh, with a green badge.
+
+## WHAT I FIXED IN RESPONSE
+
+- **A** now offers four inadmissible inputs to the shipped module and fails if any is accepted:
+  `[MODELLED_RISK REFUSED, FORECAST REFUSED, CONTEXT REFUSED, non-survey var REFUSED]`.
+- **B** now proves the cutoff is **load-bearing**: moving it forward changes **18** published
+  province-cells, so removing the filter is detectable — which the C14 version was not.
+- **C** now tests whether the province unit changes the answer: provinces of the same region
+  carry different classes in **19** season-cells. If they always agreed, a national figure would
+  be equivalent and the gate fails.
+- **H** now **re-probes live** inside the gate, uses `all()`, and reads `DATA_LATENCY_DAYS`
+  (≤ 21 days required). No gate had ever checked that a capability called CURRENT_PRESSURE was
+  looking at current data.
+- **I** now points at `CASES/FRUMENTO-SEPTORIA-TOSCANA` **in the repository** and hash-checks
+  every raw file before using it.
+- **`collect_generic.py` now REFUSES to write** a response with a full row count and zero
+  readable values, so a null response can never overwrite an archive.
+- **`DATA_LATENCY_DAYS` is now measured from the latest readable value.** Verified on a corrupted
+  copy: the null refresh now reports **324 days**, not 2, and gate H fails on it.
+- **C11 now has code.** The arbiter noted that the mission's self-declared *"strongest single
+  discriminator"* — the effort-confound test that withdrew the oidio case — was computed once in
+  a shell heredoc and never committed. It is now `CASES/effort_confound.py`, and it reproduces:
+  `OIDIO effort +0.738 vs disease +0.229 · BACTROCERA effort +0.252 vs disease +0.449`.
+
+## THE VERDICT CHANGES — AND I AM NOT TOUCHING THE GATE THAT CAUSED IT
+
+Re-running the repaired suite:
+
+```
+PASS = 8   FAIL = 1   NOT_TESTABLE = 1
+DESERVES_FUTURE_INTEGRATION = NO        (was YES_SCOPED)
+```
+
+**Gate G now fails**, and it fails because of *my own* C26 fix: the effect-size floor converts the
+vine case's spurious early-season HIGHER cells to TYPICAL, which pushes its dominant-class share
+from 0.667 to **0.806**, past the 0.75 limit. The olive case passes at 0.424.
+
+I can see the argument that gate G should be evaluated **per cell** — every other gate is, and
+the mission's whole conclusion is that capability is per-cell, so the joint form tests a claim
+nobody makes. **I am not making that change.** Rewriting a gate after seeing it fail is precisely
+the pattern the arbiter identified and that I named myself in C24. The observation is recorded
+here for an independent party to rule on; the verdict of record stands as the suite returns it.
+
+## VERDICT OF RECORD
+
+```
+ARBITER          NOT_YET
+AUTHOR'S SUITE   NO   (8 PASS / 1 FAIL / 1 NOT_TESTABLE)
+PORTAL_INTEGRATION = NO
+```
+
+The two agree on the substance and differ only on distance. The arbiter's summary is the fairest
+statement of where this ended:
+
+> *"The underlying agronomic measurement for the olive cell survived everything I threw at it…
+> It is the apparatus that certifies it, not the measurement, that is not yet trustworthy."*
