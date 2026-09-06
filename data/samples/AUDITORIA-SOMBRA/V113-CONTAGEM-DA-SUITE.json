@@ -1,19 +1,43 @@
 {
- "TOTAL_DISCOVERED": 801,
- "RAN": 801,
+ "TOTAL_DISCOVERED": 809,
+ "RAN": 809,
  "NEVER_RAN": 0,
- "PASSED": 778,
- "FAILED": 6,
- "ERROR_AS_TEST": 1,
+ "PASSED": 761,
+ "FAILED": 15,
+ "ERROR_AS_TEST": 7,
  "ERROR_AS_CLASS_SETUP": 0,
- "SKIPPED": 16,
+ "SKIPPED": 26,
  "XFAIL": 0,
  "XPASS": 0,
- "ERRORS_REPORTED": 1,
+ "ERRORS_REPORTED": 7,
  "ERROR_DETAIL": [
   [
    "test_comunicacao (unittest.loader._FailedTest.test_comunicacao)",
    "_FailedTest"
+  ],
+  [
+   "test_U1_catraca_nunca_promove (test_trilha_universal.CatracaNuncaPromove.test_U1_catraca_nunca_promove)",
+   "CatracaNuncaPromove"
+  ],
+  [
+   "test_U2_publicavel_exige_external_yes (test_trilha_universal.CatracaNuncaPromove.test_U2_publicavel_exige_external_yes)",
+   "CatracaNuncaPromove"
+  ],
+  [
+   "test_U30_os_tres_campos_declaram_que_nao_filtram_a_tela (test_trilha_universal.ManifestoSemDuasLeituras.test_U30_os_tres_campos_declaram_que_nao_filtram_a_tela)",
+   "ManifestoSemDuasLeituras"
+  ],
+  [
+   "test_U31_render_nao_e_export (test_trilha_universal.ManifestoSemDuasLeituras.test_U31_render_nao_e_export)",
+   "ManifestoSemDuasLeituras"
+  ],
+  [
+   "test_U32_o_total_da_superficie_e_recontado_do_pacote (test_trilha_universal.ManifestoSemDuasLeituras.test_U32_o_total_da_superficie_e_recontado_do_pacote)",
+   "ManifestoSemDuasLeituras"
+  ],
+  [
+   "test_U33_toda_faixa_da_superficie_tem_dono_declarado (test_trilha_universal.ManifestoSemDuasLeituras.test_U33_toda_faixa_da_superficie_tem_dono_declarado)",
+   "ManifestoSemDuasLeituras"
   ]
  ],
  "FAILED_DETAIL": [
@@ -22,11 +46,20 @@
   "test_source_e_fact_location_quando_declarados (test_evidence.TestGeografia.test_source_e_fact_location_quando_declarados) (arquivo='data/samples/COMPETITOR-PUBLIC-COMM/MEDICAO-PRIMEIRO-LOTE-V1.json')",
   "test_source_e_fact_location_quando_declarados (test_evidence.TestGeografia.test_source_e_fact_location_quando_declarados) (arquivo='data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json')",
   "test_toda_amostra_declara_data_de_captura (test_evidence.TestProveniencia.test_toda_amostra_declara_data_de_captura)",
-  "test_toda_amostra_declara_origem (test_evidence.TestProveniencia.test_toda_amostra_declara_origem)"
+  "test_toda_amostra_declara_origem (test_evidence.TestProveniencia.test_toda_amostra_declara_origem)",
+  "test_a_contagem_de_testes_do_handoff_bate (test_handoff.TestSentinelasDoHandoffBatemComOLedger.test_a_contagem_de_testes_do_handoff_bate)",
+  "test_T52_a_regra_de_uma_regiao_nao_atravessa_para_outra (test_prioridade_comercial.TestRedTeamSemantico.test_T52_a_regra_de_uma_regiao_nao_atravessa_para_outra)",
+  "test_U19_a_contagem_do_fechamento (test_trilha_universal.FechamentoDasRegrasPreservado.test_U19_a_contagem_do_fechamento)",
+  "test_U20_os_quatro_estados_de_regra_existem (test_trilha_universal.FechamentoDasRegrasPreservado.test_U20_os_quatro_estados_de_regra_existem)",
+  "test_U22_regra_delegada_ao_pomar_define_e_nao_abre (test_trilha_universal.FechamentoDasRegrasPreservado.test_U22_regra_delegada_ao_pomar_define_e_nao_abre)",
+  "test_U24_disciplinare_nao_cria_direcao_nem_sinal_corrente (test_trilha_universal.FechamentoDasRegrasPreservado.test_U24_disciplinare_nao_cria_direcao_nem_sinal_corrente)",
+  "test_U26_o_limiar_e_regiao_especifico (test_trilha_universal.FechamentoDasRegrasPreservado.test_U26_o_limiar_e_regiao_especifico)",
+  "test_U29_client_safe_false_nao_manda_ninguem_para_research_leads (test_trilha_universal.ManifestoSemDuasLeituras.test_U29_client_safe_false_nao_manda_ninguem_para_research_leads)",
+  "test_U20_publicavel_nunca_contradiz_o_cartao (test_trilha_universal.TestReconciliacaoUniversal.test_U20_publicavel_nunca_contradiz_o_cartao)"
  ],
  "COLLECTION": "V113-CONTAGEM-DA-SUITE",
  "SOURCE": "unittest.defaultTestLoader.discover(\"tests\") + TextTestRunner, nesta arvore",
- "CAPTURED_AT": "2026-09-04",
+ "CAPTURED_AT": "2026-09-06",
  "LAW": "dois universos: o descoberto e o executado. A diferenca tem nome — classe cujo setUpClass aborta nao executa os seus metodos, e o _ErrorHolder que ela gera nao e um caso.",
  "EQUATION_OUTER": "TOTAL_DISCOVERED = RAN + NEVER_RAN",
  "EQUATION_INNER": "RAN = PASSED + FAILED + ERROR_AS_TEST + SKIPPED + XFAIL + XPASS"
