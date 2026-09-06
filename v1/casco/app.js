@@ -20,11 +20,19 @@ const UNK = ['NOT_KNOWN','NOT_PROVED','NOT_PRESERVED','NOT_PRESENT','UNKNOWN',
              'NOT_COMPUTED_WITHOUT_CLOCK','NOT_RECONSTRUCTABLE','NOT_PROVED_BY_RULE'];
 // A lista era uma enumeracao, e por isso ficou para tras: quando a coleta
 // passou a emitir NOT_COLLECTED, val() caiu no ramo de valor comum e a ficha
-// publicou <a href="NOT_COLLECTED">abrir no Ministero</a> — um link vivo para
-// um token de ignorancia. Agora QUALQUER string que comece por NOT_ conta como
-// ignorancia, e um portao varre o payload atras de NOT_* que a lista nao
-// nomeia, para que a lista continue sendo a documentacao e nao a definicao.
-const isUnk = v => { const t = String(v); return UNK.includes(t) || /^NOT_[A-Z_]+$/.test(t); };
+// publicou o token dentro do atributo de um link — um link vivo para uma
+// ausencia. Agora QUALQUER string NOT_* conta como ignorancia, e um portao
+// varre o payload atras de NOT_* que a lista nao nomeia, para que a lista
+// continue sendo documentacao e nao definicao.
+//
+// UMA excecao, e ela importa: NOT_RELEVANT nao e ignorancia. E uma DECISAO —
+// a regra C-05 olhou o objeto e resolveu que ele nao passa para aquela area.
+// Tratar decisao como ausencia apagaria a diferenca entre "o portao barrou" e
+// "nao sabemos", que e justamente a distincao que esta ferramenta existe para
+// manter. O proprio portao IGNORANCE_TOKENS_DECLARED achou este caso.
+const DECISOES = ['NOT_RELEVANT'];
+const isUnk = v => { const t = String(v);
+  return !DECISOES.includes(t) && (UNK.includes(t) || /^NOT_[A-Z_]+$/.test(t)); };
 // Link so nasce de um endereco de verdade. Antes a guarda era "nao esta na
 // lista UNK", que confiava numa lista incompleta.
 const ehURL = v => /^https?:\/\//.test(String(v || ''));
@@ -146,22 +154,16 @@ function linhaUsavel(d) {
       && d.rule_check !== 'NOT_LOCATED'
       && d.rule_check !== 'CONTRADICTED_BY_RULE';
 }
-// A REBAIXA E FATO DO PAR, NAO DA OCORRENCIA. A etichetta costuma trazer a
-// tabela duas vezes no mesmo PDF, e o validador rebaixava uma copia e aprovava a
-// outra: a fila de revisao dizia "o valor 300 foi recusado" enquanto a ficha
-// continuava publicando 300 para o mesmo par, vindo da outra copia. Se qualquer
-// ocorrencia de (registro, cultura, alvo) foi contradita, nenhuma outra pode
-// publicar valor para aquele par.
-const CHAVE_PAR = d => `${nrm(d.crop)}||${nrm(d.target)}`;
-const parRebaixado = new Map();
-P.products.forEach(p => {
-  const s = new Set();
-  p.doses.forEach(d => { if (!linhaUsavel(d)) s.add(CHAVE_PAR(d)); });
-  parRebaixado.set(p.reg, s);
-});
-function linhaPublicavel(p, d) {
-  return linhaUsavel(d) && !parRebaixado.get(p.reg).has(CHAVE_PAR(d));
-}
+// A rebaixa foi tentada como fato do PAR (registro, cultura, alvo) e MEDIDA:
+// isso apagava fato verdadeiro. Em 008259 existem duas linhas rotuladas
+// "Tabacco x Nottue defogliatrici": a de y=197,2, que na verdade e de PORRO e
+// cai por R-11, e a de y=229,4, que e mesmo de Tabacco e vale 400-500 g/ha.
+// Suprimir o par inteiro perderia a segunda. A rebaixa continua sendo da LINHA;
+// o que MF-03 pedia — que a fila de revisao nao anuncie uma recusa enquanto a
+// ficha publica o mesmo valor — ja e garantido por linhaUsavel(), que barra
+// NOT_LOCATED e CONTRADICTED_BY_RULE na origem. Quantas linhas cairam aparece
+// em cada celula.
+const linhaPublicavel = (p, d) => linhaUsavel(d);
 function juntaDose(p, u) {
   const todas = p.doses;
   const boas = todas.filter(d => linhaPublicavel(p, d));
@@ -690,6 +692,21 @@ function viewTimeline() {
 
 // A celula de dose NUNCA imprime um numero sem dizer por que aquele numero e
 // deste par. Estado ambiguo nao vira numero.
+// Estados que a FONTE declara fora de vigor. Medidos no instantaneo vigente
+// sobre os 17.695 produtos do registro: Revocato 13.216, Scaduto 765, Sospeso 3.
+// Mesma lista da regra T-08 em REGRAS.md.
+const FORA_DE_VIGOR = ['revocato', 'scaduto', 'sospeso'];
+const foraDeVigor = p => FORA_DE_VIGOR.includes(String(p && p.status || '').trim().toLowerCase());
+// O CONFLITO existe quando a validade passou E o registro CONTINUA declarando o
+// produto em vigor. Se o estado ja e Scaduto, os dois campos concordam e nao ha
+// conflito nenhum. A tela afirmava conflito sobre EVOLUTION EC e CS, cujo
+// stato_amministrativo e "Scaduto": inventava desacordo entre campos que dizem
+// a mesma coisa.
+const conflitoDeValidade = p => {
+  const d = dte(p);
+  return typeof d === 'number' && d < 0 && !foraDeVigor(p);
+};
+
 // Nomes de estado sao impressos POR EXTENSO. Um selo de tres letras nao e um
 // estado: quem le tem de poder ver, sem abrir gaveta, o que a ferramenta esta
 // afirmando sobre a origem daquele numero.

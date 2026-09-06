@@ -1,6 +1,6 @@
 {
  "SUITE": "PORTOES-V1",
- "PASS": 16,
+ "PASS": 19,
  "FAIL": 0,
  "RESULTS": [
   {
@@ -11,7 +11,7 @@
   {
    "GATE": "ROUTING_RULE_EXISTS",
    "STATE": "PASS",
-   "DETALHE": "todo roteamento aponta uma das 40 regras declaradas"
+   "DETALHE": "todo roteamento aponta uma das 42 regras declaradas"
   },
   {
    "GATE": "BUSINESS_IMPLICATION_GATED",
@@ -56,12 +56,17 @@
   {
    "GATE": "ISOLATION",
    "STATE": "PASS",
-   "DETALHE": "33 arquivos, todos dentro de v1/ e pilot/"
+   "DETALHE": "36 arquivos, todos dentro de v1/ e pilot/"
   },
   {
    "GATE": "CANONICAL_TOUCHED",
    "STATE": "PASS",
-   "DETALHE": "canonical segue em bdb57cf"
+   "DETALHE": "nenhum dos 13 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
+  },
+  {
+   "GATE": "REUSE_ANCHORED_ON_FILE_HASH",
+   "STATE": "PASS",
+   "DETALHE": "arquivo de pares confere (024b19979343), 2928 pares"
   },
   {
    "GATE": "COVERAGE_NOT_SINGLE_NUMBER",
@@ -76,7 +81,17 @@
   {
    "GATE": "EXCLUSION_IS_NOT_PERMISSION",
    "STATE": "PASS",
-   "DETALHE": "2 par(es) retirado(s), cada um com a frase literal do rotulo; 25 rotulos tem janela de exclusao"
+   "DETALHE": "2 par(es) retirado(s), cada um com a frase literal do rotulo; 7 rotulos tem janela de exclusao que fala de cultura (de 25 com algum marcador)"
+  },
+  {
+   "GATE": "IGNORANCE_TOKENS_DECLARED",
+   "STATE": "PASS",
+   "DETALHE": "10 tokens NOT_* emitidos, todos na lista do casco"
+  },
+  {
+   "GATE": "NO_LINK_TO_IGNORANCE_TOKEN",
+   "STATE": "PASS",
+   "DETALHE": "nenhum href para token de ignorancia"
   },
   {
    "GATE": "CASCO_RENDER_TEST",

@@ -126,12 +126,54 @@ fora = [f for f in dif if not (f.startswith("v1/") or f.startswith("pilot-label-
 ok("ISOLATION", f"{len(dif)} arquivos, todos dentro de v1/ e pilot/") if not fora \
     else fail("ISOLATION", f"arquivos fora do escopo: {fora}")
 
-# --- 12. canonical intocada
+# --- 12. canonical intocada POR ESTA MISSAO
+#
+# A versao anterior deste portao fixava o head de canonical numa constante
+# (bdb57cf) e passava enquanto ele nao mudasse. Ele mudou: canonical avancou
+# para 10af4a7 com tres commits que NAO sao meus — outra sessao trabalhou nela
+# enquanto esta missao rodava. O portao antigo teria transformado o trabalho
+# legitimo de outra pessoa num alarme desta missao, e um portao que dispara por
+# um fato que nao e sobre mim nao mede o que promete medir.
+#
+# O que esta missao pode afirmar e so isto: nenhum commit meu esta em canonical.
+# E o que este portao passa a medir, com git, e nao com uma constante.
 ls = subprocess.run(["git", "ls-remote", "origin", "refs/heads/sintonia/canonical"],
                     capture_output=True, text=True).stdout.split()
-ok("CANONICAL_TOUCHED", "canonical segue em bdb57cf") \
-    if ls and ls[0] == "bdb57cf7379a4b8b94b3ef117fb3da469fca0764" \
-    else fail("CANONICAL_TOUCHED", f"canonical em {ls[:1]}")
+head_canon = ls[0] if ls else "NOT_KNOWN"
+subprocess.run(["git", "fetch", "-q", "origin",
+                "refs/heads/sintonia/canonical:refs/remotes/origin/sintonia/canonical"],
+               capture_output=True, text=True)
+meus = subprocess.run(["git", "log", "--format=%H", "df3a4fd..HEAD"],
+                      capture_output=True, text=True).stdout.split()
+alcancaveis = subprocess.run(
+    ["git", "rev-list", "origin/sintonia/canonical"], capture_output=True, text=True).stdout.split()
+vazou = sorted(set(meus) & set(alcancaveis))
+if vazou:
+    fail("CANONICAL_TOUCHED", f"{len(vazou)} commit(s) desta missao estao em canonical: "
+                              f"{[c[:8] for c in vazou]}")
+else:
+    ok("CANONICAL_TOUCHED",
+       f"nenhum dos {len(meus)} commits desta missao esta em canonical "
+       f"(head de canonical agora: {head_canon[:8]}, movido por outra sessao)")
+
+# --- 12b. o reuso continua ancorado no ARQUIVO, nao no branch
+#
+# canonical mover nao pode mudar o que esta ferramenta leu. A ancora do reuso e
+# o sha256 do arquivo de pares, gravado em EXCLUSAO.json e conferido pelo
+# payload a cada build.
+_exc = json.load(open("v1/dados/EXCLUSAO.json", encoding="utf-8"))
+_cam = _exc.get("PAIRS_PATH", "")
+if os.path.exists(_cam):
+    import hashlib
+    with open(_cam, "rb") as _fh:
+        _s = hashlib.sha256(_fh.read()).hexdigest()
+    ok("REUSE_ANCHORED_ON_FILE_HASH",
+       f"arquivo de pares confere ({_s[:12]}), {_exc['PAIRS_COUNT']} pares") \
+        if _s == _exc.get("PAIRS_SHA256") \
+        else fail("REUSE_ANCHORED_ON_FILE_HASH",
+                  f"o arquivo de pares mudou: {_exc.get('PAIRS_SHA256','?')[:12]} -> {_s[:12]}")
+else:
+    fail("REUSE_ANCHORED_ON_FILE_HASH", f"arquivo de pares nao esta em {_cam}")
 
 # --- 13. cobertura nunca publicada como numero unico
 cov = PAY["coverage"]
@@ -156,7 +198,8 @@ elif sem_prova:
 else:
     ok("EXCLUSION_IS_NOT_PERMISSION",
        f'{exc["PARES_RETIRADOS"]} par(es) retirado(s), cada um com a frase literal do rotulo; '
-       f'{exc["LABELS_WITH_EXCLUSION"]} rotulos tem janela de exclusao')
+       f'{exc["LABELS_WITH_CROP_SCOPE_EXCLUSION"]} rotulos tem janela de exclusao '
+       f'que fala de cultura (de {exc["LABELS_WITH_ANY_EXCLUSION_MARKER"]} com algum marcador)')
 
 # --- 15b. todo token NOT_* emitido tem de ser reconhecido como ignorancia
 #
@@ -176,6 +219,9 @@ def tokens_do_payload(o, achados):
     return achados
 
 emitidos = tokens_do_payload(PAY, set())
+# NOT_RELEVANT nao e ignorancia: e a decisao da regra C-05. Declarado no casco
+# em DECISOES, e repetido aqui de proposito — os dois lados tem de concordar.
+emitidos -= set(re.findall(r"'(NOT_[A-Z_]+)'", JS.split("const isUnk")[0].split("const DECISOES")[-1]))
 declarados = set(re.findall(r"'(NOT_[A-Z_]+)'", JS.split("const isUnk")[0]))
 orfaos = sorted(emitidos - declarados)
 ok("IGNORANCE_TOKENS_DECLARED",
