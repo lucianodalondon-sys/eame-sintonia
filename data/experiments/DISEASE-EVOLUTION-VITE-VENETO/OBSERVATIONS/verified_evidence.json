@@ -1,0 +1,545 @@
+{
+ "note": "Verifier-approved quotes only, re-proved verbatim in THIS process against NORMALIZED/. A quote the verifier passed but that does not occur in the text is dropped here and listed in quotes_dropped_on_reproof.",
+ "n_documents": 12,
+ "n_with_explicit_severity": 9,
+ "n_mention_only": 2,
+ "n_no_statement": 1,
+ "season_year_collisions": {},
+ "reproof_problems": [],
+ "per_document": {
+  "2014": {
+   "doc_key": "2014",
+   "vine_season_year": 2014,
+   "season_year_resolved_by": "calendar_key",
+   "verifier_verdict": "OK",
+   "has_explicit_severity": true,
+   "mention_only": false,
+   "n_quotes": 3,
+   "quotes": [
+    {
+     "quote_it": "Le copiose precipitazioni di fine di aprile hanno innescato su tutto il territorio regionale   la prima infezione   di peronospora,   dilavando i prodotti di copertura   applicati in precedenza   anche   se complessivamente, durante   il periodo   primaverile,   le   infezioni sono risultate leggere.",
+     "period": "PRIMAVERA (periodo marzo-maggio) - fine aprile, con giudizio complessivo esteso a \"durante   il periodo   primaverile\"",
+     "severity_words_it": [
+      "leggere"
+     ],
+     "scope_words_it": [
+      "su tutto il territorio regionale"
+     ],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "Nei vigneti le frequenti piogge di luglio hanno costretto i viticoltori a ripetere a più riprese i trattamenti fitosanitari per le infezioni secondarie di Peronospora, che erano diventate quasi ovunque ben visibili.",
+     "period": "ESTATE (periodo giugno-agosto) - luglio",
+     "severity_words_it": [
+      "ben visibili"
+     ],
+     "scope_words_it": [
+      "quasi ovunque"
+     ],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "La presenza di infezioni peronosporiche sulle foglie non ha permesso alla vite di accumulare zuccheri mentre gli acini, che oramai avevano perso elasticità nella buccia, sono andati soggetti a continue rotture, favorendo in questa fase la muffa grigia.",
+     "period": "ESTATE (periodo giugno-agosto) - terza decade di agosto (fase di vendemmia delle varietà precoci)",
+     "severity_words_it": [],
+     "scope_words_it": [],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    }
+   ],
+   "quotes_dropped_on_reproof": [],
+   "host_misattributions_caught": [],
+   "missed_quotes_recovered": 0,
+   "verifier_notes": "I read the whole file (12 lines, 12830 bytes — wc -c confirms the extractor's doc_char_count) and re-checked every claim independently.\n\n(a) VERBATIM — 4/4 PASS. Each of the 3 vine-peronospora quotes and the 1 zucchino-oidio quote was tested with `grep -c -F` (fixed string, whole quote including punctuation and the irregular multi-space runs); each returned exactly 1. I additionally piped `grep -o -F ... | cat -A` on the two most artefact-prone fragments (\"territorio regionale   la prima infezione   di peronospora\" and \"quasi ovunque ben visibili\") to confirm the runs are literal spaces, not tabs, and that no run was collapsed. No accent, apostrophe (’ U+2019 vs ') or spacing deviation found. The extractor did NOT normalise whitespace — good.\n\n(b) HOST — no misattributions. Statement 2 (\"Nei vigneti ... i viticoltori\") and statement 3 (\"alla vite ... gli acini ... nella buccia\") are sentence-internally vine, beyond dispute. Statement 1 is context-derived, exactly as the extractor honestly flagged: the sentence itself never says vite/vigneto; the host rests on the immediately preceding sentence \"Anche i vigneti a inizio aprile mostravano uno stadio fenologico notevolmente anticipato rispetto alla media.\" plus the intra-sentence \"dilavando i prodotti di copertura   applicati in precedenza\" and \"la prima infezione   di peronospora\" (primary-infection/cover-product framing typical of Plasmopara viticola), and by the explicit host switch in the next sentence \"Il frumento, oramai già in sofferenza...\". I stress-tested the alternative-host hypothesis by grepping the whole file for patat, pomodor, cipoll, lattug, basilic, soia, girasol, melon, cetriol: ALL ZERO hits. The only other crops named near this passage are frutticole/albicocco/actinidia/frumento, none of which take \"peronospora\" in this register. So vine is the only supportable host. Confidence: high, but derived from adjacency, not from the sentence itself — downstream users should keep that distinction.\n\n(c) COMPLETENESS — nothing missed. Case-insensitive counts over the full file: peronospor = 3 (all on line 5 / PAGE 2, all extracted), oidi = 1 (zucchino only), \"macchie d'olio\" = 0, vite = 1, vigneti = 2, uva = 0, uve = 1, viticolt = 1, vitat = 0. All 3 peronospora occurrences are accounted for and all 3 are vine. The extractor's claim of \"3 hits, all page 2, all vine\" is verified true. There is NO vine oidio sentence in this document — the single Oidio sentence is \"Per il settore orticolo, su zucchino...\" and the extractor correctly listed it with subject_is_vine=false purely so the exclusion is auditable; that is the right call and must not be read as a 2014 vine-oidio observation. This is silence, not a reported absence. other_host_peronospora_statements is legitimately empty because no non-vine peronospora sentence exists in the file. Also confirmed there is no vine-peronospora content on pages 4-6 (figure captions and a precipitation series only) and none in the AUTUNNO section.\n\n(d) SEVERITY SIGNAL — YES, this year carries a real severity qualifier, but it is season-split and must not be flattened. Discriminating scope from severity as instructed:\n  • \"su tutto il territorio regionale\" = SCOPE (spatial extent), NOT severity.\n  • \"quasi ovunque\" = SCOPE, NOT severity.\n  • \"leggere\" (spring) = genuine SEVERITY/intensity qualifier — an explicit low-intensity grading of the infections over the whole spring period. This alone makes year_has_usable_severity_signal true.\n  • \"ben visibili\" (July, secondary infections) = an INTENSITY/conspicuousness qualifier. It is weaker and less standard than words like \"grave\"/\"forte\"/\"virulenta\", and it grades visibility rather than damage, so I count it as a real but soft severity signal — an aggregator should not treat \"ben visibili\" as equivalent to an explicit \"elevata/grave\".\n  • The August statement carries NO severity adjective at all: it is an IMPACT statement (blocked sugar accumulation, berry splitting, grey mould follow-on). Empty severity_words_it there is correct and I left it empty rather than manufacturing a grade from the impact.\n  • No numbers exist: no percentage, hectare, incidence or severity figure appears for any disease anywhere in this file. Every number in the document is meteorological (mm, °C, dates, 1477 mm Cansiglio, 1299 mm Recoaro, 506 mm summer, 37°C) or belongs to unrelated crops (\"oltre il 60% del prodotto\" = tobacco harvested; \"circa il 50% in più\" = rainy days). I invented none.\n\nOTHER ADVERSARIAL CHECKS: (i) The extractor's conditional_on_treatment=false on all three is defensible — none is phrased as the ARPAV conditional idiom \"nei vigneti regolarmente difesi\". Its own caveat 8 is nevertheless the most important qualification in the whole record and I endorse it: spring \"leggere\" was observed after cover products were washed off, and July \"ben visibili\" was observed despite repeated sprays, so both readings are severity-under-management, not untreated pressure. (ii) Minor ambiguity the extractor did not raise: in statement 1 the referent of \"le   infezioni sono risultate leggere\" is grammatically \"le infezioni\" unqualified; the nearest and only antecedent is \"la prima infezione   di peronospora\", so reading it as peronospora-on-vine is correct, but it is a back-reference, not a repeated naming. (iii) The extractor's internal-tension flag (caveat 5) is correct and material: 2014 runs light spring -> widespread, ripening-blocking summer, and a single year-level peronospora label would misrepresent it. (iv) 2014's dominant vine-disease narrative in this report is BOTRITE (\"La stagione 2014 sarà ricordata per la virulenza con cui la Botrite ha aggredito i grappoli in fase di pre- maturazione\") — out of scope here, but worth knowing that peronospora is not the headline disease of this year's text. (v) All statements are OFFICIAL_OBSERVATION (ARPAV Servizio Meteorologico annual report, A. Barbi / F. Checchetto / M. Padoan), retrospective field observation. The only modelled/risk-framed sentence in the file is \"Il rischio di Cercospora nelle principali zone di coltivazione è stato molto elevato\" — sugar beet, not vine, not peronospora, correctly excluded.\n\nVERDICT OK: I found no verbatim failure, no host misattribution, and no missed vine-peronospora statement. corrected_vine_peronospora_quotes is identical in content to the extractor's set (re-verified byte-exact by me), with period strings lightly reworded for clarity only — the quote_it strings are untouched and grep-confirmed."
+  },
+  "2015": {
+   "doc_key": "2015",
+   "vine_season_year": 2015,
+   "season_year_resolved_by": "calendar_key",
+   "verifier_verdict": "OK",
+   "has_explicit_severity": false,
+   "mention_only": false,
+   "n_quotes": 0,
+   "quotes": [],
+   "quotes_dropped_on_reproof": [],
+   "host_misattributions_caught": [],
+   "missed_quotes_recovered": 0,
+   "verifier_notes": "INDEPENDENT FULL READ of /home/user/eame-sintonia/data/experiments/DISEASE-EVOLUTION-VITE-VENETO/NORMALIZED/annata-agraria-2015.txt (9047 bytes, wc -c confirms the extractor's doc_char_count exactly). Structure confirmed: 5 pages, all phytosanitary narrative on pages 1-2, pages 3-5 are Fig.1-Fig.6 map captions only.\n\n(a) VERBATIM — 6 quoted strings checked with grep -F (fixed-string, byte-for-byte, no normalisation), all 6 matched exactly once:\n1. \"Il caldo e il secco ha favorito l’oidio in particolare su grappoli aggrovigliati non adeguatamente bagnati con i fungicidi.\" (quote_it) -> MATCH.\n2. host_evidence_it \"luglio le viti sono giunte alla chiusura dei grappoli, mentre nelle zone collinari, si sono trovati i primi acini invaiati di Pinot grigio e Chardonnay. A metà mese è iniziata l’invaiatura nei vitigni di Merlot, Chardonnay.\" -> MATCH (note this string spans the page-1/page-2 header boundary in the source; it is contiguous in the normalised text and the extractor correctly began mid-sentence at \"luglio\" rather than fabricating a sentence start).\n3. note-3 quote \"Lo sviluppo fenologico dell’uva è avvenuto in notevole anticipo rispetto alla media con un buon controllo in campo dello stato epidemiologico delle principali infezioni fungine.\" -> MATCH.\n4. note-4 quote \"Le modeste precipitazioni della prima parte di marzo hanno rallentato lo sviluppo delle patologie fungine e hanno favorito l’assorbimento dell’azoto distribuito in campo a metà febbraio sui cereali vernini.\" -> MATCH.\n5. note-6 quote \"L’abbassamento termico e le piogge della seconda metà di agosto hanno favorito la botrite.\" -> MATCH.\n6. note-6 quote \"su barbabietola da zucchero la cercospora si è manifestata con una virulenza elevata\" -> MATCH.\nApostrophes are indeed U+2019 throughout; the extractor's encoding note (8) is correct. The file contains 97 multi-space runs, but none fall inside any of the six quoted strings, so no collapsed-whitespace failure occurred.\n\n(b) HOST — the single subject_is_vine=true statement (oidio) is genuinely on vine. Proof from the Italian: the sentence itself says \"su grappoli\"; the two immediately preceding sentences are \"luglio le viti sono giunte alla chiusura dei grappoli\" and \"A metà mese è iniziata l’invaiatura nei vitigni di Merlot, Chardonnay\"; the following vine references are \"irrigazioni anche su vite\" and \"l’invaiatura delle diverse cultivar di vite\". No host misattribution. No peronospora is attributed to any host, so the patata/pomodoro/cipolla failure mode cannot have occurred here.\n\n(c) COMPLETENESS — I ran my own case-insensitive greps for: peronospor, Peronospora, peronosporich, peronos, perono, plasmopara, viticola, downy, mildew, \"macchie\", olio, oidio, Oidio, oidic, vite, viti, vigne, uva, grappol, infezion, fungin, malatti, muffa, botrite, cercospor, brusone, carpocaps, ragnetto, flavescenz, escoriosi, tignol. RESULT: ZERO hits for peronospor / peronos / plasmopara / viticola / mildew / \"macchie d'olio\". The string \"olio\" does not occur at all. \"oidio\" occurs exactly once (the recorded statement). Therefore there is NO vine peronospora statement in the 2015 document, and none was missed. The extractor's empty vine_peronospora_statements and empty other_host_peronospora_statements are both correct.\n\n(d) SEVERITY SIGNAL for VINE PERONOSPORA — none, because there is not even a mention. This year is DOCUMENT SILENCE: 2015 carries neither a severity qualifier, nor a scope qualifier, nor a bare mention of peronospora on vine (or on any other host). Both year_has_usable_severity_signal and year_has_mention_only are therefore false, and the two flags together must be read as \"the report says nothing\", NOT as \"peronospora was absent/low in 2015\". Downstream code that maps an empty quote list to a low-severity score would be fabricating an observation. The extractor's warning (1) and (2) are correct and important: this is a thin 5-page agrometeorological summary with no per-disease and no per-crop section, so absence here is far weaker evidence than absence in a year whose report has a dedicated vine/disease section.\n\nCORRECT JUDGEMENT CALLS I CHECKED AND UPHELD: (i) \"Lo sviluppo fenologico dell’uva ... con un buon controllo in campo dello stato epidemiologico delle principali infezioni fungine\" is on vine but names NO pathogen and is explicitly conditional on management (\"un buon controllo in campo\"); it must not be recorded as a peronospora statement, and the extractor rightly excluded it — I confirm the exclusion. (ii) \"Le modeste precipitazioni della prima parte di marzo hanno rallentato lo sviluppo delle patologie fungine\" names no pathogen and its only named crop is \"cereali vernini\"; correctly not attributed to vine. (iii) botrite (vine, second half of August), cercospora (barbabietola da zucchero), brusone (pero — and the text calls it a \"scompenso fisiologico\", i.e. physiological, not a pathogen), carpocapsa (melo), ragnetto rosso, lepidotteri, \"malattie fungine\" on radicchio — none is peronospora; the empty other_host_peronospora_statements is right.\n\nMINOR CRITICISM (does not change the verdict, and does not touch the peronospora output): for the oidio record, \"ha favorito\" is a favourability/causal verb, not an intensity adjective, and the second entry in severity_words_it (\"in particolare su grappoli aggrovigliati non adeguatamente bagnati con i fungicidi\") is really a restriction of SCOPE plus a treatment-quality condition rather than a severity word. The document gives no intensity adjective, no extent word and no figure for oidio; anyone scoring oidio 2015 should treat it as \"favoured, intensity unquantified, partly conditional on spray coverage\". Contrast the one explicit intensity phrase in the whole document — \"virulenza elevata\" — which belongs to cercospora on sugarbeet, not to any vine disease.\n\nVERDICT: OK. No verbatim failure, no host misattribution, no missed vine peronospora statement. corrected_vine_peronospora_quotes is empty, identical to the extraction, and empty here means \"the 2015 report is silent on vine peronospora\", not \"no peronospora in 2015\"."
+  },
+  "2016": {
+   "doc_key": "2016",
+   "vine_season_year": 2016,
+   "season_year_resolved_by": "calendar_key",
+   "verifier_verdict": "OK",
+   "has_explicit_severity": true,
+   "mention_only": false,
+   "n_quotes": 2,
+   "quotes": [
+    {
+     "quote_it": "Per la vite, le precipitazioni della seconda parte di aprile hanno avviato una prima infezione di Peronospora di gravità medio-bassa.",
+     "period": "PRIMAVERA (marzo-maggio) — seconda parte di aprile",
+     "severity_words_it": [
+      "gravità medio-bassa"
+     ],
+     "scope_words_it": [],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "Nei vigneti la virulenza della Peronospora è apparsa importante in diversi areali.",
+     "period": "ESTATE (giugno-agosto)",
+     "severity_words_it": [
+      "virulenza",
+      "importante"
+     ],
+     "scope_words_it": [
+      "in diversi areali"
+     ],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    }
+   ],
+   "quotes_dropped_on_reproof": [],
+   "host_misattributions_caught": [],
+   "missed_quotes_recovered": 0,
+   "verifier_notes": "(a) VERBATIM — all 4 quotes in the extraction (2 vine peronospora, 1 vine oidio, 1 potato peronospora) were checked with grep -F against /home/user/eame-sintonia/data/experiments/DISEASE-EVOLUTION-VITE-VENETO/NORMALIZED/annata-agraria-2016.txt; each returned exactly 1 hit, character-for-character. cat -A on the extracted sentences confirms no internal multi-space run was collapsed inside any quoted span (the multi-space runs in this file sit elsewhere: \"L’estate   2016   è   stata...\", \"gli   interventi   fitosanitari   contro...\", \"Si   è   rilevata   anche   la   Lebbra\"), and the typographic apostrophe U+2019 (all’Alternaria) and accents (gravità, è, più) are preserved. doc_char_count 8691 confirmed by wc -c. 0 verbatim failures.\n\n(b) HOST — both vine statements carry intrinsic host proof inside their own sentence: \"Per la vite, le precipitazioni...\" (spring) and \"Nei vigneti la virulenza della Peronospora...\" (summer). The third Peronospora occurrence is correctly assigned by the extractor to potato (\"Su patata è stata rilevata la Peronospora\") and was NOT smuggled into the vine set — the most damaging possible error is absent. One caveat, outside the peronospora set: the Oidio sentence (\"A luglio ci sono state numerose infezioni di Oidio...\") names no host of its own; the extractor's host_evidence_it field quotes a DIFFERENT sentence (the preceding vine peronospora one) rather than words inside the oidio sentence. The inference is nonetheless sound — the sentence is bracketed by \"Nei vigneti la virulenza della Peronospora è apparsa importante in diversi areali.\" before it and \"In agosto è comparsa la Botrite.\" after it, and the host only switches at \"Su patata...\" — so I do not record it as a host misattribution, but the evidence is contextual, not intrinsic, and any downstream vine-OIDIO series should be flagged as host-inferred for 2016.\n\n(c) COMPLETENESS — I searched the whole file myself, case-insensitively: \"peronospor[a-zà-ÿ]*\" returns exactly 3 hits (all on the single text line 3): vine/spring, vine/summer, potato/summer. \"oidi[a-zà-ÿ]*\" returns exactly 1 hit (Oidio, luglio). \"macchie d’olio\" / \"macchie d'olio\": 0 hits. \"peronosporiche\": 0 hits. \"oidica\": 0 hits. Host terms: \"vite\" 1 hit, \"vigneti\" 1 hit; \"uva\"/\"uve\"/\"grappol*\"/\"vendemm*\"/\"vinicol*\"/\"viticol*\": 0 hits. Other vine diseases: \"Botrite\" 1 hit (agosto); no black rot / escoriosi / flavescenza / marciume. AUTUNNO contains no vine and no peronospora mention for any host at all — that is silence in the document, not evidence of absence of disease. Pages 3-5 are figure captions only (Fig.1-Fig.5) and contain no disease text. Conclusion: NO missed vine peronospora statement; the extractor's set of 2 is complete.\n\n(d) SEVERITY SIGNAL — genuine, explicit and qualitative in both seasons. Spring: \"di gravità medio-bassa\" is an explicit SEVERITY qualifier (medium-low severity), not scope and not a bare mention. Summer: \"la virulenza della Peronospora è apparsa importante\" is an explicit INTENSITY qualifier (\"virulenza ... importante\"); the accompanying \"in diversi areali\" is SCOPE (spatial extent), not severity, and I keep the two fields separate. Hence year_has_usable_severity_signal = true, year_has_mention_only = false. The within-year contrast is real and usable: medium-low severity at the April primary infection, then \"importante\" virulence during the summer.\n\nDELTA vs the extraction under review (one field-level correction only; no quote added or removed): I dropped \"prima infezione\" from severity_words_it of the spring statement. \"una prima infezione\" is a primary-infection / event-order descriptor (it dates the first infection cycle), not a severity or intensity qualifier; leaving it in severity_words risks a downstream scorer reading it as an intensity term. The severity content of that sentence is \"gravità medio-bassa\" and nothing else. Everything else in the extraction stands: periods, scope words and conditional_on_treatment=false for both statements are correct — neither vine peronospora sentence is conditioned on spraying or on regularly defended vineyards (the only treatment language in the file is the oidio sentence's \"è stato difficile intervenire con i prodotti anticrittogamici\" and the apple/pear \"interventi fitosanitari\", neither of which conditions a peronospora severity claim).\n\nNO NUMBERS: the document contains no percentage, hectare, incidence or loss figure for peronospora or oidio on vine. The only numerals near the vine block are meteorological (3 ondate di calore, 20-23 giugno, 10-13 luglio, 17-23 luglio, 20 °C, 30 °C) and must never be attached to disease severity. Severity for 2016 is words only. Source is an ARPAV / Regione del Veneto \"Andamento agrometeorologico - Annata 2016\" report — OFFICIAL_OBSERVATION, not modelled risk."
+  },
+  "2017": {
+   "doc_key": "2017",
+   "vine_season_year": 2017,
+   "season_year_resolved_by": "calendar_key",
+   "verifier_verdict": "OK",
+   "has_explicit_severity": true,
+   "mention_only": false,
+   "n_quotes": 1,
+   "quotes": [
+    {
+     "quote_it": "Verso la metà di giugno i vigneti erano in prechiusura-grappolo con un rischio basso di infezione di Peronospora e un rischio elevato di infezione per l’Oidio.",
+     "period": "verso la metà di giugno — ESTATE (giugno-agosto)",
+     "severity_words_it": [
+      "rischio basso di infezione"
+     ],
+     "scope_words_it": [],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    }
+   ],
+   "quotes_dropped_on_reproof": [],
+   "host_misattributions_caught": [],
+   "missed_quotes_recovered": 0,
+   "verifier_notes": "(a) VERBATIM — PASS, 10/10. I grep -F'd every string the extraction asserts, not just the quote_it fields: the 2 quote_it strings (peronospora + oidio, which are the SAME sentence), the 2 host_evidence_it strings, the 2 severity_words_it spans, and 4 supporting strings quoted inside extractor_notes (rainfall deficit, spring rainfall, frost-on-shoots, Botrite, Alternaria/patata, pomodoro). All returned exactly 1 match, character-for-character. I specifically checked for collapsed multi-space runs with cat -A: this file DOES contain irregular multi-space runs (e.g. \"di fondovalle,  durante\", \"lo   stacco   della   pera\"), but the extracted peronospora/oidio sentence is single-spaced in the source from \"Verso\" through \"l’Oidio.\", so the quote is legitimately clean and is NOT a normalised copy. Accents and the curly apostrophe in \"l’Oidio\" are reproduced correctly. doc_char_count 8616 matches wc -c exactly.\n\n(b) HOST — PASS, no misattribution. The grammatical subject is \"i vigneti\" (\"Verso la metà di giugno i vigneti erano in prechiusura-grappolo con un rischio basso di infezione di Peronospora\"), and \"prechiusura-grappolo\" is a grapevine-specific phenological stage; the following clause continues on the same crop (\"i grappoli hanno raggiunto l’ottimale maturazione ed è iniziata la vendemmia per le varietà più precoci come Pinot Grigio, Merlot, Cabernet e Teroldego\"). Vine host is proven. Critically, the one other crop here that could have produced a false-positive — potato — carries a DIFFERENT pathogen: \"Su varietà medio tardive e tardive di patata, in giugno si è presentata in maniera diffusa l’Alternaria (Alternaria solani)\". The extractor did NOT convert that into a peronospora record, which is the most damaging error available and it was avoided. Tomato appears only as \"Per il pomodoro da industria è risultata buona la produzione e la sanità dei prodotti\" (no pathogen named); cipolla/onion does not appear at all.\n\n(c) COMPLETENESS — PASS, nothing missed. My own case-insensitive searches for peronospor, Peronospora, peronosporiche, oidio, Oidio, oidic, \"macchie d\", plasmopara, vite, vign/vigneti, uva, botrit, marciume, \"mal bianco\", infezion, attacch, Alternaria, patata, pomodoro, cipolla give: \"peronospor\" occurs EXACTLY ONCE in the whole file (line 5, ESTATE section, page 2) — the sentence already extracted. \"oidi\" occurs exactly once, same sentence. \"vite\" occurs once, in PRIMAVERA and only about frost (\"forti ripercussioni sui germogli della vite\") — no disease. \"vigneti\" occurs twice: the extracted sentence, and the September Botrytis sentence \"è aumentato il rischio di infezioni da Botrite specie nei vigneti precedentemente colpiti da grandine\" — Botrytis, not peronospora, correctly excluded and correctly flagged in the notes. \"uva\", \"macchie d’olio\", \"attacch\", \"plasmopara\" return zero hits. There is NO missed vine-peronospora statement. Spring silence is real silence in a PRIMAVERA section that exists and is fully narrated (frost, water shortage, phenological delay) — per hard rule 4 that is absence of a statement, NOT absence of disease.\n\n(d) SEVERITY SIGNAL — a qualifier IS present, but it grades RISK, not observed damage. \"basso\" in \"un rischio basso di infezione di Peronospora\" is an explicit graded intensity qualifier attached to vine peronospora, so 2017 is not a bare \"infections occurred\" mention and not mention-only; hence year_has_usable_severity_signal=true, year_has_mention_only=false. Consume that flag with this caveat, which I endorse and reinforce: the construct graded is INFECTION RISK at one phenological moment (prechiusura-grappolo, mid-June), not observed incidence, severity, or damage. There is no \"attacchi\", no \"gravità\", no \"danni\", no \"diffusione\", no number anywhere for peronospora. Any consumer whose scale requires OBSERVED severity should treat 2017 as NOT directly comparable with years reporting e.g. \"attacchi gravi\" / \"gravità medio-bassa\" / \"pressoché assente\", and must never upgrade \"rischio basso\" into a claim that little peronospora actually occurred. Note the mirror-image contrast for scope: this sentence carries a severity-type word but ZERO spatial-extent words (no \"tutto il territorio regionale\", \"in diversi areali\", \"localmente\"), so scope_words_it=[] is correct and regional extent must not be inferred — whereas a phrase like \"infezioni primarie di Peronospora su tutti gli ambienti vitati\" is SCOPE and not severity.\n\nOTHER FIELD CHECKS: period placement is right (the sentence sits under the \"ESTATE (giugno-agosto)\" heading on page 2 and says \"Verso la metà di giugno\"). conditional_on_treatment=false is right — no fungicide, defence, or treatment is mentioned anywhere in the document. doc_covers_spring / doc_covers_summer = true are both right (both headed sections present, plus INVERNO and AUTUNNO). Listing the same sentence under both vine_peronospora and vine_oidio is correct, not double-counting, because the severity spans are split cleanly (\"rischio basso\" to peronospora, \"rischio elevato\" to oidio). One stylistic quibble only, not an error: severity_words_it could have carried the fuller span \"un rischio basso di infezione di Peronospora\" to bind the qualifier to the pathogen unambiguously. NO NUMBERS exist for either disease; the only percentages in the file (30-40% rainfall deficit, 40% actinidia yield loss) belong to meteorology and kiwi frost respectively and were correctly kept away from the disease records. Provenance is ARPAV / Regione del Veneto U.O. Fitosanitario, an official report — but the individual 2017 statement is an official statement OF RISK, and that distinction is the whole story of this year. I found no error requiring correction; the trusted set is unchanged from the extraction. Source file: /home/user/eame-sintonia/data/experiments/DISEASE-EVOLUTION-VITE-VENETO/NORMALIZED/annata-agraria-2017.txt"
+  },
+  "2018": {
+   "doc_key": "2018",
+   "vine_season_year": 2018,
+   "season_year_resolved_by": "calendar_key",
+   "verifier_verdict": "CORRECTED",
+   "has_explicit_severity": true,
+   "mention_only": false,
+   "n_quotes": 2,
+   "quotes": [
+    {
+     "quote_it": "Nel mese di aprile, i vigneti presentavano un ritardo vegetativo di circa due settimane, rispetto all’anno precedente, poi recuperato con le temperature elevate di maggio. In questo mese la suscettibilità della coltura alla Peronospora è risultata molto elevata con la comparsa delle prime “macchie d’olio” sporulate in numerose aree viticole.",
+     "period": "aprile-maggio, sezione PRIMAVERA (marzo-maggio) — AMBIGUOUS: \"In questo mese\" can refer to \"maggio\" (nearest month named, \"le temperature elevate di maggio\") or to \"Nel mese di aprile\" (topic sentence of the passage); the text does not resolve it. Do not record this as a confirmed May-only observation.",
+     "severity_words_it": [
+      "molto elevata"
+     ],
+     "scope_words_it": [
+      "in numerose aree viticole"
+     ],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "Per il settore viticolo, a inizio giugno la vite era generalmente in fase di allegagione-sviluppo degli acini. Tra le malattie fungine prevalenti sono state osservate infezioni peronosporiche anche sui grappoli e, verso fine mese, sono comparsi i primi sintomi di Oidio su grappolo.",
+     "period": "giugno, sezione ESTATE (giugno-agosto) — narrative opens \"a inizio giugno\"; the peronospora clause carries no month of its own beyond the June frame",
+     "severity_words_it": [
+      "prevalenti"
+     ],
+     "scope_words_it": [
+      "anche sui grappoli"
+     ],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    }
+   ],
+   "quotes_dropped_on_reproof": [],
+   "host_misattributions_caught": [],
+   "missed_quotes_recovered": 0,
+   "verifier_notes": "(a) VERBATIM — all 3 quotes PASS. I wrote each claimed quote_it to a file with printf (no shell mangling) and ran `grep -c -F -f` against the source; all three matched exactly, including the curly quotes (“ ” U+201C/201D) and apostrophes (’ U+2019). `cat -A` on the matched spans confirms no multi-space runs fall inside either vine quote (the multi-space runs in this file are elsewhere: \"in   qualche   caso   anche   elevata\", \"presenza di adulti di Cimice asiatica\", and throughout page 7). doc_char_count 16952 verified with wc -c: exact.\n\n(b) HOST — both vine claims PASS; no host misattribution.\n- Statement 1: host proven by \"i vigneti presentavano un ritardo vegetativo\", \"la suscettibilità della coltura\" (la coltura = the vigneti of the preceding clause), \"in numerose aree viticole\", and the vine-diagnostic symptom name \"macchie d’olio\" (sporulating oil spots = Plasmopara viticola). Not potato/tomato.\n- Statement 2: host proven by \"Per il settore viticolo, a inizio giugno la vite era generalmente in fase di allegagione-sviluppo degli acini\" and \"sui grappoli\"/\"su grappolo\".\n- The extractor correctly EXCLUDED the third Peronospora occurrence. I independently confirm it is potato/solanaceous, not vine: the immediately preceding sentence in the same orticolo paragraph is \"Per il settore orticolo, su patata la vegetazione è apparsa generalmente troppo lussureggiante a causa di concimazioni eccessive...\", and the same sentence continues \"...nella prima decade di luglio è iniziata la raccolta per le varietà precoci\" (early potato harvest). Its qualifier \"molto limitate\" must NOT bleed into the vine series. Had it been assigned to vine it would have inverted the year's sign — the extractor did not make that error.\n\n(c) COMPLETENESS — nothing missed. Case-insensitive searches for peronospor / oidi / macchie / vite / vigne / viticol / uva / grappol / vitigni / vitat / acini / vendemm return exactly 3 peronospora hits (2 vine, 1 solanacee), 1 oidio hit (vine, June), and no further vine disease statement anywhere. All other vine mentions are phenology or harvest (invaiatura in second half of July, vendemmia from mid-September, stacco dei grappoli in the third decade of September) or the Cimice asiatica host list (\"su pomodoro, actinidia, pesco, olivo, vite e altre specie coltivate e ornamentali\") — an insect, not peronospora. Autumn contains no vine disease statement and no end-of-season damage balance; that silence is NOT evidence of absence of disease. Page 7 is a 2019 meteorology-only appendix (Jan-May 2019) with zero phytosanitary content — correctly ignored, but note it inflates doc_char_count for cross-year length comparisons. The extractor's remark that a search on the exact string \"Peronospora\" would miss the June vine record is correct: June uses the adjective \"peronosporiche\"; only a \"peronospor\" stem search catches both.\n\n(d) SEVERITY SIGNAL — the honest reading, and the reason for the CORRECTED verdict.\nThe year is more than a bare mention, but the qualifiers do NOT grade observed damage. Classified strictly:\n- \"molto elevata\" — an explicit INTENSITY qualifier, but it modifies \"la suscettibilità della coltura alla Peronospora\", i.e. crop PREDISPOSITION / infection pressure, not disease severity or crop loss. It is a pressure/risk grade, not an outcome grade.\n- \"la comparsa delle prime “macchie d’olio” sporulate\" — ONSET/phenology of the epidemic (first sporulating lesions), not intensity. The extractor wrongly listed this among severity_words_it; I removed it.\n- \"in numerose aree viticole\" — SCOPE (spatial extent), not severity. Same category as the \"su tutti gli ambienti vitati\" example. Correctly kept as scope by the extractor.\n- \"Tra le malattie fungine prevalenti\" — RELATIVE PROMINENCE among fungal diseases; a weak gradable signal, retained as \"prevalenti\". The extractor also listed the whole clause \"sono state osservate infezioni peronosporiche anche sui grappoli\" as a severity phrase — that is the observation itself, not a qualifier; I removed it and moved \"anche sui grappoli\" to scope_words_it as ORGAN EXTENT (escalation from leaves to clusters), flagged here so it is not read as an intensity adjective.\nI set year_has_usable_severity_signal = true because an explicit gradable qualifier (\"molto elevata\") does occur inside a vine-peronospora statement, so year_has_mention_only is false. But any downstream ranking must record 2018 as HIGH PRESSURE / VERY HIGH SUSCEPTIBILITY with early sporulating oil spots in numerous viticultural areas and cluster infections prevalent in June — NOT as a documented high-damage year. The document nowhere states vine peronospora damage, incidence, loss or an end-of-season balance, and contains no number, percentage or hectare figure for any disease (all numerals in the file are meteorological, the 192 km/h Vaia gust, or the 10,0-11,5% / 16-18% olive oil yield).\n\nOther checks: conditional_on_treatment = false confirmed for both — the only treatment/defence mentions in the file are \"trattamenti anticercosporici\" on sugar beet, \"interventi eseguiti in prossimità dei bordi\" on kiwi, and \"difesa fungicida e insetticida sulle pere\"; there is no \"vigneti regolarmente difesi\" or equivalent for vine in 2018. doc_covers_spring and doc_covers_summer = true confirmed (explicit PRIMAVERA and ESTATE narrative sections with vine content in both).\n\nThe only substantive correction beyond severity-word reclassification: the extractor asserted the May statement's period as \"maggio\" with more confidence than the Italian supports. \"In questo mese\" sits between \"le temperature elevate di maggio\" (nearest antecedent) and the passage's topic sentence \"Nel mese di aprile\", and the following sentences swing back to \"verso fine aprile\" then forward to \"inizio maggio\", so the paragraph is not strictly chronological. I relabelled the period as aprile-maggio (ambiguous) rather than a confirmed May observation. Everything else in the extraction stands."
+  },
+  "2019": {
+   "doc_key": "2019",
+   "vine_season_year": 2019,
+   "season_year_resolved_by": "calendar_key",
+   "verifier_verdict": "OK",
+   "has_explicit_severity": false,
+   "mention_only": true,
+   "n_quotes": 2,
+   "quotes": [
+    {
+     "quote_it": "Durante il mese di maggio l’attività vegetativa dei vigneti ha subito un rallentamento a causa dell’abbassamento termico accompagnato da piogge localmente anche abbondanti. Nel complesso è stato osservato un ritardo fenologico di circa due settimane rispetto al 2018 e le piogge hanno originato infezioni primarie di Peronospora su tutti gli ambienti vitati, specialmente in pianura.",
+     "period": "PRIMAVERA (marzo-maggio) — \"Durante il mese di maggio\" (maggio 2019)",
+     "severity_words_it": [],
+     "scope_words_it": [
+      "su tutti gli ambienti vitati",
+      "specialmente in pianura"
+     ],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "I vigneti, verso la metà del mese di giugno, hanno raggiunto la fase tra piena fioritura e sviluppo degli acini anche se con elevata disomogeneità e infezioni peronosporiche, anche su grappolo, in alta e media collina.",
+     "period": "ESTATE (giugno-agosto) — \"verso la metà del mese di giugno\" (giugno 2019)",
+     "severity_words_it": [],
+     "scope_words_it": [
+      "anche su grappolo",
+      "in alta e media collina"
+     ],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    }
+   ],
+   "quotes_dropped_on_reproof": [],
+   "host_misattributions_caught": [],
+   "missed_quotes_recovered": 0,
+   "verifier_notes": "ADVERSARIAL VERIFICATION of /home/user/eame-sintonia/data/experiments/DISEASE-EVOLUTION-VITE-VENETO/NORMALIZED/annata-agraria-2019.txt (ARPAV \"ANDAMENTO AGROMETEOROLOGICO - ANNATA 2019 (da dicembre 2018 a novembre 2019)\", con Regione del Veneto U.O. Fitosanitario). File read in full (14 lines, 15970 bytes / 15821 UTF-8 characters). OFFICIAL_OBSERVATION, not modelled risk.\n\n(a) VERBATIM — 6/6 PASS. All six quote_it strings were tested in Python as exact `in` substrings of the UTF-8-decoded file, not by eyeballing. All six matched character-for-character, including: the typographic apostrophes (l’attività, dell’abbassamento, l’elevata, l’umidità); the multi-space PDF justification runs in the melone sentence (\"Le   temperature   e   l’elevata   umidità   hanno   favorito   le   infezioni   di   Peronospora   su   melone ( Pseudoperonospora   cubensis )   portando   alla   completa   distruzione   fogliare   in   impianti   a   fine raccolta.\" — note the run collapses to a single space before \"raccolta\" at the line-wrap, and the extractor reproduced that too); and the ungrammatical OCR/source artefact \"con un elevato il pericolo di infezioni di Oidio\" (left uncorrected, correctly). No collapsed whitespace, no fixed accents, no added or dropped words. Nothing to report.\n\n(b) HOST — 0 misattributions. Both statements marked subject_is_vine=true are proved by the Italian text itself, not by inference:\n  • Statement 1: the sentence subject is \"l’attività vegetativa dei vigneti\" and the infection locus is \"su tutti gli ambienti vitati\" — vigneti/vitati are unambiguously vine. Note also that the potato peronospora sentence sits in the NEXT paragraph (\"Tra le orticole… Per la patata, a fine maggio…\"), a separate paragraph, so there is no bleed risk.\n  • Statement 2: \"I vigneti, verso la metà del mese di giugno, hanno raggiunto la fase tra piena fioritura e sviluppo degli acini … infezioni peronosporiche, anche su grappolo\" — vigneti + acini + grappolo are vine-specific.\n  The three non-vine peronospora attributions were also checked and are correct: \"Per la patata … il primo trattamento contro la Peronospora\" (potato, and explicitly a TREATMENT event, not an observed-damage event); \"Lo sviluppo vegetativo della patata … sono apparse le macchie di peronospora\" (potato); \"infezioni di Peronospora su melone ( Pseudoperonospora cubensis )\" (melon, different pathogen genus/species). Critically, the only strong damage phrase attached to any peronospora in this file — \"completa distruzione fogliare\" — belongs to MELON and must not be allowed to leak into vine severity. The extractor kept it out; I confirm that separation is correct.\n\n(c) COMPLETENESS — no missed vine statements. I enumerated EVERY regex hit in the file (not grep -o, which drops overlaps) for: peronospor, oidi, \"macchie d\", vite, vigne, vitat, uva, grappol, acini, vendemmi, vitigni, invaiatur, viticol, botrit, escoriosi, flavescenz, black rot. Results: \"peronospor\" occurs exactly 6 times at offsets 2747 (vine, May), 3036 (patata), 5579 (vine, June), 6376 (patata), 7202 and 7236 (melone — the second hit is inside \"Pseudoperonospora\"). \"oidi\" occurs exactly once, at 5789 (vine). \"macchie d\" occurs once and is \"macchie di peronospora\" on POTATO — there is no \"macchie d’olio\" in this file. Vine-context hits with no disease content: 9740/9756 (\"vendemmia per i vitigni a maturazione intermedia e tardiva\" in September — harvest logistics only), 5815/5861 (\"l’uva era matura nella maggior parte delle aree vitate\"). No botrytis, escoriosi, flavescenza, black rot or mal dell’esca anywhere. The autumn section covers frutticolo/vendemmia/radicchio/olivo only; the trailing section \"BREVE SINTESI SULL’ANDAMENTO METEOROLOGICO - da gennaio a maggio 2020\" is pure meteorology for a different year and rightly excluded. The extraction is complete: nothing missed, nothing spurious.\n\n(d) SEVERITY SIGNAL — NO usable severity signal for vine peronospora in 2019. I searched the whole file for intensity vocabulary (gravi, grave, virulen, intens, forti, seria, danni, attacchi, diffus, assent, elevat, notevole, limitat, pressoché) and checked the context of every hit. Every severity-bearing word in this document attaches to something OTHER than vine peronospora: \"nei casi più gravi … collasso della pianta\" = melone ingiallimenti fogliari (abiotic, cold shock); \"danni da cimice … diffusi\", \"danni da vento o grandine\" = pomacee; \"Occhio di pavone diffusa su tutti gli areali\", \"notevole durata della bagnatura fogliare\" = olivo; \"danni da limacee\" = radicchio; \"praticamente assenti\" = Carpocapsa/Ticchiolatura on fruit; \"completa distruzione fogliare\" = melone. For vine, the text gives only: (1) \"hanno originato infezioni primarie di Peronospora su tutti gli ambienti vitati, specialmente in pianura\" — this is SCOPE/EXTENT plus a spatial gradient, NOT severity. \"su tutti gli ambienti vitati\" states where infections occurred (everywhere), not how hard they hit; a year with ubiquitous but trivial primary infections would be described identically. (2) \"infezioni peronosporiche, anche su grappolo, in alta e media collina\" — \"anche su grappolo\" is ORGAN scope. It is agronomically meaningful (bunch infection implies potential yield loss, and is more consequential than leaf-only) but it is still not an explicit intensity grade; there is no \"gravi\", \"intense\", \"virulente\", \"diffuse\", \"forte pressione\" attached to the vine infections. I therefore uphold the extractor's severity_words_it = [] for both.\n  I also independently re-checked the \"elevata disomogeneità\" question and confirm the extractor's exclusion, on grammatical grounds it did not state: \"elevata\" is feminine SINGULAR and agrees with \"disomogeneità\" (fem. sing.); it cannot govern \"infezioni\" (fem. PLURAL, which would require \"elevate\"). So the parse is \"con [elevata disomogeneità] e [infezioni peronosporiche]\", and \"elevata\" describes the unevenness of phenological development, not the disease. Anyone tempted to read \"elevata … infezioni peronosporiche\" as an intensity claim is reading the Italian wrong.\n  Consequence for cross-year work: 2019 vine peronospora must be coded SEVERITY-UNSTATED / mention-with-scope-only. It must NOT be ranked as low severity (absence of a statement is not absence of disease) and must NOT be ranked as high severity by borrowing the melon phrase or the oidio \"pericolo\" adjective.\n\nOTHER CHECKS: The single vine Oidio statement is correctly flagged by the extractor as a RISK statement (\"elevato il pericolo di infezioni di Oidio\") — it forecasts danger, it does not record observed oidium damage; its host is nonetheless genuinely vine (same paragraph subject \"I vigneti\", \"erano in invaiatura\", following sentence \"l’uva era matura nella maggior parte delle aree vitate\"). Neither vine statement is conditional on spraying — there is no \"nei vigneti regolarmente difesi\"-type qualifier anywhere for vine; the only treatment-conditional peronospora mention in the file is the potato one. No numeric disease figures exist in this document (every number is meteorological or a figure axis label); none were invented. One cosmetic metadata quibble, not an error in any quote: the extractor's doc_char_count = 15970 is `wc -c` BYTES; the character count is 15821. That does not affect any finding.\n\nVERDICT: OK. Zero verbatim failures, zero host misattributions, zero missed vine statements, and the severity judgement is honest and correct. I found nothing to remove and nothing to add; corrected_vine_peronospora_quotes is identical in content to the extractor's two vine statements, re-verified verbatim by me."
+  },
+  "2020": {
+   "doc_key": "2020",
+   "vine_season_year": 2020,
+   "season_year_resolved_by": "calendar_key",
+   "verifier_verdict": "OK",
+   "has_explicit_severity": false,
+   "mention_only": true,
+   "n_quotes": 2,
+   "quotes": [
+    {
+     "quote_it": "Per il settore viticolo la stagione vegetativa è iniziata in anticipo di circa una settimana, rispetto all’anno precedente, con una buona omogeneità di germogliamento e le precipitazioni, del 11-12 maggio, hanno dato avvio alle infezioni primarie di Peronospora.",
+     "period": "PRIMAVERA (marzo-maggio) — onset dated \"del 11-12 maggio\"",
+     "severity_words_it": [],
+     "scope_words_it": [],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "Gli abbondanti e diffusi eventi piovosi del 4 e del 10 giugno, hanno portato a più frequenti ritrovamenti di infezioni primarie di Peronospora della vite.",
+     "period": "ESTATE (giugno-agosto) — events dated \"del 4 e del 10 giugno\"",
+     "severity_words_it": [
+      "più frequenti ritrovamenti"
+     ],
+     "scope_words_it": [],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    }
+   ],
+   "quotes_dropped_on_reproof": [],
+   "host_misattributions_caught": [],
+   "missed_quotes_recovered": 0,
+   "verifier_notes": "(a) VERBATIM — PASS, 2/2. Both quotes were tested with `grep -c -F` (fixed-string, whole quote) against /home/user/eame-sintonia/data/experiments/DISEASE-EVOLUTION-VITE-VENETO/NORMALIZED/annata-agraria-2020.txt and each returned exactly 1 match, so each is a contiguous character-for-character substring, curly apostrophe (all’anno) and accents (è, omogeneità, più) included. I additionally dumped the raw ±320-char context around each 'peronospor' hit via Python repr() to confirm no irregular multi-space run was silently collapsed INSIDE either quote: internal spacing is single-space throughout both sentences (the document's double spaces fall immediately before 'Per il settore viticolo' and before/after the June sentence, i.e. outside the quoted spans). No verbatim failure.\n\n(b) HOST — PASS, no misattribution. Quote 1 opens with 'Per il settore viticolo'; the preceding sentence closes the fruit/irrigation paragraph ('...anche su frumento che, storicamente nella nostra regione, non ne ha mai avuto necessità.'), so the sentence-initial sector marker governs the whole sentence including 'infezioni primarie di Peronospora' — host = vine, proven in-sentence. Quote 2 names the host explicitly: 'Peronospora della vite'. Cross-check for the dangerous confusion: 'patata' appears only in the irrigation list, 'pomodoro' only in 'è risultato buono lo stato fitosanitario del pomodoro da industria', 'cipolla' is absent — none co-occurs with peronospora anywhere, so there is no other-host downy mildew sentence in this document at all.\n\n(c) COMPLETENESS — PASS, nothing missed. Case-insensitive 'peronospor[a-zà-ù]*' over the whole file returns exactly 2 hits, both the literal token 'Peronospora', both already extracted; no 'peronosporiche'. 'macchie d’olio' absent — 'macchie' occurs once and belongs to Ticchiolatura on pomacee ('con la comparsa delle prime macchie verso il 2–3 maggio'). 'oidi[a-zà-ù]*' returns ZERO hits: the 2020 report makes no statement about oidio on vine or any host, so nothing can be inferred about powdery mildew — absence of statement, not absence of disease. Vine tokens: 'viticolo' ×1 (quote 1), 'vite' ×1 (quote 2), 'vigneti' ×1 (September, 'sono proseguite le operazioni di vendemmia nei vigneti' — harvest, no disease), 'uve' ×2 and 'vendemmia' ×2 (August/September phenology and harvest, no disease). The extractor's 2 statements are therefore the complete vine-peronospora set. The trailing 'BREVE SINTESI SULL’ANDAMENTO METEOROLOGICO - da gennaio a maggio 2021' section is purely meteorological and belongs to 2021; it holds no phytosanitary content and must not be mined for 2020 signal.\n\n(d) SEVERITY SIGNAL — ONSET-TIMING ONLY, NOT a severity year. Quote 1 carries no qualifier whatsoever: it records only that the 11-12 May rains 'hanno dato avvio alle infezioni primarie di Peronospora' — a date-of-onset statement. Quote 2's sole intensity-adjacent wording is 'più frequenti ritrovamenti', and that comparative qualifies the FREQUENCY OF FINDINGS ('ritrovamenti') of primary infections, not gravity, virulence or damage, and carries no stated baseline (implicitly more frequent than the isolated May findings, within-season). I judge that a weak relative-detection proxy, NOT an explicit severity qualifier: I list it verbatim in severity_words_it for transparency, but year_has_usable_severity_signal is FALSE and 2020 must not be severity-ranked against years stating 'gravi', 'virulente', 'intensità', 'leggere' etc. Explicit trap check: 'abbondanti e diffusi' in quote 2 modifies 'eventi piovosi' (the RAIN), not the disease — reading it as disease scope or severity would be a fabrication; the extractor correctly refused, and scope_words_it is rightly empty for both. There is also no scope phrase such as 'su tutti gli ambienti vitati' anywhere in this file, so 2020 carries neither severity NOR spatial scope for vine peronospora. No number, percentage or hectare figure attaches to peronospora here; the document's percentages belong to cherry cracking (20-40%, punte 40-60%), olive damage (25-35%), olive yield/invaiatura (<10%, 80%) and pear Marciume calicino (~20%) — none may be borrowed for peronospora.\n\nOTHER CHECKS: period assignments match the document's own headers — quote 1 sits inside 'PRIMAVERA (marzo-maggio)', quote 2 inside 'ESTATE (giugno-agosto)'. conditional_on_treatment=false is correct for both; neither sentence mentions trattamenti, and the only treatment sentence in the file concerns Cercospora on barbabietola da zucchero. The extractor's doc_char_count=15644 is the BYTE count (`wc -c`); the true Unicode character count is 15485, exactly as it disclosed — accurate, not an error. Content is an ARPAV / Regione Veneto U.O. Fitosanitario year narrative: OFFICIAL_OBSERVATION, not modelled risk.\n\nVERDICT OK — nothing removed, nothing added, both quotes independently re-verified verbatim from the file. My only change is interpretive hardening: the extraction's comparability caveat is upheld and converted into the machine-readable flags (usable severity signal = false, mention-only = true)."
+  },
+  "2021": {
+   "doc_key": "2021",
+   "vine_season_year": 2021,
+   "season_year_resolved_by": "calendar_key",
+   "verifier_verdict": "CORRECTED",
+   "has_explicit_severity": true,
+   "mention_only": false,
+   "n_quotes": 4,
+   "quotes": [
+    {
+     "quote_it": "Verso il 20 maggio sono state individuate le primi sporadiche macchie d’olio di Peronospora della vite, riferite all’infezione che si è innescata con le precipitazioni di fine aprile e inizio maggio.",
+     "period": "PRIMAVERA (marzo-maggio) — \"Verso il 20 maggio\"",
+     "severity_words_it": [
+      "sporadiche",
+      "le primi sporadiche macchie d’olio"
+     ],
+     "scope_words_it": [],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "A inizio giugno su vite sono state osservate infezioni di Peronospora in tutti gli ambienti vitati, generalmente di bassa severità e, in qualche caso, è stata rilevata anche l’infezione secondaria.",
+     "period": "ESTATE (giugno-agosto) — \"A inizio giugno\"",
+     "severity_words_it": [
+      "generalmente di bassa severità",
+      "in qualche caso, è stata rilevata anche l’infezione secondaria"
+     ],
+     "scope_words_it": [
+      "in tutti gli ambienti vitati"
+     ],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "Inoltre, le precipitazioni di fine luglio e primi giorni di agosto, insieme ai prolungati periodi di bagnatura   mattutina, hanno   ridato   vigoria   alla   Peronospora   che   si   è manifestata   con   nuove infezioni sulle ultime foglie con qualche accenno di Peronospora larvata anche sui grappoli.",
+     "period": "ESTATE (giugno-agosto) — narrativa di agosto (\"In agosto\"); evento meteo \"fine luglio e primi giorni di agosto\"",
+     "severity_words_it": [
+      "hanno   ridato   vigoria",
+      "nuove infezioni sulle ultime foglie",
+      "qualche accenno di Peronospora larvata anche sui grappoli"
+     ],
+     "scope_words_it": [],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "La difesa contro Peronospora e Oidio si è conclusa in tutti gli areali viticoli.",
+     "period": "AUTUNNO (settembre-novembre) — narrativa di settembre (\"Con l’inizio di settembre\")",
+     "severity_words_it": [],
+     "scope_words_it": [
+      "in tutti gli areali viticoli"
+     ],
+     "conditional_on_treatment": true,
+     "_verbatim_occurrences": 1
+    }
+   ],
+   "quotes_dropped_on_reproof": [],
+   "host_misattributions_caught": [],
+   "missed_quotes_recovered": 0,
+   "verifier_notes": "FILE READ IN FULL: /home/user/eame-sintonia/data/experiments/DISEASE-EVOLUTION-VITE-VENETO/NORMALIZED/annata-agraria-2021.txt (15957 characters / 16134 UTF-8 bytes — the extractor's \"doc_char_count\": 16134 is a BYTE count from wc -c, not a character count; minor mislabel, no effect on the extraction).\n\n(a) VERBATIM — ALL PASS. I substring-tested every quote_it (4 peronospora + 1 oidio, the oidio one being the same September sentence) against the raw file with Python `in`, no normalisation. All 5 are character-for-character present, INCLUDING the OCR multi-space runs in the August sentence (\"bagnatura   mattutina, hanno   ridato   vigoria   alla   Peronospora   che   si   è manifestata   con   nuove infezioni\" — 3 spaces at each break, plus the missing space in \"si   è manifestata\") and the curly apostrophes (’ U+2019) in \"macchie d’olio\", \"all’infezione\", \"l’infezione\". The source's own grammatical slip \"le primi sporadiche macchie d’olio\" is preserved and must NOT be corrected to \"le prime\". I also verified every severity_words_it and scope_words_it fragment individually: all verbatim substrings. Zero verbatim failures.\n\n(b) HOST — ALL PASS, no misattribution. Proofs from the Italian: (1) \"Peronospora della vite\" — explicit. (2) \"A inizio giugno su vite ... in tutti gli ambienti vitati\" — explicit. (3) August sentence has no host noun inside itself, but the immediately preceding sentence is \"In agosto generalmente buona la progressione degli stadi vegetativi nei vigneti ma con un ritardo accumulato da inizio stagione, quantificabile in circa 10 giorni\", and the sentence itself says \"Peronospora larvata anche sui grappoli\" — \"peronospora larvata\" and \"grappoli\" are vine-specific (bunch infection); host = vine, confirmed. (4) \"in tutti gli areali viticoli\", inside the September vine-phenology/vendemmia paragraph. I independently searched for patata / pomodoro / cipolla near every peronospora token: \"patata\" and \"cipolla\" do NOT occur in the document at all; the single \"pomodoro\" occurrence is \"su pomodoro e peperone in coltura protetta, le infestazioni da Ragnetto rosso\" (spider mite, August, orticole) and is nowhere near a peronospora token. So other_host_peronospora_statements = empty is correct BY OBSERVATION, and the extractor's claim to that effect is verified, not merely accepted.\n\n(c) COMPLETENESS — NOTHING MISSED. Case-insensitive regex over the whole file: \"Peronospora\" occurs exactly 5 times (line 3 x1, line 5 x3, line 7 x1); \"Oidio\" exactly 1 time (line 7); no \"peronosporiche\", no \"oidica\", no \"oidio\" lowercase, no \"uva\". All 5 peronospora tokens are inside the four quoted statements (the August quote contains two of them: \"ridato vigoria alla Peronospora\" and \"Peronospora larvata\"). \"macchie d’olio\" occurs once, inside quote 1. Other vine tokens checked and correctly excluded as non-disease: \"danni ai germogli in via di sviluppo delle varietà più precoci, Glera in particolare\" (frost), \"forte scalarità nell’avanzamento delle fasi fenologiche\" (phenology), \"stato di stress idrico ... nei vigneti delle aree collinari esposte\" (water stress), and the September vendemmia/invaiatura narrative. No vine peronospora statement was missed.\n\n(d) SEVERITY SIGNAL — YES, this year carries explicit intensity qualifiers; it is NOT a bare mention. Three distinct qualifiers exist, all adjectival/quantitative-in-words, never numeric: (i) SPRING \"sporadiche\" (in \"le primi sporadiche macchie d’olio\", ~20 May) — an explicit intensity word meaning scattered/few, not merely \"infections occurred\"; (ii) EARLY SUMMER \"generalmente di bassa severità\" (early June) — the single clearest severity statement of the year, and note that the accompanying \"in tutti gli ambienti vitati\" is SCOPE (spatial/crop-system extent), NOT severity, and must not be scored as pressure; the same logic applies to \"in qualche caso, è stata rilevata anche l’infezione secondaria\", which is a frequency/occurrence qualifier on secondary infection rather than an intensity grade — I kept it in severity_words_it because it does modulate intensity, but a scorer should weight it as \"occasional\", not as a severity class; (iii) LATE SUMMER \"hanno ridato vigoria\" (a direction-of-change/recrudescence signal, not an absolute level) tempered by \"qualche accenno di Peronospora larvata\" (\"some hint of\"), i.e. a real but slight bunch involvement. Net reading of 2021 for vine peronospora: LOW severity with a sporadic spring onset, a low-severity but spatially general June phase, and a modest August recrudescence on the youngest leaves plus traces on bunches. NO number, percentage, hectare or incidence figure exists anywhere for vine disease in this document — the percentages present (80% losses in the veronese, 20-30% in the rodigino, ~20% calo on Granny Smith, ~15% summer rainfall deficit, 10-day and 15-day phenological delays) belong to APRIL FROST damage on pomacee/kiwi and to meteorology, never to vine peronospora. Do not import any of them.\n\n(e) CHANGE I MADE (why verdict is CORRECTED, not OK). One substantive change plus one refinement; no quote was removed and none added.\n1. Statement 4, \"La difesa contro Peronospora e Oidio si è conclusa in tutti gli areali viticoli.\": I flipped conditional_on_treatment from false to TRUE. This sentence is not a disease observation at all — it is a SPRAY-PROGRAMME CESSATION statement; its entire content is about \"la difesa\". Leaving the flag false invites a downstream consumer to read it as an unconditioned field observation of vine peronospora across all viticultural areas, which it is not. With severity_words_it empty and the flag true, it is correctly quarantined out of any severity/pressure scoring while still being retained as a real vine-peronospora sentence (it is also the ONLY oidio-bearing sentence in the whole document). Flagging it does not assert that any severity was measured under treatment — there is no severity here to condition.\n2. Statement 1: I tightened severity_words_it to list the actual intensity token \"sporadiche\" alongside the extractor's longer fragment \"le primi sporadiche macchie d’olio\". Both are verbatim; the extractor's version buried the only severity word inside a phrase that is mostly symptom description.\nEverything else in the extraction stands as verified.\n\n(f) THINGS THE EXTRACTOR GOT RIGHT AND I CONFIRMED INDEPENDENTLY (recorded so a later pass does not re-litigate them): the August statement genuinely has NO spatial scope wording — \"sulle ultime foglie\" and \"sui grappoli\" are plant ORGANS, correctly excluded from scope_words_it; scope wording in 2021 is crop-system based (\"in tutti gli ambienti vitati\", \"in tutti gli areali viticoli\") and never geographic-administrative; pages 4-6 are figure captions only; page 7 is a January–May 2022 meteorological appendix with zero crop/disease content and must not be mined for either year's disease signal.\n\n(g) STANDING CAVEATS FOR CROSS-YEAR COMPARISON. Silence is not absence: oidio has NO presence/severity/incidence statement anywhere in 2021 — its only appearance is inside the treatment-cessation sentence — so 2021 must be recorded as \"no oidio observation reported\", never as \"no oidio\". Likewise the absence of any autumn peronospora observation after the September defence sentence means nothing was said, not that nothing happened. Context confounder for interpreting the low 2021 pressure: the season was dominated by exceptional late frosts (17-24 March; severe 7-8 April) with a ~10-day phenological delay never recovered, and the summer was \"leggermente siccitosa, con quantitativi inferiori alla norma in media del 15% circa\" — a dry summer is a plausible physical reason for the low peronospora severity, so the low reading is meteorologically coherent and not an under-reporting artefact. This is an ARPAV/Regione Veneto U.O. Fitosanitario official year report: OFFICIAL_OBSERVATION, not modelled risk."
+  },
+  "2022": {
+   "doc_key": "2022",
+   "vine_season_year": 2022,
+   "season_year_resolved_by": "calendar_key",
+   "verifier_verdict": "CORRECTED",
+   "has_explicit_severity": true,
+   "mention_only": false,
+   "n_quotes": 3,
+   "quotes": [
+    {
+     "quote_it": "Nella maggior parte dei vigneti è stata raggiunta la fase fenologica che determina l’inizio della suscettibilità all’infezione di Peronospora e sono state superate le temperature medie minime per lo sviluppo del patogeno.",
+     "period": "PRIMAVERA (marzo-maggio) — narrative sits under the PRIMAVERA heading, immediately after the \"piogge del 5-6 maggio\" passage, so early-to-mid May",
+     "severity_words_it": [],
+     "scope_words_it": [],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "In seguito si sono osservati su vite i primi accenni di Peronospora, Oidio e Black-rot in forma di macchie su foglia, in numerosi vigneti.",
+     "period": "PRIMAVERA (marzo-maggio) — sentence directly follows the susceptibility-onset sentence, i.e. late spring (May)",
+     "severity_words_it": [
+      "i primi accenni",
+      "in forma di macchie su foglia"
+     ],
+     "scope_words_it": [
+      "in numerosi vigneti"
+     ],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "La Peronospora della vite è stata pressoché assente nei vigneti regolarmente difesi.",
+     "period": "ESTATE (giugno-agosto) — final sentence of the June paragraph (\"Nel mese di giugno lo sviluppo vegetativo della vite è avanzato velocemente...\")",
+     "severity_words_it": [
+      "pressoché assente"
+     ],
+     "scope_words_it": [
+      "nei vigneti regolarmente difesi"
+     ],
+     "conditional_on_treatment": true,
+     "_verbatim_occurrences": 1
+    }
+   ],
+   "quotes_dropped_on_reproof": [],
+   "host_misattributions_caught": [],
+   "missed_quotes_recovered": 0,
+   "verifier_notes": "I read the whole file (7 pages, 15984 bytes — doc_char_count in the extraction is confirmed exactly by `wc -c`).\n\n(a) VERBATIM — all clean. n_checked=5 counts every quote_it field in the submission (3 in vine_peronospora_statements + 2 in vine_oidio_statements; 4 distinct strings, since the \"primi accenni\" sentence is quoted twice). Each was tested with `grep -c -F` and returned exactly 1 match. I additionally dumped each match through `cat -A`: the typographic apostrophes are U+2019 (M-bM-^@M-^Y), the accents are è/à/é as UTF-8, and there are NO internal multi-space runs inside any of these three sentences in the source — so nothing was collapsed and the extractor's claim of byte-faithfulness (its note 8) is true. Zero verbatim failures.\n\n(b) HOST — no misattributions, and the host evidence is unusually strong for this year. Statement 3 says \"La Peronospora della vite\" (explicit). Statement 2 says \"su vite ... in numerosi vigneti\" (explicit). Statement 1 says \"Nella maggior parte dei vigneti\" and sits in a paragraph whose only crop referent is vineyards. I grepped for patata, pomodoro, cipolla, Plasmopara, \"vitat\", \"peronosporich\", \"macchie d'olio\", \"olio\" — ZERO hits. There is no non-vine peronospora anywhere in this document, so other_host_peronospora_statements=[] is correct and was correctly reached by checking, not by omission.\n\n(c) COMPLETENESS — I re-ran the exhaustive search independently (eronospor, idio, idic, macchie, olio, vite, vigne, uva, uve, grappol). Peronospora occurs exactly 3 times, all on line 5 (page 2), all vine; Oidio occurs exactly twice (once bundled with Peronospora on vine, once \"su radicchio\" in October); \"oidic-\" never occurs. Nothing was missed. The August/September grape passages (\"maturazione delle uve precoci\", \"vendemmie dei Pinot e Chardonnay\", \"raccolte di Glera, Merlot, Corvine\") are phenology/harvest only and carry no disease wording — correctly not extracted. The vine_oidio radicchio entry is correctly flagged subject_is_vine=false (\"Tra le colture orticole ... su radicchio\").\n\n(d) SEVERITY SIGNAL — year_has_usable_severity_signal = TRUE, but read the two attestations carefully, because they are not equivalent:\n  • \"pressoché assente\" (June) is an unambiguous, explicit severity/intensity qualifier — the strongest possible statement of low disease. BUT it is fenced by \"nei vigneti regolarmente difesi\", which is a MANAGEMENT CONDITION, not a scope of observation. It says nothing whatsoever about untreated vineyards. Any cross-year severity series must carry this conditionality or it will falsely record 2022 as a low-pressure year on the same footing as an unconditional low-pressure year.\n  • \"i primi accenni ... in forma di macchie su foglia\" (May) is a genuine but weak intensity qualifier: \"accenni\" = traces/first hints, and \"in forma di macchie su foglia\" restricts symptoms to leaf spots (no bunch/grappolo infection reported). It is partly a first-appearance/timing statement, so treat it as low-intensity evidence, not as a graded severity reading. It is also a THREE-PATHOGEN BUNDLE (\"Peronospora, Oidio e Black-rot\") — the intensity wording is shared across all three and is not independently attested for peronospora alone. The extractor flagged this correctly (its note 3).\n  • \"in numerosi vigneti\" IS SCOPE, not severity. Classified correctly by the extractor.\nSo year_has_mention_only = false, but 2022's usable signal is thin and treatment-conditioned.\n\nWHY THE VERDICT IS \"CORRECTED\" AND NOT \"OK\" — one substantive change:\nI REMOVED scope_words_it: [\"Nella maggior parte dei vigneti\"] from statement 1. That phrase grammatically qualifies \"è stata raggiunta la fase fenologica\" — the PHENOLOGICAL STAGE reached — not any disease occurrence. The sentence reports susceptibility onset and a temperature threshold being exceeded; it does not assert that peronospora was present in a single vineyard. Leaving those words in a scope field on a peronospora record invites a downstream reader to score 2022 as \"peronospora in most vineyards\", which the document does not say. The extractor knew this (its note 2 says exactly that) but still populated the field, and a note in free text does not protect a structured field that will be read machine-side. severity_words_it and scope_words_it are now both empty for statement 1: the record survives as provenance for \"susceptibility window opened in spring\", carrying no severity and no extent.\n\nI kept statement 1 in the trusted set rather than deleting it, because it is verbatim, unambiguously about vine peronospora, and is the only evidence for the timing of the infection window. Consumers should treat it as an onset/exposure record, not as an observation of disease.\n\nOTHER THINGS I CHECKED AND AGREE WITH:\n  • Period assignments are all correct against the section headings (PRIMAVERA marzo-maggio; ESTATE giugno-agosto; AUTUNNO settembre-novembre). Statement 3 really is inside the June paragraph.\n  • Extractor note 4 is right and important: July, August and autumn contain NO vine disease narrative at all. That is documentary silence, not evidence of absence of disease. Do not impute \"still low\" to July-September.\n  • Extractor note 6 is right and I endorse the restraint: the document describes the year as \"eccezionalmente secca\", the driest of the last thirty years, spring rain near half of normal, summer \"moderatamente siccitosa\" — but it NEVER causally links drought to peronospora pressure. That link would be the analyst's inference, not an ARPAV observation, and must not be laundered into the record.\n  • Extractor note 7 is right: pages 7 is an appendix \"BREVE SINTESI SULL’ANDAMENTO METEOROLOGICO - da gennaio a maggio 2023\", purely meteorological, containing no disease statements. It belongs to 2023. Nothing was or should be extracted from it, and it inflates this file's char count relative to the disease-bearing body (pages 1-3). Note for whoever diffs against the 2023 report: that appendix will duplicate.\n  • Non-vine disease mentions correctly left out of the vine record: Ticchiolatura on pomacee (April), Alternaria + Oidio on radicchio (October), Maculatura bruna and brusone on pear, Cimice asiatica on William pear, Mosca on olive. The \"oltre il 50%\" and \"oltre il 40%\" figures in this document belong to Cimice asiatica on pear and Maculatura bruna on pear respectively — they are NOT vine and NOT peronospora, and must never be attached to a vine peronospora record.\n  • No numbers, percentages or hectare figures exist anywhere for vine peronospora in this document. The severity values for 2022 are the words \"pressoché assente\" and \"i primi accenni\", nothing more.\n  • Source type confirmed: ARPAV / Regione del Veneto U.O. Fitosanitario annual agrometeorological report — OFFICIAL_OBSERVATION, retrospective, not modelled risk."
+  },
+  "2023": {
+   "doc_key": "2023",
+   "vine_season_year": 2023,
+   "season_year_resolved_by": "calendar_key",
+   "verifier_verdict": "CORRECTED",
+   "has_explicit_severity": true,
+   "mention_only": false,
+   "n_quotes": 4,
+   "quotes": [
+    {
+     "quote_it": "Le prime macchie d’olio di Peronospora relative alle infezioni innescate con le precipitazioni del 25 aprile sono state riscontrate nel comprensorio viticolo tra Verona e Vicenza.",
+     "period": "PRIMAVERA (marzo-maggio) — infezione innescata dalle precipitazioni del 25 aprile; riscontro collocato nel racconto tra fine aprile e la metà di maggio",
+     "severity_words_it": [],
+     "scope_words_it": [
+      "nel comprensorio viticolo tra Verona e Vicenza"
+     ],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "Le infezioni significative di Peronospora sono segnalate solo nel settore Trevigiano e Veneziano.",
+     "period": "ESTATE (giugno-agosto) — giugno (il paragrafo procede da «Nella prima decade di giugno» e «A metà mese»)",
+     "severity_words_it": [
+      "significative"
+     ],
+     "scope_words_it": [
+      "solo nel settore Trevigiano e Veneziano"
+     ],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "Il potenziale riproduttivo di Peronospora è presente e diffuso in tutti in tutti i comprensori e sono in aumento le manifestazioni di Botrite specie nei vigneti danneggiati dalle recenti piogge.",
+     "period": "ESTATE (giugno-agosto) — inizio agosto",
+     "severity_words_it": [
+      "presente e diffuso"
+     ],
+     "scope_words_it": [
+      "in tutti in tutti i comprensori"
+     ],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "Non si è sopita la virulenza di Peronospora e Oidio ma per questi patogeni la campagna di difesa è di fatto terminata.",
+     "period": "ESTATE (giugno-agosto) — secondo periodo di agosto",
+     "severity_words_it": [
+      "Non si è sopita la virulenza"
+     ],
+     "scope_words_it": [],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    }
+   ],
+   "quotes_dropped_on_reproof": [],
+   "host_misattributions_caught": [],
+   "missed_quotes_recovered": 0,
+   "verifier_notes": "(a) VERBATIM — all 4 vine-peronospora quote_it strings and the 1 vine-oidio quote_it string PASS. Each was tested with grep -F and independently with python str.count() on the UTF-8 file: each occurs exactly once, character-for-character. Specifically confirmed: the U+2019 apostrophe in \"d’olio\"; the genuine source duplication \"in tutti in tutti i comprensori\" (a real artefact of the file, NOT an extractor error — the extractor was right to preserve it); and no multi-space run was collapsed inside any quote (cat -A shows the four quoted sentences use single spaces throughout; the document's irregular multi-space runs, e.g. \"condizioni   di   tempo variabile\", all fall outside the quoted spans). The 2 verbatim failures listed are both host_evidence_it fields, not quote_it fields: one is an ellipsis-joined composite, one carries extractor-authored Italian glue and added guillemets. Neither invalidates its statement, but both would be corrupt if propagated downstream as source text.\n\n(b) HOST — no misattribution. All four are vine, provable from the Italian: (1) \"nel comprensorio viticolo tra Verona e Vicenza\" is in-sentence, and \"macchie d’olio\" is the diagnostic vine downy-mildew symptom; (2) sits between \"Nei comprensori viticoli, in situazioni ambientali anticipate per Glera, Pinot bianco, Chardonnay, Corvine lo stadio fenologico è compreso tra l’acino grano di pepe e la prechiusura del grappolo (BBCH 73-75)\" and the following sentence on \"La popolazione di Tignoletta\" (grape berry moth), so it is enclosed by vine text on both sides, and Trevigiano/Veneziano are Glera districts; (3) \"nei vigneti danneggiati dalle recenti piogge\" is in-sentence, preceded by \"A inizio agosto i vigneti di Chardonnay, Merlot e i vari Pinot\" and followed by \"Anche Flavescenza dorata, Legno nero e malattie da deperimento del legno\" (vine-only diseases); (4) preceded by \"in tutti i comprensori viticoli\" and by Pinot/Garganega/Cabernet invaiatura BBCH 83-85. I independently grepped for patata, pomodoro, cipolla, tabacco, cucurbit-, lattuga, soia, girasole: ZERO hits in the entire document. The extractor's empty other_host list is therefore correct, not an oversight.\n\n(c) COMPLETENESS — re-searched independently: \"peronospor\" → exactly 4 hits, all captured; \"oidi\" → exactly 1 hit (\"Oidio\"), captured; \"peronosporiche\" and \"oidica\" → zero; \"macchie d’olio\" → 1 hit, already captured; \"infezioni primarie\" → zero; \"ambienti vitati\" → 1 hit, but it is the autumn sentence \"A inizio settembre la fase di maturazione delle varietà precoci è presente in tutti gli ambienti vitati\", which is grape RIPENING, not disease. Autumn vine disease is Botrite and Marciume acido only (\"focolai più o meno diffusi e severi sui Pinot\"), correctly excluded as not peronospora. NOTHING MISSED — the empty missed list is a positive finding here, not a default.\n\n(d) SEVERITY SIGNAL — the year DOES carry a usable severity signal, but only in 2 of the 4 statements, and the extractor mislabelled scope words and subject nouns as severity in 3 of 4. My corrections: Statement 1 has NO severity qualifier at all — \"Le prime macchie d’olio ... sono state riscontrate\" is a FIRST-APPEARANCE / infection-timing statement plus geography; the extractor wrongly listed \"Le prime macchie d’olio\", \"infezioni innescate con le precipitazioni del 25 aprile\" and \"sono state riscontrate\" as severity_words, none of which says how bad it was, only that it started and where. Emptied. Statement 2 carries the one clean damage qualifier of the year: \"significative\". The extractor also filed \"sono segnalate solo\" under severity; \"solo\" is SCOPE (restrictive geography), so I moved it. Read honestly this sentence is a LOW-to-MODERATE regional signal: significant infections reported ONLY in the Treviso and Venice sectors, implying non-significant infections elsewhere in Veneto. Statement 3 says \"Il potenziale riproduttivo ... è presente e diffuso\"; I dropped \"Il potenziale riproduttivo\" (subject noun, not a qualifier) and kept \"presente e diffuso\", but this is INOCULUM PRESSURE / EXTENT, not observed crop damage — \"diffuso\" answers \"how widely\", not \"how severely\", and must not be scored on the same scale as statement 2. Statement 4 \"Non si è sopita la virulenza\" IS a genuine intensity-persistence qualifier (virulence had not abated in late August). Hence year_has_usable_severity_signal = true on the strength of \"significative\" (June, geographically restricted) and \"Non si è sopita la virulenza\" (late August); year_has_mention_only = false.\n\nOTHER CHECKS. doc_char_count 13313 is the BYTE count (wc -c); the character count is 13171 — a trivial mislabel, flagged for anyone diffing it. conditional_on_treatment = false is correct for all four: \"nei vigneti regolarmente difesi\" or equivalent does not appear; the only untreated-control wording in the document, \"Su melo nei testimoni non trattati\", belongs to APPLE SCAB (Ticchiolatura), not peronospora, and the extractor correctly did not borrow it. The extractor's exclusion of the 25 April hail sentence (\"diffuse grandinate ... hanno causato danni localmente anche gravi su frutteti e vigneti\") is correct — that is hail damage and its \"anche gravi\" must never be read as peronospora severity. Likewise the July copper application (\"un intervento con prodotti RAMEICI per cicatrizzare le ferite provocate dai chicchi di grandine\") is wound-sealing on \"molte colture\", not a peronospora control statement. NO NUMBER anywhere in this document belongs to vine peronospora or oidio: the 100% figure is Forficula, the 60% is olive cascola, and +1.1°C / -15% / +53% / +27% are meteorological; any downstream numeric severity value for 2023 vine peronospora would be fabricated. Document is an ARPAV / Regione del Veneto U.O. Fitosanitario retrospective year account = OFFICIAL_OBSERVATION, not modelled risk, as the extractor stated. VERDICT CORRECTED: all four statements are real, verbatim and correctly hosted, so nothing was removed and nothing added; the corrections are to severity/scope word assignment (3 of 4 statements) plus the two non-verbatim host_evidence fields. Source file: /home/user/eame-sintonia/data/experiments/DISEASE-EVOLUTION-VITE-VENETO/NORMALIZED/annata-agraria-2023.txt"
+  },
+  "2024": {
+   "doc_key": "2024",
+   "vine_season_year": 2024,
+   "season_year_resolved_by": "calendar_key",
+   "verifier_verdict": "CORRECTED",
+   "has_explicit_severity": true,
+   "mention_only": false,
+   "n_quotes": 4,
+   "quotes": [
+    {
+     "quote_it": "Nella prima decade di maggio si è registrata una ripresa vegetativa netta,   in particolare nella vite.  Sono comparse   le   macchie d’olio di Peronospora, dovute alle piogge del 22 – 24 aprile, ma   di  intensità modesta.",
+     "period": "prima decade di maggio 2024 (PRIMAVERA marzo-maggio); infection event attributed by the document to the rains of 22-24 aprile",
+     "severity_words_it": [
+      "intensità modesta"
+     ],
+     "scope_words_it": [],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "A fine maggio,   i vitigni delle varietà precoci,   Chardonnay, Pinot grigio e bianco ,  sono   in piena fioritura   con una   cre scita vegetativa intensa ma disomogenea .   La Peronospora è  diffusa in tutti i comprensori, con severità contenuta nella maggior parte dei casi .",
+     "period": "fine maggio 2024 (PRIMAVERA marzo-maggio)",
+     "severity_words_it": [
+      "severità contenuta",
+      "nella maggior parte dei casi"
+     ],
+     "scope_words_it": [
+      "diffusa in tutti i comprensori"
+     ],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "A inizio   estate , i vigneti si trovano tra fine fioritura e allegagione, con sviluppo vegetativo sostenuto  e clorosi persistente in alcune aree. Ne lle colture   ben protett e   con difesa integrata non si rilevano  infezioni di Peronospora, mentre nei vign eti biologici ,   la situazione è maggiormente preoccupante.",
+     "period": "a inizio estate 2024 (ESTATE giugno-agosto; opening of the summer phytosanitary narrative, i.e. giugno)",
+     "severity_words_it": [
+      "non si rilevano  infezioni di Peronospora",
+      "la situazione è maggiormente preoccupante"
+     ],
+     "scope_words_it": [
+      "Ne lle colture   ben protett e   con difesa integrata",
+      "nei vign eti biologici"
+     ],
+     "conditional_on_treatment": true,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "L’intensa ondata di temporali di m età mese   ha portato piogge   significative specie nel Veronese,  Vicentino,   Bellunese   e   basso   Veneziano - Rodigino,   dove   ci   sono   stati   scrosci   importanti   con  cumulate da 40 - 50 mm fino a oltre 100.   Le piogge hanno riattivato   la Peronospora della Vite con  nuove i nfezioni, anche intense su femminelle.",
+     "period": "metà agosto 2024 (ESTATE giugno-agosto; sentence sits inside the paragraph opened by \"I n agosto, continua lo sfarfallamento\")",
+     "severity_words_it": [
+      "anche intense su femminelle"
+     ],
+     "scope_words_it": [],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    }
+   ],
+   "quotes_dropped_on_reproof": [],
+   "host_misattributions_caught": [],
+   "missed_quotes_recovered": 0,
+   "verifier_notes": "I read the whole file (12 lines, 6 pages, 13697 bytes / 13556 Unicode characters — the extractor's char-count note is honest) and re-derived the disease inventory independently before looking at its conclusions.\n\n(a) VERBATIM — ALL 7 QUOTED STATEMENTS PASS. I tested every quote_it and every severity/scope/host fragment as an exact Python substring against the UTF-8 file; each returned count == 1. That includes the OCR word-splits (\"Ne lle\", \"protett e\", \"vign eti\", \"cre scita\", \"i nfezioni\", \"m età\"), the irregular multi-space runs, the typographic apostrophe in \"macchie d’olio\", and the en-dash in \"22 – 24 aprile\". No collapsed spacing, no silently fixed OCR, no added or dropped word. Zero verbatim_failures. The four corrected quotes above were re-sliced programmatically out of the file rather than retyped, so they are byte-identical to the source.\n\n(b) HOST — NO MISATTRIBUTIONS. Proof for each vine claim, from the Italian: (1) \"in particolare nella vite.  Sono comparse   le   macchie d’olio di Peronospora\"; (2) \"i vitigni delle varietà precoci,   Chardonnay, Pinot grigio e bianco\" opens the sentence whose second clause is \"La Peronospora è  diffusa in tutti i comprensori\"; (3) \"i vigneti si trovano tra fine fioritura e allegagione\" opens the passage and the contrast term is explicitly \"nei vign eti biologici\"; (4) \"la Peronospora della Vite\" — named outright. There is NO peronospora on patata, pomodoro or cipolla anywhere in this document (0 hits for each of those three words). The single non-vine peronospora, \"sul porro compare la Peronospora\" (leek, mid-September, inside the \"Tra le orticole\" vegetable paragraph), was correctly kept out of the vine set. The radicchio oidio (\"Tra le orticole, nei diversi tipi di radicchio ... Oidio su selezioni tardive\") was correctly marked subject_is_vine=false. ONE CAVEAT I raise but do not treat as an error: in statement (3) the zero-infection clause literally says \"Ne lle colture   ben protett e\" — \"colture\" is the generic word for crops, not \"vigneti\". The vine reading is nonetheless sound because the sentence sits inside the vineyard passage and is set in direct contrast with \"nei vign eti biologici\"; but a downstream user should know the word \"vigneti\" does not appear in that specific clause.\n\n(c) COMPLETENESS — NOTHING MISSED. Exhaustive regex census of the whole file: \"peronospor\" = 5 hits (4 vine, 1 porro), \"oidi\" = 2 hits (1 vine, 1 radicchio), \"oidic\" = 0, \"macchie d\" = 2 (one is \"macchie di Ticchiolatura\" on pomacee, correctly not claimed), \"vite\" = 3 (one is \"germogli di vite\" in mid-April with no disease attached), \"vitign\" = 1, \"vigne\"/\"vign \" = 2, \"uve\" = 1 (ripening differences attributed to \"stress idrico\" and \"caldo anomalo\", not to disease), \"uva\" = 0, \"grappol\" = 1, \"femminell\" = 1. Every vine-peronospora sentence in the document is already in the extraction. Pages 4-6 are figure captions only. I add no quotes.\n\n(d) SEVERITY SIGNAL — YES, 2024 CARRIES EXPLICIT SEVERITY QUALIFIERS, and unusually good ones. Four distinct, genuine severity/intensity statements: \"ma   di  intensità modesta\" (early May), \"con severità contenuta nella maggior parte dei casi\" (end May), \"non si rilevano  infezioni di Peronospora\" vs \"la situazione è maggiormente preoccupante\" (early summer, split by regime), and \"anche intense su femminelle\" (mid-August). This is NOT a bare-mention year. Critically, \"diffusa in tutti i comprensori\" is SCOPE (spatial extent), NOT severity — the extractor classified it correctly, and it must not be read as a high-severity signal; the severity term attached to that same sentence is the opposite in direction (\"contenuta\").\n\nCORRECTIONS I APPLIED (why the verdict is CORRECTED, not OK — the quote SET is unchanged, no quote removed, none added; only severity-word classification was tightened):\n1. Statement 1: removed \"macchie d’olio\" from severity_words_it. \"Macchie d'olio\" is the SYMPTOM name for the primary-infection oil-spot lesion — a diagnostic descriptor, not a severity or intensity qualifier. Leaving it there invites a downstream scorer to read a symptom name as an intensity term. The only severity term in that sentence is \"intensità modesta\".\n2. Statement 4: removed \"riattivato\" and \"nuove i nfezioni\" from severity_words_it. \"Riattivato\" is an event/dynamics verb and \"nuove infezioni\" is bare occurrence — by the rule stated in this task, occurrence is not severity. The only severity term in that sentence is \"anche intense su femminelle\".\n3. Kept \"nella maggior parte dei casi\" as a severity word in statement 2 deliberately: it bounds \"severità contenuta\" and its removal would let the containment be read as universal, when the document implies a minority of non-contained cases.\n\nCAUTIONS THE PARENT MUST CARRY FORWARD:\n- NO NUMBERS EXIST for disease severity in this document. Everything is verbal. The figures inside statement 4's quote (\"40 - 50 mm fino a oltre 100\") are RAINFALL, and 30-40%, 14%, 30%, 10%, 75%, \"8,7 e 12,5%\" elsewhere are precipitation anomalies or olive-oil yields. None may ever be reused as a disease metric. I retained the rainfall clause inside quote 4 only because it is the sentence that dates and causes the reactivation; it is not a disease measurement.\n- I ENDORSE the extractor's decision to leave scope_words_it EMPTY for statement 4. \"specie nel Veronese, Vicentino, Bellunese e basso Veneziano-Rodigino\" grammatically qualifies where the rains fell, not where the peronospora reactivated. Assigning that geography to the disease would be inference.\n- Statement 3 is CONDITIONAL ON TREATMENT REGIME and splits the population in two opposite directions (zero infections under difesa integrata vs \"maggiormente preoccupante\" in organic). No single year severity value can be assigned from it without naming a regime.\n- The 2024 trajectory is NON-MONOTONIC: modest early May, widespread-but-contained end May, absent under integrated defence at the start of summer, then reactivated with locally intense infections mid-August. Collapsing 2024 to one severity label would misrepresent the source. The mid-August intensity is stated on FEMMINELLE (lateral shoots) only — late-season vegetative infection; the document states NO bunch or harvest loss from peronospora.\n- SILENCE IS NOT ZERO: the document says nothing about vine peronospora or vine oidio in winter or autumn, and nothing about vine oidio in spring. Those are gaps in the source, not zero-severity observations. The only vine oidio record in the whole year is \"L’Oidio è presente su foglie e grappoli, soprattutto nel Vicentino e Veronese.\" (early summer) — a presence-plus-location statement whose only severity-adjacent content is the tissue list and \"soprattutto\"; it is closer to scope than to severity.\n- The April frosts (19 and 21 aprile), the hail, and the end-August ripening variability are ABIOTIC/thermal-hydric and must not be folded into disease pressure.\n- Source is ARPAV Veneto + Regione del Veneto U.O. Fitosanitario, \"ANDAMENTO AGROMETEOROLOGICO ANNATA 2024 (da dicembre 2023 a novembre 2024)\" — OFFICIAL_OBSERVATION, not modelled risk."
+  },
+  "2025": {
+   "doc_key": "2025",
+   "vine_season_year": 2025,
+   "season_year_resolved_by": "calendar_key",
+   "verifier_verdict": "CORRECTED",
+   "has_explicit_severity": true,
+   "mention_only": false,
+   "n_quotes": 5,
+   "quotes": [
+    {
+     "quote_it": "In seguito, le temperature elevate di fine aprile-inizio maggio, unitamente alla buona dotazione idrica dei terreni, accelerano la crescita della vite e si osservano le prime (rade) macchie d’olio stagionali di Peronospora sulle cv precoci dovute alle infezioni innescate dalle piogge del 13-17 aprile.",
+     "period": "fine aprile - inizio maggio 2025 (sezione PRIMAVERA (marzo-maggio)); infezioni innescate dalle piogge del 13-17 aprile",
+     "severity_words_it": [
+      "(rade)",
+      "le prime (rade) macchie d’olio stagionali"
+     ],
+     "scope_words_it": [
+      "sulle cv precoci"
+     ],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "Successivamente, compaiono i sintomi delle infezioni riferite alle precipitazioni del periodo compreso tra il 23 e il 25 aprile.",
+     "period": "fine aprile - inizio maggio 2025 (sezione PRIMAVERA (marzo-maggio)); seconda ondata infettiva riferita alle piogge del 23-25 aprile",
+     "severity_words_it": [],
+     "scope_words_it": [],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "Le infezioni di Peronospora, originate dalle piogge di fine maggio, compaiono solo localmente e con scarsa intensità.",
+     "period": "inizio estate (giugno), infezioni originate dalle piogge di fine maggio (sezione ESTATE (giugno-agosto))",
+     "severity_words_it": [
+      "scarsa intensità"
+     ],
+     "scope_words_it": [
+      "solo localmente"
+     ],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "Mentre nel mese di giugno la Peronospora rimane poco attiva per il caldo e la scarsa umidità, le piogge della prima decade di luglio riattivano le infezioni.",
+     "period": "giugno (poco attiva) e prima decade di luglio (riattivazione) - sezione ESTATE (giugno-agosto)",
+     "severity_words_it": [
+      "rimane poco attiva"
+     ],
+     "scope_words_it": [],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    },
+    {
+     "quote_it": "In questo periodo   si   rilevano   infezioni   di   Peronospora   sulla   vegetazione   giovane   e   qualche   caso   di peronospora larvata nei vigneti biologici; l’Oidio resta contenuto e compaiono i primi focolai di Botrite.",
+     "period": "fine luglio 2025 (\"In questo periodo\" segue \"A fine mese le varietà raggiungono l’invaiatura...\", dove \"fine mese\" = fine luglio) - sezione ESTATE (giugno-agosto)",
+     "severity_words_it": [
+      "qualche   caso   di peronospora larvata"
+     ],
+     "scope_words_it": [
+      "sulla   vegetazione   giovane",
+      "nei vigneti biologici"
+     ],
+     "conditional_on_treatment": false,
+     "_verbatim_occurrences": 1
+    }
+   ],
+   "quotes_dropped_on_reproof": [],
+   "host_misattributions_caught": [],
+   "missed_quotes_recovered": 1,
+   "verifier_notes": "METODO: letto integralmente /home/user/eame-sintonia/data/experiments/DISEASE-EVOLUTION-VITE-VENETO/NORMALIZED/annata-agraria-2025.txt (12 righe, 13691 caratteri - conteggio dell'estrattore CONFERMATO da `wc -m`). Ogni stringa è stata verificata con confronto esatto Python (doc.count(q)), non con grep tollerante, quindi spazi multipli, apostrofi U+2019 e accenti sono stati controllati byte per byte.\n\n(a) VERBATIM - 6/6 OK, ZERO FALLIMENTI. Tutte e 4 le citazioni vine_peronospora e tutte e 2 le citazioni vine_oidio compaiono ESATTAMENTE UNA VOLTA nel file, carattere per carattere. In particolare il quarto quote conserva correttamente i run di TRE spazi dell'OCR giustificato (\"In questo periodo   si   rilevano   infezioni   di   Peronospora   sulla   vegetazione   giovane   e   qualche   caso   di peronospora larvata\") e il singolo spazio tra \"di\" e \"peronospora\" (a-capo collassato): verificato con cat -A e con confronto esatto. Gli apostrofi sono U+2019 come dichiarato. L'affermazione dell'estrattore di aver estratto con grep e non ridigitato è credibile e regge alla verifica.\n\n(b) HOST - ZERO MISATTRIBUZIONI. Il documento contiene SOLO 5 occorrenze di \"peronospor*\" (4 \"Peronospora\" + 1 \"peronospora\"), TUTTE sulla riga 5, TUTTE nel filone narrativo viticolo. Prove testuali per ciascuna: (1) \"accelerano la crescita della vite e si osservano le prime (rade) macchie d’olio stagionali di Peronospora sulle cv precoci\" - \"vite\" nella stessa frase, \"macchie d’olio\" è il sintomo diagnostico della peronospora della vite; (2) frase precedente \"A inizio estate l’aumento delle temperature favorisce lo sviluppo della vite: le varietà precoci concludono la fioritura...\" e frase seguente sulla Tignoletta (Lobesia botrana, fitofago esclusivo della vite); (3) frase precedente \"La vite presenta per lo più uno stadio di vegetazione compreso tra acini che iniziano a toccarsi e grappolo chiuso\"; (4) \"nei vigneti biologici\" nella stessa frase + \"peronospora larvata\", termine tecnico specifico della vite. Il documento NON menziona MAI peronospora su patata, pomodoro, cipolla o altra coltura: other_host_peronospora_statements vuoto è corretto, ed è vuoto perché il documento tace, non perché sia stato scartato qualcosa.\n\nIl flag subject_is_vine=false sull'Oidio del radicchio (\"A inizio autunno, per il settore orticolo, nei trapianti di radicchio effettuati in luglio ... con presenza di macchie di Oidio.\") è CORRETTO e ben motivato: l'ospite è il radicchio (settore orticolo), non la vite. Nota metodologica: quella frase è comunque collocata dentro l'array vine_oidio_statements, cosa strutturalmente ambigua - se un consumatore a valle legge l'array senza controllare subject_is_vine conta un oidio della vite in autunno che NON esiste. Segnalato come rischio di forma, non come errore di fatto.\n\n(c) COMPLETEZZA - 1 STATEMENT MANCANTE. Ricerche eseguite: peronospor(a/e/iche), Peronospora, \"macchie d’olio\", macchie, oidi*, Oidio, oidica, vite, vigne*, vitic*, uva, uve, vitat*, Plasmopara, muffa, marciu*, downy, Bolla, Botrite. Risultato: le 5 occorrenze di peronospor* sono tutte coperte dai 4 statement dell'estrattore (il quarto ne contiene due). Non esistono statement peronosporici su vite espliciti omessi. MANCA però la frase anaforica \"Successivamente, compaiono i sintomi delle infezioni riferite alle precipitazioni del periodo compreso tra il 23 e il 25 aprile.\", seconda ondata infettiva di aprile: l'ho aggiunta al set corretto con severity_words vuoto e con l'avvertenza che non nomina la malattia. Nessuna delle altre patologie della vite trovate (Bolla su pesco - NON vite, riga 5 \"il pesco ... con sintomi di Bolla\"; Botrite; marciumi in vendemmia) è peronospora. La nota dell'estrattore sulle pagine 4-6 (solo didascalie di figure) è CONFERMATA, come pure che il 60% di perdita riguarda l'OLIVO e la Mosca dell'olivo (riga 7) e non la vite.\n\n(d) SEGNALE DI SEVERITA' - PRESENTE, ESPLICITO, QUALITATIVO. year_has_usable_severity_signal=true. Distinzione severità vs scope, fatta parola per parola:\n- SEVERITA' REALE (intensità/attività/incidenza): \"(rade)\" [macchie rade = bassa densità di sintomo]; \"scarsa intensità\" [esplicitissimo]; \"rimane poco attiva\" [livello di attività della malattia]; \"qualche   caso   di peronospora larvata\" [bassa incidenza].\n- SCOPE, NON severità: \"solo localmente\" [distribuzione territoriale]; \"sulle cv precoci\" [sottoinsieme varietale]; \"sulla   vegetazione   giovane\" [organo colpito]; \"nei vigneti biologici\" [sottoinsieme gestionale].\n- NE' severità NE' scope, solo occorrenza/cronologia: \"si   rilevano   infezioni\", \"riattivano le infezioni\", \"compaiono i sintomi\", \"prime\" [temporale, prima comparsa stagionale].\nCORREZIONI DI CLASSIFICAZIONE APPLICATE ai campi dell'estrattore (nessuna di queste è un errore verbatim o di ospite, ma tutte sporcano l'aggregazione a valle): ho tolto da severity_words_it \"macchie d’olio stagionali\" (descrittore di sintomo, non di gravità); ho SPOSTATO \"sulla   vegetazione   giovane\" da severity_words_it a scope_words_it (è un organo, non un'intensità); ho tolto da severity_words_it \"si   rilevano   infezioni\" e \"riattivano le infezioni\" (mera occorrenza - esattamente il caso che le istruzioni chiedono di non contare come severità); ho declassato \"prime\" a marcatore temporale mantenendolo solo dentro la stringa più lunga \"le prime (rade) macchie d’olio stagionali\", dove il portatore di severità è \"rade\".\nyear_has_mention_only=false: NON siamo nel caso della sola menzione, perché 3 dei 5 statement portano un qualificatore di intensità esplicito. Va però registrato che il registro è INTERAMENTE QUALITATIVO E ATTENUATO: zero numeri, zero percentuali, zero ettari, zero stime di danno per la peronospora della vite. Non ho introdotto alcun valore numerico e nessuno è deducibile.\n\nCONDITIONAL_ON_TREATMENT - concordo con tutti e 4 i false, con una riserva esplicitata. Il documento non contiene mai \"nei vigneti regolarmente difesi\" o formule equivalenti che condizionino la severità alla difesa. \"nei vigneti biologici\" nel quinto statement è però un condizionamento a un REGIME GESTIONALE (il regime opposto, meno protettivo): la clausola \"qualche caso di peronospora larvata\" vale per quel sottoinsieme, mentre \"si rilevano infezioni di Peronospora sulla vegetazione giovane\" non è ristretta. Tenuto in scope_words_it e non in conditional_on_treatment, come aveva fatto l'estrattore, ma chi confronta le annate deve sapere che quel \"qualche caso\" NON è un dato territoriale generale.\n\nRIEPILOGO VERDETTO: CORRECTED. Nessun fallimento verbatim, nessuna misattribuzione di ospite - l'estrazione era solida sui due assi più pericolosi. Correzioni: (1) aggiunto 1 statement omesso (seconda ondata di aprile, 23-25 aprile); (2) ripulita la separazione severità/scope in 2 statement su 5. Il set corretto ha 5 quote, tutte verificate carattere per carattere contro il file. NON INTERPRETARE I SILENZI: dopo fine luglio il documento non dice più nulla sulla peronospora della vite (in agosto cita solo \"la minaccia di attacchi dei marciumi\" in fase di vendemmia) - è silenzio del report, non assenza di malattia. Il documento è OFFICIAL_OBSERVATION ARPAV / Regione del Veneto U.O. Fitosanitario, non rischio modellato. Il 2025 va letto come anno con primavera molto più piovosa (+47%) ed estate più calda (+1.2°C) e piovosa (+24%) in cui, nonostante ciò, la peronospora della vite è descritta come contenuta."
+  }
+ }
+}
