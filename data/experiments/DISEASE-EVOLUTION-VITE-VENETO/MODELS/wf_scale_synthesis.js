@@ -11,6 +11,7 @@ export const meta = {
 const ROOT = '/home/user/eame-sintonia/data/experiments/DISEASE-EVOLUTION-VITE-VENETO'
 const EVID = `${ROOT}/OBSERVATIONS/verified_evidence.json`
 const LEX  = `${ROOT}/OBSERVATIONS/lexicon_scan.json`
+const RUNA = `${ROOT}/OBSERVATIONS/independent_run_A.json`
 
 const SCALE_SCHEMA = {
   type: 'object',
@@ -89,6 +90,11 @@ const COMMON = `
 SOURCES YOU MUST READ YOURSELF:
   ${EVID}  adversarially-verified verbatim quotes, per source document
   ${LEX}   a frozen MECHANICAL lexicon scan of the same 26 documents (cross-check only, not truth)
+  ${RUNA}  AN INDEPENDENT SECOND EXTRACTION of 2014-2025 only, run separately with a different
+           schema and different agents. Use it as a replication check. Where run A and the
+           main evidence file disagree about a season, that season is NOT robustly codeable
+           and must not be counted as comparable, whichever one you personally find more
+           convincing. They already disagree on 2017, 2018 and 2023.
   ${ROOT}/NORMALIZED/annata-agraria-<key>.txt  the raw text of any document you want to re-read
 
 ABSOLUTE RULES:
@@ -97,6 +103,14 @@ ABSOLUTE RULES:
 - A year with no severity statement is NOT_ASSIGNABLE. It is not "LOW". Silence is not mildness.
 - Peronospora in these reports also attacks potato, tomato and onion. Only vine-hosted
   statements count.
+- RISK IS NOT PRESENCE. This is the pilot's central law and it has already been violated
+  once. The 2017 report's ONLY peronospora sentence is "Verso la metà di giugno i vigneti
+  erano in prechiusura-grappolo con un rischio basso di infezione di Peronospora" — that is
+  a forward-looking infection-RISK category from a weather-driven model, evaluated on one
+  date. It is NOT a statement about what the disease did. The main evidence file wrongly
+  coded 2017 as carrying a severity signal; the independent run caught it. Audit every other
+  season for the same mistake: "rischio", "pericolo", "condizioni favorevoli", "possibili
+  infezioni" are risk language, not outcome. Report every one you find.
 - Some statements are conditional on spraying ("nei vigneti regolarmente difesi"). That is
   severity UNDER CONTROL, not natural pressure. Say how you handled it.
 - THE FIVE OLDEST DOCUMENTS ARE AGRARIAN YEARS (1 Nov -> 31 Oct). "annata agraria 2000-01"
