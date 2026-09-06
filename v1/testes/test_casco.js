@@ -448,6 +448,42 @@ teste('SF-10 · o KPI de "hoje" e recalculado contra o relogio de quem abre', ()
   return `hoje ${agora} · com o relogio em 2040-06-20 sobe para ${futuro}`;
 });
 
+teste('SF-16 · NOT_PRESENT nao diz "nao declara" onde o rotulo declara', () => {
+  // R-19 · 112 rotulos escrevem "con validita dal <data>" e a ficha dizia
+  // NOT_PRESENT, que se le "o rotulo nao declara vigencia".
+  const naoLidos = P.products.filter(p => p.label_validity_state === 'VALIDITY_PHRASE_PRESENT_FORM_NOT_READ');
+  afirma(naoLidos.length > 0, 'nenhum rotulo com forma nao lida — o teste perdeu o alvo');
+  const p0 = naoLidos[0];
+  viewProduto(p0.reg);
+  const h = html('#pdet');
+  afirma(h.includes('VALIDITY_PHRASE_PRESENT_FORM_NOT_READ'),
+    `${p0.reg} nao mostra que a forma de vigencia nao foi lida`);
+  afirma(h.includes('PARSER_FAILURE'), 'a ficha nao nomeia a lei que isto viola');
+  naoLidos.forEach(p => afirma(p.label_validity_literal && p.label_validity_literal.length > 10,
+    `${p.reg} declara vigencia e nao traz a frase literal`));
+  return `${naoLidos.length} rotulos declaram vigencia em forma nao estruturada, todos com a frase`;
+});
+
+teste('SF-16 · CAPTURED_AT e a captura, nao a data em que a regra rodou', () => {
+  const byReg2 = Object.fromEntries(P.products.map(p => [p.reg, p]));
+  const exp = P.objects.filter(o => o.OBJECT_TYPE === 'EXPIRY_EVENT');
+  afirma(exp.length > 0, 'nenhum EXPIRY_EVENT — o teste perdeu o alvo');
+  let mau = 0, semRegra = 0;
+  exp.forEach(o => {
+    const p = byReg2[o.REGISTRATION_ID];
+    if (p && p.captured_at && o.CAPTURED_AT !== p.captured_at) mau++;
+    if (!o.RULE_EVALUATED_AT || o.RULE_EVALUATED_AT === 'NOT_APPLICABLE') semRegra++;
+  });
+  afirma(mau === 0, `${mau} EXPIRY_EVENT com CAPTURED_AT diferente da captura real do produto`);
+  afirma(semRegra === 0, `${semRegra} EXPIRY_EVENT sem RULE_EVALUATED_AT`);
+  // e uma data so pode ter um formato na mesma tela
+  const fmt = new Set(P.objects.map(o => String(o.DETECTED_AT))
+    .filter(d => d !== 'NOT_KNOWN')
+    .map(d => /^\d{8}$/.test(d) ? 'AAAAMMDD' : /^\d{4}-\d{2}-\d{2}$/.test(d) ? 'ISO' : 'outro'));
+  afirma(fmt.size <= 1, `DETECTED_AT em ${fmt.size} formatos: ${[...fmt]}`);
+  return `${exp.length} EXPIRY_EVENT com captura real e RULE_EVALUATED_AT proprio · DETECTED_AT num formato so`;
+});
+
 teste('a celula de dose diz de que linha o numero veio', () => {
   viewCrop();
   const h = html('#cres');

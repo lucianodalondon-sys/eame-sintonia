@@ -792,6 +792,19 @@ function viewProduto(reg) {
       <tr><th>Revoga &middot; decreto</th><td>${val(p.revoke_decree)}</td></tr>
       <tr><th>Revoga &middot; decorrencia</th><td>${val(p.revoke_effective)}</td></tr>` : ''}
       <tr><th>Etichetta em vigor desde</th><td>${val(p.label_effective)}</td></tr>
+      ${p.label_validity_state === 'VALIDITY_PHRASE_PRESENT_FORM_NOT_READ' ? `
+      <tr><th>Vigencia declarada NA PROPRIA etichetta</th>
+        <td><span class="unknown">VALIDITY_PHRASE_PRESENT_FORM_NOT_READ</span>
+          <div class="meta"><b>o rotulo declara vigencia, e este leitor nao sabe estruturar esta
+          forma.</b> Ele conhece &ldquo;valida dal X al Y&rdquo;, que existe em 1 dos 163
+          documentos; este escreve <code>${esc(p.label_validity_form)}</code>, que existe em 112.
+          Dizer <code>NOT_PRESENT</code> aqui seria publicar
+          <code>PARSER_FAILURE</code> como <code>REGULATORY_ABSENCE</code>.
+          O documento escreve: <i>&ldquo;${esc(p.label_validity_literal)}&rdquo;</i>
+          <div class="meta">A ferramenta <b>nao</b> converte essa data no campo de vigencia: nada
+          no acervo prova que a data do &ldquo;modificata ai sensi ... con validita dal&rdquo; e o
+          mesmo fato que a data do &ldquo;valida dal ... al ...&rdquo;. Quem precisa dela le a
+          frase.</div></div></td></tr>` : ''}
       ${p.label_valid_to && !isUnk(p.label_valid_to) ? `
       <tr><th>Vigencia declarada NA PROPRIA etichetta</th>
         <td${(hojeISO() && p.label_valid_to < hojeISO()) ? ' style="color:var(--bad)"' : ''}>

@@ -72,11 +72,14 @@ def main():
     ap.add_argument("--alvonome", default="v1/dados/ALVO-NOMEADO.json")
     ap.add_argument("--prosa", default="v1/dados/PROSA-CENSO.json")
     ap.add_argument("--citacao", default="v1/dados/CITACAO-CHECK.json")
+    ap.add_argument("--vigencia", default="v1/dados/VIGENCIA-ETICHETTA.json")
     ap.add_argument("--hoje", required=True)
     ap.add_argument("--out", default="v1/dados/CASCO-PAYLOAD.json")
     a = ap.parse_args()
 
     pkg = json.load(open(a.pacote, encoding="utf-8"))
+    vig = (json.load(open(a.vigencia, encoding="utf-8"))["VERDICT"]
+           if os.path.exists(a.vigencia) else {})
     io_ = json.load(open(a.objetos, encoding="utf-8"))
     vs = json.load(open(a.versoes, encoding="utf-8"))
     hoje = datetime.date.fromisoformat(a.hoje)
@@ -322,6 +325,14 @@ def main():
             "label_valid_from": i.get("LABEL_VALID_FROM", "NOT_CHECKED"),
             "label_valid_to": i.get("LABEL_VALID_TO", "NOT_CHECKED"),
             "label_validity_quote": i.get("LABEL_VALIDITY_QUOTE", "NOT_PRESENT"),
+            # R-19 · NOT_PRESENT dizia "o rotulo nao declara vigencia" em 162
+            # fichas. Medido: 112 rotulos escrevem "con validita dal <data>" e
+            # 150 escrevem "Etichetta autorizzata con ..." — o leitor e que so
+            # conhece a forma "valida dal X al Y", que existe em 1. Agora o
+            # estado tem nome proprio e a frase vai junto.
+            "label_validity_state": vig.get(reg, {}).get("STATE", "VALIDITY_NOT_CHECKED"),
+            "label_validity_form": vig.get(reg, {}).get("FORM"),
+            "label_validity_literal": vig.get(reg, {}).get("QUOTE"),
             "captured_at": i["CAPTURED_AT"],
             "snapshot": i["REGISTRY_SNAPSHOT_ID"], "snapshot_sha": i["REGISTRY_SNAPSHOT_SHA256"],
             "source_url": i["SOURCE_URL"], "run": i["COLLECTION_RUN_ID"],
@@ -499,6 +510,9 @@ def main():
         "target_name": {k: v for k, v in an.items() if k not in ("VERDICT", "NOT_IN_LABEL")},
         "citacao": ({k: v for k, v in cit.items() if k != "DETAIL"} if cit
                     else {"STATE": "NOT_CHECKED"}),
+        "vigencia": ({k: v for k, v in json.load(open(a.vigencia, encoding="utf-8")).items()
+                      if k != "VERDICT"} if os.path.exists(a.vigencia)
+                     else {"STATE": "NOT_CHECKED"}),
         "prose": ({k: v for k, v in json.load(open(a.prosa, encoding="utf-8")).items()
                    if k != "LINHAS"} if os.path.exists(a.prosa) else {"STATE": "NOT_MEASURED"}),
         "pair_check_list": pf["CONTRADICTED"],

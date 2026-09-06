@@ -218,6 +218,13 @@ def roteia(tipo):
     return out
 
 
+def _iso8(v):
+    """AAAAMMDD -> AAAA-MM-DD. Data em dois formatos na mesma tela e ruido que
+    o leitor tem de decodificar; e a funcao que resolve isso ja existia."""
+    t = str(v or "")
+    return f"{t[:4]}-{t[4:6]}-{t[6:8]}" if len(t) == 8 and t.isdigit() else t
+
+
 def base(tipo, item, **kw):
     """Molde comum de todo intelligence object."""
     dias = item.get("DAYS_TO_EXPIRY")
@@ -238,8 +245,13 @@ def base(tipo, item, **kw):
         "SOURCE_AUTHORITY": item.get("SOURCE_AUTHORITY"),
         "VALID_FROM": kw.pop("VALID_FROM", "NOT_KNOWN"),
         "VALID_UNTIL": kw.pop("VALID_UNTIL", "NOT_KNOWN"),
-        "CAPTURED_AT": kw.pop("CAPTURED_AT", item.get("CAPTURED_AT", "NOT_KNOWN")),
-        "DETECTED_AT": kw.pop("DETECTED_AT", "NOT_KNOWN"),
+        "CAPTURED_AT": _iso8(kw.pop("CAPTURED_AT", item.get("CAPTURED_AT", "NOT_KNOWN"))),
+        "DETECTED_AT": _iso8(kw.pop("DETECTED_AT", "NOT_KNOWN")),
+        # SF-16b · uma data so pode aparecer num formato. dISO() existia no casco
+        # e nao era aplicada nos pontos de impressao: a mesma tela mostrava
+        # "detectado 20260720" nos 36 objetos de mudanca e "detectado 2026-09-06"
+        # nos 15 EXPIRY_EVENT. Agora a normalizacao acontece na ORIGEM.
+        "RULE_EVALUATED_AT": kw.pop("RULE_EVALUATED_AT", "NOT_APPLICABLE"),
         "BEFORE_VALUE": kw.pop("BEFORE_VALUE", "NOT_APPLICABLE"),
         "AFTER_VALUE": kw.pop("AFTER_VALUE", "NOT_APPLICABLE"),
         "RAW_BEFORE": kw.pop("RAW_BEFORE", "NOT_PRESERVED"),
@@ -361,7 +373,15 @@ def main():
                 BEFORE_VALUE=f'validade {it["EXPIRY_RAW"]}', AFTER_VALUE=f'hoje {a.hoje}',
                 RAW_BEFORE=it["EXPIRY_RAW"], RAW_AFTER=it["STATUS_RAW"],
                 VALID_FROM=it["EXPIRY_RAW"], VALID_UNTIL="NOT_KNOWN",
-                CAPTURED_AT=a.hoje, DETECTED_AT=a.hoje,
+                # SF-16c · CAPTURED_AT E QUANDO O DADO FOI CAPTURADO, NAO
+                # QUANDO A REGRA RODOU. Os 15 EXPIRY_EVENT recebiam a data do
+                # BUILD (2026-09-06) num campo que a propria ferramenta usa para
+                # sustentar a lei CAPTURED_AT != EFFECTIVE_AT. A captura real
+                # esta no item da coleta; a data em que R-09 foi avaliada ganha
+                # campo proprio, com nome proprio.
+                CAPTURED_AT=it.get("CAPTURED_AT", "NOT_KNOWN"),
+                DETECTED_AT=it.get("CAPTURED_AT", "NOT_KNOWN"),
+                RULE_EVALUATED_AT=a.hoje,
                 SOURCE_DOCUMENT_AFTER=f'{pkg["REGISTRY_SNAPSHOT_ID"]}.csv sha256={pkg["REGISTRY_SNAPSHOT_SHA256"][:16]}',
                 EVIDENCE_LOCATION="campos data_scadenza_autorizzazione e stato_amministrativo",
                 SOURCE_URL=it["SOURCE_URL"], CONFIDENCE_STATE="OFFICIAL_FIELD_VALUE",
