@@ -1,6 +1,6 @@
 {
  "SUITE": "PORTOES-V1",
- "PASS": 24,
+ "PASS": 25,
  "FAIL": 0,
  "RESULTS": [
   {
@@ -61,7 +61,7 @@
   {
    "GATE": "CANONICAL_TOUCHED",
    "STATE": "PASS",
-   "DETALHE": "nenhum dos 43 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
+   "DETALHE": "nenhum dos 44 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
   },
   {
    "GATE": "REUSE_ANCHORED_ON_FILE_HASH",
@@ -117,6 +117,11 @@
    "GATE": "COUNTS_MATCH_THEIR_OWN_VERDICTS",
    "STATE": "PASS",
    "DETALHE": "os tres arquivos de veredito contam exatamente o que listam"
+  },
+  {
+   "GATE": "SHARED_GEOMETRY_CALLS_MATCH_SIGNATURE",
+   "STATE": "PASS",
+   "DETALHE": "11 chamadas as funcoes de geometria de par_validar conferidas contra a assinatura de verdade, em todos os modulos de v1/inteligencia"
   },
   {
    "GATE": "CASCO_RENDER_TEST",

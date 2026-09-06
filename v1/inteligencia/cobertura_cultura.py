@@ -123,8 +123,9 @@ def main():
                 w = radical(t)
                 if len(w) < 4 or w not in VOC:
                     continue
-                cel = celula(x0, x1, (y0 + y1) / 2, seg, alt)
-                if cel is None or not celula_coerente(pg, *cel):
+                cel = celula(pg, x0, x1, (y0 + y1) / 2, seg, alt)
+                if (cel is None or cel == 'RULES_ARE_TEXT_UNDERLINES'
+                        or not celula_coerente(pg, *cel)):
                     continue
                 k = (pi + 1, round(cel[0], 1), round(cel[1], 1), round(cel[2], 1))
                 celulas.setdefault(k, set()).add(w)

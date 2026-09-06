@@ -510,6 +510,68 @@ ok("COUNTS_MATCH_THEIR_OWN_VERDICTS",
    "os tres arquivos de veredito contam exatamente o que listam") \
     if not _sc else fail("COUNTS_MATCH_THEIR_OWN_VERDICTS", " | ".join(_sc))
 
+# --- 15i. modulo que chama a geometria compartilhada ainda casa com a assinatura
+#
+# Esta missao QUEBROU R-15 e R-20 e os portoes nao viram: `celula()` ganhou um
+# primeiro parametro em par_validar.py, e heranca_validar.py e
+# cobertura_cultura.py continuaram chamando com a assinatura antiga. Os dois
+# passaram a estourar TypeError na primeira linha util — e como os portoes leem
+# o JSON JA GRAVADO, tudo continuou verde sobre um artefato velho.
+#
+# O portao le o codigo (ast) e confere o numero de argumentos de cada chamada as
+# funcoes de geometria compartilhada contra a assinatura de verdade
+# (inspect.signature). Nao roda os modulos — roda em milissegundos e pega a
+# classe inteira de defeito.
+_as = []
+_chk = 0
+try:
+    import ast as _ast, inspect as _insp
+    sys.path.insert(0, "pilot-label-intelligence/bin")
+    import par_validar as _PV
+    _alvos = {n: _insp.signature(getattr(_PV, n))
+              for n in ("celula", "celula_coerente", "palavras", "radical", "raizes_alvo",
+                        "raizes_cultura", "fios_da_coluna", "e_sublinhado")
+              if hasattr(_PV, n)}
+    for _f in sorted(os.listdir("v1/inteligencia")):
+        if not _f.endswith(".py"):
+            continue
+        _cam = os.path.join("v1/inteligencia", _f)
+        _src = open(_cam, encoding="utf-8").read()
+        _imp = {n.asname or n.name
+                for _n in _ast.walk(_ast.parse(_src))
+                if isinstance(_n, _ast.ImportFrom) and _n.module == "par_validar"
+                for n in _n.names}
+        if not _imp:
+            continue
+        for _n in _ast.walk(_ast.parse(_src)):
+            if not (isinstance(_n, _ast.Call) and isinstance(_n.func, _ast.Name)):
+                continue
+            _nome = _n.func.id
+            if _nome not in _imp or _nome not in _alvos:
+                continue
+            # chamada com desempacotamento (`f(pg, *cel)`) nao tem aridade
+            # estatica: a arvore nao sabe quantos elementos a tupla tem. Contar
+            # o Starred como UM argumento acusaria chamada correta, e portao que
+            # acusa o certo e pior que portao nenhum.
+            if any(isinstance(_x, _ast.Starred) for _x in _n.args) or any(
+                    k.arg is None for k in _n.keywords):
+                continue
+            _chk += 1
+            _npos = len(_n.args)
+            _nkw = {k.arg for k in _n.keywords if k.arg}
+            try:
+                _alvos[_nome].bind(*([None] * _npos), **{k: None for k in _nkw})
+            except TypeError as _e:
+                _as.append(f"{_f}:{_n.lineno} chama {_nome}() com {_npos} posicionais e a "
+                           f"assinatura e {_alvos[_nome]} ({_e})")
+except Exception as _e:
+    _as.append(f"assinaturas nao puderam ser conferidas: {_e}")
+
+ok("SHARED_GEOMETRY_CALLS_MATCH_SIGNATURE",
+   f"{_chk} chamadas as funcoes de geometria de par_validar conferidas contra a assinatura "
+   f"de verdade, em todos os modulos de v1/inteligencia") \
+    if not _as else fail("SHARED_GEOMETRY_CALLS_MATCH_SIGNATURE", " | ".join(_as[:5]))
+
 # --- 16. dose nunca escolhida entre candidatas discordantes
 r = subprocess.run(["node", "v1/testes/test_casco.js"], capture_output=True, text=True)
 if r.returncode == 0:

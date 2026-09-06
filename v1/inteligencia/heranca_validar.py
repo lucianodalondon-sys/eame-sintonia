@@ -267,8 +267,9 @@ def main():
                 for wx0, wy0, wx1, wy1, t in pgs[pi]:
                     if t.strip().strip(".,;:()") != num:
                         continue
-                    cel = celula(wx0, wx1, (wy0 + wy1) / 2, seg, altura)
-                    if cel is None or not celula_coerente(pgs[pi], *cel):
+                    cel = celula(pgs[pi], wx0, wx1, (wy0 + wy1) / 2, seg, altura)
+                    if (cel is None or cel == 'RULES_ARE_TEXT_UNDERLINES'
+                            or not celula_coerente(pgs[pi], *cel)):
                         continue
                     houve = True
                     # FOLGA DA ESPESSURA DO FIO. O risco da tabela nao e uma
