@@ -1,0 +1,365 @@
+{
+ "DATASET": "IT-DEMO-PRODUTOS",
+ "BUILT_AT": "2026-09-06",
+ "CRITERIO": {
+  "riqueza_da_tabela_de_uso": "ate +40, proporcional aos pares cultura x alvo lidos",
+  "mudanca_regulatoria_real": "+25 se ha evento no historico oficial arquivado",
+  "validade_vencida_e_ainda_ativo": "+30 — o caso que prova EXPIRY != WITHDRAWAL",
+  "vence_em_ate_180_dias": "+20",
+  "data_efetiva_do_rotulo_declarada": "+10",
+  "documento_reconferido": "+5",
+  "diversidade": "no maximo 2 produtos por substancia ativa dentro da mesma linha"
+ },
+ "O_QUE_O_CRITERIO_NAO_PREMIA": "facilidade de parsing. Produto com tabela dificil entra se o caso interessa; a dificuldade aparece como estado de leitura, nao como exclusao silenciosa",
+ "DEMO_PRODUCTS": 15,
+ "PRODUCTS": [
+  {
+   "REGISTRATION_ID": "009005",
+   "PRODUCT": "AGIL",
+   "LINE": "HERBICIDA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PROPAQUIZAFOP"
+   ],
+   "EXPIRY": "2027-02-28",
+   "DAYS_TO_EXPIRY": 175,
+   "USE_ROWS": 30,
+   "REGISTRY_CHANGES": 0,
+   "LABEL_EFFECTIVE_AT": "2026-03-10",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45625",
+   "SCORE": 55.0,
+   "WHY_SELECTED": [
+    "tabela de uso com 30 pares (+20)",
+    "vence em 175 dias (+20)",
+    "data efetiva do rotulo declarada pela fonte (+10)",
+    "documento reconferido contra o hash arquivado (+5)"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "015253",
+   "PRODUCT": "FALCON MK",
+   "LINE": "HERBICIDA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PROPAQUIZAFOP"
+   ],
+   "EXPIRY": "2027-02-28",
+   "DAYS_TO_EXPIRY": 175,
+   "USE_ROWS": 30,
+   "REGISTRY_CHANGES": 0,
+   "LABEL_EFFECTIVE_AT": "2026-03-10",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45626",
+   "SCORE": 55.0,
+   "WHY_SELECTED": [
+    "tabela de uso com 30 pares (+20)",
+    "vence em 175 dias (+20)",
+    "data efetiva do rotulo declarada pela fonte (+10)",
+    "documento reconferido contra o hash arquivado (+5)"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "017660",
+   "PRODUCT": "ACTIGAN EKO",
+   "LINE": "HERBICIDA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PENDIMETHALIN"
+   ],
+   "EXPIRY": "2027-01-15",
+   "DAYS_TO_EXPIRY": 131,
+   "USE_ROWS": 24,
+   "REGISTRY_CHANGES": 0,
+   "LABEL_EFFECTIVE_AT": "2026-04-06",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45879",
+   "SCORE": 51.0,
+   "WHY_SELECTED": [
+    "tabela de uso com 24 pares (+16)",
+    "vence em 131 dias (+20)",
+    "data efetiva do rotulo declarada pela fonte (+10)",
+    "documento reconferido contra o hash arquivado (+5)"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "016312",
+   "PRODUCT": "TOMIGAN",
+   "LINE": "HERBICIDA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FLUROXYPYR"
+   ],
+   "EXPIRY": "2027-02-15",
+   "DAYS_TO_EXPIRY": 162,
+   "USE_ROWS": 19,
+   "REGISTRY_CHANGES": 0,
+   "LABEL_EFFECTIVE_AT": "2025-06-30",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=44959",
+   "SCORE": 47.7,
+   "WHY_SELECTED": [
+    "tabela de uso com 19 pares (+13)",
+    "vence em 162 dias (+20)",
+    "data efetiva do rotulo declarada pela fonte (+10)",
+    "documento reconferido contra o hash arquivado (+5)"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "013876",
+   "PRODUCT": "APACHE",
+   "LINE": "HERBICIDA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "QUIZALOFOP-P-ETHYL"
+   ],
+   "EXPIRY": "2027-02-28",
+   "DAYS_TO_EXPIRY": 175,
+   "USE_ROWS": 16,
+   "REGISTRY_CHANGES": 0,
+   "LABEL_EFFECTIVE_AT": "2023-08-15",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41377",
+   "SCORE": 45.7,
+   "WHY_SELECTED": [
+    "tabela de uso com 16 pares (+11)",
+    "vence em 175 dias (+20)",
+    "data efetiva do rotulo declarada pela fonte (+10)",
+    "documento reconferido contra o hash arquivado (+5)"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "015232",
+   "PRODUCT": "CUSTODIA ULTRA",
+   "LINE": "FUNGICIDA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "EXPIRY": "2026-08-15",
+   "DAYS_TO_EXPIRY": -22,
+   "USE_ROWS": 25,
+   "REGISTRY_CHANGES": 0,
+   "LABEL_EFFECTIVE_AT": "2022-04-29",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
+   "SCORE": 61.7,
+   "WHY_SELECTED": [
+    "tabela de uso com 25 pares (+17)",
+    "validade VENCIDA ha 22 dias e ainda listado como ativo (+30)",
+    "data efetiva do rotulo declarada pela fonte (+10)",
+    "documento reconferido contra o hash arquivado (+5)"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "017358",
+   "PRODUCT": "BLAISE ULTRA",
+   "LINE": "FUNGICIDA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "EXPIRY": "2026-08-15",
+   "DAYS_TO_EXPIRY": -22,
+   "USE_ROWS": 24,
+   "REGISTRY_CHANGES": 0,
+   "LABEL_EFFECTIVE_AT": "2022-04-29",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38655",
+   "SCORE": 61.0,
+   "WHY_SELECTED": [
+    "tabela de uso com 24 pares (+16)",
+    "validade VENCIDA ha 22 dias e ainda listado como ativo (+30)",
+    "data efetiva do rotulo declarada pela fonte (+10)",
+    "documento reconferido contra o hash arquivado (+5)"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "018089",
+   "PRODUCT": "AVASTEL",
+   "LINE": "FUNGICIDA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PROTHIOCONAZOLE",
+    "FLUXAPYROXAD"
+   ],
+   "EXPIRY": "2028-03-31",
+   "DAYS_TO_EXPIRY": 572,
+   "USE_ROWS": 11,
+   "REGISTRY_CHANGES": 1,
+   "LABEL_EFFECTIVE_AT": "2025-06-27",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=44907",
+   "SCORE": 47.3,
+   "WHY_SELECTED": [
+    "tabela de uso com 11 pares (+7)",
+    "1 mudanca(s) reais no registro oficial (+25)",
+    "data efetiva do rotulo declarada pela fonte (+10)",
+    "documento reconferido contra o hash arquivado (+5)"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "019095",
+   "PRODUCT": "KOJAMI",
+   "LINE": "FUNGICIDA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "EXPIRY": "2027-05-31",
+   "DAYS_TO_EXPIRY": 267,
+   "USE_ROWS": 11,
+   "REGISTRY_CHANGES": 1,
+   "LABEL_EFFECTIVE_AT": "2026-03-18",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "SCORE": 47.3,
+   "WHY_SELECTED": [
+    "tabela de uso com 11 pares (+7)",
+    "1 mudanca(s) reais no registro oficial (+25)",
+    "data efetiva do rotulo declarada pela fonte (+10)",
+    "documento reconferido contra o hash arquivado (+5)"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "018175",
+   "PRODUCT": "SORATEL",
+   "LINE": "FUNGICIDA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PROTHIOCONAZOLE"
+   ],
+   "EXPIRY": "2027-03-31",
+   "DAYS_TO_EXPIRY": 206,
+   "USE_ROWS": 10,
+   "REGISTRY_CHANGES": 1,
+   "LABEL_EFFECTIVE_AT": "2024-08-09",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42989",
+   "SCORE": 46.7,
+   "WHY_SELECTED": [
+    "tabela de uso com 10 pares (+7)",
+    "1 mudanca(s) reais no registro oficial (+25)",
+    "data efetiva do rotulo declarada pela fonte (+10)",
+    "documento reconferido contra o hash arquivado (+5)"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "015275",
+   "PRODUCT": "DURAVIS",
+   "LINE": "INSETICIDA",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "EXPIRY": "2026-08-31",
+   "DAYS_TO_EXPIRY": -6,
+   "USE_ROWS": 185,
+   "REGISTRY_CHANGES": 0,
+   "LABEL_EFFECTIVE_AT": "2024-10-01",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43526",
+   "SCORE": 85.0,
+   "WHY_SELECTED": [
+    "tabela de uso com 185 pares (+40)",
+    "validade VENCIDA ha 6 dias e ainda listado como ativo (+30)",
+    "data efetiva do rotulo declarada pela fonte (+10)",
+    "documento reconferido contra o hash arquivado (+5)"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "017687",
+   "PRODUCT": "ELTIRA",
+   "LINE": "INSETICIDA",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "EXPIRY": "2026-08-31",
+   "DAYS_TO_EXPIRY": -6,
+   "USE_ROWS": 185,
+   "REGISTRY_CHANGES": 0,
+   "LABEL_EFFECTIVE_AT": "2024-10-01",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43525",
+   "SCORE": 85.0,
+   "WHY_SELECTED": [
+    "tabela de uso com 185 pares (+40)",
+    "validade VENCIDA ha 6 dias e ainda listado como ativo (+30)",
+    "data efetiva do rotulo declarada pela fonte (+10)",
+    "documento reconferido contra o hash arquivado (+5)"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "014210",
+   "PRODUCT": "EVURE PRO",
+   "LINE": "INSETICIDA",
+   "REGULATORY_CATEGORY": "INSETTICIDA-ACARICIDA",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE"
+   ],
+   "EXPIRY": "2027-01-31",
+   "DAYS_TO_EXPIRY": 147,
+   "USE_ROWS": 103,
+   "REGISTRY_CHANGES": 0,
+   "LABEL_EFFECTIVE_AT": "2025-07-30",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45056",
+   "SCORE": 75.0,
+   "WHY_SELECTED": [
+    "tabela de uso com 103 pares (+40)",
+    "vence em 147 dias (+20)",
+    "data efetiva do rotulo declarada pela fonte (+10)",
+    "documento reconferido contra o hash arquivado (+5)"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "012573",
+   "PRODUCT": "EKO OIL SPRAY",
+   "LINE": "INSETICIDA",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "PARAFFIN OIL/(CAS 97862-82-3)"
+   ],
+   "EXPIRY": "2027-03-10",
+   "DAYS_TO_EXPIRY": 185,
+   "USE_ROWS": 157,
+   "REGISTRY_CHANGES": 0,
+   "LABEL_EFFECTIVE_AT": "2016-12-19",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=27726",
+   "SCORE": 55.0,
+   "WHY_SELECTED": [
+    "tabela de uso com 157 pares (+40)",
+    "data efetiva do rotulo declarada pela fonte (+10)",
+    "documento reconferido contra o hash arquivado (+5)"
+   ]
+  },
+  {
+   "REGISTRATION_ID": "014091",
+   "PRODUCT": "APHOX",
+   "LINE": "INSETICIDA",
+   "REGULATORY_CATEGORY": "AFICIDA",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PIRIMICARB"
+   ],
+   "EXPIRY": "2026-10-31",
+   "DAYS_TO_EXPIRY": 55,
+   "USE_ROWS": 27,
+   "REGISTRY_CHANGES": 0,
+   "LABEL_EFFECTIVE_AT": "2022-03-22",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38507",
+   "SCORE": 53.0,
+   "WHY_SELECTED": [
+    "tabela de uso com 27 pares (+18)",
+    "vence em 55 dias (+20)",
+    "data efetiva do rotulo declarada pela fonte (+10)",
+    "documento reconferido contra o hash arquivado (+5)"
+   ]
+  }
+ ]
+}

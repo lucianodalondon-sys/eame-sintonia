@@ -98,6 +98,7 @@ def main():
     if os.path.exists(a.reverificacao):
         rv = json.load(open(a.reverificacao, encoding="utf-8"))
         rever = {"BASELINE": rv["BASELINE_SOURCE"], "OBSERVED_AT": rv["OBSERVED_AT"],
+                 "BASELINE_CAPTURED_AT": rv.get("BASELINE_CAPTURED_AT"),
                  "LABELS_CHECKED": rv["LABELS_CHECKED"],
                  "DOCUMENT_UNCHANGED": rv["DOCUMENT_UNCHANGED"],
                  "DOCUMENT_CHANGED": rv["DOCUMENT_CHANGED"],

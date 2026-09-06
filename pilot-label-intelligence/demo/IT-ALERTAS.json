@@ -1,0 +1,1052 @@
+{
+ "DATASET": "IT-ALERTAS",
+ "BUILT_AT": "2026-09-06",
+ "REGRA": "sem mudanca, sem alerta. alerta sem OLD e NEW recuperaveis nao e alerta.",
+ "TEXT_ONLY_SUPPRESSED": 2,
+ "ALERTS_TOTAL": 70,
+ "BY_TYPE": {
+  "REGULATORY_CHANGE": 25,
+  "EXPIRY_PASSED": 15,
+  "EXPIRY_APPROACHING": 26,
+  "NEW_LABEL": 4
+ },
+ "ALERTS": [
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "017703",
+   "PRODUCT": "ACTIGAN DFF",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20260105..20260112",
+   "OLD": "15/01/2027",
+   "NEW": "31/08/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260112.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "017432",
+   "PRODUCT": "AGHARTA",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20260504..20260511",
+   "OLD": "15/04/2026",
+   "NEW": "30/11/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260511.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "EXPIRY_PASSED",
+   "SUBTYPE": "EXPIRED_BUT_STILL_LISTED_ACTIVE",
+   "REGISTRATION_ID": "017688",
+   "PRODUCT": "ANTERLEX",
+   "WHAT_CHANGED": "a validade da autorizacao passou ha 22 dias e o registro ainda lista o produto como \"Autorizzato\"",
+   "OLD": "validade 2026-08-15",
+   "NEW": "hoje 2026-09-06",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "NOTE": "EXPIRY != WITHDRAWAL. Vencer nao e ser revogado; o piloto nao decide isso.",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "014091",
+   "PRODUCT": "APHOX",
+   "WHAT_CHANGED": "vence em 55 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-10-31",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "017340",
+   "PRODUCT": "APHOX 50",
+   "WHAT_CHANGED": "vence em 55 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-10-31",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "018165",
+   "PRODUCT": "APYZA 500 WG",
+   "WHAT_CHANGED": "vence em 85 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-11-30",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "018156",
+   "PRODUCT": "APYZA WG",
+   "WHAT_CHANGED": "vence em 85 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-11-30",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_PASSED",
+   "SUBTYPE": "EXPIRED_BUT_STILL_LISTED_ACTIVE",
+   "REGISTRATION_ID": "018111",
+   "PRODUCT": "ARRODIM",
+   "WHAT_CHANGED": "a validade da autorizacao passou ha 6 dias e o registro ainda lista o produto como \"Autorizzato Art. 34 Reg. 1107/2009\"",
+   "OLD": "validade 2026-08-31",
+   "NEW": "hoje 2026-09-06",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "NOTE": "EXPIRY != WITHDRAWAL. Vencer nao e ser revogado; o piloto nao decide isso.",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "NEW_LABEL",
+   "SUBTYPE": "PRODUCT_ADDED",
+   "REGISTRATION_ID": "018089",
+   "PRODUCT": "AVASTEL",
+   "WHAT_CHANGED": "* mudou no registro oficial",
+   "WHEN": "20250714..20250721",
+   "OLD": "NOT_PRESENT",
+   "NEW": "Autorizzato con procedura zonale",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20250721.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "EXPIRY_PASSED",
+   "SUBTYPE": "EXPIRED_BUT_STILL_LISTED_ACTIVE",
+   "REGISTRATION_ID": "015629",
+   "PRODUCT": "BADGER 45% WG",
+   "WHAT_CHANGED": "a validade da autorizacao passou ha 22 dias e o registro ainda lista o produto como \"Ri-registrato\"",
+   "OLD": "validade 2026-08-15",
+   "NEW": "hoje 2026-09-06",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "NOTE": "EXPIRY != WITHDRAWAL. Vencer nao e ser revogado; o piloto nao decide isso.",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "013905",
+   "PRODUCT": "BANJO",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20260504..20260511",
+   "OLD": "15/04/2026",
+   "NEW": "30/11/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260511.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "EXPIRY_PASSED",
+   "SUBTYPE": "EXPIRED_BUT_STILL_LISTED_ACTIVE",
+   "REGISTRATION_ID": "017358",
+   "PRODUCT": "BLAISE ULTRA",
+   "WHAT_CHANGED": "a validade da autorizacao passou ha 22 dias e o registro ainda lista o produto como \"Autorizzato\"",
+   "OLD": "validade 2026-08-15",
+   "NEW": "hoje 2026-09-06",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "NOTE": "EXPIRY != WITHDRAWAL. Vencer nao e ser revogado; o piloto nao decide isso.",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "016084",
+   "PRODUCT": "BREVIS",
+   "WHAT_CHANGED": "vence em 85 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-11-30",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_PASSED",
+   "SUBTYPE": "EXPIRED_BUT_STILL_LISTED_ACTIVE",
+   "REGISTRATION_ID": "015630",
+   "PRODUCT": "CARSON 45% WG",
+   "WHAT_CHANGED": "a validade da autorizacao passou ha 22 dias e o registro ainda lista o produto como \"Ri-registrato\"",
+   "OLD": "validade 2026-08-15",
+   "NEW": "hoje 2026-09-06",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "NOTE": "EXPIRY != WITHDRAWAL. Vencer nao e ser revogado; o piloto nao decide isso.",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "014728",
+   "PRODUCT": "CELIO",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20250818..20250825",
+   "OLD": "15/12/2025",
+   "NEW": "31/07/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20250825.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "014694",
+   "PRODUCT": "CELIO 80 EC",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20250818..20250825",
+   "OLD": "15/12/2025",
+   "NEW": "31/07/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20250825.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "014380",
+   "PRODUCT": "CLORMET",
+   "WHAT_CHANGED": "vence em 55 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-10-31",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "009790",
+   "PRODUCT": "CONTATTO 320",
+   "WHAT_CHANGED": "vence em 24 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-09-30",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "011734",
+   "PRODUCT": "CONTATTO DOUBLE SC",
+   "WHAT_CHANGED": "vence em 24 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-09-30",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "NEW_LABEL",
+   "SUBTYPE": "PRODUCT_ADDED",
+   "REGISTRATION_ID": "018561",
+   "PRODUCT": "COSAYR 200 SC",
+   "WHAT_CHANGED": "* mudou no registro oficial",
+   "WHEN": "20260316..20260323",
+   "OLD": "NOT_PRESENT",
+   "NEW": "Autorizzato Art. 34 Reg. 1107/2009",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260323.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "EXPIRY_PASSED",
+   "SUBTYPE": "EXPIRED_BUT_STILL_LISTED_ACTIVE",
+   "REGISTRATION_ID": "015232",
+   "PRODUCT": "CUSTODIA ULTRA",
+   "WHAT_CHANGED": "a validade da autorizacao passou ha 22 dias e o registro ainda lista o produto como \"Autorizzato\"",
+   "OLD": "validade 2026-08-15",
+   "NEW": "hoje 2026-09-06",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "NOTE": "EXPIRY != WITHDRAWAL. Vencer nao e ser revogado; o piloto nao decide isso.",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_PASSED",
+   "SUBTYPE": "EXPIRED_BUT_STILL_LISTED_ACTIVE",
+   "REGISTRATION_ID": "013899",
+   "PRODUCT": "DAUPHIN 45",
+   "WHAT_CHANGED": "a validade da autorizacao passou ha 22 dias e o registro ainda lista o produto como \"Ri-registrato\"",
+   "OLD": "validade 2026-08-15",
+   "NEW": "hoje 2026-09-06",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "NOTE": "EXPIRY != WITHDRAWAL. Vencer nao e ser revogado; o piloto nao decide isso.",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "016218",
+   "PRODUCT": "DICURAN PLUS",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20260105..20260112",
+   "OLD": "15/08/2026",
+   "NEW": "31/08/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260112.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "EXPIRY_PASSED",
+   "SUBTYPE": "EXPIRED_BUT_STILL_LISTED_ACTIVE",
+   "REGISTRATION_ID": "015275",
+   "PRODUCT": "DURAVIS",
+   "WHAT_CHANGED": "a validade da autorizacao passou ha 6 dias e o registro ainda lista o produto como \"Autorizzato\"",
+   "OLD": "validade 2026-08-31",
+   "NEW": "hoje 2026-09-06",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "NOTE": "EXPIRY != WITHDRAWAL. Vencer nao e ser revogado; o piloto nao decide isso.",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "018176",
+   "PRODUCT": "EDAPTIS",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20260511..20260518",
+   "OLD": "30/06/2027",
+   "NEW": "31/12/2029",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260518.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "EXPIRY_PASSED",
+   "SUBTYPE": "EXPIRED_BUT_STILL_LISTED_ACTIVE",
+   "REGISTRATION_ID": "017687",
+   "PRODUCT": "ELTIRA",
+   "WHAT_CHANGED": "a validade da autorizacao passou ha 6 dias e o registro ainda lista o produto como \"Autorizzato\"",
+   "OLD": "validade 2026-08-31",
+   "NEW": "hoje 2026-09-06",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "NOTE": "EXPIRY != WITHDRAWAL. Vencer nao e ser revogado; o piloto nao decide isso.",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "015315",
+   "PRODUCT": "EMBRACE",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20260504..20260511",
+   "OLD": "15/04/2026",
+   "NEW": "30/11/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260511.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "NEW_LABEL",
+   "SUBTYPE": "PRODUCT_ADDED",
+   "REGISTRATION_ID": "018202",
+   "PRODUCT": "ETHOSAT SC",
+   "WHAT_CHANGED": "* mudou no registro oficial",
+   "WHEN": "20260608..20260615",
+   "OLD": "NOT_PRESENT",
+   "NEW": "Autorizzato con procedura zonale",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260615.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "REVOCATION_DECREE_CHANGED",
+   "REGISTRATION_ID": "013012",
+   "PRODUCT": "FOLVIT 80 WDG",
+   "WHAT_CHANGED": "data_decreto_revoca mudou no registro oficial",
+   "WHEN": "20260713..20260720",
+   "OLD": "16/09/2024",
+   "NEW": "12/07/2026",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260720.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "EXPIRY_PASSED",
+   "SUBTYPE": "EXPIRED_BUT_STILL_LISTED_ACTIVE",
+   "REGISTRATION_ID": "013560",
+   "PRODUCT": "FORZA",
+   "WHAT_CHANGED": "a validade da autorizacao passou ha 6 dias e o registro ainda lista o produto como \"Ri-registrato\"",
+   "OLD": "validade 2026-08-31",
+   "NEW": "hoje 2026-09-06",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "NOTE": "EXPIRY != WITHDRAWAL. Vencer nao e ser revogado; o piloto nao decide isso.",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "008599",
+   "PRODUCT": "GOLD-BEET",
+   "WHAT_CHANGED": "vence em 85 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-11-30",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "017983",
+   "PRODUCT": "GOLDBEET SUPER",
+   "WHAT_CHANGED": "vence em 85 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-11-30",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "002732",
+   "PRODUCT": "GOLTIX",
+   "WHAT_CHANGED": "vence em 85 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-11-30",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "010569",
+   "PRODUCT": "GOLTIX 700 SC",
+   "WHAT_CHANGED": "vence em 85 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-11-30",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "018813",
+   "PRODUCT": "GOLTIX BETA",
+   "WHAT_CHANGED": "vence em 85 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-11-30",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "017580",
+   "PRODUCT": "GOLTIX SUPER",
+   "WHAT_CHANGED": "vence em 85 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-11-30",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "018814",
+   "PRODUCT": "GOLTIX TOP",
+   "WHAT_CHANGED": "vence em 85 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-11-30",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "015316",
+   "PRODUCT": "HAWK",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20250818..20250825",
+   "OLD": "15/12/2025",
+   "NEW": "31/07/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20250825.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "NEW_LABEL",
+   "SUBTYPE": "PRODUCT_ADDED",
+   "REGISTRATION_ID": "019095",
+   "PRODUCT": "KOJAMI",
+   "WHAT_CHANGED": "* mudou no registro oficial",
+   "WHEN": "20251006..20251013",
+   "OLD": "NOT_PRESENT",
+   "NEW": "Autorizzato Art. 10 D.P.R. 290/2001",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20251013.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "EXPIRY_PASSED",
+   "SUBTYPE": "EXPIRED_BUT_STILL_LISTED_ACTIVE",
+   "REGISTRATION_ID": "008259",
+   "PRODUCT": "LAMDEX EXTRA",
+   "WHAT_CHANGED": "a validade da autorizacao passou ha 6 dias e o registro ainda lista o produto como \"Ri-registrato\"",
+   "OLD": "validade 2026-08-31",
+   "NEW": "hoje 2026-09-06",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "NOTE": "EXPIRY != WITHDRAWAL. Vencer nao e ser revogado; o piloto nao decide isso.",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_PASSED",
+   "SUBTYPE": "EXPIRED_BUT_STILL_LISTED_ACTIVE",
+   "REGISTRATION_ID": "013402",
+   "PRODUCT": "LUMA-KL",
+   "WHAT_CHANGED": "a validade da autorizacao passou ha 6 dias e o registro ainda lista o produto como \"Ri-registrato\"",
+   "OLD": "validade 2026-08-31",
+   "NEW": "hoje 2026-09-06",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "NOTE": "EXPIRY != WITHDRAWAL. Vencer nao e ser revogado; o piloto nao decide isso.",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "017955",
+   "PRODUCT": "MAGANIC",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20250714..20250721",
+   "OLD": "15/08/2026",
+   "NEW": "31/03/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20250721.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "017955",
+   "PRODUCT": "MAGANIC",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20260105..20260112",
+   "OLD": "31/03/2027",
+   "NEW": "31/01/2028",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260112.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "015847",
+   "PRODUCT": "MAKURI",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20250818..20250825",
+   "OLD": "15/12/2025",
+   "NEW": "31/07/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20250825.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "018644",
+   "PRODUCT": "MEZAYO",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20260511..20260518",
+   "OLD": "30/06/2027",
+   "NEW": "31/12/2029",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260518.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "015235",
+   "PRODUCT": "MOMENTUM",
+   "WHAT_CHANGED": "vence em 55 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-10-31",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "018244",
+   "PRODUCT": "MOMENTUM PFNPE",
+   "WHAT_CHANGED": "vence em 55 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-10-31",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "017335",
+   "PRODUCT": "MOVER",
+   "WHAT_CHANGED": "vence em 55 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-10-31",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_PASSED",
+   "SUBTYPE": "EXPIRED_BUT_STILL_LISTED_ACTIVE",
+   "REGISTRATION_ID": "017689",
+   "PRODUCT": "MOXYL MK",
+   "WHAT_CHANGED": "a validade da autorizacao passou ha 22 dias e o registro ainda lista o produto como \"Autorizzato\"",
+   "OLD": "validade 2026-08-15",
+   "NEW": "hoje 2026-09-06",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "NOTE": "EXPIRY != WITHDRAWAL. Vencer nao e ser revogado; o piloto nao decide isso.",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_PASSED",
+   "SUBTYPE": "EXPIRED_BUT_STILL_LISTED_ACTIVE",
+   "REGISTRATION_ID": "013590",
+   "PRODUCT": "NINJA",
+   "WHAT_CHANGED": "a validade da autorizacao passou ha 6 dias e o registro ainda lista o produto como \"Ri-registrato\"",
+   "OLD": "validade 2026-08-31",
+   "NEW": "hoje 2026-09-06",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "NOTE": "EXPIRY != WITHDRAWAL. Vencer nao e ser revogado; o piloto nao decide isso.",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "007603",
+   "PRODUCT": "NORTIM",
+   "WHAT_CHANGED": "vence em 85 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-11-30",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "007876",
+   "PRODUCT": "PIRIMOR 17,5",
+   "WHAT_CHANGED": "vence em 55 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-10-31",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "004701",
+   "PRODUCT": "PIRIMOR 50",
+   "WHAT_CHANGED": "vence em 55 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-10-31",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "017852",
+   "PRODUCT": "POWERFILM",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20251020..20251027",
+   "OLD": "31/03/2026",
+   "NEW": "31/10/2041",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20251027.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "011794",
+   "PRODUCT": "PRESSING 500",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20260105..20260112",
+   "OLD": "15/01/2026",
+   "NEW": "31/08/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260112.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "013807",
+   "PRODUCT": "RAVENAS",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20250818..20250825",
+   "OLD": "15/12/2025",
+   "NEW": "31/07/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20250825.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "017898",
+   "PRODUCT": "RIMENSIS",
+   "WHAT_CHANGED": "vence em 55 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-10-31",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "016152",
+   "PRODUCT": "SEEDRON",
+   "WHAT_CHANGED": "vence em 24 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-09-30",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "018175",
+   "PRODUCT": "SORATEL",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20250714..20250721",
+   "OLD": "15/08/2026",
+   "NEW": "31/03/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20250721.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "009757",
+   "PRODUCT": "SPYRALE",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20260105..20260112",
+   "OLD": "15/05/2027",
+   "NEW": "31/01/2028",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260112.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "015229",
+   "PRODUCT": "STOPPER P",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20260105..20260112",
+   "OLD": "15/01/2027",
+   "NEW": "31/08/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260112.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "011526",
+   "PRODUCT": "SULTAN",
+   "WHAT_CHANGED": "vence em 55 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-10-31",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "008929",
+   "PRODUCT": "TOPIK 240 EC",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20250818..20250825",
+   "OLD": "15/12/2025",
+   "NEW": "31/07/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20250825.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "010063",
+   "PRODUCT": "TOPIK 80 EC",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20250818..20250825",
+   "OLD": "15/12/2025",
+   "NEW": "31/07/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20250825.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "013736",
+   "PRODUCT": "TRACE",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20250818..20250825",
+   "OLD": "15/12/2025",
+   "NEW": "31/07/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20250825.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "017337",
+   "PRODUCT": "VANGUARD",
+   "WHAT_CHANGED": "vence em 55 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-10-31",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "EXPIRY_PASSED",
+   "SUBTYPE": "EXPIRED_BUT_STILL_LISTED_ACTIVE",
+   "REGISTRATION_ID": "017690",
+   "PRODUCT": "VANTEX",
+   "WHAT_CHANGED": "a validade da autorizacao passou ha 22 dias e o registro ainda lista o produto como \"Autorizzato\"",
+   "OLD": "validade 2026-08-15",
+   "NEW": "hoje 2026-09-06",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "NOTE": "EXPIRY != WITHDRAWAL. Vencer nao e ser revogado; o piloto nao decide isso.",
+   "WHEN": "2026-09-06"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "013332",
+   "PRODUCT": "VIP",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20250818..20250825",
+   "OLD": "15/12/2025",
+   "NEW": "31/07/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20250825.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "REGULATORY_CHANGE",
+   "SUBTYPE": "EXPIRY_CHANGED",
+   "REGISTRATION_ID": "014693",
+   "PRODUCT": "VIP 80 EC",
+   "WHAT_CHANGED": "data_scadenza_autorizzazione mudou no registro oficial",
+   "WHEN": "20250818..20250825",
+   "OLD": "15/12/2025",
+   "NEW": "31/07/2027",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20250825.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_DIFF",
+   "NOTE": "janela de OBSERVACAO, nao data do fato: sabemos quando vimos, nao quando ocorreu"
+  },
+  {
+   "TYPE": "EXPIRY_APPROACHING",
+   "SUBTYPE": "WITHIN_90_DAYS",
+   "REGISTRATION_ID": "017409",
+   "PRODUCT": "XINTECH 50",
+   "WHAT_CHANGED": "vence em 55 dias",
+   "OLD": "NOT_APPLICABLE",
+   "NEW": "validade 2026-10-31",
+   "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv",
+   "CONFIDENCE": "OFFICIAL_FIELD_VALUE",
+   "WHEN": "2026-09-06"
+  }
+ ],
+ "REVIEW_QUEUE": {
+  "TYPE": "NEEDS_REVIEW",
+  "SUBTYPE": "USE_TABLE_NOT_READ",
+  "WHAT_CHANGED": "NOT_APPLICABLE — isto nao e mudanca, e estado de leitura",
+  "WHEN": "2026-09-06",
+  "OLD": "NOT_APPLICABLE",
+  "NEW": "NOT_APPLICABLE",
+  "COUNT": 35,
+  "CONFIDENCE": "READING_STATE",
+  "NOTE": "PARSER_FAILURE != REGULATORY_ABSENCE. Nao afirmar que o produto nao tem uso autorizado.",
+  "PRODUCTS": [
+   {
+    "REGISTRATION_ID": "014093",
+    "PRODUCT": "ANTARKTIS"
+   },
+   {
+    "REGISTRATION_ID": "018111",
+    "PRODUCT": "ARRODIM"
+   },
+   {
+    "REGISTRATION_ID": "016084",
+    "PRODUCT": "BREVIS"
+   },
+   {
+    "REGISTRATION_ID": "015630",
+    "PRODUCT": "CARSON 45% WG"
+   },
+   {
+    "REGISTRATION_ID": "014728",
+    "PRODUCT": "CELIO"
+   },
+   {
+    "REGISTRATION_ID": "014694",
+    "PRODUCT": "CELIO 80 EC"
+   },
+   {
+    "REGISTRATION_ID": "016697",
+    "PRODUCT": "CINDER"
+   },
+   {
+    "REGISTRATION_ID": "011734",
+    "PRODUCT": "CONTATTO DOUBLE SC"
+   },
+   {
+    "REGISTRATION_ID": "017209",
+    "PRODUCT": "DAVAI"
+   },
+   {
+    "REGISTRATION_ID": "017655",
+    "PRODUCT": "EARLEX"
+   },
+   {
+    "REGISTRATION_ID": "018176",
+    "PRODUCT": "EDAPTIS"
+   },
+   {
+    "REGISTRATION_ID": "012060",
+    "PRODUCT": "FOX"
+   },
+   {
+    "REGISTRATION_ID": "017983",
+    "PRODUCT": "GOLDBEET SUPER"
+   },
+   {
+    "REGISTRATION_ID": "017580",
+    "PRODUCT": "GOLTIX SUPER"
+   },
+   {
+    "REGISTRATION_ID": "015316",
+    "PRODUCT": "HAWK"
+   },
+   {
+    "REGISTRATION_ID": "016387",
+    "PRODUCT": "HERBITOTAL CL"
+   },
+   {
+    "REGISTRATION_ID": "017995",
+    "PRODUCT": "HIGHCARD"
+   },
+   {
+    "REGISTRATION_ID": "013402",
+    "PRODUCT": "LUMA-KL"
+   },
+   {
+    "REGISTRATION_ID": "009783",
+    "PRODUCT": "MAGNATE 500 EC"
+   },
+   {
+    "REGISTRATION_ID": "015847",
+    "PRODUCT": "MAKURI"
+   },
+   {
+    "REGISTRATION_ID": "018644",
+    "PRODUCT": "MEZAYO"
+   },
+   {
+    "REGISTRATION_ID": "013771",
+    "PRODUCT": "NIMROD 250 EW"
+   },
+   {
+    "REGISTRATION_ID": "017852",
+    "PRODUCT": "POWERFILM"
+   },
+   {
+    "REGISTRATION_ID": "011794",
+    "PRODUCT": "PRESSING 500"
+   },
+   {
+    "REGISTRATION_ID": "013807",
+    "PRODUCT": "RAVENAS"
+   },
+   {
+    "REGISTRATION_ID": "015592",
+    "PRODUCT": "TAIFUN JARDIN"
+   },
+   {
+    "REGISTRATION_ID": "015401",
+    "PRODUCT": "TAIFUN MK CL"
+   },
+   {
+    "REGISTRATION_ID": "008929",
+    "PRODUCT": "TOPIK 240 EC"
+   },
+   {
+    "REGISTRATION_ID": "010063",
+    "PRODUCT": "TOPIK 80 EC"
+   },
+   {
+    "REGISTRATION_ID": "013736",
+    "PRODUCT": "TRACE"
+   },
+   {
+    "REGISTRATION_ID": "016575",
+    "PRODUCT": "TRIMMER 50 WG"
+   },
+   {
+    "REGISTRATION_ID": "014074",
+    "PRODUCT": "TRINEX 250 EW"
+   },
+   {
+    "REGISTRATION_ID": "015740",
+    "PRODUCT": "VINETO"
+   },
+   {
+    "REGISTRATION_ID": "013332",
+    "PRODUCT": "VIP"
+   },
+   {
+    "REGISTRATION_ID": "014693",
+    "PRODUCT": "VIP 80 EC"
+   }
+  ]
+ }
+}
