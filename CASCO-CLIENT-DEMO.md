@@ -203,29 +203,85 @@ inventada, contagem de casos por região fabricada, escada de departamentos inte
 
 ---
 
-## I · FASE 7 · MAPA DE ACÇÕES — dois mapas sobre as mesmas 43 oportunidades
+## I · FASE 7 · MAPA DE ACÇÕES — a decisão tomada e executada
 
-`DUPLICATE_CAPABILITIES = 1`. **Este é o bloqueio principal.**
+**DECISÃO DE PRODUTO** (do committente): canónico é o **Mapa de Acções da
+reunião**, com **cinco áreas** — Marketing · Comercial · Desenvolvimento de
+Mercado · Ciência/Técnico · Supply — em **todas as 43 oportunidades**.
 
-| | ficha LEGACY (`case`) | ficha da REUNIÃO (`mcase`) |
-|---|---|---|
-| linhas | 134 | 215 (43 × 5) |
-| áreas | **7** | **5** |
-| encaminhamento | selectivo (COMMERCIAL 33/43, MARKETING 9/43, SUPPLY 7/43) | todos os 5 em todos os 43 |
-| só aqui | REGULATORY 7 · PORTFOLIO 15 · SCIENCE_TECHNICAL 20 | TECHNICAL_SCIENTIFIC 43 |
+Executado:
 
-E o mesmo departamento tem **dois códigos e dois nomes**:
-`SCIENCE_TECHNICAL`/`TECHNICAL_SCIENTIFIC` · «SVILUPPO DI MERCATO»/«SVILUPPO MERCATO»
-· «APPROVVIGIONAMENTO»/«SUPPLY».
+- **A ficha antiga de 7 áreas saiu da superfície.** O painel que a desenhava na
+  ficha legacy foi removido, e com ele as duas propriedades que o markup lhe
+  passava. Nenhum motor tocado.
+- **Os códigos duplicados foram unificados**, e isso destapou um defeito real:
+  `AREA_UI` guardava o azul sob `SCIENCE_TECHNICAL`; o motor da reunião pede
+  `TECHNICAL_SCIENTIFIC`. Nenhum dos dois nomes estava errado sozinho; juntos
+  eram um buraco, e `areaUI('TECHNICAL_SCIENTIFIC')` caía no cinzento de reserva.
+  **Medido no ecrã, antes:** Ciência/Técnico e Supply saíam com a mesma linha, o
+  mesmo fundo e a mesma tinta. Duas das cinco áreas eram indistinguíveis.
 
-Ambos os mapas são encaminhados por regra — nenhum inventa (`FALSE_ACTION_ROUTING = 0`,
-`READY_REAL_INTELLIGENCE_LOST = 0` no que toca ao encaminhamento: o motor da reunião
-encaminha 5×43 e o ecrã mostra 5×43, nada cai). **Qual dos dois sobrevive é uma
-decisão de produto, não de engenharia, e não a tomo por bom senso.**
+  > **DOIS NOMES PARA UM DEPARTAMENTO NÃO SÃO UM DETALHE DE NOMENCLATURA:
+  > SÃO UM DEPARTAMENTO QUE PERDE A SUA COR.**
 
-Medição: `node audit/casco/due-mappe.mjs`
+- **Duas propriedades mortas** — `actionMapL` e `departmentsL` — continuavam a
+  traduzir os códigos da mapa retirada em cada caso, carregando PORTAFOGLIO,
+  SVILUPPO DI MERCATO, TECNICO E SCIENTIFICO. Nenhum nó do markup as ligava.
+  Saíram. `c.actionMap` e `c.departments` **ficam intactos no registo**.
+- **Os botões do MATERIAL COMERCIAL ficam** — não são um mapa — e passam a falar
+  a língua canónica. O documento REGULATORY / PORTFOLIO não se perde: continua
+  acessível a partir das Janelas de Cultura.
 
----
+### Medido
+
+```
+MAPA_CANONICO                = mapa da reunião · 5 áreas
+43_OPORTUNIDADES_TESTADAS    = 43 casos × 2 línguas · 86/86 completos · 430 linhas
+MAPA_ANTIGO_VISIVEL          = NÃO
+NOMES_DUPLICADOS_POR_DEPT    = 0
+ACOES_INVENTADAS_ENCONTRADAS = 0
+```
+
+Cada uma das 215 linhas por língua carrega `why`, `dependency`, `nextTrigger` e
+`evidence`. As linhas silenciosas nomeiam a sua razão: «Nenhuma prioridade
+comercial» (38) · «Não autorizado a sair para o cliente» (38) · «Nenhum sinal de
+campo corrente» (37) · «Nada a validar» (2) · «Nenhuma base factual» (1).
+
+> **Ausência de evidência nunca vira recomendação: vira uma frase que diz o que
+> falta e o que a mudaria.**
+
+### Duas coisas medidas que NÃO corrigi, e porquê
+
+1. **`PREPARARE — PREPARARE`** em 3 das 215 linhas. O motor emite o mesmo token
+   (`PREPARE`) para o estado e para a acção, e a tabela de rótulos é plana: o
+   ecrã repete fielmente o que o motor diz. Dar-lhe uma frase distinta seria
+   **adaptar a inteligência ao desenho** — o que a decisão proíbe. As três
+   linhas trazem, ainda assim, `why` («Prioridade comercial sem tempo
+   demonstrado»), `dependency` e `nextTrigger`.
+2. **A linha de 3px do MARKETING** mede 2,35:1 contra o seu próprio fundo. A
+   tinta do texto mede 13,54:1 e o nome da área é o identificador; a linha é
+   reforço. As cinco tintas passam AA com folga (7,41 a 13,97).
+
+### Alcance
+
+42 das 43 abrem-se a clique a partir de uma das três grelhas. A 43.ª
+(`OPP_4C39CCC05EEB`, Arroz · Giavone) está no grupo `errored` do motor: nenhuma
+grelha lhe aponta, mas abre por id e mostra as suas cinco áreas.
+
+### Dois portões que mediam a memória, não o portal
+
+- `meeting-browser` procurava no menu «Radar Canonico», nome retirado quando os
+  dois radares viraram um. Falhava 4 vezes e **não media a superfície da
+  reunião de todo**. Agora lê o nome do dicionário: 4 → 0.
+- `mobile` procurava os **sete** nomes da mapa retirada, encontrava três e
+  passava, porque pedia «pelo menos uma».
+
+  > **PEDIR «PELO MENOS UMA» A UM MAPA DE CINCO É NÃO O OLHAR.**
+
+  Agora pede as cinco: **5/5 nomeadas a 390px.**
+
+Medição: `node audit/casco/mappa-azioni.mjs`
+
 
 ## J · O QUE FOI MEDIDO E ESTÁ VERDE
 
