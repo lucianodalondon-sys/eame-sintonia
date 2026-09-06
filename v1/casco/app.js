@@ -455,13 +455,35 @@ function evUso(reg, i) {
 }
 window.evUso = evUso;
 
+// R-18 · A FERRAMENTA USA ASPAS COM UM VERBO: "o rotulo escreve", "a linha de
+// dose fala de". Aspas com esse verbo sao uma afirmacao sobre o documento — e
+// convidam quem le a ir conferir. Citacao remontada e pior do que numero
+// errado: manda a pessoa procurar no PDF uma frase que nao esta la, e o que ela
+// conclui e que o PDF esta errado.
+// Medido: 40 celulas de cultura e 28 de alvo citadas nao existem contiguas em
+// nenhuma das quatro leituras do documento — sao montadas com pedaco de mais de
+// uma celula. Em 008259 a celula "Orticole" termina em "zucchino" e "sedano" e
+// celula PROPRIA, com linha e dose proprias: a string "zucchino sedano" nao
+// existe no papel, e 318 doses a citavam.
+function citavel(estado) { return !estado || estado === 'QUOTE_VERBATIM'; }
+function celulaCitada(txt, estado, oque) {
+  if (citavel(estado)) return `<i>&ldquo;${esc(txt)}&rdquo;</i>`;
+  return `<span class="unknown">${esc(estado)}</span>
+    <div class="meta">o texto que o extrator montou para ${esc(oque)} <b>nao existe contiguo em
+    nenhuma leitura do documento</b>: ele junta pedaco de mais de uma celula. O que ele leu foi
+    <code>${esc(String(txt).slice(0, 90))}</code> — mostrado como <b>leitura do extrator</b>, nao
+    entre aspas como frase do rotulo</div>`;
+}
 function evDose(reg, i) {
   const p = byReg[reg], d = p.doses[i];
   drawer(`<h3>Dose</h3>
   <div class="meta">${esc(p.name)} &middot; <code>${esc(p.reg)}</code></div>
   <dl>
-    <dt>Cultura</dt><dd>${val(d.crop)} ${d.crop_inherited?'<span class="pill p-dim">CELULA MESCLADA</span>':''}</dd>
-    <dt>Alvo</dt><dd>${val(d.target)}</dd>
+    <dt>Cultura</dt><dd>${citavel(d.crop_cell_state)?val(d.crop):val('CELL_TEXT_NOT_RECOVERABLE')}
+      ${d.crop_inherited?'<span class="pill p-dim">CELULA MESCLADA</span>':''}
+      ${citavel(d.crop_cell_state)?'':celulaCitada(d.crop,d.crop_cell_state,'a celula de cultura')}</dd>
+    <dt>Alvo</dt><dd>${citavel(d.target_cell_state)?val(d.target):val('CELL_TEXT_NOT_RECOVERABLE')}
+      ${citavel(d.target_cell_state)?'':celulaCitada(d.target,d.target_cell_state,'a celula de alvo')}</dd>
     <dt>Dose por hectare</dt><dd>${isUnk(d.dose_ha)?val(d.dose_ha):esc(d.dose_ha+' '+d.unit_ha)}
       ${d.dose_ha_inherited?'<span class="pill p-dim">HERDADA DE CELULA MESCLADA</span>':''}</dd>
     <dt>Dose por concentracao</dt><dd>${isUnk(d.dose_conc)?val(d.dose_conc):esc(d.dose_conc+' '+d.unit_conc)}</dd>
@@ -479,7 +501,13 @@ function evDose(reg, i) {
       ${d.rejected?`<div class="meta">valor rebaixado: ${esc(d.rejected)} — um fio desenhado separa
         a linha do valor que ela recebeu. Rebaixado, nao corrigido no palpite.</div>`:''}</dd>
     <dt>Pagina</dt><dd>${val(d.page)}</dd>
-    <dt>Citacao do documento</dt><dd><div class="quote">${esc(d.quote||'NOT_PRESERVED')}</div></dd>
+    <dt>${citavel(d.quote_state)?'Citacao do documento':'Linha remontada pelo extrator'}</dt>
+      <dd><div class="quote">${esc(d.quote||'NOT_PRESERVED')}</div>
+      ${citavel(d.quote_state)?'':`<div class="meta"><span class="unknown">${esc(d.quote_state)}</span>
+        uma LINHA de tabela lida da esquerda para a direita atravessa colunas e <b>nunca e uma
+        frase contigua</b> no documento — nao procure esta string no PDF. E, alem disso, esta
+        traz palavra que nao esta na pagina que ela cita (inclusive anotacoes do proprio
+        extrator, como <code>[celula mesclada: ...]</code>).</div>`}</dd>
     <dt>Fonte</dt><dd>${link(p.pdf_url,'PDF oficial')}
       <div class="mono">sha256 ${esc(p.pdf_sha)}</div></dd>
     <dt>Leitor</dt><dd class="mono">v1 dose_extrair + dose_validar (fios da tabela)</dd>
@@ -1092,8 +1120,10 @@ function celulaDose(l) {
        recebe a dose da errada). <b>Esta ferramenta nao sabe separar os dois casos</b>, entao nao
        rebaixa a linha e avisa.</div>` : '';
   const nota = j.estado === 'EXACT_MATCH' ? ''
-    : `<div class="meta">a linha de dose fala de &ldquo;${esc(j.d.crop)}&rdquo; &middot;
-        &ldquo;${esc(j.d.target)}&rdquo;${j.cand.length>1?` (${j.cand.length} linhas, mesmo valor)`:''}${j.mudos?`; mais ${j.mudos} duplicata(s) sem valor lido`:''}.
+    : `<div class="meta">a linha de dose fala de ${citavel(j.d.crop_cell_state)
+        ? `&ldquo;${esc(j.d.crop)}&rdquo;` : `<span class="unknown">CELL_TEXT_NOT_RECOVERABLE</span>`}
+        &middot; ${citavel(j.d.target_cell_state)
+        ? `&ldquo;${esc(j.d.target)}&rdquo;` : `<span class="unknown">CELL_TEXT_NOT_RECOVERABLE</span>`}${j.cand.length>1?` (${j.cand.length} linhas, mesmo valor)`:''}${j.mudos?`; mais ${j.mudos} duplicata(s) sem valor lido`:''}.
         Juncao inferida (<code>${esc(j.estado)}</code>), nao leitura deste par.</div>`;
   // R-12 · o teto por cultura escrito FORA da tabela tem o mesmo valor legal
   // que a tabela. Se a dose exibida passa dele, os dois numeros aparecem juntos

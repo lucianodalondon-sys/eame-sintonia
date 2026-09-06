@@ -91,6 +91,9 @@ python3 v1/inteligencia/objetos.py --hoje "$HOJE"
 echo "== 13 · PORTAO: o filtro de ruido tem de passar antes de publicar"
 python3 v1/testes/test_ruido.py
 
+echo "== 10k · R-18: toda frase entre aspas existe no documento?"
+python3 v1/inteligencia/citacao_verificar.py
+
 echo "== 14 · CASCO: payload e ferramenta"
 python3 v1/casco/payload.py --hoje "$HOJE"
 sh v1/casco/build.sh

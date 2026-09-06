@@ -400,6 +400,32 @@ teste('PORTFOLIO · rota que R-14 nao testa nunca carrega selo de prova', () => 
   return `${n} pares nunca testados, nenhum com prova · dos ${prosa} de rota de prosa, ${prosaFato} tem prova por geometria da pagina`;
 });
 
+teste('SF-12/SF-07 · a ferramenta nao cita frase que o rotulo nao escreve', () => {
+  // nenhuma celula NAO CONTIGUA pode aparecer entre aspas
+  let mau = 0, n = 0, ex = null;
+  P.products.forEach(p => (p.doses||[]).forEach((d,i) => {
+    if (citavel(d.crop_cell_state) && citavel(d.target_cell_state)) return;
+    n++;
+    evDose(p.reg, i);
+    const h = html('#dr');
+    if (!h.includes('CELL_TEXT_NOT_RECOVERABLE')) { mau++; ex = ex || [p.reg, d.crop]; }
+    if (!citavel(d.crop_cell_state) && h.includes('&ldquo;'+d.crop+'&rdquo;')) {
+      mau++; ex = ex || [p.reg, d.crop, 'citada entre aspas'];
+    }
+  }));
+  afirma(n > 0, 'nenhuma celula nao-contigua — o teste perdeu o alvo');
+  afirma(mau === 0, `${mau} celulas montadas ainda aparecem como frase do rotulo (ex ${ex})`);
+  // e nenhuma janela de exclusao pode ser prefixo estrito de outra do mesmo rotulo
+  let pref = 0;
+  P.products.forEach(p => {
+    const ws = (p.exclusion_windows||[]).filter(w=>w.QUOTABLE)
+      .map(w=>String(w.TEXT).replace(/\s+/g,' ').trim().toLowerCase());
+    ws.forEach(a => { if (ws.some(b => b !== a && b.startsWith(a))) pref++; });
+  });
+  afirma(pref === 0, `${pref} janelas de exclusao sao prefixo de outra e invertem escopo`);
+  return `${n} celulas montadas, todas com nome proprio · nenhuma janela prefixo`;
+});
+
 teste('a celula de dose diz de que linha o numero veio', () => {
   viewCrop();
   const h = html('#cres');

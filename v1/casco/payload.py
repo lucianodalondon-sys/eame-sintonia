@@ -71,6 +71,7 @@ def main():
     ap.add_argument("--heranca", default="v1/dados/HERANCA-CHECK.json")
     ap.add_argument("--alvonome", default="v1/dados/ALVO-NOMEADO.json")
     ap.add_argument("--prosa", default="v1/dados/PROSA-CENSO.json")
+    ap.add_argument("--citacao", default="v1/dados/CITACAO-CHECK.json")
     ap.add_argument("--hoje", required=True)
     ap.add_argument("--out", default="v1/dados/CASCO-PAYLOAD.json")
     a = ap.parse_args()
@@ -98,9 +99,26 @@ def main():
             f"(sha256 {exc.get('PAIRS_SHA256','?')[:12]} vs {_sha[:12]}). Os vereditos de "
             f"exclusao sao gravados por posicao: aplica-los a outra lista faria a retirada cair "
             f"no par errado. Rode v1/coleta/exclusao.py de novo.")
+    # SF-07 · JANELA QUE E PREFIXO DE OUTRA INVERTE O ESCOPO.
+    # Medido: 15 janelas em 5 rotulos da familia PIRIMOR sao "tranne spinacio",
+    # prefixo de "tranne spinacio baby leaf e bietola da foglia baby leaf". A
+    # curta e substring verbatim e mesmo assim mente — a etichetta exclui
+    # espinafre BABY LEAF, nao espinafre. Fica so a mais longa.
+    def _sem_prefixo(js):
+        vistos = [w for w in js if w.get("QUOTABLE")]
+        out = []
+        for w in vistos:
+            t = re.sub(r"\s+", " ", str(w.get("TEXT") or "")).strip().lower()
+            if any(t != re.sub(r"\s+", " ", str(o.get("TEXT") or "")).strip().lower()
+                   and re.sub(r"\s+", " ", str(o.get("TEXT") or "")).strip().lower().startswith(t)
+                   for o in vistos):
+                continue
+            out.append(w)
+        return out + [w for w in js if not w.get("QUOTABLE")]
+
     # So janela de ESCOPO DE CULTURA vai para a tela: as de compatibilidade de
     # calda e de numero de tratamentos nao dizem nada sobre cultura autorizada.
-    janelas_por_reg = {r: v.get("EXCLUSION_WINDOWS_CROP_SCOPE", [])
+    janelas_por_reg = {r: _sem_prefixo(v.get("EXCLUSION_WINDOWS_CROP_SCOPE", []))
                        for r, v in exc["LABELS"].items()}
     retirado_por_reg = {}
     for w in exc["RETIRADOS"]:
@@ -219,6 +237,22 @@ def main():
         raise SystemExit("HERANCA-CHECK.json ausente: sem ele o casco publica o n.max da "
                          "linha vizinha como fato. Rode v1/inteligencia/heranca_validar.py")
     vmax, vint = her["VERDICT_MAX"], her["VERDICT_INTERVAL"]
+    # R-18 · a ferramenta nao pode imprimir com o verbo "o rotulo escreve" nada
+    # que nao esteja no rotulo. Medido: 68 celulas de dose citadas nao existem
+    # contiguas em leitura nenhuma — sao montadas com pedaco de mais de uma
+    # celula ("...ravanello, zucchino sedano", onde "sedano" e celula propria).
+    cit = json.load(open(a.citacao, encoding="utf-8")) if os.path.exists(a.citacao) else None
+    _cit = {}
+    if cit:
+        for d0 in cit["DETAIL"]:
+            _cit.setdefault((d0["REGISTRATION_ID"], d0["FAMILY"]), {})[
+                re.sub(r"\s+", " ", str(d0["QUOTE"])).strip().lower()] = d0["STATE"]
+
+    def _estado_cit(reg, familia, txt):
+        if not cit:
+            return "QUOTE_NOT_CHECKED"
+        k = re.sub(r"\s+", " ", str(txt or "")).strip().lower()
+        return _cit.get((reg, familia), {}).get(k[:200], "QUOTE_VERBATIM")
     prova_her = {}
     for c in her["CONTRADICTED"]:
         prova_her.setdefault(c["KEY"], {})[c["FIELD"]] = c
@@ -258,6 +292,12 @@ def main():
                                   .get("MAX_APPLICATIONS") or {}).get("LABEL_SAYS")),
                     "page": r.get("SOURCE_PAGE"),
                     "quote": r.get("SOURCE_QUOTE"),
+                    "crop_cell_state": _estado_cit(lab["REGISTRATION_ID"], "DOSE_CROP_CELL",
+                                                   r.get("CROP")),
+                    "target_cell_state": _estado_cit(lab["REGISTRATION_ID"], "DOSE_TARGET_CELL",
+                                                     r.get("TARGET")),
+                    "quote_state": _estado_cit(lab["REGISTRATION_ID"], "DOSE_SOURCE_QUOTE",
+                                               r.get("SOURCE_QUOTE")),
                     "rule_check": r.get("DOSE_RULE_CHECK", "NOT_CHECKED"),
                     "needs_review": bool(r.get("NEEDS_REVIEW")),
                     "rejected": r.get("DOSE_PER_HECTARE_REJECTED"),
@@ -457,6 +497,8 @@ def main():
         "crop_check_list": cultura["CONTRADICTED"],
         "pair_check": {k: v for k, v in pf.items() if k not in ("VERDICT", "CONTRADICTED")},
         "target_name": {k: v for k, v in an.items() if k not in ("VERDICT", "NOT_IN_LABEL")},
+        "citacao": ({k: v for k, v in cit.items() if k != "DETAIL"} if cit
+                    else {"STATE": "NOT_CHECKED"}),
         "prose": ({k: v for k, v in json.load(open(a.prosa, encoding="utf-8")).items()
                    if k != "LINHAS"} if os.path.exists(a.prosa) else {"STATE": "NOT_MEASURED"}),
         "pair_check_list": pf["CONTRADICTED"],
