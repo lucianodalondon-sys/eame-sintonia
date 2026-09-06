@@ -9,6 +9,7 @@
    reale. Cosi un nome di coltura o di regione — che il demo condivide con il
    vero — non produce un falso allarme.
    --------------------------------------------------------------------------- */
+import fs from 'node:fs';
 import { mount } from '../lib/harness.mjs';
 
 const M = mount({});
@@ -60,7 +61,42 @@ console.log('sorgenti reali confrontate ', GLOBALI_REALI.length, '·', GLOBALI_R
    riconosce — colori, sfumature, ritagli. Nessuna parola, nessun nome, nessuna
    frase esce da qui. */
 const SOLO_STILE = /^(rgba?\(|#[0-9a-fA-F]{3,8}$|linear-gradient\(|radial-gradient\(|polygon\(|clip-path)/;
-const IMPRONTE = [...DEMO_SRC].filter(s => !REAL_SRC.has(s) && !SOLO_STILE.test(s));
+
+/* ── UNA PAROLA CHE IL PORTALE SCRIVE DA SE NON E CONTENUTO DIMOSTRATIVO ───
+   «Science records» e «Future signals» sono etichette che questa schermata
+   scrive nella propria sorgente, nella tabella delle famiglie di provenienza.
+   Il pacchetto dimostrativo le contiene anche lui, dentro un proprio blocco di
+   statistiche — e la coincidenza bastava a farle passare per impronte.
+
+       DUE FILE CHE SCRIVONO LA STESSA ETICHETTA NON PROVANO CHE UNO COPI
+       DALL'ALTRO.
+
+   L'esclusione e stretta: vale solo per le stringhe che compaiono LETTERALI
+   nella sorgente del portale. Un nome inventato, un messaggio di campo, una
+   citazione non stanno li dentro, e continuano a essere impronte. */
+const SORGENTE_PORTALE = fs.readFileSync(new URL('../../client/portale.html', import.meta.url), 'utf8');
+const SCRITTA_DAL_PORTALE = (t) => SORGENTE_PORTALE.indexOf("'" + t + "'") >= 0
+  || SORGENTE_PORTALE.indexOf('"' + t + '"') >= 0 || SORGENTE_PORTALE.indexOf('>' + t + '<') >= 0;
+/* ── UNA FRASE COMPOSTA DI PAROLE VERE E UNA FRASE VERA ───────────────────
+   «Grapevine · Maize» non esiste in nessun file: il portale la COMPONE a
+   video unendo le colture di un record di comunicazione concorrente — reale,
+   canonico, 577 record. Il pacchetto dimostrativo, per caso, porta la stessa
+   coppia scritta per intero dentro un proprio tema.
+
+       IL PORTALE UNISCE DUE PAROLE VERE E IL CONFRONTO LEGGE UNA STRINGA CHE
+       SOLO IL DEMO POSSIEDE. LA COINCIDENZA E DEL SEPARATORE, NON DEL FATTO.
+
+   Se ogni pezzo di una stringa separata da « · » vive in una sorgente reale,
+   la stringa e composta di vero e non e un'impronta. */
+const VOCABOLARIO_VERO = new Set();
+for (const t of REAL_SRC) { VOCABOLARIO_VERO.add(t); for (const p of String(t).split(' · ')) VOCABOLARIO_VERO.add(p.trim()); }
+const COMPOSTA_DI_VERO = (t) => {
+  if (t.indexOf(' · ') < 0) return false;
+  const pezzi = t.split(' · ').map(x => x.trim()).filter(Boolean);
+  return pezzi.length > 1 && pezzi.every(p => VOCABOLARIO_VERO.has(p) || SCRITTA_DAL_PORTALE(p));
+};
+const IMPRONTE = [...DEMO_SRC].filter(s => !REAL_SRC.has(s) && !SOLO_STILE.test(s)
+  && !SCRITTA_DAL_PORTALE(s) && !COMPOSTA_DI_VERO(s));
 console.log('viste raggiungibili        ', AMMESSE.length, '·', AMMESSE.join(' '));
 console.log('stringhe solo-demo (impronte)', IMPRONTE.length);
 
