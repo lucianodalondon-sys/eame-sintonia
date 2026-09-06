@@ -226,7 +226,10 @@ if __name__ == "__main__":
     print(f"POINTS LOADED: {len(pts)}")
     for k, v in pts.items():
         print(f"  {k:28s} lat={v['lat']:.3f} lon={v['lon']:.3f} elev={v['elev']} days={len(v['days'])}")
-    YEARS = list(range(2014, 2026))
+    # full ERA5 span: feature history is 34 seasons even though LABELS exist only for
+    # 2014-2025. More antecedent history helps the climatology and the analog space;
+    # it cannot help the outcome, and is never allowed to pretend otherwise.
+    YEARS = list(range(1992, 2026))
     out = {}
     for regime in ("CUTOFF_B_TRUE_12M", "CUTOFF_A_PRESEASON"):
         rows, anom, prov = build(pts, YEARS, regime)
@@ -243,6 +246,7 @@ if __name__ == "__main__":
     r = out["CUTOFF_A_PRESEASON"]["features"]
     ks = ["prevseason_precip_sum", "prevseason_rain_days", "winter_precip_sum",
           "winter_tmean", "autumn_precip_sum", "prevseason_rh75_days"]
-    print("\nYEAR  " + "  ".join(f"{k[:18]:>18s}" for k in ks))
-    for Y in sorted(r):
+    print("\nLABELLED WINDOW ONLY (2014-2025); full table has %d seasons" % len(r))
+    print("YEAR  " + "  ".join(f"{k[:18]:>18s}" for k in ks))
+    for Y in sorted(y for y in r if y >= 2014):
         print(f"{Y}  " + "  ".join(f"{r[Y].get(k, float('nan')):18.1f}" for k in ks))
