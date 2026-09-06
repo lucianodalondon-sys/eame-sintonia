@@ -29,6 +29,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';
 import { PT_MARKERS } from './lang.mjs';
 import { navMap } from './lib/nav-names.mjs';
+import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const CLIENT = path.resolve(HERE, '..', 'client');
@@ -195,12 +196,25 @@ const FORBIDDEN = /(CLIENT_SAFE|RENDERABLE_WITH_METHOD|EVIDENCE_DERIVED|FAILED_G
    L'invariante vera, quindi: nessuno dei 17 puo comparire sotto l'etichetta
    della convergenza verificata. Misurato sul pacchetto: 0 su 17 lo fanno, e
    questo controllo fallisce il giorno in cui uno lo facesse. */
-const rejected = JSON.parse(fs.readFileSync(
-  path.resolve(HERE, '..', '..', 'build', 'ITALY-REALITY-HANDOFF-V2.1',
-    'DESIGN-INGEST', 'OPPORTUNITY-REJECTIONS.json'), 'utf8'));
-const rejectedIds = new Set(
-  (rejected.REJEICOES || []).map((r) => r.ID || r.IDENTITY_KEY).filter(Boolean));
-const VERIFIED_WORDS = /(CONVERGENZA VERIFICATA|VERIFIED CONVERGENCE)/;
+/* IL PACCHETTO SI GENERA, NON SI CONSERVA — e quindi in un clone pulito non
+   c'e. Questo `readFileSync` senza rete di sicurezza faceva morire l'INTERO
+   audit del navigatore: BR1..BR7, sette controlli, spenti da un file assente
+   che e assente per contratto.
+
+       UN CONTROLLO CHE MANCA DI UNA FONTE DEVE DIRLO, NON PORTARE GIU GLI ALTRI SEI.
+
+   Se la safra sul disco non e quella servita, BR6 dichiara NON MISURATO e il
+   giro nel navigatore continua. */
+const pacchetto = statoDelPacchetto();
+const rejectedIds = new Set();
+let br6NonMisurato = null;
+if (pacchetto.stato === 'CANONICO') {
+  const rejected = JSON.parse(fs.readFileSync(path.join(pacchetto.dir, 'OPPORTUNITY-REJECTIONS.json'), 'utf8'));
+  for (const r of (rejected.REJEICOES || [])) { const id = r.ID || r.IDENTITY_KEY; if (id) rejectedIds.add(id); }
+} else {
+  br6NonMisurato = perchePuoiNonMisurare(pacchetto);
+}
+const VERIFIED_WORDS = /(CONVERGENZA VERIFICATA|VERIFIED CONVERGENCE|PUBBLICABILE|PUBLISHABLE)/;
 
 const findings = { fatal: [], undef: [], objobj: [], pt: [], forbidden: [], rejected: [], empty: [] };
 const seen = [];
@@ -313,7 +327,8 @@ line('BR2', 'No "undefined" rendered on any screen', findings.undef);
 line('BR3', 'No "[object Object]" rendered on any screen', findings.objobj);
 line('BR4', 'No Portuguese in front of the Italian client', findings.pt);
 line('BR5', 'No engine bookkeeping rendered', findings.forbidden);
-line('BR6', 'No red-team rejected opportunity rendered', findings.rejected);
+if (br6NonMisurato) line('BR6', 'No red-team rejected opportunity rendered', [br6NonMisurato]);
+else line('BR6', 'No red-team rejected opportunity rendered', findings.rejected);
 line('BR7', 'Every screen actually rendered content', findings.empty);
 console.log('  ' + '─'.repeat(96));
 console.log(`  ${seen.length} screen visits over IT -> EN -> IT · ${rejectedIds.size} rejected ids checked`);
