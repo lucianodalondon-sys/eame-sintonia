@@ -1,0 +1,102 @@
+{
+ "MF-01": {
+  "AFIRMACAO_DO_ARBITRO": "R-11 nunca aplicada aos PARES DE USO; 34 pares sao uso que a etichetta nao autoriza, todos com o selo verde TABELA",
+  "AGORA": "R-14 confere cada par contra a celula desenhada da cultura",
+  "PARES_RETIRADOS": 47,
+  "REGISTROS_AFETADOS": 9,
+  "POR_FAMILIA": {
+   "AGLIO x OIDIO": 3,
+   "BARBABIETOLA x ACARI": 1,
+   "BARBABIETOLA x ALEURODIDI": 1,
+   "BARBABIETOLA x CICALINE": 1,
+   "BARBABIETOLA x COCCINIGLIE": 1,
+   "BARBABIETOLA x DIABROTICA": 5,
+   "BARBABIETOLA x DITTERI": 1,
+   "BARBABIETOLA x LEPIDOTTERI": 1,
+   "BARBABIETOLA x METCALFA": 1,
+   "BARBABIETOLA x PSILLE": 1,
+   "BARBABIETOLA x TIGNOLE": 1,
+   "BARBABIETOLA x TRIPIDI": 1,
+   "CARCIOFO x ALTICA": 1,
+   "CARCIOFO x CASSIDA": 1,
+   "CARCIOFO x CICALINE": 1,
+   "CARCIOFO x COCCINIGLIE": 1,
+   "CARCIOFO x METCALFA": 1,
+   "CARCIOFO x MOSCA": 1,
+   "CARCIOFO x PSILLE": 1,
+   "CARCIOFO x TIGNOLE": 1,
+   "CETRIOLO x ELMINTOSPORIOSI": 3,
+   "CIPOLLA x OIDIO": 3,
+   "ERBA_MEDICA x DIABROTICA": 5,
+   "TABACCO x CIMICI": 5,
+   "TABACCO x DORIFORA": 2,
+   "ZUCCHINO x ELMINTOSPORIOSI": 3
+  },
+  "PARES_PUBLICADOS_AGORA": 2875,
+  "ESTADO": "FECHADO"
+ },
+ "MF-02": {
+  "AFIRMACAO_DO_ARBITRO": "012573 publica 14 alvos para BARBABIETOLA (o rotulo lista 4) e 14 para CARCIOFO (lista 6): 18 alvos falsos num unico rotulo",
+  "BARBABIETOLA_AGORA": [
+   "AFIDI",
+   "ALTICA",
+   "CASSIDA",
+   "MOSCA"
+  ],
+  "CARCIOFO_AGORA_N": 6,
+  "RETIRADOS_EM_012573": 18,
+  "IRMAO_014386_RETIRADOS": 0,
+  "ESTADO": "FECHADO"
+ },
+ "MF-03": {
+  "AFIRMACAO_DO_ARBITRO": "017868/017585, herbicidas de arroz, publicam BARBABIETOLA e COLZA como uso autorizado, carimbados ATTESTED",
+  "PARES_EM_RESTRICAO_DE_SUCESSAO": 4,
+  "AINDA_PUBLICADOS": [],
+  "ESTADO": "FECHADO"
+ },
+ "MF-04": {
+  "AFIRMACAO_DO_ARBITRO": "heranca de celula mesclada publica o valor da linha vizinha como fato, em 96 pares, com selo verde",
+  "CAMPOS_REBAIXADOS": 101,
+  "COUNTS": {
+   "INTERVAL_NOT_INHERITED": 743,
+   "MAX_NOT_INHERITED": 579,
+   "MAX_CONFIRMED_BY_RULE": 209,
+   "INTERVAL_CONTRADICTED_BY_RULE": 47,
+   "MAX_CONTRADICTED_BY_RULE": 39,
+   "INTERVAL_CONFIRMED_BY_RULE": 37,
+   "MAX_CONTRADICTED_BY_LABEL_NOTE": 9,
+   "MAX_NOT_VALIDATED": 3,
+   "INTERVAL_NOT_VALIDATED": 3
+  },
+  "ESTADO": "FECHADO"
+ },
+ "MF-06": {
+  "LINHAS_ALVO_NAO_LITERAL": 124,
+  "LINHAS_ALVO_NAO_CONFERIDO": 43,
+  "ESTADO": "FECHADO (o estado chega a tela; ver test_casco.js)"
+ },
+ "MF-11": {
+  "AFIRMACAO_DO_ARBITRO": "008189/014479 dizem \"Ammesso un solo trattamento per ciclo\" e as 24 linhas saem NOT_PRESENT sem o aviso LABEL_NOTES_NOT_READ",
+  "AGORA": {
+   "008189": {
+    "aviso": true,
+    "nota": "utilizzata per il trattamento. Ammesso un solo trattamento per ciclo"
+   },
+   "014479": {
+    "aviso": true,
+    "nota": "utilizzata per il trattamento. Ammesso un solo trattamento per ciclo"
+   }
+  },
+  "ESTADO": "FECHADO"
+ },
+ "CONTRA_PROVA_DE_TEXTO": {
+  "O_QUE_E": "conferir os pares so pelo texto — cultura e alvo no mesmo escopo de cabecalho com dois-pontos — nos MESMOS rotulos, comparando os pares que R-14 condenou com os que ela absolveu",
+  "COOCORRENCIA_NOS_CONTRADITOS_PCT": 93.6,
+  "COOCORRENCIA_NOS_CONSISTENTES_PCT": 98.5,
+  "N": {
+   "CONTRADITOS": 47,
+   "CONSISTENTES": 1070
+  },
+  "CONCLUSAO": "o teste so-de-texto NAO discrimina: ele responde quase o mesmo para os dois grupos, porque o escopo de cabecalho no texto em ordem de leitura engole blocos vizinhos inteiros. E exatamente o vazamento que MF-02 descreve, e a razao de a regra ser GEOMETRICA. Esta medicao esta aqui para que ninguem apresente a coocorrencia textual como corroboracao — ela nao e"
+ }
+}

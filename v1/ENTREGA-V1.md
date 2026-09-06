@@ -9,13 +9,12 @@ portal, nao escreve em `sintonia/canonical`, nao faz deploy.
 
     BRANCH        claude/label-intelligence-v1-italy
     PILOT_HEAD    df3a4fd0029e74d16f171e5070b13ec4f3345d64   (base, missao 1)
-    BUILD_HEAD    eabaaac9c13431e4635ae776e24b9ef1e36e72d5
+    BUILD_HEAD    b371b74ec5238d94c01d5518afe2cad233593ad0
                   o commit cujo build foi medido para escrever este documento.
-                  O commit que ADICIONA este documento vem depois dele, e por
+                  O commit que ATUALIZA este documento vem depois dele, e por
                   isso nao pode citar o proprio hash.
-    COMMITS       19 desde PILOT_HEAD ate BUILD_HEAD
-    ARQUIVOS      35 em v1/ em BUILD_HEAD, mais os do piloto
-    RULESET       v1/inteligencia/REGRAS.md@4
+    COMMITS       24 desde PILOT_HEAD ate BUILD_HEAD
+    RULESET       v1/inteligencia/REGRAS.md@5
 
     CANONICAL_TOUCHED = NAO
       medido com git, nao com uma constante: nenhum dos 19 commits desta missao
@@ -25,8 +24,31 @@ portal, nao escreve em `sintonia/canonical`, nao faz deploy.
       transformado o trabalho legitimo de outra pessoa num alarme desta missao.
 
     REUSO ANCORADO NO ARQUIVO, NAO NO BRANCH
-      IT-ROTULOS-PARES-V3.json  sha256 024b19979343df2f255ab543...  2.928 pares
+      A lista de pares vinha de sintonia/canonical e ESTA SESSAO NAO TEM ACESSO
+      a esse repositorio. Sem ela, exclusao.py e payload.py nao rodam, e um
+      conserto que ninguem consegue reconstruir nao e um conserto.
+      v1/fonte/pares_reconstruir.py remonta os 2.928 pares a partir de dois
+      artefatos versionados que sao, os dois, derivados do original — o
+      VERDICT_KEY_TRIPLE de EXCLUSAO.json e os `uses` de CASCO-PAYLOAD.json —
+      e PARA se alguma posicao nao bater. Nada foi criado, removido ou
+      reordenado.
+
+      IT-ROTULOS-PARES-RECONSTRUIDO.json  2.928 pares
       conferido a cada build; se mudar, o payload aborta.
+
+      A PROVA nao e do reconstrutor (v1/fonte/pares_conferir.py):
+        R-10 devolve os 2.928 vereditos IDENTICOS
+        payload.py devolve os 2.926 pares publicados IDENTICOS nos 9 campos
+        e o HTML remontado por este caminho tinha sha256 7e4ea2a7b445fafa...,
+        o MESMO alvo que o arbitro da rodada 3 julgou.
+
+      CROP_Y e TARGET_Y nao sobreviveram ao payload e saem NOT_PRESERVED com o
+      nome proprio. Quem precisa deles os remede no PDF — e e o que R-14 faz.
+
+    FONTE PRIMARIA RECOLETAVEL
+      v1/fonte/recoletar.py + MANIFESTO-FONTE.json trazem os 60 CSV e os 163 PDF
+      do Ministero e conferem cada sha256. Medido nesta sessao:
+      223 conferidos, 0 com sha errado.
 
     OFFICIAL_PORTAL_TOUCHED = NAO      DEPLOY = NENHUM
 
@@ -278,7 +300,67 @@ O que a ferramenta responde HOJE, apos as correcoes:
     indexacao de pagina (fios() e 1-indexado, palavras() e 0-indexada) que fez
     duas medicoes minhas compararem a pagina errada com numeros plausiveis.
 
-    PORTOES desta entrega: 19/19.  RUIDO: 12/12.  RENDER: 12/12.
+    RODADA 3   12 lentes + arbitro    130 achados brutos
+               veredito: DEMO_READY = NAO, 11 MUST_FIX, 16 SHOULD_FIX,
+               8 FUTURE, 6 FALSE_FINDING. 7 de 12 portoes falharam.
+               Diagnostico central, na frase do arbitro: "a rodada 2 achou os
+               defeitos na camada de DOSE e os consertos foram aplicados na
+               camada de dose. Nenhum foi aplicado a camada de PARES DE USO,
+               que e a afirmacao regulatoria mais fundamental e a unica sem
+               regra R-* propria. O defeito nao foi corrigido: subiu uma
+               camada, usando os mesmos selos verdes."
+
+    Estado dos 11 MUST_FIX da rodada 3 — remedido em
+    v1/testes/CONFERENCIA-MUST-FIX.json e travado em test_casco.js:
+      MF-01 R-11 nunca aplicada aos PARES DE USO ......... FECHADO — regra nova
+            R-14 (v1/inteligencia/par_validar.py). 47 pares retirados,
+            e os 47 estao na lista que o arbitro mediu por conta
+            propria, com outro instrumento e a partir de coordenadas que este
+            repositorio nao tem.
+      MF-02 012573 EKO OIL SPRAY: 18 alvos falsos ....... FECHADO — BARBABIETOLA
+            fica com os 4 alvos que a etichetta lhe da e CARCIOFO com os 6; o
+            irmao 014386 OLIONET, que le a MESMA frase e ja acertava, sai com
+            ZERO retirada.
+      MF-03 EXCLUSION_AS_PERMISSION em sucessao ......... FECHADO — regra nova
+            R-10b. 4 pares (BARBABIETOLA e COLZA em 017868/017585) saem com a
+            frase literal do rotulo ao lado.
+      MF-04 heranca de celula mesclada em MAX/INTERVALO . FECHADO — regra nova
+            R-15 (v1/inteligencia/heranca_validar.py), nos dois casos: os fios
+            da coluna DO VALOR, e a nota que enumera culturas mandando sobre a
+            posicao de linha.
+      MF-05 MAX/INTERVALO publicados em linha reprovada . FECHADO — a supressao
+            vale para as tres colunas.
+      MF-06 R-13 calculado e nao lido na tela ........... FECHADO — chega a
+            viewProduto, a evDose e ao selo, que deixa de dizer CONFIRMADA
+            sobre linha cujo alvo nao existe no documento.
+      MF-07 contido() casando token dentro de lista ..... FECHADO — casamento
+            por ITEM INTEIRO, e CROP_IDENTITY_NOT_PROVED onde a etichetta
+            escreve duas formas do mesmo nome curto.
+      MF-08 #cq=porro respondendo "0 pares" ............. FECHADO em parte:
+            a tela responde CROP_NOT_IN_USE_VOCABULARY com as linhas de dose que
+            existem, e a COBERTURA declara o vocabulario fechado. Cobertura por
+            CELULA DE CULTURA DESENHADA continua NOT_MEASURED, e esta dito.
+      MF-09 ressalva escondida da tela de cultura ....... FECHADO.
+      MF-10 conflito de validade inventado em viewProduto FECHADO.
+      MF-11 NOT_PRESENT apagando restricao de fora ...... FECHADO — vocabulario
+            de restricao medido nos 163 rotulos, e a citacao para no salto de
+            coluna para nao virar frase remontada.
+
+    O QUE ISSO CUSTOU EM PARES PUBLICADOS
+      2.926 -> 2875.  47 retirados por R-14, 4 por R-10b.
+      Conferencia da heranca: {"INTERVAL_NOT_INHERITED": 743, "MAX_NOT_INHERITED": 579, "MAX_CONFIRMED_BY_RULE": 209, "INTERVAL_CONTRADICTED_BY_RULE": 47, "MAX_CONTRADICTED_BY_RULE": 39, "INTERVAL_CONFIRMED_BY_RULE": 37, "MAX_CONTRADICTED_BY_LABEL_NOTE": 9, "MAX_NOT_VALIDATED": 3, "INTERVAL_NOT_VALIDATED": 3}
+
+    UMA CONTRA-PROVA QUE NAO SERVIU, E ESTA DITO QUE NAO SERVIU
+      Conferir os pares retirados so pelo TEXTO — cultura e alvo no mesmo escopo
+      de cabecalho com dois-pontos — responde SIM em 93,6% dos contraditos e em
+      98,5% dos consistentes NOS MESMOS ROTULOS. Um teste que responde a mesma
+      coisa para os dois grupos nao mede nada. E exatamente o vazamento de
+      escopo que MF-02 descreve, e a razao de a regra ser GEOMETRICA. A medicao
+      esta em CONFERENCIA-MUST-FIX.json para que ninguem apresente a
+      coocorrencia textual como corroboracao.
+
+    PORTOES desta entrega: 19/19.  RUIDO: 12/12.  RENDER: 23/23
+    (12 anteriores + os 11 MUST_FIX da rodada 3 virados teste de regressao).
 
 ---
 
@@ -296,6 +378,25 @@ Escrito como limitacao porque e limitacao, nao como nota de rodape:
        linha de origem, e perde 152 respostas provavelmente corretas para nao
        arriscar uma errada. Isto e o preco de nao ter o detector, e esta pago
        na direcao segura.
+
+    1b PARES DE PROSA: SEM INSTRUMENTO NENHUM.
+       R-14 confere a geometria e por isso so alcanca par lido de TABELA.
+       1.056 pares vem de rota de prosa (AUTHORISED_USE_LIST,
+       HEADER_CONTINUATION) e saem PAIR_NOT_CHECKABLE_ROUTE_NOT_GEOMETRIC —
+       NOT_CHECKED, nunca aprovacao, e a tela diz isso na coluna de evidencia.
+       Mas eles continuam publicados como uso autorizado, e nao ha nem regra
+       geometrica nem regra textual para eles: medido, o teste so-de-texto
+       responde a mesma coisa (93,6% x 98,5%) para pares que a geometria condena
+       e para os que ela absolve. E o maior buraco aberto desta versao.
+
+    1c AS QUATRO ABSTENCOES DE R-14 SAO SUPERFICIE NOVA DE ATAQUE.
+       PAIR_NOT_CHECKABLE_NO_DRAWN_CELL, _ANCHOR_NOT_FOUND,
+       _CROP_ALSO_OUTSIDE_TABLE e _TARGET_UNDER_CROP_HEADER existem porque cada
+       uma nasceu de um falso positivo REAL medido no acervo (008102 MERPAN,
+       012573, 010587 FOLPAN SC, e a flexao "Tignola"/TIGNOLE). Todas erram para
+       o lado de nao apagar uso verdadeiro — que e o lado certo — e todas podem,
+       pelo mesmo mecanismo, estar deixando passar um par falso. A proxima
+       rodada adversarial deve atacar exatamente elas.
 
     2  CELULA DE CULTURA TRUNCADA: nao detectada.
        Em 008189/014479 a celula publicada perde "Rapa, Navone, Melone". A linha
@@ -365,35 +466,55 @@ Escrito como limitacao porque e limitacao, nao como nota de rodape:
 
 ## P · DEMO_READY = **NAO**
 
-Nao por prudencia retorica: por duas razoes nomeaveis.
+Nao por prudencia retorica: por duas razoes nomeaveis, e as duas mudaram de
+conteudo desde a ultima vez.
 
-    1  NENHUM ARBITRO ADJUDICOU ESTE BUILD. O ultimo veredito (rodada 2, 13
-       MUST_FIX) e sobre o build anterior; doze deles foram corrigidos e o
-       decimo terceiro foi fechado por abstencao, mas quem mede o resultado
-       disso nao pode ser quem o produziu. Declarar SIM aqui seria eu me
-       aprovando, e a ferramenta inteira existe para nao aceitar afirmacao sem
-       verificacao de fora.
+    1  NENHUM ARBITRO ADJUDICOU ESTE BUILD. O ultimo veredito (rodada 3, 11
+       MUST_FIX, 7 de 12 portoes falhando) e sobre o build d08668c. Os onze
+       estao fechados e remedidos, e onze testes de regressao os travam — mas
+       quem mede o resultado disso nao pode ser quem o produziu. Declarar SIM
+       aqui seria eu me aprovando, e a ferramenta inteira existe para nao
+       aceitar afirmacao sem verificacao de fora.
 
-    2  Os 20 SHOULD_FIX da rodada 2 foram enderecados em parte, nao em todo.
+       O que ha de convergencia independente, e vale registrar sem chamar de
+       adjudicacao: R-14 foi escrita sem acesso as coordenadas que o arbitro
+       usou (CROP_Y e TARGET_Y morreram no payload e o repositorio de origem
+       nao esta acessivel), e os 47 pares que ela condena sao exatamente os que
+       ele enumerou por conta propria — incluindo os 18 de 012573 e o zero do
+       irmao 014386. Dois instrumentos diferentes chegando a mesma lista e
+       evidencia; nao e veredito.
+
+    2  A CAMADA QUE LE ROTULO CONTINUA SENDO A METADE FRACA, e agora ela diz
+       isso com mais precisao em vez de dizer menos:
+         - FUSION_DETECTOR = NOT_IMPLEMENTED, com as tres tentativas medidas;
+         - 1.056 pares tem rota de PROSA e R-14 nao roda neles: sao
+           PAIR_NOT_CHECKABLE_ROUTE_NOT_GEOMETRIC, que e NOT_CHECKED e nunca
+           aprovacao — mas continuam publicados como uso autorizado;
+         - a cobertura por CELULA DE CULTURA DESENHADA continua NOT_MEASURED;
+         - PHI continua PROTOTYPE_NOT_SHIPPED, nada publicado.
 
     O que faria virar SIM, na ordem:
-      a) uma terceira rodada adversarial contra ESTE build, com arbitro;
-      b) fechar os SHOULD_FIX remanescentes;
-      c) um detector de fusao de linha de verdade, que devolveria as 152
-         respostas hoje perdidas pela abstencao.
+      a) uma quarta rodada adversarial contra ESTE build, com arbitro — e ela
+         tem de atacar as ABSTENCOES novas, que sao onde nasce defeito novo:
+         as quatro de R-14 (sem celula desenhada, ancora nao encontrada,
+         evidencia mista, cabecalho de bloco) foram escritas para nao apagar uso
+         verdadeiro, e cada uma pode estar escondendo um par falso;
+      b) uma regra para os 1.056 pares de prosa — hoje eles nao tem instrumento
+         nenhum, nem geometrico nem textual (ver a contra-prova da secao L);
+      c) um detector de fusao de linha de verdade.
 
-    Nao esta na lista "corrigir MF-04": ele esta fechado pelo lado da
-    abstencao, que e o lado seguro, e a entrega diz isso em vez de chamar
-    abstencao de capacidade.
+    Nao esta na lista "corrigir os 11 MUST_FIX": estao fechados, e cinco deles
+    fechados por ABSTENCAO, que e o lado seguro. A entrega diz isso em vez de
+    chamar abstencao de capacidade.
 
     A metade do REGISTRO desta ferramenta esta solida e foi verificada de fora:
     373 sha256 recalculados sem divergencia, 528/496/36 reproduzido em
-    recontagem independente, o censo de T-09 conferido digito por digito.
-    A metade que LE ROTULO melhorou muito nesta rodada — a classe de evidencia
-    mais forte deixou de existir em vez de continuar errada — mas ainda nao
-    merece a mesma confianca, e a ferramenta agora diz isso em vez de esconder.
-
----
+    recontagem independente, o censo de T-09 conferido digito por digito, e
+    36/36 objetos e 166/166 produtos conferindo campo a campo contra os CSVs no
+    differ que o proprio arbitro reescreveu.
+    A metade que LE ROTULO deu o maior salto desta missao — a afirmacao de USO,
+    que e a mais fundamental que a ferramenta emite, passou a ser conferida
+    contra o desenho da tabela — e ainda nao merece a mesma confianca.
 
 ## Q · PORTAL_INTEGRATION_RECOMMENDATION
 
