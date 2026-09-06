@@ -1,0 +1,150 @@
+{
+ "SHEET_VERSION": "1.0",
+ "WHY_THIS_FILE_EXISTS": "A directory called FRUMENTO-SEPTORIA collected id_survey_var 372, which that same case's own metadata calls 'Intensita' Oidio'. The engine believed the folder name. From now on no column enters the engine unless it has an entry here, and every entry carries the evidence that produced it. A column with no entry is REFUSED, not guessed.",
+
+ "SOURCE": {
+  "api": "https://agroambiente.info.regione.toscana.it/agro18/api/dati/get_aedita_data",
+  "operator": "Regione Toscana - AgroAmbiente.info",
+  "crop_id": 2,
+  "survey_schema_id": 1,
+  "schema_meaning": "olive-fly drupe sampling: a fixed sample of olives is taken per visit and dissected, and each developmental stage is counted",
+  "evidence": "collection_index.json 'vars' block, served by the API itself"
+ },
+
+ "VISIT_KEY": {
+  "KEY": ["id_field", "date"],
+  "MEANING": "one monitored grove, one calendar day = one visit",
+  "EVIDENCE": "s1_key_and_fingerprint.json: 79,251 distinct keys over 79,251 rows, 0 repeats, in EVERY one of the four collected variables",
+  "REJECTED_KEYS": {
+   "uid": "59 distinct keys over 79,251 rows - not a row identifier at all",
+   "id_survey": "52,250 distinct over 79,251; 14,649 keys repeat, and where they repeat the VALUE conflicts in 2,443 to 13,641 cases depending on the variable. This is the key the previous engine joined its denominator on."
+  },
+  "ALSO_UNIQUE_AND_ACCEPTABLE": ["id_survey+collection_year", "id_survey+source_file"]
+ },
+
+ "VARIABLES": [
+  {
+   "SOURCE_VARIABLE": 1,
+   "SOURCE_VAR_NAME": "tot",
+   "SOURCE_LABEL": "Tot",
+   "SOURCE_DESCRIPTION": "Olive campionate",
+   "MEANING": "the number of olives taken and dissected on this visit",
+   "UNIT": "count of drupes",
+   "CANONICAL_MEANING": "SAMPLE_SIZE / DENOMINATOR",
+   "CAN_USE_FOR": [
+    "the denominator of every rate computed from this schema",
+    "the n reported beside any published value"
+   ],
+   "CANNOT_USE_FOR": [
+    "any measure of disease - it is how many olives were looked at, not what was found",
+    "a denominator when it is 0 or missing: 2,351 of 78,008 visits (3.01%) report a sample size of 0, and a rate over 0 is not a rate"
+   ],
+   "EVIDENCE": "the source's own description string is 'Olive campionate'; the value is an integer in 100% of readable rows; it equals exactly 100 in 73,499 of 78,008 visits (94.2%); it carries no colour legend, unlike the three infestation columns",
+   "QUALITY": {"n_rows": 79251, "n_null": 177, "zero_valued": 3381, "min": 0, "max": 1400}
+  },
+  {
+   "SOURCE_VARIABLE": -1001,
+   "SOURCE_VAR_NAME": "attiva",
+   "SOURCE_LABEL": "Attiva",
+   "SOURCE_DESCRIPTION": "Infestazione Attiva",
+   "MEANING": "drupes carrying infestation that is still alive on the day of the visit",
+   "UNIT": "count of drupes, out of `tot`",
+   "CANONICAL_MEANING": "ACTIVE_INFESTATION_COUNT",
+   "CAN_USE_FOR": [
+    "an observed rate: attiva / tot",
+    "the state of the pest AT the visit"
+   ],
+   "CANNOT_USE_FOR": [
+    "damage that has already occurred - that is a different column",
+    "being read as a percentage directly, unless tot == 100 (see UNIT_TRAP below)",
+    "any statement about a future date"
+   ],
+   "EVIDENCE": "source description 'Infestazione Attiva'; server-computed (negative id, order_n -1); integer in 99.56% of readable rows; bounded by tot in 99.94%",
+   "QUALITY": {"n_rows": 79251, "n_null": 1217, "negative_values": 2, "exceeds_sample_size": 46}
+  },
+  {
+   "SOURCE_VARIABLE": -1002,
+   "SOURCE_VAR_NAME": "dannosa",
+   "SOURCE_LABEL": "Dannosa",
+   "SOURCE_DESCRIPTION": "Infestazione Dannosa",
+   "MEANING": "drupes carrying infestation that has already done damage",
+   "UNIT": "count of drupes, out of `tot`",
+   "CANONICAL_MEANING": "DAMAGING_INFESTATION_COUNT",
+   "CAN_USE_FOR": [
+    "an observed rate: dannosa / tot",
+    "a statement about damage already present"
+   ],
+   "CANNOT_USE_FOR": [
+    "the current state of the pest - it is a lagging record. Measured: 24,834 of 78,012 visits (31.8%) have attiva > 0 while dannosa reads 0",
+    "being read as a percentage directly, unless tot == 100",
+    "any statement about a future date"
+   ],
+   "EVIDENCE": "source description 'Infestazione Dannosa'; this is the column the previous pilot published; integer in 99.81%; bounded by tot in 99.96%",
+   "QUALITY": {"n_rows": 79251, "n_null": 1232, "negative_values": 4, "exceeds_sample_size": 35}
+  },
+  {
+   "SOURCE_VARIABLE": -1003,
+   "SOURCE_VAR_NAME": "totale",
+   "SOURCE_LABEL": "Totale",
+   "SOURCE_DESCRIPTION": null,
+   "MEANING": "drupes carrying infestation of any kind. NOT the sum of attiva and dannosa.",
+   "UNIT": "count of drupes, out of `tot`",
+   "CANONICAL_MEANING": "TOTAL_INFESTATION_COUNT",
+   "CAN_USE_FOR": [
+    "an observed rate of any infestation: totale / tot"
+   ],
+   "CANNOT_USE_FOR": [
+    "being decomposed into active + damaging. Measured on 78,008 visits: attiva + dannosa == totale in 55.67%, is LESS in 44.33%, and is greater in 1 visit. So a component exists that is counted in totale and in neither of the other two.",
+    "being read as a percentage directly, unless tot == 100"
+   ],
+   "EVIDENCE": "totale >= max(attiva, dannosa) in 99.995% of visits and totale >= attiva + dannosa in 99.9987%. The source declares, in the same schema, the stage columns u (Uova, eggs), fu (fori di uscita, exit holes) and ps (punture sterili, sterile stings) - components that are infestation but neither still-alive nor damaging. That is a plausible reading of the gap and it is NOT proved here: vars 2 to 11 and 21 were never collected, so the composition of totale is UNKNOWN from the bytes on disk.",
+   "WHAT_WOULD_SETTLE_IT": "collect id_survey_var 2,3,4,5,6,7,8,9,10,11,21 for the same visits and test the identity stage by stage",
+   "QUALITY": {"n_rows": 79251, "n_null": 1241, "negative_values": 4, "exceeds_sample_size": 141}
+  }
+ ],
+
+ "DECLARED_BY_THE_SOURCE_BUT_NEVER_COLLECTED": {
+  "2": "u - Uova (eggs)",
+  "3": "l1v - larval stage 1, alive",
+  "4": "l1m - larval stage 1, dead",
+  "5": "l2v", "6": "l2m", "7": "l3v", "8": "l3m",
+  "9": "pv - pupa alive", "10": "pm - pupa dead",
+  "11": "fu - fori di uscita (exit holes)",
+  "21": "ps - punture sterili (sterile stings)",
+  "CONSEQUENCE": "the composition of `totale` cannot be settled, and no stage-level statement may be made"
+ },
+
+ "UNIT_TRAP": {
+  "WHAT": "The source attaches a colour legend to attiva, dannosa and totale whose labels are PERCENTAGES: 0 = 'Nessuna Infestazione', 0.01 = '0-6%' (green), 6 = '7-9%' (yellow), 10 = '>=10%' (red). The thresholds are compared against the RAW VALUE.",
+  "WHY_IT_WORKS_ANYWAY": "because the protocol samples 100 olives: tot == 100 in 73,499 of 78,008 visits (94.2%), and there a count out of 100 IS the percentage",
+  "WHERE_IT_BREAKS": "in the other 4,509 visits (5.8%) tot is 0, 50, 150, 200, 300, 80, 99, 101, 102 and so on. Reading the raw value as a percentage there is simply wrong - a dannosa of 6 out of 200 drupes is 3%, which the legend would paint yellow.",
+  "RULE_ADOPTED": "this engine NEVER reads the raw value as a percentage. It computes value / tot, refuses when tot <= 0, and applies the source's bands to the computed rate expressed in percent."
+ },
+
+ "SOURCE_ACTION_BANDS": {
+  "APPLIES_TO": [-1001, -1002, -1003],
+  "BANDS": [
+   {"from_pct": 0, "to_pct": 0, "label": "Nessuna Infestazione", "colour": "#FFFFFF"},
+   {"from_pct": 0.01, "to_pct": 6, "label": "0-6%", "colour": "#4CAF50", "meaning": "green"},
+   {"from_pct": 6, "to_pct": 10, "label": "7-9%", "colour": "#FFEB3B", "meaning": "yellow"},
+   {"from_pct": 10, "to_pct": null, "label": ">=10%", "colour": "#F44336", "meaning": "red"}
+  ],
+  "EVIDENCE": "collection_index.json, vars[-1001/-1002/-1003].json.style, served by the source",
+  "WHY_IT_MATTERS": "this is an ABSOLUTE scale the source itself publishes. A percentile against the archive's own past says whether a reading is unusual; this says whether it is large. Both must be printed, and the previous pilot printed only the first."
+ },
+
+ "SANITY_RULES_A_VISIT_MUST_PASS": {
+  "tot_gt_0": "a rate needs a denominator",
+  "value_not_negative": "a count of drupes cannot be negative",
+  "value_le_tot": "a count of infested drupes cannot exceed the drupes sampled",
+  "MEASURED_FAILURE_RATE": "2,444 of 78,008 visits (3.13%) fail at least one, concentrated in 2006-2019 (253 in 2006, 271 in 2007) and nearly gone since 2020 (21 in 2020, 13 in 2021, 2 in 2022, 8 in 2023, 16 in 2025, 3 in 2026)",
+  "RULE_ADOPTED": "a visit that fails any of these is EXCLUDED from every rate and COUNTED in the output, never silently dropped"
+ },
+
+ "WHAT_THIS_SHEET_DOES_NOT_ESTABLISH": [
+  "the composition of `totale`",
+  "whether a grove was treated between visits: the schema has no defence column, and the collector requested difesa='all', so the regime is not on disk",
+  "anything about groves that were not visited",
+  "any threshold of economic damage - the source's bands are the source's, and this engine reports them as the source's, not as ADAMA's"
+ ]
+}

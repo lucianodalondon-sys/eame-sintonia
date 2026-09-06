@@ -1,0 +1,3518 @@
+{
+ "loaded": {
+  "AS_OF": "2026-09-06",
+  "VISIT_KEY": [
+   "id_field",
+   "date"
+  ],
+  "n_visits": 79251,
+  "n_visits_usable_for_rates": 75600,
+  "n_rows_dropped_because_dated_after_as_of": 0,
+  "exclusions": {
+   "count_exceeds_sample:ACTIVE_INFESTATION_COUNT": 17,
+   "count_exceeds_sample:DAMAGING_INFESTATION_COUNT": 9,
+   "count_exceeds_sample:TOTAL_INFESTATION_COUNT": 89,
+   "denominator_missing": 177,
+   "denominator_zero_or_negative": 3381,
+   "negative_count:ACTIVE_INFESTATION_COUNT": 2,
+   "negative_count:DAMAGING_INFESTATION_COUNT": 4,
+   "negative_count:TOTAL_INFESTATION_COUNT": 4
+  },
+  "provenance": {
+   "SAMPLE_SIZE / DENOMINATOR": {
+    "source_variable": 1,
+    "source_label": "Tot",
+    "source_description": "Olive campionate",
+    "files": [
+     {
+      "file": "c2_s1_v1_2006.json",
+      "sha256": "fbb5d52290489078b5a400cc924a424293af2b98ddeb50fb6172a2f7a34c9d8e",
+      "bytes": 1647824
+     },
+     {
+      "file": "c2_s1_v1_2007.json",
+      "sha256": "46df5fa812eb45b9d82fdd5673ca3247f8a02692157b48f3e371026e9764ca62",
+      "bytes": 1265041
+     },
+     {
+      "file": "c2_s1_v1_2008.json",
+      "sha256": "cc18d20cde63b8a7db37992e882a3874c7131ae7c3cd4dc67c624c3c97223641",
+      "bytes": 1442444
+     },
+     {
+      "file": "c2_s1_v1_2009.json",
+      "sha256": "e5e421742a504a806c3710724b916b920969cf06401b2b126d970d071caf749c",
+      "bytes": 1690923
+     },
+     {
+      "file": "c2_s1_v1_2010.json",
+      "sha256": "a58dac073e93bc98220ad3c29455ac400bca2b5523b126ade49631430e3289a1",
+      "bytes": 1485747
+     },
+     {
+      "file": "c2_s1_v1_2011.json",
+      "sha256": "96ec2efc47420fba0e9b69d969f0ebdf871544a3bf7e820103e7256333ce327b",
+      "bytes": 1537054
+     },
+     {
+      "file": "c2_s1_v1_2012.json",
+      "sha256": "51d97c856bec90b5a15c711e5abbc40ea8885dbc07e7a4d30c3c4ea4ccdc1ad7",
+      "bytes": 845308
+     },
+     {
+      "file": "c2_s1_v1_2013.json",
+      "sha256": "adb3e7a50d7e97e3229594354f953a2434aedf708c3f7daa69f00b157888d1c7",
+      "bytes": 922405
+     },
+     {
+      "file": "c2_s1_v1_2014.json",
+      "sha256": "731840693dc21558721fd42f858c4273b8bf0df40d25eccfa5bdd48dd3be6f9f",
+      "bytes": 801998
+     },
+     {
+      "file": "c2_s1_v1_2015.json",
+      "sha256": "9e946d5f50c86718132484f00028e7f960963d0a324094236956660099e6dd40",
+      "bytes": 1526145
+     },
+     {
+      "file": "c2_s1_v1_2016.json",
+      "sha256": "05b4990d35a5c2ccacced0a843a8f8a56a5b8699f301f41263976986c191e187",
+      "bytes": 1375000
+     },
+     {
+      "file": "c2_s1_v1_2017.json",
+      "sha256": "5ad73964ce1318c11b3bab17d55bb3e10d8417b81edfcfc78e2c20cf20e82f63",
+      "bytes": 1964831
+     },
+     {
+      "file": "c2_s1_v1_2018.json",
+      "sha256": "3a71a9591576ab473c333b00d46db13f7fbf0f58d354f7839a04c69cd509d557",
+      "bytes": 1871506
+     },
+     {
+      "file": "c2_s1_v1_2019.json",
+      "sha256": "7ff85605afeb0161695dfc945bb36fc1c909e16284c76b455b6218d79b3deabe",
+      "bytes": 1552460
+     },
+     {
+      "file": "c2_s1_v1_2020.json",
+      "sha256": "046c30a13ab172bd29fa8d668c55d7ea3a02d9349c2043a7a1abc617230451b5",
+      "bytes": 1726405
+     },
+     {
+      "file": "c2_s1_v1_2021.json",
+      "sha256": "a0c081299b207289ba09266c665bfec55fe8d285eba273c3d44631b3bf3d2df0",
+      "bytes": 1527714
+     },
+     {
+      "file": "c2_s1_v1_2022.json",
+      "sha256": "c749bca579eec92009da1cf45a4831e65057df67524982757f5314edaa8ee6e8",
+      "bytes": 1497443
+     },
+     {
+      "file": "c2_s1_v1_2023.json",
+      "sha256": "d78743b4fe29e8acf811ce7c00bd9b99e9ab9fe471d61660ab33dc5ecd1910ba",
+      "bytes": 1173932
+     },
+     {
+      "file": "c2_s1_v1_2024.json",
+      "sha256": "8165206194e839581b87766f9ebba05e085ae5c9298eff7a79a2a381f6917e53",
+      "bytes": 1551682
+     },
+     {
+      "file": "c2_s1_v1_2025.json",
+      "sha256": "6c0b922a122b59bea8110c61e3d3625c5c96687433ada1a1e8b84b5fab99c549",
+      "bytes": 1417812
+     },
+     {
+      "file": "c2_s1_v1_2026.json",
+      "sha256": "bd365de8e4f0ce19eb4ebd82198752dbcba9d60d53f2b8531c2513bb6b978233",
+      "bytes": 1189749
+     }
+    ]
+   },
+   "ACTIVE_INFESTATION_COUNT": {
+    "source_variable": -1001,
+    "source_label": "Attiva",
+    "source_description": "Infestazione Attiva",
+    "files": [
+     {
+      "file": "c2_s1_v-1001_2006.json",
+      "sha256": "4278214b8d37efddc65c5f50d4d650225cf81e1790d76badaa9cc675766f24b3",
+      "bytes": 1639907
+     },
+     {
+      "file": "c2_s1_v-1001_2007.json",
+      "sha256": "3aa3f966b6facc2e468a550a2adb7236c447377e26ec376bfbeb0582df6b92a1",
+      "bytes": 1259859
+     },
+     {
+      "file": "c2_s1_v-1001_2008.json",
+      "sha256": "e4cb880cc699c319bc30622c57de8395ba98fbee2c284d8444bfb0220d6b7bd7",
+      "bytes": 1435017
+     },
+     {
+      "file": "c2_s1_v-1001_2009.json",
+      "sha256": "725dc392bb3d96d0d751d127b2794c916e2a344a14c426b83e34db743025c726",
+      "bytes": 1682269
+     },
+     {
+      "file": "c2_s1_v-1001_2010.json",
+      "sha256": "f2433368d2137e80c9c73da3880d1413c1eeccd77473b3b4caf869d1e69eceb8",
+      "bytes": 1478249
+     },
+     {
+      "file": "c2_s1_v-1001_2011.json",
+      "sha256": "c12f3bb29b7898200a277648d531e364e7d5e0daab932256cc68a032656a83b8",
+      "bytes": 1529503
+     },
+     {
+      "file": "c2_s1_v-1001_2012.json",
+      "sha256": "4f539135fdbe198f9aba42dfd36d9e6f9969ab561db8a73be53f39615e1878fd",
+      "bytes": 840844
+     },
+     {
+      "file": "c2_s1_v-1001_2013.json",
+      "sha256": "7886237bf0b9872a08cbebae6b1b75d80fc70be32f6dbfff69110060d9123ed0",
+      "bytes": 918195
+     },
+     {
+      "file": "c2_s1_v-1001_2014.json",
+      "sha256": "5a2a64badb20659ed25c296362eba44ef407d73876373c10df4f96b2fe976f65",
+      "bytes": 798747
+     },
+     {
+      "file": "c2_s1_v-1001_2015.json",
+      "sha256": "139d3f6a9260d7b57e04cf08e411fa30728d205d7a46b31770c71f39008cdc9e",
+      "bytes": 1518649
+     },
+     {
+      "file": "c2_s1_v-1001_2016.json",
+      "sha256": "339e6bbc29a3ce33004c5dc791a93b214d5563337c786f78e7975ffb8dc93057",
+      "bytes": 1368980
+     },
+     {
+      "file": "c2_s1_v-1001_2017.json",
+      "sha256": "f5a6e6e13bffccc403f36d505f39433eebba82dbd4ffbc5819db12fe06bfd498",
+      "bytes": 1955055
+     },
+     {
+      "file": "c2_s1_v-1001_2018.json",
+      "sha256": "44eb9fb58edbc50db64fe3f2126dcb6b3333799c319c9e5faf9127ec3f84b704",
+      "bytes": 1862054
+     },
+     {
+      "file": "c2_s1_v-1001_2019.json",
+      "sha256": "293f427dfae419ad9bb4268b7700a64794f9c77281bbb5ec0868be201e399ecb",
+      "bytes": 1545358
+     },
+     {
+      "file": "c2_s1_v-1001_2020.json",
+      "sha256": "07aa9f182ffd7953ffe5c6c58bbdec3d56a693a8a11f6f54fe97fc68769346b8",
+      "bytes": 1727012
+     },
+     {
+      "file": "c2_s1_v-1001_2021.json",
+      "sha256": "b3eec218fc8faf0b5d794ebcd60003e3ab0bd4280c1a2ec967749b7953e279f7",
+      "bytes": 1528483
+     },
+     {
+      "file": "c2_s1_v-1001_2022.json",
+      "sha256": "64ccc8c06cc58e2a35efff8ebdc71424155f3d7d82f084c93c665958b6bb9156",
+      "bytes": 1497903
+     },
+     {
+      "file": "c2_s1_v-1001_2023.json",
+      "sha256": "59980d2a78a5a67db1ca044a6db5cc5e6b8ee38cbf0ecda1f77c786716c64836",
+      "bytes": 1174504
+     },
+     {
+      "file": "c2_s1_v-1001_2024.json",
+      "sha256": "b7092cba8e9eb8eb0d5f9df6f8698103208425596868f459c09e9be13238136a",
+      "bytes": 1551895
+     },
+     {
+      "file": "c2_s1_v-1001_2025.json",
+      "sha256": "0023a15f86b8057f16a791b2d5dcc8f78a1a79c1ee969f7c9cfb0e4bf5e17850",
+      "bytes": 1419036
+     },
+     {
+      "file": "c2_s1_v-1001_2026.json",
+      "sha256": "0320dac27e4c2f14cb36de5142bc71ec7bcf4ca17c74d1ccd62d2ac098cf30b3",
+      "bytes": 1189871
+     }
+    ]
+   },
+   "DAMAGING_INFESTATION_COUNT": {
+    "source_variable": -1002,
+    "source_label": "Dannosa",
+    "source_description": "Infestazione Dannosa",
+    "files": [
+     {
+      "file": "c2_s1_v-1002_2006.json",
+      "sha256": "e3251d27cab5098365026dc6ff372299b1dcf78714c83df1b0297ec97035747a",
+      "bytes": 1639737
+     },
+     {
+      "file": "c2_s1_v-1002_2007.json",
+      "sha256": "5ce235e1e9df40c695ddeba36d62b3ca07e8cb2d9394911a33ed997cccd2ef39",
+      "bytes": 1259648
+     },
+     {
+      "file": "c2_s1_v-1002_2008.json",
+      "sha256": "dd4872343529f5d33057610160baa46252bf24ddc0cd282ae756c9be30de8cfc",
+      "bytes": 1434956
+     },
+     {
+      "file": "c2_s1_v-1002_2009.json",
+      "sha256": "e126f32401458bfcc793b3ee6e306f5da74c67038641c72c35c50957a49dc8e4",
+      "bytes": 1682164
+     },
+     {
+      "file": "c2_s1_v-1002_2010.json",
+      "sha256": "a9c6152f8d919c5bbf0f63591397bdfa01de21ad760a368233f051d5b1b353f4",
+      "bytes": 1478117
+     },
+     {
+      "file": "c2_s1_v-1002_2011.json",
+      "sha256": "6e81efa431c497159a24d86b5163a24a1fc479ebd0fe07fe2d1a5e8653b673ac",
+      "bytes": 1529367
+     },
+     {
+      "file": "c2_s1_v-1002_2012.json",
+      "sha256": "d2ae5f782c4b954a57ea2530d99e248287606f3f2b061cae663325a45a5baf4c",
+      "bytes": 840826
+     },
+     {
+      "file": "c2_s1_v-1002_2013.json",
+      "sha256": "d44c1f0a79aca99f1be9c60aef3ca9eaaab20c064c6791e138db578605824c1b",
+      "bytes": 918085
+     },
+     {
+      "file": "c2_s1_v-1002_2014.json",
+      "sha256": "32627281b7a08c1a9b578d2f21a76b640db7df6ae807f347fece5d8fb328bd07",
+      "bytes": 798544
+     },
+     {
+      "file": "c2_s1_v-1002_2015.json",
+      "sha256": "786066626c93b1979eeb1b174ef06b21e1074ab95fce108f963992d4787da338",
+      "bytes": 1518542
+     },
+     {
+      "file": "c2_s1_v-1002_2016.json",
+      "sha256": "aff4f620641f09cd874cfab8279dfb3a90a3feabdf4556bf5ae9c1c25bb459f2",
+      "bytes": 1368668
+     },
+     {
+      "file": "c2_s1_v-1002_2017.json",
+      "sha256": "862a10f27c0e6a8be3ac552ffea6d29806f1ce158b3b891babcb9f2ecdda6b50",
+      "bytes": 1954923
+     },
+     {
+      "file": "c2_s1_v-1002_2018.json",
+      "sha256": "8d2a25951d2796aab5bdcaa8cfec8485dca61cc4a31d465a44f3877b8c43c273",
+      "bytes": 1861925
+     },
+     {
+      "file": "c2_s1_v-1002_2019.json",
+      "sha256": "3054a9c256a12b135e14cc5dd4c66ab358fe43a57ef8dfba417ee95be445f537",
+      "bytes": 1545230
+     },
+     {
+      "file": "c2_s1_v-1002_2020.json",
+      "sha256": "f49625025982781202e6c55e07d943a0e5389441f732b3fa9d9deb294a311bcb",
+      "bytes": 1726805
+     },
+     {
+      "file": "c2_s1_v-1002_2021.json",
+      "sha256": "5bd57164dd5124b0bb746be4ab5d41494b5bbad9b31f2d38a2e0a21a9d6ccf4c",
+      "bytes": 1528260
+     },
+     {
+      "file": "c2_s1_v-1002_2022.json",
+      "sha256": "35706629b5578d1e06f955211bc163e97f14e3c66257813e4740a81d4f54847c",
+      "bytes": 1497782
+     },
+     {
+      "file": "c2_s1_v-1002_2023.json",
+      "sha256": "d80ff447f4a6e7b04e597db0f8dd2a11558a1843fe2e0b3b081e5d1a61e52fe9",
+      "bytes": 1174474
+     },
+     {
+      "file": "c2_s1_v-1002_2024.json",
+      "sha256": "4ca9521531d2a8ac7eb5ff9087bf30cd8380c4852d3f7988960448a94b90e8de",
+      "bytes": 1551833
+     },
+     {
+      "file": "c2_s1_v-1002_2025.json",
+      "sha256": "7efc96a3f161bd82223456fe392784fe3a45bffb1634ffcc5591397c5449288c",
+      "bytes": 1419028
+     },
+     {
+      "file": "c2_s1_v-1002_2026.json",
+      "sha256": "249ce769b628d19428bc5b55ab9e56bed6b6413b320605bafcafb84b92430002",
+      "bytes": 1189849
+     }
+    ]
+   },
+   "TOTAL_INFESTATION_COUNT": {
+    "source_variable": -1003,
+    "source_label": "Totale",
+    "source_description": null,
+    "files": [
+     {
+      "file": "c2_s1_v-1003_2006.json",
+      "sha256": "42f0d796a4ebeb70c26c226eadf0bf3bad31100a2d766d3a2e13764f123d0741",
+      "bytes": 1640609
+     },
+     {
+      "file": "c2_s1_v-1003_2007.json",
+      "sha256": "80234dbfd4dda65f97f61cd035b77b6c368f27c84aaae0947dd1dfbd63708a9e",
+      "bytes": 1261060
+     },
+     {
+      "file": "c2_s1_v-1003_2008.json",
+      "sha256": "ee45c03618c9223c561ce2581d80433b750ffe8a288dbf2c7ebad2393b4a1a7c",
+      "bytes": 1435307
+     },
+     {
+      "file": "c2_s1_v-1003_2009.json",
+      "sha256": "7fcf09d1a58d69d0b4de2bf1e37315676291a031938fac2b55d57b1e28e27a07",
+      "bytes": 1682937
+     },
+     {
+      "file": "c2_s1_v-1003_2010.json",
+      "sha256": "84bc64532a33ebfbc0cfef2b90f6dfe3e7275b56324cbb2952f832112ee7e91d",
+      "bytes": 1478859
+     },
+     {
+      "file": "c2_s1_v-1003_2011.json",
+      "sha256": "90d4ac61152944782fa2519d2e4364d8e80a632ae24c79beeb06f743dbaea36d",
+      "bytes": 1530793
+     },
+     {
+      "file": "c2_s1_v-1003_2012.json",
+      "sha256": "4c5423c928a6795d7af504ad0cadfbde7e1bc3912c5fbf076bcf2d0b9fd1a9cf",
+      "bytes": 840928
+     },
+     {
+      "file": "c2_s1_v-1003_2013.json",
+      "sha256": "635a3a2c9d12907d388c291370ce51785e3af3ddfbc199855c48ec94a2e3f316",
+      "bytes": 918527
+     },
+     {
+      "file": "c2_s1_v-1003_2014.json",
+      "sha256": "c62d56261335d01d1d50b374fd4bc50c211129655f01f72e1cf1f81b460f68df",
+      "bytes": 799516
+     },
+     {
+      "file": "c2_s1_v-1003_2015.json",
+      "sha256": "12cb4c413304e1660b9178822eb53cca6532896d0f3a3fa786dfb2bd0406f497",
+      "bytes": 1519159
+     },
+     {
+      "file": "c2_s1_v-1003_2016.json",
+      "sha256": "482d44e9eaa500eb6d1c3cd3746731a67f909ea4ad7e18d28df339d7734ff5e5",
+      "bytes": 1370107
+     },
+     {
+      "file": "c2_s1_v-1003_2017.json",
+      "sha256": "86fcc11dae30abc01a0ea7a28e68c799b06a5f20b1a98f1571fdc2fa1176299f",
+      "bytes": 1955593
+     },
+     {
+      "file": "c2_s1_v-1003_2018.json",
+      "sha256": "896ac8f04010b3671d42323e0a301e92c0b051b33d69c4ae4929dbbbb25ce809",
+      "bytes": 1862477
+     },
+     {
+      "file": "c2_s1_v-1003_2019.json",
+      "sha256": "88b274b8e5c0156419b99201ea1b3627d31320887972e470b816426e796c7165",
+      "bytes": 1546530
+     },
+     {
+      "file": "c2_s1_v-1003_2020.json",
+      "sha256": "d93923de389109924cf7a46d6dcc8e0005f4a0e8577a2994d9a9a9d19835b64b",
+      "bytes": 1728336
+     },
+     {
+      "file": "c2_s1_v-1003_2021.json",
+      "sha256": "666986d75e39f140a1a598a4301df4aa95437344aa81eff69499140444ee076a",
+      "bytes": 1529654
+     },
+     {
+      "file": "c2_s1_v-1003_2022.json",
+      "sha256": "f314af18ce5bfd1020abbc65d70c1d1123e53bc047da5fbe1064e21c7775351f",
+      "bytes": 1498224
+     },
+     {
+      "file": "c2_s1_v-1003_2023.json",
+      "sha256": "630fd409c6dd8b0692ad698db773731e4676f6dba1d1c884b3354d6e2a30cb2b",
+      "bytes": 1175584
+     },
+     {
+      "file": "c2_s1_v-1003_2024.json",
+      "sha256": "4ea7eb7c4c3bdcf57aced0332091928a18b248a863f374199c35ef80311180ba",
+      "bytes": 1552284
+     },
+     {
+      "file": "c2_s1_v-1003_2025.json",
+      "sha256": "3d06cdd05f66c11a79f786a249f4ba7dedc28cce0e5d5cff68f501fc7ba8538f",
+      "bytes": 1420319
+     },
+     {
+      "file": "c2_s1_v-1003_2026.json",
+      "sha256": "be6320aba1ea683a2de14f46c88b9c7170d24a98fbb99ff0b4c81d79b0474c86",
+      "bytes": 1189996
+     }
+    ]
+   }
+  }
+ },
+ "cells": [
+  {
+   "country": "Italy",
+   "region": "Toscana",
+   "province": "Arezzo",
+   "as_of": "2026-09-06",
+   "crop": {
+    "canonical_id": "CROP_OLIVE",
+    "source_label": "Olivo",
+    "evidence": "source crop id 2"
+   },
+   "problem": {
+    "type": "PEST",
+    "canonical_id": "PEST_BACTROCERA_OLEAE",
+    "source_label": "Infestazione mosca dell'olivo",
+    "evidence": "source survey_schema id 1"
+   },
+   "observation": {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "unit": "percent of sampled drupes",
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "rate_pct": 0.1636,
+    "infested_drupes": 9,
+    "drupes_sampled": 5500,
+    "n_visits": 55,
+    "n_sites": 17,
+    "n_orgs": 2,
+    "n_visits_excluded_by_sanity_rules": 0,
+    "first_observation": "2026-08-12",
+    "last_observation": "2026-09-02",
+    "per_visit_rate_pct_median": 0.0,
+    "per_visit_rate_pct_max": 2.0,
+    "value_pct": 0.1636,
+    "source_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    }
+   },
+   "analysis": {
+    "baseline_seasons": [
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "baseline_n": 20,
+    "baseline_rate_pct_median": 0.6418,
+    "baseline_rate_pct_min": 0.0923,
+    "baseline_rate_pct_max": 5.4206,
+    "baseline_detail": [
+     {
+      "season": 2006,
+      "rate_pct": 0.437,
+      "n_visits": 115,
+      "n_sites": 48,
+      "drupes_sampled": 11212
+     },
+     {
+      "season": 2007,
+      "rate_pct": 3.9109,
+      "n_visits": 101,
+      "n_sites": 32,
+      "drupes_sampled": 10100
+     },
+     {
+      "season": 2008,
+      "rate_pct": 0.6168,
+      "n_visits": 107,
+      "n_sites": 32,
+      "drupes_sampled": 10700
+     },
+     {
+      "season": 2009,
+      "rate_pct": 0.2429,
+      "n_visits": 140,
+      "n_sites": 40,
+      "drupes_sampled": 14000
+     },
+     {
+      "season": 2010,
+      "rate_pct": 1.0,
+      "n_visits": 40,
+      "n_sites": 20,
+      "drupes_sampled": 4000
+     },
+     {
+      "season": 2011,
+      "rate_pct": 0.225,
+      "n_visits": 120,
+      "n_sites": 40,
+      "drupes_sampled": 12000
+     },
+     {
+      "season": 2012,
+      "rate_pct": 0.0923,
+      "n_visits": 65,
+      "n_sites": 25,
+      "drupes_sampled": 6500
+     },
+     {
+      "season": 2013,
+      "rate_pct": 0.9091,
+      "n_visits": 99,
+      "n_sites": 25,
+      "drupes_sampled": 9900
+     },
+     {
+      "season": 2014,
+      "rate_pct": 3.0118,
+      "n_visits": 85,
+      "n_sites": 25,
+      "drupes_sampled": 8500
+     },
+     {
+      "season": 2015,
+      "rate_pct": 1.2521,
+      "n_visits": 119,
+      "n_sites": 39,
+      "drupes_sampled": 11900
+     },
+     {
+      "season": 2016,
+      "rate_pct": 5.4206,
+      "n_visits": 126,
+      "n_sites": 38,
+      "drupes_sampled": 12600
+     },
+     {
+      "season": 2017,
+      "rate_pct": 0.1644,
+      "n_visits": 73,
+      "n_sites": 35,
+      "drupes_sampled": 7300
+     },
+     {
+      "season": 2018,
+      "rate_pct": 0.3091,
+      "n_visits": 55,
+      "n_sites": 14,
+      "drupes_sampled": 5500
+     },
+     {
+      "season": 2019,
+      "rate_pct": 2.1736,
+      "n_visits": 121,
+      "n_sites": 38,
+      "drupes_sampled": 12100
+     },
+     {
+      "season": 2020,
+      "rate_pct": 0.6667,
+      "n_visits": 30,
+      "n_sites": 12,
+      "drupes_sampled": 3000
+     },
+     {
+      "season": 2021,
+      "rate_pct": 0.4375,
+      "n_visits": 48,
+      "n_sites": 12,
+      "drupes_sampled": 4800
+     },
+     {
+      "season": 2022,
+      "rate_pct": 0.1667,
+      "n_visits": 48,
+      "n_sites": 12,
+      "drupes_sampled": 4800
+     },
+     {
+      "season": 2023,
+      "rate_pct": 2.4286,
+      "n_visits": 49,
+      "n_sites": 15,
+      "drupes_sampled": 4900
+     },
+     {
+      "season": 2024,
+      "rate_pct": 0.25,
+      "n_visits": 100,
+      "n_sites": 28,
+      "drupes_sampled": 10000
+     },
+     {
+      "season": 2025,
+      "rate_pct": 1.8564,
+      "n_visits": 105,
+      "n_sites": 36,
+      "drupes_sampled": 10596
+     }
+    ],
+    "percentile_against_own_history": 0.05,
+    "historical_state": "TYPICAL",
+    "historical_reason": "on the groves shared with each prior season, this window reads lower than 4 of 6 of them and higher than 2",
+    "panel_overlap_with_baseline_seasons": {
+     "median_groves_shared": 2.0,
+     "min": 0,
+     "max": 15,
+     "seasons_sharing_at_least_the_declared_minimum": 6,
+     "of_seasons": 20,
+     "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
+    },
+    "matched_panel_comparisons": [
+     {
+      "season": 2020,
+      "n_groves_shared": 9,
+      "rate_now_on_those_groves_pct": 0.3462,
+      "rate_then_on_those_groves_pct": 0.5909,
+      "drupes_now": 2600,
+      "drupes_then": 2200
+     },
+     {
+      "season": 2021,
+      "n_groves_shared": 9,
+      "rate_now_on_those_groves_pct": 0.3462,
+      "rate_then_on_those_groves_pct": 0.4865,
+      "drupes_now": 2600,
+      "drupes_then": 3700
+     },
+     {
+      "season": 2022,
+      "n_groves_shared": 10,
+      "rate_now_on_those_groves_pct": 0.3103,
+      "rate_then_on_those_groves_pct": 0.15,
+      "drupes_now": 2900,
+      "drupes_then": 4000
+     },
+     {
+      "season": 2023,
+      "n_groves_shared": 13,
+      "rate_now_on_those_groves_pct": 0.2195,
+      "rate_then_on_those_groves_pct": 2.5122,
+      "drupes_now": 4100,
+      "drupes_then": 4100
+     },
+     {
+      "season": 2024,
+      "n_groves_shared": 14,
+      "rate_now_on_those_groves_pct": 0.2,
+      "rate_then_on_those_groves_pct": 0.0851,
+      "drupes_now": 4500,
+      "drupes_then": 4700
+     },
+     {
+      "season": 2025,
+      "n_groves_shared": 15,
+      "rate_now_on_those_groves_pct": 0.1837,
+      "rate_then_on_those_groves_pct": 1.6744,
+      "drupes_now": 4900,
+      "drupes_then": 4300
+     }
+    ],
+    "matched_panel_seasons": 6,
+    "matched_seasons_now_is_higher_than_then": 2,
+    "matched_seasons_now_is_lower_than_then": 4,
+    "historical_state_matched": "TYPICAL",
+    "historical_matched_reason": "on the groves shared with each prior season, this window reads lower than 4 of 6 of them and higher than 2",
+    "historical_state_unmatched": "BELOW_HISTORICAL",
+    "observed_trend": "UNKNOWN",
+    "observed_trend_reason": "2 usable consecutive windows, below the declared minimum of 3",
+    "observed_trend_points": [
+     {
+      "window_end": "2026-08-09",
+      "rate_pct": 0.0185,
+      "n_visits": 54,
+      "drupes_sampled": 5400
+     },
+     {
+      "window_end": "2026-09-06",
+      "rate_pct": 0.1636,
+      "n_visits": 55,
+      "drupes_sampled": 5500
+     }
+    ]
+   },
+   "quality": {
+    "semantic_validity": "PROVED_BY_SOURCE_METADATA",
+    "denominator_validity": "PRESENT",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF",
+    "n_visits_excluded_by_sanity_rules": 0,
+    "historical_comparison_is_matched_panel": true,
+    "matched_panel_seasons": 6,
+    "observation_publishable": true,
+    "historical_comparison_publishable": true,
+    "publishable": true,
+    "publishable_reason": "enough visits and enough sampled drupes for the observation"
+   },
+   "params": {
+    "WINDOW_DAYS": 28,
+    "MIN_VISITS": 8,
+    "MIN_DRUPES": 400,
+    "MIN_BASELINE_SEASONS": 5,
+    "HIGH_PCTL": 0.8,
+    "LOW_PCTL": 0.2,
+    "TREND_MIN_WINDOWS": 3,
+    "TREND_MIN_ABS_CHANGE_PCT": 1.0,
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+   }
+  },
+  {
+   "country": "Italy",
+   "region": "Toscana",
+   "province": "Firenze",
+   "as_of": "2026-09-06",
+   "crop": {
+    "canonical_id": "CROP_OLIVE",
+    "source_label": "Olivo",
+    "evidence": "source crop id 2"
+   },
+   "problem": {
+    "type": "PEST",
+    "canonical_id": "PEST_BACTROCERA_OLEAE",
+    "source_label": "Infestazione mosca dell'olivo",
+    "evidence": "source survey_schema id 1"
+   },
+   "observation": {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "unit": "percent of sampled drupes",
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "rate_pct": 0.0664,
+    "infested_drupes": 16,
+    "drupes_sampled": 24100,
+    "n_visits": 241,
+    "n_sites": 73,
+    "n_orgs": 4,
+    "n_visits_excluded_by_sanity_rules": 2,
+    "first_observation": "2026-08-10",
+    "last_observation": "2026-09-02",
+    "per_visit_rate_pct_median": 0.0,
+    "per_visit_rate_pct_max": 2.0,
+    "value_pct": 0.0664,
+    "source_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    }
+   },
+   "analysis": {
+    "baseline_seasons": [
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "baseline_n": 20,
+    "baseline_rate_pct_median": 1.4073,
+    "baseline_rate_pct_min": 0.1286,
+    "baseline_rate_pct_max": 12.5344,
+    "baseline_detail": [
+     {
+      "season": 2006,
+      "rate_pct": 1.5625,
+      "n_visits": 131,
+      "n_sites": 38,
+      "drupes_sampled": 13120
+     },
+     {
+      "season": 2007,
+      "rate_pct": 12.5344,
+      "n_visits": 101,
+      "n_sites": 38,
+      "drupes_sampled": 9797
+     },
+     {
+      "season": 2008,
+      "rate_pct": 0.9796,
+      "n_visits": 143,
+      "n_sites": 48,
+      "drupes_sampled": 14190
+     },
+     {
+      "season": 2009,
+      "rate_pct": 0.712,
+      "n_visits": 184,
+      "n_sites": 51,
+      "drupes_sampled": 18400
+     },
+     {
+      "season": 2010,
+      "rate_pct": 0.9412,
+      "n_visits": 187,
+      "n_sites": 49,
+      "drupes_sampled": 18700
+     },
+     {
+      "season": 2011,
+      "rate_pct": 2.0349,
+      "n_visits": 249,
+      "n_sites": 76,
+      "drupes_sampled": 25800
+     },
+     {
+      "season": 2012,
+      "rate_pct": 0.1286,
+      "n_visits": 140,
+      "n_sites": 35,
+      "drupes_sampled": 14000
+     },
+     {
+      "season": 2013,
+      "rate_pct": 1.1594,
+      "n_visits": 138,
+      "n_sites": 35,
+      "drupes_sampled": 13800
+     },
+     {
+      "season": 2014,
+      "rate_pct": 12.009,
+      "n_visits": 111,
+      "n_sites": 35,
+      "drupes_sampled": 11100
+     },
+     {
+      "season": 2015,
+      "rate_pct": 2.1403,
+      "n_visits": 221,
+      "n_sites": 61,
+      "drupes_sampled": 22100
+     },
+     {
+      "season": 2016,
+      "rate_pct": 7.7868,
+      "n_visits": 258,
+      "n_sites": 66,
+      "drupes_sampled": 25800
+     },
+     {
+      "season": 2017,
+      "rate_pct": 0.8146,
+      "n_visits": 257,
+      "n_sites": 66,
+      "drupes_sampled": 25410
+     },
+     {
+      "season": 2018,
+      "rate_pct": 0.8894,
+      "n_visits": 235,
+      "n_sites": 60,
+      "drupes_sampled": 23500
+     },
+     {
+      "season": 2019,
+      "rate_pct": 5.51,
+      "n_visits": 200,
+      "n_sites": 62,
+      "drupes_sampled": 20000
+     },
+     {
+      "season": 2020,
+      "rate_pct": 1.2521,
+      "n_visits": 242,
+      "n_sites": 65,
+      "drupes_sampled": 24200
+     },
+     {
+      "season": 2021,
+      "rate_pct": 3.0286,
+      "n_visits": 229,
+      "n_sites": 65,
+      "drupes_sampled": 22750
+     },
+     {
+      "season": 2022,
+      "rate_pct": 0.3843,
+      "n_visits": 268,
+      "n_sites": 78,
+      "drupes_sampled": 26800
+     },
+     {
+      "season": 2023,
+      "rate_pct": 6.5225,
+      "n_visits": 222,
+      "n_sites": 72,
+      "drupes_sampled": 22200
+     },
+     {
+      "season": 2024,
+      "rate_pct": 0.2867,
+      "n_visits": 286,
+      "n_sites": 79,
+      "drupes_sampled": 28600
+     },
+     {
+      "season": 2025,
+      "rate_pct": 2.8536,
+      "n_visits": 161,
+      "n_sites": 63,
+      "drupes_sampled": 16050
+     }
+    ],
+    "percentile_against_own_history": 0.0,
+    "historical_state": "BELOW_HISTORICAL",
+    "historical_reason": "on the groves shared with each prior season, this window reads lower than 14 of 14 of them and higher than 0",
+    "panel_overlap_with_baseline_seasons": {
+     "median_groves_shared": 19.0,
+     "min": 5,
+     "max": 51,
+     "seasons_sharing_at_least_the_declared_minimum": 14,
+     "of_seasons": 20,
+     "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
+    },
+    "matched_panel_comparisons": [
+     {
+      "season": 2012,
+      "n_groves_shared": 10,
+      "rate_now_on_those_groves_pct": 0.027,
+      "rate_then_on_those_groves_pct": 0.05,
+      "drupes_now": 3700,
+      "drupes_then": 4000
+     },
+     {
+      "season": 2013,
+      "n_groves_shared": 10,
+      "rate_now_on_those_groves_pct": 0.027,
+      "rate_then_on_those_groves_pct": 0.55,
+      "drupes_now": 3700,
+      "drupes_then": 4000
+     },
+     {
+      "season": 2014,
+      "n_groves_shared": 12,
+      "rate_now_on_those_groves_pct": 0.093,
+      "rate_then_on_those_groves_pct": 11.0,
+      "drupes_now": 4300,
+      "drupes_then": 4000
+     },
+     {
+      "season": 2015,
+      "n_groves_shared": 18,
+      "rate_now_on_those_groves_pct": 0.0597,
+      "rate_then_on_those_groves_pct": 2.4925,
+      "drupes_now": 6700,
+      "drupes_then": 6700
+     },
+     {
+      "season": 2016,
+      "n_groves_shared": 20,
+      "rate_now_on_those_groves_pct": 0.0548,
+      "rate_then_on_those_groves_pct": 6.0122,
+      "drupes_now": 7300,
+      "drupes_then": 8200
+     },
+     {
+      "season": 2017,
+      "n_groves_shared": 21,
+      "rate_now_on_those_groves_pct": 0.0909,
+      "rate_then_on_those_groves_pct": 0.8553,
+      "drupes_now": 7700,
+      "drupes_then": 7600
+     },
+     {
+      "season": 2018,
+      "n_groves_shared": 25,
+      "rate_now_on_those_groves_pct": 0.1075,
+      "rate_then_on_those_groves_pct": 1.04,
+      "drupes_now": 9300,
+      "drupes_then": 10000
+     },
+     {
+      "season": 2019,
+      "n_groves_shared": 27,
+      "rate_now_on_those_groves_pct": 0.0891,
+      "rate_then_on_those_groves_pct": 7.5116,
+      "drupes_now": 10100,
+      "drupes_then": 8600
+     },
+     {
+      "season": 2020,
+      "n_groves_shared": 29,
+      "rate_now_on_those_groves_pct": 0.1009,
+      "rate_then_on_those_groves_pct": 1.0991,
+      "drupes_now": 10900,
+      "drupes_then": 11100
+     },
+     {
+      "season": 2021,
+      "n_groves_shared": 28,
+      "rate_now_on_those_groves_pct": 0.1048,
+      "rate_then_on_those_groves_pct": 3.383,
+      "drupes_now": 10500,
+      "drupes_then": 9400
+     },
+     {
+      "season": 2022,
+      "n_groves_shared": 37,
+      "rate_now_on_those_groves_pct": 0.087,
+      "rate_then_on_those_groves_pct": 0.1704,
+      "drupes_now": 13800,
+      "drupes_then": 13500
+     },
+     {
+      "season": 2023,
+      "n_groves_shared": 36,
+      "rate_now_on_those_groves_pct": 0.0942,
+      "rate_then_on_those_groves_pct": 7.0446,
+      "drupes_now": 13800,
+      "drupes_then": 11200
+     },
+     {
+      "season": 2024,
+      "n_groves_shared": 43,
+      "rate_now_on_those_groves_pct": 0.0875,
+      "rate_then_on_those_groves_pct": 0.2,
+      "drupes_now": 16000,
+      "drupes_then": 17000
+     },
+     {
+      "season": 2025,
+      "n_groves_shared": 51,
+      "rate_now_on_those_groves_pct": 0.0794,
+      "rate_then_on_those_groves_pct": 2.2271,
+      "drupes_now": 18900,
+      "drupes_then": 13650
+     }
+    ],
+    "matched_panel_seasons": 14,
+    "matched_seasons_now_is_higher_than_then": 0,
+    "matched_seasons_now_is_lower_than_then": 14,
+    "historical_state_matched": "BELOW_HISTORICAL",
+    "historical_matched_reason": "on the groves shared with each prior season, this window reads lower than 14 of 14 of them and higher than 0",
+    "historical_state_unmatched": "BELOW_HISTORICAL",
+    "observed_trend": "STABLE_OBSERVED",
+    "observed_trend_reason": "0.0159% -> 0.156% -> 0.0664% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0505 percentage points. This describes windows that have already happened.",
+    "observed_trend_points": [
+     {
+      "window_end": "2026-07-12",
+      "rate_pct": 0.0159,
+      "n_visits": 63,
+      "drupes_sampled": 6300
+     },
+     {
+      "window_end": "2026-08-09",
+      "rate_pct": 0.156,
+      "n_visits": 250,
+      "drupes_sampled": 25000
+     },
+     {
+      "window_end": "2026-09-06",
+      "rate_pct": 0.0664,
+      "n_visits": 241,
+      "drupes_sampled": 24100
+     }
+    ]
+   },
+   "quality": {
+    "semantic_validity": "PROVED_BY_SOURCE_METADATA",
+    "denominator_validity": "PRESENT",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF",
+    "n_visits_excluded_by_sanity_rules": 2,
+    "historical_comparison_is_matched_panel": true,
+    "matched_panel_seasons": 14,
+    "observation_publishable": true,
+    "historical_comparison_publishable": true,
+    "publishable": true,
+    "publishable_reason": "enough visits and enough sampled drupes for the observation"
+   },
+   "params": {
+    "WINDOW_DAYS": 28,
+    "MIN_VISITS": 8,
+    "MIN_DRUPES": 400,
+    "MIN_BASELINE_SEASONS": 5,
+    "HIGH_PCTL": 0.8,
+    "LOW_PCTL": 0.2,
+    "TREND_MIN_WINDOWS": 3,
+    "TREND_MIN_ABS_CHANGE_PCT": 1.0,
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+   }
+  },
+  {
+   "country": "Italy",
+   "region": "Toscana",
+   "province": "Grosseto",
+   "as_of": "2026-09-06",
+   "crop": {
+    "canonical_id": "CROP_OLIVE",
+    "source_label": "Olivo",
+    "evidence": "source crop id 2"
+   },
+   "problem": {
+    "type": "PEST",
+    "canonical_id": "PEST_BACTROCERA_OLEAE",
+    "source_label": "Infestazione mosca dell'olivo",
+    "evidence": "source survey_schema id 1"
+   },
+   "observation": {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "unit": "percent of sampled drupes",
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "rate_pct": 0.6575,
+    "infested_drupes": 228,
+    "drupes_sampled": 34720,
+    "n_visits": 320,
+    "n_sites": 157,
+    "n_orgs": 3,
+    "n_visits_excluded_by_sanity_rules": 0,
+    "first_observation": "2026-08-10",
+    "last_observation": "2026-09-04",
+    "per_visit_rate_pct_median": 0.0,
+    "per_visit_rate_pct_max": 8.0,
+    "value_pct": 0.6575,
+    "source_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    }
+   },
+   "analysis": {
+    "baseline_seasons": [
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "baseline_n": 20,
+    "baseline_rate_pct_median": 2.5627,
+    "baseline_rate_pct_min": 0.2909,
+    "baseline_rate_pct_max": 6.1228,
+    "baseline_detail": [
+     {
+      "season": 2006,
+      "rate_pct": 4.1141,
+      "n_visits": 184,
+      "n_sites": 83,
+      "drupes_sampled": 18400
+     },
+     {
+      "season": 2007,
+      "rate_pct": 3.1319,
+      "n_visits": 91,
+      "n_sites": 34,
+      "drupes_sampled": 9100
+     },
+     {
+      "season": 2008,
+      "rate_pct": 1.6163,
+      "n_visits": 86,
+      "n_sites": 34,
+      "drupes_sampled": 8600
+     },
+     {
+      "season": 2009,
+      "rate_pct": 1.6667,
+      "n_visits": 81,
+      "n_sites": 31,
+      "drupes_sampled": 8100
+     },
+     {
+      "season": 2010,
+      "rate_pct": 2.4054,
+      "n_visits": 74,
+      "n_sites": 30,
+      "drupes_sampled": 7400
+     },
+     {
+      "season": 2011,
+      "rate_pct": 2.72,
+      "n_visits": 75,
+      "n_sites": 30,
+      "drupes_sampled": 7500
+     },
+     {
+      "season": 2012,
+      "rate_pct": 0.2909,
+      "n_visits": 55,
+      "n_sites": 19,
+      "drupes_sampled": 5500
+     },
+     {
+      "season": 2013,
+      "rate_pct": 4.4762,
+      "n_visits": 42,
+      "n_sites": 20,
+      "drupes_sampled": 4200
+     },
+     {
+      "season": 2014,
+      "rate_pct": 5.92,
+      "n_visits": 50,
+      "n_sites": 21,
+      "drupes_sampled": 5000
+     },
+     {
+      "season": 2015,
+      "rate_pct": 3.5183,
+      "n_visits": 156,
+      "n_sites": 59,
+      "drupes_sampled": 15604
+     },
+     {
+      "season": 2016,
+      "rate_pct": 6.1228,
+      "n_visits": 112,
+      "n_sites": 54,
+      "drupes_sampled": 11204
+     },
+     {
+      "season": 2017,
+      "rate_pct": 0.5129,
+      "n_visits": 343,
+      "n_sites": 130,
+      "drupes_sampled": 36657
+     },
+     {
+      "season": 2018,
+      "rate_pct": 1.2385,
+      "n_visits": 604,
+      "n_sites": 198,
+      "drupes_sampled": 68471
+     },
+     {
+      "season": 2019,
+      "rate_pct": 3.1669,
+      "n_visits": 390,
+      "n_sites": 173,
+      "drupes_sampled": 44650
+     },
+     {
+      "season": 2020,
+      "rate_pct": 1.6185,
+      "n_visits": 500,
+      "n_sites": 178,
+      "drupes_sampled": 55707
+     },
+     {
+      "season": 2021,
+      "rate_pct": 2.0118,
+      "n_visits": 275,
+      "n_sites": 100,
+      "drupes_sampled": 31316
+     },
+     {
+      "season": 2022,
+      "rate_pct": 0.7801,
+      "n_visits": 114,
+      "n_sites": 37,
+      "drupes_sampled": 11152
+     },
+     {
+      "season": 2023,
+      "rate_pct": 3.5243,
+      "n_visits": 103,
+      "n_sites": 33,
+      "drupes_sampled": 10300
+     },
+     {
+      "season": 2024,
+      "rate_pct": 0.6844,
+      "n_visits": 415,
+      "n_sites": 118,
+      "drupes_sampled": 44649
+     },
+     {
+      "season": 2025,
+      "rate_pct": 4.5255,
+      "n_visits": 312,
+      "n_sites": 111,
+      "drupes_sampled": 34960
+     }
+    ],
+    "percentile_against_own_history": 0.1,
+    "historical_state": "INSUFFICIENT_DATA",
+    "historical_reason": "2 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+    "panel_overlap_with_baseline_seasons": {
+     "median_groves_shared": 4.0,
+     "min": 2,
+     "max": 75,
+     "seasons_sharing_at_least_the_declared_minimum": 2,
+     "of_seasons": 20,
+     "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
+    },
+    "matched_panel_comparisons": [
+     {
+      "season": 2024,
+      "n_groves_shared": 8,
+      "rate_now_on_those_groves_pct": 0.2581,
+      "rate_then_on_those_groves_pct": 0.3462,
+      "drupes_now": 3100,
+      "drupes_then": 2600
+     },
+     {
+      "season": 2025,
+      "n_groves_shared": 75,
+      "rate_now_on_those_groves_pct": 0.7053,
+      "rate_then_on_those_groves_pct": 4.1413,
+      "drupes_now": 18050,
+      "drupes_then": 24560
+     }
+    ],
+    "matched_panel_seasons": 2,
+    "historical_state_matched": "INSUFFICIENT_DATA",
+    "historical_matched_reason": "2 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+    "historical_state_unmatched": "BELOW_HISTORICAL",
+    "observed_trend": "STABLE_OBSERVED",
+    "observed_trend_reason": "0.5876% -> 0.8249% -> 0.6575% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0699 percentage points. This describes windows that have already happened.",
+    "observed_trend_points": [
+     {
+      "window_end": "2026-07-12",
+      "rate_pct": 0.5876,
+      "n_visits": 185,
+      "drupes_sampled": 18550
+     },
+     {
+      "window_end": "2026-08-09",
+      "rate_pct": 0.8249,
+      "n_visits": 441,
+      "drupes_sampled": 49135
+     },
+     {
+      "window_end": "2026-09-06",
+      "rate_pct": 0.6575,
+      "n_visits": 320,
+      "drupes_sampled": 34720
+     }
+    ]
+   },
+   "quality": {
+    "semantic_validity": "PROVED_BY_SOURCE_METADATA",
+    "denominator_validity": "PRESENT",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF",
+    "n_visits_excluded_by_sanity_rules": 0,
+    "historical_comparison_is_matched_panel": true,
+    "matched_panel_seasons": 2,
+    "observation_publishable": true,
+    "historical_comparison_publishable": false,
+    "publishable": true,
+    "publishable_reason": "enough visits and enough sampled drupes for the observation"
+   },
+   "params": {
+    "WINDOW_DAYS": 28,
+    "MIN_VISITS": 8,
+    "MIN_DRUPES": 400,
+    "MIN_BASELINE_SEASONS": 5,
+    "HIGH_PCTL": 0.8,
+    "LOW_PCTL": 0.2,
+    "TREND_MIN_WINDOWS": 3,
+    "TREND_MIN_ABS_CHANGE_PCT": 1.0,
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+   }
+  },
+  {
+   "country": "Italy",
+   "region": "Toscana",
+   "province": "Livorno",
+   "as_of": "2026-09-06",
+   "crop": {
+    "canonical_id": "CROP_OLIVE",
+    "source_label": "Olivo",
+    "evidence": "source crop id 2"
+   },
+   "problem": {
+    "type": "PEST",
+    "canonical_id": "PEST_BACTROCERA_OLEAE",
+    "source_label": "Infestazione mosca dell'olivo",
+    "evidence": "source survey_schema id 1"
+   },
+   "observation": {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "unit": "percent of sampled drupes",
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "rate_pct": 0.9216,
+    "infested_drupes": 141,
+    "drupes_sampled": 15300,
+    "n_visits": 153,
+    "n_sites": 77,
+    "n_orgs": 2,
+    "n_visits_excluded_by_sanity_rules": 0,
+    "first_observation": "2026-08-10",
+    "last_observation": "2026-09-04",
+    "per_visit_rate_pct_median": 0.0,
+    "per_visit_rate_pct_max": 6.0,
+    "value_pct": 0.9216,
+    "source_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    }
+   },
+   "analysis": {
+    "baseline_seasons": [
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "baseline_n": 20,
+    "baseline_rate_pct_median": 4.1552,
+    "baseline_rate_pct_min": 0.9634,
+    "baseline_rate_pct_max": 13.3556,
+    "baseline_detail": [
+     {
+      "season": 2006,
+      "rate_pct": 2.3801,
+      "n_visits": 171,
+      "n_sites": 65,
+      "drupes_sampled": 17100
+     },
+     {
+      "season": 2007,
+      "rate_pct": 9.7423,
+      "n_visits": 79,
+      "n_sites": 29,
+      "drupes_sampled": 7801
+     },
+     {
+      "season": 2008,
+      "rate_pct": 2.4286,
+      "n_visits": 98,
+      "n_sites": 31,
+      "drupes_sampled": 9800
+     },
+     {
+      "season": 2009,
+      "rate_pct": 2.563,
+      "n_visits": 135,
+      "n_sites": 50,
+      "drupes_sampled": 13500
+     },
+     {
+      "season": 2010,
+      "rate_pct": 4.1854,
+      "n_visits": 151,
+      "n_sites": 47,
+      "drupes_sampled": 15100
+     },
+     {
+      "season": 2011,
+      "rate_pct": 5.5507,
+      "n_visits": 138,
+      "n_sites": 48,
+      "drupes_sampled": 13800
+     },
+     {
+      "season": 2012,
+      "rate_pct": 0.9634,
+      "n_visits": 82,
+      "n_sites": 25,
+      "drupes_sampled": 8200
+     },
+     {
+      "season": 2013,
+      "rate_pct": 4.4545,
+      "n_visits": 55,
+      "n_sites": 24,
+      "drupes_sampled": 5500
+     },
+     {
+      "season": 2014,
+      "rate_pct": 13.3556,
+      "n_visits": 45,
+      "n_sites": 23,
+      "drupes_sampled": 4500
+     },
+     {
+      "season": 2015,
+      "rate_pct": 4.9348,
+      "n_visits": 46,
+      "n_sites": 21,
+      "drupes_sampled": 4600
+     },
+     {
+      "season": 2016,
+      "rate_pct": 7.1887,
+      "n_visits": 53,
+      "n_sites": 20,
+      "drupes_sampled": 5300
+     },
+     {
+      "season": 2017,
+      "rate_pct": 1.3966,
+      "n_visits": 116,
+      "n_sites": 47,
+      "drupes_sampled": 11600
+     },
+     {
+      "season": 2018,
+      "rate_pct": 2.4485,
+      "n_visits": 69,
+      "n_sites": 27,
+      "drupes_sampled": 6984
+     },
+     {
+      "season": 2019,
+      "rate_pct": 8.4906,
+      "n_visits": 53,
+      "n_sites": 24,
+      "drupes_sampled": 5300
+     },
+     {
+      "season": 2020,
+      "rate_pct": 4.125,
+      "n_visits": 64,
+      "n_sites": 23,
+      "drupes_sampled": 6400
+     },
+     {
+      "season": 2021,
+      "rate_pct": 5.0345,
+      "n_visits": 87,
+      "n_sites": 31,
+      "drupes_sampled": 8700
+     },
+     {
+      "season": 2022,
+      "rate_pct": 2.2278,
+      "n_visits": 158,
+      "n_sites": 52,
+      "drupes_sampled": 15800
+     },
+     {
+      "season": 2023,
+      "rate_pct": 3.3455,
+      "n_visits": 55,
+      "n_sites": 26,
+      "drupes_sampled": 5500
+     },
+     {
+      "season": 2024,
+      "rate_pct": 2.0476,
+      "n_visits": 42,
+      "n_sites": 17,
+      "drupes_sampled": 4200
+     },
+     {
+      "season": 2025,
+      "rate_pct": 9.4912,
+      "n_visits": 114,
+      "n_sites": 51,
+      "drupes_sampled": 11400
+     }
+    ],
+    "percentile_against_own_history": 0.0,
+    "historical_state": "INSUFFICIENT_DATA",
+    "historical_reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+    "panel_overlap_with_baseline_seasons": {
+     "median_groves_shared": 0.0,
+     "min": 0,
+     "max": 27,
+     "seasons_sharing_at_least_the_declared_minimum": 1,
+     "of_seasons": 20,
+     "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
+    },
+    "matched_panel_comparisons": [
+     {
+      "season": 2025,
+      "n_groves_shared": 27,
+      "rate_now_on_those_groves_pct": 0.8,
+      "rate_then_on_those_groves_pct": 10.5484,
+      "drupes_now": 8000,
+      "drupes_then": 6200
+     }
+    ],
+    "matched_panel_seasons": 1,
+    "historical_state_matched": "INSUFFICIENT_DATA",
+    "historical_matched_reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+    "historical_state_unmatched": "BELOW_HISTORICAL",
+    "observed_trend": "STABLE_OBSERVED",
+    "observed_trend_reason": "0.4722% -> 1.8387% -> 0.9216% over 3 consecutive 28-day windows ending 2026-09-06; change 0.4494 percentage points. This describes windows that have already happened.",
+    "observed_trend_points": [
+     {
+      "window_end": "2026-07-12",
+      "rate_pct": 0.4722,
+      "n_visits": 72,
+      "drupes_sampled": 7200
+     },
+     {
+      "window_end": "2026-08-09",
+      "rate_pct": 1.8387,
+      "n_visits": 155,
+      "drupes_sampled": 15500
+     },
+     {
+      "window_end": "2026-09-06",
+      "rate_pct": 0.9216,
+      "n_visits": 153,
+      "drupes_sampled": 15300
+     }
+    ]
+   },
+   "quality": {
+    "semantic_validity": "PROVED_BY_SOURCE_METADATA",
+    "denominator_validity": "PRESENT",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF",
+    "n_visits_excluded_by_sanity_rules": 0,
+    "historical_comparison_is_matched_panel": true,
+    "matched_panel_seasons": 1,
+    "observation_publishable": true,
+    "historical_comparison_publishable": false,
+    "publishable": true,
+    "publishable_reason": "enough visits and enough sampled drupes for the observation"
+   },
+   "params": {
+    "WINDOW_DAYS": 28,
+    "MIN_VISITS": 8,
+    "MIN_DRUPES": 400,
+    "MIN_BASELINE_SEASONS": 5,
+    "HIGH_PCTL": 0.8,
+    "LOW_PCTL": 0.2,
+    "TREND_MIN_WINDOWS": 3,
+    "TREND_MIN_ABS_CHANGE_PCT": 1.0,
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+   }
+  },
+  {
+   "country": "Italy",
+   "region": "Toscana",
+   "province": "Lucca",
+   "as_of": "2026-09-06",
+   "crop": {
+    "canonical_id": "CROP_OLIVE",
+    "source_label": "Olivo",
+    "evidence": "source crop id 2"
+   },
+   "problem": {
+    "type": "PEST",
+    "canonical_id": "PEST_BACTROCERA_OLEAE",
+    "source_label": "Infestazione mosca dell'olivo",
+    "evidence": "source survey_schema id 1"
+   },
+   "observation": {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "unit": "percent of sampled drupes",
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "rate_pct": 1.1509,
+    "infested_drupes": 61,
+    "drupes_sampled": 5300,
+    "n_visits": 53,
+    "n_sites": 14,
+    "n_orgs": 1,
+    "n_visits_excluded_by_sanity_rules": 0,
+    "first_observation": "2026-08-10",
+    "last_observation": "2026-08-31",
+    "per_visit_rate_pct_median": 0.0,
+    "per_visit_rate_pct_max": 9.0,
+    "value_pct": 1.1509,
+    "source_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    }
+   },
+   "analysis": {
+    "baseline_seasons": [
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "baseline_n": 20,
+    "baseline_rate_pct_median": 3.5238,
+    "baseline_rate_pct_min": 0.7826,
+    "baseline_rate_pct_max": 16.6792,
+    "baseline_detail": [
+     {
+      "season": 2006,
+      "rate_pct": 4.2593,
+      "n_visits": 108,
+      "n_sites": 36,
+      "drupes_sampled": 10800
+     },
+     {
+      "season": 2007,
+      "rate_pct": 10.7752,
+      "n_visits": 75,
+      "n_sites": 26,
+      "drupes_sampled": 7443
+     },
+     {
+      "season": 2008,
+      "rate_pct": 2.2843,
+      "n_visits": 102,
+      "n_sites": 26,
+      "drupes_sampled": 10200
+     },
+     {
+      "season": 2009,
+      "rate_pct": 2.5639,
+      "n_visits": 133,
+      "n_sites": 35,
+      "drupes_sampled": 13300
+     },
+     {
+      "season": 2010,
+      "rate_pct": 1.776,
+      "n_visits": 125,
+      "n_sites": 37,
+      "drupes_sampled": 12500
+     },
+     {
+      "season": 2011,
+      "rate_pct": 3.6262,
+      "n_visits": 107,
+      "n_sites": 36,
+      "drupes_sampled": 10700
+     },
+     {
+      "season": 2012,
+      "rate_pct": 1.2319,
+      "n_visits": 69,
+      "n_sites": 20,
+      "drupes_sampled": 6900
+     },
+     {
+      "season": 2013,
+      "rate_pct": 4.7333,
+      "n_visits": 60,
+      "n_sites": 20,
+      "drupes_sampled": 6000
+     },
+     {
+      "season": 2014,
+      "rate_pct": 16.6792,
+      "n_visits": 53,
+      "n_sites": 20,
+      "drupes_sampled": 5300
+     },
+     {
+      "season": 2015,
+      "rate_pct": 2.5075,
+      "n_visits": 67,
+      "n_sites": 27,
+      "drupes_sampled": 6700
+     },
+     {
+      "season": 2016,
+      "rate_pct": 7.8772,
+      "n_visits": 57,
+      "n_sites": 27,
+      "drupes_sampled": 5700
+     },
+     {
+      "season": 2017,
+      "rate_pct": 1.4835,
+      "n_visits": 91,
+      "n_sites": 27,
+      "drupes_sampled": 9100
+     },
+     {
+      "season": 2018,
+      "rate_pct": 1.0,
+      "n_visits": 82,
+      "n_sites": 25,
+      "drupes_sampled": 8200
+     },
+     {
+      "season": 2019,
+      "rate_pct": 6.1918,
+      "n_visits": 73,
+      "n_sites": 25,
+      "drupes_sampled": 7300
+     },
+     {
+      "season": 2020,
+      "rate_pct": 3.4531,
+      "n_visits": 64,
+      "n_sites": 26,
+      "drupes_sampled": 6400
+     },
+     {
+      "season": 2021,
+      "rate_pct": 3.5946,
+      "n_visits": 74,
+      "n_sites": 29,
+      "drupes_sampled": 7400
+     },
+     {
+      "season": 2022,
+      "rate_pct": 0.7826,
+      "n_visits": 69,
+      "n_sites": 21,
+      "drupes_sampled": 6900
+     },
+     {
+      "season": 2023,
+      "rate_pct": 3.962,
+      "n_visits": 79,
+      "n_sites": 24,
+      "drupes_sampled": 7900
+     },
+     {
+      "season": 2024,
+      "rate_pct": 0.8136,
+      "n_visits": 59,
+      "n_sites": 20,
+      "drupes_sampled": 5900
+     },
+     {
+      "season": 2025,
+      "rate_pct": 5.6833,
+      "n_visits": 60,
+      "n_sites": 17,
+      "drupes_sampled": 6000
+     }
+    ],
+    "percentile_against_own_history": 0.15,
+    "historical_state": "INSUFFICIENT_DATA",
+    "historical_reason": "3 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+    "panel_overlap_with_baseline_seasons": {
+     "median_groves_shared": 2.0,
+     "min": 1,
+     "max": 13,
+     "seasons_sharing_at_least_the_declared_minimum": 3,
+     "of_seasons": 20,
+     "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
+    },
+    "matched_panel_comparisons": [
+     {
+      "season": 2023,
+      "n_groves_shared": 8,
+      "rate_now_on_those_groves_pct": 0.8065,
+      "rate_then_on_those_groves_pct": 1.7586,
+      "drupes_now": 3100,
+      "drupes_then": 2900
+     },
+     {
+      "season": 2024,
+      "n_groves_shared": 8,
+      "rate_now_on_those_groves_pct": 0.8065,
+      "rate_then_on_those_groves_pct": 0.2667,
+      "drupes_now": 3100,
+      "drupes_then": 3000
+     },
+     {
+      "season": 2025,
+      "n_groves_shared": 13,
+      "rate_now_on_those_groves_pct": 1.2245,
+      "rate_then_on_those_groves_pct": 5.7174,
+      "drupes_now": 4900,
+      "drupes_then": 4600
+     }
+    ],
+    "matched_panel_seasons": 3,
+    "historical_state_matched": "INSUFFICIENT_DATA",
+    "historical_matched_reason": "3 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+    "historical_state_unmatched": "BELOW_HISTORICAL",
+    "observed_trend": "INCREASING_OBSERVED",
+    "observed_trend_reason": "0.0769% -> 0.4464% -> 1.1509% over 3 consecutive 28-day windows ending 2026-09-06; change 1.074 percentage points. This describes windows that have already happened.",
+    "observed_trend_points": [
+     {
+      "window_end": "2026-07-12",
+      "rate_pct": 0.0769,
+      "n_visits": 13,
+      "drupes_sampled": 1300
+     },
+     {
+      "window_end": "2026-08-09",
+      "rate_pct": 0.4464,
+      "n_visits": 56,
+      "drupes_sampled": 5600
+     },
+     {
+      "window_end": "2026-09-06",
+      "rate_pct": 1.1509,
+      "n_visits": 53,
+      "drupes_sampled": 5300
+     }
+    ]
+   },
+   "quality": {
+    "semantic_validity": "PROVED_BY_SOURCE_METADATA",
+    "denominator_validity": "PRESENT",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF",
+    "n_visits_excluded_by_sanity_rules": 0,
+    "historical_comparison_is_matched_panel": true,
+    "matched_panel_seasons": 3,
+    "observation_publishable": true,
+    "historical_comparison_publishable": false,
+    "publishable": true,
+    "publishable_reason": "enough visits and enough sampled drupes for the observation"
+   },
+   "params": {
+    "WINDOW_DAYS": 28,
+    "MIN_VISITS": 8,
+    "MIN_DRUPES": 400,
+    "MIN_BASELINE_SEASONS": 5,
+    "HIGH_PCTL": 0.8,
+    "LOW_PCTL": 0.2,
+    "TREND_MIN_WINDOWS": 3,
+    "TREND_MIN_ABS_CHANGE_PCT": 1.0,
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+   }
+  },
+  {
+   "country": "Italy",
+   "region": "Toscana",
+   "province": "Massa-Carrara",
+   "as_of": "2026-09-06",
+   "crop": {
+    "canonical_id": "CROP_OLIVE",
+    "source_label": "Olivo",
+    "evidence": "source crop id 2"
+   },
+   "problem": {
+    "type": "PEST",
+    "canonical_id": "PEST_BACTROCERA_OLEAE",
+    "source_label": "Infestazione mosca dell'olivo",
+    "evidence": "source survey_schema id 1"
+   },
+   "observation": {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "unit": "percent of sampled drupes",
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "rate_pct": 0.566,
+    "infested_drupes": 30,
+    "drupes_sampled": 5300,
+    "n_visits": 40,
+    "n_sites": 10,
+    "n_orgs": 1,
+    "n_visits_excluded_by_sanity_rules": 0,
+    "first_observation": "2026-08-10",
+    "last_observation": "2026-08-31",
+    "per_visit_rate_pct_median": 0.0,
+    "per_visit_rate_pct_max": 6.0,
+    "value_pct": 0.566,
+    "source_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    }
+   },
+   "analysis": {
+    "baseline_seasons": [
+     2006,
+     2007,
+     2008,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "baseline_n": 14,
+    "baseline_rate_pct_median": 2.4008,
+    "baseline_rate_pct_min": 0.2,
+    "baseline_rate_pct_max": 18.2963,
+    "baseline_detail": [
+     {
+      "season": 2006,
+      "rate_pct": 2.0,
+      "n_visits": 23,
+      "n_sites": 13,
+      "drupes_sampled": 2300
+     },
+     {
+      "season": 2007,
+      "rate_pct": 18.2963,
+      "n_visits": 14,
+      "n_sites": 5,
+      "drupes_sampled": 1350
+     },
+     {
+      "season": 2008,
+      "rate_pct": 0.2,
+      "n_visits": 20,
+      "n_sites": 5,
+      "drupes_sampled": 2000
+     },
+     {
+      "season": 2015,
+      "rate_pct": 2.0909,
+      "n_visits": 11,
+      "n_sites": 3,
+      "drupes_sampled": 1100
+     },
+     {
+      "season": 2016,
+      "rate_pct": 14.2504,
+      "n_visits": 25,
+      "n_sites": 13,
+      "drupes_sampled": 2428
+     },
+     {
+      "season": 2017,
+      "rate_pct": 0.3195,
+      "n_visits": 22,
+      "n_sites": 9,
+      "drupes_sampled": 2191
+     },
+     {
+      "season": 2018,
+      "rate_pct": 0.2273,
+      "n_visits": 29,
+      "n_sites": 10,
+      "drupes_sampled": 3079
+     },
+     {
+      "season": 2019,
+      "rate_pct": 7.6364,
+      "n_visits": 11,
+      "n_sites": 3,
+      "drupes_sampled": 1100
+     },
+     {
+      "season": 2020,
+      "rate_pct": 3.1842,
+      "n_visits": 35,
+      "n_sites": 11,
+      "drupes_sampled": 3822
+     },
+     {
+      "season": 2021,
+      "rate_pct": 1.8276,
+      "n_visits": 29,
+      "n_sites": 8,
+      "drupes_sampled": 2900
+     },
+     {
+      "season": 2022,
+      "rate_pct": 2.7107,
+      "n_visits": 21,
+      "n_sites": 7,
+      "drupes_sampled": 2136
+     },
+     {
+      "season": 2023,
+      "rate_pct": 4.8635,
+      "n_visits": 15,
+      "n_sites": 6,
+      "drupes_sampled": 1355
+     },
+     {
+      "season": 2024,
+      "rate_pct": 0.5641,
+      "n_visits": 39,
+      "n_sites": 10,
+      "drupes_sampled": 3900
+     },
+     {
+      "season": 2025,
+      "rate_pct": 8.2973,
+      "n_visits": 37,
+      "n_sites": 10,
+      "drupes_sampled": 3700
+     }
+    ],
+    "percentile_against_own_history": 0.2857,
+    "historical_state": "INSUFFICIENT_DATA",
+    "historical_reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+    "panel_overlap_with_baseline_seasons": {
+     "median_groves_shared": 0.0,
+     "min": 0,
+     "max": 9,
+     "seasons_sharing_at_least_the_declared_minimum": 1,
+     "of_seasons": 14,
+     "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
+    },
+    "matched_panel_comparisons": [
+     {
+      "season": 2025,
+      "n_groves_shared": 9,
+      "rate_now_on_those_groves_pct": 0.6122,
+      "rate_then_on_those_groves_pct": 8.7576,
+      "drupes_now": 4900,
+      "drupes_then": 3300
+     }
+    ],
+    "matched_panel_seasons": 1,
+    "historical_state_matched": "INSUFFICIENT_DATA",
+    "historical_matched_reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+    "historical_state_unmatched": "TYPICAL",
+    "observed_trend": "STABLE_OBSERVED",
+    "observed_trend_reason": "0.0% -> 0.7838% -> 0.566% over 3 consecutive 28-day windows ending 2026-09-06; change 0.566 percentage points. This describes windows that have already happened.",
+    "observed_trend_points": [
+     {
+      "window_end": "2026-07-12",
+      "rate_pct": 0.0,
+      "n_visits": 9,
+      "drupes_sampled": 900
+     },
+     {
+      "window_end": "2026-08-09",
+      "rate_pct": 0.7838,
+      "n_visits": 37,
+      "drupes_sampled": 3700
+     },
+     {
+      "window_end": "2026-09-06",
+      "rate_pct": 0.566,
+      "n_visits": 40,
+      "drupes_sampled": 5300
+     }
+    ]
+   },
+   "quality": {
+    "semantic_validity": "PROVED_BY_SOURCE_METADATA",
+    "denominator_validity": "PRESENT",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF",
+    "n_visits_excluded_by_sanity_rules": 0,
+    "historical_comparison_is_matched_panel": true,
+    "matched_panel_seasons": 1,
+    "observation_publishable": true,
+    "historical_comparison_publishable": false,
+    "publishable": true,
+    "publishable_reason": "enough visits and enough sampled drupes for the observation"
+   },
+   "params": {
+    "WINDOW_DAYS": 28,
+    "MIN_VISITS": 8,
+    "MIN_DRUPES": 400,
+    "MIN_BASELINE_SEASONS": 5,
+    "HIGH_PCTL": 0.8,
+    "LOW_PCTL": 0.2,
+    "TREND_MIN_WINDOWS": 3,
+    "TREND_MIN_ABS_CHANGE_PCT": 1.0,
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+   }
+  },
+  {
+   "country": "Italy",
+   "region": "Toscana",
+   "province": "Pisa",
+   "as_of": "2026-09-06",
+   "crop": {
+    "canonical_id": "CROP_OLIVE",
+    "source_label": "Olivo",
+    "evidence": "source crop id 2"
+   },
+   "problem": {
+    "type": "PEST",
+    "canonical_id": "PEST_BACTROCERA_OLEAE",
+    "source_label": "Infestazione mosca dell'olivo",
+    "evidence": "source survey_schema id 1"
+   },
+   "observation": {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "unit": "percent of sampled drupes",
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "rate_pct": 1.02,
+    "infested_drupes": 93,
+    "drupes_sampled": 9196,
+    "n_visits": 85,
+    "n_sites": 45,
+    "n_orgs": 4,
+    "n_visits_excluded_by_sanity_rules": 0,
+    "first_observation": "2026-08-10",
+    "last_observation": "2026-09-02",
+    "per_visit_rate_pct_median": 0.0,
+    "per_visit_rate_pct_max": 7.0,
+    "value_pct": 1.02,
+    "source_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    }
+   },
+   "analysis": {
+    "baseline_seasons": [
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "baseline_n": 20,
+    "baseline_rate_pct_median": 2.8663,
+    "baseline_rate_pct_min": 0.5207,
+    "baseline_rate_pct_max": 11.5319,
+    "baseline_detail": [
+     {
+      "season": 2006,
+      "rate_pct": 4.6882,
+      "n_visits": 183,
+      "n_sites": 70,
+      "drupes_sampled": 17960
+     },
+     {
+      "season": 2007,
+      "rate_pct": 11.5319,
+      "n_visits": 124,
+      "n_sites": 44,
+      "drupes_sampled": 11646
+     },
+     {
+      "season": 2008,
+      "rate_pct": 0.8819,
+      "n_visits": 158,
+      "n_sites": 47,
+      "drupes_sampled": 17575
+     },
+     {
+      "season": 2009,
+      "rate_pct": 1.0069,
+      "n_visits": 202,
+      "n_sites": 63,
+      "drupes_sampled": 20856
+     },
+     {
+      "season": 2010,
+      "rate_pct": 2.1204,
+      "n_visits": 191,
+      "n_sites": 60,
+      "drupes_sampled": 19100
+     },
+     {
+      "season": 2011,
+      "rate_pct": 2.7278,
+      "n_visits": 169,
+      "n_sites": 56,
+      "drupes_sampled": 16900
+     },
+     {
+      "season": 2012,
+      "rate_pct": 0.5207,
+      "n_visits": 95,
+      "n_sites": 31,
+      "drupes_sampled": 9410
+     },
+     {
+      "season": 2013,
+      "rate_pct": 2.0732,
+      "n_visits": 82,
+      "n_sites": 30,
+      "drupes_sampled": 8200
+     },
+     {
+      "season": 2014,
+      "rate_pct": 11.0253,
+      "n_visits": 79,
+      "n_sites": 29,
+      "drupes_sampled": 7900
+     },
+     {
+      "season": 2015,
+      "rate_pct": 4.5181,
+      "n_visits": 97,
+      "n_sites": 34,
+      "drupes_sampled": 9650
+     },
+     {
+      "season": 2016,
+      "rate_pct": 6.13,
+      "n_visits": 100,
+      "n_sites": 35,
+      "drupes_sampled": 10000
+     },
+     {
+      "season": 2017,
+      "rate_pct": 1.009,
+      "n_visits": 111,
+      "n_sites": 58,
+      "drupes_sampled": 11100
+     },
+     {
+      "season": 2018,
+      "rate_pct": 1.0712,
+      "n_visits": 136,
+      "n_sites": 45,
+      "drupes_sampled": 13630
+     },
+     {
+      "season": 2019,
+      "rate_pct": 6.0693,
+      "n_visits": 101,
+      "n_sites": 43,
+      "drupes_sampled": 10100
+     },
+     {
+      "season": 2020,
+      "rate_pct": 3.1722,
+      "n_visits": 138,
+      "n_sites": 48,
+      "drupes_sampled": 14050
+     },
+     {
+      "season": 2021,
+      "rate_pct": 3.0049,
+      "n_visits": 92,
+      "n_sites": 34,
+      "drupes_sampled": 9308
+     },
+     {
+      "season": 2022,
+      "rate_pct": 1.3212,
+      "n_visits": 134,
+      "n_sites": 43,
+      "drupes_sampled": 13465
+     },
+     {
+      "season": 2023,
+      "rate_pct": 5.554,
+      "n_visits": 55,
+      "n_sites": 24,
+      "drupes_sampled": 5713
+     },
+     {
+      "season": 2024,
+      "rate_pct": 1.7535,
+      "n_visits": 69,
+      "n_sites": 26,
+      "drupes_sampled": 7197
+     },
+     {
+      "season": 2025,
+      "rate_pct": 8.9403,
+      "n_visits": 107,
+      "n_sites": 45,
+      "drupes_sampled": 10899
+     }
+    ],
+    "percentile_against_own_history": 0.2,
+    "historical_state": "INSUFFICIENT_DATA",
+    "historical_reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+    "panel_overlap_with_baseline_seasons": {
+     "median_groves_shared": 1.0,
+     "min": 0,
+     "max": 18,
+     "seasons_sharing_at_least_the_declared_minimum": 1,
+     "of_seasons": 20,
+     "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
+    },
+    "matched_panel_comparisons": [
+     {
+      "season": 2025,
+      "n_groves_shared": 18,
+      "rate_now_on_those_groves_pct": 0.9745,
+      "rate_then_on_those_groves_pct": 12.3301,
+      "drupes_now": 5336,
+      "drupes_then": 4399
+     }
+    ],
+    "matched_panel_seasons": 1,
+    "historical_state_matched": "INSUFFICIENT_DATA",
+    "historical_matched_reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+    "historical_state_unmatched": "BELOW_HISTORICAL",
+    "observed_trend": "STABLE_OBSERVED",
+    "observed_trend_reason": "0.04% -> 0.5022% -> 1.02% over 3 consecutive 28-day windows ending 2026-09-06; change 0.98 percentage points. This describes windows that have already happened.",
+    "observed_trend_points": [
+     {
+      "window_end": "2026-07-12",
+      "rate_pct": 0.04,
+      "n_visits": 25,
+      "drupes_sampled": 2500
+     },
+     {
+      "window_end": "2026-08-09",
+      "rate_pct": 0.5022,
+      "n_visits": 65,
+      "drupes_sampled": 7786
+     },
+     {
+      "window_end": "2026-09-06",
+      "rate_pct": 1.02,
+      "n_visits": 85,
+      "drupes_sampled": 9196
+     }
+    ]
+   },
+   "quality": {
+    "semantic_validity": "PROVED_BY_SOURCE_METADATA",
+    "denominator_validity": "PRESENT",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF",
+    "n_visits_excluded_by_sanity_rules": 0,
+    "historical_comparison_is_matched_panel": true,
+    "matched_panel_seasons": 1,
+    "observation_publishable": true,
+    "historical_comparison_publishable": false,
+    "publishable": true,
+    "publishable_reason": "enough visits and enough sampled drupes for the observation"
+   },
+   "params": {
+    "WINDOW_DAYS": 28,
+    "MIN_VISITS": 8,
+    "MIN_DRUPES": 400,
+    "MIN_BASELINE_SEASONS": 5,
+    "HIGH_PCTL": 0.8,
+    "LOW_PCTL": 0.2,
+    "TREND_MIN_WINDOWS": 3,
+    "TREND_MIN_ABS_CHANGE_PCT": 1.0,
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+   }
+  },
+  {
+   "country": "Italy",
+   "region": "Toscana",
+   "province": "Pistoia",
+   "as_of": "2026-09-06",
+   "crop": {
+    "canonical_id": "CROP_OLIVE",
+    "source_label": "Olivo",
+    "evidence": "source crop id 2"
+   },
+   "problem": {
+    "type": "PEST",
+    "canonical_id": "PEST_BACTROCERA_OLEAE",
+    "source_label": "Infestazione mosca dell'olivo",
+    "evidence": "source survey_schema id 1"
+   },
+   "observation": {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "unit": "percent of sampled drupes",
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "rate_pct": 0.0278,
+    "infested_drupes": 1,
+    "drupes_sampled": 3600,
+    "n_visits": 36,
+    "n_sites": 16,
+    "n_orgs": 2,
+    "n_visits_excluded_by_sanity_rules": 0,
+    "first_observation": "2026-08-10",
+    "last_observation": "2026-09-02",
+    "per_visit_rate_pct_median": 0.0,
+    "per_visit_rate_pct_max": 1.0,
+    "value_pct": 0.0278,
+    "source_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    }
+   },
+   "analysis": {
+    "baseline_seasons": [
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "baseline_n": 20,
+    "baseline_rate_pct_median": 1.3308,
+    "baseline_rate_pct_min": 0.3022,
+    "baseline_rate_pct_max": 13.037,
+    "baseline_detail": [
+     {
+      "season": 2006,
+      "rate_pct": 0.7971,
+      "n_visits": 86,
+      "n_sites": 30,
+      "drupes_sampled": 8405
+     },
+     {
+      "season": 2007,
+      "rate_pct": 7.3767,
+      "n_visits": 65,
+      "n_sites": 19,
+      "drupes_sampled": 6263
+     },
+     {
+      "season": 2008,
+      "rate_pct": 0.3636,
+      "n_visits": 86,
+      "n_sites": 26,
+      "drupes_sampled": 8525
+     },
+     {
+      "season": 2009,
+      "rate_pct": 0.5426,
+      "n_visits": 94,
+      "n_sites": 24,
+      "drupes_sampled": 9400
+     },
+     {
+      "season": 2010,
+      "rate_pct": 2.0638,
+      "n_visits": 94,
+      "n_sites": 25,
+      "drupes_sampled": 9400
+     },
+     {
+      "season": 2011,
+      "rate_pct": 1.6615,
+      "n_visits": 65,
+      "n_sites": 23,
+      "drupes_sampled": 6500
+     },
+     {
+      "season": 2012,
+      "rate_pct": 0.375,
+      "n_visits": 40,
+      "n_sites": 10,
+      "drupes_sampled": 4000
+     },
+     {
+      "season": 2013,
+      "rate_pct": 1.0,
+      "n_visits": 36,
+      "n_sites": 10,
+      "drupes_sampled": 3600
+     },
+     {
+      "season": 2014,
+      "rate_pct": 8.6,
+      "n_visits": 40,
+      "n_sites": 10,
+      "drupes_sampled": 4000
+     },
+     {
+      "season": 2015,
+      "rate_pct": 0.8462,
+      "n_visits": 65,
+      "n_sites": 18,
+      "drupes_sampled": 6500
+     },
+     {
+      "season": 2016,
+      "rate_pct": 6.7619,
+      "n_visits": 105,
+      "n_sites": 31,
+      "drupes_sampled": 10500
+     },
+     {
+      "season": 2017,
+      "rate_pct": 0.3022,
+      "n_visits": 139,
+      "n_sites": 31,
+      "drupes_sampled": 13900
+     },
+     {
+      "season": 2018,
+      "rate_pct": 0.8276,
+      "n_visits": 116,
+      "n_sites": 30,
+      "drupes_sampled": 11600
+     },
+     {
+      "season": 2019,
+      "rate_pct": 3.2778,
+      "n_visits": 72,
+      "n_sites": 26,
+      "drupes_sampled": 7200
+     },
+     {
+      "season": 2020,
+      "rate_pct": 1.8636,
+      "n_visits": 88,
+      "n_sites": 26,
+      "drupes_sampled": 8800
+     },
+     {
+      "season": 2021,
+      "rate_pct": 5.1167,
+      "n_visits": 60,
+      "n_sites": 25,
+      "drupes_sampled": 6000
+     },
+     {
+      "season": 2022,
+      "rate_pct": 0.6714,
+      "n_visits": 70,
+      "n_sites": 27,
+      "drupes_sampled": 7000
+     },
+     {
+      "season": 2023,
+      "rate_pct": 6.3827,
+      "n_visits": 81,
+      "n_sites": 24,
+      "drupes_sampled": 8100
+     },
+     {
+      "season": 2024,
+      "rate_pct": 0.3529,
+      "n_visits": 51,
+      "n_sites": 13,
+      "drupes_sampled": 5100
+     },
+     {
+      "season": 2025,
+      "rate_pct": 13.037,
+      "n_visits": 27,
+      "n_sites": 10,
+      "drupes_sampled": 2700
+     }
+    ],
+    "percentile_against_own_history": 0.0,
+    "historical_state": "INSUFFICIENT_DATA",
+    "historical_reason": "0 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+    "panel_overlap_with_baseline_seasons": {
+     "median_groves_shared": 0.0,
+     "min": 0,
+     "max": 2,
+     "seasons_sharing_at_least_the_declared_minimum": 0,
+     "of_seasons": 20,
+     "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
+    },
+    "matched_panel_comparisons": [],
+    "matched_panel_seasons": 0,
+    "historical_state_matched": "INSUFFICIENT_DATA",
+    "historical_matched_reason": "0 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+    "historical_state_unmatched": "BELOW_HISTORICAL",
+    "observed_trend": "STABLE_OBSERVED",
+    "observed_trend_reason": "0.0% -> 0.0% -> 0.0278% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0278 percentage points. This describes windows that have already happened.",
+    "observed_trend_points": [
+     {
+      "window_end": "2026-07-12",
+      "rate_pct": 0.0,
+      "n_visits": 14,
+      "drupes_sampled": 1400
+     },
+     {
+      "window_end": "2026-08-09",
+      "rate_pct": 0.0,
+      "n_visits": 35,
+      "drupes_sampled": 3500
+     },
+     {
+      "window_end": "2026-09-06",
+      "rate_pct": 0.0278,
+      "n_visits": 36,
+      "drupes_sampled": 3600
+     }
+    ]
+   },
+   "quality": {
+    "semantic_validity": "PROVED_BY_SOURCE_METADATA",
+    "denominator_validity": "PRESENT",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF",
+    "n_visits_excluded_by_sanity_rules": 0,
+    "historical_comparison_is_matched_panel": true,
+    "matched_panel_seasons": 0,
+    "observation_publishable": true,
+    "historical_comparison_publishable": false,
+    "publishable": true,
+    "publishable_reason": "enough visits and enough sampled drupes for the observation"
+   },
+   "params": {
+    "WINDOW_DAYS": 28,
+    "MIN_VISITS": 8,
+    "MIN_DRUPES": 400,
+    "MIN_BASELINE_SEASONS": 5,
+    "HIGH_PCTL": 0.8,
+    "LOW_PCTL": 0.2,
+    "TREND_MIN_WINDOWS": 3,
+    "TREND_MIN_ABS_CHANGE_PCT": 1.0,
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+   }
+  },
+  {
+   "country": "Italy",
+   "region": "Toscana",
+   "province": "Prato",
+   "as_of": "2026-09-06",
+   "crop": {
+    "canonical_id": "CROP_OLIVE",
+    "source_label": "Olivo",
+    "evidence": "source crop id 2"
+   },
+   "problem": {
+    "type": "PEST",
+    "canonical_id": "PEST_BACTROCERA_OLEAE",
+    "source_label": "Infestazione mosca dell'olivo",
+    "evidence": "source survey_schema id 1"
+   },
+   "observation": {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "unit": "percent of sampled drupes",
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "rate_pct": 0.0417,
+    "infested_drupes": 1,
+    "drupes_sampled": 2400,
+    "n_visits": 24,
+    "n_sites": 7,
+    "n_orgs": 2,
+    "n_visits_excluded_by_sanity_rules": 0,
+    "first_observation": "2026-08-10",
+    "last_observation": "2026-09-02",
+    "per_visit_rate_pct_median": 0.0,
+    "per_visit_rate_pct_max": 1.0,
+    "value_pct": 0.0417,
+    "source_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    }
+   },
+   "analysis": {
+    "baseline_seasons": [
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "baseline_n": 20,
+    "baseline_rate_pct_median": 0.6368,
+    "baseline_rate_pct_min": 0.0,
+    "baseline_rate_pct_max": 15.9412,
+    "baseline_detail": [
+     {
+      "season": 2006,
+      "rate_pct": 0.3704,
+      "n_visits": 27,
+      "n_sites": 9,
+      "drupes_sampled": 2700
+     },
+     {
+      "season": 2007,
+      "rate_pct": 8.7778,
+      "n_visits": 27,
+      "n_sites": 9,
+      "drupes_sampled": 2700
+     },
+     {
+      "season": 2008,
+      "rate_pct": 0.8611,
+      "n_visits": 36,
+      "n_sites": 9,
+      "drupes_sampled": 3600
+     },
+     {
+      "season": 2009,
+      "rate_pct": 0.2143,
+      "n_visits": 14,
+      "n_sites": 4,
+      "drupes_sampled": 1400
+     },
+     {
+      "season": 2010,
+      "rate_pct": 0.5556,
+      "n_visits": 18,
+      "n_sites": 5,
+      "drupes_sampled": 1800
+     },
+     {
+      "season": 2011,
+      "rate_pct": 0.4706,
+      "n_visits": 17,
+      "n_sites": 5,
+      "drupes_sampled": 1700
+     },
+     {
+      "season": 2012,
+      "rate_pct": 0.0,
+      "n_visits": 20,
+      "n_sites": 5,
+      "drupes_sampled": 2000
+     },
+     {
+      "season": 2013,
+      "rate_pct": 0.4,
+      "n_visits": 20,
+      "n_sites": 5,
+      "drupes_sampled": 2000
+     },
+     {
+      "season": 2014,
+      "rate_pct": 15.9412,
+      "n_visits": 17,
+      "n_sites": 5,
+      "drupes_sampled": 1700
+     },
+     {
+      "season": 2015,
+      "rate_pct": 0.5,
+      "n_visits": 20,
+      "n_sites": 5,
+      "drupes_sampled": 2000
+     },
+     {
+      "season": 2016,
+      "rate_pct": 3.5455,
+      "n_visits": 22,
+      "n_sites": 7,
+      "drupes_sampled": 2200
+     },
+     {
+      "season": 2017,
+      "rate_pct": 0.15,
+      "n_visits": 20,
+      "n_sites": 6,
+      "drupes_sampled": 2000
+     },
+     {
+      "season": 2018,
+      "rate_pct": 0.5652,
+      "n_visits": 23,
+      "n_sites": 7,
+      "drupes_sampled": 2300
+     },
+     {
+      "season": 2019,
+      "rate_pct": 2.5333,
+      "n_visits": 15,
+      "n_sites": 6,
+      "drupes_sampled": 1500
+     },
+     {
+      "season": 2020,
+      "rate_pct": 0.7368,
+      "n_visits": 19,
+      "n_sites": 6,
+      "drupes_sampled": 1900
+     },
+     {
+      "season": 2021,
+      "rate_pct": 1.6923,
+      "n_visits": 13,
+      "n_sites": 6,
+      "drupes_sampled": 1300
+     },
+     {
+      "season": 2022,
+      "rate_pct": 0.7083,
+      "n_visits": 24,
+      "n_sites": 6,
+      "drupes_sampled": 2400
+     },
+     {
+      "season": 2023,
+      "rate_pct": 3.95,
+      "n_visits": 20,
+      "n_sites": 7,
+      "drupes_sampled": 2000
+     },
+     {
+      "season": 2024,
+      "rate_pct": 0.2083,
+      "n_visits": 24,
+      "n_sites": 6,
+      "drupes_sampled": 2400
+     },
+     {
+      "season": 2025,
+      "rate_pct": 2.0,
+      "n_visits": 8,
+      "n_sites": 3,
+      "drupes_sampled": 800
+     }
+    ],
+    "percentile_against_own_history": 0.05,
+    "historical_state": "INSUFFICIENT_DATA",
+    "historical_reason": "0 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+    "panel_overlap_with_baseline_seasons": {
+     "median_groves_shared": 0.0,
+     "min": 0,
+     "max": 2,
+     "seasons_sharing_at_least_the_declared_minimum": 0,
+     "of_seasons": 20,
+     "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
+    },
+    "matched_panel_comparisons": [],
+    "matched_panel_seasons": 0,
+    "historical_state_matched": "INSUFFICIENT_DATA",
+    "historical_matched_reason": "0 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+    "historical_state_unmatched": "BELOW_HISTORICAL",
+    "observed_trend": "UNKNOWN",
+    "observed_trend_reason": "2 usable consecutive windows, below the declared minimum of 3",
+    "observed_trend_points": [
+     {
+      "window_end": "2026-08-09",
+      "rate_pct": 0.0,
+      "n_visits": 24,
+      "drupes_sampled": 2400
+     },
+     {
+      "window_end": "2026-09-06",
+      "rate_pct": 0.0417,
+      "n_visits": 24,
+      "drupes_sampled": 2400
+     }
+    ]
+   },
+   "quality": {
+    "semantic_validity": "PROVED_BY_SOURCE_METADATA",
+    "denominator_validity": "PRESENT",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF",
+    "n_visits_excluded_by_sanity_rules": 0,
+    "historical_comparison_is_matched_panel": true,
+    "matched_panel_seasons": 0,
+    "observation_publishable": true,
+    "historical_comparison_publishable": false,
+    "publishable": true,
+    "publishable_reason": "enough visits and enough sampled drupes for the observation"
+   },
+   "params": {
+    "WINDOW_DAYS": 28,
+    "MIN_VISITS": 8,
+    "MIN_DRUPES": 400,
+    "MIN_BASELINE_SEASONS": 5,
+    "HIGH_PCTL": 0.8,
+    "LOW_PCTL": 0.2,
+    "TREND_MIN_WINDOWS": 3,
+    "TREND_MIN_ABS_CHANGE_PCT": 1.0,
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+   }
+  },
+  {
+   "country": "Italy",
+   "region": "Toscana",
+   "province": "Siena",
+   "as_of": "2026-09-06",
+   "crop": {
+    "canonical_id": "CROP_OLIVE",
+    "source_label": "Olivo",
+    "evidence": "source crop id 2"
+   },
+   "problem": {
+    "type": "PEST",
+    "canonical_id": "PEST_BACTROCERA_OLEAE",
+    "source_label": "Infestazione mosca dell'olivo",
+    "evidence": "source survey_schema id 1"
+   },
+   "observation": {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "unit": "percent of sampled drupes",
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "rate_pct": 0.6909,
+    "infested_drupes": 127,
+    "drupes_sampled": 18383,
+    "n_visits": 186,
+    "n_sites": 61,
+    "n_orgs": 6,
+    "n_visits_excluded_by_sanity_rules": 6,
+    "first_observation": "2026-08-11",
+    "last_observation": "2026-09-03",
+    "per_visit_rate_pct_median": 0.0,
+    "per_visit_rate_pct_max": 18.1818,
+    "value_pct": 0.6909,
+    "source_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    }
+   },
+   "analysis": {
+    "baseline_seasons": [
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "baseline_n": 20,
+    "baseline_rate_pct_median": 1.2975,
+    "baseline_rate_pct_min": 0.4324,
+    "baseline_rate_pct_max": 6.4685,
+    "baseline_detail": [
+     {
+      "season": 2006,
+      "rate_pct": 1.5526,
+      "n_visits": 114,
+      "n_sites": 43,
+      "drupes_sampled": 11400
+     },
+     {
+      "season": 2007,
+      "rate_pct": 5.9934,
+      "n_visits": 151,
+      "n_sites": 53,
+      "drupes_sampled": 15100
+     },
+     {
+      "season": 2008,
+      "rate_pct": 0.4341,
+      "n_visits": 194,
+      "n_sites": 64,
+      "drupes_sampled": 19350
+     },
+     {
+      "season": 2009,
+      "rate_pct": 0.6049,
+      "n_visits": 243,
+      "n_sites": 66,
+      "drupes_sampled": 24300
+     },
+     {
+      "season": 2010,
+      "rate_pct": 0.8685,
+      "n_visits": 251,
+      "n_sites": 69,
+      "drupes_sampled": 25100
+     },
+     {
+      "season": 2011,
+      "rate_pct": 0.6926,
+      "n_visits": 116,
+      "n_sites": 35,
+      "drupes_sampled": 11550
+     },
+     {
+      "season": 2012,
+      "rate_pct": 1.1545,
+      "n_visits": 110,
+      "n_sites": 31,
+      "drupes_sampled": 11000
+     },
+     {
+      "season": 2013,
+      "rate_pct": 1.9659,
+      "n_visits": 88,
+      "n_sites": 30,
+      "drupes_sampled": 8800
+     },
+     {
+      "season": 2014,
+      "rate_pct": 4.1237,
+      "n_visits": 97,
+      "n_sites": 31,
+      "drupes_sampled": 9700
+     },
+     {
+      "season": 2015,
+      "rate_pct": 1.2143,
+      "n_visits": 196,
+      "n_sites": 56,
+      "drupes_sampled": 19600
+     },
+     {
+      "season": 2016,
+      "rate_pct": 5.964,
+      "n_visits": 140,
+      "n_sites": 52,
+      "drupes_sampled": 13984
+     },
+     {
+      "season": 2017,
+      "rate_pct": 0.4324,
+      "n_visits": 162,
+      "n_sites": 48,
+      "drupes_sampled": 14800
+     },
+     {
+      "season": 2018,
+      "rate_pct": 0.6414,
+      "n_visits": 179,
+      "n_sites": 52,
+      "drupes_sampled": 17150
+     },
+     {
+      "season": 2019,
+      "rate_pct": 3.7519,
+      "n_visits": 129,
+      "n_sites": 43,
+      "drupes_sampled": 12900
+     },
+     {
+      "season": 2020,
+      "rate_pct": 1.3807,
+      "n_visits": 197,
+      "n_sites": 52,
+      "drupes_sampled": 19700
+     },
+     {
+      "season": 2021,
+      "rate_pct": 3.7333,
+      "n_visits": 132,
+      "n_sites": 44,
+      "drupes_sampled": 12750
+     },
+     {
+      "season": 2022,
+      "rate_pct": 0.992,
+      "n_visits": 125,
+      "n_sites": 36,
+      "drupes_sampled": 12500
+     },
+     {
+      "season": 2023,
+      "rate_pct": 6.4685,
+      "n_visits": 111,
+      "n_sites": 37,
+      "drupes_sampled": 11100
+     },
+     {
+      "season": 2024,
+      "rate_pct": 0.4471,
+      "n_visits": 45,
+      "n_sites": 21,
+      "drupes_sampled": 4250
+     },
+     {
+      "season": 2025,
+      "rate_pct": 5.7188,
+      "n_visits": 102,
+      "n_sites": 35,
+      "drupes_sampled": 9600
+     }
+    ],
+    "percentile_against_own_history": 0.25,
+    "historical_state": "BELOW_HISTORICAL",
+    "historical_reason": "on the groves shared with each prior season, this window reads lower than 14 of 17 of them and higher than 3",
+    "panel_overlap_with_baseline_seasons": {
+     "median_groves_shared": 12.5,
+     "min": 3,
+     "max": 27,
+     "seasons_sharing_at_least_the_declared_minimum": 17,
+     "of_seasons": 20,
+     "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
+    },
+    "matched_panel_comparisons": [
+     {
+      "season": 2009,
+      "n_groves_shared": 8,
+      "rate_now_on_those_groves_pct": 0.6,
+      "rate_then_on_those_groves_pct": 0.7097,
+      "drupes_now": 3000,
+      "drupes_then": 3100
+     },
+     {
+      "season": 2010,
+      "n_groves_shared": 9,
+      "rate_now_on_those_groves_pct": 0.5294,
+      "rate_then_on_those_groves_pct": 1.1143,
+      "drupes_now": 3400,
+      "drupes_then": 3500
+     },
+     {
+      "season": 2011,
+      "n_groves_shared": 8,
+      "rate_now_on_those_groves_pct": 0.5625,
+      "rate_then_on_those_groves_pct": 0.8772,
+      "drupes_now": 3200,
+      "drupes_then": 2850
+     },
+     {
+      "season": 2012,
+      "n_groves_shared": 8,
+      "rate_now_on_those_groves_pct": 0.5625,
+      "rate_then_on_those_groves_pct": 1.3103,
+      "drupes_now": 3200,
+      "drupes_then": 2900
+     },
+     {
+      "season": 2013,
+      "n_groves_shared": 8,
+      "rate_now_on_those_groves_pct": 0.5625,
+      "rate_then_on_those_groves_pct": 2.1304,
+      "drupes_now": 3200,
+      "drupes_then": 2300
+     },
+     {
+      "season": 2014,
+      "n_groves_shared": 8,
+      "rate_now_on_those_groves_pct": 0.5625,
+      "rate_then_on_those_groves_pct": 4.5926,
+      "drupes_now": 3200,
+      "drupes_then": 2700
+     },
+     {
+      "season": 2015,
+      "n_groves_shared": 12,
+      "rate_now_on_those_groves_pct": 1.025,
+      "rate_then_on_those_groves_pct": 1.6739,
+      "drupes_now": 4000,
+      "drupes_then": 4600
+     },
+     {
+      "season": 2016,
+      "n_groves_shared": 15,
+      "rate_now_on_those_groves_pct": 1.1158,
+      "rate_then_on_those_groves_pct": 6.692,
+      "drupes_now": 4750,
+      "drupes_then": 3691
+     },
+     {
+      "season": 2017,
+      "n_groves_shared": 14,
+      "rate_now_on_those_groves_pct": 1.1236,
+      "rate_then_on_those_groves_pct": 0.7416,
+      "drupes_now": 4450,
+      "drupes_then": 4450
+     },
+     {
+      "season": 2018,
+      "n_groves_shared": 15,
+      "rate_now_on_those_groves_pct": 1.1368,
+      "rate_then_on_those_groves_pct": 0.8545,
+      "drupes_now": 4750,
+      "drupes_then": 5500
+     },
+     {
+      "season": 2019,
+      "n_groves_shared": 15,
+      "rate_now_on_those_groves_pct": 0.7238,
+      "rate_then_on_those_groves_pct": 5.2619,
+      "drupes_now": 5250,
+      "drupes_then": 4200
+     },
+     {
+      "season": 2020,
+      "n_groves_shared": 22,
+      "rate_now_on_those_groves_pct": 1.191,
+      "rate_then_on_those_groves_pct": 1.1951,
+      "drupes_now": 6633,
+      "drupes_then": 8200
+     },
+     {
+      "season": 2021,
+      "n_groves_shared": 20,
+      "rate_now_on_those_groves_pct": 1.1211,
+      "rate_then_on_those_groves_pct": 4.2261,
+      "drupes_now": 6333,
+      "drupes_then": 5750
+     },
+     {
+      "season": 2022,
+      "n_groves_shared": 15,
+      "rate_now_on_those_groves_pct": 0.5965,
+      "rate_then_on_those_groves_pct": 1.0175,
+      "drupes_now": 5700,
+      "drupes_then": 5700
+     },
+     {
+      "season": 2023,
+      "n_groves_shared": 15,
+      "rate_now_on_those_groves_pct": 0.5965,
+      "rate_then_on_those_groves_pct": 9.0417,
+      "drupes_now": 5700,
+      "drupes_then": 4800
+     },
+     {
+      "season": 2024,
+      "n_groves_shared": 13,
+      "rate_now_on_those_groves_pct": 1.7058,
+      "rate_then_on_those_groves_pct": 0.5574,
+      "drupes_now": 3283,
+      "drupes_then": 3050
+     },
+     {
+      "season": 2025,
+      "n_groves_shared": 27,
+      "rate_now_on_those_groves_pct": 0.7266,
+      "rate_then_on_those_groves_pct": 5.8675,
+      "drupes_now": 9083,
+      "drupes_then": 7550
+     }
+    ],
+    "matched_panel_seasons": 17,
+    "matched_seasons_now_is_higher_than_then": 3,
+    "matched_seasons_now_is_lower_than_then": 14,
+    "historical_state_matched": "BELOW_HISTORICAL",
+    "historical_matched_reason": "on the groves shared with each prior season, this window reads lower than 14 of 17 of them and higher than 3",
+    "historical_state_unmatched": "TYPICAL",
+    "observed_trend": "STABLE_OBSERVED",
+    "observed_trend_reason": "0.0% -> 0.2718% -> 0.6909% over 3 consecutive 28-day windows ending 2026-09-06; change 0.6909 percentage points. This describes windows that have already happened.",
+    "observed_trend_points": [
+     {
+      "window_end": "2026-07-12",
+      "rate_pct": 0.0,
+      "n_visits": 31,
+      "drupes_sampled": 3100
+     },
+     {
+      "window_end": "2026-08-09",
+      "rate_pct": 0.2718,
+      "n_visits": 144,
+      "drupes_sampled": 14350
+     },
+     {
+      "window_end": "2026-09-06",
+      "rate_pct": 0.6909,
+      "n_visits": 186,
+      "drupes_sampled": 18383
+     }
+    ]
+   },
+   "quality": {
+    "semantic_validity": "PROVED_BY_SOURCE_METADATA",
+    "denominator_validity": "PRESENT",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF",
+    "n_visits_excluded_by_sanity_rules": 6,
+    "historical_comparison_is_matched_panel": true,
+    "matched_panel_seasons": 17,
+    "observation_publishable": true,
+    "historical_comparison_publishable": true,
+    "publishable": true,
+    "publishable_reason": "enough visits and enough sampled drupes for the observation"
+   },
+   "params": {
+    "WINDOW_DAYS": 28,
+    "MIN_VISITS": 8,
+    "MIN_DRUPES": 400,
+    "MIN_BASELINE_SEASONS": 5,
+    "HIGH_PCTL": 0.8,
+    "LOW_PCTL": 0.2,
+    "TREND_MIN_WINDOWS": 3,
+    "TREND_MIN_ABS_CHANGE_PCT": 1.0,
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+   }
+  }
+ ]
+}

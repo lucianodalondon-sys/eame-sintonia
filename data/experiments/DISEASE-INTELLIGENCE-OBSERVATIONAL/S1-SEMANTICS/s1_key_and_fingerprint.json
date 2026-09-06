@@ -1,0 +1,607 @@
+{
+ "CASE": "OLIVO-BACTROCERA-TOSCANA",
+ "SOURCE_API": "https://agroambiente.info.regione.toscana.it/agro18/api/dati/get_aedita_data",
+ "crop_id": 2,
+ "schema_id": 1,
+ "SOURCE_DECLARES_THESE_VARIABLES": {
+  "-1003": {
+   "label": "Totale",
+   "widget": "numeric"
+  },
+  "-1002": {
+   "label": "Dannosa",
+   "widget": "numeric"
+  },
+  "-1001": {
+   "label": "Attiva",
+   "widget": "numeric"
+  },
+  "1": {
+   "label": "Tot",
+   "widget": "numeric"
+  },
+  "2": {
+   "label": "u",
+   "widget": "numeric"
+  },
+  "3": {
+   "label": "l1v",
+   "widget": "numeric"
+  },
+  "4": {
+   "label": "l1m",
+   "widget": "numeric"
+  },
+  "5": {
+   "label": "l2v",
+   "widget": "numeric"
+  },
+  "6": {
+   "label": "l2m",
+   "widget": "numeric"
+  },
+  "7": {
+   "label": "l3v",
+   "widget": "numeric"
+  },
+  "8": {
+   "label": "l3m",
+   "widget": "numeric"
+  },
+  "9": {
+   "label": "pv",
+   "widget": "numeric"
+  },
+  "10": {
+   "label": "pm",
+   "widget": "numeric"
+  },
+  "11": {
+   "label": "fu",
+   "widget": "numeric"
+  },
+  "21": {
+   "label": "ps",
+   "widget": "numeric"
+  }
+ },
+ "COLLECTED": [
+  -1003,
+  -1002,
+  -1001,
+  1
+ ],
+ "NOT_COLLECTED": [
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  21
+ ],
+ "CODE_TABLE_ENTRIES": 0,
+ "A_VISIT_KEY": {
+  "-1003": {
+   "uid": {
+    "distinct_keys": 59,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 58,
+    "of_those_with_CONFLICTING_values": 58,
+    "UNIQUE": false,
+    "SAFE_TO_JOIN_ON": false
+   },
+   "id_survey": {
+    "distinct_keys": 52250,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 14649,
+    "of_those_with_CONFLICTING_values": 13641,
+    "UNIQUE": false,
+    "SAFE_TO_JOIN_ON": false
+   },
+   "id_survey+_year": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   },
+   "id_survey+_file": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   },
+   "id_field+date": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   },
+   "id_field+date+_file": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   },
+   "id_field+date+id_org": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   }
+  },
+  "-1002": {
+   "uid": {
+    "distinct_keys": 59,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 58,
+    "of_those_with_CONFLICTING_values": 56,
+    "UNIQUE": false,
+    "SAFE_TO_JOIN_ON": false
+   },
+   "id_survey": {
+    "distinct_keys": 52250,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 14649,
+    "of_those_with_CONFLICTING_values": 10287,
+    "UNIQUE": false,
+    "SAFE_TO_JOIN_ON": false
+   },
+   "id_survey+_year": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   },
+   "id_survey+_file": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   },
+   "id_field+date": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   },
+   "id_field+date+_file": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   },
+   "id_field+date+id_org": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   }
+  },
+  "-1001": {
+   "uid": {
+    "distinct_keys": 59,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 58,
+    "of_those_with_CONFLICTING_values": 58,
+    "UNIQUE": false,
+    "SAFE_TO_JOIN_ON": false
+   },
+   "id_survey": {
+    "distinct_keys": 52250,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 14649,
+    "of_those_with_CONFLICTING_values": 12580,
+    "UNIQUE": false,
+    "SAFE_TO_JOIN_ON": false
+   },
+   "id_survey+_year": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   },
+   "id_survey+_file": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   },
+   "id_field+date": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   },
+   "id_field+date+_file": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   },
+   "id_field+date+id_org": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   }
+  },
+  "1": {
+   "uid": {
+    "distinct_keys": 59,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 58,
+    "of_those_with_CONFLICTING_values": 46,
+    "UNIQUE": false,
+    "SAFE_TO_JOIN_ON": false
+   },
+   "id_survey": {
+    "distinct_keys": 52250,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 14649,
+    "of_those_with_CONFLICTING_values": 2443,
+    "UNIQUE": false,
+    "SAFE_TO_JOIN_ON": false
+   },
+   "id_survey+_year": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   },
+   "id_survey+_file": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   },
+   "id_field+date": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   },
+   "id_field+date+_file": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   },
+   "id_field+date+id_org": {
+    "distinct_keys": 79251,
+    "rows": 79251,
+    "keys_appearing_more_than_once": 0,
+    "of_those_with_CONFLICTING_values": 0,
+    "UNIQUE": true,
+    "SAFE_TO_JOIN_ON": true
+   }
+  }
+ },
+ "A_KEYS_SAFE_IN_EVERY_COLLECTED_VARIABLE": [
+  "id_field+date",
+  "id_field+date+_file",
+  "id_field+date+id_org",
+  "id_survey+_file",
+  "id_survey+_year"
+ ],
+ "B_FINGERPRINT": {
+  "-1003": {
+   "source_var_id": -1003,
+   "source_label": "Totale",
+   "source_widget": "numeric",
+   "n_rows": 79251,
+   "n_null_or_empty": 1241,
+   "n_readable": 78010,
+   "distinct_values": 339,
+   "min": -10.0,
+   "max": 254.0,
+   "median": 4.0,
+   "share_integer": 0.9938,
+   "n_negative": 4,
+   "share_zero": 0.2902,
+   "share_le_1": 0.3612,
+   "share_le_100": 0.9992,
+   "top_values": [
+    [
+     0.0,
+     22639
+    ],
+    [
+     2.0,
+     5488
+    ],
+    [
+     1.0,
+     5480
+    ],
+    [
+     3.0,
+     4411
+    ],
+    [
+     4.0,
+     3882
+    ],
+    [
+     5.0,
+     3210
+    ],
+    [
+     6.0,
+     2926
+    ],
+    [
+     7.0,
+     2414
+    ]
+   ],
+   "date_range": [
+    "2006-07-17",
+    "2026-09-04"
+   ]
+  },
+  "-1002": {
+   "source_var_id": -1002,
+   "source_label": "Dannosa",
+   "source_widget": "numeric",
+   "n_rows": 79251,
+   "n_null_or_empty": 1232,
+   "n_readable": 78019,
+   "distinct_values": 182,
+   "min": -5.0,
+   "max": 140.0,
+   "median": 0.0,
+   "share_integer": 0.9981,
+   "n_negative": 4,
+   "share_zero": 0.6416,
+   "share_le_1": 0.7153,
+   "share_le_100": 1.0,
+   "top_values": [
+    [
+     0.0,
+     50059
+    ],
+    [
+     1.0,
+     5708
+    ],
+    [
+     2.0,
+     4570
+    ],
+    [
+     3.0,
+     3339
+    ],
+    [
+     4.0,
+     2627
+    ],
+    [
+     5.0,
+     1986
+    ],
+    [
+     6.0,
+     1579
+    ],
+    [
+     7.0,
+     1082
+    ]
+   ],
+   "date_range": [
+    "2006-07-17",
+    "2026-09-04"
+   ]
+  },
+  "-1001": {
+   "source_var_id": -1001,
+   "source_label": "Attiva",
+   "source_widget": "numeric",
+   "n_rows": 79251,
+   "n_null_or_empty": 1217,
+   "n_readable": 78034,
+   "distinct_values": 187,
+   "min": -3.0,
+   "max": 107.0,
+   "median": 1.0,
+   "share_integer": 0.9956,
+   "n_negative": 2,
+   "share_zero": 0.4314,
+   "share_le_1": 0.5477,
+   "share_le_100": 1.0,
+   "top_values": [
+    [
+     0.0,
+     33660
+    ],
+    [
+     1.0,
+     8982
+    ],
+    [
+     2.0,
+     7937
+    ],
+    [
+     3.0,
+     5338
+    ],
+    [
+     4.0,
+     4213
+    ],
+    [
+     5.0,
+     2874
+    ],
+    [
+     6.0,
+     2429
+    ],
+    [
+     7.0,
+     1720
+    ]
+   ],
+   "date_range": [
+    "2006-07-17",
+    "2026-09-04"
+   ]
+  },
+  "1": {
+   "source_var_id": 1,
+   "source_label": "Tot",
+   "source_widget": "numeric",
+   "n_rows": 79251,
+   "n_null_or_empty": 177,
+   "n_readable": 79074,
+   "distinct_values": 205,
+   "min": 0.0,
+   "max": 1400.0,
+   "median": 100.0,
+   "share_integer": 1.0,
+   "n_negative": 0,
+   "share_zero": 0.0428,
+   "share_le_1": 0.0429,
+   "share_le_100": 0.9841,
+   "top_values": [
+    [
+     100.0,
+     73531
+    ],
+    [
+     0.0,
+     3381
+    ],
+    [
+     50.0,
+     366
+    ],
+    [
+     200.0,
+     364
+    ],
+    [
+     150.0,
+     123
+    ],
+    [
+     300.0,
+     68
+    ],
+    [
+     99.0,
+     64
+    ],
+    [
+     101.0,
+     58
+    ]
+   ],
+   "date_range": [
+    "2006-07-17",
+    "2026-09-04"
+   ]
+  }
+ },
+ "C_ARITHMETIC": {
+  "JOIN_KEY_USED": "id_field+date",
+  "rows_where_all_four_variables_are_readable": 78008,
+  "TOTALE_equals_ATTIVA_plus_DANNOSA": 0.556674,
+  "TOTALE_ge_ATTIVA": 0.999962,
+  "TOTALE_ge_DANNOSA": 0.999974,
+  "ATTIVA_le_TOT": 0.99941,
+  "DANNOSA_le_TOT": 0.999551,
+  "TOTALE_le_TOT": 0.998192,
+  "TOT_equals_100": 0.942198,
+  "TOT_distribution": [
+   [
+    100.0,
+    73499
+   ],
+   [
+    0.0,
+    2351
+   ],
+   [
+    50.0,
+    366
+   ],
+   [
+    200.0,
+    364
+   ],
+   [
+    150.0,
+    121
+   ],
+   [
+    300.0,
+    68
+   ],
+   [
+    99.0,
+    64
+   ],
+   [
+    101.0,
+    58
+   ],
+   [
+    102.0,
+    56
+   ],
+   [
+    80.0,
+    43
+   ]
+  ],
+  "ATTIVA_and_DANNOSA_both_zero": 0.361027,
+  "ATTIVA_gt_0_while_DANNOSA_eq_0": 0.280574,
+  "DANNOSA_gt_0_while_ATTIVA_eq_0": 0.070262
+ }
+}
