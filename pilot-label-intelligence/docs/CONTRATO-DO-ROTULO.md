@@ -54,6 +54,40 @@ Nao existe campo vazio no piloto. Existe:
 `LABEL_VERSION_ID` e derivado do sha256 do PDF, nunca da data de captura. Duas capturas do
 mesmo arquivo sao **uma** versao.
 
+## 5b. Celula mesclada: herdar e LER, nao inventar
+
+A primeira versao deste contrato dizia que **so cultura** podia ser herdada de
+uma linha anterior. A regra nasceu certa — impedir que uma dose vazasse para uma
+linha que nao a tem — mas estava larga demais, e a medicao mostrou onde.
+
+Na tabela de usos da etichetta, a celula de **numero maximo de aplicacoes** e
+mesclada verticalmente exatamente como a de cultura: no registro 015275 um unico
+"1", impresso na altura da terceira das cinco linhas do Pesco, vale para as
+cinco. O gabarito construido a mao, lendo os fios da tabela na imagem
+renderizada, espalha esse valor pelas cinco linhas — porque e isso que a tabela
+diz.
+
+Com a regra antiga, quatro dessas cinco linhas sairiam `NOT_PRESENT`. Isso nao e
+prudencia: e afirmar ausencia onde o documento afirma presenca. Medido, a regra
+antiga entregava `MAX_APPLICATIONS` correto em 47 de 84 linhas; respeitando a
+mescla, 83 de 84.
+
+A regra passa a ser:
+
+> Um valor pode ser herdado de outra linha **quando a mescla da celula for
+> estabelecida pela geometria do documento**, nunca por conveniencia do leitor.
+> Toda linha que recebe valor herdado marca o campo correspondente:
+> `CROP_INHERITED`, `MAX_APPLICATIONS_INHERITED`, e assim por diante.
+
+O que continua proibido, e e o coracao da regra original:
+
+- herdar valor porque a linha ficou vazia e o numero anterior "parece servir";
+- herdar dose de uma linha para outra sem mescla geometrica provada;
+- apagar a marca de herdado para a tabela ficar mais limpa.
+
+Ler uma celula mesclada e leitura. Preencher uma celula vazia e invencao. A
+diferenca esta na geometria, e ela e verificavel.
+
 ## 6. Linha de uso autorizado
 
     CROP, TARGET, TARGET_SCIENTIFIC_NAME,
