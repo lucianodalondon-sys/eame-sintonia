@@ -51,6 +51,10 @@ const forme = (righe) => {
 
 const C = segmenta(markup(CASCO)), V = segmenta(markup(VIVO));
 const schermate = Object.keys(C);
+/* Una forma puo essere SPOSTATA invece che tolta: se non e piu su questa
+   schermata ma esiste altrove nel portale, il disegno non e andato perduto,
+   e cambiato di posto. Le due cose non si contano insieme. */
+const OVUNQUE_VIVO = forme(Object.keys(V).reduce((a, k) => a.concat(V[k]), []));
 
 let totC = 0, totTenute = 0, totPerse = 0;
 const righeReport = [];
@@ -60,20 +64,36 @@ for (const s of schermate) {
   const perse = [...fc].filter(f => !fv.has(f));
   const nuove = [...fv].filter(f => !fc.has(f)).length;
   totC += fc.size; totTenute += tenute; totPerse += perse.length;
-  righeReport.push({ s, casco: fc.size, tenute, perse: perse.length, nuove,
-    parita: fc.size ? Math.round((tenute / fc.size) * 1000) / 10 : 100, esempi: perse.slice(0, 3) });
+  const spostate = perse.filter(f => OVUNQUE_VIVO.has(f)).length;
+  righeReport.push({ s, casco: fc.size, tenute, spostate, perse: perse.length - spostate, nuove,
+    parita: fc.size ? Math.round(((tenute + spostate) / fc.size) * 1000) / 10 : 100 });
 }
 righeReport.sort((a, b) => a.parita - b.parita);
 
-console.log('SCHERMATA'.padEnd(16), 'CASCO'.padStart(6), 'TENUTE'.padStart(7), 'PERSE'.padStart(6), 'NUOVE'.padStart(6), 'PARITA'.padStart(7));
+console.log('SCHERMATA'.padEnd(16), 'CASCO'.padStart(6), 'TENUTE'.padStart(7), 'SPOSTATE'.padStart(9), 'PERSE'.padStart(6), 'NUOVE'.padStart(6), 'PARITA'.padStart(7));
 for (const r of righeReport) {
   console.log(r.s.padEnd(16), String(r.casco).padStart(6), String(r.tenute).padStart(7),
-    String(r.perse).padStart(6), String(r.nuove).padStart(6), (r.parita + '%').padStart(7));
+    String(r.spostate).padStart(9), String(r.perse).padStart(6), String(r.nuove).padStart(6), (r.parita + '%').padStart(7));
 }
 console.log('');
-console.log('FORME DEL CASCO', totC, '· TENUTE', totTenute, '· PERSE', totPerse,
-  '· PARITA COMPLESSIVA', Math.round((totTenute / totC) * 1000) / 10 + '%');
+const totSpost = righeReport.reduce((a, r) => a + r.spostate, 0);
+const totPerseVere = righeReport.reduce((a, r) => a + r.perse, 0);
+console.log('FORME DEL CASCO', totC, '· TENUTE', totTenute, '· SPOSTATE', totSpost, '· PERSE', totPerseVere,
+  '· PARITA COMPLESSIVA', Math.round(((totTenute + totSpost) / totC) * 1000) / 10 + '%');
 
+if (process.env.SCRIVI) {
+  const dir = process.env.SCRIVI;
+  for (const r of righeReport) {
+    const fc = forme(C[r.s]), fv = forme(V[r.s] || []);
+    const perse = [...fc].filter(x => !fv.has(x) && !OVUNQUE_VIVO.has(x));
+    if (!perse.length) continue;
+    fs.writeFileSync(dir + '/' + r.s + '.txt',
+      'SCHERMATA ' + r.s + '\nFORME DEL CASCO ' + r.casco + ' · TENUTE ' + r.tenute +
+      ' · SPOSTATE ' + r.spostate + ' · PERSE ' + r.perse + ' · PARITA ' + r.parita + '%\n\n' +
+      perse.join('\n') + '\n');
+  }
+  console.log('scritti', righeReport.filter(r => r.perse).length, 'file in', dir);
+}
 if (process.env.DETTAGLIO) {
   for (const r of righeReport) {
     if (!r.perse) continue;
