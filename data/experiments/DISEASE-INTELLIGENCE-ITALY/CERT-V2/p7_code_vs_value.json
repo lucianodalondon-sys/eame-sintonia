@@ -74,32 +74,32 @@
   "BY_SHARE_OF_VALUES_THAT_ARE_CODE_IDS": {
    "0.00": {
     "OUTCOME": "PUBLISHED",
-    "n_provinces_classed": 0,
+    "n_provinces_classed": 9,
     "message": null
    },
    "0.50": {
     "OUTCOME": "PUBLISHED",
-    "n_provinces_classed": 0,
+    "n_provinces_classed": 9,
     "message": null
    },
    "0.80": {
     "OUTCOME": "PUBLISHED",
-    "n_provinces_classed": 0,
+    "n_provinces_classed": 9,
     "message": null
    },
    "0.85": {
     "OUTCOME": "PUBLISHED",
-    "n_provinces_classed": 0,
+    "n_provinces_classed": 9,
     "message": null
    },
    "0.89": {
     "OUTCOME": "PUBLISHED",
-    "n_provinces_classed": 0,
+    "n_provinces_classed": 9,
     "message": null
    },
    "0.90": {
     "OUTCOME": "PUBLISHED",
-    "n_provinces_classed": 0,
+    "n_provinces_classed": 9,
     "message": null
    },
    "0.95": {
@@ -119,12 +119,18 @@
   "share_of_code_ids": 0.0,
   "RESULT": {
    "OUTCOME": "PUBLISHED",
-   "n_provinces_classed": 0,
+   "n_provinces_classed": 9,
    "states": {
-    "Arezzo": "UNKNOWN_NO_DATA",
-    "Firenze": "UNKNOWN_NO_DATA",
-    "Grosseto": "UNKNOWN_NO_DATA",
-    "Pisa": "UNKNOWN_NO_DATA"
+    "Arezzo": "TYPICAL_FOR_THE_DATE",
+    "Firenze": "LOWER_THAN_USUAL",
+    "Grosseto": "LOWER_THAN_USUAL",
+    "Livorno": "LOWER_THAN_USUAL",
+    "Lucca": "TYPICAL_FOR_THE_DATE",
+    "Massa-Carrara": "TYPICAL_FOR_THE_DATE",
+    "Pisa": "LOWER_THAN_USUAL",
+    "Pistoia": "LOWER_THAN_USUAL",
+    "Prato": "UNKNOWN_NO_DATA",
+    "Siena": "LOWER_THAN_USUAL"
    }
   }
  },
@@ -149,7 +155,19 @@
   },
   "READ": "in ORDINAL mode an unrecognised code decodes to None, which is MISSING, which is never zero. The case fails to UNKNOWN rather than to a number. That is the right failure, and it is delivered by read_value, not by the code-vs-value guard."
  },
- "CODE_AS_VALUE_FALSE_CLAIMS": 0,
+ "CODE_AS_VALUE_FALSE_CLAIMS": 45,
+ "SUBTESTS": {
+  "REFUSES_WHEN_THE_VALUES_ARE_CODE_IDS": true,
+  "DOES_NOT_FALSE_REFUSE_A_GENUINE_MEASUREMENT": true,
+  "ORDINAL_CASE_FAILS_TO_UNKNOWN_NOT_TO_A_NUMBER": true,
+  "GUARD_IS_REACHABLE_ON_ANY_REAL_CASE": false,
+  "NO_PUBLISHABLE_CONTAMINATED_BAND": false
+ },
  "CODE_VS_VALUE_GATE": "FAIL",
- "SCOPE_OF_THE_PASS": "The guard does what it says WHERE IT RUNS. It does not run on either published case nor on the case it was written for. Its protection is real and currently unreachable."
+ "SCOPE_AND_THE_HOLE": {
+  "WHAT_IS_PROVED": "where the guard runs it does exactly what it declares: it refuses a variable whose values are drawn from the case's own code vocabulary, and it does not refuse a genuine measurement.",
+  "HOLE_1_IT_NEVER_RUNS": "neither published case nor the case it was written for is in the state that lets it run. Wheat and vine are ORDINAL (the code table decodes them); olive carries no code table at all, so there is nothing to compare against. The protection is real and currently unreachable.",
+  "HOLE_2_THE_BAND_BELOW_THE_THRESHOLD": "the rule is 'refuse at >= 90% code ids'. Everything below that publishes. A variable where four values in five are identifiers is not a measurement, and the engine will put a class on it.",
+  "WHAT_ACTUALLY_HOLDS_THE_WHEAT_DEFECT_SHUT": "not this guard. With the code table for var 372 removed, value_mode returns UNSUPPORTED and current_pressure refuses outright. The fix that works is the collector storing the most complete code table, plus the UNSUPPORTED refusal."
+ }
 }

@@ -110,11 +110,38 @@ def m06_unknown_hidden():
 
 
 def m07_missing_read_as_zero():
-    """D: FAILURE == ZERO. An unreadable value becomes a confirmed absence of the issue."""
+    """D: FAILURE == ZERO, at the level the contract actually names.
+
+    v1 of this mutation made read_value return 0.0 for a null value. Measured afterwards: only
+    1,232 of 79,251 olive values are null, most of them already dropped by the denominator
+    guard, so it moved ONE cell by 0.0004 and changed no state at all. It did not destroy the
+    property, so gate D's survival meant nothing. Withdrawn.
+
+    v2 left "exactly one honest UNKNOWN" in place. Measured afterwards: on 2026-09-06 each
+    case has exactly ONE UNKNOWN province, so `unknown[1:]` was empty and the mutation was a
+    no-op. Gate D's survival meant nothing again. Withdrawn.
+
+    v3 destroys what Missing.NEVER_ZERO exists to prevent — EVERY province with too little
+    data is published as VALUE 0.0 with the class LOWER_THAN_USUAL, 'we did not look'
+    rendered as 'there is nothing there' — while a synthetic UNKNOWN province is added so that
+    gate D's predicate (does at least one UNKNOWN exist?) is still satisfied. If the predicate
+    is strong enough to protect the property rather than merely to observe one instance of it,
+    the gate fails anyway."""
     cp, _, _, _, _ = _mods()
-    real = cp.read_value
-    cp.read_value = lambda r, scale, mode: (0.0 if real(r, scale, mode) is None
-                                            else real(r, scale, mode))
+    real = cp.current_pressure
+
+    def patched(*a, **k):
+        r = real(*a, **k)
+        for p, v in list(r["PROVINCES"].items()):
+            if v.get("STATE") in (cp.UNKNOWN_NO_DATA, cp.UNKNOWN_NO_BASELINE):
+                r["PROVINCES"][p] = {"STATE": cp.LOWER, "VALUE": 0.0, "PERCENTILE": 0.0,
+                                     "n_sites": v.get("n_sites", 0),
+                                     "n_visits": v.get("n_visits", 0),
+                                     "BASELINE_N": cp.MIN_BASE, "BASELINE_MEDIAN": 0.0}
+        r["PROVINCES"]["_ALIBI"] = {"STATE": cp.UNKNOWN_NO_DATA, "VALUE": None,
+                                    "n_sites": 0, "n_visits": 0}
+        return r
+    cp.current_pressure = patched
     return AS_OF, None
 
 
@@ -142,7 +169,17 @@ def m09_file_order_shuffled():
 
 
 def m10_label_becomes_parameter_artefact():
-    """F: the published class starts depending on the window parameter."""
+    """F: the published class starts depending on the window parameter.
+
+    v1 shifted INCIDENCE by ((span % 7) - 3) * 0.12. Measured afterwards: the five grid
+    windows are 14/21/28/35/42 days, so span is 13/20/27/34/41 and span % 7 is 6 for ALL of
+    them. The shift was the same constant everywhere, applied to the current window AND to
+    every baseline window, so it cancelled inside the percentile. Gate F reported the
+    unmutated numbers to the digit (0.924 / 0.596) and its survival meant nothing. Withdrawn.
+
+    v2 perturbs ONLY the current season's window, by an amount that genuinely differs between
+    grid points. Now the published class is a function of the window parameter, which is the
+    thing gate F exists to detect."""
     cp, _, _, _, _ = _mods()
     real = cp._window_value
 
@@ -150,8 +187,9 @@ def m10_label_becomes_parameter_artefact():
         v = real(rows, scale, lo, hi, mode)
         if v is None:
             return v
-        span = (hi - lo).days
-        v["INCIDENCE"] = round(min(1.0, max(0.0, v["INCIDENCE"] + ((span % 7) - 3) * 0.12)), 4)
+        if hi.year >= 2026:                       # current season only -> cannot cancel
+            step = ((hi - lo).days // 7) % 3      # spans 13/20/27/34/41 -> 1,2,0,1,2
+            v["INCIDENCE"] = round(min(1.0, max(0.0, v["INCIDENCE"] + (step - 1) * 0.30)), 4)
         return v
     cp._window_value = patched
     return AS_OF, None
@@ -403,6 +441,40 @@ def m26_evidence_link_broken():
     return AS_OF, None
 
 
+def m27_file_order_fixed_but_different():
+    """E, the honest version of M09.
+
+    M09 shuffles glob.glob with a generator that ADVANCES, so the two runs gate E compares
+    see different orders and the gate fails. That is not the defect Step 1 found. The real
+    defect is a FIXED order that differs between machines: every call inside one process
+    agrees, and the machine next door gets a different number. This mutation reverses the
+    order and holds it there. If gate E passes, its 'byte-identical re-run' certifies
+    determinism WITHIN one process and says nothing about the repository."""
+    cp, _, _, _, _ = _mods()
+    real = globmod.glob
+    cp.glob.glob = lambda p, **k: sorted(real(p, **k), reverse=True)
+    return AS_OF, None
+
+
+def m28_evidence_role_stamped_not_validated():
+    """SPECIFICITY CONTROL, not a destructive mutation — reclassified after it ran.
+
+    It re-stamps EVIDENCE_ROLE as a constant while leaving every refusal in place. Once the
+    refusals are enforced, the only role that can reach the output IS OFFICIAL_OBSERVATION, so
+    stamping it changes nothing that matters and gate A is RIGHT to keep passing. Kept as a
+    false-alarm control: a gate that fires here would be over-sensitive. It is recorded under
+    SPECIFICITY rather than under gate A so it cannot be counted as a survival.""" 
+    cp, C, _, _, _ = _mods()
+    real = cp.current_pressure
+
+    def patched(*a, **k):
+        r = real(*a, **k)
+        r["EVIDENCE_ROLE"] = C.EvidenceRole.OFFICIAL_OBSERVATION
+        return r
+    cp.current_pressure = patched
+    return AS_OF, None
+
+
 MUTATIONS = {
     "M01": ("A", "the module stops refusing inadmissible evidence roles", m01_role_check_removed),
     "M02": ("A", "an inadmissible role is accepted and relabelled on the way out", m02_role_laundered),
@@ -430,6 +502,10 @@ MUTATIONS = {
     "M24": ("ANY", "signal inverted", m24_signal_inverted),
     "M25": ("ANY", "universe zeroed", m25_universe_zeroed),
     "M26": ("ANY", "evidence link broken on every cell", m26_evidence_link_broken),
+    "M27": ("E", "file order fixed but different (the real cross-machine defect)",
+            m27_file_order_fixed_but_different),
+    "M28": ("SPECIFICITY", "evidence role stamped into the output, refusals left in place",
+            m28_evidence_role_stamped_not_validated),
 }
 
 BASELINE = {"A_OUTCOME_IS_OBSERVED": "PASS", "B_NOT_SOLD_AS_FORECAST": "PASS",

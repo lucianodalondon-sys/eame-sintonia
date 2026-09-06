@@ -1,0 +1,35 @@
+{
+ "ID": "M17",
+ "TARGET_GATE": "I",
+ "PROPERTY_DESTROYED": "unseen case raw file no longer matches its sha256",
+ "BASELINE_VERDICTS": {
+  "A_OUTCOME_IS_OBSERVED": "PASS",
+  "B_NOT_SOLD_AS_FORECAST": "PASS",
+  "C_REGIONAL_NOT_NATIONAL": "PASS",
+  "D_UNKNOWN_IS_VISIBLE": "PASS",
+  "E_REPRODUCIBLE": "PASS",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT": "PASS",
+  "G_DISCRIMINATES_BETWEEN_SEASONS": "FAIL",
+  "H_REFRESHABLE_WITHOUT_RESEARCH": "PASS",
+  "I_GENERALIZES": "PASS",
+  "J_NOT_DUPLICATE": "FAIL"
+ },
+ "AS_OF": "2026-09-06",
+ "VERDICTS": {
+  "A_OUTCOME_IS_OBSERVED": "PASS",
+  "B_NOT_SOLD_AS_FORECAST": "PASS",
+  "C_REGIONAL_NOT_NATIONAL": "PASS",
+  "D_UNKNOWN_IS_VISIBLE": "PASS",
+  "E_REPRODUCIBLE": "PASS",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT": "PASS",
+  "G_DISCRIMINATES_BETWEEN_SEASONS": "FAIL",
+  "H_REFRESHABLE_WITHOUT_RESEARCH": "PASS",
+  "I_GENERALIZES": "FAIL",
+  "J_NOT_DUPLICATE": "FAIL"
+ },
+ "EVIDENCE_OF_TARGET": "unseen 4th case run end-to-end: REFUSED/failed: hash mismatch on ['c19_s74_v372_2020.json']. Honest reuse rate is 3/4 = 75%, NOT the 100% previously claimed: the 4th case required TWO generic extensions (compound labels like 'Bassa <5%', and taking the most complete code table rather than the first), and two of its labels remain unresolved. 0 case-conditional branches remains true.",
+ "CHANGED_GATES": [
+  "I_GENERALIZES"
+ ],
+ "OUTCOME": "KILLED"
+}

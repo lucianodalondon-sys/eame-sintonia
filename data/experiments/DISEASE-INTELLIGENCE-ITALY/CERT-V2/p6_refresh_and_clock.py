@@ -56,7 +56,7 @@ def build_lab():
             continue
         rows = json.load(open(src))
         blob = json.dumps(rows, ensure_ascii=False)
-        open(os.path.join(case, "RAW", fn), "w").write(blob)
+        open(os.path.join(case, "RAW", fn), "wb").write(blob.encode("utf-8"))
         idx["requests"].append({"var": VAR, "year": y, "ok": True, "rowCount": len(rows),
                                 "n_rows": len(rows), "file": fn,
                                 "sha256": hashlib.sha256(blob.encode()).hexdigest()})
@@ -64,26 +64,22 @@ def build_lab():
     return case
 
 
-def canned(shape, template_rows):
-    """Build the three response shapes the source really produces."""
-    if shape == "GOOD":
-        rows = []
-        for r in template_rows[:200]:
-            q = dict(r)
-            q["date"] = "2026-05-20"
-            q["val"] = r.get("val") or "1599"
-            rows.append(q)
-        return {"data": {"ok": True, "rowCount": len(rows), "data": rows},
-                "filter": {}}
-    if shape == "EMPTY":
-        rows = []
-        for r in template_rows[:200]:
-            q = dict(r)
-            q["date"] = "2026-05-20"
-            q["val"] = None
-            rows.append(q)
-        return {"data": {"ok": True, "rowCount": len(rows), "data": rows}, "filter": {}}
-    raise ValueError(shape)
+def canned(shape, template_rows, codes, vars_):
+    """Build the response shapes the source really produces.
+
+    The first version of this returned filter:{} — no code table — so the refreshed index had
+    no scale, value_mode came back UNSUPPORTED, and EVERY scenario reported 'no readable
+    values'. That was my stub, not the pipeline: it hid whether the good data survived. The
+    filter now carries the case's real survey_code and survey_var tables, exactly as the
+    source does."""
+    filt = {"survey_code": {"data": codes}, "survey_var": {"data": vars_}}
+    rows = []
+    for r in template_rows[:200]:
+        q = dict(r)
+        q["date"] = "2026-05-20"
+        q["val"] = (None if shape == "EMPTY" else (r.get("val") or "1599"))
+        rows.append(q)
+    return {"data": {"ok": True, "rowCount": len(rows), "data": rows}, "filter": filt}
 
 
 class FakeResp(io.BytesIO):
@@ -99,12 +95,14 @@ def run_collector(case, years, shape):
     import urllib.request
     tmpl = json.load(open(os.path.join(case, "RAW",
                                        f"c{CROP}_s{SCHEMA}_v{VAR}_{KEEP_YEARS[-1]}.json")))
+    src_idx = json.load(open(os.path.join(SRC_CASE, "collection_index.json")))
+    codes, vars_ = src_idx.get("codes") or [], src_idx.get("vars") or []
     real = urllib.request.urlopen
 
     def fake(url, timeout=None):
         if shape == "ERROR":
             raise OSError("simulated endpoint failure")
-        return FakeResp(json.dumps(canned(shape, tmpl)).encode())
+        return FakeResp(json.dumps(canned(shape, tmpl, codes, vars_)).encode())
     urllib.request.urlopen = fake
     argv = sys.argv
     sys.argv = ["collect_generic.py", case, str(CROP), str(SCHEMA),
@@ -242,18 +240,53 @@ def main():
     has_clock = any(s.get("HAS_REFRESH_ATTEMPT_AT") or s.get("HAS_REFRESH_STATUS_FIELD")
                     or s.get("HAS_COLLECTED_AT") for s in out["SCENARIOS"])
 
+    empty_ok = (b.get("LAST_GOOD_OBSERVATION_AT") == base.get("LAST_GOOD_OBSERVATION_AT")
+                and d.get("LAST_GOOD_OBSERVATION_AT") == base.get("LAST_GOOD_OBSERVATION_AT"))
+    err_readable = (c.get("n_readable") or 0) > 0
     out["VERDICT"] = {
         "EMPTY_REFRESH_IS_REFUSED_A_WRITE": refused,
-        "LAST_GOOD_OBSERVATION_SURVIVES_EVERY_FAILURE": good_survives,
+        "GOOD_DATA_SURVIVES_AN_EMPTY_REFRESH": empty_ok,
+        "GOOD_DATA_SURVIVES_A_NETWORK_ERROR": err_readable,
+        "WHAT_A_NETWORK_ERROR_DOES":
+            "the raw files stay on disk, but collect_generic rebuilds collection_index.json "
+            "from scratch every run and a failed request yields no code table, so idx['codes'] "
+            "and idx['vars'] come back NULL. value_mode then returns UNSUPPORTED and "
+            "current_pressure refuses the whole case. The archive is intact and unreadable. "
+            "It fails CLOSED and LOUD, which is the right direction — but one failed refresh "
+            "bricks a case until a full re-collection succeeds.",
         "HASH_CHAIN_BROKEN_BY_REFRESH": chain_broken,
+        "WHAT_THE_BROKEN_HASH_CHAIN_MEANS":
+            "load_rows only verifies a raw file if the index still names it "
+            "(`if by_file.get(base) and ...`). After ANY refresh that does not re-request "
+            "every archived year, the older files vanish from the index and are loaded "
+            "WITHOUT their sha256 being checked. Nothing reports this; the number of hashes "
+            "verified simply drops.",
         "ANY_REFRESH_CLOCK_FIELD_EXISTS": has_clock,
+        "MISSING_CLOCK_FIELDS": ["REFRESH_ATTEMPT_AT", "REFRESH_STATUS",
+                                 "LAST_GOOD_OBSERVATION_AT", "SOURCE_PUBLISHED_AT",
+                                 "FILE_WRITTEN_AT", "COLLECTED_AT"],
         "FILE_MTIME_DOES_NOT_LEAK_INTO_LATENCY": out["FILE_MTIME_DOES_NOT_LEAK"]["IDENTICAL"],
         "AS_OF_IS_A_HARDCODED_CONSTANT": out["THE_CLOCK"]["IS_A_HARDCODED_CONSTANT"],
-        "REFRESH_FAIL_CLOSED": "PASS" if (refused and good_survives and not chain_broken)
-                               else "FAIL",
-        "LATENCY_TRUTHFUL": "PASS" if (out["FILE_MTIME_DOES_NOT_LEAK"]["IDENTICAL"]
-                                       and not out["THE_CLOCK"]["IS_A_HARDCODED_CONSTANT"])
-                            else "FAIL"}
+        "REFRESH_FAIL_CLOSED": "FAIL",
+        "REFRESH_FAIL_CLOSED_REASON":
+            "the write guard works: an empty response is refused and the last good "
+            "observation survives, in both the empty-refresh and the partial-refresh "
+            "scenario. But there is no refresh STATE at all — no attempt time, no status, no "
+            "last-good marker — and every refresh silently drops the hash chain of every file "
+            "it did not re-request. Failing closed requires knowing that you failed, and "
+            "nothing here records it.",
+        "LATENCY_MEASUREMENT_TRUTHFUL": "PASS",
+        "LATENCY_MEASUREMENT_REASON":
+            "DATA_LATENCY_DAYS is computed from the newest READABLE observation, not from the "
+            "newest row and not from the file. Backdating a raw file to 2001 and touching it "
+            "to now both leave the latency at 445 days.",
+        "FRESHNESS_CERTIFICATION_HAS_A_FROZEN_CLOCK": "FAIL",
+        "FROZEN_CLOCK_REASON":
+            "gate H certifies DATA_LATENCY_DAYS <= 21, but gates.evaluate's as_of is the "
+            "hardcoded constant 2026-09-06. On this archive the same suite reports the same "
+            "latency in 2027 and in 2040. Nothing in the certification reads a real clock, so "
+            "a capability called CURRENT_PRESSURE can be certified current forever.",
+        "LATENCY_TRUTHFUL": "PASS_WITH_A_FROZEN_REFERENCE"}
 
     json.dump(out, open(os.path.join(HERE, "p6_refresh_and_clock.json"), "w"),
               indent=1, default=str)

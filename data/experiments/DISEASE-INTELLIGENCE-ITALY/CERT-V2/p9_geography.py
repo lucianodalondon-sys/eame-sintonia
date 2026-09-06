@@ -202,20 +202,56 @@ def main():
               and x["3c_fields_that_move_more_than_5km"] == 0 for x in t3)
     ok4 = all(not c["TEST4_NO_INHERITANCE"].get("any_of_them_carries_a_class", True)
               for c in out["CASES"].values() if "REFUSED" not in c["TEST4_NO_INHERITANCE"])
-    out["GEOGRAPHY_GATE"] = "PASS" if (ok1 and ok2 and ok3 and ok4) else "FAIL"
-    out["SUBTESTS"] = {"T1_province_string_matches_istat_code_or_a_named_reform": ok1,
-                       "T2_org_is_not_a_province_proxy": ok2,
-                       "T3_coordinates_consistent": ok3,
-                       "T4_no_inheritance_into_empty_provinces": ok4}
-    out["SOURCE_LOCATION_AS_FACT_LOCATION"] = sum(
-        c["TEST1_PROVINCE_STRING_VS_ISTAT_CODE"]["UNEXPLAINED_DISAGREEMENTS"]
-        for c in out["CASES"].values())
+    mislabelled = sum(c["TEST1_PROVINCE_STRING_VS_ISTAT_CODE"]["UNEXPLAINED_DISAGREEMENTS"]
+                      for c in out["CASES"].values())
+
+    out["SUBTESTS"] = {
+        "T1_province_string_agrees_with_the_comune_code_in_the_same_row": ok1,
+        "T2_org_is_not_a_province_proxy": ok2,
+        "T3_coordinates_are_clean": ok3,
+        "T4_no_inheritance_into_empty_provinces": ok4}
+    out["SOURCE_LOCATION_AS_FACT_LOCATION"] = mislabelled
+
+    # What the pilot gets right, by design, and what it never checks.
+    out["WHAT_THE_ENGINE_DOES_RIGHT"] = {
+        "USES_THE_FIELD_NOT_THE_INSTITUTION":
+            "the published unit is nome_area, the province of the monitored field. The "
+            "recording organisation is not a proxy for it: 13 of 20 olive organisations and "
+            "4 of 7 vine organisations work across several provinces, and one spans all ten.",
+        "NO_INHERITANCE":
+            "a province with no visits in the window is published UNKNOWN_NO_DATA. Measured "
+            "live on the wheat case, where five of five unmonitored provinces stayed UNKNOWN "
+            "and none acquired a neighbour's class."}
+    out["WHAT_THE_ENGINE_NEVER_CHECKS"] = {
+        "THE_SECOND_OPINION_IN_EVERY_ROW":
+            "each row carries admin_code, the ISTAT comune code, whose first digits give the "
+            "province independently of the province string. The engine never reads it. Asked "
+            f"for the first time here, it contradicts the province string in {mislabelled} "
+            "rows that the 1992 Prato reform does not explain — all of them one comune, "
+            "VICCHIO (48049, a comune of Firenze), filed under Siena. Those visits are "
+            "counted in Siena's cell and nothing in the pipeline can notice.",
+        "THE_COORDINATES":
+            "lat/lon are present on 57-68% of rows and are never read. 1,117 olive rows and "
+            "71 vine rows sit outside Tuscany's bounding box, including a block near lat 5 / "
+            "lon 45 and 33 rows with lat and lon plainly transposed. 86 olive and 74 vine "
+            "monitored fields change position by more than 5 km between seasons under the "
+            "same id_field.",
+        "IMPACT_ON_TODAYS_PUBLISHED_CELLS":
+            "none of this reaches the published number, because the engine reads only "
+            "nome_area. It is a provenance defect and a live risk for any map, any spatial "
+            "join, and any join to a modern ISTAT geography on admin_code."}
+    out["GEOGRAPHY_GATE"] = "FAIL"
+    out["GEOGRAPHY_GATE_REASON"] = (
+        "There is no geography gate in the shipped suite; gate C tests that the unit is the "
+        "province, not that the province is right. This file is the first check, and it "
+        f"fails: {mislabelled} rows carry a province string their own comune code "
+        "contradicts. The design is sound and the data is not verified against itself.")
     out["CORRECTION_OF_MY_OWN_FIRST_RUN"] = (
         "The first version of TEST3 asked whether a field is nearer another province's "
         "centroid than its own, with 15 km of slack, and reported 39,131 misplaced olive "
         "rows. That was my instrument, not the data: on ten irregular provinces the test "
         "flags every edge field. It was replaced with three questions that can only fail for "
-        "a real reason. GEOGRAPHY_GATE was FAIL on that run and the FAIL was mine.")
+        "a real reason. The 39,131 is withdrawn.")
 
     json.dump(out, open(os.path.join(HERE, "p9_geography.json"), "w"), indent=1, default=str)
     for crop, c in out["CASES"].items():

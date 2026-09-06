@@ -1,0 +1,62 @@
+{
+ "CELL": {
+  "COUNTRY": "ITALY",
+  "CROP": "Olive",
+  "ISSUE": "Olive Fruit Fly",
+  "AGRONOMIC_NAME": "Bactrocera oleae, damaging infestation",
+  "REGION": "Toscana",
+  "DATE": "2026-09-06"
+ },
+ "HANDOFF": {
+  "FILE": "italia-portale/client/italy-label-verdicts.js",
+  "IN_GIT": true,
+  "AUDIT_DATE": "2026-09-02",
+  "AUDIT_SOURCE": "reading of 163 official Italian product labels",
+  "SCOPE_NOTE": "The audit verified the main visible claims, not every portfolio connection in the interface. Anything not explicitly verified remains pending label verification.",
+  "ABSENCE_RULE": "Absence in this reading is not absence in the world.",
+  "DEFAULT_FOR_ANYTHING_NOT_LISTED": "LABEL_CHECK_NEEDED",
+  "n_VERIFIED": 12,
+  "n_NOT_FOUND": 7
+ },
+ "ADAMA_PRODUCT_RELATION": "NOT_FOUND",
+ "EXACTLY_WHAT_WAS_ADJUDICATED": {
+  "TRIPLES_MARKED_NOT_FOUND": [
+   [
+    "Olive",
+    "Olive Fruit Fly",
+    "KLARTAN 20 EW"
+   ],
+   [
+    "Olive",
+    "Olive Fruit Fly",
+    "KLARTAN SMART"
+   ],
+   [
+    "Olive",
+    "Olive Fruit Fly",
+    "MAVRIK SMART"
+   ]
+  ],
+  "TRIPLES_MARKED_VERIFIED": [],
+  "SCOPE": "three named products were checked against the Olive x Olive Fruit Fly pair and none of the three was found on a label for it, in that reading. The handoff's own rule governs the sentence: ABSENCE IN OUR READING is not ABSENCE IN THE WORLD."
+ },
+ "WHAT_THIS_DOES_NOT_SAY": [
+  "It does not say the pair was not checked. It was, on 2026-09-02, and the answer is recorded in the repository.",
+  "It does not say ADAMA has no olive product. The handoff adjudicates PRODUCT x CROP x ISSUE triples, not portfolios, and anything not listed defaults to LABEL_CHECK_NEEDED \u2014 not to absence.",
+  "It does not say ADAMA has no product for this PROBLEM. Only the three named products were adjudicated for this pair. A fourth product is UNKNOWN, not absent.",
+  "A product registered for OLIVE is not a product registered for OLIVE FRUIT FLY. The handoff lists 0 verified and 3 not-found triples on the olive crop; the crop and the problem are separate questions."
+ ],
+ "COMMERCIAL_CONSEQUENCE_STATED_PLAINLY": "The only cell that passes the agronomic publication gate on 2026-09-06 is the one cell where our own reading of the labels did not find a product to sell against the problem. That is not a reason to soften either number.",
+ "PERMITTED_OUTPUT_STATES_OF_THIS_TOOL": [
+  "DISEASE_PRESSURE_SIGNAL",
+  "RADAR_SIGNAL",
+  "EXPLORATORY_SIGNAL",
+  "INSUFFICIENT_EVIDENCE",
+  "NO_SIGNAL"
+ ],
+ "FORBIDDEN_OUTPUT_STATES": [
+  "COMMERCIAL_OPPORTUNITY",
+  "any recommended commercial action"
+ ],
+ "WHAT_THIS_CELL_IS_TODAY": "DISEASE_PRESSURE_SIGNAL (agronomic), with ADAMA_PRODUCT_RELATION = NOT_FOUND for the three adjudicated products and UNKNOWN for the rest of the portfolio. It is NOT a commercial opportunity and this tool may not make it one."
+}

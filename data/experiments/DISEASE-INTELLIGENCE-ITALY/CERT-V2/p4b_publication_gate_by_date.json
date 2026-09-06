@@ -1,0 +1,355 @@
+{
+ "STAB_MIN": 0.8,
+ "COV_MIN": 0.6,
+ "PILOT_C25_TABLE": {
+  "2026-06-15": {
+   "OLIVE": "0/10",
+   "VINE": "6/10"
+  },
+  "2026-08-01": {
+   "OLIVE": "6/10",
+   "VINE": "1/10"
+  },
+  "2026-09-06": {
+   "OLIVE": "8/10",
+   "VINE": "0/10"
+  }
+ },
+ "MEASURED": {
+  "2026-06-15": {
+   "OLIVE": {
+    "PUBLISHED_STRICT": "0/10",
+    "CLASSED_LOOSE": "0/10",
+    "DATA_LATENCY_DAYS": 241,
+    "MEAN_LABEL_STABILITY": 1.0,
+    "PUBLISHED_PROVINCES": {},
+    "WITHHELD": {},
+    "UNKNOWN": {
+     "Arezzo": "UNKNOWN_NO_DATA",
+     "Firenze": "UNKNOWN_NO_DATA",
+     "Grosseto": "UNKNOWN_NO_DATA",
+     "Livorno": "UNKNOWN_NO_DATA",
+     "Lucca": "UNKNOWN_NO_DATA",
+     "Massa-Carrara": "UNKNOWN_NO_DATA",
+     "Pisa": "UNKNOWN_NO_DATA",
+     "Pistoia": "UNKNOWN_NO_DATA",
+     "Prato": "UNKNOWN_NO_DATA",
+     "Siena": "UNKNOWN_NO_DATA"
+    }
+   },
+   "VINE": {
+    "PUBLISHED_STRICT": "6/10",
+    "CLASSED_LOOSE": "9/10",
+    "DATA_LATENCY_DAYS": 0,
+    "MEAN_LABEL_STABILITY": 0.847,
+    "PUBLISHED_PROVINCES": {
+     "Arezzo": "TYPICAL_FOR_THE_DATE",
+     "Firenze": "TYPICAL_FOR_THE_DATE",
+     "Grosseto": "TYPICAL_FOR_THE_DATE",
+     "Livorno": "TYPICAL_FOR_THE_DATE",
+     "Pisa": "TYPICAL_FOR_THE_DATE",
+     "Siena": "TYPICAL_FOR_THE_DATE"
+    },
+    "WITHHELD": {
+     "Pistoia": {
+      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
+      "LABEL_STABILITY": 0.667,
+      "HISTORICAL_COVERAGE": 0.45,
+      "FAILS": "stability+coverage"
+     },
+     "Massa-Carrara": {
+      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
+      "LABEL_STABILITY": 0.6,
+      "HISTORICAL_COVERAGE": 0.2,
+      "FAILS": "stability+coverage"
+     },
+     "Lucca": {
+      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
+      "LABEL_STABILITY": 0.667,
+      "HISTORICAL_COVERAGE": 0.65,
+      "FAILS": "stability"
+     }
+    },
+    "UNKNOWN": {
+     "Prato": "UNKNOWN_NO_DATA"
+    }
+   }
+  },
+  "2026-08-01": {
+   "OLIVE": {
+    "PUBLISHED_STRICT": "6/10",
+    "CLASSED_LOOSE": "9/10",
+    "DATA_LATENCY_DAYS": 1,
+    "MEAN_LABEL_STABILITY": 0.816,
+    "PUBLISHED_PROVINCES": {
+     "Arezzo": "TYPICAL_FOR_THE_DATE",
+     "Firenze": "TYPICAL_FOR_THE_DATE",
+     "Grosseto": "TYPICAL_FOR_THE_DATE",
+     "Livorno": "TYPICAL_FOR_THE_DATE",
+     "Pistoia": "TYPICAL_FOR_THE_DATE",
+     "Siena": "TYPICAL_FOR_THE_DATE"
+    },
+    "WITHHELD": {
+     "Pisa": {
+      "STATE_WOULD_BE": "LOWER_THAN_USUAL",
+      "LABEL_STABILITY": 0.667,
+      "HISTORICAL_COVERAGE": 0.762,
+      "FAILS": "stability"
+     },
+     "Massa-Carrara": {
+      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
+      "LABEL_STABILITY": 0.556,
+      "HISTORICAL_COVERAGE": 0.048,
+      "FAILS": "stability+coverage"
+     },
+     "Lucca": {
+      "STATE_WOULD_BE": "LOWER_THAN_USUAL",
+      "LABEL_STABILITY": 0.6,
+      "HISTORICAL_COVERAGE": 0.762,
+      "FAILS": "stability"
+     }
+    },
+    "UNKNOWN": {
+     "Prato": "UNKNOWN_NO_DATA"
+    }
+   },
+   "VINE": {
+    "PUBLISHED_STRICT": "1/10",
+    "CLASSED_LOOSE": "9/10",
+    "DATA_LATENCY_DAYS": 3,
+    "MEAN_LABEL_STABILITY": 0.584,
+    "PUBLISHED_PROVINCES": {
+     "Livorno": "TYPICAL_FOR_THE_DATE"
+    },
+    "WITHHELD": {
+     "Pistoia": {
+      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
+      "LABEL_STABILITY": 0.644,
+      "HISTORICAL_COVERAGE": 0.35,
+      "FAILS": "stability+coverage"
+     },
+     "Pisa": {
+      "STATE_WOULD_BE": "LOWER_THAN_USUAL",
+      "LABEL_STABILITY": 0.6,
+      "HISTORICAL_COVERAGE": 0.75,
+      "FAILS": "stability"
+     },
+     "Firenze": {
+      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
+      "LABEL_STABILITY": 0.556,
+      "HISTORICAL_COVERAGE": 0.7,
+      "FAILS": "stability"
+     },
+     "Massa-Carrara": {
+      "STATE_WOULD_BE": "LOWER_THAN_USUAL",
+      "LABEL_STABILITY": 0.348,
+      "HISTORICAL_COVERAGE": 0.2,
+      "FAILS": "stability+coverage"
+     },
+     "Siena": {
+      "STATE_WOULD_BE": "LOWER_THAN_USUAL",
+      "LABEL_STABILITY": 0.556,
+      "HISTORICAL_COVERAGE": 0.75,
+      "FAILS": "stability"
+     },
+     "Arezzo": {
+      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
+      "LABEL_STABILITY": 0.756,
+      "HISTORICAL_COVERAGE": 0.7,
+      "FAILS": "stability"
+     },
+     "Grosseto": {
+      "STATE_WOULD_BE": "LOWER_THAN_USUAL",
+      "LABEL_STABILITY": 0.4,
+      "HISTORICAL_COVERAGE": 0.7,
+      "FAILS": "stability"
+     },
+     "Lucca": {
+      "STATE_WOULD_BE": "LOWER_THAN_USUAL",
+      "LABEL_STABILITY": 0.4,
+      "HISTORICAL_COVERAGE": 0.7,
+      "FAILS": "stability"
+     }
+    },
+    "UNKNOWN": {
+     "Prato": "UNKNOWN_NO_DATA"
+    }
+   }
+  },
+  "2026-09-06": {
+   "OLIVE": {
+    "PUBLISHED_STRICT": "8/10",
+    "CLASSED_LOOSE": "9/10",
+    "DATA_LATENCY_DAYS": 2,
+    "MEAN_LABEL_STABILITY": 0.924,
+    "PUBLISHED_PROVINCES": {
+     "Arezzo": "LOWER_THAN_USUAL",
+     "Firenze": "LOWER_THAN_USUAL",
+     "Grosseto": "LOWER_THAN_USUAL",
+     "Livorno": "LOWER_THAN_USUAL",
+     "Lucca": "LOWER_THAN_USUAL",
+     "Pisa": "LOWER_THAN_USUAL",
+     "Pistoia": "LOWER_THAN_USUAL",
+     "Siena": "LOWER_THAN_USUAL"
+    },
+    "WITHHELD": {
+     "Massa-Carrara": {
+      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
+      "LABEL_STABILITY": 0.644,
+      "HISTORICAL_COVERAGE": 0.19,
+      "FAILS": "stability+coverage"
+     }
+    },
+    "UNKNOWN": {
+     "Prato": "UNKNOWN_NO_DATA"
+    }
+   },
+   "VINE": {
+    "PUBLISHED_STRICT": "0/10",
+    "CLASSED_LOOSE": "9/10",
+    "DATA_LATENCY_DAYS": 2,
+    "MEAN_LABEL_STABILITY": 0.596,
+    "PUBLISHED_PROVINCES": {},
+    "WITHHELD": {
+     "Livorno": {
+      "STATE_WOULD_BE": "LOWER_THAN_USUAL",
+      "LABEL_STABILITY": 0.215,
+      "HISTORICAL_COVERAGE": 0.05,
+      "FAILS": "stability+coverage"
+     },
+     "Pistoia": {
+      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
+      "LABEL_STABILITY": 0.489,
+      "HISTORICAL_COVERAGE": 0.05,
+      "FAILS": "stability+coverage"
+     },
+     "Pisa": {
+      "STATE_WOULD_BE": "LOWER_THAN_USUAL",
+      "LABEL_STABILITY": 0.674,
+      "HISTORICAL_COVERAGE": 0.2,
+      "FAILS": "stability+coverage"
+     },
+     "Firenze": {
+      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
+      "LABEL_STABILITY": 0.778,
+      "HISTORICAL_COVERAGE": 0.4,
+      "FAILS": "stability+coverage"
+     },
+     "Massa-Carrara": {
+      "STATE_WOULD_BE": "LOWER_THAN_USUAL",
+      "LABEL_STABILITY": 0.207,
+      "HISTORICAL_COVERAGE": 0.05,
+      "FAILS": "stability+coverage"
+     },
+     "Siena": {
+      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
+      "LABEL_STABILITY": 0.8,
+      "HISTORICAL_COVERAGE": 0.4,
+      "FAILS": "+coverage"
+     },
+     "Arezzo": {
+      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
+      "LABEL_STABILITY": 0.911,
+      "HISTORICAL_COVERAGE": 0.45,
+      "FAILS": "+coverage"
+     },
+     "Grosseto": {
+      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
+      "LABEL_STABILITY": 0.63,
+      "HISTORICAL_COVERAGE": 0.15,
+      "FAILS": "stability+coverage"
+     },
+     "Lucca": {
+      "STATE_WOULD_BE": "LOWER_THAN_USUAL",
+      "LABEL_STABILITY": 0.259,
+      "HISTORICAL_COVERAGE": 0.05,
+      "FAILS": "stability+coverage"
+     }
+    },
+    "UNKNOWN": {
+     "Prato": "UNKNOWN_NO_DATA"
+    }
+   }
+  }
+ },
+ "SIDE_BY_SIDE": {
+  "2026-06-15": {
+   "OLIVE": {
+    "PILOT_C25": "0/10",
+    "RE_MEASURED_STRICT": "0/10",
+    "RE_MEASURED_LOOSE": "0/10",
+    "LATENCY": 241,
+    "AGREES": true
+   },
+   "VINE": {
+    "PILOT_C25": "6/10",
+    "RE_MEASURED_STRICT": "6/10",
+    "RE_MEASURED_LOOSE": "9/10",
+    "LATENCY": 0,
+    "AGREES": true
+   }
+  },
+  "2026-08-01": {
+   "OLIVE": {
+    "PILOT_C25": "6/10",
+    "RE_MEASURED_STRICT": "6/10",
+    "RE_MEASURED_LOOSE": "9/10",
+    "LATENCY": 1,
+    "AGREES": true
+   },
+   "VINE": {
+    "PILOT_C25": "1/10",
+    "RE_MEASURED_STRICT": "1/10",
+    "RE_MEASURED_LOOSE": "9/10",
+    "LATENCY": 3,
+    "AGREES": true
+   }
+  },
+  "2026-09-06": {
+   "OLIVE": {
+    "PILOT_C25": "8/10",
+    "RE_MEASURED_STRICT": "8/10",
+    "RE_MEASURED_LOOSE": "9/10",
+    "LATENCY": 2,
+    "AGREES": true
+   },
+   "VINE": {
+    "PILOT_C25": "0/10",
+    "RE_MEASURED_STRICT": "0/10",
+    "RE_MEASURED_LOOSE": "9/10",
+    "LATENCY": 2,
+    "AGREES": true
+   }
+  }
+ },
+ "PUBLISHED_CELLS_THAT_CHANGE_CLASS_BETWEEN_THESE_THREE_DATES": {
+  "OLIVE|Arezzo": {
+   "2026-08-01": "TYPICAL_FOR_THE_DATE",
+   "2026-09-06": "LOWER_THAN_USUAL"
+  },
+  "OLIVE|Firenze": {
+   "2026-08-01": "TYPICAL_FOR_THE_DATE",
+   "2026-09-06": "LOWER_THAN_USUAL"
+  },
+  "OLIVE|Grosseto": {
+   "2026-08-01": "TYPICAL_FOR_THE_DATE",
+   "2026-09-06": "LOWER_THAN_USUAL"
+  },
+  "OLIVE|Livorno": {
+   "2026-08-01": "TYPICAL_FOR_THE_DATE",
+   "2026-09-06": "LOWER_THAN_USUAL"
+  },
+  "OLIVE|Pistoia": {
+   "2026-08-01": "TYPICAL_FOR_THE_DATE",
+   "2026-09-06": "LOWER_THAN_USUAL"
+  },
+  "OLIVE|Siena": {
+   "2026-08-01": "TYPICAL_FOR_THE_DATE",
+   "2026-09-06": "LOWER_THAN_USUAL"
+  }
+ },
+ "VERDICT": {
+  "DATE_IS_PART_OF_THE_IDENTITY_OF_THE_SIGNAL": true,
+  "CELLS_PUBLISHED_ON_ONE_DATE_AND_NOT_ANOTHER": 14
+ }
+}

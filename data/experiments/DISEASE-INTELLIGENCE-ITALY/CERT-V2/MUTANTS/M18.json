@@ -1,0 +1,35 @@
+{
+ "ID": "M18",
+ "TARGET_GATE": "I",
+ "PROPERTY_DESTROYED": "unseen case decodes to a constant",
+ "BASELINE_VERDICTS": {
+  "A_OUTCOME_IS_OBSERVED": "PASS",
+  "B_NOT_SOLD_AS_FORECAST": "PASS",
+  "C_REGIONAL_NOT_NATIONAL": "PASS",
+  "D_UNKNOWN_IS_VISIBLE": "PASS",
+  "E_REPRODUCIBLE": "PASS",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT": "PASS",
+  "G_DISCRIMINATES_BETWEEN_SEASONS": "FAIL",
+  "H_REFRESHABLE_WITHOUT_RESEARCH": "PASS",
+  "I_GENERALIZES": "PASS",
+  "J_NOT_DUPLICATE": "FAIL"
+ },
+ "AS_OF": "2026-09-06",
+ "VERDICTS": {
+  "A_OUTCOME_IS_OBSERVED": "PASS",
+  "B_NOT_SOLD_AS_FORECAST": "PASS",
+  "C_REGIONAL_NOT_NATIONAL": "PASS",
+  "D_UNKNOWN_IS_VISIBLE": "PASS",
+  "E_REPRODUCIBLE": "PASS",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT": "PASS",
+  "G_DISCRIMINATES_BETWEEN_SEASONS": "FAIL",
+  "H_REFRESHABLE_WITHOUT_RESEARCH": "PASS",
+  "I_GENERALIZES": "FAIL",
+  "J_NOT_DUPLICATE": "FAIL"
+ },
+ "EVIDENCE_OF_TARGET": "unseen 4th case run end-to-end: 14 seasons, 1 distinct SITE_INCIDENCE values (a series that never varies is a decoding failure, not a measurement); scale derived by ['NOT_ORDINAL', 'WORD_LADDER', 'WORD_LADDER_IN_COMPOUND_LABEL'], unresolved labels ['50 - gravissina', '75 - completa']. Honest reuse rate is 3/4 = 75%, NOT the 100% previously claimed: the 4th case required TWO generic extensions (compound labels like 'Bassa <5%', and taking the most complete code table rather than the first), and two of its labels remain unresolved. 0 case-conditional branches remains true.",
+ "CHANGED_GATES": [
+  "I_GENERALIZES"
+ ],
+ "OUTCOME": "KILLED"
+}

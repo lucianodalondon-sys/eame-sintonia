@@ -55,32 +55,40 @@ def try_pressure(case, var, pre=None):
 def build_numeric_case_with_a_code_table(code_share):
     """A case in the ONE state where the guard can fire: the source declares the variable
     numeric, the case carries a code table for a DIFFERENT variable, and a chosen share of
-    the served values are drawn from that code vocabulary. Built from real wheat rows."""
+    the served values are drawn from that code vocabulary.
+
+    Built from the REAL OLIVE rows, not the wheat ones. The first version of this used wheat,
+    whose season is over on 2026-09-06, so every province came back UNKNOWN and the test could
+    only ever report 'PUBLISHED, 0 classed' — it never reached the question it was asking,
+    which is whether the engine will put a CLASS on identifiers. Olive is classifiable on that
+    date, so a published class here is a real one."""
     src = os.path.join(CASEDIR, "FRUMENTO-SEPTORIA-TOSCANA")
-    idx = json.load(open(os.path.join(src, "collection_index.json")))
-    codes = idx.get("codes") or []
+    wheat_idx = json.load(open(os.path.join(src, "collection_index.json")))
+    codes = wheat_idx.get("codes") or []
     ids = [str(c["id_survey_code"]) for c in codes]
+    olive = os.path.join(CASEDIR, "OLIVO-BACTROCERA-TOSCANA")
     NEWVAR = 90001
     case = os.path.join(LAB, f"share_{int(code_share*100):03d}")
     if os.path.exists(case):
         shutil.rmtree(case)
     os.makedirs(os.path.join(case, "RAW"))
-    out_idx = {"api": idx["api"], "crop": 19, "schema": 74, "requests": [],
-               # code table kept, but for OTHER variables only -> value_mode == NUMERIC
+    out_idx = {"api": wheat_idx["api"], "crop": 2, "schema": 1, "requests": [],
+               # a code table for OTHER variables only -> value_mode stays NUMERIC
                "codes": [c for c in codes if c["id_survey_var"] != NEWVAR],
-               "vars": [{"id_survey_var": NEWVAR, "id_survey_schema": 74,
+               "vars": [{"id_survey_var": NEWVAR, "id_survey_schema": 1,
                          "widget": "numeric", "name": "synthetic numeric variable"}]}
-    for y in range(2019, 2027):
-        fn_src = os.path.join(src, "RAW", f"c19_s74_v372_{y}.json")
+    for y in range(2006, 2027):
+        fn_src = os.path.join(olive, "RAW", f"c2_s1_v-1002_{y}.json")
         if not os.path.exists(fn_src):
             continue
         rows = json.load(open(fn_src))
         n_code = int(len(rows) * code_share)
         for i, r in enumerate(rows):
-            r["val"] = ids[i % len(ids)] if i < n_code else str(round((i % 7) / 7.0, 3))
+            # below the code share: a genuine measurement in the olive variable's own range
+            r["val"] = ids[i % len(ids)] if i < n_code else str(round((i % 9) * 5.0, 1))
         blob = json.dumps(rows, ensure_ascii=False)
-        fn = f"c19_s74_v{NEWVAR}_{y}.json"
-        open(os.path.join(case, "RAW", fn), "w").write(blob)
+        fn = f"c2_s1_v{NEWVAR}_{y}.json"
+        open(os.path.join(case, "RAW", fn), "wb").write(blob.encode("utf-8"))
         out_idx["requests"].append({"var": NEWVAR, "year": y, "ok": True,
                                     "rowCount": len(rows), "n_rows": len(rows), "file": fn,
                                     "sha256": hashlib.sha256(blob.encode()).hexdigest()})
@@ -197,13 +205,33 @@ def main():
                 "code-vs-value guard."}
 
     out["CODE_AS_VALUE_FALSE_CLAIMS"] = false_claims
-    out["CODE_VS_VALUE_GATE"] = "PASS" if (
-        q3["0.90"]["OUTCOME"] == "REFUSED" and q3["1.00"]["OUTCOME"] == "REFUSED"
-        and q3["0.00"]["OUTCOME"] == "PUBLISHED"
-        and r5.get("n_provinces_classed") == 0) else "FAIL"
-    out["SCOPE_OF_THE_PASS"] = (
-        "The guard does what it says WHERE IT RUNS. It does not run on either published case "
-        "nor on the case it was written for. Its protection is real and currently unreachable.")
+    refuses_when_saturated = q3["1.00"]["OUTCOME"] == "REFUSED"
+    no_false_refusal = q3["0.00"]["OUTCOME"] == "PUBLISHED"
+    ordinal_fails_to_unknown = r5.get("n_provinces_classed") == 0
+    out["SUBTESTS"] = {
+        "REFUSES_WHEN_THE_VALUES_ARE_CODE_IDS": refuses_when_saturated,
+        "DOES_NOT_FALSE_REFUSE_A_GENUINE_MEASUREMENT": no_false_refusal,
+        "ORDINAL_CASE_FAILS_TO_UNKNOWN_NOT_TO_A_NUMBER": ordinal_fails_to_unknown,
+        "GUARD_IS_REACHABLE_ON_ANY_REAL_CASE": not out["GUARD_IS_INERT_ON_EVERY_REAL_CASE"],
+        "NO_PUBLISHABLE_CONTAMINATED_BAND": false_claims == 0}
+    out["CODE_VS_VALUE_GATE"] = "PASS" if all(out["SUBTESTS"].values()) else "FAIL"
+    out["SCOPE_AND_THE_HOLE"] = {
+        "WHAT_IS_PROVED": "where the guard runs it does exactly what it declares: it refuses "
+                          "a variable whose values are drawn from the case's own code "
+                          "vocabulary, and it does not refuse a genuine measurement.",
+        "HOLE_1_IT_NEVER_RUNS": "neither published case nor the case it was written for is in "
+                                "the state that lets it run. Wheat and vine are ORDINAL (the "
+                                "code table decodes them); olive carries no code table at all, "
+                                "so there is nothing to compare against. The protection is "
+                                "real and currently unreachable.",
+        "HOLE_2_THE_BAND_BELOW_THE_THRESHOLD":
+            "the rule is 'refuse at >= 90% code ids'. Everything below that publishes. A "
+            "variable where four values in five are identifiers is not a measurement, and "
+            "the engine will put a class on it.",
+        "WHAT_ACTUALLY_HOLDS_THE_WHEAT_DEFECT_SHUT":
+            "not this guard. With the code table for var 372 removed, value_mode returns "
+            "UNSUPPORTED and current_pressure refuses outright. The fix that works is the "
+            "collector storing the most complete code table, plus the UNSUPPORTED refusal."}
 
     json.dump(out, open(os.path.join(HERE, "p7_code_vs_value.json"), "w"), indent=1, default=str)
 
