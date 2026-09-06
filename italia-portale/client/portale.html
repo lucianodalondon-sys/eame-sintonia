@@ -1544,12 +1544,12 @@
     <!-- ================= SIGNAL DETAIL ================= -->
     <sc-if value="{{ isSignal }}" hint-placeholder-val="{{ false }}">
     <div style="padding:14px 22px 40px;display:flex;flex-direction:column;gap:10px">
-      <div style="display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.08em;color:#8F8886"><span onClick="{{ goFuture }}" style="cursor:pointer;color:#009845;font-weight:700">← FUTURE RADAR</span><span style="color:#8F8886">/</span><span style="color:#fff">{{ sg.issueL }} · {{ sg.cropL }} · {{ sg.region }}</span></div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.08em;color:#8F8886"><span onClick="{{ goFuture }}" style="cursor:pointer;color:#009845;font-weight:700">← FUTURE RADAR</span><span style="color:#8F8886">/</span><span style="color:#fff">{{ sg.issueL }} · {{ sg.cropL }} · {{ sg.regionLabel }}</span></div>
       <div style="border-radius:16px;border:1px solid {{ sg.category.dark }};background:{{ sg.category.dark }};padding:18px 20px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px;align-items:start">
         <div style="display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:9px;font-weight:700;letter-spacing:0.14em;color:{{ sg.category.soft }}">FUTURE RADAR · {{ sg.sourceTypeUpper }}</span><span style="display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:9999px;background:#161312;border:1px solid {{ sg.color }};color:{{ sg.color }};font-size:8.5px;font-weight:700;letter-spacing:0.09em;white-space:nowrap">{{ sg.status }}</span><span style="font-size:10px;color:#8F8886">Updated {{ sg.lastObserved }}</span></div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:9px;font-weight:700;letter-spacing:0.14em;color:{{ sg.category.soft }}">FUTURE RADAR · {{ sg.sourceTypeUpper }}</span><span style="display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:9999px;background:#161312;border:1px solid {{ sg.color }};color:{{ sg.color }};font-size:8.5px;font-weight:700;letter-spacing:0.09em;white-space:nowrap">{{ sg.statusL }}</span><span style="font-size:10px;color:#8F8886">{{ t.lblUpdated }} {{ sg.lastObserved }}</span></div>
           <h1 style="margin:0;font-size:32px;font-weight:700;line-height:1;letter-spacing:-0.02em;color:#fff">{{ sg.issueL }}</h1>
-          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:16px;font-weight:600;color:#fff">{{ sg.cropL }}</span><span style="width:4px;height:4px;border-radius:50%;background:#6E6663"></span><span style="font-size:16px;color:#B1A9A7">{{ sg.region }}</span></div>
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:16px;font-weight:600;color:#fff">{{ sg.cropL }}</span><span style="width:4px;height:4px;border-radius:50%;background:#6E6663"></span><span style="font-size:16px;color:#B1A9A7">{{ sg.regionLabel }}</span></div>
           <div style="border-radius:12px;background:#161312;border:1px solid rgba(255,255,255,0.08);padding:11px 13px;display:flex;flex-direction:column;gap:4px"><span style="font-size:8.5px;font-weight:700;letter-spacing:0.14em;color:{{ sg.category.soft }}">WHY THIS IS ON THE RADAR</span><span style="font-size:12.5px;line-height:1.5;color:#EDEAE9;text-wrap:pretty">{{ sg.whyRadar }}</span></div>
         </div>
         <div style="display:flex;flex-direction:column;gap:8px">
@@ -1602,7 +1602,7 @@
         </div>
         <div style="grid-column:span 4;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
           <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">CROP &amp; REGIONAL CONTEXT</div>
-          <div style="font-size:11px;color:#EDEAE9;line-height:1.5">{{ sg.cropL }} in {{ sg.region }} — regional scale from ISTAT. Source location is not fact location: research affiliations and national media are shown with “geographic relevance not yet established” unless the record states a study region.</div>
+          <div style="font-size:11px;color:#EDEAE9;line-height:1.5">{{ sg.cropL }} in {{ sg.regionLabel }} — regional scale from ISTAT. Source location is not fact location: research affiliations and national media are shown with “geographic relevance not yet established” unless the record states a study region.</div>
           <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;font-size:10px;padding-top:4px"><div style="padding:7px 9px;border-radius:8px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">FACT LOCATION</span><br><b style="color:#fff">{{ sg.factLoc }}</b></div><div style="padding:7px 9px;border-radius:8px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">GEOGRAPHIC RELEVANCE BEYOND</span><br><b style="color:#B1A9A7">Not yet established</b></div></div>
         </div>
       </div>
@@ -2951,8 +2951,45 @@ class Component extends DCLogic {
     });
     const earlyWindows = D.WINDOWS.filter(w => w.early.state !== 'NOT OBSERVED').slice(0, 5).map(wDeco);
 
+    /* ── real Future signals · one decoration, two screens ─────────────────
+       The Future LIST decorated the upstream records; the DETAIL read them
+       raw, so a real card opened onto a screen with no category, no status,
+       no sources and narrative objects where sentences belong. Both screens
+       now read the same decorated record, and every prop below is derived
+       from the model — resolved sources, declared counts, approved text —
+       never from the demonstration fixture. */
+    const SG_GROUP = { OFFICIAL: 'OFFICIAL', RESEARCH: 'SCIENCE', RESEARCH_INSTITUTION: 'SCIENCE', TECHNICAL_MEDIA: 'TECHNICAL MEDIA', FIELD: 'FIELD', MARKET: 'MARKET', COMPANY: 'COMPETITORS', COMPETITOR: 'COMPETITORS', PEOPLE: 'PEOPLE', COOPERATIVE: 'FIELD', PRODUCER_ORG: 'FIELD', ADAMA: 'OFFICIAL' };
+    const sgGroupL = (t) => (T.SRCGROUP && T.SRCGROUP[t]) || String(t || '').replace(/_/g, ' ');
+    const AM_SOURCES = APP0 ? APP0.sources.records : [];
+    const narList = (v) => { const t = nar(v); return t ? [t] : []; };
+    const sigDeco = (f) => {
+      const srcs = (f.sourceIds || []).map(id => AM_SOURCES.find(x => x.id === id || x.sourceId === id)).filter(Boolean)
+        .map(x => ({ id: x.id, kind: 'source', name: x.name, type: x.type, group: SG_GROUP[x.type] || 'OFFICIAL', groupLabel: sgGroupL(x.type), url: x.url, color: D.GROUP_COLOR[SG_GROUP[x.type] || 'OFFICIAL'] || '#B1A9A7' }));
+      const groups = uniq(srcs.map(x => x.group));
+      const missing = (f.sourceIds || []).length - srcs.length;
+      const timing = nar(f.nextWindow);
+      return Object.assign({}, f, {
+        cat: 'disease', category: D.CAT.disease, color: '#00A0DF',
+        cropL: cl(f.crop), issueL: il(f.issue), statusL: f.status ? fst(f.status) : ((T.KSTATE && T.KSTATE.NOT_ESTABLISHED) || 'NOT ESTABLISHED'),
+        sourceType: T.frUpstream, lastObserved: (f.raw && f.raw.DATE) ? f.raw.DATE : '\u2014',
+        isUpstream: true, sourceCount: srcs.length, evidenceCount: (f.evidenceIds || []).length,
+        regionLabel: f.region || T.sgRegionNotStated,
+        /* the four analysis panels, each one narrative field, each honest when absent */
+        whyRadar: nar(f.whatChanged) || nar(f.whyWatch) || T.narrNotEstablished,
+        observed: narList(f.observedFacts), interpretation: narList(f.interpretation),
+        unknown: narList(f.unknown), waiting: narList(f.whatWouldPromoteIt),
+        observations: srcs.length, independenceNote: T.sgIndependence,
+        sources: srcs, who: groups.map(g => ({ group: g, groupLabel: sgGroupL(srcs.find(x => x.group === g).type), count: srcs.filter(x => x.group === g).length, color: D.GROUP_COLOR[g] || '#B1A9A7' })),
+        sourcesUnresolved: missing, hasSources: srcs.length > 0, noSourcesNote: T.sgNoSources,
+        windowLine: timing || ((T.KSTATE && T.KSTATE.NOT_ESTABLISHED) || 'NOT ESTABLISHED'), timingKind: timing ? T.frUpstream : T.narrNotEstablished,
+        trend: { label: (T.KSTATE && T.KSTATE.NOT_ESTABLISHED) || 'NOT ESTABLISHED', color: '#8F8886', text: T.sgNoTrend },
+        promotion: [], trail: []
+      });
+    };
+    const A_SIGDECO = (APP0 ? APP0.futureSignals.records : []).map(sigDeco);
+
     // ---- signal detail
-    const sgPool = (APP0 ? APP0.futureSignals.records : []).concat(s.showScenarios && APP0 && APP0.futureScenarios ? APP0.futureScenarios.records : []);
+    const sgPool = A_SIGDECO.concat(s.showScenarios && APP0 && APP0.futureScenarios ? APP0.futureScenarios.records : []);
     const sg0 = sgPool.find(x => x.id === s.signalId) || null;
     const sgMissing = !!s.signalId && !sg0;
     const srcGo = (src) => () => src.kind === 'source' ? this.openSource(src.id) : src.kind === 'person' ? this.openPerson(src.id) : src.kind === 'news' ? this.go({ view: 'sources', sourceGroup: 'NEWS & TRADE MEDIA' }) : src.kind === 'company' ? this.openCompany(src.id) : src.kind === 'field' ? this.go({ view: 'field' }) : this.openTheme((sg0 || {}).science || D.SCI_THEMES[0].id);
@@ -2966,7 +3003,7 @@ class Component extends DCLogic {
       whyWatch: narMarks((sg0 || {}).whyWatch).map(y => ({ t: y.t, mark: y.warn ? '△' : y.ok ? '✓' : '○', color: y.warn ? '#978B87' : y.ok ? '#009845' : '#8F8886' })),
       trail: ((sg0 || {}).trail || []).map((t, i) => Object.assign({}, t, { view: () => this.setState({ evidenceIdx: i }), border: i === ((sg0 || {}).trail || []).length - 1 ? (sg0 || {}).color : s.evidenceIdx === i ? '#009845' : 'rgba(203,197,195,0.14)', bg: i === ((sg0 || {}).trail || []).length - 1 ? (sg0 || {}).color + '22' : 'rgba(255,255,255,0.03)', numColor: i === ((sg0 || {}).trail || []).length - 1 ? (sg0 || {}).color : '#8F8886' })),
       promotion: ((sg0 || {}).promotion || []).map(p => ({ t: p.t, mark: p.ok ? '✓' : '□', color: p.ok ? '#009845' : '#8F8886' })), promoColor: (sg0 || {}).promoted ? '#009845' : '#978B87',
-      factLoc: ((sg0 || {}).sources || []).find(x => x.group === 'OFFICIAL' || x.group === 'FIELD SALES') ? (sg0 || {}).region : 'Not yet established',
+      factLoc: (((sg0 || {}).sources || []).find(x => x.group === 'OFFICIAL' || x.group === 'FIELD SALES') && (sg0 || {}).region) || T.sgRegionNotStated,
       sourceCount: sgSources.length, sourceCards: sgSources.map(src => Object.assign({}, src, { color: D.GROUP_COLOR[src.group], go: srcGo(src) })),
       groupChips: [{ group: 'ALL', count: ((sg0 || {}).sources || []).length }].concat((sg0 || {}).who || []).map(g => { const on = (s.sigGroup || 'ALL') === g.group; return { group: g.group, count: g.count, border: on ? '#009845' : 'rgba(203,197,195,0.2)', bg: on ? 'rgba(0,152,69,0.25)' : 'transparent', textColor: on ? '#fff' : '#B1A9A7', go: () => this.setState({ sigGroup: g.group === 'ALL' ? '' : g.group }) }; })
     });
@@ -3202,13 +3239,8 @@ class Component extends DCLogic {
     const F_ICON = { 'NEW SIGNAL': 'sun', 'GAINING ATTENTION': 'cloud', 'MULTIPLE SIGNALS': 'connect', 'WATCH CLOSELY': 'heat-sensitive', 'NEEDS VALIDATION': 'recycle-label', 'TIMING APPROACHING': 'rain', 'PREPARE': 'farm-management' };
     // rails and fills may be dark; text on #1C1817 uses the lightened partner
     const F_TEXT = Object.assign({}, F_ACCENT, { 'GAINING ATTENTION': '#00A0DF', 'MULTIPLE SIGNALS': '#C46ABE' });
-    const sigWL = (x) => Object.assign({}, x, { cropL: cl(x.crop), issueL: il(x.issue), sourceTypeL: srcL(x.sourceType), sourceTypeUpperL: String(srcL(x.sourceType) || '').toUpperCase(), statusL: fst(x.status) });
-    const realSigs = (APP0 ? APP0.futureSignals.records : []).map(f => Object.assign({}, f, {
-      cat: 'disease', category: D.CAT.disease, color: '#00A0DF',
-      sourceType: f.sourceIds && f.sourceIds.length ? T.frUpstream : T.frUpstream,
-      lastObserved: f.raw && f.raw.DATE ? f.raw.DATE : '\u2014',
-      isUpstream: true, sourceCount: (f.sourceIds || []).length, evidenceCount: (f.evidenceIds || []).length
-    }));
+    const sigWL = (x) => Object.assign({}, x, { cropL: cl(x.crop), issueL: il(x.issue), sourceTypeL: srcL(x.sourceType), sourceTypeUpperL: String(srcL(x.sourceType) || '').toUpperCase(), statusL: x.status ? fst(x.status) : ((T.KSTATE && T.KSTATE.NOT_ESTABLISHED) || 'NOT ESTABLISHED') });
+    const realSigs = A_SIGDECO;
     const scenarioSigs = s.showScenarios ? (APP0 && APP0.futureScenarios ? APP0.futureScenarios.records : []).map(x => Object.assign({}, x, { isScenario: true })) : [];
     const sigPool = realSigs.concat(scenarioSigs).map(sigWL);
     const sigAll = sigPool.filter(x => (!s.futureStatus || x.status === s.futureStatus) && (!s.futureSource || x.sourceType === s.futureSource));
@@ -3453,7 +3485,7 @@ class Component extends DCLogic {
     ] : [];
 
     const titles = { radar: (T.navRadar || '').toUpperCase(), case: (T.navRadar || '').toUpperCase(), brief: 'ACTION BRIEF', field: (T.navField || '').toUpperCase(), windows: (T.navWindows || '').toUpperCase(), window: (T.navWindows || '').toUpperCase(), market: (T.navMarket || '').toUpperCase(), signal: (T.navFuture || '').toUpperCase(), future: (T.navFuture || '').toUpperCase(), competitors: (T.navCompetitors || '').toUpperCase(), company: (T.navCompetitors || '').toUpperCase(), event: (T.navCompetitors || '').toUpperCase() + ' \u00b7 ' + (T.lblEventWatch || 'EVENT WATCH'), cproduct: (T.navCompetitors || '').toUpperCase(), science: (T.navScience || '').toUpperCase(), theme: (T.navScience || '').toUpperCase(), archive: (T.navArchive || '').toUpperCase(), sources: (T.navSources || '').toUpperCase(), source: (T.navSources || '').toUpperCase(), person: (T.navSources || '').toUpperCase() + ' \u00b7 ' + (T.lblPeople || 'PEOPLE'), search: (T.lblSearch || 'SEARCH') };
-    const crumb = { signal: (sg.issue + ' · ' + sg.crop + ' · ' + sg.region).toUpperCase(), window: (wd.issue + ' · ' + wd.crop + ' · ' + wd.region).toUpperCase(), case: (cs.issue + ' · ' + cs.crop + ' · ' + cs.region).toUpperCase(), brief: br ? (br.doc + ' · ' + cs.issue + ' · ' + cs.region).toUpperCase() : '', company: co.label.toUpperCase(), event: evd.name.toUpperCase(), cproduct: (cp.company + ' · ' + cp.name).toUpperCase(), market: mp ? (mp.label + ' · ' + (s.mTab === 'industry' ? 'CROP PROTECTION MARKET' : 'CROP MARKET')).toUpperCase() : '', theme: th.title.toUpperCase(), source: sr.name.toUpperCase(), person: pr.label.toUpperCase(), search: s.committedQuery.toUpperCase() }[s.view] || '';
+    const crumb = { signal: ((sg.issueL || sg.issue || '') + ' · ' + (sg.cropL || sg.crop || '') + ' · ' + (sg.regionLabel || '')).toUpperCase(), window: (wd.issue + ' · ' + wd.crop + ' · ' + wd.region).toUpperCase(), case: (cs.issue + ' · ' + cs.crop + ' · ' + cs.region).toUpperCase(), brief: br ? (br.doc + ' · ' + cs.issue + ' · ' + cs.region).toUpperCase() : '', company: co.label.toUpperCase(), event: evd.name.toUpperCase(), cproduct: (cp.company + ' · ' + cp.name).toUpperCase(), market: mp ? (mp.label + ' · ' + (s.mTab === 'industry' ? 'CROP PROTECTION MARKET' : 'CROP MARKET')).toUpperCase() : '', theme: th.title.toUpperCase(), source: sr.name.toUpperCase(), person: pr.label.toUpperCase(), search: s.committedQuery.toUpperCase() }[s.view] || '';
 
     return {
       nav, kpi: K, todayLabel: D.fmt(D.TODAY).toUpperCase(), pageTitle: titles[s.view], crumb, hasCrumb: !!crumb,

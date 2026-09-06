@@ -273,6 +273,15 @@
     /* narrative(record, FIELD) returns CLEAR — render the approved text — or one of the two
        states below. Prose that is not client-ready is never rendered raw. */
     narrNotEstablished: 'Analisi non stabilita a monte.',
+    /* Knowledge states of a public identity, and the honest empty states of a
+       Future signal. UI copy: they say what the package can prove, never a fact. */
+    IDSTATE: { 'NAO_ATRIBUIVEL': 'NON ATTRIBUIBILE', 'NOT_PROVED': 'NON PROVATO', 'NOT_KNOWN': 'NON NOTO', 'CONFIRMED': 'CONFERMATO', 'DECLARED': 'DICHIARATA' },
+    SRCGROUP: { 'OFFICIAL': 'UFFICIALE', 'RESEARCH': 'SCIENZA', 'RESEARCH_INSTITUTION': 'ISTITUTI DI RICERCA', 'TECHNICAL_MEDIA': 'MEDIA TECNICI', 'FIELD': 'CAMPO', 'MARKET': 'MERCATO', 'COMPANY': 'AZIENDE', 'COMPETITOR': 'CONCORRENZA', 'PEOPLE': 'PERSONE', 'COOPERATIVE': 'COOPERATIVE', 'PRODUCER_ORG': 'ORGANIZZAZIONI DI PRODUTTORI', 'ADAMA': 'ADAMA' },
+    sgRegionNotStated: 'Regione non stabilita',
+    sgIndependence: 'Numero di fonti distinte dichiarate da questo segnale.',
+    sgNoSources: 'Nessuna fonte dichiarata a monte per questo segnale.',
+    sgNoTrend: 'Nessuna serie storica per questo segnale in questo pacchetto.',
+    sgUpstream: 'SEGNALE A MONTE',
     narrNotLoaded: 'Analisi scritta esistente a monte, non caricata in questo pacchetto.',
     narrNote: 'Quando l\'analisi manca, la vista lo dichiara. Non viene ricostruita.',
     relVerified: 'CORRISPONDENZA VERIFICATA SU ETICHETTA',
@@ -552,6 +561,13 @@
     noObsForCrop: 'No observation for this crop in this package.',
     noObsForCropNote: 'The current package holds no dated evidence for this crop. This is not a reading of field absence.',
     narrNotEstablished: 'Analysis not established upstream.',
+    IDSTATE: { 'NAO_ATRIBUIVEL': 'NOT ATTRIBUTABLE', 'NOT_PROVED': 'NOT PROVED', 'NOT_KNOWN': 'NOT KNOWN', 'CONFIRMED': 'CONFIRMED', 'DECLARED': 'DECLARED' },
+    SRCGROUP: { 'OFFICIAL': 'OFFICIAL', 'RESEARCH': 'SCIENCE', 'RESEARCH_INSTITUTION': 'RESEARCH INSTITUTES', 'TECHNICAL_MEDIA': 'TECHNICAL MEDIA', 'FIELD': 'FIELD', 'MARKET': 'MARKET', 'COMPANY': 'COMPANIES', 'COMPETITOR': 'COMPETITORS', 'PEOPLE': 'PEOPLE', 'COOPERATIVE': 'COOPERATIVES', 'PRODUCER_ORG': 'PRODUCER ORGANIZATIONS', 'ADAMA': 'ADAMA' },
+    sgRegionNotStated: 'Region not established',
+    sgIndependence: 'Count of distinct sources this signal declares.',
+    sgNoSources: 'No source declared upstream for this signal.',
+    sgNoTrend: 'No historical series for this signal in this package.',
+    sgUpstream: 'UPSTREAM SIGNAL',
     narrNotLoaded: 'Written analysis exists upstream, not loaded into this package.',
     narrNote: 'When the analysis is missing, the view says so. It is never reconstructed.',
     relVerified: 'VERIFIED LABEL MATCH',

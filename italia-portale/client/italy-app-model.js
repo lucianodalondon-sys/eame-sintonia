@@ -130,6 +130,22 @@
    */
   const UNK = (v) => { const s = S(v); return s && UNKNOWN_SENTINEL.test(s) ? null : s; };
 
+  /**
+   * STATE_TOKEN — a knowledge-state field whose upstream value is a CODE
+   * followed, sometimes, by the analyst's Portuguese explanation of it
+   * ("NAO_ATRIBUIVEL — handle publico pseudonimizado"). The code is the fact
+   * and is language-independent; the explanation is a working note written in
+   * the research language and has no approved Italian variant, so it is not
+   * client content. This returns the code alone, uppercased with underscores,
+   * and null when there is none. The view localizes the code.
+   */
+  const STATE_TOKEN = (v) => {
+    const s = S(v); if (!s) return null;
+    const head = s.split(/\s*[\u2014\u2013:-]\s+|\s*\u00b7\s*/)[0].trim();
+    const code = head.replace(/\s+/g, '_').toUpperCase();
+    return /^[A-Z][A-Z0-9_]*$/.test(code) ? code : null;
+  };
+
   /* ── 3b · DATE SHAPES ────────────────────────────────────────────────────
      Four incompatible date shapes are measured in this package: ISO
      (YYYY-MM-DD), ISO timestamps (channels' EXAMPLE_PUBLISHED_AT), the market
@@ -1358,12 +1374,15 @@
       rows: RAW.IG.VOICES,
       adapt: (v) => ({
         id: v.ID, kind: S(v.KIND),
-        person: S(v.PERSON), identityState: S(v.PERSON_IDENTITY_STATE),
-        role: S(v.ROLE), organization: S(v.ORGANIZATION),
+        person: S(v.PERSON), identityState: STATE_TOKEN(v.PERSON_IDENTITY_STATE),
+        /* 17/17 of ROLE, ORGANIZATION, DATE and REGION are the analyst's own
+           "NAO SEI". Returning the sentence would print a Portuguese working
+           note on an Italian screen; null lets the view render its own state. */
+        role: UNK(v.ROLE), organization: UNK(v.ORGANIZATION),
         platform: S(v.PLATFORM), channel: S(v.CHANNEL), title: S(v.CONTENT_TITLE),
-        date: S(v.DATE), dateRelative: S(v.DATE_RELATIVE),
+        date: UNK(v.DATE), dateRelative: S(v.DATE_RELATIVE),
         crop: S(v.CROP), issue: S(v.ISSUE), caseId: S(v.CASE_ID),
-        region: S(v.REGION), countryOfFact: S(v.COUNTRY_OF_FACT),
+        region: UNK(v.REGION), countryOfFact: S(v.COUNTRY_OF_FACT),
         /* The original public quote is never translated and never parsed for
            facts. It is evidence, shown as published. */
         textOriginal: S(v.TEXT_ORIGINAL),
@@ -1385,7 +1404,7 @@
       rows: RAW.IG.CHANNELS,
       adapt: (c) => ({
         id: c.ID, name: S(c.CHANNEL), url: S(c.CHANNEL_URL),
-        identityState: S(c.IDENTITY_STATE), contentTypeExample: S(c.CONTENT_TYPE_EXAMPLE),
+        identityState: STATE_TOKEN(c.IDENTITY_STATE), contentTypeExample: S(c.CONTENT_TYPE_EXAMPLE),
         exampleTitle: S(c.EXAMPLE_TITLE), exampleUrl: S(c.EXAMPLE_URL),
         examplePublishedAt: S(c.EXAMPLE_PUBLISHED_AT), views: N(c.VIEWS),
         caseId: S(c.CASE_ID), provenance: provOf(c, P.REAL_SOURCE), raw: c,
@@ -1483,7 +1502,9 @@
       rows: RAW.IG.FUTURE_SIGNALS,
       adapt: (f) => ({
         id: f.ID || f.SIGNAL_ID, legacyId: S(f.LEGACY_ID),
-        crop: S(f.CROP), issue: S(f.ISSUE), region: S(f.REGION),
+        /* REGION is 'NAO SEI ...' on 2 of 3 rows: the upstream scope is national
+           affiliation, not study region. Null, never the Portuguese sentence. */
+        crop: S(f.CROP), issue: S(f.ISSUE), region: UNK(f.REGION),
         status: S(f.STATUS),
         whoIsTalking: narrative(f, 'WHO_IS_TALKING'),
         whatChanged: narrative(f, 'WHAT_CHANGED'),
