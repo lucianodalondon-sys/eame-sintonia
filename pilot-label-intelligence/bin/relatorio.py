@@ -109,7 +109,7 @@ Gerado de artefatos por `bin/relatorio.py`. Nenhum numero aqui foi digitado a ma
     REGISTRY_VERSIONS_ARCHIVED    = {hist.get("DISTINCT_DOCUMENTS", NP)}
     REGISTRY_WINDOW               = {hist.get("WINDOW", NP)}
     REAL_REGISTRY_CHANGE_EVENTS   = {hist.get("CHANGE_EVENTS_REGULATORY", NP)}
-    SERIALIZATION_NOISE_SUPPRESSED= 496 de 528 diferencas de campo (93,9%)
+    SERIALIZATION_NOISE_SUPPRESSED= {vs.get("SERIALIZATION_NOISE_SUPPRESSED", NP)} de {vs.get("FIELD_DIFFS_WITHOUT_NORMALISATION", NP)} diferencas de campo ({vs.get("NOISE_SHARE", NP)}%)
 
     LABEL_VERSIONS_CHECKED        = {rv.get("LABELS_CHECKED", NP)}
     LABEL_DOCUMENTS_CHANGED       = {diffs}

@@ -283,12 +283,15 @@ def main():
   <div class="cards">
     <div class="kpi"><b>{hist.get("CHANGE_EVENTS_REGULATORY", 0)}</b><span>mudancas regulatorias</span></div>
     <div class="kpi"><b class="dim">{hist.get("CHANGE_EVENTS_TEXT_ONLY", 0)}</b><span>rebaixadas a texto</span></div>
-    <div class="kpi"><b class="dim">496</b><span>ruido de serializacao suprimido</span></div>
+    <div class="kpi"><b class="dim">{hist.get("SERIALIZATION_NOISE_SUPPRESSED", "?")}</b><span>ruido de serializacao suprimido</span></div>
   </div>
-  <div class="warn">Um differ ingenuo teria entregue 528 diferencas de campo. 496 delas (93,9%)
-  sao a fonte reordenando a lista de indicacoes de perigo entre publicacoes — o mesmo valor vai e
-  volta semana a semana. Normalizar campo multivalorado e rebaixar oscilacao deixa
-  {hist.get("CHANGE_EVENTS_REGULATORY", 0)} mudancas de verdade.</div>
+  <div class="warn">Um differ ingenuo teria entregue {hist.get("FIELD_DIFFS_WITHOUT_NORMALISATION","?")}
+  diferencas de campo. {hist.get("SERIALIZATION_NOISE_SUPPRESSED","?")} delas
+  ({str(hist.get("NOISE_SHARE","?")).replace(".", ",")}%) sao a fonte reordenando a lista de
+  indicacoes de perigo entre publicacoes — o mesmo valor vai e volta semana a semana. Normalizando
+  campo multivalorado sobram {hist.get("FIELD_DIFFS_WITH_NORMALISATION","?")} diferencas de campo,
+  que com entrada e saida de produto viram {hist.get("CHANGE_EVENTS_REGULATORY", 0)} eventos
+  regulatorios.</div>
   <div class="tw"><table>
     <thead><tr><th>Janela</th><th>Registro</th><th>Produto</th><th>Tipo</th><th>Antes</th><th>Depois</th></tr></thead>
     <tbody id="tbc"></tbody></table></div>

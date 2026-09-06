@@ -41,7 +41,7 @@ Gerado de artefatos por `bin/relatorio.py`. Nenhum numero aqui foi digitado a ma
     REGISTRY_VERSIONS_ARCHIVED    = 54
     REGISTRY_WINDOW               = 20250714..20260831
     REAL_REGISTRY_CHANGE_EVENTS   = 34
-    SERIALIZATION_NOISE_SUPPRESSED= 496 de 528 diferencas de campo (93,9%)
+    SERIALIZATION_NOISE_SUPPRESSED= 496 de 528 diferencas de campo (93.9%)
 
     LABEL_VERSIONS_CHECKED        = 163
     LABEL_DOCUMENTS_CHANGED       = 0
@@ -126,7 +126,7 @@ existe exatamente para isso: mostrar sem integrar.
 
     PACKAGE_PATH  = pilot-label-intelligence/
     PACKAGE_FILES = 40 arquivos versionados
-    PACKAGE_HASH  = 2e71848044d80ff26604b1b0ec56799d7c0db3f5d9730ef8b93bd8363b03c648
+    PACKAGE_HASH  = f71ac174e6d536d47d6714c5e1c4c58bc9e54afe98e9a3fd60dbc59fb47fa55b
 
 O hash e o sha256 sobre o caminho e o conteudo de cada arquivo versionado do
 piloto, em ordem, exceto este relatorio. Nao cobre os instantaneos do registro

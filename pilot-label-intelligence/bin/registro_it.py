@@ -155,6 +155,26 @@ def mark_oscillations(events):
     return events
 
 
+def contar_diffs_de_campo(old_idx, new_idx, normalizar):
+    """Diferencas de CAMPO entre dois instantaneos, com e sem normalizacao.
+
+    Compara so registros presentes nos dois lados, e so campos — entrada e saida
+    de produto ficam de fora de proposito, para que os dois numeros sejam
+    comparaveis entre si. Um differ ingenuo entregaria o numero sem normalizar.
+    """
+    n = 0
+    for reg in set(old_idx) & set(new_idx):
+        o, nn = old_idx[reg], new_idx[reg]
+        for field in WATCHED:
+            if normalizar:
+                a, b = norm(field, o.get(field)), norm(field, nn.get(field))
+            else:
+                a, b = (o.get(field) or "").strip(), (nn.get(field) or "").strip()
+            if a != b:
+                n += 1
+    return n
+
+
 def diff(old_idx, new_idx, old_meta, new_meta):
     """Eventos de mudanca entre dois instantaneos oficiais consecutivos."""
     events = []
@@ -228,6 +248,7 @@ def main():
     print(f'  documentos distintos  : {len(versions)}', file=sys.stderr)
 
     all_events, per_version = [], []
+    bruto = normalizado = 0
     prev = None
     for v in versions:
         rows = read_rows(v["path"])
@@ -246,6 +267,8 @@ def main():
         })
         if prev is not None:
             all_events += diff(prev[0], idx, prev[1], v)
+            bruto += contar_diffs_de_campo(prev[0], idx, normalizar=False)
+            normalizado += contar_diffs_de_campo(prev[0], idx, normalizar=True)
         prev = (idx, v)
 
     all_events = mark_oscillations(all_events)
@@ -265,6 +288,15 @@ def main():
         "VERSION_IDENTITY_METHOD": "sha256 do CSV oficial; republicacao identica nao conta como versao",
         "MISSING_SNAPSHOTS": [m["date"] for m in metas if m["state"] != "DOWNLOADED"],
         "VERSIONS": per_version,
+        "FIELD_DIFFS_WITHOUT_NORMALISATION": bruto,
+        "FIELD_DIFFS_WITH_NORMALISATION": normalizado,
+        "SERIALIZATION_NOISE_SUPPRESSED": bruto - normalizado,
+        "NOISE_SHARE": round(100.0 * (bruto - normalizado) / bruto, 1) if bruto else 0,
+        "NOISE_NOTE": ("os dois numeros contam a MESMA coisa — diferencas de campo entre "
+                       "registros presentes nos dois instantaneos — e por isso sao comparaveis. "
+                       "Entrada e saida de produto ficam fora dos dois. A fonte reordena a lista "
+                       "de indicacoes de perigo entre publicacoes e o mesmo valor vai e volta; "
+                       "um differ que comparasse texto cru entregaria o numero sem normalizar."),
         "CHANGE_EVENTS_TOTAL": len(all_events),
         "CHANGE_EVENTS_REGULATORY": len(stable),
         "CHANGE_EVENTS_TEXT_ONLY": len(unstable),
@@ -276,6 +308,8 @@ def main():
     p = os.path.join(args.emit, "IT-REGISTRO-VERSOES.json")
     with open(p, "w", encoding="utf-8") as fh:
         json.dump(out, fh, ensure_ascii=False, indent=1)
+    print(f'  diffs de campo brutos : {bruto} -> normalizados {normalizado} '
+          f'({bruto - normalizado} de ruido)', file=sys.stderr)
     print(f'  eventos regulatorios  : {len(stable)}', file=sys.stderr)
     print(f'  texto/instaveis       : {len(unstable)}', file=sys.stderr)
     print(f'  escrito               : {p}', file=sys.stderr)
