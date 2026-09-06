@@ -138,6 +138,35 @@ def value_mode(idx, var_id):
     return "UNSUPPORTED"
 
 
+def assert_scale_decodes(rows, scale, mode, idx):
+    """A variable the SOURCE declares numeric may still be serving CODE IDS.
+
+    PAID FOR BY the first case this pipeline was not built for. frumento x septoria declares
+    id_survey_var 372 as widget=numeric; it serves the values 1599 and 1628, which are code ids.
+    The module read them as magnitudes, every value was > 0, and it published
+    "TYPICAL_FOR_THE_DATE, 100% of monitored sites" for two provinces — a confident, wrong
+    statement, from a module whose central design claim is that it fails loudly to UNKNOWN
+    rather than quietly to a number. It did not fail loudly. This is the guard that makes it.
+
+    Generic test, no case knowledge: in NUMERIC mode, if the observed values are drawn from the
+    source's OWN code-id vocabulary, the variable is coded-but-mis-declared and is REFUSED.
+    """
+    if mode != "NUMERIC":
+        return
+    code_ids = {str(c.get("id_survey_code")) for c in (idx.get("codes") or [])}
+    if not code_ids:
+        return
+    vals = [str(r.get("val")) for r in rows if r.get("val") not in (None, "")]
+    if not vals:
+        return
+    hit = sum(1 for v in vals if v in code_ids) / len(vals)
+    if hit >= 0.90:
+        raise ValueError(
+            f"REFUSED: {hit:.0%} of the values of this variable are id_survey_code values of "
+            f"this very case. The source declares it numeric and is serving codes. "
+            f"A code id is not a magnitude.")
+
+
 def read_value(r, scale, mode):
     """None means MISSING. Missing is never 0 (Missing.NEVER_ZERO)."""
     v = r.get("val")
@@ -212,6 +241,8 @@ def current_pressure(case_dir, var_id, as_of, metric="INCIDENCE",
         guard_info["DENOMINATOR_DECLARED"] = "YES"
     completeness = season_completeness(rows, as_of)
     mode = meta["VALUE_MODE"]
+    assert_scale_decodes(rows, scale, mode,
+                         json.load(open(os.path.join(case_dir, "collection_index.json"))))
     if mode == "UNSUPPORTED":
         raise ValueError(f"REFUSED: var {var_id} is neither coded nor numeric in the source metadata")
     hi, lo = as_of, as_of - dt.timedelta(days=window_days - 1)

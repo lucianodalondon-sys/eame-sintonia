@@ -36,9 +36,18 @@ if __name__ == "__main__":
                         "week": "all", "cultivar": "all", "area": "all",
                         "accesso": "all", "user_access": "all"})
             ok, rc, rows, fb = unwrap(js)
-            if idx["codes"] is None and fb and fb.get("survey_code"):
-                idx["codes"] = fb["survey_code"]["data"]
-                idx["vars"] = [x for x in fb.get("survey_var", {}).get("data", [])
+            # FIXED 2026-09-06. This used to latch on the first response carrying a
+            # survey_code KEY, which for a case whose archive starts after 2006 is the EMPTY
+            # table of a year with no data — after which the pipeline had no scale at all and
+            # run_case.py fell back to treating CODE IDS as magnitudes. Latch on the first
+            # response that actually has ROWS.
+            # Take the MOST COMPLETE table seen, not the first one. The source's code table is
+            # year-dependent (crop3/schema8 grows 16 codes in 2006 to 74 in 2025), so latching
+            # any single year freezes a scale the later years have outgrown.
+            cand = (fb or {}).get("survey_code") or {}
+            if cand.get("data") and len(cand["data"]) > len(idx["codes"] or []):
+                idx["codes"] = cand["data"]
+                idx["vars"] = [x for x in (fb.get("survey_var") or {}).get("data") or []
                                if x["id_survey_schema"] == schema]
             rec = {"var": v, "year": y, "ok": ok, "rowCount": rc, "n_rows": len(rows)}
             if rows:

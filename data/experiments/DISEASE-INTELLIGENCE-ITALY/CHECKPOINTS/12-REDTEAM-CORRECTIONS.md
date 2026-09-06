@@ -328,3 +328,138 @@ BACTROCERA  0.927 -> 0.918        OIDIO  0.651 -> 0.596
 The definition promised per-cell evidence; the output carried it only at the top level. Each
 published cell now carries its own source, role, window and raw-file hash. A cell that cannot
 produce them is not rendered (spec rule R8).
+
+---
+---
+
+# FOURTH ROUND — the pipeline met a case it had never seen, and lost
+
+The mission's own reuse claim was tested the only way it can honestly be tested: by collecting a
+**genuinely new** Italian case live and running it through the unmodified pipeline.
+**FRUMENTO × Septoria × Toscana** (crop 19, schema 74, var 372) — a different crop, a different
+schema, a different scale vocabulary, never seen by any of this code.
+
+It failed, in four separate places, and each failure is now fixed and re-tested.
+
+## C20 — FATAL, CONCEDED · the module published a confident, wrong statement.
+
+Run on the new case as shipped, `current_pressure.py` printed:
+
+```
+Arezzo    TYPICAL_FOR_THE_DATE  val=1.0  sites=12  base_n=13  med=1.0
+Grosseto  TYPICAL_FOR_THE_DATE  val=1.0  sites=24  base_n=13  med=1.0
+```
+
+**"100 % of monitored wheat sites have Septoria, and that is typical for the date."** The
+underlying values were `1599` and `1628` — *code ids*, not measurements. The source declares
+`id_survey_var 372` as `widget: numeric` and then serves codes; the module read them as
+magnitudes, every value was `> 0`, and it published.
+
+**This breaks the central design claim of the whole mission** — that the module fails *loudly to
+UNKNOWN* rather than quietly to a number. It did not fail loudly. It failed quietly and
+confidently, on the first case it had never seen.
+
+*Recorded honestly*: the reviewing lens reported this against variable **385**, which does not
+exist in schema 74 at all. With 385 the module **refused** correctly. I had to find the real
+variable (372) to reproduce the finding — and it reproduces, and it is worse than reported,
+because 372 is a legitimate, declared variable of the schema.
+
+**Fix**: `assert_scale_decodes()` — in NUMERIC mode, if ≥ 90 % of the observed values are
+`id_survey_code` values *of this very case*, the variable is coded-but-mis-declared and the
+module refuses. Generic; no case knowledge.
+
+## C21 — SERIOUS, CONCEDED · the collector froze the wrong code table.
+
+`collect_generic.py` latched the code table from the **first response carrying the key**. For a
+case whose archive starts after 2006 that is the *empty* table of a year with no data — after
+which the pipeline has no scale at all. Measured on the new case: `codes 0, vars 0`, while 2013
+and 2026 both return a perfectly good 4-code ordinal ladder.
+
+It is not only an empty-year problem. **The source's code table is year-dependent**: crop 3 /
+schema 8 grows from 16 codes in 2006 to 74 in 2025. My own shipped oidio index carries **16** —
+the 2006 table. It happened to map every value in that case (0 unmapped in 35 064 rows), so no
+harm was done, but that was luck, not design.
+
+**Fix**: take the **most complete** table seen across all responses, not the first.
+On the new case that moves it from 9 codes to 41, and the scale then derives correctly.
+
+## C22 — CONCEDED · `PIPELINE_REUSE_RATE = 100%` was wrong. It is **75%**.
+
+With the collector fixed, the new case still would not decode: its labels are **compound** —
+`Nessuna / Bassa <5% / Media 5-25% / Alta >25%` — a ladder word *and* a band in one string. The
+parser matched only a bare word or a bare band and resolved **1 of 4** codes.
+
+**Fix**: look for a ladder word anywhere in the label, then a band anywhere. Generic, not a rule
+about wheat. The new case now derives:
+
+```
+1599 -> 0 'Nessuna'   1628 -> 1 '5 - lieve'   1602 -> 2 '10 - media'   1603 -> 3 '25 - grave'
+14 seasons, 9 distinct SITE_INCIDENCE values — a real, varying series
+```
+
+**Two labels remain unresolved**: `'50 - gravissina'` (a typo for *gravissima* in the source) and
+`'75 - completa'`. Those observations are dropped as MISSING, which **understates severity** in
+the worst seasons. Stated, not hidden.
+
+**Corrected accounting:**
+```
+CASES_TESTED ............................. 4
+CASES_PASS_WITH_NO_RULE_CHANGE ........... 3
+CASES_NEEDING_A_GENERIC_RULE_EXTENSION ... 1
+PIPELINE_REUSE_RATE ...................... 3/4 = 75%     (was claimed 100%)
+case-conditional branches ................ 0             (this part holds)
+```
+
+## C23 — FATAL, CONCEDED · **gate H tested the opposite of refreshability.**
+
+It required `delta_rows == 0`. The olive case gains **~310 rows/week**. So a source that
+published this week's scouting would **FAIL** the gate and a source that had **died** would
+**PASS** it. The gate was inverted.
+
+It also trusted `rowCount 0` as the only silent-failure shape. The source's real one is worse:
+**HTTP 200 + `ok:true` + full rowCount + every value null**, which the shipped probe reported as
+a healthy 2 515-row response.
+
+**Fix**: three silent-failure shapes are now detected — zero rows; full rowCount with an all-null
+value column; and a top-level `ok:false` carrying a message the client was discarding. And the
+bogus probe entry that had been shipping as a *pass* is now a **deliberate negative control**
+that must trip on every run:
+
+```
+NEGATIVE-CONTROL-nonexistent-var  HTTP=200 ok=False rows=2515 non_null=0
+                                  <-- FULL_ROWCOUNT_BUT_EVERY_VALUE_NULL
+```
+Gate H now passes only if the control **did** trip. Without that line the gate could not show it
+is able to fail.
+
+## C24 — CONCEDED · **gate I was a hardcoded `PASS` constant.**
+
+```python
+g["I_GENERALIZES"] = {"VERDICT": PASS, "EVIDENCE": "3/3 cases ... 100%"}
+```
+
+The gate certifying the generalization claim asserted its own conclusion. **This is the third
+tautology in the same gate set** — after A certified itself (C10) and B could not fail (C14).
+That is a pattern, not three accidents: *when I wrote a gate for a claim I believed, I wrote it
+so it agreed with me.*
+
+**Fix**: gate I now runs the unseen 4th case end-to-end and fails if the case does not run or if
+its series never varies — which is exactly what it did before C20–C22 were fixed. It also
+reports the 75 % reuse rate instead of the 100 % it used to assert.
+
+---
+
+## STANDING AFTER FOUR ROUNDS
+
+```
+PASS = 9   FAIL = 0   NOT_TESTABLE = 1     (gate J, still unanswered)
+```
+
+Every gate now rests on a test that can fail, and three of them are only in that state because
+the red team found they were not. The verdict is unchanged — but it is now worth something it
+was not worth this morning.
+
+**The most important thing found in this whole mission is not a number.** It is that the module's
+proudest property — *fails loudly to UNKNOWN, never quietly to zero* — was **false** the first
+time it met a case it had not been built for, and I would not have discovered that by testing it
+on the cases I chose for it.

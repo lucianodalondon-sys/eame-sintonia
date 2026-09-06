@@ -98,20 +98,58 @@ def evaluate(as_of=dt.date(2026, 9, 6)):
                     f"disagree inside the same season"}
 
     # H — refreshable without a research project
+    # REWRITTEN 2026-09-06. The old test required delta_rows == 0, which is BACKWARDS: a source
+    # that publishes this week's scouting would FAIL it and a source that died would PASS it.
+    # The olive case gains ~310 rows/week, so the shipped gate would have gone red on the first
+    # honest refresh. It also trusted "rowCount 0 = FAILURE" as the only failure shape, while the
+    # source's real silent failure is HTTP 200 + ok:true + FULL rowCount + every value null.
     probe = json.load(open("automation_probe.json")) if os.path.exists("automation_probe.json") else {}
-    refresh_ok = all(p.get("ok") and p.get("delta_rows") == 0
-                     for p in probe.values() if p.get("stored_n_rows") is not None)
+    control = {k: v for k, v in probe.items() if k.startswith("NEGATIVE-CONTROL")}
+    real = {k: v for k, v in probe.items() if not k.startswith("NEGATIVE-CONTROL")}
+    control_tripped = all(v.get("SILENT_FAILURE") for v in control.values()) if control else False
+    probe = real
+    reachable = [p for p in probe.values() if p.get("HTTP") == 200 and p.get("ok")]
+    grew_or_held = [p for p in probe.values()
+                    if p.get("stored_n_rows") is not None and (p.get("delta_rows") or 0) >= 0]
+    non_null = [p for p in probe.values() if p.get("non_null_values", 1) > 0]
     g["H_REFRESHABLE_WITHOUT_RESEARCH"] = {
-        "VERDICT": PASS if probe and refresh_ok else (NT if not probe else FAIL),
-        "EVIDENCE": "one unauthenticated GET reproduced the stored season row-for-row; "
-                    "latency 2 days; cost EUR 0. rowCount 0 must be treated as FAILURE."}
+        "VERDICT": PASS if (probe and control_tripped and len(reachable) == len(probe) and
+                            grew_or_held and len(non_null) == len(probe))
+                   else (NT if not probe else FAIL),
+        "EVIDENCE": f"{len(reachable)}/{len(probe)} probes reachable in one unauthenticated GET, "
+                    f"~2s, EUR 0; row counts held or grew (a refresh that GAINS rows is the "
+                    f"success case, not the failure case); {len(non_null)}/{len(probe)} returned "
+                    f"a non-null measurement column. THREE silent-failure shapes must be treated "
+                    f"as FAILURE, not as 'no disease': rowCount 0; full rowCount with an "
+                    f"all-null value column; and top-level ok:false with a message the client "
+                    f"discards. A deliberate negative control (a variable that does not exist in "
+                    f"the requested schema, which the source answers with a full null row set) "
+                    f"{'DID' if control_tripped else 'did NOT'} trip the detector — without that "
+                    f"line this gate could not show it is able to fail."}
 
-    # I — it generalizes: a second case ran with no new rule
+    # I — it generalizes. REWRITTEN 2026-09-06: this was a hardcoded PASS constant, the third
+    # tautology found in this gate set after A certified itself and B could not fail. It is now
+    # computed against a case the pipeline had never seen (FRUMENTO x SEPTORIA x TOSCANA,
+    # crop 19 / schema 74 / var 372), collected live and run end-to-end.
+    unseen, ok_unseen, note = "/tmp/WHEAT4", False, "unseen case not collected"
+    if os.path.exists(os.path.join(unseen, "collection_index.json")):
+        try:
+            out, meta = __import__("run_case").season_outcomes(unseen, 372)
+            vals = sorted({round(v["SITE_INCIDENCE"], 3) for v in out.values()})
+            ok_unseen = len(out) >= 5 and len(vals) > 1        # ran, and is not degenerate
+            note = (f"{len(out)} seasons, {len(vals)} distinct SITE_INCIDENCE values "
+                    f"(a series that never varies is a decoding failure, not a measurement); "
+                    f"scale derived by {meta['derivation_methods']}, "
+                    f"unresolved labels {meta['unresolved_labels']}")
+        except Exception as e:
+            note = f"REFUSED/failed: {e}"
     g["I_GENERALIZES"] = {
-        "VERDICT": PASS,
-        "EVIDENCE": "3/3 cases through one pipeline, 0 case-conditional branches, "
-                    "PIPELINE_REUSE_RATE 100%; the second case is a PEST with a different "
-                    "value mode and needed no new rule"}
+        "VERDICT": PASS if ok_unseen else FAIL,
+        "EVIDENCE": f"unseen 4th case run end-to-end: {note}. Honest reuse rate is 3/4 = 75%, "
+                    f"NOT the 100% previously claimed: the 4th case required TWO generic "
+                    f"extensions (compound labels like 'Bassa <5%', and taking the most complete "
+                    f"code table rather than the first), and two of its labels remain "
+                    f"unresolved. 0 case-conditional branches remains true."}
 
     # J — it is not a duplicate of something the portal already has
     g["J_NOT_DUPLICATE"] = {

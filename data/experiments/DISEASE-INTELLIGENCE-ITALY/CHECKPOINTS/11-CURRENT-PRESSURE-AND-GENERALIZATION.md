@@ -41,11 +41,12 @@ total pipeline code lines .......................... 776
 ```
 
 ```
-CASES_TESTED ........................... 3 case-runs over 2 INDEPENDENT PANELS (see C2)
-CASES_PASS_WITHOUT_CUSTOM_RULE ......... 3
-CASES_NEED_CASE_SPECIFIC_RULE .......... 0
-CASES_FAIL ............................. 0
-PIPELINE_REUSE_RATE .................... 3/3 = 100%
+CASES_TESTED ............................. 4  (see C20-C24: a 4th, genuinely unseen case was
+                                              collected live and it BROKE the pipeline in four
+                                              places before the fixes)
+CASES_PASS_WITH_NO_RULE_CHANGE ........... 3  over 2 INDEPENDENT PANELS (see C2)
+CASES_NEEDING_A_GENERIC_RULE_EXTENSION ... 1
+PIPELINE_REUSE_RATE ...................... 3/4 = 75%   (100% was WRONG)
 ```
 
 The ordinal scale is derived from the source's own code table by **label text**, surviving both

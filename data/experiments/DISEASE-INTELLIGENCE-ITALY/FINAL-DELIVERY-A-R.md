@@ -41,13 +41,20 @@ Nenhuma recolha nova foi necessária para decidir, por isso nenhuma foi aberta.
 ## C — REUSO MEDIDO (FASE 2)
 
 ```
-CASES_TESTED ........................... 3 execuções sobre 2 PAINÉIS independentes
-CASES_PASS_WITHOUT_CUSTOM_RULE ......... 3
-CASES_NEED_CASE_SPECIFIC_RULE .......... 0
-CASES_FAIL ............................. 0
-PIPELINE_REUSE_RATE .................... 100%
-ramificações condicionais por caso ..... 0   em 776 linhas
+CASES_TESTED ............................. 4
+CASES_PASS_WITH_NO_RULE_CHANGE ........... 3
+CASES_NEEDING_A_GENERIC_RULE_EXTENSION ... 1
+PIPELINE_REUSE_RATE ...................... 3/4 = 75%
+ramificações condicionais por caso ....... 0
 ```
+
+O 4º caso — **FRUMENTO × Septoria × Toscana**, crop 19 / schema 74 / var 372, recolhido ao vivo,
+uma cultura e um schema que este código nunca tinha visto — **derrubou o pipeline em quatro
+sítios** (ver C20–C24). Antes das correções, publicava *"100% dos sítios de trigo com Septoria,
+e isso é típico"* a partir de IDs de código lidos como magnitudes. Depois das correções,
+descodifica corretamente e produz 14 safras com 9 valores distintos de incidência — mas dois
+rótulos continuam por resolver (`50 - gravissina`, `75 - completa`), o que **subestima a
+severidade** nas piores safras.
 
 Ressalva honesta: o oídio e o caso de calibração partilham **894 de 896 campos** e **96,9% das
 visitas** — mesmo scout, mesma vinha, mesmo dia. São 3 execuções sobre **2 painéis**, não 3.
@@ -175,8 +182,8 @@ afirmação agronómica acima sustenta-se sozinha sem nomear um único produto.
 | E REPRODUCIBLE | PASS | re-execução byte-a-byte |
 | F LABEL_NOT_PARAMETER_ARTEFACT | PASS | grade de 135 pontos; células instáveis são retidas, não publicadas |
 | G DISCRIMINATES_BETWEEN_SEASONS | PASS | quota da classe dominante 0.42 / 0.67 |
-| H REFRESHABLE_WITHOUT_RESEARCH | PASS | reprodução linha-a-linha, EUR 0 |
-| I GENERALIZES | PASS | 3 execuções, 0 ramificações por caso |
+| H REFRESHABLE_WITHOUT_RESEARCH | PASS | **estava invertido** (exigia `delta_rows == 0`: um refresh que funciona falhava, uma fonte morta passava); agora deteta 3 formas de falha silenciosa e exige que um controlo negativo dispare |
+| I GENERALIZES | PASS | **era um `PASS` constante**; agora corre o 4º caso ponta-a-ponta e falha se a série não variar |
 | **J NOT_DUPLICATE** | **NOT_TESTABLE** | exige o inventário de capacidades do portal — em arbitragem |
 
 ```
@@ -206,12 +213,18 @@ CURRENT_PRESSURE_MONITOR = PROVED
 
 ## N — ERROS MEUS QUE O RED TEAM ENCONTROU (19 no total, `CHECKPOINTS/12`)
 
-Os quatro que mais importam, porque são erros de *método*, não de aritmética:
+**24 achados no total.** Os cinco que mais importam, porque são erros de *método*, não de aritmética:
 
 1. **O gate A auto-certificava-se.** O papel da evidência era uma constante na saída. Alimentado com uma série de chuva teria carimbado "observação oficial de campo" e passado o seu próprio gate.
 2. **O gate B era uma tautologia.** Testava `CUTOFF_LABEL == "NOWCAST"`, que `Cutoff.label()` não pode deixar de devolver. A única garantia contra enquadramento preditivo era incapaz de falhar.
 3. **`denominator_guard` e `season_completeness` eram código morto.** Escrevi-os, medi o impacto, reportei a medição — e nunca os chamei. Exatamente a mesma falha de `contracts.py` existir sem nenhum runner o importar.
 4. **A frase-manchete contradizia a própria tabela.** Dizia "scouts registaram infestação em 1 168 visitas"; 1 168 é o número de visitas *pontuadas*, e quatro daquelas províncias apareciam a 0,000 na linha seguinte.
+5. **O gate I também era um `PASS` constante** — o terceiro do mesmo conjunto. Não são três acidentes: **quando escrevi um gate para uma alegação em que acreditava, escrevi-o de forma a concordar comigo.**
+
+**E o achado mais importante da missão inteira não é um número:** a propriedade de que mais me
+orgulhava — *falha alto em UNKNOWN, nunca baixo em zero* — era **falsa** na primeira vez que o
+módulo encontrou um caso para que não fora construído. Não descobriria isso testando nos casos
+que eu próprio escolhi.
 
 Verifiquei cada achado antes de conceder. Refutei um na magnitude alegada (C8: 3 valores >100,
 não 68) e publiquei os meus números onde divergiram dos do revisor.

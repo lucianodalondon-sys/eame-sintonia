@@ -31,11 +31,11 @@
   },
   "H_REFRESHABLE_WITHOUT_RESEARCH": {
    "VERDICT": "PASS",
-   "EVIDENCE": "one unauthenticated GET reproduced the stored season row-for-row; latency 2 days; cost EUR 0. rowCount 0 must be treated as FAILURE."
+   "EVIDENCE": "2/2 probes reachable in one unauthenticated GET, ~2s, EUR 0; row counts held or grew (a refresh that GAINS rows is the success case, not the failure case); 2/2 returned a non-null measurement column. THREE silent-failure shapes must be treated as FAILURE, not as 'no disease': rowCount 0; full rowCount with an all-null value column; and top-level ok:false with a message the client discards. A deliberate negative control (a variable that does not exist in the requested schema, which the source answers with a full null row set) DID trip the detector \u2014 without that line this gate could not show it is able to fail."
   },
   "I_GENERALIZES": {
    "VERDICT": "PASS",
-   "EVIDENCE": "3/3 cases through one pipeline, 0 case-conditional branches, PIPELINE_REUSE_RATE 100%; the second case is a PEST with a different value mode and needed no new rule"
+   "EVIDENCE": "unseen 4th case run end-to-end: 14 seasons, 9 distinct SITE_INCIDENCE values (a series that never varies is a decoding failure, not a measurement); scale derived by ['NOT_ORDINAL', 'WORD_LADDER', 'WORD_LADDER_IN_COMPOUND_LABEL'], unresolved labels ['50 - gravissina', '75 - completa']. Honest reuse rate is 3/4 = 75%, NOT the 100% previously claimed: the 4th case required TWO generic extensions (compound labels like 'Bassa <5%', and taking the most complete code table rather than the first), and two of its labels remain unresolved. 0 case-conditional branches remains true."
   },
   "J_NOT_DUPLICATE": {
    "VERDICT": "NOT_TESTABLE",

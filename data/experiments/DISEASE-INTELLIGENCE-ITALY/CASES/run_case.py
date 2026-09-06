@@ -26,10 +26,23 @@ WORD_RANK = {"nessuna": 0, "nessuno": 0, "assente": 0, "no": 0,
              "alta": 3, "grave": 3, "elevata": 3, "si": 3}
 
 def derive_rank(label):
-    """Return (rank, how) from the label text alone. None if not ordinal."""
+    """Return (rank, how) from the label text alone. None if not ordinal.
+
+    EXTENDED 2026-09-06. The first case this pipeline was not built for (frumento x septoria)
+    labels its scale "Nessuna / Bassa <5% / Media 5-25% / Alta >25%" — a ladder word AND a band
+    in the same string. The original parser matched only a bare word or a bare band, resolved
+    1 of those 4 codes, and the case fell through to the numeric fallback which read the CODE
+    IDS 1634-1637 as magnitudes and published SITE_INCIDENCE 1.000 for every season.
+    The extension is generic (word anywhere, then band anywhere), not a rule about wheat.
+    """
     f = fold(label)
     if f in WORD_RANK:
         return WORD_RANK[f], "WORD_LADDER"
+    for w, r in sorted(WORD_RANK.items(), key=lambda kv: -len(kv[0])):
+        if re.search(r"\b" + w + r"\b", f):
+            m = re.search(r"(\d+)\s*[-–]\s*(\d+)\s*%|[<>]\s*(\d+)\s*%", f)
+            return (r, "WORD_LADDER_IN_COMPOUND_LABEL" if not m
+                    else "WORD_LADDER_IN_COMPOUND_LABEL_WITH_BAND")
     # percentage bands: rank by the LOWER bound, so >10% and >15% both sort last correctly
     m = re.match(r"^[<>]?\s*(\d+)\s*[-–]\s*(\d+)\s*%$", f)
     if m: return float(m.group(1)), "BAND_LOWER_BOUND"
