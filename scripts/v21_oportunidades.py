@@ -2084,6 +2084,27 @@ def gravar(brutos, C, cs):
             a['EVIDENCE_IDS'] = sorted(set(a['EVIDENCE_IDS']) | set(o['EVIDENCE_IDS']))
             a['EVIDENCE_FAMILIES'] = sorted(set(a['EVIDENCE_FAMILIES']) |
                                             set(o['EVIDENCE_FAMILIES']))
+            # ⚠️ A FUSAO UNIA OS IDs E NAO UNIA OS REGISTOS.
+            # `EVIDENCE_IDS` recebia a uniao; `aev` — a lista de REGISTOS de onde
+            # saem SOURCE_IDS e SOURCE_URLS — ficava a do primeiro bruto. Vencia
+            # quem chegou primeiro, e ninguem dizia que houvera disputa.
+            #
+            # MEDIDO: OPP_B9206ACFC797 funde 38 casos, publica 250 EVIDENCE_IDS
+            # e saia com 3 SOURCE_URLS. Um cartao que cita 250 provas e mostra 3
+            # origens nao esta a resumir: esta a contradizer-se.
+            #
+            #     CITAR DUZENTAS E CINQUENTA PROVAS E PUBLICAR TRES ORIGENS
+            #     NAO E UM RESUMO: E UMA CONTA QUE NAO FECHA.
+            #
+            # A uniao e por ID e ordenada: a fusao nao pode depender da ordem de
+            # chegada, ou o mesmo acervo daria cartoes diferentes conforme o
+            # arquivo fosse lido.
+            _vistos = {x['ID'] for x in aev if x.get('ID')}
+            for _x in ev:
+                if _x.get('ID') and _x['ID'] not in _vistos:
+                    aev.append(_x)
+                    _vistos.add(_x['ID'])
+            aev.sort(key=lambda x: str(x.get('ID')))
             a['MERGED_FROM'] = a.get('MERGED_FROM', 0) + 1
             colapsados += 1
             continue

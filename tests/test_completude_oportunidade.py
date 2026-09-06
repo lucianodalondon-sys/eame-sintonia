@@ -344,5 +344,301 @@ class TestIntegridadeDeCultura(unittest.TestCase):
                 self.assertEqual('REGISTRATION_NUMBER_JOIN', m['MATCH_REASON'], o['ID'])
 
 
+class TestCortesDeclarados(unittest.TestCase):
+    """Limitar apresentacao e permitido. Esconder que se limitou nao e."""
+
+    @classmethod
+    def setUpClass(cls):
+        ok, cls._limpar = _prepara_ingest()
+        if not ok:
+            raise unittest.SkipTest('DESIGN-INGEST indisponivel (sem ZIP no disco)')
+        import v21_oportunidades as M
+        cls.brutos = M.main()[0]
+
+    @classmethod
+    def tearDownClass(cls):
+        if getattr(cls, '_limpar', False):
+            shutil.rmtree(os.path.dirname(ING), ignore_errors=True)
+
+    def test_o_censo_de_evidencia_fecha_por_familia(self):
+        """FOUND = USED + OMITTED, em cada familia de cada cartao."""
+        for o, _ in self.brutos:
+            self.assertTrue(o['EVIDENCE_SCAN'], 'cartao sem censo: %s' % o['ID'])
+            for x in o['EVIDENCE_SCAN']:
+                self.assertEqual(x['TOTAL_FOUND'],
+                                 x['TOTAL_USED'] + x['TOTAL_OMITTED'],
+                                 '%s · %s' % (o['ID'], x['FIELD']))
+
+    def test_toda_omissao_de_evidencia_tem_razao(self):
+        """Omitir sem razao e o corte silencioso outra vez, so que noutro campo."""
+        for o, _ in self.brutos:
+            for x in o['EVIDENCE_SCAN']:
+                if x['TOTAL_OMITTED']:
+                    self.assertTrue(x['OMISSION_REASON'],
+                                    '%s · %s' % (o['ID'], x['FIELD']))
+                else:
+                    self.assertIsNone(x['OMISSION_REASON'], o['ID'])
+
+    def test_nenhuma_familia_e_cortada_sem_aparecer_no_censo(self):
+        """O censo tem de cobrir TODAS as familias que o arquetipo ofereceu."""
+        for o, _ in self.brutos:
+            campos = [x['FIELD'] for x in o['EVIDENCE_SCAN']]
+            self.assertEqual(len(campos), len(set(campos)),
+                             'familia repetida no censo de %s' % o['ID'])
+
+
+class TestContabilidadeDasFontes(unittest.TestCase):
+    """A conta das origens tem de fechar, e a fusao nao pode comer origem."""
+
+    @classmethod
+    def setUpClass(cls):
+        ok, cls._limpar = _prepara_ingest()
+        if not ok:
+            raise unittest.SkipTest('DESIGN-INGEST indisponivel (sem ZIP no disco)')
+        import v21_oportunidades as M
+        b, rej, C, cs = M.main()
+        cls.regs = M.gravar(b, C, cs)[0] if hasattr(M, 'gravar') else None
+        cls.pacote = json.load(open(os.path.join(ING, 'OPPORTUNITIES.json'),
+                                    encoding='utf-8'))['RECORDS']
+
+    @classmethod
+    def tearDownClass(cls):
+        if getattr(cls, '_limpar', False):
+            shutil.rmtree(os.path.dirname(ING), ignore_errors=True)
+
+    def test_a_conta_das_fontes_fecha(self):
+        """FOUND = SHOWN + OMITTED, sem excecao."""
+        for r in self.pacote:
+            self.assertEqual(r['SOURCE_URLS_TOTAL_FOUND'],
+                             r['SOURCE_URLS_TOTAL_SHOWN']
+                             + r['SOURCE_URLS_TOTAL_OMITTED'], r['ID'])
+            self.assertEqual(r['SOURCE_URLS_TOTAL_SHOWN'],
+                             len(r['SOURCE_URLS']), r['ID'])
+
+    def test_a_fusao_nao_come_origem(self):
+        """Citar 250 provas e publicar 3 origens nao e resumo: e conta que nao fecha.
+
+        MEDIDO antes da correcao: OPP_B9206ACFC797 funde 38 casos, publicava
+        250 EVIDENCE_IDS e 3 SOURCE_URLS, porque a fusao unia os IDs e ficava
+        com os REGISTOS do primeiro que chegou.
+        """
+        for r in self.pacote:
+            if (r.get('MERGED_FROM') or 0) < 2:
+                continue
+            self.assertGreaterEqual(
+                r['SOURCE_URLS_TOTAL_FOUND'], 4,
+                'cartao fundido com origem de um so bruto: %s (%d provas, %d '
+                'origens)' % (r['ID'], r['EVIDENCE_COUNT'],
+                              r['SOURCE_URLS_TOTAL_FOUND']))
+
+    def test_a_omissao_de_fonte_e_de_apresentacao_e_diz_isso(self):
+        for r in self.pacote:
+            if r['SOURCE_URLS_TOTAL_OMITTED']:
+                self.assertEqual('PRESENTATION_LIMIT',
+                                 r['SOURCE_URLS_OMISSION_REASON'], r['ID'])
+
+
+class TestTestemunhas(unittest.TestCase):
+    """Os dois casos-testemunha tem de sobreviver as correcoes."""
+
+    @classmethod
+    def setUpClass(cls):
+        ok, cls._limpar = _prepara_ingest()
+        if not ok:
+            raise unittest.SkipTest('DESIGN-INGEST indisponivel (sem ZIP no disco)')
+        # ⚠️ REGENERA. Ler o OPPORTUNITIES.json que estiver no disco faria a
+        # testemunha passar contra um pacote antigo — um verde que prova o
+        # ficheiro de ontem, nao o motor de hoje.
+        #
+        #     UM TESTE QUE LE O QUE ESTAVA LA NAO ESTA A TESTAR O MOTOR.
+        import v21_oportunidades as M
+        b, _rej, C, cs = M.main()
+        M.gravar(b, C, cs)
+        cls.pacote = json.load(open(os.path.join(ING, 'OPPORTUNITIES.json'),
+                                    encoding='utf-8'))['RECORDS']
+        cls.por_id = {r['ID']: r for r in cls.pacote}
+
+    @classmethod
+    def tearDownClass(cls):
+        if getattr(cls, '_limpar', False):
+            shutil.rmtree(os.path.dirname(ING), ignore_errors=True)
+
+    # ── A · MAIS x PIRALIDE x FRIULI-VENEZIA GIULIA ─────────────────────────
+    def test_a_testemunha_do_milho_continua_de_pe(self):
+        """O par, a regiao e o sinal de campo sao INVARIANTES: nenhuma
+        correcao de cultura ou de catalogo pode mexer neles."""
+        o = self.por_id.get('OPP_9C600748BB1B')
+        self.assertIsNotNone(o, 'a testemunha do milho desapareceu do pacote')
+        self.assertEqual('CROP_MAIZE', o['CROP'])
+        self.assertEqual('ISSUE_CORN_BORER', o['TARGET'])
+        self.assertEqual('REGION_FRIULI_VENEZIA_GIULIA', o['GEOGRAPHY'])
+        self.assertIn('IT-PHEN-048', o['EVIDENCE_IDS'])
+
+    def test_os_cinco_produtos_do_par_continuam_cinco(self):
+        """Os cinco saem do rotulo ministerial no par — e o filtro de cultura
+        NAO os pode tocar, porque milho e a cultura deles."""
+        o = self.por_id['OPP_9C600748BB1B']
+        self.assertEqual(['DURAVIS', 'ELTIRA', 'FORZA', 'LAMDEX EXTRA', 'NINJA'],
+                         sorted(o['PRODUCT_RELATIONSHIPS']))
+        self.assertEqual([], o['PORTFOLIO_EXCLUDED_WITH_REASON'],
+                         'a testemunha do milho perdeu produto')
+
+    def test_sem_janela_factual_a_janela_fica_unknown(self):
+        """Nao ha janela de milho no pacote. Inventar uma seria o defeito."""
+        o = self.por_id['OPP_9C600748BB1B']
+        self.assertEqual('UNKNOWN', o['WINDOW_STATE'])
+        janelas = json.load(open(os.path.join(ING, 'CROP-WINDOWS.json'),
+                                 encoding='utf-8'))['RECORDS']
+        self.assertEqual(0, sum(1 for w in janelas
+                                if 'CROP_MAIZE' in (w.get('CROP_IDS') or [])),
+                         'apareceu janela de milho: o teste precisa de ser relido')
+
+    def test_volume_de_anuncio_nao_funda_a_oportunidade(self):
+        """69 pecas de concorrente na cultura, e ZERO entram como ligacao.
+
+            VOLUME DE PUBLICIDADE E SINAL DE ATENCAO.
+            NAO E INCIDENCIA, NEM JANELA, NEM INTENCAO DE COMPRA.
+        """
+        o = self.por_id['OPP_9C600748BB1B']
+        comp = o['CROSS_INTELLIGENCE_SCAN']['COMPETITOR']
+        self.assertEqual('CROP_ONLY', comp['RESULT'])
+        self.assertEqual(0, comp['MATCH'])
+        self.assertEqual([], comp['EVIDENCE'])
+        # e nenhum id de concorrente atravessou para a evidencia do cartao
+        self.assertNotIn('COMPETITOR_ACTIVITY', o['EVIDENCE_FAMILIES'])
+
+    # ── B · VITE, E AS QUATRO CASAS ─────────────────────────────────────────
+    def _casas_da_videira(self):
+        import re as _re
+        import v21_normalizar as N
+        base = os.path.join(ING, '%s.json')
+
+        def le(n):
+            return json.load(open(base % n, encoding='utf-8'))['RECORDS']
+
+        def k(n):
+            return _re.sub(r'[^a-z0-9]', '', str(n or '').lower())
+        V = 'CROP_GRAPEVINE'
+        rel = [r for r in le('PRODUCT-RELATIONSHIPS') if r.get('CLIENT_SAFE')]
+        reg = [r for r in le('PRODUCTS-REGULATORY') if r.get('CLIENT_SAFE')]
+        com = [r for r in le('PRODUCTS-COMMERCIAL') if r.get('CLIENT_SAFE')]
+        return {
+            'MINISTERIAL_LABEL': {k(r.get('PRODUCT_NAME')) for r in rel
+                                  if V in (r.get('CROP_IDS') or [])},
+            'MINISTERIAL_REGISTRY': {k(r.get('NAME')) for r in reg
+                                     if V in (r.get('CROP_IDS') or [])},
+            'CATALOG_PRODUCT_SHEET': {
+                k(r.get('NAME')) for r in com
+                if V in {N.crop_id(x)
+                         for x in (r.get('CROPS_DECLARED_BY_PRODUCT') or [])}},
+            'CATALOG_CROP_PAGE': {
+                k(r.get('NAME')) for r in com
+                if V in {N.crop_id(x)
+                         for x in (r.get('CROPS_DISCOVERED_VIA_CROP_PAGE') or [])}},
+        }
+
+    def test_as_quatro_casas_da_videira_estao_todas_disponiveis(self):
+        """O numero 71 da auditoria nao se fixa aqui — a UNIAO recontа-se.
+
+        Enquanto o motor via uma casa, escrever «= 71» seria fixar um numero
+        que ele nao podia produzir. Agora ve as quatro, e o que se guarda e a
+        REGRA: nenhuma casa vazia, e a uniao nunca menor que a maior delas.
+        """
+        casas = self._casas_da_videira()
+        self.assertEqual(4, len(casas))
+        for nome, s in casas.items():
+            self.assertTrue(s, 'casa vazia: %s' % nome)
+        uniao = set().union(*casas.values())
+        self.assertGreaterEqual(len(uniao), max(len(s) for s in casas.values()))
+        # e nenhuma casa sozinha explica a uniao: e por isso que sao quatro
+        for nome, s in casas.items():
+            self.assertLess(len(s), len(uniao), 'uma casa so daria a uniao: %s'
+                            % nome)
+
+    def test_as_grafias_da_videira_normalizam_para_um_id_so(self):
+        import v21_normalizar as N
+        for g in ('VITE', 'Vite da vino', 'VINE', 'vigneto', 'uva da vino',
+                  'grapevine', 'videira'):
+            self.assertEqual('CROP_GRAPEVINE', N.crop_id(g), g)
+
+    def test_vite_da_tavola_nao_entra_produto_nenhum_sozinha(self):
+        """A fusao tavola/vino nao pode ser PORTADORA sem contrato.
+
+        Ela existe no normalizador — as duas dao CROP_GRAPEVINE. Neste acervo
+        isso e inofensivo, e o teste PROVA porque: todo produto que declara
+        «Vite da tavola» declara TAMBEM «Vite da vino», portanto a fusao nao
+        promove ninguem. No dia em que um produto entrar so por tavola, este
+        teste falha — e ai a fusao passa a precisar de decisao, nao de silencio.
+
+            UMA FUSAO INOFENSIVA HOJE NAO E UMA FUSAO PROVADA.
+            O QUE SE GUARDA E A CONDICAO QUE A TORNA INOFENSIVA.
+        """
+        censo = os.path.join(ROOT, 'data', 'samples', 'IT-CATALOGO',
+                             'IT-ADAMA-CATALOG-CENSUS-2026-09-02.json')
+        if not os.path.exists(censo):
+            self.skipTest('censo do catalogo indisponivel')
+        P = json.load(open(censo, encoding='utf-8'))['PRODUCTS']
+        vino = {p['NAME'] for p in P
+                if 'Vite da vino' in (p.get('CROPS_DECLARED_ON_PAGE') or [])}
+        tavola = {p['NAME'] for p in P
+                  if 'Vite da tavola' in (p.get('CROPS_DECLARED_ON_PAGE') or [])}
+        self.assertTrue(tavola, 'sem «Vite da tavola» o teste nao prova nada')
+        self.assertEqual(set(), tavola - vino,
+                         'produto entra na videira SO por «Vite da tavola»: a '
+                         'fusao passou a ser portadora e precisa de decisao')
+
+
+class TestNaoSeiNaoViraZero(unittest.TestCase):
+    """As tres maneiras de o motor mentir por omissao, e as tres travas."""
+
+    @classmethod
+    def setUpClass(cls):
+        ok, cls._limpar = _prepara_ingest()
+        if not ok:
+            raise unittest.SkipTest('DESIGN-INGEST indisponivel (sem ZIP no disco)')
+        import v21_oportunidades as M
+        cls.brutos = M.main()[0]
+
+    @classmethod
+    def tearDownClass(cls):
+        if getattr(cls, '_limpar', False):
+            shutil.rmtree(os.path.dirname(ING), ignore_errors=True)
+
+    def test_familia_sem_chave_nao_vira_not_found(self):
+        """NAO CONSULTAVEL e NAO ENCONTRADO sao respostas diferentes.
+
+        Uma familia que nao se deixa cruzar por cultura nao «nao tem nada»:
+        nao ha por onde perguntar. Chamar-lhe NOT_FOUND publicaria um zero
+        medido onde ha uma ausencia de chave.
+        """
+        for o, _ in self.brutos:
+            for fam, v in o['CROSS_INTELLIGENCE_SCAN'].items():
+                if v['RESULT'] == 'NO_CROP_KEY':
+                    self.assertEqual(0, v['MATCH'], fam)
+                    self.assertNotEqual('NOT_FOUND', v['RESULT'], fam)
+                if v['RESULT'] == 'NOT_FOUND':
+                    self.assertTrue(v['CONSULTED'],
+                                    'NOT_FOUND sem consulta e silencio: %s' % fam)
+
+    def test_familia_sem_registos_nao_produz_match(self):
+        """Uma familia vazia responde NOT_FOUND — nunca MATCH."""
+        for o, _ in self.brutos:
+            for fam, v in o['CROSS_INTELLIGENCE_SCAN'].items():
+                if not v['IN_FAMILY']:
+                    self.assertNotEqual('MATCH', v['RESULT'], fam)
+
+    def test_entrada_vazia_nao_gera_cartao(self):
+        """Um arquetipo sem apoios nao pode emitir. Zero entrada, zero PASS."""
+        for o, apoios in self.brutos:
+            self.assertTrue(apoios, 'cartao sem apoio nenhum: %s' % o['ID'])
+            self.assertTrue(o['EVIDENCE_IDS'], o['ID'])
+
+    def test_cartao_sem_cultura_declara_que_nao_filtrou(self):
+        """Nao filtrar tem de ser dito. Silencio leria-se como «filtrei e passou»."""
+        for o, _ in self.brutos:
+            self.assertEqual(bool(o.get('CROP')),
+                             o['PORTFOLIO_CROP_FILTER_APPLIED'], o['ID'])
+
+
 if __name__ == '__main__':
     unittest.main()
