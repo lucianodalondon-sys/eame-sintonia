@@ -42,6 +42,12 @@ python3 v1/coleta/exclusao.py \
   --pares "$CANON/data/samples/IT-ROTULOS-V1/IT-ROTULOS-PARES-V3.json" \
   --cache /tmp/exclusao-txt
 
+echo "== 10d · R-11: a cultura de cada linha de dose sobrevive aos fios desenhados?"
+python3 v1/inteligencia/cultura_validar.py --fios /tmp/fioscache --bbox /tmp/bboxcache
+
+echo "== 10e · R-12: teto de dose por cultura escrito FORA da tabela"
+python3 v1/inteligencia/teto_dose.py
+
 echo "== 11 · COLETA: empacotar com proveniencia e coberturas separadas"
 python3 v1/coleta/empacotar.py --run-id "$RUN"
 

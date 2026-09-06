@@ -1,0 +1,291 @@
+{
+ "DATASET": "V1-TETO-DOSE",
+ "RULE_ID": "R-12",
+ "O_QUE_ISTO_E": "teto de dose por cultura escrito na etichetta FORA da tabela de usos, lido literalmente",
+ "O_QUE_ISTO_NAO_E": "nao calcula dose nova nem corrige a tabela: publica os dois numeros do documento e diz que eles se contradizem para aquela cultura",
+ "MATCH": "igualdade de frase inteira da cultura, nao de token",
+ "LABELS_WITH_CEILING": 5,
+ "LABELS_WITH_OTHER_DOSE_NOTES_NOT_READ": 52,
+ "OTHER_DOSE_NOTES_NOT_READ": [
+  "002732",
+  "007603",
+  "008599",
+  "008929",
+  "010063",
+  "010569",
+  "012060",
+  "013332",
+  "013736",
+  "013807",
+  "013899",
+  "013905",
+  "014693",
+  "014694",
+  "014728",
+  "015096",
+  "015235",
+  "015315",
+  "015316",
+  "015401",
+  "015405",
+  "015592",
+  "015629",
+  "015630",
+  "015847",
+  "016387",
+  "016697",
+  "016749",
+  "017116",
+  "017335",
+  "017337",
+  "017398",
+  "017432",
+  "017580",
+  "017658",
+  "017659",
+  "017688",
+  "017689",
+  "017690",
+  "017898",
+  "017929",
+  "017930",
+  "017983",
+  "018111",
+  "018156",
+  "018165",
+  "018202",
+  "018270",
+  "018271",
+  "018277",
+  "018279",
+  "018814"
+ ],
+ "NOTA_SOBRE_AS_OUTRAS": "estes rotulos tem alguma restricao de dose fora da tabela que ESTE modulo nao le (formatos como \"non superare la dose massima di X per anno\"). Isto e LABEL_NOTES_NOT_READ, e nao autoriza dizer que nao ha restricao",
+ "CEILINGS": {
+  "008259": [
+   {
+    "CULTURAS": [
+     "erba medica",
+     "prati",
+     "pascoli"
+    ],
+    "VALOR": "400",
+    "UNIDADE": "g/ha",
+    "G_HA": 400.0,
+    "LITERAL": "erba medica, prati e pascoli: 400 g/ha"
+   },
+   {
+    "CULTURAS": [
+     "soia",
+     "carciofo",
+     "lattughe",
+     "simili",
+     "finocchio"
+    ],
+    "VALOR": "600",
+    "UNIDADE": "g/ha",
+    "G_HA": 600.0,
+    "LITERAL": "soia, carciofo, lattughe e simili, finocchio: 600 g/ha"
+   },
+   {
+    "CULTURAS": [
+     "mais dolce",
+     "aglio"
+    ],
+    "VALOR": "800",
+    "UNIDADE": "g/ha",
+    "G_HA": 800.0,
+    "LITERAL": "mais dolce, aglio: 800 g/ha"
+   },
+   {
+    "CULTURAS": [
+     "mais da foraggio"
+    ],
+    "VALOR": "1000",
+    "UNIDADE": "g/ha",
+    "G_HA": 1000.0,
+    "LITERAL": "mais da foraggio: 1000 g/ha"
+   }
+  ],
+  "013560": [
+   {
+    "CULTURAS": [
+     "erba medica",
+     "prati",
+     "pascoli"
+    ],
+    "VALOR": "400",
+    "UNIDADE": "g/ha",
+    "G_HA": 400.0,
+    "LITERAL": "erba medica, prati e pascoli: 400 g/ha"
+   },
+   {
+    "CULTURAS": [
+     "soia",
+     "carciofo",
+     "lattughe",
+     "simili",
+     "finocchio"
+    ],
+    "VALOR": "600",
+    "UNIDADE": "g/ha",
+    "G_HA": 600.0,
+    "LITERAL": "soia, carciofo, lattughe e simili, finocchio: 600 g/ha"
+   },
+   {
+    "CULTURAS": [
+     "mais dolce",
+     "aglio"
+    ],
+    "VALOR": "800",
+    "UNIDADE": "g/ha",
+    "G_HA": 800.0,
+    "LITERAL": "mais dolce, aglio: 800 g/ha"
+   },
+   {
+    "CULTURAS": [
+     "mais da foraggio"
+    ],
+    "VALOR": "1000",
+    "UNIDADE": "g/ha",
+    "G_HA": 1000.0,
+    "LITERAL": "mais da foraggio: 1000 g/ha"
+   }
+  ],
+  "013590": [
+   {
+    "CULTURAS": [
+     "erba medica",
+     "prati",
+     "pascoli"
+    ],
+    "VALOR": "400",
+    "UNIDADE": "g/ha",
+    "G_HA": 400.0,
+    "LITERAL": "erba medica, prati e pascoli: 400 g/ha"
+   },
+   {
+    "CULTURAS": [
+     "soia",
+     "carciofo",
+     "lattughe",
+     "simili",
+     "finocchio"
+    ],
+    "VALOR": "600",
+    "UNIDADE": "g/ha",
+    "G_HA": 600.0,
+    "LITERAL": "soia, carciofo, lattughe e simili, finocchio: 600 g/ha"
+   },
+   {
+    "CULTURAS": [
+     "mais dolce",
+     "aglio"
+    ],
+    "VALOR": "800",
+    "UNIDADE": "g/ha",
+    "G_HA": 800.0,
+    "LITERAL": "mais dolce, aglio: 800 g/ha"
+   },
+   {
+    "CULTURAS": [
+     "mais da foraggio"
+    ],
+    "VALOR": "1000",
+    "UNIDADE": "g/ha",
+    "G_HA": 1000.0,
+    "LITERAL": "mais da foraggio: 1000 g/ha"
+   }
+  ],
+  "015275": [
+   {
+    "CULTURAS": [
+     "erba medica",
+     "prati",
+     "pascoli"
+    ],
+    "VALOR": "400",
+    "UNIDADE": "g/ha",
+    "G_HA": 400.0,
+    "LITERAL": "erba medica, prati e pascoli: 400 g/ha"
+   },
+   {
+    "CULTURAS": [
+     "soia",
+     "carciofo",
+     "lattughe",
+     "simili",
+     "finocchio"
+    ],
+    "VALOR": "600",
+    "UNIDADE": "g/ha",
+    "G_HA": 600.0,
+    "LITERAL": "soia, carciofo, lattughe e simili, finocchio: 600 g/ha"
+   },
+   {
+    "CULTURAS": [
+     "mais dolce",
+     "aglio"
+    ],
+    "VALOR": "800",
+    "UNIDADE": "g/ha",
+    "G_HA": 800.0,
+    "LITERAL": "mais dolce, aglio: 800 g/ha"
+   },
+   {
+    "CULTURAS": [
+     "mais da foraggio"
+    ],
+    "VALOR": "1000",
+    "UNIDADE": "g/ha",
+    "G_HA": 1000.0,
+    "LITERAL": "mais da foraggio: 1000 g/ha"
+   }
+  ],
+  "017687": [
+   {
+    "CULTURAS": [
+     "erba medica",
+     "prati",
+     "pascoli"
+    ],
+    "VALOR": "400",
+    "UNIDADE": "g/ha",
+    "G_HA": 400.0,
+    "LITERAL": "erba medica, prati e pascoli: 400 g/ha"
+   },
+   {
+    "CULTURAS": [
+     "soia",
+     "carciofo",
+     "lattughe",
+     "simili",
+     "finocchio"
+    ],
+    "VALOR": "600",
+    "UNIDADE": "g/ha",
+    "G_HA": 600.0,
+    "LITERAL": "soia, carciofo, lattughe e simili, finocchio: 600 g/ha"
+   },
+   {
+    "CULTURAS": [
+     "mais dolce",
+     "aglio"
+    ],
+    "VALOR": "800",
+    "UNIDADE": "g/ha",
+    "G_HA": 800.0,
+    "LITERAL": "mais dolce, aglio: 800 g/ha"
+   },
+   {
+    "CULTURAS": [
+     "mais da foraggio"
+    ],
+    "VALOR": "1000",
+    "UNIDADE": "g/ha",
+    "G_HA": 1000.0,
+    "LITERAL": "mais da foraggio: 1000 g/ha"
+   }
+  ]
+ }
+}

@@ -16,9 +16,10 @@ PAY = json.load(open("v1/dados/CASCO-PAYLOAD.json", encoding="utf-8"))
 OBJ = PAY["objects"]
 HTML = open("v1/casco/label-intelligence.html", encoding="utf-8").read()
 REGRAS = open("v1/inteligencia/REGRAS.md", encoding="utf-8").read()
+JS = open("v1/casco/app.js", encoding="utf-8").read()
 
-UNK = {"NOT_KNOWN","NOT_PROVED","NOT_PRESERVED","NOT_PRESENT","UNKNOWN","NOT_APPLICABLE",
-       "NOT_ATTEMPTED","NOT_EMITTED_BY_THIS_TOOL","NOT_CHECKED"}
+# A lista de referencia vem do proprio casco, para os dois nunca divergirem.
+UNK = set(re.findall(r"'(NOT_[A-Z_]+|UNKNOWN)'", JS.split("const isUnk")[0]))
 
 # --- 1. nenhuma ACTION emitida
 acoes = {o["ACTION"] for o in OBJ}
@@ -156,6 +157,35 @@ else:
     ok("EXCLUSION_IS_NOT_PERMISSION",
        f'{exc["PARES_RETIRADOS"]} par(es) retirado(s), cada um com a frase literal do rotulo; '
        f'{exc["LABELS_WITH_EXCLUSION"]} rotulos tem janela de exclusao')
+
+# --- 15b. todo token NOT_* emitido tem de ser reconhecido como ignorancia
+#
+# A lista UNK do casco era uma enumeracao e ficou para tras: quando a coleta
+# passou a emitir NOT_COLLECTED, val() tratou o token como valor comum e a ficha
+# publicou <a href="NOT_COLLECTED">abrir no Ministero</a>. Agora a lista e
+# conferida contra o que o payload realmente emite.
+def tokens_do_payload(o, achados):
+    if isinstance(o, dict):
+        for v in o.values():
+            tokens_do_payload(v, achados)
+    elif isinstance(o, list):
+        for v in o:
+            tokens_do_payload(v, achados)
+    elif isinstance(o, str) and re.fullmatch(r"NOT_[A-Z_]+", o):
+        achados.add(o)
+    return achados
+
+emitidos = tokens_do_payload(PAY, set())
+declarados = set(re.findall(r"'(NOT_[A-Z_]+)'", JS.split("const isUnk")[0]))
+orfaos = sorted(emitidos - declarados)
+ok("IGNORANCE_TOKENS_DECLARED",
+   f"{len(emitidos)} tokens NOT_* emitidos, todos na lista do casco") if not orfaos \
+    else fail("IGNORANCE_TOKENS_DECLARED", f"tokens emitidos e nao declarados: {orfaos}")
+
+# --- 15c. nenhum link no HTML aponta para um token de ignorancia
+maus = re.findall(r'href="(NOT_[A-Z_]+)"', HTML)
+ok("NO_LINK_TO_IGNORANCE_TOKEN", "nenhum href para token de ignorancia") if not maus \
+    else fail("NO_LINK_TO_IGNORANCE_TOKEN", f"{len(maus)} link(s) para {set(maus)}")
 
 # --- 16. dose nunca escolhida entre candidatas discordantes
 r = subprocess.run(["node", "v1/testes/test_casco.js"], capture_output=True, text=True)

@@ -15,8 +15,22 @@ const P = window.__PAYLOAD__;
 
 // Tokens que significam AUSENCIA DE CONHECIMENTO. Nunca vira "-", "0" ou "N/A".
 const UNK = ['NOT_KNOWN','NOT_PROVED','NOT_PRESERVED','NOT_PRESENT','UNKNOWN',
-             'NOT_APPLICABLE','NOT_ATTEMPTED','NOT_EMITTED_BY_THIS_TOOL','NOT_CHECKED'];
-const isUnk = v => UNK.includes(String(v));
+             'NOT_APPLICABLE','NOT_ATTEMPTED','NOT_EMITTED_BY_THIS_TOOL','NOT_CHECKED',
+             'NOT_COLLECTED','NOT_VALIDATED','NOT_LOCATED','NOT_PARSED','NOT_IN_SNAPSHOT',
+             'NOT_COMPUTED_WITHOUT_CLOCK','NOT_RECONSTRUCTABLE','NOT_PROVED_BY_RULE'];
+// A lista era uma enumeracao, e por isso ficou para tras: quando a coleta
+// passou a emitir NOT_COLLECTED, val() caiu no ramo de valor comum e a ficha
+// publicou <a href="NOT_COLLECTED">abrir no Ministero</a> — um link vivo para
+// um token de ignorancia. Agora QUALQUER string que comece por NOT_ conta como
+// ignorancia, e um portao varre o payload atras de NOT_* que a lista nao
+// nomeia, para que a lista continue sendo a documentacao e nao a definicao.
+const isUnk = v => { const t = String(v); return UNK.includes(t) || /^NOT_[A-Z_]+$/.test(t); };
+// Link so nasce de um endereco de verdade. Antes a guarda era "nao esta na
+// lista UNK", que confiava numa lista incompleta.
+const ehURL = v => /^https?:\/\//.test(String(v || ''));
+const link = (u, rotulo) => ehURL(u)
+  ? `<a href="${esc(u)}" target="_blank">${esc(rotulo)}</a>`
+  : val(u);
 // Renderiza valor preservando o token de ignorancia, com o nome dele visivel.
 const val = v => isUnk(v) ? `<span class="unknown" title="a fonte nao sustenta este campo">${esc(v)}</span>`
                           : esc(v);
@@ -115,17 +129,99 @@ function contido(peq, grande) {
 // e 420-1200 g/ha). A versao anterior mostrava a primeira, calada, com selo
 // verde. Numero unico onde a fonte tem dois nao e resposta: e chute exibido
 // como leitura.
-function juntaDose(p, u) {
-  const ex = p.doses.filter(x => nrm(x.crop) === nrm(u.crop) && nrm(x.target) === nrm(u.target));
-  if (ex.length === 1) return {estado: 'EXACT_MATCH', d: ex[0], cand: ex};
-  const cand = ex.length ? ex
-    : p.doses.filter(x => contido(u.crop, x.crop) && contido(u.target, x.target));
-  if (!cand.length) return {estado: 'NO_DOSE_ROW_FOR_THIS_PAIR', d: null, cand: []};
-  const vals = new Set(cand.map(x => `${x.dose_ha}|${x.unit_ha}`));
-  if (vals.size > 1) return {estado: 'AMBIGUOUS_DOSE_FOR_THIS_PAIR', d: null, cand};
-  return {estado: cand.length > 1 ? 'LISTED_IN_DOSE_ROW_AGREEING' : 'LISTED_IN_DOSE_ROW',
-          d: cand[0], cand};
+// Uma linha de dose so pode ser candidata se ela for uma linha DESTA cultura e
+// se o valor dela tiver sido conferido contra o documento. Duas exclusoes, as
+// duas medidas contra a fonte primaria:
+//
+//   R-11 · a cultura da linha tem de sobreviver aos fios desenhados. Sem isso
+//   a ferramenta publicava "TABACCO x CIMICI = 600 g/ha" com o selo mais forte
+//   que ela tem: na etichetta 008259 a linha "Cimici 600" esta dentro da celula
+//   de PORRO, e ha um fio desenhado entre ela e Tabacco.
+//
+//   NOT_LOCATED · o validador nao conseguiu localizar o valor no documento para
+//   conferir. Isso e "nao verifiquei", nao "verifiquei e esta certo", e nao pode
+//   sair como numero.
+function linhaUsavel(d) {
+  return d.crop_check !== 'CROP_ASSIGNMENT_CONTRADICTED_BY_RULE'
+      && d.rule_check !== 'NOT_LOCATED'
+      && d.rule_check !== 'CONTRADICTED_BY_RULE';
 }
+// A REBAIXA E FATO DO PAR, NAO DA OCORRENCIA. A etichetta costuma trazer a
+// tabela duas vezes no mesmo PDF, e o validador rebaixava uma copia e aprovava a
+// outra: a fila de revisao dizia "o valor 300 foi recusado" enquanto a ficha
+// continuava publicando 300 para o mesmo par, vindo da outra copia. Se qualquer
+// ocorrencia de (registro, cultura, alvo) foi contradita, nenhuma outra pode
+// publicar valor para aquele par.
+const CHAVE_PAR = d => `${nrm(d.crop)}||${nrm(d.target)}`;
+const parRebaixado = new Map();
+P.products.forEach(p => {
+  const s = new Set();
+  p.doses.forEach(d => { if (!linhaUsavel(d)) s.add(CHAVE_PAR(d)); });
+  parRebaixado.set(p.reg, s);
+});
+function linhaPublicavel(p, d) {
+  return linhaUsavel(d) && !parRebaixado.get(p.reg).has(CHAVE_PAR(d));
+}
+function juntaDose(p, u) {
+  const todas = p.doses;
+  const boas = todas.filter(d => linhaPublicavel(p, d));
+  const descartadas = todas.length - boas.length;
+  const ex = boas.filter(x => nrm(x.crop) === nrm(u.crop) && nrm(x.target) === nrm(u.target));
+  const base = {descartadas, teto: teto(p, u)};
+  if (ex.length === 1) {
+    // EXACT_MATCH e o selo mais forte, entao paga o pedagio mais alto: a
+    // citacao gravada pelo extrator tem de conter o nome da cultura. Os 5
+    // unicos EXACT_MATCH da versao anterior reprovavam neste teste — a citacao
+    // deles era "Cimici 600 1 Nottue defogliatrici (allo scoperto)", sem a
+    // palavra Tabacco em lugar nenhum.
+    const cita = nrm(ex[0].quote || '');
+    const nomeNaCitacao = [...tokens(u.crop)].some(t => cita.includes(t));
+    return {...base, estado: nomeNaCitacao ? 'EXACT_MATCH' : 'EXACT_MATCH_QUOTE_LACKS_CROP',
+            d: nomeNaCitacao ? ex[0] : null, cand: ex};
+  }
+  const cand = ex.length ? ex
+    : boas.filter(x => contido(u.crop, x.crop) && contido(u.target, x.target));
+  if (!cand.length)
+    return {...base, estado: 'NO_DOSE_ROW_FOR_THIS_PAIR', d: null, cand: []};
+  // Uma candidata SEM valor lido nao discorda de nada: ela nao diz nada. A
+  // versao anterior contava NOT_PRESENT como um valor e declarava "as duas nao
+  // dizem o mesmo valor" sobre um par em que a etichetta e inequivoca — 16 dos
+  // 106 ambiguos eram este caso, e a segunda candidata era uma duplicata do
+  // proprio parser.
+  const comValor = cand.filter(x => !isUnk(x.dose_ha) && String(x.dose_ha || '').trim());
+  const mudos = cand.length - comValor.length;
+  if (!comValor.length)
+    return {...base, estado: 'DOSE_ROW_WITHOUT_READ_VALUE', d: null, cand, mudos};
+  const vals = new Set(comValor.map(x => `${x.dose_ha}|${x.unit_ha}`));
+  if (vals.size > 1)
+    return {...base, estado: 'AMBIGUOUS_DOSE_FOR_THIS_PAIR', d: null, cand: comValor, mudos};
+  return {...base,
+          estado: mudos ? 'LISTED_IN_DOSE_ROW_WITH_UNREAD_DUPLICATE'
+                        : (comValor.length > 1 ? 'LISTED_IN_DOSE_ROW_AGREEING' : 'LISTED_IN_DOSE_ROW'),
+          d: comValor[0], cand: comValor, mudos};
+}
+
+// R-12 · o teto por cultura que a etichetta escreve FORA da tabela. Casamento
+// por FRASE INTEIRA: "mais dolce" nao e "mais".
+function teto(p, u) {
+  const c = nrm(u.crop);
+  for (const t of (p.ceilings || []))
+    if ((t.CULTURAS || []).some(x => nrm(x) === c)) return t;
+  return null;
+}
+const topoDaDose = v => {
+  const ns = String(v || '').match(/\d+[.,]?\d*/g);
+  return ns ? Math.max(...ns.map(n => parseFloat(n.replace(',', '.')))) : null;
+};
+function excedeTeto(d, t) {
+  if (!d || !t) return false;
+  const hi = topoDaDose(d.dose_ha);
+  if (hi === null) return false;
+  const u = String(d.unit_ha || '').toLowerCase();
+  const g = (u.startsWith('kg') || u.startsWith('l')) ? hi * 1000 : hi;
+  return g > t.G_HA + 0.01;
+}
+
 // A validade tem de aparecer igual em TODA tela. Antes, CULTURA x ALVO mostrava
 // "2026-08-15" seco enquanto CALENDARIO e PRODUTO 360 marcavam o mesmo produto
 // como vencido-e-ainda-ativo. Mesma data, tres leituras diferentes.
@@ -133,8 +229,11 @@ function validade(p) {
   if (isUnk(p.expiry)) return val(p.expiry);
   const D = dte(p);
   if (typeof D === 'number' && D < 0)
-    return `<span style="color:var(--bad)">${esc(p.expiry)}</span>
-            <span class="pill p-bad" title="a validade passou e o registro ainda lista o produto como ativo. Vencer nao e ser revogado.">VENCIDA</span>`;
+    return foraDeVigor(p)
+      ? `<span style="color:var(--dim)">${esc(p.expiry)}</span>
+         <span class="pill p-dim" title="a validade passou E o estado declarado no instantaneo ja e '${esc(p.status)}'. Os dois campos concordam: nao ha conflito a reportar.">VENCIDA &middot; ${esc(p.status)}</span>`
+      : `<span style="color:var(--bad)">${esc(p.expiry)}</span>
+         <span class="pill p-bad" title="a validade passou e o registro ainda lista o produto como '${esc(p.status)}'. Vencer nao e ser revogado.">VENCIDA</span>`;
   if (typeof D === 'number' && D <= 90)
     return `${esc(p.expiry)} <span class="pill p-warn">${D}d</span>`;
   return esc(p.expiry);
@@ -169,7 +268,7 @@ function evObj(id) {
     <dt>Documento antes</dt><dd class="mono">${val(o.SOURCE_DOCUMENT_BEFORE)}</dd>
     <dt>Documento depois</dt><dd class="mono">${val(o.SOURCE_DOCUMENT_AFTER)}</dd>
     <dt>Local da evidencia</dt><dd>${val(o.EVIDENCE_LOCATION)}</dd>
-    <dt>Fonte oficial</dt><dd>${o.SOURCE_URL?`<a href="${esc(o.SOURCE_URL)}" target="_blank">${esc(o.SOURCE_URL)}</a>`:val('NOT_KNOWN')}</dd>
+    <dt>Fonte oficial</dt><dd>${ehURL(o.SOURCE_URL)?link(o.SOURCE_URL,o.SOURCE_URL):val(o.SOURCE_URL||'NOT_KNOWN')}</dd>
     <dt>Autoridade</dt><dd>${val(o.SOURCE_AUTHORITY)}</dd>
     <dt>Capturado em</dt><dd>${val(o.CAPTURED_AT)}</dd>
     <dt>Detectado em</dt><dd>${val(o.DETECTED_AT)}</dd>
@@ -192,8 +291,8 @@ function evProd(reg) {
     <dt>Validade declarada</dt><dd>${val(p.expiry)}</dd>
     <dt>Substancias ativas</dt><dd>${val(p.actives)}</dd>
     <dt>Instantaneo do registro</dt><dd class="mono">${esc(p.snapshot)}<br>sha256 ${esc(p.snapshot_sha)}</dd>
-    <dt>Fonte do registro</dt><dd><a href="${esc(p.source_url)}" target="_blank">CSV oficial</a></dd>
-    <dt>PDF da etichetta</dt><dd>${p.pdf_url&&!isUnk(p.pdf_url)?`<a href="${esc(p.pdf_url)}" target="_blank">abrir no Ministero</a>`:val(p.pdf_url)}</dd>
+    <dt>Fonte do registro</dt><dd>${link(p.source_url,'CSV oficial')}</dd>
+    <dt>PDF da etichetta</dt><dd>${link(p.pdf_url,'abrir no Ministero')}</dd>
     <dt>sha256 do PDF</dt><dd class="mono">${val(p.pdf_sha)}</dd>
     <dt>Bytes</dt><dd>${val(p.pdf_bytes)}</dd>
     <dt>Etichetta em vigor desde</dt><dd>${val(p.label_effective)}
@@ -231,7 +330,7 @@ function evUso(reg, i) {
     <dt>Citacao literal</dt><dd>${val(u.quote)}
       <div class="meta">os pares reusados nao gravam coordenada x e a etichetta tem varias
       colunas por pagina; o trecho literal nao e recuperavel. Tentado e medido no piloto.</div></dd>
-    <dt>Fonte</dt><dd><a href="${esc(p.pdf_url)}" target="_blank">PDF oficial</a>
+    <dt>Fonte</dt><dd>${link(p.pdf_url,'PDF oficial')}
       <div class="mono">sha256 ${esc(p.pdf_sha)}</div></dd>
     <dt>Leitor</dt><dd class="mono">it_rotulo_parser/3.4.0 (reuso de sintonia/canonical @ bdb57cf)</dd>
   </dl>
@@ -259,7 +358,7 @@ function evDose(reg, i) {
         a linha do valor que ela recebeu. Rebaixado, nao corrigido no palpite.</div>`:''}</dd>
     <dt>Pagina</dt><dd>${val(d.page)}</dd>
     <dt>Citacao do documento</dt><dd><div class="quote">${esc(d.quote||'NOT_PRESERVED')}</div></dd>
-    <dt>Fonte</dt><dd><a href="${esc(p.pdf_url)}" target="_blank">PDF oficial</a>
+    <dt>Fonte</dt><dd>${link(p.pdf_url,'PDF oficial')}
       <div class="mono">sha256 ${esc(p.pdf_sha)}</div></dd>
     <dt>Leitor</dt><dd class="mono">v1 dose_extrair + dose_validar (fios da tabela)</dd>
   </dl>`);
@@ -297,17 +396,21 @@ function cardObj(o) {
 // dias?" merece a resposta honesta, que aqui e ZERO — a mudanca provada mais
 // recente e de 20260720. Zero e uma resposta; 36 nao era.
 let JANELA_DIAS = 0;                       // 0 = janela inteira observada
-function setJanela(d) { JANELA_DIAS = Number(d) || 0; viewToday(); }
+function setJanela(d) { if (!HOJE) return; JANELA_DIAS = Number(d) || 0; viewToday(); }
 window.setJanela = setJanela;
 function dentroDaJanela(o) {
   if (!JANELA_DIAS) return true;
   const d = dias(dISO(o.DETECTED_AT));
-  return d !== null && -d <= JANELA_DIAS;
+  // d e negativo para fato passado. Duas travas: sem relogio nao ha janela
+  // (o chamador ja garante isso), e fato com data FUTURA (d > 0) nao entra numa
+  // janela que conta para tras — antes entrava, porque a condicao so olhava
+  // -d <= JANELA e -d de um futuro e negativo.
+  return d !== null && d <= 0 && -d <= JANELA_DIAS;
 }
 
 function viewToday() {
   const todosProvados = P.objects.filter(o => o.PROOF_STATE === 'PROVED');
-  const provados = todosProvados.filter(dentroDaJanela);
+  const provados = HOJE ? todosProvados.filter(dentroDaJanela) : todosProvados;
   const rev = P.objects.filter(o => o.OBJECT_TYPE === 'NEEDS_HUMAN_REVIEW');
   const dq = P.objects.filter(o => o.OBJECT_TYPE === 'DATA_QUALITY_EVENT');
   const exp = provados.filter(o => o.OBJECT_TYPE === 'EXPIRY_EVENT');
@@ -319,24 +422,36 @@ function viewToday() {
     String(b.DETECTED_AT).localeCompare(String(a.DETECTED_AT)));
   const condicoes = exp.slice().sort((a,b) => String(a.VALID_FROM).localeCompare(String(b.VALID_FROM)));
   const OPC = [[30,'30 dias'],[90,'90 dias'],[365,'12 meses'],[0,'janela inteira observada']];
+  // SEM RELOGIO NAO HA JANELA. Com window.Date quebrado, dias() devolve null,
+  // dentroDaJanela() rejeitava tudo e a tela respondia "0 mudancas nos ultimos
+  // 365 dias — e isso e uma resposta, nao uma falha". Zero por falta de relogio
+  // nao e zero: e NOT_COMPUTED_WITHOUT_CLOCK. Falha de medicao nao e ausencia.
+  const semRelogio = !HOJE;
   $('#v-today').innerHTML = `
   ${avisoRelogio()}
   ${GLOSA_JANELA}
   <div class="block" style="padding:9px 12px">
     <b>Janela:</b>
-    ${OPC.map(([d,l]) => `<button class="ev" style="${JANELA_DIAS===d?'outline:2px solid var(--ok)':''}"
-       onclick="setJanela(${d})">${l}</button>`).join(' ')}
-    <div class="meta" style="margin-top:5px">${JANELA_DIAS
-      ? `contando para tras a partir de <b>hoje</b> (${esc(HOJE||P.BUILT_AT)}), nao a partir da data
-         do dado. ${mudancas.length===0 && condicoes.length===0
-           ? `<b>Nesta janela nao ha nada</b> — e isso e uma resposta, nao uma falha: a mudanca
+    ${semRelogio
+      ? `<span class="unknown">NOT_COMPUTED_WITHOUT_CLOCK</span>
+         <div class="meta">este navegador nao devolveu a data de hoje. Uma janela que conta para
+         tras a partir de hoje nao pode ser calculada sem hoje, entao os botoes estao desligados e
+         a tela mostra a janela inteira observada. <b>Zero por falta de relogio nao e zero.</b></div>`
+      : OPC.map(([d,l]) => `<button class="ev" style="${JANELA_DIAS===d?'outline:2px solid var(--ok)':''}"
+         onclick="setJanela(${d})">${l}</button>`).join(' ')}
+    <div class="meta" style="margin-top:5px">${JANELA_DIAS && !semRelogio
+      ? `contando para tras a partir de <b>hoje</b> (${esc(HOJE)}), nao a partir da data
+         do dado. ${mudancas.length===0
+           ? `<b>Nesta janela nao ha mudanca</b> — e isso e uma resposta, nao uma falha: a mudanca
               provada mais recente do conjunto e de <b>${esc(ULTIMA_MUDANCA)}</b>, e nada foi
-              coletado depois de ${esc(DATA_DATE)}.` : ''}`
+              coletado depois de ${esc(DATA_DATE)}. As condicoes que continuam valendo, mais
+              abaixo, <b>nao</b> sao filtradas por janela: elas nao mudaram numa data, elas
+              seguem de pe.` : ''}`
       : `todos os ${todosProvados.length} objetos provados das ${P.versions.length} versoes
          observadas (${esc(P.history.window)}).`}</div>
   </div>
   <div class="cards">
-    <div class="kpi"><b>${mudancas.length}</b><span>mudancas provadas ${JANELA_DIAS?`nos ultimos ${JANELA_DIAS} dias`:'na janela observada'}</span></div>
+    <div class="kpi"><b>${mudancas.length}</b><span>mudancas provadas ${JANELA_DIAS&&!semRelogio?`nos ultimos ${JANELA_DIAS} dias`:'na janela observada'}</span></div>
     <div class="kpi"><b style="color:var(--bad)">${exp.length}</b><span>validade vencida e ainda listado ativo</span></div>
     <div class="kpi"><b style="color:var(--rev)">${rev.length}</b><span>itens que a maquina recusou adivinhar</span></div>
     <div class="kpi"><b style="color:var(--unk)">${dq.length}</b><span>estados de leitura a resolver</span></div>
@@ -424,12 +539,31 @@ function viewProduto(reg) {
         <td>${(()=>{const t=us.filter(x=>x.evidence==='TABLE_GEOMETRY').length, n=us.length;
           return t===n?'<span class="pill p-ok">TABELA</span>'
                : t===0?'<span class="pill p-dim">TEXTO</span>'
-               : `<span class="pill p-ok">TABELA ${t}</span> <span class="pill p-dim">TEXTO ${n-t}</span>`;})()}</td>
+               : `<span class="pill p-ok">TABELA ${t}</span> <span class="pill p-dim">TEXTO ${n-t}</span>`;})()}
+          ${(()=>{ // o estado da conferencia R-10 existia no payload e nunca aparecia:
+                   // 12 pares publicados como CROP_NAME_NOT_FOUND_IN_LABEL_TEXT (o rotulo
+                   // escreve "Grano", o leitor normaliza para FRUMENTO) eram desenhados
+                   // exatamente como um par conferido.
+            const e = [...new Set(us.map(x => x.exclusion_check).filter(Boolean))];
+            if (!e.length || (e.length===1 && e[0]==='ATTESTED_OUTSIDE_EXCLUSION')) return '';
+            return e.filter(x=>x!=='ATTESTED_OUTSIDE_EXCLUSION').map(x =>
+              `<div class="meta"><span class="unknown">${esc(x)}</span>
+               ${x==='CROP_NAME_NOT_FOUND_IN_LABEL_TEXT'
+                 ? 'o nome desta cultura nao aparece no texto do rotulo, nem dentro nem fora de janela de exclusao. Isto e diferenca de vocabulario, nao ausencia de uso — e nao foi conferido por este teste'
+                 : x==='CROP_NAME_PREFIX_MATCH_ONLY'
+                 ? 'o apoio textual e so por prefixo, nao por palavra inteira: basta para nao retirar o uso, nao basta para chamar de atestado'
+                 : 'estado de conferencia declarado pela coleta'}</div>`).join('');
+          })()}</td>
         <td>${us.map(x=>`<button class="ev" title="${esc(x.target)}" onclick="evUso('${p.reg}',${x.i})">${esc(String(x.target).slice(0,14))}</button>`).join(' ')}</td>
       </tr>`).join('')}</tbody></table></div>`
-      : `<div class="lei">Nenhum par cultura x alvo foi lido para este produto.
-         <b>Isto e estado de leitura, nao ausencia de uso autorizado.</b>
-         <code>PARSER_FAILURE != REGULATORY_ABSENCE</code></div>`}
+      : (p.states && p.states.LABEL_DOWNLOADED === false
+         ? `<div class="lei">Nenhum rotulo foi baixado para este produto, entao <b>nenhum leitor
+            rodou</b>: isto e <span class="unknown">NOT_COLLECTED</span>, nao falha de parser e
+            nao ausencia de uso autorizado. Dizer <code>PARSER_FAILURE</code> aqui seria descrever
+            um mecanismo que nao aconteceu.</div>`
+         : `<div class="lei">Nenhum par cultura x alvo foi lido para este produto.
+            <b>Isto e estado de leitura, nao ausencia de uso autorizado.</b>
+            <code>PARSER_FAILURE != REGULATORY_ABSENCE</code></div>`)}
     ${(p.uses_retirados||[]).length ? `<div class="lei" style="border-left-color:var(--bad);margin-top:10px">
       <b>Exclusao nao e permissao.</b> ${p.uses_retirados.length} par(es) que o leitor de uso tinha
       publicado como <b>autorizados</b> foram retirados desta ficha, porque a unica ocorrencia do
@@ -443,30 +577,59 @@ function viewProduto(reg) {
             <div class="meta">${esc(w.PROOF)}</div></td></tr>`).join('')}
         </tbody></table></div></div>` : ''}
     ${(p.exclusion_windows||[]).length ? `<div class="meta" style="margin-top:8px">
-      <b>Este rotulo tem ${p.exclusion_windows.length} janela(s) de exclusao.</b> Mesmo os usos
-      acima que sobreviveram tem escopo mais estreito do que o nome da cultura sugere: o rotulo
-      escreve, entre outras coisas,
-      ${p.exclusion_windows.slice(0,3).map(w=>`<i>&ldquo;${esc(w.length>110?w.slice(0,110)+'…':w)}&rdquo;</i>`).join('; ')}.
-      A ferramenta <b>nao</b> modela escopo negativo dentro de um uso: ela avisa que ele existe.</div>` : ''}
+      <b>Este rotulo tem ${p.exclusion_windows.length} janela(s) de exclusao que falam de
+      CULTURA.</b> Mesmo os usos acima que sobreviveram podem ter escopo mais estreito do que o
+      nome da cultura sugere. O que o rotulo escreve:
+      <ul style="margin:5px 0 0 16px">${p.exclusion_windows.map(w => `<li>${
+        w.QUOTABLE ? `<i>&ldquo;${esc(w.TEXT.length>140?w.TEXT.slice(0,140)+'…':w.TEXT)}&rdquo;</i>`
+                   : `<span class="unknown">QUOTE_NOT_RECOVERABLE_COLUMN_LAYOUT</span>
+                      <span class="meta">marcador <code>${esc(w.MARKER)}</code> encontrado, mas o
+                      trecho ate o corte atravessa salto de coluna do extrator de texto: a frase
+                      montada nao existe no documento, entao nao e citada</span>`}</li>`).join('')}</ul>
+      A ferramenta <b>nao</b> modela escopo negativo dentro de um uso: ela avisa que ele existe.
+      Janelas de compatibilidade de calda e de numero de tratamentos <b>nao</b> aparecem aqui —
+      elas nao falam de cultura, e apresenta-las como escopo de cultura foi um erro da versao
+      anterior.</div>` : ''}
   </div>
 
   <div class="block">
     <div style="display:flex;justify-content:space-between;align-items:baseline">
       <h3>Dose</h3><span class="meta">estado do leitor: <code>${esc(p.dose_state)}</code></span></div>
+    ${(p.ceilings||[]).length ? `<div class="lei"><b>Esta etichetta poe teto de dose por cultura
+      FORA da tabela</b>, e a nota tem o mesmo valor legal que a tabela:
+      <ul style="margin:5px 0 0 16px">${p.ceilings.map(t=>`<li><i>&ldquo;${esc(t.LITERAL)}&rdquo;</i></li>`).join('')}</ul>
+      A ferramenta mostra os dois numeros do documento e <b>nao calcula um terceiro</b>.</div>`
+      : p.label_dose_notes_not_read ? `<div class="lei"><span class="unknown">LABEL_NOTES_NOT_READ</span>
+      este rotulo tem restricao de dose escrita fora da tabela em formato que este leitor nao le
+      (por exemplo &ldquo;non superare la dose massima di X per anno&rdquo;). <b>Isto nao autoriza
+      dizer que a dose da tabela e o limite.</b></div>` : ''}
     ${p.doses.length ? `<div class="tw"><table>
       <thead><tr><th>Cultura</th><th>Alvo</th><th>Dose/ha</th><th>Max</th><th>Intervalo</th><th>Fios</th><th></th></tr></thead>
-      <tbody>${p.doses.map((d,i) => `<tr>
-        <td>${fragmento(d.crop)}</td><td>${fragmento(d.target)}</td>
-        <td>${isUnk(d.dose_ha)?val(d.dose_ha):esc(d.dose_ha+' '+d.unit_ha)}</td>
+      <tbody>${p.doses.map((d,i) => `<tr${d.crop_check==='CROP_ASSIGNMENT_CONTRADICTED_BY_RULE'?' style="opacity:.75"':''}>
+        <td>${fragmento(d.crop)}${d.crop_check==='CROP_ASSIGNMENT_CONTRADICTED_BY_RULE'
+          ? `<div class="meta"><span class="unknown">CROP_ASSIGNMENT_CONTRADICTED_BY_RULE</span>
+             um fio desenhado da tabela separa esta linha de toda ocorrencia desta cultura na
+             coluna de cultura: a linha <b>nao e desta cultura</b> (<code>R-11</code>)</div>` : ''}</td>
+        <td>${fragmento(d.target)}</td>
+        <td>${d.crop_check==='CROP_ASSIGNMENT_CONTRADICTED_BY_RULE'
+              ? val('NOT_PROVED_BY_RULE')
+              : d.rule_check==='NOT_LOCATED' ? val('NOT_VALIDATED')
+              : isUnk(d.dose_ha)?val(d.dose_ha):esc(d.dose_ha+' '+d.unit_ha)}</td>
         <td>${val(d.max_app)}</td><td>${val(d.interval)}</td>
         <td><span class="pill ${d.rule_check==='CONFIRMED_BY_RULE'?'p-ok':d.rule_check==='CONTRADICTED_BY_RULE'?'p-bad':'p-unk'}"
           title="${d.rule_check==='NOT_LOCATED'?'a linha ou o valor nao foi localizado no documento para conferir contra os fios':d.rule_check==='NOT_CHECKED'?'esta linha nao foi submetida a conferencia por fios':''}"
           >${d.rule_check==='CONFIRMED_BY_RULE'?'CONFIRMADA':d.rule_check==='CONTRADICTED_BY_RULE'?'REVISAR':esc(d.rule_check)}</span></td>
         <td><button class="ev" onclick="evDose('${p.reg}',${i})">prova</button></td>
       </tr>`).join('')}</tbody></table></div>`
-      : `<div class="lei">Dose nao estruturada para este produto (<code>${esc(p.dose_state)}</code>).
-         A maioria dos herbicidas italianos declara dose em <b>prosa</b>, nao em tabela, e este
-         leitor le tabela. <b>Isto nao significa produto sem dose.</b></div>`}
+      : (p.states && p.states.LABEL_DOWNLOADED === false
+         ? `<div class="lei">Nenhum rotulo foi baixado para este produto, entao o leitor de dose
+            <b>nao rodou</b>: <span class="unknown">NOT_COLLECTED</span>. A explicacao sobre
+            herbicidas em prosa nao se aplica aqui — ela e sobre documentos que foram abertos, e
+            este nao foi.</div>`
+         : `<div class="lei">Dose nao estruturada para este produto
+            (<code>${esc(p.dose_state)}</code>). A maioria dos herbicidas italianos declara dose em
+            <b>prosa</b>, nao em tabela, e este leitor le tabela.
+            <b>Isto nao significa produto sem dose.</b></div>`)}
   </div>
 
   <div class="block">
@@ -521,32 +684,81 @@ function viewTimeline() {
         <td>${jan===null ? val('NOT_APPLICABLE')+'<div class="meta">ainda nao existe versao seguinte</div>'
               : evs.length ? `<b style="color:var(--ok)">${evs.length}</b>`
               : '<span class="meta">nenhum</span>'}</td>
-        <td><a href="${esc(x.url)}" target="_blank">CSV</a></td></tr>`;}).join('')}
+        <td>${link(x.url,'CSV')}</td></tr>`;}).join('')}
     </tbody></table></div>`;
 }
 
 // A celula de dose NUNCA imprime um numero sem dizer por que aquele numero e
 // deste par. Estado ambiguo nao vira numero.
+// Nomes de estado sao impressos POR EXTENSO. Um selo de tres letras nao e um
+// estado: quem le tem de poder ver, sem abrir gaveta, o que a ferramenta esta
+// afirmando sobre a origem daquele numero.
+const SELO = {
+  EXACT_MATCH: ['p-ok', 'EXATA'],
+  LISTED_IN_DOSE_ROW: ['p-warn', 'LISTADA'],
+  LISTED_IN_DOSE_ROW_AGREEING: ['p-warn', 'LISTADA'],
+  LISTED_IN_DOSE_ROW_WITH_UNREAD_DUPLICATE: ['p-warn', 'LISTADA'],
+};
 function celulaDose(l) {
   const j = l.j;
+  const desc = j.descartadas
+    ? `<div class="meta">${j.descartadas} linha(s) de dose deste rotulo foram descartadas antes da
+       juncao: a cultura delas nao sobrevive aos fios desenhados (<code>R-11</code>) ou o valor
+       nao pode ser conferido no documento.</div>` : '';
   if (j.estado === 'AMBIGUOUS_DOSE_FOR_THIS_PAIR')
     return `<span class="unknown">AMBIGUOUS_DOSE_FOR_THIS_PAIR</span>
       <span class="pill p-bad">AMBIGUA</span>
-      <div class="meta">${j.cand.length} linhas de dose servem para este par e discordam</div>
-      <button class="ev" onclick="evAmbigua('${l.p.reg}',${JSON.stringify(j.cand.map(x=>l.p.doses.indexOf(x)))})">ver as ${j.cand.length} candidatas</button>`;
-  if (!j.d) return val('NOT_KNOWN') + '<div class="meta">nenhuma linha de dose serve para este par</div>';
-  if (isUnk(j.d.dose_ha)) return val(j.d.dose_ha);
-  const selo = j.estado === 'EXACT_MATCH'
-    ? '<span class="pill p-ok">EXATA</span>'
-    : `<span class="pill p-warn">LISTADA</span>`;
+      <div class="meta">${j.cand.length} linhas de dose com valor lido servem para este par e
+        <b>discordam</b>${j.mudos?` (mais ${j.mudos} sem valor lido, que nao contam como discordancia)`:''}</div>
+      <button class="ev" onclick="evAmbigua('${l.p.reg}',${JSON.stringify(j.cand.map(x=>l.p.doses.indexOf(x)))})">ver as ${j.cand.length} candidatas</button>${desc}`;
+  if (j.estado === 'EXACT_MATCH_QUOTE_LACKS_CROP')
+    return `<span class="unknown">EXACT_MATCH_QUOTE_LACKS_CROP</span>
+      <div class="meta">cultura e alvo batem letra a letra com uma linha de dose, mas a
+      <b>citacao gravada pelo extrator para aquela linha nao contem o nome desta cultura</b>.
+      Foi assim que a versao anterior publicou &ldquo;TABACCO x CIMICI = 600 g/ha&rdquo; com selo
+      verde: a citacao era &ldquo;Cimici 600 1 Nottue defogliatrici&rdquo;, sem a palavra Tabacco.
+      A ferramenta prefere nao responder.</div>${desc}`;
+  if (j.estado === 'DOSE_ROW_WITHOUT_READ_VALUE')
+    return `<span class="unknown">DOSE_ROW_WITHOUT_READ_VALUE</span>
+      <div class="meta">ha linha de dose para este par, mas nenhuma delas teve o valor lido</div>${desc}`;
+  if (!j.d)
+    return `<span class="unknown">NO_DOSE_ROW_FOR_THIS_PAIR</span>
+      <div class="meta">nenhuma linha de dose utilizavel serve para este par</div>${desc}`;
+  if (isUnk(j.d.dose_ha)) return val(j.d.dose_ha) + desc;
+
+  const [cls, rot] = SELO[j.estado] || ['p-unk', j.estado];
+  // A celula de cultura do rotulo as vezes carrega o ESCOPO junto:
+  // "Pomodoro Melanzana (uso in serra)". A juncao por token descarta o
+  // parentese e a tela mostrava POMODORO sem dizer que a autorizacao e so em
+  // estufa. O escopo volta, literal.
+  const escopo = /\((?:uso\s+)?in\s+serra|serra\)|pieno\s+campo|sotto\s+tunnel|in\s+vivai/i
+    .test(String(j.d.crop || '')) ? `<div class="meta"><b>A celula de cultura do rotulo traz
+    escopo:</b> <i>&ldquo;${esc(j.d.crop)}&rdquo;</i>. A autorizacao vale nesse escopo, e o nome
+    curto da cultura na coluna ao lado nao o carrega.</div>` : '';
   const nota = j.estado === 'EXACT_MATCH' ? ''
     : `<div class="meta">a linha de dose fala de &ldquo;${esc(j.d.crop)}&rdquo; &middot;
-        &ldquo;${esc(j.d.target)}&rdquo;${j.cand.length>1?` (${j.cand.length} linhas, mesmo valor)`:''}.
-        Juncao inferida, nao leitura deste par.</div>`;
-  return `${esc(j.d.dose_ha + ' ' + j.d.unit_ha)} ${selo}
-    ${j.d.rule_check==='CONTRADICTED_BY_RULE'?'<span class="pill p-bad">REVISAR</span>':''}
+        &ldquo;${esc(j.d.target)}&rdquo;${j.cand.length>1?` (${j.cand.length} linhas, mesmo valor)`:''}${j.mudos?`; mais ${j.mudos} duplicata(s) sem valor lido`:''}.
+        Juncao inferida (<code>${esc(j.estado)}</code>), nao leitura deste par.</div>`;
+  // R-12 · o teto por cultura escrito FORA da tabela tem o mesmo valor legal
+  // que a tabela. Se a dose exibida passa dele, os dois numeros aparecem juntos
+  // e a ferramenta nao escolhe nem calcula um terceiro.
+  const excede = excedeTeto(j.d, j.teto);
+  const avisoTeto = j.teto ? `<div class="meta" style="${excede?'color:var(--bad)':''}">
+      ${excede?'<b>A propria etichetta poe um teto MENOR para esta cultura, fora da tabela:</b>'
+              :'teto declarado pela etichetta para esta cultura:'}
+      <i>&ldquo;${esc(j.teto.LITERAL)}&rdquo;</i>${excede?` — a tabela diz ate
+      <b>${esc(j.d.dose_ha)} ${esc(j.d.unit_ha)}</b> e a nota diz no maximo
+      <b>${esc(j.teto.VALOR)} ${esc(j.teto.UNIDADE)}</b>. Sao duas frases do MESMO documento
+      oficial; a ferramenta mostra as duas e <b>nao calcula um terceiro numero</b>.`:''}</div>` : '';
+  const notaNaoLida = (l.p.label_dose_notes_not_read && !j.teto)
+    ? `<div class="meta"><span class="unknown">LABEL_NOTES_NOT_READ</span> este rotulo tem
+       restricao de dose escrita fora da tabela que este leitor nao le. Nao afirmamos que a dose
+       acima e o limite.</div>` : '';
+  return `${esc(j.d.dose_ha + ' ' + j.d.unit_ha)}
+    <span class="pill ${cls}" title="${esc(j.estado)}">${esc(rot)}</span>
+    ${excede?'<span class="pill p-bad">ACIMA DO TETO DO ROTULO</span>':''}
     <button class="ev" onclick="evDose('${l.p.reg}',${l.p.doses.indexOf(j.d)})">prova da dose</button>
-    ${nota}`;
+    ${nota}${escopo}${avisoTeto}${notaNaoLida}${desc}`;
 }
 function evAmbigua(reg, idx) {
   const p = byReg[reg];
@@ -554,8 +766,11 @@ function evAmbigua(reg, idx) {
   drawer(`<h3>Dose ambigua</h3>
     <div class="meta">${esc(p.name)} &middot; <code>${esc(p.reg)}</code></div>
     <div class="lei"><b>A ferramenta nao escolhe.</b> ${rows.length} linhas de dose deste rotulo
-      servem para este par de cultura e alvo, e elas <b>nao dizem o mesmo valor</b>. Escolher uma
-      seria inventar. O que existe e isto:</div>
+      <b>com valor lido</b> servem para este par de cultura e alvo, e elas <b>nao dizem o mesmo
+      valor</b>. Escolher uma seria inventar. O que existe e isto:
+      <div class="meta" style="margin-top:5px">Linha sem valor lido nao entra nesta conta: ela nao
+      discorda de nada. A versao anterior contava <code>NOT_PRESENT</code> como se fosse um valor e
+      declarava ambiguidade sobre pares em que a etichetta e inequivoca.</div></div>
     <div class="tw"><table>
       <thead><tr><th>Celula de cultura lida</th><th>Celula de alvo lida</th><th>Dose/ha</th>
         <th>Pagina</th><th>Fio da tabela</th><th></th></tr></thead>
@@ -586,23 +801,43 @@ function viewCrop() {
   const prods = new Set(linhas.map(l => l.p.reg));
   $('#cres').innerHTML = `
     <div class="meta" style="margin:8px 0">${linhas.length} pares em ${prods.size} produtos.</div>
-    <div class="lei"><b>Como a dose e ligada a este par — e quando ela nao e.</b>
+    ${(() => {
+      // MF-13 · a legenda dizia "Medido: 5 pares dos N" com o 5 escrito a mao no
+      // codigo e o N recalculado a cada filtro. Sob #cq=vite ela anunciava
+      // "5 pares dos 99" numa tabela com ZERO selos EXATA. Agora os quatro
+      // estados sao contados sobre a lista que esta na tela.
+      const c = {};
+      linhas.forEach(x => c[x.j.estado] = (c[x.j.estado] || 0) + 1);
+      const n = e => c[e] || 0;
+      return `<div class="lei"><b>Como a dose e ligada a este par — e quando ela nao e.</b>
       O leitor de uso normaliza a cultura para um nome (<code>MELO</code>); o leitor de dose
       guarda a celula como esta impressa no rotulo (<code>Melo, pero</code>). Sao vocabularios
-      diferentes, entao:
+      diferentes, entao a tela declara o estado de cada juncao.
+      <b>Nesta tela (${linhas.length} pares):</b>
       <ul style="margin:6px 0 0 16px">
-        <li><span class="pill p-ok">EXATA</span> cultura e alvo batem letra a letra. A dose e
-          desta linha. <b>Medido: 5 pares dos ${linhas.length}.</b></li>
-        <li><span class="pill p-warn">LISTADA</span> a cultura e o alvo deste par aparecem
-          <i>dentro</i> da celula da linha de dose. Isto e <b>inferencia de juncao</b>, nao
-          leitura direta deste par: a linha de dose fala de um grupo de culturas.</li>
-        <li><span class="pill p-bad">AMBIGUA</span> duas ou mais linhas de dose servem para este
-          par e <b>dao valores diferentes</b>. A ferramenta <b>nao escolhe</b>: mostra
-          <span class="unknown">AMBIGUOUS_DOSE_FOR_THIS_PAIR</span> e lista as candidatas.
-          Antes esta tela mostrava a primeira, calada, com selo verde.</li>
-        <li><span class="unknown">NOT_KNOWN</span> nenhuma linha de dose serve para este par.
-          Nao e dose zero e nao e dose ausente no rotulo: e leitura que nao ligou.</li>
-      </ul></div>
+        <li><span class="pill p-ok">EXATA</span> <b>${n('EXACT_MATCH')}</b> — cultura e alvo batem
+          letra a letra E a citacao gravada contem o nome da cultura.</li>
+        <li><span class="pill p-warn">LISTADA</span>
+          <b>${n('LISTED_IN_DOSE_ROW')+n('LISTED_IN_DOSE_ROW_AGREEING')+n('LISTED_IN_DOSE_ROW_WITH_UNREAD_DUPLICATE')}</b>
+          — cultura e alvo aparecem <i>dentro</i> da celula da linha de dose. E
+          <b>inferencia de juncao</b>, nao leitura direta deste par.</li>
+        <li><span class="pill p-bad">AMBIGUA</span> <b>${n('AMBIGUOUS_DOSE_FOR_THIS_PAIR')}</b>
+          — duas ou mais linhas com valor lido servem e <b>discordam</b>. A ferramenta nao escolhe.</li>
+        <li><span class="unknown">NO_DOSE_ROW_FOR_THIS_PAIR</span>
+          <b>${n('NO_DOSE_ROW_FOR_THIS_PAIR')}</b> — nenhuma linha utilizavel serve. Nao e dose
+          zero e nao e dose ausente no rotulo: e leitura que nao ligou.</li>
+        ${n('EXACT_MATCH_QUOTE_LACKS_CROP')?`<li><span class="unknown">EXACT_MATCH_QUOTE_LACKS_CROP</span>
+          <b>${n('EXACT_MATCH_QUOTE_LACKS_CROP')}</b> — bateu letra a letra mas a citacao da linha
+          nao menciona esta cultura. Foi assim que TABACCO x CIMICI virou um numero verde.</li>`:''}
+        ${n('DOSE_ROW_WITHOUT_READ_VALUE')?`<li><span class="unknown">DOSE_ROW_WITHOUT_READ_VALUE</span>
+          <b>${n('DOSE_ROW_WITHOUT_READ_VALUE')}</b> — ha linha, sem valor lido.</li>`:''}
+      </ul>
+      <div class="meta" style="margin-top:6px">No acervo inteiro, sem filtro:
+        <b>${P.crop_check ? P.crop_check.ROWS_CONTRADICTED : val('NOT_KNOWN')}</b> linhas de dose
+        foram descartadas por <code>R-11</code> (a cultura delas nao sobrevive aos fios desenhados
+        da tabela) e <b>${P.ceiling ? P.ceiling.LABELS_WITH_CEILING : val('NOT_KNOWN')}</b> rotulos
+        trazem teto de dose por cultura escrito fora da tabela (<code>R-12</code>).</div></div>`;
+    })()}
     <div class="tw"><table>
       <thead><tr><th>Produto</th><th>Registro</th><th>Cultura</th><th>Alvo</th>
         <th>Dose/ha</th><th>Evidencia do par</th><th>Validade</th><th></th></tr></thead>
@@ -622,7 +857,8 @@ window.viewCrop = viewCrop;
 // ---------------------------------------------------------------- 5 · CALENDAR
 function viewCal() {
   const fx = [[30,'30 dias'],[90,'90 dias'],[180,'180 dias'],[365,'12 meses']];
-  const venc = P.products.filter(p => typeof dte(p) === 'number' && dte(p) < 0);
+  const venc = P.products.filter(conflitoDeValidade);
+  const vencCoerente = P.products.filter(p => typeof dte(p) === 'number' && dte(p) < 0 && foraDeVigor(p));
   const bloco = (lo,hi,lbl) => {
     const l = P.products.filter(p => typeof dte(p) === 'number' && dte(p) >= lo && dte(p) <= hi)
       .sort((a,b) => dte(a) - dte(b));
@@ -642,8 +878,10 @@ function viewCal() {
     registro oficial. <b>A ferramenta nao cria prazo que nao esta na fonte</b> — nao ha deadline de
     revisao inventado aqui. E vencimento nao e revogacao.</div>
   <div class="block" style="border-left:3px solid var(--bad)">
-    <h3>Validade ja vencida, e o registro ainda lista como ativo <span class="meta">(${venc.length})</span></h3>
-    <div class="meta">Estes sao um conflito entre dois campos oficiais de hoje, nao uma conclusao nossa.</div>
+    <h3>Validade ja vencida, e o registro ainda lista como em vigor <span class="meta">(${venc.length})</span></h3>
+    <div class="meta">Estes sao um conflito entre dois campos oficiais do mesmo instantaneo, nao uma
+      conclusao nossa: a data passou e o <code>stato_amministrativo</code> continua sendo um estado
+      em vigor.</div>
     <div class="tw" style="margin-top:8px"><table>
       <thead><tr><th>Validade</th><th>Ha</th><th>Produto</th><th>Registro</th><th>Estado declarado</th><th></th></tr></thead>
       <tbody>${venc.sort((a,b)=>a.expiry.localeCompare(b.expiry)).map(p=>`<tr>
@@ -651,6 +889,19 @@ function viewCal() {
         <td>${esc(p.name)}</td><td class="mono">${esc(p.reg)}</td><td>${esc(p.status)}</td>
         <td><button class="ev" onclick="evProd('${p.reg}')">prova</button></td></tr>`).join('')}
       </tbody></table></div></div>
+  ${vencCoerente.length ? `<div class="block">
+    <h3>Validade vencida, e o registro JA declara fora de vigor <span class="meta">(${vencCoerente.length})</span></h3>
+    <div class="meta">Aqui os dois campos oficiais <b>concordam</b> — nao ha conflito, e por isso
+      estes nao aparecem no bloco vermelho acima. A ferramenta separa os dois casos porque afirmar
+      &ldquo;o registro ainda lista como em vigor&rdquo; sobre um produto <code>Scaduto</code> seria
+      inventar um desacordo que a fonte nao tem.</div>
+    <div class="tw" style="margin-top:8px"><table>
+      <thead><tr><th>Validade</th><th>Ha</th><th>Produto</th><th>Registro</th><th>Estado declarado</th><th></th></tr></thead>
+      <tbody>${vencCoerente.sort((a,b)=>String(a.expiry).localeCompare(String(b.expiry))).map(p=>`<tr>
+        <td class="mono">${esc(p.expiry)}</td><td>${-dte(p)}d</td>
+        <td>${esc(p.name)}</td><td class="mono">${esc(p.reg)}</td><td>${val(p.status)}</td>
+        <td><button class="ev" onclick="evProd('${p.reg}')">prova</button></td></tr>`).join('')}
+      </tbody></table></div></div>` : ''}
   ${bloco(0,30,'Vencem em ate 30 dias')}
   ${bloco(31,90,'31 a 90 dias')}
   ${bloco(91,180,'91 a 180 dias')}

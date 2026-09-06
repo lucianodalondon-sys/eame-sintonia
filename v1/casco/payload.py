@@ -7,7 +7,7 @@ devolve um unico JSON enxuto para a interface. Se um campo nao existe na fonte,
 ele viaja como NOT_KNOWN / NOT_PRESENT / NOT_PROVED ate a tela — a interface nao
 tem permissao de inventar o que a coleta nao trouxe.
 """
-import argparse, csv, datetime, json, os, sys
+import argparse, csv, datetime, hashlib, json, os, sys
 from collections import Counter
 
 CANON = "/tmp/claude-0/-home-user-eame-sintonia/113d92e8-e962-52b2-b6d1-c8c3e286096e/scratchpad/canonical"
@@ -57,6 +57,8 @@ def main():
     ap.add_argument("--pares", default=f"{CANON}/data/samples/IT-ROTULOS-V1/IT-ROTULOS-PARES-V3.json")
     ap.add_argument("--exclusao", default="v1/dados/EXCLUSAO.json")
     ap.add_argument("--snapshots", default="pilot-label-intelligence/registry/snapshots")
+    ap.add_argument("--teto", default="v1/dados/TETO-DOSE.json")
+    ap.add_argument("--cultura", default="v1/dados/DOSES-CULTURA-CHECK.json")
     ap.add_argument("--hoje", required=True)
     ap.add_argument("--out", default="v1/dados/CASCO-PAYLOAD.json")
     a = ap.parse_args()
@@ -75,7 +77,19 @@ def main():
         raise SystemExit("EXCLUSAO.json ausente: sem ele o casco publicaria exclusao "
                          "como permissao. Rode v1/coleta/exclusao.py antes.")
     veredito = exc["VERDICT"]
-    janelas_por_reg = {r: v["EXCLUSION_WINDOWS"] for r, v in exc["LABELS"].items()}
+    # A GUARDA do vinculo par<->veredito. Sem ela o casco confiava numa posicao.
+    with open(a.pares, "rb") as _fh:
+        _sha = hashlib.sha256(_fh.read()).hexdigest()
+    if _sha != exc.get("PAIRS_SHA256"):
+        raise SystemExit(
+            f"EXCLUSAO.json foi calculado sobre outro arquivo de pares "
+            f"(sha256 {exc.get('PAIRS_SHA256','?')[:12]} vs {_sha[:12]}). Os vereditos de "
+            f"exclusao sao gravados por posicao: aplica-los a outra lista faria a retirada cair "
+            f"no par errado. Rode v1/coleta/exclusao.py de novo.")
+    # So janela de ESCOPO DE CULTURA vai para a tela: as de compatibilidade de
+    # calda e de numero de tratamentos nao dizem nada sobre cultura autorizada.
+    janelas_por_reg = {r: v.get("EXCLUSION_WINDOWS_CROP_SCOPE", [])
+                       for r, v in exc["LABELS"].items()}
     retirado_por_reg = {}
     for w in exc["RETIRADOS"]:
         retirado_por_reg.setdefault(w["REGISTRATION_ID"], []).append(w)
@@ -84,10 +98,17 @@ def main():
     usos = {}
     TAB = {"GEOMETRIC_TABLE", "MERGED_COLUMN_TABLE"}
     ordem = {}
+    trio = exc.get("VERDICT_KEY_TRIPLE", {})
     for x in json.load(open(a.pares, encoding="utf-8"))["PAIRS"]:
         reg = x["REGISTRATION_ID"]
         i = ordem[reg] = ordem.get(reg, -1) + 1
-        est = veredito.get(f"{reg}#{i}", "NOT_CHECKED")
+        chave = f"{reg}#{i}"
+        esperado = trio.get(chave)
+        if esperado and esperado != [x["CROP"], x["TARGET"]]:
+            raise SystemExit(
+                f"vinculo de exclusao desalinhado em {chave}: EXCLUSAO.json diz "
+                f"{esperado} e a lista de pares traz {[x['CROP'], x['TARGET']]}")
+        est = veredito.get(chave, "NOT_CHECKED")
         if est == "CROP_ONLY_INSIDE_EXCLUSION":
             continue                      # nao entra na lista de usos autorizados
         usos.setdefault(reg, []).append({
@@ -100,18 +121,31 @@ def main():
             "exclusion_check": est,
         })
 
+    # TETO POR CULTURA escrito fora da tabela (R-12) e CONFERENCIA DA CULTURA
+    # da linha contra os fios desenhados (R-11). Sem os dois a tela publica
+    # dose acima do que o proprio rotulo autoriza e dose atribuida a cultura
+    # errada — os dois erros foram medidos, nao supostos.
+    teto = json.load(open(a.teto, encoding="utf-8")) if os.path.exists(a.teto) else None
+    cultura = json.load(open(a.cultura, encoding="utf-8")) if os.path.exists(a.cultura) else None
+    if teto is None or cultura is None:
+        raise SystemExit("TETO-DOSE.json e/ou DOSES-CULTURA-CHECK.json ausentes: sem eles o "
+                         "casco publica dose acima do teto do rotulo e dose de outra cultura. "
+                         "Rode v1/inteligencia/teto_dose.py e v1/inteligencia/cultura_validar.py")
+    vc = cultura["VERDICT"]
+
     # doses por produto, ja deduplicadas
     doses = {}
     if os.path.exists(a.doses):
         for lab in json.load(open(a.doses, encoding="utf-8"))["LABELS"]:
             seen, out = set(), []
-            for r in (lab.get("ROWS") or []):
+            for _i, r in enumerate(lab.get("ROWS") or []):
                 k = (r.get("CROP"), r.get("TARGET"), r.get("DOSE_CONCENTRATION"),
                      r.get("DOSE_PER_HECTARE"))
                 if k in seen:
                     continue
                 seen.add(k)
                 out.append({
+                    "crop_check": vc.get(f'{lab["REGISTRATION_ID"]}#{_i}', "NOT_CHECKED"),
                     "crop": r.get("CROP"), "target": r.get("TARGET"),
                     "crop_inherited": bool(r.get("CROP_INHERITED")),
                     "dose_conc": r.get("DOSE_CONCENTRATION"),
@@ -148,6 +182,8 @@ def main():
             "snapshot": i["REGISTRY_SNAPSHOT_ID"], "snapshot_sha": i["REGISTRY_SNAPSHOT_SHA256"],
             "source_url": i["SOURCE_URL"], "run": i["COLLECTION_RUN_ID"],
             "states": i["READ_STATES"],
+            "ceilings": teto["CEILINGS"].get(reg, []),
+            "label_dose_notes_not_read": reg in teto["OTHER_DOSE_NOTES_NOT_READ"],
             "uses": usos.get(reg, []),
             "uses_retirados": retirado_por_reg.get(reg, []),
             "exclusion_windows": janelas_por_reg.get(reg, []),
@@ -222,12 +258,17 @@ def main():
             # existir: e NOT_COLLECTED, e a ficha tem de dizer qual dos dois e.
             "pdf_url": "NOT_COLLECTED", "pdf_sha": "NOT_COLLECTED",
             "pdf_bytes": "NOT_COLLECTED", "label_effective": "NOT_COLLECTED",
-            "captured_at": pkg["ITEMS"][0]["CAPTURED_AT"] if pkg["ITEMS"] else "NOT_KNOWN",
+            # A data de captura e de um ARTEFATO. Para estes tres nao houve
+            # captura de rotulo nenhuma: copiar a data do primeiro produto do
+            # pacote seria atribuir a eles um ato que nao aconteceu.
+            "captured_at": "NOT_COLLECTED",
+            "registry_row_captured_at": pkg["ITEMS"][0]["CAPTURED_AT"] if pkg["ITEMS"] else "NOT_KNOWN",
             "snapshot": pkg["REGISTRY_SNAPSHOT_ID"],
             "snapshot_sha": pkg["REGISTRY_SNAPSHOT_SHA256"],
             "source_url": pkg["ITEMS"][0]["SOURCE_URL"] if pkg["ITEMS"] else "NOT_KNOWN",
             "run": pkg["COLLECTION_RUN_ID"],
             "states": dict({k: False for k in ESTADOS}, LABEL_DISCOVERED=False),
+            "ceilings": [], "label_dose_notes_not_read": False,
             "uses": [], "uses_retirados": [], "exclusion_windows": [],
             "doses": [], "dose_state": "NOT_ATTEMPTED",
             "text_chars": "NOT_COLLECTED",
@@ -287,7 +328,9 @@ def main():
         "exclusion": {
             "rule": exc["RULE_ID"],
             "labels_checked": exc["LABELS_CHECKED"],
-            "labels_with_exclusion": exc["LABELS_WITH_EXCLUSION"],
+            "labels_with_crop_scope_exclusion": exc["LABELS_WITH_CROP_SCOPE_EXCLUSION"],
+            "labels_with_any_marker": exc["LABELS_WITH_ANY_EXCLUSION_MARKER"],
+            "prefix_match_only": exc["PAIRS_CROP_NAME_PREFIX_MATCH_ONLY"],
             "pairs_checked": exc["PAIRS_CHECKED"],
             "retirados": exc["PARES_RETIRADOS"],
             "name_not_in_label_text": exc["PAIRS_CROP_NAME_NOT_IN_LABEL_TEXT"],
@@ -299,6 +342,9 @@ def main():
                            .get("RECONCILIATION_WITH_PUBLISHED")
                            if os.path.exists("v1/BASELINE-RAW.json") else
                            {"STATE": "NOT_CHECKED"}),
+        "ceiling": {k: v for k, v in teto.items() if k != "CEILINGS"},
+        "crop_check": {k: v for k, v in cultura.items() if k not in ("VERDICT", "CONTRADICTED")},
+        "crop_check_list": cultura["CONTRADICTED"],
         "by_type": io_["BY_TYPE"],
         "by_proof": io_["BY_PROOF_STATE"],
         "by_window": io_["BY_TIME_WINDOW"],

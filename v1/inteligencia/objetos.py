@@ -15,7 +15,7 @@ O que nenhuma regra cobre sai UNKNOWN e aparece assim na tela.
 import argparse, datetime, hashlib, json, os, sys
 from collections import Counter
 
-RULESET_VERSION = "v1/inteligencia/REGRAS.md@3"
+RULESET_VERSION = "v1/inteligencia/REGRAS.md@4"
 
 # ---- C-*: roteamento declarado. Nada fora desta tabela e roteado.
 ROTEAMENTO = {
@@ -90,8 +90,9 @@ PORQUE = {
     "C-09": "dono do portfolio local",
     "C-10": ("o estado administrativo do registro mudou. O fato e a mudanca de estado; "
              "a consequencia de abastecimento nao esta provada por ele"),
-    "C-11": ("um campo de data que NAO e a validade se moveu. Vale olhar porque "
-             "planejamento usa data, mas nao e vencimento e nao pode ser lido como tal"),
+    "C-11": ("a data de validade declarada (data_scadenza_autorizzazione) mudou entre dois "
+             "instantaneos oficiais. E prazo oficial com data na fonte, e nada mais: "
+             "prorrogar validade nao e efeito comercial, e encurtar tampouco"),
     "C-12": ("mudou um dado do ato de revoga (motivo, decreto, decorrencia). Isto e "
              "sobre o ATO, nao sobre a existencia do produto no mercado"),
     "C-13": ("a registracao saiu do conjunto ativo do instantaneo. CATALOG_PRESENCE != "
