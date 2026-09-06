@@ -1,0 +1,419 @@
+{
+  "QUESTION_ID": "CEREAL_COLLIO_EQUIVALENT",
+  "CASE_ID": "IT-CASE-DURUM-FUSARIUM-001",
+  "SOURCE_ID": "DERIVED/IT-COLLIO-CEREAIS",
+  "source": "busca dirigida a partir dos faróis — nenhuma execução paga",
+  "SOURCE_LOCATION": "web pública italiana",
+  "FACT_LOCATION": "ver CASE_FIELD_LEG — por conteúdo, nunca por voz",
+  "ORIGINAL_LANGUAGE": "it",
+  "EVIDENCE_CLASS": "PRIMARY_SOURCE_PROBE",
+  "captured_at": "2026-08-30",
+  "CAPTURED_AT": "2026-08-30",
+  "CASE_DATE": "2026-04-23",
+  "WINDOW": [
+    "2026-03-01",
+    "2026-05-31"
+  ],
+  "APIFY_RUNS": 0,
+  "APIFY_COST_USD": 0,
+  "PRODUCER_CORRECTION": "PROSPECTIVE_PRODUCER_SENSOR = PROVED vinha do Consorzio Collio, que é ORGANIZAÇÃO. Cooperativa é classe válida de organização e não substitui produtor-pessoa. Separado em PRODUCER_COOP e PRODUCER_PERSON, e o segundo é NOT_PROVED: nenhuma pessoa física produtora foi medida",
+  "CAPS": {
+    "ORGANIZATIONS": 20,
+    "PERSONS": 30,
+    "NOTE": "parou muito antes — o padrão fechou"
+  },
+  "CANDIDATES": [
+    {
+      "NAME": "Consorzio Collio",
+      "CROP": "vite",
+      "REGION": "Friuli-Venezia Giulia",
+      "ENTITY_KIND": "ORGANIZATION",
+      "ROLE": "consórcio de denominação",
+      "PATTERN": {
+        "LOCAL_ORGANIZATION": true,
+        "NAMED_TECHNICIAN": true,
+        "FIELD_SEASONAL_CADENCE": true,
+        "LOCAL_OBSERVATION": true,
+        "WEATHER_OR_PHENOLOGY": true,
+        "FACT_LOCATION": true,
+        "FACT_TIME": true,
+        "PUBLIC_CHANNEL": true,
+        "INDEPENDENT_DETAIL": true
+      },
+      "VERDICT": "COLLIO_EQUIVALENT",
+      "TECHNICIAN_STATE": "TECHNICIAN_PUBLIC_SENSOR",
+      "NAMED_PEOPLE": [
+        "Dario Maurigh"
+      ],
+      "IS_THE_CONTROL": true,
+      "WHY": "é o controle positivo — e é vinha, não cereal"
+    },
+    {
+      "NAME": "LaMMA / Regione Toscana — Bollettino Frumento",
+      "CROP": "frumento tenero e duro",
+      "REGION": "Toscana",
+      "ENTITY_KIND": "ORGANIZATION",
+      "ROLE": "consórcio agrometeorológico regional",
+      "PATTERN": {
+        "LOCAL_ORGANIZATION": false,
+        "NAMED_TECHNICIAN": false,
+        "FIELD_SEASONAL_CADENCE": true,
+        "LOCAL_OBSERVATION": true,
+        "WEATHER_OR_PHENOLOGY": true,
+        "FACT_LOCATION": true,
+        "FACT_TIME": true,
+        "PUBLIC_CHANNEL": true,
+        "INDEPENDENT_DETAIL": false
+      },
+      "VERDICT": "PARTIAL_COLLIO_PATTERN",
+      "TECHNICIAN_STATE": "NO_NAMED_TECHNICIAN",
+      "NAMED_PEOPLE": [],
+      "WHY": "tem tudo do padrão MENOS o que o define: nenhuma pessoa assina, e não há organização local abaixo dele. É a instituição falando sozinha — e ainda assim é o melhor sinal de cereais que existe para o caso"
+    },
+    {
+      "NAME": "ERSA FVG — bollettini colture erbacee",
+      "CROP": "frumento, orzo, mais",
+      "REGION": "Friuli-Venezia Giulia",
+      "ENTITY_KIND": "ORGANIZATION",
+      "ROLE": "serviço fitossanitário regional",
+      "PATTERN": {
+        "LOCAL_ORGANIZATION": false,
+        "NAMED_TECHNICIAN": true,
+        "FIELD_SEASONAL_CADENCE": true,
+        "LOCAL_OBSERVATION": true,
+        "WEATHER_OR_PHENOLOGY": true,
+        "FACT_LOCATION": true,
+        "FACT_TIME": false,
+        "PUBLIC_CHANNEL": true,
+        "INDEPENDENT_DETAIL": true
+      },
+      "VERDICT": "PARTIAL_COLLIO_PATTERN",
+      "TECHNICIAN_STATE": "TECHNICIAN_INSIDE_INSTITUTION_ONLY",
+      "NAMED_PEOPLE": [
+        "Maurizio Martinuzzi",
+        "Valentina Caron"
+      ],
+      "WHY": "nomeia técnicos, mas eles não têm canal próprio — e não há organização local abaixo. Falta o elo que o Collio tem"
+    },
+    {
+      "NAME": "Servizio Fitosanitario Umbria — bollettino cereali",
+      "CROP": "frumento, orzo",
+      "REGION": "Umbria",
+      "ENTITY_KIND": "ORGANIZATION",
+      "ROLE": "serviço fitossanitário regional",
+      "PATTERN": {
+        "LOCAL_ORGANIZATION": false,
+        "NAMED_TECHNICIAN": false,
+        "FIELD_SEASONAL_CADENCE": true,
+        "LOCAL_OBSERVATION": true,
+        "WEATHER_OR_PHENOLOGY": true,
+        "FACT_LOCATION": true,
+        "FACT_TIME": false,
+        "PUBLIC_CHANNEL": true,
+        "INDEPENDENT_DETAIL": false
+      },
+      "VERDICT": "PARTIAL_COLLIO_PATTERN",
+      "TECHNICIAN_STATE": "NO_NAMED_TECHNICIAN",
+      "NAMED_PEOPLE": [],
+      "WHY": "a melhor resolução de cereais medida — nomeia COMUNE e sintoma — e assinada só por \"Servizio Fitosanitario Regionale\". Os nós da rede são AREALI, não organizações: Conca Ternana, Lago Trasimeno, Valle Umbra Sud"
+    },
+    {
+      "NAME": "Consorzio Agrario dell'Emilia — Bollettino Tecnico",
+      "CROP": "cereali",
+      "REGION": "Emilia-Romagna",
+      "ENTITY_KIND": "ORGANIZATION",
+      "ROLE": "consórcio agrário comercial",
+      "PATTERN": {
+        "LOCAL_ORGANIZATION": false,
+        "NAMED_TECHNICIAN": false,
+        "FIELD_SEASONAL_CADENCE": false,
+        "LOCAL_OBSERVATION": false,
+        "WEATHER_OR_PHENOLOGY": false,
+        "FACT_LOCATION": false,
+        "FACT_TIME": false,
+        "PUBLIC_CHANNEL": false,
+        "INDEPENDENT_DETAIL": false
+      },
+      "VERDICT": "NOT_MEASURED",
+      "TECHNICIAN_STATE": "TECHNICIAN_IDENTITY_NOT_PROVED",
+      "NAMED_PEOPLE": [],
+      "WHY": "o candidato mais próximo do padrão, e continua por medir: 503 em duas tentativas e, na terceira, cadeia TLS incompleta no servidor. ROUTE_TLS_CHAIN_INCOMPLETE — não é bloqueio e não se contorna desligando verificação"
+    },
+    {
+      "NAME": "Consorzi Agrari d'Italia (CAI)",
+      "CROP": "cereali",
+      "REGION": "Itália",
+      "ENTITY_KIND": "ORGANIZATION",
+      "ROLE": "rede nacional de consórcios",
+      "PATTERN": {
+        "LOCAL_ORGANIZATION": true,
+        "NAMED_TECHNICIAN": false,
+        "FIELD_SEASONAL_CADENCE": false,
+        "LOCAL_OBSERVATION": false,
+        "WEATHER_OR_PHENOLOGY": false,
+        "FACT_LOCATION": false,
+        "FACT_TIME": false,
+        "PUBLIC_CHANNEL": true,
+        "INDEPENDENT_DETAIL": false
+      },
+      "VERDICT": "NOT_COLLIO_PATTERN",
+      "TECHNICIAN_STATE": "NO_NAMED_TECHNICIAN",
+      "NAMED_PEOPLE": [],
+      "WHY": "publica giornate in campo, rendimento, qualidade e preço — depois do evento. ORGANIZATION_COMMUNICATION, não boletim de campo"
+    },
+    {
+      "NAME": "AgroAmbiente.info — Regione Toscana",
+      "CROP": "cereali e outras",
+      "REGION": "Toscana",
+      "ENTITY_KIND": "ORGANIZATION",
+      "ROLE": "portal regional de dados e diagnose",
+      "PATTERN": {
+        "LOCAL_ORGANIZATION": false,
+        "NAMED_TECHNICIAN": false,
+        "FIELD_SEASONAL_CADENCE": false,
+        "LOCAL_OBSERVATION": false,
+        "WEATHER_OR_PHENOLOGY": false,
+        "FACT_LOCATION": false,
+        "FACT_TIME": false,
+        "PUBLIC_CHANNEL": true,
+        "INDEPENDENT_DETAIL": false
+      },
+      "VERDICT": "NOT_MEASURED",
+      "TECHNICIAN_STATE": "TECHNICIAN_IDENTITY_NOT_PROVED",
+      "NAMED_PEOPLE": [],
+      "WHY": "CORREÇÃO da rodada anterior: eu tinha dado esta porta como MORTA, com links de 2013 do ARSIA. Ela não morreu — MUDOU DE HOST. Está viva em agroambiente.info.regione.toscana.it, com seções Dati, Bollettini, Modelli, Diagnosi e Irrigazione, e é ela que o boletim do LaMMA linka. O conteúdo é renderizado por JavaScript e parte pede login, então segue NOT_MEASURED. DEAD_LINK ≠ DEAD_SERVICE"
+    }
+  ],
+  "CANDIDATES_COUNT": 7,
+  "CEREAL_CANDIDATES_COUNT": 6,
+  "PERSONS_IN_CEREAL_CHAIN": [
+    {
+      "NAME": "Maurizio Martinuzzi",
+      "ORGANIZATION": "ERSA FVG",
+      "STATE": "TECHNICIAN_INSIDE_INSTITUTION_ONLY",
+      "PUBLIC_CHANNEL": "INSTITUTIONAL_ONLY",
+      "ADDS": [
+        "REPETITION_ONLY"
+      ]
+    },
+    {
+      "NAME": "Valentina Caron",
+      "ORGANIZATION": "ERSA FVG",
+      "STATE": "TECHNICIAN_INSIDE_INSTITUTION_ONLY",
+      "PUBLIC_CHANNEL": "INSTITUTIONAL_ONLY",
+      "ADDS": [
+        "REPETITION_ONLY"
+      ]
+    },
+    {
+      "NAME": "técnico AIAB (não nomeado)",
+      "ORGANIZATION": "AIAB",
+      "STATE": "TECHNICIAN_IDENTITY_NOT_PROVED",
+      "PUBLIC_CHANNEL": "NOT_FOUND",
+      "ADDS": [
+        "INDEPENDENT_CONFIRMATION"
+      ],
+      "WHY": "o boletim do ERSA cita \"Fonte: tecnico AIAB\" ao lado do modelo Horta. Uma pessoa de campo alimenta o boletim oficial de cereais — e não tem nome. É o elo do Collio, sem a atribuição que o tornaria um sensor"
+    }
+  ],
+  "STRUCTURAL_EVIDENCE": {
+    "FINDING": "CONSORTIUM_LAYER_EXISTS_ONLY_FOR_VINE",
+    "HOW_MEASURED": "o índice de boletins do ERSA tem oito seções, e a sub-seção consorzi/ — onde seis consórcios publicam boletim próprio — existe só embaixo de vite",
+    "SECTIONS": [
+      "actinidia",
+      "cimice-marmorata-asiatica",
+      "colture-erbacee-orticole",
+      "colture-orticole",
+      "melo",
+      "nocciolo",
+      "olivo",
+      "vite"
+    ],
+    "CONSORTIUM_SLOT_UNDER": [
+      "vite"
+    ],
+    "WHY_THIS_MATTERS": "não é ausência de busca: é ausência verificável no índice da própria instituição que hospedaria"
+  },
+  "STRUCTURAL_HYPOTHESIS": {
+    "STATEMENT": "consórcio de denominação — território pequeno, delimitado e de alto valor por hectare — sustenta rede própria e técnico que assina toda semana. Cooperativa de cereais é comercial, cobre área grande com valor baixo por hectare, e a função de monitorar fica com a região",
+    "STATE": "NOT_MEASURED — explica o observado e não foi testada"
+  },
+  "CEREAL_CHAIN": {
+    "SHAPE": "MODELO + TÉCNICO DE ASSOCIAÇÃO (anônimo) → INSTITUIÇÃO → PDF",
+    "VS_VINE_CHAIN": "OBSERVADOR CIDADÃO → TÉCNICO NOMEADO → CONSÓRCIO → INSTITUIÇÃO",
+    "LINKS_MISSING": [
+      "organização local abaixo da região",
+      "técnico com canal público próprio",
+      "observador citado nominalmente"
+    ]
+  },
+  "CASE_FIELD_LEG": {
+    "ID": "IT-T3-LAMMA/2026-04-23",
+    "EVIDENCE_PATH": "data/samples/IT-T3-LAMMA/grosseto-ftsnt-2026-04-23.html",
+    "SHA256": "93527b546eefc271283251356abb7ec22a0d0d277895e9e5881888d9f0ae356a",
+    "PUBLISHED_AT": "2026-04-23",
+    "CROP": "frumento duro e tenero",
+    "ISSUE": "fusariosi, septoria, ruggini, oidio",
+    "DOCUMENT_SCOPE": {
+      "PLACE": "Grosseto",
+      "PRECISION": "PROVINCE",
+      "EVIDENCE": "Provincia di Grosseto - Bolletino Frumento del 2026-04-23 Fenologia La provincia presenta un’elevata variabilità tra area nord e sud. Nel nord il frumento tenero è in fase di spigatura nelle classi pr"
+    },
+    "FACT_LOCATIONS": [
+      {
+        "FACT_LOCATION": "Grosseto",
+        "FACT_LOCATION_PRECISION": "PROVINCE",
+        "PRECISION_SOURCE": "DOCUMENT_SCOPE",
+        "FACT_LOCATION_EVIDENCE": "Fusariosi Si segnala la comparsa di sintomi lievi nel frumento duro in alcune situazioni, mentre il tenero resta esente",
+        "FACT_LOCATION_SCOPE_EVIDENCE": "Provincia di Grosseto - Bolletino Frumento del 2026-04-23 Fenologia La provincia presenta un’elevata variabilità tra area nord e sud. Nel nord il frumento tenero è in fase di spigatura nelle classi pr",
+        "FACT_LOCATION_ANCHOR": "segnala",
+        "FACT_LOCATION_ORIGIN": "IT-T3-LAMMA/2026-04-23",
+        "TYPE_OF_EVIDENCE": "OFFICIAL_OCCURRENCE",
+        "WHY": "a oração relata sem nomear lugar; o lugar é o escopo que o cabeçalho do documento declara"
+      }
+    ],
+    "PLACE_MENTIONS_REJECTED": [
+      {
+        "PLACE": "Toscana",
+        "WHY": "topônimo sem relação semântica com o acontecimento"
+      },
+      {
+        "PLACE": "Grosseto",
+        "WHY": "topônimo sem relação semântica com o acontecimento"
+      }
+    ],
+    "TIME": {
+      "FACT_TIME": "NOT_KNOWN",
+      "FACT_TIME_PRECISION": "NOT_KNOWN",
+      "FACT_TIME_EVIDENCE": null,
+      "FACT_TIME_ORIGIN": "NOT_STATED",
+      "PUBLISHED_AT": "2026-04-23",
+      "FACT_TIME_CANDIDATES": [
+        "2026",
+        "2026"
+      ],
+      "TIME_CANDIDATES_DISCARDED": [
+        {
+          "VALUE": "2026-04",
+          "WHY": "SERIES_RANGE_NOT_FACT_TIME"
+        }
+      ],
+      "WHY": "nenhuma expressão temporal ficou amarrada ao acontecimento; a data de publicação não preenche esse campo"
+    },
+    "OCCURRENCE_NOT_INCIDENCE": {
+      "BY_TYPE_OF_EVIDENCE": {
+        "OFFICIAL_OCCURRENCE": 1
+      },
+      "OBSERVED_OCCURRENCES": 1,
+      "MODELLED_RISK_STATEMENTS": 0,
+      "INCIDENCE": "NOT_KNOWN",
+      "PREVALENCE": "NOT_KNOWN",
+      "REGIONAL_PRESSURE": "NOT_KNOWN",
+      "WHY": "ocorrência observada não é incidência, prevalência nem pressão regional — e as espécies de evidência não se somam entre si"
+    },
+    "SUB_PROVINCIAL_QUALIFIER": "o boletim separa \"area nord\" e \"area sud\" da província e dá fenologia diferente para cada uma. É zona agronômica, não unidade administrativa, e por isso NÃO vira FACT_LOCATION: fica como qualificador",
+    "SEPARATES_OBSERVATION_FROM_MODEL": "a própria fonte separa: \"Si segnala la comparsa di sintomi lievi nel frumento duro\" e, em parágrafo próprio, \"Rischio fusariosi da modello\""
+  },
+  "CREATOR_CITED_BY_TECHNICAL_CHAIN": {
+    "IN_VINE": "Lorenzo Ghiraldelli — \"Pazzi per il Meteo Goriziano\"",
+    "IN_CEREALS": "NOT_FOUND_IN_THIS_SEARCH",
+    "WHY": "nenhum boletim de cereais lido cita observador externo nomeado. O único elo externo é \"tecnico AIAB\", sem nome"
+  },
+  "TIMELINE": {
+    "FIRST_HUMAN_OBSERVATION": "NOT_OBSERVED — nenhuma pessoa nomeada na cadeia de cereais",
+    "FIRST_LOCAL_ORGANIZATION_SIGNAL": "NOT_OBSERVED — não há camada local",
+    "FIRST_REGIONAL_INSTITUTION_SIGNAL": "2026-04-23 (LaMMA, Grosseto)",
+    "CASE_DATE": "2026-04-23",
+    "ANTICIPATION": "ZERO dias. O sinal institucional e o caso são o MESMO documento e a MESMA data — não há antecedência a medir, e inventá-la seria o pior erro possível aqui"
+  },
+  "ADDS_OVER_REGIONAL_BASELINE": {
+    "EARLIER_THAN_INSTITUTION": [],
+    "MORE_LOCAL_THAN_INSTITUTION": [],
+    "FIELD_DETAIL": [
+      "Umbria — comune e sintoma"
+    ],
+    "INDEPENDENT_CONFIRMATION": [
+      "técnico AIAB (anônimo), no boletim do ERSA"
+    ],
+    "REPETITION_ONLY": [
+      "Maurizio Martinuzzi",
+      "Valentina Caron"
+    ]
+  },
+  "LAWS": [
+    "PRODUCER_COOP_ORGANIZATION ≠ PRODUCER_PERSON",
+    "CONSORTIUM_LAYER_EXISTS_ONLY_FOR_VINE (medido no índice do ERSA)",
+    "DEAD_LINK ≠ DEAD_SERVICE",
+    "ROUTE_TLS_CHAIN_INCOMPLETE ≠ NO_SIGNAL",
+    "DOCUMENT_SCOPE ≠ IN_SENTENCE_ANCHOR",
+    "AGRONOMIC_ZONE ≠ ADMIN_UNIT",
+    "SAME_DATE ≠ ANTICIPATION",
+    "NO_IN_MEASURED_NETWORK ≠ NO_IN_ITALY"
+  ],
+  "CEREAL_COLLIO_EQUIVALENT_FOUND": "PARTIAL",
+  "EXISTS_FOR_DURUM_FUSARIUM": "NOT_PROVED_NATIONALLY",
+  "EXISTS_FOR_DURUM_FUSARIUM_WHY": "na rede medida, o melhor sinal para grano duro × fusariosi é o boletim do LaMMA — institucional, sem pessoa assinando e sem camada local abaixo. É PARTIAL_COLLIO_PATTERN. Mas as regiões de maior peso do grano duro não tinham sido medidas quando isto foi escrito",
+  "CEREAL_HUMAN_LAYER_IN_MEASURED_NETWORK": "NOT_PROVED",
+  "ERSA_CONSORTIUM_LAYER_FOR_FIELD_CROPS": "ABSENT_IN_MEASURED_INDEX",
+  "CORRECTION_OF_THE_NATIONAL_CLAIM": "a rodada anterior publicou EXISTS_FOR_DURUM_FUSARIUM = NO. O que estava medido sustentava NOT_PROVED_NATIONALLY: Toscana, Umbria, FVG e Veneto são a rede que eu abri, e não são a Itália do grano duro. O achado do índice do ERSA continua de pé porque foi medido — ele diz que ALI a camada de consórcio não existe para culturas herbáceas, e não diz nada sobre a Puglia",
+  "PROSPECTIVE_INSTITUTIONAL_FIELD_SENSOR": {
+    "STATE": "PROVED",
+    "CROP_SCOPE": "frumento, orzo, mais",
+    "GEOGRAPHIC_SCOPE": "FVG, Veneto, Umbria, Toscana"
+  },
+  "PROSPECTIVE_TECHNICAL_PERSON_SENSOR": {
+    "STATE": "PROVED",
+    "CROP_SCOPE": "vite — NÃO cereais",
+    "GEOGRAPHIC_SCOPE": "Friuli-Venezia Giulia — NÃO Toscana"
+  },
+  "PROSPECTIVE_PRODUCER_COOP_SENSOR": {
+    "STATE": "PROVED",
+    "CROP_SCOPE": "vite — NÃO cereais",
+    "GEOGRAPHIC_SCOPE": "Friuli-Venezia Giulia"
+  },
+  "PROSPECTIVE_PRODUCER_PERSON_SENSOR": {
+    "STATE": "NOT_PROVED",
+    "CROP_SCOPE": "nenhuma",
+    "GEOGRAPHIC_SCOPE": "nenhuma"
+  },
+  "PROSPECTIVE_CREATOR_SENSOR": {
+    "STATE": "PROMISING",
+    "CROP_SCOPE": "vite (meteorologia) — NÃO cereais",
+    "GEOGRAPHIC_SCOPE": "goriziano"
+  },
+  "PROSPECTIVE_RESEARCHER_SENSOR": {
+    "STATE": "NOT_PROVED",
+    "CROP_SCOPE": "nenhuma",
+    "GEOGRAPHIC_SCOPE": "nenhuma"
+  },
+  "PROSPECTIVE_HUMAN_PERSON_SENSOR": {
+    "STATE": "PROVED",
+    "CROP_SCOPE": "vite — NÃO grano duro",
+    "GEOGRAPHIC_SCOPE": "Friuli — NÃO Toscana",
+    "MUST_CARRY": "prova a CLASSE, não o caso"
+  },
+  "PROSPECTIVE_HUMAN_PERSON_SENSOR_FOR_CEREALS": {
+    "STATE": "NOT_PROVED",
+    "CROP_SCOPE": "frumento, grano duro",
+    "GEOGRAPHIC_SCOPE": "Toscana, Umbria, FVG",
+    "WHY": "nenhuma pessoa com canal público próprio na cadeia de cereais"
+  },
+  "RECOMMENDATION": {
+    "COLLECT_RECURRENTLY": "a camada institucional regional de cereais — LaMMA Toscana, ERSA FVG, Umbria, Veneto. É a única que publica na janela para trigo, e a única que cobre a região e a data do caso",
+    "WHY": "a camada humana pessoal de cereais não existe como sensor público. Esperar por ela seria esperar por algo que a estrutura do setor não produz",
+    "DO_NOT_EXPECT": "antecedência sobre o boletim regional em cereais",
+    "WHERE_THE_PERSON_LAYER_EXISTS": "vinha, e lá vale coletar: consórcio + técnico nomeado + observador cidadão, com resolução de encosta",
+    "STILL_UNMEASURED": [
+      "Consorzio Agrario dell'Emilia — TLS incompleto, 3 tentativas",
+      "AgroAmbiente.info Toscana — JS e login, porta VIVA e não medida",
+      "os cinco outros consórcios de vinha do índice do ERSA",
+      "se algum consórcio de cereais do sul (Puglia, Basilicata) publica boletim"
+    ]
+  },
+  "STILL_FORBIDDEN_TO_WRITE": [
+    "ITALY OPPORTUNITY",
+    "SALES OPPORTUNITY",
+    "ADAMA SHOULD ACT",
+    "MARKET GAP"
+  ]
+}

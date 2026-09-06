@@ -1,0 +1,115 @@
+{
+  "CASE_ID": "IT-CASE-DURUM-FUSARIUM-001",
+  "SOURCE_ID": "DERIVED/IT-CASE-ANTICIPATION",
+  "source": "auditoria temporal das evidências do caso",
+  "SOURCE_LOCATION": "interno — auditoria sobre artefatos próprios",
+  "FACT_LOCATION": "ITALY — Toscana",
+  "ORIGINAL_LANGUAGE": "pt",
+  "EVIDENCE_CLASS": "DERIVED_INTERPRETATION",
+  "captured_at": "2026-08-30",
+  "CAPTURED_AT": "2026-08-30",
+  "CASE_DATE": "2026-04-23",
+  "LAW": "FUTURE_EVIDENCE_CANNOT_CLOSE_PAST_CASE",
+  "QUESTION": "se o Sintonia estivesse operando em 23/04/2026, quais sinais já estavam disponíveis naquele dia?",
+  "ANSWER": "os dois que formam o alerta: o boletim do LaMMA, publicado NO dia, e os cinco rótulos, todos com vigência declarada anterior. O alerta fecha sem nenhuma peça posterior.",
+  "RULE": {
+    "SUSTAINS_ALERT": "entra na justificativa do alerta daquele dia",
+    "CONTEXT_ONLY": "descreve ou audita o caso hoje, e NÃO o sustenta"
+  },
+  "AVAILABLE_BY_CASE_DATE": [
+    {
+      "ITEM": "Bollettino LaMMA Grosseto — frumento",
+      "SOURCE_ID": "IT-T3-LAMMA",
+      "SOURCE_DATE": "2026-04-23",
+      "ROLE": "SUSTAINS_ALERT",
+      "WHAT_IT_GIVES": "grano duro entrando em fioritura no sul; sintomas leves de fusariose observados no duro; chuva ocorrida e prevista; recomendação condicional de tratamento",
+      "PRESERVED": true,
+      "SHA256_IN": "IT-T3-LAMMA-grosseto-2026-04-23.json"
+    },
+    {
+      "ITEM": "Etichetta MAXENTIS",
+      "SOURCE_ID": "IT-T4-001-ETICHETTA",
+      "SOURCE_DATE": "2026-03-18",
+      "ROLE": "SUSTAINS_ALERT",
+      "IN_DOCUMENT_VALIDITY_IT": "decreto dirigenziale del 14.06.2024 e modificata ai sensi dell'art. 7, comma 1, D.P.R. n. 55/2012, con validità dal 18/03/2026",
+      "WHAT_IT_GIVES": "\"Frumento tenero e duro\" contra Fusarium spp. e Microdochium spp., janela até fine fioritura",
+      "PRESERVED": true,
+      "CAPTURE_NOTE": "o PDF foi baixado em agosto; o que datei é a vigência declarada DENTRO do documento, não o download"
+    },
+    {
+      "ITEM": "Etichetta KOJAMI",
+      "SOURCE_ID": "IT-T4-001-ETICHETTA",
+      "SOURCE_DATE": "2026-03-18",
+      "ROLE": "SUSTAINS_ALERT",
+      "IN_DOCUMENT_VALIDITY_IT": "decreto dirigenziale del 29 settembre 2025 e modificata ai sensi dell'art.7, comma 1, D.P.R. n. 55/2012, con validità dal 18/03/2026",
+      "WHAT_IT_GIVES": "idem MAXENTIS",
+      "PRESERVED": true
+    },
+    {
+      "ITEM": "Etichetta CUSTODIA ULTRA",
+      "SOURCE_ID": "IT-T4-001-ETICHETTA",
+      "SOURCE_DATE": "2022-04-29",
+      "ROLE": "SUSTAINS_ALERT",
+      "IN_DOCUMENT_VALIDITY_IT": "Etichetta Autorizzata con Decreto Dirigenziale del 29/04/2022",
+      "WHAT_IT_GIVES": "fungicida foliar de cereais autorizado em frumento tenero e duro",
+      "PRESERVED": true
+    },
+    {
+      "ITEM": "Etichetta BLAISE ULTRA",
+      "SOURCE_ID": "IT-T4-001-ETICHETTA",
+      "SOURCE_DATE": "2022-04-29",
+      "ROLE": "SUSTAINS_ALERT",
+      "IN_DOCUMENT_VALIDITY_IT": "Etichetta autorizzata con Decreto Dirigenziale del 29/04/2022",
+      "WHAT_IT_GIVES": "idem",
+      "PRESERVED": true
+    },
+    {
+      "ITEM": "Etichetta MIRADOR TURBO",
+      "SOURCE_ID": "IT-T4-001-ETICHETTA",
+      "SOURCE_DATE": "2022-04-29",
+      "ROLE": "SUSTAINS_ALERT",
+      "IN_DOCUMENT_VALIDITY_IT": "Etichetta Autorizzata con Decreto Dirigenziale del 29/04/2022",
+      "WHAT_IT_GIVES": "idem",
+      "PRESERVED": true
+    }
+  ],
+  "AVAILABLE_ONLY_LATER": [
+    {
+      "ITEM": "Instantâneo do registro ministerial (PROD_FTS_6_20260824.csv)",
+      "SOURCE_ID": "IT-T4-001",
+      "SOURCE_DATE": "2026-08-24",
+      "ROLE": "CONTEXT_ONLY",
+      "WHAT_IT_GIVES": "data_scadenza_autorizzazione e stato_amministrativo — donde sai que CUSTODIA ULTRA e BLAISE ULTRA vencem em 15/08/2026",
+      "WHY_CONTEXT_ONLY": "é posterior ao caso. O registro provavelmente já dizia isso em abril, mas eu não tenho instantâneo de abril, e \"provavelmente\" não fecha caso. O alerta é campo+rótulo e não precisa do vencimento.",
+      "PRESERVED": true
+    },
+    {
+      "ITEM": "Correção do extrator (elisão de cabeça) e a contagem de 26 produtos",
+      "SOURCE_ID": "DERIVED/IT-COORDINATION-SWEEP",
+      "SOURCE_DATE": "2026-08-30",
+      "ROLE": "CONTEXT_ONLY",
+      "WHAT_IT_GIVES": "a capacidade de EU enxergar que os rótulos autorizam grano duro",
+      "WHY_CONTEXT_ONLY": "é ferramenta minha, de agosto, não fato do mundo de abril. Distinção que importa: o RÓTULO já dizia \"Frumento tenero e duro\" em março; o que faltava era eu saber ler. A limitação era do observador, não da evidência — e por isso o alerta continua sustentável em 23/04/2026 por quem soubesse ler.",
+      "PRESERVED": true
+    },
+    {
+      "ITEM": "Crítica de viés de painel e cobertura nacional de campo",
+      "SOURCE_ID": "DERIVED/IT-PANEL-BIAS",
+      "SOURCE_DATE": "2026-08-30",
+      "ROLE": "CONTEXT_ONLY",
+      "WHAT_IT_GIVES": "57,9% do trigo duro sem sonda — limita o ESCOPO, não o alerta",
+      "PRESERVED": true
+    }
+  ],
+  "AUDIT_PASSES": true,
+  "VIOLATIONS": [],
+  "THE_SUBTLETY_THAT_ALMOST_SLIPPED": "os PDFs dos rótulos foram baixados em agosto. Isso NÃO os torna evidência futura — mas o rótulo italiano é modificável sob o art. 7 do D.P.R. 55/2012, e uma cópia de agosto pode carregar modificação de junho. Por isso a data usada não é a do download: é a VIGÊNCIA DECLARADA DENTRO do documento, conferida um a um. Todas ≤ 23/04/2026.",
+  "OBSERVER_LIMITATION_IS_NOT_EVIDENCE_LIMITATION": "a correção do extrator é de 30/08 e entra como CONTEXT_ONLY. Mas o rótulo já dizia \"Frumento tenero e duro\" desde março: o que faltava era eu saber ler. A limitação era do OBSERVADOR, não da evidência — e por isso o alerta continuava sustentável em 23/04/2026 por quem soubesse ler.",
+  "WHAT_THIS_PROVES": "que o Sintonia TERIA conseguido enxergar a convergência enquanto ela existia, com fonte pública disponível no dia",
+  "WHAT_THIS_DOES_NOT_PROVE": [
+    "que a convergência ainda exista hoje — a janela agronômica de 2026 fechou",
+    "que alguém tenha agido, comprado ou tratado",
+    "que haja oportunidade comercial: a janela comercial é NOT_KNOWN",
+    "nada fora da Toscana"
+  ]
+}

@@ -108,7 +108,7 @@ class TestSentinelasDoHandoffBatemComOLedger(unittest.TestCase):
 
     def test_os_valores_das_sentinelas_batem(self):
         t = texto(PROMPT)
-        for m, esperado in [('SOURCE_ID_COUNT', 37), ('RAIF_SEASONS_AVAILABLE', 23),
+        for m, esperado in [('SOURCE_ID_COUNT', 39), ('RAIF_SEASONS_AVAILABLE', 23),
                             ('RAIF_READINGS_TOTAL', 148964), ('ES_EXPIRING_6M', 486),
                             ('ES_EXPIRING_12M', 1004), ('ES_ACTIVE_WITH_PAST_EXPIRY', 34),
                             ('VOICE_ES_RESEARCHERS', 152), ('VOICE_ES_VIDEO_CONTENTS', 252),
@@ -120,8 +120,11 @@ class TestSentinelasDoHandoffBatemComOLedger(unittest.TestCase):
                              f'{m}: o valor no prompt diverge do ledger')
 
     def test_a_contagem_de_testes_do_handoff_bate(self):
+        # O documento escreve o milhar com ponto — e o `--sync` escreve assim. Comparar
+        # contra `1309` cru reprovava um handoff CERTO, que publicava `1.309`: o teste
+        # exigia um formato que o dono do numero nunca produz. `FORMATO != VALOR`.
         n = self.L['TEST_COUNT_CURRENT']['VALUE']
-        self.assertRegex(sem_marcador(HANDOFF), rf'\*\*{n} testes',
+        self.assertRegex(sem_marcador(HANDOFF), rf'\*\*{n:,}'.replace(',', r'\.') + r' testes',
                          'o handoff publica uma contagem de testes que nao e a atual')
         self.assertRegex(texto(PROMPT), rf'Esperado: {n} testes')
 

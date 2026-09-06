@@ -6,7 +6,7 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** atualizado em 2026-08-30 — **<!--M:SOURCE_ID_COUNT-->37<!--/M--> fontes registradas** (16 GREEN, 4 YELLOW, 17 NÃO SEI).
+**Estado:** atualizado em 2026-09-06 — **<!--M:SOURCE_ID_COUNT-->39<!--/M--> fontes registradas** (19 GREEN, 4 YELLOW, 16 NÃO SEI).
 **Última atualização:** 2026-08-29
 
 ---
@@ -352,6 +352,51 @@ rótulo (etichetta) de cada produto, que não faz parte deste dataset. Portanto 
 **não** sustenta hoje o mesmo cruzamento cultura × alvo que a França sustenta. O que a Itália
 dá, e a França não dá, é a **data de vencimento por autorização**.
 
+
+<!-- PASSO 03 · fichas portadas de claude/sintonia-italy-pilot-b1l401. O enxerto trouxe
+     coletor e evidencia destas quatro fontes; deixa-las sem ficha punha dado no repo sem
+     fonte documentada, que e o inverso da regra deste atlas. -->
+
+#### IT-T4-001-ETICHETTA · Ministero della Salute — etichetta autorizzata
+
+```
+SOURCE_ID:                    IT-T4-001-ETICHETTA
+SOURCE_OWNER:                 Ministero della Salute (Italia)
+COUNTRY:                      ITALY
+TERRITORY:                    T4 (alimenta T3 e T9)
+ACCESS_METHOD:                POST FitosanitariServlet ACTION=cercaProdotti
+                              NUMERO_REGISTRAZIONE=<reg com zeros à esquerda>
+                              -> HTML traz EtichettaServlet?id=<ID_INTERNO>
+                              -> GET dessa URL devolve o PDF
+CROPS:                        SIM — é justamente o que o CSV não tem
+TOPICS:                       cultura, alvo com nome científico, dose, volume,
+                              intervalo entre tratamentos, nº máx. de aplicações,
+                              intervalo de segurança, grupo HRAC/FRAC/IRAC
+PUBLICATION_DATE_AVAILABLE:   SIM — a data vem no nome do arquivo servido
+                              (`15232_etichettaCLP_29042022.pdf`)
+AUTOMATION_FEASIBILITY:       MÉDIA — ver os três defeitos da fonte abaixo
+LEGAL_OR_ACCESS_RISK:         BAIXO — documento oficial público
+REAL_EXAMPLE:                 CUSTODIA ULTRA (reg. 015232), rótulo de 29/04/2022:
+                              tabela com grano tenero/duro, orzo, cetriolo, melone,
+                              pomodoro, vite e alvos (Fusarium, Erysiphe, Puccinia,
+                              Septoria, Uncinula) com dose e nº de aplicações.
+EVIDENCE:                     data/samples/IT-T4-001/IT-T4-001-etichette-manifest.json
+VERDICT:                      GREEN COM RESSALVAS OPERACIONAIS
+```
+
+**Três defeitos DA FONTE, medidos. São ficha de saúde, não motivo de abandono:**
+
+1. **Cadeia TLS incompleta** — o host envia só a folha, sem o intermediário
+   `TI Trust Technologies OV CA`. `curl` recusa, e recusa com razão. A correção **não** é
+   desligar verificação: é buscar o intermediário no campo AIA do próprio certificado.
+2. **Cabeçalho `Public-Key-Pins` malformado** (linha partida, sem `:`) — `curl` aborta com
+   *Header without colon*; o parser do Python tolera. A rota é Python por medição.
+3. **Uma busca por sessão** — reusar o `JSESSIONID` devolve **vazio**, não erro. Vazio de
+   estrangulamento é indistinguível de vazio de inexistência. Sessão nova por consulta,
+   com retentativa: `NO_LABEL_LINK` só se publica depois de esgotadas as tentativas, e
+   **nunca** significa "o rótulo não existe" — na primeira passada 14 registros ficaram
+   sem rótulo e a maioria foi recuperada **só por esperar mais**.
+
 ---
 
 ### T4 · REGULATORY — SPAIN
@@ -606,11 +651,56 @@ VERDICT:                      GREEN
 | ID | Fonte | Situação | Motivo medido |
 |---|---|---|---|
 | FR-T1-001 | Agreste — Statistique agricole annuelle (SAA) | **NÃO SEI** | `agreste.agriculture.gouv.fr` falhou por TLS via curl e devolveu **HTTP 503** por outra rota de saída. Indisponibilidade do próprio site, não decisão sobre a fonte. |
-| IT-T1-001 | ISTAT — coltivazioni (SDMX) | **NÃO SEI** | `esploradati.istat.it` não respondeu no tempo limite; `sdmx.istat.it` devolveu 302 sem conteúdo. |
+| IT-T1-001 | ISTAT — coltivazioni (SDMX) | **RESOLVIDA no P0.2 · PASSO 03 — hoje GREEN, ficha em `T1 · CROP & PRODUCTION — ITALY`** | Medição de então, preservada: `esploradati.istat.it` não respondeu no tempo limite e `sdmx.istat.it` devolveu 302 sem conteúdo. **Aquilo não era ausência da fonte, era ausência da rota** — o enxerto trouxe a rota SDMX que responde, `scripts/italia_istat.py` e a evidência. |
 | ES-T1-001 | MAPA — Estadística Anual de Superficies y Producciones | **NÃO SEI** | localizados apenas os *esquemas de conceitos* no datos.gob.es, não a série. |
 
 Nenhuma delas é RED: **não foram avaliadas, foram apenas não alcançadas**. Não bloqueiam T1,
 porque EU-T1-001 já entrega área por NUTS 2 com 25 anos para os três países.
+
+> **A linha do ISTAT ficou.** Uma fonte que passou de `NÃO SEI` a `GREEN` não apaga a rodada em
+> que não foi alcançada: apagar o registro faria a régua parecer sempre certa. `NOT_REACHED ≠
+> DOES NOT EXIST`, e a prova disso é a própria linha ter mudado de estado sem ser removida.
+
+---
+
+### T1 · CROP & PRODUCTION — ITALY
+
+<!-- PASSO 03 · ficha portada de claude/sintonia-italy-pilot-b1l401. O enxerto trouxe
+     coletor e evidencia desta fonte; deixa-la sem ficha punha dado no repo sem fonte
+     documentada, que e o inverso da regra deste atlas. -->
+
+#### IT-T1-001 · ISTAT — Coltivazioni: superfici e produzione
+
+```
+SOURCE_ID:                    IT-T1-001
+SOURCE_OWNER:                 ISTAT
+COUNTRY:                      ITALY
+TERRITORY:                    T1
+ACCESS_METHOD:                SDMX REST, CSV/JSON, sem chave
+                              dataflow IT1,101_1015_DF_DCSP_COLTIVAZIONI_1,1.0
+GEOGRAPHIC_GRANULARITY:       PAÍS · REGIÃO · PROVÍNCIA
+CROPS:                        inclui OLIVEIRA e VIDEIRA — que o Eurostat NÃO dá em NUTS 2
+REAL_EXAMPLE:                 2024: videira 588,8 mil ha (Sicilia 120,2 · Veneto 101,0 ·
+                              Puglia 79,1); oliveira 1.113,7 (Puglia 347,8 · Calabria
+                              184,7 · Sicilia 161,7)
+VERDICT:                      GREEN
+```
+
+**Por que ela importa:** o Eurostat não publica `O1000` nem `W1000` em NUTS 2. Sem o ISTAT,
+as duas maiores culturas permanentes da Itália ficam sem geografia — e sem geografia não há
+caso regional.
+
+**A armadilha, e ela não dá erro.** O ISTAT codifica regiões em **NUTS 2006**; o Eurostat em
+**NUTS 2021**. `ITD3` é Vêneto no primeiro e `ITH3` no segundo. Cruzar pela chave literal
+devolve um resultado **menor e plausível**: somem `ITD*` e `ITE*`, ou seja todo o Nord-Est e
+todo o Centro — Vêneto e Emilia-Romagna, justamente as que mais importam para milho e
+videira. O sintoma foi a soma NUTS 2 do milho dar 261,3 mil ha contra 495,4 nacionais.
+Com o mapeamento: 495,2 (100,0 %). O mapa vive em `scripts/italia_istat.py`.
+
+**Validação cruzada:** milho 495,4 = 495,4 · trigo duro 1.177,4 = 1.177,4 · trigo mole
+520,3 = 520,3 contra o Eurostat. **Idênticos**, porque é o mesmo dado — o Eurostat republica
+o que o ISTAT apura. Videira **não** bate (588,8 × 715,8): definições diferentes, e os dois
+números não se trocam.
 
 ---
 
@@ -847,6 +937,141 @@ VERDICT:                      YELLOW
 A Itália tem 20 regiões, cada uma com seu próprio serviço fitossanitário. O que se sabe é
 que **existe** sistema regional publicado; **não se sabe** a cobertura nacional. Tratar
 Emilia-Romagna como "a Itália" seria erro grosseiro.
+
+<!-- PASSO 03 · ficha portada de claude/sintonia-italy-pilot-b1l401. O enxerto trouxe
+     coletor e evidencia destas fontes; deixa-las sem ficha punha dado no repo sem fonte
+     documentada, que e o inverso da regra deste atlas. -->
+
+#### IT-T3-006 · ERSA Friuli-Venezia Giulia — bollettini colture erbacee
+
+```
+SOURCE_ID:                    IT-T3-006
+SOURCE_OWNER:                 ERSA — Servizio fitosanitario e chimico, FVG
+COUNTRY:                      ITALY · REGION: Friuli-Venezia Giulia
+ACCESS_METHOD:                PDF em caminho previsível, texto extraível
+UPDATE_FREQUENCY:             semanal na safra
+REAL_EXAMPLE:                 "Boll_15_MAIS_120826" — mais em BBCH 65-75, voo de 3ª
+                              geração de piralide, limiar publicado (>3 ovaturas/100
+                              plantas; larvas em 30-40% de 50-100 espigas)
+VERDICT:                      GREEN
+```
+
+**É a única série de boletim de MILHO medida na Itália** — 10 números em 2026, sob difesa
+integrata obbligatoria (art. 19 D.lgs. 150/2012). Foi encontrada só na segunda rodada,
+porque na primeira eu li a página-mãe das *colture erbacee* e não a subpágina
+`bollettini-2026`. `NOT_FOUND ≠ DOES NOT EXIST`, e a diferença era um clique.
+
+#### IT-T3-LOTTA · Decretos regionais de lotta obbligatoria (flavescência dourada)
+
+```
+SOURCE_ID:                    IT-T3-LOTTA-OBBLIGATORIA
+SOURCE_OWNER:                 Regione Lombardia · Regione del Veneto
+TERRITORY:                    T3 (alimenta T4 e T9)
+ACCESS_METHOD:                PDF do ato + bollettini semanais
+REAL_EXAMPLE:                 Lombardia, Comunicato Giunta 25/05/2026 n. 39 (BURL 28/05):
+                              2 tratamentos, 2–14/06 e 17–29/06.
+                              Vêneto, DDR n. 13645 de 14/05/2026: datas NÃO no ato,
+                              delegadas ao boletim semanal (8–19/06 na integrada).
+VERDICT:                      GREEN
+```
+
+**As duas regiões não publicam do mesmo jeito**, e quem tratar "o calendário italiano" como
+uma coisa só vai errar em uma das duas: a Lombardia resolve num documento, o Vêneto exige
+dois — e o segundo muda toda semana.
+
+**A regra de elegibilidade liga a norma ao portfólio:** a Lombardia admite exclusivamente
+produtos cujo rótulo traga como alvo `«cicaline della vite»` ou `«Scaphoideus titanus»`.
+É um critério que se avalia **contra o texto da etichetta**, e por isso `IT-T4-001-ETICHETTA`
+é pré-requisito desta ficha.
+
+#### IT-T3-002 · Servizio fitosanitario della Regione del Veneto — bollettini di difesa integrata
+
+```
+SOURCE_ID:                    IT-T3-002
+SOURCE_OWNER:                 Regione del Veneto — U.O. Fitosanitario
+COUNTRY:                      ITALY · REGION: Veneto
+LANGUAGE:                     IT
+TERRITORY:                    T3
+ACCESS_METHOD:                PDF semanal, uma série por cultura (vite, olivo, frutticolo,
+                              orticolo), numerada e datada no nome do arquivo
+                              (`vite_19_130826.pdf` = n. 19 de 13/08/2026)
+GEOGRAPHIC_GRANULARITY:       região, com sub-áreas nomeadas dentro do boletim
+UPDATE_FREQUENCY:             semanal na safra
+PUBLICATION_DATE_AVAILABLE:   SIM — número e data no cabeçalho e no nome do arquivo
+RAW_EVIDENCE_PRESERVABLE:     SIM — os PDFs estão no repositório
+REAL_EXAMPLE:                 VITE n. 19 de 13/08/2026: adulto da cicalina presente; videiras
+                              com sintomas de Giallumi devem ser capitozzate ou estirpate;
+                              trocar as armadilhas cromotrópicas a cada duas semanas.
+                              OLIVO n. 29 de 02/09/2026: inolizione — inizio invaiatura.
+EVIDENCE:                     data/samples/IT-ARPAV-VENETO/ (6 PDFs + texto extraído) ·
+                              data/samples/IT-FONTES/ITALY-SOURCE-PROBE.json (HTTP 200, 30/08/2026)
+VERDICT:                      GREEN
+```
+
+**Esta ficha existia como dado antes de existir como fonte.** `IT-T3-002` já era citado como
+perna de CAMPO do `IT-HERO-001` (videira × flavescência) e do `IT-DEMO-001` (oliveira ×
+*Bactrocera oleae*) com **conteúdo citado e datado**, e o atlas não o registrava. Era dado
+publicado órfão de fonte documentada — o inverso da regra deste atlas. Sondado e fichado no
+P0.2 · PASSO 03, contra os PDFs preservados.
+
+**Ressalva de dono, e ela é fácil de errar:** o mesmo diretório de evidência guarda o
+**BOLLETTINO AGROMETEOROLOGICO REGIONALE** da **ARPAV** (`boll_agro_settimanale.pdf`) e as
+séries das estações agrometeorológicas. **Outro dono, outra série, outro território.**
+`AGROMETEO != FITOSANITARIO`: o boletim de cultura é do Servizio fitosanitario e cita a
+ARPAV como colaboradora do bloco meteorológico — citar não é publicar.
+
+#### IT-T3-LAMMA · Consorzio LaMMA (Regione Toscana / CNR) — bollettino fitosanitario provincial
+
+```
+SOURCE_ID:                    IT-T3-LAMMA
+SOURCE_OWNER:                 Consorzio LaMMA — Regione Toscana / CNR
+COUNTRY:                      ITALY · REGION: Toscana
+TERRITORY:                    T3
+ACCESS_METHOD:                HTML por província. **Não existe PDF desta série** — os dois
+                              PDFs linkados na página são fichas de peronospora e oídio da
+                              VIDEIRA, outros documentos
+GEOGRAPHIC_GRANULARITY:       província
+PUBLICATION_DATE_AVAILABLE:   SIM — a data está no título da seção
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML íntegro, 25.680 bytes,
+                              sha256 93527b546eefc271283251356abb7ec22a0d0d277895e9e5881888d9f0ae356a
+REAL_EXAMPLE:                 Grosseto, «Bolletino Frumento del 2026-04-23»: o duro «si colloca
+                              tra piena fioritura e inizio fioritura» e há «la comparsa di
+                              sintomi lievi» de fusariose — sintoma OBSERVADO, não modelado
+EVIDENCE:                     data/samples/IT-T3-LAMMA/grosseto-ftsnt-2026-04-23.html ·
+                              manifesto IT-T3-LAMMA-grosseto-2026-04-23.json (sha256 reconferido do disco)
+VERDICT:                      GREEN
+```
+
+**Defeito DA FONTE, medido: a página é rolante.** Encerrada a campanha, a última edição fica
+exposta e as anteriores saem. A série é **FORWARD-ONLY**: o que não for arquivado no dia
+deixa de existir. Por isso os bytes estão no repositório e o hash é reconferível —
+`scripts/italia_preservar_lamma.py --verify` recalcula do disco e do remoto. **Reconstruir de
+memória seria proibido**, e não foi preciso: a rota devolveu o mesmo sha256 em duas coletas.
+
+#### IT-T3-OP · organizações de produtores olivícolas — sinal de campo fora do serviço regional
+
+```
+SOURCE_ID:                    IT-T3-OP
+SOURCE_OWNER:                 Assoprol Umbria · APOL (Lecce) · +2 sondadas
+COUNTRY:                      ITALY · REGION: Umbria e Puglia
+TERRITORY:                    T3
+ACCESS_METHOD:                bollettino próprio da organização, fora do portal regional
+REAL_EXAMPLE:                 Assoprol Umbria, «Bollettino Fitosanitario Olivo 2026 —
+                              Monitoraggio mosca delle olive n. 3», válido de 6 a 10 de julho
+                              de 2026, território regional: capturas em armadilha, fenologia
+                              BBCH 71-75 e recomendação
+COVERAGE:                     4 sondadas · **1 CONTENT_READ** · 1 EXISTS_NOT_READABLE
+EVIDENCE:                     data/samples/IT-FONTES/ITALY-OP-FIELD-LAYER.json
+VERDICT:                      YELLOW — uma de quatro lida
+```
+
+**A lei que esta camada acrescentou: `SOURCE_LAYER != SIGNAL_ABSENCE`.** Publicámos que «a
+Puglia tem 31,2 % da área de oliveira e publica ZERO boletins». O que sobrevive: o **serviço
+regional** da Puglia publica zero, e a inversão contra o Vêneto (28 boletins com 0,5 % da
+área) continua de pé **como comparação entre serviços regionais**. O que **não** sobrevive é a
+leitura «na Puglia não há sinal de olivo»: há, e sai da organização de produtores — a APOL de
+Lecce mantém série numerada semanal de mosca-da-azeitona, com edições de 2026. Medir a camada
+estatal e concluir ausência é perguntar à **instituição errada dentro da região certa**.
 
 #### EU-T3-001 · EPPO Global Database
 
@@ -1431,8 +1656,18 @@ O placar conta **SOURCE_IDs**, não fichas. Uma ficha pode cobrir mais de um SOU
 (ex.: `FR/ES/IT-T9-001` é uma ficha e três fontes), e algumas fontes testadas aparecem em
 tabelas de "não alcançadas" sem ficha própria (as nacionais de T1, EU-T10-002/003).
 
-Verificado na MISSÃO 07 e atualizado em 2026-08-29: **26 fichas · <!--M:SOURCE_ID_COUNT-->37<!--/M--> SOURCE_IDs · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
+Verificado na MISSÃO 07, atualizado em 2026-08-29 e recontado no P0.2 · PASSO 03: **<!--M:SOURCE_FICHA_COUNT-->33<!--/M--> fichas · <!--M:SOURCE_ID_COUNT-->39<!--/M--> SOURCE_IDs · <!--M:SOURCE_GREEN_COUNT-->19<!--/M--> GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
 Os números batem. `tests/test_canonico.py` passou a verificar isso.
+
+**Duas fichas do PASSO 03 têm ID fora do formato do ledger** — `IT-T4-001-ETICHETTA` e
+`IT-T3-LOTTA-OBBLIGATORIA`. Não casam com `(EU|FR|ES|IT)-T\d{1,2}-\d{3}` e portanto **não
+movem `SOURCE_ID_COUNT`**, pelo mesmo mecanismo declarado para `IT-SRCX-###`. **Não é
+promoção silenciosa nem descuido:** os dois IDs já são usados *literalmente* pelo coletor, pelas
+amostras e pelo portal (`scripts/italia_etichette.py`, `scripts/italia_lotta_obbligatoria.py`,
+`data/samples/IT-T3-LOTTA/`, `italia-portale/client/italy-ingested.js`), e renomeá-los para caber
+na régua quebraria dado já publicado. Ficam declarados aqui como **`LEDGER_ID_MISMATCH`** —
+fonte **documentada** e **não contada**. `FICHA_DOCUMENTADA ≠ SOURCE_ID_CONTADO`, e a diferença
+é visível em vez de silenciosa.
 
 **A ficha nova é `ES-T5-002`** — a camada científica espanhola, que entregava 152
 pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversarial de
@@ -1446,8 +1681,93 @@ pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversa
 | EUROPE | 8 | 0 | 0 | 7 | 15 |
 | FRANCE | 2 | 2 | 0 | 3 | 7 |
 | SPAIN | 5 | 0 | 0 | 4 | 9 |
-| ITALY | 1 | 2 | 0 | 3 | 6 |
-| **Total** | **16** | **4** | **0** | **17** | **37** |
+| ITALY | 4 | 2 | 0 | 2 | 8 |
+| **Total** | **19** | **4** | **0** | **16** | **39** |
+
+## RECONCILIAÇÃO DE SOURCE_IDs USADOS FORA DO ATLAS — P0.2 · PASSO 03
+
+Regra que este bloco existe para cumprir: **dado não entra no repositório órfão de fonte
+documentada.** A varredura é mecânica e reprodutível — todo token no formato
+`(EU|FR|ES|IT)-T<n>-<seq>` que aparece em `data/`, `scripts/`, `docs/`, `research/` e no
+portal, comparado com os SOURCE_IDs deste atlas:
+
+```
+grep -rhoE '\b(EU|FR|ES|IT)-T[0-9]{1,2}-[0-9]{3}\b' data/ scripts/ docs/ research/ \
+     italia-portale/client italia-portale/BASELINE | sort -u
+```
+
+**34 tokens** ficam fora das fichas. Nenhum é silencioso: cada um está classificado abaixo,
+com onde está documentado e por que não virou ficha. `FICHA_DOCUMENTADA != SOURCE_ID_CONTADO`
+e `PROBE_GREEN != FICHA` são as duas leis que organizam a tabela.
+
+### A · Reconciliados — mesmo objeto, outro nome (não contam duas vezes)
+
+| ID usado | É, comprovadamente | Prova |
+|---|---|---|
+| `IT-T5-001`, `IT-T5-001-B` | recorte italiano de `EU-T5-001` (OpenAlex) | `MAPA-DE-FONTES-ITALIA.md` §4 intitula a entrada «OpenAlex — recorte italiano»; os arquivos declaram `"source": "OpenAlex"`. Rota REST aberta, a mesma. |
+| `IT-T3-004` | primeira medição de `IT-T3-006` (ERSA Friuli-VG) | mesma região e mesma seção «colture erbacee»; a segunda rodada achou a subpágina `bollettini-2026` e 10 boletins de milho. Ver o bloco de reconciliação do mapa nacional. |
+| `IT-T3-ER-MODENA` | `IT-T3-001` | a ficha de `IT-T3-001` nomeia os *Consorzi Fitosanitari Provinciali (Reggio Emilia, Modena…)*. |
+| `IT-T3-LOTTA-B` | `IT-T3-LOTTA-OBBLIGATORIA` | mesma série de decretos regionais; sufixo de lote, não fonte nova. |
+| `IT-SRC-MINISTERO` · `IT-SRC-MODENA` · `IT-SRC-PIEMONTE` · `IT-SRC-REGIONAL` · `IT-SRC-OPENALEX` | chaves internas do portal (`IT-RADAR-V21`) | namespace `IT-SRC-*`, que **não casa** com a régua do ledger; apontam para `IT-T4-001`, `IT-T3-001`, `IT-T3-005`, a camada regional e `EU-T5-001`. `CHAVE_DE_RENDERIZAÇÃO != SOURCE_ID`. |
+
+### B · `PROBED_CANDIDATE / NOT_PROMOTED` — 16 IDs
+
+`IT-T3-007` · `IT-T3-008` · `IT-T5-002` · `IT-T5-003` · `IT-T7-001` · `IT-T7-002` ·
+`IT-T7-003` · `IT-T7-004` · `IT-T9-002` · `IT-T9-003` · `IT-T9-004` · `IT-T9-005` ·
+`IT-T13-002` · `IT-T13-003` · `IT-T13-004` · `IT-T13-005`
+
+**Onde estão documentados:** `data/samples/IT-FONTES/ITALY-SOURCE-PROBE.json`, com HTTP,
+bytes, formato, datas vistas, frescor e `ACCESS_STATUS` medidos em 30/08/2026 —
+16 GREEN, 3 BLOCKED (403 em Syngenta, Bayer e ADAMA Itália), 1 NOT_REACHED.
+
+**Por que NÃO viraram ficha, e a razão é medida:** a sondagem mede **alcance e frescor**, não
+contrato de fonte. Nenhum deles tem, hoje, licença lida, granularidade declarada, exemplo
+real extraído nem caminho de evidência bruta no repositório. O próprio arquivo declara o
+método: *«mede ALCANCE, FRESCOR e ASSUNTO. `HTTP 200 ≠ FONTE VIVA`»*. Promovê-los agora
+seria escrever ficha por analogia — inventar. **Nenhum dado publicado depende deles:** os
+16 aparecem só no probe e no script que o gera (`scripts/italia_fontes_probe.py`).
+
+**O risco que fica declarado:** eles **ocupam o namespace canônico** sem ficha. Enquanto
+estiverem assim, nenhum destes números pode ser reemitido para outra fonte — foi por não
+querer esse risco que a camada de descoberta usou `IT-SRCX-###`.
+
+### C · Documentados só no mapa nacional — 4 IDs
+
+| ID | Documentado em | Estado medido | Por que não é ficha |
+|---|---|---|---|
+| `IT-T3-003` | `MAPA-DE-FONTES-ITALIA.md` §3 | **GREEN** — 2026: 6 videira · 4 macieira · 0 herbáceas | rota medida, mas **sem evidência bruta preservada** no repositório. **Ressalva registrada:** a linha de proveniência de `ITALY-HERO-CASES-V1` diz «derivado de … IT-T3-002/003/006», e **nenhuma perna de caso cita `IT-T3-003`** — a prosa nomeia mais fontes do que as pernas usam. Corrigir a prosa exigiria reabrir o pacote de casos, que não é escopo deste passo; fica declarado em vez de silencioso. |
+| `IT-T3-005` | `MAPA-DE-FONTES-ITALIA.md` §3 | **YELLOW** — *disciplinari* + decretos de deroga | `ISSUE_KNOWN != CURRENT_SIGNAL`: o Piemonte publica o primeiro, não o segundo. |
+| `IT-T3-004` | idem | **YELLOW, superada** | ver grupo A. |
+| `IT-T4-002` | `MAPA-DE-FONTES-ITALIA.md` §1 | categoria fitoiatrica (taxonomia oficial) | é **vocabulário**, não fonte de fato; entra no mesmo balde de `ES-T4-001`, que é ficha porque tem rota XLSX e exemplo lido. Este ainda não tem. |
+
+### D · Dívida anterior a este passo — 13 IDs
+
+`ES-T2-002` · `ES-T2-003` · `ES-T3-002` · `ES-T4-004` · `ES-T5-003` · `ES-T5-004` ·
+`ES-T6-001` · `ES-T8-001` · `ES-T8-002` · `ES-T8-003` · `ES-T9-002` · `EU-T9-001` ·
+`IT-T12-001`
+
+**Já estavam no repositório antes de `bdb57cf`** — conferido token a token contra a base — e
+portanto **não são efeito deste enxerto**. Ficam nomeados porque a alternativa é carregá-los
+em silêncio. Onde já há descrição: `ES-T8-001/002` em `docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md`;
+`ES-T2-002`, `ES-T3-002` e `ES-T6-001` em `docs/relatorios/RELATORIO-FILA-AUTONOMA-ES.md`;
+`ES-T4-004` em `docs/apresentacao/CASOS-PARA-APRESENTACAO.md` e no atlas de capacidades.
+`IT-T12-001` **não é uso**: é o exemplo da própria «Convenção de SOURCE_ID» acima. `EU-T9-001`
+é grafia divergente de `FR/ES/IT-T9-001` num único documento.
+
+**Estado do portão, declarado sem arredondar:**
+
+```
+SOURCE_IDS_WITHOUT_ATLAS_ENTRY   = 0 não classificados
+                                   34 classificados, com razão medida e reprodutível
+NOVOS DESTE PASSO SEM FICHA      = 20 — 16 no grupo B, 4 no grupo C
+ANTERIORES A bdb57cf             = 14 — os 13 do grupo D mais IT-T5-001,
+                                   que é anterior E reconciliado (grupo A)
+DADO PUBLICADO ÓRFÃO DE FONTE    = 0 — as fontes que alimentam caso publicado
+                                   (IT-T3-002, IT-T3-LAMMA, IT-T3-OP, IT-T1-001,
+                                   IT-T3-006, IT-T4-001-ETICHETTA) foram fichadas aqui
+```
+
+---
 
 ### Cobertura por território
 
@@ -1456,6 +1776,6 @@ pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversa
 | EUROPE | 2G | 3G/1? | 1? | 1G/1? | 1G | 1G | – | 1? | – | 1G/2? | – | **1G** |
 | FRANCE | 1? | – | 1Y/1? | 1G | – | – | – | – | 1? | – | 1Y | – |
 | SPAIN | 1? | – | **1G** | 3G/1? | – | – | – | – | 1? | – | – | – |
-| ITALY | 1? | – | 1Y | 1G | – | – | – | – | 1? | – | 1Y | – |
+| ITALY | **1G** | – | 1Y/**2G** | 1G | – | – | – | – | 1? | – | 1Y | – |
 
 *(– = não investigado)*

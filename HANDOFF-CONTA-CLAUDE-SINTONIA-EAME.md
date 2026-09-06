@@ -18,7 +18,7 @@ a reportar, não um erro a ignorar.
 | **HEAD** | ver `git rev-parse HEAD` — o commit de handoff é o último |
 | **REMOTE_HEAD** | idêntico ao local no momento do push |
 | **WORKING_TREE** | limpo |
-| **TESTS** | `python3 -m unittest discover -s tests` → **<!--M:TEST_COUNT_CURRENT-->649<!--/M--> testes, 0 falhas, 0 erros, 0 pulados** |
+| **TESTS** | `python3 -m unittest discover -s tests` → **<!--M:TEST_COUNT_CURRENT-->1.334<!--/M--> testes, 0 falhas, 0 erros, 0 pulados** |
 | **LAST_MAJOR_MISSION** | 10B-ES — fechar os portões estruturais antes de coletar mais |
 | **CURRENT_COUNTRY_SCOPE** | **ESPANHA**. França e Itália **não** foram abertas na camada de voz. |
 
@@ -527,7 +527,7 @@ relatório.** Há teste que varre o repositório atrás de padrão de token.
 ## T · FONTES / ATLAS
 
 Documento dono: `docs/fontes/ATLAS-DE-FONTES-EAME.md`.
-**<!--M:SOURCE_ID_COUNT-->37<!--/M--> SOURCE_IDs · <!--M:SOURCE_FICHA_COUNT-->26<!--/M--> fichas · <!--M:SOURCE_GREEN_COUNT-->16<!--/M--> GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI.**
+**<!--M:SOURCE_ID_COUNT-->39<!--/M--> SOURCE_IDs · <!--M:SOURCE_FICHA_COUNT-->33<!--/M--> fichas · <!--M:SOURCE_GREEN_COUNT-->19<!--/M--> GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI.**
 
 ### As que a próxima conta precisa conhecer primeiro
 
@@ -666,10 +666,12 @@ Verificadas hoje, todas continuam válidas:
 ### Arquivos em que eu confio mais
 `data/samples/*.json` com envelope de proveniência. `scripts/metricas_canonicas.py` — **é a
 fonte de verdade dos números**, e há teste que reprova documento com número divergente.
-`tests/` inteiro: <!--M:TEST_COUNT_CURRENT-->329<!--/M--> testes que codificam as leis, não só o comportamento.
+`tests/` inteiro: <!--M:TEST_COUNT_CURRENT-->1.334<!--/M--> testes que codificam as leis, não só o comportamento.
 
 ### Documentos que envelhecem rápido
-Qualquer `.md` com número digitado sem marcador `<!--M:NOME-->`. Os documentos de missão
+Qualquer `.md` com número digitado sem marcador de ledger — a forma é `M:<NOME>` num
+comentário HTML, fechado por `/M`, e escrevê-la aqui por extenso abriria uma marcação
+viva que engoliria a próxima de verdade. Os documentos de missão
 (`MISSAO-EAME-01`, `SEGUNDA-PASSAGEM`) são registro histórico e **envelheceram de propósito**.
 
 ### Onde os números divergem
@@ -780,7 +782,7 @@ científico (380 instituições com afiliação declarada).
 ## AB · COMANDOS — todos testados nesta sessão
 
 ```bash
-# suíte canônica — <!--M:TEST_COUNT_CURRENT-->329<!--/M--> testes
+# suíte canônica — <!--M:TEST_COUNT_CURRENT-->1.334<!--/M--> testes
 python3 -m unittest discover -s tests
 python3 -m unittest discover -s tests -q          # silencioso
 python3 -m unittest tests.test_pipeline            # um arquivo

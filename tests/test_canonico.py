@@ -324,8 +324,12 @@ class TestNumerosEntreDocumentos(unittest.TestCase):
         """
         suite = unittest.defaultTestLoader.discover(os.path.dirname(os.path.abspath(__file__)))
         n = suite.countTestCases()
-        self.assertRegex(self.DOCS['corrente'], rf'TESTES_REAIS\s*=\s*{n}\b',
-                         f'o documento CORRENTE não declara TESTES_REAIS = {n}')
+        # O documento escreve o milhar com ponto, e e assim que o `--sync` o escreve.
+        # Exigir `1309` cru reprovava um documento CERTO que publicava `1.309`: o teste
+        # cobrava um formato que o dono do numero nunca produz. `FORMATO != VALOR`.
+        escrito = f'{n:,}'.replace(',', r'\.')
+        self.assertRegex(self.DOCS['corrente'], rf'TESTES_REAIS\s*=\s*{escrito}\b',
+                         f'o documento CORRENTE não declara TESTES_REAIS = {n:,}'.replace(',', '.'))
 
     def test_o_numero_da_missao_08_e_historico(self):
         """91 é o que a MISSÃO 08 mediu. Reescrever seria apagar o registro."""

@@ -1,0 +1,90 @@
+{
+  "CASE_ID": "IT-CASE-DURUM-FUSARIUM-001",
+  "SOURCE_ID": "DERIVED/IT-SENSORES-HUMANOS-VEREDITO",
+  "source": "medição da camada de sensores humanos no LinkedIn, via Apify",
+  "SOURCE_LOCATION": "LinkedIn",
+  "FACT_LOCATION": "NOT_KNOWN — nenhum post sustentou localização de fato",
+  "ORIGINAL_LANGUAGE": "pt",
+  "EVIDENCE_CLASS": "DERIVED_MEASUREMENT",
+  "captured_at": "2026-08-30",
+  "CAPTURED_AT": "2026-08-30",
+
+  "A_PERGUNTA": "As vozes humanas acrescentam sinal de campo, ou antecedência, ao SINTONIA?",
+
+  "RESPOSTA": "NÃO, NESTE PAINEL — e o motivo é mais interessante que o resultado.",
+
+  "O_QUE_FOI_MEDIDO": {
+    "PLATAFORMA": "LinkedIn, e só ela",
+    "ALVOS": 8,
+    "JANELA": ["2026-01-01", "2026-05-31"],
+    "CASE_DATE": "2026-04-23",
+    "EXECUCOES_PAGAS_NESTA_RODADA": 14,
+    "EXECUCOES_DESPERDICADAS": 0
+  },
+
+  "ETAPA_1_IDENTIDADE": {
+    "IDENTITY_CONFIRMED": ["Pasquale De Vita", "Federico Cavina"],
+    "IDENTITY_PLAUSIBLE_NOT_PROVED": ["Nicola Pecchioni", "Francesca Nocente"],
+    "IDENTITY_NOT_ENOUGH_EVIDENCE": ["Sabrina Locatelli", "Daniela Pacifico",
+                                     "Stefano Biagetti", "Giovanni Drei"],
+    "PESSOAS_DISTINTAS_DEVOLVIDAS": 23,
+    "O_QUE_O_NOME_SOZINHO_TERIA_FEITO": "a busca por Pasquale De Vita devolveu o presidente da Unione Petrolifera, um vendedor de esquadrias e um diretor de TI, todos de nome idêntico. Um portão que parasse no nome teria promovido o presidente da associação do petróleo a pesquisador de trigo duro."
+  },
+
+  "ETAPA_2_POSTS": {
+    "AUTORES_ELEGIVEIS": 4,
+    "AUTORES_PERGUNTADOS": 4,
+    "AUTORES_POR_PERGUNTAR": 0,
+    "AUTORES_SEM_NENHUM_POST": 2,
+    "POSTS_LIDOS_NO_ANO": 3,
+    "POSTS_NA_JANELA_DO_CASO": 1,
+    "EXACT_CASE_SIGNALS": 0,
+    "NEIGHBOURING_SIGNALS": 0,
+    "COM_TERMO_DE_CAMPO": 0,
+    "EXACT_ANTES_DO_CASO": 0,
+    "O_UNICO_POST_NA_JANELA": "anúncio de vaga, 2026-04-08, sem relação com o caso"
+  },
+
+  "HUMAN_SENSOR_VERDICT": "HUMAN_SENSOR_ADDS_NOTHING_IN_THIS_PANEL",
+
+  "POR_QUE_ISSO_E_UM_ACHADO_E_NAO_UMA_FALHA": "a rota funciona, a identidade de dois alvos está provada, e eles simplesmente não publicam. Três posts em um ano inteiro, entre quatro pessoas, das quais duas não publicaram nada. O gargalo não é acesso nem ferramenta: é que esta comunidade específica não usa esta plataforma.",
+
+  "O_QUE_ESTE_VEREDITO_NAO_DIZ": {
+    "NAO_DIZ": [
+      "que vozes humanas não servem ao SINTONIA — quatro pessoas numa plataforma não medem isso",
+      "que estes pesquisadores não falam do assunto — falam, em outros lugares que não foram medidos",
+      "que os 4 alvos NOT_ENOUGH_EVIDENCE não estão no LinkedIn — a busca não os resolveu, e isso é diferente",
+      "nada sobre Instagram, YouTube, Meta, listas técnicas, congressos ou imprensa agrícola"
+    ],
+    "NOT_MEASURED": ["Instagram", "YouTube", "Meta", "os 4 alvos sem identidade resolvida",
+                     "qualquer voz fora dos 8 nomes"],
+    "SCOPE": "8 alvos identificados por pesquisa pública, 1 plataforma, 1 janela, 1 caso"
+  },
+
+  "LEIS_QUE_ESTA_RODADA_ACRESCENTOU": [
+    "WRONG_INPUT_CONTRACT ≠ WRONG_PLATFORM",
+    "CONTRACT_MATCH ≠ USEFUL_DATA",
+    "NOT_ASKED ≠ WRONG_ASK",
+    "NAME_MATCH ≠ PERSON",
+    "TRUNCATED_NAME ≠ MISMATCH ≠ CONFIRMED",
+    "NOT_FOUND_IN_RESULTS ≠ NOT_ON_PLATFORM ≠ DOES_NOT_EXIST",
+    "SAME_QUERY ≠ SAME_RESULT_SET",
+    "UNIT_EMPTY ≠ ROUTE_FAILURE",
+    "PROVA DE ROTA ≠ MEDIDA DE SINAL",
+    "BASE ≠ OPERATING ≠ INFLUENCE ≠ FACT",
+    "PLACE_MENTION ≠ FACT_LOCATION",
+    "TERRITORIAL_LIST ≠ FACT_LIST",
+    "GEOTAG ≠ FACT_LOCATION",
+    "PUBLISHED_AT ≠ FACT_TIME",
+    "ROW_PROVENANCE ≠ VALUE_PROVENANCE",
+    "OCCURRENCE ≠ INCIDENCE"
+  ],
+
+  "AINDA_PROIBIDO_ESCREVER": [
+    "ITALY OPPORTUNITY", "SALES OPPORTUNITY", "NATIONAL CONVERGENCE",
+    "ADAMA SHOULD ACT", "MARKET GAP", "REVENUE", "MARGIN", "SALES", "ROI REALIZED"
+  ],
+
+  "TOKEN_VALUE_LOGGED": "NO",
+  "TOKEN_VALUE_COMMITTED": "NO"
+}

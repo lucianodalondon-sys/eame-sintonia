@@ -1,0 +1,84 @@
+{
+  "SOURCE_ID": "IT-T3-LAMMA",
+  "source": "Consorzio LaMMA — Regione Toscana / CNR, bollettino fitosanitario provinciale",
+  "SOURCE_LOCATION": "Toscana, Italia",
+  "FACT_LOCATION": "ITALY — Toscana, provincia di Grosseto",
+  "ORIGINAL_LANGUAGE": "it",
+  "EVIDENCE_CLASS": "PRIMARY_SOURCE_RAW",
+  "FOR_CASE": "IT-CASE-DURUM-FUSARIUM-001",
+  "LEG": "FIELD",
+  "ARTIFACT_NAME": "grosseto-ftsnt-2026-04-23.html",
+  "FILE_NAME": "data/samples/IT-T3-LAMMA/grosseto-ftsnt-2026-04-23.html",
+  "MIME": "text/html",
+  "BYTES": 25680,
+  "SHA256": "93527b546eefc271283251356abb7ec22a0d0d277895e9e5881888d9f0ae356a",
+  "SOURCE_URL": "https://www.lamma.toscana.it/previ/ita/agrometeo/html/Grosseto_ftsnt.html",
+  "SOURCE_DATE": "2026-04-23",
+  "captured_at": "2026-08-30",
+  "CAPTURED_AT": "2026-08-30",
+  "PRESERVED": "YES",
+  "WHY_PRESERVED_IS_YES": "os bytes estão no repositório e o hash é reconferível: duas coletas separadas devolveram o mesmo sha256, e o modo --verify recalcula a partir do disco e do remoto.",
+  "DETERMINISTIC": true,
+  "ORIGINAL_FORMAT_NOTE": "não existe PDF deste boletim. Os dois PDFs linkados na página são fichas de peronospora e oidio da VIDEIRA — outros documentos. O original é o HTML, preservado inteiro e não substituído por resumo.",
+  "LOCATOR": {
+    "DOCUMENT": "página provincial de Grosseto (traz frumento E vite no mesmo HTML)",
+    "SECTION": "Provincia di Grosseto - Bolletino Frumento del 2026-04-23",
+    "SUBSECTIONS_USED": [
+      "Fenologia",
+      "Fusariosi"
+    ],
+    "HOW_TO_REACH": "recortar do título da seção de frumento até \"Bollettino Vite\" — é o que faz scripts/italia_preservar_lamma.py"
+  },
+  "ROUTE_STATE": "RECOVERED_UNCHANGED",
+  "WHY_ROUTE_STILL_WORKS": "a série de frumento é sazonal: encerrada a campanha, a última edição fica exposta na página rolante. A rota não mudou e nada precisou ser reconstruído — reconstruir seria proibido.",
+  "CONTENT_SUPPORT": {
+    "DATE": {
+      "CLAIM": "a edição é de 2026-04-23",
+      "QUOTE_IT": "Bolletino Frumento del 2026-04-23",
+      "STATE": "SUSTAINED"
+    },
+    "CROP": {
+      "CLAIM": "grano duro é tratado à parte do tenero",
+      "QUOTE_IT": "il duro si colloca tra piena fioritura e inizio fioritura.",
+      "STATE": "SUSTAINED"
+    },
+    "ISSUE": {
+      "CLAIM": "fusariosi, com SINTOMA OBSERVADO no duro",
+      "QUOTE_IT": "Si segnala la comparsa di sintomi lievi nel frumento duro in alcune situazioni, mentre il tenero resta esente.",
+      "STATE": "SUSTAINED",
+      "NOTE": "sintoma observado, não saída de modelo"
+    },
+    "PHENOLOGY": {
+      "CLAIM": "o duro está entrando em fioritura (sul da província)",
+      "QUOTE_IT": "il duro si colloca tra piena fioritura e inizio fioritura.",
+      "STATE": "SUSTAINED"
+    },
+    "RISK": {
+      "CLAIM_AS_ORIGINALLY_WRITTEN": "alto risco de fusariosi para o grano duro",
+      "QUOTE_IT": "Il rischio risulta elevato nelle classi precoci e medie del frumento tenero nel sud e in alcune situazioni del duro, mentre nel resto delle aree è nullo.",
+      "STATE": "PARTIALLY_SUSTAINED",
+      "CORRECTION": "o texto diz que o risco modelado é elevado no frumento TENERO das classes precoci e medie no sul, e \"in alcune situazioni del duro\". Para o duro é EM ALGUMAS SITUAÇÕES, não em toda a cultura. A minha formulação anterior generalizava.",
+      "LAW": "SINTOMA OBSERVADO ≠ RISCO MODELADO"
+    },
+    "RAIN": {
+      "CLAIM": "chuva ocorrida e prevista entram na recomendação",
+      "QUOTE_IT": "considerate le piogge e le previsioni di piogge per i prossimi giorni",
+      "STATE": "SUSTAINED"
+    },
+    "TREATMENT_RECOMMENDATION": {
+      "CLAIM": "o boletim recomenda tratamento",
+      "QUOTE_IT": "è opportuno effettuare un trattamento fitosanitario con uno dei prodotti previsti dai disciplinari di produzione integrata.",
+      "STATE": "SUSTAINED",
+      "CONDITIONED_ON": "\"Dove la fase fenologica sta entrando in fioritura\" e \"se non già protette con un trattamento specifico\" — a recomendação é condicional, não geral",
+      "PRODUCT_SCOPE_IT": "con uno dei prodotti previsti dai disciplinari di produzione integrata",
+      "WHAT_IT_DOES_NOT_DO": "não nomeia produto comercial nenhum, nem da ADAMA nem de concorrente"
+    }
+  },
+  "WHAT_THIS_DOES_NOT_PROVE": [
+    "que o tratamento tenha sido feito por alguém",
+    "nada sobre venda, estoque ou disponibilidade comercial",
+    "nada sobre outras províncias ou regiões"
+  ],
+  "SHA256_RECHECKED_FROM_DISK": "93527b546eefc271283251356abb7ec22a0d0d277895e9e5881888d9f0ae356a",
+  "RECHECK_MATCHES": true
+}

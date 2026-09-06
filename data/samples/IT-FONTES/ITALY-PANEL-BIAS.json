@@ -1,0 +1,306 @@
+{
+  "COUNTRY": "IT",
+  "SOURCE_ID": "DERIVED/IT-PANEL-BIAS",
+  "SOURCE": "IT-T1-001 (área regional ISTAT) × ITALY-REGIONAL-COVERAGE-MATRIX",
+  "CAPTURED_AT": "2026-08-30",
+  "EVIDENCE_CLASS": "DERIVED_INTERPRETATION",
+  "SOURCE_LOCATION": "interno — auditoria de método sobre artefatos próprios",
+  "FACT_LOCATION": "ITALY",
+  "ORIGINAL_LANGUAGE": "pt",
+  "QUESTION": "quando eu digo que uma cultura tem X% de cobertura de sinal de campo, de quantas regiões esse X vem?",
+  "ANSWER": "no trigo duro, de uma só — e é a que parou de publicar fitopatologia em 2018. O 0,0% não mede o país; mede um jornal descontinuado.",
+  "LAW_ADDED": "PAINEL MEDIDO ≠ PAÍS MEDIDO",
+  "LAW_COROLLARY": "NOT_ASKED ≠ NOT_FOUND ≠ DOES NOT EXIST. São três estados. Publicar \"0,0% de cobertura\" para uma cultura que só foi perguntada a uma região colapsa os três em um.",
+  "THRESHOLDS": {
+    "LIMIAR_TESTEMUNHO_PCT": 2.0,
+    "PORQUE": "abaixo disto a região não planta a cultura em escala que qualquer serviço regional acompanharia; ela não pode testemunhar. Não é limiar de importância agronômica, é de capacidade de testemunho.",
+    "LIMIAR_DEPENDENCIA_PCT": 60.0,
+    "PORQUE_DEPENDENCIA": "acima disto a cobertura da cultura é, na prática, a opinião de uma região só, e o veredito vira UNMEASURED_NOT_ZERO por mais que o painel pareça grande."
+  },
+  "PANEL": {
+    "Veneto": "PUBLISHED_WEEKLY",
+    "Lombardia": "PUBLISHED",
+    "Piemonte": "NOT_OBTAINED",
+    "Emilia-Romagna": "PARTIAL",
+    "Friuli-Venezia Giulia": "PUBLISHED_REGULARLY",
+    "Puglia": "NO_PHYTOPATHOLOGY_SINCE_2018",
+    "Sicilia": "NOT_MEASURED",
+    "Calabria": "NOT_MEASURED"
+  },
+  "PANEL_NOTE": "estar nesta lista não é ter sido interrogado. A Sicília e a Calábria são linhas da matriz com FIELD_STATE = NOT_MEASURED.",
+  "BY_CROP": {
+    "MAIZE": {
+      "CROP": "Milho",
+      "NATIONAL_THS_HA": 495.4,
+      "REGIONS_COUNTED_AS_MEASURED": [
+        "Emilia-Romagna",
+        "Friuli-Venezia Giulia",
+        "Lombardia",
+        "Puglia"
+      ],
+      "PCT_NATIONAL_COUNTED_AS_MEASURED": 40.6,
+      "LARGEST_MEASURED_REGION": "Lombardia",
+      "SINGLE_REGION_DEPENDENCE_PCT": 57.6,
+      "PCT_NATIONAL_EFFECTIVELY_INTERROGATED": 40.4,
+      "DEAD_WEIGHT_IN_PANEL": [
+        {
+          "REGION": "Puglia",
+          "AREA_THS_HA": 0.8,
+          "PCT_NATIONAL": 0.16
+        }
+      ],
+      "LARGEST_REGIONS_NEVER_ASKED": [
+        {
+          "REGION": "Lazio",
+          "AREA_THS_HA": 13.2,
+          "PCT_NATIONAL": 2.7,
+          "FIELD_STATE": "FORA_DO_PAINEL"
+        },
+        {
+          "REGION": "Campania",
+          "AREA_THS_HA": 12.5,
+          "PCT_NATIONAL": 2.5,
+          "FIELD_STATE": "FORA_DO_PAINEL"
+        }
+      ],
+      "PCT_NATIONAL_NEVER_ASKED": 5.2,
+      "REGIONS_ASKED_ROUTE_DID_NOT_ANSWER": [
+        {
+          "REGION": "Veneto",
+          "AREA_THS_HA": 122.9,
+          "PCT_NATIONAL": 24.8,
+          "FIELD_STATE": "PUBLISHED_WEEKLY"
+        },
+        {
+          "REGION": "Piemonte",
+          "AREA_THS_HA": 115.7,
+          "PCT_NATIONAL": 23.4,
+          "FIELD_STATE": "NOT_OBTAINED"
+        }
+      ],
+      "PCT_NATIONAL_ASKED_ROUTE_DID_NOT_ANSWER": 48.2,
+      "VERDICT": "PARTIALLY_MEASURED",
+      "WHY": "menos de metade da área nacional entrou na conta",
+      "GAP_TYPE": "ROUTE_ENGINEERING",
+      "WHAT_WOULD_CLOSE_IT": "as regiões certas já foram interrogadas; o que falha é a rota (JavaScript, índice ausente). Conserta-se com engenharia de coleta, não abrindo região nova."
+    },
+    "VINE": {
+      "CROP": "Videira",
+      "NATIONAL_THS_HA": 588.8,
+      "REGIONS_COUNTED_AS_MEASURED": [
+        "Veneto",
+        "Lombardia",
+        "Emilia-Romagna",
+        "Friuli-Venezia Giulia",
+        "Puglia"
+      ],
+      "PCT_NATIONAL_COUNTED_AS_MEASURED": 44.4,
+      "LARGEST_MEASURED_REGION": "Veneto",
+      "SINGLE_REGION_DEPENDENCE_PCT": 38.6,
+      "PCT_NATIONAL_EFFECTIVELY_INTERROGATED": 44.4,
+      "DEAD_WEIGHT_IN_PANEL": [],
+      "LARGEST_REGIONS_NEVER_ASKED": [
+        {
+          "REGION": "Sicilia",
+          "AREA_THS_HA": 120.2,
+          "PCT_NATIONAL": 20.4,
+          "FIELD_STATE": "NOT_MEASURED"
+        },
+        {
+          "REGION": "Toscana",
+          "AREA_THS_HA": 54.6,
+          "PCT_NATIONAL": 9.3,
+          "FIELD_STATE": "FORA_DO_PAINEL"
+        },
+        {
+          "REGION": "Abruzzo",
+          "AREA_THS_HA": 19.9,
+          "PCT_NATIONAL": 3.4,
+          "FIELD_STATE": "FORA_DO_PAINEL"
+        },
+        {
+          "REGION": "Sardegna",
+          "AREA_THS_HA": 19.7,
+          "PCT_NATIONAL": 3.3,
+          "FIELD_STATE": "FORA_DO_PAINEL"
+        },
+        {
+          "REGION": "Lazio",
+          "AREA_THS_HA": 17.0,
+          "PCT_NATIONAL": 2.9,
+          "FIELD_STATE": "FORA_DO_PAINEL"
+        }
+      ],
+      "PCT_NATIONAL_NEVER_ASKED": 39.3,
+      "REGIONS_ASKED_ROUTE_DID_NOT_ANSWER": [
+        {
+          "REGION": "Piemonte",
+          "AREA_THS_HA": 39.9,
+          "PCT_NATIONAL": 6.8,
+          "FIELD_STATE": "NOT_OBTAINED"
+        }
+      ],
+      "PCT_NATIONAL_ASKED_ROUTE_DID_NOT_ANSWER": 6.8,
+      "VERDICT": "PARTIALLY_MEASURED",
+      "WHY": "menos de metade da área nacional entrou na conta",
+      "GAP_TYPE": "PANEL_EXPANSION",
+      "WHAT_WOULD_CLOSE_IT": "a lacuna não é técnica: são regiões grandes que nunca foram perguntadas. Nenhuma engenharia de rota resolve — é preciso abrir o painel."
+    },
+    "OLIVE": {
+      "CROP": "Oliveira",
+      "NATIONAL_THS_HA": 1113.7,
+      "REGIONS_COUNTED_AS_MEASURED": [
+        "Veneto",
+        "Lombardia",
+        "Emilia-Romagna",
+        "Friuli-Venezia Giulia",
+        "Puglia"
+      ],
+      "PCT_NATIONAL_COUNTED_AS_MEASURED": 32.4,
+      "LARGEST_MEASURED_REGION": "Puglia",
+      "SINGLE_REGION_DEPENDENCE_PCT": 96.5,
+      "PCT_NATIONAL_EFFECTIVELY_INTERROGATED": 31.2,
+      "DEAD_WEIGHT_IN_PANEL": [
+        {
+          "REGION": "Veneto",
+          "AREA_THS_HA": 5.3,
+          "PCT_NATIONAL": 0.48
+        },
+        {
+          "REGION": "Lombardia",
+          "AREA_THS_HA": 2.4,
+          "PCT_NATIONAL": 0.22
+        },
+        {
+          "REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 4.6,
+          "PCT_NATIONAL": 0.41
+        },
+        {
+          "REGION": "Friuli-Venezia Giulia",
+          "AREA_THS_HA": 0.3,
+          "PCT_NATIONAL": 0.03
+        }
+      ],
+      "LARGEST_REGIONS_NEVER_ASKED": [
+        {
+          "REGION": "Calabria",
+          "AREA_THS_HA": 184.7,
+          "PCT_NATIONAL": 16.6,
+          "FIELD_STATE": "NOT_MEASURED"
+        },
+        {
+          "REGION": "Sicilia",
+          "AREA_THS_HA": 161.7,
+          "PCT_NATIONAL": 14.5,
+          "FIELD_STATE": "NOT_MEASURED"
+        },
+        {
+          "REGION": "Lazio",
+          "AREA_THS_HA": 82.9,
+          "PCT_NATIONAL": 7.4,
+          "FIELD_STATE": "FORA_DO_PAINEL"
+        },
+        {
+          "REGION": "Toscana",
+          "AREA_THS_HA": 81.9,
+          "PCT_NATIONAL": 7.4,
+          "FIELD_STATE": "FORA_DO_PAINEL"
+        },
+        {
+          "REGION": "Campania",
+          "AREA_THS_HA": 68.2,
+          "PCT_NATIONAL": 6.1,
+          "FIELD_STATE": "FORA_DO_PAINEL"
+        }
+      ],
+      "PCT_NATIONAL_NEVER_ASKED": 63.9,
+      "REGIONS_ASKED_ROUTE_DID_NOT_ANSWER": [],
+      "PCT_NATIONAL_ASKED_ROUTE_DID_NOT_ANSWER": 0.0,
+      "VERDICT": "UNMEASURED_NOT_ZERO",
+      "WHY": "96.5% da área \"medida\" vem de uma região só (Puglia). Uma amostra de tamanho um não é cobertura nacional.",
+      "GAP_TYPE": "PANEL_EXPANSION",
+      "WHAT_WOULD_CLOSE_IT": "a lacuna não é técnica: são regiões grandes que nunca foram perguntadas. Nenhuma engenharia de rota resolve — é preciso abrir o painel."
+    },
+    "DURUM_WHEAT": {
+      "CROP": "Trigo duro",
+      "NATIONAL_THS_HA": 1177.4,
+      "REGIONS_COUNTED_AS_MEASURED": [
+        "Veneto",
+        "Lombardia",
+        "Emilia-Romagna",
+        "Friuli-Venezia Giulia",
+        "Puglia"
+      ],
+      "PCT_NATIONAL_COUNTED_AS_MEASURED": 37.4,
+      "LARGEST_MEASURED_REGION": "Puglia",
+      "SINGLE_REGION_DEPENDENCE_PCT": 76.8,
+      "PCT_NATIONAL_EFFECTIVELY_INTERROGATED": 34.7,
+      "DEAD_WEIGHT_IN_PANEL": [
+        {
+          "REGION": "Veneto",
+          "AREA_THS_HA": 16.6,
+          "PCT_NATIONAL": 1.41
+        },
+        {
+          "REGION": "Lombardia",
+          "AREA_THS_HA": 16.3,
+          "PCT_NATIONAL": 1.38
+        },
+        {
+          "REGION": "Friuli-Venezia Giulia",
+          "AREA_THS_HA": 0.0,
+          "PCT_NATIONAL": 0.0
+        }
+      ],
+      "LARGEST_REGIONS_NEVER_ASKED": [
+        {
+          "REGION": "Sicilia",
+          "AREA_THS_HA": 277.5,
+          "PCT_NATIONAL": 23.6,
+          "FIELD_STATE": "NOT_MEASURED"
+        },
+        {
+          "REGION": "Basilicata",
+          "AREA_THS_HA": 115.2,
+          "PCT_NATIONAL": 9.8,
+          "FIELD_STATE": "FORA_DO_PAINEL"
+        },
+        {
+          "REGION": "Marche",
+          "AREA_THS_HA": 72.8,
+          "PCT_NATIONAL": 6.2,
+          "FIELD_STATE": "FORA_DO_PAINEL"
+        },
+        {
+          "REGION": "Campania",
+          "AREA_THS_HA": 52.6,
+          "PCT_NATIONAL": 4.5,
+          "FIELD_STATE": "FORA_DO_PAINEL"
+        },
+        {
+          "REGION": "Molise",
+          "AREA_THS_HA": 44.7,
+          "PCT_NATIONAL": 3.8,
+          "FIELD_STATE": "FORA_DO_PAINEL"
+        }
+      ],
+      "PCT_NATIONAL_NEVER_ASKED": 57.9,
+      "REGIONS_ASKED_ROUTE_DID_NOT_ANSWER": [],
+      "PCT_NATIONAL_ASKED_ROUTE_DID_NOT_ANSWER": 0.0,
+      "VERDICT": "UNMEASURED_NOT_ZERO",
+      "WHY": "76.8% da área \"medida\" vem de uma região só (Puglia). Uma amostra de tamanho um não é cobertura nacional.",
+      "GAP_TYPE": "PANEL_EXPANSION",
+      "WHAT_WOULD_CLOSE_IT": "a lacuna não é técnica: são regiões grandes que nunca foram perguntadas. Nenhuma engenharia de rota resolve — é preciso abrir o painel."
+    }
+  },
+  "WHAT_THIS_CHANGES": [
+    "a linha \"trigo duro · 0,0% de cobertura\" deixa de ser lida como ausência de sinal no país e passa a ser lida como AUSÊNCIA DE PERGUNTA",
+    "a próxima sonda de campo mais informativa da Itália não é mais milho nem videira: é TRIGO DURO NA SICÍLIA (277,5 mil ha, 23,6%) e NA BASILICATA (115,2 mil ha, 9,8%), duas regiões nunca interrogadas para a cultura"
+  ],
+  "WHAT_THIS_DOES_NOT_PROVE": [
+    "que exista boletim de trigo duro na Sicília ou na Basilicata — não perguntei",
+    "que a Puglia tenha deixado de ter pressão de doença em trigo duro; o que cessou foi a PUBLICAÇÃO da seção de fitopatologia, por ato administrativo",
+    "que as culturas com veredito MEASURED_ON_A_REPRESENTATIVE_PANEL estejam corretamente medidas — só que a crítica de painel não as derruba"
+  ]
+}

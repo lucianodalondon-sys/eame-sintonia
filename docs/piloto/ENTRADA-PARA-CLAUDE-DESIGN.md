@@ -27,7 +27,7 @@ todas públicas e gratuitas. O problema nunca foi acesso; foi separação.
 3. **O clima não explica** — a explicação óbvia refutada com dado.
 
 # EXACT NUMBERS AVAILABLE
-`<!--M:SOURCE_ID_COUNT-->37<!--/M-->` SOURCE_IDs (`16 GREEN`) · `13` fontes no pacote do piloto (`6 CRITICAL`)
+`<!--M:SOURCE_ID_COUNT-->39<!--/M-->` SOURCE_IDs (`<!--M:SOURCE_GREEN_COUNT-->19<!--/M--> GREEN`) · `13` fontes no pacote do piloto (`6 CRITICAL`)
 `77` produtos FR com protioconazol (`ADAMA 3`, `Bayer 32`) · `85` IT (`ADAMA 5`, `Bayer 18`)
 `60/85 = 71%` dos IT vencem em `31/03/2027` · `199` produtos IT vencem nessa data ao todo
 `6` prorrogações europeias · `3` objeções do Parlamento Europeu

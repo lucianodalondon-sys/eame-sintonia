@@ -460,7 +460,18 @@ def sync(check_only=False):
 
         def repl(m, _path=path):
             mid, atual = m.group(1), m.group(2)
-            v = L[mid]['VALUE'] if mid in L else atual
+            if mid not in L:
+                # Marcador sem dono no ledger: ou é exemplo de sintaxe dentro de um
+                # documento, ou é métrica ainda não derivada. Não é do `--sync` mexer
+                # nele — e, sobretudo, **não é motivo para abortar**. Até 2026-09-06 um
+                # `<!--M:NOME-->` de exemplo no handoff derrubava o comando inteiro com
+                # `ValueError: Cannot specify ',' with 's'`, e os números daquele arquivo
+                # — e de todos os `.md` da raiz, que o walk visita por último — envelheciam
+                # em silêncio: TEST_COUNT_CURRENT parado em 649 e em 329, SOURCE_ID_COUNT
+                # em 37. A ferramenta que existe para o número não envelhecer não pode ser
+                # a que para de andar.
+                return m.group(0)
+            v = L[mid]['VALUE']
             if isinstance(v, float):
                 novo = ('%g' % v).replace('.', ',')
             elif isinstance(v, list):

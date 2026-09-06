@@ -45,7 +45,7 @@ histórica e falta coleta de conversa pública**.
 | **014** | SAME MOLECULE | **PROVED** | ✅ 3 prod. | ⚠️ sem registro | ✅ 5 prod. | ✅ | MOLECULE | **X-006 ✅ 82% uso** | X-006 | **CASE-011, CASE-014** | HIGH | Espanha | acesso ao registro ES |
 | **015** | SAME COMPETITOR | **PARTIAL** | ✅ | ❌ | ✅ | — | COMPETITOR | **falta** | X-005 | CASE-011 | HIGH | normalizar titular→grupo | normalizador de entidade |
 | **016** | SIMILAR MOVEMENT | **NOT TESTABLE** | ❌ | ⚠️ | ❌ | — | FIELD | — | — | — | HIGH | série em ≥2 países | — |
-| **017** | fontes públicas configuradas | **PROVED**\* | ✅ | ✅ | ✅ | ✅ | todos | — | — | <!--M:SOURCE_ID_COUNT-->37<!--/M--> SOURCE_IDs | — | 4 packs vazios | — |
+| **017** | fontes públicas configuradas | **PROVED**\* | ✅ | ✅ | ✅ | ✅ | todos | — | — | <!--M:SOURCE_ID_COUNT-->39<!--/M--> SOURCE_IDs | — | 4 packs vazios | — |
 | **018** | WHO/WHAT/WHERE/WHEN | **PARTIAL** | ⚠️ | ✅ | ⚠️ | ✅ | — | — | — | — | — | WHO em clima; WHERE em ciência | — |
 | **019** | idioma local normalizado | **PARTIAL** | ⚠️ | ✅ | ⚠️ | ✅ | — | X-006 ✅ X-007 ⚠️ | — | CAP-002 | — | X-007 | fechar X-007 |
 | **020** | CROP×ISSUE×SCIENCE×MOLECULE×COMPETITOR×PORTFOLIO | **PARTIAL — 5/6** | ✅ | ⚠️ | ⚠️ | ✅ | — | X-006 ✅ | X-006 + X-002 | **CASE-011** | HIGH | elo ISSUE automático | fechar X-007 |

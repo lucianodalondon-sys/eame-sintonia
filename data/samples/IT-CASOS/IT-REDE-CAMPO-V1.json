@@ -1,0 +1,717 @@
+{
+  "NETWORK_ID": "ITALY_FIELD_SENSOR_NETWORK_V1",
+  "CASE_ID": "IT-CASE-DURUM-FUSARIUM-001",
+  "SOURCE_ID": "DERIVED/IT-REDE-CAMPO-V1",
+  "source": "busca ao redor dos quatro faróis — nenhuma execução paga",
+  "SOURCE_LOCATION": "web pública italiana",
+  "FACT_LOCATION": "ver FACT_LOCATIONS_FOUND — por conteúdo, nunca por voz",
+  "ORIGINAL_LANGUAGE": "it",
+  "EVIDENCE_CLASS": "PRIMARY_SOURCE_PROBE",
+  "captured_at": "2026-08-30",
+  "CAPTURED_AT": "2026-08-30",
+  "CASE_DATE": "2026-04-23",
+  "WINDOW": [
+    "2026-03-01",
+    "2026-05-31"
+  ],
+  "APIFY_RUNS": 0,
+  "APIFY_COST_USD": 0,
+  "CORRECTION_OF_PREVIOUS_ROUND": "a rodada anterior publicou PROSPECTIVE_HUMAN_SENSOR = PROVED a partir de cinco vozes prospectivas das quais CINCO eram organizações. Instituição não é pessoa. INSTITUTIONAL_SIGNAL ≠ HUMAN_PERSON_SIGNAL",
+  "BASELINES": [
+    {
+      "ID": "BASE/ERSA-FVG-07",
+      "SOURCE": "ERSA FVG — Bollettino difesa integrata frumento-orzo n.7",
+      "ENTITY_KIND": "ORGANIZATION",
+      "DATE": "2026-04-20",
+      "CROP": "frumento/orzo",
+      "ISSUE": "septoriosi, ruggine bruna",
+      "FACT_LOCATION": "Friuli-Venezia Giulia",
+      "FACT_LOCATION_PRECISION": "REGION",
+      "FACT_TIME": "NOT_KNOWN",
+      "SIGNAL_TYPE": [
+        "PHENOLOGY_OBSERVATION",
+        "MODELLED_RISK",
+        "FIELD_OBSERVATION"
+      ],
+      "EVIDENCE": "\"dai rilievi in campo è emerso che in alcune zone della media e dell'alta pianura si osservano dei sintomi evidenti della patologia\"",
+      "CADENCE": "WEEKLY_IN_SEASON"
+    },
+    {
+      "ID": "BASE/VENETO-2026",
+      "SOURCE": "Regione Veneto — bollettini fitosanitari 2026",
+      "ENTITY_KIND": "ORGANIZATION",
+      "DATE": "2026-03-04..2026-08-05",
+      "CROP": "cereali, mais",
+      "ISSUE": "difesa integrata",
+      "FACT_LOCATION": "NOT_READ",
+      "FACT_LOCATION_PRECISION": "NOT_KNOWN",
+      "FACT_TIME": "NOT_KNOWN",
+      "SIGNAL_TYPE": [
+        "NOT_READ"
+      ],
+      "EVIDENCE": "53 datas distintas em 2026 — cadência medida, conteúdo não lido",
+      "CADENCE": "WEEKLY_IN_SEASON"
+    },
+    {
+      "ID": "BASE/UMBRIA-CEREALI",
+      "SOURCE": "Servizio Fitosanitario Regionale Umbria — bollettino cereali",
+      "ENTITY_KIND": "ORGANIZATION",
+      "DATE": "NOT_DATED_IN_TEXT",
+      "CROP": "frumento/orzo",
+      "ISSUE": "septoriosi, fusariosi della spiga",
+      "FACT_LOCATION": "Branca di Gubbio; Parrano",
+      "FACT_LOCATION_PRECISION": "MUNICIPALITY",
+      "FACT_TIME": "NOT_KNOWN",
+      "SIGNAL_TYPE": [
+        "FIELD_OBSERVATION",
+        "SYMPTOM_OBSERVATION",
+        "TECHNICAL_WARNING"
+      ],
+      "EVIDENCE": "\"lieve attacco di Septoriosi nei Comuni di Branca di Gubbio\"; \"presenza media di Septoriosi nel Comune di Parrano\"",
+      "CADENCE": "WEEKLY_IN_SEASON"
+    },
+    {
+      "ID": "BASE/LAMMA-TOSCANA",
+      "SOURCE": "LaMMA / Regione Toscana — Bollettino Frumento",
+      "ENTITY_KIND": "ORGANIZATION",
+      "DATE": "2026-04-23",
+      "CROP": "frumento",
+      "ISSUE": "fusariosi",
+      "FACT_LOCATION": "Grosseto",
+      "FACT_LOCATION_PRECISION": "PROVINCE",
+      "FACT_TIME": "2026-04-23",
+      "SIGNAL_TYPE": [
+        "PHENOLOGY_OBSERVATION",
+        "MODELLED_RISK"
+      ],
+      "EVIDENCE": "preservado em missão anterior — é a perna de campo do caso",
+      "CADENCE": "WEEKLY_IN_SEASON"
+    }
+  ],
+  "CAP_NEW_ENTRIES": 30,
+  "NEW_ENTRIES": 12,
+  "NEW_PERSONS": [
+    "Dario Maurigh",
+    "Maurizio Martinuzzi",
+    "Valentina Caron",
+    "Lorenzo Ghiraldelli — \"Pazzi per il Meteo Goriziano\""
+  ],
+  "NEW_ORGANIZATIONS": [
+    "Consorzio Collio",
+    "Consorzi Aquileia, Latisana, Annia",
+    "Consorzio Isonzo",
+    "Consorzio Grave",
+    "Consorzio Colli orientali",
+    "Consorzio Carso",
+    "AIAB — técnico citado como fonte no boletim ERSA",
+    "OSMER ARPA FVG"
+  ],
+  "PERSONS": [
+    {
+      "NAME": "Dario Maurigh",
+      "ENTITY_KIND": "PERSON",
+      "CLASS": "TECHNICAL_FIELD_VOICE",
+      "ROLE": "enólogo, cura o boletim do consórcio",
+      "ORGANIZATION": "Consorzio Collio",
+      "SOURCE_LOCATION": "Gorizia, FVG",
+      "OPERATING_GEOGRAPHY": "zona D.O.C. Collio",
+      "CROPS": [
+        "vite"
+      ],
+      "PUBLIC_CHANNELS": [
+        "Bollettino fitosanitario Collio (PDF, hospedado pelo ERSA)",
+        "Avviso di trattamento BIO",
+        "Avviso Produzione Integrata"
+      ],
+      "PRIMARY_PUBLIC_CHANNEL": "Bollettino fitosanitario do Consorzio Collio",
+      "ACTIVE_2026": "YES",
+      "LAST_OBSERVED_CONTENT_DATE": "2026-08-03",
+      "CADENCE": "FIELD_SEASONAL",
+      "SENSOR_POTENTIAL": "PROSPECTIVE_SENSOR",
+      "LINKED_TO": [
+        "BASE/ERSA-FVG-07"
+      ],
+      "ADDS": [
+        "MORE_LOCAL_THAN_INSTITUTION",
+        "FIELD_DETAIL",
+        "SYMPTOM_DETAIL",
+        "PHENOLOGY_DETAIL",
+        "WEATHER_CONCERN",
+        "MANAGEMENT_CONTEXT",
+        "INDEPENDENT_CONFIRMATION"
+      ],
+      "WHY": "assina o boletim com nome. O consórcio opera REDE PRÓPRIA de estações agrometeorológicas e ele publica chuva em vinte localidades nomeadas na mesma semana — Dolegna 199 mm, Pradis 70 mm. A instituição regional fala da região; ele fala da encosta. Mantém parcela-sentinela não tratada em Plessiva e relata o que aparece nela"
+    },
+    {
+      "NAME": "Maurizio Martinuzzi",
+      "ENTITY_KIND": "PERSON",
+      "CLASS": "TECHNICAL_FIELD_VOICE",
+      "ROLE": "técnico, seção cerealicoltura",
+      "ORGANIZATION": "ERSA FVG — Servizio fitosanitario e chimico",
+      "SOURCE_LOCATION": "Friuli-Venezia Giulia",
+      "OPERATING_GEOGRAPHY": "FVG",
+      "CROPS": [
+        "frumento",
+        "orzo"
+      ],
+      "PUBLIC_CHANNELS": [
+        "assina como contato técnico do boletim ERSA"
+      ],
+      "PRIMARY_PUBLIC_CHANNEL": "INSTITUTIONAL_CHANNEL_ONLY",
+      "ACTIVE_2026": "YES",
+      "LAST_OBSERVED_CONTENT_DATE": "2026-04-20",
+      "CADENCE": "FIELD_SEASONAL",
+      "SENSOR_POTENTIAL": "CONTEXT_SENSOR",
+      "LINKED_TO": [
+        "BASE/ERSA-FVG-07"
+      ],
+      "ADDS": [
+        "REPETITION_ONLY"
+      ],
+      "WHY": "a pessoa existe e é a certa, mas não tem voz pública própria: o sinal sai pelo boletim da instituição. PERSON_INSIDE_INSTITUTION ≠ PERSON_AS_PUBLIC_SENSOR"
+    },
+    {
+      "NAME": "Valentina Caron",
+      "ENTITY_KIND": "PERSON",
+      "CLASS": "TECHNICAL_FIELD_VOICE",
+      "ROLE": "técnica, seção cerealicoltura",
+      "ORGANIZATION": "ERSA FVG — Servizio fitosanitario e chimico",
+      "SOURCE_LOCATION": "Friuli-Venezia Giulia",
+      "OPERATING_GEOGRAPHY": "FVG",
+      "CROPS": [
+        "frumento",
+        "orzo"
+      ],
+      "PUBLIC_CHANNELS": [
+        "assina como contato técnico do boletim ERSA"
+      ],
+      "PRIMARY_PUBLIC_CHANNEL": "INSTITUTIONAL_CHANNEL_ONLY",
+      "ACTIVE_2026": "YES",
+      "LAST_OBSERVED_CONTENT_DATE": "2026-04-20",
+      "CADENCE": "FIELD_SEASONAL",
+      "SENSOR_POTENTIAL": "CONTEXT_SENSOR",
+      "LINKED_TO": [
+        "BASE/ERSA-FVG-07"
+      ],
+      "ADDS": [
+        "REPETITION_ONLY"
+      ],
+      "WHY": "mesma situação: nomeada no boletim, sem canal público próprio"
+    },
+    {
+      "NAME": "Lorenzo Ghiraldelli — \"Pazzi per il Meteo Goriziano\"",
+      "ENTITY_KIND": "PERSON",
+      "CLASS": "CREATOR_INFLUENCER",
+      "ROLE": "observador meteorológico cidadão",
+      "ORGANIZATION": "independente / rede Pretemp, MeteoNetwork",
+      "SOURCE_LOCATION": "Gorizia, FVG",
+      "OPERATING_GEOGRAPHY": "goriziano, isontino",
+      "CROPS": [
+        "n/a — meteorologia"
+      ],
+      "PUBLIC_CHANNELS": [
+        "canal Telegram",
+        "página Facebook",
+        "Storm Report Italia"
+      ],
+      "PRIMARY_PUBLIC_CHANNEL": "canal Telegram",
+      "ACTIVE_2026": "YES",
+      "LAST_OBSERVED_CONTENT_DATE": "2026-05-14",
+      "CADENCE": "EVENT_DRIVEN",
+      "SENSOR_POTENTIAL": "PROSPECTIVE_SENSOR",
+      "LINKED_TO": [
+        "BASE/ERSA-FVG-07"
+      ],
+      "ADDS": [
+        "EARLIER_THAN_INSTITUTION",
+        "MORE_LOCAL_THAN_INSTITUTION",
+        "WEATHER_CONCERN",
+        "INDEPENDENT_CONFIRMATION"
+      ],
+      "WHY": "o achado mais inesperado da rodada: um creator de meteorologia é CITADO COMO FONTE dentro do boletim técnico do consórcio. O relato de granizo de 14/05 — \"fino a 5-8 eventi ravvicinati\" sobre a Bassa orientale, o cormonese, o isontino e o goriziano — entrou na cadeia técnica pela porta do Telegram. CREATOR ≠ SENSOR continua valendo como regra; este é o contraexemplo que a regra tem de admitir"
+    }
+  ],
+  "ORGANIZATIONS": [
+    {
+      "NAME": "Consorzio Collio",
+      "ENTITY_KIND": "ORGANIZATION",
+      "CLASS": "PRODUCER_COOP_VOICE",
+      "CADENCE": "FIELD_SEASONAL",
+      "SENSOR_POTENTIAL": "PROSPECTIVE_SENSOR",
+      "ACTIVE_2026": "YES",
+      "LAST_OBSERVED_CONTENT_DATE": "2026-08-03",
+      "ADDS": [
+        "MORE_LOCAL_THAN_INSTITUTION",
+        "FIELD_DETAIL",
+        "WEATHER_CONCERN"
+      ],
+      "WHY": "opera rede própria de estações agrometeorológicas e publica boletim numerado n.06 a n.16 em 2026, mais avisos de tratamento separados para BIO e Produção Integrada. É PRODUCER_FIELD_REPORT, não ORGANIZATION_COMMUNICATION"
+    },
+    {
+      "NAME": "Consorzi Aquileia, Latisana, Annia",
+      "ENTITY_KIND": "ORGANIZATION",
+      "CLASS": "PRODUCER_COOP_VOICE",
+      "CADENCE": "FIELD_SEASONAL",
+      "SENSOR_POTENTIAL": "PROSPECTIVE_SENSOR",
+      "ACTIVE_2026": "NOT_KNOWN",
+      "LAST_OBSERVED_CONTENT_DATE": "NOT_KNOWN",
+      "ADDS": [
+        "NOT_MEASURED"
+      ],
+      "WHY": "consta do índice de boletins de consórcio do ERSA; conteúdo não lido"
+    },
+    {
+      "NAME": "Consorzio Isonzo",
+      "ENTITY_KIND": "ORGANIZATION",
+      "CLASS": "PRODUCER_COOP_VOICE",
+      "CADENCE": "FIELD_SEASONAL",
+      "SENSOR_POTENTIAL": "PROSPECTIVE_SENSOR",
+      "ACTIVE_2026": "NOT_KNOWN",
+      "LAST_OBSERVED_CONTENT_DATE": "NOT_KNOWN",
+      "ADDS": [
+        "NOT_MEASURED"
+      ],
+      "WHY": "idem"
+    },
+    {
+      "NAME": "Consorzio Grave",
+      "ENTITY_KIND": "ORGANIZATION",
+      "CLASS": "PRODUCER_COOP_VOICE",
+      "CADENCE": "FIELD_SEASONAL",
+      "SENSOR_POTENTIAL": "PROSPECTIVE_SENSOR",
+      "ACTIVE_2026": "NOT_KNOWN",
+      "LAST_OBSERVED_CONTENT_DATE": "NOT_KNOWN",
+      "ADDS": [
+        "NOT_MEASURED"
+      ],
+      "WHY": "idem"
+    },
+    {
+      "NAME": "Consorzio Colli orientali",
+      "ENTITY_KIND": "ORGANIZATION",
+      "CLASS": "PRODUCER_COOP_VOICE",
+      "CADENCE": "FIELD_SEASONAL",
+      "SENSOR_POTENTIAL": "PROSPECTIVE_SENSOR",
+      "ACTIVE_2026": "NOT_KNOWN",
+      "LAST_OBSERVED_CONTENT_DATE": "NOT_KNOWN",
+      "ADDS": [
+        "NOT_MEASURED"
+      ],
+      "WHY": "idem"
+    },
+    {
+      "NAME": "Consorzio Carso",
+      "ENTITY_KIND": "ORGANIZATION",
+      "CLASS": "PRODUCER_COOP_VOICE",
+      "CADENCE": "FIELD_SEASONAL",
+      "SENSOR_POTENTIAL": "PROSPECTIVE_SENSOR",
+      "ACTIVE_2026": "NOT_KNOWN",
+      "LAST_OBSERVED_CONTENT_DATE": "NOT_KNOWN",
+      "ADDS": [
+        "NOT_MEASURED"
+      ],
+      "WHY": "idem"
+    },
+    {
+      "NAME": "AIAB — técnico citado como fonte no boletim ERSA",
+      "ENTITY_KIND": "ORGANIZATION",
+      "CLASS": "TECHNICAL_FIELD_VOICE",
+      "CADENCE": "NOT_KNOWN",
+      "SENSOR_POTENTIAL": "NOT_KNOWN",
+      "ACTIVE_2026": "YES",
+      "LAST_OBSERVED_CONTENT_DATE": "2026-04-20",
+      "ADDS": [
+        "INDEPENDENT_CONFIRMATION"
+      ],
+      "WHY": "o boletim do ERSA cita \"Fonte: tecnico AIAB\" ao lado da fonte do modelo Horta — uma associação de agricultura biológica alimentando o boletim oficial com dado de campo. O técnico não é nomeado"
+    },
+    {
+      "NAME": "OSMER ARPA FVG",
+      "ENTITY_KIND": "ORGANIZATION",
+      "CLASS": "INSTITUTIONAL_FIELD_VOICE",
+      "CADENCE": "DAILY",
+      "SENSOR_POTENTIAL": "CONTEXT_SENSOR",
+      "ACTIVE_2026": "YES",
+      "LAST_OBSERVED_CONTENT_DATE": "2026-05-15",
+      "ADDS": [
+        "WEATHER_CONCERN"
+      ],
+      "WHY": "previsão meteorológica citada pelos dois boletins, o do ERSA e o do Collio"
+    }
+  ],
+  "NETWORK_EDGES": [
+    {
+      "FROM": "Lorenzo Ghiraldelli — \"Pazzi per il Meteo Goriziano\"",
+      "FROM_KIND": "CREATOR_INFLUENCER",
+      "TO": "Dario Maurigh",
+      "TO_KIND": "TECHNICAL_FIELD_VOICE",
+      "RELATION": "CITED_AS_SOURCE",
+      "EVIDENCE": "o boletim de 15/05 traz \"Fonte: Lorenzo Ghiraldelli, Pazzi per il Meteo Goriziano (canale Telegram e pagina FB)\""
+    },
+    {
+      "FROM": "Dario Maurigh",
+      "FROM_KIND": "TECHNICAL_FIELD_VOICE",
+      "TO": "Consorzio Collio",
+      "TO_KIND": "PRODUCER_COOP_VOICE",
+      "RELATION": "AUTHORS_BULLETIN_FOR",
+      "EVIDENCE": "\"A cura di: Enol. Dario Maurigh\""
+    },
+    {
+      "FROM": "Consorzio Collio",
+      "FROM_KIND": "PRODUCER_COOP_VOICE",
+      "TO": "ERSA FVG",
+      "TO_KIND": "INSTITUTIONAL_FIELD_VOICE",
+      "RELATION": "BULLETIN_HOSTED_BY",
+      "EVIDENCE": "o boletim do consórcio é publicado no portal do ERSA"
+    },
+    {
+      "FROM": "AIAB — técnico citado como fonte no boletim ERSA",
+      "FROM_KIND": "TECHNICAL_FIELD_VOICE",
+      "TO": "ERSA FVG",
+      "TO_KIND": "INSTITUTIONAL_FIELD_VOICE",
+      "RELATION": "CITED_AS_SOURCE",
+      "EVIDENCE": "\"Fonte: tecnico AIAB\" no boletim n.7"
+    },
+    {
+      "FROM": "Horta srl — grano.net",
+      "FROM_KIND": "TECHNICAL_FIELD_VOICE",
+      "TO": "ERSA FVG",
+      "TO_KIND": "INSTITUTIONAL_FIELD_VOICE",
+      "RELATION": "MODEL_FEEDS_BULLETIN",
+      "EVIDENCE": "\"Sulla base degli output del modello previsionale grano.net\""
+    },
+    {
+      "FROM": "OSMER ARPA FVG",
+      "FROM_KIND": "INSTITUTIONAL_FIELD_VOICE",
+      "TO": "Consorzio Collio",
+      "TO_KIND": "PRODUCER_COOP_VOICE",
+      "RELATION": "WEATHER_FEEDS_BULLETIN",
+      "EVIDENCE": "ambos os boletins citam o OSMER"
+    },
+    {
+      "FROM": "Maurizio Martinuzzi",
+      "FROM_KIND": "TECHNICAL_FIELD_VOICE",
+      "TO": "ERSA FVG",
+      "TO_KIND": "INSTITUTIONAL_FIELD_VOICE",
+      "RELATION": "NAMED_TECHNICIAN_INSIDE",
+      "EVIDENCE": "assina como contato técnico da seção cerealicoltura"
+    }
+  ],
+  "CONTENTS_READ": [
+    {
+      "ID": "COLLIO/BOLL-06-2026",
+      "ARQUIVO": "collio-boll-06-vite-2026-05-15.txt",
+      "AUTHOR": "Dario Maurigh",
+      "AUTHOR_KIND": "PERSON",
+      "ORGANIZATION": "Consorzio Collio",
+      "PUBLISHED_AT": "2026-05-15",
+      "CROP": "vite",
+      "ISSUE": "peronospora, oidio, scaphoideus, giallumi",
+      "BASELINE": "BASE/ERSA-FVG-07",
+      "RELATION_TO_BASELINE": "AFTER_BASELINE",
+      "ADDS": [
+        "MORE_LOCAL_THAN_INSTITUTION",
+        "FIELD_DETAIL",
+        "SYMPTOM_DETAIL",
+        "PHENOLOGY_DETAIL",
+        "WEATHER_CONCERN",
+        "MANAGEMENT_CONTEXT",
+        "INDEPENDENT_CONFIRMATION"
+      ],
+      "EVIDENCE_PATH": "data/samples/IT-T5-SENSORES/collio-boll-06-vite-2026-05-15.txt",
+      "SHA256": "9a90ca0f7b74dcfbc9296e65cf58143766d05d05f8a968f1f872fc599e96a2c6",
+      "FACT_LOCATIONS": [],
+      "PLACE_MENTIONS_REJECTED": [
+        {
+          "PLACE": "Italia",
+          "WHY": "topônimo sem relação semântica com o acontecimento",
+          "STATE": "PLACE_MENTION_NOT_FACT"
+        },
+        {
+          "PLACE": "Plessiva",
+          "WHY": "a observação que ancorava este lugar está negada",
+          "STATE": "NEGATED_OBSERVATION_NOT_FACT"
+        },
+        {
+          "PLACE": "Friuli-Venezia Giulia",
+          "WHY": "topônimo sem relação semântica com o acontecimento",
+          "STATE": "PLACE_MENTION_NOT_FACT"
+        }
+      ],
+      "TIME": {
+        "FACT_TIME": "21 aprile",
+        "FACT_TIME_PRECISION": "DAY",
+        "FACT_TIME_EVIDENCE": "SITUAZIONE FITOSANITARIA   Patogeni  Peronospora Si  conclusa l’evasione delle infezioni che hanno preso avvio con le piogge del 19-21 aprile",
+        "FACT_TIME_ORIGIN": "TEXT/TIED_TO_EVENT",
+        "PUBLISHED_AT": "2026-05-15",
+        "TIME_CANDIDATES_DISCARDED": [
+          {
+            "VALUE": "15 maggio 2026",
+            "WHY": "PUBLICATION_STAMP_NOT_FACT_TIME"
+          }
+        ]
+      },
+      "OCCURRENCE_NOT_INCIDENCE": {
+        "BY_TYPE_OF_EVIDENCE": {},
+        "OBSERVED_OCCURRENCES": 0,
+        "MODELLED_RISK_STATEMENTS": 0,
+        "INCIDENCE": "NOT_KNOWN",
+        "PREVALENCE": "NOT_KNOWN",
+        "REGIONAL_PRESSURE": "NOT_KNOWN",
+        "WHY": "ocorrência observada não é incidência, prevalência nem pressão regional — e as espécies de evidência não se somam entre si"
+      }
+    },
+    {
+      "ID": "ERSA-FVG/BOLL-07-2026",
+      "ARQUIVO": "ersa-fvg-boll-07-frumento-orzo-2026-04-20.txt",
+      "AUTHOR": "ERSA FVG",
+      "AUTHOR_KIND": "ORGANIZATION",
+      "ORGANIZATION": "ERSA FVG",
+      "PUBLISHED_AT": "2026-04-20",
+      "CROP": "frumento/orzo",
+      "ISSUE": "septoriosi, ruggine bruna",
+      "BASELINE": "BASE/ERSA-FVG-07",
+      "RELATION_TO_BASELINE": "IS_THE_BASELINE",
+      "ADDS": [
+        "IS_THE_BASELINE"
+      ],
+      "EVIDENCE_PATH": "data/samples/IT-T5-SENSORES/ersa-fvg-boll-07-frumento-orzo-2026-04-20.txt",
+      "SHA256": "f8a98c7bdaa0b6a011e414c112d18f4e4c0ca65721132ce311ea042b2ed5ff13",
+      "FACT_LOCATIONS": [
+        {
+          "FACT_LOCATION": "Friuli-Venezia Giulia",
+          "FACT_LOCATION_PRECISION": "REGION",
+          "PRECISION_SOURCE": "GAZETTEER",
+          "FACT_LOCATION_EVIDENCE": "Per quanto riguarda la septoriosi, il rischio è attualmente classificato da basso a medio-basso, come si può rilevare dai punti di monitoraggio riportati nella seguente cartina:    Rischio attacchi septoriosi in Friuli Venezia Giulia (10 marker)  Legenda:  Rischio non presente Rischio basso Rischio ",
+          "FACT_LOCATION_ANCHOR": "rischio attacchi",
+          "FACT_LOCATION_ORIGIN": "ERSA-FVG/BOLL-07-2026",
+          "TYPE_OF_EVIDENCE": "MODELLED_RISK"
+        }
+      ],
+      "PLACE_MENTIONS_REJECTED": [],
+      "TIME": {
+        "FACT_TIME": "NOT_KNOWN",
+        "FACT_TIME_PRECISION": "NOT_KNOWN",
+        "FACT_TIME_EVIDENCE": null,
+        "FACT_TIME_ORIGIN": "NOT_STATED",
+        "PUBLISHED_AT": "2026-04-20",
+        "FACT_TIME_CANDIDATES": [],
+        "TIME_CANDIDATES_DISCARDED": [],
+        "WHY": "nenhuma expressão temporal ficou amarrada ao acontecimento; a data de publicação não preenche esse campo"
+      },
+      "OCCURRENCE_NOT_INCIDENCE": {
+        "BY_TYPE_OF_EVIDENCE": {
+          "MODELLED_RISK": 1
+        },
+        "OBSERVED_OCCURRENCES": 0,
+        "MODELLED_RISK_STATEMENTS": 1,
+        "INCIDENCE": "NOT_KNOWN",
+        "PREVALENCE": "NOT_KNOWN",
+        "REGIONAL_PRESSURE": "NOT_KNOWN",
+        "WHY": "ocorrência observada não é incidência, prevalência nem pressão regional — e as espécies de evidência não se somam entre si"
+      }
+    },
+    {
+      "ID": "UMBRIA/BOLL-CEREALI",
+      "ARQUIVO": "umbria-boll-cereali-04-servizio-fitosanitario.txt",
+      "AUTHOR": "Servizio Fitosanitario Regionale Umbria",
+      "AUTHOR_KIND": "ORGANIZATION",
+      "ORGANIZATION": "Regione Umbria",
+      "PUBLISHED_AT": null,
+      "CROP": "frumento/orzo",
+      "ISSUE": "septoriosi, fusariosi",
+      "BASELINE": "BASE/UMBRIA-CEREALI",
+      "RELATION_TO_BASELINE": "IS_THE_BASELINE",
+      "ADDS": [
+        "IS_THE_BASELINE"
+      ],
+      "EVIDENCE_PATH": "data/samples/IT-T5-SENSORES/umbria-boll-cereali-04-servizio-fitosanitario.txt",
+      "SHA256": "15aa36a25936422648a76c031c636b73c660244d8720a76121d955b5f7677c97",
+      "FACT_LOCATIONS": [
+        {
+          "FACT_LOCATION": "Branca di Gubbio",
+          "FACT_LOCATION_PRECISION": "MUNICIPALITY",
+          "PRECISION_SOURCE": "DECLARED_BY_TEXT",
+          "FACT_LOCATION_EVIDENCE": "s=29    In base ai dati pervenuti dalla rete di monitoraggio regionale sugli areali CONCA TERNANA, EUGUBINO GUALDESE, LAGO TRASIMENO, MEDIA VALLE DEL TEVERE, ORVIETANO E VALLE UMBRA SUD, si rappresenta la seguente situazione:  FRUMENTO Non riscontrata presenza di avversità ad eccezione di lieve atta",
+          "FACT_LOCATION_ANCHOR": "attacco",
+          "FACT_LOCATION_ORIGIN": "UMBRIA/BOLL-CEREALI",
+          "TYPE_OF_EVIDENCE": "FIELD_OBSERVATION"
+        },
+        {
+          "FACT_LOCATION": "Parrano",
+          "FACT_LOCATION_PRECISION": "MUNICIPALITY",
+          "PRECISION_SOURCE": "DECLARED_BY_TEXT",
+          "FACT_LOCATION_EVIDENCE": "ORZO Fitopatie assenti ad eccezione di presenza media di Septoriosi nel Comune di Parrano (TR)",
+          "FACT_LOCATION_ANCHOR": "presenza media",
+          "FACT_LOCATION_ORIGIN": "UMBRIA/BOLL-CEREALI",
+          "TYPE_OF_EVIDENCE": "FIELD_OBSERVATION"
+        }
+      ],
+      "PLACE_MENTIONS_REJECTED": [
+        {
+          "PLACE": "CONCA TERNANA",
+          "WHY": "a observação que ancorava este lugar está negada",
+          "STATE": "NEGATED_OBSERVATION_NOT_FACT"
+        },
+        {
+          "PLACE": "Umbria",
+          "WHY": "topônimo sem relação semântica com o acontecimento",
+          "STATE": "PLACE_MENTION_NOT_FACT"
+        },
+        {
+          "PLACE": "Umbria",
+          "WHY": "topônimo sem relação semântica com o acontecimento",
+          "STATE": "PLACE_MENTION_NOT_FACT"
+        },
+        {
+          "PLACE": "Umbria",
+          "WHY": "topônimo sem relação semântica com o acontecimento",
+          "STATE": "PLACE_MENTION_NOT_FACT"
+        },
+        {
+          "PLACE": "Umbria",
+          "WHY": "topônimo sem relação semântica com o acontecimento",
+          "STATE": "PLACE_MENTION_NOT_FACT"
+        }
+      ],
+      "TIME": {
+        "FACT_TIME": "NOT_KNOWN",
+        "FACT_TIME_PRECISION": "NOT_KNOWN",
+        "FACT_TIME_EVIDENCE": null,
+        "FACT_TIME_ORIGIN": "NOT_STATED",
+        "PUBLISHED_AT": "NOT_DATED_PRECISELY",
+        "FACT_TIME_CANDIDATES": [],
+        "TIME_CANDIDATES_DISCARDED": [
+          {
+            "VALUE": "annata 2021",
+            "WHY": "REGULATORY_VALIDITY_NOT_FACT_TIME"
+          }
+        ],
+        "WHY": "nenhuma expressão temporal ficou amarrada ao acontecimento; a data de publicação não preenche esse campo"
+      },
+      "OCCURRENCE_NOT_INCIDENCE": {
+        "BY_TYPE_OF_EVIDENCE": {
+          "FIELD_OBSERVATION": 2
+        },
+        "OBSERVED_OCCURRENCES": 2,
+        "MODELLED_RISK_STATEMENTS": 0,
+        "INCIDENCE": "NOT_KNOWN",
+        "PREVALENCE": "NOT_KNOWN",
+        "REGIONAL_PRESSURE": "NOT_KNOWN",
+        "WHY": "ocorrência observada não é incidência, prevalência nem pressão regional — e as espécies de evidência não se somam entre si"
+      }
+    }
+  ],
+  "CONTENTS_READ_COUNT": 3,
+  "SIGNALS_BEFORE_BASELINE": [],
+  "EARLIER_THAN_INSTITUTION": [
+    "Lorenzo Ghiraldelli — \"Pazzi per il Meteo Goriziano\""
+  ],
+  "MORE_LOCAL_THAN_INSTITUTION": [
+    "Dario Maurigh",
+    "Lorenzo Ghiraldelli — \"Pazzi per il Meteo Goriziano\""
+  ],
+  "FIELD_DETAIL": [
+    "COLLIO/BOLL-06-2026"
+  ],
+  "INDEPENDENT_CONFIRMATION": [
+    "Dario Maurigh",
+    "Lorenzo Ghiraldelli — \"Pazzi per il Meteo Goriziano\""
+  ],
+  "REPETITION_ONLY": [
+    "Maurizio Martinuzzi",
+    "Valentina Caron"
+  ],
+  "FACT_LOCATIONS_FOUND": [
+    {
+      "FACT_LOCATION": "Friuli-Venezia Giulia",
+      "FACT_LOCATION_PRECISION": "REGION",
+      "PRECISION_SOURCE": "GAZETTEER",
+      "FACT_LOCATION_EVIDENCE": "Per quanto riguarda la septoriosi, il rischio è attualmente classificato da basso a medio-basso, come si può rilevare dai punti di monitoraggio riportati nella seguente cartina:    Rischio attacchi septoriosi in Friuli Venezia Giulia (10 marker)  Legenda:  Rischio non presente Rischio basso Rischio ",
+      "FACT_LOCATION_ANCHOR": "rischio attacchi",
+      "FACT_LOCATION_ORIGIN": "ERSA-FVG/BOLL-07-2026",
+      "TYPE_OF_EVIDENCE": "MODELLED_RISK"
+    },
+    {
+      "FACT_LOCATION": "Branca di Gubbio",
+      "FACT_LOCATION_PRECISION": "MUNICIPALITY",
+      "PRECISION_SOURCE": "DECLARED_BY_TEXT",
+      "FACT_LOCATION_EVIDENCE": "s=29    In base ai dati pervenuti dalla rete di monitoraggio regionale sugli areali CONCA TERNANA, EUGUBINO GUALDESE, LAGO TRASIMENO, MEDIA VALLE DEL TEVERE, ORVIETANO E VALLE UMBRA SUD, si rappresenta la seguente situazione:  FRUMENTO Non riscontrata presenza di avversità ad eccezione di lieve atta",
+      "FACT_LOCATION_ANCHOR": "attacco",
+      "FACT_LOCATION_ORIGIN": "UMBRIA/BOLL-CEREALI",
+      "TYPE_OF_EVIDENCE": "FIELD_OBSERVATION"
+    },
+    {
+      "FACT_LOCATION": "Parrano",
+      "FACT_LOCATION_PRECISION": "MUNICIPALITY",
+      "PRECISION_SOURCE": "DECLARED_BY_TEXT",
+      "FACT_LOCATION_EVIDENCE": "ORZO Fitopatie assenti ad eccezione di presenza media di Septoriosi nel Comune di Parrano (TR)",
+      "FACT_LOCATION_ANCHOR": "presenza media",
+      "FACT_LOCATION_ORIGIN": "UMBRIA/BOLL-CEREALI",
+      "TYPE_OF_EVIDENCE": "FIELD_OBSERVATION"
+    }
+  ],
+  "FACT_LOCATIONS_COUNT": 3,
+  "FACT_LOCATIONS_BY_TYPE": {
+    "MODELLED_RISK": [
+      "Friuli-Venezia Giulia"
+    ],
+    "FIELD_OBSERVATION": [
+      "Branca di Gubbio",
+      "Parrano"
+    ]
+  },
+  "MODELLED_RISK": [
+    "Friuli-Venezia Giulia"
+  ],
+  "FIELD_OBSERVATION": [
+    "Branca di Gubbio",
+    "Parrano"
+  ],
+  "CONVERGENCE": "o boletim do ERSA traz MODELLED_RISK e FIELD_OBSERVATION no MESMO documento e em frases seguidas — mapa de risco do grano.net, e depois \"dai rilievi in campo è emerso\". Convergem, e ficam preservados separados: fundir as duas evidências apagaria justamente a checagem que elas fazem uma na outra",
+  "FACT_TIMES_DEFENSIBLE": [
+    "COLLIO/BOLL-06-2026"
+  ],
+  "LAWS": [
+    "INSTITUTIONAL_SIGNAL ≠ HUMAN_PERSON_SIGNAL",
+    "PERSON_INSIDE_INSTITUTION ≠ PERSON_AS_PUBLIC_SENSOR",
+    "CLASS_PROVED_ON_ANOTHER_CROP ≠ CASE_SIGNAL",
+    "STRUCTURAL_NEGATION ≠ OBSERVATIONAL_NEGATION",
+    "MODELLED_RISK ≠ FIELD_OBSERVATION",
+    "PRODUCER_FIELD_REPORT ≠ ORGANIZATION_COMMUNICATION",
+    "PRODUCER_COOP_ORGANIZATION ≠ PRODUCER_PERSON"
+  ],
+  "PROSPECTIVE_INSTITUTIONAL_FIELD_SENSOR": "PROVED",
+  "PROSPECTIVE_TECHNICAL_PERSON_SENSOR": "PROVED",
+  "PROSPECTIVE_PRODUCER_COOP_SENSOR": "PROVED",
+  "PROSPECTIVE_PRODUCER_PERSON_SENSOR": "NOT_PROVED",
+  "PRODUCER_CORRECTION": "o veredito anterior de produtor saía do Consorzio Collio — ENTITY_KIND=ORGANIZATION. Cooperativa é classe válida de organização e não substitui produtor-pessoa. Nenhuma pessoa física produtora foi medida nesta rodada",
+  "PROSPECTIVE_CREATOR_SENSOR": "PROMISING",
+  "PROSPECTIVE_RESEARCHER_SENSOR": "NOT_PROVED",
+  "PROSPECTIVE_HUMAN_PERSON_SENSOR": "PROVED",
+  "PROSPECTIVE_HUMAN_PERSON_SENSOR_MUST_CARRY": {
+    "CROP": "vite, não grano duro",
+    "REGION": "Friuli-Venezia Giulia, não Toscana",
+    "CASE": "não é sinal do caso — prova a CLASSE, em outra cultura e outra região",
+    "HOW_MANY": "2 pessoas de 4 medidas"
+  },
+  "ITALY_HUMAN_SENSOR_ECOSYSTEM": "PARTIALLY_MAPPED",
+  "RECOMMENDATION": {
+    "COLLECT_RECURRENTLY": "a camada institucional regional + os boletins de consórcio que ela hospeda. São a mesma porta técnica e saem juntos, na estação",
+    "WHY": "é a única camada medida que publica ENQUANTO a decisão está aberta, e a única onde uma pessoa nomeada acrescenta resolução que a instituição não tem",
+    "DO_NOT_COLLECT": "rede social por padrão; LinkedIn deste painel",
+    "WATCH": "o canal Telegram do ERSA e o do observador meteorológico — são os dois pontos onde o sinal aparece antes do PDF",
+    "STILL_UNMEASURED": [
+      "os cinco outros consórcios do índice do ERSA",
+      "a cadência 2026 do boletim da Umbria",
+      "Consorzio Agrario dell'Emilia (503)",
+      "se existe equivalente do Collio para CEREAIS, e não só para vite"
+    ]
+  },
+  "STILL_FORBIDDEN_TO_WRITE": [
+    "ITALY OPPORTUNITY",
+    "SALES OPPORTUNITY",
+    "ADAMA SHOULD ACT",
+    "MARKET GAP"
+  ]
+}

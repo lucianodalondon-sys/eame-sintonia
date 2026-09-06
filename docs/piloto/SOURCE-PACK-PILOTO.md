@@ -1,6 +1,6 @@
 # SOURCE PACK DO PILOTO — 13 fontes, não 35
 
-O atlas tem **<!--M:SOURCE_ID_COUNT-->37<!--/M--> SOURCE_IDs**. O piloto não precisa deles. Estas são as fontes que
+O atlas tem **<!--M:SOURCE_ID_COUNT-->39<!--/M--> SOURCE_IDs**. O piloto não precisa deles. Estas são as fontes que
 realmente alimentam as três business questions e os três hero cases.
 
 **Dependência:** `CRITICAL` (sem ela o piloto não existe) · `USEFUL` · `OPTIONAL`.

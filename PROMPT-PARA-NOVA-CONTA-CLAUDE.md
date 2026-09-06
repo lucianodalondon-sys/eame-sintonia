@@ -59,7 +59,7 @@ PASSO 3 — RODAR A SUÍTE
 
 python3 -m unittest discover -s tests
 
-Esperado: 649 testes, OK, 0 falhas, 0 erros.
+Esperado: 1334 testes, OK, 0 falhas, 0 erros.
 Se divergir, reporte o número real e o teste que falhou. NÃO conserte ainda.
 
 Nota: pytest NÃO está instalado. Use unittest. Só biblioteca padrão do Python 3.11.
@@ -74,8 +74,8 @@ python3 scripts/proveniencia.py
 
 Confira estas sentinelas contra o que o handoff afirma:
 
-  TEST_COUNT_CURRENT              = 649
-  SOURCE_ID_COUNT                 = 37
+  TEST_COUNT_CURRENT              = 1334
+  SOURCE_ID_COUNT                 = 39
   RAIF_SEASONS_AVAILABLE          = 23
   RAIF_READINGS_TOTAL             = 148964
   ES_EXPIRING_6M                  = 486     (ADAMA 36)
