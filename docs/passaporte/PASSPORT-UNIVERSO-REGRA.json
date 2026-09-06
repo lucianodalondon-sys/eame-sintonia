@@ -1,0 +1,4254 @@
+{
+  "RULE_VERSION": "UNIVERSO-PASSAPORTE-REGRA-2026-09-06",
+  "RULE_SOURCE": "docs/passaporte/CONTRATO-DO-PASSAPORTE.md §1.5",
+  "PORTAO": {
+    "PASS": false,
+    "MOTIVO": "MEMBERSHIP_CONDITION_NOT_DECLARED",
+    "EXPECTED_FILES": 132,
+    "EXPECTED_RECORDS": 14842,
+    "EXPECTED_FAMILIES": 32,
+    "EXPECTED_COLLECTIONS": 71,
+    "EXPECTED_FINGERPRINT": "91e10d20bba1c219407cdb7caa863f4027c98319c97dbd84858693dd5d212a84",
+    "SCANNED_FILES": 21,
+    "SCANNED_RECORDS": 7070,
+    "SCANNED_FAMILIES": 6,
+    "SCANNED_COLLECTIONS": 9,
+    "SCANNED_FINGERPRINT": "dce22b791018cee888160d5e416a648fd22aea1835765cb5eb01da0a0bdb2b41",
+    "MISSING": 111,
+    "COBERTO_MAS_FORA_DA_REGRA": 0,
+    "UNKNOWN_CRITICO": 1,
+    "PROBLEMAS": {
+      "MISSING": 111,
+      "MEMBERSHIP_CONDITION_NOT_DECLARED": 1
+    }
+  },
+  "PORTAO_MISSING": [
+    "ADAMA-ES-HANDOFF-GATE-V1.json",
+    "ADAMA-ES-PRODUCT-INTELLIGENCE.json",
+    "AGRONOMIC-CALENDAR-DESIGN-DATA-CONTRACT-V1.json",
+    "COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1.json",
+    "COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+    "COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json",
+    "COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V2.json",
+    "COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V3.json",
+    "COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json",
+    "CREATOR-CONTENT-CORPUS-EAME/ACTOR-CONTRACTS-CORPUS.json",
+    "CREATOR-CONTENT-CORPUS-EAME/CORPUS-MATERIALS.json",
+    "CREATOR-CONTENT-CORPUS-EAME/CORPUS-UNIVERSE.json",
+    "CREATOR-CONTENT-CORPUS-EAME/CORPUS-V1-SEAL.json",
+    "CREATOR-CONTENT-CORPUS-EAME/CREATOR-CORPUS-FICHES.json",
+    "CREATOR-MAP-EAME/BRAND-COLLABORATIONS-EU.json",
+    "CREATOR-MAP-EAME/CREATOR-ACTIVITY.json",
+    "CREATOR-MAP-EAME/CREATOR-CAPABILITY-EAME.json",
+    "CREATOR-MAP-EAME/CREATORS-ES-IT-FR.json",
+    "CREATOR-MAP-EAME/DECISION-FICHES.json",
+    "CREATOR-MAP-EAME/DISCOVERY-HUBS.json",
+    "CREATOR-MAP-EAME/ES-MASTER-SOURCES.json",
+    "CREATOR-MAP-EAME/FR-ACTIVITY.json",
+    "CREATOR-MAP-EAME/HUB-DISCOVERED-CLASSIFIED.json",
+    "CREATOR-MAP-EAME/HUB-DISCOVERED-RESOLVED.json",
+    "CREATOR-MAP-EAME/HUB-OFFICIAL-IDENTITY.json",
+    "CREATOR-MAP-EAME/IT-CREATORS-CONSOLIDATED.json",
+    "CREATOR-MAP-EAME/MARKET-EVIDENCE-EU.json",
+    "CREATOR-MAP-EAME/PRIMARY-IDENTITY-RESOLVED.json",
+    "CREATOR-MAP-EAME/SEED-IT-CANDIDATES.json",
+    "CREATOR-MAP-EAME/SEED-IT-VALIDATION.json",
+    "CREATOR-MAP-EAME/WHO-COULD-MARKETING-CALL.json",
+    "EAME-COMPARABILITY-CONTRACT-V1.json",
+    "ES-CIENCIA-PARES-AUTORES.json",
+    "ES-REVIEW-HANDOFFS.json",
+    "ES-T4-005-divergencia-resolvida.json",
+    "ES-T8-001-baseline-canais.json",
+    "ES-X-VOICE-SCIENCE.json",
+    "EXPERT-DIRECTORY-EAME-V1.json",
+    "IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V2.json",
+    "IT-CASOS/IT-CASE-DURUM-FUSARIUM-001.json",
+    "IT-CASOS/IT-CEREAIS-FALSIFICACAO.json",
+    "IT-CASOS/IT-COLLIO-CEREAIS.json",
+    "IT-CASOS/IT-HUMAN-SENSOR-OPEN-DOORS.json",
+    "IT-CASOS/IT-HUMAN-SENSOR-PILOT.json",
+    "IT-CASOS/IT-LINKEDIN-SENSOR-RUN.json",
+    "IT-CASOS/IT-PORTAS-SENSORES.json",
+    "IT-CASOS/IT-REDE-CAMPO-V1.json",
+    "IT-CASOS/IT-SENSORES-V2.json",
+    "IT-CASOS/IT-hero-case-candidates.json",
+    "IT-CASOS/ITALY-HERO-CASES-V1.json",
+    "IT-CONVEGNO-V1/IT-CONVEGNO-V1.json",
+    "IT-CONVEGNO-V2/IT-OLIVO-LEITURA-V2.json",
+    "IT-CRUZAMENTO-V1/IT-CRUZAMENTOS-V1.json",
+    "IT-CRUZAMENTO-V1/IT-ENRIQUECIMENTO-CONFIRMADAS-V1.json",
+    "IT-CRUZAMENTO-V2/IT-CRUZAMENTOS-V2.json",
+    "IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json",
+    "IT-FONTES/ITALY-OP-FIELD-LAYER.json",
+    "IT-FONTES/ITALY-PANEL-BIAS.json",
+    "IT-FONTES/ITALY-REGIONAL-COVERAGE-MATRIX.json",
+    "IT-FUTURO-V1/IT-CANAL-REGUA-V1.json",
+    "IT-FUTURO-V1/IT-FUTURO-NOVOS-CANDIDATOS-V1.json",
+    "IT-FUTURO-V1/IT-FUTURO-RADAR-V1.json",
+    "IT-FUTURO-V1/IT-FUTURO-SINAIS-V1.json",
+    "IT-FUTURO-V1/IT-TOP3-SENSORES-V1.json",
+    "IT-INSTAGRAM-V1/IT-INSTAGRAM-PERFIS-V1.json",
+    "IT-INSTAGRAM-V1/IT-INSTAGRAM-TRANSCRICOES-V1.json",
+    "IT-INSTAGRAM-V2/IT-INSTAGRAM-PERFIS-V2.json",
+    "IT-INSTAGRAM-V2/IT-INSTAGRAM-TRANSCRICOES-V2.json",
+    "IT-INSTAGRAM-V3/IT-INSTAGRAM-PERFIS-V3.json",
+    "IT-INSTAGRAM-V3/IT-INSTAGRAM-TRANSCRICOES-V3.json",
+    "IT-ORIGENS/ITALY-ORIGIN-UNIVERSE.json",
+    "IT-RADAR-V21/cropWindows.json",
+    "IT-RADAR-V21/opportunities.json",
+    "IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V2.json",
+    "IT-ROTULOS-V1/IT-ROTULOS-DELTA-V1.json",
+    "IT-ROTULOS-V1/IT-VOCAB-PROPOSTA-V1.json",
+    "IT-T3-LOTTA/IT-cobertura-campo-vs-area.json",
+    "IT-T3-LOTTA/IT-durum-field-panel.json",
+    "IT-T3-LOTTA/IT-lotta-obbligatoria-flavescenza-2026.json",
+    "IT-T4-001/IT-T4-001-enriquecimento-validado.json",
+    "IT-T4-001/IT-T4-001-etichette-manifest.json",
+    "IT-T4-001/IT-T4-001-portfolio-rotulo.json",
+    "IT-T4-001/ITALY-ADAMA-REGULATORY-INTELLIGENCE.json",
+    "IT-T5-001/ITALY-RESEARCHER-UNIVERSE.json",
+    "IT-V2/IT-V2-CANONICO.json",
+    "IT-V2/IT-V2-QA-ATRIBUIDO.json",
+    "IT-VIDEO-V1/IT-VIDEO-CANAIS-V1.json",
+    "IT-VIDEO-V1/IT-VIDEO-V1.json",
+    "IT-VIDEO-V2/IT-VIDEO-CANAIS-NOVOS-V2.json",
+    "IT-VIDEO-V2/IT-VIDEO-ROTA-90-FONTES-V2.json",
+    "IT-VOZ-AUDIO-V1/IT-VOZ-AUDIO-TRANSCRICOES-V1.json",
+    "IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-LOCAIS-V2.json",
+    "IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-TRANSCRICOES-V2.json",
+    "ITALY-RADAR-DO-FUTURO-V1.json",
+    "PUBLIC-TECHNICAL-VOICE-QUEUE-ES.json",
+    "RESEARCHER-CORPUS-EAME-V1.json",
+    "RESEARCHER-OUTLOOK-V1.json",
+    "SENSOR-PILOT/COMENTARIOS-C.json",
+    "SENSOR-PILOT/COMENTARIOS-D.json",
+    "SENSOR-PILOT/COMENTARIOS-E.json",
+    "SENSOR-PILOT/TRANSCRICOES-C.json",
+    "SENSOR-PILOT/TRANSCRICOES-D.json",
+    "SENSOR-PILOT/TRANSCRICOES-E.json",
+    "SENSOR-PILOT/VIDEOS-C.json",
+    "SENSOR-PILOT/VIDEOS-D.json",
+    "SENSOR-PILOT/VIDEOS-E.json",
+    "SPAIN-RADAR-DO-FUTURO-V1.json",
+    "SPEAKER-UNIVERSE-PILOT-V1.json",
+    "TERRITORIAL/MEDICAO.json",
+    "YOUTUBE-JANELA/CANAIS.json",
+    "YOUTUBE-RELEVANCIA/FONTES.json"
+  ],
+  "CLASSIFICACAO": {
+    ".gitkeep": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "ADAMA-ES-CONFIRMACAO-REGULATORIA-DO-PAR.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ADAMA-ES-DOCUMENTOS-MANIFEST.csv": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "ADAMA-ES-HANDOFF-GATE-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "ADAMA-ES-PRESERVACAO-DIAGNOSTICO.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ADAMA-ES-PRESERVACAO-PLANO.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ADAMA-ES-PRESERVACAO-RELATORIO.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ADAMA-ES-PRODUCT-INTELLIGENCE.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "AGRONOMIC-CALENDAR-DESIGN-DATA-CONTRACT-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "ASK-SINTONIA-ACCEPTANCE-ES.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ASK-SINTONIA-EAME-MULTIPAIS-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ASK-SINTONIA-benchmark.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ASK-SINTONIA-teste.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "AUDITORIA-REGRA-COLETA-EXTERNA.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "BACKTEST-REPILO-LEAD-TIME.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "BENCHMARK-ORDENACAO-B2.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "BENCHMARK-RESEARCH-SAVING-B1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "BRAZIL-LESSONS-TRANSFER-EAME.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "CAPTURE-VS-REGISTRATION-CONTRACT-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "CASE-006-es41-rain-window-vs-yield.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "CHANGE-EVENTS-es-2025-2026.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "COMPETITOR-PUBLIC-COMM/CLASSIFICADO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "COMPETITOR-PUBLIC-COMM/CONTAS-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "COMPETITOR-PUBLIC-COMM/MEDICAO-PRIMEIRO-LOTE-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V2.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V3.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "COMPETITOR-azoxy-prothio-italy.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/ACTOR-CONTRACTS-CORPUS.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/CORPUS-DELIVERY.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/CORPUS-MATERIALS.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/CORPUS-OBSERVATIONS.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/CORPUS-UNIVERSE.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/CORPUS-V1-SEAL.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/CREATOR-CORPUS-FICHES.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/RUN-MANIFEST-CORPUS.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "E_UMA_EXECUCAO_PERTENCE_A_UNIVERSE_EXECUCOES"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-FB-09.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-FB-10.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-01.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-04.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-05.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-06.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-07.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-08.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-IG-FB-09.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-IG-FB-10.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-01.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-04.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-05.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-06.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-07.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-IG-PC-08.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-CONTENT-CORPUS-EAME/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-YT-PC-02.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-MAP-EAME/APIFY-ACTOR-CONTRACTS.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "CREATOR-MAP-EAME/APIFY-DIAG.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "CREATOR-MAP-EAME/BRAND-COLLABORATIONS-EU.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "CREATOR-MAP-EAME/CREATOR-ACTIVITY.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "CREATOR-MAP-EAME/CREATOR-CAPABILITY-EAME.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "CREATOR-MAP-EAME/CREATORS-ES-IT-FR.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "CREATOR-MAP-EAME/CROP-PROOF.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "CREATOR-MAP-EAME/DECISION-FICHES.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "CREATOR-MAP-EAME/DISCOVERY-HUBS.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "CREATOR-MAP-EAME/ES-MASTER-SOURCES.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "CREATOR-MAP-EAME/FR-ACTIVITY.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "CREATOR-MAP-EAME/HUB-DISCOVERED-CLASSIFIED.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "CREATOR-MAP-EAME/HUB-DISCOVERED-RESOLVED.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "CREATOR-MAP-EAME/HUB-EXTRACTION.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "CREATOR-MAP-EAME/HUB-OFFICIAL-IDENTITY.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "CREATOR-MAP-EAME/HUB-YIELD.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "CREATOR-MAP-EAME/IT-CREATORS-CONSOLIDATED.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "CREATOR-MAP-EAME/MARKET-EVIDENCE-EU.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "CREATOR-MAP-EAME/PILOT-FREEZE-STATE.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "CREATOR-MAP-EAME/PRIMARY-IDENTITY-RESOLVED.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "CREATOR-MAP-EAME/RUN-MANIFEST-CREATORS.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "E_UMA_EXECUCAO_PERTENCE_A_UNIVERSE_EXECUCOES"
+    },
+    "CREATOR-MAP-EAME/SEED-IT-CANDIDATES.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "CREATOR-MAP-EAME/SEED-IT-RESOLVED.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "CREATOR-MAP-EAME/SEED-IT-VALIDATION.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "CREATOR-MAP-EAME/WHO-COULD-MARKETING-CALL.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-ATIVIDADE-IT.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-CROP-PROOF.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-DESCOBERTOS.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-FR-FR-CR-005.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-FR-FR-CR-006.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-HUBS.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-SEED-IT-INSTAGRAM.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "CROSS-MARKET-prothioconazole-cereal.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "DATA-CLOCK-manifest.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "DESIGN-DATA-CONTRACT-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "DISPLAY-LAYER-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "EAME-COMPARABILITY-CONTRACT-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "EAME-COMPETITOR-CONTRACT-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "EAME-COUNTRY-PRODUCT-INPUTS-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "EAME-RELATIONSHIP-CONTRACT-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-ACTION-MAP-V2.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-ADAMA-PORTFOLIO-ROPF.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-AREA-CEREAIS-MAPA.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-CASE-001-OLIVO-REPILO.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-CASE-002-MAIZ-AMARANTHUS.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-CASE-003-CEREAL-GRAMINEAS.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-CASES-COMPARACAO-E-ACAO.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-CASO-MILHO-AMARANTHUS.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-CEREAIS-PARES-ROPF.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-CIENCIA-PARA-VOZ.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-CIENCIA-PARES-AUTORES.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "ES-COMPARACAO-TRES-TERRITORIOS.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-COMPETITOR-VOICE.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-HERO-001-MILHO-AMARANTHUS-ACAO.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-HERO-002-OLIVAR-REPILO-ACAO.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-HERO-003-CEREAIS-SEPTORIA-ACAO.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-M11-DERIVACOES.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-MAPA-VOCABULARIO-IDS.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-MILHO-PARES-ROPF.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-PRESSAO-x-AREA-OLIVAR.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-RESEARCHERS-OLIVE.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-REVIEW-HANDOFFS.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "ES-ROTA-DO-PAR-CROP-ISSUE.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-ROTAS-ESTRUTURADAS-M11B.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-T2-002-pac-maiz-aragon.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-T2-003-crosswalk-municipio-aragon.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-T3-001-raif-olivar-repilo-2026.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-T3-001-raif-vid-mildiu-2026.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-T3-001-repilo-serie-historica.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-T3-002-raif-cereales-invierno.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-T4-001/ES-T4-002-autorizaciones-excepcionales.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-T4-001/eppo-dictionary.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-T4-001/jerarquia.xlsx": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "ES-T4-001/plagas.xlsx": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "ES-T4-004-denominaciones-comunes.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-T4-004-denominaciones-medida.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-T4-004-denominaciones-padrao.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-T4-004-versoes/LEIA-ME.md": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "ES-T4-004-versoes/dc_web_20250528.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "ES-T4-004-versoes/dc_web_20260826.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "ES-T4-005-denominadores-ropf.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-T4-005-divergencia-resolvida.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "ES-T4-005-ficha-primaria-es01717.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-T4-005/LEIA-ME.md": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "ES-T4-005/ropf_20260829.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "ES-T5-002-corpus-documentos.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-T6-001-adv-catalunya.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-T8-001-baseline-canais.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "ES-T8-001-comentarios.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "ES-T8-001-transcricoes.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "ES-T8-001-videos.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "ES-T8-002-entradas-enriquecimento.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-T8-002-posts.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "ES-VOICE-INSTAGRAM.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-VOICE-LINKEDIN.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "ES-VOICE-MEDIA-ROUTES.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-VOICE-YOUTUBE.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-VOICE-x-REGUA.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ES-VOZ-x-MATRIZ-DE-PRIORIDADE.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-X-VOICE-FIELD.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ES-X-VOICE-SCIENCE.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "EU-T1-001-nuts2-crop-area.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "EU-T1-002-wheat-yield-country.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "EU-T10-001-cereal-prices.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "EU-T4-001/CELEX-32026R1696-eng.xhtml": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "EU-T4-001/evidence-32026R1696.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "EU-T4-001/sparql-active-substance-2026.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "EU-T5-001-openalex-people.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "EXPERT-DIRECTORY-EAME-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "FR-T13-001-distribution.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "FR-T4-001/FR-T4-001-adama-crop-target.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "FR-T4-001/FR-T4-001-adama-produtos.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "FR-T4-001/substance_active_utf8.csv": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "INVENTARIO-SCRATCHPAD-HANDOFF.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ARPAV-VENETO/boll.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ARPAV-VENETO/boll_agro_settimanale.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ARPAV-VENETO/fe.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ARPAV-VENETO/fineestate_310826.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ARPAV-VENETO/frutticolo_24_260826.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ARPAV-VENETO/frutticolo_24_260826.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ARPAV-VENETO/lug2026.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ARPAV-VENETO/lug_full.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ARPAV-VENETO/olivicolo_28_260826.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ARPAV-VENETO/olivicolo_29_020926.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ARPAV-VENETO/olivicolo_29_020926.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ARPAV-VENETO/orticolo_22_260826.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ARPAV-VENETO/orticolo_22_260826.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ARPAV-VENETO/staz_18.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ARPAV-VENETO/staz_19.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ARPAV-VENETO/staz_20004.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ARPAV-VENETO/staz_20008.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ARPAV-VENETO/staz_20066.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ARPAV-VENETO/staz_23.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ARPAV-VENETO/tab_300000079.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ARPAV-VENETO/tab_300000092.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ARPAV-VENETO/tab_300000139.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ARPAV-VENETO/vite_19_130826.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ARPAV-VENETO/vite_20_270826.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ARPAV-VENETO/vite_20_270826.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/IT-DIRETORIO-NACIONAL-BOLETINS-FITOGEST.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-BOLLETTINI-VPN-2026/pdf/CAMP_AV-26-08.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/pdf/CAMP_BN-26-08.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/pdf/CAMP_CE-26-08.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/pdf/CAMP_NA-26-08.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/pdf/CAMP_SA-26-08.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/pdf/LAZIO_BOLSENA.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/pdf/LAZIO_ENTROTERRA_TUSCIA.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/pdf/LAZIO_LITORALE_VITERBESE.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/pdf/LAZIO_PIANURA_INTERNA_VITERBESE.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/pdf/LAZIO_SABINA.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/pdf/MOLISE_comunicato_5_2026.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/pdf/TN_DIB22_07ago2026.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/pdf/TN_DIB23_14ago2026.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/pdf/TN_DIB24_21ago2026.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/pdf/TN_DIB25_28ago2026.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/txt/CAMP_AV-26-08.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/txt/CAMP_BN-26-08.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/txt/CAMP_CE-26-08.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/txt/CAMP_NA-26-08.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/txt/CAMP_SA-26-08.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/txt/LAZIO_BOLSENA.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/txt/LAZIO_ENTROTERRA_TUSCIA.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/txt/LAZIO_LITORALE_VITERBESE.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/txt/LAZIO_PIANURA_INTERNA_VITERBESE.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/txt/LAZIO_SABINA.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/txt/MOLISE_comunicato_5_2026.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/txt/TN_DIB22_07ago2026.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/txt/TN_DIB23_14ago2026.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/txt/TN_DIB24_21ago2026.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-BOLLETTINI-VPN-2026/txt/TN_DIB25_28ago2026.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-CAMPO-ATUAL/IT-FLAVESCENZA-REGIOES-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CAMPO-ATUAL/IT-SINAIS-CAMPO-SETEMBRO-2026.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CAMPO-V1/IT-BOLLETTINI-ER-2026-INDICE.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CAMPO-V1/IT-BOLLETTINI-ER-SOSTANZE-ATTIVE-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V2.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CAMPO-V1/IT-CIMICE-TRAPPOLE-UNIBO-SERIE.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CASOS/IT-CASE-DURUM-FUSARIUM-001-antecipacao.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CASOS/IT-CASE-DURUM-FUSARIUM-001.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CASOS/IT-CEREAIS-FALSIFICACAO.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CASOS/IT-COLLIO-CEREAIS.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CASOS/IT-HUMAN-SENSOR-OPEN-DOORS.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CASOS/IT-HUMAN-SENSOR-PILOT.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CASOS/IT-LINKEDIN-IDENTITY.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CASOS/IT-LINKEDIN-PROVA-BUSCA.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CASOS/IT-LINKEDIN-RECOVERY.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CASOS/IT-LINKEDIN-SENSOR-RUN.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CASOS/IT-PORTAS-SENSORES.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CASOS/IT-REDE-CAMPO-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CASOS/IT-SENSORES-HUMANOS-VEREDITO.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CASOS/IT-SENSORES-V2.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CASOS/IT-hero-case-candidates.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CASOS/ITALY-HERO-CASES-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CATALOGO/IT-ADAMA-CATALOG-CENSUS-2026-09-02.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CIENCIA/IT-GIRE-RESISTENCIA-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CIENCIA/IT-GIRE-RESISTENCIA-V2.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CONVEGNO-V1/IT-CONVEGNO-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CONVEGNO-V1/falas/3m0OxLSK4ro.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V1/falas/4ybyIcvgUhg.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V1/falas/6eNiYjzPGHw.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V1/falas/8_rnThlsy9Q.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V1/falas/CYV76yVc98s.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V1/falas/D9rKf6p1YY0.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V1/falas/GIiPq_NhIiM.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V1/falas/VE8gaWinRmY.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V1/falas/azHKlPD3qAg.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V1/falas/dGmP236Z4uQ.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V1/falas/gDNHhPeng7Y.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V1/falas/lr4Alw-8VXA.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V1/falas/m50xqCqqJP4.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V1/falas/mIunZ-pH3RY.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V1/falas/or7l165Qv_c.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V1/falas/szsLkUd2cy4.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V1/falas/uf5bx-oTees.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-CONVEGNO-V2/IT-CONVEGNO-RESGATE-V2.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CONVEGNO-V2/IT-OLIVO-LEITURA-V2.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CONVEGNO-V2/falas/-4lUyIORl4A.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CONVEGNO-V2/falas/AOOVhtTQvPA.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CONVEGNO-V2/falas/wh20ZkHf5Cc.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CONVEGNO-V2/testemunhas/-4lUyIORl4A.witness.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CONVEGNO-V2/testemunhas/AOOVhtTQvPA.witness.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CONVEGNO-V2/testemunhas/c2bJ4IqqXek.witness.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CONVEGNO-V2/testemunhas/gDNHhPeng7Y.witness.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CONVEGNO-V2/testemunhas/wh20ZkHf5Cc.witness.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-CRUZAMENTO-V1/IT-CRUZAMENTOS-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CRUZAMENTO-V1/IT-ENRIQUECIMENTO-CONFIRMADAS-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CRUZAMENTO-V2/IT-CRUZAMENTOS-V2.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-CRUZAMENTO/IT-CONVERSA-X-ROTULO.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-FONTES-V1/IT-FONTES-RECONFERENCIA-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-FONTES-V1/IT-FONTES-REJEICOES-LOTE2-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-FONTES/ITALY-OP-FIELD-LAYER.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-FONTES/ITALY-PANEL-BIAS.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-FONTES/ITALY-REGIONAL-COVERAGE-MATRIX.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-FONTES/ITALY-SOURCE-PROBE.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-FUTURO-V1/IT-ACERVO-CENSO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-FUTURO-V1/IT-CANAL-CANDIDATOS-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-FUTURO-V1/IT-CANAL-REGUA-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-FUTURO-V1/IT-FUTURO-CONTRATO-SUPERFICIE-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-FUTURO-V1/IT-FUTURO-FICHAS-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-FUTURO-V1/IT-FUTURO-HANDOFF-LINHA-B-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-FUTURO-V1/IT-FUTURO-JULGADOS-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-FUTURO-V1/IT-FUTURO-NOVOS-CANDIDATOS-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-FUTURO-V1/IT-FUTURO-QUEDAS-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-FUTURO-V1/IT-FUTURO-RADAR-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-FUTURO-V1/IT-FUTURO-SINAIS-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-FUTURO-V1/IT-FUTURO-SUPERFICIE-VERIFICACAO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-FUTURO-V1/IT-TOP3-SENSORES-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-GIRE-MAPAS/gire-mapas-nacionais.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-GIRE-MAPAS/linee-guida/Linee_guida_Clearfield_Provisia_2026.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-GIRE-MAPAS/linee-guida/Linee_guida_Conviso_Smart.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-GIRE-MAPAS/linee-guida/Linee_guida_arboree.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-GIRE-MAPAS/linee-guida/Linee_guida_cereali.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-GIRE-MAPAS/linee-guida/Linee_guida_colture_sarchiate.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-GIRE-MAPAS/linee-guida/Linee_guida_riso.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-GIRE-MAPAS/linee-guida/linee_guida_AMA_soia_marzo2022.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-GIRE-MAPAS/linee-guida/linee_guida_agricoltura_conservativa.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-GIRE-MAPAS/linee-guida/linee_guida_girasole_2016.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-GIRE-MAPAS/linee-guida/linee_guida_medica.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-HANDOFF-CANONICO-V1/IT-GAP-TAXONOMIA-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-HANDOFF-CANONICO-V1/IT-HANDOFF-VIDEO-CONVEGNI-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-HANDOFF-CANONICO-V1/IT-OLIVO-ASSIMETRIA-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-HANDOFF-CANONICO-V1/IT-TRABALHO-PERDIDO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-INSTAGRAM-V1/IT-INSTAGRAM-OBJETOS-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-INSTAGRAM-V1/IT-INSTAGRAM-PERFIS-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-INSTAGRAM-V1/IT-INSTAGRAM-TRANSCRICOES-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-INSTAGRAM-V1/IT-INSTAGRAM-VEREDITO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-INSTAGRAM-V2/IT-INSTAGRAM-OBJETOS-V2.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-INSTAGRAM-V2/IT-INSTAGRAM-PERFIS-V2.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-INSTAGRAM-V2/IT-INSTAGRAM-TRANSCRICOES-V2.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-INSTAGRAM-V3/IT-INSTAGRAM-OBJETOS-V3.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-INSTAGRAM-V3/IT-INSTAGRAM-PERFIS-V3.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-INSTAGRAM-V3/IT-INSTAGRAM-TRANSCRICOES-V3.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-ISTAT-COLTIVAZIONI/istat_101_1015_coltivazioni_regioni_2024_2026.csv": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ISTAT-COLTIVAZIONI/pull_extra.csv": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ISTAT-COLTIVAZIONI/pull_istat_coltivazioni.py": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ISTAT-COLTIVAZIONI/pull_legnose.csv": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ISTAT-COLTIVAZIONI/pull_pomodoro.csv": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ISTAT-COLTIVAZIONI/pull_seminativi.csv": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-LASTMILE/IT-ADAMA-CATALOGO.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-LASTMILE/IT-LASTMILE-INVENTARIO.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-LASTMILE/IT-ROTA-COM_VPN_IT.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-LASTMILE/IT-ROTA-SEM_VPN.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-MERCADO/EU-AGRIFOOD-cereal-prices-IT.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-MERCADO/EU-AGRIFOOD-cereal-production-IT.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-MERCADO/EU-AGRIFOOD-oliveOil-prices-IT.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-MERCADO/EU-AGRIFOOD-wine-prices-IT.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-MERCADO/EUROSTAT-apri_pi_inq-input-price-index-IT.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-MERCADO/EUROSTAT-apri_pi_outq-output-price-index-IT.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ORIGENS/ITALY-ORIGIN-UNIVERSE.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-PORTAL-V1/IT-ACERVO-CHAVES-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-PORTAL-V1/IT-ACERVO-INVENTARIO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-PORTAL-V1/IT-ACERVO-INVENTARIO-V2.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-PORTAL-V1/IT-ACERVO-MEDICAO-ESTRUTURAL-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-PORTAL-V1/IT-CONTRATO-FAMILIA-FITOSSANITARIO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-PORTAL-V1/IT-CONTRATO-FAMILIA-FONTES-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-PORTAL-V1/IT-CONTRATO-FAMILIA-SINAIS_DE_CAMPO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-PORTAL-V1/IT-FAMILIA-SUPERFICIE-VERIFICACAO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-PORTAL-V1/IT-HANDOFF-LINHA-B-FITOSSANITARIO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-PORTAL-V1/IT-HANDOFF-LINHA-B-FONTES-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-PORTAL-V1/IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-RADAR-V21/IT-OLIVO-ROTULO-DICURAN-PLUS.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-RADAR-V21/MANIFEST.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-RADAR-V21/activeIngredients.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-RADAR-V21/adamaCrops.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-RADAR-V21/adamaFungicides.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-RADAR-V21/adamaHerbicides.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-RADAR-V21/adamaInsecticides.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-RADAR-V21/cropWindows.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-RADAR-V21/labelTermCensus.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-RADAR-V21/opportunities.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-RADAR-V21/productRelationships.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-RADAR-V21/productsRegulatory.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V2.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ROTULOS-V1/IT-PAIRSET-PROPAGACAO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ROTULOS-V1/IT-PORTFOLIO-DELTA-V3.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ROTULOS-V1/IT-ROTULOS-AMOSTRA-ADJUDICADA-V2.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ROTULOS-V1/IT-ROTULOS-CENSO-ZERO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-ROTULOS-V1/IT-ROTULOS-COBERTURA-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ROTULOS-V1/IT-ROTULOS-COBERTURA-V2.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-ROTULOS-V1/IT-ROTULOS-DELTA-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-ROTULOS-V1/IT-ROTULOS-DIVIDA-DE-LEITURA-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ROTULOS-V1/IT-ROTULOS-FILA-DE-CAUDA-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ROTULOS-V1/IT-ROTULOS-GABARITO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ROTULOS-V1/IT-ROTULOS-GOLD-COMPLETE-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ROTULOS-V1/IT-ROTULOS-LEITURA-RUN.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ROTULOS-V1/IT-ROTULOS-METRICAS-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ROTULOS-V1/IT-ROTULOS-METRICAS-V2.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ROTULOS-V1/IT-ROTULOS-PARES-V3.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ROTULOS-V1/IT-ROTULOS-PORTAO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-ROTULOS-V1/IT-VOCAB-HANDOFF-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ROTULOS-V1/IT-VOCAB-PROPOSTA-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-ROTULOS-V1/geometria/002732.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/002983.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/004701.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/007555.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/007603.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/007864.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/007876.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/008102.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/008189.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/008259.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/008401.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/008599.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/008601.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/008929.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/009005.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/009757.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/009783.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/009790.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/009800.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/010063.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/010569.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/010585.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/010587.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/011243.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/011500.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/011501.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/011526.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/011660.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/011734.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/011789.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/011794.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/012023.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/012060.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/012156.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/012279.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/012573.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/012878.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/013012.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/013242.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/013299.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/013332.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/013402.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/013405.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/013560.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/013585.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/013590.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/013711.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/013736.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/013771.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/013807.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/013876.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/013899.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/013905.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/014074.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/014091.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/014093.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/014190.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/014210.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/014375.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/014380.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/014386.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/014479.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/014693.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/014694.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/014728.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/014862.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015096.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015182.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015183.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015229.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015232.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015235.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015253.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015275.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015315.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015316.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015317.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015401.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015405.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015592.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015629.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015630.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015740.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015847.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/015909.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/016084.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/016152.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/016218.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/016312.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/016387.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/016475.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/016553.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/016575.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/016616.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/016697.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/016749.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/016823.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017094.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017111.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017115.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017116.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017123.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017206.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017209.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017311.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017318.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017319.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017332.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017335.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017337.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017340.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017358.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017398.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017409.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017432.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017580.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017585.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017655.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017658.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017659.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017660.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017661.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017662.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017663.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017664.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017687.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017688.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017689.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017690.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017703.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017752.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017824.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017852.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017868.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017898.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017929.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017930.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017955.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017968.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017983.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/017995.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018067.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018072.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018089.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018101.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018111.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018156.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018165.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018175.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018176.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018202.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018244.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018270.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018271.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018277.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018279.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018545.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018561.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018644.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018694.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018813.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/018814.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/geometria/019095.xml.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/002732.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/002983.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/004701.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/007555.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/007603.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/007864.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/007876.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/008102.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/008189.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/008259.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/008401.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/008599.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/008601.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/008929.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/009005.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/009757.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/009783.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/009790.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/009800.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/010063.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/010569.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/010585.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/010587.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/011243.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/011500.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/011501.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/011526.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/011660.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/011734.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/011789.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/011794.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/012023.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/012060.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/012156.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/012279.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/012573.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/012878.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/013012.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/013242.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/013299.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/013332.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/013402.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/013405.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/013560.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/013585.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/013590.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/013711.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/013736.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/013771.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/013807.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/013876.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/013899.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/013905.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/014074.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/014091.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/014093.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/014190.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/014210.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/014375.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/014380.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/014386.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/014479.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/014693.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/014694.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/014728.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/014862.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015096.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015182.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015183.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015229.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015232.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015235.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015253.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015275.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015315.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015316.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015317.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015401.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015405.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015592.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015629.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015630.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015740.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015847.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/015909.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/016084.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/016152.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/016218.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/016312.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/016387.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/016475.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/016553.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/016575.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/016616.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/016697.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/016749.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/016823.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017094.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017111.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017115.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017116.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017123.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017206.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017209.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017311.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017318.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017319.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017332.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017335.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017337.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017340.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017358.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017398.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017409.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017432.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017580.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017585.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017655.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017658.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017659.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017660.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017661.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017662.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017663.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017664.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017687.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017688.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017689.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017690.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017703.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017752.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017824.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017852.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017868.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017898.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017929.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017930.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017955.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017968.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017983.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/017995.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018067.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018072.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018089.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018101.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018111.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018156.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018165.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018175.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018176.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018202.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018244.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018270.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018271.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018277.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018279.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018545.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018561.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018644.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018694.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018813.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/018814.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS-V1/testo/019095.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-ROTULOS/IT-CENSO-DE-TERMOS.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-ROTULOS/IT-ROTULOS-PARES.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-SNAPSHOT-V1/IT-CHECKPOINT-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-SNAPSHOT-V1/IT-INVENTARIO-FALA-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-SNAPSHOT-V1/IT-INVENTARIO-FALA-V2.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-SNAPSHOT-V1/IT-INVENTARIO-FALA-V3.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-SNAPSHOT-V1/IT-SNAPSHOT-ESTADO-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-T1/IT-EU-T1-001-colture-scala.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-T1/IT-T1-001-istat-area-regional.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-T3-LAMMA/IT-T3-LAMMA-grosseto-2026-04-23.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-T3-LAMMA/grosseto-ftsnt-2026-04-23.html": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-T3-LOTTA/IT-cobertura-campo-vs-area.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-T3-LOTTA/IT-durum-field-panel.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-T3-LOTTA/IT-lotta-obbligatoria-flavescenza-2026.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-T3-LOTTA/IT-trigo-duro-sinal-x-portfolio.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-T4-001/IT-COORDINATION-SWEEP.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-T4-001/IT-T4-001-adama-expiries.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-T4-001/IT-T4-001-adama-inventario.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-T4-001/IT-T4-001-adama-portfolio.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-T4-001/IT-T4-001-enriquecimento-validado.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-T4-001/IT-T4-001-etichette-manifest.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "IT-T4-001/IT-T4-001-portfolio-rotulo.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-T4-001/IT-T4-001-validacao-contra-v21.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-T4-001/IT-T4-001-vencimentos-caso.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-T4-001/ITALY-ADAMA-REGULATORY-INTELLIGENCE.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-T5-001/IT-T5-001-ciencia-milho.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-T5-001/ITALY-RESEARCHER-UNIVERSE.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-T5-SENSORES/agronotizie-88873-mais-micotossine-2026-02-13.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-T5-SENSORES/collio-boll-06-vite-2026-05-15.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-T5-SENSORES/ersa-fvg-boll-07-frumento-orzo-2026-04-20.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-T5-SENSORES/marche-amap-an-615-2026-04-22.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-T5-SENSORES/marche-amap-an-616-2026-04-29.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-T5-SENSORES/umbria-boll-cereali-04-servizio-fitosanitario.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "IT-V2/IT-V2-CANONICO.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-V2/IT-V2-CONFLITOS.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-V2/IT-V2-QA-ATRIBUIDO.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-VIDEO-V1/IT-VIDEO-CANAIS-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-VIDEO-V1/IT-VIDEO-FALAS-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-VIDEO-V1/IT-VIDEO-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "IT-VIDEO-V1/falas/2jgjJQqcr-s.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/3tDE1zDHUvU.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/67b-g9X49GQ.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/AEF-A2AVP7E.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/AuYXP_5Hfzc.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/D8BW5iP35rM.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/EmDDkVgfzEM.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/HD4ZaIURPso.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/INGnJtElzkg.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/SlTx6OqFiGA.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/acAe_KZkL0w.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/ah8sT9hB7HU.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/ep1KX19XxS8.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/f0Tzdu2j67E.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/ofRkFRzzkno.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/uruXJezDp3o.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/yFZ7eTXY2zU.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V1/falas/zklvzODubuQ.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "IT-VIDEO-V2/IT-VIDEO-CANAIS-NOVOS-V2.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-VIDEO-V2/IT-VIDEO-ROTA-90-FONTES-V2.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-VOZ-AUDIO-V1/IT-VOZ-AUDIO-TRANSCRICOES-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-VOZ-AUDIO-V1/IT-VOZ-SINAL-SO-NA-FALA-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-DESCOBERTA-V2.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-LOCAIS-V2.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-TRANSCRICOES-V2.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "IT-VOZ-AUDIO-V2/IT-VOZ-ROTA-B-V2.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "IT-VOZ-AUDIO-V2/IT-VOZ-VEREDITO-AUDIO-V2.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "ITALY-RADAR-DO-FUTURO-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "PIEMONTE-FD/MANIFESTO-PRESERVACAO.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "PIEMONTE-FD/aggiornamento_2025_strategie2026_pt.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/area_delimitata_2026_pt.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/bacheca.html": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/dash.html": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/dd_280_2026.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/dd_280_2026_pt.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/insetticidi_ammessi_2026.err": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/insetticidi_ammessi_2026.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/insetticidi_ammessi_2026.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/insetticidi_ammessi_2026_pt.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/locandina_2026_pt.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/pagina.html": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/pagina.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/piano_operativo_2026.err": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/piano_operativo_2026.pdf": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/piano_operativo_2026.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/piano_operativo_2026_pt.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/progetti_pilota_2025_pt.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/sintesi_disposizioni_2026.err": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/sintesi_disposizioni_2026.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PIEMONTE-FD/sintesi_disposizioni_2026_pt.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "PILOT-SCOPE-MATRIX-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "POLITICA-RAW-ROTA-PAGA.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "PORTAO-10B-ES.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "PORTAO-DE-REDE-ES-CURRENT.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "PORTAO-DE-REDE-ES.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "PORTOES-EAME.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "PUBLIC-TECHNICAL-VOICE-QUEUE-ES.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "RADAR-ADAMA-prothioconazole.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "RADAR-DO-FUTURO-CONTRACT-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "RAIF-COORTE-REPILO.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "RAW-GATE-ES.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "RAW-PESADO-CONGELADO.txt": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NAO_E_JSON"
+    },
+    "REDTEAM-CASE-014-datas.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "RESEARCHER-CORPUS-EAME-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "RESEARCHER-OUTLOOK-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "ROTAS-EXTERNAS-TESTADAS-M09.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "RUN-MANIFEST.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "E_UMA_EXECUCAO_PERTENCE_A_UNIVERSE_EXECUCOES"
+    },
+    "SENSOR-PILOT/CANAIS-A.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/CANAIS-B.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/CANAL-IDENTIDADE.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/COMENTARIOS-A.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/COMENTARIOS-B.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/COMENTARIOS-C.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/COMENTARIOS-D.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/COMENTARIOS-E.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/CONTRATOS-DE-ENTRADA.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "SENSOR-PILOT/MEDICAO.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/RUNS-A.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "E_UMA_EXECUCAO_PERTENCE_A_UNIVERSE_EXECUCOES"
+    },
+    "SENSOR-PILOT/RUNS-B.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "E_UMA_EXECUCAO_PERTENCE_A_UNIVERSE_EXECUCOES"
+    },
+    "SENSOR-PILOT/RUNS-C.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "SENSOR-PILOT/RUNS-D.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "SENSOR-PILOT/RUNS-E.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "E_UMA_EXECUCAO_PERTENCE_A_UNIVERSE_EXECUCOES"
+    },
+    "SENSOR-PILOT/TRANSCRICOES-A.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/TRANSCRICOES-B.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/TRANSCRICOES-C.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/TRANSCRICOES-D.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/TRANSCRICOES-E.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/VIDEOS-A.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/VIDEOS-B.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/VIDEOS-C.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/VIDEOS-D.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SENSOR-PILOT/VIDEOS-E.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "SLICE-PLASVI-vertical.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "SPAIN-DEMO-CONTENT-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "SPAIN-HERO-CASES-V1.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "SPAIN-RADAR-DO-FUTURO-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "SPEAKER-UNIVERSE-PILOT-V1.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "TERRITORIAL/DOCUMENTOS.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "TERRITORIAL/INVENTARIO-DE-FONTES.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "TERRITORIAL/ITENS-A.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "TERRITORIAL/ITENS-B.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "TERRITORIAL/MEDICAO.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_A_EXECUCAO_PROPRIA"
+    },
+    "VERIFICACAO-ADVERSARIAL-PORTOES.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "X-001-completo-mildiu-vs-clima.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "X-001-nuts2-heat-vs-wheat.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "X-006-eu-cas-to-ephy.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "X-006-substance-normalisation.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "X-007-canonical-agro-dictionary.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "YOUTUBE-JANELA/CANAIS.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "YOUTUBE-JANELA/OBJETOS.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "YOUTUBE-RELEVANCIA/FILA-WHISPER.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "YOUTUBE-RELEVANCIA/FONTES.json": {
+      "ESTADO": "IN_UNIVERSE_PASSAPORTE",
+      "MOTIVO": "REGRA_B_DECISAO_POR_ITEM"
+    },
+    "YOUTUBE-RELEVANCIA/LEXICO-APROVADO.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "SEM_REGISTROS"
+    },
+    "YOUTUBE-RELEVANCIA/LEXICO-CANDIDATOS.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "YOUTUBE-RELEVANCIA/LEXICO-COBERTURA.json": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "NEM_A_NEM_B"
+    },
+    "raw-paid/ES-T8-001-youtube-comments.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/ES-T8-001-youtube-search.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/ES-T8-001-youtube-transcripts.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/ES-T8-002-linkedin-posts-a.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/ES-T8-002-linkedin-posts-b.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/ES-T8-002-linkedin-profiles.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/ES-T8-002-titlesearch-test.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/ES-T8-003-instagram-hashtags.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-b.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-c.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-d.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-CM-A-0-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-CM-A-1-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-CM-B-0-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-CM-B-1-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-LI-A-Antonio-Logrieco-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-LI-A-Blanca-B--Landa-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-LI-A-François-Delmotte-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-LI-A-Isabelle-D--Mazet-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-LI-A-Jesús-Mercado-Blanco-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-LI-A-Massimo-Blandino-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-LI-B-Andrea-Sánchez-Vallet-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-LI-B-Cristian-Carrasco-López-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-LI-B-F--Quaglino-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-LI-B-Frédéric-Suffert-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-LI-B-Nicola-Mori-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-LI-B-Thierry-C--Marcel-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-TR-A-0-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-TR-A-1-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-TR-A-2-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-TR-A-3-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-TR-A-4-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-TR-A-5-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-TR-A-6-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-TR-A-7-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-TR-A-8-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-TR-B-0-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-TR-B-1-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-TR-B-2-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-TR-B-3-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-TR-B-4-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-TR-B-5-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-VID-A-ES-OLIVE-REPILO-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-VID-A-FR-VINE-DOWNY_MILDEW-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-VID-A-IT-DURUM_WHEAT-FUSARIUM-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-VID-B-ES-CEREAL-SEPTORIA-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-VID-B-FR-CEREAL-SEPTORIA-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-VID-B-IT-VINE-FLAVESCENCE-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-YT-A-Antonio-Logrieco-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-YT-A-Blanca-B--Landa-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-YT-A-François-Delmotte-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-YT-A-Isabelle-D--Mazet-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-YT-A-Jesús-Mercado-Blanco-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-YT-A-Massimo-Blandino-p1.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-YT-B-Andrea-Sánchez-Vallet-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-YT-B-Cristian-Carrasco-López-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-YT-B-F--Quaglino-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-YT-B-Frédéric-Suffert-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-YT-B-Nicola-Mori-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    },
+    "raw-paid/SENSOR-YT-B-Thierry-C--Marcel-p3.raw.json.gz": {
+      "ESTADO": "OUT_OF_SCOPE",
+      "MOTIVO": "RAW_PAID_TEM_REGRA_DE_DIRETORIO_PROPRIA"
+    }
+  },
+  "CONTAGEM": {
+    "OUT_OF_SCOPE": 801,
+    "IN_UNIVERSE_PASSAPORTE": 132
+  },
+  "TOTAL": 933,
+  "UNIVERSO": {
+    "FILE_COUNT": 132,
+    "RECORD_COUNT": 14842,
+    "FAMILIES": [
+      "COMPETITOR-PUBLIC-COMM",
+      "CREATOR-CONTENT-CORPUS-EAME",
+      "CREATOR-MAP-EAME",
+      "IT-CAMPO-V1",
+      "IT-CASOS",
+      "IT-CONVEGNO-V1",
+      "IT-CONVEGNO-V2",
+      "IT-CRUZAMENTO-V1",
+      "IT-CRUZAMENTO-V2",
+      "IT-FONTES",
+      "IT-FONTES-V1",
+      "IT-FUTURO-V1",
+      "IT-INSTAGRAM-V1",
+      "IT-INSTAGRAM-V2",
+      "IT-INSTAGRAM-V3",
+      "IT-ORIGENS",
+      "IT-RADAR-V21",
+      "IT-REGUA",
+      "IT-ROTULOS-V1",
+      "IT-T3-LOTTA",
+      "IT-T4-001",
+      "IT-T5-001",
+      "IT-V2",
+      "IT-VIDEO-V1",
+      "IT-VIDEO-V2",
+      "IT-VOZ-AUDIO-V1",
+      "IT-VOZ-AUDIO-V2",
+      "SENSOR-PILOT",
+      "TERRITORIAL",
+      "YOUTUBE-JANELA",
+      "YOUTUBE-RELEVANCIA",
+      "__RAIZ__"
+    ],
+    "COLLECTIONS": [
+      "ACCOUNTS",
+      "ACTORS",
+      "ADAMA_ES_DATACENTER.REVIEW_COMPLETO_2026_08_30.CLASSIFICACAO_POR_ARTEFATO",
+      "ADAMA_REGULATORY_RESPONSE",
+      "ANCHORS",
+      "APPROVED",
+      "AS_TRES_OPORTUNIDADES_DE_OLIVO",
+      "ATOS.SUBSTANCES",
+      "BASELINE",
+      "BY_CHANNEL",
+      "BY_CROP.VINE.LARGEST_REGIONS_NEVER_ASKED",
+      "CANAIS",
+      "CANDIDATES",
+      "CASES",
+      "CASES.RESEARCHERS.TOP_MATERIALS",
+      "CELLS",
+      "CHANNELS",
+      "COLLABORATIONS",
+      "COMMENTS",
+      "COMMENTS_ITEMS",
+      "CONTENTS_READ",
+      "CREATORS",
+      "CROP_PROTECTION_VERDICT.ES.CASOS",
+      "CROSSINGS",
+      "DIMENSOES",
+      "DOCUMENTS",
+      "ENRICHMENTS",
+      "ENTITIES",
+      "EXEMPLO_REAL_LIDO_DO_BANCO.CASO_OLIVE_REPILO.product_window_state",
+      "FACT_LOCATIONS_FOUND",
+      "FICHAS",
+      "FINDINGS",
+      "FONTES",
+      "GROUPS.pomacee-drupacee.REFUTED_WITH_REASON",
+      "HUBS",
+      "INSTITUTIONAL_ORIGINS",
+      "IT",
+      "ITEMS",
+      "LABELS",
+      "LOCAL_ADAMA_CONTEXT.BY_TARGET",
+      "LOOKUP_BY_ENTITY_TYPE.PERSON_CREATOR",
+      "MATERIALS",
+      "MATRIX",
+      "OPPORTUNITIES",
+      "ORGANIZATIONS",
+      "ORIGINS",
+      "PARES.AUTHORS",
+      "PEOPLE",
+      "PERSON_CREATOR_FICHES",
+      "PORTFOLIO_LOCAL.LINHAS",
+      "POSTS",
+      "PRODUCTS",
+      "PROFILES",
+      "PROFILE_STAGE.BY_POSITION",
+      "QUEUE",
+      "RECORDS",
+      "RECUSADOS_ITENS",
+      "REGIONS",
+      "REGISTROS",
+      "RESULTADO_POR_PESSOA.LINKS",
+      "ROWS",
+      "SIGNALS",
+      "SOURCES",
+      "THEMES",
+      "THE_FIVE",
+      "THE_FOUR_NEAR_MISSES",
+      "TRANSCRIPTS",
+      "UNIVERSE",
+      "VALIDATIONS",
+      "VIDEOS",
+      "WINDOWS"
+    ],
+    "FINGERPRINT": "91e10d20bba1c219407cdb7caa863f4027c98319c97dbd84858693dd5d212a84"
+  },
+  "UNIVERSO_FILES": [
+    "ADAMA-ES-HANDOFF-GATE-V1.json",
+    "ADAMA-ES-PRODUCT-INTELLIGENCE.json",
+    "AGRONOMIC-CALENDAR-DESIGN-DATA-CONTRACT-V1.json",
+    "COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1.json",
+    "COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+    "COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json",
+    "COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json",
+    "COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V2.json",
+    "COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V3.json",
+    "COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json",
+    "CREATOR-CONTENT-CORPUS-EAME/ACTOR-CONTRACTS-CORPUS.json",
+    "CREATOR-CONTENT-CORPUS-EAME/CORPUS-MATERIALS.json",
+    "CREATOR-CONTENT-CORPUS-EAME/CORPUS-UNIVERSE.json",
+    "CREATOR-CONTENT-CORPUS-EAME/CORPUS-V1-SEAL.json",
+    "CREATOR-CONTENT-CORPUS-EAME/CREATOR-CORPUS-FICHES.json",
+    "CREATOR-MAP-EAME/BRAND-COLLABORATIONS-EU.json",
+    "CREATOR-MAP-EAME/CREATOR-ACTIVITY.json",
+    "CREATOR-MAP-EAME/CREATOR-CAPABILITY-EAME.json",
+    "CREATOR-MAP-EAME/CREATORS-ES-IT-FR.json",
+    "CREATOR-MAP-EAME/DECISION-FICHES.json",
+    "CREATOR-MAP-EAME/DISCOVERY-HUBS.json",
+    "CREATOR-MAP-EAME/ES-MASTER-SOURCES.json",
+    "CREATOR-MAP-EAME/FR-ACTIVITY.json",
+    "CREATOR-MAP-EAME/HUB-DISCOVERED-CLASSIFIED.json",
+    "CREATOR-MAP-EAME/HUB-DISCOVERED-RESOLVED.json",
+    "CREATOR-MAP-EAME/HUB-OFFICIAL-IDENTITY.json",
+    "CREATOR-MAP-EAME/IT-CREATORS-CONSOLIDATED.json",
+    "CREATOR-MAP-EAME/MARKET-EVIDENCE-EU.json",
+    "CREATOR-MAP-EAME/PRIMARY-IDENTITY-RESOLVED.json",
+    "CREATOR-MAP-EAME/SEED-IT-CANDIDATES.json",
+    "CREATOR-MAP-EAME/SEED-IT-VALIDATION.json",
+    "CREATOR-MAP-EAME/WHO-COULD-MARKETING-CALL.json",
+    "EAME-COMPARABILITY-CONTRACT-V1.json",
+    "ES-CIENCIA-PARES-AUTORES.json",
+    "ES-REVIEW-HANDOFFS.json",
+    "ES-T4-005-divergencia-resolvida.json",
+    "ES-T8-001-baseline-canais.json",
+    "ES-T8-001-comentarios.json",
+    "ES-T8-001-transcricoes.json",
+    "ES-T8-001-videos.json",
+    "ES-T8-002-posts.json",
+    "ES-VOICE-LINKEDIN.json",
+    "ES-X-VOICE-SCIENCE.json",
+    "EXPERT-DIRECTORY-EAME-V1.json",
+    "IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V2.json",
+    "IT-CASOS/IT-CASE-DURUM-FUSARIUM-001.json",
+    "IT-CASOS/IT-CEREAIS-FALSIFICACAO.json",
+    "IT-CASOS/IT-COLLIO-CEREAIS.json",
+    "IT-CASOS/IT-HUMAN-SENSOR-OPEN-DOORS.json",
+    "IT-CASOS/IT-HUMAN-SENSOR-PILOT.json",
+    "IT-CASOS/IT-LINKEDIN-SENSOR-RUN.json",
+    "IT-CASOS/IT-PORTAS-SENSORES.json",
+    "IT-CASOS/IT-REDE-CAMPO-V1.json",
+    "IT-CASOS/IT-SENSORES-V2.json",
+    "IT-CASOS/IT-hero-case-candidates.json",
+    "IT-CASOS/ITALY-HERO-CASES-V1.json",
+    "IT-CONVEGNO-V1/IT-CONVEGNO-V1.json",
+    "IT-CONVEGNO-V2/IT-OLIVO-LEITURA-V2.json",
+    "IT-CRUZAMENTO-V1/IT-CRUZAMENTOS-V1.json",
+    "IT-CRUZAMENTO-V1/IT-ENRIQUECIMENTO-CONFIRMADAS-V1.json",
+    "IT-CRUZAMENTO-V2/IT-CRUZAMENTOS-V2.json",
+    "IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json",
+    "IT-FONTES/ITALY-OP-FIELD-LAYER.json",
+    "IT-FONTES/ITALY-PANEL-BIAS.json",
+    "IT-FONTES/ITALY-REGIONAL-COVERAGE-MATRIX.json",
+    "IT-FUTURO-V1/IT-CANAL-REGUA-V1.json",
+    "IT-FUTURO-V1/IT-FUTURO-NOVOS-CANDIDATOS-V1.json",
+    "IT-FUTURO-V1/IT-FUTURO-RADAR-V1.json",
+    "IT-FUTURO-V1/IT-FUTURO-SINAIS-V1.json",
+    "IT-FUTURO-V1/IT-TOP3-SENSORES-V1.json",
+    "IT-INSTAGRAM-V1/IT-INSTAGRAM-PERFIS-V1.json",
+    "IT-INSTAGRAM-V1/IT-INSTAGRAM-TRANSCRICOES-V1.json",
+    "IT-INSTAGRAM-V2/IT-INSTAGRAM-PERFIS-V2.json",
+    "IT-INSTAGRAM-V2/IT-INSTAGRAM-TRANSCRICOES-V2.json",
+    "IT-INSTAGRAM-V3/IT-INSTAGRAM-PERFIS-V3.json",
+    "IT-INSTAGRAM-V3/IT-INSTAGRAM-TRANSCRICOES-V3.json",
+    "IT-ORIGENS/ITALY-ORIGIN-UNIVERSE.json",
+    "IT-RADAR-V21/cropWindows.json",
+    "IT-RADAR-V21/opportunities.json",
+    "IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V2.json",
+    "IT-ROTULOS-V1/IT-ROTULOS-DELTA-V1.json",
+    "IT-ROTULOS-V1/IT-VOCAB-PROPOSTA-V1.json",
+    "IT-T3-LOTTA/IT-cobertura-campo-vs-area.json",
+    "IT-T3-LOTTA/IT-durum-field-panel.json",
+    "IT-T3-LOTTA/IT-lotta-obbligatoria-flavescenza-2026.json",
+    "IT-T4-001/IT-T4-001-enriquecimento-validado.json",
+    "IT-T4-001/IT-T4-001-etichette-manifest.json",
+    "IT-T4-001/IT-T4-001-portfolio-rotulo.json",
+    "IT-T4-001/ITALY-ADAMA-REGULATORY-INTELLIGENCE.json",
+    "IT-T5-001/ITALY-RESEARCHER-UNIVERSE.json",
+    "IT-V2/IT-V2-CANONICO.json",
+    "IT-V2/IT-V2-QA-ATRIBUIDO.json",
+    "IT-VIDEO-V1/IT-VIDEO-CANAIS-V1.json",
+    "IT-VIDEO-V1/IT-VIDEO-V1.json",
+    "IT-VIDEO-V2/IT-VIDEO-CANAIS-NOVOS-V2.json",
+    "IT-VIDEO-V2/IT-VIDEO-ROTA-90-FONTES-V2.json",
+    "IT-VOZ-AUDIO-V1/IT-VOZ-AUDIO-TRANSCRICOES-V1.json",
+    "IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-LOCAIS-V2.json",
+    "IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-TRANSCRICOES-V2.json",
+    "ITALY-RADAR-DO-FUTURO-V1.json",
+    "PUBLIC-TECHNICAL-VOICE-QUEUE-ES.json",
+    "RESEARCHER-CORPUS-EAME-V1.json",
+    "RESEARCHER-OUTLOOK-V1.json",
+    "SENSOR-PILOT/CANAIS-A.json",
+    "SENSOR-PILOT/CANAIS-B.json",
+    "SENSOR-PILOT/CANAL-IDENTIDADE.json",
+    "SENSOR-PILOT/COMENTARIOS-A.json",
+    "SENSOR-PILOT/COMENTARIOS-B.json",
+    "SENSOR-PILOT/COMENTARIOS-C.json",
+    "SENSOR-PILOT/COMENTARIOS-D.json",
+    "SENSOR-PILOT/COMENTARIOS-E.json",
+    "SENSOR-PILOT/MEDICAO.json",
+    "SENSOR-PILOT/TRANSCRICOES-A.json",
+    "SENSOR-PILOT/TRANSCRICOES-B.json",
+    "SENSOR-PILOT/TRANSCRICOES-C.json",
+    "SENSOR-PILOT/TRANSCRICOES-D.json",
+    "SENSOR-PILOT/TRANSCRICOES-E.json",
+    "SENSOR-PILOT/VIDEOS-A.json",
+    "SENSOR-PILOT/VIDEOS-B.json",
+    "SENSOR-PILOT/VIDEOS-C.json",
+    "SENSOR-PILOT/VIDEOS-D.json",
+    "SENSOR-PILOT/VIDEOS-E.json",
+    "SPAIN-RADAR-DO-FUTURO-V1.json",
+    "SPEAKER-UNIVERSE-PILOT-V1.json",
+    "TERRITORIAL/DOCUMENTOS.json",
+    "TERRITORIAL/ITENS-A.json",
+    "TERRITORIAL/ITENS-B.json",
+    "TERRITORIAL/MEDICAO.json",
+    "YOUTUBE-JANELA/CANAIS.json",
+    "YOUTUBE-JANELA/OBJETOS.json",
+    "YOUTUBE-RELEVANCIA/FILA-WHISPER.json",
+    "YOUTUBE-RELEVANCIA/FONTES.json"
+  ],
+  "DESACORDO_COM_A_LISTA": {
+    "SO_NA_REGRA": [
+      "ADAMA-ES-HANDOFF-GATE-V1.json",
+      "ADAMA-ES-PRODUCT-INTELLIGENCE.json",
+      "AGRONOMIC-CALENDAR-DESIGN-DATA-CONTRACT-V1.json",
+      "COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1.json",
+      "COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+      "COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json",
+      "COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V2.json",
+      "COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V3.json",
+      "COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json",
+      "CREATOR-CONTENT-CORPUS-EAME/ACTOR-CONTRACTS-CORPUS.json",
+      "CREATOR-CONTENT-CORPUS-EAME/CORPUS-MATERIALS.json",
+      "CREATOR-CONTENT-CORPUS-EAME/CORPUS-UNIVERSE.json",
+      "CREATOR-CONTENT-CORPUS-EAME/CORPUS-V1-SEAL.json",
+      "CREATOR-CONTENT-CORPUS-EAME/CREATOR-CORPUS-FICHES.json",
+      "CREATOR-MAP-EAME/BRAND-COLLABORATIONS-EU.json",
+      "CREATOR-MAP-EAME/CREATOR-ACTIVITY.json",
+      "CREATOR-MAP-EAME/CREATOR-CAPABILITY-EAME.json",
+      "CREATOR-MAP-EAME/CREATORS-ES-IT-FR.json",
+      "CREATOR-MAP-EAME/DECISION-FICHES.json",
+      "CREATOR-MAP-EAME/DISCOVERY-HUBS.json",
+      "CREATOR-MAP-EAME/ES-MASTER-SOURCES.json",
+      "CREATOR-MAP-EAME/FR-ACTIVITY.json",
+      "CREATOR-MAP-EAME/HUB-DISCOVERED-CLASSIFIED.json",
+      "CREATOR-MAP-EAME/HUB-DISCOVERED-RESOLVED.json",
+      "CREATOR-MAP-EAME/HUB-OFFICIAL-IDENTITY.json",
+      "CREATOR-MAP-EAME/IT-CREATORS-CONSOLIDATED.json",
+      "CREATOR-MAP-EAME/MARKET-EVIDENCE-EU.json",
+      "CREATOR-MAP-EAME/PRIMARY-IDENTITY-RESOLVED.json",
+      "CREATOR-MAP-EAME/SEED-IT-CANDIDATES.json",
+      "CREATOR-MAP-EAME/SEED-IT-VALIDATION.json",
+      "CREATOR-MAP-EAME/WHO-COULD-MARKETING-CALL.json",
+      "EAME-COMPARABILITY-CONTRACT-V1.json",
+      "ES-CIENCIA-PARES-AUTORES.json",
+      "ES-REVIEW-HANDOFFS.json",
+      "ES-T4-005-divergencia-resolvida.json",
+      "ES-T8-001-baseline-canais.json",
+      "ES-X-VOICE-SCIENCE.json",
+      "EXPERT-DIRECTORY-EAME-V1.json",
+      "IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V2.json",
+      "IT-CASOS/IT-CASE-DURUM-FUSARIUM-001.json",
+      "IT-CASOS/IT-CEREAIS-FALSIFICACAO.json",
+      "IT-CASOS/IT-COLLIO-CEREAIS.json",
+      "IT-CASOS/IT-HUMAN-SENSOR-OPEN-DOORS.json",
+      "IT-CASOS/IT-HUMAN-SENSOR-PILOT.json",
+      "IT-CASOS/IT-LINKEDIN-SENSOR-RUN.json",
+      "IT-CASOS/IT-PORTAS-SENSORES.json",
+      "IT-CASOS/IT-REDE-CAMPO-V1.json",
+      "IT-CASOS/IT-SENSORES-V2.json",
+      "IT-CASOS/IT-hero-case-candidates.json",
+      "IT-CASOS/ITALY-HERO-CASES-V1.json",
+      "IT-CONVEGNO-V1/IT-CONVEGNO-V1.json",
+      "IT-CONVEGNO-V2/IT-OLIVO-LEITURA-V2.json",
+      "IT-CRUZAMENTO-V1/IT-CRUZAMENTOS-V1.json",
+      "IT-CRUZAMENTO-V1/IT-ENRIQUECIMENTO-CONFIRMADAS-V1.json",
+      "IT-CRUZAMENTO-V2/IT-CRUZAMENTOS-V2.json",
+      "IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json",
+      "IT-FONTES/ITALY-OP-FIELD-LAYER.json",
+      "IT-FONTES/ITALY-PANEL-BIAS.json",
+      "IT-FONTES/ITALY-REGIONAL-COVERAGE-MATRIX.json",
+      "IT-FUTURO-V1/IT-CANAL-REGUA-V1.json",
+      "IT-FUTURO-V1/IT-FUTURO-NOVOS-CANDIDATOS-V1.json",
+      "IT-FUTURO-V1/IT-FUTURO-RADAR-V1.json",
+      "IT-FUTURO-V1/IT-FUTURO-SINAIS-V1.json",
+      "IT-FUTURO-V1/IT-TOP3-SENSORES-V1.json",
+      "IT-INSTAGRAM-V1/IT-INSTAGRAM-PERFIS-V1.json",
+      "IT-INSTAGRAM-V1/IT-INSTAGRAM-TRANSCRICOES-V1.json",
+      "IT-INSTAGRAM-V2/IT-INSTAGRAM-PERFIS-V2.json",
+      "IT-INSTAGRAM-V2/IT-INSTAGRAM-TRANSCRICOES-V2.json",
+      "IT-INSTAGRAM-V3/IT-INSTAGRAM-PERFIS-V3.json",
+      "IT-INSTAGRAM-V3/IT-INSTAGRAM-TRANSCRICOES-V3.json",
+      "IT-ORIGENS/ITALY-ORIGIN-UNIVERSE.json",
+      "IT-RADAR-V21/cropWindows.json",
+      "IT-RADAR-V21/opportunities.json",
+      "IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V2.json",
+      "IT-ROTULOS-V1/IT-ROTULOS-DELTA-V1.json",
+      "IT-ROTULOS-V1/IT-VOCAB-PROPOSTA-V1.json",
+      "IT-T3-LOTTA/IT-cobertura-campo-vs-area.json",
+      "IT-T3-LOTTA/IT-durum-field-panel.json",
+      "IT-T3-LOTTA/IT-lotta-obbligatoria-flavescenza-2026.json",
+      "IT-T4-001/IT-T4-001-enriquecimento-validado.json",
+      "IT-T4-001/IT-T4-001-etichette-manifest.json",
+      "IT-T4-001/IT-T4-001-portfolio-rotulo.json",
+      "IT-T4-001/ITALY-ADAMA-REGULATORY-INTELLIGENCE.json",
+      "IT-T5-001/ITALY-RESEARCHER-UNIVERSE.json",
+      "IT-V2/IT-V2-CANONICO.json",
+      "IT-V2/IT-V2-QA-ATRIBUIDO.json",
+      "IT-VIDEO-V1/IT-VIDEO-CANAIS-V1.json",
+      "IT-VIDEO-V1/IT-VIDEO-V1.json",
+      "IT-VIDEO-V2/IT-VIDEO-CANAIS-NOVOS-V2.json",
+      "IT-VIDEO-V2/IT-VIDEO-ROTA-90-FONTES-V2.json",
+      "IT-VOZ-AUDIO-V1/IT-VOZ-AUDIO-TRANSCRICOES-V1.json",
+      "IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-LOCAIS-V2.json",
+      "IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-TRANSCRICOES-V2.json",
+      "ITALY-RADAR-DO-FUTURO-V1.json",
+      "PUBLIC-TECHNICAL-VOICE-QUEUE-ES.json",
+      "RESEARCHER-CORPUS-EAME-V1.json",
+      "RESEARCHER-OUTLOOK-V1.json",
+      "SENSOR-PILOT/COMENTARIOS-C.json",
+      "SENSOR-PILOT/COMENTARIOS-D.json",
+      "SENSOR-PILOT/COMENTARIOS-E.json",
+      "SENSOR-PILOT/TRANSCRICOES-C.json",
+      "SENSOR-PILOT/TRANSCRICOES-D.json",
+      "SENSOR-PILOT/TRANSCRICOES-E.json",
+      "SENSOR-PILOT/VIDEOS-C.json",
+      "SENSOR-PILOT/VIDEOS-D.json",
+      "SENSOR-PILOT/VIDEOS-E.json",
+      "SPAIN-RADAR-DO-FUTURO-V1.json",
+      "SPEAKER-UNIVERSE-PILOT-V1.json",
+      "TERRITORIAL/MEDICAO.json",
+      "YOUTUBE-JANELA/CANAIS.json",
+      "YOUTUBE-RELEVANCIA/FONTES.json"
+    ],
+    "SO_NA_LISTA": [],
+    "CONCORDAM": 21
+  },
+  "CONTRAEXEMPLOS": [
+    {
+      "ARQUIVO": "CREATOR-CONTENT-CORPUS-EAME/ACTOR-CONTRACTS-CORPUS.json",
+      "LISTA": "ACTORS",
+      "POR_QUE": "a lista descreve ferramenta/processo, não unidade de informação sobre o mundo"
+    }
+  ],
+  "TESTES_DO_VEREDITO": {
+    "SEM_FALSO_NEGATIVO": true,
+    "DISCRIMINA": true,
+    "TODA_INCLUSAO_E_UNIDADE_DE_INFORMACAO": false
+  },
+  "RULE_PROVED": "NAO",
+  "MOTIVO": "MEMBERSHIP_CONDITION_NOT_DECLARED"
+}
