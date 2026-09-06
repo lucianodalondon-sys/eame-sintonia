@@ -217,6 +217,8 @@ seguinte:
      76 linhas de dose com a CULTURA contradita por fio (R-11) — nao publicam
     180 linhas com alvo nao encontrado literalmente (R-13) — publicam, marcadas
      10 pares com dose AMBIGUA — a ferramenta nao escolhe
+    152 pares com DOSE_NOT_PROVED_TARGET_NOT_LITERAL — o numero existe, esta a
+        um clique, e nao e apresentado como resposta
 
 ---
 
@@ -235,6 +237,8 @@ O que a ferramenta responde HOJE, apos as correcoes:
     5  "posso usar NIMROD em tomate cereja?"  a exclusao aparece, com a frase
                                               literal e o sha256 do PDF
     6  "dose de LAMDEX em barbabietola?"      AMBIGUA, com as candidatas
+       "dose de LAMDEX em soia x nottue?"     NO_DOSE_ROW_FOR_THIS_PAIR — era
+                                              420-800, de uma linha fundida
     7  "quem tem uso em VITE x OIDIO?"        lista com o estado de cada juncao
     8  "o que a ferramenta NAO sabe?"         COBERTURA + FILA DE REVISAO
 
@@ -252,9 +256,13 @@ O que a ferramenta responde HOJE, apos as correcoes:
       MF-01 dose com cultura errada e selo EXATA .......... CORRIGIDO (R-11)
       MF-02 selo CONFIRMADA sobre celula errada ........... CORRIGIDO em parte
       MF-03 rebaixa anunciada e valor publicado ........... CORRIGIDO
-      MF-04 alvo fundido de duas linhas ................... NAO CORRIGIDO,
-            DECLARADO (R-13: detector de fusao NOT_IMPLEMENTED, com as tres
-            tentativas medidas e por que cada uma falhou). Mitigado por R-12.
+      MF-04 alvo fundido de duas linhas ................... CORRIGIDO na forma
+            que o arbitro prescreveu ("se o alvo nao existe literalmente, o
+            estado e NOT_PROVED, nao um numero"), NAO por deteccao de fusao:
+            o detector continua NOT_IMPLEMENTED e R-13 diz por que. 152 pares
+            deixaram de responder com numero e passam a
+            DOSE_NOT_PROVED_TARGET_NOT_LITERAL, com o valor lido a um clique.
+            SOIA x NOTTUE, o caso provado, deixou de exibir 420-800.
       MF-05 dose acima do teto do rotulo .................. CORRIGIDO (R-12)
       MF-06 citacao de frase que o rotulo nao escreveu .... CORRIGIDO
       MF-07 janela de calda apresentada como cultura ...... CORRIGIDO
@@ -284,6 +292,10 @@ Escrito como limitacao porque e limitacao, nao como nota de rodape:
        teste literal acusa 180/839 e a maioria e quebra de coluna; heuristica de
        conteudo acusa 86 e condena alvo multiplo legitimo; ancoragem por fios
        acusa ZERO. Nenhuma serve, e nenhuma foi enviada.
+       Consequencia assumida: a ferramenta se ABSTEM onde nao pode confirmar a
+       linha de origem, e perde 152 respostas provavelmente corretas para nao
+       arriscar uma errada. Isto e o preco de nao ter o detector, e esta pago
+       na direcao segura.
 
     2  CELULA DE CULTURA TRUNCADA: nao detectada.
        Em 008189/014479 a celula publicada perde "Rapa, Navone, Melone". A linha
@@ -355,9 +367,12 @@ Escrito como limitacao porque e limitacao, nao como nota de rodape:
 
 Nao por prudencia retorica: por tres razoes nomeaveis.
 
-    1  MF-04 nao foi corrigido. Existe fusao de linha provada e nao ha detector.
-       O que ha e a declaracao de que nao ha, com as tres tentativas medidas.
-       Uma dose errada por fusao continua possivel.
+    1  Nao existe detector de fusao de linha. O que existe e a recusa de
+       responder onde a fusao seria possivel: 152 pares cujo alvo nao foi
+       encontrado literalmente no rotulo deixaram de exibir numero. Isso fecha
+       o buraco pelo lado da abstencao, ao custo de 152 respostas que
+       provavelmente estavam certas — a maioria e alvo quebrado entre colunas,
+       nao fusao. E abstencao declarada, nao capacidade.
 
     2  Nenhum arbitro adjudicou este build. O ultimo veredito (rodada 2, 13
        MUST_FIX) e sobre o build anterior. Declarar SIM sem uma terceira rodada

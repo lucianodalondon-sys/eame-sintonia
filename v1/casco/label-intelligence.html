@@ -358,6 +358,14 @@ function juntaDose(p, u) {
   const vals = new Set(comValor.map(x => `${x.dose_ha}|${x.unit_ha}`));
   if (vals.size > 1)
     return {...base, estado: 'AMBIGUOUS_DOSE_FOR_THIS_PAIR', d: null, cand: comValor, mudos};
+  // R-13 · se NENHUMA candidata tem o texto do alvo confirmado literalmente no
+  // documento, a tela nao responde com o numero. Existe fusao de linha provada
+  // (008259) e nao ha detector: um numero cuja linha de origem nao pode ser
+  // confirmada nao e uma resposta. O numero continua a um clique, com a sua
+  // proveniencia — nao e apagado, e deixa de ser a resposta.
+  if (comValor.every(x => x.target_literal === 'TARGET_TEXT_NOT_FOUND_LITERALLY'))
+    return {...base, estado: 'DOSE_NOT_PROVED_TARGET_NOT_LITERAL',
+            d: null, cand: comValor, mudos, escondida: comValor[0]};
   return {...base,
           estado: mudos ? 'LISTED_IN_DOSE_ROW_WITH_UNREAD_DUPLICATE'
                         : (comValor.length > 1 ? 'LISTED_IN_DOSE_ROW_AGREEING' : 'LISTED_IN_DOSE_ROW'),
@@ -946,6 +954,14 @@ function celulaDose(l) {
       Foi assim que a versao anterior publicou &ldquo;TABACCO x CIMICI = 600 g/ha&rdquo; com selo
       verde: a citacao era &ldquo;Cimici 600 1 Nottue defogliatrici&rdquo;, sem a palavra Tabacco.
       A ferramenta prefere nao responder.</div>${desc}`;
+  if (j.estado === 'DOSE_NOT_PROVED_TARGET_NOT_LITERAL')
+    return `<span class="unknown">DOSE_NOT_PROVED_TARGET_NOT_LITERAL</span>
+      <div class="meta">ha linha de dose para este par, mas o <b>texto do alvo dela nao foi
+      encontrado literalmente no rotulo</b>. Pode ser alvo quebrado entre colunas (inofensivo) ou
+      <b>fusao de duas linhas da tabela</b>, que existe e esta provada em 008259 e faz a linha
+      receber a dose da errada. Sem detector de fusao, um numero cuja linha de origem nao pode ser
+      confirmada <b>nao e uma resposta</b>. O valor lido nao foi apagado:</div>
+      <button class="ev" onclick="evDose('${l.p.reg}',${l.p.doses.indexOf(j.escondida)})">ver o valor lido e a sua proveniencia</button>${desc}`;
   if (j.estado === 'DOSE_ROW_WITHOUT_READ_VALUE')
     return `<span class="unknown">DOSE_ROW_WITHOUT_READ_VALUE</span>
       <div class="meta">ha linha de dose para este par, mas nenhuma delas teve o valor lido</div>${desc}`;
@@ -1070,6 +1086,9 @@ function viewCrop() {
           nao menciona esta cultura. Foi assim que TABACCO x CIMICI virou um numero verde.</li>`:''}
         ${n('DOSE_ROW_WITHOUT_READ_VALUE')?`<li><span class="unknown">DOSE_ROW_WITHOUT_READ_VALUE</span>
           <b>${n('DOSE_ROW_WITHOUT_READ_VALUE')}</b> — ha linha, sem valor lido.</li>`:''}
+        ${n('DOSE_NOT_PROVED_TARGET_NOT_LITERAL')?`<li><span class="unknown">DOSE_NOT_PROVED_TARGET_NOT_LITERAL</span>
+          <b>${n('DOSE_NOT_PROVED_TARGET_NOT_LITERAL')}</b> — ha valor lido, mas o texto do alvo nao
+          foi encontrado literalmente no rotulo. O numero fica a um clique e nao e a resposta.</li>`:''}
       </ul>
       <div class="meta" style="margin-top:6px">No acervo inteiro, sem filtro:
         <b>${P.crop_check ? P.crop_check.ROWS_CONTRADICTED : val('NOT_KNOWN')}</b> linhas de dose
