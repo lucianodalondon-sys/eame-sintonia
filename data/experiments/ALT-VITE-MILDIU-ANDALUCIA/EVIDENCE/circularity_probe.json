@@ -1,0 +1,387 @@
+{
+ "note": "DIAGNOSTIC ONLY. Target-season weather is never used as a predictor.",
+ "target_season_window": "Mar 1 - Aug 31 of year Y (Andalucian vine season)",
+ "regimes": {
+  "CUTOFF_A_PRESEASON": {
+   "leakage_violations": 0,
+   "years": [
+    1992,
+    1993,
+    1994,
+    1995,
+    1996,
+    1997,
+    1998,
+    1999,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "per_target": {
+    "ts_precip_sum": {
+     "n_years": 34,
+     "strongest_antecedent_links": [
+      {
+       "feature": "prevseason_precip_sum",
+       "spearman": -0.506,
+       "p_permutation": 0.0029
+      },
+      {
+       "feature": "autumn_wet_spells_2d",
+       "spearman": -0.432,
+       "p_permutation": 0.01215
+      },
+      {
+       "feature": "prev2season_max_wet_run",
+       "spearman": 0.411,
+       "p_permutation": 0.0167
+      },
+      {
+       "feature": "prevseason_gdd10",
+       "spearman": 0.405,
+       "p_permutation": 0.01715
+      },
+      {
+       "feature": "prevseason_tmean",
+       "spearman": 0.404,
+       "p_permutation": 0.01775
+      },
+      {
+       "feature": "prevseason_tmin_mean",
+       "spearman": 0.4,
+       "p_permutation": 0.02015
+      }
+     ],
+     "max_abs_spearman": 0.506,
+     "n_features_screened": 40
+    },
+    "ts_rain_days": {
+     "n_years": 34,
+     "strongest_antecedent_links": [
+      {
+       "feature": "prevseason_tmean",
+       "spearman": 0.48,
+       "p_permutation": 0.0045
+      },
+      {
+       "feature": "prevseason_gdd10",
+       "spearman": 0.476,
+       "p_permutation": 0.00465
+      },
+      {
+       "feature": "prevseason_tmin_mean",
+       "spearman": 0.467,
+       "p_permutation": 0.0065
+      },
+      {
+       "feature": "prevseason_precip_sum",
+       "spearman": -0.46,
+       "p_permutation": 0.0069
+      },
+      {
+       "feature": "prevseason_rain_days",
+       "spearman": -0.402,
+       "p_permutation": 0.01855
+      },
+      {
+       "feature": "prev2season_max_wet_run",
+       "spearman": 0.399,
+       "p_permutation": 0.02135
+      }
+     ],
+     "max_abs_spearman": 0.48,
+     "n_features_screened": 40
+    },
+    "ts_infection_events_10_10": {
+     "n_years": 34,
+     "strongest_antecedent_links": [
+      {
+       "feature": "prev2season_max_wet_run",
+       "spearman": 0.488,
+       "p_permutation": 0.0063
+      },
+      {
+       "feature": "prevseason_tmin_mean",
+       "spearman": 0.464,
+       "p_permutation": 0.0163
+      },
+      {
+       "feature": "prevseason_tmean",
+       "spearman": 0.45,
+       "p_permutation": 0.01395
+      },
+      {
+       "feature": "prevseason_gdd10",
+       "spearman": 0.448,
+       "p_permutation": 0.01475
+      },
+      {
+       "feature": "autumn_tmin_mean",
+       "spearman": 0.39,
+       "p_permutation": 0.04905
+      },
+      {
+       "feature": "autumn_frost_days",
+       "spearman": 0.373,
+       "p_permutation": 0.12239
+      }
+     ],
+     "max_abs_spearman": 0.488,
+     "n_features_screened": 40
+    },
+    "ts_rh75_days": {
+     "n_years": 34,
+     "strongest_antecedent_links": [
+      {
+       "feature": "prevseason_tmin_mean",
+       "spearman": 0.486,
+       "p_permutation": 0.0046
+      },
+      {
+       "feature": "prevseason_gdd10",
+       "spearman": 0.466,
+       "p_permutation": 0.00705
+      },
+      {
+       "feature": "prevseason_tmean",
+       "spearman": 0.462,
+       "p_permutation": 0.0076
+      },
+      {
+       "feature": "prevseason_precip_sum",
+       "spearman": -0.455,
+       "p_permutation": 0.00725
+      },
+      {
+       "feature": "winter_max_wet_run",
+       "spearman": 0.404,
+       "p_permutation": 0.0194
+      },
+      {
+       "feature": "winter_precip_sum",
+       "spearman": 0.372,
+       "p_permutation": 0.03035
+      }
+     ],
+     "max_abs_spearman": 0.486,
+     "n_features_screened": 40
+    }
+   }
+  },
+  "CUTOFF_B_TRUE_12M": {
+   "leakage_violations": 0,
+   "years": [
+    1992,
+    1993,
+    1994,
+    1995,
+    1996,
+    1997,
+    1998,
+    1999,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "per_target": {
+    "ts_precip_sum": {
+     "n_years": 34,
+     "strongest_antecedent_links": [
+      {
+       "feature": "prevseason_precip_sum",
+       "spearman": -0.506,
+       "p_permutation": 0.0029
+      },
+      {
+       "feature": "prev2season_max_wet_run",
+       "spearman": 0.411,
+       "p_permutation": 0.0167
+      },
+      {
+       "feature": "prevseason_gdd10",
+       "spearman": 0.405,
+       "p_permutation": 0.01715
+      },
+      {
+       "feature": "prevseason_tmean",
+       "spearman": 0.404,
+       "p_permutation": 0.01775
+      },
+      {
+       "feature": "prevseason_tmin_mean",
+       "spearman": 0.4,
+       "p_permutation": 0.02015
+      },
+      {
+       "feature": "prevseason_rain_days",
+       "spearman": -0.383,
+       "p_permutation": 0.02555
+      }
+     ],
+     "max_abs_spearman": 0.506,
+     "n_features_screened": 40
+    },
+    "ts_rain_days": {
+     "n_years": 34,
+     "strongest_antecedent_links": [
+      {
+       "feature": "prevseason_tmean",
+       "spearman": 0.48,
+       "p_permutation": 0.0045
+      },
+      {
+       "feature": "prevseason_gdd10",
+       "spearman": 0.476,
+       "p_permutation": 0.00465
+      },
+      {
+       "feature": "prevseason_tmin_mean",
+       "spearman": 0.467,
+       "p_permutation": 0.0065
+      },
+      {
+       "feature": "prevseason_precip_sum",
+       "spearman": -0.46,
+       "p_permutation": 0.0069
+      },
+      {
+       "feature": "prevseason_rain_days",
+       "spearman": -0.402,
+       "p_permutation": 0.01855
+      },
+      {
+       "feature": "prevwinter_frost_days",
+       "spearman": 0.4,
+       "p_permutation": 0.02255
+      }
+     ],
+     "max_abs_spearman": 0.48,
+     "n_features_screened": 40
+    },
+    "ts_infection_events_10_10": {
+     "n_years": 34,
+     "strongest_antecedent_links": [
+      {
+       "feature": "prev2season_max_wet_run",
+       "spearman": 0.488,
+       "p_permutation": 0.0063
+      },
+      {
+       "feature": "prevseason_tmin_mean",
+       "spearman": 0.464,
+       "p_permutation": 0.0163
+      },
+      {
+       "feature": "prevseason_tmean",
+       "spearman": 0.45,
+       "p_permutation": 0.01395
+      },
+      {
+       "feature": "prevseason_gdd10",
+       "spearman": 0.448,
+       "p_permutation": 0.01475
+      },
+      {
+       "feature": "prev2season_frost_days",
+       "spearman": 0.373,
+       "p_permutation": 0.12239
+      },
+      {
+       "feature": "prevautumn_frost_days",
+       "spearman": 0.373,
+       "p_permutation": 0.12239
+      }
+     ],
+     "max_abs_spearman": 0.488,
+     "n_features_screened": 40
+    },
+    "ts_rh75_days": {
+     "n_years": 34,
+     "strongest_antecedent_links": [
+      {
+       "feature": "prevseason_tmin_mean",
+       "spearman": 0.486,
+       "p_permutation": 0.0046
+      },
+      {
+       "feature": "prevseason_gdd10",
+       "spearman": 0.466,
+       "p_permutation": 0.00705
+      },
+      {
+       "feature": "prevseason_tmean",
+       "spearman": 0.462,
+       "p_permutation": 0.0076
+      },
+      {
+       "feature": "prevseason_precip_sum",
+       "spearman": -0.455,
+       "p_permutation": 0.00725
+      },
+      {
+       "feature": "prevwinter_frost_days",
+       "spearman": 0.437,
+       "p_permutation": 0.01155
+      },
+      {
+       "feature": "prevseason_rain_days",
+       "spearman": -0.353,
+       "p_permutation": 0.0399
+      }
+     ],
+     "max_abs_spearman": 0.486,
+     "n_features_screened": 40
+    }
+   }
+  }
+ },
+ "max_abs_spearman_any_link": 0.506,
+ "CIRCULARITY_VERDICT": "MEDIUM \u2014 some antecedent/target-season coupling; must be disclosed",
+ "caveat": "Screening ~50 features x 4 targets means the LARGEST |rho| is inflated by selection. The permutation p-values shown are per-link and NOT corrected for that screening. Read the verdict from the magnitude, not from the p-value."
+}

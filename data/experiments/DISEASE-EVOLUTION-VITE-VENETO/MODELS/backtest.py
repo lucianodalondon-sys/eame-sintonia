@@ -53,6 +53,26 @@ HYPOTHESES = [
      "biology": "A mild winter should reduce oospore mortality."},
 ]
 
+# CUTOFF_B names its blocks differently (prevwinter/prevautumn instead of winter/autumn),
+# because in the true-12M regime the most recent winter and autumn have not happened yet.
+# Without this alias three of the five a-priori hypotheses silently scored None in that
+# regime and the run reported "no skill" from two hypotheses instead of five — a false
+# negative dressed as a result.
+REGIME_FEATURE_ALIAS = {
+    "CUTOFF_B_TRUE_12M": {"winter_": "prevwinter_", "autumn_": "prevautumn_"},
+}
+
+def resolve_feature(name, regime, available):
+    if name in available:
+        return name
+    for pre, sub in REGIME_FEATURE_ALIAS.get(regime, {}).items():
+        if name.startswith(pre):
+            cand = sub + name[len(pre):]
+            if cand in available:
+                return cand
+    return None
+
+
 def ordinal_map(levels):
     return {lv: i for i, lv in enumerate(levels)}
 
@@ -190,9 +210,19 @@ def run(labels_path, regime="CUTOFF_A_PRESEASON", min_train=5):
         "overfit_demonstration": None,
     }
 
-    for h in HYPOTHESES:
-        entry = {"id": h["id"], "feature": h["feature"], "direction": h["direction"],
-                 "biology": h["biology"], "stated_a_priori": True}
+    available = set().union(*[set(feats[y]) for y in years]) if years else set()
+    for h0 in HYPOTHESES:
+        resolved = resolve_feature(h0["feature"], regime, available)
+        h = dict(h0, feature=resolved) if resolved else h0
+        entry = {"id": h0["id"], "feature": h0["feature"], "direction": h0["direction"],
+                 "feature_resolved_for_regime": resolved,
+                 "biology": h0["biology"], "stated_a_priori": True}
+        if resolved is None:
+            entry["strict_temporal"] = None
+            entry["leave_one_year_out"] = None
+            entry["skipped_reason"] = f"no feature matching {h0['feature']} exists in regime {regime}"
+            report["hypotheses"].append(entry)
+            continue
         p, o, sy = strict_temporal(years, feats, labels, h, k, min_train)
         s = score(p, o, k)
         if s:
