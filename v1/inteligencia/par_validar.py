@@ -54,12 +54,12 @@ linha que as aplica — e cada uma vem com quantas vezes ela DISPARA no censo:
 
     ROUTE_NOT_GEOMETRIC          1.056   a rota nao afirma ter lido tabela
     ANCHOR_NOT_FOUND               258   cultura e alvo nunca na mesma pagina
-    NO_DRAWN_CELL                  113   convivem, mas a coluna nao e riscada
-    CROP_ALSO_OUTSIDE_TABLE         91   parte das ocorrencias fora de celula,
+    NO_DRAWN_CELL                  108   convivem, mas a coluna nao e riscada
+    CROP_ALSO_OUTSIDE_TABLE         75   parte das ocorrencias fora de celula,
                                          e o alvo NAO tem outro dono
-    TABLE_NOT_DESCRIBING_ITS_TEXT   43   a grade existe e nao descreve o texto
     RULES_ARE_TEXT_UNDERLINES       31   os riscos sao sublinhado de titulo
     CROP_NAME_NOT_THE_ANCHOR        13   a celula fechou pelo TITULO do grupo
+    TABLE_NOT_DESCRIBING_ITS_TEXT    9   a grade existe e nao descreve o texto
     TARGET_UNDER_CROP_HEADER         0   <- CODIGO MORTO NO ACERVO DE HOJE
 
 A ultima linha e uma correcao de uma afirmacao anterior deste proprio docstring,
@@ -329,6 +329,8 @@ def titulo_entre(pg, y_de, y_ate, tx0, tx1, vocab):
 # Sensibilidade do agrupamento de linha em celula_coerente, contada a cada
 # execucao e publicada na saida. Ver a nota TOLERANCIA DE LINHA la dentro.
 SENSIBILIDADE = Counter()
+# Fios verticais da pagina em curso: a divisao de coluna que o documento desenhou.
+VERT_ATUAL = []
 TOL_LINHA_IRMA = 2.5     # a tolerancia que alvo_literal.py usa nas MESMAS caixas
 
 
@@ -377,14 +379,45 @@ def celula_coerente(pg, topo, base, tx0, tx1, folga=2.0):
     ## e acerta". Ou seja, a aprovacao do controle depende da assimetria. Nao
     ## troquei pelo mesmo motivo: seria trocar um resultado conferido por um
     ## nao conferido, e a lente que achou isto tambem nao adjudicou o documento.
+    ## LINHA E DENTRO DA COLUNA DESENHADA, E NAO ATRAVESSANDO A FOLHA
+    ##
+    ## O agrupamento juntava numa "linha" todas as palavras a mesma altura da
+    ## PAGINA — inclusive as de outro bloco. Numa etichetta em paisagem com tres
+    ## colunas, a prosa da esquerda e a tabela do meio convivem na mesma altura,
+    ## e a prosa fazia a linha da tabela "comecar dentro e terminar fora". A
+    ## celula era descartada por incoerencia que nao era dela.
+    ##
+    ## Medido em 018089 AVASTEL: a celula desenhada tem "Frumento (invernale)"
+    ## na coluna da cultura e "Septoriosi (Zymoseptoria tritici)", "Oidio
+    ## (Blumeria graminis sp. tritici)", "Ruggine gialla (Puccinia striiformis)"
+    ## e "Fusariosi (Fusarium spp.)" na coluna ao lado, na MESMA banda. Os
+    ## quatro pares sao verdadeiros e estao escritos no papel; o que reprovava a
+    ## celula era a frase "l'allattamento; P280 Indossare guanti..." da coluna da
+    ## esquerda, na mesma altura. E em 014386 OLIONET a etichetta escreve
+    ## "PEPERONE, POMODORO, PATATA: contro Afidi, Acari, Aleu-rodidi, Ditteri
+    ## agromizidi, Tripidi, uova di Dorifora, Lepidotteri" — 18 pares
+    ## verdadeiros, reprovados pelo vizinho.
+    ##
+    ## O conserto usa a estrutura do PROPRIO DOCUMENTO e nao um numero novo: os
+    ## FIOS VERTICAIS desenhados (`fios.py`, campo V) dizem onde a pagina se
+    ## divide em colunas, e a linha passa a ser agrupada por (altura, banda
+    ## vertical). Onde nao ha fio vertical, a banda e uma so e o comportamento
+    ## nao muda.
+    ##
+    ## Medido no acervo: 50 pares saem de abstencao para PAIR_CONSISTENT
+    ## (1.274 -> 1.324) e NENHUMA condenacao e criada ou perdida. Os dois casos
+    ## acima foram conferidos linha a linha contra o PDF antes da troca.
+    def _banda(x):
+        return sum(1 for v in VERT_ATUAL if x >= v)
+
     def _linhas(tol):
         L = {}
         for wx0, wy0, wx1, wy1, _t in pg:
             cy = (wy0 + wy1) / 2
             if not (topo < cy < base):
                 continue
-            k = round(cy, 1) if tol is None else next(
-                (q for q in L if abs(q - cy) <= tol), round(cy, 1))
+            k = (round(cy, 1) if tol is None else next(
+                (q[0] for q in L if abs(q[0] - cy) <= tol), round(cy, 1)), _banda(wx0))
             a, b = L.get(k, (wx0, wx1))
             L[k] = (min(a, wx0), max(b, wx1))
         return L
@@ -541,7 +574,7 @@ def main():
     import fios as F
     os.makedirs(a.fios, exist_ok=True)
 
-    memo = {}
+    memo, memo_v = {}, {}
 
     def segmentos(pdf, pagina1):
         """(segmentos, altura da pagina em pontos) — None quando o raster falha."""
@@ -550,6 +583,7 @@ def main():
             try:
                 r = F.fios(pdf, pagina1, cache=a.fios)
                 memo[k] = (r['SEG'], r.get('PAGE_HEIGHT_PT') or 1e6)
+                memo_v[k] = sorted(r.get('V') or [])
             except Exception:
                 memo[k] = None
         return memo[k]
@@ -621,6 +655,7 @@ def main():
                 if sg is None:
                     continue
                 seg, altura = sg
+                globals()['VERT_ATUAL'] = memo_v.get((pdf, pi + 1), [])
                 for x0, cy0, x1, cy1, e_o_nome in cs:
                     c = (cy0 + cy1) / 2
                     cel = celula(pg, x0, x1, c, seg, altura)

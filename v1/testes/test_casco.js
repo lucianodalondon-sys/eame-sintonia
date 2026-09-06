@@ -745,10 +745,14 @@ teste('RT4 · "sem celula desenhada" nao pode ser dito onde a grade existe', () 
   const pesco = (p.uses||[]).filter(u => u.crop === 'PESCO');
   afirma(pesco.length > 0, '008259 sem pares de PESCO');
   afirma(pesco.every(u => u.pair_check !== 'PAIR_NOT_CHECKABLE_NO_DRAWN_CELL'),
-    '008259 PESCO ainda diz que a coluna nao tem grade, e ela tem 15 e 17 fios');
-  viewProduto('008259');
+    '008259 PESCO voltou a dizer que a coluna nao tem grade, e ela tem 15 e 17 fios');
+  // depois que a linha passou a ser agrupada por banda vertical desenhada, a
+  // celula de PESCO ficou coerente e os 5 pares sao PAIR_CONSISTENT — que e uma
+  // resposta melhor que a anterior, e nao a mesma com outro nome.
+  const reg = inc[0][0];
+  viewProduto(reg);
   afirma(html('#pdet').includes('GRADE NAO DESCREVE O TEXTO'),
-    'a ficha de 008259 nao mostra o nome certo da ignorancia');
+    `a ficha de ${reg} nao mostra o nome certo da ignorancia`);
   return `${inc.length} com grade que nao descreve o texto · ${sem.length} realmente sem grade`;
 });
 
