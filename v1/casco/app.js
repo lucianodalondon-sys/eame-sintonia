@@ -444,7 +444,19 @@ function viewToday() {
          onclick="setJanela(${d})">${l}</button>`).join(' ')}
     <div class="meta" style="margin-top:5px">${JANELA_DIAS && !semRelogio
       ? `contando para tras a partir de <b>hoje</b> (${esc(HOJE)}), nao a partir da data
-         do dado. ${mudancas.length===0
+         do dado.${(() => {
+           // Os dias entre a data do dado e hoje NAO foram cobertos por coleta
+           // nenhuma. Para eles a resposta nao e zero: e NOT_COLLECTED. Uma
+           // janela de 30 dias que termina hoje, com dado de 6 dias atras,
+           // cobre 24 dias e nao 30 — e a tela tem de dizer qual e qual.
+           const desc = IDADE === null ? null : -IDADE;
+           if (!desc || desc <= 0) return '';
+           const cob = Math.max(0, JANELA_DIAS - desc);
+           return ` <b>Desta janela de ${JANELA_DIAS} dias, ${cob} foram cobertos por coleta e
+             ${Math.min(desc, JANELA_DIAS)} nao</b>: o instantaneo mais novo e de
+             ${esc(DATA_DATE)}. Para os dias descobertos a resposta e
+             <span class="unknown">NOT_COLLECTED</span>, nao zero.`;
+         })()} ${mudancas.length===0
            ? `<b>Nesta janela nao ha mudanca</b> — e isso e uma resposta, nao uma falha: a mudanca
               provada mais recente do conjunto e de <b>${esc(ULTIMA_MUDANCA)}</b>, e nada foi
               coletado depois de ${esc(DATA_DATE)}. As condicoes que continuam valendo, mais
@@ -531,9 +543,11 @@ function viewProduto(reg) {
   <div class="block">
     <div style="display:flex;justify-content:space-between;align-items:baseline">
       <h3>Usos autorizados</h3>
-      <span class="meta">${p.uses.length} pares &middot;
-      ${p.uses.filter(u=>u.evidence==='TABLE_GEOMETRY').length} de tabela,
-      ${p.uses.filter(u=>u.evidence!=='TABLE_GEOMETRY').length} de prosa/lista</span></div>
+      <span class="meta">${(p.states&&p.states.LABEL_DOWNLOADED===false)
+        ? val('NOT_COLLECTED')+' — nenhum rotulo foi baixado, entao nao ha par a contar'
+        : `${p.uses.length} pares &middot;
+           ${p.uses.filter(u=>u.evidence==='TABLE_GEOMETRY').length} de tabela,
+           ${p.uses.filter(u=>u.evidence!=='TABLE_GEOMETRY').length} de prosa/lista`}</span></div>
     ${p.uses.length ? `<div class="tw"><table>
       <thead><tr><th>Cultura</th><th>Alvos</th><th>Evidencia</th><th></th></tr></thead>
       <tbody>${Object.entries(porCultura).sort().map(([c,us]) => `<tr>
@@ -577,7 +591,10 @@ function viewProduto(reg) {
         <tbody>${p.uses_retirados.map(w => `<tr>
           <td><b>${esc(w.CROP)}</b></td><td>${esc(w.TARGET)}</td>
           <td><i>&ldquo;${esc(w.EXCLUSION_TEXT)}&rdquo;</i>
-            <div class="meta">${esc(w.PROOF)}</div></td></tr>`).join('')}
+            <div class="meta">${esc(w.PROOF)}</div>
+            <div class="meta">documento: <code>sha256=${esc(String(w.LABEL_SHA256||'NOT_KNOWN').slice(0,16))}…</code>
+              &middot; ${esc(w.LABEL_BYTES)} bytes &middot; ${link(w.LABEL_URL,'abrir no Ministero')}
+              &middot; marcador <code>${esc(w.EXCLUSION_QUOTE_STATE)}</code></div></td></tr>`).join('')}
         </tbody></table></div></div>` : ''}
     ${(p.exclusion_windows||[]).length ? `<div class="meta" style="margin-top:8px">
       <b>Este rotulo tem ${p.exclusion_windows.length} janela(s) de exclusao que falam de
@@ -707,6 +724,23 @@ const conflitoDeValidade = p => {
   const d = dte(p);
   return typeof d === 'number' && d < 0 && !foraDeVigor(p);
 };
+
+// ZERO MEDIDO, NAO SEI, E NAO COLETADO SAO TRES COISAS. A BUSCA mostrava
+// "USOS: NOT_KNOWN" para TOPIK 240 EC 008929, cujo rotulo FOI lido
+// (LABEL_READ=true, 8.537 caracteres extraidos, sha conferido em disco) e cujo
+// leitor de uso devolveu zero pares: a ferramenta MEDIU zero e disse que nao
+// sabia. E a ficha de um produto sem PDF nenhum mostrava "0 pares", que afirma
+// uma medicao que nunca houve. As duas conversoes estavam trocadas entre si.
+function contagem(p, campo, estadoLeitura) {
+  const st = p.states || {};
+  if (st.LABEL_DOWNLOADED === false)
+    return `<span class="unknown" title="nenhum rotulo foi baixado: nada foi medido">NOT_COLLECTED</span>`;
+  const n = (p[campo] || []).length;
+  if (n) return String(n);
+  if (st[estadoLeitura]) return `<b>0</b><div class="meta">o leitor rodou neste documento e
+    estruturou zero. Isto e medicao, nao ignorancia</div>`;
+  return val('NOT_KNOWN');
+}
 
 // Nomes de estado sao impressos POR EXTENSO. Um selo de tres letras nao e um
 // estado: quem le tem de poder ver, sem abrir gaveta, o que a ferramenta esta
@@ -896,7 +930,7 @@ function viewCal() {
       <thead><tr><th>Validade</th><th>Faltam</th><th>Produto</th><th>Registro</th><th>Estado</th><th>Usos lidos</th><th></th></tr></thead>
       <tbody>${l.map(p=>`<tr><td class="mono">${esc(p.expiry)}</td><td>${dte(p)}d</td>
         <td>${esc(p.name)}</td><td class="mono">${esc(p.reg)}</td><td class="meta">${esc(p.status)}</td>
-        <td>${p.uses.length||'<span class="unknown">NOT_KNOWN</span>'}</td>
+        <td>${contagem(p,'uses','LABEL_READ')}</td>
         <td><button class="ev" onclick="evProd('${p.reg}')">prova</button></td></tr>`).join('')}
       </tbody></table></div>` : '<div class="meta">nenhum produto nesta janela</div>'}</div>`;
   };
@@ -1134,7 +1168,7 @@ function viewReview() {
       return `<tr><td>${esc(o.PRODUCT_NAME)}</td><td class="mono">${esc(o.REGISTRATION_ID)}</td>
       <td class="meta">${esc(p.activity||'NOT_KNOWN')}</td>
       <td><code>${esc(p.dose_state||'NOT_ATTEMPTED')}</code></td>
-      <td>${p.uses&&p.uses.length?p.uses.length:val('NOT_KNOWN')}</td>
+      <td>${contagem(p,'uses','LABEL_READ')}</td>
       <td><button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">evidencia</button></td></tr>`;
     }).join('')}</tbody></table></div>`;
 }
@@ -1231,7 +1265,7 @@ function viewSearch() {
       <td><a onclick="go('produto');viewProduto('${p.reg}')" style="cursor:pointer">${esc(p.name)}</a></td>
       <td class="mono">${esc(p.reg)}</td><td class="meta">${esc(p.holder)}</td>
       <td class="meta">${val(p.actives)}</td><td>${validade(p)}</td>
-      <td>${p.uses.length||val('NOT_KNOWN')}</td>
+      <td>${contagem(p,'uses','LABEL_READ')}</td>
       <td>${p.doses.length||'<span class="unknown">NOT_KNOWN</span>'}</td>
       <td><button class="ev" onclick="evProd('${p.reg}')">prova</button></td></tr>`).join('')}
     </tbody></table></div>` : '<div class="meta">nenhum produto</div>'}

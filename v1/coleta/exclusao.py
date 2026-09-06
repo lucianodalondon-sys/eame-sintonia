@@ -58,11 +58,22 @@ from collections import defaultdict
 # calda, nao escopo de cultura), e a palavra em italiano tambem e adjetivo
 # ("a salvo"). Marcador ambiguo retira uso real; melhor nao usa-lo e dizer
 # que nao se usou.
+# Medido sobre os 163 rotulos: a lista anterior dizia-se "fechada e medida" e
+# perdia duas flexoes do proprio marcador — "esclusione delle" (6 ocorrencias) e
+# "eccezione delle" (2), porque a regex so aceitava "di" — e nao cobria a forma
+# negativa direta "non impiegare su", que em 013242, 015182 e 015183 escreve
+# "Non impiegare su varieta di mais dolce e su linee di mais per la produzione
+# di sementi ibridi": restricao real de escopo de cultura.
 MARCADORES = [
-    "ad esclusione di", "a esclusione di", "con esclusione di", "esclusione di",
+    "ad esclusione di", "ad esclusione delle", "ad esclusione dei", "ad esclusione dell",
+    "a esclusione di", "con esclusione di", "esclusione delle", "esclusione dei",
+    "esclusione di",
     "escluso", "esclusa", "esclusi", "escluse",
-    "ad eccezione di", "a eccezione di", "fatta eccezione per", "eccezione di",
+    "ad eccezione di", "ad eccezione delle", "ad eccezione dei", "a eccezione di",
+    "fatta eccezione per", "eccezione delle", "eccezione di",
     "tranne", "eccetto",
+    "non impiegare su", "non impiegare il prodotto su", "non trattare",
+    "non utilizzare su",
 ]
 MARCADOR_DESCARTADO = {
     "salvo": ("ambiguo em italiano (preposicao 'exceto' e adjetivo 'salvo'); "
@@ -103,6 +114,19 @@ def carrega_vocabulario(pares):
             if len(parte) >= 4:
                 v.add(parte)
     return v
+
+
+def sha_do_pdf(caminho):
+    """Sem sha256 a retirada e uma afirmacao material sem caminho de volta ao
+    documento — a unica da ferramenta, no bloco que ela mais precisa defender."""
+    import hashlib
+    if not os.path.exists(caminho):
+        return "NOT_KNOWN"
+    h = hashlib.sha256()
+    with open(caminho, "rb") as fh:
+        for ch in iter(lambda: fh.read(1 << 20), b""):
+            h.update(ch)
+    return h.hexdigest()
 
 
 def sem_acento(s):
@@ -336,6 +360,8 @@ def main():
                     "PROOF": (f"a raiz da cultura {p['CROP']} nao ocorre em nenhum ponto do "
                               f"texto do rotulo fora de uma janela de exclusao"),
                     "LABEL_PDF": pdf,
+                    "LABEL_SHA256": sha_do_pdf(pdf),
+                    "LABEL_BYTES": os.path.getsize(pdf) if os.path.exists(pdf) else "NOT_KNOWN",
                 })
 
     n_ret = len(retirados)

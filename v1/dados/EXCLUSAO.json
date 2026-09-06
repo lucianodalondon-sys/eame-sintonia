@@ -11722,35 +11722,52 @@
  "RULE_ID": "R-10",
  "MARCADORES": [
   "ad esclusione di",
+  "ad esclusione delle",
+  "ad esclusione dei",
+  "ad esclusione dell",
   "a esclusione di",
   "con esclusione di",
+  "esclusione delle",
+  "esclusione dei",
   "esclusione di",
   "escluso",
   "esclusa",
   "esclusi",
   "escluse",
   "ad eccezione di",
+  "ad eccezione delle",
+  "ad eccezione dei",
   "a eccezione di",
   "fatta eccezione per",
+  "eccezione delle",
   "eccezione di",
   "tranne",
-  "eccetto"
+  "eccetto",
+  "non impiegare su",
+  "non impiegare il prodotto su",
+  "non trattare",
+  "non utilizzare su"
  ],
  "MARCADOR_DESCARTADO": {
   "salvo": "ambiguo em italiano (preposicao 'exceto' e adjetivo 'salvo'); as 3 ocorrencias medidas no corpus sao compatibilidade de calda, nao escopo de cultura"
  },
  "MARCADOR_OCORRENCIAS": {
+  "non trattare": 77,
   "tranne": 35,
   "eccetto": 11,
+  "non impiegare su": 10,
   "ad esclusione di": 6,
   "ad eccezione di": 5,
-  "escluse": 2
+  "ad esclusione delle": 4,
+  "escluse": 2,
+  "non utilizzare su": 2,
+  "ad eccezione delle": 1
  },
  "PREFIXO_MIN": 4,
  "PAIRS_CHECKED": 2928,
  "LABELS_CHECKED": 128,
- "LABELS_WITH_CROP_SCOPE_EXCLUSION": 7,
- "LABELS_WITH_ANY_EXCLUSION_MARKER": 25,
+ "LABELS_WITH_CROP_SCOPE_EXCLUSION": 10,
+ "LABELS_WITH_ANY_EXCLUSION_MARKER": 75,
  "VOCAB_CULTURA_SIZE": 47,
  "PARES_RETIRADOS": 2,
  "PAIRS_CROP_NAME_NOT_IN_LABEL_TEXT": 12,
@@ -12075,7 +12092,15 @@
   "002732": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/002732.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare barbabietole in stress",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "002983": {
@@ -12209,6 +12234,13 @@
      "QUOTABLE": true,
      "TEXT": "eccetto i cavoli, non effettuare più di 2",
      "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare la coltura in una fascia",
+     "WHY_NOT_QUOTABLE": null
     }
    ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
@@ -12216,13 +12248,28 @@
   "007603": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/007603.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare barbabietole in stress",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "007864": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/007864.pdf",
    "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare la coltura in una fascia",
+     "WHY_NOT_QUOTABLE": null
+    },
     {
      "MARKER": "eccetto",
      "SCOPE": "NOT_CROP_SCOPE",
@@ -12370,7 +12417,15 @@
   "008102": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/008102.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non trattare nella fase di fioritura della coltura e prima del trattamento",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "008189": {
@@ -12382,7 +12437,22 @@
   "008259": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/008259.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non trattare in fioritura",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non trattare in fioritura",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "008401": {
@@ -12394,7 +12464,15 @@
   "008599": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/008599.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare barbabietole in stress",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "008601": {
@@ -12407,6 +12485,13 @@
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/009005.pdf",
    "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non impiegare su",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non impiegare su piante in stato di stress",
+     "WHY_NOT_QUOTABLE": null
+    },
     {
      "MARKER": "ad eccezione di",
      "SCOPE": "NOT_CROP_SCOPE",
@@ -12426,7 +12511,22 @@
   "009790": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/009790.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto dai",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in giornate ventose, se le piante sono bagnate,",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "009800": {
@@ -12439,6 +12539,13 @@
      "QUOTABLE": true,
      "TEXT": "eccetto i cavoli, non effettuare più di 2",
      "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare la coltura in una fascia",
+     "WHY_NOT_QUOTABLE": null
     }
    ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
@@ -12446,13 +12553,36 @@
   "010569": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/010569.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare barbabietole in stress",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "010585": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/010585.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "010587": {
@@ -12464,13 +12594,29 @@
   "011243": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/011243.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto dalla vegetazio-",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "011500": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/011500.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": false,
+     "TEXT": "QUOTE_NOT_RECOVERABLE_COLUMN_LAYOUT",
+     "WHY_NOT_QUOTABLE": "o trecho entre o marcador e o corte atravessa salto de coluna do extrator de texto: a frase montada nao existe no documento e nao pode ser citada"
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "011501": {
@@ -12490,6 +12636,13 @@
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/011660.pdf",
    "EXCLUSION_WINDOWS": [
     {
+     "MARKER": "non impiegare su",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non impiegare su piante in stato di stress",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
      "MARKER": "ad eccezione di",
      "SCOPE": "NOT_CROP_SCOPE",
      "QUOTABLE": true,
@@ -12502,13 +12655,28 @@
   "011789": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/011789.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto dalla vegetazio-",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "012023": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/012023.pdf",
    "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare la coltura in una fascia",
+     "WHY_NOT_QUOTABLE": null
+    },
     {
      "MARKER": "eccetto",
      "SCOPE": "NOT_CROP_SCOPE",
@@ -12522,19 +12690,43 @@
   "012156": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/012156.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non trattare nella fase di fioritura della coltura e prima del trattamento",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "012279": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/012279.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto dalla vegetazio-",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "012573": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/012573.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non trattare con temperatu-",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "012878": {
@@ -12552,13 +12744,37 @@
   "013242": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/013242.pdf",
-   "EXCLUSION_WINDOWS": [],
-   "EXCLUSION_WINDOWS_CROP_SCOPE": []
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non impiegare su",
+     "SCOPE": "CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non impiegare su varietà di mais dolce e su linee di mais per la produzione di se-",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
+   "EXCLUSION_WINDOWS_CROP_SCOPE": [
+    {
+     "MARKER": "non impiegare su",
+     "SCOPE": "CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non impiegare su varietà di mais dolce e su linee di mais per la produzione di se-",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ]
   },
   "013299": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/013299.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto dalla vegetazio-",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "013405": {
@@ -12614,7 +12830,22 @@
   "013560": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/013560.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non trattare in fioritura",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non trattare in fioritura",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "013585": {
@@ -12626,19 +12857,50 @@
   "013590": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/013590.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non trattare in fioritura",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non trattare in fioritura",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "013711": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/013711.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto dalla vegetazio-",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "013876": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/013876.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto dalla vegeta-",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "013899": {
@@ -12650,7 +12912,36 @@
   "013905": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/013905.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 30 metri dal più",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 30 metri dal più",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "014091": {
@@ -12806,6 +13097,13 @@
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/014190.pdf",
    "EXCLUSION_WINDOWS": [
     {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare la coltura in una fascia",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
      "MARKER": "eccetto",
      "SCOPE": "NOT_CROP_SCOPE",
      "QUOTABLE": true,
@@ -12825,6 +13123,13 @@
      "QUOTABLE": true,
      "TEXT": "eccetto i cavoli, non effettuare più di 2",
      "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare la coltura in una fascia",
+     "WHY_NOT_QUOTABLE": null
     }
    ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
@@ -12832,7 +13137,15 @@
   "014375": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/014375.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto dalla vegetazione",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "014380": {
@@ -12844,7 +13157,15 @@
   "014386": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/014386.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non trattare con temperature",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "014479": {
@@ -12862,20 +13183,67 @@
   "015096": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/015096.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in caso di rischio di pioggia imminente",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "ad esclusione delle",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": false,
+     "TEXT": "QUOTE_NOT_RECOVERABLE_COLUMN_LAYOUT",
+     "WHY_NOT_QUOTABLE": "o trecho entre o marcador e o corte atravessa salto de coluna do extrator de texto: a frase montada nao existe no documento e nao pode ser citada"
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "015182": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/015182.pdf",
-   "EXCLUSION_WINDOWS": [],
-   "EXCLUSION_WINDOWS_CROP_SCOPE": []
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non impiegare su",
+     "SCOPE": "CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non impiegare su varietà di mais dolce e su linee di mais per la produzione di se-",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
+   "EXCLUSION_WINDOWS_CROP_SCOPE": [
+    {
+     "MARKER": "non impiegare su",
+     "SCOPE": "CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non impiegare su varietà di mais dolce e su linee di mais per la produzione di se-",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ]
   },
   "015183": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/015183.pdf",
-   "EXCLUSION_WINDOWS": [],
-   "EXCLUSION_WINDOWS_CROP_SCOPE": []
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non impiegare su",
+     "SCOPE": "CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non impiegare su varietà di mais dolce e su linee di mais per la produzione di se-",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
+   "EXCLUSION_WINDOWS_CROP_SCOPE": [
+    {
+     "MARKER": "non impiegare su",
+     "SCOPE": "CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non impiegare su varietà di mais dolce e su linee di mais per la produzione di se-",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ]
   },
   "015229": {
    "LABEL_TEXT": "READ",
@@ -12900,6 +13268,13 @@
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/015253.pdf",
    "EXCLUSION_WINDOWS": [
     {
+     "MARKER": "non impiegare su",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non impiegare su piante in stato di stress",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
      "MARKER": "ad eccezione di",
      "SCOPE": "NOT_CROP_SCOPE",
      "QUOTABLE": true,
@@ -12912,13 +13287,50 @@
   "015275": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/015275.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non trattare in fioritura",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "015315": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/015315.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 30 metri dal più",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 30 metri dal più",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "015317": {
@@ -12930,7 +13342,22 @@
   "015405": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/015405.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in caso di rischio di pioggia imminente",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "ad esclusione delle",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": false,
+     "TEXT": "QUOTE_NOT_RECOVERABLE_COLUMN_LAYOUT",
+     "WHY_NOT_QUOTABLE": "o trecho entre o marcador e o corte atravessa salto de coluna do extrator de texto: a frase montada nao existe no documento e nao pode ser citada"
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "015629": {
@@ -12967,6 +13394,13 @@
      "QUOTABLE": true,
      "TEXT": "(escluse leguminose foraggere)",
      "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non utilizzare su",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non utilizzare su impianti giovani e",
+     "WHY_NOT_QUOTABLE": null
     }
    ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
@@ -12998,13 +13432,57 @@
   "016823": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/016823.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 20 metri da corpi idrici",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 20 metri da corpi idrici",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 10 metri da corpi idrici",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "017094": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/017094.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 20 metri da corpi idrici",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 20 metri da corpi idrici",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 10 metri da corpi idrici",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "017111": {
@@ -13017,6 +13495,13 @@
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/017115.pdf",
    "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non impiegare su",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non impiegare su piante in stato di stress",
+     "WHY_NOT_QUOTABLE": null
+    },
     {
      "MARKER": "ad eccezione di",
      "SCOPE": "NOT_CROP_SCOPE",
@@ -13044,13 +13529,28 @@
   "017123": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/017123.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 10 metri da corpi idrici",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "017206": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/017206.pdf",
    "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non impiegare su",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non impiegare su piante in stato di stress",
+     "WHY_NOT_QUOTABLE": null
+    },
     {
      "MARKER": "ad eccezione di",
      "SCOPE": "NOT_CROP_SCOPE",
@@ -13070,7 +13570,22 @@
   "017318": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/017318.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "017319": {
@@ -13082,7 +13597,15 @@
   "017332": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/017332.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto dalla vegetazione",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "017335": {
@@ -13262,7 +13785,36 @@
   "017432": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/017432.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 30 metri dal più",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 30 metri dal più",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "017585": {
@@ -13302,13 +13854,57 @@
   "017660": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/017660.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 20 metri da corpi idrici",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": false,
+     "TEXT": "QUOTE_NOT_RECOVERABLE_COLUMN_LAYOUT",
+     "WHY_NOT_QUOTABLE": "o trecho entre o marcador e o corte atravessa salto de coluna do extrator de texto: a frase montada nao existe no documento e nao pode ser citada"
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 10 metri da corpi idrici",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "017661": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/017661.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 20 metri da corpi idrici",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": false,
+     "TEXT": "QUOTE_NOT_RECOVERABLE_COLUMN_LAYOUT",
+     "WHY_NOT_QUOTABLE": "o trecho entre o marcador e o corte atravessa salto de coluna do extrator de texto: a frase montada nao existe no documento e nao pode ser citada"
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di rispetto di 10 metri da corpi idrici",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "017662": {
@@ -13332,7 +13928,22 @@
   "017687": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/017687.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non trattare in fioritura",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non trattare in fioritura",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "017688": {
@@ -13386,13 +13997,43 @@
   "017929": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/017929.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in caso di rischio di pioggia imminente",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "ad esclusione delle",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": false,
+     "TEXT": "QUOTE_NOT_RECOVERABLE_COLUMN_LAYOUT",
+     "WHY_NOT_QUOTABLE": "o trecho entre o marcador e o corte atravessa salto de coluna do extrator de texto: a frase montada nao existe no documento e nao pode ser citada"
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "017930": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/017930.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in caso di rischio di pioggia imminente",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "ad esclusione delle",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": false,
+     "TEXT": "QUOTE_NOT_RECOVERABLE_COLUMN_LAYOUT",
+     "WHY_NOT_QUOTABLE": "o trecho entre o marcador e o corte atravessa salto de coluna do extrator de texto: a frase montada nao existe no documento e nao pode ser citada"
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "017955": {
@@ -13411,6 +14052,20 @@
      "QUOTABLE": true,
      "TEXT": "eccetto cereali a semina primaverile e",
      "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "ad eccezione delle",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "ad eccezione delle pomacee, per le quali deve",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare la coltura in una fascia",
+     "WHY_NOT_QUOTABLE": null
     }
    ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
@@ -13424,7 +14079,15 @@
   "018072": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/018072.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non impiegare su",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non impiegare su colture",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "018089": {
@@ -13442,6 +14105,13 @@
      "SCOPE": "NOT_CROP_SCOPE",
      "QUOTABLE": true,
      "TEXT": "(escluse leguminose foraggere)",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non utilizzare su",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non utilizzare su impianti giovani e",
      "WHY_NOT_QUOTABLE": null
     }
    ],
@@ -13468,7 +14138,15 @@
   "018202": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/018202.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non trattare nelle ore più calde della giornata, con temperature",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "018244": {
@@ -13480,49 +14158,120 @@
   "018270": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/018270.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in caso di rischio di pioggia imminente",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "018271": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/018271.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in caso di rischio di pioggia imminente",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "018277": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/018277.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in caso di rischio di pioggia imminente",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "018279": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/018279.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in caso di rischio di pioggia imminente",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "018545": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/018545.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non impiegare su",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "Non impiegare su colture",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "018561": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/018561.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "018694": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/018694.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di",
+     "WHY_NOT_QUOTABLE": null
+    },
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare in una fascia di",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "018813": {
    "LABEL_TEXT": "READ",
    "LABEL_PDF": "pilot-label-intelligence/labels/pdf/018813.pdf",
-   "EXCLUSION_WINDOWS": [],
+   "EXCLUSION_WINDOWS": [
+    {
+     "MARKER": "non trattare",
+     "SCOPE": "NOT_CROP_SCOPE",
+     "QUOTABLE": true,
+     "TEXT": "non trattare barbabietole in stress",
+     "WHY_NOT_QUOTABLE": null
+    }
+   ],
    "EXCLUSION_WINDOWS_CROP_SCOPE": []
   },
   "018814": {
@@ -16484,7 +17233,9 @@
     "(ad esclusione di Pomodoro ciliegino)"
    ],
    "PROOF": "a raiz da cultura CILIEGIO nao ocorre em nenhum ponto do texto do rotulo fora de uma janela de exclusao",
-   "LABEL_PDF": "pilot-label-intelligence/labels/pdf/002983.pdf"
+   "LABEL_PDF": "pilot-label-intelligence/labels/pdf/002983.pdf",
+   "LABEL_SHA256": "99a46633b9f3fb79bcc7fca36ef34c56badf633ac6ab3a1bd7f28cdadba42f46",
+   "LABEL_BYTES": 349130
   },
   {
    "REGISTRATION_ID": "013405",
@@ -16501,7 +17252,9 @@
     "(ad esclusione di Pomodoro ciliegino)"
    ],
    "PROOF": "a raiz da cultura CILIEGIO nao ocorre em nenhum ponto do texto do rotulo fora de uma janela de exclusao",
-   "LABEL_PDF": "pilot-label-intelligence/labels/pdf/013405.pdf"
+   "LABEL_PDF": "pilot-label-intelligence/labels/pdf/013405.pdf",
+   "LABEL_SHA256": "540aed8380d03aedcf0f31d94114294fd6c9c93b68690cb4a2cf17f6ade38e42",
+   "LABEL_BYTES": 382538
   }
  ]
 }

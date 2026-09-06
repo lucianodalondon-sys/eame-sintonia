@@ -94,6 +94,11 @@ def main():
     retirado_por_reg = {}
     for w in exc["RETIRADOS"]:
         retirado_por_reg.setdefault(w["REGISTRATION_ID"], []).append(w)
+    # a retirada precisa da URL oficial do documento, como toda outra afirmacao
+    _url = {i["REGISTRATION_ID"]: i["PDF_URL"] for i in pkg["ITEMS"]}
+    for _r, _ws in retirado_por_reg.items():
+        for _w in _ws:
+            _w["LABEL_URL"] = _url.get(_r, "NOT_KNOWN")
 
     # usos por produto (reuso apontado)
     usos = {}
