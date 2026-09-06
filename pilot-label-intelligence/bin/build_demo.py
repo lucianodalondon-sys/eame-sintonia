@@ -94,6 +94,9 @@ def main():
 
     d = json.load(open(a.dados, encoding="utf-8"))
     dm = json.load(open(a.demo, encoding="utf-8"))
+    cadp = os.path.join(os.path.dirname(a.dados) or ".", "..", "labels",
+                        "IT-CADENCIA-ROTULO.json")
+    cad = json.load(open(cadp, encoding="utf-8")) if os.path.exists(cadp) else {}
     demo_ids = [x["REGISTRATION_ID"] for x in dm["PRODUCTS"]]
     byreg = {p["REGISTRATION_ID"]: p for p in d["PRODUCTS"]}
 
@@ -205,6 +208,21 @@ def main():
 </div>
 
 <div class="block">
+  <header><h3>Com que frequencia a etichetta muda</h3>{badge("REAL")}</header>
+  <div class="meta">Da data de vigencia que o proprio Ministero declara para cada rotulo
+    (&ldquo;Etichetta del DD/MM/AAAA&rdquo;) &mdash; {e(cad.get("LABELS_WITH_DECLARED_EFFECTIVE_DATE","?"))}
+    de {len(linhas)} rotulos a declaram. Nenhuma data foi inferida.</div>
+  <div class="cards">
+    <div class="kpi"><b>{round(cad.get("ANNUAL_RENEWAL_RATE",0)*100)}%</b><span>dos rotulos renovados em 12 meses</span></div>
+    <div class="kpi"><b>{e(cad.get("RENEWED_WITHIN",{}).get("ULTIMOS_6_MESES","?"))}</b><span>renovados nos ultimos 6 meses</span></div>
+    <div class="kpi"><b>{e(cad.get("MEDIAN_AGE_YEARS","?"))} anos</b><span>idade mediana do rotulo em vigor</span></div>
+    <div class="kpi"><b>{e(cad.get("OLDEST_LABEL_IN_FORCE","?"))}</b><span>rotulo em vigor mais antigo</span></div>
+  </div>
+  <div class="warn">{e(cad.get("VEREDITO","?"))}</div>
+  <div class="meta" style="margin-top:10px">{e(cad.get("IMPLICACAO_PARA_A_ESTEIRA",""))}</div>
+</div>
+
+<div class="block">
   <header><h3>Os 163 produtos</h3>{badge("REAL")}</header>
   <div class="meta">
     Registro: <code>PROD_FTS_6_20260831.csv</code> ·
@@ -284,8 +302,11 @@ def main():
   <header><h3>Limites, ditos antes de perguntarem</h3>{badge("REAL")}</header>
   <ul style="line-height:1.75;font-size:14px">
     <li><b>{lvc.get("DOCUMENT_CHANGED", 0)} rotulos mudaram</b> na janela conferida
-      ({e(lvc.get("BASELINE_CAPTURED_AT", "?"))} a {e(lvc.get("OBSERVED_AT", "?"))}).
-      Sete dias e curto demais para um documento que muda em escala de meses.
+      ({e(lvc.get("BASELINE_CAPTURED_AT", "?"))} a {e(lvc.get("OBSERVED_AT", "?"))},
+      {e(cad.get("OBSERVATION_WINDOW_DAYS", "?"))} dias). Com a taxa de renovacao medida
+      ({round(cad.get("ANNUAL_RENEWAL_RATE", 0)*100)}% ao ano), o esperado nesta janela era
+      {e(cad.get("EXPECTED_CHANGES_IN_WINDOW", "?"))} mudancas — entao zero e o resultado
+      previsto, nao prova de que os rotulos nao mudam.
       <code>VERSION MONITORING READY</code> · <code>HISTORICAL LABEL DIFF NOT YET PROVED</code>.</li>
     <li><b>Vencimento nao e revogacao.</b> {vencidos} produtos tem validade passada e continuam
       listados como autorizados no registro. O piloto mostra os dois campos e nao decide por conta

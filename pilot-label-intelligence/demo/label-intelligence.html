@@ -102,6 +102,21 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--ln);color:var
 </div>
 
 <div class="block">
+  <header><h3>Com que frequencia a etichetta muda</h3><span class="badge b-real">REAL</span></header>
+  <div class="meta">Da data de vigencia que o proprio Ministero declara para cada rotulo
+    (&ldquo;Etichetta del DD/MM/AAAA&rdquo;) &mdash; 161
+    de 163 rotulos a declaram. Nenhuma data foi inferida.</div>
+  <div class="cards">
+    <div class="kpi"><b>32%</b><span>dos rotulos renovados em 12 meses</span></div>
+    <div class="kpi"><b>49</b><span>renovados nos ultimos 6 meses</span></div>
+    <div class="kpi"><b>2.1 anos</b><span>idade mediana do rotulo em vigor</span></div>
+    <div class="kpi"><b>2016-12-19</b><span>rotulo em vigor mais antigo</span></div>
+  </div>
+  <div class="warn">com 32% de renovacao ao ano sobre 161 rotulos, uma janela de 2 dias faz esperar cerca de 0.28 mudancas. Observamos 0. Zero e o resultado ESPERADO nesta janela, nao um sinal de que os rotulos nao mudam — eles mudam, so nao nesta semana.</div>
+  <div class="meta" style="margin-top:10px">uma verificacao semanal cobre a taxa medida com folga; diaria seria desperdicio, porque o passo caro (baixar e parsear) so dispara quando o hash muda</div>
+</div>
+
+<div class="block">
   <header><h3>Os 163 produtos</h3><span class="badge b-real">REAL</span></header>
   <div class="meta">
     Registro: <code>PROD_FTS_6_20260831.csv</code> ·
@@ -181,8 +196,11 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--ln);color:var
   <header><h3>Limites, ditos antes de perguntarem</h3><span class="badge b-real">REAL</span></header>
   <ul style="line-height:1.75;font-size:14px">
     <li><b>0 rotulos mudaram</b> na janela conferida
-      (2026-09-04 a 2026-09-06).
-      Sete dias e curto demais para um documento que muda em escala de meses.
+      (2026-09-04 a 2026-09-06,
+      2 dias). Com a taxa de renovacao medida
+      (32% ao ano), o esperado nesta janela era
+      0.28 mudancas — entao zero e o resultado
+      previsto, nao prova de que os rotulos nao mudam.
       <code>VERSION MONITORING READY</code> · <code>HISTORICAL LABEL DIFF NOT YET PROVED</code>.</li>
     <li><b>Vencimento nao e revogacao.</b> 15 produtos tem validade passada e continuam
       listados como autorizados no registro. O piloto mostra os dois campos e nao decide por conta

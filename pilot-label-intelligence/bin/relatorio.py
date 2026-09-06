@@ -27,6 +27,7 @@ def main():
     rv = le(f"{B}/labels/IT-ROTULOS-REVERIFICACAO.json", {})
     cc = le(f"{B}/labels/IT-CONCORRENTES-AMOSTRA.json", {})
     dz = le(f"{B}/demo/IT-DOSES.json", {})
+    cd = le(f"{B}/labels/IT-CADENCIA-ROTULO.json", {})
     if d is None:
         print("faltam artefatos", file=sys.stderr); return 1
 
@@ -96,6 +97,10 @@ Gerado de artefatos por `bin/relatorio.py`. Nenhum numero aqui foi digitado a ma
     LABEL_DOCUMENTS_CHANGED       = {diffs}
     REAL_LABEL_DIFFS_FOUND        = {diffs}
     CHECK_FAILED                  = {rv.get("CHECK_FAILED", NP)}
+    OBSERVATION_WINDOW_DAYS       = {cd.get("OBSERVATION_WINDOW_DAYS", NP)}
+    LABEL_RENEWAL_RATE_PER_YEAR   = {cd.get("ANNUAL_RENEWAL_RATE", NP)}   ({round(cd.get("ANNUAL_RENEWAL_RATE",0)*100)}% dos rotulos por ano)
+    EXPECTED_CHANGES_IN_WINDOW    = {cd.get("EXPECTED_CHANGES_IN_WINDOW", NP)}
+    MEDIAN_AGE_OF_LABEL_IN_FORCE  = {cd.get("MEDIAN_AGE_YEARS", NP)} anos
 
     ALERTS_GENERATED              = {al.get("ALERTS_TOTAL", NP)}
     ALERTS_BY_TYPE                = {al.get("BY_TYPE", NP)}
@@ -146,7 +151,8 @@ Detalhe em `docs/ROI-SUBSTITUICAO.md`. Nenhum valor em dinheiro foi estimado.
       demo visual independente ............ SIM
 
     VERSION MONITORING READY        = SIM
-    HISTORICAL LABEL DIFF PROVED    = NAO — {diffs} rotulos mudaram na janela de 7 dias
+    HISTORICAL LABEL DIFF PROVED    = NAO — {diffs} mudaram em {cd.get("OBSERVATION_WINDOW_DAYS", "?")} dias,
+                                      e o esperado pela taxa medida era {cd.get("EXPECTED_CHANGES_IN_WINDOW", "?")}
     HISTORICAL REGISTRY DIFF PROVED = SIM — {hist.get("CHANGE_EVENTS_REGULATORY", "?")} eventos reais em {hist.get("WINDOW", "?")}
 
 ## Recomendacao de integracao com o portal
@@ -156,8 +162,10 @@ Detalhe em `docs/ROI-SUBSTITUICAO.md`. Nenhum valor em dinheiro foi estimado.
 Tres razoes, nesta ordem:
 
 1. O portal esta congelado por decisao D-007 e esta missao nao o toca.
-2. O diff historico do proprio rotulo ainda nao tem caso real. Integrar agora
-   levaria para a tela uma capacidade que a janela de observacao nao sustenta.
+2. O diff historico do proprio rotulo ainda nao tem caso real. A taxa medida diz
+   que {round(cd.get("ANNUAL_RENEWAL_RATE",0)*100)}% dos rotulos sao renovados por ano — ou seja, o caso vai
+   aparecer sozinho em semanas, e ai a capacidade se prova com documento na mao
+   em vez de com promessa.
 3. A dose ainda esta em `AUTOMATABLE_WITH_REVIEW`. Antes de virar tela, precisa
    de uma passada humana por amostra.
 

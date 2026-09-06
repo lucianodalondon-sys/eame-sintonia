@@ -47,6 +47,10 @@ Gerado de artefatos por `bin/relatorio.py`. Nenhum numero aqui foi digitado a ma
     LABEL_DOCUMENTS_CHANGED       = 0
     REAL_LABEL_DIFFS_FOUND        = 0
     CHECK_FAILED                  = 0
+    OBSERVATION_WINDOW_DAYS       = 2
+    LABEL_RENEWAL_RATE_PER_YEAR   = 0.317   (32% dos rotulos por ano)
+    EXPECTED_CHANGES_IN_WINDOW    = 0.28
+    MEDIAN_AGE_OF_LABEL_IN_FORCE  = 2.1 anos
 
     ALERTS_GENERATED              = 70
     ALERTS_BY_TYPE                = {'REGULATORY_CHANGE': 25, 'EXPIRY_PASSED': 15, 'EXPIRY_APPROACHING': 26, 'NEW_LABEL': 4}
@@ -97,7 +101,8 @@ Detalhe em `docs/ROI-SUBSTITUICAO.md`. Nenhum valor em dinheiro foi estimado.
       demo visual independente ............ SIM
 
     VERSION MONITORING READY        = SIM
-    HISTORICAL LABEL DIFF PROVED    = NAO — 0 rotulos mudaram na janela de 7 dias
+    HISTORICAL LABEL DIFF PROVED    = NAO — 0 mudaram em 2 dias,
+                                      e o esperado pela taxa medida era 0.28
     HISTORICAL REGISTRY DIFF PROVED = SIM — 34 eventos reais em 20250714..20260831
 
 ## Recomendacao de integracao com o portal
@@ -107,8 +112,10 @@ Detalhe em `docs/ROI-SUBSTITUICAO.md`. Nenhum valor em dinheiro foi estimado.
 Tres razoes, nesta ordem:
 
 1. O portal esta congelado por decisao D-007 e esta missao nao o toca.
-2. O diff historico do proprio rotulo ainda nao tem caso real. Integrar agora
-   levaria para a tela uma capacidade que a janela de observacao nao sustenta.
+2. O diff historico do proprio rotulo ainda nao tem caso real. A taxa medida diz
+   que 32% dos rotulos sao renovados por ano — ou seja, o caso vai
+   aparecer sozinho em semanas, e ai a capacidade se prova com documento na mao
+   em vez de com promessa.
 3. A dose ainda esta em `AUTOMATABLE_WITH_REVIEW`. Antes de virar tela, precisa
    de uma passada humana por amostra.
 
