@@ -16,7 +16,13 @@ import { serve } from './lib/drive.mjs';
    QUELLO. Cio che questa prova non copre lo dice a voce: le intestazioni e il
    CDN, che si verificano a parte con curl. */
 const MIRROR = process.env.SINTONIA_MIRROR || '';
-const URL = MIRROR ? ('http://localhost:8971/portale.html') : 'https://sintonia-eame-preview.vercel.app/portale';
+/* L'INDIRIZZO PUBBLICO NON E SEMPRE QUELLO DELL'APICE. Una anteprima di ramo
+   e un deploy vero, con lo stesso CDN e le stesse intestazioni, e va provata
+   PRIMA di promuoverla. `--base https://…` la indirizza; senza argomento resta
+   l'indirizzo che il cliente apre. */
+const ARGV = process.argv.slice(2);
+const BASE = (() => { const i = ARGV.indexOf('--base'); return i >= 0 ? String(ARGV[i + 1] || '').replace(/\/$/, '') : 'https://sintonia-eame-preview.vercel.app'; })();
+const URL = MIRROR ? ('http://localhost:8971/portale.html') : (BASE + '/portale');
 const AM = loadData().ITALY_APP_MODEL;
 const OPP = AM.collections.opportunities.records;
 const byId = {}; OPP.forEach((o) => { byId[o.id] = o; });
