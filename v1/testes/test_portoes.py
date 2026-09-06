@@ -15,6 +15,27 @@ def fail(g, d):   R.append({"GATE": g, "STATE": "FAIL", "DETALHE": d}); print(f"
 PAY = json.load(open("v1/dados/CASCO-PAYLOAD.json", encoding="utf-8"))
 OBJ = PAY["objects"]
 HTML = open("v1/casco/label-intelligence.html", encoding="utf-8").read()
+
+# A TELA RENDERIZADA, e nao o template.
+#
+# Tres portoes desta suite varriam o `label-intelligence.html` estatico — onde as
+# tabelas ainda nao existem, porque o casco as monta em tempo de execucao. O
+# teste de mutacao da rodada 4 mostrou o preco: com `val()` devolvendo "-" no
+# lugar de todo token de ignorancia, UNKNOWN_HIDDEN_OR_FILLED e UNKNOWN_VISIBLE
+# passaram; com a lei PARSER_FAILURE != REGULATORY_ABSENCE apagada de 5 das 6
+# telas, PARSER_FAILURE_AS_ABSENCE passou, porque ela sobrava no arquivo.
+# Portao que varre o template nao esta olhando a tela.
+#
+# render_dump.js executa o app.js e despeja as 9 telas, as 166 fichas e as
+# ~3.400 gavetas de prova. Se ele nao rodar, os portoes que dependem dele FALHAM
+# — nao passam por omissao.
+_RENDER_ARQ = "v1/testes/RENDER-DUMP.html"
+_r_dump = subprocess.run(["node", "v1/testes/render_dump.js"], capture_output=True, text=True)
+if _r_dump.returncode == 0 and os.path.exists(_RENDER_ARQ):
+    TELA = open(_RENDER_ARQ, encoding="utf-8").read()
+    TELA_OK = _r_dump.stderr.strip()
+else:
+    TELA, TELA_OK = "", ""
 REGRAS = open("v1/inteligencia/REGRAS.md", encoding="utf-8").read()
 JS = open("v1/casco/app.js", encoding="utf-8").read()
 
@@ -110,16 +131,31 @@ ok("EVIDENCE_ROUTE_REACHES_A_REAL_DOCUMENT",
    f"{_conf_ev} referencias a documento conferidas em disco: o arquivo existe e o sha256 bate") \
     if not _ev else fail("EVIDENCE_ROUTE_REACHES_A_REAL_DOCUMENT", " | ".join(_ev[:4]))
 
-# --- 7. nenhum "-" / "N/A" significando desconhecido no HTML renderizado
-suspeitos = re.findall(r"<td[^>]*>\s*(?:-|N/A|n/a|none|null|undefined)\s*</td>", HTML)
-ok("UNKNOWN_HIDDEN_OR_FILLED", "nenhuma celula com traco/N-A no template") if not suspeitos \
-    else fail("UNKNOWN_HIDDEN_OR_FILLED", f"{len(suspeitos)} celulas suspeitas")
-
-# --- 8. o token de ignorancia e renderizado com o proprio nome
-if 'class="unknown"' in HTML and "NOT_KNOWN" in HTML:
-    ok("UNKNOWN_VISIBLE", "tokens de ignorancia renderizados com nome proprio")
+# --- 7. nenhum "-" / "N/A" significando desconhecido NA TELA RENDERIZADA
+if not TELA:
+    fail("UNKNOWN_HIDDEN_OR_FILLED",
+         f"a tela nao pode ser renderizada, entao nao ha o que varrer: {_r_dump.stderr[-300:]}")
 else:
-    fail("UNKNOWN_VISIBLE", "nao encontrei o estilo/token de desconhecido")
+    suspeitos = re.findall(r"<t[dh][^>]*>\s*(?:-|&mdash;|N/A|n/a|none|null|undefined)\s*</t[dh]>",
+                           TELA)
+    _sus2 = re.findall(r"<dd[^>]*>\s*(?:-|N/A|n/a|none|null|undefined)\s*</dd>", TELA)
+    ok("UNKNOWN_HIDDEN_OR_FILLED",
+       f"nenhuma celula com traco/N-A em {len(TELA)} caracteres de tela renderizada ({TELA_OK})") \
+        if not suspeitos and not _sus2 \
+        else fail("UNKNOWN_HIDDEN_OR_FILLED",
+                  f"{len(suspeitos)+len(_sus2)} celulas com traco/N-A na tela renderizada: "
+                  f"{(suspeitos + _sus2)[:3]}")
+
+# --- 8. o token de ignorancia e renderizado com o proprio nome NA TELA
+_toks = set(re.findall(r'class="unknown"[^>]*>\s*([A-Z][A-Z0-9_]{5,})\s*<', TELA))
+if not TELA:
+    fail("UNKNOWN_VISIBLE", "a tela nao pode ser renderizada")
+elif len(_toks) >= 10:
+    ok("UNKNOWN_VISIBLE",
+       f"{len(_toks)} tokens de ignorancia distintos aparecem com o proprio nome na tela")
+else:
+    fail("UNKNOWN_VISIBLE",
+         f"so {len(_toks)} tokens de ignorancia aparecem com nome proprio na tela: {sorted(_toks)}")
 
 # --- 9. expiry nunca vira withdrawal
 proibido = ["stop selling", "pare de vender", "retirar do mercado", "withdrawn",
@@ -135,7 +171,7 @@ proibido = ["stop selling", "pare de vender", "retirar do mercado", "withdrawn",
 # glosa sumir, isto FALHA — nao passa por omissao.
 GLOSA = ("aqui significa\n  &ldquo;olhe hoje&rdquo;, nunca &ldquo;pare de vender&rdquo;")
 GLOSA_RENDER = 'aqui significa\n  “olhe hoje”, nunca “pare de vender”'
-corpo = HTML
+corpo = HTML + "\n" + TELA
 achou_glosa = 0
 for g in (GLOSA, GLOSA_RENDER):
     achou_glosa += corpo.count(g)
@@ -151,10 +187,22 @@ ok("EXPIRY_AS_WITHDRAWAL",
     else fail("EXPIRY_AS_WITHDRAWAL", f"frases encontradas: {achou}")
 
 # --- 10. parser failure nunca apresentado como ausencia regulatoria
-if "PARSER_FAILURE != REGULATORY_ABSENCE" in HTML:
-    ok("PARSER_FAILURE_AS_ABSENCE", "a lei aparece na interface onde o estado de leitura e mostrado")
+#
+# Contado NA TELA e em QUANTOS BLOCOS: a lei estar uma vez no arquivo nao prova
+# que ela aparece onde o estado de leitura e mostrado. Medido: apagando 5 das 6
+# ocorrencias do app.js, a versao anterior deste portao continuava passando.
+_leis = TELA.count("PARSER_FAILURE != REGULATORY_ABSENCE") if TELA else 0
+_blocos_lei = sum(1 for b in TELA.split("<!-- bloco ")
+                  if "PARSER_FAILURE != REGULATORY_ABSENCE" in b) if TELA else 0
+if not TELA:
+    fail("PARSER_FAILURE_AS_ABSENCE", "a tela nao pode ser renderizada")
+elif _leis >= 3 and _blocos_lei >= 3:
+    ok("PARSER_FAILURE_AS_ABSENCE",
+       f"a lei aparece {_leis} vezes, em {_blocos_lei} blocos distintos da tela renderizada")
 else:
-    fail("PARSER_FAILURE_AS_ABSENCE", "a lei nao esta visivel na interface")
+    fail("PARSER_FAILURE_AS_ABSENCE",
+         f"a lei aparece {_leis} vezes em {_blocos_lei} blocos: nao esta onde o estado de "
+         f"leitura e mostrado")
 
 # --- 11. isolamento: nada fora de v1/ e pilot-label-intelligence/
 dif = subprocess.run(["git", "diff", "--name-only", "df3a4fd..HEAD"],
