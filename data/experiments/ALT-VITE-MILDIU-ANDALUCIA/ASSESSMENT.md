@@ -102,3 +102,33 @@ cannot provide.
 
 This does not rescue the Veneto product. It relocates the question to a place where the
 question can actually be answered.
+
+---
+
+## Weather coverage: 3 of 4 points, and why the missing one cannot change the verdict
+
+ERA5 was collected for Jerez (Cádiz), Condado (Huelva) and Axarquía (Málaga).
+**Montilla (Córdoba) could not be retrieved** — open-meteo returned HTTP 429 on 16 attempts
+across three separate runs with backoff up to 3 minutes. It is a rate limit, not a block,
+and the point is retrievable later.
+
+This is a real gap and it is not hidden. But it cannot move the conclusion, and the reason
+is a sensitivity check that was actually run rather than asserted:
+
+| weather coverage | antecedent model (honest) | same-season ceiling (cheating) |
+|---|---|---|
+| 1 point (Jerez only) | **0.400** = baseline | 0.55, p = 0.040 |
+| 3 points | **0.400** = baseline | **0.75, p = 0.0002** |
+
+Improving spatial coverage **strengthened the within-season signal by a large margin** and
+left the antecedent model sitting exactly on the climatology baseline, unmoved. Circularity
+also fell (max |ρ| 0.506 → 0.470) rather than rising.
+
+So the direction of the effect of adding weather points is established: it sharpens the
+ceiling and does nothing for the forecast. A fourth point would be expected to raise the
+0.75 further and leave the 0.400 where it is. `MODEL_HAS_SKILL = NO` does not depend on the
+missing province, and `PATHWAY_REAL_BUT_NOT_KNOWABLE_IN_ADVANCE` is if anything reinforced
+by better coverage.
+
+Recorded so that a later run which adds Córdoba can check this prediction rather than
+rediscover the question.
