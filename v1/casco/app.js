@@ -155,6 +155,39 @@ function contido(peq, grande) {
   for (const t of a) if (!b.has(t)) return false;
   return true;
 }
+// A CELULA DE CULTURA E UMA LISTA, E LISTA SE LE ITEM A ITEM.
+//
+// contido() casa por TOKEN, e por token {BARBABIETOLA} esta contido em
+// "Foraggere (prati-pascoli, loglio, mais, barbabietola da foraggio, erba
+// medica)". Medido na tela: BARBABIETOLA x APION saia 420-1200 g/ha com selo
+// LISTADA em 5 registros, enquanto no MESMO produto e sob o MESMO nome os pares
+// ALTICA/AFIDI/CLEONO vinham de "Barbabietola da zucchero" — e o maximo
+// autorizado para a beterraba DE ACUCAR naquela tabela e 800 g/ha.
+//
+// A lei certa ja estava escrita nesta casa, em v1/inteligencia/teto_dose.py:
+// "Casamento por FRASE INTEIRA: 'mais dolce' nao e 'mais', e 'mais da foraggio'
+// tampouco". Ela valia para o TETO (R-12) e nao valia para a JUNCAO, que e onde
+// o numero e publicado. Agora vale nos dois.
+const itensDaCelula = s => String(s || '').split(/[,;]|\se\s/i)
+  .map(x => nrm(x)).filter(Boolean);
+// item INTEIRO: "BARBABIETOLA" nao e "BARBABIETOLA DA FORAGGIO"
+const culturaNaCelula = (nome, celula) => {
+  const n = nrm(nome);
+  return itensDaCelula(celula).some(it => it === n);
+};
+// E onde o vocabulario a montante NAO distingue, a ferramenta nao escolhe.
+// Se a mesma etichetta escreve mais de uma forma qualificada do mesmo nome
+// curto — "Mais", "Mais dolce", "Mais da foraggio"; "Barbabietola da zucchero"
+// e "barbabietola da foraggio"; "cavolo broccolo" e "Cavolo cappuccio" — entao
+// o nome curto nao identifica uma cultura neste documento, e nenhuma dose pode
+// ser atribuida a ele por juncao de lista.
+function formasDaCultura(p, nome) {
+  const n = nrm(nome), formas = new Set();
+  (p.doses || []).forEach(d => itensDaCelula(d.crop).forEach(it => {
+    if (it === n || it.startsWith(n + ' ')) formas.add(it);
+  }));
+  return [...formas];
+}
 // A JUNCAO DA DOSE, com estado declarado.
 //
 // Medido sobre os 2.926 pares publicados: igualdade exata de cultura E alvo
@@ -212,10 +245,25 @@ function juntaDose(p, u) {
     return {...base, estado: nomeNaCitacao ? 'EXACT_MATCH' : 'EXACT_MATCH_QUOTE_LACKS_CROP',
             d: nomeNaCitacao ? ex[0] : null, cand: ex};
   }
-  const cand = ex.length ? ex
-    : boas.filter(x => contido(u.crop, x.crop) && contido(u.target, x.target));
-  if (!cand.length)
+  let cand = ex;
+  if (!cand.length) {
+    const formas = formasDaCultura(p, u.crop);
+    if (formas.length > 1)
+      return {...base, estado: 'CROP_IDENTITY_NOT_PROVED', d: null, cand: [], formas};
+    cand = boas.filter(x => culturaNaCelula(u.crop, x.crop) && contido(u.target, x.target));
+  }
+  if (!cand.length) {
+    // NAO HA LINHA e HAVIA LINHA E ELA CAIU sao duas respostas diferentes.
+    // A versao anterior dizia "leitura que nao ligou" tambem quando a
+    // ferramenta tinha PROVADO que a linha era de outra cultura.
+    const caidas = todas.filter(x => !linhaPublicavel(p, x)
+      && (nrm(x.crop) === nrm(u.crop) || culturaNaCelula(u.crop, x.crop))
+      && contido(u.target, x.target));
+    if (caidas.length)
+      return {...base, estado: 'DOSE_ROW_CONTRADICTED_BY_R11_FOR_THIS_PAIR',
+              d: null, cand: [], caidas};
     return {...base, estado: 'NO_DOSE_ROW_FOR_THIS_PAIR', d: null, cand: []};
+  }
   // Uma candidata SEM valor lido nao discorda de nada: ela nao diz nada. A
   // versao anterior contava NOT_PRESENT como um valor e declarava "as duas nao
   // dizem o mesmo valor" sobre um par em que a etichetta e inequivoca — 16 dos
@@ -393,9 +441,15 @@ function evDose(reg, i) {
     <dt>Dose por hectare</dt><dd>${isUnk(d.dose_ha)?val(d.dose_ha):esc(d.dose_ha+' '+d.unit_ha)}
       ${d.dose_ha_inherited?'<span class="pill p-dim">HERDADA DE CELULA MESCLADA</span>':''}</dd>
     <dt>Dose por concentracao</dt><dd>${isUnk(d.dose_conc)?val(d.dose_conc):esc(d.dose_conc+' '+d.unit_conc)}</dd>
-    <dt>Max. aplicacoes</dt><dd>${val(d.max_app)}
-      ${d.max_app_inherited?'<span class="pill p-dim">HERDADA</span>':''}</dd>
-    <dt>Intervalo</dt><dd>${val(d.interval)}</dd>
+    <dt>Max. aplicacoes</dt><dd>${colunaMax(d)}
+      ${d.max_app_inherited?`<span class="pill p-dim">HERDADA DE CELULA MESCLADA</span>
+        <span class="pill ${d.max_check==='MAX_CONFIRMED_BY_RULE'?'p-ok':'p-unk'}">${esc(d.max_check)}</span>`:''}</dd>
+    <dt>Intervalo</dt><dd>${colunaIntervalo(d)}
+      ${d.interval_check&&d.interval_check!=='INTERVAL_NOT_INHERITED'
+        ?`<span class="pill ${d.interval_check==='INTERVAL_CONFIRMED_BY_RULE'?'p-ok':'p-unk'}">${esc(d.interval_check)}</span>`:''}</dd>
+    <dt>O texto do alvo existe literalmente no rotulo? (<code>R-13</code>)</dt>
+      <dd><span class="pill ${d.target_literal==='TARGET_TEXT_FOUND_LITERALLY'?'p-ok':'p-unk'}">${val(d.target_literal)}</span>
+      ${avisoAlvoLiteral(d)}</dd>
     <dt>Conferencia pelos fios da tabela</dt><dd>
       <span class="pill ${d.rule_check==='CONFIRMED_BY_RULE'?'p-ok':d.rule_check==='CONTRADICTED_BY_RULE'?'p-bad':'p-dim'}">${esc(d.rule_check)}</span>
       ${d.rejected?`<div class="meta">valor rebaixado: ${esc(d.rejected)} — um fio desenhado separa
@@ -544,12 +598,86 @@ function viewToday() {
 }
 
 // ---------------------------------------------------------------- 2 · PRODUCT 360
+// MF-04 · MAX. APLICACOES e INTERVALO herdados de celula mesclada tem de passar
+// por fio, como a cultura passa em R-11. Nao passavam: a heranca publicava o
+// valor da linha VIZINHA como fato, com selo HERDADA e "CONFERENCIA PELOS FIOS
+// = CONFIRMED_BY_RULE", em 96 pares. Numero de tratamentos e restricao
+// regulatoria — e o que a LEI ZERO nomeia.
+//
+// MF-05 · e quando a LINHA inteira foi reprovada por R-11, abster-se do numero
+// grande e imprimir o pequeno errado ao lado nao e abstencao: as duas colunas
+// vieram da MESMA leitura de geometria que a ferramenta acabou de reprovar.
+const linhaReprovada = d => d.crop_check === 'CROP_ASSIGNMENT_CONTRADICTED_BY_RULE'
+                         || d.rule_check === 'NOT_LOCATED';
+function colunaHerdada(d, valor, estado, nomeCampo) {
+  if (linhaReprovada(d))
+    return val('NOT_PROVED_BY_RULE');
+  if (estado === 'MAX_CONTRADICTED_BY_LABEL_NOTE')
+    return `${val('NOT_PROVED_BY_LABEL_NOTE')}<div class="meta">a tabela dizia
+      <b>${esc(valor)}</b> por posicao de linha; a nota da etichetta que ENUMERA culturas poe
+      esta cultura na lista de <b>${esc(d.note_max)}</b> aplicacao(oes)
+      ${d.note_says?`<i>&ldquo;${esc(String(d.note_says).slice(0,180))}&rdquo;</i>`:''}
+      (<code>R-15</code>)</div>`;
+  if (estado === 'MAX_CONTRADICTED_BY_RULE' || estado === 'INTERVAL_CONTRADICTED_BY_RULE')
+    return `${val('NOT_PROVED_BY_RULE')}<div class="meta">o valor <b>${esc(valor)}</b> foi herdado
+      de celula mesclada e <b>nenhuma celula desenhada que o contem cobre esta linha</b>: ele e da
+      linha vizinha (<code>R-15</code>)</div>`;
+  if (estado === 'MAX_NOT_VALIDATED' || estado === 'INTERVAL_NOT_VALIDATED')
+    return `${val('NOT_VALIDATED')}<div class="meta">valor herdado de celula mesclada que este
+      leitor nao conseguiu conferir contra os fios da coluna. <b>Isto e "nao conferi", nao
+      "confere"</b></div>`;
+  return val(valor);
+}
+function colunaMax(d) { return colunaHerdada(d, d.max_app, d.max_check, 'MAX'); }
+function colunaIntervalo(d) { return colunaHerdada(d, d.interval, d.interval_check, 'INTERVALO'); }
+
+// MF-06 · a ferramenta CALCULAVA o veredito R-13 e nao o lia em lugar nenhum da
+// tela de produto: `target_literal` aparecia em juntaDose e em celulaDose, e em
+// mais lugar nenhum. Consequencia medida: 55 linhas saiam com numero e selo
+// CONFIRMADA enquanto o proprio payload as marcava TARGET_TEXT_NOT_FOUND_LITERALLY
+// — entre elas a quimera "Nottue defogliatrici (allo scoperto) tentredine", que
+// a REGRAS.md cita como FUSION_PROVEN_EXAMPLE. E a MESMA linha, na tela
+// CULTURA x ALVO, era recusada: duas telas da mesma ferramenta davam estados de
+// prova opostos sobre o mesmo fato do mesmo documento.
+function avisoAlvoLiteral(d) {
+  if (d.target_literal === 'TARGET_TEXT_NOT_FOUND_LITERALLY')
+    return `<div class="meta"><span class="unknown">TARGET_TEXT_NOT_FOUND_LITERALLY</span>
+      este texto de alvo <b>nao existe literalmente no rotulo</b>. Pode ser alvo quebrado entre
+      colunas (inofensivo) ou <b>fusao de duas linhas da tabela</b>, que existe e esta provada em
+      008259. <code>FUSION_DETECTOR = NOT_IMPLEMENTED</code></div>`;
+  if (d.target_literal === 'TARGET_TEXT_NOT_CHECKED')
+    return `<div class="meta"><span class="unknown">TARGET_TEXT_NOT_CHECKED</span>
+      esta linha nao foi submetida a <code>R-13</code>. Nao conferido nao e conferido</div>`;
+  return '';
+}
+// O selo dos fios descrevia SO o fio do VALOR. Uma linha cujo alvo nao existe
+// no documento nao pode receber o selo mais forte da tela.
+function seloFios(d) {
+  const ok = d.rule_check === 'CONFIRMED_BY_RULE';
+  const literalRuim = d.target_literal === 'TARGET_TEXT_NOT_FOUND_LITERALLY';
+  if (ok && literalRuim)
+    return `<span class="pill p-unk" title="o valor confere pelos fios, mas o texto do alvo
+      desta linha nao existe literalmente no rotulo">VALOR CONFERIDO &middot; ALVO NAO LITERAL</span>`;
+  if (ok && d.target_literal === 'TARGET_TEXT_NOT_CHECKED')
+    return `<span class="pill p-unk" title="o valor confere pelos fios; o texto do alvo nao foi
+      submetido a R-13">VALOR CONFERIDO &middot; ALVO NAO CONFERIDO</span>`;
+  return `<span class="pill ${ok?'p-ok':d.rule_check==='CONTRADICTED_BY_RULE'?'p-bad':'p-unk'}"
+    title="${d.rule_check==='NOT_LOCATED'?'a linha ou o valor nao foi localizado no documento para conferir contra os fios':d.rule_check==='NOT_CHECKED'?'esta linha nao foi submetida a conferencia por fios':''}"
+    >${ok?'CONFIRMADA':d.rule_check==='CONTRADICTED_BY_RULE'?'REVISAR':esc(d.rule_check)}</span>`;
+}
+
 function viewProduto(reg) {
   const p = byReg[reg] || P.products[0];
   $('#psel').value = p.reg;
   const objs = P.objects.filter(o => o.REGISTRATION_ID === p.reg);
   const D = dte(p);
-  const venc = typeof D === 'number' && D < 0;
+  // MF-10 · a ficha afirmava CONFLITO sobre EVOLUTION EC e CS, cujos dois
+  // campos oficiais CONCORDAM (data_scadenza 04/08/2008 e stato_amministrativo
+  // "Scaduto"): inventava desacordo onde a fonte nao tem nenhum. A funcao que
+  // resolve isso ja existia e era chamada pela BUSCA e pelo CALENDARIO; esta
+  // tela, a unica que descreve o produto isolado, nao a chamava.
+  const venc = conflitoDeValidade(p);
+  const vencCoerente = typeof D === 'number' && D < 0 && foraDeVigor(p);
   const porCultura = {};
   p.uses.forEach((u,i) => (porCultura[u.crop] = porCultura[u.crop]||[]).push({...u, i}));
   $('#pdet').innerHTML = `
@@ -570,8 +698,11 @@ function viewProduto(reg) {
       <tr><th>Formulacao</th><td>${val(p.formulation)}</td></tr>
       <tr><th>Estado administrativo</th><td>${val(p.status)}</td></tr>
       <tr><th>Registrado em</th><td>${val(p.registered_at)}</td></tr>
-      <tr><th>Validade</th><td${venc?' style="color:var(--bad)"':''}>${val(p.expiry)}
+      <tr><th>Validade</th><td${(venc||vencCoerente)?' style="color:var(--bad)"':''}>${val(p.expiry)}
         ${venc?` &mdash; vencida ha ${-D} dias e o registro ainda o lista como &ldquo;${esc(p.status)}&rdquo;.
+        <span class="meta">EXPIRY != WITHDRAWAL — a ferramenta nao conclui saida de mercado</span>`
+        :vencCoerente?` &mdash; <b>VENCIDA &middot; ${esc(p.status)}</b> — os dois campos oficiais
+        concordam, nao ha conflito a reportar.
         <span class="meta">EXPIRY != WITHDRAWAL — a ferramenta nao conclui saida de mercado</span>`:''}</td></tr>
       ${p.revoke_effective!==undefined ? `
       <tr><th>Perigo declarado</th><td>${val(p.hazard)}</td></tr>
@@ -607,10 +738,14 @@ function viewProduto(reg) {
       <tbody>${Object.entries(porCultura).sort().map(([c,us]) => `<tr>
         <td><b>${esc(c)}</b></td>
         <td class="meta">${[...new Set(us.map(u=>u.target))].join(' &middot; ')}</td>
-        <td>${(()=>{const t=us.filter(x=>x.evidence==='TABLE_GEOMETRY').length, n=us.length;
-          return t===n?'<span class="pill p-ok">TABELA</span>'
-               : t===0?'<span class="pill p-dim">TEXTO</span>'
-               : `<span class="pill p-ok">TABELA ${t}</span> <span class="pill p-dim">TEXTO ${n-t}</span>`;})()}
+        <td>${(()=>{
+          // O selo TABELA descrevia so a ROTA de leitura, e por isso ficava
+          // verde tambem nos pares que nunca tinham passado por fio nenhum.
+          // Agora ele conta o veredito de R-14.
+          const ok = us.filter(x=>x.pair_check==='PAIR_CONSISTENT_WITH_RULES').length;
+          const nc = us.length - ok;
+          return `${ok?`<span class="pill p-ok" title="cultura e alvo na mesma celula desenhada (R-14)">FIO CONFERIDO ${ok}</span> `:''}${
+            nc?`<span class="pill p-unk" title="o teste de fio nao rodou nestes pares: rota de prosa, sem grade desenhada, ou alvo nao localizado. NOT_CHECKED nao e aprovado">SEM TESTE DE FIO ${nc}</span>`:''}`;})()}
           ${(()=>{ // o estado da conferencia R-10 existia no payload e nunca aparecia:
                    // 12 pares publicados como CROP_NAME_NOT_FOUND_IN_LABEL_TEXT (o rotulo
                    // escreve "Grano", o leitor normaliza para FRUMENTO) eram desenhados
@@ -650,6 +785,33 @@ function viewProduto(reg) {
               &middot; ${esc(w.LABEL_BYTES)} bytes &middot; ${link(w.LABEL_URL,'abrir no Ministero')}
               &middot; marcador <code>${esc(w.EXCLUSION_QUOTE_STATE)}</code></div></td></tr>`).join('')}
         </tbody></table></div></div>` : ''}
+    ${(p.uses_contraditos||[]).length ? `<div class="lei" style="border-left-color:var(--bad);margin-top:10px">
+      <b>A etichetta nao autoriza estes usos.</b> ${p.uses_contraditos.length} par(es) que o leitor
+      de uso tinha publicado como <b>autorizados</b> — e com o selo <span class="pill p-ok">TABELA</span>,
+      o mais forte da tela — foram retirados desta ficha porque <b>nenhuma celula desenhada que
+      contem o nome da cultura contem qualquer glifo do alvo</b>. Regra <code>R-14</code>: e o mesmo
+      teste de fio que <code>R-11</code> ja fazia na linha de dose e que nunca tinha sido feito no
+      PAR DE USO, que e a afirmacao regulatoria mais fundamental das duas.
+      <div class="tw" style="margin-top:8px"><table>
+        <thead><tr><th>Cultura</th><th>Alvo retirado</th><th>Prova geometrica</th></tr></thead>
+        <tbody>${p.uses_contraditos.map(w => `<tr>
+          <td><b>${esc(w.CROP)}</b></td><td>${esc(w.TARGET)}</td>
+          <td class="meta">${esc(w.PROOF)}
+            <div class="meta">celula lida do rotulo: <i>&ldquo;${esc(String(w.CROP_AS_WRITTEN||'NOT_PRESERVED').slice(0,90))}&rdquo;</i>
+              &middot; rota <code>${esc(w.ROUTE)}</code> &middot; ${link(w.LABEL_URL,'abrir no Ministero')}</div></td></tr>`).join('')}
+        </tbody></table></div></div>` : ''}
+    ${(p.uses_rotacao||[]).length ? `<div class="lei" style="border-left-color:var(--bad);margin-top:10px">
+      <b>Proibir de semear nao e autorizar a tratar.</b> ${p.uses_rotacao.length} par(es) sairam
+      desta ficha porque <b>toda</b> ocorrencia do nome da cultura no rotulo esta dentro de uma
+      frase de <b>semeadura em sucessao</b> — a etichetta diz quando aquela cultura pode ser
+      SEMEADA DEPOIS do tratamento, nao que este produto a trata. Regra <code>R-10b</code>.
+      <div class="tw" style="margin-top:8px"><table>
+        <thead><tr><th>Cultura</th><th>Alvo</th><th>Frase do rotulo</th></tr></thead>
+        <tbody>${p.uses_rotacao.map(w => `<tr>
+          <td><b>${esc(w.CROP)}</b></td><td>${esc(w.TARGET)}</td>
+          <td><i>&ldquo;${esc(w.ROTATION_TEXT)}&rdquo;</i>
+            <div class="meta">${esc(w.PROOF)} &middot; ${link(w.LABEL_URL,'abrir no Ministero')}</div></td></tr>`).join('')}
+        </tbody></table></div></div>` : ''}
     ${(p.exclusion_windows||[]).length ? `<div class="meta" style="margin-top:8px">
       <b>Este rotulo tem ${p.exclusion_windows.length} janela(s) de exclusao que falam de
       CULTURA.</b> Mesmo os usos acima que sobreviveram podem ter escopo mais estreito do que o
@@ -674,9 +836,18 @@ function viewProduto(reg) {
       <ul style="margin:5px 0 0 16px">${p.ceilings.map(t=>`<li><i>&ldquo;${esc(t.LITERAL)}&rdquo;</i></li>`).join('')}</ul>
       A ferramenta mostra os dois numeros do documento e <b>nao calcula um terceiro</b>.</div>`
       : p.label_dose_notes_not_read ? `<div class="lei"><span class="unknown">LABEL_NOTES_NOT_READ</span>
-      este rotulo tem restricao de dose escrita fora da tabela em formato que este leitor nao le
-      (por exemplo &ldquo;non superare la dose massima di X per anno&rdquo;). <b>Isto nao autoriza
-      dizer que a dose da tabela e o limite.</b></div>` : ''}
+      este rotulo tem restricao escrita <b>fora da tabela</b> que este leitor nao estrutura.
+      <b>Isto nao autoriza dizer que a dose da tabela e o limite</b>, e nao autoriza ler o
+      <code>NOT_PRESENT</code> da coluna MAX. APLICACOES como &ldquo;o rotulo nao poe limite&rdquo;:
+      <code>NOT_PRESENT</code> descreve a CELULA da tabela, provada vazia; o que esta fora dela
+      e <code>NOT_READ</code>. O que o documento escreve, literal:
+      ${(p.label_app_limit_notes||[]).length ? `<ul style="margin:5px 0 0 16px">${
+        p.label_app_limit_notes.map(n=>`<li><i>&ldquo;${esc(n.TEXT)}&rdquo;</i>
+          <span class="meta">marcador <code>${esc(n.MARKER)}</code></span></li>`).join('')}</ul>
+        <div class="meta">A citacao para no salto de coluna do extrator de texto: e o pedaco da
+        frase que existe no documento, nao uma frase remontada.</div>`
+        : `<div class="meta"><span class="unknown">QUOTE_NOT_RECOVERABLE</span> o marcador foi
+           encontrado e o trecho nao pode ser citado sem emendar colunas</div>`}</div>` : ''}
     ${p.doses.length ? `<div class="tw"><table>
       <thead><tr><th>Cultura</th><th>Alvo</th><th>Dose/ha</th><th>Max</th><th>Intervalo</th><th>Fios</th><th></th></tr></thead>
       <tbody>${p.doses.map((d,i) => `<tr${d.crop_check==='CROP_ASSIGNMENT_CONTRADICTED_BY_RULE'?' style="opacity:.75"':''}>
@@ -684,15 +855,13 @@ function viewProduto(reg) {
           ? `<div class="meta"><span class="unknown">CROP_ASSIGNMENT_CONTRADICTED_BY_RULE</span>
              um fio desenhado da tabela separa esta linha de toda ocorrencia desta cultura na
              coluna de cultura: a linha <b>nao e desta cultura</b> (<code>R-11</code>)</div>` : ''}</td>
-        <td>${fragmento(d.target)}</td>
+        <td>${fragmento(d.target)}${avisoAlvoLiteral(d)}</td>
         <td>${d.crop_check==='CROP_ASSIGNMENT_CONTRADICTED_BY_RULE'
               ? val('NOT_PROVED_BY_RULE')
               : d.rule_check==='NOT_LOCATED' ? val('NOT_VALIDATED')
               : isUnk(d.dose_ha)?val(d.dose_ha):esc(d.dose_ha+' '+d.unit_ha)}</td>
-        <td>${val(d.max_app)}</td><td>${val(d.interval)}</td>
-        <td><span class="pill ${d.rule_check==='CONFIRMED_BY_RULE'?'p-ok':d.rule_check==='CONTRADICTED_BY_RULE'?'p-bad':'p-unk'}"
-          title="${d.rule_check==='NOT_LOCATED'?'a linha ou o valor nao foi localizado no documento para conferir contra os fios':d.rule_check==='NOT_CHECKED'?'esta linha nao foi submetida a conferencia por fios':''}"
-          >${d.rule_check==='CONFIRMED_BY_RULE'?'CONFIRMADA':d.rule_check==='CONTRADICTED_BY_RULE'?'REVISAR':esc(d.rule_check)}</span></td>
+        <td>${colunaMax(d)}</td><td>${colunaIntervalo(d)}</td>
+        <td>${seloFios(d)}</td>
         <td><button class="ev" onclick="evDose('${p.reg}',${i})">prova</button></td>
       </tr>`).join('')}</tbody></table></div>`
       : (p.states && p.states.LABEL_DOWNLOADED === false
@@ -835,12 +1004,29 @@ function celulaDose(l) {
   if (j.estado === 'DOSE_ROW_WITHOUT_READ_VALUE')
     return `<span class="unknown">DOSE_ROW_WITHOUT_READ_VALUE</span>
       <div class="meta">ha linha de dose para este par, mas nenhuma delas teve o valor lido</div>${desc}`;
+  if (j.estado === 'CROP_IDENTITY_NOT_PROVED')
+    return `<span class="unknown">CROP_IDENTITY_NOT_PROVED</span>
+      <div class="meta">esta etichetta escreve <b>${j.formas.length} formas diferentes</b> deste
+      mesmo nome de cultura — ${j.formas.map(f=>`<i>&ldquo;${esc(f)}&rdquo;</i>`).join(' &middot; ')} —
+      e o vocabulario do leitor de uso colapsa todas em <b>${esc(l.u.crop)}</b>. Sao culturas
+      diferentes, com doses diferentes: em LAMDEX EXTRA a beterraba <i>da zucchero</i> tem teto de
+      800 g/ha e a linha de <i>Foraggere</i> chega a 1200. <b>A ferramenta nao escolhe qual delas e
+      esta.</b></div>${desc}`;
+  if (j.estado === 'DOSE_ROW_CONTRADICTED_BY_R11_FOR_THIS_PAIR')
+    return `<span class="unknown">DOSE_ROW_CONTRADICTED_BY_R11_FOR_THIS_PAIR</span>
+      <div class="meta"><b>Havia</b> ${j.caidas.length} linha(s) de dose para este par, e ela(s)
+      <b>caiu(ram) na conferencia pelos fios</b>: a cultura delas nao sobrevive ao documento
+      (<code>R-11</code>). Isto nao e &ldquo;leitura que nao ligou&rdquo; — e leitura que ligou na
+      linha errada e foi reprovada.</div>${desc}`;
   if (!j.d)
     return `<span class="unknown">NO_DOSE_ROW_FOR_THIS_PAIR</span>
-      <div class="meta">nenhuma linha de dose utilizavel serve para este par</div>${desc}`;
+      <div class="meta">nenhuma linha de dose utilizavel serve para este par. <b>Nao e dose zero e
+      nao e dose ausente no rotulo</b>: e leitura que nao ligou</div>${desc}`;
   if (isUnk(j.d.dose_ha)) return val(j.d.dose_ha) + desc;
 
-  const [cls, rot] = SELO[j.estado] || ['p-unk', j.estado];
+  let [cls, rot] = SELO[j.estado] || ['p-unk', j.estado];
+  if (j.d.target_literal === 'TARGET_TEXT_NOT_FOUND_LITERALLY') { cls = 'p-unk'; rot += ' · ALVO NAO LITERAL'; }
+  else if (j.d.target_literal === 'TARGET_TEXT_NOT_CHECKED') { cls = 'p-unk'; rot += ' · ALVO NAO CONFERIDO'; }
   // A celula de cultura do rotulo as vezes carrega o ESCOPO junto:
   // "Pomodoro Melanzana (uso in serra)". A juncao por token descarta o
   // parentese e a tela mostrava POMODORO sem dizer que a autorizacao e so em
@@ -853,7 +1039,12 @@ function celulaDose(l) {
   // rebaixa nada: o teste nao sabe separar alvo quebrado em coluna de alvo
   // FUNDIDO (a fusao existe e esta provada em 008259), e rebaixar 180 linhas
   // por um teste que nao distingue os dois casos apagaria uso verdadeiro.
-  const literal = j.d.target_literal === 'TARGET_TEXT_NOT_FOUND_LITERALLY'
+  const literal = j.d.target_literal === 'TARGET_TEXT_NOT_CHECKED'
+    ? `<div class="meta"><span class="unknown">TARGET_TEXT_NOT_CHECKED</span>
+       esta linha nao foi submetida a <code>R-13</code>: o texto do alvo nao foi procurado no
+       documento. Nao conferido nao e conferido — sao 43 linhas do acervo, e ate agora elas
+       passavam como se fossem aprovacao.</div>`
+    : j.d.target_literal === 'TARGET_TEXT_NOT_FOUND_LITERALLY'
     ? `<div class="meta"><span class="unknown">TARGET_TEXT_NOT_FOUND_LITERALLY</span>
        o texto deste alvo nao foi encontrado literalmente no rotulo. Pode ser alvo quebrado entre
        colunas (comum, inofensivo) ou <b>fusao de duas linhas da tabela</b> (existe: em 008259 o
@@ -898,11 +1089,12 @@ function evAmbigua(reg, idx) {
       declarava ambiguidade sobre pares em que a etichetta e inequivoca.</div></div>
     <div class="tw"><table>
       <thead><tr><th>Celula de cultura lida</th><th>Celula de alvo lida</th><th>Dose/ha</th>
-        <th>Pagina</th><th>Fio da tabela</th><th></th></tr></thead>
+        <th>Pagina</th><th>Fio da tabela</th><th>Max</th><th>Intervalo</th><th></th></tr></thead>
       <tbody>${rows.map((r,k) => `<tr>
         <td>${esc(r.crop)}</td><td>${esc(r.target)}</td>
         <td><b>${isUnk(r.dose_ha)?val(r.dose_ha):esc(r.dose_ha+' '+r.unit_ha)}</b></td>
         <td>${val(r.page)}</td><td>${val(r.rule_check)}</td>
+        <td>${colunaMax(r)}</td><td>${colunaIntervalo(r)}</td>
         <td><button class="ev" onclick="evDose('${esc(reg)}',${idx[k]})">prova</button></td>
       </tr>`).join('')}</tbody></table></div>
     <div class="meta" style="margin-top:8px">Quem resolve isto e uma pessoa lendo a etichetta.
@@ -911,6 +1103,68 @@ function evAmbigua(reg, idx) {
 window.evAmbigua = evAmbigua;
 
 // ---------------------------------------------------------------- 4 · CROP x TARGET
+// MF-08 · O VOCABULARIO DE USO E UMA LISTA FECHADA, E ISSO NAO ESTAVA DITO.
+//
+// #cq=porro respondia "0 pares em 0 produtos." com a tabela vazia e a legenda
+// zerada, sem NENHUM token de ignorancia — na tela de ROTEAMENTO, que e onde um
+// Regulatory pergunta "o que a ADAMA tem registrado para PORRO na Italia?".
+// Contra-prova dentro do proprio payload: ha 17 linhas de dose com cultura
+// "Porro" em 5 registros, uma delas CONFIRMED_BY_RULE, e a etichetta 008259
+// autoriza Porro em quatro linhas. O leitor de uso tem um vocabulario fechado de
+// nomes e PORRO nao esta nele.
+//
+//     "Ausencia de evidencia nao e evidencia de ausencia; falha de parser/coleta
+//      NAO e zero."
+const VOCAB_USO = [...new Set(P.products.flatMap(p => (p.uses||[]).map(u => u.crop)))].sort();
+function linhasDeDoseComCultura(termo) {
+  const t = nrm(termo), out = [];
+  if (t.length < 3) return out;
+  P.products.forEach(p => (p.doses||[]).forEach((d,i) => {
+    if (itensDaCelula(d.crop).some(it => it === t || it.startsWith(t + ' ') || it.endsWith(' ' + t)))
+      out.push({p, d, i});
+  }));
+  return out;
+}
+// MF-09 · A FERRAMENTA CALCULAVA A IGNORANCIA E A ESCONDIA ONDE ELA E CONSUMIDA.
+//
+// `exclusion_check` era desenhado na ficha PRODUTO 360 e NAO nesta tela: medido,
+// a palavra PREFIX nao ocorria uma vez no texto da tela de cultura. Os 5 pares
+// ZUCCHINO x INFESTANTI cuja propria coleta ja media que a palavra nao esta no
+// rotulo ("zucchin" ocorre ZERO vezes em 009005; o que existe e "Zucca") eram
+// desenhados identicos a um par atestado. A ressalva existir noutra tela nao
+// salva: quem consulta por cultura nunca a ve.
+//
+// E o mesmo vale para o veredito de R-14: um par que o teste de fio NAO
+// conseguiu conferir nao pode usar o mesmo selo de um que passou.
+const PAR_ROTULO = {
+  PAIR_CONSISTENT_WITH_RULES: ['p-ok', 'TABELA · FIO CONFERIDO',
+    'o nome da cultura e um glifo do alvo estao na MESMA celula desenhada da tabela (R-14)'],
+  PAIR_NOT_CHECKABLE_ROUTE_NOT_GEOMETRIC: ['p-dim', 'TEXTO · SEM TESTE DE FIO',
+    'par lido de prosa, nao de tabela: nao ha geometria a conferir. NOT_CHECKED, nao aprovado'],
+  PAIR_NOT_CHECKABLE_NO_DRAWN_CELL: ['p-unk', 'TABELA · SEM CELULA DESENHADA',
+    'a coluna da cultura nesta pagina nao tem grade desenhada: onde nao ha fio, mescla e inferencia'],
+  PAIR_NOT_CHECKABLE_ANCHOR_NOT_FOUND: ['p-unk', 'TABELA · ALVO NAO LOCALIZADO',
+    'o nome deste alvo nao ocorre na pagina, entao nao ha o que localizar na celula'],
+  PAIR_NOT_CHECKABLE_CROP_ALSO_OUTSIDE_TABLE: ['p-unk', 'TABELA · EVIDENCIA MISTA',
+    'parte das ocorrencias do nome da cultura esta dentro de celula desenhada e parte nao: o teste nao alcanca todas'],
+  PAIR_NOT_CHECKABLE_TARGET_UNDER_CROP_HEADER: ['p-unk', 'TABELA · CABECALHO DE BLOCO',
+    'o alvo esta abaixo da cultura e na mesma coluna: o desenho e titulo-em-cima, e o teste de coluna nao se aplica'],
+};
+function evidenciaDoPar(u) {
+  const [cls, rot, tit] = PAR_ROTULO[u.pair_check]
+    || [u.evidence === 'TABLE_GEOMETRY' ? 'p-ok' : 'p-dim',
+        u.evidence === 'TABLE_GEOMETRY' ? 'TABELA' : 'TEXTO', ''];
+  const ex = u.exclusion_check;
+  const ressalva = (!ex || ex === 'ATTESTED_OUTSIDE_EXCLUSION') ? '' :
+    `<div class="meta"><span class="unknown">${esc(ex)}</span>
+     ${ex === 'CROP_NAME_NOT_FOUND_IN_LABEL_TEXT'
+       ? 'o nome desta cultura nao aparece no texto do rotulo, nem dentro nem fora de janela de exclusao. Diferenca de vocabulario, e nao conferido por este teste'
+       : ex === 'CROP_NAME_PREFIX_MATCH_ONLY'
+       ? 'o apoio textual e so por prefixo, nao por palavra inteira (ZUCCHINO apoiado por "zucca" ou "zucchero"): basta para nao retirar o uso, nao basta para chamar de atestado'
+       : 'estado de conferencia declarado pela coleta'}</div>`;
+  return `<span class="pill ${cls}" title="${esc(tit || u.pair_check || '')}">${rot}</span>${ressalva}`;
+}
+
 function viewCrop() {
   const q = ($('#cq')?.value || '').trim().toLowerCase();
   const qt = ($('#ct')?.value || '').trim().toLowerCase();
@@ -924,7 +1178,41 @@ function viewCrop() {
     });
   });
   const prods = new Set(linhas.map(l => l.p.reg));
+  // O termo casa algum nome do vocabulario fechado de uso?
+  const noVocab = q ? VOCAB_USO.some(c => String(c).toLowerCase().includes(q)) : true;
+  const forasteiras = (!linhas.length && q && !noVocab) ? linhasDeDoseComCultura(q) : [];
   $('#cres').innerHTML = `
+    ${(!linhas.length && q && !noVocab) ? `<div class="lei" style="border-left-color:var(--bad)">
+      <span class="unknown">CROP_NOT_IN_USE_VOCABULARY</span>
+      <b>&ldquo;${esc(q)}&rdquo; nao existe no vocabulario do leitor de uso</b>, que e uma lista
+      FECHADA de ${VOCAB_USO.length} nomes. <b>Isto nao e ausencia de uso autorizado</b> — e o
+      leitor nao ter um nome para esta cultura. <code>PARSER_FAILURE != REGULATORY_ABSENCE</code>.
+      ${forasteiras.length ? `<div style="margin-top:6px">
+        <b>E ha prova do contrario a uma tela de distancia:</b>
+        <span class="pill p-bad">CROP_PRESENT_IN_DOSE_TABLE_BUT_NOT_IN_USE_VOCABULARY</span>
+        ${forasteiras.length} linha(s) de dose em
+        ${new Set(forasteiras.map(f=>f.p.reg)).size} registro(s) trazem esta cultura na celula de
+        cultura lida do rotulo:
+        <div class="tw" style="margin-top:6px"><table>
+          <thead><tr><th>Produto</th><th>Registro</th><th>Celula de cultura lida</th><th>Alvo</th>
+            <th>Dose/ha</th><th>Fios</th><th></th></tr></thead>
+          <tbody>${forasteiras.slice(0,60).map(f=>`<tr>
+            <td><a onclick="go('produto');viewProduto('${f.p.reg}')" style="cursor:pointer">${esc(f.p.name)}</a></td>
+            <td class="mono">${esc(f.p.reg)}</td>
+            <td>${esc(f.d.crop)}</td><td>${fragmento(f.d.target)}</td>
+            <td>${linhaReprovada(f.d)?val('NOT_PROVED_BY_RULE')
+                 :isUnk(f.d.dose_ha)?val(f.d.dose_ha):esc(f.d.dose_ha+' '+f.d.unit_ha)}</td>
+            <td>${seloFios(f.d)}</td>
+            <td><button class="ev" onclick="evDose('${f.p.reg}',${f.i})">prova</button></td>
+          </tr>`).join('')}</tbody></table></div>
+        <div class="meta" style="margin-top:5px">Estas linhas <b>nao sao pares de uso autorizado</b>:
+        sao linhas da tabela de dose, e aparecem aqui so para que a resposta desta tela nao seja
+        zero quando o acervo tem material.</div></div>`
+        : `<div class="meta" style="margin-top:6px">E nenhuma linha de dose do acervo traz esta
+           cultura na celula lida, o que tambem <b>nao</b> prova ausencia: prova que este par de
+           leitores nao a nomeia.</div>`}
+      <div class="meta" style="margin-top:6px">Os ${VOCAB_USO.length} nomes que o leitor de uso
+      emite: <code>${esc(VOCAB_USO.join(', '))}</code></div></div>` : ''}
     <div class="meta" style="margin:8px 0">${linhas.length} pares em ${prods.size} produtos.</div>
     ${(() => {
       // MF-13 · a legenda dizia "Medido: 5 pares dos N" com o 5 escrito a mao no
@@ -960,11 +1248,40 @@ function viewCrop() {
           <b>${n('DOSE_NOT_PROVED_TARGET_NOT_LITERAL')}</b> — ha valor lido, mas o texto do alvo nao
           foi encontrado literalmente no rotulo. O numero fica a um clique e nao e a resposta.</li>`:''}
       </ul>
+        ${n('CROP_IDENTITY_NOT_PROVED')?`<li><span class="unknown">CROP_IDENTITY_NOT_PROVED</span>
+          <b>${n('CROP_IDENTITY_NOT_PROVED')}</b> — a etichetta escreve mais de uma forma do mesmo
+          nome curto (&ldquo;Barbabietola da zucchero&rdquo; e &ldquo;barbabietola da foraggio&rdquo;),
+          com doses diferentes, e o vocabulario colapsa as duas. A ferramenta nao escolhe.</li>`:''}
+        ${n('DOSE_ROW_CONTRADICTED_BY_R11_FOR_THIS_PAIR')?`<li><span class="unknown">DOSE_ROW_CONTRADICTED_BY_R11_FOR_THIS_PAIR</span>
+          <b>${n('DOSE_ROW_CONTRADICTED_BY_R11_FOR_THIS_PAIR')}</b> — <b>havia</b> linha para este
+          par e ela foi reprovada pelos fios. Diferente de nao haver linha.</li>`:''}
+      </ul>
       <div class="meta" style="margin-top:6px">No acervo inteiro, sem filtro:
         <b>${P.crop_check ? P.crop_check.ROWS_CONTRADICTED : val('NOT_KNOWN')}</b> linhas de dose
         foram descartadas por <code>R-11</code> (a cultura delas nao sobrevive aos fios desenhados
         da tabela) e <b>${P.ceiling ? P.ceiling.LABELS_WITH_CEILING : val('NOT_KNOWN')}</b> rotulos
-        trazem teto de dose por cultura escrito fora da tabela (<code>R-12</code>).</div></div>`;
+        trazem teto de dose por cultura escrito fora da tabela (<code>R-12</code>).</div>
+      <div class="lei" style="margin-top:8px;border-left-color:var(--bad)">
+        <b>E o PAR DE USO desta tabela — a cultura e o alvo, nao a dose — passou pelo mesmo teste
+        de fio.</b> Ate a rodada 3 nao passava: <code>R-11</code> tirava o NUMERO de
+        TABACCO x CIMICI e deixava de pe a AFIRMACAO DE USO, que e a mais fundamental das duas, com
+        o selo verde <span class="pill p-ok">TABELA</span>. Agora <code>R-14</code> confere cada par
+        contra a celula desenhada da cultura, e o resultado no acervo inteiro e este:
+        <ul style="margin:6px 0 0 16px">
+          <li><b>${P.pair_check ? (P.pair_check.COUNTS.PAIR_CONTRADICTED_BY_RULE||0) : val('NOT_KNOWN')}</b>
+            pares foram <b>retirados</b> das fichas: a celula que contem a cultura nao contem o alvo.
+            Cada um esta listado, com a prova geometrica, na ficha do produto.</li>
+          <li><b>${P.pair_check ? (P.pair_check.COUNTS.PAIR_CONSISTENT_WITH_RULES||0) : val('NOT_KNOWN')}</b>
+            sobreviveram ao teste.</li>
+          <li><b>${P.pair_check ? Object.entries(P.pair_check.COUNTS).filter(([k])=>k.startsWith('PAIR_NOT_CHECKABLE')).reduce((a,[,v])=>a+v,0) : val('NOT_KNOWN')}</b>
+            <span class="unknown">PAIR_NOT_CHECKABLE</span> — o teste <b>nao rodou</b> neles (rota de
+            prosa, sem grade desenhada, ou o nome do alvo nao ocorre na pagina). <b>Isto nao e
+            aprovacao</b>, e a coluna &ldquo;Evidencia do par&rdquo; diz qual e o caso de cada
+            linha.</li>
+          <li><b>${P.rotation ? P.rotation.pairs : val('NOT_KNOWN')}</b> sairam por
+            <code>R-10b</code>: a unica ocorrencia do nome da cultura no rotulo esta numa frase de
+            semeadura em sucessao. <b>Proibir de semear nao e autorizar a tratar.</b></li>
+        </ul></div></div>`;
     })()}
     <div class="tw"><table>
       <thead><tr><th>Produto</th><th>Registro</th><th>Cultura</th><th>Alvo</th>
@@ -974,7 +1291,7 @@ function viewCrop() {
         <td class="mono">${esc(l.p.reg)}</td>
         <td>${esc(l.u.crop)}</td><td>${esc(l.u.target)}</td>
         <td>${celulaDose(l)}</td>
-        <td><span class="pill ${l.u.evidence==='TABLE_GEOMETRY'?'p-ok':'p-dim'}">${l.u.evidence==='TABLE_GEOMETRY'?'TABELA':'TEXTO'}</span></td>
+        <td>${evidenciaDoPar(l.u)}</td>
         <td>${validade(l.p)}</td>
         <td><button class="ev" onclick="evUso('${l.p.reg}',${l.i})">prova</button></td>
       </tr>`).join('')}</tbody></table></div>
@@ -1259,6 +1576,21 @@ function viewCov() {
     Eles tem ficha porque a linha oficial deles foi lida; <b>nao</b> entram na cobertura porque
     nenhum rotulo foi coletado para eles. Somar os dois numeros seria contar universos
     diferentes.</div>
+  <div class="lei" style="border-left-color:var(--bad)"><b>A cobertura acima conta ROTULO, nao
+    conta CULTURA — e o leitor de uso tem vocabulario fechado.</b> Ele emite
+    <b>${VOCAB_USO.length}</b> nomes de cultura, e so esses. Nomes que a etichetta escreve e que
+    ele nao tem — medido: <code>PORRO</code>, <code>FINOCCHIO</code>, <code>LATTUGHE</code>,
+    <code>SCAROLE</code>, <code>RUCOLA</code>, <code>SEDANO</code>, <code>CAVOLFIORE</code>,
+    <code>POMACEE</code>, <code>FRUMENTO</code> — <b>nao viram par de uso</b>, mesmo quando o
+    rotulo os autoriza e a tabela de dose os traz. A tela CULTURA x ALVO agora responde
+    <code>CROP_NOT_IN_USE_VOCABULARY</code> nesses casos, em vez de &ldquo;0 pares&rdquo;.
+    <div class="meta" style="margin-top:6px"><b>Cobertura por CELULA DE CULTURA DESENHADA continua
+    <span class="unknown">NOT_MEASURED</span>.</b> Contar quantas celulas de cultura existem nos
+    163 documentos e quantas viraram par exigiria ler a coluna de cultura de cada tabela, e este
+    leitor nao faz isso. Declarar o vocabulario fechado e o que ha; chamar isso de cobertura por
+    cultura seria inventar um denominador.</div>
+    <div class="meta" style="margin-top:6px">Os ${VOCAB_USO.length} nomes:
+      <code>${esc(VOCAB_USO.join(', '))}</code></div></div>
   <div class="block"><h3>Cobertura por etapa</h3>
     <div class="tw"><table><tbody>${Object.entries(c).map(([k,o]) => barra(k,o)).join('')}</tbody></table></div>
     <div class="meta" style="margin-top:9px">${esc(P.coverage_note)}</div></div>

@@ -25,6 +25,12 @@ Estados emitidos:
                               ou "zucca"). O par segue — prefixo basta para NAO
                               retirar uso real — mas nao pode chamar-se
                               atestado, porque a palavra nao esta la.
+  CROP_ONLY_IN_ROTATION_RESTRICTION
+                              toda ocorrencia do nome da cultura no rotulo esta
+                              dentro de uma frase de SUCESSAO/ROTACAO — uma
+                              regra sobre o que se pode semear DEPOIS do
+                              tratamento, nao sobre o que este produto trata.
+                              O par NAO pode ser exibido como uso autorizado.
   CROP_ONLY_INSIDE_EXCLUSION  a cultura tem apoio textual DENTRO de uma janela
                               de exclusao e NENHUM fora dela. O unico motivo
                               pelo qual esta cultura foi lida e uma exclusao.
@@ -46,6 +52,36 @@ E, independente disso, por rotulo:
 
 LEI ZERO: nada aqui apaga fato em silencio. Par retirado vai para uma lista
 propria, com a frase literal do rotulo que o retirou.
+## PROIBIR DE SEMEAR NAO E AUTORIZAR A TRATAR
+
+Segundo defeito medido, na mesma familia. POSTSCRIPT 80 XL (017868) e
+POSTSCRIPT 80 (017585) sao herbicidas de ARROZ a base de imazamox. A ferramenta
+publicava, sob "Usos autorizados" e com o carimbo ATTESTED_OUTSIDE_EXCLUSION,
+os pares BARBABIETOLA x INFESTANTI e COLZA x INFESTANTI. Medido nos dois PDFs:
+"barbabietola" ocorre EXATAMENTE uma vez e "colza" EXATAMENTE uma vez, na mesma
+frase, que e uma proibicao de semeadura em sucessao:
+
+    "Barbabietola da zucchero e colza possono essere seminate solo dopo 2 mesi
+     dal trattamento in seguito ad aratura di almeno 20 cm di profondita."
+
+R-10 so testava "a cultura ocorre FORA de janela de exclusao". A frase acima nao
+tem marcador de exclusao nenhum — ela e uma restricao de ROTACAO — entao passava
+como atestacao positiva. Dizer a Regulatory da ADAMA Italia que um herbicida de
+arroz esta autorizado em beterraba e colza e o fato regulatorio errado mais caro
+que esta ferramenta pode emitir.
+
+O teste simetrico agora existe: se TODA ocorrencia do nome da cultura cai dentro
+de uma frase de sucessao/rotacao, o estado nao pode ser ATTESTED — e
+CROP_ONLY_IN_ROTATION_RESTRICTION, e o par sai da lista de usos autorizados.
+
+A frase de sucessao e procurada no texto em ORDEM DE LEITURA (`pdftotext` sem
+`-layout`), nao no texto de coluna que o resto do modulo usa. Nao e capricho:
+em 017585 o `-layout` parte a frase em tres pedacos com uma linha inteira de
+outra coluna no meio ("Barbabietola da / [prosa de outra coluna] / zucchero e
+colza possono essere seminate..."), e nenhuma janela de texto reconstroi isso.
+Em ordem de leitura a frase volta inteira nos dois rotulos. Janela de exclusao
+continua sendo medida no `-layout`, porque la a pergunta e de VIZINHANCA e o
+salto de coluna e justamente o que precisa aparecer.
 """
 import argparse, glob, json, os, re, subprocess, sys, unicodedata
 from collections import defaultdict
@@ -208,6 +244,82 @@ def fora_das_janelas(texto, js):
 
 RX_TOKEN = re.compile(r"[a-z]{3,}")
 
+# Marcadores de SUCESSAO / ROTACAO. Lista fechada e MEDIDA sobre os 163 rotulos
+# oficiais em disco; ao lado de cada um, quantas vezes ele ocorre no acervo.
+# Marcador que nao ocorre nao entra: lista inventada nao e lista medida.
+SUCESSAO = [
+    ("possono essere seminat", 34),
+    ("seminare o trapiantare", 26),
+    ("prima di seminare", 15),
+    ("sostituzione delle colture", 13),
+    ("coltura in successione", 8),
+    ("colture in successione", 8),
+    ("prima di poter seminare", 4),
+    ("puo essere seminat", 2),
+    ("colture successive", 1),
+]
+RX_SUCESSAO = re.compile("(" + "|".join(re.escape(m) for m, _ in
+                                        sorted(SUCESSAO, key=lambda kv: -len(kv[0]))) + ")")
+# Fim de frase no texto em ordem de leitura. Aqui a quebra de linha NAO fecha:
+# em ordem de leitura ela e so o fim da linha impressa, e a frase continua.
+RX_FRASE = re.compile(r"[.;]")
+
+
+def texto_em_ordem_de_leitura(pdf, cache_dir):
+    """pdftotext SEM -layout: a frase volta inteira, atravessando colunas."""
+    alvo = os.path.join(cache_dir, os.path.basename(pdf)[:-4] + ".fluxo.txt")
+    if not os.path.exists(alvo) or os.path.getsize(alvo) == 0:
+        os.makedirs(cache_dir, exist_ok=True)
+        try:
+            subprocess.run(["pdftotext", pdf, alvo], check=True,
+                           capture_output=True, timeout=120)
+        except Exception:
+            return None
+    try:
+        with open(alvo, encoding="utf-8", errors="replace") as fh:
+            return fh.read() or None
+    except OSError:
+        return None
+
+
+def frases_de_sucessao(texto):
+    """Frases do rotulo que falam de semeadura/rotacao DEPOIS do tratamento.
+
+    Devolve [(inicio, fim, literal)] sobre o texto normalizado sem acento.
+    """
+    t = re.sub(r"\s+", " ", sem_acento(texto))
+    cortes = [0] + [m.end() for m in RX_FRASE.finditer(t)] + [len(t)]
+    out = []
+    for a, b in zip(cortes, cortes[1:]):
+        if RX_SUCESSAO.search(t[a:b]):
+            out.append((a, b, t[a:b].strip()))
+    return t, out
+
+
+def so_em_sucessao(crop, t, frases):
+    """Toda ocorrencia do nome da cultura cai dentro de frase de sucessao?
+
+    Exige pelo menos UMA ocorrencia como token inteiro: sem ocorrencia nenhuma
+    isto nao e restricao de rotacao, e sim diferenca de vocabulario, e quem
+    responde por ela e CROP_NAME_NOT_FOUND_IN_LABEL_TEXT.
+    """
+    partes = [p for p in sem_acento(crop).split("_") if len(p) >= 4]
+    if not partes:
+        return None
+    dentro = fora = 0
+    prova = None
+    for p in partes:
+        for m in re.finditer(r"\b" + re.escape(p) + r"\w*", t):
+            f = next((w for w in frases if w[0] <= m.start() < w[1]), None)
+            if f:
+                dentro += 1
+                prova = prova or f[2]
+            else:
+                fora += 1
+    if dentro and not fora:
+        return prova
+    return None
+
 
 def apoia(parte, tok):
     """Apoio textual generoso: prefixo comum de PREFIXO_MIN letras.
@@ -266,6 +378,7 @@ def main():
 
     marcador_hits = defaultdict(int)
     rotulos, veredito, retirados, nao_achados, prefixo_so = {}, {}, [], [], []
+    rotacao = []
     for reg in sorted(por_reg):
         pdf = os.path.join(a.pdfs, f"{reg}.pdf")
         texto = texto_do_rotulo(pdf, a.cache) if os.path.exists(pdf) else None
@@ -313,6 +426,10 @@ def main():
             "EXCLUSION_WINDOWS": janelas_pub,
             "EXCLUSION_WINDOWS_CROP_SCOPE": [w for w in janelas_pub if w["SCOPE"] == "CROP_SCOPE"],
         }
+        # R-10b · frases de sucessao/rotacao, medidas no texto em ORDEM DE
+        # LEITURA (ver o cabecalho deste arquivo).
+        fluxo = texto_em_ordem_de_leitura(pdf, a.cache)
+        t_fluxo, fr_suc = frases_de_sucessao(fluxo) if fluxo else ("", [])
         for i, p in enumerate(por_reg[reg]):
             ok = atestada(p["CROP"], tokens)              # generoso: decide retirada
             estrito = atestada_estrita(p["CROP"], tokens)  # estrito: decide o NOME do estado
@@ -327,6 +444,28 @@ def main():
                             key=len)
             dentro_todas = [w for _, _, w in js
                             if atestada(p["CROP"], set(RX_TOKEN.findall(sem_acento(w))))]
+            # PROIBIR DE SEMEAR NAO E AUTORIZAR A TRATAR. O teste vem ANTES do
+            # ramo de atestacao: e justamente o ramo que carimbava
+            # ATTESTED_OUTSIDE_EXCLUSION sobre uma proibicao de sucessao.
+            suc = so_em_sucessao(p["CROP"], t_fluxo, fr_suc) if fr_suc else None
+            if suc:
+                veredito[f"{reg}#{i}"] = "CROP_ONLY_IN_ROTATION_RESTRICTION"
+                rotacao.append({
+                    "REGISTRATION_ID": reg, "PRODUCT": p.get("PRODUCT"),
+                    "CROP": p["CROP"], "TARGET": p["TARGET"],
+                    "ROUTE": p.get("ROUTE"),
+                    "CROP_AS_WRITTEN": p.get("CROP_AS_WRITTEN"),
+                    "WHY": "CROP_ONLY_IN_ROTATION_RESTRICTION",
+                    "ROTATION_TEXT": suc[:400],
+                    "PROOF": (f"toda ocorrencia do nome {p['CROP']} no texto do rotulo esta "
+                              f"dentro de uma frase de semeadura em sucessao. A etichetta diz "
+                              f"quando esta cultura pode ser SEMEADA DEPOIS do tratamento, "
+                              f"nao que este produto a trata"),
+                    "LABEL_PDF": pdf,
+                    "LABEL_SHA256": sha_do_pdf(pdf),
+                    "LABEL_BYTES": os.path.getsize(pdf) if os.path.exists(pdf) else "NOT_KNOWN",
+                })
+                continue
             if ok:
                 veredito[f"{reg}#{i}"] = ("ATTESTED_OUTSIDE_EXCLUSION" if estrito
                                           else "CROP_NAME_PREFIX_MATCH_ONLY")
@@ -404,6 +543,9 @@ def main():
         "LABELS_WITH_ANY_EXCLUSION_MARKER": n_lab_qq,
         "VOCAB_CULTURA_SIZE": len(VOCAB_CULTURA),
         "PARES_RETIRADOS": n_ret,
+        "SUCESSAO_MARCADORES": dict(SUCESSAO),
+        "PARES_EM_RESTRICAO_DE_SUCESSAO": len(rotacao),
+        "ROTACAO": rotacao,
         "PAIRS_CROP_NAME_NOT_IN_LABEL_TEXT": len(nao_achados),
         "PAIRS_CROP_NAME_PREFIX_MATCH_ONLY": len(prefixo_so),
         "CROP_NAME_PREFIX_MATCH_ONLY": prefixo_so,

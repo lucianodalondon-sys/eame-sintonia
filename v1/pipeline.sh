@@ -64,6 +64,12 @@ python3 v1/inteligencia/teto_dose.py
 echo "== 10f · R-13: o texto do alvo existe literalmente no rotulo?"
 python3 v1/inteligencia/alvo_literal.py
 
+echo "== 10g · R-14: o PAR DE USO sobrevive aos fios desenhados?"
+python3 v1/inteligencia/par_validar.py --fios /tmp/fioscache --bbox /tmp/bboxcache
+
+echo "== 10h · R-15: MAX. APLICACOES e INTERVALO herdados de celula mesclada"
+python3 v1/inteligencia/heranca_validar.py --fios /tmp/fioscache --bbox /tmp/bboxcache
+
 echo "== 11 · COLETA: empacotar com proveniencia e coberturas separadas"
 # Mesmo motivo do passo 5-7: empacotar.py precisa do manifesto de leitura.
 if [ -n "$CANON" ] && [ -f "$CANON/data/samples/IT-ROTULOS-V1/IT-ROTULOS-LEITURA-RUN.json" ]; then

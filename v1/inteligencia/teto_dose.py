@@ -29,8 +29,71 @@ import argparse, json, os, re, subprocess, sys, unicodedata
 
 CABECALHO = re.compile(r'non superare le seguenti dosi per ettaro\s*:?', re.I)
 ITEM = re.compile(r'^\s*([a-zà-ÿ][a-zà-ÿ ,\'\-]{2,90}?)\s*:\s*([\d.,]+)\s*(kg|g|l|ml)\s*/\s*ha\b', re.I)
-# Marcador de que existe restricao de dose FORA da tabela que este modulo nao le.
-OUTRAS_NOTAS = re.compile(r'non superare (?!le seguenti dosi per ettaro)|dose massima', re.I)
+# Marcadores de que existe RESTRICAO FORA DA TABELA que este modulo nao estrutura.
+#
+# A lista anterior tinha duas frases — "non superare" e "dose massima" — e
+# chamava-se detector. Medido: 008189 LEBRON 0.5 G e 014479 SCHERMO 0.5 G dizem,
+# em AVVERTENZA, "Ammesso un solo trattamento per ciclo vegetativo", e as 24
+# linhas de dose dos dois saiam com MAX. APLICACOES = NOT_PRESENT e sem o aviso
+# LABEL_NOTES_NOT_READ. NOT_PRESENT le-se "nao esta no rotulo". Estava, em
+# negrito, e cap a UM tratamento.
+#
+# A lista abaixo e fechada e MEDIDA sobre os 163 rotulos oficiais em disco; ao
+# lado de cada marcador, em quantos rotulos ele ocorre. Marcador que nao ocorre
+# no acervo nao entra: lista inventada nao e lista medida.
+RESTRICOES_FORA_DA_TABELA = [
+    (r'non superare (?!le seguenti dosi per ettaro)', 'non superare', 50),
+    (r'dose massima', 'dose massima', 29),
+    (r'(?:un\s+)?solo\s+trattamento', 'solo trattamento', 31),
+    (r'(?:una\s+)?sola\s+applicazione', 'sola applicazione', 13),
+    (r'(?:al\s+)?massimo\s+\d+\s+trattament', 'massimo N trattamenti', 7),
+    (r'non\s+(?:piu|più)\s+di\s+\d+\s+trattament', 'non piu di N trattamenti', 6),
+    (r'\d+\s+intervent', 'N interventi', 5),
+    (r'dose\s+complessiva', 'dose complessiva', 3),
+    (r'effettuare\s+(?:al\s+massimo\s+)?\d+\s+trattament', 'effettuare N trattamenti', 2),
+    (r'numero\s+massimo\s+di\s+\d+', 'numero massimo di N', 1),
+]
+OUTRAS_NOTAS = re.compile("|".join(p for p, _, _ in RESTRICOES_FORA_DA_TABELA), re.I)
+# Quanto texto em volta do marcador vira a citacao literal mostrada na tela.
+JANELA_NOTA = 130
+
+
+# Salto de coluna no texto do pdftotext -layout. O que atravessa um destes NAO
+# e uma frase do documento — e uma emenda do extrator.
+RX_SALTO = re.compile(r'\n|   +')
+
+
+def notas_de_restricao(t):
+    """Citacoes literais das restricoes fora da tabela, com o marcador que as achou.
+
+    NOT_PRESENT (celula vazia na tabela, provada vazia) e NOT_READ (o leitor nao
+    procurou fora da tabela) sao dois estados diferentes, e so o segundo se
+    resolve MOSTRANDO a frase. Entao a frase e guardada — mas so ate onde ela
+    existe.
+
+    A citacao para no salto de coluna, dos dois lados. Medido em 008189: com uma
+    janela de N caracteres a frase saia
+    "Ammesso un solo trattamento per ciclo ADAMA ITALIA S.r.l. ... vegetativo."
+    — o nome da empresa e um pedaco de outra coluna no meio da restricao, uma
+    frase que a etichetta nunca escreveu. Inventar citacao para explicar uma
+    ressalva e o mesmo pecado que a ressalva existe para impedir.
+    """
+    out, vistos = [], set()
+    for pat, nome, _ in RESTRICOES_FORA_DA_TABELA:
+        for m in re.finditer(pat, t, re.I):
+            ini = m.start()
+            s_ = RX_SALTO.search(t[max(0, ini - JANELA_NOTA):ini][::-1])
+            a = ini - (s_.start() if s_ else min(ini, JANELA_NOTA))
+            s_ = RX_SALTO.search(t[m.end():m.end() + JANELA_NOTA])
+            b = m.end() + (s_.start() if s_ else min(len(t) - m.end(), JANELA_NOTA))
+            frase = re.sub(r'\s+', ' ', t[a:b]).strip()
+            if len(frase) < len(m.group(0)) or frase in vistos:
+                continue
+            vistos.add(frase)
+            out.append({'MARKER': nome, 'TEXT': frase, 'QUOTABLE': True})
+            if len(out) >= 6:
+                return out
+    return out
 
 
 def sem_acento(s):
@@ -96,7 +159,7 @@ def main():
     a = ap.parse_args()
 
     regs = [i['REGISTRATION_ID'] for i in json.load(open(a.pacote, encoding='utf-8'))['ITEMS']]
-    por_reg, com_outras = {}, []
+    por_reg, com_outras, notas = {}, [], {}
     for reg in regs:
         t = texto(reg, a.pdfs, a.cache)
         if t is None:
@@ -112,6 +175,7 @@ def main():
             por_reg[reg] = ts
         elif OUTRAS_NOTAS.search(t):
             com_outras.append(reg)
+            notas[reg] = notas_de_restricao(t)
 
     saida = {
         'DATASET': 'V1-TETO-DOSE',
@@ -124,10 +188,14 @@ def main():
         'LABELS_WITH_CEILING': len(por_reg),
         'LABELS_WITH_OTHER_DOSE_NOTES_NOT_READ': len(com_outras),
         'OTHER_DOSE_NOTES_NOT_READ': com_outras,
+        'RESTRICTION_MARKERS_MEASURED': {nome: n for _, nome, n in RESTRICOES_FORA_DA_TABELA},
+        'APPLICATION_LIMIT_NOTES': notas,
         'NOTA_SOBRE_AS_OUTRAS': ('estes rotulos tem alguma restricao de dose fora da tabela que '
                                  'ESTE modulo nao le (formatos como "non superare la dose massima '
-                                 'di X per anno"). Isto e LABEL_NOTES_NOT_READ, e nao autoriza '
-                                 'dizer que nao ha restricao'),
+                                 'di X per anno", "Ammesso un solo trattamento per ciclo"). '
+                                 'Isto e LABEL_NOTES_NOT_READ, e nao autoriza dizer que nao ha '
+                                 'restricao. A frase literal vai em APPLICATION_LIMIT_NOTES, '
+                                 'para a tela poder mostra-la ao lado do NOT_PRESENT da tabela'),
         'CEILINGS': por_reg,
     }
     os.makedirs(os.path.dirname(a.out), exist_ok=True)

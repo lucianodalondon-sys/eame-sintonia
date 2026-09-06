@@ -15,7 +15,7 @@ O que nenhuma regra cobre sai UNKNOWN e aparece assim na tela.
 import argparse, datetime, hashlib, json, os, sys
 from collections import Counter
 
-RULESET_VERSION = "v1/inteligencia/REGRAS.md@4"
+RULESET_VERSION = "v1/inteligencia/REGRAS.md@5"
 
 # ---- C-*: roteamento declarado. Nada fora desta tabela e roteado.
 ROTEAMENTO = {

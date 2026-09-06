@@ -67,6 +67,8 @@ def main():
     ap.add_argument("--teto", default="v1/dados/TETO-DOSE.json")
     ap.add_argument("--cultura", default="v1/dados/DOSES-CULTURA-CHECK.json")
     ap.add_argument("--alvoliteral", default="v1/dados/ALVO-LITERAL.json")
+    ap.add_argument("--parfios", default="v1/dados/PARES-FIOS-CHECK.json")
+    ap.add_argument("--heranca", default="v1/dados/HERANCA-CHECK.json")
     ap.add_argument("--hoje", required=True)
     ap.add_argument("--out", default="v1/dados/CASCO-PAYLOAD.json")
     a = ap.parse_args()
@@ -108,7 +110,26 @@ def main():
             _w["LABEL_URL"] = _url.get(_r, "NOT_KNOWN")
 
     # usos por produto (reuso apontado)
+    # R-14 · o PAR DE USO tambem tem de sobreviver aos fios desenhados. Sem
+    # isto, a rodada 3 do red team mediu 47 pares publicados como uso
+    # autorizado que a etichetta nao autoriza — todos com o selo verde TABELA,
+    # o mais forte da tela. R-11 tirava o NUMERO de TABACCO x CIMICI e deixava
+    # de pe a AFIRMACAO DE USO, que e a mais fundamental das duas.
+    pf = json.load(open(a.parfios, encoding="utf-8")) if os.path.exists(a.parfios) else None
+    if pf is None:
+        raise SystemExit("PARES-FIOS-CHECK.json ausente: sem ele o casco publica uso "
+                         "autorizado que a etichetta contradiz. Rode "
+                         "v1/inteligencia/par_validar.py antes.")
+    vpar = pf["VERDICT"]
+
     usos = {}
+    contraditos_por_reg, rotacao_por_reg = {}, {}
+    prova_par = {c["KEY"]: c for c in pf["CONTRADICTED"]}
+    for w in exc.get("ROTACAO", []):
+        rotacao_por_reg.setdefault(w["REGISTRATION_ID"], []).append(w)
+    for _r, _ws in rotacao_por_reg.items():
+        for _w in _ws:
+            _w["LABEL_URL"] = _url.get(_r, "NOT_KNOWN")
     TAB = {"GEOMETRIC_TABLE", "MERGED_COLUMN_TABLE"}
     ordem = {}
     trio = exc.get("VERDICT_KEY_TRIPLE", {})
@@ -124,6 +145,16 @@ def main():
         est = veredito.get(chave, "NOT_CHECKED")
         if est == "CROP_ONLY_INSIDE_EXCLUSION":
             continue                      # nao entra na lista de usos autorizados
+        if est == "CROP_ONLY_IN_ROTATION_RESTRICTION":
+            continue                      # proibir de semear nao e autorizar a tratar
+        # R-14 · par contradito pelos fios NAO entra em `uses`. Ele nao e
+        # apagado: vai para a lista propria da ficha, com a prova geometrica.
+        vp = vpar.get(chave, "PAIR_NOT_CHECKED")
+        if vp == "PAIR_CONTRADICTED_BY_RULE":
+            w = dict(prova_par.get(chave, {}))
+            w["LABEL_URL"] = _url.get(reg, "NOT_KNOWN")
+            contraditos_por_reg.setdefault(reg, []).append(w)
+            continue
         usos.setdefault(reg, []).append({
             "crop": x["CROP"], "target": x["TARGET"],
             "crop_raw": x.get("CROP_AS_WRITTEN"), "target_raw": x.get("TARGET_AS_WRITTEN"),
@@ -132,6 +163,7 @@ def main():
             "evidence": "TABLE_GEOMETRY" if x.get("ROUTE") in TAB else "TEXT_INFERENCE",
             "quote": "NOT_PRESERVED",
             "exclusion_check": est,
+            "pair_check": vp,
         })
 
     # TETO POR CULTURA escrito fora da tabela (R-12) e CONFERENCIA DA CULTURA
@@ -145,6 +177,15 @@ def main():
                          "casco publica dose acima do teto do rotulo e dose de outra cultura. "
                          "Rode v1/inteligencia/teto_dose.py e v1/inteligencia/cultura_validar.py")
     vc = cultura["VERDICT"]
+    # R-15 · MAX. APLICACOES e INTERVALO herdados de celula mesclada
+    her = json.load(open(a.heranca, encoding="utf-8")) if os.path.exists(a.heranca) else None
+    if her is None:
+        raise SystemExit("HERANCA-CHECK.json ausente: sem ele o casco publica o n.max da "
+                         "linha vizinha como fato. Rode v1/inteligencia/heranca_validar.py")
+    vmax, vint = her["VERDICT_MAX"], her["VERDICT_INTERVAL"]
+    prova_her = {}
+    for c in her["CONTRADICTED"]:
+        prova_her.setdefault(c["KEY"], {})[c["FIELD"]] = c
     alv = json.load(open(a.alvoliteral, encoding="utf-8")) if os.path.exists(a.alvoliteral) else None
     va = alv["VERDICT"] if alv else {}
 
@@ -171,7 +212,14 @@ def main():
                     "dose_ha_inherited": bool(r.get("DOSE_PER_HECTARE_INHERITED")),
                     "max_app": r.get("MAX_APPLICATIONS"),
                     "max_app_inherited": bool(r.get("MAX_APPLICATIONS_INHERITED")),
+                    "max_check": vmax.get(f'{lab["REGISTRATION_ID"]}#{_i}', "MAX_NOT_CHECKED"),
                     "interval": r.get("APPLICATION_INTERVAL"),
+                    "interval_check": vint.get(f'{lab["REGISTRATION_ID"]}#{_i}',
+                                               "INTERVAL_NOT_CHECKED"),
+                    "note_says": ((prova_her.get(f'{lab["REGISTRATION_ID"]}#{_i}', {})
+                                   .get("MAX_APPLICATIONS") or {}).get("LABEL_NOTE")),
+                    "note_max": ((prova_her.get(f'{lab["REGISTRATION_ID"]}#{_i}', {})
+                                  .get("MAX_APPLICATIONS") or {}).get("LABEL_SAYS")),
                     "page": r.get("SOURCE_PAGE"),
                     "quote": r.get("SOURCE_QUOTE"),
                     "rule_check": r.get("DOSE_RULE_CHECK", "NOT_CHECKED"),
@@ -204,8 +252,14 @@ def main():
             "states": i["READ_STATES"],
             "ceilings": teto["CEILINGS"].get(reg, []),
             "label_dose_notes_not_read": reg in teto["OTHER_DOSE_NOTES_NOT_READ"],
+            # R-12b · a frase literal da restricao fora da tabela. Sem ela, o
+            # NOT_PRESENT da coluna MAX. APLICACOES le-se "nao esta no rotulo"
+            # quando esta, em negrito, na AVVERTENZA.
+            "label_app_limit_notes": teto.get("APPLICATION_LIMIT_NOTES", {}).get(reg, []),
             "uses": usos.get(reg, []),
             "uses_retirados": retirado_por_reg.get(reg, []),
+            "uses_contraditos": contraditos_por_reg.get(reg, []),
+            "uses_rotacao": rotacao_por_reg.get(reg, []),
             "exclusion_windows": janelas_por_reg.get(reg, []),
             "doses": dz.get("rows", []),
             "dose_state": dz.get("state", "NOT_ATTEMPTED"),
@@ -365,6 +419,13 @@ def main():
         "ceiling": {k: v for k, v in teto.items() if k != "CEILINGS"},
         "crop_check": {k: v for k, v in cultura.items() if k not in ("VERDICT", "CONTRADICTED")},
         "crop_check_list": cultura["CONTRADICTED"],
+        "pair_check": {k: v for k, v in pf.items() if k not in ("VERDICT", "CONTRADICTED")},
+        "pair_check_list": pf["CONTRADICTED"],
+        "inheritance_check": {k: v for k, v in her.items()
+                              if k not in ("VERDICT_MAX", "VERDICT_INTERVAL", "CONTRADICTED")},
+        "rotation": {"rule": "R-10b", "markers": exc.get("SUCESSAO_MARCADORES", {}),
+                     "pairs": exc.get("PARES_EM_RESTRICAO_DE_SUCESSAO", 0),
+                     "list": exc.get("ROTACAO", [])},
         "target_literal": ({k: v for k, v in alv.items() if k not in ("VERDICT", "NOT_FOUND")}
                            if alv else {"STATE": "NOT_CHECKED"}),
         "by_type": io_["BY_TYPE"],

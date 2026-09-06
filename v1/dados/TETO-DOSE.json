@@ -5,24 +5,53 @@
  "O_QUE_ISTO_NAO_E": "nao calcula dose nova nem corrige a tabela: publica os dois numeros do documento e diz que eles se contradizem para aquela cultura",
  "MATCH": "igualdade de frase inteira da cultura, nao de token",
  "LABELS_WITH_CEILING": 5,
- "LABELS_WITH_OTHER_DOSE_NOTES_NOT_READ": 52,
+ "LABELS_WITH_OTHER_DOSE_NOTES_NOT_READ": 94,
  "OTHER_DOSE_NOTES_NOT_READ": [
   "002732",
+  "007555",
   "007603",
+  "007864",
+  "008102",
+  "008189",
   "008599",
+  "008601",
   "008929",
+  "009005",
+  "009800",
   "010063",
   "010569",
+  "010585",
+  "011243",
+  "011501",
+  "011526",
+  "011789",
+  "012023",
   "012060",
+  "012279",
+  "013012",
+  "013242",
+  "013299",
   "013332",
+  "013585",
+  "013711",
   "013736",
   "013807",
+  "013876",
   "013899",
   "013905",
+  "014190",
+  "014210",
+  "014375",
+  "014380",
+  "014479",
   "014693",
   "014694",
   "014728",
+  "014862",
   "015096",
+  "015182",
+  "015183",
+  "015229",
   "015235",
   "015315",
   "015316",
@@ -32,24 +61,37 @@
   "015629",
   "015630",
   "015847",
+  "016312",
   "016387",
+  "016575",
   "016697",
   "016749",
+  "017111",
   "017116",
+  "017206",
+  "017311",
+  "017318",
+  "017332",
   "017335",
   "017337",
   "017398",
   "017432",
   "017580",
+  "017585",
   "017658",
   "017659",
+  "017663",
+  "017664",
   "017688",
   "017689",
   "017690",
+  "017703",
+  "017868",
   "017898",
   "017929",
   "017930",
   "017983",
+  "018101",
   "018111",
   "018156",
   "018165",
@@ -60,7 +102,1099 @@
   "018279",
   "018814"
  ],
- "NOTA_SOBRE_AS_OUTRAS": "estes rotulos tem alguma restricao de dose fora da tabela que ESTE modulo nao le (formatos como \"non superare la dose massima di X per anno\"). Isto e LABEL_NOTES_NOT_READ, e nao autoriza dizer que nao ha restricao",
+ "RESTRICTION_MARKERS_MEASURED": {
+  "non superare": 50,
+  "dose massima": 29,
+  "solo trattamento": 31,
+  "sola applicazione": 13,
+  "massimo N trattamenti": 7,
+  "non piu di N trattamenti": 6,
+  "N interventi": 5,
+  "dose complessiva": 3,
+  "effettuare N trattamenti": 2,
+  "numero massimo di N": 1
+ },
+ "APPLICATION_LIMIT_NOTES": {
+  "002732": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Non superare la dose massima di 5 kg/ha di prodotto per anno. Tale",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Non superare la dose massima di 1.5 kg/ha di prodotto per anno.",
+    "QUOTABLE": true
+   }
+  ],
+  "007555": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "i cavoli è consentito 1 solo trattamento/anno. È consentito l’impiego",
+    "QUOTABLE": true
+   }
+  ],
+  "007603": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Non superare la dose massima di 5 kg/ha di prodotto per anno. Tale",
+    "QUOTABLE": true
+   }
+  ],
+  "007864": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "Per i cavoli è consentito 1 solo trattamento/anno. È consentito",
+    "QUOTABLE": true
+   }
+  ],
+  "008102": [
+   {
+    "MARKER": "N interventi",
+    "TEXT": "numero massimo di 4 interventi l’anno distanziati da almeno 7",
+    "QUOTABLE": true
+   }
+  ],
+  "008189": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "utilizzata per il trattamento. Ammesso un solo trattamento per ciclo",
+    "QUOTABLE": true
+   }
+  ],
+  "008599": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Non superare la dose massima di 5 kg/ha di prodotto per anno. Tale",
+    "QUOTABLE": true
+   }
+  ],
+  "008601": [
+   {
+    "MARKER": "non piu di N trattamenti",
+    "TEXT": "Eseguire non più di 10 trattamenti all’anno per uva da vino e non più di 4",
+    "QUOTABLE": true
+   }
+  ],
+  "008929": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per trattamenti su Lolium si raccomanda di non superare lo stadio di",
+    "QUOTABLE": true
+   }
+  ],
+  "009005": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "e 400 l/ha. In tutte le applicazioni è consentito 1 solo trattamento",
+    "QUOTABLE": true
+   }
+  ],
+  "009800": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "i cavoli è consentito 1 solo trattamento/anno. È consentito l’impiego",
+    "QUOTABLE": true
+   }
+  ],
+  "010063": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per trattamenti su Lolium spp. si raccomanda di non superare lo",
+    "QUOTABLE": true
+   }
+  ],
+  "010569": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Non superare la dose massima di 1.5 l/ha di prodotto per anno.",
+    "QUOTABLE": true
+   }
+  ],
+  "010585": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "Effettuare 1 solo trattamento per stagione.",
+    "QUOTABLE": true
+   }
+  ],
+  "011243": [
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "Effettuare una sola applicazione all’anno impiegando il prodotto alla dose più bassa per il controllo delle",
+    "QUOTABLE": true
+   }
+  ],
+  "011501": [
+   {
+    "MARKER": "non piu di N trattamenti",
+    "TEXT": "Eseguire non più di 10 trattamenti all’anno per uva da vino e non più di 4",
+    "QUOTABLE": true
+   }
+  ],
+  "011526": [
+   {
+    "MARKER": "dose complessiva",
+    "TEXT": "L’applicazione è limitata a una dose complessiva di non più di 1",
+    "QUOTABLE": true
+   }
+  ],
+  "011789": [
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "Effettuare una sola applicazione all’anno impiegando il prodotto alla dose più bassa per il controllo delle",
+    "QUOTABLE": true
+   }
+  ],
+  "012023": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "Per i cavoli è consentito 1 solo trattamento/anno. È consentito",
+    "QUOTABLE": true
+   }
+  ],
+  "012060": [
+   {
+    "MARKER": "dose massima",
+    "TEXT": "dose massima di 1,5 l/ha da distribuire in 200-500 litri d’acqua.",
+    "QUOTABLE": true
+   }
+  ],
+  "012279": [
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "Effettuare una sola applicazione all’anno impiegando il prodotto alla dose più bassa per il controllo delle",
+    "QUOTABLE": true
+   }
+  ],
+  "013012": [
+   {
+    "MARKER": "non piu di N trattamenti",
+    "TEXT": "Eseguire non più di 10 trattamenti all’anno per uva da vino e non più di 4",
+    "QUOTABLE": true
+   }
+  ],
+  "013242": [
+   {
+    "MARKER": "N interventi",
+    "TEXT": "prodotto in 2 interventi distanziati tra loro di 7-10 giorni.",
+    "QUOTABLE": true
+   }
+  ],
+  "013299": [
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "Effettuare una sola applicazione all’anno impiegando il prodotto alla dose più bassa per il controllo delle",
+    "QUOTABLE": true
+   }
+  ],
+  "013332": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per trattamenti su Lolium si raccomanda di non superare lo",
+    "QUOTABLE": true
+   }
+  ],
+  "013585": [
+   {
+    "MARKER": "massimo N trattamenti",
+    "TEXT": "raccolta (massimo 10 trattamenti).",
+    "QUOTABLE": true
+   }
+  ],
+  "013711": [
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "Effettuare una sola applicazione all’anno impiegando il prodotto alla dose più bassa per il controllo delle",
+    "QUOTABLE": true
+   }
+  ],
+  "013736": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per i trattamenti su Lolium si raccomanda di non superare lo stadio",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "E’ possibile effettuare un solo trattamento per ciclo colturale",
+    "QUOTABLE": true
+   }
+  ],
+  "013807": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per trattamenti su Lolium si raccomanda di non superare lo",
+    "QUOTABLE": true
+   }
+  ],
+  "013876": [
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "Effettuare una sola applicazione all’anno impiegando il prodotto alla dose più bassa per il controllo delle",
+    "QUOTABLE": true
+   }
+  ],
+  "013899": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "d’azione come indicato in etichetta. Non superare il numero",
+    "QUOTABLE": true
+   }
+  ],
+  "013905": [
+   {
+    "MARKER": "dose massima",
+    "TEXT": "dose di 70-100 ml/hl senza superare la dose massima di 1 l/ha per",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "dose massima di 1 l/ha per il controllo della ticchiolatura (Venturia",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "senza superare la dose massima di 1,5 L/ha per il controllo della",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "superare la dose massima di 0,4 L/ha per il controllo della",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "cinerea). È consentita una sola applicazione all’anno.",
+    "QUOTABLE": true
+   }
+  ],
+  "014190": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "Per i cavoli è consentito 1 solo trattamento/anno. È consentito",
+    "QUOTABLE": true
+   }
+  ],
+  "014210": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "i cavoli è consentito 1 solo trattamento/anno. È consentito l’impiego",
+    "QUOTABLE": true
+   }
+  ],
+  "014375": [
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "Effettuare una sola applicazione all’anno impiegando il prodotto alla dose più bassa per il controllo delle",
+    "QUOTABLE": true
+   }
+  ],
+  "014380": [
+   {
+    "MARKER": "dose complessiva",
+    "TEXT": "L’applicazione è limitata a una dose complessiva di non più di 1",
+    "QUOTABLE": true
+   }
+  ],
+  "014479": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "utilizzata per il trattamento. Ammesso un solo trattamento per ciclo",
+    "QUOTABLE": true
+   }
+  ],
+  "014693": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per trattamenti su Lolium spp. si raccomanda di non superare lo",
+    "QUOTABLE": true
+   }
+  ],
+  "014694": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per trattamenti su Lolium spp. si raccomanda di non superare lo",
+    "QUOTABLE": true
+   }
+  ],
+  "014728": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per trattamenti su Lolium si raccomanda di non superare lo stadio di",
+    "QUOTABLE": true
+   }
+  ],
+  "014862": [
+   {
+    "MARKER": "non piu di N trattamenti",
+    "TEXT": "Eseguire non più di 10 trattamenti all’anno per uva da vino e non più di 4",
+    "QUOTABLE": true
+   }
+  ],
+  "015096": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "non superare la dose massima di 6 l/ha.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per tutti gli usi consentiti non superare la dose massima di 10",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per il diserbo dell’olivo da olio non superare la dose massima di 6",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "eccedere la dose massima di 10 l/ha. Per il diserbo dell’olivo da olio",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "dose massima di 10 l/ha per applicazioni in banda tra le file della",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "la dose massima di 6 l/ha.",
+    "QUOTABLE": true
+   }
+  ],
+  "015182": [
+   {
+    "MARKER": "N interventi",
+    "TEXT": "prodotto in 2 interventi distanziati tra loro di 7-10 giorni.",
+    "QUOTABLE": true
+   }
+  ],
+  "015183": [
+   {
+    "MARKER": "N interventi",
+    "TEXT": "prodotto in 2 interventi distanziati tra loro di 7-10 giorni.",
+    "QUOTABLE": true
+   }
+  ],
+  "015229": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "Effettuare 1 solo trattamento per stagione.",
+    "QUOTABLE": true
+   }
+  ],
+  "015235": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Non superare la dose massima di 4,5 kg/ha per singola applicazione.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "alla dose massima di 4,5 kg/ha per applicazione (300 g/hl, con volume d’acqua consigliato di 1500",
+    "QUOTABLE": true
+   }
+  ],
+  "015315": [
+   {
+    "MARKER": "dose massima",
+    "TEXT": "dose di 70-100 ml/hl senza superare la dose massima di 1 l/ha per",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "dose massima di 1 l/ha per il controllo della ticchiolatura (Venturia",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "senza superare la dose massima di 1,5 L/ha per il controllo della",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "superare la dose massima di 0,4 L/ha per il controllo della",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "cinerea). È consentita una sola applicazione all’anno.",
+    "QUOTABLE": true
+   }
+  ],
+  "015316": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per trattamenti su Lolium si raccomanda di non superare lo",
+    "QUOTABLE": true
+   }
+  ],
+  "015401": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "non superare la dose massima di 6 l/ha.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per tutti gli usi consentiti non superare la dose massima di 10",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per il diserbo dell’olivo da olio non superare la dose massima di 6",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "eccedere la dose massima di 10 l/ha. Per il diserbo dell’olivo da olio",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "dose massima di 10 l/ha per applicazioni in banda tra le file della",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "eccedere la dose massima di 6 l/ha.",
+    "QUOTABLE": true
+   }
+  ],
+  "015405": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "non superare la dose massima di 6 l/ha.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per tutti gli usi consentiti non superare la dose massima di 10",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per il diserbo dell’olivo da olio non superare la dose massima di 6",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "dose massima di 10 l/ha per applicazioni in banda tra le file della",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "eccedere la dose massima di 6 l/ha.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "la dose massima di 10 l/ha.",
+    "QUOTABLE": true
+   }
+  ],
+  "015592": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per tutti gli usi consentiti non superare la dose massima di 10",
+    "QUOTABLE": true
+   }
+  ],
+  "015629": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "meccanismo d’azione come indicato in etichetta. Non superare il",
+    "QUOTABLE": true
+   }
+  ],
+  "015630": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "meccanismo d’azione come indicato in etichetta. Non superare il",
+    "QUOTABLE": true
+   }
+  ],
+  "015847": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per i trattamenti su Lolium si raccomanda di non superare lo stadio",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "E’ possibile effettuare un solo trattamento per ciclo colturale",
+    "QUOTABLE": true
+   }
+  ],
+  "016312": [
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "consentita una sola applicazione l’anno.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "d’acqua ettaro. È consentita una sola applicazione l’anno.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "autunnali. È consentita una sola applicazione l’anno.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "la deriva raggiunga la chioma della coltura. È consentita una sola applicazione l’anno nel periodo primaverile.",
+    "QUOTABLE": true
+   }
+  ],
+  "016387": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "da olio non superare la dose massima di 6 l/ha.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per tutti gli usi consentiti non superare la dose massima di 10",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per il diserbo dell’olivo da olio non superare la dose massima di 6",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "senza eccedere la dose massima di 10 l/ha. Per il diserbo dell’olivo",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "dose massima di 10 l/ha per applicazioni in banda tra le file della",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "eccedere la dose massima di 6 l/ha.",
+    "QUOTABLE": true
+   }
+  ],
+  "016575": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "Effettuare un solo trattamento l’anno.",
+    "QUOTABLE": true
+   }
+  ],
+  "016697": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "d’acqua compresi tra 200 e 400 l/ha. Non superare il dosaggio",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "Effettuare un solo trattamento per ciclo colturale impiegando volumi",
+    "QUOTABLE": true
+   }
+  ],
+  "016749": [
+   {
+    "MARKER": "dose massima",
+    "TEXT": "senza mai superare la dose massima di 4 l/ha.",
+    "QUOTABLE": true
+   }
+  ],
+  "017111": [
+   {
+    "MARKER": "non piu di N trattamenti",
+    "TEXT": "Eseguire non più di 10 trattamenti all’anno per uva da vino e non più di 4",
+    "QUOTABLE": true
+   }
+  ],
+  "017116": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "d’acqua compresi tra 200 e 400 l/ha. Non superare il dosaggio",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "Effettuare un solo trattamento per ciclo colturale impiegando volumi",
+    "QUOTABLE": true
+   }
+  ],
+  "017206": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "400 l/ha. In tutte le applicazioni è consentito 1 solo trattamento",
+    "QUOTABLE": true
+   }
+  ],
+  "017311": [
+   {
+    "MARKER": "non piu di N trattamenti",
+    "TEXT": "Eseguire non più di 10 trattamenti all’anno per uva da vino e non più di 4",
+    "QUOTABLE": true
+   }
+  ],
+  "017318": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "Effettuare 1 solo trattamento per stagione.",
+    "QUOTABLE": true
+   }
+  ],
+  "017332": [
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "Effettuare una sola applicazione all’anno impiegando il prodotto alla dose più bassa per il controllo delle",
+    "QUOTABLE": true
+   }
+  ],
+  "017335": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Non superare la dose massima di 4,5 kg/ha per singola applicazione.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "alla dose massima di 4,5 kg/ha per applicazione (300 g/hl, con volume d’acqua consigliato di 1500",
+    "QUOTABLE": true
+   }
+  ],
+  "017337": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Non superare la dose massima di 4,5 kg/ha per singola applicazione.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "alla dose massima di 4,5 kg/ha per applicazione (300 g/hl, con volume d’acqua consigliato di 1500",
+    "QUOTABLE": true
+   }
+  ],
+  "017398": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "d’acqua compresi tra 200 e 400 l/ha. Non superare il dosaggio",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "Effettuare un solo trattamento per ciclo colturale impiegando volumi",
+    "QUOTABLE": true
+   }
+  ],
+  "017432": [
+   {
+    "MARKER": "dose massima",
+    "TEXT": "dose di 70-100 ml/hl senza superare la dose massima di 1 l/ha per",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "dose massima di 1 l/ha per il controllo della ticchiolatura (Venturia",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "senza superare la dose massima di 1,5 L/ha per il controllo della",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "superare la dose massima di 0,4 L/ha per il controllo della",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "cinerea). È consentita una sola applicazione all’anno.",
+    "QUOTABLE": true
+   }
+  ],
+  "017580": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Non superare la dose massima di 6 l/ha di prodotto per anno.",
+    "QUOTABLE": true
+   }
+  ],
+  "017585": [
+   {
+    "MARKER": "massimo N trattamenti",
+    "TEXT": "fra loro. Effettuare al massimo 1 trattamento con singola",
+    "QUOTABLE": true
+   }
+  ],
+  "017658": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "d’acqua compresi tra 200 e 400 l/ha. Non superare il dosaggio",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "Effettuare un solo trattamento per ciclo colturale impiegando volumi",
+    "QUOTABLE": true
+   }
+  ],
+  "017659": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "d’acqua compresi tra 200 e 400 l/ha. Non superare il dosaggio",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "Effettuare un solo trattamento per ciclo colturale impiegando volumi",
+    "QUOTABLE": true
+   }
+  ],
+  "017663": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "Effettuare un solo trattamento l’anno.",
+    "QUOTABLE": true
+   }
+  ],
+  "017664": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "Effettuare un solo trattamento l’anno.",
+    "QUOTABLE": true
+   }
+  ],
+  "017688": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "d’azione come indicato in etichetta. Non superare il numero",
+    "QUOTABLE": true
+   }
+  ],
+  "017689": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "d’azione come indicato in etichetta. Non superare il numero",
+    "QUOTABLE": true
+   }
+  ],
+  "017690": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "d’azione come indicato in etichetta. Non superare il numero",
+    "QUOTABLE": true
+   }
+  ],
+  "017703": [
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "Effettuare 1 solo trattamento per stagione.",
+    "QUOTABLE": true
+   }
+  ],
+  "017868": [
+   {
+    "MARKER": "massimo N trattamenti",
+    "TEXT": "Effettuare al massimo 2 trattamenti all’anno.",
+    "QUOTABLE": true
+   }
+  ],
+  "017898": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Non superare la dose massima di 4,5 kg/ha per singola applicazione.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "alla dose massima di 4,5 kg/ha per applicazione (300 g/hl, con volume d’acqua consigliato di 1500",
+    "QUOTABLE": true
+   }
+  ],
+  "017929": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "non superare la dose massima di 6 l/ha.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per tutti gli usi consentiti non superare la dose massima di 10",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per il diserbo dell’olivo da olio non superare la dose massima di 6",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "eccedere la dose massima di 10 l/ha. Per il diserbo dell’olivo da olio",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "dose massima di 10 l/ha per applicazioni in banda tra le file della",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "la dose massima di 10 l/ha.",
+    "QUOTABLE": true
+   }
+  ],
+  "017930": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "non superare la dose massima di 6 l/ha.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per tutti gli usi consentiti non superare la dose massima di 10",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per il diserbo dell’olivo da olio non superare la dose massima di 6",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "eccedere la dose massima di 10 l/ha. Per il diserbo dell’olivo da olio",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "dose massima di 10 l/ha per applicazioni in banda tra le file della",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "la dose massima di 10 l/ha.",
+    "QUOTABLE": true
+   }
+  ],
+  "017983": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Non superare la dose massima di 6 l/ha di prodotto per anno.",
+    "QUOTABLE": true
+   }
+  ],
+  "018101": [
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "consentita una sola applicazione l’anno.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "d’acqua ettaro. È consentita una sola applicazione l’anno.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "sola applicazione",
+    "TEXT": "autunnali. È consentita una sola applicazione l’anno.",
+    "QUOTABLE": true
+   }
+  ],
+  "018111": [
+   {
+    "MARKER": "dose massima",
+    "TEXT": "Dose massima di",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "In tutte le colture può essere effettuato un solo trattamento per",
+    "QUOTABLE": true
+   }
+  ],
+  "018156": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "(controllo degli afidi) in modo tale da non superare le 3 applicazioni totali",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "raccomanda di effettuare un solo trattamento per irrorazione fogliare",
+    "QUOTABLE": true
+   }
+  ],
+  "018165": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "(controllo degli afidi) in modo tale da non superare le 3 applicazioni totali",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "solo trattamento",
+    "TEXT": "raccomanda di effettuare un solo trattamento per irrorazione fogliare",
+    "QUOTABLE": true
+   }
+  ],
+  "018202": [
+   {
+    "MARKER": "dose massima",
+    "TEXT": "Impiegare il prodotto alla dose massima di 1 l/ha. in caso di",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "N interventi",
+    "TEXT": "programmi di diserbo frazionati eseguire un massimo di 5 interventi,",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose complessiva",
+    "TEXT": "superare la dose complessiva di 2 l/ha. Applicare il prodotto ad anni",
+    "QUOTABLE": true
+   }
+  ],
+  "018270": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per tutti gli usi consentiti non superare la dose massima e le altre indicazioni d’uso indicata in tabella per ciascuna coltura. Per il diserbo dell’olivo non superare",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Non superare la dose massima totale di 100 mL",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per il diserbo dell’olivo non superare la dose",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "la dose massima di 60 mL di prodotto / 100 mq all’anno",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "Si consiglia di utilizzare la dose minima in presenza di erbe infestanti con meno di 4 foglie, la dose massima con 4 o più foglie.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "con GLIPHOGAN TOP CL senza eccedere la dose massima di 60 mL di prodotto/100",
+    "QUOTABLE": true
+   }
+  ],
+  "018271": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per tutti gli usi consentiti non superare la dose massima e le altre indicazioni d’uso indicata in tabella per ciascuna coltura. Per il diserbo dell’olivo non superare",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Non superare la dose massima totale di 100 mL",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per il diserbo dell’olivo non superare la dose",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "la dose massima di 60 mL di prodotto / 100 mq all’anno",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "Si consiglia di utilizzare la dose minima in presenza di erbe infestanti con meno di 4 foglie, la dose massima con 4 o più foglie.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "con HERBITOTAL CL senza eccedere la dose massima di 60 mL di prodotto/100 mq.",
+    "QUOTABLE": true
+   }
+  ],
+  "018277": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per tutti gli usi consentiti non superare la dose massima e le altre indicazioni d’uso indicata in tabella per ciascuna coltura. Per il diserbo dell’olivo non superare",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Non superare la dose massima totale di 100 mL",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per il diserbo dell’olivo non superare la dose",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "la dose massima di 60 mL di prodotto / 100 mq all’anno",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "Si consiglia di utilizzare la dose minima in presenza di erbe infestanti con meno di 4 foglie, la dose massima con 4 o più foglie.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "con SHAMAL MK PLUS CL senza eccedere la dose massima di 60 mL di prodotto/100",
+    "QUOTABLE": true
+   }
+  ],
+  "018279": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per tutti gli usi consentiti non superare la dose massima e le altre indicazioni d’uso indicata in tabella per ciascuna coltura. Per il diserbo dell’olivo non superare",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Non superare la dose massima totale di 100 mL",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "non superare",
+    "TEXT": "Per il diserbo dell’olivo non superare la dose",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "la dose massima di 60 mL di prodotto / 100 mq all’anno",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "Si consiglia di utilizzare la dose minima in presenza di erbe infestanti con meno di 4 foglie, la dose massima con 4 o più foglie.",
+    "QUOTABLE": true
+   },
+   {
+    "MARKER": "dose massima",
+    "TEXT": "con TAIFUN® MK CL senza eccedere la dose massima di 60 mL di prodotto/100 mq.",
+    "QUOTABLE": true
+   }
+  ],
+  "018814": [
+   {
+    "MARKER": "non superare",
+    "TEXT": "Non superare la dose massima di 1.5 l/ha di prodotto per anno.",
+    "QUOTABLE": true
+   }
+  ]
+ },
+ "NOTA_SOBRE_AS_OUTRAS": "estes rotulos tem alguma restricao de dose fora da tabela que ESTE modulo nao le (formatos como \"non superare la dose massima di X per anno\", \"Ammesso un solo trattamento per ciclo\"). Isto e LABEL_NOTES_NOT_READ, e nao autoriza dizer que nao ha restricao. A frase literal vai em APPLICATION_LIMIT_NOTES, para a tela poder mostra-la ao lado do NOT_PRESENT da tabela",
  "CEILINGS": {
   "008259": [
    {
