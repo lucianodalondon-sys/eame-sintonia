@@ -1,0 +1,360 @@
+{
+ "GATES_TOTAL": 10,
+ "VALID_GATES": 4,
+ "INVALID_GATES": 6,
+ "INVALID": [
+  "B_NOT_SOLD_AS_FORECAST",
+  "D_UNKNOWN_IS_VISIBLE",
+  "E_REPRODUCIBLE",
+  "F_LABEL_NOT_PARAMETER_ARTEFACT",
+  "H_REFRESHABLE_WITHOUT_RESEARCH",
+  "J_NOT_DUPLICATE"
+ ],
+ "TAUTOLOGICAL_GATES": 1,
+ "TAUTOLOGICAL": [
+  "J_NOT_DUPLICATE"
+ ],
+ "GATES_WITH_REAL_NEGATIVE_CONTROL": 8,
+ "MUTATION_TESTS": 28,
+ "MUTATIONS_CAUGHT": 14,
+ "MUTATIONS_NOT_CAUGHT": 3,
+ "CROSS_CUTTING_MUTATIONS": {
+  "M20": {
+   "what": "observed values replaced by code ids",
+   "outcome": "UNDETECTED_BY_SUITE",
+   "detected_by": []
+  },
+  "M21": {
+   "what": "crop swapped: olive case served the vine archive",
+   "outcome": "DETECTED_BY_SUITE",
+   "detected_by": [
+    "H_REFRESHABLE_WITHOUT_RESEARCH"
+   ]
+  },
+  "M22": {
+   "what": "every observation date shifted one year forward",
+   "outcome": "UNDETECTED_BY_SUITE",
+   "detected_by": []
+  },
+  "M23": {
+   "what": "source url and file hashes removed",
+   "outcome": "UNDETECTED_BY_SUITE",
+   "detected_by": []
+  },
+  "M24": {
+   "what": "signal inverted",
+   "outcome": "DETECTED_BY_SUITE",
+   "detected_by": [
+    "F_LABEL_NOT_PARAMETER_ARTEFACT"
+   ]
+  },
+  "M25": {
+   "what": "universe zeroed",
+   "outcome": "SUITE_CRASHED_NO_VERDICT",
+   "detected_by": null
+  },
+  "M26": {
+   "what": "evidence link broken on every cell",
+   "outcome": "UNDETECTED_BY_SUITE",
+   "detected_by": []
+  }
+ },
+ "GATES": [
+  {
+   "GATE_ID": "A_OUTCOME_IS_OBSERVED",
+   "QUESTION": "is the published number an OBSERVATION, or could a model output reach it?",
+   "INPUT": "four inadmissible inputs offered to the shipped module: evidence_role MODELLED_RISK, FORECAST, CONTEXT, and a variable absent from the case's survey schema",
+   "OUTPUT": "PASS iff all four are REFUSED and every live output carries EVIDENCE_ROLE == OFFICIAL_OBSERVATION",
+   "SOURCE": "ENGINE/gates.py:33-52 -> current_pressure.assert_outcome_admissible -> contracts.EvidenceRole.GROUND_TRUTH_ADMISSIBLE",
+   "PROPERTY": "a predictor cannot be served as an outcome",
+   "SHOULD_FAIL_WHEN": "the refusals are removed, or an inadmissible role is accepted",
+   "POSITIVE_CONTROL": "the shipped run: four REFUSED",
+   "NEGATIVE_CONTROL": "M01 removes the check; M02 launders the role; M28 stamps the output while leaving the refusals in place",
+   "EXTERNAL_DEPENDENCY": "none",
+   "HISTORY": "was a self-certifying constant until 2026-09-06; rewritten twice",
+   "MUTATIONS_RUN": [
+    "M01",
+    "M02"
+   ],
+   "MUTATIONS_KILLED": [
+    "M01",
+    "M02"
+   ],
+   "MUTATIONS_SURVIVED": [],
+   "OTHER_OUTCOMES": {},
+   "HAS_A_REAL_NEGATIVE_CONTROL": true,
+   "CAN_IT_PASS": true,
+   "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
+   "DEFECTS": [],
+   "VALID": true
+  },
+  {
+   "GATE_ID": "B_NOT_SOLD_AS_FORECAST",
+   "QUESTION": "is the time cutoff real, i.e. does removing it change what gets published?",
+   "INPUT": "rows dated after AS_OF; and a counterfactual run at AS_OF + 30 days",
+   "OUTPUT": "PASS iff future rows exist, some fall inside the window, and moving AS_OF forward changes at least one province cell",
+   "SOURCE": "ENGINE/gates.py:63-84",
+   "PROPERTY": "no observation dated after the cutoff reaches a published cell",
+   "SHOULD_FAIL_WHEN": "the upper bound of the window is removed",
+   "POSITIVE_CONTROL": "15 future rows exist, 15 inside the window, 18 cells move",
+   "NEGATIVE_CONTROL": "M03 removes the upper bound of the window entirely",
+   "EXTERNAL_DEPENDENCY": "none",
+   "HISTORY": "v1 tested CUTOFF_LABEL == 'NOWCAST', which Cutoff.label() cannot fail to return. v2 counted future rows. v3 (shipped) counts cells that move when AS_OF advances.",
+   "MUTATIONS_RUN": [
+    "M03"
+   ],
+   "MUTATIONS_KILLED": [],
+   "MUTATIONS_SURVIVED": [
+    "M03"
+   ],
+   "OTHER_OUTCOMES": {},
+   "HAS_A_REAL_NEGATIVE_CONTROL": false,
+   "CAN_IT_PASS": "SEE_DEFECTS",
+   "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
+   "DEFECTS": [
+    "T6: survives a mutation that destroys its own property -> M03 (the time cutoff is removed)"
+   ],
+   "VALID": false
+  },
+  {
+   "GATE_ID": "C_REGIONAL_NOT_NATIONAL",
+   "QUESTION": "is the province the unit, and does the province unit change the answer?",
+   "INPUT": "the live output's keys; and the walk-forward class of every province-season",
+   "OUTPUT": "PASS iff no key above the province exists AND provinces of one region disagree in at least one season-cell",
+   "SOURCE": "ENGINE/gates.py:92-110",
+   "PROPERTY": "a national figure would not be equivalent",
+   "SHOULD_FAIL_WHEN": "geography is collapsed, or every province always agrees",
+   "POSITIVE_CONTROL": "18-19 disagreeing season-cells",
+   "NEGATIVE_CONTROL": "M04 collapses to one national key; M05 gives every fact one province",
+   "EXTERNAL_DEPENDENCY": "none",
+   "HISTORY": "v1 was any('ITALY' in key), which could only fail if the API renamed a province",
+   "MUTATIONS_RUN": [
+    "M04",
+    "M05"
+   ],
+   "MUTATIONS_KILLED": [
+    "M04",
+    "M05"
+   ],
+   "MUTATIONS_SURVIVED": [],
+   "OTHER_OUTCOMES": {},
+   "HAS_A_REAL_NEGATIVE_CONTROL": true,
+   "CAN_IT_PASS": true,
+   "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
+   "DEFECTS": [],
+   "VALID": true
+  },
+  {
+   "GATE_ID": "D_UNKNOWN_IS_VISIBLE",
+   "QUESTION": "does UNKNOWN survive to the output instead of being rendered as zero or hidden?",
+   "INPUT": "the STATE of every province in the live output",
+   "OUTPUT": "PASS iff at least one province in EACH case is UNKNOWN",
+   "SOURCE": "ENGINE/gates.py:113-118",
+   "PROPERTY": "Missing.NEVER_ZERO \u2014 'we did not look' is never 'there is nothing there'",
+   "SHOULD_FAIL_WHEN": "UNKNOWN cells are hidden, or published as a zero-valued class",
+   "POSITIVE_CONTROL": "one UNKNOWN province in each case today",
+   "NEGATIVE_CONTROL": "M06 hides UNKNOWN; M07 publishes every UNKNOWN but one as VALUE 0.0 with the class LOWER_THAN_USUAL",
+   "EXTERNAL_DEPENDENCY": "none",
+   "HISTORY": "unchanged since it was written",
+   "MUTATIONS_RUN": [
+    "M06",
+    "M07"
+   ],
+   "MUTATIONS_KILLED": [
+    "M06"
+   ],
+   "MUTATIONS_SURVIVED": [
+    "M07"
+   ],
+   "OTHER_OUTCOMES": {},
+   "HAS_A_REAL_NEGATIVE_CONTROL": true,
+   "CAN_IT_PASS": true,
+   "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
+   "DEFECTS": [
+    "T6: survives a mutation that destroys its own property -> M07 (missing read as zero (FAILURE == ZERO))"
+   ],
+   "VALID": false
+  },
+  {
+   "GATE_ID": "E_REPRODUCIBLE",
+   "QUESTION": "is the output replayable?",
+   "INPUT": "two runs of the definition in the SAME process, one from a cached row set and one from a fresh load",
+   "OUTPUT": "PASS iff the two JSON dumps are byte-identical",
+   "SOURCE": "ENGINE/gates.py:121-125",
+   "PROPERTY": "the same inputs give the same answer",
+   "SHOULD_FAIL_WHEN": "anything non-deterministic enters the output",
+   "POSITIVE_CONTROL": "byte-identical re-run",
+   "NEGATIVE_CONTROL": "M08 adds a nonce; M09 shuffles file order per call; M27 fixes a DIFFERENT file order and holds it, which is what another machine does",
+   "EXTERNAL_DEPENDENCY": "none, and that is the limit: both runs are in one process on one filesystem",
+   "HISTORY": "unchanged",
+   "MUTATIONS_RUN": [
+    "M08",
+    "M09",
+    "M27"
+   ],
+   "MUTATIONS_KILLED": [
+    "M08",
+    "M09"
+   ],
+   "MUTATIONS_SURVIVED": [
+    "M27"
+   ],
+   "OTHER_OUTCOMES": {},
+   "HAS_A_REAL_NEGATIVE_CONTROL": true,
+   "CAN_IT_PASS": true,
+   "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
+   "DEFECTS": [
+    "T6: survives a mutation that destroys its own property -> M27 (file order fixed but different (the real cross-machine defect))"
+   ],
+   "VALID": false
+  },
+  {
+   "GATE_ID": "F_LABEL_NOT_PARAMETER_ARTEFACT",
+   "QUESTION": "does the published class survive its own parameters?",
+   "INPUT": "a 135-point grid over window, min_sites, baseline depth and thresholds",
+   "OUTPUT": "PASS iff ANY case reaches mean label stability >= 0.80",
+   "SOURCE": "ENGINE/gates.py:128-133 -> current_pressure.sensitivity",
+   "PROPERTY": "the label is a property of the data, not of the settings",
+   "SHOULD_FAIL_WHEN": "the class starts tracking a parameter",
+   "POSITIVE_CONTROL": "olive 0.92",
+   "NEGATIVE_CONTROL": "M10 makes the current-season value a function of the window",
+   "EXTERNAL_DEPENDENCY": "none",
+   "HISTORY": "unchanged. NOTE the predicate is any(), not all(): the vine case sits at 0.596 and the gate passes on the olive alone.",
+   "MUTATIONS_RUN": [
+    "M10"
+   ],
+   "MUTATIONS_KILLED": [
+    "M10"
+   ],
+   "MUTATIONS_SURVIVED": [],
+   "OTHER_OUTCOMES": {},
+   "HAS_A_REAL_NEGATIVE_CONTROL": true,
+   "CAN_IT_PASS": true,
+   "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
+   "DEFECTS": [
+    "SCOPE: the predicate is any(), so one stable case carries the gate while the other sits at 0.596. It certifies 'a label somewhere is stable', not 'the label is stable'."
+   ],
+   "VALID": false
+  },
+  {
+   "GATE_ID": "G_DISCRIMINATES_BETWEEN_SEASONS",
+   "QUESTION": "does the statement separate seasons, or does it describe the archive?",
+   "INPUT": "the walk-forward class of every province-season since 2007",
+   "OUTPUT": "PASS iff the dominant class share is <= 0.75 in BOTH cases",
+   "SOURCE": "ENGINE/gates.py:136-146",
+   "PROPERTY": "a class that is nearly constant carries no information",
+   "SHOULD_FAIL_WHEN": "one class dominates",
+   "POSITIVE_CONTROL": "M12 balances the classes and the gate passes, so it is not incapable of passing",
+   "NEGATIVE_CONTROL": "M11 gives every season-cell the same class",
+   "EXTERNAL_DEPENDENCY": "none",
+   "HISTORY": "FAILS on the shipped data (vine 0.806) because of the pilot's own effect-size floor. The pilot declined to rewrite it after seeing it fail, and said so.",
+   "MUTATIONS_RUN": [
+    "M11",
+    "M12"
+   ],
+   "MUTATIONS_KILLED": [],
+   "MUTATIONS_SURVIVED": [],
+   "OTHER_OUTCOMES": {
+    "M11": "ALREADY_FAILING",
+    "M12": "POSITIVE_CONTROL_OK"
+   },
+   "HAS_A_REAL_NEGATIVE_CONTROL": true,
+   "CAN_IT_PASS": true,
+   "IS_ALREADY_FAILING_ON_SHIPPED_DATA": true,
+   "DEFECTS": [],
+   "VALID": true
+  },
+  {
+   "GATE_ID": "H_REFRESHABLE_WITHOUT_RESEARCH",
+   "QUESTION": "can this be refreshed without a research project, and is the data current?",
+   "INPUT": "three LIVE HTTP probes (two real, one deliberate negative control) plus DATA_LATENCY_DAYS from the live output",
+   "OUTPUT": "PASS iff the negative control trips, both real probes are reachable and non-null, row counts held or grew, and latency <= 21 days in both cases",
+   "SOURCE": "ENGINE/gates.py:156-200 -> ENGINE/automation_probe.fetch",
+   "PROPERTY": "the source is alive, answers with values, and the archive is current",
+   "SHOULD_FAIL_WHEN": "the source dies, answers with nulls, or the archive goes stale",
+   "POSITIVE_CONTROL": "2/2 reachable, control tripped, latency 2 days",
+   "NEGATIVE_CONTROL": "M13 all-null response; M14 dead endpoint; M15 archive frozen 400 days; M16 the clock moves one year and the archive does not",
+   "EXTERNAL_DEPENDENCY": "LIVE NETWORK. agroambiente.info.regione.toscana.it must answer for this gate to be evaluable at all. AND the reference date is the hardcoded constant gates.evaluate(as_of=2026-09-06).",
+   "HISTORY": "v1 required delta_rows == 0, which is backwards. v2 read a cached file. v3 (shipped) re-probes live and reads latency.",
+   "MUTATIONS_RUN": [
+    "M13",
+    "M14",
+    "M15",
+    "M16"
+   ],
+   "MUTATIONS_KILLED": [
+    "M13",
+    "M14",
+    "M15",
+    "M16"
+   ],
+   "MUTATIONS_SURVIVED": [],
+   "OTHER_OUTCOMES": {},
+   "HAS_A_REAL_NEGATIVE_CONTROL": true,
+   "CAN_IT_PASS": true,
+   "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
+   "DEFECTS": [
+    "T5: requires a live third-party endpoint. Offline, the gate cannot be evaluated at all.",
+    "FROZEN CLOCK: latency is compared against a hardcoded AS_OF, so the freshness certification never expires."
+   ],
+   "VALID": false
+  },
+  {
+   "GATE_ID": "I_GENERALIZES",
+   "QUESTION": "does the pipeline run end-to-end on a case it has never seen?",
+   "INPUT": "CASES/FRUMENTO-SEPTORIA-TOSCANA, hash-checked, run through run_case.season_outcomes",
+   "OUTPUT": "PASS iff >= 5 seasons come out and the series is not constant",
+   "SOURCE": "ENGINE/gates.py:209-236",
+   "PROPERTY": "the engine is a tool, not a fit to two cases",
+   "SHOULD_FAIL_WHEN": "the unseen case is missing, corrupted, or decodes to a constant",
+   "POSITIVE_CONTROL": "14 seasons, 9 distinct values",
+   "NEGATIVE_CONTROL": "M17 breaks the sha256; M18 makes the series constant",
+   "EXTERNAL_DEPENDENCY": "none any more \u2014 the arbiter moved this out of /tmp/WHEAT4 into git",
+   "HISTORY": "v1 was a hardcoded PASS constant. v2 read /tmp. v3 (shipped) reads the repo.",
+   "MUTATIONS_RUN": [
+    "M17",
+    "M18"
+   ],
+   "MUTATIONS_KILLED": [
+    "M17",
+    "M18"
+   ],
+   "MUTATIONS_SURVIVED": [],
+   "OTHER_OUTCOMES": {},
+   "HAS_A_REAL_NEGATIVE_CONTROL": true,
+   "CAN_IT_PASS": true,
+   "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
+   "DEFECTS": [],
+   "VALID": true
+  },
+  {
+   "GATE_ID": "J_NOT_DUPLICATE",
+   "QUESTION": "does the portal already ship this capability?",
+   "INPUT": "the portal's meeting-intelligence snapshot",
+   "OUTPUT": "PARTIALLY_OVERLAPS -> recorded as NOT_TESTABLE; or FAIL if the file is unreadable",
+   "SOURCE": "ENGINE/gates.py:238-265",
+   "PROPERTY": "the capability is not a duplicate of something already shipped",
+   "SHOULD_FAIL_WHEN": "the portal already covers the cell",
+   "POSITIVE_CONTROL": "none exists: see T4 below",
+   "NEGATIVE_CONTROL": "M19 points it at the copy that IS in the repository",
+   "EXTERNAL_DEPENDENCY": "A HARDCODED ABSOLUTE PATH: /home/user/eame-sintonia/italia-portale/client/meeting-intelligence-snapshot.json \u2014 while a byte-identical copy is tracked in this repository at italia-portale/client/meeting-intelligence-snapshot.json",
+   "HISTORY": "was NOT_TESTABLE, then answered in the fifth red-team round",
+   "MUTATIONS_RUN": [
+    "M19"
+   ],
+   "MUTATIONS_KILLED": [],
+   "MUTATIONS_SURVIVED": [],
+   "OTHER_OUTCOMES": {
+    "M19": "REPAIR_PROBE"
+   },
+   "HAS_A_REAL_NEGATIVE_CONTROL": false,
+   "CAN_IT_PASS": "SEE_DEFECTS",
+   "IS_ALREADY_FAILING_ON_SHIPPED_DATA": false,
+   "DEFECTS": [
+    "T5: reads a hardcoded absolute path under /home/user that no other machine has, while a byte-identical copy is tracked in this repository. Same defect class the arbiter used to overturn gate I, repeated in the same commit.",
+    "T4: the predicate is arithmetically incapable of returning PASS. jv is either (FAIL, 'inventory not readable') or ('PARTIALLY_OVERLAPS', ...), and PARTIALLY_OVERLAPS is not in (PASS, FAIL, NOT_TESTABLE), so the VERDICT is FAIL or NOT_TESTABLE and never PASS. A gate that cannot pass is as broken as one that cannot fail."
+   ],
+   "VALID": false
+  }
+ ]
+}

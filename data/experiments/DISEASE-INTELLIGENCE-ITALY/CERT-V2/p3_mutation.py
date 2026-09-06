@@ -532,7 +532,11 @@ def run_one(mid):
         rec["VERDICTS"] = v
         rec["EVIDENCE_OF_TARGET"] = (r["GATES"].get(LETTER.get(target, ""), {}) or {}).get("EVIDENCE")
         rec["CHANGED_GATES"] = sorted(k for k in v if v[k] != BASELINE[k])
-        if target == "ANY":
+        if target == "SPECIFICITY":
+            # a control that must NOT fire. Firing here would mean the suite is over-sensitive.
+            rec["OUTCOME"] = ("SPECIFICITY_OK" if v == BASELINE
+                              else "FALSE_ALARM")
+        elif target == "ANY":
             broke = [k for k in v if v[k] != BASELINE[k] and v[k] != "PASS"]
             rec["OUTCOME"] = "DETECTED_BY_SUITE" if broke else "UNDETECTED_BY_SUITE"
             rec["DETECTED_BY"] = broke
@@ -546,8 +550,15 @@ def run_one(mid):
             rec["OUTCOME"] = ("KILLED" if v[g] != "PASS" and BASELINE[g] == "PASS" else
                               "ALREADY_FAILING" if BASELINE[g] != "PASS" else "SURVIVED")
     except Exception as e:
-        rec["OUTCOME"] = "MUTATION_RAISED"
+        # An exception raised INSIDE gates.evaluate is not a failed mutation: it is the suite
+        # refusing to produce a verdict. Recorded as its own outcome, because "no verdict" is
+        # not the same as PASS and is not the same as FAIL.
+        import traceback
+        tb = traceback.format_exc()
+        inside_suite = "gates.py" in tb or "current_pressure.py" in tb
+        rec["OUTCOME"] = "SUITE_CRASHED_NO_VERDICT" if inside_suite else "MUTATION_RAISED"
         rec["ERROR"] = f"{type(e).__name__}: {e}"
+        rec["TRACEBACK_TAIL"] = tb.strip().splitlines()[-6:]
     finally:
         if cleanup:
             cleanup()

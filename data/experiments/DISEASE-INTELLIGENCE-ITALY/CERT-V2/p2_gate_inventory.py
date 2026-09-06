@@ -210,6 +210,8 @@ def main():
         killed = [m for m in mine if m.get("OUTCOME") == "KILLED"]
         survived = [m for m in mine if m.get("OUTCOME") == "SURVIVED"]
         other = [m for m in mine if m.get("OUTCOME") not in ("KILLED", "SURVIVED")]
+        already = [m for m in mine if m.get("OUTCOME") == "ALREADY_FAILING"]
+        poscontrol = [m for m in mine if m.get("OUTCOME") == "POSITIVE_CONTROL_OK"]
         defects = list(STATIC_DEFECTS.get(g, []))
         if survived:
             defects.append("T6: survives a mutation that destroys its own property -> " +
@@ -224,7 +226,13 @@ def main():
                      "MUTATIONS_KILLED": [m["ID"] for m in killed],
                      "MUTATIONS_SURVIVED": [m["ID"] for m in survived],
                      "OTHER_OUTCOMES": {m["ID"]: m.get("OUTCOME") for m in other},
-                     "HAS_A_REAL_NEGATIVE_CONTROL": bool(killed),
+                     # a gate that is ALREADY FAILING on the shipped data has demonstrated it
+                     # can fail; if a positive control also shows it can pass, both halves of
+                     # its range are exercised and it does not need a kill on top.
+                     "HAS_A_REAL_NEGATIVE_CONTROL": bool(killed) or bool(already and poscontrol),
+                     "CAN_IT_PASS": (True if (killed or poscontrol) else
+                                     None if not mine else "SEE_DEFECTS"),
+                     "IS_ALREADY_FAILING_ON_SHIPPED_DATA": bool(already),
                      "DEFECTS": defects,
                      "VALID": valid})
 
@@ -266,8 +274,11 @@ def main():
            "| id | property destroyed | detected by the suite? | which gate noticed |",
            "|---|---|---|---|"]
     for mid, m in out["CROSS_CUTTING_MUTATIONS"].items():
-        md.append(f"| {mid} | {m['what']} | "
-                  f"{'yes' if m['outcome'] == 'DETECTED_BY_SUITE' else 'NO'} | "
+        verdict = {"DETECTED_BY_SUITE": "yes",
+                   "UNDETECTED_BY_SUITE": "NO",
+                   "SUITE_CRASHED_NO_VERDICT": "no verdict — the suite raised"}.get(
+                       m["outcome"], m["outcome"])
+        md.append(f"| {mid} | {m['what']} | {verdict} | "
                   f"{', '.join(m['detected_by'] or []) or '—'} |")
     open(os.path.join(HERE, "p2_gate_inventory.md"), "w", encoding="utf-8").write(
         "\n".join(md) + "\n")

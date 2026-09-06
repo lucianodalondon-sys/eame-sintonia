@@ -14,6 +14,14 @@
   "I_GENERALIZES": "PASS",
   "J_NOT_DUPLICATE": "FAIL"
  },
- "OUTCOME": "MUTATION_RAISED",
- "ERROR": "TypeError: '>=' not supported between instances of 'NoneType' and 'float'"
+ "OUTCOME": "SUITE_CRASHED_NO_VERDICT",
+ "ERROR": "TypeError: '>=' not supported between instances of 'NoneType' and 'float'",
+ "TRACEBACK_TAIL": [
+  "    \"VERDICT\": PASS if any(v >= STAB_MIN for v in ok.values()) else FAIL,",
+  "                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+  "  File \"C:\\cert-v2-disease-pressure\\data\\experiments\\DISEASE-INTELLIGENCE-ITALY\\ENGINE\\gates.py\", line 130, in <genexpr>",
+  "    \"VERDICT\": PASS if any(v >= STAB_MIN for v in ok.values()) else FAIL,",
+  "                           ^^^^^^^^^^^^^",
+  "TypeError: '>=' not supported between instances of 'NoneType' and 'float'"
+ ]
 }

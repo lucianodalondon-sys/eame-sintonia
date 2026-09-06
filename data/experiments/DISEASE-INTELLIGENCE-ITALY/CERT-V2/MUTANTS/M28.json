@@ -1,6 +1,6 @@
 {
  "ID": "M28",
- "TARGET_GATE": "A",
+ "TARGET_GATE": "SPECIFICITY",
  "PROPERTY_DESTROYED": "evidence role stamped into the output, refusals left in place",
  "BASELINE_VERDICTS": {
   "A_OUTCOME_IS_OBSERVED": "PASS",
@@ -27,7 +27,7 @@
   "I_GENERALIZES": "PASS",
   "J_NOT_DUPLICATE": "FAIL"
  },
- "EVIDENCE_OF_TARGET": "four inadmissible inputs offered to the shipped module and their outcomes recorded: [('MODELLED_RISK', 'REFUSED'), ('FORECAST', 'REFUSED'), ('CONTEXT', 'REFUSED'), ('non-survey var', 'REFUSED')]. The gate fails if ANY is accepted. Before this rewrite it read back its own default argument.",
+ "EVIDENCE_OF_TARGET": null,
  "CHANGED_GATES": [],
- "OUTCOME": "SURVIVED"
+ "OUTCOME": "SPECIFICITY_OK"
 }
