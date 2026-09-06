@@ -415,6 +415,98 @@ traduzido («corrente»). Quase reportei um defeito real como refutado.
 ---
 
 
+## I-bis · OS QUATRO BLOQUEIOS DE PRODUÇÃO, FECHADOS
+
+### 1 · `SEM_SINAL_ATUAL` negava um sinal que o registo declara
+
+O código nasce na cadeia do PORQUÊ AGORA, onde significa *o elo do sinal não
+está fechado* — o sinal não traz direção de necessidade positiva para este par.
+Impresso sozinho como motivo de ação, era lido com a sua frase inteira,
+«Nessun segnale di campo corrente», que diz outra coisa: que o campo se calou.
+
+As 37 linhas que trazem o código, classificadas:
+
+| CLASSE | LINHAS |
+|---|---:|
+| `NO_CURRENT_SIGNAL` — o campo cala-se mesmo | **25** |
+| `CURRENT_SIGNAL_NO_ACTION` — o campo falou e disse para não mexer | **7** |
+| `CURRENT_SIGNAL_ACTIONABLE` | **0** |
+| `UNKNOWN` — o campo falou, direção não declarada | **5** |
+
+> **NEGAR UM FACTO PROVADO É O ESPELHO DE INVENTAR UM.**
+
+Onde o sinal existe, a linha leva agora o código verdadeiro — `SINAL_ATUAL`, já
+publicado — e ao lado a frase que o motor atribui à direção: *«Segnale di campo
+corrente · La fonte raccomanda di monitorare, non di attivare»*. Nenhuma palavra
+nova: duas frases já escritas, unidas pelo separador que o portal usa em todo o
+lado. Corrigido nos **dois** sítios, porque o defeito estava nos dois — a
+superfície da reunião e a página de entrada.
+
+`SEM_SINAL_ATUAL_FALSE_STATEMENTS`: **12 → 0**
+
+### 2 · «PRONTO PER LA VENDITA» prometia uma decisão que não está provada
+
+A lei do produto, para este módulo, está escrita: `OUTPUT PRIORITY TO
+INVESTIGATE ← nunca SALES OPPORTUNITY`, com `DECISION_PROVED = NÃO`.
+
+> **O DADO PROVADO DIZ QUE VALE A PENA OLHAR. NÃO DIZ QUE SE PODE VENDER.**
+
+O degrau continua a ser o primeiro da escada comercial; muda o que promete:
+**PRIORITÀ DA VALUTARE ORA** / **PRIORITY TO INVESTIGATE NOW**, com as palavras
+da lei em inglês. Trocado nas duas tabelas de rótulos — a da reunião e a do
+pacote da casa. **5 antes, 5 depois, 0 que dizem venda.**
+
+### 3 · O estado e a ação eram a mesma palavra em 3 linhas
+
+Em 3 das 215 o motor emite o mesmo identificador nos dois campos —
+`ACTION_STATE = PREPARE`, `ACTION = PREPARE` — e a linha saía «PREPARARE —
+PREPARARE».
+
+> **SE O ESTADO E A AÇÃO SÃO A MESMA PALAVRA, UMA DAS DUAS COLUNAS NÃO ESTÁ A
+> RESPONDER À SUA PERGUNTA.**
+
+Não se inventa uma ação, e não se muda nem o código nem a frase do motor: a
+linha **declara** que a ação não é distinta, e a superfície deixa de imprimir
+duas vezes a mesma palavra. Ficam a dependência e o gatilho, que já respondem
+«o que a soltaria»: aqui, *janela aberta agora*.
+
+A minha primeira versão substituía o token por `UNKNOWN`, e **dois portões a
+rejeitaram de imediato** — um porque uma palavra inglesa nua chegava ao ecrã
+italiano, outro porque o mapa tem de ser o do motor e não uma reescrita.
+
+> **UM PORTÃO QUE DEFENDE A AUTORIDADE DO MOTOR TEM RAZÃO TAMBÉM CONTRA QUEM O
+> ESTÁ A CORRIGIR.**
+
+### 4 · Quatro controlos diziam FALHOU sem terem olhado
+
+`W2`, `O1` e `BR6` precisam do pacote canónico para existir. Esse pacote
+**gera-se e não se guarda**: não está no repositório por contrato, e a cadeia
+**deste ramo** produz outra safra — medido e escrito na própria cadeia,
+`V21-5d312cb90a0de01d`, com trinta ficheiros atrás do gerador canónico.
+
+> **CHAMAR FALHA AO QUE NÃO SE PÔDE MEDIR É MENTIR PARA BAIXO. CHAMAR-LHE
+> SUCESSO É MENTIR PARA CIMA.**
+
+Terceiro estado, com o motivo ao lado: **NÃO MENSURÁVEL**. Não conta como
+passado — o total mostra-o à parte — e não faz o portão sair com um zero
+inventado. A suite lê agora `69/69 passing · 2 NÃO MENSURÁVEIS (W2 O1)`; o
+browser, `6/6 passing · 1 NÃO MENSURÁVEL`.
+
+**`V4` é outro caso e continua FAIL.** Olhou, e encontrou uma divergência real:
+o ficheiro embarcado traz a assinatura de uma lista de marcadores de língua mais
+velha que a em vigor.
+
+> **UM CONTROLO QUE MEDIU NÃO SE TORNA «NÃO MENSURÁVEL» PORQUE A CURA ESTÁ FORA
+> DE ALCANCE.**
+
+A cura está fora de alcance aqui — `site_v21_ingest.py` lê o pacote em `build/`,
+ausente — e o que essa assinatura vigia, prosa portuguesa diante do cliente
+italiano, está medido **ausente**: `BR4 = 0`, `NO_PORTUGUESE_ON_SCREEN = 0`. A
+dívida é a regeneração, não uma palavra no ecrã.
+
+---
+
+
 ## J · O QUE FOI MEDIDO E ESTÁ VERDE
 
 ```
