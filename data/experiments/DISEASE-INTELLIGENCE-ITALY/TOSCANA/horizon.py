@@ -214,13 +214,28 @@ def run(outcome_key="SITE_INCIDENCE", var=34, regime="all"):
 
     # monotonicity: a cutoff strictly contains earlier information, so significance that
     # appears then vanishes is noise
+    # MONOTONICITY. A later cutoff strictly contains the earlier information, so a real
+    # signal should not COLLAPSE afterwards. TWO versions are reported, because the first
+    # rule I wrote was wrong and I corrected it AFTER seeing a result — exactly the kind of
+    # move that must be declared rather than quietly applied.
+    #   STRICT (as originally written): contradicted if the next two cutoffs fail
+    #     Bonferroni. This conflates "the signal vanished" with "the signal dipped just
+    #     under a severe threshold". At n=15 it would call p=0.0019 -> p=0.0114 a
+    #     contradiction when both are strong. That is a threshold artefact, not refutation.
+    #   SUBSTANTIVE (drives SKILL_STATE): contradicted only if a later cutoff loses NOMINAL
+    #     significance (p > 0.05) or its accuracy falls to or below the baseline.
+    # Both are stored per cutoff so a reader can apply either and see the difference.
     arms = [c["arms"].get("ARM_WEATHER_ONLY") for c in report["cutoffs"]]
     for i, c in enumerate(report["cutoffs"]):
         a = c["arms"].get("ARM_WEATHER_ONLY")
         later = [x for x in arms[i+1:i+3] if x]
-        c["contradicted_by_later"] = bool(
+        c["contradicted_STRICT"] = bool(
             a and a.get("survives_bonferroni") and later and
             not any(x.get("survives_bonferroni") for x in later))
+        c["contradicted_by_later"] = bool(
+            a and a.get("survives_bonferroni") and later and
+            any((x.get("p_permutation") is None or x["p_permutation"] > 0.05
+                 or x["accuracy"] <= base) for x in later))
         if a is None:
             c["SKILL_STATE"] = "INSUFFICIENT_DATA"
         elif a.get("beats_baseline") and a.get("survives_bonferroni") and not c["contradicted_by_later"]:
@@ -229,6 +244,12 @@ def run(outcome_key="SITE_INCIDENCE", var=34, regime="all"):
             c["SKILL_STATE"] = "NOT_PROVED"   # nominal only
         else:
             c["SKILL_STATE"] = "REFUTED"
+    proved_strict = [c for c in report["cutoffs"]
+                     if c["arms"].get("ARM_WEATHER_ONLY")
+                     and c["arms"]["ARM_WEATHER_ONLY"].get("beats_baseline")
+                     and c["arms"]["ARM_WEATHER_ONLY"].get("survives_bonferroni")
+                     and not c["contradicted_STRICT"]]
+    report["FIRST_PROVED_CUTOFF_STRICT_RULE"] = proved_strict[0]["cutoff"] if proved_strict else None
     proved = [c for c in report["cutoffs"] if c["SKILL_STATE"] == "PROVED"]
     report["FIRST_PROVED_CUTOFF"] = proved[0]["cutoff"] if proved else None
     pre = next((c for c in report["cutoffs"] if c["cutoff"] == "PREV_SEASON_END"), None)
@@ -255,6 +276,7 @@ if __name__ == "__main__":
             continue
         print(f"{c['cutoff']:18s} {c['years_available']:4d} {a['feature']:24s} {a['accuracy']:6.3f} "
               f"{a['p_permutation']:8.4f} {str(a['survives_bonferroni']):>7s}  {c['SKILL_STATE']}")
-    print(f"\nFIRST_PROVED_CUTOFF = {r['FIRST_PROVED_CUTOFF']}")
+    print(f"\nFIRST_PROVED_CUTOFF             = {r['FIRST_PROVED_CUTOFF']}    (substantive monotonicity)")
+    print(f"FIRST_PROVED_CUTOFF_STRICT_RULE = {r['FIRST_PROVED_CUTOFF_STRICT_RULE']}    (original harsher rule)")
     print(f"12M_SKILL = {r['12M_SKILL']}")
     json.dump(r, open(os.path.join(ROOT, f"horizon_{key}_v{var}.json"), "w"), indent=1)

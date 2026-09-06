@@ -1,0 +1,402 @@
+{
+ "outcome_key": "SITE_INCIDENCE",
+ "var": 36,
+ "regime": "all",
+ "n_seasons_with_outcome": 20,
+ "seasons": [
+  2006,
+  2007,
+  2008,
+  2009,
+  2010,
+  2012,
+  2013,
+  2014,
+  2015,
+  2016,
+  2017,
+  2018,
+  2019,
+  2020,
+  2021,
+  2022,
+  2023,
+  2024,
+  2025,
+  2026
+ ],
+ "raw_outcome": {
+  "2006": 0.2527,
+  "2007": 0.2366,
+  "2008": 0.6481,
+  "2009": 0.287,
+  "2010": 0.5115,
+  "2012": 0.2971,
+  "2013": 0.6257,
+  "2014": 0.5064,
+  "2015": 0.3977,
+  "2016": 0.3944,
+  "2017": 0.0508,
+  "2018": 0.9379,
+  "2019": 0.1798,
+  "2020": 0.0621,
+  "2021": 0.1446,
+  "2022": 0.046,
+  "2023": 0.8944,
+  "2024": 0.6667,
+  "2025": 0.2944,
+  "2026": 0.0222
+ },
+ "weather_points": [
+  "AREZZO_VALDICHIANA",
+  "FIRENZE_CHIANTI",
+  "GROSSETO_MAREMMA",
+  "LIVORNO_BOLGHERI",
+  "LUCCA_COLLINE",
+  "PISA_COLLINE",
+  "PISTOIA",
+  "SIENA_CHIANTI"
+ ],
+ "cutoffs": [
+  {
+   "cutoff": "PREV_SEASON_END",
+   "arms": {
+    "ARM_WEATHER_ONLY": {
+     "feature": "prevseason_rain_days",
+     "direction": -1,
+     "accuracy": 0.6,
+     "n": 15,
+     "years_scored": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+     ],
+     "p_permutation": 0.0353,
+     "n_features_searched": 20,
+     "bonferroni_threshold": 0.0025,
+     "beats_baseline": true,
+     "survives_permutation": true,
+     "survives_bonferroni": false
+    }
+   },
+   "years_available": 20,
+   "contradicted_STRICT": false,
+   "contradicted_by_later": false,
+   "SKILL_STATE": "NOT_PROVED"
+  },
+  {
+   "cutoff": "31_JAN",
+   "arms": {
+    "ARM_WEATHER_ONLY": {
+     "feature": "prevseason_rain_days",
+     "direction": -1,
+     "accuracy": 0.6,
+     "n": 15,
+     "years_scored": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+     ],
+     "p_permutation": 0.0353,
+     "n_features_searched": 20,
+     "bonferroni_threshold": 0.0025,
+     "beats_baseline": true,
+     "survives_permutation": true,
+     "survives_bonferroni": false
+    }
+   },
+   "years_available": 20,
+   "contradicted_STRICT": false,
+   "contradicted_by_later": false,
+   "SKILL_STATE": "NOT_PROVED"
+  },
+  {
+   "cutoff": "28_FEB",
+   "arms": {
+    "ARM_WEATHER_ONLY": {
+     "feature": "prevseason_rain_days",
+     "direction": -1,
+     "accuracy": 0.6,
+     "n": 15,
+     "years_scored": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+     ],
+     "p_permutation": 0.0353,
+     "n_features_searched": 20,
+     "bonferroni_threshold": 0.0025,
+     "beats_baseline": true,
+     "survives_permutation": true,
+     "survives_bonferroni": false
+    }
+   },
+   "years_available": 20,
+   "contradicted_STRICT": false,
+   "contradicted_by_later": false,
+   "SKILL_STATE": "NOT_PROVED"
+  },
+  {
+   "cutoff": "31_MAR",
+   "arms": {
+    "ARM_WEATHER_ONLY": {
+     "feature": "ytd_precip_sum",
+     "direction": 1,
+     "accuracy": 0.6,
+     "n": 15,
+     "years_scored": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+     ],
+     "p_permutation": 0.0408,
+     "n_features_searched": 20,
+     "bonferroni_threshold": 0.0025,
+     "beats_baseline": true,
+     "survives_permutation": true,
+     "survives_bonferroni": false
+    }
+   },
+   "years_available": 20,
+   "contradicted_STRICT": false,
+   "contradicted_by_later": false,
+   "SKILL_STATE": "NOT_PROVED"
+  },
+  {
+   "cutoff": "30_APR",
+   "arms": {
+    "ARM_WEATHER_ONLY": {
+     "feature": "ytd_wet_spells_2d",
+     "direction": 1,
+     "accuracy": 0.6,
+     "n": 15,
+     "years_scored": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+     ],
+     "p_permutation": 0.0383,
+     "n_features_searched": 20,
+     "bonferroni_threshold": 0.0025,
+     "beats_baseline": true,
+     "survives_permutation": true,
+     "survives_bonferroni": false
+    }
+   },
+   "years_available": 20,
+   "contradicted_STRICT": false,
+   "contradicted_by_later": false,
+   "SKILL_STATE": "NOT_PROVED"
+  },
+  {
+   "cutoff": "31_MAY",
+   "arms": {
+    "ARM_WEATHER_ONLY": {
+     "feature": "ytd_wet_spells_2d",
+     "direction": 1,
+     "accuracy": 0.7333,
+     "n": 15,
+     "years_scored": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+     ],
+     "p_permutation": 0.00195,
+     "n_features_searched": 20,
+     "bonferroni_threshold": 0.0025,
+     "beats_baseline": true,
+     "survives_permutation": true,
+     "survives_bonferroni": true
+    }
+   },
+   "years_available": 20,
+   "contradicted_STRICT": true,
+   "contradicted_by_later": false,
+   "SKILL_STATE": "PROVED"
+  },
+  {
+   "cutoff": "30_JUN",
+   "arms": {
+    "ARM_WEATHER_ONLY": {
+     "feature": "ytd_precip_sum",
+     "direction": 1,
+     "accuracy": 0.6667,
+     "n": 15,
+     "years_scored": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+     ],
+     "p_permutation": 0.01135,
+     "n_features_searched": 20,
+     "bonferroni_threshold": 0.0025,
+     "beats_baseline": true,
+     "survives_permutation": true,
+     "survives_bonferroni": false
+    }
+   },
+   "years_available": 20,
+   "contradicted_STRICT": false,
+   "contradicted_by_later": false,
+   "SKILL_STATE": "NOT_PROVED"
+  }
+ ],
+ "leakage_violations": [],
+ "baselines": {
+  "BASELINE_CLIMATOLOGY": {
+   "accuracy": 0.4,
+   "n": 15,
+   "years_scored": [
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "p_permutation": 0.60127
+  },
+  "BASELINE_PREVIOUS_YEAR": {
+   "accuracy": 0.4667,
+   "n": 15,
+   "years_scored": [
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "p_permutation": 0.21939
+  },
+  "BASELINE_PERSISTENCE": {
+   "accuracy": 0.4667,
+   "n": 15,
+   "years_scored": [
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "p_permutation": 0.21939
+  }
+ },
+ "best_baseline": 0.4667,
+ "FIRST_PROVED_CUTOFF_STRICT_RULE": null,
+ "FIRST_PROVED_CUTOFF": "31_MAY",
+ "12M_SKILL": "NO",
+ "TARGET_SEASON_WEATHER_LEAKAGE": 0
+}
