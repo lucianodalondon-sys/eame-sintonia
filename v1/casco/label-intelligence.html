@@ -191,19 +191,21 @@ const val = v => isUnk(v) ? `<span class="unknown" title="a fonte nao sustenta e
 // "YYYY-MM-DD" e tratado como UTC, entao comparar duas datas civis por instante
 // erra em qualquer fuso a leste ou a oeste de Greenwich.
 const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-const HOJE = (() => { try { return iso(new Date()); } catch (e) { return null; } })();
+// hojeISO() E UMA PERGUNTA, NAO UMA CONSTANTE.
+// Era `const hojeISO() = ...`, avaliado UMA VEZ quando a pagina carrega. Uma pagina
+// aberta e deixada aberta atravessa a meia-noite com a data de ontem, e todo
+// numero que se diz "de hoje" envelhece junto sem avisar. Agora cada leitura
+// pergunta ao relogio de novo — que e o que a palavra "hoje" promete.
+function hojeISO() { try { return iso(new Date()); } catch (e) { return null; } }
 const DIA = 86400000;
 // data civil ISO -> instante UTC do meio-dia. Meio-dia, e nao meia-noite, para
 // que nenhum horario de verao de 1 h possa empurrar a diferenca para o dia
 // vizinho.
 const civil = s => Date.parse(String(s) + 'T12:00:00Z');
-function dias(ate) {                     // dias de HOJE ate a data ISO 'ate'
-  if (!HOJE || !/^\d{4}-\d{2}-\d{2}$/.test(String(ate))) return null;
-  return Math.round((civil(ate) - civil(HOJE)) / DIA);
+function dias(ate) {                     // dias de hojeISO() ate a data ISO 'ate'
+  if (!hojeISO() || !/^\d{4}-\d{2}-\d{2}$/.test(String(ate))) return null;
+  return Math.round((civil(ate) - civil(hojeISO())) / DIA);
 }
-// exposto por funcao para que os testes de tela possam ler a data civil que a
-// pagina esta usando — `const` de topo nao vira propriedade do global.
-function hojeISO() { return HOJE; }
 const dISO = s => /^\d{8}$/.test(String(s)) ? `${String(s).slice(0,4)}-${String(s).slice(4,6)}-${String(s).slice(6,8)}` : String(s);
 // dte do produto, recalculado. Cai para o valor do build so se nao houver relogio.
 function dte(p) {
@@ -212,7 +214,9 @@ function dte(p) {
 }
 const DATA_DATE = dISO(P.DATA_DATE);
 const ULTIMA_MUDANCA = dISO(P.NEWEST_CHANGE_AT);
-const IDADE = dias(DATA_DATE);           // negativo = o dado tem essa idade
+// idade do dado, tambem viva: ela e uma contagem ATE hoje e envelhece com a
+// pagina aberta, exatamente como hojeISO().
+function idadeDoDado() { return dias(DATA_DATE); }   // negativo = o dado tem essa idade
 
 // S1 · REGRAS.md secao 5 obriga uma glosa em cima de ACT_NOW, dizendo que ele
 // significa "olhe hoje" e nunca uma ordem comercial. Ela nao aparecia em
@@ -248,7 +252,7 @@ function janelaAgora(o) {
 }
 // Marca quando a janela de hoje difere da que foi gravada no build.
 function janelaSelo(o) {
-  const [j, r] = HOJE ? janelaAgora(o) : [o.TIME_WINDOW, o.TIME_WINDOW_RULE];
+  const [j, r] = hojeISO() ? janelaAgora(o) : [o.TIME_WINDOW, o.TIME_WINDOW_RULE];
   const mudou = j !== o.TIME_WINDOW;
   const [, cls, lbl] = WIN[j] || ['', 'p-dim', j];
   return `<span class="pill ${cls}" title="${esc(r)}${mudou?` — recalculada hoje; no build era ${esc(o.TIME_WINDOW)} (${esc(o.TIME_WINDOW_RULE)})`:''}">${esc(lbl||j)}</span>${
@@ -261,15 +265,15 @@ const WIN = {ACT_NOW:['act','p-act','ACT NOW'], PREPARE:['prep','p-warn','PREPAR
 const PROOF = {PROVED:'p-ok', NOT_PROVED:'p-unk', NEEDS_REVIEW:'p-rev'};
 // Aviso de idade, repetido em toda tela que imprime contagem de dias.
 function avisoRelogio() {
-  if (!HOJE) return `<div class="lei"><b>Sem relogio.</b> Este navegador nao devolveu a data de
+  if (!hojeISO()) return `<div class="lei"><b>Sem relogio.</b> Este navegador nao devolveu a data de
     hoje: as contagens de dias abaixo sao as do momento do build
     (<code>${esc(P.BUILT_AT)}</code>) e <b>nao</b> foram atualizadas.</div>`;
-  const idade = IDADE === null ? null : -IDADE;
+  const idade = idadeDoDado() === null ? null : -idadeDoDado();
   return `<div class="lei"><b>Tres datas, e elas nao sao a mesma.</b>
     Dado: instantaneo oficial <code>${esc(P.DATA_SNAPSHOT_ID)}</code> de <b>${esc(DATA_DATE)}</b>
     &middot; mudanca provada mais recente dentro dele: <b>${esc(ULTIMA_MUDANCA)}</b>
     &middot; ferramenta montada em <code>${esc(P.BUILT_AT)}</code>
-    &middot; hoje, neste navegador: <b>${esc(HOJE)}</b>.
+    &middot; hoje, neste navegador: <b>${esc(hojeISO())}</b>.
     ${idade !== null && idade > 0 ? `O dado tem <b>${idade} dia(s)</b>. ` : ''}
     As contagens de dias desta tela sao recalculadas contra hoje; <b>o conteudo nao</b> —
     nada foi coletado depois de ${esc(DATA_DATE)}. <span class="unknown">O que mudou desde
@@ -519,8 +523,8 @@ function evObj(id) {
     <dt>Parser</dt><dd class="mono">${val(o.PARSER_VERSION)}</dd>
     <dt>Regras</dt><dd class="mono">${esc(o.RULESET_VERSION)}</dd>
     <dt>Janela temporal</dt><dd>${janelaSelo(o)}
-      <div class="meta">regra no build: <code>${esc(o.TIME_WINDOW_RULE)}</code>${HOJE
-        ? ` &middot; recalculada contra ${esc(HOJE)} pela regra <code>${esc(janelaAgora(o)[1])}</code>`
+      <div class="meta">regra no build: <code>${esc(o.TIME_WINDOW_RULE)}</code>${hojeISO()
+        ? ` &middot; recalculada contra ${esc(hojeISO())} pela regra <code>${esc(janelaAgora(o)[1])}</code>`
         : ` &middot; <span class="unknown">NOT_COMPUTED_WITHOUT_CLOCK</span>`}</div></dd>
   </dl>
   <h3 style="margin-top:16px">Quem pode precisar olhar</h3>${rt}`);
@@ -647,7 +651,7 @@ window.evDose = evDose;
 
 // ---------------------------------------------------------------- 1 · TODAY
 function cardObj(o) {
-  const [jAgora, jRegra] = HOJE ? janelaAgora(o) : [o.TIME_WINDOW, o.TIME_WINDOW_RULE];
+  const [jAgora, jRegra] = hojeISO() ? janelaAgora(o) : [o.TIME_WINDOW, o.TIME_WINDOW_RULE];
   const [cls, pill, lbl] = WIN[jAgora] || ['', 'p-dim', jAgora];
   const cons = o.CAPABILITY_ROUTING
     .filter(r => r.ROUTING_STATE === 'RELEVANT' || r.ROUTING_STATE === 'POTENTIALLY_RELEVANT')
@@ -678,7 +682,7 @@ function cardObj(o) {
 // dias?" merece a resposta honesta, que aqui e ZERO — a mudanca provada mais
 // recente e de 20260720. Zero e uma resposta; 36 nao era.
 let JANELA_DIAS = 0;                       // 0 = janela inteira observada
-function setJanela(d) { if (!HOJE) return; JANELA_DIAS = Number(d) || 0; viewToday(); }
+function setJanela(d) { if (!hojeISO()) return; JANELA_DIAS = Number(d) || 0; viewToday(); }
 window.setJanela = setJanela;
 function dentroDaJanela(o) {
   if (!JANELA_DIAS) return true;
@@ -692,7 +696,7 @@ function dentroDaJanela(o) {
 
 function viewToday() {
   const todosProvados = P.objects.filter(o => o.PROOF_STATE === 'PROVED');
-  const provados = HOJE ? todosProvados.filter(dentroDaJanela) : todosProvados;
+  const provados = hojeISO() ? todosProvados.filter(dentroDaJanela) : todosProvados;
   const rev = P.objects.filter(o => o.OBJECT_TYPE === 'NEEDS_HUMAN_REVIEW');
   const dq = P.objects.filter(o => o.OBJECT_TYPE === 'DATA_QUALITY_EVENT');
   const exp = provados.filter(o => o.OBJECT_TYPE === 'EXPIRY_EVENT');
@@ -700,15 +704,28 @@ function viewToday() {
   // Um vencimento que passou NAO e uma mudanca: e uma condicao que continua valendo.
   // Misturar os dois faz 15 cards iguais soterrarem as mudancas de verdade.
   const mudancas = provados.filter(o => o.OBJECT_TYPE !== 'EXPIRY_EVENT').sort((a,b) =>
-    (ordem[(HOJE?janelaAgora(a)[0]:a.TIME_WINDOW)]??9) - (ordem[(HOJE?janelaAgora(b)[0]:b.TIME_WINDOW)]??9) ||
+    (ordem[(hojeISO()?janelaAgora(a)[0]:a.TIME_WINDOW)]??9) - (ordem[(hojeISO()?janelaAgora(b)[0]:b.TIME_WINDOW)]??9) ||
     String(b.DETECTED_AT).localeCompare(String(a.DETECTED_AT)));
   const condicoes = exp.slice().sort((a,b) => String(a.VALID_FROM).localeCompare(String(b.VALID_FROM)));
+  // SF-10 · O KPI DIZIA "hojeISO()" SOBRE UM NUMERO DE OUTRO DIA.
+  // O conjunto EXPIRY_EVENT e congelado no build; o CALENDARIO recalcula o
+  // MESMO criterio contra o relogio de quem abre. Medido: no relogio real os
+  // dois davam 15 (coerente, e por isso passava despercebido); com o relogio em
+  // 2026-12-01 o calendario dizia 41 e esta tela continuava em 15; em
+  // 2040-06-20, 146 contra 15. A palavra "hoje" ficava sobre um numero do dia do
+  // build. Agora o conjunto e recalculado aqui com a MESMA funcao que o
+  // calendario usa, e os que o build nao viu aparecem dizendo que nao tem
+  // objeto de evidencia — porque nao tem, e inventar um seria pior.
+  const conflitoAgora = P.products.filter(conflitoDeValidade)
+    .sort((a,b) => String(a.expiry).localeCompare(String(b.expiry)));
+  const comObjeto = new Set(exp.map(o => o.REGISTRATION_ID));
+  const novos = conflitoAgora.filter(p => !comObjeto.has(p.reg));
   const OPC = [[30,'30 dias'],[90,'90 dias'],[365,'12 meses'],[0,'janela inteira observada']];
   // SEM RELOGIO NAO HA JANELA. Com window.Date quebrado, dias() devolve null,
   // dentroDaJanela() rejeitava tudo e a tela respondia "0 mudancas nos ultimos
   // 365 dias — e isso e uma resposta, nao uma falha". Zero por falta de relogio
   // nao e zero: e NOT_COMPUTED_WITHOUT_CLOCK. Falha de medicao nao e ausencia.
-  const semRelogio = !HOJE;
+  const semRelogio = !hojeISO();
   $('#v-today').innerHTML = `
   ${avisoRelogio()}
   ${GLOSA_JANELA}
@@ -722,13 +739,13 @@ function viewToday() {
       : OPC.map(([d,l]) => `<button class="ev" style="${JANELA_DIAS===d?'outline:2px solid var(--ok)':''}"
          onclick="setJanela(${d})">${l}</button>`).join(' ')}
     <div class="meta" style="margin-top:5px">${JANELA_DIAS && !semRelogio
-      ? `contando para tras a partir de <b>hoje</b> (${esc(HOJE)}), nao a partir da data
+      ? `contando para tras a partir de <b>hoje</b> (${esc(hojeISO())}), nao a partir da data
          do dado.${(() => {
            // Os dias entre a data do dado e hoje NAO foram cobertos por coleta
            // nenhuma. Para eles a resposta nao e zero: e NOT_COLLECTED. Uma
            // janela de 30 dias que termina hoje, com dado de 6 dias atras,
            // cobre 24 dias e nao 30 — e a tela tem de dizer qual e qual.
-           const desc = IDADE === null ? null : -IDADE;
+           const desc = idadeDoDado() === null ? null : -idadeDoDado();
            if (!desc || desc <= 0) return '';
            const cob = Math.max(0, JANELA_DIAS - desc);
            return ` <b>Desta janela de ${JANELA_DIAS} dias, ${cob} foram cobertos por coleta e
@@ -746,7 +763,8 @@ function viewToday() {
   </div>
   <div class="cards">
     <div class="kpi"><b>${mudancas.length}</b><span>mudancas provadas ${JANELA_DIAS&&!semRelogio?`nos ultimos ${JANELA_DIAS} dias`:'na janela observada'}</span></div>
-    <div class="kpi"><b style="color:var(--bad)">${exp.length}</b><span>validade vencida e ainda listado ativo</span></div>
+    <div class="kpi"><b style="color:var(--bad)">${conflitoAgora.length}</b><span>validade vencida e ainda listado ativo${
+      conflitoAgora.length!==exp.length?` <b>(no build eram ${exp.length})</b>`:''}</span></div>
     <div class="kpi"><b style="color:var(--rev)">${rev.length}</b><span>itens que a maquina recusou adivinhar</span></div>
     <div class="kpi"><b style="color:var(--unk)">${dq.length}</b><span>estados de leitura a resolver</span></div>
     <div class="kpi"><b class="mono" style="font-size:15px">${esc(P.history.window)}</b><span>janela observada (coleta)</span></div>
@@ -761,11 +779,20 @@ function viewToday() {
     outro. Cada card mostra o antes, o depois, e os dois documentos que provam.</div>
   ${mudancas.map(cardObj).join('') || '<div class="block meta">nenhuma mudanca provada na janela</div>'}
 
-  <h2>Condicoes que continuam valendo hoje (${condicoes.length})</h2>
+  <h2>Condicoes que continuam valendo hoje (${conflitoAgora.length})</h2>
   <div class="lei">Isto <b>nao mudou agora</b>: e um conflito entre dois campos oficiais que segue
     de pe. A validade declarada ja passou e o registro continua listando o produto como autorizado.
     <b>Vencer nao e ser revogado</b> &mdash; a ferramenta mostra os dois campos e nao conclui saida
-    de mercado.</div>
+    de mercado.
+    ${novos.length ? `<div class="meta" style="margin-top:6px"><b>${novos.length} deste conjunto o
+      build nao tinha visto:</b> a validade deles passou entre a data do build
+      (${esc(P.BUILT_AT)}) e hoje (${esc(hojeISO())}). Eles entram na conta porque o criterio e
+      recalculado contra o SEU relogio — mas <b>nao tem objeto de inteligencia</b>, porque nenhum
+      foi emitido para eles, e inventar um seria pior do que a falta.
+      ${novos.map(p=>`<code>${esc(p.reg)}</code> ${esc(p.name)}`).join(' &middot; ')}</div>` : ''}
+    ${conflitoAgora.length !== exp.length ? '' : `<div class="meta" style="margin-top:6px">Hoje o
+      numero recalculado bate com o do build (${exp.length}). Isso nao e sempre verdade: o
+      conjunto do build envelhece e o desta tela nao.</div>`}</div>
   <div class="tw"><table>
     <thead><tr><th>Validade</th><th>Ha</th><th>Produto</th><th>Registro</th>
       <th>Estado declarado hoje</th><th></th></tr></thead>
@@ -897,9 +924,9 @@ function viewProduto(reg) {
       <tr><th>Etichetta em vigor desde</th><td>${val(p.label_effective)}</td></tr>
       ${p.label_valid_to && !isUnk(p.label_valid_to) ? `
       <tr><th>Vigencia declarada NA PROPRIA etichetta</th>
-        <td${(HOJE && p.label_valid_to < HOJE) ? ' style="color:var(--bad)"' : ''}>
+        <td${(hojeISO() && p.label_valid_to < hojeISO()) ? ' style="color:var(--bad)"' : ''}>
           ${esc(p.label_valid_from)} &rarr; <b>${esc(p.label_valid_to)}</b>
-          ${(HOJE && p.label_valid_to < HOJE)
+          ${(hojeISO() && p.label_valid_to < hojeISO())
             ? ` &mdash; <b>a vigencia que o proprio documento declara ja terminou</b>`
             : ''}
           <div class="meta">o documento escreve: <i>&ldquo;${esc(p.label_validity_quote)}&rdquo;</i>.
@@ -2044,10 +2071,10 @@ $('#psel').addEventListener('change', () => viewProduto($('#psel').value));
 $('#sq').addEventListener('input', viewSearch);
 
 // A tarja de datas do cabecalho, preenchida pelo relogio de quem abre.
-$('#relogio').innerHTML = HOJE
+$('#relogio').innerHTML = hojeISO()
   ? `dado: <b>${esc(DATA_DATE)}</b> (${esc(P.DATA_SNAPSHOT_ID)}) &middot; ultima mudanca provada:
      <b>${esc(ULTIMA_MUDANCA)}</b> &middot; montado em ${esc(P.BUILT_AT)} &middot;
-     hoje: <b>${esc(HOJE)}</b>${IDADE !== null && -IDADE > 0 ? ` &middot; o dado tem ${-IDADE} dia(s)` : ''}`
+     hoje: <b>${esc(hojeISO())}</b>${idadeDoDado() !== null && -idadeDoDado() > 0 ? ` &middot; o dado tem ${-idadeDoDado()} dia(s)` : ''}`
   : `dado: <b>${esc(DATA_DATE)}</b> &middot; montado em ${esc(P.BUILT_AT)} &middot;
      <span class="unknown">SEM_RELOGIO</span> — este navegador nao devolveu a data de hoje`;
 

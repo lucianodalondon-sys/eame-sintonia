@@ -426,6 +426,28 @@ teste('SF-12/SF-07 · a ferramenta nao cita frase que o rotulo nao escreve', () 
   return `${n} celulas montadas, todas com nome proprio · nenhuma janela prefixo`;
 });
 
+teste('SF-10 · o KPI de "hoje" e recalculado contra o relogio de quem abre', () => {
+  const real = Date;
+  const conta = () => { viewToday();
+    const m = html('#v-today').match(/Condicoes que continuam valendo hoje \((\d+)\)/);
+    return m ? Number(m[1]) : -1; };
+  const agora = conta();
+  let futuro = -1;
+  try {
+    const fixo = new real(2040, 5, 20, 12, 0, 0);
+    globalThis.Date = class extends real {
+      constructor(...a) { return a.length ? new real(...a) : new real(fixo); }
+      static now() { return fixo.getTime(); }
+      static parse(...a) { return real.parse(...a); }
+    };
+    futuro = conta();
+  } finally { globalThis.Date = real; viewToday(); }
+  afirma(agora >= 0 && futuro >= 0, 'nao consegui ler o numero da tela');
+  afirma(futuro > agora,
+    `com o relogio em 2040 a tela ainda diz ${futuro} (hoje diz ${agora}): o conjunto esta congelado no build`);
+  return `hoje ${agora} · com o relogio em 2040-06-20 sobe para ${futuro}`;
+});
+
 teste('a celula de dose diz de que linha o numero veio', () => {
   viewCrop();
   const h = html('#cres');
