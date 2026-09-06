@@ -367,6 +367,18 @@ def regressoes():
     # e ela NÃO é 100%.
     baixa = _estagio_cobertura(port, 'LABEL_DOWNLOAD_COVERAGE') or {}
     leitura = _estagio_cobertura(port, 'LABEL_READ_COVERAGE') or {}
+    # A camada que RESPONDE tem de saber que existem 40 rotulos mudos, senao a
+    # pergunta "a ADAMA tem produto para X?" pode ser respondida com ausencia sobre um
+    # rotulo que este artefacto nao leu. `PARSER_SILENCE != NO_PRODUCT`.
+    divida = port.get('READ_STRUCTURING_DEBT') or {}
+    out.append(('PARSER_SILENCE != NO_PRODUCT',
+                (divida.get('CLASSE') == 'READ/STRUCTURING_DEBT'
+                 and divida.get('NAO_E') == 'REGULATORY_ABSENCE'
+                 and len(divida.get('REGISTRATION_IDS') or []) > 0
+                 and divida.get('CONFIRMED_PARSER_DEBT', {}).get('COUNT', 0) > 0),
+                'os rotulos que este artefacto nao leu ficam nomeados; ausencia sobre eles '
+                'seria silencio do parser publicado como ausencia de registo'))
+
     out.append(('READ_FAILURE != NO_LABEL',
                 (baixa.get('OBTAINED') == 163 and baixa.get('PCT') == 100.0
                  and 'PCT' not in port.get('LABEL_COVERAGE', {})

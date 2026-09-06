@@ -108,7 +108,7 @@ class TestSentinelasDoHandoffBatemComOLedger(unittest.TestCase):
 
     def test_os_valores_das_sentinelas_batem(self):
         t = texto(PROMPT)
-        for m, esperado in [('SOURCE_ID_COUNT', 39), ('RAIF_SEASONS_AVAILABLE', 23),
+        for m, esperado in [('SOURCE_ID_COUNT', 40), ('RAIF_SEASONS_AVAILABLE', 23),
                             ('RAIF_READINGS_TOTAL', 148964), ('ES_EXPIRING_6M', 486),
                             ('ES_EXPIRING_12M', 1004), ('ES_ACTIVE_WITH_PAST_EXPIRY', 34),
                             ('VOICE_ES_RESEARCHERS', 152), ('VOICE_ES_VIDEO_CONTENTS', 252),
@@ -118,6 +118,40 @@ class TestSentinelasDoHandoffBatemComOLedger(unittest.TestCase):
                              f'{m}: o ledger mudou e o prompt de bootstrap nao acompanhou')
             self.assertRegex(t, rf'{m}\s*=\s*{esperado}\b',
                              f'{m}: o valor no prompt diverge do ledger')
+
+    def test_o_handoff_nao_promete_um_verde_que_nao_existe(self):
+        """Publicava «0 falhas, 0 erros, 0 pulados» ao lado do comando que imprime 10.
+
+        O número de testes era o único campo guardado, então o resto da linha podia
+        dizer qualquer coisa. Um handoff que promete verde e entrega vermelho é pior
+        que um handoff sem número: a conta nova gasta a primeira missão a descobrir
+        que a régua mente.
+        """
+        linhas = [l for l in sem_marcador(HANDOFF).split('\n') if '**TESTS**' in l]
+        self.assertEqual(1, len(linhas), 'a linha TESTS do handoff sumiu ou duplicou')
+        linha = linhas[0]
+        # `\b` obrigatorio: sem ele, «10 falhas» contem «0 falhas» e o teste reprova a
+        # propria correcao. O numero que interessa e o zero SOZINHO.
+        self.assertNotRegex(
+            linha, r'\b0 (?:falhas|erros|pulados)',
+            'o handoff volta a prometer suíte limpa; se ela ficou limpa, apague também '
+            'a lista de vermelhos do ledger e este teste')
+        self.assertIn('INTEGRACAO-PROGRESSIVA-03', linha,
+                      'a linha TESTS não diz onde os vermelhos estão nomeados')
+
+    def test_os_vermelhos_herdados_estao_nomeados_um_a_um(self):
+        ledger = os.path.join(ROOT, 'docs', 'organizacao',
+                              'INTEGRACAO-PROGRESSIVA-03.md')
+        if not os.path.exists(ledger):
+            self.skipTest('ledger do PASSO 03 ausente')
+        with open(ledger, encoding='utf-8') as f:
+            doc = f.read()
+        for nome in ('test_adama_es_gate', 'test_evidence', 'test_migrations',
+                     'test_proveniencia'):
+            with self.subTest(modulo=nome):
+                self.assertIn(nome, doc,
+                              'módulo vermelho não nomeado no ledger — vermelho sem nome '
+                              'é vermelho escondido')
 
     def test_a_contagem_de_testes_do_handoff_bate(self):
         # O documento escreve o milhar com ponto — e o `--sync` escreve assim. Comparar

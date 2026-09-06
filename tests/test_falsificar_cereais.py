@@ -69,9 +69,14 @@ class ONaoNuncaVirouNacional(unittest.TestCase):
     def test_as_duas_chaves_dizem_de_que_especie_de_sensor_falam(self):
         """Lado a lado, YES e NOT_OBSERVED liam-se como contradição. São duas
         perguntas: a organização local existe, a pessoa não."""
+        # As duas linhas do meio comparavam um literal com outro literal:
+        # `assertIn('ORGANIZATION', 'CEREAL_LOCAL_FIELD_ORGANIZATION_SENSOR_FOUND')`
+        # é verdade em qualquer repositório, com ou sem a chave. Renomear a chave da
+        # organização não reprovava nada. Agora as duas chaves são procuradas NO
+        # ARTEFATO. `LITERAL_vs_LITERAL != PROVA`.
         self.assertNotIn('CEREAL_LOCAL_FIELD_SENSOR_FOUND', self.M)
-        self.assertIn('ORGANIZATION', 'CEREAL_LOCAL_FIELD_ORGANIZATION_SENSOR_FOUND')
-        self.assertIn('HUMAN_PERSON', 'CEREAL_LOCAL_HUMAN_PERSON_SENSOR_FOUND')
+        self.assertIn('CEREAL_LOCAL_FIELD_ORGANIZATION_SENSOR_FOUND', self.M)
+        self.assertIn('CEREAL_LOCAL_HUMAN_PERSON_SENSOR_FOUND', self.M)
         self.assertIn('dois estados', self.M['WHY_TWO_KEYS'])
 
     def test_a_linha_de_sensores_humanos_esta_congelada(self):

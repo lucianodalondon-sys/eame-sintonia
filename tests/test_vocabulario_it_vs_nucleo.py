@@ -76,24 +76,44 @@ class TestOsDoisVocabulariosDeEvidencia(unittest.TestCase):
                 corpo = f.read()
             # comentários fora: o que conta é DDL
             corpo = re.sub(r'--[^\n]*', '', corpo)
+            # Duas grafias, e as duas sao Postgres corrente: `in (...)` e o
+            # `= any (array[...])` que o proprio `pg_dump` emite ao reescrever um
+            # IN. Reconhecer so a primeira nao deixava o CHECK mais estreito —
+            # deixava o TESTE cego: uma migracao futura escrita na segunda forma
+            # ampliava a coluna para aceitar MODELLED_RISK com os cinco testes
+            # verdes. `UMA GRAFIA != A REGRA`.
             for m in re.finditer(
-                    r"check\s*\(\s*tipo_de_evidencia\s+in\s*\((?P<lista>[^)]*)\)\s*\)",
+                    r"check\s*\(\s*tipo_de_evidencia\s*(?:::\s*\w+\s*)?"
+                    r"(?:in\s*\(|=\s*any\s*\(\s*array\s*\[)(?P<lista>[^)\]]*)",
                     corpo, re.I | re.S):
                 vigente = set(re.findall(r"'([A-Z_]+)'", m.group('lista')))
+            # E se alguem escrever numa terceira forma, o teste tem de GRITAR em
+            # vez de continuar a comparar contra a migracao anterior.
+            if re.search(r'tipo_de_evidencia', corpo, re.I) and \
+               re.search(r'\b(?:check|constraint)\b', corpo, re.I) and \
+               not re.search(r"check\s*\(\s*tipo_de_evidencia\s*(?:::\s*\w+\s*)?"
+                             r"(?:in\s*\(|=\s*any\s*\(\s*array\s*\[)", corpo, re.I | re.S) and \
+               not re.search(r'drop\s+constraint', corpo, re.I):
+                vigente = ('FORMA_NAO_RECONHECIDA', os.path.basename(sql))
         return vigente
 
     def test_o_check_do_banco_existe_e_e_legivel(self):
         """Sem esta, as duas asserções abaixo passariam com o CHECK apagado."""
+        vigente = self._check_do_banco()
+        self.assertNotIsInstance(
+            vigente, tuple,
+            'uma migração define o CHECK de tipo_de_evidencia numa forma que este '
+            'teste não sabe ler (%r) — corrigir o parser antes de confiar no verde' % (vigente,))
         self.assertIsNotNone(
-            self._check_do_banco(),
+            vigente,
             'nenhuma migração define um CHECK para conteudo_lugar.tipo_de_evidencia — '
             'a coluna aceitaria qualquer string, MODELLED_RISK incluído')
 
     def test_o_que_so_o_leitor_it_tem_nao_chega_ao_banco(self):
         """MODELLED_RISK não pode entrar em conteudo_lugar pela porta do leitor."""
         vigente = self._check_do_banco()
-        if vigente is None:
-            self.fail('CHECK ausente — ver test_o_check_do_banco_existe_e_e_legivel')
+        if vigente is None or isinstance(vigente, tuple):
+            self.fail('CHECK ausente ou ilegível — ver test_o_check_do_banco_existe_e_e_legivel')
         for especie in SO_NO_LEITOR_IT:
             self.assertNotIn(
                 especie, vigente,
@@ -102,8 +122,8 @@ class TestOsDoisVocabulariosDeEvidencia(unittest.TestCase):
     def test_o_nucleo_e_quem_manda_no_banco(self):
         """A lista do núcleo é EXATAMENTE a que o CHECK aceita — igualdade, não inclusão."""
         vigente = self._check_do_banco()
-        if vigente is None:
-            self.fail('CHECK ausente — ver test_o_check_do_banco_existe_e_e_legivel')
+        if vigente is None or isinstance(vigente, tuple):
+            self.fail('CHECK ausente ou ilegível — ver test_o_check_do_banco_existe_e_e_legivel')
         self.assertEqual(
             self.nucleo, vigente,
             'o CHECK do banco e o vocabulário do núcleo divergiram')

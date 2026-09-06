@@ -392,9 +392,10 @@ def _rodar(actor, entrada, *, run_id, platform, country, query, evidence_path, l
             evidence_path=evidence_path)
         man['TOKEN_POSITION_USED'] = pos
         man['RUNNER_NAME'] = RUNNER
-        estado = ap.classificar(
-            status=None if man['STATUS'] == 'FAILED' else 'SUCCEEDED',
-            status_message=str(man.get('ERROR') or ''), itens=itens)
+        # A traducao do manifesto vive em UM lugar so. Repeti-la aqui foi o
+        # defeito de 2026-08-30: `PARTIAL por ZERO itens` virava falha do ator, e
+        # um autor sem posts na janela parava a fila dos outros tres.
+        estado = ap.estado_da_execucao(man, itens)
         ultimo = (itens, man)
         if itens:
             return itens, man, pos

@@ -9,16 +9,18 @@
 
 ## A · ITALY_COUNTRY_STATE
 
-A Itália responde perguntas italianas sozinha. Cinco camadas medidas, todas com rota
-reproduzível e evidência preservada:
+A Itália responde perguntas italianas sozinha. Cinco camadas medidas, **todas com rota
+reproduzível** — e a evidência bruta preservada em quatro das seis linhas abaixo, não em
+todas. Onde não está, diz-se: `ROTA_REPRODUZÍVEL != EVIDÊNCIA_PRESERVADA`.
 
 | Camada | Fonte | Estado |
 |---|---|---|
 | REGULATÓRIO nacional | `IT-T4-001` Ministero — CSV/JSON/XML aberto | **GREEN** |
 | RÓTULO oficial | `IT-T4-001-ETICHETTA` — servlet + PDF | **GREEN**, 163/163 |
-| ESCALA nacional e regional | `IT-T1-001` ISTAT SDMX + `EU-T1-001` Eurostat | **GREEN** |
-| CAMPO regional | `IT-T3-002/003/006` Vêneto, Lombardia, ERSA FVG | **GREEN** |
-| NORMA regional | `IT-T3-LOTTA` decretos de lotta obbligatoria | **GREEN** |
+| ESCALA nacional e regional | `IT-T1-001` ISTAT SDMX + `EU-T1-001` Eurostat | **GREEN**, sem linha `EVIDENCE` na ficha |
+| CAMPO regional | `IT-T3-002` Vêneto · `IT-T3-006` ERSA FVG | **GREEN**, com bruto preservado e hash |
+| CAMPO regional | `IT-T3-003` Lombardia | **sem ficha canônica** — rota medida GREEN no mapa nacional, sem bruto preservado; não é GREEN do atlas |
+| NORMA regional | `IT-T3-LOTTA-OBBLIGATORIA` decretos de lotta obbligatoria | **GREEN**, sem linha `EVIDENCE` na ficha |
 | CIÊNCIA | `IT-T5-001` OpenAlex dirigido | **GREEN** |
 | SITE do fabricante | `IT-T9-001` adama.com | **BLOQUEADA** — 403 de WAF |
 

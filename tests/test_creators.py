@@ -742,7 +742,10 @@ class TestLeisDoMatcherDeCultura(unittest.TestCase):
         """A cultura sai do CONTEÚDO, nunca da consulta que trouxe o candidato."""
         self.assertIn('CROP_PROVED_BY_CONTENT', cr.CAMPOS_CREATOR)
         self.assertIn('CROP_CLAIMED_BY_SEED', cr.CAMPOS_CREATOR)
-        self.assertNotEqual('CROP_PROVED_BY_CONTENT', 'CROP_CLAIMED_BY_SEED')
+        # Comparava dois literais: verdade em qualquer repositório. O que importa é
+        # que o CONTRATO tem os dois campos, distintos, e não um só.
+        self.assertEqual(2, len({'CROP_PROVED_BY_CONTENT', 'CROP_CLAIMED_BY_SEED'}
+                                & set(cr.CAMPOS_CREATOR)))
 
     def test_ONE_MENTION_nao_e_RECURRING_CROP_FIT(self):
         m = self._m()

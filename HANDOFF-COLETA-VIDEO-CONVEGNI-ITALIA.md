@@ -244,6 +244,11 @@ reproduz o digest sem rede e sem PDF: `LABEL_PARSER_SURVIVES_NEW_CONTAINER = PAS
 ## 0b · O QUE MUDOU NA 3ª RODADA — LEITURA DOS 163 RÓTULOS
 
 **Cobertura de leitura fechada: 163/163, com SHA batendo em 163/163** contra o download da
+
+> **COBERTURA — `163/163` aqui é DOWNLOAD e EXTRAÇÃO DE TEXTO, não leitura de uso.**
+> A leitura tem régua própria e não é 100%: `LABEL_READ_COVERAGE = 123/163` e
+> `CROP_TERM_AND_ISSUE_BOTH_PRESENT_COVERAGE = 96/163`, em
+> `data/samples/IT-T4-001/IT-T4-001-portfolio-rotulo.json`. `PARSER_FAILURE != ABSENCE`.
 casa de 2026-08-30. Não é coleta nova: são os mesmos documentos, byte a byte.
 
 **O gargalo nunca foram os 61.** Dos **15** rótulos que autorizam OLIVO, **14 já tinham sido

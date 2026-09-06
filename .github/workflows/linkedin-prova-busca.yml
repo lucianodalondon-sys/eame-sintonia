@@ -19,9 +19,22 @@ on:
         description: 'so ler o contrato dos Actors (gratuito, nao gasta nada)'
         type: boolean
         default: true
+      coletar_posts:
+        description: 'coletar posts dos autores com identidade resolvida'
+        type: boolean
+        default: false
+      todos_os_oito:
+        description: 'medir os 8 alvos da missao em vez dos 2 da prova'
+        type: boolean
+        default: false
+      reler_raw_do_run:
+        description: 'id do run cujo RAW deve ser relido (gratuito, zero execucao)'
+        type: string
+        default: ''
 
 permissions:
   contents: read
+  actions: read      # so para baixar o RAW ja pago de um run anterior
 
 jobs:
   provar:
@@ -56,24 +69,55 @@ jobs:
 
       - name: provas locais (nenhuma toca a rede)
         run: |
-          python3 -m unittest tests.test_apify_contrato tests.test_linkedin_prova_busca -v 2>&1 | tail -30
+          python3 -m unittest tests.test_apify_contrato tests.test_linkedin_prova_busca \
+            tests.test_fato_local tests.test_linkedin_posts 2>&1 | tail -12
 
       - name: contrato de entrada dos Actors (GET gratuito, zero run)
         env:
           APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
         run: python3 scripts/apify_contrato.py
 
-      - name: prova de dois nomes
-        if: ${{ inputs.so_contrato == false }}
+      # Corrigir o MEU parser nao pode custar dinheiro de novo. O bruto de um run
+      # anterior volta pelo artefato e a leitura e refeita com ZERO execucoes.
+      - name: baixar o RAW ja pago
+        if: ${{ inputs.reler_raw_do_run != '' }}
+        uses: actions/download-artifact@v4
+        with:
+          # Sem `name`: baixa TODOS os artefatos daquele run e funde. O run 3 subiu
+          # sob o nome antigo, e exigir o nome novo faria a releitura falhar por
+          # causa de uma renomeacao minha — nao por falta do bruto.
+          run-id: ${{ inputs.reler_raw_do_run }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          merge-multiple: true
+          path: data/samples
+
+      - name: reler o RAW ja pago (zero execucao, zero custo)
+        if: ${{ inputs.reler_raw_do_run != '' }}
+        run: python3 scripts/linkedin_prova_busca.py --reler-raw
+
+      - name: busca por nome
+        if: ${{ inputs.so_contrato == false && inputs.reler_raw_do_run == '' }}
         env:
           APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
-        run: python3 scripts/linkedin_prova_busca.py
+        run: |
+          python3 scripts/linkedin_prova_busca.py \
+            ${{ inputs.todos_os_oito && '--todos' || '' }}
+
+      # A identidade vem do RAW ja pago da busca; a coleta so alcanca quem
+      # chegou a CONFIRMED ou PLAUSIBLE. Quem nao chegou nao e coletado, e isso
+      # e resultado — nao obstaculo a contornar.
+      - name: coletar posts de quem a identidade permite
+        if: ${{ inputs.coletar_posts == true }}
+        env:
+          APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+        run: python3 scripts/linkedin_posts.py
 
       - name: nenhum token nos artefatos
         if: ${{ always() }}
         run: |
           for f in data/samples/IT-CASOS/IT-APIFY-CONTRATO.json \
-                   data/samples/IT-CASOS/IT-LINKEDIN-PROVA-BUSCA.json; do
+                   data/samples/IT-CASOS/IT-LINKEDIN-PROVA-BUSCA.json \
+                   data/samples/IT-CASOS/IT-LINKEDIN-POSTS.json; do
             [ -f "$f" ] || continue
             if grep -qE 'apify_api_[A-Za-z0-9]{10,}' "$f"; then
               echo "ABORTADO: token no artefato $f"; exit 1
@@ -84,9 +128,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
-          name: linkedin-prova-busca
+          # Nome por run: um artefato fixo faria a releitura de amanha baixar o
+          # bruto de hoje pensando que era o de ontem.
+          name: linkedin-prova-busca-${{ github.run_id }}
           path: |
             data/samples/IT-CASOS/IT-APIFY-CONTRATO.json
             data/samples/IT-CASOS/IT-LINKEDIN-PROVA-BUSCA.json
+            data/samples/IT-CASOS/IT-LINKEDIN-POSTS.json
             data/samples/raw-paid/
           if-no-files-found: ignore

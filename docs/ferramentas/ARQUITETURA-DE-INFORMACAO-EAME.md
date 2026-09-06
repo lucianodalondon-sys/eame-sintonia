@@ -194,8 +194,8 @@ STATUS:               **CONCEPT** — sem fonte. YouTube Data API 403, Meta Grap
 ## ÁREA · EVIDENCE & SOURCES — `PROVED`
 ```
 PURPOSE:              toda resposta leva de volta à evidência (DECK-024)
-STATUS:               **PROVED** — <!--M:SOURCE_ID_COUNT-->39<!--/M--> SOURCE_IDs fichados, 16 amostras com proveniência
-                      obrigatória testada, <!--M:TEST_COUNT_CURRENT-->1.334<!--/M--> provas automatizadas
+STATUS:               **PROVED** — <!--M:SOURCE_ID_COUNT-->40<!--/M--> SOURCE_IDs fichados, 16 amostras com proveniência
+                      obrigatória testada, <!--M:TEST_COUNT_CURRENT-->1.390<!--/M--> provas automatizadas
 ```
 
 ## ÁREAS AVALIADAS E **NÃO** RECOMENDADAS AGORA

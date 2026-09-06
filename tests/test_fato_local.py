@@ -465,9 +465,31 @@ class OBoletimFitossanitarioRealAchouTresFuros(unittest.TestCase):
 
     def test_safra_deixou_de_ser_ancora_de_si_mesma(self):
         """`annata`/`stagione` estavam nos DOIS lados: na expressão e na âncora,
-        então toda expressão de safra se autoqualificava."""
-        self.assertNotIn(r'annata', fl.ANCORAS_DE_TEMPO_DO_FATO)
-        self.assertNotIn(r'stagione', fl.ANCORAS_DE_TEMPO_DO_FATO)
+        então toda expressão de safra se autoqualificava.
+
+        Listar os dois termos à mão deixava o terceiro de fora: `raccolt[oa]`
+        continuou nos dois lados e `il raccolto 2021-2022` continuou a datar-se a
+        si mesmo, com a lei publicada como fechada. Agora a proibição é DERIVADA
+        da própria expressão de safra — termo novo em `TEMPO` fica proibido como
+        âncora no mesmo instante em que entra.
+        """
+        import re as _re
+        alternacao = _re.search(r'\(\?:([a-z\[\]|]+)\)\\s\+\\d\{4\}',
+                                fl.TEMPO[0][0])
+        self.assertIsNotNone(alternacao,
+                             'a expressão de safra mudou de forma — reescrever esta prova')
+        termos = alternacao.group(1).split('|')
+        self.assertGreaterEqual(len(termos), 3)
+        for termo in termos:
+            with self.subTest(termo=termo):
+                self.assertNotIn(termo, fl.ANCORAS_DE_TEMPO_DO_FATO,
+                                 '%s está na expressão de safra E na lista de '
+                                 'âncoras: a safra volta a datar-se a si mesma' % termo)
+
+    def test_o_ano_da_cultura_continua_a_datar_o_fato(self):
+        """`coltura` caiu no enxerto sem razão escrita, e levou o tempo junto."""
+        r = fl.tempo_do_fato('La coltura del grano duro nel 2025 ha mostrato problemi.')
+        self.assertEqual('2025', r['FACT_TIME'])
 
     # As duas proteções se sobrepõem de propósito, então uma mutação precisa de
     # uma frase onde SÓ a proteção mutada esteja em jogo. Uma frase que ambas

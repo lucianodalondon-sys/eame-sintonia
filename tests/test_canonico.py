@@ -50,6 +50,180 @@ def source_ids():
     return ids
 
 
+ID_LEDGER = r'(?:EU|FR|ES|IT)-T\d{1,2}-\d{3}'
+PAIS = {'EU': 'EUROPE', 'FR': 'FRANCE', 'ES': 'SPAIN', 'IT': 'ITALY'}
+
+
+def verdicts():
+    """SOURCE_ID -> VERDICT, lido das fichas e das tabelas de não alcançadas.
+
+    O placar era auto-certificado: `SOURCE_GREEN_COUNT` saía da própria linha de
+    Total, e mover um GREEN de país para país passava sem reprovar nada. Aqui o
+    placar é comparado com as linhas `VERDICT:` que as fichas realmente têm.
+    """
+    achados = {}
+    for bloco in re.findall(r'```(.*?)```', FONTES, re.S):
+        m = re.search(r'^SOURCE_ID:\s+(\S[^\n#]*)', bloco, re.M)
+        if not m:
+            continue
+        v = re.search(r'^VERDICT:\s+(\S[^\n]*)', bloco, re.M)
+        raw = re.sub(r'\(.*?\)', '', m.group(1).strip())
+        for part in re.split(r'[·/]', raw):
+            part = part.strip()
+            if re.fullmatch(ID_LEDGER, part):
+                achados[part] = (v.group(1).strip() if v else 'SEM VERDICT')
+    for m in re.finditer(r'^\|\s*(%s)\s*\|([^\n]*)$' % ID_LEDGER, FONTES, re.M):
+        achados.setdefault(m.group(1),
+                           'NÃO SEI' if 'NÃO SEI' in m.group(2) else 'SEM VERDICT')
+    return achados
+
+
+def _classe(v):
+    v = v.upper().lstrip('*')
+    return ('G' if v.startswith('GREEN') else 'Y' if v.startswith('YELLOW')
+            else 'R' if v.startswith('RED') else '?')
+
+
+class TestOPlacarDescreveAsFichas(unittest.TestCase):
+    """Um placar que só bate consigo mesmo não descreve o documento.
+
+    Quatro mutações passavam antes desta classe: mover um GREEN da Espanha para a
+    Itália, trocar o VERDICT de uma ficha sem tocar no placar, destruir a linha da
+    Itália na tabela de cobertura, e apagar a seção de reconciliação inteira.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.v = verdicts()
+        cls.mat = {}
+        cls.terr = {}
+        for sid, ver in cls.v.items():
+            pais, terr = sid.split('-')[0], sid.split('-')[1]
+            cls.mat.setdefault(pais, Counter())[_classe(ver)] += 1
+            cls.terr.setdefault(pais, {}).setdefault(terr, Counter())[_classe(ver)] += 1
+
+    def test_toda_ficha_declara_um_veredito_conhecido(self):
+        for sid, ver in sorted(self.v.items()):
+            with self.subTest(fonte=sid):
+                self.assertNotEqual('SEM VERDICT', ver,
+                                    'ficha sem VERDICT: entra no placar como NÃO SEI sem dizer')
+
+    def test_cada_linha_do_placar_bate_com_os_vereditos_daquele_pais(self):
+        linhas = dict((l[0], [int(x) for x in l[1:]]) for l in re.findall(
+            r'^\| (EUROPE|FRANCE|SPAIN|ITALY) \| (\d+) \| (\d+) \| (\d+) \| (\d+) \| (\d+) \|$',
+            FONTES, re.M))
+        self.assertEqual(4, len(linhas), 'placar sem as quatro linhas de recorte')
+        for sigla, nome in PAIS.items():
+            c = self.mat.get(sigla, Counter())
+            with self.subTest(pais=nome):
+                self.assertEqual([c['G'], c['Y'], c['R'], c['?'], sum(c.values())],
+                                 linhas[nome],
+                                 'a linha de %s não é o que as fichas declaram' % nome)
+
+    def test_a_cobertura_por_territorio_bate_com_os_vereditos(self):
+        bloco = re.search(r'\| \| T1 \|.*?\n\n', FONTES, re.S)
+        self.assertIsNotNone(bloco, 'tabela de cobertura por território ausente')
+        linhas = dict((l[0], l[1]) for l in re.findall(
+            r'^\| (EUROPE|FRANCE|SPAIN|ITALY) \|(.+)\|$', bloco.group(0), re.M))
+        self.assertEqual(4, len(linhas))
+        for sigla, nome in PAIS.items():
+            celulas = [c.strip() for c in linhas[nome].split('|')]
+            with self.subTest(pais=nome):
+                self.assertEqual(13, len(celulas), 'a tabela precisa ir de T1 a T13')
+                for n in range(1, 14):
+                    c = self.terr.get(sigla, {}).get('T%d' % n)
+                    esperado = ('–' if not c else
+                                '/'.join('%d%s' % (v, k) for k, v in sorted(c.items()) if v))
+                    with self.subTest(territorio='T%d' % n):
+                        self.assertEqual(esperado, celulas[n - 1])
+
+
+class TestTodaEvidenciaDeclaradaExiste(unittest.TestCase):
+    """Uma ficha rebaixada por «não tem bruto preservado» e o bruto estava no disco.
+
+    A justificação era `RAW_EVIDENCE_PRESERVED: NÃO — nenhum byte dela está versionado`,
+    e o repositório tinha o boletim n.º 07 da mesma série, 9.381 bytes, com sha256
+    registado em dois artefactos. A afirmação de ausência foi escrita sem ser medida.
+
+        AUSÊNCIA DE EVIDÊNCIA != EVIDÊNCIA DE AUSÊNCIA
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.blocos = []
+        for bloco in re.findall(r'```(.*?)```', FONTES, re.S):
+            m = re.search(r'^SOURCE_ID:\s+(\S[^\n#]*)', bloco, re.M)
+            v = re.search(r'^VERDICT:\s+(\S[^\n]*)', bloco, re.M)
+            if not m or not v:
+                continue
+            sid = m.group(1).strip()
+            if sid.startswith('#') or '<' in sid:
+                continue
+            e = re.search(r'^EVIDENCE:\s+(.+?)(?=\n[A-Z_]+:|\Z)', bloco, re.M | re.S)
+            cls.blocos.append((sid, v.group(1).strip(), e.group(1) if e else None))
+
+    def test_todo_caminho_declarado_em_evidence_existe(self):
+        quebrados = []
+        for sid, _, ev in self.blocos:
+            if not ev:
+                continue
+            for caminho in re.findall(r'(data/[^\s·,)]+)', ev):
+                caminho = caminho.rstrip('.,)·')
+                if not os.path.exists(os.path.join(ROOT, caminho)):
+                    quebrados.append((sid, caminho))
+        self.assertEqual([], quebrados,
+                         'ficha aponta EVIDENCE para caminho que não existe')
+
+    def test_as_fichas_sem_evidence_sao_exactamente_as_declaradas(self):
+        """Acrescentar uma décima quarta sem a declarar tem de reprovar."""
+        sem = {sid for sid, _, ev in self.blocos if ev is None}
+        declaradas = set()
+        m = re.search(r'### Fichas sem linha `EVIDENCE`, nomeadas(.*?)### Placar',
+                      FONTES, re.S)
+        self.assertIsNotNone(m, 'a lista de fichas sem EVIDENCE sumiu do atlas')
+        for sid, _, ev in self.blocos:
+            if ev is not None:
+                continue
+            chave = sid.split(' ')[0].split('/')[0]
+            if chave in m.group(1) or sid in m.group(1):
+                declaradas.add(sid)
+        self.assertEqual(sem, declaradas,
+                         'há ficha sem EVIDENCE que a lista do atlas não nomeia')
+        self.assertEqual(13, len(sem),
+                         'o número de fichas sem EVIDENCE mudou — actualizar a lista')
+
+
+class TestAReconciliacaoCobreTodoOTokenDeFora(unittest.TestCase):
+    """`SOURCE_IDS_WITHOUT_ATLAS_ENTRY = 0 não classificados` tem de ser reproduzível."""
+
+    def test_todo_token_fora_das_fichas_esta_classificado(self):
+        import subprocess
+        saida = subprocess.run(
+            ['grep', '-rhoE', r'\b(EU|FR|ES|IT)-T[0-9]{1,2}-[0-9]{3}\b',
+             'data/', 'scripts/', 'docs/', 'research/',
+             'italia-portale/client', 'italia-portale/BASELINE'],
+            cwd=ROOT, capture_output=True, text=True)
+        tokens = set(saida.stdout.split())
+        if not tokens:
+            self.skipTest('grep indisponível ou árvore incompleta')
+        dentro = set(verdicts())
+        # A ficha de intervalo `ES-T7-001..027` cobre 27 IDs sem os contar: é o maior
+        # LEDGER_ID_MISMATCH da casa e está declarado na regra de contagem.
+        faixa = re.search(r'ES-T7-(\d{3})\.\.(\d{3})', FONTES)
+        if faixa:
+            dentro |= {'ES-T7-%03d' % i
+                       for i in range(int(faixa.group(1)), int(faixa.group(2)) + 1)}
+        fora = sorted(t for t in tokens if t not in dentro)
+        secao = FONTES[FONTES.find('RECONCILIAÇÃO DE SOURCE_IDs'):]
+        self.assertTrue(secao, 'a seção de reconciliação sumiu do atlas')
+        nao_classificados = [t for t in fora if t not in secao]
+        self.assertEqual([], nao_classificados,
+                         'token no namespace canônico usado no repositório e não '
+                         'classificado em nenhum grupo da reconciliação')
+        self.assertIn('%d classificados' % len(fora), secao,
+                      'a seção declara um número de classificados que não é o real')
+
+
 class TestContagens(unittest.TestCase):
     """O número declarado tem de ser o número real."""
 

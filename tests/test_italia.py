@@ -1330,7 +1330,7 @@ class TestRegressoesDeConfiancaFalsa(unittest.TestCase):
         falhas = [n for n, (ok, _) in self.regs.items() if not ok]
         self.assertEqual([], falhas, 'regressoes de confianca falsa quebradas: %s' % falhas)
 
-    def test_as_vinte_e_uma_estao_presentes(self):
+    def test_as_vinte_e_duas_estao_presentes(self):
         """Apagar uma regressao nao pode ser a forma de fazer a suite passar.
 
         As quatro ultimas nasceram em 30/08/2026, quando eu corrigi tres achados meus
@@ -1341,6 +1341,7 @@ class TestRegressoesDeConfiancaFalsa(unittest.TestCase):
         """
         for nome in ('SYMPTOM_WINDOW != APPLICATION_WINDOW',
                      'READ_FAILURE != NO_LABEL',
+                     'PARSER_SILENCE != NO_PRODUCT',
                      'AFFILIATION != STUDY_GEOGRAPHY',
                      'REGISTRATION != COMMERCIAL_CATALOG',
                      'GENERIC_TARGET != SPECIFIC_TARGET',

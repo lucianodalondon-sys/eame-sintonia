@@ -333,7 +333,7 @@ ID). O gargalo é **discovery**, nunca a coleta.
 
 ---
 
-## 6 · `IT-T3-OP` — O SINAL DE OLIVO MUDOU DE DONO, E EU OLHAVA O DONO ANTIGO
+## 7 · `IT-T3-OP` — O SINAL DE OLIVO MUDOU DE DONO, E EU OLHAVA O DONO ANTIGO
 
 Segunda correção contra um achado meu, no mesmo dia e pelo mesmo tipo de erro.
 

@@ -225,7 +225,23 @@ def camada_adama():
         'data/samples/IT-T4-001/ITALY-ADAMA-REGULATORY-INTELLIGENCE.json',
         'REAL_FACT',
         'linha de uso autorizado = cultura, alvo e (quando presente) dose na MESMA linha '
-        'da tabela do rotulo. E a UNICA classe que liga cultura a alvo.').items()) + [
+        'da tabela do rotulo. E a unica classe DESTE LEITOR que liga cultura a alvo — '
+        'nao a unica da casa: ver LEITOR_CANONICO_DA_CASA abaixo.').items()) + [
+        # `CANONICAL_AUTHORITY = NO` estava escrito dentro do artefacto de origem e em dois
+        # documentos, e o pipeline que produz o pacote entregue continuava a tratar esse
+        # artefacto como autoridade unica, carimbando REAL_FACT. Uma demissao que so vale
+        # dentro do ficheiro demitido nao vale.
+        ('LEITOR_CANONICO_DA_CASA', {
+            'ESTA_CAMADA_VEM_DE': 'LEGACY_READER / HISTORICAL_INPUT',
+            'CANONICAL_AUTHORITY': 'NO',
+            'LEITOR_CANONICO': 'IT-ROTULOS-PARES-V3 (data/samples/IT-ROTULOS-V1/), '
+                               'it_rotulo_parser/3.4.0, portao IT-ROTULOS-PORTAO-V1 = PASS',
+            'ESCALA': 'o canonico le 128 rotulos com par; esta camada vem de 19',
+            'O_QUE_ESTA_CAMADA_TEM_E_O_CANONICO_NAO': 'DOSES, INTERVAL_DAYS, '
+                                                      'MAX_APPLICATIONS, EVIDENCE, ROW_STATE, '
+                                                      'CROP_TERM_MATCHED, REGULATORY_CATEGORY',
+            'LEI': 'OLDER_SMALLER_READER != CANONICAL_READER',
+        }),
         ('COUNT', len(linhas)),
         ('SOURCE_ROWS', len(reg['AUTHORIZED_USE_ROWS'])),
         ('ROWS_WITH_DOSE', reg.get('AUTHORIZED_USE_ROWS_WITH_DOSE')),

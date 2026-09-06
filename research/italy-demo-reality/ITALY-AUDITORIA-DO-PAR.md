@@ -1,5 +1,13 @@
 # AUDITORIA — pares cultura × alvo, rótulo italiano ADAMA
 
+> **LEITOR — este documento fala dos 90 pares, que NÃO são o leitor canônico da casa.**
+> O leitor canônico é `IT-ROTULOS-PARES-V3` (`data/samples/IT-ROTULOS-V1/`), de 2026-09-04:
+> `it_rotulo_parser/3.4.0`, portão `IT-ROTULOS-PORTAO-V1 = PASS` contra gabarito de 30
+> rótulos lido à mão, **128 rótulos com par** contra os 19 daqui. Os 90 pares de 2026-08-30
+> ficam como `LEGACY_READER / HISTORICAL_INPUT`, `CANONICAL_AUTHORITY = NO`.
+> `OLDER_SMALLER_READER != CANONICAL_READER`.
+
+
 **Arquivo auditado (somente leitura):** `data/samples/IT-T4-001/ITALY-ADAMA-REGULATORY-INTELLIGENCE.json`, encontrado em `origin/claude/adama-it-local-catalog`. Cópia de trabalho: `C:\eame-sintonia\.wfaudit.json` (278.429 bytes). Nada foi escrito no repositório.
 
 **Contadores internos conferem:** 163 produtos, 49 linhas de uso, 90 pares distintos, 13 linhas com dose. Recontei os 90 pares a partir das 49 linhas e deu 90. O arquivo não mente sobre si mesmo — o problema está em como os pares foram montados.

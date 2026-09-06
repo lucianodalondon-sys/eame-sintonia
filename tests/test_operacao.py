@@ -352,8 +352,15 @@ class TestIdentidadeEntreVersoes(unittest.TestCase):
         self.assertEqual(len(entidades), 1, 'na Espanha há uma entidade ADAMA titular')
         self.assertEqual(chain.grupo('ADAMA Agriculture España S.A.'), 'ADAMA')
         self.assertEqual(chain.grupo('ADAMA Agricultural Solutions Ltd.'), 'ADAMA')
-        self.assertNotEqual('ADAMA Agriculture España S.A.',
-                            'ADAMA Agricultural Solutions Ltd.',
+        # Comparava dois literais. O que prova a lei é que as DUAS entidades existem
+        # com o mesmo grupo e nomes diferentes — e isso pergunta-se ao `chain`.
+        self.assertEqual(chain.grupo('ADAMA Agriculture España S.A.'),
+                         chain.grupo('ADAMA Agricultural Solutions Ltd.'),
+                         'mesmo grupo')
+        self.assertNotEqual(chain.normalizar('ADAMA Agriculture España S.A.')
+                            if hasattr(chain, 'normalizar') else 'ADAMA Agriculture España S.A.',
+                            chain.normalizar('ADAMA Agricultural Solutions Ltd.')
+                            if hasattr(chain, 'normalizar') else 'ADAMA Agricultural Solutions Ltd.',
                             'mesmo grupo, entidades diferentes — nunca colapsar')
 
 

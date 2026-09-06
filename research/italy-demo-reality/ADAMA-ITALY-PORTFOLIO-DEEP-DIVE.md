@@ -1,5 +1,13 @@
 # O que a ADAMA realmente vende e sustenta na Itália
 
+> **LEITOR — este documento fala dos 90 pares, que NÃO são o leitor canônico da casa.**
+> O leitor canônico é `IT-ROTULOS-PARES-V3` (`data/samples/IT-ROTULOS-V1/`), de 2026-09-04:
+> `it_rotulo_parser/3.4.0`, portão `IT-ROTULOS-PORTAO-V1 = PASS` contra gabarito de 30
+> rótulos lido à mão, **128 rótulos com par** contra os 19 daqui. Os 90 pares de 2026-08-30
+> ficam como `LEGACY_READER / HISTORICAL_INPUT`, `CANONICAL_AUTHORITY = NO`.
+> `OLDER_SMALLER_READER != CANONICAL_READER`.
+
+
 **Data:** 2026-09-01
 **Duas fontes, dois pesos:**
 
@@ -71,6 +79,11 @@ diferente. Não misturar.
 ## 3 · Cobertura de rótulo: 163 de 163
 
 - **163 rótulos autorizados baixados e parseados. 0 falhas. 100%.**
+
+> **COBERTURA — `163/163` aqui é DOWNLOAD e EXTRAÇÃO DE TEXTO, não leitura de uso.**
+> A leitura tem régua própria e não é 100%: `LABEL_READ_COVERAGE = 123/163` e
+> `CROP_TERM_AND_ISSUE_BOTH_PRESENT_COVERAGE = 96/163`, em
+> `data/samples/IT-T4-001/IT-T4-001-portfolio-rotulo.json`. `PARSER_FAILURE != ABSENCE`.
 - 49 linhas de uso autorizado (cultura + alvo + dose na **mesma** linha)
 - 13 dessas linhas trazem dose
 - **90 pares cultura × alvo distintos**

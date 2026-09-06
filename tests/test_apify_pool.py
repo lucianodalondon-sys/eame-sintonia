@@ -279,6 +279,82 @@ class TestTetoNaoCresceComOPool(unittest.TestCase):
                              'doze chaves nao autorizam mais que o teto')
 
 
+# ---------------------------------------------------------------------------
+# RESTAURADA no P0.2 · PASSO 03. O enxerto tinha deixado esta classe cair — seis
+# provas que so existiam na ref — e a suite ficou verde em parte POR ISSO: uma
+# delas reprova contra o resultado do merge. TEST_GREEN_BY_LOOKING_LESS.
+# ---------------------------------------------------------------------------
+class UnidadeVaziaNaoDerrubaAFila(unittest.TestCase):
+    """Medido em 2026-08-30: um autor sem posts na janela parou a coleta dos
+    outros três, e o relatório saiu dizendo que as vozes humanas não
+    acrescentam nada. Três dos quatro nunca tinham sido perguntados."""
+
+    def _corre(self, respostas):
+        chamados = []
+
+        def trabalho(u, token):
+            chamados.append(u)
+            return respostas[u]
+        env = {'APIFY_TOKEN_POOL': 'apify_api_' + 'a' * 36}
+        r = ap.executar_com_pool(list(respostas), trabalho,
+                                 identidade=lambda i: i, env=env)
+        return r, chamados
+
+    def test_zero_itens_sem_mensagem_de_cota_e_UNIT_EMPTY(self):
+        self.assertEqual(ap.classificar(status='SUCCEEDED', itens=[]), ap.UNIT_EMPTY)
+
+    def test_cota_esgotada_continua_vindo_antes_de_UNIT_EMPTY(self):
+        """A cota chega como sucesso com zero itens. Se UNIT_EMPTY a engolisse,
+        a rotação de chave morreria — que é a razão do pool existir."""
+        self.assertEqual(
+            ap.classificar(status='SUCCEEDED', itens=[],
+                           status_message='free user run limit reached'),
+            ap.TOKEN_EXHAUSTED)
+
+    def test_a_fila_continua_depois_de_uma_unidade_vazia(self):
+        r, chamados = self._corre({
+            'A': ([], ap.UNIT_EMPTY),
+            'B': (['post'], ap.TOKEN_OK),
+            'C': (['outro'], ap.TOKEN_OK)})
+        self.assertEqual(chamados, ['A', 'B', 'C'])
+        self.assertEqual(r['UNITS_PENDING'], [])
+        self.assertEqual(r['UNITS_EMPTY'], ['A'])
+        self.assertEqual(r['STATE'], 'DONE')
+
+    def test_falha_de_verdade_continua_parando_a_fila(self):
+        """UNIT_EMPTY não pode virar 'ignore qualquer problema e siga'."""
+        r, chamados = self._corre({
+            'A': ([], ap.ACTOR_FAILURE),
+            'B': (['post'], ap.TOKEN_OK)})
+        self.assertEqual(chamados, ['A'])
+        self.assertEqual([u for u in r['UNITS_PENDING']], ['A', 'B'])
+
+    def test_a_traducao_do_manifesto_vive_num_lugar_so(self):
+        self.assertEqual(
+            ap.estado_da_execucao({'STATUS': 'PARTIAL',
+                                   'ERROR': 'SUCCEEDED com ZERO itens — x'}, []),
+            ap.UNIT_EMPTY)
+        self.assertEqual(
+            ap.estado_da_execucao({'STATUS': 'PARTIAL',
+                                   'ERROR': 'free user run limit reached'}, []),
+            ap.TOKEN_EXHAUSTED)
+        self.assertEqual(
+            ap.estado_da_execucao({'STATUS': 'FAILED', 'ERROR': 'boom'}, []),
+            ap.ACTOR_FAILURE)
+
+    def test_nenhum_chamador_traduz_manifesto_por_conta_propria(self):
+        """Duas traduções foi o defeito. Uma só é a correção."""
+        import glob
+        raiz = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        for caminho in glob.glob(os.path.join(raiz, 'scripts', '*.py')):
+            if caminho.endswith('apify_pool.py'):
+                continue
+            with open(caminho, encoding='utf-8') as fh:
+                fonte = fh.read()
+            self.assertNotIn("status=None if man['STATUS']", fonte,
+                             os.path.basename(caminho))
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
 

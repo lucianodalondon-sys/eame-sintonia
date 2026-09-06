@@ -161,6 +161,42 @@ GAZETTEER = tuple([(n, REGION) for n in REGIOES] +
 # ------------------------------------------------------------------ âncoras
 # Linguagem que liga ACONTECIMENTO a LUGAR. Cada uma diz também QUE espécie de
 # evidência é — porque "constatata" e "campioni ricevuti" não medem a mesma coisa.
+# Sujeitos de risco AGRONOMICO. A lista de palavras-de-parada NUNCA fecha: o
+# italiano tem classe aberta de funcionais, e `rischio non e elevato nella
+# provincia di Foggia` passava por ela dizendo o OPOSTO do texto. Inverte-se o
+# teste — o que segue `rischio` tem de ser um sujeito de risco DECLARADO, e a
+# lista de sujeitos e fechada porque a fitopatologia e um dominio fechado.
+#
+#     STOP_WORD_LIST != CLOSED_DOMAIN
+SUJEITOS_FITOSSANITARIOS = (
+    r'attacc\w*', r'infezion\w*', r'infestazion\w*', r'contaminazion\w*',
+    r'micotossin\w*', r'malatti\w*', r'patogen\w*', r'fitofag\w*',
+    r'avversit\w*', r'parassit\w*', r'insett\w*', r'nematod\w*', r'viros\w*',
+    r'batterios\w*', r'marcium\w*', r'cancr\w*', r'muff\w*', r'ruggin\w*',
+    r'fusarios\w*', r'septorios\w*', r'peronospor\w*', r'oidi\w*', r'botrit\w*',
+    r'brusone', r'flavescenz\w*', r'legno\s+nero', r'mal\s+dell', r'esca\b',
+    r'piralid\w*', r'cimic\w*', r'mosc\w*', r'tignol\w*', r'afid\w*',
+    r'cocciniglia\w*', r'psill\w*', r'scafoide\w*', r'antonom\w*', r'oziorrinc\w*',
+    r'elaterid\w*', r'ragnett\w*', r'ragno\s+ross\w*', r'tripid\w*', r'nottu\w*',
+    r'dorifor\w*', r'aleurodid\w*', r'cocciniglie', r'larv\w*', r'ovatur\w*',
+    r'sintom\w*', r'focolai?\b', r'defogliazion\w*', r'allettament\w*',
+)
+# `presenza di X` so e observacao quando X e um sujeito fitossanitario OU uma
+# forma de contagem de campo. `presenza di aziende agricole` continua fora.
+CONTAGENS_DE_CAMPO = (r'adult\w*', r'uov\w*', r'cattur\w*', r'infestant\w*',
+                      r'malerb\w*', r'infestazion\w*', r'trapp\w*')
+_SUJ = '|'.join(SUJEITOS_FITOSSANITARIOS)
+_SUJ_OU_CONTAGEM = '|'.join(SUJEITOS_FITOSSANITARIOS + CONTAGENS_DE_CAMPO)
+
+# Objetos METEOROLOGICOS. `si sono registrate precipitazioni` e `si e registrato
+# un progressivo aumento delle temperature` viravam OFFICIAL_OCCURRENCE pela
+# porta do escopo do documento: nos dois boletins reais mais ricos da Italia, o
+# UNICO fato aceite era a chuva. `WEATHER_NOTE != PHYTOSANITARY_OCCURRENCE`.
+OBJETOS_METEOROLOGICOS = (r'precipitazion\w*', r'temperatur\w*', r'piogg\w*',
+                          r'gelat\w*', r'grandin\w*', r'\bvento\b', r'\bneve\b',
+                          r'umidit\w*', r'andamento\s+meteo\w*',
+                          r'necessit[\u00e0a]\s+operativ\w*')
+
 ANCORAS_POSITIVAS = (
     # O risco modelado vem PRIMEIRO: se "attacchi" fosse visto antes de "rischio
     # attacchi", um mapa de previsão viraria sintoma visto.
@@ -170,14 +206,16 @@ ANCORAS_POSITIVAS = (
     # MODELLED_RISK fitossanitario sobre Foggia, ancorado em 'rischio le'.
     # Agora a palavra que segue tem de ser sujeito de risco agronomico, nunca
     # artigo, preposicao ou conjuncao.
-    (r'rischio\s+(?:di\s+)?(?!(?:le|la|il|lo|gli|i|un|una|per|che|e|ed|dei|delle|degli|della|del)\b)\w+', MODELLED_RISK),
+    (r"rischio\s+(?:di\s+)?(?:[\w'\u2019]+\s+){0,3}?\b(?:%s)" % _SUJ, MODELLED_RISK),
     (r'modello\s+prevision', MODELLED_RISK),
     (r'previsione\s+di\s+rischio', MODELLED_RISK),
     (r'constatat[oaie]', CONFIRMED_FOCUS),
     (r'accertat[oaie]', CONFIRMED_FOCUS),
     (r'confermat[oaie]', CONFIRMED_FOCUS),
     (r'focolai?\b', CONFIRMED_FOCUS),
-    (r'osservat[oaie]', FIELD_OBSERVATION),
+    # `osservate le norme precauzionali prescritte` e imperativo de bula, nao
+    # observacao de campo. Aparece em 163 rotulos.
+    (r'osservat[oaie]\b(?!\s+(?:le|la|i|gli)\s+(?:norme|disposizioni|precauzioni|avvertenze|prescrizioni|istruzioni|modalit))', FIELD_OBSERVATION),
     (r'rilevat[oaie]', FIELD_OBSERVATION),
     (r'riscontrat[oaie]', FIELD_OBSERVATION),
     (r'sintomi\b', FIELD_OBSERVATION),
@@ -188,7 +226,15 @@ ANCORAS_POSITIVAS = (
     # 'presenza di aziende agricole in Toscana' e 'presenza di tecnici in Lombardia'
     # contarem como sintoma visto. O caso real que a justificava era 'presenza media
     # di Septoriosi', e medi[ao]/alt[ao]/diffus[ao] ja o apanham.
+    # DECISAO 1 — GENERIC_PRESENCE != DISEASE_PRESENCE. Cair fora a alternativa
+    # `di` inteira trocou um falso positivo por 299 falsos NEGATIVOS medidos no
+    # corpus real: `presenza di adulti`, `di larve`, `di psilla`, `di scafoideo`,
+    # `di infestanti` deixavam de ancorar, e sem ancora o lugar nem chegava a
+    # `recusadas` — sumia em silencio. O que qualifica nao e o quantificador: e o
+    # OBJETO. `presenza di aziende agricole` continua fora; `presenza di larve`,
+    # dentro.
     (r'presenz[ae]\s+(?:medi[ao]|alt[ao]|diffus[ao])\b', FIELD_OBSERVATION),
+    (r'presenz[ae]\s+di\s+(?:%s)' % _SUJ_OU_CONTAGEM, FIELD_OBSERVATION),
     (r'infezion[ei]\b', FIELD_OBSERVATION),
     (r'monitoraggio\s+(?:in|nel|nella|a|ad)\b', FIELD_OBSERVATION),
     (r'campion[ei]\s+positiv[ei]', DIAGNOSTIC_SAMPLE),
@@ -197,13 +243,18 @@ ANCORAS_POSITIVAS = (
     # "si segnalano" é presente: `segnalat[oaie]` só pegava o particípio, e a
     # frase "non si segnalano infezioni" ficava sem âncora — logo, sem negação a
     # reconhecer. Recusada pelo motivo errado.
-    (r'segnal(?:at[oaie]|ano|a|iamo)', OFFICIAL_OCCURRENCE),
+    # A fronteira final faltava, e `segnala` casava DENTRO do substantivo
+    # `Segnalazioni`: o titulo "Bollettino Segnalazioni Fitosanitarie" era lido
+    # como uma ocorrencia oficial. `TITULO != RELATO`.
+    (r'segnal(?:at[oaie]|ano|a|iamo)\b', OFFICIAL_OCCURRENCE),
     # `bollettino` sozinho saiu da lista: é o TÍTULO de todo boletim, e como
     # âncora fazia o cabeçalho "Provincia di Grosseto - Bollettino Frumento" ser
     # lido como uma observação em Grosseto. O caso real que ela servia —
     # "segnalato nel bollettino" — já está coberto por `segnal...`.
     (r'segnalat[oaie]\s+(?:nel|dal)\s+bollettino', OFFICIAL_OCCURRENCE),
-    (r'registrat[oaie]', OFFICIAL_OCCURRENCE),
+    # `marchio registrato` e propriedade industrial; `si sono registrate
+    # precipitazioni` e meteorologia. Nem uma nem outra e ocorrencia fitossanitaria.
+    (r'(?<!marchio\s)registrat[oaie]\b(?![^.;:!?]{0,40}?(?:%s))' % '|'.join(OBJETOS_METEOROLOGICOS), OFFICIAL_OCCURRENCE),
     (r'diffusion[ei]\s+(?:in|nel|nella)\b', REGIONAL_STATEMENT),
     (r'pressione\s+(?:in|nel|nella)\b', REGIONAL_STATEMENT),
 )
@@ -236,6 +287,21 @@ ANCORAS_NEGATIVAS = (
     (r'copertura\b', 'abrangência institucional'),
     (r'\bpresso\b', 'afiliação institucional'),
     (r'laurea\s+(?:a|presso)', 'formação'),
+    # Linha de endereco do titular do registro, no rodape de todo rotulo:
+    # "ADAMA ITALIA srl - Via Zanica 19 - 24050 Grassobbio, Bergamo". Sem isto,
+    # Bergamo e Italia saiam como LUGAR DO FATO com ancora `osservate`, em cinco
+    # ficheiros versionados. SEDE != LOCAL_DO_FATO tambem quando a palavra `sede`
+    # nao aparece — o que ancora o lugar e o ENDERECO.
+    (r'\bvia\s+[A-ZÀ-Ý]', 'endereço postal'),
+    (r'\bviale\s+[A-ZÀ-Ý]', 'endereço postal'),
+    (r'\bs\.?\s?r\.?\s?l\.?(?:\s|$|[.,)])', 'razão social'),
+    (r'\bs\.?\s?p\.?\s?a\.?(?:\s|$|[.,)])', 'razão social'),
+    (r'\b\d{5}\b', 'código postal'),
+    (r'marchio\s+registrat', 'propriedade industrial'),
+    (r'titolare\s+dell.autorizzazione', 'titular do registro'),
+    (r'officina\s+di\s+produzione', 'planta industrial'),
+    (r'responsabil\w*\s+del\s+monitoraggio', 'atribuição de equipe'),
+    (r'a\s+cura\s+di\b', 'autoria do documento'),
 )
 
 # O texto às vezes DECLARA o nível administrativo do lugar: "nel Comune di
@@ -262,6 +328,63 @@ MARCADORES_ADMIN = (
     (r'(?:vigneto|campo|appezzamento|parcella)\s+di\s+', LOCALITY),
 )
 _NOME = r"([A-Z][\wÀ-ÿ'’-]+(?:\s+(?:di|del|della|dei|delle|d'|in)\s+[A-Z][\wÀ-ÿ'’-]+|\s+[A-Z][\wÀ-ÿ'’-]+)*)"
+
+# `\s` casa NOVA LINHA, e o timbre de um documento oficial e uma pilha de linhas
+# em maiusculas. `Regione ` + _NOME devolvia
+#     'MOLISE\n\n   PRESIDENZA DELLA GIUNTA REGIONALE\n   COORDINAMENTO AREA II...'
+# como FACT_LOCATION. Duas colunas de uma tabela separadas por espacos duplos
+# devolviam 'Maturazione  Si'; um numero de boletim colado devolvia 'PIEMONTE BU12'.
+# FACT_LOCATION e a chave de juncao com o gazetteer e com `conteudo_lugar`: um
+# cabecalho de cinco linhas ali nao e um lugar impreciso, e lixo.
+#
+#     CAPTURA != NOME DE LUGAR
+#
+# Os cabecalhos de coluna sao uma lista FECHADA e medida no corpus de boletins —
+# nao um palpite sobre o italiano inteiro.
+CABECALHOS_DE_COLUNA = {
+    'maturazione', 'fenologia', 'coltura', 'colture', 'avversita', 'avversità',
+    'note', 'data', 'prodotto', 'prodotti', 'dose', 'dosi', 'stadio', 'stadi',
+    'intervento', 'interventi', 'sostanza', 'sostanze', 'epoca', 'soglia',
+    'soglie', 'monitoraggio', 'trattamento', 'trattamenti', 'osservazioni',
+}
+PALAVRAS_ADMINISTRATIVAS = (
+    'presidenza', 'giunta', 'regionale', 'coordinamento', 'servizio', 'direzione',
+    'assessorato', 'dipartimento', 'settore', 'ufficio', 'bollettino', 'notiziario',
+    'comunicato', 'area', 'agenzia',
+)
+
+
+def _limpa_nome(bruto):
+    """→ o nome, ou None quando o que se capturou nao e um nome de lugar."""
+    nome = str(bruto or '').split('\n')[0].split('\r')[0]
+    nome = re.split(r'  +', nome)[0].strip(' \t-–—,;:')
+    if not nome:
+        return None
+    palavras = [w for w in nome.split(' ') if w]
+    # Um numero de protocolo colado ao nome ('PIEMONTE BU12') nao faz parte dele.
+    while palavras and any(c.isdigit() for c in palavras[-1]):
+        palavras.pop()
+    # Funcional solto no fim ('Localita Maturazione Si') nao faz parte do nome.
+    while palavras and len(palavras) > 1 and _sem_acento(palavras[-1]).lower() in (
+            'si', 'no', 'e', 'ed', 'il', 'la', 'lo', 'i', 'gli', 'le', 'del', 'di'):
+        palavras.pop()
+    if not palavras:
+        return None
+    nome = ' '.join(palavras)
+    baixo = _sem_acento(nome).lower()
+    if baixo in CABECALHOS_DE_COLUNA:
+        return None
+    if any(w in baixo.split() for w in PALAVRAS_ADMINISTRATIVAS):
+        return None
+    # Grafia canonica quando o gazetteer conhece o lugar: o texto escreve
+    # 'PIEMONTE' num decreto e 'Piemonte' num boletim, e FACT_LOCATION e chave de
+    # juncao. O NIVEL continua sendo o que o texto declara; so a grafia vem do
+    # gazetteer. DECLARED_ADMIN_MARKER > GAZETTEER vale para a PRECISAO, nao para
+    # a ortografia.
+    for canonico, _ in GAZETTEER:
+        if _sem_acento(canonico).lower() == baixo:
+            return canonico
+    return nome
 
 # Uma observação NEGADA não é uma observação. "Non riscontrata presenza di
 # avversità" seguido de um topônimo produziria, sem isto, uma afirmação de que a
@@ -372,7 +495,10 @@ def mencoes(frase):
         # ele precisa vir capitalizado, senão "comune di produzione" viraria
         # lugar. Por isso a flag é escopada só no marcador.
         for m in re.finditer('(?i:%s)%s' % (padrao, _NOME), frase):
-            fora.append({'PLACE': m.group(1).strip(), 'PRECISION': precisao,
+            nome = _limpa_nome(m.group(1))
+            if not nome:
+                continue
+            fora.append({'PLACE': nome, 'PRECISION': precisao,
                          'POS': m.start(1), 'DECLARED_BY_TEXT': True})
 
     # Topônimo mais longo vence no mesmo ponto: "Emilia-Romagna" antes de "Romagna".
@@ -435,7 +561,20 @@ def _mais_perto(ancoras, pos_lugar):
                                           abs(a['END'] - pos_lugar)))
 
 
-def _governa(pos_lugar, positivas, negativas):
+# Fronteira de oracao. Serve a uma pergunta so: a ancora positiva que aparece
+# entre a ancora negativa e o lugar esta noutra oracao, ou esta DENTRO do
+# sintagma da negativa? Em "Convegno a Bologna E fusariosi constatata a Grosseto"
+# ha fronteira, e Grosseto e um foco. Em "Il convegno sui SINTOMI della
+# septoriosi si terra a Bologna" nao ha: 'sintomi' e o ASSUNTO do congresso, e
+# sem esta trava o congresso vira foco de doenca — a cicatriz fundadora, reaberta
+# pela ordem normal das palavras em italiano.
+#
+#     ASSUNTO DO EVENTO != FATO OBSERVADO
+FRONTEIRA_DE_ORACAO = re.compile(
+    r'[,;:]|\b(?:e|ed|ma|mentre|inoltre|tuttavia|per\u00f2|invece|dove|dopodich\u00e9)\b')
+
+
+def _governa(pos_lugar, positivas, negativas, frase=None):
     """Qual âncora governa este lugar: a MAIS PRÓXIMA dele, dos dois lados.
 
     Não basta existir uma âncora positiva na oração. "Convegno a Bologna e
@@ -466,7 +605,9 @@ def _governa(pos_lugar, positivas, negativas):
         # os dois toponimos; o que separa Grosseto de Bologna e que 'constatata' fica
         # entre 'convegno' e Grosseto, e nao entre 'convegno' e Bologna.
         intromete = [a for a in positivas
-                     if neg['END'] <= a['POS'] and a['END'] <= pos_lugar]
+                     if neg['END'] <= a['POS'] and a['END'] <= pos_lugar
+                     and (frase is None
+                          or FRONTEIRA_DE_ORACAO.search(_baixo(frase), neg['END'], a['POS']))]
         if not intromete:
             return (None, neg)
     if pos and neg:
@@ -486,7 +627,10 @@ def escopo_do_documento(texto, limite=220):
     for padrao, precisao in ESCOPO_DOC:
         m = re.search('(?i:%s)%s' % (padrao, _NOME), cabeca)
         if m:
-            return {'PLACE': m.group(1).strip(), 'PRECISION': precisao,
+            nome = _limpa_nome(m.group(1))
+            if not nome:
+                continue
+            return {'PLACE': nome, 'PRECISION': precisao,
                     'EVIDENCE': cabeca.strip()[:200]}
     return None
 
@@ -528,6 +672,12 @@ def localizacoes_do_fato(texto, *, origem='POST_TEXT', usar_escopo=True):
             negativas = _ancoras(frase, ANCORAS_NEGATIVAS)
             if not positivas or negativas:
                 continue
+            # A porta do escopo julga a ORACAO INTEIRA, e por isso e a porta por
+            # onde a meteorologia entrava: nos dois boletins fitossanitarios mais
+            # ricos da Italia o UNICO fato aceite era 'si sono registrate
+            # precipitazioni'. WEATHER_NOTE != PHYTOSANITARY_OCCURRENCE.
+            if re.search('|'.join(OBJETOS_METEOROLOGICOS), _baixo(frase)):
+                continue
             pos = min(positivas, key=lambda a: a['POS'])
             if _negada(frase, pos['POS']):
                 continue
@@ -551,12 +701,12 @@ def localizacoes_do_fato(texto, *, origem='POST_TEXT', usar_escopo=True):
         positivas = _ancoras(frase, ANCORAS_POSITIVAS)
         negativas = _ancoras(frase, ANCORAS_NEGATIVAS)
         sem_ancora = [m for m in ms
-                      if _governa(m['POS'], positivas, negativas)[0] is None]
+                      if _governa(m['POS'], positivas, negativas, frase)[0] is None]
         # Três ou mais topônimos numa oração sem nenhuma âncora de acontecimento
         # é lista territorial — área atendida, abrangência, roteiro de eventos.
         lista = len(sem_ancora) >= 3 and len(sem_ancora) == len(ms)
         for m in ms:
-            pos, neg = _governa(m['POS'], positivas, negativas)
+            pos, neg = _governa(m['POS'], positivas, negativas, frase)
             if pos is not None and _negada(frase, pos['POS']):
                 recusadas.append({
                     'PLACE': m['PLACE'], 'PRECISION': m['PRECISION'],
@@ -643,7 +793,14 @@ TEMPO = (
 # perto, uma data solta no texto pode ser qualquer data — a da publicação, a de
 # um congresso, a de um regulamento.
 ANCORAS_DE_TEMPO_DO_FATO = (
-    r'monitoraggio', r'campion[ei]', r'raccolt[oa]', r'osservat[oaie]',
+    # `raccolt[oa]` saiu daqui no PASSO 03, e sai pelo MESMO motivo que `annata` e
+    # `stagione` sairam: ele esta na expressao de safra de `TEMPO` E estava na lista
+    # de ancoras, entao `il raccolto 2021-2022` qualificava a si mesmo. A lei tinha
+    # sido publicada como fechada e estava implementada para dois dos tres termos.
+    # `coltura` volta: nao aparece em nenhum padrao de TEMPO, logo nao se
+    # autoqualifica, e sem ele "La coltura del grano duro nel 2025" perdia o tempo
+    # do fato — regra caida sem razao escrita.
+    r'monitoraggio', r'campion[ei]', r'osservat[oaie]', r'coltura',
     r'rilevat[oaie]', r'constatat[oaie]', r'riscontrat[oaie]', r'colpit[oaie]',
     r'contaminaz', r'superament', r'infezion', r'attacc(?:o|hi)', r'sintomi',
     r'presenz[ae]', r'fioritura', r'spigatura', r'fase\s+fenologica',

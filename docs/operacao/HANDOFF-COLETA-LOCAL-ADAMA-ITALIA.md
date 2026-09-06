@@ -1,5 +1,13 @@
 # HANDOFF — COLETA DO SITE COMERCIAL DA ADAMA ITÁLIA NUMA MÁQUINA RESIDENCIAL
 
+> **LEITOR — este documento fala dos 90 pares, que NÃO são o leitor canônico da casa.**
+> O leitor canônico é `IT-ROTULOS-PARES-V3` (`data/samples/IT-ROTULOS-V1/`), de 2026-09-04:
+> `it_rotulo_parser/3.4.0`, portão `IT-ROTULOS-PORTAO-V1 = PASS` contra gabarito de 30
+> rótulos lido à mão, **128 rótulos com par** contra os 19 daqui. Os 90 pares de 2026-08-30
+> ficam como `LEGACY_READER / HISTORICAL_INPUT`, `CANONICAL_AUTHORITY = NO`.
+> `OLDER_SMALLER_READER != CANONICAL_READER`.
+
+
 `COUNTRY = IT` · `SOURCE_ID = IT-T9-001` · **2026-08-30**
 
 ---

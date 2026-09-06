@@ -6,8 +6,7 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** atualizado em 2026-09-06 — **<!--M:SOURCE_ID_COUNT-->39<!--/M--> fontes registradas** (19 GREEN, 4 YELLOW, 16 NÃO SEI).
-**Última atualização:** 2026-08-29
+**Estado:** atualizado em 2026-09-06 — **<!--M:SOURCE_ID_COUNT-->40<!--/M--> fontes registradas** (20 GREEN, 4 YELLOW, 16 NÃO SEI).
 
 ---
 
@@ -28,6 +27,14 @@ Para cada território (T1–T12), a exploração inicial vai até:
 ---
 
 ## VERDICT
+
+> **`BLOCKED` de origem ⇒ `NÃO SEI` neste atlas, nunca `RED`.** Uma fonte que devolve 403 a
+> este ambiente não foi avaliada: foi impedida. `RED` é veredito sobre a FONTE; `NÃO SEI` é
+> o estado de quem não conseguiu chegar. Isto está escrito porque `IT-T9-001` (adama.com)
+> aparece como `NÃO SEI` aqui, `RED PARA ESTE AMBIENTE` no mapa nacional e `BLOCKED` no
+> probe — três nomes para a mesma medição, e só um deles conta no placar.
+>
+>     ACCESS_FAILURE != SOURCE_VERDICT
 
 | Verdict | Significado |
 |---|---|
@@ -347,10 +354,24 @@ EVIDENCE:                     data/samples/IT-T4-001/
 VERDICT:                      GREEN
 ```
 
-**Limitação importante:** este arquivo **não traz cultura nem alvo**. Cultura e alvo estão no
-rótulo (etichetta) de cada produto, que não faz parte deste dataset. Portanto a Itália
-**não** sustenta hoje o mesmo cruzamento cultura × alvo que a França sustenta. O que a Itália
-dá, e a França não dá, é a **data de vencimento por autorização**.
+**Limitação do ARQUIVO, e a conclusão que ela NÃO sustenta mais.** Este arquivo **não traz
+cultura nem alvo** — isso continua verdadeiro. A frase que vinha depois, porém, foi
+**derrubada por medição em 2026-08-30**: dizia-se que *"a Itália não sustenta hoje o mesmo
+cruzamento cultura × alvo que a França sustenta"*, e sustenta.
+
+O rótulo (etichetta) de cada produto **é publicado pelo mesmo Ministério** e traz
+`Coltura × Patogeno × Dose × Volumi × Intervallo × N° max applicazioni`, mais a data do
+rótulo. O dado existia; faltava a rota, e a rota está em `scripts/italia_etichette.py` —
+ficha `IT-T4-001-ETICHETTA` abaixo. **A limitação era do dataset, não do país.**
+
+O que a Itália dá e a França não dá continua valendo: a **data de vencimento por
+autorização**.
+
+<!-- PASSO 03 · restaurado da ref. O enxerto tinha ficado com a redacao ANTERIOR desta
+     limitacao — a que dizia que a Italia nao sustenta cultura x alvo — dezoito linhas acima
+     da ficha IT-T4-001-ETICHETTA, que e a medicao que a derruba. Afirmacao refutada
+     sobrevivendo no documento que a casa elege como desempate e o defeito que este passo
+     existe para nao repetir. -->
 
 
 <!-- PASSO 03 · fichas portadas de claude/sintonia-italy-pilot-b1l401. O enxerto trouxe
@@ -953,15 +974,41 @@ UPDATE_FREQUENCY:             semanal na safra
 REAL_EXAMPLE:                 "Boll_15_MAIS_120826" — mais em BBCH 65-75, voo de 3ª
                               geração de piralide, limiar publicado (>3 ovaturas/100
                               plantas; larvas em 30-40% de 50-100 espigas)
+RAW_EVIDENCE_PRESERVED:       SIM — n.º 07 da mesma série, *Malattie fungine Frumento-Orzo*
+                              de 20/04/2026, texto integral versionado, 9.381 bytes,
+                              sha256 f8a98c7bdaa0b6a011e414c112d18f4e4c0ca65721132ce311ea042b2ed5ff13
+EVIDENCE:                     data/samples/IT-T5-SENSORES/ersa-fvg-boll-07-frumento-orzo-2026-04-20.txt ·
+                              hash registado em data/samples/IT-CASOS/IT-SENSORES-V2.json e
+                              data/samples/IT-CASOS/IT-REDE-CAMPO-V1.json, ambos com
+                              EVIDENCE_STATE = PRESERVED
 VERDICT:                      GREEN
 ```
+
+**Esta ficha esteve YELLOW durante uma parte do P0.2 · PASSO 03, e por um motivo falso.**
+Eu escrevi `RAW_EVIDENCE_PRESERVED: NÃO — nenhum byte dela está versionado`, para aplicar à
+Itália o mesmo critério que negava ficha a `IT-T3-003`. O critério está certo; **a medição
+que o alimentou não existia**. O repositório tem o boletim n.º 07 da série, em texto
+integral e com sha256 conferível em dois artefactos — e a série de *colture erbacee* do FVG
+é **uma numeração só, alternando culturas**: o `Boll_15_MAIS_120826` do `REAL_EXAMPLE` e
+este n.º 07 são números do mesmo boletim, da mesma página. Bastava um `sha256sum`.
+
+    AUSÊNCIA DE EVIDÊNCIA ≠ EVIDÊNCIA DE AUSÊNCIA
+
+Ficou escrito porque foi uma revisão adversarial que o apanhou, não eu — e porque a régua
+que se aplica com uma medição inventada não é uma régua, é uma preferência. A comparação
+com `IT-T3-LAMMA` continua a valer, e agora no sentido certo: **um** número da série,
+arquivado e com hash, é o que ambos têm.
+
+**O achado que a ficha carrega continua de pé:** é a única série de boletim de MILHO medida
+na Itália, e desmente a manchete negativa do mapa nacional para o Friuli-Venezia Giulia.
+`NOT_FOUND != DOES NOT EXIST` — a diferença era um clique.
 
 **É a única série de boletim de MILHO medida na Itália** — 10 números em 2026, sob difesa
 integrata obbligatoria (art. 19 D.lgs. 150/2012). Foi encontrada só na segunda rodada,
 porque na primeira eu li a página-mãe das *colture erbacee* e não a subpágina
 `bollettini-2026`. `NOT_FOUND ≠ DOES NOT EXIST`, e a diferença era um clique.
 
-#### IT-T3-LOTTA · Decretos regionais de lotta obbligatoria (flavescência dourada)
+#### IT-T3-LOTTA-OBBLIGATORIA · Decretos regionais de lotta obbligatoria (flavescência dourada)
 
 ```
 SOURCE_ID:                    IT-T3-LOTTA-OBBLIGATORIA
@@ -983,6 +1030,38 @@ dois — e o segundo muda toda semana.
 produtos cujo rótulo traga como alvo `«cicaline della vite»` ou `«Scaphoideus titanus»`.
 É um critério que se avalia **contra o texto da etichetta**, e por isso `IT-T4-001-ETICHETTA`
 é pré-requisito desta ficha.
+
+#### IT-T5-001 · OpenAlex — recorte científico italiano
+
+```
+SOURCE_ID:                    IT-T5-001
+SOURCE_NAME:                  OpenAlex, recorte italiano declarado
+SOURCE_OWNER:                 OurResearch
+DERIVA_DE:                    EU-T5-001 (mesma fonte, mesma rota, recorte próprio)
+COUNTRY:                      ITALY
+TERRITORY:                    T5
+LEVEL:                        NACIONAL, por afiliação declarada do autor
+ACCESS_METHOD:                API REST aberta, sem chave, consulta dirigida
+                              (nunca paginação larga)
+TOPICS:                       volume de atenção científica por cultura × problema,
+                              autores recorrentes, ORCID, afiliação, última atividade
+EVIDENCE:                     data/samples/IT-T5-001/IT-T5-001-ciencia-milho.json ·
+                              data/samples/IT-T5-001/ITALY-RESEARCHER-UNIVERSE.json ·
+                              data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json (IT-T5-001-B)
+VERDICT:                      GREEN
+```
+
+**Esta ficha existe por simetria, e a assimetria era o defeito.** `ES-T5-002` — o recorte
+**espanhol** da mesma fonte, pela mesma rota — é ficha, é SOURCE_ID contado e é um dos
+GREEN da Espanha, e a razão escrita para o criar foi que *«sem ficha não havia contrato de
+campos, registro de versão nem `ACCESS_METHOD` auditável»*. O recorte italiano alimentava
+`ITALY-HERO-CASES-V1` sem nenhuma dessas três coisas. Uma régua que decide de um jeito na
+Espanha e de outro na Itália não é uma régua.
+
+**O que ele NÃO prova, e isto é o mais importante da ficha:** pressão de campo, demanda, ou
+que o problema esteja a ocorrer agora. E **não prova a região do fenómeno** —
+`REGION_OF_STUDY != AUTHOR_AFFILIATION`. Denominador só existe junto com o recorte que o
+gerou.
 
 #### IT-T3-002 · Servizio fitosanitario della Regione del Veneto — bollettini di difesa integrata
 
@@ -1656,23 +1735,54 @@ O placar conta **SOURCE_IDs**, não fichas. Uma ficha pode cobrir mais de um SOU
 (ex.: `FR/ES/IT-T9-001` é uma ficha e três fontes), e algumas fontes testadas aparecem em
 tabelas de "não alcançadas" sem ficha própria (as nacionais de T1, EU-T10-002/003).
 
-Verificado na MISSÃO 07, atualizado em 2026-08-29 e recontado no P0.2 · PASSO 03: **<!--M:SOURCE_FICHA_COUNT-->33<!--/M--> fichas · <!--M:SOURCE_ID_COUNT-->39<!--/M--> SOURCE_IDs · <!--M:SOURCE_GREEN_COUNT-->19<!--/M--> GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
+Verificado na MISSÃO 07, atualizado em 2026-08-29 e recontado no P0.2 · PASSO 03: **<!--M:SOURCE_FICHA_COUNT-->34<!--/M--> fichas · <!--M:SOURCE_ID_COUNT-->40<!--/M--> SOURCE_IDs · <!--M:SOURCE_GREEN_COUNT-->20<!--/M--> GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
 Os números batem. `tests/test_canonico.py` passou a verificar isso.
 
-**Duas fichas do PASSO 03 têm ID fora do formato do ledger** — `IT-T4-001-ETICHETTA` e
-`IT-T3-LOTTA-OBBLIGATORIA`. Não casam com `(EU|FR|ES|IT)-T\d{1,2}-\d{3}` e portanto **não
-movem `SOURCE_ID_COUNT`**, pelo mesmo mecanismo declarado para `IT-SRCX-###`. **Não é
-promoção silenciosa nem descuido:** os dois IDs já são usados *literalmente* pelo coletor, pelas
-amostras e pelo portal (`scripts/italia_etichette.py`, `scripts/italia_lotta_obbligatoria.py`,
-`data/samples/IT-T3-LOTTA/`, `italia-portale/client/italy-ingested.js`), e renomeá-los para caber
-na régua quebraria dado já publicado. Ficam declarados aqui como **`LEDGER_ID_MISMATCH`** —
-fonte **documentada** e **não contada**. `FICHA_DOCUMENTADA ≠ SOURCE_ID_CONTADO`, e a diferença
-é visível em vez de silenciosa.
+**`LEDGER_ID_MISMATCH` — fonte documentada que NÃO entra na contagem.** A régua do ledger é
+`(EU|FR|ES|IT)-T\d{1,2}-\d{3}`, e quem não casa com ela tem ficha mas não move
+`SOURCE_ID_COUNT`. São **cinco entradas**, e listá-las por metade seria pior do que não
+listar nenhuma:
+
+| ficha | por que não casa | por que não se renomeia |
+|---|---|---|
+| `IT-T4-001-ETICHETTA` | sufixo depois do sequencial | usado literalmente por 15 scripts e amostras (`scripts/italia_etichette.py`, `scripts/it_rotulo_rodar.py`, `data/samples/IT-T4-001/`) |
+| `IT-T3-LOTTA-OBBLIGATORIA` | sem sequencial numérico | usado no portal (`italia-portale/client/italy-ingested.js`) e em `data/samples/IT-T3-LOTTA/` |
+| `IT-T3-LAMMA` | sem sequencial numérico | usado por `scripts/italia_preservar_lamma.py` e pelas amostras do caso do trigo duro |
+| `IT-T3-OP` | sem sequencial numérico | usado por `scripts/italia_cobertura_campo.py` e por `ITALY-OP-FIELD-LAYER.json` |
+| `ES-T7-001..027` | é um **intervalo**, não um ID | são 27 fontes numa ficha só; a rede técnica espanhola foi fichada em bloco |
+
+O caso do `ES-T7` é o maior e o mais antigo: **27 fontes documentadas que valem 0 na
+contagem**, porque `ES-T7-001..027` não casa com a régua. Não é defeito deste passo — é
+anterior a `bdb57cf` — mas nunca tinha sido declarado, e sem esta linha a varredura mecânica
+mais abaixo devolve 52 tokens fora das fichas em vez de 34, e o portão fica irreprodutível.
+
+    FICHA_DOCUMENTADA ≠ SOURCE_ID_CONTADO
+    INTERVALO ≠ ID
 
 **A ficha nova é `ES-T5-002`** — a camada científica espanhola, que entregava 152
 pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversarial de
 2026-08-29 apontou: sem ficha não havia contrato de campos, registro de versão nem
 `ACCESS_METHOD` auditável.
+
+### Fichas sem linha `EVIDENCE`, nomeadas
+
+Das fichas com `VERDICT`, **23 declaram `EVIDENCE:` e os 23 caminhos existem no disco**.
+**13 não declaram**, e ficam nomeadas aqui porque uma dívida que não se vê não se paga:
+
+`ES-T4-003` · `IT-T1-001` · `EU-T2-002` · `EU-T2-003` · `FR-T3-001` · `FR-T3-002` ·
+`IT-T3-001` · `IT-T3-LOTTA-OBBLIGATORIA` · `EU-T3-001` · `FR-T9-001 · ES-T9-001 · IT-T9-001` ·
+`EU-T8-001` · `ES-T7-001..027` · `IT-T11-001 · FR-T11-001`
+
+Esta lista existe por causa de um erro concreto deste passo. `IT-T3-006` foi rebaixada de
+GREEN para YELLOW com a justificação `RAW_EVIDENCE_PRESERVED: NÃO — nenhum byte dela está
+versionado`, e o repositório tinha o boletim n.º 07 da mesma série em texto integral, com
+sha256 registado em dois artefactos. A afirmação de ausência foi **escrita sem ser medida**.
+
+    AUSÊNCIA DE EVIDÊNCIA ≠ EVIDÊNCIA DE AUSÊNCIA
+
+`tests/test_canonico.py` passou a exigir que **todo caminho declarado em `EVIDENCE:`
+exista** e que esta lista seja exactamente a das fichas sem `EVIDENCE:` — acrescentar uma
+décima quarta sem a declarar reprova.
 
 ### Placar
 
@@ -1681,8 +1791,8 @@ pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversa
 | EUROPE | 8 | 0 | 0 | 7 | 15 |
 | FRANCE | 2 | 2 | 0 | 3 | 7 |
 | SPAIN | 5 | 0 | 0 | 4 | 9 |
-| ITALY | 4 | 2 | 0 | 2 | 8 |
-| **Total** | **19** | **4** | **0** | **16** | **39** |
+| ITALY | 5 | 2 | 0 | 2 | 9 |
+| **Total** | **20** | **4** | **0** | **16** | **40** |
 
 ## RECONCILIAÇÃO DE SOURCE_IDs USADOS FORA DO ATLAS — P0.2 · PASSO 03
 
@@ -1696,16 +1806,21 @@ grep -rhoE '\b(EU|FR|ES|IT)-T[0-9]{1,2}-[0-9]{3}\b' data/ scripts/ docs/ researc
      italia-portale/client italia-portale/BASELINE | sort -u
 ```
 
-**34 tokens** ficam fora das fichas. Nenhum é silencioso: cada um está classificado abaixo,
-com onde está documentado e por que não virou ficha. `FICHA_DOCUMENTADA != SOURCE_ID_CONTADO`
-e `PROBE_GREEN != FICHA` são as duas leis que organizam a tabela.
+A varredura devolve **91 tokens**. Destes, **58 estão nas fichas** — as 40 do ledger mais os
+18 do intervalo `ES-T7-001..027` que existem no repositório —, e **33 ficam fora**. Nenhum
+dos 33 é silencioso: cada um está classificado abaixo, com onde está documentado e por que
+não virou ficha. `FICHA_DOCUMENTADA != SOURCE_ID_CONTADO` e `PROBE_GREEN != FICHA` são as
+duas leis que organizam a tabela, e `tests/test_canonico.py` refaz a varredura e reprova se
+aparecer um token que nenhum grupo nomeia.
+
+**33 classificados.**
 
 ### A · Reconciliados — mesmo objeto, outro nome (não contam duas vezes)
 
 | ID usado | É, comprovadamente | Prova |
 |---|---|---|
-| `IT-T5-001`, `IT-T5-001-B` | recorte italiano de `EU-T5-001` (OpenAlex) | `MAPA-DE-FONTES-ITALIA.md` §4 intitula a entrada «OpenAlex — recorte italiano»; os arquivos declaram `"source": "OpenAlex"`. Rota REST aberta, a mesma. |
-| `IT-T3-004` | primeira medição de `IT-T3-006` (ERSA Friuli-VG) | mesma região e mesma seção «colture erbacee»; a segunda rodada achou a subpágina `bollettini-2026` e 10 boletins de milho. Ver o bloco de reconciliação do mapa nacional. |
+| `IT-T5-001-B` | recorte italiano de `EU-T5-001` (OpenAlex), sufixo de lote de `IT-T5-001` | os arquivos declaram `"SOURCE": "OpenAlex"`; rota REST aberta, a mesma. **`IT-T5-001` deixou de estar neste grupo: virou ficha**, por simetria com `ES-T5-002`, que é o recorte espanhol da mesma fonte e sempre foi ficha contada. |
+| `IT-T3-004` | **INFERIDO** — primeira medição de `IT-T3-006` (ERSA Friuli-VG) | mesma região e mesma seção «colture erbacee», e a segunda rodada achou a subpágina `bollettini-2026` com 10 boletins de milho. **Não é prova:** nenhuma das duas medições preservou URL, e por isso a identidade não é verificável no repositório. Fica `PLAUSIBLE`, não `COMPROVADO` — e o ID não se recicla de qualquer modo. |
 | `IT-T3-ER-MODENA` | `IT-T3-001` | a ficha de `IT-T3-001` nomeia os *Consorzi Fitosanitari Provinciali (Reggio Emilia, Modena…)*. |
 | `IT-T3-LOTTA-B` | `IT-T3-LOTTA-OBBLIGATORIA` | mesma série de decretos regionais; sufixo de lote, não fonte nova. |
 | `IT-SRC-MINISTERO` · `IT-SRC-MODENA` · `IT-SRC-PIEMONTE` · `IT-SRC-REGIONAL` · `IT-SRC-OPENALEX` | chaves internas do portal (`IT-RADAR-V21`) | namespace `IT-SRC-*`, que **não casa** com a régua do ledger; apontam para `IT-T4-001`, `IT-T3-001`, `IT-T3-005`, a camada regional e `EU-T5-001`. `CHAVE_DE_RENDERIZAÇÃO != SOURCE_ID`. |
@@ -1717,8 +1832,12 @@ e `PROBE_GREEN != FICHA` são as duas leis que organizam a tabela.
 `IT-T13-002` · `IT-T13-003` · `IT-T13-004` · `IT-T13-005`
 
 **Onde estão documentados:** `data/samples/IT-FONTES/ITALY-SOURCE-PROBE.json`, com HTTP,
-bytes, formato, datas vistas, frescor e `ACCESS_STATUS` medidos em 30/08/2026 —
-16 GREEN, 3 BLOCKED (403 em Syngenta, Bayer e ADAMA Itália), 1 NOT_REACHED.
+bytes, formato, datas vistas, frescor e `ACCESS_STATUS` medidos em 30/08/2026. O probe
+inteiro tem **20 linhas** e mede **16 GREEN · 3 BLOCKED · 1 NOT_REACHED**; **destas 20, os
+16 deste grupo são 13 GREEN, 2 BLOCKED e 1 NOT_REACHED** — as outras quatro linhas
+(`IT-T3-002`, `IT-T3-003`, `IT-T3-006`, `IT-T9-001`) já têm ficha ou reconciliação. A
+coincidência entre «16 IDs» e «16 GREEN» era só coincidência, e lia-se como se todos os
+candidatos fossem verdes.
 
 **Por que NÃO viraram ficha, e a razão é medida:** a sondagem mede **alcance e frescor**, não
 contrato de fonte. Nenhum deles tem, hoje, licença lida, granularidade declarada, exemplo
@@ -1758,10 +1877,11 @@ em silêncio. Onde já há descrição: `ES-T8-001/002` em `docs/regras/REGRA-DE
 
 ```
 SOURCE_IDS_WITHOUT_ATLAS_ENTRY   = 0 não classificados
-                                   34 classificados, com razão medida e reprodutível
+                                   33 classificados, com razão medida e reprodutível
 NOVOS DESTE PASSO SEM FICHA      = 20 — 16 no grupo B, 4 no grupo C
-ANTERIORES A bdb57cf             = 14 — os 13 do grupo D mais IT-T5-001,
-                                   que é anterior E reconciliado (grupo A)
+ANTERIORES A bdb57cf             = 13 — o grupo D. IT-T5-001 também era anterior
+                                   e sem ficha; deixou de estar nesta lista porque
+                                   VIROU FICHA neste passo
 DADO PUBLICADO ÓRFÃO DE FONTE    = 0 — as fontes que alimentam caso publicado
                                    (IT-T3-002, IT-T3-LAMMA, IT-T3-OP, IT-T1-001,
                                    IT-T3-006, IT-T4-001-ETICHETTA) foram fichadas aqui
@@ -1771,11 +1891,18 @@ DADO PUBLICADO ÓRFÃO DE FONTE    = 0 — as fontes que alimentam caso publicad
 
 ### Cobertura por território
 
-| | T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10 | T11 | T12 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| EUROPE | 2G | 3G/1? | 1? | 1G/1? | 1G | 1G | – | 1? | – | 1G/2? | – | **1G** |
-| FRANCE | 1? | – | 1Y/1? | 1G | – | – | – | – | 1? | – | 1Y | – |
-| SPAIN | 1? | – | **1G** | 3G/1? | – | – | – | – | 1? | – | – | – |
-| ITALY | **1G** | – | 1Y/**2G** | 1G | – | – | – | – | 1? | – | 1Y | – |
+| | T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10 | T11 | T12 | T13 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| EUROPE | 2G | 1?/2G | 1? | 1?/1G | 1G | – | – | 1? | 1? | 2?/1G | – | 1G | – |
+| FRANCE | 1? | – | 1?/1Y | 1G | – | – | – | – | 1? | – | 1Y | – | 1G |
+| SPAIN | 1? | – | 1G | 1?/3G | 1G | – | – | – | 1? | – | – | – | 1? |
+| ITALY | 1G | – | 2G/1Y | 1G | 1G | – | – | – | 1? | – | 1Y | – | 1? |
 
 *(– = não investigado)*
+
+**Esta tabela deixou de ser digitada.** Ela é derivada das mesmas linhas `SOURCE_ID:` e
+`VERDICT:` que produzem o placar acima, e `tests/test_canonico.py` reprova quando as duas
+discordam. Antes disso ela somava **7** para a Itália enquanto o placar somava 8, faltava a
+coluna **T13** inteira — onde vivem `FR-T13-001`, `ES-T13-001` e `IT-T13-001` — e três
+células da linha EUROPE não correspondiam a ficha nenhuma. Um placar certo com linhas
+erradas continua sendo um documento errado.

@@ -12,8 +12,11 @@
       "LABEL_DOWNLOAD_COVERAGE",
       "TEXT_EXTRACTION_COVERAGE",
       "LABEL_READ_COVERAGE",
-      "AUTHORIZED_USE_ROW_COVERAGE",
-      "USE_ROWS_STRUCTURED_COVERAGE"
+      "CROP_TERM_AND_ISSUE_BOTH_PRESENT_COVERAGE",
+      "MODE_OF_ACTION_DECLARED_COVERAGE"
+    ],
+    "E_TAMBEM_POR": [
+      "COBERTURA_DO_LEITOR_CANONICO — outro leitor, fora da escada"
     ]
   },
   "LABELS_PARSED": 163,
@@ -24350,17 +24353,11 @@
     }
   ],
   "COBERTURA_POR_ESTAGIO": {
-    "LEI": [
-      "163/163 DOWNLOADED nao implica 163/163 READ",
-      "163/163 READ nao implica 163/163 USE_ROWS_STRUCTURED",
-      "PARSER_FAILURE != ABSENCE",
-      "ZERO_PARSED_ROWS != ZERO_AUTHORIZED_USES"
-    ],
     "LABEL_DISCOVERY_COVERAGE": {
       "OBTAINED": 163,
       "TARGET": 163,
       "PCT": 100.0,
-      "MEDE": "rotulos que o registo nacional declara para o titular"
+      "MEDE": "rotulos que se tentou alcancar, contra os que o registo nacional declara"
     },
     "LABEL_DOWNLOAD_COVERAGE": {
       "OBTAINED": 163,
@@ -24372,38 +24369,33 @@
       "OBTAINED": 163,
       "TARGET": 163,
       "PCT": 100.0,
-      "MEDE": "texto integral extraido e versionado em data/samples/IT-ROTULOS-V1/testo/"
+      "MEDE": "ficheiro de texto com >= 1000 bytes em data/samples/IT-ROTULOS-V1/testo/"
     },
     "LABEL_READ_COVERAGE": {
       "OBTAINED": 123,
       "TARGET": 163,
       "PCT": 75.5,
-      "MEDE": "este artefacto produziu pelo menos uma cultura OU um alvo"
+      "MEDE": "este artefacto produziu pelo menos uma cultura OU um alvo. NAO e \"lido\": e o que o vocabulario FECHADO de 17 termos alcanca"
     },
-    "AUTHORIZED_USE_ROW_COVERAGE": {
+    "CROP_TERM_AND_ISSUE_BOTH_PRESENT_COVERAGE": {
       "OBTAINED": 96,
       "TARGET": 163,
       "PCT": 58.9,
-      "MEDE": "este artefacto produziu cultura E alvo (linha de uso autorizado)"
-    },
-    "USE_ROWS_STRUCTURED_COVERAGE": {
-      "OBTAINED": 128,
-      "TARGET": 163,
-      "PCT": 78.5,
-      "MEDE": "tem par cultura x alvo no LEITOR CANONICO IT-ROTULOS-PARES-V3",
-      "LEITOR": "it_rotulo_parser/3.4.0"
+      "MEDE": "o rotulo tem ALGUMA cultura E ALGUM alvo, em qualquer parte do texto",
+      "NAO_E": "AUTHORIZED_USE_ROW. Esse termo ja tem dono nesta casa e vale 19: cultura, alvo e dose na MESMA linha da tabela (ITALY-ADAMA-REGULATORY-INTELLIGENCE.json, LINK_CLASSES). Usar o mesmo nome para uma conjuncao de presencas inflava 19 para 96"
     },
     "MODE_OF_ACTION_DECLARED_COVERAGE": {
       "OBTAINED": 70,
       "TARGET": 163,
-      "PCT": 42.9
+      "PCT": 42.9,
+      "MEDE": "o rotulo declara grupo de acao HRAC/FRAC/IRAC"
     }
   },
   "READ_STRUCTURING_DEBT": {
     "COUNT": 40,
     "CLASSE": "READ/STRUCTURING_DEBT",
     "NAO_E": "REGULATORY_ABSENCE",
-    "POR_QUE": "Os 40 produtos abaixo saem deste artefacto sem cultura e sem alvo. Os 40 tem o texto integral do rotulo ja versionado no repositorio, e 31 deles ja tem par cultura x alvo no leitor canonico IT-ROTULOS-PARES-V3. Logo o silencio e do parser deste artefacto, nunca do rotulo: dizer ABSENCE aqui seria afirmar que a ADAMA nao registou uso onde ela registou.",
+    "POR_QUE": "Os 40 produtos abaixo saem deste artefacto sem cultura e sem alvo. Para 38 deles a divida esta PROVADA: o leitor canonico IT-ROTULOS-PARES-V3 leu par cultura x alvo no mesmo rotulo, logo o silencio e do parser deste artefacto e dizer ABSENCE seria afirmar que a ADAMA nao registou uso onde ela registou. Para os outros 2 nenhum leitor da casa produziu par: eles ficam em NAO SEI, e nao em divida nem em ausencia.",
     "REGISTRATION_IDS": [
       "004701",
       "008259",
@@ -24447,39 +24439,139 @@
       "018694"
     ],
     "COM_TEXTO_INTEGRAL_NO_REPO": 40,
-    "JA_LIDOS_PELO_LEITOR_CANONICO": 31,
-    "IDS_JA_LIDOS_PELO_LEITOR_CANONICO": [
-      "004701",
-      "008259",
-      "011526",
-      "013899",
-      "013905",
-      "014862",
-      "015235",
-      "015315",
-      "015405",
-      "015629",
-      "016553",
-      "016616",
-      "017116",
-      "017319",
-      "017335",
-      "017337",
-      "017340",
-      "017398",
-      "017409",
-      "017432",
-      "017658",
-      "017659",
-      "017662",
-      "017898",
-      "017929",
-      "017930",
-      "017955",
-      "018089",
-      "018175",
-      "018202",
-      "018694"
-    ]
+    "MIN_BYTES_DO_TEXTO": 1000,
+    "CONFIRMED_PARSER_DEBT": {
+      "COUNT": 38,
+      "IDS": [
+        "004701",
+        "008259",
+        "011526",
+        "012060",
+        "013899",
+        "013905",
+        "014093",
+        "014862",
+        "015235",
+        "015315",
+        "015405",
+        "015592",
+        "015629",
+        "015630",
+        "016553",
+        "016616",
+        "016697",
+        "017116",
+        "017319",
+        "017335",
+        "017337",
+        "017340",
+        "017398",
+        "017409",
+        "017432",
+        "017580",
+        "017658",
+        "017659",
+        "017662",
+        "017898",
+        "017929",
+        "017930",
+        "017955",
+        "017983",
+        "018089",
+        "018175",
+        "018202",
+        "018694"
+      ],
+      "PROVA_POR_LEITOR_CANONICO": [
+        "004701",
+        "008259",
+        "011526",
+        "013899",
+        "013905",
+        "014862",
+        "015235",
+        "015315",
+        "015405",
+        "015629",
+        "016553",
+        "016616",
+        "017116",
+        "017319",
+        "017335",
+        "017337",
+        "017340",
+        "017398",
+        "017409",
+        "017432",
+        "017658",
+        "017659",
+        "017662",
+        "017898",
+        "017929",
+        "017930",
+        "017955",
+        "018089",
+        "018175",
+        "018202",
+        "018694"
+      ],
+      "PROVA_POR_TEXTO_ARQUIVADO": [
+        "012060",
+        "014093",
+        "015592",
+        "015630",
+        "016697",
+        "017580",
+        "017983"
+      ],
+      "PROVA": "duas provas independentes, e basta uma: o leitor canonico produziu par cultura x alvo no mesmo rotulo, OU o vocabulario fechado desta casa acha a cultura no texto arquivado fora de contexto de rotacao. Nos dois casos o silencio e da extracao, nao do rotulo."
+    },
+    "UNCONFIRMED_SILENCE": {
+      "COUNT": 2,
+      "IDS": [
+        "009783",
+        "017852"
+      ],
+      "O_QUE_SE_SABE_DE_CADA": {
+        "009783": {
+          "E_COADIUVANTE": false,
+          "CITA_CULTURA_FORA_DO_VOCABULARIO": [
+            "agrum"
+          ],
+          "LEITURA": "o texto cita cultura(s) que o vocabulario fechado de 17 termos nao tem: agrum — divida de VOCABULARIO, nao de leitura"
+        },
+        "017852": {
+          "E_COADIUVANTE": true,
+          "CITA_CULTURA_FORA_DO_VOCABULARIO": [],
+          "LEITURA": "coadjuvante declarado: usa-se em mistura com outros produtos e nao tem cultura propria — o silencio e do documento"
+        }
+      },
+      "CLASSE": "NAO SEI",
+      "NAO_E": "REGULATORY_ABSENCE nem READ/STRUCTURING_DEBT",
+      "POR_QUE": "nem o leitor canonico nem o vocabulario da casa acham cultura no texto arquivado. NAO SEI aqui e sobre a NOSSA leitura, e cada um destes tem razao propria escrita abaixo — \"nao sei\" generico sobre um ficheiro que temos em disco e nao ter olhado.",
+      "SUSPEITA_DE_VOCABULARIO": {
+        "COUNT": 1,
+        "IDS": [
+          "009783"
+        ],
+        "POR_QUE": "o texto cita cultura que o vocabulario FECHADO de 17 termos nao tem (agrumi, carciofo, mandorlo...). Se for isso, a divida e de VOCABULARIO e nao de geometria de tabela."
+      }
+    }
+  },
+  "LEI_DA_COBERTURA": [
+    "DOWNLOADED nao implica READ",
+    "READ nao implica USE_ROWS_STRUCTURED",
+    "PARSER_FAILURE != ABSENCE",
+    "ZERO_PARSED_ROWS != ZERO_AUTHORIZED_USES",
+    "UNCONFIRMED_SILENCE != DEBT != ABSENCE"
+  ],
+  "COBERTURA_DO_LEITOR_CANONICO": {
+    "DATASET": "IT-ROTULOS-PARES-V3",
+    "LEITOR": "it_rotulo_parser/3.4.0",
+    "NAO_E_DERIVADO_DESTE_ARTEFACTO": "o numerador vem do leitor canonico e o denominador deste portfolio; os dois descrevem o mesmo universo de rotulos, e isso e conferido abaixo",
+    "ROTULOS_COM_PAR": 128,
+    "UNIVERSO": 163,
+    "PCT": 78.5,
+    "UNIVERSOS_BATEM": true
   }
 }

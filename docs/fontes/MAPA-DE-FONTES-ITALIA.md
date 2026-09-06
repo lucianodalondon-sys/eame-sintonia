@@ -29,7 +29,15 @@
 >    **Friuli-Venezia Giulia é falsa**: há série de milho, semanal, sob difesa integrata
 >    obbligatoria. Uma varredura que não achou não é uma fonte que não publica.
 >
-> 4. **Onde cada ID está documentado.** Têm ficha no atlas canônico: `IT-T4-001`,
+> 4. **As contagens de boletins do Vêneto desta passagem são as MENORES.** A tabela do §3
+>    diz «17 olivícola · 17 hortícola · 16 videira · 15 frutícola»; a matriz regional
+>    (`data/samples/IT-FONTES/ITALY-REGIONAL-COVERAGE-MATRIX.json`, mesma data de captura)
+>    conta **28 olivo · 25 frutícola · 21 hortícola · 16+ vite**. As duas medições são da
+>    mesma rota e do mesmo dia, e a segunda é a que a ficha `IT-T3-OP` do atlas usa ao
+>    comparar o Vêneto com a Puglia. **Vale a maior**, e a menor fica registada como a
+>    primeira varredura.
+>
+> 5. **Onde cada ID está documentado.** Têm ficha no atlas canônico: `IT-T4-001`,
 >    `IT-T4-001-ETICHETTA`, `IT-T1-001`, `IT-T3-001`, `IT-T3-002`, `IT-T3-006`,
 >    `IT-T3-LOTTA-OBBLIGATORIA`, `IT-T3-LAMMA`, `IT-T3-OP`, `IT-T9-001`, `IT-T11-001`,
 >    `EU-T1-001`, `EU-T5-001`. Documentados **só aqui**, como primeira passagem e sem ficha
@@ -199,9 +207,9 @@ Veneto, Lombardia, Piemonte — mais Friuli-Venezia Giulia.
 
 > **O sistema italiano de boletins de campo é construído para culturas permanentes e
 > hortícolas, não para o milho.** Nas duas maiores regiões produtoras de milho do país,
-> 2026 produziu **65 boletins de permanentes/hortícolas contra 2 de herbáceas** — e o
-> único boletim de herbáceas do Veneto que foi aberto trata de **beterraba açucareira /
-> *Cercospora beticola***, não de milho.
+> 2026 produziu **75 boletins de permanentes/hortícolas contra 2 de herbáceas**
+> (Vêneto 65, Lombardia 10) — e o único boletim de herbáceas do Veneto que foi aberto
+> trata de **beterraba açucareira / *Cercospora beticola***, não de milho.
 
 `SOURCE FAILURE ≠ ZERO` — mas isto **não** é falha de leitura: as três fontes responderam
 `HTTP 200` e foram lidas. É **ausência medida de cobertura**, e ela decide qual caso

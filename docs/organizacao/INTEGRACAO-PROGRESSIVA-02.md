@@ -211,6 +211,11 @@ HEAD `bd3c538`**
 
 **NÃO EXECUTADO.** Parado aqui, como mandado.
 
+> **Executado depois, e noutro HEAD.** O PASSO 03 correu contra `bdb57cf` — o head já tinha
+> avançado com os reparos das §9 e §10 — e está em `INTEGRACAO-PROGRESSIVA-03.md`. A linha
+> acima fica como estava: era verdade quando foi escrita, e reescrevê-la apagaria a ordem
+> em que as coisas aconteceram.
+
 
 ---
 

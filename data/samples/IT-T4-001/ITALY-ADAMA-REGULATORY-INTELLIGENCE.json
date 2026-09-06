@@ -11,7 +11,11 @@
   "ORIGINAL_LANGUAGE": "IT",
   "SCOPE": "ADAMA_GROUP_IT_CORE — vínculo por sede administrativa declarada",
   "PRODUCTS_TOTAL": 163,
-  "LABEL_COVERAGE": "163/163 (100%)",
+  "LABEL_COVERAGE": {
+    "DEPRECATED": true,
+    "VALOR_ANTIGO": "163/163 (100%)",
+    "WHY": "Media DOWNLOAD e era lida como LEITURA. Os seis estagios estao em data/samples/IT-T4-001/IT-T4-001-portfolio-rotulo.json, COBERTURA_POR_ESTAGIO — e la a leitura nao e 100%."
+  },
   "LINK_CLASSES": {
     "CROP_TERM_PRESENT": "a cultura aparece no rótulo; NÃO diz para qual alvo. Ampla e sem ligação.",
     "AUTHORIZED_USE_ROW": "cultura, alvo e dose na MESMA linha da tabela. Estreita e com ligação."
@@ -8820,156 +8824,243 @@
       "OLDER_SMALLER_READER != CANONICAL_READER",
       "NEW_MERGE_CANNOT_DOWNGRADE_GATED_READING"
     ],
-    "POR_QUE": "Este artefacto foi capturado em 2026-08-30 e declara 90 pares cultura x alvo. O leitor canonico e cinco dias mais novo, tem 2.928 pares, passou portao com gabarito lido a mao, e ja resolve o que este declara como limitacao intransponivel (\"o dicionario e espanhol, Scaphoideus nao esta nele\"). Enxertar este por cima seria rebaixar leitura que passou portao.",
+    "POR_QUE": "Este artefacto foi capturado em 2026-08-30 e declara 90 pares cultura x alvo. O leitor canonico e cinco dias mais novo, passou portao com gabarito lido a mao, e le 128 rotulos com par contra os 19 deste. Enxertar este por cima seria rebaixar leitura que passou portao.",
     "COMPARACAO_CAMPO_A_CAMPO": {
       "ROTULOS_DO_LEGADO": 19,
-      "ROTULOS_AUSENTES_DO_CANONICO": 0,
+      "ROTULOS_DO_CANONICO": 128,
       "LINHAS_DE_USO_DO_LEGADO": 49,
-      "COBERTAS_PELO_CANONICO": 37,
-      "SUBSUMED_BY_IT_ROTULOS_PARES_V3": "PARCIAL — 37 de 49",
-      "METODO": "cultura normalizada e traduzida EN->IT antes de comparar; o legado escreve potato/olive/tomato/sugarbeet, o canonico patata/olivo/pomodoro/barbabietola"
+      "SLOTS_DISTINTOS_CULTURA_x_ROTULO": 45,
+      "CROP_PRESENTE_NO_CANONICO": 39,
+      "USE_ROWS_COM_ALVO_REPRODUZIDO": 0,
+      "TRIPLAS_REG_CROP_TARGET_DO_LEGADO": 217,
+      "O_QUE_SUBSUMIDO_QUER_DIZER": "CULTURA, e so cultura. O canonico publica CLASSE de alvo (AFIDI, INFESTANTI) e o legado publica especie (Aphis pomi). Dos 217 alvos do legado, 0 aparecem como TARGET do canonico. Ler \"39 de 49\" como \"usos reproduzidos\" seria apagar a especie julgando-a preservada.",
+      "METODO": "cultura do legado (CROP_TERM_MATCHED, ja em italiano no rotulo) normalizada sem acento e em maiuscula, comparada com o conjunto de CROP do canonico para o MESMO registro; o substantivo-cabeca vale quando o termo composto nao casa (FRUMENTO TENERO -> FRUMENTO). Nao ha traducao EN->IT: o termo ja vem em italiano."
     },
     "O_QUE_ESTE_ARTEFACTO_TEM_E_O_CANONICO_NAO": {
       "LINHAS_NAO_COBERTAS": [
         {
           "REGISTRATION_ID": "008189",
-          "CROP_LEGADO": "sugarbeet",
+          "CROP_LEGADO": "BARBABIETOLA",
           "CULTURAS_NO_GATED": [
-            "carota",
-            "cavolo",
-            "cetriolo",
-            "cocomero",
-            "fagiolo",
-            "girasole"
-          ]
+            "CAROTA",
+            "CAVOLO",
+            "CETRIOLO",
+            "COCOMERO",
+            "FAGIOLO",
+            "GIRASOLE",
+            "MAIS",
+            "MELANZANA",
+            "MELONE",
+            "PATATA",
+            "PISELLO",
+            "POMODORO",
+            "SOIA",
+            "TABACCO"
+          ],
+          "CLASSE": "CANDIDATE_INPUT_TO_CANONICAL_READER"
         },
         {
           "REGISTRATION_ID": "008189",
-          "CROP_LEGADO": "wheat_generic",
+          "CROP_LEGADO": "FRUMENTO",
           "CULTURAS_NO_GATED": [
-            "carota",
-            "cavolo",
-            "cetriolo",
-            "cocomero",
-            "fagiolo",
-            "girasole"
-          ]
+            "CAROTA",
+            "CAVOLO",
+            "CETRIOLO",
+            "COCOMERO",
+            "FAGIOLO",
+            "GIRASOLE",
+            "MAIS",
+            "MELANZANA",
+            "MELONE",
+            "PATATA",
+            "PISELLO",
+            "POMODORO",
+            "SOIA",
+            "TABACCO"
+          ],
+          "CLASSE": "CANDIDATE_INPUT_TO_CANONICAL_READER"
         },
         {
           "REGISTRATION_ID": "008189",
-          "CROP_LEGADO": "sorghum",
+          "CROP_LEGADO": "SORGO",
           "CULTURAS_NO_GATED": [
-            "carota",
-            "cavolo",
-            "cetriolo",
-            "cocomero",
-            "fagiolo",
-            "girasole"
-          ]
+            "CAROTA",
+            "CAVOLO",
+            "CETRIOLO",
+            "COCOMERO",
+            "FAGIOLO",
+            "GIRASOLE",
+            "MAIS",
+            "MELANZANA",
+            "MELONE",
+            "PATATA",
+            "PISELLO",
+            "POMODORO",
+            "SOIA",
+            "TABACCO"
+          ],
+          "CLASSE": "CANDIDATE_INPUT_TO_CANONICAL_READER"
         },
         {
           "REGISTRATION_ID": "014479",
-          "CROP_LEGADO": "sugarbeet",
+          "CROP_LEGADO": "BARBABIETOLA",
           "CULTURAS_NO_GATED": [
-            "carota",
-            "cavolo",
-            "cetriolo",
-            "cocomero",
-            "fagiolo",
-            "girasole"
-          ]
+            "CAROTA",
+            "CAVOLO",
+            "CETRIOLO",
+            "COCOMERO",
+            "FAGIOLO",
+            "GIRASOLE",
+            "MAIS",
+            "MELANZANA",
+            "MELONE",
+            "PATATA",
+            "PISELLO",
+            "POMODORO",
+            "SOIA",
+            "TABACCO"
+          ],
+          "CLASSE": "CANDIDATE_INPUT_TO_CANONICAL_READER"
         },
         {
           "REGISTRATION_ID": "014479",
-          "CROP_LEGADO": "wheat_generic",
+          "CROP_LEGADO": "FRUMENTO",
           "CULTURAS_NO_GATED": [
-            "carota",
-            "cavolo",
-            "cetriolo",
-            "cocomero",
-            "fagiolo",
-            "girasole"
-          ]
+            "CAROTA",
+            "CAVOLO",
+            "CETRIOLO",
+            "COCOMERO",
+            "FAGIOLO",
+            "GIRASOLE",
+            "MAIS",
+            "MELANZANA",
+            "MELONE",
+            "PATATA",
+            "PISELLO",
+            "POMODORO",
+            "SOIA",
+            "TABACCO"
+          ],
+          "CLASSE": "CANDIDATE_INPUT_TO_CANONICAL_READER"
         },
         {
           "REGISTRATION_ID": "014479",
-          "CROP_LEGADO": "sorghum",
+          "CROP_LEGADO": "SORGO",
           "CULTURAS_NO_GATED": [
-            "carota",
-            "cavolo",
-            "cetriolo",
-            "cocomero",
-            "fagiolo",
-            "girasole"
-          ]
-        },
-        {
-          "REGISTRATION_ID": "018067",
-          "CROP_LEGADO": "common_wheat",
-          "CULTURAS_NO_GATED": [
-            "frumento",
-            "orzo",
-            "segale",
-            "triticale"
-          ]
-        },
+            "CAROTA",
+            "CAVOLO",
+            "CETRIOLO",
+            "COCOMERO",
+            "FAGIOLO",
+            "GIRASOLE",
+            "MAIS",
+            "MELANZANA",
+            "MELONE",
+            "PATATA",
+            "PISELLO",
+            "POMODORO",
+            "SOIA",
+            "TABACCO"
+          ],
+          "CLASSE": "CANDIDATE_INPUT_TO_CANONICAL_READER"
+        }
+      ],
+      "DEFEITO_CONHECIDO_DO_LEGADO": [
         {
           "REGISTRATION_ID": "018270",
-          "CROP_LEGADO": "rice",
+          "CROP_LEGADO": "RISO",
           "CULTURAS_NO_GATED": [
-            "agrumi",
-            "carciofo",
-            "carota",
-            "fagiolo",
-            "mais",
-            "mandorlo"
-          ]
+            "AGRUMI",
+            "CARCIOFO",
+            "CAROTA",
+            "FAGIOLO",
+            "MAIS",
+            "MANDORLO",
+            "MELANZANA",
+            "MELO",
+            "NOCCIOLO",
+            "NOCE",
+            "OLIVO",
+            "PATATA",
+            "PERO",
+            "PISELLO",
+            "POMODORO",
+            "VITE"
+          ],
+          "CLASSE": "KNOWN_DEFECT / DO_NOT_REPROCESS",
+          "POR_QUE": "`Riso` foi lido de dentro do nome de uma erva daninha (`Riso crodo)`) num herbicida de glifosato nao seletivo. Ver research/italy-demo-reality/ITALY-AUDITORIA-DO-PAR.md. A ausencia no canonico e ACERTO do canonico."
         },
         {
           "REGISTRATION_ID": "018271",
-          "CROP_LEGADO": "rice",
+          "CROP_LEGADO": "RISO",
           "CULTURAS_NO_GATED": [
-            "agrumi",
-            "carciofo",
-            "carota",
-            "fagiolo",
-            "mais",
-            "mandorlo"
-          ]
+            "AGRUMI",
+            "CARCIOFO",
+            "CAROTA",
+            "FAGIOLO",
+            "MAIS",
+            "MANDORLO",
+            "MELANZANA",
+            "MELO",
+            "NOCCIOLO",
+            "NOCE",
+            "OLIVO",
+            "PATATA",
+            "PERO",
+            "PISELLO",
+            "POMODORO",
+            "VITE"
+          ],
+          "CLASSE": "KNOWN_DEFECT / DO_NOT_REPROCESS",
+          "POR_QUE": "`Riso` foi lido de dentro do nome de uma erva daninha (`Riso crodo)`) num herbicida de glifosato nao seletivo. Ver research/italy-demo-reality/ITALY-AUDITORIA-DO-PAR.md. A ausencia no canonico e ACERTO do canonico."
         },
         {
           "REGISTRATION_ID": "018277",
-          "CROP_LEGADO": "rice",
+          "CROP_LEGADO": "RISO",
           "CULTURAS_NO_GATED": [
-            "agrumi",
-            "carciofo",
-            "carota",
-            "fagiolo",
-            "mais",
-            "mandorlo"
-          ]
+            "AGRUMI",
+            "CARCIOFO",
+            "CAROTA",
+            "FAGIOLO",
+            "MAIS",
+            "MANDORLO",
+            "MELANZANA",
+            "MELO",
+            "NOCCIOLO",
+            "NOCE",
+            "OLIVO",
+            "PATATA",
+            "PERO",
+            "PISELLO",
+            "POMODORO",
+            "VITE"
+          ],
+          "CLASSE": "KNOWN_DEFECT / DO_NOT_REPROCESS",
+          "POR_QUE": "`Riso` foi lido de dentro do nome de uma erva daninha (`Riso crodo)`) num herbicida de glifosato nao seletivo. Ver research/italy-demo-reality/ITALY-AUDITORIA-DO-PAR.md. A ausencia no canonico e ACERTO do canonico."
         },
         {
           "REGISTRATION_ID": "018279",
-          "CROP_LEGADO": "rice",
+          "CROP_LEGADO": "RISO",
           "CULTURAS_NO_GATED": [
-            "agrumi",
-            "carciofo",
-            "carota",
-            "fagiolo",
-            "mais",
-            "mandorlo"
-          ]
-        },
-        {
-          "REGISTRATION_ID": "019095",
-          "CROP_LEGADO": "common_wheat",
-          "CULTURAS_NO_GATED": [
-            "frumento",
-            "orzo",
-            "segale",
-            "triticale"
-          ]
+            "AGRUMI",
+            "CARCIOFO",
+            "CAROTA",
+            "FAGIOLO",
+            "MAIS",
+            "MANDORLO",
+            "MELANZANA",
+            "MELO",
+            "NOCCIOLO",
+            "NOCE",
+            "OLIVO",
+            "PATATA",
+            "PERO",
+            "PISELLO",
+            "POMODORO",
+            "VITE"
+          ],
+          "CLASSE": "KNOWN_DEFECT / DO_NOT_REPROCESS",
+          "POR_QUE": "`Riso` foi lido de dentro do nome de uma erva daninha (`Riso crodo)`) num herbicida de glifosato nao seletivo. Ver research/italy-demo-reality/ITALY-AUDITORIA-DO-PAR.md. A ausencia no canonico e ACERTO do canonico."
         }
       ],
       "CLASSE": "CANDIDATE_INPUT_TO_CANONICAL_READER",

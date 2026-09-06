@@ -160,8 +160,19 @@ print('\nuniverso — "vou coletar" e "não tentei" não podem se sobrepor:')
 u = uni.montar()
 checa('nenhuma empresa no lote E fora do lote',
       sorted(set(u['FIRST_BATCH_COMPANIES']) & set(u['OUT_OF_FIRST_BATCH'])), [])
-checa('nenhuma casa nasce autorizada',
-      {c['COLLECTION_AUTHORIZED'] for c in u['CELLS']}, {'NO'})
+# EMPTY_SET != PROVEN_NO. O crosswalk que alimenta o universo nao e versionado nesta
+# arvore, entao `CELLS` sai vazio e o conjunto de estados sai vazio junto. Comparar
+# `set()` com `{'NO'}` publicava um VERMELHO PERMANENTE que soava como "alguma casa
+# nasce autorizada" quando o que havia era "nao ha casa nenhuma para julgar" — e como
+# este ficheiro morre na importacao, o vermelho ficava invisivel nos dois harnesses.
+if u['CELLS']:
+    checa('nenhuma casa nasce autorizada',
+          {c['COLLECTION_AUTHORIZED'] for c in u['CELLS']}, {'NO'})
+else:
+    # A ausencia tem de ser a razao DECLARADA. Se o crosswalk aparecer e as casas
+    # continuarem zero, isto volta a reprovar.
+    checa('nenhuma casa nasce autorizada — nao ha casas, e o motivo e o crosswalk ausente',
+          os.path.exists(uni.CROSSWALK), False)
 
 
 # ── classificação: o país do fato vem do TEXTO, nunca da conta nem da língua ────
