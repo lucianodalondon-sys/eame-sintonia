@@ -59,6 +59,24 @@ sendo duas celulas coladas, e coladas elas nao existem em coluna nenhuma — o
 estado `TARGET_TEXT_NOT_FOUND_LITERALLY` que sobra depois da reconstrucao e mais
 estreito e mais util, nao mais completo. `FUSION_DETECTOR` continua
 `NOT_IMPLEMENTED`.
+
+### E o que a rodada 4 mediu sobre a propria SF-01: ela nao e mais necessaria
+
+O teste passou a ler as TRES formas do `pdftotext` (ver `texto`), e com isso
+`ROWS_FOUND_ONLY_AFTER_COLUMN_RECONSTRUCTION` caiu de **119 para ZERO**. As 119
+recuperacoes que justificavam a remontagem por coluna sao todas encontraveis num
+`pdftotext` sem argumento nenhum: no fluxo a frase esta inteira, e era so o
+`-layout` que a partia.
+
+Isto NAO e retirar SF-01 do codigo, e a diferenca importa. A remontagem continua
+la, como ultima tentativa depois das tres leituras, e o numero acima e publicado
+a cada execucao. Mas fica registrado que hoje ela nao decide nada — e que a
+lente I da rodada 4 mediu o preco dela quando decide: `texto_por_coluna` emenda
+1.479 vezes ATRAVES de um fio desenhado e fabrica 755 frases que nao existem em
+leitura linear nenhuma. Instrumento que fabrica frase e que nao recupera nada
+esta um passo de ser removido; nao removi porque num acervo com outra
+diagramacao ele pode voltar a recuperar, e essa e uma afirmacao sobre o futuro
+que eu nao medi.
 """
 import argparse, json, os, re, subprocess, sys, unicodedata
 
@@ -74,18 +92,38 @@ def nrm(s):
 
 
 def texto(reg, pdfs, cache):
+    """O texto do rotulo nas TRES leituras do pdftotext, concatenadas.
+
+    Era so `-layout`, e isso reprovava alvo verdadeiro. Medido: das 61 linhas
+    que R-13 acusava, 16 tinham o texto EXISTINDO LITERALMENTE noutra leitura do
+    MESMO PDF — "Cemiostoma, litocollete (prima della comparsa delle mine ed in
+    presenza di larve)" e "Tignola e tignoletta: 1a generazione", em 008259,
+    013560, 013590, 015275 e 017687. No `-layout` a frase e partida pela
+    diagramacao de coluna; no fluxo ela esta inteira.
+
+    Reprovar alvo que a etichetta escreve e o erro caro nesta direcao: apaga
+    fato regulatorio verdadeiro. R-17 e R-18 ja liam as tres formas pelo mesmo
+    motivo — o que se procura aqui e a PRESENCA do texto, e a estrutura em volta
+    dele e assunto de outra regra.
+    """
     os.makedirs(cache, exist_ok=True)
-    alvo = os.path.join(cache, f"{reg}.txt")
-    if not os.path.exists(alvo) or os.path.getsize(alvo) == 0:
-        pdf = os.path.join(pdfs, f"{reg}.pdf")
-        if not os.path.exists(pdf):
-            return None
+    pdf = os.path.join(pdfs, f"{reg}.pdf")
+    if not os.path.exists(pdf):
+        return None
+    partes = []
+    for modo, suf in ((["-layout"], "txt"), ([], "fluxo"), (["-raw"], "raw")):
+        alvo = os.path.join(cache, f"{reg}.{suf}")
+        if not os.path.exists(alvo) or os.path.getsize(alvo) == 0:
+            try:
+                subprocess.run(["pdftotext"] + modo + [pdf, alvo], check=True,
+                               capture_output=True, timeout=180)
+            except Exception:
+                continue
         try:
-            subprocess.run(["pdftotext", "-layout", pdf, alvo], check=True,
-                           capture_output=True, timeout=180)
-        except Exception:
-            return None
-    return open(alvo, encoding="utf-8", errors="replace").read()
+            partes.append(open(alvo, encoding="utf-8", errors="replace").read())
+        except OSError:
+            pass
+    return " || ".join(partes) if partes else None
 
 
 def caixas(pdf, cache):

@@ -8,9 +8,9 @@
  "WHY_NOT_IMPLEMENTED": "tres tentativas medidas: teste literal acusa 180/839 e a maioria e quebra de coluna; heuristica de conteudo acusa 86 e condena alvo multiplo legitimo (Pomacee x Dysaphis/Eriosoma/Aphis); ancoragem por fios nas duas pontas do alvo acusa ZERO porque a banda do extrator nao contem as duas pontas do alvo fundido",
  "MATCH": "substring com fronteira de palavra nas duas pontas; piso de 4 letras. Era substring cru com piso de 8, e o piso calava 71 linhas de dose sem motivo escrito",
  "TEXT_RECONSTRUCTION": "por COLUNA, com os fios verticais de fios.py e as caixas de palavra do pdftotext -bbox-layout; o texto da pagina inteira vale como segunda chance",
- "ROWS_FOUND_ONLY_AFTER_COLUMN_RECONSTRUCTION": 119,
- "ROWS_FOUND_LITERALLY": 778,
- "ROWS_NOT_FOUND_LITERALLY": 61,
+ "ROWS_FOUND_ONLY_AFTER_COLUMN_RECONSTRUCTION": 0,
+ "ROWS_FOUND_LITERALLY": 794,
+ "ROWS_NOT_FOUND_LITERALLY": 45,
  "ROWS_NOT_CHECKED": 0,
  "VERDICT": {
   "004701#0": "TARGET_TEXT_FOUND_LITERALLY",
@@ -79,7 +79,7 @@
   "008259#11": "TARGET_TEXT_FOUND_LITERALLY",
   "008259#12": "TARGET_TEXT_FOUND_LITERALLY",
   "008259#13": "TARGET_TEXT_FOUND_LITERALLY",
-  "008259#14": "TARGET_TEXT_NOT_FOUND_LITERALLY",
+  "008259#14": "TARGET_TEXT_FOUND_LITERALLY",
   "008259#15": "TARGET_TEXT_FOUND_LITERALLY",
   "008259#16": "TARGET_TEXT_FOUND_LITERALLY",
   "008259#17": "TARGET_TEXT_NOT_FOUND_LITERALLY",
@@ -156,7 +156,7 @@
   "008259#88": "TARGET_TEXT_FOUND_LITERALLY",
   "008259#89": "TARGET_TEXT_FOUND_LITERALLY",
   "008259#90": "TARGET_TEXT_FOUND_LITERALLY",
-  "008259#91": "TARGET_TEXT_NOT_FOUND_LITERALLY",
+  "008259#91": "TARGET_TEXT_FOUND_LITERALLY",
   "008259#92": "TARGET_TEXT_FOUND_LITERALLY",
   "008259#93": "TARGET_TEXT_FOUND_LITERALLY",
   "008259#94": "TARGET_TEXT_NOT_FOUND_LITERALLY",
@@ -234,7 +234,7 @@
   "013560#11": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#12": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#13": "TARGET_TEXT_FOUND_LITERALLY",
-  "013560#14": "TARGET_TEXT_NOT_FOUND_LITERALLY",
+  "013560#14": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#15": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#16": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#17": "TARGET_TEXT_NOT_FOUND_LITERALLY",
@@ -243,7 +243,7 @@
   "013560#20": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#21": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#22": "TARGET_TEXT_FOUND_LITERALLY",
-  "013560#23": "TARGET_TEXT_NOT_FOUND_LITERALLY",
+  "013560#23": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#24": "TARGET_TEXT_NOT_FOUND_LITERALLY",
   "013560#25": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#26": "TARGET_TEXT_FOUND_LITERALLY",
@@ -310,7 +310,7 @@
   "013560#87": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#88": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#89": "TARGET_TEXT_FOUND_LITERALLY",
-  "013560#90": "TARGET_TEXT_NOT_FOUND_LITERALLY",
+  "013560#90": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#91": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#92": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#93": "TARGET_TEXT_NOT_FOUND_LITERALLY",
@@ -319,7 +319,7 @@
   "013560#96": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#97": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#98": "TARGET_TEXT_FOUND_LITERALLY",
-  "013560#99": "TARGET_TEXT_NOT_FOUND_LITERALLY",
+  "013560#99": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#100": "TARGET_TEXT_NOT_FOUND_LITERALLY",
   "013560#101": "TARGET_TEXT_FOUND_LITERALLY",
   "013560#102": "TARGET_TEXT_FOUND_LITERALLY",
@@ -386,7 +386,7 @@
   "013590#11": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#12": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#13": "TARGET_TEXT_FOUND_LITERALLY",
-  "013590#14": "TARGET_TEXT_NOT_FOUND_LITERALLY",
+  "013590#14": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#15": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#16": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#17": "TARGET_TEXT_NOT_FOUND_LITERALLY",
@@ -395,7 +395,7 @@
   "013590#20": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#21": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#22": "TARGET_TEXT_FOUND_LITERALLY",
-  "013590#23": "TARGET_TEXT_NOT_FOUND_LITERALLY",
+  "013590#23": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#24": "TARGET_TEXT_NOT_FOUND_LITERALLY",
   "013590#25": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#26": "TARGET_TEXT_FOUND_LITERALLY",
@@ -462,7 +462,7 @@
   "013590#87": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#88": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#89": "TARGET_TEXT_FOUND_LITERALLY",
-  "013590#90": "TARGET_TEXT_NOT_FOUND_LITERALLY",
+  "013590#90": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#91": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#92": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#93": "TARGET_TEXT_NOT_FOUND_LITERALLY",
@@ -471,7 +471,7 @@
   "013590#96": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#97": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#98": "TARGET_TEXT_FOUND_LITERALLY",
-  "013590#99": "TARGET_TEXT_NOT_FOUND_LITERALLY",
+  "013590#99": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#100": "TARGET_TEXT_NOT_FOUND_LITERALLY",
   "013590#101": "TARGET_TEXT_FOUND_LITERALLY",
   "013590#102": "TARGET_TEXT_FOUND_LITERALLY",
@@ -587,7 +587,7 @@
   "015275#11": "TARGET_TEXT_FOUND_LITERALLY",
   "015275#12": "TARGET_TEXT_FOUND_LITERALLY",
   "015275#13": "TARGET_TEXT_FOUND_LITERALLY",
-  "015275#14": "TARGET_TEXT_NOT_FOUND_LITERALLY",
+  "015275#14": "TARGET_TEXT_FOUND_LITERALLY",
   "015275#15": "TARGET_TEXT_FOUND_LITERALLY",
   "015275#16": "TARGET_TEXT_FOUND_LITERALLY",
   "015275#17": "TARGET_TEXT_NOT_FOUND_LITERALLY",
@@ -596,7 +596,7 @@
   "015275#20": "TARGET_TEXT_FOUND_LITERALLY",
   "015275#21": "TARGET_TEXT_FOUND_LITERALLY",
   "015275#22": "TARGET_TEXT_FOUND_LITERALLY",
-  "015275#23": "TARGET_TEXT_NOT_FOUND_LITERALLY",
+  "015275#23": "TARGET_TEXT_FOUND_LITERALLY",
   "015275#24": "TARGET_TEXT_NOT_FOUND_LITERALLY",
   "015275#25": "TARGET_TEXT_FOUND_LITERALLY",
   "015275#26": "TARGET_TEXT_FOUND_LITERALLY",
@@ -700,7 +700,7 @@
   "017687#11": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#12": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#13": "TARGET_TEXT_FOUND_LITERALLY",
-  "017687#14": "TARGET_TEXT_NOT_FOUND_LITERALLY",
+  "017687#14": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#15": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#16": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#17": "TARGET_TEXT_NOT_FOUND_LITERALLY",
@@ -709,7 +709,7 @@
   "017687#20": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#21": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#22": "TARGET_TEXT_FOUND_LITERALLY",
-  "017687#23": "TARGET_TEXT_NOT_FOUND_LITERALLY",
+  "017687#23": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#24": "TARGET_TEXT_NOT_FOUND_LITERALLY",
   "017687#25": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#26": "TARGET_TEXT_FOUND_LITERALLY",
@@ -777,7 +777,7 @@
   "017687#88": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#89": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#90": "TARGET_TEXT_FOUND_LITERALLY",
-  "017687#91": "TARGET_TEXT_NOT_FOUND_LITERALLY",
+  "017687#91": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#92": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#93": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#94": "TARGET_TEXT_NOT_FOUND_LITERALLY",
@@ -786,7 +786,7 @@
   "017687#97": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#98": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#99": "TARGET_TEXT_FOUND_LITERALLY",
-  "017687#100": "TARGET_TEXT_NOT_FOUND_LITERALLY",
+  "017687#100": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#101": "TARGET_TEXT_NOT_FOUND_LITERALLY",
   "017687#102": "TARGET_TEXT_FOUND_LITERALLY",
   "017687#103": "TARGET_TEXT_FOUND_LITERALLY",
@@ -866,15 +866,6 @@
   {
    "REGISTRATION_ID": "008259",
    "PRODUCT": "LAMDEX EXTRA",
-   "ROW_INDEX": 14,
-   "CROP": "Melo, pero",
-   "TARGET": "Cemiostoma, litocollete (prima della comparsa delle mine ed in presenza di uova mature della 1a generazione), carpocapsa",
-   "DOSE_PER_HECTARE": "600-1000",
-   "DOSE_PER_HECTARE_UNIT": "g/ha"
-  },
-  {
-   "REGISTRATION_ID": "008259",
-   "PRODUCT": "LAMDEX EXTRA",
    "ROW_INDEX": 17,
    "CROP": "Melo, pero",
    "TARGET": "Psilla del pero: 2° intervento (prime neanidi della 2a gen.) normalmente in maggio",
@@ -906,15 +897,6 @@
    "CROP": "Soia",
    "TARGET": "Nottue defogliatrici (allo scoperto) tentredine",
    "DOSE_PER_HECTARE": "420-800",
-   "DOSE_PER_HECTARE_UNIT": "g/ha"
-  },
-  {
-   "REGISTRATION_ID": "008259",
-   "PRODUCT": "LAMDEX EXTRA",
-   "ROW_INDEX": 91,
-   "CROP": "Melo, pero",
-   "TARGET": "Cemiostoma, litocollete (prima della comparsa delle mine ed in presenza di uova mature della 1a generazione), carpocapsa",
-   "DOSE_PER_HECTARE": "600-1000",
    "DOSE_PER_HECTARE_UNIT": "g/ha"
   },
   {
@@ -956,28 +938,10 @@
   {
    "REGISTRATION_ID": "013560",
    "PRODUCT": "FORZA",
-   "ROW_INDEX": 14,
-   "CROP": "Melo, pero",
-   "TARGET": "Cemiostoma, litocollete (prima della comparsa delle mine ed in presenza di uova mature della 1a generazione), carpocapsa",
-   "DOSE_PER_HECTARE": "600-1000",
-   "DOSE_PER_HECTARE_UNIT": "g/ha"
-  },
-  {
-   "REGISTRATION_ID": "013560",
-   "PRODUCT": "FORZA",
    "ROW_INDEX": 17,
    "CROP": "Melo, pero",
    "TARGET": "Psilla del pero: 2° intervento (prime neanidi della 2a gen.) normalmente in maggio",
    "DOSE_PER_HECTARE": "1000-1200",
-   "DOSE_PER_HECTARE_UNIT": "g/ha"
-  },
-  {
-   "REGISTRATION_ID": "013560",
-   "PRODUCT": "FORZA",
-   "ROW_INDEX": 23,
-   "CROP": "Vite (da vino e da tavola)",
-   "TARGET": "Tignola e tignoletta: 1a generazione",
-   "DOSE_PER_HECTARE": "1000",
    "DOSE_PER_HECTARE_UNIT": "g/ha"
   },
   {
@@ -1010,28 +974,10 @@
   {
    "REGISTRATION_ID": "013560",
    "PRODUCT": "FORZA",
-   "ROW_INDEX": 90,
-   "CROP": "Melo, pero",
-   "TARGET": "Cemiostoma, litocollete (prima della comparsa delle mine ed in presenza di uova mature della 1a generazione), carpocapsa",
-   "DOSE_PER_HECTARE": "600-1000",
-   "DOSE_PER_HECTARE_UNIT": "g/ha"
-  },
-  {
-   "REGISTRATION_ID": "013560",
-   "PRODUCT": "FORZA",
    "ROW_INDEX": 93,
    "CROP": "Melo, pero",
    "TARGET": "Psilla del pero: 2° intervento (prime neanidi della 2a gen.) normalmente in maggio",
    "DOSE_PER_HECTARE": "1000-1200",
-   "DOSE_PER_HECTARE_UNIT": "g/ha"
-  },
-  {
-   "REGISTRATION_ID": "013560",
-   "PRODUCT": "FORZA",
-   "ROW_INDEX": 99,
-   "CROP": "Vite (da vino e da tavola)",
-   "TARGET": "Tignola e tignoletta: 1a generazione",
-   "DOSE_PER_HECTARE": "1000",
    "DOSE_PER_HECTARE_UNIT": "g/ha"
   },
   {
@@ -1064,28 +1010,10 @@
   {
    "REGISTRATION_ID": "013590",
    "PRODUCT": "NINJA",
-   "ROW_INDEX": 14,
-   "CROP": "Melo, pero",
-   "TARGET": "Cemiostoma, litocollete (prima della comparsa delle mine ed in presenza di uova mature della 1a generazione), carpocapsa",
-   "DOSE_PER_HECTARE": "600-1000",
-   "DOSE_PER_HECTARE_UNIT": "g/ha"
-  },
-  {
-   "REGISTRATION_ID": "013590",
-   "PRODUCT": "NINJA",
    "ROW_INDEX": 17,
    "CROP": "Melo, pero",
    "TARGET": "Psilla del pero: 2° intervento (prime neanidi della 2a gen.) normalmente in maggio",
    "DOSE_PER_HECTARE": "1000-1200",
-   "DOSE_PER_HECTARE_UNIT": "g/ha"
-  },
-  {
-   "REGISTRATION_ID": "013590",
-   "PRODUCT": "NINJA",
-   "ROW_INDEX": 23,
-   "CROP": "Vite (da vino e da tavola)",
-   "TARGET": "Tignola e tignoletta: 1a generazione",
-   "DOSE_PER_HECTARE": "1000",
    "DOSE_PER_HECTARE_UNIT": "g/ha"
   },
   {
@@ -1118,28 +1046,10 @@
   {
    "REGISTRATION_ID": "013590",
    "PRODUCT": "NINJA",
-   "ROW_INDEX": 90,
-   "CROP": "Melo, pero",
-   "TARGET": "Cemiostoma, litocollete (prima della comparsa delle mine ed in presenza di uova mature della 1a generazione), carpocapsa",
-   "DOSE_PER_HECTARE": "600-1000",
-   "DOSE_PER_HECTARE_UNIT": "g/ha"
-  },
-  {
-   "REGISTRATION_ID": "013590",
-   "PRODUCT": "NINJA",
    "ROW_INDEX": 93,
    "CROP": "Melo, pero",
    "TARGET": "Psilla del pero: 2° intervento (prime neanidi della 2a gen.) normalmente in maggio",
    "DOSE_PER_HECTARE": "1000-1200",
-   "DOSE_PER_HECTARE_UNIT": "g/ha"
-  },
-  {
-   "REGISTRATION_ID": "013590",
-   "PRODUCT": "NINJA",
-   "ROW_INDEX": 99,
-   "CROP": "Vite (da vino e da tavola)",
-   "TARGET": "Tignola e tignoletta: 1a generazione",
-   "DOSE_PER_HECTARE": "1000",
    "DOSE_PER_HECTARE_UNIT": "g/ha"
   },
   {
@@ -1208,28 +1118,10 @@
   {
    "REGISTRATION_ID": "015275",
    "PRODUCT": "DURAVIS",
-   "ROW_INDEX": 14,
-   "CROP": "Melo, pero",
-   "TARGET": "Cemiostoma, litocollete (prima della comparsa delle mine ed in presenza di uova mature della 1a generazione), carpocapsa",
-   "DOSE_PER_HECTARE": "600-1000",
-   "DOSE_PER_HECTARE_UNIT": "g/ha"
-  },
-  {
-   "REGISTRATION_ID": "015275",
-   "PRODUCT": "DURAVIS",
    "ROW_INDEX": 17,
    "CROP": "Melo, pero",
    "TARGET": "Psilla del pero: 2° intervento (prime neanidi della 2a gen.) normalmente in maggio",
    "DOSE_PER_HECTARE": "1000-1200",
-   "DOSE_PER_HECTARE_UNIT": "g/ha"
-  },
-  {
-   "REGISTRATION_ID": "015275",
-   "PRODUCT": "DURAVIS",
-   "ROW_INDEX": 23,
-   "CROP": "Vite (da vino e da tavola)",
-   "TARGET": "Tignola e tignoletta: 1a generazione",
-   "DOSE_PER_HECTARE": "1000",
    "DOSE_PER_HECTARE_UNIT": "g/ha"
   },
   {
@@ -1271,28 +1163,10 @@
   {
    "REGISTRATION_ID": "017687",
    "PRODUCT": "ELTIRA",
-   "ROW_INDEX": 14,
-   "CROP": "Melo, pero",
-   "TARGET": "Cemiostoma, litocollete (prima della comparsa delle mine ed in presenza di uova mature della 1a generazione), carpocapsa",
-   "DOSE_PER_HECTARE": "600-1000",
-   "DOSE_PER_HECTARE_UNIT": "g/ha"
-  },
-  {
-   "REGISTRATION_ID": "017687",
-   "PRODUCT": "ELTIRA",
    "ROW_INDEX": 17,
    "CROP": "Melo, pero",
    "TARGET": "Psilla del pero: 2° intervento (prime neanidi della 2a gen.) normalmente in maggio",
    "DOSE_PER_HECTARE": "1000-1200",
-   "DOSE_PER_HECTARE_UNIT": "g/ha"
-  },
-  {
-   "REGISTRATION_ID": "017687",
-   "PRODUCT": "ELTIRA",
-   "ROW_INDEX": 23,
-   "CROP": "Vite (da vino e da tavola)",
-   "TARGET": "Tignola e tignoletta: 1a generazione",
-   "DOSE_PER_HECTARE": "1000",
    "DOSE_PER_HECTARE_UNIT": "g/ha"
   },
   {
@@ -1325,28 +1199,10 @@
   {
    "REGISTRATION_ID": "017687",
    "PRODUCT": "ELTIRA",
-   "ROW_INDEX": 91,
-   "CROP": "Melo, pero",
-   "TARGET": "Cemiostoma, litocollete (prima della comparsa delle mine ed in presenza di uova mature della 1a generazione), carpocapsa",
-   "DOSE_PER_HECTARE": "600-1000",
-   "DOSE_PER_HECTARE_UNIT": "g/ha"
-  },
-  {
-   "REGISTRATION_ID": "017687",
-   "PRODUCT": "ELTIRA",
    "ROW_INDEX": 94,
    "CROP": "Melo, pero",
    "TARGET": "Psilla del pero: 2° intervento (prime neanidi della 2a gen.) normalmente in maggio",
    "DOSE_PER_HECTARE": "1000-1200",
-   "DOSE_PER_HECTARE_UNIT": "g/ha"
-  },
-  {
-   "REGISTRATION_ID": "017687",
-   "PRODUCT": "ELTIRA",
-   "ROW_INDEX": 100,
-   "CROP": "Vite (da vino e da tavola)",
-   "TARGET": "Tignola e tignoletta: 1a generazione",
-   "DOSE_PER_HECTARE": "1000",
    "DOSE_PER_HECTARE_UNIT": "g/ha"
   },
   {
