@@ -1,0 +1,77 @@
+{
+ "SUITE": "PORTOES-V1",
+ "PASS": 14,
+ "FAIL": 0,
+ "RESULTS": [
+  {
+   "GATE": "UNPROVED_ACTION_ROUTING",
+   "STATE": "PASS",
+   "DETALHE": "nenhum objeto emite ACTION (202 objetos)"
+  },
+  {
+   "GATE": "ROUTING_RULE_EXISTS",
+   "STATE": "PASS",
+   "DETALHE": "todo roteamento aponta uma das 34 regras declaradas"
+  },
+  {
+   "GATE": "BUSINESS_IMPLICATION_GATED",
+   "STATE": "PASS",
+   "DETALHE": "todos NOT_PROVED"
+  },
+  {
+   "GATE": "PHI_GATE_G02",
+   "STATE": "PASS",
+   "DETALHE": "nenhum PHI_CHANGE emitido, coerente com PHI_PROVED = 0"
+  },
+  {
+   "GATE": "COMMERCIAL_GATE_G01",
+   "STATE": "PASS",
+   "DETALHE": "RTV sempre {'NOT_RELEVANT': 202}"
+  },
+  {
+   "GATE": "MATERIAL_CLAIMS_WITH_EVIDENCE",
+   "STATE": "PASS",
+   "DETALHE": "100.0% (202/202)"
+  },
+  {
+   "GATE": "UNKNOWN_HIDDEN_OR_FILLED",
+   "STATE": "PASS",
+   "DETALHE": "nenhuma celula com traco/N-A no template"
+  },
+  {
+   "GATE": "UNKNOWN_VISIBLE",
+   "STATE": "PASS",
+   "DETALHE": "tokens de ignorancia renderizados com nome proprio"
+  },
+  {
+   "GATE": "EXPIRY_AS_WITHDRAWAL",
+   "STATE": "PASS",
+   "DETALHE": "nenhuma frase de retirada/demanda/estoque na interface"
+  },
+  {
+   "GATE": "PARSER_FAILURE_AS_ABSENCE",
+   "STATE": "PASS",
+   "DETALHE": "a lei aparece na interface onde o estado de leitura e mostrado"
+  },
+  {
+   "GATE": "ISOLATION",
+   "STATE": "PASS",
+   "DETALHE": "23 arquivos, todos dentro de v1/ e pilot/"
+  },
+  {
+   "GATE": "CANONICAL_TOUCHED",
+   "STATE": "PASS",
+   "DETALHE": "canonical segue em bdb57cf"
+  },
+  {
+   "GATE": "COVERAGE_NOT_SINGLE_NUMBER",
+   "STATE": "PASS",
+   "DETALHE": "7 coberturas separadas"
+  },
+  {
+   "GATE": "FALSE_CHANGE_NOISE_TEST",
+   "STATE": "PASS",
+   "DETALHE": "11 testes adversariais passam"
+  }
+ ]
+}

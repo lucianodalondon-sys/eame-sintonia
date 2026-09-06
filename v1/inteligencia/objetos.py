@@ -328,11 +328,20 @@ def main():
                     RECOMMENDED_REVIEW="ler a celula na etichetta e adjudicar a dose",
                 ))
             if lab.get("PARSE_STATE") in ("NO_USE_TABLE_FOUND", "TABLE_FOUND_NO_ROWS"):
+                # A afirmacao aqui e sobre a NOSSA LEITURA de um documento
+                # especifico. O documento lido e a prova dela: sem apontar qual
+                # PDF, com que hash, a afirmacao nao volta para lugar nenhum.
                 objs.append(base(
                     "DATA_QUALITY_EVENT", it,
-                    FACT=(f'o leitor de tabela devolveu {lab["PARSE_STATE"]} para este rotulo'),
+                    FACT=(f'o leitor de tabela devolveu {lab["PARSE_STATE"]} ao ler este documento'),
                     PROOF_STATE="NOT_PROVED", CONFIDENCE_STATE="READING_STATE",
-                    EVIDENCE_LOCATION=it["PDF_URL"], SOURCE_URL=it["PDF_URL"],
+                    BEFORE_VALUE="NOT_APPLICABLE", AFTER_VALUE=lab["PARSE_STATE"],
+                    SOURCE_DOCUMENT_AFTER=(f'etichetta {it["PDF_URL"]} '
+                                           f'sha256={it["PDF_SHA256"]} '
+                                           f'({it["PDF_BYTES"]} bytes, capturada {it["CAPTURED_AT"]})'),
+                    EVIDENCE_LOCATION=(f'documento inteiro; {it["TEXT_CHARS"]} caracteres de texto '
+                                       f'recuperados, nenhuma tabela de uso localizada'),
+                    SOURCE_URL=it["PDF_URL"],
                     PARSER_VERSION="v1/dose_extrair",
                     RECOMMENDED_REVIEW=("verificar se a etichetta declara dose em prosa em vez de "
                                         "tabela. ISTO NAO SIGNIFICA PRODUTO SEM DOSE"),
