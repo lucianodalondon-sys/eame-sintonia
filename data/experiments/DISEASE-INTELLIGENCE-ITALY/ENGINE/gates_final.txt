@@ -1,0 +1,24 @@
+PASS          A_OUTCOME_IS_OBSERVED
+              ENFORCED, not stamped: assert_outcome_admissible() refuses MODELLED_RISK, refuses FORECAST, and refuses any variable absent from the case's survey-schema metadata — all three tested. Until 2026-09-06 the role was a constant in the output and this gate certified itself.
+PASS          B_NOT_SOLD_AS_FORECAST
+              the archive contains 15 observations dated after the cutoff, 15 of them inside the published window; the cutoff excludes every one, so the test can fail and does not. EARLY_WARNING and both OUTLOOK capabilities remain NOT_PROVED.
+PASS          C_REGIONAL_NOT_NATIONAL
+              the unit is the province; no aggregate above the region exists in the output, and Toscana vs Abruzzo do not co-move (rho +0.190, p 0.67)
+PASS          D_UNKNOWN_IS_VISIBLE
+              UNKNOWN provinces published today: {'OLIVO x BACTROCERA x TOSCANA': 1, 'VITE x OIDIO x TOSCANA': 1}; Missing.NEVER_ZERO is asserted on every empty cell
+PASS          E_REPRODUCIBLE
+              byte-identical re-run; AS_OF is an input not the clock; every raw file sha256-checked against the collection index
+PASS          F_LABEL_NOT_PARAMETER_ARTEFACT
+              135-point parameter grid (window, min_sites, baseline depth, thresholds), mean label stability {'OLIVO x BACTROCERA x TOSCANA': 0.918, 'VITE x OIDIO x TOSCANA': 0.596}; cells below 0.8 are withheld rather than published
+PASS          G_DISCRIMINATES_BETWEEN_SEASONS
+              walk-forward dominant-class share {'OLIVO x BACTROCERA x TOSCANA': 0.424, 'VITE x OIDIO x TOSCANA': 0.667} (<=0.75 required); provinces disagree inside the same season
+PASS          H_REFRESHABLE_WITHOUT_RESEARCH
+              one unauthenticated GET reproduced the stored season row-for-row; latency 2 days; cost EUR 0. rowCount 0 must be treated as FAILURE.
+PASS          I_GENERALIZES
+              3/3 cases through one pipeline, 0 case-conditional branches, PIPELINE_REUSE_RATE 100%; the second case is a PEST with a different value mode and needed no new rule
+NOT_TESTABLE  J_NOT_DUPLICATE
+              cannot be settled from this branch alone: it requires reading the portal's current capability inventory, which this mission is forbidden to touch. NOT_TESTABLE is not a pass.
+
+PASS=9  FAIL=0  NOT_TESTABLE=1
+DESERVES_FUTURE_INTEGRATION = YES_SCOPED
+PORTAL_INTEGRATION = NO

@@ -3,7 +3,7 @@
  "GATES": {
   "A_OUTCOME_IS_OBSERVED": {
    "VERDICT": "PASS",
-   "EVIDENCE": "every cell derives from official field-scouting visits; no model output is admissible as an outcome (contracts.EvidenceRole)"
+   "EVIDENCE": "ENFORCED, not stamped: assert_outcome_admissible() refuses MODELLED_RISK, refuses FORECAST, and refuses any variable absent from the case's survey-schema metadata \u2014 all three tested. Until 2026-09-06 the role was a constant in the output and this gate certified itself."
   },
   "B_NOT_SOLD_AS_FORECAST": {
    "VERDICT": "PASS",
@@ -23,7 +23,7 @@
   },
   "F_LABEL_NOT_PARAMETER_ARTEFACT": {
    "VERDICT": "PASS",
-   "EVIDENCE": "45-point parameter grid, mean label stability {'OLIVO x BACTROCERA x TOSCANA': 0.918, 'VITE x OIDIO x TOSCANA': 0.596}; cells below 0.8 are withheld rather than published"
+   "EVIDENCE": "135-point parameter grid (window, min_sites, baseline depth, thresholds), mean label stability {'OLIVO x BACTROCERA x TOSCANA': 0.918, 'VITE x OIDIO x TOSCANA': 0.596}; cells below 0.8 are withheld rather than published"
   },
   "G_DISCRIMINATES_BETWEEN_SEASONS": {
    "VERDICT": "PASS",
