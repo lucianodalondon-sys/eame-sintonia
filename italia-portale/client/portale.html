@@ -4347,7 +4347,12 @@ class Component extends DCLogic {
        Il contatore e lo stesso 43 del pacchetto, e solo quando i due
        conteggi concordano: un numero accanto a una voce di menu che
        nessuno ha ricontato e un numero che prima o poi mente. */
-    const navCasa = { label: mtL('casaCurrentOpps'), count: meetingCurrent ? meetingCurrent.opportunita : 0,
+    /* Se le due catene non concordano la riga di testata TACE — e allora anche
+       questa pastiglia deve tacere. Stampare 0 direbbe «nessuna opportunita
+       attuale», che e un'affermazione, non un silenzio.
+
+           UNO ZERO NON E UN SILENZIO. E UNA RISPOSTA SBAGLIATA. */
+    const navCasa = { label: mtL('casaCurrentOpps'), count: meetingCurrent ? meetingCurrent.opportunita : '',
       go: () => { window.location.href = 'casa.html'; },
       bg: 'transparent', border: 'transparent', dot: 'rgba(151,139,135,0.35)',
       color: '#9A9391', weight: 400 };

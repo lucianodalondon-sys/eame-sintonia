@@ -322,6 +322,14 @@ check('N1', 'Nav counts match the active normalized collections', () => {
      is checked by position now, because a badge nobody checks is one that
      drifts back to whatever number looks fuller. */
   const expect = [
+    /* LA VOCE DELLA CASA. `casa.html` e una PAGINA, e la sua voce di menu
+       stampa un numero solo quando le due catene — `italy-casa.js` e
+       `meeting-surface` — concordano su BUILD_ID e sulle tre popolazioni.
+       Il numero e quello delle OPPORTUNITA, non il totale dei 43. Quando non
+       concordano la voce deve TACERE, e questo controllo lo vedrebbe come
+       0 !== 13. */
+    (() => { const CASA = m.ctx.ITALY_CASA && m.ctx.ITALY_CASA.OPPORTUNITA_ATTUALI;
+             return CASA ? CASA.OPPORTUNITA : 0; })(),
     /* UN SOLO RADAR, E IL SUO NUMERO HA UNA SOLA FONTE LEGITTIMA:
        l'istantanea della riunione. La voce storica — servita dal pacchetto
        PRIMA della riconciliazione — non e piu nel menu, quindi qui sparisce

@@ -19,6 +19,7 @@ vendored and must stay clickable — that traceability is the product.
 | `react-18.3.1.production.min.js` | react 18.3.1 (UMD, production) | 10 751 | `d949f1c3687aedadcedac85261865f29b17cd273997e7f6b2bfc53b2f9d4c4dd` | unpkg.com/react@18.3.1/umd/react.production.min.js |
 | `react-dom-18.3.1.production.min.js` | react-dom 18.3.1 (UMD, production) | 131 835 | `35f4f974f4b2bcd44da73963347f8952e341f83909e4498227d4e26b98f66f0d` | unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js |
 | `babel-standalone-7.29.0.min.js` | @babel/standalone 7.29.0 | 3 137 752 | `2623a9e22809915ce789b4461154e277ddce520d5a4320c14d44332a5d0dcea0` | unpkg.com/@babel/standalone@7.29.0/babel.min.js |
+| `jspdf-2.5.2.umd.min.js` | jspdf 2.5.2 (UMD, minified) | 365 730 | `0b1b02a0bd497200a3052a4268f23f1ff980ac7f03f7e43c128cdc858ab0b7a7` | unpkg.com/jspdf@2.5.2/dist/jspdf.umd.min.js — **una stringa modificata, vedi sotto** |
 
 ## Integrity verification (done at download time)
 
@@ -59,6 +60,26 @@ node -e "const c=require('crypto'),f=require('fs');const p=process.argv[1];conso
   `component-from-global-scope` with no URL, so on the current portal Babel is
   never fetched. It is vendored anyway so that the loader has no path that can
   reach the network.
+
+## L'unica riga di vendor modificata: jsPDF
+
+`jspdf-2.5.2.umd.min.js` conteneva UN indirizzo CDN, dentro il ramo
+`case "pdfobjectnewwindow":` di `output()`: quel ramo scrive nella finestra
+nuova un `<script src="https://cdnjs.cloudflare.com/…/pdfobject.min.js">`.
+
+    UN RAMO CHE OGGI NESSUNO CHIAMA E UN RAMO CHE DOMANI QUALCUNO CHIAMA.
+
+`italy-pdf.js` usa solo `save()` e `output('arraybuffer')` — misurato, quattro
+chiamate, nessuna `pdfobjectnewwindow`. L'indirizzo era quindi codice morto, ma
+codice morto che il browser porta con se. E stato sostituito con
+`about:blank#pdfobject-not-vendored-in-this-package`, riempito fino alla stessa
+lunghezza: se quel ramo venisse mai chiamato fallirebbe A VISTA invece di
+aprire in silenzio una connessione verso un CDN pubblico.
+
+Nessuna logica toccata. Verificato dopo la modifica: `new jsPDF()`, `text()` e
+`output('arraybuffer')` producono gli STESSI 3 173 byte del file originale.
+SHA-256 prima `85ba2cc3ff858a20fa49fe6e457bec863ea40b55a9f3725e58a940e62f6f61a4`,
+dopo `0b1b02a0bd497200a3052a4268f23f1ff980ac7f03f7e43c128cdc858ab0b7a7`.
 
 ## Why the integrity attributes were dropped
 

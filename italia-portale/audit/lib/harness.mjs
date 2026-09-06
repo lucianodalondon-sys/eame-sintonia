@@ -48,6 +48,18 @@ export const DATA_FILES = [
      che e il comportamento giusto ma non e la superficie da misurare. */
   'adama-relevance.js',
   'meeting-surface.js',
+  /* IL PACCHETTO DELLA CASA. `portale.html` lo carica — riga 58 — e la barra
+     di navigazione ne legge OPPORTUNITA_ATTUALI per decidere se stampare un
+     numero o tacere. Non era in questa lista: ogni controllo della suite
+     misurava percio un portale a cui MANCA un file di dati che il browser
+     serve davvero, e la barra risultava a zero dove in produzione dice 13.
+
+         UN BANCO DI PROVA CHE CARICA MENO DEL BROWSER MISURA UN ALTRO PRODOTTO.
+
+     Restano fuori solo i file che il modello non puo leggere per contratto:
+     support.js e il bundle del design system (browser), jspdf e italy-pdf.js
+     (stampa). Nessuno di essi porta dato. */
+  'italy-casa.js',
 ];
 
 function makeWindow() {
