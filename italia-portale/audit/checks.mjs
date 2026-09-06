@@ -12,6 +12,7 @@ import path from 'node:path';
 import { mount, loadData, CLIENT, readPortal, extractLogic, extractMarkup, nullRate } from './lib/harness.mjs';
 import { EXPECTED_BUILD_ID } from './ingestion-provenance.mjs';
 import { scanAll, grepPackage, walkPackage } from './lib/scan.mjs';
+import { statoDelPacchetto, perchePuoiNonMisurare, CONTRATO } from './lib/pacote.mjs';
 import { isPortuguese, isEnglish, looksEnglish, collectStrings, cropKeyOf } from './lang.mjs';
 
 const REFERENCE_DATE = '2026-09-02';
@@ -813,31 +814,43 @@ check('H2', 'The V2.1 universe counts are MEASURED, not declared', () => {
 });
 
 check('H3', 'The opportunity engine reaches the screen without its bookkeeping', () => {
-  /* 37 detected · 9 verified convergences · 28 to validate.
-     And the four words the client must never read: CLIENT_SAFE,
-     RENDERABLE_WITH_METHOD, EVIDENCE_DERIVED, FAILED_GATES. They are engine
-     state, they decided the label, and then they were dropped — so this asserts
-     they are ABSENT FROM THE OBJECT, not merely unbound by today's markup.
-     A property that does not exist cannot be rendered by tomorrow's markup. */
+  /* I NUMERI ERANO SCRITTI QUI: 37 casi, 9 convergenze, 28 da validare. Quella
+     era la safra V21-99226fbb, che il contratto canonico nomina come VECCHIA.
+     Il portale ne serve un'altra — V21-69bf448ac934a6d9, 43 casi — e questo
+     controllo la dichiarava divergente da tre giorni.
+
+         UN NUMERO SCRITTO A MANO INVECCHIA. UN CONTRATTO SI AGGIORNA IN UN
+         POSTO SOLO.
+
+     Adesso la popolazione viene da CANONICAL-PACKAGE-CONTRACT.json, che e
+     l'unico proprietario di questa verita, ed e lo stesso file che il portone
+     della build legge. Le quattro parole che il cliente non deve mai leggere —
+     CLIENT_SAFE, RENDERABLE_WITH_METHOD, EVIDENCE_DERIVED, FAILED_GATES —
+     restano provate come ASSENTI DALL'OGGETTO: una proprieta che non esiste
+     non puo essere resa dal markup di domani. */
   const AM = loadData().ITALY_APP_MODEL;
   const recs = AM.collections.opportunities.records;
   const bad = [];
-  if (recs.length !== 37) bad.push(`opportunities: ${recs.length}, expected 37`);
+  if (recs.length !== CONTRATO.EXPECTED_CASES) bad.push(`opportunities: ${recs.length}, contract says ${CONTRATO.EXPECTED_CASES}`);
   const verified = recs.filter((o) => o.convergence === 'VERIFIED_CONVERGENCE').length;
   const toValidate = recs.filter((o) => o.convergence === 'TO_VALIDATE').length;
-  if (verified !== 9) bad.push(`verified convergences: ${verified}, expected 9`);
-  if (toValidate !== 28) bad.push(`to validate: ${toValidate}, expected 28`);
+  /* Due stati, e nessun terzo: se un caso perdesse la sua convergenza sparirebbe
+     da entrambi i conti senza che nessun totale se ne accorga. */
+  if (verified + toValidate !== recs.length) {
+    bad.push(`convergence: ${verified} verified + ${toValidate} to validate != ${recs.length} cases`);
+  }
   const FORBIDDEN = /^(clientSafe|renderableWithMethod|qaStatus|blockingGates|redTeamFindings|whyNotClientSafe|raw)$/;
   for (const o of recs) {
     for (const k of Object.keys(o)) if (FORBIDDEN.test(k)) bad.push(`${o.id} still carries ${k}`);
   }
-  /* A rejected opportunity must not be reachable at all. The 17 the red team
-     knocked out are not shipped, so this is checked as absence of the file's
-     content rather than as a filter somebody could remove. */
+  /* Un'opportunita respinta non deve essere raggiungibile per niente. */
   const H = loadData().ITALY_HANDOFF_V21;
   if (H && H.opportunityRejections) bad.push('rejected opportunities were shipped to the browser');
-  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 10) };
+  if (H && H.buildId !== CONTRATO.EXPECTED_BUILD_ID) bad.push(`shipped BUILD_ID ${H.buildId} != ${CONTRATO.EXPECTED_BUILD_ID}`);
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad.slice(0, 10) : [`${recs.length} cases · ${verified} verified + ${toValidate} to validate · BUILD_ID ${CONTRATO.EXPECTED_BUILD_ID}`] };
 });
+
 
 
 check('H4', 'Engine bookkeeping never reaches a rendered screen', () => {
@@ -951,31 +964,41 @@ check('W1', 'The 29 canonical crop windows are never collapsed to the 7 field re
 });
 
 check('W2', 'The red team downgrades; it is not a second population', () => {
-  /* I 17 casi che il red team ha abbattuto sono un SOTTOINSIEME dei 28 «da
-     validare», non righe nascoste in piu. Sommarli — 37 + 17 — inventerebbe 54
-     oggetti dove ne esistono 37, ed e un errore facile da commettere in un
-     rapporto, perche il file si chiama REJECTIONS.
+  /* I 17 casi che il red team ha abbattuto sono un SOTTOINSIEME dei casi «da
+     validare», non righe nascoste in piu. Sommarli inventerebbe una seconda
+     popolazione, ed e un errore facile perche il file si chiama REJECTIONS.
 
          RESPINTA QUI VUOL DIRE DECLASSATA, NON CANCELLATA.
 
-     Quindi: ogni id declassato esiste fra i 37, nessuno di essi e verificato, e
-     tutti stanno dentro i 28. Se un giorno un declassato comparisse fra i nove,
-     il portone lo direbbe qui invece che il cliente sullo schermo. */
+     MA IL FILE SUL DISCO E DI UN'ALTRA SAFRA. Questo controllo leggeva le
+     rejections dello zip storico (V21-99226fbb) e le confrontava con i casi
+     serviti (V21-69bf448a): sei id non tornavano, e il controllo scriveva
+     «declassati ma mostrati come verificati» — un'accusa grave, e falsa,
+     perche quei sei appartengono al red team di un altro raccolto.
+
+         UN CONTROLLO CHE ACCUSA SULLA BASE DI UNA FONTE SBAGLIATA
+         E PEGGIO DI UN CONTROLLO CHE NON C'E.
+
+     Quando la safra sul disco non e quella servita, questo dice NON MISURATO e
+     nomina il generatore canonico. Non passa: dichiara. */
+  const p = statoDelPacchetto();
+  if (p.stato !== 'CANONICO') {
+    return { pass: false, expected: 'la stessa safra', measured: p.stato, detail: [perchePuoiNonMisurare(p)] };
+  }
   const AM = loadData().ITALY_APP_MODEL;
   const recs = AM.collections.opportunities.records;
-  const rej = JSON.parse(fs.readFileSync(path.join(CLIENT, '..', '..', 'build',
-    'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST', 'OPPORTUNITY-REJECTIONS.json'), 'utf8'));
+  const rej = JSON.parse(fs.readFileSync(path.join(p.dir, 'OPPORTUNITY-REJECTIONS.json'), 'utf8'));
   const ids = (rej.REJEICOES || []).map((r) => r.ID).filter(Boolean);
   const byId = new Map(recs.map((o) => [o.id, o]));
   const bad = [];
-  if (ids.length !== 17) bad.push(`downgraded cases: ${ids.length}, expected 17`);
   const missing = ids.filter((id) => !byId.has(id));
-  if (missing.length) bad.push(`${missing.length} downgraded ids are NOT among the 37 — they became a second population`);
+  if (missing.length) bad.push(`${missing.length} downgraded ids are NOT among the ${recs.length} — they became a second population`);
   const verified = ids.filter((id) => byId.get(id) && byId.get(id).convergence === 'VERIFIED_CONVERGENCE');
   if (verified.length) bad.push(`downgraded but shown as verified: ${verified.join(', ')}`);
   return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: bad.length ? bad : [`17 downgraded ⊆ 28 to-validate ⊂ 37 total`] };
+    detail: bad.length ? bad : [`${ids.length} downgraded ⊆ to-validate ⊂ ${recs.length} total`] };
 });
+
 
 check('C1', 'A fallback label never becomes a factual pairing', () => {
   /* Una scheda senza bersaglio agronomico ripiega sull'ARCHETIPO per il
@@ -1055,10 +1078,18 @@ check('O1', 'The same opportunity ids reach the package, the handoff, the model 
 
      La frontiera del DOM vive in `audit/opportunity-trace.mjs`, che apre un
      browser vero; qui restano le quattro che si misurano senza. */
+  /* LA FRONTIERA A E IL PACCHETTO CANONICO — quello che ha PRODOTTO il servito.
+     Sul disco c'e solo lo zip storico, di un'altra safra: confrontarci gli id
+     faceva dire «il pacchetto perde 11 e ne inventa 17», che e la distanza fra
+     due raccolti e non una perdita di popolazione. Se la safra non e la stessa,
+     questo controllo non misura e lo dice. */
+  const pac = statoDelPacchetto();
+  if (pac.stato !== 'CANONICO') {
+    return { pass: false, expected: 'la stessa safra', measured: pac.stato, detail: [perchePuoiNonMisurare(pac)] };
+  }
   const ctx = loadData();
   const AM = ctx.ITALY_APP_MODEL;
-  const pkg = JSON.parse(fs.readFileSync(path.join(CLIENT, '..', '..', 'build',
-    'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST', 'OPPORTUNITIES.json'), 'utf8'));
+  const pkg = JSON.parse(fs.readFileSync(path.join(pac.dir, 'OPPORTUNITIES.json'), 'utf8'));
 
   const A = pkg.RECORDS.map((r) => r.ID);
   const Apub = pkg.RECORDS.filter((r) => r.RENDERABLE_WITH_METHOD === true).map((r) => r.ID);
@@ -1263,16 +1294,17 @@ check('DS1', 'Turning demo scenarios ON changes no real count', () => {
   if (off.counts !== on.counts) bad.push('AM.counts changed');
   if (off.prov !== on.prov) bad.push('provenance real/derived changed');
   if (JSON.stringify(off.state) !== JSON.stringify(on.state)) bad.push('Data State real/derived changed');
-  /* and the mode must actually do something, or the check is vacuous */
-  const vOff = m.vals({ view: 'radar', showScenarios: false });
-  const vOn = m.vals({ view: 'radar', showScenarios: true });
-  /* The radar paginates at 12 with a 'view all' toggle, so BOTH lists are 12
-     long as soon as there are more than 12 real opportunities — which there now
-     are, 37 of them. Comparing lengths therefore called a working toggle
-     vacuous. What the guard actually means is that the mode must put DIFFERENT
-     records on the screen, so that is what it compares. */
-  const idsOff = (vOff.filtered || vOff.visibleCases || []).map((c) => c.id);
-  const idsOn = (vOn.filtered || vOn.visibleCases || []).map((c) => c.id);
+  /* IL MODO DEVE FARE QUALCOSA, O QUESTA PROVA NON PROVA NIENTE — ma va
+     guardato DOVE agisce. Si guardava il radar: la` `showScenarios` non tocca
+     nulla, perche i 56 scenari sono SEGNALI, non opportunita. Il controllo
+     leggeva quindi due liste identiche e si dichiarava vacuo, su un
+     interruttore che funziona: nel Radar Futuro porta la lista da 3 a 16.
+
+         UN INTERRUTTORE SI PROVA NELLA STANZA IN CUI ACCENDE LA LUCE. */
+  const vOff = m.vals({ view: 'future', showScenarios: false, lang: 'it' });
+  const vOn = m.vals({ view: 'future', showScenarios: true, lang: 'it' });
+  const idsOff = (vOff.visibleSignals || vOff.sigAll || []).map((c) => c.id);
+  const idsOn = (vOn.visibleSignals || vOn.sigAll || []).map((c) => c.id);
   const same = idsOff.length === idsOn.length && idsOff.every((x, i) => x === idsOn[i]);
   if (same) bad.push(`the toggle changes nothing (${idsOff.length} identical cases) — check is vacuous`);
   return { pass: bad.length === 0, expected: 0, measured: bad.length,
