@@ -6,3 +6,13 @@ seed 2  PERCALL_the_certifications_harness   C=19 G=0.447 F=0.919  [163s]
 seed 3  FIXED_one_order_for_the_whole_run    C=18 G=0.432 F=0.924  [160s]
 seed 3  PERCALL_the_certifications_harness   C=19 G=0.432 F=0.922  [160s]
 seed 4  FIXED_one_order_for_the_whole_run    C=19 G=0.417 F=0.918  [151s]
+seed 4  PERCALL_the_certifications_harness   C=19 G=0.439 F=0.923  [152s]
+seed 5  FIXED_one_order_for_the_whole_run    C=19 G=0.424 F=0.918  [151s]
+seed 5  PERCALL_the_certifications_harness   C=18 G=0.439 F=0.921  [152s]
+seed 6  FIXED_one_order_for_the_whole_run    C=18 G=0.447 F=0.924  [152s]
+seed 6  PERCALL_the_certifications_harness   C=19 G=0.424 F=0.921  [151s]
+
+FIXED   F [0.918, 0.924]  C [18, 19]  G [0.417, 0.424, 0.432, 0.447]
+PERCALL F [0.919, 0.921, 0.922, 0.923]  C [18, 19]  G [0.424, 0.432, 0.439, 0.447]
+CERT    F [0.918, 0.921, 0.922, 0.923, 0.924]
+wrote rt5_p8_cert_harness.json

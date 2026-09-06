@@ -1,0 +1,155 @@
+{
+ "CERT_REPORTED_p1_order_experiment": {
+  "GATE_F": [
+   0.918,
+   0.921,
+   0.922,
+   0.923,
+   0.924
+  ],
+  "GATE_C_disagreeing": [
+   18,
+   19
+  ],
+  "GATE_G_olive_dom": [
+   0.424,
+   0.432,
+   0.439,
+   0.447
+  ],
+  "note": "DISTINCT_VALUES_OBSERVED as published by the certification"
+ },
+ "RT5_FIXED_ORDER": {
+  "GATE_F": [
+   0.918,
+   0.924
+  ],
+  "GATE_C": [
+   18,
+   19
+  ],
+  "GATE_G": [
+   0.417,
+   0.424,
+   0.432,
+   0.447
+  ]
+ },
+ "RT5_PERCALL_RESHUFFLE": {
+  "GATE_F": [
+   0.919,
+   0.921,
+   0.922,
+   0.923
+  ],
+  "GATE_C": [
+   18,
+   19
+  ],
+  "GATE_G": [
+   0.424,
+   0.432,
+   0.439,
+   0.447
+  ]
+ },
+ "ROWS": [
+  {
+   "seed": 1,
+   "MODE": "FIXED_one_order_for_the_whole_run",
+   "GATE_C": 18,
+   "GATE_G_olive": 0.432,
+   "GATE_F_olive": 0.918,
+   "seconds": 175
+  },
+  {
+   "seed": 1,
+   "MODE": "PERCALL_the_certifications_harness",
+   "GATE_C": 18,
+   "GATE_G_olive": 0.439,
+   "GATE_F_olive": 0.923,
+   "seconds": 168
+  },
+  {
+   "seed": 2,
+   "MODE": "FIXED_one_order_for_the_whole_run",
+   "GATE_C": 19,
+   "GATE_G_olive": 0.424,
+   "GATE_F_olive": 0.924,
+   "seconds": 161
+  },
+  {
+   "seed": 2,
+   "MODE": "PERCALL_the_certifications_harness",
+   "GATE_C": 19,
+   "GATE_G_olive": 0.447,
+   "GATE_F_olive": 0.919,
+   "seconds": 163
+  },
+  {
+   "seed": 3,
+   "MODE": "FIXED_one_order_for_the_whole_run",
+   "GATE_C": 18,
+   "GATE_G_olive": 0.432,
+   "GATE_F_olive": 0.924,
+   "seconds": 160
+  },
+  {
+   "seed": 3,
+   "MODE": "PERCALL_the_certifications_harness",
+   "GATE_C": 19,
+   "GATE_G_olive": 0.432,
+   "GATE_F_olive": 0.922,
+   "seconds": 160
+  },
+  {
+   "seed": 4,
+   "MODE": "FIXED_one_order_for_the_whole_run",
+   "GATE_C": 19,
+   "GATE_G_olive": 0.417,
+   "GATE_F_olive": 0.918,
+   "seconds": 151
+  },
+  {
+   "seed": 4,
+   "MODE": "PERCALL_the_certifications_harness",
+   "GATE_C": 19,
+   "GATE_G_olive": 0.439,
+   "GATE_F_olive": 0.923,
+   "seconds": 152
+  },
+  {
+   "seed": 5,
+   "MODE": "FIXED_one_order_for_the_whole_run",
+   "GATE_C": 19,
+   "GATE_G_olive": 0.424,
+   "GATE_F_olive": 0.918,
+   "seconds": 151
+  },
+  {
+   "seed": 5,
+   "MODE": "PERCALL_the_certifications_harness",
+   "GATE_C": 18,
+   "GATE_G_olive": 0.439,
+   "GATE_F_olive": 0.921,
+   "seconds": 152
+  },
+  {
+   "seed": 6,
+   "MODE": "FIXED_one_order_for_the_whole_run",
+   "GATE_C": 18,
+   "GATE_G_olive": 0.447,
+   "GATE_F_olive": 0.924,
+   "seconds": 152
+  },
+  {
+   "seed": 6,
+   "MODE": "PERCALL_the_certifications_harness",
+   "GATE_C": 19,
+   "GATE_G_olive": 0.424,
+   "GATE_F_olive": 0.921,
+   "seconds": 151
+  }
+ ],
+ "READING": "values that appear only under PERCALL are artefacts of the certification's harness, because no filesystem reorders a directory between two reads inside one process. Values that appear under FIXED are genuine file-order effects."
+}

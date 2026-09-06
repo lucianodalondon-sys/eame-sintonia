@@ -28,10 +28,10 @@ Denominators used throughout, so they are never ambiguous:
 | A1 | a clock reaches a published number | **NO** | NONE |
 | A2 | the baseline window is broken when it crosses 31 December | **YES** | MAJOR (latent) |
 | A3 | the 29 February rule changes the window length | **YES** | MINOR |
-| A4 | gate B's "load-bearing" evidence is a confound, and gate B cannot fail | **YES** | MAJOR |
+| A4 | gate B's "load-bearing" evidence is a confound, and gate B cannot fail | **YES** (confirmed against the real `gates.evaluate`) | MAJOR |
 | A5 | hindcast leaks future seasons into a baseline | **NO** | NONE |
 | A6 | the published class depends on when the archive was collected | **PARTLY** | MINOR |
-| B1 | the freshness badge lies | **YES**, in two specific ways | MAJOR |
+| B1 | the freshness badge lies | **YES**, in three specific ways | MAJOR |
 | B2 | gate H's freshness certification is pinned to a frozen date | **YES** | MAJOR |
 | B3 | a failed refresh silently disables the hash chain / takes the case down | **YES** | MAJOR |
 | B4 | write encoding and hash encoding disagree | **YES** | MAJOR |
@@ -665,9 +665,9 @@ Stated as plainly as the accusations, because these are the load-bearing parts.
 
 5. **Closed seasons are immutable and the ordinal scale is collection-date independent**, over
    the observation I was able to make: **11 of 12** season probes byte-identical, **0** changed
-   `val` in 30,315 common visits; and although the schema code table grew 16 → 74, var 39's
-   ladder is the same 4 codes with the same ordinals, **35,064 of 35,064** rows decoding
-   identically and **0 of 10** cells changing under either metric.
+   `val` in **32,340** common visits across all 12; and although the schema code table grew
+   16 → 74, var 39's ladder is the same 4 codes with the same ordinals, **35,064 of 35,064**
+   rows decoding identically and **0 of 10** cells changing under either metric.
 
 6. **The sha256 chain catches real corruption.** It is what detected B4, and it refused rather
    than serving mangled data. The failure is in the writer's encoding, never in the verifier.

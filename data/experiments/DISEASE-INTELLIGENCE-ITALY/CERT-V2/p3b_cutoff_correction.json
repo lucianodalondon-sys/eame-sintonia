@@ -1,0 +1,33 @@
+{
+ "WHAT_I_GOT_WRONG": "In the step 2-3 commit I wrote that removing the time cutoff makes 15 future-dated observations enter the published window and changes 5 of 10 vine province cells. The 15 rows entering is right. The 5 cells is NOT the effect of the cutoff: my mutation M03 replaced the window's upper bound in _window_value for EVERY window, which unbounds the BASELINE windows too, so each baseline season silently absorbed every later season. Four of those five cells moved for that reason, not because of the cutoff. An independent red-team lens isolated the cutoff properly and I re-measured against it.",
+
+ "THE_TWO_MUTATIONS": {
+  "A_UNBOUND_EVERY_WINDOW": "what M03 did: hi := 2100-01-01 in every call, current and baseline alike",
+  "B_UNBOUND_ONLY_THE_CURRENT_WINDOW": "hi := 2100-01-01 only when hi == AS_OF. This is the cutoff and nothing else."
+ },
+
+ "MEASURED": {
+  "OLIVE": {"future_dated_rows_in_archive": 0,
+            "A_cells_changed": "1/10", "A_state_changes": ["Massa-Carrara"],
+            "B_cells_changed": "0/10", "B_state_changes": []},
+  "VINE": {"future_dated_rows_in_archive": 15,
+           "their_decoded_values": [0.0],
+           "A_cells_changed": "5/10",
+           "A_state_changes": ["Arezzo", "Firenze", "Grosseto", "Pistoia", "Siena"],
+           "B_cells_changed": "2/10",
+           "B_state_changes": [],
+           "note": "the 2 cells that move under B are Firenze (74 -> 80 visits) and Siena (81 -> 90). Both keep their class: all 15 future rows decode to 0.0 and both provinces already read 0.0."},
+  "TOTAL_STATE_CHANGES": {"A_unbound_every_window": "6/20", "B_the_cutoff_alone": "0/20"}
+ },
+
+ "THE_CORRECTED_FINDING_IS_STRONGER_AGAINST_GATE_B_NOT_WEAKER": [
+  "The cutoff is NOT load-bearing on 2026-09-06: removing it changes 0 of 20 published classes.",
+  "Gate B nevertheless reports 'moving the cutoff forward changes 18 published province-cells - so the cutoff is LOAD-BEARING and this gate can detect its removal'. Those 18 cells move because advancing AS_OF by 30 days slides the window's LOWER bound, which has nothing to do with the cutoff.",
+  "Gate B returns PASS with the cutoff removed, printing that same sentence.",
+  "So gate B is not merely blind to the removal of its subject; the number it offers as proof of its subject is a measurement of something else."
+ ],
+
+ "WHY_THE_ARCHIVE_CANNOT_SETTLE_IT_TODAY": "Only 15 of 120,133 rows are dated after the cutoff, all on 2026-09-07, all in Firenze and Siena, and all decoding to 0.0. There is currently no future-dated observation that COULD change a class. Gate B's subject is real and important; the data available to test it is not.",
+
+ "STATUS": "M03 remains a valid mutation of a wider property (the window bounds) and gate B survives it. The narrower mutation B is the honest test of the cutoff itself, and gate B survives that too."
+}
