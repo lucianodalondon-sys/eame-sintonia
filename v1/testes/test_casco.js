@@ -484,6 +484,22 @@ teste('SF-16 · CAPTURED_AT e a captura, nao a data em que a regra rodou', () =>
   return `${exp.length} EXPIRY_EVENT com captura real e RULE_EVALUATED_AT proprio · DETECTED_AT num formato so`;
 });
 
+teste('SF-14 · a cobertura por celula desenhada aparece ao lado da por rotulo', () => {
+  const c = P.coverage_crop_cell || {};
+  afirma(c.CROP_CELLS_DETECTED > 0, 'cobertura por celula nao foi medida');
+  afirma(c.CROP_CELLS_READ < c.CROP_CELLS_DETECTED,
+    'a cobertura por celula seria 100%, o que nao bate com o vocabulario fechado');
+  go('cov');
+  const h = html('#v-cov');
+  afirma(h.includes('CROP_BLOCK_NOT_COLLECTED'), 'a tela nao mostra o bloco nao coletado');
+  afirma(h.includes('CELULA DE CULTURA DESENHADA'), 'a tela nao declara o segundo denominador');
+  afirma(h.includes('piso'), 'a tela nao diz que a diferenca e um piso e nao o total');
+  // as duas coberturas tem de conviver — numero unico foi o defeito da rodada 1
+  afirma(h.includes(String(P.coverage.AUTHORIZED_USE_ROW_COVERAGE.COVERED)),
+    'a cobertura por rotulo sumiu da tela');
+  return `${c.CROP_CELLS_READ}/${c.CROP_CELLS_DETECTED} celulas (${c.PCT}%) contra ${P.coverage.AUTHORIZED_USE_ROW_COVERAGE.PCT}% por rotulo`;
+});
+
 teste('a celula de dose diz de que linha o numero veio', () => {
   viewCrop();
   const h = html('#cres');

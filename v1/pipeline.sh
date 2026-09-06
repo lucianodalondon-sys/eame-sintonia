@@ -91,6 +91,9 @@ python3 v1/inteligencia/objetos.py --hoje "$HOJE"
 echo "== 13 · PORTAO: o filtro de ruido tem de passar antes de publicar"
 python3 v1/testes/test_ruido.py
 
+echo "== 10j1 · R-20: cobertura por CELULA DE CULTURA DESENHADA"
+python3 v1/inteligencia/cobertura_cultura.py --fios /tmp/fioscache --bbox /tmp/bboxcache
+
 echo "== 10j2 · R-19: em que forma a etichetta declara a propria vigencia?"
 python3 v1/inteligencia/vigencia_etichetta.py
 

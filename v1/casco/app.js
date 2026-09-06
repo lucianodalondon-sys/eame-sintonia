@@ -1836,21 +1836,36 @@ function viewCov() {
     Eles tem ficha porque a linha oficial deles foi lida; <b>nao</b> entram na cobertura porque
     nenhum rotulo foi coletado para eles. Somar os dois numeros seria contar universos
     diferentes.</div>
-  <div class="lei" style="border-left-color:var(--bad)"><b>A cobertura acima conta ROTULO, nao
-    conta CULTURA — e o leitor de uso tem vocabulario fechado.</b> Ele emite
-    <b>${VOCAB_USO.length}</b> nomes de cultura, e so esses. Nomes que a etichetta escreve e que
-    ele nao tem — medido: <code>PORRO</code>, <code>FINOCCHIO</code>, <code>LATTUGHE</code>,
-    <code>SCAROLE</code>, <code>RUCOLA</code>, <code>SEDANO</code>, <code>CAVOLFIORE</code>,
-    <code>POMACEE</code>, <code>FRUMENTO</code> — <b>nao viram par de uso</b>, mesmo quando o
-    rotulo os autoriza e a tabela de dose os traz. A tela CULTURA x ALVO agora responde
-    <code>CROP_NOT_IN_USE_VOCABULARY</code> nesses casos, em vez de &ldquo;0 pares&rdquo;.
-    <div class="meta" style="margin-top:6px"><b>Cobertura por CELULA DE CULTURA DESENHADA continua
-    <span class="unknown">NOT_MEASURED</span>.</b> Contar quantas celulas de cultura existem nos
-    163 documentos e quantas viraram par exigiria ler a coluna de cultura de cada tabela, e este
-    leitor nao faz isso. Declarar o vocabulario fechado e o que ha; chamar isso de cobertura por
-    cultura seria inventar um denominador.</div>
-    <div class="meta" style="margin-top:6px">Os ${VOCAB_USO.length} nomes:
-      <code>${esc(VOCAB_USO.join(', '))}</code></div></div>
+  ${(() => { const c = P.coverage_crop_cell || {};
+    if (c.CROP_CELLS_DETECTED === undefined) return '';
+    const nr = (c.COUNTS||{})['CROP_BLOCK_NOT_COLLECTED']||0;
+    const iv = (c.COUNTS||{})['CROP_BLOCK_IN_VOCABULARY_NOT_READ']||0;
+    return `<div class="lei" style="border-left-color:var(--bad)">
+    <b>A cobertura acima conta ROTULO. Esta conta CELULA DE CULTURA DESENHADA — e o numero e
+    outro.</b> Um rotulo conta como coberto se dele saiu <i>pelo menos um</i> par; assim o bloco
+    que o leitor nao leu desaparece no denominador do bloco que ele leu. Medido com os fios:
+    <div class="tw" style="margin-top:8px"><table><tbody>
+      <tr><td>celulas de cultura desenhadas detectadas</td><td><b>${c.CROP_CELLS_DETECTED}</b></td></tr>
+      <tr><td>com alguma cultura que virou par de uso</td><td><b style="color:var(--ok)">${c.CROP_CELLS_READ}</b>
+        (${c.PCT}%)</td></tr>
+      <tr><td><code>CROP_BLOCK_NOT_COLLECTED</code> — o nome esta fora dos
+        ${c.USE_VOCABULARY_SIZE} do vocabulario de uso</td><td><b style="color:var(--unk)">${nr}</b></td></tr>
+      <tr><td><code>CROP_BLOCK_IN_VOCABULARY_NOT_READ</code> — o nome ESTA no vocabulario e o
+        bloco nao produziu par</td><td><b style="color:var(--bad)">${iv}</b></td></tr>
+    </tbody></table></div>
+    <div class="meta" style="margin-top:6px"><b>Isto nao e "a cobertura verdadeira".</b> Uma
+    celula desenhada com nome de cultura pode ser cabecalho, nota ou tabela de carencia, e uma
+    etichetta que repete a tabela conta a celula duas vezes. A diferenca e um <b>piso</b> do que
+    falta, nao o total. As duas coberturas ficam na tela porque contam coisas diferentes —
+    cobertura como numero unico foi o defeito da rodada 1.</div>
+    <div class="meta" style="margin-top:6px">O vocabulario de uso e uma lista FECHADA de
+    <b>${VOCAB_USO.length}</b> nomes. Nomes que a etichetta escreve e que ele nao tem — medido:
+    <code>PORRO</code>, <code>FINOCCHIO</code>, <code>LATTUGHE</code>, <code>SCAROLE</code>,
+    <code>RUCOLA</code>, <code>SEDANO</code>, <code>CAVOLFIORE</code>, <code>POMACEE</code>,
+    <code>FRUMENTO</code> — nao viram par de uso mesmo quando o rotulo os autoriza. A tela
+    CULTURA x ALVO responde <code>CROP_NOT_IN_USE_VOCABULARY</code> nesses casos.
+    <div class="meta">Os ${VOCAB_USO.length} nomes: <code>${esc(VOCAB_USO.join(', '))}</code></div></div>
+    </div>`;})()}
   <div class="block"><h3>Cobertura por etapa</h3>
     <div class="tw"><table><tbody>${Object.entries(c).map(([k,o]) => barra(k,o)).join('')}</tbody></table></div>
     <div class="meta" style="margin-top:9px">${esc(P.coverage_note)}</div></div>

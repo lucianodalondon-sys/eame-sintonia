@@ -73,6 +73,7 @@ def main():
     ap.add_argument("--prosa", default="v1/dados/PROSA-CENSO.json")
     ap.add_argument("--citacao", default="v1/dados/CITACAO-CHECK.json")
     ap.add_argument("--vigencia", default="v1/dados/VIGENCIA-ETICHETTA.json")
+    ap.add_argument("--cobcultura", default="v1/dados/COBERTURA-CULTURA.json")
     ap.add_argument("--hoje", required=True)
     ap.add_argument("--out", default="v1/dados/CASCO-PAYLOAD.json")
     a = ap.parse_args()
@@ -513,6 +514,14 @@ def main():
         "vigencia": ({k: v for k, v in json.load(open(a.vigencia, encoding="utf-8")).items()
                       if k != "VERDICT"} if os.path.exists(a.vigencia)
                      else {"STATE": "NOT_CHECKED"}),
+        # R-20 · cobertura contada por CELULA DE CULTURA DESENHADA. O denominador
+        # por ROTULO escondia o bloco que o leitor nao leu dentro do rotulo que
+        # ele leu: 008259 conta como coberto com 184 pares e tem, na mesma
+        # pagina, celulas cheias cujo nome nunca virou par.
+        "coverage_crop_cell": ({k: v for k, v in
+                                json.load(open(a.cobcultura, encoding="utf-8")).items()
+                                if k not in ("BY_LABEL", "NOT_READ")}
+                               if os.path.exists(a.cobcultura) else {"STATE": "NOT_MEASURED"}),
         "prose": ({k: v for k, v in json.load(open(a.prosa, encoding="utf-8")).items()
                    if k != "LINHAS"} if os.path.exists(a.prosa) else {"STATE": "NOT_MEASURED"}),
         "pair_check_list": pf["CONTRADICTED"],
