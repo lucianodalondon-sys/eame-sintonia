@@ -1,0 +1,50 @@
+{
+ "AS_OF": "2026-09-06",
+ "GATES": {
+  "A_OUTCOME_IS_OBSERVED": {
+   "VERDICT": "PASS",
+   "EVIDENCE": "every cell derives from official field-scouting visits; no model output is admissible as an outcome (contracts.EvidenceRole)"
+  },
+  "B_NOT_SOLD_AS_FORECAST": {
+   "VERDICT": "PASS",
+   "EVIDENCE": "Cutoff.label() returns NOWCAST for every published cell; EARLY_WARNING and both OUTLOOK capabilities remain NOT_PROVED"
+  },
+  "C_REGIONAL_NOT_NATIONAL": {
+   "VERDICT": "PASS",
+   "EVIDENCE": "the unit is the province; no aggregate above the region exists in the output, and Toscana vs Abruzzo do not co-move (rho +0.190, p 0.67)"
+  },
+  "D_UNKNOWN_IS_VISIBLE": {
+   "VERDICT": "PASS",
+   "EVIDENCE": "UNKNOWN provinces published today: {'OLIVO x BACTROCERA x TOSCANA': 1, 'VITE x OIDIO x TOSCANA': 1}; Missing.NEVER_ZERO is asserted on every empty cell"
+  },
+  "E_REPRODUCIBLE": {
+   "VERDICT": "PASS",
+   "EVIDENCE": "byte-identical re-run; AS_OF is an input not the clock; every raw file sha256-checked against the collection index"
+  },
+  "F_LABEL_NOT_PARAMETER_ARTEFACT": {
+   "VERDICT": "PASS",
+   "EVIDENCE": "45-point parameter grid, mean label stability {'OLIVO x BACTROCERA x TOSCANA': 0.927, 'VITE x OIDIO x TOSCANA': 0.651}; cells below 0.8 are withheld rather than published"
+  },
+  "G_DISCRIMINATES_BETWEEN_SEASONS": {
+   "VERDICT": "PASS",
+   "EVIDENCE": "walk-forward dominant-class share {'OLIVO x BACTROCERA x TOSCANA': 0.439, 'VITE x OIDIO x TOSCANA': 0.667} (<=0.75 required); provinces disagree inside the same season"
+  },
+  "H_REFRESHABLE_WITHOUT_RESEARCH": {
+   "VERDICT": "PASS",
+   "EVIDENCE": "one unauthenticated GET reproduced the stored season row-for-row; latency 2 days; cost EUR 0. rowCount 0 must be treated as FAILURE."
+  },
+  "I_GENERALIZES": {
+   "VERDICT": "PASS",
+   "EVIDENCE": "3/3 cases through one pipeline, 0 case-conditional branches, PIPELINE_REUSE_RATE 100%; the second case is a PEST with a different value mode and needed no new rule"
+  },
+  "J_NOT_DUPLICATE": {
+   "VERDICT": "NOT_TESTABLE",
+   "EVIDENCE": "cannot be settled from this branch alone: it requires reading the portal's current capability inventory, which this mission is forbidden to touch. NOT_TESTABLE is not a pass."
+  }
+ },
+ "PASS": 9,
+ "FAIL": 0,
+ "NOT_TESTABLE": 1,
+ "PORTAL_INTEGRATION": "NO",
+ "DESERVES_FUTURE_INTEGRATION": "YES_SCOPED"
+}
