@@ -320,12 +320,156 @@ def propor(eventos, claims, dependentes, esquema):
 
 # ── saída ──────────────────────────────────────────────────────────────────────────
 
+# ── DRY-RUN · a tabela completa e a simulação do estado pós-reemissão ─────────────
+
+def dry_run(eventos, claims, dependentes, esquema):
+    """Tabela linha a linha + o stream de eventos SIMULADO. Nada é escrito.
+
+    A simulação respeita append-only: os eventos antigos entram **intactos**, e a
+    reemissão é um conjunto de eventos NOVOS que declaram `OLD_CLAIM_ID → CLAIM_ID`.
+    O estado proposto é o que um consumidor derivaria depois de dobrar os dois.
+    """
+    mapa, orfas, sem_id = propor(eventos, claims, dependentes, esquema)
+    por_evento = {m['EVENT_ID']: m['CLAIM_ID_NOVO'] for m in mapa}
+    orfaos_evento = {o['EVENT_ID']: o['MOTIVO'] for o in orfas}
+
+    # ---- a tabela pedida, uma linha por AFIRMAÇÃO real -----------------------------
+    tabela = []
+    for cid, evs in sorted(claims.items()):
+        for e in evs:
+            novo = por_evento.get(e['EVENT_ID'])
+            caso = chave_local(e)
+            rotas = [r for r in dependentes.get(cid, [])]
+            direct = [r for r in rotas
+                      if r.get('RELEVANCE') == 'DIRECT' and por_evento.get(r['EVENT_ID']) == novo]
+            consumo = [r for r in rotas
+                       if r.get('EVENT_TYPE') == 'CONSUMED_BY_CAPABILITY'
+                       and por_evento.get(r['EVENT_ID']) == novo]
+            bloq_rec = [r for r in rotas
+                        if r.get('RELEVANCE') == 'BLOCKED' and por_evento.get(r['EVENT_ID']) == novo]
+            bloq_orf = [r for r in rotas
+                        if r.get('RELEVANCE') == 'BLOCKED' and r['EVENT_ID'] in orfaos_evento]
+            tabela.append({
+                'OLD_CLAIM_ID': cid,
+                'NEW_CLAIM_ID': novo,
+                'CASE_ID': caso,
+                'CLAIM_TEXT': str(e.get('REASON'))[:150],
+                'EVIDENCE_REFERENCE': e.get('EVIDENCE_REFERENCE'),
+                'ITEM_ID': e['ITEM_ID'],
+                'SOURCE_EVENT_ID': e['EVENT_ID'],
+                'ROUTES_DIRECT_RECOVERED': len(direct),
+                'ROUTES_CONSUMED_RECOVERED': len(consumo),
+                'ROUTES_BLOCKED_RECOVERED': len(bloq_rec),
+                # COMPARTILHADO entre as linhas do mesmo OLD_CLAIM_ID: se o id antigo
+                # tinha 2 órfãs e 2 afirmações, as duas linhas mostram 2 — porque as
+                # órfãs poderiam pertencer a qualquer uma. Somar a coluna conta duas
+                # vezes de propósito; o total honesto está em PROVAS.ORPHANED_ROUTES.
+                'ROUTES_UNRECOVERABLE_SHARED': len(bloq_orf) if len(evs) > 1 else 0,
+                'REASON': ('id antigo carregava %d afirmações; a chave local %s separa'
+                           % (len(evs), caso)) if len(evs) > 1
+                          else 'id antigo já era único; reemitido para uniformizar a regra',
+            })
+
+    # ---- prova das rotas ----------------------------------------------------------
+    direct_total = [r for r in eventos
+                    if r.get('EVENT_TYPE') == 'ROUTED_TO_CAPABILITY'
+                    and r.get('RELEVANCE') == 'DIRECT']
+    direct_recuperadas, direct_erradas = [], []
+    ids_de_claim = {m['CLAIM_ID_NOVO'] for m in mapa
+                    if not str(m['TEXTO']).startswith('[')}
+    for r in direct_total:
+        novo = por_evento.get(r['EVENT_ID'])
+        if novo is None:
+            continue
+        caso_da_rota = chave_local(r)
+        # a rota está CERTA quando o id novo que ela recebeu contém o caso que ela declara
+        if caso_da_rota and caso_da_rota in str(novo):
+            direct_recuperadas.append(r['EVENT_ID'])
+        else:
+            direct_erradas.append({'EVENT_ID': r['EVENT_ID'], 'CASO_DA_ROTA': caso_da_rota,
+                                   'NEW_CLAIM_ID': novo})
+
+    rotas_para_claim_inexistente = sorted(
+        {m['CLAIM_ID_NOVO'] for m in mapa if str(m['TEXTO']).startswith('[')} - ids_de_claim)
+
+    # ---- o stream SIMULADO: antigos intactos + reemissão como eventos NOVOS --------
+    novos_eventos = []
+    for m in mapa:
+        novos_eventos.append({
+            'EVENT_TYPE': 'CLAIM_ID_REISSUED',
+            'RULE_VERSION': RULE_VERSION,
+            'ACTOR': 'scripts/passaporte_claim_id.py',
+            'ITEM_ID': m['ITEM_ID'],
+            'OLD_CLAIM_ID': m['CLAIM_ID_ANTIGO'],
+            'CLAIM_ID': m['CLAIM_ID_NOVO'],
+            'TARGET_EVENT_ID': m['EVENT_ID'],
+            'REASON': 'identidade derivada de ordinal; reemitida a partir do conteúdo',
+        })
+    for o in orfas:
+        novos_eventos.append({
+            'EVENT_TYPE': 'CLAIM_LINK_ORPHANED',
+            'RULE_VERSION': RULE_VERSION,
+            'ACTOR': 'scripts/passaporte_claim_id.py',
+            'OLD_CLAIM_ID': o['CLAIM_ID_ANTIGO'],
+            'CLAIM_ID': None,
+            'TARGET_EVENT_ID': o['EVENT_ID'],
+            'CAPABILITY_ID': o.get('CAPABILITY_ID'),
+            'TO_STATE': 'ORPHANED',
+            'REASON': o['MOTIVO'],
+        })
+
+    # ---- o estado PROPOSTO, derivado da dobra ------------------------------------
+    proposto = []
+    for e in eventos:
+        novo = por_evento.get(e['EVENT_ID'])
+        if e['EVENT_ID'] in orfaos_evento:
+            proposto.append(dict(e, CLAIM_ID=None, CLAIM_LINK_STATE='ORPHANED'))
+        elif novo:
+            proposto.append(dict(e, CLAIM_ID=novo))
+        else:
+            proposto.append(dict(e))
+
+    # ---- COLLISIONS_AFTER: o gate rodado sobre o estado proposto ------------------
+    depois = collections.defaultdict(set)
+    for e in proposto:
+        if e.get('EVENT_TYPE') == EV_CLAIM and e.get('CLAIM_ID'):
+            depois[e['CLAIM_ID']].add(texto_canonico(e.get('REASON')))
+    colisoes_depois = {k: v for k, v in depois.items() if len(v) > 1}
+
+    return {
+        'TABELA': tabela,
+        'MAPA': mapa,
+        'ORFAS': orfas,
+        'SEM_CHAVE_LOCAL': sem_id,
+        'EVENTOS_NOVOS': novos_eventos,
+        'ESTADO_PROPOSTO': proposto,
+        'PROVAS': {
+            'CLAIMS_REAL': sum(len(v) for v in claims.values()),
+            'NEW_CLAIM_IDS': len(ids_de_claim),
+            'COLLISIONS_AFTER': len(colisoes_depois),
+            'COLLISIONS_AFTER_DETALHE': sorted(colisoes_depois)[:3],
+            'DIRECT_ROUTES_TOTAL': len(direct_total),
+            'DIRECT_ROUTES_RECOVERED': len(direct_recuperadas),
+            'DIRECT_ROUTES_WRONG': len(direct_erradas),
+            'DIRECT_ROUTES_WRONG_DETALHE': direct_erradas[:5],
+            'ROUTES_POINTING_TO_MISSING_CLAIM': len(rotas_para_claim_inexistente),
+            'ORPHANED_ROUTES': len(orfas),
+            'EVENTS_TO_APPEND': len(novos_eventos),
+            'CLAIMS_REISSUED': sum(1 for m in mapa if not str(m['TEXTO']).startswith('[')),
+            'ROUTES_REISSUED': sum(1 for m in mapa if str(m['TEXTO']).startswith('[')),
+            'OLD_EVENTS_MODIFIED': 0,
+        },
+    }
+
+
 def main(argv=None):
     p = argparse.ArgumentParser()
-    p.add_argument('comando', choices=['medir', 'comparar', 'propor'])
+    p.add_argument('comando', choices=['medir', 'comparar', 'propor', 'dry-run'])
     p.add_argument('--passaporte', required=True)
     p.add_argument('--esquema', default='C_hibrido', choices=list(ESQUEMAS))
     p.add_argument('--json', default=None)
+    p.add_argument('--simulado', default=None,
+                   help='grava o estado proposto como JSONL de SIMULAÇÃO (nunca o log canônico)')
     args = p.parse_args(argv)
     try:
         sys.stdout.reconfigure(encoding='utf-8')
@@ -382,6 +526,52 @@ def main(argv=None):
         for nome, fn in ESQUEMAS.items():
             ids = [fn(e)[0] for e in alvo]
             print(f'    {nome:16s} {" | ".join(str(i) for i in ids)}')
+
+    elif args.comando == 'dry-run':
+        d = dry_run(eventos, claims, dependentes, ESQUEMAS[args.esquema])
+        pr = d['PROVAS']
+        print(f'DRY-RUN · esquema={args.esquema} · {RULE_VERSION}')
+        print('NADA FOI ESCRITO. EVENTOS.jsonl intacto.\n')
+        print('── PROVAS ──')
+        for k, v in pr.items():
+            if k.endswith('_DETALHE'):
+                continue
+            print(f'  {k:38s} = {v}')
+        if pr['DIRECT_ROUTES_WRONG']:
+            print('  DIRECT ERRADAS:', pr['DIRECT_ROUTES_WRONG_DETALHE'])
+
+        print('\n── TABELA (as 12 colisões; uma linha por afirmação) ──')
+        colididos = {l['OLD_CLAIM_ID'] for l in d['TABELA']
+                     if sum(1 for x in d['TABELA'] if x['OLD_CLAIM_ID'] == l['OLD_CLAIM_ID']) > 1}
+        for l in d['TABELA']:
+            if l['OLD_CLAIM_ID'] not in colididos:
+                continue
+            print(f"\n  OLD  {l['OLD_CLAIM_ID']}")
+            print(f"  NEW  {l['NEW_CLAIM_ID']}")
+            print(f"       CASE={l['CASE_ID']}  ·  DIRECT={l['ROUTES_DIRECT_RECOVERED']}"
+                  f"  CONSUMED={l['ROUTES_CONSUMED_RECOVERED']}"
+                  f"  BLOCKED_REC={l['ROUTES_BLOCKED_RECOVERED']}"
+                  f"  UNRECOVERABLE_SHARED={l['ROUTES_UNRECOVERABLE_SHARED']}")
+            print(f"       {l['CLAIM_TEXT'][:100]}")
+
+        if args.json:
+            with open(args.json, 'w', encoding='utf-8') as f:
+                json.dump({'RULE_VERSION': RULE_VERSION, 'ESQUEMA': args.esquema,
+                           'PROVAS': pr, 'TABELA': d['TABELA'],
+                           'EVENTOS_A_ACRESCENTAR': d['EVENTOS_NOVOS'],
+                           'ORFAS': d['ORFAS']},
+                          f, ensure_ascii=False, indent=2)
+            print(f'\npreview gravado: {args.json}  (proposta — nada aplicado)')
+        if args.simulado:
+            # Artefato de SIMULAÇÃO. Não é o log canônico e não pode virar um.
+            # Fica fora de data/passaporte/ de propósito.
+            os.makedirs(os.path.dirname(os.path.abspath(args.simulado)), exist_ok=True)
+            with open(args.simulado, 'w', encoding='utf-8') as f:
+                for e in d['ESTADO_PROPOSTO']:
+                    f.write(json.dumps(e, ensure_ascii=False) + '\n')
+            print(f'estado simulado gravado: {args.simulado}')
+            print('  ATENÇÃO: simulação. NÃO é data/passaporte/EVENTOS.jsonl.')
+        return 0
 
     else:
         mapa, orfas, sem_id = propor(eventos, claims, dependentes, ESQUEMAS[args.esquema])

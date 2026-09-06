@@ -1,0 +1,174 @@
+{
+  "RULE_VERSION": "DECISOES-2026-09-06",
+  "EVIDENCE_CLASS_VOCAB": {
+    "EVC-DOC": "documento",
+    "EVC-STAT": "série estatística",
+    "EVC-SCI": "literatura científica",
+    "EVC-REG": "ato regulatório",
+    "EVC-MKT": "observação de mercado",
+    "EVC-FIELD": "observação de campo",
+    "EVC-TABLE": "tabela de uso autorizado",
+    "EVC-IDENT": "registro de identidade",
+    "EVC-INTERP": "interpretação",
+    "EVC-SCOPE": "delimitação de escopo",
+    "EVC-MEAS": "medição",
+    "EVC-PROBE": "sonda de fonte",
+    "EVC-RAW": "bruto preservado",
+    "EVC-DIR": "diretório de entidades",
+    "EVC-CORPUS": "corpus de material",
+    "EVC-COMM": "comunicação pública"
+  },
+  "EVIDENCE_STRENGTH_VOCAB": [
+    "PRIMARY",
+    "OFFICIAL",
+    "SCIENTIFIC",
+    "DERIVED",
+    "UNKNOWN"
+  ],
+  "MAPA_LEGADO": {
+    "PRIMARY_SOURCE_RAW": {
+      "EVIDENCE_CLASS": "EVC-RAW",
+      "EVIDENCE_STRENGTH": "PRIMARY"
+    },
+    "PRIMARY_SOURCE_PROBE": {
+      "EVIDENCE_CLASS": "EVC-PROBE",
+      "EVIDENCE_STRENGTH": "PRIMARY"
+    },
+    "OFFICIAL_DOCUMENT": {
+      "EVIDENCE_CLASS": "EVC-DOC",
+      "EVIDENCE_STRENGTH": "OFFICIAL"
+    },
+    "DOCUMENTO_OFICIAL": {
+      "EVIDENCE_CLASS": "EVC-DOC",
+      "EVIDENCE_STRENGTH": "OFFICIAL"
+    },
+    "OFFICIAL_STATISTIC": {
+      "EVIDENCE_CLASS": "EVC-STAT",
+      "EVIDENCE_STRENGTH": "OFFICIAL"
+    },
+    "OFFICIAL_MARKET_OBSERVATION": {
+      "EVIDENCE_CLASS": "EVC-MKT",
+      "EVIDENCE_STRENGTH": "OFFICIAL"
+    },
+    "REGULATORY_FACT": {
+      "EVIDENCE_CLASS": "EVC-REG",
+      "EVIDENCE_STRENGTH": "OFFICIAL"
+    },
+    "TECHNICAL_AUTHORITY_DECLARATION": {
+      "EVIDENCE_CLASS": "EVC-DOC",
+      "EVIDENCE_STRENGTH": "OFFICIAL"
+    },
+    "CROP_IN_AUTHORIZED_USE_TABLE": {
+      "EVIDENCE_CLASS": "EVC-TABLE",
+      "EVIDENCE_STRENGTH": "OFFICIAL"
+    },
+    "SCIENTIFIC_LITERATURE": {
+      "EVIDENCE_CLASS": "EVC-SCI",
+      "EVIDENCE_STRENGTH": "SCIENTIFIC"
+    },
+    "DERIVED_INTERPRETATION": {
+      "EVIDENCE_CLASS": "EVC-INTERP",
+      "EVIDENCE_STRENGTH": "DERIVED"
+    },
+    "DERIVED_SCOPE": {
+      "EVIDENCE_CLASS": "EVC-SCOPE",
+      "EVIDENCE_STRENGTH": "DERIVED"
+    },
+    "DERIVED_MEASUREMENT": {
+      "EVIDENCE_CLASS": "EVC-MEAS",
+      "EVIDENCE_STRENGTH": "DERIVED"
+    },
+    "DERIVED_IDENTITY": {
+      "EVIDENCE_CLASS": "EVC-IDENT",
+      "EVIDENCE_STRENGTH": "DERIVED"
+    },
+    "PRIMARY_SOURCE": {
+      "EVIDENCE_CLASS": "EVC-DOC",
+      "EVIDENCE_STRENGTH": "PRIMARY"
+    },
+    "DERIVED_DIRECTORY": {
+      "EVIDENCE_CLASS": "EVC-DIR",
+      "EVIDENCE_STRENGTH": "DERIVED"
+    },
+    "DERIVED_MATERIAL_CORPUS": {
+      "EVIDENCE_CLASS": "EVC-CORPUS",
+      "EVIDENCE_STRENGTH": "DERIVED"
+    },
+    "COMPETITOR_PUBLIC_COMMUNICATION_OBSERVED": {
+      "EVIDENCE_CLASS": "EVC-COMM",
+      "EVIDENCE_STRENGTH": "PRIMARY"
+    }
+  },
+  "CONTAGEM_REAL": {
+    "DERIVED_DIRECTORY": 1,
+    "DERIVED_MEASUREMENT": 5,
+    "DERIVED_MATERIAL_CORPUS": 1,
+    "DERIVED_IDENTITY": 3,
+    "PRIMARY_DECLARED_LINK": 1,
+    "COMPETITOR_PUBLIC_COMMUNICATION_OBSERVED": 1,
+    "DERIVED_SCOPE": 9,
+    "REGULATORY_FACT": 61,
+    "PRIMARY_SOURCE_RAW": 3,
+    "DERIVED_INTERPRETATION": 11,
+    "PRIMARY_SOURCE_CONVERGENCE": 1,
+    "CROP_IN_AUTHORIZED_USE_TABLE": 2,
+    "PRIMARY_SOURCE_PROBE": 21,
+    "SCIENTIFIC_LITERATURE": 3,
+    "TECHNICAL_AUTHORITY_DECLARATION": 2,
+    "SOURCE_HEALTH": 1,
+    "OFFICIAL_MARKET_OBSERVATION": 3,
+    "OFFICIAL_STATISTIC": 5,
+    "OFFICIAL_DOCUMENT": 2030,
+    "DOCUMENTO_OFICIAL": 2030,
+    "PRESERVATION_MANIFEST": 1,
+    "PRIMARY_SOURCE": 1,
+    "PUBLIC_FREE_ROUTE": 2,
+    "HUMAN_DECISION": 1
+  },
+  "NAO_MAPEADOS": {
+    "PUBLIC_FREE_ROUTE": 2,
+    "PRIMARY_DECLARED_LINK": 1,
+    "PRIMARY_SOURCE_CONVERGENCE": 1,
+    "SOURCE_HEALTH": 1,
+    "PRESERVATION_MANIFEST": 1,
+    "HUMAN_DECISION": 1
+  },
+  "FORA_DO_CONCEITO": {
+    "PUBLIC_FREE_ROUTE": {
+      "ONDE": "data/samples/.../CANAIS.json",
+      "O_QUE_E": "rota de coleta, não natureza de evidência",
+      "CAMPO_CERTO": "SOURCE_FAMILY (PLATFORM_PUBLIC_FREE_ROUTE)",
+      "ACAO": "mover de campo — não mapear"
+    },
+    "HUMAN_DECISION": {
+      "ONDE": "data/samples/.../LEXICO-APROVADO.json",
+      "O_QUE_E": "decisão nossa, não evidência sobre o mundo",
+      "CAMPO_CERTO": "campo próprio de decisão (não existe ainda)",
+      "ACAO": "NÃO SEI — precisa de dono"
+    },
+    "PRESERVATION_MANIFEST": {
+      "ONDE": "data/samples/.../MANIFESTO-PRESERVACAO.json",
+      "O_QUE_E": "declaração sobre o nosso próprio processo",
+      "CAMPO_CERTO": "metadado de preservação, não EVIDENCE_CLASS",
+      "ACAO": "NÃO SEI — precisa de dono"
+    },
+    "SOURCE_HEALTH": {
+      "ONDE": "data/samples/IT-FONTES/ITALY-SOURCE-PROBE.json",
+      "O_QUE_E": "medição sobre a FONTE (alcançável? responde?), não sobre o mundo",
+      "CAMPO_CERTO": "estado da fonte, não natureza de evidência",
+      "ACAO": "NÃO SEI — precisa de dono"
+    }
+  },
+  "AMBIGUOS": {
+    "PRIMARY_SOURCE_CONVERGENCE": {
+      "ONDE": "data/samples/IT-CASOS/IT-CASE-DURUM-FUSARIUM-001.json",
+      "CONFLITO": "o nome diz PRIMARY, e convergência entre fontes é DERIVADA. Os dois eixos brigam dentro do mesmo valor.",
+      "ACAO": "NÃO SEI — decidir se a força é a das fontes ou a da análise"
+    },
+    "PRIMARY_DECLARED_LINK": {
+      "ONDE": "data/samples/COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1.json",
+      "CONFLITO": "ligação declarada por quem? se por nós, é DERIVED; se pela fonte, é PRIMARY. O valor não diz.",
+      "ACAO": "NÃO SEI — decidir quem declara"
+    }
+  }
+}

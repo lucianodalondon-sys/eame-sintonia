@@ -129,6 +129,19 @@ def portao_claim_id(eventos):
     repetidos_ok = sum(1 for cid, t in por_id.items() if len(t) > 1 and len(set(t)) == 1)
     rotas_afetadas = sum(len(rotas.get(cid, [])) for cid in colididos)
 
+    # ENTRADA VAZIA NÃO É APROVAÇÃO. Um portão que devolve PASS sobre zero afirmações
+    # aprova qualquer coisa — inclusive um arquivo que não existe. Foi assim que este
+    # portão devolveu verde por engano, durante esta missão, ao ler um caminho errado.
+    if not por_id:
+        return {
+            'PROVED': False,
+            'CLAIMS_TOTAL': 0, 'CLAIM_IDS_TOTAL': 0, 'COLLIDING_IDS': 0,
+            'REPETICOES_LEGITIMAS': 0, 'ROUTES_TOTAL': 0, 'ROUTES_ON_AMBIGUOUS_ID': 0,
+            'BLOQUEIO': 'NAO_MEDIDO — nenhuma afirmação foi lida. Entrada vazia não é '
+                        'aprovação: verifique o caminho do log.',
+            'EXEMPLOS': [],
+        }
+
     return {
         'PROVED': not colididos,
         'CLAIMS_TOTAL': sum(len(v) for v in por_id.values()),
@@ -290,15 +303,24 @@ def portao_universo(acervo, declarado):
     if declarado is None:
         return {
             'PROVED': False,
+            'MOTIVO': 'EXPECTED_UNIVERSE_NOT_DECLARED',
+            'EXPECTED_UNIVERSE': None,
+            'SCANNED_UNIVERSE': 'data/samples',
             **real,
-            'SCAN_FILE_COUNT': None, 'SCAN_RECORD_COUNT': None,
-            'SCAN_FINGERPRINT': None,
-            'BLOQUEIO': 'NAO_MEDIDO — nenhum universo declarado foi apresentado para '
-                        'comparação. Ausência de declaração NÃO é PASS.',
+            'SCAN_FILE_COUNT': real['UNIVERSE_FILE_COUNT'],
+            'SCAN_RECORD_COUNT': real['UNIVERSE_RECORD_COUNT'],
+            'SCAN_FINGERPRINT': real['UNIVERSE_FINGERPRINT'],
+            'BLOQUEIO': 'EXPECTED_UNIVERSE_NOT_DECLARED — ninguém declarou qual é o '
+                        'universo esperado. A impressão digital do que foi VARRIDO está '
+                        'acima, e ela sozinha não prova completude. Ausência de '
+                        'declaração NÃO é PASS.',
         }
     igual = (declarado.get('UNIVERSE_FINGERPRINT') == real['UNIVERSE_FINGERPRINT'])
     return {
         'PROVED': igual,
+        'MOTIVO': None if igual else 'SCANNED_UNIVERSE_DIFFERS_FROM_EXPECTED',
+        'EXPECTED_UNIVERSE': declarado.get('UNIVERSE_FINGERPRINT'),
+        'SCANNED_UNIVERSE': real['UNIVERSE_FINGERPRINT'],
         **real,
         'SCAN_FILE_COUNT': declarado.get('UNIVERSE_FILE_COUNT'),
         'SCAN_RECORD_COUNT': declarado.get('UNIVERSE_RECORD_COUNT'),
@@ -317,6 +339,8 @@ def main(argv=None):
     p.add_argument('--passaporte', required=True)
     p.add_argument('--universo-declarado', default=None,
                    help='JSON com UNIVERSE_FINGERPRINT de quem diz ter varrido')
+    p.add_argument('--eventos', default=None,
+                   help='JSONL alternativo (ex.: estado SIMULADO pos-reemissao)')
     p.add_argument('--json', default=None)
     args = p.parse_args(argv)
     try:
@@ -324,7 +348,8 @@ def main(argv=None):
     except Exception:                                          # noqa: BLE001
         pass
 
-    caminho = os.path.join(args.passaporte, 'data', 'passaporte', 'EVENTOS.jsonl')
+    caminho = args.eventos or os.path.join(args.passaporte, 'data', 'passaporte',
+                                           'EVENTOS.jsonl')
     eventos = [json.loads(l) for l in open(caminho, encoding='utf-8') if l.strip()] \
         if os.path.isfile(caminho) else []
 

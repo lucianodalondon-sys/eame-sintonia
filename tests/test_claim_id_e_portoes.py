@@ -164,7 +164,8 @@ def test_valor_real_nunca_vira_unknown():
 def test_universo_sem_declaracao_nao_e_pass():
     r = portao_universo(RAIZ, None)
     assert r['PROVED'] is False
-    assert 'NAO_MEDIDO' in r['BLOQUEIO']
+    assert r['MOTIVO'] == 'EXPECTED_UNIVERSE_NOT_DECLARED'
+    assert 'NÃO é PASS' in r['BLOQUEIO']
 
 
 def test_universo_declarado_igual_passa():
@@ -292,6 +293,168 @@ def test_a_independencia_e_transportada_de_voz_py_e_nao_reescrita():
     fonte = open(os.path.join(RAIZ, 'scripts', 'voz.py'), encoding='utf-8').read()
     for v in ind['VOCABULARIO']:
         assert v in fonte, f'{v} não está no dono — o vocabulário foi reinventado'
+
+
+# ══════════════════════════════════════════════════════════════════════════════════
+# 9 · O DRY-RUN — as provas que a reemissão tem de sustentar
+# ══════════════════════════════════════════════════════════════════════════════════
+
+def _dry():
+    from passaporte_claim_id import dry_run
+    eventos = ler_eventos(REF)
+    _, claims, dependentes = medir(eventos, ler_casos(REF))
+    return dry_run(eventos, claims, dependentes, ESQUEMA)
+
+
+def test_dry_run_uma_identidade_por_afirmacao():
+    if not _log_disponivel():
+        print('      (pulado: NAO_MEDIDO — log ausente)')
+        return
+    pr = _dry()['PROVAS']
+    assert pr['CLAIMS_REAL'] == 55
+    assert pr['NEW_CLAIM_IDS'] == pr['CLAIMS_REAL'], 'sobrou ou faltou identidade'
+    assert pr['COLLISIONS_AFTER'] == 0
+
+
+def test_dry_run_nenhuma_rota_direct_fica_errada_ou_orfa_de_claim():
+    if not _log_disponivel():
+        print('      (pulado: NAO_MEDIDO — log ausente)')
+        return
+    pr = _dry()['PROVAS']
+    assert pr['DIRECT_ROUTES_TOTAL'] == 48
+    assert pr['DIRECT_ROUTES_RECOVERED'] == 48
+    assert pr['DIRECT_ROUTES_WRONG'] == 0
+    assert pr['ROUTES_POINTING_TO_MISSING_CLAIM'] == 0
+
+
+def test_dry_run_e_append_only():
+    if not _log_disponivel():
+        print('      (pulado: NAO_MEDIDO — log ausente)')
+        return
+    d = _dry()
+    assert d['PROVAS']['OLD_EVENTS_MODIFIED'] == 0
+    tipos = {e['EVENT_TYPE'] for e in d['EVENTOS_NOVOS']}
+    assert tipos <= {'CLAIM_ID_REISSUED', 'CLAIM_LINK_ORPHANED'}, \
+        'a reemissão inventou um tipo de evento fora do contrato'
+    for e in d['EVENTOS_NOVOS']:
+        assert e['RULE_VERSION'], 'evento de reemissão sem versão de regra'
+        assert e['TARGET_EVENT_ID'], 'evento de reemissão sem alvo rastreável'
+
+
+def test_o_estado_proposto_faz_o_portao_passar():
+    if not _log_disponivel():
+        print('      (pulado: NAO_MEDIDO — log ausente)')
+        return
+    r = portao_claim_id(_dry()['ESTADO_PROPOSTO'])
+    assert r['PROVED'] is True, f"o estado proposto ainda reprova: {r['BLOQUEIO']}"
+    assert r['COLLIDING_IDS'] == 0
+    assert r['ROUTES_ON_AMBIGUOUS_ID'] == 0
+
+
+def test_orfa_fica_orfa_e_nunca_recebe_dono_inventado():
+    if not _log_disponivel():
+        print('      (pulado: NAO_MEDIDO — log ausente)')
+        return
+    d = _dry()
+    orfaos = {o['EVENT_ID'] for o in d['ORFAS']}
+    for e in d['ESTADO_PROPOSTO']:
+        if e.get('EVENT_ID') in orfaos:
+            assert e.get('CLAIM_ID') is None, 'uma rota órfã recebeu dono inventado'
+            assert e.get('CLAIM_LINK_STATE') == 'ORPHANED'
+
+
+# ══════════════════════════════════════════════════════════════════════════════════
+# 10 · ENTRADA VAZIA NÃO É APROVAÇÃO
+# ══════════════════════════════════════════════════════════════════════════════════
+
+def test_portao_reprova_entrada_vazia():
+    """Um portão que aprova zero afirmações aprova qualquer coisa, inclusive um
+    arquivo que não existe. Aconteceu nesta missão, com um caminho errado."""
+    r = portao_claim_id([])
+    assert r['PROVED'] is False
+    assert 'NAO_MEDIDO' in r['BLOQUEIO']
+
+
+def test_universo_sem_dono_declara_o_codigo_de_motivo():
+    r = portao_universo(RAIZ, None)
+    assert r['PROVED'] is False
+    assert r['MOTIVO'] == 'EXPECTED_UNIVERSE_NOT_DECLARED'
+    assert r['EXPECTED_UNIVERSE'] is None
+    assert r['SCAN_FINGERPRINT'], 'o que foi varrido tem de ser declarado mesmo no FAIL'
+
+
+# ══════════════════════════════════════════════════════════════════════════════════
+# 11 · AS TRÊS DECISÕES — travadas para não regredirem
+# ══════════════════════════════════════════════════════════════════════════════════
+
+def test_natureza_e_forca_sao_campos_distintos():
+    from passaporte_decisoes import (MAPA_LEGADO, EVIDENCE_CLASS_VOCAB,
+                                     EVIDENCE_STRENGTH_VOCAB)
+    for legado, (classe, forca) in MAPA_LEGADO.items():
+        assert classe in EVIDENCE_CLASS_VOCAB, f'{legado}: natureza fora do vocabulário'
+        assert forca in EVIDENCE_STRENGTH_VOCAB, f'{legado}: força fora do vocabulário'
+        assert classe != forca, f'{legado}: natureza e força no mesmo código'
+
+
+def test_o_conflito_de_idioma_resolve_no_mesmo_codigo():
+    from passaporte_decisoes import MAPA_LEGADO
+    assert MAPA_LEGADO['OFFICIAL_DOCUMENT'] == MAPA_LEGADO['DOCUMENTO_OFICIAL'], \
+        'o mesmo conceito em duas línguas caiu em códigos diferentes'
+
+
+def test_o_codigo_interno_nao_e_palavra_de_idioma():
+    from passaporte_decisoes import EVIDENCE_CLASS_VOCAB
+    for codigo in EVIDENCE_CLASS_VOCAB:
+        assert codigo.startswith('EVC-'), f'{codigo} não é código interno'
+
+
+def test_o_que_nao_e_natureza_de_evidencia_nao_foi_mapeado_a_forca():
+    from passaporte_decisoes import MAPA_LEGADO, FORA_DO_CONCEITO, AMBIGUOS
+    for k in list(FORA_DO_CONCEITO) + list(AMBIGUOS):
+        assert k not in MAPA_LEGADO, \
+            f'{k} foi mapeado apesar de estar declarado fora do conceito ou ambíguo'
+
+
+def test_as_tres_familias_tem_nomes_distintos():
+    from passaporte_decisoes import (EVIDENCE_FAMILY_LEGADO, DATASET_FAMILY_LEGADO,
+                                     SOURCE_FAMILY_VOCAB)
+    semantica = set(EVIDENCE_FAMILY_LEGADO.values())
+    local = {n for n, _ in DATASET_FAMILY_LEGADO}
+    rota = set(SOURCE_FAMILY_VOCAB)
+    assert not (semantica & local), 'família semântica e de local compartilham valor'
+    assert not (semantica & rota), 'família semântica e de rota compartilham valor'
+    assert not (local & rota), 'família de local e de rota compartilham valor'
+
+
+def test_o_dono_da_relacao_capacidade_caso_existe_no_repositorio():
+    dono = os.path.join(RAIZ, 'docs', 'apresentacao',
+                        'CONTRATO-DE-PROVA-DA-APRESENTACAO.md')
+    assert os.path.isfile(dono), 'o dono declarado da relação sumiu'
+    texto = open(dono, encoding='utf-8').read()
+    ligacoes = [l for l in texto.splitlines()
+                if 'CAP-' in l and 'CASE-' in l]
+    assert ligacoes, 'o dono não liga mais capacidade a caso'
+
+
+def test_o_portal_nao_declara_capacidade():
+    """O portal renderiza. Se ele passar a declarar CAP-xxx, este teste cai."""
+    import re as _re
+    portal = os.path.join(RAIZ, 'italia-portale')
+    if not os.path.isdir(portal):
+        print('      (pulado: NAO_MEDIDO — portal ausente)')
+        return
+    achados = []
+    for pasta, _, nomes in os.walk(portal):
+        for nome in nomes:
+            if not nome.endswith(('.js', '.html', '.json')):
+                continue
+            try:
+                t = open(os.path.join(pasta, nome), encoding='utf-8', errors='ignore').read()
+            except Exception:                                  # noqa: BLE001
+                continue
+            if _re.search(r'CAP-\d{3}|CAPABILITY_ID', t):
+                achados.append(nome)
+    assert not achados, f'o portal passou a declarar capacidade: {achados[:3]}'
 
 
 # ══════════════════════════════════════════════════════════════════════════════════
