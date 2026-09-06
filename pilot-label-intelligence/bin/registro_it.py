@@ -140,14 +140,22 @@ def norm(field, value):
 
 
 def mark_oscillations(events):
-    """Marca ida-e-volta como instabilidade da fonte, nao mudanca regulatoria.
+    """Marca ida-e-volta como instabilidade da fonte — SO em campo multivalorado.
 
-    Se um mesmo (registro, campo) volta a um valor que ja tinha antes, a fonte
-    esta oscilando. Isso nao e regulacao mudando: e serializacao instavel. A
-    missao proibe promover mudanca textual sem significado regulatorio provado.
+    A regra nasceu para a lista de indicacoes de perigo, que a fonte reordena
+    entre publicacoes: la, A -> B -> A e serializacao instavel.
+
+    Aplicar isso a campo ESCALAR estava errado e escondia fato. Medido: a
+    validade do registro 017852 foi de 31/03/2026 para 31/10/2041 e depois de
+    volta para 31/03/2026, em tres instantaneos oficiais. Isso e uma sequencia
+    regulatoria real — prorrogacao e reversao — e a regra a apagava, deixando a
+    primeira metade na tela como fato assentado. Data indo e voltando e noticia,
+    nao ruido.
     """
     history = {}
     for e in events:
+        if e["FIELD"] not in MULTIVALUED:
+            continue          # escalar: ida e volta e sequencia real, nao oscilacao
         key = (e["REGISTRATION_ID"], e["FIELD"])
         seen = history.setdefault(key, set())
         seen.add(e["BEFORE"])

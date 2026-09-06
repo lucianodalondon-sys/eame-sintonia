@@ -621,8 +621,8 @@
  "NOISE_SHARE": 93.9,
  "NOISE_NOTE": "os dois numeros contam a MESMA coisa — diferencas de campo entre registros presentes nos dois instantaneos — e por isso sao comparaveis. Entrada e saida de produto ficam fora dos dois. A fonte reordena a lista de indicacoes de perigo entre publicacoes e o mesmo valor vai e volta; um differ que comparasse texto cru entregaria o numero sem normalizar.",
  "CHANGE_EVENTS_TOTAL": 36,
- "CHANGE_EVENTS_REGULATORY": 34,
- "CHANGE_EVENTS_TEXT_ONLY": 2,
+ "CHANGE_EVENTS_REGULATORY": 36,
+ "CHANGE_EVENTS_TEXT_ONLY": 0,
  "TEXT_ONLY_RULE": "valor que reaparece no mesmo registro/campo indica fonte oscilando; rebaixado a TEXT_CHANGE_OTHER e fora das contagens regulatorias",
  "CHANGE_EVENTS": [
   {
@@ -899,7 +899,7 @@
    "REGISTRATION_ID": "017852",
    "PRODUCT": "POWERFILM",
    "HOLDER": "ADAMA ITALIA S.R.L.",
-   "CHANGE_TYPE": "TEXT_CHANGE_OTHER",
+   "CHANGE_TYPE": "EXPIRY_CHANGED",
    "FIELD": "data_scadenza_autorizzazione",
    "BEFORE": "31/10/2041",
    "AFTER": "31/03/2026",
@@ -908,9 +908,7 @@
    "OLD_SNAPSHOT": "20251117",
    "NEW_SNAPSHOT": "20251124",
    "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20251124.csv",
-   "OBSERVATION_WINDOW": "20251117..20251124",
-   "UNSTABLE_SOURCE": true,
-   "NOTE": "valor ja observado antes neste registro/campo: a fonte oscila entre publicacoes. Nao promovido a mudanca regulatoria."
+   "OBSERVATION_WINDOW": "20251117..20251124"
   },
   {
    "REGISTRATION_ID": "009757",
@@ -1141,7 +1139,7 @@
    "REGISTRATION_ID": "017852",
    "PRODUCT": "POWERFILM",
    "HOLDER": "ADAMA ITALIA S.R.L.",
-   "CHANGE_TYPE": "TEXT_CHANGE_OTHER",
+   "CHANGE_TYPE": "EXPIRY_CHANGED",
    "FIELD": "data_scadenza_autorizzazione",
    "BEFORE": "31/03/2026",
    "AFTER": "31/10/2041",
@@ -1150,9 +1148,7 @@
    "OLD_SNAPSHOT": "20260706",
    "NEW_SNAPSHOT": "20260713",
    "SOURCE": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260713.csv",
-   "OBSERVATION_WINDOW": "20260706..20260713",
-   "UNSTABLE_SOURCE": true,
-   "NOTE": "valor ja observado antes neste registro/campo: a fonte oscila entre publicacoes. Nao promovido a mudanca regulatoria."
+   "OBSERVATION_WINDOW": "20260706..20260713"
   },
   {
    "REGISTRATION_ID": "013012",

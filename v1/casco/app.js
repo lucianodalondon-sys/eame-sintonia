@@ -239,6 +239,8 @@ function viewProduto(reg) {
   const porCultura = {};
   p.uses.forEach((u,i) => (porCultura[u.crop] = porCultura[u.crop]||[]).push({...u, i}));
   $('#pdet').innerHTML = `
+  ${p.out_of_active_set ? `<div class="lei"><b>Este registro nao esta no conjunto ativo do
+    instantaneo vigente.</b> ${esc(p.out_of_active_set_note)}</div>` : ''}
   <div class="block">
     <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">
       <h3>${esc(p.name)}</h3>

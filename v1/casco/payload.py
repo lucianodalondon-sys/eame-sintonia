@@ -97,6 +97,43 @@ def main():
         })
 
     objetos = io_["OBJECTS_LIST"]
+
+    # Um evento pode falar de registro que JA NAO esta no conjunto ativo — foi
+    # revogado, venceu, ou saiu. Sem uma ficha para ele, o card cita um produto
+    # que a ferramenta nao abre, e o usuario fica sem versao, titular e validade.
+    tem = {p["reg"] for p in produtos}
+    faltando = {}
+    for o in objetos:
+        r = o.get("REGISTRATION_ID")
+        if r and r not in tem:
+            faltando.setdefault(r, o)
+    for r, o in faltando.items():
+        produtos.append({
+            "reg": r, "name": o.get("PRODUCT_NAME") or "NOT_KNOWN",
+            "holder": o.get("HOLDER") or "NOT_KNOWN",
+            "status": "NOT_IN_ACTIVE_SET",
+            "actives": "NOT_KNOWN", "formulation": "NOT_KNOWN", "activity": "NOT_KNOWN",
+            "registered_at": "NOT_KNOWN", "expiry": "NOT_KNOWN", "dte": "NOT_KNOWN",
+            "pdf_url": "NOT_KNOWN", "pdf_sha": "NOT_KNOWN", "pdf_bytes": "NOT_KNOWN",
+            "label_effective": "NOT_KNOWN",
+            "captured_at": o.get("CAPTURED_AT", "NOT_KNOWN"),
+            "snapshot": pkg["REGISTRY_SNAPSHOT_ID"],
+            "snapshot_sha": pkg["REGISTRY_SNAPSHOT_SHA256"],
+            "source_url": o.get("SOURCE_URL", "NOT_KNOWN"),
+            "run": pkg["COLLECTION_RUN_ID"],
+            "states": {k: False for k in ("LABEL_DISCOVERED", "LABEL_DOWNLOADED",
+                                          "TEXT_EXTRACTED", "LABEL_READ",
+                                          "USE_ROWS_STRUCTURED", "DOSE_STRUCTURED",
+                                          "PHI_STRUCTURED", "NEEDS_REVIEW")},
+            "uses": [], "doses": [], "dose_state": "NOT_ATTEMPTED",
+            "text_chars": "NOT_KNOWN",
+            "out_of_active_set": True,
+            "out_of_active_set_note": (
+                "este registro aparece no historico oficial mas NAO esta no conjunto ativo do "
+                "instantaneo vigente. A ferramenta nao coletou rotulo, uso nem dose para ele: "
+                "todos os campos abaixo sao NOT_KNOWN por falta de coleta, nao por ausencia "
+                "no registro"),
+        })
     # versoes do registro para a timeline
     versoes = [{"date": v["SNAPSHOT_DATE"], "id": v["VERSION_ID"], "sha": v["SHA256"],
                 "bytes": v["BYTES"], "url": v["SOURCE_URL"],

@@ -15,7 +15,7 @@ O que nenhuma regra cobre sai UNKNOWN e aparece assim na tela.
 import argparse, datetime, hashlib, json, os, sys
 from collections import Counter
 
-RULESET_VERSION = "v1/REGRAS.md@1"
+RULESET_VERSION = "v1/inteligencia/REGRAS.md@2"
 
 # ---- C-*: roteamento declarado. Nada fora desta tabela e roteado.
 ROTEAMENTO = {
@@ -33,6 +33,10 @@ ROTEAMENTO = {
                                 ("COUNTRY_PRODUCT_TEAM", "POTENTIALLY_RELEVANT", "C-09")],
     "HOLDER_CHANGE":           [("REGULATORY", "RELEVANT", "C-01"),
                                 ("INTELLIGENCE", "RELEVANT", "C-08")],
+    "REVOCATION_ACT_CHANGE":   [("REGULATORY", "RELEVANT", "C-01"),
+                                ("SUPPLY", "POTENTIALLY_RELEVANT", "C-07"),
+                                ("INTELLIGENCE", "RELEVANT", "C-08"),
+                                ("COUNTRY_PRODUCT_TEAM", "POTENTIALLY_RELEVANT", "C-09")],
     "ACTIVE_INGREDIENT_CHANGE": [("REGULATORY", "RELEVANT", "C-01"),
                                 ("DEVELOPMENT_MARKET", "POTENTIALLY_RELEVANT", "C-04"),
                                 ("INTELLIGENCE", "RELEVANT", "C-08")],
@@ -100,6 +104,8 @@ SIGNIFICADO = {
     "HOLDER_CHANGE": ("o titular declarado mudou", "R-05"),
     "ACTIVE_INGREDIENT_CHANGE": ("a composicao declarada mudou", "R-06"),
     "LABEL_DOCUMENT_CHANGED": ("o documento do rotulo deixou de ser o mesmo arquivo", "R-08"),
+    "REVOCATION_ACT_CHANGE": ("mudou uma data do ato de revoga (decreto ou decorrencia). "
+                              "Isto NAO diz que o estado administrativo mudou", "R-07"),
 }
 # Que tipo de evento o differ do registro produz -> nome canonico do objeto
 DE_REGISTRO = {
@@ -109,8 +115,11 @@ DE_REGISTRO = {
     "PRODUCT_REMOVED": "PRODUCT_LEFT_ACTIVE_SET",
     "HOLDER_CHANGED": "HOLDER_CHANGE",
     "ACTIVE_INGREDIENT_CHANGED": "ACTIVE_INGREDIENT_CHANGE",
-    "REVOCATION_DECREE_CHANGED": "STATUS_CHANGE",
-    "REVOCATION_EFFECT_CHANGED": "STATUS_CHANGE",
+    # Revoga tem regra propria (R-07). Mapear para STATUS_CHANGE fazia a tela
+    # citar R-02 ("stato_amministrativo mudou") para um evento em que o estado
+    # administrativo NAO mudou — regra certa, condicao que nunca ocorreu.
+    "REVOCATION_DECREE_CHANGED": "REVOCATION_ACT_CHANGE",
+    "REVOCATION_EFFECT_CHANGED": "REVOCATION_ACT_CHANGE",
     "FORMULATION_CHANGED": "DATA_QUALITY_EVENT",
     "PRODUCT_NAME_CHANGED": "DATA_QUALITY_EVENT",
     "HAZARD_CHANGED": "DATA_QUALITY_EVENT",
@@ -255,6 +264,12 @@ def main():
     # ---- 1. eventos do registro oficial (differ ja filtrado por N-*)
     vs = json.load(open(a.versoes, encoding="utf-8"))
     ultima = vs["VERSIONS"][-1]["SNAPSHOT_DATE"]
+    def limpa(v):
+        """O CSV oficial imprime "-" para celula vazia. Isso e ausencia, e tem de
+        chegar na tela como ausencia declarada, nao como um traco."""
+        v = str(v).strip()
+        return "NOT_PRESENT" if v in ("-", "", "--") else v
+
     for e in vs["CHANGE_EVENTS"]:
         if e.get("UNSTABLE_SOURCE"):
             continue                       # N-03: oscilacao nao vira objeto
@@ -269,14 +284,19 @@ def main():
         novo = e["NEW_SNAPSHOT"] == ultima
         objs.append(base(
             tipo, it,
-            FACT=f'no registro oficial, o campo {e["FIELD"]} passou de "{e["BEFORE"]}" para "{e["AFTER"]}"',
-            BEFORE_VALUE=e["BEFORE"], AFTER_VALUE=e["AFTER"],
+            FACT=(f'no registro oficial, o campo {e["FIELD"]} passou de '
+                  f'"{limpa(e["BEFORE"])}" para "{limpa(e["AFTER"])}"'
+                  if e["FIELD"] != "*" else
+                  f'o registro passou a constar no conjunto ativo com estado "{limpa(e["AFTER"])}"'),
+            BEFORE_VALUE=limpa(e["BEFORE"]), AFTER_VALUE=limpa(e["AFTER"]),
             RAW_BEFORE=e["BEFORE"], RAW_AFTER=e["AFTER"],
             VALID_FROM=e["NEW_SNAPSHOT"], VALID_UNTIL="NOT_KNOWN",
             CAPTURED_AT=e["NEW_SNAPSHOT"], DETECTED_AT=e["NEW_SNAPSHOT"],
             SOURCE_DOCUMENT_BEFORE=f'PROD_FTS_6_{e["OLD_SNAPSHOT"]}.csv sha256={e["OLD_VERSION"]}',
             SOURCE_DOCUMENT_AFTER=f'PROD_FTS_6_{e["NEW_SNAPSHOT"]}.csv sha256={e["NEW_VERSION"]}',
-            EVIDENCE_LOCATION=f'campo {e["FIELD"]}, registro {e["REGISTRATION_ID"]}',
+            EVIDENCE_LOCATION=(f'campo {e["FIELD"]}, registro {e["REGISTRATION_ID"]}'
+                               if e["FIELD"] != "*" else
+                               f'o registro {e["REGISTRATION_ID"]} inteiro, nao um campo isolado'),
             OBSERVATION_WINDOW=e["OBSERVATION_WINDOW"],
             SOURCE_URL=e["SOURCE"], novo=novo,
             CONFIDENCE_STATE="OFFICIAL_FIELD_DIFF",
@@ -295,7 +315,7 @@ def main():
                 BEFORE_VALUE=f'validade {it["EXPIRY_RAW"]}', AFTER_VALUE=f'hoje {a.hoje}',
                 RAW_BEFORE=it["EXPIRY_RAW"], RAW_AFTER=it["STATUS_RAW"],
                 VALID_FROM=it["EXPIRY_RAW"], VALID_UNTIL="NOT_KNOWN",
-                CAPTURED_AT=pkg["REGISTRY_SNAPSHOT_ID"], DETECTED_AT=a.hoje,
+                CAPTURED_AT=a.hoje, DETECTED_AT=a.hoje,
                 SOURCE_DOCUMENT_AFTER=f'{pkg["REGISTRY_SNAPSHOT_ID"]}.csv sha256={pkg["REGISTRY_SNAPSHOT_SHA256"][:16]}',
                 EVIDENCE_LOCATION="campos data_scadenza_autorizzazione e stato_amministrativo",
                 SOURCE_URL=it["SOURCE_URL"], CONFIDENCE_STATE="OFFICIAL_FIELD_VALUE",
