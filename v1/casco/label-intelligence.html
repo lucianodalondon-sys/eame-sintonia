@@ -208,6 +208,36 @@ const GLOSA_JANELA = `<div class="lei"><b><code>ACT_NOW</code> aqui significa
   <b>quando olhar</b>, nunca sobre o que fazer com o produto no mercado. Nenhuma janela desta
   ferramenta autoriza decisao comercial: <code>EXPIRY != WITHDRAWAL</code>, e
   <code>ACTION</code> nao e emitida por esta ferramenta em nenhuma hipotese.</div>`;
+// A JANELA TAMBEM E UM NUMERO DE DIAS, e tambem estava congelada no build.
+// dte() ja era recalculado no navegador; TIME_WINDOW nao, e a incoerencia
+// aparecia junta na mesma tela: aberta em 2027, a ferramenta mostrava
+// PLAN NEXT CYCLE ao lado de uma validade que ela propria marcava como vencida.
+// Reimplementa T-01..T-08 do REGRAS.md contra o relogio de quem abre.
+function janelaAgora(o) {
+  if (o.OBJECT_TYPE === 'NEEDS_HUMAN_REVIEW' || o.OBJECT_TYPE === 'DATA_QUALITY_EVENT')
+    return ['UNKNOWN', 'T-07'];
+  if (o.OBJECT_TYPE === 'REVOCATION_ACT_CHANGE') return ['ACT_NOW', 'T-08'];
+  if (o.OBJECT_TYPE === 'STATUS_CHANGE' &&
+      FORA_DE_VIGOR.includes(String(o.AFTER_VALUE || '').trim().toLowerCase()))
+    return ['ACT_NOW', 'T-08'];
+  const p = byReg[o.REGISTRATION_ID];
+  const d = p ? dte(p) : null;
+  if (d === null || typeof d !== 'number') return [o.TIME_WINDOW, o.TIME_WINDOW_RULE];
+  if (o.OBJECT_TYPE === 'EXPIRY_EVENT') return ['ACT_NOW', 'T-01'];
+  if (d < 0) return ['ACT_NOW', 'T-01'];
+  if (d <= 90) return ['PREPARE', 'T-02'];
+  if (d <= 180) return ['MONITOR', 'T-03'];
+  return ['PLAN_NEXT_CYCLE', 'T-04'];
+}
+// Marca quando a janela de hoje difere da que foi gravada no build.
+function janelaSelo(o) {
+  const [j, r] = HOJE ? janelaAgora(o) : [o.TIME_WINDOW, o.TIME_WINDOW_RULE];
+  const mudou = j !== o.TIME_WINDOW;
+  const [, cls, lbl] = WIN[j] || ['', 'p-dim', j];
+  return `<span class="pill ${cls}" title="${esc(r)}${mudou?` — recalculada hoje; no build era ${esc(o.TIME_WINDOW)} (${esc(o.TIME_WINDOW_RULE)})`:''}">${esc(lbl||j)}</span>${
+    mudou ? `<div class="meta">recalculada contra hoje. No build era <code>${esc(o.TIME_WINDOW)}</code></div>` : ''}`;
+}
+
 const WIN = {ACT_NOW:['act','p-act','ACT NOW'], PREPARE:['prep','p-warn','PREPARE'],
              MONITOR:['mon','p-ok','MONITOR'], PLAN_NEXT_CYCLE:['mon','p-dim','PLAN NEXT CYCLE'],
              NO_ACTION_YET:['','p-dim','NO ACTION YET'], UNKNOWN:['unk','p-unk','UNKNOWN']};
@@ -408,7 +438,10 @@ function evObj(id) {
     <dt>Janela de observacao</dt><dd>${val(o.OBSERVATION_WINDOW||'NOT_APPLICABLE')}</dd>
     <dt>Parser</dt><dd class="mono">${val(o.PARSER_VERSION)}</dd>
     <dt>Regras</dt><dd class="mono">${esc(o.RULESET_VERSION)}</dd>
-    <dt>Janela temporal</dt><dd>${esc(o.TIME_WINDOW)} <code>${esc(o.TIME_WINDOW_RULE)}</code></dd>
+    <dt>Janela temporal</dt><dd>${janelaSelo(o)}
+      <div class="meta">regra no build: <code>${esc(o.TIME_WINDOW_RULE)}</code>${HOJE
+        ? ` &middot; recalculada contra ${esc(HOJE)} pela regra <code>${esc(janelaAgora(o)[1])}</code>`
+        : ` &middot; <span class="unknown">NOT_COMPUTED_WITHOUT_CLOCK</span>`}</div></dd>
   </dl>
   <h3 style="margin-top:16px">Quem pode precisar olhar</h3>${rt}`);
 }
@@ -500,7 +533,8 @@ window.evDose = evDose;
 
 // ---------------------------------------------------------------- 1 · TODAY
 function cardObj(o) {
-  const [cls, pill, lbl] = WIN[o.TIME_WINDOW] || ['', 'p-dim', o.TIME_WINDOW];
+  const [jAgora, jRegra] = HOJE ? janelaAgora(o) : [o.TIME_WINDOW, o.TIME_WINDOW_RULE];
+  const [cls, pill, lbl] = WIN[jAgora] || ['', 'p-dim', jAgora];
   const cons = o.CAPABILITY_ROUTING
     .filter(r => r.ROUTING_STATE === 'RELEVANT' || r.ROUTING_STATE === 'POTENTIALLY_RELEVANT')
     .map(r => `<span class="pill ${r.ROUTING_STATE==='RELEVANT'?'p-ok':'p-warn'}"
@@ -513,7 +547,8 @@ function cardObj(o) {
       <span class="arr">&rarr;</span><span class="a">${val(o.AFTER_VALUE)}</span></div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:6px">
       <span class="pill p-dim">${esc(o.CHANGE_TYPE)}</span>
-      <span class="pill ${pill}">${lbl}</span>
+      <span class="pill ${pill}" title="${esc(jRegra)}${jAgora!==o.TIME_WINDOW?` — recalculada contra hoje; no build era ${esc(o.TIME_WINDOW)}`:''}">${lbl}</span>${
+        jAgora!==o.TIME_WINDOW ? `<span class="meta" title="a janela e um numero de dias e foi recalculada contra o relogio de quem abre">&nbsp;recalculada (build: ${esc(o.TIME_WINDOW)})</span>` : ''}
       <span class="pill ${PROOF[o.PROOF_STATE]||'p-dim'}">${esc(o.PROOF_STATE)}</span>
       <span class="meta">detectado ${val(o.DETECTED_AT)}</span>
       <button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">ver evidencia</button>
@@ -551,7 +586,7 @@ function viewToday() {
   // Um vencimento que passou NAO e uma mudanca: e uma condicao que continua valendo.
   // Misturar os dois faz 15 cards iguais soterrarem as mudancas de verdade.
   const mudancas = provados.filter(o => o.OBJECT_TYPE !== 'EXPIRY_EVENT').sort((a,b) =>
-    (ordem[a.TIME_WINDOW]??9) - (ordem[b.TIME_WINDOW]??9) ||
+    (ordem[(HOJE?janelaAgora(a)[0]:a.TIME_WINDOW)]??9) - (ordem[(HOJE?janelaAgora(b)[0]:b.TIME_WINDOW)]??9) ||
     String(b.DETECTED_AT).localeCompare(String(a.DETECTED_AT)));
   const condicoes = exp.slice().sort((a,b) => String(a.VALID_FROM).localeCompare(String(b.VALID_FROM)));
   const OPC = [[30,'30 dias'],[90,'90 dias'],[365,'12 meses'],[0,'janela inteira observada']];
@@ -1164,7 +1199,7 @@ function viewAction() {
           <td>${esc(o.PRODUCT_NAME||'NOT_KNOWN')}<div class="mono meta">${esc(o.REGISTRATION_ID)}</div></td>
           <td>${esc(o.CHANGE_TYPE)}</td>
           <td>${val(o.BEFORE_VALUE)} &rarr; ${val(o.AFTER_VALUE)}</td>
-          <td><span class="pill ${(WIN[o.TIME_WINDOW]||[,'p-dim'])[1]}">${esc(o.TIME_WINDOW)}</span></td>
+          <td>${janelaSelo(o)}</td>
           <td><span class="pill ${PROOF[o.PROOF_STATE]||'p-dim'}">${esc(o.PROOF_STATE)}</span></td>
           <td><button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">evidencia</button></td>
         </tr>`).join('')}</tbody></table></div>

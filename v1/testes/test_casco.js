@@ -146,6 +146,45 @@ teste('nenhuma tela imprime None, undefined ou null cru', () => {
     afirma(!rx.test(tudo), `token cru da linguagem na tela: ${rx}`));
 });
 
+// ---------------------------------------------------------------- 6 · relogio
+teste('a janela temporal e recalculada contra o relogio de quem abre', () => {
+  const antes = P.objects.filter(o => o.TIME_WINDOW === 'PLAN_NEXT_CYCLE').length;
+  afirma(antes > 0, 'nenhum objeto em PLAN_NEXT_CYCLE no build — o teste perdeu o alvo');
+  // finge um relogio um ano a frente e conta de novo
+  const N = global.Date;
+  const R = new N('2027-06-01T12:00:00Z');
+  function F(...a) { return a.length ? new N(...a) : new N(R); }
+  F.now = () => R.getTime(); F.parse = N.parse; F.UTC = N.UTC; F.prototype = N.prototype;
+  global.Date = F; global.window.Date = F;
+  let depois;
+  try {
+    // recarrega o app com o relogio falso
+    const fonte2 = fs.readFileSync(path.join(RAIZ, 'v1/casco/app.js'), 'utf8');
+    const ctx = {};
+    (0, eval)(fonte2.replace(/^go\('today'\);$/m, ''));
+    depois = P.objects.filter(o => janelaAgora(o)[0] === 'PLAN_NEXT_CYCLE').length;
+  } finally {
+    global.Date = N; global.window.Date = N;
+  }
+  afirma(depois < antes,
+    `a janela nao mudou com o relogio um ano a frente (${antes} -> ${depois})`);
+  return `PLAN_NEXT_CYCLE ${antes} no build -> ${depois} em 2027-06-01`;
+});
+
+teste('zero medido, nao coletado e nao sei sao tres respostas diferentes', () => {
+  const lido = P.products.find(p => p.states && p.states.LABEL_READ && !p.uses.length);
+  const naoColetado = P.products.find(p => p.states && p.states.LABEL_DOWNLOADED === false);
+  afirma(lido, 'nenhum produto lido com zero pares — o teste perdeu o alvo');
+  afirma(naoColetado, 'nenhum produto sem rotulo baixado');
+  viewSearch();
+  const h = html('#sres') + html('#pdet');
+  afirma(contagem(lido, 'uses', 'LABEL_READ').includes('0'),
+    'produto medido com zero pares nao mostra zero');
+  afirma(contagem(naoColetado, 'uses', 'LABEL_READ').includes('NOT_COLLECTED'),
+    'produto sem rotulo baixado nao mostra NOT_COLLECTED');
+  return `${lido.reg} mede 0 · ${naoColetado.reg} e NOT_COLLECTED`;
+});
+
 // ---------------------------------------------------------------- roda
 let ok = 0, mau = 0;
 console.log('');
