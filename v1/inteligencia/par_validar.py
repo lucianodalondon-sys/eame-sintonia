@@ -49,8 +49,25 @@ direita so por estar na mesma altura da folha. Medido em 012573.
 Como em R-11, o criterio e **conservador**: basta UMA ocorrencia da cultura com
 UM glifo do alvo dentro da sua celula para o par sobreviver, e qualquer sinal de
 que o desenho nao e o que a regra supoe faz o modulo se abster em vez de
-condenar. Sao quatro abstencoes com nome proprio, todas medidas contra um caso
-real do acervo, todas escritas no codigo ao lado da linha que as aplica.
+condenar. Sao CINCO abstencoes com nome proprio, escritas no codigo ao lado da
+linha que as aplica — e cada uma vem com quantas vezes ela DISPARA no censo:
+
+    ROUTE_NOT_GEOMETRIC          1.056   a rota nao afirma ter lido tabela
+    ANCHOR_NOT_FOUND               258   cultura e alvo nunca na mesma pagina
+    NO_DRAWN_CELL                  170   convivem, mas a coluna nao e riscada
+    CROP_ALSO_OUTSIDE_TABLE        108   parte das ocorrencias fora de celula
+    CROP_NAME_NOT_THE_ANCHOR        13   a celula fechou pelo TITULO do grupo
+    TARGET_UNDER_CROP_HEADER         0   <- CODIGO MORTO NO ACERVO DE HOJE
+
+A ultima linha e uma correcao de uma afirmacao anterior deste proprio docstring,
+que dizia "quatro abstencoes, todas medidas contra um caso real do acervo". O
+ramo de TARGET_UNDER_CROP_HEADER existe e foi escrito contra 010587 FOLPAN SC,
+mas nesse rotulo o par cai antes, em CROP_ALSO_OUTSIDE_TABLE: nas 47
+condenacoes o ramo nunca chega a ser exercido (em 38 nao ha glifo do alvo abaixo
+da celula na mesma faixa x; nos 9 de 012573 o `titulo_entre` bloqueia com
+titulos reais em caixa alta). Ele fica no codigo porque a situacao que ele trata
+e real e pode voltar com outro acervo — mas "medido contra um caso real" era
+verdade sobre o CODIGO e nao sobre o CENSO, e as duas coisas nao sao a mesma.
 
 E o modulo **nao depende de `PAGE`**: 1.427 dos 2.928 pares nao preservaram a
 pagina, e amarrar o teste a ela deixaria de fora justamente 012573 (MF-02), onde
@@ -359,6 +376,12 @@ def main():
             chave = f'{reg}#{i}'
             rc = raizes_cultura(x.get('CROP'), x.get('CROP_AS_WRITTEN'))
             ra = raizes_alvo(x.get('TARGET'))
+            # A RAIZ DO NOME PUBLICADO, separada das outras. rc pode conter uma
+            # segunda raiz vinda de CROP_AS_WRITTEN, que e o TITULO DO GRUPO
+            # ("ORTICOLE (...)", "Grano tenero e duro"). Ela serve para ACHAR a
+            # celula; nao serve para provar o par. Ver PROVA_PELO_TITULO abaixo.
+            rp = next((q for q in (radical(pt) for pt in str(x.get('CROP') or '').split('_'))
+                       if len(q) >= 4), None)
             if x.get('ROUTE') not in ROTAS_TESTAVEIS:
                 ver[chave] = 'PAIR_NOT_CHECKABLE_ROUTE_NOT_GEOMETRIC'
                 cont[ver[chave]] += 1
@@ -368,13 +391,15 @@ def main():
                 cont[ver[chave]] += 1
                 continue
             achou = None            # (pagina1, y_cultura, y_alvo)
+            pelo_titulo = None      # a celula fechou, mas pela raiz do TITULO do grupo
             houve_celula = False    # alguma ocorrencia da cultura tem celula desenhada
             fora_de_celula = False  # e alguma NAO tem
             sob_cabecalho = False   # o alvo esta abaixo da cultura, na mesma coluna
             houve_convivio = False  # cultura e alvo na mesma pagina
             perto = None
             for pi, pg in enumerate(pgs):
-                cs = [(x0, y0, x1, y1) for x0, y0, x1, y1, t in pg if radical(t) in rc]
+                cs = [(x0, y0, x1, y1, radical(t) == rp)
+                      for x0, y0, x1, y1, t in pg if radical(t) in rc]
                 if not cs:
                     continue
                 als = [(x0, x1, (y0 + y1) / 2) for x0, y0, x1, y1, t in pg if radical(t) in ra]
@@ -385,7 +410,7 @@ def main():
                 if sg is None:
                     continue
                 seg, altura = sg
-                for x0, cy0, x1, cy1 in cs:
+                for x0, cy0, x1, cy1, e_o_nome in cs:
                     c = (cy0 + cy1) / 2
                     cel = celula(x0, x1, c, seg, altura)
                     if cel is not None and not celula_coerente(pg, *cel):
@@ -398,8 +423,35 @@ def main():
                     dentro = [ay for ax, axf, ay in als
                               if topo < ay < base and tx0 - 1 <= ax <= tx1 + 1]
                     if dentro:
-                        achou = (pi + 1, round(c, 2), round(dentro[0], 2))
-                        break
+                        if e_o_nome:
+                            achou = (pi + 1, round(c, 2), round(dentro[0], 2))
+                            break
+                        # PROVA PELO TITULO DO GRUPO NAO E PROVA DO PAR.
+                        #
+                        # Medido em 018270 GLIPHOGAN TOP CL (e nos identicos
+                        # 018271/018277/018279): a celula desenhada escreve
+                        # "ORTICOLE (CARCIOFO, CAROTA, FAGIOLINO, FAVA,
+                        # PISELLO, ...)" e o par publicado diz FAGIOLO. A
+                        # palavra FAGIOLO nao existe em nenhuma pagina do PDF.
+                        # O que casou a celula foi a raiz de CROP_AS_WRITTEN,
+                        # 'orticol' — o TITULO. A geometria provou que o titulo
+                        # do grupo e o alvo dividem uma celula; nao provou que
+                        # FAGIOLO esta nesse grupo, porque para isso e preciso
+                        # decidir se FAGIOLO e FAGIOLINO sao a mesma cultura, e
+                        # essa e uma equivalencia taxonomica que este
+                        # repositorio nao tem. Mesmo mecanismo em 015232,
+                        # 017358 e 017824, onde 'gran' ("Grano tenero e duro")
+                        # absolve FRUMENTO por sinonimia nao declarada.
+                        #
+                        # 13 dos 1.289 absolvidos vinham daqui. Os outros 1.276
+                        # tem o nome proprio da cultura DENTRO da celula usada.
+                        # O selo verde nao pode cobrir os dois casos, entao o
+                        # segundo sai com nome proprio de ignorancia. NAO e
+                        # condenacao: a etichetta pode muito bem autorizar o
+                        # uso, e o modulo nao sabe.
+                        if pelo_titulo is None:
+                            pelo_titulo = (pi + 1, round(c, 2), round(dentro[0], 2))
+                        continue
                     # CABECALHO DE BLOCO NAO E COLUNA DE CULTURA. Quando um
                     # glifo do alvo esta na MESMA faixa x da cultura e ABAIXO
                     # da celula dela, o desenho e "titulo em cima, linhas
@@ -431,6 +483,8 @@ def main():
                     break
             if achou:
                 ver[chave] = 'PAIR_CONSISTENT_WITH_RULES'
+            elif pelo_titulo:
+                ver[chave] = 'PAIR_NOT_CHECKABLE_CROP_NAME_NOT_THE_ANCHOR'
             elif houve_celula and sob_cabecalho:
                 ver[chave] = 'PAIR_NOT_CHECKABLE_TARGET_UNDER_CROP_HEADER'
             elif houve_celula and fora_de_celula:

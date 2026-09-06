@@ -654,6 +654,52 @@ teste('a janela temporal e recalculada contra o relogio de quem abre', () => {
   return `PLAN_NEXT_CYCLE ${antes} no build -> ${depois} em 2027-06-01`;
 });
 
+teste('RT4 · nome de cultura que o rotulo nao escreve nunca vira FATO', () => {
+  // Achado da lente E, reproduzido e depois estendido: 23 pares publicam uma
+  // cultura cuja raiz nao existe em palavra nenhuma do documento. O pior deles
+  // e CILIEGIO (002983, 013405), tirado de "Pomodoro (ad esclusione di Pomodoro
+  // ciliegino)" — nome de arvore extraido de dentro da EXCLUSAO de um tomate.
+  // Esses dois NAO estao neste teste porque R-10 ja os retira antes da tela
+  // (CROP_ONLY_INSIDE_EXCLUSION); estao conferidos no portao de python.
+  const fora = [];
+  P.products.forEach(p => (p.uses||[]).forEach(u => {
+    if (u.crop_name === 'CROP_NAME_NOT_IN_LABEL') fora.push([p.reg, u.crop, u.target, u.fact]);
+  }));
+  afirma(fora.length > 0, 'nenhum par com CROP_NAME_NOT_IN_LABEL — o teste perdeu o alvo');
+  const vazaram = fora.filter(x => x[3]);
+  afirma(vazaram.length === 0,
+    `${vazaram.length} pares com nome de cultura ausente do rotulo carregam selo FATO`);
+  // e o aviso tem de estar na tela, nao so no payload
+  afirma(P.products.some(x => x.reg === '018270'), '018270 ausente');
+  viewProduto('018270');
+  const h = html('#pdet');
+  afirma(h.includes('CROP_NAME_NOT_IN_LABEL'),
+    'a ficha de 018270 nao mostra que FAGIOLO nao esta escrito no rotulo');
+  // flexao NAO e ausencia: "cavoli" para CAVOLO fecha a coluna
+  const flex = P.products.reduce((a,p)=>a+(p.uses||[]).filter(
+    u => u.crop_name === 'CROP_NAME_INFLECTED_IN_LABEL').length, 0);
+  afirma(flex > 0, 'nenhum par marcado como flexao — a regra virou severa demais');
+  return `${fora.length} sem nome no rotulo (nenhum e FATO) · ${flex} so plural italiano`;
+});
+
+teste('RT4 · celula fechada pelo TITULO do grupo nao e prova do par', () => {
+  // Achado E-01/E-02: 13 pares tinham PAIR_CONSISTENT_WITH_RULES porque a celula
+  // desenhada casou pela raiz do CROP_AS_WRITTEN ("ORTICOLE (...)", "Grano tenero
+  // e duro") e nao pelo nome da cultura publicada. A geometria provou que o
+  // TITULO e o alvo dividem uma celula, e nao que a cultura esta no grupo.
+  const pelo = [];
+  P.products.forEach(p => (p.uses||[]).forEach(u => {
+    if (u.pair_check === 'PAIR_NOT_CHECKABLE_CROP_NAME_NOT_THE_ANCHOR')
+      pelo.push([p.reg, u.crop, u.target, u.proof, u.fact]);
+  }));
+  afirma(pelo.length > 0, 'nenhum par com CROP_NAME_NOT_THE_ANCHOR — o teste perdeu o alvo');
+  const provados = pelo.filter(x => x[3] !== 'USE_PAIR_NOT_VERIFIED_BY_ANY_RULE' || x[4]);
+  afirma(provados.length === 0,
+    `${provados.length} pares ancorados no titulo do grupo ainda carregam prova ou FATO`);
+  const regs = [...new Set(pelo.map(x => x[0]))].sort();
+  return `${pelo.length} pares em ${regs.length} rotulos (${regs.slice(0,4).join(', ')})`;
+});
+
 teste('zero medido, nao coletado e nao sei sao tres respostas diferentes', () => {
   const lido = P.products.find(p => p.states && p.states.LABEL_READ && !p.uses.length);
   const naoColetado = P.products.find(p => p.states && p.states.LABEL_DOWNLOADED === false);

@@ -844,7 +844,8 @@ function viewProduto(reg) {
     ${p.uses.length ? `<div class="tw"><table>
       <thead><tr><th>Cultura</th><th>Alvos</th><th>Evidencia</th><th></th></tr></thead>
       <tbody>${Object.entries(porCultura).sort().map(([c,us]) => `<tr>
-        <td><b>${esc(c)}</b>${escopoDaCultura(us[0])}</td>
+        <td><b>${esc(c)}</b>${escopoDaCultura(us[0])}${
+          nomeDaCultura(us.find(u => u.crop_name === 'CROP_NAME_NOT_IN_LABEL') || us[0])}</td>
         <td class="meta">${[...new Set(us.map(u=>u.target))].join(' &middot; ')}</td>
         <td>${(()=>{
           // O selo TABELA descrevia so a ROTA de leitura, e por isso ficava
@@ -853,10 +854,12 @@ function viewProduto(reg) {
           const fa = us.filter(x=>x.fact).length;
           const ok = us.filter(x=>x.pair_check==='PAIR_CONSISTENT_WITH_RULES').length;
           const nl = us.filter(x=>x.target_name==='TARGET_NAME_BY_TAXONOMY_NOT_IN_LABEL').length;
-          return `${fa?`<span class="pill p-ok" title="prova contra o documento E nome do alvo escrito no rotulo">FATO ${fa}</span> `:''}${
-            us.length-fa?`<span class="pill p-unk" title="uma das duas colunas nao fecha">NAO_VERIFICADO ${us.length-fa}</span> `:''}
+          const nc = us.filter(x=>x.crop_name==='CROP_NAME_NOT_IN_LABEL').length;
+          return `${fa?`<span class="pill p-ok" title="prova contra o documento E os dois nomes escritos no rotulo">FATO ${fa}</span> `:''}${
+            us.length-fa?`<span class="pill p-unk" title="uma das tres colunas nao fecha">NAO_VERIFICADO ${us.length-fa}</span> `:''}
             <div class="meta">${ok} com fio conferido &middot; ${us.length-ok} sem teste de fio${
-              nl?` &middot; <span class="unknown">${nl} com nome de alvo vindo de taxonomia</span>`:''}</div>`;})()}
+              nl?` &middot; <span class="unknown">${nl} com nome de alvo vindo de taxonomia</span>`:''}${
+              nc?` &middot; <span class="unknown">${nc} com NOME DE CULTURA que o rotulo nao escreve</span>`:''}</div>`;})()}
           ${(()=>{ // o estado da conferencia R-10 existia no payload e nunca aparecia:
                    // 12 pares publicados como CROP_NAME_NOT_FOUND_IN_LABEL_TEXT (o rotulo
                    // escreve "Grano", o leitor normaliza para FRUMENTO) eram desenhados
@@ -1281,9 +1284,12 @@ const PAR_ROTULO = {
 //                v1/inteligencia/prosa_escopo.py);
 //   target_name  o NOME do alvo esta escrito no rotulo, ou veio de uma
 //                taxonomia que esta ferramenta nao tem? Medido: 256 pares
-//                publicam um nome que o documento nao escreve.
+//                publicam um nome que o documento nao escreve;
+//   crop_name    e o NOME DA CULTURA (R-21), que e a mesma pergunta do lado
+//                mais caro. Medido: 21 pares publicados trazem uma cultura
+//                cuja raiz nao existe em palavra nenhuma do documento.
 //
-// FATO = as duas colunas fecham. Medido: 1.274 dos 2.875 pares publicados.
+// FATO = as TRES colunas fecham. Medido: 1.264 dos 2.875 pares publicados.
 function nomeDoAlvo(u) {
   if (u.target_name !== 'TARGET_NAME_BY_TAXONOMY_NOT_IN_LABEL') return '';
   return `<div class="meta"><span class="unknown">TARGET_NAME_BY_TAXONOMY_NOT_IN_LABEL</span>
@@ -1292,6 +1298,27 @@ function nomeDoAlvo(u) {
     (&ldquo;CARPOCAPSA&rdquo;). A equivalencia e entomologica e provavelmente certa —
     e <b>nao esta neste repositorio e nao volta ao documento</b>, entao viaja como
     inferencia e nao como leitura</div>`;
+}
+// R-21, o lado da CULTURA. Em 018270 e irmaos a etichetta escreve FAGIOLINO e a
+// ferramenta publica FAGIOLO; em 009005 e irmaos escreve "zucca" e a ferramenta
+// publica ZUCCHINO; em 015232 e irmaos escreve "Grano tenero e duro" e a
+// ferramenta publica FRUMENTO. Sao 21 pares na tela.
+//
+// O caso extremo NAO esta entre esses 21, e vale dizer por que: em 002983 e
+// 013405 a etichetta escreve "Pomodoro (ad esclusione di Pomodoro ciliegino)"
+// — "ciliegino" e o TOMATE CEREJA, dentro de uma EXCLUSAO — e a lista de pares
+// traz CILIEGIO, a arvore. Esses dois nao chegam aqui porque R-10 ja os retira
+// como CROP_ONLY_INSIDE_EXCLUSION. Duas regras independentes acusaram o mesmo
+// defeito por caminhos diferentes, e e assim que se sabe que ele e real.
+function nomeDaCultura(u) {
+  if (u.crop_name !== 'CROP_NAME_NOT_IN_LABEL') return '';
+  return `<div class="meta"><span class="unknown">CROP_NAME_NOT_IN_LABEL</span>
+    <b>o nome desta cultura nao esta escrito no rotulo</b>, e nao e flexao de nada que o
+    documento escreve — a etichetta diz
+    <i>&ldquo;${esc(String(u.crop_raw || 'NOT_PRESERVED').slice(0, 90))}&rdquo;</i>.
+    Passar dessa palavra para <b>${esc(u.crop)}</b> e uma <b>equivalencia de cultura</b>, e
+    equivalencia de cultura precisa de prova documental ou taxonomica: semelhanca de escrita
+    nao e prova</div>`;
 }
 // O nome normalizado joga fora o escopo que a etichetta escreve. Medido: 387
 // pares publicados trazem um qualificador ("VITE da vino", "Melone (uso in
@@ -1318,9 +1345,9 @@ function evidenciaDoPar(u) {
        ? 'o apoio textual e so por prefixo, nao por palavra inteira (ZUCCHINO apoiado por "zucca" ou "zucchero"): basta para nao retirar o uso, nao basta para chamar de atestado'
        : 'estado de conferencia declarado pela coleta'}</div>`;
   const fato = u.fact
-    ? `<span class="pill p-ok" title="o par sobreviveu ao teste contra o documento E o nome do alvo esta escrito no rotulo">FATO</span> `
-    : `<span class="unknown" title="uma das duas colunas nao fecha: ou o par nao foi verificado por regra nenhuma, ou o nome do alvo nao esta no rotulo">NAO_VERIFICADO</span> `;
-  return `${fato}<span class="pill ${cls}" title="${esc(tit || u.pair_check || '')}">${rot}</span>${ressalva}${nomeDoAlvo(u)}`;
+    ? `<span class="pill p-ok" title="o par sobreviveu ao teste contra o documento E os dois nomes, cultura e alvo, estao escritos no rotulo">FATO</span> `
+    : `<span class="unknown" title="uma das tres colunas nao fecha: o par nao foi verificado por regra nenhuma, ou o nome do alvo nao esta no rotulo, ou o nome da cultura nao esta no rotulo">NAO_VERIFICADO</span> `;
+  return `${fato}<span class="pill ${cls}" title="${esc(tit || u.pair_check || '')}">${rot}</span>${ressalva}${nomeDoAlvo(u)}${nomeDaCultura(u)}`;
 }
 
 // Casamento de termo de busca por TOKEN INTEIRO. Um termo com menos de 3
@@ -1503,13 +1530,18 @@ function viewCrop() {
           de linha PROVADA no acervo (${esc(String(r.FUSION_PROVEN_EXAMPLE||'').slice(0,150))}) e
           esta ferramenta <b>nao sabe detecta-la</b>. R-13 acusa o sintoma, nao a causa.</div>
           </div>`;})()}`;})()}
-      ${(() => { const t = P.target_name || {}, pc = P.pair_check || {};
+      ${(() => { const t = P.target_name || {}, pc = P.pair_check || {}, cn = P.crop_name || {};
         const prov = (pc.COUNTS||{}).PAIR_CONSISTENT_WITH_RULES || 0;
         const nlit = (t.COUNTS||{}).TARGET_NAME_BY_TAXONOMY_NOT_IN_LABEL || 0;
+        const ncul = P.products.reduce((a,p)=>a+(p.uses||[]).filter(
+                       u=>u.crop_name==='CROP_NAME_NOT_IN_LABEL').length,0);
+        const nflex = P.products.reduce((a,p)=>a+(p.uses||[]).filter(
+                       u=>u.crop_name==='CROP_NAME_INFLECTED_IN_LABEL').length,0);
+        const ancora = (pc.COUNTS||{}).PAIR_NOT_CHECKABLE_CROP_NAME_NOT_THE_ANCHOR || 0;
         const fato = P.products.reduce((a,p)=>a+(p.uses||[]).filter(u=>u.fact).length,0);
         const tot  = P.products.reduce((a,p)=>a+(p.uses||[]).length,0);
         return `<div class="lei" style="margin-top:8px;border-left-color:var(--bad)">
-        <b>A CAMADA DE FATO, no acervo inteiro.</b> Um par de uso so e fato quando DUAS colunas
+        <b>A CAMADA DE FATO, no acervo inteiro.</b> Um par de uso so e fato quando TRES colunas
         fecham, e elas nunca se colapsam:
         <ul style="margin:6px 0 0 16px">
           <li><b>prova</b> — o par sobreviveu a um teste contra o documento. So a camada de
@@ -1518,10 +1550,25 @@ function viewCrop() {
             <b>nao tem regra nenhuma</b> — tres instrumentos foram construidos e medidos e os
             tres falharam, e o motivo de cada um esta escrito em
             <code>v1/inteligencia/prosa_escopo.py</code>;</li>
-          <li><b>nomeacao</b> — o NOME do alvo esta escrito no rotulo? Em <b>${nlit}</b> pares
-            nao esta: o documento escreve o binomio e a ferramenta publica o nome comum
+          <li><b>nome do alvo</b> — o NOME do alvo esta escrito no rotulo? Em <b>${nlit}</b>
+            pares nao esta: o documento escreve o binomio e a ferramenta publica o nome comum
             (<code>R-17</code>). Provavelmente certo, e nao verificavel aqui.</li>
+          <li><b>nome da cultura</b> — a mesma pergunta do lado mais caro (<code>R-21</code>).
+            Em <b>${ncul}</b> pares publicados o nome da cultura <b>nao e palavra nenhuma do
+            documento</b>: a etichetta escreve &ldquo;zucca&rdquo; e a ferramenta publica
+            ZUCCHINO, escreve FAGIOLINO e a ferramenta publica FAGIOLO, escreve
+            &ldquo;Pomodoro (<b>ad esclusione di</b> Pomodoro ciliegino)&rdquo; e a ferramenta
+            publica CILIEGIO — o nome de uma arvore tirado de dentro da exclusao de um tomate.
+            Outros <b>${nflex}</b> sao so plural italiano (&ldquo;cavoli&rdquo; para CAVOLO) e
+            esses <b>fecham</b> a coluna: a palavra e a mesma.</li>
         </ul>
+        <div class="meta" style="margin-top:6px">Do lado da prova, o mesmo defeito tinha uma
+        segunda cara: <b>${ancora}</b> pares tinham selo verde de geometria porque a celula
+        desenhada fechou pelo <b>titulo do grupo</b> (&ldquo;ORTICOLE (... FAGIOLINO ...)&rdquo;,
+        &ldquo;Grano tenero e duro&rdquo;) e nao pelo nome da cultura publicada. A geometria
+        provou que o TITULO e o alvo dividem uma celula; nao provou que a cultura esta no
+        grupo. Agora saem como
+        <code>PAIR_NOT_CHECKABLE_CROP_NAME_NOT_THE_ANCHOR</code>.</div>
         <div class="meta" style="margin-top:6px"><b>FATO = ${fato} de ${tot} pares publicados.</b>
         Os outros continuam na tela porque <code>PARSER_FAILURE != REGULATORY_ABSENCE</code> — o
         rotulo pode autorizar e a ferramenta e que nao sabe provar — mas nao carregam selo de

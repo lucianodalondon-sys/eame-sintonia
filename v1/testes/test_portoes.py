@@ -298,6 +298,81 @@ ok("MEASURED_CONSTANTS_ARE_MEASURED",
    f"{_conferidas} constantes que se dizem medidas foram recontadas contra os 163 rotulos") \
     if not _div else fail("MEASURED_CONSTANTS_ARE_MEASURED", " | ".join(_div))
 
+# --- 15e. o NOME DA CULTURA publicado e uma palavra do documento
+#
+# Recontagem INDEPENDENTE: este portao nao le CULTURA-NOMEADA.json nem confia no
+# veredito de R-21. Ele reabre o texto dos 163 PDFs, reconstroi as raizes e faz
+# as duas perguntas por conta propria:
+#
+#   (a) todo par que R-14 ABSOLVEU tem a raiz do nome da cultura em alguma
+#       palavra do documento? Ate a rodada 4 a resposta era nao para 13 pares,
+#       absolvidos pela raiz do TITULO DO GRUPO ("ORTICOLE (... FAGIOLINO ...)",
+#       "Grano tenero e duro") — a geometria provava que o titulo e o alvo
+#       dividem uma celula, nao que a cultura estava no grupo;
+#   (b) todo uso publicado com selo FATO tem o nome da cultura escrito?
+#
+# E um CONTROLE NEGATIVO fecha o portao: 018270 FAGIOLO tem de continuar sendo
+# pego. Portao que so sabe dizer "passou" nao mede nada.
+_cn = []
+_conf_cn = 0
+try:
+    _cache = "/tmp/nomecache"
+
+    def _rad(w):
+        w = re.sub(r"[^a-z]", "", _sa(w))
+        if len(w) >= 5:
+            r_ = re.sub(r"h?[aeiou]$", "", w)
+            if len(r_) >= 4:
+                return r_
+        return w
+
+    _doc = {}
+    if os.path.isdir(_cache):
+        for _f in sorted(os.listdir(_cache)):
+            if _f.endswith(".txt") and _f.count(".") == 2:
+                _reg = _f.split(".")[0]
+                _t = _sa(open(os.path.join(_cache, _f), encoding="utf-8",
+                              errors="replace").read())
+                _doc.setdefault(_reg, set()).update(_rad(w) for w in re.findall(r"[a-z]+", _t))
+    if not _doc:
+        _cn.append("sem texto em /tmp/nomecache para recontar o nome da cultura")
+    else:
+        _pv = json.load(open("v1/dados/PARES-FIOS-CHECK.json", encoding="utf-8"))["VERDICT"]
+        _pares = json.load(open("v1/dados/IT-ROTULOS-PARES-RECONSTRUIDO.json",
+                                encoding="utf-8"))["PAIRS"]
+        _ord, _pego = {}, set()
+        for _x in _pares:
+            _reg = _x["REGISTRATION_ID"]
+            _i = _ord[_reg] = _ord.get(_reg, -1) + 1
+            _raizes = _doc.get(_reg)
+            if _raizes is None:
+                continue
+            _partes = [q for q in (_sa(t) for t in str(_x["CROP"]).split("_")) if len(q) >= 4]
+            _tem = bool(_partes) and all(_rad(q) in _raizes for q in _partes)
+            if not _tem:
+                _pego.add(f"{_reg}#{_i}")
+            _conf_cn += 1
+            if not _tem and _pv.get(f"{_reg}#{_i}") == "PAIR_CONSISTENT_WITH_RULES":
+                _cn.append(f"R-14 absolveu {_reg}#{_i} ({_x['CROP']}) e o documento nao "
+                           f"escreve esse nome")
+        if "018270#10" not in _pego:
+            _cn.append("CONTROLE NEGATIVO FALHOU: 018270#10 (FAGIOLO, a etichetta escreve "
+                       "FAGIOLINO) nao foi pego pela recontagem — o portao parou de medir")
+        _pl = json.load(open("v1/dados/CASCO-PAYLOAD.json", encoding="utf-8"))
+        for _p in _pl["products"]:
+            for _u in _p.get("uses", []):
+                if _u.get("fact") and _u.get("crop_name") == "CROP_NAME_NOT_IN_LABEL":
+                    _cn.append(f"{_p['reg']} {_u['crop']}x{_u['target']} tem selo FATO com "
+                               f"nome de cultura ausente do rotulo")
+except Exception as _e:
+    _cn.append(f"nome da cultura nao pode ser reconferido: {_e}")
+
+ok("CROP_NAME_IS_THE_LABEL_WORD",
+   f"{_conf_cn} pares reconferidos contra o texto dos PDFs; nenhuma absolvicao de R-14 e "
+   f"nenhum selo FATO se apoia em nome de cultura que o documento nao escreve "
+   f"(controle negativo 018270 FAGIOLO pego)") \
+    if not _cn else fail("CROP_NAME_IS_THE_LABEL_WORD", " | ".join(_cn[:6]))
+
 # --- 16. dose nunca escolhida entre candidatas discordantes
 r = subprocess.run(["node", "v1/testes/test_casco.js"], capture_output=True, text=True)
 if r.returncode == 0:

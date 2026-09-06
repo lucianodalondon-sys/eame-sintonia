@@ -1,6 +1,6 @@
 {
  "SUITE": "PORTOES-V1",
- "PASS": 20,
+ "PASS": 21,
  "FAIL": 0,
  "RESULTS": [
   {
@@ -61,7 +61,7 @@
   {
    "GATE": "CANONICAL_TOUCHED",
    "STATE": "PASS",
-   "DETALHE": "nenhum dos 32 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
+   "DETALHE": "nenhum dos 33 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
   },
   {
    "GATE": "REUSE_ANCHORED_ON_FILE_HASH",
@@ -99,9 +99,14 @@
    "DETALHE": "18 constantes que se dizem medidas foram recontadas contra os 163 rotulos"
   },
   {
+   "GATE": "CROP_NAME_IS_THE_LABEL_WORD",
+   "STATE": "PASS",
+   "DETALHE": "2928 pares reconferidos contra o texto dos PDFs; nenhuma absolvicao de R-14 e nenhum selo FATO se apoia em nome de cultura que o documento nao escreve (controle negativo 018270 FAGIOLO pego)"
+  },
+  {
    "GATE": "CASCO_RENDER_TEST",
    "STATE": "PASS",
-   "DETALHE": "40 passaram, 0 falharam  -> CASCO_RENDER_TEST = PASS"
+   "DETALHE": "42 passaram, 0 falharam  -> CASCO_RENDER_TEST = PASS"
   }
  ]
 }

@@ -70,6 +70,7 @@ def main():
     ap.add_argument("--parfios", default="v1/dados/PARES-FIOS-CHECK.json")
     ap.add_argument("--heranca", default="v1/dados/HERANCA-CHECK.json")
     ap.add_argument("--alvonome", default="v1/dados/ALVO-NOMEADO.json")
+    ap.add_argument("--culturanome", default="v1/dados/CULTURA-NOMEADA.json")
     ap.add_argument("--prosa", default="v1/dados/PROSA-CENSO.json")
     ap.add_argument("--citacao", default="v1/dados/CITACAO-CHECK.json")
     ap.add_argument("--vigencia", default="v1/dados/VIGENCIA-ETICHETTA.json")
@@ -157,6 +158,19 @@ def main():
                          "Rode v1/inteligencia/alvo_nomeado.py")
     vnome = an["VERDICT"]
 
+    # R-21 · e o NOME DA CULTURA, que e a irma que faltava. 23 pares publicam
+    # uma cultura cuja raiz nao existe em nenhuma palavra do documento:
+    # ZUCCHINO de "zucca", FAGIOLO de "FAGIOLINO", FRUMENTO de "Grano tenero e
+    # duro" e — o caso que sozinho justifica a regra — CILIEGIO tirado de
+    # "Pomodoro (ad esclusione di Pomodoro ciliegino)", isto e, o nome de uma
+    # arvore extraido de dentro da EXCLUSAO de um tomate.
+    cn = json.load(open(a.culturanome, encoding="utf-8")) if os.path.exists(a.culturanome) else None
+    if cn is None:
+        raise SystemExit("CULTURA-NOMEADA.json ausente: sem ele o casco publica nome de "
+                         "cultura que o documento nao escreve com a mesma cara de nome lido "
+                         "do rotulo. Rode v1/inteligencia/cultura_nomeada.py")
+    vcnome = cn["VERDICT"]
+
     # QUALIFICADORES DE ESCOPO que o nome normalizado perde. Medidos no acervo:
     # 575 pares publicados trazem um deles no CROP_AS_WRITTEN e nenhum chegava a
     # tela. "VITE da vino" nao e "VITE": um produto autorizado so em uva de vinho
@@ -202,6 +216,7 @@ def main():
         _craw = str(x.get("CROP_AS_WRITTEN") or "")
         _esc = sorted({m.group(1).lower() for m in RX_ESCOPO.finditer(_craw)})
         _nome = vnome.get(chave, "TARGET_NAME_NOT_CHECKED")
+        _cnome = vcnome.get(chave, "CROP_NAME_NOT_CHECKED")
         usos.setdefault(reg, []).append({
             "crop": x["CROP"], "target": x["TARGET"],
             "crop_raw": x.get("CROP_AS_WRITTEN"), "target_raw": x.get("TARGET_AS_WRITTEN"),
@@ -211,16 +226,28 @@ def main():
             "quote": "NOT_PRESERVED",
             "exclusion_check": est,
             "pair_check": vp,
-            # AS DUAS COLUNAS, E ELAS NUNCA SE COLAPSAM.
+            # AS TRES COLUNAS, E ELAS NUNCA SE COLAPSAM.
             #   proof       o par sobreviveu a um teste contra o documento?
-            #   target_name o NOME publicado esta escrito no documento?
-            # Um par so e FATO quando as duas fecham. Medido: 1.274 de 2.875.
+            #   target_name o NOME DO ALVO publicado esta escrito no documento?
+            #   crop_name   o NOME DA CULTURA publicado esta escrito no documento?
+            # Um par so e FATO quando as tres fecham. Eram duas colunas e 1.274
+            # fatos; a terceira nasceu de 23 pares em que a cultura publicada
+            # nao e palavra nenhuma do documento.
+            #
+            # CROP_NAME_INFLECTED_IN_LABEL FECHA a coluna, e isto e uma decisao
+            # com motivo medido: sao 31 pares em que a etichetta escreve
+            # "cavoli" e a ferramenta publica CAVOLO. A palavra E a mesma, no
+            # plural, e recusar por causa disso seria esconder fato verdadeiro
+            # para a regra parecer severa. Ja "fagiolino" nao e "fagiolo" e
+            # "zucca" nao e "zucchino": raiz diferente, palavra diferente.
             "proof": ("USE_PAIR_PROVEN_BY_TABLE_GEOMETRY"
                       if vp == "PAIR_CONSISTENT_WITH_RULES"
                       else "USE_PAIR_NOT_VERIFIED_BY_ANY_RULE"),
             "target_name": _nome,
+            "crop_name": _cnome,
             "fact": (vp == "PAIR_CONSISTENT_WITH_RULES"
-                     and _nome == "TARGET_NAME_LITERAL"),
+                     and _nome == "TARGET_NAME_LITERAL"
+                     and _cnome in ("CROP_NAME_LITERAL", "CROP_NAME_INFLECTED_IN_LABEL")),
             "crop_scope": _esc,
         })
 
@@ -509,6 +536,7 @@ def main():
         "crop_check_list": cultura["CONTRADICTED"],
         "pair_check": {k: v for k, v in pf.items() if k not in ("VERDICT", "CONTRADICTED")},
         "target_name": {k: v for k, v in an.items() if k not in ("VERDICT", "NOT_IN_LABEL")},
+        "crop_name": dict({k: v for k, v in cn.items() if k != "VERDICT"}),
         "citacao": ({k: v for k, v in cit.items() if k != "DETAIL"} if cit
                     else {"STATE": "NOT_CHECKED"}),
         "vigencia": ({k: v for k, v in json.load(open(a.vigencia, encoding="utf-8")).items()

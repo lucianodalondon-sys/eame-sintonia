@@ -73,6 +73,9 @@ python3 v1/inteligencia/heranca_validar.py --fios /tmp/fioscache --bbox /tmp/bbo
 echo "== 10i · R-17: o NOME do alvo publicado esta escrito no rotulo?"
 python3 v1/inteligencia/alvo_nomeado.py
 
+echo "== 10i2 · R-21: o NOME da cultura publicada esta escrito no rotulo?"
+python3 v1/inteligencia/cultura_nomeada.py
+
 echo "== 10j · DIAGNOSTICO da camada de prosa (R-16 NAO entra em producao)"
 python3 v1/inteligencia/prosa_escopo.py --fios /tmp/fioscache --bbox /tmp/bboxcache
 python3 v1/inteligencia/prosa_censo.py
