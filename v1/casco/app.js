@@ -36,6 +36,18 @@ function casa(a, b) {            // um contem o outro, apos normalizar
   return x.split(' ').some(t => t.length > 3 && y.includes(t))
       || y.split(' ').some(t => t.length > 3 && x.includes(t));
 }
+// A validade tem de aparecer igual em TODA tela. Antes, CULTURA x ALVO mostrava
+// "2026-08-15" seco enquanto CALENDARIO e PRODUTO 360 marcavam o mesmo produto
+// como vencido-e-ainda-ativo. Mesma data, tres leituras diferentes.
+function validade(p) {
+  if (isUnk(p.expiry)) return val(p.expiry);
+  if (typeof p.dte === 'number' && p.dte < 0)
+    return `<span style="color:var(--bad)">${esc(p.expiry)}</span>
+            <span class="pill p-bad" title="a validade passou e o registro ainda lista o produto como ativo. Vencer nao e ser revogado.">VENCIDA</span>`;
+  if (typeof p.dte === 'number' && p.dte <= 90)
+    return `${esc(p.expiry)} <span class="pill p-warn">${p.dte}d</span>`;
+  return esc(p.expiry);
+}
 const P = window.__PAYLOAD__;
 const byReg = Object.fromEntries(P.products.map(p => [p.reg, p]));
 
@@ -385,7 +397,7 @@ function viewCrop() {
              (l.d.rule_check==='CONTRADICTED_BY_RULE'?' <span class="pill p-bad">REVISAR</span>':''))
              : val('NOT_KNOWN')}</td>
         <td><span class="pill ${l.u.evidence==='TABLE_GEOMETRY'?'p-ok':'p-dim'}">${l.u.evidence==='TABLE_GEOMETRY'?'TABELA':'TEXTO'}</span></td>
-        <td>${val(l.p.expiry)}</td>
+        <td>${validade(l.p)}</td>
         <td><button class="ev" onclick="evUso('${l.p.reg}',${l.i})">prova</button></td>
       </tr>`).join('')}</tbody></table></div>
     ${linhas.length>400?`<div class="meta">mostrando 400 de ${linhas.length} — refine a busca</div>`:''}`;
