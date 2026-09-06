@@ -67,6 +67,10 @@ versao desta regra — que acusou 846 "truncamentos" e estava errada:
     QUOTE_IS_PREFIX_OF_LONGER_QUOTE    e prefixo estrito de outra do mesmo
                                        rotulo — pode inverter escopo (so FRASE)
     QUOTE_CUT_MID_WORD                 o corte caiu dentro de uma palavra
+    QUOTE_HAS_UNBALANCED_PARENTHESIS   abre parentese e nao fecha (ou o inverso):
+                                       a celula continua na linha seguinte
+    QUOTE_CUT_MID_LINE                 acaba no meio de uma linha do documento,
+                                       com mais palavras da mesma linha depois
     ROW_RECONSTRUCTED_FROM_CELLS       linha de tabela, palavras todas na pagina
     ROW_HAS_WORDS_NOT_ON_THE_PAGE      linha de tabela com palavra que nao esta
 
@@ -171,10 +175,44 @@ def main():
         memo[reg] = out
         return out
 
+    # A LEITURA COM A ESTRUTURA DE LINHA PRESERVADA, so para uma pergunta: o
+    # corte caiu no MEIO DE UMA LINHA do documento?
+    memo_l = {}
+
+    def layout(reg):
+        if reg in memo_l:
+            return memo_l[reg]
+        f = os.path.join(a.cache, f'{reg}.layout.txt')
+        t = ''
+        if os.path.exists(f):
+            t = unicodedata.normalize('NFD', open(f, encoding='utf-8', errors='replace').read())
+            t = ''.join(c for c in t if unicodedata.category(c) != 'Mn').lower()
+            # espaco simples vira espaco; quebra de linha e salto de coluna viram
+            # o mesmo marcador de FRONTEIRA, que e o que interessa aqui
+            t = re.sub(r'\n|   +', '\x00', t)
+            t = re.sub(r'[ \t]+', ' ', t)
+        memo_l[reg] = t
+        return t
+
     def confere(reg, frase, tipo, minimo=8):
         f = nz(frase)
         if not f or len(f) < minimo:
             return 'QUOTE_TOO_SHORT_TO_CHECK'
+        # PARENTESE ABERTO E NUNCA FECHADO E UM CORTE, NAO UMA CELULA.
+        #
+        # Medido em 012878 e 015317: a coluna tem tres linhas visuais —
+        # "della vite", "(Plasmopara" e "Viticola)" — e o alvo publicado e
+        # "Peronospora della vite (Plasmopara". A frase EXISTE contigua no
+        # documento (as duas primeiras linhas), entao todos os testes de
+        # existencia a aprovam; o que denuncia o corte e o parentese. A celula
+        # verdadeira acaba em "Viticola)", e o que sobrou nao e a celula.
+        #
+        # Nao e heuristica de conteudo: um parentese aberto sem fechar e uma
+        # afirmacao sintatica sobre o proprio texto citado, verificavel sem
+        # conhecer o assunto. E o inverso tambem conta — fechar sem abrir e o
+        # mesmo corte, do outro lado.
+        if f.count('(') != f.count(')'):
+            return 'QUOTE_HAS_UNBALANCED_PARENTHESIS'
         ls = leituras(reg)
         if not ls:
             return 'QUOTE_NOT_CHECKED_NO_TEXT'
@@ -187,6 +225,30 @@ def main():
                     else 'ROW_HAS_WORDS_NOT_ON_THE_PAGE')
         if not any(f in t for t in ls):
             return 'QUOTE_NOT_CONTIGUOUS_IN_DOCUMENT'
+        # CORTE NO MEIO DA LINHA. O documento tem estrutura: uma celula acaba
+        # onde acaba a coluna (salto de 3+ espacos no -layout) ou onde a linha
+        # quebra. Se a citacao acaba no MEIO de uma linha, com mais palavras da
+        # mesma linha logo depois, o que a cortou foi o extrator e nao o
+        # documento.
+        #
+        # Medido, e e o defeito de maior volume desta camada: os campos
+        # CROP_AS_WRITTEN e TARGET_AS_WRITTEN vem cortados por COMPRIMENTO FIXO
+        # — 728 deles tem exatamente 80 caracteres, 661 exatamente 180 e 509
+        # exatamente 200. Isso e regua do extrator, nao do papel, e a tela
+        # imprimia tudo isso com "o rotulo escreve".
+        tl = layout(reg)
+        if tl:
+            i, cortou = tl.find(f), None
+            while i >= 0:
+                d = tl[i + len(f): i + len(f) + 2]
+                # fronteira de verdade: fim do texto, quebra/coluna, ou pontuacao
+                # que termina frase logo em seguida
+                fim = (not d) or d[0] == '\x00' or d[0] in '.;:' or (
+                    d[0] == ' ' and len(d) > 1 and d[1] == '\x00')
+                cortou = (cortou is not False) and not fim
+                i = tl.find(f, i + 1)
+            if cortou:
+                return 'QUOTE_CUT_MID_LINE'
         if f[-1].isalpha():
             # o corte caiu dentro de uma palavra? (a letra seguinte, em TODAS as
             # ocorrencias, continua a palavra)
@@ -241,7 +303,8 @@ def main():
             c[e] += 1
             ver[chave_cit(nome, reg, frase)] = e
             if e in ('QUOTE_NOT_CONTIGUOUS_IN_DOCUMENT', 'QUOTE_IS_PREFIX_OF_LONGER_QUOTE',
-                     'QUOTE_CUT_MID_WORD', 'ROW_HAS_WORDS_NOT_ON_THE_PAGE'):
+                     'QUOTE_CUT_MID_WORD', 'ROW_HAS_WORDS_NOT_ON_THE_PAGE',
+                     'QUOTE_HAS_UNBALANCED_PARENTHESIS', 'QUOTE_CUT_MID_LINE'):
                 det.append({'FAMILY': nome, 'TYPE': tipo, 'REGISTRATION_ID': reg, 'STATE': e,
                             'WHERE': onde, 'QUOTE': str(frase)[:200]})
         fam[nome] = dict(c.most_common())

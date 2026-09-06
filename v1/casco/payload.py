@@ -157,6 +157,11 @@ def main():
                          "vindo de taxonomia com a mesma cara de nome lido do rotulo. "
                          "Rode v1/inteligencia/alvo_nomeado.py")
     vnome = an["VERDICT"]
+    # R-17 · o QUALIFICADOR que o nome curto do alvo joga fora. 756 pares: em
+    # 85 deles a celula escreve "mosca bianca" e a tela publicava MOSCA, que e
+    # outro inseto. O modulo nao acusa (distinguir "bianca" de "sensibili"
+    # precisa de entomologia); publica a palavra ao lado, como crop_scope.
+    vqual = an.get("QUALIFIER") or {}
 
     # R-21 · e o NOME DA CULTURA, que e a irma que faltava. 23 pares publicam
     # uma cultura cuja raiz nao existe em nenhuma palavra do documento:
@@ -284,6 +289,7 @@ def main():
                      and _nome == "TARGET_NAME_LITERAL"
                      and _cnome in ("CROP_NAME_LITERAL", "CROP_NAME_INFLECTED_IN_LABEL")),
             "crop_scope": _esc,
+            "target_scope": vqual.get(chave) or [],
         })
 
     # TETO POR CULTURA escrito fora da tabela (R-12) e CONFERENCIA DA CULTURA
@@ -560,7 +566,8 @@ def main():
         "crop_check": {k: v for k, v in cultura.items() if k not in ("VERDICT", "CONTRADICTED")},
         "crop_check_list": cultura["CONTRADICTED"],
         "pair_check": {k: v for k, v in pf.items() if k not in ("VERDICT", "CONTRADICTED")},
-        "target_name": {k: v for k, v in an.items() if k not in ("VERDICT", "NOT_IN_LABEL")},
+        "target_name": {k: v for k, v in an.items()
+                        if k not in ("VERDICT", "NOT_IN_LABEL", "QUALIFIER")},
         "crop_name": dict({k: v for k, v in cn.items() if k != "VERDICT"}),
         "citacao": ({k: v for k, v in cit.items() if k != "DETAIL"} if cit
                     else {"STATE": "NOT_CHECKED"}),

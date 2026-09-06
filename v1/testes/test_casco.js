@@ -824,6 +824,34 @@ teste('RT4 · aspas com verbo de citacao so onde R-18 provou a frase', () => {
   return `cultura ${JSON.stringify(cs)} · alvo ${JSON.stringify(ts)}`;
 });
 
+teste('RT4 · MOSCA BIANCA nao pode aparecer so como MOSCA', () => {
+  // Achado SERIOUS da lente K: em 008259, 013560, 013590, 015275 e 017687 a
+  // celula do alvo escreve "mosca bianca" — a mosca-branca — e a tela publicava
+  // MOSCA, que em italiano e outro inseto. 85 pares, todos com selo verde. A
+  // palavra "mosca" esta escrita, entao R-17 dizia LITERAL e tinha razao; o que
+  // faltava dizer e que ela nunca aparece sozinha ali.
+  const mb = [];
+  P.products.forEach(p => (p.uses||[]).forEach(u => {
+    if (u.target === 'MOSCA' && (u.target_scope||[]).includes('bianca')) mb.push(p.reg);
+  }));
+  afirma(mb.length === 85, `esperava 85 pares MOSCA/bianca, achei ${mb.length}`);
+  const p = P.products.find(x => x.reg === '008259');
+  viewProduto('008259');
+  const h = html('#pdet');
+  afirma(h.includes('nunca escreve este alvo sozinho'),
+    'a ficha de 008259 nao mostra que a etichetta escreve "mosca bianca"');
+  afirma(h.includes('bianca'), 'a palavra do documento nao aparece na tela');
+  // e o campo tem de existir em TODOS os usos, nao so nos qualificados
+  let semCampo = 0;
+  P.products.forEach(q => (q.uses||[]).forEach(u => {
+    if (!Array.isArray(u.target_scope)) semCampo++;
+  }));
+  afirma(semCampo === 0, `${semCampo} usos sem o campo target_scope`);
+  const tot = P.products.reduce((a,q)=>a+(q.uses||[]).filter(
+    u=>(u.target_scope||[]).length).length,0);
+  return `${tot} pares com alvo sempre qualificado · ${mb.length} deles sao "mosca bianca"`;
+});
+
 teste('zero medido, nao coletado e nao sei sao tres respostas diferentes', () => {
   const lido = P.products.find(p => p.states && p.states.LABEL_READ && !p.uses.length);
   const naoColetado = P.products.find(p => p.states && p.states.LABEL_DOWNLOADED === false);

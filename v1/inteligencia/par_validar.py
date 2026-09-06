@@ -151,6 +151,25 @@ PARADAS = {'de', 'da', 'del', 'della', 'dei', 'delle', 'degli', 'in', 'con', 'pe
            'su', 'al', 'alla', 'allo', 'ed', 'contro', 'sp', 'spp', 'periodo',
            'vegetativo', 'primavera', 'estate', 'autunno', 'inverno', 'uova'}
 
+# PALAVRA DE LIGACAO NAO ANCORA CULTURA NENHUMA.
+#
+# radical('aglio') = 'agli', que e exatamente a preposicao italiana. Medido nos
+# 163 rotulos: a forma "agli" ocorre 273 vezes em 162 registros e "aglio" 125
+# vezes em 52. Em 017340 (e 004701, 007876, 014091, 017409) o par AGLIO x AFIDI
+# saia com PAIR_NOT_CHECKABLE_NO_DRAWN_CELL, cujo significado no codigo e "a
+# cultura e o alvo estao na mesma pagina, mas a coluna da cultura nao e
+# riscada". Na pagina 1 de 017340 a palavra "aglio" NAO ocorre: os dois tokens
+# lidos como a cultura sao "...ed agli animali." e "resistenti agli esteri
+# fosforici". Nenhum fato publicado mudava — os dois estados sao NOT_CHECKABLE —
+# mas o motivo impresso era uma afirmacao falsa sobre o documento, e token de
+# ignorancia que mente e pior que token nenhum.
+#
+# O guarda e sobre o TOKEN, nao sobre a raiz: 'aglio' continua casando (a raiz
+# dele e 'agli'), e a preposicao 'agli' nao. Assim a cultura nao perde ancora.
+LIGACOES = {'agli', 'alle', 'alla', 'allo', 'dei', 'delle', 'degli', 'della',
+            'nei', 'nelle', 'negli', 'nella', 'sui', 'sulle', 'sugli', 'sulla',
+            'dai', 'dalle', 'dagli', 'dalla', 'coi', 'con', 'per', 'tra', 'fra'}
+
 
 def so_letras(s):
     return re.sub(r'[^a-z]', '', str(s or '').lower())
@@ -307,6 +326,12 @@ def titulo_entre(pg, y_de, y_ate, tx0, tx1, vocab):
     return False
 
 
+# Sensibilidade do agrupamento de linha em celula_coerente, contada a cada
+# execucao e publicada na saida. Ver a nota TOLERANCIA DE LINHA la dentro.
+SENSIBILIDADE = Counter()
+TOL_LINHA_IRMA = 2.5     # a tolerancia que alvo_literal.py usa nas MESMAS caixas
+
+
 def celula_coerente(pg, topo, base, tx0, tx1, folga=2.0):
     """A celula desenhada realmente descreve o texto que esta dentro dela?
 
@@ -323,21 +348,55 @@ def celula_coerente(pg, topo, base, tx0, tx1, folga=2.0):
     Quando alguma linha transborda a largura da tabela, o que foi lido como
     grade nao e grade: e risco de titulo, e o teste nao se aplica.
     """
-    linhas = {}
-    for wx0, wy0, wx1, wy1, _t in pg:
-        cy = (wy0 + wy1) / 2
-        if not (topo < cy < base):
-            continue
-        k = round(cy, 1)
-        a, b = linhas.get(k, (wx0, wx1))
-        linhas[k] = (min(a, wx0), max(b, wx1))
-    for a, b in linhas.values():
-        # so conta a linha que COMECA dentro da tabela: texto de uma coluna
-        # vizinha, a direita da grade, nao transborda coisa nenhuma — ele
-        # simplesmente nao e desta tabela.
-        if tx0 - folga <= a <= tx1 and b > tx1 + folga:
-            return False
-    return True
+    ## TOLERANCIA DE LINHA: uma escolha que decide 1 em cada 4 selos verdes
+    ##
+    ## As "linhas" sao montadas por `round(cy, 1)` — casamento EXATO de 0,1 pt.
+    ## O modulo irmao do mesmo repositorio, `alvo_literal.py`, agrupa as MESMAS
+    ## caixas de palavra com +-2,5 pt. Trocando so essa constante, 405 dos 2.928
+    ## vereditos mudam e 332 selos verdes caem. Um quarto da camada de prova
+    ## depende de um bucketing que nunca foi justificado.
+    ##
+    ## Nao troquei, e o motivo e medido e nao estetico: com +-2,5 pt palavras de
+    ## BLOCOS DIFERENTES na mesma altura da folha entram na mesma "linha". Em
+    ## 018175 pagina 1 convivem na altura y=375,9 tres blocos — prosa a
+    ## esquerda, a tabela de usos no meio, prosa a direita — e junta-los faria
+    ## toda linha da tabela "transbordar" por causa do vizinho, isto e, o teste
+    ## reprovaria tabelas reais. A tolerancia frouxa nao e mais rigorosa; e
+    ## errada de outro jeito.
+    ##
+    ## O que fica dito, e conferido a cada execucao pelo contador abaixo: esta
+    ## constante e um DIAL, o numero de selos verdes depende dela, e trocar
+    ## 0,1 por 2,5 nao e uma melhoria — e outra regra, que precisaria da sua
+    ## propria medicao contra o documento.
+    ##
+    ## MESMA FAMILIA, SEGUNDA ESCOLHA NAO DOCUMENTADA: o teste abaixo so olha a
+    ## linha que COMECA dentro da tabela. Uma linha que comeca a ESQUERDA de
+    ## tx0 e atravessa a grade inteira nunca e testada. Medido: contando
+    ## tambem essas, 15 vereditos mudam, e 14 sao os 14 pares de 014386 — o
+    ## rotulo de CONTROLE que este modulo cita como "le a MESMA frase de 012573
+    ## e acerta". Ou seja, a aprovacao do controle depende da assimetria. Nao
+    ## troquei pelo mesmo motivo: seria trocar um resultado conferido por um
+    ## nao conferido, e a lente que achou isto tambem nao adjudicou o documento.
+    def _linhas(tol):
+        L = {}
+        for wx0, wy0, wx1, wy1, _t in pg:
+            cy = (wy0 + wy1) / 2
+            if not (topo < cy < base):
+                continue
+            k = round(cy, 1) if tol is None else next(
+                (q for q in L if abs(q - cy) <= tol), round(cy, 1))
+            a, b = L.get(k, (wx0, wx1))
+            L[k] = (min(a, wx0), max(b, wx1))
+        return L
+
+    def _ok(L):
+        return not any(tx0 - folga <= a <= tx1 and b > tx1 + folga for a, b in L.values())
+
+    r = _ok(_linhas(None))
+    SENSIBILIDADE['CELLS_TESTED'] += 1
+    if r != _ok(_linhas(TOL_LINHA_IRMA)):
+        SENSIBILIDADE['CELLS_THAT_FLIP_WITH_SIBLING_TOLERANCE'] += 1
+    return r
 
 
 def alvo_tem_outro_dono(pgs, rc, rp, ra, voc_reg, segmentos, pdf):
@@ -550,7 +609,8 @@ def main():
             perto = None
             for pi, pg in enumerate(pgs):
                 cs = [(x0, y0, x1, y1, radical(t) == rp)
-                      for x0, y0, x1, y1, t in pg if radical(t) in rc]
+                      for x0, y0, x1, y1, t in pg
+                      if radical(t) in rc and so_letras(t) not in LIGACOES]
                 if not cs:
                     continue
                 als = [(x0, x1, (y0 + y1) / 2) for x0, y0, x1, y1, t in pg if radical(t) in ra]
@@ -786,6 +846,13 @@ def main():
         'COBERTURA_MINIMA_DO_FIO': COBRE,
         'PAIRS': len(pares),
         'COUNTS': dict(sorted(cont.items(), key=lambda kv: -kv[1])),
+        'COHERENCE_LINE_TOLERANCE_PT': 0.1,
+        'COHERENCE_TOLERANCE_SENSITIVITY': dict(SENSIBILIDADE),
+        'COHERENCE_TOLERANCE_NOTA': (
+            'celula_coerente agrupa linha por round(cy,1); o modulo irmao alvo_literal.py usa '
+            '+-2,5 pt nas mesmas caixas. CELLS_THAT_FLIP_WITH_SIBLING_TOLERANCE conta quantas '
+            'celulas mudariam de coerente para incoerente (ou o contrario) so por essa troca. '
+            'Nao e defeito nem aprovacao: e o tamanho do dial, contado a cada execucao'),
         'OPEN_CELL_ABSOLUTIONS': len(abertas),
         'OPEN_CELL_MAX_BAND_PT': max((w['BAND_PT'] for w in abertas), default=0),
         'OPEN_CELL_NOTA': ('celula com um lado NAO DESENHADO: quando falta fio acima (ou '

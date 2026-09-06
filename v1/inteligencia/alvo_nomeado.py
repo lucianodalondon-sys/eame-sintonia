@@ -34,6 +34,29 @@ palavra, nao a estrutura em volta dela.
     TARGET_NAME_BY_TAXONOMY_NOT_IN_LABEL   nao esta em nenhuma das tres leituras
     TARGET_NAME_NOT_CHECKED                nao ha texto para conferir
 
+## O QUALIFICADOR QUE O NOME CURTO JOGA FORA
+
+A rodada 4 achou uma terceira coisa, e ela nao e um quarto estado: e um CAMPO.
+Em 008259, 013560, 013590, 015275 e 017687 a celula do alvo escreve **"mosca
+bianca"** — a mosca-branca, Bemisia/Trialeurodes — e a ferramenta publica
+**MOSCA**, que em italiano e a mosca da fruta ou a mosca das raizes. Sao 85
+pares. A palavra "mosca" ESTA escrita no rotulo, entao R-17 dizia LITERAL e
+tinha razao; o que ela nao dizia e que a palavra nunca aparece sozinha ali.
+
+Medido no acervo: em 834 pares o nome publicado do alvo NUNCA ocorre sozinho na
+celula — vem sempre com uma palavra atras. As mais frequentes:
+
+    INFESTANTI sensibili   273     MOSCA bianca            85
+    INFESTANTI controllate 128     DITTERI cecidomidi      56
+    NOTTUE defogliatrici   100     ANARSIA lineatella      12
+
+E aqui esta o limite desta ferramenta, dito sem rodeio: "sensibili" e adjetivo e
+nao muda a praga; "lineatella" e o nome da especie e confirma; "bianca" muda o
+inseto. Distinguir os tres precisa de ENTOMOLOGIA, que nao esta neste
+repositorio. Entao o modulo NAO acusa e NAO retira: ele publica o qualificador
+ao lado do nome, do mesmo jeito que `crop_scope` publica "da vino" ao lado de
+VITE, e quem le decide. Chamar isso de erro seria inventar; esconder seria pior.
+
 ## O que esta regra NAO faz
 
 Nao diz que o par esta errado, e nao remove nada. `Cydia pomonella` e mesmo a
@@ -79,6 +102,35 @@ def leituras(reg, pdfs, cache):
     return nz(' || '.join(partes))
 
 
+# Palavras que seguem o nome do alvo e NAO sao qualificador: ligacao, pontuacao
+# e o comeco da proxima entrada da lista. Fechada e medida sobre o acervo.
+NAO_QUALIFICA = {'', 'e', 'o', 'a', 'ed', 'di', 'del', 'della', 'dei', 'delle',
+                 'in', 'su', 'contro', 'con', 'per', 'da', 'dal', 'alla', 'al'}
+
+
+def qualificadores(nome, bruto):
+    """Palavras que SEMPRE acompanham o nome do alvo na celula como escrita.
+
+    So devolve alguma coisa quando o nome NUNCA aparece sozinho. Uma unica
+    ocorrencia solta ja significa que a etichetta usa o nome curto, e ai nao ha
+    qualificador a declarar.
+    """
+    b = nz(bruto)
+    n = nz(nome)
+    if not b or not n or ' ' in n or len(n) < 4:
+        return []
+    # casa o nome com flexao de vogal final (mosca/mosche, nottua/nottue)
+    rx = re.compile(r'\b' + re.escape(n[:-1]) + r'[a-z]{0,2}\b([^a-z]*)([a-z]+)?')
+    seg = []
+    for m in rx.finditer(b):
+        entre, prox = m.group(1) or '', m.group(2) or ''
+        # so conta como qualificador o que vem depois de UM espaco simples
+        if entre != ' ' or prox in NAO_QUALIFICA:
+            return []          # apareceu sozinho, ou seguido de pontuacao
+        seg.append(prox)
+    return sorted(set(seg)) if seg else []
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--pares', default='v1/dados/IT-ROTULOS-PARES-RECONSTRUIDO.json')
@@ -88,7 +140,7 @@ def main():
     a = ap.parse_args()
 
     pares = json.load(open(a.pares, encoding='utf-8'))['PAIRS']
-    ver, det = {}, []
+    ver, det, qual = {}, [], {}
     cont = Counter()
     memo, ordem = {}, {}
     for x in pares:
@@ -100,6 +152,7 @@ def main():
         t = memo[reg]
         nome = nz(str(x['TARGET']).replace('_', ' '))
         partes = [p for p in nome.split() if len(p) >= 4]
+        qual[chave] = qualificadores(nome, x.get('TARGET_AS_WRITTEN'))
         if not t:
             est = 'TARGET_NAME_NOT_CHECKED'
         elif nome and (nome in t or (partes and all(p in t for p in partes))):
@@ -124,7 +177,14 @@ def main():
         'READINGS': 'pdftotext em tres modos (fluxo, -layout, -raw)',
         'PAIRS': len(pares),
         'COUNTS': dict(cont.most_common()),
+        'QUALIFIER_NOTA': ('palavras que SEMPRE acompanham o nome do alvo na celula como '
+                           'escrita. Nao e acusacao: "sensibili" nao muda a praga, '
+                           '"lineatella" confirma a especie e "bianca" muda o inseto, e '
+                           'distinguir os tres precisa de entomologia que nao esta aqui. '
+                           'Vai para a tela ao lado do nome, como crop_scope'),
+        'TARGETS_ALWAYS_QUALIFIED': sum(1 for v in qual.values() if v),
         'VERDICT': ver,
+        'QUALIFIER': {k: v for k, v in qual.items() if v},
         'NOT_IN_LABEL': det,
     }
     os.makedirs(os.path.dirname(a.out), exist_ok=True)

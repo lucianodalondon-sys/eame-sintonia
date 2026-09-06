@@ -868,7 +868,9 @@ function viewProduto(reg) {
       <tbody>${Object.entries(porCultura).sort().map(([c,us]) => `<tr>
         <td><b>${esc(c)}</b>${escopoDaCultura(us[0])}${
           nomeDaCultura(us.find(u => u.crop_name === 'CROP_NAME_NOT_IN_LABEL') || us[0])}</td>
-        <td class="meta">${[...new Set(us.map(u=>u.target))].join(' &middot; ')}</td>
+        <td class="meta">${[...new Set(us.map(u=>u.target))].join(' &middot; ')}
+          ${[...new Map(us.filter(u=>(u.target_scope||[]).length)
+              .map(u=>[u.target,u])).values()].map(escopoDoAlvo).join('')}</td>
         <td>${(()=>{
           // O selo TABELA descrevia so a ROTA de leitura, e por isso ficava
           // verde tambem nos pares que nunca tinham passado por fio nenhum.
@@ -1398,6 +1400,21 @@ function escopoDaCultura(u) {
     ${u.crop_scope.map(e => `<code>${esc(e)}</code>`).join(' &middot; ')} — ${frase}.
     O nome curto <b>${esc(u.crop)}</b> nao carrega esse escopo</div>`;
 }
+// R-17 · O MESMO PROBLEMA DO LADO DO ALVO, e a mesma resposta: mostrar.
+// Medido: em 756 pares o nome publicado do alvo NUNCA aparece sozinho na celula
+// como escrita. Em 85 deles a etichetta escreve "mosca bianca" — a mosca-branca
+// — e a tela publicava MOSCA, que em italiano e outro inseto. Em outros 273 o
+// qualificador e "sensibili", que nao muda praga nenhuma. Separar os dois casos
+// exige entomologia que esta ferramenta nao tem, entao ela nao acusa e nao
+// retira: poe a palavra do documento ao lado do nome curto.
+function escopoDoAlvo(u) {
+  if (!u.target_scope || !u.target_scope.length) return '';
+  return `<div class="meta"><b>a etichetta nunca escreve este alvo sozinho:</b> sempre
+    <code>${esc(u.target)} ${u.target_scope.map(e => esc(e)).join('/')}</code>.
+    O nome curto <b>${esc(u.target)}</b> perde essa palavra — e ela pode ser so um adjetivo
+    (&ldquo;sensibili&rdquo;), o nome da especie (&ldquo;lineatella&rdquo;) ou outro inseto
+    (&ldquo;bianca&rdquo;). <span class="unknown">TARGET_NAME_ALWAYS_QUALIFIED</span></div>`;
+}
 function evidenciaDoPar(u) {
   const [cls, rot, tit] = PAR_ROTULO[u.pair_check]
     || [u.evidence === 'TABLE_GEOMETRY' ? 'p-ok' : 'p-dim',
@@ -1413,7 +1430,7 @@ function evidenciaDoPar(u) {
   const fato = u.fact
     ? `<span class="pill p-ok" title="o par sobreviveu ao teste contra o documento E os dois nomes, cultura e alvo, estao escritos no rotulo">FATO</span> `
     : `<span class="unknown" title="uma das tres colunas nao fecha: o par nao foi verificado por regra nenhuma, ou o nome do alvo nao esta no rotulo, ou o nome da cultura nao esta no rotulo">NAO_VERIFICADO</span> `;
-  return `${fato}<span class="pill ${cls}" title="${esc(tit || u.pair_check || '')}">${rot}</span>${ressalva}${nomeDoAlvo(u)}${nomeDaCultura(u)}`;
+  return `${fato}<span class="pill ${cls}" title="${esc(tit || u.pair_check || '')}">${rot}</span>${ressalva}${nomeDoAlvo(u)}${escopoDoAlvo(u)}${nomeDaCultura(u)}`;
 }
 
 // Casamento de termo de busca por TOKEN INTEIRO. Um termo com menos de 3
