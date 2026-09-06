@@ -155,18 +155,40 @@ def main():
         })
 
     # ---- dose: trabalho novo desta missao
+    #
+    # Quatro etichette imprimem o rotulo DUAS VEZES no mesmo PDF (frente e
+    # foglio illustrativo), e a leitura crua conta as linhas duas vezes. Contar
+    # assim inflaria o numero que vai para o cliente, entao a contagem publicada
+    # e a de linhas DISTINTAS por (cultura, alvo, dose, dose/ha).
     doses = {}
     if a.doses and os.path.exists(a.doses):
         dz = json.load(open(a.doses, encoding="utf-8"))
+        bruto = distinto = 0
         for lab in dz["LABELS"]:
             p = prod.get(lab["REGISTRATION_ID"])
             if p is None:
                 continue
-            p["DOSE_ROWS"] = lab.get("ROWS", [])
+            rows = lab.get("ROWS", [])
+            bruto += len(rows)
+            vistos, unicas = set(), []
+            for r in rows:
+                k = (r.get("CROP"), r.get("TARGET"),
+                     r.get("DOSE_CONCENTRATION"), r.get("DOSE_PER_HECTARE"))
+                if k in vistos:
+                    continue
+                vistos.add(k)
+                unicas.append(r)
+            distinto += len(unicas)
+            p["DOSE_ROWS"] = unicas
+            p["DOSE_ROWS_RAW"] = len(rows)
             p["DOSE_PARSE_STATE"] = lab.get("PARSE_STATE")
         doses = {"LABELS_ATTEMPTED": dz.get("LABELS_ATTEMPTED"),
                  "LABELS_WITH_ROWS": dz.get("LABELS_WITH_ROWS"),
-                 "TOTAL_DOSE_ROWS": dz.get("TOTAL_DOSE_ROWS")}
+                 "DOSE_ROWS_RAW": bruto,
+                 "DOSE_ROWS_DISTINCT": distinto,
+                 "DEDUP_NOTE": ("4 rotulos imprimem a tabela duas vezes no mesmo PDF; "
+                                "a contagem publicada e a de linhas distintas"),
+                 "RULE_VALIDATION": dz.get("DOSE_RULE_VALIDATION")}
 
     lista = sorted(prod.values(), key=lambda p: p["PRODUCT"])
     tabela_n = sum(1 for p in lista for u in p["USE_ROWS"]

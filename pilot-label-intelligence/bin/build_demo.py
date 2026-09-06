@@ -328,6 +328,20 @@ def main():
       estrutural: o par guarda pagina e <i>y</i>, nao guarda <i>x</i>, e a etichetta e paisagem com
       varias colunas — a mesma altura atravessa colunas sem relacao. Nenhuma citacao foi publicada.
       <code>QUOTE_RECOVERY_STATE = IMPOSSIBLE_WITHOUT_X_COORDINATE</code>.</li>
+    <li><b>Dose foi lida em {d.get("DOSE_RUN",{}).get("LABELS_WITH_ROWS","?")} dos {len(linhas)} rotulos, nao em todos.</b>
+      {d["TOTAL_DOSE_ROWS"]:,} linhas distintas ({d.get("DOSE_RUN",{}).get("DOSE_ROWS_RAW","?")} brutas — quatro
+      etichette imprimem a tabela duas vezes no mesmo PDF). Os outros nao sao produtos sem dose:
+      a maioria dos herbicidas italianos declara a dose em PROSA
+      (&ldquo;alla dose di 1-3 l/ha&rdquo;), nao em tabela, e este leitor le tabela.
+      <code>PARSE_STATE</code>, nao ausencia.</li>
+    <li><b>Ha doses erradas conhecidas, e elas estao marcadas.</b> Os fios desenhados da tabela
+      conferiram {d.get("DOSE_RUN",{}).get("RULE_VALIDATION",{}).get("CHECKED","?")} doses:
+      {d.get("DOSE_RUN",{}).get("RULE_VALIDATION",{}).get("OK","?")} confirmadas e
+      {d.get("DOSE_RUN",{}).get("RULE_VALIDATION",{}).get("CONTRADICTED","?")} contraditas — nessas, um fio separa
+      a linha do valor que ela recebeu, e o valor foi rebaixado a <code>NOT_PRESENT</code> com
+      <code>NEEDS_REVIEW</code> em vez de corrigido no palpite. Outras
+      {d.get("DOSE_RUN",{}).get("RULE_VALIDATION",{}).get("NOT_LOCATED","?")} nao puderam ser conferidas.
+      A precisao medida do extrator e F1 0,90 contra gabarito de 3 rotulos — nao de 163.</li>
     <li><b>Presenca no registro nao e presenca no mercado.</b> O registro diz o que esta
       autorizado, nunca o que esta sendo vendido.</li>
     <li><b>A precisao do leitor de cultura x alvo foi medida em 30 dos 163 rotulos</b>

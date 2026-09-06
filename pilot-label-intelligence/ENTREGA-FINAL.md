@@ -32,8 +32,8 @@ Gerado de artefatos por `bin/relatorio.py`. Nenhum numero aqui foi digitado a ma
     TEXT_EXTRACTED                = 163   (reuso, conferido item a item)
     LABELS_DEEPLY_STRUCTURED      = 128
     TOTAL_AUTHORIZED_USE_ROWS     = 2,928
-    TOTAL_DOSE_ROWS               = NOT_PRODUCED
-    PRODUCTS_WITH_DOSE            = NOT_PRODUCED
+    TOTAL_DOSE_ROWS               = 519
+    PRODUCTS_WITH_DOSE            = 23
 
     DEMO_PRODUCTS                 = 15
     DEMO_PRODUCTS_COMPLETE        = 15
@@ -127,8 +127,8 @@ existe exatamente para isso: mostrar sem integrar.
 ## O pacote
 
     PACKAGE_PATH  = pilot-label-intelligence/
-    PACKAGE_FILES = 43 arquivos versionados
-    PACKAGE_HASH  = 9ccdf985102ae4b83d03e487286c5da00f3a920a74766416db368f367aa43cdd
+    PACKAGE_FILES = 44 arquivos versionados
+    PACKAGE_HASH  = bac676dba29bd68c94e1a39e1752019a0d9d08e357a2e9cf18f050fe1b105a22
 
 O hash e o sha256 sobre o caminho e o conteudo de cada arquivo versionado do
 piloto, em ordem, exceto este relatorio. Nao cobre os instantaneos do registro
