@@ -13,10 +13,10 @@ decisões de coordenação que só apareceram **porque** a ref foi medida a sér
 | `SELECTED_REF` | `claude/sintonia-italy-pilot-b1l401` |
 | `SELECTED_REF_HEAD` | `b929879` (2026-08-30) |
 | `MERGE_BASE` | `9693399` |
-| `HEAD_AFTER` | `69db7cc` |
+| `HEAD_AFTER` | `0226813` (merge `69db7cc` + as correcções das duas revisões) |
 | `MERGE_ATTEMPTED` | SIM — `git merge --no-ff`, dois pais reais |
 | `MERGE_VERDICT` | **PASS** |
-| `P0_2_STEP_03` | **IN_FLIGHT** — ver §1.1 |
+| `P0_2_STEP_03` | **PASS** — publicado; ver §1.1 |
 
 ### 1.1 · O estado que este documento tinha declarado, e que ainda não era verdade
 
@@ -32,9 +32,21 @@ REVISORES              = 3 workflows a correr sobre essas mesmas correcções
 
 **Um ledger que declara PASS antes de o portão fechar é exactamente o defeito que este
 passo passou o dia a corrigir noutros ficheiros.** `DOCUMENTO_DECLARA != REPOSITÓRIO_TEM`.
-O estado passa a `IN_FLIGHT` e só vai a `PASS` quando as três coisas forem medidas e
-verdadeiras ao mesmo tempo: correcções commitadas, revisores terminados sem achado
-material por reparar, e push feito com `origin/sintonia/canonical` ainda em `bdb57cf`.
+O estado passou a `IN_FLIGHT` e só foi a `PASS` quando as três condições ficaram medidas e
+verdadeiras ao mesmo tempo. Ficaram:
+
+```
+REVISORES              3 workflows terminados, 18 agentes cada; 3 blockers contra
+                       correcções da primeira ronda, todos reproduzidos e fechados
+CORRECÇÕES             commit 0226813, 58 ficheiros, árvore limpa
+FETCH ANTES DO PUSH    origin/sintonia/canonical = bdb57cf — sem drift
+PUSH                   bdb57cf..0226813, fast-forward, sem force
+REMOTE DEPOIS          origin/sintonia/canonical = 0226813
+```
+
+A linha `PASS` acima só existe porque estas cinco medições existem. Esta secção fica como
+está: o estado errado que o documento chegou a declarar é registo, e apagá-lo faria a régua
+parecer sempre certa.
 
 
 54 commits entraram na linhagem com história preservada. Sem squash, sem rebase, sem
