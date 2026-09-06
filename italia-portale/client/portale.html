@@ -5977,9 +5977,23 @@ class Component extends DCLogic {
       return hit ? hit.id : null;
     })();
     const wd = Object.assign(wDeco(wdR), {
-      /* the case link survives only because LEGACY_CASE_ID is filled 29/29 */
-      openCase: () => wdR.legacyCaseId && this.openCase(wdR.legacyCaseId),
-      nowRelevant: wdR.status === 'WINDOW_OPEN' && !!wdR.legacyCaseId,
+      /* LEGACY_CASE_ID ESTA PREENCHIDO 29/29 E NAO RESOLVE NENHUMA VEZ.
+         A pastilha verde «WINDOW NOW RELEVANT · VIEW OPPORTUNITY →» acendia
+         para 6 janelas e as 6 caiam em «CASO NON TROVATO»: os identificadores
+         herdados sao IT-OPP-006..022 e os casos correntes sao OPP_<hex>.
+
+             UM CAMPO PREENCHIDO NAO E UM DESTINO. A PROVA E RESOLVER.
+
+         `briefTarget`, logo acima, JA fazia a resolucao certa — por
+         identificador, contra os casos que o modelo tem — e devolvia null. A
+         promessa lia o campo cru e ignorava a resposta. Agora as duas leem a
+         mesma coisa: onde o caso nao resolve, a pastilha nao se imprime e o
+         resto da ficha da janela fica igual.
+
+             UN'AFFORDANCE E UNA PROMESSA. DOVE NON C'E NIENTE DIETRO,
+             SI TOGLIE LA PROMESSA, NON L'AZIONE. */
+      openCase: () => briefTarget && this.openCase(briefTarget),
+      nowRelevant: wdR.status === 'WINDOW_OPEN' && !!briefTarget,
       /* kind was CONFIRMED / SEASONAL / EXPECTED WINDOW, and "CONFIRMED" required an
          observation class of OFFICIAL_OBSERVED_CURRENT or FIELD_REPORTED_CURRENT —
          measured NOT_OBSERVED 29/29, so that branch could never fire. DATE_STATE is
