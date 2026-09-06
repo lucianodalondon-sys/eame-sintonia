@@ -2431,7 +2431,7 @@
           <sc-for list="{{ records }}" as="r" hint-placeholder-count="12">
             <div style="display:grid;grid-template-columns:minmax(40px,0.7fr) minmax(90px,2.4fr) minmax(64px,1.3fr) minmax(68px,1.1fr);gap:8px;align-items:center;font-size:11px;padding:6px 0;border-bottom:1px dotted rgba(151,139,135,0.35)">
               <span style="color:#B1A9A7;font-weight:700">{{ r.year }}</span>
-              <div style="display:flex;flex-direction:column;min-width:0"><span style="color:#EDEAE9;display:flex;align-items:center;gap:6px"><span style="width:6px;height:6px;border-radius:50%;background:{{ r.category.color }};flex:0 0 6px"></span>{{ r.descriptor }}</span><span style="font-size:10px;color:#8F8886">{{ r.why }} · {{ r.locationShort }}</span></div>
+              <div style="display:flex;flex-direction:column;min-width:0"><span style="color:#EDEAE9;display:flex;align-items:center;gap:6px"><span style="width:6px;height:6px;border-radius:50%;background:{{ r.category.color }};flex:0 0 6px"></span>{{ r.descriptor }}</span><span style="font-size:10px;color:#8F8886">{{ r.why }} · {{ r.locationShort }}<sc-if value="{{ r.hasUrl }}" hint-placeholder-val="{{ true }}"> · <a href="{{ r.url }}" target="_blank" rel="noopener noreferrer" style="font-weight:700;letter-spacing:0.06em;color:#93CC23;text-decoration:none">{{ t.vociOpenSource }} →</a></sc-if></span></div>
               <span style="color:#C9C3C1;font-size:10.5px;line-height:1.35">{{ r.institution }}</span>
               <span onClick="{{ r.openImpact }}" style="font-size:10px;font-weight:700;letter-spacing:0.06em;color:#B1A9A7;cursor:{{ r.impactCursor }};line-height:1.35;min-width:0;overflow-wrap:anywhere">{{ r.materialRoleL }}</span>
             </div>
@@ -8404,6 +8404,12 @@ class Component extends DCLogic {
          Those 5 kept cursor:pointer and an onclick that did nothing — measured
          dead by CTA_DEAD_BUTTON_GATE. The role stays readable; only the
          invitation is withdrawn where nothing is behind it. */
+      /* IL PAPER ESISTE, E IL PORTALE NON CI PORTAVA. 88/88 righe portano una
+         url https reale (doi.org) e 86/88 un DOI, misurati; la riga ne
+         mostrava sei campi su ventotto e nessun modo di aprire l'articolo.
+         `hasUrl` e la guardia: dove non c'e destinazione non si stampa link,
+         come per le voci dal campo. UN'AFFORDANCE E UNA PROMESSA. */
+      hasUrl: /^https?:\/\//.test(String(r.url || '')),
       canImpact: !!r.themeKey,
       impactCursor: r.themeKey ? 'pointer' : 'default',
       openImpact: r.themeKey ? (() => this.setState({ sciImpactId: r.themeKey })) : null,
