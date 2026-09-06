@@ -23,6 +23,7 @@
    --------------------------------------------------------------------------- */
 import http from 'node:http';
 import fs from 'node:fs';
+import vm from 'node:vm';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';
@@ -141,24 +142,45 @@ const clickFirstCard = async () => {
 
          SI CERCA CIO CHE IL BROWSER HA CALCOLATO, NON CIO CHE ERA SCRITTO.
 
-     Quindi la scheda si riconosce come la riconosce l'occhio: un blocco
-     cliccabile, alto quanto una scheda, che porta dentro di se il nome di una
-     coltura e un'etichetta di stato. */
-  const clicked = await page.evaluate(() => {
-    const els = [...document.querySelectorAll('div')].filter((e) => {
-      const cs = getComputedStyle(e);
-      if (cs.cursor !== 'pointer') return false;
+     E NEMMENO L'ALTEZZA E UN'IDENTITA. La banda era 200–520 px. Misurato: in
+     italiano le schede stanno fra 197 e 211 px, in inglese fra 184 e 186 —
+     l'inglese e piu corto, la scheda si accorcia, e il controllo diceva di
+     nuovo «nessuna scheda» su una pagina che ne mostrava dodici. Un test che
+     riconosce un oggetto dalla sua altezza in pixel misura il font, non il
+     prodotto.
+
+         UNA SCHEDA NON SI RICONOSCE DAL NUMERO DI PIXEL CHE OCCUPA.
+         SI RICONOSCE DAL FATTO CHE, CLICCANDOLA, LA PAGINA CAMBIA.
+
+     Quindi: fra i blocchi cliccabili si tengono i piu esterni (una scheda ne
+     contiene altri, ma nessuna scheda ne sta dentro un'altra), e si prova ad
+     aprirli in ordine finche il testo della pagina cambia davvero. */
+  const before = ((await page.evaluate(() => document.body.innerText)) || '').trim();
+  const total = await page.evaluate(() => {
+    const all = [...document.querySelectorAll('div')].filter((e) => {
+      if (getComputedStyle(e).cursor !== 'pointer') return false;
       const h = e.getBoundingClientRect().height;
-      return h >= 200 && h <= 520 && (e.innerText || '').trim().length > 40;
+      return h >= 120 && h <= 640 && (e.innerText || '').trim().length > 40;
     });
-    if (!els.length) return false;
-    els[0].click();
-    return true;
+    const outer = all.filter((e) => !all.some((o) => o !== e && o.contains(e)));
+    window.__sintoniaCards = outer;
+    return outer.length;
   });
-  if (!clicked) return false;
-  await page.waitForTimeout(480);
-  return true;
+  for (let i = 0; i < Math.min(total, 6); i += 1) {
+    const ok = await page.evaluate((n) => {
+      const el = (window.__sintoniaCards || [])[n];
+      if (!el) return false;
+      el.click();
+      return true;
+    }, i);
+    if (!ok) break;
+    await page.waitForTimeout(480);
+    const after = ((await page.evaluate(() => document.body.innerText)) || '').trim();
+    if (after && after !== before) return true;
+  }
+  return false;
 };
+
 
 const PT_RE = new RegExp('(^|[^\\p{L}])(' + PT_MARKERS.join('|') + ')([^\\p{L}]|$)', 'iu');
 const FORBIDDEN = /(CLIENT_SAFE|RENDERABLE_WITH_METHOD|EVIDENCE_DERIVED|FAILED_GATES)/;
@@ -213,16 +235,44 @@ const inspect = async (label, lang) => {
 /* Le tredici schermate che il fecho nomina, nell'ordine in cui un lettore le
    incontra. Il dettaglio e le sue schede si aprono dalla scheda, non da un URL:
    è così che le apre lui. */
+/* I NOMI DELLE VOCI VENGONO DAL DIZIONARIO, NON DA QUI.
+   Erano scritti a mano. Quando `navFuture` e `navSources` sono diventati
+   «Archivio segnali V21» e «Archivio fonti V21» questa tabella e rimasta
+   indietro: il giro non trovava piu le due voci e QUATTRO schermate — Radar
+   Futuro e Fonti, in due lingue — smettevano di essere guardate. Il controllo
+   restava rosso, ma per un motivo che nascondeva il buco vero.
+
+       UNA TAPPA CHE NON SI TROVA NON E UNA TAPPA CHE FALLISCE.
+       E UNA TAPPA CHE NESSUNO GUARDA PIU.
+
+   Il dizionario e gia sorvegliato altrove (MK3 lega ogni chiave, I5 prova che
+   l'italiano e italiano), quindi leggerlo qui non indebolisce niente: sposta
+   soltanto il nome dove il portale lo tiene. */
+const I18N = (() => {
+  const ctx = { window: {}, document: undefined };
+  ctx.window = ctx; ctx.globalThis = ctx;
+  vm.createContext(ctx);
+  vm.runInContext(fs.readFileSync(path.join(CLIENT, 'italy-i18n.js'), 'utf8'), ctx, { filename: 'italy-i18n.js' });
+  return ctx.SINTONIA_I18N;
+})();
+const navName = (lang, key) => (I18N[lang] || {})[key] || (I18N.it || {})[key];
 const NAV = {
-  it: { home: 'Radar delle Opportunità', future: 'Radar Futuro', windows: 'Finestre Colturali',
-    market: 'Polso di Mercato', portfolio: 'Portafoglio', voci: 'Voci dal Campo',
-    competitor: 'Concorrenza', science: 'Intelligence Scientifica', archive: 'Archivio',
-    sources: 'Fonti', back: 'Indietro' },
-  en: { home: 'Opportunity Radar', future: 'Future Radar', windows: 'Crop Windows',
-    market: 'Market Pulse', portfolio: 'Portfolio', voci: 'Field Voices',
-    competitor: 'Competitor Watch', science: 'Scientific Intelligence', archive: 'Archive',
-    sources: 'Sources', back: 'Back' },
+  it: { home: navName('it', 'navMeeting') || 'Radar delle Opportunità', future: navName('it', 'navFuture'),
+    windows: navName('it', 'navWindows'), market: navName('it', 'navMarket'),
+    portfolio: navName('it', 'navPortfolio'), voci: navName('it', 'navVoices'),
+    competitor: navName('it', 'navCompetitors'), science: navName('it', 'navScience'),
+    archive: navName('it', 'navArchive'), sources: navName('it', 'navSources'), back: 'Indietro' },
+  en: { home: navName('en', 'navMeeting') || 'Opportunity Radar', future: navName('en', 'navFuture'),
+    windows: navName('en', 'navWindows'), market: navName('en', 'navMarket'),
+    portfolio: navName('en', 'navPortfolio'), voci: navName('en', 'navVoices'),
+    competitor: navName('en', 'navCompetitors'), science: navName('en', 'navScience'),
+    archive: navName('en', 'navArchive'), sources: navName('en', 'navSources'), back: 'Back' },
 };
+for (const lang of ['it', 'en']) {
+  for (const [k, v] of Object.entries(NAV[lang])) {
+    if (!v) throw new Error(`browser.mjs: il dizionario ${lang} non ha un nome per la voce «${k}»`);
+  }
+}
 const TOUR = [
   { label: 'HOME · Radar', key: 'home' },
   { label: 'OPPORTUNITY DETAIL', card: true },
