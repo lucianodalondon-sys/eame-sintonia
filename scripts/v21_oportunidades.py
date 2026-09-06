@@ -545,7 +545,14 @@ def portfolio(o, rotulos, casados, ai_por_prod, ai_por_id, ativos_da_fonte):
         ativos = [ai_por_id.get(x.get('ACTIVE_INGREDIENT_ID'))
                   for x in ai_por_prod.get(reg, [])]
         ativos = [a for a in ativos if a]
-        declara = CM.catalogo_declara_cultura(o.get('CROP'), [p])[0]
+        # TRES RESPOSTAS, E A TERCEIRA NAO E A SEGUNDA.
+        # `NOT_DECLARED_BY_PRODUCT` diz que a ficha existe e nao nomeia a
+        # cultura. `UNKNOWN` diz que nao ha ficha para perguntar. Ate aqui as
+        # duas saiam como `UNKNOWN`, e a informacao de que a fonte RESPONDEU
+        # NAO perdia-se no mesmo balde do que nunca foi perguntado.
+        est_cat, _quem_cat, casa_cat = CM.catalogo_estado_de_cultura(
+            o.get('CROP'), [p])
+        declara = est_cat == 'DECLARED'
         restr = [{'CODE': 'EU_APPROVAL_EXPIRES', 'ACTIVE_INGREDIENT': a.get('NAME'),
                   'DATE': a.get('EU_EXPIRATION_OF_APPROVAL'), 'EVIDENCE_ID': a['ID']}
                  for a in ativos if a.get('EU_EXPIRATION_OF_APPROVAL')]
@@ -561,7 +568,15 @@ def portfolio(o, rotulos, casados, ai_por_prod, ai_por_id, ativos_da_fonte):
                                       if a.get('IRAC')} |
                                      {'HRAC ' + str(a['HRAC']) for a in ativos
                                       if a.get('HRAC')}),
-            'CROP_FIT': 'DECLARED_ON_CATALOG_PAGE' if declara else 'UNKNOWN',
+            'CROP_FIT': ('DECLARED_ON_CATALOG_PAGE' if declara else
+                         'NOT_DECLARED_BY_PRODUCT' if est_cat == 'NOT_DECLARED'
+                         else 'UNKNOWN'),
+            'CROP_FIT_HOUSE': casa_cat,
+            'CROP_FIT_LAW': (
+                'DECLARED_ON_CATALOG_PAGE = alguma casa do catalogo nomeia a '
+                'cultura. NOT_DECLARED_BY_PRODUCT = a ficha do produto e '
+                'conhecida e NAO a nomeia. UNKNOWN = nao ha ficha para '
+                'perguntar. Ausencia no rastreio nao e ausencia no produto.'),
             'TARGET_FIT': 'ON_MINISTERIAL_LABEL' if rots else 'UNKNOWN',
             'REGIONAL_FIT': 'NATIONAL_AUTHORIZATION_CONTAINS_REGION',
             'REGULATORY_FIT': 'AUTHORIZATION_LIVE' if reg else 'UNKNOWN',
@@ -1594,7 +1609,7 @@ def main():
         return out
 
     def emitir(arquetipo, crop, alvo, geo, escopo, apoios, link, produtos,
-               numeros, dim, acao, rotulos=(), pinos=()):
+               numeros, dim, acao, rotulos=(), pinos=(), candidatos=None):
         T = TEXTO[arquetipo]
         porque_agora, relevancia = T['WHY_NOW'], T['ADAMA']
         prova, nao_prova = T['PROVA'], T['NAO_PROVA']
@@ -1623,6 +1638,35 @@ def main():
              'WHAT_IT_PROVES': prova, 'WHAT_IT_DOES_NOT_PROVE': nao_prova,
              'SCORE_DIMENSIONS': dim, 'OPPORTUNITY_SCORE': score(dim),
              'ACTION_MAP': acao}
+        # ── O CENSO DAS EVIDENCIAS QUE O ARQUETIPO NAO LEVOU ─────────────
+        # Cada arquetipo escolhe quantos apoios de cada familia leva (sin[:8],
+        # jan[:3], rot[:6]...). O corte e uma ESCOLHA DE COMPOSICAO do caso e
+        # fica: mudar quantos apoios fundam um cartao seria mudar o criterio, e
+        # isso e decisao de produto, nao conserto de motor.
+        #
+        # O que NAO pode ficar e o corte ser invisivel. Sem este censo, um
+        # cartao com 40 sinais de campo e um com 8 saiam iguais, e o motor
+        # deixava de saber que os outros 32 existiam.
+        #
+        #     LIMITAR A COMPOSICAO E LEGITIMO. ESCONDER QUE SE LIMITOU NAO E.
+        censo = []
+        for fam, (todos, teto) in sorted((candidatos or {}).items()):
+            achados, usados = len(todos), min(len(todos), teto)
+            censo.append({
+                'FIELD': fam, 'TOTAL_FOUND': achados, 'TOTAL_USED': usados,
+                'TOTAL_OMITTED': achados - usados,
+                'CAP': teto, 'IS_PRESENTATION_LIMIT': False,
+                'OMISSION_REASON': ('ARCHETYPE_EVIDENCE_COMPOSITION_CAP'
+                                    if achados > usados else None)})
+        o['EVIDENCE_SCAN'] = censo
+        o['EVIDENCE_SCAN_TOTAL_FOUND'] = sum(x['TOTAL_FOUND'] for x in censo)
+        o['EVIDENCE_SCAN_TOTAL_USED'] = sum(x['TOTAL_USED'] for x in censo)
+        o['EVIDENCE_SCAN_TOTAL_OMITTED'] = sum(x['TOTAL_OMITTED'] for x in censo)
+        o['EVIDENCE_SCAN_LAW'] = (
+            'FOUND = USED + OMITTED por familia, e a conta fecha. O teto e de '
+            'COMPOSICAO DO CASO, nao de apresentacao: nao e o ecra que corta, e '
+            'o arquetipo que escolhe com quantos apoios se funda. Mudar o teto '
+            'e mudar o criterio, e isso nao se faz sem decisao.')
         o.update(varredura(crop, alvo, produtos))
         # ── A RAZAO DE EXCLUSAO, PRODUTO A PRODUTO ───────────────────────────
         # Ate aqui a razao de nao aparecer vivia numa FRASE POR CARTAO. Uma
@@ -1888,7 +1932,9 @@ def main():
                                                 for s in sin})),
                     'ACTIONABILITY': 2 if jan else 1},
                    ['MARKET_DEVELOPMENT', 'COMMERCIAL', 'SCIENCE_TECHNICAL'],
-                   rotulos=rot, pinos=pin_geo)
+                   rotulos=rot, pinos=pin_geo,
+                   candidatos={'FIELD_SIGNAL': (sin, 8), 'CROP_WINDOW': (jan, 3),
+                               'LABEL_USE': (rot, 6)})
 
     # ══ O2 · MOMENTO DE MERCADO ══════════════════════════════════════════════
     for crop in sorted(set(mkt_crop) | set(econ_crop)):
@@ -1908,7 +1954,9 @@ def main():
                 'ADAMA': 2 if rot else 0,
                 'MULTI_SOURCE': min(2, (1 if mk else 0) + (1 if ec else 0)),
                 'ACTIONABILITY': 1},
-               ['MARKET_DEVELOPMENT', 'PORTFOLIO', 'COMMERCIAL'], rotulos=rot)
+               ['MARKET_DEVELOPMENT', 'PORTFOLIO', 'COMMERCIAL'], rotulos=rot,
+               candidatos={'MARKET': (mk, 6), 'ECONOMIC_WEIGHT': (ec, 3),
+                           'LABEL_USE': (rot, 6)})
 
     # ══ O3 · RESISTÊNCIA / MoA ═══════════════════════════════════════════════
     for crop, rs in sorted(res_crop.items()):
@@ -1940,7 +1988,9 @@ def main():
                     'MULTI_SOURCE': min(2, (1 if camp else 0) + (1 if ais else 0)),
                     'ACTIONABILITY': 1},
                    ['SCIENCE_TECHNICAL', 'MARKET_DEVELOPMENT', 'PORTFOLIO'],
-                   rotulos=rot, pinos=pares_ix.get((crop, alvo), []))
+                   rotulos=rot, pinos=pares_ix.get((crop, alvo), []),
+                   candidatos={'RESISTANCE': (r0, 6), 'FIELD_SIGNAL': (camp, 4),
+                               'LABEL_USE': (rot, 6), 'ACTIVE_INGREDIENT': (ais, 6)})
 
     # ══ O4 · ABERTURA COMPETITIVA ════════════════════════════════════════════
     for crop, ats in sorted(comp_crop.items()):
@@ -1955,7 +2005,8 @@ def main():
                {'CURRENTNESS': 2, 'GEOGRAPHY': 1, 'AGRONOMIC': 1,
                 'ADAMA': 2 if rot else 0, 'MULTI_SOURCE': 2 if len(ats) > 5 else 1,
                 'ACTIONABILITY': 1},
-               ['MARKETING', 'MARKET_DEVELOPMENT', 'COMMERCIAL'], rotulos=rot)
+               ['MARKETING', 'MARKET_DEVELOPMENT', 'COMMERCIAL'], rotulos=rot,
+               candidatos={'COMPETITOR': (ats, 8), 'LABEL_USE': (rot, 6)})
 
     # ══ O5 · PREPARAÇÃO REGULATÓRIA ══════════════════════════════════════════
     for f in sorted(cs['REGULATORY-FUTURE-FACTS'], key=lambda x: x['ID']):
@@ -1985,7 +2036,8 @@ def main():
                 'ADAMA': 2 if rot else 1, 'MULTI_SOURCE': 2 if ai else 1,
                 'ACTIONABILITY': 2 if dias and dias < 540 else 1},
                ['REGULATORY', 'PORTFOLIO', 'SUPPLY', 'MARKET_DEVELOPMENT'],
-               rotulos=rot)
+               rotulos=rot,
+               candidatos={'REGULATORY_PRODUCT': (prods, 6), 'LABEL_USE': (rot, 4)})
 
     # ══ O6 · CIÊNCIA → CAMPO ═════════════════════════════════════════════════
     for crop, sc in sorted(sci_crop.items()):
@@ -2001,7 +2053,9 @@ def main():
                 'PRODUTOS_COM_ROTULO': len(rot)},
                {'CURRENTNESS': 2 if camp else 0, 'GEOGRAPHY': 1, 'AGRONOMIC': 1,
                 'ADAMA': 2 if rot else 0, 'MULTI_SOURCE': 2, 'ACTIONABILITY': 1},
-               ['SCIENCE_TECHNICAL', 'MARKET_DEVELOPMENT'], rotulos=rot)
+               ['SCIENCE_TECHNICAL', 'MARKET_DEVELOPMENT'], rotulos=rot,
+               candidatos={'SCIENCE': (sc, 6), 'FIELD_SIGNAL': (camp, 4),
+                           'LABEL_USE': (rot, 4)})
 
     # ── D · a extensao regional do par, que so se sabe olhando todos ─────────
     # Quantas regioes distintas trazem ESTE par cultura x alvo. E dimensao de
@@ -2039,6 +2093,7 @@ def gravar(brutos, C, cs):
     for oid in sorted(porid):
         o, ev = porid[oid]
         it, en = ROTULO[o['OPPORTUNITY_STATE']]
+        _fontes = sorted({u for e in ev for u in (e.get('SOURCE_URLS') or [])})
         r = {
             'ID': o['ID'], 'ENTITY_TYPE': 'OPPORTUNITY',
             'PROVENANCE': 'REAL_DERIVED', 'QA_STATUS': 'EVIDENCE_DERIVED',
@@ -2053,7 +2108,24 @@ def gravar(brutos, C, cs):
                 'em EVIDENCE_IDS passou pelo portao; a juncao nao passa, e por isso '
                 'vai a tela com o metodo declarado ao lado.',
             'SOURCE_IDS': sorted({s for e in ev for s in (e.get('SOURCE_IDS') or [])}) or ['SRC_NAO_DECLARADA'],
-            'SOURCE_URLS': sorted({u for e in ev for u in (e.get('SOURCE_URLS') or [])})[:12],
+            # ── O CORTE DAS FONTES TAMBEM PASSA A TER CONTADOR ───────────
+            # Mesma lei do teto dos produtos, e pela mesma razao: doze URLs sem
+            # um numero ao lado leem-se como «sao doze». Aqui o corte e de
+            # APRESENTACAO — o total continua derivavel de EVIDENCE_IDS —, mas
+            # quem le o cartao nao tem EVIDENCE_IDS a mao.
+            #
+            #     UM TOTAL QUE SO EXISTE NOUTRO FICHEIRO NAO E UM TOTAL
+            #     PUBLICADO.
+            'SOURCE_URLS': _fontes[:12],
+            'SOURCE_URLS_TOTAL_FOUND': len(_fontes),
+            'SOURCE_URLS_TOTAL_SHOWN': len(_fontes[:12]),
+            'SOURCE_URLS_TOTAL_OMITTED': max(0, len(_fontes) - 12),
+            'SOURCE_URLS_OMISSION_REASON': (
+                'PRESENTATION_LIMIT' if len(_fontes) > 12 else None),
+            'SOURCE_URLS_LAW':
+                'FOUND = SHOWN + OMITTED. O corte e de apresentacao e nunca de '
+                'estado: as fontes omitidas continuam alcancaveis pelos '
+                'EVIDENCE_IDS deste cartao.',
             'REFERENCE_DATE': HOJE.isoformat(),
             'CROP_IDS': [o['CROP']] if o['CROP'] else [],
             'ISSUE_IDS': [o['TARGET']] if o['TARGET'] else [],
@@ -2147,7 +2219,8 @@ def gravar(brutos, C, cs):
                or k.startswith('PORTFOLIO_EXCLUDED_')
                or k.startswith('PORTFOLIO_OFFERED_')
                or k.startswith('PORTFOLIO_CROP_')
-               or k.startswith('CROSS_INTELLIGENCE_')},
+               or k.startswith('CROSS_INTELLIGENCE_')
+               or k.startswith('EVIDENCE_SCAN')},
             'EVIDENCE_IDS': o['EVIDENCE_IDS'],
             'EVIDENCE_FAMILIES': o['EVIDENCE_FAMILIES'],
             'EVIDENCE_COUNT': len(o['EVIDENCE_IDS']),

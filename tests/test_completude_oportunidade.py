@@ -150,10 +150,26 @@ class TestCruzamentoDeInteligencia(unittest.TestCase):
         # o handoff precisa de ser lido.
         #
         #     UM TESTE QUE FALHA POR ORDEM NAO ESTA A GUARDAR O CONTEUDO.
+        # As DUAS unicas adicoes que o motor declara: a fonte que decidiu a
+        # janela e a que declarou a regra do momento. Elas nao observam par
+        # nenhum, por isso nunca entram em `apoios` — e o motor lista-as de
+        # proposito, para que quem audita a evidencia encontre o documento que
+        # decidiu o «quando». Nomea-las aqui e MAIS estreito que exigir
+        # igualdade crua: prova que o scan nao acrescenta E que nada alem
+        # destas duas acrescenta.
         for o, apoios in self.brutos:
-            self.assertEqual(sorted({a['ID'] for a in apoios}),
-                             sorted(set(o['EVIDENCE_IDS'])),
+            permitido = {a['ID'] for a in apoios}
+            for campo in ('WINDOW_EVIDENCE_ID', 'WINDOW_RULE_EVIDENCE_ID'):
+                if o.get(campo):
+                    permitido.add(o[campo])
+            self.assertEqual(sorted(permitido), sorted(set(o['EVIDENCE_IDS'])),
                              'o scan acrescentou evidencia em %s' % o['ID'])
+            for extra in set(o['EVIDENCE_IDS']) - {a['ID'] for a in apoios}:
+                papeis = [r for r in o['EVIDENCE_ROLES']
+                          if r['EVIDENCE_ID'] == extra]
+                self.assertTrue(papeis, 'id acrescentado sem papel declarado '
+                                        'em %s: %s' % (o['ID'], extra))
+                self.assertEqual('SUPPORTS_WINDOW', papeis[0]['ROLE'], o['ID'])
             # O scan PODE achar o que a evidencia nao cita — e isso que o torna
             # uma leitura do acervo, e nao uma segunda porta para a evidencia.
             # Por isso nao se exige nada dos ids que ele encontrou; exige-se que
