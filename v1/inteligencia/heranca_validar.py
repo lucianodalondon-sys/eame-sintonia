@@ -31,16 +31,38 @@ cultura de ciclo curto, onde o excesso de aplicacoes E o risco de residuo.
 
 ## As duas regras
 
-  R-15a  o valor herdado tem de estar numa CELULA DESENHADA que cubra a linha.
-         Mesmo instrumento de R-14: os fios que atravessam a coluna DO VALOR
-         dizem ate onde a celula dele vai. Se a linha esta fora, o valor e
-         da vizinha e sai `CONTRADICTED_BY_RULE`; se nao da para achar a
-         celula, sai `NOT_VALIDATED` — nunca numero com selo HERDADA.
+  R-15a  o valor herdado tem de estar numa CELULA DESENHADA que cubra a linha,
+         **e na mesma tabela que ela**. Mesmo instrumento de R-14: os fios que
+         atravessam a coluna DO VALOR dizem ate onde a celula dele vai, e a
+         extensao x desses fios diz de que tabela ela e. Se a linha esta fora,
+         o valor e da vizinha e sai `CONTRADICTED_BY_RULE`; se nao da para achar
+         a celula, sai `NOT_VALIDATED` — nunca numero com selo HERDADA.
+
+         O TESTE EM X FALTAVA, e a rodada 4 mediu o preco: numa pagina com duas
+         tabelas lado a lado, a celula que CONFIRMAVA o n.max podia estar na
+         OUTRA tabela — mesma altura na folha, tabela diferente. Em `017687`
+         ELTIRA a celula da tabela CERTA diz 1 e a ferramenta publicava 2 com o
+         selo `MAX_CONFIRMED_BY_RULE`, que e o mais forte que este modulo tem.
+         Confirmar pelo vizinho e o mesmo erro que R-11 existe para impedir,
+         cometido um eixo adiante.
 
   R-15b  quando a etichetta escreve "N applicazioni: <lista de culturas>", a
-         lista MANDA. A cultura da linha e procurada nas listas; se ela esta
-         numa e o numero publicado e outro, o valor sai
-         `CONTRADICTED_BY_LABEL_NOTE`, com a frase literal ao lado.
+         lista MANDA — **desde que a nota seja do bloco daquela linha.**
+
+         A rodada 4 mediu o buraco: a nota vive numa celula mesclada da coluna
+         "note", e uma etichetta com dois blocos (pieno campo e serra) tem uma
+         nota por bloco. A regra procurava a cultura em TODAS as notas do
+         documento e aplicava a que casasse — podendo trazer a nota de um bloco
+         para a linha de outro. A contradicao continuava sendo uma ABSTENCAO na
+         tela (o numero nao era publicado, o que e o lado seguro), mas o MOTIVO
+         impresso era uma afirmacao sobre o documento que podia estar errada.
+
+         Agora a nota e LOCALIZADA na pagina da linha, pelas caixas de palavra,
+         e a ancora da linha tem de cair dentro da banda y dela. Onde a nota nao
+         puder ser localizada, o estado e `MAX_NOT_PROVED_NOTE_BLOCK_UNKNOWN`:
+         o numero continua nao sendo publicado — nada aqui volta a publicar um
+         n.max que a nota contradiz — mas a tela deixa de afirmar de qual nota
+         se trata.
 
 ## O que este modulo NAO faz
 
@@ -148,11 +170,46 @@ def main():
 
             # ---- R-15b · a nota que enumera culturas manda sobre a posicao
             nota_bate = None
+            nota_no_bloco = None
             if notas and mx and mx.isdigit():
                 nomes = nomes_da_celula(r.get("CROP"))
                 casadas = [n for n in notas if any(w in n[2] for w in nomes)]
                 if len(casadas) == 1:
                     nota_bate = casadas[0]
+                    # A NOTA E DE QUAL BLOCO? Localiza-se o inicio literal dela
+                    # na pagina da linha e exige-se que a ancora da linha caia
+                    # dentro da banda y da nota. Sem isso, a nota de um bloco
+                    # cai sobre a linha de outro.
+                    y, pg = r.get("SOURCE_Y"), r.get("SOURCE_PAGE")
+                    pi = (int(pg) - 1) if pg else -1
+                    if y and 0 <= pi < len(pgs):
+                        chave_nota = [w for w in re.findall(r"[a-zà-ÿ]{5,}",
+                                                           nota_bate[3].lower())][:4]
+                        ys = [(wy0 + wy1) / 2 for _a, wy0, _b, wy1, t in pgs[pi]
+                              if t.strip(" .,;:()").lower() in chave_nota]
+                        if ys:
+                            lo, hi = min(ys), max(ys)
+                            meio = (float(y[0]) + float(y[1])) / 2
+                            nota_no_bloco = (lo - 6 <= meio <= hi + 6)
+                        else:
+                            nota_no_bloco = None
+                    else:
+                        nota_no_bloco = None
+            if nota_bate and nota_bate[0] != mx and nota_no_bloco is not True:
+                ver_max[chave] = "MAX_NOT_PROVED_NOTE_BLOCK_UNKNOWN"
+                cont[ver_max[chave]] += 1
+                contra.append({
+                    "KEY": chave, "REGISTRATION_ID": reg, "PRODUCT": lab.get("PRODUCT"),
+                    "CROP": r.get("CROP"), "TARGET": r.get("TARGET"),
+                    "FIELD": "MAX_APPLICATIONS", "PUBLISHED": mx,
+                    "LABEL_SAYS": "NOTE_FOUND_BUT_BLOCK_NOT_ESTABLISHED",
+                    "LABEL_NOTE": nota_bate[3][:300],
+                    "PROOF": ("ha nota de numero de aplicacoes que enumera culturas e nomeia esta, "
+                              "e ela diz um numero diferente do publicado — mas este leitor NAO "
+                              "conseguiu estabelecer que a nota e do bloco desta linha. O numero "
+                              "nao e publicado; a nota tambem nao e afirmada"),
+                })
+                continue
             if nota_bate and nota_bate[0] != mx:
                 ver_max[chave] = "MAX_CONTRADICTED_BY_LABEL_NOTE"
                 cont[ver_max[chave]] += 1
@@ -193,10 +250,13 @@ def main():
                 # extrator gravou — a mesma ancora de R-11
                 alvos = raizes_alvo(str(r.get("TARGET") or "").upper().replace(" ", "_"))
                 y0b, y1b = float(y[0]) - 2, float(y[1]) + 2
-                anc = sorted({round((wy0 + wy1) / 2, 1)
-                              for _wx0, wy0, _wx1, wy1, t in pgs[pi]
-                              if radical(t) in alvos
-                              and y0b <= (wy0 + wy1) / 2 <= y1b})
+                # a ancora guarda x TAMBEM: sem ele nao ha como saber se o
+                # valor que confirma esta na mesma tabela que a linha
+                anc_xy = sorted({(round((wx0 + wx1) / 2, 1), round((wy0 + wy1) / 2, 1))
+                                 for wx0, wy0, wx1, wy1, t in pgs[pi]
+                                 if radical(t) in alvos
+                                 and y0b <= (wy0 + wy1) / 2 <= y1b})
+                anc = sorted({y for _x, y in anc_xy})
                 sg = segmentos(pdf, pi + 1)
                 if not anc or sg is None:
                     dest[chave] = f"{rot}_NOT_VALIDATED"
@@ -219,7 +279,12 @@ def main():
                     # 192,0 — sem folga ela era condenada por estar na propria
                     # borda da sua celula. A folga cobre a espessura do fio e
                     # nada mais.
-                    if any(cel[0] - FOLGA_FIO < ay < cel[1] + FOLGA_FIO for ay in anc):
+                    # cobre em Y **e** e da mesma tabela em X. A extensao x dos
+                    # fios que fecham a celula do valor diz de que tabela ela e;
+                    # a ancora da linha tem de cair dentro dela.
+                    if any(cel[0] - FOLGA_FIO < ay < cel[1] + FOLGA_FIO
+                           and cel[2] - 1 <= ax <= cel[3] + 1
+                           for ax, ay in anc_xy):
                         cobre = True
                         break
                 if cobre:

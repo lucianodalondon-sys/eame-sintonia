@@ -233,6 +233,71 @@ maus = re.findall(r'href="(NOT_[A-Z_]+)"', HTML)
 ok("NO_LINK_TO_IGNORANCE_TOKEN", "nenhum href para token de ignorancia") if not maus \
     else fail("NO_LINK_TO_IGNORANCE_TOKEN", f"{len(maus)} link(s) para {set(maus)}")
 
+# --- 15d. TODA CONSTANTE QUE SE DIZ MEDIDA E RECONTADA AQUI.
+#
+# Achado da rodada 4, e desta vez o defeito era do proprio autor das regras:
+# a lista SUCESSAO de R-10b declarava "coltura in successione" com 8
+# ocorrencias, e o marcador ocorre ZERO vezes no acervo — o numero tinha sido
+# copiado do plural. E RESTRICOES_FORA_DA_TABELA declarava "non superare" em 50
+# rotulos, que e a contagem do padrao SIMPLIFICADO; com o `(?!le seguenti dosi
+# per ettaro)` que o codigo realmente usa, sao 45.
+#
+# Um comentario que diz "medido" e nao foi conferido e PIOR do que nenhum
+# comentario: ele desliga a desconfianca de quem le. Entao nenhuma dessas
+# constantes volta a envelhecer em silencio — este portao reconta todas contra
+# os 163 rotulos a cada execucao.
+import unicodedata as _ud
+
+
+def _sa(t):
+    t = _ud.normalize("NFD", str(t or ""))
+    return "".join(c for c in t if _ud.category(c) != "Mn").lower()
+
+
+def _textos(cache, sufixo=".txt"):
+    out = {}
+    if os.path.isdir(cache):
+        for f in sorted(os.listdir(cache)):
+            if f.endswith(sufixo) and f.count(".") == 1:
+                out[f[: -len(sufixo)]] = re.sub(
+                    r"\s+", " ", _sa(open(os.path.join(cache, f), encoding="utf-8",
+                                          errors="replace").read()))
+    return out
+
+
+_div = []
+_conferidas = 0
+sys.path.insert(0, "v1/coleta")
+sys.path.insert(0, "v1/inteligencia")
+try:
+    from exclusao import SUCESSAO
+    _fl = _textos("/tmp/leiturafluxo")
+    if not _fl:
+        _div.append("SUCESSAO: sem texto em ordem de leitura para recontar")
+    for _m, _n in SUCESSAO:
+        _c = sum(t.count(_m) for t in _fl.values())
+        _conferidas += 1
+        if _c != _n:
+            _div.append(f"SUCESSAO {_m!r}: declarado {_n}, medido {_c}")
+except Exception as _e:
+    _div.append(f"SUCESSAO nao pode ser recontada: {_e}")
+try:
+    from teto_dose import RESTRICOES_FORA_DA_TABELA
+    _lay = _textos("/tmp/tetotxt")
+    if not _lay:
+        _div.append("RESTRICOES: sem texto -layout para recontar")
+    for _p, _nome, _n in RESTRICOES_FORA_DA_TABELA:
+        _c = sum(1 for t in _lay.values() if re.search(_p, t, re.I))
+        _conferidas += 1
+        if _c != _n:
+            _div.append(f"RESTRICAO {_nome!r}: declarado {_n}, medido {_c}")
+except Exception as _e:
+    _div.append(f"RESTRICOES nao pode ser recontada: {_e}")
+
+ok("MEASURED_CONSTANTS_ARE_MEASURED",
+   f"{_conferidas} constantes que se dizem medidas foram recontadas contra os 163 rotulos") \
+    if not _div else fail("MEASURED_CONSTANTS_ARE_MEASURED", " | ".join(_div))
+
 # --- 16. dose nunca escolhida entre candidatas discordantes
 r = subprocess.run(["node", "v1/testes/test_casco.js"], capture_output=True, text=True)
 if r.returncode == 0:

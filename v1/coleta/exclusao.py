@@ -245,14 +245,21 @@ def fora_das_janelas(texto, js):
 RX_TOKEN = re.compile(r"[a-z]{3,}")
 
 # Marcadores de SUCESSAO / ROTACAO. Lista fechada e MEDIDA sobre os 163 rotulos
-# oficiais em disco; ao lado de cada um, quantas vezes ele ocorre no acervo.
+# oficiais em disco; ao lado de cada um, quantas OCORRENCIAS ele tem no acervo.
 # Marcador que nao ocorre nao entra: lista inventada nao e lista medida.
+#
+# E a lista ja tinha desobedecido a propria regra. A rodada 4 mediu e achou
+# "coltura in successione" declarado com 8 ocorrencias e ZERO no acervo — o
+# numero tinha sido copiado do plural quando o singular foi acrescentado. Um
+# comentario que diz "medido" e nao foi conferido e pior do que um sem
+# comentario nenhum, porque ele desliga a desconfianca de quem le.
+#
+# O portao MEASURED_CONSTANTS_ARE_MEASURED reconta esta lista a cada execucao.
 SUCESSAO = [
     ("possono essere seminat", 34),
     ("seminare o trapiantare", 26),
     ("prima di seminare", 15),
     ("sostituzione delle colture", 13),
-    ("coltura in successione", 8),
     ("colture in successione", 8),
     ("prima di poter seminare", 4),
     ("puo essere seminat", 2),

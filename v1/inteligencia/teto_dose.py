@@ -39,10 +39,14 @@ ITEM = re.compile(r'^\s*([a-zà-ÿ][a-zà-ÿ ,\'\-]{2,90}?)\s*:\s*([\d.,]+)\s*(k
 # negrito, e cap a UM tratamento.
 #
 # A lista abaixo e fechada e MEDIDA sobre os 163 rotulos oficiais em disco; ao
-# lado de cada marcador, em quantos rotulos ele ocorre. Marcador que nao ocorre
-# no acervo nao entra: lista inventada nao e lista medida.
+# lado de cada marcador, em quantos rotulos ele ocorre — contado COM O PADRAO
+# QUE ESTA AQUI, e nao com uma versao simplificada dele. "non superare" sozinho
+# ocorre em 50; com o `(?!le seguenti dosi per ettaro)` que o codigo usa, em 45,
+# e era 50 que estava escrito. O portao MEASURED_CONSTANTS_ARE_MEASURED reconta
+# esta lista a cada execucao, porque comentario que diz "medido" e nao foi
+# conferido desliga a desconfianca de quem le.
 RESTRICOES_FORA_DA_TABELA = [
-    (r'non superare (?!le seguenti dosi per ettaro)', 'non superare', 50),
+    (r'non superare (?!le seguenti dosi per ettaro)', 'non superare', 45),
     (r'dose massima', 'dose massima', 29),
     (r'(?:un\s+)?solo\s+trattamento', 'solo trattamento', 31),
     (r'(?:una\s+)?sola\s+applicazione', 'sola applicazione', 13),

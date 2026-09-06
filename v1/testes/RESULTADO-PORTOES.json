@@ -1,6 +1,6 @@
 {
  "SUITE": "PORTOES-V1",
- "PASS": 19,
+ "PASS": 20,
  "FAIL": 0,
  "RESULTS": [
   {
@@ -56,12 +56,12 @@
   {
    "GATE": "ISOLATION",
    "STATE": "PASS",
-   "DETALHE": "62 arquivos, todos dentro de v1/ e pilot/"
+   "DETALHE": "64 arquivos, todos dentro de v1/ e pilot/"
   },
   {
    "GATE": "CANONICAL_TOUCHED",
    "STATE": "PASS",
-   "DETALHE": "nenhum dos 31 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
+   "DETALHE": "nenhum dos 32 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
   },
   {
    "GATE": "REUSE_ANCHORED_ON_FILE_HASH",
@@ -94,9 +94,14 @@
    "DETALHE": "nenhum href para token de ignorancia"
   },
   {
+   "GATE": "MEASURED_CONSTANTS_ARE_MEASURED",
+   "STATE": "PASS",
+   "DETALHE": "18 constantes que se dizem medidas foram recontadas contra os 163 rotulos"
+  },
+  {
    "GATE": "CASCO_RENDER_TEST",
    "STATE": "PASS",
-   "DETALHE": "38 passaram, 0 falharam  -> CASCO_RENDER_TEST = PASS"
+   "DETALHE": "40 passaram, 0 falharam  -> CASCO_RENDER_TEST = PASS"
   }
  ]
 }

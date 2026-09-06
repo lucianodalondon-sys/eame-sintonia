@@ -121,6 +121,7 @@ teste('MF-04 · MAX e INTERVALO herdados nao saem como numero sem prova', () => 
   let mau = 0, exemplo = null;
   P.products.forEach(p => (p.doses||[]).forEach(d => {
     const ruim = ['MAX_CONTRADICTED_BY_RULE', 'MAX_CONTRADICTED_BY_LABEL_NOTE',
+                  'MAX_NOT_PROVED_NOTE_BLOCK_UNKNOWN',
                   'MAX_NOT_VALIDATED'].includes(d.max_check);
     if (!ruim) return;
     const celula = colunaMax(d);
@@ -498,6 +499,46 @@ teste('SF-14 · a cobertura por celula desenhada aparece ao lado da por rotulo',
   afirma(h.includes(String(P.coverage.AUTHORIZED_USE_ROW_COVERAGE.COVERED)),
     'a cobertura por rotulo sumiu da tela');
   return `${c.CROP_CELLS_READ}/${c.CROP_CELLS_DETECTED} celulas (${c.PCT}%) contra ${P.coverage.AUTHORIZED_USE_ROW_COVERAGE.PCT}% por rotulo`;
+});
+
+// ---------------------------------------------------------------- RODADA 4
+teste('RT4 · o valor que confirma o MAX tem de ser da MESMA TABELA da linha', () => {
+  // Achado BLOCKING da lente D: numa pagina com duas tabelas lado a lado, a
+  // celula que CONFIRMAVA o n.max podia estar na OUTRA tabela — mesma altura na
+  // folha, tabela diferente. Em 017687 ELTIRA a celula da tabela certa diz 1 e a
+  // ferramenta publicava 2 com MAX_CONFIRMED_BY_RULE.
+  const p = P.products.find(x => x.reg === '017687');
+  afirma(p, '017687 ELTIRA ausente');
+  const conf = (p.doses||[]).filter(d => d.max_check === 'MAX_CONFIRMED_BY_RULE').length;
+  const contra = (p.doses||[]).filter(d => d.max_check === 'MAX_CONTRADICTED_BY_RULE').length;
+  afirma(contra > 0, '017687 nao tem nenhuma linha reprovada — o teste de x nao esta valendo');
+  // nenhuma linha reprovada pode imprimir o numero
+  let vaza = 0;
+  P.products.forEach(q => (q.doses||[]).forEach(d => {
+    if (d.max_check === 'MAX_CONTRADICTED_BY_RULE' && !/NOT_PROVED/.test(colunaMax(d))) vaza++;
+  }));
+  afirma(vaza === 0, `${vaza} linhas reprovadas ainda imprimem o MAX`);
+  return `017687: ${conf} confirmadas, ${contra} reprovadas por estarem noutra tabela`;
+});
+
+teste('RT4 · nota de aplicacoes so vale para o bloco dela', () => {
+  // Achado BLOCKING da lente D: 6 das 9 contradicoes por nota vinham da nota de
+  // OUTRO bloco da tabela. A tela nao publicava o numero (lado seguro), mas
+  // AFIRMAVA de qual nota se tratava, e a afirmacao podia estar errada.
+  const desconhecido = [];
+  P.products.forEach(p => (p.doses||[]).forEach(d => {
+    if (d.max_check === 'MAX_NOT_PROVED_NOTE_BLOCK_UNKNOWN') desconhecido.push([p.reg, d.crop]);
+  }));
+  afirma(desconhecido.length > 0, 'nenhuma nota de bloco indeterminado — o teste perdeu o alvo');
+  // nem o estado forte nem o fraco podem publicar o numero
+  let vaza = 0;
+  P.products.forEach(p => (p.doses||[]).forEach(d => {
+    if (/NOTE/.test(String(d.max_check)) && !/NOT_PROVED/.test(colunaMax(d))) vaza++;
+  }));
+  afirma(vaza === 0, `${vaza} linhas com nota contraria ainda publicam o MAX`);
+  const forte = P.products.reduce((a,p)=>a+(p.doses||[]).filter(
+    d=>d.max_check==='MAX_CONTRADICTED_BY_LABEL_NOTE').length,0);
+  return `${forte} contradicoes com bloco estabelecido · ${desconhecido.length} com bloco indeterminado`;
 });
 
 teste('a celula de dose diz de que linha o numero veio', () => {

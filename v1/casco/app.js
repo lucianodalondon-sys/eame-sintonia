@@ -694,6 +694,14 @@ function linhaReprovada(d) {
 function colunaHerdada(d, valor, estado, nomeCampo) {
   if (linhaReprovada(d))
     return val('NOT_PROVED_BY_RULE');
+  if (estado === 'MAX_NOT_PROVED_NOTE_BLOCK_UNKNOWN')
+    return `${val('NOT_PROVED_BY_LABEL_NOTE')}<div class="meta">ha nota de numero de aplicacoes
+      que ENUMERA culturas e nomeia esta, e ela diz um numero diferente de <b>${esc(valor)}</b> —
+      mas este leitor <b>nao conseguiu estabelecer que a nota e do bloco desta linha</b>. Uma
+      etichetta com dois blocos (pieno campo e serra) tem uma nota por bloco. O numero nao e
+      publicado; a nota tambem nao e afirmada
+      ${d.note_says?`<div class="meta"><i>&ldquo;${esc(String(d.note_says).slice(0,180))}&rdquo;</i></div>`:''}
+      (<code>R-15</code>)</div>`;
   if (estado === 'MAX_CONTRADICTED_BY_LABEL_NOTE')
     return `${val('NOT_PROVED_BY_LABEL_NOTE')}<div class="meta">a tabela dizia
       <b>${esc(valor)}</b> por posicao de linha; a nota da etichetta que ENUMERA culturas poe
