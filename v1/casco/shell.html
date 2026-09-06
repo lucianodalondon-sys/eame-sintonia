@@ -8,32 +8,29 @@
   <h1>SINTONIA &mdash; LABEL INTELLIGENCE</h1>
   <span class="sub">ADAMA Italia &middot; {VERSION} &middot;
   fonte: {AUTHORITY} &middot; regras <code>{RULESET}</code></span>
+  <div class="sub"><span class="pill p-warn">PILOT / SHADOW TOOL</span>
+    NOT YET INTEGRATED INTO SINTONIA PRODUCTION &middot;
+    superficie deliberadamente estreitada para esta demonstracao</div>
   <div class="sub" id="relogio"></div>
 </header>
 <nav>
-  <a class="on" data-v="today">O QUE MUDOU</a>
+  <a class="on" data-v="home">VISAO GERAL</a>
+  <a data-v="today">O QUE MUDOU</a>
   <a data-v="produto">PRODUTO 360</a>
   <a data-v="timeline">LINHA DO TEMPO</a>
-  <a data-v="crop">CULTURA &times; ALVO</a>
   <a data-v="cal">CALENDARIO</a>
   <a data-v="action">POR AREA</a>
   <a data-v="review">FILA DE REVISAO</a>
   <a data-v="cov">COBERTURA</a>
   <a data-v="search">BUSCA</a>
 </nav>
-<section class="view on" id="v-today"></section>
+<section class="view on" id="v-home"></section>
+<section class="view" id="v-today"></section>
 <section class="view" id="v-produto">
   <div class="filters"><select id="psel"></select></div>
   <div id="pdet"></div>
 </section>
 <section class="view" id="v-timeline"></section>
-<section class="view" id="v-crop">
-  <div class="filters">
-    <input id="cq" placeholder="cultura (ex.: vite, frumento)" size="26">
-    <input id="ct" placeholder="alvo (ex.: peronospora, fusariosi)" size="26">
-  </div>
-  <div id="cres"></div>
-</section>
 <section class="view" id="v-cal"></section>
 <section class="view" id="v-action"></section>
 <section class="view" id="v-review"></section>
