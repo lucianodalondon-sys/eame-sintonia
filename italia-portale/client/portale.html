@@ -1898,7 +1898,7 @@
             <span style="font-size:13px;font-weight:700;color:#fff;line-height:1.2">{{ p.name }}</span>
             <span style="font-size:10px;font-weight:700;letter-spacing:0.08em;color:{{ p.catColor }}">{{ p.cat }}</span>
             <span style="font-size:10px;color:#9A9391;line-height:1.4">{{ p.ai }}</span>
-            <span style="font-size:10px;color:#8F8886;padding-top:2px">{{ p.verified }} ✓ · {{ p.related }} ○</span>
+            <span style="font-size:10px;color:{{ p.proofColor }};padding-top:2px">{{ p.proof }}</span>
           </div>
         </sc-for>
       </div>
@@ -6788,9 +6788,22 @@ class Component extends DCLogic {
             : '—',
           cat: p.categoryLabel || '—',
           verified: p.verifiedLinks.length, check: p.checkNeededLinks.length,
-          /* Exposed for the badge line the markup still has to grow: 19 products
-             carry a RELATED_PORTFOLIO row and today the card shows them as 0 ✓ · 0 △. */
           related: p.relatedLinks.length, rejected: p.rejectedLinks.length,
+          /* «0 ✓ · 0 ○» E UN NUMERO DOVE SERVE UNA PAROLA.
+             Ventiquattro schede su cinquantuno non hanno righe d'uso nel corpus
+             delle etichette. Lo zero e vero — ma dice «nessuna riga», e chi
+             legge sente «nessun prodotto». Il vocabolario per dirlo esiste gia
+             nel modello, con la sua tinta: NON CONFERMATO IN QUESTA LETTURA.
+
+                 UNO ZERO VERO MERITA UN NOME, NON UNA CIFRA.
+
+             Le schede che hanno legami continuano a mostrare i due conteggi:
+             li il numero e l'informazione. */
+          proof: (p.verifiedLinks.length || p.relatedLinks.length)
+            ? (p.verifiedLinks.length + ' ✓ · ' + p.relatedLinks.length + ' ○')
+            : ((T.PSTATE && T.PSTATE.NO_CONFIRMED_MATCH_CURRENT_READING) || 'NOT CONFIRMED IN THIS READING'),
+          proofColor: (p.verifiedLinks.length || p.relatedLinks.length) ? '#8F8886'
+            : ((AM.STRENGTH && AM.STRENGTH.NO_CONFIRMED_MATCH_CURRENT_READING) || {}).color || '#B1A9A7',
           catColor: TINT[p.categoryLabel] || (CU.unknown || {}).color || '#8F8886',
           go: () => this.openProduct(p.name)
         })),
