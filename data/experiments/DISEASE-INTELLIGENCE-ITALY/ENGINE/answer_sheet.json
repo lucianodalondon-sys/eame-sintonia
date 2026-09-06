@@ -1,9 +1,11 @@
 {
  "OLIVO-BACTROCERA-TOSCANA": {
   "1_WHAT_HAPPENED": {
-   "STATEMENT": "In the 28 days to 2026-09-06, official scouts recorded damaging olive-fly infestation on 1168 visits to 469 monitored olive sites in Toscana.",
-   "n_visits": 1168,
-   "n_sites": 469
+   "STATEMENT": "In the 28 days to 2026-09-06, official scouts scored 1168 visits for damaging olive-fly infestation across 469 monitored olive sites in Toscana. 34 of those sites had it present; 435 did not.",
+   "n_visits_scored": 1168,
+   "n_sites_monitored": 469,
+   "n_sites_with_issue_present": 34,
+   "NOTE": "a scored visit is not a detection; the two were conflated until 2026-09-06"
   },
   "2_WHERE": {
    "PROVINCES_WITH_DATA": [
@@ -40,7 +42,7 @@
     "VALUE": 0.0577,
     "UNITS": "share of monitored sites with the issue present",
     "n_sites": 156,
-    "BASELINE_MEDIAN": 0.4586
+    "BASELINE_MEDIAN": 0.4633
    },
    "Livorno": {
     "VALUE": 0.1169,
@@ -143,7 +145,7 @@
    "WITHHELD_LOW_CONFIDENCE": {
     "Massa-Carrara": {
      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
-     "LABEL_STABILITY": 0.667,
+     "LABEL_STABILITY": 0.644,
      "HISTORICAL_COVERAGE": 0.19
     }
    },
@@ -228,17 +230,19 @@
     "ADAMA_PRODUCT_RELATION"
    ],
    "PARAMETER_DEPENDENCE": {
-    "MEAN_LABEL_STABILITY": 0.927,
-    "GRID_SIZE": 45
+    "MEAN_LABEL_STABILITY": 0.918,
+    "GRID_SIZE": 135
    },
    "SAMPLING": "the panel is the set of monitored fields, which is not a random sample of the region's area; the figure describes the monitored network, not the region"
   }
  },
  "VITE-OIDIO-TOSCANA": {
   "1_WHAT_HAPPENED": {
-   "STATEMENT": "In the 28 days to 2026-09-06, official scouts recorded powdery mildew on leaves on 342 visits to 165 monitored vine sites in Toscana.",
-   "n_visits": 342,
-   "n_sites": 165
+   "STATEMENT": "In the 28 days to 2026-09-06, official scouts scored 342 visits for powdery mildew on leaves across 165 monitored vine sites in Toscana. 0 of those sites had it present; 165 did not.",
+   "n_visits_scored": 342,
+   "n_sites_monitored": 165,
+   "n_sites_with_issue_present": 0,
+   "NOTE": "a scored visit is not a detection; the two were conflated until 2026-09-06"
   },
   "2_WHERE": {
    "PROVINCES_WITH_DATA": [
@@ -369,7 +373,7 @@
    "WITHHELD_LOW_CONFIDENCE": {
     "Arezzo": {
      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
-     "LABEL_STABILITY": 0.933,
+     "LABEL_STABILITY": 0.911,
      "HISTORICAL_COVERAGE": 0.45
     },
     "Firenze": {
@@ -379,37 +383,37 @@
     },
     "Grosseto": {
      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
-     "LABEL_STABILITY": 0.711,
+     "LABEL_STABILITY": 0.63,
      "HISTORICAL_COVERAGE": 0.15
     },
     "Livorno": {
      "STATE_WOULD_BE": "LOWER_THAN_USUAL",
-     "LABEL_STABILITY": 0.267,
+     "LABEL_STABILITY": 0.215,
      "HISTORICAL_COVERAGE": 0.05
     },
     "Lucca": {
      "STATE_WOULD_BE": "LOWER_THAN_USUAL",
-     "LABEL_STABILITY": 0.333,
+     "LABEL_STABILITY": 0.259,
      "HISTORICAL_COVERAGE": 0.05
     },
     "Massa-Carrara": {
      "STATE_WOULD_BE": "LOWER_THAN_USUAL",
-     "LABEL_STABILITY": 0.267,
+     "LABEL_STABILITY": 0.207,
      "HISTORICAL_COVERAGE": 0.05
     },
     "Pisa": {
      "STATE_WOULD_BE": "LOWER_THAN_USUAL",
-     "LABEL_STABILITY": 0.733,
+     "LABEL_STABILITY": 0.674,
      "HISTORICAL_COVERAGE": 0.2
     },
     "Pistoia": {
      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
-     "LABEL_STABILITY": 0.667,
+     "LABEL_STABILITY": 0.489,
      "HISTORICAL_COVERAGE": 0.05
     },
     "Siena": {
      "STATE_WOULD_BE": "TYPICAL_FOR_THE_DATE",
-     "LABEL_STABILITY": 0.822,
+     "LABEL_STABILITY": 0.8,
      "HISTORICAL_COVERAGE": 0.4
     }
    },
@@ -511,8 +515,8 @@
     "ADAMA_PRODUCT_RELATION"
    ],
    "PARAMETER_DEPENDENCE": {
-    "MEAN_LABEL_STABILITY": 0.651,
-    "GRID_SIZE": 45
+    "MEAN_LABEL_STABILITY": 0.596,
+    "GRID_SIZE": 135
    },
    "SAMPLING": "the panel is the set of monitored fields, which is not a random sample of the region's area; the figure describes the monitored network, not the region"
   }

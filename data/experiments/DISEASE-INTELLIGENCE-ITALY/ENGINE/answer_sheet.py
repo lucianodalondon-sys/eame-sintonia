@@ -35,13 +35,21 @@ def answer_sheet(case_dir, var_id, as_of, issue, crop, region, metric="INCIDENCE
     def st(p): return P[p]["STATE"]
     a = collections.OrderedDict()
 
+    # CORRECTED 2026-09-06. This sentence used to read "scouts recorded <issue> on N visits",
+    # which states that N visits FOUND the issue. N is the number of visits SCORED for it, and
+    # for four of those provinces the incidence is 0.000 — the sentence contradicted the table
+    # directly beneath it. Scored, present and sites-with-it are now three separate numbers.
+    n_scored = sum(v["n_visits"] for v in known.values())
+    n_sites_tot = sum(v["n_sites"] for v in known.values())
+    n_sites_pos = sum(round(v["VALUE"] * v["n_sites"]) for v in known.values())
     a["1_WHAT_HAPPENED"] = {
-        "STATEMENT": (f"In the 28 days to {as_of}, official scouts recorded {issue} on "
-                      f"{sum(v['n_visits'] for v in known.values())} visits to "
-                      f"{sum(v['n_sites'] for v in known.values())} monitored {crop} sites in {region}."
-                      if known else "NOT_KNOWN"),
-        "n_visits": sum(v["n_visits"] for v in known.values()) or None,
-        "n_sites": sum(v["n_sites"] for v in known.values()) or None}
+        "STATEMENT": (f"In the 28 days to {as_of}, official scouts scored {n_scored} visits for "
+                      f"{issue} across {n_sites_tot} monitored {crop} sites in {region}. "
+                      f"{n_sites_pos} of those sites had it present; {n_sites_tot - n_sites_pos} "
+                      f"did not." if known else "NOT_KNOWN"),
+        "n_visits_scored": n_scored or None, "n_sites_monitored": n_sites_tot or None,
+        "n_sites_with_issue_present": n_sites_pos if known else None,
+        "NOTE": "a scored visit is not a detection; the two were conflated until 2026-09-06"}
 
     a["2_WHERE"] = {"PROVINCES_WITH_DATA": sorted(known),
                     "PROVINCES_WITHOUT_DATA": sorted(p for p in P if p not in known),

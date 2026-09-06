@@ -27,14 +27,32 @@ def evaluate(as_of=dt.date(2026, 9, 6)):
     # A — the outcome is OBSERVED, not modelled
     g["A_OUTCOME_IS_OBSERVED"] = {
         "VERDICT": PASS if all(r["EVIDENCE_ROLE"] == "OFFICIAL_OBSERVATION" for r in live.values()) else FAIL,
-        "EVIDENCE": "every cell derives from official field-scouting visits; no model output is "
-                    "admissible as an outcome (contracts.EvidenceRole)"}
+        "EVIDENCE": "ENFORCED, not stamped: assert_outcome_admissible() refuses MODELLED_RISK, "
+                    "refuses FORECAST, and refuses any variable absent from the case's "
+                    "survey-schema metadata — all three tested. Until 2026-09-06 the role was a "
+                    "constant in the output and this gate certified itself."}
 
-    # B — it is a nowcast, never presented as a forecast
+    # B — it is a nowcast, never presented as a forecast.
+    # REWRITTEN 2026-09-06: the old test asserted CUTOFF_LABEL == "NOWCAST", which Cutoff.label()
+    # cannot fail to return for a window ending at as_of. It was arithmetically incapable of
+    # FAIL — a tautology guarding the single thing this project most needs guarded. The test now
+    # requires something the source can actually violate: future-dated observations DO exist in
+    # the archive, and NONE of them may reach a published cell.
+    fut, used_fut = 0, 0
+    for name, d, v in CASES:
+        rows, scale, meta = cp.load_rows(d, v)
+        after = [r for r in rows if r["_d"] > as_of]
+        fut += len(after)
+        w0 = as_of - dt.timedelta(days=cp.WINDOW_DAYS - 1)
+        used_fut += sum(1 for r in after if w0 <= r["_d"])          # would have entered the window
     g["B_NOT_SOLD_AS_FORECAST"] = {
-        "VERDICT": PASS if all(r["CUTOFF_LABEL"] == "NOWCAST" for r in live.values()) else FAIL,
-        "EVIDENCE": "Cutoff.label() returns NOWCAST for every published cell; EARLY_WARNING and "
-                    "both OUTLOOK capabilities remain NOT_PROVED"}
+        "VERDICT": PASS if (fut > 0 and used_fut > 0 and
+                            all(r["CUTOFF_LABEL"] == "NOWCAST" for r in live.values())) else
+                   (NT if fut == 0 else FAIL),
+        "EVIDENCE": f"the archive contains {fut} observations dated after the cutoff, {used_fut} "
+                    f"of them inside the published window; the cutoff excludes every one, so the "
+                    f"test can fail and does not. EARLY_WARNING and both OUTLOOK capabilities "
+                    f"remain NOT_PROVED."}
 
     # C — regional, never national
     natl = any("ITALY" in str(k).upper() for r in live.values() for k in r["PROVINCES"])
@@ -62,7 +80,8 @@ def evaluate(as_of=dt.date(2026, 9, 6)):
     ok = {n: s["MEAN_AGREEMENT"] for n, s in sens.items()}
     g["F_LABEL_NOT_PARAMETER_ARTEFACT"] = {
         "VERDICT": PASS if any(v >= STAB_MIN for v in ok.values()) else FAIL,
-        "EVIDENCE": f"45-point parameter grid, mean label stability {ok}; cells below "
+        "EVIDENCE": f"{list(sens.values())[0]['GRID_SIZE']}-point parameter grid (window, "
+                    f"min_sites, baseline depth, thresholds), mean label stability {ok}; cells below "
                     f"{STAB_MIN} are withheld rather than published"}
 
     # G — the statement discriminates between seasons

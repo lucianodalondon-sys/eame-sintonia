@@ -202,6 +202,15 @@ def current_pressure(case_dir, var_id, as_of, metric="INCIDENCE",
                      evidence_role=EvidenceRole.OFFICIAL_OBSERVATION):
     rows, scale, meta = _pre if _pre else load_rows(case_dir, var_id)
     role = assert_outcome_admissible(case_dir, var_id, evidence_role)
+
+    # FAILURE != ZERO, applied — not merely defined. A case declares its denominator variable in
+    # its collection index; when it does not, the ABSENCE is published, never assumed harmless.
+    idx = json.load(open(os.path.join(case_dir, "collection_index.json")))
+    denom_var, guard_info = idx.get("DENOMINATOR_VAR"), {"DENOMINATOR_DECLARED": "NO"}
+    if denom_var is not None:
+        rows, guard_info = denominator_guard(rows, case_dir, denom_var)
+        guard_info["DENOMINATOR_DECLARED"] = "YES"
+    completeness = season_completeness(rows, as_of)
     mode = meta["VALUE_MODE"]
     if mode == "UNSUPPORTED":
         raise ValueError(f"REFUSED: var {var_id} is neither coded nor numeric in the source metadata")
@@ -218,6 +227,8 @@ def current_pressure(case_dir, var_id, as_of, metric="INCIDENCE",
            "DATA_LATENCY_DAYS": (as_of - latest).days if latest else None,
            "SOURCE": meta["api"], "PARAMS": {"WINDOW_DAYS": window_days, "MIN_SITES": min_sites,
                                              "MIN_BASE": min_base, "HIGH_P": high_p, "LOW_P": low_p},
+           "DENOMINATOR_GUARD": guard_info,
+           "SEASON_STATE": {str(y): v["STATE"] for y, v in completeness.items()},
            "PROVINCES": {}}
 
     for prov, prows in sorted(by_prov.items()):
@@ -234,6 +245,11 @@ def current_pressure(case_dir, var_id, as_of, metric="INCIDENCE",
             b = _window_value(prows, scale, _shift_year(lo, y), _shift_year(hi, y), mode)
             if b and b["n_sites"] >= min_sites: base.append((y, b[metric]))
         rec = {"VALUE": cur[metric], "n_sites": cur["n_sites"], "n_visits": cur["n_visits"],
+               "EVIDENCE": {"SOURCE": meta["api"], "ROLE": role,
+                            "RAW_FILES": sorted(meta["hashes"]),
+                            "RAW_SHA256": sorted(meta["hashes"].values())[:1] and
+                                          list(sorted(meta["hashes"].items()))[-1],
+                            "WINDOW": [lo.isoformat(), hi.isoformat()]},
                "BASELINE_SEASONS": [y for y, _ in base], "BASELINE_N": len(base),
                "BASELINE_MEDIAN": round(sorted(v for _, v in base)[len(base) // 2], 4) if base else None}
         if len(base) < min_base:
@@ -251,11 +267,12 @@ def current_pressure(case_dir, var_id, as_of, metric="INCIDENCE",
 def sensitivity(case_dir, var_id, as_of, metric="INCIDENCE"):
     """The parameters ARE the judgement. Measure how much the published label depends on them."""
     pre = load_rows(case_dir, var_id)
-    grid = [(w, m, hp, lp) for w in (14, 21, 28, 35, 42) for m in (5, 8, 12)
+    grid = [(w, m, mb, hp, lp) for w in (14, 21, 28, 35, 42) for m in (5, 8, 12)
+            for mb in (3, 5, 8)
             for hp, lp in ((0.75, 0.25), (0.80, 0.20), (0.90, 0.10))]
-    runs = [current_pressure(case_dir, var_id, as_of, metric, w, m, MIN_BASE, hp, lp, _pre=pre)
-            for w, m, hp, lp in grid]
-    ref = runs[grid.index((WINDOW_DAYS, MIN_SITES, HIGH_P, LOW_P))]
+    runs = [current_pressure(case_dir, var_id, as_of, metric, w, m, mb, hp, lp, _pre=pre)
+            for w, m, mb, hp, lp in grid]
+    ref = runs[grid.index((WINDOW_DAYS, MIN_SITES, MIN_BASE, HIGH_P, LOW_P))]
     provs = sorted(ref["PROVINCES"])
     stab = {}
     for p in provs:

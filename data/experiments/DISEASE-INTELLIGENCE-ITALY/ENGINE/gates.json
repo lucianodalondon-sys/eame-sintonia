@@ -7,7 +7,7 @@
   },
   "B_NOT_SOLD_AS_FORECAST": {
    "VERDICT": "PASS",
-   "EVIDENCE": "Cutoff.label() returns NOWCAST for every published cell; EARLY_WARNING and both OUTLOOK capabilities remain NOT_PROVED"
+   "EVIDENCE": "the archive contains 15 observations dated after the cutoff, 15 of them inside the published window; the cutoff excludes every one, so the test can fail and does not. EARLY_WARNING and both OUTLOOK capabilities remain NOT_PROVED."
   },
   "C_REGIONAL_NOT_NATIONAL": {
    "VERDICT": "PASS",
@@ -23,11 +23,11 @@
   },
   "F_LABEL_NOT_PARAMETER_ARTEFACT": {
    "VERDICT": "PASS",
-   "EVIDENCE": "45-point parameter grid, mean label stability {'OLIVO x BACTROCERA x TOSCANA': 0.927, 'VITE x OIDIO x TOSCANA': 0.651}; cells below 0.8 are withheld rather than published"
+   "EVIDENCE": "45-point parameter grid, mean label stability {'OLIVO x BACTROCERA x TOSCANA': 0.918, 'VITE x OIDIO x TOSCANA': 0.596}; cells below 0.8 are withheld rather than published"
   },
   "G_DISCRIMINATES_BETWEEN_SEASONS": {
    "VERDICT": "PASS",
-   "EVIDENCE": "walk-forward dominant-class share {'OLIVO x BACTROCERA x TOSCANA': 0.439, 'VITE x OIDIO x TOSCANA': 0.667} (<=0.75 required); provinces disagree inside the same season"
+   "EVIDENCE": "walk-forward dominant-class share {'OLIVO x BACTROCERA x TOSCANA': 0.424, 'VITE x OIDIO x TOSCANA': 0.667} (<=0.75 required); provinces disagree inside the same season"
   },
   "H_REFRESHABLE_WITHOUT_RESEARCH": {
    "VERDICT": "PASS",

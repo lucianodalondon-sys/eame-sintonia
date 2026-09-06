@@ -113,12 +113,12 @@ PARAMETERS (all of them)  WINDOW_DAYS=28  MIN_SITES=8  MIN_BASE=5  HIGH_P=0.80  
 
 ### Is there hidden manual judgement? — measured, not asserted
 
-The only judgement is those five parameters. Their influence was measured over a 45-point grid
-(window 14/21/28/35/42 d × min_sites 5/8/12 × thresholds .75/.80/.90):
+The only judgement is those five parameters. Their influence was measured over a 135-point grid
+(window 14–42 d × min_sites 5/8/12 × baseline depth 3/5/8 × thresholds .75/.80/.90):
 
 ```
-BACTROCERA   MEAN_LABEL_STABILITY = 0.927   7/10 provinces identical at EVERY grid point
-OIDIO        MEAN_LABEL_STABILITY = 0.651   Livorno/Lucca/Massa-Carrara flip L / TYPICAL / UNKNOWN
+BACTROCERA   MEAN_LABEL_STABILITY = 0.918   7/10 provinces identical at EVERY grid point
+OIDIO        MEAN_LABEL_STABILITY = 0.596   Livorno/Lucca/Massa-Carrara flip L / TYPICAL / UNKNOWN
 ```
 
 Reproducibility: two independent runs are byte-identical (`REPRODUCIBLE=True`), every raw file
@@ -245,7 +245,7 @@ the gate. A tool that stays silent when it cannot speak is the finding, not the 
 ```
 AGRONOMIC_INTELLIGENCE_VALUE = PROVED for OLIVO x BACTROCERA x TOSCANA
                                        (8 provinces, 20 complete seasons + 1 in progress,
-                                        2-day latency, label stability 0.927,
+                                        2-day latency, label stability 0.918,
                                         province agreement on the published metric rho +0.449,
                                         which exceeds the effort agreement of +0.252)
                              = NOT_PROVED for VITE x OIDIO x TOSCANA

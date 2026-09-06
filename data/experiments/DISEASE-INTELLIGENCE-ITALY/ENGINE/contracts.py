@@ -187,7 +187,9 @@ class Capability:
 
     @staticmethod
     def route(outcome_exists: bool, outcome_numeric: bool, n_comparable_periods: int,
-              predictor_region_matches: bool, skill_state: Optional[str]) -> Dict[str, str]:
+              predictor_region_matches: bool, skill_state: Optional[str],
+              latency_days: Optional[int] = None, label_stability: Optional[float] = None,
+              publishable_units: Optional[int] = None) -> Dict[str, str]:
         """NOT_TESTABLE means the test could not be run. It is NOT a negative result."""
         C = Capability
         if not outcome_exists:
@@ -196,7 +198,20 @@ class Capability:
                      C.EARLY_WARNING, C.PRE_SEASON_OUTLOOK, C.NEXT_SEASON_OUTLOOK)}
         out = {C.HISTORICAL_INTELLIGENCE: C.PROVED}
         out[C.EVOLUTION_MONITOR] = C.PROVED if n_comparable_periods >= 5 else C.INSUFFICIENT_DATA
-        out[C.CURRENT_PRESSURE_MONITOR] = C.PROVED if outcome_exists else C.NOT_TESTABLE
+        # TIGHTENED 2026-09-06. This line used to read "PROVED if outcome_exists" — an archive
+        # from 2009 with nothing since would have been stamped a CURRENT pressure monitor, and
+        # the matrix stamped PROVED on five cells where the definition executes on one. A
+        # current-state claim needs three things the archive alone cannot supply: data recent
+        # enough to be current, a label that survives its own parameters, and at least one
+        # regional unit that passes the publication gate.
+        if not outcome_exists:
+            out[C.CURRENT_PRESSURE_MONITOR] = C.NOT_TESTABLE
+        elif latency_days is None or label_stability is None or publishable_units is None:
+            out[C.CURRENT_PRESSURE_MONITOR] = C.NOT_TESTABLE      # never measured = never proved
+        elif latency_days > 21 or label_stability < 0.80 or publishable_units < 1:
+            out[C.CURRENT_PRESSURE_MONITOR] = C.NOT_PROVED
+        else:
+            out[C.CURRENT_PRESSURE_MONITOR] = C.PROVED
         for c in (C.EARLY_WARNING, C.PRE_SEASON_OUTLOOK, C.NEXT_SEASON_OUTLOOK):
             if not predictor_region_matches:
                 out[c] = C.NOT_TESTABLE

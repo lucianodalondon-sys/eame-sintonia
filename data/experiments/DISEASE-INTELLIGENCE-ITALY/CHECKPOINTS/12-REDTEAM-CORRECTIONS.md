@@ -260,3 +260,71 @@ Refuted or not reproduced at the stated magnitude: C8, C12, C13 (latent only).
 
 Gates: still 9 PASS / 0 FAIL / 1 NOT_TESTABLE — but gate A now passes **because it is enforced**,
 not because it was asserted.
+
+---
+---
+
+# THIRD ROUND — the tautology, the dead code, and an over-claiming sentence
+
+## C14 — CONCEDED · **Gate B was arithmetically incapable of failing.**
+
+`B_NOT_SOLD_AS_FORECAST` tested `CUTOFF_LABEL == "NOWCAST"`. `Cutoff.label()` returns
+`FORECAST` only when the issue date precedes the target window — and the window is *built*
+ending at the issue date. The gate could not fail. **The single guarantee this project most
+needs was a tautology.**
+
+Rewritten to test something the source can violate: the archive **does** contain future-dated
+observations, and none may reach a published cell.
+
+```
+the archive contains 15 observations dated after the cutoff,
+15 of them inside the published window; the cutoff excludes every one.
+```
+
+Remove the cutoff filter and the gate fails. That is what a gate is for.
+
+## C15 — CONCEDED · `denominator_guard` and `season_completeness` were **dead code**.
+
+I wrote both, measured their impact, reported the measurement — and never called them. The
+`FAILURE != ZERO` protection existed as a function nobody invoked, which is the same failure as
+`contracts.py` existing and no runner importing it (C5). Both are now wired into
+`current_pressure()`. A case declares its denominator variable in its collection index; when it
+does **not**, the output carries `DENOMINATOR_DECLARED = NO` so the absence is visible instead
+of assumed harmless.
+
+## C16 — CONCEDED · the headline sentence over-claimed, and contradicted its own table.
+
+It read: *"scouts recorded damaging olive-fly infestation on 1 168 visits"*. 1 168 is the number
+of visits **scored for** the issue, not the number that found it — and the same sheet reported
+four of those provinces at incidence 0.000. Rewritten to keep three numbers apart: visits
+scored, sites monitored, sites with the issue present.
+
+## C17 — CONCEDED · `Capability.route` stamped `CURRENT_PRESSURE_MONITOR = PROVED` on the
+strength of an outcome existing at all.
+
+An archive that stopped in 2009 would have been certified a *current* pressure monitor. Now it
+requires three measured things — latency ≤ 21 days, label stability ≥ 0.80, and at least one
+regional unit passing the publication gate:
+
+```
+olive case measured today      -> PROVED
+oidio case measured today      -> NOT_PROVED
+archive with no recent data    -> NOT_PROVED
+never measured                 -> NOT_TESTABLE      (never measured is never proved)
+```
+
+## C18 — CONCEDED · `sensitivity()` varied four of five parameters. Baseline depth was a silent sixth.
+
+`MIN_BASE` was held at 5 across the whole grid. Now varied over {3, 5, 8}, so the grid is
+**135 points**, not 45. The stability numbers move slightly against me and the new ones are the
+ones published:
+
+```
+BACTROCERA  0.927 -> 0.918        OIDIO  0.651 -> 0.596
+```
+
+## C19 — CONCEDED · the per-cell `EVIDENCE` clause was declared and not emitted.
+
+The definition promised per-cell evidence; the output carried it only at the top level. Each
+published cell now carries its own source, role, window and raw-file hash. A cell that cannot
+produce them is not rendered (spec rule R8).
