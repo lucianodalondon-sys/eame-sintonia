@@ -610,10 +610,13 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
       + '<nav class="doors" aria-label="' + (lang === 'en' ? 'Tools' : 'Strumenti') + '">'
       + [['meeting', lang === 'en' ? 'Opportunity Radar' : 'Radar delle Opportunità'],
          ['portfolio', lang === 'en' ? 'Portfolio' : 'Portafoglio'],
-         ['future', lang === 'en' ? 'Future Radar' : 'Radar Futuro'],
+         /* NON «Radar Futuro»: quel nome e dei 44 ITFC di questa pagina.
+            La vista del portale porta 3 segnali IT-FUT- a monte — un altro
+            insieme. Un nome per una popolazione, e il cancello lo prova. */
+         ['future', lang === 'en' ? 'Signal Archive' : 'Archivio segnali'],
          ['windows', lang === 'en' ? 'Crop Windows' : 'Finestre Colturali'],
          ['competitors', lang === 'en' ? 'Competitor Watch' : 'Concorrenza'],
-         ['sources', lang === 'en' ? 'Sources' : 'Fonti']]
+         ['sources', lang === 'en' ? 'Source Register' : 'Registro delle fonti']]
         .map(function (d) { return '<a href="portale.html#' + d[0] + '">' + esc(d[1]) + '</a>'; }).join('')
       + '</nav>'
       + '<p class="lede">' + tt('casaLede') + '</p></header>'
