@@ -1,0 +1,301 @@
+{
+ "G1_SEMANTIC_SHEET_IS_BINDING": {
+  "PROPERTY": "no column is used without an entry in the semantic sheet",
+  "MUTATION": "MUTATION: the sheet check is removed and any name is accepted",
+  "VERDICT_ON_REAL_DATA": "PASS",
+  "VERDICT_UNDER_ITS_MUTATION": "FAIL",
+  "MUTATION_KILLED_IT": true,
+  "STATUS": "PROVED",
+  "EVIDENCE_REAL": {
+   "refusals": [
+    [
+     "LEAF_WETNESS",
+     "REFUSED"
+    ],
+    [
+     "WEATHER_MODEL_RISK",
+     "REFUSED"
+    ],
+    [
+     "PRODUCT_APPLIED",
+     "REFUSED"
+    ],
+    [
+     "var 42 (no sheet entry)",
+     "REFUSED"
+    ]
+   ]
+  },
+  "EVIDENCE_MUTATED": {
+   "refusals": [
+    [
+     "LEAF_WETNESS",
+     "ACCEPTED"
+    ],
+    [
+     "WEATHER_MODEL_RISK",
+     "ACCEPTED"
+    ],
+    [
+     "PRODUCT_APPLIED",
+     "ACCEPTED"
+    ],
+    [
+     "var 42 (no sheet entry)",
+     "REFUSED"
+    ]
+   ]
+  }
+ },
+ "G2_VISIT_KEY_IS_UNIQUE": {
+  "PROPERTY": "one (id_field, date) is one visit, and a collision raises instead of being resolved",
+  "MUTATION": "MUTATION: last writer wins, silently",
+  "VERDICT_ON_REAL_DATA": "PASS",
+  "VERDICT_UNDER_ITS_MUTATION": "FAIL",
+  "MUTATION_KILLED_IT": true,
+  "STATUS": "PROVED",
+  "EVIDENCE_REAL": {
+   "injected_collision_raises": true,
+   "real_archive_free_of_collisions": true
+  },
+  "EVIDENCE_MUTATED": {
+   "injected_collision_raises": false,
+   "real_archive_free_of_collisions": true
+  }
+ },
+ "G3_DETERMINISTIC": {
+  "PROPERTY": "same bytes, same result, whatever the file order",
+  "MUTATION": "MUTATION: unsorted reads keyed on the colliding id_survey",
+  "VERDICT_ON_REAL_DATA": "PASS",
+  "VERDICT_UNDER_ITS_MUTATION": "FAIL",
+  "MUTATION_KILLED_IT": true,
+  "STATUS": "PROVED",
+  "EVIDENCE_REAL": {
+   "hashes": [
+    "6ef8545e743f6670d9d976ac48cd75952ff694471818ed6aed7295270a9f3826",
+    "6ef8545e743f6670d9d976ac48cd75952ff694471818ed6aed7295270a9f3826"
+   ],
+   "distinct": 1
+  },
+  "EVIDENCE_MUTATED": {
+   "hashes": [
+    "RAISED:IndexError",
+    "RAISED:IndexError"
+   ],
+   "distinct": 1
+  }
+ },
+ "G4_NOTHING_AFTER_AS_OF": {
+  "PROPERTY": "no observation dated after as_of reaches a published number",
+  "MUTATION": "MUTATION: the window loses its upper bound",
+  "VERDICT_ON_REAL_DATA": "PASS",
+  "VERDICT_UNDER_ITS_MUTATION": "FAIL",
+  "MUTATION_KILLED_IT": true,
+  "STATUS": "PROVED",
+  "EVIDENCE_REAL": {
+   "honest_pct": 0.0664,
+   "with_a_future_row_pct": 0.0664,
+   "honest_n": 241,
+   "with_a_future_row_n": 241
+  },
+  "EVIDENCE_MUTATED": {
+   "honest_pct": 0.0664,
+   "with_a_future_row_pct": 80.5931,
+   "honest_n": 241,
+   "with_a_future_row_n": 242
+  }
+ },
+ "G5_EVERY_RATE_HAS_A_DENOMINATOR": {
+  "PROPERTY": "a rate over a missing or zero sample size is not published, and the exclusions are counted",
+  "MUTATION": "MUTATION: a cell is published with a zero denominator",
+  "VERDICT_ON_REAL_DATA": "PASS",
+  "VERDICT_UNDER_ITS_MUTATION": "FAIL",
+  "MUTATION_KILLED_IT": true,
+  "STATUS": "PROVED",
+  "EVIDENCE_REAL": {
+   "published_cells_without_a_denominator": [],
+   "visits_excluded_for_a_zero_or_missing_denominator": 3558
+  },
+  "EVIDENCE_MUTATED": {
+   "published_cells_without_a_denominator": [
+    "<mutation: a cell published with a zero denominator>"
+   ],
+   "visits_excluded_for_a_zero_or_missing_denominator": 3558
+  }
+ },
+ "G6_THE_BAND_IS_APPLIED_TO_A_RATE": {
+  "PROPERTY": "the source's colour band is applied to value/sample, never to the raw count",
+  "MUTATION": "MUTATION: the band is applied to the raw count",
+  "VERDICT_ON_REAL_DATA": "PASS",
+  "VERDICT_UNDER_ITS_MUTATION": "FAIL",
+  "MUTATION_KILLED_IT": true,
+  "STATUS": "PROVED",
+  "EVIDENCE_REAL": {
+   "case": "6 infested drupes out of 200 sampled",
+   "rate_pct": 3.0,
+   "band_from_the_rate": {
+    "label": "0-6%",
+    "meaning": "green",
+    "source": "the source's own legend"
+   },
+   "band_if_the_raw_count_were_used": {
+    "label": "7-9%",
+    "meaning": "yellow",
+    "source": "the source's own legend"
+   },
+   "band_used": {
+    "label": "0-6%",
+    "meaning": "green",
+    "source": "the source's own legend"
+   }
+  },
+  "EVIDENCE_MUTATED": {
+   "case": "6 infested drupes out of 200 sampled",
+   "rate_pct": 3.0,
+   "band_from_the_rate": {
+    "label": "0-6%",
+    "meaning": "green",
+    "source": "the source's own legend"
+   },
+   "band_if_the_raw_count_were_used": {
+    "label": "7-9%",
+    "meaning": "yellow",
+    "source": "the source's own legend"
+   },
+   "band_used": {
+    "label": "7-9%",
+    "meaning": "yellow",
+    "source": "the source's own legend"
+   }
+  }
+ },
+ "G7_HISTORY_IS_MATCHED_PANEL": {
+  "PROPERTY": "a historical class is published only where enough of the same groves exist on both sides",
+  "MUTATION": "MUTATION: the UNMATCHED historical class is published, as the previous engine did",
+  "VERDICT_ON_REAL_DATA": "PASS",
+  "VERDICT_UNDER_ITS_MUTATION": "FAIL",
+  "MUTATION_KILLED_IT": true,
+  "STATUS": "PROVED",
+  "EVIDENCE_REAL": {
+   "states": {
+    "Pistoia": "INSUFFICIENT_DATA",
+    "Prato": "INSUFFICIENT_DATA",
+    "Firenze": "BELOW_HISTORICAL",
+    "Siena": "BELOW_HISTORICAL"
+   },
+   "provinces_whose_panel_rotated_are_silent": true,
+   "provinces_with_a_stable_panel_still_speak": true,
+   "matched_seasons": {
+    "Pistoia": 0,
+    "Prato": 0,
+    "Firenze": 14,
+    "Siena": 17
+   }
+  },
+  "EVIDENCE_MUTATED": {
+   "states": {
+    "Pistoia": "BELOW_HISTORICAL",
+    "Prato": "BELOW_HISTORICAL",
+    "Firenze": "BELOW_HISTORICAL",
+    "Siena": "TYPICAL"
+   },
+   "provinces_whose_panel_rotated_are_silent": false,
+   "provinces_with_a_stable_panel_still_speak": true,
+   "matched_seasons": {
+    "Pistoia": 0,
+    "Prato": 0,
+    "Firenze": 14,
+    "Siena": 17
+   }
+  }
+ },
+ "G8_TREND_IS_OBSERVED_ONLY": {
+  "PROPERTY": "the trend is arithmetic over windows that have already ended, in a closed vocabulary",
+  "MUTATION": "MUTATION: a forecast word is emitted",
+  "VERDICT_ON_REAL_DATA": "PASS",
+  "VERDICT_UNDER_ITS_MUTATION": "FAIL",
+  "MUTATION_KILLED_IT": true,
+  "STATUS": "PROVED",
+  "EVIDENCE_REAL": {
+   "vocabulary_closed": true,
+   "cells_whose_trend_input_moves_with_as_of": 4,
+   "forbidden_words_found": [],
+   "trends_now": {
+    "Arezzo": "UNKNOWN",
+    "Firenze": "STABLE_OBSERVED",
+    "Grosseto": "STABLE_OBSERVED",
+    "Livorno": "STABLE_OBSERVED",
+    "Lucca": "INCREASING_OBSERVED",
+    "Massa-Carrara": "STABLE_OBSERVED",
+    "Pisa": "STABLE_OBSERVED",
+    "Pistoia": "STABLE_OBSERVED",
+    "Prato": "UNKNOWN",
+    "Siena": "STABLE_OBSERVED"
+   }
+  },
+  "EVIDENCE_MUTATED": {
+   "vocabulary_closed": true,
+   "cells_whose_trend_input_moves_with_as_of": 4,
+   "forbidden_words_found": [
+    "<mutation: a forecast word emitted>"
+   ],
+   "trends_now": {
+    "Arezzo": "UNKNOWN",
+    "Firenze": "STABLE_OBSERVED",
+    "Grosseto": "STABLE_OBSERVED",
+    "Livorno": "STABLE_OBSERVED",
+    "Lucca": "INCREASING_OBSERVED",
+    "Massa-Carrara": "STABLE_OBSERVED",
+    "Pisa": "STABLE_OBSERVED",
+    "Pistoia": "STABLE_OBSERVED",
+    "Prato": "UNKNOWN",
+    "Siena": "STABLE_OBSERVED"
+   }
+  }
+ },
+ "G9_PROVENANCE_COVERS_EVERY_INPUT": {
+  "PROPERTY": "every file the output depends on is hashed, and the hash matches the disk",
+  "MUTATION": "MUTATION: a file is read but never hashed",
+  "VERDICT_ON_REAL_DATA": "PASS",
+  "VERDICT_UNDER_ITS_MUTATION": "FAIL",
+  "MUTATION_KILLED_IT": true,
+  "STATUS": "PROVED",
+  "EVIDENCE_REAL": {
+   "files_read": 84,
+   "files_hashed": 84,
+   "read_but_not_hashed": [],
+   "hash_does_not_match_disk": []
+  },
+  "EVIDENCE_MUTATED": {
+   "files_read": 85,
+   "files_hashed": 84,
+   "read_but_not_hashed": [
+    "<mutation: a file read but never hashed>"
+   ],
+   "hash_does_not_match_disk": []
+  }
+ },
+ "G10_NO_COMMERCIAL_CONVERSION": {
+  "PROPERTY": "the output contains no commercial action vocabulary",
+  "MUTATION": "MUTATION: an ACT_NOW / SALES_READY block is attached to a cell",
+  "VERDICT_ON_REAL_DATA": "PASS",
+  "VERDICT_UNDER_ITS_MUTATION": "FAIL",
+  "MUTATION_KILLED_IT": true,
+  "STATUS": "PROVED",
+  "EVIDENCE_REAL": {
+   "banned_vocabulary_found": []
+  },
+  "EVIDENCE_MUTATED": {
+   "banned_vocabulary_found": [
+    "ACT_NOW",
+    "SALES_READY"
+   ]
+  }
+ },
+ "_SUMMARY": {
+  "GATES": 10,
+  "PASS_ON_REAL_DATA": 10,
+  "PROVED_BY_THEIR_MUTATION": 10,
+  "SURVIVED_THEIR_MUTATION": 0
+ }
+}

@@ -1,0 +1,36 @@
+{
+ "AS_OF": "2026-09-06",
+ "METRICS": [
+  "ACTIVE_INFESTATION_COUNT",
+  "DAMAGING_INFESTATION_COUNT"
+ ],
+ "A_FILE_ORDER": {
+  "per_condition": {
+   "asc": "61ac20d6b5be53707ccc7261e4d0091d4ef72ed91ac4e6d78cd9b6db043546d8",
+   "desc": "61ac20d6b5be53707ccc7261e4d0091d4ef72ed91ac4e6d78cd9b6db043546d8",
+   "shuffle:1": "61ac20d6b5be53707ccc7261e4d0091d4ef72ed91ac4e6d78cd9b6db043546d8",
+   "shuffle:2": "61ac20d6b5be53707ccc7261e4d0091d4ef72ed91ac4e6d78cd9b6db043546d8",
+   "shuffle:3": "61ac20d6b5be53707ccc7261e4d0091d4ef72ed91ac4e6d78cd9b6db043546d8",
+   "shuffle:4": "61ac20d6b5be53707ccc7261e4d0091d4ef72ed91ac4e6d78cd9b6db043546d8",
+   "shuffle:5": "61ac20d6b5be53707ccc7261e4d0091d4ef72ed91ac4e6d78cd9b6db043546d8",
+   "shuffle:6": "61ac20d6b5be53707ccc7261e4d0091d4ef72ed91ac4e6d78cd9b6db043546d8"
+  },
+  "distinct_results": 1,
+  "DETERMINISTIC": true
+ },
+ "C_SAME_PROCESS_TWICE": {
+  "h1": "61ac20d6b5be53707ccc7261e4d0091d4ef72ed91ac4e6d78cd9b6db043546d8",
+  "h2": "61ac20d6b5be53707ccc7261e4d0091d4ef72ed91ac4e6d78cd9b6db043546d8",
+  "IDENTICAL": true
+ },
+ "D_INJECTED_KEY_COLLISION_RAISES": {
+  "RAISED": true,
+  "message": "visit key (1, '2026-09-01') appears twice with values 3.0 and 9.0"
+ },
+ "B_HASH_SEED": "varied across processes by t1_determinism.sh; see its output",
+ "NOT_TESTED_HERE": [
+  "a non-Windows filesystem",
+  "a non-UTF8 locale for READING (the reader opens raw bytes and decodes utf-8 explicitly)"
+ ],
+ "VERDICT": "DETERMINISTIC"
+}
