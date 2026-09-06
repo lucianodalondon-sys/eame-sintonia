@@ -173,6 +173,30 @@ FAMILIAS = {
         'CREATIVE_TEXT', 'AD_URL', 'SOURCE_ID',
         'PROVENANCE_STATE', 'PROVENANCE_STRENGTH',
         'OBSERVATION_CLASS', 'CONFIDENCE', 'CLAIM_DOMAIN', 'SOURCE_SCOPE',
+        # ── A LISTA FOI ESCRITA PARA UMA FORMA, E A FAMILIA TEM TRES ──────────
+        # COMPETITOR-ACTIVITIES carrega PAID 414, ORGANIC_VIDEO 147 e nota de
+        # observacao 16. Os campos acima sao os do anuncio pago. Os do video
+        # organico — TITLE, URL, PUBLISHED_AT, VIEWS, COMMENTS_COUNT, CHANNEL —
+        # existiam 147/147 no pacote e chegavam 0/147 ao navegador. Cento e
+        # quarenta e sete cartoes contados e vazios: sem titulo, sem link, sem
+        # data, sem canal.
+        #
+        #     UMA LISTA DE PERMISSAO ESCRITA CONTRA UMA SO FORMA APAGA AS OUTRAS
+        #     EM SILENCIO, E O SILENCIO E O PADRAO QUE ELA MESMA ESCOLHEU.
+        #
+        # Sao FACTOS da fonte publica, nao prosa de pesquisa: o titulo e o do
+        # video, na lingua em que o canal o publicou, e citacao publica nao se
+        # traduz. DESCRIPTION fica de fora: nenhuma tela a le, e o silencio
+        # continua a ser o padrao para o que ninguem pediu.
+        #
+        # CASE_ID atravessa porque e a UNICA prova de pais que estes 147 trazem
+        # — COUNTRY_REACHED e nulo em 147/147. Medido: 111 sao de casos IT, 26
+        # de ES e 10 de FR. Sem CASE_ID a tela nao consegue sequer DIZER que 36
+        # deles nao sao italianos; com ele, deixa de ser um facto escondido
+        # dentro de um envelope vazio. Excluir os 36 e decisao do dono do
+        # pacote, nao desta fronteira.
+        'TITLE', 'URL', 'PUBLISHED_AT', 'VIEWS', 'COMMENTS_COUNT', 'CHANNEL',
+        'CASE_ID',
     ), ('EVIDENCE_STATUS_WHY', 'WHAT_IT_PROVES', 'WHAT_IT_DOES_NOT_PROVE')),
 
     'scienceRecords': ('SCIENCE.json', (

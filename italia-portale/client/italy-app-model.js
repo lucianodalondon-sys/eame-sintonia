@@ -2337,6 +2337,27 @@
         issueScope: speciesIssues.length ? 'SPECIES' : issues.length ? 'GENERIC_TERM' : 'NOT_OBSERVED',
         speciesIssues,
         text: v21S(a.CREATIVE_TEXT), textExcerpt: v21S(a.CREATIVE_TEXT), url: v21S(a.AD_URL),
+        /* TRE FORME, NON DUE. Sopra c'e la forma dell'ANNUNCIO PAGATO:
+           CREATIVE_TEXT e AD_URL. I 147 ORGANIC_VIDEO non hanno nessuno dei
+           due — hanno TITLE, URL, PUBLISHED_AT, VIEWS, COMMENTS_COUNT e
+           CHANNEL, e arrivavano al modello come buste vuote perche la
+           frontiera del pacchetto non li dichiarava e questo adattatore non li
+           leggeva. Due frontiere, lo stesso silenzio.
+
+           Campi PROPRI, non riusati: `url`, `hasDate`, `startDate` e
+           `daysFromRef` portano il significato dell'annuncio pagato, e uno
+           schermo dichiara «89 undated ORGANIC_VIDEO» contando su di loro.
+           Riempirli con la data di pubblicazione cambierebbe un numero che la
+           tela afferma. Il video porta i suoi. */
+        videoTitle: v21S(a.TITLE), videoUrl: v21S(a.URL),
+        channelName: v21S(a.CHANNEL), publishedAt: v21S(a.PUBLISHED_AT),
+        views: N(a.VIEWS), commentsCount: N(a.COMMENTS_COUNT),
+        /* L'UNICA PROVA DI PAESE CHE QUESTI 147 PORTANO. COUNTRY_REACHED e
+           nullo in 147/147. Misurato sui CASE_ID: 111 IT, 26 ES, 10 FR. Il
+           campo viaggia COSI COM'E: nessun paese viene dedotto qui da un
+           prefisso — chi decide cosa e italiano e il proprietario del
+           pacchetto, non questa frontiera. */
+        caseId: v21S(a.CASE_ID),
         hasDate, dateState: hasDate ? 'OBSERVED' : 'NOT_OBSERVED',
         /* Still structurally empty, and for the same reason: the advertiser
            writes a Latin binomial and the window writes an English issue name.
