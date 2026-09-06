@@ -297,6 +297,109 @@ teste('SF-03 · R-13 aparece na tela, com FUSION_DETECTOR', () => {
   return `R-13 com contagem de acervo, como R-11 e R-12 ja tinham`;
 });
 
+// ---------------------------------------------------------------- PORTFOLIO
+// "Quais produtos ADAMA realmente servem para esta CULTURA E este PROBLEMA?"
+// e a pergunta de negocio. Ela tem duas metades e a tela nao pode dar uma so.
+teste('PORTFOLIO · autorizado NA CULTURA nao vira autorizado PARA O ALVO', () => {
+  let colapso = 0, ex = null;
+  P.products.forEach(p => (p.uses||[]).forEach(u => {
+    // um par so pode carregar o selo FATO se as DUAS colunas fecharem
+    const deveria = u.pair_check === 'PAIR_CONSISTENT_WITH_RULES'
+                 && u.target_name === 'TARGET_NAME_LITERAL';
+    if (u.fact !== deveria) { colapso++; ex = ex || [p.reg, u.crop, u.target]; }
+  }));
+  afirma(colapso === 0, `${colapso} pares com selo FATO incoerente com as duas colunas (ex ${ex})`);
+  // e a tela tem de imprimir as duas, nao a mais forte
+  const cq = document.querySelector('#cq'), ct = document.querySelector('#ct');
+  cq.value = 'vite'; ct.value = 'botrite'; viewCrop();
+  const h = html('#cres');
+  cq.value = ''; ct.value = ''; viewCrop();
+  afirma(h.includes('NAO_VERIFICADO'), 'a tela nao separa o nao-verificado do fato');
+  afirma(/duas metades/.test(h), 'a tela nao anuncia que a resposta tem duas metades');
+  const tot = P.products.reduce((a,p)=>a+(p.uses||[]).length,0);
+  const fa  = P.products.reduce((a,p)=>a+(p.uses||[]).filter(u=>u.fact).length,0);
+  return `FATO ${fa} de ${tot} pares publicados`;
+});
+
+teste('PORTFOLIO · VITE x BOTRITE nao e apresentado como provado', () => {
+  // Medido: 6 produtos publicam VITE x BOTRITE e NENHUM tem prova geometrica.
+  // Se algum dia um deles ganhar o selo FATO, tem de ser porque a regra provou.
+  const pares = [];
+  P.products.forEach(p => (p.uses||[]).forEach(u => {
+    if (u.crop === 'VITE' && u.target === 'BOTRITE') pares.push({p, u});
+  }));
+  afirma(pares.length > 0, 'VITE x BOTRITE sumiu do acervo — o teste perdeu o alvo');
+  pares.forEach(({p, u}) => {
+    if (u.fact) afirma(u.pair_check === 'PAIR_CONSISTENT_WITH_RULES',
+      `${p.reg} VITE x BOTRITE tem selo FATO sem prova de fio`);
+  });
+  const provados = pares.filter(x => x.u.fact).length;
+  return `${pares.length} produtos publicam VITE x BOTRITE · ${provados} com selo FATO`;
+});
+
+teste('PORTFOLIO · o escopo que a etichetta escreve na cultura nao some', () => {
+  // "VITE da vino" nao e "VITE": um produto autorizado so em uva de vinho nao
+  // pode aparecer sob o mesmo nome de um autorizado tambem em uva de mesa.
+  let comEscopo = 0, semDeclarar = 0, ex = null;
+  P.products.forEach(p => (p.uses||[]).forEach(u => {
+    if (!u.crop_scope || !u.crop_scope.length) return;
+    comEscopo++;
+    if (!escopoDaCultura(u).includes(u.crop_scope[0])) { semDeclarar++; ex = ex || [p.reg,u.crop]; }
+  }));
+  afirma(comEscopo > 0, 'nenhum par com escopo qualificado — o teste perdeu o alvo');
+  afirma(semDeclarar === 0, `${semDeclarar} pares nao declaram o escopo (ex ${ex})`);
+  // e o caso nomeado: VITE da vino
+  const vinho = [];
+  P.products.forEach(p => (p.uses||[]).forEach(u => {
+    if (u.crop === 'VITE' && (u.crop_scope||[]).includes('da vino')
+        && !(u.crop_scope||[]).includes('da tavola')) vinho.push(p.reg);
+  }));
+  return `${comEscopo} pares declaram escopo · VITE so-da-vino em ${[...new Set(vinho)].length} registro(s)`;
+});
+
+teste('PORTFOLIO · nome de alvo vindo de taxonomia nao passa por leitura', () => {
+  const n = P.products.reduce((a,p)=>a+(p.uses||[]).filter(
+    u=>u.target_name==='TARGET_NAME_BY_TAXONOMY_NOT_IN_LABEL').length,0);
+  afirma(n > 0, 'nenhum par por taxonomia — o teste perdeu o alvo');
+  let mau = 0;
+  P.products.forEach(p => (p.uses||[]).forEach(u => {
+    if (u.target_name === 'TARGET_NAME_BY_TAXONOMY_NOT_IN_LABEL' && u.fact) mau++;
+  }));
+  afirma(mau === 0, `${mau} pares com nome inferido carregam selo FATO`);
+  // e a tela tem de dizer, nao esconder
+  const cq = document.querySelector('#cq');
+  cq.value = 'melo'; viewCrop();
+  const h = html('#cres');
+  cq.value = ''; viewCrop();
+  afirma(h.includes('TARGET_NAME_BY_TAXONOMY_NOT_IN_LABEL') || n === 0,
+    'a tela de cultura nao mostra que o nome do alvo veio de taxonomia');
+  return `${n} pares publicam nome de alvo que o rotulo nao escreve`;
+});
+
+teste('PORTFOLIO · rota que R-14 nao testa nunca carrega selo de prova', () => {
+  // ROTA E COMO O EXTRATOR LEU; GEOMETRIA E O QUE O DOCUMENTO MOSTRA. Um par de
+  // rota INLINE_COLON_HEAD numa pagina com grade desenhada PODE ser provado pela
+  // geometria — e 248 sao. O que nao pode acontecer e um par de rota que R-14
+  // sequer tenta (HEADER_CONTINUATION, AUTHORISED_USE_LIST) sair com selo de
+  // prova: esses nao passaram por teste nenhum.
+  const NUNCA_TESTADAS = ['HEADER_CONTINUATION', 'AUTHORISED_USE_LIST'];
+  let n = 0, comProva = 0, ex = null;
+  P.products.forEach(p => (p.uses||[]).forEach(u => {
+    if (!NUNCA_TESTADAS.includes(u.route)) return;
+    n++;
+    if (u.proof === 'USE_PAIR_PROVEN_BY_TABLE_GEOMETRY' || u.fact) {
+      comProva++; ex = ex || [p.reg, u.crop, u.target, u.route];
+    }
+  }));
+  afirma(n > 0, 'nenhum par de rota nao-testada — o teste perdeu o alvo');
+  afirma(comProva === 0, `${comProva} pares de rota que R-14 nao testa carregam prova (ex ${ex})`);
+  const prosa = P.products.reduce((a,p)=>a+(p.uses||[]).filter(
+    u=>!['GEOMETRIC_TABLE','MERGED_COLUMN_TABLE'].includes(u.route)).length,0);
+  const prosaFato = P.products.reduce((a,p)=>a+(p.uses||[]).filter(
+    u=>!['GEOMETRIC_TABLE','MERGED_COLUMN_TABLE'].includes(u.route) && u.fact).length,0);
+  return `${n} pares nunca testados, nenhum com prova · dos ${prosa} de rota de prosa, ${prosaFato} tem prova por geometria da pagina`;
+});
+
 teste('a celula de dose diz de que linha o numero veio', () => {
   viewCrop();
   const h = html('#cres');

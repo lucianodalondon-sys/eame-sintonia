@@ -70,6 +70,13 @@ python3 v1/inteligencia/par_validar.py --fios /tmp/fioscache --bbox /tmp/bboxcac
 echo "== 10h · R-15: MAX. APLICACOES e INTERVALO herdados de celula mesclada"
 python3 v1/inteligencia/heranca_validar.py --fios /tmp/fioscache --bbox /tmp/bboxcache
 
+echo "== 10i · R-17: o NOME do alvo publicado esta escrito no rotulo?"
+python3 v1/inteligencia/alvo_nomeado.py
+
+echo "== 10j · DIAGNOSTICO da camada de prosa (R-16 NAO entra em producao)"
+python3 v1/inteligencia/prosa_escopo.py --fios /tmp/fioscache --bbox /tmp/bboxcache
+python3 v1/inteligencia/prosa_censo.py
+
 echo "== 11 · COLETA: empacotar com proveniencia e coberturas separadas"
 # Mesmo motivo do passo 5-7: empacotar.py precisa do manifesto de leitura.
 if [ -n "$CANON" ] && [ -f "$CANON/data/samples/IT-ROTULOS-V1/IT-ROTULOS-LEITURA-RUN.json" ]; then

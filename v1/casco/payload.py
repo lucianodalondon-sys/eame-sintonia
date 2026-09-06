@@ -7,7 +7,7 @@ devolve um unico JSON enxuto para a interface. Se um campo nao existe na fonte,
 ele viaja como NOT_KNOWN / NOT_PRESENT / NOT_PROVED ate a tela — a interface nao
 tem permissao de inventar o que a coleta nao trouxe.
 """
-import argparse, csv, datetime, hashlib, json, os, sys
+import argparse, csv, datetime, hashlib, json, os, re, sys
 from collections import Counter
 
 # A lista de pares vinha de sintonia/canonical, que nao esta neste repositorio e
@@ -69,6 +69,8 @@ def main():
     ap.add_argument("--alvoliteral", default="v1/dados/ALVO-LITERAL.json")
     ap.add_argument("--parfios", default="v1/dados/PARES-FIOS-CHECK.json")
     ap.add_argument("--heranca", default="v1/dados/HERANCA-CHECK.json")
+    ap.add_argument("--alvonome", default="v1/dados/ALVO-NOMEADO.json")
+    ap.add_argument("--prosa", default="v1/dados/PROSA-CENSO.json")
     ap.add_argument("--hoje", required=True)
     ap.add_argument("--out", default="v1/dados/CASCO-PAYLOAD.json")
     a = ap.parse_args()
@@ -122,6 +124,26 @@ def main():
                          "v1/inteligencia/par_validar.py antes.")
     vpar = pf["VERDICT"]
 
+    # R-17 · o NOME do alvo esta escrito no rotulo, ou veio de taxonomia?
+    # 256 pares publicam um nome que o documento nao escreve nenhuma vez.
+    # Isto NAO os remove — `Cydia pomonella` e mesmo a carpocapsa — mas eles nao
+    # podem receber o mesmo selo de quem volta ao papel palavra por palavra.
+    an = json.load(open(a.alvonome, encoding="utf-8")) if os.path.exists(a.alvonome) else None
+    if an is None:
+        raise SystemExit("ALVO-NOMEADO.json ausente: sem ele o casco publica nome de alvo "
+                         "vindo de taxonomia com a mesma cara de nome lido do rotulo. "
+                         "Rode v1/inteligencia/alvo_nomeado.py")
+    vnome = an["VERDICT"]
+
+    # QUALIFICADORES DE ESCOPO que o nome normalizado perde. Medidos no acervo:
+    # 575 pares publicados trazem um deles no CROP_AS_WRITTEN e nenhum chegava a
+    # tela. "VITE da vino" nao e "VITE": um produto autorizado so em uva de vinho
+    # aparecia sob o mesmo nome de um autorizado tambem em uva de mesa.
+    RX_ESCOPO = re.compile(
+        r"\b(da vino|da tavola|da zucchero|da foraggio|da olio|da granella|da seme|"
+        r"da industria|dolce|in serra|uso in serra|pieno campo|sotto tunnel|in vivai|"
+        r"baby leaf|da foglia|invernale|primaverile|per consumo fresco)\b", re.I)
+
     usos = {}
     contraditos_por_reg, rotacao_por_reg = {}, {}
     prova_par = {c["KEY"]: c for c in pf["CONTRADICTED"]}
@@ -155,6 +177,9 @@ def main():
             w["LABEL_URL"] = _url.get(reg, "NOT_KNOWN")
             contraditos_por_reg.setdefault(reg, []).append(w)
             continue
+        _craw = str(x.get("CROP_AS_WRITTEN") or "")
+        _esc = sorted({m.group(1).lower() for m in RX_ESCOPO.finditer(_craw)})
+        _nome = vnome.get(chave, "TARGET_NAME_NOT_CHECKED")
         usos.setdefault(reg, []).append({
             "crop": x["CROP"], "target": x["TARGET"],
             "crop_raw": x.get("CROP_AS_WRITTEN"), "target_raw": x.get("TARGET_AS_WRITTEN"),
@@ -164,6 +189,17 @@ def main():
             "quote": "NOT_PRESERVED",
             "exclusion_check": est,
             "pair_check": vp,
+            # AS DUAS COLUNAS, E ELAS NUNCA SE COLAPSAM.
+            #   proof       o par sobreviveu a um teste contra o documento?
+            #   target_name o NOME publicado esta escrito no documento?
+            # Um par so e FATO quando as duas fecham. Medido: 1.274 de 2.875.
+            "proof": ("USE_PAIR_PROVEN_BY_TABLE_GEOMETRY"
+                      if vp == "PAIR_CONSISTENT_WITH_RULES"
+                      else "USE_PAIR_NOT_VERIFIED_BY_ANY_RULE"),
+            "target_name": _nome,
+            "fact": (vp == "PAIR_CONSISTENT_WITH_RULES"
+                     and _nome == "TARGET_NAME_LITERAL"),
+            "crop_scope": _esc,
         })
 
     # TETO POR CULTURA escrito fora da tabela (R-12) e CONFERENCIA DA CULTURA
@@ -420,6 +456,9 @@ def main():
         "crop_check": {k: v for k, v in cultura.items() if k not in ("VERDICT", "CONTRADICTED")},
         "crop_check_list": cultura["CONTRADICTED"],
         "pair_check": {k: v for k, v in pf.items() if k not in ("VERDICT", "CONTRADICTED")},
+        "target_name": {k: v for k, v in an.items() if k not in ("VERDICT", "NOT_IN_LABEL")},
+        "prose": ({k: v for k, v in json.load(open(a.prosa, encoding="utf-8")).items()
+                   if k != "LINHAS"} if os.path.exists(a.prosa) else {"STATE": "NOT_MEASURED"}),
         "pair_check_list": pf["CONTRADICTED"],
         "inheritance_check": {k: v for k, v in her.items()
                               if k not in ("VERDICT_MAX", "VERDICT_INTERVAL", "CONTRADICTED")},

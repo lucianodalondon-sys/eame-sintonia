@@ -757,22 +757,30 @@ function viewProduto(reg) {
       <h3>Usos autorizados</h3>
       <span class="meta">${(p.states&&p.states.LABEL_DOWNLOADED===false)
         ? val('NOT_COLLECTED')+' — nenhum rotulo foi baixado, entao nao ha par a contar'
-        : `${p.uses.length} pares &middot;
-           ${p.uses.filter(u=>u.evidence==='TABLE_GEOMETRY').length} de tabela,
-           ${p.uses.filter(u=>u.evidence!=='TABLE_GEOMETRY').length} de prosa/lista`}</span></div>
+        : `${p.uses.filter(u=>u.fact).length} <b>FATO</b> &middot;
+           ${p.uses.filter(u=>!u.fact).length} <span class="unknown">NAO_VERIFICADO</span>
+           <span class="meta">(de ${p.uses.length} pares)</span>`}</span></div>
+    ${p.uses.length && p.uses.every(u=>!u.fact) ? `<div class="lei" style="border-left-color:var(--bad)">
+      <b>Nenhum dos ${p.uses.length} pares deste produto e fato.</b> Ou eles vem de PROSA — e a
+      ferramenta nao tem instrumento nenhum para prosa, tres foram medidos e falharam — ou o
+      nome do alvo nao esta escrito no rotulo. <b>Isto nao nega o uso</b>: nega que esta
+      ferramenta o tenha provado. <code>PARSER_FAILURE != REGULATORY_ABSENCE</code></div>` : ''}
     ${p.uses.length ? `<div class="tw"><table>
       <thead><tr><th>Cultura</th><th>Alvos</th><th>Evidencia</th><th></th></tr></thead>
       <tbody>${Object.entries(porCultura).sort().map(([c,us]) => `<tr>
-        <td><b>${esc(c)}</b></td>
+        <td><b>${esc(c)}</b>${escopoDaCultura(us[0])}</td>
         <td class="meta">${[...new Set(us.map(u=>u.target))].join(' &middot; ')}</td>
         <td>${(()=>{
           // O selo TABELA descrevia so a ROTA de leitura, e por isso ficava
           // verde tambem nos pares que nunca tinham passado por fio nenhum.
           // Agora ele conta o veredito de R-14.
+          const fa = us.filter(x=>x.fact).length;
           const ok = us.filter(x=>x.pair_check==='PAIR_CONSISTENT_WITH_RULES').length;
-          const nc = us.length - ok;
-          return `${ok?`<span class="pill p-ok" title="cultura e alvo na mesma celula desenhada (R-14)">FIO CONFERIDO ${ok}</span> `:''}${
-            nc?`<span class="pill p-unk" title="o teste de fio nao rodou nestes pares: rota de prosa, sem grade desenhada, ou alvo nao localizado. NOT_CHECKED nao e aprovado">SEM TESTE DE FIO ${nc}</span>`:''}`;})()}
+          const nl = us.filter(x=>x.target_name==='TARGET_NAME_BY_TAXONOMY_NOT_IN_LABEL').length;
+          return `${fa?`<span class="pill p-ok" title="prova contra o documento E nome do alvo escrito no rotulo">FATO ${fa}</span> `:''}${
+            us.length-fa?`<span class="pill p-unk" title="uma das duas colunas nao fecha">NAO_VERIFICADO ${us.length-fa}</span> `:''}
+            <div class="meta">${ok} com fio conferido &middot; ${us.length-ok} sem teste de fio${
+              nl?` &middot; <span class="unknown">${nl} com nome de alvo vindo de taxonomia</span>`:''}</div>`;})()}
           ${(()=>{ // o estado da conferencia R-10 existia no payload e nunca aparecia:
                    // 12 pares publicados como CROP_NAME_NOT_FOUND_IN_LABEL_TEXT (o rotulo
                    // escreve "Grano", o leitor normaliza para FRUMENTO) eram desenhados
@@ -1182,6 +1190,43 @@ const PAR_ROTULO = {
   PAIR_NOT_CHECKABLE_TARGET_UNDER_CROP_HEADER: ['p-unk', 'TABELA · CABECALHO DE BLOCO',
     'o alvo esta abaixo da cultura e na mesma coluna: o desenho e titulo-em-cima, e o teste de coluna nao se aplica'],
 };
+// PRODUCT_FOR_CROP E PRODUCT_FOR_TARGET SAO DUAS PERGUNTAS.
+//
+// "este produto e autorizado nesta CULTURA" e "este produto e autorizado para
+// este ALVO nesta cultura" nao sao a mesma afirmacao, e a tela colapsava as
+// duas num selo so. Agora cada par carrega os dois eixos e eles nunca se
+// juntam:
+//
+//   proof        o par sobreviveu a um teste contra o documento? So a camada
+//                de TABELA tem teste (R-14). A de prosa nao tem nenhum — tres
+//                instrumentos foram medidos e os tres falharam (ver
+//                v1/inteligencia/prosa_escopo.py);
+//   target_name  o NOME do alvo esta escrito no rotulo, ou veio de uma
+//                taxonomia que esta ferramenta nao tem? Medido: 256 pares
+//                publicam um nome que o documento nao escreve.
+//
+// FATO = as duas colunas fecham. Medido: 1.274 dos 2.875 pares publicados.
+function nomeDoAlvo(u) {
+  if (u.target_name !== 'TARGET_NAME_BY_TAXONOMY_NOT_IN_LABEL') return '';
+  return `<div class="meta"><span class="unknown">TARGET_NAME_BY_TAXONOMY_NOT_IN_LABEL</span>
+    <b>este nome nao esta escrito no rotulo.</b> O documento nomeia a praga pelo binomio
+    (&ldquo;Cydia pomonella&rdquo;) e a ferramenta publica o nome comum
+    (&ldquo;CARPOCAPSA&rdquo;). A equivalencia e entomologica e provavelmente certa —
+    e <b>nao esta neste repositorio e nao volta ao documento</b>, entao viaja como
+    inferencia e nao como leitura</div>`;
+}
+// O nome normalizado joga fora o escopo que a etichetta escreve. Medido: 387
+// pares publicados trazem um qualificador ("VITE da vino", "Melone (uso in
+// serra)", "Barbabietola da zucchero") que o nome curto perde. Um produto
+// autorizado so em uva de VINHO aparecia sob o mesmo "VITE" de um autorizado
+// tambem em uva de MESA.
+function escopoDaCultura(u) {
+  if (!u.crop_scope || !u.crop_scope.length) return '';
+  return `<div class="meta"><b>a etichetta qualifica esta cultura:</b>
+    ${u.crop_scope.map(e => `<code>${esc(e)}</code>`).join(' &middot; ')} —
+    <i>&ldquo;${esc(String(u.crop_raw).slice(0, 80))}&rdquo;</i>.
+    O nome curto <b>${esc(u.crop)}</b> nao carrega esse escopo</div>`;
+}
 function evidenciaDoPar(u) {
   const [cls, rot, tit] = PAR_ROTULO[u.pair_check]
     || [u.evidence === 'TABLE_GEOMETRY' ? 'p-ok' : 'p-dim',
@@ -1194,7 +1239,10 @@ function evidenciaDoPar(u) {
        : ex === 'CROP_NAME_PREFIX_MATCH_ONLY'
        ? 'o apoio textual e so por prefixo, nao por palavra inteira (ZUCCHINO apoiado por "zucca" ou "zucchero"): basta para nao retirar o uso, nao basta para chamar de atestado'
        : 'estado de conferencia declarado pela coleta'}</div>`;
-  return `<span class="pill ${cls}" title="${esc(tit || u.pair_check || '')}">${rot}</span>${ressalva}`;
+  const fato = u.fact
+    ? `<span class="pill p-ok" title="o par sobreviveu ao teste contra o documento E o nome do alvo esta escrito no rotulo">FATO</span> `
+    : `<span class="unknown" title="uma das duas colunas nao fecha: ou o par nao foi verificado por regra nenhuma, ou o nome do alvo nao esta no rotulo">NAO_VERIFICADO</span> `;
+  return `${fato}<span class="pill ${cls}" title="${esc(tit || u.pair_check || '')}">${rot}</span>${ressalva}${nomeDoAlvo(u)}`;
 }
 
 // Casamento de termo de busca por TOKEN INTEIRO. Um termo com menos de 3
@@ -1260,6 +1308,34 @@ function viewCrop() {
            leitores nao a nomeia.</div>`}
       <div class="meta" style="margin-top:6px">Os ${VOCAB_USO.length} nomes que o leitor de uso
       emite: <code>${esc(VOCAB_USO.join(', '))}</code></div></div>` : ''}
+    ${(() => {
+      // A PERGUNTA DE PORTFOLIO, RESPONDIDA SEM COLAPSAR AS DUAS.
+      // "Quais produtos ADAMA servem para esta CULTURA e este PROBLEMA?" e a
+      // pergunta que o Regulatory faz nesta tela. Ela tem DUAS respostas e
+      // ate agora saia uma so, com a cara da forte.
+      if (!q && !qt) return '';
+      const fatos = linhas.filter(l => l.u.fact);
+      const naoV  = linhas.filter(l => !l.u.fact);
+      const pf = new Set(fatos.map(l => l.p.reg)), pn = new Set(naoV.map(l => l.p.reg));
+      const soNaoV = [...pn].filter(r => !pf.has(r));
+      return `<div class="lei" style="border-left-color:${pf.size?'var(--ok)':'var(--bad)'}">
+        <b>A resposta desta busca tem duas metades, e elas nao sao a mesma coisa.</b>
+        <ul style="margin:6px 0 0 16px">
+          <li><span class="pill p-ok">FATO</span> <b>${pf.size}</b> produto(s), em
+            <b>${fatos.length}</b> par(es): o par sobreviveu ao teste de fio contra o desenho da
+            tabela <b>e</b> o nome do alvo esta escrito no rotulo.
+            ${pf.size ? `<span class="meta">${[...pf].map(esc).join(', ')}</span>` : ''}</li>
+          <li><span class="unknown">NAO_VERIFICADO</span> <b>${soNaoV.length}</b> produto(s) a
+            mais, em <b>${naoV.length}</b> par(es): o rotulo pode autorizar, e
+            <b>esta ferramenta nao tem instrumento que prove</b> — a camada de prosa nao tem
+            regra nenhuma, e tres foram medidas e falharam. <b>Isto nao e negacao</b>:
+            <code>PARSER_FAILURE != REGULATORY_ABSENCE</code>.
+            ${soNaoV.length ? `<span class="meta">${soNaoV.map(esc).join(', ')}</span>` : ''}</li>
+        </ul>
+        <div class="meta" style="margin-top:6px"><b>Autorizado NA CULTURA nao e autorizado PARA O
+        ALVO naquela cultura.</b> Um produto pode aparecer aqui por ter a cultura na etichetta sem
+        que este alvo especifico esteja provado para ela — e por isso as duas colunas viajam
+        separadas em cada linha abaixo.</div></div>`;})()}
     <div class="meta" style="margin:8px 0">${linhas.length} pares em ${prods.size} produtos.</div>
     ${(() => {
       // MF-13 · a legenda dizia "Medido: 5 pares dos N" com o 5 escrito a mao no
@@ -1349,8 +1425,31 @@ function viewCrop() {
           de linha PROVADA no acervo (${esc(String(r.FUSION_PROVEN_EXAMPLE||'').slice(0,150))}) e
           esta ferramenta <b>nao sabe detecta-la</b>. R-13 acusa o sintoma, nao a causa.</div>
           </div>`;})()}`;})()}
+      ${(() => { const t = P.target_name || {}, pc = P.pair_check || {};
+        const prov = (pc.COUNTS||{}).PAIR_CONSISTENT_WITH_RULES || 0;
+        const nlit = (t.COUNTS||{}).TARGET_NAME_BY_TAXONOMY_NOT_IN_LABEL || 0;
+        const fato = P.products.reduce((a,p)=>a+(p.uses||[]).filter(u=>u.fact).length,0);
+        const tot  = P.products.reduce((a,p)=>a+(p.uses||[]).length,0);
+        return `<div class="lei" style="margin-top:8px;border-left-color:var(--bad)">
+        <b>A CAMADA DE FATO, no acervo inteiro.</b> Um par de uso so e fato quando DUAS colunas
+        fecham, e elas nunca se colapsam:
+        <ul style="margin:6px 0 0 16px">
+          <li><b>prova</b> — o par sobreviveu a um teste contra o documento. So a camada de
+            TABELA tem teste (<code>R-14</code>): <b>${prov}</b> pares. A camada de PROSA
+            (<b>${P.prose ? P.prose.PROSE_PAIRS_TOTAL : val('NOT_KNOWN')}</b> pares)
+            <b>nao tem regra nenhuma</b> — tres instrumentos foram construidos e medidos e os
+            tres falharam, e o motivo de cada um esta escrito em
+            <code>v1/inteligencia/prosa_escopo.py</code>;</li>
+          <li><b>nomeacao</b> — o NOME do alvo esta escrito no rotulo? Em <b>${nlit}</b> pares
+            nao esta: o documento escreve o binomio e a ferramenta publica o nome comum
+            (<code>R-17</code>). Provavelmente certo, e nao verificavel aqui.</li>
+        </ul>
+        <div class="meta" style="margin-top:6px"><b>FATO = ${fato} de ${tot} pares publicados.</b>
+        Os outros continuam na tela porque <code>PARSER_FAILURE != REGULATORY_ABSENCE</code> — o
+        rotulo pode autorizar e a ferramenta e que nao sabe provar — mas nao carregam selo de
+        prova e nao devem sair daqui como relacao factual cultura x alvo x produto.</div></div>
       <div class="lei" style="margin-top:8px;border-left-color:var(--bad)">
-        <b>E o PAR DE USO desta tabela — a cultura e o alvo, nao a dose — passou pelo mesmo teste
+        <b>E o PAR DE USO desta tabela`;})()} — a cultura e o alvo, nao a dose — passou pelo mesmo teste
         de fio.</b> Ate a rodada 3 nao passava: <code>R-11</code> tirava o NUMERO de
         TABACCO x CIMICI e deixava de pe a AFIRMACAO DE USO, que e a mais fundamental das duas, com
         o selo verde <span class="pill p-ok">TABELA</span>. Agora <code>R-14</code> confere cada par
@@ -1377,7 +1476,7 @@ function viewCrop() {
       <tbody>${linhas.slice(0,400).map(l => `<tr>
         <td><a onclick="go('produto');viewProduto('${l.p.reg}')" style="cursor:pointer">${esc(l.p.name)}</a></td>
         <td class="mono">${esc(l.p.reg)}</td>
-        <td>${esc(l.u.crop)}</td>
+        <td>${esc(l.u.crop)}${escopoDaCultura(l.u)}</td>
         <td>${esc(l.u.target)}
           ${l.u.target_raw && nrm(l.u.target_raw) !== nrm(l.u.target)
             ? `<div class="meta">o rotulo escreve: <i>&ldquo;${esc(String(l.u.target_raw).slice(0,70))}${String(l.u.target_raw).length>70?'…':''}&rdquo;</i></div>` : ''}</td>
