@@ -105,7 +105,18 @@ def leituras(reg, pdfs, cache):
 # Palavras que seguem o nome do alvo e NAO sao qualificador: ligacao, pontuacao
 # e o comeco da proxima entrada da lista. Fechada e medida sobre o acervo.
 NAO_QUALIFICA = {'', 'e', 'o', 'a', 'ed', 'di', 'del', 'della', 'dei', 'delle',
-                 'in', 'su', 'contro', 'con', 'per', 'da', 'dal', 'alla', 'al'}
+                 'in', 'su', 'contro', 'con', 'per', 'da', 'dal', 'alla', 'al',
+                 # medidos no acervo: seguem o nome do alvo e nao qualificam praga
+                 # nenhuma. 'quando' vem de 018101 MORAINE, "post-emergenza delle
+                 # infestanti quando la coltura ha raggiunto la terza foglia".
+                 'quando', 'nel', 'nei', 'nelle', 'sui', 'sulle', 'dopo', 'prima',
+                 'oppure', 'anche', 'come', 'se', 'che', 'non'}
+
+# Comprimentos em que o extrator CORTA a celula como escrita. Medidos sobre os
+# 5.746 campos CROP_AS_WRITTEN/TARGET_AS_WRITTEN: 728 tem exatamente 80
+# caracteres, 661 exatamente 180 e 509 exatamente 200. Nao e o documento que
+# escreve assim; e regua do extrator.
+CORTES_DO_EXTRATOR = {80, 180, 200}
 
 
 def qualificadores(nome, bruto):
@@ -114,6 +125,21 @@ def qualificadores(nome, bruto):
     So devolve alguma coisa quando o nome NUNCA aparece sozinho. Uma unica
     ocorrencia solta ja significa que a etichetta usa o nome curto, e ai nao ha
     qualificador a declarar.
+
+    E NAO DEVOLVE NADA QUANDO O QUALIFICADOR E O RESTO DE UM CORTE.
+
+    Medido, e e um defeito que esta regra criou na rodada 4: em 008601 FOLPAN 80
+    WDG, 013012, 017111, 017311 e 011501 a tela chegou a escrever "a etichetta
+    nunca escreve este alvo sozinho: sempre MUFFA g". O documento escreve "Muffa
+    grigia (Botrytis cinerea)"; o `g` e o que sobrou de um TARGET_AS_WRITTEN
+    cortado em exatamente 180 caracteres. Afirmar que a etichetta escreve "Muffa
+    g" e uma afirmacao sobre o documento que o documento contradiz — a classe de
+    erro que esta regra existe para nao cometer.
+    O guarda: se a celula como escrita tem um dos comprimentos de corte do
+    extrator E o qualificador e a ultima coisa dela, nao ha como saber se ele
+    esta inteiro. Medido no acervo: mata 7 (4x 'g', 1x 'gr', 2x 'grigia' — este
+    ultimo completo, mas indistinguivel de um corte) e deixa passar 749,
+    incluindo os 85 'bianca', que sao o achado que importa.
     """
     b = nz(bruto)
     n = nz(nome)
@@ -128,7 +154,12 @@ def qualificadores(nome, bruto):
         if entre != ' ' or prox in NAO_QUALIFICA:
             return []          # apareceu sozinho, ou seguido de pontuacao
         seg.append(prox)
-    return sorted(set(seg)) if seg else []
+    if not seg:
+        return []
+    fim = sorted(set(seg))
+    if len(str(bruto or '')) in CORTES_DO_EXTRATOR and b.endswith(' '.join(fim)):
+        return []
+    return fim
 
 
 def main():

@@ -243,7 +243,20 @@ def main():
                 d = tl[i + len(f): i + len(f) + 2]
                 # fronteira de verdade: fim do texto, quebra/coluna, ou pontuacao
                 # que termina frase logo em seguida
-                fim = (not d) or d[0] == '\x00' or d[0] in '.;:' or (
+                # FRONTEIRA E O QUE O DOCUMENTO USA PARA ACABAR UMA COISA.
+                #
+                # A primeira versao aceitava so `.;:` e a quebra, e por isso
+                # acusou duas frases que estao inteiras:
+                #   002732 GOLTIX, a UNICA etichetta do acervo com janela de
+                #     validade lida — "...valida dal 22 luglio 2024 al 18
+                #     novembre 2024" e seguida da ASPA DE FECHO tipografica;
+                #   002983/013405 — "(ad esclusione di Pomodoro ciliegino)" e
+                #     seguida de virgula e da enumeracao das OUTRAS culturas,
+                #     que nao sao da janela. Essa e a frase que sustenta o
+                #     achado central de R-21.
+                # Entram: aspa de fecho (reta e tipografica), o parentese que
+                # fecha o que a citacao abriu, e a virgula.
+                fim = (not d) or d[0] == '\x00' or d[0] in '.;:,)”"\'’' or (
                     d[0] == ' ' and len(d) > 1 and d[1] == '\x00')
                 cortou = (cortou is not False) and not fim
                 i = tl.find(f, i + 1)

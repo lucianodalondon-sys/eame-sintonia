@@ -523,9 +523,10 @@ function evDose(reg, i) {
       ${citavel(d.crop_cell_state)?'':celulaCitada(d.crop,d.crop_cell_state,'a celula de cultura')}</dd>
     <dt>Alvo</dt><dd>${citavel(d.target_cell_state)?val(d.target):val('CELL_TEXT_NOT_RECOVERABLE')}
       ${citavel(d.target_cell_state)?'':celulaCitada(d.target,d.target_cell_state,'a celula de alvo')}</dd>
-    <dt>Dose por hectare</dt><dd>${isUnk(d.dose_ha)?val(d.dose_ha):esc(d.dose_ha+' '+d.unit_ha)}
-      ${d.dose_ha_inherited?'<span class="pill p-dim">HERDADA DE CELULA MESCLADA</span>':''}</dd>
-    <dt>Dose por concentracao</dt><dd>${isUnk(d.dose_conc)?val(d.dose_conc):esc(d.dose_conc+' '+d.unit_conc)}</dd>
+    <dt>Dose por hectare</dt><dd>${colunaDose(d,'ha')}
+      ${d.dose_ha_inherited?`<span class="pill p-dim">HERDADA DE CELULA MESCLADA</span>
+        <span class="unknown" title="R-15 confere heranca de MAX e de INTERVALO; a heranca da DOSE nao tem regra">DOSE_INHERITANCE_NOT_TESTED_BY_ANY_RULE</span>`:''}</dd>
+    <dt>Dose por concentracao</dt><dd>${colunaDose(d,'conc')}</dd>
     <dt>Max. aplicacoes</dt><dd>${colunaMax(d)}
       ${d.max_app_inherited?`<span class="pill p-dim">HERDADA DE CELULA MESCLADA</span>
         <span class="pill ${d.max_check==='MAX_CONFIRMED_BY_RULE'?'p-ok':'p-unk'}">${esc(d.max_check)}</span>`:''}</dd>
@@ -732,6 +733,56 @@ function linhaReprovada(d) {
       // numero pode ser da de baixo. Em 018270 o unico "1" da regiao esta do
       // outro lado do risco, e era publicado como dose do MAIS.
       || d.band_check === 'DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE';
+}
+// UMA DOSE SO E IMPRESSA POR AQUI.
+//
+// A tela tinha CINCO lugares que imprimiam um numero de dose, cada um com a sua
+// propria guarda — e por isso cada um com um buraco diferente:
+//
+//   evDose "Dose por hectare"       nenhuma guarda
+//   evDose "Dose por concentracao"  nenhuma guarda
+//   ficha do produto, coluna Dose   3 das 4 condicoes, faltando band_check
+//   gaveta de ambiguidade           nenhuma guarda
+//   linhas forasteiras              linhaReprovada, correta
+//
+// O resultado medido: 12 linhas em que o selo da MESMA &lt;tr&gt; escrevia "o numero
+// nao e publicado, porque ele pode ser da linha de baixo (R-22)" e a coluna ao
+// lado publicava 560-800 g/ha. A tela desdizia a si mesma.
+//
+// E um segundo buraco, que nenhuma das cinco pegava: NUMERO SEM UNIDADE NAO E
+// DOSE. Em 018270 e 018279 (paginas 4) a tabela nao tem coluna de dose nenhuma
+// — as colunas sao "Colture | Quando trattare | n massimo di trattamenti |
+// Intervallo" — e o extrator publicava `Dose por concentracao: 1` (o contador
+// de "Eseguire 1 solo trattamento all'anno", da linha de baixo, do outro lado
+// do fio) e `60` ("60 mL di prodotto / 100 mq", que e dose por AREA). Nos dois
+// casos `unit_conc` e NOT_PRESERVED: a ferramenta nao leu unidade nenhuma e
+// mesmo assim chamava o numero de concentracao. Medido: sao 4 linhas de 510, e
+// nenhuma outra linha do acervo publica numero sem unidade.
+function colunaDose(d, qual) {
+  const valor = qual === 'ha' ? d.dose_ha : d.dose_conc;
+  const unid = qual === 'ha' ? d.unit_ha : d.unit_conc;
+  if (isUnk(valor)) return val(valor);
+  const semUnidade = !String(unid || '').trim() || isUnk(unid);
+  if (semUnidade)
+    return `${val('DOSE_UNIT_NOT_READ')}<div class="meta">o extrator leu o numero
+      <code>${esc(String(valor))}</code> e <b>nao leu unidade nenhuma</b> para ele. Numero sem
+      unidade nao e dose: nesta pagina de 018270/018279 a tabela nao tem coluna de dose, e o que
+      foi lido e o contador de tratamentos ou uma dose por 100 m&sup2;. O numero fica aqui como
+      leitura do extrator, nao como dose</div>`;
+  if (d.crop_check === 'CROP_ASSIGNMENT_CONTRADICTED_BY_RULE')
+    return `${val('NOT_PROVED_BY_RULE')}<div class="meta">um fio desenhado separa esta linha de
+      toda ocorrencia desta cultura na coluna de cultura: a linha <b>nao e desta
+      cultura</b> (<code>R-11</code>)</div>`;
+  if (d.band_check === 'DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE')
+    return `${val('NOT_PROVED_BY_RULE')}<div class="meta">a banda de onde esta linha foi lida tem
+      um <b>fio horizontal desenhado por dentro</b>, com texto acima e abaixo: sao duas linhas
+      coladas e o numero pode ser da de baixo (<code>R-22</code>)</div>`;
+  if (d.rule_check === 'PLAUSIBILITY_REJECTED')
+    return `${val('NOT_PROVED_BY_RULE')}<div class="meta">o filtro de plausibilidade
+      (<code>P-*</code>) recusou esta tabela: o extrator achou grade onde nao havia.
+      <b>Publicar o numero dela seria desdizer o proprio filtro.</b></div>`;
+  if (d.rule_check === 'NOT_LOCATED') return val('NOT_VALIDATED');
+  return esc(String(valor) + ' ' + String(unid));
 }
 function colunaHerdada(d, valor, estado, nomeCampo) {
   if (linhaReprovada(d))
@@ -1041,14 +1092,7 @@ function viewProduto(reg) {
              um fio desenhado da tabela separa esta linha de toda ocorrencia desta cultura na
              coluna de cultura: a linha <b>nao e desta cultura</b> (<code>R-11</code>)</div>` : ''}</td>
         <td>${fragmento(d.target)}${avisoAlvoLiteral(d)}</td>
-        <td>${d.crop_check==='CROP_ASSIGNMENT_CONTRADICTED_BY_RULE'
-              ? val('NOT_PROVED_BY_RULE')
-              : d.rule_check==='NOT_LOCATED' ? val('NOT_VALIDATED')
-              : d.rule_check==='PLAUSIBILITY_REJECTED'
-              ? `${val('NOT_PROVED_BY_RULE')}<div class="meta">o filtro de plausibilidade
-                 (<code>P-*</code>) recusou esta tabela: o extrator achou grade onde nao havia.
-                 <b>Publicar o numero dela seria desdizer o proprio filtro.</b></div>`
-              : isUnk(d.dose_ha)?val(d.dose_ha):esc(d.dose_ha+' '+d.unit_ha)}</td>
+        <td>${colunaDose(d,'ha')}</td>
         <td>${colunaMax(d)}</td><td>${colunaIntervalo(d)}</td>
         <td>${seloFios(d)}</td>
         <td><button class="ev" onclick="evDose('${p.reg}',${i})">prova</button></td>
@@ -1228,7 +1272,9 @@ function celulaDose(l) {
     return `<span class="unknown">NO_DOSE_ROW_FOR_THIS_PAIR</span>
       <div class="meta">nenhuma linha de dose utilizavel serve para este par. <b>Nao e dose zero e
       nao e dose ausente no rotulo</b>: e leitura que nao ligou</div>${desc}`;
-  if (isUnk(j.d.dose_ha)) return val(j.d.dose_ha) + desc;
+  if (isUnk(j.d.dose_ha) || linhaReprovada(j.d) || isUnk(j.d.unit_ha)
+      || !String(j.d.unit_ha || '').trim())
+    return colunaDose(j.d, 'ha') + desc;
 
   let [cls, rot] = SELO[j.estado] || ['p-unk', j.estado];
   if (j.d.target_literal === 'TARGET_TEXT_NOT_FOUND_LITERALLY') { cls = 'p-unk'; rot += ' · ALVO NAO LITERAL'; }
@@ -1300,7 +1346,7 @@ function evAmbigua(reg, idx) {
         <th>Pagina</th><th>Fio da tabela</th><th>Max</th><th>Intervalo</th><th></th></tr></thead>
       <tbody>${rows.map((r,k) => `<tr>
         <td>${esc(r.crop)}</td><td>${esc(r.target)}</td>
-        <td><b>${isUnk(r.dose_ha)?val(r.dose_ha):esc(r.dose_ha+' '+r.unit_ha)}</b></td>
+        <td><b>${colunaDose(r,'ha')}</b></td>
         <td>${val(r.page)}</td><td>${val(r.rule_check)}</td>
         <td>${colunaMax(r)}</td><td>${colunaIntervalo(r)}</td>
         <td><button class="ev" onclick="evDose('${esc(reg)}',${idx[k]})">prova</button></td>
@@ -1534,8 +1580,7 @@ function viewCrop() {
             <td><a onclick="go('produto');viewProduto('${f.p.reg}')" style="cursor:pointer">${esc(f.p.name)}</a></td>
             <td class="mono">${esc(f.p.reg)}</td>
             <td>${esc(f.d.crop)}</td><td>${fragmento(f.d.target)}</td>
-            <td>${linhaReprovada(f.d)?val('NOT_PROVED_BY_RULE')
-                 :isUnk(f.d.dose_ha)?val(f.d.dose_ha):esc(f.d.dose_ha+' '+f.d.unit_ha)}</td>
+            <td>${colunaDose(f.d,'ha')}</td>
             <td>${seloFios(f.d)}</td>
             <td><button class="ev" onclick="evDose('${f.p.reg}',${f.i})">prova</button></td>
           </tr>`).join('')}</tbody></table></div>

@@ -536,8 +536,29 @@ def main():
         # impressa: era a errada.
         "DATA_DATE": versoes[-1]["date"] if versoes else "NOT_KNOWN",
         "DATA_SNAPSHOT_ID": pkg["REGISTRY_SNAPSHOT_ID"],
+        # UM VENCIMENTO QUE PASSOU NAO E UMA MUDANCA, e este campo dizia que era.
+        #
+        # A conta era max(DETECTED_AT) sobre TODOS os objetos PROVED, e os 15
+        # EXPIRY_EVENT carregam como DETECTED_AT o dia em que a ferramenta
+        # coletou — 2026-09-04, que e tambem o captured_at de 163 dos 166
+        # produtos. Resultado: a tela anunciava "mudanca provada mais recente
+        # DENTRO DELE: 2026-09-04" sobre um instantaneo de 2026-08-31, isto e,
+        # uma data QUATRO DIAS FORA da janela declarada, e 46 dias adiante da
+        # mudanca provada mais recente de verdade, que e 2026-07-20.
+        #
+        # Isto e exatamente CAPTURED_AT != EFFECTIVE_AT — a lei que esta
+        # ferramenta existe para aplicar — cometido pelo cabecalho dela. O
+        # proprio app.js ja separava as duas coisas na tela de mudancas ("Um
+        # vencimento que passou NAO e uma mudanca") e o comentario ao lado da
+        # conta ja dizia que a mais recente era de 20260720.
         "NEWEST_CHANGE_AT": max((o.get("DETECTED_AT") or "" for o in objetos
-                                 if o.get("PROOF_STATE") == "PROVED"), default="") or "NOT_KNOWN",
+                                 if o.get("PROOF_STATE") == "PROVED"
+                                 and o.get("OBJECT_TYPE") != "EXPIRY_EVENT"),
+                                default="") or "NOT_KNOWN",
+        # e o dia da coleta continua publicado, com o nome dele
+        "COLLECTED_AT": max((o.get("DETECTED_AT") or "" for o in objetos
+                             if o.get("OBJECT_TYPE") == "EXPIRY_EVENT"),
+                            default="") or "NOT_KNOWN",
         "RUN": pkg["COLLECTION_RUN_ID"],
         "RULESET_VERSION": io_["RULESET_VERSION"],
         "SOURCE_AUTHORITY": pkg["SOURCE_AUTHORITY"],

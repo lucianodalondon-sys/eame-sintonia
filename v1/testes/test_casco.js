@@ -882,6 +882,65 @@ teste('RT4 · numero do outro lado de um risco desenhado nao e dose desta linha'
   return `${cruz.length} linhas em ${regs.length} rotulos (${regs.slice(0,5).join(', ')})`;
 });
 
+teste('RT4 · a LINHA RENDERIZADA nao publica dose que a propria linha reprova', () => {
+  // Achado das lentes N e Q, e a licao da lente P junto: o teste anterior
+  // afirmava sobre a FUNCAO linhaReprovada(d), nao sobre o <td> que sai na
+  // tela. Por isso 48/48 passavam com 12 linhas em que o selo dizia "o numero
+  // nao e publicado" e a coluna ao lado publicava 560-800 g/ha.
+  //
+  // Este teste le o HTML RENDERIZADO, acha a linha pela posicao na tabela de
+  // doses do produto, e olha a celula de dose com os proprios olhos.
+  const suspeitas = [];
+  P.products.forEach(p => (p.doses||[]).forEach((d, i) => {
+    const semUnidade = !String(d.unit_ha||'').trim() || /^NOT_/.test(String(d.unit_ha));
+    const temNumero = String(d.dose_ha||'').trim() && !/^NOT_/.test(String(d.dose_ha));
+    if (temNumero && (linhaReprovada(d) || semUnidade)) suspeitas.push([p.reg, i, String(d.dose_ha)]);
+  }));
+  afirma(suspeitas.length > 0, 'nenhuma linha reprovada com numero — o teste perdeu o alvo');
+  const vistos = new Set(), maus = [];
+  suspeitas.forEach(([reg, i, num]) => {
+    if (!vistos.has(reg)) { viewProduto(reg); vistos.add(reg); }
+    const h = html('#pdet');
+    const corpo = h.split('<tbody>').find(x => x.includes('evDose('));
+    if (!corpo) { maus.push(`${reg}: tabela de doses nao encontrada`); return; }
+    // fatiar por '<tr' e nao por '<tr>': as linhas reprovadas saem como
+    // `<tr style="opacity:.75">` e, fatiando pela forma fechada, o pedaco
+    // carregava a linha ANTERIOR junto. A primeira versao deste teste acusou
+    // 008189#8, 008259#61 e 014479#8 por isso — as tres renderizam
+    // NOT_PROVED_BY_RULE certinho, e o numero que ele via era do vizinho.
+    const tr = corpo.split('<tr').filter(x => x.includes(`evDose('${reg}',${i})`));
+    if (!tr.length) { maus.push(`${reg}#${i}: linha nao encontrada no render`); return; }
+    // a celula de dose e a que vem antes de colunaMax; basta procurar o numero
+    // cru na linha inteira: se ele aparecer, foi publicado
+    const rx = new RegExp('>\\s*' + num.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s+[A-Za-z]');
+    if (rx.test(tr[0])) maus.push(`${reg}#${i} imprime ${num}`);
+  });
+  afirma(maus.length === 0, `${maus.length} linhas reprovadas publicam o numero na tela: ${maus.slice(0,3).join(' · ')}`);
+  return `${suspeitas.length} linhas reprovadas ou sem unidade, nenhuma publica o numero`;
+});
+
+teste('RT4 · numero sem unidade nunca sai como dose', () => {
+  // 018270/018279 pagina 4: a tabela nao tem coluna de dose (as colunas sao
+  // Colture | Quando trattare | n massimo di trattamenti | Intervallo) e o
+  // extrator publicava "Dose por concentracao: 1" — o contador de "Eseguire 1
+  // solo trattamento all'anno", da linha de baixo — e "60", que e 60 mL/100 m².
+  const sem = [];
+  P.products.forEach(p => (p.doses||[]).forEach((d, i) => {
+    [['ha', d.dose_ha, d.unit_ha], ['conc', d.dose_conc, d.unit_conc]].forEach(([q, v, u]) => {
+      const temNum = String(v||'').trim() && !/^NOT_/.test(String(v));
+      const semUn = !String(u||'').trim() || /^NOT_/.test(String(u));
+      if (temNum && semUn) sem.push([p.reg, i, q, String(v)]);
+    });
+  }));
+  afirma(sem.length === 4, `esperava 4 numeros sem unidade, achei ${sem.length}`);
+  afirma(sem.every(x => x[0] === '018270' || x[0] === '018279'),
+    'numero sem unidade apareceu fora de 018270/018279');
+  viewProduto('018270');
+  const h = html('#pdet');
+  afirma(!/Dose por concentracao<\/dt><dd>1 /.test(h), '018270 ainda publica "1" como concentracao');
+  return `4 numeros sem unidade em 018270/018279, todos com DOSE_UNIT_NOT_READ`;
+});
+
 teste('zero medido, nao coletado e nao sei sao tres respostas diferentes', () => {
   const lido = P.products.find(p => p.states && p.states.LABEL_READ && !p.uses.length);
   const naoColetado = P.products.find(p => p.states && p.states.LABEL_DOWNLOADED === false);
