@@ -1,7 +1,12 @@
 {
  "note": "Verifier-approved quotes only, re-proved verbatim in THIS process against NORMALIZED/. A quote the verifier passed but that does not occur in the text is dropped here and listed in quotes_dropped_on_reproof.",
  "n_documents": 12,
- "n_with_explicit_severity": 9,
+ "n_with_explicit_severity": 8,
+ "n_downgraded_by_risk_rule": 1,
+ "downgraded_docs": [
+  "2017"
+ ],
+ "risk_rule": "RISK_FORECAST != DISEASE_PRESENCE, applied mechanically: a quote carrying risk language and no outcome verb is a forecast, not a record, and does not count toward a season's severity signal.",
  "n_mention_only": 2,
  "n_no_statement": 1,
  "season_year_collisions": {},
@@ -12,7 +17,11 @@
    "vine_season_year": 2014,
    "season_year_resolved_by": "calendar_key",
    "verifier_verdict": "OK",
+   "has_explicit_severity_as_reported": true,
+   "n_quotes_that_are_risk_not_outcome": 0,
+   "n_outcome_quotes": 3,
    "has_explicit_severity": true,
+   "severity_downgraded_by_risk_rule": false,
    "mention_only": false,
    "n_quotes": 3,
    "quotes": [
@@ -26,7 +35,12 @@
       "su tutto il territorio regionale"
      ],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [
+      "sono risultate"
+     ],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "Nei vigneti le frequenti piogge di luglio hanno costretto i viticoltori a ripetere a più riprese i trattamenti fitosanitari per le infezioni secondarie di Peronospora, che erano diventate quasi ovunque ben visibili.",
@@ -38,7 +52,10 @@
       "quasi ovunque"
      ],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "La presenza di infezioni peronosporiche sulle foglie non ha permesso alla vite di accumulare zuccheri mentre gli acini, che oramai avevano perso elasticità nella buccia, sono andati soggetti a continue rotture, favorendo in questa fase la muffa grigia.",
@@ -46,7 +63,12 @@
      "severity_words_it": [],
      "scope_words_it": [],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [
+      "presenza"
+     ],
+     "_is_risk_not_outcome": false
     }
    ],
    "quotes_dropped_on_reproof": [],
@@ -59,7 +81,11 @@
    "vine_season_year": 2015,
    "season_year_resolved_by": "calendar_key",
    "verifier_verdict": "OK",
+   "has_explicit_severity_as_reported": false,
+   "n_quotes_that_are_risk_not_outcome": 0,
+   "n_outcome_quotes": 0,
    "has_explicit_severity": false,
+   "severity_downgraded_by_risk_rule": false,
    "mention_only": false,
    "n_quotes": 0,
    "quotes": [],
@@ -73,7 +99,11 @@
    "vine_season_year": 2016,
    "season_year_resolved_by": "calendar_key",
    "verifier_verdict": "OK",
+   "has_explicit_severity_as_reported": true,
+   "n_quotes_that_are_risk_not_outcome": 0,
+   "n_outcome_quotes": 2,
    "has_explicit_severity": true,
+   "severity_downgraded_by_risk_rule": false,
    "mention_only": false,
    "n_quotes": 2,
    "quotes": [
@@ -85,7 +115,10 @@
      ],
      "scope_words_it": [],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "Nei vigneti la virulenza della Peronospora è apparsa importante in diversi areali.",
@@ -98,7 +131,12 @@
       "in diversi areali"
      ],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [
+      "virulenza"
+     ],
+     "_is_risk_not_outcome": false
     }
    ],
    "quotes_dropped_on_reproof": [],
@@ -111,7 +149,11 @@
    "vine_season_year": 2017,
    "season_year_resolved_by": "calendar_key",
    "verifier_verdict": "OK",
-   "has_explicit_severity": true,
+   "has_explicit_severity_as_reported": true,
+   "n_quotes_that_are_risk_not_outcome": 1,
+   "n_outcome_quotes": 0,
+   "has_explicit_severity": false,
+   "severity_downgraded_by_risk_rule": true,
    "mention_only": false,
    "n_quotes": 1,
    "quotes": [
@@ -123,7 +165,12 @@
      ],
      "scope_words_it": [],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [
+      "rischio"
+     ],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": true
     }
    ],
    "quotes_dropped_on_reproof": [],
@@ -136,7 +183,11 @@
    "vine_season_year": 2018,
    "season_year_resolved_by": "calendar_key",
    "verifier_verdict": "CORRECTED",
+   "has_explicit_severity_as_reported": true,
+   "n_quotes_that_are_risk_not_outcome": 0,
+   "n_outcome_quotes": 2,
    "has_explicit_severity": true,
+   "severity_downgraded_by_risk_rule": false,
    "mention_only": false,
    "n_quotes": 2,
    "quotes": [
@@ -150,7 +201,12 @@
       "in numerose aree viticole"
      ],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [
+      "è risultata"
+     ],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "Per il settore viticolo, a inizio giugno la vite era generalmente in fase di allegagione-sviluppo degli acini. Tra le malattie fungine prevalenti sono state osservate infezioni peronosporiche anche sui grappoli e, verso fine mese, sono comparsi i primi sintomi di Oidio su grappolo.",
@@ -162,7 +218,13 @@
       "anche sui grappoli"
      ],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [
+      "sono state",
+      "sono state osservate"
+     ],
+     "_is_risk_not_outcome": false
     }
    ],
    "quotes_dropped_on_reproof": [],
@@ -175,7 +237,11 @@
    "vine_season_year": 2019,
    "season_year_resolved_by": "calendar_key",
    "verifier_verdict": "OK",
+   "has_explicit_severity_as_reported": false,
+   "n_quotes_that_are_risk_not_outcome": 0,
+   "n_outcome_quotes": 2,
    "has_explicit_severity": false,
+   "severity_downgraded_by_risk_rule": false,
    "mention_only": true,
    "n_quotes": 2,
    "quotes": [
@@ -188,7 +254,10 @@
       "specialmente in pianura"
      ],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "I vigneti, verso la metà del mese di giugno, hanno raggiunto la fase tra piena fioritura e sviluppo degli acini anche se con elevata disomogeneità e infezioni peronosporiche, anche su grappolo, in alta e media collina.",
@@ -199,7 +268,10 @@
       "in alta e media collina"
      ],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": false
     }
    ],
    "quotes_dropped_on_reproof": [],
@@ -212,7 +284,11 @@
    "vine_season_year": 2020,
    "season_year_resolved_by": "calendar_key",
    "verifier_verdict": "OK",
+   "has_explicit_severity_as_reported": false,
+   "n_quotes_that_are_risk_not_outcome": 0,
+   "n_outcome_quotes": 2,
    "has_explicit_severity": false,
+   "severity_downgraded_by_risk_rule": false,
    "mention_only": true,
    "n_quotes": 2,
    "quotes": [
@@ -222,7 +298,10 @@
      "severity_words_it": [],
      "scope_words_it": [],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "Gli abbondanti e diffusi eventi piovosi del 4 e del 10 giugno, hanno portato a più frequenti ritrovamenti di infezioni primarie di Peronospora della vite.",
@@ -232,7 +311,10 @@
      ],
      "scope_words_it": [],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": false
     }
    ],
    "quotes_dropped_on_reproof": [],
@@ -245,7 +327,11 @@
    "vine_season_year": 2021,
    "season_year_resolved_by": "calendar_key",
    "verifier_verdict": "CORRECTED",
+   "has_explicit_severity_as_reported": true,
+   "n_quotes_that_are_risk_not_outcome": 0,
+   "n_outcome_quotes": 4,
    "has_explicit_severity": true,
+   "severity_downgraded_by_risk_rule": false,
    "mention_only": false,
    "n_quotes": 4,
    "quotes": [
@@ -258,7 +344,12 @@
      ],
      "scope_words_it": [],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [
+      "sono state"
+     ],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "A inizio giugno su vite sono state osservate infezioni di Peronospora in tutti gli ambienti vitati, generalmente di bassa severità e, in qualche caso, è stata rilevata anche l’infezione secondaria.",
@@ -271,7 +362,14 @@
       "in tutti gli ambienti vitati"
      ],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [
+      "sono state",
+      "sono state osservate",
+      "è stata"
+     ],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "Inoltre, le precipitazioni di fine luglio e primi giorni di agosto, insieme ai prolungati periodi di bagnatura   mattutina, hanno   ridato   vigoria   alla   Peronospora   che   si   è manifestata   con   nuove infezioni sulle ultime foglie con qualche accenno di Peronospora larvata anche sui grappoli.",
@@ -283,7 +381,10 @@
      ],
      "scope_words_it": [],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "La difesa contro Peronospora e Oidio si è conclusa in tutti gli areali viticoli.",
@@ -293,7 +394,10 @@
       "in tutti gli areali viticoli"
      ],
      "conditional_on_treatment": true,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": false
     }
    ],
    "quotes_dropped_on_reproof": [],
@@ -306,7 +410,11 @@
    "vine_season_year": 2022,
    "season_year_resolved_by": "calendar_key",
    "verifier_verdict": "CORRECTED",
+   "has_explicit_severity_as_reported": true,
+   "n_quotes_that_are_risk_not_outcome": 0,
+   "n_outcome_quotes": 3,
    "has_explicit_severity": true,
+   "severity_downgraded_by_risk_rule": false,
    "mention_only": false,
    "n_quotes": 3,
    "quotes": [
@@ -316,7 +424,13 @@
      "severity_words_it": [],
      "scope_words_it": [],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [
+      "sono state",
+      "è stata"
+     ],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "In seguito si sono osservati su vite i primi accenni di Peronospora, Oidio e Black-rot in forma di macchie su foglia, in numerosi vigneti.",
@@ -329,7 +443,10 @@
       "in numerosi vigneti"
      ],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "La Peronospora della vite è stata pressoché assente nei vigneti regolarmente difesi.",
@@ -341,7 +458,12 @@
       "nei vigneti regolarmente difesi"
      ],
      "conditional_on_treatment": true,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [
+      "è stata"
+     ],
+     "_is_risk_not_outcome": false
     }
    ],
    "quotes_dropped_on_reproof": [],
@@ -354,7 +476,11 @@
    "vine_season_year": 2023,
    "season_year_resolved_by": "calendar_key",
    "verifier_verdict": "CORRECTED",
+   "has_explicit_severity_as_reported": true,
+   "n_quotes_that_are_risk_not_outcome": 0,
+   "n_outcome_quotes": 4,
    "has_explicit_severity": true,
+   "severity_downgraded_by_risk_rule": false,
    "mention_only": false,
    "n_quotes": 4,
    "quotes": [
@@ -366,7 +492,13 @@
       "nel comprensorio viticolo tra Verona e Vicenza"
      ],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [
+      "riscontrate",
+      "sono state"
+     ],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "Le infezioni significative di Peronospora sono segnalate solo nel settore Trevigiano e Veneziano.",
@@ -378,7 +510,10 @@
       "solo nel settore Trevigiano e Veneziano"
      ],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "Il potenziale riproduttivo di Peronospora è presente e diffuso in tutti in tutti i comprensori e sono in aumento le manifestazioni di Botrite specie nei vigneti danneggiati dalle recenti piogge.",
@@ -390,7 +525,10 @@
       "in tutti in tutti i comprensori"
      ],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "Non si è sopita la virulenza di Peronospora e Oidio ma per questi patogeni la campagna di difesa è di fatto terminata.",
@@ -400,7 +538,12 @@
      ],
      "scope_words_it": [],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [
+      "virulenza"
+     ],
+     "_is_risk_not_outcome": false
     }
    ],
    "quotes_dropped_on_reproof": [],
@@ -413,7 +556,11 @@
    "vine_season_year": 2024,
    "season_year_resolved_by": "calendar_key",
    "verifier_verdict": "CORRECTED",
+   "has_explicit_severity_as_reported": true,
+   "n_quotes_that_are_risk_not_outcome": 0,
+   "n_outcome_quotes": 4,
    "has_explicit_severity": true,
+   "severity_downgraded_by_risk_rule": false,
    "mention_only": false,
    "n_quotes": 4,
    "quotes": [
@@ -425,7 +572,12 @@
      ],
      "scope_words_it": [],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [
+      "sono comparse"
+     ],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "A fine maggio,   i vitigni delle varietà precoci,   Chardonnay, Pinot grigio e bianco ,  sono   in piena fioritura   con una   cre scita vegetativa intensa ma disomogenea .   La Peronospora è  diffusa in tutti i comprensori, con severità contenuta nella maggior parte dei casi .",
@@ -438,7 +590,10 @@
       "diffusa in tutti i comprensori"
      ],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "A inizio   estate , i vigneti si trovano tra fine fioritura e allegagione, con sviluppo vegetativo sostenuto  e clorosi persistente in alcune aree. Ne lle colture   ben protett e   con difesa integrata non si rilevano  infezioni di Peronospora, mentre nei vign eti biologici ,   la situazione è maggiormente preoccupante.",
@@ -452,7 +607,10 @@
       "nei vign eti biologici"
      ],
      "conditional_on_treatment": true,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "L’intensa ondata di temporali di m età mese   ha portato piogge   significative specie nel Veronese,  Vicentino,   Bellunese   e   basso   Veneziano - Rodigino,   dove   ci   sono   stati   scrosci   importanti   con  cumulate da 40 - 50 mm fino a oltre 100.   Le piogge hanno riattivato   la Peronospora della Vite con  nuove i nfezioni, anche intense su femminelle.",
@@ -462,7 +620,10 @@
      ],
      "scope_words_it": [],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": false
     }
    ],
    "quotes_dropped_on_reproof": [],
@@ -475,7 +636,11 @@
    "vine_season_year": 2025,
    "season_year_resolved_by": "calendar_key",
    "verifier_verdict": "CORRECTED",
+   "has_explicit_severity_as_reported": true,
+   "n_quotes_that_are_risk_not_outcome": 0,
+   "n_outcome_quotes": 5,
    "has_explicit_severity": true,
+   "severity_downgraded_by_risk_rule": false,
    "mention_only": false,
    "n_quotes": 5,
    "quotes": [
@@ -490,7 +655,10 @@
       "sulle cv precoci"
      ],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "Successivamente, compaiono i sintomi delle infezioni riferite alle precipitazioni del periodo compreso tra il 23 e il 25 aprile.",
@@ -498,7 +666,12 @@
      "severity_words_it": [],
      "scope_words_it": [],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [
+      "compaiono"
+     ],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "Le infezioni di Peronospora, originate dalle piogge di fine maggio, compaiono solo localmente e con scarsa intensità.",
@@ -510,7 +683,12 @@
       "solo localmente"
      ],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [
+      "compaiono"
+     ],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "Mentre nel mese di giugno la Peronospora rimane poco attiva per il caldo e la scarsa umidità, le piogge della prima decade di luglio riattivano le infezioni.",
@@ -520,7 +698,10 @@
      ],
      "scope_words_it": [],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [],
+     "_is_risk_not_outcome": false
     },
     {
      "quote_it": "In questo periodo   si   rilevano   infezioni   di   Peronospora   sulla   vegetazione   giovane   e   qualche   caso   di peronospora larvata nei vigneti biologici; l’Oidio resta contenuto e compaiono i primi focolai di Botrite.",
@@ -533,7 +714,12 @@
       "nei vigneti biologici"
      ],
      "conditional_on_treatment": false,
-     "_verbatim_occurrences": 1
+     "_verbatim_occurrences": 1,
+     "_risk_language": [],
+     "_outcome_language": [
+      "compaiono"
+     ],
+     "_is_risk_not_outcome": false
     }
    ],
    "quotes_dropped_on_reproof": [],

@@ -9,6 +9,29 @@ Trusting the verifier's word that it checked would defeat the point of having on
 """
 import json, glob, os, sys, re
 
+# RISK_FORECAST != DISEASE_PRESENCE, enforced mechanically.
+# A quote whose disease claim is carried by risk language is a forecast, not an outcome.
+# Found the hard way: the 2017 report's only vine peronospora sentence is
+# "...con un rischio basso di infezione di Peronospora...", which one pipeline coded as a
+# severity signal. It is a model's risk category on one date, not a record of what happened.
+RISK_LEXICON = [
+    "rischio", "rischi ", "pericolo", "condizioni favorevoli", "condizioni predisponenti",
+    "possibili infezioni", "possibile infezione", "previsione", "previsto", "atteso",
+    "si prevede", "potenziale rischio", "allerta", "soglia di rischio",
+]
+OUTCOME_LEXICON = [
+    "sono risultate", "e' risultata", "è risultata", "si sono manifestate", "sono state osservate",
+    "sono comparse", "compaiono", "si sono verificate", "hanno colpito", "sono state segnalate",
+    "riscontrate", "riscontrato", "presenza", "danni", "attacchi", "e' stata", "è stata",
+    "sono state", "ha causato", "si e' manifestata", "si è manifestata", "virulenza",
+]
+
+def risk_flag(quote):
+    q = quote.lower()
+    risk = sorted({w.strip() for w in RISK_LEXICON if w in q})
+    outc = sorted({w.strip() for w in OUTCOME_LEXICON if w in q})
+    return risk, outc
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NORM = os.path.join(ROOT, "NORMALIZED")
 WF = "/root/.claude/projects/-home-user-eame-sintonia/225e1b33-2ad9-51d4-af35-56626f84e287/subagents/workflows/wf_*/journal.jsonl"
@@ -59,17 +82,28 @@ if __name__ == "__main__":
             n = t.count(s)
             if n >= 1:
                 q = dict(q); q["_verbatim_occurrences"] = n
+                risk, outc = risk_flag(s)
+                q["_risk_language"] = risk
+                q["_outcome_language"] = outc
+                # risk words present and no outcome verb -> this is a forecast, not a record
+                q["_is_risk_not_outcome"] = bool(risk) and not outc
                 kept.append(q)
             else:
                 dropped.append({"quote": s[:160], "reason": "NOT VERBATIM in NORMALIZED text (re-proved here, independently of the verifier)"})
         if dropped:
             problems.append({"doc": key, "dropped": dropped})
+        n_risk_only = sum(1 for q in kept if q["_is_risk_not_outcome"])
+        outcome_quotes = [q for q in kept if not q["_is_risk_not_outcome"]]
         out[key] = {
             "doc_key": key,
             "vine_season_year": sy,
             "season_year_resolved_by": how,
             "verifier_verdict": v.get("verdict"),
-            "has_explicit_severity": bool(v.get("year_has_usable_severity_signal")),
+            "has_explicit_severity_as_reported": bool(v.get("year_has_usable_severity_signal")),
+            "n_quotes_that_are_risk_not_outcome": n_risk_only,
+            "n_outcome_quotes": len(outcome_quotes),
+            "has_explicit_severity": bool(v.get("year_has_usable_severity_signal")) and len(outcome_quotes) > 0,
+            "severity_downgraded_by_risk_rule": bool(v.get("year_has_usable_severity_signal")) and len(outcome_quotes) == 0,
             "mention_only": bool(v.get("year_has_mention_only")),
             "n_quotes": len(kept),
             "quotes": kept,
@@ -91,6 +125,11 @@ if __name__ == "__main__":
                  "is dropped here and listed in quotes_dropped_on_reproof."),
         "n_documents": len(out),
         "n_with_explicit_severity": sum(1 for r in out.values() if r["has_explicit_severity"]),
+        "n_downgraded_by_risk_rule": sum(1 for r in out.values() if r["severity_downgraded_by_risk_rule"]),
+        "downgraded_docs": [k for k, r in out.items() if r["severity_downgraded_by_risk_rule"]],
+        "risk_rule": ("RISK_FORECAST != DISEASE_PRESENCE, applied mechanically: a quote carrying risk "
+                      "language and no outcome verb is a forecast, not a record, and does not count "
+                      "toward a season's severity signal."),
         "n_mention_only": sum(1 for r in out.values() if r["mention_only"]),
         "n_no_statement": sum(1 for r in out.values() if not r["has_explicit_severity"] and not r["mention_only"] and r["n_quotes"] == 0),
         "season_year_collisions": collisions,
@@ -100,7 +139,7 @@ if __name__ == "__main__":
     dest = os.path.join(ROOT, "OBSERVATIONS", "verified_evidence.json")
     json.dump(doc, open(dest, "w"), indent=1, ensure_ascii=False)
 
-    print(f"{'DOC':9s} {'season':6s} {'by':18s} {'verdict':10s} {'sev':5s} {'ment':5s} {'nq':3s} {'drop':4s}")
+    print(f"{'DOC':9s} {'season':6s} {'by':18s} {'verdict':10s} {'sev':5s} {'ment':5s} {'nq':3s} {'risk':4s} {'drop':4s}")
     for k in sorted(out, key=lambda x: out[x]["vine_season_year"] or 0):
         r = out[k]
         print(f"{k:9s} {str(r['vine_season_year']):6s} {r['season_year_resolved_by']:18s} "
@@ -108,6 +147,7 @@ if __name__ == "__main__":
               f"{str(r['mention_only'])[:5]:5s} {r['n_quotes']:3d} {len(r['quotes_dropped_on_reproof']):4d}")
     print(f"\ndocuments={doc['n_documents']}  explicit severity={doc['n_with_explicit_severity']}  "
           f"mention only={doc['n_mention_only']}  no statement={doc['n_no_statement']}")
+    print(f"downgraded by the risk-not-outcome rule: {doc['n_downgraded_by_risk_rule']} {doc['downgraded_docs']}")
     if collisions: print("SEASON COLLISIONS:", collisions)
     if problems:   print("REPROOF PROBLEMS:", json.dumps(problems, ensure_ascii=False)[:600])
     print(f"wrote {dest}")
