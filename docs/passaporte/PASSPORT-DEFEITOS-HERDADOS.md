@@ -23,7 +23,7 @@
 | D6 | Data de publicação vira tempo do fato sem prova — 1.478 itens | **MÉDIA** | vivo |
 | D7 | Três vocabulários de capacidade sem mapa declarado | **MÉDIA** | vivo |
 | D8 | `_sabido()` cego para sentinela com sufixo — 1.312 valores no acervo | **ALTA** | causa raiz de D1 |
-| D9 | Independência entre fontes não existe como campo | **ALTA** | lacuna |
+| D9 | Independência existe em `voz.py` e **não foi herdada** pelo passaporte | **ALTA** | transporte ausente |
 | D10 | Profundidade de leitura não é estado — escopo mora em prosa | MÉDIA | lacuna |
 
 ---
@@ -151,6 +151,25 @@ Medido em 26 arquivos, com o censo percorrendo as listas **inteiras** (sem teto)
 > **`NÃO SEI` não é defeito por si.** Em `MEDICAO.json`, `PERSON_ID = "NÃO SEI"` em 1.071
 > vídeos é a resposta correta: não sabemos quem filmou, e cada linha guarda o próprio
 > `EXTERNAL_ID` válido. O defeito nasce só quando o campo ignorado **é a chave**.
+
+### E a casa já tinha a trava certa — o passaporte é que não a usou
+
+```python
+# scripts/voz.py:77
+SEM_ID_ESTRUTURAL = '__SEM_ID_ESTRUTURAL__'
+
+# scripts/voz.py:106
+if tem_id_estrutural(reg):
+    return (reg.get('PLATFORM'), reg.get('EXTERNAL_ID'))
+return (reg.get('PLATFORM'), SEM_ID_ESTRUTURAL, posicao)      # ← a POSIÇÃO entra na chave
+```
+
+Sem id, `voz.py` põe a **posição** na chave de dedupe: dois registros sem identificador
+recebem chaves diferentes e **não colapsam**. É fail-closed correto, e já estava escrito.
+
+O passaporte derivou `ITEM_ID = sha1(IDENTITY_BASIS)` sem esse desempate. **O defeito não
+é falta de solução na casa — é a solução não ter sido herdada.** A correção é conhecida e
+tem endereço.
 
 ---
 
@@ -334,23 +353,45 @@ COMPETITOR 6 · SCIENCE 5 · COUNTRY_CROP_PULSE 3
 
 ---
 
-## D9 · Independência entre fontes não existe
+## D9 · A independência existe na casa, e **não entrou** no passaporte
 
-`LINEAGE_STATE` (`ROOT` · `RESOLVED` · `BROKEN` · `UNKNOWN`) é **parentesco de derivação**,
-não independência. Os motivos gravados provam a semântica:
+> **Correção.** A primeira redação deste documento dizia que independência *não existia*.
+> Está errado, e o censo derrubou. Ela existe, com dono, vocabulário e portão medido.
+
+`LINEAGE_STATE` do passaporte (`ROOT` · `RESOLVED` · `BROKEN` · `UNKNOWN`) é **parentesco
+de derivação**, não independência. Os motivos gravados provam a semântica:
 
 ```
 991  "recostura por VIDEO_ID — o join da coleta procurou por URL e falhou"
-671  "vídeo é raiz"
-372  "post é raiz"
+671  "vídeo é raiz"          372  "post é raiz"
 252  "vídeo é raiz; transcrição e comentário derivam dele"
-202  "origem é raiz"
-101  "item territorial é raiz"
+202  "origem é raiz"         101  "item territorial é raiz"
 ```
 
-Nenhum fala de origem comum entre fontes distintas. **Não existe campo que responda
-*"estes dois boletins copiam o mesmo comunicado?"*.** Enquanto isso for verdade, nenhum
-cruzamento pode contar convergência — só pode contar coincidência.
+Mas a independência **já tem dono**, fora do passaporte:
+
+```
+scripts/voz.py:50
+    ORIGINALIDADE = ['ORIGINAL', 'RESHARE', 'SYNDICATED', 'UNKNOWN']
+
+docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md:152
+    "…independentes. Separar ORIGINAL · RESHARE · SYNDICATED · UNKNOWN."
+
+docs/operacao/PORTOES-DE-COLETA-10B.md:22   ← e é MEDIDO, com portão PROVED
+    VIDEO_ORIGINALITY = PROVED
+    241 UNKNOWN · 9 SYNDICATED · 2 RESHARE — todos explícitos
+    "RESHARE exige marca textual de republicação. SYNDICATED exige o mesmo título
+     em canais DIFERENTES."
+```
+
+**O defeito real, então, é mais estreito e mais fácil de corrigir do que eu escrevi:**
+o passaporte tem um eixo de linhagem que responde *parentesco* e **nenhum evento
+transporta `VIDEO_ORIGINALITY` para dentro dele**. `INDEPENDENCE_STATE` não precisa ser
+inventado — precisa ser **herdado** de `voz.py`, e estendido de vídeo para as outras
+famílias, onde ainda não existe.
+
+Enquanto não for transportado, nenhum cruzamento pode contar convergência a partir do
+passaporte — só pode contar coincidência.
 
 ---
 
@@ -384,6 +425,9 @@ achado a favor.
 | *"`UNIT_COUNT` foi prometido no contrato e não existe no log"* | existe 29 vezes, dentro de `EVIDENCE_REFERENCE` como texto | **derrubada** — a promessa foi cumprida, de forma fraca (não é campo tipado, não é consultável como número) |
 | *"O log tem colapso de identidade: uma base servindo vários itens"* | zero bases com mais de um `ITEM_ID` | **derrubada** — o colapso é o oposto: várias linhas de origem para **um** item (D2) |
 | *"O raio de D8 são 893 valores em 6 campos"* | 1.312 em 46 campos | **derrubada pelo meu próprio script** — a primeira varredura truncava listas e somava só os arquivos que imprimia. O censo definitivo percorre as listas inteiras e soma todos os arquivos; a truncagem, se existir, passa a ser impressa |
+| *"Independência entre fontes não existe em lugar nenhum"* | existe em `voz.py:50` (`ORIGINAL·RESHARE·SYNDICATED·UNKNOWN`), com regra em `REGRA-DE-COLETA-EXTERNA-EAME.md:152` e portão `VIDEO_ORIGINALITY = PROVED` medindo 241/9/2 | **derrubada** — D9 reescrito: o defeito é de **transporte** para o passaporte, não de ausência |
+| *"Não há defesa contra colapso por identidade ausente"* | `voz.py:106` já põe a posição na chave quando não há id (`__SEM_ID_ESTRUTURAL__`) | **derrubada** — D2 reescrito: a trava existe e não foi herdada |
+| *"Não existe distinção entre local da fonte e local do fato"* | `scripts/fato_local.py` (51 KB) é dono de `FACT_LOCATION` com precisão, âncora, gazetteer e três estados de **recusa** (`PLACE_MENTION_NOT_FACT`, `TERRITORIAL_LIST_NOT_FACT`, `NEGATED_OBSERVATION_NOT_FACT`), mais a migração `018_o_lugar_do_fato_ganha_dono.sql` | **derrubada** — existe, e é mais forte do que o passaporte |
 
 E o que foi medido **a favor** do trabalho anterior, com a mesma régua:
 

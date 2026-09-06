@@ -1,0 +1,270 @@
+{
+  "RULE_VERSION": "PASSPORT-TAGS-ITALY-V1",
+  "DATA": "2026-09-06",
+  "COUNTRY_SCOPE": "ITALY",
+  "PROJECT": "SINTONIA_EAME_ITALY",
+  "ESTADO": "PROPOSTA — nenhum backfill foi executado a partir deste mapa",
+  "LEI": [
+    "Se um conceito já tem DONO CANÔNICO, o nome do dono VENCE. Não criar alias.",
+    "Nome novo só onde ORIGEM = AUSENTE, e a busca que provou a ausência está declarada.",
+    "UNKNOWN nunca é identidade positiva. Ausência de medida é NAO_MEDIDO, nunca zero."
+  ],
+  "LEGENDA_ORIGEM": {
+    "HERDADO": "existe com dono canônico; o passaporte passa a transportar, não a redefinir",
+    "TRANSPORTE_AUSENTE": "existe na casa e NÃO chega ao passaporte; falta o evento que carrega",
+    "SO_ESTADO": "o passaporte guarda o estado da prova e não guarda o valor",
+    "CONFLITO": "dois ou mais vocabulários para o mesmo conceito, sem mapa declarado",
+    "AUSENTE": "não existe em lugar nenhum do repositório; aqui, e só aqui, se cria nome"
+  },
+
+  "CAMPOS": [
+
+    { "CONCEITO": "ITEM_ID",
+      "ORIGEM": "HERDADO",
+      "CANONICO": "ITEM_ID",
+      "NOMES_EXISTENTES": ["ITEM_ID", "CONTENT_ID", "ORIGIN_ID", "CHANNEL_ID"],
+      "DONOS": ["scripts/passaporte.py", "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md"],
+      "SEMANTICA": "identidade opaca e permanente da unidade de informação; sha1(IDENTITY_BASIS)",
+      "CONFLITOS": ["ITEM_ID colapsa quando IDENTITY_BASIS contém sentinela — ver D2"],
+      "RECOMENDACAO": "manter ITEM_ID; herdar de voz.py:106 o desempate por posição quando não há id estrutural" },
+
+    { "CONCEITO": "EXTERNAL_ID",
+      "ORIGEM": "CONFLITO",
+      "CANONICO": "EXTERNAL_ID",
+      "NOMES_EXISTENTES": ["EXTERNAL_ID", "IDENTITY_BASIS (string composta)", "REGISTRATION_ID", "ORCID", "ROR", "DOI", "CAS"],
+      "DONOS": ["docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md", "docs/regras/MODELO-DE-IDENTIDADE-EAME.md"],
+      "SEMANTICA": "chave estável do item na plataforma/registro de origem",
+      "CONFLITOS": [
+        "51 ocorrências com valor inválido no acervo",
+        "no passaporte só existe dentro de IDENTITY_BASIS, nunca como campo próprio"
+      ],
+      "RECOMENDACAO": "promover a campo próprio no passaporte; valor inválido => IDENTITY_STATE=UNKNOWN + desempate por posição, NUNCA base compartilhada" },
+
+    { "CONCEITO": "IDENTITY_STATE",
+      "ORIGEM": "HERDADO",
+      "CANONICO": "IDENTITY_STATE",
+      "VOCABULARIO": ["PROVED", "PLAUSIBLE", "NOT_PROVED", "NOT_APPLICABLE", "UNKNOWN"],
+      "DONOS": ["scripts/passaporte.py", "docs/regras/MODELO-DE-IDENTIDADE-EAME.md"],
+      "SEMANTICA": "força da prova de que este item é quem diz ser",
+      "CONFLITOS": ["a projeção resolve conflito entre atores por recência (D5); não há estado CONFLITO"],
+      "RECOMENDACAO": "manter vocabulário; acrescentar IDENTITY_CONFLICT quando dois atores discordam, preservando ambos" },
+
+    { "CONCEITO": "ENTITY_ID",
+      "ORIGEM": "HERDADO",
+      "CANONICO": "os 7 papéis de MODELO-DE-IDENTIDADE-EAME.md",
+      "NOMES_EXISTENTES": ["REGISTRATION_ID", "REFERENCE_PRODUCT", "REFERENCE_HOLDER", "MANUFACTURER", "MANUFACTURING_SITE", "COMMON_DENOMINATION", "CONCESSIONAIRE", "PERSON_ID", "ENTITY_ID", "ENTITY_KIND"],
+      "DONOS": ["docs/regras/MODELO-DE-IDENTIDADE-EAME.md", "scripts/creators.py"],
+      "SEMANTICA": "sete papéis que NUNCA colapsam; ROLE_A != ROLE_B mesmo quando VALUE_A == VALUE_B (165 registros espanhóis provam)",
+      "CONFLITOS": ["PERSON_ID inválido em 2.496 ocorrências — honesto onde a linha tem EXTERNAL_ID próprio, perigoso se virar chave de junção"],
+      "RECOMENDACAO": "proibir campo COMPANY único; JOIN por PERSON_ID só quando IDENTITY_STATE=PROVED" },
+
+    { "CONCEITO": "SOURCE_ID",
+      "ORIGEM": "HERDADO", "CANONICO": "SOURCE_ID",
+      "DONOS": ["docs/fontes/ATLAS-DE-FONTES-EAME.md", "scripts/passaporte.py"],
+      "SEMANTICA": "a ficha da fonte no atlas; 43 SOURCE_ID distintos no passaporte",
+      "RECOMENDACAO": "manter" },
+
+    { "CONCEITO": "SOURCE_FAMILY",
+      "ORIGEM": "HERDADO", "CANONICO": "SOURCE_FAMILY",
+      "VOCABULARIO": ["PLATFORM_PUBLIC_PAID_ROUTE", "PLATFORM_PUBLIC_FREE_ROUTE", "TERRITORIAL_BULLETIN", "OFFICIAL_REGISTRY", "FIELD_MONITORING_NETWORK", "STATISTICAL_OFFICE", "SCIENCE_CORPUS", "MEDIA_FEED"],
+      "DONOS": ["CONTRATO-DO-PASSAPORTE.md §1.2"],
+      "SEMANTICA": "família da ROTA DE COLETA — não é família semântica nem família de caminho",
+      "RECOMENDACAO": "manter, e renomear os outros dois eixos que hoje também se chamam família" },
+
+    { "CONCEITO": "FAMILY_ID",
+      "ORIGEM": "CONFLITO",
+      "CANONICO": "NAO_DECIDIDO",
+      "NOMES_EXISTENTES": ["FAMILIA (10 semânticas)", "FAMILIAS (13 por regex de caminho)", "SOURCE_FAMILY (8 rotas)"],
+      "DONOS": ["scripts/v2_dedup_e_familias.py", "scripts/it_acervo_inventario_v2.py", "scripts/passaporte.py"],
+      "SEMANTICA": "TRÊS conceitos diferentes com o mesmo nome",
+      "CONFLITOS": ["família semântica != família de caminho != família de rota"],
+      "RECOMENDACAO": "não escolher agora. Exige decisão de dono, fora do alcance desta missão. Até lá: FAMILY_ID = UNKNOWN e os três eixos ficam com nomes distintos" },
+
+    { "CONCEITO": "COLLECTION_ID",
+      "ORIGEM": "HERDADO", "CANONICO": "COLLECTION_ID",
+      "VOCABULARIO": ["VOICE_ES", "EARLY_SIGNAL_EAME", "TERRITORIAL", "YOUTUBE_JANELA", "COMPETITOR_PUBLIC_COMM", "ACERVO_BASE"],
+      "DONOS": ["scripts/passaporte.py"], "RECOMENDACAO": "manter" },
+
+    { "CONCEITO": "CONTENT_STATE",
+      "ORIGEM": "SO_ESTADO",
+      "CANONICO": "RAW_STATE + CONTENT_STATE + CONTENT_READ_STATE (três eixos, já separados)",
+      "VOCABULARIO_ATUAL": {
+        "RAW_STATE": ["PRESERVED", "NOT_PRESERVED", "ERROR", "UNKNOWN"],
+        "CONTENT_STATE": ["AVAILABLE", "REQUESTED_EMPTY", "NOT_TESTED", "ABSENT", "ERROR", "UNKNOWN"],
+        "CONTENT_READ_STATE": ["READ", "LEXICALLY_SCANNED", "NOT_READ", "UNKNOWN"]
+      },
+      "DONOS": ["scripts/passaporte.py", "docs/regras/POLITICA-CANONICA-DE-RAW.md"],
+      "CONFLITOS": ["READ não diz ATÉ ONDE leu; o escopo mora em prosa ('classificador lexical sobre título e descrição'); TRANSCRIPT_READ existe como evento e nunca foi emitido"],
+      "RECOMENDACAO": "manter os três eixos e acrescentar READ_SCOPE (TITLE · DESCRIPTION · BODY · TRANSCRIPT · FULL) como campo próprio. LEXICALLY_SCANNED continua NUNCA satisfazendo leitura — é a melhor decisão do contrato anterior" },
+
+    { "CONCEITO": "CROP",
+      "ORIGEM": "SO_ESTADO",
+      "CANONICO": "CROP_ALL · CROP_PRIMARY · CROP_CARDINALITY · CROP_RESOLUTION_STATE · CROP_EVIDENCE",
+      "NOMES_EXISTENTES": ["CROP_STATE (passaporte)", "CROP", "crop", "CROP_ID_CANONICO", "VOCAB_CROP_IT", "CROPS (dicionário ES)"],
+      "DONOS": ["docs/regras/POLITICA-CANONICA-DE-CROP.md (CROP-D1-2026-09-05)"],
+      "SEMANTICA": "MULTI_CROP != AMBIGUOUS; cardinalidade e resolução são eixos independentes",
+      "CONFLITOS": [
+        "passaporte guarda só CROP_STATE=DECLARED e põe o valor em REASON",
+        "'VINE' (145) e \"['VINE']\" (43) são a mesma cultura em duas grafias",
+        "CROP (VINE/OLIVE) vs crop (VITE/OLIVO/C1110) — dois campos, mesmo nome"
+      ],
+      "RECOMENDACAO": "POLITICA-CANONICA-DE-CROP.md é o dono. O passaporte adota os 5 campos e ABANDONA CROP_STATE" },
+
+    { "CONCEITO": "ISSUE",
+      "ORIGEM": "SO_ESTADO",
+      "CANONICO": "ISSUE_ID (taxonomia) + ISSUE_ALL/ISSUE_RESOLUTION_STATE por simetria com CROP",
+      "DONOS": ["data/samples/IT-ROTULOS-V1/IT-VOCAB-HANDOFF-V1.json (DONO_DA_TAXONOMIA)"],
+      "CONFLITOS": ["VOCAB_ISSUE_IT (voz.py) e ISSUE_ID (vocab handoff) são vocabulários distintos"],
+      "RECOMENDACAO": "espelhar o modelo de CROP; a taxonomia canônica é ISSUE_ID" },
+
+    { "CONCEITO": "ISSUE_TYPE",
+      "ORIGEM": "HERDADO", "CANONICO": "ISSUE_TYPE",
+      "VOCABULARIO": ["PEST", "DISEASE", "WEED", "UNKNOWN"],
+      "DONOS": ["italia-portale/client/italy-app-model.js :: categoryOf()"],
+      "RECOMENDACAO": "herdar; não confundir com CATEGORIA de produto (FUNGICIDA/INSETICIDA), que é outro eixo" },
+
+    { "CONCEITO": "COUNTRY / REGION / SUBREGION",
+      "ORIGEM": "SO_ESTADO",
+      "CANONICO": "FACT_LOCATION + FACT_LOCATION_PRECISION + FACT_LOCATION_EVIDENCE + FACT_LOCATION_ANCHOR + FACT_LOCATION_ORIGIN",
+      "NOMES_EXISTENTES": ["GEOGRAPHY_STATE (passaporte)", "COUNTRY_OF_FACT", "REGION_OF_FACT", "COUNTRY_OF_PERSON", "SOURCE_LOCATION", "FACT_LOCATION", "provincia"],
+      "DONOS": ["scripts/fato_local.py", "supabase/migrations/018_o_lugar_do_fato_ganha_dono.sql"],
+      "SEMANTICA": "SOURCE_LOCATION != ENTITY_LOCATION != FACT_LOCATION; idioma não é lugar; escopo da conta não é lugar do fato",
+      "ESTADOS_DE_RECUSA": ["PLACE_MENTION_NOT_FACT", "TERRITORIAL_LIST_NOT_FACT", "NEGATED_OBSERVATION_NOT_FACT"],
+      "CONFLITOS": ["o passaporte tem UM GEOGRAPHY_STATE e não guarda lugar nenhum", "NÃO SEI e NOT_KNOWN convivem em COUNTRY_OF_FACT (473 vs 5.642)"],
+      "RECOMENDACAO": "fato_local.py é o dono. O passaporte transporta os campos dele; GEOGRAPHY_STATE vira projeção, não fonte" },
+
+    { "CONCEITO": "ENTITY_LOCATION",
+      "ORIGEM": "HERDADO", "CANONICO": "origem_lugar.papel",
+      "VOCABULARIO": ["BASE", "OPERATING", "INFLUENCE"],
+      "DONOS": ["supabase/migrations/018_o_lugar_do_fato_ganha_dono.sql"],
+      "RECOMENDACAO": "herdar; nunca promover a FACT_LOCATION" },
+
+    { "CONCEITO": "TEMPO",
+      "ORIGEM": "CONFLITO",
+      "CANONICO": "PUBLISHED_AT · OBSERVED_AT · CAPTURED_AT · VALID_FROM · VALID_UNTIL · EVENT_TIME (seis eixos separados)",
+      "NOMES_EXISTENTES": ["TIME_STATE (um eixo só)", "PUBLISHED_AT", "CAPTURED_AT", "OBSERVED_AT", "DATE", "DATE_RELATIVE", "PUBLICATION_DATE", "TIMESTAMP"],
+      "DONOS": ["scripts/passaporte.py (TIME_STATE)", "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md (DATE/DATE_RELATIVE)"],
+      "CONFLITOS": [
+        "TIME_STATE=PROVED é alimentado por PUBLICATION_DATE, PUBLISHED_AT e até CAPTURED_AT — a data do fato nunca teve eixo",
+        "346 eventos TIME_RESOLVED=PROVED com REASON='NÃO SEI — a rota devolve so tempo relativo' (D1)"
+      ],
+      "RECOMENDACAO": "quebrar TIME_STATE em seis eixos com estado próprio. FACT_TIME só existe com prova própria; data de publicação NUNCA vira data do fato por default. Espelhar a disciplina que a geografia já tem" },
+
+    { "CONCEITO": "OBSERVATION_STATE",
+      "ORIGEM": "AUSENTE",
+      "CANONICO": "OBSERVATION_STATE (NOVO)",
+      "VOCABULARIO_PROPOSTO": ["OBSERVED", "MODELLED", "DERIVED", "INFERRED", "SCENARIO", "PROXY", "UNKNOWN"],
+      "BUSCA_QUE_PROVOU_AUSENCIA": "grep por OBSERV|MODEL|RISK|FORECAST|SCENARIO|PROXY|INFER em data/ e scripts/; OBSERVATION_TYPE existe mas é tipo de comunicação (FIELD_OBSERVATION/TECHNICAL_ALERT/REGULATORY_UPDATE) e vale OTHER em 96 de 114 casos",
+      "POR_QUE_IMPORTA": "RISCO != OCORRÊNCIA. Um boletim que diz 'condições favoráveis à peronospora' e um que diz 'peronospora encontrada em campo' hoje entram idênticos",
+      "RECOMENDACAO": "criar. É a ausência mais grave para quem vai ler o dado como verdade" },
+
+    { "CONCEITO": "PROOF_STATE",
+      "ORIGEM": "AUSENTE",
+      "CANONICO": "PROOF_STATE por EIXO (NOVO), semeado por EVIDENCE_CLASS",
+      "VOCABULARIO_PROPOSTO": ["PROVED_BY_SOURCE", "MEASURED_BY_SYSTEM", "DERIVED_BY_DECLARED_RULE", "EXPLICITLY_LABELLED_INFERENCE", "SCENARIO", "PROXY", "NOT_PROVED", "UNKNOWN"],
+      "SEMENTE_EXISTENTE": {
+        "EVIDENCE_CLASS": ["PRIMARY_SOURCE_RAW", "PRIMARY_SOURCE_PROBE", "OFFICIAL_DOCUMENT", "OFFICIAL_STATISTIC", "OFFICIAL_MARKET_OBSERVATION", "SCIENTIFIC_LITERATURE", "REGULATORY_FACT", "DERIVED_INTERPRETATION", "DERIVED_SCOPE", "DERIVED_MEASUREMENT", "DERIVED_IDENTITY", "TECHNICAL_AUTHORITY_DECLARATION"],
+        "MODELO_DE_IDENTIDADE": "tabela 'Qualidade de fonte, declarada campo a campo' (PRIMÁRIA vs secundária)"
+      },
+      "SUBSTITUI": "CONFIDENCE (568 ocorrências: HIGH 326 · NONE 148 · MEDIUM 70 · LOW 2 + 8 textos livres que já pedem prova POR EIXO)",
+      "CONFLITOS": ["OFFICIAL_DOCUMENT (2.030) e DOCUMENTO_OFICIAL (2.030) são o mesmo valor em duas línguas"],
+      "RECOMENDACAO": "criar PROOF_STATE por eixo; unificar EVIDENCE_CLASS em uma língua; aposentar CONFIDENCE — escala vaga não substitui prova" },
+
+    { "CONCEITO": "INDEPENDENCE_STATE",
+      "ORIGEM": "TRANSPORTE_AUSENTE",
+      "CANONICO": "ORIGINALIDADE",
+      "VOCABULARIO": ["ORIGINAL", "RESHARE", "SYNDICATED", "UNKNOWN"],
+      "DONOS": ["scripts/voz.py:50", "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md:152", "docs/operacao/PORTOES-DE-COLETA-10B.md (portão VIDEO_ORIGINALITY = PROVED)"],
+      "MEDIDO": "241 UNKNOWN · 9 SYNDICATED · 2 RESHARE, todos explícitos",
+      "CONFLITOS": ["existe só para VÍDEO; boletim, post e documento não têm equivalente", "não há evento que leve isso ao passaporte"],
+      "RECOMENDACAO": "NÃO inventar. Transportar de voz.py e estender às outras famílias. Até o transporte existir, INDEPENDENCE_STATE=UNKNOWN e nenhum cruzamento pode contar convergência" },
+
+    { "CONCEITO": "LINEAGE_ID",
+      "ORIGEM": "SO_ESTADO",
+      "CANONICO": "LINEAGE_ID (agrupador, NOVO) + LINEAGE_STATE (parentesco, existente)",
+      "NOMES_EXISTENTES": ["LINEAGE_STATE (ROOT/RESOLVED/BROKEN/UNKNOWN)", "PARENT_ITEM_ID", "DERIVED_FROM", "RUN_ID"],
+      "SEMANTICA": "LINEAGE_STATE do passaporte é PARENTESCO (vídeo -> transcrição), provado pelos motivos gravados: 'vídeo é raiz' (671), 'post é raiz' (372)",
+      "RECOMENDACAO": "manter LINEAGE_STATE com o nome que tem e a semântica que tem; o agrupador de linhagem é campo novo e distinto" },
+
+    { "CONCEITO": "CLAIM_TYPE",
+      "ORIGEM": "CONFLITO",
+      "CANONICO": "FACT · INTERPRETATION · ACTION",
+      "DONOS": ["docs/regras/REGUA-DE-ALERTA-EAME.md"],
+      "VOCABULARIOS_CONCORRENTES": {
+        "comentario": ["FIELD_OBSERVATION", "TECHNICAL_QUESTION", "PRODUCT_QUESTION", "PROBLEM_REPORT", "TECHNICAL_DISCUSSION"],
+        "mudanca_de_registro": ["REFERENCE_NAME_CHANGE", "NEW_COMMON_DENOMINATION", "REMOVED_COMMON_DENOMINATION", "NEW_REGISTRATION", "REGISTRATION_LEFT_THE_LIST", "STATUS_CHANGE"],
+        "tipo_de_fato": ["PRECO", "AREA_PRODUCAO", "FENOLOGIA", "CLIMA", "REGULATORIO", "EVENTO"],
+        "conteudo": ["EDITORIAL", "COMPANY_PROVIDED", "BRANDED_CONTENT", "FIRST_PERSON_FIELD_REPORT", "TECHNICAL_REPLY"]
+      },
+      "RECOMENDACAO": "FACT/INTERPRETATION/ACTION é o eixo canônico; os outros quatro são SUBTIPOS por família e devem viver em CLAIM_SUBTYPE, não competir" },
+
+    { "CONCEITO": "CAPABILITY_ROUTING",
+      "ORIGEM": "CONFLITO",
+      "CANONICO": "CAP-001..CAP-022 (ATLAS-DE-CAPACIDADES-EAME.md)",
+      "VOCABULARIOS_CONCORRENTES": {
+        "atlas": "22 CAP-###",
+        "areas": ["REGULATORY", "MOLECULE", "PEST & DISEASE", "SCIENCE & EXPERTS", "CROPS & CLIMATE", "COMPETITIVE", "MARKET", "DISTRIBUTION", "FIELD VOICES", "EVIDENCE & SOURCES"],
+        "passaporte": ["OPPORTUNITY", "EARLY_SIGNAL", "PHYTOSANITARY", "WINDOWS", "REGULATORY", "PORTFOLIO", "COMPETITOR", "SCIENCE", "HUMAN_SENSORS", "MARKET_DEVELOPMENT", "COMMERCIAL", "MARKETING", "SUPPLY", "COUNTRY_CROP_PULSE", "FUTURE_PLANNING", "ASK_SINTONIA"]
+      },
+      "MAPA_EXISTENTE": "scripts/passaporte_backfill.py:858 AREA_PARA_CAPACIDADE — só em código, sem documento, cobrindo 10 dos 16",
+      "INALCANCAVEIS": ["EARLY_SIGNAL", "WINDOWS", "MARKETING", "SUPPLY", "FUTURE_PLANNING"],
+      "BLOQUEADA_DE_PROPOSITO": ["OPPORTUNITY"],
+      "RECOMENDACAO": "esta missão NÃO cria capacidade. Tirar AREA_PARA_CAPACIDADE do código para documento e declarar CAP-### <-> CAPABILITY_ID. Onde não houver mapa: UNKNOWN_CAPABILITY" },
+
+    { "CONCEITO": "CONSUMPTION_STATE",
+      "ORIGEM": "HERDADO", "CANONICO": "CONSUMPTION_STATE",
+      "VOCABULARIO": ["CONSUMED", "READY_NOT_CONSUMED", "BLOCKED", "ORPHAN_INTELLIGENCE", "PENDING", "UNKNOWN"],
+      "DONOS": ["scripts/passaporte.py"],
+      "SEMANTICA": "ORPHAN_INTELLIGENCE é inteligência válida sem consumidor — estado com nome, não silêncio",
+      "MEDIDO": "48 eventos de consumo em 2.960 itens; 7 das 16 capacidades receberam rota",
+      "RECOMENDACAO": "manter integralmente. É uma das partes mais acertadas do contrato anterior" },
+
+    { "CONCEITO": "RELATIONSHIP_ID",
+      "ORIGEM": "AUSENTE",
+      "BUSCA_QUE_PROVOU_AUSENCIA": "zero ocorrências em EVENTOS.jsonl e nos scripts do passaporte",
+      "RECOMENDACAO": "criar, vazio. Relação binária provada entre dois objetos. NÃO popular nesta missão" },
+
+    { "CONCEITO": "CROSSING_ID",
+      "ORIGEM": "HERDADO", "CANONICO": "X-### / IT-X-ANO-NNN",
+      "DONOS": ["docs/fontes/ATLAS-DE-FONTES-EAME.md", "scripts/it_cruzamentos.py"],
+      "VOCABULARIO_DE_TIPO": "CROSSING_TYPE em data/samples/IT-CRUZAMENTO-V1/IT-CRUZAMENTOS-V1.json",
+      "VEREDITO": ["LEADS", "COINCIDES", "LAGS", "NO_RELIABLE_SIGNAL"],
+      "RECOMENDACAO": "herdar o identificador; NÃO recalcular cruzamento nesta missão" },
+
+    { "CONCEITO": "ADAMA_RELATION",
+      "ORIGEM": "CONFLITO", "CANONICO": "ADAMA_RELATION",
+      "VOCABULARIO": ["LINHA_DA_TABELA", "BLOCO_DA_CULTURA", "DECLARACAO_DE_PRODUTO", "SUBSTANCIA_ATIVA"],
+      "DONOS": ["scripts/it_cruzamentos.py"],
+      "CONCORRENTE": "ADAMA_USE_CASE em ATLAS-DE-FONTES-EAME.md (REGULATORY/PORTFOLIO/MD/COMMERCIAL/R&D) — é OUTRA pergunta: para quem serve, não como se relaciona",
+      "LEI": "ACTIVE_INGREDIENT_OVERLAP != ADAMA_PRODUCT_USE",
+      "RECOMENDACAO": "ADAMA_RELATION (como se relaciona) e ADAMA_USE_CASE (para quem serve) são eixos distintos; manter os dois com os nomes que têm" },
+
+    { "CONCEITO": "PRODUCT_RELATION",
+      "ORIGEM": "HERDADO", "CANONICO": "productRelationships",
+      "DONOS": ["italia-portale/client/italy-app-model.js"],
+      "RECOMENDACAO": "herdar o nome do dono do consumo; não duplicar no passaporte" },
+
+    { "CONCEITO": "EVIDENCE_POINTER",
+      "ORIGEM": "HERDADO", "CANONICO": "EVIDENCE_REFERENCE",
+      "NOMES_EXISTENTES": ["EVIDENCE_REFERENCE", "RAW_EVIDENCE_PATH", "RAW_HTML_PATH"],
+      "CONFLITOS": ["UNIT_COUNT dos 29 snapshots vive DENTRO de EVIDENCE_REFERENCE como texto ('UNIT_COUNT=1771'), não como número consultável"],
+      "RECOMENDACAO": "manter EVIDENCE_REFERENCE; promover UNIT_COUNT a campo próprio" },
+
+    { "CONCEITO": "UNKNOWN_FIELDS",
+      "ORIGEM": "AUSENTE",
+      "BUSCA_QUE_PROVOU_AUSENCIA": "zero ocorrências; existe o VALOR UNKNOWN em cada vocabulário, mas nenhuma lista de QUAIS campos ficaram desconhecidos por item",
+      "RECOMENDACAO": "criar. É o que torna a ignorância contável em vez de invisível" }
+  ],
+
+  "NAO_DECIDIDO_NESTA_MISSAO": [
+    "FAMILY_ID — três conceitos com o mesmo nome; exige decisão de dono",
+    "o mapa CAP-### <-> CAPABILITY_ID <-> ÁREA — exige o dono do atlas de capacidades",
+    "qual língua vence em EVIDENCE_CLASS (OFFICIAL_DOCUMENT vs DOCUMENTO_OFICIAL)"
+  ],
+
+  "PORTOES": {
+    "PASSPORT_REQUIRED": "NO",
+    "FULL_BACKFILL": "NO",
+    "MOTIVO": "SCHEMA_STABLE = NO enquanto CROP, TEMPO e CAPABILITY tiverem vocabulários concorrentes sem mapa declarado"
+  }
+}
