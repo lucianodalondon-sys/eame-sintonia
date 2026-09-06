@@ -58,13 +58,15 @@ teste('nenhum par com >=2 doses discordantes exibe um numero', () => {
   return `${amb} pares ambiguos, nenhum com valor unico`;
 });
 
-teste('a celula de dose diz de que linha o numero veio', () => {
-  viewCrop();
-  const h = html('#cres');
-  afirma(h.includes('EXATA') || h.includes('LISTADA'),
-    'a tela nao distingue igualdade exata de juncao inferida');
-  afirma(!/>\s*\d[\d.,-]*\s+(kg|g|l|ml)\/ha\s*<\/td>/i.test(h),
-    'ha dose impressa sem selo de como foi ligada ao par');
+// Este teste media a tela de cultura. A build DEMO-SAFE retirou a tela inteira,
+// entao a asserção se inverte: o que ele mede agora e que ela NAO voltou.
+teste('a demonstracao nao tem tela de cultura, e nada no casco a chama', () => {
+  afirma(typeof viewCrop === 'undefined', 'viewCrop voltou a existir na build da demo');
+  const js = require('fs').readFileSync(__dirname + '/../casco/app.js', 'utf8');
+  afirma(!/\bfunction viewCrop\b/.test(js), 'app.js voltou a definir viewCrop');
+  afirma(!/data-v=['"]crop['"]/.test(
+    require('fs').readFileSync(__dirname + '/../casco/shell.html', 'utf8')),
+    'a navegacao voltou a oferecer a tela de cultura');
 });
 
 // ---------------------------------------------------------------- 2 · exclusao
@@ -79,11 +81,16 @@ teste('CILIEGIO nao aparece como uso autorizado de NIMROD nem de VERBUM EW', () 
   });
 });
 
-teste('a ficha mostra a frase do rotulo que retirou o uso', () => {
+// A retirada de CILIEGIO continua medida no dado (teste acima). O que muda na
+// DEMO e a publicacao: a frase literal do rotulo cita a cultura, e citar a
+// cultura e publicar a camada que esta demonstracao declarou retirar.
+teste('a ficha nao publica a frase de exclusao nem o nome da cultura', () => {
   viewProduto('013405');
   const h = html('#pdet');
-  afirma(h.includes('ad esclusione di'), 'a frase de exclusao nao aparece na ficha');
-  afirma(h.includes('Exclusao nao e permissao'), 'a ficha nao explica a retirada');
+  afirma(!h.includes('ad esclusione di'), 'a ficha voltou a citar a frase de exclusao');
+  afirma(!/CILIEGIO/i.test(h), 'a ficha voltou a nomear a cultura retirada');
+  afirma(h.includes('retidos nesta demonstracao') || h.includes('nao e recusa'),
+    'a ficha nao explica que a camada esta retida');
 });
 
 // ---------------------------------------------------------------- 3 · fora do ativo
@@ -135,9 +142,10 @@ teste('NOT_RELEVANT nao lista as linhas que a propria nota diz estarem barradas'
 
 // ---------------------------------------------------------------- 5 · ignorancia
 teste('nenhuma tela imprime None, undefined ou null cru', () => {
-  const telas = {today: () => viewToday(), produto: () => viewProduto('009322'),
-                 crop: () => viewCrop(), cal: () => viewCal(), action: () => viewAction(),
-                 timeline: () => viewTimeline(), review: () => viewReview(), cov: () => viewCov()};
+  const telas = {home: () => viewHome(), today: () => viewToday(),
+                 produto: () => viewProduto('009322'), cal: () => viewCal(),
+                 action: () => viewAction(), timeline: () => viewTimeline(),
+                 review: () => viewReview(), cov: () => viewCov()};
   Object.entries(telas).forEach(([v, fn]) => {
     try { fn(); } catch (e) { throw new Error(`view ${v} quebrou: ${e.message}`); }
   });

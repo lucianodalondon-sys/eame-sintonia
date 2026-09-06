@@ -167,8 +167,17 @@ const link = (u, rotulo) => ehURL(u)
   ? `<a href="${esc(u)}" target="_blank">${esc(rotulo)}</a>`
   : val(u);
 // Renderiza valor preservando o token de ignorancia, com o nome dele visivel.
-const val = v => isUnk(v) ? `<span class="unknown" title="a fonte nao sustenta este campo">${esc(v)}</span>`
-                          : esc(v);
+// O titulo era um so para todo token: "a fonte nao sustenta este campo". Mas a
+// maioria destes tokens e NOSSA — NOT_APPLICABLE e a forma do nosso objeto,
+// NOT_PROVED e o nosso portao, NOT_COLLECTED e a nossa coleta. So NOT_PRESENT e
+// NOT_IN_SNAPSHOT falam do que a fonte traz. Culpar o Ministero por uma lacuna
+// nossa e inverter a autoria da ignorancia.
+const FONTE_NAO_TRAZ = ['NOT_PRESENT', 'NOT_IN_SNAPSHOT'];
+const val = v => isUnk(v)
+  ? `<span class="unknown" title="${FONTE_NAO_TRAZ.includes(String(v))
+      ? 'a fonte oficial nao traz valor neste campo'
+      : 'token de ignorancia desta ferramenta: nada aqui sustenta um valor'}">${esc(v)}</span>`
+  : esc(v);
 
 // ---------------------------------------------------------------- RELOGIO
 // Este arquivo e distribuido sozinho. Todo numero de dias vinha congelado do
@@ -204,6 +213,11 @@ const GLOSA_JANELA = `<div class="lei"><b><code>ACT_NOW</code> aqui significa
   <b>quando olhar</b>, nunca sobre o que fazer com o produto no mercado. Nenhuma janela desta
   ferramenta autoriza decisao comercial: <code>EXPIRY != WITHDRAWAL</code>, e
   <code>ACTION</code> nao e emitida por esta ferramenta em nenhuma hipotese.</div>`;
+// A glosa e obrigatoria ONDE O SELO APARECE, nao so nas telas que a listam:
+// ACT_NOW estava sendo impresso sem ela nas fichas de PRODUTO 360, na BUSCA e
+// na gaveta de evidencia.
+const janelaDe = o => (HOJE ? janelaAgora(o)[0] : o.TIME_WINDOW);
+const glosaSe = lista => lista.some(o => janelaDe(o) === 'ACT_NOW') ? GLOSA_JANELA : '';
 // A JANELA TAMBEM E UM NUMERO DE DIAS, e tambem estava congelada no build.
 // dte() ja era recalculado no navegador; TIME_WINDOW nao, e a incoerencia
 // aparecia junta na mesma tela: aberta em 2027, a ferramenta mostrava
@@ -412,15 +426,28 @@ function drawer(html) { $('#dr').innerHTML =
   `<button class="close" onclick="document.getElementById('dr').classList.remove('open')">&times;</button>${html}`;
   $('#dr').classList.add('open'); }
 
-function evObj(id) {
-  const o = P.objects.find(x => x.INTELLIGENCE_OBJECT_ID === id);
+// X-08 · os 210 objetos carregam 201 identificadores distintos: 7 colisoes, e
+// todas em NEEDS_HUMAN_REVIEW. Esta funcao resolvia com .find(), que devolve o
+// PRIMEIRO — e 5 das 13 linhas da fila abriam a gaveta de OUTRO objeto,
+// apontando outra pagina do mesmo rotulo. O botao prometia "esta e a prova
+// desta linha" e entregava a de outra, que e exatamente a promessa central da
+// ferramenta falhando. A tela passa a resolver por POSICAO no payload, que e
+// exata, e a gaveta DECLARA a colisao onde ela existe, em vez de escondê-la.
+function evIdx(i) {
+  const o = P.objects[i];
   if (!o) return;
   const rt = o.CAPABILITY_ROUTING.map(r =>
     `<div style="margin:3px 0"><b>${CAPS[r.CAPABILITY_ID]||r.CAPABILITY_ID}</b>
      <span class="pill ${r.ROUTING_STATE==='RELEVANT'?'p-ok':r.ROUTING_STATE==='POTENTIALLY_RELEVANT'?'p-warn':r.ROUTING_STATE==='UNKNOWN'?'p-unk':'p-dim'}">${r.ROUTING_STATE}</span>
      <code>${esc(r.RULE_ID)}</code><div class="meta">${esc(r.JUSTIFICATION)}</div></div>`).join('');
   drawer(`<h3>Evidencia</h3>
-  <div class="meta">objeto <code>${esc(o.INTELLIGENCE_OBJECT_ID)}</code></div>
+  <div class="meta">objeto <code>${esc(o.INTELLIGENCE_OBJECT_ID)}</code>${(() => {
+    const n = P.objects.filter(x => x.INTELLIGENCE_OBJECT_ID === o.INTELLIGENCE_OBJECT_ID).length;
+    return n > 1 ? ` &middot; <span class="unknown">INTELLIGENCE_OBJECT_ID_NOT_UNIQUE</span>
+      <div class="meta"><b>${n} objetos deste build compartilham este identificador.</b> Esta
+      gaveta e a linha que voce clicou, resolvida por posicao no payload; o identificador,
+      sozinho, nao a distingue. Isto e um defeito do gerador de id, e esta escrito aqui em vez
+      de corrigido em silencio.</div>` : '';})()}</div>
   <dl>
     <dt>Fato (o que a fonte diz)</dt><dd>${fatoDemo(o)}</dd>
     <dt>Significado regulatorio derivado</dt><dd>${val(o.DERIVED_REGULATORY_MEANING)}
@@ -429,15 +456,20 @@ function evObj(id) {
       <div class="meta">${esc(o.BUSINESS_IMPLICATION_NOTE)}</div></dd>
     <dt>Revisao recomendada</dt><dd>${val(o.RECOMMENDED_REVIEW)}</dd>
     <dt>Acao</dt><dd>${val(o.ACTION)}<div class="meta">esta ferramenta nao emite acao</div></dd>
-    <dt>Antes &rarr; Depois</dt><dd>${val(o.BEFORE_VALUE)} &rarr; ${val(o.AFTER_VALUE)}</dd>
+    <dt>Antes &rarr; Depois</dt><dd>${valorDemo(o)} &rarr; ${depoisDemo(o)}</dd>
     <dt>Estado da prova</dt><dd><span class="pill ${PROOF[o.PROOF_STATE]||'p-dim'}">${esc(o.PROOF_STATE)}</span>
       &nbsp;<code>${esc(o.CONFIDENCE_STATE)}</code></dd>
     <dt>Documento antes</dt><dd class="mono">${val(o.SOURCE_DOCUMENT_BEFORE)}</dd>
     <dt>Documento depois</dt><dd class="mono">${val(o.SOURCE_DOCUMENT_AFTER)}</dd>
-    <dt>Local da evidencia</dt><dd>${val(o.EVIDENCE_LOCATION)}</dd>
+    <dt>Local da evidencia</dt><dd>${localDemo(o)}</dd>
     <dt>Fonte oficial</dt><dd>${ehURL(o.SOURCE_URL)?link(o.SOURCE_URL,o.SOURCE_URL):val(o.SOURCE_URL||'NOT_KNOWN')}</dd>
     <dt>Autoridade</dt><dd>${val(o.SOURCE_AUTHORITY)}</dd>
-    <dt>Capturado em</dt><dd>${val(o.CAPTURED_AT)}</dd>
+    <dt>Capturado em</dt><dd>${val(o.CAPTURED_AT)}${o.OBJECT_TYPE === 'EXPIRY_EVENT'
+      ? `<div class="meta">Nada foi capturado nesta data. Este objeto nao nasce de uma coleta
+         propria: e derivado do instantaneo nomeado acima
+         (<code>${esc(String(o.SOURCE_DOCUMENT_AFTER).split(' ')[0])}</code>), e a data marca
+         <b>quando a derivacao rodou</b>. <code>CAPTURED_AT != EFFECTIVE_AT</code>, e aqui
+         tambem <code>CAPTURED_AT != a data da captura</code>.</div>` : ''}</dd>
     <dt>Detectado em</dt><dd>${val(o.DETECTED_AT)}</dd>
     <dt>Janela de observacao</dt><dd>${val(o.OBSERVATION_WINDOW||'NOT_APPLICABLE')}</dd>
     <dt>Parser</dt><dd class="mono">${val(o.PARSER_VERSION)}</dd>
@@ -447,8 +479,13 @@ function evObj(id) {
         ? ` &middot; recalculada contra ${esc(HOJE)} pela regra <code>${esc(janelaAgora(o)[1])}</code>`
         : ` &middot; <span class="unknown">NOT_COMPUTED_WITHOUT_CLOCK</span>`}</div></dd>
   </dl>
+  ${glosaSe([o])}
   <h3 style="margin-top:16px">Quem pode precisar olhar</h3>${rt}`);
 }
+window.evIdx = evIdx;
+// Mantida para quem chama por identificador. Onde o identificador e ambiguo ela
+// nao tem como acertar, e a gaveta diz isso.
+function evObj(id) { evIdx(P.objects.findIndex(x => x.INTELLIGENCE_OBJECT_ID === id)); }
 window.evObj = evObj;
 
 function evProd(reg) {
@@ -547,15 +584,15 @@ function cardObj(o) {
   return `<div class="card ${cls}">
     <h4>${esc(o.PRODUCT_NAME||'NOT_KNOWN')} <span class="meta mono">${esc(o.REGISTRATION_ID)}</span></h4>
     <div class="meta">${fatoDemo(o)}</div>
-    <div class="ba"><span class="b">${val(o.BEFORE_VALUE)}</span>
-      <span class="arr">&rarr;</span><span class="a">${val(o.AFTER_VALUE)}</span></div>
+    <div class="ba"><span class="b">${valorDemo(o)}</span>
+      <span class="arr">&rarr;</span><span class="a">${depoisDemo(o)}</span></div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:6px">
       <span class="pill p-dim">${esc(o.CHANGE_TYPE)}</span>
       <span class="pill ${pill}" title="${esc(jRegra)}${jAgora!==o.TIME_WINDOW?` — recalculada contra hoje; no build era ${esc(o.TIME_WINDOW)}`:''}">${lbl}</span>${
         jAgora!==o.TIME_WINDOW ? `<span class="meta" title="a janela e um numero de dias e foi recalculada contra o relogio de quem abre">&nbsp;recalculada (build: ${esc(o.TIME_WINDOW)})</span>` : ''}
       <span class="pill ${PROOF[o.PROOF_STATE]||'p-dim'}">${esc(o.PROOF_STATE)}</span>
-      <span class="meta">detectado ${val(o.DETECTED_AT)}</span>
-      <button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">ver evidencia</button>
+      <span class="meta">detectado ${isUnk(o.DETECTED_AT)?val(o.DETECTED_AT):esc(dISO(o.DETECTED_AT))}</span>
+      <button class="ev" onclick="evIdx(${P.objects.indexOf(o)})">ver evidencia</button>
     </div>
     <div class="rt">${semRota
       ? '<span class="pill p-unk">SEM ROTEAMENTO PROVADO</span>'
@@ -632,8 +669,12 @@ function viewHome() {
       <b>${P.history.normalised_field_diffs}</b> diferencas de campo reais. Somando
       <b>${P.by_type.PRODUCT_ENTERED_REGISTRY || 0}</b> produtos que entraram no registro, sao
       <b style="color:var(--ok)">${P.history.true_changes}</b> eventos regulatorios.
-      <b>Sem esse filtro seriam ${P.history.raw_field_diffs} alertas para encontrar
-      ${P.history.true_changes}.</b></div>
+      <b>Sem esse filtro seriam ${P.history.raw_field_diffs + (P.by_type.PRODUCT_ENTERED_REGISTRY||0)}
+      alertas para encontrar ${P.history.true_changes}</b> &mdash; as
+      ${P.history.raw_field_diffs} diferencas brutas de campo <b>mais</b> as
+      ${P.by_type.PRODUCT_ENTERED_REGISTRY||0} entradas de produto, que a contagem de diferenca
+      de campo nao inclui. Comparar ${P.history.raw_field_diffs} com ${P.history.true_changes}
+      seria comparar dois universos.</div>
     <div style="margin-top:8px">
       <button class="ev" onclick="go('today')">ver as mudancas, uma a uma, com antes e depois</button>
       <button class="ev" onclick="go('timeline')">ver as ${P.versions.length} versoes do registro</button>
@@ -656,13 +697,13 @@ function viewHome() {
       <tbody>${relev.slice(0,12).map(({o,r}) => `<tr>
         <td>${esc(o.PRODUCT_NAME||'NOT_KNOWN')}<div class="mono meta">${esc(o.REGISTRATION_ID)}</div></td>
         <td>${esc(o.CHANGE_TYPE)}</td>
-        <td>${valorDemo(o)} &rarr; ${o.OBJECT_TYPE==='NEEDS_HUMAN_REVIEW'?RETIDO_TXT:val(o.AFTER_VALUE)}</td>
+        <td>${valorDemo(o)} &rarr; ${depoisDemo(o)}</td>
         <td class="mono">${esc(dISO(o.DETECTED_AT))}
           <div class="meta">nao e o valor de hoje: e o que mudou entre dois instantaneos naquela
           data. O valor vigente esta na ficha do produto.</div></td>
         <td><span class="pill ${r.ROUTING_STATE==='RELEVANT'?'p-ok':'p-warn'}">${esc(r.ROUTING_STATE)}</span></td>
         <td class="meta"><code>${esc(r.RULE_ID)}</code></td>
-        <td><button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">evidencia</button></td>
+        <td><button class="ev" onclick="evIdx(${P.objects.indexOf(o)})">evidencia</button></td>
       </tr>`).join('')}</tbody></table></div>
       ${relev.length>12?`<div class="meta">mostrando 12 de ${relev.length} &mdash;
         <button class="ev" onclick="go('action')">ver todos por area</button></div>`:''}`
@@ -800,7 +841,7 @@ function viewToday() {
       <td>${typeof dte(p2) === 'number' ? (-dte(p2))+'d' : val('NOT_KNOWN')}</td>
       <td>${esc(o.PRODUCT_NAME)}</td><td class="mono">${esc(o.REGISTRATION_ID)}</td>
       <td>${val(p2.status)}</td>
-      <td><button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">evidencia</button></td></tr>`;
+      <td><button class="ev" onclick="evIdx(${P.objects.indexOf(o)})">evidencia</button></td></tr>`;
     }).join('')}</tbody></table></div>`;
 }
 
@@ -863,38 +904,72 @@ function viewProduto(reg) {
 
   <div class="block" style="border-left:3px solid var(--warn)">
     <h3>Usos autorizados e dose <span class="meta">&mdash; retidos nesta demonstracao</span></h3>
-    <div class="lei">${(p.states && p.states.LABEL_DOWNLOADED === false)
-      ? `<b>Nao ha documento para ler.</b> Nenhum rotulo foi baixado para este registro
-         (<span class="unknown">NOT_COLLECTED</span>), entao nao existe par nem linha de dose a
-         reter: nao e recusa, e ausencia de coleta.`
-      : `<b>O sistema leu esta informacao e esta se recusando a publica-la.</b>
-         Nao e falta de dado: sao ${(p.uses||[]).length} pares cultura &times; alvo e
-         ${(p.doses||[]).length} linhas de dose que o leitor extraiu deste documento.`}
+    ${(() => {
+      // X-03 · o ramo unico afirmava "o sistema leu esta informacao e esta se
+      // recusando a publica-la ... sao 0 pares e 0 linhas" em 35 fichas. Tres
+      // frases falsas numa so: nada foi lido, nada esta sendo retido, e e
+      // exatamente falta de dado. O fork agora e sobre o que foi MEDIDO, e a
+      // frase de recusa so aparece onde existe leitura a reter.
+      const st = p.states || {};
+      const nu = (p.uses||[]).length, nd = (p.doses||[]).length;
+      if (st.LABEL_DOWNLOADED === false) return `<div class="lei">
+        <b>Nao ha documento para ler.</b> Nenhum rotulo foi baixado para este registro
+        (<span class="unknown">NOT_COLLECTED</span>), entao nao existe par nem linha de dose a
+        reter: nao e recusa, e ausencia de coleta.</div>`;
+      // F-06 · os dois SPURIOUS_TABLE_DISCARDED sao a recusa mais literal do
+      // build e nao apareciam em tela nenhuma.
+      if (p.dose_state === 'SPURIOUS_TABLE_DISCARDED') return `<div class="lei">
+        <b>O leitor achou uma tabela onde nao havia, e ela foi descartada.</b> Estado
+        <code>SPURIOUS_TABLE_DISCARDED</code>, regra <code>P-01</code>: o que voltou nao tinha
+        forma de linha de dose, e um palpite descartado nao vira dado. Nao ha dose retida aqui
+        porque nao ha dose lida. Pares cultura &times; alvo extraidos: <b>${nu}</b> &mdash;
+        tambem nao publicados nesta demonstracao.</div>`;
+      if (!nu && !nd) return `<div class="lei">
+        <b>O leitor rodou neste documento e estruturou zero.</b> Isto e medicao, nao ignorancia e
+        nao recusa: o rotulo foi baixado e lido, e o leitor de uso devolveu <b>0</b> pares e o de
+        dose <b>0</b> linhas. <b>Nao ha nada retido nesta ficha.</b>
+        <div class="meta" style="margin-top:6px">E nada aqui afirma que este produto nao tem uso
+        ou nao tem dose. A maioria dos herbicidas italianos declara dose em prosa
+        (&ldquo;alla dose di 1-3 l/ha&rdquo;) e este leitor le tabela.
+        <code>PARSER_FAILURE != REGULATORY_ABSENCE</code></div></div>`;
+      return `<div class="lei">
+        <b>O sistema leu esta informacao e esta se recusando a publica-la.</b>
+        Nao e falta de dado: sao ${nu} pares cultura &times; alvo e ${nd} linhas de dose que o
+        leitor extraiu deste documento.
       <div class="meta" style="margin-top:6px">A recusa e deliberada e tem uma razao medida. O
       leitor de uso reusado atribui a linha a cultura por proximidade vertical, e isso falha onde
-      a tabela tem <b>fios desenhados</b> separando blocos de cultura — ha caso medido em que a
-      linha atribuida a uma cultura pertence, na tabela real, ao bloco da cultura de cima, do
-      outro lado de um fio. Enquanto uma terceira rodada adversarial independente nao adjudicar
-      essa camada, <b>nenhum par cultura &times; alvo e nenhuma dose sao apresentados como
-      fato</b> nesta demonstracao.</div>
+      a tabela tem <b>fios desenhados</b> separando blocos de cultura &mdash; ha caso medido em
+      que a linha atribuida a uma cultura pertence, na tabela real, ao bloco da cultura de cima,
+      do outro lado de um fio. Enquanto uma terceira rodada adversarial independente nao
+      adjudicar essa camada, <b>nenhum par cultura &times; alvo e nenhuma dose sao apresentados
+      como fato</b> nesta demonstracao.</div>
       <div class="meta" style="margin-top:6px">Uma cultura autorizada errada e um fato regulatorio
       errado <b>mesmo sem numero ao lado</b>. Por isso a camada inteira sai, e nao apenas a dose.
       <b>Esconder uma funcao e melhor do que demonstrar uma informacao regulatoria errada.</b></div>
-      <div class="meta" style="margin-top:6px">Estado: <span class="unknown">NEEDS_REVIEW</span>
-      &middot; adjudicacao em curso &middot; o que a ferramenta ja consegue provar sobre este
-      produto esta acima, e volta a fonte oficial.</div></div>
+      ${st.NEEDS_REVIEW ? `<div class="meta" style="margin-top:6px">Estado:
+      <span class="unknown">NEEDS_REVIEW</span> &middot; adjudicacao em curso &middot; o que a
+      ferramenta ja consegue provar sobre este produto esta acima, e volta a fonte oficial.</div>`
+      : `<div class="meta" style="margin-top:6px">Este registro <b>nao</b> esta em revisao:
+      nenhuma leitura dele foi rebaixada por regra. A retencao acima e da demonstracao inteira, e
+      nao um estado deste produto &mdash; o estado de revisao vale para
+      ${P.products.filter(x => x.states && x.states.NEEDS_REVIEW).length} dos
+      ${P.products.length} registros, e este nao e um deles.</div>`}</div>`;
+    })()}
   </div>
 
   <div class="block">
     <h3>Tempo de carencia (PHI)</h3>
-    <div class="lei">Nao publicado nesta versao. O extrator de carencia esta marcado
-      <code>PROTOTYPE_NOT_SHIPPED</code>: 2 de 15 rotulos, com a primeira linha de cada bloco
+    <div class="lei">Nao publicado nesta versao, e nao por falta de tentativa. O extrator de
+      carencia esta marcado <code>PROTOTYPE_NOT_SHIPPED</code> e foi medido sobre <b>15</b> dos
+      ${P.coverage.PHI_COVERAGE.OF} rotulos: 2 com carencia lida, 8 com a secao localizada e
+      nenhuma linha extraida, 5 sem secao &mdash; e a primeira linha de cada bloco vinha
       contaminada pela coluna vizinha. <b>As etichette trazem carencia; nos e que nao lemos.</b>
-      <code>PHI_PROVED = 0</code> por decisao.</div>
+      Nada disso alimenta esta ficha: <code>PHI_PUBLISHED = 0</code>.</div>
   </div>
 
   <div class="block">
     <h3>Eventos deste produto (${objs.length})</h3>
+    ${glosaSe(objs)}
     ${objs.length ? objs.map(cardObj).join('')
       : '<div class="meta">nenhum evento registrado na janela observada. <code>NO_CHANGE_OBSERVED_IN_WINDOW</code> nao e o mesmo que &ldquo;nunca mudou&rdquo;.</div>'}
   </div>`;
@@ -904,6 +979,17 @@ window.viewProduto = viewProduto;
 // ---------------------------------------------------------------- 3 · TIMELINE
 function viewTimeline() {
   const v = P.versions;
+  // F-10 · "republicado sem mudar" so vale quando o instantaneo IMEDIATAMENTE
+  // anterior e o mesmo documento. Duas das seis repeticoes nao sao isso: entre
+  // elas e a versao que repetem ha um instantaneo com sha diferente. A fonte
+  // mudou e voltou ao conteudo anterior — retorno, nao republicacao. O efeito
+  // regulatorio e o mesmo (nenhum), mas o nome nao pode apagar a oscilacao.
+  const SHA_DE = {};
+  v.forEach(x => { SHA_DE[x.date] = x.id; (x.republished||[]).forEach(d => SHA_DE[d] = x.id); });
+  const DATAS = Object.keys(SHA_DE).sort();
+  const imediata = d => { const i = DATAS.indexOf(d);
+    return i > 0 && SHA_DE[DATAS[i-1]] === SHA_DE[d]; };
+  const retornos = DATAS.filter(d => SHA_DE[d] !== d && !imediata(d));
   const porData = {};
   P.objects.filter(o => o.PROOF_STATE === 'PROVED' && o.OBSERVATION_WINDOW)
     .forEach(o => (porData[o.OBSERVATION_WINDOW] = porData[o.OBSERVATION_WINDOW]||[]).push(o));
@@ -916,11 +1002,18 @@ function viewTimeline() {
   <div class="cards">
     <div class="kpi"><b>${P.history.snapshots}</b><span>instantaneos oficiais baixados</span></div>
     <div class="kpi"><b>${P.history.distinct}</b><span>documentos distintos por sha256</span></div>
-    <div class="kpi"><b style="color:var(--dim)">${P.history.snapshots - P.history.distinct}</b><span>republicados sem mudar (nao contam como versao)</span></div>
+    <div class="kpi"><b style="color:var(--dim)">${P.history.snapshots - P.history.distinct}</b><span>instantaneos que repetem um documento ja visto (nao contam como versao)</span></div>
     <div class="kpi"><b>${P.history.raw_field_diffs}</b><span>DOCUMENT/campo bruto</span></div>
     <div class="kpi"><b>${P.history.normalised_field_diffs}</b><span>SEMANTIC_DIFF apos normalizar</span></div>
     <div class="kpi"><b style="color:var(--ok)">${P.history.true_changes}</b><span>REGULATORY_CHANGE_EVENT</span></div>
   </div>
+  ${retornos.length ? `<div class="lei" style="border-left-color:var(--unk)">
+    <b>Dos ${P.history.snapshots - P.history.distinct} instantaneos que repetem um documento ja
+    visto, ${retornos.length} nao sao republicacao.</b> Em
+    ${retornos.map(d => `<code>${esc(d)}</code>`).join(' e ')} o conteudo volta a ser o de uma
+    versao anterior, mas entre as duas ha um instantaneo com sha256 <b>diferente</b>: a fonte
+    mudou e voltou. O efeito regulatorio e o mesmo &mdash; nenhum evento nasce dai &mdash; mas
+    chamar retorno de republicacao apagaria uma oscilacao que o registro realmente teve.</div>` : ''}
   <h2>Versoes arquivadas do registro oficial</h2>
   <div class="tw"><table>
     <thead><tr><th>Data</th><th>Versao (sha256)</th><th>Bytes</th><th>ADAMA ativos</th>
@@ -933,7 +1026,10 @@ function viewTimeline() {
         <td class="mono">${esc(x.id)}</td>
         <td>${x.bytes.toLocaleString('pt-BR')}</td>
         <td>${x.adama_active}</td>
-        <td class="meta">${x.republished.length ? x.republished.join(', ') : '<span class="meta">—</span>'}</td>
+        <td class="meta">${x.republished.length
+          ? x.republished.map(d => imediata(d) ? esc(d)
+              : `${esc(d)} <span class="unknown" title="entre esta data e a versao que ela repete ha um instantaneo com sha256 diferente: a fonte mudou e voltou">RETORNO_APOS_MUDANCA</span>`).join(', ')
+          : '<span class="meta">nenhum</span>'}</td>
         <td>${jan===null ? val('NOT_APPLICABLE')+'<div class="meta">ainda nao existe versao seguinte</div>'
               : evs.length ? `<b style="color:var(--ok)">${evs.length}</b>`
               : '<span class="meta">nenhum</span>'}</td>
@@ -982,6 +1078,16 @@ function contagem(p, campo, estadoLeitura) {
 // 008259 da 560-1000 a esse par. A demo troca o TEXTO, nao o objeto.
 const RETIDO_TXT = '<span class="unknown">WITHHELD_PENDING_ADJUDICATION</span>';
 function fatoDemo(o) {
+  // X-09 · o FACT gravado diz "o leitor de tabela devolveu NO_USE_TABLE_FOUND",
+  // debaixo de um cabecalho que promete "o que a FONTE diz". Quem produziu o
+  // estado foi o leitor de DOSE (PARSER_VERSION = v1/dose_extrair no proprio
+  // objeto), e a frase descreve NOS, nao a etichetta. Em 91 fichas ela vinha
+  // seis linhas abaixo de "sao N pares cultura x alvo" com N ate 157.
+  if (o && o.OBJECT_TYPE === 'DATA_QUALITY_EVENT') return `o leitor de <b>dose</b>
+    (<code>${esc(o.PARSER_VERSION)}</code>) devolveu ${estadoLeitorDose(o) || val(o.AFTER_VALUE)}
+    ao ler este documento.
+    <div class="meta">Isto e um estado do <b>nosso leitor</b>, nao uma afirmacao da etichetta.
+    <code>PARSER_FAILURE != REGULATORY_ABSENCE</code></div>`;
   if (!o || o.OBJECT_TYPE !== 'NEEDS_HUMAN_REVIEW') return esc(o && o.FACT);
   return `${RETIDO_TXT}
     <div class="meta">uma leitura de dose foi rebaixada neste produto. A cultura, o alvo e o valor
@@ -990,6 +1096,42 @@ function fatoDemo(o) {
 }
 function valorDemo(o) {
   return (o && o.OBJECT_TYPE === 'NEEDS_HUMAN_REVIEW') ? RETIDO_TXT : val(o && o.BEFORE_VALUE);
+}
+// X-01 · valorDemo() cobria so a coluna ANTES, e so nas duas telas onde foi
+// chamada. Os cards de evento e a gaveta seguiam imprimindo val(o.BEFORE_VALUE)
+// e val(o.AFTER_VALUE) crus: o mesmo "280-600" que o portao ja tinha reprovado,
+// mudado de superficie. Retirar um claim de uma tela nao e retirar o claim.
+// Agora as DUAS colunas passam por aqui, e nenhum ramo imprime o valor direto.
+function depoisDemo(o) {
+  if (o && o.OBJECT_TYPE === 'NEEDS_HUMAN_REVIEW') return RETIDO_TXT;
+  return estadoLeitorDose(o) || val(o && o.AFTER_VALUE);
+}
+// X-09 · NO_USE_TABLE_FOUND e TABLE_FOUND_NO_ROWS sao estados do leitor de
+// DOSE (PARSER_VERSION = v1/dose_extrair no proprio objeto). O nome carrega a
+// palavra USE por historia do codigo. Impresso nu numa coluna de mudanca, ao
+// lado de uma ficha que diz "sao N pares cultura x alvo" com N ate 157, ele le
+// como "este rotulo nao tem uso" — que e PARSER_FAILURE lido como
+// REGULATORY_ABSENCE. O token continua visivel, porque e o que o payload
+// guarda; o que ele nunca mais faz e aparecer sozinho.
+const EST_DOSE = ['NO_USE_TABLE_FOUND', 'TABLE_FOUND_NO_ROWS', 'SPURIOUS_TABLE_DISCARDED'];
+function estadoLeitorDose(o) {
+  const v = String(o && o.AFTER_VALUE);
+  if (!o || o.OBJECT_TYPE !== 'DATA_QUALITY_EVENT' || !EST_DOSE.includes(v)) return '';
+  return `<span class="unknown">${esc(v)}</span> <span class="meta">&mdash; estado do leitor de
+    <b>dose</b> (<code>v1/dose_extrair</code>), nao do leitor de uso</span>`;
+}
+// X-07 · o mesmo erro escrito em prosa: EVIDENCE_LOCATION terminava em
+// "nenhuma tabela de uso localizada" nos 140 objetos, debaixo do cabecalho
+// FATO (O QUE A FONTE DIZ) — e em 18 deles o campo ao lado diz
+// TABLE_FOUND_NO_ROWS, isto e, a tabela FOI encontrada. A clausula sai.
+function localDemo(o) {
+  if (!o || o.OBJECT_TYPE !== 'DATA_QUALITY_EVENT') return val(o && o.EVIDENCE_LOCATION);
+  const t = String(o.EVIDENCE_LOCATION || '').replace(/,?\s*nenhuma tabela de uso localizada\s*$/, '');
+  return `${esc(t)}<div class="meta">o leitor percorreu o documento inteiro. ${
+    String(o.AFTER_VALUE) === 'TABLE_FOUND_NO_ROWS'
+      ? 'Neste objeto a tabela <b>foi encontrada</b> e nenhuma linha foi lida dela.'
+      : 'O que ele nao localizou foi a tabela de <b>dose</b>.'}
+    Isto descreve o <b>nosso leitor</b>, nao a etichetta.</div>`;
 }
 
 // Nomes de estado sao impressos POR EXTENSO. Um selo de tres letras nao e um
@@ -1151,6 +1293,16 @@ function viewCal() {
       estes nao aparecem no bloco vermelho acima. A ferramenta separa os dois casos porque afirmar
       &ldquo;o registro ainda lista como em vigor&rdquo; sobre um produto <code>Scaduto</code> seria
       inventar um desacordo que a fonte nao tem.</div>
+    <div class="lei" style="border-left-color:var(--unk)"><b>Este numero e contado sobre um
+      universo pequeno, e le mal sozinho.</b> Os dois blocos desta tela percorrem os
+      ${P.products.length} registros com ficha nesta ferramenta. O conjunto ativo do instantaneo
+      &mdash; os ${P.coverage.LABEL_DISCOVERY_COVERAGE.OF} produtos que a coleta percorreu &mdash;
+      exclui por construcao quase tudo o que ja saiu de vigor: no instantaneo vigente ha
+      <b>602</b> linhas ADAMA, das quais <b>439</b> ja declaram estado fora de vigor
+      (<code>Revocato</code> 425, <code>Scaduto</code> 14). <b>Nao leia
+      &ldquo;${vencCoerente.length}&rdquo; como &ldquo;so ${vencCoerente.length} produtos ADAMA
+      estao vencidos e fora de vigor&rdquo;</b>: os outros nao estao aqui porque nao foram
+      coletados, e ausencia de coleta nao e ausencia.</div>
     <div class="tw" style="margin-top:8px"><table>
       <thead><tr><th>Validade</th><th>Ha</th><th>Produto</th><th>Registro</th><th>Estado declarado</th><th></th></tr></thead>
       <tbody>${vencCoerente.sort((a,b)=>String(a.expiry).localeCompare(String(b.expiry))).map(p=>`<tr>
@@ -1226,10 +1378,10 @@ function viewAction() {
         <tbody>${lista.slice(0, LIMITE).map(({o}) => `<tr>
           <td>${esc(o.PRODUCT_NAME||'NOT_KNOWN')}<div class="mono meta">${esc(o.REGISTRATION_ID)}</div></td>
           <td>${esc(o.CHANGE_TYPE)}</td>
-          <td>${valorDemo(o)} &rarr; ${o.OBJECT_TYPE==='NEEDS_HUMAN_REVIEW'?RETIDO_TXT:val(o.AFTER_VALUE)}</td>
+          <td>${valorDemo(o)} &rarr; ${depoisDemo(o)}</td>
           <td>${janelaSelo(o)}</td>
           <td><span class="pill ${PROOF[o.PROOF_STATE]||'p-dim'}">${esc(o.PROOF_STATE)}</span></td>
-          <td><button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">evidencia</button></td>
+          <td><button class="ev" onclick="evIdx(${P.objects.indexOf(o)})">evidencia</button></td>
         </tr>`).join('')}</tbody></table></div>
       ${lista.length>LIMITE?`<div class="meta"><b>mostrando ${LIMITE} de ${lista.length}</b> —
         ${lista.length-LIMITE} objeto(s) deste grupo nao estao nesta tela.
@@ -1280,9 +1432,12 @@ function tabRev(lista) {
     <tbody>${lista.map(o => `<tr>
       <td>${esc(o.PRODUCT_NAME)}<div class="mono meta">${esc(o.REGISTRATION_ID)}</div></td>
       <td colspan="2" class="meta"><span class="unknown">WITHHELD_PENDING_ADJUDICATION</span>
-        <div class="meta">a cultura, o alvo e o valor lidos existem e estao no dossie tecnico.
-        Nesta demonstracao nao sao exibidos: e a camada que a terceira rodada adversarial ainda
-        julga, e mostrar o triplo aqui daria a ele a aparencia de fato.</div></td>
+        <div class="meta">a leitura foi rebaixada e <b>nao e exibida</b> nesta demonstracao: e a
+        camada que a terceira rodada adversarial ainda julga, e mostrar o triplo aqui daria a ele
+        a aparencia de fato.${isUnk(o.BEFORE_VALUE) ? ` <b>Nesta linha nao ha valor lido a
+        reter</b>: o campo chegou como <span class="unknown">${esc(o.BEFORE_VALUE)}</span>. Dizer
+        que ele &ldquo;existe e esta no dossie&rdquo; seria afirmar posse de um numero que nunca
+        foi lido — a frase valia para a maioria das linhas e era falsa nestas.` : ''}</div></td>
       <td style="color:var(--bad)">${val('NOT_PROVED')}</td>
       <td class="meta">${val(o.DEMOTION_RULE)}</td>
       <td class="meta">${o.DEMOTION_MECHANISM==='DRAWN_TABLE_RULE'
@@ -1293,7 +1448,7 @@ function tabRev(lista) {
            <div class="meta">o fio desenhado CONFIRMAVA este valor; a heuristica passou por cima</div>`
         : val(o.RULE_CHECK_BEFORE_DEMOTION)}</td>
       <td class="meta">${val(o.EVIDENCE_LOCATION)}</td>
-      <td><button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">evidencia</button></td>
+      <td><button class="ev" onclick="evIdx(${P.objects.indexOf(o)})">evidencia</button></td>
     </tr>`).join('') || '<tr><td colspan=8 class="meta">nenhuma</td></tr>'}</tbody></table></div>`;
 }
 
@@ -1341,6 +1496,31 @@ function viewReview() {
     <div class="kpi"><b style="color:var(--unk)">${semDoseMedido.length}</b><span>produtos <b>com rotulo lido</b> e zero dose</span></div>
     <div class="kpi"><b style="color:var(--unk)">${semColeta.length}</b><span>registros sem rotulo coletado</span></div>
   </div>
+  <div class="meta" style="margin:-4px 0 10px">Os dois numeros do meio contam coisas diferentes e
+    a diferenca tem nome: <b>${dq.length}</b> e o numero de <b>objetos</b> emitidos pelo leitor de
+    dose; <b>${semDoseMedido.length}</b> e o numero de <b>produtos com rotulo lido e zero linha de
+    dose</b>. Eles diferem por ${semDoseMedido.length - dq.length}, e os
+    ${semDoseMedido.length - dq.length} sao os produtos abaixo: o leitor achou tabela onde nao
+    havia e ela foi descartada, entao nao houve objeto a emitir.</div>
+  ${(() => { const esp = P.products.filter(p => p.dose_state === 'SPURIOUS_TABLE_DISCARDED');
+    if (!esp.length) return '';
+    return `<h2>Tabela descartada porque nao era tabela de dose (${esp.length})</h2>
+    <div class="lei"><b>Esta e a recusa mais literal deste build, e ate agora era a unica
+      invisivel.</b> Regra <code>P-01</code>: o extrator devolveu algo com forma de tabela, o
+      filtro olhou e concluiu que aquilo nao eram linhas de dose. O palpite foi descartado, e um
+      palpite descartado nao emite objeto — por isso estes dois produtos nao apareciam em tela
+      nenhuma, numa tela que se anuncia como &ldquo;o que a maquina recusou adivinhar&rdquo;.</div>
+    <div class="tw"><table>
+      <thead><tr><th>Produto</th><th>Registro</th><th>Estado do leitor de dose</th>
+        <th>Pares extraidos <span class="meta">(em adjudicacao, nao publicados)</span></th>
+        <th>Linhas de dose</th><th></th></tr></thead>
+      <tbody>${esp.map(p => `<tr>
+        <td>${esc(p.name)}</td><td class="mono">${esc(p.reg)}</td>
+        <td><code>${esc(p.dose_state)}</code></td>
+        <td>${contagem(p,'uses','LABEL_READ')}</td>
+        <td><b>0</b> <span class="meta">medido: a tabela lida foi descartada</span></td>
+        <td><button class="ev" onclick="go('produto');viewProduto('${esc(p.reg)}')">ver ficha</button></td>
+      </tr>`).join('')}</tbody></table></div>`; })()}
 
   <h2>Dose rebaixada porque o fio desenhado da tabela contradiz o valor (${porFio.length})</h2>
   <div class="meta" style="margin-bottom:8px">O extrator leu um valor; os fios desenhados da tabela
@@ -1376,9 +1556,10 @@ function viewReview() {
       const p = byReg[o.REGISTRATION_ID] || {};
       return `<tr><td>${esc(o.PRODUCT_NAME)}</td><td class="mono">${esc(o.REGISTRATION_ID)}</td>
       <td class="meta">${esc(p.activity||'NOT_KNOWN')}</td>
-      <td><code>${esc(p.dose_state||'NOT_ATTEMPTED')}</code></td>
+      <td><code>${esc(p.dose_state||'NOT_ATTEMPTED')}</code>
+        <div class="meta">estado do leitor de <b>dose</b></div></td>
       <td>${contagem(p,'uses','LABEL_READ')}</td>
-      <td><button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">evidencia</button></td></tr>`;
+      <td><button class="ev" onclick="evIdx(${P.objects.indexOf(o)})">evidencia</button></td></tr>`;
     }).join('')}</tbody></table></div>`;
 }
 
@@ -1406,13 +1587,33 @@ function viewCov() {
   <div class="block"><h3>Cobertura por etapa</h3>
     <div class="tw"><table><tbody>${Object.entries(c).map(([k,o]) =>
       k === 'PHI_COVERAGE'
+        // X-05 · duas trocas erradas em sequencia. Desenhar "0 de 163, 0%" na
+        // escala das coberturas medidas publicava um prototipo reprovado como
+        // medicao; trocar por NOT_ATTEMPTED afirmava que nao houve tentativa,
+        // e houve — bin/phi_extrair.py registra a corrida sobre 15 rotulos, e
+        // as 166 fichas imprimiam "2 de 15" enquanto esta tela dizia "nunca
+        // rodou". O estado certo nao e ignorancia nem cobertura: e prototipo
+        // medido e NAO PUBLICADO.
         ? `<tr><td>${k.replace(/_/g,' ')}</td>
-           <td><span class="unknown">NOT_ATTEMPTED</span></td>
-           <td class="meta">o extrator de carencia esta marcado <code>PROTOTYPE_NOT_SHIPPED</code> e
-             <b>nunca rodou</b> nos ${o.OF} rotulos. Desenhar isto como &ldquo;0 de ${o.OF}, 0%&rdquo;
-             na mesma escala das coberturas medidas seria publicar nao-tentativa como medicao.</td></tr>`
+           <td><code>PROTOTYPE_NOT_SHIPPED</code></td>
+           <td class="meta"><b>Nada de carencia e publicado nesta versao</b>, e nao por falta de
+             tentativa: o extrator foi medido sobre <b>15</b> dos ${o.OF} rotulos e reprovou no
+             proprio criterio &mdash; 2 com carencia lida, 8 com a secao localizada e nenhuma
+             linha extraida, 5 sem secao, e a primeira linha de cada bloco contaminada pela coluna
+             vizinha. Por isso esta linha nao tem barra: uma barra aqui seria cobertura, e nao ha
+             cobertura a declarar. <b>As etichette trazem carencia; nos e que nao lemos.</b></td></tr>`
         : barra(k,o)).join('')}</tbody></table></div>
-    <div class="meta" style="margin-top:9px">${esc(P.coverage_note)}</div></div>
+    <div class="meta" style="margin-top:9px">${esc(String(P.coverage_note).split('PHI_COVERAGE')[0].trim().replace(/[.,;]\s*$/,''))}.
+      <div class="meta" style="margin-top:4px">A nota gravada no payload continua com uma frase
+        sobre carencia que <b>nao e impressa aqui</b>: ela reapresenta como decisao um zero que e
+        resultado de um prototipo reprovado, e um zero desses, escrito ao lado de coberturas
+        medidas, le como medicao. O que vale sobre carencia esta na linha PHI da tabela
+        acima.</div></div></div>
+  <div style="margin:-4px 0 12px">
+    <button class="ev" onclick="go('review')">ver os produtos por tras destes numeros</button>
+    <button class="ev" onclick="go('produto')">abrir uma ficha</button>
+    <button class="ev" onclick="go('timeline')">ver as ${P.versions.length} versoes do registro</button>
+  </div>
   <div class="block"><h3>Historico e comparabilidade</h3>
     <div class="tw"><table><tbody>
       <tr><td>Instantaneos oficiais baixados</td><td><b>${P.history.snapshots}</b></td></tr>
@@ -1474,9 +1675,16 @@ function viewSearch() {
   // ativo, estado, atividade ou formulacao — os 29 vinham so da camada retirada.
   const prods = P.products.filter(p =>
     [p.name,p.reg,p.actives,p.holder,p.status,p.activity,p.formulation].join(' ').toLowerCase().includes(q));
-  const objs = P.objects.filter(o =>
-    [o.PRODUCT_NAME,o.REGISTRATION_ID,o.CHANGE_TYPE,o.BEFORE_VALUE,o.AFTER_VALUE]
-      .join(' ').toLowerCase().includes(q));
+  // X-02 · tirar cultura e alvo do indice nao bastou. Nos objetos
+  // NEEDS_HUMAN_REVIEW os campos BEFORE_VALUE/AFTER_VALUE SAO a dose retida:
+  // digitar "280-600" devolvia 2 eventos nomeando LAMDEX EXTRA 008259, e "300"
+  // devolvia 11 sobre 5 registros. E a associacao retida respondida por outra
+  // porta — a busca confirmava um par que a demonstracao afirma nao exibir.
+  const objs = P.objects.filter(o => {
+    const campos = [o.PRODUCT_NAME, o.REGISTRATION_ID, o.CHANGE_TYPE];
+    if (o.OBJECT_TYPE !== 'NEEDS_HUMAN_REVIEW') campos.push(o.BEFORE_VALUE, o.AFTER_VALUE);
+    return campos.join(' ').toLowerCase().includes(q);
+  });
   $('#sres').innerHTML = `
   <div class="lei">A busca so consulta os <b>intelligence objects</b> e os produtos ja resolvidos
     pela inteligencia. <b>Ela nao le PDF e nao gera resposta livre.</b> Toda linha do resultado
@@ -1490,9 +1698,17 @@ function viewSearch() {
       <td class="meta">${val(p.actives)}</td><td>${validade(p)}</td>
       <td class="meta">${val(p.status)}</td>
       <td><button class="ev" onclick="evProd('${p.reg}')">prova</button></td></tr>`).join('')}
-    </tbody></table></div>` : '<div class="meta">nenhum produto</div>'}
+    </tbody></table></div>
+    ${prods.length>80?`<div class="meta"><b>mostrando 80 de ${prods.length}</b> &mdash;
+      ${prods.length-80} produto(s) que casam com esta busca <b>nao estao nesta tela</b>.
+      Nao aparecer aqui nao e prova de nao existir no registro.</div>`:''}`
+    : '<div class="meta">nenhum produto</div>'}
   <h2>Eventos (${objs.length})</h2>
-  ${objs.length ? objs.slice(0,40).map(cardObj).join('') : '<div class="meta">nenhum evento</div>'}`;
+  ${glosaSe(objs)}
+  ${objs.length ? objs.slice(0,40).map(cardObj).join('') +
+    (objs.length>40?`<div class="meta"><b>mostrando 40 de ${objs.length}</b> &mdash;
+      ${objs.length-40} evento(s) que casam com esta busca <b>nao estao nesta tela</b>.</div>`:'')
+    : '<div class="meta">nenhum evento</div>'}`;
 }
 window.viewSearch = viewSearch;
 
