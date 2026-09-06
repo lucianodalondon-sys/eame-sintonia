@@ -1,0 +1,93 @@
+{
+  "COUNTRY": "IT",
+  "SOURCE_ID": "IT-T3-OP",
+  "SOURCE": "organizações de produtores olivícolas — camada de sinal de campo fora do serviço regional",
+  "CAPTURED_AT": "2026-08-30",
+  "AS_OF": "2026-08-30",
+  "SOURCE_LOCATION": "Umbria e Puglia",
+  "FACT_LOCATION": "ITALY",
+  "ORIGINAL_LANGUAGE": "it",
+  "EVIDENCE_CLASS": "PRIMARY_SOURCE_PROBE",
+  "QUESTION": "quando o serviço regional para de publicar fitopatologia, o sinal de campo desaparece ou muda de dono?",
+  "ANSWER": "muda de dono. Na Puglia a ARIF publica o notiziario e não redige fitopatologia desde 2018, e é a APOL — organização de produtores de Lecce — que mantém série numerada semanal de mosca-da-azeitona, com edições de 2026.",
+  "LAW_ADDED": "SOURCE_LAYER ≠ SIGNAL_ABSENCE",
+  "LAW_NOTE": "medir a camada estatal e concluir \"não há sinal\" é o erro de painel do trigo duro um nível acima: lá eu perguntei às regiões erradas, aqui à INSTITUIÇÃO errada dentro da região certa.",
+  "CORRECTION_TO_MY_OWN_FINDING": {
+    "WHAT_I_PUBLISHED": "Puglia tem 31,2% da área de oliveira e publica ZERO boletins",
+    "WHAT_SURVIVES": "o SERVIÇO REGIONAL da Puglia publica zero, e a inversão contra o Vêneto (28 boletins com 0,5% da área) continua de pé como comparação entre serviços regionais",
+    "WHAT_DOES_NOT_SURVIVE": "a leitura \"na Puglia não há sinal de olivo\". Há, e sai da organização de produtores",
+    "WHAT_THIS_STILL_DOES_NOT_LICENSE": "dizer que a Puglia está bem coberta. O conteúdo do APOL não foi lido. EXISTS_ROUTE_NOT_READABLE não entra em cobertura — nem como zero."
+  },
+  "SOURCES": [
+    {
+      "ORG": "Assoprol Umbria",
+      "ORG_KIND": "ORGANIZACAO_DE_PRODUTORES",
+      "REGION": "Umbria",
+      "CROP": "Oliveira",
+      "ISSUE": "Bactrocera oleae",
+      "ROUTE": "assoprol.it — bollettino fitosanitario olivo",
+      "STATE": "CONTENT_READ",
+      "MOST_RECENT_READ": {
+        "TITLE": "Bollettino Fitosanitario Olivo 2026 — Monitoraggio mosca delle olive n. 3",
+        "VALIDITY": "dal 6 al 10 luglio 2026",
+        "AREA": "intero territorio regionale (Umbria)"
+      },
+      "SIGNAL_FIELDS": [
+        "catture in trappola",
+        "fase fenologica BBCH 71-75",
+        "raccomandazione condizional"
+      ],
+      "BBCH": "71-75",
+      "DECLARES_OWN_LIMIT": true,
+      "DECLARED_LIMIT_IT": "in questa fase non sono ancora stati effettuati i campionamenti per la verifica dell'infestazione attiva",
+      "WHY_THAT_MATTERS": "separa o que mediu do que ainda não mediu. Fonte que declara o próprio limite é fonte de qualidade alta.",
+      "RAW_EVIDENCE_STATE": "NOT_PRESERVED"
+    },
+    {
+      "ORG": "APOL",
+      "ORG_KIND": "ORGANIZACAO_DE_PRODUTORES",
+      "REGION": "Puglia",
+      "PROVINCE": "Lecce",
+      "CROP": "Oliveira",
+      "ISSUE": "Bactrocera oleae",
+      "ROUTE": "apol.it — Bollettino Mosca dell'Olivo, série numerada semanal",
+      "STATE": "EXISTS_ROUTE_NOT_READABLE",
+      "EXISTENCE_EVIDENCE": "índice de busca com número E período de validade: n.1 de 13–19/07/2026, n.2 de 20–26/07/2026; série de 2025 com URL de PDF por edição (n.11 de 29-09-2025, n.2 de 28-07-2025)",
+      "WHY_NOT_READ": "apol.it devolve HTTP 503 de forma consistente deste ambiente",
+      "ROUTE_FAILURE_IS_NOT_ABSENCE": true
+    },
+    {
+      "ORG": "Assoproli Bari",
+      "ORG_KIND": "ORGANIZACAO_DE_PRODUTORES",
+      "REGION": "Puglia",
+      "PROVINCE": "Bari",
+      "CROP": "Oliveira",
+      "ISSUE": "Bactrocera oleae, Prays oleae",
+      "ROUTE": "assoproli.it/bollettini-fitosanitari",
+      "STATE": "ARCHIVE_READ_BUT_STALE",
+      "MOST_RECENT": "10/06/2024",
+      "NOTE": "arquivo alcançável e legível; a edição mais recente exposta é de junho de 2024. Isto É medição: a rota respondeu."
+    },
+    {
+      "ORG": "ARIF Puglia",
+      "ORG_KIND": "AGENCIA_REGIONAL",
+      "REGION": "Puglia",
+      "CROP": "—",
+      "ROUTE": "agrometeopuglia.it/bollettini",
+      "STATE": "PUBLISHES_BUT_NO_PHYTOPATHOLOGY",
+      "VERBATIM_IT": "Dal Notiziario Agrometeorologico Regionale n. 15 del 11/04/2018, la sezione dedicata alla Fitopatologia non viene più redatta",
+      "SHARPENED_2026_08_30": "CORREÇÃO DO MEU PRÓPRIO REGISTRO. Eu tinha anotado a competência como \"em fase de transferência\". Medido agora: a ARIF É a editora do notiziario, publicado semanalmente às quartas — ou seja, a transferência se completou E a seção de fitopatologia continua não redigida, oito anos depois. Não é uma transição em curso; é uma ausência estabilizada.",
+      "LEGAL_BASIS": "Legge Regionale 33/2017"
+    }
+  ],
+  "COUNTS": {
+    "TOTAL_PROBED": 4,
+    "CONTENT_READ": 1,
+    "EXISTS_NOT_READABLE": 1
+  },
+  "WHAT_THIS_DOES_NOT_PROVE": [
+    "que a camada OP cubra a Puglia inteira — a APOL monitora a área de Lecce",
+    "que exista camada OP equivalente para trigo duro, milho ou videira; só a oliveira foi sondada nesta rodada",
+    "nada sobre venda, disponibilidade comercial ou prioridade interna"
+  ]
+}

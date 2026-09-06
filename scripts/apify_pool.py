@@ -215,10 +215,18 @@ def classificar(*, http=None, status=None, status_message=None, itens=None,
 
     if status in ('FAILED', 'ABORTED', 'TIMED-OUT'):
         return ACTOR_FAILURE
+    # Sucesso com zero itens e SEM mensagem de cota (a cota ja foi tratada acima):
+    # a rota respondeu, e a resposta foi "nada". Nao e falha, e nao para a fila.
+    # Portado de claude/sintonia-italy-pilot-b1l401 no PASSO 03: a constante existia
+    # nesta arvore sem ninguem a produzir, e scripts/linkedin_posts.py — que entrou no
+    # mesmo enxerto — lia a chave UNITS_EMPTY que dai resultava.
+    if status in ('SUCCEEDED', None) and itens is not None and len(itens) == 0:
+        return UNIT_EMPTY
     if status == 'SUCCEEDED':
         return TOKEN_OK
     if status is None and itens is not None:
         return TOKEN_OK
+
     return UNKNOWN_FAILURE
 
 
@@ -235,11 +243,12 @@ def executar_com_pool(unidades, trabalho, *, identidade, env=None, teto_itens=No
     if not ks:
         return {'STATE': POOL_EMPTY, 'TOKENS_AVAILABLE': 0, 'TOKENS_USED': 0,
                 'ITEMS': [], 'DUPLICATES_REMOVED': 0, 'BY_POSITION': [],
-                'UNITS_DONE': [], 'UNITS_PENDING': list(unidades)}
+                'UNITS_DONE': [], 'UNITS_EMPTY': [],
+                'UNITS_PENDING': list(unidades)}
 
     pos = 0
     itens, vistos, dups = [], set(), 0
-    feitas, pendentes = [], list(unidades)
+    feitas, pendentes, vazias = [], list(unidades), []
     porpos = {}
 
     while pendentes and pos < len(ks):
@@ -261,6 +270,14 @@ def executar_com_pool(unidades, trabalho, *, identidade, env=None, teto_itens=No
             continue
         if estado in NAO_ROTACIONAM:
             break                                     # não é a chave: parar, não gastar
+        if estado == UNIT_EMPTY:
+            # A rota respondeu "nada" para ESTA unidade. Segue para a próxima —
+            # confundir isto com falha faria um perfil sem posts calar os outros.
+            porpos[p].setdefault('UNITS_EMPTY', 0)
+            porpos[p]['UNITS_EMPTY'] += 1
+            vazias.append(pendentes[0])
+            feitas.append(pendentes.pop(0))
+            continue
 
         for it in (novos or []):
             k = identidade(it)
@@ -285,6 +302,7 @@ def executar_com_pool(unidades, trabalho, *, identidade, env=None, teto_itens=No
         'DUPLICATES_REMOVED': dups,
         'BY_POSITION': [porpos[k] for k in sorted(porpos)],
         'UNITS_DONE': feitas,
+        'UNITS_EMPTY': vazias,
         'UNITS_PENDING': pendentes,
     }
 
@@ -296,3 +314,25 @@ if __name__ == '__main__':
     for w in c['FORMAT_WARNINGS']:
         print('  aviso posicao %d: %s' % (w['POOL_POSITION'], w['WARNING']))
     print('(nenhum valor de chave e impresso, por contrato)')
+
+UNIT_EMPTY = 'UNIT_EMPTY_BUT_ROUTE_OK'
+
+# ── portada de claude/sintonia-italy-pilot-b1l401 no PASSO 03 ──────────────────
+# scripts/linkedin_prova_busca.py, que entra com o mesmo enxerto, chama-a. O resto
+# deste ficheiro e a implementacao canonica, que os 18 workflows ja invocam: as duas
+# versoes nasceram separadas (o merge-base nao tem este ficheiro) e a API publica so
+# diferia nesta funcao.
+
+def estado_da_execucao(manifesto, itens):
+    """O estado de UMA execução, a partir do que `coletor` registrou.
+
+    Existe para que cada chamador não repita a tradução — e foi repetindo-a
+    errado que a coleta de posts parou na primeira unidade vazia: o chamador
+    mandava `status='FAILED'` para todo manifesto que não fosse `SUCCESS`, e
+    `PARTIAL por zero itens` virava falha do ator.
+    """
+    erro = str((manifesto or {}).get('ERROR') or '')
+    bruto = (manifesto or {}).get('STATUS')
+    if bruto == 'SUCCESS' or (bruto == 'PARTIAL' and 'ZERO itens' in erro):
+        return classificar(status='SUCCEEDED', status_message=erro, itens=itens)
+    return classificar(status='FAILED', status_message=erro, itens=itens)

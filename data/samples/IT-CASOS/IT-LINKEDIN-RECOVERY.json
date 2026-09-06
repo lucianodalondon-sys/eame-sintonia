@@ -1,0 +1,105 @@
+{
+  "SOURCE_ID": "DERIVED/IT-LINKEDIN-RECOVERY",
+  "source": "recuperacao de execucoes JA PAGAS na Apify — nenhum Actor iniciado",
+  "SOURCE_LOCATION": "Apify",
+  "FACT_LOCATION": "n/a — metadado de coleta",
+  "ORIGINAL_LANGUAGE": "pt",
+  "EVIDENCE_CLASS": "PRIMARY_SOURCE_RAW",
+  "captured_at": "2026-08-30",
+  "CAPTURED_AT": "2026-08-30",
+  "NEW_ACTOR_RUNS": 0,
+  "LAW": "DINHEIRO GASTO ≠ DADO PRESERVADO",
+  "ORDER_ENFORCED": "PAID_RESULT → RAW_PRESERVED → PARSED → INTERPRETED",
+  "POOL": {
+    "TOKEN_POOL_PRESENT": "NO",
+    "TOKEN_POOL_SIZE": 0,
+    "FORMAT_WARNINGS": []
+  },
+  "TOKEN_VALUE_LOGGED": "NO",
+  "TOKEN_VALUE_COMMITTED": "NO",
+  "PAID_RUNS_RECOVERABLE": "YES",
+  "STATE": "RECOVERED",
+  "RUNS_LISTED": 8,
+  "RUNS_RECOVERED": 8,
+  "ITEMS_RECOVERED": 8,
+  "RAW_PRESERVED": "YES",
+  "RAW_FILES": 19,
+  "RAW_BYTES_UPLOADED": 2220754,
+  "COST_RECOVERED": "MEASURED",
+  "COST_PER_RUN_USD": 0.005,
+  "COST_TOTAL_USD": 0.04,
+  "POOL_POSITION_USED": 1,
+  "RUN_URL": "https://github.com/lucianodalondon-sys/eame-sintonia/actions/runs/33318634240",
+  "ACTOR_RUN_IDS": [
+    "xVvIoZpktNDzaTQ7T",
+    "0Eq3iBaTcyW0MJFDY",
+    "O5Wcb0hh5SJ5jtiRi",
+    "vxdfHB0Svh4EiWYF4",
+    "c0Gf3QnFXRd6bBWQW",
+    "uzNEAG0eQruhhuchH",
+    "AoRXRAcEBbaDbMboF",
+    "BVaORhv46DeFXBxU5"
+  ],
+  "DATASET_IDS": [
+    "5nsJB7ojIUQS5GBLS",
+    "zjbH8DuV1IqlGo14O",
+    "L2pLCMbj6emQIog1a",
+    "8Iki6ROofGwIM4PQr",
+    "cATxCaEGOVr9e9Lx3",
+    "RpgB69EPPrVeUoqAU",
+    "gJMCzHOnoxCfjKBKy",
+    "OZHA4LrMZjbGAdReF"
+  ],
+  "ACTUAL_OUTPUT_SCHEMA": {
+    "NAME": "PROFILE_DETAIL_V1_BASIC_INFO",
+    "TOP_LEVEL": [
+      "basic_info",
+      "causes",
+      "education",
+      "experience",
+      "languages",
+      "projects",
+      "skills"
+    ],
+    "WHERE_THE_URL_IS": "basic_info.profile_url",
+    "IDENTITY_FIELDS": [
+      "basic_info.public_identifier",
+      "basic_info.urn",
+      "basic_info.profile_url"
+    ],
+    "PERSON_FIELDS": [
+      "fullname",
+      "first_name",
+      "last_name",
+      "headline",
+      "current_company"
+    ],
+    "LOCATION": "basic_info.location.{city,country,country_code,full,postal_code}",
+    "ANSWERS": {
+      "A_e_um_perfil": "SIM, perfil completo",
+      "B_resultado_de_busca": "e UM perfil por consulta",
+      "C_envelope_de_status": "nao",
+      "D_pagina": "nao",
+      "E_erro_como_item": "nao neste lote",
+      "F_contem_url": "SIM, aninhada",
+      "G_contem_nome": "SIM",
+      "H_public_identifier": "SIM",
+      "I_nested_object": "SIM — basic_info, location, education, experience",
+      "J_outro_identificador": "urn (urn:li:fsd_profile:...)"
+    }
+  },
+  "THE_BUG_IN_ONE_LINE": "a URL do perfil esta em basic_info.profile_url; o parser antigo procurava profileUrl no topo. Um nivel de aninhamento virou 8 NOT_FOUND.",
+  "RISK_FOUND_IN_THE_DATA": "o primeiro item recuperado tem first_name de 4 letras e last_name de 7, que nao corresponde a nenhum nome longo da lista de alvos. O Actor recebe consulta de BUSCA e sempre devolve ALGUM perfil — nada garante que seja a pessoa certa. SEARCH_HIT != PERSON, e por isso conferir_identidade() e obrigatoria.",
+  "LAWS": [
+    "DINHEIRO GASTO ≠ DADO PRESERVADO",
+    "PARSER_MISS ≠ PROFILE_NOT_FOUND",
+    "ACTOR_ITEM ≠ PROFILE",
+    "HTTP_SUCCESS ≠ SEMANTIC_SUCCESS",
+    "DONE ≠ QUESTION_ANSWERED",
+    "SEARCH_HIT ≠ PERSON"
+  ],
+  "INFRA_VERDICT": "LINKEDIN_PIPELINE_PARTIAL",
+  "INFRA_VERDICT_WHY": "schema entendido e parser provado, mas a identidade dos 8 perfis recuperados ainda nao foi conferida contra os alvos, e nenhum POST foi lido. READY_FOR_MEASUREMENT exige os dois.",
+  "HUMAN_SENSOR_VERDICT": "HUMAN_SENSOR_LAYER_PROMISING_BUT_NOT_PROVED",
+  "HUMAN_SENSOR_VERDICT_NOTE": "INALTERADO — nenhum conteudo humano foi lido nesta rodada"
+}

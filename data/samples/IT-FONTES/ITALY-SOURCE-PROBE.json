@@ -1,0 +1,537 @@
+{
+  "DATASET": "ITALY-SOURCE-PROBE",
+  "COUNTRY": "IT",
+  "SOURCE_ID": "DERIVED/IT-SOURCE-PROBE",
+  "SOURCE": "sondagem direta das próprias fontes",
+  "CAPTURED_AT": "2026-08-30",
+  "EVIDENCE_CLASS": "SOURCE_HEALTH",
+  "METHOD": "mede ALCANCE, FRESCOR e ASSUNTO. `HTTP 200 ≠ FONTE VIVA`: uma fonte que responde e está fresca ainda pode medir outra coisa que não campo.",
+  "STATUS_LEGEND": {
+    "GREEN": "respondeu e traz termo agronômico",
+    "PARTIAL": "respondeu, sem termo agronômico no que foi lido",
+    "BLOCKED": "bloqueio de origem — NÃO LIDA daqui, não recusada",
+    "NOT_REACHED": "não respondeu neste ambiente"
+  },
+  "BY_STATUS": {
+    "GREEN": 16,
+    "NOT_REACHED": 1,
+    "BLOCKED": 3
+  },
+  "BY_CLASS": {
+    "TECHNICAL_MEDIA": {
+      "TOTAL": 4,
+      "GREEN": 4,
+      "BLOCKED": 0
+    },
+    "FIELD": {
+      "TOTAL": 5,
+      "GREEN": 5,
+      "BLOCKED": 0
+    },
+    "RESEARCH_INSTITUTION": {
+      "TOTAL": 2,
+      "GREEN": 2,
+      "BLOCKED": 0
+    },
+    "COOPERATIVE": {
+      "TOTAL": 3,
+      "GREEN": 2,
+      "BLOCKED": 0
+    },
+    "PRODUCER_ORG": {
+      "TOTAL": 1,
+      "GREEN": 1,
+      "BLOCKED": 0
+    },
+    "COMPETITOR": {
+      "TOTAL": 4,
+      "GREEN": 2,
+      "BLOCKED": 2
+    },
+    "ADAMA": {
+      "TOTAL": 1,
+      "GREEN": 0,
+      "BLOCKED": 1
+    }
+  },
+  "SOURCES": [
+    {
+      "SOURCE_ID": "IT-T7-001",
+      "CLASS": "TECHNICAL_MEDIA",
+      "NAME": "Terra e Vita (Edagricole)",
+      "URL": "https://terraevita.edagricole.it/feed/",
+      "ACCESS_METHOD": "RSS",
+      "HTTP": 200,
+      "BYTES": 262859,
+      "PROBED_AT": "2026-08-30",
+      "FORMAT": "RSS/ATOM",
+      "ITEMS": 30,
+      "TOPIC_PROFILE": {
+        "CROP": 136,
+        "ISSUE": 1,
+        "PRACTICE": 18,
+        "MARKET_POLICY": 201
+      },
+      "WHAT_IT_MEASURES": "MARKET_AND_POLICY_SIGNAL",
+      "AGRONOMIC_TERM_HITS": 155,
+      "DATES_SEEN": [
+        "Sat, 29 Aug 2026 07:30:57 +0000",
+        "Fri, 28 Aug 2026 16:57:39 +0000",
+        "Fri, 28 Aug 2026 15:50:22 +0000",
+        "Fri, 28 Aug 2026 15:16:03 +0000",
+        "Fri, 28 Aug 2026 14:54:55 +0000"
+      ],
+      "FRESHNESS": "DATED",
+      "ACCESS_STATUS": "GREEN"
+    },
+    {
+      "SOURCE_ID": "IT-T7-002",
+      "CLASS": "TECHNICAL_MEDIA",
+      "NAME": "L'Informatore Agrario",
+      "URL": "https://www.informatoreagrario.it/feed/",
+      "ACCESS_METHOD": "RSS",
+      "HTTP": 200,
+      "BYTES": 76898,
+      "PROBED_AT": "2026-08-30",
+      "FORMAT": "RSS/ATOM",
+      "ITEMS": 10,
+      "TOPIC_PROFILE": {
+        "CROP": 40,
+        "ISSUE": 0,
+        "PRACTICE": 2,
+        "MARKET_POLICY": 11
+      },
+      "WHAT_IT_MEASURES": "MARKET_AND_POLICY_SIGNAL",
+      "AGRONOMIC_TERM_HITS": 42,
+      "DATES_SEEN": [
+        "Thu, 27 Aug 2026 09:24:29 +0000",
+        "Thu, 27 Aug 2026 07:04:34 +0000",
+        "Wed, 26 Aug 2026 07:43:47 +0000",
+        "Wed, 26 Aug 2026 07:16:26 +0000",
+        "Wed, 26 Aug 2026 07:15:33 +0000"
+      ],
+      "FRESHNESS": "DATED",
+      "ACCESS_STATUS": "GREEN"
+    },
+    {
+      "SOURCE_ID": "IT-T7-003",
+      "CLASS": "TECHNICAL_MEDIA",
+      "NAME": "AgroNotizie (Image Line)",
+      "URL": "https://agronotizie.imagelinenetwork.com/",
+      "ACCESS_METHOD": "HTML",
+      "HTTP": 200,
+      "BYTES": 203654,
+      "PROBED_AT": "2026-08-30",
+      "FORMAT": "HTML",
+      "ITEMS": 0,
+      "TOPIC_PROFILE": {
+        "CROP": 61,
+        "ISSUE": 13,
+        "PRACTICE": 24,
+        "MARKET_POLICY": 24
+      },
+      "WHAT_IT_MEASURES": "FIELD_OR_TECHNICAL_SIGNAL",
+      "AGRONOMIC_TERM_HITS": 98,
+      "DATES_SEEN": [
+        "25/11/2004"
+      ],
+      "FRESHNESS": "DATED",
+      "ACCESS_STATUS": "GREEN"
+    },
+    {
+      "SOURCE_ID": "IT-T7-004",
+      "CLASS": "TECHNICAL_MEDIA",
+      "NAME": "Image Line (grupo)",
+      "URL": "https://www.image-line.com/",
+      "ACCESS_METHOD": "HTML",
+      "HTTP": 200,
+      "BYTES": 482373,
+      "PROBED_AT": "2026-08-30",
+      "FORMAT": "HTML",
+      "ITEMS": 0,
+      "TOPIC_PROFILE": {
+        "CROP": 2,
+        "ISSUE": 0,
+        "PRACTICE": 0,
+        "MARKET_POLICY": 0
+      },
+      "WHAT_IT_MEASURES": "NÃO SEI",
+      "AGRONOMIC_TERM_HITS": 2,
+      "DATES_SEEN": [
+        "2026-08-24"
+      ],
+      "FRESHNESS": "DATED",
+      "ACCESS_STATUS": "GREEN"
+    },
+    {
+      "SOURCE_ID": "IT-T3-002",
+      "CLASS": "FIELD",
+      "NAME": "Regione Veneto — bollettini 2026",
+      "URL": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2026",
+      "ACCESS_METHOD": "HTML+PDF",
+      "HTTP": 200,
+      "BYTES": 61145,
+      "PROBED_AT": "2026-08-30",
+      "FORMAT": "HTML",
+      "ITEMS": 0,
+      "TOPIC_PROFILE": {
+        "CROP": 1,
+        "ISSUE": 0,
+        "PRACTICE": 43,
+        "MARKET_POLICY": 1
+      },
+      "WHAT_IT_MEASURES": "FIELD_OR_TECHNICAL_SIGNAL",
+      "AGRONOMIC_TERM_HITS": 44,
+      "DATES_SEEN": [
+        "27/08/2026",
+        "13/08/2026",
+        "06/08/2026",
+        "30/07/2026",
+        "22/07/2026"
+      ],
+      "FRESHNESS": "DATED",
+      "ACCESS_STATUS": "GREEN"
+    },
+    {
+      "SOURCE_ID": "IT-T3-006",
+      "CLASS": "FIELD",
+      "NAME": "ERSA FVG — colture erbacee 2026",
+      "URL": "http://difesafitosanitaria.ersa.fvg.it/difesa-e-produzione-integrata/difesa-integrata-obbligatoria/bollettini-fitosanitari/colture-erbacee-orticole/bollettini-2026",
+      "ACCESS_METHOD": "HTML+PDF",
+      "HTTP": 200,
+      "BYTES": 48315,
+      "PROBED_AT": "2026-08-30",
+      "FORMAT": "HTML",
+      "ITEMS": 0,
+      "TOPIC_PROFILE": {
+        "CROP": 36,
+        "ISSUE": 1,
+        "PRACTICE": 85,
+        "MARKET_POLICY": 0
+      },
+      "WHAT_IT_MEASURES": "FIELD_OR_TECHNICAL_SIGNAL",
+      "AGRONOMIC_TERM_HITS": 122,
+      "DATES_SEEN": [],
+      "FRESHNESS": "NO_DATE_FOUND",
+      "ACCESS_STATUS": "GREEN"
+    },
+    {
+      "SOURCE_ID": "IT-T3-003",
+      "CLASS": "FIELD",
+      "NAME": "Regione Lombardia — bollettini",
+      "URL": "https://www.fitosanitario.regione.lombardia.it/wps/portal/site/sfr/protezione-delle-colture-e-del-verde/bollettini-fitosanitari",
+      "ACCESS_METHOD": "HTML+PDF",
+      "HTTP": 200,
+      "BYTES": 144600,
+      "PROBED_AT": "2026-08-30",
+      "FORMAT": "HTML",
+      "ITEMS": 0,
+      "TOPIC_PROFILE": {
+        "CROP": 3,
+        "ISSUE": 0,
+        "PRACTICE": 51,
+        "MARKET_POLICY": 9
+      },
+      "WHAT_IT_MEASURES": "FIELD_OR_TECHNICAL_SIGNAL",
+      "AGRONOMIC_TERM_HITS": 54,
+      "DATES_SEEN": [
+        "09/06/2021",
+        "31/07/2026",
+        "07/06/2022",
+        "21/06/2022"
+      ],
+      "FRESHNESS": "DATED",
+      "ACCESS_STATUS": "GREEN"
+    },
+    {
+      "SOURCE_ID": "IT-T3-007",
+      "CLASS": "FIELD",
+      "NAME": "Emilia-Romagna — fitosanitario",
+      "URL": "https://agricoltura.regione.emilia-romagna.it/fitosanitario",
+      "ACCESS_METHOD": "HTML",
+      "HTTP": 200,
+      "BYTES": 943643,
+      "PROBED_AT": "2026-08-30",
+      "FORMAT": "HTML",
+      "ITEMS": 0,
+      "TOPIC_PROFILE": {
+        "CROP": 0,
+        "ISSUE": 0,
+        "PRACTICE": 23,
+        "MARKET_POLICY": 3
+      },
+      "WHAT_IT_MEASURES": "FIELD_OR_TECHNICAL_SIGNAL",
+      "AGRONOMIC_TERM_HITS": 23,
+      "DATES_SEEN": [
+        "2013-04-24",
+        "2013-04-24",
+        "2022-06-30",
+        "2022-06-30",
+        "2025-01-29"
+      ],
+      "FRESHNESS": "DATED",
+      "ACCESS_STATUS": "GREEN"
+    },
+    {
+      "SOURCE_ID": "IT-T3-008",
+      "CLASS": "FIELD",
+      "NAME": "Agrometeo Puglia — bollettini",
+      "URL": "https://www.agrometeopuglia.it/bollettini",
+      "ACCESS_METHOD": "HTML",
+      "HTTP": 200,
+      "BYTES": 25966,
+      "PROBED_AT": "2026-08-30",
+      "FORMAT": "HTML",
+      "ITEMS": 0,
+      "TOPIC_PROFILE": {
+        "CROP": 0,
+        "ISSUE": 0,
+        "PRACTICE": 10,
+        "MARKET_POLICY": 0
+      },
+      "WHAT_IT_MEASURES": "FIELD_OR_TECHNICAL_SIGNAL",
+      "AGRONOMIC_TERM_HITS": 10,
+      "DATES_SEEN": [
+        "11/04/2018",
+        "07/08/2017",
+        "11/04/2018",
+        "07/08/2017"
+      ],
+      "FRESHNESS": "DATED",
+      "ACCESS_STATUS": "GREEN"
+    },
+    {
+      "SOURCE_ID": "IT-T5-002",
+      "CLASS": "RESEARCH_INSTITUTION",
+      "NAME": "CREA",
+      "URL": "https://www.crea.gov.it/",
+      "ACCESS_METHOD": "HTML",
+      "HTTP": 200,
+      "BYTES": 136287,
+      "PROBED_AT": "2026-08-30",
+      "FORMAT": "HTML",
+      "ITEMS": 0,
+      "TOPIC_PROFILE": {
+        "CROP": 2,
+        "ISSUE": 0,
+        "PRACTICE": 1,
+        "MARKET_POLICY": 1
+      },
+      "WHAT_IT_MEASURES": "MARKET_AND_POLICY_SIGNAL",
+      "AGRONOMIC_TERM_HITS": 3,
+      "DATES_SEEN": [
+        "2026-08-24"
+      ],
+      "FRESHNESS": "DATED",
+      "ACCESS_STATUS": "GREEN"
+    },
+    {
+      "SOURCE_ID": "IT-T5-003",
+      "CLASS": "RESEARCH_INSTITUTION",
+      "NAME": "CNR — Istituto di Scienze delle Produzioni Alimentari",
+      "URL": "https://www.ispa.cnr.it/",
+      "ACCESS_METHOD": "HTML",
+      "HTTP": 200,
+      "BYTES": 30153,
+      "PROBED_AT": "2026-08-30",
+      "FORMAT": "HTML",
+      "ITEMS": 0,
+      "TOPIC_PROFILE": {
+        "CROP": 1,
+        "ISSUE": 2,
+        "PRACTICE": 0,
+        "MARKET_POLICY": 0
+      },
+      "WHAT_IT_MEASURES": "FIELD_OR_TECHNICAL_SIGNAL",
+      "AGRONOMIC_TERM_HITS": 3,
+      "DATES_SEEN": [],
+      "FRESHNESS": "NO_DATE_FOUND",
+      "ACCESS_STATUS": "GREEN"
+    },
+    {
+      "SOURCE_ID": "IT-T13-002",
+      "CLASS": "COOPERATIVE",
+      "NAME": "Co.Pro.B. (beterraba)",
+      "URL": "https://www.coprob.com/",
+      "ACCESS_METHOD": "HTML",
+      "HTTP": 202,
+      "BYTES": 170,
+      "PROBED_AT": "2026-08-30",
+      "ACCESS_STATUS": "NOT_REACHED"
+    },
+    {
+      "SOURCE_ID": "IT-T13-003",
+      "CLASS": "PRODUCER_ORG",
+      "NAME": "Assoproli Bari (olivo)",
+      "URL": "https://www.assoproli.it/bollettini-fitosanitari/",
+      "ACCESS_METHOD": "HTML",
+      "HTTP": 200,
+      "BYTES": 164923,
+      "PROBED_AT": "2026-08-30",
+      "FORMAT": "HTML",
+      "ITEMS": 0,
+      "TOPIC_PROFILE": {
+        "CROP": 6,
+        "ISSUE": 1,
+        "PRACTICE": 9,
+        "MARKET_POLICY": 1
+      },
+      "WHAT_IT_MEASURES": "FIELD_OR_TECHNICAL_SIGNAL",
+      "AGRONOMIC_TERM_HITS": 16,
+      "DATES_SEEN": [
+        "2024-06-11",
+        "2024-06-11",
+        "2024-06-11",
+        "2026-05-15"
+      ],
+      "FRESHNESS": "DATED",
+      "ACCESS_STATUS": "GREEN"
+    },
+    {
+      "SOURCE_ID": "IT-T13-004",
+      "CLASS": "COOPERATIVE",
+      "NAME": "Confagricoltura Veneto",
+      "URL": "https://confagricolturaveneto.it/",
+      "ACCESS_METHOD": "HTML",
+      "HTTP": 200,
+      "BYTES": 92949,
+      "PROBED_AT": "2026-08-30",
+      "FORMAT": "HTML",
+      "ITEMS": 0,
+      "TOPIC_PROFILE": {
+        "CROP": 0,
+        "ISSUE": 0,
+        "PRACTICE": 1,
+        "MARKET_POLICY": 3
+      },
+      "WHAT_IT_MEASURES": "MARKET_AND_POLICY_SIGNAL",
+      "AGRONOMIC_TERM_HITS": 1,
+      "DATES_SEEN": [
+        "2026-06-10",
+        "2025-07-02",
+        "2026-06-10",
+        "2025-07-02",
+        "2026-06-10"
+      ],
+      "FRESHNESS": "DATED",
+      "ACCESS_STATUS": "GREEN"
+    },
+    {
+      "SOURCE_ID": "IT-T13-005",
+      "CLASS": "COOPERATIVE",
+      "NAME": "Coldiretti",
+      "URL": "https://www.coldiretti.it/",
+      "ACCESS_METHOD": "HTML",
+      "HTTP": 200,
+      "BYTES": 1065651,
+      "PROBED_AT": "2026-08-30",
+      "FORMAT": "HTML",
+      "ITEMS": 0,
+      "TOPIC_PROFILE": {
+        "CROP": 146,
+        "ISSUE": 6,
+        "PRACTICE": 3,
+        "MARKET_POLICY": 221
+      },
+      "WHAT_IT_MEASURES": "MARKET_AND_POLICY_SIGNAL",
+      "AGRONOMIC_TERM_HITS": 155,
+      "DATES_SEEN": [
+        "15/09/2015",
+        "15/09/2015",
+        "26/06/2026",
+        "26/06/2026",
+        "26/06/2026"
+      ],
+      "FRESHNESS": "DATED",
+      "ACCESS_STATUS": "GREEN"
+    },
+    {
+      "SOURCE_ID": "IT-T9-002",
+      "CLASS": "COMPETITOR",
+      "NAME": "Syngenta Italia",
+      "URL": "https://www.syngenta.it/",
+      "ACCESS_METHOD": "HTML",
+      "HTTP": 403,
+      "BYTES": 5534,
+      "PROBED_AT": "2026-08-30",
+      "ACCESS_STATUS": "BLOCKED",
+      "NOTE": "bloqueio de origem — fonte NÃO LIDA deste ambiente, não recusada"
+    },
+    {
+      "SOURCE_ID": "IT-T9-003",
+      "CLASS": "COMPETITOR",
+      "NAME": "BASF Agro Italia",
+      "URL": "https://www.agro.basf.it/",
+      "ACCESS_METHOD": "HTML",
+      "HTTP": 200,
+      "BYTES": 110756,
+      "PROBED_AT": "2026-08-30",
+      "FORMAT": "HTML",
+      "ITEMS": 0,
+      "TOPIC_PROFILE": {
+        "CROP": 61,
+        "ISSUE": 1,
+        "PRACTICE": 3,
+        "MARKET_POLICY": 4
+      },
+      "WHAT_IT_MEASURES": "MARKET_AND_POLICY_SIGNAL",
+      "AGRONOMIC_TERM_HITS": 65,
+      "DATES_SEEN": [],
+      "FRESHNESS": "NO_DATE_FOUND",
+      "ACCESS_STATUS": "GREEN"
+    },
+    {
+      "SOURCE_ID": "IT-T9-004",
+      "CLASS": "COMPETITOR",
+      "NAME": "Corteva Italia",
+      "URL": "https://www.corteva.it/",
+      "ACCESS_METHOD": "HTML",
+      "HTTP": 200,
+      "BYTES": 196202,
+      "PROBED_AT": "2026-08-30",
+      "FORMAT": "HTML",
+      "ITEMS": 0,
+      "TOPIC_PROFILE": {
+        "CROP": 2,
+        "ISSUE": 2,
+        "PRACTICE": 6,
+        "MARKET_POLICY": 0
+      },
+      "WHAT_IT_MEASURES": "FIELD_OR_TECHNICAL_SIGNAL",
+      "AGRONOMIC_TERM_HITS": 10,
+      "DATES_SEEN": [
+        "2025-12-01",
+        "2024-06-06",
+        "2025-12-01",
+        "2024-06-06",
+        "2025-02-22"
+      ],
+      "FRESHNESS": "DATED",
+      "ACCESS_STATUS": "GREEN"
+    },
+    {
+      "SOURCE_ID": "IT-T9-005",
+      "CLASS": "COMPETITOR",
+      "NAME": "Bayer Crop Science Italia",
+      "URL": "https://www.cropscience.bayer.it/",
+      "ACCESS_METHOD": "HTML",
+      "HTTP": 403,
+      "BYTES": 383,
+      "PROBED_AT": "2026-08-30",
+      "ACCESS_STATUS": "BLOCKED",
+      "NOTE": "bloqueio de origem — fonte NÃO LIDA deste ambiente, não recusada"
+    },
+    {
+      "SOURCE_ID": "IT-T9-001",
+      "CLASS": "ADAMA",
+      "NAME": "ADAMA Italia",
+      "URL": "https://www.adama.com/italia/it",
+      "ACCESS_METHOD": "HTML",
+      "HTTP": 403,
+      "BYTES": 144,
+      "PROBED_AT": "2026-08-30",
+      "ACCESS_STATUS": "BLOCKED",
+      "NOTE": "bloqueio de origem — fonte NÃO LIDA deste ambiente, não recusada"
+    }
+  ]
+}

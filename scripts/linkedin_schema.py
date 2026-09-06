@@ -41,6 +41,13 @@ a um alvo quando sobrenome e nome batem. Sem isso, o estado é
 import unicodedata
 
 SCHEMA_V1 = 'PROFILE_DETAIL_V1_BASIC_INFO'
+# Medido em 2026-08-30, run 33320142206: o ator de BUSCA POR NOME em modo "Short"
+# nao devolve `basic_info`. Devolve um objeto raso — id, linkedinUrl, name,
+# position, publicIdentifier, location.linkedinText — que e um RESULTADO DE BUSCA,
+# nao um perfil detalhado. Sao dois contratos diferentes do mesmo fornecedor, e
+# trata-los como um so foi o que quase repetiu o erro: `position` nao e `headline`.
+SCHEMA_BUSCA_V1 = 'PROFILE_SEARCH_V1_SHORT'
+SCHEMAS_CONHECIDOS = (SCHEMA_V1, SCHEMA_BUSCA_V1)
 UNKNOWN_SCHEMA = 'UNKNOWN_SCHEMA'
 ERROR_ITEM = 'ERROR_ITEM'
 IDENTITY_UNVERIFIED = 'IDENTITY_UNVERIFIED'
@@ -60,6 +67,8 @@ def detectar_schema(item):
     bi = item.get('basic_info')
     if isinstance(bi, dict) and ('profile_url' in bi or 'public_identifier' in bi):
         return SCHEMA_V1
+    if 'name' in item and ('linkedinUrl' in item or 'publicIdentifier' in item):
+        return SCHEMA_BUSCA_V1
     return UNKNOWN_SCHEMA
 
 
@@ -70,10 +79,31 @@ def extrair_perfil(item):
     diferentes, e confundi-las é o defeito que este arquivo existe para fechar.
     """
     schema = detectar_schema(item)
-    if schema != SCHEMA_V1:
+    if schema not in SCHEMAS_CONHECIDOS:
         return {'SCHEMA': schema, 'PROFILE_URL': None,
                 'WHY': ('o item não bate com nenhum contrato comprovado; isto NÃO '
                         'significa que o perfil não exista')}
+    if schema == SCHEMA_BUSCA_V1:
+        loc = item.get('location')
+        loc = loc if isinstance(loc, dict) else {}
+        return {
+            'SCHEMA': SCHEMA_BUSCA_V1,
+            'PROFILE_URL': item.get('linkedinUrl'),
+            'PUBLIC_IDENTIFIER': item.get('publicIdentifier'),
+            'URN': item.get('id'),
+            'FULLNAME': item.get('name'),
+            'FIRST_NAME': None, 'LAST_NAME': None,
+            # `position` e o titulo que a BUSCA mostra. Chamo-o de HEADLINE porque
+            # e o mesmo papel, e nao de CURRENT_COMPANY: e uma linha de texto livre,
+            # nao um empregador normalizado. Prometer empresa a partir dela seria
+            # inventar estrutura que a fonte nao deu.
+            'HEADLINE': item.get('position'),
+            'CURRENT_COMPANY': None,
+            # O que a pessoa DECLAROU no perfil. Nunca o local de um fato.
+            'LOCATION': loc.get('linkedinText'), 'COUNTRY_CODE': None,
+            'ABOUT': None, 'IS_CREATOR': None, 'IS_TOP_VOICE': None,
+            'FOLLOWER_COUNT': None, 'EXPERIENCE_COUNT': 0, 'HAS_EDUCATION': None,
+        }
     bi = item['basic_info']
     loc = bi.get('location') or {}
     return {
@@ -97,7 +127,7 @@ def extrair_perfil(item):
 
 def conferir_identidade(perfil, nome_alvo):
     """`SEARCH_HIT ≠ PERSON`. O Actor sempre devolve alguém; pode ser outro alguém."""
-    if perfil.get('SCHEMA') != SCHEMA_V1:
+    if perfil.get('SCHEMA') not in SCHEMAS_CONHECIDOS:
         return perfil['SCHEMA'], 'schema não reconhecido, identidade não avaliável'
     alvo = _normal(nome_alvo).split()
     if not alvo:

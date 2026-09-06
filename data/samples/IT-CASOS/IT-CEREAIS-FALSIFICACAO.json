@@ -1,0 +1,523 @@
+{
+  "QUESTION_ID": "CEREAL_LOCAL_FIELD_SENSOR_FALSIFICATION",
+  "CASE_ID": "IT-CASE-DURUM-FUSARIUM-001",
+  "SOURCE_ID": "DERIVED/IT-CEREAIS-FALSIFICACAO",
+  "source": "busca dirigida de falsificação — nenhuma execução paga",
+  "SOURCE_LOCATION": "web pública italiana",
+  "FACT_LOCATION": "ver CONTENTS_READ — por conteúdo, nunca por voz",
+  "ORIGINAL_LANGUAGE": "it",
+  "EVIDENCE_CLASS": "PRIMARY_SOURCE_PROBE",
+  "captured_at": "2026-08-30",
+  "CAPTURED_AT": "2026-08-30",
+  "CASE_DATE": "2026-04-23",
+  "WINDOW": [
+    "2026-03-01",
+    "2026-05-31"
+  ],
+  "APIFY_RUNS": 0,
+  "APIFY_COST_USD": 0,
+  "HYPOTHESIS_UNDER_TEST": "em cereais italianos o sinal de safra fica apenas na instituição regional, sem camada pública local ou pessoal abaixo dela",
+  "RESULT": "PARTIALLY_FALSIFIED",
+  "WHAT_FELL": "a parte \"apenas regional\". As Marche publicam por PROVÍNCIA, semanal, por um Centro Agrometeo Locale, com rede de fazendas hospedando armadilhas. Há um nó territorial abaixo da região",
+  "WHAT_HELD": "a parte \"sem camada pessoal\". Nenhum boletim de cereais medido é assinado por uma pessoa, e a rede de fazendas é anônima",
+  "CAPS": {
+    "ORGANIZATIONS": 15,
+    "PERSONS": 20,
+    "MEASURED": 6,
+    "NOTE": "parou quando a hipótese caiu pela metade"
+  },
+  "MEASURED_BY_REGION": {
+    "Marche": "PARTIAL_LOCAL_FIELD_SENSOR",
+    "Basilicata": "NOT_MEASURED_ACCESS_LIMIT",
+    "Emilia-Romagna": "NOT_MEASURED_ACCESS_LIMIT",
+    "Puglia": "COMMUNICATION_ONLY",
+    "Sicilia": "INSTITUTION_ONLY"
+  },
+  "ORGANIZATIONS": [
+    {
+      "NAME": "AMAP Marche — Centro Agrometeo Locale, provincia di Ancona",
+      "REGION": "Marche",
+      "ENTITY_KIND": "ORGANIZATION",
+      "ROLE": "centro agrometeo PROVINCIAL da agência regional",
+      "CROP": "cereali autunno-vernini, vite, olivo, fruttiferi",
+      "ISSUE": "fusariosi della spiga, infestanti, fenologia",
+      "CHANNEL": "PDF numerado semanal em meteo.regione.marche.it + e-mail",
+      "CADENCE": "WEEKLY_IN_SEASON",
+      "SERIES_2026": [
+        "n.613 08/04",
+        "n.615 22/04",
+        "n.616 29/04",
+        "n.617 06/05"
+      ],
+      "NAMED_TECHNICIAN": null,
+      "TECHNICIAN_STATE": "NO_NAMED_TECHNICIAN",
+      "FARM_NETWORK": "\"le trappole per il monitoraggio ... installate nelle aziende della rete di riferimento\" — fazendas hospedam armadilhas",
+      "VERDICT": "PARTIAL_LOCAL_FIELD_SENSOR",
+      "WHY": "é o nó mais local que os cereais têm: província, semanal, na janela, com BBCH e rede de fazendas. E não tem pessoa — nem no boletim, nem na rede"
+    },
+    {
+      "NAME": "ALSIA Basilicata — SeDI (Servizio Difesa Integrata)",
+      "REGION": "Basilicata",
+      "ENTITY_KIND": "ORGANIZATION",
+      "ROLE": "agência regional com técnicos e estações agrometeo",
+      "CROP": "cereali entre outras",
+      "ISSUE": "difesa integrata",
+      "CHANNEL": "boletins por distrito, atrás de cadastro gratuito",
+      "CADENCE": "NOT_KNOWN",
+      "DISTRICTS": [
+        "Metapontino",
+        "Alta Valle d'Agri",
+        "Valle Bradano e Lavallese"
+      ],
+      "NAMED_TECHNICIAN": null,
+      "TECHNICIAN_STATE": "TECHNICIAN_IDENTITY_NOT_PROVED",
+      "VERDICT": "NOT_MEASURED_ACCESS_LIMIT",
+      "WHY": "a agência descreve exatamente o padrão — \"i tecnici ALSIA predispongono periodicamente bollettini fitosanitari per alcuni distretti\" a partir de monitoramento de campo, modelos e estações próprias. E os boletins pedem cadastro. GATED ≠ ABSENT, e não crio conta para medir"
+    },
+    {
+      "NAME": "Agrifoglio — periódico da ALSIA",
+      "REGION": "Basilicata",
+      "ENTITY_KIND": "ORGANIZATION",
+      "ROLE": "periódico técnico mensal, gratuito, com autores nomeados",
+      "CROP": "agricultura lucana",
+      "ISSUE": "vários",
+      "CHANNEL": "alsia.it — números públicos",
+      "CADENCE": "MONTHLY",
+      "NAMED_TECHNICIAN": "autores assinam (ex.: Giuseppe Malvasi, Filippo Radogna)",
+      "TECHNICIAN_STATE": "TECHNICIAN_IDENTITY_NOT_PROVED",
+      "VERDICT": "NOT_MEASURED_ACCESS_LIMIT",
+      "WHY": "canal público com autor nomeado — o formato certo. Mas a enumeração de números só devolveu até 2022; os de 2026 não foram alcançados por esta rota. NOT_MEASURED, não NOT_PRODUCTIVE"
+    },
+    {
+      "NAME": "Consorzio Agrario dell'Emilia — Bollettino Tecnico",
+      "REGION": "Emilia-Romagna",
+      "ENTITY_KIND": "ORGANIZATION",
+      "ROLE": "consórcio agrário com Centro di Saggio",
+      "CROP": "cereali",
+      "ISSUE": "difesa",
+      "CHANNEL": "caemilia.it",
+      "CADENCE": "NOT_KNOWN",
+      "NAMED_TECHNICIAN": null,
+      "TECHNICIAN_STATE": "TECHNICIAN_IDENTITY_NOT_PROVED",
+      "VERDICT": "NOT_MEASURED_ACCESS_LIMIT",
+      "ATTEMPTS": [
+        "503 via WebFetch",
+        "503 via curl",
+        "cadeia TLS incompleta",
+        "retentativa com o CA bundle do proxy — mesma falha"
+      ],
+      "WHY": "quatro tentativas por rotas seguras diferentes. Não desabilitei verificação TLS para obter um positivo. NOT_MEASURED_ACCESS_LIMIT"
+    },
+    {
+      "NAME": "Puglia — rede de cereais",
+      "REGION": "Puglia",
+      "ENTITY_KIND": "ORGANIZATION",
+      "ROLE": "busca dirigida",
+      "CROP": "grano duro",
+      "ISSUE": "fusariosi",
+      "CHANNEL": "NOT_FOUND",
+      "CADENCE": "NOT_KNOWN",
+      "NAMED_TECHNICIAN": null,
+      "TECHNICIAN_STATE": "NO_NAMED_TECHNICIAN",
+      "VERDICT": "COMMUNICATION_ONLY",
+      "WHY": "a maior região de grano duro do país, e o que a busca devolveu foi produção, preço e posição de mercado — CIA Puglia sobre preços, Italmopa sobre colheita. Nenhum boletim de campo de cereais. ORGANIZATION_COMMUNICATION"
+    },
+    {
+      "NAME": "Sicilia — Servizio fitosanitario regionale",
+      "REGION": "Sicilia",
+      "ENTITY_KIND": "ORGANIZATION",
+      "ROLE": "serviço fitossanitário regional",
+      "CROP": "grano duro",
+      "ISSUE": "norme tecniche",
+      "CHANNEL": "portal regional",
+      "CADENCE": "NOT_KNOWN",
+      "NAMED_TECHNICIAN": null,
+      "TECHNICIAN_STATE": "NO_NAMED_TECHNICIAN",
+      "VERDICT": "INSTITUTION_ONLY",
+      "WHY": "aprovou as normas técnicas de defesa integrada 2026 — e norma técnica não é sinal de campo. Lei já registrada em rodada anterior"
+    }
+  ],
+  "PERSONS_FOUND": [],
+  "STILL_NOT_MEASURED": [
+    "ALSIA Basilicata — SeDI (Servizio Difesa Integrata)",
+    "Agrifoglio — periódico da ALSIA",
+    "Consorzio Agrario dell'Emilia — Bollettino Tecnico"
+  ],
+  "CONTENTS_READ": [
+    {
+      "ID": "AMAP-MARCHE/AN-615",
+      "ARQUIVO": "marche-amap-an-615-2026-04-22.txt",
+      "PUBLISHED_AT": "2026-04-22",
+      "CROP": "cereali autunno-vernini",
+      "ISSUE": "Fusarium spp.",
+      "REGION": "Marche",
+      "RELATIVE_TO_CASE": "BEFORE_CASE",
+      "SIGNAL_TYPES": [
+        "TECHNICAL_WARNING",
+        "MANAGEMENT_RECOMMENDATION",
+        "WEATHER_CONCERN"
+      ],
+      "QUOTE": "\"Fusarium spp. Interventi fitosanitari: Intervenire al termine della spigatura/inizio fioritura\"",
+      "EVIDENCE_PATH": "data/samples/IT-T5-SENSORES/marche-amap-an-615-2026-04-22.txt",
+      "SHA256": "795aa1e70c0b4edaab811ce61b292cacd8878c6bf362c32ebc94e6425505e1d8",
+      "DOCUMENT_SCOPE": {
+        "PLACE": "Ancona",
+        "PRECISION": "PROVINCE",
+        "EVIDENCE": "AGROMETEOROLOGICO Notiziario di PRODUZIONE INTEGRATA per la provincia di Ancona 22 aprile 2026   Centro Agrometeo Locale – Via Thomas Edison, 2 – Osimo St.     Tel. [TELEFONE_REDIGIDO] e-mail: [EMAIL_"
+      },
+      "FACT_LOCATIONS": [
+        {
+          "FACT_LOCATION": "Ancona",
+          "FACT_LOCATION_PRECISION": "PROVINCE",
+          "PRECISION_SOURCE": "DOCUMENT_SCOPE",
+          "FACT_LOCATION_EVIDENCE": "Il 21 e il 22 aprile si sono registrate precipitazioni di notevole intensità con un calo delle temperature sia massime che minime",
+          "FACT_LOCATION_SCOPE_EVIDENCE": "AGROMETEOROLOGICO Notiziario di PRODUZIONE INTEGRATA per la provincia di Ancona 22 aprile 2026   Centro Agrometeo Locale – Via Thomas Edison, 2 – Osimo St.     Tel. [TELEFONE_REDIGIDO] e-mail: [EMAIL_",
+          "FACT_LOCATION_ANCHOR": "registrate",
+          "FACT_LOCATION_ORIGIN": "AMAP-MARCHE/AN-615",
+          "TYPE_OF_EVIDENCE": "OFFICIAL_OCCURRENCE",
+          "WHY": "a oração relata sem nomear lugar; o lugar é o escopo que o cabeçalho do documento declara"
+        }
+      ],
+      "PLACE_MENTIONS_REJECTED": [
+        "Ancona",
+        "Italia",
+        "Jesi",
+        "Marche",
+        "Tolentino"
+      ],
+      "TIME": {
+        "FACT_TIME": "NOT_KNOWN",
+        "FACT_TIME_PRECISION": "NOT_KNOWN",
+        "FACT_TIME_EVIDENCE": null,
+        "FACT_TIME_ORIGIN": "NOT_STATED",
+        "PUBLISHED_AT": "2026-04-22",
+        "FACT_TIME_CANDIDATES": [
+          "ieri",
+          "ieri",
+          "2026",
+          "2026",
+          "2027",
+          "23 febbraio 2023",
+          "7 aprile 2026",
+          "2023-2024"
+        ],
+        "TIME_CANDIDATES_DISCARDED": [
+          {
+            "VALUE": "22 aprile 2026",
+            "WHY": "PUBLICATION_STAMP_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "22 aprile",
+            "WHY": "PUBLICATION_STAMP_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "27 aprile",
+            "WHY": "PLANNED_ACTION_DATE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "27 aprile",
+            "WHY": "PLANNED_ACTION_DATE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "27 aprile",
+            "WHY": "PLANNED_ACTION_DATE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "1165/2021",
+            "WHY": "REGULATORY_VALIDITY_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "2025/1489",
+            "WHY": "REGULATORY_VALIDITY_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "28 luglio 2025",
+            "WHY": "REGULATORY_VALIDITY_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "30 giugno 2029",
+            "WHY": "REGULATORY_VALIDITY_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "2018/1981",
+            "WHY": "SERIES_RANGE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "30 giugno 2029",
+            "WHY": "FUTURE_DATE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "2020-2025",
+            "WHY": "SERIES_RANGE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "2021-2026",
+            "WHY": "SERIES_RANGE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "27 maggio",
+            "WHY": "FUTURE_DATE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "18 giugno 2026",
+            "WHY": "FUTURE_DATE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "13 maggio 2026",
+            "WHY": "FUTURE_DATE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "15 aprile 2026",
+            "WHY": "REGULATORY_VALIDITY_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "17 marzo 2026",
+            "WHY": "REGULATORY_VALIDITY_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "2023-2027",
+            "WHY": "SERIES_RANGE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "29 aprile 2026",
+            "WHY": "FUTURE_DATE_NOT_FACT_TIME"
+          }
+        ],
+        "WHY": "nenhuma expressão temporal ficou amarrada ao acontecimento; a data de publicação não preenche esse campo"
+      },
+      "OCCURRENCE_NOT_INCIDENCE": {
+        "BY_TYPE_OF_EVIDENCE": {
+          "OFFICIAL_OCCURRENCE": 1
+        },
+        "OBSERVED_OCCURRENCES": 1,
+        "MODELLED_RISK_STATEMENTS": 0,
+        "INCIDENCE": "NOT_KNOWN",
+        "PREVALENCE": "NOT_KNOWN",
+        "REGIONAL_PRESSURE": "NOT_KNOWN",
+        "WHY": "ocorrência observada não é incidência, prevalência nem pressão regional — e as espécies de evidência não se somam entre si"
+      },
+      "IN_WINDOW": true
+    },
+    {
+      "ID": "AMAP-MARCHE/AN-616",
+      "ARQUIVO": "marche-amap-an-616-2026-04-29.txt",
+      "PUBLISHED_AT": "2026-04-29",
+      "CROP": "cereali autunno-vernini",
+      "ISSUE": "Fusariosi della spiga",
+      "REGION": "Marche",
+      "RELATIVE_TO_CASE": "AFTER_CASE",
+      "SIGNAL_TYPES": [
+        "PHENOLOGY_OBSERVATION",
+        "FIELD_OBSERVATION",
+        "TECHNICAL_WARNING"
+      ],
+      "QUOTE": "\"I cereali autunno-vernini sono nella maggior parte degli appezzamenti nella fase fenologica compresa fra inizio spigatura e inizio fioritura BBCH 51-61\"",
+      "EVIDENCE_PATH": "data/samples/IT-T5-SENSORES/marche-amap-an-616-2026-04-29.txt",
+      "SHA256": "aefb518f3e22c0fde500e46156947b0656b6101d1b3df3e04085c3a59dc5a2bd",
+      "DOCUMENT_SCOPE": {
+        "PLACE": "Ancona",
+        "PRECISION": "PROVINCE",
+        "EVIDENCE": "AGROMETEOROLOGICO Notiziario di PRODUZIONE INTEGRATA per la provincia di Ancona 29 aprile 2026   Centro Agrometeo Locale – Via Thomas Edison, 2 – Osimo St.     Tel. [TELEFONE_REDIGIDO] e-mail: [EMAIL_"
+      },
+      "FACT_LOCATIONS": [
+        {
+          "FACT_LOCATION": "Ancona",
+          "FACT_LOCATION_PRECISION": "PROVINCE",
+          "PRECISION_SOURCE": "DOCUMENT_SCOPE",
+          "FACT_LOCATION_EVIDENCE": "Dopo un avvio della settimana contraddistinto da temperature minime particolarmente basse, si è registrato un progressivo aumento delle temperature",
+          "FACT_LOCATION_SCOPE_EVIDENCE": "AGROMETEOROLOGICO Notiziario di PRODUZIONE INTEGRATA per la provincia di Ancona 29 aprile 2026   Centro Agrometeo Locale – Via Thomas Edison, 2 – Osimo St.     Tel. [TELEFONE_REDIGIDO] e-mail: [EMAIL_",
+          "FACT_LOCATION_ANCHOR": "registrato",
+          "FACT_LOCATION_ORIGIN": "AMAP-MARCHE/AN-616",
+          "TYPE_OF_EVIDENCE": "OFFICIAL_OCCURRENCE",
+          "WHY": "a oração relata sem nomear lugar; o lugar é o escopo que o cabeçalho do documento declara"
+        }
+      ],
+      "PLACE_MENTIONS_REJECTED": [
+        "Ancona",
+        "Italia",
+        "Jesi",
+        "Marche",
+        "Tolentino"
+      ],
+      "TIME": {
+        "FACT_TIME": "NOT_KNOWN",
+        "FACT_TIME_PRECISION": "NOT_KNOWN",
+        "FACT_TIME_EVIDENCE": null,
+        "FACT_TIME_ORIGIN": "NOT_STATED",
+        "PUBLISHED_AT": "2026-04-29",
+        "FACT_TIME_CANDIDATES": [
+          "nei giorni scorsi",
+          "ieri",
+          "2026",
+          "2026",
+          "2027",
+          "giugno",
+          "luglio",
+          "agosto"
+        ],
+        "TIME_CANDIDATES_DISCARDED": [
+          {
+            "VALUE": "29 aprile 2026",
+            "WHY": "PUBLICATION_STAMP_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "5 maggio",
+            "WHY": "PLANNED_ACTION_DATE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "1165/2021",
+            "WHY": "REGULATORY_VALIDITY_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "2025/1489",
+            "WHY": "REGULATORY_VALIDITY_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "28 luglio 2025",
+            "WHY": "REGULATORY_VALIDITY_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "30 giugno 2029",
+            "WHY": "REGULATORY_VALIDITY_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "2018/1981",
+            "WHY": "SERIES_RANGE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "30 giugno 2029",
+            "WHY": "FUTURE_DATE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "2020-2025",
+            "WHY": "SERIES_RANGE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "2021-2026",
+            "WHY": "SERIES_RANGE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "27 maggio",
+            "WHY": "FUTURE_DATE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "18 giugno 2026",
+            "WHY": "FUTURE_DATE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "13 maggio 2026",
+            "WHY": "FUTURE_DATE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "19 maggio",
+            "WHY": "FUTURE_DATE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "20 maggio",
+            "WHY": "FUTURE_DATE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "12 maggio 2026",
+            "WHY": "FUTURE_DATE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "15 aprile 2026",
+            "WHY": "REGULATORY_VALIDITY_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "17 marzo 2026",
+            "WHY": "REGULATORY_VALIDITY_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "2023-2027",
+            "WHY": "SERIES_RANGE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "6 maggio 2026",
+            "WHY": "FUTURE_DATE_NOT_FACT_TIME"
+          }
+        ],
+        "WHY": "nenhuma expressão temporal ficou amarrada ao acontecimento; a data de publicação não preenche esse campo"
+      },
+      "OCCURRENCE_NOT_INCIDENCE": {
+        "BY_TYPE_OF_EVIDENCE": {
+          "OFFICIAL_OCCURRENCE": 1
+        },
+        "OBSERVED_OCCURRENCES": 1,
+        "MODELLED_RISK_STATEMENTS": 0,
+        "INCIDENCE": "NOT_KNOWN",
+        "PREVALENCE": "NOT_KNOWN",
+        "REGIONAL_PRESSURE": "NOT_KNOWN",
+        "WHY": "ocorrência observada não é incidência, prevalência nem pressão regional — e as espécies de evidência não se somam entre si"
+      },
+      "IN_WINDOW": true
+    }
+  ],
+  "CONTENTS_READ_COUNT": 2,
+  "SIGNALS_BEFORE_CASE": [
+    "AMAP-MARCHE/AN-615"
+  ],
+  "SIGNALS_AFTER_CASE": [
+    "AMAP-MARCHE/AN-616"
+  ],
+  "EARLIER_THAN_REGION": [],
+  "SAME_DATE": [],
+  "RETROSPECTIVE": [],
+  "ARCHITECTURE": {
+    "CEREALS": "REGIÃO → CENTRO AGROMETEO PROVINCIAL → REDE DE FAZENDAS (anônima)",
+    "VINE": "OBSERVADOR CIDADÃO → TÉCNICO NOMEADO → CONSÓRCIO → INSTITUIÇÃO",
+    "DIFFERENCE": "a de cereais não tem pessoa em elo nenhum"
+  },
+  "LOCAL_ORGANIZATION_SENSOR": {
+    "STATE": "PROVED",
+    "CROP_SCOPE": "cereali autunno-vernini",
+    "GEOGRAPHIC_SCOPE": "Marche — provincia di Ancona",
+    "WHY": "Centro Agrometeo Locale, provincial, semanal, com rede de fazendas"
+  },
+  "TECHNICAL_PERSON_SENSOR": {
+    "STATE": "NOT_PROVED",
+    "CROP_SCOPE": "cereais",
+    "GEOGRAPHIC_SCOPE": "nenhuma das cinco regiões medidas",
+    "WHY": "nenhum boletim de cereais é assinado por pessoa"
+  },
+  "PRODUCER_PERSON_SENSOR": {
+    "STATE": "NOT_PROVED",
+    "CROP_SCOPE": "cereais",
+    "GEOGRAPHIC_SCOPE": "nenhuma",
+    "WHY": "as \"aziende della rete di riferimento\" das Marche são produtores contribuindo com campo — e entram sem nome, pela organização"
+  },
+  "LAWS": [
+    "NO_IN_MEASURED_NETWORK ≠ NO_IN_ITALY",
+    "GATED ≠ ABSENT",
+    "NOT_MEASURED_ACCESS_LIMIT ≠ NOT_PRODUCTIVE",
+    "LOCAL_ORGANIZATION_SENSOR ≠ TECHNICAL_PERSON_SENSOR",
+    "PLANNED_ACTION_DATE ≠ FACT_TIME",
+    "FUTURE_DATE ≠ FACT_TIME",
+    "NORMA TÉCNICA ≠ SINAL DE CAMPO"
+  ],
+  "CEREAL_LOCAL_FIELD_ORGANIZATION_SENSOR_FOUND": "YES",
+  "CEREAL_LOCAL_HUMAN_PERSON_SENSOR_FOUND": "NOT_OBSERVED_IN_MEASURED_HIGH_PRIORITY_NETWORKS",
+  "WHY_TWO_KEYS": "organização local prospectiva em cereais: PROVADA (Centro Agrometeo Locale das Marche). Pessoa pública prospectiva em cereais: NÃO OBSERVADA nas redes de alta prioridade medidas. São dois estados, e juntá-los num só produziria uma contradição aparente ou uma promoção silenciosa",
+  "DURUM_FUSARIUM_LOCAL_HUMAN_SENSOR": "PROMISING",
+  "IN_CEREALS_MEASURED_SIGNAL_ARCHITECTURE": "REGIONAL_INSTITUTION_DOMINANT",
+  "ARCHITECTURE_MUST_CARRY": "dominante NÃO quer dizer exclusivamente regional: a instituição desce até a província e se apoia numa rede de fazendas. Chamar isso de \"só a região\" perderia o nó mais local que os cereais têm",
+  "HUMAN_SENSOR_ITALY_LINE": "FROZEN_AFTER_CURRENT_EVIDENCE",
+  "HUMAN_SENSOR_FREEZE_MEANS": "a linha de sensores humanos da Itália não recebe nova busca. O que ficou por medir está nomeado e continua NOT_MEASURED — congelar não converte nenhum NOT_MEASURED em NOT_PRODUCTIVE",
+  "RECOMMENDATION": {
+    "COLLECT_RECURRENTLY": "os notiziari agrometeorológicos PROVINCIAIS das Marche, ao lado dos boletins regionais de Toscana, Umbria, FVG e Veneto. São PDF numerados, semanais, na janela, com BBCH — e a província é a melhor resolução que os cereais oferecem",
+    "DO_NOT_EXPECT": "pessoa nomeada nem antecedência sobre a instituição",
+    "CLOSE_THIS_LINE": "a pergunta sobre camada humana pessoal em cereais está respondida no que era mensurável: não há. Reabrir exigiria as portas que ficaram atrás de cadastro ou de falha de transporte",
+    "STILL_UNMEASURED": [
+      "ALSIA Basilicata — SeDI (Servizio Difesa Integrata)",
+      "Agrifoglio — periódico da ALSIA",
+      "Consorzio Agrario dell'Emilia — Bollettino Tecnico"
+    ]
+  },
+  "STILL_FORBIDDEN_TO_WRITE": [
+    "ITALY OPPORTUNITY",
+    "SALES OPPORTUNITY",
+    "ADAMA SHOULD ACT",
+    "MARKET GAP",
+    "DOES_NOT_EXIST_IN_ITALY"
+  ]
+}
