@@ -26,6 +26,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { CLIENT } from './lib/harness.mjs';
+import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';
 
 const ING = path.resolve(CLIENT, '..', '..', 'build', 'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST');
 
@@ -86,6 +87,13 @@ const check = (id, title, fn) => {
 
 /* ── 1 · o pacote canonico passa ─────────────────────────────────────────── */
 check('CANONICAL_PACKAGE_ACCEPTED', 'o pacote gerado por 55c2674 atravessa a fronteira', () => {
+  /* O pacote gera-se e nao se guarda: num clone limpo nao existe, e este
+     readFileSync rebentava em ENOENT. Um portao que estoira nao e um portao
+     vermelho — e um portao que ninguem consegue ler. */
+  const pac = statoDelPacchetto();
+  if (pac.stato !== 'CANONICO') {
+    return { pass: false, expected: 'a mesma safra', measured: pac.stato, detail: [perchePuoiNonMisurare(pac)] };
+  }
   const M = JSON.parse(fs.readFileSync(path.join(ING, 'APP-MANIFEST.json'), 'utf8'));
   const O = JSON.parse(fs.readFileSync(path.join(ING, 'OPPORTUNITIES.json'), 'utf8'));
   const rows = O.RECORDS || O;
@@ -123,6 +131,10 @@ check('NO_REVOKED_STATUS', 'nenhum estado revogado sobrevive no caminho executav
 });
 
 check('43_CASE_IDS_PRESERVED', 'os 43 IDs do embarcado sao os 43 do pacote', () => {
+  const pac = statoDelPacchetto();
+  if (pac.stato !== 'CANONICO') {
+    return { pass: false, expected: 'a mesma safra', measured: pac.stato, detail: [perchePuoiNonMisurare(pac)] };
+  }
   const H = embarcado();
   const O = JSON.parse(fs.readFileSync(path.join(ING, 'OPPORTUNITIES.json'), 'utf8'));
   const rows = O.RECORDS || O;

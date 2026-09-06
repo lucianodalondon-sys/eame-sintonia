@@ -6,13 +6,36 @@
 <title>Sintonia · Italia — Cosa conta oggi</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23009845'/%3E%3Cpath d='M26 76 50 24l24 52' fill='none' stroke='%23fff' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M37 58h26' stroke='%23fff' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E">
 <meta name="description" content="Sintonia · ADAMA Italia — la prima piega: cosa succede, cosa preparare, cosa monitorare.">
+<!-- LA CASA PORTAVA IL CARATTERE DEL SISTEMA OPERATIVO.
+     Questa pagina dichiarava --font:system-ui e non caricava i token del
+     pacchetto ADAMA Brandwell, che vivono nella stessa cartella e che
+     `portale.html` carica da sempre. Misurato: 5.793 elementi in system-ui
+     contro 139 in BrownLL — cioe il 2% di LL Brown su una schermata che apre
+     con «OPPORTUNITÀ ATTUALI 43».
+
+         UNA PAGINA CHE NON PORTA IL CARATTERE DELLA CASA NON E DELLA CASA.
+
+     I file OTF sono gia nel pacchetto e gia serviti; mancava solo la riga che
+     li chiama. La pila di riserva resta, per la stampa e per il caso in cui
+     il carattere non arrivi. -->
+<link rel="stylesheet" href="_ds/adama-brandwell/tokens/typography.css">
 <style>
 :root{
   --ink:#0E0C0B; --ink-2:#171413; --line:#272220;
-  --paper:#EDEAE9; --mute:#8F8886; --mute-2:#6E6663; --soft:#B1A9A7;
+  /* --mute-2 ERA #6E6663, E NON PASSA IL CONTRASTO SU QUESTO FONDO.
+     Misurato: 3,48:1 su #0E0C0B e 3,27:1 su #171413, dove la norma AA chiede
+     4,5:1 per un testo di 11-12 px — ed e a 11 px che questa pagina lo usa,
+     469 volte. Il tono piu chiaro della stessa tavolozza, #8F8886, misura
+     5,61:1 e 5,27:1.
+
+         UN GRADINO DI TONO NON VALE UNA RIGA CHE NON SI LEGGE.
+
+     Il token resta, cosi ogni uso continua a dire «questo e secondario», ma
+     smette di dirlo a un livello che il lettore non distingue. */
+  --paper:#EDEAE9; --mute:#8F8886; --mute-2:#8F8886; --soft:#B1A9A7;
   --green:#00B152; --green-d:#009845; --green-dd:#00783F; --amber:#F5B317;
   --blue:#00A0DF;
-  --font:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --font:var(--font-primary,'BrownLL'),Arial,Helvetica,sans-serif;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--font);
