@@ -57,7 +57,15 @@ Os 47 de R-14 **sao exatamente** os que o arbitro enumerou por conta propria,
 com outro instrumento e a partir de coordenadas que este repositorio nao tem.
 Convergencia independente; nao e veredito.
 
-`2.926 -> 2.875` pares publicados. Portoes 19/19, ruido 12/12, tela 23/23.
+Depois deles, **12 dos 16 SHOULD_FIX** — o maior e SF-01: o teste literal de
+R-13 comparava o alvo com o texto da pagina INTEIRA, onde uma etichetta de tres
+colunas intercala as linhas das tres, e por isso recusava celulas reais quebradas
+em duas linhas. Com o texto remontado POR COLUNA, 119 linhas voltaram a ser
+literais e a fusao PROVADA de 008259 continua NAO literal — o controle que
+importa. Os quatro nao atacados (SF-07, SF-10, SF-12, SF-14 e as alineas b-f de
+SF-16) estao nomeados na secao L da ENTREGA, com o motivo.
+
+`2.926 -> 2.875` pares publicados. Portoes 19/19, ruido 12/12, tela 28/28.
 
 ## COMO CONTINUAR
 

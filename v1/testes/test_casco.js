@@ -220,6 +220,83 @@ teste('MF-11 · NOT_PRESENT da tabela nao apaga a restricao de fora dela', () =>
   return 'a restricao escrita fora da tabela aparece, literal, ao lado do NOT_PRESENT';
 });
 
+// ---------------------------------------------------------------- SHOULD_FIX da rodada 3
+teste('SF-05 · linha recusada pelo filtro de plausibilidade nao publica numero', () => {
+  let mau = 0, ex = null, n = 0;
+  P.products.forEach(p => (p.doses||[]).forEach(d => {
+    if (d.rule_check !== 'PLAUSIBILITY_REJECTED') return;
+    n++;
+    if (!linhaReprovada(d)) { mau++; ex = ex || [p.reg, d.crop, d.dose_ha]; }
+  }));
+  afirma(mau === 0, `${mau} linhas PLAUSIBILITY_REJECTED ainda publicam dose (ex: ${ex})`);
+  let vaza = 0;
+  P.products.forEach(p => p.uses.forEach(u => {
+    const j = juntaDose(p, u);
+    if (j.d && j.d.rule_check === 'PLAUSIBILITY_REJECTED') vaza++;
+  }));
+  afirma(vaza === 0, `${vaza} pares recebem dose de linha recusada pelo filtro`);
+  return `${n} linha(s) PLAUSIBILITY_REJECTED, nenhuma com numero publicado`;
+});
+
+teste('SF-06 · o filtro de cultura nao casa por substring', () => {
+  const cq = document.querySelector('#cq');
+  const conta = t => { cq.value = t; viewCrop();
+    return Number((html('#cres').match(/(\d+) pares em/)||[0,0])[1]); };
+  const melo = conta('melo'), melone = conta('melone');
+  const pero = conta('pero'), peperone = conta('peperone');
+  cq.value = ''; viewCrop();
+  afirma(melo > 0 && melone > 0, 'o filtro deixou de achar MELO ou MELONE');
+  afirma(melo !== melo + melone, 'contagem incoerente');
+  const somaMelo = P.products.reduce((a,p)=>a+p.uses.filter(u=>u.crop==='MELO').length,0);
+  const somaPero = P.products.reduce((a,p)=>a+p.uses.filter(u=>u.crop==='PERO').length,0);
+  afirma(melo === somaMelo, `#cq=melo devolve ${melo} e MELO tem ${somaMelo} pares — ainda soma MELONE`);
+  afirma(pero === somaPero, `#cq=pero devolve ${pero} e PERO tem ${somaPero} pares — ainda soma PEPERONE`);
+  return `melo=${melo} (MELONE=${melone} a parte) · pero=${pero} (PEPERONE=${peperone} a parte)`;
+});
+
+teste('SF-09 · o relogio da ferramenta e a data civil de quem abre', () => {
+  // meia-noite e meia em Roma e 22:30 do dia anterior em UTC. A data que a
+  // ferramenta imprime tem de ser a do leitor, nao a do meridiano.
+  const real = Date;
+  try {
+    const fixo = new real(2026, 8, 1, 0, 30, 0);   // 2026-09-01 00:30 local
+    globalThis.Date = class extends real {
+      constructor(...args) { return args.length ? new real(...args) : new real(fixo); }
+      static now() { return fixo.getTime(); }
+      static parse(...a) { return real.parse(...a); }
+    };
+    const d = new Date();
+    const local = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    afirma(local === '2026-09-01', `a data local montada deu ${local}`);
+  } finally { globalThis.Date = real; }
+  // e a diferenca de dias entre duas datas civis nao pode depender de fuso
+  const hoje = hojeISO();
+  afirma(dias(hoje) === 0, `dias(hoje) deveria ser 0 e deu ${dias(hoje)}`);
+  afirma(/^\d{4}-\d{2}-\d{2}$/.test(hoje), `HOJE malformado: ${hoje}`);
+  return `HOJE = ${hoje}, montado de getFullYear/getMonth/getDate`;
+});
+
+teste('SF-11 · a BUSCA nao diz NOT_KNOWN sobre produto que nunca foi lido', () => {
+  const sq = document.querySelector('#sq');
+  sq.value = 'evolution'; viewSearch();
+  const h = html('#sres');
+  afirma(h.includes('NOT_COLLECTED'), 'a busca nao marca NOT_COLLECTED para produto sem PDF');
+  const linha = h.split('EVOLUTION')[1] || '';
+  afirma(!/NOT_KNOWN/.test(linha.slice(0, 900)),
+    'a coluna DOSES ainda diz NOT_KNOWN na mesma linha em que USOS diz NOT_COLLECTED');
+  sq.value = '';
+  return 'as quatro colunas de contagem passam pela mesma funcao';
+});
+
+teste('SF-03 · R-13 aparece na tela, com FUSION_DETECTOR', () => {
+  viewCrop();
+  const h = html('#cres');
+  afirma(h.includes('R-13'), 'a string R-13 nao e renderizada em nenhuma tela');
+  afirma(h.includes('FUSION_DETECTOR') && h.includes('NOT_IMPLEMENTED'),
+    'a tela esconde que o detector de fusao nao existe');
+  return `R-13 com contagem de acervo, como R-11 e R-12 ja tinham`;
+});
+
 teste('a celula de dose diz de que linha o numero veio', () => {
   viewCrop();
   const h = html('#cres');

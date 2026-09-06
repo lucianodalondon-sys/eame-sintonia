@@ -26,6 +26,23 @@ da coluna de cultura que o INICIO da banda y da linha. Basta UMA ocorrencia do
 nome da cultura na mesma celula para a atribuicao sobreviver: ocorrencia solta
 so pode salvar uma linha, nunca condena-la.
 
+## SF-13 · O GLIFO AUTO-REFERENTE
+
+A prova que esta regra imprimia na tela dizia "...separa o inicio da linha de
+toda ocorrencia desta cultura NA COLUNA DE CULTURA". O codigo nao restringia
+coluna nenhuma: `cands` eram todas as palavras da PAGINA cujo texto normalizado
+e igual a raiz da cultura. Medido em 008259 p.3: ha duas ocorrencias do token
+`tabacco` — uma na coluna de cultura (x 42,6..73,4) e outra dentro do ALVO
+"Tripidi e pulce del tabacco" (x 246,4..274,4). A segunda esta na MESMA celula
+que a ancora, sempre, porque e a propria linha falando de si: ela ABSOLVE
+qualquer linha em que apareca, e a tela chamava isso de "ocorrencia na coluna de
+cultura".
+
+Agora o candidato que cai na mesma banda vertical da ancora e descartado — os
+fios verticais que `fios.py` ja le dizem onde as bandas comecam e acabam. Se a
+linha so sobrevivia por essa ocorrencia, o veredito nao vira condenacao: vira
+`CROP_ASSIGNMENT_NOT_CHECKED`. Perder a absolvicao nao e ganhar uma prova.
+
 Duas decisoes que custaram medicao:
 
   * ancorar no TOPO da banda, nao no meio. As bandas que o extrator grava vao
@@ -140,9 +157,23 @@ def main():
                 # modulo comparar as palavras de uma pagina com os fios da
                 # anterior — foi o que aconteceu na primeira medicao, e os fios
                 # da pagina errada condenavam linhas boas e absolviam ruins.
-                seg = F.fios(pdf, pi + 1, cache=a.fios)['SEG']
+                _f = F.fios(pdf, pi + 1, cache=a.fios)
+                seg, vert = _f['SEG'], (_f.get('V') or [])
             except Exception:
                 ver[chave] = 'CROP_ASSIGNMENT_NOT_CHECKED'; n_sem += 1; continue
+            # SF-13 · descarta o glifo AUTO-REFERENTE: a ocorrencia do nome da
+            # cultura que esta dentro da propria celula do alvo, na mesma banda
+            # vertical da ancora. Ela absolve sempre, e chamar isso de
+            # "ocorrencia na coluna de cultura" e descrever o que nao se fez.
+            ancx = [ (wx0 + wx1) / 2 for wx0, wy0, wx1, wy1, t in pgs[pi]
+                     if re.sub(r'[^a-z]', '', t.lower()) in alvos
+                     and y0b <= (wy0 + wy1) / 2 <= y1b ]
+            def banda(x):
+                return sum(1 for v in vert if v < x)
+            bandas_ancora = {banda(x) for x in ancx}
+            proprios = [c for c in cands if banda((c[0] + c[2]) / 2) in bandas_ancora]
+            cands_col = [c for c in cands if banda((c[0] + c[2]) / 2) not in bandas_ancora]
+            auto_referente = bool(proprios) and not cands_col
             # CONSERVADOR NOS DOIS EIXOS: basta UMA combinacao (ocorrencia do
             # alvo, ocorrencia da cultura) na mesma celula para a linha
             # sobreviver. A banda que o extrator grava e folgada e engloba
@@ -151,7 +182,7 @@ def main():
             # Combinacao solta so pode SALVAR uma linha, nunca condena-la.
             achou = None
             for ay in anc:
-                for x0, cy0, x1, cy1 in cands:
+                for x0, cy0, x1, cy1 in (cands_col or []):
                     c = (cy0 + cy1) / 2
                     if F.mesma_celula(min(c, ay), max(c, ay), x0, x1, seg):
                         achou = c; break
@@ -159,9 +190,14 @@ def main():
                     break
             if achou is not None:
                 ver[chave] = 'CROP_ASSIGNMENT_CONSISTENT_WITH_RULES'; n_ok += 1
+            elif auto_referente or not cands_col:
+                # A unica ocorrencia do nome estava dentro da celula do alvo.
+                # Sem candidato na coluna de cultura nao ha o que conferir, e
+                # nao conferir nao e condenar.
+                ver[chave] = 'CROP_ASSIGNMENT_NOT_CHECKED'; n_sem += 1
             else:
                 ver[chave] = 'CROP_ASSIGNMENT_CONTRADICTED_BY_RULE'; n_bad += 1
-                perto = min(cands, key=lambda c: abs((c[1] + c[3]) / 2 - topo))
+                perto = min(cands_col, key=lambda c: abs((c[1] + c[3]) / 2 - topo))
                 contra.append({
                     'REGISTRATION_ID': reg, 'PRODUCT': lab.get('PRODUCT'), 'ROW_INDEX': i,
                     'CROP': crop, 'TARGET': r.get('TARGET'),
@@ -183,6 +219,9 @@ def main():
         'O_QUE_ISTO_NAO_E': ('nao le dose nova, nao corrige a cultura e nao adivinha a certa: '
                              'so diz que a atribuida nao sobrevive ao documento'),
         'ANCHOR': 'y do primeiro glifo do ALVO dentro da banda da linha',
+        'SELF_REFERENTIAL_GLYPH_EXCLUDED': ('a ocorrencia do nome da cultura que cai na mesma '
+                                            'banda vertical da ancora e descartada: ela esta '
+                                            'dentro da celula do alvo, nao na coluna de cultura'),
         'ROWS_CONSISTENT': n_ok,
         'ROWS_CONTRADICTED': n_bad,
         'ROWS_NOT_CHECKED': n_sem,

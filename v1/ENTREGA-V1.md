@@ -359,8 +359,55 @@ O que a ferramenta responde HOJE, apos as correcoes:
       esta em CONFERENCIA-MUST-FIX.json para que ninguem apresente a
       coocorrencia textual como corroboracao.
 
-    PORTOES desta entrega: 19/19.  RUIDO: 12/12.  RENDER: 23/23
-    (12 anteriores + os 11 MUST_FIX da rodada 3 virados teste de regressao).
+    SHOULD_FIX da rodada 3 atacados nesta sessao:
+      SF-01 R-13 fazendo o oposto do que foi construida ... FECHADO — o texto do
+            alvo passa a ser remontado POR COLUNA antes do teste literal, com os
+            mesmos fios verticais e caixas de palavra que R-11 e R-14 usam.
+            119 linhas voltaram a ser literais (180 nao-literais -> 61),
+            e o controle que importa segurou: a fusao PROVADA de 008259
+            ("Nottue defogliatrici (allo scoperto) tentredine") continua NAO
+            literal. Os 119 vereditos mudaram todos na mesma direcao.
+      SF-02 a lei escrita descrevia o modulo, nao o portao  FECHADO — R-13 em
+            REGRAS.md@5 agora diz as duas coisas: o modulo emite estado, o casco
+            usa o estado como portao em juntaDose.
+      SF-03 R-13 nunca renderizada em tela nenhuma ........ FECHADO — entra na
+            legenda de CULTURA x ALVO com a mesma disclosure de acervo que R-11
+            e R-12 ja tinham, incluindo FUSION_DETECTOR = NOT_IMPLEMENTED.
+      SF-04 selo TABELA vendido como medida do documento .. FECHADO junto com
+            MF-01: o selo passa a contar o veredito de R-14 (FIO CONFERIDO /
+            SEM TESTE DE FIO), nao a rota do parser.
+      SF-05 PLAUSIBILITY_REJECTED publicando numero ....... FECHADO — entra em
+            linhaUsavel() e no ramo de supressao da celula.
+      SF-06 filtro de cultura por substring ............... FECHADO — #cq=melo
+            devolve 102 (MELO) em vez de 180 (MELO+MELONE); #cq=pero, 111 em
+            vez de 167. O cabecalho vinha inflado em 76%.
+      SF-08 "no acervo inteiro" sobre outro denominador ... FECHADO — a legenda
+            mostra os dois numeros, cada um com o seu denominador.
+      SF-09 relogio da ferramenta em UTC .................. FECHADO — data
+            civil de quem abre, e comparacao de datas civis ao meio-dia UTC para
+            que horario de verao nao empurre o dia.
+      SF-11 NOT_KNOWN e NOT_COLLECTED na mesma linha ...... FECHADO — a coluna
+            DOSES da BUSCA passa pela mesma contagem() das outras tres.
+      SF-13 a prova de R-11 dizia "na coluna de cultura" .. FECHADO — o glifo
+            auto-referente (o nome da cultura DENTRO da celula do alvo) sai do
+            conjunto de candidatos, e quando ele era a unica salvacao o veredito
+            vira NOT_CHECKED, nao condenacao. Medido: ZERO vereditos mudaram —
+            o codigo agora faz o que a prova dele ja dizia.
+      SF-15 a legenda calava sobre a normalizacao do ALVO . FECHADO — a caixa de
+            lei explica MOSCA e NOTTUE, e a coluna ALVO mostra o texto como a
+            etichetta escreve.
+      SF-16a travessao nu na LINHA DO TEMPO ............... FECHADO.
+
+    NAO atacados, e por que: SF-07 (recorte de janela de exclusao truncado em
+    coluna), SF-10 (KPI da tela TODAY congelado no build), SF-12 (texto da
+    celula de cultura montado por faixa vertical, nao por fio), SF-14 (cobertura
+    por celula de cultura desenhada) e SF-16b-f. Os cinco primeiros pedem
+    reconstrucao de celula por fios ou recontagem de cobertura, que sao trabalho
+    de tamanho comparavel ao das regras novas; nenhum deles publica fato errado,
+    e todos estao registrados aqui em vez de fechados em silencio.
+
+    PORTOES desta entrega: 19/19.  RUIDO: 12/12.  RENDER: 28/28
+    (12 anteriores + 11 dos MUST_FIX + 5 dos SHOULD_FIX, todos regressao).
 
 ---
 

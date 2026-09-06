@@ -50,13 +50,30 @@ const val = v => isUnk(v) ? `<span class="unknown" title="a fonte nao sustenta e
 // "vence em 6 dias" e "hoje 2026-09-06" no presente. Numero de dia agora e
 // recalculado contra o relogio de quem abre, e a pagina diz as TRES datas que
 // nao sao a mesma: a do dado, a do build, e a de hoje.
-const iso = d => d.toISOString().slice(0,10);
+// SF-09 · A DATA CIVIL DE QUEM ABRE, NAO O INSTANTE UTC.
+// `toISOString()` devolve a data em UTC. Reproduzido com o navegador em
+// Europe/Rome e o relogio em 2026-09-01T00:30 local: a pagina imprimia
+// "hoje: 2026-08-31", o CALENDARIO caia de 15 para 8 no bloco de validade
+// vencida, e sete registros que venceram em 31/08 apareciam como "vencem em
+// ate 30 dias". Meia-noite em Roma nao e meia-noite em Londres, e a ferramenta
+// que existe para nao confundir CAPTURED_AT com EFFECTIVE_AT nao pode confundir
+// o proprio dia. `dias()` tinha o mesmo defeito pelo outro lado: Date.parse de
+// "YYYY-MM-DD" e tratado como UTC, entao comparar duas datas civis por instante
+// erra em qualquer fuso a leste ou a oeste de Greenwich.
+const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 const HOJE = (() => { try { return iso(new Date()); } catch (e) { return null; } })();
 const DIA = 86400000;
+// data civil ISO -> instante UTC do meio-dia. Meio-dia, e nao meia-noite, para
+// que nenhum horario de verao de 1 h possa empurrar a diferenca para o dia
+// vizinho.
+const civil = s => Date.parse(String(s) + 'T12:00:00Z');
 function dias(ate) {                     // dias de HOJE ate a data ISO 'ate'
   if (!HOJE || !/^\d{4}-\d{2}-\d{2}$/.test(String(ate))) return null;
-  return Math.round((Date.parse(ate) - Date.parse(HOJE)) / DIA);
+  return Math.round((civil(ate) - civil(HOJE)) / DIA);
 }
+// exposto por funcao para que os testes de tela possam ler a data civil que a
+// pagina esta usando — `const` de topo nao vira propriedade do global.
+function hojeISO() { return HOJE; }
 const dISO = s => /^\d{8}$/.test(String(s)) ? `${String(s).slice(0,4)}-${String(s).slice(4,6)}-${String(s).slice(6,8)}` : String(s);
 // dte do produto, recalculado. Cai para o valor do build so se nao houver relogio.
 function dte(p) {
@@ -213,10 +230,17 @@ function formasDaCultura(p, nome) {
 //   NOT_LOCATED · o validador nao conseguiu localizar o valor no documento para
 //   conferir. Isso e "nao verifiquei", nao "verifiquei e esta certo", e nao pode
 //   sair como numero.
+// SF-05 · PLAUSIBILITY_REJECTED faltava nesta lista, e a consequencia era
+// visivel: em 012878 FOLPAN GOLD e 015317 SESTO GOLD a linha sai com
+// CULTURA = FRAGMENTO_DE_LEITURA, ALVO = FRAGMENTO_DE_LEITURA e
+// FIOS = PLAUSIBILITY_REJECTED — e a coluna DOSE/HA imprimia "2 kg/ha" assim
+// mesmo. O filtro de plausibilidade existe para dizer que aquela tabela nao
+// era uma tabela; publicar o numero dela e desdizer o proprio filtro.
 function linhaUsavel(d) {
   return d.crop_check !== 'CROP_ASSIGNMENT_CONTRADICTED_BY_RULE'
       && d.rule_check !== 'NOT_LOCATED'
-      && d.rule_check !== 'CONTRADICTED_BY_RULE';
+      && d.rule_check !== 'CONTRADICTED_BY_RULE'
+      && d.rule_check !== 'PLAUSIBILITY_REJECTED';
 }
 // A rebaixa foi tentada como fato do PAR (registro, cultura, alvo) e MEDIDA:
 // isso apagava fato verdadeiro. Em 008259 existem duas linhas rotuladas
@@ -607,8 +631,11 @@ function viewToday() {
 // MF-05 · e quando a LINHA inteira foi reprovada por R-11, abster-se do numero
 // grande e imprimir o pequeno errado ao lado nao e abstencao: as duas colunas
 // vieram da MESMA leitura de geometria que a ferramenta acabou de reprovar.
-const linhaReprovada = d => d.crop_check === 'CROP_ASSIGNMENT_CONTRADICTED_BY_RULE'
-                         || d.rule_check === 'NOT_LOCATED';
+function linhaReprovada(d) {
+  return d.crop_check === 'CROP_ASSIGNMENT_CONTRADICTED_BY_RULE'
+      || d.rule_check === 'NOT_LOCATED'
+      || d.rule_check === 'PLAUSIBILITY_REJECTED';
+}
 function colunaHerdada(d, valor, estado, nomeCampo) {
   if (linhaReprovada(d))
     return val('NOT_PROVED_BY_RULE');
@@ -859,6 +886,10 @@ function viewProduto(reg) {
         <td>${d.crop_check==='CROP_ASSIGNMENT_CONTRADICTED_BY_RULE'
               ? val('NOT_PROVED_BY_RULE')
               : d.rule_check==='NOT_LOCATED' ? val('NOT_VALIDATED')
+              : d.rule_check==='PLAUSIBILITY_REJECTED'
+              ? `${val('NOT_PROVED_BY_RULE')}<div class="meta">o filtro de plausibilidade
+                 (<code>P-*</code>) recusou esta tabela: o extrator achou grade onde nao havia.
+                 <b>Publicar o numero dela seria desdizer o proprio filtro.</b></div>`
               : isUnk(d.dose_ha)?val(d.dose_ha):esc(d.dose_ha+' '+d.unit_ha)}</td>
         <td>${colunaMax(d)}</td><td>${colunaIntervalo(d)}</td>
         <td>${seloFios(d)}</td>
@@ -923,7 +954,8 @@ function viewTimeline() {
         <td class="mono">${esc(x.id)}</td>
         <td>${x.bytes.toLocaleString('pt-BR')}</td>
         <td>${x.adama_active}</td>
-        <td class="meta">${x.republished.length ? x.republished.join(', ') : '<span class="meta">—</span>'}</td>
+        <td class="meta">${x.republished.length ? x.republished.join(', ')
+          : '<span class="meta">nenhum</span>'}</td>
         <td>${jan===null ? val('NOT_APPLICABLE')+'<div class="meta">ainda nao existe versao seguinte</div>'
               : evs.length ? `<b style="color:var(--ok)">${evs.length}</b>`
               : '<span class="meta">nenhum</span>'}</td>
@@ -1165,14 +1197,29 @@ function evidenciaDoPar(u) {
   return `<span class="pill ${cls}" title="${esc(tit || u.pair_check || '')}">${rot}</span>${ressalva}`;
 }
 
+// Casamento de termo de busca por TOKEN INTEIRO. Um termo com menos de 3
+// letras cai para substring, porque prefixo curto e o que a pessoa digitou ate
+// agora e nao uma afirmacao sobre a cultura.
+function casaTermo(campo, termo) {
+  const t = nrm(termo);
+  if (!t) return true;
+  if (t.length < 3) return String(campo).toLowerCase().includes(termo);
+  return tokens(campo).has(t) || nrm(campo) === t;
+}
 function viewCrop() {
   const q = ($('#cq')?.value || '').trim().toLowerCase();
   const qt = ($('#ct')?.value || '').trim().toLowerCase();
   const linhas = [];
   P.products.forEach(p => {
     p.uses.forEach((u,i) => {
-      if (q && !String(u.crop).toLowerCase().includes(q)) return;
-      if (qt && !String(u.target).toLowerCase().includes(qt)) return;
+      // SF-06 · o filtro casava por SUBSTRING e o comentario de contido(),
+      // tres funcoes acima, PROIBE exatamente isso: #cq=melo devolvia
+      // "180 pares" = MELO(102) + MELONE(78), e #cq=pero, "167" = PERO(111) +
+      // PEPERONE(56). O numero do cabecalho — que e a resposta que vai para o
+      // slide — vinha inflado em 76%. Casamento por TOKEN INTEIRO, com o mesmo
+      // nrm()/tokens() que o resto da tela ja usa.
+      if (q && !casaTermo(u.crop, q)) return;
+      if (qt && !casaTermo(u.target, qt)) return;
       const j = juntaDose(p, u);
       linhas.push({p, u, i, d: j.d, j});
     });
@@ -1226,6 +1273,14 @@ function viewCrop() {
       O leitor de uso normaliza a cultura para um nome (<code>MELO</code>); o leitor de dose
       guarda a celula como esta impressa no rotulo (<code>Melo, pero</code>). Sao vocabularios
       diferentes, entao a tela declara o estado de cada juncao.
+      <div class="meta" style="margin-top:5px"><b>E o mesmo vale para o ALVO, que ate agora esta
+      caixa nao dizia.</b> <code>MOSCA</code> cobre tres pragas distintas no acervo — &ldquo;mosca
+      bianca&rdquo; (aleirodideo), &ldquo;Mosca della frutta&rdquo; (<i>Ceratitis</i>) e
+      &ldquo;Mosca, cimice verde&rdquo; — e <code>NOTTUE</code> junta &ldquo;Nottue defogliatrici
+      (allo scoperto)&rdquo;, que e foliar, com &ldquo;Agriotes sp., Agrotis sp.&rdquo;, que e de
+      solo. Em 008259, <code>PESCO x MOSCA</code> e <code>TABACCO x MOSCA</code> saem com o mesmo
+      texto e nao sao a mesma praga. O texto como a etichetta escreve esta na coluna ALVO abaixo,
+      truncado, e inteiro na gaveta de prova.</div>
       <b>Nesta tela (${linhas.length} pares):</b>
       <ul style="margin:6px 0 0 16px">
         <li><span class="pill p-ok">EXATA</span> <b>${n('EXACT_MATCH')}</b> — cultura e alvo batem
@@ -1256,11 +1311,44 @@ function viewCrop() {
           <b>${n('DOSE_ROW_CONTRADICTED_BY_R11_FOR_THIS_PAIR')}</b> — <b>havia</b> linha para este
           par e ela foi reprovada pelos fios. Diferente de nao haver linha.</li>`:''}
       </ul>
-      <div class="meta" style="margin-top:6px">No acervo inteiro, sem filtro:
-        <b>${P.crop_check ? P.crop_check.ROWS_CONTRADICTED : val('NOT_KNOWN')}</b> linhas de dose
-        foram descartadas por <code>R-11</code> (a cultura delas nao sobrevive aos fios desenhados
-        da tabela) e <b>${P.ceiling ? P.ceiling.LABELS_WITH_CEILING : val('NOT_KNOWN')}</b> rotulos
-        trazem teto de dose por cultura escrito fora da tabela (<code>R-12</code>).</div>
+      ${(() => {
+        // SF-08 · a frase dizia "No acervo inteiro: 76 linhas descartadas por
+        // R-11". Os 76 sao OCORRENCIAS de linha, contadas sobre as 839 linhas
+        // que o extrator emite ANTES de deduplicar as copias da tabela dentro
+        // do mesmo PDF; o acervo que esta nesta tela tem outro numero. Dizer
+        // "no acervo inteiro" sobre um denominador diferente sobredeclara o
+        // conserto. Agora os dois numeros aparecem, cada um com o seu.
+        const pub = P.products.reduce((a,p)=>a+(p.doses||[]).length,0);
+        const rep = P.products.reduce((a,p)=>a+(p.doses||[]).filter(
+          d=>d.crop_check==='CROP_ASSIGNMENT_CONTRADICTED_BY_RULE').length,0);
+        return `<div class="meta" style="margin-top:6px">Nas <b>${pub}</b> linhas de dose que esta
+        ferramenta publica, <b>${rep}</b> carregam <code>CROP_ASSIGNMENT_CONTRADICTED_BY_RULE</code>
+        e nao respondem com numero. No arquivo de <code>R-11</code>, que conta OCORRENCIAS de linha
+        antes de deduplicar as copias da tabela dentro do mesmo PDF, sao
+        <b>${P.crop_check ? P.crop_check.ROWS_CONTRADICTED : val('NOT_KNOWN')}</b> de
+        ${P.crop_check ? (P.crop_check.ROWS_CONSISTENT + P.crop_check.ROWS_CONTRADICTED + P.crop_check.ROWS_NOT_CHECKED) : '?'}.
+        <b>Sao dois denominadores</b>, e o segundo nao e "o acervo inteiro" desta tela.
+        E <b>${P.ceiling ? P.ceiling.LABELS_WITH_CEILING : val('NOT_KNOWN')}</b> rotulos trazem teto
+        de dose por cultura escrito fora da tabela (<code>R-12</code>).</div>
+        ${(() => { const r = P.target_literal || {};
+          // SF-03 · a string R-13 nao era renderizada em NENHUMA das 9 telas,
+          // enquanto R-11 e R-12 apareciam com contagem de acervo. A assimetria
+          // escondia justamente a regra mais fraca — e escondia um token de
+          // ignorancia que a ferramenta tem e nao mostrava: NOT_IMPLEMENTED.
+          if (r.ROWS_NOT_FOUND_LITERALLY === undefined) return '';
+          return `<div class="meta" style="margin-top:6px"><code>R-13</code> procura o texto de
+          cada alvo LITERALMENTE no rotulo, com o documento remontado por coluna:
+          <b>${r.ROWS_FOUND_LITERALLY}</b> linhas achadas
+          (<b>${r.ROWS_FOUND_ONLY_AFTER_COLUMN_RECONSTRUCTION||0}</b> so depois de remontar),
+          <b>${r.ROWS_NOT_FOUND_LITERALLY}</b> nao achadas e
+          <b>${r.ROWS_NOT_CHECKED}</b> <span class="unknown">TARGET_TEXT_NOT_CHECKED</span>.
+          <b>O modulo nao rebaixa nada; quem rebaixa e esta tela</b>, no estado
+          <code>DOSE_NOT_PROVED_TARGET_NOT_LITERAL</code> acima.
+          <div class="meta" style="margin-top:4px"><code>FUSION_DETECTOR =
+          <span class="unknown">${esc(r.FUSION_DETECTOR||'NOT_KNOWN')}</span></code> — existe fusao
+          de linha PROVADA no acervo (${esc(String(r.FUSION_PROVEN_EXAMPLE||'').slice(0,150))}) e
+          esta ferramenta <b>nao sabe detecta-la</b>. R-13 acusa o sintoma, nao a causa.</div>
+          </div>`;})()}`;})()}
       <div class="lei" style="margin-top:8px;border-left-color:var(--bad)">
         <b>E o PAR DE USO desta tabela — a cultura e o alvo, nao a dose — passou pelo mesmo teste
         de fio.</b> Ate a rodada 3 nao passava: <code>R-11</code> tirava o NUMERO de
@@ -1289,7 +1377,10 @@ function viewCrop() {
       <tbody>${linhas.slice(0,400).map(l => `<tr>
         <td><a onclick="go('produto');viewProduto('${l.p.reg}')" style="cursor:pointer">${esc(l.p.name)}</a></td>
         <td class="mono">${esc(l.p.reg)}</td>
-        <td>${esc(l.u.crop)}</td><td>${esc(l.u.target)}</td>
+        <td>${esc(l.u.crop)}</td>
+        <td>${esc(l.u.target)}
+          ${l.u.target_raw && nrm(l.u.target_raw) !== nrm(l.u.target)
+            ? `<div class="meta">o rotulo escreve: <i>&ldquo;${esc(String(l.u.target_raw).slice(0,70))}${String(l.u.target_raw).length>70?'…':''}&rdquo;</i></div>` : ''}</td>
         <td>${celulaDose(l)}</td>
         <td>${evidenciaDoPar(l.u)}</td>
         <td>${validade(l.p)}</td>
@@ -1663,7 +1754,7 @@ function viewSearch() {
       <td class="mono">${esc(p.reg)}</td><td class="meta">${esc(p.holder)}</td>
       <td class="meta">${val(p.actives)}</td><td>${validade(p)}</td>
       <td>${contagem(p,'uses','LABEL_READ')}</td>
-      <td>${p.doses.length||'<span class="unknown">NOT_KNOWN</span>'}</td>
+      <td>${contagem(p,'doses','LABEL_READ')}</td>
       <td><button class="ev" onclick="evProd('${p.reg}')">prova</button></td></tr>`).join('')}
     </tbody></table></div>` : '<div class="meta">nenhum produto</div>'}
   <h2>Eventos (${objs.length})</h2>
