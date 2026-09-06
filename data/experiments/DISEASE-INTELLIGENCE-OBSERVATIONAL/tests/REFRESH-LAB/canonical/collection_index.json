@@ -1,0 +1,230 @@
+{
+ "api": "https://agroambiente.info.regione.toscana.it/agro18/api/dati/get_aedita_data",
+ "crop": 2,
+ "schema": 1,
+ "codes": [],
+ "vars": [
+  {
+   "id_survey_var": -1003,
+   "id_survey_schema": 1,
+   "var_name": "totale",
+   "name": "Totale",
+   "widget": "numeric",
+   "description": null,
+   "order_n": -3,
+   "nullable": null,
+   "json": "{ \"style\": [{ \"value\": 0, \"color\": \"#FFFFFF\", \"label\": \"Nessuna Infestazione\" }, { \"value\": 0.01, \"color\": \"#4CAF50\", \"label\": \"0-6%\" }, { \"value\": 6, \"color\": \"#FFEB3B\", \"label\": \"7-9%\" }, { \"value\": 10, \"color\": \"#F44336\", \"label\": \">=10%\" }] }"
+  },
+  {
+   "id_survey_var": -1002,
+   "id_survey_schema": 1,
+   "var_name": "dannosa",
+   "name": "Dannosa",
+   "widget": "numeric",
+   "description": "Infestazione Dannosa",
+   "order_n": -2,
+   "nullable": null,
+   "json": "{ \"style\": [{ \"value\": 0, \"color\": \"#FFFFFF\", \"label\": \"Nessuna Infestazione\" }, { \"value\": 0.01, \"color\": \"#4CAF50\", \"label\": \"0-6%\" }, { \"value\": 6, \"color\": \"#FFEB3B\", \"label\": \"7-9%\" }, { \"value\": 10, \"color\": \"#F44336\", \"label\": \">=10%\" }] }"
+  },
+  {
+   "id_survey_var": -1001,
+   "id_survey_schema": 1,
+   "var_name": "attiva",
+   "name": "Attiva",
+   "widget": "numeric",
+   "description": "Infestazione Attiva",
+   "order_n": -1,
+   "nullable": null,
+   "json": "{ \"style\": [{ \"value\": 0, \"color\": \"#FFFFFF\", \"label\": \"Nessuna Infestazione\" }, { \"value\": 0.01, \"color\": \"#4CAF50\", \"label\": \"0-6%\" }, { \"value\": 6, \"color\": \"#FFEB3B\", \"label\": \"7-9%\" }, { \"value\": 10, \"color\": \"#F44336\", \"label\": \">=10%\" }] }"
+  },
+  {
+   "id_survey_var": 1,
+   "id_survey_schema": 1,
+   "var_name": "tot",
+   "name": "Tot",
+   "widget": "numeric",
+   "description": "Olive campionate",
+   "order_n": 1,
+   "nullable": null,
+   "json": null
+  },
+  {
+   "id_survey_var": 2,
+   "id_survey_schema": 1,
+   "var_name": "u",
+   "name": "u",
+   "widget": "numeric",
+   "description": "Uova",
+   "order_n": 2,
+   "nullable": null,
+   "json": null
+  },
+  {
+   "id_survey_var": 3,
+   "id_survey_schema": 1,
+   "var_name": "l1v",
+   "name": "l1v",
+   "widget": "numeric",
+   "description": "Larve di I eta vive",
+   "order_n": 3,
+   "nullable": null,
+   "json": null
+  },
+  {
+   "id_survey_var": 4,
+   "id_survey_schema": 1,
+   "var_name": "l1m",
+   "name": "l1m",
+   "widget": "numeric",
+   "description": "Larve di I eta morte",
+   "order_n": 4,
+   "nullable": null,
+   "json": null
+  },
+  {
+   "id_survey_var": 5,
+   "id_survey_schema": 1,
+   "var_name": "l2v",
+   "name": "l2v",
+   "widget": "numeric",
+   "description": "larve di II eta' vive",
+   "order_n": 5,
+   "nullable": null,
+   "json": null
+  },
+  {
+   "id_survey_var": 6,
+   "id_survey_schema": 1,
+   "var_name": "l2m",
+   "name": "l2m",
+   "widget": "numeric",
+   "description": "larve di II eta' morte",
+   "order_n": 6,
+   "nullable": null,
+   "json": null
+  },
+  {
+   "id_survey_var": 7,
+   "id_survey_schema": 1,
+   "var_name": "l3v",
+   "name": "l3v",
+   "widget": "numeric",
+   "description": "larve di III eta' vive",
+   "order_n": 7,
+   "nullable": null,
+   "json": null
+  },
+  {
+   "id_survey_var": 8,
+   "id_survey_schema": 1,
+   "var_name": "l3m",
+   "name": "l3m",
+   "widget": "numeric",
+   "description": "larve di III eta' morte",
+   "order_n": 8,
+   "nullable": null,
+   "json": null
+  },
+  {
+   "id_survey_var": 9,
+   "id_survey_schema": 1,
+   "var_name": "pv",
+   "name": "pv",
+   "widget": "numeric",
+   "description": "pupe vive",
+   "order_n": 9,
+   "nullable": null,
+   "json": null
+  },
+  {
+   "id_survey_var": 10,
+   "id_survey_schema": 1,
+   "var_name": "pm",
+   "name": "pm",
+   "widget": "numeric",
+   "description": "pupe morte",
+   "order_n": 10,
+   "nullable": null,
+   "json": null
+  },
+  {
+   "id_survey_var": 11,
+   "id_survey_schema": 1,
+   "var_name": "fu",
+   "name": "fu",
+   "widget": "numeric",
+   "description": "fori di uscita",
+   "order_n": 11,
+   "nullable": null,
+   "json": null
+  },
+  {
+   "id_survey_var": 21,
+   "id_survey_schema": 1,
+   "var_name": "ps",
+   "name": "ps",
+   "widget": "numeric",
+   "description": "punture sterili",
+   "order_n": 13,
+   "nullable": null,
+   "json": null
+  }
+ ],
+ "DENOMINATOR_VAR": 1,
+ "requests": [
+  {
+   "file": "c2_s1_v-1002_2024.json",
+   "var": -1002,
+   "year": 2024,
+   "sha256": "4ca9521531d2a8ac7eb5ff9087bf30cd8380c4852d3f7988960448a94b90e8de",
+   "LAST_GOOD_OBSERVATION_AT": "recorded at build time"
+  },
+  {
+   "file": "c2_s1_v-1002_2025.json",
+   "var": -1002,
+   "year": 2025,
+   "sha256": "7efc96a3f161bd82223456fe392784fe3a45bffb1634ffcc5591397c5449288c",
+   "LAST_GOOD_OBSERVATION_AT": "recorded at build time"
+  },
+  {
+   "file": "c2_s1_v-1002_2026.json",
+   "var": -1002,
+   "year": 2026,
+   "REFRESH_ATTEMPT_AT": "2026-09-06T23:44:24+00:00",
+   "COLLECTION_TIME": "2026-09-06T23:44:24+00:00",
+   "SOURCE_PUBLICATION_TIME": "UNKNOWN",
+   "SOURCE_UPDATE_TIME": "UNKNOWN",
+   "detail": {
+    "n_rows": 2929,
+    "n_readable": 2871,
+    "latest_observation": "2026-09-05"
+   },
+   "sha256": "c4ec2f0e1ea9b5d55a22d55b23d71787e96fde4af2cbb900cbbafac345234e49",
+   "bytes": 1190259,
+   "LAST_GOOD_OBSERVATION_AT": "2026-09-05",
+   "REFRESH_STATUS": "NEW_OBSERVATIONS",
+   "canonical_touched": false
+  },
+  {
+   "file": "c2_s1_v1_2024.json",
+   "var": 1,
+   "year": 2024,
+   "sha256": "8165206194e839581b87766f9ebba05e085ae5c9298eff7a79a2a381f6917e53",
+   "LAST_GOOD_OBSERVATION_AT": "recorded at build time"
+  },
+  {
+   "file": "c2_s1_v1_2025.json",
+   "var": 1,
+   "year": 2025,
+   "sha256": "6c0b922a122b59bea8110c61e3d3625c5c96687433ada1a1e8b84b5fab99c549",
+   "LAST_GOOD_OBSERVATION_AT": "recorded at build time"
+  },
+  {
+   "file": "c2_s1_v1_2026.json",
+   "var": 1,
+   "year": 2026,
+   "sha256": "bd365de8e4f0ce19eb4ebd82198752dbcba9d60d53f2b8531c2513bb6b978233",
+   "LAST_GOOD_OBSERVATION_AT": "recorded at build time"
+  }
+ ]
+}

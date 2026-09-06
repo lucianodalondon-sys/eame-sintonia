@@ -1,0 +1,154 @@
+{
+ "BEFORE": {
+  "n_visits": 10487,
+  "n_usable": 10087,
+  "last_observation": "2026-09-04",
+  "hash": "880b90d7d63cf014"
+ },
+ "SCENARIOS": [
+  {
+   "SCENARIO": "identical",
+   "REFRESH_STATUS": "NO_UPDATE",
+   "REFRESH_ATTEMPT_AT": "2026-09-06T23:44:21+00:00",
+   "LAST_GOOD_OBSERVATION_AT": "2026-09-04",
+   "detail": {
+    "n_rows": 2928,
+    "n_readable": 2870,
+    "latest_observation": "2026-09-04"
+   },
+   "promoted": [],
+   "index_entries_after": 6,
+   "AFTER": {
+    "n_visits": 10487,
+    "n_usable": 10087,
+    "last_observation": "2026-09-04",
+    "hash": "880b90d7d63cf014"
+   },
+   "CANONICAL_UNCHANGED": true,
+   "STILL_READABLE": true
+  },
+  {
+   "SCENARIO": "all_null",
+   "REFRESH_STATUS": "SOURCE_EMPTY",
+   "REFRESH_ATTEMPT_AT": "2026-09-06T23:44:22+00:00",
+   "LAST_GOOD_OBSERVATION_AT": "UNKNOWN",
+   "detail": {
+    "reason": "a full row skeleton with no readable value - the shape this source returns for a variable that is not in the requested schema",
+    "n_rows": 2928
+   },
+   "promoted": [],
+   "index_entries_after": 6,
+   "AFTER": {
+    "n_visits": 10487,
+    "n_usable": 10087,
+    "last_observation": "2026-09-04",
+    "hash": "880b90d7d63cf014"
+   },
+   "CANONICAL_UNCHANGED": true,
+   "STILL_READABLE": true
+  },
+  {
+   "SCENARIO": "not_ok",
+   "REFRESH_STATUS": "SOURCE_EMPTY",
+   "REFRESH_ATTEMPT_AT": "2026-09-06T23:44:22+00:00",
+   "LAST_GOOD_OBSERVATION_AT": "UNKNOWN",
+   "detail": {
+    "reason": "the source said not ok: 'season not started'"
+   },
+   "promoted": [],
+   "index_entries_after": 6,
+   "AFTER": {
+    "n_visits": 10487,
+    "n_usable": 10087,
+    "last_observation": "2026-09-04",
+    "hash": "880b90d7d63cf014"
+   },
+   "CANONICAL_UNCHANGED": true,
+   "STILL_READABLE": true
+  },
+  {
+   "SCENARIO": "garbage",
+   "REFRESH_STATUS": "INVALID_DATA",
+   "REFRESH_ATTEMPT_AT": "2026-09-06T23:44:23+00:00",
+   "LAST_GOOD_OBSERVATION_AT": "UNKNOWN",
+   "detail": {
+    "reason": "not JSON: JSONDecodeError"
+   },
+   "promoted": [],
+   "index_entries_after": 6,
+   "AFTER": {
+    "n_visits": 10487,
+    "n_usable": 10087,
+    "last_observation": "2026-09-04",
+    "hash": "880b90d7d63cf014"
+   },
+   "CANONICAL_UNCHANGED": true,
+   "STILL_READABLE": true
+  },
+  {
+   "SCENARIO": "network_error",
+   "REFRESH_STATUS": "SOURCE_UNAVAILABLE",
+   "REFRESH_ATTEMPT_AT": "2026-09-06T23:44:23+00:00",
+   "LAST_GOOD_OBSERVATION_AT": "UNKNOWN",
+   "detail": "OSError: simulated: the endpoint did not answer",
+   "promoted": [],
+   "index_entries_after": 6,
+   "AFTER": {
+    "n_visits": 10487,
+    "n_usable": 10087,
+    "last_observation": "2026-09-04",
+    "hash": "880b90d7d63cf014"
+   },
+   "CANONICAL_UNCHANGED": true,
+   "STILL_READABLE": true
+  },
+  {
+   "SCENARIO": "new_rows",
+   "REFRESH_STATUS": "NEW_OBSERVATIONS",
+   "REFRESH_ATTEMPT_AT": "2026-09-06T23:44:24+00:00",
+   "LAST_GOOD_OBSERVATION_AT": "2026-09-05",
+   "detail": {
+    "n_rows": 2929,
+    "n_readable": 2871,
+    "latest_observation": "2026-09-05"
+   },
+   "promoted": [
+    "c2_s1_v-1002_2026.json"
+   ],
+   "index_entries_after": 6,
+   "AFTER": {
+    "n_visits": 10488,
+    "n_usable": 10087,
+    "last_observation": "2026-09-05",
+    "hash": "8588af6d86da2416"
+   },
+   "CANONICAL_UNCHANGED": false,
+   "STILL_READABLE": true
+  }
+ ],
+ "NEW_ROWS_CHANGED_THE_ANSWER": true,
+ "LIVE_PROBE": {
+  "reachable": true,
+  "seconds": 3.2,
+  "validation": "OK",
+  "detail": {
+   "n_rows": 2928,
+   "n_readable": 2870,
+   "latest_observation": "2026-09-04"
+  }
+ },
+ "VERDICT": {
+  "every_bad_refresh_left_canonical_intact_and_readable": true,
+  "failures": [],
+  "an_identical_refresh_is_a_no_op": true,
+  "genuinely_new_rows_do_change_the_answer": true,
+  "the_six_outcomes_are_distinguished": [
+   "INVALID_DATA",
+   "NEW_OBSERVATIONS",
+   "NO_UPDATE",
+   "SOURCE_EMPTY",
+   "SOURCE_UNAVAILABLE"
+  ],
+  "SAFE_REFRESH": "YES"
+ }
+}
