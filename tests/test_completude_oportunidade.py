@@ -294,12 +294,41 @@ class TestIntegridadeDeCultura(unittest.TestCase):
                 self.assertNotIn(n, o['PRODUCT_RELATIONSHIPS'], o['ID'])
 
     def test_a_conta_do_filtro_fecha(self):
-        """OFERECIDOS = SERVIDOS + EXCLUIDOS, sem excecao."""
+        """OFERECIDOS = SERVIDOS + EXCLUIDOS(no escopo do cartao), sem excecao."""
         for o, _ in self.brutos:
+            noescopo = [x for x in o['PORTFOLIO_EXCLUDED_WITH_REASON']
+                        if x['SCOPE'] == 'OFFERED_TO_CARD']
+            self.assertEqual(o['PORTFOLIO_EXCLUDED_COUNT'], len(noescopo), o['ID'])
             self.assertEqual(
                 o['PORTFOLIO_OFFERED_TO_CARD'],
-                len(o['PRODUCT_RELATIONSHIPS']) + o['PORTFOLIO_EXCLUDED_COUNT'],
-                o['ID'])
+                len(o['PRODUCT_RELATIONSHIPS']) + len(noescopo), o['ID'])
+
+    def test_todo_produto_nao_promovido_declara_de_que_universo_caiu(self):
+        """Uma razao sem escopo nao se pode auditar: «excluido» de onde?"""
+        ESCOPOS = {'OFFERED_TO_CARD', 'CROP_UNIVERSE', 'SERVED_NOT_MATCHED'}
+        for o, _ in self.brutos:
+            self.assertEqual(o['PORTFOLIO_NOT_PROMOTED_COUNT'],
+                             len(o['PORTFOLIO_EXCLUDED_WITH_REASON']), o['ID'])
+            for x in o['PORTFOLIO_EXCLUDED_WITH_REASON']:
+                self.assertIn(x.get('SCOPE'), ESCOPOS, o['ID'])
+            # o alvo e a cultura nao se confundem: quem cai por alvo NAO pode
+            # sair rotulado como cultura errada, e vice-versa
+            for x in o['PORTFOLIO_EXCLUDED_WITH_REASON']:
+                if x['REASON'] == 'TARGET_MISMATCH':
+                    self.assertEqual('CROP_UNIVERSE', x['SCOPE'], o['ID'])
+                if x['REASON'] in ('CROP_MISMATCH', 'UNKNOWN_CROP'):
+                    self.assertEqual('OFFERED_TO_CARD', x['SCOPE'], o['ID'])
+
+    def test_nenhum_produto_servido_esta_tambem_excluido(self):
+        """Servido e excluido ao mesmo tempo seria a conta a mentir dos dois lados."""
+        for o, _ in self.brutos:
+            servidos = set(o['PRODUCT_RELATIONSHIPS'])
+            for x in o['PORTFOLIO_EXCLUDED_WITH_REASON']:
+                if x['SCOPE'] == 'SERVED_NOT_MATCHED':
+                    continue
+                self.assertNotIn(x['PRODUCT_NAME'], servidos,
+                                 '%s: %s esta servido E excluido'
+                                 % (o['ID'], x['PRODUCT_NAME']))
 
     def test_todo_produto_excluido_tem_razao_especifica(self):
         """Razao generica onde a especifica e conhecida e recusa a responder."""
@@ -329,7 +358,10 @@ class TestIntegridadeDeCultura(unittest.TestCase):
             if o.get('CROP'):
                 continue
             self.assertFalse(o['PORTFOLIO_CROP_FILTER_APPLIED'], o['ID'])
-            razoes = {x['REASON'] for x in o['PORTFOLIO_EXCLUDED_WITH_REASON']}
+            # So o escopo OFFERED_TO_CARD fala do filtro de cultura. As outras
+            # razoes vivem noutros universos e nao sao filtragem por cultura.
+            razoes = {x['REASON'] for x in o['PORTFOLIO_EXCLUDED_WITH_REASON']
+                      if x['SCOPE'] == 'OFFERED_TO_CARD'}
             self.assertFalse(razoes - {'PRESENTATION_LIMIT'}, o['ID'])
 
     def test_o_filtro_nao_mexeu_no_portfolio_matches(self):
@@ -378,6 +410,21 @@ class TestCortesDeclarados(unittest.TestCase):
                                     '%s · %s' % (o['ID'], x['FIELD']))
                 else:
                     self.assertIsNone(x['OMISSION_REASON'], o['ID'])
+
+    def test_a_evidencia_de_cada_casamento_declara_o_que_cortou(self):
+        """O ultimo corte silencioso deste fluxo: PORTFOLIO_MATCHES[i].EVIDENCE
+        levava quatro linhas de rotulo e nao dizia de quantas.
+
+        MEDIDO: 66 linhas omitidas em 14 das 65 entradas.
+        """
+        for o, _ in self.brutos:
+            for m in (o.get('PORTFOLIO_MATCHES') or []):
+                self.assertEqual(m['EVIDENCE_LABEL_ROWS_FOUND'],
+                                 m['EVIDENCE_LABEL_ROWS_SHOWN']
+                                 + m['EVIDENCE_LABEL_ROWS_OMITTED'], o['ID'])
+                if m['EVIDENCE_LABEL_ROWS_OMITTED']:
+                    self.assertEqual('PRESENTATION_LIMIT',
+                                     m['EVIDENCE_OMISSION_REASON'], o['ID'])
 
     def test_nenhuma_familia_e_cortada_sem_aparecer_no_censo(self):
         """O censo tem de cobrir TODAS as familias que o arquetipo ofereceu."""
@@ -480,8 +527,17 @@ class TestTestemunhas(unittest.TestCase):
         o = self.por_id['OPP_9C600748BB1B']
         self.assertEqual(['DURAVIS', 'ELTIRA', 'FORZA', 'LAMDEX EXTRA', 'NINJA'],
                          sorted(o['PRODUCT_RELATIONSHIPS']))
-        self.assertEqual([], o['PORTFOLIO_EXCLUDED_WITH_REASON'],
-                         'a testemunha do milho perdeu produto')
+        # NENHUM dos cinco foi excluido do que o cartao ofereceu...
+        self.assertEqual([], [x for x in o['PORTFOLIO_EXCLUDED_WITH_REASON']
+                              if x['SCOPE'] == 'OFFERED_TO_CARD'],
+                         'a testemunha do milho perdeu produto oferecido')
+        # ...e nada nesta testemunha cai por cultura: os que caem, caem por
+        # ALVO ou por nao estarem no catalogo comercial, que sao outras
+        # perguntas. Se aparecesse aqui um CROP_MISMATCH, o filtro de cultura
+        # teria comecado a morder onde milho E a cultura certa.
+        self.assertEqual(set(), {x['REASON']
+                                 for x in o['PORTFOLIO_EXCLUDED_WITH_REASON']}
+                         & {'CROP_MISMATCH', 'UNKNOWN_CROP'}, o['ID'])
 
     def test_sem_janela_factual_a_janela_fica_unknown(self):
         """Nao ha janela de milho no pacote. Inventar uma seria o defeito."""

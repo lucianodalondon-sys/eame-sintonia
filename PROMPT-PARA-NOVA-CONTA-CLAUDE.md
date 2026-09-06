@@ -59,7 +59,7 @@ PASSO 3 — RODAR A SUÍTE
 
 python3 -m unittest discover -s tests
 
-Esperado: 839 testes descobertos = 816 passam + 6 falhas + 1 erro + 16 pulados.
+Esperado: 842 testes descobertos = 819 passam + 6 falhas + 1 erro + 16 pulados.
 Nenhum e abortado antes de rodar (DESCOBERTOS == EXECUTADOS).
 O dono da contagem e scripts/v21_contagem_da_suite.py — rode-o e confira a equacao.
 A suíte NÃO fecha verde hoje: 6 falhas e 1 erro, todos anteriores à
@@ -82,7 +82,7 @@ python3 scripts/proveniencia.py
 
 Confira estas sentinelas contra o que o handoff afirma:
 
-  TEST_COUNT_CURRENT              = 839
+  TEST_COUNT_CURRENT              = 842
   SOURCE_ID_COUNT                 = 37
   RAIF_SEASONS_AVAILABLE          = 23
   RAIF_READINGS_TOTAL             = 148964

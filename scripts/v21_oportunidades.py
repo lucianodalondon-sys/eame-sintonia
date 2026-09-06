@@ -583,7 +583,14 @@ def portfolio(o, rotulos, casados, ai_por_prod, ai_por_id, ativos_da_fonte):
             'WINDOW_FIT': o.get('WINDOW_OPEN_NOW') or 'UNKNOWN',
             'VALIDATION_STATE': ('LABEL_AND_CATALOG' if rots and declara
                                  else 'LABEL_ONLY' if rots else 'CATALOG_ONLY'),
+            # O ultimo corte silencioso deste fluxo: a evidencia de cada
+            # casamento levava quatro linhas de rotulo e nao dizia de quantas.
             'EVIDENCE': [r['ID'] for r in rots[:4]] + [p['ID']],
+            'EVIDENCE_LABEL_ROWS_FOUND': len(rots),
+            'EVIDENCE_LABEL_ROWS_SHOWN': min(len(rots), 4),
+            'EVIDENCE_LABEL_ROWS_OMITTED': max(0, len(rots) - 4),
+            'EVIDENCE_OMISSION_REASON': ('PRESENTATION_LIMIT' if len(rots) > 4
+                                         else None),
             'RESTRICTIONS': restr,
             'SOURCE_NAMES_THIS_ACTIVE': nomeado,
             'MATCH_REASON': 'REGISTRATION_NUMBER_JOIN',
@@ -1508,6 +1515,7 @@ def main():
             'PORTFOLIO_SCAN_NOT_LINKED': len(nao_ligados),
             'PORTFOLIO_SCAN_UNKNOWN': len(nao_sei),
             'PORTFOLIO_SCAN_LINKED_NAMES': ligados,
+            'PORTFOLIO_SCAN_NOT_LINKED_NAMES': nao_ligados,
             'PORTFOLIO_SCAN_NOT_LINKED_REASON': (
                 'o rotulo ministerial existe para esta cultura e NAO nomeia este '
                 'produto para o alvo do caso' if alvo else None),
@@ -1679,14 +1687,65 @@ def main():
         # O corte de apresentacao TAMBEM e uma exclusao e entra aqui com o seu
         # nome proprio: quem nao aparece por caber e diferente de quem nao
         # aparece por nao pertencer.
-        excluidos = list(fora_de_cultura) + [
+        excluidos = [dict(x, SCOPE='OFFERED_TO_CARD') for x in fora_de_cultura] + [
             {'PRODUCT_NAME': nome, 'REASON': 'PRESENTATION_LIMIT',
-             'PROVEN_CROPS': [], 'PROVEN_BY': [],
+             'SCOPE': 'OFFERED_TO_CARD', 'PROVEN_CROPS': [], 'PROVEN_BY': [],
              'REASON_MEANS': ('o produto pertence ao cartao e nao coube no teto '
                               'de apresentacao de %d' % TETO_DA_LISTA)}
             for nome in produtos[TETO_DA_LISTA:]]
-        o['PORTFOLIO_EXCLUDED_WITH_REASON'] = excluidos
         o['PORTFOLIO_EXCLUDED_COUNT'] = len(excluidos)
+
+        # ── OS QUE NEM CHEGARAM A SER OFERECIDOS ─────────────────────────────
+        # O arquetipo compoe `produtos` DEPOIS de ja ter filtrado o universo da
+        # cultura pelo alvo do caso. Quem cai ali nunca chega a `emitir()`, e
+        # por isso nao aparecia em razao nenhuma — a razao vivia numa frase por
+        # cartao, e uma frase nao responde «e o produto X?».
+        #
+        #     UM PRODUTO QUE CAI ANTES DA PORTA TAMBEM CAIU.
+        #
+        # E do outro lado: um produto pode ser SERVIDO no cartao e mesmo assim
+        # nunca chegar a PORTFOLIO_MATCHES, porque o casamento comercial exige
+        # numero de registo no catalogo. Isso tambem e uma exclusao, e tambem
+        # tem nome.
+        _servidos = set(o['PRODUCT_RELATIONSHIPS'])
+        for nome in (o.get('PORTFOLIO_SCAN_NOT_LINKED_NAMES') or []):
+            if nome in _servidos:
+                continue
+            excluidos.append({
+                'PRODUCT_NAME': nome, 'REASON': 'TARGET_MISMATCH',
+                'SCOPE': 'CROP_UNIVERSE', 'PROVEN_CROPS': [crop] if crop else [],
+                'PROVEN_BY': ['MINISTERIAL_LABEL'],
+                'REASON_MEANS': ('o rotulo ministerial nomeia este produto para a '
+                                 'cultura do cartao e NAO o nomeia para o alvo '
+                                 'deste caso')})
+        _no_catalogo = {p.get('NAME') for p in _casados(rotulos)}
+        _reg_de = {}
+        for _r in rotulos:
+            if _r.get('PRODUCT_NAME'):
+                _reg_de[_r['PRODUCT_NAME']] = CM.num(_r.get('REGISTRATION_NUMBER'))
+        for nome in sorted(_servidos):
+            if nome in _no_catalogo:
+                continue
+            if any(_chave_de_produto(x) == _chave_de_produto(nome)
+                   for x in _no_catalogo):
+                continue
+            excluidos.append({
+                'PRODUCT_NAME': nome, 'REASON': 'NOT_IN_COMMERCIAL_CATALOG',
+                'SCOPE': 'SERVED_NOT_MATCHED', 'PROVEN_CROPS': [], 'PROVEN_BY': [],
+                'REGISTRATION_NUMBER': _reg_de.get(nome),
+                'REASON_MEANS': ('o produto aparece no cartao pelo rotulo, e o '
+                                 'numero de registo dele nao esta no catalogo '
+                                 'comercial: autorizado nao e oferecido')})
+        o['PORTFOLIO_EXCLUDED_WITH_REASON'] = excluidos
+        o['PORTFOLIO_NOT_PROMOTED_COUNT'] = len(excluidos)
+        o['PORTFOLIO_EXCLUDED_SCOPE_LAW'] = (
+            'SCOPE diz de QUE universo o produto caiu. OFFERED_TO_CARD entra na '
+            'conta OFERECIDOS = SERVIDOS + EXCLUIDOS. CROP_UNIVERSE e quem o '
+            'arquetipo filtrou pelo alvo ANTES de compor a lista. '
+            'SERVED_NOT_MATCHED e quem esta no cartao e nao chega a '
+            'PORTFOLIO_MATCHES por nao estar no catalogo comercial. '
+            'AUTORIZADO NAO E OFERECIDO, e as duas coisas sao verdade ao mesmo '
+            'tempo.')
         o['PORTFOLIO_EXCLUDED_BY_REASON'] = dict(
             Counter(x['REASON'] for x in excluidos))
         o['PORTFOLIO_OFFERED_TO_CARD'] = len(oferecidos)
@@ -1704,7 +1763,8 @@ def main():
             'pacote nao foram consultadas e nao contam como zero.')
         assert (o['PORTFOLIO_OFFERED_TO_CARD']
                 == len(o['PRODUCT_RELATIONSHIPS'])
-                + o['PORTFOLIO_EXCLUDED_COUNT']), (oid, arquetipo)
+                + len([x for x in excluidos
+                       if x['SCOPE'] == 'OFFERED_TO_CARD'])), (oid, arquetipo)
         scan = consulta_o_acervo(crop, alvo, geo)
         o['CROSS_INTELLIGENCE_SCAN'] = scan
         o['CROSS_INTELLIGENCE_FAMILIES_CONSULTED'] = len(scan)
@@ -2239,6 +2299,7 @@ def gravar(brutos, C, cs):
                or k.startswith('PORTFOLIO_LIST_')
                or k.startswith('PORTFOLIO_EXCLUDED_')
                or k.startswith('PORTFOLIO_OFFERED_')
+               or k.startswith('PORTFOLIO_NOT_PROMOTED_')
                or k.startswith('PORTFOLIO_CROP_')
                or k.startswith('CROSS_INTELLIGENCE_')
                or k.startswith('EVIDENCE_SCAN')},
