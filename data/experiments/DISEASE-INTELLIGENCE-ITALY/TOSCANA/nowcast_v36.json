@@ -1,0 +1,399 @@
+{
+ "var": 36,
+ "week_cutoffs": [
+  18,
+  20,
+  22,
+  24,
+  26,
+  28
+ ],
+ "bonferroni_family_size": 12,
+ "bonferroni_threshold": 0.004167,
+ "target": "SITE_INCIDENCE over the REMAINDER of the season (weeks > cutoff)",
+ "predictor": "SITE_INCIDENCE observed UP TO the cutoff (disjoint observations)",
+ "rows": [
+  {
+   "cut_week": 18,
+   "n_years": 12,
+   "years": [
+    2006,
+    2007,
+    2008,
+    2010,
+    2017,
+    2018,
+    2019,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "baselines": {
+    "BASELINE_CLIMATOLOGY": 0.2857,
+    "BASELINE_PREVIOUS_YEAR": 0.2857
+   },
+   "best_baseline": 0.2857,
+   "best_baseline_name": "BASELINE_CLIMATOLOGY",
+   "CAUSAL": {
+    "accuracy": 0.3333,
+    "n": 3,
+    "years_scored": [
+     2024,
+     2025,
+     2026
+    ],
+    "features_picked": [
+     "early_incidence",
+     "early_incidence",
+     "early_incidence"
+    ],
+    "p_permutation": 1.0,
+    "mcnemar_vs_best_baseline": {
+     "p": 1.0,
+     "model_only": 1,
+     "baseline_only": 0,
+     "n": 3
+    }
+   },
+   "SKILL_STATE": "REFUTED"
+  },
+  {
+   "cut_week": 20,
+   "n_years": 17,
+   "years": [
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2013,
+    2015,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "baselines": {
+    "BASELINE_CLIMATOLOGY": 0.4167,
+    "BASELINE_PREVIOUS_YEAR": 0.4167
+   },
+   "best_baseline": 0.4167,
+   "best_baseline_name": "BASELINE_CLIMATOLOGY",
+   "CAUSAL": {
+    "accuracy": 0.625,
+    "n": 8,
+    "years_scored": [
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025,
+     2026
+    ],
+    "features_picked": [
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_x_visits",
+     "early_x_visits"
+    ],
+    "p_permutation": 0.37538,
+    "mcnemar_vs_best_baseline": {
+     "p": 1.0,
+     "model_only": 1,
+     "baseline_only": 0,
+     "n": 8
+    }
+   },
+   "SKILL_STATE": "REFUTED"
+  },
+  {
+   "cut_week": 22,
+   "n_years": 19,
+   "years": [
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "baselines": {
+    "BASELINE_CLIMATOLOGY": 0.4286,
+    "BASELINE_PREVIOUS_YEAR": 0.5
+   },
+   "best_baseline": 0.5,
+   "best_baseline_name": "BASELINE_PREVIOUS_YEAR",
+   "CAUSAL": {
+    "accuracy": 0.6,
+    "n": 10,
+    "years_scored": [
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025,
+     2026
+    ],
+    "features_picked": [
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence"
+    ],
+    "p_permutation": 0.12724,
+    "mcnemar_vs_best_baseline": {
+     "p": 0.625,
+     "model_only": 3,
+     "baseline_only": 1,
+     "n": 10
+    }
+   },
+   "SKILL_STATE": "REFUTED"
+  },
+  {
+   "cut_week": 24,
+   "n_years": 19,
+   "years": [
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "baselines": {
+    "BASELINE_CLIMATOLOGY": 0.4286,
+    "BASELINE_PREVIOUS_YEAR": 0.5
+   },
+   "best_baseline": 0.5,
+   "best_baseline_name": "BASELINE_PREVIOUS_YEAR",
+   "CAUSAL": {
+    "accuracy": 0.9,
+    "n": 10,
+    "years_scored": [
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025,
+     2026
+    ],
+    "features_picked": [
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence"
+    ],
+    "p_permutation": 0.0018,
+    "mcnemar_vs_best_baseline": {
+     "p": 0.125,
+     "model_only": 6,
+     "baseline_only": 1,
+     "n": 10
+    }
+   },
+   "SKILL_STATE": "NOT_PROVED"
+  },
+  {
+   "cut_week": 26,
+   "n_years": 20,
+   "years": [
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "baselines": {
+    "BASELINE_CLIMATOLOGY": 0.4,
+    "BASELINE_PREVIOUS_YEAR": 0.5333
+   },
+   "best_baseline": 0.5333,
+   "best_baseline_name": "BASELINE_PREVIOUS_YEAR",
+   "CAUSAL": {
+    "accuracy": 1.0,
+    "n": 11,
+    "years_scored": [
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025,
+     2026
+    ],
+    "features_picked": [
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence"
+    ],
+    "p_permutation": 0.00015,
+    "mcnemar_vs_best_baseline": {
+     "p": 0.0312,
+     "model_only": 6,
+     "baseline_only": 0,
+     "n": 11
+    }
+   },
+   "SKILL_STATE": "PROVED"
+  },
+  {
+   "cut_week": 28,
+   "n_years": 20,
+   "years": [
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "baselines": {
+    "BASELINE_CLIMATOLOGY": 0.4667,
+    "BASELINE_PREVIOUS_YEAR": 0.5333
+   },
+   "best_baseline": 0.5333,
+   "best_baseline_name": "BASELINE_PREVIOUS_YEAR",
+   "CAUSAL": {
+    "accuracy": 0.9091,
+    "n": 11,
+    "years_scored": [
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025,
+     2026
+    ],
+    "features_picked": [
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence",
+     "early_incidence"
+    ],
+    "p_permutation": 0.0018,
+    "mcnemar_vs_best_baseline": {
+     "p": 0.125,
+     "model_only": 4,
+     "baseline_only": 0,
+     "n": 11
+    }
+   },
+   "SKILL_STATE": "NOT_PROVED"
+  }
+ ],
+ "FIRST_PROVED_WEEK": 26
+}
