@@ -87,7 +87,12 @@ R["TEXT_TOTAL_CHARS"] = chars
 R["TEXT_EXTRACTED_METHOD"] = "pdftotext rodado agora sobre cada PDF do disco"
 
 # ---------------------------------------------------- 5. cultura x alvo: reuso, recontado
+# A lista de canonical continua sendo a preferida; a reconstruida
+# (v1/fonte/pares_reconstruir.py) entra quando canonical nao esta no checkout, e
+# a medicao diz qual das duas foi contada.
 pares = f"{CANON}/data/samples/IT-ROTULOS-V1/IT-ROTULOS-PARES-V3.json"
+if not os.path.exists(pares):
+    pares = "v1/dados/IT-ROTULOS-PARES-RECONSTRUIDO.json"
 if os.path.exists(pares):
     pp = json.load(open(pares, encoding="utf-8"))
     PA = pp["PAIRS"]
@@ -101,8 +106,7 @@ if os.path.exists(pares):
     R["USE_PAIRS_WITH_LITERAL_QUOTE"] = 0
     R["USE_PAIRS_QUOTE_NOTE"] = ("os pares nao gravam SOURCE_QUOTE nem coordenada x; "
                                  "citacao literal e NOT_PRESERVED — medido no piloto")
-    R["AUTHORIZED_USE_PAIRS_SOURCE"] = ("sintonia/canonical @ bdb57cf "
-                                        "data/samples/IT-ROTULOS-V1/IT-ROTULOS-PARES-V3.json")
+    R["AUTHORIZED_USE_PAIRS_SOURCE"] = pares
 else:
     R["AUTHORIZED_USE_PAIRS"] = "NOT_KNOWN"
     R["PRODUCTS_WITH_USE_ROWS"] = "NOT_KNOWN"

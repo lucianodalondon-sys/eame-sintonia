@@ -17,7 +17,14 @@ from collections import Counter
 
 P = "pilot-label-intelligence"
 CANON_REF = "sintonia/canonical @ bdb57cf7379a4b8b94b3ef117fb3da469fca0764"
-CANON = "/tmp/claude-0/-home-user-eame-sintonia/113d92e8-e962-52b2-b6d1-c8c3e286096e/scratchpad/canonical"
+CANON = os.environ.get("CANON", "")
+# A lista de PARES foi remontada fora de canonical (v1/fonte/pares_reconstruir.py,
+# provada em v1/fonte/pares_conferir.py). O MANIFESTO DE LEITURA — URL, sha e data
+# de vigencia de cada etichetta — nao foi: ele nao esta em nenhum artefato
+# versionado aqui. Enquanto nao estiver, este modulo so roda com $CANON apontado
+# para uma copia de canonical, e falha DIZENDO o que falta em vez de escrever um
+# pacote com campo inventado.
+PARES = "v1/dados/IT-ROTULOS-PARES-RECONSTRUIDO.json"
 INACT = {"Revocato", "Scaduto"}
 
 # Estados de leitura. Sao ESCADA: cada um pressupoe o anterior, e nenhum
@@ -88,6 +95,9 @@ def main():
                     default="https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260831.csv")
     ap.add_argument("--pdfdir", default=f"{P}/labels/pdf")
     ap.add_argument("--run-id", required=True)
+    ap.add_argument("--manifesto",
+                    default=f"{CANON}/data/samples/IT-ROTULOS-V1/IT-ROTULOS-LEITURA-RUN.json")
+    ap.add_argument("--pares", default=PARES)
     ap.add_argument("--cachetxt", default="/tmp/tetotxt")
     ap.add_argument("--out", default="v1/dados/COLLECTION-PACKAGE.json")
     a = ap.parse_args()
@@ -96,11 +106,17 @@ def main():
     snap_id = "PROD_FTS_6_" + re.search(r"(\d{8})", os.path.basename(a.registro)).group(1)
 
     # ---- reuso apontado: URL/hash/data de vigencia do rotulo, e os pares
-    man = json.load(open(f"{CANON}/data/samples/IT-ROTULOS-V1/IT-ROTULOS-LEITURA-RUN.json",
-                         encoding="utf-8"))
+    if not os.path.exists(a.manifesto):
+        raise SystemExit(
+            f"MANIFESTO DE LEITURA ausente: {a.manifesto}\n"
+            "  Ele traz LABEL_URL, sha e data de vigencia de cada etichetta e vive em\n"
+            f"  {CANON_REF}. Nenhum artefato versionado neste repositorio o reconstitui,\n"
+            "  e inventar esses campos seria pior do que nao emitir o pacote.\n"
+            "  Aponte --manifesto para uma copia de canonical, ou use o\n"
+            "  v1/dados/COLLECTION-PACKAGE.json ja versionado.")
+    man = json.load(open(a.manifesto, encoding="utf-8"))
     manif = {i["REGISTRATION_ID"]: i for i in man["ITEMS"]}
-    pares = json.load(open(f"{CANON}/data/samples/IT-ROTULOS-V1/IT-ROTULOS-PARES-V3.json",
-                           encoding="utf-8"))["PAIRS"]
+    pares = json.load(open(a.pares, encoding="utf-8"))["PAIRS"]
     por_reg = {}
     for x in pares:
         por_reg.setdefault(x["REGISTRATION_ID"], []).append(x)

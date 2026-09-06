@@ -10,7 +10,14 @@ tem permissao de inventar o que a coleta nao trouxe.
 import argparse, csv, datetime, hashlib, json, os, sys
 from collections import Counter
 
-CANON = "/tmp/claude-0/-home-user-eame-sintonia/113d92e8-e962-52b2-b6d1-c8c3e286096e/scratchpad/canonical"
+# A lista de pares vinha de sintonia/canonical, que nao esta neste repositorio e
+# nao esta acessivel a esta sessao. `v1/fonte/pares_reconstruir.py` a remonta a
+# partir de EXCLUSAO.json + CASCO-PAYLOAD.json, e `v1/fonte/pares_conferir.py`
+# prova que a esteira chega ao mesmo lugar: R-10 identico nas 2928 chaves e os
+# 2926 pares publicados identicos nos 9 campos. Medido tambem no fim da linha —
+# o HTML remontado por este caminho tem o sha256 7e4ea2a7b445fafa..., o mesmo
+# que o arbitro do red team 3 julgou.
+PARES = "v1/dados/IT-ROTULOS-PARES-RECONSTRUIDO.json"
 
 
 def limpa(v):
@@ -54,7 +61,7 @@ def main():
     ap.add_argument("--objetos", default="v1/dados/INTELLIGENCE-OBJECTS.json")
     ap.add_argument("--versoes", default="pilot-label-intelligence/registry/IT-REGISTRO-VERSOES.json")
     ap.add_argument("--doses", default="pilot-label-intelligence/demo/IT-DOSES.json")
-    ap.add_argument("--pares", default=f"{CANON}/data/samples/IT-ROTULOS-V1/IT-ROTULOS-PARES-V3.json")
+    ap.add_argument("--pares", default=PARES)
     ap.add_argument("--exclusao", default="v1/dados/EXCLUSAO.json")
     ap.add_argument("--snapshots", default="pilot-label-intelligence/registry/snapshots")
     ap.add_argument("--teto", default="v1/dados/TETO-DOSE.json")

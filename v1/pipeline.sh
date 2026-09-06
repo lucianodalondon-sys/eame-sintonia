@@ -15,18 +15,31 @@ SEMANAS="${3:-60}"
 RUN="RUN-$HOJE-$(date -u +%H%M%S)"
 cd "$(dirname "$0")/.."
 P=pilot-label-intelligence
-CANON=/tmp/claude-0/-home-user-eame-sintonia/113d92e8-e962-52b2-b6d1-c8c3e286096e/scratchpad/canonical
+PARES=v1/dados/IT-ROTULOS-PARES-RECONSTRUIDO.json
 
 echo "== 0 · cadeia TLS (o host das etichette manda cadeia incompleta)"
 sh $P/bin/chain.sh >/dev/null
+
+echo "== 0b · FONTE PRIMARIA: rebaixar e conferir os 223 arquivos pelo sha256"
+python3 v1/fonte/recoletar.py .
 
 echo "== 1-4 · registro oficial: check, snapshot, hash, identidade de versao"
 python3 $P/bin/registro_it.py --weeks "$SEMANAS" --end 2026-08-31
 
 echo "== 5-7 · documento do rotulo: conferir hash, baixar so o que mudou, preservar"
-python3 $P/bin/rotulo_reverificar.py \
-  --manifesto $CANON/data/samples/IT-ROTULOS-V1/IT-ROTULOS-LEITURA-RUN.json \
-  --observed-at "$HOJE"
+# O manifesto de leitura (LABEL_URL, sha e vigencia por etichetta) vive em
+# sintonia/canonical e NAO esta neste repositorio. O passo 0b ja confere os 163
+# PDFs byte a byte contra MANIFESTO-FONTE.json, que e a mesma pergunta de
+# integridade; o que so canonical responde e "o documento MUDOU desde a linha de
+# base". Com $CANON apontado, este passo roda; sem ele, fica dito que nao rodou.
+if [ -n "$CANON" ] && [ -f "$CANON/data/samples/IT-ROTULOS-V1/IT-ROTULOS-LEITURA-RUN.json" ]; then
+  python3 $P/bin/rotulo_reverificar.py \
+    --manifesto $CANON/data/samples/IT-ROTULOS-V1/IT-ROTULOS-LEITURA-RUN.json \
+    --observed-at "$HOJE"
+else
+  echo "   PULADO — MANIFESTO_DE_LEITURA_NOT_AVAILABLE (sintonia/canonical). Isto e"
+  echo "   passo nao executado, NAO 'nenhum rotulo mudou'."
+fi
 
 echo "== 8-9 · ler e estruturar: dose por geometria"
 python3 $P/bin/dose_rodar.py --todos --cachedir /tmp/dosecache
@@ -39,7 +52,7 @@ python3 v1/inteligencia/dose_plausibilidade.py
 
 echo "== 10c · EXCLUSAO NAO E PERMISSAO: reconciliar cada par contra o PDF oficial"
 python3 v1/coleta/exclusao.py \
-  --pares "$CANON/data/samples/IT-ROTULOS-V1/IT-ROTULOS-PARES-V3.json" \
+  --pares "$PARES" \
   --cache /tmp/exclusao-txt
 
 echo "== 10d · R-11: a cultura de cada linha de dose sobrevive aos fios desenhados?"
@@ -52,7 +65,12 @@ echo "== 10f · R-13: o texto do alvo existe literalmente no rotulo?"
 python3 v1/inteligencia/alvo_literal.py
 
 echo "== 11 · COLETA: empacotar com proveniencia e coberturas separadas"
-python3 v1/coleta/empacotar.py --run-id "$RUN"
+# Mesmo motivo do passo 5-7: empacotar.py precisa do manifesto de leitura.
+if [ -n "$CANON" ] && [ -f "$CANON/data/samples/IT-ROTULOS-V1/IT-ROTULOS-LEITURA-RUN.json" ]; then
+  python3 v1/coleta/empacotar.py --run-id "$RUN" --pares "$PARES"
+else
+  echo "   PULADO — usa o v1/dados/COLLECTION-PACKAGE.json ja versionado."
+fi
 
 echo "== 12 · INTELIGENCIA: objetos, com a regra que autoriza cada derivacao"
 python3 v1/inteligencia/objetos.py --hoje "$HOJE"
