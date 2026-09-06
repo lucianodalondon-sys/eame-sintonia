@@ -37,6 +37,11 @@ python3 $P/bin/dose_validar.py --cache-fios /tmp/fioscache
 echo "== 10b · descartar tabela que o extrator achou onde nao havia"
 python3 v1/inteligencia/dose_plausibilidade.py
 
+echo "== 10c · EXCLUSAO NAO E PERMISSAO: reconciliar cada par contra o PDF oficial"
+python3 v1/coleta/exclusao.py \
+  --pares "$CANON/data/samples/IT-ROTULOS-V1/IT-ROTULOS-PARES-V3.json" \
+  --cache /tmp/exclusao-txt
+
 echo "== 11 · COLETA: empacotar com proveniencia e coberturas separadas"
 python3 v1/coleta/empacotar.py --run-id "$RUN"
 
@@ -49,6 +54,9 @@ python3 v1/testes/test_ruido.py
 echo "== 14 · CASCO: payload e ferramenta"
 python3 v1/casco/payload.py --hoje "$HOJE"
 sh v1/casco/build.sh
+
+echo "== 14b · PORTAO: a interface renderizada tem de aguentar os testes de tela"
+node v1/testes/test_casco.js
 
 echo "== 15 · auditoria do piloto (recontagem independente)"
 python3 $P/bin/auditar.py | tail -2

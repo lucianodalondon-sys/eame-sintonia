@@ -1,6 +1,6 @@
 {
  "SUITE": "PORTOES-V1",
- "PASS": 14,
+ "PASS": 16,
  "FAIL": 0,
  "RESULTS": [
   {
@@ -11,7 +11,7 @@
   {
    "GATE": "ROUTING_RULE_EXISTS",
    "STATE": "PASS",
-   "DETALHE": "todo roteamento aponta uma das 34 regras declaradas"
+   "DETALHE": "todo roteamento aponta uma das 39 regras declaradas"
   },
   {
    "GATE": "BUSINESS_IMPLICATION_GATED",
@@ -72,6 +72,16 @@
    "GATE": "FALSE_CHANGE_NOISE_TEST",
    "STATE": "PASS",
    "DETALHE": "11 testes adversariais passam"
+  },
+  {
+   "GATE": "EXCLUSION_IS_NOT_PERMISSION",
+   "STATE": "PASS",
+   "DETALHE": "2 par(es) retirado(s), cada um com a frase literal do rotulo; 25 rotulos tem janela de exclusao"
+  },
+  {
+   "GATE": "CASCO_RENDER_TEST",
+   "STATE": "PASS",
+   "DETALHE": "10 passaram, 0 falharam  -> CASCO_RENDER_TEST = PASS"
   }
  ]
 }

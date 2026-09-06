@@ -36,11 +36,38 @@ const nrm = s => String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'')
 function tokens(s) {
   return new Set(nrm(s).split(/[ ,;/()]+/).filter(t => t.length > 2));
 }
-function casa(a, b) {
-  const x = tokens(a), y = tokens(b);
-  if (!x.size || !y.size) return false;
-  for (const t of x) if (y.has(t)) return true;   // token inteiro em comum
-  return false;
+// Direcional: todo token do par de uso tem de estar na celula de dose. A celula
+// de dose e uma lista impressa no rotulo ("Melo, pero"); o par de uso e um nome
+// so ("MELO"). Interseccao simples casava nos dois sentidos e casava demais.
+function contido(peq, grande) {
+  const a = tokens(peq), b = tokens(grande);
+  if (!a.size || !b.size) return false;
+  for (const t of a) if (!b.has(t)) return false;
+  return true;
+}
+// A JUNCAO DA DOSE, com estado declarado.
+//
+// Medido sobre os 2.926 pares publicados: igualdade exata de cultura E alvo
+// casa 5 pares. Os vocabularios sao estruturalmente diferentes — o leitor de
+// uso normaliza para um nome ("MELO"), o de dose guarda a celula impressa
+// ("Melo, pero"). Entao a juncao por lista existe, mas E INFERENCIA e tem de
+// dizer que e.
+//
+// E, sobretudo: em 106 pares ha DUAS OU MAIS linhas de dose que servem, com
+// valores diferentes (LAMDEX EXTRA em BARBABIETOLA x AFIDI da 280-600 g/ha
+// e 420-1200 g/ha). A versao anterior mostrava a primeira, calada, com selo
+// verde. Numero unico onde a fonte tem dois nao e resposta: e chute exibido
+// como leitura.
+function juntaDose(p, u) {
+  const ex = p.doses.filter(x => nrm(x.crop) === nrm(u.crop) && nrm(x.target) === nrm(u.target));
+  if (ex.length === 1) return {estado: 'EXACT_MATCH', d: ex[0], cand: ex};
+  const cand = ex.length ? ex
+    : p.doses.filter(x => contido(u.crop, x.crop) && contido(u.target, x.target));
+  if (!cand.length) return {estado: 'NO_DOSE_ROW_FOR_THIS_PAIR', d: null, cand: []};
+  const vals = new Set(cand.map(x => `${x.dose_ha}|${x.unit_ha}`));
+  if (vals.size > 1) return {estado: 'AMBIGUOUS_DOSE_FOR_THIS_PAIR', d: null, cand};
+  return {estado: cand.length > 1 ? 'LISTED_IN_DOSE_ROW_AGREEING' : 'LISTED_IN_DOSE_ROW',
+          d: cand[0], cand};
 }
 // A validade tem de aparecer igual em TODA tela. Antes, CULTURA x ALVO mostrava
 // "2026-08-15" seco enquanto CALENDARIO e PRODUTO 360 marcavam o mesmo produto
@@ -264,7 +291,12 @@ function viewProduto(reg) {
   p.uses.forEach((u,i) => (porCultura[u.crop] = porCultura[u.crop]||[]).push({...u, i}));
   $('#pdet').innerHTML = `
   ${p.out_of_active_set ? `<div class="lei"><b>Este registro nao esta no conjunto ativo do
-    instantaneo vigente.</b> ${esc(p.out_of_active_set_note)}</div>` : ''}
+    instantaneo vigente.</b> ${esc(p.out_of_active_set_note)}
+    ${p.registry_row_read ? `<div class="meta" style="margin-top:6px">
+      <b>Sair do conjunto ativo nao e sair do arquivo.</b> A linha oficial deste produto foi lida
+      no instantaneo <code>${esc(p.snapshot)}</code>: os campos de registro abaixo sao leitura,
+      nao suposicao. O que falta e o rotulo — nenhum PDF foi baixado, por isso uso, dose e PHI
+      chegam como <span class="unknown">NOT_COLLECTED</span>.</div>` : ''}</div>` : ''}
   <div class="block">
     <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">
       <h3>${esc(p.name)}</h3>
@@ -278,6 +310,11 @@ function viewProduto(reg) {
       <tr><th>Validade</th><td${venc?' style="color:var(--bad)"':''}>${val(p.expiry)}
         ${venc?` &mdash; vencida ha ${-p.dte} dias e o registro ainda o lista como &ldquo;${esc(p.status)}&rdquo;.
         <span class="meta">EXPIRY != WITHDRAWAL — a ferramenta nao conclui saida de mercado</span>`:''}</td></tr>
+      ${p.revoke_effective!==undefined ? `
+      <tr><th>Perigo declarado</th><td>${val(p.hazard)}</td></tr>
+      <tr><th>Revoga &middot; motivo</th><td>${val(p.revoke_reason)}</td></tr>
+      <tr><th>Revoga &middot; decreto</th><td>${val(p.revoke_decree)}</td></tr>
+      <tr><th>Revoga &middot; decorrencia</th><td>${val(p.revoke_effective)}</td></tr>` : ''}
       <tr><th>Etichetta em vigor desde</th><td>${val(p.label_effective)}</td></tr>
       <tr><th>Documento</th><td class="mono">${val(p.pdf_sha)}</td></tr>
     </tbody></table></div>
@@ -303,6 +340,24 @@ function viewProduto(reg) {
       : `<div class="lei">Nenhum par cultura x alvo foi lido para este produto.
          <b>Isto e estado de leitura, nao ausencia de uso autorizado.</b>
          <code>PARSER_FAILURE != REGULATORY_ABSENCE</code></div>`}
+    ${(p.uses_retirados||[]).length ? `<div class="lei" style="border-left-color:var(--bad);margin-top:10px">
+      <b>Exclusao nao e permissao.</b> ${p.uses_retirados.length} par(es) que o leitor de uso tinha
+      publicado como <b>autorizados</b> foram retirados desta ficha, porque a unica ocorrencia do
+      nome da cultura no texto do rotulo esta <b>dentro</b> de uma janela de exclusao. Regra
+      <code>${esc(P.exclusion.rule)}</code>.
+      <div class="tw" style="margin-top:8px"><table>
+        <thead><tr><th>Cultura retirada</th><th>Alvo</th><th>Frase do rotulo que a exclui</th></tr></thead>
+        <tbody>${p.uses_retirados.map(w => `<tr>
+          <td><b>${esc(w.CROP)}</b></td><td>${esc(w.TARGET)}</td>
+          <td><i>&ldquo;${esc(w.EXCLUSION_TEXT)}&rdquo;</i>
+            <div class="meta">${esc(w.PROOF)}</div></td></tr>`).join('')}
+        </tbody></table></div></div>` : ''}
+    ${(p.exclusion_windows||[]).length ? `<div class="meta" style="margin-top:8px">
+      <b>Este rotulo tem ${p.exclusion_windows.length} janela(s) de exclusao.</b> Mesmo os usos
+      acima que sobreviveram tem escopo mais estreito do que o nome da cultura sugere: o rotulo
+      escreve, entre outras coisas,
+      ${p.exclusion_windows.slice(0,3).map(w=>`<i>&ldquo;${esc(w.length>110?w.slice(0,110)+'…':w)}&rdquo;</i>`).join('; ')}.
+      A ferramenta <b>nao</b> modela escopo negativo dentro de um uso: ela avisa que ele existe.</div>` : ''}
   </div>
 
   <div class="block">
@@ -380,6 +435,51 @@ function viewTimeline() {
     </tbody></table></div>`;
 }
 
+// A celula de dose NUNCA imprime um numero sem dizer por que aquele numero e
+// deste par. Estado ambiguo nao vira numero.
+function celulaDose(l) {
+  const j = l.j;
+  if (j.estado === 'AMBIGUOUS_DOSE_FOR_THIS_PAIR')
+    return `<span class="unknown">AMBIGUOUS_DOSE_FOR_THIS_PAIR</span>
+      <span class="pill p-bad">AMBIGUA</span>
+      <div class="meta">${j.cand.length} linhas de dose servem para este par e discordam</div>
+      <button class="ev" onclick="evAmbigua('${l.p.reg}',${JSON.stringify(j.cand.map(x=>l.p.doses.indexOf(x)))})">ver as ${j.cand.length} candidatas</button>`;
+  if (!j.d) return val('NOT_KNOWN') + '<div class="meta">nenhuma linha de dose serve para este par</div>';
+  if (isUnk(j.d.dose_ha)) return val(j.d.dose_ha);
+  const selo = j.estado === 'EXACT_MATCH'
+    ? '<span class="pill p-ok">EXATA</span>'
+    : `<span class="pill p-warn">LISTADA</span>`;
+  const nota = j.estado === 'EXACT_MATCH' ? ''
+    : `<div class="meta">a linha de dose fala de &ldquo;${esc(j.d.crop)}&rdquo; &middot;
+        &ldquo;${esc(j.d.target)}&rdquo;${j.cand.length>1?` (${j.cand.length} linhas, mesmo valor)`:''}.
+        Juncao inferida, nao leitura deste par.</div>`;
+  return `${esc(j.d.dose_ha + ' ' + j.d.unit_ha)} ${selo}
+    ${j.d.rule_check==='CONTRADICTED_BY_RULE'?'<span class="pill p-bad">REVISAR</span>':''}
+    <button class="ev" onclick="evDose('${l.p.reg}',${l.p.doses.indexOf(j.d)})">prova da dose</button>
+    ${nota}`;
+}
+function evAmbigua(reg, idx) {
+  const p = byReg[reg];
+  const rows = idx.map(i => p.doses[i]);
+  drawer(`<h3>Dose ambigua</h3>
+    <div class="meta">${esc(p.name)} &middot; <code>${esc(p.reg)}</code></div>
+    <div class="lei"><b>A ferramenta nao escolhe.</b> ${rows.length} linhas de dose deste rotulo
+      servem para este par de cultura e alvo, e elas <b>nao dizem o mesmo valor</b>. Escolher uma
+      seria inventar. O que existe e isto:</div>
+    <div class="tw"><table>
+      <thead><tr><th>Celula de cultura lida</th><th>Celula de alvo lida</th><th>Dose/ha</th>
+        <th>Pagina</th><th>Fio da tabela</th><th></th></tr></thead>
+      <tbody>${rows.map((r,k) => `<tr>
+        <td>${esc(r.crop)}</td><td>${esc(r.target)}</td>
+        <td><b>${isUnk(r.dose_ha)?val(r.dose_ha):esc(r.dose_ha+' '+r.unit_ha)}</b></td>
+        <td>${val(r.page)}</td><td>${val(r.rule_check)}</td>
+        <td><button class="ev" onclick="evDose('${esc(reg)}',${idx[k]})">prova</button></td>
+      </tr>`).join('')}</tbody></table></div>
+    <div class="meta" style="margin-top:8px">Quem resolve isto e uma pessoa lendo a etichetta.
+      Este e o pedido de revisao, nao uma resposta.</div>`);
+}
+window.evAmbigua = evAmbigua;
+
 // ---------------------------------------------------------------- 4 · CROP x TARGET
 function viewCrop() {
   const q = ($('#cq')?.value || '').trim().toLowerCase();
@@ -389,17 +489,30 @@ function viewCrop() {
     p.uses.forEach((u,i) => {
       if (q && !String(u.crop).toLowerCase().includes(q)) return;
       if (qt && !String(u.target).toLowerCase().includes(qt)) return;
-      const d = p.doses.find(x => casa(x.crop, u.crop) && casa(x.target, u.target));
-      linhas.push({p, u, i, d});
+      const j = juntaDose(p, u);
+      linhas.push({p, u, i, d: j.d, j});
     });
   });
   const prods = new Set(linhas.map(l => l.p.reg));
   $('#cres').innerHTML = `
-    <div class="meta" style="margin:8px 0">${linhas.length} pares em ${prods.size} produtos.
-      Dose aparece quando existe linha de dose lida para <b>este mesmo par</b> — o nome da cultura
-      e casado apos normalizar, porque o leitor de uso escreve &ldquo;VITE&rdquo; e o de dose guarda
-      &ldquo;Vite*&rdquo; como esta impresso. Quando nao existe, o campo diz
-      <span class="unknown">NOT_KNOWN</span> em vez de ficar vazio.</div>
+    <div class="meta" style="margin:8px 0">${linhas.length} pares em ${prods.size} produtos.</div>
+    <div class="lei"><b>Como a dose e ligada a este par — e quando ela nao e.</b>
+      O leitor de uso normaliza a cultura para um nome (<code>MELO</code>); o leitor de dose
+      guarda a celula como esta impressa no rotulo (<code>Melo, pero</code>). Sao vocabularios
+      diferentes, entao:
+      <ul style="margin:6px 0 0 16px">
+        <li><span class="pill p-ok">EXATA</span> cultura e alvo batem letra a letra. A dose e
+          desta linha. <b>Medido: 5 pares dos ${linhas.length}.</b></li>
+        <li><span class="pill p-warn">LISTADA</span> a cultura e o alvo deste par aparecem
+          <i>dentro</i> da celula da linha de dose. Isto e <b>inferencia de juncao</b>, nao
+          leitura direta deste par: a linha de dose fala de um grupo de culturas.</li>
+        <li><span class="pill p-bad">AMBIGUA</span> duas ou mais linhas de dose servem para este
+          par e <b>dao valores diferentes</b>. A ferramenta <b>nao escolhe</b>: mostra
+          <span class="unknown">AMBIGUOUS_DOSE_FOR_THIS_PAIR</span> e lista as candidatas.
+          Antes esta tela mostrava a primeira, calada, com selo verde.</li>
+        <li><span class="unknown">NOT_KNOWN</span> nenhuma linha de dose serve para este par.
+          Nao e dose zero e nao e dose ausente no rotulo: e leitura que nao ligou.</li>
+      </ul></div>
     <div class="tw"><table>
       <thead><tr><th>Produto</th><th>Registro</th><th>Cultura</th><th>Alvo</th>
         <th>Dose/ha</th><th>Evidencia do par</th><th>Validade</th><th></th></tr></thead>
@@ -407,10 +520,7 @@ function viewCrop() {
         <td><a onclick="go('produto');viewProduto('${l.p.reg}')" style="cursor:pointer">${esc(l.p.name)}</a></td>
         <td class="mono">${esc(l.p.reg)}</td>
         <td>${esc(l.u.crop)}</td><td>${esc(l.u.target)}</td>
-        <td>${l.d ? (isUnk(l.d.dose_ha)?val(l.d.dose_ha):esc(l.d.dose_ha+' '+l.d.unit_ha)+
-             (l.d.rule_check==='CONTRADICTED_BY_RULE'?' <span class="pill p-bad">REVISAR</span>':'')
-             + ` <button class="ev" onclick="evDose('${l.p.reg}',${l.p.doses.indexOf(l.d)})">prova da dose</button>`)
-             : val('NOT_KNOWN')}</td>
+        <td>${celulaDose(l)}</td>
         <td><span class="pill ${l.u.evidence==='TABLE_GEOMETRY'?'p-ok':'p-dim'}">${l.u.evidence==='TABLE_GEOMETRY'?'TABELA':'TEXTO'}</span></td>
         <td>${validade(l.p)}</td>
         <td><button class="ev" onclick="evUso('${l.p.reg}',${l.i})">prova</button></td>
@@ -463,12 +573,17 @@ function viewAction() {
       const r = o.CAPABILITY_ROUTING.find(x => x.CAPABILITY_ID === c);
       return r ? {o, r} : null;
     }).filter(Boolean);
+    // Agrupa por ESTADO + REGRA + JUSTIFICATIVA. Um cabecalho de grupo so pode
+    // anunciar o que vale para TODAS as linhas dele. Duas correcoes somadas:
+    //  - antes o cabecalho pegava a regra do primeiro objeto e a estampava sobre
+    //    210 linhas com regras diferentes;
+    //  - agrupar so por ESTADO+REGRA ainda nao bastava, porque C-99 escreve o
+    //    tipo do evento dentro da justificativa: um grupo C-99 juntava sete
+    //    tipos e o cabecalho anunciava o de cima ("nenhuma regra cobre
+    //    DATE_CHANGE") sobre linhas de NEEDS_HUMAN_REVIEW e EXPIRY_EVENT.
     const porEstado = {};
-    // Agrupa por ESTADO + REGRA: um grupo so pode anunciar uma regra se todas as
-    // linhas dele vierem dela. Antes o cabecalho pegava a regra do primeiro
-    // objeto e a estampava sobre 210 linhas com regras diferentes.
     meus.forEach(x => {
-      const k = x.r.ROUTING_STATE + '||' + x.r.RULE_ID;
+      const k = JSON.stringify([x.r.ROUTING_STATE, x.r.RULE_ID, x.r.JUSTIFICATION]);
       (porEstado[k] = porEstado[k]||[]).push(x);
     });
     const rtvNota = c === 'COMMERCIAL_RTV'
@@ -479,10 +594,27 @@ function viewAction() {
       : '';
     if (!meus.length) return `<div class="block"><h3>${CAPS[c]}</h3>${rtvNota}
       <div class="meta">nenhum objeto alcanca esta capacidade</div></div>`;
-    const linha = (chave, lista) => { const [est, rid] = chave.split('||'); return `<div style="margin:9px 0">
-      <span class="pill ${est==='RELEVANT'?'p-ok':est==='POTENTIALLY_RELEVANT'?'p-warn':est==='NOT_RELEVANT'?'p-dim':'p-unk'}">${est}</span>
+    const linha = (chave, lista) => { const [est, rid, just] = JSON.parse(chave);
+      // Tripwire: se um dia o agrupamento deixar entrar duas justificativas no
+      // mesmo grupo, a tela diz isso em vez de estampar a do primeiro objeto.
+      const js = new Set(lista.map(x => x.r.JUSTIFICATION));
+      const por = js.size === 1 ? esc(just)
+        : `<span class="unknown">JUSTIFICATION_NOT_UNIFORM</span> (${js.size} textos diferentes sob a mesma regra)`;
+      // NOT_RELEVANT e um portao fechado, nao uma lista. Listar as 210 linhas
+      // debaixo de um aviso dizendo que o portao as barra e mostrar exatamente
+      // o que se afirmou nao estar mostrando.
+      if (est === 'NOT_RELEVANT') return `<div style="margin:9px 0">
+        <span class="pill p-dim">NOT_RELEVANT</span>
+        <span class="meta"><b>${lista.length} objeto(s)</b> barrados aqui pela regra
+          <code>${esc(rid)}</code> — ${por}</span>
+        <div class="meta">As linhas <b>nao</b> sao listadas nesta area: o estado delas para esta
+          capacidade e &ldquo;nao passa&rdquo;, e imprimir a tabela seria entregar como conteudo o
+          que a regra acabou de barrar. Cada um destes objetos continua visivel, com prova, na(s)
+          area(s) onde alguma regra o deixa passar, e em MUDANCAS.</div></div>`;
+      return `<div style="margin:9px 0">
+      <span class="pill ${est==='RELEVANT'?'p-ok':est==='POTENTIALLY_RELEVANT'?'p-warn':'p-unk'}">${est}</span>
       ${est==='UNKNOWN'?'<span class="meta">— nenhuma regra cobre este tipo para esta area. <b>Isto nao diz que a area nao precisa olhar; diz que nao sabemos.</b></span>':''}
-      <span class="meta">${lista.length} objeto(s) &middot; regra <code>${esc(rid)}</code> — ${esc(lista[0].r.JUSTIFICATION)}</span>
+      <span class="meta">${lista.length} objeto(s) &middot; regra <code>${esc(rid)}</code> — ${por}</span>
       <div class="tw" style="margin-top:6px"><table>
         <thead><tr><th>Produto</th><th>Tipo</th><th>Antes &rarr; Depois</th><th>Janela</th><th>Prova</th><th></th></tr></thead>
         <tbody>${lista.slice(0,60).map(({o}) => `<tr>
@@ -497,7 +629,7 @@ function viewAction() {
     return `<div class="block"><h3>${CAPS[c]} <span class="meta">(${meus.length})</span></h3>${rtvNota}
       ${Object.keys(porEstado).sort((a,b)=>{
           const o={RELEVANT:0,POTENTIALLY_RELEVANT:1,UNKNOWN:2,NEEDS_REVIEW:3,NOT_RELEVANT:4};
-          return (o[a.split('||')[0]]??9)-(o[b.split('||')[0]]??9);
+          return (o[JSON.parse(a)[0]]??9)-(o[JSON.parse(b)[0]]??9);
         }).map(k => linha(k, porEstado[k])).join('')}</div>`;
   });
   $('#v-action').innerHTML = `

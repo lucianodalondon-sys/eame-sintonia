@@ -121,6 +121,29 @@ r = subprocess.run(["python3", "v1/testes/test_ruido.py"], capture_output=True, 
 ok("FALSE_CHANGE_NOISE_TEST", "11 testes adversariais passam") if r.returncode == 0 \
     else fail("FALSE_CHANGE_NOISE_TEST", "a suite de ruido falhou")
 
+# --- 15. EXCLUSAO NAO E PERMISSAO (R-10)
+exc = json.load(open("v1/dados/EXCLUSAO.json", encoding="utf-8"))
+publicados = {(p["reg"], u["crop"], u["target"]) for p in PAY["products"] for u in p["uses"]}
+vazou = [(w["REGISTRATION_ID"], w["CROP"], w["TARGET"]) for w in exc["RETIRADOS"]
+         if (w["REGISTRATION_ID"], w["CROP"], w["TARGET"]) in publicados]
+sem_prova = [w for w in exc["RETIRADOS"] if not w.get("EXCLUSION_TEXT")]
+if vazou:
+    fail("EXCLUSION_IS_NOT_PERMISSION", f"cultura retirada ainda publicada como uso: {vazou}")
+elif sem_prova:
+    fail("EXCLUSION_IS_NOT_PERMISSION", f"{len(sem_prova)} retiradas sem a frase do rotulo")
+else:
+    ok("EXCLUSION_IS_NOT_PERMISSION",
+       f'{exc["PARES_RETIRADOS"]} par(es) retirado(s), cada um com a frase literal do rotulo; '
+       f'{exc["LABELS_WITH_EXCLUSION"]} rotulos tem janela de exclusao')
+
+# --- 16. dose nunca escolhida entre candidatas discordantes
+r = subprocess.run(["node", "v1/testes/test_casco.js"], capture_output=True, text=True)
+if r.returncode == 0:
+    linha = [l for l in r.stdout.splitlines() if "passaram" in l]
+    ok("CASCO_RENDER_TEST", linha[0].strip() if linha else "a suite de render passa")
+else:
+    fail("CASCO_RENDER_TEST", "a suite de render do casco falhou:\n" + r.stdout[-800:])
+
 falhas = [x for x in R if x["STATE"] == "FAIL"]
 json.dump({"SUITE": "PORTOES-V1", "PASS": len(R) - len(falhas), "FAIL": len(falhas),
            "RESULTS": R}, open("v1/testes/RESULTADO-PORTOES.json", "w", encoding="utf-8"),

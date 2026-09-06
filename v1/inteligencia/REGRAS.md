@@ -40,6 +40,7 @@ que a ferramenta faz e `RECOMMENDED_REVIEW`, que e um convite a olhar.
 | `R-07` | `data_decreto_revoca` / `data_decorrenza_revoca` mudou | houve ato de revoga com data | idem |
 | `R-08` | sha256 do PDF da etichetta mudou entre duas capturas | o documento do rotulo mudou | dois PDFs com hash distinto |
 | `R-09` | validade oficial ja passou e o estado nao e Revocato/Scaduto | a data de validade passou **e o registro segue listando o produto como autorizado** | um campo do CSV vigente |
+| `R-10` | `EXCLUSION_IS_NOT_PERMISSION` — uma cultura cujo unico apoio textual no rotulo esta **dentro** de uma janela de exclusao (`ad esclusione di`, `escluso/a/i/e`, `ad eccezione di`, `tranne`, `eccetto`) nao pode ser publicada como uso autorizado | o leitor de uso reusado nao modela escopo negativo. Medido: em `002983` e `013405` toda ocorrencia da raiz `cilieg` esta dentro de "Pomodoro (ad esclusione di Pomodoro ciliegino)", e mesmo assim `CILIEGIO x OIDIO` saia como uso autorizado — uma exclusao de tomate cereja virou permissao de cerejeira |
 
 `R-09` e a unica que exige nota permanente na tela: **vencer nao e ser revogado.**
 A ferramenta mostra os dois campos e nao conclui saida de mercado.
@@ -82,10 +83,22 @@ Roteamento diz **quem pode precisar olhar**, nunca **o que fazer**.
 | `C-04` | `DEVELOPMENT_MARKET` | `CROP_USE_REMOVED`, `TARGET_USE_REMOVED`, `DOSE_CHANGE` | `POTENTIALLY_RELEVANT` | pode exigir reavaliacao de posicionamento |
 | `C-05` | `COMMERCIAL_RTV` | qualquer evento | `NOT_RELEVANT` **por padrao** | o campo nao deve receber fato regulatorio bruto; so passa pelo portao `G-01` |
 | `C-06` | `MARKETING_PRODUCT` | `CROP_USE_ADDED/REMOVED`, `TARGET_USE_ADDED/REMOVED`, `DOSE_CHANGE`, `RESTRICTION_CHANGE` | `POTENTIALLY_RELEVANT` | material publicado pode citar o uso que mudou; gera `CONTENT_REVIEW_CANDIDATE`, nunca "material errado" |
-| `C-07` | `SUPPLY` | `EXPIRY_EVENT`, `STATUS_CHANGE` | `POTENTIALLY_RELEVANT` | sao eventos com data; **nao** implicam demanda nem estoque |
+| `C-07` | `SUPPLY` | `EXPIRY_EVENT` | `POTENTIALLY_RELEVANT` | e uma data no horizonte, e so isso. `EXPIRY != WITHDRAWAL`: a regra nao autoriza derivar dela nenhum efeito comercial — nem sobre procura, nem sobre inventario, nem sobre venda |
+| `C-10` | `SUPPLY` | `STATUS_CHANGE` | `POTENTIALLY_RELEVANT` | o estado administrativo do registro mudou. O fato e a mudanca de estado; a consequencia de abastecimento nao esta provada por ele |
+| `C-11` | `SUPPLY` | `DATE_CHANGE` | `POTENTIALLY_RELEVANT` | um campo de data que **nao** e a validade se moveu. Vale olhar porque planejamento usa data, mas nao e vencimento e nao pode ser lido como tal |
+| `C-12` | `SUPPLY` | `REVOCATION_ACT_CHANGE` | `POTENTIALLY_RELEVANT` | mudou um dado do ato de revoga (motivo, decreto, decorrencia). Isto e sobre o ATO, nao sobre a existencia do produto no mercado |
+| `C-13` | `SUPPLY` | `PRODUCT_LEFT_ACTIVE_SET` | `POTENTIALLY_RELEVANT` | a registracao saiu do conjunto ativo do instantaneo. `CATALOG_PRESENCE != MARKET_PRESENCE`: sair do conjunto ativo prova uma coisa so, que a linha saiu daquele conjunto naquele instantaneo |
 | `C-08` | `INTELLIGENCE` | todo evento provado | `RELEVANT` | a area cruza portfolio, cultura, alvo e tempo |
 | `C-09` | `COUNTRY_PRODUCT_TEAM` | eventos do proprio pais | `POTENTIALLY_RELEVANT` | dono do portfolio local |
 | `C-99` | qualquer | tipo de evento sem regra acima | `UNKNOWN` | nenhuma regra cobre; aparece como nao roteado |
+
+Uma regra de roteamento so pode ser citada por um tipo de evento que ela
+nomeia. `C-07` ja foi escrita para `EXPIRY_EVENT, STATUS_CHANGE` e usada por
+cinco tipos: o cabecalho dizia "sao eventos com data" sobre uma saida do
+conjunto ativo, que nao e uma data. Cinco tipos diferentes agora tem cinco
+regras, cada uma com a sua propria justificativa, porque as razoes sao
+diferentes — e porque juntar vencimento com saida do conjunto ativo debaixo de
+uma frase so e exatamente a confusao que `EXPIRY != WITHDRAWAL` proibe.
 
 ## 7 · Portoes (`G-*`)
 

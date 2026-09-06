@@ -15,7 +15,7 @@ O que nenhuma regra cobre sai UNKNOWN e aparece assim na tela.
 import argparse, datetime, hashlib, json, os, sys
 from collections import Counter
 
-RULESET_VERSION = "v1/inteligencia/REGRAS.md@2"
+RULESET_VERSION = "v1/inteligencia/REGRAS.md@3"
 
 # ---- C-*: roteamento declarado. Nada fora desta tabela e roteado.
 ROTEAMENTO = {
@@ -24,17 +24,17 @@ ROTEAMENTO = {
                                 ("INTELLIGENCE", "RELEVANT", "C-08"),
                                 ("COUNTRY_PRODUCT_TEAM", "POTENTIALLY_RELEVANT", "C-09")],
     "DATE_CHANGE":             [("REGULATORY", "RELEVANT", "C-01"),
-                                ("SUPPLY", "POTENTIALLY_RELEVANT", "C-07"),
+                                ("SUPPLY", "POTENTIALLY_RELEVANT", "C-11"),
                                 ("INTELLIGENCE", "RELEVANT", "C-08"),
                                 ("COUNTRY_PRODUCT_TEAM", "POTENTIALLY_RELEVANT", "C-09")],
     "STATUS_CHANGE":           [("REGULATORY", "RELEVANT", "C-01"),
-                                ("SUPPLY", "POTENTIALLY_RELEVANT", "C-07"),
+                                ("SUPPLY", "POTENTIALLY_RELEVANT", "C-10"),
                                 ("INTELLIGENCE", "RELEVANT", "C-08"),
                                 ("COUNTRY_PRODUCT_TEAM", "POTENTIALLY_RELEVANT", "C-09")],
     "HOLDER_CHANGE":           [("REGULATORY", "RELEVANT", "C-01"),
                                 ("INTELLIGENCE", "RELEVANT", "C-08")],
     "REVOCATION_ACT_CHANGE":   [("REGULATORY", "RELEVANT", "C-01"),
-                                ("SUPPLY", "POTENTIALLY_RELEVANT", "C-07"),
+                                ("SUPPLY", "POTENTIALLY_RELEVANT", "C-12"),
                                 ("INTELLIGENCE", "RELEVANT", "C-08"),
                                 ("COUNTRY_PRODUCT_TEAM", "POTENTIALLY_RELEVANT", "C-09")],
     "ACTIVE_INGREDIENT_CHANGE": [("REGULATORY", "RELEVANT", "C-01"),
@@ -44,7 +44,7 @@ ROTEAMENTO = {
                                 ("INTELLIGENCE", "RELEVANT", "C-08"),
                                 ("COUNTRY_PRODUCT_TEAM", "POTENTIALLY_RELEVANT", "C-09")],
     "PRODUCT_LEFT_ACTIVE_SET": [("REGULATORY", "RELEVANT", "C-01"),
-                                ("SUPPLY", "POTENTIALLY_RELEVANT", "C-07"),
+                                ("SUPPLY", "POTENTIALLY_RELEVANT", "C-13"),
                                 ("INTELLIGENCE", "RELEVANT", "C-08")],
     "CROP_USE_ADDED":          [("REGULATORY", "RELEVANT", "C-01"),
                                 ("DEVELOPMENT_MARKET", "POTENTIALLY_RELEVANT", "C-03"),
@@ -83,9 +83,20 @@ PORQUE = {
     "C-05": ("o campo nao recebe fato regulatorio bruto; portao G-01 fechado nesta versao"),
     "C-06": ("material publicado pode citar o uso que mudou; gera CONTENT_REVIEW_CANDIDATE, "
              "nunca 'material errado'"),
-    "C-07": "sao eventos com data; NAO implicam demanda nem estoque",
+    "C-07": ("e uma data no horizonte, e so isso. EXPIRY != WITHDRAWAL: a regra nao "
+             "autoriza derivar dela nenhum efeito comercial — nem sobre procura, nem "
+             "sobre inventario, nem sobre venda"),
     "C-08": "a area cruza portfolio, cultura, alvo e tempo",
     "C-09": "dono do portfolio local",
+    "C-10": ("o estado administrativo do registro mudou. O fato e a mudanca de estado; "
+             "a consequencia de abastecimento nao esta provada por ele"),
+    "C-11": ("um campo de data que NAO e a validade se moveu. Vale olhar porque "
+             "planejamento usa data, mas nao e vencimento e nao pode ser lido como tal"),
+    "C-12": ("mudou um dado do ato de revoga (motivo, decreto, decorrencia). Isto e "
+             "sobre o ATO, nao sobre a existencia do produto no mercado"),
+    "C-13": ("a registracao saiu do conjunto ativo do instantaneo. CATALOG_PRESENCE != "
+             "MARKET_PRESENCE: sair do conjunto ativo prova uma coisa so, que a linha "
+             "saiu daquele conjunto naquele instantaneo"),
 }
 
 # O campo RTV nunca recebe direto: C-05 mantem NOT_RELEVANT ate o portao G-01.
@@ -270,6 +281,19 @@ def main():
         v = str(v).strip()
         return "NOT_PRESENT" if v in ("-", "", "--") else v
 
+    def diz(v, ausente="NOT_KNOWN"):
+        """Nenhum None de Python pode vazar para texto que uma pessoa le.
+
+        Medido: 6 objetos exibiam a frase "separa a linha do valor None" —
+        None ali nao era um valor lido, era a ausencia de um valor lido
+        aparecendo com o nome que a linguagem lhe da. Token de ignorancia tem
+        de ser dito pelo nome do contrato, nao pelo nome da linguagem.
+        """
+        if v is None:
+            return ausente
+        v = str(v).strip()
+        return v if v and v not in ("-", "--", "None") else ausente
+
     for e in vs["CHANGE_EVENTS"]:
         if e.get("UNSTABLE_SOURCE"):
             continue                       # N-03: oscilacao nao vira objeto
@@ -338,7 +362,7 @@ def main():
                 BEFORE_VALUE=i["BASELINE_SHA256"], AFTER_VALUE=i.get("CURRENT_SHA256"),
                 CAPTURED_AT=i["OBSERVED_AT"], DETECTED_AT=i["OBSERVED_AT"],
                 SOURCE_DOCUMENT_BEFORE=f'sha256={i["BASELINE_SHA256"]}',
-                SOURCE_DOCUMENT_AFTER=f'sha256={i.get("CURRENT_SHA256")}',
+                SOURCE_DOCUMENT_AFTER=f'sha256={diz(i.get("CURRENT_SHA256"), "NOT_PRESERVED")}',
                 EVIDENCE_LOCATION=i["LABEL_URL"], SOURCE_URL=i["LABEL_URL"],
                 CONFIDENCE_STATE="DOCUMENT_HASH_DIFF",
                 RECOMMENDED_REVIEW=("comparar o conteudo das duas versoes; hash diferente prova "
@@ -355,16 +379,23 @@ def main():
             for r in (lab.get("ROWS") or []):
                 if not r.get("NEEDS_REVIEW"):
                     continue
+                cul = diz(r.get("CROP"), "NOT_KNOWN")
+                alv = diz(r.get("TARGET"), "NOT_KNOWN")
+                rej = diz(r.get("DOSE_PER_HECTARE_REJECTED"), "NOT_PRESERVED")
                 objs.append(base(
                     "NEEDS_HUMAN_REVIEW", it,
-                    FACT=(f'a dose lida para {r.get("CROP")} x {r.get("TARGET")} foi rebaixada: '
-                          f'um fio desenhado da tabela separa a linha do valor {r.get("DOSE_PER_HECTARE_REJECTED")}'),
-                    BEFORE_VALUE=r.get("DOSE_PER_HECTARE_REJECTED", "NOT_KNOWN"),
+                    FACT=(f'a dose lida para {cul} x {alv} foi rebaixada: um fio desenhado '
+                          f'da tabela separa a linha do valor. '
+                          + (f'O valor recusado foi {rej}.' if rej != "NOT_PRESERVED"
+                             else 'Este leitor NAO preservou qual valor recusou '
+                                  '(NOT_PRESERVED): sabe-se que houve recusa, nao o que '
+                                  'foi recusado.')),
+                    BEFORE_VALUE=rej,
                     AFTER_VALUE="NOT_PRESENT",
                     PROOF_STATE="NOT_PROVED", CONFIDENCE_STATE="RULE_CONTRADICTION",
-                    AFFECTED_CROP=r.get("CROP"), AFFECTED_TARGET=r.get("TARGET"),
-                    AFFECTED_USE=f'{r.get("CROP")} x {r.get("TARGET")}',
-                    EVIDENCE_LOCATION=f'pagina {r.get("SOURCE_PAGE")}, {it["PDF_URL"]}',
+                    AFFECTED_CROP=cul, AFFECTED_TARGET=alv,
+                    AFFECTED_USE=f'{cul} x {alv}',
+                    EVIDENCE_LOCATION=f'pagina {diz(r.get("SOURCE_PAGE"), "NOT_PRESERVED")}, {it["PDF_URL"]}',
                     SOURCE_DOCUMENT_AFTER=f'sha256={it["PDF_SHA256"]}',
                     SOURCE_URL=it["PDF_URL"],
                     PARSER_VERSION="v1/dose_extrair + dose_validar",
