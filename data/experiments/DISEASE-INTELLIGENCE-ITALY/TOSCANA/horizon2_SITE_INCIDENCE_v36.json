@@ -1,0 +1,440 @@
+{
+ "outcome_key": "SITE_INCIDENCE",
+ "var": 36,
+ "n_seasons": 20,
+ "seasons": [
+  2006,
+  2007,
+  2008,
+  2009,
+  2010,
+  2012,
+  2013,
+  2014,
+  2015,
+  2016,
+  2017,
+  2018,
+  2019,
+  2020,
+  2021,
+  2022,
+  2023,
+  2024,
+  2025,
+  2026
+ ],
+ "bonferroni_family_size": 70,
+ "bonferroni_threshold": 0.000714,
+ "direction_locked": "+1 (biology: wetter -> more downy mildew)",
+ "pre_registered_feature": "ytd_precip_sum",
+ "cutoffs": [
+  {
+   "cutoff": "PREV_SEASON_END",
+   "n_years": 20,
+   "n_candidates": 3,
+   "CAUSAL": {
+    "accuracy": 0.3636,
+    "n": 11,
+    "years": [
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025,
+     2026
+    ],
+    "features_picked": [
+     "prevseason_precip_sum",
+     "prevseason_rain_days",
+     "prevseason_rain_days",
+     "prevseason_rain_days",
+     "prevseason_rain_days",
+     "prevseason_rain_days",
+     "prevseason_rain_days",
+     "prevseason_rain_days",
+     "prevseason_rain_days",
+     "prevseason_rain_days",
+     "prevseason_rain_days"
+    ],
+    "p_permutation": 0.59767,
+    "mcnemar_vs_best_baseline": {
+     "p": 1.0,
+     "model_only_correct": 1,
+     "baseline_only_correct": 2,
+     "n_shared": 11
+    }
+   },
+   "ORACLE_IN_SAMPLE_UPPER_BOUND": {
+    "feature": "prevseason_rain_days",
+    "accuracy": 0.4,
+    "n": 15,
+    "p_single_test": 0.37128,
+    "p_selection_aware_maxstat": 0.62068,
+    "WARNING": "feature chosen using ALL scored years \u2014 NOT out-of-sample"
+   },
+   "SKILL_STATE": "REFUTED"
+  },
+  {
+   "cutoff": "31_JAN",
+   "n_years": 20,
+   "n_candidates": 10,
+   "CAUSAL": {
+    "accuracy": 0.5455,
+    "n": 11,
+    "years": [
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025,
+     2026
+    ],
+    "features_picked": [
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum"
+    ],
+    "p_permutation": 0.15819,
+    "mcnemar_vs_best_baseline": {
+     "p": 1.0,
+     "model_only_correct": 3,
+     "baseline_only_correct": 2,
+     "n_shared": 11
+    }
+   },
+   "PRE_REGISTERED": {
+    "feature": "ytd_precip_sum",
+    "accuracy": 0.4667,
+    "n": 15,
+    "p_permutation": 0.23979
+   },
+   "ORACLE_IN_SAMPLE_UPPER_BOUND": {
+    "feature": "ytd_precip_sum",
+    "accuracy": 0.4667,
+    "n": 15,
+    "p_single_test": 0.23979,
+    "p_selection_aware_maxstat": 0.84643,
+    "WARNING": "feature chosen using ALL scored years \u2014 NOT out-of-sample"
+   },
+   "SKILL_STATE": "REFUTED"
+  },
+  {
+   "cutoff": "28_FEB",
+   "n_years": 20,
+   "n_candidates": 10,
+   "CAUSAL": {
+    "accuracy": 0.3636,
+    "n": 11,
+    "years": [
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025,
+     2026
+    ],
+    "features_picked": [
+     "ytd_precip_sum",
+     "winter_precip_sum",
+     "winter_precip_sum",
+     "winter_precip_sum",
+     "winter_precip_sum",
+     "winter_precip_sum",
+     "winter_precip_sum",
+     "winter_precip_sum",
+     "winter_precip_sum",
+     "winter_precip_sum",
+     "ytd_precip_sum"
+    ],
+    "p_permutation": 0.71936,
+    "mcnemar_vs_best_baseline": {
+     "p": 1.0,
+     "model_only_correct": 2,
+     "baseline_only_correct": 3,
+     "n_shared": 11
+    }
+   },
+   "PRE_REGISTERED": {
+    "feature": "ytd_precip_sum",
+    "accuracy": 0.4667,
+    "n": 15,
+    "p_permutation": 0.22269
+   },
+   "ORACLE_IN_SAMPLE_UPPER_BOUND": {
+    "feature": "ytd_precip_sum",
+    "accuracy": 0.4667,
+    "n": 15,
+    "p_single_test": 0.22269,
+    "p_selection_aware_maxstat": 0.79664,
+    "WARNING": "feature chosen using ALL scored years \u2014 NOT out-of-sample"
+   },
+   "SKILL_STATE": "REFUTED"
+  },
+  {
+   "cutoff": "31_MAR",
+   "n_years": 20,
+   "n_candidates": 10,
+   "CAUSAL": {
+    "accuracy": 0.4545,
+    "n": 11,
+    "years": [
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025,
+     2026
+    ],
+    "features_picked": [
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_wet_spells_2d",
+     "ytd_wet_spells_2d",
+     "ytd_wet_spells_2d",
+     "ytd_wet_spells_2d",
+     "ytd_precip_sum"
+    ],
+    "p_permutation": 0.40663,
+    "mcnemar_vs_best_baseline": {
+     "p": 1.0,
+     "model_only_correct": 3,
+     "baseline_only_correct": 3,
+     "n_shared": 11
+    }
+   },
+   "PRE_REGISTERED": {
+    "feature": "ytd_precip_sum",
+    "accuracy": 0.6,
+    "n": 15,
+    "p_permutation": 0.04255
+   },
+   "ORACLE_IN_SAMPLE_UPPER_BOUND": {
+    "feature": "ytd_precip_sum",
+    "accuracy": 0.6,
+    "n": 15,
+    "p_single_test": 0.04255,
+    "p_selection_aware_maxstat": 0.20696,
+    "WARNING": "feature chosen using ALL scored years \u2014 NOT out-of-sample"
+   },
+   "SKILL_STATE": "REFUTED"
+  },
+  {
+   "cutoff": "30_APR",
+   "n_years": 20,
+   "n_candidates": 10,
+   "CAUSAL": {
+    "accuracy": 0.4545,
+    "n": 11,
+    "years": [
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025,
+     2026
+    ],
+    "features_picked": [
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum"
+    ],
+    "p_permutation": 0.36118,
+    "mcnemar_vs_best_baseline": {
+     "p": 1.0,
+     "model_only_correct": 2,
+     "baseline_only_correct": 2,
+     "n_shared": 11
+    }
+   },
+   "PRE_REGISTERED": {
+    "feature": "ytd_precip_sum",
+    "accuracy": 0.5333,
+    "n": 15,
+    "p_permutation": 0.11194
+   },
+   "ORACLE_IN_SAMPLE_UPPER_BOUND": {
+    "feature": "ytd_wet_spells_2d",
+    "accuracy": 0.6,
+    "n": 15,
+    "p_single_test": 0.04115,
+    "p_selection_aware_maxstat": 0.23355,
+    "WARNING": "feature chosen using ALL scored years \u2014 NOT out-of-sample"
+   },
+   "SKILL_STATE": "REFUTED"
+  },
+  {
+   "cutoff": "31_MAY",
+   "n_years": 20,
+   "n_candidates": 10,
+   "CAUSAL": {
+    "accuracy": 0.5455,
+    "n": 11,
+    "years": [
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025,
+     2026
+    ],
+    "features_picked": [
+     "ytd_precip_sum",
+     "ytd_wet_spells_2d",
+     "ytd_wet_spells_2d",
+     "ytd_wet_spells_2d",
+     "ytd_rh75_days",
+     "ytd_rh75_days",
+     "ytd_rh75_days",
+     "ytd_rh75_days",
+     "ytd_wet_spells_2d",
+     "ytd_wet_spells_2d",
+     "ytd_wet_spells_2d"
+    ],
+    "p_permutation": 0.18774,
+    "mcnemar_vs_best_baseline": {
+     "p": 1.0,
+     "model_only_correct": 3,
+     "baseline_only_correct": 2,
+     "n_shared": 11
+    }
+   },
+   "PRE_REGISTERED": {
+    "feature": "ytd_precip_sum",
+    "accuracy": 0.5333,
+    "n": 15,
+    "p_permutation": 0.10164
+   },
+   "ORACLE_IN_SAMPLE_UPPER_BOUND": {
+    "feature": "ytd_wet_spells_2d",
+    "accuracy": 0.7333,
+    "n": 15,
+    "p_single_test": 0.0022,
+    "p_selection_aware_maxstat": 0.017,
+    "WARNING": "feature chosen using ALL scored years \u2014 NOT out-of-sample"
+   },
+   "SKILL_STATE": "REFUTED"
+  },
+  {
+   "cutoff": "30_JUN",
+   "n_years": 20,
+   "n_candidates": 10,
+   "CAUSAL": {
+    "accuracy": 0.6364,
+    "n": 11,
+    "years": [
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025,
+     2026
+    ],
+    "features_picked": [
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum",
+     "ytd_precip_sum"
+    ],
+    "p_permutation": 0.06305,
+    "mcnemar_vs_best_baseline": {
+     "p": 0.6875,
+     "model_only_correct": 4,
+     "baseline_only_correct": 2,
+     "n_shared": 11
+    }
+   },
+   "PRE_REGISTERED": {
+    "feature": "ytd_precip_sum",
+    "accuracy": 0.6667,
+    "n": 15,
+    "p_permutation": 0.0127
+   },
+   "ORACLE_IN_SAMPLE_UPPER_BOUND": {
+    "feature": "ytd_precip_sum",
+    "accuracy": 0.6667,
+    "n": 15,
+    "p_single_test": 0.0127,
+    "p_selection_aware_maxstat": 0.07558,
+    "WARNING": "feature chosen using ALL scored years \u2014 NOT out-of-sample"
+   },
+   "SKILL_STATE": "REFUTED"
+  }
+ ],
+ "baselines": {
+  "BASELINE_CLIMATOLOGY": {
+   "accuracy": 0.4,
+   "n": 15
+  },
+  "BASELINE_PREVIOUS_YEAR": {
+   "accuracy": 0.4667,
+   "n": 15
+  }
+ },
+ "best_baseline": 0.4667,
+ "best_baseline_name": "BASELINE_PREVIOUS_YEAR",
+ "FIRST_PROVED_CUTOFF": null,
+ "12M_SKILL": "NO"
+}
