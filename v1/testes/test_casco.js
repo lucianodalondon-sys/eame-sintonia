@@ -786,6 +786,44 @@ teste('RT4 · sublinhado de titulo nao e regua de tabela', () => {
   return `${sub.length} pares em ${regs.length} rotulos (${regs.join(', ')})`;
 });
 
+teste('RT4 · aspas com verbo de citacao so onde R-18 provou a frase', () => {
+  // Achado BLOCKING da lente I, em duas partes.
+  //
+  // (1) O casco lia a lista de citacoes REPROVADAS com default QUOTE_VERBATIM:
+  //     ausencia de registro virava afirmacao positiva. As 349 linhas
+  //     ROW_RECONSTRUCTED_FROM_CELLS e as 163 QUOTE_TOO_SHORT_TO_CHECK nunca
+  //     estiveram na lista e saiam como "Citacao do documento".
+  // (2) As 2.873 frases que a tela imprime como "o rotulo escreve" ao lado de
+  //     cada par (CROP_AS_WRITTEN, TARGET_AS_WRITTEN) nunca tinham sido
+  //     conferidas. Medido: 1.408 e 939 delas nao sao literais.
+  const cs = {}, ts = {}, qs = {};
+  P.products.forEach(p => {
+    (p.uses||[]).forEach(u => {
+      cs[u.crop_raw_state] = (cs[u.crop_raw_state]||0)+1;
+      ts[u.target_raw_state] = (ts[u.target_raw_state]||0)+1;
+    });
+    (p.doses||[]).forEach(d => { qs[d.quote_state] = (qs[d.quote_state]||0)+1; });
+  });
+  afirma(!cs[undefined] && !ts[undefined],
+    'ha par de uso sem veredito de citacao para a celula como escrita');
+  afirma((cs.QUOTE_CUT_MID_WORD||0) > 0 && (ts.QUOTE_CUT_MID_WORD||0) > 0,
+    'nenhuma citacao cortada no meio de palavra — o teste perdeu o alvo');
+  afirma(!qs.QUOTE_VERBATIM,
+    'alguma linha de dose voltou a dizer que a citacao e literal por default');
+  // e a tela: nada que nao seja QUOTE_VERBATIM pode sair com o verbo de citacao
+  const norm = z => String(z||'').toLowerCase().replace(/\s+/g,' ').trim();
+  const p = P.products.find(x => (x.uses||[]).some(
+    u => u.target_raw_state === 'QUOTE_CUT_MID_WORD' && norm(u.target_raw) !== norm(u.target)));
+  afirma(p, 'nenhum rotulo com alvo cortado no meio de palavra e texto proprio');
+  const sq = document.querySelector('#sq');
+  sq.value = p.reg; viewSearch();
+  const h = html('#sres');
+  sq.value = '';
+  afirma(!/o rotulo escreve[^<]*<i>/.test(h) || h.includes('leitura do extrator'),
+    'a busca ainda imprime "o rotulo escreve" sobre texto que R-18 nao aprovou');
+  return `cultura ${JSON.stringify(cs)} · alvo ${JSON.stringify(ts)}`;
+});
+
 teste('zero medido, nao coletado e nao sei sao tres respostas diferentes', () => {
   const lido = P.products.find(p => p.states && p.states.LABEL_READ && !p.uses.length);
   const naoColetado = P.products.find(p => p.states && p.states.LABEL_DOWNLOADED === false);

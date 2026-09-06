@@ -72,8 +72,47 @@ versao desta regra — que acusou 846 "truncamentos" e estava errada:
 
 O casco nao pode imprimir com o verbo "o rotulo escreve" nada que nao seja
 `QUOTE_VERBATIM`. Para o resto ha nome proprio, e o nome diz o que aconteceu.
+
+## O que a rodada 4 achou aqui, e era o buraco maior
+
+Duas coisas, as duas na ligacao entre este modulo e o casco:
+
+1. **AS DUAS MAIORES FAMILIAS NAO ESTAVAM NA LISTA.** A tela imprime, ao lado
+   de cada par de uso, `o rotulo escreve: "..."` com o `CROP_AS_WRITTEN` e o
+   `TARGET_AS_WRITTEN` — 2.873 frases de cada, com verbo de citacao, e nenhuma
+   tinha passado por aqui. Medido agora:
+
+       PAIR_CROP_AS_WRITTEN     1.465 verbatim · 670 cortada no meio de palavra
+                                461 nao contigua · 277 curta demais
+       PAIR_TARGET_AS_WRITTEN   1.934 verbatim · 621 cortada no meio de palavra
+                                235 nao contigua ·  83 curta demais
+
+   1.408 celulas de cultura e 939 de alvo saiam entre aspas sem ser literais.
+
+2. **AUSENCIA DE REGISTRO VIRAVA APROVACAO.** Este modulo publicava so `DETAIL`,
+   a lista das REPROVADAS, e o casco lia com `.get(chave, "QUOTE_VERBATIM")`.
+   As 349 `ROW_RECONSTRUCTED_FROM_CELLS` e as 163 `QUOTE_TOO_SHORT_TO_CHECK`
+   nunca estiveram na lista de falhas e por isso saiam como "Citacao do
+   documento" — 512 selos por valor default. E a chave era a frase cortada em
+   200 caracteres, cortada AQUI sobre o texto cru e LA sobre o texto
+   normalizado: as citacoes longas nunca casavam e caiam no default em silencio.
+
+   Agora sai `VERDICT` com TODAS as citacoes, a chave e o sha1 da frase
+   normalizada, e o default do casco e `QUOTE_NOT_CHECKED`.
+
+## DEPENDENCIA CIRCULAR, declarada
+
+Este modulo LE `CASCO-PAYLOAD.json` para saber quais frases o casco imprime, e o
+casco LE a saida deste modulo para saber quais pode citar. Na esteira, este roda
+ANTES do casco — entao ele confere as frases do payload ANTERIOR. Se o conjunto
+de pares mudar entre uma execucao e outra, as frases novas nao terao veredito e
+o casco as marcara `QUOTE_NOT_CHECKED`, que e o lado seguro: a frase nova nao
+recebe aspas ate alguem conferi-la. Duas execucoes seguidas da esteira fecham o
+ciclo. Isto esta escrito porque um leitor que veja `QUOTE_NOT_CHECKED` numa
+frase obviamente literal merece saber que a causa pode ser a ordem da esteira, e
+nao o documento.
 """
-import argparse, json, os, re, subprocess, sys, unicodedata
+import argparse, hashlib, json, os, re, subprocess, sys, unicodedata
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -168,6 +207,23 @@ def main():
     pay = json.load(open(a.payload, encoding='utf-8'))
     fam = {}
     det = []
+    # VEREDITO DE TODAS AS CITACOES, E NAO SO DAS REPROVADAS.
+    #
+    # Ate a rodada 4 este modulo publicava so a lista das que falharam, e o
+    # casco lia essa lista com `.get(chave, 'QUOTE_VERBATIM')`. Ausencia de
+    # registro virava afirmacao positiva — e as 163 QUOTE_TOO_SHORT_TO_CHECK e
+    # as 349 ROW_RECONSTRUCTED_FROM_CELLS, que NUNCA estiveram na lista de
+    # falhas, saiam na tela como "Citacao do documento". 512 citacoes com o selo
+    # errado por causa de um valor default.
+    #
+    # A chave e o sha1 da frase JA NORMALIZADA, e nao a frase cortada em 200
+    # caracteres: o corte era feito aqui sobre o texto cru e no casco sobre o
+    # texto normalizado, entao as 35 citacoes de 200+ caracteres nunca casavam
+    # e caiam no default silenciosamente.
+    ver = {}
+
+    def chave_cit(nome, reg, frase):
+        return f'{nome}|{reg}|' + hashlib.sha1(nz(frase).encode()).hexdigest()[:16]
 
     def reg_fam(nome, tipo, itens):
         c = Counter()
@@ -183,6 +239,7 @@ def main():
                 if any(o != f and o.startswith(f) for o in porreg.get(reg, ())):
                     e = 'QUOTE_IS_PREFIX_OF_LONGER_QUOTE'
             c[e] += 1
+            ver[chave_cit(nome, reg, frase)] = e
             if e in ('QUOTE_NOT_CONTIGUOUS_IN_DOCUMENT', 'QUOTE_IS_PREFIX_OF_LONGER_QUOTE',
                      'QUOTE_CUT_MID_WORD', 'ROW_HAS_WORDS_NOT_ON_THE_PAGE'):
                 det.append({'FAMILY': nome, 'TYPE': tipo, 'REGISTRATION_ID': reg, 'STATE': e,
@@ -196,6 +253,21 @@ def main():
     reg_fam('DOSE_SOURCE_QUOTE', 'LINHA', [(p['reg'], d.get('quote'), 'gaveta de dose · citacao')
                                   for p in pay['products'] for d in (p.get('doses') or [])
                                   if d.get('quote') and d['quote'] != 'NOT_PRESERVED'])
+    # AS DUAS FAMILIAS QUE FALTAVAM, E ERAM AS MAIORES.
+    #
+    # A tela imprime, ao lado de cada par de uso, `o rotulo escreve: "..."` com
+    # o CROP_AS_WRITTEN e o TARGET_AS_WRITTEN — 2.873 frases com verbo de
+    # citacao que R-18 nunca tinha olhado. Elas vem da remontagem de celula do
+    # extrator e sao cortadas por comprimento, entao a suspeita de que muitas
+    # nao existem contiguas no documento nao e teorica.
+    reg_fam('PAIR_CROP_AS_WRITTEN', 'CELULA',
+            [(p['reg'], u.get('crop_raw'), 'par de uso · celula de cultura como escrita')
+             for p in pay['products'] for u in (p.get('uses') or [])
+             if u.get('crop_raw') and u['crop_raw'] != 'NOT_PRESERVED'])
+    reg_fam('PAIR_TARGET_AS_WRITTEN', 'CELULA',
+            [(p['reg'], u.get('target_raw'), 'par de uso · celula de alvo como escrita')
+             for p in pay['products'] for u in (p.get('uses') or [])
+             if u.get('target_raw') and u['target_raw'] != 'NOT_PRESERVED'])
     reg_fam('EXCLUSION_WINDOW', 'FRASE', [(p['reg'], w.get('TEXT'), 'ficha · janela de exclusao')
                                  for p in pay['products'] for w in (p.get('exclusion_windows') or [])
                                  if w.get('QUOTABLE')])
@@ -224,6 +296,9 @@ def main():
         'READINGS': 'coluna reconstruida por fios + pdftotext -layout, fluxo e -raw',
         'TOTAL': dict(tot.most_common()),
         'BY_FAMILY': fam,
+        'KEY': ('FAMILIA|REGISTRO|sha1(frase normalizada)[:16]. A frase normalizada e a '
+                'mesma nz() deste modulo: sem acento, minuscula, espacos colapsados'),
+        'VERDICT': ver,
         'DETAIL': det,
     }
     os.makedirs(os.path.dirname(a.out), exist_ok=True)

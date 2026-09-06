@@ -7,7 +7,7 @@ devolve um unico JSON enxuto para a interface. Se um campo nao existe na fonte,
 ele viaja como NOT_KNOWN / NOT_PRESENT / NOT_PROVED ate a tela — a interface nao
 tem permissao de inventar o que a coleta nao trouxe.
 """
-import argparse, csv, datetime, hashlib, json, os, re, sys
+import argparse, csv, datetime, hashlib, json, os, re, sys, unicodedata
 from collections import Counter
 
 # A lista de pares vinha de sintonia/canonical, que nao esta neste repositorio e
@@ -180,6 +180,33 @@ def main():
         r"da industria|dolce|in serra|uso in serra|pieno campo|sotto tunnel|in vivai|"
         r"baby leaf|da foglia|invernale|primaverile|per consumo fresco)\b", re.I)
 
+    cit = json.load(open(a.citacao, encoding="utf-8")) if os.path.exists(a.citacao) else None
+    # AUSENCIA DE REGISTRO NAO E APROVACAO, e aqui era.
+    #
+    # A leitura antiga era `DETAIL.get(chave, "QUOTE_VERBATIM")`, e DETAIL so
+    # tem as citacoes REPROVADAS. As 163 QUOTE_TOO_SHORT_TO_CHECK e as 349
+    # ROW_RECONSTRUCTED_FROM_CELLS nunca estiveram la e saiam na tela como
+    # "Citacao do documento" — 512 selos por valor default. Pior, a chave era a
+    # frase cortada em 200 caracteres, cortada no MODULO sobre o texto cru e
+    # AQUI sobre o texto normalizado: as 35 citacoes longas nunca casavam e
+    # tambem caiam no default, em silencio.
+    #
+    # Agora R-18 publica VERDICT com TODAS as citacoes, a chave e o sha1 da
+    # frase normalizada, e o default e QUOTE_NOT_CHECKED — que e o que a
+    # ferramenta sabe quando nao encontra o registro.
+    _cit = (cit or {}).get("VERDICT") or {}
+
+    def _chave_cit(familia, reg, txt):
+        n = unicodedata.normalize("NFD", str(txt or ""))
+        n = "".join(c for c in n if unicodedata.category(c) != "Mn").lower()
+        n = re.sub(r"\s+", " ", n).strip()
+        return f"{familia}|{reg}|" + hashlib.sha1(n.encode()).hexdigest()[:16]
+
+    def _estado_cit(reg, familia, txt):
+        if not cit:
+            return "QUOTE_NOT_CHECKED"
+        return _cit.get(_chave_cit(familia, reg, txt), "QUOTE_NOT_CHECKED")
+
     usos = {}
     contraditos_por_reg, rotacao_por_reg = {}, {}
     prova_par = {c["KEY"]: c for c in pf["CONTRADICTED"]}
@@ -220,6 +247,14 @@ def main():
         usos.setdefault(reg, []).append({
             "crop": x["CROP"], "target": x["TARGET"],
             "crop_raw": x.get("CROP_AS_WRITTEN"), "target_raw": x.get("TARGET_AS_WRITTEN"),
+            # R-18 nas duas frases que a tela imprime com verbo de citacao ao
+            # lado de cada par. Sao 2.873 de cada, e nenhuma tinha sido olhada:
+            # medido, 1.408 celulas de cultura e 939 de alvo NAO sao literais —
+            # a maioria por corte no meio de palavra, que e o extrator cortando
+            # por comprimento e nao o rotulo escrevendo assim.
+            "crop_raw_state": _estado_cit(reg, "PAIR_CROP_AS_WRITTEN", x.get("CROP_AS_WRITTEN")),
+            "target_raw_state": _estado_cit(reg, "PAIR_TARGET_AS_WRITTEN",
+                                            x.get("TARGET_AS_WRITTEN")),
             "page": x.get("PAGE") or "NOT_PRESERVED",
             "route": x.get("ROUTE"),
             "evidence": "TABLE_GEOMETRY" if x.get("ROUTE") in TAB else "TEXT_INFERENCE",
@@ -272,18 +307,6 @@ def main():
     # que nao esteja no rotulo. Medido: 68 celulas de dose citadas nao existem
     # contiguas em leitura nenhuma — sao montadas com pedaco de mais de uma
     # celula ("...ravanello, zucchino sedano", onde "sedano" e celula propria).
-    cit = json.load(open(a.citacao, encoding="utf-8")) if os.path.exists(a.citacao) else None
-    _cit = {}
-    if cit:
-        for d0 in cit["DETAIL"]:
-            _cit.setdefault((d0["REGISTRATION_ID"], d0["FAMILY"]), {})[
-                re.sub(r"\s+", " ", str(d0["QUOTE"])).strip().lower()] = d0["STATE"]
-
-    def _estado_cit(reg, familia, txt):
-        if not cit:
-            return "QUOTE_NOT_CHECKED"
-        k = re.sub(r"\s+", " ", str(txt or "")).strip().lower()
-        return _cit.get((reg, familia), {}).get(k[:200], "QUOTE_VERBATIM")
     prova_her = {}
     for c in her["CONTRADICTED"]:
         prova_her.setdefault(c["KEY"], {})[c["FIELD"]] = c

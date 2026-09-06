@@ -469,12 +469,32 @@ window.evUso = evUso;
 // uma celula. Em 008259 a celula "Orticole" termina em "zucchino" e "sedano" e
 // celula PROPRIA, com linha e dose proprias: a string "zucchino sedano" nao
 // existe no papel, e 318 doses a citavam.
-function citavel(estado) { return !estado || estado === 'QUOTE_VERBATIM'; }
+// AUSENCIA DE ESTADO NAO E APROVACAO, e `!estado` era exatamente isso: um campo
+// que nunca foi conferido saia entre aspas com o verbo "o rotulo escreve". O
+// unico estado que autoriza aspas e o que diz que a frase esta la.
+function citavel(estado) { return estado === 'QUOTE_VERBATIM'; }
+// ...com uma excecao declarada: a linha de tabela remontada de celulas. Ela nao
+// e contigua POR CONSTRUCAO — foi lida da esquerda para a direita atravessando
+// colunas — e por isso ela nunca vai entre aspas, mas tambem nao e um defeito a
+// denunciar: e o que o extrator faz. A tela ja a chama de "Linha remontada pelo
+// extrator" em vez de "Citacao do documento".
+function remontada(estado) { return estado === 'ROW_RECONSTRUCTED_FROM_CELLS'; }
 function celulaCitada(txt, estado, oque) {
   if (citavel(estado)) return `<i>&ldquo;${esc(txt)}&rdquo;</i>`;
+  const porque = estado === 'QUOTE_NOT_CONTIGUOUS_IN_DOCUMENT'
+    ? `<b>nao existe contiguo em nenhuma leitura do documento</b>: ele junta pedaco de mais de
+       uma celula`
+    : estado === 'QUOTE_TOO_SHORT_TO_CHECK'
+    ? `e <b>curto demais para ser conferido</b> (menos de 8 caracteres): achar essas letras no
+       PDF nao prova que a celula e essa`
+    : estado === 'QUOTE_CUT_MID_WORD'
+    ? `existe no documento mas <b>termina no meio de uma palavra</b>: e um corte do extrator, e
+       nao a frase que o rotulo escreve`
+    : estado === 'QUOTE_IS_PREFIX_OF_LONGER_QUOTE'
+    ? `e <b>prefixo estrito de outra frase do mesmo rotulo</b>, e prefixo inverte escopo`
+    : `<b>nao foi conferido</b> contra o documento`;
   return `<span class="unknown">${esc(estado)}</span>
-    <div class="meta">o texto que o extrator montou para ${esc(oque)} <b>nao existe contiguo em
-    nenhuma leitura do documento</b>: ele junta pedaco de mais de uma celula. O que ele leu foi
+    <div class="meta">o texto que o extrator montou para ${esc(oque)} ${porque}. O que ele leu foi
     <code>${esc(String(txt).slice(0, 90))}</code> — mostrado como <b>leitura do extrator</b>, nao
     entre aspas como frase do rotulo</div>`;
 }
@@ -505,7 +525,9 @@ function evDose(reg, i) {
       ${d.rejected?`<div class="meta">valor rebaixado: ${esc(d.rejected)} — um fio desenhado separa
         a linha do valor que ela recebeu. Rebaixado, nao corrigido no palpite.</div>`:''}</dd>
     <dt>Pagina</dt><dd>${val(d.page)}</dd>
-    <dt>${citavel(d.quote_state)?'Citacao do documento':'Linha remontada pelo extrator'}</dt>
+    <dt>${citavel(d.quote_state)?'Citacao do documento'
+          :remontada(d.quote_state)?'Linha remontada pelo extrator'
+          :'Linha que o extrator montou, e que o documento nao confirma'}</dt>
       <dd><div class="quote">${esc(d.quote||'NOT_PRESERVED')}</div>
       ${citavel(d.quote_state)?'':`<div class="meta"><span class="unknown">${esc(d.quote_state)}</span>
         uma LINHA de tabela lida da esquerda para a direita atravessa colunas e <b>nunca e uma
@@ -1348,8 +1370,10 @@ function nomeDaCultura(u) {
   if (u.crop_name !== 'CROP_NAME_NOT_IN_LABEL') return '';
   return `<div class="meta"><span class="unknown">CROP_NAME_NOT_IN_LABEL</span>
     <b>o nome desta cultura nao esta escrito no rotulo</b>, e nao e flexao de nada que o
-    documento escreve — a etichetta diz
-    <i>&ldquo;${esc(String(u.crop_raw || 'NOT_PRESERVED').slice(0, 90))}&rdquo;</i>.
+    documento escreve — o extrator leu ${citavel(u.crop_raw_state)
+      ? `<i>&ldquo;${esc(String(u.crop_raw || 'NOT_PRESERVED').slice(0, 90))}&rdquo;</i>`
+      : `<code>${esc(String(u.crop_raw || 'NOT_PRESERVED').slice(0, 90))}</code>
+         <span class="unknown">${esc(u.crop_raw_state || 'QUOTE_NOT_CHECKED')}</span>`}.
     Passar dessa palavra para <b>${esc(u.crop)}</b> e uma <b>equivalencia de cultura</b>, e
     equivalencia de cultura precisa de prova documental ou taxonomica: semelhanca de escrita
     nao e prova</div>`;
@@ -1361,9 +1385,17 @@ function nomeDaCultura(u) {
 // tambem em uva de MESA.
 function escopoDaCultura(u) {
   if (!u.crop_scope || !u.crop_scope.length) return '';
+  // O QUALIFICADOR E FATO; A FRASE EM VOLTA DELE PODE NAO SER. Os termos de
+  // escopo sao casados por regex no texto do extrator, e isso continua valendo
+  // — mas a frase inteira so vai entre aspas se R-18 disser que ela existe
+  // assim no documento. Medido: 1.408 das 2.873 celulas de cultura nao sao
+  // literais, a maioria cortada no meio de uma palavra pelo extrator.
+  const frase = citavel(u.crop_raw_state)
+    ? `<i>&ldquo;${esc(String(u.crop_raw).slice(0, 80))}&rdquo;</i>`
+    : `<code>${esc(String(u.crop_raw).slice(0, 80))}</code>
+       <span class="unknown">${esc(u.crop_raw_state || 'QUOTE_NOT_CHECKED')}</span>`;
   return `<div class="meta"><b>a etichetta qualifica esta cultura:</b>
-    ${u.crop_scope.map(e => `<code>${esc(e)}</code>`).join(' &middot; ')} —
-    <i>&ldquo;${esc(String(u.crop_raw).slice(0, 80))}&rdquo;</i>.
+    ${u.crop_scope.map(e => `<code>${esc(e)}</code>`).join(' &middot; ')} — ${frase}.
     O nome curto <b>${esc(u.crop)}</b> nao carrega esse escopo</div>`;
 }
 function evidenciaDoPar(u) {
@@ -1638,7 +1670,14 @@ function viewCrop() {
         <td>${esc(l.u.crop)}${escopoDaCultura(l.u)}</td>
         <td>${esc(l.u.target)}
           ${l.u.target_raw && nrm(l.u.target_raw) !== nrm(l.u.target)
-            ? `<div class="meta">o rotulo escreve: <i>&ldquo;${esc(String(l.u.target_raw).slice(0,70))}${String(l.u.target_raw).length>70?'…':''}&rdquo;</i></div>` : ''}</td>
+            ? (citavel(l.u.target_raw_state)
+              ? `<div class="meta">o rotulo escreve: <i>&ldquo;${esc(String(l.u.target_raw).slice(0,70))}${String(l.u.target_raw).length>70?'…':''}&rdquo;</i></div>`
+              // R-18 · A MESMA TELA NAO PODE DIZER DUAS COISAS SOBRE O MESMO CAMPO. Na
+              // gaveta de prova este texto ja saia com nome proprio de ignorancia, e aqui
+              // saia com o verbo "o rotulo escreve" e sem conferencia nenhuma.
+              : `<div class="meta"><span class="unknown">${esc(l.u.target_raw_state || 'QUOTE_NOT_CHECKED')}</span>
+                 o extrator leu <code>${esc(String(l.u.target_raw).slice(0,70))}${String(l.u.target_raw).length>70?'…':''}</code>
+                 — <b>leitura do extrator</b>, nao frase do rotulo</div>`) : ''}</td>
         <td>${celulaDose(l)}</td>
         <td>${evidenciaDoPar(l.u)}</td>
         <td>${validade(l.p)}</td>

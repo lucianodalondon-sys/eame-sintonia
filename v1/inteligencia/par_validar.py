@@ -65,12 +65,17 @@ linha que as aplica — e cada uma vem com quantas vezes ela DISPARA no censo:
 A ultima linha e uma correcao de uma afirmacao anterior deste proprio docstring,
 que dizia "quatro abstencoes, todas medidas contra um caso real do acervo". O
 ramo de TARGET_UNDER_CROP_HEADER existe e foi escrito contra 010587 FOLPAN SC,
-mas nesse rotulo o par cai antes, em CROP_ALSO_OUTSIDE_TABLE: nas 47
-condenacoes o ramo nunca chega a ser exercido (em 38 nao ha glifo do alvo abaixo
-da celula na mesma faixa x; nos 9 de 012573 o `titulo_entre` bloqueia com
-titulos reais em caixa alta). Ele fica no codigo porque a situacao que ele trata
-e real e pode voltar com outro acervo — mas "medido contra um caso real" era
-verdade sobre o CODIGO e nao sobre o CENSO, e as duas coisas nao sao a mesma.
+mas nesse rotulo o par cai antes, em CROP_ALSO_OUTSIDE_TABLE: nas condenacoes o
+ramo nunca chega a ser exercido (em 38 nao ha glifo do alvo abaixo da celula na
+mesma faixa x; nos 9 de 012573 o `titulo_entre` bloqueia com titulos reais em
+caixa alta). Ele fica no codigo porque a situacao que ele trata e real e pode
+voltar com outro acervo — mas "medido contra um caso real" era verdade sobre o
+CODIGO e nao sobre o CENSO, e as duas coisas nao sao a mesma.
+
+Rodado: apagar o ramo inteiro muda ZERO vereditos nos 2.928 pares. O que faz
+trabalho ali nao e a abstencao — e a ressalva `titulo_entre`, que a impede de
+disparar e assim mantem de pe as 9 condenacoes de 012573. Isso esta escrito
+junto da linha que a aplica, com o censo dos 22 pares que a exercitam.
 
 E o modulo **nao depende de `PAGE`**: 1.427 dos 2.928 pares nao preservaram a
 pagina, e amarrar o teste a ela deixaria de fora justamente 012573 (MF-02), onde
@@ -660,6 +665,36 @@ def main():
                     # cai abaixo da celula do CARCIOFO e na mesma faixa x. Se
                     # entre os dois ha outro titulo, o alvo e DELE, e a
                     # contradicao continua de pe.
+                    #
+                    # DUAS COISAS QUE ESTE COMENTARIO DIZIA E O CODIGO NAO FAZIA,
+                    # apontadas pela lente G da rodada 4 e reconferidas aqui com
+                    # o build de hoje.
+                    #
+                    # (a) "MESMA faixa x da cultura" e, na linha abaixo,
+                    #     `ax <= x1 and axf >= x0` — a caixa da PALAVRA, nao a
+                    #     coluna nem a celula. Nao e engano de digitacao: e uma
+                    #     escolha, e ela decide quantas condenacoes existem.
+                    #     Varrido:
+                    #        janela = palavra (o que esta no codigo)   49 condenados
+                    #        janela = largura da tabela (tx0..tx1)     44 condenados
+                    #     As 5 que a janela larga perde sao de 012573, e a
+                    #     lente foi ao documento e adjudicou: os blocos ali sao
+                    #     "CARCIOFO:", "BARBABIETOLA da ZUCCHERO:" e
+                    #     "ORNAMENTALI, FLOREALI, FORESTALI:", e os alvos
+                    #     condenados pertencem mesmo a outro bloco. A janela da
+                    #     PALAVRA e a que acerta. Fica escrito qual e a escolha.
+                    #
+                    # (b) `titulo_entre` e uma ressalva ajustada a UM rotulo. O
+                    #     censo: dos 2.928 pares, so 22 chegam a avalia-la; em 19
+                    #     ela devolve True, e em 13 desses 19 a palavra que casou
+                    #     nao e titulo de bloco (FOLPAN, FINESSOX, PRESCRIZIONI,
+                    #     ciliegio, Fragola, Frumento, vite). Desliga-la muda
+                    #     exatamente 14 vereditos, 9 deles as condenacoes de
+                    #     012573 — o rotulo contra o qual ela foi escrita. Fora
+                    #     dele ela nunca decide nada: onde dispara sobre
+                    #     nao-titulo, outra abstencao pega o par antes. A
+                    #     seguranca dela nos outros 162 rotulos e ACIDENTAL, e
+                    #     isso e um fato sobre a regra, nao uma opiniao.
                     for ax, axf, ay in als:
                         if not (ax <= x1 and axf >= x0 and ay > base):
                             continue
