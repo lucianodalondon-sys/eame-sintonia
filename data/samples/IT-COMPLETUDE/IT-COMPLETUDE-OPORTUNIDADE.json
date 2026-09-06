@@ -1210,7 +1210,7 @@
   "RESISTANCE",
   "SCIENCE"
  ],
- "MOTOR_USA": [
+ "MOTOR_USA_COMO_EVIDENCIA": [
   "ACTIVE-INGREDIENTS",
   "COMPETITOR-ACTIVITIES",
   "CROP-ECONOMIC-WEIGHT",
@@ -1225,7 +1225,7 @@
   "RESISTANCE",
   "SCIENCE"
  ],
- "MOTOR_CARREGA_E_NAO_USA": [
+ "MOTOR_APENAS_CONSULTA": [
   "AGROMET-CONDITIONS",
   "CLIENT-SAFE-CROSSINGS",
   "EVENTS",
@@ -1238,6 +1238,8 @@
   "RELATIONSHIPS",
   "RESEARCHERS"
  ],
+ "MOTOR_CARREGA_E_NAO_TOCA": [],
+ "MOTOR_LEI": "USA_COMO_EVIDENCIA funda ou apoia caso. APENAS_CONSULTA pergunta e regista o resultado, sem ligar nada. CARREGA_E_NAO_TOCA e o silencio: lida do disco e deitada fora.",
  "FICHAS": [
   {
    "ID": "OPP_00C5B6E15185",
@@ -1913,7 +1915,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -1931,7 +1933,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -1940,7 +1942,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -1949,7 +1951,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -1976,7 +1978,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -1985,7 +1987,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -1994,7 +1996,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -2043,7 +2045,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -2052,7 +2054,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -2061,7 +2063,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -2070,7 +2072,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -2147,20 +2149,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -2907,7 +2898,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -2925,7 +2916,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -2934,7 +2925,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -2943,7 +2934,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -2970,7 +2961,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -2979,7 +2970,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -2988,7 +2979,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -3037,7 +3028,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -3046,7 +3037,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -3055,7 +3046,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -3064,7 +3055,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -3141,20 +3132,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -3922,7 +3902,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -3940,7 +3920,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -3949,7 +3929,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -3958,7 +3938,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -3985,7 +3965,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -3994,7 +3974,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -4003,7 +3983,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -4052,7 +4032,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -4061,7 +4041,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4070,7 +4050,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4079,7 +4059,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4156,20 +4136,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -4473,7 +4442,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4491,7 +4460,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4500,7 +4469,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -4509,7 +4478,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4536,7 +4505,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4545,7 +4514,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4554,7 +4523,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4599,7 +4568,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4608,7 +4577,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4617,7 +4586,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4626,7 +4595,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -4714,20 +4683,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -5380,7 +5338,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -5398,7 +5356,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5407,7 +5365,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -5416,7 +5374,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5443,7 +5401,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5452,7 +5410,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5461,7 +5419,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5510,7 +5468,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5519,7 +5477,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5528,7 +5486,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5537,7 +5495,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -5621,20 +5579,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -6381,7 +6328,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -6399,7 +6346,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -6408,7 +6355,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -6417,7 +6364,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -6444,7 +6391,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -6453,7 +6400,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -6462,7 +6409,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -6511,7 +6458,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -6520,7 +6467,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -6529,7 +6476,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -6538,7 +6485,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -6615,20 +6562,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -7373,7 +7309,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -7391,7 +7327,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -7400,7 +7336,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -7409,7 +7345,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -7436,7 +7372,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7445,7 +7381,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -7454,7 +7390,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -7503,7 +7439,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -7512,7 +7448,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7521,7 +7457,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7530,7 +7466,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7607,20 +7543,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -7907,7 +7832,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7925,7 +7850,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7934,7 +7859,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -7943,7 +7868,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7970,7 +7895,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7979,7 +7904,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -7988,7 +7913,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8037,7 +7962,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8046,7 +7971,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8055,7 +7980,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8064,7 +7989,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8145,20 +8070,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -8381,7 +8295,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -8399,7 +8313,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -8408,7 +8322,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 10,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -8417,7 +8331,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8444,7 +8358,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8453,7 +8367,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8462,7 +8376,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8509,7 +8423,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8518,7 +8432,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8527,7 +8441,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8536,7 +8450,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -8612,20 +8526,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -9036,7 +8939,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -9054,7 +8957,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -9063,7 +8966,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 13,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -9072,7 +8975,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -9099,7 +9002,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -9108,7 +9011,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -9117,7 +9020,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -9165,7 +9068,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -9174,7 +9077,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -9183,7 +9086,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -9192,7 +9095,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -9271,20 +9174,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -9968,7 +9860,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -9986,7 +9878,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -9995,7 +9887,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -10004,7 +9896,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -10031,7 +9923,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -10040,7 +9932,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -10049,7 +9941,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -10085,7 +9977,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -10094,7 +9986,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -10103,7 +9995,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -10112,7 +10004,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -10197,20 +10089,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -10976,7 +10857,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -10994,7 +10875,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -11003,7 +10884,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -11012,7 +10893,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -11039,7 +10920,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11048,7 +10929,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -11057,7 +10938,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -11106,7 +10987,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -11115,7 +10996,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11124,7 +11005,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11133,7 +11014,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11210,20 +11091,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -11423,7 +11293,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11441,7 +11311,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11450,7 +11320,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11459,7 +11329,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11486,7 +11356,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11495,7 +11365,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11504,7 +11374,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11540,7 +11410,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11549,7 +11419,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11558,7 +11428,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11567,7 +11437,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -11643,20 +11513,9 @@
     "TRANSCRICOES"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -12067,7 +11926,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12085,7 +11944,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12094,7 +11953,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -12103,7 +11962,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12130,7 +11989,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12139,7 +11998,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12148,7 +12007,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12195,7 +12054,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -12204,7 +12063,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12213,7 +12072,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12222,7 +12081,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -12306,20 +12165,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -13041,7 +12889,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -13059,7 +12907,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13068,7 +12916,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -13077,7 +12925,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13104,7 +12952,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13113,7 +12961,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13122,7 +12970,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13171,7 +13019,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13180,7 +13028,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13189,7 +13037,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13198,7 +13046,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13282,20 +13130,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -13887,7 +13724,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 1,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH",
@@ -13907,7 +13744,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13916,7 +13753,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 14,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -13925,7 +13762,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13952,7 +13789,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13961,7 +13798,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -13970,7 +13807,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14019,7 +13856,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14028,7 +13865,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14037,7 +13874,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14046,7 +13883,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14130,20 +13967,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -14630,7 +14456,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14648,7 +14474,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -14657,7 +14483,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 13,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -14666,7 +14492,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -14693,7 +14519,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14702,7 +14528,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 1,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH",
@@ -14713,7 +14539,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14762,7 +14588,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -14771,7 +14597,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -14780,7 +14606,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14789,7 +14615,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -14868,20 +14694,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -15159,7 +14974,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15177,7 +14992,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15186,7 +15001,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -15195,7 +15010,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15222,7 +15037,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15231,7 +15046,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15240,7 +15055,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15284,7 +15099,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15293,7 +15108,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15302,7 +15117,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15311,7 +15126,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15392,20 +15207,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -15908,7 +15712,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15926,7 +15730,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -15935,7 +15739,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 13,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -15944,7 +15748,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -15971,7 +15775,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -15980,7 +15784,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -15989,7 +15793,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16037,7 +15841,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -16046,7 +15850,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -16055,7 +15859,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16064,7 +15868,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16143,20 +15947,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -16625,7 +16418,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16643,7 +16436,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16652,7 +16445,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -16661,7 +16454,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16688,7 +16481,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16697,7 +16490,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16706,7 +16499,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16753,7 +16546,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -16762,7 +16555,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16771,7 +16564,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16780,7 +16573,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -16864,20 +16657,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -17288,7 +17070,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -17306,7 +17088,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -17315,7 +17097,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 13,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -17324,7 +17106,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -17351,7 +17133,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -17360,7 +17142,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -17369,7 +17151,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -17417,7 +17199,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -17426,7 +17208,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -17435,7 +17217,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -17444,7 +17226,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -17523,20 +17305,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -18060,7 +17831,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18078,7 +17849,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18087,7 +17858,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18096,7 +17867,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18123,7 +17894,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18132,7 +17903,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18141,7 +17912,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18187,7 +17958,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18196,7 +17967,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18205,7 +17976,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18214,7 +17985,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18290,20 +18061,9 @@
     "TRANSCRICOES"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -18518,7 +18278,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18536,7 +18296,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18545,7 +18305,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -18554,7 +18314,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18581,7 +18341,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18590,7 +18350,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18599,7 +18359,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18644,7 +18404,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18653,7 +18413,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18662,7 +18422,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18671,7 +18431,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -18759,20 +18519,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -19259,7 +19008,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -19277,7 +19026,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -19286,7 +19035,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 13,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -19295,7 +19044,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -19322,7 +19071,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -19331,7 +19080,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -19340,7 +19089,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -19389,7 +19138,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -19398,7 +19147,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -19407,7 +19156,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -19416,7 +19165,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -19495,20 +19244,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -20208,7 +19946,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20226,7 +19964,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20235,7 +19973,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20244,7 +19982,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20271,7 +20009,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20280,7 +20018,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20289,7 +20027,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20338,7 +20076,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20347,7 +20085,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20356,7 +20094,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20365,7 +20103,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20442,20 +20180,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -20678,7 +20405,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20696,7 +20423,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20705,7 +20432,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 10,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -20714,7 +20441,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20741,7 +20468,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20750,7 +20477,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20759,7 +20486,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20806,7 +20533,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20815,7 +20542,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20824,7 +20551,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20833,7 +20560,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -20909,20 +20636,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -21200,7 +20916,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21218,7 +20934,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21227,7 +20943,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -21236,7 +20952,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21263,7 +20979,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21272,7 +20988,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21281,7 +20997,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21325,7 +21041,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21334,7 +21050,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21343,7 +21059,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21352,7 +21068,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21433,20 +21149,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -21550,7 +21255,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21568,7 +21273,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21577,7 +21282,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21586,7 +21291,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21613,7 +21318,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21622,7 +21327,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21631,7 +21336,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21667,7 +21372,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21676,7 +21381,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21685,7 +21390,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21694,7 +21399,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -21762,20 +21467,9 @@
     "TRANSCRICOES"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -22452,7 +22146,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -22470,7 +22164,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -22479,7 +22173,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -22488,7 +22182,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -22515,7 +22209,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -22524,7 +22218,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -22533,7 +22227,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -22582,7 +22276,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -22591,7 +22285,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -22600,7 +22294,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -22609,7 +22303,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -22686,20 +22380,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -23467,7 +23150,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -23485,7 +23168,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -23494,7 +23177,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -23503,7 +23186,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -23530,7 +23213,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -23539,7 +23222,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -23548,7 +23231,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -23597,7 +23280,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -23606,7 +23289,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -23615,7 +23298,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -23624,7 +23307,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -23701,20 +23384,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -24482,7 +24154,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -24500,7 +24172,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -24509,7 +24181,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -24518,7 +24190,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -24545,7 +24217,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -24554,7 +24226,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -24563,7 +24235,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -24612,7 +24284,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -24621,7 +24293,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -24630,7 +24302,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -24639,7 +24311,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -24716,20 +24388,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -25474,7 +25135,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -25492,7 +25153,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -25501,7 +25162,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -25510,7 +25171,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -25537,7 +25198,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -25546,7 +25207,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -25555,7 +25216,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -25604,7 +25265,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -25613,7 +25274,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -25622,7 +25283,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -25631,7 +25292,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -25708,20 +25369,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -26419,7 +26069,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -26437,7 +26087,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -26446,7 +26096,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -26455,7 +26105,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -26482,7 +26132,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -26491,7 +26141,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -26500,7 +26150,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -26549,7 +26199,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -26558,7 +26208,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -26567,7 +26217,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -26576,7 +26226,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -26653,20 +26303,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -27364,7 +27003,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -27382,7 +27021,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -27391,7 +27030,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -27400,7 +27039,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -27427,7 +27066,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -27436,7 +27075,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -27445,7 +27084,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -27494,7 +27133,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -27503,7 +27142,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -27512,7 +27151,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -27521,7 +27160,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -27598,20 +27237,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -28309,7 +27937,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -28327,7 +27955,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -28336,7 +27964,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -28345,7 +27973,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -28372,7 +28000,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -28381,7 +28009,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -28390,7 +28018,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -28439,7 +28067,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -28448,7 +28076,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -28457,7 +28085,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -28466,7 +28094,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -28543,20 +28171,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -29134,7 +28751,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -29152,7 +28769,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29161,7 +28778,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 14,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -29170,7 +28787,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29197,7 +28814,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29206,7 +28823,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29215,7 +28832,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29262,7 +28879,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29271,7 +28888,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29280,7 +28897,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29289,7 +28906,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29373,20 +28990,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -29966,7 +29572,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29984,7 +29590,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -29993,7 +29599,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30002,7 +29608,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30029,7 +29635,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30038,7 +29644,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30047,7 +29653,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30093,7 +29699,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30102,7 +29708,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30111,7 +29717,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30120,7 +29726,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30196,20 +29802,9 @@
     "TRANSCRICOES"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -30923,7 +30518,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 1,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH",
@@ -30943,7 +30538,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30952,7 +30547,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -30961,7 +30556,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30988,7 +30583,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -30997,7 +30592,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31006,7 +30601,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31055,7 +30650,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31064,7 +30659,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31073,7 +30668,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31082,7 +30677,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31166,20 +30761,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -31402,7 +30986,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -31420,7 +31004,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -31429,7 +31013,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 10,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -31438,7 +31022,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31465,7 +31049,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31474,7 +31058,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31483,7 +31067,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31530,7 +31114,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31539,7 +31123,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31548,7 +31132,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31557,7 +31141,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -31633,20 +31217,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -32323,7 +31896,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -32341,7 +31914,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -32350,7 +31923,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -32359,7 +31932,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -32386,7 +31959,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -32395,7 +31968,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -32404,7 +31977,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -32453,7 +32026,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -32462,7 +32035,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -32471,7 +32044,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -32480,7 +32053,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -32557,20 +32130,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -33060,7 +32622,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -33078,7 +32640,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -33087,7 +32649,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 13,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -33096,7 +32658,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -33123,7 +32685,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -33132,7 +32694,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 1,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH",
@@ -33143,7 +32705,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -33192,7 +32754,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -33201,7 +32763,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -33210,7 +32772,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -33219,7 +32781,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -33298,20 +32860,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -34077,7 +33628,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 5,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -34095,7 +33646,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 12,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -34104,7 +33655,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 18,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -34113,7 +33664,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -34140,7 +33691,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34149,7 +33700,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 3,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -34158,7 +33709,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -34207,7 +33758,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 2,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -34216,7 +33767,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34225,7 +33776,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34234,7 +33785,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34311,20 +33862,9 @@
     "VIDEOS"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   },
   {
@@ -34426,7 +33966,7 @@
     },
     "CLIMA": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34444,7 +33984,7 @@
     },
     "PESQUISADORES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34453,7 +33993,7 @@
     },
     "VOZES_PUBLICAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34462,7 +34002,7 @@
     },
     "CANAIS_CREATORS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34489,7 +34029,7 @@
     },
     "REGULATORIO_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34498,7 +34038,7 @@
     },
     "EVENTOS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34507,7 +34047,7 @@
     },
     "EVENTOS_FUTUROS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34543,7 +34083,7 @@
     },
     "NOTICIAS": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 1,
      "RESULTADO": "MATCH_SO_CULTURA",
@@ -34552,7 +34092,7 @@
     },
     "SINAL_FUTURO": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34561,7 +34101,7 @@
     },
     "RELACOES": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34570,7 +34110,7 @@
     },
     "CRUZAMENTOS_CLIENT_SAFE": {
      "CONSULTADA": true,
-     "MOTOR_CONSULTA": false,
+     "MOTOR_CONSULTA": true,
      "MATCH_FORTE": 0,
      "MATCH_SO_CULTURA": 0,
      "RESULTADO": "NAO_ENCONTRADO",
@@ -34635,20 +34175,9 @@
     "TRANSCRICOES"
    ],
    "FAMILIAS_QUE_O_MOTOR_NAO_CONSULTA": [
-    "CANAIS_CREATORS",
     "CATALOGO_ADAMA_CENSO",
-    "CLIMA",
-    "CRUZAMENTOS_CLIENT_SAFE",
-    "EVENTOS",
-    "EVENTOS_FUTUROS",
-    "NOTICIAS",
-    "PESQUISADORES",
-    "REGULATORIO_FUTURO",
-    "RELACOES",
-    "SINAL_FUTURO",
     "TRANSCRICOES",
-    "VIDEOS",
-    "VOZES_PUBLICAS"
+    "VIDEOS"
    ]
   }
  ]

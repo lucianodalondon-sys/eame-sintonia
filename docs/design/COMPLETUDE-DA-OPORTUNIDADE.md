@@ -421,18 +421,38 @@ OPPORTUNITIES_WITH_MULTISOURCE_CONVERGENCE = 18 (≥ 3 famílias com match forte
 > **CONTAR ISTO COMO ZERO MENTE SOBRE O ACERVO.**
 > **CONTAR COMO MATCH MENTE SOBRE A EVIDÊNCIA.**
 
-### As famílias que o motor nem carrega
+### As famílias que o motor nem carregava — e o que mudou
 
-O motor carrega **14** coleções. Existem no pacote e **nunca são lidas**:
+**Antes desta missão** o motor carregava **14** coleções. Onze existiam no
+pacote e nunca eram lidas: `AGROMET-CONDITIONS` (clima) · `EVENTS` ·
+`FUTURE-EVENTS` · `FUTURE-SIGNALS` · `NEWS` · `PUBLIC-CHANNELS` (creators) ·
+`REGULATORY-FUTURE` · `RESEARCHERS` · `RELATIONSHIPS` ·
+`CLIENT-SAFE-CROSSINGS` · `SOURCES`.
 
-`AGROMET-CONDITIONS` (clima) · `EVENTS` · `FUTURE-EVENTS` · `FUTURE-SIGNALS` ·
-`NEWS` · `PUBLIC-CHANNELS` (creators) · `REGULATORY-FUTURE` · `RESEARCHERS` ·
-`RELATIONSHIPS` · `CLIENT-SAFE-CROSSINGS` · `SOURCES`
+E uma era carregada e **deitada fora**: `PUBLIC-VOICES` entrava em `main()` e
+nunca era indexada nem passada a arquétipo nenhum. Consequência direta: a regra
+de red team *«voz isolada tratada como incidência»* **não podia disparar**,
+porque nenhuma voz chegava à evidência.
 
-E uma que é carregada e **deitada fora**: `PUBLIC-VOICES` entra em `main()`
-(linha 383) e nunca é indexada nem passada a arquétipo nenhum. Consequência
-direta: a regra de red team da linha 372 — *«voz isolada tratada como
-incidência»* — **nunca pode disparar**, porque nenhuma voz chega à evidência.
+**Depois** — e esta é a única alteração feita ao motor:
+
+| | |
+|---|---:|
+| `MOTOR_CARREGA` | **24** |
+| `MOTOR_USA_COMO_EVIDENCIA` — funda ou apoia caso | 13 |
+| `MOTOR_APENAS_CONSULTA` — pergunta e regista, sem ligar nada | **11** |
+| `MOTOR_CARREGA_E_NAO_TOCA` — o silêncio | **0** |
+
+> **PERGUNTAR NÃO É LIGAR, MAS TAMBÉM NÃO É CALAR.**
+
+O registo novo (`CROSS_INTELLIGENCE_SCAN`) **não entra** em `EVIDENCE_IDS`, não
+entra no score, não move portão e não muda estado nenhum — se entrasse, uma
+família nova mudaria julgamentos já emitidos, e isso não é medir o acervo: é
+reescrever a leitura por baixo de quem a leu. Um teste guarda exatamente isso.
+
+`PUBLIC-VOICES` continua sem fundar caso — deliberadamente. Promovê-la a
+evidência mudaria o veredito de cartões já publicados, e essa é decisão da
+linhagem canónica, não desta medição.
 
 **Correção sobre o corpus de vídeo.** Ele **não** ficou todo de fora, e dizer
 que ficou seria caluniar a cadeia. `scripts/pacote_camadas.py:25` lê

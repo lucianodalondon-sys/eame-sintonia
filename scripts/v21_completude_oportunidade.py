@@ -29,10 +29,10 @@ para cada oportunidade do pacote servido:
 
 O TERCEIRO ESTADO, QUE NAO E ZERO
 ---------------------------------
-Ha material que existe e nao serve: 1.115 videos coletados, 48 transcricoes
-pedidas, uma unica com texto. Contar isso como zero mente sobre o acervo;
-contar como match mente sobre a evidencia. Fica MATERIAL_EXISTENTE_NAO_UTILIZAVEL,
-com o motivo escrito ao lado.
+Ha material que existe e nao serve: 1.115 videos coletados e 48 transcricoes
+pedidas, nenhum deles ingerido no pacote como familia propria. Contar isso como
+zero mente sobre o acervo; contar como match mente sobre a evidencia. Fica
+MATERIAL_EXISTENTE_NAO_UTILIZAVEL, com o motivo escrito ao lado.
 
     O QUE EXISTE E NAO SERVE NAO E AUSENCIA: E DIVIDA COM ENDERECO.
 
@@ -61,9 +61,11 @@ NUL = chr(0)
 
 
 # -- O FUNIL, CONTADO EM CADA DEGRAU -----------------------------------------
-# Entre o acervo e o ecra ha QUATRO reducoes, e nenhuma delas se ve de dentro
-# da seguinte. Contar so a ultima faz o portfolio parecer pequeno; contar so a
-# primeira faz o motor parecer completo. Contam-se as quatro.
+# Entre o acervo e o ecra ha CINCO reducoes, e nenhuma delas se ve de dentro da
+# seguinte. Contar so a ultima faz o portfolio parecer pequeno; contar so a
+# primeira faz o motor parecer completo. Contam-se as cinco, cada uma com o seu
+# dono — porque a primeira versao desta medida somava tres delas num nome so e
+# culpava o corte de doze por perdas que nao eram dele.
 #
 #     UMA PERDA QUE SO APARECE NO DEGRAU SEGUINTE NAO E PERDA MEDIDA:
 #     E PERDA HERDADA.
@@ -149,11 +151,20 @@ def familias_que_o_motor_carrega():
     # CARREGAR NAO E USAR. Uma colecao que entra no dicionario e nunca mais e
     # referida foi lida do disco e deitada fora - e o efeito, na tela, e o
     # mesmo de nunca ter sido lida.
-    usadas = set()
-    for nome in carregadas:
-        if len(re.findall(r"cs\['%s'\]" % re.escape(nome), src)) > 0:
-            usadas.add(nome)
-    return carregadas, usadas
+    #
+    # Ha DUAS maneiras de a usar, e uma medida que so conhecesse a primeira
+    # passaria a acusar de silencio exactamente a correcao que acabou com o
+    # silencio:
+    #   cs['NOME']                  funda ou apoia caso  (USADA_COMO_EVIDENCIA)
+    #   FAMILIAS_CRUZADAS['NOME']   e perguntada e responde  (CONSULTADA)
+    #
+    #     PERGUNTAR NAO E LIGAR, MAS TAMBEM NAO E CALAR.
+    #     A MEDIDA TEM DE SABER DISTINGUIR AS TRES COISAS.
+    evidencia = {n for n in carregadas
+                 if re.search(r"cs\['%s'\]" % re.escape(n), src)}
+    m = re.search(r'FAMILIAS_CRUZADAS = \{(.*?)\n    \}', src, re.S)
+    consultadas = set(re.findall(r"'([A-Z0-9-]+)'", m.group(1))) & carregadas if m else set()
+    return carregadas, evidencia | consultadas, evidencia, consultadas
 
 
 # -- O CORPUS DE VIDEO, QUE NUNCA ENTROU NO PACOTE --------------------------
@@ -324,7 +335,7 @@ def main():
     ops = pkg['opportunities']
     videos, transcricoes, comentarios = le_video()
     censo = le_censo_catalogo()
-    carregadas, usadas = familias_que_o_motor_carrega()
+    carregadas, usadas, evidencia, consultadas = familias_que_o_motor_carrega()
     snap = {c['ID']: c for c in le_snapshot().get('CASES', [])}
     casa = {c['ID']: c for c in le_casa()['OPPORTUNITA_ATTUALI']['CASI']}
 
@@ -721,8 +732,13 @@ def main():
         'FAMILIAS_NO_PACOTE': sorted(FAMILIAS),
         'FAMILIAS_FORA_DO_PACOTE': sorted(FAMILIAS_FORA_DO_PACOTE),
         'MOTOR_CARREGA': sorted(carregadas),
-        'MOTOR_USA': sorted(usadas),
-        'MOTOR_CARREGA_E_NAO_USA': sorted(carregadas - usadas),
+        'MOTOR_USA_COMO_EVIDENCIA': sorted(evidencia),
+        'MOTOR_APENAS_CONSULTA': sorted(consultadas - evidencia),
+        'MOTOR_CARREGA_E_NAO_TOCA': sorted(carregadas - usadas),
+        'MOTOR_LEI': ('USA_COMO_EVIDENCIA funda ou apoia caso. APENAS_CONSULTA '
+                      'pergunta e regista o resultado, sem ligar nada. '
+                      'CARREGA_E_NAO_TOCA e o silencio: lida do disco e '
+                      'deitada fora.'),
         'FICHAS': fichas,
     }
     p = os.path.join(SAIDA, 'IT-COMPLETUDE-OPORTUNIDADE.json')
