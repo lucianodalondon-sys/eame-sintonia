@@ -112,12 +112,11 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--ln);color:var
 <section class="view" id="v-review"></section>
 <section class="view" id="v-cov"></section>
 <section class="view" id="v-search">
-  <div class="filters"><input id="sq" placeholder="produto, registro, cultura, alvo, ativo, estado..." size="52"></div>
+  <div class="filters"><input id="sq" placeholder="produto, registro, titular, ativo, estado..." size="52"></div>
   <div id="sres"></div>
 </section>
 <footer>
   Fonte oficial: Ministero della Salute (Italia) &mdash; Banca dati prodotti fitosanitari, licenca Italian Open Data Licence v2.0.
-  Cultura &times; alvo reusado de <code>sintonia/canonical @ bdb57cf</code>.
   Ferramenta <b>paralela</b>: nao toca canonical, P0.2, Passaporte, Universal, Supabase nem o portal oficial.
   Nao emite acao.
 </footer>
@@ -423,7 +422,7 @@ function evObj(id) {
   drawer(`<h3>Evidencia</h3>
   <div class="meta">objeto <code>${esc(o.INTELLIGENCE_OBJECT_ID)}</code></div>
   <dl>
-    <dt>Fato (o que a fonte diz)</dt><dd>${esc(o.FACT)}</dd>
+    <dt>Fato (o que a fonte diz)</dt><dd>${fatoDemo(o)}</dd>
     <dt>Significado regulatorio derivado</dt><dd>${val(o.DERIVED_REGULATORY_MEANING)}
       ${o.DERIVED_BY_RULE!=='NOT_PROVED'?`<code>${esc(o.DERIVED_BY_RULE)}</code>`:''}</dd>
     <dt>Implicacao de negocio</dt><dd>${val(o.POTENTIAL_BUSINESS_IMPLICATION)}
@@ -547,7 +546,7 @@ function cardObj(o) {
   const semRota = cons.length === 0;
   return `<div class="card ${cls}">
     <h4>${esc(o.PRODUCT_NAME||'NOT_KNOWN')} <span class="meta mono">${esc(o.REGISTRATION_ID)}</span></h4>
-    <div class="meta">${esc(o.FACT)}</div>
+    <div class="meta">${fatoDemo(o)}</div>
     <div class="ba"><span class="b">${val(o.BEFORE_VALUE)}</span>
       <span class="arr">&rarr;</span><span class="a">${val(o.AFTER_VALUE)}</span></div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:6px">
@@ -624,10 +623,15 @@ function viewHome() {
 
   <div class="block">
     <h3>1 &middot; O que mudou</h3>
-    <div class="meta"><b>${P.history.raw_field_diffs}</b> diferencas brutas entre os
-      ${P.history.snapshots} instantaneos oficiais &rarr; <b>${P.history.noise}</b>
-      (${P.history.noise_pct}%) eram a fonte reordenando a propria lista, e nao viram evento
-      &rarr; restam <b style="color:var(--ok)">${P.history.true_changes}</b> mudancas reais.
+    <div class="meta"><b>${P.history.snapshots}</b> instantaneos oficiais baixados, dos quais
+      <b>${P.history.distinct}</b> sao documentos distintos por sha256 (os outros
+      ${P.history.snapshots - P.history.distinct} eram republicacao identica, e republicar nao e
+      versao nova). Comparando os ${P.history.distinct} documentos: <b>${P.history.raw_field_diffs}</b>
+      diferencas brutas de campo &rarr; <b>${P.history.noise}</b> (${P.history.noise_pct}%) eram a
+      fonte reordenando a propria lista de indicacoes de perigo e nao viram evento &rarr; restam
+      <b>${P.history.normalised_field_diffs}</b> diferencas de campo reais. Somando
+      <b>${P.by_type.PRODUCT_ENTERED_REGISTRY || 0}</b> produtos que entraram no registro, sao
+      <b style="color:var(--ok)">${P.history.true_changes}</b> eventos regulatorios.
       <b>Sem esse filtro seriam ${P.history.raw_field_diffs} alertas para encontrar
       ${P.history.true_changes}.</b></div>
     <div style="margin-top:8px">
@@ -647,12 +651,15 @@ function viewHome() {
       ${barrados.length?` &middot; ${barrados.length} barrado(s) por portao`:''}
     </div>
     ${relev.length ? `<div class="tw" style="margin-top:8px"><table>
-      <thead><tr><th>Produto</th><th>O que mudou</th><th>Antes &rarr; Depois</th><th>Estado</th>
-        <th>Regra</th><th></th></tr></thead>
+      <thead><tr><th>Produto</th><th>O que mudou</th><th>Antes &rarr; Depois</th>
+        <th>Detectado em</th><th>Estado</th><th>Regra</th><th></th></tr></thead>
       <tbody>${relev.slice(0,12).map(({o,r}) => `<tr>
         <td>${esc(o.PRODUCT_NAME||'NOT_KNOWN')}<div class="mono meta">${esc(o.REGISTRATION_ID)}</div></td>
         <td>${esc(o.CHANGE_TYPE)}</td>
-        <td>${val(o.BEFORE_VALUE)} &rarr; ${val(o.AFTER_VALUE)}</td>
+        <td>${valorDemo(o)} &rarr; ${o.OBJECT_TYPE==='NEEDS_HUMAN_REVIEW'?RETIDO_TXT:val(o.AFTER_VALUE)}</td>
+        <td class="mono">${esc(dISO(o.DETECTED_AT))}
+          <div class="meta">nao e o valor de hoje: e o que mudou entre dois instantaneos naquela
+          data. O valor vigente esta na ficha do produto.</div></td>
         <td><span class="pill ${r.ROUTING_STATE==='RELEVANT'?'p-ok':'p-warn'}">${esc(r.ROUTING_STATE)}</span></td>
         <td class="meta"><code>${esc(r.RULE_ID)}</code></td>
         <td><button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">evidencia</button></td>
@@ -677,7 +684,7 @@ function viewHome() {
     <h3>3 &middot; O que esta em revisao <span class="meta">&mdash; a maquina recusando responder</span></h3>
     <div class="lei">Isto e funcionalidade, nao defeito. <b>${rev.length}</b> doses foram
       rebaixadas porque a leitura nao se sustentou contra o documento, e <b>${dq.length}</b>
-      rotulos tiveram a tabela de uso nao lida. Nenhum deles vira numero na tela.
+      rotulos tiveram a tabela de DOSE nao lida. Nenhum deles vira numero na tela.
       <code>PARSER_FAILURE != REGULATORY_ABSENCE</code>: nao ter lido nao e o produto nao ter.</div>
     <div style="margin-top:8px"><button class="ev" onclick="go('review')">ver a fila de revisao</button>
       <button class="ev" onclick="go('cov')">ver a cobertura, etapa por etapa</button></div>
@@ -766,9 +773,12 @@ function viewToday() {
     <div class="kpi"><b style="color:var(--unk)">${dq.length}</b><span>estados de leitura a resolver</span></div>
     <div class="kpi"><b class="mono" style="font-size:15px">${esc(P.history.window)}</b><span>janela observada (coleta)</span></div>
   </div>
-  <div class="lei"><b>${P.history.raw_field_diffs}</b> diferencas brutas entre os instantaneos oficiais.
-    <b>${P.history.noise}</b> (${P.history.noise_pct}%) sao a fonte reordenando a propria lista e nao viram evento.
-    Restam <b>${P.history.true_changes}</b> mudancas reais na janela inteira observada.
+  <div class="lei">Entre os <b>${P.history.distinct}</b> documentos distintos:
+    <b>${P.history.raw_field_diffs}</b> diferencas brutas de campo,
+    <b>${P.history.noise}</b> (${P.history.noise_pct}%) de reordenacao da propria fonte,
+    <b>${P.history.normalised_field_diffs}</b> diferencas de campo reais, mais
+    <b>${P.by_type.PRODUCT_ENTERED_REGISTRY || 0}</b> produtos novos =
+    <b>${P.history.true_changes}</b> eventos na janela inteira observada.
     ${JANELA_DIAS?`Voce esta olhando um recorte de <b>${JANELA_DIAS} dias</b> dentro dela.`:''}
     O que voce ve abaixo ja passou por esse filtro.</div>
   <h2>Mudou entre dois instantaneos oficiais (${mudancas.length})</h2>
@@ -821,9 +831,15 @@ function viewProduto(reg) {
       <tr><th>Formulacao</th><td>${val(p.formulation)}</td></tr>
       <tr><th>Estado administrativo</th><td>${val(p.status)}</td></tr>
       <tr><th>Registrado em</th><td>${val(p.registered_at)}</td></tr>
-      <tr><th>Validade</th><td${venc?' style="color:var(--bad)"':''}>${val(p.expiry)}
-        ${venc?` &mdash; vencida ha ${-D} dias e o registro ainda o lista como &ldquo;${esc(p.status)}&rdquo;.
-        <span class="meta">EXPIRY != WITHDRAWAL — a ferramenta nao conclui saida de mercado</span>`:''}</td></tr>
+      <tr><th>Validade</th><td${venc && !foraDeVigor(p)?' style="color:var(--bad)"':''}>${val(p.expiry)}
+        ${venc ? (foraDeVigor(p)
+          ? ` &mdash; vencida ha ${-D} dias, e o estado declarado <b>ja e
+             &ldquo;${esc(p.status)}&rdquo;</b>: os dois campos oficiais <b>concordam</b>, nao ha
+             conflito a reportar.`
+          : ` &mdash; vencida ha ${-D} dias e o registro ainda o lista como
+             &ldquo;${esc(p.status)}&rdquo;, que e um estado em vigor.
+             <span class="meta">EXPIRY != WITHDRAWAL — a ferramenta nao conclui saida de mercado</span>`)
+        :''}</td></tr>
       ${p.revoke_effective!==undefined ? `
       <tr><th>Perigo declarado</th><td>${val(p.hazard)}</td></tr>
       <tr><th>Revoga &middot; motivo</th><td>${val(p.revoke_reason)}</td></tr>
@@ -847,9 +863,13 @@ function viewProduto(reg) {
 
   <div class="block" style="border-left:3px solid var(--warn)">
     <h3>Usos autorizados e dose <span class="meta">&mdash; retidos nesta demonstracao</span></h3>
-    <div class="lei"><b>O sistema leu esta informacao e esta se recusando a publica-la.</b>
-      Nao e falta de dado: sao ${(p.uses||[]).length} pares cultura &times; alvo e
-      ${(p.doses||[]).length} linhas de dose que o leitor extraiu deste documento.
+    <div class="lei">${(p.states && p.states.LABEL_DOWNLOADED === false)
+      ? `<b>Nao ha documento para ler.</b> Nenhum rotulo foi baixado para este registro
+         (<span class="unknown">NOT_COLLECTED</span>), entao nao existe par nem linha de dose a
+         reter: nao e recusa, e ausencia de coleta.`
+      : `<b>O sistema leu esta informacao e esta se recusando a publica-la.</b>
+         Nao e falta de dado: sao ${(p.uses||[]).length} pares cultura &times; alvo e
+         ${(p.doses||[]).length} linhas de dose que o leitor extraiu deste documento.`}
       <div class="meta" style="margin-top:6px">A recusa e deliberada e tem uma razao medida. O
       leitor de uso reusado atribui a linha a cultura por proximidade vertical, e isso falha onde
       a tabela tem <b>fios desenhados</b> separando blocos de cultura — ha caso medido em que a
@@ -953,6 +973,23 @@ function contagem(p, campo, estadoLeitura) {
   if (st[estadoLeitura]) return `<b>0</b><div class="meta">o leitor rodou neste documento e
     estruturou zero. Isto e medicao, nao ignorancia</div>`;
   return val('NOT_KNOWN');
+}
+
+// R-01/R-11 · o texto FACT dos objetos NEEDS_HUMAN_REVIEW imprime o triplo
+// cultura x alvo x dose em prosa, e por isso publicava a camada retirada em
+// quatro superficies (ficha, busca, gaveta, por area) — inclusive um valor
+// ERRADO para o par: "Cavolo cappuccio x Cimici ... 280-600" quando a etichetta
+// 008259 da 560-1000 a esse par. A demo troca o TEXTO, nao o objeto.
+const RETIDO_TXT = '<span class="unknown">WITHHELD_PENDING_ADJUDICATION</span>';
+function fatoDemo(o) {
+  if (!o || o.OBJECT_TYPE !== 'NEEDS_HUMAN_REVIEW') return esc(o && o.FACT);
+  return `${RETIDO_TXT}
+    <div class="meta">uma leitura de dose foi rebaixada neste produto. A cultura, o alvo e o valor
+    lidos ficam fora desta demonstracao: sao a camada que a terceira rodada adversarial ainda
+    julga. O que a demo afirma aqui e apenas <b>que houve recusa</b>, e por qual mecanismo.</div>`;
+}
+function valorDemo(o) {
+  return (o && o.OBJECT_TYPE === 'NEEDS_HUMAN_REVIEW') ? RETIDO_TXT : val(o && o.BEFORE_VALUE);
 }
 
 // Nomes de estado sao impressos POR EXTENSO. Um selo de tres letras nao e um
@@ -1189,7 +1226,7 @@ function viewAction() {
         <tbody>${lista.slice(0, LIMITE).map(({o}) => `<tr>
           <td>${esc(o.PRODUCT_NAME||'NOT_KNOWN')}<div class="mono meta">${esc(o.REGISTRATION_ID)}</div></td>
           <td>${esc(o.CHANGE_TYPE)}</td>
-          <td>${val(o.BEFORE_VALUE)} &rarr; ${val(o.AFTER_VALUE)}</td>
+          <td>${valorDemo(o)} &rarr; ${o.OBJECT_TYPE==='NEEDS_HUMAN_REVIEW'?RETIDO_TXT:val(o.AFTER_VALUE)}</td>
           <td>${janelaSelo(o)}</td>
           <td><span class="pill ${PROOF[o.PROOF_STATE]||'p-dim'}">${esc(o.PROOF_STATE)}</span></td>
           <td><button class="ev" onclick="evObj('${o.INTELLIGENCE_OBJECT_ID}')">evidencia</button></td>
@@ -1248,7 +1285,10 @@ function tabRev(lista) {
         julga, e mostrar o triplo aqui daria a ele a aparencia de fato.</div></td>
       <td style="color:var(--bad)">${val('NOT_PROVED')}</td>
       <td class="meta">${val(o.DEMOTION_RULE)}</td>
-      <td class="meta">${o.RULE_CHECK_BEFORE_DEMOTION==='CONFIRMED_BY_RULE'
+      <td class="meta">${o.DEMOTION_MECHANISM==='DRAWN_TABLE_RULE'
+        ? `<b>CONTRADICTED_BY_RULE</b><div class="meta">o fio desenhado contradisse o valor — e por
+           isso que esta linha esta aqui</div>`
+        : o.RULE_CHECK_BEFORE_DEMOTION==='CONFIRMED_BY_RULE'
         ? `<b style="color:var(--warn)">CONFIRMED_BY_RULE</b>
            <div class="meta">o fio desenhado CONFIRMAVA este valor; a heuristica passou por cima</div>`
         : val(o.RULE_CHECK_BEFORE_DEMOTION)}</td>
@@ -1282,8 +1322,13 @@ function viewReview() {
   const porFio = rev.filter(o => o.DEMOTION_MECHANISM !== 'PLAUSIBILITY_FILTER');
   const porPlaus = rev.filter(o => o.DEMOTION_MECHANISM === 'PLAUSIBILITY_FILTER');
   const dq = P.objects.filter(o => o.OBJECT_TYPE === 'DATA_QUALITY_EVENT');
-  const semUso = P.products.filter(p => !p.uses.length);
-  const semDose = P.products.filter(p => !p.doses.length);
+  // R-07 · os KPIs denominavam sobre 166 e contavam como "medido zero" os 3
+  // registros para os quais NENHUM rotulo foi baixado. Ausencia de coleta nao e
+  // ausencia medida, e as duas nao podem somar no mesmo numero.
+  const comRotulo = P.products.filter(p => p.states && p.states.LABEL_DOWNLOADED);
+  const semColeta = P.products.filter(p => p.states && p.states.LABEL_DOWNLOADED === false);
+  const semUsoMedido = comRotulo.filter(p => !p.uses.length);
+  const semDoseMedido = comRotulo.filter(p => !p.doses.length);
   $('#v-review').innerHTML = `
   <div class="lei"><b>Esta tela mostra o que a maquina recusou adivinhar.</b>
     Nenhum item aqui e uma afirmacao sobre o produto — todos sao afirmacoes sobre o
@@ -1291,10 +1336,10 @@ function viewReview() {
   <div class="cards">
     <div class="kpi"><b style="color:var(--rev)">${porFio.length}</b><span>doses rebaixadas por fio desenhado (medida)</span></div>
     <div class="kpi"><b style="color:var(--rev)">${porPlaus.length}</b><span>doses rebaixadas por plausibilidade (heuristica nossa)</span></div>
-    <div class="kpi"><b style="color:var(--unk)">${dq.length}</b><span>rotulos sem tabela de uso lida</span></div>
-    <div class="kpi"><b style="color:var(--unk)">${semUso.length}</b><span>produtos sem par cultura x alvo</span></div>
-    <div class="kpi"><b style="color:var(--unk)">${semDose.length}</b><span>produtos sem dose estruturada</span></div>
-    <div class="kpi"><b style="color:var(--unk)">${P.products.length}</b><span>fichas sem PHI (nao publicado)</span></div>
+    <div class="kpi"><b style="color:var(--unk)">${dq.length}</b><span>rotulos sem tabela de dose lida</span></div>
+    <div class="kpi"><b style="color:var(--unk)">${semUsoMedido.length}</b><span>produtos <b>com rotulo lido</b> e zero pares</span></div>
+    <div class="kpi"><b style="color:var(--unk)">${semDoseMedido.length}</b><span>produtos <b>com rotulo lido</b> e zero dose</span></div>
+    <div class="kpi"><b style="color:var(--unk)">${semColeta.length}</b><span>registros sem rotulo coletado</span></div>
   </div>
 
   <h2>Dose rebaixada porque o fio desenhado da tabela contradiz o valor (${porFio.length})</h2>
@@ -1316,7 +1361,11 @@ function viewReview() {
     contradisse nada&rdquo; seria afirmar um negativo cuja prova este modulo tinha apagado.</div>
   ${tabRev(porPlaus)}
 
-  <h2>Rotulos cuja tabela de uso nao foi lida (${dq.length})</h2>
+  <h2>Rotulos cuja tabela de DOSE nao foi lida (${dq.length})</h2>
+  <div class="meta" style="margin-bottom:6px">Estes ${dq.length} objetos sao estados do leitor de
+    <b>dose</b> (<code>v1/dose_extrair</code>), nao do leitor de uso: a coluna ao lado mostra que a
+    maioria deles TEM pares extraidos. Chamar isto de &ldquo;tabela de uso nao lida&rdquo; era
+    descrever o leitor errado.</div>
   <div class="lei">A maioria dos herbicidas italianos declara dose em <b>prosa</b>
     (&ldquo;alla dose di 1-3 l/ha&rdquo;), nao em tabela. Este leitor le tabela.
     <b>Nenhum destes produtos e um produto sem uso ou sem dose.</b></div>
@@ -1355,7 +1404,14 @@ function viewCov() {
     nenhum rotulo foi coletado para eles. Somar os dois numeros seria contar universos
     diferentes.</div>
   <div class="block"><h3>Cobertura por etapa</h3>
-    <div class="tw"><table><tbody>${Object.entries(c).map(([k,o]) => barra(k,o)).join('')}</tbody></table></div>
+    <div class="tw"><table><tbody>${Object.entries(c).map(([k,o]) =>
+      k === 'PHI_COVERAGE'
+        ? `<tr><td>${k.replace(/_/g,' ')}</td>
+           <td><span class="unknown">NOT_ATTEMPTED</span></td>
+           <td class="meta">o extrator de carencia esta marcado <code>PROTOTYPE_NOT_SHIPPED</code> e
+             <b>nunca rodou</b> nos ${o.OF} rotulos. Desenhar isto como &ldquo;0 de ${o.OF}, 0%&rdquo;
+             na mesma escala das coberturas medidas seria publicar nao-tentativa como medicao.</td></tr>`
+        : barra(k,o)).join('')}</tbody></table></div>
     <div class="meta" style="margin-top:9px">${esc(P.coverage_note)}</div></div>
   <div class="block"><h3>Historico e comparabilidade</h3>
     <div class="tw"><table><tbody>
@@ -1407,12 +1463,19 @@ function viewCov() {
 // ---------------------------------------------------------------- 10 · SEARCH
 function viewSearch() {
   const q = ($('#sq').value||'').trim().toLowerCase();
-  if (!q) { $('#sres').innerHTML = '<div class="meta">digite um produto, registro, cultura, alvo, substancia ativa, estado ou tipo de mudanca</div>'; return; }
+  if (!q) { $('#sres').innerHTML = `<div class="meta">digite um produto, registro, titular,
+    substancia ativa, estado ou tipo de mudanca</div>
+    <div class="lei">Esta demonstracao <b>nao busca por cultura nem por alvo</b>: essa camada foi
+    retirada, e devolver uma lista de produtos para o nome de uma cultura seria responder com ela
+    por outro caminho.</div>`; return; }
+  // R-03 · a busca casava tambem por cultura e alvo dos pares de uso, entao
+  // digitar "TABACCO" devolvia 29 produtos e o cliente lia aquilo como resposta
+  // de uso autorizado. Medido: dos 29, ZERO casavam por nome, registro, titular,
+  // ativo, estado, atividade ou formulacao — os 29 vinham so da camada retirada.
   const prods = P.products.filter(p =>
-    [p.name,p.reg,p.actives,p.holder,p.status,p.activity,p.formulation].join(' ').toLowerCase().includes(q)
-    || p.uses.some(u => (u.crop+' '+u.target).toLowerCase().includes(q)));
+    [p.name,p.reg,p.actives,p.holder,p.status,p.activity,p.formulation].join(' ').toLowerCase().includes(q));
   const objs = P.objects.filter(o =>
-    [o.PRODUCT_NAME,o.REGISTRATION_ID,o.CHANGE_TYPE,o.FACT,o.BEFORE_VALUE,o.AFTER_VALUE]
+    [o.PRODUCT_NAME,o.REGISTRATION_ID,o.CHANGE_TYPE,o.BEFORE_VALUE,o.AFTER_VALUE]
       .join(' ').toLowerCase().includes(q));
   $('#sres').innerHTML = `
   <div class="lei">A busca so consulta os <b>intelligence objects</b> e os produtos ja resolvidos
