@@ -61,8 +61,13 @@ def season_year(key, v):
     if isinstance(y, int) and 1990 <= y <= 2026:
         return y, "verifier"
     m = re.fullmatch(r"(\d{4})-(\d{2})", key)
-    if m:                       # agrarian year 1 Nov Y -> 31 Oct Y+1; vine season = Y+1
-        return int(m.group(1)) + 1, "agrarian_year_rule"
+    if m:
+        # NOT an agrarian year. Checked against the documents themselves:
+        # annata-agraria-2004-05.pdf is internally titled "PERIODO GENNAIO-NOVEMBRE 2005",
+        # and 2000-01 is "GENNAIO-NOVEMBRE 2001". The YYYY-YY filename denotes the report
+        # for the SECOND year. The per-document verifier resolves this from the printed
+        # header and takes precedence; this is only the fallback.
+        return int(m.group(1)) + 1, "filename_second_year_fallback"
     if re.fullmatch(r"\d{4}", key):
         return int(key), "calendar_key"
     return None, "UNRESOLVED"
@@ -112,12 +117,38 @@ if __name__ == "__main__":
             "missed_quotes_recovered": len(v.get("missed_vine_peronospora_quotes", [])),
             "verifier_notes": v.get("verifier_notes", ""),
         }
-    # collisions: two documents claiming the same vine season
+    # collisions: two documents describing the SAME vine season.
+    # ARPAV published two reports for 2005 (a Jan-Nov edition filed as "2004-05" and a
+    # full-year edition filed as "2005"). Counting both would put one season into the
+    # backtest twice and inflate every count downstream. Seasons are therefore collapsed:
+    # one row per vine season, quotes unioned, sources listed.
     seen = {}
     for k, r in out.items():
-        sy = r["vine_season_year"]
-        seen.setdefault(sy, []).append(k)
+        seen.setdefault(r["vine_season_year"], []).append(k)
     collisions = {sy: ks for sy, ks in seen.items() if len(ks) > 1}
+
+    seasons = {}
+    for sy, keys in sorted(seen.items()):
+        rs = [out[k] for k in keys]
+        qs, seenq = [], set()
+        for r in rs:
+            for q in r["quotes"]:
+                if q["quote_it"] not in seenq:
+                    seenq.add(q["quote_it"]); qs.append(dict(q, _from_doc=r["doc_key"]))
+        outcome_qs = [q for q in qs if not q["_is_risk_not_outcome"]]
+        seasons[sy] = {
+            "vine_season_year": sy,
+            "source_documents": keys,
+            "n_source_documents": len(keys),
+            "n_quotes": len(qs),
+            "n_outcome_quotes": len(outcome_qs),
+            "has_explicit_severity": any(r["has_explicit_severity"] for r in rs),
+            "mention_only": (not any(r["has_explicit_severity"] for r in rs)
+                             and any(r["mention_only"] for r in rs)),
+            "no_statement": len(qs) == 0,
+            "severity_downgraded_by_risk_rule": any(r["severity_downgraded_by_risk_rule"] for r in rs),
+            "quotes": qs,
+        }
 
     doc = {
         "note": ("Verifier-approved quotes only, re-proved verbatim in THIS process against "
@@ -132,7 +163,15 @@ if __name__ == "__main__":
                       "toward a season's severity signal."),
         "n_mention_only": sum(1 for r in out.values() if r["mention_only"]),
         "n_no_statement": sum(1 for r in out.values() if not r["has_explicit_severity"] and not r["mention_only"] and r["n_quotes"] == 0),
+        "n_distinct_vine_seasons": len(seasons),
         "season_year_collisions": collisions,
+        "collision_rule": ("Two documents describing the same vine season are collapsed into one "
+                           "season row with their quotes unioned. ARPAV published two reports for "
+                           "2005; counting both would put one season into the backtest twice."),
+        "seasons_with_explicit_severity": sorted(sy for sy, r in seasons.items() if r["has_explicit_severity"]),
+        "seasons_mention_only": sorted(sy for sy, r in seasons.items() if r["mention_only"]),
+        "seasons_no_statement": sorted(sy for sy, r in seasons.items() if r["no_statement"]),
+        "per_season": seasons,
         "reproof_problems": problems,
         "per_document": out,
     }
@@ -148,6 +187,10 @@ if __name__ == "__main__":
     print(f"\ndocuments={doc['n_documents']}  explicit severity={doc['n_with_explicit_severity']}  "
           f"mention only={doc['n_mention_only']}  no statement={doc['n_no_statement']}")
     print(f"downgraded by the risk-not-outcome rule: {doc['n_downgraded_by_risk_rule']} {doc['downgraded_docs']}")
-    if collisions: print("SEASON COLLISIONS:", collisions)
+    print(f"distinct vine seasons after collapsing duplicates: {doc['n_distinct_vine_seasons']}")
+    print(f"  explicit severity: {len(doc['seasons_with_explicit_severity'])} {doc['seasons_with_explicit_severity']}")
+    print(f"  mention only:      {len(doc['seasons_mention_only'])} {doc['seasons_mention_only']}")
+    print(f"  no statement:      {len(doc['seasons_no_statement'])} {doc['seasons_no_statement']}")
+    if collisions: print("SEASON COLLISIONS COLLAPSED:", collisions)
     if problems:   print("REPROOF PROBLEMS:", json.dumps(problems, ensure_ascii=False)[:600])
     print(f"wrote {dest}")

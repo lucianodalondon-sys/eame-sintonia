@@ -91,7 +91,12 @@ SOURCES YOU MUST READ YOURSELF:
   ${EVID}  adversarially-verified verbatim quotes, per source document
   ${LEX}   a frozen MECHANICAL lexicon scan of the same 26 documents (cross-check only, not truth)
   ${RUNA}  AN INDEPENDENT SECOND EXTRACTION of 2014-2025 only, run separately with a different
-           schema and different agents. Use it as a replication check. Where run A and the
+           schema and different agents. Use it as a replication check. On that overlap it
+           rated only 6 seasons comparable (2014, 2016, 2021, 2022, 2024, 2025) where the
+           main file reports 8 with explicit severity — so the main file's severity flag
+           runs roughly 1.4x optimistic, and you should expect a similar shrinkage on the
+           2001-2013 seasons, which have no replication run at all and must therefore carry
+           MORE doubt, not less. Where run A and the
            main evidence file disagree about a season, that season is NOT robustly codeable
            and must not be counted as comparable, whichever one you personally find more
            convincing. They already disagree on 2017, 2018 and 2023.
@@ -113,9 +118,13 @@ ABSOLUTE RULES:
   infezioni" are risk language, not outcome. Report every one you find.
 - Some statements are conditional on spraying ("nei vigneti regolarmente difesi"). That is
   severity UNDER CONTROL, not natural pressure. Say how you handled it.
-- THE FIVE OLDEST DOCUMENTS ARE AGRARIAN YEARS (1 Nov -> 31 Oct). "annata agraria 2000-01"
-  describes the spring-summer 2001 vine season. Always report vine_season_year as the
-  CALENDAR year of the growing season, never the document title's first number.
+- DOCUMENT KEYS ARE NOT SEASONS. A file named "2000-01" is internally titled "PERIODO
+  GENNAIO-NOVEMBRE 2001": the YYYY-YY key denotes the report for the SECOND year, not an
+  agrarian year. Read vine_season_year from the evidence file, which each verifier resolved
+  from the printed header. Also: ARPAV published TWO reports for 2005 ("2004-05" and
+  "2005"), already collapsed into one season with quotes unioned. There are 26 documents
+  but only 25 distinct seasons, 2001-2025. Never count documents as seasons.
+- The evidence file has both per_document and per_season. USE per_season.
 - Document length runs from 7,166 to 32,553 characters. A longer report mentions more
   diseases regardless of the season. Do not mistake verbosity for severity.
 `
@@ -130,7 +139,7 @@ phase('Scale')
 const scaleResults = await pipeline(
   BRIEFS,
   (b) => agent(
-    `Design an ORDINAL OUTCOME SCALE for vine peronospora seasonal pressure in Veneto across ALL 26 ARPAV annata-agraria reports (agrarian years 2000-01 to 2004-05, then calendar 2005-2025).
+    `Design an ORDINAL OUTCOME SCALE for vine peronospora seasonal pressure in Veneto across 25 DISTINCT VINE SEASONS (2001-2025) reconstructed from 26 ARPAV annata-agraria reports.
 
 YOUR BRIEF: ${b.brief}
 
@@ -184,7 +193,14 @@ Do this:
 1. Count honestly. Documents are not seasons. "Mentions peronospora" is not a comparable season. n_truly_comparable = same construct, measured the same way, agreed by at least two of the three scales, and not flagged as over-reach by the cross-check.
 2. Where the three scales DISAGREE on a season, that is direct evidence the season is not robustly codeable. List those.
 3. QUANTIFY THE LENGTH CONFOUND. Documents run 7,166 to 32,553 chars. Read the char counts from the lexicon scan file and check whether the assigned level tracks document length. If it does, say so plainly — it is close to fatal.
-4. AUTHOR DRIFT across two decades, and the agrarian-vs-calendar year mapping for the five oldest documents.
+4. ERA BIAS — quantify this, it may be decisive. The frozen mechanical lexicon scan finds a
+   severity marker in only 3 of the 14 documents from 2000-2013, versus 9 of 12 from
+   2014-2025. If outcome availability is correlated with era, then the seasons that carry a
+   usable outcome are not a random sample of seasons, and a backtest trained on early years
+   to predict late ones is comparing two different reporting regimes rather than two
+   different epidemics. Say plainly whether this is SERIOUS or FATAL.
+   Also cover author drift (the by-line changes across the series) and the document-key
+   versus season mapping.
 5. CIRCULARITY. These reports explain infections by the rain that caused them. Note for your own reasoning that an independent probe over 34 ERA5 seasons already found antecedent weather explains at most ~23% of the variance in the target season's own rainfall — so the predictors are NOT a disguised copy of the season, but the weather pathway is correspondingly weak. Say what survives.
 6. Apply the gate LITERALLY to n_truly_comparable. Do not relax it to save the hypothesis:
      >=8 -> BACKTEST_CANDIDATE_STRONG
