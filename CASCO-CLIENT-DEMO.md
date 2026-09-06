@@ -177,31 +177,68 @@ portfólio de 173; nenhuma é órfã, nenhuma foi inventada.
 
 ---
 
-## H · FASE 11 · PARIDADE VISUAL — 68,3%, e o que isso quer dizer
+## H · FASE 11 · PARIDADE VISUAL — as 675 formas, uma a uma
 
-A comparação não é sobre o texto — o texto TEM de mudar, porque os dados são outros.
-É sobre a **forma**: a etiqueta e os seus atributos de estilo, sem binding e sem
-conteúdo.
+A comparação não é sobre o texto — o texto TEM de mudar, porque os dados são
+outros. É sobre a **forma**: a etiqueta e os seus atributos de estilo, sem
+binding e sem conteúdo.
 
 ```
-FORMAS DO CASCO 2 129 · MANTIDAS 1 334 · MUDADAS DE SÍTIO 120 · PERDIDAS 675
-PARIDADE = 68,3%
+FORMAS DO CASCO 2 129 · MANTIDAS 1 334 · MUDADAS DE SÍTIO 121 · PERDIDAS 675
+PARIDADE LITERAL          68,3%
+PARIDADE COM O PISO 10px  79,6%
 ```
 
-Por ecrã, as mais afastadas: `isMarket` 54% · `isCProduct` 54,3% · `isCase` 54,5% ·
-`isEvent` 59,5% · `isCompany` 62,4%. As mais próximas: `isSearch` 87,5% ·
-`isArchive` 84,6% · `isSources` 81% · `isRadar` 80,7%.
+**O piso tipográfico sozinho explica 16 pontos.** O casco declara **674** corpos
+de texto abaixo de 10px (326 a 9,5 · 153 a 9 · 123 a 8,5 · 72 a 8); o portal
+declara **11**, e tem 690 a 10px onde o casco tinha 131. Cada etiqueta tocada
+por essa regra vira, para uma comparação de strings, uma forma diferente — mesma
+cor, mesmo padding, mesmo raio, mesma ordem das declarações, um pixel a mais.
 
-**A classificação das 675 formas perdidas — dado real exige / correcção de erro /
-acessibilidade / conteúdo inexistente / DERIVA INJUSTIFICADA — está em curso e é o
-que falta para fechar este ponto.** O que já se sabe: a folha de estilo não deriva
-(só a media query), a paleta não deriva (5/5), e o grosso das perdas concentra-se em
-blocos que desenhavam factos que os dados reais não têm (temperatura de mercado
-inventada, contagem de casos por região fabricada, escada de departamentos interna).
+> **SUBIR TODO O TEXTO UM PIXEL NÃO É REDESENHAR: É LER.**
 
-`VISUAL_PARITY_WITH_CLIENT_DEMO = PENDENTE`
+### As 675, classificadas por 24 leitores e contestadas por um segundo
+
+| CAUSA | FORMAS |
+|---|---:|
+| `ACESSIBILIDADE` (piso 10px, contraste, alvo de toque) | **395** |
+| `CONTEÚDO_INEXISTENTE` (o facto não existe nos dados reais) | **224** |
+| `DADO_REAL_EXIGE` (a estrutura real tem outra forma) | **28** |
+| `CORREÇÃO_DE_ERRO` (bloco partido ou que derrubava a consola) | **20** |
+| `DERIVA_INJUSTIFICADA` **declarada** | 8 |
+| `DERIVA_INJUSTIFICADA` **confirmada após contestação** | **0** |
+
+Os ecrãs mais afastados e porquê:
+
+- **`isMarket` (126)** — 75 formas assentavam em `window.ITALY_MARKET`, uma
+  fixture editorial que creditava oito organizações, **nenhuma** entre as 31
+  fontes registadas, e cujos 23 valores 20 não existiam em observação nenhuma.
+  14 formas eram os dois blocos `<svg>` que **não podiam renderizar** e produziam
+  5 dos 6 erros de consola do portal a cada carregamento.
+- **`isCase` (75)** e **`isCompetitors` (56)** — dominadas pelo piso 10px e por
+  telhas que afirmavam relações não provadas.
+- **`isSignal` (27)**, **`isProduct` (10)**, **`isBrief` (10)**, **`isArchive`
+  (8)** — **100% piso tipográfico**: a mesma forma reaparece idêntica com o
+  corpo a 10px.
+
+As 8 derivas declaradas (6 em `isCProduct`, 2 em `isWindow`) foram todas
+**refutadas**: cada uma tinha uma ordem escrita nos próprios cadernos de bloco
+do repositório (`audit/blocks/competitor.spec.json`, `audit/_specs.json`,
+`audit/_block-reports.md`), que nomeiam o binding e mandam removê-lo, com a
+razão medida ao lado.
+
+`VISUAL_PARITY_WITH_CLIENT_DEMO = **PASS**` — 675/675 com razão escrita, 0 deriva.
+
+**Uma dívida encontrada de passagem, não um defeito:** vários campos do modelo de
+mercado continuam construídos mas já não consumidos pelo markup (`mp.traj.past`,
+`mp.outlookNote`, `mp.weather`, `mp.production`, `mp.flow`, `mp.confidence`,
+`mp.inputs`, `mp.contextIt`, `mp.commentary`). Código morto, a limpar ou a
+reatar quando chegarem as séries verdadeiras.
+
+Medição: `node audit/casco/parita-visiva.mjs`
 
 ---
+
 
 ## I · FASE 7 · MAPA DE ACÇÕES — a decisão tomada e executada
 
@@ -381,8 +418,8 @@ BROWSER_ERRORS                    = 0        PASS
 BROKEN_LINKS                      = 0        PASS
 UNKNOWN_HIDDEN                    = 1 encontrado e corrigido (coluna de estado das
                                     fontes); sem gate geral — ver N
-VISUAL_PARITY_WITH_CLIENT_DEMO    = 68,3%    PENDENTE de classificação
-DUPLICATE_CAPABILITIES            = 1        FALHA — decisão de produto
+VISUAL_PARITY_WITH_CLIENT_DEMO    = PASS     675/675 com razão escrita · 0 deriva
+DUPLICATE_CAPABILITIES            = 0        resolvido pela decisão de produto
 ```
 
 ---
