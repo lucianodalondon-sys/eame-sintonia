@@ -1,12 +1,23 @@
-PROJECT        = SINTONIA_EAME_ITALY
-REPOSITORY     = https://github.com/lucianodalondon-sys/eame-sintonia.git
-LOCAL_PATH     = C:\eame-sintonia-passport
-MISSION_BRANCH = claude/passport-tags-italy-v1
-MISSION_HEAD   = c8c6b12fb9655d3dd7066615259255802a27de63
-BASE_BRANCH    = origin/sintonia/canonical
-BASE_HEAD      = 10af4a7accff88494eb097978c171601994a3422
-REMOTE_HEAD    = c8c6b12fb9655d3dd7066615259255802a27de63
-WORKTREE       = 1 arquivos pendentes
+SELO DE ESTADO — missao passaporte/etiquetas Italia
+
+PROJECT           = SINTONIA_EAME_ITALY
+COUNTRY_SCOPE     = ITALY
+REPOSITORY        = https://github.com/lucianodalondon-sys/eame-sintonia.git
+LOCAL_PATH        = C:\eame-sintonia-passport
+REF_PATH          = C:\eame-sintonia-passport-ref  (so-leitura, PASSPORT-1.0)
+
+MISSION_BRANCH    = claude/passport-tags-italy-v1
+BASE_BRANCH       = origin/sintonia/canonical
+BASE_HEAD         = 10af4a7accff88494eb097978c171601994a3422
+COMMITS_DA_MISSAO = 6
+
+REMOTE_HEAD nao cabe neste arquivo: um commit nao contem o proprio hash.
+Para ler o valor provado:
+    git rev-parse origin/claude/passport-tags-italy-v1
+No fim desta missao ele era igual ao HEAD local, e o worktree estava limpo.
+
 PASSPORT_REQUIRED = NO
 FULL_BACKFILL     = NO
 CANONICAL_TOCADA  = NAO
+PORTAL_TOCADO     = NAO
+COLETA_FEITA      = NENHUMA
