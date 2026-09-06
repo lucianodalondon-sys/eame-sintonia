@@ -3437,6 +3437,21 @@ class Component extends DCLogic {
     });
   }
   renderVals() {
+    /* L'ASCOLTATORE DELL'INDIRIZZO SI ARMA ALLA PRIMA RESA, NON AL PRIMO CLIC.
+       Stava dentro `go()`, cioe nasceva solo quando il lettore cliccava
+       qualcosa. Prima di quel clic il portale non ascoltava l'indirizzo:
+       scrivere #portafoglio nella barra, o tornare indietro col browser, non
+       muoveva niente. MISURATO in Chromium: caricata la pagina e poi cambiato
+       il frammento sei volte, il titolo restava «Radar delle Opportunita» tutte
+       e sei — mentre la stessa pagina APERTA su #portfolio mostrava
+       «Portafoglio». Il primo caso ricarica il documento, il secondo no.
+
+           UN PORTALE CHE OBBEDISCE ALL'INDIRIZZO SOLO DOPO IL PRIMO CLIC
+           OBBEDISCE A META.
+
+       `_wireHash` e idempotente — si protegge da sola — quindi chiamarla a ogni
+       resa non arma sei ascoltatori: ne arma uno, subito. */
+    this._wireHash();
 
     /* ── UN TITOLO NON SI GRIDA ────────────────────────────────────────────
        Il dizionario del pacchetto e scritto in maiuscolo perche nasce per le
