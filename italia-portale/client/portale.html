@@ -5916,7 +5916,20 @@ class Component extends DCLogic {
       /* was the case fixture's prose ("Vector treatments · mid-June → late July").
          LAST_VALIDATED is filled 29/29 and is the one fact this tile can carry
          without repeating the status line below it. */
-      calLabel: w.lastValidated ? ((wIT ? 'Validato ' : 'Validated ') + wDate(w.lastValidated) + ' ' + String(w.lastValidated).slice(0, 4)) : '',
+      /* «Validato» AFIRMAVA UM ACTO QUE NINGUEM PODE MOSTRAR.
+         Medido: LAST_VALIDATED vale 2026-09-02 em 29/29 janelas, e 2026-09-02 e
+         exactamente o referenceDate do pacote. Um valor unico, igual a data de
+         referencia, e um CARIMBO DE GERACAO — nao um acto de validacao por
+         janela. Imprimir «Validato 02 SET 2026» transformava o carimbo numa
+         afirmacao sobre trabalho feito, e as 29 incluem 5 cujo estado de data e
+         DATE_TO_CONFIRM.
+
+             UM CARIMBO DE GERACAO NAO E UMA VALIDACAO.
+             DIZER A DATA E HONESTO. DIZER QUEM VALIDOU, SEM PROVA, NAO E.
+
+         A data continua impressa, com a palavra certa: e a data a que os dados
+         se referem, e nao a data em que alguem os conferiu. */
+      calLabel: w.lastValidated ? ((wIT ? 'Dati al ' : 'Data as of ') + wDate(w.lastValidated) + ' ' + String(w.lastValidated).slice(0, 4)) : '',
     });
 
     const wins = WROWS.filter(w => (!s.wCrop || w.crop === s.wCrop) && (!s.wBucket || w.status === s.wBucket)).map(wDeco);
