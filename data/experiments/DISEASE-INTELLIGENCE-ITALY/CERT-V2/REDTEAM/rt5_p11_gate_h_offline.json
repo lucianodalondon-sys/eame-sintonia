@@ -1,0 +1,62 @@
+{
+ "OFFLINE_or_source_unreachable": {
+  "VERDICT": "FAIL",
+  "control_tripped": false,
+  "reachable": "0/2",
+  "grew_or_held": false,
+  "non_null": "0/2",
+  "PROBE": {
+   "VITE-OIDIO-TOSCANA": {
+    "HTTP": null,
+    "ok": false,
+    "n_rows": null,
+    "non_null_values": null,
+    "SILENT_FAILURE": null,
+    "stored_n_rows": 2515,
+    "delta_rows": -2515,
+    "error": "URLError: <urlopen error [Errno 11001] getaddrinfo failed>"
+   },
+   "OLIVO-BACTROCERA-TOSCANA": {
+    "HTTP": null,
+    "ok": false,
+    "n_rows": null,
+    "non_null_values": null,
+    "SILENT_FAILURE": null,
+    "stored_n_rows": 2928,
+    "delta_rows": -2928,
+    "error": "URLError: <urlopen error [Errno 11001] getaddrinfo failed>"
+   }
+  }
+ },
+ "LIVE_today_on_this_machine": {
+  "VERDICT": "PASS",
+  "control_tripped": true,
+  "reachable": "2/2",
+  "grew_or_held": true,
+  "non_null": "2/2",
+  "PROBE": {
+   "VITE-OIDIO-TOSCANA": {
+    "HTTP": 200,
+    "ok": true,
+    "n_rows": 2515,
+    "non_null_values": 2515,
+    "SILENT_FAILURE": null,
+    "stored_n_rows": 2515,
+    "delta_rows": 0,
+    "error": null
+   },
+   "OLIVO-BACTROCERA-TOSCANA": {
+    "HTTP": 200,
+    "ok": true,
+    "n_rows": 2928,
+    "non_null_values": 2870,
+    "SILENT_FAILURE": null,
+    "stored_n_rows": 2928,
+    "delta_rows": 0,
+    "error": null
+   }
+  }
+ },
+ "COMMITTED_gates_json_verdict": "PASS",
+ "TALLY_IF_H_ALSO_FAILS_ON_A_CLEAN_CHECKOUT": "committed PASS=8 FAIL=1 NOT_TESTABLE=1 ; clean checkout with network PASS=8 FAIL=2 NOT_TESTABLE=0 (J) ; clean checkout without network PASS=7 FAIL=3 NOT_TESTABLE=0 (J and H)"
+}

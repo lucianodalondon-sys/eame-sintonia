@@ -1,14 +1,16 @@
 # Regenerated intermediates: byte-for-byte copies of versioned RAW files, produced by the
 # versioned scripts in this directory. The RESULTS are committed; these inputs are not, to
-# avoid committing the same archive three times. Every one is rebuilt by running the script
-# named in the directory's README.
+# avoid committing the same archive several times. Each is rebuilt by running its script.
 CODE-VALUE-LAB/*/RAW/
 REFRESH-LAB/*/RAW/
-MUTANTS/*.log
+REDTEAM/_lab/
+REDTEAM/_lat/
+REDTEAM/DIFESA/
 __pycache__/
-_probe_*.py
-_time_eval.py
-_verify_m03.py
-_drive_mutations.sh
-_run_light.sh
-_run_light2.sh
+
+# NOTHING ELSE IS IGNORED. An earlier version of this file excluded the probe scripts
+# beginning with an underscore, including _probe_order.py -- the script behind the step-1
+# headline table. An independent provenance lens found that table was produced by a harness
+# that reshuffled on every glob call, and it could not check that because the script was not
+# in git. Excluding a script from version control while publishing its number is exactly the
+# defect this certification exists to catch. All of them are versioned now.
