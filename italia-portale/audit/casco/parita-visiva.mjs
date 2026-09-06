@@ -31,14 +31,28 @@ const segmenta = (m) => {
   return out;
 };
 
+/* IL PAVIMENTO TIPOGRAFICO E UNA SOLA DECISIONE, NON SEICENTO.
+   Il casco dichiara 674 corpi di testo sotto i dieci pixel; il portale ne
+   dichiara undici. Ogni tag toccato da quella regola diventa, per un confronto
+   di stringhe, una forma diversa — e il conto della parita crolla senza che
+   una sola scelta di disegno sia cambiata.
+
+       ALZARE TUTTO IL TESTO DI UN PIXEL NON E RIDISEGNARE: E LEGGERE.
+
+   Percio si misura DUE VOLTE: la parita letterale, e quella con il pavimento
+   normalizzato a dieci. La differenza fra le due E la regola. */
+const PAVIMENTO = (t) => t.replace(/font-size:([0-9.]+)px/g,
+  (m, n) => 'font-size:' + (parseFloat(n) < 10 ? 10 : n) + 'px');
+
 /* la FORMA visiva: tag + attributi, senza binding, testo, gestori, titoli */
-const forme = (righe) => {
+const forme = (righe, pavimento) => {
   const testo = righe.join('\n')
     .replace(/\{\{[^}]*\}\}/g, '·')
     .replace(/>[^<]*</g, '><');
   const out = new Set();
   for (const t of (testo.match(/<[a-zA-Z-]+[^>]*>/g) || [])) {
-    out.add(t
+    const g = pavimento ? PAVIMENTO(t) : t;
+    out.add(g
       .replace(/ on[A-Z][a-zA-Z]*="[^"]*"/g, '')
       .replace(/ (title|aria-label|alt|href|role)="[^"]*"/g, '')
       .replace(/ hint-[a-z-]*="[^"]*"/g, '')
@@ -79,7 +93,17 @@ console.log('');
 const totSpost = righeReport.reduce((a, r) => a + r.spostate, 0);
 const totPerseVere = righeReport.reduce((a, r) => a + r.perse, 0);
 console.log('FORME DEL CASCO', totC, '· TENUTE', totTenute, '· SPOSTATE', totSpost, '· PERSE', totPerseVere,
-  '· PARITA COMPLESSIVA', Math.round(((totTenute + totSpost) / totC) * 1000) / 10 + '%');
+  '· PARITA LETTERALE', Math.round(((totTenute + totSpost) / totC) * 1000) / 10 + '%');
+
+/* la seconda misura: la stessa, con il pavimento normalizzato */
+const tuttoCasco = forme(Object.keys(C).reduce((a, k) => a.concat(C[k]), []), true);
+const tuttoVivo = forme(Object.keys(V).reduce((a, k) => a.concat(V[k]), []), true);
+const tenutePav = [...tuttoCasco].filter((f) => tuttoVivo.has(f)).length;
+console.log('CON IL PAVIMENTO A 10px  ', tuttoCasco.size, '· tenute', tenutePav,
+  '· PARITA', Math.round((tenutePav / tuttoCasco.size) * 1000) / 10 + '%');
+const sotto = (file) => (fs.readFileSync(file, 'utf8').match(/font-size:([0-9.]+)px/g) || [])
+  .filter((m) => parseFloat(m.slice(10)) < 10).length;
+console.log('corpi sotto i 10px       ', 'casco', sotto(CASCO), '· portale', sotto(VIVO));
 
 if (process.env.SCRIVI) {
   const dir = process.env.SCRIVI;
