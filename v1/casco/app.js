@@ -711,7 +711,12 @@ function viewToday() {
 function linhaReprovada(d) {
   return d.crop_check === 'CROP_ASSIGNMENT_CONTRADICTED_BY_RULE'
       || d.rule_check === 'NOT_LOCATED'
-      || d.rule_check === 'PLAUSIBILITY_REJECTED';
+      || d.rule_check === 'PLAUSIBILITY_REJECTED'
+      // R-22 · a banda que o extrator leu como UMA linha tem um risco desenhado
+      // por dentro, com texto dos dois lados: sao DUAS linhas coladas, e o
+      // numero pode ser da de baixo. Em 018270 o unico "1" da regiao esta do
+      // outro lado do risco, e era publicado como dose do MAIS.
+      || d.band_check === 'DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE';
 }
 function colunaHerdada(d, valor, estado, nomeCampo) {
   if (linhaReprovada(d))
@@ -765,6 +770,15 @@ function avisoAlvoLiteral(d) {
 // O selo dos fios descrevia SO o fio do VALOR. Uma linha cujo alvo nao existe
 // no documento nao pode receber o selo mais forte da tela.
 function seloFios(d) {
+  // R-22 primeiro: se a banda de onde a linha foi lida tem um risco desenhado
+  // por dentro, nao ha o que confirmar — o numero pode ser da linha de baixo.
+  if (d.band_check === 'DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE')
+    return `<span class="unknown" title="${esc(String(d.band_proof||'').slice(0,300))}"
+      >DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE</span>
+      <div class="meta">a banda de onde esta linha foi lida tem um <b>fio horizontal
+      desenhado por dentro</b>, com texto acima e abaixo dele: a etichetta separou duas linhas
+      e o extrator leu as duas como uma. O numero nao e publicado, porque ele pode ser da
+      linha de baixo (<code>R-22</code>)</div>`;
   const ok = d.rule_check === 'CONFIRMED_BY_RULE';
   const literalRuim = d.target_literal === 'TARGET_TEXT_NOT_FOUND_LITERALLY';
   if (ok && literalRuim)

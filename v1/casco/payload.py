@@ -73,6 +73,7 @@ def main():
     ap.add_argument("--culturanome", default="v1/dados/CULTURA-NOMEADA.json")
     ap.add_argument("--prosa", default="v1/dados/PROSA-CENSO.json")
     ap.add_argument("--citacao", default="v1/dados/CITACAO-CHECK.json")
+    ap.add_argument("--banda", default="v1/dados/BANDA-FIO-CHECK.json")
     ap.add_argument("--vigencia", default="v1/dados/VIGENCIA-ETICHETTA.json")
     ap.add_argument("--cobcultura", default="v1/dados/COBERTURA-CULTURA.json")
     ap.add_argument("--hoje", required=True)
@@ -318,6 +319,16 @@ def main():
         prova_her.setdefault(c["KEY"], {})[c["FIELD"]] = c
     alv = json.load(open(a.alvoliteral, encoding="utf-8")) if os.path.exists(a.alvoliteral) else None
     va = alv["VERDICT"] if alv else {}
+    # R-22 · a banda que o extrator leu como UMA linha tem um fio desenhado por
+    # dentro? 29 linhas tem, e nelas o numero publicado pode ser da linha de
+    # baixo — em 018270 o unico "1" da regiao esta do outro lado do risco.
+    bnd = json.load(open(a.banda, encoding="utf-8")) if os.path.exists(a.banda) else None
+    if bnd is None:
+        raise SystemExit("BANDA-FIO-CHECK.json ausente: sem ele o casco publica como dose de "
+                         "uma linha um numero que esta do outro lado de um fio desenhado. "
+                         "Rode v1/inteligencia/banda_fio.py")
+    vb = bnd["VERDICT"]
+    prova_banda = {c["KEY"]: c for c in bnd["CROSSED"]}
 
     # doses por produto, ja deduplicadas
     doses = {}
@@ -333,6 +344,10 @@ def main():
                 out.append({
                     "crop_check": vc.get(f'{lab["REGISTRATION_ID"]}#{_i}', "NOT_CHECKED"),
                     "target_literal": va.get(f'{lab["REGISTRATION_ID"]}#{_i}', "TARGET_TEXT_NOT_CHECKED"),
+                    "band_check": vb.get(f'{lab["REGISTRATION_ID"]}#{_i}',
+                                         "DOSE_ROW_BAND_NOT_CHECKED"),
+                    "band_proof": (prova_banda.get(f'{lab["REGISTRATION_ID"]}#{_i}') or {}
+                                   ).get("PROOF", "NOT_APPLICABLE"),
                     "crop": r.get("CROP"), "target": r.get("TARGET"),
                     "crop_inherited": bool(r.get("CROP_INHERITED")),
                     "dose_conc": r.get("DOSE_CONCENTRATION"),
@@ -566,6 +581,7 @@ def main():
         "crop_check": {k: v for k, v in cultura.items() if k not in ("VERDICT", "CONTRADICTED")},
         "crop_check_list": cultura["CONTRADICTED"],
         "pair_check": {k: v for k, v in pf.items() if k not in ("VERDICT", "CONTRADICTED")},
+        "band_check": {k: v for k, v in bnd.items() if k not in ("VERDICT", "CROSSED")},
         "target_name": {k: v for k, v in an.items()
                         if k not in ("VERDICT", "NOT_IN_LABEL", "QUALIFIER")},
         "crop_name": dict({k: v for k, v in cn.items() if k != "VERDICT"}),

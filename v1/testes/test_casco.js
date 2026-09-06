@@ -852,6 +852,32 @@ teste('RT4 · MOSCA BIANCA nao pode aparecer so como MOSCA', () => {
   return `${tot} pares com alvo sempre qualificado · ${mb.length} deles sao "mosca bianca"`;
 });
 
+teste('RT4 · numero do outro lado de um risco desenhado nao e dose desta linha', () => {
+  // Achado BLOCKING da lente B: em 018270 GLIPHOGAN a dose da linha do MAIS e o
+  // unico "1" da regiao e ele esta na linha DEBAIXO, do outro lado do fio. R-22
+  // ve isso quando o documento DESENHOU o risco: 29 linhas de dose tem um fio
+  // horizontal por dentro da propria banda, com texto dos dois lados.
+  const cruz = [];
+  P.products.forEach(p => (p.doses||[]).forEach(d => {
+    if (d.band_check === 'DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE') cruz.push([p.reg, d.crop, d.dose_ha]);
+  }));
+  afirma(cruz.length > 0, 'nenhuma linha com risco por dentro da banda — R-22 nao chega a tela');
+  // nenhuma delas pode publicar o numero nem o selo forte
+  let vaza = 0;
+  P.products.forEach(p => (p.doses||[]).forEach(d => {
+    if (d.band_check === 'DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE'
+        && /CONFIRMADA<\/span>/.test(seloFios(d))) vaza++;
+    if (d.band_check === 'DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE' && !linhaReprovada(d)) vaza++;
+  }));
+  afirma(vaza === 0, `${vaza} linhas com risco por dentro da banda ainda publicam o numero`);
+  const reg = cruz.find(x => x[0] === '018270') ? '018270' : cruz[0][0];
+  viewProduto(reg);
+  afirma(html('#pdet').includes('fio horizontal') || html('#pdet').includes('DOSE_ROW_BAND'),
+    `a ficha de ${reg} nao explica por que o numero nao foi publicado`);
+  const regs = [...new Set(cruz.map(x => x[0]))].sort();
+  return `${cruz.length} linhas em ${regs.length} rotulos (${regs.slice(0,5).join(', ')})`;
+});
+
 teste('zero medido, nao coletado e nao sei sao tres respostas diferentes', () => {
   const lido = P.products.find(p => p.states && p.states.LABEL_READ && !p.uses.length);
   const naoColetado = P.products.find(p => p.states && p.states.LABEL_DOWNLOADED === false);

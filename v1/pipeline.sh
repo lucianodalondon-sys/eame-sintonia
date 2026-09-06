@@ -73,6 +73,9 @@ python3 v1/inteligencia/heranca_validar.py --fios /tmp/fioscache --bbox /tmp/bbo
 echo "== 10i · R-17: o NOME do alvo publicado esta escrito no rotulo?"
 python3 v1/inteligencia/alvo_nomeado.py
 
+echo "== 10h2 · R-22: a banda de uma linha de dose tem fio desenhado por dentro?"
+python3 v1/inteligencia/banda_fio.py --fios /tmp/fioscache --bbox /tmp/bboxcache
+
 echo "== 10i2 · R-21: o NOME da cultura publicada esta escrito no rotulo?"
 python3 v1/inteligencia/cultura_nomeada.py
 
