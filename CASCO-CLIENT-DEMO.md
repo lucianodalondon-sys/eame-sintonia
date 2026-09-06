@@ -283,6 +283,45 @@ grelha lhe aponta, mas abre por id e mostra as suas cinco áreas.
 Medição: `node audit/casco/mappa-azioni.mjs`
 
 
+### Provado num browser real, não só no banco de ensaio
+
+`audit/casco/quarantatre.mjs` não renderiza: **abre**. Clica cada cartão que as
+três grelhas oferecem, nas duas línguas, e lê do vidro.
+
+```
+84 cartões abertos a clique · 42 oportunidades distintas × 2 línguas
+5 caixas de departamento em cada uma · 0 códigos fora das cinco
+0 fichas vazias · 0 erros de consola · 0 pedidos falhados
+```
+
+A 43.ª está no grupo `errored` do motor: abre e mostra as suas cinco áreas, mas
+nenhuma grelha lhe aponta. O portão **declara-o** em vez de falhar sobre um
+facto que o motor declara sozinho.
+
+Três erros meus antes deste portão medir o que diz medir: procurava
+`data-case`, o atributo da grelha retirada, e achava **um** cartão onde há
+treze; subia a `closest('[onclick],div')` e clicava **qualquer coisa**, abrindo
+uma ficha que não era a pedida e contando cinco caixas — 86/86 sem medir nada;
+e voltava atrás com `goto` para o **mesmo** endereço, que não recarrega o
+documento, ficando na ficha aberta.
+
+> **UM PORTÃO QUE ABRE UMA FICHA QUALQUER E A CONTA BOA MEDE-SE A SI PRÓPRIO.**
+
+### Um defeito real que este teste destapou
+
+O portal **obedecia ao endereço só depois do primeiro clique**. O ouvinte do
+fragmento vivia dentro de `go()`. Medido em Chromium: carregada a página e
+mudado o fragmento seis vezes, o título ficava «Radar delle Opportunità» as seis
+— enquanto a mesma página *aberta* em `#portfolio` mostrava «Portafoglio».
+
+> **UM PORTAL QUE OBEDECE AO ENDEREÇO SÓ DEPOIS DO PRIMEIRO CLIQUE OBEDECE A METADE.**
+
+Passou a armar-se na primeira renderização. Verificado: seis fragmentos, seis
+ecrãs certos, zero erros de consola. `casa-gate` continua 30/30.
+
+---
+
+
 ## J · O QUE FOI MEDIDO E ESTÁ VERDE
 
 ```
