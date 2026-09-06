@@ -69,6 +69,28 @@ const SORGENTE = fs.readFileSync(new URL('../../client/portale.html', import.met
 const RESIDUI_MARKUP = ['data-area=', 'data-area-name=', 'cs.actionMapRows', 'cs.hasActionMap']
   .filter((t) => SORGENTE.indexOf(t) >= 0);
 
+/* ── IL PRODOTTO ESCE DI CASA ANCHE IN PDF ────────────────────────────────
+   Questo portone rendeva schermate e dichiarava pulito. Il documento che il
+   cliente SCARICA non e una schermata: si costruisce in un gestore di clic e
+   passa a `italy-pdf.js` un elenco `actionAreas`. Quella riga leggeva la mappa
+   ritirata a sette aree e la traduceva col dizionario V21, che tiene ancora
+   NORMATIVO, PORTAFOGLIO e TECNICO E SCIENTIFICO.
+
+       UN PORTONE CHE GUARDA SOLO LO SCHERMO DICHIARA PULITO UN PRODOTTO CHE
+       ESCE DI CASA IN PDF.
+
+   Si misura percio anche la SORGENTE dei documenti: nessun elenco di aree puo
+   nascere da `actionMap` ne passare per le etichette V21 delle aree ritirate. */
+const SENZA_COMMENTI = SORGENTE.slice(SORGENTE.indexOf('<script type="text/x-dc"'))
+  .replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+const RESIDUI_DOCUMENTO = [];
+if (/actionAreas[\s\S]{0,200}?actionMap/.test(SENZA_COMMENTI)) RESIDUI_DOCUMENTO.push('actionAreas costruito da actionMap');
+if (/V21\s*&&\s*T\.V21\[a\]/.test(SENZA_COMMENTI)) RESIDUI_DOCUMENTO.push('etichette V21 di area');
+for (const c of ['SCIENCE_TECHNICAL', 'PORTFOLIO', 'REGULATORY']) {
+  const re = new RegExp("(areaL|deptLabel|dept)\\s*[:=][^,;\\n]{0,60}" + c);
+  if (re.test(SENZA_COMMENTI)) RESIDUI_DOCUMENTO.push('codice ritirato come area: ' + c);
+}
+
 const AMMESSE = ['meeting', 'future', 'windows', 'market', 'voices', 'competitors',
   'science', 'portfolio', 'archive', 'sources'];
 const C = AM.collections;
@@ -97,7 +119,7 @@ for (const st of schermi) {
   resi++;
   cerca(r.vals, st.view);
 }
-const vecchioVisibile = RESIDUI_MARKUP.length + codiciFuori.size;
+const vecchioVisibile = RESIDUI_MARKUP.length + codiciFuori.size + RESIDUI_DOCUMENTO.length;
 
 console.log('');
 console.log('MAPA_CANONICO                    = mappa della riunione · ' + CANONICHE.length + ' aree · ' + CANONICHE.join(', '));
@@ -106,6 +128,7 @@ if (incompleti.length) for (const i of incompleti.slice(0, 6)) console.log('    
 console.log('schermate rese                   = ' + resi + '/' + schermi.length);
 console.log('MAPA_ANTIGO_VISIVEL              = ' + (vecchioVisibile ? 'SIM' : 'NAO'));
 if (RESIDUI_MARKUP.length) console.log('    residui nel markup:', RESIDUI_MARKUP.join(' '));
+if (RESIDUI_DOCUMENTO.length) console.log('    residui nei documenti scaricati:', RESIDUI_DOCUMENTO.join(' · '));
 for (const [k, n] of codiciFuori) console.log('    codice di reparto fuori dalle cinque:', k, '×', n);
 console.log('NOMI_DUPLICATI_PER_REPARTO       = ' + doppi);
 console.log('ACOES_INVENTADAS_ENCONTRADAS     = ' + inventate.length);

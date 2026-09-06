@@ -4856,9 +4856,28 @@ class Component extends DCLogic {
        Quello che resta qui non e una mappa: sono i pulsanti del MATERIALE
        COMMERCIALE, e adesso parlano la lingua canonica — le cinque aree, con
        le etichette della riunione, non piu quelle della mappa ritirata. */
+    /* UN PULSANTE DICE QUELLO CHE APRE.
+       Questi pulsanti aprono un DOCUMENTO. Portavano prima i sette nomi della
+       mappa ritirata, poi — per un mio passaggio — i cinque nomi delle aree
+       canoniche: e cosi sembravano la mappa delle azioni, ripetuta piu in
+       basso con un'altra faccia. Il rischio non e teorico: sulla schermata
+       delle Finestre gli stessi documenti si chiamano col proprio titolo, e un
+       lettore che passa dall'una all'altra vedeva sei «reparti» di la e cinque
+       «reparti» di qua.
+
+           UNA MAPPA DELLE AZIONI E CINQUE AREE. UN ELENCO DI DOCUMENTI E UN
+           ELENCO DI DOCUMENTI. CHIAMARLI CON LO STESSO NOME NE FA DUE MAPPE.
+
+       Adesso portano il titolo del documento, gli stessi che le Finestre
+       usano, presi dal dizionario. L'instradamento non cambia. */
+    const CS_BRIEF_TITOLO = {
+      MARKETING: 'wdBriefMarketing', COMMERCIAL: 'wdBriefSales',
+      MARKET_DEVELOPMENT: 'wdBriefMktDev', TECHNICAL_SCIENTIFIC: 'wdBriefTech',
+      SUPPLY: 'wdBriefSupply',
+    };
     const csActionMap = ((AM && AM.AREE_CANONICHE) || []).map((a) => {
       const u = (AM && AM.areaUI) ? AM.areaUI(a) : { line: '#978B87', surface: '#564F4D', ink: '#C9C3C1' };
-      return { area: a, areaL: mtL(a) || String(a).replace(/_/g, ' '), color: u.line };
+      return { area: a, areaL: T[CS_BRIEF_TITOLO[a]] || mtL(a) || String(a).replace(/_/g, ' '), color: u.line };
     });
 
     /* ── le prove, per id, verso il record vero ────────────────────────────
@@ -7159,10 +7178,32 @@ class Component extends DCLogic {
                 strengthL: (T.PSTATE && T.PSTATE[l.strength]) || String(l.strength || '').replace(/_/g, ' '),
                 via: viaHuman(l.resolvedThrough)
               })),
-              actionAreas: ((bcase && bcase.actionMap) || []).map((a) => ({
-                areaL: (T.V21 && T.V21[a]) || String(a).replace(/_/g, ' '),
-                modeL: (T.AREAMODE || {})[bcase.status === 'ACT_NOW' ? 'LOOK' : bcase.status === 'PREPARE_NOW' ? 'PREPARE' : 'MONITOR'] || ''
-              })),
+              /* ── IL DOCUMENTO SCARICATO RISTAMPAVA LA MAPPA RITIRATA ──────
+                 Questa riga leggeva `bcase.actionMap` — le SETTE aree della
+                 scheda vecchia — e le traduceva con il dizionario V21, che
+                 tiene ancora NORMATIVO, PORTAFOGLIO e TECNICO E SCIENTIFICO.
+                 Il riquadro era uscito dallo schermo; il PDF continuava a
+                 stamparlo, con i nomi che la decisione ha ritirato.
+
+                     UN PORTONE CHE GUARDA SOLO LO SCHERMO DICHIARA PULITO UN
+                     PRODOTTO CHE ESCE DI CASA IN PDF.
+
+                 Il documento porta ora la mappa canonica: le cinque aree con
+                 le etichette della riunione e lo stato che il motore assegna a
+                 CIASCUNA — non piu un solo modo dedotto dallo stato del caso.
+                 Se la riunione non conosce questo caso, il blocco resta vuoto
+                 invece di ripiegare sulla mappa vecchia. */
+              actionAreas: (() => {
+                const mc = meetingAll.find((c) => c.id === (bcase && bcase.id))
+                  || meetingSignals.find((c) => c.id === (bcase && bcase.id))
+                  || meetingRadar.find((c) => c.id === (bcase && bcase.id))
+                  || (MSURF ? (MSURF.errored || []).find((c) => c.id === (bcase && bcase.id)) : null);
+                if (!mc || !Array.isArray(mc.actions)) return [];
+                return mc.actions.map((a) => ({
+                  areaL: mtL(a.DEPARTMENT) || String(a.DEPARTMENT || '').replace(/_/g, ' '),
+                  modeL: a.state || ''
+                }));
+              })(),
               notProvesTxt: (bcase && bcase.notProves && bcase.notProves.state === 'CLEAR')
                 ? (s.lang === 'en' ? (bcase.notProves.en || bcase.notProves.it) : (bcase.notProves.it || bcase.notProves.en)) : '',
               lineKey: (bcase && bcase.ui && bcase.ui.key) || 'unknown'
