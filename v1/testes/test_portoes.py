@@ -450,6 +450,66 @@ ok("TARGET_TEXT_TEST_HAS_NO_SILENT_HOLE",
    f"continuam reprovadas, entao o teste ainda discrimina") \
     if not _ac else fail("TARGET_TEXT_TEST_HAS_NO_SILENT_HOLE", " | ".join(_ac))
 
+# --- 15g. nenhuma prova de par veio de uma celula que o documento nao desenhou
+#
+# `celula()` fecha o lado que falta com a borda da pagina quando nao ha fio
+# acima (ou abaixo) da palavra. Isso e escolha do codigo, nao traco do
+# documento, e chega a fabricar "celulas" de 479 pt sobre prosa (77% da folha)
+# que passam por celula_coerente. Recusar celula aberta apagaria 14 absolvicoes
+# VERDADEIRAS — tabela sem borda de topo existe, e as 14 foram conferidas alvo
+# a alvo contra o texto. Entao em vez de recusar, vigia-se.
+#
+# O limiar nao e inventado: e a MAIOR banda de uma celula FECHADA que provou um
+# par neste mesmo acervo. Uma celula aberta maior que qualquer celula que o
+# documento desenhou nao e uma celula.
+_oc = []
+try:
+    _pf = json.load(open("v1/dados/PARES-FIOS-CHECK.json", encoding="utf-8"))
+    _tetoc = _pf.get("CLOSED_CELL_MAX_BAND_PT", 0)
+    _gordas = [w for w in _pf.get("OPEN_CELL_LIST", []) if w["BAND_PT"] > _tetoc]
+    if _gordas:
+        _oc.append(f"{len(_gordas)} absolvicao(oes) com celula de lado nao desenhado maior que "
+                   f"a maior celula fechada do acervo ({_tetoc} pt): "
+                   + ", ".join(f"{w['KEY']} {w['CROP']}x{w['TARGET']} {w['BAND_PT']}pt"
+                               for w in _gordas[:4]))
+    if _tetoc <= 0:
+        _oc.append("CLOSED_CELL_MAX_BAND_PT nao foi medido: o portao nao tem contra o que comparar")
+except Exception as _e:
+    _oc.append(f"celulas abertas nao puderam ser reconferidas: {_e}")
+
+ok("OPEN_CELL_DID_NOT_PROVE_A_PAIR",
+   f"{json.load(open('v1/dados/PARES-FIOS-CHECK.json', encoding='utf-8'))['OPEN_CELL_ABSOLUTIONS']} "
+   f"absolvicoes vieram de celula com um lado nao desenhado, a maior com "
+   f"{json.load(open('v1/dados/PARES-FIOS-CHECK.json', encoding='utf-8'))['OPEN_CELL_MAX_BAND_PT']} pt "
+   f"— abaixo da maior celula FECHADA do acervo "
+   f"({json.load(open('v1/dados/PARES-FIOS-CHECK.json', encoding='utf-8'))['CLOSED_CELL_MAX_BAND_PT']} pt)") \
+    if not _oc else fail("OPEN_CELL_DID_NOT_PROVE_A_PAIR", " | ".join(_oc))
+
+# --- 15h. o arquivo de vereditos nao pode discordar de si mesmo
+#
+# A lente G leu PARES-FIOS-CHECK.json numa janela em que o COUNTS do cabecalho
+# contava 13 pares numa categoria e o VERDICT os listava noutra. Foi corrida de
+# escrita durante esta missao e nao defeito de regra — mas um artefato de dados
+# que afirma dois numeros diferentes sobre si mesmo e indefensavel, e a unica
+# forma de nunca mais precisar dessa explicacao e recontar.
+_sc = []
+try:
+    for _arq, _cn in (("v1/dados/PARES-FIOS-CHECK.json", "COUNTS"),
+                      ("v1/dados/ALVO-NOMEADO.json", "COUNTS"),
+                      ("v1/dados/CULTURA-NOMEADA.json", "COUNTS")):
+        _d = json.load(open(_arq, encoding="utf-8"))
+        _real = Counter(_d["VERDICT"].values())
+        if dict(_real) != dict(_d[_cn]):
+            _so = {k: (_d[_cn].get(k), _real.get(k)) for k in set(_d[_cn]) | set(_real)
+                   if _d[_cn].get(k) != _real.get(k)}
+            _sc.append(f"{os.path.basename(_arq)}: cabecalho diz {_so} (declarado, medido)")
+except Exception as _e:
+    _sc.append(f"cabecalhos nao puderam ser reconferidos: {_e}")
+
+ok("COUNTS_MATCH_THEIR_OWN_VERDICTS",
+   "os tres arquivos de veredito contam exatamente o que listam") \
+    if not _sc else fail("COUNTS_MATCH_THEIR_OWN_VERDICTS", " | ".join(_sc))
+
 # --- 16. dose nunca escolhida entre candidatas discordantes
 r = subprocess.run(["node", "v1/testes/test_casco.js"], capture_output=True, text=True)
 if r.returncode == 0:

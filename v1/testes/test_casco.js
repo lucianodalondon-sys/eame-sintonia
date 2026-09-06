@@ -752,6 +752,40 @@ teste('RT4 · "sem celula desenhada" nao pode ser dito onde a grade existe', () 
   return `${inc.length} com grade que nao descreve o texto · ${sem.length} realmente sem grade`;
 });
 
+teste('RT4 · sublinhado de titulo nao e regua de tabela', () => {
+  // Achado BLOCKING da lente G: em 016312 TOMIGAN a coluna direita da pagina 1
+  // e PROSA com titulos sublinhados. Quatro sublinhados passavam o guarda de 3
+  // fios e fabricavam uma celula de 67 pt que engolia SEIS linhas de DOIS
+  // blocos; o glifo de "infestanti" que provava o par era o do bloco
+  // POMACEE/DRUPACEE, nao o do bloco FRUTTIFERI A GUSCIO logo abaixo. MANDORLO
+  // x INFESTANTI e NOCE x INFESTANTI saiam com selo verde e fact=true. O par e
+  // verdadeiro; a PROVA era falsa — com a mesma geometria o selo sairia igual
+  // se a etichetta nao autorizasse.
+  const p = P.products.find(x => x.reg === '016312');
+  afirma(p, '016312 ausente');
+  ['MANDORLO', 'NOCE'].forEach(c => {
+    const u = (p.uses||[]).find(y => y.crop === c && y.target === 'INFESTANTI');
+    afirma(u, `016312 sem o par ${c} x INFESTANTI`);
+    afirma(!u.fact, `016312 ${c} x INFESTANTI ainda sai como FATO`);
+    afirma(u.pair_check === 'PAIR_NOT_CHECKABLE_RULES_ARE_TEXT_UNDERLINES',
+      `016312 ${c}: o motivo da ignorancia nao e o sublinhado (${u.pair_check})`);
+  });
+  // e o filtro so pode TIRAR prova, nunca criar: nenhum par de prosa pode ter
+  // ganho selo verde por causa dele
+  const sub = [];
+  P.products.forEach(q => (q.uses||[]).forEach(u => {
+    if (u.pair_check === 'PAIR_NOT_CHECKABLE_RULES_ARE_TEXT_UNDERLINES') sub.push([q.reg, u.crop]);
+    afirma(!(u.pair_check === 'PAIR_NOT_CHECKABLE_RULES_ARE_TEXT_UNDERLINES' && u.fact),
+      `${q.reg} ${u.crop}: sublinhado nao pode sustentar FATO`);
+  }));
+  afirma(sub.length > 0, 'nenhum par com riscos-sublinhado — o estado nao chega a tela');
+  viewProduto('016312');
+  afirma(html('#pdet').includes('OS RISCOS SAO SUBLINHADO'),
+    'a ficha de 016312 nao diz que os riscos sao sublinhado');
+  const regs = [...new Set(sub.map(x => x[0]))].sort();
+  return `${sub.length} pares em ${regs.length} rotulos (${regs.join(', ')})`;
+});
+
 teste('zero medido, nao coletado e nao sei sao tres respostas diferentes', () => {
   const lido = P.products.find(p => p.states && p.states.LABEL_READ && !p.uses.length);
   const naoColetado = P.products.find(p => p.states && p.states.LABEL_DOWNLOADED === false);

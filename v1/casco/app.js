@@ -1287,6 +1287,13 @@ const PAR_ROTULO = {
   // 170 casos havia grade — em 008259 a coluna de "Pesco" e atravessada por 15
   // e 17 fios — e a tela dizia que nao havia. Token de ignorancia que descreve
   // errado o documento e pior que ausencia de token, porque parece medicao.
+  // E o terceiro jeito de nao haver celula: os riscos que atravessam a coluna
+  // tem as DUAS pontas da linha de texto acima deles. Isso e sublinhado de
+  // titulo, nao regua de tabela. Medido em 016312 TOMIGAN, onde quatro
+  // sublinhados fabricavam uma celula de 67 pt sobre SEIS linhas de DOIS blocos
+  // e davam selo verde a MANDORLO x INFESTANTI e NOCE x INFESTANTI.
+  PAIR_NOT_CHECKABLE_RULES_ARE_TEXT_UNDERLINES: ['p-unk', 'TABELA · OS RISCOS SAO SUBLINHADO',
+    'os riscos que atravessam a coluna tem as duas pontas da linha de texto acima deles: sao sublinhado de titulo, e sublinhado nao fecha celula'],
   PAIR_NOT_CHECKABLE_TABLE_NOT_DESCRIBING_ITS_TEXT: ['p-unk', 'TABELA · GRADE NAO DESCREVE O TEXTO',
     'a grade existe e foi lida, mas alguma linha que comeca dentro dela termina fora: o que parecia celula e risco de titulo, e o teste nao se aplica'],
   PAIR_NOT_CHECKABLE_ANCHOR_NOT_FOUND: ['p-unk', 'TABELA · ALVO NAO LOCALIZADO',

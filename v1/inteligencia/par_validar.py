@@ -49,15 +49,16 @@ direita so por estar na mesma altura da folha. Medido em 012573.
 Como em R-11, o criterio e **conservador**: basta UMA ocorrencia da cultura com
 UM glifo do alvo dentro da sua celula para o par sobreviver, e qualquer sinal de
 que o desenho nao e o que a regra supoe faz o modulo se abster em vez de
-condenar. Sao CINCO abstencoes com nome proprio, escritas no codigo ao lado da
+condenar. Sao SEIS abstencoes com nome proprio, escritas no codigo ao lado da
 linha que as aplica — e cada uma vem com quantas vezes ela DISPARA no censo:
 
     ROUTE_NOT_GEOMETRIC          1.056   a rota nao afirma ter lido tabela
     ANCHOR_NOT_FOUND               258   cultura e alvo nunca na mesma pagina
-    NO_DRAWN_CELL                  112   convivem, mas a coluna nao e riscada
-    CROP_ALSO_OUTSIDE_TABLE        106   parte das ocorrencias fora de celula,
+    NO_DRAWN_CELL                  113   convivem, mas a coluna nao e riscada
+    CROP_ALSO_OUTSIDE_TABLE         91   parte das ocorrencias fora de celula,
                                          e o alvo NAO tem outro dono
-    TABLE_NOT_DESCRIBING_ITS_TEXT   58   a grade existe e nao descreve o texto
+    TABLE_NOT_DESCRIBING_ITS_TEXT   43   a grade existe e nao descreve o texto
+    RULES_ARE_TEXT_UNDERLINES       31   os riscos sao sublinhado de titulo
     CROP_NAME_NOT_THE_ANCHOR        13   a celula fechou pelo TITULO do grupo
     TARGET_UNDER_CROP_HEADER         0   <- CODIGO MORTO NO ACERVO DE HOJE
 
@@ -251,16 +252,32 @@ def fios_da_coluna(x0, x1, seg):
     Devolve [(y, x_ini, x_fim)] ja fundido: o raster detecta o mesmo risco em
     duas ou tres alturas vizinhas (0,48 pt de diferenca), e conta-las como fios
     distintos faria um sublinhado parecer uma grade.
+
+    A FUSAO E ENCADEADA, e ate a rodada 4 nao era. A comparacao era
+    `y - out[-1][0]`, com `out[-1][0]` fixo no PRIMEIRO y do grupo: um risco
+    GROSSO, que o raster entrega como cinco linhas escuras contiguas de 0,48 pt
+    (87,84 / 88,32 / 88,80 / 89,28 / 89,76), abria grupo novo na quinta, porque
+    89,76 - 87,84 = 1,92 > 1,5. Um unico risco virava DOIS fios.
+
+    Medido em 009790 CONTATTO 320: a coluna de "BARBABIETOLA" tem exatamente
+    dois riscos horizontais e a contagem ancorada devolvia quatro — o suficiente
+    para cruzar MIN_FIOS_NA_COLUNA=3 e fabricar uma celula onde o documento nao
+    desenhou uma. No acervo, 255 das 2.434 colunas de palavra-cultura tinham
+    contagem inflada; em uma delas a inflacao cruzava o limiar.
+
+    Comparar com o ULTIMO y do grupo e o que a propria frase do docstring sempre
+    disse que o codigo fazia.
     """
     larg = max(x1 - x0, 1e-6)
     cruz = sorted((y, xa, xb) for y, xa, xb in seg
                   if (min(x1, xb) - max(x0, xa)) / larg >= COBRE)
-    out = []
+    out, ultimo = [], None
     for y, xa, xb in cruz:
-        if out and y - out[-1][0] <= JUNTA_FIO:
+        if out and y - ultimo <= JUNTA_FIO:
             out[-1] = (out[-1][0], min(out[-1][1], xa), max(out[-1][2], xb))
         else:
             out.append((y, xa, xb))
+        ultimo = y
     return out
 
 
@@ -360,8 +377,8 @@ def alvo_tem_outro_dono(pgs, rc, rp, ra, voc_reg, segmentos, pdf):
         seg, altura = sg
         for ax0, ay0, ax1, ay1 in als:
             total += 1
-            cel = celula(ax0, ax1, (ay0 + ay1) / 2, seg, altura)
-            if cel is None or not celula_coerente(pg, *cel):
+            cel = celula(pg, ax0, ax1, (ay0 + ay1) / 2, seg, altura)
+            if cel is None or cel == 'RULES_ARE_TEXT_UNDERLINES' or not celula_coerente(pg, *cel):
                 continue
             topo, base, tx0, tx1 = cel
             dentro = {radical(t) for wx0, wy0, wx1, wy1, t in pg
@@ -371,7 +388,54 @@ def alvo_tem_outro_dono(pgs, rc, rp, ra, voc_reg, segmentos, pdf):
     return total > 0 and total == donos
 
 
-def celula(x0, x1, cy, seg, altura):
+# UM RISCO QUE TEM AS DUAS PONTAS DA LINHA DE CIMA E UM SUBLINHADO.
+#
+# Medido em 016312 TOMIGAN: a coluna direita da pagina 1 e PROSA com titulos
+# sublinhados, e os quatro riscos que atravessam a coluna de "mandorlo," eram
+# lidos como grade — passavam MIN_FIOS_NA_COLUNA=3, cujo proposito escrito e
+# justamente "distinguir uma grade de um titulo riscado". A celula fabricada
+# ([461,76 - 529,44]) engolia SEIS linhas de DOIS blocos diferentes, e o glifo
+# de "infestanti" que provava o par era o do bloco POMACEE/DRUPACEE, nao o do
+# bloco FRUTTIFERI A GUSCIO que fica logo abaixo. MANDORLO x INFESTANTI e NOCE
+# x INFESTANTI saiam com selo verde FIO CONFERIDO e fact=true — e o par ate e
+# verdadeiro, mas a PROVA era falsa: com a mesma geometria o selo sairia
+# identico se a etichetta NAO autorizasse.
+#
+# A assinatura do sublinhado e geometrica e nao precisa de limiar semantico:
+#
+#   016312 fio y=529,44 x=552,0..736,3 | linha acima y=525,9 x=551,8..736,4
+#          fio y=461,76 x=552,0..799,7 | linha acima y=457,8 x=551,8..799,4
+#          -> as DUAS pontas batem dentro de 0,3 pt: cada risco tem a largura
+#             exata da linha que ele sublinha
+#   017955 fio y=222,24 x=552,0..757,4 | linha acima y=217,7 x=625,0..690,2
+#          -> 73 pt de diferenca a esquerda e 67 a direita: e regua de tabela,
+#             que atravessa a tabela inteira e nao a palavra
+#
+# CONTROLE, medido antes de entrar: das 1.276 absolvicoes, este filtro derruba
+# 2 — exatamente 016312#6 e 016312#8. As outras 1.274 sobrevivem.
+FOLGA_SUBLINHADO = 2.0   # pontos de folga em cada ponta
+ALTURA_LINHA = 8.0       # ate onde procurar a linha de texto acima do risco
+
+
+def e_sublinhado(pg, y, xa, xb):
+    """Este risco e o sublinhado da linha de texto logo acima dele?"""
+    cand = {}
+    for wx0, wy0, wx1, wy1, _t in pg:
+        cy = (wy0 + wy1) / 2
+        if not (y - ALTURA_LINHA <= cy < y):
+            continue
+        if min(xb, wx1) - max(xa, wx0) <= 0:          # a palavra tem de tocar o risco
+            continue
+        k = round(cy, 1)
+        a, b = cand.get(k, (wx0, wx1))
+        cand[k] = (min(a, wx0), max(b, wx1))
+    if not cand:
+        return False
+    la, lb = cand[max(cand)]
+    return abs(la - xa) <= FOLGA_SUBLINHADO and abs(lb - xb) <= FOLGA_SUBLINHADO
+
+
+def celula(pg, x0, x1, cy, seg, altura):
     """Banda y da celula desenhada que contem a palavra, e a largura da tabela.
 
     Devolve (y_topo, y_base, x_tabela_ini, x_tabela_fim), ou None quando a
@@ -384,6 +448,17 @@ def celula(x0, x1, cy, seg, altura):
     acima = max((f for f in cruz if f[0] <= cy), default=None, key=lambda f: f[0])
     abaixo = min((f for f in cruz if f[0] > cy), default=None, key=lambda f: f[0])
     lados = [f for f in (acima, abaixo) if f]
+    # O FILTRO SO RECUSA, NUNCA REMONTA. A primeira versao tirava os
+    # sublinhados ANTES de contar os fios, e isso mudava quais riscos fechavam a
+    # celula: em 008401 e 010587 sobravam tres reguas distantes que fabricavam
+    # uma banda de 325 pt sobre o bloco PRESCRIZIONI SUPPLEMENTARI, e QUATRO
+    # pares ganhavam selo verde por prosa. Trocar duas provas falsas por quatro
+    # nao e conserto. Aqui a celula continua sendo montada com os fios como
+    # estao, e e RECUSADA quando os riscos que a fecham sao sublinhado — o
+    # filtro so pode tirar absolvicao, nunca criar. Medido: tira exatamente
+    # 016312#6 e 016312#8, e nenhuma outra das 1.276.
+    if lados and all(e_sublinhado(pg, *f) for f in lados):
+        return 'RULES_ARE_TEXT_UNDERLINES'
     return (acima[0] if acima else 0.0,
             abaixo[0] if abaixo else altura,
             min(f[1] for f in lados), max(f[2] for f in lados))
@@ -423,7 +498,7 @@ def main():
     for i_global, x in enumerate(pares):
         por_reg.setdefault(x['REGISTRATION_ID'], []).append(x)
 
-    ver, contra = {}, []
+    ver, contra, abertas, fechadas = {}, [], [], []
     cont = Counter()
     for reg in sorted(por_reg):
         pdf = os.path.join(a.pdfs, f'{reg}.pdf')
@@ -464,6 +539,7 @@ def main():
             houve_celula = False    # alguma ocorrencia da cultura tem celula desenhada
             fora_de_celula = False  # e alguma NAO tem
             celula_incoerente = False  # havia grade, e ela nao descreve o texto
+            so_sublinhado = False   # os riscos da coluna sao sublinhado de texto
             sob_cabecalho = False   # o alvo esta abaixo da cultura, na mesma coluna
             houve_convivio = False  # cultura e alvo na mesma pagina
             perto = None
@@ -482,7 +558,10 @@ def main():
                 seg, altura = sg
                 for x0, cy0, x1, cy1, e_o_nome in cs:
                     c = (cy0 + cy1) / 2
-                    cel = celula(x0, x1, c, seg, altura)
+                    cel = celula(pg, x0, x1, c, seg, altura)
+                    if cel == 'RULES_ARE_TEXT_UNDERLINES':
+                        cel = None
+                        so_sublinhado = True
                     if cel is not None and not celula_coerente(pg, *cel):
                         # NAO E "SEM GRADE". A grade existe: o que ela nao faz e
                         # descrever o texto que esta dentro dela. Sao duas
@@ -505,6 +584,37 @@ def main():
                     if dentro:
                         if e_o_nome:
                             achou = (pi + 1, round(c, 2), round(dentro[0], 2))
+                            # CELULA COM UM LADO NAO DESENHADO. Quando nao ha fio
+                            # acima (ou abaixo) da palavra na coluna dela, celula()
+                            # fecha o lado que falta com o topo da pagina (0.0) ou
+                            # com o fim dela. Isso e uma escolha do codigo, nao um
+                            # traco do documento — e a lente F mediu que ela chega
+                            # a fabricar "celulas" de 479 pt sobre PROSA, 77% da
+                            # folha, que passam por celula_coerente.
+                            #
+                            # Medido tambem que o dano e LATENTE e nao consumado:
+                            # das 1.276 absolvicoes, 14 venceram com um lado
+                            # aberto e todas com banda <= 75,8 pt (012573 CARCIOFO
+                            # e 013560/013590 BARBABIETOLA, conferidas alvo a alvo
+                            # contra o texto). Nenhuma das 22 celulas abertas
+                            # maiores que 150 pt absolveu par nenhum, e a menor
+                            # distancia entre um alvo e a borda de uma delas foi
+                            # 34,49 pt (019095).
+                            #
+                            # Recusar celula aberta APAGARIA essas 14 absolvicoes
+                            # verdadeiras — tabela sem borda de topo existe. Entao
+                            # em vez de recusar, mede-se e declara-se: a banda vai
+                            # no registro, e o portao OPEN_CELL_DID_NOT_PROVE_A_PAIR
+                            # cai se alguma absolvicao passar a vir de uma celula
+                            # aberta grande.
+                            if topo == 0.0 or base >= altura:
+                                abertas.append({'KEY': chave, 'REGISTRATION_ID': reg,
+                                                'CROP': x.get('CROP'), 'TARGET': x.get('TARGET'),
+                                                'PAGE': pi + 1, 'BAND_PT': round(base - topo, 2),
+                                                'SIDE': ('TOP_NOT_DRAWN' if topo == 0.0
+                                                         else 'BOTTOM_NOT_DRAWN')})
+                            else:
+                                fechadas.append(round(base - topo, 2))
                             break
                         # PROVA PELO TITULO DO GRUPO NAO E PROVA DO PAR.
                         #
@@ -618,6 +728,8 @@ def main():
                               f'ou fora da largura da tabela). A etichetta nao autoriza este uso '
                               f'nesta celula'),
                 })
+            elif houve_convivio and so_sublinhado:
+                ver[chave] = 'PAIR_NOT_CHECKABLE_RULES_ARE_TEXT_UNDERLINES'
             elif houve_convivio and celula_incoerente:
                 ver[chave] = 'PAIR_NOT_CHECKABLE_TABLE_NOT_DESCRIBING_ITS_TEXT'
             elif houve_convivio:
@@ -639,6 +751,15 @@ def main():
         'COBERTURA_MINIMA_DO_FIO': COBRE,
         'PAIRS': len(pares),
         'COUNTS': dict(sorted(cont.items(), key=lambda kv: -kv[1])),
+        'OPEN_CELL_ABSOLUTIONS': len(abertas),
+        'OPEN_CELL_MAX_BAND_PT': max((w['BAND_PT'] for w in abertas), default=0),
+        'OPEN_CELL_NOTA': ('celula com um lado NAO DESENHADO: quando falta fio acima (ou '
+                           'abaixo) da palavra, celula() fecha o lado que falta com a borda '
+                           'da pagina. E escolha do codigo, nao traco do documento. Estas '
+                           'sao as absolvicoes que venceram assim; o portao '
+                           'OPEN_CELL_DID_NOT_PROVE_A_PAIR reconta a lista e a banda maxima'),
+        'CLOSED_CELL_MAX_BAND_PT': max(fechadas, default=0),
+        'OPEN_CELL_LIST': abertas,
         'VERDICT': ver,
         'CONTRADICTED': contra,
     }

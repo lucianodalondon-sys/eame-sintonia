@@ -1,6 +1,6 @@
 {
  "SUITE": "PORTOES-V1",
- "PASS": 22,
+ "PASS": 24,
  "FAIL": 0,
  "RESULTS": [
   {
@@ -61,7 +61,7 @@
   {
    "GATE": "CANONICAL_TOUCHED",
    "STATE": "PASS",
-   "DETALHE": "nenhum dos 35 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
+   "DETALHE": "nenhum dos 36 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
   },
   {
    "GATE": "REUSE_ANCHORED_ON_FILE_HASH",
@@ -109,9 +109,19 @@
    "DETALHE": "todas as linhas de dose com PDF em disco foram testadas por R-13; 61 continuam reprovadas, entao o teste ainda discrimina"
   },
   {
+   "GATE": "OPEN_CELL_DID_NOT_PROVE_A_PAIR",
+   "STATE": "PASS",
+   "DETALHE": "14 absolvicoes vieram de celula com um lado nao desenhado, a maior com 75.84 pt — abaixo da maior celula FECHADA do acervo (105.6 pt)"
+  },
+  {
+   "GATE": "COUNTS_MATCH_THEIR_OWN_VERDICTS",
+   "STATE": "PASS",
+   "DETALHE": "os tres arquivos de veredito contam exatamente o que listam"
+  },
+  {
    "GATE": "CASCO_RENDER_TEST",
    "STATE": "PASS",
-   "DETALHE": "44 passaram, 0 falharam  -> CASCO_RENDER_TEST = PASS"
+   "DETALHE": "45 passaram, 0 falharam  -> CASCO_RENDER_TEST = PASS"
   }
  ]
 }
