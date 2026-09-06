@@ -171,5 +171,162 @@ class TestCruzamentoDeInteligencia(unittest.TestCase):
 
 
 
+class TestIntegridadeDeCultura(unittest.TestCase):
+    """O cartao so afirma o par produto x cultura que alguma casa prova.
+
+        SUBSTANCIA EM COMUM NAO PROVA PRODUTO PARA A CULTURA.
+
+    Os tres casos nomeados abaixo foram MEDIDOS no arquetipo O5 desta arvore
+    antes da correcao: o cartao recebia cultura porque a substancia tocava uma
+    so, e listava todos os produtos que a continham, viessem da cultura que
+    viessem.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        ok, cls._limpar = _prepara_ingest()
+        if not ok:
+            raise unittest.SkipTest('DESIGN-INGEST indisponivel (sem ZIP no disco)')
+        import v21_oportunidades as M
+        cls.brutos = M.main()[0]
+        cls.por_id = {o['ID']: o for o, _ in cls.brutos}
+
+    @classmethod
+    def tearDownClass(cls):
+        if getattr(cls, '_limpar', False):
+            shutil.rmtree(os.path.dirname(ING), ignore_errors=True)
+
+    def _autoridade(self):
+        """As mesmas casas que o motor usa, remontadas por fora.
+
+        Remontar por fora e de proposito: um teste que perguntasse ao proprio
+        indice do motor provaria apenas que ele concorda consigo mesmo.
+        """
+        import re as _re
+        base = os.path.join(ING, '%s.json')
+
+        def le(n):
+            return json.load(open(base % n, encoding='utf-8'))['RECORDS']
+
+        def num(x):
+            return _re.sub(r'\D', '', str(x or '')).lstrip('0').zfill(6)
+
+        def chave(n):
+            return _re.sub(r'[^a-z0-9]', '', str(n or '').lower())
+
+        rel = [r for r in le('PRODUCT-RELATIONSHIPS') if r.get('CLIENT_SAFE')]
+        reg = [r for r in le('PRODUCTS-REGULATORY') if r.get('CLIENT_SAFE')]
+        com = [r for r in le('PRODUCTS-COMMERCIAL') if r.get('CLIENT_SAFE')]
+        por_reg = {}
+        for r in rel:
+            por_reg.setdefault(num(r.get('REGISTRATION_NUMBER')), set()).update(
+                r.get('CROP_IDS') or [])
+        aut = {}
+
+        def add(k, c):
+            if c:
+                aut.setdefault(k, set()).update(c)
+        for p in reg:
+            add(chave(p.get('NAME')), por_reg.get(num(p.get('REGISTRATION_NUMBER'))))
+            add(chave(p.get('NAME')), set(p.get('CROP_IDS') or []))
+        for p in com:
+            add(chave(p.get('NAME')), set(p.get('CROP_IDS') or []))
+        return aut, chave
+
+    def test_nenhum_produto_servido_tem_a_cultura_errada(self):
+        """A regressao geral: vale para TODO arquetipo, nao so o O5."""
+        aut, chave = self._autoridade()
+        erradas = []
+        for o, _ in self.brutos:
+            crop = o.get('CROP')
+            if not crop:
+                continue
+            for nome in o['PRODUCT_RELATIONSHIPS']:
+                provadas = aut.get(chave(nome)) or set()
+                if provadas and crop not in provadas:
+                    erradas.append((o['ID'], crop, nome, sorted(provadas)))
+        self.assertEqual([], erradas,
+                         'produto de outra cultura servido no cartao: %s' % erradas)
+
+    def test_produto_sem_cultura_provada_nao_e_servido(self):
+        """UNKNOWN nao e ligacao. Servi-lo seria afirmar o que nao se mediu."""
+        aut, chave = self._autoridade()
+        sem = [(o['ID'], n) for o, _ in self.brutos if o.get('CROP')
+               for n in o['PRODUCT_RELATIONSHIPS'] if not (aut.get(chave(n)) or set())]
+        self.assertEqual([], sem, 'produto sem cultura provada servido: %s' % sem)
+
+    def test_vite_nao_recebe_produto_so_de_frumento(self):
+        """STAVENTO declara frumento e estava num cartao de videira."""
+        for o, _ in self.brutos:
+            if o.get('CROP') != 'CROP_GRAPEVINE':
+                continue
+            self.assertNotIn('STAVENTO', o['PRODUCT_RELATIONSHIPS'], o['ID'])
+
+    def test_pomodoro_nao_recebe_produto_so_de_vite(self):
+        """VINETO declara videira e estava num cartao de tomate."""
+        for o, _ in self.brutos:
+            if o.get('CROP') != 'CROP_TOMATO':
+                continue
+            self.assertNotIn('VINETO', o['PRODUCT_RELATIONSHIPS'], o['ID'])
+
+    def test_soia_nao_recebe_produto_de_mais_riso_girassol(self):
+        """POSTSCRIPT 80 e 80 XL declaram milho/arroz/girassol, nao soja."""
+        for o, _ in self.brutos:
+            if o.get('CROP') != 'CROP_SOYBEAN':
+                continue
+            for n in ('POSTSCRIPT 80', 'POSTSCRIPT 80 XL'):
+                self.assertNotIn(n, o['PRODUCT_RELATIONSHIPS'], o['ID'])
+
+    def test_a_conta_do_filtro_fecha(self):
+        """OFERECIDOS = SERVIDOS + EXCLUIDOS, sem excecao."""
+        for o, _ in self.brutos:
+            self.assertEqual(
+                o['PORTFOLIO_OFFERED_TO_CARD'],
+                len(o['PRODUCT_RELATIONSHIPS']) + o['PORTFOLIO_EXCLUDED_COUNT'],
+                o['ID'])
+
+    def test_todo_produto_excluido_tem_razao_especifica(self):
+        """Razao generica onde a especifica e conhecida e recusa a responder."""
+        VOCAB = {'CROP_MISMATCH', 'TARGET_MISMATCH', 'NOT_IN_COMMERCIAL_CATALOG',
+                 'REGULATORY_NOT_PROVED', 'UNKNOWN_CROP', 'UNKNOWN_TARGET',
+                 'PRESENTATION_LIMIT', 'OUT_OF_SCOPE'}
+        for o, _ in self.brutos:
+            for x in o['PORTFOLIO_EXCLUDED_WITH_REASON']:
+                self.assertIn(x.get('REASON'), VOCAB, o['ID'])
+                self.assertTrue(x.get('PRODUCT_NAME'), o['ID'])
+                self.assertTrue(x.get('REASON_MEANS'), o['ID'])
+
+    def test_crop_mismatch_nomeia_a_cultura_que_provou(self):
+        """Dizer «cultura errada» sem dizer QUAL seria a mesma opacidade."""
+        for o, _ in self.brutos:
+            for x in o['PORTFOLIO_EXCLUDED_WITH_REASON']:
+                if x['REASON'] == 'CROP_MISMATCH':
+                    self.assertTrue(x['PROVEN_CROPS'], o['ID'])
+                    self.assertTrue(x['PROVEN_BY'], o['ID'])
+                    self.assertNotIn(o['CROP'], x['PROVEN_CROPS'], o['ID'])
+                if x['REASON'] == 'UNKNOWN_CROP':
+                    self.assertEqual([], x['PROVEN_CROPS'], o['ID'])
+
+    def test_sem_cultura_no_cartao_nao_se_filtra(self):
+        """Filtrar por uma cultura que nao existe seria inventar o criterio."""
+        for o, _ in self.brutos:
+            if o.get('CROP'):
+                continue
+            self.assertFalse(o['PORTFOLIO_CROP_FILTER_APPLIED'], o['ID'])
+            razoes = {x['REASON'] for x in o['PORTFOLIO_EXCLUDED_WITH_REASON']}
+            self.assertFalse(razoes - {'PRESENTATION_LIMIT'}, o['ID'])
+
+    def test_o_filtro_nao_mexeu_no_portfolio_matches(self):
+        """PORTFOLIO_MATCHES tem outro dono — portfolio() — e continua com ele.
+
+        Se o filtro de cultura tivesse mexido aqui, esta correcao teria criado
+        um SEGUNDO dono para a mesma decisao.
+        """
+        for o, _ in self.brutos:
+            for m in (o.get('PORTFOLIO_MATCHES') or []):
+                self.assertIn('MATCH_REASON', m, o['ID'])
+                self.assertEqual('REGISTRATION_NUMBER_JOIN', m['MATCH_REASON'], o['ID'])
+
+
 if __name__ == '__main__':
     unittest.main()

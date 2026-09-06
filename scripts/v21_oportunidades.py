@@ -1381,6 +1381,100 @@ def main():
     # pergunta nao tem alvo — e sem ela a conta so fecharia a mentir.
     TETO_DA_LISTA = 12
 
+    # ── A INTEGRIDADE DE CULTURA, E DE ONDE ELA VEM ──────────────────────────
+    # Defeito medido no arquetipo O5: `prods` era montado por NUMERO DE REGISTO
+    # a partir da substancia, e a cultura do cartao saia de `crops[0]`. Um
+    # produto entrava no cartao por partilhar a substancia — nao por pertencer
+    # a cultura. Medido nesta arvore, entrada congelada do ZIP versionado:
+    # VINETO (videira) num cartao de TOMATE; POSTSCRIPT 80 e 80 XL
+    # (milho/arroz/girassol) num cartao de SOJA; STAVENTO (frumento) num cartao
+    # de VIDEIRA.
+    #
+    #     SUBSTANCIA EM COMUM NAO PROVA PRODUTO PARA A CULTURA.
+    #
+    # A autoridade de cultura de um produto e a UNIAO DAS CASAS que o motor
+    # consegue mesmo consultar — e o campo declara quais sao. Nao ha «casa
+    # implicita»: uma casa que nao esta no pacote nao vira zero, vira ausencia
+    # declarada. Hoje sao tres; o censo do catalogo e a quarta e entra com o
+    # dono do catalogo.
+    #
+    #     UMA CASA QUE NAO SE PODE CONSULTAR NAO E UM ZERO. E UM NAO SEI.
+    def _chave_de_produto(nome):
+        """O nome reduzido a identidade: o acervo escreve «Nimrod® 250 EW»,
+        «NIMROD 250 EW» e «Nimrod 250 ew» para a mesma coisa."""
+        return re.sub(r'[^a-z0-9]', '', str(nome or '').lower())
+
+    _crops_por_registo = defaultdict(set)
+    for _r in cs['PRODUCT-RELATIONSHIPS']:
+        _crops_por_registo[CM.num(_r.get('REGISTRATION_NUMBER'))].update(
+            _r.get('CROP_IDS') or [])
+
+    CASAS_DE_CULTURA = ('MINISTERIAL_LABEL', 'MINISTERIAL_REGISTRY',
+                        'COMMERCIAL_CATALOG')
+    autoridade_de_cultura = defaultdict(set)
+    casas_que_provaram = defaultdict(set)
+
+    def _autoriza(nome, crops, casa):
+        if not nome or not crops:
+            return
+        k = _chave_de_produto(nome)
+        autoridade_de_cultura[k].update(crops)
+        casas_que_provaram[k].add(casa)
+
+    for _p in cs['PRODUCTS-REGULATORY']:
+        _autoriza(_p.get('NAME'),
+                  _crops_por_registo.get(CM.num(_p.get('REGISTRATION_NUMBER'))),
+                  'MINISTERIAL_LABEL')
+        _autoriza(_p.get('NAME'), set(_p.get('CROP_IDS') or []),
+                  'MINISTERIAL_REGISTRY')
+    for _p in cs['PRODUCTS-COMMERCIAL']:
+        _autoriza(_p.get('NAME'), set(_p.get('CROP_IDS') or []),
+                  'COMMERCIAL_CATALOG')
+
+    def integridade_de_cultura(crop, produtos):
+        """→ (ligados, [exclusoes]). O cartao so afirma o par que se prova.
+
+        Tres respostas, e elas NAO sao a mesma:
+
+        LIGADO         alguma casa nomeia este produto para ESTA cultura.
+        CROP_MISMATCH  alguma casa nomeia o produto, e para OUTRA cultura.
+        UNKNOWN_CROP   nenhuma casa disponivel nomeia cultura nenhuma para ele.
+
+        A terceira e a que mais custa a escrever e a que mais importa: chamar-lhe
+        `CROP_MISMATCH` seria afirmar que o produto NAO pertence a cultura, e o
+        que se mediu foi apenas que nao sabemos. Chamar-lhe `LIGADO` seria pior.
+
+            AUSENCIA DE PROVA NAO E PROVA DE AUSENCIA — E TAMBEM NAO E LIGACAO.
+
+        Sem cultura no cartao nao ha o que filtrar: filtrar por uma cultura que
+        nao existe seria inventar o criterio. Nesse caso nada e excluido, e a
+        propria ausencia fica declarada em PORTFOLIO_CROP_FILTER_APPLIED.
+        """
+        if not crop:
+            return list(produtos), []
+        ligados, fora = [], []
+        for nome in produtos:
+            provadas = autoridade_de_cultura.get(_chave_de_produto(nome)) or set()
+            if crop in provadas:
+                ligados.append(nome)
+            elif provadas:
+                fora.append({
+                    'PRODUCT_NAME': nome, 'REASON': 'CROP_MISMATCH',
+                    'PROVEN_CROPS': sorted(provadas),
+                    'PROVEN_BY': sorted(casas_que_provaram.get(
+                        _chave_de_produto(nome)) or []),
+                    'REASON_MEANS': ('alguma casa nomeia este produto, e nenhuma '
+                                     'delas o nomeia para a cultura deste cartao'),
+                })
+            else:
+                fora.append({
+                    'PRODUCT_NAME': nome, 'REASON': 'UNKNOWN_CROP',
+                    'PROVEN_CROPS': [], 'PROVEN_BY': [],
+                    'REASON_MEANS': ('nenhuma das casas disponiveis nomeia cultura '
+                                     'para este produto: nao se prova nem se nega'),
+                })
+        return ligados, fora
+
     def varredura(crop, alvo, produtos):
         universo = sorted({r.get('PRODUCT_NAME')
                            for r in lbl_crop.get(crop, [])
@@ -1509,6 +1603,10 @@ def main():
             return
         ini, fim, dias, jest, jcampo, jtipo = janela(janelas(crop, alvo, geo) + apoios)
         sdata, sidade = data_do_sinal(apoios)
+        # A LISTA SERVIDA SO AFIRMA O PAR QUE SE PROVA. O que sai daqui nao
+        # desaparece: vai inteiro para o razao de exclusao, produto a produto.
+        oferecidos = list(produtos)
+        produtos, fora_de_cultura = integridade_de_cultura(crop, oferecidos)
         oid, chave = identidade(arquetipo, crop, alvo, geo,
                                 ini or ('EU' if arquetipo == 'O5_REGULATORY_PREPARATION' else None))
         o = {'ID': oid, 'IDENTITY_KEY': chave, 'ARCHETYPE': arquetipo,
@@ -1526,6 +1624,43 @@ def main():
              'SCORE_DIMENSIONS': dim, 'OPPORTUNITY_SCORE': score(dim),
              'ACTION_MAP': acao}
         o.update(varredura(crop, alvo, produtos))
+        # ── A RAZAO DE EXCLUSAO, PRODUTO A PRODUTO ───────────────────────────
+        # Ate aqui a razao de nao aparecer vivia numa FRASE POR CARTAO. Uma
+        # frase por cartao nao responde «e o VINETO, por que nao esta?» — e essa
+        # e exactamente a pergunta que quem le o cartao faz.
+        #
+        #     UMA RAZAO GENERICA ONDE A ESPECIFICA E CONHECIDA E UMA RECUSA
+        #     A RESPONDER.
+        #
+        # O corte de apresentacao TAMBEM e uma exclusao e entra aqui com o seu
+        # nome proprio: quem nao aparece por caber e diferente de quem nao
+        # aparece por nao pertencer.
+        excluidos = list(fora_de_cultura) + [
+            {'PRODUCT_NAME': nome, 'REASON': 'PRESENTATION_LIMIT',
+             'PROVEN_CROPS': [], 'PROVEN_BY': [],
+             'REASON_MEANS': ('o produto pertence ao cartao e nao coube no teto '
+                              'de apresentacao de %d' % TETO_DA_LISTA)}
+            for nome in produtos[TETO_DA_LISTA:]]
+        o['PORTFOLIO_EXCLUDED_WITH_REASON'] = excluidos
+        o['PORTFOLIO_EXCLUDED_COUNT'] = len(excluidos)
+        o['PORTFOLIO_EXCLUDED_BY_REASON'] = dict(
+            Counter(x['REASON'] for x in excluidos))
+        o['PORTFOLIO_OFFERED_TO_CARD'] = len(oferecidos)
+        o['PORTFOLIO_CROP_FILTER_APPLIED'] = bool(crop)
+        o['PORTFOLIO_CROP_AUTHORITY_HOUSES'] = list(CASAS_DE_CULTURA)
+        o['PORTFOLIO_CROP_FILTER_LAW'] = (
+            'OFERECIDOS = SERVIDOS + EXCLUIDOS, e a conta fecha ou o filtro '
+            'mentiu. Um produto so entra na lista servida se alguma casa o '
+            'nomear para a cultura DESTE cartao: substancia em comum nao prova '
+            'produto para a cultura. Sem cultura no cartao nao ha filtro — e '
+            'PORTFOLIO_CROP_FILTER_APPLIED diz isso em vez de fingir que houve.')
+        o['PORTFOLIO_CROP_FILTER_DOES_NOT_PROVE'] = (
+            'UNKNOWN_CROP nao diz que o produto nao serve para a cultura: diz '
+            'que nenhuma das casas DISPONIVEIS o nomeia. As casas fora do '
+            'pacote nao foram consultadas e nao contam como zero.')
+        assert (o['PORTFOLIO_OFFERED_TO_CARD']
+                == len(o['PRODUCT_RELATIONSHIPS'])
+                + o['PORTFOLIO_EXCLUDED_COUNT']), (oid, arquetipo)
         scan = consulta_o_acervo(crop, alvo, geo)
         o['CROSS_INTELLIGENCE_SCAN'] = scan
         o['CROSS_INTELLIGENCE_FAMILIES_CONSULTED'] = len(scan)
@@ -2009,6 +2144,9 @@ def gravar(brutos, C, cs):
             # antes, so que uma camada mais abaixo.
             **{k: o[k] for k in o if k.startswith('PORTFOLIO_SCAN_')
                or k.startswith('PORTFOLIO_LIST_')
+               or k.startswith('PORTFOLIO_EXCLUDED_')
+               or k.startswith('PORTFOLIO_OFFERED_')
+               or k.startswith('PORTFOLIO_CROP_')
                or k.startswith('CROSS_INTELLIGENCE_')},
             'EVIDENCE_IDS': o['EVIDENCE_IDS'],
             'EVIDENCE_FAMILIES': o['EVIDENCE_FAMILIES'],
