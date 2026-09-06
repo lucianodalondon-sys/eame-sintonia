@@ -131,8 +131,13 @@ def main():
             "exp": p["EXPIRY"], "dte": p["DAYS_TO_EXPIRY"],
             "label": p.get("LABEL", {}),
             "regchg": p["REGISTRY_CHANGES"],
-            "usos": [{"c": c, "t": [x["TARGET"] for x in v], "pg": v[0].get("SOURCE_PAGE")}
+            "usos": [{"c": c, "t": [x["TARGET"] for x in v],
+                      "pg": v[0].get("SOURCE_PAGE"),
+                      "ev": "TABELA" if any(x["EVIDENCE_CLASS"] == "TABLE_GEOMETRY" for x in v)
+                            else "TEXTO"}
                      for c, v in sorted(crops.items())],
+            "n_tab": sum(1 for x in p["USE_ROWS"] if x["EVIDENCE_CLASS"] == "TABLE_GEOMETRY"),
+            "n_txt": sum(1 for x in p["USE_ROWS"] if x["EVIDENCE_CLASS"] == "TEXT_INFERENCE"),
             "n_usos": len(p["USE_ROWS"]),
             "doses": p.get("DOSE_ROWS", []),
             "dose_state": p.get("DOSE_PARSE_STATE", "NOT_ATTEMPTED"),
@@ -187,6 +192,7 @@ def main():
   <div class="kpi"><b>{d["PRODUCTS_WITH_USE_ROWS"]}</b><span>com tabela de uso lida</span></div>
   <div class="kpi"><b class="dim">{d["PRODUCTS_WITHOUT_USE_ROWS"]}</b><span>divida de leitura</span></div>
   <div class="kpi"><b>{d["TOTAL_USE_ROWS"]:,}</b><span>pares cultura x alvo</span></div>
+  <div class="kpi"><b class="ok">{d["USE_ROWS_FROM_TABLE_GEOMETRY"]:,}</b><span>desses, lidos da tabela (com pagina)</span></div>
   <div class="kpi"><b class="{'acc' if d['TOTAL_DOSE_ROWS'] else 'dim'}">{d["TOTAL_DOSE_ROWS"]:,}</b><span>linhas com dose</span></div>
 </div>
 <div class="cards">
@@ -287,6 +293,12 @@ def main():
     <li><b>{d["PRODUCTS_WITHOUT_USE_ROWS"]} produtos sem tabela de uso lida</b> sao divida de
       leitura, nao ausencia de uso autorizado.
       <code>PARSER_FAILURE != REGULATORY_ABSENCE</code>.</li>
+    <li><b>Nem todo par cultura x alvo e uma linha de tabela.</b> Dos
+      {d["TOTAL_USE_ROWS"]:,} pares, {d["USE_ROWS_FROM_TABLE_GEOMETRY"]:,} saem da geometria da
+      tabela e trazem pagina; {d["USE_ROWS_FROM_TEXT_INFERENCE"]:,} foram montados a partir de prosa
+      ou de lista, e {d["USE_ROWS_WITHOUT_PAGE"]:,} nao preservaram pagina. Nenhum par carrega
+      citacao literal: esta versao do parser da casa nao gravou <code>SOURCE_QUOTE</code>. A frase
+      correta e "par extraido pelo nosso leitor a partir do rotulo", nunca "o rotulo diz".</li>
     <li><b>Presenca no registro nao e presenca no mercado.</b> O registro diz o que esta
       autorizado, nunca o que esta sendo vendido.</li>
     <li><b>A precisao do leitor de cultura x alvo foi medida em 30 dos 163 rotulos</b>
@@ -409,7 +421,8 @@ function produto() {{
     <header><h3>Usos autorizados — ${{p.n_usos}} pares cultura x alvo</h3>
       <span class="badge b-real">REAL</span></header>
     <div class="meta">reuso de <code>sintonia/canonical @ bdb57cf</code> ·
-      parser <code>it_rotulo_parser/3.4.0</code> · precisao 0,965 / recall 0,870 medidos em 30 rotulos</div>
+      parser <code>it_rotulo_parser/3.4.0</code> · precisao 0,965 / recall 0,870 medidos em 30 rotulos ·
+      <b class="ok">${{p.n_tab}}</b> pares lidos da tabela, <b class="dim">${{p.n_txt}}</b> montados de prosa ou lista</div>
     ${{p.doses.length ? `<div class="tw"><table>
       <thead><tr><th>Cultura</th><th>Alvo</th><th>Dose</th><th>Max. aplicacoes</th><th>Intervalo</th><th>Pag.</th></tr></thead>
       <tbody>${{p.doses.map(r=>`<tr><td>${{r.CROP}}${{r.CROP_INHERITED?' <span class="dim" title="celula mesclada">↑</span>':''}}</td>
@@ -420,10 +433,12 @@ function produto() {{
     : `<div class="warn">Dose ainda nao estruturada para este produto —
        <code>${{p.dose_state}}</code>. Isto e estado de LEITURA, nao ausencia regulatoria.</div>`}}
     <div class="tw" style="margin-top:14px"><table>
-      <thead><tr><th>Cultura</th><th>Alvos autorizados</th></tr></thead>
+      <thead><tr><th>Cultura</th><th>Alvos autorizados</th><th>Evidencia</th></tr></thead>
       <tbody>${{p.usos.map(u=>`<tr><td><b>${{u.c}}</b></td>
-        <td class="dim">${{[...new Set(u.t)].join(' · ')}}</td></tr>`).join('')
-        || '<tr><td colspan=2 class="dim">tabela de uso ainda nao lida — divida de leitura</td></tr>'}}</tbody>
+        <td class="dim">${{[...new Set(u.t)].join(' · ')}}</td>
+        <td><span class="pill ${{u.ev==='TABELA'?'p-ok':'p-nc'}}">${{u.ev}}</span>
+        ${{u.pg!=='NOT_PRESERVED'?`<span class="dim" style="font-size:11px"> pag ${{u.pg}}</span>`:''}}</td></tr>`).join('')
+        || '<tr><td colspan=3 class="dim">tabela de uso ainda nao lida — divida de leitura</td></tr>'}}</tbody>
     </table></div>
   </div>
 

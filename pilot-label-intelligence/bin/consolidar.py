@@ -121,17 +121,31 @@ def main():
             }
 
     # ---- cultura x alvo: reuso puro, nao recalculado
+    #
+    # Os 2.928 pares NAO sao todos da mesma forca. Saem de seis rotas de
+    # extracao diferentes, e apresentar todas iguais na tela seria vender
+    # inferencia como linha de tabela. A rota vira classe de evidencia:
+    #
+    #   TABLE_GEOMETRY  a linha existe na tabela, com pagina e faixa y
+    #   TEXT_INFERENCE  o par foi montado a partir de prosa ou de lista
+    #
+    # Nenhuma das duas e falsa. So nao sao a mesma coisa, e o cliente tem
+    # direito de saber qual esta olhando.
+    TABELA = {"GEOMETRIC_TABLE", "MERGED_COLUMN_TABLE"}
     pares = json.load(open(a.pares, encoding="utf-8"))
     for pr in pares["PAIRS"]:
         p = prod.get(pr["REGISTRATION_ID"])
         if p is None:
             continue
+        rota = pr.get("ROUTE")
+        pag = pr.get("PAGE")
         p["USE_ROWS"].append({
             "CROP": pr["CROP"], "TARGET": pr["TARGET"],
             "CROP_AS_WRITTEN": pr.get("CROP_AS_WRITTEN"),
             "TARGET_AS_WRITTEN": pr.get("TARGET_AS_WRITTEN"),
-            "SOURCE_PAGE": pr.get("PAGE"),
-            "ROUTE": pr.get("ROUTE"),
+            "SOURCE_PAGE": pag if pag else "NOT_PRESERVED",
+            "ROUTE": rota,
+            "EVIDENCE_CLASS": "TABLE_GEOMETRY" if rota in TABELA else "TEXT_INFERENCE",
             "PROVENANCE": pr.get("PROVENANCE"),
             "OWNER": CANON,
         })
@@ -151,6 +165,12 @@ def main():
                  "TOTAL_DOSE_ROWS": dz.get("TOTAL_DOSE_ROWS")}
 
     lista = sorted(prod.values(), key=lambda p: p["PRODUCT"])
+    tabela_n = sum(1 for p in lista for u in p["USE_ROWS"]
+                   if u["EVIDENCE_CLASS"] == "TABLE_GEOMETRY")
+    texto_n = sum(1 for p in lista for u in p["USE_ROWS"]
+                  if u["EVIDENCE_CLASS"] == "TEXT_INFERENCE")
+    sem_pag = sum(1 for p in lista for u in p["USE_ROWS"]
+                  if u["SOURCE_PAGE"] == "NOT_PRESERVED")
     com_uso = [p for p in lista if p["USE_ROWS"]]
     venc = lambda d: [p for p in lista if isinstance(p["DAYS_TO_EXPIRY"], int)
                       and 0 <= p["DAYS_TO_EXPIRY"] <= d]
@@ -174,6 +194,15 @@ def main():
         "PRODUCTS_WITH_USE_ROWS": len(com_uso),
         "PRODUCTS_WITHOUT_USE_ROWS": len(lista) - len(com_uso),
         "TOTAL_USE_ROWS": sum(len(p["USE_ROWS"]) for p in lista),
+        "USE_ROWS_FROM_TABLE_GEOMETRY": tabela_n,
+        "USE_ROWS_FROM_TEXT_INFERENCE": texto_n,
+        "USE_ROWS_WITHOUT_PAGE": sem_pag,
+        "USE_ROWS_EVIDENCE_NOTE": ("os pares vem de seis rotas de extracao. Os de "
+                                   "TABLE_GEOMETRY tem pagina e faixa y no documento; "
+                                   "os de TEXT_INFERENCE foram montados de prosa ou "
+                                   "lista e uma parte nao preservou pagina. Nenhum "
+                                   "par carrega citacao literal — a casa nao gravou "
+                                   "SOURCE_QUOTE nesta versao do parser."),
         "TOTAL_DOSE_ROWS": sum(len(p["DOSE_ROWS"]) for p in lista),
         "EXPIRING_30": len(venc(30)), "EXPIRING_90": len(venc(90)),
         "EXPIRING_180": len(venc(180)),
@@ -185,7 +214,8 @@ def main():
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     json.dump(out, open(a.out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"  produtos {len(lista)} | com uso lido {len(com_uso)} | "
-          f"pares {out['TOTAL_USE_ROWS']} | doses {out['TOTAL_DOSE_ROWS']}", file=sys.stderr)
+          f"pares {out['TOTAL_USE_ROWS']} (tabela {tabela_n} / texto {texto_n}) | "
+          f"doses {out['TOTAL_DOSE_ROWS']}", file=sys.stderr)
     print(f"  vencendo 30/90/180: {out['EXPIRING_30']}/{out['EXPIRING_90']}/{out['EXPIRING_180']}",
           file=sys.stderr)
     print(f"  escrito {a.out}", file=sys.stderr)

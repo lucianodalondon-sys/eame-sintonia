@@ -1,0 +1,136 @@
+{
+ "DATASET": "IT-AUDITORIA-DO-PILOTO",
+ "O_QUE_ISTO_E": "recontagem independente das afirmacoes do proprio piloto",
+ "CHECKS": 18,
+ "OK": 18,
+ "DIVERGE": 0,
+ "NAO_VERIFICAVEL": 0,
+ "RESULTS": [
+  {
+   "CHECK": "universo ADAMA ativo",
+   "PUBLICADO": 163,
+   "RECOMPUTADO": 163,
+   "STATE": "OK",
+   "NOTE": "recontado direto do CSV oficial"
+  },
+  {
+   "CHECK": "registro total",
+   "PUBLICADO": 17695,
+   "RECOMPUTADO": 17695,
+   "STATE": "OK",
+   "NOTE": "linhas do CSV oficial"
+  },
+  {
+   "CHECK": "PDFs cujo sha256 confere com o publicado",
+   "PUBLICADO": 163,
+   "RECOMPUTADO": 163,
+   "STATE": "OK",
+   "NOTE": "0 divergentes, 0 ausentes do disco"
+  },
+  {
+   "CHECK": "rotulos identicos a linha de base",
+   "PUBLICADO": 163,
+   "RECOMPUTADO": 163,
+   "STATE": "OK",
+   "NOTE": "recontado item a item"
+  },
+  {
+   "CHECK": "documentos distintos do registro",
+   "PUBLICADO": 54,
+   "RECOMPUTADO": 54,
+   "STATE": "OK",
+   "NOTE": "sha256 unicos entre as versoes publicadas"
+  },
+  {
+   "CHECK": "instantaneos do registro cujo sha confere",
+   "PUBLICADO": 54,
+   "RECOMPUTADO": 54,
+   "STATE": "OK",
+   "NOTE": ""
+  },
+  {
+   "CHECK": "eventos regulatorios",
+   "PUBLICADO": 34,
+   "RECOMPUTADO": 34,
+   "STATE": "OK",
+   "NOTE": ""
+  },
+  {
+   "CHECK": "eventos rebaixados a texto",
+   "PUBLICADO": 2,
+   "RECOMPUTADO": 2,
+   "STATE": "OK",
+   "NOTE": ""
+  },
+  {
+   "CHECK": "eventos sem OLD/NEW/fonte",
+   "PUBLICADO": 0,
+   "RECOMPUTADO": 0,
+   "STATE": "OK",
+   "NOTE": "um evento sem os tres nao e publicavel"
+  },
+  {
+   "CHECK": "pares cultura x alvo",
+   "PUBLICADO": 2928,
+   "RECOMPUTADO": 2928,
+   "STATE": "OK",
+   "NOTE": ""
+  },
+  {
+   "CHECK": "produtos com uso lido",
+   "PUBLICADO": 128,
+   "RECOMPUTADO": 128,
+   "STATE": "OK",
+   "NOTE": ""
+  },
+  {
+   "CHECK": "pares de geometria de tabela",
+   "PUBLICADO": 1347,
+   "RECOMPUTADO": 1347,
+   "STATE": "OK",
+   "NOTE": ""
+  },
+  {
+   "CHECK": "pares de inferencia de texto",
+   "PUBLICADO": 1581,
+   "RECOMPUTADO": 1581,
+   "STATE": "OK",
+   "NOTE": ""
+  },
+  {
+   "CHECK": "soma das classes bate com o total",
+   "PUBLICADO": 2928,
+   "RECOMPUTADO": 2928,
+   "STATE": "OK",
+   "NOTE": "nenhum par sem classe de evidencia"
+  },
+  {
+   "CHECK": "pares sem classe de evidencia",
+   "PUBLICADO": 0,
+   "RECOMPUTADO": 0,
+   "STATE": "OK",
+   "NOTE": ""
+  },
+  {
+   "CHECK": "produtos da demo sem URL de rotulo",
+   "PUBLICADO": 0,
+   "RECOMPUTADO": 0,
+   "STATE": "OK",
+   "NOTE": ""
+  },
+  {
+   "CHECK": "alertas sem OLD ou NEW",
+   "PUBLICADO": 0,
+   "RECOMPUTADO": 0,
+   "STATE": "OK",
+   "NOTE": ""
+  },
+  {
+   "CHECK": "linhas de dose sem citacao",
+   "PUBLICADO": 0,
+   "RECOMPUTADO": 0,
+   "STATE": "OK",
+   "NOTE": "uma dose sem citacao recuperavel nao entra"
+  }
+ ]
+}
