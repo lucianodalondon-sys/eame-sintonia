@@ -1,0 +1,37 @@
+{
+ "SOURCE": "ARBITER-V2.md, sections 1.11 and 1.15. Two places where the independent arbiter ruled AGAINST this certification. Both re-checked here and both conceded.",
+
+ "CORRECTION_1_THE_EFFECT_FLOOR_EQUIVALENCE_WAS_AN_OVER_CORRECTION": {
+  "WHAT_I_WROTE": "p5b: 'on this sample the floor is reproduced EXACTLY by a plain incidence threshold of 0.41: 0 of 40 cells disagree', and 'T in {5,6,7} give the identical partition, so the number 5 is not selected by the data'.",
+  "WHAT_THE_ARBITER_MEASURED": "on a 533-cell sample (mine was 282) no incidence threshold reproduces the floor; the best is 0.251 with 12 of 86 disagreements, and only T = 5 of the 71 integers tried gives the shipped partition.",
+  "WHY_WE_DIFFER": "sample size. My sweep ran 3 crops over 11 dates in 2026 plus one calendar date in each prior season; the arbiter's covers more cells. A partition that looks degenerate on 282 cells separates on 533. The equivalence I found is a property of my sample, not of the floor.",
+  "CONCEDED": "The claim 'the floor is a disguised incidence threshold' is WITHDRAWN. So is 'T in {5,6,7} are interchangeable' as a general statement - it holds on my sample and not on a wider one.",
+  "WHAT_STILL_STANDS_UNCHANGED": [
+   "EFFECT_FLOOR = NOT_PROVED, which was the verdict either way.",
+   "MIN_POSITIVE_SITES is absent from the module's own declared parameter list, absent from the emitted PARAMS block, and absent from sensitivity()'s 135-point grid - so gate F, whose whole job is measuring parameter dependence, has never varied it.",
+   "0 of the surviving HIGHER calls are in the 2026 season, on either sample.",
+   "the original p5 test (0 fails open, 0 fails closed) was a tautology and remains withdrawn."
+  ],
+  "NET_EFFECT": "the floor comes out slightly BETTER than my retraction said - the value 5 is more special than I found - and still NOT PROVED."
+ },
+
+ "CORRECTION_2_PROVINCES_DO_NOT_STAY_UNKNOWN_THEY_VANISH": {
+  "WHAT_I_WROTE": "p9 TEST4: 'five of five unmonitored provinces stayed UNKNOWN and none acquired a neighbour's class', offered as evidence that geography is not inherited.",
+  "WHAT_THE_ARBITER_FOUND": "those five provinces are ABSENT FROM THE OUTPUT ENTIRELY, not published as UNKNOWN.",
+  "RE_CHECKED_HERE": {
+   "provinces_of_Toscana": 10,
+   "provinces_present_anywhere_in_the_wheat_archive": 5,
+   "provinces_in_the_wheat_output": 5,
+   "provinces_never_in_the_output": ["Livorno", "Lucca", "Massa-Carrara", "Pistoia", "Prato"],
+   "on_2026-09-06_the_five_that_DO_appear": "all five carry n_sites = 0 and STATE = UNKNOWN_NO_DATA",
+   "on_2026-05-15": "one of the five (Siena) carries n_sites = 0 and STATE = UNKNOWN_NO_DATA"
+  },
+  "THE_PRECISE_STATEMENT": "current_pressure builds its province list from whatever rows exist. A province with rows in the archive but none inside the window is correctly published UNKNOWN_NO_DATA. A province the programme never monitors at all never appears. There is no fixed universe of provinces in the output.",
+  "WHY_IT_MATTERS": "the two halves of the claim are different. NO INHERITANCE is TRUE and I confirm it: 0 provinces acquired a neighbour's class, in any case, on any date tried. But EVERY PROVINCE IS ACCOUNTED FOR is FALSE, and a reader cannot tell 'we looked and found nothing' from 'we never looked here'. The olive and vine cases read 8/10 and 0/10 only because those archives happen to cover all ten Tuscan provinces; the wheat case reads N/5 and Tuscany has ten.",
+  "CONCEDED": "p9's sentence is corrected. Geography is not INVENTED; it is also not COMPLETE."
+ },
+
+ "WHAT_THE_ARBITER_DID_NOT_OVERTURN": "Every other finding in this certification that it re-ran, it reproduced - including the clean-checkout drift, the denominator join defect, gate J being unable to pass, gate B passing with its cutoff removed, gate D passing while missing data is published as zero, gate E passing under a fixed different file order, the engine publishing a class from the fungicide column, the wheat case measuring var 372 Intensita' Oidio, and all eight published olive provinces reading LOWER_THAN_USUAL.",
+
+ "AND_ONE_IT_MADE_STRONGER": "ADAMA_PRODUCT_RELATION = NOT_FOUND. p10 stated it over the 3 products the handoff names. The arbiter measured the wider reading in italia-portale/client/italy-handoff-v21.js: 0 of 2,030 label-use pairs over 102 products name the olive fruit fly, and the single pair touching the olive crop is a herbicide. The verdict is unchanged and the evidence behind it is 34 times wider than p10 claimed."
+}

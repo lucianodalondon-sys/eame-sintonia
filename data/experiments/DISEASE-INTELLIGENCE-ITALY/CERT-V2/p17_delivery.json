@@ -5,7 +5,7 @@
  "SOURCE_BRANCH": "claude/disease-intelligence-italy-overnight",
  "SOURCE_HEAD": "a4d19ddf36f3fa4b187e8563d1d4226d399a4daf",
  "BRANCH": "claude/disease-pressure-certification-v2",
- "HEAD": "a2a9820e82d6d52765170bda1b7e303be98cabaa",
+ "HEAD": "098b4de5418885bc28ada78e8d1aa81f09d7477f",
  "WORKTREE_CLEAN": false,
  "UNTRACKED_DEPENDENCIES": 1,
  "CLEAN_CHECKOUT_REPRODUCIBLE": "NO",
@@ -13,31 +13,17 @@
   "gate_C_disagreeing_season_cells": {
    "committed": 19,
    "clean_checkout": 18,
-   "observed_across_file_orders": [
-    18,
-    19
-   ]
+   "observed_across_file_orders": null
   },
   "gate_F_olive_label_stability": {
    "committed": 0.918,
    "clean_checkout": 0.924,
-   "observed_across_file_orders": [
-    0.918,
-    0.921,
-    0.922,
-    0.923,
-    0.924
-   ]
+   "observed_across_file_orders": null
   },
   "gate_G_olive_dominant_share": {
    "committed": 0.424,
    "clean_checkout": 0.432,
-   "observed_across_file_orders": [
-    0.424,
-    0.432,
-    0.439,
-    0.447
-   ]
+   "observed_across_file_orders": null
   },
   "gate_J": {
    "committed": "NOT_TESTABLE (PARTIALLY_OVERLAPS)",
@@ -381,7 +367,17 @@
   "RT2-agronomy-and-false-signal.md",
   "RT3-time-and-data-clock.md",
   "RT4-geography-and-semantics.md",
+  "RT5-provenance-and-reproducibility.md",
   "RT6-gates-mutations-and-adama.md"
+ ],
+ "INDEPENDENT_ARBITER": "ARBITER-V2.md",
+ "INDEPENDENT_ARBITER_VERDICT": "NOT_YET",
+ "ARBITER_CORRECTIONS_AGAINST_THIS_CERTIFICATION": [
+  "SOURCE",
+  "CORRECTION_1_THE_EFFECT_FLOOR_EQUIVALENCE_WAS_AN_OVER_CORRECTION",
+  "CORRECTION_2_PROVINCES_DO_NOT_STAY_UNKNOWN_THEY_VANISH",
+  "WHAT_THE_ARBITER_DID_NOT_OVERTURN",
+  "AND_ONE_IT_MADE_STRONGER"
  ],
  "INDEPENDENT_RED_TEAM_MUTATIONS": {
   "R01": "SURVIVED",
@@ -404,6 +400,9 @@
  "OPPORTUNITY_INTEGRATION": "NO",
  "FUTURE_RADAR_INTEGRATION": "NO",
  "COMMITS": [
+  "098b4de cert-v2: my step-1 headline was wrong, and the probe behind it was not in git",
+  "54ff58c cert-v2: correction against myself \u00e2\u20ac\u201d the cutoff changes 0 of 20 cells, not 5 of 10",
+  "a8b9650 cert-v2: inventory re-run including the red team's own five mutations",
   "a2a9820 cert-v2 step 15: the red team broke my own certification in three places, and I concede all three",
   "7b12110 cert-v2 steps 2-3: 28 mutations against ten gates, and three gates that do not notice",
   "61041f9 cert-v2 steps 4-14: the instrument measured against itself, including three of my own bad tests",

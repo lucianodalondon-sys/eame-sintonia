@@ -185,6 +185,17 @@ def main():
         "NOT_REPRODUCIBLE_REFERENCES")
 
     d["INDEPENDENT_RED_TEAM_REPORTS"] = rt
+    arb = os.path.join(HERE, "ARBITER-V2.md")
+    d["INDEPENDENT_ARBITER"] = ("ARBITER-V2.md" if os.path.exists(arb) else None)
+    d["INDEPENDENT_ARBITER_VERDICT"] = None
+    if os.path.exists(arb):
+        t = open(arb, encoding="utf-8").read()
+        for v in ("YES_SCOPED", "NOT_YET", "NO"):
+            if f"# {v}" in t:
+                d["INDEPENDENT_ARBITER_VERDICT"] = v
+                break
+    d["ARBITER_CORRECTIONS_AGAINST_THIS_CERTIFICATION"] = list(
+        (load("p16_arbiter_corrections_against_the_certification.json") or {}).keys())
     d["INDEPENDENT_RED_TEAM_MUTATIONS"] = {
         os.path.basename(p)[:-5]: json.load(open(p, encoding="utf-8")).get("OUTCOME")
         for p in sorted(glob.glob(os.path.join(HERE, "REDTEAM", "R0*.json")))}
