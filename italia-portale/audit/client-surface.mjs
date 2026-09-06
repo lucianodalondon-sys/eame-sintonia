@@ -19,6 +19,7 @@
 import fs from 'node:fs'; import http from 'node:http'; import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';
+import { navList } from './lib/nav-names.mjs';
 const HERE=path.dirname(fileURLToPath(import.meta.url));
 const CLIENT=path.resolve(HERE,'..','client');
 const argv=process.argv.slice(2);
@@ -33,8 +34,10 @@ if(!BASE){srv=http.createServer((q,r)=>{const u=decodeURIComponent((q.url||'/').
     r.writeHead(200,{'content-type':T[path.extname(u)]||'application/octet-stream'}).end(b);});});
   await new Promise(r=>srv.listen(PORT,r));}
 const ORIGIN=BASE||`http://localhost:${PORT}`;
-const NAV={it:['Radar delle Opportunità','Radar Futuro','Finestre Colturali','Polso di Mercato','Portafoglio','Voci dal Campo','Concorrenza','Intelligence Scientifica','Archivio','Fonti'],
-           en:['Opportunity Radar','Future Radar','Crop Windows','Market Pulse','Portfolio','Field Voices','Competitor Watch','Scientific Intelligence','Archive','Sources']};
+/* I NOMI DELLE VOCI VENGONO DAL DIZIONARIO — audit/lib/nav-names.mjs.
+   Erano scritti a mano qui, e quando navFuture/navSources sono cambiati
+   questo file ha smesso di trovarle senza dirlo. */
+const NAV={it:navList('it'),en:navList('en')};
 const EXEC=['/opt/pw-browsers/chromium-1194/chrome-linux/chrome','/opt/pw-browsers/chromium/chrome-linux/chrome'].find(p=>fs.existsSync(p));
 const b=await chromium.launch({executablePath:EXEC,args:['--no-sandbox']});
 const hits={undef:[],nul:[],objobj:[],nan:[],enum_:[],emptyChip:[],noTitle:[],fatal:[],net:[],console_:[]};

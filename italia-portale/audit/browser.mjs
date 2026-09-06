@@ -28,6 +28,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';
 import { PT_MARKERS } from './lang.mjs';
+import { navMap } from './lib/nav-names.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const CLIENT = path.resolve(HERE, '..', 'client');
@@ -235,44 +236,10 @@ const inspect = async (label, lang) => {
 /* Le tredici schermate che il fecho nomina, nell'ordine in cui un lettore le
    incontra. Il dettaglio e le sue schede si aprono dalla scheda, non da un URL:
    è così che le apre lui. */
-/* I NOMI DELLE VOCI VENGONO DAL DIZIONARIO, NON DA QUI.
-   Erano scritti a mano. Quando `navFuture` e `navSources` sono diventati
-   «Archivio segnali V21» e «Archivio fonti V21» questa tabella e rimasta
-   indietro: il giro non trovava piu le due voci e QUATTRO schermate — Radar
-   Futuro e Fonti, in due lingue — smettevano di essere guardate. Il controllo
-   restava rosso, ma per un motivo che nascondeva il buco vero.
-
-       UNA TAPPA CHE NON SI TROVA NON E UNA TAPPA CHE FALLISCE.
-       E UNA TAPPA CHE NESSUNO GUARDA PIU.
-
-   Il dizionario e gia sorvegliato altrove (MK3 lega ogni chiave, I5 prova che
-   l'italiano e italiano), quindi leggerlo qui non indebolisce niente: sposta
-   soltanto il nome dove il portale lo tiene. */
-const I18N = (() => {
-  const ctx = { window: {}, document: undefined };
-  ctx.window = ctx; ctx.globalThis = ctx;
-  vm.createContext(ctx);
-  vm.runInContext(fs.readFileSync(path.join(CLIENT, 'italy-i18n.js'), 'utf8'), ctx, { filename: 'italy-i18n.js' });
-  return ctx.SINTONIA_I18N;
-})();
-const navName = (lang, key) => (I18N[lang] || {})[key] || (I18N.it || {})[key];
-const NAV = {
-  it: { home: navName('it', 'navMeeting') || 'Radar delle Opportunità', future: navName('it', 'navFuture'),
-    windows: navName('it', 'navWindows'), market: navName('it', 'navMarket'),
-    portfolio: navName('it', 'navPortfolio'), voci: navName('it', 'navVoices'),
-    competitor: navName('it', 'navCompetitors'), science: navName('it', 'navScience'),
-    archive: navName('it', 'navArchive'), sources: navName('it', 'navSources'), back: 'Indietro' },
-  en: { home: navName('en', 'navMeeting') || 'Opportunity Radar', future: navName('en', 'navFuture'),
-    windows: navName('en', 'navWindows'), market: navName('en', 'navMarket'),
-    portfolio: navName('en', 'navPortfolio'), voci: navName('en', 'navVoices'),
-    competitor: navName('en', 'navCompetitors'), science: navName('en', 'navScience'),
-    archive: navName('en', 'navArchive'), sources: navName('en', 'navSources'), back: 'Back' },
-};
-for (const lang of ['it', 'en']) {
-  for (const [k, v] of Object.entries(NAV[lang])) {
-    if (!v) throw new Error(`browser.mjs: il dizionario ${lang} non ha un nome per la voce «${k}»`);
-  }
-}
+/* I NOMI DELLE VOCI VENGONO DAL DIZIONARIO, NON DA QUI — vedi
+   audit/lib/nav-names.mjs, che li legge dagli stessi due file che il portale
+   legge e esplode se una chiave manca. */
+const NAV = { it: navMap('it'), en: navMap('en') };
 const TOUR = [
   { label: 'HOME · Radar', key: 'home' },
   { label: 'OPPORTUNITY DETAIL', card: true },

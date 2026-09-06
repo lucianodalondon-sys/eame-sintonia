@@ -22,6 +22,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';
 import { loadData } from './lib/harness.mjs';
+import { navName } from './lib/nav-names.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const CLIENT = path.resolve(HERE, '..', 'client');
@@ -47,7 +48,8 @@ if (!BASE) {
   origin = `http://localhost:${PORT}`;
 }
 
-const AM = loadData().ITALY_APP_MODEL;
+const ctx = loadData();
+const AM = ctx.ITALY_APP_MODEL;
 const C = AM.collections;
 const opp = C.opportunities.records;
 
@@ -76,11 +78,31 @@ const num = (re) => { const m = screenText.match(re); return m ? Number(m[1]) : 
 const rows = [];
 const R = (label, model, screen, note) => rows.push({ label, model, screen, note: note || '' });
 
-R('OPPORTUNITIES', opp.length, num(/(\d+)\s+opportunità rilevate/i) ?? nav['Radar delle Opportunità']);
-R('  VERIFIED CONVERGENCE', opp.filter((o) => o.convergence === 'VERIFIED_CONVERGENCE').length,
+/* ══ LE 43 SI DIVIDONO IN TRE, E IL TOTALE NON SPARISCE ═══════════════════
+   Questo blocco confrontava le 43 del pacchetto con la pastiglia del radar, e
+   la pastiglia ne dice 13. Non e una divergenza: e la LEGGE DI RILEVANZA
+   ADAMA (scripts/adama_relevance.py), che chiama «opportunita» solo cio che si
+   lega a un prodotto ADAMA e manda il resto a radar e a segnali. La riga
+   `TO VALIDATE` peggiorava l'errore: la sua regex prendeva il «21» di
+   «21 RADAR · DA VALIDARE» e lo confrontava con le 10 TO_VALIDATE del modello.
+
+       DUE NUMERI DIVERSI NON SONO UNA CONTRADDIZIONE SE CONTANO DUE COSE.
+       MA CHI LI CONFRONTA DEVE DIRE QUALI DUE COSE SONO.
+
+   Adesso si riconcilia popolazione per popolazione, con i nomi che lo schermo
+   usa, e in piu si prova che le tre piu l'errore FANNO 43: cosi la legge non
+   puo perdere un caso per strada senza che questo conto lo veda. */
+const REL = (ctx.MEETING_SURFACE && ctx.MEETING_SURFACE.build('it') || {}).relevance || {};
+R('OPPORTUNITIES · package total', opp.length, num(/OPPORTUNITÀ ATTUALI\s*\n\s*(\d+)\s*\n\s*·/i),
+  'la legge di rilevanza le divide in tre — nessuna sparisce');
+R('  OPPORTUNITÀ (linked to an ADAMA product)', REL.OPPORTUNITA ?? null, num(/·\s*(\d+)\s+OPPORTUNITÀ/i));
+R('  RADAR · da validare', REL.RADAR ?? null, num(/·\s*(\d+)\s+RADAR/i));
+R('  SEGNALI grezzi', REL.SEGNALI ?? null, num(/·\s*(\d+)\s+SEGNALI/i));
+R('  the three plus error = the package total',
+  (REL.OPPORTUNITA ?? 0) + (REL.RADAR ?? 0) + (REL.SEGNALI ?? 0) + (REL.ERRORE ?? 0), opp.length,
+  'se questa riga si spezza, la legge ha perso un caso');
+R('  VERIFIED CONVERGENCE (model)', opp.filter((o) => o.convergence === 'VERIFIED_CONVERGENCE').length,
   num(/(\d+)\s+convergenze verificate/i));
-R('  TO VALIDATE', opp.filter((o) => o.convergence === 'TO_VALIDATE').length,
-  num(/(\d+)\s+da validare/i));
 
 R('CANONICAL CROP WINDOWS', C.cropWindows.count, nav['Finestre Colturali']);
 R('FIELD READINGS (not windows)', C.currentFieldSignals.count, null,
@@ -94,14 +116,14 @@ R('LABEL USE PAIRS', C.productRelationships.count, num(/(\d+)\s*$/m) === null ? 
   'shown as the portfolio-links KPI');
 R('ACTIVE SUBSTANCES', C.activeIngredients.count, null);
 
-R('MARKET', C.marketObservations.count, nav['Polso di Mercato']);
-R('SCIENCE', C.scienceRecords.count, nav['Intelligence Scientifica']);
+R('MARKET', C.marketObservations.count, nav[navName('it', 'navMarket')]);
+R('SCIENCE', C.scienceRecords.count, nav[navName('it', 'navScience')]);
 R('RESISTANCE', C.resistance.count, null, 'inside Scientific Intelligence');
-R('COMPETITOR', C.competitorActivities.count, nav['Concorrenza']);
-R('VOICES', C.publicVoices.count, nav['Voci dal Campo']);
-R('FUTURE', C.futureSignals.count, nav['Radar Futuro']);
-R('SOURCES', C.sources.count, nav['Fonti']);
-R('ARCHIVE (index over the model)', C.archive.count, nav['Archivio'],
+R('COMPETITOR', C.competitorActivities.count, nav[navName('it', 'navCompetitors')]);
+R('VOICES', C.publicVoices.count, nav[navName('it', 'navVoices')]);
+R('FUTURE', C.futureSignals.count, nav[navName('it', 'navFuture')]);
+R('SOURCES', C.sources.count, nav[navName('it', 'navSources')]);
+R('ARCHIVE (index over the model)', C.archive.count, nav[navName('it', 'navArchive')],
   'an index, never summed with the families');
 
 /* Il KPI dei collegamenti di portafoglio e l'unico posto dove le 2.030 duplas

@@ -21,6 +21,7 @@ import http from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';
+import { navList } from './lib/nav-names.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const CLIENT = path.resolve(HERE, '..', 'client');
@@ -29,12 +30,10 @@ const arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 ? argv[i
 const BASE = arg('base', null);
 const PORT = Number(arg('port', 8997));
 
-const NAV = {
-  it: ['Radar delle Opportunità', 'Radar Futuro', 'Finestre Colturali', 'Polso di Mercato',
-    'Portafoglio', 'Voci dal Campo', 'Concorrenza', 'Intelligence Scientifica', 'Archivio', 'Fonti'],
-  en: ['Opportunity Radar', 'Future Radar', 'Crop Windows', 'Market Pulse',
-    'Portfolio', 'Field Voices', 'Competitor Watch', 'Scientific Intelligence', 'Archive', 'Sources'],
-};
+/* I NOMI DELLE VOCI VENGONO DAL DIZIONARIO — audit/lib/nav-names.mjs.
+   Erano scritti a mano qui, e quando navFuture/navSources sono cambiati
+   questo file ha smesso di trovarle senza dirlo. */
+const NAV = { it: navList('it'), en: navList('en') };
 
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.json': 'application/json', '.css': 'text/css', '.png': 'image/png', '.ttf': 'font/ttf', '.otf': 'font/otf' };

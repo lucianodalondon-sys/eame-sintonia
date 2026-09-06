@@ -31,6 +31,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';
 import { PT_MARKERS } from './lang.mjs';
 import { loadData } from './lib/harness.mjs';
+import { navMap } from './lib/nav-names.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const CLIENT = path.resolve(HERE, '..', 'client');
@@ -199,16 +200,10 @@ const openCard = async (i) => {
   return ok;
 };
 
-const NAV = {
-  it: { home: 'Radar delle Opportunità', future: 'Radar Futuro', windows: 'Finestre Colturali',
-    market: 'Polso di Mercato', portfolio: 'Portafoglio', voci: 'Voci dal Campo',
-    competitor: 'Concorrenza', science: 'Intelligence Scientifica', archive: 'Archivio',
-    sources: 'Fonti', back: 'Indietro' },
-  en: { home: 'Opportunity Radar', future: 'Future Radar', windows: 'Crop Windows',
-    market: 'Market Pulse', portfolio: 'Portfolio', voci: 'Field Voices',
-    competitor: 'Competitor Watch', science: 'Scientific Intelligence', archive: 'Archive',
-    sources: 'Sources', back: 'Back' },
-};
+/* I NOMI DELLE VOCI VENGONO DAL DIZIONARIO — audit/lib/nav-names.mjs.
+   Erano scritti a mano qui, e quando navFuture/navSources sono cambiati
+   questo file ha smesso di trovarle senza dirlo. */
+const NAV = { it: navMap('it'), en: navMap('en') };
 const VERIFIED = { it: 'CONVERGENZA VERIFICATA', en: 'VERIFIED CONVERGENCE' };
 const TOVALID = { it: 'DA VALIDARE', en: 'TO VALIDATE' };
 const AWAITING = { it: 'IN ATTESA DI LOCALIZZAZIONE', en: 'AWAITING LOCALIZATION' };

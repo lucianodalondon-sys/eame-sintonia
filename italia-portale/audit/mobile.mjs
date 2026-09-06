@@ -28,6 +28,7 @@ import {
   overflow, shot, C, line,
 } from './lib/drive.mjs';
 import { loadData } from './lib/harness.mjs';
+import { navList, navName } from './lib/nav-names.mjs';
 
 const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 ? argv[i + 1] : d; };
@@ -61,11 +62,10 @@ const CARD_MIN = 170;
 
 /* As dez seccoes pelo title do item de navegacao. O portal e italiano; o
    rotulo e o endereco. */
-const SECTIONS = [
-  'Radar delle Opportunità', 'Radar Futuro', 'Finestre Colturali', 'Polso di Mercato',
-  'Voci dal Campo', 'Concorrenza', 'Intelligence Scientifica', 'Portafoglio',
-  'Archivio', 'Fonti',
-];
+/* I NOMI DELLE VOCI VENGONO DAL DIZIONARIO — audit/lib/nav-names.mjs.
+   Erano scritti a mano qui, e quando navFuture/navSources sono cambiati
+   questo file ha smesso di trovarle senza dirlo. */
+const SECTIONS = navList('it');
 
 /* ── o que o modelo sabe, para conferir o filtro contra a verdade ─────────── */
 const ctx = loadData();
@@ -335,7 +335,7 @@ if (SHOTS) await shot(jp, SHOTS, 'j0-390-load');
       inStrip: b.x >= ab.x - 1 && b.right <= ab.right + 1 && b.y >= ab.y - 1 && b.bottom <= ab.bottom + 1,
       hitIsItem: !!hit && (hit === el || el.contains(hit) || hit.contains(el)),
     };
-  }, 'Fonti');
+  }, navName('it', 'navSources'));
   step('J1', 'nav strip is reachable and scrolls', r.scrollable && r.room > 8 && r.moved > 0 && r.inStrip && r.hitIsItem,
     `overflowX=${r.scrollable ? 'auto' : 'no'} scrollW=${r.sw} clientW=${r.cw} scrolled=${r.moved}px hit=${r.hitIsItem ? 'the item' : 'something else'}`);
 }
@@ -343,7 +343,7 @@ if (SHOTS) await shot(jp, SHOTS, 'j0-390-load');
 /* 2 · mudar de seccao pela tira */
 {
   const before = await fp();
-  const went = await clickTitle(jp, 'Fonti', 800);
+  const went = await clickTitle(jp, navName('it', 'navSources'), 800);
   const after = await fp();
   step('J2', 'a nav click switches the screen', went && changed(before, after) && /FONTI/i.test(after.title),
     `${before.title} (${before.chars} ch) -> ${after.title} (${after.chars} ch)`);
