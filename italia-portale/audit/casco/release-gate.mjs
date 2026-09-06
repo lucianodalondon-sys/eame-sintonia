@@ -11,7 +11,13 @@ const R = {}; const dettagli = [];
 const nota = (t) => dettagli.push(t);
 
 /* ── parte A · quello che si misura senza browser ──────────────────────────── */
-const M = mount({});
+/* ── SI PROVA IL BYTE PUBBLICATO, NON QUELLO CHE HO SCRITTO ────────────────
+   Con SINTONIA_MIRROR la cartella misurata e lo specchio del deploy: i file che
+   curl ha scaricato dall'indirizzo pubblico. Il banco di prova E il browser
+   leggono entrambi quella copia, non il disco di lavoro. */
+const SPECCHIO = process.env.SINTONIA_MIRROR || null;
+const DIR = SPECCHIO || undefined;
+const M = SPECCHIO ? mount({ dir: SPECCHIO }) : mount({});
 const AM = M.AM, ctx = M.ctx;
 const CANON = AM.AREE_CANONICHE || [];
 const B = ctx.MEETING_SURFACE.build('it');
@@ -51,7 +57,7 @@ for (const o of AM.collections.opportunities.records) {
 R.ADAMA_RELEVANCE_CONTRADICTIONS = contraddizioni;
 
 /* 4 · mappa vecchia: struttura, non parole — schermo E sorgente dei documenti */
-const SRC = fs.readFileSync(new URL('../../client/portale.html', import.meta.url), 'utf8');
+const SRC = fs.readFileSync(SPECCHIO ? (SPECCHIO + '/portale.html') : new URL('../../client/portale.html', import.meta.url), 'utf8');
 const SENZA = SRC.slice(SRC.indexOf('<script type="text/x-dc"')).replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
 const residui = [];
 for (const t of ['data-area=', 'data-area-name=', 'cs.actionMapRows', 'cs.hasActionMap']) if (SRC.indexOf(t) >= 0) residui.push('markup:' + t);
@@ -95,7 +101,7 @@ R.PDF_RAGGIUNGIBILE = 'scheda legacy: ' + conBottoni + ' pulsanti · scheda dell
 
 /* ── parte B · quello che serve il vetro ───────────────────────────────────── */
 const CLICK = "(n)=>{for(let i=0;i<5&&n;i++){const cs=getComputedStyle(n); if(cs.cursor==='pointer') return n; n=n.parentElement;} return null;}";
-const server = await serve(8811);
+const server = await serve(8811, DIR);
 let erroriTot = 0, richiesteRotte = 0;
 const apriPortale = async (width, lang) => {
   const s = await open({ port: 8811, width, height: width < 500 ? 844 : 1000 });
@@ -212,7 +218,7 @@ R.BROWSER_ERRORS = erroriTot;
 R.BROKEN_LINKS = richiesteRotte;
 
 console.log('');
-console.log('  SINTONIA ITALIA · RELEASE GATE');
+console.log('  SINTONIA ITALIA · RELEASE GATE' + (SPECCHIO ? '   ·   SUI BYTE PUBBLICATI (' + SPECCHIO + ')' : '   ·   sul disco di lavoro'));
 console.log('  ' + '─'.repeat(92));
 for (const k of ['BROWSER_ERRORS', 'BROKEN_LINKS', 'HASH', 'MAPA_5_AREAS', 'MAPA_ANTIGO_VISIBLE',
   'ADAMA_RELEVANCE_CONTRADICTIONS', 'PRONTO_PER_LA_VENDITA', 'SEM_SINAL_ATUAL_FALSE',
