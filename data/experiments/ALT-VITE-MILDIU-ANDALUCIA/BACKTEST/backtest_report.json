@@ -132,9 +132,9 @@
     "stated_a_priori": true,
     "strict_temporal": {
      "n": 15,
-     "accuracy": 0.2667,
-     "mean_abs_class_dist": 1.2,
-     "blunders_2class": 7,
+     "accuracy": 0.3333,
+     "mean_abs_class_dist": 1.0667,
+     "blunders_2class": 6,
      "years_scored": [
       2011,
       2012,
@@ -152,12 +152,12 @@
       2024,
       2025
      ],
-     "p_permutation": 0.87591
+     "p_permutation": 0.62782
     },
     "leave_one_year_out": {
      "n": 20,
-     "accuracy": 0.1,
-     "mean_abs_class_dist": 1.2,
+     "accuracy": 0.2,
+     "mean_abs_class_dist": 1.1,
      "blunders_2class": 6,
      "years_scored": [
       2006,
@@ -181,7 +181,7 @@
       2024,
       2025
      ],
-     "p_permutation": 0.9969
+     "p_permutation": 0.94205
     }
    },
    {
@@ -213,13 +213,13 @@
       2024,
       2025
      ],
-     "p_permutation": 0.53597
+     "p_permutation": 0.61117
     },
     "leave_one_year_out": {
      "n": 20,
-     "accuracy": 0.3,
-     "mean_abs_class_dist": 0.9,
-     "blunders_2class": 4,
+     "accuracy": 0.25,
+     "mean_abs_class_dist": 1,
+     "blunders_2class": 5,
      "years_scored": [
       2006,
       2007,
@@ -242,7 +242,7 @@
       2024,
       2025
      ],
-     "p_permutation": 0.71086
+     "p_permutation": 0.85066
     }
    },
    {
@@ -254,8 +254,8 @@
     "stated_a_priori": true,
     "strict_temporal": {
      "n": 15,
-     "accuracy": 0.3333,
-     "mean_abs_class_dist": 0.9333,
+     "accuracy": 0.2667,
+     "mean_abs_class_dist": 1,
      "blunders_2class": 4,
      "years_scored": [
       2011,
@@ -274,7 +274,7 @@
       2024,
       2025
      ],
-     "p_permutation": 0.58437
+     "p_permutation": 0.79341
     },
     "leave_one_year_out": {
      "n": 20,
@@ -315,8 +315,8 @@
     "stated_a_priori": true,
     "strict_temporal": {
      "n": 15,
-     "accuracy": 0.2667,
-     "mean_abs_class_dist": 1.1333,
+     "accuracy": 0.3333,
+     "mean_abs_class_dist": 1.0667,
      "blunders_2class": 6,
      "years_scored": [
       2011,
@@ -335,7 +335,7 @@
       2024,
       2025
      ],
-     "p_permutation": 0.82596
+     "p_permutation": 0.58957
     },
     "leave_one_year_out": {
      "n": 20,
@@ -364,7 +364,7 @@
       2024,
       2025
      ],
-     "p_permutation": 0.75576
+     "p_permutation": 0.70496
     }
    },
    {
@@ -376,9 +376,9 @@
     "stated_a_priori": true,
     "strict_temporal": {
      "n": 15,
-     "accuracy": 0.2667,
+     "accuracy": 0.3333,
      "mean_abs_class_dist": 0.9333,
-     "blunders_2class": 3,
+     "blunders_2class": 4,
      "years_scored": [
       2011,
       2012,
@@ -396,7 +396,7 @@
       2024,
       2025
      ],
-     "p_permutation": 0.55687
+     "p_permutation": 0.25689
     },
     "leave_one_year_out": {
      "n": 20,
@@ -425,23 +425,23 @@
       2024,
       2025
      ],
-     "p_permutation": 0.70106
+     "p_permutation": 0.69897
     }
    }
   ],
   "overfit_demonstration": {
    "WARNING": "This feature was chosen by looking at the answers. It is NOT evidence of skill.",
    "n_features_searched": 88,
-   "feature": "prevseason_tmin_mean",
-   "direction": 1,
-   "loyo_accuracy": 0.5,
-   "interpretation": "Searching 88 feature/direction combinations on 20 labelled years reaches 0.5 by selection alone. Any headline number near this that was not pre-registered is noise."
+   "feature": "prev2season_rh_mean",
+   "direction": -1,
+   "loyo_accuracy": 0.55,
+   "interpretation": "Searching 88 feature/direction combinations on 20 labelled years reaches 0.55 by selection alone. Any headline number near this that was not pre-registered is noise."
   },
-  "best_a_priori_hypothesis": "H2_winter_wet_mild",
+  "best_a_priori_hypothesis": "H1_prev_season_rain",
   "best_a_priori_accuracy": 0.3333,
   "best_baseline_accuracy": 0.4,
   "MODEL_HAS_SKILL": "NO",
-  "skill_reason": "best a-priori rule H2_winter_wet_mild scored 0.3333 vs best baseline 0.4 (permutation p=0.53597); does NOT clear both bars \u2014 a seasonal outlook must not be sold as a forecast",
+  "skill_reason": "best a-priori rule H1_prev_season_rain scored 0.3333 vs best baseline 0.4 (permutation p=0.62782); does NOT clear both bars \u2014 a seasonal outlook must not be sold as a forecast",
   "multiplicity_note": "5 a-priori hypotheses were tested. A Bonferroni-corrected threshold is p <= 0.01; the best hypothesis does NOT clear it."
  },
  "CUTOFF_B_TRUE_12M": {
@@ -577,9 +577,9 @@
     "stated_a_priori": true,
     "strict_temporal": {
      "n": 15,
-     "accuracy": 0.2667,
-     "mean_abs_class_dist": 1.2,
-     "blunders_2class": 7,
+     "accuracy": 0.3333,
+     "mean_abs_class_dist": 1.0667,
+     "blunders_2class": 6,
      "years_scored": [
       2011,
       2012,
@@ -597,12 +597,12 @@
       2024,
       2025
      ],
-     "p_permutation": 0.87591
+     "p_permutation": 0.62782
     },
     "leave_one_year_out": {
      "n": 20,
-     "accuracy": 0.1,
-     "mean_abs_class_dist": 1.2,
+     "accuracy": 0.2,
+     "mean_abs_class_dist": 1.1,
      "blunders_2class": 6,
      "years_scored": [
       2006,
@@ -626,7 +626,7 @@
       2024,
       2025
      ],
-     "p_permutation": 0.9969
+     "p_permutation": 0.94205
     }
    },
    {
@@ -639,8 +639,8 @@
     "strict_temporal": {
      "n": 15,
      "accuracy": 0.4,
-     "mean_abs_class_dist": 0.8667,
-     "blunders_2class": 4,
+     "mean_abs_class_dist": 0.8,
+     "blunders_2class": 3,
      "years_scored": [
       2011,
       2012,
@@ -658,73 +658,12 @@
       2024,
       2025
      ],
-     "p_permutation": 0.24449
+     "p_permutation": 0.36313
     },
     "leave_one_year_out": {
      "n": 20,
-     "accuracy": 0.4,
-     "mean_abs_class_dist": 0.8,
-     "blunders_2class": 4,
-     "years_scored": [
-      2006,
-      2007,
-      2008,
-      2009,
-      2010,
-      2011,
-      2012,
-      2013,
-      2014,
-      2015,
-      2016,
-      2017,
-      2018,
-      2019,
-      2020,
-      2021,
-      2022,
-      2023,
-      2024,
-      2025
-     ],
-     "p_permutation": 0.34013
-    }
-   },
-   {
-    "id": "H3_autumn_rain",
-    "feature": "autumn_precip_sum",
-    "direction": 1,
-    "feature_resolved_for_regime": "prevautumn_precip_sum",
-    "biology": "Autumn rain both feeds late sporulation and buries inoculum in wet litter.",
-    "stated_a_priori": true,
-    "strict_temporal": {
-     "n": 15,
-     "accuracy": 0.4,
-     "mean_abs_class_dist": 0.9333,
-     "blunders_2class": 5,
-     "years_scored": [
-      2011,
-      2012,
-      2013,
-      2014,
-      2015,
-      2016,
-      2017,
-      2018,
-      2019,
-      2020,
-      2021,
-      2022,
-      2023,
-      2024,
-      2025
-     ],
-     "p_permutation": 0.40863
-    },
-    "leave_one_year_out": {
-     "n": 20,
-     "accuracy": 0.35,
-     "mean_abs_class_dist": 0.8,
+     "accuracy": 0.45,
+     "mean_abs_class_dist": 0.7,
      "blunders_2class": 3,
      "years_scored": [
       2006,
@@ -748,7 +687,68 @@
       2024,
       2025
      ],
-     "p_permutation": 0.52142
+     "p_permutation": 0.19589
+    }
+   },
+   {
+    "id": "H3_autumn_rain",
+    "feature": "autumn_precip_sum",
+    "direction": 1,
+    "feature_resolved_for_regime": "prevautumn_precip_sum",
+    "biology": "Autumn rain both feeds late sporulation and buries inoculum in wet litter.",
+    "stated_a_priori": true,
+    "strict_temporal": {
+     "n": 15,
+     "accuracy": 0.3333,
+     "mean_abs_class_dist": 1,
+     "blunders_2class": 5,
+     "years_scored": [
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "p_permutation": 0.64527
+    },
+    "leave_one_year_out": {
+     "n": 20,
+     "accuracy": 0.3,
+     "mean_abs_class_dist": 0.9,
+     "blunders_2class": 4,
+     "years_scored": [
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "p_permutation": 0.70556
     }
    },
    {
@@ -760,8 +760,8 @@
     "stated_a_priori": true,
     "strict_temporal": {
      "n": 15,
-     "accuracy": 0.2667,
-     "mean_abs_class_dist": 1.1333,
+     "accuracy": 0.3333,
+     "mean_abs_class_dist": 1.0667,
      "blunders_2class": 6,
      "years_scored": [
       2011,
@@ -780,7 +780,7 @@
       2024,
       2025
      ],
-     "p_permutation": 0.82596
+     "p_permutation": 0.58957
     },
     "leave_one_year_out": {
      "n": 20,
@@ -809,7 +809,7 @@
       2024,
       2025
      ],
-     "p_permutation": 0.75576
+     "p_permutation": 0.70496
     }
    },
    {
@@ -821,8 +821,8 @@
     "stated_a_priori": true,
     "strict_temporal": {
      "n": 15,
-     "accuracy": 0.4,
-     "mean_abs_class_dist": 1,
+     "accuracy": 0.3333,
+     "mean_abs_class_dist": 1.0667,
      "blunders_2class": 6,
      "years_scored": [
       2011,
@@ -841,7 +841,7 @@
       2024,
       2025
      ],
-     "p_permutation": 0.10654
+     "p_permutation": 0.25814
     },
     "leave_one_year_out": {
      "n": 20,
@@ -870,23 +870,23 @@
       2024,
       2025
      ],
-     "p_permutation": 0.34498
+     "p_permutation": 0.35068
     }
    }
   ],
   "overfit_demonstration": {
    "WARNING": "This feature was chosen by looking at the answers. It is NOT evidence of skill.",
    "n_features_searched": 88,
-   "feature": "prevautumn_tmean",
-   "direction": 1,
-   "loyo_accuracy": 0.6,
-   "interpretation": "Searching 88 feature/direction combinations on 20 labelled years reaches 0.6 by selection alone. Any headline number near this that was not pre-registered is noise."
+   "feature": "prev2season_rh_mean",
+   "direction": -1,
+   "loyo_accuracy": 0.55,
+   "interpretation": "Searching 88 feature/direction combinations on 20 labelled years reaches 0.55 by selection alone. Any headline number near this that was not pre-registered is noise."
   },
   "best_a_priori_hypothesis": "H2_winter_wet_mild",
   "best_a_priori_accuracy": 0.4,
   "best_baseline_accuracy": 0.4,
   "MODEL_HAS_SKILL": "NO",
-  "skill_reason": "best a-priori rule H2_winter_wet_mild scored 0.4 vs best baseline 0.4 (permutation p=0.24449); does NOT clear both bars \u2014 a seasonal outlook must not be sold as a forecast",
+  "skill_reason": "best a-priori rule H2_winter_wet_mild scored 0.4 vs best baseline 0.4 (permutation p=0.36313); does NOT clear both bars \u2014 a seasonal outlook must not be sold as a forecast",
   "multiplicity_note": "5 a-priori hypotheses were tested. A Bonferroni-corrected threshold is p <= 0.01; the best hypothesis does NOT clear it."
  }
 }

@@ -45,37 +45,37 @@
      "n_years": 34,
      "strongest_antecedent_links": [
       {
-       "feature": "prevseason_precip_sum",
-       "spearman": -0.506,
-       "p_permutation": 0.0029
-      },
-      {
-       "feature": "autumn_wet_spells_2d",
-       "spearman": -0.432,
-       "p_permutation": 0.01215
-      },
-      {
-       "feature": "prev2season_max_wet_run",
-       "spearman": 0.411,
-       "p_permutation": 0.0167
+       "feature": "prevseason_tmean",
+       "spearman": 0.444,
+       "p_permutation": 0.0085
       },
       {
        "feature": "prevseason_gdd10",
-       "spearman": 0.405,
-       "p_permutation": 0.01715
+       "spearman": 0.441,
+       "p_permutation": 0.00845
       },
       {
-       "feature": "prevseason_tmean",
-       "spearman": 0.404,
-       "p_permutation": 0.01775
+       "feature": "prevseason_precip_sum",
+       "spearman": -0.437,
+       "p_permutation": 0.01
+      },
+      {
+       "feature": "prevseason_rh_mean",
+       "spearman": -0.404,
+       "p_permutation": 0.0188
+      },
+      {
+       "feature": "prevseason_rain_days",
+       "spearman": -0.397,
+       "p_permutation": 0.01975
       },
       {
        "feature": "prevseason_tmin_mean",
-       "spearman": 0.4,
-       "p_permutation": 0.02015
+       "spearman": 0.387,
+       "p_permutation": 0.02485
       }
      ],
-     "max_abs_spearman": 0.506,
+     "max_abs_spearman": 0.444,
      "n_features_screened": 40
     },
     "ts_rain_days": {
@@ -83,110 +83,110 @@
      "strongest_antecedent_links": [
       {
        "feature": "prevseason_tmean",
-       "spearman": 0.48,
-       "p_permutation": 0.0045
+       "spearman": 0.47,
+       "p_permutation": 0.00485
       },
       {
        "feature": "prevseason_gdd10",
-       "spearman": 0.476,
-       "p_permutation": 0.00465
+       "spearman": 0.463,
+       "p_permutation": 0.0054
       },
       {
-       "feature": "prevseason_tmin_mean",
-       "spearman": 0.467,
-       "p_permutation": 0.0065
+       "feature": "winter_max_wet_run",
+       "spearman": 0.454,
+       "p_permutation": 0.00835
       },
       {
        "feature": "prevseason_precip_sum",
-       "spearman": -0.46,
-       "p_permutation": 0.0069
+       "spearman": -0.448,
+       "p_permutation": 0.0085
       },
       {
        "feature": "prevseason_rain_days",
-       "spearman": -0.402,
-       "p_permutation": 0.01855
+       "spearman": -0.422,
+       "p_permutation": 0.01315
       },
       {
-       "feature": "prev2season_max_wet_run",
-       "spearman": 0.399,
-       "p_permutation": 0.02135
+       "feature": "prevseason_tmin_mean",
+       "spearman": 0.418,
+       "p_permutation": 0.01355
       }
      ],
-     "max_abs_spearman": 0.48,
+     "max_abs_spearman": 0.47,
      "n_features_screened": 40
     },
     "ts_infection_events_10_10": {
      "n_years": 34,
      "strongest_antecedent_links": [
       {
+       "feature": "winter_max_wet_run",
+       "spearman": 0.446,
+       "p_permutation": 0.00825
+      },
+      {
+       "feature": "winter_rain_days",
+       "spearman": 0.32,
+       "p_permutation": 0.0658
+      },
+      {
+       "feature": "prevseason_rain_days",
+       "spearman": -0.316,
+       "p_permutation": 0.0648
+      },
+      {
        "feature": "prev2season_max_wet_run",
-       "spearman": 0.488,
-       "p_permutation": 0.0063
+       "spearman": 0.308,
+       "p_permutation": 0.07365
       },
       {
-       "feature": "prevseason_tmin_mean",
-       "spearman": 0.464,
-       "p_permutation": 0.0163
+       "feature": "winter_rh_mean",
+       "spearman": 0.305,
+       "p_permutation": 0.08365
       },
       {
-       "feature": "prevseason_tmean",
-       "spearman": 0.45,
-       "p_permutation": 0.01395
-      },
-      {
-       "feature": "prevseason_gdd10",
-       "spearman": 0.448,
-       "p_permutation": 0.01475
-      },
-      {
-       "feature": "autumn_tmin_mean",
-       "spearman": 0.39,
-       "p_permutation": 0.04905
-      },
-      {
-       "feature": "autumn_frost_days",
-       "spearman": 0.373,
-       "p_permutation": 0.12239
+       "feature": "prevseason_precip_sum",
+       "spearman": -0.297,
+       "p_permutation": 0.08545
       }
      ],
-     "max_abs_spearman": 0.488,
+     "max_abs_spearman": 0.446,
      "n_features_screened": 40
     },
     "ts_rh75_days": {
      "n_years": 34,
      "strongest_antecedent_links": [
       {
-       "feature": "prevseason_tmin_mean",
-       "spearman": 0.486,
-       "p_permutation": 0.0046
+       "feature": "winter_max_wet_run",
+       "spearman": 0.416,
+       "p_permutation": 0.01365
       },
       {
-       "feature": "prevseason_gdd10",
-       "spearman": 0.466,
-       "p_permutation": 0.00705
-      },
-      {
-       "feature": "prevseason_tmean",
-       "spearman": 0.462,
-       "p_permutation": 0.0076
+       "feature": "winter_rain_days",
+       "spearman": 0.407,
+       "p_permutation": 0.01715
       },
       {
        "feature": "prevseason_precip_sum",
-       "spearman": -0.455,
-       "p_permutation": 0.00725
+       "spearman": -0.397,
+       "p_permutation": 0.022
       },
       {
-       "feature": "winter_max_wet_run",
-       "spearman": 0.404,
-       "p_permutation": 0.0194
+       "feature": "prevseason_rain_days",
+       "spearman": -0.388,
+       "p_permutation": 0.02555
       },
       {
-       "feature": "winter_precip_sum",
-       "spearman": 0.372,
-       "p_permutation": 0.03035
+       "feature": "winter_rh_mean",
+       "spearman": 0.381,
+       "p_permutation": 0.02715
+      },
+      {
+       "feature": "winter_wet_spells_2d",
+       "spearman": 0.362,
+       "p_permutation": 0.0344
       }
      ],
-     "max_abs_spearman": 0.486,
+     "max_abs_spearman": 0.416,
      "n_features_screened": 40
     }
    }
@@ -234,37 +234,37 @@
      "n_years": 34,
      "strongest_antecedent_links": [
       {
-       "feature": "prevseason_precip_sum",
-       "spearman": -0.506,
-       "p_permutation": 0.0029
-      },
-      {
-       "feature": "prev2season_max_wet_run",
-       "spearman": 0.411,
-       "p_permutation": 0.0167
+       "feature": "prevseason_tmean",
+       "spearman": 0.444,
+       "p_permutation": 0.0085
       },
       {
        "feature": "prevseason_gdd10",
-       "spearman": 0.405,
-       "p_permutation": 0.01715
+       "spearman": 0.441,
+       "p_permutation": 0.00845
       },
       {
-       "feature": "prevseason_tmean",
-       "spearman": 0.404,
-       "p_permutation": 0.01775
+       "feature": "prevseason_precip_sum",
+       "spearman": -0.437,
+       "p_permutation": 0.01
       },
       {
-       "feature": "prevseason_tmin_mean",
-       "spearman": 0.4,
-       "p_permutation": 0.02015
+       "feature": "prevwinter_frost_days",
+       "spearman": 0.434,
+       "p_permutation": 0.0112
+      },
+      {
+       "feature": "prevseason_rh_mean",
+       "spearman": -0.404,
+       "p_permutation": 0.0188
       },
       {
        "feature": "prevseason_rain_days",
-       "spearman": -0.383,
-       "p_permutation": 0.02555
+       "spearman": -0.397,
+       "p_permutation": 0.01975
       }
      ],
-     "max_abs_spearman": 0.506,
+     "max_abs_spearman": 0.444,
      "n_features_screened": 40
     },
     "ts_rain_days": {
@@ -272,116 +272,116 @@
      "strongest_antecedent_links": [
       {
        "feature": "prevseason_tmean",
-       "spearman": 0.48,
-       "p_permutation": 0.0045
+       "spearman": 0.47,
+       "p_permutation": 0.00485
       },
       {
        "feature": "prevseason_gdd10",
-       "spearman": 0.476,
-       "p_permutation": 0.00465
-      },
-      {
-       "feature": "prevseason_tmin_mean",
-       "spearman": 0.467,
-       "p_permutation": 0.0065
+       "spearman": 0.463,
+       "p_permutation": 0.0054
       },
       {
        "feature": "prevseason_precip_sum",
-       "spearman": -0.46,
-       "p_permutation": 0.0069
-      },
-      {
-       "feature": "prevseason_rain_days",
-       "spearman": -0.402,
-       "p_permutation": 0.01855
+       "spearman": -0.448,
+       "p_permutation": 0.0085
       },
       {
        "feature": "prevwinter_frost_days",
-       "spearman": 0.4,
-       "p_permutation": 0.02255
+       "spearman": 0.44,
+       "p_permutation": 0.00975
+      },
+      {
+       "feature": "prevseason_rain_days",
+       "spearman": -0.422,
+       "p_permutation": 0.01315
+      },
+      {
+       "feature": "prevseason_tmin_mean",
+       "spearman": 0.418,
+       "p_permutation": 0.01355
       }
      ],
-     "max_abs_spearman": 0.48,
+     "max_abs_spearman": 0.47,
      "n_features_screened": 40
     },
     "ts_infection_events_10_10": {
      "n_years": 34,
      "strongest_antecedent_links": [
       {
-       "feature": "prev2season_max_wet_run",
-       "spearman": 0.488,
-       "p_permutation": 0.0063
+       "feature": "prevwinter_frost_days",
+       "spearman": 0.363,
+       "p_permutation": 0.0376
       },
       {
-       "feature": "prevseason_tmin_mean",
-       "spearman": 0.464,
-       "p_permutation": 0.0163
+       "feature": "prevseason_rain_days",
+       "spearman": -0.316,
+       "p_permutation": 0.0648
+      },
+      {
+       "feature": "prev2season_max_wet_run",
+       "spearman": 0.308,
+       "p_permutation": 0.07365
+      },
+      {
+       "feature": "prevseason_precip_sum",
+       "spearman": -0.297,
+       "p_permutation": 0.08545
       },
       {
        "feature": "prevseason_tmean",
-       "spearman": 0.45,
-       "p_permutation": 0.01395
+       "spearman": 0.285,
+       "p_permutation": 0.10754
       },
       {
        "feature": "prevseason_gdd10",
-       "spearman": 0.448,
-       "p_permutation": 0.01475
-      },
-      {
-       "feature": "prev2season_frost_days",
-       "spearman": 0.373,
-       "p_permutation": 0.12239
-      },
-      {
-       "feature": "prevautumn_frost_days",
-       "spearman": 0.373,
-       "p_permutation": 0.12239
+       "spearman": 0.281,
+       "p_permutation": 0.11219
       }
      ],
-     "max_abs_spearman": 0.488,
+     "max_abs_spearman": 0.363,
      "n_features_screened": 40
     },
     "ts_rh75_days": {
      "n_years": 34,
      "strongest_antecedent_links": [
       {
-       "feature": "prevseason_tmin_mean",
-       "spearman": 0.486,
-       "p_permutation": 0.0046
-      },
-      {
-       "feature": "prevseason_gdd10",
-       "spearman": 0.466,
-       "p_permutation": 0.00705
-      },
-      {
-       "feature": "prevseason_tmean",
-       "spearman": 0.462,
-       "p_permutation": 0.0076
-      },
-      {
        "feature": "prevseason_precip_sum",
-       "spearman": -0.455,
-       "p_permutation": 0.00725
+       "spearman": -0.397,
+       "p_permutation": 0.022
       },
       {
        "feature": "prevwinter_frost_days",
-       "spearman": 0.437,
-       "p_permutation": 0.01155
+       "spearman": 0.396,
+       "p_permutation": 0.02025
       },
       {
        "feature": "prevseason_rain_days",
-       "spearman": -0.353,
-       "p_permutation": 0.0399
+       "spearman": -0.388,
+       "p_permutation": 0.02555
+      },
+      {
+       "feature": "prevseason_tmean",
+       "spearman": 0.295,
+       "p_permutation": 0.09345
+      },
+      {
+       "feature": "prevseason_gdd10",
+       "spearman": 0.293,
+       "p_permutation": 0.0959
+      },
+      {
+       "feature": "prevseason_wet_spells_2d",
+       "spearman": -0.292,
+       "p_permutation": 0.0936
       }
      ],
-     "max_abs_spearman": 0.486,
+     "max_abs_spearman": 0.397,
      "n_features_screened": 40
     }
    }
   }
  },
- "max_abs_spearman_any_link": 0.506,
- "CIRCULARITY_VERDICT": "MEDIUM \u2014 some antecedent/target-season coupling; must be disclosed",
+ "max_abs_spearman_any_link": 0.47,
+ "CIRCULARITY_VERDICT": "LOW \u2014 antecedent blocks carry little information about the target season's own weather, so a model built on them is not covertly restating it",
  "caveat": "Screening ~50 features x 4 targets means the LARGEST |rho| is inflated by selection. The permutation p-values shown are per-link and NOT corrected for that screening. Read the verdict from the magnitude, not from the p-value."
 }

@@ -4,50 +4,50 @@
  "correlations": [
   {
    "feature": "ts_precip_sum",
-   "spearman": 0.612,
-   "p_permutation": 0.0048
-  },
-  {
-   "feature": "ts_rh_mean",
-   "spearman": 0.595,
-   "p_permutation": 0.0061
-  },
-  {
-   "feature": "ts_heavy_days",
-   "spearman": 0.57,
-   "p_permutation": 0.0103
+   "spearman": 0.735,
+   "p_permutation": 0.0003
   },
   {
    "feature": "ts_rain_days",
-   "spearman": 0.559,
-   "p_permutation": 0.01195
+   "spearman": 0.642,
+   "p_permutation": 0.0027
+  },
+  {
+   "feature": "ts_rh_mean",
+   "spearman": 0.638,
+   "p_permutation": 0.0029
+  },
+  {
+   "feature": "ts_heavy_days",
+   "spearman": 0.608,
+   "p_permutation": 0.0049
   },
   {
    "feature": "ts_rh75_days",
-   "spearman": 0.502,
-   "p_permutation": 0.02545
+   "spearman": 0.586,
+   "p_permutation": 0.00725
   },
   {
    "feature": "ts_infection_events_10_10",
-   "spearman": 0.332,
-   "p_permutation": 0.15354
+   "spearman": 0.502,
+   "p_permutation": 0.02525
   },
   {
    "feature": "ts_tmean",
-   "spearman": -0.205,
-   "p_permutation": 0.38368
+   "spearman": -0.189,
+   "p_permutation": 0.42553
   }
  ],
  "cheating_model": {
   "feature_chosen_after_seeing_answers": "ts_precip_sum",
   "n": 20,
-  "accuracy": 0.55,
-  "mean_abs_class_dist": 0.5,
+  "accuracy": 0.75,
+  "mean_abs_class_dist": 0.3,
   "blunders_2class": 1,
-  "p_permutation": 0.04035
+  "p_permutation": 0.0002
  },
  "honest_antecedent_best_accuracy": 0.4,
  "climatology_baseline": 0.4,
- "max_abs_spearman": 0.612,
+ "max_abs_spearman": 0.735,
  "VERDICT": "PATHWAY_REAL_BUT_NOT_KNOWABLE_IN_ADVANCE \u2014 the season's own weather does predict the index, but antecedent weather does not. A 12M outlook is therefore blocked by the horizon, not by the data quality, and the honest product is a within-season warning."
 }
