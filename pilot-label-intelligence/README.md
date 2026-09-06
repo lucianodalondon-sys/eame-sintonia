@@ -36,6 +36,9 @@ nunca "produto sem usos autorizados".
 ## Reproduzir do zero
 
 ```bash
+# 0. montar a cadeia TLS que o host das etichette nao manda
+bash bin/chain.sh
+
 # 1. registro oficial + historico semanal (60 instantaneos, ~280 MB)
 python3 bin/registro_it.py --weeks 60 --end 2026-08-31
 
@@ -78,8 +81,13 @@ python3 bin/consultar.py mudancas
 
 **O host das etichette manda cadeia TLS incompleta.** Omite a intermediaria
 `TI Trust Technologies OV CA`. O portal de dados abertos do mesmo Ministero manda
-a cadeia completa, entao a intermediaria que falta num host se pega no outro:
-`recon/it-chain-fix.pem`. Nada de `verify=False`.
+a cadeia completa, entao a intermediaria que falta num host se pega no outro.
+
+So a intermediaria fica versionada (`recon/ti-trust-intermediate.pem`, 2 KB); o
+resto da cadeia e o bundle do sistema, montado na hora por `bin/chain.sh` e
+ignorado pelo git — um bundle de CA congelado no repositorio envelhece e vira
+mentira. Os scripts chamam `chain.sh` sozinhos se o arquivo nao existir.
+Nada de `verify=False`.
 
 **O mesmo host manda um `Public-Key-Pins` truncado sem CRLF.** O curl 8 aborta com
 `Header without colon`; o wget tolera. Por isso o cliente HTTP dos rotulos e wget

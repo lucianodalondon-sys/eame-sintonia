@@ -32,7 +32,7 @@ Um detalhe que custa caro: no POST as cookies sao apenas CARREGADAS. Reescrever
 o pote com --save-cookies no meio da sequencia derruba a sessao — medido, e o
 erro aparece exatamente como o erro generico acima.
 """
-import argparse, json, os, re, subprocess, sys, tempfile, time
+import argparse, subprocess as _sp, json, os, re, subprocess, sys, tempfile, time
 
 HOST = "https://www.fitosanitari.salute.gov.it/fitosanitariws_new"
 SERVLET = f"{HOST}/FitosanitariServlet"
@@ -112,12 +112,22 @@ def _uma_busca(reg, ca, cookies, sleep):
         os.unlink(tmp)
 
 
+
+def _garantir_cadeia(ca):
+    """Monta it-chain-fix.pem se ele nao existir. So a intermediaria e versionada."""
+    if os.path.exists(ca):
+        return ca
+    sh = os.path.join(os.path.dirname(os.path.abspath(__file__)), "chain.sh")
+    subprocess.run([sh], check=True, capture_output=True)
+    return ca
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("registros", nargs="+")
     ap.add_argument("--ca", default="pilot-label-intelligence/recon/it-chain-fix.pem")
     ap.add_argument("--json", default=None)
     a = ap.parse_args()
+    _garantir_cadeia(a.ca)
     with tempfile.NamedTemporaryFile(suffix=".txt", delete=False) as t:
         ck = t.name
     os.unlink(ck)

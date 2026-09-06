@@ -25,7 +25,7 @@ cabecalho Public-Key-Pins truncado sem CRLF, que faz o curl abortar com
 incompleta e exige a intermediaria em recon/it-chain-fix.pem. Nenhuma verificacao
 de certificado e desligada.
 """
-import argparse, hashlib, json, os, subprocess, sys, time
+import argparse, subprocess as _sp, hashlib, json, os, subprocess, sys, time
 
 UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/126.0 Safari/537.36")
@@ -62,6 +62,15 @@ def _rm(p):
     except OSError: pass
 
 
+
+def _garantir_cadeia(ca):
+    """Monta it-chain-fix.pem se ele nao existir. So a intermediaria e versionada."""
+    if os.path.exists(ca):
+        return ca
+    sh = os.path.join(os.path.dirname(os.path.abspath(__file__)), "chain.sh")
+    subprocess.run([sh], check=True, capture_output=True)
+    return ca
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--manifesto", required=True,
@@ -74,6 +83,7 @@ def main():
     ap.add_argument("--observed-at", required=True, help="AAAA-MM-DD desta verificacao")
     args = ap.parse_args()
 
+    _garantir_cadeia(args.ca)
     base = json.load(open(args.manifesto, encoding="utf-8"))
     items = base["ITEMS"]
     if args.limit:
