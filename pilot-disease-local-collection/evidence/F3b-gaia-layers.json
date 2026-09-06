@@ -1,0 +1,1520 @@
+<!-- -----------------------------------------------------------------
+-
+- Copyright (C) 2019 OSGeo
+-
+- This program is free software: you can redistribute it and/or modify
+- it under the terms of the GNU General Public License as published by
+- the Free Software Foundation, either version 3 of the License, or
+- (at your option) any later version.
+-
+- This program is distributed in the hope that it will be useful,
+- but WITHOUT ANY WARRANTY; without even the implied warranty of
+- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+- GNU General Public License for more details.
+-
+- You should have received a copy of the GNU General Public License
+- along with this program. If not, see <http://www.gnu.org/licenses/>.
+-
+---------------------------------------------------------------------- -->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta Http-Equiv="Cache-Control" Content="no-cache">
+    <meta Http-Equiv="Pragma" Content="no-cache">
+    <meta Http-Equiv="Expires" Content="0">
+    <meta Http-Equiv="Pragma-directive: no-cache">
+    <meta Http-Equiv="Cache-directive: no-cache">
+
+    <title> Explore Layers -  GeoPortale ARPAV  </title>
+
+    <link rel="shortcut icon" href="/static/geonode/img/favicon.ico" />
+    <link href="/static/lib/css/ol.css" rel="stylesheet" />
+    <script src="/static/lib/js/ol.js"></script>
+
+    
+
+      
+      <link href="/static/lib/css/assets.min.css" rel="stylesheet"/>
+      
+
+      <link href="/static/geonode/css/base.css" rel="stylesheet" />
+
+      <link rel='stylesheet' id='cookie-law-info-css'  href="/static/geonode/css/cookie-law-info/cookie-law-info-public.css" type='text/css' media='all' />
+      <link rel='stylesheet' id='cookie-law-info-gdpr-css'  href="/static/geonode/css/cookie-law-info/cookie-law-info-gdpr.css" type='text/css' media='all' />
+
+      <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
+      <style type="text/css">
+        /* Additional styles by custom themes */
+        
+        body {
+          background: #005523;
+          
+          color: #3a3a3a;
+          
+        }
+
+        .home #partners {
+          background: #005523;
+          padding: 2em 0;
+          text-align: center;
+        }
+        
+
+        
+        .home .navbar-inverse , .navbar-inverse {
+          background-color: #005523;
+        }
+        
+
+        
+        .navbar-inverse .navbar-nav > li > a {
+          color: #ffffff;
+          font-weight: 600;
+          padding-top: 25px;
+          padding-bottom: 25px;
+        }
+        
+
+        
+        .navbar-inverse .navbar-nav > li > a:hover {
+          background-color: #00481e;
+        }
+        
+
+        
+        .navbar-inverse .navbar-nav > .open > a,
+        .navbar-inverse .navbar-nav > .open > a:hover,
+        .navbar-inverse .navbar-nav > .open > a:focus {
+          background-color: #9cca3c;
+        }
+        
+
+        
+        .navbar-nav .dropdown-menu {
+          background-color: #9cca3c;
+          border-top: 1px solid #9cca3c;
+        }
+        
+
+        
+        .navbar-nav .dropdown-menu a {
+          color: #00481e;
+        }
+        
+
+        
+        .navbar-nav .dropdown-menu li a:hover {
+          background-color: #f9f1ac;
+          color: #00481e;
+        }
+        
+
+        
+        .navbar-nav .dropdown-menu .divider {
+          background-color: #00481e;
+        }
+        
+
+        
+        .navbar-brand {
+          background-image: url(/uploaded/img/2024/07/house-chimney-solid-white.png);
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+		  /* Aggiunti stili x casetta */
+		  width: 40px;
+        }
+        
+
+        
+        .home .jumbotron {
+          background-color: #005523
+        }
+        
+
+        
+        .home .jumbotron h1,
+        .home .jumbotron h2,
+        .home .jumbotron h3 {
+          color: #ffffff
+        }
+        
+
+        
+        .home .jumbotron p {
+          color: #ffffff;
+          font-weight: normal;
+          font-size: xx-large;
+          font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+        }
+        
+
+        
+
+        
+
+        
+        .home .big-search {
+          background: #333333;
+          color: #ffffff;
+          padding-bottom: 3em;
+          padding-top: 1em;
+        }
+        .home .big-search .btn-default {
+          background: transparent;
+          border: none;
+          color: #ff8f31;
+        }
+        
+
+        
+        .footer-copyright {
+          background-color: #111111;
+        }
+        
+
+        
+        footer {
+          background-color: #005523;
+          color: #ffffff;
+          padding: 1.5em;
+        }
+        footer a {
+          color: #d9fabf;
+        }
+        
+      </style>
+      
+      
+    
+    <!--[if IE]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <style>
+        #ieflag{
+            display: block !important;
+            height: 150px;
+            text-align: center;
+        }
+      </style>
+    <![endif]-->
+    <link rel="search" type="application/opensearchdescription+xml" href="https://gaia.arpa.veneto.it/catalogue/opensearch" title="GeoNode Search"/>
+
+    <script>
+        var siteUrl = 'https://gaia.arpa.veneto.it/'.replace(/\/?$/, '/');
+        var staticUrl = '/static/';
+    </script>
+
+    <!-- Autocomplete script for input boxes -->
+    <script src="/static/geonode/js/search/autocomplete.js"></script>
+
+    <script type="text/javascript">
+      function thumbnailFeedbacks(data, status) {
+        try {
+          $("#_thumbnail_feedbacks").find('.modal-title').text(status);
+          $("#_thumbnail_feedbacks").find('.modal-body').text(data);
+          $("#_thumbnail_feedbacks").modal("show");
+        } catch (err) {
+          console.log(err);
+        } finally {
+          return true;
+        }
+      }
+    </script>
+    
+    <!-- RTL styles -->
+    
+    
+  </head>
+
+  <body class="layers explore">
+  
+    <!-- Navbar -->
+    
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+		<div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <i class="fa fa-navicon fa-lg"></i>
+        </button>
+		
+        <!-- Logo ARPAV con link al sito 01/07/2024-->
+		<a href="https://www.arpa.veneto.it/" target="arpav" style="margin-left: 15px; line-height: 65px;">
+			<img alt="https://www.arpa.veneto.it" src="/uploaded/img/2020/08/logo_arpav.jpg" style="width: 200px;" class="img-fluid">
+		</a>
+		<!-- Fine logo -->
+		
+		<a class="navbar-brand" href="/">GeoNode</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav toolbar">
+
+          
+
+          <li id="nav_layers">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Data<i class="fa fa-angle-down fa-lg"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="/layers/?limit=5">Layers</a></li>
+                <li><a href="/documents/?limit=5">Documents</a></li>
+                <li><a href="/services/?limit=5">Remote Services</a></li>
+                
+                
+              </ul>
+            </li>
+          <li id="nav_maps">
+              
+              <a href="/maps/?limit=5">Maps</a>
+              
+          </li>
+	  <!-- li>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dashboard<i class="fa fa-angle-down fa-lg"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="https://gaia.arpa.veneto.it/maps/268/dashboard">Stazioni di Monitoraggio</a></li>
+            </ul>
+          </li -->
+          <li>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About<i class="fa fa-angle-down fa-lg"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="/people/">People</a></li>
+                <li><a href="/groups/">Groups</a></li>
+                <li><a href="/groups/categories/">Group Categories</a></li>
+                
+                
+                
+              </ul>
+          </li>
+
+          
+
+          
+
+          
+
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+
+            
+
+               <!-- -----------------------------------------------------------------
+-
+- Copyright (C) 2019 OSGeo
+-
+- This program is free software: you can redistribute it and/or modify
+- it under the terms of the GNU General Public License as published by
+- the Free Software Foundation, either version 3 of the License, or
+- (at your option) any later version.
+-
+- This program is distributed in the hope that it will be useful,
+- but WITHOUT ANY WARRANTY; without even the implied warranty of
+- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+- GNU General Public License for more details.
+-
+- You should have received a copy of the GNU General Public License
+- along with this program. If not, see <http://www.gnu.org/licenses/>.
+-
+---------------------------------------------------------------------- -->
+
+
+
+    
+
+        <li>
+
+            <a href="" class="dropdown-toggle" data-toggle="dropdown"
+               role="button" aria-haspopup="true">
+                Strumenti
+                
+                    <i class="fa fa-angle-down fa-lg"></i>
+                
+            </a>
+            <ul class="dropdown-menu">
+                
+                    <li>
+                        <a href="/Catalogo"
+                           >
+                            Catalogo Metadati
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/layers/dashboard"
+                           >
+                            Dati Analitici
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/help"
+                           >
+                            Help
+                        </a>
+                    </li>
+                
+            </ul>
+
+        </li>
+
+    
+
+
+
+
+
+
+           
+
+            <li>
+              <div class="search">
+                <form id="search" action="/search/" >
+                  <span class="fa fa-search"></span>
+                  <div id="search-container" class="autocomplete-input">
+                    
+                    <input autocomplete="off" type="text" name="title__icontains" id="search_input" placeholder="Search" >
+                    <input type="hidden" name="abstract__icontains" id="search_abstract_input" placeholder="Search" >
+                    <input type="hidden" name="purpose__icontains" id="search_purpose_input" placeholder="Search" >
+                    <input type="hidden" name="f_method" id="filtering_type" value="or" >
+                    
+                  </div>
+                </form>
+              </div>
+            </li>
+            
+            
+          <li><a href="#" data-toggle="modal" data-target="#SigninModal" role="button" >Sign in </a></li>
+              
+            </ul>
+          </div> <!--/.nav-collapse -->
+        </div>
+      </nav>
+      
+      <!-- End of Navbar -->
+
+    <div class="alert alert-danger alert-dismissible" role="alert" id="ieflag" style="display:none">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h1>You are using an outdated browser that is not supported by GeoNode.</h1>
+      <p>Please use a <strong>modern browser</strong> like Mozilla Firefox, Google Chrome or Safari.</p>
+    </div>
+
+  <div id="wrap">
+    
+    <div class="container">
+      
+<div class="alert alert-warn" id="status-message" hidden="hidden">
+    <a class="close" onclick="$('.alert').hide()">×</a>
+    <strong><p id="status-message-text">Placeholder for status-message</p></strong>
+    <p id="status-message-text-body">Placeholder for status-message-body</p>
+</div>
+
+      
+
+
+
+
+      
+
+      
+  
+<div class="page-header">
+  
+    <a href="/layers/upload" class="btn btn-primary pull-right">Upload Layers</a>
+  
+  <h2 class="page-title">Explore Layers</h2>
+</div>
+  
+    
+      
+        
+<div class="row" ng-controller="CartList">
+  <div class="col-md-3">
+    <resource-cart data-facet-type="layers" selectedString='Selection' emptyString="No list items selected. Use the selection fields to add." ></resource-cart>
+    <div class="row">
+      <div class="col-xs-12">
+        
+        <div class="btn-group btn-group-justified" role="group" aria-label="tools">
+          
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default" ng-disabled="!cart.getCart().items.length" ng-click="newMap()">Create a Map</button>
+          </div>
+          
+        </div>
+        
+
+        <div class="selections">
+            Filters
+            <a href="." id="clear-search" class="pull-right">Clear</a>
+        </div>
+            
+              
+
+<nav class="filter">
+
+    <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-down"></i>Text</a></h4>
+    <ul class="nav open" id="text">
+        <li>
+          <form class="autocomplete-input input-group" id="text-search-autocomplete">
+            <input type="hidden" name="csrfmiddlewaretoken" value="R3jb3vXzkZKVvadeXigIt3BSnvvcvxuTV8E8Ak23FLf9AhcbGvzleBjdSjksO7K9">
+            <div id="text-search-container">
+              <input autocomplete="off"  ng-model="text_query"  type="text" name="text_search_input" id="text_search_input" placeholder="Search" >
+            </div>
+            <span class="input-group-btn">
+              <button class="btn btn-primary" type="submit" id="text_search_btn"><i class="fa fa-search"></i></button>
+            </span>
+          </form>
+        </li>
+    </ul>
+
+</nav>
+
+            
+        <div id="slide-pane">
+            
+              
+<nav class="filter">
+  <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i> Keywords</a></h4>
+    <div id="treeview" class="nav" style="display: none;"></div>
+</nav>
+
+            
+            
+              
+
+<div id="tkeywords">
+
+
+<nav class="filter">
+  <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i> Tema INSPIRE</a></h4>
+  <ul class="nav closed" id="tkeywords_inspire_themes">
+      <li ng-repeat="tk in tkeywords" ng-if="tk.count > 0 && tk.thesaurus_identifier == 'inspire_themes'">
+    
+        <a data-value="{{ tk.id }}"
+           data-filter="tkeywords__id__in"
+           ng-click="multiple_choice_listener($event)"
+           class="{{tk.active}}">{{ tk.label | limitTo: 25 }}{{ tk.label.length > 25 ? '...' : ''}}
+            <span class="badge pull-right">{{ tk.count }}</span>
+        </a>
+      </li>
+    
+  </ul>
+
+</nav>
+
+
+
+</div>
+
+            
+            
+              
+
+<nav class="filter">
+  <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-down"></i>Type</a></h4>
+  <ul class="nav" id="types">
+        
+
+        
+        
+        <li>
+		<a id="raster" data-value="raster" data-filter="type__in" ng-click="multiple_choice_listener($event)">raster
+            <span class="badge pull-right">40</span>
+            </a>
+        </li>
+        
+        
+        
+        <li>
+		<a id="vector" data-value="vector" data-filter="type__in" ng-click="multiple_choice_listener($event)">vector
+            <span class="badge pull-right">245</span>
+            </a>
+        </li>
+        
+        
+        
+        <li>
+		<a id="vector_time" data-value="vector_time" data-filter="type__in" ng-click="multiple_choice_listener($event)">vector_time
+            <span class="badge pull-right">3</span>
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+  </ul>
+</nav>
+
+            
+            
+
+<nav class="filter" ng-cloak>
+  <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i>Categories</a></h4>
+  <ul class="nav closed" id="categories">
+  
+    
+      <li ng-repeat="category in categories" ng-if="category.layers_count > 0">
+        <a data-value="{{ category.identifier }}" data-filter="category__identifier__in" title="{{ category.gn_description }}"
+         ng-click="multiple_choice_listener($event)" class="{{category.active}}"><div class="fa-stack fa-1g"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa {{category.fa_class}} fa-stack-1x"></i></div>{{ category.gn_description | limitTo: 20 }}{{ category.gn_description.length > 20 ? '...' : ''}}
+          <span class="badge pull-right">{{ category.layers_count }}</span>
+        </a>
+      </li>
+    
+  
+  </ul>
+</nav>
+
+
+<p></p>
+<nav class="filter" ng-cloak>
+  <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i>Categoria ISO</a></h4>
+  <ul class="nav closed" id="iso_categories">
+  
+    
+      <li ng-repeat="iso_category in iso_categories" ng-if="iso_category.layers_count > 0">
+        <a data-value="{{ iso_category.identifier }}" data-filter="iso_category__identifier" title="{{ iso_category.gn_description }}"
+         ng-click="multiple_choice_listener($event)" class="{{iso_category.active}}"><div class="fa-stack fa-1g"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa {{iso_category.fa_class}} fa-stack-1x"></i></div>{{ iso_category.gn_description | limitTo: 20 }}{{ iso_category.gn_description.length > 20 ? '...' : ''}}
+          <span class="badge pull-right">{{ iso_category.layers_count }}</span>
+        </a>
+      </li>
+    
+  
+  </ul>
+</nav>
+
+
+<nav class="filter" ng-cloak>
+  <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i> Responsibles</a></h4>
+  <ul class="nav closed" id="owners">
+    
+    <li ng-repeat="owner in owners" ng-if="owner.count > 0">
+      <a data-value="{{ owner.username }}" data-filter="owner__username__in" ng-click="multiple_choice_listener($event)" class="{{owner.active}}">{{ owner.full_name }}
+        <span class="badge pull-right">{{ owner.count }}</span>
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+
+    <nav class="filter" ng-cloak>
+        <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i> Groups</a></h4>
+        <ul class="nav closed" id="groups">
+            
+                
+                <li ng-repeat="group in groups" ng-if="group.resource_counts.layer.total > 0">
+                    <a data-value="{{ group.name }}" data-filter="group__group_profile__slug__in" ng-click="multiple_choice_listener($event)" class="{{group.active}}">{{ group.group_profile.title }}
+                        <span class="badge pull-right">{{ group.resource_counts.layer.total }}</span>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </nav>
+
+
+
+<nav class="filter" ng-cloak>
+  <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i>Date</a></h4>
+  <ul class="nav closed" id="date_start">
+    <label>Date begins after:</label>
+    <li><input value="yyyy-mm-dd" data-date-format="YYYY-MM-DD" type="text" class="datepicker" placeholder="yyyy-mm-dd" ng-model="date_query.date__gte" /></li>
+  </ul>
+  <ul class="nav closed" id="date_end">
+    <label>Date ends before:</label>
+    <li><input value="yyyy-mm-dd" data-date-format="YYYY-MM-DD" type="text" class="datepicker" placeholder="yyyy-mm-dd" ng-model="date_query.date__lte" /></li>
+  </ul>
+</nav>
+
+
+            
+              
+
+<nav class="filter">
+
+    <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i>Regions</a></h4>
+    <ul class="nav closed" id="regions">
+        <li>
+            <form class="autocomplete-input input-group" id="region-search-autocomplete">
+                <input type="hidden" name="csrfmiddlewaretoken" value="R3jb3vXzkZKVvadeXigIt3BSnvvcvxuTV8E8Ak23FLf9AhcbGvzleBjdSjksO7K9">
+                <div id="region-search-container">
+                    <input autocomplete="off" type="text" name="region_search_input" id="region_search_input" placeholder="Search by region" >
+                </div>
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit" id="region_search_btn"><i class="fa fa-search"></i></button>
+                </span>
+            </form>
+        </li>
+    </ul>
+
+</nav>
+
+            
+            
+              
+
+<nav class="filter">
+  <h4><a href="#" id="_extent_filter" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i>Extent</a></h4>
+  <fieldset class="nav closed">
+    <div class="control-group leaflet_map">
+      <openlayers id="filter-map" class="filter-map-container" ol-center="center" ol-defaults="defaults" ol-layers="layers"></openlayers>
+    </div>
+  </fieldset>
+</nav>
+
+            
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <div class="row">
+      <div class="col-md-10">
+          
+          <span style="font-size: 34px;" ng-bind="total_counts + ' ' + 'Layers found'"></span>
+          
+      </div>
+      <div class="col-md-2">
+
+<div class="btn-group pull-right" role="group" aria-label="tools">
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div ng-if="dataValue == 'title' || dataValue == 'username'" ng-cloak>
+        <i class="fa fa-sort-alpha-asc fa-lg"></i>
+        <i class="fa fa-angle-down fa-lg"></i>
+      </div>
+      <div ng-if="dataValue == '-title' || dataValue == '-username'" ng-cloak>
+        <i class="fa fa-sort-alpha-desc fa-lg"></i>
+        <i class="fa fa-angle-down fa-lg"></i>
+      </div>
+      <div ng-if="dataValue == 'date' || dataValue == 'last_modified' || dataValue == 'date_joined'" ng-cloak>
+        <i class="fa fa-clock-o"></i>
+        <i class="fa fa-clock-o fa-level-up"></i>
+        <i class="fa fa-angle-down fa-lg"></i>
+      </div>
+      <div ng-if="dataValue == '-date' || dataValue == '-last_modified' || dataValue == '-date_joined'" ng-cloak>
+        <i class="fa fa-clock-o"></i>
+        <i class="fa fa-clock-o fa-level-down"></i>
+        <i class="fa fa-angle-down fa-lg"></i>
+      </div>
+      <div ng-if="dataValue == '-popular_count'" ng-cloak>
+        <i class="fa fa-fire fa-lg"></i>
+        <i class="fa fa-angle-down fa-lg"></i>
+      </div>
+      <div ng-if="dataValue == null" ng-cloak>
+        <i class="fa fa-clock-o"></i>
+        <i class="fa fa-clock-o fa-level-down"></i>
+        <i class="fa fa-angle-down fa-lg"></i>
+      </div>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-right" id="sort">
+      
+          <li><a data-value="-date" data-filter="order_by" class="selected" ng-click="single_choice_listener($event)">Most recent</a></li>
+          <li><a data-value="date" data-filter="order_by" ng-click="single_choice_listener($event)">Less recent</a></li>
+          <li><a data-value="title" data-filter="order_by" ng-click="single_choice_listener($event)">A - Z</a></li>
+          <li><a data-value="-title" data-filter="order_by" ng-click="single_choice_listener($event)">Z - A</a></li>
+          <li><a data-value="-popular_count" data-filter="order_by" ng-click="single_choice_listener($event)">Most popular</a></li>
+      
+    </ul>
+  </div>
+</div>
+</div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 grid-spacer">
+        
+
+
+<div class="row resourcebase-snippet">
+  <div ng-if="results.length == 0" ng-cloak>
+    
+    <div><h3>No content created yet.</h3></div>
+    
+  </div>
+  <article ng-repeat="item in results" resource_id="{{ item.id }}" ng-cloak class="ng-cloak">
+    <div class="col-lg-12 item-container">
+      <div class="col-lg-12 profile-avatar">
+        <div class="col-lg-4 item-thumb">
+          <a href="{{ item.detail_url }}">
+            <img ng-src="{{ item.thumbnail_url }}" />
+          </a>
+        </div>
+        <div class="col-lg-8 item-details">
+          <div class="row">
+            <div class="col-xs-10">
+              <p class="item-meta">
+                  <span class="item-category">{{ item.category__gn_description }}</span><br>
+                  <span class="item-category" ng-if="item.group"><a href="{{ item.site_url }}groups/group/{{ item.group }}/activity/"><i class="fa fa-group" aria-hidden="true" style="margin-right: 8px;"></i>{{ item.group_name }}</a><br></span>
+                  <span class="item-category" ng-if="item.has_time">
+                    
+                    <i class="fa fa-clock-o" aria-hidden="true" style="margin-right: 8px;"></i>Temporal Serie<br>
+                    
+                  </span>
+              </p>
+              <h4>
+                  <i ng-if="item.store_type == 'remoteStore'" title="Remote Service" class="fa fa-external-link fa-1" style="vertical-align:  middle;padding-right: 10px;"></i>
+                  <i ng-if="item.store_type == 'dataStore'" title="Vector Data" class="fa fa-pencil-square-o fa-1" style="vertical-align:  middle;padding-right: 10px;"></i>
+                  <i ng-if="item.store_type == 'coverageStore'" title="Raster Data" class="fa fa-picture-o fa-1" style="vertical-align:  middle;padding-right: 10px;"></i>
+                  <i ng-if="item.store_type == 'dataset'" title="File/Dataset" class="fa fa-newspaper-o fa-1" style="vertical-align:  middle;padding-right: 10px;"></i>
+                  <i ng-if="item.store_type == 'map'" title="Map" class="fa fa-map-o fa-1" style="vertical-align:  middle;padding-right: 10px;"></i>
+                  <a href="{{ item.detail_url }}">{{ item.title }}</a>
+              </h4>
+            </div>
+            <div class="col-xs-2">
+              <h4>
+                <button
+                  class="btn btn-default btn-xs pull-right"
+                  ng-if="cart"
+                  ng-click="cart.toggleItem(item)"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Select"><i ng-class="cart.getFaClass(item.id)" class="fa fa-lg"></i></button>
+              </h4>
+            </div>
+          </div>
+          <em ng-if="item.online && item.store_type == 'remoteStore'">
+            
+            <span ng-if="item.online == true"><i class="fa fa-power-off text-success"></i> Service is online</span>
+            <span ng-if="item.online == false"><i class="fa fa-power-off text-danger"></i> Service is offline</span>
+            
+          </em>
+		  
+          <div class="alert alert-danger" ng-if="item.dirty_state == true">SECURITY NOT YET SYNCHRONIZED
+              <a href="{{ item.detail_url }}" class="btn btn-primary btn-block" data-dismiss="modal" ng-click="securityRefreshButton($event)">Sync permissions immediately</a>
+          </div>
+	  <div class="alert alert-warning" ng-if="item.dirty_state == false && item.is_approved == false && item.is_request_approval == false">IN LAVORAZIONE</div>
+          <div class="alert alert-info" ng-if="item.dirty_state == false && item.is_approved == false && item.is_request_approval == true">PENDING APPROVAL</div>
+          <div class="alert alert-danger" ng-if="item.dirty_state == false && item.is_approved == true && item.is_published == false">UNPUBLISHED</div>
+          
+
+          <p class="abstract">{{ item.abstract | limitTo: 300 }}{{ item.abstract.length  > 300 ? '...' : ''}}</p>
+          <div class="row">
+            <div class="col-lg-12 item-items">
+              <ul class="list-inline">
+                <li><a href="{{ item.site_url }}people/profile/{{ item.owner__username }}"><i class="fa fa-user"></i>{{ item.owner_name }}</a></li>
+                <li><a href="{{ item.detail_url }}#info"><i class="fa fa-calendar-o"></i>{{ item.date|date:'d MMM y' }}</a></li>
+                <li><a href="{{ item.detail_url }}"><i class="fa fa-eye"></i>{{ item.popular_count }}</a></li>
+                <li><a href="{{ item.detail_url }}#share"><i class="fa fa-share"></i>{{ item.share_count }}</a></li>
+                <li><a href="{{ item.detail_url }}#rate"><i class="fa fa-star"></i>{{ item.rating }}</a></li>
+                
+                  
+                    
+                    <li><a ng-if="item.detail_url.indexOf('/layers/') > -1" href="/maps/new?layer={{ item.detail_url.substring(8) }}">
+                      
+                      <i class="fa fa-map-marker"></i>Create a Map</a>
+                    </li>
+                  
+                
+                <li><a ng-if="item.detail_url.indexOf('/maps/') > -1" href="{{ item.site_url }}maps/{{item.id}}/view">
+                  
+                  <i class="fa fa-map-marker"></i>View Map</a>
+                  
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+
+        
+<!-- <a href><strong ng-click="paginate_down()">&laquo;</strong></a>
+<span>page </span>
+<span ng-model="page" ng-bind="page"></span>
+<span> of </span>
+<span ng-bind="numpages"></span>
+<a href><strong ng-click="paginate_up()">&raquo;</strong></a> -->
+
+
+<div class="row">
+    <nav>
+        <ul class="pagination pull-right">
+            <li ng-click="sync_pagination_scroll(false)"><a href><strong><i
+                    class="fa fa-angle-left"></i></strong></a></li>
+            <li><a href>page <span ng-model="page" ng-bind="page"></span> of <span
+                    ng-bind="numpages"></span></a>
+            </li>
+            <li ng-click=sync_pagination_scroll(true)><a href><strong><i
+                    class="fa fa-angle-right"></i></strong></a></li>
+        </ul>
+    </nav>
+</div>
+
+      </div>
+    </div>
+  </div>
+  
+
+<div class="modal fade" id="_bulk_permissions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <form id="permission_form" accept-charset="UTF-8" method="post">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Set permissions on selected resources</h4>
+        </div>
+        <div class="modal-body">
+          
+
+<style>
+  .select2-selection.required {
+    background-color: #ffffcc !important;
+    /* border-color: #ff9999;
+    border-width: 3px; */
+  }
+</style>
+
+<div class="panel-group" id="permissions-body">
+  <!-- view layer -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+          Who can view it?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse in">
+      <div class="controls">
+	
+        <div class="radio">
+          <label>
+            The following users:
+            <select class="user-select" name="view_resourcebase_users" id="view_resourcebase_users" required></select>
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            The following groups:
+            <select class="group-select" name="view_resourcebase_groups" id="view_resourcebase_groups"></select>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- download layer -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+          Who can download it?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse">
+      <div class="controls">
+	
+        <div class="radio">
+          <label>
+            The following users:
+            <select class="user-select" name="download_resourcebase_users" id="download_resourcebase_users" required></select>
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            The following groups:
+            <select class="group-select" name="download_resourcebase_groups" id="download_resourcebase_groups"></select>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- change metadata -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+          Who can change metadata for it?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse3" class="panel-collapse collapse">
+      <div class="controls">
+        <div class="radio">
+          <label>
+            The following users:
+            <select class="user-select" name="change_resourcebase_metadata_users" id="change_resourcebase_metadata_users" required></select>
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            The following groups:
+            <select class="group-select" name="change_resourcebase_metadata_groups" id="change_resourcebase_metadata_groups"></select>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- change layer data -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+          Who can edit data for this layer?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse4" class="panel-collapse collapse">
+      <div class="controls">
+        <div class="radio">
+          <label>
+            The following users:
+            <select class="user-select" name="change_layer_data_users" id="change_layer_data_users" required></select>
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            The following groups:
+            <select class="group-select" name="change_layer_data_groups" id="change_layer_data_groups"></select>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- change layer style -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+          Who can edit styles for this layer?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse5" class="panel-collapse collapse">
+      <div class="controls">
+        <div class="radio">
+          <label>
+            The following users:
+            <select class="user-select" name="change_layer_style_users" id="change_layer_style_users" required></select>
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            The following groups:
+            <select class="group-select" name="change_layer_style_groups" id="change_layer_style_groups"></select>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- manage layer -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+          Who can manage it? (update, delete, change permissions, publish/unpublish it)
+        </a>
+      </h4>
+    </div>
+    <div id="collapse6" class="panel-collapse collapse">
+      <div class="controls">
+        <div class="radio">
+          <label>
+            The following users:
+            <select class="user-select" name="manage_resourcebase_users" id="manage_resourcebase_users" required></select>
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            The following groups:
+            <select class="group-select" name="manage_resourcebase_groups" id="manage_resourcebase_groups"></select>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        </div>
+        <div class="alert hidden" id="bulk_perms_message">
+          <p class="message">}</p>
+          <p class="extra_content"></p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-default" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary" ng-click="bulk_perms_submit()" id="bulk_perms_submit">Apply Changes</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+</div>
+
+      
+    
+  
+
+  
+
+    </div>
+    
+
+    
+    
+
+  </div>
+
+  
+  
+
+  
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">
+          <ul class="list-unstyled">
+            <li>Data</li>
+            <li><a href="/layers/?limit=5">Layers</a></li>
+            <li><a href="/documents/?limit=5">Documents</a></li>
+            <li><a href="/services/?limit=5">Remote Services</a></li>
+            
+            
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <ul class="list-unstyled">
+            <li>Maps</li>
+            <li><a href="/maps/?limit=5">Explore Maps</a></li>
+            
+          </ul>
+        </div>
+    <div class="col-md-2">
+          <ul class="list-unstyled">
+            <li>About</li>
+            <li><a href="/people/">People</a></li>
+            <li><a href="/groups/">Groups</a></li>
+            
+            
+            
+          </ul>
+        </div>
+
+        <div class="col-md-6 text-right">
+          
+          
+          <ul class="list-unstyled">
+              <li style="text-align: left;"><h2 style="margin-top: 0px;">Contact Us </h2> </li>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              <li style="text-align: left;">E-mail: geoportale@arpa.veneto.it</li>
+          </ul>
+          
+          
+          <ul class="list-unstyled">
+            <li>Powered by <a href="http://geonode.org">GeoNode</a></li>
+	    <li><!-- <a href="/developer/">Developers</a> | --><a href="/about/">About</a><li>
+          </ul>
+          <label class="hidden">Language</label>
+          
+          
+          <form class="form-inline" action="/i18n/setlang/" method="post">
+          <input type="hidden" name="csrfmiddlewaretoken" value="R3jb3vXzkZKVvadeXigIt3BSnvvcvxuTV8E8Ak23FLf9AhcbGvzleBjdSjksO7K9">
+            <select class="col-md-6 pull-right" name="language" onchange="javascript:form.submit()">
+              
+              <option value="af" >
+                Afrikaans
+              </option>
+              
+              <option value="sq" >
+                Albanian
+              </option>
+              
+              <option value="am" >
+                Amharic
+              </option>
+              
+              <option value="ar" >
+                Arabic
+              </option>
+              
+              <option value="id" >
+                Bahasa Indonesia
+              </option>
+              
+              <option value="bn" >
+                Bengali
+              </option>
+              
+              <option value="de" >
+                Deutsch
+              </option>
+              
+              <option value="en"  selected="selected">
+                English
+              </option>
+              
+              <option value="es" >
+                Español
+              </option>
+              
+              <option value="fr" >
+                Français
+              </option>
+              
+              <option value="it" >
+                Italiano
+              </option>
+              
+              <option value="km" >
+                Khmer
+              </option>
+              
+              <option value="nl" >
+                Nederlands
+              </option>
+              
+              <option value="ne" >
+                Nepali
+              </option>
+              
+              <option value="fa" >
+                Persian
+              </option>
+              
+              <option value="pl" >
+                Polish
+              </option>
+              
+              <option value="pt" >
+                Portuguese
+              </option>
+              
+              <option value="pt-br" >
+                Portuguese (Brazil)
+              </option>
+              
+              <option value="ru" >
+                Russian
+              </option>
+              
+              <option value="si" >
+                Sinhala
+              </option>
+              
+              <option value="sw" >
+                Swahili
+              </option>
+              
+              <option value="sv" >
+                Swedish
+              </option>
+              
+              <option value="tl" >
+                Tagalog
+              </option>
+              
+              <option value="ta" >
+                Tamil
+              </option>
+              
+              <option value="uk" >
+                Ukranian
+              </option>
+              
+              <option value="vi" >
+                Vietnamese
+              </option>
+              
+              <option value="el" >
+                Ελληνικά
+              </option>
+              
+              <option value="th" >
+                ไทย
+              </option>
+              
+              <option value="zh-cn" >
+                中文
+              </option>
+              
+              <option value="ja" >
+                日本語
+              </option>
+              
+              <option value="ko" >
+                한국어
+              </option>
+              
+            </select>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  
+
+  
+
+
+    <!-- Modal must stay outside the navbar -->
+    
+    <div class="modal fade" id="SigninModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Sign in</h4>
+          </div>
+          <form class="form-signin" role="form" action="/account/login/?next=/layers/" method="post">
+            <div class="modal-body">
+              <input type="hidden" name="csrfmiddlewaretoken" value="R3jb3vXzkZKVvadeXigIt3BSnvvcvxuTV8E8Ak23FLf9AhcbGvzleBjdSjksO7K9">
+              
+              
+              <div class="form-group">
+                <label for="id_username" class="sr-only">Username:</label>
+                <input id="id_username" class="form-control" name="login" placeholder="Username" type="text" />
+              </div>
+              <div class="form-group">
+                <label for="id_password" class="sr-only">Password:</label>
+                <input id="id_password" class="form-control" name="password" placeholder="Password" type="password" autocomplete="off" />
+              </div>
+              <label class="checkbox">
+                <input type="checkbox" /> Remember Me
+              </label>
+              <p>
+                <a href="/account/password/reset/">Forgot Password?</a>
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <!-- End of Modal -->
+
+    
+    <script src="/static/lib/js/assets.min.js"></script>
+    
+    <script src="/static/geonode/js/utils/utils.js"></script>
+    <script src="/static/geonode/js/base/base.js"></script>
+    <script type="text/javascript" src="/jsi18n/"></script>
+    
+
+  <script type="text/javascript">
+      
+          SEARCH_URL = '/api/layers/';
+      
+    FILTER_TYPE = 'layer';
+  </script>
+  
+    
+
+
+
+
+
+<style>
+  .filter-map-container {  /* filter map */
+    height: 300px;
+  }
+</style>
+
+
+<script src="/static/geonode/js/search/explore.js"></script>
+<script src="/static/geonode/js/search/search.js"></script>
+<script src="/static/geonode/js/search/cart.js"></script>
+<script type="text/javascript">
+  $("body").attr('ng-controller', 'geonode_search_controller');
+  CATEGORIES_ENDPOINT = '/api/categories/';
+  ISOCATEGORIES_ENDPOINT = '/api/iso_categories/';
+  GROUP_CATEGORIES_ENDPOINT = '/api/groupcategory/';
+  KEYWORDS_ENDPOINT = '/api/keywords/';
+  H_KEYWORDS_ENDPOINT = '/h_keywords_api';
+  var enable_thesauri = false;
+  
+    var enable_thesauri = true;
+    T_KEYWORDS_ENDPOINT = '/api/thesaurus/keywords/';
+  
+  REGIONS_ENDPOINT = '/api/regions/';
+  OWNERS_ENDPOINT = '/api/owners/';
+  GROUPS_ENDPOINT = '/api/groups/';
+  HAYSTACK_SEARCH = "False".toLowerCase() === "true";
+  HAYSTACK_FACET_COUNTS = "True".toLowerCase() === "true";
+  CLIENT_RESULTS_LIMIT = 5;
+
+  // Register autocomplete for text filters
+  $(document).ready(function() {
+    window.autocomplete = new Autocomplete({
+      form_btn: '#text_search_btn',
+      form_submit: null,
+      form_selector: '#text-search-autocomplete',
+      input_selector: '#text_search_input',
+      container_selector: '#text-search-container'
+    })
+    window.autocomplete.setup()
+  })
+
+  // Register autocomplete for region filters
+  $(document).ready(function() {
+    window.autocomplete = new Autocomplete({
+      form_btn: '#region_search_btn',
+      form_submit: null,
+      form_selector: '#region-search-autocomplete',
+      input_selector: '#region_search_input',
+      container_selector: '#region-search-container',
+      url: AUTOCOMPLETE_URL_REGION
+    })
+    window.autocomplete.setup()
+  })
+
+  
+        
+                AUTOCOMPLETE_URL_RESOURCEBASE = '/layers/autocomplete/';
+        
+  AUTOCOMPLETE_URL_REGION = '/base/autocomplete_region/';
+
+  var module = angular.module('search', ['geonode_main_search', 'cart']);
+  module.constant('Configs', {
+    url: SEARCH_URL
+  });
+
+  var deps = ['search'];
+  
+  deps.push('openlayers-directive');
+  
+  angular.bootstrap(document, deps);
+</script>
+
+  
+
+    <script type="text/javascript">
+
+      // Autocomplete instance for the search found in the header.
+      $(document).ready(function() {
+        window.autocomplete2 = new Autocomplete({
+          form_btn: null,
+          form_submit: '#search',
+          form_selector: '#search',
+          input_selector: '#search_input',
+          container_selector: '#search-container',
+          url: '/base/autocomplete_response/'
+        })
+        window.autocomplete2.setup()
+      })
+
+      $('#search').on('submit', (e) => {
+          $('#search_abstract_input')[0].value =$('#search_input')[0].value;
+          $('#search_purpose_input')[0].value = $('#search_input')[0].value;
+      });
+
+      $(window).on('load', function() {
+          setTimeout(() => {
+              document.body.scrollTop = 0;
+              document.documentElement.scrollTop = 0;
+          });
+        });
+
+      $(".datepicker").datepicker({
+          format: "yyyy-mm-dd"
+      });
+
+      
+    </script>
+
+    <div class="modal fade" style="width: 100%; height: 100%;" id="_resource_uploading" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Uploading...</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                        Upload in progress...
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" style="width: 100%; height: 100%;" id="_thumbnail_processing" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Processing...</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                        Updating Thumbnail...
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="_thumbnail_feedbacks" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="exampleModalLabel">Message box</h4>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="confirmMsgBoxModalOK" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <!-- How to use it: 
+        $("#confirmMsgBoxModalOK").find('.modal-title').text('Title');
+        $("#confirmMsgBoxModalOK").find('.modal-body').text('Message. Do you want to proceed?');
+        $("#confirmMsgBoxModalOK_control_field").val('your_control_value');
+        $("#confirmMsgBoxModalOK").modal("show");
+
+        $('#confirmMsgBoxModalOK').find('.modal-footer #confirm').on('click', function() {
+          if ($("#control_field").val() == 'your_control_value') {
+            CONFIRMED
+          }
+        });
+      -->
+      <div class="modal-dialog">
+        <input type="hidden" class="form-control" id="confirmMsgBoxModalOK_control_field" />
+        <div class="modal-content panel-success">
+          <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Confirm</h4>
+          </div>
+          <div class="modal-body">
+            <p>Some text in the modal.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger confirm" id="confirm">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,129 @@
+{
+  "@components": {
+    "actions": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-in-diretta/meteo-idro-nivo/ultime24ore/@actions"
+    }, 
+    "breadcrumbs": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-in-diretta/meteo-idro-nivo/ultime24ore/@breadcrumbs"
+    }, 
+    "contextnavigation": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-in-diretta/meteo-idro-nivo/ultime24ore/@contextnavigation"
+    }, 
+    "navigation": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-in-diretta/meteo-idro-nivo/ultime24ore/@navigation"
+    }, 
+    "subsite": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-in-diretta/meteo-idro-nivo/ultime24ore/@subsite"
+    }, 
+    "types": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-in-diretta/meteo-idro-nivo/ultime24ore/@types"
+    }, 
+    "workflow": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-in-diretta/meteo-idro-nivo/ultime24ore/@workflow"
+    }
+  }, 
+  "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-in-diretta/meteo-idro-nivo/ultime24ore", 
+  "@type": "Document", 
+  "UID": "2e7a6eb326174373a7900b63cb4a0fe3", 
+  "allow_discussion": false, 
+  "blocks": {
+    "28b274b7-310d-4778-8940-e58b1e4fb532": {
+      "@type": "title"
+    }, 
+    "bfcc7d98-276c-4d5a-ab35-197f06124cbe": {
+      "@type": "customJavascript", 
+      "jscode": "/**\n * pagina delle ultime 24 ore\n * \n * Autore: Filippo Turetta - ARPAV www.arpa.veneto.it\n * Script in licenza CC BY-NC-SA 3.0 IT\n * https://creativecommons.org/licenses/by-nc-sa/3.0/it/deed.it\n * \n * Dati forniti da ARPAV in licenza CC BY 3.0\n * https://creativecommons.org/licenses/by/3.0/deed.it \n * \n * \n * 25/03/2025 filippo start version\n * 27/03/2025 filippo aggiunto l'ordinamento della tabella su click \"nome colonna\"\n * 18/04/2025 filippo migliorato l'ordinamento delle colonne\n * 05/05/2025 filippo messo le descrizioni delle colonne per capire come sono calcolate\n * 06/05/2025 filippo messo le modifiche come da mail di Bruno del 05/05/2025 ore 17:33\n *                    altezza neve gestita con METTI_NEVE in modo da toglierla/metterla velocemente\n *                    messa colonna quota stazione\n *                    modifica sulle note a fondo pagina\n *                    Implementate modifiche come da call con Giovanna Ziroldo/Maria Carta/Bruno renon  \n *                    Ordinamento per colonna + nome stazione\n * 20/05/2025 filippo aggiunta colonna humidex\n * 21/05/2025 filippo tolta unit\u00e0 di misura di humidex\n * 11/06/2025 filippo cambiate le note a fondo tabella come da mail di renon del 10/06/2025\n * 10/09/2025 filippo gestione del parametro COLONNA per pubblicare humidex/windchill. Altre colonne NON sono previste!\n * 30/10/2025 filippo pubblicata la colonna windchill come da ripetute mail di Renon nell'ultima settimana!\n * 13/11/2025 filippo cambiata la nota dell'indice windchill come da mail di Domenichini del 10/11/2025\n * 26/05/2026 filippo pubblicata la colonna windchill come da mail di oggi di Domenichini\n */\n\n// flag per avere i console.log attivi oppure no\nconst DEBUG = false;\n\n// flag per mettere/togliere la colonna altezza neve\nconst METTI_NEVE = false;\n\n// colonna da pubblicare humidex/windchill\nconst COLONNA = 'humidex';\n\n// link per recuperare le stazioni della tabella\nconst lnkStazioni = 'https://api.arpa.veneto.it/REST/v1/meteo_ultime24ore';\n\nconst lnkGrafici = 'https://www.arpa.veneto.it/dati-ambientali/dati-in-diretta/meteo-idro-nivo/variabili_meteo?codseqst=';\n\n// colore di fondo delle head colone\nconst btnBackgroundColor = 'skyblue';\n\n// sort order\nvar SortColumn = 1;\nvar SortType = 'ASC';\n\n\n/**\n * ritorna una data (2022-09-12T01:00:00) in UTC \n * in realt\u00e0 , visto che tutte le date sono in solare, faccio finta che il solare\n * corrisponda all'UTC in modo da non avere la conversione in locale del browser\n */\nDate.prototype.ConvIstante = function( ist, isUTC = false ) {\n    var nSolare = 0;\n    if (isUTC) {nSolare = 1;}\n    // 2022-09-12T01:00:00\n    // 0123456789012345678\n    var cosa = new Date(Date.UTC(ist.substring(0, 4), parseFloat(ist.substring(5, 7))-1, ist.substring(8, 10), parseFloat(ist.substring(11,13))+nSolare, ist.substring(14,16), 0, 0) );\n    this.setTime( cosa.getTime() );\n    return this;\n}\n/**\n * ritorna una data (30/04/2023 02:00) in UTC \n * in realt\u00e0 , visto che tutte le date sono in solare, faccio finta che il solare\n * corrisponda all'UTC in modo da non avere la conversione in locale del browser\n */\nDate.prototype.ConvDataOra = function( ist, isUTC = false ) {\n    var nSolare = 0;\n    if (isUTC) {nSolare = 1;}\n    // 30/04/2023 02:00\n    // 0123456789012345\n    var cosa = new Date(Date.UTC(ist.substring(6, 10), parseFloat(ist.substring(3, 5))-1, ist.substring(0, 2), parseFloat(ist.substring(11,13))+nSolare, ist.substring(14,16), 0, 0) );\n    this.setTime( cosa.getTime() );\n    return this;\n}\n\n\n/*------------------------------------------------------------------------------\n  ritorna una stringa con la data nel formato indicato\n*/\nDate.prototype.Formato = function( formato ) {\n\n    var mm = ('0' + (this.getUTCMonth()+1) ) .slice(-2);\n    var dd = ('0' + this.getUTCDate()).slice(-2);\n    var yyyy = this.getUTCFullYear();\n    var hh = ('0' + (this.getUTCHours())).slice(-2);\n    var mi = ('0' + this.getUTCMinutes()).slice(-2);\n    var ss = ('0' + this.getUTCSeconds()).slice(-2);\n    var mesi = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno','Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre']; \n    var giorni = ['domenica', 'luned\u00ec', 'marted\u00ec', 'mercoled\u00ec', 'gioved\u00ec', 'venerd\u00ec', 'sabato']; \n    \n    var sRet = '';\n    switch (formato) {\n        case 'gg g mmm YYYY':\n            sRet =giorni[ this.getUTCDay() ] + ' ' +  this.getUTCDate() + ' ' + mesi[ this.getUTCMonth() ] + ' ' + yyyy;\n            break;\n        case 'DD/MM/YYYY':\n            sRet = dd + '/' + mm + '/' + yyyy;\n            break;\n        case 'DD/MM/YYYY HH':\n            sRet = dd + '/' + mm + '/' + yyyy + ' ' + hh;\n            break;\n        case 'DD/MM/YYYY HH:mm':\n            sRet = dd + '/' + mm + '/' + yyyy + ' ' + hh + ':' + mi;\n            break;\n        case 'DD HH'          :\n            sRet = dd + ' ' + hh;\n            break;\n        case 'DD'          :\n            sRet = dd;\n            break;\n        case 'HH:mm':\n            sRet = hh + ':' + mi;\n            break;\n        case 'HH':\n            sRet = hh;\n            break;\n        case 'mm':\n            sRet = mi;\n            break;\n        case 'YYYYMMDDHHmm':\n            sRet = yyyy + mm + dd + hh + mi;\n            break;\n        case 'YYYY-MM-DDTHH-mm':\n            sRet = yyyy + '-' + mm + '-' + dd + 'T' + hh + ':' + mi + ':00';\n            break;\n        default:\n            sRet = this.toString();\n            break;\n    }\n  \n    return sRet;\n}      \n\n/**\n * div sulla pagina\n */\nfunction CreaDiv() {\n\n    var frase = '\\\n        <div id=\"Tabella\"> \\\n            <div class=\"row\"> \\\n                <div class=\"col-12\"> \\\n                    <div class=\"h4\">Valori dalle 00:00 alle <span id=\"orarioRifer\"></span> (solari) del giorno <span id=\"giornoRifer\"></span></div> \\\n                    Premi sull\\'intestazione della colonna per ordinare le stazioni su tale colonna.\\\n                </div> \\\n            </div> \\\n            <div class=\"row\"> \\\n                <div class=\"col-12\"> \\\n                    <div id=\"tabellaStazioni\">Caricamento dati</div> \\\n                </div> \\\n            </div> \\\n            <div class=\"row\"> \\\n                <div class=\"col-12\"> \\\n                    <div id=\"InfoColonne\"></div> \\\n                </div> \\\n            </div> \\\n        </div><br>';\n\n    const divPage = document.createElement('div');\n    divPage.setAttribute('id', 'divPage');\n    divPage.innerHTML = frase;\n    block.append(divPage);\n\n}\n\n\n/**\n * recupero le stazioni e le visualizzo\n */\nasync function addStazioni() {\n\n    document.getElementById('tabellaStazioni').innerHTML = 'Recupero stazioni';\n\n    const lnk = lnkStazioni + '?rnd=' + Math.random();  \n    const response = await fetch(lnk);\n    const jsonResponse = (await response.json());\n    const stzData = jsonResponse.data;\n\n    TabellaStazioni(stzData);\n\n    // metto il simbolo di ordine iniziale\n    SortColumn = 0;\n    SortType = 'ASC';\n    MettiSimboloOrdinamento();\n\n}\n\n/**\n * \n */\nfunction addHeadColumn(rowTab, nome, ordine) {\n\n    const cell = rowTab.insertCell(-1);\n    cell.style.textAlign = \"center\";\n    cell.style.verticalAlign = 'middle';\n\n    cell.style.position = \"sticky\";\n    cell.style.top = 0;\n\n    cell.style.backgroundColor = btnBackgroundColor;\n\n    if ( nome.length > 0 ) {\n        cell.innerHTML = nome + '<span id=\"colonna_' + ordine + '\"></span>';\n        cell.addEventListener('click', evt => ordinaTabella(ordine) );\n        cell.onmouseover = function () { cell.style.cursor = \"pointer\"; }\n        cell.onmouseout = function () { cell.style.cursor = \"default\"; }\n    }\n\n}\n\n/**\n * \n */\nfunction addCellValue(row, Valore, allineamento = 'right') {\n    const col = row.insertCell(-1);\n    col.innerHTML = Valore;\n    col.style.textAlign = allineamento;\n    col.style.verticalAlign = 'middle';\n    if (allineamento == 'right') {\n        col.style.paddingRight = '10px';\n    }\n}\n\n\nfunction isNumeric(n) {\n    return !isNaN(parseFloat(n)) && isFinite(n);\n  }\n\n/**\n * \n * @param {*} x \n */\nfunction SanitizeSort(x) {\n\n    // gestione delle celle vuote\n\n    let y = x;\n    if (x === undefined || x === null || x === '' ) {\n        if (SortType == 'ASC') {\n            y = 99999;\n        } else {\n            y = -99999;\n        }\n    } else {\n        if ( isNumeric(x) ) {\n            y = Number( x );\n        }\n    }\n\n    return y;\n\n}\n\n/**\n * \n */\nfunction compareValues(a, b) {\n\n    // questo per fare l'ordinamento su colonna numerica e nome stazione\n    // objs.sort((a,b)=> (a.age - b.age || a.name.localeCompare(b.name)  ));\n\n    const aa = SanitizeSort(a.cells[ SortColumn ].textContent);\n    const bb = SanitizeSort(b.cells[ SortColumn ].textContent);\n\n    let ordine;\n    if (SortType == 'ASC') {\n        ordine = (aa < bb) ? -1 : (aa > bb) ? 1 : 0;\n    } else {\n        ordine = (aa > bb) ? -1 : (aa < bb) ? 1 : 0;\n    }\n    ordine = ordine || a.cells[ 0 ].textContent.localeCompare(b.cells[ 0 ].textContent);\n    return ordine;\n}\n  \n\n/**\n * metto il simbolo dell'ordinamento\n */\nfunction MettiSimboloOrdinamento() {\n\n    let symb = document.getElementById( 'colonna_' + SortColumn );\n    if (SortType == 'ASC') {\n        symb.innerHTML = ' \u25b2';    \n    } else {\n        symb.innerHTML = ' \u25bc';    \n    }\n\n}\n\n\n/**\n * https://stackoverflow.com/questions/55462632/javascript-sort-table-column-on-click\n * risposta con 8\n */\nfunction ordinaTabella(colnum) {\n\n    document.body.style.cursor = 'wait';\n\n    // tolgo il simbolo di ordine\n    let symb = document.getElementById( 'colonna_' + SortColumn );\n    symb.innerHTML = '';\n\n    // direzione dell'ordinamento\n    if (SortColumn == colnum) {\n        if (SortType == 'ASC') {\n            SortType = 'DESC';\n        } else {\n            SortType = 'ASC';\n        }\n    } else {\n        SortType = 'ASC';\n    }\n    SortColumn = colnum ;\n\n    // metto il simbolo di ordine\n    MettiSimboloOrdinamento();\n\n    let table = document.getElementById(\"eleStazioni\");\n\n    // get all the rows in this table:\n    let righeTabella = Array.from(table.querySelectorAll('tr'));\n\n    // but ignore the heading row:\n    righeTabella = righeTabella.slice(1);\n\n    // and then just... sort the rows:\n    righeTabella.sort( function(r1, r2) {\n\n        // aggiungo sempre il nome della stazione per ordinare su numeri uguali\n\n        const t1 = r1.cells[ SortColumn ];\n        const t2 = r2.cells[ SortColumn ];\n\n        return compareValues(r1, r2);\n\n    });\n\n    // and then the magic part that makes the sorting appear on-page:\n    righeTabella.forEach(row => table.appendChild(row));\n\n    document.body.style.cursor = 'auto';    \n\n}\n\n/**\n * \n */\nfunction UnDecimale(x) {\n\n    if ( isNumeric(x) ) {\n        x = parseFloat( x ).toFixed(1);\n    }\n\n    return x;\n}\n\n/**\n * Visualizzo la tabella delle stazioni meteo\n */\nfunction TabellaStazioni(stzData) {\n\n    document.getElementById('tabellaStazioni').innerHTML = 'Caricamento dati';\n\n    var table = document.createElement('table');\n    table.setAttribute('id', 'eleStazioni');\n    table.setAttribute('class', 'table table-sm table-striped table-bordered table-hover table-condensed');\n    var body = table.createTBody();\n\n    var rowTab = body.insertRow(-1);\n    addHeadColumn(rowTab, 'Nome stazione', 0);\n    addHeadColumn(rowTab, 'Altitudine<br>(m s.l.m.)', 1 );\n    addHeadColumn(rowTab, 'Provincia', 2 );\n    addHeadColumn(rowTab, 'Orario<sup>(1)</sup><br>(solare)', 3 );\n    addHeadColumn(rowTab, 'Ultima<br>temperatura<sup>(2)</sup><br>(\u00b0C)', 4 );\n    addHeadColumn(rowTab, 'Temperatura<br>minima<sup>(3)</sup><br>(\u00b0C)', 5 );\n    addHeadColumn(rowTab, 'Temperatura<br>massima<sup>(4)</sup><br>(\u00b0C)', 6 );\n    if (COLONNA == 'humidex') {\n        addHeadColumn(rowTab, 'Humidex<sup>(5)</sup>', 7 );\n    }\n    if (COLONNA == 'windchill') {\n        addHeadColumn(rowTab, 'Windchill<sup>(5)</sup>', 7 );\n    }\n    addHeadColumn(rowTab, 'Precipitazione<sup>(6)</sup><br>cumulata (mm)', 8 );\n    addHeadColumn(rowTab, 'Raffica vento<sup>(7)</sup><br>(km/h)', 9 );\n    if (METTI_NEVE) {\n        addHeadColumn(rowTab, 'Altezza neve<sup>(8)</sup><br>(cm)', 10);\n    }        \n    addHeadColumn(rowTab, '' );\n\n    let sPostille = \n        \"<br><sup>(1)</sup> Orario dell'ultimo valore registrato dalla stazione\" + \n        \"<br><sup>(2)</sup> Temperatura aria all'orario di aggiornamento\" + \n        \"<br><sup>(3)</sup> Temperatura aria minima di oggi fino all'orario di aggiornamento (la temperatura minima della giornata normalmente si verifica verso l'alba)\" +\n        \"<br><sup>(4)</sup> Temperatura aria massima di oggi fino all'orario di aggiornamento (la temperatura massima della giornata normalmente si verifica nel primo pomeriggio in inverno e nel tardo pomeriggio in estate)\";\n    if (COLONNA == 'humidex') {\n        sPostille +=\"<br><sup>(5)</sup> Indice Humidex \u00e8 uno degli indici usati per stimare la temperatura percepita, all'orario di aggiornamento, in caso di disagio fisiologico da caldo-umido\";\n    }\n    if (COLONNA == 'windchill') {\n        sPostille +=\"<br><sup>(5)</sup> Il Windchill \u00e8 un indice che descrive la differenza tra la temperatura effettivamente misurata e la percezione di freddo, tenendo conto dell'effetto di raffreddamento dovuto al vento\";\n    }\n    sPostille += \n        \"<br><sup>(6)</sup> Precipitazione cumulata di oggi fino all'orario di aggiornamento\" +\n        \"<br><sup>(7)</sup> Raffica massima del vento di oggi fino all'orario di aggiornamento\" +\n        \"<br>Alcune stazioni non rilevano tutti i parametri presentati nella tabella\";\n\n    if (METTI_NEVE) {\n        sPostille += \"<br><sup>(8)</sup> Altezza neve all'ora di aggiornamento\"\n    }\n\n    document.getElementById('InfoColonne').innerHTML = sPostille;\n\n    let orarioAggi = null;\n\n    // ciclo \n    stzData.forEach( stazio => {       \n\n            var row = body.insertRow(-1);\n\n            row.insertCell(-1).innerHTML = stazio.nome_stazione;\n\n            addCellValue(row, stazio.quota);\n            addCellValue(row, stazio.provincia, 'center');\n\n            const quando = new Date().ConvIstante( stazio.dataora_aggiornamento );\n            addCellValue(row, quando.Formato('HH:mm'));\n\n            // prendo l'orario pi\u00f9 recente\n            if ( orarioAggi == null) {\n                orarioAggi = quando;\n            }\n            if (orarioAggi < quando) {\n                orarioAggi = quando;\n            }\n\n            addCellValue(row, UnDecimale( stazio.ultima_temp_aria) );\n            addCellValue(row, UnDecimale( stazio.temp_aria_min) );\n            addCellValue(row, UnDecimale( stazio.temp_aria_max) );\n            if (COLONNA == 'humidex') {\n                addCellValue(row, UnDecimale( stazio.humidex) );\n            }\n            if (COLONNA == 'windchill') {\n                addCellValue(row, UnDecimale( stazio.windchill) );\n            }\n            addCellValue(row, UnDecimale( stazio.precipitazione) );\n\n            if (isNumeric(stazio.velo_vento_raffica)) {\n                addCellValue(row, UnDecimale(  Math.round( stazio.velo_vento_raffica * 3.6 *10)/10 ) );\n            } else {\n                addCellValue(row, UnDecimale( stazio.velo_vento_raffica) );\n            }\n\n            if (METTI_NEVE) {\n                addCellValue(row, stazio.altezza_neve);\n            }\n\n            let grafico = row.insertCell(-1);\n            grafico.innerHTML = 'Grafico';\n            grafico.style.textAlign = 'center';\n            grafico.style.verticalAlign = 'middle';\n            grafico.onclick = function () { vediGrafico( stazio.codseqst ); }\n            grafico.onmouseover = function () { grafico.style.cursor = \"pointer\"; }\n            grafico.onmouseout = function () { grafico.style.cursor = \"default\"; }\n\n    });\n    var divTab = document.createElement('div');\n    divTab.setAttribute('id', 'tabElencoStazioni');\n    divTab.setAttribute('class', 'bmodal-body');\n    divTab.style.height = \"900px\";    \n    divTab.style.overflowY = \"scroll\";    \n    divTab.append(table);\n\n    document.getElementById('tabellaStazioni').innerHTML = '';\n    document.getElementById('tabellaStazioni').append(divTab);\n    document.getElementById('tabellaStazioni').style.border = \"\";\n\n    document.getElementById('orarioRifer').innerHTML = orarioAggi.Formato('HH:mm');\n    document.getElementById('giornoRifer').innerHTML = orarioAggi.Formato('DD/MM/YYYY');\n\n}\n\n/**\n * \n */\nfunction vediGrafico( codseqst ) {\n\n    const lnk = lnkGrafici + codseqst;\n\n    document.location.href = lnk;\n\n}\n\n/**\n * Generates HTML\n */\nfunction generateHTML() {\n\n    CreaDiv();\n    addStazioni()\n\n}\n\ngenerateHTML();\n"
+    }, 
+    "dbfb3877-d53d-4cd5-aaa6-718466bdf760": {
+      "@type": "slate", 
+      "plaintext": "Questi dati sono esposti in modo automatico, senza validazione preventiva.\nARPAV non assume responsabilit\u00e0 alcuna per usi diversi dalla pura informazione.\nIn seguito a validazione i dati possono subire modifiche anche notevoli, oppure possono essere invalidati e quindi non riportati negli archivi definitivi.", 
+      "value": [
+        {
+          "children": [
+            {
+              "text": "Questi dati sono esposti in modo automatico, senza validazione preventiva.\nARPAV non assume responsabilit\u00e0 alcuna per usi diversi dalla pura informazione.\nIn seguito a validazione i dati possono subire modifiche anche notevoli, oppure possono essere invalidati e quindi non riportati negli archivi definitivi."
+            }
+          ], 
+          "type": "p"
+        }
+      ]
+    }
+  }, 
+  "blocks_layout": {
+    "items": [
+      "28b274b7-310d-4778-8940-e58b1e4fb532", 
+      "bfcc7d98-276c-4d5a-ab35-197f06124cbe", 
+      "dbfb3877-d53d-4cd5-aaa6-718466bdf760"
+    ]
+  }, 
+  "contributors": [], 
+  "created": "2025-03-25T11:19:46+00:00", 
+  "creators": [
+    "fturetta"
+  ], 
+  "description": "", 
+  "effective": "2025-03-27T11:38:19", 
+  "exclude_from_nav": true, 
+  "expires": null, 
+  "hide_modification_date": true, 
+  "id": "ultime24ore", 
+  "is_folderish": true, 
+  "items": [], 
+  "items_total": 0, 
+  "language": {
+    "title": "Italiano", 
+    "token": "it"
+  }, 
+  "layout": "document_view", 
+  "lock": {
+    "locked": false, 
+    "stealable": true
+  }, 
+  "modified": "2026-05-26T12:07:26+00:00", 
+  "next_item": {
+    "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-in-diretta/meteo-idro-nivo/test_indici_clima_copia", 
+    "@type": "Document", 
+    "description": "", 
+    "title": "Test indici climatici - Copia"
+  }, 
+  "parent": {
+    "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-in-diretta/meteo-idro-nivo", 
+    "@type": "Folder", 
+    "CroppedDescription": null, 
+    "announcement_completed": null, 
+    "announcement_type": null, 
+    "competition_end": null, 
+    "description": "", 
+    "effective": "2022-12-12T11:53:06+00:00", 
+    "end": null, 
+    "id": "meteo-idro-nivo", 
+    "image_field": null, 
+    "image_scales": null, 
+    "organization_type": null, 
+    "review_state": "published", 
+    "start": null, 
+    "title": "Meteo Idro Nivo"
+  }, 
+  "preview_caption": null, 
+  "preview_image": null, 
+  "previous_item": {
+    "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-in-diretta/meteo-idro-nivo/pannello_meteo_5.png", 
+    "@type": "Image", 
+    "description": "", 
+    "title": "pannello meteo"
+  }, 
+  "relatedItems": [], 
+  "related_environmental_themes": [], 
+  "related_provinces": [], 
+  "related_structures": [], 
+  "related_type": null, 
+  "related_year": [], 
+  "review_state": "published", 
+  "rights": "", 
+  "subjects": [], 
+  "table_of_contents": null, 
+  "title": "Valori estremi e totali di oggi", 
+  "version": "current", 
+  "working_copy": null, 
+  "working_copy_of": null
+}

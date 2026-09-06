@@ -1,0 +1,23 @@
+# RAW fica fora do Git por tamanho (~673 MB de documentos de fonte).
+# O que entra no Git é o manifesto: URL + SHA256 + bytes + caminho de cada item.
+# Ver LOCAL-DISEASE-COLLECTION-HANDOFF.md, seção P, para onde o RAW mora.
+raw/
+
+# Páginas HTML capturadas como evidência de forma de página/formulário: 134
+# arquivos, ~47 MB, todas reproduzíveis pelos scripts em tools/. As respostas
+# de API em JSON/XML ficam versionadas, porque são pequenas e são a prova das
+# rotas encontradas.
+evidence/**/*.html
+evidence/*.html
+evidence/*.bin
+
+# Bundles JavaScript minificados dos sites auditados (~25 MB). São código de
+# terceiros, não evidência: o que importa deles — os endereços de API achados
+# dentro — já está transcrito no handoff e nos manifestos.
+evidence/**/*.js
+evidence/*.js
+
+# Despejos grandes que os agentes de auditoria escreveram.
+# Os scripts .py de auditoria FICAM versionados: são a prova reproduzível.
+tools/_*.json
+evidence/_audit-scratch/

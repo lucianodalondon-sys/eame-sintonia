@@ -1,0 +1,844 @@
+{
+ "front": "F1c-websearch-pdfs",
+ "summary": "Ran 10 WebSearch queries to discover candidate URLs for historical Veneto vine (vite) bulletins, then probed 62 unique URLs with LOCAL tools (curl 8.21 / py 3.12.10 urllib, Italian VPN exit). 50 returned a real body; 7 returned HTTP 404; 5 (all coldiretti.it hosts) reset the TCP connection under both urllib and curl.\n\nWHAT IS ACTUALLY THERE. The live Regione del Veneto phytosanitary portal exposes exactly three year hubs: bollettini-fitosanitari-2024, -2025 and -2026. I probed -2023, -2022, -2021 and -2020 as guesses; all four returned HTTP 404 with 0 bytes. So on the live portal there is no year hub older than 2024.\n\nVITE PDFs EXIST FOR ONE YEAR ONLY. The 2026 hub links 20 vite bulletin PDFs (N°1 through N°20). I fetched all 20 individually: every one returned HTTP 200, application/pdf, %PDF- magic, 659 KB to 4.26 MB. That is 20/20 proven. The 2025 hub links Frutticolo, Orticolo and Olivicolo PDFs but ZERO vite PDFs — the words \"viticolo\"/\"viticoli\" appear once each with no attached document link. The 2024 hub links no PDFs at all, only per-crop HTML pages.\n\nOLDER YEARS EXIST, BUT AS INLINE HTML, NOT PDF. /web/fitosanitario/bollettini-viticoli (258,197 bytes) is not an index — it is the 2024 season carried as inline HTML text, with 21 dated bulletin sections from 04 April to 30 August 2024. Following a link off it I found /web/agricoltura-e-foreste/bollettini-viticoli_old (67,726 bytes), which is the 2021 season as inline HTML: 6 dated sections, 25 March to 12 May 2021. Its sibling hub bollettini-fitosanitari_old loops back to the current pages and adds no further years.\n\nSo vite bulletin content is proven for three years — 2021 (HTML), 2024 (HTML), 2026 (PDF) — but as PDFs for one year only, 2026. I found no 2015-2020, 2022, 2023 or 2025 vite bulletin in any format on the live portal.\n\nDOWNLOADED 6 SAMPLES, COULD NOT READ ANY OF THEM. Five 2026 vite PDFs spread across the season plus the ARPAV agrometeo bulletin, all sha256'd. No PDF library is installed (pypdf, PyPDF2, pdfminer, pymupdf all ModuleNotFoundError) and I did not pip install. So TEXT_EXTRACTION = NO_LIBRARY. Separately, and importantly, all five vite PDFs are ENCRYPTED: each carries /Encrypt with /Filter/Standard (S1 and S3 use /CFM/AESV2, i.e. AES-128; S2, S4, S5 use the standard handler with an /O owner hash). The ARPAV file is not encrypted. I did not attempt to defeat the encryption.\n\nI therefore did NOT confirm vite content by reading any PDF's text. What I can state is weaker and I am stating it as such: the source itself labels these files \"vite\" — the section heading on the 2026 hub reads \"Bollettini viticoli\", the link labels read \"N°20 del 27/08/2026\", and the filenames read Bollettino_vite_NN. Independently, the 2024 inline HTML is fully readable and is unambiguously about vines: peronospora 57, flavescenza 57, oidio 46, Scaphoideus 36, vite 34, tignoletta 34, grappoli 34, botrite 20, vigneto 17.\n\nTHREE THINGS THAT WOULD HAVE BECOME FALSE FINDINGS. (1) WebSearch returned https://www.arpa.veneto.it/temi-ambientali/agrometeo/file-e-allegati/peronospora-vite/Vitimeteo.pdf as \"the ARPAV peronospora bulletin PDF\". The real fetch returns HTTP 200 with 221,576 bytes of text/html starting \"<!doc\". It is not a PDF. (2) The years 2018 and 2019 appear 9 and 10 times in the viticoli page, which looks like a 2018-2019 archive. Reading the context shows they are regulatory citations inside 2024 text (Reg UE 2018/848, DGR Veneto n. 1082/2019), not bulletins from those years. (3) The viticoli page contains an anchor id \"Bollettino del 01 settembre 2023\". The heading it wraps actually reads \"Bollettino del 04 aprile 2024\" — a stale copy-pasted anchor id. There is no 2023 bulletin on that page. Likewise the ARPAV sample's PDF metadata claims /Title \"N° 10 - Ottobre 2005\" and /Author \"Filippo Turetta Agro_10\"; that is stale OpenOffice template metadata and is not evidence of the issue date, which remains NOT_KNOWN.",
+ "probes": [
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-viticoli",
+   "http_status": "200",
+   "bytes": 258197,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2026",
+   "http_status": "200",
+   "bytes": 61797,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2025",
+   "http_status": "200",
+   "bytes": 61761,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2024",
+   "http_status": "200",
+   "bytes": 50035,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari",
+   "http_status": "200",
+   "bytes": 47736,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2023",
+   "http_status": "404",
+   "bytes": 0,
+   "content_type": "HTTPError",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2022",
+   "http_status": "404",
+   "bytes": 0,
+   "content_type": "HTTPError",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2021",
+   "http_status": "404",
+   "bytes": 0,
+   "content_type": "HTTPError",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2020",
+   "http_status": "404",
+   "bytes": 0,
+   "content_type": "HTTPError",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-viticoli_old",
+   "http_status": "404",
+   "bytes": 0,
+   "content_type": "HTTPError",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/agricoltura-e-foreste/bollettini-viticoli_old",
+   "http_status": "200",
+   "bytes": 67726,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/agricoltura-e-foreste/bollettini-fitosanitari_old",
+   "http_status": "200",
+   "bytes": 50811,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/agricoltura-e-foreste/bollettini-viticoli",
+   "http_status": "200",
+   "bytes": 258197,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/agricoltura-e-foreste/bollettini-orticoli-industriali_old",
+   "http_status": "200",
+   "bytes": 81193,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario",
+   "http_status": "200",
+   "bytes": 98877,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/difesa-colture",
+   "http_status": "200",
+   "bytes": 58116,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-verde-pubblico",
+   "http_status": "200",
+   "bytes": 52874,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-frutticoli",
+   "http_status": "200",
+   "bytes": 267363,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-olivicoli",
+   "http_status": "200",
+   "bytes": 206414,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/flavescenza-dorata",
+   "http_status": "200",
+   "bytes": 52291,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/dettaglio-news?articleId=14226536",
+   "http_status": "200",
+   "bytes": 47843,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303",
+   "http_status": "404",
+   "bytes": 0,
+   "content_type": "HTTPError",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/",
+   "http_status": "404",
+   "bytes": 0,
+   "content_type": "HTTPError",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_20_270826.pdf/bac2bf94-b6c1-46d6-a608-1ff9cb82264d",
+   "http_status": "200",
+   "bytes": 4255572,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_19_130826.pdf/02067e4c-dbd4-4bcb-bdad-59dedb940991",
+   "http_status": "200",
+   "bytes": 2151289,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_18_060826.pdf/832e8bcf-92d1-41be-b9b7-aeda35c98f04",
+   "http_status": "200",
+   "bytes": 2700237,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_17_300726.pdf/87ec79f7-9b5e-4b17-a945-b1c98e72ab49",
+   "http_status": "200",
+   "bytes": 1879960,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino+vite+16_22072026/7a35cd11-58ec-4564-9496-3e88ae5cb07e",
+   "http_status": "200",
+   "bytes": 1165486,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino+vite+n.15_150726/5813c7eb-b52f-4649-bb53-9e4d8c7809c3",
+   "http_status": "200",
+   "bytes": 1573019,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_14_080726.pdf/8a278578-8bbe-4cbb-ac02-16ee4a8c4b28",
+   "http_status": "200",
+   "bytes": 659594,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_13_010726.pdf/84437991-4672-4f6a-a768-b6fb263af380",
+   "http_status": "200",
+   "bytes": 1463027,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_12_240626.pdf/91e0baab-5bde-4d7d-af80-95c41e5572b6",
+   "http_status": "200",
+   "bytes": 1736016,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_11_170626.pdf/4c23ba1f-a94e-4309-a370-4238f0a6f909",
+   "http_status": "200",
+   "bytes": 2384449,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_10_100626.pdf/3a0e9571-6d86-4bcb-8991-420c7a4b408d",
+   "http_status": "200",
+   "bytes": 2762638,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_9_030626.pdf/3629ae2d-c132-436c-bdf2-41682e8d10c5",
+   "http_status": "200",
+   "bytes": 2492508,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_8_280526.pdf/9a27a5c9-9627-44e3-856c-c390cf990787",
+   "http_status": "200",
+   "bytes": 2248050,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_7_200526.pdf/6c644510-0cb6-4fcc-a5a7-dfb4b4a802b5",
+   "http_status": "200",
+   "bytes": 818341,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_6_130526.pdf/561ba720-a1b3-4c25-8921-40f21b4a4ed5",
+   "http_status": "200",
+   "bytes": 1419324,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_5_060526.pdf/dc8e41d6-b66a-4cb5-8cf5-b84751d906ed",
+   "http_status": "200",
+   "bytes": 739473,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_4_290426.pdf/ef00dd37-ad9e-4c13-a2a5-26d30299c899",
+   "http_status": "200",
+   "bytes": 1190954,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_3_230426.pdf/45365ed0-bd9e-455b-b04f-40309cc61bd2",
+   "http_status": "200",
+   "bytes": 4255048,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Vite_2026_02/059ec793-e5e9-483e-a519-116fd22d7654",
+   "http_status": "200",
+   "bytes": 1134141,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Vite_2026_01/6751ad23-20ac-4ead-9ef8-d1d3cc5f7e32",
+   "http_status": "200",
+   "bytes": 860435,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://elezioni2020.regione.veneto.it/documents/11979050/14345303/Vite_2026_02/059ec793-e5e9-483e-a519-116fd22d7654",
+   "http_status": "200",
+   "bytes": 1134141,
+   "content_type": "application/pdf",
+   "verdict": "OK — mirror host serves the same bytes as www"
+  },
+  {
+   "url": "https://elezioni2020.regione.veneto.it/documents/11979050/14345303/Vite_2026_01/6751ad23-20ac-4ead-9ef8-d1d3cc5f7e32",
+   "http_status": "200",
+   "bytes": 860435,
+   "content_type": "application/pdf",
+   "verdict": "OK — mirror host serves the same bytes as www"
+  },
+  {
+   "url": "https://elezioni2020.regione.veneto.it/web/fitosanitario/bollettini-viticoli",
+   "http_status": "200",
+   "bytes": 258756,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK — live mirror of the viticoli page"
+  },
+  {
+   "url": "https://elezioni2020.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2025",
+   "http_status": "200",
+   "bytes": 62311,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.arpa.veneto.it/temi-ambientali/agrometeo/file-e-allegati/peronospora-vite/Vitimeteo.pdf",
+   "http_status": "200",
+   "bytes": 221576,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK BUT NOT A PDF — .pdf URL returns HTML starting '<!doc'"
+  },
+  {
+   "url": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_32.pdf",
+   "http_status": "200",
+   "bytes": 451182,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.arpa.veneto.it/temi-ambientali/agrometeo/file-e-allegati/peronospora-vite",
+   "http_status": "200",
+   "bytes": 239514,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.arpa.veneto.it/temi-ambientali/agrometeo/bollettini-1",
+   "http_status": "200",
+   "bytes": 244783,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.arpa.veneto.it/temi-ambientali/agrometeo/bollettini/bollettino-agrometeorologico-regionale",
+   "http_status": "200",
+   "bytes": 280517,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://piave.regione.veneto.it/resource/resolver?resourceId=8db83a24-6bd1-46ff-93e0-ce784401644b%2Fvitinnova.pdf",
+   "http_status": "200",
+   "bytes": 5085680,
+   "content_type": "application/pdf;charset=iso-8859-1",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.erapraveneto.it/bollettini-e-siti-utili/",
+   "http_status": "200",
+   "bytes": 79152,
+   "content_type": "text/html; charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.agridelveneto.it/settori/difesa-fitosanitaria",
+   "http_status": "200",
+   "bytes": 182624,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://confagricolturaveneto.it/bollettino-di-difesa-della-vite-e-lotta-alla-flavescenza-dorata/",
+   "http_status": "200",
+   "bytes": 81614,
+   "content_type": "text/html; charset=UTF-8",
+   "verdict": "OK — no PDF link found in the HTML"
+  },
+  {
+   "url": "https://www.confagricolturave.it/notizie-tecniche2/4368-bollettino-di-difesa-della-vite-e-lotta-alla-flavescenza-dorata",
+   "http_status": "200",
+   "bytes": 45117,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://veneto.coldiretti.it/news/bollettino-di-difesa-della-vite/",
+   "http_status": "NO_RESPONSE",
+   "bytes": 0,
+   "content_type": "URLError WinError 10054",
+   "verdict": "BLOCKED — connection reset by peer"
+  },
+  {
+   "url": "https://padova.coldiretti.it/news/bollettino-di-difesa-della-vite/",
+   "http_status": "NO_RESPONSE",
+   "bytes": 0,
+   "content_type": "URLError WinError 10054",
+   "verdict": "BLOCKED — connection reset by peer"
+  },
+  {
+   "url": "https://vicenza.coldiretti.it/news/bollettino-di-difesa-della-vite-e-lotta-alla-flavescenza-dorata/",
+   "http_status": "NO_RESPONSE",
+   "bytes": 0,
+   "content_type": "URLError WinError 10054; curl exit 35 Recv failure",
+   "verdict": "BLOCKED — connection reset under both urllib and curl"
+  },
+  {
+   "url": "https://treviso.coldiretti.it/news/bollettino-di-difesa-della-vite-e-lotta-alla-flavescenza-dorata/",
+   "http_status": "NO_RESPONSE",
+   "bytes": 0,
+   "content_type": "URLError WinError 10054",
+   "verdict": "BLOCKED — connection reset by peer"
+  },
+  {
+   "url": "https://venezia.coldiretti.it/news/bollettino-di-difesa-della-vite-e-lotta-alla-flavescenza-dorata/",
+   "http_status": "NO_RESPONSE",
+   "bytes": 0,
+   "content_type": "URLError WinError 10054",
+   "verdict": "BLOCKED — connection reset by peer"
+  }
+ ],
+ "index_pages": [
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2026",
+   "title": "Bollettini fitosanitari 2026 - Regione del Veneto",
+   "lists": "The 2026 season, one section per crop, each linking individual PDFs held under /documents/11979050/<folderId>/. Vite folder id 14345303 (20 PDFs); Frutticolo 14333679 (25); Orticolo 14337132 (22); Olivicolo 14331610 (29); Erbacee 14337136 (2); plus monthly office-hours calendars under 14331623. 113 document hrefs parsed in total. This is the ONLY hub on the live portal that carries vite PDFs.",
+   "years_visible": "2026",
+   "item_count_seen": "113 document links parsed, of which 20 are vite",
+   "pagination": "None — single flat page, no paging controls, all 113 links present in one 61797-byte response"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2025",
+   "title": "Bollettini fitosanitari 2025 - Regione del Veneto",
+   "lists": "The 2025 season: Frutticolo (13 PDFs, folder 14130928), Orticolo (18 PDFs, folder 14128428), Olivicolo (8 PDFs, folder 14150077). 45 document hrefs parsed. NO vite PDF is linked. The strings 'viticolo' and 'viticoli' each occur exactly once in the HTML with no attached document link.",
+   "years_visible": "2025",
+   "item_count_seen": "45 document links parsed, of which 0 are vite",
+   "pagination": "None — single flat page"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2024",
+   "title": "Bollettini fitosanitari 2024 - Regione del Veneto",
+   "lists": "No documents at all. Only 10 hrefs, all navigation: links to the -2025 and -2026 hubs and to the five per-crop HTML pages (bollettini-viticoli, -frutticoli, -olivicoli, -orticoli-industriali, -seminativi).",
+   "years_visible": "2024",
+   "item_count_seen": "0 document links; 10 navigation links",
+   "pagination": "None"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-viticoli",
+   "title": "Bollettini viticoli - Regione del Veneto",
+   "lists": "NOT an index of files. It is the 2024 vine season carried as inline HTML body text, split into 21 dated <h2> sections addressed by in-page anchors (#Bollettino del ...). Zero /documents/ URLs and zero .pdf hrefs in the whole 258197-byte response. Dated sections run 04 April 2024 to 30 August 2024. Vine-disease keyword counts in the readable text: peronospora 57, flavescenza 57, oidio 46, Scaphoideus 36, vite 34, tignoletta 34, grappoli 34, germogli 23, botrite 20, vigneto 17.",
+   "years_visible": "2024 (161 occurrences). Also 2019 (10), 2018 (9), 2023 (6), 2022 (2), 2025 (2), 2013 (1) — but the 2018/2019 hits are regulatory citations inside 2024 text (Reg UE 2018/848, DGR Veneto n. 1082/2019), and the 2023 hit is a stale anchor id whose heading actually reads 'Bollettino del 04 aprile 2024'.",
+   "item_count_seen": "21 dated 2024 bulletin sections; 0 documents",
+   "pagination": "None — in-page anchors only, single page"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/agricoltura-e-foreste/bollettini-viticoli_old",
+   "title": "Bollettini viticoli (old portal branch) - Regione del Veneto",
+   "lists": "The 2021 vine season as inline HTML, same anchor-section pattern as the current page. 6 dated sections: 25 marzo, 14 aprile, 21 aprile, 28 aprile, 05 maggio, 12 maggio 2021. Zero /documents/ URLs and zero .pdf hrefs. Reached by probing an '_old' path suffix observed on a sibling page; note the equivalent /web/fitosanitario/bollettini-viticoli_old is 404.",
+   "years_visible": "2021 (32 occurrences), 2020 (3), 2014 (2), 2023 (1)",
+   "item_count_seen": "6 dated 2021 bulletin sections; 0 documents",
+   "pagination": "None"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/agricoltura-e-foreste/bollettini-fitosanitari_old",
+   "title": "Bollettini fitosanitari (old portal branch) - Regione del Veneto",
+   "lists": "A crop menu only. Its 5 crop links point back to the CURRENT /web/agricoltura-e-foreste/bollettini-* pages, so this old branch is a dead end that yields no additional years.",
+   "years_visible": "2021 (6), 2020 (3), 2014 (2), 2023 (1)",
+   "item_count_seen": "0 document links; 5 crop navigation links",
+   "pagination": "None"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari",
+   "title": "Bollettini fitosanitari (hub) - Regione del Veneto",
+   "lists": "Top-level hub. Links exactly three year hubs — 2024, 2025, 2026 — plus an ARPAV agrometeo link. It offers no route to any year before 2024.",
+   "years_visible": "2024, 2025, 2026",
+   "item_count_seen": "0 document links; 3 year links",
+   "pagination": "None"
+  }
+ ],
+ "documents": [
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Vite_2026_01/6751ad23-20ac-4ead-9ef8-d1d3cc5f7e32",
+   "title": "Bollettino vite N°01 del 09/04/2026 (link label on the 2026 hub)",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 860435,
+   "sha256": "79d1371f0493754b76571ac85bfee5cff0cff17e83816bccf3b539c595b6befb",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1c\\S1_Vite_2026_01.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_5_060526.pdf/dc8e41d6-b66a-4cb5-8cf5-b84751d906ed",
+   "title": "Bollettino vite N°05 (filename encodes 06/05/26)",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 739473,
+   "sha256": "1c28547a1e82ac1336d7eaedb5d7dc85471cfce36d667487fb84e35e79b5a72b",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1c\\S2_Bollettino_vite_5_060526.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_10_100626.pdf/3a0e9571-6d86-4bcb-8991-420c7a4b408d",
+   "title": "Bollettino vite N°10 (filename encodes 10/06/26)",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 2762638,
+   "sha256": "126153ffbbdb918f896706eb3121d3e29692da93afb4eb7f870f81f906274655",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1c\\S3_Bollettino_vite_10_100626.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_14_080726.pdf/8a278578-8bbe-4cbb-ac02-16ee4a8c4b28",
+   "title": "Bollettino vite N°14 (filename encodes 08/07/26)",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 659594,
+   "sha256": "b7cb8f40638cdb7ec180e4188dd8f48fe4d5cfc69c25e7ea24d2336be3dea9f4",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1c\\S4_Bollettino_vite_14_080726.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_20_270826.pdf/bac2bf94-b6c1-46d6-a608-1ff9cb82264d",
+   "title": "Bollettino vite N°20 del 27/08/2026 (link label on the 2026 hub)",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 4255572,
+   "sha256": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1c\\S5_Bollettino_vite_20_270826.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_32.pdf",
+   "title": "ARPAV agrometeo bulletin, 32-zone edition (rolling current-issue file)",
+   "year": "NOT_KNOWN — PDF metadata claims /Title 'N° 10 - Ottobre 2005' and /Author 'Filippo Turetta Agro_10', which reads as stale OpenOffice template metadata, not the issue date. No issue date was read from the body.",
+   "crop_or_topic": "agrometeo, generic — includes a 'Dai Servizi Fitosanitari' section per the search snippet, but I did NOT verify that from the file",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 451182,
+   "sha256": "47b727c9b753174f556b2f9bc71ccb5a8282ec9874c11e6158b660737529aba3",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1c\\S6_ARPAV_agro_32.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Vite_2026_02/059ec793-e5e9-483e-a519-116fd22d7654",
+   "title": "Bollettino vite N°02 del 15/04/2026",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 1134141,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_3_230426.pdf/45365ed0-bd9e-455b-b04f-40309cc61bd2",
+   "title": "Bollettino vite N°03",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 4255048,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_4_290426.pdf/ef00dd37-ad9e-4c13-a2a5-26d30299c899",
+   "title": "Bollettino vite N°04",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 1190954,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_6_130526.pdf/561ba720-a1b3-4c25-8921-40f21b4a4ed5",
+   "title": "Bollettino vite N°06",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 1419324,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_7_200526.pdf/6c644510-0cb6-4fcc-a5a7-dfb4b4a802b5",
+   "title": "Bollettino vite N°07",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 818341,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_8_280526.pdf/9a27a5c9-9627-44e3-856c-c390cf990787",
+   "title": "Bollettino vite N°08",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 2248050,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_9_030626.pdf/3629ae2d-c132-436c-bdf2-41682e8d10c5",
+   "title": "Bollettino vite N°09",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 2492508,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_11_170626.pdf/4c23ba1f-a94e-4309-a370-4238f0a6f909",
+   "title": "Bollettino vite N°11",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 2384449,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_12_240626.pdf/91e0baab-5bde-4d7d-af80-95c41e5572b6",
+   "title": "Bollettino vite N°12",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 1736016,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_13_010726.pdf/84437991-4672-4f6a-a768-b6fb263af380",
+   "title": "Bollettino vite N°13",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 1463027,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino+vite+n.15_150726/5813c7eb-b52f-4649-bb53-9e4d8c7809c3",
+   "title": "Bollettino vite N°15",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 1573019,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino+vite+16_22072026/7a35cd11-58ec-4564-9496-3e88ae5cb07e",
+   "title": "Bollettino vite N°16",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 1165486,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_17_300726.pdf/87ec79f7-9b5e-4b17-a945-b1c98e72ab49",
+   "title": "Bollettino vite N°17",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 1879960,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_18_060826.pdf/832e8bcf-92d1-41be-b9b7-aeda35c98f04",
+   "title": "Bollettino vite N°18",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 2700237,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_19_130826.pdf/02067e4c-dbd4-4bcb-bdad-59dedb940991",
+   "title": "Bollettino vite N°19",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 2151289,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://piave.regione.veneto.it/resource/resolver?resourceId=8db83a24-6bd1-46ff-93e0-ce784401644b%2Fvitinnova.pdf",
+   "title": "VITINNOVA (project report, surfaced by WebSearch and proven by local fetch)",
+   "year": "NOT_KNOWN — not read from the file",
+   "crop_or_topic": "vite (project report on DSS models for Plasmopara viticola per the search snippet; NOT verified from the file itself)",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 5085680,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  }
+ ],
+ "measurements": [
+  {
+   "name": "CANDIDATES_FROM_SEARCH",
+   "value": "58",
+   "evidence": "Distinct URLs returned across 10 WebSearch queries: 'site:regione.veneto.it bollettino vite'; 'bollettino vite peronospora Veneto pdf 2018 servizio fitosanitario'; 'bollettino difesa vite Veneto settimanale archivio anni precedenti 2019 2020'; '\"bollettino\" \"vite\" Veneto fitosanitario 2015 2016 2017 archivio pdf regione'; 'Servizio Fitosanitario Veneto bollettino viticolo pdf elezioni2020...'; 'venetoagricoltura.org bollettino vite peronospora archivio pdf'; 'regione veneto documents 11979050 Vite_2023/2022/2021'; '\"bollettino\" vite Veneto fitosanitario 2020 2021 2022 pdf'; 'Coldiretti Veneto bollettino di difesa della vite pdf'; '\"bollettino vite\" Veneto 2025 fitosanitario n.10 flavescenza pdf'. Heavy overlap between queries; 58 is the de-duplicated count. Search results were treated as candidates only — none was reported without a local probe."
+  },
+  {
+   "name": "CANDIDATES_PROVEN_REAL",
+   "value": "50 of 62 URLs probed returned a real body (HTTP 200, >1 KB). Of those, 22 are distinct PDF documents with %PDF- magic.",
+   "evidence": "62 unique URLs were fetched locally (curl 8.21 and py 3.12.10 urllib, Italian VPN exit). Failures: 7 x HTTP 404 with 0 bytes (bollettini-fitosanitari-2020/-2021/-2022/-2023, fitosanitario/bollettini-viticoli_old, and both /documents/11979050/14345303 folder-root forms) and 5 x TCP connection reset (all coldiretti.it hosts). The 22 proven PDFs = 20 vite 2026 bulletins + ARPAV agro_32.pdf + piave vitinnova.pdf. Note that one search-supplied '.pdf' URL (ARPAV Vitimeteo.pdf) returned HTML, not a PDF, and is excluded from the PDF count."
+  },
+  {
+   "name": "DISTINCT_YEARS_PROVEN",
+   "value": "As PDFs: 1 (2026 only). As vite bulletin content in any format: 3 (2021, 2024, 2026).",
+   "evidence": "2026: 20 vite PDFs linked from bollettini-fitosanitari-2026, all 20 fetched at HTTP 200 with %PDF- magic; the hub link labels literally read 'N°01 del 09/04/2026' .. 'N°20 del 27/08/2026'. 2024: 21 dated <h2> sections literally visible in the 258197-byte bollettini-viticoli HTML, running '04 aprile 2024' to '30 agosto 2024', carried as inline text with no PDF. 2021: 6 dated sections literally visible in the 67726-byte bollettini-viticoli_old HTML — 25 marzo, 14/21/28 aprile, 05/12 maggio 2021 — also inline text with no PDF. 2025 is NOT proven: its hub links Frutticolo/Orticolo/Olivicolo PDFs but zero vite documents. 2023 is NOT proven: the only '2023' anchor on the viticoli page has id 'Bollettino del 01 settembre 2023' wrapping a heading whose visible text reads 'Bollettino del 04 aprile 2024' — a stale copy-pasted anchor id. 2015-2020 and 2022: no vite bulletin found in any format; the corresponding year hubs return 404."
+  },
+  {
+   "name": "SAMPLES_DOWNLOADED",
+   "value": "6",
+   "evidence": "S1_Vite_2026_01.pdf (860435 B, sha256 79d1371f0493754b76571ac85bfee5cff0cff17e83816bccf3b539c595b6befb); S2_Bollettino_vite_5_060526.pdf (739473 B, 1c28547a1e82ac1336d7eaedb5d7dc85471cfce36d667487fb84e35e79b5a72b); S3_Bollettino_vite_10_100626.pdf (2762638 B, 126153ffbbdb918f896706eb3121d3e29692da93afb4eb7f870f81f906274655); S4_Bollettino_vite_14_080726.pdf (659594 B, b7cb8f40638cdb7ec180e4188dd8f48fe4d5cfc69c25e7ea24d2336be3dea9f4); S5_Bollettino_vite_20_270826.pdf (4255572 B, 6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6); S6_ARPAV_agro_32.pdf (451182 B, 47b727c9b753174f556b2f9bc71ccb5a8282ec9874c11e6158b660737529aba3). All in C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1c\\. The brief asked for a spread across YEARS; that was not possible because vite PDFs exist for one year only, so the five vite samples are spread across the 2026 season instead (April, May, June, July, August) and the sixth is a different publisher (ARPAV)."
+  },
+  {
+   "name": "TEXT_EXTRACTION",
+   "value": "NO_LIBRARY",
+   "evidence": "pypdf, PyPDF2, pdfminer and pymupdf all raise ModuleNotFoundError under py 3.12.10. Per instruction, no pip install was performed. A stdlib-only zlib fallback was attempted and it also failed on the vite files, for a second and independent reason: all five vite PDFs are encrypted. Each carries /Encrypt with /Filter/Standard — S1 and S3 declare /StmF/StdCF /StrF/StdCF /CF<</StdCF<</CFM/AESV2/Length 16 (AES-128); S2, S4 and S5 carry a standard-handler /O owner hash. Content streams are therefore ciphertext and only the never-encrypted cross-reference stream decompressed (1-2 of 44-77 streams per file). S6 (ARPAV) has 0 /Encrypt tokens and is not encrypted, but my crude parenthesis-scraper still returned only font-program bytes for it, so no readable text was obtained from S6 either. NOTE, and this matters: the stdlib failure is a TOOL failure. It is NOT evidence that these PDFs lack a text layer — S2, S4 and S5 contain /Font tokens in the clear."
+  },
+  {
+   "name": "CONFIRMED_VITE_CONTENT",
+   "value": "0 of 6 confirmed by reading the PDFs' own text (extraction blocked). 5 of 6 are labelled as vine bulletins by the source itself. Vine content of the corpus is independently confirmed from readable HTML.",
+   "evidence": "Direct confirmation from PDF text: none — see TEXT_EXTRACTION. Source labelling for the five vite samples: the section heading on the 2026 hub reads '>Bollettini viticoli<', the anchor labels read 'N°20 del 27/08/2026' etc., and the filenames read Bollettino_vite_NN / Vite_2026_NN. The sixth sample (ARPAV agro_32.pdf) is a general agrometeo bulletin and is NOT labelled a vite bulletin. Independent confirmation that this bulletin series really is about vines comes from the fully readable 2024 inline HTML at /web/fitosanitario/bollettini-viticoli, where I counted, in plain text: peronospora 57, flavescenza 57, oidio 46, Scaphoideus 36, vite 34, tignoletta 34, grappoli 34, germogli 23, botrite 20, vigneto 17, grappolini 2. Per the standing rule, those are disease NAMES appearing in bulletin guidance text — they are not observed occurrences of those diseases and must not be read as such."
+  }
+ ],
+ "blockers": [
+  {
+   "url": "https://veneto.coldiretti.it/news/bollettino-di-difesa-della-vite/ (and padova., vicenza., treviso., venezia. coldiretti.it equivalents)",
+   "kind": "CONNECTION_RESET",
+   "detail": "All five coldiretti.it hosts terminate the TCP connection. urllib reports URLError WinError 10054 ('An existing connection was forcibly closed by the remote host'); curl reports exit code 35, 'Recv failure: Connection was reset', http_code 000, 0 bytes. This is NOT a 404 and NOT a zero — these pages reportedly host re-published copies of the regional vite bulletin PDF and remain unassessed. No login, CAPTCHA or paywall was seen; the connection never got far enough to show one. No bypass was attempted."
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_5_060526.pdf/dc8e41d6-b66a-4cb5-8cf5-b84751d906ed (representative of all 5 vite samples)",
+   "kind": "PDF_ENCRYPTION",
+   "detail": "Every downloaded vite bulletin carries PDF standard security: /Encrypt <n> 0 R with /Filter/Standard. S1 and S3 use /CFM/AESV2 (AES-128); S2, S4 and S5 carry an /O owner-password hash. The files download fine and are byte-complete, but their content streams are ciphertext, so no stdlib route can read them. I did not attempt to defeat the encryption. Resolution is a tooling decision for the user, not a bypass: a normal PDF library opens permission-restricted files with an empty user password as a matter of course."
+  },
+  {
+   "url": "No PDF library on this machine",
+   "kind": "MISSING_DEPENDENCY",
+   "detail": "pypdf, PyPDF2, pdfminer and pymupdf are all absent from py 3.12.10. The brief forbade pip install, so text extraction was not attempted with a real parser. Every text-related conclusion in this report is therefore bounded by that."
+  },
+  {
+   "url": "https://www.arpa.veneto.it/temi-ambientali/agrometeo/file-e-allegati/peronospora-vite/Vitimeteo.pdf",
+   "kind": "MISLABELLED_ASSET",
+   "detail": "WebSearch presented this as the ARPAV peronospora-vite bulletin PDF. The local fetch returns HTTP 200 with 221576 bytes of text/html beginning '<!doc' — a web page, not a PDF, despite the .pdf extension. Had this been reported from the search result alone it would have been a false finding. The parent page /temi-ambientali/agrometeo/file-e-allegati/peronospora-vite also returns HTML (239514 bytes) and its actual PDF payload, if any, was not located."
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303 and .../14345303/",
+   "kind": "NO_FOLDER_LISTING",
+   "detail": "Both folder-root forms return HTTP 404 with 0 bytes. The Liferay document store gives no directory index, so documents can only be enumerated via the HTML hub pages that link them. There is no way from here to discover documents that are stored but no longer linked."
+  }
+ ],
+ "not_known": [
+  "Whether ANY Veneto vite bulletin exists for 2015, 2016, 2017, 2018, 2019, 2020, 2022, 2023 or 2025. I found none on the live portal, and the year hubs for 2020-2023 return HTTP 404. That is absence of evidence, not evidence of absence — the material may exist offline, behind an unlinked document id, or only in web archives.",
+  "Why 2025 has no vite bulletin on its hub while Frutticolo, Orticolo and Olivicolo all do. Whether the 2025 vine season was never published, was published elsewhere, or was published and later unlinked is NOT_KNOWN.",
+  "The text content of all six downloaded PDFs. Not read. Extraction was blocked by the missing library and, for the five vite files, additionally by PDF encryption.",
+  "Whether the vite bulletin PDFs contain a machine-readable text layer or are page scans requiring OCR. /Font tokens are visible in the clear in S2, S4 and S5, which hints at a text layer, but /Subtype/Image counts of 31-52 per file are also high. My stdlib probe cannot settle this and I will not guess.",
+  "The issue date of the ARPAV agro_32.pdf sample. Its PDF metadata claims /Title 'N° 10 - Ottobre 2005' and /Author 'Filippo Turetta Agro_10', which reads as stale OpenOffice template metadata carried forward. I did not read a date from the body. Do not record 2005.",
+  "The publication date, issue number or crop scope of the piave vitinnova.pdf (5085680 bytes). Proven to exist and to be a real PDF; contents not read.",
+  "Whether the coldiretti.it pages host re-published copies of older vite bulletin PDFs. All five hosts reset the connection.",
+  "Whether elezioni2020.regione.veneto.it is a permanent mirror or a transient staging host. It served byte-identical copies of the two vite PDFs I cross-checked (1134141 and 860435 bytes) and a near-identical viticoli page (258756 vs 258197 bytes), but its lifetime and authoritativeness are NOT_KNOWN.",
+  "How many vite bulletins a full 2021 or 2024 season contained. I can only report the sections literally present in the HTML I fetched: 6 for 2021 and 21 for 2024. Whether those pages are complete seasons or truncated remnants is NOT_KNOWN.",
+  "Anything about disease pressure, severity, risk or outcome. Out of scope for this front and not assessed."
+ ],
+ "next_steps": [
+  "Install a PDF library (pypdf is enough — it opens permission-restricted files with an empty user password natively) and re-run extraction over the 5 downloaded vite samples in C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1c\\. This single step settles two open questions at once: whether the files carry a real text layer, and whether their body text confirms vine content. If pypdf reports zero text, escalate to OCR — do not record zero.",
+  "Preserve the remaining 15 proven-but-not-downloaded 2026 vite PDFs. Their exact URLs and expected byte counts are in the documents list above; each has already returned HTTP 200 with %PDF- magic, so the fetch is a formality. Verify each downloaded size against the recorded byte count before hashing.",
+  "Harvest the 2024 season as HTML, not as PDF. C:\\...\\evidence\\F1c_bollettini-viticoli.html already holds all 21 dated sections inline; the season needs parsing out of that one file, not crawling. Do the same for the 6 sections of 2021 in C:\\...\\evidence\\F1c_viticoli_old.html.",
+  "Resolve the 2025 vite gap with a human question rather than more crawling. Contact U.O. Fitosanitario via the recapiti calendar linked on the 2026 hub and ask directly whether a 2025 vine bulletin series was published and where it now lives. Crawling has already been shown to be a dead end: the 2025 hub links no vite document and the Liferay store gives no folder listing.",
+  "Hand the pre-2024 question to the Wayback front (F1e). The live portal provably stops at 2024, so any 2015-2023 vine bulletin must come from web archives. Give that front the two URLs that mattered here — /web/fitosanitario/bollettini-viticoli and /web/agricoltura-e-foreste/bollettini-viticoli_old — since the '_old' path suffix is the pattern that surfaced 2021 and may surface more.",
+  "Retry the five coldiretti.it pages from a different network path or with a browser-rendered session, since both curl and urllib are reset at the TCP layer. Record the outcome as a fresh probe; do not carry the reset forward as a zero.",
+  "Re-probe the 20 vite PDF URLs and the 2026 hub on a later date to measure link churn. The hub already mixes two naming conventions (Vite_2026_01 vs Bollettino_vite_3_230426.pdf) and some links carry '+' encoding, which suggests hand-editing and therefore a real risk that URLs move."
+ ]
+}

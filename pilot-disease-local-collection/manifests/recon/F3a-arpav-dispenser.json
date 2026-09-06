@@ -1,0 +1,214 @@
+{
+ "front": "F3a-arpav-dispenser",
+ "summary": "The ARPAV daily historical weather dispenser page is real and fully server-rendered (HTTP 200, 251001 bytes, text/html). I saved the HTML, extracted the single real form (class \"request-form\"), and parsed it. It is a React/Volto \"historicalData\" block: 2 date inputs (startDate, endDate), 3 react-select single-select dropdowns (provincia, codseqst, codseq), 1 email input, 1 submit button. There are ZERO <select>/<option> tags — the dropdown options are fetched at runtime from a public JSON API, so the option lists are not in the HTML.\n\nI recovered the block's own configuration JSON verbatim from the page (window.__data). It declares datasetCode \"dispenser_meteo_giorno_sensore\", fromDateProp \"data_inizio\", toDateProp \"data_fine\", minDate \"2009-12-31T23:00:00.684Z\", requiredFilters [], and three filters. It declares NO maxDate and NO maxDays. I then downloaded the 667492-byte client JS chunk and proved the range-guard is literally `e.maxDays && (dayDiff > e.maxDays)` — with maxDays unset, no client-side range cap can ever fire, and maxDate unset makes the upper-bound check compare against an Invalid Date, which is always false. So the page declares NO maximum range. The mechanism exists (block property maxDays, editor label \"Maximum range (days)\" / \"Range massimo (gg)\", type integer) but is left unset on this page.\n\nThe <form> tag carries NO action and NO method attribute. The real destination is hard-coded in the JS bundle: POST https://api.arpa.veneto.it/extraction_request/add with Content-Type application/json and body {scheduled_endpoint, email, parameters{data_inizio, data_fine, provincia, codseqst, codseq}}.\n\nI fetched the two read-only lookup endpoints the page itself calls on load (GET, no auth). Stations: 315 records (BL 86, VI 64, TV 45, PD 38, VR 36, VE 24, RO 21, UD 1). Sensors: 1619 station-sensor pairs, 37 distinct sensor descriptions.\n\nDECISIVE FOR THE MISSION: \"Bagnatura fogliare\" (leaf wetness) IS offered — 78 distinct stations across 6 provinces (PD 17, VR 15, TV 14, VI 11, VE 11, RO 10; Belluno has none). It is named twice independently: verbatim in the page's own output-column table, and as a value of the sensor catalogue's \"descrizione\" field. The catalogue additionally carries a \"descrizione_annate\" field that declares the years available per sensor; 69 of the 78 bagnatura fogliare sensors declare the full 17-year span 2010-2011-...-2026.\n\nI did NOT submit the form, did NOT enter any email address, and did NOT accept any terms. No login, CAPTCHA or paywall was encountered anywhere.",
+ "probes": [
+  {
+   "url": "https://www.arpa.veneto.it/dati-ambientali/dati-storici/meteo-idro-nivo/dispenser-meteo-giornalieri",
+   "http_status": "200",
+   "bytes": 251001,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK — server-rendered, form present in HTML; probed once with -o /dev/null then downloaded to evidence/ with identical byte count 251001"
+  },
+  {
+   "url": "https://www.arpa.veneto.it/static/js/runtime~client.fabb5681.js",
+   "http_status": "200",
+   "bytes": 10248,
+   "content_type": "application/javascript; charset=UTF-8",
+   "verdict": "OK — measured only, not downloaded (webpack runtime, no config)"
+  },
+  {
+   "url": "https://www.arpa.veneto.it/static/js/client.4052bb11.chunk.js",
+   "http_status": "200",
+   "bytes": 667492,
+   "content_type": "application/javascript; charset=UTF-8",
+   "verdict": "OK — downloaded; contains the historicalData block implementation, the maxDays guard and the hard-coded POST endpoint"
+  },
+  {
+   "url": "https://api.arpa.veneto.it/REST/v1/meteo_stazioni_dispenser",
+   "http_status": "200",
+   "bytes": 26168,
+   "content_type": "application/json",
+   "verdict": "OK — public GET, no auth; 315 station records"
+  },
+  {
+   "url": "https://api.arpa.veneto.it/REST/v1/meteo_sensori_dispenser",
+   "http_status": "200",
+   "bytes": 379548,
+   "content_type": "application/json",
+   "verdict": "OK — public GET, no auth; 1619 station-sensor pairs, 37 distinct sensor descriptions"
+  }
+ ],
+ "index_pages": [
+  {
+   "url": "https://www.arpa.veneto.it/dati-ambientali/dati-storici/meteo-idro-nivo/dispenser-meteo-giornalieri",
+   "title": "Dati meteorologici giornalieri (ARPAV dispenser)",
+   "lists": "Not a document archive. It is a request FORM that dispenses a CSV by email, plus an 'Approfondisci' table documenting the CSV columns. Fetched HTML contains 2 <form> tags (only one is the dispenser; the other is the page-feedback comment form), 6 <input>, 0 <select>, 0 <option>, 0 type=checkbox.",
+   "years_visible": "Page text verbatim: 'I dati disponibili vanno dal primo gennaio 2010.' No end year stated in prose. The block JSON declares minDate 2009-12-31T23:00:00.684Z and no maxDate.",
+   "item_count_seen": "1 dispenser form; 3 dropdown filters; 11 documented CSV columns",
+   "pagination": "NONE — single page, no pagination"
+  },
+  {
+   "url": "https://api.arpa.veneto.it/REST/v1/meteo_stazioni_dispenser",
+   "title": "ARPAV station catalogue for the dispenser (JSON)",
+   "lists": "The selectable stations. Top-level keys: success, data, meta. Each record has exactly 3 fields: nome_stazione, codseqst, provincia. Example verbatim: {\"nome_stazione\": \"Adige a Albaredo (270)\", \"codseqst\": 300001640, \"provincia\": \"VR\"}",
+   "years_visible": "NOT_KNOWN — this endpoint carries no year field",
+   "item_count_seen": "315 station records parsed (BL 86, VI 64, TV 45, PD 38, VR 36, VE 24, RO 21, UD 1)",
+   "pagination": "NONE — whole list returned in one response; the page filters it client-side by provincia"
+  },
+  {
+   "url": "https://api.arpa.veneto.it/REST/v1/meteo_sensori_dispenser",
+   "title": "ARPAV sensor catalogue for the dispenser (JSON)",
+   "lists": "The selectable sensors per station. Each record has 5 fields: statnm, descrizione, codseq, codseqst, descrizione_annate. Example verbatim: {\"statnm\": \"A7P - Malcontenta\", \"descrizione\": \"Livello\", \"codseq\": 300011942, \"codseqst\": 300004440, \"descrizione_annate\": \"Livello (anni 2017-2018-2019-2020-2021-2022-2023-2024-2025-2026)\"}",
+   "years_visible": "2010 through 2026, declared per-sensor inside descrizione_annate. Across ALL 1619 records the union of years literally present is exactly 2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026.",
+   "item_count_seen": "1619 station-sensor pairs parsed; 37 distinct descrizione values",
+   "pagination": "NONE — whole list returned in one response; the page filters it client-side by codseqst"
+  }
+ ],
+ "documents": [
+  {
+   "url": "https://www.arpa.veneto.it/dati-ambientali/dati-storici/meteo-idro-nivo/dispenser-meteo-giornalieri",
+   "title": "Dati meteorologici giornalieri — ARPAV dispenser form page (HTML)",
+   "year": "NOT_KNOWN (page carries no publication year; it states data availability starts 1 January 2010)",
+   "crop_or_topic": "generic — daily hydro-meteorological station data; includes Bagnatura fogliare (leaf wetness)",
+   "file_type": "text/html",
+   "http_status": "200",
+   "bytes": 251001,
+   "sha256": "327372c760b67da3ffcfb31724385deb77af641ace6aee731d2e726d0d01cd91",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\evidence\\F3a-arpav-dispenser-meteo-giornalieri.html",
+   "downloaded": true
+  },
+  {
+   "url": "https://api.arpa.veneto.it/REST/v1/meteo_sensori_dispenser",
+   "title": "ARPAV dispenser sensor catalogue — 1619 station-sensor pairs, 37 distinct sensors, with declared year spans",
+   "year": "2010-2026 (union of years literally present in descrizione_annate across all records)",
+   "crop_or_topic": "generic meteorological/hydrological sensors; Bagnatura fogliare present on 78 stations",
+   "file_type": "application/json",
+   "http_status": "200",
+   "bytes": 379548,
+   "sha256": "806c34243f0fa1638f20838c5cec0758244e9dddbc920a802c7efbf383f5b7b7",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F3a-arpav-dispenser\\meteo_sensori_dispenser.json",
+   "downloaded": true
+  },
+  {
+   "url": "https://api.arpa.veneto.it/REST/v1/meteo_stazioni_dispenser",
+   "title": "ARPAV dispenser station catalogue — 315 stations with codseqst and provincia",
+   "year": "NOT_KNOWN — no year field in this endpoint",
+   "crop_or_topic": "generic — station registry",
+   "file_type": "application/json",
+   "http_status": "200",
+   "bytes": 26168,
+   "sha256": "94073958760ad19cb7c38cc5741ab0105a372174b9d035d386a2da03706958b2",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F3a-arpav-dispenser\\meteo_stazioni_dispenser.json",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.arpa.veneto.it/static/js/client.4052bb11.chunk.js",
+   "title": "ARPAV site client JS chunk — contains historicalData block logic, maxDays range guard, and the hard-coded POST endpoint",
+   "year": "NOT_KNOWN",
+   "crop_or_topic": "generic — application code, kept as proof of the declared limits and the form action URL",
+   "file_type": "application/javascript",
+   "http_status": "200",
+   "bytes": 667492,
+   "sha256": "6794a316f2ff4e555a8e7500034e48a1a4c6c1136284b30c51700f4b2351cac2",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\evidence\\F3a-client-chunk.js",
+   "downloaded": true
+  }
+ ],
+ "measurements": [
+  {
+   "name": "DATE_RANGE_SUPPORTED",
+   "value": "YES — two date fields, an explicit from/to interval",
+   "evidence": "Verbatim from saved HTML: <input type=\"date\" id=\"startDate\" name=\"startDate\" min=\"2009-12-31T23:00:00.684Z\" required=\"\" class=\"mb-0 form-control\" placeholder=\"dd/mm/yyyy\" value=\"\"/> with <label for=\"startDate\">Periodo dal *</label>; and <input type=\"date\" id=\"endDate\" name=\"endDate\" min=\"2009-12-31T23:00:00.684Z\" class=\"mb-0 form-control\" placeholder=\"dd/mm/yyyy\" value=\"\"/> with <label for=\"endDate\">Periodo al *</label>. NEITHER input carries a max attribute. Lower bound: block JSON minDate \"2009-12-31T23:00:00.684Z\" (UTC), which the page itself renders in prose as 'I dati disponibili vanno dal primo gennaio 2010.' (Italy is UTC+1 in winter, so that timestamp is local midnight 1 Jan 2010.) CAVEAT I measured but cannot resolve without a browser: an HTML date input's min attribute expects YYYY-MM-DD, so a full ISO timestamp is likely ignored by the browser widget itself — however the JS DOES enforce it via new Date(e.minDate) comparison, emitting '* La data deve essere maggiore di:'. Page prose also states: 'Il 25 di ogni mese viene fatto l'aggiornamento della base dati includendo quelli del mese precedente.'"
+  },
+  {
+   "name": "MULTIYEAR_SUPPORTED",
+   "value": "YES as far as the page declares — no cap of any kind is declared; the sensor catalogue itself declares up to 17 consecutive years per sensor. Server-side enforcement NOT_KNOWN (form not submitted, by rule).",
+   "evidence": "Three independent measurements. (1) The block config JSON contains minDate but NO maxDate and NO maxDays. (2) The JS range guard, verbatim from the downloaded chunk, is: e.maxDays&&((e,t)=>{const s=Math.abs(t-e);return Math.ceil(s/864e5)})(l,p)>e.maxDays?o(`${c.formatMessage(ti.daysExceeded)} ${e.maxDays} ${c.formatMessage(ti.days)}`):o(\"\") — with maxDays undefined the short-circuit makes this branch unreachable, so no client-side range cap can fire. The upper-bound check l>n uses n=new Date(e.maxDate) with maxDate undefined, i.e. Invalid Date, so that comparison is always false too. (3) The sensor catalogue's descrizione_annate declares per-sensor spans such as 'Bagnatura fogliare (anni 2010-2011-2012-2013-2014-2015-2016-2017-2018-2019-2020-2021-2022-2023-2024-2025-2026)' — 69 of the 78 bagnatura fogliare sensors declare that full 17-year span."
+  },
+  {
+   "name": "STATIONS_SELECTABLE",
+   "value": "315 stations, SINGLE-select — exactly ONE station per request",
+   "evidence": "Field: react-select with container id=\"codseqst\", label 'Stazione * '. Block config verbatim: {\"filterBy\":\"provincia\",\"filterProp\":\"provincia\",\"filterType\":\"source\",\"labelField\":\"Stazione\",\"mandatory\":true,\"propertyField\":\"codseqst\",\"source\":\"meteo_stazioni_dispenser\",\"sourcepropLab\":\"nome_stazione\",\"sourcepropVal\":\"codseqst\"}. Options are NOT in the HTML — they are fetched at runtime by fetch(`${j}${s.source}`) where j=\"https://api.arpa.veneto.it/REST/v1/\". I fetched that endpoint: 315 records. Province counts: BL 86, VI 64, TV 45, PD 38, VR 36, VE 24, RO 21, UD 1 (note UD/Udine is Friuli, not Veneto — that is what the data literally says). Single-select proven: zero occurrences of isMulti in the page HTML and zero in the source-filter component segment of the JS bundle; the rendered markup shows react-select__placeholder and a single value container, not multi-value chips. A parent 'Provincia' selectList (id=\"provincia\", NOT mandatory) merely filters this list client-side; its 8 declared values verbatim are BL|Belluno, PD|Padova, RO|Rovigo, TV|Treviso, VE|Venezia, VR|Verona, VI|Vicenza, UD|Udine."
+  },
+  {
+   "name": "VARIABLES_SELECTABLE",
+   "value": "37 distinct sensor types across 1619 station-sensor pairs, SINGLE-select — exactly ONE sensor per request",
+   "evidence": "Field: react-select with container id=\"codseq\", label 'Sensore * '. Block config verbatim: {\"filterBy\":\"codseqst\",\"filterProp\":\"codseqst\",\"filterType\":\"source\",\"labelField\":\"Sensore\",\"mandatory\":true,\"propertyField\":\"codseq\",\"source\":\"meteo_sensori_dispenser\",\"sourcepropLab\":\"descrizione\",\"sourcepropVal\":\"codseq\"}. Options are NOT in the HTML (zero <option> tags on the page). Page prose confirms the one-sensor-one-station shape verbatim: 'Attraverso questo modulo e possibile richiedere i dati giornalieri rilevati da un sensore di una stazione idro-meteorologica Arpav per un determinato intervallo di tempo.' Single-select proven the same way as the station field (isMulti absent). Full distinct list given in the next measurement."
+  },
+  {
+   "name": "VARIABLES_OFFERED_LIST",
+   "value": "37 distinct values of the 'descrizione' field, verbatim, with station-pair counts",
+   "evidence": "From the fetched meteo_sensori_dispenser.json: Precipitazione 202; Temperatura aria a 2m 202; Umidita relativa a 2m 157; Radiazione solare globale 114; Livello idrometrico 1 88; Direzione vento prevalente a 5m 81; Velocita vento 5m media aritm. 81; Raffica vento a 5m 80; Bagnatura fogliare 78; Livello freatimetrico 47; Raffica vento a 10m 43; Direzione vento prevalente a 10m 41; Velocita vento 10m media aritm. 41; Temperatura suolo a -10cm 37; Temperatura suolo a -20cm 37; Temperatura suolo a -30cm 37; Temperatura suolo a 0cm 37; Direzione vento prevalente a 2m 33; Velocita vento 2m media aritm. 33; Raffica vento a 2m 32; Portata 31; Livello idrometrico 24; Portata 1 19; Pressione atmosferica 12; Portata SIRAV 7; Livello 5; Livello idrometrico 3 3; Portata 3 3; Livello idrometrico a pressione 2; Altezza neve 2; Temperatura aria a 8m 2; Umidita relativa a 8m 2; Portata calcolata 2; Livello idrometrico a valle 1; Portata ultrasuono 1; Direzione vento a 10m 1; Portata unificata 1. Separately, the page's own HTML documentation table names this subset verbatim: 'Valore del sensore se Precipitazione, Radiazione solare globale, Bagnatura fogliare, Velocita vento media aritmetica, Altezza neve'."
+  },
+  {
+   "name": "BAGNATURA_FOGLIARE_PRESENT",
+   "value": "YES — present and directly selectable. 78 distinct stations, 6 provinces.",
+   "evidence": "Proven twice, independently. (1) In the page HTML itself, in the 'Approfondisci' output-column table, verbatim: 'Valore del sensore se Precipitazione, Radiazione solare globale, Bagnatura fogliare, Velocita vento media aritmetica, Altezza neve' (appears 3 times in the file: once in rendered markup at offset 33910, twice in the window.__data JSON at 125214 and 188616). (2) In the fetched sensor catalogue, 'Bagnatura fogliare' is a distinct value of descrizione with 78 records mapping to 78 distinct codseqst (one sensor per station). Provinces: PD 17, VR 15, TV 14, VI 11, VE 11, RO 10 — Belluno (mountain) has ZERO. Declared year spans: 69 of 78 declare 2010..2026 (17 years); the remaining 9 declare shorter spans (one with 4 years, one 7, three 8, one 9, two 11, one 14). Example record verbatim: {\"statnm\": \"Adria - Bellombra\", \"descrizione\": \"Bagnatura fogliare\", \"codseq\": 300000307, \"codseqst\": 300000069, \"descrizione_annate\": \"Bagnatura fogliare (anni 2010-2011-2012-2013-2014-2015-2016-2017-2018-2019-2020-2021-2022-2023-2024-2025-2026)\"}. NOTE: the dispenser serves a DAILY aggregate of this sensor, not sub-daily; the column table says leaf wetness lands in the 'valore' column."
+  },
+  {
+   "name": "DELIVERY_METHOD",
+   "value": "Asynchronous — a CSV file sent to the supplied email address. Nothing is downloaded in-browser.",
+   "evidence": "Page text verbatim: 'I dati saranno inviati via email con un file in formato CSV.' and 'Il file inviato via email avra sempre queste colonne che saranno valorizzate in base al sensore selezionato'. The submit handler POSTs a request record and shows a success toast with message id 'Request successfully created' / defaultMessage 'Richiesta creata con successo' — i.e. it creates a queued extraction request, it does not return the data. The JSON payload key is literally 'scheduled_endpoint', confirming scheduled/deferred execution. Declared CSV columns, verbatim from the page table: codice_stazione, nome_stazione, data, valore, minimo, medio, massimo, oraminuti, gradi, settore, unita_misura. Also verbatim: 'Vengono estratti solo i dati giornalieri validi, quelli invalidi non vengono segnalati e manchera completamente la riga del giorno.' — invalid days are silently absent rows, NOT flagged and NOT zeros."
+  },
+  {
+   "name": "EMAIL_REQUIRED",
+   "value": "YES — mandatory",
+   "evidence": "Verbatim from saved HTML: <input type=\"email\" id=\"email\" name=\"email\" required=\"\" class=\"mt-1 mb-0 form-control\" value=\"\"/> with <label for=\"email\">Indirizzo email a cui inviare i dati *</label>. The JS submit handler blocks on it: (_?.email)||(x(s.formatMessage(oi.requiredField)),i=!0) — i.e. missing email sets the error flag and prevents the POST. Error strings defined: '* Campo obbligatorio' and '* Indirizzo email non valido'. I did NOT enter any email address."
+  },
+  {
+   "name": "MAX_RANGE_IF_DECLARED",
+   "value": "NOT_KNOWN — the page declares NO maximum range and NO maximum date. The capability exists in the software but is left unset on this page.",
+   "evidence": "The block config JSON for this page, verbatim and complete for the date properties: \"fromDateProp\":\"data_inizio\",\"minDate\":\"2009-12-31T23:00:00.684Z\",\"requiredFilters\":[],\"toDateProp\":\"data_fine\" — there is no maxDate key and no maxDays key. The editor schema in the JS bundle proves those keys are the ones that would declare a cap: maxDate:{id:\"Maximum date\",defaultMessage:\"Data massima\"}, maxDays:{id:\"Maximum range (days)\",defaultMessage:\"Range massimo (gg)\"} with schema maxDays:{title:...,minimum:0,type:\"integer\"}, and the fieldset field order [\"datasetCode\",\"fromDateProp\",\"toDateProp\",\"requiredFilters\",\"minDate\",\"maxDate\",\"maxDays\",\"filters\"]. The unused error message is defined as daysExceeded:{id:\"* L'intervallo tra le date non puo superare\"} + maxDays + days:{id:\"giorni\"}. I am NOT reporting 'unlimited' — I am reporting that no limit is DECLARED client-side. Whether api.arpa.veneto.it imposes one server-side is NOT_KNOWN, because establishing that would require submitting the form, which I was instructed not to do."
+  },
+  {
+   "name": "FORM_ACTION_URL",
+   "value": "The <form> tag has NO action and NO method attribute. The real destination is hard-coded in JavaScript: POST https://api.arpa.veneto.it/extraction_request/add",
+   "evidence": "Rendered form tag verbatim: <form class=\"request-form mt-4\"> — no action, no method. From the downloaded JS chunk, verbatim: await fetch(\"https://api.arpa.veneto.it/extraction_request/add\",{method:\"POST\",headers:{\"Content-Type\":\"application/json\"},body:JSON.stringify(t)}). The payload is built as: let s={scheduled_endpoint:e.datasetCode,email:_.email,parameters:{}}; then s.parameters[e.fromDateProp]=u; s.parameters[e.toDateProp]=b; then each filter adds s.parameters[propertyField]=value. Dates are sent as localized strings via new Date(x).toLocaleDateString(\"it-IT\",{year:\"numeric\",month:\"numeric\",day:\"numeric\"}) — i.e. d/m/yyyy, NOT ISO. The related dropdown-population base URL, also hard-coded, is https://api.arpa.veneto.it/REST/v1/ . I did NOT send any POST to this endpoint."
+  },
+  {
+   "name": "FORM_FIELD_NAMES",
+   "value": "HTML-level: startDate, endDate, provincia, codseqst, codseq, email, buttonSubmit. Wire-level (JSON POST body): scheduled_endpoint, email, parameters.data_inizio, parameters.data_fine, parameters.provincia, parameters.codseqst, parameters.codseq.",
+   "evidence": "HTML names/ids read directly from the saved file: name=\"startDate\", name=\"endDate\", react-select container id=\"provincia\", id=\"codseqst\", id=\"codseq\", name=\"email\", name=\"buttonSubmit\". The three dropdowns have no HTML name attribute (react-select renders a dummy input id=react-select-14/15/16-input); their form keys come from the block config propertyField values provincia / codseqst / codseq. The date fields are RENAMED on the wire: the block declares fromDateProp \"data_inizio\" and toDateProp \"data_fine\", so the HTML startDate/endDate become data_inizio/data_fine in the POST body. scheduled_endpoint carries the datasetCode value \"dispenser_meteo_giorno_sensore\". Mandatory flags from the config: codseqst mandatory true, codseq mandatory true, provincia has no mandatory flag (optional filter). Note endDate lacks the HTML required attribute but its label says 'Periodo al *' and the JS submit handler does enforce it."
+  },
+  {
+   "name": "SUBMIT_BUTTON_LABEL",
+   "value": "Invia richiesta",
+   "evidence": "Verbatim from saved HTML: <button type=\"submit\" name=\"buttonSubmit\" class=\"btn btn-primary\">Invia richiesta</button>. Confirmed in the JS bundle: sendButton:{id:\"Invia richiesta\",defaultMessage:\"Invia richiesta\"}. (The page contains a second submit button, 'Invia il tuo commento', but that belongs to the unrelated page-feedback form, not the dispenser.)"
+  },
+  {
+   "name": "TERMS_ACCEPTANCE_REQUIRED",
+   "value": "NO — no terms, consent or privacy checkbox exists in the form",
+   "evidence": "Measured on the saved HTML: occurrences of type=\"checkbox\" = 0 across the entire 251001-byte file. Occurrences of 'consenso' = 0, 'informativa' = 0, 'trattamento' = 0, 'condizioni' = 0. The 3 occurrences of 'accett' are all GDPR cookie-banner i18n strings (volto-gdpr-privacy-acceptAllCookies 'Accetta tutti', volto-gdpr-privacy-acceptTechnicalCookies 'Solo cookies tecnici', volto-gdpr-privacy-close 'Accetta solo i cookies tecnici e chiudi') — cookie consent for the website, not a data-request term. The 23 'privacy' hits are the same cookie machinery plus the footer Privacy link. The JS submit validator checks only: email present, startDate a valid Date, endDate a valid Date, and each mandatory filter present — no consent flag. I did NOT accept any terms or any cookie banner."
+  },
+  {
+   "name": "NEEDS_BROWSER_RENDER",
+   "value": "NO for the form shape; NO for the option lists either (they were obtained directly from the public API)",
+   "evidence": "The page returned 251001 bytes with the complete form server-rendered, so the form structure required no browser. The dropdown OPTIONS are genuinely absent from the HTML (0 <select>, 0 <option>) and would normally require a browser — but the JS revealed the exact GET endpoints, and both returned full JSON to local curl (26168 and 379548 bytes), so no rendering was needed to enumerate stations and sensors."
+  }
+ ],
+ "blockers": [],
+ "not_known": [
+  "Whether api.arpa.veneto.it enforces a maximum date range SERVER-side. The page declares none client-side, but the only way to find out is to submit a request, which I was instructed not to do. Do not read 'no declared limit' as 'unlimited'.",
+  "Whether a multi-year request is actually fulfilled end-to-end. I proved no client-side cap and proved the catalogue declares 17-year spans, but I never received a CSV, so delivery of a multi-year extraction is unproven.",
+  "The real content and encoding of the delivered CSV (separator, decimal mark, date locale, missing-value marker, header row presence). Only the column NAMES are declared on the page.",
+  "The unit of measure for Bagnatura fogliare. The CSV has a unita_misura column, but its values only appear in the delivered file, which I did not request.",
+  "Delivery latency — how long after submission the email arrives. Nothing on the page states it.",
+  "Whether requests are rate-limited, capped per email address, or require the email to be confirmed.",
+  "Whether /static/js/29.04d3b374.chunk.js contains further constraints. I saw it referenced in the HTML but did NOT fetch it, so I cannot claim anything about its contents.",
+  "Station geolocation. The station endpoint returns only nome_stazione, codseqst and provincia — no latitude, longitude or altitude. Mapping the 78 leaf-wetness stations to coordinates needs another source.",
+  "Whether the 9 bagnatura fogliare sensors with short declared spans are decommissioned, relocated or renumbered. descrizione_annate lists years but gives no reason for gaps.",
+  "Whether descrizione_annate means every day of a listed year is present, or merely that the year contains at least one valid day. The page warns invalid days are silently missing rows, so a listed year does NOT prove a complete year.",
+  "Why one station is in provincia UD (Udine, Friuli) inside an ARPAV Veneto catalogue. The data says it; I did not establish why.",
+  "Whether the same values are reachable without the email dispenser via the referenced page 'Dati meteorologici ultimi anni', which the page says contains the same values. I did not fetch that page."
+ ],
+ "next_steps": [
+  "Preserve the 78-station bagnatura fogliare subset as a standalone JSON extract from the already-downloaded raw/F3a-arpav-dispenser/meteo_sensori_dispenser.json, joined to provincia from meteo_stazioni_dispenser.json, so the target list survives independently of the live API.",
+  "Re-fetch both API endpoints on a later date and diff against the stored sha256 values (sensors 806c34243f0fa1638f20838c5cec0758244e9dddbc920a802c7efbf383f5b7b7, stations 94073958760ad19cb7c38cc5741ab0105a372174b9d035d386a2da03706958b2) to measure whether the catalogue and the declared year spans are stable.",
+  "Fetch https://www.arpa.veneto.it/static/js/29.04d3b374.chunk.js with local curl and grep it for maxDays, maxDate and extraction_request, to close the one bundle I referenced but never opened.",
+  "Fetch the 'Dati meteorologici ultimi anni' page the dispenser links to as containing the same values, and measure whether it offers a direct (non-email) download path for the same sensors. That would sidestep the email dispenser entirely.",
+  "Probe https://api.arpa.veneto.it/REST/v1/ and a few sibling dataset names with GET only, to test whether a read-only REST route exposes daily sensor values directly without the extraction_request queue.",
+  "Ask the human operator for an explicit decision on whether to submit ONE dispenser request (single station, single Bagnatura fogliare sensor, full 2010-2026 span) using an address they nominate. That single submission is the only way to measure the server-side range cap, the real CSV shape and the delivery latency — and it requires their consent because it sends a request and discloses an email address. I did not do it.",
+  "If that request is approved, prepare the exact payload shape in advance for review before sending: {\"scheduled_endpoint\":\"dispenser_meteo_giorno_sensore\",\"email\":\"<operator-supplied>\",\"parameters\":{\"data_inizio\":\"1/1/2010\",\"data_fine\":\"<today d/m/yyyy>\",\"provincia\":\"TV\",\"codseqst\":<id>,\"codseq\":<id>}} — noting dates go as it-IT d/m/yyyy, not ISO.",
+  "Cross-check a handful of the 78 leaf-wetness stations against an independent ARPAV station registry to recover latitude/longitude/altitude, which this dispenser catalogue does not carry."
+ ]
+}

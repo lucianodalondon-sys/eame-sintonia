@@ -1,0 +1,682 @@
+{
+  "@components": {
+    "actions": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/dispenser-meteo-orari/@actions"
+    }, 
+    "breadcrumbs": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/dispenser-meteo-orari/@breadcrumbs"
+    }, 
+    "contextnavigation": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/dispenser-meteo-orari/@contextnavigation"
+    }, 
+    "navigation": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/dispenser-meteo-orari/@navigation"
+    }, 
+    "subsite": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/dispenser-meteo-orari/@subsite"
+    }, 
+    "types": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/dispenser-meteo-orari/@types"
+    }, 
+    "workflow": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/dispenser-meteo-orari/@workflow"
+    }
+  }, 
+  "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/dispenser-meteo-orari", 
+  "@type": "Document", 
+  "UID": "6931a5518a5a40b78045cd92b2703a2f", 
+  "allow_discussion": false, 
+  "blocks": {
+    "3a484a7f-465b-4096-8c57-b65e2cd35f33": {
+      "@type": "slateTable", 
+      "table": {
+        "basic": true, 
+        "celled": true, 
+        "compact": true, 
+        "fixed": false, 
+        "hideHeaders": false, 
+        "inverted": false, 
+        "rows": [
+          {
+            "cells": [
+              {
+                "key": "c3g3j", 
+                "type": "header", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "Nome colonna"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }, 
+              {
+                "key": "81hp", 
+                "type": "header", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "Contenuto"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }
+            ], 
+            "key": "3ri7t"
+          }, 
+          {
+            "cells": [
+              {
+                "key": "8r1mo", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "codice_stazione"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }, 
+              {
+                "key": "70i60", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "Codice numerico della stazione"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }
+            ], 
+            "key": "9jhb8"
+          }, 
+          {
+            "cells": [
+              {
+                "key": "bfv2t", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "nome_stazione"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }, 
+              {
+                "key": "51aom", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "Nome della stazione"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }
+            ], 
+            "key": "9geti"
+          }, 
+          {
+            "cells": [
+              {
+                "key": "3iim3", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "nome_sensore"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }, 
+              {
+                "key": "dec44", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "Nome del sensore"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }
+            ], 
+            "key": "es2va"
+          }, 
+          {
+            "cells": [
+              {
+                "key": "crb30", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "dataora"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }, 
+              {
+                "key": "5mf5t", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "Data ed ora, sempre in orario solare, nel formato gg/mm/aaaa hh24"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }
+            ], 
+            "key": "4op87"
+          }, 
+          {
+            "cells": [
+              {
+                "key": "45n7l", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "valore"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }, 
+              {
+                "key": "abggk", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "Valore del sensore se Precipitazione, Radiazione solare globale, Bagnatura fogliare, Velocit\u00e0 vento media aritmetica, Pressione atmosferica"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }
+            ], 
+            "key": "d12t4"
+          }, 
+          {
+            "cells": [
+              {
+                "key": "u5c5", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "minimo"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }, 
+              {
+                "key": "akh9u", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "Valore minimo orario del sensore se Temperatura aria, Livello idrometrico, Portata, Umidit\u00e0 relativa"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }
+            ], 
+            "key": "amsgm"
+          }, 
+          {
+            "cells": [
+              {
+                "key": "r1b6", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "medio"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }, 
+              {
+                "key": "bkdev", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "Valore medio orario del sensore se Temperatura aria, Livello idrometrico, Portata"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }
+            ], 
+            "key": "7r889"
+          }, 
+          {
+            "cells": [
+              {
+                "key": "e08iu", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "massimo"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }, 
+              {
+                "key": "4o8ed", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "Valore massimo orario del sensore se Temperatura aria, Livello idrometrico, Portata, Umidit\u00e0 relativa"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }
+            ], 
+            "key": "5qno1"
+          }, 
+          {
+            "cells": [
+              {
+                "key": "8hbus", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "gradi"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }, 
+              {
+                "key": "ciarq", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "Gradi nord del sensore Direzione vento prevalente dove 0 indica il Nord, 90 indica l'Est, 180 indica il Sud, 270 indica l'Ovest"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }
+            ], 
+            "key": "fc4im"
+          }, 
+          {
+            "cells": [
+              {
+                "key": "277t6", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "settore"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }, 
+              {
+                "key": "dmtq", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "Nome del settore del sensore Direzione vento prevalente"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }
+            ], 
+            "key": "4n47n"
+          }, 
+          {
+            "cells": [
+              {
+                "key": "5r46b", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "unita_misura"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }, 
+              {
+                "key": "97a7a", 
+                "type": "data", 
+                "value": [
+                  {
+                    "children": [
+                      {
+                        "text": "Unit\u00e0 di misura dei valori del sensore"
+                      }
+                    ], 
+                    "type": "p"
+                  }
+                ]
+              }
+            ], 
+            "key": "dlv3t"
+          }
+        ], 
+        "striped": false, 
+        "textAlign": "left"
+      }
+    }, 
+    "712a04bc-206b-4f13-8f4b-dddf59ea5ab3": {
+      "@type": "slate", 
+      "plaintext": " Approfondisci ", 
+      "value": [
+        {
+          "children": [
+            {
+              "text": ""
+            }, 
+            {
+              "children": [
+                {
+                  "text": "Approfondisci"
+                }
+              ], 
+              "type": "strong"
+            }, 
+            {
+              "text": ""
+            }
+          ], 
+          "type": "p"
+        }
+      ]
+    }, 
+    "a811864d-2746-444b-84c3-a1b0347945df": {
+      "@type": "historicalData", 
+      "datasetCode": "dispenser_meteo_orari_sensore", 
+      "filters": [
+        {
+          "@id": "875a5b47-3cf2-4d70-b079-f9083900a15f", 
+          "filterType": "selectList", 
+          "labelField": "Provincia", 
+          "propertyField": "provincia", 
+          "provinceValues": "BL|Belluno\nPD|Padova\nRO|Rovigo\nTV|Treviso\nVE|Venezia\nVR|Verona\nVI|Vicenza\nUD|Udine"
+        }, 
+        {
+          "@id": "f3c08cac-584f-45f0-950a-ba152530e1e4", 
+          "filterBy": "provincia", 
+          "filterProp": "provincia", 
+          "filterType": "source", 
+          "labelField": "Stazione", 
+          "mandatory": true, 
+          "propertyField": "codseqst", 
+          "source": "meteo_stazorari_dispenser", 
+          "sourcepropLab": "nome_stazione", 
+          "sourcepropVal": "codseqst"
+        }, 
+        {
+          "@id": "8a7c4cca-5458-4064-9ab6-836423ea0adc", 
+          "filterBy": "codseqst", 
+          "filterProp": "codseqst", 
+          "filterType": "source", 
+          "labelField": "Sensore", 
+          "mandatory": true, 
+          "propertyField": "codseq", 
+          "source": "meteo_sensorari_dispenser", 
+          "sourcepropLab": "descrizione", 
+          "sourcepropVal": "codseq"
+        }
+      ], 
+      "fromDateProp": "data_inizio", 
+      "maxDays": "1830", 
+      "minDate": "2009-12-31T23:00:00.293Z", 
+      "toDateProp": "data_fine"
+    }, 
+    "b6ba9327-10c7-46c4-ad50-882b09b980fa": {
+      "@type": "slate", 
+      "plaintext": "", 
+      "value": [
+        {
+          "children": [
+            {
+              "text": ""
+            }
+          ], 
+          "type": "p"
+        }
+      ]
+    }, 
+    "da8fe73c-8453-44c5-a107-f7316872777b": {
+      "@type": "slate", 
+      "plaintext": "Il file inviato via email avr\u00e0 sempre queste colonne che saranno valorizzate in base al sensore selezionato:", 
+      "value": [
+        {
+          "children": [
+            {
+              "text": "Il file inviato via email avr\u00e0 sempre queste colonne che saranno valorizzate in base al sensore selezionato:"
+            }
+          ], 
+          "type": "p"
+        }
+      ]
+    }, 
+    "e9f2eb72-13a0-41b6-86e3-b1154ae374d0": {
+      "@type": "slate", 
+      "plaintext": "Vengono estratti solo i dati orari validi, quelli invalidi non vengono segnalati e mancher\u00e0 completamente la riga dell'orario.", 
+      "value": [
+        {
+          "children": [
+            {
+              "text": "Vengono estratti solo i dati orari validi, quelli invalidi non vengono segnalati e mancher\u00e0 completamente la riga dell'orario."
+            }
+          ], 
+          "type": "p"
+        }
+      ]
+    }, 
+    "ef35930f-86e9-44f9-a660-c6c1e2262c17": {
+      "@type": "slate", 
+      "plaintext": "Attraverso questo modulo \u00e8 possibile richiedere i dati orari rilevati da un sensore di una stazione idro-meteorologica Arpav per uno specifico periodo\u00a0 fino ad un massimo di 5 anni di dati.\nI dati disponibili vanno dal primo gennaio 2010 sino all'ottavo giorno precedente la data di invio della richiesta (per esempio: al 03/06/2025, sar\u00e0 possibile estrarre i dati fino al 25/05/2025). I dati di portata sono disponibili solo fino al sesto mese precedente la richiesta (per esempio: al 03/06/2025, sar\u00e0 possibile estrarre i dati precedenti al 03/12/2024).\nI dati saranno inviati via email con un file in formato CSV.", 
+      "value": [
+        {
+          "children": [
+            {
+              "text": "Attraverso questo modulo \u00e8 possibile richiedere i dati orari rilevati da un sensore di una stazione idro-meteorologica Arpav per uno specifico periodo\u00a0 fino ad un massimo di 5 anni di dati.\nI dati disponibili vanno dal primo gennaio 2010\u00a0"
+            }, 
+            {
+              "children": [
+                {
+                  "text": "sino all'ottavo giorno precedente la data di invio della richiesta"
+                }
+              ], 
+              "type": "strong"
+            }, 
+            {
+              "text": "\u00a0(per esempio: al 03/06/2025, sar\u00e0 possibile estrarre i dati fino al 25/05/2025). I dati di "
+            }, 
+            {
+              "children": [
+                {
+                  "text": "portata"
+                }
+              ], 
+              "type": "strong"
+            }, 
+            {
+              "text": " sono disponibili\u00a0"
+            }, 
+            {
+              "children": [
+                {
+                  "text": "solo fino al sesto mese precedente la richiesta"
+                }
+              ], 
+              "type": "strong"
+            }, 
+            {
+              "text": "\u00a0(per esempio: al 03/06/2025, sar\u00e0 possibile estrarre i dati precedenti al 03/12/2024).\nI dati saranno inviati via email con un file in formato CSV."
+            }
+          ], 
+          "type": "p"
+        }
+      ]
+    }, 
+    "fc1e276e-03e0-41e6-95be-61e3363f75e0": {
+      "@type": "title"
+    }
+  }, 
+  "blocks_layout": {
+    "items": [
+      "fc1e276e-03e0-41e6-95be-61e3363f75e0", 
+      "ef35930f-86e9-44f9-a660-c6c1e2262c17", 
+      "a811864d-2746-444b-84c3-a1b0347945df", 
+      "b6ba9327-10c7-46c4-ad50-882b09b980fa", 
+      "712a04bc-206b-4f13-8f4b-dddf59ea5ab3", 
+      "da8fe73c-8453-44c5-a107-f7316872777b", 
+      "3a484a7f-465b-4096-8c57-b65e2cd35f33", 
+      "e9f2eb72-13a0-41b6-86e3-b1154ae374d0"
+    ]
+  }, 
+  "contributors": [], 
+  "created": "2025-10-23T06:36:04+00:00", 
+  "creators": [
+    "fturetta"
+  ], 
+  "description": "", 
+  "effective": "2025-10-23T11:10:08", 
+  "exclude_from_nav": false, 
+  "expires": null, 
+  "hide_modification_date": true, 
+  "id": "dispenser-meteo-orari", 
+  "is_folderish": true, 
+  "items": [], 
+  "items_total": 0, 
+  "language": {
+    "title": "Italiano", 
+    "token": "it"
+  }, 
+  "layout": "document_view", 
+  "lock": {
+    "locked": false, 
+    "stealable": true
+  }, 
+  "modified": "2026-05-06T09:22:00+00:00", 
+  "next_item": {
+    "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/copy_of_ultimi_anni", 
+    "@type": "Document", 
+    "description": "Dati giornalieri dall'anno 2010", 
+    "title": "Dati meteorologici ultimi anni test tabella dati"
+  }, 
+  "parent": {
+    "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo", 
+    "@type": "Folder", 
+    "CroppedDescription": null, 
+    "announcement_completed": null, 
+    "announcement_type": null, 
+    "competition_end": null, 
+    "description": "", 
+    "effective": "2022-12-13T11:12:38+00:00", 
+    "end": null, 
+    "id": "meteo-idro-nivo", 
+    "image_field": null, 
+    "image_scales": null, 
+    "organization_type": null, 
+    "review_state": "published", 
+    "start": null, 
+    "title": "Meteo Idro Nivo"
+  }, 
+  "preview_caption": null, 
+  "preview_image": null, 
+  "previous_item": {
+    "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/dispenser-meteo-giornalieri", 
+    "@type": "Document", 
+    "description": "", 
+    "title": "Dati meteorologici giornalieri"
+  }, 
+  "relatedItems": [], 
+  "related_environmental_themes": [], 
+  "related_provinces": [], 
+  "related_structures": [], 
+  "related_type": null, 
+  "related_year": [], 
+  "review_state": "published", 
+  "rights": "", 
+  "subjects": [], 
+  "table_of_contents": null, 
+  "title": "Dati meteorologici orari", 
+  "version": "current", 
+  "working_copy": null, 
+  "working_copy_of": null
+}

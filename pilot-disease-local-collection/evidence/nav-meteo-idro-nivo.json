@@ -1,0 +1,595 @@
+{
+  "@components": {
+    "actions": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/@actions"
+    }, 
+    "breadcrumbs": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/@breadcrumbs"
+    }, 
+    "contextnavigation": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/@contextnavigation"
+    }, 
+    "navigation": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/@navigation"
+    }, 
+    "subsite": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/@subsite"
+    }, 
+    "types": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/@types"
+    }, 
+    "workflow": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/@workflow"
+    }
+  }, 
+  "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo", 
+  "@type": "Folder", 
+  "UID": "9eb5ab3456a043bda7c0b64d8ae1c19a", 
+  "allow_discussion": false, 
+  "changeNote": "", 
+  "contributors": [], 
+  "created": "2022-12-13T11:10:24+00:00", 
+  "creators": [
+    "gziroldo"
+  ], 
+  "default_page": {
+    "@components": {
+      "actions": {
+        "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/index_html/@actions"
+      }, 
+      "breadcrumbs": {
+        "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/index_html/@breadcrumbs"
+      }, 
+      "contextnavigation": {
+        "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/index_html/@contextnavigation"
+      }, 
+      "navigation": {
+        "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/index_html/@navigation"
+      }, 
+      "subsite": {
+        "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/index_html/@subsite"
+      }, 
+      "types": {
+        "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/index_html/@types"
+      }, 
+      "workflow": {
+        "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/index_html/@workflow"
+      }
+    }, 
+    "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/index_html", 
+    "@type": "Document", 
+    "UID": "a4e0bbd196b24c898e328930aff7a4bb", 
+    "allow_discussion": false, 
+    "blocks": {
+      "70f67553-9214-4a00-8f7d-71dd887d3640": {
+        "@type": "slate", 
+        "plaintext": "", 
+        "value": [
+          {
+            "children": [
+              {
+                "text": ""
+              }
+            ], 
+            "type": "p"
+          }
+        ]
+      }, 
+      "e54fa5af-20aa-43dd-a982-a748e2bf7b3a": {
+        "@type": "title"
+      }, 
+      "f3cf3e3e-f2af-40b0-829e-d4cf51515ac2": {
+        "@type": "cards_block", 
+        "items": [
+          {
+            "@id": "6cab93e2-396a-4873-9eca-c7ddb59e8244", 
+            "image": "https://www.arpa.veneto.it/dati-ambientali/bollettini/index_html/meteo_bollettini.jpg", 
+            "links": [
+              {
+                "@id": "184f4169-9863-499a-ab79-1d542f8676f7", 
+                "title": "METEO ULTIMI 60 GIORNI", 
+                "url": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/meteo60giorni"
+              }, 
+              {
+                "@id": "4d6b9f58-223d-4d77-aec4-e51bc977516c", 
+                "title": "IDROMETRICI ULTIMI 60 GIORNI", 
+                "url": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/idro60giorni"
+              }, 
+              {
+                "@id": "560d75e1-84b8-458f-993b-f23aeed277e3", 
+                "title": "freatimetria ultimi 60 giorni", 
+                "url": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/freatimetri"
+              }, 
+              {
+                "@id": "b209de05-3069-470c-8fc6-9f9d8bc895c2", 
+                "title": "Freatimetria giorno ultimi anni", 
+                "url": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/freat_storici"
+              }, 
+              {
+                "@id": "cd93e327-445d-46f8-a93a-2dd7f3d86db7", 
+                "title": "Meteo idro giorno ultimi anni", 
+                "url": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/ultimi_anni"
+              }, 
+              {
+                "@id": "114b4e07-c24b-4e20-8fc8-38ec56d691e4", 
+                "title": "Meteo pluriennali mensili", 
+                "url": "https://www.arpa.veneto.it/api/dati-ambientali/open-data/clima/principali-variabili-meteorologiche"
+              }, 
+              {
+                "@id": "bcb519ca-2330-4969-b732-1021e2d0acde", 
+                "title": "PRECIPITAZIONI MAX INTENSITA'", 
+                "url": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/precipit-max"
+              }, 
+              {
+                "@id": "cc369d29-ce3a-4bb0-96a8-bb4c0655c0b7", 
+                "title": "Secure Tempi di Ritorno precipitazioni", 
+                "url": "https://rainyapp.arpa.veneto.it/"
+              }, 
+              {
+                "@id": "2d9fd888-21e4-4285-b379-df9febee9b37", 
+                "title": "RECORD TEMPERATURE", 
+                "url": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/valori-record-delle-temperature"
+              }, 
+              {
+                "@id": "0213d7b2-8dee-47c3-a9ac-ddb1db60faa7", 
+                "title": "RECORD PRECIPITAZIONI", 
+                "url": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/valori-record-delle-precipitazioni"
+              }, 
+              {
+                "@id": "a4333629-9c5f-4891-9e08-2f8fef02bae0", 
+                "title": "Meteo idro orari ultimi anni", 
+                "url": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/meteo-idro-dati-orari"
+              }, 
+              {
+                "@id": "fb77fbc5-cdf3-4177-ab4e-acf61b259745", 
+                "title": "UV ULTIMI 7 GIORNI", 
+                "url": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/uv-dati-ultimi-sette-giorni"
+              }
+            ]
+          }
+        ], 
+        "rounded": true, 
+        "roundedSize": "small", 
+        "variation": "grid_cards"
+      }
+    }, 
+    "blocks_layout": {
+      "items": [
+        "e54fa5af-20aa-43dd-a982-a748e2bf7b3a", 
+        "f3cf3e3e-f2af-40b0-829e-d4cf51515ac2", 
+        "70f67553-9214-4a00-8f7d-71dd887d3640"
+      ]
+    }, 
+    "contributors": [], 
+    "created": "2022-12-02T11:13:53+00:00", 
+    "creators": [
+      "gziroldo"
+    ], 
+    "description": "", 
+    "effective": "2022-12-12T13:45:52", 
+    "exclude_from_nav": false, 
+    "expires": null, 
+    "hide_modification_date": false, 
+    "id": "index_html", 
+    "is_default_page": true, 
+    "is_folderish": true, 
+    "items": [
+      {
+        "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/index_html/dati_storici_acque.jpg", 
+        "@type": "Image", 
+        "CroppedDescription": "", 
+        "announcement_completed": null, 
+        "announcement_type": null, 
+        "competition_end": null, 
+        "description": "", 
+        "effective": "1969-12-30T22:00:00+00:00", 
+        "end": null, 
+        "id": "dati_storici_acque.jpg", 
+        "image_field": "image", 
+        "image_scales": {
+          "image": [
+            {
+              "content-type": "image/jpeg", 
+              "download": "@@images/image-330-728287bed2e4d890fb44c40d03a994b9.jpeg", 
+              "filename": "dati_storici_acque.JPG", 
+              "height": 200, 
+              "scales": {
+                "icon": {
+                  "download": "@@images/image-32-09a1259481c0a83e2c7d5c3b6a16c655.jpeg", 
+                  "height": 19, 
+                  "width": 32
+                }, 
+                "listing": {
+                  "download": "@@images/image-16-a1965234107ffec6d3525c15100fbf11.jpeg", 
+                  "height": 9, 
+                  "width": 16
+                }, 
+                "mini": {
+                  "download": "@@images/image-200-881a39d721eb04f88573825cbe876a7c.jpeg", 
+                  "height": 121, 
+                  "width": 200
+                }, 
+                "thumb": {
+                  "download": "@@images/image-128-994763b278550f7395721aeee9ece0c7.jpeg", 
+                  "height": 77, 
+                  "width": 128
+                }, 
+                "tile": {
+                  "download": "@@images/image-64-b210af8f50046e6246d9398f8cdab1d3.jpeg", 
+                  "height": 38, 
+                  "width": 64
+                }
+              }, 
+              "size": 20692, 
+              "width": 330
+            }
+          ]
+        }, 
+        "organization_type": null, 
+        "review_state": null, 
+        "start": null, 
+        "title": "dati_storici_acque.JPG"
+      }
+    ], 
+    "items_total": 1, 
+    "language": {
+      "title": "Italiano", 
+      "token": "it"
+    }, 
+    "layout": "document_view", 
+    "lock": {
+      "locked": false, 
+      "stealable": true
+    }, 
+    "modified": "2026-07-02T10:02:27+00:00", 
+    "next_item": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/dispenser-meteo-giornalieri", 
+      "@type": "Document", 
+      "description": "", 
+      "title": "Dati meteorologici giornalieri"
+    }, 
+    "parent": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo", 
+      "@type": "Folder", 
+      "CroppedDescription": null, 
+      "announcement_completed": null, 
+      "announcement_type": null, 
+      "competition_end": null, 
+      "description": "", 
+      "effective": "2022-12-13T11:12:38+00:00", 
+      "end": null, 
+      "id": "meteo-idro-nivo", 
+      "image_field": null, 
+      "image_scales": null, 
+      "organization_type": null, 
+      "review_state": "published", 
+      "start": null, 
+      "title": "Meteo Idro Nivo"
+    }, 
+    "preview_caption": null, 
+    "preview_image": null, 
+    "previous_item": {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/valori-record-delle-temperature", 
+      "@type": "Document", 
+      "description": "", 
+      "title": "Valori record delle Temperature"
+    }, 
+    "relatedItems": [], 
+    "related_environmental_themes": [], 
+    "related_provinces": [], 
+    "related_structures": [], 
+    "related_type": null, 
+    "related_year": [], 
+    "review_state": "published", 
+    "rights": "", 
+    "subjects": [], 
+    "table_of_contents": null, 
+    "title": "Meteo Idro Nivo", 
+    "version": "current", 
+    "working_copy": null, 
+    "working_copy_of": null
+  }, 
+  "description": "", 
+  "effective": "2022-12-13T12:12:38", 
+  "exclude_from_nav": false, 
+  "expires": null, 
+  "hide_modification_date": false, 
+  "id": "meteo-idro-nivo", 
+  "is_folderish": true, 
+  "items": [
+    {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/meteo60giorni", 
+      "@type": "Document", 
+      "CroppedDescription": "Dati giornalieri degli ultimi 60 giorni", 
+      "announcement_completed": null, 
+      "announcement_type": null, 
+      "competition_end": null, 
+      "description": "Dati giornalieri degli ultimi 60 giorni", 
+      "effective": "2023-07-18T12:51:31+00:00", 
+      "end": null, 
+      "id": "meteo60giorni", 
+      "image_field": "", 
+      "image_scales": null, 
+      "organization_type": null, 
+      "review_state": "published", 
+      "start": null, 
+      "title": "Dati meteo ultimi giorni"
+    }, 
+    {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/idro60giorni", 
+      "@type": "Document", 
+      "CroppedDescription": "Dati giornalieri degli ultimi 60 giorni", 
+      "announcement_completed": null, 
+      "announcement_type": null, 
+      "competition_end": null, 
+      "description": "Dati giornalieri degli ultimi 60 giorni", 
+      "effective": "2023-07-18T13:04:36+00:00", 
+      "end": null, 
+      "id": "idro60giorni", 
+      "image_field": "", 
+      "image_scales": null, 
+      "organization_type": null, 
+      "review_state": "published", 
+      "start": null, 
+      "title": "Dati idrometrici ultimi giorni"
+    }, 
+    {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/freatimetri", 
+      "@type": "Document", 
+      "CroppedDescription": "Dati giornalieri degli ultimi 60 giorni.", 
+      "announcement_completed": null, 
+      "announcement_type": null, 
+      "competition_end": null, 
+      "description": "Dati giornalieri degli ultimi 60 giorni.", 
+      "effective": "2022-11-16T06:55:00+00:00", 
+      "end": null, 
+      "id": "freatimetri", 
+      "image_field": "", 
+      "image_scales": null, 
+      "organization_type": null, 
+      "review_state": "published", 
+      "start": null, 
+      "title": "Freatimetria ultimi giorni"
+    }, 
+    {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/ultimi_anni", 
+      "@type": "Document", 
+      "CroppedDescription": "Dati giornalieri dall'anno 2010", 
+      "announcement_completed": null, 
+      "announcement_type": null, 
+      "competition_end": null, 
+      "description": "Dati giornalieri dall'anno 2010", 
+      "effective": "2023-02-22T12:45:17+00:00", 
+      "end": null, 
+      "id": "ultimi_anni", 
+      "image_field": "", 
+      "image_scales": null, 
+      "organization_type": null, 
+      "review_state": "published", 
+      "start": null, 
+      "title": "Dati meteorologici ultimi anni"
+    }, 
+    {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/meteo-idro-dati-orari", 
+      "@type": "Link", 
+      "CroppedDescription": "", 
+      "announcement_completed": null, 
+      "announcement_type": null, 
+      "competition_end": null, 
+      "description": "", 
+      "effective": "2023-02-23T13:54:14+00:00", 
+      "end": null, 
+      "id": "meteo-idro-dati-orari", 
+      "image_field": "", 
+      "image_scales": null, 
+      "organization_type": null, 
+      "review_state": "published", 
+      "start": null, 
+      "title": "Meteo idro dati orari"
+    }, 
+    {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/precipit-max", 
+      "@type": "Document", 
+      "CroppedDescription": "Dati di massima intensit\u00e0 di precipitazione", 
+      "announcement_completed": null, 
+      "announcement_type": null, 
+      "competition_end": null, 
+      "description": "Dati di massima intensit\u00e0 di precipitazione", 
+      "effective": "2022-10-04T13:33:30+00:00", 
+      "end": null, 
+      "id": "precipit-max", 
+      "image_field": "preview_image", 
+      "image_scales": {
+        "preview_image": [
+          {
+            "content-type": "image/jpeg", 
+            "download": "@@images/preview_image-1005-06093eff3209ec033c51c01db5c3ac93.jpeg", 
+            "filename": "dati_meteo_ultimi_gg.JPG", 
+            "height": 658, 
+            "scales": {
+              "icon": {
+                "download": "@@images/preview_image-32-58e26575ef42b17dfdc255a2a04b724d.jpeg", 
+                "height": 20, 
+                "width": 32
+              }, 
+              "large": {
+                "download": "@@images/preview_image-800-ecc7815c84e39b1a6f1dc9eb45969ee4.jpeg", 
+                "height": 523, 
+                "width": 800
+              }, 
+              "larger": {
+                "download": "@@images/preview_image-1000-727b699712a59a96d505ac41d4ef3e48.jpeg", 
+                "height": 654, 
+                "width": 1000
+              }, 
+              "listing": {
+                "download": "@@images/preview_image-16-6c3e79d5ec355f1ebf457c124ea6f33c.jpeg", 
+                "height": 10, 
+                "width": 16
+              }, 
+              "mini": {
+                "download": "@@images/preview_image-200-633fecf648f8c4d55d8e66ea2a96925a.jpeg", 
+                "height": 130, 
+                "width": 200
+              }, 
+              "preview": {
+                "download": "@@images/preview_image-400-d8761b79fe2aa4c636eacfb6c7c74225.jpeg", 
+                "height": 261, 
+                "width": 400
+              }, 
+              "teaser": {
+                "download": "@@images/preview_image-600-46a515168b937ff05c633be8aba30df2.jpeg", 
+                "height": 392, 
+                "width": 600
+              }, 
+              "thumb": {
+                "download": "@@images/preview_image-128-84175fb28ec34abbb4cf82c62988dc5c.jpeg", 
+                "height": 83, 
+                "width": 128
+              }, 
+              "tile": {
+                "download": "@@images/preview_image-64-3b60e97706c03c7f5d0081135dc7debc.jpeg", 
+                "height": 41, 
+                "width": 64
+              }
+            }, 
+            "size": 94342, 
+            "width": 1005
+          }
+        ]
+      }, 
+      "organization_type": null, 
+      "review_state": "published", 
+      "start": null, 
+      "title": "Precipitazioni di massima intensit\u00e0"
+    }, 
+    {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/uv-dati-ultimi-sette-giorni", 
+      "@type": "Document", 
+      "CroppedDescription": "", 
+      "announcement_completed": null, 
+      "announcement_type": null, 
+      "competition_end": null, 
+      "description": "", 
+      "effective": "2023-07-17T13:49:31+00:00", 
+      "end": null, 
+      "id": "uv-dati-ultimi-sette-giorni", 
+      "image_field": "", 
+      "image_scales": null, 
+      "organization_type": null, 
+      "review_state": "published", 
+      "start": null, 
+      "title": "UV dati ultimi sette giorni"
+    }, 
+    {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/index_html", 
+      "@type": "Document", 
+      "CroppedDescription": "", 
+      "announcement_completed": null, 
+      "announcement_type": null, 
+      "competition_end": null, 
+      "description": "", 
+      "effective": "2022-12-12T12:45:52+00:00", 
+      "end": null, 
+      "id": "index_html", 
+      "image_field": "", 
+      "image_scales": null, 
+      "organization_type": null, 
+      "review_state": "published", 
+      "start": null, 
+      "title": "Meteo Idro Nivo"
+    }, 
+    {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/dispenser-meteo-orari", 
+      "@type": "Document", 
+      "CroppedDescription": "", 
+      "announcement_completed": null, 
+      "announcement_type": null, 
+      "competition_end": null, 
+      "description": "", 
+      "effective": "2025-10-23T09:10:08+00:00", 
+      "end": null, 
+      "id": "dispenser-meteo-orari", 
+      "image_field": "", 
+      "image_scales": null, 
+      "organization_type": null, 
+      "review_state": "published", 
+      "start": null, 
+      "title": "Dati meteorologici orari"
+    }, 
+    {
+      "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/meteo-idro-nivo/copy_of_ultimi_anni", 
+      "@type": "Document", 
+      "CroppedDescription": "Dati giornalieri dall'anno 2010", 
+      "announcement_completed": null, 
+      "announcement_type": null, 
+      "competition_end": null, 
+      "description": "Dati giornalieri dall'anno 2010", 
+      "effective": "2023-02-22T12:45:17+00:00", 
+      "end": null, 
+      "id": "copy_of_ultimi_anni", 
+      "image_field": "", 
+      "image_scales": null, 
+      "organization_type": null, 
+      "review_state": "published", 
+      "start": null, 
+      "title": "Dati meteorologici ultimi anni test tabella dati"
+    }
+  ], 
+  "items_total": 10, 
+  "language": {
+    "title": "Italiano", 
+    "token": "it"
+  }, 
+  "layout": "listing_view", 
+  "lock": {
+    "locked": false, 
+    "stealable": true
+  }, 
+  "modified": "2026-09-04T12:45:51+00:00", 
+  "nextPreviousEnabled": false, 
+  "next_item": {
+    "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/neve", 
+    "@type": "Folder", 
+    "description": "", 
+    "title": "Neve"
+  }, 
+  "parent": {
+    "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici", 
+    "@type": "Folder", 
+    "CroppedDescription": null, 
+    "announcement_completed": null, 
+    "announcement_type": null, 
+    "competition_end": null, 
+    "description": "", 
+    "effective": "2022-12-02T11:14:16+00:00", 
+    "end": null, 
+    "id": "dati-storici", 
+    "image_field": null, 
+    "image_scales": null, 
+    "organization_type": null, 
+    "review_state": "published", 
+    "start": null, 
+    "title": "Dati storici"
+  }, 
+  "previous_item": {
+    "@id": "https://www.arpa.veneto.it/api/dati-ambientali/dati-storici/index_html", 
+    "@type": "Document", 
+    "description": "", 
+    "title": "Dati storici"
+  }, 
+  "relatedItems": [], 
+  "related_environmental_themes": [], 
+  "related_provinces": [], 
+  "related_structures": [], 
+  "related_type": null, 
+  "related_year": [], 
+  "review_state": "published", 
+  "rights": "", 
+  "subjects": [], 
+  "title": "Meteo Idro Nivo", 
+  "version": "current", 
+  "versioning_enabled": true, 
+  "working_copy": null, 
+  "working_copy_of": null
+}

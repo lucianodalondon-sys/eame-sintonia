@@ -1,0 +1,949 @@
+{
+ "front": "F1d-other-veneto-bodies",
+ "summary": "Probed 8 official/consortium bodies from an Italian VPN exit (Proton AG AS208172, Milan, country IT — verified via ipinfo.io before starting). All fetches below were made with local curl 8.21.0 or local py 3.12.10 urllib; every URL reported here was really fetched by me and carries a measured HTTP status and byte count.\n\nWHAT PUBLISHES A VINE BULLETIN. Of 8 bodies probed, 4 host a periodic bulletin reachable without login, and 3 of those are vine plant-protection/agronomic bulletins: (1) Regione del Veneto U.O. Fitosanitario, (2) Consorzio di Tutela del Conegliano Valdobbiadene Prosecco DOCG, (3) Comune di San Pietro di Feletto, which re-hosts two bulletin series authored by others. The 4th, ARPAV, publishes a weekly AGROMETEOROLOGICAL bulletin — that is weather, not plant protection, and I did not treat it as a disease source.\n\nDEEPEST ARCHIVE — the Prosecco consortium, not a public body. prosecco.it exposes an unauthenticated WordPress media endpoint that returned header X-WP-Total: 173 and X-WP-TotalPages: 2 for search=bollettino. I pulled both pages (1,225,379 + 862,642 bytes of JSON) and parsed them: all 173 items have \"bollettin\" in the filename, distributed by WordPress date year as 2018:1, 2019:12, 2020:23, 2021:27, 2022:30, 2023:23, 2024:15, 2025:19, 2026:23. That is a nine-season run. I did NOT fetch all 173 — I proved 8 of them individually (2 downloaded, 6 measured), including the oldest (2018-dated, HTTP 200, 44,508 bytes). The remaining 165 are enumerated-but-unfetched and I make no claim they all resolve. Caveat: 173 is the count for the search term \"bollettino\" only; items named otherwise (e.g. \"Curva di Maturazione\") are excluded and their number is NOT_KNOWN.\n\nREGIONE VENETO — three seasons, three different transports. Per-year archive pages exist for 2024, 2025 and 2026 only; I fetched 2018 through 2023 individually and every one returned a genuine HTTP 404 (50,391 bytes each). The vine bulletins are delivered differently each season, which is the main scraping trap on this front: 2024 is full text embedded inline in a single HTML page (152,833 visible characters, zero PDF links); 2025 is 20 Nextcloud share links on sharing.regione.veneto.it that only yield bytes when \"/download\" is appended (I proved two, returning Bollettino_vite_1_090425.pdf at 1,984,877 bytes and Bollettino_vite_20_270825.pdf at 1,271,319 bytes via content-disposition); 2026 is 20 Liferay /documents/ paths, of which only 16 carry a \".pdf\" extension — I measured the other 4 and all are real application/pdf. A naive \".pdf\" link scraper therefore finds 16 of 20 for 2026 and 0 of 20 for both 2024 and 2025.\n\nA HARD PRESERVATION OBSTACLE. The two Regione Veneto vine PDFs I downloaded are AES-256 encrypted (Standard security handler V 5, R 6, Length 256, StdCF, AuthEvent/DocOpen) AND contain zero font objects with 52 and 41 image XObjects across 5 and 4 pages. They are image-only scans with no text layer. Any text pipeline over the regional corpus will need OCR plus decryption handling. By contrast the Prosecco and Feletto PDFs are unencrypted and carry real font objects and ToUnicode CMaps; from the Prosecco 2025 file I extracted readable text confirming the header \"CONSORZIO TUTELA CONEGLIANO VALDOBBIADENE\", \"13 Bollettino Agronomico del 16/07/2025\", and a METEO section citing \"Fonte: www.arpa.veneto.it\".\n\nAVEPA PUBLISHES NO VINE BULLETIN — a measured zero, not a failure. AVEPA's Plone REST API is live and answering (proven by a 91,280-byte response for SearchableText=bollettino and an 11,134-byte response for Title=flavescenza returning 13 items). On that same working endpoint, Title searches for peronospora, oidio, \"bollettino fitosanitario\" and \"difesa integrata\" each returned HTTP 200 with items_total: 0. The 1,299 full-text hits for \"bollettino\" are payment decrees matching the phrase \"Bollettino Ufficiale della Regione Veneto\" — the official gazette, not a phytosanitary bulletin. AVEPA does publish multi-year Flavescenza dorata funding calls (2023, 2024, 2025, 2026); those are aid documents and a disease name in a funding scheme is NOT an observed occurrence.\n\nTWO TRAPS WORTH CARRYING FORWARD. First, on AVEPA a URL ending \".pdf\" returns text/html at 512,718 bytes; the real 39,829 PDF bytes only come with \"/@@download/file\" appended — I initially saved HTML under a .pdf filename and corrected it. Second, AVEPA served an identical 612,333-byte React shell for /, /home and /aziende because /aziende 302-redirects to /; equal byte counts across different paths were the tell.\n\nI stayed within the 6-document download cap: 6 files on disk, everything else measured only.",
+ "probes": [
+  {
+   "url": "https://ipinfo.io/json",
+   "http_status": "200",
+   "bytes": 297,
+   "content_type": "application/json",
+   "verdict": "OK - confirms exit Milan/IT, Proton AG AS208172, before any target fetch"
+  },
+  {
+   "url": "https://www.avepa.it",
+   "http_status": "200",
+   "bytes": 612333,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK - React SSR (Volto/Plone), title 'Homepage - AVEPA'"
+  },
+  {
+   "url": "https://www.avepa.it/home",
+   "http_status": "200",
+   "bytes": 612333,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "REDIRECTED - identical bytes to /, final=https://www.avepa.it/"
+  },
+  {
+   "url": "https://www.avepa.it/aziende",
+   "http_status": "302",
+   "bytes": 23,
+   "content_type": "text/plain; charset=utf-8",
+   "verdict": "REDIRECTED - location: / (Apache 2.4.62 + Varnish 6.0); with -L returns the same 612333-byte homepage shell"
+  },
+  {
+   "url": "https://www.avepa.it/servizi",
+   "http_status": "200",
+   "bytes": 537862,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.avepa.it/documenti",
+   "http_status": "200",
+   "bytes": 532449,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.avepa.it/comunicazione",
+   "http_status": "200",
+   "bytes": 537105,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.avepa.it/++api++/@search?SearchableText=bollettino&b_size=100",
+   "http_status": "200",
+   "bytes": 91280,
+   "content_type": "application/json",
+   "verdict": "OK - items_total 1299, all payment decrees/grant calls; matches 'Bollettino Ufficiale della Regione Veneto' inside PDFs, NOT phytosanitary bulletins"
+  },
+  {
+   "url": "https://www.avepa.it/++api++/@search?SearchableText=vite&b_size=100",
+   "http_status": "200",
+   "bytes": 73607,
+   "content_type": "application/json",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.avepa.it/++api++/@search?Title=peronospora&b_size=25&metadata_fields=modified",
+   "http_status": "200",
+   "bytes": 131,
+   "content_type": "application/json",
+   "verdict": "OK - items_total 0 (real zero: same endpoint returns 13 items for flavescenza)"
+  },
+  {
+   "url": "https://www.avepa.it/++api++/@search?Title=oidio&b_size=25&metadata_fields=modified",
+   "http_status": "200",
+   "bytes": 125,
+   "content_type": "application/json",
+   "verdict": "OK - items_total 0"
+  },
+  {
+   "url": "https://www.avepa.it/++api++/@search?Title=bollettino+fitosanitario&b_size=25&metadata_fields=modified",
+   "http_status": "200",
+   "bytes": 144,
+   "content_type": "application/json",
+   "verdict": "OK - items_total 0"
+  },
+  {
+   "url": "https://www.avepa.it/++api++/@search?Title=difesa+integrata&b_size=25&metadata_fields=modified",
+   "http_status": "200",
+   "bytes": 136,
+   "content_type": "application/json",
+   "verdict": "OK - items_total 0"
+  },
+  {
+   "url": "https://www.avepa.it/++api++/@search?Title=flavescenza&b_size=25&metadata_fields=modified",
+   "http_status": "200",
+   "bytes": 11134,
+   "content_type": "application/json",
+   "verdict": "OK - items_total 13, all funding/monitoring calls 2023-2026, NOT bulletins"
+  },
+  {
+   "url": "https://www.avepa.it/servizi/bandi-di-finanziamento/monitoraggio-flavescenza-dorata-2026/approfondimenti/monitoraggio-flavescenza-dorata-approfondimenti.pdf",
+   "http_status": "200",
+   "bytes": 512718,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "TRAP - URL ends .pdf but serves HTML; Plone needs /@@download/file"
+  },
+  {
+   "url": "https://www.avepa.it/servizi/bandi-di-finanziamento/monitoraggio-flavescenza-dorata-2026/approfondimenti/monitoraggio-flavescenza-dorata-approfondimenti.pdf/@@download/file",
+   "http_status": "200",
+   "bytes": 39829,
+   "content_type": "application/pdf",
+   "verdict": "OK - real PDF 1 page"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-viticoli",
+   "http_status": "200",
+   "bytes": 258197,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 2024 season as inline HTML, 20 dated anchors, ZERO document links"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari",
+   "http_status": "200",
+   "bytes": 47736,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - year index, links only 2024/2025/2026"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2018",
+   "http_status": "404",
+   "bytes": 50391,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2019",
+   "http_status": "404",
+   "bytes": 50391,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2020",
+   "http_status": "404",
+   "bytes": 50391,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2021",
+   "http_status": "404",
+   "bytes": 50391,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2022",
+   "http_status": "404",
+   "bytes": 50391,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2023",
+   "http_status": "404",
+   "bytes": 50391,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2024",
+   "http_status": "200",
+   "bytes": 50035,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - no document links; points to bollettini-viticoli/frutticoli/olivicoli inline pages"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2025",
+   "http_status": "200",
+   "bytes": 61761,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 94 links to sharing.regione.veneto.it (Nextcloud); 20 vine entries N.01 09/04/2025 to N.20 27/08/2025"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2026",
+   "http_status": "200",
+   "bytes": 61797,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 73 Liferay /documents/ links; 20 vine entries N.01 09/04/2026 to N.20 27/08/2026"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/difesa-integrata",
+   "http_status": "200",
+   "bytes": 60013,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 23 PDFs but all regulatory (DDR decrees, art.53 emergency authorisations, active-substance authorisations); NOT bulletins, NOT disease observations"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/manuali-di-difesa-integrata",
+   "http_status": "200",
+   "bytes": 46921,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/difesa-colture",
+   "http_status": "200",
+   "bytes": 58116,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_20_270826.pdf/bac2bf94-b6c1-46d6-a608-1ff9cb82264d",
+   "http_status": "200",
+   "bytes": 4255572,
+   "content_type": "application/pdf",
+   "verdict": "OK - DOWNLOADED; AES-256 encrypted, 5 pages, 52 images, 0 fonts"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_3_230426.pdf/45365ed0-bd9e-455b-b04f-40309cc61bd2",
+   "http_status": "200",
+   "bytes": 4255048,
+   "content_type": "application/pdf",
+   "verdict": "OK - DOWNLOADED; AES-256 encrypted, 4 pages, 41 images, 0 fonts"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino+vite+16_22072026/7a35cd11-58ec-4564-9496-3e88ae5cb07e",
+   "http_status": "200",
+   "bytes": 1165486,
+   "content_type": "application/pdf",
+   "verdict": "OK - extension-less path, still a real PDF"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino+vite+n.15_150726/5813c7eb-b52f-4649-bb53-9e4d8c7809c3",
+   "http_status": "200",
+   "bytes": 1573019,
+   "content_type": "application/pdf",
+   "verdict": "OK - extension-less path"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Vite_2026_02/059ec793-e5e9-483e-a519-116fd22d7654",
+   "http_status": "200",
+   "bytes": 1134141,
+   "content_type": "application/pdf",
+   "verdict": "OK - extension-less path"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Vite_2026_01/6751ad23-20ac-4ead-9ef8-d1d3cc5f7e32",
+   "http_status": "200",
+   "bytes": 860435,
+   "content_type": "application/pdf",
+   "verdict": "OK - extension-less path"
+  },
+  {
+   "url": "https://sharing.regione.veneto.it/index.php/s/gsNQ94YLZBf4bRX",
+   "http_status": "200",
+   "bytes": 27609,
+   "content_type": "text/html; charset=UTF-8",
+   "verdict": "OK - Nextcloud public share landing page, no bytes without /download"
+  },
+  {
+   "url": "https://sharing.regione.veneto.it/index.php/s/gsNQ94YLZBf4bRX/download",
+   "http_status": "200",
+   "bytes": 1984877,
+   "content_type": "application/pdf",
+   "verdict": "OK - content-disposition filename Bollettino_vite_1_090425.pdf (2025 season N.01)"
+  },
+  {
+   "url": "https://sharing.regione.veneto.it/index.php/s/49MSkDiJG7RnigW/download",
+   "http_status": "200",
+   "bytes": 1271319,
+   "content_type": "application/pdf",
+   "verdict": "OK - content-disposition filename Bollettino_vite_20_270825.pdf (2025 season N.20)"
+  },
+  {
+   "url": "https://www.prosecco.it/",
+   "http_status": "200",
+   "bytes": 67589,
+   "content_type": "text/html; charset=UTF-8",
+   "verdict": "REDIRECTED - final https://www.prosecco.it/it/"
+  },
+  {
+   "url": "https://www.prosecco.it/en/consortium/area-produttori-5-2/",
+   "http_status": "200",
+   "bytes": 92464,
+   "content_type": "text/html; charset=UTF-8",
+   "verdict": "OK - EN version exposes only 3 document links"
+  },
+  {
+   "url": "https://www.prosecco.it/it/consorzio/area-produttori-5-2/",
+   "http_status": "200",
+   "bytes": 100029,
+   "content_type": "text/html; charset=UTF-8",
+   "verdict": "OK - IT version exposes 81 document links incl. full 2026 bulletin season; EN version is NOT equivalent"
+  },
+  {
+   "url": "https://www.prosecco.it/wp-json/wp/v2/media?search=bollettino&per_page=100",
+   "http_status": "200",
+   "bytes": 1225379,
+   "content_type": "application/json; charset=UTF-8",
+   "verdict": "OK - headers X-WP-Total: 173, X-WP-TotalPages: 2; unauthenticated enumeration route"
+  },
+  {
+   "url": "https://www.prosecco.it/wp-json/wp/v2/media?search=bollettino&per_page=100&page=2",
+   "http_status": "200",
+   "bytes": 862642,
+   "content_type": "application/json; charset=UTF-8",
+   "verdict": "OK - page 2 of 2"
+  },
+  {
+   "url": "https://www.prosecco.it/wp-sitemap.xml",
+   "http_status": "200",
+   "bytes": 5140,
+   "content_type": "text/xml; charset=UTF-8",
+   "verdict": "REDIRECTED - final https://www.prosecco.it/it/sitemap.xml"
+  },
+  {
+   "url": "https://www.prosecco.it/?s=bollettino+agronomico",
+   "http_status": "200",
+   "bytes": 46307,
+   "content_type": "text/html; charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.prosecco.it/it/quindicesima-edizione-per-il-protocollo-viticolo/",
+   "http_status": "200",
+   "bytes": 58978,
+   "content_type": "text/html; charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.arpa.veneto.it/",
+   "http_status": "200",
+   "bytes": 231315,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.arpa.veneto.it/dati-ambientali/bollettini",
+   "http_status": "200",
+   "bytes": 262906,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK - bulletin hub; agrometeo, meteo, snow, air, pollen"
+  },
+  {
+   "url": "https://www.arpa.veneto.it/dati-ambientali/bollettini/agrometeo/agrometeoinforma",
+   "http_status": "200",
+   "bytes": 237472,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK - no document links, no years in visible text"
+  },
+  {
+   "url": "https://www.arpa.veneto.it/temi-ambientali/agrometeo/bollettini/bollettino-agrometeorologico-regionale",
+   "http_status": "200",
+   "bytes": 280517,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK - exposes exactly ONE bulletin file, at a fixed rolling filename; no per-issue archive"
+  },
+  {
+   "url": "https://www.arpa.veneto.it/temi-ambientali/agrometeo/bollettini/bollettino-mese",
+   "http_status": "200",
+   "bytes": 294334,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.arpa.veneto.it/temi-ambientali/agrometeo/file-e-allegati/bollettino_agrometeo_regionale_settimanale.pdf/@@download/file",
+   "http_status": "200",
+   "bytes": 330352,
+   "content_type": "application/pdf",
+   "verdict": "OK - real PDF; single rolling URL, overwritten each week, so NO multi-year archive at this address"
+  },
+  {
+   "url": "https://www.arpa.veneto.it/temi-ambientali/agrometeo/file-e-allegati/bollettino_agrometeo_regionale_settimanale.pdf",
+   "http_status": "200",
+   "bytes": 221697,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "TRAP - same Plone .pdf-serves-HTML pattern as AVEPA"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NEEDS_BROWSER_RENDER - Angular SPA shell ('myPortal', meta fragment !, /build.js); identical 6250 bytes for every path"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/newsletter/bollettino-colture-erbacee",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NEEDS_BROWSER_RENDER - identical shell; RETRIED with py urllib, still 200/6250, so this is not a curl artefact"
+  },
+  {
+   "url": "https://www.provincia.treviso.it/",
+   "http_status": "200",
+   "bytes": 230575,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.provincia.treviso.it/it/agricoltura",
+   "http_status": "404",
+   "bytes": 1057,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.provincia.treviso.it/index.php/it/",
+   "http_status": "200",
+   "bytes": 230596,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.provincia.treviso.it/index.php/it/component/search/?searchword=bollettino%20agronomico&searchphrase=all",
+   "http_status": "500",
+   "bytes": 1313,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "BLOCKED - server error; site search unusable, so absence of a provincial bulletin is UNPROVEN, not established"
+  },
+  {
+   "url": "https://www.comune.sanpietrodifeletto.tv.it/bollettini-agronomici-del-consorzio-tutela-prosecco-superiore-conegliano-valdobbiadene-docg/",
+   "http_status": "200",
+   "bytes": 128850,
+   "content_type": "text/html; charset=UTF-8",
+   "verdict": "OK - 7 PDF links, all 2018"
+  },
+  {
+   "url": "https://www.comune.sanpietrodifeletto.tv.it/bollettini-agrinotizie-del-consorzio-provinciale-per-la-difesa-delle-attivita-agricole-dalle-avversita-condifesatv/",
+   "http_status": "200",
+   "bytes": 132308,
+   "content_type": "text/html; charset=UTF-8",
+   "verdict": "OK - 21 PDF links, all 2018 (Agrinotizie 1-21, 23/01/2018 to 27/07/2018)"
+  },
+  {
+   "url": "https://www.comune.sanpietrodifeletto.tv.it/wp-json/wp/v2/search?search=bollettino&per_page=50",
+   "http_status": "200",
+   "bytes": 1345,
+   "content_type": "application/json; charset=UTF-8",
+   "verdict": "OK - exactly 2 bulletin pages on the whole municipal site"
+  },
+  {
+   "url": "https://servizionline.comune.sanpietrodifeletto.tv.it/c026073/images/AVISO/Bollettini%20Consorzio/2018/IBoll_05.04.2018.pdf",
+   "http_status": "200",
+   "bytes": 45149,
+   "content_type": "application/pdf",
+   "verdict": "OK - DOWNLOADED"
+  },
+  {
+   "url": "https://servizionline.comune.sanpietrodifeletto.tv.it/c026073/images/AVISO/Bollettini%20Agrinotizie/2018/Bollettino_Agrinotizie_1_23-01-2018.pdf",
+   "http_status": "200",
+   "bytes": 138475,
+   "content_type": "application/pdf",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://servizionline.comune.sanpietrodifeletto.tv.it/c026073/images/AVISO/Bollettini%20Agrinotizie/2019/",
+   "http_status": "500",
+   "bytes": 528,
+   "content_type": "text/html; charset=iso-8859-1",
+   "verdict": "BLOCKED - probed a year-sibling directory; server error, so a 2019 folder is neither proven nor disproven"
+  },
+  {
+   "url": "https://servizionline.comune.sanpietrodifeletto.tv.it/c026073/images/AVISO/Bollettini%20Agrinotizie/",
+   "http_status": "403",
+   "bytes": 253,
+   "content_type": "text/html; charset=iso-8859-1",
+   "verdict": "BLOCKED - directory listing forbidden"
+  },
+  {
+   "url": "https://servizionline.comune.sanpietrodifeletto.tv.it/c026073/images/AVISO/Bollettini%20Consorzio/",
+   "http_status": "403",
+   "bytes": 251,
+   "content_type": "text/html; charset=iso-8859-1",
+   "verdict": "BLOCKED - directory listing forbidden"
+  },
+  {
+   "url": "https://www.condifesatvb.it/",
+   "http_status": "200",
+   "bytes": 185758,
+   "content_type": "text/html; charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.condifesatvb.it/altri-servizi/",
+   "http_status": "200",
+   "bytes": 170125,
+   "content_type": "text/html; charset=UTF-8",
+   "verdict": "OK - describes the Agrinotizie bulletin and the weekly Recapito Viticolo Interprovinciale, but exposes ZERO document links"
+  },
+  {
+   "url": "https://www.condifesatvb.it/wp-json/wp/v2/media?search=bollettino&per_page=100",
+   "http_status": "200",
+   "bytes": 1998,
+   "content_type": "application/json; charset=UTF-8",
+   "verdict": "OK - exactly 1 item and it is an SVG icon, not a bulletin; Condifesa does not self-publish bulletin PDFs"
+  }
+ ],
+ "index_pages": [
+  {
+   "url": "https://www.prosecco.it/wp-json/wp/v2/media?search=bollettino&per_page=100",
+   "title": "Consorzio Tutela Conegliano Valdobbiadene Prosecco DOCG - WordPress media API, search=bollettino",
+   "lists": "Every media item in the consortium's library whose text matches 'bollettino'. Returns source_url, WordPress date and mime_type per item. This is the enumeration route; the human-facing Area produttori page shows only a subset of the same corpus.",
+   "years_visible": "2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 (from the WordPress 'date' field of the 173 parsed items)",
+   "item_count_seen": "173 (header X-WP-Total: 173; I parsed 173 objects across 2 pages, and all 173 had 'bollettin' in the filename)",
+   "pagination": "PROVEN - header X-WP-TotalPages: 2 with per_page=100; page=2 fetched and returned 862642 bytes"
+  },
+  {
+   "url": "https://www.prosecco.it/it/consorzio/area-produttori-5-2/",
+   "title": "Area produttori - Prosecco.it (Italian version)",
+   "lists": "Producer document area: full 2026 agronomic bulletin season (n. 3 to n. 24), a partial 2025 set (XIII to XVIII), maturation-curve reports, the Protocollo Vitivinicolo, disciplinare and administrative forms. 81 document links parsed.",
+   "years_visible": "2007, 2008, 2009, 2010, 2011, 2012, 2013, 2016, 2019, 2021, 2022, 2023, 2024, 2025, 2026",
+   "item_count_seen": "81 document links parsed from the fetched HTML",
+   "pagination": "NOT_KNOWN - single flat page, no pager element found in the fetched HTML"
+  },
+  {
+   "url": "https://www.prosecco.it/en/consortium/area-produttori-5-2/",
+   "title": "Area produttori - Prosecco.it (English version)",
+   "lists": "The same section in English, but it exposes only 3 document links versus 81 on the Italian page. Recorded because taking the EN page as equivalent would lose ~96 percent of the corpus.",
+   "years_visible": "2023, 2025, 2026",
+   "item_count_seen": "3",
+   "pagination": "NOT_KNOWN"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari",
+   "title": "Bollettini fitosanitari - Regione del Veneto, U.O. Fitosanitario",
+   "lists": "Top-level index of phytosanitary bulletins. Links to per-year child pages and out to ARPAV agrometeo. Carries no documents itself.",
+   "years_visible": "2012, 2024, 2025, 2026 (only 2024/2025/2026 appear as archive links)",
+   "item_count_seen": "3 year-archive links",
+   "pagination": "PROVEN - year-suffixed child pages; 2018-2023 individually fetched and all returned HTTP 404"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2026",
+   "title": "Bollettini fitosanitari 2026 - Regione del Veneto",
+   "lists": "2026 season across crops: 20 vine bulletins (N.01 09/04/2026 to N.20 27/08/2026), plus frutticolo, orticolo, olivicolo, erbacee and monthly recapiti calendars. 73 document links total.",
+   "years_visible": "2024, 2025, 2026",
+   "item_count_seen": "73 document links, of which 20 are vine bulletins (16 with a .pdf extension, 4 without - all 4 measured and confirmed application/pdf)",
+   "pagination": "PROVEN - one page per season under /bollettini-fitosanitari-YYYY"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2025",
+   "title": "Bollettini fitosanitari 2025 - Regione del Veneto",
+   "lists": "2025 season. Vine bulletins are NOT hosted on regione.veneto.it: 94 links point to sharing.regione.veneto.it (Nextcloud public shares). 20 vine entries, N.01 09/04/2025 to N.20 27/08/2025.",
+   "years_visible": "2024, 2025, 2026",
+   "item_count_seen": "20 vine bulletin links (plus olivicolo/orticolo PDFs hosted on-site); 94 Nextcloud links in total across crops",
+   "pagination": "PROVEN - per-season page; each issue is an individual Nextcloud share token"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-viticoli",
+   "title": "Bollettini viticoli - Regione del Veneto (2024 season)",
+   "lists": "The entire 2024 vine season as inline HTML on one page - 20 dated bulletins from 10/04/2024 to 30/08/2024 as in-page anchors, ZERO document links. 152833 characters of visible text naming Erasmoneura vulnerata, Drepanothrips reuteri, Holocacista rivillei, Phyllocnistis vitegenella, Antispila oinophylla and flavescenza dorata control obligations.",
+   "years_visible": "2013, 2018, 2019, 2022, 2023, 2024, 2025, 2026 (the bulletin bodies themselves are all 2024)",
+   "item_count_seen": "20 dated in-page bulletin anchors, 0 documents",
+   "pagination": "NOT_KNOWN - single page, no pager; it is the 2024 child of bollettini-fitosanitari-2024"
+  },
+  {
+   "url": "https://www.comune.sanpietrodifeletto.tv.it/bollettini-agrinotizie-del-consorzio-provinciale-per-la-difesa-delle-attivita-agricole-dalle-avversita-condifesatv/",
+   "title": "Bollettini AGRINOTIZIE del Consorzio Provinciale per la Difesa delle Attivita Agricole dalle Avversita (CONDIFESATV) - Comune di San Pietro di Feletto",
+   "lists": "21 Agrinotizie bulletin PDFs authored by Condifesa TVB and re-hosted by the municipality, numbered 1 to 21, dated 23/01/2018 to 27/07/2018.",
+   "years_visible": "2018 (22 mentions), 2024 (1 mention)",
+   "item_count_seen": "21 PDF links",
+   "pagination": "NOT_KNOWN - flat page; the underlying host path contains a /2018/ segment but sibling-year directories returned HTTP 500 and the parent returned 403"
+  },
+  {
+   "url": "https://www.comune.sanpietrodifeletto.tv.it/bollettini-agronomici-del-consorzio-tutela-prosecco-superiore-conegliano-valdobbiadene-docg/",
+   "title": "Bollettini agronomici del Consorzio Tutela Prosecco Superiore Conegliano Valdobbiadene DOCG - Comune di San Pietro di Feletto",
+   "lists": "7 agronomic bulletin PDFs authored by the Prosecco DOCG consortium and re-hosted by the municipality, numbered I to VIII, dated 05/04/2018 to 14/05/2018 (V is absent from the listing).",
+   "years_visible": "2018, 2024",
+   "item_count_seen": "7 PDF links",
+   "pagination": "NOT_KNOWN"
+  },
+  {
+   "url": "https://www.arpa.veneto.it/dati-ambientali/bollettini",
+   "title": "Bollettini - ARPAV (Agenzia Regionale per la Prevenzione e Protezione Ambientale del Veneto)",
+   "lists": "Hub of all ARPAV bulletins: agrometeo (Agrometeo...informa, agrometeo-nitrati, regional weekly, monthly), meteo, snow/avalanche, air quality, pollen, water resources. Agrometeorological only - no plant-protection or vine disease bulletin.",
+   "years_visible": "2026",
+   "item_count_seen": "4 document links, none agrometeo (they are snow bulletins); the agrometeo weekly sits one level deeper at a single fixed filename",
+   "pagination": "NOT_KNOWN - no dated archive index found for the agrometeo weekly"
+  }
+ ],
+ "documents": [
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_20_270826.pdf/bac2bf94-b6c1-46d6-a608-1ff9cb82264d",
+   "title": "Bollettini viticoli N.20 del 27/08/2026 (Regione del Veneto, U.O. Fitosanitario) - PUBLIC REGIONAL AUTHORITY",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 4255572,
+   "sha256": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1d-other-veneto-bodies\\rv-Bollettino_vite_20_270826.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_3_230426.pdf/45365ed0-bd9e-455b-b04f-40309cc61bd2",
+   "title": "Bollettini viticoli N.03 del 23/04/2026 (Regione del Veneto, U.O. Fitosanitario) - PUBLIC REGIONAL AUTHORITY",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 4255048,
+   "sha256": "04ef0cf20997300964b9723e103661553e5a4e5808abcca8e90896446c5c4dd6",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1d-other-veneto-bodies\\rv-Bollettino_vite_3_230426.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.prosecco.it/wp-content/uploads/2026/07/26-07-23_23_bollettino-agronomico.pdf",
+   "title": "23 bollettino agronomico 23/07/2026 (Consorzio di Tutela del Conegliano Valdobbiadene Prosecco DOCG) - PRIVATE CONSORTIUM, not a public authority",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 4323913,
+   "sha256": "a4cf3d4ba134534558d50f2a41ad068ce4c1ab89563531f68e1682e0e2bf6aa3",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1d-other-veneto-bodies\\prosecco-2026-23-bollettino.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.prosecco.it/wp-content/uploads/2025/07/XIII-bollettino-agronomico-16072025.pdf",
+   "title": "XIII bollettino agronomico 16/07/2025 (Consorzio Tutela Conegliano Valdobbiadene Prosecco DOCG) - PRIVATE CONSORTIUM. Text extracted and verified: header 'CONSORZIO TUTELA CONEGLIANO VALDOBBIADENE', '13 Bollettino Agronomico del 16/07/2025', METEO section cites Fonte: www.arpa.veneto.it",
+   "year": "2025",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 280138,
+   "sha256": "f1b49ee4fe26d5dcf6f59dbcf59fd36d30204cac0d1297fe6daea91f6d7b0607",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1d-other-veneto-bodies\\prosecco-2025-XIII-bollettino.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://servizionline.comune.sanpietrodifeletto.tv.it/c026073/images/AVISO/Bollettini%20Consorzio/2018/IBoll_05.04.2018.pdf",
+   "title": "I Bollettino 05.04.2018 - authored by Consorzio Tutela Prosecco Superiore Conegliano Valdobbiadene DOCG, re-hosted by Comune di San Pietro di Feletto (PUBLIC MUNICIPALITY relaying consortium content)",
+   "year": "2018",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 45149,
+   "sha256": "0471a731851e264584c83e387082d0d494597cb40d16b52da3b7cc29f60c900e",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1d-other-veneto-bodies\\feletto-2018-I-bollettino.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.avepa.it/servizi/bandi-di-finanziamento/monitoraggio-flavescenza-dorata-2026/approfondimenti/monitoraggio-flavescenza-dorata-approfondimenti.pdf/@@download/file",
+   "title": "Monitoraggio flavescenza dorata - approfondimenti (AVEPA, PUBLIC REGIONAL PAYING AGENCY). NOT a bulletin: this is a funding-scheme annex. The disease name here is NOT an observed occurrence. Downloaded only to prove AVEPA serves real PDFs and to document the Plone @@download trap.",
+   "year": "2026",
+   "crop_or_topic": "flavescenza dorata funding scheme (NOT a disease observation)",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 39829,
+   "sha256": "82c5732ea0e4f01b14af1e8f48a14f0eb8d2250f935b0f39eca4dff3e919435b",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1d-other-veneto-bodies\\avepa-monitoraggio-flavescenza-2026.pdf",
+   "downloaded": false
+  },
+  {
+   "url": "https://sharing.regione.veneto.it/index.php/s/gsNQ94YLZBf4bRX/download",
+   "title": "Bollettino_vite_1_090425.pdf - Bollettini viticoli N.01 del 09/04/2025 (Regione del Veneto). Filename read from the content-disposition header. Nextcloud share; the bare share URL returns only a 27609-byte HTML landing page.",
+   "year": "2025",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 1984877,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://sharing.regione.veneto.it/index.php/s/49MSkDiJG7RnigW/download",
+   "title": "Bollettino_vite_20_270825.pdf - Bollettini viticoli N.20 del 27/08/2025 (Regione del Veneto). Filename from content-disposition.",
+   "year": "2025",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 1271319,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino+vite+16_22072026/7a35cd11-58ec-4564-9496-3e88ae5cb07e",
+   "title": "Bollettini viticoli N.16 del 22/07/2026 (Regione del Veneto). Path carries NO .pdf extension yet serves application/pdf - invisible to an extension-based scraper.",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 1165486,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino+vite+n.15_150726/5813c7eb-b52f-4649-bb53-9e4d8c7809c3",
+   "title": "Bollettini viticoli N.15 del 15/07/2026 (Regione del Veneto). No .pdf extension in path.",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 1573019,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Vite_2026_02/059ec793-e5e9-483e-a519-116fd22d7654",
+   "title": "Bollettini viticoli N.02 del 15/04/2026 (Regione del Veneto). No .pdf extension in path.",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 1134141,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Vite_2026_01/6751ad23-20ac-4ead-9ef8-d1d3cc5f7e32",
+   "title": "Bollettini viticoli N.01 del 09/04/2026 (Regione del Veneto). No .pdf extension in path.",
+   "year": "2026",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 860435,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.prosecco.it/wp-content/uploads/2015/11/VI-bollettino-agronomico.pdf",
+   "title": "VI bollettino agronomico - OLDEST bulletin proven on prosecco.it. WordPress date field states 2018-05-07 while the upload path says /2015/11/; I report the source's own date field and flag the mismatch rather than trusting the path.",
+   "year": "2018 (WordPress date field); upload path says 2015 - MISMATCH, not resolved",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 44508,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.prosecco.it/wp-content/uploads/2019/04/I_bollettino20180405.pdf",
+   "title": "I bollettino agronomico (Consorzio Prosecco DOCG). WordPress date 2019-04-16; filename embeds 20180405 - the two disagree and I did not resolve which is the issue date.",
+   "year": "2019 per WordPress date field; filename says 20180405 - MISMATCH",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 818473,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.prosecco.it/wp-content/uploads/2019/04/II_bollettino20190417.pdf",
+   "title": "II bollettino agronomico 17/04/2019 (Consorzio Prosecco DOCG)",
+   "year": "2019",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 227574,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.prosecco.it/wp-content/uploads/2019/05/III_bollettino20180424.pdf",
+   "title": "III bollettino agronomico (Consorzio Prosecco DOCG). WordPress date 2019-05-08; filename embeds 20180424 - MISMATCH.",
+   "year": "2019 per WordPress date field; filename says 20180424",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 289405,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.prosecco.it/wp-content/uploads/2024/04/I-bollettino-agronomico-26032024.pdf",
+   "title": "I bollettino agronomico 26/03/2024 (Consorzio Prosecco DOCG)",
+   "year": "2024",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 963013,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.prosecco.it/wp-content/uploads/2024/04/II-bollettino-agronomico-04042024-.pdf",
+   "title": "II bollettino agronomico 04/04/2024 (Consorzio Prosecco DOCG)",
+   "year": "2024",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 370211,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.prosecco.it/wp-content/uploads/2022/07/XIX-bollettino-30062022.pdf",
+   "title": "XIX bollettino agronomico 30/06/2022 (Consorzio Prosecco DOCG)",
+   "year": "2022",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 143055,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://servizionline.comune.sanpietrodifeletto.tv.it/c026073/images/AVISO/Bollettini%20Agrinotizie/2018/Bollettino_Agrinotizie_1_23-01-2018.pdf",
+   "title": "Bollettino Agrinotizie n.1 del 23/01/2018 - authored by Condifesa TVB (PRIVATE cooperative consortium), re-hosted by Comune di San Pietro di Feletto (public municipality). The municipality is the only public access route I proved for this series.",
+   "year": "2018",
+   "crop_or_topic": "vite (Agrinotizie is described by Condifesa as covering plant pathologies with a viticultural focus)",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 138475,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.arpa.veneto.it/temi-ambientali/agrometeo/file-e-allegati/bollettino_agrometeo_regionale_settimanale.pdf/@@download/file",
+   "title": "Bollettino Agrometeorologico Regionale settimanale (ARPAV, PUBLIC REGIONAL AGENCY). AGROMETEOROLOGICAL ONLY - not a plant-protection bulletin and not vine-specific. Single rolling filename, overwritten weekly, so no per-issue archive exists at this address.",
+   "year": "NOT_KNOWN - the file carries no year in its URL and I did not open it to read the issue date",
+   "crop_or_topic": "agrometeorology (generic, not vine)",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 330352,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.prosecco.it/wp-content/uploads/2026/06/Protocollo-Vitivinicolo-2026_pp_singole_web.pdf",
+   "title": "Protocollo Vitivinicolo 2026 (Consorzio Prosecco DOCG) - the annual integrated pest management rulebook the bulletins operate under. Link parsed from the fetched Area produttori HTML; I did NOT fetch this URL itself, so it is listed as unproven.",
+   "year": "2026",
+   "crop_or_topic": "vite - integrated pest management protocol",
+   "file_type": "NOT_KNOWN - link seen in HTML, URL not fetched by me",
+   "http_status": "NOT_FETCHED",
+   "bytes": 0,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  },
+  {
+   "url": "https://www.prosecco.it/wp-content/uploads/2017/03/2017_protocollo2.pdf",
+   "title": "Protocollo Viticolo 2017 edition (Consorzio Prosecco DOCG)",
+   "year": "2017",
+   "crop_or_topic": "vite - integrated pest management protocol",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 2718595,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  }
+ ],
+ "measurements": [
+  {
+   "name": "BODIES_PROBED",
+   "value": "8",
+   "evidence": "Each probed with local curl from the Italian exit, each with a recorded status/byte count: (1) AVEPA www.avepa.it 200/612333 plus a live Plone REST API; (2) Regione del Veneto U.O. Fitosanitario www.regione.veneto.it/web/fitosanitario 200/47736 and 9 per-year pages; (3) ARPAV www.arpa.veneto.it 200/231315 plus 6 bulletin sections; (4) Veneto Agricoltura www.venetoagricoltura.org 200/6250 (SPA); (5) Consorzio di Tutela del Conegliano Valdobbiadene Prosecco DOCG www.prosecco.it 200/67589 plus media API; (6) Provincia di Treviso www.provincia.treviso.it 200/230575 (site search HTTP 500); (7) Comune di San Pietro di Feletto www.comune.sanpietrodifeletto.tv.it 200/128850 and 200/132308; (8) Condifesa TVB www.condifesatvb.it 200/185758."
+  },
+  {
+   "name": "BODIES_WITH_BULLETINS",
+   "value": "4 host a publicly reachable periodic bulletin; only 3 of those are vine plant-protection/agronomic bulletins",
+   "evidence": "VINE BULLETINS (3): Regione del Veneto - 20 vine issues per season for 2024, 2025 and 2026, weekly cadence read off the published dates (e.g. 2026 N.01 09/04 through N.20 27/08); Consorzio Prosecco DOCG - 173 bulletin items in its media library, roughly weekly through each growing season; Comune di San Pietro di Feletto - re-hosts 7 Prosecco DOCG bulletins and 21 Condifesa Agrinotizie bulletins, all dated 2018. NOT A VINE BULLETIN (1): ARPAV publishes a weekly Bollettino Agrometeorologico Regionale (proven, 330352 bytes) but it is agrometeorological, not plant-protection, and I did not count it as a disease source. NO BULLETIN (3): AVEPA (items_total 0 for peronospora, oidio, 'bollettino fitosanitario' and 'difesa integrata' on a demonstrably working search endpoint); Condifesa TVB's own site (media API returns exactly 1 item and it is an SVG icon); Provincia di Treviso (none found, but its search returned HTTP 500 so this is UNPROVEN rather than established). UNDETERMINED (1): Veneto Agricoltura - NEEDS_BROWSER_RENDER."
+  },
+  {
+   "name": "MULTIYEAR_ARCHIVE_FOUND",
+   "value": "YES - two bodies, at very different depths",
+   "evidence": "DEEPEST: Consorzio Prosecco DOCG, 9 season-years. Header X-WP-Total: 173 on the media API; I parsed all 173 items across 2 pages, every one with 'bollettin' in the filename, WordPress date years 2018:1, 2019:12, 2020:23, 2021:27, 2022:30, 2023:23, 2024:15, 2025:19, 2026:23. I proved 8 of the 173 individually (2 downloaded, 6 measured, all HTTP 200 application/pdf) including the 2018-dated oldest at 44508 bytes; the other 165 are enumerated but unfetched and I do not claim they all resolve. SHALLOWER: Regione del Veneto, 3 seasons only - per-year pages exist for 2024, 2025 and 2026, while 2018 through 2023 were each fetched and each returned a genuine HTTP 404 at 50391 bytes. SINGLE-YEAR: Comune di San Pietro di Feletto, 28 PDFs all dated 2018; sibling-year directory probes returned HTTP 500 and the parent directory 403, so other years are neither proven nor disproven. NOT AN ARCHIVE: ARPAV's weekly sits at one fixed filename that is overwritten each week."
+  },
+  {
+   "name": "BEST_SOURCE_URL",
+   "value": "https://www.prosecco.it/it/consorzio/area-produttori-5-2/ (human index) with https://www.prosecco.it/wp-json/wp/v2/media?search=bollettino&per_page=100 as the enumeration route",
+   "evidence": "Best on three measured grounds. Depth: 9 season-years (2018-2026) versus 3 for the regional authority. Machine-enumerability: an unauthenticated WordPress media endpoint returning per-item source_url, date and mime_type, with pagination proven via X-WP-TotalPages: 2. Parseability: its PDFs are unencrypted with real font objects and ToUnicode CMaps, and I extracted verifying text from the 2025 issue - whereas the Regione Veneto vine PDFs are AES-256 encrypted, image-only and carry zero font objects. CAVEATS: use the ITALIAN page, not the English one (81 document links versus 3). The consortium is NOT a public authority. For a public-authority citation the best source is https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari (2024-2026 only)."
+  },
+  {
+   "name": "AUTHORITY_TYPE",
+   "value": "MIXED - 6 of 8 public, 2 of 8 private; the deepest archive belongs to a private body",
+   "evidence": "PUBLIC AUTHORITIES/AGENCIES (6): Regione del Veneto U.O. Fitosanitario (regional authority, the phytosanitary service itself); AVEPA (regional paying agency, ente di diritto pubblico under regional law - its own site states the institutional role); ARPAV (regional environmental protection agency, per its page title 'Agenzia Regionale per la Prevenzione e Protezione Ambientale del Veneto'); Veneto Agricoltura (regional agency); Provincia di Treviso (provincial authority); Comune di San Pietro di Feletto (municipality). PRIVATE (2): Consorzio di Tutela del Conegliano Valdobbiadene Prosecco DOCG - a consorzio di tutela, a private-law protection consortium with ministerial recognition, NOT a public authority; and Condifesa TVB, whose own site footer gives p.IVA 04393860269 and which is registered as a societa cooperativa agricola, i.e. a private farmers' cooperative. Registry/legal-status details beyond what these pages state are NOT_KNOWN - I did not verify them against a companies register. NOTE the layering that matters for provenance: the municipality (public) re-hosts bulletins AUTHORED by the two private bodies, so a PDF served from a comune.*.it domain is not necessarily public-authority content."
+  }
+ ],
+ "blockers": [
+  {
+   "url": "https://www.condifesatvb.it/altri-servizi/",
+   "kind": "LOGIN",
+   "detail": "Condifesa TVB's page describes the Agrinotizie bulletin and the weekly Recapito Viticolo Interprovinciale but exposes zero document links, and its navigation contains a 'Portale del Socio' (member portal) plus a members-only newsletter sign-up. Its media API (200, 1998 bytes) returns exactly one item and that item is an SVG icon. The bulletins appear to be distributed to members rather than published; the only public copies I proved are the 21 re-hosted 2018 PDFs on the San Pietro di Feletto municipal server. I did not attempt to reach or bypass the member portal."
+  },
+  {
+   "url": "https://www.provincia.treviso.it/index.php/it/component/search/?searchword=bollettino%20agronomico&searchphrase=all",
+   "kind": "SERVER_ERROR",
+   "detail": "HTTP 500, 1313 bytes. The provincial site's own search component is broken, so I could not search it. I found no agricultural bulletin on Provincia di Treviso, but because the search is unusable this is UNPROVEN, not a demonstrated absence. /it/agricoltura returned a real HTTP 404 (1057 bytes); the working root is /index.php/it/ (200, 230596)."
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/newsletter/bollettino-colture-erbacee",
+   "kind": "NEEDS_BROWSER_RENDER",
+   "detail": "Returns HTTP 200 with only 6250 bytes - an Angular SPA shell (title 'myPortal', meta fragment '!', loads /build.js) that is byte-identical for every path including the site root. I retried with local py urllib per the fallback procedure and got the same 200/6250, so this is not a curl artefact. No API base is discoverable in the shell. Veneto Agricoltura is an official regional agency and the Regione Veneto 2025 page links out to its 'bollettino-colture-erbacee', so it is a genuine lead, but whether it publishes a VINE bulletin and whether it holds a multi-year archive are both NOT_KNOWN from a non-rendering client."
+  },
+  {
+   "url": "https://servizionline.comune.sanpietrodifeletto.tv.it/c026073/images/AVISO/Bollettini%20Agrinotizie/",
+   "kind": "FORBIDDEN",
+   "detail": "Directory listing returns HTTP 403 (253 bytes); the sibling 'Bollettini Consorzio/' likewise 403 (251 bytes). Probing a year-sibling path (.../2019/) returned HTTP 500 (528 bytes) on both series. The 2018 files themselves serve fine. Consequence: I cannot enumerate whether the municipality holds years other than 2018, and I must not infer that it does not."
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_20_270826.pdf/bac2bf94-b6c1-46d6-a608-1ff9cb82264d",
+   "kind": "ENCRYPTED_AND_IMAGE_ONLY",
+   "detail": "Not an access blocker - the bytes download fine - but a hard PARSING blocker. Both Regione Veneto vine PDFs I downloaded carry a Standard security handler at V 5 / R 6 / Length 256 with StdCF and AuthEvent/DocOpen (AES-256), and contain ZERO /Type/Font objects, zero ToUnicode CMaps, and 52 and 41 /Subtype/Image XObjects across 5 and 4 pages. They are image-only with no text layer. Any text pipeline over the 2025 and 2026 regional vine corpus will need decryption handling plus OCR. I therefore did NOT verify the disease content of these two files by reading them, and I do not claim to have."
+  },
+  {
+   "url": "https://www.avepa.it/servizi/bandi-di-finanziamento/monitoraggio-flavescenza-dorata-2026/approfondimenti/monitoraggio-flavescenza-dorata-approfondimenti.pdf",
+   "kind": "SILENT_CONTENT_TYPE_TRAP",
+   "detail": "HTTP 200 with content-type text/html and 512718 bytes despite the URL ending in .pdf. A naive collector would save an HTML page under a .pdf filename and count it as a preserved document - I did exactly that once and caught it with the 'file' command. The real 39829 PDF bytes require appending /@@download/file. The same Plone pattern occurs on ARPAV: the bulletin .pdf path returns 221697 bytes of HTML, the /@@download/file variant returns 330352 bytes of application/pdf."
+  }
+ ],
+ "not_known": [
+  "Whether Veneto Agricoltura publishes a VINE bulletin at all, and whether it holds a multi-year archive. Its site is a JS SPA returning an identical 6250-byte shell for every path under both curl and py urllib. NEEDS_BROWSER_RENDER = YES.",
+  "Whether Provincia di Treviso publishes any agricultural bulletin. Its own search component returns HTTP 500, so I could not search the site. Absence of evidence here is NOT evidence of absence.",
+  "Whether the Comune di San Pietro di Feletto holds bulletin years other than 2018. Directory listings return 403 and year-sibling probes return 500.",
+  "Whether all 173 Prosecco media items resolve to real bytes. I proved 8 of 173 individually. The other 165 are enumerated from the API but UNFETCHED.",
+  "How many Prosecco bulletins exist beyond the search term 'bollettino'. Items named otherwise - for example the 'Curva di Maturazione' series visible on the same page - are excluded from the 173 and their count is NOT_KNOWN.",
+  "The true issue dates of four older Prosecco bulletins where the WordPress date field and the embedded filename date disagree (e.g. WordPress 2019-04-16 versus filename 20180405, and a 2018-dated item stored under an /uploads/2015/11/ path). I report both and did not resolve which is authoritative.",
+  "The disease content of the two downloaded Regione Veneto vine PDFs. They are AES-256 encrypted, image-only, zero fonts - I proved they are real PDFs of 5 and 4 pages but I did NOT read them, and no disease claim from them should be attributed to me.",
+  "Whether Regione Veneto vine bulletins for seasons before 2024 exist anywhere. The per-year pages 2018-2023 are genuine 404s on the current CMS, but a prior CMS, a different path scheme, or an offline archive could hold them. I did not probe web archives.",
+  "Whether the Nextcloud share tokens on sharing.regione.veneto.it are stable long-term. I proved 2 of 20 resolve today; they are opaque tokens with no derivable pattern, so the 2025 season must be harvested from the listing page rather than by URL construction.",
+  "Legal/registry status of the two private bodies beyond what their own pages state. I did not verify against a companies register.",
+  "Whether ARPAV keeps a dated archive of its weekly agrometeo bulletin anywhere. I found only a single rolling filename; a per-issue archive was not located, but I did not exhaust the site.",
+  "Whether Condifesa TVB's Agrinotizie bulletins are obtainable publicly for years other than 2018. Its own site publishes none; the only public copies I proved are the 2018 municipal re-hosts."
+ ],
+ "next_steps": [
+  "Harvest the Prosecco corpus via the API, not the page: page through https://www.prosecco.it/wp-json/wp/v2/media?search=bollettino&per_page=100 for both pages, take source_url from each of the 173 items, fetch each, and record status/bytes/sha256 per item. Expect some of the 165 unfetched to fail - record each failure as a failure, never as a zero. Use the ITALIAN site paths; the English Area produttori page exposes 3 documents versus 81.",
+  "Re-run the same media query with additional search terms ('curva', 'maturazione', 'protocollo', 'vendemmiali', 'agronomico') and compare X-WP-Total per term to size the corpus that the 'bollettino' term misses.",
+  "Harvest Regione Veneto per season with three different extractors, because the transport changes每 season: for 2026 parse ALL /documents/11979050/14345303/ anchors regardless of extension (4 of 20 have no .pdf); for 2025 collect the sharing.regione.veneto.it share tokens from the listing page and append /download, taking the filename from the content-disposition header; for 2024 the bulletins are inline HTML on /web/fitosanitario/bollettini-viticoli and must be scraped as text, not as files.",
+  "Build a decrypt-plus-OCR path for the Regione Veneto vine PDFs before treating them as a text corpus. Confirm first whether the AES-256 encryption uses an empty user password (viewable but permission-restricted) or a real one; then OCR, since there are zero font objects and no text layer.",
+  "Add a content-type assertion to every download in this collection: reject any saved file whose measured content-type is text/html when a document was expected. Two官方 Plone sites here (AVEPA and ARPAV) return HTML at .pdf URLs and only yield bytes at /@@download/file.",
+  "Verify the four Prosecco date mismatches by opening the PDFs and reading the issue date printed inside, then decide whether the WordPress date field or the filename is authoritative before any of these enter a time series.",
+  "Resolve Veneto Agricoltura with a rendering browser: load https://www.venetoagricoltura.org/newsletter/bollettino-colture-erbacee, capture the XHR calls its /build.js makes, and probe the resulting API directly. It is an official regional agency and the Regione Veneto 2025 page links to it, so it is the largest remaining unknown on this front.",
+  "Re-probe Provincia di Treviso once its search returns something other than HTTP 500, or crawl /index.php/it/ directly, before recording any conclusion about provincial bulletins.",
+  "Look for other Veneto municipalities that re-host consortium bulletins the way San Pietro di Feletto does. That municipality proved to be the only public route to the Condifesa Agrinotizie series; querying the WordPress search API (/wp-json/wp/v2/search?search=bollettino) across other TV-province comuni sites is cheap and may surface years beyond 2018.",
+  "Do NOT treat AVEPA's Flavescenza dorata funding calls (2023-2026) as disease data. They are aid schemes; a pest name in a funding document is not an occurrence. If AVEPA is used at all on this front, it is as evidence of intervention spending, and that framing must be explicit.",
+  "Record ARPAV separately from the phytosanitary sources. Its weekly bulletin is agrometeorological and its single rolling URL means historical issues are not retrievable there; note that the Prosecco bulletins cite www.arpa.veneto.it as their meteo source, so ARPAV is an upstream input to the vine bulletins rather than a parallel disease source."
+ ]
+}

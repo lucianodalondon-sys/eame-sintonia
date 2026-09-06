@@ -1,0 +1,479 @@
+{
+ "front": "F2a-vagri-archive",
+ "summary": "The assignment's premise is wrong in two ways, and both are proven, not inferred. (1) venetoagricoltura.org is NOT WordPress. It is an Angular single-page app (\"myPortal\", tenant ipa=AVPISP) built by Regione Veneto. The `/category/` URL shape is a coincidence, not a WP taxonomy. (2) `/category/bollettini/` is not a real route at all. PROOF: the site serves an identical 6250-byte SPA shell for EVERY path, including a deliberately nonsense control URL (/thisurldoesnotexist12345 -> http=200 bytes=6250). So every \"HTTP 200\" on an HTML path here is meaningless as an existence signal. The 6250 bytes is the same under curl AND under Python urllib, so this is genuine JS rendering, not a curl block. NEEDS_BROWSER_RENDER = YES for all HTML paths. Every /wp-json/ probe \"returned 200\" but returned that same shell, so WP_JSON_AVAILABLE = NO. I did NOT stop at \"archive does not exist\". I fetched the 8,932,964-byte Angular bundle /build.js (real application/javascript) and mined it. The strings \"bollettini\" and \"category/\" appear ZERO times in the bundle; the real 180-route table has no such route. The real bulletins live under /newsletter/. The bundle also gave me the real backend contract, which I then proved live: GET /myportal/AVPISP/api/content?type=rve_news&parent=<folder>&includeSubFolders=true&pageIndex=N&pageSize=N returns real application/json. MEASURED ARCHIVE: 526 rve_news items site-wide; 224 in the /Newsletter tree, split 127 Bollettino Colture Erbacee + 55 Bollettino Cimice Asiatica + 25 InForm@ + 16 Bollettino Apistico + 1 at root. So TOTAL_POSTS_IN_BOLLETTINI = 198 for the three actual \"Bollettino\" series (224 counting the InForm@ newsletter). Date span measured from firstPublishedAt: earliest 2024-04-01, latest 2026-09-04; years 2024/2025/2026 only. 310 attachments hang off 165 of the 224 items, 253+ of them .pdf. Download pattern proven: /myportal/AVPISP/api/content/download?id=<uuid> returns real application/pdf (the sibling /myportal/AVPISP/content/download?id= form returns the 6250 shell — wrong pattern). I downloaded 5 PDFs; all 5 start with %PDF- and contain a trailing %%EOF, so they are complete files, not error pages. ONE IMPORTANT NEAR-MISS I want flagged: my first folder query returned entitiesCount=0, and that zero was a QUERY ARTIFACT, not an empty archive — items sit in year subfolders (/Newsletter/<Series>/2026/<item>), so the query only worked once includeSubFolders=true was set. Reported as a real zero it would have been a false negative. VITICULTURE: there is NO viticulture bulletin series. The bulletin series are arable crops, brown marmorated stink bug, and bees. Viticulture exists on this portal only as static publications: /ServiziOnLine/Pubblicazioni/VITICOLTURA E ENOLOGIA (17 items) and a related /ServiziOnLine/Pubblicazioni/DIFESA FITOSANITARIA (28 items). The API also exposes full-text search INSIDE the attached PDFs (/api/suggest), which returned real snippets for \"peronospora\" and \"vite\" — I report that only as text present in documents, NOT as any observed disease occurrence.",
+ "probes": [
+  {
+   "url": "https://www.venetoagricoltura.org/category/bollettini/",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NEEDS_BROWSER_RENDER - Angular SPA shell, identical to control URL"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/category/bollettini/ (Python urllib fallback)",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NEEDS_BROWSER_RENDER - same 6250 bytes as curl, so not a curl-specific block"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "REDIRECTED to /home, same SPA shell"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/thisurldoesnotexist12345",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "CONTROL PROBE - nonsense URL returns identical shell, proving HTTP 200 on HTML paths means nothing here"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/wp-json/",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_WORDPRESS - SPA shell, not JSON"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/wp-json/wp/v2/categories?per_page=100",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_WORDPRESS - SPA shell, no category ids obtainable"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/wp-json/wp/v2/posts?per_page=100",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_WORDPRESS - SPA shell"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/robots.txt",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_PRESENT - SPA shell served instead of a robots file"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/sitemap.xml",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_PRESENT - SPA shell, no XML"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/wp-sitemap.xml",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_PRESENT - SPA shell, no XML"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/category/bollettini/page/2/",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "MEANINGLESS - shell; HTML pagination cannot be tested this way"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/?s=vite",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_WORDPRESS - WP search param does nothing, shell returned"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/newsletter/bollettino-colture-erbacee",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NEEDS_BROWSER_RENDER - real route per bundle, but HTML is the empty shell"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/build.js",
+   "http_status": "200",
+   "bytes": 8932964,
+   "content_type": "application/javascript; charset=utf-8",
+   "verdict": "OK - Angular AOT bundle, source of the route table and API contract"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/api/portal/info",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "WRONG_PATH - API needs the /myportal/AVPISP prefix"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/api/content/slug/bollettini",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "WRONG_PATH - shell"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/api/search-advanced",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "WRONG_PATH - shell"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/portal/info",
+   "http_status": "200",
+   "bytes": 224,
+   "content_type": "application/json; charset=utf-8",
+   "verdict": "OK - real JSON, isRootPortal true, deployedAt 2026-05-20"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content/slug/bollettino-colture-erbacee",
+   "http_status": "200",
+   "bytes": 1472,
+   "content_type": "application/json; charset=utf-8",
+   "verdict": "OK - resolves to a TAG (myp_tags_advanced) id 6440264e77c243009f651d4a, not a post list"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content/tagged?themeArea=6440264e77c243009f651d4a&pageSize=5",
+   "http_status": "500",
+   "bytes": 76,
+   "content_type": "application/json; charset=utf-8",
+   "verdict": "SERVER_ERROR - {\"status\":\"error\"}; endpoint exists but rejects this tag id. NOT a zero."
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content?type=rve_news&parent=%2FNewsletter%2FBollettino%20Colture%20Erbacee&pageIndex=1&pageSize=5",
+   "http_status": "200",
+   "bytes": 82,
+   "content_type": "application/json; charset=utf-8",
+   "verdict": "QUERY_ARTIFACT_ZERO - entitiesCount=0 only because includeSubFolders was not set; items live in year subfolders. Do NOT read as empty."
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content?type=rve_news&pageIndex=1&pageSize=3&sortBy=firstPublishedAt&desc=true",
+   "http_status": "200",
+   "bytes": 32192,
+   "content_type": "application/json; charset=utf-8",
+   "verdict": "OK - entitiesCount=526 site-wide rve_news"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content?type=rve_news&parent=%2FNewsletter&includeSubFolders=true&pageIndex=1&pageSize=3&sortBy=firstPublishedAt&desc=true",
+   "http_status": "200",
+   "bytes": 36830,
+   "content_type": "application/json; charset=utf-8",
+   "verdict": "OK - entitiesCount=224 in the Newsletter tree"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content?type=rve_news&parent=%2FNewsletter&includeSubFolders=true&pageIndex=1&pageSize=500&sortBy=firstPublishedAt&desc=true",
+   "http_status": "200",
+   "bytes": 9321283,
+   "content_type": "application/json; charset=utf-8",
+   "verdict": "OK - all 224 items returned in one page"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content?type=rve_news&parent=%2FNewsletter&includeSubFolders=true&pageIndex=3&pageSize=100&sortBy=firstPublishedAt&desc=true",
+   "http_status": "200",
+   "bytes": 418611,
+   "content_type": "application/json; charset=utf-8",
+   "verdict": "OK - page 3 returned 24 entities; proves 1-indexed pagination to depth 3 (100+100+24=224)"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content?type=rve_news&pageIndex=1&pageSize=600&sortBy=firstPublishedAt&desc=false",
+   "http_status": "200",
+   "bytes": 13150221,
+   "content_type": "application/json; charset=utf-8",
+   "verdict": "OK - all 526 rve_news; earliest firstPublishedAt 2024-04-01, latest 2026-09-04"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content?type=CONTENT_BASE&parent=%2FServiziOnLine%2FPubblicazioni%2FVITICOLTURA%20E%20ENOLOGIA&includeSubFolders=true&pageIndex=1&pageSize=200",
+   "http_status": "200",
+   "bytes": 168370,
+   "content_type": "application/json; charset=utf-8",
+   "verdict": "OK - entitiesCount=17 viticulture publications"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content?type=CONTENT_BASE&parent=%2FServiziOnLine%2FPubblicazioni%2FDIFESA%20FITOSANITARIA&includeSubFolders=true&pageIndex=1&pageSize=200",
+   "http_status": "200",
+   "bytes": 240262,
+   "content_type": "application/json; charset=utf-8",
+   "verdict": "OK - entitiesCount=28 phytosanitary publications"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/suggest?query=peronospora&restricted=true",
+   "http_status": "200",
+   "bytes": 2264,
+   "content_type": "application/json; charset=utf-8",
+   "verdict": "OK - full-text search INSIDE PDF attachments, returned rve_allegato hits with text snippets"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/suggest?query=vite&restricted=true",
+   "http_status": "200",
+   "bytes": 2274,
+   "content_type": "application/json; charset=utf-8",
+   "verdict": "OK - full-text hits inside attachments"
+  },
+  {
+   "url": "POST https://www.venetoagricoltura.org/myportal/AVPISP/api/search-advanced?page=1&pageSize=3",
+   "http_status": "200",
+   "bytes": 36287,
+   "content_type": "application/json; charset=utf-8",
+   "verdict": "OK - accepts JSON body {preconditions,attributes,dateRange}; structured filtering works"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/contents/type?type=document",
+   "http_status": "200",
+   "bytes": 29,
+   "content_type": "application/json; charset=utf-8",
+   "verdict": "OK but EMPTY - endpoint valid, no entities for this type"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/content/download?id=6a99537f75cdd2008d0cf39d",
+   "http_status": "200",
+   "bytes": 6250,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "WRONG_PATTERN - returns SPA shell; this download form does NOT work"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content/download?id=6a99537f75cdd2008d0cf39d",
+   "http_status": "200",
+   "bytes": 1336116,
+   "content_type": "application/pdf",
+   "verdict": "OK - CORRECT download pattern, real PDF"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content/download?id=6a9aac55963652008f37726c",
+   "http_status": "200",
+   "bytes": 115226,
+   "content_type": "application/pdf",
+   "verdict": "OK - real PDF (BCA 20)"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content/download?id=696513e8500738008bac413f",
+   "http_status": "200",
+   "bytes": 22732270,
+   "content_type": "application/pdf",
+   "verdict": "OK - real PDF, 22.7 MB viticulture guide"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content/download?id=69427f7c50ed32008b86a85a",
+   "http_status": "200",
+   "bytes": 1858617,
+   "content_type": "application/pdf",
+   "verdict": "OK - real PDF"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content/download?id=6942a8bb396b93008b8b9d11",
+   "http_status": "200",
+   "bytes": 154083,
+   "content_type": "application/pdf",
+   "verdict": "OK - real PDF"
+  },
+  {
+   "url": "http://myportal-avpisp.regione.veneto.it/myportal/AVPISP/api/portal/info",
+   "http_status": "200",
+   "bytes": 224,
+   "content_type": "application/json; charset=utf-8",
+   "verdict": "OK - REDIRECTED to https; the underlying Regione Veneto host serves the same API and tenant"
+  }
+ ],
+ "index_pages": [
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content?type=rve_news&parent=%2FNewsletter&includeSubFolders=true&pageIndex=1&pageSize=500&sortBy=firstPublishedAt&desc=true",
+   "title": "Newsletter tree (all bulletin series) - JSON API listing",
+   "lists": "All rve_news items under /Newsletter with subfolders: 127 Bollettino Colture Erbacee, 55 Bollettino Cimice Asiatica, 25 InForm@, 16 Bollettino Apistico, 1 at tree root. Each entity carries name, slug, sys_path, firstPublishedAt, sys_description (HTML body) and mul_association_allegati (attachment names + uuids).",
+   "years_visible": "2024, 2025, 2026 (from firstPublishedAt; earliest 2024-04-01, latest 2026-09-04). No pre-2024 items returned.",
+   "item_count_seen": "224",
+   "pagination": "PROVEN. 1-indexed pageIndex + pageSize. pageSize=500 returned all 224 in one page; pageIndex=3 with pageSize=100 returned 24 entities (100+100+24=224). NOTE: entitiesCount is present only on page 1; pages 2+ omit it."
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content?type=rve_news&pageIndex=1&pageSize=600&sortBy=firstPublishedAt&desc=false",
+   "title": "All site news (rve_news) - JSON API listing",
+   "lists": "Every rve_news item site-wide: 301 News/Notizie, 127 Bollettino Colture Erbacee, 55 Bollettino Cimice Asiatica, 25 InForm@, 16 Bollettino Apistico, 1 News/Comunicati Stampa, 1 Newsletter root.",
+   "years_visible": "2024 (144), 2025 (194), 2026 (188)",
+   "item_count_seen": "526",
+   "pagination": "PROVEN - same pageIndex/pageSize scheme; pageSize=600 returned all 526"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content?type=CONTENT_BASE&parent=%2FServiziOnLine%2FPubblicazioni%2FVITICOLTURA%20E%20ENOLOGIA&includeSubFolders=true&pageIndex=1&pageSize=200",
+   "title": "Publications - VITICOLTURA E ENOLOGIA",
+   "lists": "17 static viticulture/oenology publications, each with attachment uuid(s). This is a publications shelf, NOT a periodic bulletin series.",
+   "years_visible": "firstPublishedAt: 2025 (11), 2026 (6). Item TITLES state older origin years, e.g. '2001 VALORIZZAZIONE DEL GERMOPLASMA VITICOLO VENETO', '2012 Campo di conservazione vitivinicola', '2014 Guida per il viticoltore' - so portal date and document year differ.",
+   "item_count_seen": "17",
+   "pagination": "Single page at pageSize=200; entitiesCount=17 equals returned count"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content?type=CONTENT_BASE&parent=%2FServiziOnLine%2FPubblicazioni%2FDIFESA%20FITOSANITARIA&includeSubFolders=true&pageIndex=1&pageSize=200",
+   "title": "Publications - DIFESA FITOSANITARIA (plant protection fact sheets)",
+   "lists": "28 phytosanitary fact sheets, each with an attachment uuid. Titles seen include Anoplophora chinensis, Avversita dell'Olivo, Carie dell'Actinidia, Colpo di fuoco batterico (scheda base; and sintomi/biologia), Diabrotica.",
+   "years_visible": "firstPublishedAt: 2025 (27), 2026 (1)",
+   "item_count_seen": "28",
+   "pagination": "Single page at pageSize=200; entitiesCount=28 equals returned count"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/build.js",
+   "title": "Angular application bundle - source of the route table and API contract",
+   "lists": "180 SPA routes and 47 distinct CMS folder paths. Confirms the four newsletter routes (/newsletter/bollettino-colture-erbacee, /newsletter/cimice-asiatica, /newsletter/bollettino-apistico, /newsletter/informa) and the publications tree. Contains ZERO occurrences of 'bollettini' and ZERO of 'category/'.",
+   "years_visible": "NOT_KNOWN (code bundle, not a dated listing)",
+   "item_count_seen": "180 routes, 47 folder paths",
+   "pagination": "NOT_APPLICABLE"
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/suggest?query=peronospora&restricted=true",
+   "title": "Full-text suggest across attachments",
+   "lists": "Matches inside indexed PDF attachments (type rve_allegato), returning file name plus a matched text snippet. Real hits returned for 'peronospora' and for 'vite'.",
+   "years_visible": "NOT_KNOWN (returns createdAt epochs per attachment, not document years)",
+   "item_count_seen": "NOT_KNOWN (response is a capped suggestion list, no total given)",
+   "pagination": "NOT_KNOWN - no page parameter observed on this endpoint"
+  }
+ ],
+ "documents": [
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content/download?id=6a99537f75cdd2008d0cf39d",
+   "title": "BCE 55 - Bollettino Colture Erbacee (attachment 'BCE 55.pdf', item 'BCE 55 020926')",
+   "year": "2026 (folder /Newsletter/Bollettino Colture Erbacee/2026; firstPublishedAt 2026-09-03)",
+   "crop_or_topic": "colture erbacee (arable/herbaceous crops) - as stated by the source",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 1336116,
+   "sha256": "c4b1badd5f7f07ae39cef107b4cda3595efb2b01cf15de6b45df2c43831db5b9",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F2a-vagri-archive\\BCE-55-2026.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content/download?id=6a9aac55963652008f37726c",
+   "title": "BCA 20 - Bollettino Cimice Asiatica (attachment 'BCA 20.pdf', item 'BCA 20 040926')",
+   "year": "2026 (folder /Newsletter/Bollettino Cimice Asiatica/2026; firstPublishedAt 2026-09-04)",
+   "crop_or_topic": "cimice asiatica (brown marmorated stink bug) monitoring - as stated by the source",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 115226,
+   "sha256": "45170709bd16e95a24932a29f48e5daa27855a7676561c1019be082f02ca2b28",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F2a-vagri-archive\\BCA-20-2026.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content/download?id=696513e8500738008bac413f",
+   "title": "Guida per il viticoltore (attachment 'Guida per il viticoltore.pdf')",
+   "year": "Title literally states '2014 Guida per il viticoltore'; portal firstPublishedAt 2026-01-12. Document's own internal year NOT_KNOWN (not opened).",
+   "crop_or_topic": "vite / viticoltura - as stated by the source",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 22732270,
+   "sha256": "d363a212f30fa5dba122d6acf00de57e21e0d5e8b3b822e8fede044d367b4c88",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F2a-vagri-archive\\VIT-guida-viticoltore.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content/download?id=69427f7c50ed32008b86a85a",
+   "title": "Analisi e prospettive del sistema vitivinicolo veneto (attachment 'Analisi e prospettive settore vitivinicolo.pdf')",
+   "year": "NOT_KNOWN from title; portal firstPublishedAt 2025-12-17",
+   "crop_or_topic": "vitivinicolo (wine/vine sector) - as stated by the source",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 1858617,
+   "sha256": "d1e477968d34049f2d1152222c0d24726bca2b5c2fdbae5ecd1da6620efb164d",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F2a-vagri-archive\\VIT-analisi-prospettive-vitivinicolo.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content/download?id=6942a8bb396b93008b8b9d11",
+   "title": "Colpo di fuoco batterico: scheda base (attachment 'Colpo di fuoco batterico.pdf')",
+   "year": "NOT_KNOWN from title; portal firstPublishedAt 2025-12-17",
+   "crop_or_topic": "difesa fitosanitaria - colpo di fuoco batterico (fire blight) fact sheet - as stated by the source. NOTE: this is a fact sheet naming an organism, NOT an observed occurrence record.",
+   "file_type": "application/pdf",
+   "http_status": "200",
+   "bytes": 154083,
+   "sha256": "72f49b3b20774bb85cb569a2bb692a4ceb26e080ccd0284e8d3ef813286d16f6",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F2a-vagri-archive\\DIF-colpo-di-fuoco-batterico.pdf",
+   "downloaded": true
+  }
+ ],
+ "measurements": [
+  {
+   "name": "PAGE_RENDERS",
+   "value": "NO (to any non-browser client). NEEDS_BROWSER_RENDER = YES.",
+   "evidence": "https://www.venetoagricoltura.org/category/bollettini/ returns http=200 bytes=6250 type=text/html under curl, and status 200 len 6250 under Python urllib - identical, so this is not a curl-specific block. The body is an Angular bootstrap shell: <title>myPortal</title>, <myp-application> with only a loading spinner, <base href=\"/\">, and <script src=\"/build.js\">. No content, no links. Saved at pilot-disease-local-collection/evidence/F2a-category-bollettini.html."
+  },
+  {
+   "name": "HISTORICAL_ARCHIVE_EXISTS",
+   "value": "YES - but NOT at the assigned URL. It exists under /newsletter/ and is reachable only through the JSON API.",
+   "evidence": "GET /myportal/AVPISP/api/content?type=rve_news&parent=/Newsletter&includeSubFolders=true returned application/json with entitiesCount=224. Site-wide rve_news entitiesCount=526. The assigned path /category/bollettini/ is not a route: the strings 'bollettini' and 'category/' occur ZERO times in the 8.9 MB build.js, and the 180-route table contains no such route."
+  },
+  {
+   "name": "YEARS_VISIBLE",
+   "value": "2024, 2025, 2026 only (bulletins). Earliest firstPublishedAt 2024-04-01T09:33:04.802Z, latest 2026-09-04T11:32:45.341Z.",
+   "evidence": "Computed over all 526 rve_news fetched ascending: 2024=144, 2025=194, 2026=188. Newsletter tree by series - Colture Erbacee 2024:18/2025:54/2026:55; Cimice Asiatica 2024:22/2025:13/2026:20; Apistico 2024:11/2025:3/2026:2; InForm@ 2024:9/2025:4/2026:12. Folder layout is inconsistent: 2026 items sit under /Newsletter/<Series>/2026/<item> while older items sit directly under /Newsletter/<Series>/<item>. CAVEAT: no pre-2024 item is returned by this API, but that is NOT evidence the agency published none before 2024 - see not_known."
+  },
+  {
+   "name": "VITICULTURE_SERIES_EXISTS",
+   "value": "NO - there is no viticulture bulletin series. Viticulture exists only as a static publications shelf.",
+   "evidence": "The only bulletin series in the CMS and in the route table are Bollettino Colture Erbacee (arable crops), Bollettino Cimice Asiatica (stink bug), Bollettino Apistico (bees), plus the InForm@ newsletter. Grouping all 526 rve_news by folder yields no viticulture series. Separately, /ServiziOnLine/Pubblicazioni/VITICOLTURA E ENOLOGIA returned entitiesCount=17 and /ServiziOnLine/REPORT/VITICOLTURA E D ENOLOGIA appears in the bundle folder list (not separately queried). /api/suggest?query=vite and ?query=peronospora returned real full-text hits inside attached PDFs (e.g. snippets 'registro nazionale delle varieta di vite', 'Perdite per peronospora 2024 22'), which shows the terms occur in documents - it does NOT establish any disease occurrence."
+  },
+  {
+   "name": "DIRECT_DOCUMENT_LINKS",
+   "value": "NO in HTML; YES via the API. 310 attachments proven across the bulletin archive.",
+   "evidence": "The HTML page contains zero document links (it is an empty SPA shell). Via the API, 165 of the 224 newsletter items carry mul_association_allegati, totalling 310 attachments: Colture Erbacee 212, Cimice Asiatica 50, Apistico 35, InForm@ 12, root 1. Extensions: 253 plain .pdf plus 6 '.pdf (n)' variants, 4 .jpg, 11 with year-suffixed names, 36 with no extension. Working URL pattern PROVEN: /myportal/AVPISP/api/content/download?id=<uuid> -> application/pdf. The sibling form /myportal/AVPISP/content/download?id=<uuid> returns the 6250-byte shell and does NOT work."
+  },
+  {
+   "name": "SEARCH_FILTER_AVAILABLE",
+   "value": "YES via API (two endpoints proven). NO via WordPress-style ?s= .",
+   "evidence": "GET /myportal/AVPISP/api/suggest?query=<term>&restricted=true returned http=200, 2264 bytes for 'peronospora' and 2274 bytes for 'vite', with full-text snippets from inside PDF attachments. POST /myportal/AVPISP/api/search-advanced?page=1&pageSize=3 with body {preconditions,attributes,dateRange} returned http=200, 36287 bytes of real results. Server-side filtering also works on the content endpoint via type/parent/includeSubFolders/sortBy/desc/themeAreas/tags/taxonomyTerms. By contrast /?s=vite returned the 6250-byte shell."
+  },
+  {
+   "name": "WP_JSON_AVAILABLE",
+   "value": "NO - the site is not WordPress at all.",
+   "evidence": "/wp-json/, /wp-json/wp/v2/categories?per_page=100 and /wp-json/wp/v2/posts?per_page=100 each returned http=200 bytes=6250 text/html - byte-identical to the control URL /thisurldoesnotexist12345. /robots.txt, /sitemap.xml and /wp-sitemap.xml likewise returned the same 6250-byte shell, so none of them exist either. The platform is Regione Veneto 'myPortal' (Angular), tenant ipa=AVPISP, confirmed live by /myportal/AVPISP/api/portal/info returning {\"isRootPortal\":true,\"deployedAt\":\"2026-05-20T09:48:08.112Z\",\"version\":82}. I did NOT guess category ids, because no WP category endpoint exists."
+  },
+  {
+   "name": "TOTAL_POSTS_IN_BOLLETTINI",
+   "value": "198 in the three actual 'Bollettino' series; 224 for the whole /Newsletter tree including the InForm@ newsletter.",
+   "evidence": "entitiesCount=224 for parent=/Newsletter with includeSubFolders=true. Breakdown by sys_path over all 224 returned entities: Bollettino Colture Erbacee 127, Bollettino Cimice Asiatica 55, InForm@ 25, Bollettino Apistico 16, and 1 item sitting at the /Newsletter root. 127+55+16=198."
+  },
+  {
+   "name": "PAGINATION_DEPTH_PROVEN",
+   "value": "YES - depth 3 proven at pageSize=100, and the full set retrieved in one page at pageSize=500.",
+   "evidence": "pageIndex=3&pageSize=100 returned http=200, 418611 bytes, index=3 with exactly 24 entities (100+100+24=224, matching entitiesCount). pageIndex is 1-indexed. IMPORTANT PARSER TRAP: the 'entitiesCount' key is present only in the page-1 response; pages 2+ return {index, entities, metadata} without it, so a parser keyed on entitiesCount will KeyError on deep pages (this happened to me and is a real failure mode, not a zero). pageSize=500 and pageSize=600 were both accepted, so no low server cap was hit."
+  }
+ ],
+ "blockers": [
+  {
+   "url": "https://www.venetoagricoltura.org/category/bollettini/",
+   "kind": "ROUTE_DOES_NOT_EXIST / FALSE_PREMISE",
+   "detail": "This path is not a real route. The server has a catch-all that returns the same 6250-byte Angular shell with HTTP 200 for literally any path, proven by the control URL /thisurldoesnotexist12345 returning byte-identical output. Any tooling that treats HTTP 200 on this host as 'page exists' will produce false positives across the board. The real bulletin routes are /newsletter/bollettino-colture-erbacee, /newsletter/cimice-asiatica, /newsletter/bollettino-apistico and /newsletter/informa."
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/newsletter/bollettino-colture-erbacee",
+   "kind": "JS_RENDER_REQUIRED",
+   "detail": "All HTML paths return the same 6250-byte Angular bootstrap shell under both curl and Python urllib, so a headless HTML fetch can never see the archive. This is NOT a block on us (no login, no CAPTCHA, no paywall, no WAF - build.js downloaded fine at 8.9 MB). Mitigation found and proven: skip HTML entirely and use the JSON API, which needs no browser."
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content/tagged?themeArea=6440264e77c243009f651d4a&pageSize=5",
+   "kind": "SERVER_ERROR_500",
+   "detail": "HTTP 500 with body {\"status\":\"error\",\"message\":\"An error occurred while executing the request\"}. The tag id 6440264e77c243009f651d4a is real (returned by /api/content/slug/bollettino-colture-erbacee as a myp_tags_advanced entity), but this endpoint rejects it. Recorded as a FAILURE, not as zero results. Not needed for enumeration - the parent/includeSubFolders content query supersedes it."
+  },
+  {
+   "url": "https://www.venetoagricoltura.org/myportal/AVPISP/api/content?type=rve_news&parent=%2FNewsletter%2FBollettino%20Colture%20Erbacee&pageIndex=1&pageSize=5",
+   "kind": "FALSE_ZERO_TRAP",
+   "detail": "Returned a genuine entitiesCount=0. This is a QUERY ARTIFACT, not an empty archive: 2026 items live one level deeper, at /Newsletter/Bollettino Colture Erbacee/2026/<item>. Adding includeSubFolders=true turns the same query into 127 items. Anyone enumerating this portal must set includeSubFolders=true or they will silently record zeros for a populated archive."
+  }
+ ],
+ "not_known": [
+  "Whether Veneto Agricoltura published bulletins BEFORE 2024. The API's earliest firstPublishedAt is 2024-04-01, but that date clusters suspiciously (many 2024-dated bulletin titles share a 2024-04-01 or 2024-11-27 publication stamp), which looks like a bulk content migration into this portal rather than the true start of the series. Absence of pre-2024 items in this API is NOT evidence they were never published - they may live on a predecessor system I have not probed.",
+  "The actual publication year printed inside any downloaded PDF. I verified the files are complete PDFs (%PDF- header, %%EOF present) but did not open or parse their text, so all years reported come from item titles and portal metadata only.",
+  "Whether /ServiziOnLine/REPORT/VITICOLTURA E D ENOLOGIA holds documents. The folder path appears in the bundle's folder list but I did not query that endpoint, so its item count is unmeasured.",
+  "Total attachment count for the publications shelves (viticulture 17 items, phytosanitary 28 items). I counted attachments only for the 224 newsletter items (310 attachments).",
+  "Whether the 36 attachments whose filenames carry no extension are PDFs. I did not fetch them, so their MIME types are unmeasured.",
+  "Whether any bulletin content is geo-referenced to specific municipalities or monitoring stations. I read item titles, paths and metadata, not document bodies.",
+  "Whether /api/suggest paginates or caps its result list. No page parameter was observed and no total was returned, so the true number of documents containing 'peronospora' or 'vite' is unmeasured - the handful of snippets returned is a suggestion list, not a count.",
+  "Whether the alternate host myportal-avpisp.regione.veneto.it exposes content the public www host hides. I only confirmed it answers /api/portal/info identically (200, 224 bytes); I did not diff its content inventory.",
+  "Whether the 1 rve_news item sitting at the bare /Newsletter root belongs to a series. Its sys_path has no series segment."
+ ],
+ "next_steps": [
+  "Enumerate the full attachment set with the proven contract: GET /myportal/AVPISP/api/content?type=rve_news&parent=/Newsletter&includeSubFolders=true&pageIndex=1&pageSize=500, then read mul_association_allegati[].dyn_str_association_allegati_uuid from each of the 224 items and fetch /myportal/AVPISP/api/content/download?id=<uuid>. That yields the 310 already-counted attachments. MUST set includeSubFolders=true or the query silently returns 0.",
+  "Harden the parser against the two traps proven here: (a) treat entitiesCount as present ONLY on pageIndex=1 and carry it forward, since deep pages omit the key; (b) treat any text/html response of exactly 6250 bytes as a NULL RESULT, never as content - that is the SPA shell and it is returned with HTTP 200 for every nonexistent path.",
+  "Preserve the publications shelves too, using the same download pattern: /ServiziOnLine/Pubblicazioni/VITICOLTURA E ENOLOGIA (17 items) and /ServiziOnLine/Pubblicazioni/DIFESA FITOSANITARIA (28 items, phytosanitary fact sheets). Also query the unmeasured /ServiziOnLine/REPORT/VITICOLTURA E D ENOLOGIA to establish its item count.",
+  "Settle the pre-2024 question rather than assuming 2024 is the true archive start: query the API with an explicit ascending sort and a dateRange precondition via POST /myportal/AVPISP/api/search-advanced, and check the Internet Archive for the predecessor venetoagricoltura.org site to see whether older bulletin PDFs existed under a different platform.",
+  "If a Veneto viticulture bulletin is required for the pilot, look OUTSIDE this agency - Veneto Agricoltura does not publish one. The regional plant protection service (Servizio Fitosanitario Regionale, Regione Veneto) is the likely publisher of vine advisories; treat that as a new, unproven front to probe, not as an established fact.",
+  "Do NOT re-probe /wp-json/, /sitemap.xml or /robots.txt on this host. All three were measured and all three return the SPA shell; the site is Angular myPortal, not WordPress, so no WP category ids exist to discover."
+ ]
+}

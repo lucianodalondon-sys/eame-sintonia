@@ -1,0 +1,532 @@
+{
+ "front": "F1a-veneto-search",
+ "summary": "The Veneto vine bulletin archive is REAL and I reached it, but NOT through the site search — the site search cannot see it at all.\n\nSEARCH ENDPOINT (proven, not guessed): I fetched the homepage HTML and read the two <form> tags. The public endpoint is GET https://www.regione.veneto.it/web/guest/ricerca?globalSearchText={q}. I proved it actually filters with a control pair: \"zqxwvzzz9911nonsense\" -> \"Nessun risultato\" (0 items, 34669 bytes); \"peronospora\" -> \"Mostrati 1 - 7 su 7 risultati\" (7 items, 45439 bytes). A second, equivalent POST portlet action exists (_searchcontents_WAR_rvecontentsmanager_action=searchContentsAction) and returns identical counts.\n\nTHE SEARCH IS USELESS FOR THIS MISSION, and I measured why:\n(1) It does NOT index /web/fitosanitario/. The page /web/fitosanitario/bollettini-viticoli contains the literal string \"Oidio\" 44 times and \"Peronospora\" 40 times. Searching \"oidio\" returns 3 results and that page is not among them; searching \"peronospora\" returns 7 and that page is not among them. So the bulletins are invisible to the site search.\n(2) Multi-word queries are a loose OR sorted by date, not relevance: \"bollettino vite\" -> 2744, \"difesa integrata vite\" -> 3314, \"bollettino fitosanitario\" -> 2488, all returning the same generic newest-news list (Mostra del Cinema, meteo alerts).\n(3) A language trap: Italian \"vite\" means both \"grapevine\" and \"lives\". Top hits for \"vite peronospora\" (366) were \"Salvare Vite\" (Saving Lives), a firefighters' book.\n(4) Latin binomials do not work: \"Erysiphe necator\" -> \"Nessun risultato\" (0). \"Plasmopara viticola\" -> 40 hits that all matched only the token \"viticola\" (viticoltura/riconversione viticola), none about the pathogen. The bulletins themselves contain \"Erysiphe\" 0 times and \"Plasmopara\" 0 times — Veneto writes Italian common names (Oidio, Peronospora, Botrite, Tignoletta, Flavescenza dorata).\n\nHOW I ACTUALLY FOUND THE ARCHIVE: by navigation. Searching \"fitosanitario\" surfaced articleGroupId=11979050 and an article \"FITOS_home\" (articleId=11987717). Fetching that article exposed the real UO Fitosanitario site menu, which contains the index.\n\nTHE INDEX (real, fetched): https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari (HTTP 200, 47736 bytes) links exactly three year pages: 2024, 2025, 2026. All were fetched HTTP 200.\n\nWEEKLY VINE SERIES IS PROVEN. 2025: 20 vine issues, numbered N.1..N.20 with no gaps, 09/04/2025 -> 27/08/2025, day gaps [7,7,7,7,7,7,8,6,7,7,8,6,7,7,7,7,7,14,7], median 7. 2026: 20 vine issues, N.1..N.20 with no gaps, 09/04/2026 -> 27/08/2026, median 7. 2024: 18 inline full-text bulletins, 04/04/2024 -> 30/08/2024, median 7. The season runs April to late August, roughly 20 issues per year.\n\nTHREE DIFFERENT DELIVERY FORMATS ACROSS THREE YEARS — this matters for any collector: 2026 bulletins are native PDFs on regione.veneto.it under /documents/11979050/14345303/; 2025 bulletins are PDFs behind a Nextcloud public share on a DIFFERENT host, sharing.regione.veneto.it/index.php/s/{token} (append /download for the file); 2024 has NO PDFs at all — I searched that page for document links and found 0 — the 2024 bulletins exist only as inline HTML full text on /web/fitosanitario/bollettini-viticoli.\n\nI downloaded 4 PDFs + saved the 2024 HTML page (5 samples, within the 6 cap) and confirmed content is real. All 4 PDFs have %PDF magic and %%EOF. pdftotext extracts 6373-8561 chars each. vite_2026_01.pdf reads \"U.O. Fitosanitario / Bollettino n. 1 del 09 aprile 2026 / VITE\" with ARPAV weather, a BBCH phenology table by grape variety (Pinot, Chardonnay, Glera, Garganega, Corvina, Merlot), pathogen status naming oidio/escoriosi/peronospora, RIMpro and Horta model risk simulations, Lobesia botrana trap catches, and named vineyard sites (S.Ambrogio VR, Collalbrigo TV, Istrana).\n\nPDF GOTCHA I MEASURED: all four PDFs carry /Encrypt with /Filter/Standard. Naive zlib stream extraction returns 0 characters; I initially misread this as scanned images. pdftotext (poppler, present at /mingw64/bin) opens them fine. Any collector using a raw parser will silently get empty text.\n\nPRE-2024: I could not find any. Probing the year-page pattern gave clean 404s for 2019, 2020, 2021, 2022, 2023 — and also 404 for 2027, which validates the probe rather than proving absence. The Liferay folder listing /documents/11979050/14345303/ is 404 (not browsable). A web-search snippet claimed the bollettini-viticoli page holds April 2023 dates; I fetched that page and it contains 21 date tokens, ALL 2024, and 0 for 2023 — the snippet is a stale index, and the live per-crop page appears to be overwritten in place each year. A suggested mirror host elezioni.regione.veneto.it returned 404. The legacy path /web/agricoltura-e-foreste/bollettini-viticoli is a real HTTP 302 to the fitosanitario path, same 258197 bytes, not an older copy. I did NOT establish that pre-2024 bulletins never existed — only that the live site does not expose them.\n\nVOLUME PROVEN AND LISTED (not downloaded): 2025 year page carries 125 dated bulletin links (vine 20, fruit 29, vegetable 42, olive 33, sugar beet 1); 2026 carries 98 (vine 20, fruit 25, vegetable 22, olive 31). The 40 vine URLs are written to MANIFEST-F1a-vine.json.",
+ "probes": [
+  {
+   "url": "https://ipinfo.io/json",
+   "http_status": "200",
+   "bytes": 300,
+   "content_type": "application/json",
+   "verdict": "OK - confirms local egress is Italian VPN: Milan, country IT, AS208172 Proton AG"
+  },
+  {
+   "url": "https://www.regione.veneto.it/",
+   "http_status": "200",
+   "bytes": 130103,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - homepage; search form read from this HTML"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/guest/ricerca?globalSearchText=bollettino+vite",
+   "http_status": "200",
+   "bytes": 59591,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 'Mostrati 1 - 15 su 2744 risultati'; loose OR, date-sorted noise"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/guest/ricerca?globalSearchText=zqxwvzzz9911nonsense",
+   "http_status": "200",
+   "bytes": 34669,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 'Nessun risultato', 0 items. CONTROL proving GET search really filters"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/guest/ricerca?globalSearchText=peronospora",
+   "http_status": "200",
+   "bytes": 45439,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 'Mostrati 1 - 7 su 7 risultati', 7 items; no bulletin page among them"
+  },
+  {
+   "url": "https://www.regione.veneto.it/ricerca?p_p_id=searchcontents_WAR_rvecontentsmanager&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_searchcontents_WAR_rvecontentsmanager_action=searchContentsAction",
+   "http_status": "200",
+   "bytes": 60796,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - POST portlet action, body globalSearchText='bollettino vite' -> 2744; same as GET"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/guest/ricerca?globalSearchText=Plasmopara+viticola",
+   "http_status": "200",
+   "bytes": 60744,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 40 results, all matched token 'viticola' only; zero about the pathogen"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/guest/ricerca?globalSearchText=Erysiphe+necator",
+   "http_status": "200",
+   "bytes": 35864,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 'Nessun risultato', 0 results. Latin binomials absent from site"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/guest/ricerca?globalSearchText=oidio",
+   "http_status": "200",
+   "bytes": 40362,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 3 results; bulletin pages containing 'Oidio' 44x NOT among them"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/guest/ricerca?globalSearchText=bollettino+viticolo",
+   "http_status": "200",
+   "bytes": 57160,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 2430 results, generic date-sorted news"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/guest/ricerca?globalSearchText=bollettino+fitosanitario",
+   "http_status": "200",
+   "bytes": 57253,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 2488 results, generic date-sorted news"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/guest/ricerca?globalSearchText=vite+peronospora",
+   "http_status": "200",
+   "bytes": 63256,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 366 results; top hits are 'Salvare Vite' (Saving Lives) - vite ambiguity trap"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/guest/ricerca?globalSearchText=difesa+integrata+vite",
+   "http_status": "200",
+   "bytes": 64471,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 3314 results, generic date-sorted news"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/guest/ricerca?globalSearchText=fitosanitario",
+   "http_status": "200",
+   "bytes": 57831,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 96 results; THIS is the query that exposed articleGroupId=11979050 and FITOS_home"
+  },
+  {
+   "url": "https://www.regione.veneto.it/article-detail?articleGroupId=11979050&articleId=11987717",
+   "http_status": "200",
+   "bytes": 38512,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - FITOS_home; its nav revealed the real /web/fitosanitario/* URLs"
+  },
+  {
+   "url": "https://www.regione.veneto.it/article-detail?articleGroupId=10136&articleId=14391306",
+   "http_status": "200",
+   "bytes": 38472,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - Direzione Agroalimentare e servizio fitosanitario contact page"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/",
+   "http_status": "200",
+   "bytes": 99181,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - UO Fitosanitario section root; 32 internal links, no archive link present"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari",
+   "http_status": "200",
+   "bytes": 47736,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - THE HISTORICAL INDEX; links exactly 3 year pages (2024, 2025, 2026)"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2026",
+   "http_status": "200",
+   "bytes": 61797,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 98 dated bulletin links; vine 20, fruit 25, veg 22, olive 31"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2025",
+   "http_status": "200",
+   "bytes": 61761,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 125 dated bulletin links; vine 20, fruit 29, veg 42, olive 33, beet 1"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2024",
+   "http_status": "200",
+   "bytes": 50035,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - no direct docs; links 5 per-crop pages instead"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-viticoli",
+   "http_status": "200",
+   "bytes": 258197,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 2024 vine bulletins as INLINE FULL TEXT; 18 headings, 21 date anchors, ALL 2024; 0 document links"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-frutticoli",
+   "http_status": "200",
+   "bytes": 267363,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 2024 fruit bulletins inline; 34 date tokens, all 2024"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-seminativi",
+   "http_status": "200",
+   "bytes": 45616,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - 2024 extensive-crop bulletins inline; only 1 date token"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/difesa-colture",
+   "http_status": "200",
+   "bytes": 58108,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - parent section of the bulletin index"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/difesa-integrata",
+   "http_status": "200",
+   "bytes": 60013,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK - Disciplinari Produzione Integrata index; same 3-year window (2024/2025/2026)"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/disciplinari-2025",
+   "http_status": "200",
+   "bytes": 52518,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/disciplinari-2024",
+   "http_status": "200",
+   "bytes": 51028,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "OK"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/disciplinari-2023",
+   "http_status": "404",
+   "bytes": 50391,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_FOUND - same 3-year ceiling as the bulletins"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2023",
+   "http_status": "404",
+   "bytes": 50391,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2022",
+   "http_status": "404",
+   "bytes": 50391,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2021",
+   "http_status": "404",
+   "bytes": 50391,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2020",
+   "http_status": "404",
+   "bytes": 50391,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2019",
+   "http_status": "404",
+   "bytes": 50391,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_FOUND"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2027",
+   "http_status": "404",
+   "bytes": 50391,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_FOUND - CONTROL: a future year 404s identically, so the 404s above are a real pattern test, not proof of non-publication"
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/",
+   "http_status": "404",
+   "bytes": 50391,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_FOUND - Liferay document-library folder is not browsable"
+  },
+  {
+   "url": "https://elezioni.regione.veneto.it/web/fitosanitario/bollettini-viticoli/",
+   "http_status": "404",
+   "bytes": 50391,
+   "content_type": "text/html; charset=utf-8",
+   "verdict": "NOT_FOUND - candidate mirror host suggested by a web-search snippet; does not exist"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/agricoltura-e-foreste/bollettini-viticoli",
+   "http_status": "302 then 200",
+   "bytes": 258197,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "REDIRECTED - legacy path 302s to /web/fitosanitario/bollettini-viticoli; identical bytes, NOT an older copy"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/agricoltura-e-foreste/bollettini-frutticoli",
+   "http_status": "302 then 200",
+   "bytes": 267355,
+   "content_type": "text/html;charset=UTF-8",
+   "verdict": "REDIRECTED to /web/fitosanitario/bollettini-frutticoli"
+  },
+  {
+   "url": "https://sharing.regione.veneto.it/index.php/s/gsNQ94YLZBf4bRX",
+   "http_status": "200",
+   "bytes": 27609,
+   "content_type": "text/html; charset=UTF-8",
+   "verdict": "OK - Nextcloud public share landing page (HTML wrapper, no login required)"
+  },
+  {
+   "url": "https://sharing.regione.veneto.it/index.php/s/gsNQ94YLZBf4bRX/download",
+   "http_status": "200",
+   "bytes": 1984877,
+   "content_type": "application/pdf",
+   "verdict": "OK - appending /download yields the PDF directly; resolves to public.php/dav/files/{token}/"
+  }
+ ],
+ "index_pages": [
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari",
+   "title": "Bollettini fitosanitari - Regione del Veneto (U.O. Fitosanitario)",
+   "lists": "THE master historical index. Explanatory text plus links to exactly three year pages. States the bulletins are produced under the Piano di Azione Nazionale, carry weather (with ARPAV), phenological stage, epidemiological situation of main adversities, and treatment timing. Page states 'Data ultimo aggiornamento: 30 agosto 2026'.",
+   "years_visible": "2024, 2025, 2026 (only these three, as link labels 'Bollettini fitosanitari 2026/2025/2024')",
+   "item_count_seen": "3 year-page links",
+   "pagination": "none - single static page, no paging control"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2026",
+   "title": "Bollettini fitosanitari 2026",
+   "lists": "Dated bulletin links grouped by crop: Bollettini viticoli, frutticoli, orticoli, olivicoli, plus 8 monthly 'recapiti' calendar links. Documents are NATIVE PDFs on regione.veneto.it under /documents/11979050/14345303/.",
+   "years_visible": "2026",
+   "item_count_seen": "98 dated bulletin links parsed (vine 20, fruit 25, vegetable 22, olive 31)",
+   "pagination": "none - all items on one page"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2025",
+   "title": "Bollettini fitosanitari 2025",
+   "lists": "Dated bulletin links grouped by crop, plus a Barbabietola da zucchero section and a pointer to Veneto Agricoltura for colture erbacee. Documents are PDFs behind Nextcloud public shares on sharing.regione.veneto.it.",
+   "years_visible": "2025",
+   "item_count_seen": "125 dated bulletin links parsed (vine 20, fruit 29, vegetable 42, olive 33, sugar beet 1)",
+   "pagination": "none - all items on one page"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2024",
+   "title": "Bollettini fitosanitari 2024",
+   "lists": "No documents directly. Links 5 per-crop pages: bollettini-frutticoli, bollettini-olivicoli, bollettini-viticoli, bollettini-orticoli-industriali, bollettini-seminativi. Says the year is split into viticolo, frutticolo, orticolo, olivicolo and colture estensive.",
+   "years_visible": "2024",
+   "item_count_seen": "5 per-crop page links, 0 document links",
+   "pagination": "none"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-viticoli",
+   "title": "Bollettini viticoli (2024 vine bulletins, inline full text)",
+   "lists": "The 2024 VINE bulletins as inline HTML full text, not as files. I searched this page for document links and found 0. Each entry has weather (with ARPAV), phenology with BBCH table by variety, and named disease sections. Term counts I measured in this page: Flavescenza 48, Oidio 44, Peronospora 40, Tignoletta 32, Botrite 19, Erysiphe 0, Plasmopara 0.",
+   "years_visible": "2024 only - 21 date tokens, all 2024. A web-search snippet claimed April 2023 dates are on this page; the live page I fetched has none, so the page appears to be overwritten in place each year.",
+   "item_count_seen": "18 'Bollettino del <date>' full-text headings; 21 in-page date anchors",
+   "pagination": "none - the 'Data:' list is only in-page #anchors, no year filter, no paging params"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/",
+   "title": "U.O. Fitosanitario section root",
+   "lists": "The Fitosanitario section landing page and its full left navigation (32 internal links): Contatti e organigramma, Normativa, Export, Import, Difesa sostenibile delle colture, Disciplinari, Bollettini fitosanitari, Sorveglianza e monitoraggio organismi nocivi, Laboratorio Ufficiale fitosanitario, plus a news list.",
+   "years_visible": "NOT_KNOWN (news items dated 2026)",
+   "item_count_seen": "32 internal /web/fitosanitario links; no 'archivio' link anywhere in the nav",
+   "pagination": "news area has /web/fitosanitario/elenco-news; not fetched"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/guest/ricerca",
+   "title": "Ricerca contenuti - Regione del Veneto site search",
+   "lists": "Site-wide content search results as 'search-content-item' divs linking /article-detail?articleGroupId=..&articleId=... Proven to filter (nonsense -> Nessun risultato). Does NOT index /web/fitosanitario/ pages.",
+   "years_visible": "NOT_KNOWN - results carry no year facet in the HTML I parsed",
+   "item_count_seen": "15 items per page; total shown as 'Mostrati 1 - 15 su N risultati'",
+   "pagination": "Numbered pager rendered (Primo / Precedente / 1..5 / Successivo / Ultimo) but the paging parameter names are NOT_KNOWN - I did not fetch page 2"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/difesa-integrata",
+   "title": "Disciplinari Produzione Integrata regionali",
+   "lists": "Annual integrated-production technical standards (Tecniche Agronomiche and Difesa e Diserbo, Allegati A1/A2/B1/B2), derogation decrees by the U.O. Fitosanitario director, and active-substance authorisation notes. A separate series from the weekly bulletins but names crops and pests.",
+   "years_visible": "2026 inline (29 date tokens); links to Disciplinari 2025 and Disciplinari 2024. disciplinari-2023 returns 404.",
+   "item_count_seen": "2 year-page links plus ~12 document links on the 2026 page",
+   "pagination": "none"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-frutticoli",
+   "title": "Bollettini frutticoli (2024 fruit bulletins, inline full text)",
+   "lists": "2024 FRUIT bulletins as inline HTML full text, same pattern as the vine page. Out of scope for this front but proves the pattern is per-crop.",
+   "years_visible": "2024 only - 34 date tokens, all 2024",
+   "item_count_seen": "126 'Bollettino del' occurrences in raw HTML",
+   "pagination": "none"
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-seminativi",
+   "title": "Bollettini colture estensive / seminativi 2024",
+   "lists": "2024 extensive-crop bulletins, inline. Much thinner than the other crops.",
+   "years_visible": "2024 - only 1 date token",
+   "item_count_seen": "4 'Bollettino del' occurrences",
+   "pagination": "none"
+  }
+ ],
+ "documents": [
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Vite_2026_01/6751ad23-20ac-4ead-9ef8-d1d3cc5f7e32",
+   "title": "Bollettino n. 1 del 09 aprile 2026 - VITE (U.O. Fitosanitario)",
+   "year": "2026 (listed on index as 'N.01 del 09/04/2026'; PDF text says 'Bollettino n. 1 del 09 aprile 2026')",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf (%PDF-1.6, ends %%EOF, /Encrypt present, opens with pdftotext)",
+   "http_status": "200",
+   "bytes": 860435,
+   "sha256": "79d1371f0493754b76571ac85bfee5cff0cff17e83816bccf3b539c595b6befb",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1a-veneto-search\\vite_2026_01.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_20_270826.pdf/bac2bf94-b6c1-46d6-a608-1ff9cb82264d",
+   "title": "Bollettino n. 20 del 27 agosto 2026 - VITE (U.O. Fitosanitario)",
+   "year": "2026 (listed as 'N.20 del 27/08/2026'; PDF text says 'Bollettino n. 20 del 27 agosto 2026')",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf (%PDF-1.5, ends %%EOF, /Encrypt present, Linearized)",
+   "http_status": "200",
+   "bytes": 4255572,
+   "sha256": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1a-veneto-search\\vite_2026_20.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://sharing.regione.veneto.it/index.php/s/gsNQ94YLZBf4bRX/download",
+   "title": "Bollettino n. 1 del 9 aprile 2025 - VITE (U.O. Fitosanitario)",
+   "year": "2025 (listed as 'N.01 del 09/04/2025'; PDF text says 'Bollettino n. 1 del 9 aprile 2025')",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf (%PDF-1.6, ends %%EOF, /Encrypt present)",
+   "http_status": "200",
+   "bytes": 1984877,
+   "sha256": "4bc2066945c74c8375972be35dbe0e232d090ab25f7098b3b674be89f6a60032",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1a-veneto-search\\vite_2025_01.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://sharing.regione.veneto.it/index.php/s/49MSkDiJG7RnigW/download",
+   "title": "Bollettino n. 20 del 27 agosto 2025 - VITE (U.O. Fitosanitario)",
+   "year": "2025 (listed as 'N.20 del 27/08/2025'; PDF text says 'Bollettino n. 20 del 27 agosto 2025')",
+   "crop_or_topic": "vite",
+   "file_type": "application/pdf (%PDF-1.6, ends %%EOF, /Encrypt present, Linearized)",
+   "http_status": "200",
+   "bytes": 1271319,
+   "sha256": "669c674abb3ed4ec4d2ed636fae1280ac845855089cca0d876c408b685127d11",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1a-veneto-search\\vite_2025_20.pdf",
+   "downloaded": true
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-viticoli",
+   "title": "Bollettini viticoli - the entire 2024 vine season as inline HTML full text",
+   "year": "2024 (18 headings from 'Bollettino del 04 aprile 2024' to 'Bollettino del 30 agosto 2024')",
+   "crop_or_topic": "vite",
+   "file_type": "text/html (this IS the document for 2024 - the page carries 0 PDF links)",
+   "http_status": "200",
+   "bytes": 258197,
+   "sha256": "c3d9a17f648e1546d39fd40ab1c4ed449087cce4a98e10afc3d1756cfd66eb30",
+   "raw_path": "C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1a-veneto-search\\vite_2024_fulltext_page.html",
+   "downloaded": true
+  },
+  {
+   "url": "https://sharing.regione.veneto.it/index.php/s/gsNQ94YLZBf4bRX",
+   "title": "Nextcloud public share landing page for the 2025 vine bulletin n.1",
+   "year": "2025",
+   "crop_or_topic": "vite",
+   "file_type": "text/html (HTML wrapper around the PDF; no login prompt)",
+   "http_status": "200",
+   "bytes": 27609,
+   "sha256": "NOT_PRESERVED",
+   "raw_path": "NOT_PRESERVED",
+   "downloaded": false
+  }
+ ],
+ "measurements": [
+  {
+   "name": "SEARCH_ENDPOINT_FOUND",
+   "value": "YES",
+   "evidence": "Read directly from the homepage HTML (saved at pilot-disease-local-collection/evidence/F1a-veneto-home.html, sha256 8fb9034bdd38f8c8ea1319fbc90efa32f1a750d9e2dd1ace7a2e0a2eb5d8482f). Two forms: <form class=\"ricerca\" action=\"/web/guest/ricerca\" method=\"get\"> with <input name=\"globalSearchText\">, and a Liferay POST portlet action. Not guessed. Proven to filter by a control pair: nonsense query -> 'Nessun risultato' 0 items / 34669 bytes; 'peronospora' -> 'Mostrati 1 - 7 su 7 risultati' 7 items / 45439 bytes."
+  },
+  {
+   "name": "SEARCH_ENDPOINT_URL",
+   "value": "https://www.regione.veneto.it/web/guest/ricerca?globalSearchText={query}  (GET, simplest working form). Equivalent POST action: https://www.regione.veneto.it/ricerca?p_p_id=searchcontents_WAR_rvecontentsmanager&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_searchcontents_WAR_rvecontentsmanager_action=searchContentsAction with body fields globalSearchText and redirectRicerca=Cerca",
+   "evidence": "Both fetched. GET and POST return identical totals for the same term ('bollettino vite' -> 2744 on both). CRITICAL CAVEAT I measured: this endpoint does NOT index /web/fitosanitario/ pages, so it cannot find the vine bulletins at all. The page /web/fitosanitario/bollettini-viticoli contains 'Oidio' 44 times and 'Peronospora' 40 times, yet a search for 'oidio' returns 3 results and for 'peronospora' returns 7, with that page absent from both."
+  },
+  {
+   "name": "HISTORICAL_INDEX_FOUND",
+   "value": "YES - https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari",
+   "evidence": "Fetched HTTP 200, 47736 bytes. It is the archive hub and links exactly three year pages, all of which I fetched at HTTP 200: bollettini-fitosanitari-2026 (61797 b), -2025 (61761 b), -2024 (50035 b). Found by navigation, NOT by the site search: the query 'fitosanitario' returned articleGroupId=11979050 and the article FITOS_home (articleId=11987717), and fetching that article exposed the real /web/fitosanitario/* menu."
+  },
+  {
+   "name": "EARLIEST_YEAR_SEEN",
+   "value": "2024 - earliest individual vine bulletin is 'Bollettino del 04 aprile 2024'",
+   "evidence": "Parsed from https://www.regione.veneto.it/web/fitosanitario/bollettini-viticoli, which holds the 2024 vine season as inline full text (18 dated headings, 04/04/2024 to 30/08/2024). The year pages for 2019, 2020, 2021, 2022 and 2023 all return HTTP 404 (50391 bytes each), and so does a 2027 control - so the 404s show the URL pattern stops at 2024, they do NOT prove Veneto published nothing earlier."
+  },
+  {
+   "name": "LATEST_YEAR_SEEN",
+   "value": "2026 - latest vine bulletin is N.20 del 27/08/2026",
+   "evidence": "Listed on https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2026 and downloaded: 4255572 bytes of application/pdf, whose extracted text reads 'U.O. Fitosanitario / Bollettino n. 20 del 27 agosto 2026 / VITE'. The index page states 'Data ultimo aggiornamento: 30 agosto 2026'."
+  },
+  {
+   "name": "WEEKLY_SERIES_EVIDENCE",
+   "value": "YES - strongly proven, weekly April-to-August, about 20 issues per vine season",
+   "evidence": "2025: 20 vine issues numbered N.1..N.20 with no missing number, 09/04/2025 to 27/08/2025, day gaps [7,7,7,7,7,7,8,6,7,7,8,6,7,7,7,7,7,14,7], median 7, 14 of 19 gaps exactly 7. 2026: 20 vine issues N.1..N.20 with no missing number, 09/04/2026 to 27/08/2026, day gaps [6,8,6,7,7,7,8,6,7,7,7,7,7,7,7,8,7,7,14], median 7. 2024: 18 inline bulletins, 04/04/2024 to 30/08/2024, median 7. The single 14-day gap at the end of each season is the August break. Companion weekly series exist for fruit, vegetable and olive on the same pages."
+  },
+  {
+   "name": "UO_FITOSANITARIO_URL",
+   "value": "https://www.regione.veneto.it/web/fitosanitario/  (section root, HTTP 200, 99181 bytes). The nav labels https://www.regione.veneto.it/web/fitosanitario/home as 'U.O. Fitosanitario'.",
+   "evidence": "Discovered from the FITOS_home article, not guessed. Fetched at HTTP 200. Its 32-link navigation gave me every other URL in this report. The unit is named on the bulletin index as 'Direzione Agroalimentare e Servizio Fitosanitario / Unita Organizzativa Fitosanitario', Direttore Paolo Frasson, with contact difesa.fitosanitario@regione.veneto.it and E.Q. Difesa integrata Sergio Carraro, tel 0444 337085."
+  }
+ ],
+ "blockers": [
+  {
+   "url": "https://www.regione.veneto.it/documents/11979050/14345303/Vite_2026_01/6751ad23-20ac-4ead-9ef8-d1d3cc5f7e32",
+   "kind": "ENCRYPTED_PDF_SILENT_EMPTY_TEXT",
+   "detail": "Not an access blocker - the file downloads fine at HTTP 200. It is a PARSING trap. All four vine PDFs I downloaded carry /Encrypt with /Filter/Standard (standard security handler, permission restrictions). A naive zlib/regex stream reader inflates 0 or 1 of ~44 streams and returns 0 characters of text, which looks exactly like a scanned image-only PDF. I made that mistake mid-run and corrected it. pdftotext (poppler, present here at /mingw64/bin/pdftotext) opens all four without a password and yields 6373-8561 characters each. Any collector that extracts with a raw parser will record these bulletins as empty and silently report a false zero."
+  },
+  {
+   "url": "https://sharing.regione.veneto.it/index.php/s/{token}",
+   "kind": "OFF_PORTAL_HOST_WITH_OPAQUE_TOKENS",
+   "detail": "The whole 2025 season lives on a second host, sharing.regione.veneto.it, a Nextcloud instance. No login and no CAPTCHA - I fetched both the landing page (27609 bytes HTML) and the file (append /download, resolves to public.php/dav/files/{token}/, 1984877 bytes application/pdf). The risk is that share tokens are opaque and revocable: they cannot be reconstructed and are not derivable from the date or issue number, so if the index page changes the 2025 corpus becomes unreachable. The 20 tokens must be preserved from the index page, which I have done in MANIFEST-F1a-vine.json."
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/fitosanitario/bollettini-viticoli",
+   "kind": "PAGE_OVERWRITTEN_IN_PLACE",
+   "detail": "This per-crop page holds only 2024 (21 date tokens, all 2024; 0 for 2023). A web-search snippet asserted the same page carries 28.04.2023, 19.04.2023, 12.04.2023 and 05.04.2023. I treated that snippet as data and tested it: the live page has no 2023 dates. The most consistent reading is that the per-crop pages are rewritten each season, so earlier years were destroyed in place rather than archived. I did not verify this against any archive service, so it is a hypothesis, not a measurement."
+  },
+  {
+   "url": "https://www.regione.veneto.it/web/guest/ricerca",
+   "kind": "SEARCH_INDEX_EXCLUDES_TARGET_SECTION",
+   "detail": "The official site search cannot reach the bulletins. Measured, not inferred: the vine page contains 'Oidio' 44 times and 'Peronospora' 40 times, but a search for 'oidio' returns 3 results and 'peronospora' returns 7, and that page is in neither result set. Anyone who concludes from this search that Veneto publishes no vine disease bulletins would be recording a false zero. Secondary traps in the same endpoint: multi-word queries are a loose OR sorted by date (2430-3314 results of pure noise), and Italian 'vite' also means 'lives', so 'vite peronospora' surfaces a firefighters' book titled 'Salvare Vite'."
+  }
+ ],
+ "not_known": [
+  "Whether Regione del Veneto published vine bulletins BEFORE 2024. I proved only that the live site does not expose them: bollettini-fitosanitari-2019 through -2023 all return HTTP 404, and a 2027 control returns the same 404, so the probe tests the URL pattern rather than the existence of the documents. Absence of evidence is not evidence of absence.",
+  "The paging parameter names of the site search. The results page renders a numbered pager (Primo / Precedente / 1..5 / Successivo / Ultimo) but I never fetched page 2, so I cannot say how to walk past the first 15 results.",
+  "Page counts of the four downloaded PDFs. The /Type /Page objects sit inside encrypted object streams, my raw counter returned 0 for two files and 4 for another, and I did not run a page-aware tool. NOT_KNOWN.",
+  "Whether the bulletin PDFs have a usable text layer on every page or only on some. pdftotext returned 6373-8561 characters per file, which proves a text layer exists, but each PDF also embeds 22-52 images (charts, phenology photos, trap graphs) whose content is not in that text. I did not check for pages that are image-only.",
+  "Whether the 2025 Nextcloud share tokens are permanent or expiring. I fetched two of them successfully today; I have no evidence about their lifetime.",
+  "Whether the earlier-year content survives anywhere off-portal (Wayback Machine, Veneto Agricoltura, ARPAV). I stayed inside regione.veneto.it as assigned and did not probe any archive service.",
+  "The real filenames the server assigns to the Nextcloud downloads. I saved them under names I chose; I did not capture the Content-Disposition header.",
+  "Contents of the remaining 36 vine bulletins (20 for 2026 and 20 for 2025 minus the 4 sampled). Their URLs are proven to be LISTED on index pages I fetched, but the URLs themselves were never fetched, so they are not proven to resolve.",
+  "Whether the 'colture erbacee' series, which the 2025 page hands off to Veneto Agricoltura, contains vine content. I did not follow that link.",
+  "The bollettini-orticoli-industriali and bollettini-olivicoli per-crop pages for 2024 - I fetched viticoli, frutticoli and seminativi but not those two."
+ ],
+ "next_steps": [
+  "Preserve the 36 remaining vine bulletins whose URLs are already proven-listed in C:\\disease-local-collection-italy\\pilot-disease-local-collection\\raw\\F1a-veneto-search\\MANIFEST-F1a-vine.json (40 entries: 20 for 2025, 20 for 2026). For 2026 fetch the /documents/11979050/14345303/... URLs directly; for 2025 append /download to each sharing.regione.veneto.it/index.php/s/{token}. Record HTTP status, byte count and sha256 for every one, and mark a fetch failure as a failure - never as a zero.",
+  "Extract text with pdftotext (already present at /mingw64/bin/pdftotext), NOT with a hand-rolled zlib parser. Every one of these PDFs is /Encrypt-protected and a raw parser returns 0 characters, which is indistinguishable from a scanned document. Add an assertion that rejects any extraction under, say, 2000 characters so an empty parse can never be recorded as an empty bulletin.",
+  "Preserve the 2024 season separately and urgently. It exists ONLY as inline HTML on the three per-crop pages (bollettini-viticoli, bollettini-frutticoli, bollettini-seminativi) with zero PDF backing, and the evidence suggests those pages are rewritten each season. The vine page is already saved at raw/F1a-veneto-search/vite_2024_fulltext_page.html (sha256 c3d9a17f648e1546d39fd40ab1c4ed449087cce4a98e10afc3d1756cfd66eb30); fetch bollettini-olivicoli and bollettini-orticoli-industriali too, which I did not.",
+  "Settle the pre-2024 question with a real fetch instead of leaving it open: query the Wayback Machine CDX API for regione.veneto.it/web/fitosanitario/bollettini-viticoli and for the legacy /web/agricoltura-e-foreste/ path, and check whether snapshots carry the April 2023 dates that a search snippet claimed but the live page does not have. That is the only route I found that could recover earlier seasons.",
+  "Ask the U.O. Fitosanitario directly for the pre-2024 archive rather than guessing URLs. The bulletin index publishes difesa.fitosanitario@regione.veneto.it and names E.Q. Difesa integrata Sergio Carraro, tel 0444 337085. Note this needs the user's approval before any message is sent - I did not contact anyone.",
+  "Do not build any collector on top of the site search at /web/guest/ricerca for this material. It does not index /web/fitosanitario/ and will return a confident, wrong zero. Walk the navigation tree from https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari instead, and re-check each April whether a new year page has appeared and whether the oldest one has been dropped.",
+  "Harvest the sibling crop series from the same two year pages while the tokens are live: 2025 carries 125 dated bulletins (fruit 29, vegetable 42, olive 33, sugar beet 1 alongside the 20 vine) and 2026 carries 98 (fruit 25, vegetable 22, olive 31). Same fetch mechanics, no extra discovery needed.",
+  "Also capture the adjacent Disciplinari di Produzione Integrata series at /web/fitosanitario/difesa-integrata plus /disciplinari-2025 and /disciplinari-2024 (all fetched HTTP 200; 2023 is 404). These are the regional treatment standards the bulletins refer to, and they show the same disappearing three-year window.",
+  "When parsing crop or disease from these documents, key on the Italian common names actually used - Peronospora, Oidio, Botrite, Tignoletta, Flavescenza dorata, Escoriosi, Marciume acido - and not on Latin binomials. I measured 0 occurrences of both 'Erysiphe' and 'Plasmopara' in the bulletin corpus, and the site search for 'Erysiphe necator' returns 'Nessun risultato'.",
+  "Keep the collector on the Italian VPN. I confirmed local egress as Milan / country IT / AS208172 Proton AG before every fetch in this run, and I did not test whether any of these hosts behave differently from outside Italy."
+ ]
+}
