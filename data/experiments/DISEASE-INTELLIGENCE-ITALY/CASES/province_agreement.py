@@ -1,8 +1,26 @@
 #!/usr/bin/env python3
 """
 GENERIC internal-consistency test: do independently-monitored provinces agree on which
-seasons were bad? One code path for every case. Panel composition, observer identity and
-visit intensity are province-specific and cannot manufacture cross-province agreement.
+seasons were bad? One code path for every case.
+
+WARRANT CORRECTED 2026-09-06. This module used to assert that "panel composition, observer
+identity and visit intensity are province-specific and cannot manufacture cross-province
+agreement". That sentence was FALSE and was the only justification offered for treating the
+pairs as independent. Measured: one organisation (unipi) supplies rows in all 10 provinces of
+both vine cases; ota and aprol each appear in 10/10 provinces of the olive case. A single
+organisation's scoring drift is therefore common to every province and CAN in principle
+manufacture the agreement this test measures.
+
+The independence claim is now DEMONSTRATED per case instead of asserted, by removing the
+shared organisation and re-running:
+    OIDIO        all orgs 27/36 rho +0.245  ->  drop unipi     6/6  rho +0.537
+    BACTROCERA   all orgs 36/36 rho +0.770  ->  drop ota+aprol 36/36 rho +0.731
+Both re-run here from the frozen RAW. The calibration case (peronospora) uses an older index
+layout and was NOT re-run, so no leave-one-org-out number is claimed for it.
+The conclusion survives in both cases tested. The warrant did not.
+
+Note that dropping the shared organisation costs power in the vine case (36 pairs -> 6), so the
+survival there is weaker evidence than the olive case's, where all 36 pairs remain.
 """
 import json,sys,os,glob,collections,itertools,random,importlib.util
 from statistics import mean,pstdev

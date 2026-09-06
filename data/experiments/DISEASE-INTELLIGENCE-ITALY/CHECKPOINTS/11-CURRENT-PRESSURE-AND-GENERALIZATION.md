@@ -14,14 +14,16 @@ ranked). **No new collection was needed to decide**, so none was opened.
 | object | OLIVO × *Bactrocera oleae* × Toscana | VITE × Oidio × Toscana |
 | crop / schema / var | 2 / 1 / −1002 "Infestazione Dannosa" | 3 / 8 / 39 "Presenza su foglie" |
 | outcome observed | YES — destructive sample, 100 olives/visit | YES — ordinal presence scale |
-| seasons | 21 (2006–2026) | 20 (2006–2026, 2011 empty) |
-| visits | 79 251 | 35 065 |
+| seasons | **20 complete + 2026 in progress** (see C7) | 20 (2006–2026, 2011 empty) |
+| visits | 79 251, of which 2 928 in the unfinished 2026 | 35 065, of which **96.9 % are the same visit as a calibration-case observation** (see C2) |
 | provinces | 9–10 | 9–10 |
 | value mode | NUMERIC (`widget: numeric`) | ORDINAL (code table) |
 
 Why these two and not others: the pest case is the only Italian candidate with a **true rate over
 a known denominator**; the second disease case shares crop and region with the calibration case,
-which isolates *issue* as the only variable that differs. That is the cleanest possible generalization test.
+which isolates *issue* as the only variable that differs. That is the cleanest possible
+generalization test **across issue** — and, as the red team established (C2, C3), it is *not* a
+test across geography, and the vine cases share 96.9 % of their visits.
 
 ---
 
@@ -39,7 +41,7 @@ total pipeline code lines .......................... 776
 ```
 
 ```
-CASES_TESTED ........................... 3
+CASES_TESTED ........................... 3 case-runs over 2 INDEPENDENT PANELS (see C2)
 CASES_PASS_WITHOUT_CUSTOM_RULE ......... 3
 CASES_NEED_CASE_SPECIFIC_RULE .......... 0
 CASES_FAIL ............................. 0
@@ -64,7 +66,10 @@ Internal consistency (province agreement, generic test, within-province year-shu
 |---|---|---|---|
 | BACTROCERA | 36/36 | **+0.770** | 0.00033 |
 | PERONOSPORA (calibration) | 36/36 | +0.622 | 0.00033 |
-| OIDIO | 27/36 (two negative) | +0.245 | 0.00067 |
+| OIDIO | 27/36 (**9 non-positive**, corrected — see C1) | +0.245 | 0.00067 |
+
+Leave-shared-organisation-out, because the old independence warrant was false (C4):
+BACTROCERA drop `ota`+`aprol` → 36/36 ρ +0.731; OIDIO drop `unipi` → 6/6 ρ +0.537.
 
 ---
 
@@ -192,9 +197,15 @@ Italy-level coverage, stated plainly:
 
 ```
 REGIONS_WITH_PROVED_DATA  = 1    Toscana
-REGIONS_PARTIAL           = 1    Abruzzo (replicated schema; does NOT co-move with Toscana,
-                                 rho +0.190 p 0.67 — so it is a separate product, not an extension)
+REGIONS_PARTIAL           = 1    Abruzzo — schema replicates and the scale derives cleanly, but
+                                 its nome_area is an AGRO-ZONE partition, not provinces, and no
+                                 area reaches 10 seasons -> 0 qualifying pairs. The internal
+                                 consistency test CANNOT RUN there (C3). It also does not
+                                 co-move with Toscana (rho +0.190 p 0.67).
 REGIONS_UNKNOWN           = 18   never tested
+
+GEOGRAPHIC GENERALIZATION = NOT DEMONSTRATED. All 108 province pairs come from the same nine
+Tuscan provinces and one API host.
 ```
 
 **No national Italian pressure figure is produced, and the code cannot produce one.**

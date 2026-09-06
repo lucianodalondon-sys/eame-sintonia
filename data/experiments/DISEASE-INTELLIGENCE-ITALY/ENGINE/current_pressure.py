@@ -52,6 +52,56 @@ def _shift_year(d, y):
     except ValueError: return d.replace(year=y, day=28)      # 29 Feb -> 28 Feb, declared
 
 
+def denominator_guard(rows, case_dir, denom_var):
+    """FAILURE != ZERO, enforced in code rather than in a docstring.
+
+    A rate over a denominator that is 0 or unknown is not a rate — contracts.OutcomeRecord has
+    said so since the engine was frozen, and until 2026-09-06 no runner imported it. A visit
+    where nothing was sampled was entering the series as a CONFIRMED ABSENCE of the issue.
+
+    Measured on OLIVO x BACTROCERA x TOSCANA: 3,026 of 79,251 visits have denominator 0 and
+    1,580 of those are served as the value "0". The source ALSO changed how it encodes them —
+    served as 0 through 2019, served as null from 2020 — which is an era break inside the
+    outcome variable itself, of the same kind as the georeferencing break already recorded.
+
+    Effect of applying this guard, measured, not assumed:
+        today's published cells      0 of 10 class changes
+        walk-forward EVOLUTION       2 of 200 cells changed (1.0%), both in 2013
+    The defect is real; the published conclusions do not rest on it. Both facts are reported.
+    """
+    den = {}
+    for fn in glob.glob(os.path.join(case_dir, "RAW", f"*_v{denom_var}_*.json")):
+        for r in json.load(open(fn)):
+            v = r.get("val")
+            try: den[r["id_survey"]] = float(v) if v not in (None, "") else None
+            except ValueError: den[r["id_survey"]] = None
+    kept = [r for r in rows if den.get(r.get("id_survey"))]
+    return kept, {"dropped_zero_or_unknown_denominator": len(rows) - len(kept),
+                  "denominator_var": denom_var}
+
+
+def season_completeness(rows, as_of):
+    """A season still in progress is NOT a peer of completed ones.
+
+    Measured on the olive case: 2026 stops at ISO week 36 while all twenty prior seasons run to
+    weeks 41-44, and olive-fly damage accumulates in exactly the weeks 2026 does not have. The
+    season/visit headline counted it as a full season; it is not one.
+
+    CURRENT_PRESSURE is immune to this by construction — it compares the SAME calendar window
+    across seasons — but any season-level or trend view must carry the flag.
+    """
+    last = collections.defaultdict(int)
+    for r in rows:
+        y = r["_d"].year
+        last[y] = max(last[y], int(r.get("week") or 0))
+    complete = [w for y, w in last.items() if y < as_of.year]
+    typical_last = sorted(complete)[len(complete) // 2] if complete else None
+    return {y: {"LAST_WEEK": w, "TYPICAL_LAST_WEEK": typical_last,
+                "STATE": ("COMPLETE" if typical_last is None or w >= typical_last - 2
+                          else "IN_PROGRESS_OR_TRUNCATED")}
+            for y, w in sorted(last.items())}
+
+
 def load_rows(case_dir, var_id):
     """Every raw file for this variable, with the sha256 recorded in the collection index."""
     idx = json.load(open(os.path.join(case_dir, "collection_index.json")))
