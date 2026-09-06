@@ -1,0 +1,54 @@
+{
+ "SUITE": "FALSE-CHANGE-NOISE-TEST",
+ "O_QUE_ISTO_TESTA": "se o motor fabrica mudanca a partir de perturbacao que nao muda regulacao nenhuma, e se ainda assim enxerga mudanca real",
+ "PASSOU": 11,
+ "FALHOU": 0,
+ "FALSE_CHANGE_NOISE_TEST": "PASS",
+ "TESTES_OK": [
+  {
+   "TESTE": "reorder de lista multivalorada",
+   "LEI": "N-01"
+  },
+  {
+   "TESTE": "reorder invertido da lista de perigo",
+   "LEI": "N-01"
+  },
+  {
+   "TESTE": "whitespace em todos os campos",
+   "LEI": "N-02"
+  },
+  {
+   "TESTE": "espaco em volta do separador |",
+   "LEI": "N-02"
+  },
+  {
+   "TESTE": "mesmo instantaneo comparado consigo",
+   "LEI": "N-04"
+  },
+  {
+   "TESTE": "mesmo conteudo sob outro nome de arquivo",
+   "LEI": "N-04"
+  },
+  {
+   "TESTE": "linhas do CSV embaralhadas",
+   "LEI": "N-02/layout"
+  },
+  {
+   "TESTE": "oscilacao ida e volta no mesmo campo",
+   "LEI": "N-03"
+  },
+  {
+   "TESTE": "mesmo documento lido por outro leitor de CSV",
+   "LEI": "N-05"
+  },
+  {
+   "TESTE": "controle positivo: mudanca real e detectada",
+   "LEI": "R-01"
+  },
+  {
+   "TESTE": "controle positivo: revoga e detectada",
+   "LEI": "R-02"
+  }
+ ],
+ "FALHAS": []
+}

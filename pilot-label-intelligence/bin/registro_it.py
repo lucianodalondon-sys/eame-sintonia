@@ -127,9 +127,15 @@ MULTIVALUED = {"indicazioni_di_pericolo", "sostanze_attive"}
 
 
 def norm(field, value):
-    v = (value or "").strip()
+    """Normaliza um campo antes de comparar.
+
+    Colapsa espaco INTERNO, nao so as pontas. Um teste adversarial mediu o custo
+    de nao fazer isso: reindentar o CSV sem mudar um unico dado fabricava 2.028
+    eventos. Espaco nao e regulacao.
+    """
+    v = " ".join((value or "").split())
     if field in MULTIVALUED:
-        return "|".join(sorted(p.strip() for p in v.split("|") if p.strip()))
+        return "|".join(sorted(" ".join(p.split()) for p in v.split("|") if p.strip()))
     return v
 
 
