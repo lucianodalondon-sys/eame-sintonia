@@ -70,6 +70,20 @@ ROTEAMENTO = {
     "NEEDS_HUMAN_REVIEW":      [("REGULATORY", "RELEVANT", "C-02")],
     "DATA_QUALITY_EVENT":      [("REGULATORY", "RELEVANT", "C-02")],
 }
+# O texto de cada regra, para a tela nao mostrar "regra C-07 — regra C-07".
+PORQUE = {
+    "C-01": "a mudanca e do registro oficial, que e o objeto de trabalho desta area",
+    "C-02": "so esta area pode adjudicar leitura de rotulo",
+    "C-03": "uso novo pode abrir avaliacao; a ferramenta nao afirma oportunidade",
+    "C-04": "pode exigir reavaliacao de posicionamento",
+    "C-05": ("o campo nao recebe fato regulatorio bruto; portao G-01 fechado nesta versao"),
+    "C-06": ("material publicado pode citar o uso que mudou; gera CONTENT_REVIEW_CANDIDATE, "
+             "nunca 'material errado'"),
+    "C-07": "sao eventos com data; NAO implicam demanda nem estoque",
+    "C-08": "a area cruza portfolio, cultura, alvo e tempo",
+    "C-09": "dono do portfolio local",
+}
+
 # O campo RTV nunca recebe direto: C-05 mantem NOT_RELEVANT ate o portao G-01.
 CAPACIDADES = ["REGULATORY", "DEVELOPMENT_MARKET", "COMMERCIAL_RTV", "MARKETING_PRODUCT",
                "SUPPLY", "INTELLIGENCE", "COUNTRY_PRODUCT_TEAM"]
@@ -141,16 +155,25 @@ def roteia(tipo):
         mapa[cap] = (estado, rid)
     for c in CAPACIDADES:
         if c == "COMMERCIAL_RTV":
+            # Unico NOT_RELEVANT com regra propria: e uma decisao declarada, nao
+            # uma lacuna de conhecimento.
             out.append({"CAPABILITY_ID": c, "ROUTING_STATE": "NOT_RELEVANT", "RULE_ID": "C-05",
-                        "JUSTIFICATION": ("o campo nao recebe fato regulatorio bruto; passa "
-                                          "pelo portao G-01, que esta fechado nesta versao")})
+                        "JUSTIFICATION": ("decisao declarada: o campo nao recebe fato regulatorio "
+                                          "bruto. Passa pelo portao G-01, que exige prova e revisao "
+                                          "humana registrada e nao e aberto nesta versao")})
         elif mapa[c]:
             estado, rid = mapa[c]
             out.append({"CAPABILITY_ID": c, "ROUTING_STATE": estado, "RULE_ID": rid,
-                        "JUSTIFICATION": f"regra {rid} de v1/inteligencia/REGRAS.md"})
+                        "JUSTIFICATION": PORQUE.get(rid, f"ver regra {rid} em v1/inteligencia/REGRAS.md")})
         else:
-            out.append({"CAPABILITY_ID": c, "ROUTING_STATE": "NOT_RELEVANT", "RULE_ID": "C-99",
-                        "JUSTIFICATION": f"nenhuma regra roteia {tipo} para {c}"})
+            # C-99 diz UNKNOWN, e UNKNOWN e o que tem de sair. Carimbar
+            # NOT_RELEVANT aqui seria transformar "nenhuma regra cobre isto" em
+            # uma afirmacao positiva de que a area NAO precisa olhar — que e
+            # exatamente inventar conhecimento que nao temos.
+            out.append({"CAPABILITY_ID": c, "ROUTING_STATE": "UNKNOWN", "RULE_ID": "C-99",
+                        "JUSTIFICATION": (f"nenhuma regra de roteamento cobre {tipo} para esta "
+                                          f"capacidade. Isto NAO afirma que a area nao precisa "
+                                          f"olhar: afirma que nao sabemos")})
     return out
 
 

@@ -23,6 +23,19 @@ const CAPS = {REGULATORY:'Regulatory', DEVELOPMENT_MARKET:'Desenv. de Mercado',
               SUPPLY:'Supply', INTELLIGENCE:'Inteligencia',
               COUNTRY_PRODUCT_TEAM:'Country / Product Team'};
 
+// Os dois lados escrevem o nome da cultura de jeitos diferentes: o leitor de
+// cultura x alvo normaliza ("VITE"), o leitor de dose guarda como esta impresso
+// ("Vite*", "Cetriolo, Zucchino (Uso in serra)"). Casar por igualdade exata fazia
+// a tela dizer NOT_KNOWN para dose que existe e esta provada.
+const nrm = s => String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+  .toUpperCase().replace(/[^A-Z0-9 ]+/g,' ').replace(/\s+/g,' ').trim();
+function casa(a, b) {            // um contem o outro, apos normalizar
+  const x = nrm(a), y = nrm(b);
+  if (!x || !y) return false;
+  if (x === y) return true;
+  return x.split(' ').some(t => t.length > 3 && y.includes(t))
+      || y.split(' ').some(t => t.length > 3 && x.includes(t));
+}
 const P = window.__PAYLOAD__;
 const byReg = Object.fromEntries(P.products.map(p => [p.reg, p]));
 
@@ -101,7 +114,9 @@ function evUso(reg, i) {
     <dt>Como esta escrito no rotulo</dt><dd>${val(u.crop_raw)} &middot; ${val(u.target_raw)}</dd>
     <dt>Classe de evidencia</dt><dd><span class="pill ${u.evidence==='TABLE_GEOMETRY'?'p-ok':'p-dim'}">${esc(u.evidence)}</span>
       <div class="meta">${u.evidence==='TABLE_GEOMETRY'
-        ?'linha lida da geometria da tabela, com pagina no documento'
+        ? ('linha lida da geometria da tabela' + (isUnk(u.page)
+            ? ', mas a pagina nao foi preservada por este leitor'
+            : ', com pagina no documento'))
         :'par montado a partir de prosa ou lista do rotulo, nao de uma linha de tabela'}</div></dd>
     <dt>Rota do extrator</dt><dd class="mono">${val(u.route)}</dd>
     <dt>Pagina</dt><dd>${val(u.page)}</dd>
@@ -253,8 +268,11 @@ function viewProduto(reg) {
       <tbody>${Object.entries(porCultura).sort().map(([c,us]) => `<tr>
         <td><b>${esc(c)}</b></td>
         <td class="meta">${[...new Set(us.map(u=>u.target))].join(' &middot; ')}</td>
-        <td><span class="pill ${us[0].evidence==='TABLE_GEOMETRY'?'p-ok':'p-dim'}">${us[0].evidence==='TABLE_GEOMETRY'?'TABELA':'TEXTO'}</span></td>
-        <td><button class="ev" onclick="evUso('${p.reg}',${us[0].i})">prova</button></td>
+        <td>${(()=>{const t=us.filter(x=>x.evidence==='TABLE_GEOMETRY').length, n=us.length;
+          return t===n?'<span class="pill p-ok">TABELA</span>'
+               : t===0?'<span class="pill p-dim">TEXTO</span>'
+               : `<span class="pill p-ok">TABELA ${t}</span> <span class="pill p-dim">TEXTO ${n-t}</span>`;})()}</td>
+        <td>${us.map(x=>`<button class="ev" title="${esc(x.target)}" onclick="evUso('${p.reg}',${x.i})">${esc(String(x.target).slice(0,14))}</button>`).join(' ')}</td>
       </tr>`).join('')}</tbody></table></div>`
       : `<div class="lei">Nenhum par cultura x alvo foi lido para este produto.
          <b>Isto e estado de leitura, nao ausencia de uso autorizado.</b>
@@ -270,7 +288,9 @@ function viewProduto(reg) {
         <td>${esc(d.crop)}</td><td>${esc(d.target)}</td>
         <td>${isUnk(d.dose_ha)?val(d.dose_ha):esc(d.dose_ha+' '+d.unit_ha)}</td>
         <td>${val(d.max_app)}</td><td>${val(d.interval)}</td>
-        <td><span class="pill ${d.rule_check==='CONFIRMED_BY_RULE'?'p-ok':d.rule_check==='CONTRADICTED_BY_RULE'?'p-bad':'p-dim'}">${d.rule_check==='CONFIRMED_BY_RULE'?'OK':d.rule_check==='CONTRADICTED_BY_RULE'?'REVISAR':'—'}</span></td>
+        <td><span class="pill ${d.rule_check==='CONFIRMED_BY_RULE'?'p-ok':d.rule_check==='CONTRADICTED_BY_RULE'?'p-bad':'p-unk'}"
+          title="${d.rule_check==='NOT_LOCATED'?'a linha ou o valor nao foi localizado no documento para conferir contra os fios':d.rule_check==='NOT_CHECKED'?'esta linha nao foi submetida a conferencia por fios':''}"
+          >${d.rule_check==='CONFIRMED_BY_RULE'?'CONFIRMADA':d.rule_check==='CONTRADICTED_BY_RULE'?'REVISAR':esc(d.rule_check)}</span></td>
         <td><button class="ev" onclick="evDose('${p.reg}',${i})">prova</button></td>
       </tr>`).join('')}</tbody></table></div>`
       : `<div class="lei">Dose nao estruturada para este produto (<code>${esc(p.dose_state)}</code>).
@@ -338,20 +358,20 @@ function viewCrop() {
   const qt = ($('#ct')?.value || '').trim().toLowerCase();
   const linhas = [];
   P.products.forEach(p => {
-    const dosePor = {};
-    p.doses.forEach(d => (dosePor[(d.crop+'|'+d.target).toLowerCase()] = d));
     p.uses.forEach((u,i) => {
       if (q && !String(u.crop).toLowerCase().includes(q)) return;
       if (qt && !String(u.target).toLowerCase().includes(qt)) return;
-      const d = dosePor[(u.crop+'|'+u.target).toLowerCase()];
+      const d = p.doses.find(x => casa(x.crop, u.crop) && casa(x.target, u.target));
       linhas.push({p, u, i, d});
     });
   });
   const prods = new Set(linhas.map(l => l.p.reg));
   $('#cres').innerHTML = `
     <div class="meta" style="margin:8px 0">${linhas.length} pares em ${prods.size} produtos.
-      Dose aparece so quando existe linha de dose lida para <b>este mesmo par</b>;
-      quando nao existe, o campo diz <span class="unknown">NOT_KNOWN</span> em vez de ficar vazio.</div>
+      Dose aparece quando existe linha de dose lida para <b>este mesmo par</b> — o nome da cultura
+      e casado apos normalizar, porque o leitor de uso escreve &ldquo;VITE&rdquo; e o de dose guarda
+      &ldquo;Vite*&rdquo; como esta impresso. Quando nao existe, o campo diz
+      <span class="unknown">NOT_KNOWN</span> em vez de ficar vazio.</div>
     <div class="tw"><table>
       <thead><tr><th>Produto</th><th>Registro</th><th>Cultura</th><th>Alvo</th>
         <th>Dose/ha</th><th>Evidencia do par</th><th>Validade</th><th></th></tr></thead>
@@ -359,7 +379,9 @@ function viewCrop() {
         <td><a onclick="go('produto');viewProduto('${l.p.reg}')" style="cursor:pointer">${esc(l.p.name)}</a></td>
         <td class="mono">${esc(l.p.reg)}</td>
         <td>${esc(l.u.crop)}</td><td>${esc(l.u.target)}</td>
-        <td>${l.d ? (isUnk(l.d.dose_ha)?val(l.d.dose_ha):esc(l.d.dose_ha+' '+l.d.unit_ha)) : val('NOT_KNOWN')}</td>
+        <td>${l.d ? (isUnk(l.d.dose_ha)?val(l.d.dose_ha):esc(l.d.dose_ha+' '+l.d.unit_ha)+
+             (l.d.rule_check==='CONTRADICTED_BY_RULE'?' <span class="pill p-bad">REVISAR</span>':''))
+             : val('NOT_KNOWN')}</td>
         <td><span class="pill ${l.u.evidence==='TABLE_GEOMETRY'?'p-ok':'p-dim'}">${l.u.evidence==='TABLE_GEOMETRY'?'TABELA':'TEXTO'}</span></td>
         <td>${val(l.p.expiry)}</td>
         <td><button class="ev" onclick="evUso('${l.p.reg}',${l.i})">prova</button></td>
@@ -411,7 +433,7 @@ function viewAction() {
     const meus = P.objects.map(o => {
       const r = o.CAPABILITY_ROUTING.find(x => x.CAPABILITY_ID === c);
       return r ? {o, r} : null;
-    }).filter(Boolean).filter(x => x.r.ROUTING_STATE !== 'NOT_RELEVANT');
+    }).filter(Boolean);
     const porEstado = {};
     meus.forEach(x => (porEstado[x.r.ROUTING_STATE] = porEstado[x.r.ROUTING_STATE]||[]).push(x));
     const rtvNota = c === 'COMMERCIAL_RTV'
@@ -421,9 +443,10 @@ function viewAction() {
          A ferramenta so criaria <code>COMMERCIAL_MESSAGE_CANDIDATE</code>, nunca uma mensagem.</div>`
       : '';
     if (!meus.length) return `<div class="block"><h3>${CAPS[c]}</h3>${rtvNota}
-      <div class="meta">nenhum objeto roteado para esta capacidade nesta janela</div></div>`;
+      <div class="meta">nenhum objeto alcanca esta capacidade</div></div>`;
     const linha = (est, lista) => `<div style="margin:9px 0">
-      <span class="pill ${est==='RELEVANT'?'p-ok':est==='POTENTIALLY_RELEVANT'?'p-warn':'p-unk'}">${est}</span>
+      <span class="pill ${est==='RELEVANT'?'p-ok':est==='POTENTIALLY_RELEVANT'?'p-warn':est==='NOT_RELEVANT'?'p-dim':'p-unk'}">${est}</span>
+      ${est==='UNKNOWN'?'<span class="meta">— nenhuma regra cobre este tipo para esta area. <b>Isto nao diz que a area nao precisa olhar; diz que nao sabemos.</b></span>':''}
       <span class="meta">${lista.length} objeto(s) &middot; regra ${esc(lista[0].r.RULE_ID)} — ${esc(lista[0].r.JUSTIFICATION)}</span>
       <div class="tw" style="margin-top:6px"><table>
         <thead><tr><th>Produto</th><th>Tipo</th><th>Antes &rarr; Depois</th><th>Janela</th><th>Prova</th><th></th></tr></thead>
@@ -437,7 +460,7 @@ function viewAction() {
         </tr>`).join('')}</tbody></table></div>
       ${lista.length>60?`<div class="meta">mostrando 60 de ${lista.length}</div>`:''}</div>`;
     return `<div class="block"><h3>${CAPS[c]} <span class="meta">(${meus.length})</span></h3>${rtvNota}
-      ${['RELEVANT','POTENTIALLY_RELEVANT','UNKNOWN','NEEDS_REVIEW']
+      ${['RELEVANT','POTENTIALLY_RELEVANT','UNKNOWN','NEEDS_REVIEW','NOT_RELEVANT']
         .filter(e => porEstado[e]).map(e => linha(e, porEstado[e])).join('')}</div>`;
   });
   $('#v-action').innerHTML = `

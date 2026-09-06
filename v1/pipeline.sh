@@ -34,6 +34,9 @@ python3 $P/bin/dose_rodar.py --todos --cachedir /tmp/dosecache
 echo "== 10 · conferir cada dose contra os fios desenhados da tabela"
 python3 $P/bin/dose_validar.py --cache-fios /tmp/fioscache
 
+echo "== 10b · descartar tabela que o extrator achou onde nao havia"
+python3 v1/inteligencia/dose_plausibilidade.py
+
 echo "== 11 · COLETA: empacotar com proveniencia e coberturas separadas"
 python3 v1/coleta/empacotar.py --run-id "$RUN"
 

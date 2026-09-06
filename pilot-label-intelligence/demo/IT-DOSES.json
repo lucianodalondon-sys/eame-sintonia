@@ -1188,7 +1188,11 @@
      "SOURCE_Y": [
       111.97,
       121.81
-     ]
+     ],
+     "NEEDS_REVIEW": true,
+     "REVIEW_NOTE": "P-03 linha sem dose, maximo ou intervalo num rotulo que tem outras com valor. Rebaixada por implausibilidade, nao por contradicao de fio",
+     "PLAUSIBILITY_REJECTED": true,
+     "DOSE_RULE_CHECK": "PLAUSIBILITY_REJECTED"
     },
     {
      "REGISTRATION_ID": "008189",
@@ -1307,7 +1311,11 @@
      "SOURCE_Y": [
       280.42,
       304.12
-     ]
+     ],
+     "NEEDS_REVIEW": true,
+     "REVIEW_NOTE": "P-03 linha sem dose, maximo ou intervalo num rotulo que tem outras com valor. Rebaixada por implausibilidade, nao por contradicao de fio",
+     "PLAUSIBILITY_REJECTED": true,
+     "DOSE_RULE_CHECK": "PLAUSIBILITY_REJECTED"
     },
     {
      "REGISTRATION_ID": "008189",
@@ -5316,7 +5324,10 @@
       73.05,
       89.4
      ],
-     "DOSE_RULE_CHECK": "CONFIRMED_BY_RULE"
+     "DOSE_RULE_CHECK": "PLAUSIBILITY_REJECTED",
+     "NEEDS_REVIEW": true,
+     "REVIEW_NOTE": "P-05 crop comeca por palavra funcional ('da vino'): a celula foi cortada. Rebaixada por implausibilidade, nao por contradicao de fio",
+     "PLAUSIBILITY_REJECTED": true
     }
    ]
   },
@@ -13650,7 +13661,11 @@
      "SOURCE_Y": [
       111.97,
       121.81
-     ]
+     ],
+     "NEEDS_REVIEW": true,
+     "REVIEW_NOTE": "P-03 linha sem dose, maximo ou intervalo num rotulo que tem outras com valor. Rebaixada por implausibilidade, nao por contradicao de fio",
+     "PLAUSIBILITY_REJECTED": true,
+     "DOSE_RULE_CHECK": "PLAUSIBILITY_REJECTED"
     },
     {
      "REGISTRATION_ID": "014479",
@@ -13769,7 +13784,11 @@
      "SOURCE_Y": [
       280.42,
       304.12
-     ]
+     ],
+     "NEEDS_REVIEW": true,
+     "REVIEW_NOTE": "P-03 linha sem dose, maximo ou intervalo num rotulo que tem outras com valor. Rebaixada por implausibilidade, nao por contradicao de fio",
+     "PLAUSIBILITY_REJECTED": true,
+     "DOSE_RULE_CHECK": "PLAUSIBILITY_REJECTED"
     },
     {
      "REGISTRATION_ID": "014479",
@@ -16032,7 +16051,10 @@
       66.81,
       83.16
      ],
-     "DOSE_RULE_CHECK": "CONFIRMED_BY_RULE"
+     "DOSE_RULE_CHECK": "PLAUSIBILITY_REJECTED",
+     "NEEDS_REVIEW": true,
+     "REVIEW_NOTE": "P-05 crop comeca por palavra funcional ('da vino'): a celula foi cortada. Rebaixada por implausibilidade, nao por contradicao de fio",
+     "PLAUSIBILITY_REJECTED": true
     }
    ]
   },
@@ -16112,7 +16134,7 @@
   {
    "REGISTRATION_ID": "015909",
    "PRODUCT": "PYXIDES WG",
-   "PARSE_STATE": "USE_TABLE_READ",
+   "PARSE_STATE": "SPURIOUS_TABLE_DISCARDED",
    "COLUMNS_DETECTED": [
     "CROP",
     "EPOCA",
@@ -16122,7 +16144,9 @@
     "CROP_2"
    ],
    "UNITS_DETECTED": {},
-   "ROWS": [
+   "ROWS": [],
+   "DISCARD_NOTE": "nenhuma das linhas encontradas tinha DOSE; o que foi lido como tabela era prosa. Regra P-01. ISTO NAO SIGNIFICA PRODUTO SEM DOSE — significa que nao lemos",
+   "DISCARDED_ROWS": [
     {
      "REGISTRATION_ID": "015909",
      "PRODUCT": "PYXIDES WG",
@@ -21590,7 +21614,7 @@
   {
    "REGISTRATION_ID": "018244",
    "PRODUCT": "MOMENTUM PFNPE",
-   "PARSE_STATE": "USE_TABLE_READ",
+   "PARSE_STATE": "SPURIOUS_TABLE_DISCARDED",
    "COLUMNS_DETECTED": [
     "CROP",
     "TARGET",
@@ -21601,7 +21625,9 @@
     "PHI"
    ],
    "UNITS_DETECTED": {},
-   "ROWS": [
+   "ROWS": [],
+   "DISCARD_NOTE": "nenhuma das linhas encontradas tinha DOSE; o que foi lido como tabela era prosa. Regra P-01. ISTO NAO SIGNIFICA PRODUTO SEM DOSE — significa que nao lemos",
+   "DISCARDED_ROWS": [
     {
      "REGISTRATION_ID": "018244",
      "PRODUCT": "MOMENTUM PFNPE",
@@ -21889,5 +21915,20 @@
   "UNVERIFIABLE_NO_RULES": 0,
   "NOT_LOCATED": 122
  },
- "DOSE_RULE_VALIDATION_NOTE": "cada dose por hectare foi conferida contra os fios desenhados da tabela. CONTRADICTED = um fio separa a linha do valor, e o valor foi rebaixado a NOT_PRESENT com NEEDS_REVIEW. UNVERIFIABLE_NO_RULES = a etichetta nao tem grade desenhada naquela faixa, entao o fio nao opina."
+ "DOSE_RULE_VALIDATION_NOTE": "cada dose por hectare foi conferida contra os fios desenhados da tabela. CONTRADICTED = um fio separa a linha do valor, e o valor foi rebaixado a NOT_PRESENT com NEEDS_REVIEW. UNVERIFIABLE_NO_RULES = a etichetta nao tem grade desenhada naquela faixa, entao o fio nao opina.",
+ "PLAUSIBILITY_FILTER": {
+  "RULES": [
+   "P-01 tabela sem nenhum valor -> descartada",
+   "P-02 alvo comeca por marcador de lista -> revisao",
+   "P-03 linha sem valor num rotulo com valores -> revisao",
+   "P-04 cultura ou alvo curto demais -> revisao"
+  ],
+  "SPURIOUS_TABLES_DISCARDED": 2,
+  "ROWS_FLAGGED": {
+   "P-03": 4,
+   "P-05": 2,
+   "P-01_tabela_espuria": 9
+  },
+  "NOTE": "filtro conservador: prefere rebaixar linha boa a publicar linha ruim. Nada e apagado em silencio — o descartado fica em DISCARDED_ROWS"
+ }
 }
