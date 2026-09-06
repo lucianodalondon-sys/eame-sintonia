@@ -648,7 +648,7 @@
                   <span>{{ mt.matchReason }} · <b style="color:{{ mc.onBody }};font-weight:600">{{ p.matchReason }}</b></span>
                 </div>
                 <sc-for list="{{ p.restrictions }}" as="r" hint-placeholder-count="1">
-                  <div style="font-size:10px;color:#F5B317">{{ mt.restrictions }} · {{ r.label }} · {{ r.date }}</div>
+                  <div style="font-size:10px;color:{{ mc.onBody }}">{{ mt.restrictions }} · {{ r.label }} · {{ r.date }}</div>
                 </sc-for>
               </div>
             </sc-for>

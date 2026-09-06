@@ -717,7 +717,16 @@
      43 casi REGULATORY compare solo con PORTFOLIO, SUPPLY e
      MARKET_DEVELOPMENT. */
   const AREA_UI = {
-    MARKET_DEVELOPMENT: { line: '#00B152', surface: '#005E2B', ink: '#7BE0A6' },
+    /* L'inchiostro di SVILUPPO MERCATO era #7BE0A6 — un verde chiaro che il
+       manuale non contiene e che nessuna regola scritta qui derivava: il
+       portone del colore lo segnalava, uno solo, sulla scheda. La tinta della
+       linea resta corporativa (#00B152) e la massa resta il verde profondo:
+       cambia solo la tinta del testo, presa dalla tavolozza pubblicata
+       (verde molto chiaro), che sulla stessa massa legge 6.98:1 invece di
+       4.95:1.
+
+           UN VERDE INVENTATO NON DIVENTA APPROVATO PERCHE STA BENE. */
+    MARKET_DEVELOPMENT: { line: '#00B152', surface: '#005E2B', ink: '#E3F4EA' },
     COMMERCIAL: { line: '#F89E18', surface: '#72490B', ink: '#F89E18' },
     SCIENCE_TECHNICAL: { line: '#00A0DF', surface: '#00587B', ink: '#5CC3EE' },
     MARKETING: { line: '#9D1D96', surface: '#8F1A88', ink: '#EDEAE9' },
