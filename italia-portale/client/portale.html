@@ -493,7 +493,7 @@
     <!-- ================= ACTION BRIEF ================= -->
     <sc-if value="{{ isBrief }}" hint-placeholder-val="{{ false }}">
     <div style="padding:14px 22px 40px;display:flex;flex-direction:column;gap:10px">
-      <div style="display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.08em;color:#8F8886"><span onClick="{{ br.backToCase }}" style="cursor:pointer;color:#009845;font-weight:700">← BACK TO CASE</span><span style="color:#8F8886">/</span><span>ACTION MAP</span><span style="color:#8F8886">/</span><span style="color:#fff">{{ br.dept }}</span></div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.08em;color:#8F8886"><span onClick="{{ br.backToCase }}" style="cursor:pointer;color:#009845;font-weight:700">← BACK TO CASE</span><span style="color:#8F8886">/</span><span>ACTION MAP</span><span style="color:#8F8886">/</span><span style="color:#fff">{{ br.deptLabel }}</span></div>
       <div style="display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:10px;align-items:start">
         <div style="border-radius:16px;background:#ffffff;color:#231F20;padding:26px 30px 30px;display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 50px rgba(0,0,0,0.45)">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #009845;padding-bottom:8px"><div><div style="font-size:11px;letter-spacing:0.18em;font-weight:700;color:#009845">SINTONIA</div><div style="font-size:9px;letter-spacing:0.12em;font-weight:600;color:#978B87;margin-top:2px">ADAMA ITALY · ACTION BRIEF</div></div><div style="text-align:right"><div style="font-size:9.5px;letter-spacing:0.14em;font-weight:700;color:#978B87">{{ br.doc }}</div><div style="font-size:9.5px;color:#231F20;margin-top:2px">Generated {{ br.generated }}</div><div style="font-size:9px;color:#978B87">Demonstration Environment</div></div></div>
@@ -2443,8 +2443,13 @@ class Component extends DCLogic {
       when: (this._LAGO ? this._LAGO(c.when) : c.when),
       windowLine: (this.state.lang === 'it' && c.windowLine) ? String(c.windowLine).replace(/^(\d+) days remaining$/, '$1 giorni rimanenti').replace(/^Opens in (\d+) days$/, 'Apre in $1 giorni').replace(/^Window closed$/, 'Finestra chiusa') : c.windowLine,
       updatedLabel: (this._LAGO && c.updatedLabel) ? String(c.updatedLabel).replace(/^Updated /, (this.state.lang === 'it' ? 'Aggiornato ' : 'Updated ')).replace(/(\d+)d ago/, this.state.lang === 'it' ? '$1g fa' : '$1d ago').replace(/^Updated today$/, this.state.lang === 'it' ? 'Aggiornato oggi' : 'Updated today') : c.updatedLabel, statusLabel: ((T0.WSTATUS && T0.WSTATUS[c.status]) || (this._L ? this._L(c.status) : c.status) || String(c.status || '').replace(/_/g, ' ')), agoLabel: (this._LAGO ? this._LAGO(c.ago) : c.ago), remainLabel: (c.windowOpen && this._LDAYS) ? this._LDAYS(c.we) : (c.remainingLabel || ''),
-      actions: (c.actions || []).map(a => Object.assign({}, a, { dept: this._L ? this._L(a.dept) : a.dept, deptLabel: this._L ? this._L(a.dept) : a.dept })),
-      departments: (c.departments || []).map(d => this._L ? this._L(d) : d),
+      /* dept is a CANONICAL KEY: ITALY_BRIEFS.build(), D.DEPT[] and the
+         department filter are all keyed by it. Translating it here broke the
+         Italian brief (build() returned null) and emptied the Italian
+         department filter. The translation belongs to deptLabel alone. */
+      actions: (c.actions || []).map(a => Object.assign({}, a, { dept: a.dept, deptLabel: this._L ? this._L(a.dept) : a.dept })),
+      departments: (c.departments || []).slice(),
+      departmentLabels: (c.departments || []).map(d => this._L ? this._L(d) : d),
       evidenceLabel: this._L ? this._L(c.evidenceLabel) : c.evidenceLabel,
       bg: c.category.dark, heroBg: c.category.dark,
       borderCol: `${col}66`, iconBg: `${col}3A`, catLabel: (this._L ? this._L(c.category.label) : c.category.label).toUpperCase(),
@@ -2475,6 +2480,32 @@ class Component extends DCLogic {
     const s = this.state;
     const T = (window.SINTONIA_I18N && window.SINTONIA_I18N[s.lang]) || (window.SINTONIA_I18N && window.SINTONIA_I18N.it) || {};
     if (D.setMonths && T.months) D.setMonths(T.months);
+
+    /* ── narrative fields from ITALY_APP_MODEL ────────────────────────────
+       narrative(record, FIELD) never returns raw prose: it returns
+       { state, it, en }. nar() turns that into the one sentence this
+       language is allowed to show — the approved text when CLEAR, and the
+       declared state otherwise. It does not reconstruct a missing analysis. */
+    const nar = (v) => {
+      if (v == null) return null;
+      if (typeof v === 'string') return v;
+      if (typeof v !== 'object' || !v.state) return null;
+      if (v.state === 'CLEAR') return (s.lang === 'en' ? (v.en || v.it) : (v.it || v.en)) || null;
+      return v.state === 'NOT_APPROVED_FOR_DISPLAY' ? (T.narrNotLoaded || null) : (T.narrNotEstablished || null);
+    };
+    /* Blocks written against the demo fixture read a "why watch" as a list of
+       { ok | warn, t } marks; the canonical model carries one narrative field
+       for the same idea. narMarks() accepts either shape. A narrative that is
+       not CLEAR becomes an open mark with its declared state as the text —
+       never an invented reason, never a tick the package cannot support. */
+    const narMarks = (v) => {
+      if (Array.isArray(v)) return v;
+      if (v == null) return [];
+      if (typeof v === 'string') return v ? [{ ok: true, t: v }] : [];
+      if (typeof v === 'object' && v.state) { const t = nar(v); return t ? [{ ok: v.state === 'CLEAR', t: t }] : []; }
+      return [];
+    };
+    this._nar = nar;
     /* Crop and issue display names. The raw value stays the filter key, so filtering,
        window matching and cross-tool lookups are untouched. */
     const cl = (k) => (T.CROPS && T.CROPS[k]) || k;
@@ -2498,7 +2529,7 @@ class Component extends DCLogic {
       'Strong': 'Forte', 'Good': 'Buona', 'Building': 'In costruzione',
       'MARKET DEVELOPMENT': 'SVILUPPO MERCATO', 'SALES / RTV': 'VENDITE / RTV', 'TECHNICAL / SCIENCE': 'TECNICO / SCIENZA',
       'REGULATORY / PORTFOLIO': 'REGOLATORIO / PORTAFOGLIO', 'MARKETING': 'MARKETING', 'SUPPLY': 'SUPPLY CHAIN',
-      'FIELD SALES': 'RETE DI CAMPO',
+      'FIELD SALES': 'RETE DI CAMPO', 'SALES / FIELD SALES': 'VENDITE / RETE DI CAMPO',
       'FIELD': 'CAMPO', 'SCIENCE': 'SCIENZA', 'OFFICIAL': 'UFFICIALE', 'PEOPLE': 'PERSONE', 'MARKET': 'MERCATO',
       'Check needed': 'Verifica necessaria', 'single match': 'corrispondenza unica',
       'NEW SIGNAL': 'NUOVO SEGNALE', 'GAINING ATTENTION': 'ATTENZIONE CRESCENTE', 'MULTIPLE SIGNALS': 'SEGNALI MULTIPLI',
@@ -2614,7 +2645,7 @@ class Component extends DCLogic {
     // ---- case
     const cs0 = CASES.find(c => c.id === s.caseId) || CASES[1];
     const cs = Object.assign({}, cs0, {
-      deptChips: cs0.actions.filter(a => cs0.departments.includes(a.dept)).map(a => ({ dept: a.dept, deptLabel: a.dept, color: a.color, soft: a.soft })),
+      deptChips: cs0.actions.filter(a => cs0.departments.includes(a.dept)).map(a => ({ dept: a.dept, deptLabel: a.deptLabel, color: a.color, soft: a.soft })),
       evChips: Object.entries(cs0.evidence).map(([k, v]) => ({ k: L(k.toUpperCase()), v, go: () => this.archiveWith({ aCase: cs0.id }) })),
       evBars: Object.entries(cs0.evidence).map(([k, v]) => ({ k: L(k.toUpperCase()), v, pct: Math.min(100, v * 14) + '%', color: { field: '#009845', science: '#978B87', official: '#978B87', people: '#978B87', market: '#978B87' }[k], go: () => this.archiveWith({ aCase: cs0.id }) })),
       bigNumber: cs0.windowOpen ? cs0.we : cs0.ws > 0 ? cs0.ws : '—', bigLabel: cs0.windowOpen ? T.lblPriorityDays : cs0.ws > 0 ? (s.lang === 'it' ? 'giorni all\u2019apertura della finestra' : 'days until the window opens') : (s.lang === 'it' ? 'finestra chiusa \u00b7 prossimo ciclo' : 'window closed \u00b7 next cycle'),
@@ -2627,7 +2658,7 @@ class Component extends DCLogic {
       sourceRows: D.SOURCES.filter(x => (x.cov === 'Italy' || x.cov.includes(cs0.region)) && (x.topics.includes('All crops') || x.topics.includes(cs0.crop))).slice(0, 5).map(x => Object.assign({}, x, { go: () => this.openSource(x.id) })),
       relatedThemes: D.SCI_THEMES.filter(t => t.cases.includes(cs0.id)).map(t => ({ title: t.title, go: () => this.openTheme(t.id) })),
       goArchive: () => this.archiveWith({ aCase: cs0.id }), goCompetitors: () => this.compWith({ fCrop: cs0.crop === 'Durum Wheat' ? 'Wheat' : cs0.crop, fIssue: cs0.issue }),
-      actions: cs0.actions.map(a => Object.assign({}, a, { deptLabel: a.dept === 'SALES / RTV' ? 'SALES / FIELD SALES' : a.dept, briefLabel: (T.lblGenerate || 'GENERATE') + ' ' + (a.dept === 'SALES / RTV' ? 'FIELD SALES' : a.dept.split(' /')[0]) + ' BRIEF', brief: () => this.openBrief(cs0.id, a.dept) })),
+      actions: cs0.actions.map(a => Object.assign({}, a, { deptLabel: a.dept === 'SALES / RTV' ? L('SALES / FIELD SALES') : a.deptLabel, briefLabel: (T.lblGenerate || 'GENERATE') + ' ' + (a.dept === 'SALES / RTV' ? L('FIELD SALES') : String(a.deptLabel).split(' /')[0]) + ' BRIEF', brief: () => this.openBrief(cs0.id, a.dept) })),
       hasRealObs: !!cs0.realObs, realObsText: cs0.realObs ? cs0.realObs.text : '', realObsSource: cs0.realObs ? cs0.realObs.source : '',
       fieldMessages: allMessages.filter(m => m.caseId === cs0.id), fieldCount: allMessages.filter(m => m.caseId === cs0.id).length, noField: allMessages.filter(m => m.caseId === cs0.id).length === 0
     });
@@ -2892,12 +2923,13 @@ class Component extends DCLogic {
     const sgMissing = !!s.signalId && !sg0;
     const srcGo = (src) => () => src.kind === 'source' ? this.openSource(src.id) : src.kind === 'person' ? this.openPerson(src.id) : src.kind === 'news' ? this.go({ view: 'sources', sourceGroup: 'NEWS & TRADE MEDIA' }) : src.kind === 'company' ? this.openCompany(src.id) : src.kind === 'field' ? this.go({ view: 'field' }) : this.openTheme((sg0 || {}).science || D.SCI_THEMES[0].id);
     const sgSources = ((sg0 || {}).sources || []).filter(src => !s.sigGroup || src.group === s.sigGroup);
-    const ev = s.evidenceIdx != null ? (sg0 || {}).trail[s.evidenceIdx].ev : null;
+    const sgTrail = ((sg0 || {}).trail) || [];
+    const ev = s.evidenceIdx != null && sgTrail[s.evidenceIdx] ? sgTrail[s.evidenceIdx].ev : null;
     const sg = Object.assign({}, sg0, {
       sourceTypeUpper: ((sg0 || {}).sourceType || '').toUpperCase(), hasProduct: !!(sg0 || {}).product, noProduct: !(sg0 || {}).product, p: (sg0 || {}).product ? Object.assign({}, D.PRODUCTS[(sg0 || {}).product], { crops: D.PRODUCTS[(sg0 || {}).product].crops.join(', '), targets: D.PRODUCTS[(sg0 || {}).product].targets.join(' / ') }) : {},
       goProduct: () => (sg0 || {}).product ? this.openProduct((sg0 || {}).product) : this.radarWith({ fStatus: 'VALIDATE' }), goWindow: () => (sg0 || {}).window && this.openWindow((sg0 || {}).window.id), goTheme: () => this.openTheme((sg0 || {}).science || D.SCI_THEMES[0].id), goCase: () => (sg0 || {}).matchCase && this.openCase((sg0 || {}).matchCase.id),
       who: ((sg0 || {}).who || []).map(g => Object.assign({}, g, { bg: s.sigGroup === g.group ? g.color : '#161312', go: () => this.setState({ sigGroup: s.sigGroup === g.group ? '' : g.group }) })),
-      whyWatch: ((sg0 || {}).whyWatch || []).map(y => ({ t: y.t, mark: y.warn ? '△' : y.ok ? '✓' : '○', color: y.warn ? '#978B87' : y.ok ? '#009845' : '#8F8886' })),
+      whyWatch: narMarks((sg0 || {}).whyWatch).map(y => ({ t: y.t, mark: y.warn ? '△' : y.ok ? '✓' : '○', color: y.warn ? '#978B87' : y.ok ? '#009845' : '#8F8886' })),
       trail: ((sg0 || {}).trail || []).map((t, i) => Object.assign({}, t, { view: () => this.setState({ evidenceIdx: i }), border: i === ((sg0 || {}).trail || []).length - 1 ? (sg0 || {}).color : s.evidenceIdx === i ? '#009845' : 'rgba(203,197,195,0.14)', bg: i === ((sg0 || {}).trail || []).length - 1 ? (sg0 || {}).color + '22' : 'rgba(255,255,255,0.03)', numColor: i === ((sg0 || {}).trail || []).length - 1 ? (sg0 || {}).color : '#8F8886' })),
       promotion: ((sg0 || {}).promotion || []).map(p => ({ t: p.t, mark: p.ok ? '✓' : '□', color: p.ok ? '#009845' : '#8F8886' })), promoColor: (sg0 || {}).promoted ? '#009845' : '#978B87',
       factLoc: ((sg0 || {}).sources || []).find(x => x.group === 'OFFICIAL' || x.group === 'FIELD SALES') ? (sg0 || {}).region : 'Not yet established',
@@ -3081,15 +3113,17 @@ class Component extends DCLogic {
 
     // ---- brief
     let br = null;
-    if (s.view === 'brief' && window.ITALY_BRIEFS) {
+    if (s.view === 'brief' && window.ITALY_BRIEFS && D.DEPT[s.briefDept] && window.ITALY_BRIEFS.departments.includes(s.briefDept)) {
+      /* build() returns null for a department with no generator. The screen
+         then stays on its empty state instead of throwing. */
       const b = window.ITALY_BRIEFS.build(s.briefDept, cs0);
       const acc = D.DEPT[s.briefDept].color;
-      br = Object.assign(b, { accent: acc, priColor: cs0.st.color, showLoop: s.briefDept === 'SALES / RTV', sections: b.sections.map(x => Object.assign({}, x, { hUpper: x.h.toUpperCase() })),
+      br = Object.assign(b, { accent: acc, deptLabel: L(b.dept), priColor: cs0.st.color, showLoop: s.briefDept === 'SALES / RTV', sections: b.sections.map(x => Object.assign({}, x, { hUpper: x.h.toUpperCase() })),
         backToCase: () => this.openCase(cs0.id), copyLabel: s.copied ? 'Copied ✓' : 'Copy summary',
         download: () => { const w = window.open('', '_blank'); if (w) { w.document.open(); w.document.write(window.ITALY_BRIEFS.printHtml(b)); w.document.close(); } },
         copy: () => { if (navigator.clipboard) navigator.clipboard.writeText(b.summary).then(() => this.setState({ copied: true })); else this.setState({ copied: true }); },
         share: () => { const body = encodeURIComponent(b.summary.slice(0, 1800)); window.open('mailto:?subject=' + encodeURIComponent(b.doc + ' · ' + b.title) + '&body=' + body, '_self'); },
-        others: cs0.actions.filter(a => a.dept !== s.briefDept).map(a => ({ label: a.dept === 'SALES / RTV' ? 'SALES / FIELD SALES' : a.dept, color: a.color, soft: a.soft, doc: window.ITALY_BRIEFS.build(a.dept, cs0).doc, go: () => this.openBrief(cs0.id, a.dept) })) });
+        others: cs0.actions.filter(a => a.dept !== s.briefDept).map(a => ({ label: a.dept === 'SALES / RTV' ? L('SALES / FIELD SALES') : a.deptLabel, color: a.color, soft: a.soft, doc: (window.ITALY_BRIEFS.build(a.dept, cs0) || {}).doc || '', go: () => this.openBrief(cs0.id, a.dept) })).filter(o => o.doc) });
     }
 
     // ---- field sales channel
