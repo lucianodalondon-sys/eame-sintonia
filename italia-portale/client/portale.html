@@ -1986,7 +1986,6 @@
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
         <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ t.navFuture }}</h1><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ t.frSubA }} {{ kpi.signals }} {{ t.frSubB }}</div></div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <span onClick="{{ scenarioToggle.go }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 13px;border-radius:9999px;background:{{ scenarioToggle.bg }};border:1px dashed {{ scenarioToggle.border }};color:{{ scenarioToggle.color }};font-size:10px;font-weight:700;letter-spacing:0.08em;white-space:nowrap">{{ scenarioToggle.label }} · {{ sigCountScenario }}</span>
           <sc-for list="{{ futureStatusChips }}" as="f" hint-placeholder-count="8">
             <span onClick="{{ f.go }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 13px 0 0;border-radius:9999px;background:{{ f.bg }};border:1px solid {{ f.border }};overflow:hidden" style-hover="border-color:{{ f.accent }}">
               <span style="width:3px;align-self:stretch;background:{{ f.accent }};flex:0 0 3px"></span>
@@ -2772,8 +2771,22 @@ class Component extends DCLogic {
   static CAPABILITY_OF = { radar: 'radar', case: 'radar', brief: 'radar', meeting: 'meeting', mcase: 'meeting', field: 'field', windows: 'windows', window: 'windows', market: 'market', signal: 'future', future: 'future', competitors: 'competitors', company: 'competitors', event: 'competitors', cproduct: 'competitors', science: 'science', theme: 'science', archive: 'archive', portfolio: 'portfolio', product: 'portfolio', voices: 'voices', sources: 'sources', source: 'sources', person: 'sources', search: '' };
 
   static VIEW_FROM_HASH() {
+    /* «Field Sales» NON E TRA LE VISTE RAGGIUNGIBILI.
+       E l'unica schermata del portale che si regge ancora sul pacchetto
+       dimostrativo: sette rappresentanti inventati, diciotto messaggi di campo
+       scritti a tavolino, tre suggerimenti di testo con nomi di citta e di
+       concorrenti mai osservati. Del suo contenuto non esiste equivalente reale
+       — le voci pubbliche e i bollettini regionali sono un'altra cosa, non una
+       messaggistica interna — quindi il blocco si nasconde invece di riempirsi
+       con la dimostrazione.
+
+           UNA SCHERMATA CHE NESSUNA VOCE DI MENU OFFRE, MA CHE UN INDIRIZZO
+           APRIVA, E UNA PORTA DI SERVIZIO APERTA.
+
+       Il menu non la offriva gia; restava questo elenco. Il codice della vista
+       non e cancellato: smette di avere una rotta. */
     const AMMESSE = ['meeting', 'future', 'windows', 'market', 'voices', 'competitors',
-      'science', 'portfolio', 'archive', 'sources', 'field'];
+      'science', 'portfolio', 'archive', 'sources'];
     try {
       const h = String((typeof window !== 'undefined' && window.location && window.location.hash) || '').replace(/^#/, '');
       return AMMESSE.includes(h) ? h : 'meeting';
@@ -9405,6 +9418,19 @@ class Component extends DCLogic {
       // future
       visibleSignals, futureStatusChips, futureSourceKpis,
       sigCountReal, sigCountScenario, showScenarios: s.showScenarios, hasScenarios: sigCountScenario > 0,
+      /* IL PULSANTE DEGLI SCENARI NON E PIU IN PAGINA.
+         Accendeva ottantacinque record di presentazione — cinquantasei segnali
+         e ventinove casi — dentro una schermata che per il resto porta solo
+         intelligenza provata. Erano dichiarati («Scenari di presentazione»,
+         mai contati come reali), e questo li rendeva onesti; non li rendeva
+         adatti a un portale che non e piu una dimostrazione.
+
+             UN INTERRUTTORE CHE ACCENDE L'INVENTATO E UNA PORTA, NON UN'ETICHETTA.
+
+         `showScenarios` resta a falso e nessuno lo cambia piu: il ramo che lo
+         legge non e cancellato, ha smesso di avere una mano che lo aziona.
+         Questi valori restano costruiti perche il resto della riga li legge;
+         il markup non li disegna. */
       scenarioToggle: { label: s.showScenarios ? T.frHideScenarios : T.frShowScenarios,
         bg: s.showScenarios ? 'rgba(245,179,23,0.16)' : 'transparent', border: s.showScenarios ? '#F5B317' : 'rgba(203,197,195,0.22)',
         color: s.showScenarios ? '#F5B317' : '#B1A9A7', go: () => this.setState({ showScenarios: !s.showScenarios, futureShown: 16 }) }, moreSignals: sigAll.length > s.futureShown, remainingSignals: Math.max(0, sigAll.length - s.futureShown), loadMoreSignals: () => this.setState({ futureShown: s.futureShown + 16 }),
