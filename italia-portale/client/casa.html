@@ -234,7 +234,7 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
          UN CODICE NUDO SULLO SCHERMO E UNA FUGA.
          UNA RIGA CHE SPARISCE IN SILENZIO SONO DUE. */
   var lang = (function(){
-    try { var v = localStorage.getItem('sintonia.casa.lang');
+    try { var v = localStorage.getItem('sintonia_lang');
           if (v === 'it' || v === 'en') return v; } catch (e) {}
     return 'it';
   })();
@@ -594,7 +594,20 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
       + '<button type="button" data-lang="it" aria-pressed="' + (lang === 'it') + '">IT</button>'
       + '<button type="button" data-lang="en" aria-pressed="' + (lang === 'en') + '">EN</button>'
       + '</div>'
-      + '<div class="stamp">' + (lang === 'en' ? 'REFERENCE DATE ' : 'DATA DI RIFERIMENTO ')
+      /* ── DUE DATE, DUE FATTI, DUE NOMI ──────────────────────────────
+         Questa pagina stampava «DATA DI RIFERIMENTO 2026-09-04» e il portale
+         «OGGI · 02 SET». Non e una contraddizione da appianare: sono due fatti
+         diversi. 2026-09-02 e la data di riferimento del pacchetto V2.1;
+         2026-09-04 e il TAGLIO dell'istantanea della riunione — misurato,
+         MEETING_CUTOFF = 2026-09-04T00:52:54Z. Erano due fatti sotto la stessa
+         etichetta, ed e l'etichetta che mentiva.
+
+             DUE FATTI DIVERSI SOTTO LO STESSO NOME NON SONO UN DETTAGLIO.
+             SONO UNA DOMANDA CHE IL LETTORE NON DOVREBBE DOVER FARE.
+
+         «Taglio» e la parola che il radar gia usa (meeting-labels lblCutoff),
+         quindi le due schermate dicono adesso la stessa cosa allo stesso modo. */
+      + '<div class="stamp">' + (lang === 'en' ? 'SNAPSHOT CUTOFF ' : 'TAGLIO DELL\'ISTANTANEA ')
       + esc(C.DATA_DE_REFERENCIA) + '<br>' + esc(OA.BUILD_ID) + ' · ' + esc(OA.SOURCE_HEAD) + '</div>'
       + '</div>'
       + '<h1>' + tt('casaTitle') + '</h1>'
@@ -848,7 +861,7 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
     app.querySelectorAll('[data-lang]').forEach(function(b){
       b.addEventListener('click', function(){
         lang = b.getAttribute('data-lang');
-        try { localStorage.setItem('sintonia.casa.lang', lang); } catch (e) {}
+        try { localStorage.setItem('sintonia_lang', lang); } catch (e) {}
         render();
       });
     });
