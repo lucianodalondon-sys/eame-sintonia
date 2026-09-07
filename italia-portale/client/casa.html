@@ -547,6 +547,15 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
   }
 
   /* ── IL REGISTRO DEI 44 ─────────────────────────────────────────── */
+  /* Title Case della regola ADAMA, applicato SOLO a testo che arriva tutto in
+     maiuscole: se la fonte ha gia una cassa propria, non e nostra da cambiare. */
+  function cassaTitolo(v){
+    var x = String(v == null ? '' : v);
+    if (x !== x.toUpperCase()) return x;
+    return x.toLowerCase().replace(/(^|[\s(\u00b7\-\/])([a-z\u00e0-\u00ff])/g,
+      function(_m, a, b){ return a + b.toUpperCase(); });
+  }
+
   function ledgerHtml(){
     return '<div class="scroll"><table><thead><tr>'
       + '<th>ID</th><th>' + tt('casaColState') + '</th><th>' + tt('casaColAction') + '</th>'
@@ -706,7 +715,21 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
       + '<div class="kicker">' + (lang === 'en' ? 'AUTHORISATION WINDOW · CLOSED UNIVERSE OF '
           : 'FINESTRA AUTORIZZATIVA · UNIVERSO CHIUSO DI ') + D.UNIVERSO
       + (lang === 'en' ? ' REGISTRATIONS' : ' REGISTRI') + '</div>'
-      + '<h3>' + esc(D.TITULO) + '</h3>'
+      /* ══ IL NOME NON GRIDA ══════════════════════════════════════════
+         Il titolo del destaque arrivava dal registro tutto in maiuscole —
+         «AZOXYSTROBIN + PROTHIOCONAZOLE» — e finiva in un <h3> da 25px. Finche
+         il portale non aveva una rotta verso questa pagina nessun cancello
+         l'aveva mai letta; la voce «Radar Futuro» l'ha resa raggiungibile e il
+         difetto e uscito allo scoperto con essa.
+
+         L'ADAMA Design System (rules/typography-and-casing.md) e esplicito:
+         «ALL CAPS — rare. Single words only, never long text», e «Title Case
+         for all product names». Due principi attivi in fila non sono una parola
+         sola. Cambia la CASSA, che e presentazione; le lettere del registro non
+         si toccano, perche il nome e un fatto e i fatti non si riscrivono.
+
+             LA CASSA E DISEGNO. LE LETTERE SONO IL REGISTRO. */
+      + '<h3>' + esc(cassaTitolo(D.TITULO)) + '</h3>'
       /* Tre blocchi, e devono restare tre. Il fatto viene per primo perche e
          l'unica cosa che non abbiamo scritto noi; la lettura viene dopo, con
          il nostro nome sopra; la domanda chiude, perche la decisione non nasce
