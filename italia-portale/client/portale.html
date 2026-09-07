@@ -2474,7 +2474,7 @@
             <!-- a faixa da linha, e o nome oficial da classe do registo -->
             <span style="display:flex;align-items:center;gap:7px;padding:7px 12px;background:{{ p.lineColor }}1F;border-bottom:1px solid {{ p.lineColor }}59">
               <sc-if value="{{ p.hasLineIcon }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="" style="display:block;width:14px;height:14px;flex:0 0 14px;background:url({{ p.lineIcon }}) center/contain no-repeat"></span></sc-if>
-              <span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.1em;color:{{ p.lineColor }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.activity }}</span>
+              <span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.1em;color:{{ p.lineInk }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.activity }}</span>
             </span>
             <div style="padding:0 12px;display:flex;flex-direction:column;gap:4px">
               <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
@@ -2558,7 +2558,7 @@
           <div style="display:flex;flex-direction:column;gap:6px">
             <span style="display:inline-flex;align-items:center;gap:8px;align-self:flex-start;padding:5px 12px;border-radius:9999px;background:{{ li.det.lineColor }}1F;border:1px solid {{ li.det.lineColor }}59">
               <sc-if value="{{ li.det.hasLineIcon }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="" style="display:block;width:15px;height:15px;flex:0 0 15px;background:url({{ li.det.lineIcon }}) center/contain no-repeat"></span></sc-if>
-              <span style="font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.1em;color:{{ li.det.lineColor }}">{{ li.det.activity }}</span>
+              <span style="font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.1em;color:{{ li.det.lineInk }}">{{ li.det.activity }}</span>
             </span>
             <h1 style="margin:0;font-size:28px;font-weight:700;letter-spacing:-0.015em;color:#fff">{{ li.det.name }}</h1>
             <div style="display:flex;flex-wrap:wrap;gap:18px;padding-top:2px">
@@ -9162,6 +9162,16 @@ class Component extends DCLogic {
           actives: p0.actives || (T.ksNotKnown || ''),
           activity: p0.activity || 'UNCLASSIFIED',
           lineColor: (l.ui && l.ui.color) || '#978B87',
+          /* ══ A COR PLENA E MASSA, NAO E TINTA DE TEXTO ═════════════════════
+             `#9D1D96` — o Pest Control pleno — mede 2,56:1 sobre `#1C1817`, e
+             eu tinha-o posto a 10px como cor do nome da classe. O portao do
+             manual apanhou-o, e o proprio modelo ja tinha a resposta escrita
+             ao lado da tabela: o membro CLARO da linha e o que carrega texto
+             pequeno. E o mesmo gesto que o portafoglio ja fazia.
+
+                 A LINHA DIZ-SE PELA MASSA E PELO ICONE.
+                 O TEXTO POR CIMA TEM DE SE PODER LER.                       */
+          lineInk: (l.ui && (l.ui.soft || l.ui.color)) || '#B1A9A7',
           lineIcon: (l.ui && l.ui.iconAsset) || '', hasLineIcon: !!(l.ui && l.ui.iconAsset),
           lineState: l.state,
           usi: r.n, ver: r.c.VERIFIED, found: r.c.FOUND, unk: r.c.UNKNOWN, err: r.c.ERROR,
@@ -9289,6 +9299,7 @@ class Component extends DCLogic {
           reg: alvoP.reg, name: alvoP.name,
           activity: alvoP.activity || 'UNCLASSIFIED',
           lineColor: (l.ui && l.ui.color) || '#978B87',
+          lineInk: (l.ui && (l.ui.soft || l.ui.color)) || '#B1A9A7',
           lineIcon: (l.ui && l.ui.iconAsset) || '', hasLineIcon: !!(l.ui && l.ui.iconAsset),
           lineLabel: (l.ui && l.ui.label) || '', hasLineLabel: !!(l.ui && l.ui.label),
           lineState: l.state,

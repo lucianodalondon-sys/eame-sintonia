@@ -1365,9 +1365,23 @@ check('I5', 'Italian interface strings are actually Italian', () => {
   const fit = flat(it), fen = flat(en);
   const PROPER = /^[A-Z0-9 ·§+\-/&.]+$/;            /* a code or an all-caps token */
   const SHORT = (s) => s.trim().split(/\s+/).length < 2;
+  /* ── IL NOME DI UNO STRUMENTO NON SI TRADUCE ────────────────────────────
+     «Label Intelligence» e uguale nelle due lingue perche e il NOME dello
+     strumento, non una frase di interfaccia — e la stessa ragione per cui
+     «Sintonia» e «ADAMA» non hanno una versione italiana. La regola di questo
+     controllo — it uguale a en vuol dire traduzione mai scritta — e giusta, e
+     su un nome proprio e falsa.
+
+         TRADURRE IL NOME DI UNO STRUMENTO NON FA DUE LINGUE.
+         FA DUE STRUMENTI.
+
+     L'esenzione e per CHIAVE, non per forma: una lista scritta, corta, che si
+     legge e si discute. Nessun euristica che indovini «sembra un nome» — quella
+     assolverebbe anche la traduzione dimenticata di domani. */
+  const NOMI_PROPRI = new Set(['navLabels', 'liTitle']);
   const bad = [];
   for (const [k, v] of Object.entries(fit)) {
-    if (!v || PROPER.test(v) || SHORT(v)) continue;
+    if (!v || PROPER.test(v) || SHORT(v) || NOMI_PROPRI.has(k)) continue;
     if (isEnglish(v)) bad.push(`it.${k} reads English: "${v.slice(0, 60)}"`);
     else if (fen[k] && fen[k] === v && v.length > 12) bad.push(`it.${k} === en.${k}: "${v.slice(0, 60)}"`);
   }
