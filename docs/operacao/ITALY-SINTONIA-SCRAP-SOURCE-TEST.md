@@ -484,3 +484,104 @@ OLD_URL_FAILURE  ≠  CURRENT_SOURCE_FAILURE
 
 7 dos "bloqueios" desta rodada eram endereço errado no nosso próprio catálogo.
 Erro nosso não vira defeito da fonte.
+
+---
+
+## 13 · RODADA BROWSER — 2026-09-07
+
+**Instrumento:** navegador com janela, saindo pelo IP italiano. A extensão do Chrome do usuário
+**continua sem parear**; usou-se o navegador embutido, que atravessa a mesma VPN do sistema.
+**O IP de saída do próprio navegador foi verificado antes de qualquer medição:**
+`205.147.30.20 · Milano · IT · AS208172 Proton AG`. Sem isso, nada do que vem abaixo valeria.
+
+### 13.1 · O que o navegador resolveu que o `curl` não resolvia
+
+| fonte | o diagnóstico anterior | o que era de verdade |
+|---|---|---|
+| **AGRIOS** | "provável JavaScript" | **o site é em alemão.** Meu detector só falava italiano. Nunca houve bloqueio. |
+| **ARPAV** | "escolha de zona é JavaScript" | 32 PDFs com URL fixa, que só o navegador revelou |
+| **SIAS Sicília** | "frameset antigo, conteúdo fora do HTML" | certo — e descendo nos frames chega-se à tabela diária por estação |
+| **MASAF** | "lista não aparece por navegação simples" | está em `Politiche nazionali > Filiere`; adivinhar URL nunca ia funcionar |
+| **ADAMA e Bayer** | "403 — inconclusivo" | **abrem no navegador italiano.** O 403 era filtro anti-robô. |
+| **ARIF Puglia** | "403 — inconclusivo" | `arifpuglia.it` dá 403 **até no navegador** — mas a ARIF publica em **outro domínio** |
+| **APOL Lecce** | "sem URL no catálogo" | existe em **`http://`**, não `https://` |
+| **FEM OpenPub** | "host não resolve" | é `openpub.fmach.it` |
+
+**Três confirmações da lei `ROUTE_NOT_FOUND ≠ SOURCE_BLOCKED` numa só rodada.**
+
+### 13.2 · O achado que mais muda o mapa
+
+`arifpuglia.it` está morto para todo mundo. Mas a ARIF publica em **`agrometeopuglia.it`**:
+*Notiziario Agrometeorologico **& Fitosanitario** Regionale*, semanal, saída às quartas,
+**Anno XL** — quadragésimo ano de série. Mais um boletim meteorológico diário.
+
+E, ao lado, a **APOL Lecce**: *Bollettino Mosca dell'olivo*, **9 edições semanais em 2026 e
+14 em 2025**, com comprensório, fase fenológica, capturas em armadilha e percentual de
+infestação. A edição nº 9 vale a partir de hoje.
+
+**A Puglia deixou de ser lacuna.**
+
+### 13.3 · Concorrentes — o que o navegador italiano conseguiu
+
+| empresa | acesso | browser exigido | WAF | conteúdo |
+|---|---|---|---|---|
+| **ADAMA Italia** | `ACCESS_OK` | **SIM** | sim | artigo 03/06/2026 — Sonavio®/bifenox, inibidor de PPO, resistência em hortícolas |
+| **Bayer Crop Science Italia** | `ACCESS_OK` | **SIM** | sim | *Mais Lab* — resistência de infestantes em milho, 4 técnicos nomeados, marca Dekalb |
+| **Syngenta Italia** | `WAF_CHALLENGE` | — | sim | não vencido em 6s — **`NÃO SEI`, não RED** |
+
+**Achado comparativo, observado e não inferido:** ADAMA e Bayer estão, no mesmo ano,
+comunicando **o mesmo problema — resistência de plantas daninhas a herbicida** — em culturas
+diferentes. São duas páginas datadas dos próprios sites.
+
+⚠️ **Os dois não são `RAW_PRESERVED`.** Como o site recusa qualquer cliente sem navegador, os
+bytes servidos não puderam ser guardados. Ficaram como **`BROWSER_RENDERED_EXTRACT`** — leitura
+do DOM já montado, rotulada como tal. Não é a mesma coisa que documento preservado, e o guarda
+impede que vire GREEN.
+
+### 13.4 · As três fontes que não tinham endereço
+
+| fonte | resultado |
+|---|---|
+| `IT-T3-003` **SIMFITO** | URL achada (`simfito.regione.campania.it`). Os boletins pedem **login**. `PUBLIC_CAPABILITY`, `NÃO SEI`. Não se tentou contornar. |
+| `IT-T3-010` **APOL Lecce** | **Resolvida com amostra.** Era `http://`, não `https://`. **GREEN.** |
+| `IT-T7-012` **PICA** | URL achada (`pica.cavit.it`) e **identidade provada**: o sistema mora no domínio da CAVIT. `AREA RISERVATA` com login → `OPERATIONAL_DATA = NOT_PUBLICLY_ACCESSIBLE`. Resultado negativo é resultado válido. |
+
+Nenhuma das 54 rotas continua sem endereço.
+
+### 13.5 · Onde parei, e por quê
+
+| fonte | motivo da parada |
+|---|---|
+| **ISMEA Mercati** | rota do banco de preços encontrada (4 vistas), mas o painel não renderizou a tabela e nenhuma chamada de dados apareceu no tráfego. Critério de parada aplicado. `NÃO SEI`. |
+| **Syngenta** | desafio anti-robô não vencido. `NÃO SEI`. |
+| **Cooperativas (Agrintesa, Apofruit, Apo Conerpo, Ortofruit, VOG, Melinda, CAI)** | não alcançadas — **falta de tempo, não bloqueio**. Continuam `ROUTE_PROBED`. |
+| **ICQRF, CNR IRIS, SIRFI** | idem. |
+
+### 13.6 · Uma honestidade sobre o boletim da Puglia
+
+O `IT-T3-008` ficou **YELLOW e não GREEN**, mesmo com amostra preservada e recorrência semanal
+provada. Motivo: o documento tem 26 páginas e 55 imagens, e meu extrator simples leu só a parte
+meteorológica. **A seção fitossanitária — que é a promessa da ficha — não foi lida.** Busca por
+"oliv", "mosca" e "soglia" no texto extraído deu zero. Isso **não** prova que a seção não existe;
+prova que não consegui ler. A REGRA 5 diz que a amostra tem de provar o que a ficha promete.
+
+Fica P0 assim mesmo: com um extrator de PDF de verdade, provavelmente vira GREEN.
+
+### 13.7 · Guardas
+
+`scripts/italy_contract_test.mjs` — **233 verificações, 0 falhas.**
+Subiu de 144 para 233 porque entraram 16 guardas novos das leis desta rodada, e porque há mais
+amostras para conferir. O guarda **encontrou duas falhas reais** durante a rodada: um manifesto
+apontando para um nome de arquivo que eu tinha renomeado, e dois manifestos que faltavam. Os
+dois foram corrigidos antes de passar.
+
+Guardas novos, entre outros:
+
+```
+BROWSER_REQUIRED           ≠  SOURCE_UNAUTOMATABLE
+BROWSER_RENDERED_EXTRACT   ≠  RAW_PRESERVED   (e nunca pode virar GREEN)
+COMPANY_CLAIM              ≠  REGULATORY_FACT (carregada em cada manifesto de empresa)
+SAMPLE_CAPTURED            =  RAW_PRESERVED + BROWSER_RENDERED_EXTRACT
+fonte com login            ≠  GREEN
+rota corrigida guarda      OLD_ROUTE e CURRENT_ROUTE
+```

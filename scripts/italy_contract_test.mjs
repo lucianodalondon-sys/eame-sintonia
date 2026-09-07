@@ -119,5 +119,37 @@ T("os 5 passos obrigatorios antes de BLOCKED estao escritos", (L?.antes_de_escre
 T("nenhuma fonte foi marcada BLOCKED sem passar pela lei",
   probe.RESULTADOS.every(r => r.RESULTADO !== "BLOCKED"), "so existe BLOCKED_PARA_CURL, que e inconclusivo por contrato");
 
+console.log("\n13 · leis da rodada browser");
+const B = master.rodada_browser_2026_09_07;
+T("a rodada browser provou o IP de saida DO NAVEGADOR, nao so o do sistema", /ipinfo|205\.147\.30\.20/.test(B?.instrumento || ""));
+T("BROWSER_REQUIRED nao foi confundido com SOURCE_UNAUTOMATABLE",
+  todos.every(([, m]) => !(m.BROWSER_REQUIRED === "YES" && /NOT_AUTOMATABLE/.test(String(m.AUTOMATION_FEASIBILITY)))));
+T("nenhum extrato de navegador foi promovido a RAW_PRESERVED",
+  todos.every(([, m]) => !(m.RAW_EVIDENCE_STATE === "BROWSER_RENDERED_EXTRACT" && m.VERDICT === "GREEN")));
+T("todo BROWSER_RENDERED_EXTRACT explica por que nao virou RAW",
+  todos.filter(([, m]) => m.RAW_EVIDENCE_STATE === "BROWSER_RENDERED_EXTRACT").every(([, m]) => !!m.motivo_nao_PRESERVED));
+T("todo COMPANY_CLAIM carrega a lei que o separa de fato regulatorio",
+  todos.filter(([, m]) => m.EVIDENCE_CLASS === "COMPANY_CLAIM").every(([, m]) => /COMPANY_CLAIM\s*!=\s*REGULATORY_FACT/.test(String(m.LEI_APLICADA))));
+T("nenhum COMPANY_CLAIM afirma FACT_LOCATION sem prova",
+  todos.filter(([, m]) => m.EVIDENCE_CLASS === "COMPANY_CLAIM").every(([, m]) => /UNKNOWN/.test(String(m.FACT_LOCATION))));
+T("toda fonte com rota corrigida guarda a rota velha E a nova",
+  todos.filter(([, m]) => m.OLD_ROUTE).every(([, m]) => !!m.CURRENT_ROUTE));
+T("nenhuma fonte com login foi marcada GREEN",
+  todos.every(([, m]) => !(String(m.LOGIN_REQUIRED) === "YES" && m.VERDICT === "GREEN")));
+T("as tres fontes sem URL foram todas endereçadas", Object.keys(B?.tres_fontes_sem_url || {}).length === 3);
+T("as duas que ficaram em login estao como PUBLIC_CAPABILITY, nao RED",
+  Object.values(B?.tres_fontes_sem_url || {}).filter(v => /LOGIN|NOT_PUBLICLY/.test(JSON.stringify(v))).every(v => v.classificacao === "PUBLIC_CAPABILITY" && v.VERDICT !== "RED"));
+
+console.log("\n14 · os estados de cobertura continuam somando");
+const E2 = master.estados_de_cobertura_2026_09_07;
+T("SAMPLE_CAPTURED = RAW_PRESERVED + BROWSER_RENDERED_EXTRACT",
+  E2.SAMPLE_CAPTURED.n === E2.RAW_PRESERVED.n + E2.BROWSER_RENDERED_EXTRACT.n,
+  `${E2.SAMPLE_CAPTURED.n} vs ${E2.RAW_PRESERVED.n}+${E2.BROWSER_RENDERED_EXTRACT.n}`);
+T("RAW_PRESERVED bate com os manifestos", E2.RAW_PRESERVED.n === todos.filter(([, m]) => m.RAW_EVIDENCE_STATE === "PRESERVED").length);
+T("BROWSER_RENDERED_EXTRACT bate com os manifestos", E2.BROWSER_RENDERED_EXTRACT.n === todos.filter(([, m]) => m.RAW_EVIDENCE_STATE === "BROWSER_RENDERED_EXTRACT").length);
+T("ROUTE_PROBED cobre agora as 54 rotas", E2.ROUTE_PROBED.n === E2.ROTAS_NO_CATALOGO && E2.NUNCA_TOCADAS.n === 0);
+T("a matriz regiao x cultura nao inventa celula", /so entra celula com FONTE PROVADA/.test(master.matriz_regiao_x_cultura?.metodo || ""));
+T("DURUM_WHEAT continua declarado como lacuna", /LACUNA/i.test(master.matriz_regiao_x_cultura?.leitura_das_culturas_prioritarias?.DURUM_WHEAT || ""));
+
 console.log(`\n===== ${ok} passaram, ${falhas} falharam =====`);
 process.exit(falhas ? 1 : 0);
