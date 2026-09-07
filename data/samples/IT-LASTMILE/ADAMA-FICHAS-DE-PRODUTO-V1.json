@@ -1,0 +1,1557 @@
+{
+ "DATASET": "ADAMA-IT-FICHAS-DE-PRODUTO-V1",
+ "O_QUE_E": "as 51 fichas de produto do catalogo comercial da ADAMA Italia, lidas UMA A UMA no site, com ingrediente ativo, numero de registo, formulacao, embalagens e os documentos anexados.",
+ "PORQUE_ISTO_NAO_EXISTIA": "o coletor do catalogo (scripts/adama_catalogo_ler.py) le paginas de CULTURA gravadas a mao e extrai so os LINKS das fichas. Ele responde «que produtos existem», nunca «o que ha dentro de cada ficha». A ficha nunca chegou a ser aberta por ninguem em codigo.",
+ "LEI": "CATALOGO E REGISTO SAO CLASSES DIFERENTES. O que a ficha declara e o que a ADAMA publica; o que o registo diz e o que o Ministero autoriza. Onde discordam, ficam os dois — nao se escolhe um.",
+ "SOURCE_ID": "ADAMA-IT-CATALOGO-PUBLICO",
+ "SOURCE_URL": "https://www.adama.com/italia/it/",
+ "METODO": "navegador real, uma pagina de cada vez, com o extrator a ler o DOM ja renderizado. Nao houve fetch em lote nem chamada a API interna.",
+ "DETECCAO_DE_ROBO": "a pagina de LISTAGEM filtrada (/italia/it/products/crop-protection) esta atras do Akamai Bot Manager: devolveu bm-verify e corpo vazio. NAO SE CONTORNOU. As paginas de cultura e as fichas de produto servem normalmente ao navegador, e foi so por elas que se colheu.",
+ "CAPTURED_AT": "2026-09-07T18:55:01.717Z",
+ "FACT_TIME": "o site declara «Ultimo aggiornamento» por ficha; nao foi recolhido nesta passagem. FACT_TIME = NAO SEI.",
+ "SOURCE_LOCATION": "adama.com — catalogo italiano",
+ "FACT_LOCATION": "ITALIA",
+ "CADENCE_STATE": "NAO SEI — uma so captura. Nao ha segunda data para comparar.",
+ "EGRESS_IP": "205.147.30.20",
+ "EGRESS_GEO": "Milano, Lombardia, IT — AS208172 Proton AG",
+ "EGRESS_KIND": "VPN_COMERCIAL",
+ "AUTH_USED": "NENHUMA",
+ "ITEM_COUNT_RAW": 58,
+ "ITEM_COUNT_NORMALIZED": 51,
+ "PORQUE_58_E_NAO_51": "sete fichas foram tentadas primeiro no caminho errado (/prodotti-adama/ em vez de /prodotti/) e devolveram «Pagina non trovata». Todas as sete foram achadas no outro caminho. Zero falhas reais — mas as 58 tentativas ficam contadas, porque rendimento medido nao e rendimento estimado.",
+ "COST_USD": 0,
+ "CONFERIDO_CONTRA": {
+  "FONTE": "IT-T4-001 · PROD_FTS_6_20260907.csv",
+  "RAW_SHA256": "9cd4d156369facf186b40727d96ef5253b3aef93e9e08deae8ac8082c1de5a48",
+  "CONTAGEM": {
+   "BATE": 44,
+   "NUMERO_BATE_NOME_DIVERGE": 4,
+   "A_FICHA_NAO_DECLARA_REGISTO": 1,
+   "OUTRO_CADASTRO": 2
+  },
+  "NOTA_DE_CORRECAO": "a primeira passagem desta conferencia contou 7 em OUTRO_CADASTRO porque o teste da barra olhava a linha inteira e apanhava a DATA («del 10/10/2023»). Corrigido para olhar so o primeiro grupo de digitos. Sao 2."
+ },
+ "O_QUE_ISTO_PROVA": "o que a ADAMA Italia publica hoje sobre cada um dos 51: substancia, formulacao, embalagem, numero de registo e que documentos oferece.",
+ "O_QUE_ISTO_NAO_PROVA": "cultura, alvo, venda, stock ou quota. E o numero de registo na ficha e o que a ADAMA escreveu — nao e o registo em si.",
+ "O_CAMPO_COLTURE": "existe no molde da ficha e esta VAZIO nos 51. Nao e falha da leitura: a ADAMA nao o preencheu. Por isso a cultura NAO se colhe daqui — teria de vir do PDF da etiqueta ministerial.",
+ "ITENS": [
+  {
+   "SLUG": "activus-me",
+   "PRODUCT_ON_SITE": "Activus® ME",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/activus-me",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 17116 del 07.12.2017",
+   "REGISTRATION_ID_NORMALIZED": "017116",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Pendimetalin 34,8 g (400 g/l)",
+   "FORMULATION_ON_SITE": "Sospensione acquosa concentrata di capsule",
+   "PACKAGE_SIZES": "1 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/546/download?attachment",
+    "https://www.adama.com/italia/it/media/551/download?attachment",
+    "https://www.adama.com/italia/it/media/1691/download?attachment",
+    "https://www.adama.com/italia/it/media/5361/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "ACTIVUS ME",
+    "RAGIONE_SOCIALE": "ADAMA AGAN LTD",
+    "STATO_AMMINISTRATIVO": "Autorizzato",
+    "DATA_SCADENZA": "15/01/2027",
+    "SOSTANZE_ATTIVE": "PENDIMETHALIN"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "agil",
+   "PRODUCT_ON_SITE": "Agil®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/agil",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 9005 del 02-12-1996",
+   "REGISTRATION_ID_NORMALIZED": "009005",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Propaquizafop puro 9,60 g (100 g/l)",
+   "FORMULATION_ON_SITE": "Concentrato emulsionabile",
+   "PACKAGE_SIZES": "1 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/676/download?attachment",
+    "https://www.adama.com/italia/it/media/3226/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "AGIL",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "28/02/2027",
+    "SOSTANZE_ATTIVE": "PROPAQUIZAFOP"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "arrodimr",
+   "PRODUCT_ON_SITE": "Arrodim®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/arrodimr",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n. 18111 del 10/10/2023",
+   "REGISTRATION_ID_NORMALIZED": "018111",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Clethodim puro 25.3 g (240 g/L)",
+   "FORMULATION_ON_SITE": "Emulsione concentrata",
+   "PACKAGE_SIZES": "1 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/5491/download?attachment",
+    "https://www.adama.com/italia/it/media/5521/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "ARRODIM",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Autorizzato Art. 34 Reg. 1107/2009",
+    "DATA_SCADENZA": "31/08/2026",
+    "SOSTANZE_ATTIVE": "CLETHODIM"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "clematis",
+   "PRODUCT_ON_SITE": "Clematis®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/clematis",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 17746 del 04-12-2020",
+   "REGISTRATION_ID_NORMALIZED": "017746",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Clomazone puro 30,25 g (=360 g/l)",
+   "FORMULATION_ON_SITE": "Sospensione acquosa concentrata di capsule",
+   "PACKAGE_SIZES": "1 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/751/download?attachment",
+    "https://www.adama.com/italia/it/media/756/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "CLEMATIS",
+    "RAGIONE_SOCIALE": "ALBAUGH TKI D.O.O",
+    "STATO_AMMINISTRATIVO": "Autorizzato",
+    "DATA_SCADENZA": "30/09/2026",
+    "SOSTANZE_ATTIVE": "CLOMAZONE"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "contatto-320",
+   "PRODUCT_ON_SITE": "Contatto®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/contatto-320",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 9790 del 30-10-1998",
+   "REGISTRATION_ID_NORMALIZED": "009790",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Fenmedifam puro 29,15 g (320 g/l)",
+   "FORMULATION_ON_SITE": "Sospensione concentrata",
+   "PACKAGE_SIZES": "1 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/741/download?attachment",
+    "https://www.adama.com/italia/it/media/746/download?attachment",
+    "https://www.adama.com/italia/it/media/5486/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "CONTATTO 320",
+    "RAGIONE_SOCIALE": "ADAMA DEUTSCHLAND GMBH",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "30/09/2026",
+    "SOSTANZE_ATTIVE": "PHENMEDIPHAM"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "davai",
+   "PRODUCT_ON_SITE": "Davai®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/davai",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 17209 del 21-10-2019",
+   "REGISTRATION_ID_NORMALIZED": "017209",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Imazamox puro 7.62 g (80 g/l)",
+   "FORMULATION_ON_SITE": "Concentrato solubile",
+   "PACKAGE_SIZES": "1 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/731/download?attachment",
+    "https://www.adama.com/italia/it/media/736/download?attachment",
+    "https://www.adama.com/italia/it/media/1626/download?attachment",
+    "https://www.adama.com/italia/it/media/4191/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "DAVAI",
+    "RAGIONE_SOCIALE": "ADAMA AGAN LTD",
+    "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+    "DATA_SCADENZA": "30/06/2027",
+    "SOSTANZE_ATTIVE": "IMAZAMOX"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "dioder",
+   "PRODUCT_ON_SITE": "Diode®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/dioder",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 18694 del 26-03-2025",
+   "REGISTRATION_ID_NORMALIZED": "018694",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Mesotrione puro g 9,4 (=100 g/L)",
+   "FORMULATION_ON_SITE": "Sospensione concentrata",
+   "PACKAGE_SIZES": "1 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/6751/download?attachment",
+    "https://www.adama.com/italia/it/media/6756/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "DIODE",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Autorizzato Art. 34 Reg. 1107/2009",
+    "DATA_SCADENZA": "31/05/2032",
+    "SOSTANZE_ATTIVE": "MESOTRIONE"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "edaptisr",
+   "PRODUCT_ON_SITE": "Edaptis®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/edaptisr",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 18176 del 07-08-2024",
+   "REGISTRATION_ID_NORMALIZED": "018176",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Mefenpyr-diethyl (35 g/L) + Mesosulfuron-methyl puro (12 g/L) + Pinoxaden puro (60 g/L)",
+   "FORMULATION_ON_SITE": "Dispersione oleosa",
+   "PACKAGE_SIZES": "1 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/5941/download?attachment",
+    "https://www.adama.com/italia/it/media/5946/download?attachment",
+    "https://www.adama.com/italia/it/media/6096/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "EDAPTIS",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+    "DATA_SCADENZA": "31/12/2029",
+    "SOSTANZE_ATTIVE": "MEFENPYR DIETHYL|MESOSULFURON-METHYL|PINOXADEN"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "elegant-2fd",
+   "PRODUCT_ON_SITE": "Elgant®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/elegant-2fd",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 16553 del 24-12-2015",
+   "REGISTRATION_ID_NORMALIZED": "016553",
+   "ACTIVE_INGREDIENTS_ON_SITE": "42,3 g di 2,4D (=452 g/L pari a 300 g/L di 2,4 D puro) + Florasulam puro 0,6 g (6,25 g/l)",
+   "FORMULATION_ON_SITE": "Suspoemulsione",
+   "PACKAGE_SIZES": "0,75 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/721/download?attachment",
+    "https://www.adama.com/italia/it/media/726/download?attachment",
+    "https://www.adama.com/italia/it/media/1606/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "NUMERO_BATE_NOME_DIVERGE",
+    "DENOMINAZIONE_NO_REGISTO": "ELEGANT 2FD",
+    "RAGIONE_SOCIALE": "ADAMA AGAN LTD",
+    "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+    "DATA_SCADENZA": "31/12/2031",
+    "SOSTANZE_ATTIVE": "FLORASULAM|2,4-D",
+    "O_QUE_ISTO_SIGNIFICA": "o numero existe no registo, mas com OUTRO nome. Pode ser nome comercial sobre registo alheio, marca diferente do mesmo registo, ou erro na ficha. NAO SE RESOLVE POR PALPITE: fica declarado."
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "folpan-energy",
+   "PRODUCT_ON_SITE": "Folpan® Energy",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/folpan-energy",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 16749 del 02.12.2022",
+   "REGISTRATION_ID_NORMALIZED": "016749",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Folpet puro 300 g/l + Fosfonato di potassio 450 g/l",
+   "FORMULATION_ON_SITE": "Sospensione concentrata",
+   "PACKAGE_SIZES": "5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/5416/download?attachment",
+    "https://www.adama.com/italia/it/media/5421/download?attachment",
+    "https://www.adama.com/italia/it/media/6211/download?attachment",
+    "https://www.adama.com/italia/it/media/7626/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "FOLPAN ENERGY",
+    "RAGIONE_SOCIALE": "ADAMA MAKHTESHIM LTD",
+    "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+    "DATA_SCADENZA": "31/10/2040",
+    "SOSTANZE_ATTIVE": "FOLPET|POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "fullpager-rice-cropping-solution",
+   "PRODUCT_ON_SITE": "FullPage® Rice Cropping Solution",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/fullpager-rice-cropping-solution",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 17868 del 05-05-2023",
+   "REGISTRATION_ID_NORMALIZED": "017868",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Imazamox puro 7.62 g (80 g/l)",
+   "FORMULATION_ON_SITE": "Concentrato solubile",
+   "PACKAGE_SIZES": "5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/6321/download?attachment",
+    "https://www.adama.com/italia/it/media/2821/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "NUMERO_BATE_NOME_DIVERGE",
+    "DENOMINAZIONE_NO_REGISTO": "POSTSCRIPT 80 XL",
+    "RAGIONE_SOCIALE": "ADAMA AGAN LTD",
+    "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+    "DATA_SCADENZA": "30/06/2027",
+    "SOSTANZE_ATTIVE": "IMAZAMOX",
+    "O_QUE_ISTO_SIGNIFICA": "o numero existe no registo, mas com OUTRO nome. Pode ser nome comercial sobre registo alheio, marca diferente do mesmo registo, ou erro na ficha. NAO SE RESOLVE POR PALPITE: fica declarado."
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "goltix",
+   "PRODUCT_ON_SITE": "Goltix®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/goltix",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 2732 del 16-01-1978",
+   "REGISTRATION_ID_NORMALIZED": "002732",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Metamitron puro 70 g (700 g/Kg)",
+   "FORMULATION_ON_SITE": "Granuli idrodispersibili",
+   "PACKAGE_SIZES": "1 Kg 5 Kg",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/5926/download?attachment",
+    "https://www.adama.com/italia/it/media/5931/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "GOLTIX",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "30/11/2026",
+    "SOSTANZE_ATTIVE": "METAMITRON"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "goltixr-top-0",
+   "PRODUCT_ON_SITE": "Goltix® TOP",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/goltixr-top-0",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 18814 del 25.11.2024",
+   "REGISTRATION_ID_NORMALIZED": "018814",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Metamitron puro 57,9 g (700 g/L)",
+   "FORMULATION_ON_SITE": "Sospensione concentrata",
+   "PACKAGE_SIZES": "1 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/4416/download?attachment",
+    "https://www.adama.com/italia/it/media/4606/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "GOLTIX TOP",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Autorizzato Art. 10 D.P.R. 290/2001",
+    "DATA_SCADENZA": "30/11/2026",
+    "SOSTANZE_ATTIVE": "METAMITRON"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "highcardr",
+   "PRODUCT_ON_SITE": "Highcard®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/highcardr",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 17995 del 8/02/2024",
+   "REGISTRATION_ID_NORMALIZED": "017995",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Isoxadifen etile (antidoto agronomico) puro 7.1 (74 g/L) + Quizalofop-P-ethyl puro 10.0 g (105 g/l)",
+   "FORMULATION_ON_SITE": "Emulsione concentrata",
+   "PACKAGE_SIZES": "5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/6026/download?attachment",
+    "https://www.adama.com/italia/it/media/6121/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "HIGHCARD",
+    "RAGIONE_SOCIALE": "ADAMA AGAN LTD",
+    "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+    "DATA_SCADENZA": "28/02/2028",
+    "SOSTANZE_ATTIVE": "ISOXADIFEN ETHYL|QUIZALOFOP-P-ETHYL"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "leopard-5-ec",
+   "PRODUCT_ON_SITE": "Leopard® 5 EC",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/leopard-5-ec",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 11243 del 15-03-2002",
+   "REGISTRATION_ID_NORMALIZED": "011243",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Quizalofop-p-etile puro 5,4 g (50 g/l)",
+   "FORMULATION_ON_SITE": "Concentrato emulsionabile",
+   "PACKAGE_SIZES": "1 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/556/download?attachment",
+    "https://www.adama.com/italia/it/media/561/download?attachment",
+    "https://www.adama.com/italia/it/media/5396/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "LEOPARD 5 EC",
+    "RAGIONE_SOCIALE": "ADAMA AGAN LTD",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "28/02/2027",
+    "SOSTANZE_ATTIVE": "QUIZALOFOP-P-ETHYL"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "max-acer-rice-cropping-solution",
+   "PRODUCT_ON_SITE": "Max-Ace® Rice Cropping Solution",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/max-acer-rice-cropping-solution",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 17995 del 8-02-2024",
+   "REGISTRATION_ID_NORMALIZED": "017995",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Isoxadifen etile (antidoto agronomico) puro 7.1 (74 g/L) + Quizalofop-P-ethyl puro 10.0 g (105 g/l)",
+   "FORMULATION_ON_SITE": "Emulsione concentrata",
+   "PACKAGE_SIZES": "5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/6121/download?attachment",
+    "https://www.adama.com/italia/it/media/6026/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "NUMERO_BATE_NOME_DIVERGE",
+    "DENOMINAZIONE_NO_REGISTO": "HIGHCARD",
+    "RAGIONE_SOCIALE": "ADAMA AGAN LTD",
+    "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+    "DATA_SCADENZA": "28/02/2028",
+    "SOSTANZE_ATTIVE": "ISOXADIFEN ETHYL|QUIZALOFOP-P-ETHYL",
+    "O_QUE_ISTO_SIGNIFICA": "o numero existe no registo, mas com OUTRO nome. Pode ser nome comercial sobre registo alheio, marca diferente do mesmo registo, ou erro na ficha. NAO SE RESOLVE POR PALPITE: fica declarado."
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "nicogan-vo",
+   "PRODUCT_ON_SITE": "Nicogan® VO",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/nicogan-vo",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 13242 del 10-06-2010",
+   "REGISTRATION_ID_NORMALIZED": "013242",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Nicosulfuron puro 4,1 g (40 g/l)",
+   "FORMULATION_ON_SITE": "Olio dispersibile",
+   "PACKAGE_SIZES": "1 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/656/download?attachment",
+    "https://www.adama.com/italia/it/media/661/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "NICOGAN V.O.",
+    "RAGIONE_SOCIALE": "ADAMA AGAN LTD",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "31/03/2027",
+    "SOSTANZE_ATTIVE": "NICOSULFURON"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "sonavior",
+   "PRODUCT_ON_SITE": "Sonavio®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/sonavior",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 18072 del 08.02.2024",
+   "REGISTRATION_ID_NORMALIZED": "018072",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Bifenox puro 40.7 g (=480 g/l)",
+   "FORMULATION_ON_SITE": "Sospensione concentrata",
+   "PACKAGE_SIZES": "1 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/5661/download?attachment",
+    "https://www.adama.com/italia/it/media/5691/download?attachment",
+    "https://www.adama.com/italia/it/media/7631/download?attachment",
+    "https://www.adama.com/italia/it/media/7636/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "SONAVIO",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+    "DATA_SCADENZA": "31/03/2028",
+    "SOSTANZE_ATTIVE": "BIFENOX"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "stopper-p",
+   "PRODUCT_ON_SITE": "Stopper® P",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/stopper-p",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 15229 del 28-10-2013",
+   "REGISTRATION_ID_NORMALIZED": "015229",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Diflufenican puro 3,56 g (=40 g/l) + Pendimetalin puro 35,62 g (400 g/l)",
+   "FORMULATION_ON_SITE": "Sospensione concentrata",
+   "PACKAGE_SIZES": "5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/626/download?attachment",
+    "https://www.adama.com/italia/it/media/631/download?attachment",
+    "https://www.adama.com/italia/it/media/1356/download?attachment",
+    "https://www.adama.com/italia/it/media/5581/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "STOPPER P",
+    "RAGIONE_SOCIALE": "ADAMA AGAN LTD",
+    "STATO_AMMINISTRATIVO": "Autorizzato",
+    "DATA_SCADENZA": "31/08/2027",
+    "SOSTANZE_ATTIVE": "PENDIMETHALIN|DIFLUFENICAN"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "sulcotrek",
+   "PRODUCT_ON_SITE": "Sulcotrek®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/sulcotrek",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 10585 del 06-09-2000",
+   "REGISTRATION_ID_NORMALIZED": "010585",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Sulcotrione puro 15 g (173 g/l) + Terbutilazina pura 28,4 g (327 g/l)",
+   "FORMULATION_ON_SITE": "Sospensione concentrata",
+   "PACKAGE_SIZES": "15 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/616/download?attachment",
+    "https://www.adama.com/italia/it/media/2301/download?attachment",
+    "https://www.adama.com/italia/it/media/4806/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "SULCOTREK",
+    "RAGIONE_SOCIALE": "ADAMA AGAN LTD",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "31/05/2027",
+    "SOSTANZE_ATTIVE": "TERBUTHYLAZINE|SULCOTRIONE"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "sultan",
+   "PRODUCT_ON_SITE": "Sultan®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/sultan",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 11526 del 06-12-2002",
+   "REGISTRATION_ID_NORMALIZED": "011526",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Metazaclor puro 44,3 g (500 g/l)",
+   "FORMULATION_ON_SITE": "Sospensione concentrata",
+   "PACKAGE_SIZES": "1 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/606/download?attachment",
+    "https://www.adama.com/italia/it/media/611/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "SULTAN",
+    "RAGIONE_SOCIALE": "ADAMA AGAN LTD",
+    "STATO_AMMINISTRATIVO": "Autorizzato",
+    "DATA_SCADENZA": "31/10/2026",
+    "SOSTANZE_ATTIVE": "METAZACHLOR"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "taifun-mk-cl",
+   "PRODUCT_ON_SITE": "Taifun® MK CL",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/taifun-mk-cl",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 15401 del 22-06-2012",
+   "REGISTRATION_ID_NORMALIZED": "015401",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Glifosate acido puro 30,8 g (360 g/l)",
+   "FORMULATION_ON_SITE": "Soluzione concentrata",
+   "PACKAGE_SIZES": "0,5 l 1 l 20 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/596/download?attachment",
+    "https://www.adama.com/italia/it/media/601/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "TAIFUN MK CL",
+    "RAGIONE_SOCIALE": "ADAMA DEUTSCHLAND GMBH",
+    "STATO_AMMINISTRATIVO": "Autorizzato",
+    "DATA_SCADENZA": "15/12/2034",
+    "SOSTANZE_ATTIVE": "GLYPHOSATE"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "taifun-mk-cl-pfnpe",
+   "PRODUCT_ON_SITE": "Taifun® MK CL PFNPE",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/taifun-mk-cl-pfnpe",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 18279 del 30-12-2022",
+   "REGISTRATION_ID_NORMALIZED": "018279",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Glifosate acido puro 30,8 g (360 g/l)",
+   "FORMULATION_ON_SITE": "Soluzione concentrata",
+   "PACKAGE_SIZES": "0,5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/5011/download?attachment",
+    "https://www.adama.com/italia/it/media/5016/download?attachment",
+    "https://www.adama.com/italia/it/media/5026/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "TAIFUN  MK CL PFNPE",
+    "RAGIONE_SOCIALE": "ADAMA DEUTSCHLAND GMBH",
+    "STATO_AMMINISTRATIVO": "Autorizzato",
+    "DATA_SCADENZA": "15/12/2034",
+    "SOSTANZE_ATTIVE": "GLYPHOSATE"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "timeline-trio",
+   "PRODUCT_ON_SITE": "Timeline Trio",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/timeline-trio",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 14935 del 18-10-2011",
+   "REGISTRATION_ID_NORMALIZED": "014935",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Clodinafop-propargyl puro 2,94 g (30 g/l) + Cloquintocet-mexyl puro 0,73 g (7,5 g/l) + Florasulam puro 0,73 g (7,5 g/l) + Pinoxaden puro 2,94 g (30 g/l)",
+   "FORMULATION_ON_SITE": "Concentrato emulsionabile",
+   "PACKAGE_SIZES": "1 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/586/download?attachment",
+    "https://www.adama.com/italia/it/media/591/download?attachment",
+    "https://www.adama.com/italia/it/media/5646/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "TIMELINE TRIO",
+    "RAGIONE_SOCIALE": "SYNGENTA CROP PROTECTION AG",
+    "STATO_AMMINISTRATIVO": "Autorizzato",
+    "DATA_SCADENZA": "31/12/2029",
+    "SOSTANZE_ATTIVE": "CLODINAFOP|CLOQUINTOCET MEXYL|FLORASULAM|PINOXADEN"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "tomigan",
+   "PRODUCT_ON_SITE": "Tomigan",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/tomigan",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 16312 del 13-01-2022",
+   "REGISTRATION_ID_NORMALIZED": "016312",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Fluroxipir puro 29,2 g (=200 g/l)",
+   "FORMULATION_ON_SITE": "Emulsione concentrata",
+   "PACKAGE_SIZES": "1 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/4086/download?attachment",
+    "https://www.adama.com/italia/it/media/4091/download?attachment",
+    "https://www.adama.com/italia/it/media/6191/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "TOMIGAN",
+    "RAGIONE_SOCIALE": "ADAMA AGAN LTD",
+    "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+    "DATA_SCADENZA": "15/02/2027",
+    "SOSTANZE_ATTIVE": "FLUROXYPYR"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "trimmer-50-wg",
+   "PRODUCT_ON_SITE": "Trimmer® 50 WG",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/trimmer-50-wg",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 16575 del 19-09-2018",
+   "REGISTRATION_ID_NORMALIZED": "016575",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Tribenuron-methyl 50 g (500 g/kg)",
+   "FORMULATION_ON_SITE": "Granuli idrosolubili",
+   "PACKAGE_SIZES": "0,20 Kg",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/566/download?attachment",
+    "https://www.adama.com/italia/it/media/571/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "TRIMMER 50 WG",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Autorizzato",
+    "DATA_SCADENZA": "30/01/2035",
+    "SOSTANZE_ATTIVE": "TRIBENURON"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "valley",
+   "PRODUCT_ON_SITE": "Valley®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/valley",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 16616 del 08-03-2018",
+   "REGISTRATION_ID_NORMALIZED": "016616",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Bifenox puro 40,6 g (= 480 g/l)",
+   "FORMULATION_ON_SITE": "Sospensione concentrata",
+   "PACKAGE_SIZES": "1 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/786/download?attachment",
+    "https://www.adama.com/italia/it/media/791/download?attachment",
+    "https://www.adama.com/italia/it/media/1296/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "VALLEY",
+    "RAGIONE_SOCIALE": "ADAMA DEUTSCHLAND GMBH",
+    "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+    "DATA_SCADENZA": "31/03/2027",
+    "SOSTANZE_ATTIVE": "BIFENOX"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "avastelr",
+   "PRODUCT_ON_SITE": "Avastel®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/avastelr",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 18089 del 27/06/25",
+   "REGISTRATION_ID_NORMALIZED": "018089",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Fluxapyroxad 6.94 g (=75 g/L) + Protioconazolo puro (150 g/L)",
+   "FORMULATION_ON_SITE": "Concentrato emulsionabile",
+   "PACKAGE_SIZES": "1 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/6766/download?attachment",
+    "https://www.adama.com/italia/it/media/6761/download?attachment",
+    "https://www.adama.com/italia/it/media/6846/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "AVASTEL",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+    "DATA_SCADENZA": "31/03/2028",
+    "SOSTANZE_ATTIVE": "PROTHIOCONAZOLE|FLUXAPYROXAD"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "banjo",
+   "PRODUCT_ON_SITE": "Banjo®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/banjo",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 13905 del 09-12-2010",
+   "REGISTRATION_ID_NORMALIZED": "013905",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Fluazinam 40,2 g (500 g/l)",
+   "FORMULATION_ON_SITE": "Sospensione concentrata",
+   "PACKAGE_SIZES": "1 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/236/download?attachment",
+    "https://www.adama.com/italia/it/media/241/download?attachment",
+    "https://www.adama.com/italia/it/media/2671/download?attachment",
+    "https://www.adama.com/italia/it/media/2796/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "BANJO",
+    "RAGIONE_SOCIALE": "ADAMA MAKHTESHIM LTD",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "30/11/2027",
+    "SOSTANZE_ATTIVE": "FLUAZINAM"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "folpan-80-wdg",
+   "PRODUCT_ON_SITE": "Folpan® 80 WDG",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/folpan-80-wdg",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 8601 del 03-12-1994",
+   "REGISTRATION_ID_NORMALIZED": "008601",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Folpet puro 80 g (800g/Kg)",
+   "FORMULATION_ON_SITE": "Granuli idrodispersibili",
+   "PACKAGE_SIZES": "1 Kg 5 Kg",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/486/download?attachment",
+    "https://www.adama.com/italia/it/media/491/download?attachment",
+    "https://www.adama.com/italia/it/media/7616/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "FOLPAN 80 WDG",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "31/10/2040",
+    "SOSTANZE_ATTIVE": "FOLPET"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "folpan-gold",
+   "PRODUCT_ON_SITE": "Folpan® Gold",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/folpan-gold",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 12878 del 03-01-2006",
+   "REGISTRATION_ID_NORMALIZED": "012878",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Folpet puro 40 g (400 g/kg) + Metalaxil-m puro 4,85 g (48,5 g/kg)",
+   "FORMULATION_ON_SITE": "Granuli idrodispersibili",
+   "PACKAGE_SIZES": "1 Kg 5 Kg",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/481/download?attachment",
+    "https://www.adama.com/italia/it/media/1576/download?attachment",
+    "https://www.adama.com/italia/it/media/2741/download?attachment",
+    "https://www.adama.com/italia/it/media/7621/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "FOLPAN GOLD",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "31/10/2040",
+    "SOSTANZE_ATTIVE": "FOLPET|METALAXYL-M"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "maganicr",
+   "PRODUCT_ON_SITE": "Maganic®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/maganicr",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 17955 del 05.06.2024",
+   "REGISTRATION_ID_NORMALIZED": "017955",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Difenoconazolo puro (125 g/L) + Protioconazolo puro (175 g/L)",
+   "FORMULATION_ON_SITE": "Emulsione concentrata",
+   "PACKAGE_SIZES": "1 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/5956/download?attachment",
+    "https://www.adama.com/italia/it/media/5961/download?attachment",
+    "https://www.adama.com/italia/it/media/6101/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "MAGANIC",
+    "RAGIONE_SOCIALE": "ADAMA MAKHTESHIM LTD",
+    "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+    "DATA_SCADENZA": "31/01/2028",
+    "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|PROTHIOCONAZOLE"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "mavita-250-ec",
+   "PRODUCT_ON_SITE": "Mavita® 250 EC",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/mavita-250-ec",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 15293 del 29-12-2011",
+   "REGISTRATION_ID_NORMALIZED": "015293",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Difenoconazolo puro 23,6 g (250 g/l)",
+   "FORMULATION_ON_SITE": "Concentrato emulsionabile",
+   "PACKAGE_SIZES": "10 l 20 l 3 l 5 l 7.5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/456/download?attachment",
+    "https://www.adama.com/italia/it/media/461/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "MAVITA 250 EC",
+    "RAGIONE_SOCIALE": "SYNGENTA CROP PROTECTION AG",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "31/01/2028",
+    "SOSTANZE_ATTIVE": "DIFENOCONAZOLE"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "maxentisr",
+   "PRODUCT_ON_SITE": "Maxentis®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/maxentisr",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 18067 del 14.06.2024",
+   "REGISTRATION_ID_NORMALIZED": "018067",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Azoxystrobin puro (200 g/l) + Protioconazolo puro (150 g/L)",
+   "FORMULATION_ON_SITE": "Sospensione concentrata",
+   "PACKAGE_SIZES": "1 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/5966/download?attachment",
+    "https://www.adama.com/italia/it/media/5971/download?attachment",
+    "https://www.adama.com/italia/it/media/6106/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "MAXENTIS",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+    "DATA_SCADENZA": "31/05/2027",
+    "SOSTANZE_ATTIVE": "AZOXYSTROBIN|PROTHIOCONAZOLE"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "merpan-80-wdg",
+   "PRODUCT_ON_SITE": "Merpan® 80 WDG",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/merpan-80-wdg",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 8102 del 09-11-1992",
+   "REGISTRATION_ID_NORMALIZED": "008102",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Captano puro 80 g (800 g/Kg)",
+   "FORMULATION_ON_SITE": "Granuli idrodispersibili",
+   "PACKAGE_SIZES": "1 Kg 5 Kg",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/446/download?attachment",
+    "https://www.adama.com/italia/it/media/451/download?attachment",
+    "https://www.adama.com/italia/it/media/2256/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "MERPAN 80 WDG",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "31/10/2040",
+    "SOSTANZE_ATTIVE": "CAPTAN"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "mirador-sc",
+   "PRODUCT_ON_SITE": "Mirador® SC",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/mirador-sc",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 15111 del 25-03-2011",
+   "REGISTRATION_ID_NORMALIZED": "015111",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Azoxystrobin puro 23,2 g (250g/l)",
+   "FORMULATION_ON_SITE": "Sospensione concentrata",
+   "PACKAGE_SIZES": "1 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/411/download?attachment",
+    "https://www.adama.com/italia/it/media/4456/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "MIRADOR SC",
+    "RAGIONE_SOCIALE": "SYNGENTA CROP PROTECTION AG",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "31/05/2027",
+    "SOSTANZE_ATTIVE": "AZOXYSTROBIN"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "nimrodr-250-ew",
+   "PRODUCT_ON_SITE": "Nimrod® 250 EW",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/nimrodr-250-ew",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": null,
+   "REGISTRATION_ID_NORMALIZED": null,
+   "ACTIVE_INGREDIENTS_ON_SITE": "Bupirimate puro 23,8 g (= 250 g/l)",
+   "FORMULATION_ON_SITE": "Emulsione olio/acqua",
+   "PACKAGE_SIZES": "1 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/4061/download?attachment",
+    "https://www.adama.com/italia/it/media/4066/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "A_FICHA_NAO_DECLARA_REGISTO",
+    "O_QUE_ISTO_SIGNIFICA": "a ficha nao traz o campo. NAO significa que o produto nao esteja registado."
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "seedron",
+   "PRODUCT_ON_SITE": "Seedron®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/seedron",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 16152 del 28-04-2016",
+   "REGISTRATION_ID_NORMALIZED": "016152",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Fludioxonil 4,61 g (50 g/l) + Tebuconazolo 0,92 g (10 g/l)",
+   "FORMULATION_ON_SITE": "Concentrato fluido",
+   "PACKAGE_SIZES": "1.000 l 20 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/286/download?attachment",
+    "https://www.adama.com/italia/it/media/291/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "SEEDRON",
+    "RAGIONE_SOCIALE": "ADAMA MAKHTESHIM LTD",
+    "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+    "DATA_SCADENZA": "30/09/2026",
+    "SOSTANZE_ATTIVE": "FLUDIOXONIL|TEBUCONAZOLE"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "stavento",
+   "PRODUCT_ON_SITE": "Stavento®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/stavento",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 17752 del 21.12.2021",
+   "REGISTRATION_ID_NORMALIZED": "017752",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Folpet puro 39.7 g (500 g/l)",
+   "FORMULATION_ON_SITE": "Sospensione concentrata",
+   "PACKAGE_SIZES": "1 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/4226/download?attachment",
+    "https://www.adama.com/italia/it/media/4611/download?attachment",
+    "https://www.adama.com/italia/it/media/4796/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "STAVENTO",
+    "RAGIONE_SOCIALE": "ADAMA MAKHTESHIM LTD",
+    "STATO_AMMINISTRATIVO": "Autorizzato in regime di Riconoscimento Reciproco",
+    "DATA_SCADENZA": "31/10/2040",
+    "SOSTANZE_ATTIVE": "FOLPET"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "zakeo-250-sc",
+   "PRODUCT_ON_SITE": "Zakeo® 250 SC",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/zakeo-250-sc",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n. 17099 del 22-01-2018",
+   "REGISTRATION_ID_NORMALIZED": "017099",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Azoxystrobin puro 23,2 g (250g/l)",
+   "FORMULATION_ON_SITE": "Sospensione concentrata",
+   "PACKAGE_SIZES": "1 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/536/download?attachment",
+    "https://www.adama.com/italia/it/media/541/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "ZAKEO 250 SC",
+    "RAGIONE_SOCIALE": "SYNGENTA CROP PROTECTION AG",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "31/05/2027",
+    "SOSTANZE_ATTIVE": "AZOXYSTROBIN"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "apyzar-wg",
+   "PRODUCT_ON_SITE": "Apyza® WG",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/insetticidi/apyzar-wg",
+   "CATALOG_CATEGORY": "INSETTICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n 18156 del 17/10/2023",
+   "REGISTRATION_ID_NORMALIZED": "018156",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Flonicamid puro 50 g",
+   "FORMULATION_ON_SITE": "Granuli idrodispersibili",
+   "PACKAGE_SIZES": "0,5 Kg",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/5496/download?attachment",
+    "https://www.adama.com/italia/it/media/5501/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "APYZA WG",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Autorizzato Art. 34 Reg. 1107/2009",
+    "DATA_SCADENZA": "30/11/2026",
+    "SOSTANZE_ATTIVE": "FLONICAMID (IKI-220)"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "cosayrr-200-sc",
+   "PRODUCT_ON_SITE": "Cosayr® 200 SC",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/insetticidi/cosayrr-200-sc",
+   "CATALOG_CATEGORY": "INSETTICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n°18561 del 04/02/2026",
+   "REGISTRATION_ID_NORMALIZED": "018561",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Chlorantraniliprole puro 18,5 g (=200 g/l)",
+   "FORMULATION_ON_SITE": "Sospensione concentrata",
+   "PACKAGE_SIZES": "1 l 200 ml",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/7086/download?attachment",
+    "https://www.adama.com/italia/it/media/7611/download?attachment",
+    "https://www.adama.com/italia/it/media/7101/download?attachment",
+    "https://www.adama.com/italia/it/media/7601/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "COSAYR 200 SC",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Autorizzato Art. 34 Reg. 1107/2009",
+    "DATA_SCADENZA": "31/05/2027",
+    "SOSTANZE_ATTIVE": "CHLORANTRANILIPROLE"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "lamdex-extra",
+   "PRODUCT_ON_SITE": "Lamdex® Extra",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/insetticidi/lamdex-extra",
+   "CATALOG_CATEGORY": "INSETTICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 8259 del 04-05-1993",
+   "REGISTRATION_ID_NORMALIZED": "008259",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Lambda-cialotrina pura 2,5 g (25 g/kg)",
+   "FORMULATION_ON_SITE": "Granuli idrodispersibili",
+   "PACKAGE_SIZES": "1 Kg",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/176/download?attachment",
+    "https://www.adama.com/italia/it/media/6016/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "LAMDEX EXTRA",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "31/08/2026",
+    "SOSTANZE_ATTIVE": "LAMBDA-CYHALOTHRIN"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "mavrik-smart",
+   "PRODUCT_ON_SITE": "Mavrik® Smart",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/insetticidi/mavrik-smart",
+   "CATALOG_CATEGORY": "INSETTICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 9800 del 02-11-1998",
+   "REGISTRATION_ID_NORMALIZED": "009800",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Tau-fluvalinate puro 21,4 g (240 g/l)",
+   "FORMULATION_ON_SITE": "Emulsione acquosa",
+   "PACKAGE_SIZES": "0,15 l 1 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/4036/download?attachment",
+    "https://www.adama.com/italia/it/media/4041/download?attachment",
+    "https://www.adama.com/italia/it/media/4786/download?attachment",
+    "https://www.adama.com/italia/it/media/6941/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "MAVRIK SMART",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "31/01/2027",
+    "SOSTANZE_ATTIVE": "TAU-FLUVALINATE"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "pirimor-50",
+   "PRODUCT_ON_SITE": "Pirimor® 50",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/insetticidi/pirimor-50",
+   "CATALOG_CATEGORY": "INSETTICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 4701 del 17-03-1982",
+   "REGISTRATION_ID_NORMALIZED": "004701",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Pirimicarb puro 50 g (500 g/kg)",
+   "FORMULATION_ON_SITE": "Granuli idrodispersibili",
+   "PACKAGE_SIZES": "1 Kg",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/216/download?attachment",
+    "https://www.adama.com/italia/it/media/221/download?attachment",
+    "https://www.adama.com/italia/it/media/4791/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "PIRIMOR 50",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "31/10/2026",
+    "SOSTANZE_ATTIVE": "PIRIMICARB"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "schermo-0-5-g",
+   "PRODUCT_ON_SITE": "Schermo® 0,5 g",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/insetticidi/schermo-0-5-g",
+   "CATALOG_CATEGORY": "INSETTICIDI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 14479 del 26-01-2009",
+   "REGISTRATION_ID_NORMALIZED": "014479",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Teflutrin puro 0,5 g (5 g/kg)",
+   "FORMULATION_ON_SITE": "Granulare",
+   "PACKAGE_SIZES": "10 Kg",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/226/download?attachment",
+    "https://www.adama.com/italia/it/media/2351/download?attachment",
+    "https://www.adama.com/italia/it/media/2366/download?attachment",
+    "https://www.adama.com/italia/it/media/5916/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "SCHERMO 0.5 G",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Ri-registrato",
+    "DATA_SCADENZA": "31/05/2027",
+    "SOSTANZE_ATTIVE": "TEFLUTHRIN"
+   },
+   "DESCRITOR_DO_SITE": null,
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "ESPERADO",
+    "PORQUE": "e um erbicida, fungicida ou insetticida: actua sobre organismo, logo o par existe e a sua ausencia e lacuna nossa ou do registo."
+   }
+  },
+  {
+   "SLUG": "brevis",
+   "PRODUCT_ON_SITE": "Brevis®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/speciali/brevis",
+   "CATALOG_CATEGORY": "SPECIALI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 16084 del 16-05-2014",
+   "REGISTRATION_ID_NORMALIZED": "016084",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Metamitron puro 15 g (150 g/kg)",
+   "FORMULATION_ON_SITE": "Granuli idrosolubili",
+   "PACKAGE_SIZES": "1 Kg",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/796/download?attachment",
+    "https://www.adama.com/italia/it/media/801/download?attachment",
+    "https://www.adama.com/italia/it/media/4781/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "BREVIS",
+    "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+    "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+    "DATA_SCADENZA": "30/11/2026",
+    "SOSTANZE_ATTIVE": "METAMITRON"
+   },
+   "DESCRITOR_DO_SITE": "Diradante specifico per il dirado dei frutti di melo e pero.",
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "NAO_EXISTE_PARA_ESTE_PRODUTO",
+    "PORQUE": "o proprio site descreve-o como Diradante specifico per il dirado dei frutti di melo e pero. Um produto que nao actua sobre um organismo nao tem alvo — logo nao ha par cultura x alvo para achar. O vazio aqui e a resposta certa, nao uma lacuna.",
+    "FONTE_DA_CLASSIFICACAO": "a frase da ADAMA, copiada. A classificacao nao e nossa."
+   }
+  },
+  {
+   "SLUG": "budge",
+   "PRODUCT_ON_SITE": "Budge®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/speciali/budge",
+   "CATALOG_CATEGORY": "SPECIALI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 0037584/22",
+   "REGISTRATION_ID_NORMALIZED": null,
+   "ACTIVE_INGREDIENTS_ON_SITE": "Azoto (N) organico 4,4 % + Carbonio (C) organico di origine biologica 27,5 %",
+   "FORMULATION_ON_SITE": null,
+   "PACKAGE_SIZES": "20 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/4996/download?attachment",
+    "https://www.adama.com/italia/it/media/5036/download?attachment",
+    "https://www.adama.com/italia/it/media/5146/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "OUTRO_CADASTRO",
+    "NUMERO": "0037584/22",
+    "O_QUE_ISTO_SIGNIFICA": "numero com barra e ano: registo de fertilizante/biostimulante (Reg. UE 2019/1009). Nao entra no registo fitossanitario, e a ausencia la nao e ausencia no mundo."
+   },
+   "DESCRITOR_DO_SITE": "Idrolizzato proteico di origine vegetale.",
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "NAO_EXISTE_PARA_ESTE_PRODUTO",
+    "PORQUE": "o proprio site descreve-o como Idrolizzato proteico di origine vegetale. Um produto que nao actua sobre um organismo nao tem alvo — logo nao ha par cultura x alvo para achar. O vazio aqui e a resposta certa, nao uma lacuna.",
+    "FONTE_DA_CLASSIFICACAO": "a frase da ADAMA, copiada. A classificacao nao e nossa."
+   }
+  },
+  {
+   "SLUG": "exelgrow",
+   "PRODUCT_ON_SITE": "Exelgrow®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/speciali/exelgrow",
+   "CATALOG_CATEGORY": "SPECIALI",
+   "REGISTRATION_ON_SITE_LITERAL": "n. 0023801/18",
+   "REGISTRATION_ID_NORMALIZED": null,
+   "ACTIVE_INGREDIENTS_ON_SITE": "Carbonio (C) organico di origine biologica 10,3 % + Mannitolo 0,7 g/l",
+   "FORMULATION_ON_SITE": "Soluzione di filtrato di crema di alghe ottenuto tramite estrazione con acqua o soluzione acida e/o alcalina",
+   "PACKAGE_SIZES": "1 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/806/download?attachment",
+    "https://www.adama.com/italia/it/media/811/download?attachment",
+    "https://www.adama.com/italia/it/media/4991/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "OUTRO_CADASTRO",
+    "NUMERO": "0023801/18",
+    "O_QUE_ISTO_SIGNIFICA": "numero com barra e ano: registo de fertilizante/biostimulante (Reg. UE 2019/1009). Nao entra no registo fitossanitario, e a ausencia la nao e ausencia no mundo."
+   },
+   "DESCRITOR_DO_SITE": "Biostimolante di origine naturale - soluzione di filtrato di crema di alghe.",
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "NAO_EXISTE_PARA_ESTE_PRODUTO",
+    "PORQUE": "o proprio site descreve-o como Biostimolante di origine naturale - soluzione di filtrato di crema di alghe. Um produto que nao actua sobre um organismo nao tem alvo — logo nao ha par cultura x alvo para achar. O vazio aqui e a resposta certa, nao uma lacuna.",
+    "FONTE_DA_CLASSIFICACAO": "a frase da ADAMA, copiada. A classificacao nao e nossa."
+   }
+  },
+  {
+   "SLUG": "parleaf",
+   "PRODUCT_ON_SITE": "Parleaf®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/speciali/parleaf",
+   "CATALOG_CATEGORY": "SPECIALI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 17807 del 12-02-2021",
+   "REGISTRATION_ID_NORMALIZED": "017807",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Olio di Colza 95 g (= 864 g/l)",
+   "FORMULATION_ON_SITE": "Emulsione",
+   "PACKAGE_SIZES": "2,5 l 5 l",
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/816/download?attachment",
+    "https://www.adama.com/italia/it/media/3086/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "BATE",
+    "DENOMINAZIONE_NO_REGISTO": "PARLEAF",
+    "RAGIONE_SOCIALE": "MICROCIDE LTD",
+    "STATO_AMMINISTRATIVO": "Autorizzato",
+    "DATA_SCADENZA": "31/12/2027",
+    "SOSTANZE_ATTIVE": "PLANT OILS / RAPE SEED OIL"
+   },
+   "DESCRITOR_DO_SITE": "Bagnante adesivante antideriva utilizzabile in abbinamento agli erbicidi.",
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "NAO_EXISTE_PARA_ESTE_PRODUTO",
+    "PORQUE": "o proprio site descreve-o como Bagnante adesivante antideriva utilizzabile in abbinamento agli erbicidi. Um produto que nao actua sobre um organismo nao tem alvo — logo nao ha par cultura x alvo para achar. O vazio aqui e a resposta certa, nao uma lacuna.",
+    "FONTE_DA_CLASSIFICACAO": "a frase da ADAMA, copiada. A classificacao nao e nossa."
+   }
+  },
+  {
+   "SLUG": "powerfilmr",
+   "PRODUCT_ON_SITE": "Powerfilm®",
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/speciali/powerfilmr",
+   "CATALOG_CATEGORY": "SPECIALI",
+   "REGISTRATION_ON_SITE_LITERAL": "n° 17052 del 01-06-2021",
+   "REGISTRATION_ID_NORMALIZED": "017052",
+   "ACTIVE_INGREDIENTS_ON_SITE": "Olio di colza metilestere 47,5% (440 g/l)",
+   "FORMULATION_ON_SITE": null,
+   "PACKAGE_SIZES": null,
+   "CROPS_ON_SITE": null,
+   "DOCUMENT_URLS": [
+    "https://www.adama.com/italia/it/media/5531/download?attachment",
+    "https://www.adama.com/italia/it/media/5536/download?attachment"
+   ],
+   "CROSS_CHECK_REGISTO": {
+    "ESTADO": "NUMERO_BATE_NOME_DIVERGE",
+    "DENOMINAZIONE_NO_REGISTO": "COCTEL GOLD",
+    "RAGIONE_SOCIALE": "LAINCO S.A.",
+    "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+    "DATA_SCADENZA": "15/12/2034",
+    "SOSTANZE_ATTIVE": "GLYPHOSATE|MCPA",
+    "O_QUE_ISTO_SIGNIFICA": "o numero existe no registo, mas com OUTRO nome. Pode ser nome comercial sobre registo alheio, marca diferente do mesmo registo, ou erro na ficha. NAO SE RESOLVE POR PALPITE: fica declarado."
+   },
+   "DESCRITOR_DO_SITE": "Coadiuvante liquido da impiegare in miscela con gli erbicidi POSTSCRIPT 80 XL.",
+   "PAR_CULTURA_ALVO": {
+    "ESTADO": "NAO_EXISTE_PARA_ESTE_PRODUTO",
+    "PORQUE": "o proprio site descreve-o como Coadiuvante liquido da impiegare in miscela con gli erbicidi POSTSCRIPT 80 XL. Um produto que nao actua sobre um organismo nao tem alvo — logo nao ha par cultura x alvo para achar. O vazio aqui e a resposta certa, nao uma lacuna.",
+    "FONTE_DA_CLASSIFICACAO": "a frase da ADAMA, copiada. A classificacao nao e nossa."
+   }
+  }
+ ],
+ "A_NATUREZA_DO_PRODUTO": "cinco dos 51 nao combatem organismo nenhum — dois biostimulantes, dois coadiuvantes e um diradante. A frase que os classifica e da ADAMA, copiada do site. Serve para o ecra distinguir «ainda nao colhemos» de «nao ha o que colher»."
+}

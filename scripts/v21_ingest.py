@@ -295,9 +295,29 @@ def main():
         for _p in (json.load(open(_cen, encoding='utf-8')).get('PRODUCTS') or []):
             censo_por_slug[str(_p.get('URL') or '').rstrip('/').rsplit('/', 1)[-1]
                            .lower()] = _p
+    # ── A FICHA DO PRODUTO, LIDA NO SITE ────────────────────────────────────
+    # Ate aqui o catalogo entrava so como LISTA: o coletor lia as paginas de
+    # CULTURA e extraia os LINKS das fichas. A ficha em si nunca era aberta —
+    # e por isso o cartao do portal dizia «principio ativo: nao conhecido» com
+    # o dado publicado a um clique de distancia.
+    #
+    #     TER O ENDERECO NAO E TER LIDO.
+    #
+    # ADAMA-FICHAS-DE-PRODUTO-V1.json traz as 51 fichas lidas uma a uma no
+    # navegador: substancia, formulacao, embalagem, numero de registo, os
+    # documentos anexados, e a frase com que a propria ADAMA descreve o
+    # produto. Se o ficheiro nao estiver no disco nada disto entra e nada
+    # quebra: as chaves ficam None, como ja estavam.
+    fichas = {}
+    for _f in (le(os.path.join(ROOT, 'data', 'samples', 'IT-LASTMILE',
+                               'ADAMA-FICHAS-DE-PRODUTO-V1.json')).get('ITENS') or []):
+        fichas[_f.get('SLUG')] = _f
+
     com_out = []
     for cat, slugs in CATALOGO_51.items():
         for s in slugs:
+            fic = fichas.get(s) or {}
+            par = fic.get('PAR_CULTURA_ALVO') or {}
             catg = CATEGORIA_CORRIGIDA.get(s, cat.upper())
             nome = re.sub(r'(\w{3,})r$', r'\1', s.replace('-', ' ')).upper().strip()
             chave = re.sub(r'[^a-z0-9]', '', nome.lower())
@@ -349,8 +369,31 @@ def main():
                         'NAO E O PRODUTO NAO TER A CULTURA. As duas listas '
                         'nunca se somam num numero so, e CROP_IDS e a UNIAO '
                         'delas — nao a segunda sozinha, como era ate aqui.',
-                    'ACTIVE_INGREDIENTS': det.get('ATIVOS_NA_PAGINA'),
-                    'REGISTRATION_NUMBER_ON_PAGE': det.get('REGISTRO_NA_PAGINA'),
+                    'ACTIVE_INGREDIENTS': (det.get('ATIVOS_NA_PAGINA')
+                                           or fic.get('ACTIVE_INGREDIENTS_ON_SITE')),
+                    'REGISTRATION_NUMBER_ON_PAGE': (det.get('REGISTRO_NA_PAGINA')
+                                                    or fic.get('REGISTRATION_ON_SITE_LITERAL')),
+                    # o que a ficha do proprio produto publica, lido em 07/09/2026
+                    'FORMULATION_ON_PAGE': fic.get('FORMULATION_ON_SITE'),
+                    'PACKAGE_SIZES_ON_PAGE': fic.get('PACKAGE_SIZES'),
+                    'PRODUCT_DOCUMENT_URLS': fic.get('DOCUMENT_URLS'),
+                    'PRODUCT_DESCRIPTOR_ON_SITE': fic.get('DESCRITOR_DO_SITE'),
+                    # ── PORQUE E QUE ESTE CARTAO PODE ESTAR VAZIO ───────────
+                    # Um cartao vazio nao diz porque esta vazio, e ha duas
+                    # razoes que nao se parecem nada uma com a outra:
+                    #   · ainda nao colhemos / o leitor nao achou a tabela;
+                    #   · nao ha o que colher, porque o produto nao actua
+                    #     sobre organismo nenhum — biostimulante, coadiuvante,
+                    #     bagnante ou diradante.
+                    # A segunda nao e uma lacuna: e a resposta certa. Sao cinco
+                    # dos 51, e quem os classifica e a ADAMA, na frase que
+                    # escreveu na propria ficha. A regra nao e nossa.
+                    #
+                    #     VAZIO SEM MOTIVO PARECE DIVIDA. COM MOTIVO, E FACTO.
+                    'CROP_TARGET_PAIR_STATE': par.get('ESTADO'),
+                    'CROP_TARGET_PAIR_WHY': par.get('PORQUE'),
+                    'CROP_TARGET_PAIR_CLASSIFIED_BY': par.get('FONTE_DA_CLASSIFICACAO'),
+                    'REGISTRY_CROSS_CHECK': fic.get('CROSS_CHECK_REGISTO'),
                     'CATALOG_EVIDENCE': evid,
                     'CATALOG_STATUS': 'PUBLISHED',
                     'AUTHORIZATION_HOLDER': TITULAR_OUTRO.get(s) or (
