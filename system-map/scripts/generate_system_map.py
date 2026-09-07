@@ -1917,6 +1917,29 @@ def main_uma_vez(stamp: bool) -> int:
             quantas = len({e["snippet"].split()[0] for e in l["evidence"]})
             l["reason"] = (f"{quantas} fonte(s) declaram, no contrato de busca, que "
                            f"quem vai la buscar e «{nome_alvo}».")
+    # A ferramenta so sabe QUANDO serve depois de medida — e a linha seguinte
+    # depende disso. Ela corria depois, e por isso a reclassificacao nao via
+    # preparo nenhum: o conjunto vinha sempre vazio, em silencio.
+    momento_das_ferramentas(nos)
+
+    # ── A FERRAMENTA DE PREPARO ESTA NO CAMINHO DO ITEM ─────────────────────
+    # «SINTONIA SCRAP manda para o whisper» — e verdade, e o mapa ja tinha essa
+    # ligacao. So que classificada como DISPARO («aquela manda esta correr»), e
+    # por isso ela desaparecia quando se pedia para ver so o caminho do dado.
+    #
+    # Mas o que atravessa aquela linha nao e uma ordem: e O ITEM. Entra audio,
+    # sai texto — e e esse texto que a porta de admissao le. Uma peca que
+    # TRANSFORMA o item esta no caminho dele, seja qual for o verbo que a chama.
+    #
+    # Por isso, e so para as ferramentas de PREPARO, a seta conta como FLUXO.
+    # Nao vale para a rota nem para o despacho: essas levam ate ao sitio ou
+    # apertam o botao — nao mexem no que passa.
+    preparo = {n["id"] for n in nos if n.get("momento") == "PREPARO"}
+    for l in ligacoes.values():
+        if l["kind"] == "technical" and (l["from"] in preparo or l["to"] in preparo):
+            l["natureza"] = "FLUXO"
+            l["passa_pelo_preparo"] = True
+
     tecnicas = [l for l in ligacoes.values() if l["kind"] == "technical"]
     for n in nos:
         n["inbound"] = sorted({l["from"] for l in tecnicas if l["to"] == n["id"]})
@@ -1937,7 +1960,6 @@ def main_uma_vez(stamp: bool) -> int:
                                              "snippet": f"escreve em {x['constante']}"}})
         n["escreve_na_pasta"] = pastas
 
-    momento_das_ferramentas(nos)
     onde_para_o_que_sai(nos, produz, _rastreados(), G, dono)
 
     zonas, nos, faixas, mundo_w, mundo_h = desenhar(

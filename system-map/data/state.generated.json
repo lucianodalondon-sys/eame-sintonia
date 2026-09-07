@@ -1583,8 +1583,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "27b07e093b97ea363573d222b043fcc557fd8270",
-    "GENERATED_AT": "2026-09-07T16:56:27-03:00"
+    "HEAD": "eacced2f1e8538bda58392b349fa0da443710633",
+    "GENERATED_AT": "2026-09-07T17:09:09-03:00"
   },
   "FAMILIES": [
     {
@@ -2187,6 +2187,8 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "momento": "ROTA",
+      "momento_texto": "antes da coleta, para chegar ao canal",
       "escreve_na_pasta": [
         {
           "pasta": "data/samples",
@@ -2197,8 +2199,6 @@
           }
         }
       ],
-      "momento": "ROTA",
-      "momento_texto": "antes da coleta, para chegar ao canal",
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -6613,9 +6613,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "escreve_na_pasta": [],
       "momento": "PREPARO",
       "momento_texto": "depois da coleta, sobre o que voltou — antes da peneira",
+      "escreve_na_pasta": [],
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -7079,9 +7079,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "escreve_na_pasta": [],
       "momento": "ROTA",
       "momento_texto": "antes da coleta, para chegar ao canal",
+      "escreve_na_pasta": [],
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -8455,9 +8455,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "escreve_na_pasta": [],
       "momento": "DESPACHO",
       "momento_texto": "nao e rota nem preparo: e o botao que manda correr",
+      "escreve_na_pasta": [],
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -9862,9 +9862,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "escreve_na_pasta": [],
       "momento": "PREPARO",
       "momento_texto": "depois da coleta, sobre o que voltou — antes da peneira",
+      "escreve_na_pasta": [],
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -11201,7 +11201,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 27b07e093b97ea363573d222b043fcc557fd8270"
+        "HEAD eacced2f1e8538bda58392b349fa0da443710633"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -14299,7 +14299,8 @@
           "line": 38,
           "snippet": "if (tipo === \"ZIP\") { try { return execFileSync(\"node\", [\"ferramentas/ods_peek.mjs\", caminho, \"4000\"], { encoding: \"utf8\" }); } catch { return \"\"; } }"
         }
-      ]
+      ],
+      "passa_pelo_preparo": true
     },
     {
       "from": "C-LUGAR-COLETA",
@@ -14452,12 +14453,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2008,
+          "line": 2030,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2008,
+          "line": 2030,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ]
@@ -16212,7 +16213,7 @@
       "to": "C-TRANSCRICAO",
       "type": "RUNS",
       "payload": "execucao",
-      "natureza": "DISPARO",
+      "natureza": "FLUXO",
       "kind": "technical",
       "status": "PROVEN",
       "reason": "SINTONIA SCRAP — o despachador manda rodar A fala vira texto, sem fatura. Provado por 2 linhas de codigo.",
@@ -16227,7 +16228,8 @@
           "line": 248,
           "snippet": "yt-alvos)        PYTHONIOENCODING=utf-8 $PY ferramentas/youtube_transcrever.py alvos ;;"
         }
-      ]
+      ],
+      "passa_pelo_preparo": true
     },
     {
       "from": "C-SITE-INGEST",
@@ -17255,7 +17257,7 @@
       "to": "C-COLETA-INSTAGRAM",
       "type": "IMPORTS",
       "payload": "codigo",
-      "natureza": "MONTAGEM",
+      "natureza": "FLUXO",
       "kind": "technical",
       "status": "PROVEN",
       "reason": "A fala vira texto, sem fatura importa Colher o Instagram. Provado por 1 linha de codigo.",
@@ -17265,14 +17267,15 @@
           "line": 184,
           "snippet": "import instagram_janela as ij"
         }
-      ]
+      ],
+      "passa_pelo_preparo": true
     },
     {
       "from": "C-TRANSCRICAO",
       "to": "C-NAVEGADOR",
       "type": "IMPORTS",
       "payload": "codigo",
-      "natureza": "MONTAGEM",
+      "natureza": "FLUXO",
       "kind": "technical",
       "status": "PROVEN",
       "reason": "A fala vira texto, sem fatura importa O navegador — a rota gratis. Provado por 1 linha de codigo.",
@@ -17282,7 +17285,8 @@
           "line": 183,
           "snippet": "import cdp"
         }
-      ]
+      ],
+      "passa_pelo_preparo": true
     },
     {
       "from": "C-V2-LEGADO",
