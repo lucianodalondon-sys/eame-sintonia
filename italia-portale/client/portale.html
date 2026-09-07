@@ -536,51 +536,87 @@
 
       <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ mt.cases }} · <span style="color:#fff">{{ meetingShownCount }}</span> {{ mt.of }} {{ meetingFilteredCount }}</div>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:10px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:11px;align-items:stretch">
         <sc-for list="{{ meetingCases }}" as="c" hint-placeholder-count="12">
-          <div onClick="{{ c.open }}" data-case="{{ c.id }}" data-meeting-case="{{ c.id }}" data-primary="{{ c.primaryName }}" data-window-defined="{{ c.window.DEFINED }}" data-window-open="{{ c.window.OPEN_NOW }}" style="position:relative;overflow:hidden;cursor:pointer;border-radius:14px;border:1px solid {{ c.onChipEdge }};background:{{ c.surfaceDark }};padding:17px 18px;display:flex;flex-direction:column;gap:11px" style-hover="border-color:{{ c.onRule }}">
-            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
-              <div style="font-size:19px;font-weight:600;line-height:1.2;letter-spacing:-0.01em;color:{{ c.onInk }}">{{ c.title }}</div>
-              <sc-if value="{{ c.isActNow }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:9999px;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.1em;white-space:nowrap;background:{{ c.actPill.bg }};color:{{ c.actPill.ink }}">{{ c.status }}</span></sc-if>
-            </div>
-            <div style="font-family:var(--font-secondary);font-size:12px;letter-spacing:0.05em;color:{{ c.onMuted }}">{{ c.geography }}</div>
-            <!-- LO STATO DI PUBBLICAZIONE NON SI NASCONDE MAI.
-                 Mostrare solo i 5 pubblicabili sarebbe una bugia per omissione;
-                 mostrare i 38 senza dirlo sarebbe peggio. -->
-            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-              <span style="display:inline-flex;align-items:center;height:19px;padding:0 9px;border-radius:9999px;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.1em;background:transparent;border:1px solid {{ c.onChipEdge }};color:{{ c.onBody }}">{{ c.publication }}</span>
-              <span style="font-size:10px;color:{{ c.onMuted }}">{{ c.priority }}</span>
-            </div>
-            <!-- ══ QUANTE FAMIGLIE PORTANO EVIDENZA ═══════════════════════
-                 Prima il cartellino diceva coltura, avversita, regione e stato:
-                 tredici cartellini che si somigliavano tutti, e l'intelligenza
-                 dietro ognuno invisibile finche non si apriva.
+          <!-- ══ LA SCHEDA, NELLA LINGUA DELLA MARCA ══════════════════════════
+               Fascia della linea ADAMA in alto, icona ufficiale della categoria,
+               titolo, coltura e regione, le famiglie che portano evidenza, e il
+               PORTAFOGLIO in una cassa NERA — cosi il prodotto si stacca dal
+               colore della linea invece di annegarci dentro.
 
-                     SE TUTTI I CARTELLINI SI SOMIGLIANO, NESSUNO DICE NIENTE.
+                   UN GERENTE LEGGE BLOCCHI, NON PARAGRAFI.
 
-                 Nessuna pastiglia con lo zero: una scatola vuota disegnata per
-                 riempire lo spazio non informa, occupa. E i colori non cambiano
-                 per famiglia — la regola ADAMA vieta di mescolare le linee, e
-                 il cartellino ha gia la sua: distingue la parola, non la tinta. -->
-            <sc-if value="{{ c.fam.has }}" hint-placeholder-val="{{ true }}">
-            <div data-evidence-families="{{ c.fam.n }}" style="display:flex;flex-direction:column;gap:6px">
-              <div style="display:flex;flex-wrap:wrap;gap:5px">
+               Cio che e uscito: la regola e lo stato della finestra come prosa
+               (due frasi che nessuno legge in una griglia), e la coppia
+               «RICHIEDE VALIDAZIONE» + «DA VALIDARE», che diceva la stessa cosa
+               due volte. Restano dove servono: dentro la scheda. -->
+          <div onClick="{{ c.open }}" data-case="{{ c.id }}" data-meeting-case="{{ c.id }}" data-primary="{{ c.primaryName }}" data-window-defined="{{ c.window.DEFINED }}" data-window-open="{{ c.window.OPEN_NOW }}" style="position:relative;overflow:hidden;cursor:pointer;border-radius:14px;border:1px solid {{ c.onChipEdge }};background:{{ c.surfaceDark }};display:flex;flex-direction:column" style-hover="border-color:{{ c.onRule }}">
+
+            <!-- fascia della linea -->
+            <div style="display:flex;align-items:center;gap:8px;padding:7px 14px;background:{{ c.cat.ribbon }}">
+              <span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.14em;color:#fff;white-space:nowrap">{{ c.cat.label }}</span>
+            </div>
+
+            <div style="flex:1 1 auto;padding:15px 16px 14px;display:flex;flex-direction:column;gap:11px">
+              <!-- ICONA E STATO SULLA STESSA RIGA, TITOLO SOTTO — come nel
+                   riferimento. Erano sulla stessa riga del titolo e la
+                   pastiglia gli finiva sopra: una scheda che si sovrappone a
+                   se stessa non e una scheda. -->
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                <sc-if value="{{ c.cat.hasIcon }}" hint-placeholder-val="{{ true }}">
+                  <span role="img" aria-label="" style="flex:0 0 34px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.15);display:inline-block;position:relative"><span style="position:absolute;left:8px;top:8px;width:18px;height:18px;background:url({{ c.cat.icon }}) center/contain no-repeat"></span></span>
+                </sc-if>
+                <!-- LO STATO DI PUBBLICAZIONE NON SI NASCONDE MAI. Prima erano
+                     DUE pastiglie che dicevano la stessa cosa — «RICHIEDE
+                     VALIDAZIONE» e «DA VALIDARE». Adesso e UNA: quella che
+                     decide se il caso si puo portare al cliente. AGIRE ORA la
+                     sostituisce quando c'e, perche allora comanda lei. -->
+                <sc-if value="{{ c.isActNow }}" hint-placeholder-val="{{ false }}"><span style="flex:0 0 auto;display:inline-flex;align-items:center;height:21px;padding:0 11px;border-radius:9999px;font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.1em;white-space:nowrap;background:{{ c.actPill.bg }};color:{{ c.actPill.ink }}">{{ c.status }}</span></sc-if>
+                <sc-if value="{{ c.notActNow }}" hint-placeholder-val="{{ true }}"><span style="flex:0 0 auto;display:inline-flex;align-items:center;height:21px;padding:0 11px;border-radius:9999px;font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.1em;white-space:nowrap;color:#fff;border:1px solid rgba(255,255,255,0.42)">{{ c.publication }}</span></sc-if>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:3px">
+                <div style="font-size:20px;font-weight:600;line-height:1.15;letter-spacing:-0.01em;color:{{ c.onInk }}">{{ c.target }}</div>
+                <!-- La tinta chiara della linea (`soft`) NON regge sul fondo
+                     della sua stessa linea: misurato, #C77BC3 su #8F1A88 da
+                     2.64:1 contro i 4.5 richiesti. Il modello ha gia il token
+                     giusto per il testo su questa superficie — si usa quello.
+
+                         UNA TINTA DI MARCA NON E UN PERMESSO DI ILLEGGIBILITA. -->
+                <div style="font-size:12.5px;font-weight:600;color:{{ c.onBody }}">{{ c.crop }} · {{ c.geography }}</div>
+              </div>
+
+              <!-- le famiglie che portano evidenza · nessuna pastiglia con lo zero -->
+              <sc-if value="{{ c.fam.has }}" hint-placeholder-val="{{ true }}">
+              <div data-evidence-families="{{ c.fam.n }}" style="display:flex;flex-wrap:wrap;gap:5px">
                 <sc-for list="{{ c.evid }}" as="e" hint-placeholder-count="4">
-                  <span style="display:inline-flex;align-items:baseline;gap:5px;padding:4px 9px;border-radius:7px;background:{{ c.onWell }};border:1px solid {{ c.onWellEdge }}"><b style="font-size:13px;font-weight:700;color:{{ c.onInk }};font-variant-numeric:tabular-nums">{{ e.n }}</b><span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.09em;color:{{ c.onBody }}">{{ e.label }}</span></span>
+                  <span style="display:inline-flex;align-items:baseline;gap:5px;padding:4px 9px;border-radius:7px;background:rgba(255,255,255,0.13)"><b style="font-size:13px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums">{{ e.n }}</b><span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.08em;color:{{ c.onBody }}">{{ e.label }}</span></span>
                 </sc-for>
               </div>
-              <div style="font-size:11.5px;color:{{ c.onBody }}"><b style="font-weight:700;color:{{ c.onInk }};font-variant-numeric:tabular-nums">{{ c.fam.n }}</b> {{ c.fam.label }}</div>
+              </sc-if>
+
+              <!-- IL PORTAFOGLIO, NELLA CASSA NERA -->
+              <div data-product="{{ c.cardLine }}" style="margin-top:auto;border-radius:10px;background:#0B0908;padding:11px 12px;display:flex;flex-direction:column;gap:4px">
+                <div style="font-family:var(--font-secondary);font-size:8.5px;font-weight:700;letter-spacing:0.16em;color:#8F8886">{{ t.xAdamaRel }}</div>
+                <sc-if value="{{ c.port.has }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                    <span style="font-size:14px;font-weight:700;color:#fff">{{ c.port.name }}</span>
+                    <sc-if value="{{ c.port.hasMore }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;font-weight:700;color:{{ c.cat.soft }};white-space:nowrap">{{ c.port.more }}</span></sc-if>
+                  </div>
+                  <sc-if value="{{ c.port.hasAi }}" hint-placeholder-val="{{ true }}"><div style="font-size:11px;color:#B1A9A7">{{ c.port.ai }}</div></sc-if>
+                </sc-if>
+                <!-- L'ASSENZA DICHIARATA E CONTENUTO, NON UNO SPAZIO DA RIEMPIRE. -->
+                <sc-if value="{{ c.port.isNone }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:12px;font-weight:700;line-height:1.3;color:#EDEAE9">{{ c.port.none }}</div>
+                  <div style="font-size:11px;color:#8F8886">{{ t.xNoMatchWhy }}</div>
+                </sc-if>
+              </div>
+
+              <!-- piede · eta del dato e la porta -->
+              <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+                <sc-if value="{{ c.age.has }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;color:{{ c.onMuted }}">{{ c.age.label }}</span></sc-if>
+                <span style="margin-left:auto;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.12em;color:#fff">{{ t.xExplore }} →</span>
+              </div>
             </div>
-            </sc-if>
-            <!-- LA REGOLA E LO STATO, DUE RIGHE. Una sola riga qui e esattamente
-                 come «la regola e nota» diventa «la finestra e aperta». -->
-            <div style="display:flex;flex-direction:column;gap:3px;padding:8px 9px;border-radius:9px;background:{{ c.onWell }};border:1px solid {{ c.onWellEdge }}">
-              <div style="font-size:10px;line-height:1.35;color:{{ c.onBody }}">{{ c.windowRule }}</div>
-              <div style="font-size:10px;line-height:1.35;color:{{ c.onMuted }}">{{ c.windowState }}</div>
-            </div>
-            <!-- LA RIGA DI PRODOTTO · nomina solo cio che il motore ha nominato.
-                 Dove PRIMARY_MATCH e nullo la scheda CONTA e non sceglie. -->
-            <div data-product="{{ c.cardLine }}" style="font-size:11px;font-weight:600;color:{{ c.onBody }}">{{ c.cardLine }}</div>
           </div>
         </sc-for>
       </div>
@@ -612,20 +648,59 @@
       </sc-if>
       <sc-if value="{{ hasMc }}" hint-placeholder-val="{{ true }}">
       <!-- ══ HERO · senza scroll, e con TUTTI i prodotti ═══════════════════ -->
-      <div data-meeting-hero="{{ mc.id }}" data-hero-primary="{{ mcPrimary.name }}" style="border-radius:16px;background:{{ mc.surfaceDark }};border:1px solid {{ mc.onChipEdge }};padding:18px 20px;display:flex;flex-direction:column;gap:12px">
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap">
-          <div style="display:flex;flex-direction:column;gap:5px">
-            <h1 style="margin:0;font-size:34px;font-weight:700;letter-spacing:-0.02em;line-height:1.1;color:{{ mc.onInk }}">{{ mc.title }}</h1>
-            <div style="font-family:var(--font-secondary);font-size:11px;letter-spacing:0.08em;color:{{ mc.onMuted }}">{{ mc.geography }} · {{ mc.scopeLabel }}</div>
-            <div style="font-size:11px;color:{{ mc.onBody }}">{{ mc.archetype }}</div>
+      <div data-meeting-hero="{{ mc.id }}" data-hero-primary="{{ mcPrimary.name }}" style="border-radius:16px;overflow:hidden;background:{{ mc.surfaceDark }};border:1px solid {{ mc.onChipEdge }};display:flex;flex-direction:column">
+        <!-- fascia della linea ADAMA -->
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 20px;background:{{ mcCat.ribbon }}">
+          <span style="font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.16em;color:#fff;white-space:nowrap">{{ mcCat.label }}</span>
+          <sc-if value="{{ mc.isActNow }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:21px;padding:0 12px;border-radius:9999px;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.1em;background:{{ mc.actPill.bg }};color:{{ mc.actPill.ink }}">{{ mc.status }}</span></sc-if>
+          <span style="display:inline-flex;align-items:center;height:21px;padding:0 12px;border-radius:9999px;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.1em;color:#fff;border:1px solid rgba(255,255,255,0.42)">{{ mc.publication }}</span>
+          <sc-if value="{{ mcAge.has }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;color:rgba(255,255,255,0.72)">{{ mcAge.label }}</span></sc-if>
+        </div>
+
+        <div style="padding:20px;display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start">
+          <!-- identita del caso -->
+          <div style="flex:1 1 300px;min-width:260px;display:flex;gap:14px;align-items:flex-start">
+            <sc-if value="{{ mcCat.hasIcon }}" hint-placeholder-val="{{ true }}">
+              <span role="img" aria-label="" style="flex:0 0 52px;width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.15);display:inline-block;position:relative"><span style="position:absolute;left:13px;top:13px;width:26px;height:26px;background:url({{ mcCat.icon }}) center/contain no-repeat"></span></span>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;gap:5px;min-width:0">
+              <h1 style="margin:0;font-size:34px;font-weight:700;letter-spacing:-0.02em;line-height:1.05;color:{{ mc.onInk }}">{{ mc.target }}</h1>
+              <div style="font-size:15px;font-weight:600;color:{{ mc.onBody }}">{{ mc.crop }} · {{ mc.geography }}</div>
+              <div style="font-size:12px;color:{{ mc.onMuted }}">{{ mc.archetype }} · {{ mc.scopeLabel }}</div>
+            </div>
           </div>
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-            <sc-if value="{{ mc.isActNow }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:24px;padding:0 13px;border-radius:9999px;font-family:var(--font-secondary);font-size:11px;font-weight:700;letter-spacing:0.1em;background:{{ mc.actPill.bg }};color:{{ mc.actPill.ink }}">{{ mc.status }}</span></sc-if>
-            <span style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.1em;border:1px solid {{ mc.onChipEdge }};color:{{ mc.onBody }}">{{ mc.publication }}</span>
-            <span style="font-size:10.5px;color:{{ mc.onMuted }}">{{ mc.priority }}</span>
+
+          <!-- ══ LE CASSE NERE · UNA DOMANDA CIASCUNA ═══════════════════════
+               Il prodotto si stacca dal colore della linea invece di annegarci
+               dentro, e ogni riquadro risponde a una cosa sola. Nessuna cassa
+               inventata per fare simmetria: dove il motore non ha risposta, la
+               cassa non c'e. -->
+          <div style="flex:2 1 420px;display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:9px">
+            <sc-for list="{{ mcBoxes }}" as="b" hint-placeholder-count="4">
+              <div style="border-radius:11px;background:#0B0908;padding:12px 14px;display:flex;flex-direction:column;gap:4px">
+                <div style="font-family:var(--font-secondary);font-size:8.5px;font-weight:700;letter-spacing:0.16em;color:#8F8886">{{ b.k }}</div>
+                <div style="font-size:14px;font-weight:700;line-height:1.3;color:#fff">{{ b.v }}</div>
+                <sc-if value="{{ b.sub }}" hint-placeholder-val="{{ true }}"><div style="font-size:11px;line-height:1.4;color:#B1A9A7">{{ b.sub }}</div></sc-if>
+              </div>
+            </sc-for>
+          </div>
+
+          <!-- ══ CHI DEVE GUARDARE ADESSO ═══════════════════════════════════
+               La mappa del motore, letta come lista di reparti. Chi ha un
+               movimento sale davanti e si accende; chi non ne ha resta, spento
+               — «nessun movimento» e una risposta, e nasconderla la
+               trasformerebbe in una domanda che nessuno ha fatto. -->
+          <div style="flex:1 1 220px;min-width:200px;display:flex;flex-direction:column;gap:7px">
+            <div style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.16em;color:{{ mc.onMuted }}">{{ t.xWhoLooks }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:5px">
+              <sc-for list="{{ mcWho }}" as="w" hint-placeholder-count="5">
+                <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:7px;background:{{ w.bg }};border:1px solid {{ w.edge }}"><span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.08em;color:{{ w.ink }}">{{ w.label }}</span><sc-if value="{{ w.on }}" hint-placeholder-val="{{ true }}"><span style="font-size:9.5px;font-weight:700;color:#00B152">{{ w.state }}</span></sc-if></span>
+              </sc-for>
+            </div>
           </div>
         </div>
 
+        <div style="padding:0 20px 18px;display:flex;flex-direction:column;gap:12px">
         <!-- ══ PERCHE E COMMERCIALE · la frase e del motore ═══════════════
              Il frontend non scrive prosa qui. Se il motore non ha una frase,
              lo spazio resta vuoto invece di riempirsi di parole inventate. -->
@@ -677,6 +752,7 @@
           <sc-if value="{{ mcNoPrimary }}" hint-placeholder-val="{{ true }}"><div data-no-primary="1" style="font-size:11.5px;color:{{ mc.onBody }}">{{ mcNoPrimary }}</div></sc-if>
           <span onClick="{{ toggleMcPort }}" data-mc-port="{{ mcPortOn }}" style="align-self:flex-start;display:inline-flex;align-items:center;height:26px;padding:0 13px;border-radius:9999px;cursor:pointer;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.12em;color:{{ mc.onBody }};border:1px solid {{ mc.onChipEdge }}" style-hover="color:{{ mc.onInk }}">{{ mcPortLabel }}</span>
         </div>
+      </div>
       </div>
 
       <!-- ══ SEGNALI CONVERGENTI · IL PEZZO CENTRALE ═══════════════════════
@@ -4091,6 +4167,44 @@ class Component extends DCLogic {
       primaryName: c.products.hasPrimary ? c.products.primary.name : '',
       cardLine: c.products.cardLine,
       windowRule: c.window.ruleSentence, windowState: c.window.stateSentence,
+      /* ══ LA SCHEDA PARLA LA LINGUA ADAMA ═══════════════════════════════
+         La linea del prodotto — Pest, Disease, Weed — non e una tinta: e una
+         CLASSIFICAZIONE, e la marca da a cada uma un nome e un'icona ufficiali.
+         `CATEGORY_UI` gia os tem, e as icones ja estao no disco. Deduzi-los da
+         cor hexadecimal seria inventar o que o modelo ja declara. */
+      cat: (() => {
+        const ui = (AM && AM.CATEGORY_UI && AM.CATEGORY_UI[c.categoryKey]) || null;
+        if (!ui || c.categoryKey === 'unknown') {
+          return { has: false, label: '', icon: '', ribbon: 'rgba(0,0,0,0.28)', soft: 'rgba(255,255,255,0.55)' };
+        }
+        return { has: true, label: String(ui.label || '').toUpperCase(), icon: ui.iconAsset || '',
+          hasIcon: !!ui.iconAsset, ribbon: ui.dark, soft: ui.soft };
+      })(),
+      /* IDADE DO DADO AO LADO DO DADO — o contrato de design pede-o na mesma
+         linha visual, e um gestor le «ha 5 dias» mais depressa que uma data. */
+      age: (() => {
+        const d = AM && AM.daysFrom ? AM.daysFrom(c.signalDate) : null;
+        if (d === null || d === undefined || !c.signalDate) return { has: false, label: '' };
+        const n = Math.abs(d);
+        return { has: true, label: (T.lblUpdated || '') + ' ' + (n === 0 ? (T.lblToday || 'oggi') : (n + (s.lang === 'en' ? 'd ago' : 'g fa'))) };
+      })(),
+      /* O PORTFOLIO NA CAIXA PRETA · o nome, quantos mais, e o principio activo.
+         Onde o motor nao confirma correspondencia, di-lo com as suas palavras —
+         a ausencia declarada e conteudo, nao um espaco por preencher. */
+      port: (() => {
+        const ms = (c.products && c.products.matches) || [];
+        const first = ms[0] || null;
+        return {
+          has: !!first,
+          name: first ? first.name : '',
+          more: ms.length > 1 ? ('+' + (ms.length - 1) + ' ' + (s.lang === 'en' ? 'more' : 'altri')) : '',
+          hasMore: ms.length > 1,
+          ai: first ? (first.actives || []).join(' + ') : '',
+          hasAi: !!(first && (first.actives || []).length),
+          none: c.products.count === 0 ? (T.xNoMatch || '') : '',
+          isNone: c.products.count === 0,
+        };
+      })(),
       /* ══ LE FAMIGLIE CHE PORTANO EVIDENZA, SUL CARTELLINO ═══════════════
          Nessuna pastiglia con lo zero. Una scatola vuota disegnata per
          riempire lo spazio dice «qui non c'e niente» con la stessa forza con
@@ -4110,6 +4224,7 @@ class Component extends DCLogic {
         ].filter((r) => r[1] > 0).map((r) => ({ label: r[0], n: r[1] }));
         return linhas;
       })(),
+      notActNow: !c.isActNow,
       fam: (() => {
         const x = incrocio(c.cropCode, c.targetCode);
         const n0 = x.famiglie + (c.products.count > 0 ? 1 : 0);
@@ -5853,6 +5968,89 @@ class Component extends DCLogic {
        chiede a `incrocio()`, che e il proprietario. Due calcoli della stessa
        cosa divergono, e quello che diverge in silenzio e sempre quello che non
        fallisce. Le righe a zero non compaiono; il denominatore si, sempre. */
+    /* ══ IL CAPPELLO DELLA SCHEDA, IN BLOCCHI ═════════════════════════════
+       Un gerente legge BLOCCHI, non paragrafi. Il cappello portava il titolo e
+       poi tre paragrafi di prosa; adesso porta la linea ADAMA, la sua icona
+       ufficiale, e quattro CASSE NERE con una risposta ciascuna.
+
+           OGNI CASSA UNA DOMANDA, E LA RISPOSTA IN GRASSETTO.
+
+       Nessuna casa inventa un fatto: dove il motore non ha risposta, la cassa
+       dice cosa manca, con le parole del motore. */
+    const mcCat = (() => {
+      const ui = (AM && AM.CATEGORY_UI && AM.CATEGORY_UI[(mcCase || {}).categoryKey]) || null;
+      if (!ui || !mcCase || mcCase.categoryKey === 'unknown') {
+        return { has: false, label: '', icon: '', hasIcon: false, ribbon: 'rgba(0,0,0,0.28)' };
+      }
+      return { has: true, label: String(ui.label || '').toUpperCase(), icon: ui.iconAsset || '',
+        hasIcon: !!ui.iconAsset, ribbon: ui.dark };
+    })();
+    const mcAge = (() => {
+      const d = (AM && AM.daysFrom && mcCase) ? AM.daysFrom(mcCase.signalDate) : null;
+      if (d === null || d === undefined || !mcCase || !mcCase.signalDate) return { has: false, label: '' };
+      const n = Math.abs(d);
+      return { has: true, label: (T.lblUpdated || '') + ' ' + (n === 0 ? (T.lblToday || '') : (n + (s.lang === 'en' ? 'd ago' : 'g fa'))) };
+    })();
+    /* LE QUATTRO CASSE. La quarta non c'e se non c'e: una cassa vuota disegnata
+       per fare simmetria dice «qui non c'e niente» con la stessa forza con cui
+       la cassa piena dice «qui c'e qualcosa». */
+    const mcBoxes = (() => {
+      if (!mcCase) return [];
+      const prod = mcCase.products || {};
+      const ms = prod.matches || [];
+      const ev = (mcEvidenceRows || []).length;
+      const out = [
+        { k: T.boxPortfolio,
+          v: ms.length ? ms[0].name : (T.xNoMatch || ''),
+          sub: ms.length ? ((ms[0].actives || []).join(' + ') || '') : (T.xNoMatchWhy || ''),
+          big: !!ms.length },
+        { k: T.boxEvidence,
+          v: String(ev),
+          sub: (T.boxEvidenceSub || '').replace('{n}', String(mcCase.evidenceCount || ev)),
+          big: true },
+        { k: T.boxWindow,
+          v: mcCase.window ? (mcCase.window.stateSentence || '') : '',
+          sub: mcCase.window ? (mcCase.window.ruleSentence || '') : '',
+          big: false },
+      ];
+      if (mcAge.has) out.push({ k: T.boxWhen, v: (mcCase.signalDate || ''), sub: mcAge.label, big: true });
+      return out.filter((b) => b.v);
+    })();
+    /* CHI DEVE GUARDARE ADESSO · e la mappa del motore, non una lista nostra.
+       Chi ha un movimento sale davanti; chi non ne ha resta, spento — perche
+       «nessun movimento» e una risposta, e nasconderla la trasformerebbe in
+       una domanda che nessuno ha fatto. */
+    /* Si legge dal PROPRIETARIO — `mcCase.actions`, la mappa del motore — e non
+       da `mcActions`, che nasce piu in basso in questo stesso corpo. */
+    const mcWho = ((mcCase && mcCase.actions) || []).map((a) => {
+      /* «Nessun movimento» e uno STATO del motore, non una parola nostra: si
+         riconosce dal token, non dalla frase tradotta. */
+      const parado = a.stateToken === 'ACTION_STATE_NO_ACTION';
+      /* Il NOME del reparto e `deptLabel`: il codice e una chiave e lo schermo
+         non legge chiavi. */
+      return { label: a.deptLabel || a.DEPARTMENT || '', state: a.state || '',
+        on: !parado,
+        /* LE PASTIGLIE STANNO SU NERO, COME NEL RIFERIMENTO — e non e solo
+           estetica: misurato, #8F8886 sul fondo della linea da 2.26:1 e il
+           verde 2.77:1, contro i 4.5 richiesti. Sul nero danno 5.4 e 7.4.
+
+               IL FONDO GIUSTO E ANCHE QUELLO CHE SI LEGGE. */
+        bg: '#0B0908',
+        edge: parado ? 'rgba(203,197,195,0.16)' : 'rgba(0,177,82,0.45)',
+        ink: parado ? '#8F8886' : '#fff' };
+    }).sort((a, b) => Number(b.on) - Number(a.on));
+    const mcWhoOn = mcWho.filter((x) => x.on).length;
+    /* LA FORZA DELL'EVIDENZA, PER FAMIGLIA. Le stesse righe di evidenza che la
+       scheda gia mostra, contate per famiglia: una barra si legge in un colpo
+       d'occhio, una lista di otto righe no. */
+    const mcStrength = (() => {
+      const m = new Map();
+      for (const e of (mcEvidenceRows || [])) { const k = e.famL || ''; if (k) m.set(k, (m.get(k) || 0) + 1); }
+      const arr = [...m.entries()].sort((a, b) => b[1] - a[1]);
+      const max = arr.length ? arr[0][1] : 0;
+      return arr.map(([label, n]) => ({ label, n, pct: max ? Math.round((n / max) * 100) : 0 }));
+    })();
+
     const mcConv = (() => {
       const x = mcCase ? incrocio(mcCase.cropCode, mcCase.targetCode) : null;
       if (!x || !x.paired) return { has: false, none: true, fam: 0, rows: [], consultate: X_FAMIGLIE_CONSULTATE };
@@ -10389,7 +10587,8 @@ class Component extends DCLogic {
       intelToday,
       isRadarFuturo: s.view === 'radarfuturo',
       rfGroups, rfMeta,
-      mcBeyond, mcConv,
+      mcBeyond, mcConv, mcCat, mcAge, mcBoxes, mcWho, mcWhoOn,
+      mcStrength, mcHasStrength: mcStrength.length > 0,
       /* Il portafoglio intero non e sparito: ha un interruttore, e il conteggio
          accanto al nome prova che nessun prodotto e stato tolto. */
       mcPortOn: !!s.mcPort,

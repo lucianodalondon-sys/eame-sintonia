@@ -96,6 +96,14 @@
        non aveva rotta: la distinzione era dichiarata e non verificabile.
        Questa etichetta porta il lettore all'altra popolazione. */
     frOtherPop: 'L\'altra popolazione:',
+    boxPortfolio: 'PORTAFOGLIO PRINCIPALE', boxEvidence: 'RIGHE DI EVIDENZA',
+    boxEvidenceSub: 'osservazioni collegate · {n}', boxWindow: 'FINESTRA', boxWhen: 'SEGNALE',
+    xWhoLooks: 'CHI DEVE GUARDARE ADESSO', xWhoNone: 'nessun reparto ha un movimento dichiarato',
+    xStrength: 'FORZA DELL\'EVIDENZA',
+    lblUpdated: 'aggiornato', lblToday: 'oggi',
+    xNoMatch: 'NESSUNA CORRISPONDENZA CONFERMATA NELLA LETTURA ATTUALE',
+    xNoMatchWhy: 'principio attivo non applicabile',
+    xExplore: 'ESPLORA',
     /* O Radar Futuro passou a ser uma vista deste portal; estas quatro frases
        sao as unicas que a vista escreve, e nenhuma delas afirma um facto: uma
        conta, uma diz o que nao se soma, e duas nomeiam colunas de rodape. */
@@ -800,6 +808,14 @@
     frSub: 'What may become an opportunity next — {n} monitored signals across Italy.',
     frSubA: 'Separate population from Future Radar —', frWhyWatch: 'WHY WATCH', frWhoTalking: 'WHO IS TALKING', frNextWindow: 'Next window',
     frOtherPop: 'The other population:',
+    boxPortfolio: 'PRIMARY PORTFOLIO MATCH', boxEvidence: 'EVIDENCE ROWS',
+    boxEvidenceSub: 'connected observations · {n}', boxWindow: 'WINDOW', boxWhen: 'SIGNAL',
+    xWhoLooks: 'WHO SHOULD LOOK NOW', xWhoNone: 'no department declares a movement',
+    xStrength: 'EVIDENCE STRENGTH',
+    lblUpdated: 'updated', lblToday: 'today',
+    xNoMatch: 'NO CONFIRMED MATCH IN CURRENT READING',
+    xNoMatchWhy: 'active ingredient not applicable',
+    xExplore: 'EXPLORE',
     rfJudged: 'judged', rfShowable: 'showable', rfDropped: 'dropped',
     rfNotSum: 'Future Radar does NOT add to the current opportunities: it is the next campaign, not today\'s table.',
     rfLegend: 'The per-signal specification stays upstream. At the foot of each card: identifier, sensor verdict, and the count of declared gaps — defects found / things we still do not know.',

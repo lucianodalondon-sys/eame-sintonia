@@ -467,6 +467,10 @@
       title: [cropL, targetL].filter(Boolean).join(' · ') || lab(c.ARCHETYPE, lang) || '',
       titleFromArchetype: !cropL && !targetL,
       hasCategory: catKey !== 'unknown',
+      /* LA CATEGORIA E UN DATO, NON UNA TINTA. La chiave viaggia accanto al
+         colore perche la scheda ha bisogno anche del NOME della linea ADAMA e
+         della sua icona ufficiale — e non deve dedurli dal codice esadecimale. */
+      categoryKey: catKey,
       surfaceDark: surface,
       onInk: ONS.ink, onBody: ONS.body, onMuted: ONS.muted,
       onChip: ONS.chip, onChipEdge: ONS.chipEdge,
