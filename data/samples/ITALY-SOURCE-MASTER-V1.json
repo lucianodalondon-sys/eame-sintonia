@@ -1929,13 +1929,16 @@
    "T11": 4,
    "T12": 1
   },
-  "tested_this_mission": 0,
-  "GREEN": 0,
-  "YELLOW": 0,
+  "tested_this_mission": 43,
+  "GREEN": 4,
+  "YELLOW": 2,
   "RED": 0,
-  "NOT_TESTED": 54,
-  "verified_by": "node -e sobre este arquivo: 0 SOURCE_ID duplicado, 0 OWNER_ID duplicado, 0 source órfã de owner, 0 veredito emitido",
-  "note": "nenhum veredito emitido — ver access_environment.why_no_verdict_was_emitted"
+  "NOT_TESTED": 47,
+  "note": "ATUALIZADO 2026-09-07: 4 GREEN, 2 YELLOW, 0 RED, 1 NAO SEI com amostra. O texto antigo (nenhum veredito emitido) valia so ate a Fase C rodar.",
+  "amostras_preservadas": 7,
+  "NAO_SEI_com_amostra": 1,
+  "nota_de_contagem": "43 = URLs distintas medidas no probe (as 54 fontes compartilham dominios). 7 = fontes com amostra real preservada e hash. Os 47 restantes seguem NOT_TESTED ou aguardando navegador.",
+  "verified_by": "scripts/italy_contract_test.mjs — 125 verificacoes, 0 falhas, incluindo conferencia do SHA256 contra o arquivo no disco"
  },
  "canonical_artifacts_touched": {
   "modified": [],
