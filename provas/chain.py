@@ -18,12 +18,12 @@ Cada cadeia declara os seus passos por natureza:
 E cada cadeia falha **fechada**: sem fonte, sem schema, sem cobertura mínima, ela
 levanta. Nunca devolve um número menor com a mesma cara de sempre.
 
-    python3 motor/chain.py list
-    python3 motor/chain.py run fr-prothioconazole [--raw DIR]
-    python3 motor/chain.py run es-identidade
-    python3 motor/chain.py run it-prothioconazole [--raw DIR]
-    python3 motor/chain.py run raif-repilo --raw data/raw/ES-T3-001/raif_1
-    python3 motor/chain.py run all --json saida.json
+    python3 provas/chain.py list
+    python3 provas/chain.py run fr-prothioconazole [--raw DIR]
+    python3 provas/chain.py run es-identidade
+    python3 provas/chain.py run it-prothioconazole [--raw DIR]
+    python3 provas/chain.py run raif-repilo --raw data/raw/ES-T3-001/raif_1
+    python3 provas/chain.py run all --json saida.json
 """
 import argparse
 import csv

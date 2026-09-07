@@ -183,7 +183,7 @@ Regras do diário:
   de quem a fez. Um engenheiro novo conseguia baixar o E-Phy e não conseguia chegar a
   "77 produtos, ADAMA 3". O RAIF era pior: a troca de host que faz o download funcionar
   estava em prosa no atlas.
-- **Decisão:** toda cadeia que produz um fato do piloto vive em `motor/chain.py` e
+- **Decisão:** toda cadeia que produz um fato do piloto vive em `provas/chain.py` e
   declara cada passo como `AUTOMATIC`, `MANUAL` ou `HUMAN_JUDGMENT`.
 - **Motivo:** o objetivo não é zerar julgamento humano — é saber **onde ele está**.
   Um dicionário de grupo empresarial não é dado; é decisão nossa, e move números.

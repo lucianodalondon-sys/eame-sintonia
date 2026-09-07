@@ -19,7 +19,7 @@ A MISSÃO 07 provou a matéria-prima. Esta responde a outra pergunta:
 ## 1 · COLD START — 4 de 4 cadeias reconstruídas
 
 Executadas do zero, sem usar intermediário processado de nenhuma missão anterior.
-`motor/chain.py`.
+`provas/chain.py`.
 
 | cadeia | resultado | saúde | passos AUTO | MANUAIS | JULGAMENTO | cobertura | bate com o congelado? |
 |---|---|---|---|---|---|---|---|

@@ -139,7 +139,7 @@ COUNTRY                   ITALY
 PRIMARY/SECONDARY         PRIMARY · WEB (arquivo estático datado)
 PURPOSE                   BQ1, BQ3, CASE-014, cross-market cereal
 CANONICAL_URL             https://www.dati.salute.gov.it/it/dataset/fitosanitari/
-RETRIEVAL_METHOD          motor/chain.py run it-prothioconazole — o nome datado do
+RETRIEVAL_METHOD          provas/chain.py run it-prothioconazole — o nome datado do
                           arquivo é DESCOBERTO na página do dataset, nunca chutado
 HTTP_METHOD               GET (página) + GET (CSV)
 PARAMETERS                nenhum

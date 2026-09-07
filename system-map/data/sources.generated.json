@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "60e891ebe5c1264300e524e6a25349451b36cdb9",
+    "HEAD": "597cdab920a18c0459f3b5136d72e42af74a8e01",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -728,7 +728,7 @@
         "snippet": "bloco IT-T4-001 no atlas de fontes"
       },
       "contract": {
-        "retrieval_method": "motor/chain.py run it-prothioconazole — o nome datado do arquivo é DESCOBERTO na página do dataset, nunca chutado",
+        "retrieval_method": "provas/chain.py run it-prothioconazole — o nome datado do arquivo é DESCOBERTO na página do dataset, nunca chutado",
         "http_method": "GET (página) + GET (CSV)",
         "parameters": "nenhum",
         "auth_required": "não",
@@ -1990,38 +1990,38 @@
       ]
     },
     {
-      "endpoint": "https://www.dati.salute.gov.it/it",
-      "usado_por": [
-        {
-          "file": "motor/chain.py",
-          "line": 279
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.dati.salute.gov.it'",
-      "usado_por": [
-        {
-          "file": "motor/chain.py",
-          "line": 280
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.juntadeandalucia.es/datosabiertos",
-      "usado_por": [
-        {
-          "file": "motor/chain.py",
-          "line": 435
-        }
-      ]
-    },
-    {
       "endpoint": "https://esploradati.istat.it',ARRAY['ESTATISTICA_OFICIAL']::fonte_natureza[],",
       "usado_por": [
         {
           "file": "pacote/lastmile_para_supabase.py",
           "line": 217
+        }
+      ]
+    },
+    {
+      "endpoint": "https://esploradati.istat.it')",
+      "usado_por": [
+        {
+          "file": "pacote/lastmile_para_supabase.py",
+          "line": 226
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.salute.gov.it/',",
+      "usado_por": [
+        {
+          "file": "pacote/pacote_camadas2.py",
+          "line": 34
+        }
+      ]
+    },
+    {
+      "endpoint": "https://api.openalex.org',",
+      "usado_por": [
+        {
+          "file": "pacote/pacote_camadas2.py",
+          "line": 49
         }
       ]
     }

@@ -608,6 +608,44 @@ def achados(arquivos: dict) -> list:
                 "evidencia": ["vercel.json", "docs/fontes/ATLAS-DE-FONTES-EAME.md"],
             })
 
+    # ── a lei do Brasil, medida ficheiro a ficheiro ──────────────────────────
+    # Duas coisas que o Brasil ensinou a esta casa, e que so valem se estiverem
+    # NO MOMENTO DA COLETA — depois e tarde, porque o dado ja entrou sem elas:
+    #
+    #   · todo registo tem de dizer QUANDO foi capturado;
+    #   · o lugar de onde o DOCUMENTO veio nao e o lugar onde o FACTO aconteceu.
+    #
+    # Uma fonte italiana a falar de Espanha nao torna o facto italiano. Por isso
+    # `SOURCE_LOCATION` e `FACT_LOCATION` sao dois campos, e nao um.
+    import re as _re
+    grava = _re.compile(r"open\(|json\.dump|write_text")
+    sem_carimbo, com_lei = [], []
+    for f in sorted((RAIZ / "coleta").glob("*.py")) if (RAIZ / "coleta").is_dir() else []:
+        t = f.read_text(encoding="utf-8", errors="replace")
+        if not grava.search(t):
+            continue
+        rel = f"coleta/{f.name}"
+        if "SOURCE_LOCATION" in t and "FACT_LOCATION" in t:
+            com_lei.append(rel)
+        if not any(c in t for c in ("SOURCE_LOCATION", "FACT_LOCATION",
+                                    "CAPTURED_AT", "PUBLICATION_DATE", "FACT_DATE")):
+            sem_carimbo.append(rel)
+    if sem_carimbo:
+        saida.append({
+            "id": "coleta-sem-data-nem-lugar",
+            "titulo": f"{len(sem_carimbo)} coletores gravam registo sem data nem lugar.",
+            "texto": (
+                f"{len(com_lei)} coletores separam SOURCE_LOCATION de FACT_LOCATION — a "
+                f"lei que o Brasil ensinou: o lugar de onde o documento veio nao e o "
+                f"lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: "
+                + " · ".join(f.replace("coleta/", "") for f in sem_carimbo)),
+            "porque_importa": (
+                "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e "
+                "tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando "
+                "foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter."),
+            "evidencia": sem_carimbo[:6],
+        })
+
     return saida
 
 

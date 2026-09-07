@@ -817,7 +817,6 @@
     ],
     "motor": [
       "motor/cadeia_canonica.sh",
-      "motor/chain.py",
       "motor/consolidar_leque.py",
       "motor/matriz_recorte.py",
       "motor/normalize_agro.py",
@@ -886,6 +885,7 @@
     ],
     "provas": [
       "provas/auditoria.py",
+      "provas/chain.py",
       "provas/corrigir_custo.py",
       "provas/coverage.py",
       "provas/freeze_es.py",
@@ -1092,6 +1092,20 @@
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
+      ]
+    },
+    {
+      "id": "coleta-sem-data-nem-lugar",
+      "titulo": "13 coletores gravam registo sem data nem lugar.",
+      "texto": "13 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · corpus_es.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · filas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py",
+      "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
+      "evidencia": [
+        "coleta/coletor.py",
+        "coleta/corpus_es.py",
+        "coleta/cruzar_regua_rotulo.py",
+        "coleta/denominaciones.py",
+        "coleta/eppo_gd.py",
+        "coleta/filas.py"
       ]
     }
   ],
@@ -1406,8 +1420,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "60e891ebe5c1264300e524e6a25349451b36cdb9",
-    "GENERATED_AT": "2026-09-07T12:46:03-03:00"
+    "HEAD": "597cdab920a18c0459f3b5136d72e42af74a8e01",
+    "GENERATED_AT": "2026-09-07T12:46:45-03:00"
   },
   "FAMILIES": [
     {
@@ -1442,7 +1456,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 27
+      "count": 28
     },
     {
       "id": "F-ENTREGA",
@@ -1615,7 +1629,7 @@
       "y": 190,
       "w": 820,
       "h": 1650,
-      "count": 9
+      "count": 10
     },
     {
       "id": "Z-PACOTE",
@@ -2317,7 +2331,7 @@
               "atualiza": "o nome do arquivo é datado; versão obtida de 2026-08-24",
               "exemplo": "17.695 produtos; 3.712 em vigor. ADAMA ITALIA S.R.L. com 155 autorizações de vencimento futuro — 58 nos próximos 6 meses. Reg. 008929 TOPIK 240 EC (clodinafop + cloquintocet mexyl), vencimento 31/07/2027.",
               "contrato": {
-                "retrieval_method": "motor/chain.py run it-prothioconazole — o nome datado do arquivo é DESCOBERTO na página do dataset, nunca chutado",
+                "retrieval_method": "provas/chain.py run it-prothioconazole — o nome datado do arquivo é DESCOBERTO na página do dataset, nunca chutado",
                 "http_method": "GET (página) + GET (CSV)",
                 "parameters": "nenhum",
                 "auth_required": "não",
@@ -3457,10 +3471,9 @@
       "family": "F-INTELIGENCIA",
       "files": [
         "motor/cadeia_canonica.sh",
-        "motor/chain.py",
         "motor/v21_cadeia.sh"
       ],
-      "file_count": 3,
+      "file_count": 2,
       "status": "PROVEN",
       "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
       "changed_since_declared": [],
@@ -3468,21 +3481,15 @@
       "inbound": [
         "C-CI-PERSIST",
         "C-CI-REGRESSAO",
-        "C-SUPABASE",
-        "C-TESTES"
+        "C-SUPABASE"
       ],
       "outbound": [
         "C-AUDIT-GERAL",
-        "C-FONTES-EU",
         "C-LUGAR-DO-FATO",
-        "C-MEDICAO",
         "C-PACOTE-CAMADAS",
         "C-PROVENIENCIA",
         "C-REGRA-COLETA",
-        "C-ROTULOS",
-        "C-SAUDE-FONTE",
         "C-SUPABASE",
-        "C-TESTES",
         "C-V21-CONTRATO",
         "C-V21-CRUZAMENTO",
         "C-V21-FONTES",
@@ -4053,7 +4060,7 @@
         "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json"
       ],
       "inbound": [
-        "C-CADEIA-V21",
+        "C-RECORRENCIA",
         "C-SUPABASE",
         "C-TESTES",
         "C-V21-INGEST"
@@ -4482,10 +4489,10 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CADEIA-V21",
         "C-CI-PERSIST",
         "C-CI-REGRESSAO",
         "C-COLETA-INSTAGRAM",
+        "C-RECORRENCIA",
         "C-TESTES"
       ],
       "outbound": [
@@ -4932,6 +4939,46 @@
       "y": 682
     },
     {
+      "id": "C-RECORRENCIA",
+      "name": "A prova de que o fato se refaz",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "what": "Refaz o caminho inteiro de um fato — fonte, busca, leitura, identidade, normalizacao — e falha fechado se qualquer degrau nao reproduzir.",
+      "why_here": "Responde a pergunta que documentacao nenhuma responde: um engenheiro novo consegue refazer os fatos do piloto sem conhecer a historia das missoes? Ele NAO produz o fato — prova que o fato se refaz. E por isso nao esta na cadeia de producao: nada o corre em producao, e nao devia.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "green",
+      "icon": "↻",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "provas/chain.py"
+      ],
+      "file_count": 1,
+      "status": "PROVEN",
+      "status_reason": "o teste aponta para codigo real do repositorio.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-TESTES"
+      ],
+      "outbound": [
+        "C-FONTES-EU",
+        "C-MEDICAO",
+        "C-ROTULOS",
+        "C-SAUDE-FONTE",
+        "C-TESTES"
+      ],
+      "x": 7950,
+      "y": 1648
+    },
+    {
       "id": "C-REGRA-COLETA",
       "name": "A regra de coleta externa",
       "territory": "Z-REGRAS",
@@ -5072,8 +5119,8 @@
         "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json"
       ],
       "inbound": [
-        "C-CADEIA-V21",
         "C-FONTES-EU",
+        "C-RECORRENCIA",
         "C-RELEVANCIA",
         "C-SUPABASE",
         "C-TESTES"
@@ -5114,8 +5161,8 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CADEIA-V21",
         "C-DATA-CLOCK",
+        "C-RECORRENCIA",
         "C-TESTES"
       ],
       "outbound": [],
@@ -5356,13 +5403,13 @@
         "C-ADAMA-ES",
         "C-AS-FONTES",
         "C-ASK-SINTONIA",
-        "C-CADEIA-V21",
         "C-CI-COLETA",
         "C-CICATRIZES-BR",
         "C-DATA-CLOCK",
         "C-IDENTIDADE",
         "C-LASTMILE",
         "C-PROVENIENCIA",
+        "C-RECORRENCIA",
         "C-REGRA-COLETA",
         "C-SUPABASE",
         "C-V21-COMERCIAL"
@@ -5371,7 +5418,6 @@
         "C-ADAMA-ES",
         "C-APIFY-POOL",
         "C-ASK-SINTONIA",
-        "C-CADEIA-V21",
         "C-CI-COLETA",
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
@@ -5385,6 +5431,7 @@
         "C-PACOTE-CAMADAS",
         "C-PORTAL-DADOS",
         "C-PROVENIENCIA",
+        "C-RECORRENCIA",
         "C-REGRA-COLETA",
         "C-RELEVANCIA",
         "C-ROTULOS",
@@ -5395,7 +5442,7 @@
         "C-V21-OPORTUNIDADE",
         "C-VOZ"
       ],
-      "x": 7950,
+      "x": 8365,
       "y": 1648
     },
     {
@@ -5827,7 +5874,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 60e891ebe5c1264300e524e6a25349451b36cdb9"
+        "HEAD 597cdab920a18c0459f3b5136d72e42af74a8e01"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -6846,22 +6893,6 @@
     },
     {
       "from": "C-CADEIA-V21",
-      "to": "C-FONTES-EU",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 importa Ler as bases oficiais da Europa. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "motor/chain.py",
-          "line": 220,
-          "snippet": "from denominaciones import read, split_rows"
-        }
-      ]
-    },
-    {
-      "from": "C-CADEIA-V21",
       "to": "C-LUGAR-DO-FATO",
       "type": "RUNS",
       "payload": "execucao",
@@ -6873,22 +6904,6 @@
           "file": "motor/v21_cadeia.sh",
           "line": 174,
           "snippet": "\"$PY\" leis/v21_geografia_contrato.py"
-        }
-      ]
-    },
-    {
-      "from": "C-CADEIA-V21",
-      "to": "C-MEDICAO",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 importa Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "motor/chain.py",
-          "line": 42,
-          "snippet": "from coverage import Coverage                                  # noqa: E402"
         }
       ]
     },
@@ -6952,38 +6967,6 @@
     },
     {
       "from": "C-CADEIA-V21",
-      "to": "C-ROTULOS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 importa Baixar e ler os rotulos oficiais. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "motor/chain.py",
-          "line": 188,
-          "snippet": "import mapa_regfi"
-        }
-      ]
-    },
-    {
-      "from": "C-CADEIA-V21",
-      "to": "C-SAUDE-FONTE",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 importa A saude de cada fonte. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "motor/chain.py",
-          "line": 43,
-          "snippet": "import source_health as sh                                     # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-CADEIA-V21",
       "to": "C-SUPABASE",
       "type": "RUNS",
       "payload": "execucao",
@@ -6995,22 +6978,6 @@
           "file": "motor/cadeia_canonica.sh",
           "line": 138,
           "snippet": "if ! python3 \"$RAIZ/guarda/sql_conferir.py\" \"$RAIZ/$f\"; then"
-        }
-      ]
-    },
-    {
-      "from": "C-CADEIA-V21",
-      "to": "C-TESTES",
-      "type": "READS",
-      "payload": "artefacto",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 alimenta Suite de testes. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_operacao.py",
-          "line": 428,
-          "snippet": "fonte = open(os.path.join(ROOT, 'motor', 'chain.py'), encoding='utf-8').read()"
         }
       ]
     },
@@ -8176,17 +8143,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 631,
+          "line": 669,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 631,
+          "line": 669,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 632,
+          "line": 670,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ]
@@ -8276,12 +8243,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 900,
+          "line": 938,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 900,
+          "line": 938,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ]
@@ -9068,6 +9035,86 @@
           "file": "tests/test_proveniencia.py",
           "line": 184,
           "snippet": "self.pol = amostra('POLITICA-RAW-ROTA-PAGA.json')"
+        }
+      ]
+    },
+    {
+      "from": "C-RECORRENCIA",
+      "to": "C-FONTES-EU",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o fato se refaz importa Ler as bases oficiais da Europa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/chain.py",
+          "line": 220,
+          "snippet": "from denominaciones import read, split_rows"
+        }
+      ]
+    },
+    {
+      "from": "C-RECORRENCIA",
+      "to": "C-MEDICAO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o fato se refaz importa Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/chain.py",
+          "line": 42,
+          "snippet": "from coverage import Coverage                                  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-RECORRENCIA",
+      "to": "C-ROTULOS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o fato se refaz importa Baixar e ler os rotulos oficiais. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/chain.py",
+          "line": 188,
+          "snippet": "import mapa_regfi"
+        }
+      ]
+    },
+    {
+      "from": "C-RECORRENCIA",
+      "to": "C-SAUDE-FONTE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o fato se refaz importa A saude de cada fonte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/chain.py",
+          "line": 43,
+          "snippet": "import source_health as sh                                     # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-RECORRENCIA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o fato se refaz alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_operacao.py",
+          "line": 428,
+          "snippet": "fonte = open(os.path.join(ROOT, 'motor', 'chain.py'), encoding='utf-8').read()"
         }
       ]
     },
@@ -9878,22 +9925,6 @@
     },
     {
       "from": "C-TESTES",
-      "to": "C-CADEIA-V21",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa Cadeia canonica V2.1. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_operacao.py",
-          "line": 350,
-          "snippet": "import chain"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
       "to": "C-CI-COLETA",
       "type": "READS",
       "payload": "artefacto",
@@ -10174,6 +10205,22 @@
           "file": "tests/test_proveniencia.py",
           "line": 15,
           "snippet": "import proveniencia as pv   # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-RECORRENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa A prova de que o fato se refaz. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_operacao.py",
+          "line": 350,
+          "snippet": "import chain"
         }
       ]
     },
@@ -10934,8 +10981,8 @@
   "UNCLAIMED_FILES_COUNT": 585,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 65,
-    "components_proven": 52,
+    "components": 66,
+    "components_proven": 53,
     "components_pending": 13,
     "components_broken": 0,
     "components_unknown": 0,

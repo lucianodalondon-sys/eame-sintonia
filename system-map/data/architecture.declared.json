@@ -169,6 +169,24 @@
   ],
   "COMPONENTS": [
     {
+      "id": "C-RECORRENCIA",
+      "name": "A prova de que o fato se refaz",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "icon": "↻",
+      "views": [
+        "audit"
+      ],
+      "what": "Refaz o caminho inteiro de um fato — fonte, busca, leitura, identidade, normalizacao — e falha fechado se qualquer degrau nao reproduzir.",
+      "why_here": "Responde a pergunta que documentacao nenhuma responde: um engenheiro novo consegue refazer os fatos do piloto sem conhecer a historia das missoes? Ele NAO produz o fato — prova que o fato se refaz. E por isso nao esta na cadeia de producao: nada o corre em producao, e nao devia.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/chain.py"
+      ]
+    },
+    {
       "id": "C-IMPORTAR",
       "name": "Levar o dado para o banco",
       "territory": "Z-GUARDA",
@@ -791,8 +809,7 @@
       ],
       "files": [
         "motor/v21_cadeia.sh",
-        "motor/cadeia_canonica.sh",
-        "motor/chain.py"
+        "motor/cadeia_canonica.sh"
       ],
       "views": [],
       "icon": "⛓"
@@ -1446,7 +1463,7 @@
     "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json": "dce86043d875046110e7cf3e8e1ee2f35b364d52",
     "data/samples/FONTES-CANDIDATAS.json": "7f5d31b069f50b2c547d4cf15c23c9e183bad680",
     "docs/operacao/PORTOES-DE-COLETA-10B.md": "814fb81c878bbfde008f5b2725c0feaa0c56f4eb",
-    "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md": "7ca3b74a4ecd4f6a8e1c476bf2641863f9071102",
+    "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md": "839bf0cb4b056e2643b675536b1d6463908fcf8f",
     "ferramentas/apify_contrato.py": "b20e59e7fd180da05022046a30dd5e13c25ebe9f",
     "ferramentas/apify_pool.py": "886ba25ef5b3b58570fb5e9aec96bcdbf46c3671",
     "ferramentas/apify_recuperar.py": "9d77a396c095551647c46769c32ecbe7157c49a4",
@@ -1631,7 +1648,6 @@
     "leis/v21_procedencia_religar.py": "74b9d675263db47d5f41a3b3bffa35f31a607ab7",
     "leis/voz.py": "94c454b64a1c13a6fb6059918f1edbdd358cd791",
     "motor/cadeia_canonica.sh": "60c11fcbabbf4918bcbff10f204a64916f4ee17c",
-    "motor/chain.py": "7cd239225904c8db581701a15f6e07c396c3d3a9",
     "motor/consolidar_leque.py": "8c1cb9623019c9fb50461c1cac5ee8d9677f9dbf",
     "motor/matriz_recorte.py": "cc3a9b2705010a94716750487004fa4b0f1b60ab",
     "motor/normalize_agro.py": "95bd1ed11557603293d17c6cc00178264d9e9405",
@@ -1689,6 +1705,7 @@
     "portoes/build_portal.py": "de19a89cb1ed6cb6d346935cb0ede74aea37f93d",
     "portoes/site_v21_ingest.py": "39376bfde4839bacacf544d9b673d2a5238ee6f5",
     "provas/auditoria.py": "8c6a990ba9dcce2cd7c5a4003872a963b02f30cf",
+    "provas/chain.py": "406fe9d34a10ae49999a8d2b09a3b7c01f9c6f38",
     "provas/corrigir_custo.py": "8cf617c5d06de0721a84c6a187361a127e8aa1c6",
     "provas/coverage.py": "7bb882a2ee00ad189593a1e159c108c5541458b8",
     "provas/freeze_es.py": "a4c1a68b9d00c9df3f6e98d08206d93138f841bd",
@@ -1752,7 +1769,7 @@
     "system-map/app/index.html": "cd2fedf7baae6ace57be8d81dbe950f9ab1aef1d",
     "system-map/app/map.css": "d70a895270eca4dd5684c116772153890a648a55",
     "system-map/app/map.js": "fabe11fa4e7477c7a64f76b1edbbd6b89b1c45db",
-    "system-map/scripts/generate_system_map.py": "51ebd86c893eb0837e638eea309e3e9458bde4f7",
+    "system-map/scripts/generate_system_map.py": "01927bcc6122790677a5f2ed3ab363a4616a2a22",
     "system-map/scripts/mudar_gaveta.py": "99736f74a118a545f946246f88c041153e4bb342",
     "system-map/scripts/scan_repo.py": "c3381581f275c3de013fed483eacf9c817055946",
     "system-map/scripts/scan_sources.py": "5d658ac626c1c479f939a393b426384f9b076565",

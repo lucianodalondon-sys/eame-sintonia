@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "60e891ebe5c1264300e524e6a25349451b36cdb9",
-    "GENERATED_AT": "2026-09-07T12:46:03-03:00"
+    "HEAD": "597cdab920a18c0459f3b5136d72e42af74a8e01",
+    "GENERATED_AT": "2026-09-07T12:46:45-03:00"
   },
   "FILES": [
     {
@@ -3166,7 +3166,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "cd9cc6ed9fd7a7e141e8051b69c4bcd73c240fd5",
+      "sha": "eece48c48ea6b320189d94bc04c1550cc8b89c78",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3341,7 +3341,7 @@
     },
     {
       "path": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
-      "sha": "1d2aa6ecc436831819c4ceae2864f2752d131768",
+      "sha": "5ae94617a1004dc9c2378b590a347203debdf18c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3362,7 +3362,7 @@
     },
     {
       "path": "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
-      "sha": "1e44b99533c8dad1ddcf23ee710632b5b0f92632",
+      "sha": "0ade50c0535e0e6ddd343631e293f58ee37c1806",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3425,7 +3425,7 @@
     },
     {
       "path": "docs/piloto/PROTOCOLO-BENCHMARK-RESEARCH-SAVING.md",
-      "sha": "0d500d5cdd3459afd3e008cf7f9e2f2ba13c7fbc",
+      "sha": "3db760177a359798b6daebb27cde5e2c550ffd87",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3495,7 +3495,7 @@
     },
     {
       "path": "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md",
-      "sha": "7ca3b74a4ecd4f6a8e1c476bf2641863f9071102",
+      "sha": "839bf0cb4b056e2643b675536b1d6463908fcf8f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5350,7 +5350,7 @@
     },
     {
       "path": "italia-portale/client/upstream/IT-PORTAL-SPRINT-HANDOFF-HUMAN-SENSORS-V1.json",
-      "sha": "11f5a43a77b17108a99cf62e22d83cf19edf7cb3",
+      "sha": "bdc051aaf06fae6c3daa21cbba0ae0f7de32dd26",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -5499,13 +5499,6 @@
       "path": "motor/cadeia_canonica.sh",
       "sha": "60c11fcbabbf4918bcbff10f204a64916f4ee17c",
       "ext": ".sh",
-      "readable": true,
-      "code_dir": true
-    },
-    {
-      "path": "motor/chain.py",
-      "sha": "7cd239225904c8db581701a15f6e07c396c3d3a9",
-      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -5932,6 +5925,13 @@
     {
       "path": "provas/auditoria.py",
       "sha": "8c6a990ba9dcce2cd7c5a4003872a963b02f30cf",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/chain.py",
+      "sha": "406fe9d34a10ae49999a8d2b09a3b7c01f9c6f38",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6932,14 +6932,14 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "0a2e965ea1b279e834a40ffa1dcd3a3e5a589c38",
+      "sha": "8dcc2359ed18e25fa84e10b18fd19992db4fcc1b",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "51ebd86c893eb0837e638eea309e3e9458bde4f7",
+      "sha": "01927bcc6122790677a5f2ed3ab363a4616a2a22",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14319,61 +14319,6 @@
       }
     },
     {
-      "from_file": "motor/chain.py",
-      "to_file": "_gavetas.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "motor/chain.py",
-        "line": 40,
-        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
-      }
-    },
-    {
-      "from_file": "motor/chain.py",
-      "to_file": "coleta/denominaciones.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "motor/chain.py",
-        "line": 220,
-        "snippet": "from denominaciones import read, split_rows"
-      }
-    },
-    {
-      "from_file": "motor/chain.py",
-      "to_file": "coleta/mapa_regfi.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "motor/chain.py",
-        "line": 188,
-        "snippet": "import mapa_regfi"
-      }
-    },
-    {
-      "from_file": "motor/chain.py",
-      "to_file": "provas/coverage.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "motor/chain.py",
-        "line": 42,
-        "snippet": "from coverage import Coverage                                  # noqa: E402"
-      }
-    },
-    {
-      "from_file": "motor/chain.py",
-      "to_file": "regras/source_health.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "motor/chain.py",
-        "line": 43,
-        "snippet": "import source_health as sh                                     # noqa: E402"
-      }
-    },
-    {
       "from_file": "motor/consolidar_leque.py",
       "to_file": "data/samples/IT-CIENCIA/IT-GIRE-RESISTENCIA-V2.json",
       "type": "READS",
@@ -19225,6 +19170,61 @@
       }
     },
     {
+      "from_file": "provas/chain.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/chain.py",
+        "line": 40,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "provas/chain.py",
+      "to_file": "coleta/denominaciones.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/chain.py",
+        "line": 220,
+        "snippet": "from denominaciones import read, split_rows"
+      }
+    },
+    {
+      "from_file": "provas/chain.py",
+      "to_file": "coleta/mapa_regfi.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/chain.py",
+        "line": 188,
+        "snippet": "import mapa_regfi"
+      }
+    },
+    {
+      "from_file": "provas/chain.py",
+      "to_file": "provas/coverage.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/chain.py",
+        "line": 42,
+        "snippet": "from coverage import Coverage                                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/chain.py",
+      "to_file": "regras/source_health.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/chain.py",
+        "line": 43,
+        "snippet": "import source_health as sh                                     # noqa: E402"
+      }
+    },
+    {
       "from_file": "provas/freeze_es.py",
       "to_file": "data/samples/SPAIN-DEMO-CONTENT-V1.json",
       "type": "READS",
@@ -19990,7 +19990,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 631,
+        "line": 669,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -20001,7 +20001,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 632,
+        "line": 670,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -20012,7 +20012,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 631,
+        "line": 669,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -20034,7 +20034,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 900,
+        "line": 938,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -20045,7 +20045,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 900,
+        "line": 938,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -21965,7 +21965,7 @@
     },
     {
       "from_file": "tests/test_operacao.py",
-      "to_file": "motor/chain.py",
+      "to_file": "provas/chain.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
@@ -21976,7 +21976,7 @@
     },
     {
       "from_file": "tests/test_operacao.py",
-      "to_file": "motor/chain.py",
+      "to_file": "provas/chain.py",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {

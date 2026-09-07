@@ -211,7 +211,7 @@ Manter: `RUN_ID` · `SOURCE_ID` · `CAPTURE_DATE` · `EXTERNAL_ID` · `RAW_EVIDE
 ### A exceção que a rota paga cria — e que muda a decisão D-003
 
 A decisão **D-003** mantém `data/raw/` fora do git porque o bruto é um **cache reproduzível**:
-perdeu-se, roda-se a cadeia de novo (`motor/chain.py`).
+perdeu-se, roda-se a cadeia de novo (`provas/chain.py`).
 
 **Para rota paga com chave descartável essa premissa é falsa.** A chave morre quando o crédito
 acaba, e a rota **não pode ser replicada**. Ou a evidência é versionada, ou ela se perde.

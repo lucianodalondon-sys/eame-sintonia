@@ -40,7 +40,7 @@ batem com a fonte. Uma rota que produz sete campos **não concluiu**.
 
 ## O QUE É PROIBIDO NA ROTA A
 
-Usar `pacote/metricas_canonicas.py`, `motor/chain.py`, `coleta/mapa_regfi.py`,
+Usar `pacote/metricas_canonicas.py`, `provas/chain.py`, `coleta/mapa_regfi.py`,
 qualquer amostra em `data/samples/` **já derivada**, ou qualquer documento do repositório
 que já contenha a resposta. A rota A começa **na fonte**.
 
