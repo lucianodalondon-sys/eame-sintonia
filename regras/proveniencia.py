@@ -351,7 +351,7 @@ def politica_derivada(root=ROOT, runs=None):
         'TOTAL_POR_CLASSE': por_classe,
         'BRUTOS_ORFAOS': brutos_orfaos(root, runs),
         'DERIVADO_POR': (
-            'leis/proveniencia.py --sync-politica. O inventário e os tamanhos são '
+            'regras/proveniencia.py --sync-politica. O inventário e os tamanhos são '
             'DERIVADOS do diretório real; nenhum é digitado. Há teste que reprova se a '
             'política divergir do disco.'),
     }

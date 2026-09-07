@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """A LEI DO LUGAR DO FATO — do core, e independente de idioma.
 
-A Itália escreveu `leis/fato_local.py`: um LEITOR de texto italiano que
+A Itália escreveu `regras/fato_local.py`: um LEITOR de texto italiano que
 propõe candidatos a lugar do fato. O gazetteer dele é italiano, as âncoras
 são italianas, os meses são italianos. Isso é do piloto e fica no piloto.
 
@@ -25,7 +25,7 @@ o leitor — ele declara o vocabulário, e `tests/test_lugar_do_fato.py`
 compara este vocabulário com o da Itália E com o que o banco aceita. Três
 lugares, uma lei; qualquer um que ande sozinho reprova.
 
-    python3 leis/lugar_do_fato.py     # imprime o contrato
+    python3 regras/lugar_do_fato.py     # imprime o contrato
 """
 import json
 import sys
@@ -155,7 +155,7 @@ def contrato():
         'O_QUE_ISTO_E': 'a lei do lugar do fato, independente de idioma.',
         'O_QUE_ISTO_NAO_E':
             'não é um leitor de texto. Ler texto é do piloto — o italiano está '
-            'em leis/fato_local.py, portado da branch da Itália.',
+            'em regras/fato_local.py, portado da branch da Itália.',
         'SOURCE_LOCATION': 'interno',
         'FACT_LOCATION': 'EAME',
         'ORIGINAL_LANGUAGE': 'pt',
@@ -191,7 +191,7 @@ def contrato():
             'tempo_do_fato': 'public.conteudo.fact_tempo_*',
             'ocorrencia_por_especie': 'public.f_ocorrencia_nao_e_incidencia',
         },
-        'LEITORES_POR_IDIOMA': {'it': 'leis/fato_local.py (portado da Itália)'},
+        'LEITORES_POR_IDIOMA': {'it': 'regras/fato_local.py (portado da Itália)'},
     }
 
 

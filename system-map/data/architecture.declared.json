@@ -169,6 +169,66 @@
   ],
   "COMPONENTS": [
     {
+      "id": "C-PROCEDENCIA",
+      "name": "De onde veio — carimbado na coleta",
+      "territory": "Z-REGRAS",
+      "kind": "contract",
+      "icon": "◈",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "what": "Carimba, em cada registo, de onde ele veio — no momento em que ele entra.",
+      "why_here": "Sem procedencia, um numero vira verdade so porque esta escrito. E ela so vale se for posta na coleta: depois e tarde, porque o dado ja entrou sem ela e ninguem consegue recuperar a origem.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "regras/proveniencia.py"
+      ]
+    },
+    {
+      "id": "C-LUGAR-COLETA",
+      "name": "O lugar do fato — carimbado na coleta",
+      "territory": "Z-REGRAS",
+      "kind": "contract",
+      "icon": "⌖",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "what": "Separa o lugar de onde o documento veio do lugar onde o fato aconteceu, e propoe o candidato lendo o texto na lingua do pais.",
+      "why_here": "Uma fonte italiana a falar de Espanha nao torna o fato italiano. Esta e das licoes que o Brasil ensinou a esta casa, e so vale se for aplicada quando o dado entra.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "regras/lugar_do_fato.py",
+        "regras/fato_local.py"
+      ]
+    },
+    {
+      "id": "C-CONTRATO-CAMPOS",
+      "name": "O que a coleta tem de trazer",
+      "territory": "Z-REGRAS",
+      "kind": "contract",
+      "icon": "☰",
+      "views": [
+        "acervo"
+      ],
+      "what": "O contrato de campos por video — 32 campos, em codigo — e a regua de como o sistema fala do que colheu.",
+      "why_here": "A lista esta em codigo para que o proximo pais nao a redigite e nao a encolha em silencio. Sinal nao vira pedido, ausencia nao vira negativo.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "regras/voz.py"
+      ]
+    },
+    {
       "id": "C-RECORRENCIA",
       "name": "A prova de que o fato se refaz",
       "territory": "Z-PROVA",
@@ -476,13 +536,15 @@
         "TECNICO_CIENCIA"
       ],
       "files": [
-        "coleta/eppo_gd.py",
-        "coleta/ephy.sh",
         "coleta/agrifood_ue.py",
-        "coleta/denominaciones.py",
         "coleta/cellar.sh",
+        "coleta/denominaciones.py",
+        "coleta/ephy.sh",
+        "coleta/eppo_gd.py",
         "coleta/eu_substancia_adama_it.py",
-        "coleta/regulatorio*.py"
+        "coleta/gire_mapas.py",
+        "coleta/regulatorio*.py",
+        "coleta/texto_fonte.py"
       ],
       "views": [
         "science"
@@ -513,40 +575,36 @@
     },
     {
       "id": "C-PROVENIENCIA",
-      "name": "Regua de procedencia",
+      "name": "A procedencia dentro do pacote",
       "territory": "Z-REGUAS",
       "kind": "contract",
-      "what": "Decide de onde cada afirmacao veio e nao deixa a origem se perder no caminho.",
-      "why_here": "Sem procedencia, um numero vira verdade so porque esta escrito.",
+      "what": "Confere que cada caso do pacote continua a carregar de onde veio.",
+      "why_here": "A lei de onde-veio e carimbada na COLETA. Aqui e a conferencia dela sobre o pacote ja montado — outra coisa, outro momento.",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
       ],
       "files": [
-        "leis/proveniencia.py",
+        "leis/v21_carimbar_origem.py",
         "leis/v21_procedencia_contrato.py",
-        "leis/v21_procedencia_religar.py",
-        "leis/v21_carimbar_origem.py"
+        "leis/v21_procedencia_religar.py"
       ],
       "views": [],
       "icon": "§"
     },
     {
       "id": "C-LUGAR-DO-FATO",
-      "name": "Regua do lugar do fato",
+      "name": "A geografia do pacote",
       "territory": "Z-REGUAS",
       "kind": "contract",
-      "what": "Separa o lugar onde o fato aconteceu do lugar de onde o documento foi publicado.",
-      "why_here": "Fonte italiana falando de Espanha nao torna o fato italiano. Esta lei impede essa troca.",
+      "what": "Confere a geografia dos casos no pacote fechado.",
+      "why_here": "A lei do lugar do fato e carimbada na COLETA. Aqui e a conferencia dela sobre o pacote.",
       "departments": [
         "TECNICO_CIENCIA",
         "INTELIGENCIA"
       ],
       "files": [
-        "leis/fato_local.py",
-        "leis/lugar*.py",
-        "leis/v21_geografia_contrato.py",
-        "leis/gire_mapas.py"
+        "leis/v21_geografia_contrato.py"
       ],
       "views": [],
       "icon": "§"
@@ -594,7 +652,7 @@
     {
       "id": "C-CICATRIZES-BR",
       "name": "Cicatrizes do Brasil (lei portada)",
-      "territory": "Z-REGUAS",
+      "territory": "Z-REGRAS",
       "kind": "contract",
       "what": "Traz para o EAME as leis que o Brasil ja aprendeu na dor, em vez de reinventar cada uma.",
       "why_here": "O EAME nao inventa contrato novo quando o Brasil ja tem lei madura para a mesma pergunta.",
@@ -602,25 +660,7 @@
         "ENGENHARIA"
       ],
       "files": [
-        "leis/cicatrizes_brasil.py"
-      ],
-      "views": [],
-      "icon": "§"
-    },
-    {
-      "id": "C-VOZ",
-      "name": "Regua da voz",
-      "territory": "Z-REGUAS",
-      "kind": "contract",
-      "what": "Guarda como o sistema fala: sinal nao vira pedido, ausencia nao vira negativo.",
-      "why_here": "A maior parte do erro de leitura nasce na frase, nao no numero.",
-      "departments": [
-        "DESENVOLVIMENTO_MERCADO",
-        "MARKETING"
-      ],
-      "files": [
-        "leis/voz.py",
-        "leis/texto*.py"
+        "regras/cicatrizes_brasil.py"
       ],
       "views": [],
       "icon": "§"
@@ -1443,6 +1483,7 @@
     "coleta/eppo_gd.py": "1f648008e6773ab9e71bc267ab4907ee5bc259d1",
     "coleta/eu_substancia_adama_it.py": "ca7616bcc42ca0ae40eaddea1ed97e6142d7be48",
     "coleta/filas.py": "bf3dbf0b8baf5919b0c1a0bedc01315e5fdbe82d",
+    "coleta/gire_mapas.py": "5f824e1b9b88998a25d9d4eb32cd9e8410bd29a5",
     "coleta/instagram_coleta.py": "d31845151d7b70bcb6eb41ecb6aff41ad932096c",
     "coleta/instagram_diario.py": "5de534f894d437afcdfbb076df362cbfe8160cc0",
     "coleta/instagram_janela.py": "fdc73e0ed394882cca514441cd3f8d00e49b5df0",
@@ -1457,13 +1498,14 @@
     "coleta/sensor_canal_identidade.py": "8cc634ed2b7df760a41eb04dbcd42faa6e7d76d5",
     "coleta/speaker_identidade.py": "8fd4a8523a04e940692e4a9e569dcbad14079917",
     "coleta/speaker_universo.py": "792aba2108b0461a5fb960db6090385ea81ffceb",
+    "coleta/texto_fonte.py": "b9f1e6461e6c3037158d409048a3e5431cd00ca4",
     "coleta/universo_ciencia_it.py": "b3762073beeee185530f34d14deefcd54064fb16",
     "coleta/youtube_janela.py": "0a6d282083699c420288ca7036391507138c646f",
     "coleta/youtube_relevancia.py": "fb9f96174ae4be313aa2c0b21d4c6ed1558e3e39",
     "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json": "dce86043d875046110e7cf3e8e1ee2f35b364d52",
     "data/samples/FONTES-CANDIDATAS.json": "7f5d31b069f50b2c547d4cf15c23c9e183bad680",
     "docs/operacao/PORTOES-DE-COLETA-10B.md": "814fb81c878bbfde008f5b2725c0feaa0c56f4eb",
-    "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md": "839bf0cb4b056e2643b675536b1d6463908fcf8f",
+    "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md": "6322b416ebe3e817d498b0413de06d4188a3f96b",
     "ferramentas/apify_contrato.py": "b20e59e7fd180da05022046a30dd5e13c25ebe9f",
     "ferramentas/apify_pool.py": "886ba25ef5b3b58570fb5e9aec96bcdbf46c3671",
     "ferramentas/apify_recuperar.py": "9d77a396c095551647c46769c32ecbe7157c49a4",
@@ -1633,20 +1675,13 @@
     "leis/adama_relevance.py": "449bdc6277f0891f6a2be48a0e693f83994fd998",
     "leis/auditoria_regua_comercial.py": "f4c57edd52b3543446bcab37eb58b1509a832c74",
     "leis/calendario_handoff.py": "f7861c8391ae6e9bd73ce0a63366733dbaabb7d2",
-    "leis/cicatrizes_brasil.py": "2e5fa7f0fde22b637e2ea5e1374230ec127d0be7",
     "leis/data_clock.py": "fc57e8b4ca2ed0e5f18d360cd8a4a336e681960c",
-    "leis/fato_local.py": "453ccb5f6abcc0fb0a7073a02a1286efa944c792",
-    "leis/gire_mapas.py": "5f824e1b9b88998a25d9d4eb32cd9e8410bd29a5",
-    "leis/lugar_do_fato.py": "9e7688b665c7b8484eb95355fab5c686541314a6",
-    "leis/proveniencia.py": "1c618b33846dbbb8cdb35f777397afafd7a1cf40",
     "leis/regua_italia.py": "2ac576dca4e1491d5567a2b232fcd8c3814d6f03",
-    "leis/texto_fonte.py": "b6fbe3bde53f2481aba9cb4b30e5b4c31fe8d956",
     "leis/v21_carimbar_origem.py": "e44370c9e292301a337dd918a78752b504c4f2fc",
     "leis/v21_datas.py": "fb461b975f5558dd5c31f40d5d5201dde5f172a7",
     "leis/v21_geografia_contrato.py": "06641a95c5dde96c03916f7f437a8b0c825c7918",
     "leis/v21_procedencia_contrato.py": "a8d6cf098593117b3dccee4a018af08fc6f10c8f",
     "leis/v21_procedencia_religar.py": "74b9d675263db47d5f41a3b3bffa35f31a607ab7",
-    "leis/voz.py": "94c454b64a1c13a6fb6059918f1edbdd358cd791",
     "motor/cadeia_canonica.sh": "60c11fcbabbf4918bcbff10f204a64916f4ee17c",
     "motor/consolidar_leque.py": "8c1cb9623019c9fb50461c1cac5ee8d9677f9dbf",
     "motor/matriz_recorte.py": "cc3a9b2705010a94716750487004fa4b0f1b60ab",
@@ -1711,15 +1746,20 @@
     "provas/freeze_es.py": "a4c1a68b9d00c9df3f6e98d08206d93138f841bd",
     "provas/inventario_esperado.py": "d3043da78bdd927622cfedb11a67afbcb85382bb",
     "provas/testa_rota_italia.py": "4fb25815bd63df037ca315f8530d1d420b23fa3d",
+    "regras/cicatrizes_brasil.py": "2d69fc63b3004c7c5ae197169fd611d84a2c650b",
     "regras/comunicacao_identidade.py": "3afe6c18b66d13826a262a184787271a8ee3211f",
     "regras/comunicacao_lote.py": "098fc6d67af9fa697025f2afe8bf0bcf40749254",
     "regras/comunicacao_universo.py": "37e4638950e2619cb19b218f3ab73be0700625a0",
+    "regras/fato_local.py": "c8dae2ca5a82dc3ba634db715ede5a1180e765bc",
+    "regras/lugar_do_fato.py": "a47380e9624322d50243060908cfd94036547c65",
     "regras/portao.py": "967ff47ca35bbf781f6bd8b34976f08ad1c760ae",
-    "regras/portoes_eame.py": "6ff3af42aab4d0717ac3def4c81a3135b0bf558e",
+    "regras/portoes_eame.py": "ea3ad259d8dd594578cb9c4c62f1d21d5520fead",
+    "regras/proveniencia.py": "23dafffefa884d2e095509a2bbe7984575f05636",
     "regras/rotulos_censo.py": "0fc53eb5edcbd7126f89cfd2a0a3e33dab69546b",
     "regras/sensor_coleta.py": "9c9be3ce17d64eed2ce2532f3d463b88b8d656ac",
     "regras/sensor_medir.py": "a7e3471c929cc7d62d0c412706d6ec8f71218f34",
     "regras/source_health.py": "76805b822db70cca3f72ee7b8adb9627ce9ec8d8",
+    "regras/voz.py": "94c454b64a1c13a6fb6059918f1edbdd358cd791",
     "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql": "11570d02661fe076cb03e6709398d503c4974e31",
     "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql": "9b8e725253337e098aa586a4df9b131ac4d55dbd",
     "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql": "8c49ffa85d7f83a46bba0adfed7fd59c66bebe82",
@@ -1781,7 +1821,7 @@
     "tests/test_calendario_temporal.py": "74c6cafdec4763b7d7aa34473be378c43778befd",
     "tests/test_canonico.py": "837666d1d5ae4cc20045683d01be2ab3abae684b",
     "tests/test_cicatrizes_brasil.py": "cb8042d7815e126d06ff662fbb7f717bcacfe392",
-    "tests/test_coleta_externa.py": "220ef1007ff7b200e9a23f5602eb36814a57a1f1",
+    "tests/test_coleta_externa.py": "f25e20b195110bb6157d86137498c4c96dd541e3",
     "tests/test_coleta_resiliente.py": "2c773b0e8135f070becf8ef024a1f3565f10108d",
     "tests/test_competitor_layer.py": "f34a9b4dc1872ce4bb40b490addb0fc40675a6c3",
     "tests/test_completude_oportunidade.py": "832dc3194fbe092c17617dd2f44d0c051e30ed37",
@@ -1789,7 +1829,7 @@
     "tests/test_evidence.py": "c1efcd244c2096478816b6a3ebe8a2a758a8a285",
     "tests/test_handoff.py": "132fe6ae31399146dac5e5d5f827a71201babde4",
     "tests/test_hero_cases_v1.py": "8aeab80c87371a136b9470ba4b0cd87581c57c49",
-    "tests/test_lugar_do_fato.py": "a773fc4e77d633a688de27d2cc1f7b7bff8335dc",
+    "tests/test_lugar_do_fato.py": "8917fb38e470cb17c2dcb97c598098fd418eb40d",
     "tests/test_metricas.py": "9c962935a3d6a7a67375c978352036ee70da5295",
     "tests/test_migrations.py": "5e7fd2d7e6d313019dda9208e2a36ec15dd8e458",
     "tests/test_navegador.py": "721da8f23f75f28713b9b0d06087a494296dd5d3",
@@ -1798,7 +1838,7 @@
     "tests/test_portao.py": "2516da79fe3a60c7dc4bb6addd22040cd887abc7",
     "tests/test_portoes_eame.py": "7a676c00beb69ccfd1c35630b2da820d00887675",
     "tests/test_prioridade_comercial.py": "51b2bc2c31828a0ec177bf5e557d30cb6a215c35",
-    "tests/test_proveniencia.py": "a8fcb631b640abb5ffd9ffb4ecfdd8481ca09abb",
+    "tests/test_proveniencia.py": "8ae90bf1a7f9b7875e54f99270ebd6f4ede392c5",
     "tests/test_radar_futuro.py": "90ac58d8099d6d67aca46abd561a61c9afd46c7a",
     "tests/test_v21_datas.py": "445167667b858a5617084ec7a67d6a8d84c3476f",
     "tests/test_v21_geografia.py": "ee8a32a0e6ec19337e0eaaf80bb6b1d7286fe151",

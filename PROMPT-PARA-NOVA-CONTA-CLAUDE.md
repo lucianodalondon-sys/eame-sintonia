@@ -75,7 +75,7 @@ PASSO 4 — REPRODUZIR AS MÉTRICAS SENTINELA
 
 python3 pacote/metricas_canonicas.py
 python3 regras/portao.py
-python3 leis/proveniencia.py
+python3 regras/proveniencia.py
 
 Confira estas sentinelas contra o que o handoff afirma:
 

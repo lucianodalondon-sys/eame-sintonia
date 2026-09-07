@@ -19,7 +19,7 @@ Ambas as árvores limpas na leitura. Toda afirmação deste documento é sobre e
 | Dedupe é constraint, não auditoria posterior | `documentos` → `unique(fonte_id, hash_conteudo)` | o banco recusa a segunda inserção | portão `PIPELINE_DEDUPE` em `regras/portao.py` | **ADAPT** | manter o portão *e* ganhar o unique — um denuncia, o outro impede |
 | Razão publicada exige denominador declarado | `termos_medicoes.base_comentarios/base_pessoas` NOT NULL | `unique(termo, período, praça, cultura)` | `ES-T4-005-denominadores-ropf.json`, `metricas_canonicas.py` | **ALREADY_EXISTS** (regra) / **ADAPT** (lugar) | `observacao.base_denominador` NOT NULL |
 | Execução vazia ≠ execução concluída | `coletas.status` inclui `'vazia'` | — | `coleta/coletor.py` (SUCCEEDED com 0 itens → PARTIAL) | **ALREADY_EXISTS** | portar o enum `run_status` com `vazia` separado |
-| Custo e ator ficam gravados por execução | `coletas.ator/run_id/custo_usd` | — | `RUN-MANIFEST.json` + `leis/proveniencia.py` (22 campos) | **ALREADY_EXISTS** | `collection_run` é transporte campo-a-campo, não redesenho |
+| Custo e ator ficam gravados por execução | `coletas.ator/run_id/custo_usd` | — | `RUN-MANIFEST.json` + `regras/proveniencia.py` (22 campos) | **ALREADY_EXISTS** | `collection_run` é transporte campo-a-campo, não redesenho |
 | Cultura é conjunto, não valor único | `fontes.culturas text[]` | — | `ES-RESEARCHERS-OLIVE.json` já traz `CROP` como lista | **ALREADY_EXISTS** | — |
 | A porta muda a distribuição; não eleger cultura por uma porta só | `seletor-por-porta.py`, `censo-das-portas.py` | `SHADOW-SELETOR-POR-PORTA.md` | *nenhum* | **EAME_GAP** | `conteudo.tipo` + view `v_par_por_porta`; a pergunta vira `GROUP BY` |
 | CROP × ISSUE é par explícito, nunca `cult_top` | `par-explicito.py`, `contrato-multi-cultura.py` | `PAR-EXPLICITO-PORTAL-SHADOW.md` | *nenhum* — o EAME tem `CROP` e `ISSUE` como listas paralelas, não como par | **EAME_GAP** | tabela `crop_issue` + `conteudo_crop_issue` |
@@ -52,7 +52,7 @@ Três coisas que estavam prestes a nascer do zero aqui e já existem lá, testad
 Não é transferência de mão única:
 
 - **`SOURCE_LOCATION` ≠ `FACT_LOCATION`.** O Brasil tem UM campo (`praca`) para as duas. É o confundidor de Córdoba impossível de expressar. O EAME já separa em contrato, e o schema proposto separa em coluna.
-- **`NOT_PRESERVED` como estado declarado.** `leis/proveniencia.py` distingue "não preservado" de "vazio". Vira CHECK em `raw_asset`.
+- **`NOT_PRESERVED` como estado declarado.** `regras/proveniencia.py` distingue "não preservado" de "vazio". Vira CHECK em `raw_asset`.
 - **Verificação adversarial com SHA congelado.** `VERIFICACAO-ADVERSARIAL-PORTOES.json` carimba o commit auditado. Não achei equivalente no Brasil.
 
 ---

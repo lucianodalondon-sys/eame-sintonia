@@ -5,8 +5,8 @@ O risco desta familia nao e errar uma regra. E ter DUAS regras para a mesma
 pergunta, divergindo devagar ate que a mesma frase receba dois vereditos —
 um do leitor que le o texto, outro da trava que grava a linha.
 
-Por isso o core (leis/lugar_do_fato.py) declara o vocabulario, o leitor
-italiano (leis/fato_local.py, portado da branch da Italia) usa as mesmas
+Por isso o core (regras/lugar_do_fato.py) declara o vocabulario, o leitor
+italiano (regras/fato_local.py, portado da branch da Italia) usa as mesmas
 palavras, e o banco aceita exatamente esse conjunto. Estes testes comparam
 os tres. Qualquer um que ande sozinho reprova.
 """

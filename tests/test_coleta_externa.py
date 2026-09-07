@@ -25,7 +25,7 @@ def regra():
         return f.read()
 
 
-# A lista da regra, transcrita aqui de proposito. Se leis/voz.py encolher, os dois
+# A lista da regra, transcrita aqui de proposito. Se regras/voz.py encolher, os dois
 # lados divergem e o teste reprova — que e exatamente o ponto.
 CAMPOS_DA_REGRA = [
     'SOURCE_ID', 'ORIGIN_ID', 'CHANNEL_ID', 'CONTENT_ID', 'PLATFORM', 'EXTERNAL_ID', 'URL',
@@ -41,7 +41,7 @@ class TestContratoDeCampos(unittest.TestCase):
 
     def test_a_lista_nao_encolheu(self):
         self.assertEqual(CAMPOS_DA_REGRA, voz.CAMPOS_VIDEO,
-                         'leis/voz.py divergiu da lista de campos da regra')
+                         'regras/voz.py divergiu da lista de campos da regra')
 
     def test_registro_vazio_tem_todas_as_chaves(self):
         r = voz.registro_vazio()

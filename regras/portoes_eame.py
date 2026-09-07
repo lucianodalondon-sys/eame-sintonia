@@ -293,7 +293,7 @@ def monta():
         'SOURCE_LOCATION': 'interno',
         'FACT_LOCATION': 'EAME',
         'ORIGINAL_LANGUAGE': 'pt',
-        'DERIVADO_DE': ['leis/cicatrizes_brasil.py',
+        'DERIVADO_DE': ['regras/cicatrizes_brasil.py',
                         'data/samples/RAW-GATE-ES.json'],
         'PORQUE_EXISTE':
             'um nome estava fazendo dois trabalhos, e por isso o mesmo relatório '

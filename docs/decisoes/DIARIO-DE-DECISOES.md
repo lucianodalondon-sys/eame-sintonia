@@ -227,7 +227,7 @@ Regras do diário:
   conflito, carregava 486/1.004/36/61/34 **sem marcador**; e o rótulo do benchmark do Ask
   dizia "20 perguntas" com 35 no arquivo.
 - **Decisão:** (a) inventário de população que muda é **derivado da população real**, nunca
-  digitado — `leis/proveniencia.py` passa a ser o dono do diretório `raw-paid/`;
+  digitado — `regras/proveniencia.py` passa a ser o dono do diretório `raw-paid/`;
   (b) quando duas coisas inventariam a mesma população, cada uma **declara seu escopo** e
   existe **reconciliação executável** entre elas e o disco; (c) todo número **corrente**
   publicado em `.md` tem marcador ligado ao ledger — e o `--sync` passa a alcançar a raiz;

@@ -11,8 +11,8 @@ esse nome nas migrations, uma função, ou uma afirmação nomeada num arquivo d
 regressão SQL. Se a prova não é encontrável, o script rebaixa a linha e diz
 que rebaixou.
 
-    python3 leis/cicatrizes_brasil.py            # mede e imprime
-    python3 leis/cicatrizes_brasil.py --build    # grava o artefato
+    python3 regras/cicatrizes_brasil.py            # mede e imprime
+    python3 regras/cicatrizes_brasil.py --build    # grava o artefato
 """
 import json
 import os

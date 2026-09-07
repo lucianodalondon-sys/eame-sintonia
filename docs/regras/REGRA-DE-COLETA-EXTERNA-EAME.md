@@ -12,7 +12,7 @@
 > | quando um sinal vira `WATCH`, `INVESTIGATE` ou `ALERT` | [`REGUA-DE-ALERTA-EAME.md`](REGUA-DE-ALERTA-EAME.md) |
 > | chave Apify descartável: autonomia e limites | [`POLITICA-DE-CHAVES-DESCARTAVEIS.md`](POLITICA-DE-CHAVES-DESCARTAVEIS.md) |
 > | estados de saúde de fonte e cobertura | `regras/source_health.py` · `provas/coverage.py` |
-> | contrato de campos por vídeo, em código | `leis/voz.py` |
+> | contrato de campos por vídeo, em código | `regras/voz.py` |
 
 ---
 
@@ -48,7 +48,7 @@ outra camada da rodada chegou perto disso por unidade de custo.
 
 ## 3 · O CONTRATO DE CAMPOS POR VÍDEO
 
-A lista vive em **`leis/voz.py`**, em `CAMPOS_VIDEO` — **32 campos**. Ela está em código
+A lista vive em **`regras/voz.py`**, em `CAMPOS_VIDEO` — **32 campos**. Ela está em código
 para que o próximo país não a redigite e não a encolha em silêncio.
 
 ```

@@ -3,9 +3,9 @@
 """
 TEXTO LIMPO DE UMA FONTE PÚBLICA — ajudante de leitura, sem chave e sem custo.
 
-    python3 leis/texto_fonte.py eu 32026R1826          # ato da UE, texto integral EN
-    python3 leis/texto_fonte.py gire Lolium            # ficha de espécie do GIRE
-    python3 leis/texto_fonte.py url <endereco>         # qualquer HTML/PDF público
+    python3 coleta/texto_fonte.py eu 32026R1826          # ato da UE, texto integral EN
+    python3 coleta/texto_fonte.py gire Lolium            # ficha de espécie do GIRE
+    python3 coleta/texto_fonte.py url <endereco>         # qualquer HTML/PDF público
 
 POR QUE ISTO EXISTE
 --------------------

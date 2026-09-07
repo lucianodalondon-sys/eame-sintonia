@@ -34,7 +34,7 @@ campo, e cada campo tem uma tentativa de violá-lo que o banco recusa.
 `BRAZIL_LESSON` · `ONDE_NO_BRASIL` · `WHY_IT_EXISTS` · `EAME_APPLICABLE` · `EAME_STATUS` ·
 `OWNER` · `EXECUTABLE_PROOF` · `GAP` · `MINIMAL_ACTION`.
 
-**`PROVED` exige testemunha executável.** `leis/cicatrizes_brasil.py` confere cada uma
+**`PROVED` exige testemunha executável.** `regras/cicatrizes_brasil.py` confere cada uma
 contra o acervo — teste, constraint, função ou afirmação nomeada — e **rebaixa para
 `NOT_MEASURED`** o que não encontrar. Há mutação provando que o verificador reprova:
 uma testemunha inventada em tempo de execução derruba a linha.
@@ -212,4 +212,4 @@ O padrão é sempre o mesmo: **a proibição escrita no lugar que a proibição 
 ---
 
 O detalhe linha a linha está em `data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json`, e ele é
-regenerável: `python3 leis/cicatrizes_brasil.py --build`.
+regenerável: `python3 regras/cicatrizes_brasil.py --build`.

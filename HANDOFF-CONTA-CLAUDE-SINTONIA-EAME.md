@@ -799,15 +799,15 @@ python3 provas/auditoria.py                       # SHA e estado da árvore
 python3 provas/auditoria.py --congelar            # cria o worktree só-leitura
 
 # proveniência — o RUN_ID resolve
-python3 leis/proveniencia.py
-python3 leis/proveniencia.py --campos
+python3 regras/proveniencia.py
+python3 regras/proveniencia.py --campos
 
 # relógio de dados — recalcula SHA-256 de tudo que é vigiado
 python3 leis/data_clock.py
 
 # contratos da camada de voz
-python3 leis/voz.py
-python3 leis/voz.py --campos
+python3 regras/voz.py
+python3 regras/voz.py --campos
 
 # filas de descoberta
 python3 coleta/filas.py
