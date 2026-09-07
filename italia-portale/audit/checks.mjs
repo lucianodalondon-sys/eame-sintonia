@@ -821,14 +821,23 @@ check('H2', 'The V2.1 universe counts are MEASURED, not declared', () => {
   const eq = (label, got, want) => { if (got !== want) bad.push(`${label}: ${got}, expected ${want}`); };
   eq('commercial products', C.productsCommercial.count, 51);
   eq('regulatory products', C.productsRegulatory.count, 163);
-  eq('label use pairs', C.productRelationships.count, 2030);
+  /* 2.030 -> 2.389 E 78 -> 84 SAO UMA MUDANCA DECLARADA, NAO UMA DERIVA.
+     Este controlo existe para apanhar linhas que somem em silencio, e apanhou
+     bem: quando `rotulos_ler.py` passou a reconhecer a coluna «Malattia
+     fungina», a parar de tratar uma frase como cabecalho de tabela e a nao ler
+     verbos no infinitivo como organismos, a leitura subiu de 102 para 119 dos
+     163 rotulos. O universo cresceu porque se leu mais do MESMO documento —
+     os 163 PDF sao byte a byte os de 02/09, sha256 conferido um a um.
+     Os numeros que NAO podiam mexer nao mexeram: 43 casos e os cinco estados
+     canonicos, verificados no CANONICAL-PACKAGE-CONTRACT. */
+  eq('label use pairs', C.productRelationships.count, 2389);
   eq('active substances', C.activeIngredients.count, 53);
   /* CROPS and TARGETS are the label corpus's own vocabulary, recounted from the
      pairs rather than read off a list anybody typed. */
   const crops = new Set(C.productRelationships.records.map((r) => r.cropOnLabel).filter(Boolean));
   const targets = new Set(C.productRelationships.records.map((r) => r.target).filter(Boolean));
   eq('distinct label crops', crops.size, 35);
-  eq('distinct label targets', targets.size, 78);
+  eq('distinct label targets', targets.size, 84);
   return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad };
 });
 

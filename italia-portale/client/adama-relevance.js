@@ -2,7 +2,7 @@
    A LEI vive em scripts/adama_relevance.py e decide-se LA. Este ficheiro
    transporta o veredito para o browser, que nunca o recalcula. */
 window.ADAMA_RELEVANCE = {
- "BUILD_ID": "V21-06c6421d001ea52a",
+ "BUILD_ID": "V21-fb74d2728213e8dd",
  "DONO_DA_LEI": "scripts/adama_relevance.py",
  "GERADO_POR": "scripts/it_casa_dados.py + scripts/adama_relevance.py",
  "LEGGE": {
@@ -53,7 +53,7 @@ window.ADAMA_RELEVANCE = {
   "RADAR": 21,
   "SEGNALI": 8
  },
- "SOURCE_HEAD": "5101073",
+ "SOURCE_HEAD": "40477d5",
  "TOTALE": 43,
  "VERDETTI": {
   "OPP_00C5B6E15185": {

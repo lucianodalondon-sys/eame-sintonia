@@ -2,15 +2,16 @@
   "DATASET": "SINTONIA-CANONICAL-PACKAGE-CONTRACT-V1",
   "LEI": "o que qualquer pacote tem de provar para atravessar a fronteira do site. Um so dono: este ficheiro. Quem verifica em JS e quem verifica em Python leem daqui, para a regra nao existir em duas linguas e divergir na terceira vez que alguem a mudar.",
   "CAPTURED_AT": "2026-09-07",
-  "SOURCE": "medido em 5101073 pela cadeia canonica, corrida DUAS vezes em worktrees limpos e independentes: 34/34 ficheiros byte a byte identicos nas duas.",
+  "SOURCE": "medido em 40477d5 (claude/acervo-to-package-intelligence-v1, a mesma linhagem canonica de 5101073) pela cadeia canonica. O determinismo foi provado ANTES de mudar o input: com os 2030 pares antigos a cadeia reproduziu V21-06c6421d001ea52a exactamente. So depois o input passou a 2389.",
   "CANONICAL_GENERATOR": {
     "LINHAGEM": "claude/acervo-to-package-intelligence-v1",
-    "COMMIT": "51010733be8a846a280e5f52e7e50d671c68a18f",
+    "COMMIT": "40477d5eec9bdcd35a858c7fe8e685d9875da620",
     "PORQUE": "a inteligencia tem UM dono. A Linha B consome; nao gera, nao decide e nao arbitra.",
     "A_CADEIA_LOCAL_DESTA_LINHAGEM_ESTA_ATRASADA": true,
-    "O_QUE_ELA_PRODUZ_SE_CORRIDA_AQUI": "V21-5d312cb90a0de01d — sem MEETING_SURFACE_RULE e com PREPARE_NOW em 11 casos"
+    "O_QUE_ELA_PRODUZ_SE_CORRIDA_AQUI": "V21-5d312cb90a0de01d — sem MEETING_SURFACE_RULE e com PREPARE_NOW em 11 casos",
+    "COMMIT_ANTERIOR": "51010733be8a846a280e5f52e7e50d671c68a18f"
   },
-  "EXPECTED_BUILD_ID": "V21-06c6421d001ea52a",
+  "EXPECTED_BUILD_ID": "V21-fb74d2728213e8dd",
   "EXPECTED_CASES": 43,
   "REVOKED_STATES": [
     "PREPARE_NOW"
@@ -34,8 +35,15 @@
     "V21-99226fbb90dcdbc2": "o zip historico commitado: 37 casos, sem MEETING_SURFACE_RULE",
     "V21-5d312cb90a0de01d": "o que a cadeia local desta linhagem produz hoje: PREPARE_NOW em 11 casos",
     "V21-69bf448ac934a6d9": "a safra de 55c2674: 43 casos e vereditos identicos aos de hoje, mas sem a camada de declaracao de cortes (CROSS_INTELLIGENCE_*, PORTFOLIO_*, EVIDENCE_SCAN_*) e com 55 pares produto x cultura em vez de 213",
-    "V21-044e4924854d5f0a": "a safra de 5fac11f: mesmos 43 casos e mesmos vereditos, mas sem TRANSCRIPTS, sem SCIENCE-CORPUS e sem FACT-TIME-PLACE-V1"
+    "V21-044e4924854d5f0a": "a safra de 5fac11f: mesmos 43 casos e mesmos vereditos, mas sem TRANSCRIPTS, sem SCIENCE-CORPUS e sem FACT-TIME-PLACE-V1",
+    "V21-06c6421d001ea52a": "a safra de 5101073 com o rotulo lido a 02/09: 2030 pares de uso, 102 dos 163 rotulos lidos. Mesmos 43 casos e mesmos vereditos que a safra actual — o que mudou foi so quanto do rotulo se conseguiu ler."
   },
   "FAIL_CLOSED": true,
-  "PORQUE_FAIL_CLOSED": "um portao que avisa e um portao que se ignora na sexta-feira a noite. Se a proveniencia nao se prova, a build para — nao passa com aviso."
+  "PORQUE_FAIL_CLOSED": "um portao que avisa e um portao que se ignora na sexta-feira a noite. Se a proveniencia nao se prova, a build para — nao passa com aviso.",
+  "O_QUE_MUDOU_NESTA_SAFRA": {
+    "PRODUCT_RELATIONSHIPS": "2030 -> 2389",
+    "ROTULOS_LIDOS": "102/163 -> 119/163",
+    "PORQUE": "rotulos_ler.py passou a reconhecer a coluna «Malattia fungina» dos rotulos de fungicida, deixou de tratar uma frase como cabecalho de tabela (o que fechava a porta do herbicida a quatro produtos) e deixou de ler verbos no infinitivo e legendas de tabela como se fossem organismos.",
+    "O_QUE_NAO_MUDOU": "os 43 casos e os cinco CANONICAL_STATES, identicos. Ler melhor o rotulo liga mais produto ao caso; nao promove caso nenhum."
+  }
 }
