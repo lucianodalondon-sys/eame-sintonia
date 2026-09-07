@@ -982,6 +982,7 @@
       "provas/testa_rota_italia.py"
     ],
     "regras": [
+      "regras/LEIA-ANTES-DE-COLETAR.md",
       "regras/cicatrizes_brasil.py",
       "regras/comunicacao_identidade.py",
       "regras/comunicacao_lote.py",
@@ -1563,8 +1564,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "8843415b194cad2cb76f9ec4d8f7db1ce546d90c",
-    "GENERATED_AT": "2026-09-07T13:30:56-03:00"
+    "HEAD": "2640c5e027f27a2d1f2ec28d53d7cd73e00d2767",
+    "GENERATED_AT": "2026-09-07T13:51:38-03:00"
   },
   "FAMILIES": [
     {
@@ -7734,7 +7735,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 8843415b194cad2cb76f9ec4d8f7db1ce546d90c"
+        "HEAD 2640c5e027f27a2d1f2ec28d53d7cd73e00d2767"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -10397,17 +10398,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 856,
+          "line": 951,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 856,
+          "line": 951,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 857,
+          "line": 952,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ]
@@ -10465,7 +10466,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/validate_system_map.py",
-          "line": 103,
+          "line": 107,
           "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"generate_system_map.py\"):"
         }
       ]
@@ -10497,12 +10498,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1148,
+          "line": 1244,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1148,
+          "line": 1244,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ]
@@ -10534,12 +10535,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/validate_system_map.py",
-          "line": 103,
+          "line": 107,
           "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"generate_system_map.py\"):"
         },
         {
           "file": "system-map/scripts/validate_system_map.py",
-          "line": 103,
+          "line": 107,
           "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"generate_system_map.py\"):"
         }
       ]
@@ -13290,7 +13291,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 647,
+  "UNCLAIMED_FILES_COUNT": 648,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 75,
@@ -13302,7 +13303,7 @@
     "edges_proven": 261,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1129,
+    "files_tracked": 1130,
     "files_covered": 482,
     "files_code_unclaimed": 0
   }

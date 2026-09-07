@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "8843415b194cad2cb76f9ec4d8f7db1ce546d90c",
-    "GENERATED_AT": "2026-09-07T13:30:56-03:00"
+    "HEAD": "2640c5e027f27a2d1f2ec28d53d7cd73e00d2767",
+    "GENERATED_AT": "2026-09-07T13:51:38-03:00"
   },
   "FILES": [
     {
@@ -121,7 +121,7 @@
     },
     {
       "path": "AGENTS.md",
-      "sha": "499f72e3de18c9936190f8028b2fbc97efde8fdf",
+      "sha": "83aac2ba00ae42693b883bf89c2dca29f90be7f2",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6595,6 +6595,13 @@
       "code_dir": true
     },
     {
+      "path": "regras/LEIA-ANTES-DE-COLETAR.md",
+      "sha": "033d65351683b7c24a0b8699bf2046fa48f9da27",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "regras/cicatrizes_brasil.py",
       "sha": "2d69fc63b3004c7c5ae197169fd611d84a2c650b",
       "ext": ".py",
@@ -7632,14 +7639,14 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "91b0ddd4161f922aa5ca1f1858a654a05757c9c0",
+      "sha": "66ea52dc126c255fc5355ac8bc53795781fd0d8e",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "90074cb8d3526493f21bd500f0bbbf271c27a4ac",
+      "sha": "d4d38af982c387a10b9a3fb98c347bdc9e082722",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7667,7 +7674,7 @@
     },
     {
       "path": "system-map/scripts/validate_system_map.py",
-      "sha": "90db5bed5eaf40806c1ef83da6c96cbeb8906030",
+      "sha": "b1d7f6acce5276feaec594954fc4499d4d9b6131",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21664,12 +21671,23 @@
     },
     {
       "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "regras/LEIA-ANTES-DE-COLETAR.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 929,
+        "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
       "to_file": "system-map/app/index.html",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 856,
+        "line": 951,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -21680,7 +21698,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 857,
+        "line": 952,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -21691,7 +21709,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 856,
+        "line": 951,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -21713,7 +21731,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1148,
+        "line": 1244,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -21724,7 +21742,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1148,
+        "line": 1244,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -21906,6 +21924,17 @@
     },
     {
       "from_file": "system-map/scripts/validate_system_map.py",
+      "to_file": "regras/LEIA-ANTES-DE-COLETAR.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/validate_system_map.py",
+        "line": 101,
+        "snippet": "PORTA = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/validate_system_map.py",
       "to_file": "system-map/app/map.css",
       "type": "READS",
       "payload": "artefacto",
@@ -21933,7 +21962,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/validate_system_map.py",
-        "line": 103,
+        "line": 107,
         "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"generate_system_map.py\"):"
       }
     },
@@ -21944,7 +21973,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/validate_system_map.py",
-        "line": 103,
+        "line": 107,
         "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"generate_system_map.py\"):"
       }
     },
@@ -21955,7 +21984,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/validate_system_map.py",
-        "line": 103,
+        "line": 107,
         "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"generate_system_map.py\"):"
       }
     },
@@ -24348,10 +24377,10 @@
     }
   ],
   "COUNTS": {
-    "files_tracked": 1129,
+    "files_tracked": 1130,
     "files_readable": 380,
-    "files_code_dir": 417,
-    "file_edges": 1494,
+    "files_code_dir": 418,
+    "file_edges": 1496,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

@@ -252,6 +252,26 @@ Linha apagada que você não pretendia apagar é regressão, mesmo quando o fich
 
 ---
 
+## VAI COLETAR? COMECE POR UMA PORTA SÓ
+
+```
+regras/LEIA-ANTES-DE-COLETAR.md
+```
+
+Toda missão de coleta começa procurando as réguas, e cada uma procura num sítio
+diferente — uma acha a procedência, outra acha a regra de coleta externa, outra
+não acha nada e **reinventa a lei**. A lei reinventada nunca é igual à que já
+existia.
+
+Esse ficheiro é **gerado do mapa**: lista toda régua da coleta, o que ela manda e
+o ficheiro onde ela vive. Régua nova aparece lá sozinha; régua apagada some de
+lá. Não fica parágrafo órfão mandando em ninguém.
+
+Ele entra na verificação anti-drift — porta de entrada desatualizada é pior que
+nenhuma, porque quem a lê acredita nela.
+
+---
+
 ## FONTE NOVA — a porta, e a escada
 
 O acervo de fontes é **capital parado**: consulta-se antes de coletar, não se

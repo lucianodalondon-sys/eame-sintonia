@@ -96,6 +96,10 @@ def main() -> int:
     # o atlas de onde saiu e pior do que nao ter indice: quem o le acredita nele.
     INDICE = RAIZ / "docs" / "fontes" / "INDICE-DE-FONTES.md"
     indice_antes = INDICE.read_text(encoding="utf-8") if INDICE.exists() else None
+    # A porta de entrada das reguas tambem e gerada. Uma porta desatualizada e
+    # pior que nenhuma: quem a le acredita nela.
+    PORTA = RAIZ / "regras" / "LEIA-ANTES-DE-COLETAR.md"
+    porta_antes = PORTA.read_text(encoding="utf-8") if PORTA.exists() else None
 
     # A ordem importa: `scan_sources.py` le a saida de `scan_repo.py`, e o
     # gerador le as duas. Correr fora de ordem daria um mapa montado sobre uma
@@ -116,6 +120,8 @@ def main() -> int:
             mudou.append(f"servido/{n}")
     if indice_antes != (INDICE.read_text(encoding="utf-8") if INDICE.exists() else None):
         mudou.append("docs/fontes/INDICE-DE-FONTES.md")
+    if porta_antes != (PORTA.read_text(encoding="utf-8") if PORTA.exists() else None):
+        mudou.append("regras/LEIA-ANTES-DE-COLETAR.md")
     prova("P1_SEM_DRIFT", "o mapa commitado corresponde ao repositorio de hoje",
           not mudou,
           ("regerar mudou " + ", ".join(mudou) +

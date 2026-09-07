@@ -836,6 +836,101 @@ def achados(arquivos: dict) -> list:
     return saida
 
 
+def leia_antes_de_coletar(estado: dict) -> None:
+    """Escreve `regras/LEIA-ANTES-DE-COLETAR.md` — a porta unica das reguas.
+
+        TODA MISSAO DE COLETA COMECA A PROCURAR AS REGUAS.
+
+    E cada uma procura num sitio diferente: uma acha `proveniencia.py`, outra acha
+    a regra de coleta externa, outra nao acha nada e reinventa a lei — e a lei
+    reinventada nunca e igual a que ja existia.
+
+    Este ficheiro e GERADO do mapa: lista TODA peca que e regra da coleta, o que
+    ela manda, e o ficheiro onde ela vive. Nao se edita a mao. Se uma regra nova
+    entrar no mapa, ela aparece aqui na proxima geracao; se alguem a apagar, ela
+    desaparece daqui — e nao fica um paragrafo orfao a mandar em ninguem.
+
+    O CI compara este ficheiro com o que o repositorio produz hoje. Uma porta de
+    entrada desatualizada e pior que nenhuma: quem a le acredita nela.
+    """
+    zonas = {z["id"]: z for z in estado["TERRITORIES"]}
+    regras = [n for n in estado["NODES"]
+              if n["territory"] in ("Z-REGRAS",) and n["kind"] in ("contract", "gate")]
+    ferramentas = [n for n in estado["NODES"] if n["territory"] == "Z-FERRAMENTAS"]
+    fontes = [n for n in estado["NODES"] if n["territory"] == "Z-FONTES"]
+
+    L = ["# LEIA ANTES DE COLETAR", "",
+         "> **Este ficheiro é gerado do System Map.** Não o edite à mão: edite a peça",
+         "> em `system-map/data/architecture.declared.json` e rode",
+         "> `py system-map/scripts/generate_system_map.py`.", "",
+         "Toda missão de coleta começa procurando as réguas. Elas estão todas aqui,",
+         "e o caminho de cada uma é onde ela realmente vive.", "",
+         "---", "", "## ANTES DE QUALQUER COISA: CONSULTE O ACERVO", "",
+         "O acervo de fontes é **capital parado** — consulta-se antes de coletar. Não se",
+         "coleta para descobrir o que já se sabe.", ""]
+    for n in sorted(fontes, key=lambda x: x["name"]):
+        L.append(f"- **{n['name']}** — {n['what']}")
+        for f in n["files"][:3]:
+            L.append(f"  - `{f}`")
+    L += ["", "```bash",
+          "py fontes/fonte_nova.py --listar     # a fila de fontes candidatas",
+          "py fontes/fonte_nova.py --tipos      # os tipos aceites",
+          "```", "",
+          "**Fonte nova entra pela porta, e o que entra é candidata — nunca fonte.**",
+          "Fonte nasce quando alguém a abre, olha o que ela entrega e guarda evidência.",
+          "", "---", "", "## AS RÉGUAS DA COLETA", "",
+          "Cada uma vale no **momento em que o dado entra**. Depois é tarde.", ""]
+
+    for n in sorted(regras, key=lambda x: x["name"]):
+        L += [f"### {n['name']}", "",
+              f"{n['what']}", "",
+              f"*Por que existe:* {n['why_here']}", "",
+              "| | |", "|---|---|",
+              f"| estado | {n['status']} — {n['status_reason']} |"]
+        for f in n["files"]:
+            L.append(f"| onde vive | `{f}` |")
+        L.append("")
+
+    L += ["---", "", "## COM O QUE SE VAI", ""]
+    for n in sorted(ferramentas, key=lambda x: x["name"]):
+        L.append(f"- **{n['name']}** — {n['what']}")
+    L += ["", "---", "", "## O PADRÃO, E O CHÃO QUE NÃO DESCE", "",
+          "```bash", "py regras/padrao_da_coleta.py", "```", "",
+          "Dez regras medidas a cada corrida do CI. Ele **não** exige que esteja tudo",
+          "certo hoje — exige **não piorar**. Um coletor novo sem carimbo de data faz",
+          "o número subir, e o portão reprova nomeando o ficheiro.", "",
+          "O que todo registo de coleta tem de carregar:", "",
+          "| campo | por quê |", "|---|---|",
+          "| `RAW_SHA256` | testemunho não é prova |",
+          "| `CAPTURED_AT` | quando eu vi |",
+          "| `FACT_TIME` | quando aconteceu — **não é o mesmo** |",
+          "| `SOURCE_LOCATION` / `FACT_LOCATION` | de onde veio o documento ≠ onde o fato é |",
+          "| `CADENCE_STATE` | sem ela, fonte morta parece fonte quieta |",
+          "| `EGRESS_IP` | por onde a requisição saiu |",
+          "| `ITEM_COUNT_RAW` → `NORMALIZED` | o que veio, e o que atravessou a régua |",
+          "| `COST_USD` | mesmo quando é zero — medido ≠ ausente |", "",
+          "---", "", "## AS LEIS QUE NÃO SE QUEBRAM", "",
+          "- **NÃO SEI continua NÃO SEI.** Registrar desconhecido é resultado válido.",
+          "- **Ausência não é ausência no mundo.** «Não encontrámos nesta leitura»,",
+          "  nunca «não existe».",
+          "- **Lista vazia é FALHA, não zero.** A diferença entre «não há» e «não",
+          "  consegui ver» é a diferença entre um relatório e uma mentira.",
+          "- **`HTTP 200` não basta.** Há 200 com página de erro: status bom, corpo lixo.",
+          "- **Endereço errado nosso não é bloqueio da fonte.**",
+          "  `ROUTE_NOT_FOUND ≠ SOURCE_BLOCKED`.",
+          "- **Estado de porta não é veredito.**",
+          "  `ACCESS_CLASSIFICATION ≠ ANALYTIC_VERDICT`.",
+          "- **Número digitado à mão mente.** Contagem é calculada, nunca digitada.",
+          "- **Teste que nunca viu vermelho não é teste.**", "",
+          "---", "",
+          f"Gerado de {len(regras)} réguas, {len(ferramentas)} ferramentas e "
+          f"{len(fontes)} peças de fonte declaradas no mapa.", ""]
+
+    destino = RAIZ / "regras" / "LEIA-ANTES-DE-COLETAR.md"
+    destino.parent.mkdir(parents=True, exist_ok=True)
+    destino.write_text(chr(10).join(L), encoding="utf-8")
+
+
 def construir(estado: dict) -> None:
     """Publica a app dentro do que a Vercel serve, numa rota SEPARADA.
 
@@ -1126,6 +1221,7 @@ def main_uma_vez(stamp: bool) -> int:
 
     ESTADO.write_text(json.dumps(estado, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     construir(estado)
+    leia_antes_de_coletar(estado)
     indice_de_fontes()
 
     if stamp:
