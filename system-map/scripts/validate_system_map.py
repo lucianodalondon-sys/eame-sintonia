@@ -77,7 +77,8 @@ def main() -> int:
         return json.dumps(d, ensure_ascii=False, sort_keys=True)
 
     antes = {n: arquitetura(n)
-             for n in ("architecture.generated.json", "state.generated.json")}
+             for n in ("architecture.generated.json", "sources.generated.json",
+                       "state.generated.json")}
     # A COPIA SERVIDA entra na mesma comparacao. E ela que o cliente abre: se
     # so o ficheiro de dados fosse conferido, alguem podia regerar, commitar os
     # dados e servir a app antiga — e o URL publico mostrava um mapa que ja nao
@@ -91,7 +92,15 @@ def main() -> int:
     servido_antes = {n: servido(n)
                      for n in ("state.generated.json", "index.html", "map.js", "map.css")}
 
-    for script in ("scan_repo.py", "generate_system_map.py"):
+    # O INDICE DE FONTES tambem e gerado. Um indice commitado que ja nao bate com
+    # o atlas de onde saiu e pior do que nao ter indice: quem o le acredita nele.
+    INDICE = RAIZ / "docs" / "fontes" / "INDICE-DE-FONTES.md"
+    indice_antes = INDICE.read_text(encoding="utf-8") if INDICE.exists() else None
+
+    # A ordem importa: `scan_sources.py` le a saida de `scan_repo.py`, e o
+    # gerador le as duas. Correr fora de ordem daria um mapa montado sobre uma
+    # medicao anterior — e o pior tipo de erro, porque passa sem reclamar.
+    for script in ("scan_repo.py", "scan_sources.py", "generate_system_map.py"):
         r = subprocess.run([sys.executable, str(AQUI / script)],
                            capture_output=True, text=True, encoding="utf-8", errors="replace")
         if r.returncode != 0:
@@ -105,6 +114,8 @@ def main() -> int:
                  if not n.endswith(".json") and (RAIZ / "system-map" / "app" / n).exists() else None)
         if texto != atual or (fonte is not None and fonte != atual):
             mudou.append(f"servido/{n}")
+    if indice_antes != (INDICE.read_text(encoding="utf-8") if INDICE.exists() else None):
+        mudou.append("docs/fontes/INDICE-DE-FONTES.md")
     prova("P1_SEM_DRIFT", "o mapa commitado corresponde ao repositorio de hoje",
           not mudou,
           ("regerar mudou " + ", ".join(mudou) +
@@ -176,20 +187,29 @@ def main() -> int:
     verde_frouxo = [n["id"] for n in S["NODES"]
                     if n["status"] == "PROVEN"
                     and not (n["inbound"] or n["outbound"])
-                    # A linhagem prova-se por documento nomeado (o contrato
-                    # canonico) e pelo proprio git — nao por import. Exigir-lhe
-                    # uma aresta seria exigir a prova errada.
-                    and not (n["territory"] == "Z-LINEAGE"
-                             and (n["files"] or n.get("proof") == "git-measurement"))]
+                    # Peca de FACTO (linhagem, fonte) prova-se por documento
+                    # nomeado ou por medicao do git — nao por import. Exigir-lhe
+                    # uma aresta seria exigir a prova errada. Mas so escapa quem
+                    # DIZ de onde vem a certeza: "eu sei" nao e valor aceite.
+                    and not (n.get("proof") == "document" and n["files"])
+                    and not (n.get("proof") == "git-measurement")]
     prova("P6_VERDE_TEM_PROVA", "nenhum verde so por o ficheiro existir",
           not verde_frouxo, ", ".join(verde_frouxo))
 
+    # Quem nao tem aresta nenhuma TEM de dizer em que documento se apoia.
     sem_tipo = [n["id"] for n in S["NODES"]
-                if n["territory"] == "Z-LINEAGE"
+                if not n["inbound"] and not n["outbound"]
+                and n["status"] == "PROVEN"
                 and n.get("proof") not in ("document", "git-measurement")]
-    prova("P6_LINHAGEM_DIZ_A_PROVA",
-          "toda peca de linhagem declara se a prova e documento ou medicao do git",
+    prova("P6_FACTO_DIZ_A_PROVA",
+          "peca sem ligacao so pode ser verde se disser em que documento se apoia",
           not sem_tipo, ", ".join(sem_tipo))
+
+    sem_doc = [n["id"] for n in S["NODES"]
+               if n.get("proof") == "document" and not n["files"]]
+    prova("P6_DOCUMENTO_EXISTE",
+          "peca que se apoia num documento cita um ficheiro que existe",
+          not sem_doc, ", ".join(sem_doc[:8]))
 
     verde_stale = [n["id"] for n in S["NODES"]
                    if n["status"] == "PROVEN" and n.get("changed_since_declared")]

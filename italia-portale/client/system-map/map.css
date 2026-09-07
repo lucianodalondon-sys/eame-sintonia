@@ -116,6 +116,34 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
 .famBtn.active .swatch{background:#fff}
 .famBtn small{display:block;font-weight:400;font-size:9px;opacity:.8;margin-top:2px}
 
+
+/* O acervo de fontes dentro do painel. `details` em vez de uma lista aberta:
+   sao 67 linhas ao todo, e despeja-las de uma vez faz o painel deixar de ser
+   leitura para ser rolagem. */
+.grupoFonte{border:1px solid var(--earth20);border-radius:9px;margin-bottom:7px;background:#fff}
+.grupoFonte summary{cursor:pointer;padding:9px 11px;font-size:11px;list-style:none;border-radius:9px}
+.grupoFonte summary::-webkit-details-marker{display:none}
+.grupoFonte summary:before{content:"▸ ";color:var(--adama);font-weight:800}
+.grupoFonte[open] summary:before{content:"▾ "}
+.grupoFonte[open] summary{border-bottom:1px solid var(--earth20);border-radius:9px 9px 0 0;background:#fafafa}
+.grupoSub{display:block;font-weight:400;color:#8a827e;font-size:9.5px;margin-top:3px}
+.grupoPorque{font-size:10px;line-height:1.45;color:#66736f;margin:9px 11px 4px}
+.grupoOnde{font-size:9px;color:#a09995;margin:0 11px 8px}
+.grupoFonte .file{margin:5px 9px}
+
+
+/* Enquanto o rato esta pousado num cartao, tudo o que nao toca nele recua.
+   `.dim` ja existia para o filtro; aqui o apagamento e mais suave de proposito —
+   o cartao continua legivel, so deixa de competir pela atencao. */
+#world.focando .node{opacity:.22;filter:grayscale(.7);transition:opacity .12s}
+#world.focando .node.vizinho{opacity:1;filter:none;border-color:#a9c8ba}
+#world.focando .node.noFoco{opacity:1;filter:none;border-color:var(--adama);
+  box-shadow:0 0 0 4px rgba(0,152,69,.18),0 14px 28px rgba(45,40,37,.16)}
+#world.focando .edgePath{opacity:.03}
+#world.focando .dyn.acesa .edgePath{opacity:1;stroke:var(--adama);stroke-width:4.5}
+#world.focando .dyn.acesa .edgePath.unknown{stroke:var(--unknown);stroke-width:3.5}
+#world.focando .dyn.acesa .edgePath.broken{stroke:var(--bad);stroke-width:4.5}
+
 @media(max-width:1050px){
  .topbar{height:74px;padding:0 11px;gap:8px}.brand{min-width:0;flex:1}.brandTitle{font-size:17px}.brandSub{font-size:9px}.snapshotTop{display:none}.search{flex:0 0 58px}.search input{height:46px;padding:0;font-size:0}.search:before{left:19px;top:8px}
  .workspace,.workspace.detailOpen{display:block;height:calc(100vh - 74px);height:calc(100dvh - 74px);position:relative}.sidebar,.detail{display:none}.mapWrap{position:absolute;inset:0}

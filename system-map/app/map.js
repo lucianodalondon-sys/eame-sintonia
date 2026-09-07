@@ -37,9 +37,14 @@ const VISOES = [
 
 let S, nodes = [], edges = [], nodeById = {}, MUNDO = { w: 1, h: 1 };
 let scale = .145, tx = 8, ty = 18, drag = false, lx = 0, ly = 0;
-let currentView = 'all', pathSet = null, currentFam = '';
+let currentView = 'all', pathSet = null, currentFam = '', hoverId = null;
 
 const famNome = id => S.FAMILIES.find(f => f.id === id)?.name || '';
+
+/* As palavras de busca que vivem nos ficheiros desta peca. Ficam guardadas por
+   FICHEIRO no estado, e nao por peca, porque quem as escreveu foi o ficheiro —
+   atribui-las a peca no gerador seria dar-lhes um dono que o codigo nao tem. */
+const termosDe = n => (S.SEARCH_TERMS || []).filter(t => (n.files || []).includes(t.file));
 
 const viewport = $('viewport'), world = $('world'), tooltip = $('tooltip'),
       workspace = $('workspace'), detail = $('detail');
@@ -151,7 +156,118 @@ function moveTip(e) {
   if (y + h > innerHeight) y = Math.max(8, e.clientY - h - 14);
   tooltip.style.left = x + 'px'; tooltip.style.top = y + 'px';
 }
+
+/* ══ O FOCO DO RATO — so as ligacoes DESTE cartao ════════════════════════
+   Com 125 setas no ecra, perguntar "onde e que isto se liga?" nao tem resposta:
+   as linhas passam por cima umas das outras e o olho nao consegue seguir nenhuma.
+   Ao pousar o rato num cartao, tudo o que nao toca nele apaga, e ficam so as
+   setas que entram e saem dali — com os vizinhos acesos nas duas pontas.
+
+   E so realce: nao filtra, nao muda contagem, nao altera estado. Tirar o rato
+   devolve o mapa exatamente como estava. O que muda o que esta visivel sao os
+   filtros e o "mostrar caminho completo"; isto aqui e para o olho. */
+function focar(id) {
+  if (hoverId === id) return;
+  hoverId = id;
+  const palco = document.getElementById('world');
+  palco.classList.toggle('focando', !!id);
+  if (!id) {
+    document.querySelectorAll('.node.vizinho, .node.noFoco')
+      .forEach(e => e.classList.remove('vizinho', 'noFoco'));
+    document.querySelectorAll('#edgeLayer .dyn.acesa')
+      .forEach(g => g.classList.remove('acesa'));
+    return;
+  }
+  const vizinhos = new Set([id]);
+  document.querySelectorAll('#edgeLayer .dyn').forEach(g => {
+    const toca = g.dataset.from === id || g.dataset.to === id;
+    g.classList.toggle('acesa', toca);
+    if (toca) vizinhos.add(g.dataset.from === id ? g.dataset.to : g.dataset.from);
+  });
+  document.querySelectorAll('.node').forEach(e => {
+    e.classList.toggle('noFoco', e.dataset.id === id);
+    e.classList.toggle('vizinho', e.dataset.id !== id && vizinhos.has(e.dataset.id));
+  });
+}
+
 const hideTip = () => { tooltip.style.display = 'none'; };
+
+
+/* ══ AS FONTES — o acervo inteiro dentro de um cartao ═════════════════════
+   Vinte e tres cartoes lado a lado nao respondem "de onde vem o dado?": empurram
+   a pergunta para depois de o leitor decorar vinte e tres nomes. Aqui a lista
+   mora dentro da peca, agrupada como esta casa ja a organiza — bases oficiais de
+   um lado, contas de rede social do outro, cada uma com o seu estado.
+
+   Nada disto e escrito aqui: vem todo de `state.generated.json`. */
+const MARCA = { GREEN: '🟢', YELLOW: '🟡', RED: '🔴', 'NAO SEI': '⚪' };
+
+function escadaHTML(k) {
+  if (!k?.escada) return '';
+  return `<div class="sec">
+    <h4>A escada — o que uma fonte tem de subir</h4>
+    <p style="font-size:10px;color:#8a827e;margin-bottom:9px">A distância entre os
+      degraus é o trabalho que falta fazer. Subir exige gente: nenhum degrau se
+      sobe sozinho.</p>
+    ${k.escada.map(d => `<div class="file">
+      <b>${d.degrau} · ${esc(d.nome)}</b> ${d.quantas === null
+        ? '<span style="color:#8a827e">— não medido</span>'
+        : `<b style="float:right">${d.quantas}</b>`}<br>
+      ${esc(d.o_que_e)}<br>
+      <span style="color:#8a827e">mora em <code>${esc(d.onde)}</code></span>${
+      d.sobe_como !== '—' ? `<br><span style="color:#8a827e">sobe: ${
+        esc(d.sobe_como)}</span>` : ''}</div>`).join('')}
+    <div class="evidence" style="margin-top:9px">
+      <b>A porta:</b> <code>${esc(k.porta)}</code> — fonte nova entra por aqui,
+      na mão ou de dentro de uma coleta que tropeçou nela. O que entra é
+      <b>candidata</b>, nunca fonte.<br>
+      ${k.candidatas.length
+        ? `<b>${k.candidatas.length}</b> candidata(s) esperando alguém abrir.`
+        : 'Fila vazia — nenhuma pista esperando verificação.'}
+    </div></div>`;
+}
+
+function grupoHTML(g) {
+  const itens = g.itens || [];
+  const abertos = itens.filter(x => x.sabe_coletar).length;
+  return `<details class="grupoFonte">
+    <summary><b>${esc(g.titulo)}</b> · ${itens.length}
+      <span class="grupoSub">${esc(g.subtitulo)}</span></summary>
+    <p class="grupoPorque">${esc(g.porque)}</p>
+    ${g.onde ? `<p class="grupoOnde">registrado em <code>${esc(g.onde)}</code></p>` : ''}
+    ${itens.map(x => `<div class="file">
+      ${MARCA[x.estado] || '⚪'} <b>${esc(x.nome)}</b>
+      ${x.id ? `<span style="color:#a09995"> · ${esc(x.id)}</span>` : ''}<br>
+      <span style="color:#8a827e">${esc(x.assunto)}${
+        x.pais ? ' · ' + esc(x.pais) : ''}</span><br>
+      ${esc(x.estado_texto)}${
+      x.como_se_entra ? `<br><i>como se entra:</i> ${esc(x.como_se_entra)}` : ''}${
+      x.atualiza ? `<br><i>atualiza:</i> ${esc(x.atualiza)}` : ''}${
+      x.sabe_coletar ? '' :
+        '<br><b style="color:#805d00">a máquina não sabe ir lá sozinha</b>'}
+    </div>`).join('')}
+  </details>`;
+}
+
+function blocoFontes(n) {
+  const abertas = n.groups[0];
+  const redes = n.groups.slice(1);
+  return `
+    ${n.header_claim?.divergencia ? `<div class="sec">
+      <div class="evidence" style="border-color:var(--warn)">
+        <b>⚠ O cabeçalho do atlas e as fichas não batem.</b><br>
+        ${esc(n.header_claim.leitura)}</div></div>` : ''}
+
+    ${escadaHTML(n.intake)}
+
+    <div class="sec"><h4>O acervo, por tipo de fonte</h4>
+      <p style="font-size:10px;color:#8a827e;margin-bottom:9px">Clique num grupo
+        para abrir a lista. Bases oficiais e contas de rede social são registros
+        diferentes no repositório — e continuam a ser.</p>
+      ${grupoHTML(abertas)}
+      ${redes.map(grupoHTML).join('')}
+    </div>`;
+}
 
 /* ══ 3 · O PAINEL — o detalhe todo, com a evidencia linha a linha ═════════ */
 function openDetail(id) {
@@ -205,6 +321,8 @@ function openDetail(id) {
         n.files.map(f => `<div class="file">${esc(f)}</div>`).join('') ||
         '<div class="tags"><span class="tag">nenhum</span></div>'}</div>
 
+      ${n.groups ? blocoFontes(n) : ''}
+
       ${n.evidence_text ? `<div class="sec"><h4>Evidência usada pelo mapa</h4>
         <div class="evidence">${esc(n.evidence_text)}</div></div>` : ''}
 
@@ -217,6 +335,17 @@ function openDetail(id) {
         branch <code>${esc(S.PROVENANCE.BRANCH)}</code><br>
         commit <code>${esc(S.PROVENANCE.HEAD.slice(0, 10))}</code><br>
         gerado <code>${esc(S.PROVENANCE.GENERATED_AT.slice(0, 10))}</code></p></div>
+
+      ${termosDe(n).length ? `<div class="sec">
+        <h4>Palavras realmente usadas na busca (${
+          termosDe(n).reduce((a, t) => a + t.total_palavras, 0)})</h4>
+        <p style="font-size:10px;color:#8a827e;margin-bottom:8px">Na língua do país,
+          sempre. Buscar em inglês devolve literatura internacional, não a conversa
+          técnica local.</p>${
+        termosDe(n).map(t => t.grupos.map(g => `<div class="file">
+          <b>${esc(g.grupo)}</b><br>${esc(g.palavras.join(' · '))}${
+          g.porque ? `<br><i>${esc(g.porque)}</i>` : ''}</div>`).join('')).join('')}
+        </div>` : ''}
 
       <div class="sec"><h4>Como pedir mudança</h4><p>Esta tela não altera código —
         de propósito. Para mudar isto: altere o repositório, rode
@@ -263,12 +392,16 @@ function applyFilters() {
   const dept = document.querySelector('input[name=dept]:checked')?.value || 'Todos';
   const stats = new Set([...document.querySelectorAll('input[name=status]:checked')]
     .map(x => x.value));
+  const pais = document.querySelector('input[name=pais]:checked')?.value || '';
   const q = ($('search').value || '').trim().toLowerCase();
   const vis = new Set();
 
   nodes.forEach(n => {
     let ok = stats.has(n.ui_status) && activeView(n);
     if (currentFam) ok = ok && n.family === currentFam;
+    // O pais so filtra quem TEM pais. Uma peca de codigo nao e de pais nenhum, e
+    // escondê-la ao filtrar por Espanha faria o mapa parecer que ela nao existe.
+    if (pais) ok = ok && n.country === pais;
     if (dept !== 'Todos') ok = ok && (n.departments || []).includes(dept);
     const palheiro = [n.name, n.kind, n.what, n.why_here, n.id, ...(n.files || [])]
       .join(' ').toLowerCase();
@@ -355,9 +488,11 @@ function renderInventory(q = '') {
 function bind() {
   nodes.forEach(n => {
     const el = $('node-' + n.id); if (!el) return;
-    el.addEventListener('mouseenter', e => showNodeTip(e, n));
+    el.addEventListener('mouseenter', e => { showNodeTip(e, n); focar(n.id); });
     el.addEventListener('mousemove', moveTip);
-    el.addEventListener('mouseleave', hideTip);
+    el.addEventListener('mouseleave', () => { hideTip(); focar(null); });
+    el.addEventListener('focus', () => focar(n.id));
+    el.addEventListener('blur', () => focar(null));
     el.addEventListener('click', e => { e.stopPropagation(); openDetail(n.id); });
     el.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDetail(n.id); }
@@ -402,7 +537,7 @@ function bind() {
   };
 
   $('search').addEventListener('input', applyFilters);
-  document.querySelectorAll('input[name=dept],input[name=status]')
+  document.querySelectorAll('input[name=dept],input[name=status],input[name=pais]')
     .forEach(x => x.addEventListener('change', applyFilters));
   document.querySelectorAll('.sideBtn[data-view]').forEach(b =>
     b.addEventListener('click', () => {
@@ -458,6 +593,13 @@ async function arrancar() {
         que falta.`
     : '<b>Nenhuma peça em NÃO SEI neste commit.</b> Toda peça tem pelo menos uma '
       + 'ligação provada por linha de código.';
+
+  const paises = [...new Set(S.NODES.map(n => n.country).filter(Boolean))].sort();
+  $('paises').innerHTML = '<label class="check"><input type="radio" name="pais" '
+    + 'value="" checked>Todos os países</label>'
+    + paises.map(x => `<label class="check"><input type="radio" name="pais"
+        value="${esc(x)}">${esc(x)} · ${
+        S.NODES.filter(n => n.country === x).length}</label>`).join('');
 
   $('fams').innerHTML = S.FAMILIES.map(f =>
     `<button class="famBtn" data-fam="${esc(f.id)}">

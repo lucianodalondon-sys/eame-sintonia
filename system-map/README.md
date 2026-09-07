@@ -25,7 +25,7 @@ quem está errado é ele, e o CI reprova.
 
 ```bash
 py system-map/scripts/generate_system_map.py    # regerar (scan + estado + build)
-py system-map/scripts/validate_system_map.py    # validar (13 provas, falha fechado)
+py system-map/scripts/validate_system_map.py    # validar (15 provas, falha fechado)
 py system-map/tests/test_system_map.py          # provar que as regras não afrouxaram
 py system-map/scripts/scan_repo.py              # só medir o repositório
 ```
@@ -55,9 +55,12 @@ system-map/
   data/
     architecture.declared.json     o que o HUMANO declara (nome, frase, departamento)
     architecture.generated.json    o que a MÁQUINA mede (ficheiros, imports, chamadas)
+    sources.generated.json         as fontes, os contratos, as contas e as palavras
     state.generated.json           o resultado: peças, ligações, status  ← a tela lê isto
   scripts/
     scan_repo.py                   lê o repositório e devolve factos
+    scan_sources.py                lê o atlas de fontes, os contratos de busca,
+                                   as contas públicas e as palavras usadas
     generate_system_map.py         junta medido + declarado, calcula status, publica a app
     validate_system_map.py         o dente da lei — roda no CI
   tests/

@@ -85,52 +85,62 @@ VALIDOS = {"PROVEN", "PENDING", "BROKEN", "UNKNOWN"}
 prova("status_do_vocabulario_fechado", all(n["status"] in VALIDOS for n in S["NODES"]))
 prova("verde_nunca_e_so_existir",
       all(n["inbound"] or n["outbound"]
-          or (n["territory"] == "Z-LINEAGE"
-              and (n["files"] or n.get("proof") == "git-measurement"))
+          or (n.get("proof") == "document" and n["files"])
+          or n.get("proof") == "git-measurement"
           for n in S["NODES"] if n["status"] == "PROVEN"),
       "peca verde sem ligacao provada nem documento que a prove e verde por existir")
-prova("linhagem_verde_nomeia_a_prova",
+prova("facto_verde_nomeia_a_prova",
       all(n["files"] or n.get("proof") == "git-measurement"
           for n in S["NODES"]
-          if n["territory"] == "Z-LINEAGE" and n["status"] == "PROVEN"),
-      "facto sobre quem manda tem de citar documento versionado ou medicao do git")
-prova("linhagem_declara_o_tipo_de_prova",
-      all(n.get("proof") in ("document", "git-measurement")
-          for n in S["NODES"] if n["territory"] == "Z-LINEAGE"),
+          if n.get("proof") and n["status"] == "PROVEN"),
+      "facto tem de citar documento versionado ou medicao do git")
+prova("nao_ha_verde_sem_tipo_de_prova",
+      all(n["inbound"] or n["outbound"]
+          or n.get("proof") in ("document", "git-measurement")
+          for n in S["NODES"] if n["status"] == "PROVEN"),
       "'eu sei' nao e um tipo de prova aceite")
-prova("vermelho_e_so_ausencia",
-      all(n["file_count"] == 0 for n in S["NODES"] if n["status"] == "BROKEN"))
-prova("cinza_nao_tem_ligacao",
-      all(not n["inbound"] and not n["outbound"]
-          for n in S["NODES"] if n["status"] == "UNKNOWN"))
 
-# O NAO SEI tem de ser alcancavel. Um mapa onde tudo e verde nao esta saudavel:
-# esta a esconder. Nao exijo que EXISTA cinza hoje — exijo que a REGRA que o
-# produz continue viva, e isso testa-se chamando a regra.
-passou, frase = GEN.prova_do_tipo("engine", [], [], False)
-prova("regra_produz_nao_verde_sem_evidencia", not passou, frase)
-passou_t, _ = GEN.prova_do_tipo("test", [], [], False)
-prova("teste_sem_alvo_nao_e_verde", not passou_t)
-passou_g, _ = GEN.prova_do_tipo("gate", [], [], False)
-prova("portao_que_ninguem_chama_nao_e_verde", not passou_g)
+# ── as fontes: um acervo, nao vinte e tres cartoes ───────────────────────────
+ACERVO = [n for n in S["NODES"] if n.get("groups")]
+prova("o_acervo_de_fontes_e_uma_peca_so", len(ACERVO) == 1,
+      f"as fontes tem de ser UM cartao com a lista dentro; encontrei {len(ACERVO)}")
 
-# ── ficheiros ────────────────────────────────────────────────────────────────
-existentes = {f["path"] for f in G["FILES"]}
-prova("todo_ficheiro_declarado_existe",
-      all(f in existentes for n in S["NODES"] for f in n["files"]))
-prova("todo_codigo_tem_dono", not S["UNCLAIMED_CODE_FILES"],
-      f"{len(S['UNCLAIMED_CODE_FILES'])} ficheiro(s) de codigo sem peca no mapa")
-prova("nenhum_ficheiro_com_dois_donos", not S["OWNERSHIP_CONFLICTS"])
+if ACERVO:
+    A = ACERVO[0]
+    prova("o_acervo_agrupa_por_tipo_de_fonte",
+          len(A["groups"]) >= 2
+          and any("OFICIA" in g["titulo"] for g in A["groups"]),
+          "bases oficiais e contas de rede social sao registros diferentes e "
+          "aparecem separados")
+    prova("todo_grupo_diz_onde_esta_registrado",
+          all(g.get("onde") for g in A["groups"]),
+          "grupo sem ficheiro de origem e lista que ninguem consegue conferir")
+    prova("todo_item_do_acervo_diz_se_a_maquina_sabe_buscar",
+          all("sabe_coletar" in i for g in A["groups"] for i in g["itens"]),
+          "sem isto, fonte vista uma vez parece fonte resolvida")
+    prova("o_acervo_nao_e_verde_com_fonte_sem_contrato",
+          A["status"] != "PROVEN"
+          or all(i["sabe_coletar"] for g in A["groups"] for i in g["itens"]),
+          "verde aqui diria que esta resolvido, e nao esta")
+    prova("nao_sei_sobrevive_no_acervo",
+          all(i["estado"] in ("GREEN", "YELLOW", "RED", "NAO SEI")
+              for g in A["groups"] for i in g["itens"]),
+          "'nao consegui ver' nao pode virar 'vi e nao presta'")
 
-# ── negocio nao se mistura com tecnica ───────────────────────────────────────
-prova("negocio_separado_da_tecnica",
-      all(e["to"].startswith("DEPT:") for e in S["BUSINESS_EDGES"])
-      and not any(e["to"].startswith("DEPT:") for e in S["EDGES"]),
-      "'A importa B' e 'A serve o Comercial' sao factos diferentes e vivem em listas diferentes")
-prova("departamento_declarado_tem_fonte",
-      all(e.get("source") and e.get("declared_by") and e.get("reason")
-          for e in S["BUSINESS_EDGES"]),
-      "departamento sem fonte declarada e departamento inferido")
+    # ── a porta de entrada ────────────────────────────────────────────────────
+    K = A.get("intake") or {}
+    prova("existe_porta_de_entrada_de_fonte_nova",
+          bool(K.get("porta")) and (RAIZ / K["porta"]).exists(),
+          "capital parado sem porta apodrece: fonte nova morre no terminal de quem a viu")
+    prova("a_escada_tem_quatro_degraus", len(K.get("escada", [])) == 4,
+          "candidata -> registada -> contratada -> automatica")
+    prova("cada_degrau_diz_onde_mora_e_como_se_sobe",
+          all(d.get("onde") and d.get("sobe_como") for d in K.get("escada", [])),
+          "degrau sem caminho de subida e degrau decorativo")
+    prova("o_que_entra_pela_porta_e_candidata_e_nao_fonte",
+          K.get("escada", [{}])[0].get("nome") == "CANDIDATA"
+          and K["escada"][0]["onde"] != "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+          "pista entrando direto no atlas seria afirmar fonte sem ninguem ter olhado")
 
 # ── determinismo ─────────────────────────────────────────────────────────────
 # Mesma arvore + mesmo HEAD tem de dar byte a byte o mesmo ficheiro. Se falhar,

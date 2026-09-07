@@ -134,6 +134,33 @@ push e cada pull request. **Falha fechado**: erro inesperado também é `FAIL`.
 
 ---
 
+## FONTE NOVA — a porta, e a escada
+
+O acervo de fontes é **capital parado**: consulta-se antes de coletar, não se
+coleta para descobrir o que já se sabe. Fonte nova entra por uma porta só:
+
+```bash
+py scripts/fonte_nova.py --tipos     # os tipos aceites
+py scripts/fonte_nova.py --listar    # a fila, agrupada por tipo
+```
+
+**O que entra pela porta é candidata, nunca fonte.** Escrever direto no
+`ATLAS-DE-FONTES-EAME.md` é afirmar que existe uma fonte sem ninguém ter olhado —
+e o próprio atlas proíbe isso: *"uma linha só existe aqui depois que alguém abriu
+a fonte, olhou o que ela entrega e guardou evidência disso."*
+
+| # | degrau | mora em | sobe escrevendo |
+|---|---|---|---|
+| 1 | **CANDIDATA** | `data/samples/FONTES-CANDIDATAS.json` | a ficha no atlas, com exemplo real |
+| 2 | **REGISTADA** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | o contrato de busca |
+| 3 | **CONTRATADA** | `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md` | o workflow que a roda sozinha |
+| 4 | **AUTOMÁTICA** | `.github/workflows/` | — |
+
+`--para-que` é obrigatório: fonte sem uso declarado vira entulho.
+`docs/fontes/INDICE-DE-FONTES.md` é **gerado** — não o edite à mão.
+
+---
+
 ## O QUE O STATUS SIGNIFICA
 
 | | | |

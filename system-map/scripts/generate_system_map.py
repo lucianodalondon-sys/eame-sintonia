@@ -41,6 +41,7 @@ E o unico mecanismo que impede verde velho de sobreviver a mudanca.
 
 import fnmatch
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -245,6 +246,152 @@ def linhagem() -> list:
     return saida
 
 
+def termos_de_busca() -> list:
+    """As palavras que a coleta realmente digita, medidas por ."""
+    f = DADOS / "sources.generated.json"
+    return json.loads(f.read_text(encoding="utf-8"))["SEARCH_TERMS"] if f.exists() else []
+
+
+def as_fontes() -> tuple[list, list]:
+    """AS FONTES sao UMA peca, nao vinte e tres.
+
+    Vinte e tres cartoes lado a lado nao respondem "de onde vem o dado?" — eles
+    empurram a pergunta para depois de o leitor decorar vinte e tres nomes. O que
+    interessa saber, de longe, e que existe UM sitio chamado AS FONTES. A lista
+    inteira mora dentro dele, agrupada como esta casa ja a organiza:
+
+        BASES OFICIAIS E ABERTAS   as fichas do atlas, por pais
+        INSTAGRAM · LINKEDIN ·     as contas publicas do concorrente, por
+        YOUTUBE · FACEBOOK         plataforma, com a autorizacao de cada uma
+
+    Sao dois registos diferentes no repositorio, e continuam a ser — uma base
+    regulatoria e uma pagina de Instagram sao fontes de naturezas diferentes. Mas
+    para quem olha o mapa sao a mesma pergunta, e por isso aparecem no mesmo sitio.
+
+    ESTE E O CAPITAL PARADO DA CASA. Consulta-se antes de coletar; nao se coleta
+    para descobrir o que ja se sabe. E por isso tem porta de entrada propria: fonte
+    nova que aparece no meio de uma coleta entra aqui, e so depois entra no fluxo.
+
+    O ESTADO NAO E UMA MEDIA. Obedece a regra de sempre: verde exigiria que a
+    maquina soubesse ir buscar sozinha em todas. Enquanto houver fonte sem contrato
+    de busca, isto e amarelo — e o motivo diz quantas.
+    """
+    f = DADOS / "sources.generated.json"
+    if not f.exists():
+        return [], []
+    S = json.loads(f.read_text(encoding="utf-8"))
+    c, contas = S["COUNTS"], S.get("ACCOUNTS", {})
+
+    marca = {"GREEN": "verificada, com exemplo real guardado",
+             "YELLOW": "real, mas com atrito registrado",
+             "RED": "verificada e descartada, com motivo escrito",
+             "NAO SEI": "nao foi possivel verificar — NAO SEI"}
+
+    grupos = [{
+        "titulo": "BASES OFICIAIS E ABERTAS",
+        "subtitulo": (f"{c['sources']} fichas no atlas · {c['with_contract']} com "
+                      f"contrato de busca escrito"),
+        "porque": ("Registro publico, dado aberto, base regulatoria, estatistica e "
+                   "ciencia. Fonte que nao depende de ninguem ter postado."),
+        "onde": S["PROVENANCE"]["ATLAS"],
+        "itens": [{
+            "id": x["source_id"], "nome": x["name"], "pais": x["country"],
+            "assunto": f"{x['territory']} · {x['territory_name']}",
+            "estado": x["verdict"], "estado_texto": marca.get(x["verdict"], ""),
+            "sabe_coletar": x["sabe_coletar"],
+            "como_se_entra": (x.get("access_method") or "")[:180],
+            "dono": x.get("owner", ""),
+            "url": (x.get("url") or "").split()[0] if x.get("url") else "",
+            "atualiza": (x.get("update_frequency") or "")[:90],
+            "exemplo": (x.get("real_example") or "")[:300],
+            "contrato": x.get("contract"),
+        } for x in S["SOURCES"]],
+    }]
+
+    for plat, g in (contas.get("por_plataforma") or {}).items():
+        grupos.append({
+            "titulo": plat,
+            "subtitulo": f"{g['total']} contas mapeadas · {g['autorizadas']} autorizadas a coletar",
+            "porque": ("Pagina publica do concorrente. Estar na lista NAO e autorizacao: "
+                       "so entra na coleta quem tem identidade PROVADA e e conta local do pais."),
+            "onde": contas.get("file", ""),
+            "itens": [{
+                "id": (i.get("handle") or i.get("url", ""))[:60],
+                "nome": f"{i['empresa']} · {i['pais']}",
+                "pais": i["pais"], "assunto": "comunicacao publica",
+                "estado": "GREEN" if i["autorizada"] else "NAO SEI",
+                "estado_texto": ("autorizada a coletar" if i["autorizada"]
+                                 else "fora da coleta — " + (i["porque"] or "sem motivo escrito")),
+                "sabe_coletar": i["autorizada"], "url": i.get("url", ""),
+                "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+                "dono": i["empresa"], "atualiza": "", "exemplo": "", "contrato": None,
+            } for i in g["contas"]],
+        })
+
+    sem_contrato = c["sources"] - c["with_contract"]
+    motivo = (
+        f"{c['sources']} bases oficiais com ficha e {contas.get('total', 0)} contas "
+        f"publicas mapeadas. Mas so {c['with_contract']} das bases tem contrato de "
+        f"busca escrito: nas outras {sem_contrato}, hoje so uma pessoa consegue ir "
+        f"la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde."
+    )
+    arquivos = [S["PROVENANCE"]["ATLAS"], S["PROVENANCE"]["CONTRATOS"]]
+    if contas.get("file"):
+        arquivos.append(contas["file"])
+
+    no = {
+        "id": "C-AS-FONTES", "name": "AS FONTES", "kind": "fonte", "icon": "◫",
+        "territory": "Z-FONTES", "family": "F-COLETA",
+        "status": AMARELO if sem_contrato else VERDE,
+        "ui_status": "yellow" if sem_contrato else "green",
+        "proof": "document",
+        "what": (f"O capital parado da casa: {c['sources']} bases oficiais e abertas, "
+                 f"mais {contas.get('total', 0)} contas publicas do concorrente em "
+                 f"{len(contas.get('por_plataforma') or {})} plataformas. Consulta-se "
+                 f"antes de coletar."),
+        "why_here": ("Nada existe no SINTONIA sem passar por aqui primeiro. Uma fonte so "
+                     "entra depois de alguem a abrir, olhar o que ela entrega e guardar "
+                     "evidencia disso — e coleta nenhuma comeca sem consultar o que ja "
+                     "esta aqui."),
+        "files": [a for a in arquivos if (RAIZ / a).is_file()],
+        "facts": [f"bases oficiais com ficha: {c['sources']}",
+                  f"dessas, a maquina sabe buscar sozinha: {c['with_contract']}",
+                  f"contas publicas mapeadas: {contas.get('total', 0)}",
+                  f"dessas, autorizadas a coletar: {contas.get('autorizadas', 0)}",
+                  f"palavras de busca medidas no codigo: {c['search_terms']}",
+                  f"enderecos que o codigo realmente chama: {c['endpoints']}"],
+        "status_reason": motivo,
+        "evidence_text": "",
+        "departments": [], "views": ["acervo"], "lane": "official", "legacy": False,
+        "changed_since_declared": [], "inbound": [], "outbound": [],
+        "groups": grupos,
+        "header_claim": S.get("HEADER_CLAIM"),
+        "intake": S.get("INTAKE"),
+    }
+    no["file_count"] = len(no["files"])
+
+    # A seta para quem vai la buscar. Uma so por componente de destino, com todas
+    # as linhas de contrato que a provam empilhadas dentro.
+    ligacoes = []
+    for x in S["SOURCES"]:
+        k = x.get("contract")
+        if not k:
+            continue
+        for cand in re.findall(r"scripts/[\w./-]+\.(?:py|sh|mjs)",
+                               k.get("retrieval_method", "")):
+            if (RAIZ / cand).is_file():
+                ligacoes.append({
+                    "to_file": cand, "source_id": x["source_id"],
+                    "evidence": {"file": CONTRATOS_REL, "line": k["evidence"]["line"],
+                                 "snippet": f"{x['source_id']} RETRIEVAL_METHOD "
+                                            f"{k['retrieval_method'][:90]}"},
+                })
+    return [no], ligacoes
+
+
+CONTRATOS_REL = "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
+
+
 def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, int, int]:
     """Coloca cada peca numa coluna, e cada zona lado a lado, da esquerda para a
     direita — que e a direcao em que o dado corre: fonte → motor → pacote → tela."""
@@ -289,6 +436,132 @@ def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, 
                        "zones": [c["id"] for c in minhas],
                        "count": sum(c["count"] for c in minhas)})
     return caixas, nos, faixas, x, altura
+
+
+def indice_de_fontes() -> None:
+    """Escreve `docs/fontes/INDICE-DE-FONTES.md` — a porta de entrada das fontes.
+
+    O ATLAS tem 1.353 linhas e e onde a ficha de cada fonte vive por inteiro. Ele
+    esta certo assim: ficha e para ser lida com calma. O que faltava era a porta —
+    uma pagina que responde "quantas fontes, de que paises, quais e que a maquina
+    sabe buscar sozinha" sem obrigar ninguem a percorrer as 1.353.
+
+    Este ficheiro e GERADO. Nao se edita a mao: edita-se o atlas e regera-se. Por
+    isso ele nunca fica a discordar da fonte de onde saiu — que e exatamente o
+    defeito que o proprio indice denuncia no cabecalho do atlas.
+    """
+    f = DADOS / "sources.generated.json"
+    if not f.exists():
+        return
+    S = json.loads(f.read_text(encoding="utf-8"))
+    c = S["COUNTS"]
+    L = ["# ÍNDICE DE FONTES — SINTONIA EAME", "",
+         "> **Este ficheiro é gerado.** Não o edite à mão: edite",
+         "> [`ATLAS-DE-FONTES-EAME.md`](ATLAS-DE-FONTES-EAME.md) ou",
+         "> [`CONTRATOS-DAS-FONTES-EAME.md`](../operacao/CONTRATOS-DAS-FONTES-EAME.md)",
+         "> e rode `py system-map/scripts/generate_system_map.py`.", "",
+         "O atlas guarda a ficha inteira de cada fonte. Esta página é só a porta de",
+         "entrada: quantas fontes existem, de que países, e quais delas a máquina já",
+         "sabe buscar sozinha.", "", "---", "",
+         "## O NÚMERO", "",
+         f"| | |", "|---|---|",
+         f"| fichas completas no atlas | **{c['sources']}** |",
+         f"| dessas, com contrato de busca escrito | **{c['with_contract']}** |",
+         f"| palavras de busca medidas no código | **{c['search_terms']}** em {c['search_term_groups']} grupos |",
+         f"| endereços que o código realmente chama | **{c['endpoints']}** |", ""]
+
+    if S.get("HEADER_CLAIM", {}).get("divergencia"):
+        h = S["HEADER_CLAIM"]
+        L += ["> ### ⚠ O cabeçalho do atlas e as fichas não batem", ">",
+              f"> O cabeçalho do atlas diz **{h['total']} fontes registradas**",
+              f"> (linha {h['line']}). Fichas completas, com `SOURCE_ID` válido, há",
+              f"> **{h['fichas_completas']}**. Faltam **{h['divergencia']}**.", ">",
+              "> As fontes que faltam podem existir de verdade — mas sem ficha, ninguém",
+              "> consegue saber o que elas têm. Isto não é corrigido automaticamente:",
+              "> é decisão de gente escrever as fichas ou acertar o contador.", ""]
+
+    k = S.get("INTAKE") or {}
+    if k.get("escada"):
+        L += ["---", "", "## A ESCADA — o que uma fonte tem de subir", "",
+              "A distância entre os degraus é o trabalho que falta fazer. Subir exige",
+              "gente: nenhum degrau se sobe sozinho.", "",
+              "| # | degrau | o que é | quantas | mora em | sobe como |",
+              "|---|---|---|---|---|---|"]
+        for dg in k["escada"]:
+            q = "—" if dg["quantas"] is None else f"**{dg['quantas']}**"
+            L.append(f"| {dg['degrau']} | **{dg['nome']}** | {dg['o_que_e']} | {q} "
+                     f"| `{dg['onde']}` | {dg['sobe_como']} |")
+        L += ["", "### A porta de entrada", "",
+              f"Fonte nova entra por `{k['porta']}` — na mão, ou de dentro de uma coleta",
+              "que tropeçou nela. **O que entra é candidata, nunca fonte.**", "",
+              "```bash",
+              "py scripts/fonte_nova.py --tipos          # os tipos aceites",
+              "py scripts/fonte_nova.py --listar         # a fila, agrupada por tipo",
+              "py scripts/fonte_nova.py \\",
+              "    --tipo BASE_OFICIAL --pais ES --nome \"...\" --url https://... \\",
+              "    --para-que \"para que serve\" --quem-viu voce --onde-viu \"onde viu\"",
+              "```", "",
+              f"Hoje há **{len(k.get('candidatas', []))}** candidata(s) na fila,",
+              f"em `{k.get('fila_file', '')}`.", "",
+              "`--para-que` é obrigatório de propósito: fonte sem uso declarado vira",
+              "entulho — daqui a seis meses ninguém sabe por que ela foi anotada.", ""]
+
+    contas = S.get("ACCOUNTS") or {}
+    if contas.get("por_plataforma"):
+        L += ["---", "", "## CONTAS PÚBLICAS, POR PLATAFORMA", "",
+              f"Registradas em `{contas['file']}`.",
+              "**Estar na lista não é autorização:** só entra na coleta quem tem",
+              "identidade PROVADA e é conta local do país.", "",
+              "| plataforma | mapeadas | autorizadas a coletar |", "|---|---|---|"]
+        for plat, g in contas["por_plataforma"].items():
+            aviso = " ⚠" if g["autorizadas"] == 0 else ""
+            L.append(f"| **{plat}** | {g['total']} | {g['autorizadas']}{aviso} |")
+        L += ["", f"Total: **{contas['total']}** contas, **{contas['autorizadas']}** autorizadas.", ""]
+
+    L += ["---", "", "## A DIFERENÇA QUE IMPORTA", "",
+          "| | |", "|---|---|",
+          "| **fonte registrada** | alguém abriu, olhou e guardou um exemplo real |",
+          "| **fonte com contrato** | a **máquina** sabe ir lá sozinha, sabe o que esperar de volta e o que fazer quando quebrar |", "",
+          "A distância entre as duas é o trabalho que falta fazer. Uma fonte sem",
+          "contrato só funciona enquanto a pessoa que a descobriu estiver por perto.",
+          "", "---", "", "## POR PAÍS", ""]
+
+    por_pais: dict[str, list] = {}
+    for x in S["SOURCES"]:
+        por_pais.setdefault(x["country"], []).append(x)
+
+    marca = {"GREEN": "🟢", "YELLOW": "🟡", "RED": "🔴", "NAO SEI": "⚪"}
+    for pais in sorted(por_pais):
+        itens = sorted(por_pais[pais], key=lambda x: x["source_id"])
+        com = sum(1 for x in itens if x["sabe_coletar"])
+        L += [f"### {pais} · {len(itens)} fontes · {com} com contrato de busca", "",
+              "| id | fonte | assunto | estado | a máquina busca? |",
+              "|---|---|---|---|---|"]
+        for x in itens:
+            L.append(f"| `{x['source_id']}` | {x['name'][:58]} "
+                     f"| {x['territory']} · {x['territory_name']} "
+                     f"| {marca.get(x['verdict'], '⚪')} {x['verdict']} "
+                     f"| {'sim' if x['sabe_coletar'] else '**não**'} |")
+        L.append("")
+
+    termos = S.get("SEARCH_TERMS", [])
+    if termos:
+        L += ["---", "", "## AS PALAVRAS USADAS NA BUSCA", "",
+              "Na língua do país, sempre. Buscar em inglês devolve literatura",
+              "internacional, não a conversa técnica local.", ""]
+        for t in termos:
+            L += [f"### `{t['file']}:{t['line']}` · {t['total_palavras']} palavras", "",
+                  "| grupo | palavras |", "|---|---|"]
+            for g in t["grupos"]:
+                L.append(f"| `{g['grupo']}` | {' · '.join(g['palavras'])} |")
+            L.append("")
+
+    L += ["---", "", "Veja também: o mesmo conteúdo, navegável e ligado ao código que",
+          "faz a coleta, no **System Map** em `/system-map/` (bloco **COLETA**).", ""]
+
+    destino = RAIZ / "docs" / "fontes" / "INDICE-DE-FONTES.md"
+    destino.parent.mkdir(parents=True, exist_ok=True)
+    destino.write_text(chr(10).join(L), encoding="utf-8")
 
 
 def construir(estado: dict) -> None:
@@ -454,7 +727,29 @@ def main_uma_vez(stamp: bool) -> int:
                               if f["code_dir"] and f["readable"] and p not in dono)
     nao_reivindicados = sorted(p for p in arquivos if p not in dono)
 
-    nos = nos + linhagem()
+    fontes, lig_fontes = as_fontes()
+    nos = nos + linhagem() + fontes
+
+    # A fonte aponta para o componente que a busca. A prova e a linha do contrato
+    # que NOMEIA o script — a mesma regra de sempre: sem linha, sem seta.
+    dono_de = {f: c["id"] for c in comps for f in c["_files"]}
+    for lf in lig_fontes:
+        alvo = dono_de.get(lf["to_file"])
+        if not alvo:
+            continue
+        chave = ("C-AS-FONTES", alvo, "RETRIEVED_BY")
+        alvo_lig = ligacoes.setdefault(chave, {
+            "from": chave[0], "to": alvo, "type": "RETRIEVED_BY",
+            "payload": "coleta", "kind": "technical", "status": VERDE,
+            "reason": "", "evidence": [],
+        })
+        alvo_lig["evidence"].append(lf["evidence"])
+    for chave, l in ligacoes.items():
+        if l["type"] == "RETRIEVED_BY" and not l["reason"]:
+            nome_alvo = next((c["name"] for c in comps if c["id"] == l["to"]), l["to"])
+            quantas = len({e["snippet"].split()[0] for e in l["evidence"]})
+            l["reason"] = (f"{quantas} fonte(s) declaram, no contrato de busca, que "
+                           f"quem vai la buscar e «{nome_alvo}».")
     zonas, nos, faixas, mundo_w, mundo_h = desenhar(
         D["TERRITORIES"], nos, D["FAMILIES"])
 
@@ -470,6 +765,7 @@ def main_uma_vez(stamp: bool) -> int:
         "SCHEMA": "sintonia.system-map.state/1",
         "WORLD": {"w": mundo_w, "h": mundo_h},
         "INVENTORY": inventario,
+        "SEARCH_TERMS": termos_de_busca(),
         "PROVENANCE": G["PROVENANCE"],
         "FAMILIES": faixas,
         "TERRITORIES": zonas,
@@ -498,6 +794,7 @@ def main_uma_vez(stamp: bool) -> int:
 
     ESTADO.write_text(json.dumps(estado, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     construir(estado)
+    indice_de_fontes()
 
     if stamp:
         D["DECLARED_BLOBS"] = dict(sorted(novos_blobs.items()))
@@ -516,8 +813,9 @@ def main_uma_vez(stamp: bool) -> int:
         # medida pelo scanner, e o carimbo acabou de a reescrever. Sem este passo
         # o mapa ficaria a citar o SHA da versao anterior do proprio ficheiro que
         # o carimbo mudou — e o validador acusaria drift no commit seguinte.
-        subprocess.run([sys.executable, str(Path(__file__).with_name("scan_repo.py"))],
-                       check=True, capture_output=True)
+        for passo in ("scan_repo.py", "scan_sources.py"):
+            subprocess.run([sys.executable, str(Path(__file__).with_name(passo))],
+                           check=True, capture_output=True)
         return main_uma_vez(stamp=False)
 
     c = estado["COUNTS"]

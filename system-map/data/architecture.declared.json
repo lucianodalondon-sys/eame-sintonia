@@ -30,10 +30,28 @@
     {
       "id": "Z-FONTES",
       "family": "F-COLETA",
-      "name": "FONTES, COLETA E GUARDA",
-      "why": "De onde o dado entra, quem dispara a coleta e onde ele fica guardado entre uma corrida e outra",
+      "name": "1 · AS FONTES",
+      "why": "De onde o dado vem. Cada ficha diz o dono, o pais, o que a fonte tem e se ja foi vista com os proprios olhos",
+      "views": [
+        "acervo"
+      ]
+    },
+    {
+      "id": "Z-COMO",
+      "family": "F-COLETA",
+      "name": "2 · COMO SE BUSCA",
+      "why": "O meio, os parametros e as palavras. Quem vai la buscar, por qual porta, com que termo escrito na lingua do pais",
       "views": [
         "acervo",
+        "infra"
+      ]
+    },
+    {
+      "id": "Z-GUARDA",
+      "family": "F-COLETA",
+      "name": "3 · ONDE FICA E QUEM MANDA BUSCAR",
+      "why": "Onde o dado dorme entre uma corrida e outra, e o botao que dispara a coleta",
+      "views": [
         "infra"
       ]
     },
@@ -110,9 +128,28 @@
   ],
   "COMPONENTS": [
     {
-      "id": "C-APIFY-POOL",
-      "name": "Pool de tokens Apify",
+      "id": "C-PORTA-FONTE",
+      "name": "A porta de entrada de fonte nova",
       "territory": "Z-FONTES",
+      "kind": "engine",
+      "icon": "⊕",
+      "what": "Onde se anota uma fonte nova que apareceu — no meio de uma coleta ou na mao — organizada por tipo, com para que serve e quem a viu.",
+      "why_here": "O acervo de fontes e capital parado: consulta-se antes de coletar. Sem porta, fonte nova morre no historico do terminal de quem a viu. Mas o que entra e CANDIDATA, nunca fonte: fonte nasce quando alguem abre, olha e guarda prova.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "acervo"
+      ],
+      "files": [
+        "scripts/fonte_nova.py",
+        "data/samples/FONTES-CANDIDATAS.json"
+      ]
+    },
+    {
+      "id": "C-APIFY-POOL",
+      "name": "As chaves de acesso",
+      "territory": "Z-COMO",
       "kind": "library",
       "what": "Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.",
       "why_here": "Sem isto, um erro de rede imprimia a chave inteira no log de uma execucao publica.",
@@ -130,8 +167,8 @@
     },
     {
       "id": "C-COLETA-PUBLICA",
-      "name": "Coleta de comunicacao publica do concorrente",
-      "territory": "Z-FONTES",
+      "name": "O que o concorrente publica em canal aberto",
+      "territory": "Z-COMO",
       "kind": "engine",
       "what": "Recolhe o que os concorrentes publicam em canais abertos e classifica cada peca.",
       "why_here": "Saber o que o concorrente esta dizendo em publico, sem depender de ninguem contar.",
@@ -147,8 +184,8 @@
     },
     {
       "id": "C-COLETA-INSTAGRAM",
-      "name": "Coleta Instagram",
-      "territory": "Z-FONTES",
+      "name": "O que se fala em video no Instagram",
+      "territory": "Z-COMO",
       "kind": "engine",
       "what": "Recolhe publicacoes de Instagram das contas autorizadas e transcreve o que e falado em video.",
       "why_here": "Boa parte da fala real de produtor e de tecnico nao esta em texto — esta em video.",
@@ -163,8 +200,8 @@
     },
     {
       "id": "C-COLETA-BASE",
-      "name": "Coletor e portoes de coleta",
-      "territory": "Z-FONTES",
+      "name": "O motor de buscar e o portao que decide se vale",
+      "territory": "Z-COMO",
       "kind": "engine",
       "what": "O motor generico de coleta e o portao que decide, de graca, se vale gastar maquina antes de gastar.",
       "why_here": "Coletar sem portao ja custou execucoes pagas que devolveram o alvo errado.",
@@ -184,8 +221,8 @@
     },
     {
       "id": "C-FONTES-EU",
-      "name": "Fontes regulatorias e cientificas europeias",
-      "territory": "Z-FONTES",
+      "name": "As bases oficiais da Europa",
+      "territory": "Z-COMO",
       "kind": "engine",
       "what": "Le as bases oficiais da Europa — registro de produtos, pragas, denominacoes, dados agroalimentares.",
       "why_here": "Fonte oficial e o unico chao que nao depende de alguem ter postado.",
@@ -209,8 +246,8 @@
     },
     {
       "id": "C-CORPUS",
-      "name": "Corpus de voz e de pesquisador",
-      "territory": "Z-FONTES",
+      "name": "A fala do campo e a producao dos pesquisadores",
+      "territory": "Z-COMO",
       "kind": "engine",
       "what": "Junta a fala real de campo e a producao dos pesquisadores num corpo de texto consultavel.",
       "why_here": "A voz do campo e a ciencia sao duas evidencias diferentes e nao podem virar a mesma coisa.",
@@ -344,8 +381,8 @@
     },
     {
       "id": "C-ADAMA-CATALOGO",
-      "name": "Catalogo de produtos ADAMA",
-      "territory": "Z-FONTES",
+      "name": "O que a ADAMA vende em cada pais",
+      "territory": "Z-COMO",
       "kind": "engine",
       "what": "Monta e le o catalogo de produtos da propria ADAMA em cada pais.",
       "why_here": "Sem saber o que a ADAMA vende naquele pais, nao da para dizer se uma oportunidade e atendivel.",
@@ -364,8 +401,8 @@
     },
     {
       "id": "C-ADAMA-IT",
-      "name": "Inteligencia de produto ADAMA Italia",
-      "territory": "Z-FONTES",
+      "name": "O portfolio da ADAMA na Italia",
+      "territory": "Z-COMO",
       "kind": "engine",
       "what": "Le rotulo, modo de acao, substancia europeia e lacuna de portfolio da ADAMA na Italia.",
       "why_here": "A Italia e o piloto: e onde a leitura de portfolio foi provada primeiro.",
@@ -385,8 +422,8 @@
     },
     {
       "id": "C-ADAMA-ES",
-      "name": "Portao e importacao ADAMA Espanha",
-      "territory": "Z-FONTES",
+      "name": "A entrada do catalogo da Espanha",
+      "territory": "Z-COMO",
       "kind": "gate",
       "what": "Confere as regras de importacao do catalogo espanhol antes de ele entrar.",
       "why_here": "A Espanha entrou depois e com fonte diferente; sem portao proprio ela contaminaria a base.",
@@ -403,8 +440,8 @@
     },
     {
       "id": "C-ROTULOS",
-      "name": "Rotulos",
-      "territory": "Z-FONTES",
+      "name": "Os rotulos oficiais dos produtos",
+      "territory": "Z-COMO",
       "kind": "engine",
       "what": "Baixa, conta e le os rotulos oficiais dos produtos.",
       "why_here": "O rotulo e o unico documento que diz o que e legalmente permitido fazer com o produto.",
@@ -899,8 +936,8 @@
     },
     {
       "id": "C-SUPABASE",
-      "name": "Persistencia Supabase",
-      "territory": "Z-FONTES",
+      "name": "O banco onde o dado fica guardado",
+      "territory": "Z-GUARDA",
       "kind": "engine",
       "what": "Onde o dado coletado fica guardado, e as migracoes que mudam o formato dessa guarda.",
       "why_here": "Entre uma corrida e outra o dado precisa existir em algum lugar que nao seja a memoria da maquina.",
@@ -917,8 +954,8 @@
     },
     {
       "id": "C-CI-COLETA",
-      "name": "Workflows de coleta",
-      "territory": "Z-FONTES",
+      "name": "Os botoes que disparam a coleta",
+      "territory": "Z-GUARDA",
       "kind": "workflow",
       "what": "Os botoes que disparam coleta paga, sempre com a fase gratuita rodando primeiro.",
       "why_here": "Coleta paga sem contrato conferido antes ja queimou execucoes.",
@@ -935,8 +972,8 @@
     },
     {
       "id": "C-CI-PERSIST",
-      "name": "Workflows de persistencia",
-      "territory": "Z-FONTES",
+      "name": "Os botoes que cuidam do banco",
+      "territory": "Z-GUARDA",
       "kind": "workflow",
       "what": "Conferem a conexao com o banco, rodam migracao e provam que o dado volta igual ao que entrou.",
       "why_here": "Migracao sem prova de ida e volta e perda de dado com aparencia de sucesso.",
@@ -1005,13 +1042,14 @@
       "name": "Scanner do System Map",
       "territory": "Z-PROVA",
       "kind": "engine",
-      "what": "Le o repositorio e devolve so os fatos: que ficheiro existe, quem importa quem, quem roda o que.",
+      "what": "Le o repositorio e devolve so os fatos: que ficheiro existe, quem importa quem, quem roda o que — e le tambem o atlas de fontes, os contratos de busca e as palavras usadas na coleta.",
       "why_here": "E a unica fonte de aresta tecnica do mapa. Sem ele, o mapa seria opiniao desenhada.",
       "departments": [
         "ENGENHARIA"
       ],
       "files": [
-        "system-map/scripts/scan_repo.py"
+        "system-map/scripts/scan_repo.py",
+        "system-map/scripts/scan_sources.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -1150,7 +1188,8 @@
     ".github/workflows/supabase-migrate.yml": "b103d3a0a67af1b1cd867c65e07f751f5a02adf3",
     ".github/workflows/supabase-raw-roundtrip.yml": "7b8f182ab89d1176299913069a05220d1e90ae82",
     ".github/workflows/supabase-storage.yml": "cf95ae286c72c84f23aa906392b6c88dc4f88cd2",
-    ".github/workflows/system-map.yml": "66030451d67e221dfbe8eeedd52609988b4e16cb",
+    ".github/workflows/system-map.yml": "825d7a0dfb28cd37d69df980e60b9b2036ae267b",
+    "data/samples/FONTES-CANDIDATAS.json": "7f5d31b069f50b2c547d4cf15c23c9e183bad680",
     "italia-portale/BASELINE/_ds/adama-brandwell/_adherence.oxlintrc.json": "33b460a7e2a4606240e3ce74c734a2ca6a4ae703",
     "italia-portale/BASELINE/_ds/adama-brandwell/_ds_bundle.js": "5181841ff9f5e3a465908bcdcbd563655bbd6b67",
     "italia-portale/BASELINE/_ds/adama-brandwell/_ds_manifest.json": "1a13f1400c39b3d0e066cf95835bbb7d2e56aeff",
@@ -1343,6 +1382,7 @@
     "scripts/eu_substancia_adama_it.py": "149cbea94a58627f9a53fa4f8b1ece824cee5fa5",
     "scripts/fato_local.py": "413bc2bc6e92faedf549783ca7e93d01e0bbe190",
     "scripts/filas.py": "bf3dbf0b8baf5919b0c1a0bedc01315e5fdbe82d",
+    "scripts/fonte_nova.py": "44d24214a8908b28bf70e4dc64715e680f267cce",
     "scripts/freeze_es.py": "a4c1a68b9d00c9df3f6e98d08206d93138f841bd",
     "scripts/gire_mapas.py": "5f824e1b9b88998a25d9d4eb32cd9e8410bd29a5",
     "scripts/importar_italia.py": "28be63edb25361062b4d605d866e482294392a26",
@@ -1481,13 +1521,14 @@
     "supabase/tests/regressoes_coleta.sql": "87516f571d050ce0abf4eabe0f0291fb4b29882e",
     "supabase/tests/regressoes_lugar_do_fato.sql": "a5abde721e6f06cb4ef4e793699dce2d396d4a3a",
     "supabase/tests/regressoes_regulatorio_es.sql": "7c806a2cda0a2adc3b24e9e3e8e3bb406acd72d7",
-    "system-map/app/index.html": "d4ca958aa01ffe4765be908ccc38fd6d25803763",
-    "system-map/app/map.css": "397ea9e3dd20dfef2b724ff3e5bd845f709aad9c",
-    "system-map/app/map.js": "8a779b9bdf89c77ca65edd4a0535f60525816b91",
-    "system-map/scripts/generate_system_map.py": "dfcde9a5121f499a3baa16f9a8cd121ee4ce7df6",
+    "system-map/app/index.html": "cd2fedf7baae6ace57be8d81dbe950f9ab1aef1d",
+    "system-map/app/map.css": "d70a895270eca4dd5684c116772153890a648a55",
+    "system-map/app/map.js": "f04eb0b54571fc61b3b088212ed010e082e811ae",
+    "system-map/scripts/generate_system_map.py": "b732cad43dea7c85daff1a3ad154625c5a8bf026",
     "system-map/scripts/scan_repo.py": "8f6a67bc650582f939d0c72f09a6069a7c15b53c",
-    "system-map/scripts/validate_system_map.py": "76ce20c7ae3da3a3f0195b50380cadfc9da86c11",
-    "system-map/tests/test_system_map.py": "9f514f6d12e3c03a4145e6c8b8c403f26083482a",
+    "system-map/scripts/scan_sources.py": "d0f92cd8327f4c49287509058d87dc7eefc76903",
+    "system-map/scripts/validate_system_map.py": "62710dacf74abc5ee9ed695720057fd202d4e9a7",
+    "system-map/tests/test_system_map.py": "fc9a1034c1a801eb5492ac2d8b018be7e95730c5",
     "tests/test_adama_es_gate.py": "3c7bbce2f3f2b88ac9474fda1ecc2bf3da66674c",
     "tests/test_adama_es_import_rules.py": "590e552c5e2520b975dd002a0cb6a85b2686cc78",
     "tests/test_adama_relevance.py": "1c9230263667227d67e3b082dd1c2cd23cdbf5d2",

@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "a4420c12b2abc452c1cf227b67ad97ed1ccb4829",
-    "GENERATED_AT": "2026-09-07T10:43:45-03:00"
+    "HEAD": "34b20e6bc5fb39b66fe3d47bc7d899a4bf8d7bfe",
+    "GENERATED_AT": "2026-09-07T10:57:41-03:00"
   },
   "FILES": [
     {
@@ -93,7 +93,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "66030451d67e221dfbe8eeedd52609988b4e16cb",
+      "sha": "825d7a0dfb28cd37d69df980e60b9b2036ae267b",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -114,7 +114,7 @@
     },
     {
       "path": "AGENTS.md",
-      "sha": "e176093dc3733a17d6c7cf47d2308128abf10b7b",
+      "sha": "35fa6259ebde55d5bfc4177b6c41d2c4e1d82219",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1716,6 +1716,13 @@
       "code_dir": false
     },
     {
+      "path": "data/samples/FONTES-CANDIDATAS.json",
+      "sha": "7f5d31b069f50b2c547d4cf15c23c9e183bad680",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/samples/FR-T13-001-distribution.json",
       "sha": "07c43c446f866d90e327cb1a15be01a9e6946e52",
       "ext": ".json",
@@ -3069,6 +3076,13 @@
     {
       "path": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
       "sha": "915914426fbf8ecdbb90d7669546e284bd4fa41c",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/fontes/INDICE-DE-FONTES.md",
+      "sha": "849f73665298cb5700fc350dbc134ae257a5e554",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5881,6 +5895,13 @@
       "code_dir": true
     },
     {
+      "path": "scripts/fonte_nova.py",
+      "sha": "44d24214a8908b28bf70e4dc64715e680f267cce",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/freeze_es.py",
       "sha": "a4c1a68b9d00c9df3f6e98d08206d93138f841bd",
       "ext": ".py",
@@ -6848,42 +6869,42 @@
     },
     {
       "path": "system-map/README.md",
-      "sha": "ce6e4095164a32efec4acc8171e14860c2701a23",
+      "sha": "52349698ff34b8f9f86da1276f9ef07411417196",
       "ext": ".md",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/app/index.html",
-      "sha": "d4ca958aa01ffe4765be908ccc38fd6d25803763",
+      "sha": "cd2fedf7baae6ace57be8d81dbe950f9ab1aef1d",
       "ext": ".html",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/app/map.css",
-      "sha": "397ea9e3dd20dfef2b724ff3e5bd845f709aad9c",
+      "sha": "d70a895270eca4dd5684c116772153890a648a55",
       "ext": ".css",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/app/map.js",
-      "sha": "8a779b9bdf89c77ca65edd4a0535f60525816b91",
+      "sha": "f04eb0b54571fc61b3b088212ed010e082e811ae",
       "ext": ".js",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "dc638f3ec4b7b7ddd7a3c505a4fc75814f027ce7",
+      "sha": "0d19e881fb12cf3526922c666d963a189d1c115d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "dfcde9a5121f499a3baa16f9a8cd121ee4ce7df6",
+      "sha": "b732cad43dea7c85daff1a3ad154625c5a8bf026",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6896,15 +6917,22 @@
       "code_dir": true
     },
     {
+      "path": "system-map/scripts/scan_sources.py",
+      "sha": "d0f92cd8327f4c49287509058d87dc7eefc76903",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "system-map/scripts/validate_system_map.py",
-      "sha": "76ce20c7ae3da3a3f0195b50380cadfc9da86c11",
+      "sha": "62710dacf74abc5ee9ed695720057fd202d4e9a7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/tests/test_system_map.py",
-      "sha": "9f514f6d12e3c03a4145e6c8b8c403f26083482a",
+      "sha": "fc9a1034c1a801eb5492ac2d8b018be7e95730c5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7369,7 +7397,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 65,
+        "line": 66,
         "snippet": "python3 system-map/scripts/generate_system_map.py"
       }
     },
@@ -7386,12 +7414,23 @@
     },
     {
       "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/scan_sources.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 65,
+        "snippet": "python3 system-map/scripts/scan_sources.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
       "to_file": "system-map/scripts/validate_system_map.py",
       "type": "RUNS",
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 73,
+        "line": 74,
         "snippet": "run: python3 system-map/scripts/validate_system_map.py"
       }
     },
@@ -7402,7 +7441,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 76,
+        "line": 77,
         "snippet": "run: python3 system-map/tests/test_system_map.py"
       }
     },
@@ -11114,6 +11153,17 @@
       }
     },
     {
+      "from_file": "scripts/fonte_nova.py",
+      "to_file": "scripts/instagram_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/fonte_nova.py",
+        "line": 49,
+        "snippet": "url=..., para_que=..., quem_viu=\"instagram_coleta.py\","
+      }
+    },
+    {
       "from_file": "scripts/instagram_coleta.py",
       "to_file": "scripts/apify_pool.py",
       "type": "IMPORTS",
@@ -12462,8 +12512,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/app/index.html",
-        "line": 141,
+        "line": 145,
         "snippet": "<script src=\"map.js\"></script>"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 392,
+        "snippet": "CONTRATOS_REL = \"docs/operacao/CONTRATOS-DAS-FONTES-EAME.md\""
       }
     },
     {
@@ -12473,7 +12534,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 223,
+        "line": 224,
         "snippet": "rel = \"italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json\""
       }
     },
@@ -12484,7 +12545,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 311,
+        "line": 584,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -12495,7 +12556,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 312,
+        "line": 585,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -12506,7 +12567,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 311,
+        "line": 584,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -12517,8 +12578,85 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 519,
-        "snippet": "subprocess.run([sys.executable, str(Path(__file__).with_name(\"scan_repo.py\"))],"
+        "line": 816,
+        "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "system-map/scripts/scan_sources.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 816,
+        "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/scan_sources.py",
+      "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/scan_sources.py",
+        "line": 217,
+        "snippet": "CONTAS = \"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/scan_sources.py",
+      "to_file": "data/samples/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/scan_sources.py",
+        "line": 266,
+        "snippet": "FILA = \"data/samples/FONTES-CANDIDATAS.json\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/scan_sources.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/scan_sources.py",
+        "line": 47,
+        "snippet": "ATLAS = \"docs/fontes/ATLAS-DE-FONTES-EAME.md\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/scan_sources.py",
+      "to_file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/scan_sources.py",
+        "line": 48,
+        "snippet": "CONTRATOS = \"docs/operacao/CONTRATOS-DAS-FONTES-EAME.md\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/scan_sources.py",
+      "to_file": "scripts/fonte_nova.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/scan_sources.py",
+        "line": 295,
+        "snippet": "\"porta\": \"scripts/fonte_nova.py\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/validate_system_map.py",
+      "to_file": "docs/fontes/INDICE-DE-FONTES.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/validate_system_map.py",
+        "line": 118,
+        "snippet": "mudou.append(\"docs/fontes/INDICE-DE-FONTES.md\")"
       }
     },
     {
@@ -12528,8 +12666,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/validate_system_map.py",
-        "line": 94,
-        "snippet": "for script in (\"scan_repo.py\", \"generate_system_map.py\"):"
+        "line": 103,
+        "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"generate_system_map.py\"):"
       }
     },
     {
@@ -12539,8 +12677,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/validate_system_map.py",
-        "line": 94,
-        "snippet": "for script in (\"scan_repo.py\", \"generate_system_map.py\"):"
+        "line": 103,
+        "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"generate_system_map.py\"):"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/validate_system_map.py",
+      "to_file": "system-map/scripts/scan_sources.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/validate_system_map.py",
+        "line": 103,
+        "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"generate_system_map.py\"):"
       }
     },
     {
@@ -12550,7 +12699,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 153,
+        "line": 163,
         "snippet": "agents = RAIZ / \"AGENTS.md\""
       }
     },
@@ -12561,7 +12710,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 162,
+        "line": 172,
         "snippet": "claude = RAIZ / \"CLAUDE.md\""
       }
     },
@@ -12572,8 +12721,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 165,
+        "line": 175,
         "snippet": "readme = RAIZ / \"README.md\""
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_system_map.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_system_map.py",
+        "line": 142,
+        "snippet": "and K[\"escada\"][0][\"onde\"] != \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
       }
     },
     {
@@ -13051,9 +13211,9 @@
     }
   ],
   "COUNTS": {
-    "files_tracked": 1019,
-    "files_readable": 337,
-    "files_code_dir": 379,
-    "file_edges": 537
+    "files_tracked": 1023,
+    "files_readable": 339,
+    "files_code_dir": 381,
+    "file_edges": 549
   }
 }

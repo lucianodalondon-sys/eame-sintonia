@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
-    "w": 8430,
+    "w": 9425,
     "h": 2140
   },
   "INVENTORY": {
@@ -258,6 +258,7 @@
       "data/samples/EU-T4-001/sparql-active-substance-2026.json",
       "data/samples/EU-T5-001-openalex-people.json",
       "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
+      "data/samples/FONTES-CANDIDATAS.json",
       "data/samples/FR-T13-001-distribution.json",
       "data/samples/FR-T4-001/FR-T4-001-adama-crop-target.json",
       "data/samples/FR-T4-001/FR-T4-001-adama-produtos.json",
@@ -454,6 +455,7 @@
       "docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md",
       "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md",
       "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "docs/fontes/INDICE-DE-FONTES.md",
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
@@ -864,6 +866,7 @@
       "scripts/eu_substancia_adama_it.py",
       "scripts/fato_local.py",
       "scripts/filas.py",
+      "scripts/fonte_nova.py",
       "scripts/freeze_es.py",
       "scripts/gire_mapas.py",
       "scripts/importar_italia.py",
@@ -1013,6 +1016,7 @@
       "system-map/data/architecture.declared.json",
       "system-map/scripts/generate_system_map.py",
       "system-map/scripts/scan_repo.py",
+      "system-map/scripts/scan_sources.py",
       "system-map/scripts/validate_system_map.py",
       "system-map/tests/test_system_map.py"
     ],
@@ -1051,11 +1055,319 @@
       "tests/test_voz.py"
     ]
   },
+  "SEARCH_TERMS": [
+    {
+      "file": "scripts/rotulos_censo.py",
+      "line": 48,
+      "variavel": "TERMOS",
+      "grupos": [
+        {
+          "grupo": "SCAPHOIDEUS_TITANUS",
+          "palavras": [
+            "scaphoideus",
+            "scafoideo"
+          ],
+          "porque": "vetor da flavescencia dourada, de controle obrigatorio em 5 regioes"
+        },
+        {
+          "grupo": "FLAVESCENZA_DOURADA",
+          "palavras": [
+            "flavescenza",
+            "giallumi della vite"
+          ],
+          "porque": "a doenca em si; o rotulo trata o vetor, nao o fitoplasma"
+        },
+        {
+          "grupo": "BACTROCERA_OLEAE",
+          "palavras": [
+            "bactrocera oleae",
+            "mosca dell.oliva",
+            "mosca dell.olivo"
+          ],
+          "porque": "mosca da oliveira -- a principal praga do olival italiano"
+        },
+        {
+          "grupo": "BACTROCERA_OUTRAS",
+          "palavras": [
+            "bactrocera dorsalis",
+            "bactrocera zonata"
+          ],
+          "porque": "outras Bactrocera; NAO sao a mosca da oliveira"
+        },
+        {
+          "grupo": "OCCHIO_DI_PAVONE",
+          "palavras": [
+            "occhio di pavone",
+            "spilocaea",
+            "cicloconio",
+            "venturia oleaginea"
+          ],
+          "porque": "a principal doenca do olival italiano"
+        },
+        {
+          "grupo": "OLIVO",
+          "palavras": [
+            "olivo",
+            "oliveto",
+            "olive da",
+            "olivicol"
+          ],
+          "porque": "a cultura oliveira, em qualquer uso"
+        },
+        {
+          "grupo": "VENTURIA_MELO",
+          "palavras": [
+            "ticchiolatura",
+            "venturia inaequalis"
+          ],
+          "porque": "sarna da macieira"
+        },
+        {
+          "grupo": "HALYOMORPHA",
+          "palavras": [
+            "halyomorpha",
+            "cimice asiatica"
+          ],
+          "porque": "percevejo asiatico"
+        },
+        {
+          "grupo": "DIABROTICA",
+          "palavras": [
+            "diabrotica"
+          ],
+          "porque": "praga do milho"
+        },
+        {
+          "grupo": "OSTRINIA",
+          "palavras": [
+            "ostrinia",
+            "piralide"
+          ],
+          "porque": "broca do milho"
+        },
+        {
+          "grupo": "FUSARIUM",
+          "palavras": [
+            "fusarium",
+            "fusarios"
+          ],
+          "porque": "fusariose, ligada a micotoxina"
+        },
+        {
+          "grupo": "ZYMOSEPTORIA",
+          "palavras": [
+            "zymoseptoria",
+            "septoria",
+            "septorios"
+          ],
+          "porque": "septoriose do trigo"
+        },
+        {
+          "grupo": "ECHINOCHLOA",
+          "palavras": [
+            "echinochloa",
+            "giavone"
+          ],
+          "porque": "a daninha do arroz"
+        },
+        {
+          "grupo": "ORYZA_CRODO",
+          "palavras": [
+            "riso crodo"
+          ],
+          "porque": "arroz daninho"
+        },
+        {
+          "grupo": "AMBROSIA",
+          "palavras": [
+            "ambrosia artemisiifolia"
+          ],
+          "porque": "daninha invasora com impacto de saude"
+        },
+        {
+          "grupo": "POPILLIA",
+          "palavras": [
+            "popillia japonica"
+          ],
+          "porque": "praga quarentenaria em expansao no norte"
+        },
+        {
+          "grupo": "XYLELLA",
+          "palavras": [
+            "xylella"
+          ],
+          "porque": "bacteria de quarentena do olival do sul"
+        }
+      ],
+      "total_palavras": 35
+    },
+    {
+      "file": "scripts/sensor_coleta.py",
+      "line": 131,
+      "variavel": "TERMOS",
+      "grupos": [
+        {
+          "grupo": "ES-OLIVE-REPILO",
+          "palavras": [
+            "repilo del olivo",
+            "Venturia oleaginea olivo",
+            "repilo olivar tratamiento",
+            "jornada tecnica olivar repilo"
+          ]
+        },
+        {
+          "grupo": "ES-CEREAL-SEPTORIA",
+          "palavras": [
+            "septoria trigo",
+            "septoriosis del trigo",
+            "Zymoseptoria tritici trigo",
+            "jornada tecnica cereal septoria"
+          ]
+        },
+        {
+          "grupo": "IT-VINE-FLAVESCENCE",
+          "palavras": [
+            "flavescenza dorata vite",
+            "flavescenza dorata vigneto",
+            "giallumi della vite",
+            "convegno flavescenza dorata"
+          ]
+        },
+        {
+          "grupo": "IT-DURUM_WHEAT-FUSARIUM",
+          "palavras": [
+            "fusariosi grano duro",
+            "micotossine grano duro",
+            "fusariosi della spiga",
+            "convegno grano duro micotossine"
+          ]
+        },
+        {
+          "grupo": "FR-VINE-DOWNY_MILDEW",
+          "palavras": [
+            "mildiou de la vigne",
+            "Plasmopara viticola vigne",
+            "mildiou vigne traitement",
+            "webinaire mildiou vigne"
+          ]
+        },
+        {
+          "grupo": "FR-CEREAL-SEPTORIA",
+          "palavras": [
+            "septoriose du ble",
+            "Zymoseptoria tritici ble",
+            "septoriose ble traitement",
+            "webinaire septoriose ble"
+          ]
+        },
+        {
+          "grupo": "IT-MAIZE-WEED",
+          "palavras": [
+            "diserbo del mais",
+            "infestanti del mais",
+            "diserbo mais pre-emergenza",
+            "diserbo mais post-emergenza"
+          ]
+        },
+        {
+          "grupo": "IT-CEREAL-WEED",
+          "palavras": [
+            "diserbo dei cereali",
+            "diserbo del grano infestanti",
+            "loietto resistente frumento",
+            "avena resistente diserbo grano"
+          ]
+        },
+        {
+          "grupo": "IT-SOYBEAN-AMARANTHUS",
+          "palavras": [
+            "amaranto resistente soia",
+            "diserbo della soia",
+            "infestanti resistenti soia",
+            "resistenza erbicidi soia"
+          ]
+        },
+        {
+          "grupo": "IT-SUGARBEET-WEED",
+          "palavras": [
+            "diserbo barbabietola da zucchero",
+            "diserbo bietola",
+            "infestanti barbabietola",
+            "diserbo bietola post-emergenza"
+          ]
+        },
+        {
+          "grupo": "IT-RICE-WEED",
+          "palavras": [
+            "diserbo del riso",
+            "riso crodo diserbo",
+            "giavone risaia",
+            "diserbo risaia infestanti"
+          ]
+        },
+        {
+          "grupo": "IT-APPLE-DISEASE",
+          "palavras": [
+            "ticchiolatura del melo",
+            "difesa del melo",
+            "ticchiolatura melo trattamenti",
+            "melo maculatura bruna"
+          ]
+        },
+        {
+          "grupo": "IT-VINE-WEED",
+          "palavras": [
+            "diserbo del vigneto",
+            "gestione del sottofila vigneto",
+            "inerbimento vigneto",
+            "diserbo sottofila vite"
+          ]
+        },
+        {
+          "grupo": "IT-OLIVE-BACTROCERA",
+          "palavras": [
+            "mosca delle olive difesa",
+            "Bactrocera oleae olivo",
+            "monitoraggio mosca olivo",
+            "trattamento mosca olive"
+          ]
+        },
+        {
+          "grupo": "IT-CEREAL-SEPTORIA",
+          "palavras": [
+            "septoriosi del frumento",
+            "malattie fogliari frumento",
+            "difesa cereali a paglia",
+            "ruggine gialla frumento"
+          ]
+        },
+        {
+          "grupo": "IT-APPLE-INSECT",
+          "palavras": [
+            "afidi del melo difesa",
+            "carpocapsa del melo",
+            "insetticidi melo difesa",
+            "difesa melo insetti"
+          ]
+        },
+        {
+          "grupo": "IT-TOMATO-DISEASE",
+          "palavras": [
+            "peronospora del pomodoro",
+            "difesa pomodoro malattie",
+            "alternaria pomodoro",
+            "botrite pomodoro difesa"
+          ]
+        }
+      ],
+      "total_palavras": 68
+    }
+  ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "a4420c12b2abc452c1cf227b67ad97ed1ccb4829",
-    "GENERATED_AT": "2026-09-07T10:43:45-03:00"
+    "HEAD": "34b20e6bc5fb39b66fe3d47bc7d899a4bf8d7bfe",
+    "GENERATED_AT": "2026-09-07T10:57:41-03:00"
   },
   "FAMILIES": [
     {
@@ -1064,18 +1376,20 @@
       "why": "Trazer para dentro o que existe la fora. Nada no SINTONIA comeca sem passar por aqui.",
       "x": 260,
       "y": 60,
-      "w": 1315,
+      "w": 2310,
       "h": 1820,
       "zones": [
-        "Z-FONTES"
+        "Z-FONTES",
+        "Z-COMO",
+        "Z-GUARDA"
       ],
-      "count": 13
+      "count": 15
     },
     {
       "id": "F-INTELIGENCIA",
       "name": "INTELIGENCIA",
       "why": "Transformar dado bruto em caso com dono, lugar e momento — e provar que a transformacao esta certa.",
-      "x": 1795,
+      "x": 2790,
       "y": 60,
       "w": 3845,
       "h": 1820,
@@ -1091,7 +1405,7 @@
       "id": "F-ENTREGA",
       "name": "ENTREGA",
       "why": "Levar o que foi decidido ate quem precisa dele, sem deixar passar o que esta errado.",
-      "x": 5860,
+      "x": 6855,
       "y": 60,
       "w": 2310,
       "h": 1820,
@@ -1107,17 +1421,45 @@
     {
       "id": "Z-FONTES",
       "family": "F-COLETA",
-      "name": "FONTES, COLETA E GUARDA",
-      "why": "De onde o dado entra, quem dispara a coleta e onde ele fica guardado entre uma corrida e outra",
+      "name": "1 · AS FONTES",
+      "why": "De onde o dado vem. Cada ficha diz o dono, o pais, o que a fonte tem e se ja foi vista com os proprios olhos",
+      "views": [
+        "acervo"
+      ],
+      "x": 300,
+      "y": 190,
+      "w": 405,
+      "h": 1650,
+      "count": 2
+    },
+    {
+      "id": "Z-COMO",
+      "family": "F-COLETA",
+      "name": "2 · COMO SE BUSCA",
+      "why": "O meio, os parametros e as palavras. Quem vai la buscar, por qual porta, com que termo escrito na lingua do pais",
       "views": [
         "acervo",
         "infra"
       ],
-      "x": 300,
+      "x": 1005,
       "y": 190,
-      "w": 1235,
+      "w": 820,
       "h": 1650,
-      "count": 13
+      "count": 10
+    },
+    {
+      "id": "Z-GUARDA",
+      "family": "F-COLETA",
+      "name": "3 · ONDE FICA E QUEM MANDA BUSCAR",
+      "why": "Onde o dado dorme entre uma corrida e outra, e o botao que dispara a coleta",
+      "views": [
+        "infra"
+      ],
+      "x": 2125,
+      "y": 190,
+      "w": 405,
+      "h": 1650,
+      "count": 3
     },
     {
       "id": "Z-LINEAGE",
@@ -1128,7 +1470,7 @@
         "lineage",
         "official"
       ],
-      "x": 1835,
+      "x": 2830,
       "y": 190,
       "w": 405,
       "h": 1650,
@@ -1143,7 +1485,7 @@
         "opportunity",
         "science"
       ],
-      "x": 2540,
+      "x": 3535,
       "y": 190,
       "w": 820,
       "h": 1650,
@@ -1158,7 +1500,7 @@
         "generator",
         "opportunity"
       ],
-      "x": 3660,
+      "x": 4655,
       "y": 190,
       "w": 820,
       "h": 1650,
@@ -1173,7 +1515,7 @@
         "audit",
         "infra"
       ],
-      "x": 4780,
+      "x": 5775,
       "y": 190,
       "w": 820,
       "h": 1650,
@@ -1188,7 +1530,7 @@
         "generator",
         "portal"
       ],
-      "x": 5900,
+      "x": 6895,
       "y": 190,
       "w": 405,
       "h": 1650,
@@ -1203,7 +1545,7 @@
         "portal",
         "audit"
       ],
-      "x": 6605,
+      "x": 7600,
       "y": 190,
       "w": 820,
       "h": 1650,
@@ -1218,7 +1560,7 @@
         "portal",
         "meeting"
       ],
-      "x": 7725,
+      "x": 8720,
       "y": 190,
       "w": 405,
       "h": 1650,
@@ -1239,8 +1581,8 @@
   "NODES": [
     {
       "id": "C-ADAMA-CATALOGO",
-      "name": "Catalogo de produtos ADAMA",
-      "territory": "Z-FONTES",
+      "name": "O que a ADAMA vende em cada pais",
+      "territory": "Z-COMO",
       "kind": "engine",
       "what": "Monta e le o catalogo de produtos da propria ADAMA em cada pais.",
       "why_here": "Sem saber o que a ADAMA vende naquele pais, nao da para dizer se uma oportunidade e atendivel.",
@@ -1276,13 +1618,13 @@
         "C-PORTAL-DADOS",
         "C-RELEVANCIA"
       ],
-      "x": 360,
+      "x": 1065,
       "y": 360
     },
     {
       "id": "C-ADAMA-ES",
-      "name": "Portao e importacao ADAMA Espanha",
-      "territory": "Z-FONTES",
+      "name": "A entrada do catalogo da Espanha",
+      "territory": "Z-COMO",
       "kind": "gate",
       "what": "Confere as regras de importacao do catalogo espanhol antes de ele entrar.",
       "why_here": "A Espanha entrou depois e com fonte diferente; sem portao proprio ela contaminaria a base.",
@@ -1315,13 +1657,13 @@
       "outbound": [
         "C-SUPABASE"
       ],
-      "x": 775,
+      "x": 1480,
       "y": 360
     },
     {
       "id": "C-ADAMA-IT",
-      "name": "Inteligencia de produto ADAMA Italia",
-      "territory": "Z-FONTES",
+      "name": "O portfolio da ADAMA na Italia",
+      "territory": "Z-COMO",
       "kind": "engine",
       "what": "Le rotulo, modo de acao, substancia europeia e lacuna de portfolio da ADAMA na Italia.",
       "why_here": "A Italia e o piloto: e onde a leitura de portfolio foi provada primeiro.",
@@ -1356,13 +1698,13 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 1190,
-      "y": 360
+      "x": 1065,
+      "y": 682
     },
     {
       "id": "C-APIFY-POOL",
-      "name": "Pool de tokens Apify",
-      "territory": "Z-FONTES",
+      "name": "As chaves de acesso",
+      "territory": "Z-COMO",
       "kind": "library",
       "what": "Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.",
       "why_here": "Sem isto, um erro de rede imprimia a chave inteira no log de uma execucao publica.",
@@ -1397,7 +1739,7 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 360,
+      "x": 1480,
       "y": 682
     },
     {
@@ -1431,7 +1773,1246 @@
         "C-PORTAL-CASCO"
       ],
       "outbound": [],
-      "x": 5960,
+      "x": 6955,
+      "y": 360
+    },
+    {
+      "id": "C-AS-FONTES",
+      "name": "AS FONTES",
+      "kind": "fonte",
+      "icon": "◫",
+      "territory": "Z-FONTES",
+      "family": "F-COLETA",
+      "status": "PENDING",
+      "ui_status": "yellow",
+      "proof": "document",
+      "what": "O capital parado da casa: 23 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.",
+      "why_here": "Nada existe no SINTONIA sem passar por aqui primeiro. Uma fonte so entra depois de alguem a abrir, olhar o que ela entrega e guardar evidencia disso — e coleta nenhuma comeca sem consultar o que ja esta aqui.",
+      "files": [
+        "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+        "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json"
+      ],
+      "facts": [
+        "bases oficiais com ficha: 23",
+        "dessas, a maquina sabe buscar sozinha: 5",
+        "contas publicas mapeadas: 44",
+        "dessas, autorizadas a coletar: 22",
+        "palavras de busca medidas no codigo: 103",
+        "enderecos que o codigo realmente chama: 40"
+      ],
+      "status_reason": "23 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 18, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
+      "evidence_text": "",
+      "departments": [],
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "groups": [
+        {
+          "titulo": "BASES OFICIAIS E ABERTAS",
+          "subtitulo": "23 fichas no atlas · 5 com contrato de busca escrito",
+          "porque": "Registro publico, dado aberto, base regulatoria, estatistica e ciencia. Fonte que nao depende de ninguem ter postado.",
+          "onde": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+          "itens": [
+            {
+              "id": "ES-T3-001",
+              "nome": "Datos de seguimiento de plagas y enfermedades en las estaciones de control biológico [2006–2026]",
+              "pais": "ESPANHA",
+              "assunto": "T3 · Praga e doenca",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": true,
+              "como_se_entra": "CKAN API + ZIP com XML. **Atenção:** a URL de download que a API devolve aponta para `gdc-pdpopendata-ckan.paas.junta- andalucia.es`, host que este ambiente não alcança (502 no CON",
+              "dono": "Junta de Andalucía — Consejería de Agricultura, Pesca, Agua y Desarrollo Rural",
+              "url": "https://www.juntadeandalucia.es/datosabiertos/portal/dataset/raif",
+              "atualiza": "semanal (visor); dataset atualizado em 2026-08-26",
+              "exemplo": "Vid 2026: 639 amostragens em Cádiz, Córdoba e Huelva. Campos medidos incluem \"1601 Mildiu: % cepas afectadas\", \"1701 Oidio: % cepas afectadas\", \"0401 Lobesia: nº adultos/ trampa feromona y día\" e \"1604 Mildiu: condiciones favorables (0=No; 1=Si)\".",
+              "contrato": {
+                "retrieval_method": "CKAN → ZIP → XML. **PASSO MANUAL**: a URL que o CKAN devolve aponta para `gdc-pdpopendata-ckan.paas.junta-andalucia.es`, host inalcançável daqui; trocar por `www.juntadeandalucia.es` mantendo o caminho",
+                "http_method": "GET",
+                "parameters": "",
+                "auth_required": "não",
+                "output_type": "ZIP com XML (Access export; nomes de tag em `_x00NN_`)",
+                "expected_fields": "PROVINCIA · MUNICIPIO · CODPARCELA · FECHA · \"1702 Repilo: % Hojas  con Repilo Visible\" (52 campos)",
+                "identity_keys": "CODPARCELA + FECHA",
+                "date_field": "FECHA",
+                "update_behavior": "semanal durante a safra",
+                "expected_failures": "host do CKAN mudar de novo · nome de campo mudar (os nomes têm espaço duplo e número de ordem: `1702 Repilo: % Hojas  con…`)",
+                "fail_closed_rule": "zero leituras do campo levanta — \"sem doença\" e \"sem dado\" não podem produzir a mesma saída",
+                "fallback": "visor web do RAIF (consulta, não dump)",
+                "archive_requirement": "baixo — a fonte republica a série inteira",
+                "criticality": "PRIMARY · OPEN DATA (CKAN), CC BY 4.0",
+                "evidence": {
+                  "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+                  "line": 173,
+                  "snippet": "contrato de ES-T3-001"
+                }
+              }
+            },
+            {
+              "id": "ES-T4-001",
+              "nome": "Jerarquía de especies vegetales · Clasificación de plagas",
+              "pais": "ESPANHA",
+              "assunto": "T4 · Regulatorio",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": false,
+              "como_se_entra": "XLSX direto",
+              "dono": "MAPA — Ministerio de Agricultura, Pesca y Alimentación",
+              "url": "https://www.mapa.gob.es/dam/mapa/contenido/agricultura/temas/",
+              "atualiza": "NÃO SEI — o arquivo não declara periodicidade",
+              "exemplo": "813 espécies vegetais (710 com EPPO) e 1.395 linhas de pragas. VITVI = Vitis vinifera; TRZAX = Triticum aestivum/durum; PLASVI = \"Mildiu de la vid, Plasmopara viticola\"; SEPTTR = \"Septoriosis del trigo, Zymoseptoria tritici\"; GUIGBI = \"Black rot… Phyllosticta ampelicida\".",
+              "contrato": null
+            },
+            {
+              "id": "ES-T4-002",
+              "nome": "Autorizaciones excepcionales vigentes",
+              "pais": "ESPANHA",
+              "assunto": "T4 · Regulatorio",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": false,
+              "como_se_entra": "XLS (formato OLE2 legado, 32 MB; requer xlrd)",
+              "dono": "MAPA",
+              "url": ".../registro-productos-fitosanitarios/autorizaciones_excepcionales.xls",
+              "atualiza": "o próprio arquivo declara a data de situação (24/08/2026)",
+              "exemplo": "45 autorizações excepcionais vigentes em 24/08/2026. Ex.: Manzano y peral × fuego bacteriano (Erwinia amylovora); Champiñón × telaraña (fluxapyroxad 30% SC); Remolacha azucarera × pulgón (flonicamida 50% WG); Fresal × desinfección del suelo (metam sodio 51% SL).",
+              "contrato": null
+            },
+            {
+              "id": "ES-T4-003",
+              "nome": "Registro de Productos Fitosanitarios — aplicação de consulta",
+              "pais": "ESPANHA",
+              "assunto": "T4 · Regulatorio",
+              "estado": "NAO SEI",
+              "estado_texto": "nao foi possivel verificar — NAO SEI",
+              "sabe_coletar": false,
+              "como_se_entra": "aplicação web de consulta. **Não foi encontrado** dump aberto equivalente ao E-Phy francês ou ao CSV italiano.",
+              "dono": "MAPA",
+              "url": "https://www.mapa.gob.es/es/agricultura/temas/sanidad-vegetal/",
+              "atualiza": "",
+              "exemplo": "nenhum",
+              "contrato": null
+            },
+            {
+              "id": "ES-T4-005",
+              "nome": "Registro Oficial de Productos Fitosanitarios — rotas públicas",
+              "pais": "ESPANHA",
+              "assunto": "T4 · Regulatorio",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": true,
+              "como_se_entra": "as rotas que o próprio frontend chama, declaradas em texto aberto na página (<input type=\"hidden\">) e em /regfiweb/js/site.min.js: GET  Productos/ProductosGrid?NumRegistro=&Titular",
+              "dono": "MAPA — D.G. de Sanidad de la Producción Agroalimentaria",
+              "url": "https://servicio.mapa.gob.es/regfiweb/",
+              "atualiza": "semanal — a página declara a data da última atualização da base (\"viernes, 28 de agosto de",
+              "exemplo": "ES-01717 · SORATEL MAX · titular ADAMA Agriculture España S.A. · fabricante ADAMA Agricultural Solutions Ltd. · planta (Neot Hovav) · azoxistrobina 20% + protioconazol 15% · Vigente · cebada, centeno, trigo, triticale",
+              "contrato": {
+                "retrieval_method": "scripts/mapa_regfi.py {producto|export|total|divergencia}",
+                "http_method": "GET (grade, ficha, PDF) · POST (export)",
+                "parameters": "NumRegistro · Titular · Fabricante · IdEstado · IdSustancia … (export: dataDto[<filtro>])",
+                "auth_required": "não",
+                "output_type": "HTML (grade) · JSON (ficha e export) · PDF (ficha oficial)",
+                "expected_fields": "numRegistro · nombre · titular · fabricante · fabrica · formulado · estado · tramite · 6 pares de datas (48 campos)",
+                "identity_keys": "numRegistro (3.084 únicos) · idProducto (interno, volátil)",
+                "date_field": "fechaInscripcion · fechaCaducidad · fechaModificacion · fechaLimiteVenta · fechaTramite",
+                "update_behavior": "semanal (\"Última actualización de la base de datos: <data>\")",
+                "expected_failures": "rota renomeada · `IdEstado` mudar de semântica · grade voltar a exigir sessão · export passar a exigir antiforgery token",
+                "fail_closed_rule": "contrato COMPLETO de 48 campos: campo novo → DEGRADED, campo ausente → FAILED. Ficha não encontrada levanta, não devolve vazio",
+                "fallback": "**nenhum equivalente.** Ver FALHA-DE-FONTE-ESPANHA.md",
+                "archive_requirement": "**obrigatório.** Uma versão arquivada (2026-08-29). Enquanto houver só uma, o estado é BASELINE_ESTABLISHED",
+                "criticality": "PRIMARY · **PUBLIC APPLICATION ROUTE**",
+                "evidence": {
+                  "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+                  "line": 69,
+                  "snippet": "contrato de ES-T4-005"
+                }
+              }
+            },
+            {
+              "id": "ES-T5-002",
+              "nome": "OpenAlex, recorte espanhol declarado",
+              "pais": "ESPANHA",
+              "assunto": "T5 · Preco e mercado",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": false,
+              "como_se_entra": "REST JSON, sem chave — **rota gratuita e REPLICÁVEL**",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "EU-T1-001",
+              "nome": "Crop production in EU standard humidity by NUTS 2 region",
+              "pais": "EUROPA",
+              "assunto": "T1 · Cultura e producao",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": false,
+              "como_se_entra": "API REST, JSON-stat 2.0, sem chave",
+              "dono": "Eurostat",
+              "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpshr",
+              "atualiza": "anual (fonte declarou atualização em 2026-05-28)",
+              "exemplo": "5.685 valores NUTS2 para FR/ES/IT, 2000–2024. Trigo comum 2024: ES41 Castilla y León 771,8 mil ha; FRB0 Centre–Val de Loire 544,6; FRE2 Picardie 472,0. Cevada 2024: ES42 Castilla-La Mancha 702,7 mil ha.",
+              "contrato": null
+            },
+            {
+              "id": "EU-T1-002",
+              "nome": "Crop production in EU standard humidity",
+              "pais": "EUROPA",
+              "assunto": "T1 · Cultura e producao",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": false,
+              "como_se_entra": "API REST JSON-stat, sem chave",
+              "dono": "Eurostat",
+              "url": "",
+              "atualiza": "fonte declarou atualização em 2026-08-17",
+              "exemplo": "rendimento de trigo comum (t/ha): FR 2023 7,28 → **2024 6,02** → 2025 7,34 ES 2022 3,07 → **2023 2,14** → 2024 3,74 → 2025 4,51 IT 2021 6,26 → 2024 5,03 → 2025 5,02",
+              "contrato": null
+            },
+            {
+              "id": "EU-T10-001",
+              "nome": "European Commission — Agri-food Data Portal (cereal prices)",
+              "pais": "EUROPA",
+              "assunto": "T10 · Politica e subsidio",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": false,
+              "como_se_entra": "REST JSON, **sem chave** (parâmetros: memberStateCodes, years, beginDate)",
+              "dono": "Comissão Europeia — DG AGRI",
+              "url": "https://www.ec.europa.eu/agrifood/api/cereal/prices",
+              "atualiza": "**semanal** — verificado com dado da semana de 17–23/08/2026",
+              "exemplo": "Milho forrageiro em Mantova (IT), semana de 17–23/08/2026: **€243,50/t**, saída de fazenda. Trigo panificável, média nacional: FR €234,30/t (30/07/2026) e IT €219,31/t (06/08/2026). Trigo duro: FR €267,50 × IT €271,83.",
+              "contrato": null
+            },
+            {
+              "id": "EU-T12-001",
+              "nome": "CELLAR / EU Publications Office — camada de política agrícola",
+              "pais": "EUROPA",
+              "assunto": "T12 · Substancia ativa",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": false,
+              "como_se_entra": "**a mesma infraestrutura já provada em EU-T4-001** — SPARQL + content negotiation. Muda apenas a consulta. `./scripts/cellar.sh sparql \"<consulta>\"`",
+              "dono": "Publications Office of the European Union",
+              "url": "",
+              "atualiza": "contínua",
+              "exemplo": "CELEX 32026R0148 e 32026R0149, ambos de 21/01/2026, alterando regulamentos de execução e delegado da **política agrícola comum**.",
+              "contrato": null
+            },
+            {
+              "id": "EU-T2-001",
+              "nome": "NASA POWER — Daily Point (community AG)",
+              "pais": "EUROPA",
+              "assunto": "T2 · Clima e tempo",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": false,
+              "como_se_entra": "API REST JSON, **sem chave, sem cadastro**",
+              "dono": "NASA Langley Research Center",
+              "url": "https://power.larc.nasa.gov/api/temporal/daily/point",
+              "atualiza": "diária, com defasagem de poucos dias",
+              "exemplo": "ES41 Castilla y León (ponto-rótulo NUTS2): chuva de fevereiro a abril — 2020: 170,9 mm · 2021: 142,3 · 2022: 120,5 · **2023: 34,9** · 2024: 142,2 mm.",
+              "contrato": null
+            },
+            {
+              "id": "EU-T2-002",
+              "nome": "NUTS_LB_2024_4326_LEVL_2 (label points)",
+              "pais": "EUROPA",
+              "assunto": "T2 · Clima e tempo",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": false,
+              "como_se_entra": "GeoJSON direto, sem chave",
+              "dono": "Eurostat / GISCO",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "ES41 (−4,788 / 41,751) · FRB0 (1,684 / 47,485) · FRE2 (2,808 / 49,642) · ITC1 (7,923 / 45,060)",
+              "contrato": null
+            },
+            {
+              "id": "EU-T2-003",
+              "nome": "Open-Meteo Historical Weather API (ERA5)",
+              "pais": "EUROPA",
+              "assunto": "T2 · Clima e tempo",
+              "estado": "NAO SEI",
+              "estado_texto": "nao foi possivel verificar — NAO SEI",
+              "sabe_coletar": false,
+              "como_se_entra": "API REST, sem chave, com **cota diária por IP**",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "nenhum",
+              "contrato": null
+            },
+            {
+              "id": "EU-T3-001",
+              "nome": "EPPO Global Database",
+              "pais": "EUROPA",
+              "assunto": "T3 · Praga e doenca",
+              "estado": "NAO SEI",
+              "estado_texto": "nao foi possivel verificar — NAO SEI",
+              "sabe_coletar": false,
+              "como_se_entra": "site HTML acessível (HTTP 200). **API REST devolveu `403 — \"You do not have sufficent rights\"`**: exige token de conta EPPO, que não temos.",
+              "dono": "European and Mediterranean Plant Protection Organization",
+              "url": "https://gd.eppo.int",
+              "atualiza": "",
+              "exemplo": "nenhum capturado pela API",
+              "contrato": null
+            },
+            {
+              "id": "EU-T4-001",
+              "nome": "CELLAR / EU Publications Office (Official Journal of the EU)",
+              "pais": "EUROPA",
+              "assunto": "T4 · Regulatorio",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": true,
+              "como_se_entra": "API — SPARQL (JSON) + content negotiation HTTP (Accept: application/xhtml+xml; Accept-Language: eng|fra|spa|ita)",
+              "dono": "Publications Office of the European Union",
+              "url": "https://publications.europa.eu/webapi/rdf/sparql",
+              "atualiza": "contínua (cada edição do Jornal Oficial)",
+              "exemplo": "CELEX 32026R1696 — Reg. Exec. (UE) 2026/1696, de 14/07/2026, renova a aprovação da substância ativa ácido pelargônico (CAS 112-05-0, CIPAC 888), pureza >= 889 g/kg, aprovação 2026-10-01, expiração 2041-09-30. Texto integral obtido em EN, FR, ES e IT.",
+              "contrato": {
+                "retrieval_method": "scripts/cellar.sh {sparql|act|substances}",
+                "http_method": "GET",
+                "parameters": "query SPARQL · CELEX · iso3 do idioma",
+                "auth_required": "não",
+                "output_type": "JSON (SPARQL) · XHTML (texto integral)",
+                "expected_fields": "CELEX · data · título · texto integral",
+                "identity_keys": "CELEX",
+                "date_field": "data do ato",
+                "update_behavior": "acervo cumulativo — atos não são reescritos",
+                "expected_failures": "timeout do endpoint SPARQL · negociação de conteúdo devolver o idioma errado sem avisar",
+                "fail_closed_rule": "exigir `Accept-Language` iso3 e conferir o idioma recebido",
+                "fallback": "EUR-Lex por CELEX (mesma casa, outra rota)",
+                "archive_requirement": "baixo — o acervo é estável",
+                "criticality": "PRIMARY · OPEN DATA (SPARQL + content negotiation)",
+                "evidence": {
+                  "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+                  "line": 208,
+                  "snippet": "contrato de EU-T4-001"
+                }
+              }
+            },
+            {
+              "id": "EU-T4-002",
+              "nome": "EU Pesticides Database",
+              "pais": "EUROPA",
+              "assunto": "T4 · Regulatorio",
+              "estado": "NAO SEI",
+              "estado_texto": "nao foi possivel verificar — NAO SEI",
+              "sabe_coletar": false,
+              "como_se_entra": "aplicação Angular (SPA) + API JSON interna (/api/subst/getSubstances) — observado, não obtido",
+              "dono": "Comissão Europeia — DG SANTE",
+              "url": "https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/",
+              "atualiza": "",
+              "exemplo": "nenhum capturado",
+              "contrato": null
+            },
+            {
+              "id": "EU-T5-001",
+              "nome": "OpenAlex",
+              "pais": "EUROPA",
+              "assunto": "T5 · Preco e mercado",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": false,
+              "como_se_entra": "REST JSON, **sem chave**; *polite pool* via `mailto`",
+              "dono": "OurResearch (organização sem fins lucrativos)",
+              "url": "https://api.openalex.org/works",
+              "atualiza": "contínua",
+              "exemplo": "\"Quem trabalha repetidamente com resistência a herbicidas na França?\" → **Christophe Délye (9 trabalhos, Agroécologie/INRAE Dijon, 2019–2023)**, Valérie Le Corre (6), Séverine Michel (5), Fanny Pernin (4) — os quatro no mesmo laboratório. \"Que pesquisadores aparecem ligados a doenças da videira na I",
+              "contrato": null
+            },
+            {
+              "id": "FR-T13-001",
+              "nome": "recherche-entreprises.api.gouv.fr (base SIRENE)",
+              "pais": "FRANCA",
+              "assunto": "T13 · ",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": false,
+              "como_se_entra": "REST JSON, **sem chave**, filtrável por código NAF",
+              "dono": "DINUM / INSEE (França)",
+              "url": "https://recherche-entreprises.api.gouv.fr/search",
+              "atualiza": "contínua (base SIRENE)",
+              "exemplo": "NAF **46.21Z** (atacado de grãos, sementes e alimentos para animais): **4.646 empresas**. Entre as maiores da amostra: OCEALIA, SOUFFLET AGRICULTURE, VIVESCIA, AXEREAL, NATUP, ARTERRIS, OXYANE, CAVAC — as grandes cooperativas francesas. NAF **46.75Z** (atacado de produtos químicos): **4.251 empresas",
+              "contrato": null
+            },
+            {
+              "id": "FR-T3-001",
+              "nome": "Bulletins de Santé du Végétal",
+              "pais": "FRANCA",
+              "assunto": "T3 · Praga e doenca",
+              "estado": "YELLOW",
+              "estado_texto": "real, mas com atrito registrado",
+              "sabe_coletar": false,
+              "como_se_entra": "**PDF por região e por setor**, publicado em sites de DRAAF, câmaras de agricultura, institutos e na base documental do Ecophytopic. Não foi encontrada API nem dump aberto.",
+              "dono": "rede de epidemiovigilância — DRAAF, Chambres d'agriculture, institutos técnicos (ARVALIS, ITB…), dados no Vigicultures®",
+              "url": "",
+              "atualiza": "semanal na safra",
+              "exemplo": "Hauts-de-France — BSV Grandes Cultures n°32 de 25/08/2026 e BSV Pommes de Terre n°27 de 27/08/2026 (publicação ARVALIS para a rede regional). Verificado em 28/08/2026: um dia de defasagem.",
+              "contrato": null
+            },
+            {
+              "id": "FR-T3-002",
+              "nome": "Archive en agro-écologie de BSV",
+              "pais": "FRANCA",
+              "assunto": "T3 · Praga e doenca",
+              "estado": "NAO SEI",
+              "estado_texto": "nao foi possivel verificar — NAO SEI",
+              "sabe_coletar": false,
+              "como_se_entra": "ZIP (OCR, 173 MB) e RAR de amostra (14,9 MB)",
+              "dono": "publicado em data.gouv.fr (licença CC-BY), origem pestobserver.eu",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "nenhum capturado",
+              "contrato": null
+            },
+            {
+              "id": "FR-T4-001",
+              "nome": "Données ouvertes du catalogue E-Phy",
+              "pais": "FRANCA",
+              "assunto": "T4 · Regulatorio",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": true,
+              "como_se_entra": "CSV e XML em ZIP, resolvidos pela API do data.gouv.fr. Sem chave, sem scraping. `scripts/ephy.sh download`.",
+              "dono": "ANSES (Agence nationale de sécurité sanitaire) via data.gouv.fr",
+              "url": "https://www.data.gouv.fr/datasets/donnees-ouvertes-du-catalogue-e-phy-des-produits-phytopharmaceutiques-matieres-fertilisantes-et-supports-de-culture-adjuvants-produits-mixtes-et-melanges",
+              "atualiza": "semanal (declarada e confirmada: versão de 2026-08-25)",
+              "exemplo": "15.140 produtos; 18.558 usos autorizados. AMM 2080088 \"NEMO\" (ADAMA FRANCE SAS), nicosulfuron 40 g/L, herbicida, uso Maïs*Désherbage, dose 1,5 L/ha, ZNT aquática 20 m, decisão de 08/07/2014.",
+              "contrato": {
+                "retrieval_method": "scripts/ephy.sh download [destino]",
+                "http_method": "GET (API do catálogo) + GET (ZIP resolvido)",
+                "parameters": "nenhum — o id do dataset é fixo",
+                "auth_required": "não",
+                "output_type": "ZIP com CSV UTF-8, separador ';'",
+                "expected_fields": "numero AMM · nom produit · titulaire · Substances actives · Etat d'autorisation · Numéro AMM du produit de référence",
+                "identity_keys": "numero AMM",
+                "date_field": "Date de première autorisation · Date de retrait du produit",
+                "update_behavior": "semanal, substituição integral",
+                "expected_failures": "reset de conexão transitório (observado no cold start da M08); mudança do título do recurso quebra o seletor \"zip + utf8\"",
+                "fail_closed_rule": "`set -euo pipefail` + retry exponencial 4×; sem CSV, a cadeia levanta ChainFailure e não devolve número",
+                "fallback": "nenhum equivalente. O E-Phy é o próprio open data.",
+                "archive_requirement": "**obrigatório e semanal** — é FORWARD-ONLY; o que não for arquivado deixa de existir",
+                "criticality": "PRIMARY · OPEN DATA",
+                "evidence": {
+                  "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+                  "line": 34,
+                  "snippet": "contrato de FR-T4-001"
+                }
+              }
+            },
+            {
+              "id": "IT-T3-001",
+              "nome": "IT-T3-001",
+              "pais": "ITALIA",
+              "assunto": "T3 · Praga e doenca",
+              "estado": "YELLOW",
+              "estado_texto": "real, mas com atrito registrado",
+              "sabe_coletar": false,
+              "como_se_entra": "PDF semanal por província, em caminho previsível",
+              "dono": "Regione Emilia-Romagna — Servizio fitosanitario; Consorzi Fitosanitari Provinciali (Reggio Emilia, Modena…)",
+              "url": "",
+              "atualiza": "semanal na safra",
+              "exemplo": "\"Bollettino 15 del 21 maggio 2026 — Reggio Emilia\", publicado no portal da Regione Emilia-Romagna (bollettini interprovinciali di produzione integrata e biologica 2026).",
+              "contrato": null
+            },
+            {
+              "id": "IT-T4-001",
+              "nome": "Fitosanitari — elenco dei prodotti fitosanitari autorizzati",
+              "pais": "ITALIA",
+              "assunto": "T4 · Regulatorio",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": true,
+              "como_se_entra": "CSV direto (4,6 MB), sem chave",
+              "dono": "Ministero della Salute (Italia)",
+              "url": "https://www.dati.salute.gov.it/it/dataset/fitosanitari/",
+              "atualiza": "o nome do arquivo é datado; versão obtida de 2026-08-24",
+              "exemplo": "17.695 produtos; 3.712 em vigor. ADAMA ITALIA S.R.L. com 155 autorizações de vencimento futuro — 58 nos próximos 6 meses. Reg. 008929 TOPIK 240 EC (clodinafop + cloquintocet mexyl), vencimento 31/07/2027.",
+              "contrato": {
+                "retrieval_method": "scripts/chain.py run it-prothioconazole — o nome datado do arquivo é DESCOBERTO na página do dataset, nunca chutado",
+                "http_method": "GET (página) + GET (CSV)",
+                "parameters": "nenhum",
+                "auth_required": "não",
+                "output_type": "CSV ';', 17.695 linhas, ~4,6 MB",
+                "expected_fields": "num_registrazione · denominazione_prodotto · ragione_sociale · sostanze_attive · stato_amministrativo · data_scadenza_autorizzazione · motivo_della revoca",
+                "identity_keys": "num_registrazione",
+                "date_field": "data_registrazione · data_scadenza_autorizzazione · data_decreto_revoca · data_decorrenza_revoca",
+                "update_behavior": "novo arquivo datado; os antigos parecem permanecer publicados",
+                "expected_failures": "mudança do padrão do nome · mudança do HTML da página (o regex de descoberta é a dependência real) · 200 com HTML no lugar do CSV",
+                "fail_closed_rule": "se o regex não achar nenhum `PROD_FTS_*.csv`, levanta. Se o corpo começar com `<html`, levanta.",
+                "fallback": "o mesmo arquivo em `.json` e `.xml`, na mesma pasta",
+                "archive_requirement": "recomendável, não crítico — o nome datado já é uma versão",
+                "criticality": "PRIMARY · WEB (arquivo estático datado)",
+                "evidence": {
+                  "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+                  "line": 136,
+                  "snippet": "contrato de IT-T4-001"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "titulo": "FACEBOOK",
+          "subtitulo": "17 contas mapeadas · 10 autorizadas a coletar",
+          "porque": "Pagina publica do concorrente. Estar na lista NAO e autorizacao: so entra na coleta quem tem identidade PROVADA e e conta local do pais.",
+          "onde": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+          "itens": [
+            {
+              "id": "BASF.Agro.Espana",
+              "nome": "BASF · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://es-la.facebook.com/BASF.Agro.Espana/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BASF",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "BASF-Agricultural-Solutions-1741459832625091",
+              "nome": "BASF · IT",
+              "pais": "IT",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.facebook.com/BASF-Agricultural-Solutions-1741459832625091/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BASF",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "Bayer4CropsES",
+              "nome": "BAYER · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.facebook.com/Bayer4CropsES",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BAYER",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "BayerCropScienceItalia",
+              "nome": "BAYER · IT",
+              "pais": "IT",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.facebook.com/BayerCropScienceItalia",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BAYER",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "CortevaES",
+              "nome": "CORTEVA · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.facebook.com/CortevaES",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "CORTEVA",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "Nufarm-France",
+              "nome": "NUFARM · FR",
+              "pais": "FR",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.facebook.com/people/Nufarm-France/100088697208474/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "NUFARM",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "Nufarm-Italia-2312073685546312",
+              "nome": "NUFARM · IT",
+              "pais": "IT",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.facebook.com/Nufarm-Italia-2312073685546312",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "NUFARM",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "SyngentaES",
+              "nome": "SYNGENTA · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.facebook.com/SyngentaES/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "SYNGENTA",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "SyngentaFrance",
+              "nome": "SYNGENTA · FR",
+              "pais": "FR",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.facebook.com/SyngentaFrance",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "SYNGENTA",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "Syngenta-2007689772789481",
+              "nome": "SYNGENTA · IT",
+              "pais": "IT",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.facebook.com/Syngenta-2007689772789481",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "SYNGENTA",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "dekalbfr",
+              "nome": "BAYER · FR",
+              "pais": "FR",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — a página é de MARCA/PRODUTO, não da empresa no país (PAGE_ROLE=PRODUCT_BRAND). O lote é COMPANY x COUNTRY.",
+              "sabe_coletar": false,
+              "url": "https://www.facebook.com/dekalbfr",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BAYER",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "NOT_KNOWN",
+              "nome": "NUFARM · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)",
+              "sabe_coletar": false,
+              "url": "https://www.facebook.com/policy.php/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "NUFARM",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "NOT_KNOWN",
+              "nome": "NUFARM · FR",
+              "pais": "FR",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)",
+              "sabe_coletar": false,
+              "url": "https://www.facebook.com/policy.php/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "NUFARM",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "NOT_KNOWN",
+              "nome": "NUFARM · IT",
+              "pais": "IT",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como IT (COUNTRY_SCOPE=NOT_KNOWN)",
+              "sabe_coletar": false,
+              "url": "https://www.facebook.com/policy.php/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "NUFARM",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "NOT_KNOWN",
+              "nome": "SYNGENTA · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)",
+              "sabe_coletar": false,
+              "url": "https://www.facebook.com/policy.php/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "SYNGENTA",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "NOT_KNOWN",
+              "nome": "SYNGENTA · FR",
+              "pais": "FR",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)",
+              "sabe_coletar": false,
+              "url": "https://www.facebook.com/policy.php/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "SYNGENTA",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "NOT_KNOWN",
+              "nome": "SYNGENTA · IT",
+              "pais": "IT",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como IT (COUNTRY_SCOPE=NOT_KNOWN)",
+              "sabe_coletar": false,
+              "url": "https://www.facebook.com/policy.php/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "SYNGENTA",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            }
+          ]
+        },
+        {
+          "titulo": "INSTAGRAM",
+          "subtitulo": "7 contas mapeadas · 5 autorizadas a coletar",
+          "porque": "Pagina publica do concorrente. Estar na lista NAO e autorizacao: so entra na coleta quem tem identidade PROVADA e e conta local do pais.",
+          "onde": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+          "itens": [
+            {
+              "id": "basf_agroes",
+              "nome": "BASF · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.instagram.com/basf_agroes/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BASF",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "bayer4cropses",
+              "nome": "BAYER · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.instagram.com/bayer4cropses/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BAYER",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "bayer_italia",
+              "nome": "BAYER · IT",
+              "pais": "IT",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.instagram.com/bayer_italia",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BAYER",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "syngenta.es",
+              "nome": "SYNGENTA · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://instagram.com/syngenta.es",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "SYNGENTA",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "syngentaitalia",
+              "nome": "SYNGENTA · IT",
+              "pais": "IT",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.instagram.com/syngentaitalia/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "SYNGENTA",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "basf_global",
+              "nome": "BASF · IT",
+              "pais": "IT",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — o país da conta não está provado como IT (COUNTRY_SCOPE=GLOBAL)",
+              "sabe_coletar": false,
+              "url": "https://www.instagram.com/basf_global/?hl=it",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BASF",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "cortevabiologicals",
+              "nome": "CORTEVA · FR",
+              "pais": "FR",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN) · a página é de MARCA/PRODUTO, não da empresa no país (PAGE_ROLE=PRODUCT_BRAND). O lote é COMPANY x COUNTRY.",
+              "sabe_coletar": false,
+              "url": "https://www.instagram.com/cortevabiologicals/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "CORTEVA",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            }
+          ]
+        },
+        {
+          "titulo": "LINKEDIN",
+          "subtitulo": "6 contas mapeadas · 0 autorizadas a coletar",
+          "porque": "Pagina publica do concorrente. Estar na lista NAO e autorizacao: so entra na coleta quem tem identidade PROVADA e e conta local do pais.",
+          "onde": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+          "itens": [
+            {
+              "id": "basf",
+              "nome": "BASF · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — o país da conta não está provado como ES (COUNTRY_SCOPE=GLOBAL)",
+              "sabe_coletar": false,
+              "url": "https://www.linkedin.com/company/basf",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BASF",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "basf",
+              "nome": "BASF · IT",
+              "pais": "IT",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — o país da conta não está provado como IT (COUNTRY_SCOPE=GLOBAL)",
+              "sabe_coletar": false,
+              "url": "https://www.linkedin.com/company/basf/?originalSubdomain=it",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BASF",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "bayer-cropscience",
+              "nome": "BAYER · IT",
+              "pais": "IT",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — o país da conta não está provado como IT (COUNTRY_SCOPE=GLOBAL)",
+              "sabe_coletar": false,
+              "url": "https://it.linkedin.com/company/bayer-cropscience",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BAYER",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "nufarm",
+              "nome": "NUFARM · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)",
+              "sabe_coletar": false,
+              "url": "https://www.linkedin.com/company/nufarm/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "NUFARM",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "nufarm",
+              "nome": "NUFARM · FR",
+              "pais": "FR",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)",
+              "sabe_coletar": false,
+              "url": "https://www.linkedin.com/company/nufarm/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "NUFARM",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "nufarm",
+              "nome": "NUFARM · IT",
+              "pais": "IT",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — o país da conta não está provado como IT (COUNTRY_SCOPE=NOT_KNOWN)",
+              "sabe_coletar": false,
+              "url": "https://au.linkedin.com/company/nufarm",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "NUFARM",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            }
+          ]
+        },
+        {
+          "titulo": "YOUTUBE",
+          "subtitulo": "14 contas mapeadas · 7 autorizadas a coletar",
+          "porque": "Pagina publica do concorrente. Estar na lista NAO e autorizacao: so entra na coleta quem tem identidade PROVADA e e conta local do pais.",
+          "onde": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+          "itens": [
+            {
+              "id": "BayerCropScienceEspaña",
+              "nome": "BAYER · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.youtube.com/c/BayerCropScienceEspa%C3%B1a",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BAYER",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "BayerAgri",
+              "nome": "BAYER · FR",
+              "pais": "FR",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.youtube.com/@BayerAgri",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BAYER",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "BayerCropScienceIT",
+              "nome": "BAYER · IT",
+              "pais": "IT",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.youtube.com/user/BayerCropScienceIT",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BAYER",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "nufarmespana",
+              "nome": "NUFARM · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.youtube.com/user/nufarmespana",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "NUFARM",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "SyngentaES",
+              "nome": "SYNGENTA · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.youtube.com/user/SyngentaES",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "SYNGENTA",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "SyngentaFrance",
+              "nome": "SYNGENTA · FR",
+              "pais": "FR",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://youtube.com/user/SyngentaFrance/",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "SYNGENTA",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "Syngentaitaly",
+              "nome": "SYNGENTA · IT",
+              "pais": "IT",
+              "assunto": "comunicacao publica",
+              "estado": "GREEN",
+              "estado_texto": "autorizada a coletar",
+              "sabe_coletar": true,
+              "url": "https://www.youtube.com/Syngentaitaly",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "SYNGENTA",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "NOT_KNOWN",
+              "nome": "BASF · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)",
+              "sabe_coletar": false,
+              "url": "https://www.youtube.com/playlist?v=tNVpHYn5hZQ&list=PL6qwtP-pW0yQJvssDjPH7qB2K8nOowsGU",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BASF",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "NOT_KNOWN",
+              "nome": "BASF · FR",
+              "pais": "FR",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)",
+              "sabe_coletar": false,
+              "url": "https://www.youtube.com/playlist?list=PL6qwtP-pW0yRMtJpEWKVqnNL_THdY8OwH",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BASF",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "NOT_KNOWN",
+              "nome": "BASF · IT",
+              "pais": "IT",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como IT (COUNTRY_SCOPE=NOT_KNOWN)",
+              "sabe_coletar": false,
+              "url": "https://youtube.com/playlist?list=PL6qwtP-pW0yTjVhFPDJ164KR3ot2_zgqy",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BASF",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "NOT_KNOWN",
+              "nome": "BAYER · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)",
+              "sabe_coletar": false,
+              "url": "https://www.youtube.com/watch?v=iWTktO4WKQ0",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BAYER",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "NOT_KNOWN",
+              "nome": "BAYER · FR",
+              "pais": "FR",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)",
+              "sabe_coletar": false,
+              "url": "https://www.youtube.com/watch?v=NqYEfsuaBbg",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "BAYER",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "CortevaBiologicals",
+              "nome": "CORTEVA · FR",
+              "pais": "FR",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN) · a página é de MARCA/PRODUTO, não da empresa no país (PAGE_ROLE=PRODUCT_BRAND). O lote é COMPANY x COUNTRY.",
+              "sabe_coletar": false,
+              "url": "https://www.youtube.com/@CortevaBiologicals",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "CORTEVA",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "NOT_KNOWN",
+              "nome": "SYNGENTA · ES",
+              "pais": "ES",
+              "assunto": "comunicacao publica",
+              "estado": "NAO SEI",
+              "estado_texto": "fora da coleta — a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)",
+              "sabe_coletar": false,
+              "url": "https://www.youtube.com/watch?v=rZV7WGA9y8M&t=1s",
+              "como_se_entra": "rota paga Apify, so depois de o contrato do ator passar",
+              "dono": "SYNGENTA",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            }
+          ]
+        }
+      ],
+      "header_claim": {
+        "total": 37,
+        "line": 9,
+        "green": 16,
+        "yellow": 4,
+        "nao_sei": 17,
+        "fichas_completas": 23,
+        "divergencia": 14,
+        "leitura": "O cabecalho do atlas diz 37 fontes registradas; fichas completas, com SOURCE_ID valido, ha 23. Faltam 14 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
+      },
+      "intake": {
+        "porta": "scripts/fonte_nova.py",
+        "fila_file": "data/samples/FONTES-CANDIDATAS.json",
+        "tipos_aceites": [],
+        "escada": [
+          {
+            "degrau": 1,
+            "nome": "CANDIDATA",
+            "o_que_e": "alguem viu que existe. Ninguem abriu ainda.",
+            "quantas": 0,
+            "onde": "data/samples/FONTES-CANDIDATAS.json",
+            "sobe_como": "abrir, olhar o que entrega e guardar um exemplo real"
+          },
+          {
+            "degrau": 2,
+            "nome": "REGISTADA",
+            "o_que_e": "tem ficha no atlas, com exemplo real guardado.",
+            "quantas": 18,
+            "onde": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+            "sobe_como": "escrever COMO se busca e o que fazer quando quebrar"
+          },
+          {
+            "degrau": 3,
+            "nome": "CONTRATADA",
+            "o_que_e": "tem contrato de busca escrito.",
+            "quantas": 5,
+            "onde": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+            "sobe_como": "por a busca a correr sozinha, num workflow"
+          },
+          {
+            "degrau": 4,
+            "nome": "AUTOMATICA",
+            "o_que_e": "a maquina vai la sozinha, sem ninguem por perto.",
+            "quantas": null,
+            "onde": ".github/workflows/",
+            "sobe_como": "—"
+          }
+        ],
+        "por_tipo": {},
+        "candidatas": [],
+        "nao_verificadas": 5
+      },
+      "file_count": 3,
+      "x": 360,
       "y": 360
     },
     {
@@ -1469,7 +3050,7 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 7785,
+      "x": 8780,
       "y": 360
     },
     {
@@ -1523,7 +3104,7 @@
       "outbound": [
         "C-AUDIT-HARNESS"
       ],
-      "x": 6665,
+      "x": 7660,
       "y": 360
     },
     {
@@ -1572,7 +3153,7 @@
         "C-AUDIT-HARNESS",
         "C-PORTAL-CASCO"
       ],
-      "x": 7080,
+      "x": 8075,
       "y": 360
     },
     {
@@ -1660,7 +3241,7 @@
         "C-AUDIT-HARNESS",
         "C-PORTAO-BUILD"
       ],
-      "x": 6665,
+      "x": 7660,
       "y": 682
     },
     {
@@ -1701,7 +3282,7 @@
         "C-PORTAO-BUILD"
       ],
       "outbound": [],
-      "x": 7080,
+      "x": 8075,
       "y": 682
     },
     {
@@ -1739,7 +3320,7 @@
         "C-AUDIT-HARNESS",
         "C-RELEVANCIA"
       ],
-      "x": 6665,
+      "x": 7660,
       "y": 1004
     },
     {
@@ -1790,13 +3371,13 @@
         "C-V21-INGEST",
         "C-V21-OPORTUNIDADE"
       ],
-      "x": 3720,
+      "x": 4715,
       "y": 360
     },
     {
       "id": "C-CI-COLETA",
-      "name": "Workflows de coleta",
-      "territory": "Z-FONTES",
+      "name": "Os botoes que disparam a coleta",
+      "territory": "Z-GUARDA",
       "kind": "workflow",
       "what": "Os botoes que disparam coleta paga, sempre com a fase gratuita rodando primeiro.",
       "why_here": "Coleta paga sem contrato conferido antes ja queimou execucoes.",
@@ -1807,7 +3388,6 @@
       "ui_status": "green",
       "icon": "▶",
       "views": [
-        "acervo",
         "infra"
       ],
       "lane": "official",
@@ -1830,8 +3410,8 @@
         "C-CORPUS",
         "C-TESTES"
       ],
-      "x": 775,
-      "y": 682
+      "x": 2185,
+      "y": 360
     },
     {
       "id": "C-CI-MAPA",
@@ -1866,13 +3446,13 @@
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR"
       ],
-      "x": 4840,
+      "x": 5835,
       "y": 360
     },
     {
       "id": "C-CI-PERSIST",
-      "name": "Workflows de persistencia",
-      "territory": "Z-FONTES",
+      "name": "Os botoes que cuidam do banco",
+      "territory": "Z-GUARDA",
       "kind": "workflow",
       "what": "Conferem a conexao com o banco, rodam migracao e provam que o dado volta igual ao que entrou.",
       "why_here": "Migracao sem prova de ida e volta e perda de dado com aparencia de sucesso.",
@@ -1883,7 +3463,6 @@
       "ui_status": "green",
       "icon": "▶",
       "views": [
-        "acervo",
         "infra"
       ],
       "lane": "official",
@@ -1904,7 +3483,7 @@
         "C-CADEIA-V21",
         "C-MEDICAO"
       ],
-      "x": 1190,
+      "x": 2185,
       "y": 682
     },
     {
@@ -1939,7 +3518,7 @@
         "C-CADEIA-V21",
         "C-MEDICAO"
       ],
-      "x": 5255,
+      "x": 6250,
       "y": 360
     },
     {
@@ -1976,13 +3555,13 @@
         "C-PROVENIENCIA",
         "C-TESTES"
       ],
-      "x": 2600,
+      "x": 3595,
       "y": 360
     },
     {
       "id": "C-COLETA-BASE",
-      "name": "Coletor e portoes de coleta",
-      "territory": "Z-FONTES",
+      "name": "O motor de buscar e o portao que decide se vale",
+      "territory": "Z-COMO",
       "kind": "engine",
       "what": "O motor generico de coleta e o portao que decide, de graca, se vale gastar maquina antes de gastar.",
       "why_here": "Coletar sem portao ja custou execucoes pagas que devolveram o alvo errado.",
@@ -2026,13 +3605,13 @@
         "C-PROVENIENCIA",
         "C-VOZ"
       ],
-      "x": 360,
+      "x": 1065,
       "y": 1004
     },
     {
       "id": "C-COLETA-INSTAGRAM",
-      "name": "Coleta Instagram",
-      "territory": "Z-FONTES",
+      "name": "O que se fala em video no Instagram",
+      "territory": "Z-COMO",
       "kind": "engine",
       "what": "Recolhe publicacoes de Instagram das contas autorizadas e transcreve o que e falado em video.",
       "why_here": "Boa parte da fala real de produtor e de tecnico nao esta em texto — esta em video.",
@@ -2059,20 +3638,22 @@
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
-      "inbound": [],
+      "inbound": [
+        "C-PORTA-FONTE"
+      ],
       "outbound": [
         "C-APIFY-POOL",
         "C-COLETA-BASE",
         "C-MEDICAO",
         "C-PROVENIENCIA"
       ],
-      "x": 775,
+      "x": 1480,
       "y": 1004
     },
     {
       "id": "C-COLETA-PUBLICA",
-      "name": "Coleta de comunicacao publica do concorrente",
-      "territory": "Z-FONTES",
+      "name": "O que o concorrente publica em canal aberto",
+      "territory": "Z-COMO",
       "kind": "engine",
       "what": "Recolhe o que os concorrentes publicam em canais abertos e classifica cada peca.",
       "why_here": "Saber o que o concorrente esta dizendo em publico, sem depender de ninguem contar.",
@@ -2109,13 +3690,13 @@
         "C-APIFY-POOL",
         "C-COLETA-BASE"
       ],
-      "x": 1190,
-      "y": 1004
+      "x": 1065,
+      "y": 1326
     },
     {
       "id": "C-CORPUS",
-      "name": "Corpus de voz e de pesquisador",
-      "territory": "Z-FONTES",
+      "name": "A fala do campo e a producao dos pesquisadores",
+      "territory": "Z-COMO",
       "kind": "engine",
       "what": "Junta a fala real de campo e a producao dos pesquisadores num corpo de texto consultavel.",
       "why_here": "A voz do campo e a ciencia sao duas evidencias diferentes e nao podem virar a mesma coisa.",
@@ -2155,7 +3736,7 @@
         "C-COLETA-BASE",
         "C-PROVENIENCIA"
       ],
-      "x": 360,
+      "x": 1480,
       "y": 1326
     },
     {
@@ -2195,7 +3776,7 @@
       "outbound": [
         "C-SUPABASE"
       ],
-      "x": 3015,
+      "x": 4010,
       "y": 360
     },
     {
@@ -2247,13 +3828,13 @@
         "C-PORTAL-CASCO"
       ],
       "outbound": [],
-      "x": 7785,
+      "x": 8780,
       "y": 682
     },
     {
       "id": "C-FONTES-EU",
-      "name": "Fontes regulatorias e cientificas europeias",
-      "territory": "Z-FONTES",
+      "name": "As bases oficiais da Europa",
+      "territory": "Z-COMO",
       "kind": "engine",
       "what": "Le as bases oficiais da Europa — registro de produtos, pragas, denominacoes, dados agroalimentares.",
       "why_here": "Fonte oficial e o unico chao que nao depende de alguem ter postado.",
@@ -2293,8 +3874,8 @@
       "outbound": [
         "C-ROTULOS"
       ],
-      "x": 775,
-      "y": 1326
+      "x": 1065,
+      "y": 1648
     },
     {
       "id": "C-LASTMILE",
@@ -2330,7 +3911,7 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 5960,
+      "x": 6955,
       "y": 682
     },
     {
@@ -2370,7 +3951,7 @@
       "outbound": [
         "C-V21-INGEST"
       ],
-      "x": 2600,
+      "x": 3595,
       "y": 682
     },
     {
@@ -2406,7 +3987,7 @@
         "C-MAPA-GERADOR"
       ],
       "outbound": [],
-      "x": 4840,
+      "x": 5835,
       "y": 682
     },
     {
@@ -2443,7 +4024,7 @@
         "C-MAPA-APP",
         "C-MAPA-SCAN"
       ],
-      "x": 5255,
+      "x": 6250,
       "y": 682
     },
     {
@@ -2451,7 +4032,7 @@
       "name": "Scanner do System Map",
       "territory": "Z-PROVA",
       "kind": "engine",
-      "what": "Le o repositorio e devolve so os fatos: que ficheiro existe, quem importa quem, quem roda o que.",
+      "what": "Le o repositorio e devolve so os fatos: que ficheiro existe, quem importa quem, quem roda o que — e le tambem o atlas de fontes, os contratos de busca e as palavras usadas na coleta.",
       "why_here": "E a unica fonte de aresta tecnica do mapa. Sem ele, o mapa seria opiniao desenhada.",
       "departments": [
         "ENGENHARIA"
@@ -2466,9 +4047,10 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "system-map/scripts/scan_repo.py"
+        "system-map/scripts/scan_repo.py",
+        "system-map/scripts/scan_sources.py"
       ],
-      "file_count": 1,
+      "file_count": 2,
       "status": "PROVEN",
       "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
       "changed_since_declared": [],
@@ -2477,8 +4059,10 @@
         "C-MAPA-GERADOR",
         "C-MAPA-VALIDADOR"
       ],
-      "outbound": [],
-      "x": 4840,
+      "outbound": [
+        "C-PORTA-FONTE"
+      ],
+      "x": 5835,
       "y": 1004
     },
     {
@@ -2511,7 +4095,7 @@
         "C-CI-MAPA"
       ],
       "outbound": [],
-      "x": 5255,
+      "x": 6250,
       "y": 1004
     },
     {
@@ -2547,7 +4131,7 @@
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN"
       ],
-      "x": 4840,
+      "x": 5835,
       "y": 1326
     },
     {
@@ -2589,7 +4173,7 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 5255,
+      "x": 6250,
       "y": 1326
     },
     {
@@ -2637,8 +4221,43 @@
         "C-V21-CRUZAMENTO",
         "C-V21-INGEST"
       ],
-      "x": 5960,
+      "x": 6955,
       "y": 1004
+    },
+    {
+      "id": "C-PORTA-FONTE",
+      "name": "A porta de entrada de fonte nova",
+      "territory": "Z-FONTES",
+      "kind": "engine",
+      "what": "Onde se anota uma fonte nova que apareceu — no meio de uma coleta ou na mao — organizada por tipo, com para que serve e quem a viu.",
+      "why_here": "O acervo de fontes e capital parado: consulta-se antes de coletar. Sem porta, fonte nova morre no historico do terminal de quem a viu. Mas o que entra e CANDIDATA, nunca fonte: fonte nasce quando alguem abre, olha e guarda prova.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊕",
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "data/samples/FONTES-CANDIDATAS.json",
+        "scripts/fonte_nova.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-MAPA-SCAN"
+      ],
+      "outbound": [
+        "C-COLETA-INSTAGRAM"
+      ],
+      "x": 360,
+      "y": 682
     },
     {
       "id": "C-PORTAL-CASCO",
@@ -2680,7 +4299,7 @@
         "C-PORTAL-DADOS",
         "C-PORTAL-MODELO"
       ],
-      "x": 7785,
+      "x": 8780,
       "y": 1004
     },
     {
@@ -2732,7 +4351,7 @@
       "outbound": [
         "C-RELEVANCIA"
       ],
-      "x": 7785,
+      "x": 8780,
       "y": 1326
     },
     {
@@ -2772,7 +4391,7 @@
         "C-ADAMA-CATALOGO",
         "C-PORTAL-DADOS"
       ],
-      "x": 7785,
+      "x": 8780,
       "y": 1648
     },
     {
@@ -2810,7 +4429,7 @@
         "C-AUDIT-GERAL",
         "C-AUDIT-HARNESS"
       ],
-      "x": 7080,
+      "x": 8075,
       "y": 1004
     },
     {
@@ -2852,7 +4471,7 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 3015,
+      "x": 4010,
       "y": 682
     },
     {
@@ -2893,13 +4512,13 @@
       "outbound": [
         "C-CORPUS"
       ],
-      "x": 2600,
+      "x": 3595,
       "y": 1004
     },
     {
       "id": "C-ROTULOS",
-      "name": "Rotulos",
-      "territory": "Z-FONTES",
+      "name": "Os rotulos oficiais dos produtos",
+      "territory": "Z-COMO",
       "kind": "engine",
       "what": "Baixa, conta e le os rotulos oficiais dos produtos.",
       "why_here": "O rotulo e o unico documento que diz o que e legalmente permitido fazer com o produto.",
@@ -2936,8 +4555,8 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 1190,
-      "y": 1326
+      "x": 1480,
+      "y": 1648
     },
     {
       "id": "C-SITE-INGEST",
@@ -2968,13 +4587,13 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 6665,
+      "x": 7660,
       "y": 1326
     },
     {
       "id": "C-SUPABASE",
-      "name": "Persistencia Supabase",
-      "territory": "Z-FONTES",
+      "name": "O banco onde o dado fica guardado",
+      "territory": "Z-GUARDA",
       "kind": "engine",
       "what": "Onde o dado coletado fica guardado, e as migracoes que mudam o formato dessa guarda.",
       "why_here": "Entre uma corrida e outra o dado precisa existir em algum lugar que nao seja a memoria da maquina.",
@@ -2985,7 +4604,6 @@
       "ui_status": "green",
       "icon": "⚙",
       "views": [
-        "acervo",
         "infra"
       ],
       "lane": "official",
@@ -3045,8 +4663,8 @@
         "C-DATA-CLOCK"
       ],
       "outbound": [],
-      "x": 360,
-      "y": 1648
+      "x": 2185,
+      "y": 1004
     },
     {
       "id": "C-TESTES",
@@ -3131,7 +4749,7 @@
         "C-V21-OPORTUNIDADE",
         "C-VOZ"
       ],
-      "x": 4840,
+      "x": 5835,
       "y": 1648
     },
     {
@@ -3168,7 +4786,7 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 4135,
+      "x": 5130,
       "y": 360
     },
     {
@@ -3217,7 +4835,7 @@
         "C-V21-INGEST",
         "C-V21-OPORTUNIDADE"
       ],
-      "x": 3720,
+      "x": 4715,
       "y": 682
     },
     {
@@ -3257,7 +4875,7 @@
       "outbound": [
         "C-V21-COMERCIAL"
       ],
-      "x": 4135,
+      "x": 5130,
       "y": 682
     },
     {
@@ -3297,7 +4915,7 @@
       "outbound": [
         "C-V21-INGEST"
       ],
-      "x": 3720,
+      "x": 4715,
       "y": 1004
     },
     {
@@ -3335,7 +4953,7 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 4135,
+      "x": 5130,
       "y": 1004
     },
     {
@@ -3382,7 +5000,7 @@
         "C-DATA-CLOCK",
         "C-FONTES-EU"
       ],
-      "x": 3720,
+      "x": 4715,
       "y": 1326
     },
     {
@@ -3424,7 +5042,7 @@
         "C-DATA-CLOCK",
         "C-V21-COMERCIAL"
       ],
-      "x": 4135,
+      "x": 5130,
       "y": 1326
     },
     {
@@ -3460,7 +5078,7 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 3015,
+      "x": 4010,
       "y": 1004
     },
     {
@@ -3470,7 +5088,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD a4420c12b2abc452c1cf227b67ad97ed1ccb4829"
+        "HEAD 34b20e6bc5fb39b66fe3d47bc7d899a4bf8d7bfe"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -3495,7 +5113,7 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 1895,
+      "x": 2890,
       "y": 360
     },
     {
@@ -3532,7 +5150,7 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 1895,
+      "x": 2890,
       "y": 682
     },
     {
@@ -3568,7 +5186,7 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 1895,
+      "x": 2890,
       "y": 1004
     },
     {
@@ -3607,7 +5225,7 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 1895,
+      "x": 2890,
       "y": 1326
     }
   ],
@@ -3619,7 +5237,7 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Catalogo de produtos ADAMA le Camadas de dado do portal. Provado por 1 linha de codigo.",
+      "reason": "O que a ADAMA vende em cada pais le Camadas de dado do portal. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/it_casa_dados.py",
@@ -3635,7 +5253,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Catalogo de produtos ADAMA importa Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
+      "reason": "O que a ADAMA vende em cada pais importa Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/it_casa_dados.py",
@@ -3651,7 +5269,7 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Catalogo de produtos ADAMA le Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
+      "reason": "O que a ADAMA vende em cada pais le Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/it_casa_dados.py",
@@ -3667,12 +5285,65 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Portao e importacao ADAMA Espanha le Persistencia Supabase. Provado por 1 linha de codigo.",
+      "reason": "A entrada do catalogo da Espanha le O banco onde o dado fica guardado. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/adama_es_gate.py",
           "line": 723,
           "snippet": "'ONDE_FOI_RESOLVIDO': 'supabase/migrations/013_captura_nao_e_registro.sql',"
+        }
+      ]
+    },
+    {
+      "from": "C-AS-FONTES",
+      "to": "C-CADEIA-V21",
+      "type": "RETRIEVED_BY",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "1 fonte(s) declaram, no contrato de busca, que quem vai la buscar e «Cadeia canonica V2.1».",
+      "evidence": [
+        {
+          "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+          "line": 136,
+          "snippet": "IT-T4-001 RETRIEVAL_METHOD scripts/chain.py run it-prothioconazole — o nome datado do arquivo é DESCOBERTO na página "
+        }
+      ]
+    },
+    {
+      "from": "C-AS-FONTES",
+      "to": "C-FONTES-EU",
+      "type": "RETRIEVED_BY",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "2 fonte(s) declaram, no contrato de busca, que quem vai la buscar e «As bases oficiais da Europa».",
+      "evidence": [
+        {
+          "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+          "line": 208,
+          "snippet": "EU-T4-001 RETRIEVAL_METHOD scripts/cellar.sh {sparql|act|substances}"
+        },
+        {
+          "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+          "line": 34,
+          "snippet": "FR-T4-001 RETRIEVAL_METHOD scripts/ephy.sh download [destino]"
+        }
+      ]
+    },
+    {
+      "from": "C-AS-FONTES",
+      "to": "C-ROTULOS",
+      "type": "RETRIEVED_BY",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "1 fonte(s) declaram, no contrato de busca, que quem vai la buscar e «Os rotulos oficiais dos produtos».",
+      "evidence": [
+        {
+          "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+          "line": 69,
+          "snippet": "ES-T4-005 RETRIEVAL_METHOD scripts/mapa_regfi.py {producto|export|total|divergencia}"
         }
       ]
     },
@@ -4182,7 +5853,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 importa Fontes regulatorias e cientificas europeias. Provado por 1 linha de codigo.",
+      "reason": "Cadeia canonica V2.1 importa As bases oficiais da Europa. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/chain.py",
@@ -4256,7 +5927,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 importa Rotulos. Provado por 1 linha de codigo.",
+      "reason": "Cadeia canonica V2.1 importa Os rotulos oficiais dos produtos. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/chain.py",
@@ -4272,7 +5943,7 @@
       "payload": "execucao",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 manda rodar Persistencia Supabase. Provado por 1 linha de codigo.",
+      "reason": "Cadeia canonica V2.1 manda rodar O banco onde o dado fica guardado. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/cadeia_canonica.sh",
@@ -4424,7 +6095,7 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflows de coleta le Portao e importacao ADAMA Espanha. Provado por 1 linha de codigo.",
+      "reason": "Os botoes que disparam a coleta le A entrada do catalogo da Espanha. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/adama-es-gate.yml",
@@ -4440,7 +6111,7 @@
       "payload": "execucao",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflows de coleta manda rodar Portao e importacao ADAMA Espanha. Provado por 1 linha de codigo.",
+      "reason": "Os botoes que disparam a coleta manda rodar A entrada do catalogo da Espanha. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/adama-es-gate.yml",
@@ -4456,7 +6127,7 @@
       "payload": "execucao",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflows de coleta manda rodar Pool de tokens Apify. Provado por 3 linhas de codigo.",
+      "reason": "Os botoes que disparam a coleta manda rodar As chaves de acesso. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/apify-conexao.yml",
@@ -4482,7 +6153,7 @@
       "payload": "execucao",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflows de coleta manda rodar Coleta de comunicacao publica do concorrente. Provado por 4 linhas de codigo.",
+      "reason": "Os botoes que disparam a coleta manda rodar O que o concorrente publica em canal aberto. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/comunicacao-publica.yml",
@@ -4513,7 +6184,7 @@
       "payload": "execucao",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflows de coleta manda rodar Corpus de voz e de pesquisador. Provado por 1 linha de codigo.",
+      "reason": "Os botoes que disparam a coleta manda rodar A fala do campo e a producao dos pesquisadores. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/apify-sensores.yml",
@@ -4529,7 +6200,7 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflows de coleta le Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Os botoes que disparam a coleta le Suite de testes. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/adama-es-gate.yml",
@@ -4545,7 +6216,7 @@
       "payload": "execucao",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflows de coleta manda rodar Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Os botoes que disparam a coleta manda rodar Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/adama-es-gate.yml",
@@ -4570,7 +6241,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 65,
+          "line": 66,
           "snippet": "python3 system-map/scripts/generate_system_map.py"
         }
       ]
@@ -4582,12 +6253,17 @@
       "payload": "execucao",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Scanner do System Map. Provado por 1 linha de codigo.",
+      "reason": "Workflow do System Map manda rodar Scanner do System Map. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
           "line": 64,
           "snippet": "python3 system-map/scripts/scan_repo.py"
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 65,
+          "snippet": "python3 system-map/scripts/scan_sources.py"
         }
       ]
     },
@@ -4602,7 +6278,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 76,
+          "line": 77,
           "snippet": "run: python3 system-map/tests/test_system_map.py"
         }
       ]
@@ -4618,7 +6294,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 73,
+          "line": 74,
           "snippet": "run: python3 system-map/scripts/validate_system_map.py"
         }
       ]
@@ -4630,7 +6306,7 @@
       "payload": "execucao",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflows de persistencia manda rodar Cadeia canonica V2.1. Provado por 1 linha de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar Cadeia canonica V2.1. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/supabase-migrate.yml",
@@ -4646,7 +6322,7 @@
       "payload": "execucao",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflows de persistencia manda rodar Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/supabase-migrate.yml",
@@ -4662,7 +6338,7 @@
       "payload": "execucao",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Calendario de regressoes manda rodar Catalogo de produtos ADAMA. Provado por 1 linha de codigo.",
+      "reason": "Calendario de regressoes manda rodar O que a ADAMA vende em cada pais. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/calendario-regressoes.yml",
@@ -4742,7 +6418,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor e portoes de coleta importa Pool de tokens Apify. Provado por 1 linha de codigo.",
+      "reason": "O motor de buscar e o portao que decide se vale importa As chaves de acesso. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/coleta_checkpoint.py",
@@ -4758,7 +6434,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor e portoes de coleta importa Ask Sintonia. Provado por 1 linha de codigo.",
+      "reason": "O motor de buscar e o portao que decide se vale importa Ask Sintonia. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/cdp.py",
@@ -4774,7 +6450,7 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor e portoes de coleta le Cadeia canonica V2.1. Provado por 1 linha de codigo.",
+      "reason": "O motor de buscar e o portao que decide se vale le Cadeia canonica V2.1. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/portoes_eame.py",
@@ -4790,7 +6466,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor e portoes de coleta importa Cicatrizes do Brasil (lei portada). Provado por 1 linha de codigo.",
+      "reason": "O motor de buscar e o portao que decide se vale importa Cicatrizes do Brasil (lei portada). Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/portoes_eame.py",
@@ -4806,7 +6482,7 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor e portoes de coleta le Cicatrizes do Brasil (lei portada). Provado por 1 linha de codigo.",
+      "reason": "O motor de buscar e o portao que decide se vale le Cicatrizes do Brasil (lei portada). Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/portoes_eame.py",
@@ -4822,7 +6498,7 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor e portoes de coleta le Fontes regulatorias e cientificas europeias. Provado por 1 linha de codigo.",
+      "reason": "O motor de buscar e o portao que decide se vale le As bases oficiais da Europa. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/portoes_eame.py",
@@ -4838,7 +6514,7 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor e portoes de coleta le Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
+      "reason": "O motor de buscar e o portao que decide se vale le Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/portoes_eame.py",
@@ -4854,7 +6530,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor e portoes de coleta importa Regua de procedencia. Provado por 2 linhas de codigo.",
+      "reason": "O motor de buscar e o portao que decide se vale importa Regua de procedencia. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "scripts/coletor.py",
@@ -4875,7 +6551,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor e portoes de coleta importa Regua da voz. Provado por 1 linha de codigo.",
+      "reason": "O motor de buscar e o portao que decide se vale importa Regua da voz. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/portao.py",
@@ -4891,7 +6567,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coleta Instagram importa Pool de tokens Apify. Provado por 2 linhas de codigo.",
+      "reason": "O que se fala em video no Instagram importa As chaves de acesso. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "scripts/instagram_coleta.py",
@@ -4912,7 +6588,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coleta Instagram importa Coletor e portoes de coleta. Provado por 4 linhas de codigo.",
+      "reason": "O que se fala em video no Instagram importa O motor de buscar e o portao que decide se vale. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "scripts/instagram_coleta.py",
@@ -4943,7 +6619,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coleta Instagram importa Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
+      "reason": "O que se fala em video no Instagram importa Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/instagram_coleta.py",
@@ -4959,7 +6635,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coleta Instagram importa Regua de procedencia. Provado por 1 linha de codigo.",
+      "reason": "O que se fala em video no Instagram importa Regua de procedencia. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/instagram_janela.py",
@@ -4975,7 +6651,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coleta de comunicacao publica do concorrente importa Pool de tokens Apify. Provado por 2 linhas de codigo.",
+      "reason": "O que o concorrente publica em canal aberto importa As chaves de acesso. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "scripts/comunicacao_coleta.py",
@@ -4996,7 +6672,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coleta de comunicacao publica do concorrente importa Coletor e portoes de coleta. Provado por 1 linha de codigo.",
+      "reason": "O que o concorrente publica em canal aberto importa O motor de buscar e o portao que decide se vale. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/comunicacao_coleta.py",
@@ -5012,7 +6688,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Corpus de voz e de pesquisador importa Pool de tokens Apify. Provado por 1 linha de codigo.",
+      "reason": "A fala do campo e a producao dos pesquisadores importa As chaves de acesso. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/sensor_coleta.py",
@@ -5028,7 +6704,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Corpus de voz e de pesquisador importa Coletor e portoes de coleta. Provado por 1 linha de codigo.",
+      "reason": "A fala do campo e a producao dos pesquisadores importa O motor de buscar e o portao que decide se vale. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/sensor_coleta.py",
@@ -5044,7 +6720,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Corpus de voz e de pesquisador importa Regua de procedencia. Provado por 1 linha de codigo.",
+      "reason": "A fala do campo e a producao dos pesquisadores importa Regua de procedencia. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/sensor_coleta.py",
@@ -5060,7 +6736,7 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Regua do tempo le Persistencia Supabase. Provado por 5 linhas de codigo.",
+      "reason": "Regua do tempo le O banco onde o dado fica guardado. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "scripts/calendario_handoff.py",
@@ -5096,7 +6772,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Fontes regulatorias e cientificas europeias importa Rotulos. Provado por 1 linha de codigo.",
+      "reason": "As bases oficiais da Europa importa Os rotulos oficiais dos produtos. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/denominaciones.py",
@@ -5132,17 +6808,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 311,
+          "line": 584,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 311,
+          "line": 584,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 312,
+          "line": 585,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ]
@@ -5154,12 +6830,38 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Gerador do System Map le Scanner do System Map. Provado por 1 linha de codigo.",
+      "reason": "Gerador do System Map le Scanner do System Map. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 519,
-          "snippet": "subprocess.run([sys.executable, str(Path(__file__).with_name(\"scan_repo.py\"))],"
+          "line": 816,
+          "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
+        },
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 816,
+          "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
+        }
+      ]
+    },
+    {
+      "from": "C-MAPA-SCAN",
+      "to": "C-PORTA-FONTE",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Scanner do System Map le A porta de entrada de fonte nova. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/scan_sources.py",
+          "line": 266,
+          "snippet": "FILA = \"data/samples/FONTES-CANDIDATAS.json\""
+        },
+        {
+          "file": "system-map/scripts/scan_sources.py",
+          "line": 295,
+          "snippet": "\"porta\": \"scripts/fonte_nova.py\","
         }
       ]
     },
@@ -5174,8 +6876,8 @@
       "evidence": [
         {
           "file": "system-map/scripts/validate_system_map.py",
-          "line": 94,
-          "snippet": "for script in (\"scan_repo.py\", \"generate_system_map.py\"):"
+          "line": 103,
+          "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"generate_system_map.py\"):"
         }
       ]
     },
@@ -5186,12 +6888,17 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Validador do System Map le Scanner do System Map. Provado por 1 linha de codigo.",
+      "reason": "Validador do System Map le Scanner do System Map. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "system-map/scripts/validate_system_map.py",
-          "line": 94,
-          "snippet": "for script in (\"scan_repo.py\", \"generate_system_map.py\"):"
+          "line": 103,
+          "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"generate_system_map.py\"):"
+        },
+        {
+          "file": "system-map/scripts/validate_system_map.py",
+          "line": 103,
+          "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"generate_system_map.py\"):"
         }
       ]
     },
@@ -5281,6 +6988,22 @@
           "file": "scripts/pacote_mercado.py",
           "line": 31,
           "snippet": "from pacote_normalizar import grava, env, novo_id, DR, ROOT, local_json  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-PORTA-FONTE",
+      "to": "C-COLETA-INSTAGRAM",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada de fonte nova le O que se fala em video no Instagram. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/fonte_nova.py",
+          "line": 49,
+          "snippet": "url=..., para_que=..., quem_viu=\"instagram_coleta.py\","
         }
       ]
     },
@@ -5491,7 +7214,7 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal le Catalogo de produtos ADAMA. Provado por 1 linha de codigo.",
+      "reason": "Modelo de aplicacao do portal le O que a ADAMA vende em cada pais. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "italia-portale/client/italy-casa.js",
@@ -5607,7 +7330,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Regua de relevancia ADAMA importa Corpus de voz e de pesquisador. Provado por 1 linha de codigo.",
+      "reason": "Regua de relevancia ADAMA importa A fala do campo e a producao dos pesquisadores. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/regua_italia.py",
@@ -5623,7 +7346,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes importa Portao e importacao ADAMA Espanha. Provado por 1 linha de codigo.",
+      "reason": "Suite de testes importa A entrada do catalogo da Espanha. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "tests/test_adama_es_import_rules.py",
@@ -5639,7 +7362,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes importa Pool de tokens Apify. Provado por 1 linha de codigo.",
+      "reason": "Suite de testes importa As chaves de acesso. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "tests/test_coleta_resiliente.py",
@@ -5729,7 +7452,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes importa Coletor e portoes de coleta. Provado por 3 linhas de codigo.",
+      "reason": "Suite de testes importa O motor de buscar e o portao que decide se vale. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_coleta_resiliente.py",
@@ -5755,7 +7478,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes importa Coleta de comunicacao publica do concorrente. Provado por 3 linhas de codigo.",
+      "reason": "Suite de testes importa O que o concorrente publica em canal aberto. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_comunicacao.py",
@@ -5797,7 +7520,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes importa Fontes regulatorias e cientificas europeias. Provado por 1 linha de codigo.",
+      "reason": "Suite de testes importa As bases oficiais da Europa. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "tests/test_operacao.py",
@@ -5923,7 +7646,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes importa Rotulos. Provado por 1 linha de codigo.",
+      "reason": "Suite de testes importa Os rotulos oficiais dos produtos. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "tests/test_operacao.py",
@@ -6166,7 +7889,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ingestao V2.1 importa Fontes regulatorias e cientificas europeias. Provado por 1 linha de codigo.",
+      "reason": "Ingestao V2.1 importa As bases oficiais da Europa. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/normalize_agro.py",
@@ -6252,20 +7975,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 641,
+  "UNCLAIMED_FILES_COUNT": 642,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 55,
+    "components": 57,
     "components_proven": 46,
-    "components_pending": 5,
+    "components_pending": 7,
     "components_broken": 0,
     "components_unknown": 4,
-    "edges": 120,
-    "edges_proven": 120,
+    "edges": 125,
+    "edges_proven": 125,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1019,
-    "files_covered": 378,
+    "files_tracked": 1023,
+    "files_covered": 381,
     "files_code_unclaimed": 0
   }
 }
