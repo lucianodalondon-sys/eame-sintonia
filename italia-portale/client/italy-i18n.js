@@ -96,6 +96,34 @@
        non aveva rotta: la distinzione era dichiarata e non verificabile.
        Questa etichetta porta il lettore all'altra popolazione. */
     frOtherPop: 'L\'altra popolazione:',
+    /* ══ L'INCROCIO, NEL CARTELLINO E NELLA SCHEDA ═══════════════════════
+       Il cartellino diceva coltura, avversita, regione e stato — e nient'altro.
+       Tredici cartellini cosi si somigliano tutti, e chi guarda non ha modo di
+       sapere quale caso ha dietro quattro famiglie di evidenza e quale ne ha
+       una. L'intelligenza c'era e non si vedeva.
+
+           SE TUTTI I CARTELLINI SI SOMIGLIANO, NESSUNO DICE NIENTE. */
+    xSci: 'SCIENZA', xVoice: 'VOCI TECNICHE', xComp: 'CONCORRENZA',
+    xField: 'SEGNALI DI CAMPO', xAdama: 'PRODOTTI ADAMA',
+    xConverging: 'SEGNALI CONVERGENTI',
+    xFamiglie: 'famiglie portano evidenza',
+    xConsultate: 'famiglie interrogate',
+    xFamNote: 'famiglie indipendenti portano informazione su questa coppia. Il numero non è un punteggio di fiducia: è un conteggio di fonti.',
+    xNoFam: 'Nessuna famiglia indipendente porta informazione su questa coppia.',
+    xProved: 'sostenuti dal testo',
+    xQueryOnly: 'trovato cercando la coppia; il testo non la sostiene',
+    xCropOnly: 'stessa coltura — non lo stesso caso',
+    xPairJoin: 'coltura + avversità',
+    xActive: 'attive oggi', xActiveOne: 'attiva oggi', xHistory: 'storico, non attiva',
+    xAdamaRel: 'RELAZIONE ADAMA',
+    xLinked: 'prodotti collegati',
+    xLinkNote: 'legame sostenuto dal catalogo, dall\'etichetta o dal registro corrispondente.',
+    xDetails: 'DETTAGLI DEL PORTAFOGLIO',
+    xDetailsHide: 'NASCONDI I DETTAGLI',
+    xUnknownTitle: 'COSA NON SAPPIAMO ANCORA',
+    xToday: 'INTELLIGENCE OGGI',
+    xHappening: 'COSA STA SUCCEDENDO',
+    xWhyMatters: 'PERCHÉ CONTA',
     /* ══ CIO CHE SI SA OLTRE IL CASO ═════════════════════════════════════
        Il pacchetto porta 763 materiali scientifici e 184 trascrizioni, e
        NESSUNA riga di questo portale li leggeva: misurato, zero riferimenti in
@@ -766,6 +794,27 @@
     frSub: 'What may become an opportunity next — {n} monitored signals across Italy.',
     frSubA: 'Separate population from Future Radar —', frWhyWatch: 'WHY WATCH', frWhoTalking: 'WHO IS TALKING', frNextWindow: 'Next window',
     frOtherPop: 'The other population:',
+    xSci: 'SCIENCE', xVoice: 'TECH VOICES', xComp: 'COMPETITOR SIGNALS',
+    xField: 'FIELD SIGNALS', xAdama: 'ADAMA PRODUCTS',
+    xConverging: 'CONVERGING SIGNALS',
+    xFamiglie: 'families bring evidence',
+    xConsultate: 'families queried',
+    xFamNote: 'independent families bring information on this pair. The number is not a confidence score: it is a count of sources.',
+    xNoFam: 'No independent family brings information on this pair.',
+    xProved: 'sustained by the text',
+    xQueryOnly: 'found by searching the pair; the text does not sustain it',
+    xCropOnly: 'same crop — not the same case',
+    xPairJoin: 'crop + issue',
+    xActive: 'active today', xActiveOne: 'active today', xHistory: 'history, not active',
+    xAdamaRel: 'ADAMA RELATION',
+    xLinked: 'linked products',
+    xLinkNote: 'link sustained by the matching catalogue, label or registration.',
+    xDetails: 'PORTFOLIO DETAILS',
+    xDetailsHide: 'HIDE DETAILS',
+    xUnknownTitle: 'WHAT WE DO NOT KNOW YET',
+    xToday: 'INTELLIGENCE TODAY',
+    xHappening: 'WHAT IS HAPPENING',
+    xWhyMatters: 'WHY IT MATTERS',
     mbTitle: 'What is known beyond the case',
     mbJoin: 'Declared join · crop × issue',
     mbJoinNote: 'it is the pair, not the case: two cards on the same pair read the same material.',

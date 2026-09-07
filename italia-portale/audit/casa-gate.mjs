@@ -115,10 +115,24 @@ const lerDom = () => pg.evaluate(() => {
     /* Cada caso tem de ter as sete seccoes do L2 e uma dobra de L3 dentro. */
     seccoes: casos.map((e) => e.querySelectorAll(':scope > .dd > .sec').length),
     comL3: casos.filter((e) => e.querySelector(':scope > .dd > details')).length,
-    /* O registo dos 44, medido no DOM e nao no dado. */
-    ledger: [...document.querySelectorAll('table tbody tr')]
-      .map((r) => (r.cells[0] ? r.cells[0].innerText.trim() : ''))
-      .filter((v) => /^ITFC-\d+/.test(v)).map((v) => v.slice(0, 8)),
+    /* O registo dos 44, medido no DOM e nao no dado.
+       A LEI E «OS 44 ESTAO DESENHADOS», NAO «HA UMA TABELA». O registo passou
+       de tabela a fichas e este selector prendia-se a `table tbody tr`: um
+       portao que reprova porque a APRESENTACAO mudou nao guarda a lei, guarda
+       a implementacao.
+
+           UM PORTAO PRESO AO DESENHO CAI COM O DESENHO, E LEVA A LEI COM ELE.
+
+       Le-se o id onde quer que ele esteja: no atributo que as fichas declaram,
+       ou na primeira celula, se um dia voltar a ser tabela. */
+    ledger: (() => {
+      const fichas = [...document.querySelectorAll('[data-itfc]')]
+        .map((e) => String(e.getAttribute('data-itfc') || '').trim());
+      const linhas = [...document.querySelectorAll('table tbody tr')]
+        .map((r) => (r.cells[0] ? r.cells[0].innerText.trim() : ''));
+      return fichas.concat(linhas)
+        .filter((v) => /^ITFC-\d+/.test(v)).map((v) => v.slice(0, 8));
+    })(),
     /* Buracos de etiqueta: `tt()` desenha [codigo] quando o par falta. */
     buracos: (txt.match(/\[[A-Za-z][A-Za-z0-9_]{3,}\]/g) || []),
     objetos: (txt.match(/\[object Object\]/g) || []).length,

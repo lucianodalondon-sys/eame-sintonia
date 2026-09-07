@@ -151,6 +151,22 @@ details>summary:hover{color:var(--paper)}
 .dd th{color:var(--mute);font-weight:600;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase}
 .dd .src{font-size:11px;color:var(--mute-2);margin-top:8px}
 .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.rf-grp{margin:18px 0 24px}
+.rf-grp-h{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mute);margin:0 0 10px}
+.rf-grp-h b{font-size:22px;font-weight:300;color:var(--paper);letter-spacing:0;
+  font-variant-numeric:tabular-nums;margin-right:6px}
+.rf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:10px}
+.rf{border:1px solid var(--line);border-radius:12px;padding:14px 15px;background:var(--ink-2);
+  display:flex;flex-direction:column;gap:8px}
+.rf header{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.rf-state{font-size:11px;color:var(--soft)}
+.rf h4{margin:0;font-size:16px;font-weight:600;line-height:1.25;color:var(--paper)}
+.rf-can{margin:0;font-size:12px;line-height:1.45;color:var(--soft)}
+.rf footer{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:2px;
+  padding-top:8px;border-top:1px solid var(--line)}
+.rf-id{font-size:10.5px;letter-spacing:.08em;color:var(--mute);font-variant-numeric:tabular-nums}
+.rf-gap{font-size:10.5px;color:var(--mute);font-variant-numeric:tabular-nums;margin-left:auto}
 .tag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.11em;
   padding:3px 8px;border-radius:5px;border:1px solid var(--line);color:var(--mute);
   margin:0 6px 4px 0;white-space:normal}
@@ -556,23 +572,57 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
       function(_m, a, b){ return a + b.toUpperCase(); });
   }
 
+  /* ══ IL RADAR FUTURO E UN PRODOTTO, NON UN VERBALE DI QA ═════════════
+     Il registro era una tabella di cinque colonne che apriva con «ITFC-001» e
+     «6 / 11». Un identificativo interno e un rapporto fra difetti non sono
+     quello che un commerciale legge: sono la RICEVUTA della lettura.
+
+         LA PRIMA COSA CHE SI VEDE DECIDE COSA SEMBRA LA PAGINA.
+
+     Ora apre con cio che si puo FARE — preparare o monitorare — e con cio che
+     il cartellino puo CITARE, che e l'unico fatto commerciale che questa
+     sorgente porta davvero. L'identificativo, il sensore e le lacune restano,
+     interi, in fondo a ogni scheda.
+
+     E NON SI INVENTA NIENTE. Misurato sul handoff della Linea B: 12 dei 13
+     campi obbligatori del cartellino (coltura, avversita, regione, citazione,
+     fonte, data, finestra…) NON viaggiano. Dove la sorgente non da un fatto,
+     qui non ne compare uno: compare il migliore che esiste davvero. */
+  function schedaRadar(r){
+    var azione = tt(r.ACAO);
+    var prep = r.ACAO === 'PREPARAR';
+    return '<article class="rf" data-itfc="' + esc(r.ID) + '" data-azione="' + esc(r.ACAO) + '">'
+      + '<header>'
+      + '<span class="tag ' + (prep ? 'prep' : 'mon') + '">' + azione + '</span>'
+      + '<span class="rf-state">' + tt(r.ESTADO) + '</span>'
+      /* ESTADO e AVISO caem no mesmo par de palavras em 39 dos 44: «lettura
+         parziale» duas vezes na mesma linha nao avisa nada, repete. Quando
+         dizem a mesma coisa, diz-se uma vez. */
+      + ((r.AVISO && tt(r.AVISO).toLowerCase() !== tt(r.ESTADO).toLowerCase())
+          ? '<span class="tag no">' + tt(r.AVISO) + '</span>' : '')
+      + '</header>'
+      + '<h4>' + tt(r.PORTFOLIO_CLASSE) + '</h4>'
+      + (r.O_CARTAO_PODE ? '<p class="rf-can">' + tt(r.O_CARTAO_PODE) + '</p>' : '')
+      + '<footer>'
+      + '<span class="rf-id">' + esc(r.ID) + '</span>'
+      + (r.SENSOR ? '<span class="tag ' + (r.SENSOR === 'SENSOR_EXECUTABLE' ? 'ok' : 'no')
+          + '">' + tt(r.SENSOR) + '</span>' : '')
+      + '<span class="rf-gap">' + r.DEFEITOS + ' / ' + r.NAO_SABEMOS + '</span>'
+      + '</footer>'
+      + '</article>';
+  }
+
   function ledgerHtml(){
-    return '<div class="scroll"><table><thead><tr>'
-      + '<th>ID</th><th>' + tt('casaColState') + '</th><th>' + tt('casaColAction') + '</th>'
-      + '<th>' + tt('casaColPortfolio') + '</th><th>' + tt('casaColGaps') + '</th></tr></thead><tbody>'
-      + RF.REGISTRO.map(function(r){
-          /* L'ID e il verdetto sul suo SENSORE viaggiano insieme. ITFC-009 e
-             ITFC-018 sono fra i 44 mostrabili e i loro sensori sono stati
-             abbattuti: separare le due letture farebbe leggere «abbattuto»
-             come se il segnale fosse caduto. */
-          return '<tr><td>' + esc(r.ID)
-            + (r.SENSOR ? ' <span class="tag ' + (r.SENSOR === 'SENSOR_EXECUTABLE' ? 'ok' : 'no')
-                + '">' + tt(r.SENSOR) + '</span>' : '') + '</td>'
-            + '<td>' + tt(r.ESTADO) + (r.AVISO ? '<br><span class="tag no">' + tt(r.AVISO) + '</span>' : '') + '</td>'
-            + '<td><span class="tag ' + (r.ACAO === 'PREPARAR' ? 'prep' : 'mon') + '">' + tt(r.ACAO) + '</span></td>'
-            + '<td>' + tt(r.PORTFOLIO_CLASSE) + '<br><span class="mini">' + tt(r.O_CARTAO_PODE) + '</span></td>'
-            + '<td>' + r.DEFEITOS + ' / ' + r.NAO_SABEMOS + '</td></tr>'; }).join('')
-      + '</tbody></table></div>'
+    /* Due gruppi, e il nome del gruppo e un'AZIONE. «23 da preparare» dice
+       qualcosa; «23 righe» non dice niente. */
+    var grupos = [['PREPARAR', RF.PREPARAR], ['MONITORAR', RF.MONITORAR]];
+    return grupos.map(function(g){
+        var linhas = RF.REGISTRO.filter(function(r){ return r.ACAO === g[0]; });
+        if (!linhas.length) return '';
+        return '<div class="rf-grp"><div class="rf-grp-h"><b>' + mil(linhas.length) + '</b> '
+          + tt(g[0]) + '</div><div class="rf-grid">'
+          + linhas.map(schedaRadar).join('') + '</div></div>';
+      }).join('')
       + '<p class="note">' + tt('casaSpecUpstream') + ' ' + tt('casaSensorLegend')
       + '. ' + tt('casaGapsDeclared') + ' / ' + tt('casaUnknownsDeclared') + '.</p>';
   }
@@ -814,7 +864,7 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
       + '<h2 id="radar-futuro">' + tt('casaRadarName') + ' · ' + tt('casaRadarLedger') + '</h2>'
       + '<p class="h2sub">' + tt('casaRadarTotals') + '. ' + tt('casaDoNotSum') + '</p>'
       + '<details id="ledger"><summary>' + tt('casaRadarLedger') + ' · ' + mil(RF.RENDERIZAVEIS)
-      + '</summary><div class="dd" style="padding-left:0">'
+      + '</summary><div class="dd" style="padding-left:0;max-width:none">'
       + ledgerHtml()
       + '<p class="note">' + (lang === 'en'
           ? 'The dropped one stays out of this surface: ' : 'L’abbattuto resta fuori da questa superficie: ')

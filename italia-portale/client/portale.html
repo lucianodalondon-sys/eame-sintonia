@@ -469,8 +469,8 @@
     <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:14px">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
         <div style="display:flex;flex-direction:column;gap:4px">
-          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:nowrap"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ mt.nav }}</h1><span style="padding:3px 9px;border-radius:9999px;background:rgba(0,152,69,0.16);border:1px solid rgba(0,152,69,0.45);font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.12em;color:#00B152">{{ meetingTotal }}</span></div>
-          <div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ mt.sub }}</div>
+          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:nowrap"><h1 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-0.015em;color:#fff;white-space:nowrap">{{ mt.nav }}</h1><span style="padding:3px 9px;border-radius:9999px;background:rgba(0,152,69,0.16);border:1px solid rgba(0,152,69,0.45);font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.12em;color:#00B152">{{ meetingTotal }}</span></div>
+          <div style="font-family:var(--font-secondary);font-size:15px;line-height:1.45;color:#C9C3C1;max-width:62ch">{{ mt.sub }}</div>
           <!-- I TRE NUMERI, E NON SI SOMMANO CON IL RADAR FUTURO.
                Questa riga viene da window.ITALY_CASA e non da questa schermata:
                il radar qui sotto conta le opportunita commerciali, e i
@@ -514,6 +514,20 @@
       </div>
       </sc-if>
 
+      <!-- ══ INTELLIGENCE OGGI ═══════════════════════════════════════════
+           Sei numeri con semantica provata, e nessun punteggio inventato. Si
+           contano ENTITA DISTINTE: un materiale che serve tre casi resta un
+           materiale, e sommare per caso gonfierebbe il cruscotto senza dire
+           una sola bugia esplicita. Una riga che vale zero non compare. -->
+      <sc-if value="{{ intelToday.has }}" hint-placeholder-val="{{ true }}">
+      <div data-intel-today="1" style="display:flex;align-items:center;gap:22px;flex-wrap:wrap;padding:14px 18px;border-radius:12px;background:#1C1817;border:1px solid rgba(203,197,195,0.10)">
+        <span style="font-family:var(--font-secondary);font-size:11px;font-weight:700;letter-spacing:0.16em;color:#00B152">{{ intelToday.title }}</span>
+        <sc-for list="{{ intelToday.rows }}" as="r" hint-placeholder-count="7">
+          <span style="display:inline-flex;align-items:baseline;gap:7px"><b style="font-size:22px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ r.n }}</b><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.1em;color:#8F8886">{{ r.label }}</span></span>
+        </sc-for>
+      </div>
+      </sc-if>
+
       <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
         <sc-for list="{{ meetingStatusBtns }}" as="b" hint-placeholder-count="6">
           <span onClick="{{ b.go }}" data-meeting-filter="{{ b.token }}" style="display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 13px;border-radius:9999px;cursor:pointer;font-size:11px;font-weight:700;background:{{ b.bg }};border:1px solid {{ b.border }};color:{{ b.ink }}" style-hover="border-color:rgba(203,197,195,0.5)">{{ b.label }}<b style="font-variant-numeric:tabular-nums;opacity:0.75">{{ b.value }}</b></span>
@@ -524,12 +538,12 @@
 
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:10px">
         <sc-for list="{{ meetingCases }}" as="c" hint-placeholder-count="12">
-          <div onClick="{{ c.open }}" data-case="{{ c.id }}" data-meeting-case="{{ c.id }}" data-primary="{{ c.primaryName }}" data-window-defined="{{ c.window.DEFINED }}" data-window-open="{{ c.window.OPEN_NOW }}" style="position:relative;overflow:hidden;cursor:pointer;border-radius:14px;border:1px solid {{ c.onChipEdge }};background:{{ c.surfaceDark }};padding:13px 14px;display:flex;flex-direction:column;gap:9px" style-hover="border-color:{{ c.onRule }}">
+          <div onClick="{{ c.open }}" data-case="{{ c.id }}" data-meeting-case="{{ c.id }}" data-primary="{{ c.primaryName }}" data-window-defined="{{ c.window.DEFINED }}" data-window-open="{{ c.window.OPEN_NOW }}" style="position:relative;overflow:hidden;cursor:pointer;border-radius:14px;border:1px solid {{ c.onChipEdge }};background:{{ c.surfaceDark }};padding:17px 18px;display:flex;flex-direction:column;gap:11px" style-hover="border-color:{{ c.onRule }}">
             <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
-              <div style="font-size:14px;font-weight:700;line-height:1.25;color:{{ c.onInk }}">{{ c.title }}</div>
+              <div style="font-size:19px;font-weight:600;line-height:1.2;letter-spacing:-0.01em;color:{{ c.onInk }}">{{ c.title }}</div>
               <sc-if value="{{ c.isActNow }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:9999px;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.1em;white-space:nowrap;background:{{ c.actPill.bg }};color:{{ c.actPill.ink }}">{{ c.status }}</span></sc-if>
             </div>
-            <div style="font-family:var(--font-secondary);font-size:10.5px;letter-spacing:0.06em;color:{{ c.onMuted }}">{{ c.geography }}</div>
+            <div style="font-family:var(--font-secondary);font-size:12px;letter-spacing:0.05em;color:{{ c.onMuted }}">{{ c.geography }}</div>
             <!-- LO STATO DI PUBBLICAZIONE NON SI NASCONDE MAI.
                  Mostrare solo i 5 pubblicabili sarebbe una bugia per omissione;
                  mostrare i 38 senza dirlo sarebbe peggio. -->
@@ -537,6 +551,27 @@
               <span style="display:inline-flex;align-items:center;height:19px;padding:0 9px;border-radius:9999px;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.1em;background:transparent;border:1px solid {{ c.onChipEdge }};color:{{ c.onBody }}">{{ c.publication }}</span>
               <span style="font-size:10px;color:{{ c.onMuted }}">{{ c.priority }}</span>
             </div>
+            <!-- ══ QUANTE FAMIGLIE PORTANO EVIDENZA ═══════════════════════
+                 Prima il cartellino diceva coltura, avversita, regione e stato:
+                 tredici cartellini che si somigliavano tutti, e l'intelligenza
+                 dietro ognuno invisibile finche non si apriva.
+
+                     SE TUTTI I CARTELLINI SI SOMIGLIANO, NESSUNO DICE NIENTE.
+
+                 Nessuna pastiglia con lo zero: una scatola vuota disegnata per
+                 riempire lo spazio non informa, occupa. E i colori non cambiano
+                 per famiglia — la regola ADAMA vieta di mescolare le linee, e
+                 il cartellino ha gia la sua: distingue la parola, non la tinta. -->
+            <sc-if value="{{ c.fam.has }}" hint-placeholder-val="{{ true }}">
+            <div data-evidence-families="{{ c.fam.n }}" style="display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;flex-wrap:wrap;gap:5px">
+                <sc-for list="{{ c.evid }}" as="e" hint-placeholder-count="4">
+                  <span style="display:inline-flex;align-items:baseline;gap:5px;padding:4px 9px;border-radius:7px;background:{{ c.onWell }};border:1px solid {{ c.onWellEdge }}"><b style="font-size:13px;font-weight:700;color:{{ c.onInk }};font-variant-numeric:tabular-nums">{{ e.n }}</b><span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.09em;color:{{ c.onBody }}">{{ e.label }}</span></span>
+                </sc-for>
+              </div>
+              <div style="font-size:11.5px;color:{{ c.onBody }}"><b style="font-weight:700;color:{{ c.onInk }};font-variant-numeric:tabular-nums">{{ c.fam.n }}</b> {{ c.fam.label }}</div>
+            </div>
+            </sc-if>
             <!-- LA REGOLA E LO STATO, DUE RIGHE. Una sola riga qui e esattamente
                  come «la regola e nota» diventa «la finestra e aperta». -->
             <div style="display:flex;flex-direction:column;gap:3px;padding:8px 9px;border-radius:9px;background:{{ c.onWell }};border:1px solid {{ c.onWellEdge }}">
@@ -580,7 +615,7 @@
       <div data-meeting-hero="{{ mc.id }}" data-hero-primary="{{ mcPrimary.name }}" style="border-radius:16px;background:{{ mc.surfaceDark }};border:1px solid {{ mc.onChipEdge }};padding:18px 20px;display:flex;flex-direction:column;gap:12px">
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap">
           <div style="display:flex;flex-direction:column;gap:5px">
-            <h1 style="margin:0;font-size:24px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;color:{{ mc.onInk }}">{{ mc.title }}</h1>
+            <h1 style="margin:0;font-size:34px;font-weight:700;letter-spacing:-0.02em;line-height:1.1;color:{{ mc.onInk }}">{{ mc.title }}</h1>
             <div style="font-family:var(--font-secondary);font-size:11px;letter-spacing:0.08em;color:{{ mc.onMuted }}">{{ mc.geography }} · {{ mc.scopeLabel }}</div>
             <div style="font-size:11px;color:{{ mc.onBody }}">{{ mc.archetype }}</div>
           </div>
@@ -618,6 +653,198 @@
           </sc-if>
         </div>
 
+        <!-- ══ LA RELAZIONE ADAMA, COMPATTA ══════════════════════════════
+             Il portafoglio per intero apriva la scheda: principi attivi, FRAC,
+             registro, vincoli, motivo del collegamento — sette campi per
+             prodotto, prima ancora di sapere PERCHE il caso esiste.
+
+                 IL PRODOTTO E LA RISPOSTA. NON PUO ESSERE LA PRIMA DOMANDA.
+
+             Qui resta il fatto: quanti prodotti, quali, e su cosa regge il
+             legame. Tutti i campi restano, uno strato piu in la, INTERI —
+             nessuno e stato tolto, e il conteggio lo prova. -->
+        <div data-adama-relation="{{ mcProductCount }}" style="display:flex;flex-direction:column;gap:8px;padding:13px 15px;border-radius:12px;background:{{ mc.onWell }};border:1px solid {{ mc.onWellEdge }}">
+          <div style="display:flex;align-items:baseline;gap:11px;flex-wrap:wrap">
+            <span style="font-family:var(--font-secondary);font-size:11px;font-weight:700;letter-spacing:0.14em;color:{{ mc.onMuted }}">{{ t.xAdamaRel }}</span>
+            <span style="font-size:12.5px;color:{{ mc.onBody }}"><b style="font-size:17px;font-weight:700;color:{{ mc.onInk }};font-variant-numeric:tabular-nums">{{ mcProductCount }}</b> {{ t.xLinked }}</span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px">
+            <sc-for list="{{ mcProducts }}" as="p" hint-placeholder-count="2">
+              <span style="display:inline-flex;align-items:center;height:28px;padding:0 13px;border-radius:9999px;font-size:14px;font-weight:700;color:{{ mc.onInk }};border:1px solid {{ mc.onChipEdge }}">{{ p.name }}</span>
+            </sc-for>
+          </div>
+          <div style="font-size:11.5px;line-height:1.4;color:{{ mc.onMuted }}">{{ t.xLinkNote }}</div>
+          <sc-if value="{{ mcNoPrimary }}" hint-placeholder-val="{{ true }}"><div data-no-primary="1" style="font-size:11.5px;color:{{ mc.onBody }}">{{ mcNoPrimary }}</div></sc-if>
+          <span onClick="{{ toggleMcPort }}" data-mc-port="{{ mcPortOn }}" style="align-self:flex-start;display:inline-flex;align-items:center;height:26px;padding:0 13px;border-radius:9999px;cursor:pointer;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.12em;color:{{ mc.onBody }};border:1px solid {{ mc.onChipEdge }}" style-hover="color:{{ mc.onInk }}">{{ mcPortLabel }}</span>
+        </div>
+      </div>
+
+      <!-- ══ SEGNALI CONVERGENTI · IL PEZZO CENTRALE ═══════════════════════
+           La domanda della riunione non e «quante fonti abbiamo»: e «quante
+           famiglie INDIPENDENTI dicono qualcosa su questa coppia». Il
+           denominatore fa parte della risposta — «4 famiglie portano evidenza»
+           non si legge senza sapere quante ne sono state interrogate.
+
+               IL NUMERO NON E UN PUNTEGGIO DI FIDUCIA. E UN CONTEGGIO DI FONTI.
+
+           Nessuna riga con lo zero, e nessuna promozione: dove il legame e di
+           sola coltura lo dice la riga stessa, piu sotto. -->
+      <div data-convergence="{{ mcConv.fam }}" style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);padding:18px 20px;display:flex;flex-direction:column;gap:13px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <span style="font-family:var(--font-secondary);font-size:13px;font-weight:700;letter-spacing:0.14em;color:#00B152">{{ t.xConverging }}</span>
+          <span style="font-size:11.5px;color:#8F8886">{{ mcConv.consultate }} {{ t.xConsultate }}</span>
+        </div>
+        <sc-if value="{{ mcConv.has }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <sc-for list="{{ mcConv.rows }}" as="r" hint-placeholder-count="5">
+            <div style="min-width:132px;flex:1 1 132px;display:flex;flex-direction:column;gap:3px;padding:12px 14px;border-radius:11px;background:rgba(255,255,255,0.035);border:1px solid rgba(203,197,195,0.10)">
+              <span style="font-size:30px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ r.n }}</span>
+              <span style="font-family:var(--font-secondary);font-size:10.5px;font-weight:600;letter-spacing:0.1em;color:#8F8886">{{ r.label }}</span>
+              <sc-if value="{{ r.note }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;line-height:1.35;color:#B1A9A7">{{ r.note }}</span></sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font-size:13px;line-height:1.5;color:#EDEAE9"><b style="font-weight:700;color:#fff;font-variant-numeric:tabular-nums">{{ mcConv.fam }}</b> {{ t.xFamNote }}</div>
+        </sc-if>
+        <sc-if value="{{ mcConv.none }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:13px;line-height:1.5;color:#EDEAE9">{{ t.xNoFam }}</div>
+        </sc-if>
+      </div>
+
+      <!-- ══ CIO CHE SI SA OLTRE IL CASO ═══════════════════════════════════
+           Le 763 pubblicazioni e le 184 trascrizioni arrivavano nel browser e
+           nessuna riga le leggeva. Qui si leggono, con il LEGAME dichiarato in
+           testa e il LUOGO DEL FATTO accanto a ogni riga: una coppia coltura ×
+           avversita che coincide non fa di un preprint francese una prova
+           italiana, e questa e la sola riga che lo impedisce.
+
+           Il riquadro non sparisce quando non trova niente: dire «questa coppia
+           non e stata interrogata» e diverso da dire niente, ed e la differenza
+           fra un vuoto di scienza e un vuoto di ricerca.                    -->
+      <div data-meeting-beyond="{{ mcBeyond.pair }}" style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);padding:15px 17px;display:flex;flex-direction:column;gap:11px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap">
+          <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ t.mbTitle }}</div>
+          <sc-if value="{{ mcBeyond.paired }}" hint-placeholder-val="{{ true }}">
+            <span style="font-size:10.5px;color:#8F8886">{{ t.mbJoin }} · <b style="color:#C9C3C1;font-weight:600">{{ mcBeyond.pair }}</b> — {{ t.mbJoinNote }}</span>
+          </sc-if>
+        </div>
+
+        <!-- La coppia non si risolve: il blocco DICHIARA che non puo cercare. -->
+        <sc-if value="{{ mcBeyond.noPair }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:12.5px;line-height:1.45;color:#EDEAE9">{{ t.mbNoPair }}</div>
+        </sc-if>
+
+        <sc-if value="{{ mcBeyond.paired }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:13px">
+
+          <!-- ── SCIENZA ─────────────────────────────────────────────────── -->
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+              <span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ t.mbScience }}</span>
+              <sc-if value="{{ mcBeyond.hasSci }}" hint-placeholder-val="{{ true }}">
+                <span style="font-size:11.5px;color:#C9C3C1"><b style="color:#fff;font-weight:700;font-variant-numeric:tabular-nums">{{ mcBeyond.sciN }}</b> · <b style="color:#fff;font-weight:700;font-variant-numeric:tabular-nums">{{ mcBeyond.sciOnCase }}</b> {{ t.mbOnCase }}</span>
+              </sc-if>
+            </div>
+            <sc-if value="{{ mcBeyond.noSci }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12.5px;line-height:1.45;color:#EDEAE9">{{ t.mbNoScience }}</div>
+            </sc-if>
+            <sc-if value="{{ mcBeyond.hasSci }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-wrap:wrap;gap:5px">
+              <span style="font-size:10px;color:#8F8886;align-self:center">{{ t.mbPlace }}</span>
+              <sc-for list="{{ mcBeyond.sciPlaces }}" as="pl" hint-placeholder-count="4">
+                <span style="display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 10px;border-radius:9999px;font-size:10px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.18)">{{ pl.label }} <b style="color:#fff;font-weight:700;font-variant-numeric:tabular-nums">{{ pl.n }}</b></span>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <sc-for list="{{ mcBeyond.sciRows }}" as="r" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;gap:3px;padding:9px 11px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(203,197,195,0.09)">
+                  <div style="font-size:12px;line-height:1.35;color:#EDEAE9">{{ r.title }}</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:9px;font-size:10.5px;color:#8F8886">
+                    <span>{{ r.meta }}</span>
+                    <sc-if value="{{ r.hasCited }}" hint-placeholder-val="{{ true }}"><span>{{ r.cited }} {{ t.mbCited }}</span></sc-if>
+                    <span>{{ r.adherence }}</span>
+                    <span style="color:{{ r.joinColor }}">{{ r.joinL }}</span>
+                    <span>{{ t.mbPlace }} · <b style="color:#C9C3C1;font-weight:600">{{ r.place }}</b></span>
+                    <sc-if value="{{ r.hasUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ r.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none">DOI →</a></sc-if>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            </sc-if>
+          </div>
+
+          <!-- ── VOCE TECNICA ────────────────────────────────────────────── -->
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+              <span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ t.mbVoice }}</span>
+              <sc-if value="{{ mcBeyond.hasVoice }}" hint-placeholder-val="{{ true }}">
+                <span style="font-size:11.5px;color:#C9C3C1"><b style="color:#fff;font-weight:700;font-variant-numeric:tabular-nums">{{ mcBeyond.voiceN }}</b></span>
+              </sc-if>
+            </div>
+            <sc-if value="{{ mcBeyond.noVoice }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12.5px;line-height:1.45;color:#EDEAE9">{{ mcBeyond.noVoiceL }}</div>
+            </sc-if>
+            <sc-if value="{{ mcBeyond.hasVoice }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <sc-for list="{{ mcBeyond.voiceRows }}" as="w" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;gap:3px;padding:9px 11px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(203,197,195,0.09)">
+                  <div style="font-size:12px;line-height:1.35;color:#EDEAE9">{{ w.title }}</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:9px;font-size:10.5px;color:#8F8886">
+                    <span>{{ w.channel }}</span>
+                    <sc-if value="{{ w.hasWhen }}" hint-placeholder-val="{{ true }}"><span>{{ t.mbWhen }} · {{ w.when }}</span></sc-if>
+                    <sc-if value="{{ w.hasChars }}" hint-placeholder-val="{{ true }}"><span>{{ w.chars }} {{ t.mbChars }}</span></sc-if>
+                    <span>{{ t.mbPlace }} · <b style="color:#C9C3C1;font-weight:600">{{ w.place }}</b></span>
+                    <sc-if value="{{ w.hasUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ w.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none">{{ t.frExplore }}</a></sc-if>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <!-- LA SCALA HA CINQUE GRADINI E NESSUNO IMPLICA IL SUCCESSIVO. -->
+            <sc-if value="{{ mcBeyond.voiceNoneCited }}" hint-placeholder-val="{{ true }}">
+              <div style="font-size:11.5px;line-height:1.4;color:#EDEAE9">{{ t.mbNotEvidence }}</div>
+            </sc-if>
+            </sc-if>
+          </div>
+
+          <!-- ── CONCORRENZA · legame di sola coltura, e detto ───────────── -->
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+              <span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ t.mbComp }}</span>
+              <sc-if value="{{ mcBeyond.hasComp }}" hint-placeholder-val="{{ true }}">
+                <span style="font-size:11.5px;color:#C9C3C1"><b style="color:#fff;font-weight:700;font-variant-numeric:tabular-nums">{{ mcBeyond.compActive }}</b> {{ t.mbActiveNow }} · <b style="color:#C9C3C1;font-weight:600;font-variant-numeric:tabular-nums">{{ mcBeyond.compHistory }}</b> {{ t.mbHistory }}</span>
+                <span onClick="{{ goCompetitors }}" style="font-size:10.5px;color:#00B152;cursor:pointer">{{ t.navCompetitors }} →</span>
+              </sc-if>
+            </div>
+            <sc-if value="{{ mcBeyond.noComp }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12.5px;line-height:1.45;color:#EDEAE9">{{ t.mbNoComp }}</div>
+            </sc-if>
+            <sc-if value="{{ mcBeyond.hasComp }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <sc-for list="{{ mcBeyond.compRows }}" as="k" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;gap:3px;padding:9px 11px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(203,197,195,0.09)">
+                  <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap">
+                    <b style="font-size:13px;font-weight:700;color:#fff">{{ k.company }}</b>
+                    <sc-if value="{{ k.hasWhen }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;color:#8F8886;font-variant-numeric:tabular-nums">{{ k.when }}</span></sc-if>
+                    <span style="font-size:11px;font-weight:600;color:{{ k.stateColor }}">{{ k.stateL }}</span>
+                    <sc-if value="{{ k.hasUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ k.url }}" target="_blank" rel="noopener noreferrer" style="font-size:11px;color:#00B152;text-decoration:none">{{ t.lblOpenRecord }} →</a></sc-if>
+                  </div>
+                  <sc-if value="{{ k.hasWhat }}" hint-placeholder-val="{{ true }}"><div style="font-size:12px;line-height:1.4;color:#C9C3C1">{{ k.what }}</div></sc-if>
+                </div>
+              </sc-for>
+              <div style="font-size:11.5px;color:#8F8886">{{ t.mbCropOnly }}</div>
+            </div>
+            </sc-if>
+          </div>
+
+        </div>
+        </sc-if>
+      </div>
+
+      <!-- ══ IL PORTAFOGLIO PER INTERO, UNO STRATO PIU IN LA ═══════════════
+           NIENTE E STATO TOLTO. Gli stessi prodotti, gli stessi sette campi,
+           lo stesso ordine: cambia solo che non aprono piu la scheda. -->
+      <sc-if value="{{ mcPortOn }}" hint-placeholder-val="{{ false }}">
+      <div style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);padding:16px 18px">
         <!-- ══ IL PORTAFOGLIO, PER INTERO ════════════════════════════════
              TUTTI i prodotti che l'istantanea conosce, con i loro campi.
              Mai «PRINCIPALE + 2 ALTRI» quando i tre sono gia noti: quel
@@ -657,6 +884,7 @@
           </div>
         </div>
       </div>
+      </sc-if>
 
       <!-- ══ L'INTERRUTTORE DELLA PROVA ══════════════════════════════════
            Un solo comando, con il suo nome, per tutta la scheda. La scheda si
@@ -732,120 +960,6 @@
         </div>
       </div>
 
-      <!-- ══ CIO CHE SI SA OLTRE IL CASO ═══════════════════════════════════
-           Le 763 pubblicazioni e le 184 trascrizioni arrivavano nel browser e
-           nessuna riga le leggeva. Qui si leggono, con il LEGAME dichiarato in
-           testa e il LUOGO DEL FATTO accanto a ogni riga: una coppia coltura ×
-           avversita che coincide non fa di un preprint francese una prova
-           italiana, e questa e la sola riga che lo impedisce.
-
-           Il riquadro non sparisce quando non trova niente: dire «questa coppia
-           non e stata interrogata» e diverso da dire niente, ed e la differenza
-           fra un vuoto di scienza e un vuoto di ricerca.                    -->
-      <div data-meeting-beyond="{{ mcBeyond.pair }}" style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);padding:15px 17px;display:flex;flex-direction:column;gap:11px">
-        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap">
-          <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ t.mbTitle }}</div>
-          <sc-if value="{{ mcBeyond.paired }}" hint-placeholder-val="{{ true }}">
-            <span style="font-size:10.5px;color:#8F8886">{{ t.mbJoin }} · <b style="color:#C9C3C1;font-weight:600">{{ mcBeyond.pair }}</b> — {{ t.mbJoinNote }}</span>
-          </sc-if>
-        </div>
-
-        <!-- La coppia non si risolve: il blocco DICHIARA che non puo cercare. -->
-        <sc-if value="{{ mcBeyond.noPair }}" hint-placeholder-val="{{ false }}">
-          <div style="font-size:12.5px;line-height:1.45;color:#EDEAE9">{{ t.mbNoPair }}</div>
-        </sc-if>
-
-        <sc-if value="{{ mcBeyond.paired }}" hint-placeholder-val="{{ true }}">
-        <div style="display:flex;flex-direction:column;gap:13px">
-
-          <!-- ── SCIENZA ─────────────────────────────────────────────────── -->
-          <div style="display:flex;flex-direction:column;gap:7px">
-            <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
-              <span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ t.mbScience }}</span>
-              <sc-if value="{{ mcBeyond.hasSci }}" hint-placeholder-val="{{ true }}">
-                <span style="font-size:11.5px;color:#C9C3C1"><b style="color:#fff;font-weight:700;font-variant-numeric:tabular-nums">{{ mcBeyond.sciN }}</b> · <b style="color:#fff;font-weight:700;font-variant-numeric:tabular-nums">{{ mcBeyond.sciOnCase }}</b> {{ t.mbOnCase }}</span>
-              </sc-if>
-            </div>
-            <sc-if value="{{ mcBeyond.noSci }}" hint-placeholder-val="{{ false }}">
-              <div style="font-size:12.5px;line-height:1.45;color:#EDEAE9">{{ t.mbNoScience }}</div>
-            </sc-if>
-            <sc-if value="{{ mcBeyond.hasSci }}" hint-placeholder-val="{{ true }}">
-            <div style="display:flex;flex-wrap:wrap;gap:5px">
-              <span style="font-size:10px;color:#8F8886;align-self:center">{{ t.mbPlace }}</span>
-              <sc-for list="{{ mcBeyond.sciPlaces }}" as="pl" hint-placeholder-count="4">
-                <span style="display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 10px;border-radius:9999px;font-size:10px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.18)">{{ pl.label }} <b style="color:#fff;font-weight:700;font-variant-numeric:tabular-nums">{{ pl.n }}</b></span>
-              </sc-for>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:7px">
-              <sc-for list="{{ mcBeyond.sciRows }}" as="r" hint-placeholder-count="4">
-                <div style="display:flex;flex-direction:column;gap:3px;padding:9px 11px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(203,197,195,0.09)">
-                  <div style="font-size:12px;line-height:1.35;color:#EDEAE9">{{ r.title }}</div>
-                  <div style="display:flex;flex-wrap:wrap;gap:9px;font-size:10.5px;color:#8F8886">
-                    <span>{{ r.meta }}</span>
-                    <sc-if value="{{ r.hasCited }}" hint-placeholder-val="{{ true }}"><span>{{ r.cited }} {{ t.mbCited }}</span></sc-if>
-                    <span>{{ r.adherence }}</span>
-                    <span>{{ t.mbPlace }} · <b style="color:#C9C3C1;font-weight:600">{{ r.place }}</b></span>
-                    <sc-if value="{{ r.hasUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ r.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none">DOI →</a></sc-if>
-                  </div>
-                </div>
-              </sc-for>
-            </div>
-            </sc-if>
-          </div>
-
-          <!-- ── VOCE TECNICA ────────────────────────────────────────────── -->
-          <div style="display:flex;flex-direction:column;gap:7px">
-            <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
-              <span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ t.mbVoice }}</span>
-              <sc-if value="{{ mcBeyond.hasVoice }}" hint-placeholder-val="{{ true }}">
-                <span style="font-size:11.5px;color:#C9C3C1"><b style="color:#fff;font-weight:700;font-variant-numeric:tabular-nums">{{ mcBeyond.voiceN }}</b></span>
-              </sc-if>
-            </div>
-            <sc-if value="{{ mcBeyond.noVoice }}" hint-placeholder-val="{{ false }}">
-              <div style="font-size:12.5px;line-height:1.45;color:#EDEAE9">{{ mcBeyond.noVoiceL }}</div>
-            </sc-if>
-            <sc-if value="{{ mcBeyond.hasVoice }}" hint-placeholder-val="{{ true }}">
-            <div style="display:flex;flex-direction:column;gap:7px">
-              <sc-for list="{{ mcBeyond.voiceRows }}" as="w" hint-placeholder-count="4">
-                <div style="display:flex;flex-direction:column;gap:3px;padding:9px 11px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(203,197,195,0.09)">
-                  <div style="font-size:12px;line-height:1.35;color:#EDEAE9">{{ w.title }}</div>
-                  <div style="display:flex;flex-wrap:wrap;gap:9px;font-size:10.5px;color:#8F8886">
-                    <span>{{ w.channel }}</span>
-                    <sc-if value="{{ w.hasWhen }}" hint-placeholder-val="{{ true }}"><span>{{ t.mbWhen }} · {{ w.when }}</span></sc-if>
-                    <sc-if value="{{ w.hasChars }}" hint-placeholder-val="{{ true }}"><span>{{ w.chars }} {{ t.mbChars }}</span></sc-if>
-                    <span>{{ t.mbPlace }} · <b style="color:#C9C3C1;font-weight:600">{{ w.place }}</b></span>
-                    <sc-if value="{{ w.hasUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ w.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none">{{ t.frExplore }}</a></sc-if>
-                  </div>
-                </div>
-              </sc-for>
-            </div>
-            <!-- LA SCALA HA CINQUE GRADINI E NESSUNO IMPLICA IL SUCCESSIVO. -->
-            <sc-if value="{{ mcBeyond.voiceNoneCited }}" hint-placeholder-val="{{ true }}">
-              <div style="font-size:11.5px;line-height:1.4;color:#EDEAE9">{{ t.mbNotEvidence }}</div>
-            </sc-if>
-            </sc-if>
-          </div>
-
-          <!-- ── CONCORRENZA · legame di sola coltura, e detto ───────────── -->
-          <div style="display:flex;flex-direction:column;gap:7px">
-            <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
-              <span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ t.mbComp }}</span>
-              <sc-if value="{{ mcBeyond.hasComp }}" hint-placeholder-val="{{ true }}">
-                <span style="font-size:11.5px;color:#C9C3C1"><b style="color:#fff;font-weight:700;font-variant-numeric:tabular-nums">{{ mcBeyond.compActive }}</b> {{ t.mbActiveNow }} · <b style="color:#C9C3C1;font-weight:600;font-variant-numeric:tabular-nums">{{ mcBeyond.compHistory }}</b> {{ t.mbHistory }}</span>
-                <span onClick="{{ goCompetitors }}" style="font-size:10.5px;color:#00B152;cursor:pointer">{{ t.navCompetitors }} →</span>
-              </sc-if>
-            </div>
-            <sc-if value="{{ mcBeyond.noComp }}" hint-placeholder-val="{{ false }}">
-              <div style="font-size:12.5px;line-height:1.45;color:#EDEAE9">{{ t.mbNoComp }}</div>
-            </sc-if>
-            <sc-if value="{{ mcBeyond.hasComp }}" hint-placeholder-val="{{ true }}">
-              <div style="font-size:10.5px;color:#8F8886">{{ t.mbCropOnly }}</div>
-            </sc-if>
-          </div>
-
-        </div>
-        </sc-if>
-      </div>
 
       <!-- ══ MAPPA DELLE AZIONI · esattamente ACTION_BY_DEPARTMENT ═════════
            Cinque aree, quelle che il motore dichiara. Nessuna azione viene
@@ -895,12 +1009,22 @@
         </div>
       </div>
 
-      <!-- ══ COSA MANCA · la lacuna e un fatto, non un errore ══════════════ -->
-      <div style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);padding:15px 17px;display:flex;flex-direction:column;gap:8px">
-        <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ mt.missing }}</div>
+      <!-- ══ COSA NON SAPPIAMO ANCORA ══════════════════════════════════════
+           La lacuna e un fatto, non un errore, e non si piega dietro un
+           bottone: il contratto di design dice `NAO SEI` «nunca colapsado por
+           padrao». Cambia solo il NOME — «cosa manca» e la parola del motore,
+           e resta accanto; il titolo e la parola che un lettore usa.
+
+               UNA LACUNA CON UN NOME TECNICO SI LEGGE COME UN DIFETTO.
+               CON IL SUO NOME, SI LEGGE COME QUELLO CHE E. -->
+      <div style="border-radius:14px;background:#1C1817;border:1px solid rgba(245,179,23,0.28);padding:17px 19px;display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+          <span style="font-family:var(--font-secondary);font-size:13px;font-weight:700;letter-spacing:0.14em;color:#F5B317">{{ t.xUnknownTitle }}</span>
+          <span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ mt.missing }}</span>
+        </div>
         <div style="display:flex;gap:7px;flex-wrap:wrap">
           <sc-for list="{{ mcMissingList }}" as="w" hint-placeholder-count="3">
-            <span style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10.5px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ w.label }}</span>
+            <span style="display:inline-flex;align-items:center;height:26px;padding:0 13px;border-radius:9999px;font-size:12.5px;color:#EDEAE9;border:1px solid rgba(245,179,23,0.35)">{{ w.label }}</span>
           </sc-for>
         </div>
         <sc-if value="{{ mc.doesNotProve }}" hint-placeholder-val="{{ true }}"><div style="font-size:11px;line-height:1.4;color:#8F8886">{{ mc.doesNotProve }}</div></sc-if>
@@ -1309,7 +1433,7 @@
             <span style="width:3px;background:{{ b.rail }};flex:0 0 3px"></span>
             <span style="display:flex;align-items:center;gap:11px;padding:9px 15px 9px 12px">
               <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:{{ b.iconBg }};border:1px solid {{ b.iconRing }};flex:0 0 34px">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="{{ b.iconColor }}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="display:block"><sc-for list="{{ b.paths }}" as="p" hint-placeholder-count="4"><path d="{{ p }}"></path></sc-for></svg>
+                <span role="img" aria-label="" style="display:block;width:19px;height:19px;background:url({{ b.iconUrl }}) center/contain no-repeat"></span>
               </span>
               <span style="display:flex;flex-direction:column;gap:3px;min-width:0">
                 <span style="font-size:13.5px;font-weight:{{ b.weight }};letter-spacing:0.045em;color:{{ b.color }};line-height:1.05;white-space:nowrap">{{ b.label }}</span>
@@ -2912,7 +3036,7 @@ class Component extends DCLogic {
   state = { view: Component.VIEW_FROM_HASH(), caseId: null, mCaseId: null, mStatus: '', mShown: 24, companyId: null, themeId: null, personId: null, sourceId: null, archiveId: null,
     fCrop: '', fIssue: '', fRegion: '', fStatus: '', fProduct: '', fDept: '', sort: 'relevant', showAll: false, query: '', committedQuery: '',
     futureStatus: '', futureSource: '', futureShown: 16, compView: 'feed', fCompany: '', fType: '', fPeriod: '', compShown: 12, eventId: null, cproductId: null,
-    showDataState: false, mcProof: false,
+    showDataState: false, mcProof: false, mcPort: false,
     sciFilter: '', sciImpactId: null, sciHorizon: 'ALL', gireAll: false, showScenarios: false,
     archiveQuery: '', aType: '', aCrop: '', aRegion: '', aCompany: '', aCase: '', aSource: '', archivePage: 0, sourceGroup: 'ALL', peopleCat: 'ALL',
     mCrop: 'maize', mTab: 'crop',
@@ -3714,6 +3838,124 @@ class Component extends DCLogic {
       labelRadar: mtL('surfRADAR'),
       labelSegnali: mtL('surfSEGNALI'),
     } : null;
+    /* ══ L'INCROCIO, CALCOLATO UNA VOLTA PER COPPIA ═══════════════════════════
+       La scheda e il cartellino fanno la STESSA domanda — quante famiglie
+       indipendenti portano informazione su questa coltura × avversita — e prima
+       solo la scheda la faceva. Due luoghi con la stessa domanda e due risposte
+       divergono al terzo cambio.
+
+           UNA DOMANDA, UN CALCOLO, DUE LETTORI.
+
+       Si calcola per COPPIA e non per caso: misurato, i 13 casi stanno in 7
+       coppie distinte, e ricalcolare tredici volte cio che cambia sette darebbe
+       lo stesso numero con sei volte il lavoro.
+
+       IL LEGAME E DICHIARATO, MAI INDOVINATO. Il vocabolario si risolve con
+       `AM.cropResolve` — che gia esiste ed e il proprietario della tavola —
+       e il prefisso `ISSUE_` si toglie perche e lo spazio dei nomi
+       dell'entita, non parte del nome. Dove la coppia non si risolve, non si
+       cerca: si dichiara che non si puo cercare. */
+    /* `recs()` nasce piu in basso in questo stesso corpo; qui si legge il
+       modello direttamente, dallo stesso oggetto che `recs()` legge. */
+    const xRecs = (k) => ((APP0 && APP0[k]) ? APP0[k].records : []);
+    const xCropOf = (v) => { const r = (AM && AM.cropResolve) ? AM.cropResolve(v) : null; return (r && r.scope === 'RESOLVED') ? r.key : null; };
+    const xIssueOf = (v) => String(v || '').replace(/^ISSUE_/, '').toUpperCase() || null;
+    /* Le famiglie CONSULTATE DA QUESTO INCROCIO — non tutte quelle del modello.
+       Il denominatore fa parte della risposta, e deve essere il denominatore
+       VERO: scrivere «59 consultate» quando l'incrocio ne interroga cinque
+       gonfierebbe la lettura senza dire una bugia esplicita, che e il modo piu
+       facile di mentire con numeri corretti.
+
+           IL DENOMINATORE E QUELLO CHE SI E DAVVERO INTERROGATO.
+
+       Cinque: corpus scientifico, trascrizioni, attivita dei concorrenti,
+       letture di campo, portafoglio ADAMA. */
+    const X_FAMIGLIE_CONSULTATE = 5;
+    const xCache = new Map();
+    function incrocio(cropCode, issueCode) {
+      const ck = xCropOf(cropCode), ik = xIssueOf(issueCode);
+      const chiave = String(ck) + '|' + String(ik);
+      if (xCache.has(chiave)) return xCache.get(chiave);
+      const vuoto = { paired: false, crop: ck, issue: ik, pair: '', sci: [], voice: [], comp: [], field: [],
+        sciN: 0, voiceN: 0, compN: 0, compActive: 0, fieldN: 0, famiglie: 0, consultate: X_FAMIGLIE_CONSULTATE };
+      if (!ck || !ik) { xCache.set(chiave, vuoto); return vuoto; }
+
+      /* CIENZA · la coppia interrogata e QUERY_*; cio che il testo sostiene e
+         PROVED_*. Sono due cose e viaggiano separate: un materiale trovato
+         cercando «vite» non e um materiale che PROVA «vite». */
+      const sci = xRecs('scienceCorpus').filter((r) =>
+        xCropOf(r.queryCrop) === ck && xIssueOf(r.queryIssue) === ik);
+      /* VOCE TECNICA · la rotta dichiara coltura e avversita; la scala della
+         trascrizione ha cinque gradini e nessuno implica il successivo. */
+      const voice = xRecs('transcripts').filter((r) =>
+        xCropOf(r.routeCrop) === ck && xIssueOf(r.routeIssue) === ik && r.usable);
+      /* CONCORRENZA · SOLO coltura. `issueIds` e vuoto in 577/577 e
+         `issuesObserved` e testo libero: fingere una coppia su quel campo
+         sarebbe la giuntura fragile che il controllo A3 vieta. */
+      const comp = xRecs('competitorActivities').filter((r) =>
+        ((r.cropKeys && r.cropKeys.length) ? r.cropKeys : [r.cropKey]).indexOf(ck) >= 0);
+      /* CAMPO · qui il legame E di coppia, perche la lettura di campo porta
+         `issueIds` canonici. Dove li porta si usa; dove non li porta, non entra. */
+      const field = xRecs('currentFieldSignals').filter((r) =>
+        r.cropCanonical === ck && (r.issueIds || []).some((i) => xIssueOf(i) === ik));
+      const out = {
+        paired: true, crop: ck, issue: ik,
+        pair: ck + ' × ' + ik.replace(/_/g, ' ').toLowerCase(),
+        sci, voice, comp, field,
+        sciN: sci.length,
+        /* PROVED_* sostiene, o non sostiene. Il numero che il cartellino mostra
+           e quello della coppia interrogata; questo dice quanti reggono. */
+        sciProved: sci.filter((r) => xCropOf(r.provedCrop) === ck && xIssueOf(r.provedIssue) === ik).length,
+        sciOnCase: sci.filter((r) => r.caseAdherence === 'ON_FROZEN_CASE').length,
+        voiceN: voice.length,
+        voiceCited: voice.filter((r) => r.usedAsEvidence).length,
+        compN: comp.length,
+        compActive: comp.filter((r) => r.isActive === true).length,
+        fieldN: field.length,
+        consultate: X_FAMIGLIE_CONSULTATE,
+      };
+      out.famiglie = [out.sciN, out.voiceN, out.compN, out.fieldN].filter((n0) => n0 > 0).length;
+      xCache.set(chiave, out);
+      return out;
+    }
+
+    /* ══ INTELLIGENCE OGGI ════════════════════════════════════════════════
+       Sei numeri, e ognuno con una semantica gia provata altrove in questa
+       pagina. Nessun punteggio d'impatto: un numero inventato per sembrare
+       intelligente e la cosa che fa sembrare tutto il resto inventato.
+
+           SI CONTANO ENTITA DISTINTE, NON RIGHE.
+
+       Un materiale che serve tre casi resta UN materiale. Sommare per caso
+       darebbe 198 pubblicazioni dove ce ne sono 66, ed e il modo piu facile di
+       gonfiare un cruscotto senza dire una sola bugia esplicita. */
+    const intelToday = (() => {
+      const sci = new Set(), voz = new Set(), comp = new Set(), prod = new Set(), campo = new Set();
+      for (const c of meetingAll) {
+        const x = incrocio(c.cropCode, c.targetCode);
+        for (const r of x.sci) sci.add(r.id);
+        for (const r of x.voice) voz.add(r.id);
+        for (const r of x.comp) comp.add(r.id);
+        for (const r of x.field) campo.add(r.id);
+        for (const pr of ((c.products && c.products.matches) || [])) if (pr.name) prod.add(pr.name);
+      }
+      /* Il proprietario si legge qui, non piu in basso: `CASA_RF` nasce dopo
+         questo blocco e leggerlo prima sarebbe leggere il nulla. */
+      const RFO = (window.ITALY_CASA && window.ITALY_CASA.RADAR_FUTURO) || null;
+      const rf = (RFO && typeof RFO.RENDERIZAVEIS === 'number') ? RFO.RENDERIZAVEIS : null;
+      const linhas = [
+        { label: mtL('navMeeting'), n: MSURF ? MSURF.commercial.length : meetingAll.length },
+        rf === null ? null : { label: String(mtL('casaRadarName') || '').toLowerCase()
+          .replace(/(^|[\s·-])([a-zà-ÿ])/g, (m0, a, b) => a + b.toUpperCase()), n: rf },
+        { label: T.xSci, n: sci.size },
+        { label: T.xVoice, n: voz.size },
+        { label: T.xComp, n: comp.size },
+        { label: T.xField, n: campo.size },
+        { label: T.xAdama, n: prod.size },
+      ].filter(Boolean).filter((r) => r.n > 0);
+      return { rows: linhas, has: linhas.length > 0, title: T.xToday };
+    })();
+
     /* Il filtro e una LETTURA, non un giudizio: taglia l'elenco per uno stato
        che il motore ha gia scritto, e non ne calcola nessuno. */
     /* Il filtro lavora sullo STATO CLIENTE, non sullo stato del motore. */
@@ -3727,6 +3969,30 @@ class Component extends DCLogic {
       primaryName: c.products.hasPrimary ? c.products.primary.name : '',
       cardLine: c.products.cardLine,
       windowRule: c.window.ruleSentence, windowState: c.window.stateSentence,
+      /* ══ LE FAMIGLIE CHE PORTANO EVIDENZA, SUL CARTELLINO ═══════════════
+         Nessuna pastiglia con lo zero. Una scatola vuota disegnata per
+         riempire lo spazio dice «qui non c'e niente» con la stessa forza con
+         cui la scatola piena dice «qui c'e qualcosa» — e le due cose non si
+         devono somigliare.
+
+             UNA PASTIGLIA CON ZERO NON INFORMA. OCCUPA.
+
+         I colori NON cambiano per famiglia: la regola ADAMA vieta di mescolare
+         le linee, e il cartellino ha gia la sua. Distingue la parola, non la
+         tinta. */
+      evid: (() => {
+        const x = incrocio(c.cropCode, c.targetCode);
+        const linhas = [
+          [T.xSci, x.sciN], [T.xVoice, x.voiceN], [T.xComp, x.compN],
+          [T.xField, x.fieldN], [T.xAdama, c.products.count],
+        ].filter((r) => r[1] > 0).map((r) => ({ label: r[0], n: r[1] }));
+        return linhas;
+      })(),
+      fam: (() => {
+        const x = incrocio(c.cropCode, c.targetCode);
+        const n0 = x.famiglie + (c.products.count > 0 ? 1 : 0);
+        return { n: n0, has: n0 > 0, label: T.xFamiglie };
+      })(),
     }));
     /* I CONTEGGI VENGONO DAI 43 E DA NESSUN ALTRO INSIEME.
        Nessuno di questi numeri e scritto a mano: se l'istantanea cambia,
@@ -5328,6 +5594,14 @@ class Component extends DCLogic {
         hasCited: typeof r.citedBy === 'number' && r.citedBy > 0,
         adherence: mbAdhL(r.caseAdherence),
         onCase: r.caseAdherence === 'ON_FROZEN_CASE',
+        /* QUERY_* e il termine della ricerca. PROVED_* e cio che il testo
+           sostiene. Stampare il primo come se fosse il secondo e il modo in cui
+           una bibliografia diventa una prova senza che nessuno lo decida. */
+        proved: mbCropOf(r.provedCrop) === mbCrop && mbIssueOf(r.provedIssue) === mbIssue,
+        joinL: (mbCropOf(r.provedCrop) === mbCrop && mbIssueOf(r.provedIssue) === mbIssue)
+          ? (T.xPairJoin || '') : (T.xQueryOnly || ''),
+        joinColor: (mbCropOf(r.provedCrop) === mbCrop && mbIssueOf(r.provedIssue) === mbIssue)
+          ? '#00B152' : '#8F8886',
         place: mbPlaceL(r.countryOfFact),
         placeKnown: !!r.countryOfFact && r.countryOfFact !== 'NOT_ESTABLISHED',
         /* Il DOI e un indirizzo, e si apre solo quando c'e. Un <a> senza href
@@ -5374,6 +5648,28 @@ class Component extends DCLogic {
     const mbCompAll = mbCrop ? recs('competitorActivities').filter((r) =>
       (r.cropKeys && r.cropKeys.length ? r.cropKeys : [r.cropKey]).indexOf(mbCrop) >= 0) : [];
     const mbCompActive = mbCompAll.filter((r) => r.isActive === true).length;
+    /* Un numero non e un fatto osservabile: chi legge deve poter vedere CHI, e
+       QUANDO, e se quella cosa e viva oggi o e storia. Le attive salgono per
+       prime, perche una campagna finita non e una campagna. */
+    const mbFmtD = (v) => ((AM && AM.fmtDate && AM.fmtDate(v)) || (v ? String(v) : ''));
+    const mbCompRows = mbCompAll.slice()
+      .sort((a, b) => (Number(b.isActive === true) - Number(a.isActive === true))
+        || String(b.startDate || '').localeCompare(String(a.startDate || '')))
+      .slice(0, 4)
+      .map((r) => ({
+        company: r.company || r.companyRaw || '',
+        /* Cio che il concorrente DICE, nella lingua in cui l'ha detto. La
+           citazione pubblica non si traduce: tradurre una prova la altera. */
+        what: String(r.textExcerpt || r.videoTitle || '').replace(/\s+/g, ' ').trim().slice(0, 120),
+        hasWhat: !!String(r.textExcerpt || r.videoTitle || '').trim(),
+        when: mbFmtD(r.startDate || r.publishedAt),
+        hasWhen: !!(r.startDate || r.publishedAt),
+        active: r.isActive === true,
+        stateL: r.isActive === true ? (T.xActiveOne || '') : (T.xHistory || ''),
+        stateColor: r.isActive === true ? '#00B152' : '#8F8886',
+        url: /^https?:\/\//i.test(String(r.url || '')) ? r.url : '',
+        hasUrl: /^https?:\/\//i.test(String(r.url || '')),
+      }));
 
     const mcBeyond = {
       paired: mbPaired,
@@ -5394,6 +5690,7 @@ class Component extends DCLogic {
       hasComp: mbCompAll.length > 0,
       compActive: mbCompActive,
       compHistory: mbCompAll.length - mbCompActive,
+      compRows: mbCompRows,
     };
     /* Il runtime non ha `sc-if` negato: la negazione si calcola QUI, come per
        ogni altro blocco di questa pagina. Un attributo inventato nel markup
@@ -5406,6 +5703,31 @@ class Component extends DCLogic {
        in tutto, raccolte su altre coppie» dice perche il vuoto e un vuoto di
        ricerca e non di materia. */
     mcBeyond.noVoiceL = String(T.mbNoVoice || '').replace('{n}', mcBeyond.voicePoolN);
+
+    /* ══ I SEGNALI CONVERGENTI ═════════════════════════════════════════════
+       Lo stesso incrocio del cartellino, letto come RIASSUNTO. Non ricalcola:
+       chiede a `incrocio()`, che e il proprietario. Due calcoli della stessa
+       cosa divergono, e quello che diverge in silenzio e sempre quello che non
+       fallisce. Le righe a zero non compaiono; il denominatore si, sempre. */
+    const mcConv = (() => {
+      const x = mcCase ? incrocio(mcCase.cropCode, mcCase.targetCode) : null;
+      if (!x || !x.paired) return { has: false, none: true, fam: 0, rows: [], consultate: X_FAMIGLIE_CONSULTATE };
+      const prodN = (mcCase.products && mcCase.products.count) || 0;
+      const rows = [
+        { label: T.xSci, n: x.sciN,
+          /* PROVED_* sostiene, o non sostiene. Il numero grande e la coppia
+             INTERROGATA; questa riga dice quanti reggono al testo. */
+          note: x.sciProved ? (x.sciProved + ' ' + (T.xProved || '')) : '' },
+        { label: T.xVoice, n: x.voiceN, note: '' },
+        /* Una nota che dice «0 attive oggi» disegna uno zero per riempire lo
+           spazio. Dove non c'e niente di attivo, la riga tace. */
+        { label: T.xComp, n: x.compN, note: x.compActive ? (x.compActive + ' ' + (T.xActive || '')) : '' },
+        { label: T.xField, n: x.fieldN, note: '' },
+        { label: T.xAdama, n: prodN, note: '' },
+      ].filter((r) => r.n > 0);
+      const fam = rows.length;
+      return { has: fam > 0, none: fam === 0, fam, rows, consultate: x.consultate };
+    })();
 
     /* ── i prodotti, per NOME ─────────────────────────────────────────────── */
     const csProductRows = ((csRec && csRec.productLinks) || []).map((l) => {
@@ -6092,6 +6414,23 @@ class Component extends DCLogic {
       const nVer = cores.filter(x => x.verified.length).length;
       return {
         label: cl(k).toUpperCase(), sub, paths: CROP_ICON[k] || CROP_ICON['Wheat'],
+        /* ══ UN'ICONA CHE IL PARSER NON PUO RIFIUTARE ═══════════════════════
+           `<path d="{{ p }}">` sta nel documento PRIMA che il runtime lo
+           sostituisca, e il parser SVG del browser lo legge subito: tre errori
+           di console a ogni caricamento, misurati.
+
+               UN ERRORE CHE IL LETTORE NON VEDE E COMUNQUE UN ERRORE.
+
+           L'icona diventa un data-URI, che e il modo in cui questa pagina gia
+           disegna tutte le altre (`background:url({{ f.icon }})`). Nessun
+           tracciato nuovo: gli stessi `CROP_ICON`, in un altro involucro. */
+        iconUrl: (() => {
+          const ps = (CROP_ICON[k] || CROP_ICON['Wheat']).map((d) => '<path d="' + d + '"/>').join('');
+          const cor = (LIFT[accent] || accent);
+          const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="'
+            + cor + '" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + ps + '</svg>';
+          return 'data:image/svg+xml,' + encodeURIComponent(svg);
+        })(),
         /* The 'n/m observed' form is gone: 0 of 29 windows carry an observed stage.
            What the rail can honestly count is windows and verified label matches. */
         cover: cores.length + ' ' + (cores.length === 1 ? LC('FINESTRA', 'WINDOW') : LC('FINESTRE', 'WINDOWS')) + (nVer ? ' · ' + nVer + ' ' + LC('VERIFICATE', 'VERIFIED') : ''),
@@ -9901,7 +10240,13 @@ class Component extends DCLogic {
       mcCooling: mcCase ? mcCase.evidence.cooling : [],
       mcMissingList: mcCase ? mcCase.missing : [],
       /* Il blocco che legge le due famiglie che nessuno leggeva. */
-      mcBeyond,
+      intelToday,
+      mcBeyond, mcConv,
+      /* Il portafoglio intero non e sparito: ha un interruttore, e il conteggio
+         accanto al nome prova che nessun prodotto e stato tolto. */
+      mcPortOn: !!s.mcPort,
+      mcPortLabel: s.mcPort ? (T.xDetailsHide || '') : (T.xDetails || ''),
+      toggleMcPort: () => this.setState({ mcPort: !s.mcPort }),
       /* ══ LA PROVA STA SOTTO LA LETTURA, NON SOPRA ════════════════════════
          I codici del motore, le sigle delle regole e i riferimenti di evidenza
          sono TRACCIABILITA: servono a chi verifica, non a chi legge. Stavano
