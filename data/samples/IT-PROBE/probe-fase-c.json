@@ -1,0 +1,931 @@
+{
+ "FASE": "C — probe de acesso",
+ "CAPTURED_AT_UTC": "2026-09-07T13:46:08.611Z",
+ "METODO": "curl HTTP GET com User-Agent de navegador, seguindo redirect, do IP de saida italiano",
+ "EGRESS": "205.147.30.20 · Milano · IT · AS208172 Proton AG (VPN comercial, NAO ISP residencial)",
+ "REGRA_DE_ASSIMETRIA": {
+  "ACCESS_OK": "sinal FORTE — se abre para curl, abre para navegador",
+  "BLOCKED_OU_WAF": "sinal FRACO — INCONCLUSIVO. Exige reteste em navegador italiano antes de qualquer RED",
+  "lembrete": "403/503 desta execucao = ACCESS FAILURE, nao = SOURCE DOES NOT EXIST"
+ },
+ "AVISO": "este probe NAO preserva amostra. Ele so mede a porta. Nenhum veredito GREEN pode sair daqui sozinho.",
+ "RESUMO": {
+  "ACCESS_OK": 31,
+  "ROTA_INEXISTENTE": 1,
+  "ACCESS_OK_MAS_MAGRO": 2,
+  "NETWORK_ERROR": 5,
+  "BLOCKED_PARA_CURL": 4
+ },
+ "TOTAL_URLS": 43,
+ "RESULTADOS": [
+  {
+   "URL": "https://esploradati.istat.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T1-001",
+     "TERRITORY": "T1"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html",
+   "BYTES": 5286,
+   "URL_EFETIVA": "https://esploradati.istat.it/databrowser/",
+   "SERVER_IP": "193.204.90.13",
+   "TEMPO_S": 2.22367,
+   "SHA256_DA_RESPOSTA": "e947b50b6b0c8f4cad8f291098a605a26a2642dc888a8e6c0040663cc71c3afe",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": []
+  },
+  {
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/agrometeo",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T2-001",
+     "TERRITORY": "T2"
+    }
+   ],
+   "HTTP_STATUS": 404,
+   "MIME": "application/json",
+   "BYTES": 26,
+   "URL_EFETIVA": "https://www.arpae.it/it/temi-ambientali/meteo/agrometeo",
+   "SERVER_IP": "193.43.206.242",
+   "TEMPO_S": 1.458507,
+   "SHA256_DA_RESPOSTA": "6bbcea2b37bd092cc60604157a0ceec8944866fc2478f7af8aea3c3df40bc258",
+   "RESULTADO": "ROTA_INEXISTENTE",
+   "nota": "404 nesta URL — a organizacao pode existir noutra rota",
+   "PISTAS": []
+  },
+  {
+   "URL": "https://www.arpa.veneto.it/dati-ambientali/bollettini/agrometeo",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T2-002",
+     "TERRITORY": "T2"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=utf-8",
+   "BYTES": 231282,
+   "URL_EFETIVA": "https://www.arpa.veneto.it/dati-ambientali/bollettini/agrometeo",
+   "SERVER_IP": "185.213.112.65",
+   "TEMPO_S": 2.993219,
+   "SHA256_DA_RESPOSTA": "c3f54976d0cd577230743a06c6c78fd1c447b4036b9d0c506b00630cf6975f6d",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "a palavra 'bollettin' aparece",
+    "area reservada / login citado"
+   ]
+  },
+  {
+   "URL": "https://drought.climateservices.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T2-003",
+     "TERRITORY": "T2"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html",
+   "BYTES": 28548,
+   "URL_EFETIVA": "https://drought.climateservices.it/",
+   "SERVER_IP": "149.139.16.6",
+   "TEMPO_S": 3.171636,
+   "SHA256_DA_RESPOSTA": "ce0f7c05ebb92d668bf0b16b55772a6c123cfad44a296462a07ea4aa73dd92ab",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "RSS declarado no <head>",
+    "WordPress"
+   ]
+  },
+  {
+   "URL": "http://www.sias.regione.sicilia.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T2-004",
+     "TERRITORY": "T2"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=ISO-8859-1",
+   "BYTES": 449,
+   "URL_EFETIVA": "http://www.sias.regione.sicilia.it/",
+   "SERVER_IP": "93.41.160.6",
+   "TEMPO_S": 0.812387,
+   "SHA256_DA_RESPOSTA": "f6742db8af71e26c1effa3d317ebcfb114e539c218a4845289522e7bb1348cc8",
+   "RESULTADO": "ACCESS_OK_MAS_MAGRO",
+   "nota": "200 com apenas 449 bytes — pode ser casca; conferir a olho",
+   "PISTAS": []
+  },
+  {
+   "URL": "https://www.alsia.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T2-005",
+     "TERRITORY": "T2"
+    },
+    {
+     "SOURCE_ID": "IT-T3-004",
+     "TERRITORY": "T3"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 293,
+   "URL_EFETIVA": "https://www.alsia.it/",
+   "SERVER_IP": "78.40.170.40",
+   "TEMPO_S": 2.283216,
+   "SHA256_DA_RESPOSTA": "4e2b86aae9d8f175ebf94a738a4aef365604731a8ce197d9b15cde1f32665047",
+   "RESULTADO": "ACCESS_OK_MAS_MAGRO",
+   "nota": "200 com apenas 293 bytes — pode ser casca; conferir a olho",
+   "PISTAS": []
+  },
+  {
+   "URL": "https://agricoltura.regione.emilia-romagna.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T3-001",
+     "TERRITORY": "T3"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=utf-8",
+   "BYTES": 973276,
+   "URL_EFETIVA": "https://agricoltura.regione.emilia-romagna.it/",
+   "SERVER_IP": "193.43.202.93",
+   "TEMPO_S": 3.26359,
+   "SHA256_DA_RESPOSTA": "27d8f736687b8abd69d7b85bf2fa864252de2058cef7c99851c8d6afd2e0e1d3",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "a palavra 'bollettin' aparece",
+    "a palavra 'monitoragg' aparece",
+    "area reservada / login citado"
+   ]
+  },
+  {
+   "URL": "https://www.agricoltura.regione.campania.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T3-002",
+     "TERRITORY": "T3"
+    }
+   ],
+   "HTTP_STATUS": 0,
+   "RESULTADO": "NETWORK_ERROR",
+   "nota": "curl: (60) schannel: SNI or certificate check failed: SEC_E_WRONG_PRINCIPAL (0x80090322) - O nome principal do destino est� incorreto.\r\nMore details here: https://curl.se/docs/sslcerts.html\r\n\r\ncurl failed to verify the legitimacy of the server and therefore could not\r\nestablish a secure connection t",
+   "PISTAS": []
+  },
+  {
+   "URL": "https://www.terretruria.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T3-005",
+     "TERRITORY": "T3"
+    },
+    {
+     "SOURCE_ID": "IT-T3-006",
+     "TERRITORY": "T3"
+    },
+    {
+     "SOURCE_ID": "IT-T7-001",
+     "TERRITORY": "T7"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 65616,
+   "URL_EFETIVA": "https://www.terretruria.it/",
+   "SERVER_IP": "77.39.212.39",
+   "TEMPO_S": 1.600306,
+   "SHA256_DA_RESPOSTA": "a0311c4b794ea24dce3fbf8a74b8d732b82b407a8ddadb1c8f27f339a2b92664",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "a palavra 'bollettin' aparece",
+    "a palavra 'monitoragg' aparece",
+    "area reservada / login citado"
+   ]
+  },
+  {
+   "URL": "https://www.regione.sicilia.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T3-007",
+     "TERRITORY": "T3"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 279139,
+   "URL_EFETIVA": "https://www.regione.sicilia.it/",
+   "SERVER_IP": "93.45.16.216",
+   "TEMPO_S": 2.3137,
+   "SHA256_DA_RESPOSTA": "308fb2f7dc73964072770b62ed3998b79186a371f52ea48fd14e3ec9bc0d20cb",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "a palavra 'monitoragg' aparece",
+    "area reservada / login citado"
+   ]
+  },
+  {
+   "URL": "https://www.arifpuglia.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T3-008",
+     "TERRITORY": "T3"
+    }
+   ],
+   "HTTP_STATUS": 403,
+   "MIME": "text/html",
+   "BYTES": 919,
+   "URL_EFETIVA": "https://www.arifpuglia.it/",
+   "SERVER_IP": "54.230.183.108",
+   "TEMPO_S": 1.610805,
+   "SHA256_DA_RESPOSTA": "9d81f7434b42c16102c4c06424d1b9c3a64d9eee98fcba5feca542ce5bfb3177",
+   "RESULTADO": "BLOCKED_PARA_CURL",
+   "nota": "403 — INCONCLUSIVO. Reteste obrigatorio em navegador italiano antes de qualquer RED.",
+   "PISTAS": []
+  },
+  {
+   "URL": "https://www.assoproli.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T3-009",
+     "TERRITORY": "T3"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 166567,
+   "URL_EFETIVA": "https://www.assoproli.it/",
+   "SERVER_IP": "89.46.109.65",
+   "TEMPO_S": 3.582696,
+   "SHA256_DA_RESPOSTA": "af42af639395507633c3f5dd4f644bdb1d55ac6ce9fd2b4e370068cfcf926e08",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "RSS declarado no <head>",
+    "a palavra 'bollettin' aparece",
+    "area reservada / login citado",
+    "WordPress"
+   ]
+  },
+  {
+   "URL": "https://www.agrios.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T3-011",
+     "TERRITORY": "T3"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 40222,
+   "URL_EFETIVA": "https://www.agrios.it/",
+   "SERVER_IP": "85.13.130.248",
+   "TEMPO_S": 3.191035,
+   "SHA256_DA_RESPOSTA": "c1d19af4e690ada99bd350f4133ef5f984e31dc61b1f63a6a57f0ded078c81b4",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "WordPress"
+   ]
+  },
+  {
+   "URL": "https://www.fmach.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T3-012",
+     "TERRITORY": "T3"
+    },
+    {
+     "SOURCE_ID": "IT-T7-006",
+     "TERRITORY": "T7"
+    },
+    {
+     "SOURCE_ID": "IT-T11-004",
+     "TERRITORY": "T11"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=utf-8",
+   "BYTES": 76603,
+   "URL_EFETIVA": "https://fmach.it/",
+   "SERVER_IP": "99.80.82.152",
+   "TEMPO_S": 3.442575,
+   "SHA256_DA_RESPOSTA": "ce1740dd32b5e9414008492b47291dea66133ee2b25daee0fcf84bf676dbcfb4",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "a palavra 'bollettin' aparece",
+    "area reservada / login citado"
+   ]
+  },
+  {
+   "URL": "https://www.dati.salute.gov.it/it/dataset/fitosanitari/",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T4-001",
+     "TERRITORY": "T4"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 633834,
+   "URL_EFETIVA": "https://www.dati.salute.gov.it/it/dataset/fitosanitari/",
+   "SERVER_IP": "93.148.195.97",
+   "TEMPO_S": 4.431781,
+   "SHA256_DA_RESPOSTA": "ad3b66505d9204c7ad51295b5bdaed5016c0726591f03a9fb7bc1bd51f530155",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "link .csv na pagina",
+    "link .pdf na pagina"
+   ]
+  },
+  {
+   "URL": "https://www.crea.gov.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T5-001",
+     "TERRITORY": "T5"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html;charset=UTF-8",
+   "BYTES": 136863,
+   "URL_EFETIVA": "https://www.crea.gov.it/",
+   "SERVER_IP": "9.235.6.76",
+   "TEMPO_S": 2.275351,
+   "SHA256_DA_RESPOSTA": "a3b3cfeb652262d37d077f443e3fa4031c8da2c8f82d38e1d81c7aab00747092",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "link .pdf na pagina"
+   ]
+  },
+  {
+   "URL": "https://publications.fmach.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T5-002",
+     "TERRITORY": "T5"
+    }
+   ],
+   "HTTP_STATUS": 0,
+   "RESULTADO": "NETWORK_ERROR",
+   "nota": "curl: (6) Could not resolve host: publications.fmach.it",
+   "PISTAS": []
+  },
+  {
+   "URL": "https://www.giornatefitopatologiche.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T5-003",
+     "TERRITORY": "T5"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html;charset=UTF-8",
+   "BYTES": 14548,
+   "URL_EFETIVA": "https://giornatefitopatologiche.it/it/home/1",
+   "SERVER_IP": "13.224.106.29",
+   "TEMPO_S": 3.706758,
+   "SHA256_DA_RESPOSTA": "18e1aa0d1f99ce047dc8c3ad41d305e6b7565228dd87d6e9569280f5c0c663bc",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": []
+  },
+  {
+   "URL": "https://iris.cnr.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T5-004",
+     "TERRITORY": "T5"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html;charset=utf-8",
+   "BYTES": 58129,
+   "URL_EFETIVA": "https://iris.cnr.it/",
+   "SERVER_IP": "141.101.90.106",
+   "TEMPO_S": 1.976716,
+   "SHA256_DA_RESPOSTA": "d889175ccc8f31a9d254cc30f1c0d547ea51c4fc767797a6aa139852048e62a8",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "area reservada / login citado"
+   ]
+  },
+  {
+   "URL": "https://www.sirfi.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T5-005",
+     "TERRITORY": "T5"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 83798,
+   "URL_EFETIVA": "https://www.sirfi.it/",
+   "SERVER_IP": "89.46.110.53",
+   "TEMPO_S": 2.481807,
+   "SHA256_DA_RESPOSTA": "72033a985fffc1196f511c41e1a92a5665fb4685b76f2f2d733e1544bed0a847",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "RSS declarado no <head>",
+    "link .pdf na pagina",
+    "WordPress"
+   ]
+  },
+  {
+   "URL": "https://www.politicheagricole.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T7-002",
+     "TERRITORY": "T7"
+    },
+    {
+     "SOURCE_ID": "IT-T10-004",
+     "TERRITORY": "T10"
+    },
+    {
+     "SOURCE_ID": "IT-T10-005",
+     "TERRITORY": "T10"
+    },
+    {
+     "SOURCE_ID": "IT-T12-002",
+     "TERRITORY": "T12"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=ISO-8859-1",
+   "BYTES": 81095,
+   "URL_EFETIVA": "https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/202",
+   "SERVER_IP": "23.205.47.169",
+   "TEMPO_S": 3.828552,
+   "SHA256_DA_RESPOSTA": "95fa60988df10ba900378e63ee73d4cd6a67763e49e367f0b2aba78b993ce3d5",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "area reservada / login citado"
+   ]
+  },
+  {
+   "URL": "https://www.consorziagrariditalia.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T7-003",
+     "TERRITORY": "T7"
+    }
+   ],
+   "HTTP_STATUS": 0,
+   "RESULTADO": "NETWORK_ERROR",
+   "nota": "curl: (35) Recv failure: Connection was reset",
+   "PISTAS": []
+  },
+  {
+   "URL": "https://www.apoconerpo.com",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T7-004",
+     "TERRITORY": "T7"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=utf-8",
+   "BYTES": 66780,
+   "URL_EFETIVA": "https://www.apoconerpo.com/",
+   "SERVER_IP": "52.233.184.181",
+   "TEMPO_S": 5.784358,
+   "SHA256_DA_RESPOSTA": "3d98b725994d8361a751435dc1aa79321db40fea772b636ac9747905edfc135e",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "area reservada / login citado"
+   ]
+  },
+  {
+   "URL": "https://www.agrintesa.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T7-005",
+     "TERRITORY": "T7"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 189199,
+   "URL_EFETIVA": "https://www.agrintesa.it/",
+   "SERVER_IP": "162.159.135.42",
+   "TEMPO_S": 3.171532,
+   "SHA256_DA_RESPOSTA": "4d5b6de0d4ea63d85f41ebb170151a0a82d383c63eb6d510ae360eabcf96d1f7",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "RSS declarado no <head>",
+    "link .pdf na pagina",
+    "a palavra 'monitoragg' aparece",
+    "area reservada / login citado",
+    "WordPress"
+   ]
+  },
+  {
+   "URL": "https://www.apofruit.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T7-007",
+     "TERRITORY": "T7"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 157335,
+   "URL_EFETIVA": "https://www.apofruit.it/",
+   "SERVER_IP": "172.67.70.224",
+   "TEMPO_S": 2.59894,
+   "SHA256_DA_RESPOSTA": "f5600f0cd58980a349d7520370f40d53d026c1471aa87236cb567ea8cece15fc",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "RSS declarado no <head>",
+    "link .pdf na pagina",
+    "WordPress"
+   ]
+  },
+  {
+   "URL": "https://www.ortofruititalia.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T7-008",
+     "TERRITORY": "T7"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 351861,
+   "URL_EFETIVA": "https://ortofruititalia.it/",
+   "SERVER_IP": "35.214.241.110",
+   "TEMPO_S": 6.665171,
+   "SHA256_DA_RESPOSTA": "40c9449f4a36b0ec46153ce37bc34efd10f5ffda5562b49aa5ae71c567954e23",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "RSS declarado no <head>",
+    "link .pdf na pagina",
+    "WordPress"
+   ]
+  },
+  {
+   "URL": "https://www.vog.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T7-009",
+     "TERRITORY": "T7"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=utf-8",
+   "BYTES": 177238,
+   "URL_EFETIVA": "https://www.vog.it/it/home.html",
+   "SERVER_IP": "95.171.46.170",
+   "TEMPO_S": 2.649329,
+   "SHA256_DA_RESPOSTA": "ef2b4c57e9f1c6d65fdd148a53ba7864aa7cedfb4a04058561dd77c66e43a5b3",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "link .pdf na pagina"
+   ]
+  },
+  {
+   "URL": "https://www.melinda.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T7-010",
+     "TERRITORY": "T7"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 119299,
+   "URL_EFETIVA": "https://melinda.it/",
+   "SERVER_IP": "188.114.97.7",
+   "TEMPO_S": 4.454973,
+   "SHA256_DA_RESPOSTA": "1ba5c0557cdd9b6eba12b83a1923c06534e9654bf603ae08f69e3a89fa64ab4f",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "RSS declarado no <head>",
+    "link .pdf na pagina",
+    "area reservada / login citado",
+    "WordPress"
+   ]
+  },
+  {
+   "URL": "https://www.cavit.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T7-011",
+     "TERRITORY": "T7"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 212072,
+   "URL_EFETIVA": "https://www.cavit.it/",
+   "SERVER_IP": "69.172.105.160",
+   "TEMPO_S": 4.504651,
+   "SHA256_DA_RESPOSTA": "440ff7601f34fb3e4dc3a997ee7c6ad401b044000091f225f4bb098da6775694",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "area reservada / login citado",
+    "WordPress"
+   ]
+  },
+  {
+   "URL": "https://www.agro.basf.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T9-001",
+     "TERRITORY": "T9"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html;charset=utf-8",
+   "BYTES": 110805,
+   "URL_EFETIVA": "https://www.agro.basf.it/it/",
+   "SERVER_IP": "212.21.187.51",
+   "TEMPO_S": 2.734468,
+   "SHA256_DA_RESPOSTA": "78dbe56e2de88d5a70515ebb3baec1614784cf582c52e15bda75b1fcdde65f24",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "link .pdf na pagina",
+    "a palavra 'bollettin' aparece",
+    "area reservada / login citado"
+   ]
+  },
+  {
+   "URL": "https://www.cropscience.bayer.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T9-002",
+     "TERRITORY": "T9"
+    }
+   ],
+   "HTTP_STATUS": 403,
+   "MIME": "text/html",
+   "BYTES": 677,
+   "URL_EFETIVA": "https://www.cropscience.bayer.it/",
+   "SERVER_IP": "2.19.124.162",
+   "TEMPO_S": 2.506734,
+   "SHA256_DA_RESPOSTA": "64394de4284b0b8ac6060325042d9f14127b316c1c78cb9e48a1eb65af1170a5",
+   "RESULTADO": "BLOCKED_PARA_CURL",
+   "nota": "403 — INCONCLUSIVO. Reteste obrigatorio em navegador italiano antes de qualquer RED.",
+   "PISTAS": []
+  },
+  {
+   "URL": "https://www.syngenta.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T9-003",
+     "TERRITORY": "T9"
+    }
+   ],
+   "HTTP_STATUS": 403,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 5619,
+   "URL_EFETIVA": "https://www.syngenta.it/",
+   "SERVER_IP": "104.18.10.249",
+   "TEMPO_S": 1.751166,
+   "SHA256_DA_RESPOSTA": "474c09c0844b43abdaa10e3271ba9beb09eeee6240cf13d653c7f201a3db47bc",
+   "RESULTADO": "BLOCKED_PARA_CURL",
+   "nota": "403 — INCONCLUSIVO. Reteste obrigatorio em navegador italiano antes de qualquer RED.",
+   "PISTAS": []
+  },
+  {
+   "URL": "https://www.corteva.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T9-004",
+     "TERRITORY": "T9"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 196313,
+   "URL_EFETIVA": "https://www.corteva.com/it/",
+   "SERVER_IP": "45.60.87.235",
+   "TEMPO_S": 4.740835,
+   "SHA256_DA_RESPOSTA": "858380a2cd1c10616c2c343c9c491019100ab85677b7bd3b2678ceee11ebfcba",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "a palavra 'monitoragg' aparece"
+   ]
+  },
+  {
+   "URL": "https://www.nufarm.com/it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T9-005",
+     "TERRITORY": "T9"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 187469,
+   "URL_EFETIVA": "https://nufarm.com/it/",
+   "SERVER_IP": "172.66.137.10",
+   "TEMPO_S": 6.129585,
+   "SHA256_DA_RESPOSTA": "393477048447edb678284acf9f87cf9a937c6c7ee8055d1f5f4173bc4dd947f1",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "link .pdf na pagina",
+    "WordPress"
+   ]
+  },
+  {
+   "URL": "https://www.fmcagro.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T9-006",
+     "TERRITORY": "T9"
+    }
+   ],
+   "HTTP_STATUS": 0,
+   "RESULTADO": "NETWORK_ERROR",
+   "nota": "curl: (6) Could not resolve host: www.fmcagro.it",
+   "PISTAS": []
+  },
+  {
+   "URL": "https://www.upl-ltd.com/it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T9-007",
+     "TERRITORY": "T9"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 203479,
+   "URL_EFETIVA": "https://www.uplcorp.com/it/",
+   "SERVER_IP": "159.60.137.6",
+   "TEMPO_S": 6.024368,
+   "SHA256_DA_RESPOSTA": "d5fbdc0fe680f229d45d5d2cb97e7f483c4dd725fe39dcaabdd98cc72deed103",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": []
+  },
+  {
+   "URL": "https://www.adama.com/italia",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T9-008",
+     "TERRITORY": "T9"
+    }
+   ],
+   "HTTP_STATUS": 403,
+   "MIME": "text/html",
+   "BYTES": 143,
+   "URL_EFETIVA": "https://www.adama.com/italia",
+   "SERVER_IP": "23.222.236.34",
+   "TEMPO_S": 1.450021,
+   "SHA256_DA_RESPOSTA": "e9cd6a68414797998b092c230f43cd09b74d72000596f5c70934fe3f8c285f0e",
+   "RESULTADO": "BLOCKED_PARA_CURL",
+   "nota": "403 — INCONCLUSIVO. Reteste obrigatorio em navegador italiano antes de qualquer RED.",
+   "PISTAS": []
+  },
+  {
+   "URL": "https://www.ismeamercati.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T10-001",
+     "TERRITORY": "T10"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=ISO-8859-1",
+   "BYTES": 177124,
+   "URL_EFETIVA": "https://www.ismeamercati.it/analisi-e-studio-filiere-agroalimentari",
+   "SERVER_IP": "2.33.31.187",
+   "TEMPO_S": 2.376366,
+   "SHA256_DA_RESPOSTA": "96b81ae653bb19a15db453b695f161933dcce21b70d82db6fa179d5e90a3fd33",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "a palavra 'monitoragg' aparece",
+    "area reservada / login citado"
+   ]
+  },
+  {
+   "URL": "https://www.bmti.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T10-002",
+     "TERRITORY": "T10"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 124336,
+   "URL_EFETIVA": "https://www.bmti.it/",
+   "SERVER_IP": "35.214.226.41",
+   "TEMPO_S": 2.47167,
+   "SHA256_DA_RESPOSTA": "3aad49cf38874c1bfaae0bd41a293072c3ae8a34f3aefe085c0acfb04afff440",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "RSS declarado no <head>",
+    "link de planilha",
+    "WordPress"
+   ]
+  },
+  {
+   "URL": "https://www.coeweb.istat.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T10-003",
+     "TERRITORY": "T10"
+    }
+   ],
+   "HTTP_STATUS": 0,
+   "RESULTADO": "NETWORK_ERROR",
+   "nota": "curl: (60) schannel: SNI or certificate check failed: SEC_E_WRONG_PRINCIPAL (0x80090322) - O nome principal do destino est� incorreto.\r\nMore details here: https://curl.se/docs/sslcerts.html\r\n\r\ncurl failed to verify the legitimacy of the server and therefore could not\r\nestablish a secure connection t",
+   "PISTAS": []
+  },
+  {
+   "URL": "https://www.eima.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T11-001",
+     "TERRITORY": "T11"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html",
+   "BYTES": 37066,
+   "URL_EFETIVA": "https://www.eima.it/it/index.php",
+   "SERVER_IP": "185.96.206.60",
+   "TEMPO_S": 3.444021,
+   "SHA256_DA_RESPOSTA": "b83748c2de5b9d8f02da277ff713fe532225aacafcf6c97a84113e09ff257a44",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "area reservada / login citado"
+   ]
+  },
+  {
+   "URL": "https://www.enovitisincampo.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T11-002",
+     "TERRITORY": "T11"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=utf-8",
+   "BYTES": 35898,
+   "URL_EFETIVA": "https://www.enovitisincampo.it/",
+   "SERVER_IP": "195.36.2.44",
+   "TEMPO_S": 2.027765,
+   "SHA256_DA_RESPOSTA": "0e85df51fd12d354683ee28535962a7f31a630c46dda37fbe9e8b5613b7b0daa",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "link .pdf na pagina"
+   ]
+  },
+  {
+   "URL": "https://www.fieragricola.it",
+   "SOURCE_IDS": [
+    {
+     "SOURCE_ID": "IT-T11-003",
+     "TERRITORY": "T11"
+    }
+   ],
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=utf-8",
+   "BYTES": 216583,
+   "URL_EFETIVA": "https://www.fieragricola.it/",
+   "SERVER_IP": "104.26.3.251",
+   "TEMPO_S": 2.460127,
+   "SHA256_DA_RESPOSTA": "3af72e80c4d99d771a0b62ecb12b31b832bfdb26dd56e1f775a49e989850f785",
+   "RESULTADO": "ACCESS_OK",
+   "nota": "200 com corpo real",
+   "PISTAS": [
+    "link .pdf na pagina",
+    "area reservada / login citado",
+    "WordPress"
+   ]
+  }
+ ]
+}
