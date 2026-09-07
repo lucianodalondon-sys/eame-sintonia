@@ -58,6 +58,15 @@ CONTRATO = [
     ('market', 'MARKET-OBSERVATIONS.json'),
     ('competitors', 'COMPETITOR-ACTIVITIES.json'),
     ('science', 'SCIENCE.json'),
+    # ⚠️ FAMILIA NOVA TEM DE ENTRAR AQUI, OU SOME DO REGISTRO CENTRAL.
+    # Esta lista e o contrato do mestre. Um arquivo que a cadeia escreve mas que
+    # nao esta nela e indexado por ninguem: o pacote o carrega, e o registro
+    # central nao o conhece. Foi o que aconteceu na primeira corrida — 937
+    # registros no disco e zero no indice, sem um numero ficar vermelho.
+    #
+    #     O ARQUIVO QUE O INDICE NAO CONHECE NAO E CONTADO NEM QUANDO SOME.
+    ('scienceCorpus', 'SCIENCE-CORPUS.json'),
+    ('transcripts', 'TRANSCRIPTS.json'),
     ('researchers', 'RESEARCHERS.json'),
     ('resistance', 'RESISTANCE.json'),
     ('voices', 'PUBLIC-VOICES.json'),
@@ -126,6 +135,8 @@ def main():
                 'CROP_IDS': r.get('CROP_IDS') or [],
                 'REGION_IDS': r.get('REGION_IDS') or [],
                 'GEOGRAPHIC_SCOPE': r.get('GEOGRAPHIC_SCOPE'),
+                'SAME_ENTITY_AS': r.get('SAME_ENTITY_AS') or
+                r.get('SAME_VIDEO_AS_ACTIVITY_ID'),
             })
     dup = [k for k, v in Counter(x['ID'] for x in mestre).items() if v > 1]
     json.dump({
@@ -138,6 +149,17 @@ def main():
                'novo. Aqui todo ID tem um lugar so.',
         'COUNT_TOTAL': len(mestre),
         'COUNT_CLIENT_SAFE': sum(1 for x in mestre if x['CLIENT_SAFE']),
+        # A mesma entidade sob dois IDs existe, e e DECLARADA em vez de escondida:
+        # 86 papers estao em SCIENCE.json e no corpus; 5 videos tem a fala em
+        # TRANSCRIPTS e a atividade em COMPETITOR-ACTIVITIES. Nenhum e duplicata
+        # de ID — sao angulos distintos com ligacao explicita no registro.
+        'DECLARED_SAME_ENTITY': dict(Counter(
+            x['FAMILY'] for x in mestre if x['SAME_ENTITY_AS'])),
+        'DECLARED_SAME_ENTITY_LAW':
+            'UM ID, UM LUGAR continua valendo. Quando duas familias descrevem a '
+            'mesma coisa por angulos diferentes, o segundo registro APONTA para '
+            'o primeiro em SAME_ENTITY_AS — a ambiguidade e resolvida por '
+            'declaracao, nao por omissao.',
         'DUPLICATE_IDS': dup,
         'VIEWS_NOT_INDEXED': sorted(NAO_ENTRA_NO_MESTRE),
         'VIEWS_NOT_INDEXED_WHY':

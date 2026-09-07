@@ -47,6 +47,25 @@ echo "── 1 · as coleções, do handoff anterior e da last-mile ────
 "$PY" scripts/v21_ingest_c.py
 
 echo
+echo "── 1b · o acervo que a cadeia nao lia: fala, texto cientifico, data ────"
+# ⚠️ TEM DE VIR DEPOIS DE 1 E ANTES DE TUDO O RESTO.
+# Os tres passos de ingest apagam e reescrevem a pasta inteira: qualquer coisa
+# escrita antes deles desaparece sem aviso. E tem de vir ANTES de 2, porque os
+# cruzamentos, o carimbo de origem, o rechaveamento das fontes, a traducao, a
+# catraca e o fechamento leem o que existe no disco — se estes tres rodassem no
+# fim, a familia nova ficaria de fora do registro central e do manifesto, e
+# ninguem contaria a sua falta.
+#
+#     FAMILIA QUE ENTRA DEPOIS DO FECHAMENTO NAO ENTRA NO PACOTE: FICA AO LADO.
+#
+# O insumo destes tres NAO e data/samples: e o manifesto pinado em
+# data/acervo/ACERVO-SOURCES-V1.json, que enderec,a cada arquivo por
+# (COMMIT, PATH, BLOB) e confere SHA256. Ver scripts/acervo_fonte.py.
+"$PY" scripts/v21_transcricoes.py
+"$PY" scripts/v21_ciencia_texto.py
+"$PY" scripts/v21_anuncios_prova.py
+
+echo
 echo "── 2 · os cruzamentos, sobre identificadores normalizados ──────────────"
 # depois do ingest, porque lê os IDs que ele acabou de escrever
 "$PY" scripts/v21_crossings.py
