@@ -83,6 +83,12 @@ EXECUTORES = {
     "T9": [{
         "id": "comunicacao-publica",
         "roda": ["coleta/comunicacao_coleta.py"],
+        # O executor precisa de saber a fase e a plataforma, e essas vem do
+        # pedido — nao de quem o chama. Declarar aqui QUE filtros viram
+        # argumentos e o que permite ao botao do GitHub parar de conhecer a
+        # linha de comando do script: ele pede, e a receita traduz.
+        "argumentos_de_filtros": ["fase", "plataforma"],
+        "filtros_por_omissao": {"fase": "posts"},
         "rotas": ["YouTube", "Instagram", "LinkedIn", "Facebook"],
         "o_que_traz": "o que o concorrente publicou em canal aberto, com a data "
                       "e o endereco de onde veio",

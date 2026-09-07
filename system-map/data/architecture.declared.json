@@ -31,26 +31,16 @@
       "id": "Z-PEDIDO",
       "family": "F-COLETA",
       "name": "1 · O PEDIDO E O PLANO",
-      "why": "A unica porta de entrada. Quem pede diz O QUE quer; quem atende decide COMO. Nenhum chamador precisa de saber o nome de um script",
+      "why": "A unica porta de entrada, e os botoes que a usam. Quem pede diz O QUE quer; quem atende decide COMO. Nenhum chamador precisa de saber o nome de um script",
       "views": [
         "acervo"
       ],
       "folder": "pedido"
     },
     {
-      "id": "Z-DISPARA",
-      "family": "F-COLETA",
-      "name": "2 · QUEM DISPARA",
-      "why": "O botao. Nada sai para buscar sem alguem mandar — e o que rodou fica no historico",
-      "views": [
-        "infra"
-      ],
-      "folder": null
-    },
-    {
       "id": "Z-CANDIDATAS",
       "family": "F-COLETA",
-      "name": "3 · DE ONDE VEM UMA FONTE",
+      "name": "2 · DE ONDE VEM UMA FONTE",
       "why": "Antes de ser fonte, foi candidata. Aqui alguem anota o que apareceu, abre, olha e levanta o que aquilo entrega — so depois vira ficha. Fonte nasce, nao aparece pronta",
       "views": [
         "acervo"
@@ -60,7 +50,7 @@
     {
       "id": "Z-FONTES",
       "family": "F-COLETA",
-      "name": "4 · AS FONTES",
+      "name": "3 · AS FONTES",
       "why": "De onde o dado vem — de fora e de dentro. O acervo que se consulta ANTES de coletar, o que a ADAMA ja sabe de si, e a porta por onde entra fonte nova",
       "views": [
         "acervo"
@@ -70,7 +60,7 @@
     {
       "id": "Z-FERRAMENTAS",
       "family": "F-COLETA",
-      "name": "5 · AS FERRAMENTAS",
+      "name": "4 · AS FERRAMENTAS",
       "why": "Com o que se vai: a rota paga, a rota gratis pelo navegador e a transcricao local",
       "views": [
         "infra"
@@ -80,7 +70,7 @@
     {
       "id": "Z-ACOES",
       "family": "F-COLETA",
-      "name": "6 · AS ACOES DA COLETA",
+      "name": "5 · AS ACOES DA COLETA",
       "why": "O que se FAZ dentro de um veiculo: colher o YouTube, colher o que o concorrente publica, baixar os rotulos. Acao e verbo — se for um sitio por onde se passa, e veiculo, nao acao",
       "views": [
         "acervo",
@@ -91,7 +81,7 @@
     {
       "id": "Z-VEICULOS",
       "family": "F-COLETA",
-      "name": "7 · OS VEICULOS",
+      "name": "6 · OS VEICULOS",
       "why": "Por ONDE a acao sai: o canal em si — YouTube, Instagram, LinkedIn, Facebook, o pedido HTTP direto. A acao vem antes porque e ela que escolhe o canal; o canal nao escolhe nada",
       "views": [
         "acervo"
@@ -100,7 +90,7 @@
     {
       "id": "Z-REGRAS",
       "family": "F-COLETA",
-      "name": "8 · AS REGRAS E AS PALAVRAS",
+      "name": "7 · AS REGRAS E AS PALAVRAS",
       "why": "O que pode ser coletado, de quem, e com que termo escrito na lingua do pais. Veiculo sem regra atropela",
       "views": [
         "acervo",
@@ -111,7 +101,7 @@
     {
       "id": "Z-ADMISSAO",
       "family": "F-COLETA",
-      "name": "9 · A PORTA DE ADMISSAO",
+      "name": "8 · A PORTA DE ADMISSAO",
       "why": "A peneira comum, e o livro que guarda cada nao com motivo, regra, versao e prova. Daqui sai PRONTO_PARA_INTELIGENCIA — e a fronteira",
       "views": [
         "acervo"
@@ -1445,10 +1435,10 @@
     {
       "id": "C-CI-COLETA",
       "name": "Os botoes que disparam a coleta",
-      "territory": "Z-DISPARA",
+      "territory": "Z-PEDIDO",
       "kind": "workflow",
-      "what": "Os quatro botoes que disparam coleta a mao, no GitHub. Nenhum tem hora marcada: se ninguem clicar, nao se colhe nada.",
-      "why_here": "Coleta paga sem contrato conferido antes ja queimou execucoes.",
+      "what": "Os botoes do GitHub, que sao a forma manual de fazer um pedido. Nenhum tem hora marcada: se ninguem clicar, nao se colhe nada.",
+      "why_here": "Um botao e um pedido com acionamento MANUAL — nao e um passo antes do pedido. Separa-los obrigava a olhar dois cartoes para entender uma coisa so.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -1782,7 +1772,7 @@
     ".github/workflows/apify-conexao.yml": "7f2b6b30c4b4cedb77677d876f3ff34105e925e7",
     ".github/workflows/apify-sensores.yml": "87f9cf2eb1c034b3abd09f841643e9851c23a444",
     ".github/workflows/calendario-regressoes.yml": "5b35bd8b0b33c53926e3592139a159b8f6014b4d",
-    ".github/workflows/comunicacao-publica.yml": "3f3aef1b75e05cc9dfdb5cae0b1358a55364223b",
+    ".github/workflows/comunicacao-publica.yml": "1df29ef860cd1181cf511d48f1e96e41be125845",
     ".github/workflows/sintonia-scrap.yml": "19c73d933a507b1e0aeace0d2d0e3220bf64ce36",
     ".github/workflows/supabase-conexao.yml": "573173a3964780b6d76fffacc654ee8248737b44",
     ".github/workflows/supabase-fichas-adama.yml": "48dea6f4d22485fa25b47e34ef5461757995fae7",
@@ -2090,9 +2080,9 @@
     "pacote/pacote_montar.py": "2c9f8d004d141751d304b0d31a65844f807bc329",
     "pacote/pacote_relacoes_convergencia.py": "71f42d9734f451b296b5df3c8aeb5ba441e90262",
     "pacote/v21_handoff_json.py": "a568315812ecb8204a1263f3fdfa18ebf3ec7fb4",
-    "pedido/orquestrador.py": "30593b60a33a86e4d654e47bd61525849391b98b",
+    "pedido/orquestrador.py": "71860146b2323d76dd0c29e64c5420332a10aef6",
     "pedido/pedido.py": "783852b225b497ca118f1f250f650123d1f81df0",
-    "pedido/receitas.py": "b5a0465228312d4a302309f2de5f3515d3ed4129",
+    "pedido/receitas.py": "f493c40c276a64ea553a643e2a86a46d71a6b38d",
     "portoes/build_portal.py": "de19a89cb1ed6cb6d346935cb0ede74aea37f93d",
     "portoes/site_v21_ingest.py": "39376bfde4839bacacf544d9b673d2a5238ee6f5",
     "provas/auditoria.py": "8c6a990ba9dcce2cd7c5a4003872a963b02f30cf",

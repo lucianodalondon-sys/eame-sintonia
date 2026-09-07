@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "59197e5325b1d652d081376b465e95a75de5e158",
-    "GENERATED_AT": "2026-09-07T16:07:08-03:00"
+    "HEAD": "aae3728a25b0ebd02e45fc0aedc7e4b4e2a86d5d",
+    "GENERATED_AT": "2026-09-07T16:14:23-03:00"
   },
   "FILES": [
     {
@@ -44,7 +44,7 @@
     },
     {
       "path": ".github/workflows/comunicacao-publica.yml",
-      "sha": "3f3aef1b75e05cc9dfdb5cae0b1358a55364223b",
+      "sha": "1df29ef860cd1181cf511d48f1e96e41be125845",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -114,7 +114,7 @@
     },
     {
       "path": "AGENTS.md",
-      "sha": "087b9fc61a912ed903fcd389cb7c79dcb89a5a2c",
+      "sha": "c5faec827889209f3078b6de86d9b2b64346ff47",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6519,7 +6519,7 @@
     },
     {
       "path": "pedido/orquestrador.py",
-      "sha": "30593b60a33a86e4d654e47bd61525849391b98b",
+      "sha": "71860146b2323d76dd0c29e64c5420332a10aef6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6533,7 +6533,7 @@
     },
     {
       "path": "pedido/receitas.py",
-      "sha": "b5a0465228312d4a302309f2de5f3515d3ed4129",
+      "sha": "f493c40c276a64ea553a643e2a86a46d71a6b38d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7688,7 +7688,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "b04151b92f0598edc136af3e88744de1fcdc9b5d",
+      "sha": "d18b54564381b06ff2fbdffcddba9370359c46e4",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8271,7 +8271,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/comunicacao-publica.yml",
-        "line": 142,
+        "line": 146,
         "snippet": "PYTHONIOENCODING=utf-8 $PY coleta/comunicacao_classificar.py || true"
       }
     },
@@ -8283,7 +8283,7 @@
       "evidence": {
         "file": ".github/workflows/comunicacao-publica.yml",
         "line": 133,
-        "snippet": "PYTHONIOENCODING=utf-8 $PY coleta/comunicacao_coleta.py contratos"
+        "snippet": "# Estas linhas chamavam `coleta/comunicacao_coleta.py` pelo nome e"
       }
     },
     {
@@ -8293,7 +8293,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/comunicacao-publica.yml",
-        "line": 143,
+        "line": 147,
         "snippet": "PYTHONIOENCODING=utf-8 $PY coleta/comunicacao_medir.py || true"
       }
     },
@@ -8328,6 +8328,17 @@
         "file": ".github/workflows/comunicacao-publica.yml",
         "line": 92,
         "snippet": "run: PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/comunicacao-publica.yml",
+      "to_file": "pedido/orquestrador.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/comunicacao-publica.yml",
+        "line": 139,
+        "snippet": "PYTHONIOENCODING=utf-8 $PY pedido/orquestrador.py \"colete concorrentes\" \\"
       }
     },
     {
@@ -20294,7 +20305,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 103,
+        "line": 109,
         "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
       }
     },
@@ -20305,7 +20316,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 99,
+        "line": 105,
         "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
       }
     },
@@ -20327,7 +20338,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 101,
+        "line": 107,
         "snippet": "(\"lugar do fato\", \"regras/fato_local.py\","
       }
     },
@@ -20338,7 +20349,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 97,
+        "line": 103,
         "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
       }
     },
@@ -24780,7 +24791,7 @@
     "files_tracked": 1140,
     "files_readable": 387,
     "files_code_dir": 430,
-    "file_edges": 1526,
+    "file_edges": 1527,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

@@ -113,6 +113,13 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False) -> dict:
 
     e = plano.executores[0]
     caminho = e["roda"][0]
+    # o comando nasce do PEDIDO, nao de quem chama o orquestrador
+    comando = list(e["roda"])
+    valores = {**(e.get("filtros_por_omissao") or {}), **p.filtros}
+    for nome in e.get("argumentos_de_filtros") or []:
+        v = valores.get(nome)
+        if v:
+            comando.append(str(v))
     inicio = agora()
     saida, erro, codigo = "", "", 0
 
@@ -121,7 +128,7 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False) -> dict:
         saida, codigo = "(ensaio seco: o executor nao foi chamado)", 0
     else:
         try:
-            r = subprocess.run([sys.executable, *e["roda"]], cwd=str(RAIZ),
+            r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),
                                capture_output=True, text=True, encoding="utf-8",
                                errors="replace", timeout=1800)
             saida, erro, codigo = r.stdout[-4000:], r.stderr[-2000:], r.returncode
@@ -140,6 +147,7 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False) -> dict:
         "CAPTURE_METHOD": e["custo"],
         "INPUT": p.filtros or {},
         "QUERY": p.em_uma_frase(),
+        "COMANDO": " ".join(comando),
         "STARTED_AT": inicio,
         "FINISHED_AT": agora(),
         "COST_USD": 0 if e["custo"] == "gratuito" else "NAO SEI",
@@ -159,10 +167,17 @@ def main() -> int:
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     so_plano = "--so-plano" in sys.argv
     seco = "--seco" in sys.argv
+    # --filtro fase=posts --filtro plataforma=youtube
+    extras = {}
+    for i, a in enumerate(sys.argv):
+        if a == "--filtro" and i + 1 < len(sys.argv) and "=" in sys.argv[i + 1]:
+            k, v = sys.argv[i + 1].split("=", 1)
+            extras[k.strip()] = v.strip()
     frase = " ".join(args) or "colete materiais de pesquisadores"
 
     try:
         p = de_uma_frase(frase)
+        p.filtros.update(extras)
     except PedidoInvalido as ex:
         print(f"PEDIDO RECUSADO: {ex}")
         return 2

@@ -145,15 +145,14 @@ pasta da sua peça:
 | passo | zona | pasta |
 |---|---|---|
 | | **COLETA** | |
-| 1 | O PEDIDO E O PLANO | `pedido/` |
-| 2 | QUEM DISPARA | `.github/workflows/` |
-| 3 | DE ONDE VEM UMA FONTE | `candidatas/` |
-| 4 | AS FONTES | `fontes/` |
-| 5 | AS FERRAMENTAS | `ferramentas/` |
-| 6 | AS ACOES DA COLETA | `coleta/` |
-| 7 | OS VEICULOS | *(sem pasta — cartões medidos)* |
-| 8 | AS REGRAS E AS PALAVRAS | `regras/` |
-| 9 | A PORTA DE ADMISSAO | `admissao/` |
+| 1 | O PEDIDO E O PLANO | `pedido/` + `.github/workflows/` |
+| 2 | DE ONDE VEM UMA FONTE | `candidatas/` |
+| 3 | AS FONTES | `fontes/` |
+| 4 | AS FERRAMENTAS | `ferramentas/` |
+| 5 | AS ACOES DA COLETA | `coleta/` |
+| 6 | OS VEICULOS | *(sem pasta — cartões medidos)* |
+| 7 | AS REGRAS E AS PALAVRAS | `regras/` |
+| 8 | A PORTA DE ADMISSAO | `admissao/` |
 | | **A ESPERA** *(faixa cinzenta)* | |
 |  | A SALA DE ESPERA | `guarda/` |
 | | **INTELIGÊNCIA** | |
