@@ -28,8 +28,9 @@ import { CONTRACTS } from "./italy_contracts.mjs";
 
 const run = promisify(execFile);
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
-const LEDGER_DIR = "data/collection-ledger/italy";
-const STORE = "data/collection-store/italy";
+const RAIZ = process.env.ITALY_OPS_ROOT || ".";
+const LEDGER_DIR = `${RAIZ}/data/collection-ledger/italy`;
+const STORE = `${RAIZ}/data/collection-store/italy`;
 const COLLECTOR_VERSION = "pilot-v1";
 
 export const PILOT_SOURCES = ["IT-T3-005", "IT-T2-002", "IT-T2-004", "IT-T3-002", "IT-T3-010", "IT-T3-008", "IT-T4-001"];
@@ -105,8 +106,12 @@ async function alvosDe(sourceId) {
     case "IT-T3-005":
       return [{ url: c.CANONICAL_ENTRY_URL, nome: "monitoraggio.html" }];
     case "IT-T2-002":
-      // 32 zonas; no piloto medimos 4 para nao inflar a rodada. As leis valem igual.
-      return [1, 9, 16, 24].map(n => ({ url: `https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_${String(n).padStart(2, "0")}.pdf`, nome: `agro_${String(n).padStart(2, "0")}.pdf`, zone: n }));
+      // No piloto medimos 4. Na operacao forward-only medimos as 29 publicadas.
+      // As zonas 17, 18 e 19 devolvem 404 consistente: o site nao as publica. Fato da fonte.
+      const zonas = globalThis.__ARPAV_TODAS
+        ? Array.from({ length: 32 }, (_, i) => i + 1).filter(n => ![17, 18, 19].includes(n))
+        : [1, 9, 16, 24];
+      return zonas.map(n => ({ url: `https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_${String(n).padStart(2, "0")}.pdf`, nome: `agro_${String(n).padStart(2, "0")}.pdf`, zone: n }));
     case "IT-T2-004":
       return [{ url: "http://www.sias.regione.sicilia.it/NHEOWL0530_00.html", nome: "NHEOWL0530_00.html", table: "PRECIPITAZIONE_GIORNALIERA" }];
     case "IT-T3-010": {
@@ -253,7 +258,9 @@ export function normalizarSias(buf) {
 }
 
 // ---------- execucao ----------
-export async function executarRodada({ nota = "", forcarBuf = null, pularParse = false } = {}) {
+export async function executarRodada({ nota = "", forcarBuf = null, pularParse = false, apenas = null, arpavZonas = null } = {}) {
+  globalThis.__ARPAV_TODAS = arpavZonas === "TODAS";
+  const FONTES = apenas ?? PILOT_SOURCES;
   const anterior = lerLedger();
   const primeira = anterior.length === 0;
   const RUN_ID = `PILOT_RUN_${new Date().toISOString().replace(/[-:T.]/g, "").slice(0, 14)}_${randomUUID().slice(0, 6)}`;
@@ -265,7 +272,7 @@ export async function executarRodada({ nota = "", forcarBuf = null, pularParse =
   const cont = { SOURCES_ATTEMPTED: 0, HEALTHY: 0, DEGRADED: 0, FAILED: 0, UNKNOWN: 0, NEW_DOCUMENTS: 0, CHANGED_IN_PLACE: 0, SEEN_AGAIN: 0, SEMANTIC_ID_CHANGED_SAME_BYTES: 0, RAW_OBJECTS_CREATED: 0, NORMALIZED_OBSERVATIONS_NEW: 0 };
   const detalhes = [];
 
-  for (const sourceId of PILOT_SOURCES) {
+  for (const sourceId of FONTES) {
     cont.SOURCES_ATTEMPTED++;
     const c = CONTRACTS[sourceId];
     const alvos = await alvosDe(sourceId);
