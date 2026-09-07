@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from "node:fs";
-const p = "data/samples/ITALY-SOURCE-MASTER-V1.json";
+const p = "candidatas/ITALY-SOURCE-MASTER-V1.json";
 const d = JSON.parse(readFileSync(p, "utf8"));
 
 d.rodada_browser_2026_09_07 = {

@@ -11,7 +11,7 @@ const T = (nome, cond, detalhe = "") => {
   else { falhas++; console.log("FALHA " + nome + (detalhe ? " — " + detalhe : "")); }
 };
 
-const master = JSON.parse(readFileSync("data/samples/ITALY-SOURCE-MASTER-V1.json", "utf8"));
+const master = JSON.parse(readFileSync("candidatas/ITALY-SOURCE-MASTER-V1.json", "utf8"));
 const DIR = "data/samples/IT-SOURCE-SAMPLES";
 const ids = existsSync(DIR) ? readdirSync(DIR) : [];
 const manifests = ids.map(id => [id, JSON.parse(readFileSync(`${DIR}/${id}/MANIFEST.json`, "utf8"))]);

@@ -2,7 +2,7 @@
 
 **Data:** 2026-09-07 · **Missão:** ITÁLIA — ORGANIZAR, TESTAR E PROVAR FONTES
 **Estado:** Fases A e B **concluídas**. Fases C a H **bloqueadas** — motivo medido abaixo.
-**JSON canônico:** `../../data/samples/ITALY-SOURCE-MASTER-V1.json`
+**JSON canônico:** `../../candidatas/ITALY-SOURCE-MASTER-V1.json`
 
 > Este documento é a **planilha de trabalho da Fase C**, não um veredito.
 > **Nenhuma fonte aqui recebeu GREEN, YELLOW ou RED.** Todas estão `NOT_TESTED`.

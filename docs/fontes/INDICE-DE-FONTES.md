@@ -39,26 +39,26 @@ gente: nenhum degrau se sobe sozinho.
 
 | # | degrau | o que é | quantas | mora em | sobe como |
 |---|---|---|---|---|---|
-| 1 | **CANDIDATA** | alguem viu que existe. Ninguem abriu ainda. | **0** | `data/samples/FONTES-CANDIDATAS.json` | abrir, olhar o que entrega e guardar um exemplo real |
+| 1 | **CANDIDATA** | alguem viu que existe. Ninguem abriu ainda. | **0** | `candidatas/FONTES-CANDIDATAS.json` | abrir, olhar o que entrega e guardar um exemplo real |
 | 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **18** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
 | 3 | **CONTRATADA** | tem contrato de busca escrito. | **5** | `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md` | por a busca a correr sozinha, num workflow |
 | 4 | **AUTOMATICA** | a maquina vai la sozinha, sem ninguem por perto. | — | `.github/workflows/` | — |
 
 ### A porta de entrada
 
-Fonte nova entra por `fontes/fonte_nova.py` — na mão, ou de dentro de uma coleta
+Fonte nova entra por `candidatas/fonte_nova.py` — na mão, ou de dentro de uma coleta
 que tropeçou nela. **O que entra é candidata, nunca fonte.**
 
 ```bash
-py fontes/fonte_nova.py --tipos          # os tipos aceites
-py fontes/fonte_nova.py --listar         # a fila, agrupada por tipo
-py fontes/fonte_nova.py \
+py candidatas/fonte_nova.py --tipos          # os tipos aceites
+py candidatas/fonte_nova.py --listar         # a fila, agrupada por tipo
+py candidatas/fonte_nova.py \
     --tipo BASE_OFICIAL --pais ES --nome "..." --url https://... \
     --para-que "para que serve" --quem-viu voce --onde-viu "onde viu"
 ```
 
 Hoje há **0** candidata(s) na fila,
-em `data/samples/FONTES-CANDIDATAS.json`.
+em `candidatas/FONTES-CANDIDATAS.json`.
 
 `--para-que` é obrigatório de propósito: fonte sem uso declarado vira
 entulho — daqui a seis meses ninguém sabe por que ela foi anotada.

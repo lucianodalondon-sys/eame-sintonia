@@ -278,8 +278,8 @@ O acervo de fontes é **capital parado**: consulta-se antes de coletar, não se
 coleta para descobrir o que já se sabe. Fonte nova entra por uma porta só:
 
 ```bash
-py fontes/fonte_nova.py --tipos     # os tipos aceites
-py fontes/fonte_nova.py --listar    # a fila, agrupada por tipo
+py candidatas/fonte_nova.py --tipos     # os tipos aceites
+py candidatas/fonte_nova.py --listar    # a fila, agrupada por tipo
 ```
 
 **O que entra pela porta é candidata, nunca fonte.** Escrever direto no
@@ -289,7 +289,7 @@ a fonte, olhou o que ela entrega e guardou evidência disso."*
 
 | # | degrau | mora em | sobe escrevendo |
 |---|---|---|---|
-| 1 | **CANDIDATA** | `data/samples/FONTES-CANDIDATAS.json` | a ficha no atlas, com exemplo real |
+| 1 | **CANDIDATA** | `candidatas/FONTES-CANDIDATAS.json` | a ficha no atlas, com exemplo real |
 | 2 | **REGISTADA** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | o contrato de busca |
 | 3 | **CONTRATADA** | `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md` | o workflow que a roda sozinha |
 | 4 | **AUTOMÁTICA** | `.github/workflows/` | — |

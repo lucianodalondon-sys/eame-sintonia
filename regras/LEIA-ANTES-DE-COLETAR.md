@@ -14,25 +14,18 @@ e o caminho de cada uma é onde ela realmente vive.
 O acervo de fontes é **capital parado** — consulta-se antes de coletar. Não se
 coleta para descobrir o que já se sabe.
 
-- **A porta de entrada de fonte nova** — Onde se anota uma fonte nova que apareceu — no meio de uma coleta ou na mao — organizada por tipo, com para que serve e quem a viu.
-  - `data/samples/FONTES-CANDIDATAS.json`
-  - `fontes/fonte_nova.py`
 - **AS FONTES** — O capital parado da casa: 23 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.
   - `docs/fontes/ATLAS-DE-FONTES-EAME.md`
   - `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md`
   - `data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json`
-- **O levantamento das fontes italianas** — Monta e mantem o catalogo das 54 fontes italianas: dono, territorio, rota, cultura, cadencia — e o que cada uma NAO prova.
-  - `data/samples/ITALY-SOURCE-MASTER-V1.json`
-  - `docs/fontes/ITALY-SOURCE-MASTER-V1.md`
-  - `fontes/italy_fill_manifests.mjs`
 - **O que a ADAMA sabe de si** — O catalogo comercial e o portfolio da ADAMA lidos por dentro: o que vende em cada pais, com que rotulo, modo de acao e substancia — e onde ha lacuna.
   - `fontes/adama_catalogo_ler.py`
   - `fontes/adama_catalogo_montar.py`
   - `fontes/adama_it_eu.py`
 
 ```bash
-py fontes/fonte_nova.py --listar     # a fila de fontes candidatas
-py fontes/fonte_nova.py --tipos      # os tipos aceites
+py candidatas/fonte_nova.py --listar     # a fila de fontes candidatas
+py candidatas/fonte_nova.py --tipos      # os tipos aceites
 ```
 
 **Fonte nova entra pela porta, e o que entra é candidata — nunca fonte.**
@@ -223,4 +216,4 @@ O que todo registo de coleta tem de carregar:
 
 ---
 
-Gerado de 10 réguas, 5 ferramentas e 4 peças de fonte declaradas no mapa.
+Gerado de 10 réguas, 5 ferramentas e 2 peças de fonte declaradas no mapa.

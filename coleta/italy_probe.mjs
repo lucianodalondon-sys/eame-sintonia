@@ -20,7 +20,7 @@ const run = promisify(execFile);
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
 const OUT = process.argv[2] || "data/samples/IT-PROBE/probe-fase-c.json";
 
-const master = JSON.parse(readFileSync("data/samples/ITALY-SOURCE-MASTER-V1.json", "utf8"));
+const master = JSON.parse(readFileSync("candidatas/ITALY-SOURCE-MASTER-V1.json", "utf8"));
 
 // agrupa por URL: uma organizacao pode ter varios SOURCE_ID na mesma porta
 const byUrl = new Map();

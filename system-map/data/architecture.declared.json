@@ -38,9 +38,19 @@
       "folder": null
     },
     {
+      "id": "Z-CANDIDATAS",
+      "family": "F-COLETA",
+      "name": "2 · DE ONDE VEM UMA FONTE",
+      "why": "Antes de ser fonte, foi candidata. Aqui alguem anota o que apareceu, abre, olha e levanta o que aquilo entrega — so depois vira ficha. Fonte nasce, nao aparece pronta",
+      "views": [
+        "acervo"
+      ],
+      "folder": "candidatas"
+    },
+    {
       "id": "Z-FONTES",
       "family": "F-COLETA",
-      "name": "2 · AS FONTES",
+      "name": "3 · AS FONTES",
       "why": "De onde o dado vem — de fora e de dentro. O acervo que se consulta ANTES de coletar, o que a ADAMA ja sabe de si, e a porta por onde entra fonte nova",
       "views": [
         "acervo"
@@ -50,7 +60,7 @@
     {
       "id": "Z-FERRAMENTAS",
       "family": "F-COLETA",
-      "name": "3 · AS FERRAMENTAS",
+      "name": "4 · AS FERRAMENTAS",
       "why": "Com o que se vai: a rota paga, a rota gratis pelo navegador e a transcricao local",
       "views": [
         "infra"
@@ -60,7 +70,7 @@
     {
       "id": "Z-VEICULOS",
       "family": "F-COLETA",
-      "name": "4 · OS VEICULOS",
+      "name": "5 · OS VEICULOS",
       "why": "Por ONDE se vai: o canal em si — YouTube, Instagram, LinkedIn, Facebook, o pedido HTTP direto. Nao e o que se faz la dentro (isso e acao) nem com que se viaja (isso e ferramenta)",
       "views": [
         "acervo"
@@ -69,7 +79,7 @@
     {
       "id": "Z-ACOES",
       "family": "F-COLETA",
-      "name": "5 · AS ACOES DA COLETA",
+      "name": "6 · AS ACOES DA COLETA",
       "why": "O que se FAZ dentro de um veiculo: colher o YouTube, colher o que o concorrente publica, baixar os rotulos. Acao e verbo — se for um sitio por onde se passa, e veiculo, nao acao",
       "views": [
         "acervo",
@@ -80,7 +90,7 @@
     {
       "id": "Z-REGRAS",
       "family": "F-COLETA",
-      "name": "6 · AS REGRAS E AS PALAVRAS",
+      "name": "7 · AS REGRAS E AS PALAVRAS",
       "why": "O que pode ser coletado, de quem, e com que termo escrito na lingua do pais. Veiculo sem regra atropela",
       "views": [
         "acervo",
@@ -190,7 +200,7 @@
     {
       "id": "C-IT-CATALOGO",
       "name": "O levantamento das fontes italianas",
-      "territory": "Z-FONTES",
+      "territory": "Z-CANDIDATAS",
       "kind": "engine",
       "icon": "◫",
       "views": [
@@ -203,14 +213,14 @@
         "TECNICO_CIENCIA"
       ],
       "files": [
-        "fontes/italy_fill_manifests.mjs",
-        "fontes/italy_fill_manifests_browser.mjs",
-        "fontes/italy_fix_semantics.mjs",
-        "fontes/italy_profiles.mjs",
-        "fontes/italy_update_master_browser.mjs",
-        "fontes/italy_write_matrix.mjs",
-        "data/samples/ITALY-SOURCE-MASTER-V1.json",
-        "docs/fontes/ITALY-SOURCE-MASTER-V1.md"
+        "candidatas/italy_fill_manifests.mjs",
+        "candidatas/italy_fill_manifests_browser.mjs",
+        "candidatas/italy_fix_semantics.mjs",
+        "candidatas/italy_profiles.mjs",
+        "candidatas/italy_update_master_browser.mjs",
+        "candidatas/italy_write_matrix.mjs",
+        "candidatas/ITALY-SOURCE-MASTER-V1.json",
+        "candidatas/ITALY-SOURCE-MASTER-V1.md"
       ]
     },
     {
@@ -611,7 +621,7 @@
     {
       "id": "C-PORTA-FONTE",
       "name": "A porta de entrada de fonte nova",
-      "territory": "Z-FONTES",
+      "territory": "Z-CANDIDATAS",
       "kind": "engine",
       "icon": "⊕",
       "what": "Onde se anota uma fonte nova que apareceu — no meio de uma coleta ou na mao — organizada por tipo, com para que serve e quem a viu.",
@@ -623,8 +633,8 @@
         "acervo"
       ],
       "files": [
-        "fontes/fonte_nova.py",
-        "data/samples/FONTES-CANDIDATAS.json"
+        "candidatas/fonte_nova.py",
+        "candidatas/FONTES-CANDIDATAS.json"
       ]
     },
     {
@@ -883,7 +893,8 @@
       ],
       "files": [
         "guarda/es/adama_es_gate.py",
-        "guarda/es/adama_es_import_rules.py"
+        "guarda/es/adama_es_import_rules.py",
+        "guarda/es/workflows/adama-es-gate.yml"
       ],
       "views": [],
       "icon": "⛨",
@@ -1416,15 +1427,14 @@
       "name": "Os botoes que disparam a coleta",
       "territory": "Z-DISPARA",
       "kind": "workflow",
-      "what": "Os botoes que disparam coleta paga, sempre com a fase gratuita rodando primeiro.",
+      "what": "Os quatro botoes que disparam coleta a mao, no GitHub. Nenhum tem hora marcada: se ninguem clicar, nao se colhe nada.",
       "why_here": "Coleta paga sem contrato conferido antes ja queimou execucoes.",
       "departments": [
         "ENGENHARIA"
       ],
       "files": [
         ".github/workflows/apify-*.yml",
-        ".github/workflows/comunicacao-publica.yml",
-        ".github/workflows/adama-es-gate.yml"
+        ".github/workflows/comunicacao-publica.yml"
       ],
       "views": [],
       "icon": "▶"
@@ -1641,7 +1651,6 @@
   ],
   "EXPECTED_EDGES": [],
   "DECLARED_BLOBS": {
-    ".github/workflows/adama-es-gate.yml": "99e78fd194730364658538e48a32cea14d94db99",
     ".github/workflows/apify-conexao.yml": "7f2b6b30c4b4cedb77677d876f3ff34105e925e7",
     ".github/workflows/apify-sensores.yml": "87f9cf2eb1c034b3abd09f841643e9851c23a444",
     ".github/workflows/calendario-regressoes.yml": "5b35bd8b0b33c53926e3592139a159b8f6014b4d",
@@ -1653,6 +1662,16 @@
     ".github/workflows/supabase-raw-roundtrip.yml": "7b8f182ab89d1176299913069a05220d1e90ae82",
     ".github/workflows/supabase-storage.yml": "cf95ae286c72c84f23aa906392b6c88dc4f88cd2",
     ".github/workflows/system-map.yml": "ebcbc298b7c3c249938088427d705e7c690f0843",
+    "candidatas/FONTES-CANDIDATAS.json": "7f5d31b069f50b2c547d4cf15c23c9e183bad680",
+    "candidatas/ITALY-SOURCE-MASTER-V1.json": "c592eb1fe8ad05736235b4e6d4769cee3e8beb1a",
+    "candidatas/ITALY-SOURCE-MASTER-V1.md": "c5ce168acaa91bbe00a341af349c1772c3e832c5",
+    "candidatas/fonte_nova.py": "e069e195565febb787c5c50d6ee93cc0aa05b8dd",
+    "candidatas/italy_fill_manifests.mjs": "ffa51a075f620037661662daba0dfe9a12b637e7",
+    "candidatas/italy_fill_manifests_browser.mjs": "c2f0ca08f5f5408db7a1945e0d02f2ea6997b803",
+    "candidatas/italy_fix_semantics.mjs": "9f9d5502c8a0de8618931eec5469bedcc9404756",
+    "candidatas/italy_profiles.mjs": "445164345e6aa765e10fc1a9bf87639365da383f",
+    "candidatas/italy_update_master_browser.mjs": "39fb66056ac90e76e8958592df12cd851ddb6084",
+    "candidatas/italy_write_matrix.mjs": "615f2123e3c6946c2d1b38a0561899f1063541bc",
     "coleta/agrifood_ue.py": "09f2ce3b2b1c1fdaacfba006236981715c43e180",
     "coleta/cellar.sh": "c54325c0bf44cc0fde8e43bc7123ad7ecce43d97",
     "coleta/coleta_checkpoint.py": "a4a3d73a914c77348a8e21f5e291c3f7671ea301",
@@ -1675,7 +1694,7 @@
     "coleta/instagram_pessoal.py": "18d4ff1c3308b7ac09a516e3e96147f9fc5d7363",
     "coleta/italy_find_docs.mjs": "2dae3b0e5137e56cb0944e39ee1b096c52bdf59f",
     "coleta/italy_pilot_collect.mjs": "6090e3a142a32b3b8fa907d19c97c7f5c89801c8",
-    "coleta/italy_probe.mjs": "1f3397ce65b6b00c3fb494bba407e40536a6c8e4",
+    "coleta/italy_probe.mjs": "d36e76daf724fb3a95ba16d500da85bcdcc6006d",
     "coleta/italy_recurrent_collect.mjs": "53d17a8d4838164997c4517264c95db52094a1aa",
     "coleta/mapa_regfi.py": "865a1708eaed2a5d15f295551e00e0466a5afc17",
     "coleta/pdf_text.py": "53a53feff1a9679d74c08b22e57616434e92b522",
@@ -1694,13 +1713,10 @@
     "data/collection-ledger/italy/observations.ndjson": "e260fd0d360372dc5f7ad1aa87f810a77dd51afc",
     "data/collection-ledger/italy/runs.ndjson": "adb912d50ac60bcce36243f78729efa0fc0f8559",
     "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json": "dce86043d875046110e7cf3e8e1ee2f35b364d52",
-    "data/samples/FONTES-CANDIDATAS.json": "7f5d31b069f50b2c547d4cf15c23c9e183bad680",
-    "data/samples/ITALY-SOURCE-MASTER-V1.json": "c592eb1fe8ad05736235b4e6d4769cee3e8beb1a",
     "data/samples/PADRAO-DA-COLETA-CHAO.json": "41f30022e5602a573bbce0f28091fc5179862bcb",
-    "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md": "f6125fd30f24c207bc9fe7ec3a76db9fc51f1412",
-    "docs/fontes/ITALY-SOURCE-MASTER-V1.md": "fcc6a1f939dd1115ba2e7738f4e1f4ce3c3bc86b",
+    "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md": "5725c32b01147554757cd2973abc284eaf124e86",
     "docs/operacao/ITALY-RECURRENT-PILOT-V1.md": "7010dba9d6ac96d6a950a7ee3df2534be627f3ad",
-    "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md": "7f6804ccb8cca672f61a58194ded597f60e05060",
+    "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md": "cb127d578f19f3ff6c2c6faad2a77725dd678ead",
     "docs/operacao/PORTOES-DE-COLETA-10B.md": "814fb81c878bbfde008f5b2725c0feaa0c56f4eb",
     "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md": "6322b416ebe3e817d498b0413de06d4188a3f96b",
     "ferramentas/apify_contrato.py": "b20e59e7fd180da05022046a30dd5e13c25ebe9f",
@@ -1725,16 +1741,10 @@
     "fontes/adama_it_labels.py": "98697e2ca2c430307959967b2e058bb3033eb53d",
     "fontes/adama_it_moa.py": "57b26541315e0350ef066f8a83cb88821829acf9",
     "fontes/adama_it_qa.py": "70ecc42de14172e60e4a657a37dcbb10b7ae3bf2",
-    "fontes/fonte_nova.py": "0abc32e7cb5c24e9b9f62f2c285292fea622b95a",
-    "fontes/italy_fill_manifests.mjs": "ffa51a075f620037661662daba0dfe9a12b637e7",
-    "fontes/italy_fill_manifests_browser.mjs": "c2f0ca08f5f5408db7a1945e0d02f2ea6997b803",
-    "fontes/italy_fix_semantics.mjs": "bb5906d7c9b393724ac08c0f94528baf835c5593",
-    "fontes/italy_profiles.mjs": "445164345e6aa765e10fc1a9bf87639365da383f",
-    "fontes/italy_update_master_browser.mjs": "74218a06a98b43d5948b9c1de65d7f0947d2618a",
-    "fontes/italy_write_matrix.mjs": "b36746c0b0322f13bf7c63be327af20d6565da97",
     "guarda/catalogo_importar.py": "fb56f21c646d7c12c0d58292dbee9c09cc56f531",
     "guarda/es/adama_es_gate.py": "de8316fb43cf9baae3652fcf0ad5fb27571fab13",
     "guarda/es/adama_es_import_rules.py": "1f4ebfe1f59585935b6b4c1af1298517e041dcb5",
+    "guarda/es/workflows/adama-es-gate.yml": "99e78fd194730364658538e48a32cea14d94db99",
     "guarda/importar_italia.py": "46304462a2d72ea658415c3ca8ffcfff0cea585f",
     "guarda/italy_preserve.mjs": "c8c4d1f75f558405a3f92dbaca029d3626b5d6a2",
     "guarda/sql_conferir.py": "8e27ab6e65c9d53f0e2607f07a287f4b769ae2d8",
@@ -1959,7 +1969,7 @@
     "provas/coverage.py": "7bb882a2ee00ad189593a1e159c108c5541458b8",
     "provas/es/freeze_es.py": "8c38918e870ad9a7d8671dcd17d3bef0dc96e7e6",
     "provas/inventario_esperado.py": "d3043da78bdd927622cfedb11a67afbcb85382bb",
-    "provas/italy_accounting.mjs": "9a40f552a0341d55057745fdabaa0d5995a2b022",
+    "provas/italy_accounting.mjs": "4de3f5eae17fba930b4c606d9cc5d25433f43ff0",
     "provas/italy_pilot_negativos.mjs": "a3969ca0688cd93406ca9f7fc85b4a5fa4f81924",
     "provas/testa_rota_italia.py": "4fb25815bd63df037ca315f8530d1d420b23fa3d",
     "regras/cicatrizes_brasil.py": "2d69fc63b3004c7c5ae197169fd611d84a2c650b",
@@ -1967,7 +1977,7 @@
     "regras/comunicacao_lote.py": "098fc6d67af9fa697025f2afe8bf0bcf40749254",
     "regras/comunicacao_universo.py": "37e4638950e2619cb19b218f3ab73be0700625a0",
     "regras/fato_local.py": "c8dae2ca5a82dc3ba634db715ede5a1180e765bc",
-    "regras/italy_contract_test.mjs": "1e80bfd62a7b12b47cc31b62e87a13a311006e16",
+    "regras/italy_contract_test.mjs": "ed0b0e61ab26bb1401a64e6ea020f9eedbde2f28",
     "regras/italy_contracts.mjs": "ae6fc38c114ed3b996021f6f120632a234c8a533",
     "regras/italy_pilot_guards.mjs": "c00367024fc2977b93c6e16ac9bc0855d97a227d",
     "regras/italy_scheduling_guards.mjs": "00ddc15436475edb56b683406937f16da9de6e6d",
@@ -2029,13 +2039,13 @@
     "superficie/it_casa_dados.py": "f51b5a7ce31fd613adc7ed6f7c026bb554ef06a1",
     "superficie/rede.py": "90a85f14923b6d9dfa88b560070aec08329f35ae",
     "system-map/app/index.html": "5f84c944babd55e1596e1a49a5d7ff758c76c2bf",
-    "system-map/app/map.css": "c90e2201115a2e51893e5160ef8f007b6344dbaa",
+    "system-map/app/map.css": "1f325db661f21e8e526f6d35a4b3222764431068",
     "system-map/app/map.js": "5d10416ddeb10c24456511d42e567dda4991d6da",
-    "system-map/scripts/generate_system_map.py": "e325c96bfdd90e98c0f7ef581571cf7fd4b08f2c",
+    "system-map/scripts/generate_system_map.py": "5df08583b9bbc74403d487a26bd617d53f440732",
     "system-map/scripts/mudar_gaveta.py": "99736f74a118a545f946246f88c041153e4bb342",
     "system-map/scripts/scan_casco.py": "b2fa05cdc0d8bfabe53db3fa91fb6b9426c205e1",
     "system-map/scripts/scan_repo.py": "c3381581f275c3de013fed483eacf9c817055946",
-    "system-map/scripts/scan_sources.py": "e0c7318bd99fdee6126f4941dcab131cd0453177",
+    "system-map/scripts/scan_sources.py": "db29928f841bf8676e2e5bd1adb96e260626b732",
     "system-map/scripts/validate_system_map.py": "0f2b9497e8d6746dd6f262b2c753a0be549b786f",
     "system-map/tests/test_system_map.py": "8cf32854a2032b566432967388644d82291f5ed0",
     "tests/es/test_adama_es_gate.py": "e58ce40ff87e320bb0bc6db69eda7ff962dc1c59",

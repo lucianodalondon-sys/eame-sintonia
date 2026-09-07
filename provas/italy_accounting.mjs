@@ -57,7 +57,7 @@ export function contabilidade() {
 
   return {
     LEI: "ACCESS_CLASSIFICATION != ANALYTIC_VERDICT — estado de porta nunca entra neste placar",
-    ROTAS_NO_CATALOGO: JSON.parse(readFileSync("data/samples/ITALY-SOURCE-MASTER-V1.json", "utf8")).sources.length,
+    ROTAS_NO_CATALOGO: JSON.parse(readFileSync("candidatas/ITALY-SOURCE-MASTER-V1.json", "utf8")).sources.length,
     ANALYTICALLY_CLASSIFIED: porFonte.length,
     SAMPLE_CAPTURED: porFonte.length,
     RAW_PRESERVED: raw,

@@ -8,7 +8,7 @@ qual a frequência · o que preservo · como falha · o que a falha significa.
 
 Contratos em `regras/italy_contracts.mjs`. Medidor em `regras/italy_source_health.mjs`.
 
-Este arquivo é **gerado** por `fontes/italy_write_matrix.mjs`. Não editar à mão.
+Este arquivo é **gerado** por `candidatas/italy_write_matrix.mjs`. Não editar à mão.
 
 ---
 

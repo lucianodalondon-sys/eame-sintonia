@@ -2,7 +2,7 @@
 
 **Data:** 2026-09-07
 **Repositório:** `lucianodalondon-sys/eame-sintonia` · branch `claude/eame-competitor-public-communication` · commit `b596607`
-**Catálogo produzido:** `../fontes/ITALY-SOURCE-MASTER-V1.md` · `../../data/samples/ITALY-SOURCE-MASTER-V1.json`
+**Catálogo produzido:** `../fontes/ITALY-SOURCE-MASTER-V1.md` · `../../candidatas/ITALY-SOURCE-MASTER-V1.json`
 
 ---
 
@@ -410,7 +410,7 @@ BLOCKED no curl italiano     →  sinal FRACO
 | `coleta/italy_find_docs.mjs` | abre uma página e lista os links que parecem documento real |
 | `guarda/italy_preserve.mjs` | baixa e preserva com MIME/BYTES/SHA256; **confere a assinatura dos bytes** |
 | `ferramentas/pdf_peek.mjs` · `ferramentas/html_text.mjs` | conferem que o arquivo preservado é o documento que se diz |
-| `fontes/italy_fill_manifests.mjs` | escreve os campos de julgamento decididos à mão |
+| `candidatas/italy_fill_manifests.mjs` | escreve os campos de julgamento decididos à mão |
 | `regras/italy_contract_test.mjs` | Fase H — os guardas do contrato |
 
 ### 11.3 · Resultado por fonte

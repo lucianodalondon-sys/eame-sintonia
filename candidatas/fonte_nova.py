@@ -37,7 +37,7 @@ COMO SE USA
 -----------
 A mao:
 
-    py fontes/fonte_nova.py \\
+    py candidatas/fonte_nova.py \\
         --tipo BASE_OFICIAL --pais ES --nome "Registro de X" \\
         --url https://... --para-que "responder BQ3 em Espanha" \\
         --quem-viu luciano --onde-viu "rodape do PDF do MAPA"

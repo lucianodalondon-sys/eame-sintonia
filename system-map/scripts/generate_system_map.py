@@ -885,9 +885,9 @@ def indice_de_fontes() -> None:
               f"Fonte nova entra por `{k['porta']}` — na mão, ou de dentro de uma coleta",
               "que tropeçou nela. **O que entra é candidata, nunca fonte.**", "",
               "```bash",
-              "py fontes/fonte_nova.py --tipos          # os tipos aceites",
-              "py fontes/fonte_nova.py --listar         # a fila, agrupada por tipo",
-              "py fontes/fonte_nova.py \\",
+              "py candidatas/fonte_nova.py --tipos          # os tipos aceites",
+              "py candidatas/fonte_nova.py --listar         # a fila, agrupada por tipo",
+              "py candidatas/fonte_nova.py \\",
               "    --tipo BASE_OFICIAL --pais ES --nome \"...\" --url https://... \\",
               "    --para-que \"para que serve\" --quem-viu voce --onde-viu \"onde viu\"",
               "```", "",
@@ -1190,7 +1190,7 @@ def achados(arquivos: dict) -> list:
                     "a responder «que fontes temos» sao duas verdades, e a segunda "
                     "envelhece calada."),
                 "evidencia": [S2["PROVENANCE"]["ATLAS"],
-                              "data/samples/ITALY-SOURCE-MASTER-V1.json"],
+                              "candidatas/ITALY-SOURCE-MASTER-V1.json"],
             })
         if S2.get("COLETADAS_SEM_FICHA"):
             saida.append({
@@ -1316,8 +1316,8 @@ def leia_antes_de_coletar(estado: dict) -> None:
         for f in n["files"][:3]:
             L.append(f"  - `{f}`")
     L += ["", "```bash",
-          "py fontes/fonte_nova.py --listar     # a fila de fontes candidatas",
-          "py fontes/fonte_nova.py --tipos      # os tipos aceites",
+          "py candidatas/fonte_nova.py --listar     # a fila de fontes candidatas",
+          "py candidatas/fonte_nova.py --tipos      # os tipos aceites",
           "```", "",
           "**Fonte nova entra pela porta, e o que entra é candidata — nunca fonte.**",
           "Fonte nasce quando alguém a abre, olha o que ela entrega e guarda evidência.",

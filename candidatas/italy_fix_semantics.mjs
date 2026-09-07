@@ -47,7 +47,7 @@ patch(S("IT-T2-001"), m => {
 });
 
 // D · os quatro estados, com os numeros reais
-patch("data/samples/ITALY-SOURCE-MASTER-V1.json", d => {
+patch("candidatas/ITALY-SOURCE-MASTER-V1.json", d => {
   d.estados_de_cobertura_2026_09_07 = {
     porque_existe: "a frase 'as outras 47 continuam sem teste' era ambigua e ERRADA. Fonte cuja porta ja foi medida nao e fonte 'nao testada'. Estes sao os quatro estados, com os numeros reais.",
     ROTAS_NO_CATALOGO: 54,
@@ -62,7 +62,7 @@ patch("data/samples/ITALY-SOURCE-MASTER-V1.json", d => {
 });
 
 // e a lei permanente
-patch("data/samples/ITALY-SOURCE-MASTER-V1.json", d => {
+patch("candidatas/ITALY-SOURCE-MASTER-V1.json", d => {
   d.leis_permanentes = d.leis_permanentes || {};
   d.leis_permanentes.ROUTE_NOT_FOUND_NAO_E_SOURCE_BLOCKED = {
     lei: "ROUTE_NOT_FOUND != SOURCE_BLOCKED",
