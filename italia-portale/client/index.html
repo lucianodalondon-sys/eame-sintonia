@@ -6,6 +6,25 @@
 <title>Sintonia · ADAMA Italia</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23009845'/%3E%3Cpath d='M26 76 50 24l24 52' fill='none' stroke='%23fff' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M37 58h26' stroke='%23fff' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E">
 <meta name="description" content="Sintonia · ADAMA Italia — intelligence agricola. Ambiente dimostrativo.">
+<!-- ══ QUESTA PAGINA NON E PIU UNO SCHERMO ═══════════════════════════════════
+     Qui c'era una schermata intera: il marchio, il nome, la riga della marca e
+     un pulsante «ENTRA NELLA DEMO». Poi `accesso.html` mostrava di nuovo il
+     marchio, di nuovo il nome, di nuovo la riga della marca e di nuovo lo
+     stesso pulsante. Il `meta refresh` a zero secondi non toglieva la prima:
+     la faceva LAMPEGGIARE.
+
+         DUE PORTE UGUALI, UNA DIETRO L'ALTRA, NON SONO UN INGRESSO.
+         SONO UN'ESITAZIONE.
+
+     Il rimando adesso sta nella TESTA del documento e usa `replace`, non
+     `href`: parte prima che il corpo venga dipinto — quindi non c'e lampo — e
+     non lascia una tappa nella cronologia, quindi il «indietro» del browser
+     dalla pagina d'accesso esce dal sito invece di rimbalzare qui dentro.
+
+     IL FILE RESTA, e non per abitudine: `deploy-surface.mjs` esige `/index.html`
+     fra le rotte pubbliche e lo `build` di package.json ne verifica l'esistenza
+     prima di ogni deploy. Una decisione di aspetto non toglie una rotta. -->
+<script>location.replace('accesso.html');</script>
 <meta http-equiv="refresh" content="0; url=accesso.html">
 <style>
   html,body{margin:0;height:100%;background:#0E0C0B;color:#fff;font-family:system-ui,sans-serif}
@@ -19,6 +38,9 @@
 </style>
 </head>
 <body>
+<!-- SENZA SCRIPT E SENZA REFRESH RESTA UNA PORTA, non una pagina bianca: chi
+     arriva qui con tutto disattivato deve comunque poter entrare. -->
+<noscript>
 <main>
   <span class="mark" aria-hidden="true">
     <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 12 4l8 16"></path><path d="M7.6 13.6h8.8"></path></svg>
@@ -27,5 +49,6 @@
   <span>ADAMA ITALIA · INTELLIGENCE</span>
   <a href="accesso.html">ENTRA NELLA DEMO</a>
 </main>
+</noscript>
 </body>
 </html>

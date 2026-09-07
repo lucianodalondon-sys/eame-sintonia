@@ -539,3 +539,60 @@ viagens do leitor      31/31 passos · ERROS DE PÁGINA 0
 mobile 390px           overflow 0
 carta a caselle        20 casellas · 1 acesa em 13/13 fichas · cor = linha da categoria
 ```
+
+
+---
+
+## 9 · A PORTA DEIXA DE SER DUAS
+
+`index.html` mostrava marca, nome, linha de marca e um botão «ENTRA NELLA
+DEMO». `accesso.html` mostrava marca, nome, linha de marca e o mesmo botão. O
+`meta refresh` a zero segundos não tirava a primeira — fazia-a **piscar**.
+
+    DUAS PORTAS IGUAIS, UMA ATRÁS DA OUTRA, NÃO SÃO UMA ENTRADA.
+    SÃO UMA HESITAÇÃO.
+
+O reencaminhamento passa para a CABEÇA do documento e usa `replace`: parte
+antes de o corpo ser pintado — logo não há lampejo — e não deixa etapa no
+histórico, portanto o «voltar» a partir da página de acesso sai do site em vez
+de ressaltar no splash.
+
+**O ficheiro fica**, e não por hábito: `deploy-surface.mjs` exige `/index.html`
+entre as rotas públicas e o `build` do `package.json` verifica a sua existência
+antes de cada deploy. Uma decisão de aparência não retira uma rota. Sem
+JavaScript e sem refresh, o `<noscript>` continua a dar uma porta.
+
+```
+navegações medidas   / -> /accesso.html      (o splash nunca é pintado)
+h1 na chegada        «L'intelligenza agricola che anticipa il campo»
+voltar do portal     /accesso.html, sem splash
+build-gate           PASS
+deploy-surface       0 problemas · /index.html continua na superfície pública
+viagens do leitor    31/31
+```
+
+---
+
+## 10 · PORTFÓLIO — O QUE ESTÁ VAZIO, E PORQUÊ
+
+Pergunta do leitor: os cartões vazios são dados que temos e não estão ligados,
+ou dados que não temos? **Medido nos 51 do catálogo comercial:**
+
+| | produtos | o que existe | veredicto |
+|---|---|---|---|
+| cartões com relações | **27** | ligações verificadas e/ou relacionadas | completo |
+| registo + etiqueta, **zero** linhas de uso | **14** | nº de registo e URL da etiqueta oficial | **falta a leitura da etiqueta** |
+| sem registo nenhum | **10** | nada | **não temos o dado** |
+| dado que existe e não está ligado | **0** | — | a junção não está partida |
+
+As 2030 linhas `LABEL_USE_RELATIONSHIP` nomeiam 102 produtos distintos. Nenhum
+dos 24 cartões vazios aparece lá sob qualquer grafia. Os nomes que *rimam* —
+`GOLTIX® TOP` (018814) contra `GOLTIX` (002732) · `GOLTIX 700 SC` (010569) ·
+`GOLTIX BETA` (018813) · `GOLTIX SUPER` (017580); `Mirador® SC` contra
+`MIRADOR TURBO` (017824); `FOLPAN 80 WDG` e `Folpan® Energy` contra
+`FOLPAN GOLD` — são **registos diferentes**. Ligá-los seria inventar.
+
+Os 14 com etiqueta são o grupo accionável: a etiqueta está em
+`fitosanitari.salute.gov.it`, temos o URL, ninguém leu os usos dela. É uma
+**lacuna de recolha**, não de ligação — e a recolha está fora do que esta missão
+pode fazer.
