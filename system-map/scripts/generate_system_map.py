@@ -1688,18 +1688,32 @@ def main_uma_vez(stamp: bool) -> int:
             "reason": "", "evidence": [],
         })
         alvo_lig["evidence"].append(lf["evidence"])
-    # A ACAO APONTA PARA O CANAL POR ONDE ELA SAI. Uma seta por par, com todas
-    # as linhas que a provam empilhadas dentro — a mesma regra de sempre: sem
-    # ficheiro e linha, nao ha seta.
+    # ── A SETA DO CANAL ESTAVA AO CONTRARIO ─────────────────────────────────
+    # Ela ia da acao PARA o canal, e por isso o canal era o fim da linha: o
+    # cartao do YouTube nao tinha para onde apontar, e o caminho da coleta
+    # morria ali. Perguntado tres vezes «o que o YouTube colhe vai pra onde?»,
+    # o mapa nao tinha como responder com uma seta — so com texto.
+    #
+    # A regra desta casa e: A SETA SEGUE O DADO. E o dado nao vai para o
+    # YouTube — VEM DE LA. A acao chama o canal (isso e controlo), mas o que
+    # atravessa a linha e a coleta, e ela corre no sentido contrario:
+    #
+    #     YOUTUBE  ->  Colher o YouTube  ->  o ficheiro onde ela guarda
+    #
+    # Com a seta virada, o canal deixa de ser um beco e passa a ser o INICIO do
+    # caminho — que e o que ele realmente e. A mesma linha de codigo prova as
+    # duas leituras; a diferenca e qual delas o mapa desenha, e o mapa desenha
+    # o dado.
     nome_da_peca = {c["id"]: c["name"] for c in comps}
     for lv in lig_veiculos:
-        chave = (lv["acao"], lv["veiculo"], "VIAJA_POR")
+        chave = (lv["veiculo"], lv["acao"], "VIAJA_POR")
         alvo_lig = ligacoes.setdefault(chave, {
-            "from": lv["acao"], "to": lv["veiculo"], "type": "VIAJA_POR",
+            "from": lv["veiculo"], "to": lv["acao"], "type": "VIAJA_POR",
             "payload": "coleta", "natureza": "FLUXO",
             "kind": "technical", "status": VERDE,
-            "reason": (f"«{nome_da_peca.get(lv['acao'], lv['acao'])}» chama este "
-                       f"canal no proprio codigo."),
+            "reason": (f"O que sai deste canal entra em "
+                       f"«{nome_da_peca.get(lv['acao'], lv['acao'])}», que e quem o "
+                       f"chama e quem guarda o que ele devolve."),
             "evidence": [],
         })
         alvo_lig["evidence"].append({k: lv[k] for k in ("file", "line", "snippet")})

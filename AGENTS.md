@@ -149,8 +149,8 @@ pasta da sua peça:
 | 2 | DE ONDE VEM UMA FONTE | `candidatas/` |
 | 3 | AS FONTES | `fontes/` |
 | 4 | AS FERRAMENTAS | `ferramentas/` |
-| 5 | AS ACOES DA COLETA | `coleta/` |
-| 6 | OS VEICULOS | *(sem pasta — cartões medidos)* |
+| 5 | OS VEICULOS | *(sem pasta — cartões medidos)* |
+| 6 | AS ACOES DA COLETA | `coleta/` |
 | 7 | AS REGRAS E AS PALAVRAS | `regras/` |
 | 8 | A PORTA DE ADMISSAO | `admissao/` |
 | | **A ESPERA** *(faixa cinzenta)* | |
@@ -188,8 +188,13 @@ rede é o que uma **ação faz**, não o que um **veículo é**.
 | | pergunta | exemplos | gaveta |
 |---|---|---|---|
 | **FERRAMENTA** | com **que** se viaja | Apify, o navegador, a transcrição, abrir PDF | `ferramentas/` |
-| **VEÍCULO** | por **onde** se vai | YouTube, Instagram, LinkedIn, Facebook, HTTP | — |
-| **AÇÃO** | o que se **faz** lá dentro | colher o YouTube, baixar os rótulos | `coleta/` |
+| **VEÍCULO** | de **onde** o dado vem | YouTube, Instagram, LinkedIn, Facebook, HTTP | — |
+| **AÇÃO** | quem **vai buscar** e **guarda** | colher o YouTube, baixar os rótulos | `coleta/` |
+
+**A seta segue o dado, e o dado VEM do canal — não vai para ele.** A ação chama o
+YouTube (isso é controlo), mas o que atravessa a linha é a colheita, e ela corre
+no sentido contrário: `YOUTUBE → Colher o YouTube → o ficheiro onde ela guarda`.
+Por isso o veículo vem **antes** da ação: ele é o início do caminho, não o fim.
 
 Ação é **verbo**. Se o nome começa por «colher», «baixar», «montar», «ler» — é
 ação, mesmo que o canal esteja no nome dela. O veículo é o **lugar**.

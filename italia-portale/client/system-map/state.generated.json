@@ -1583,8 +1583,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "948ff066a68d5dce748e33aa8c0f5d4e78e3f046",
-    "GENERATED_AT": "2026-09-07T16:44:30-03:00"
+    "HEAD": "1bae7c9638978e89c282316eaa32f8f6697a7469",
+    "GENERATED_AT": "2026-09-07T16:48:28-03:00"
   },
   "FAMILIES": [
     {
@@ -1600,8 +1600,8 @@
         "Z-CANDIDATAS",
         "Z-FONTES",
         "Z-FERRAMENTAS",
-        "Z-ACOES",
         "Z-VEICULOS",
+        "Z-ACOES",
         "Z-REGRAS",
         "Z-ADMISSAO"
       ],
@@ -1715,34 +1715,34 @@
       "count": 5
     },
     {
+      "id": "Z-VEICULOS",
+      "family": "F-COLETA",
+      "name": "5 · OS VEICULOS",
+      "why": "De ONDE o dado vem: o canal em si — YouTube, Instagram, LinkedIn, Facebook, o pedido HTTP direto. Vem antes da acao porque e dali que a coleta chega; a acao e quem vai busca-la e quem a guarda",
+      "views": [
+        "acervo"
+      ],
+      "x": 3120,
+      "y": 190,
+      "w": 405,
+      "h": 1972,
+      "count": 5
+    },
+    {
       "id": "Z-ACOES",
       "family": "F-COLETA",
-      "name": "5 · AS ACOES DA COLETA",
+      "name": "6 · AS ACOES DA COLETA",
       "why": "O que se FAZ dentro de um veiculo: colher o YouTube, colher o que o concorrente publica, baixar os rotulos. Acao e verbo — se for um sitio por onde se passa, e veiculo, nao acao",
       "views": [
         "acervo",
         "infra"
       ],
       "folder": "coleta",
-      "x": 3120,
+      "x": 3825,
       "y": 190,
       "w": 820,
       "h": 1972,
       "count": 8
-    },
-    {
-      "id": "Z-VEICULOS",
-      "family": "F-COLETA",
-      "name": "6 · OS VEICULOS",
-      "why": "Por ONDE a acao sai: o canal em si — YouTube, Instagram, LinkedIn, Facebook, o pedido HTTP direto. A acao vem antes porque e ela que escolhe o canal; o canal nao escolhe nada",
-      "views": [
-        "acervo"
-      ],
-      "x": 4240,
-      "y": 190,
-      "w": 405,
-      "h": 1972,
-      "count": 5
     },
     {
       "id": "Z-REGRAS",
@@ -5391,14 +5391,14 @@
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
         "C-PALAVRAS",
-        "C-TESTES"
-      ],
-      "outbound": [
-        "C-APIFY-POOL",
-        "C-PROCEDENCIA",
+        "C-TESTES",
         "V-INSTAGRAM",
         "V-LINKEDIN",
         "V-YOUTUBE"
+      ],
+      "outbound": [
+        "C-APIFY-POOL",
+        "C-PROCEDENCIA"
       ],
       "paises": {},
       "paises_dado": {
@@ -5411,7 +5411,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 3180,
+      "x": 3885,
       "y": 360
     },
     {
@@ -5447,7 +5447,10 @@
       "inbound": [
         "C-IDENTIDADE",
         "C-SINTONIA-SCRAP",
-        "C-TRANSCRICAO"
+        "C-TRANSCRICAO",
+        "V-FACEBOOK",
+        "V-HTTP",
+        "V-INSTAGRAM"
       ],
       "outbound": [
         "C-APIFY-POOL",
@@ -5455,10 +5458,7 @@
         "C-MEDICAO",
         "C-NAVEGADOR",
         "C-PORTA-FONTE",
-        "C-PROCEDENCIA",
-        "V-FACEBOOK",
-        "V-HTTP",
-        "V-INSTAGRAM"
+        "C-PROCEDENCIA"
       ],
       "paises": {},
       "paises_dado": {},
@@ -5469,7 +5469,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 3595,
+      "x": 4300,
       "y": 360
     },
     {
@@ -5506,16 +5506,16 @@
         "C-AS-FONTES",
         "C-CI-COLETA",
         "C-IDENTIDADE",
-        "C-TESTES"
-      ],
-      "outbound": [
-        "C-APIFY-POOL",
-        "C-COLETA-BASE",
-        "C-RECEITAS",
+        "C-TESTES",
         "V-FACEBOOK",
         "V-INSTAGRAM",
         "V-LINKEDIN",
         "V-YOUTUBE"
+      ],
+      "outbound": [
+        "C-APIFY-POOL",
+        "C-COLETA-BASE",
+        "C-RECEITAS"
       ],
       "paises": {},
       "paises_dado": {},
@@ -5535,7 +5535,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 3180,
+      "x": 3885,
       "y": 682
     },
     {
@@ -5569,14 +5569,14 @@
       "produces": [],
       "inbound": [
         "C-IDENTIDADE",
-        "C-SINTONIA-SCRAP"
-      ],
-      "outbound": [
-        "C-NAVEGADOR",
-        "C-PALAVRAS",
+        "C-SINTONIA-SCRAP",
         "V-HTTP",
         "V-INSTAGRAM",
         "V-YOUTUBE"
+      ],
+      "outbound": [
+        "C-NAVEGADOR",
+        "C-PALAVRAS"
       ],
       "paises": {},
       "paises_dado": {},
@@ -5587,7 +5587,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 3595,
+      "x": 4300,
       "y": 682
     },
     {
@@ -5675,15 +5675,16 @@
         "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
         "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
       ],
-      "inbound": [],
-      "outbound": [
-        "C-PACOTE-CAMADAS",
-        "C-PALAVRAS",
-        "C-RECEITAS",
+      "inbound": [
         "V-HTTP",
         "V-INSTAGRAM",
         "V-LINKEDIN",
         "V-YOUTUBE"
+      ],
+      "outbound": [
+        "C-PACOTE-CAMADAS",
+        "C-PALAVRAS",
+        "C-RECEITAS"
       ],
       "paises": {
         "ESPANHA": 1
@@ -5741,7 +5742,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 3180,
+      "x": 3885,
       "y": 1004
     },
     {
@@ -5924,15 +5925,15 @@
         "C-RECORRENCIA",
         "C-SUPABASE",
         "C-TESTES",
-        "C-V21-INGEST"
+        "C-V21-INGEST",
+        "V-HTTP"
       ],
       "outbound": [
         "C-IMPORTAR",
         "C-RECEITAS",
         "C-REGRA-COLETA",
         "C-ROTULOS",
-        "C-SUPABASE",
-        "V-HTTP"
+        "C-SUPABASE"
       ],
       "paises": {},
       "paises_dado": {
@@ -5980,7 +5981,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 3595,
+      "x": 4300,
       "y": 1004
     },
     {
@@ -6264,7 +6265,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 3180,
+      "x": 3885,
       "y": 1326
     },
     {
@@ -8281,14 +8282,14 @@
         "C-RECORRENCIA",
         "C-RELEVANCIA",
         "C-SUPABASE",
-        "C-TESTES"
+        "C-TESTES",
+        "V-HTTP"
       ],
       "outbound": [
         "C-PALAVRAS",
         "C-RECEITAS",
         "C-SUPABASE",
-        "C-V21-CRUZAMENTO",
-        "V-HTTP"
+        "C-V21-CRUZAMENTO"
       ],
       "paises": {},
       "paises_dado": {
@@ -8344,7 +8345,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 3595,
+      "x": 4300,
       "y": 1326
     },
     {
@@ -10465,11 +10466,11 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [
+      "inbound": [],
+      "outbound": [
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA"
       ],
-      "outbound": [],
       "file_count": 0,
       "o_que_entra_vai_para": [
         {
@@ -10496,7 +10497,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 4300,
+      "x": 3180,
       "y": 360
     },
     {
@@ -10529,14 +10530,14 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [
+      "inbound": [],
+      "outbound": [
         "C-COLETA-INSTAGRAM",
         "C-COLETA-YOUTUBE",
         "C-CORPUS",
         "C-FONTES-EU",
         "C-ROTULOS"
       ],
-      "outbound": [],
       "file_count": 0,
       "o_que_entra_vai_para": [
         {
@@ -10714,7 +10715,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 4300,
+      "x": 3180,
       "y": 682
     },
     {
@@ -10747,14 +10748,14 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [
+      "inbound": [],
+      "outbound": [
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
         "C-COLETA-YOUTUBE",
         "C-CORPUS"
       ],
-      "outbound": [],
       "file_count": 0,
       "o_que_entra_vai_para": [
         {
@@ -10843,7 +10844,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 4300,
+      "x": 3180,
       "y": 1004
     },
     {
@@ -10874,12 +10875,12 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [
+      "inbound": [],
+      "outbound": [
         "C-COLETA-BASE",
         "C-COLETA-PUBLICA",
         "C-CORPUS"
       ],
-      "outbound": [],
       "file_count": 0,
       "o_que_entra_vai_para": [
         {
@@ -10966,7 +10967,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 4300,
+      "x": 3180,
       "y": 1326
     },
     {
@@ -10998,13 +10999,13 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [
+      "inbound": [],
+      "outbound": [
         "C-COLETA-BASE",
         "C-COLETA-PUBLICA",
         "C-COLETA-YOUTUBE",
         "C-CORPUS"
       ],
-      "outbound": [],
       "file_count": 0,
       "o_que_entra_vai_para": [
         {
@@ -11092,7 +11093,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 4300,
+      "x": 3180,
       "y": 1648
     },
     {
@@ -11102,7 +11103,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 948ff066a68d5dce748e33aa8c0f5d4e78e3f046"
+        "HEAD 1bae7c9638978e89c282316eaa32f8f6697a7469"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -12919,57 +12920,6 @@
       ]
     },
     {
-      "from": "C-COLETA-BASE",
-      "to": "V-INSTAGRAM",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«O motor de buscar» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/coletor.py",
-          "line": 54,
-          "snippet": "`build`      → `&build=`. Os quatro atores oficiais de Instagram foram reconstruídos no"
-        }
-      ]
-    },
-    {
-      "from": "C-COLETA-BASE",
-      "to": "V-LINKEDIN",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«O motor de buscar» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/filas.py",
-          "line": 82,
-          "snippet": "'PUBLIC_LINKEDIN_STATUS': 'NOT_TESTED',"
-        }
-      ]
-    },
-    {
-      "from": "C-COLETA-BASE",
-      "to": "V-YOUTUBE",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«O motor de buscar» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/filas.py",
-          "line": 83,
-          "snippet": "'PUBLIC_YOUTUBE_STATUS': 'NOT_TESTED',"
-        }
-      ]
-    },
-    {
       "from": "C-COLETA-INSTAGRAM",
       "to": "C-APIFY-POOL",
       "type": "IMPORTS",
@@ -13082,57 +13032,6 @@
       ]
     },
     {
-      "from": "C-COLETA-INSTAGRAM",
-      "to": "V-FACEBOOK",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«Colher o Instagram» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 127,
-          "snippet": ".find(h => h && /^https?:/.test(h) && !/instagram\\.com|facebook\\.com/.test(h));"
-        }
-      ]
-    },
-    {
-      "from": "C-COLETA-INSTAGRAM",
-      "to": "V-HTTP",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«Colher o Instagram» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 440,
-          "snippet": "import urllib.request"
-        }
-      ]
-    },
-    {
-      "from": "C-COLETA-INSTAGRAM",
-      "to": "V-INSTAGRAM",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«Colher o Instagram» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/instagram_coleta.py",
-          "line": 3,
-          "snippet": "INSTAGRAM — o orquestrador. Uma fase por comando, um teto por fase, um manifesto por fase."
-        }
-      ]
-    },
-    {
       "from": "C-COLETA-PUBLICA",
       "to": "C-APIFY-POOL",
       "type": "IMPORTS",
@@ -13189,74 +13088,6 @@
       ]
     },
     {
-      "from": "C-COLETA-PUBLICA",
-      "to": "V-FACEBOOK",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«Colher o que o concorrente publica» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/comunicacao_classificar.py",
-          "line": 55,
-          "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
-        }
-      ]
-    },
-    {
-      "from": "C-COLETA-PUBLICA",
-      "to": "V-INSTAGRAM",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«Colher o que o concorrente publica» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/comunicacao_classificar.py",
-          "line": 55,
-          "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
-        }
-      ]
-    },
-    {
-      "from": "C-COLETA-PUBLICA",
-      "to": "V-LINKEDIN",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«Colher o que o concorrente publica» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/comunicacao_classificar.py",
-          "line": 55,
-          "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
-        }
-      ]
-    },
-    {
-      "from": "C-COLETA-PUBLICA",
-      "to": "V-YOUTUBE",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«Colher o que o concorrente publica» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/comunicacao_classificar.py",
-          "line": 55,
-          "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
-        }
-      ]
-    },
-    {
       "from": "C-COLETA-YOUTUBE",
       "to": "C-NAVEGADOR",
       "type": "IMPORTS",
@@ -13287,57 +13118,6 @@
           "file": "coleta/youtube_relevancia.py",
           "line": 75,
           "snippet": "import sensor_medir as sm        # noqa: E402  — dono do léxico multilíngue desta casa"
-        }
-      ]
-    },
-    {
-      "from": "C-COLETA-YOUTUBE",
-      "to": "V-HTTP",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«Colher o YouTube» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/youtube_janela.py",
-          "line": 61,
-          "snippet": "import urllib.request"
-        }
-      ]
-    },
-    {
-      "from": "C-COLETA-YOUTUBE",
-      "to": "V-INSTAGRAM",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«Colher o YouTube» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/youtube_janela.py",
-          "line": 16,
-          "snippet": "com `PLATFORM = YOUTUBE`. São 7 — duas a mais que as 5 do Instagram."
-        }
-      ]
-    },
-    {
-      "from": "C-COLETA-YOUTUBE",
-      "to": "V-YOUTUBE",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«Colher o YouTube» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/youtube_janela.py",
-          "line": 3,
-          "snippet": "YOUTUBE PELA JANELA — tudo o que a rota pública entrega antes de gastar um centavo."
         }
       ]
     },
@@ -13414,74 +13194,6 @@
           "file": "pedido/receitas.py",
           "line": 66,
           "snippet": "\"larga_em\": [\"data/samples/RESEARCHER-CORPUS-EAME-V1.json\"],"
-        }
-      ]
-    },
-    {
-      "from": "C-CORPUS",
-      "to": "V-HTTP",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«Montar o corpus de fala e de ciencia» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/corpus_pesquisador.py",
-          "line": 92,
-          "snippet": "import urllib.request"
-        }
-      ]
-    },
-    {
-      "from": "C-CORPUS",
-      "to": "V-INSTAGRAM",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«Montar o corpus de fala e de ciencia» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/speaker_identidade.py",
-          "line": 171,
-          "snippet": "('instagram.com', 'INSTAGRAM'),"
-        }
-      ]
-    },
-    {
-      "from": "C-CORPUS",
-      "to": "V-LINKEDIN",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«Montar o corpus de fala e de ciencia» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/corpus_pesquisador.py",
-          "line": 32,
-          "snippet": "Apify continua autorizada para YouTube e LinkedIn, mas **não neste lote**. O motivo é"
-        }
-      ]
-    },
-    {
-      "from": "C-CORPUS",
-      "to": "V-YOUTUBE",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«Montar o corpus de fala e de ciencia» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/corpus_pesquisador.py",
-          "line": 32,
-          "snippet": "Apify continua autorizada para YouTube e LinkedIn, mas **não neste lote**. O motivo é"
         }
       ]
     },
@@ -13709,23 +13421,6 @@
           "file": "coleta/regulatorio_importar.py",
           "line": 186,
           "snippet": "open(SAIDA, 'w')  # SAIDA = supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql"
-        }
-      ]
-    },
-    {
-      "from": "C-FONTES-EU",
-      "to": "V-HTTP",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«Ler as bases oficiais da Europa» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/agrifood_ue.py",
-          "line": 29,
-          "snippet": "import urllib.request"
         }
       ]
     },
@@ -14523,12 +14218,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1822,
+          "line": 1836,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1822,
+          "line": 1836,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ]
@@ -16136,23 +15831,6 @@
           "file": "motor/pacote_convergencia.py",
           "line": 78,
           "snippet": "'data/raw/IT-ROTULOS/_MANIFESTO.json'],"
-        }
-      ]
-    },
-    {
-      "from": "C-ROTULOS",
-      "to": "V-HTTP",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "«Baixar e ler os rotulos oficiais» chama este canal no proprio codigo.",
-      "evidence": [
-        {
-          "file": "coleta/mapa_regfi.py",
-          "line": 42,
-          "snippet": "import urllib.request"
         }
       ]
     },
@@ -17808,6 +17486,329 @@
           "file": "motor/v21_completude_oportunidade.py",
           "line": 147,
           "snippet": "src = open(os.path.join(ROOT, 'motor', 'v21_oportunidades.py'),"
+        }
+      ]
+    },
+    {
+      "from": "V-FACEBOOK",
+      "to": "C-COLETA-INSTAGRAM",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Colher o Instagram», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 127,
+          "snippet": ".find(h => h && /^https?:/.test(h) && !/instagram\\.com|facebook\\.com/.test(h));"
+        }
+      ]
+    },
+    {
+      "from": "V-FACEBOOK",
+      "to": "C-COLETA-PUBLICA",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Colher o que o concorrente publica», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/comunicacao_classificar.py",
+          "line": 55,
+          "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
+        }
+      ]
+    },
+    {
+      "from": "V-HTTP",
+      "to": "C-COLETA-INSTAGRAM",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Colher o Instagram», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 440,
+          "snippet": "import urllib.request"
+        }
+      ]
+    },
+    {
+      "from": "V-HTTP",
+      "to": "C-COLETA-YOUTUBE",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Colher o YouTube», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/youtube_janela.py",
+          "line": 61,
+          "snippet": "import urllib.request"
+        }
+      ]
+    },
+    {
+      "from": "V-HTTP",
+      "to": "C-CORPUS",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Montar o corpus de fala e de ciencia», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/corpus_pesquisador.py",
+          "line": 92,
+          "snippet": "import urllib.request"
+        }
+      ]
+    },
+    {
+      "from": "V-HTTP",
+      "to": "C-FONTES-EU",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Ler as bases oficiais da Europa», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/agrifood_ue.py",
+          "line": 29,
+          "snippet": "import urllib.request"
+        }
+      ]
+    },
+    {
+      "from": "V-HTTP",
+      "to": "C-ROTULOS",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Baixar e ler os rotulos oficiais», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/mapa_regfi.py",
+          "line": 42,
+          "snippet": "import urllib.request"
+        }
+      ]
+    },
+    {
+      "from": "V-INSTAGRAM",
+      "to": "C-COLETA-BASE",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «O motor de buscar», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/coletor.py",
+          "line": 54,
+          "snippet": "`build`      → `&build=`. Os quatro atores oficiais de Instagram foram reconstruídos no"
+        }
+      ]
+    },
+    {
+      "from": "V-INSTAGRAM",
+      "to": "C-COLETA-INSTAGRAM",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Colher o Instagram», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/instagram_coleta.py",
+          "line": 3,
+          "snippet": "INSTAGRAM — o orquestrador. Uma fase por comando, um teto por fase, um manifesto por fase."
+        }
+      ]
+    },
+    {
+      "from": "V-INSTAGRAM",
+      "to": "C-COLETA-PUBLICA",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Colher o que o concorrente publica», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/comunicacao_classificar.py",
+          "line": 55,
+          "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
+        }
+      ]
+    },
+    {
+      "from": "V-INSTAGRAM",
+      "to": "C-COLETA-YOUTUBE",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Colher o YouTube», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/youtube_janela.py",
+          "line": 16,
+          "snippet": "com `PLATFORM = YOUTUBE`. São 7 — duas a mais que as 5 do Instagram."
+        }
+      ]
+    },
+    {
+      "from": "V-INSTAGRAM",
+      "to": "C-CORPUS",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Montar o corpus de fala e de ciencia», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/speaker_identidade.py",
+          "line": 171,
+          "snippet": "('instagram.com', 'INSTAGRAM'),"
+        }
+      ]
+    },
+    {
+      "from": "V-LINKEDIN",
+      "to": "C-COLETA-BASE",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «O motor de buscar», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/filas.py",
+          "line": 82,
+          "snippet": "'PUBLIC_LINKEDIN_STATUS': 'NOT_TESTED',"
+        }
+      ]
+    },
+    {
+      "from": "V-LINKEDIN",
+      "to": "C-COLETA-PUBLICA",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Colher o que o concorrente publica», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/comunicacao_classificar.py",
+          "line": 55,
+          "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
+        }
+      ]
+    },
+    {
+      "from": "V-LINKEDIN",
+      "to": "C-CORPUS",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Montar o corpus de fala e de ciencia», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/corpus_pesquisador.py",
+          "line": 32,
+          "snippet": "Apify continua autorizada para YouTube e LinkedIn, mas **não neste lote**. O motivo é"
+        }
+      ]
+    },
+    {
+      "from": "V-YOUTUBE",
+      "to": "C-COLETA-BASE",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «O motor de buscar», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/filas.py",
+          "line": 83,
+          "snippet": "'PUBLIC_YOUTUBE_STATUS': 'NOT_TESTED',"
+        }
+      ]
+    },
+    {
+      "from": "V-YOUTUBE",
+      "to": "C-COLETA-PUBLICA",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Colher o que o concorrente publica», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/comunicacao_classificar.py",
+          "line": 55,
+          "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
+        }
+      ]
+    },
+    {
+      "from": "V-YOUTUBE",
+      "to": "C-COLETA-YOUTUBE",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Colher o YouTube», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/youtube_janela.py",
+          "line": 3,
+          "snippet": "YOUTUBE PELA JANELA — tudo o que a rota pública entrega antes de gastar um centavo."
+        }
+      ]
+    },
+    {
+      "from": "V-YOUTUBE",
+      "to": "C-CORPUS",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Montar o corpus de fala e de ciencia», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/corpus_pesquisador.py",
+          "line": 32,
+          "snippet": "Apify continua autorizada para YouTube e LinkedIn, mas **não neste lote**. O motivo é"
         }
       ]
     },
