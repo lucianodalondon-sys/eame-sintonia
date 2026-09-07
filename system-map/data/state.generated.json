@@ -1583,8 +1583,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "802bdf9f832498793db2a1799dd342bbee54a8b5",
-    "GENERATED_AT": "2026-09-07T16:51:57-03:00"
+    "HEAD": "27b07e093b97ea363573d222b043fcc557fd8270",
+    "GENERATED_AT": "2026-09-07T16:56:27-03:00"
   },
   "FAMILIES": [
     {
@@ -2176,7 +2176,12 @@
         "C-SINTONIA-SCRAP",
         "C-TESTES"
       ],
-      "outbound": [],
+      "outbound": [
+        "V-FACEBOOK",
+        "V-INSTAGRAM",
+        "V-LINKEDIN",
+        "V-YOUTUBE"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -2192,6 +2197,8 @@
           }
         }
       ],
+      "momento": "ROTA",
+      "momento_texto": "antes da coleta, para chegar ao canal",
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -6607,6 +6614,8 @@
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
       "escreve_na_pasta": [],
+      "momento": "PREPARO",
+      "momento_texto": "depois da coleta, sobre o que voltou — antes da peneira",
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -7060,13 +7069,19 @@
         "C-TESTES",
         "C-TRANSCRICAO"
       ],
-      "outbound": [],
+      "outbound": [
+        "V-FACEBOOK",
+        "V-INSTAGRAM",
+        "V-YOUTUBE"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
       "escreve_na_pasta": [],
+      "momento": "ROTA",
+      "momento_texto": "antes da coleta, para chegar ao canal",
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -8441,6 +8456,8 @@
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
       "escreve_na_pasta": [],
+      "momento": "DESPACHO",
+      "momento_texto": "nao e rota nem preparo: e o botao que manda correr",
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -9846,6 +9863,8 @@
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
       "escreve_na_pasta": [],
+      "momento": "PREPARO",
+      "momento_texto": "depois da coleta, sobre o que voltou — antes da peneira",
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -10473,7 +10492,9 @@
       "legacy": false,
       "changed_since_declared": [],
       "inbound": [
-        "C-AS-FONTES"
+        "C-APIFY-POOL",
+        "C-AS-FONTES",
+        "C-NAVEGADOR"
       ],
       "outbound": [
         "C-COLETA-INSTAGRAM",
@@ -10508,6 +10529,7 @@
       "saem_daqui_sem_destino": [
         "C-COLETA-INSTAGRAM"
       ],
+      "precisa_de_ferramenta": true,
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
       "paises": {},
       "paises_dado": {},
@@ -10727,6 +10749,7 @@
         "C-COLETA-INSTAGRAM",
         "C-COLETA-YOUTUBE"
       ],
+      "precisa_de_ferramenta": false,
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
       "paises": {},
       "paises_dado": {},
@@ -10773,7 +10796,9 @@
       "legacy": false,
       "changed_since_declared": [],
       "inbound": [
-        "C-AS-FONTES"
+        "C-APIFY-POOL",
+        "C-AS-FONTES",
+        "C-NAVEGADOR"
       ],
       "outbound": [
         "C-COLETA-BASE",
@@ -10873,6 +10898,7 @@
         "C-COLETA-INSTAGRAM",
         "C-COLETA-YOUTUBE"
       ],
+      "precisa_de_ferramenta": true,
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
       "paises": {},
       "paises_dado": {},
@@ -10917,6 +10943,7 @@
       "legacy": false,
       "changed_since_declared": [],
       "inbound": [
+        "C-APIFY-POOL",
         "C-AS-FONTES"
       ],
       "outbound": [
@@ -11007,6 +11034,7 @@
       "saem_daqui_sem_destino": [
         "C-COLETA-BASE"
       ],
+      "precisa_de_ferramenta": true,
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
       "paises": {},
       "paises_dado": {},
@@ -11052,7 +11080,9 @@
       "legacy": false,
       "changed_since_declared": [],
       "inbound": [
-        "C-AS-FONTES"
+        "C-APIFY-POOL",
+        "C-AS-FONTES",
+        "C-NAVEGADOR"
       ],
       "outbound": [
         "C-COLETA-BASE",
@@ -11150,6 +11180,7 @@
         "C-COLETA-BASE",
         "C-COLETA-YOUTUBE"
       ],
+      "precisa_de_ferramenta": true,
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
       "paises": {},
       "paises_dado": {},
@@ -11170,7 +11201,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 802bdf9f832498793db2a1799dd342bbee54a8b5"
+        "HEAD 27b07e093b97ea363573d222b043fcc557fd8270"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -11432,6 +11463,74 @@
           "file": "motor/v21_ingest.py",
           "line": 266,
           "snippet": "for p in le(os.path.join(LM, 'IT-ADAMA-CATALOGO.json'), 'PRODUTOS')}"
+        }
+      ]
+    },
+    {
+      "from": "C-APIFY-POOL",
+      "to": "V-FACEBOOK",
+      "type": "ABRE_O_CANAL",
+      "payload": "rota",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "E por esta ferramenta que se chega a este canal. Um canal pode ter mais de uma rota — e saber qual e saber se aquela coleta custa dinheiro. MEDIDO NO MESMO FICHEIRO: um coletor que usa duas rotas e dois canais aparece ligado aos quatro pares, e o mapa nao consegue dizer qual rota serviu qual canal.",
+      "evidence": [
+        {
+          "file": "coleta/comunicacao_classificar.py",
+          "line": 11,
+          "snippet": "Apify. É a mesma separação que o piloto de sensores já usa nesta casa."
+        }
+      ]
+    },
+    {
+      "from": "C-APIFY-POOL",
+      "to": "V-INSTAGRAM",
+      "type": "ABRE_O_CANAL",
+      "payload": "rota",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "E por esta ferramenta que se chega a este canal. Um canal pode ter mais de uma rota — e saber qual e saber se aquela coleta custa dinheiro. MEDIDO NO MESMO FICHEIRO: um coletor que usa duas rotas e dois canais aparece ligado aos quatro pares, e o mapa nao consegue dizer qual rota serviu qual canal.",
+      "evidence": [
+        {
+          "file": "coleta/youtube_janela.py",
+          "line": 471,
+          "snippet": "'APIFY_RUNS': 0, 'COST_USD': 0,"
+        }
+      ]
+    },
+    {
+      "from": "C-APIFY-POOL",
+      "to": "V-LINKEDIN",
+      "type": "ABRE_O_CANAL",
+      "payload": "rota",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "E por esta ferramenta que se chega a este canal. Um canal pode ter mais de uma rota — e saber qual e saber se aquela coleta custa dinheiro. MEDIDO NO MESMO FICHEIRO: um coletor que usa duas rotas e dois canais aparece ligado aos quatro pares, e o mapa nao consegue dizer qual rota serviu qual canal.",
+      "evidence": [
+        {
+          "file": "coleta/comunicacao_classificar.py",
+          "line": 11,
+          "snippet": "Apify. É a mesma separação que o piloto de sensores já usa nesta casa."
+        }
+      ]
+    },
+    {
+      "from": "C-APIFY-POOL",
+      "to": "V-YOUTUBE",
+      "type": "ABRE_O_CANAL",
+      "payload": "rota",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "E por esta ferramenta que se chega a este canal. Um canal pode ter mais de uma rota — e saber qual e saber se aquela coleta custa dinheiro. MEDIDO NO MESMO FICHEIRO: um coletor que usa duas rotas e dois canais aparece ligado aos quatro pares, e o mapa nao consegue dizer qual rota serviu qual canal.",
+      "evidence": [
+        {
+          "file": "coleta/youtube_janela.py",
+          "line": 471,
+          "snippet": "'APIFY_RUNS': 0, 'COST_USD': 0,"
         }
       ]
     },
@@ -11703,7 +11802,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1282,
+          "line": 1380,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ]
@@ -13778,7 +13877,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1304,
+          "line": 1402,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ]
@@ -14248,17 +14347,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1505,
+          "line": 1603,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1505,
+          "line": 1603,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1506,
+          "line": 1604,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ]
@@ -14353,12 +14452,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1892,
+          "line": 2008,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1892,
+          "line": 2008,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ]
@@ -14438,6 +14537,57 @@
           "file": "regras/portoes_eame.py",
           "line": 269,
           "snippet": "if 'inventario_esperado.py' not in t:"
+        }
+      ]
+    },
+    {
+      "from": "C-NAVEGADOR",
+      "to": "V-FACEBOOK",
+      "type": "ABRE_O_CANAL",
+      "payload": "rota",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "E por esta ferramenta que se chega a este canal. Um canal pode ter mais de uma rota — e saber qual e saber se aquela coleta custa dinheiro. MEDIDO NO MESMO FICHEIRO: um coletor que usa duas rotas e dois canais aparece ligado aos quatro pares, e o mapa nao consegue dizer qual rota serviu qual canal.",
+      "evidence": [
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 73,
+          "snippet": "import cdp                       # noqa: E402  — o navegador, em biblioteca padrão"
+        }
+      ]
+    },
+    {
+      "from": "C-NAVEGADOR",
+      "to": "V-INSTAGRAM",
+      "type": "ABRE_O_CANAL",
+      "payload": "rota",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "E por esta ferramenta que se chega a este canal. Um canal pode ter mais de uma rota — e saber qual e saber se aquela coleta custa dinheiro. MEDIDO NO MESMO FICHEIRO: um coletor que usa duas rotas e dois canais aparece ligado aos quatro pares, e o mapa nao consegue dizer qual rota serviu qual canal.",
+      "evidence": [
+        {
+          "file": "coleta/youtube_janela.py",
+          "line": 37,
+          "snippet": "de rede, e por isso a camada `legendas` usa o navegador de verdade desta máquina,"
+        }
+      ]
+    },
+    {
+      "from": "C-NAVEGADOR",
+      "to": "V-YOUTUBE",
+      "type": "ABRE_O_CANAL",
+      "payload": "rota",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "E por esta ferramenta que se chega a este canal. Um canal pode ter mais de uma rota — e saber qual e saber se aquela coleta custa dinheiro. MEDIDO NO MESMO FICHEIRO: um coletor que usa duas rotas e dois canais aparece ligado aos quatro pares, e o mapa nao consegue dizer qual rota serviu qual canal.",
+      "evidence": [
+        {
+          "file": "coleta/youtube_janela.py",
+          "line": 37,
+          "snippet": "de rede, e por isso a camada `legendas` usa o navegador de verdade desta máquina,"
         }
       ]
     },
@@ -18063,8 +18213,8 @@
     "components_pending": 27,
     "components_broken": 0,
     "components_unknown": 4,
-    "edges": 320,
-    "edges_proven": 320,
+    "edges": 327,
+    "edges_proven": 327,
     "edges_unknown": 0,
     "business_edges": 4,
     "files_tracked": 1143,

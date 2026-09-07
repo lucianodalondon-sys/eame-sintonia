@@ -490,7 +490,7 @@ CANAIS = (
      "A pagina de empresa e a das pessoas: contratacao, evento, anuncio."),
     ("V-FACEBOOK", "FACEBOOK", r"facebook",
      "A pagina publica da marca, ainda viva em varios mercados agricolas."),
-    ("V-HTTP", "PEDIDO HTTP DIRETO", r"requests\.|httpx|urllib\.request|aiohttp",
+    ("V-HTTP", "PEDIDO HTTP DIRETO", r"requests\.|httpx|urllib\.request|aiohttp",
      "O site aberto, sem plataforma pelo meio: base oficial, PDF, pagina, ficheiro."),
 )
 
@@ -628,6 +628,7 @@ def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
             "saem_daqui_sem_destino": sorted(
                 a for a in set(quem)
                 if a not in {d["acao"] for d in destinos}),
+            "precisa_de_ferramenta": vid != "V-HTTP",
             "nao_guarda_nada": (
                 "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a "
                 "acao que sai por aqui, e e por isso que este cartao nao tem seta "
@@ -638,6 +639,32 @@ def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
                 "acaba o que entra por aqui: nenhuma das acoes que o usam declara, "
                 "no codigo, um ficheiro onde escreve o que trouxe."),
         })
+        # ── QUE FERRAMENTA ABRE ESTE CANAL ──────────────────────────────
+        # O Instagram pode ser aberto pela rota paga OU pelo navegador, e ate
+        # aqui o mapa nao dizia por qual — quem olhava tinha de adivinhar se
+        # aquela coleta ia custar dinheiro. Mede-se no FICHEIRO onde o canal
+        # aparece: se ali tambem se chama a Apify, e a Apify que o abre.
+        # O PEDIDO HTTP DIRETO NAO PRECISA DE FERRAMENTA — e essa e a definicao
+        # dele. Ele aparecia ligado a Apify e ao navegador porque a medicao e
+        # feita POR FICHEIRO, e um coletor que usa varias rotas e varios canais
+        # mistura tudo no mesmo texto. Ligar o HTTP direto a rota paga daria a
+        # entender que aquela coleta custa dinheiro, quando nao custa.
+        for fid, rxf in ({} if vid == "V-HTTP" else ROTAS_DO_CANAL).items():
+            rf = _re.compile(rxf, _re.I)
+            for pr in provas:
+                cam = RAIZ / pr["file"]
+                if not cam.is_file():
+                    continue
+                linhas = cam.read_text(encoding="utf-8", errors="replace").splitlines()
+                achou = next(((i, l) for i, l in enumerate(linhas, 1)
+                              if rf.search(l) and not l.strip().startswith("#")), None)
+                if achou:
+                    ligacoes.append({
+                        "acao": fid, "veiculo": vid, "abre_o_canal": True,
+                        "file": pr["file"], "line": achou[0],
+                        "snippet": achou[1].strip()[:150]})
+                    break
+
         ligacoes += provas
         if recebe and recebe["contas"] and recebe["ficheiro"]:
             ligacoes.append({
@@ -883,12 +910,83 @@ def as_ferramentas() -> tuple[list, list]:
 NATUREZA_DA_SETA = {
     "READS": "FLUXO",       # o conteudo daquilo entra aqui
     "ENTREGA_A_LISTA": "FLUXO",  # as fontes dizem ao canal onde ir
+    "ABRE_O_CANAL": "FLUXO",     # e por esta ferramenta que se chega la
     "WRITES": "FLUXO",      # isto sai daqui e vai para ali
     "FEEDS": "FLUXO",       # a camada de dado alimenta a tela
     "VIAJA_POR": "FLUXO",   # a coleta sai por este canal
     "IMPORTS": "MONTAGEM",  # esta peca e construida com aquela
     "RUNS": "DISPARO",      # aquela manda esta correr
 }
+
+# ── AS FERRAMENTAS NAO SERVEM TODAS NO MESMO MOMENTO ────────────────────────
+# «Apify» e «a fala vira texto» estavam na mesma gaveta com o mesmo peso, e nao
+# fazem o mesmo trabalho nem na mesma altura:
+#
+#     ROTA     serve ANTES  — e como se chega ao canal
+#     PREPARO  serve DEPOIS — e o que se faz com o que voltou, antes da peneira
+#     DESPACHO nao e rota nem preparo — e o botao que manda tudo isto correr
+#
+# A transcricao e o caso que torna a diferenca obvia: ela baixa o video (rota) e
+# transforma-o em texto (preparo) — e e ESSE TEXTO que a porta de admissao le.
+# Sem ela, o item chega a porta sem uma palavra, e sai NAO_SEI. Chamar-lhe so
+# «ferramenta» esconde que ela e um degrau do caminho, nao um acessorio.
+# A ORDEM DESTA TABELA E A REGRA, e ja a tive errada duas vezes.
+#
+# Primeiro pus PREPARO a frente e o «SINTONIA SCRAP» virou preparo — porque o
+# ficheiro dele menciona o transcritor. Ele nao transcreve: ele MANDA
+# transcrever. Depois pus ROTA a frente e virou tudo rota, porque o transcritor
+# tambem baixa o video e menciona a rota.
+#
+# A licao e a mesma nas duas: uma ferramenta que fala de varias etapas nao se
+# classifica pela palavra que aparece — classifica-se pelo TRABALHO QUE ELA FAZ.
+#     um workflow e um botao, diga ele o que disser la dentro
+#     quem transcreve e PREPARO, mesmo que baixe o video para o fazer
+#     so depois disso e que sobra a rota
+MOMENTO_DA_FERRAMENTA = (
+    ("DESPACHO", None,  # decidido pelo tipo de ficheiro, nao pelo conteudo
+     "nao e rota nem preparo: e o botao que manda correr"),
+    ("PREPARO", r"whisper|transcrev|pdf_peek|html_text|ods_peek|pdfplumber|PyPDF",
+     "depois da coleta, sobre o que voltou — antes da peneira"),
+    # sem : o heredoc que escreveu esta linha transformava a barra num
+    # caractere de controlo invisivel, e a regra nunca casava com nada.
+    ("ROTA", r"apify|playwright|selenium|chrome-devtools|[_./]cdp",
+     "antes da coleta, para chegar ao canal"),
+)
+
+# So estas contam como ROTA para um canal. A transcricao TOCA o canal (baixa de
+# la), mas nao e por ela que se decide ir — e por isso nao entra aqui.
+ROTAS_DO_CANAL = {
+    "C-APIFY-POOL": r"apify",
+    "C-NAVEGADOR": r"playwright|selenium|cdp|navegador",
+}
+
+
+def momento_das_ferramentas(nos: list) -> None:
+    """Diz, em cada ferramenta, QUANDO ela serve. Medido pelo que ela usa."""
+    for n in nos:
+        if n.get("territory") != "Z-FERRAMENTAS":
+            continue
+        texto = ""
+        for f in n.get("files", []):
+            cam = RAIZ / f
+            if cam.is_file():
+                texto += cam.read_text(encoding="utf-8", errors="replace")[:200000]
+        so_workflow = all(f.endswith((".yml", ".yaml")) for f in n.get("files", []))
+        for etiqueta, padrao, quando in MOMENTO_DA_FERRAMENTA:
+            if padrao is None:
+                if not (n.get("files") and so_workflow):
+                    continue
+            elif not re.search(padrao, texto, re.I):
+                continue
+            if True:
+                n["momento"] = etiqueta
+                n["momento_texto"] = quando
+                break
+        else:
+            n["momento"] = "NAO SEI"
+            n["momento_texto"] = ("NAO SEI quando esta ferramenta serve: nao usa "
+                                  "rota conhecida nem trata o que voltou.")
+
 
 def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, int, int]:
     """Coloca cada peca numa coluna, e cada zona lado a lado, da esquerda para a
@@ -1748,6 +1846,23 @@ def main_uma_vez(stamp: bool) -> int:
         # AS FONTES entregam ao canal a lista de onde ir. E a unica coisa que um
         # canal recebe, e sem ela «colher o YouTube» nao quer dizer nada:
         # colher o YouTube de quem?
+        if lv.get("abre_o_canal"):
+            chave = (lv["acao"], lv["veiculo"], "ABRE_O_CANAL")
+            alvo_lig = ligacoes.setdefault(chave, {
+                "from": lv["acao"], "to": lv["veiculo"], "type": "ABRE_O_CANAL",
+                "payload": "rota", "natureza": "FLUXO",
+                "kind": "technical", "status": VERDE,
+                "reason": ("E por esta ferramenta que se chega a este canal. Um "
+                           "canal pode ter mais de uma rota — e saber qual e "
+                           "saber se aquela coleta custa dinheiro. MEDIDO NO "
+                           "MESMO FICHEIRO: um coletor que usa duas rotas e dois "
+                           "canais aparece ligado aos quatro pares, e o mapa nao "
+                           "consegue dizer qual rota serviu qual canal."),
+                "evidence": [],
+            })
+            alvo_lig["evidence"].append(
+                {k: lv[k] for k in ("file", "line", "snippet")})
+            continue
         if lv.get("entrega_lista"):
             chave = ("C-AS-FONTES", lv["veiculo"], "ENTREGA_A_LISTA")
             alvo_lig = ligacoes.setdefault(chave, {
@@ -1822,6 +1937,7 @@ def main_uma_vez(stamp: bool) -> int:
                                              "snippet": f"escreve em {x['constante']}"}})
         n["escreve_na_pasta"] = pastas
 
+    momento_das_ferramentas(nos)
     onde_para_o_que_sai(nos, produz, _rastreados(), G, dono)
 
     zonas, nos, faixas, mundo_w, mundo_h = desenhar(

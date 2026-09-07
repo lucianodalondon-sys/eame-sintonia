@@ -490,6 +490,18 @@ function openDetail(id) {
 
       ${n.ligado_nela ? blocoCasco(n) : ''}
 
+      ${n.kind === 'veiculo' ? `<div class="sec">
+        <h4>Por qual ferramenta se chega aqui</h4>${
+        n.precisa_de_ferramenta === false
+          ? `<p style="font-size:11px;color:#4a443f">Nenhuma. Um pedido HTTP direto
+             não precisa de rota paga nem de navegador — é o próprio código que
+             abre a ligação. Por isso esta coleta não custa dinheiro.</p>`
+          : `<p style="font-size:10px;color:#8a827e;margin-bottom:8px">As setas de
+             cima dizem quais. <b>Medido no mesmo arquivo:</b> um coletor que usa
+             duas rotas e dois canais aparece ligado aos quatro pares, e o mapa não
+             consegue dizer qual rota serviu qual canal.</p>`}
+      </div>` : ''}
+
       ${n.o_que_recebe ? `<div class="sec">
         <h4>O que este canal recebe</h4>
         <p style="font-size:11px;color:#4a443f;margin-bottom:8px">Um canal não recebe
@@ -520,6 +532,15 @@ function openDetail(id) {
           <div style="font-size:10px;color:#8a827e">quem escreve: ${esc(d.acao)} ·
             prova: ${esc(d.prova.file)}:${d.prova.line}</div>
         </div>`).join('')}</div>` : ''}
+
+      ${n.momento ? `<div class="sec">
+        <h4>Quando esta ferramenta serve</h4>
+        <p style="font-size:11px;color:#4a443f"><b>${esc(n.momento)}</b> — ${
+        esc(n.momento_texto || '')}</p>
+        <p style="font-size:10px;color:#8a827e;margin-top:6px">Rota, preparo e
+          despacho não são a mesma coisa nem servem na mesma hora. Quem transcreve
+          trabalha <b>depois</b> da coleta, sobre o que voltou — e é o texto dela que
+          a porta de admissão lê.</p></div>` : ''}
 
       ${n.destino_texto ? `<div class="sec">
         <h4>Onde para o que sai daqui</h4>
