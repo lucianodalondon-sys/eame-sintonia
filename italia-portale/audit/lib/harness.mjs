@@ -46,6 +46,16 @@ export const DATA_FILES = [
   /* Il verdetto della legge di rilevanza ADAMA viene PRIMA di chi lo legge:
      senza di esso `meeting-surface` fallisce chiuso e declassa tutto a errore,
      che e il comportamento giusto ma non e la superficie da misurare. */
+  /* ══ LA LABEL INTELLIGENCE E UN FILE DI DATI CHE IL BROWSER SERVE ═══════
+     La lezione e gia scritta due righe piu sotto, per `italy-casa.js`: un banco
+     di prova che carica MENO del browser misura un altro prodotto. Il payload
+     sigillato e il suo lessico entrano qui per la stessa ragione — la barra di
+     navigazione legge il numero dei prodotti DAL PROPRIETARIO, e senza il file
+     quella voce vale stringa vuota mentre in produzione dice 166.
+
+         UN CONTROLLO CHE NON VEDE UN FILE NON PUO GUARDARLO. */
+  'italy-label-intelligence.js',
+  'italy-label-lexicon.js',
   'adama-relevance.js',
   'meeting-surface.js',
   /* IL PACCHETTO DELLA CASA. `portale.html` lo carica — riga 58 — e la barra

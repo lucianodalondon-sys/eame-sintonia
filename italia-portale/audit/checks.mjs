@@ -363,6 +363,15 @@ check('N1', 'Nav counts match the active normalized collections', () => {
 
            UN BADGE NUOVO SENZA CONTROLLO E UN NUMERO CHE PRIMA O POI MENTE. */
     ((m.ctx.ITALY_CASA || {}).RADAR_FUTURO || {}).RENDERIZAVEIS,
+    /* LE ETICHETTE UFFICIALI HANNO UN BADGE, E QUINDI HANNO UN GUARDIANO.
+       I 166 non stanno in nessuna collezione normalizzata del modello: vivono
+       nel payload sigillato della Label Intelligence, che e il loro
+       proprietario, e il menu li legge DA LI. Scrivere 166 qui a mano
+       ripeterebbe l'errore che questo controllo esiste per impedire — e
+       ripeterebbe anche il ragionamento gia scritto sopra per il Radar Futuro.
+
+           UN BADGE NUOVO SENZA CONTROLLO E UN NUMERO CHE PRIMA O POI MENTE. */
+    ((m.ctx.ITALY_LABEL_INTELLIGENCE || {}).products || []).length,
     AM.collections.cropWindows.count,
     AM.collections.marketObservations.count,
     AM.collections.publicVoices.count,
