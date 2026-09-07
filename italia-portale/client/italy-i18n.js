@@ -565,6 +565,13 @@
     prodExpired: 'Registrazione scaduta in questa lettura',
     prodConnections: 'CONNESSIONI DI PORTAFOGLIO', prodVerifiedRel: 'RELAZIONI VERIFICATE', prodCheckRel: 'RELAZIONI DA VERIFICARE', prodRejectedRel: 'RELAZIONI NON CONFERMATE IN QUESTA LETTURA',
     prodNoRel: 'Nessuna relazione coltura × avversità collegata in questa lettura.',
+    /* UN VUOTO SENZA MOTIVO SEMBRA UN DEBITO. CON IL MOTIVO, È UN FATTO.
+       Cinque prodotti su 51 non agiscono su alcun organismo — due
+       biostimolanti, due coadiuvanti e un diradante. Per loro la casella vuota
+       è la risposta giusta, non una lacuna nostra. A classificarli è ADAMA,
+       nella frase che ha scritto sulla propria scheda. */
+    prodNoPairByNature: 'Questo prodotto non agisce su un organismo: non esiste una coppia coltura × avversità da trovare. Qui il vuoto è la risposta corretta, non una lacuna.',
+    prodNoPairByNatureSrc: 'Come ADAMA lo descrive sulla propria scheda:',
     prodRelatedOpps: 'VEDI OPPORTUNITÀ COLLEGATE →', prodNotObservable: 'NON OSSERVABILE DA FONTI ESTERNE',
     prodNoSales: 'Vendite, scorte e quota di mercato non sono osservabili da fonti esterne e non fanno parte di Sintonia.',
     portCommercialTab: 'CATALOGO COMMERCIALE', portRegulatoryTab: 'UNIVERSO REGOLATORIO',
@@ -1205,6 +1212,9 @@
     prodExpired: 'Registration expired in this reading',
     prodConnections: 'PORTFOLIO CONNECTIONS', prodVerifiedRel: 'VERIFIED RELATIONSHIPS', prodCheckRel: 'RELATIONSHIPS NEEDING VERIFICATION', prodRejectedRel: 'RELATIONSHIPS NOT CONFIRMED IN THIS READING',
     prodNoRel: 'No crop × target relationship connected in this reading.',
+    /* AN EMPTY BOX WITHOUT A REASON LOOKS LIKE DEBT. WITH ONE, IT IS A FACT. */
+    prodNoPairByNature: 'This product does not act on an organism, so there is no crop × target pair to find. Here the empty box is the right answer, not a gap.',
+    prodNoPairByNatureSrc: 'How ADAMA describes it on its own product page:',
     prodRelatedOpps: 'VIEW RELATED OPPORTUNITIES →', prodNotObservable: 'NOT EXTERNALLY OBSERVABLE',
     prodNoSales: 'Sales, stock and market share are not externally observable and are not part of Sintonia.',
     portCommercialTab: 'COMMERCIAL CATALOG', portRegulatoryTab: 'REGULATORY UNIVERSE',
