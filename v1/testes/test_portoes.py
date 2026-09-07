@@ -872,6 +872,47 @@ ok("DELIVERED_HTML_CARRIES_THE_VERSIONED_PAYLOAD",
    "dele bate") \
     if not _ht else fail("DELIVERED_HTML_CARRIES_THE_VERSIONED_PAYLOAD", " | ".join(_ht[:3]))
 
+# --- 15n. TODA REGRA QUE A TELA CITA EXISTE ESCRITA EM REGRAS.md
+#
+# `REGRAS.md` abre dizendo "toda afirmacao derivada desta ferramenta nasce de
+# uma regra escrita aqui, com identificador" e o proprio documento, no §4b, ja
+# condenou este defeito uma vez: "a tela citava P-01 a P-05 e este documento nao
+# as continha — uma regra citada e nao escrita e uma regra que ninguem pode
+# conferir".
+#
+# Aconteceu de novo, e maior: o documento parava em `R-15` e o payload entregava
+# ao leitor `R-17`, `R-18`, `R-19`, `R-20`, `R-21` e `R-22`. Seis leis citadas
+# na tela que nao existiam em lugar nenhum — inclusive as duas que a rodada
+# anterior corrigiu. Foi um arbitro independente que pegou; portao nenhum via,
+# porque `ROUTING_RULE_EXISTS` so varre as capacidades `C-*`.
+#
+# Este portao compara os dois conjuntos e nao aceita diferenca. A direcao
+# importa: uma regra escrita e nao citada e so documentacao a mais; uma regra
+# CITADA e nao escrita e uma afirmacao sem lei.
+_ur = []
+try:
+    _reg_md = open("v1/inteligencia/REGRAS.md", encoding="utf-8").read()
+    # o id so conta como DEFINIDO se aparece como celula de tabela (`| \`R-xx\``)
+    # ou titulo — citar "R-16 foi rejeitada" no meio de um paragrafo nao define
+    # regra nenhuma
+    _def = set(re.findall(r"^\|\s*`(R-\d+[a-z]?)`", _reg_md, re.M))
+    _def |= set(re.findall(r"^#+\s*`?(R-\d+[a-z]?)`?\b", _reg_md, re.M))
+    _cit_ui = set(re.findall(r"R-\d+[a-z]?", json.dumps(PAY, ensure_ascii=False)))
+    _orfas = sorted(_cit_ui - _def)
+    if _orfas:
+        _ur.append(f"UNDEFINED_UI_RULE_IDS = {len(_orfas)}: a tela cita {_orfas} e REGRAS.md nao "
+                   f"as define")
+    if len(_cit_ui) < 15:
+        _ur.append(f"so {len(_cit_ui)} regras citadas pela tela — o payload encolheu e este "
+                   f"portao deixou de controlar")
+except Exception as _e:
+    _ur.append(f"nao pude conferir as regras citadas pela tela: {_e}")
+
+ok("UI_RULE_IDS_ARE_DEFINED_IN_REGRAS",
+   f"{len(_cit_ui)} regras citadas pelo payload ao leitor, todas escritas em REGRAS.md "
+   f"(UNDEFINED_UI_RULE_IDS = 0)") \
+    if not _ur else fail("UI_RULE_IDS_ARE_DEFINED_IN_REGRAS", " | ".join(_ur[:2]))
+
 RX_Q_TESTE = re.compile(
     r"\b(da vino|da tavola|da zucchero|da foraggio|da olio|da granella|da seme|"
     r"da industria|dolce|in serra|uso in serra|pieno campo|sotto tunnel|in vivai|"
@@ -947,13 +988,48 @@ try:
     if _mudo:
         _cs.append(f"{len(_mudo)} par(es) com qualificador na celula e NENHUM dos dois campos "
                    f"preenchido — ausencia calada: {sorted(set(_mudo))[:3]}")
+    # 5 · CITAR PELA METADE NAO E CITAR. A etichetta escreve
+    #     "POMODORO (pieno campo e serra)" — campo ABERTO e estufa — e a tela
+    #     afirmava `a etichetta qualifica esta cultura: pieno campo`, em 40
+    #     pares. A alternancia do `re` e leftmost-first: casava o termo curto e
+    #     parava. O irmao "Pomodoro (in campo aperto e serra)" era pior e estava
+    #     calado — 2 pares com escopo VAZIO, porque "campo aperto" nao existia no
+    #     vocabulario.
+    #
+    #     O teste nao pergunta ao vocabulario (isso seria perguntar ao proprio
+    #     codigo testado): ele tira do parentese final o que a ferramenta
+    #     REALMENTE publicou — `crop_scope` mais `crop_scope_other_owner` — e
+    #     olha se sobrou raiz de termo de escopo. Medido: 42 antes, 0 depois.
+    _RAIZ_ESC = {"serra", "serre", "tunnel", "vivai", "vivaio", "vino", "tavola",
+                 "zucchero", "foraggio", "olio", "granella", "seme", "industria",
+                 "invernale", "primaverile", "campo", "aperto"}
+    _RXP_ESC = re.compile(r"\(([^()]*)\)\s*$")
+    _parcial = []
+    for _r, _u in _pares_cs:
+        _mp = _RXP_ESC.search(_nzs(_u.get("crop_raw")))
+        if not _mp:
+            continue
+        _sobra = _mp.group(1)
+        for _q in sorted(set((_u.get("crop_scope") or [])
+                             + (_u.get("crop_scope_other_owner") or [])),
+                         key=len, reverse=True):
+            _sobra = _sobra.replace(_nzs(_q), " ")
+        _orf = sorted({_w for _w in re.findall(r"[a-z]+", _sobra) if _w in _RAIZ_ESC})
+        if _orf:
+            _parcial.append(f'{_r} {_u.get("crop")} nao publicou {_orf} de '
+                            f'{_nzs(_u.get("crop_raw"))[:50]!r}')
+    if _parcial:
+        _cs.append(f"PARTIAL_CROP_ASSERTIONS = {len(_parcial)}: a celula escreve termo de escopo "
+                   f"que a tela nao publica: {sorted(set(_parcial))[:3]}")
 except Exception as _e:
     _cs.append(f"nao pude conferir os qualificadores de cultura: {_e}")
 
 ok("CROP_SCOPE_BELONGS_TO_ITS_CROP",
    f"{sum(1 for x in PAY['products'] for u in (x.get('uses') or []) if u.get('crop_scope'))} "
    f"pares com qualificador: todos escritos na propria celula, nenhuma arvore herdou 'da vino' "
-   f"da vizinha, e os 18 pares de registro de estufa saem com 'uso in serra'")     if not _cs else fail("CROP_SCOPE_BELONGS_TO_ITS_CROP", " | ".join(_cs[:3]))
+   f"da vizinha, os 18 pares de registro de estufa saem com 'uso in serra' e "
+   f"PARTIAL_CROP_ASSERTIONS = 0") \
+    if not _cs else fail("CROP_SCOPE_BELONGS_TO_ITS_CROP", " | ".join(_cs[:3]))
 
 # --- 15l. TODA ASPA VEM DE UMA LEITURA DO PDF, NUNCA DA REMONTAGEM DA PROPRIA
 #         FERRAMENTA

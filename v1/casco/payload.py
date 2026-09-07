@@ -202,9 +202,29 @@ def main():
                              for y in json.load(open(a.pares, encoding="utf-8"))["PAIRS"])
                  if len(r) >= 4}
 
+    # A FRASE COORDENADA VEM PRIMEIRO, E POR ISSO ELA VEM PRIMEIRO NA ALTERNANCIA.
+    #
+    # A etichetta escreve "POMODORO (pieno campo e serra)": autoriza campo ABERTO
+    # E estufa. O vocabulario tinha "pieno campo" e "in serra" como termos
+    # soltos, e a alternancia do `re` e leftmost-FIRST — entao casava "pieno
+    # campo", parava, e a tela afirmava `a etichetta qualifica esta cultura:
+    # pieno campo` em 40 pares. Metade da autorizacao, publicada como se fosse a
+    # frase inteira. Citar pela metade nao e citar: e estreitar o documento e
+    # assinar embaixo.
+    #
+    # O irmao do mesmo defeito era pior e estava calado: "Pomodoro (in campo
+    # aperto e serra)", 2 pares, saia com escopo VAZIO — "campo aperto" nao
+    # existia no vocabulario, entao nada casava e a celula parecia nao qualificar
+    # nada.
+    #
+    # As duas frases entram LITERAIS, como a etichetta as escreve. Quebra-las em
+    # ["pieno campo", "in serra"] seria parafrase; publicar a frase inteira e
+    # transcricao. E elas vem antes das formas curtas na alternancia, senao a
+    # forma curta ganha de novo.
     RX_ESCOPO = re.compile(
-        r"\b(da vino|da tavola|da zucchero|da foraggio|da olio|da granella|da seme|"
-        r"da industria|dolce|in serra|uso in serra|pieno campo|sotto tunnel|in vivai|"
+        r"\b(pieno campo e serra|in campo aperto e serra|campo aperto e serra|"
+        r"da vino|da tavola|da zucchero|da foraggio|da olio|da granella|da seme|"
+        r"da industria|dolce|uso in serra|in serra|pieno campo|sotto tunnel|in vivai|"
         r"baby leaf|da foglia|invernale|primaverile|per consumo fresco)\b", re.I)
 
     cit = json.load(open(a.citacao, encoding="utf-8")) if os.path.exists(a.citacao) else None

@@ -1,6 +1,6 @@
 {
  "SUITE": "PORTOES-V1",
- "PASS": 30,
+ "PASS": 31,
  "FAIL": 0,
  "RESULTS": [
   {
@@ -11,7 +11,7 @@
   {
    "GATE": "ROUTING_RULE_EXISTS",
    "STATE": "PASS",
-   "DETALHE": "todo roteamento aponta uma das 46 regras declaradas"
+   "DETALHE": "todo roteamento aponta uma das 53 regras declaradas"
   },
   {
    "GATE": "BUSINESS_IMPLICATION_GATED",
@@ -41,7 +41,7 @@
   {
    "GATE": "UNKNOWN_HIDDEN_OR_FILLED",
    "STATE": "PASS",
-   "DETALHE": "nenhuma celula com traco/N-A em 10748256 caracteres de tela renderizada (render: 3556 blocos, 10748256 caracteres)"
+   "DETALHE": "nenhuma celula com traco/N-A em 10748766 caracteres de tela renderizada (render: 3556 blocos, 10748766 caracteres)"
   },
   {
    "GATE": "UNKNOWN_VISIBLE",
@@ -66,7 +66,7 @@
   {
    "GATE": "CANONICAL_TOUCHED",
    "STATE": "PASS",
-   "DETALHE": "nenhum dos 52 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
+   "DETALHE": "nenhum dos 53 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
   },
   {
    "GATE": "REUSE_ANCHORED_ON_FILE_HASH",
@@ -139,9 +139,14 @@
    "DETALHE": "o payload embutido no HTML entregue e byte-identico ao versionado, e o selo de conteudo dele bate"
   },
   {
+   "GATE": "UI_RULE_IDS_ARE_DEFINED_IN_REGRAS",
+   "STATE": "PASS",
+   "DETALHE": "18 regras citadas pelo payload ao leitor, todas escritas em REGRAS.md (UNDEFINED_UI_RULE_IDS = 0)"
+  },
+  {
    "GATE": "CROP_SCOPE_BELONGS_TO_ITS_CROP",
    "STATE": "PASS",
-   "DETALHE": "305 pares com qualificador: todos escritos na propria celula, nenhuma arvore herdou 'da vino' da vizinha, e os 18 pares de registro de estufa saem com 'uso in serra'"
+   "DETALHE": "307 pares com qualificador: todos escritos na propria celula, nenhuma arvore herdou 'da vino' da vizinha, os 18 pares de registro de estufa saem com 'uso in serra' e PARTIAL_CROP_ASSERTIONS = 0"
   },
   {
    "GATE": "QUOTED_TEXT_IS_IN_A_FLAT_READING",
