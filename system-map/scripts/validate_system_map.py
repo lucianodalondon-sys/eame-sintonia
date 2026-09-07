@@ -160,9 +160,21 @@ def main() -> int:
     # ── P6 · verde exige prova, nunca "o ficheiro existe" ────────────────────
     verde_frouxo = [n["id"] for n in S["NODES"]
                     if n["status"] == "PROVEN"
-                    and not (n["inbound"] or n["outbound"])]
+                    and not (n["inbound"] or n["outbound"])
+                    # A linhagem prova-se por documento nomeado (o contrato
+                    # canonico) e pelo proprio git — nao por import. Exigir-lhe
+                    # uma aresta seria exigir a prova errada.
+                    and not (n["territory"] == "Z-LINEAGE"
+                             and (n["files"] or n.get("proof") == "git-measurement"))]
     prova("P6_VERDE_TEM_PROVA", "nenhum verde so por o ficheiro existir",
           not verde_frouxo, ", ".join(verde_frouxo))
+
+    sem_tipo = [n["id"] for n in S["NODES"]
+                if n["territory"] == "Z-LINEAGE"
+                and n.get("proof") not in ("document", "git-measurement")]
+    prova("P6_LINHAGEM_DIZ_A_PROVA",
+          "toda peca de linhagem declara se a prova e documento ou medicao do git",
+          not sem_tipo, ", ".join(sem_tipo))
 
     verde_stale = [n["id"] for n in S["NODES"]
                    if n["status"] == "PROVEN" and n.get("changed_since_declared")]

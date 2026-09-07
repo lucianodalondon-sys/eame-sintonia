@@ -2,431 +2,441 @@
    ---------------------------------------------------------------------------
    ESTA TELA NAO SABE NADA.
 
-   Nenhum facto arquitectural mora aqui: nem nome de peca, nem ligacao, nem
-   status, nem departamento. Tudo vem de `state.generated.json`, que e produzido
-   pelo gerador a partir do repositorio. Este ficheiro so desenha.
+   O comportamento e o do prototipo aprovado — arrastar, zoom, hover, clique,
+   caminho completo, minimapa, inventario. O que mudou foi a origem dos dados:
+   antes as pecas e as ligacoes estavam escritas dentro deste ficheiro; agora
+   vem todas de `state.generated.json`, que o gerador produz lendo o repositorio.
 
-   E de proposito, e e a regra que impede o mapa de virar uma segunda verdade:
-   se a arquitectura mudar e ninguem regerar, esta tela nao tem como mentir
-   bonito — ela mostra o que o ficheiro diz, e o CI reprova o ficheiro velho.
+   E essa a diferenca entre um mapa e o desenho de um mapa. O desenho continua
+   bonito no dia seguinte a arquitetura mudar. Este nao consegue: se ninguem
+   regerar, o CI reprova o ficheiro velho antes de ele chegar aqui.
 
-   Enquanto leres este ficheiro, se encontrares um `if (id === 'C-...')` com
-   regra de negocio dentro, isso e um bug: e facto a esconder-se no frontend.
+   Se encontrares neste ficheiro um `if (id === '...')` com regra de negocio
+   dentro, ou o nome de um commit escrito a mao, isso e um bug — e um facto a
+   esconder-se no frontend, onde nenhum validador o alcanca.
    --------------------------------------------------------------------------- */
 'use strict';
 
-const NS = 'http://www.w3.org/2000/svg';
-const el = (t, a = {}) => { const n = document.createElementNS(NS, t);
-  for (const k in a) n.setAttribute(k, a[k]); return n; };
-const txt = s => document.createTextNode(s);
-const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, m =>
+  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+const $ = id => document.getElementById(id);
 
-const CORES = { PROVEN: 'var(--st-proven)', PENDING: 'var(--st-pending)',
-                BROKEN: 'var(--st-broken)', UNKNOWN: 'var(--st-unknown)' };
-const ROTULO = { PROVEN: 'PROVADO OPERACIONAL', PENDING: 'PROVADO COM PENDENCIA',
-                 BROKEN: 'QUEBRADO OU AUSENTE', UNKNOWN: 'NAO SEI' };
-const EMOJI = { PROVEN: '🟢', PENDING: '🟡', BROKEN: '🔴', UNKNOWN: '⚪' };
+const statusLabel = s => ({ green: 'PROVADO OPERACIONAL', yellow: 'ATENCAO / PENDENCIA',
+  red: 'QUEBRADO OU AUSENTE', gray: 'NAO SEI' }[s] || s);
 
-/* Cor de marca por territorio. Vem das linhas oficiais do ADAMA Design System
-   (tokens/colors.css). Nao ha cor inventada: se um territorio novo aparecer sem
-   linha atribuida, cai no verde corporativo em vez de ganhar uma cor nova. */
-const LINHA = {
-  'T-FONTE':   '#00a0df', 'T-REGUA':  '#752157', 'T-MOTOR':  '#009845',
-  'T-PACOTE':  '#f89e18', 'T-PORTAL': '#7db41e', 'T-PORTAO': '#9d1d96',
-  'T-PERSIST': '#00698f', 'T-CI':     '#00783f', 'T-PROVA':  '#f5b317',
-  'T-DS':      '#93cc23', 'T-MAPA':   '#978b87',
-};
-const corTerr = id => LINHA[id] || '#009845';
+/* As visoes da barra lateral. Cada peca carrega as suas em `views`, vindas do
+   ficheiro declarado — agrupamento visual e coisa de gente, nao de scanner. */
+const VISOES = [
+  ['all', '◉', 'Sistema inteiro'], ['official', '→', 'Rota oficial hoje'],
+  ['lineage', '⌥', 'Linhagens e donos'], ['acervo', '◫', 'Acervo → pacote'],
+  ['generator', '⚙', 'Gerador V2.1'], ['opportunity', '◎', 'Opportunity + relevância'],
+  ['portal', '▣', 'Pacote → portal'], ['meeting', '▤', 'Reunião / Comercial'],
+  ['science', 'Σ', 'Ciência / Desenv. Mercado'], ['audit', '✓', 'Auditoria / contratos'],
+  ['infra', '⌁', 'Coleta / infra'], ['legacy', '○', 'Legado / fora do oficial'],
+];
 
-/* Geometria — deterministica, calculada a partir da ordem dos territorios.
-   Mesmo ficheiro de estado = mesmo desenho, sempre. */
-const COL = 5, LARG = 250, ALT = 62, GAPX = 26, GAPY = 16, CAB = 58, PAD = 22, GAPT = 46;
+let S, nodes = [], edges = [], nodeById = {}, MUNDO = { w: 1, h: 1 };
+let scale = .145, tx = 8, ty = 18, drag = false, lx = 0, ly = 0;
+let currentView = 'all', pathSet = null;
 
-let S, nos = new Map(), caixas = new Map(), MUNDO = { w: 0, h: 0 };
-let vista = { x: 0, y: 0, k: 1 };
-const filtro = { status: new Set(['PROVEN', 'PENDING', 'BROKEN', 'UNKNOWN']),
-                 terr: '', dept: '', kind: '', busca: '', legado: '', foco: null, caminho: false };
+const viewport = $('viewport'), world = $('world'), tooltip = $('tooltip'),
+      workspace = $('workspace'), detail = $('detail');
 
-/* ══ 1 · POSICIONAR ═══════════════════════════════════════════════════════ */
-function dispor() {
-  let y = PAD;
-  for (const t of S.TERRITORIES) {
-    const membros = S.NODES.filter(n => n.territory === t.id);
-    if (!membros.length) continue;
-    const linhas = Math.ceil(membros.length / COL);
-    const cols = Math.min(COL, membros.length);
-    const w = PAD * 2 + cols * LARG + (cols - 1) * GAPX;
-    const h = CAB + PAD + linhas * ALT + (linhas - 1) * GAPY + PAD;
-    caixas.set(t.id, { ...t, x: PAD, y, w, h, membros });
-    membros.forEach((n, i) => {
-      nos.set(n.id, { ...n,
-        x: PAD + PAD + (i % COL) * (LARG + GAPX),
-        y: y + CAB + PAD + Math.floor(i / COL) * (ALT + GAPY),
-        w: LARG, h: ALT });
-    });
-    y += h + GAPT;
-  }
-  MUNDO = { w: Math.max(...[...caixas.values()].map(c => c.x + c.w)) + PAD, h: y };
-}
-
-/* ══ 2 · DESENHAR ═════════════════════════════════════════════════════════ */
-function desenhar() {
-  const svg = $('#palco svg');
-  svg.textContent = '';
-  const g = el('g', { id: 'camera' });
-  svg.appendChild(g);
-
-  const gT = el('g'), gA = el('g'), gP = el('g');
-  g.append(gT, gA, gP);
-
-  for (const c of caixas.values()) {
-    const grupo = el('g', { class: 'territorio-grupo', 'data-terr': c.id });
-    grupo.appendChild(el('rect', { class: 'territorio-caixa', x: c.x, y: c.y,
-      width: c.w, height: c.h, rx: 12 }));
-    const faixa = el('path', { class: 'territorio-faixa', fill: corTerr(c.id),
-      d: `M${c.x} ${c.y + 12} a12 12 0 0 1 12 -12 h${c.w - 24} a12 12 0 0 1 12 12 v${CAB - 12} h${-c.w} Z` });
-    grupo.appendChild(faixa);
-    const nome = el('text', { class: 'territorio-nome', x: c.x + PAD, y: c.y + 25 });
-    nome.appendChild(txt(c.name)); grupo.appendChild(nome);
-    const why = el('text', { class: 'territorio-why', x: c.x + PAD, y: c.y + 43 });
-    why.appendChild(txt(c.why.length > 96 ? c.why.slice(0, 95) + '…' : c.why));
-    grupo.appendChild(why);
-    gT.appendChild(grupo);
-  }
-
-  for (const e of S.EDGES) {
-    const a = nos.get(e.from), b = nos.get(e.to);
-    if (!a || !b) continue;
-    const x1 = a.x + a.w / 2, y1 = a.y + a.h / 2, x2 = b.x + b.w / 2, y2 = b.y + b.h / 2;
-    const dy = Math.abs(y2 - y1);
-    const p = el('path', {
-      class: 'aresta' + (e.kind === 'expected' ? ' expected' : ''),
-      'data-from': e.from, 'data-to': e.to, 'data-type': e.type,
-      d: `M${x1} ${y1} C ${x1} ${y1 + dy * .3}, ${x2} ${y2 - dy * .3}, ${x2} ${y2}`,
-    });
-    p.addEventListener('mouseenter', ev => dica(ev, dicaAresta(e)));
-    p.addEventListener('mouseleave', esconderDica);
-    gA.appendChild(p);
-  }
-
-  for (const n of nos.values()) {
-    const grupo = el('g', { class: 'peca', 'data-id': n.id, tabindex: '0',
-      role: 'button', 'aria-label': `${n.name} — ${ROTULO[n.status]}` });
-    grupo.appendChild(el('rect', { class: 'corpo', x: n.x, y: n.y,
-      width: n.w, height: n.h, stroke: CORES[n.status] }));
-    grupo.appendChild(el('rect', { class: 'barra', x: n.x, y: n.y,
-      width: 4, height: n.h, fill: corTerr(n.territory) }));
-    grupo.appendChild(el('circle', { cx: n.x + n.w - 15, cy: n.y + 16, r: 5.5,
-      fill: CORES[n.status] }));
-    const nome = el('text', { class: 'nome', x: n.x + 15, y: n.y + 24 });
-    nome.appendChild(txt(n.name.length > 30 ? n.name.slice(0, 29) + '…' : n.name));
-    const tipo = el('text', { class: 'tipo', x: n.x + 15, y: n.y + 42 });
-    tipo.appendChild(txt(`${n.kind} · ${n.file_count} ficheiro${n.file_count === 1 ? '' : 's'}`));
-    grupo.append(nome, tipo);
-    grupo.addEventListener('mouseenter', ev => dica(ev, dicaPeca(n)));
-    grupo.addEventListener('mousemove', mover);
-    grupo.addEventListener('mouseleave', esconderDica);
-    grupo.addEventListener('click', ev => { ev.stopPropagation(); abrir(n.id); });
-    grupo.addEventListener('keydown', ev => {
-      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); abrir(n.id); } });
-    gP.appendChild(grupo);
-  }
-  aplicarCamera();
-  minimapa();
-}
-
-/* ══ 3 · A DICA — o que a peca faz, em portugues comum ════════════════════ */
-function dicaPeca(n) {
-  const de = n.inbound.map(i => nos.get(i)?.name).filter(Boolean);
-  const pa = n.outbound.map(i => nos.get(i)?.name).filter(Boolean);
-  return `<b>${esc(n.name)}</b>
-    <div class="l">o que faz</div>${esc(n.what)}
-    <div class="l">por que esta aqui</div>${esc(n.why_here)}
-    <div class="l">recebe de</div>${de.length ? esc(de.slice(0, 3).join(' · ')) : '— ninguem'}
-    <div class="l">envia para</div>${pa.length ? esc(pa.slice(0, 3).join(' · ')) : '— ninguem'}
-    <div class="l">status</div>${EMOJI[n.status]} ${ROTULO[n.status]}${
-      n.legacy ? '  ·  ⚠ LEGADO — não é a peça oficial de hoje' : ''}
-    <div class="l">motivo</div>${esc(n.status_reason)}`;
-}
-function dicaAresta(e) {
-  return `<b>${esc(nos.get(e.from)?.name)} → ${esc(nos.get(e.to)?.name)}</b>
-    <div class="l">o que passa aqui</div>${esc(e.payload || e.type)}
-    <div class="l">por que</div>${esc(e.reason)}
-    <div class="l">prova</div>${e.evidence?.length
-      ? esc(e.evidence[0].file + ':' + e.evidence[0].line)
-      : '⚪ NAO SEI — nao ha linha de codigo que prove'}`;
-}
-const esc = s => String(s ?? '').replace(/[&<>"]/g, c =>
-  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-
-function dica(ev, html) { const d = $('#dica'); d.innerHTML = html; d.classList.add('on'); mover(ev); }
-function mover(ev) {
-  const d = $('#dica'), r = d.getBoundingClientRect();
-  d.style.left = Math.min(ev.clientX + 16, innerWidth - r.width - 12) + 'px';
-  d.style.top = Math.min(ev.clientY + 16, innerHeight - r.height - 12) + 'px';
-}
-const esconderDica = () => $('#dica').classList.remove('on');
-
-/* ══ 4 · O PAINEL — o detalhe todo ════════════════════════════════════════ */
-function abrir(id) {
-  const n = nos.get(id); if (!n) return;
-  filtro.foco = id; esconderDica();
-
-  const linkNo = i => `<a data-ir="${i}">${esc(nos.get(i)?.name || i)}</a>`;
-  const entra = S.EDGES.filter(e => e.to === id), sai = S.EDGES.filter(e => e.from === id);
-  const negocio = S.BUSINESS_EDGES.filter(b => b.from === id);
-
-  const bloco = (titulo, arr) => arr.length ? `<h3>${titulo}</h3><ul class="lista">${arr.join('')}</ul>` : '';
-  const linhaAresta = (e, dir) => `<li>${linkNo(dir === 'in' ? e.from : e.to)}
-      <div class="caminho">${esc(e.type)} · ${esc(e.reason)}</div>
-      ${e.evidence?.length
-        ? `<div class="prova">${e.evidence.slice(0, 3)
-             .map(v => esc(v.file + ':' + v.line + '  ' + v.snippet)).join('\n')}</div>`
-        : '<div class="prova">⚪ NAO SEI — declarado, nao provado</div>'}</li>`;
-
-  $('#painel').innerHTML = `
-    <button id="fechar" aria-label="fechar">×</button>
-    <h2>${esc(n.name)}</h2>
-    <div class="sub">${EMOJI[n.status]} ${ROTULO[n.status]} ·
-      ${esc(caixas.get(n.territory)?.name || '')} · ${esc(n.kind)}</div>
-    ${n.legacy ? `<div class="destaque" style="border-color:var(--st-unknown)">
-      ⚠ <b>LEGADO.</b> Esta peça continua no repositório, e por isso aparece no mapa —
-      mas <b>não é a peça oficial de hoje</b>. Não a tome como o caminho atual.</div>` : ''}
-
-    <h3>o que faz</h3><p>${esc(n.what)}</p>
-    <h3>por que esta aqui</h3><p>${esc(n.why_here)}</p>
-    <h3>por que este status</h3><div class="destaque"
-      style="border-color:${CORES[n.status]}">${esc(n.status_reason)}</div>
-
-    ${n.departments?.length ? `<h3>departamentos</h3>${n.departments
-      .map(d => `<span class="etiqueta" title="${esc(S.DEPARTMENTS[d] || '')}">${esc(d.replace(/_/g, ' '))}</span>`).join('')}` : ''}
-
-    ${negocio.length ? `<h3>a quem isto serve (declarado)</h3><ul class="lista">${negocio.map(b => `
-      <li><b>${esc(b.to.replace('DEPT:', '').replace(/_/g, ' '))}</b>
-        <div class="caminho">${esc(b.reason)}</div>
-        <div class="prova">declarado por ${esc(b.declared_by)} em ${esc(b.declared_at)}
-fonte: ${esc(b.source)}</div></li>`).join('')}</ul>` : ''}
-
-    ${bloco('recebe de', entra.map(e => linhaAresta(e, 'in')))}
-    ${bloco('envia para', sai.map(e => linhaAresta(e, 'out')))}
-    ${bloco(`ficheiros que implementam isto (${n.files.length})`,
-      n.files.map(f => `<li class="caminho">${esc(f)}</li>`))}
-    ${n.changed_since_declared?.length ? `<h3>mudou desde a ultima leitura humana</h3>
-      <ul class="lista">${n.changed_since_declared
-        .map(f => `<li class="caminho">${esc(f)}</li>`).join('')}</ul>` : ''}
-
-    <h3>como pedir mudanca</h3>
-    <p style="font-size:12.5px;color:var(--ink-mute)">Esta tela nao altera codigo — de proposito.
-    Para mudar isto: abra uma missao no repositorio, altere o codigo, rode
-    <code>py system-map/scripts/generate_system_map.py</code> e o mapa acompanha.
-    Nunca o contrario.</p>`;
-
-  $('#painel').classList.add('aberto');
-  $('#fechar').onclick = fechar;
-  $('#painel').querySelectorAll('[data-ir]').forEach(a =>
-    a.onclick = () => { abrir(a.dataset.ir); centrarEm(a.dataset.ir); });
-  filtro.caminho = true; aplicarFiltros(); centrarEm(id);
-}
-function fechar() {
-  $('#painel').classList.remove('aberto');
-  filtro.foco = null; filtro.caminho = false; aplicarFiltros();
-}
-
-/* ══ 5 · FILTROS E CAMINHO ════════════════════════════════════════════════ */
-function aplicarFiltros() {
-  const q = filtro.busca.trim().toLowerCase();
-  const ligados = new Set();
-  if (filtro.foco) {
-    ligados.add(filtro.foco);
-    for (const e of S.EDGES) {
-      if (e.from === filtro.foco) ligados.add(e.to);
-      if (e.to === filtro.foco) ligados.add(e.from);
-    }
-  }
-  const visivel = new Set();
-  for (const n of nos.values()) {
-    let ok = filtro.status.has(n.status)
-      && (!filtro.terr || n.territory === filtro.terr)
-      && (!filtro.kind || n.kind === filtro.kind)
-      && (!filtro.dept || (n.departments || []).includes(filtro.dept))
-      && (!filtro.legado || (filtro.legado === 'legado' ? n.legacy : !n.legacy))
-      && (!q || (n.name + ' ' + n.what + ' ' + n.why_here + ' ' + n.id + ' ' +
-                 n.files.join(' ')).toLowerCase().includes(q));
-    if (filtro.caminho && ligados.size) ok = ok && ligados.has(n.id);
-    if (ok) visivel.add(n.id);
-  }
-  document.querySelectorAll('.peca').forEach(g =>
-    g.classList.toggle('apagada', !visivel.has(g.dataset.id)));
-  document.querySelectorAll('.peca').forEach(g =>
-    g.classList.toggle('focada', g.dataset.id === filtro.foco));
-  document.querySelectorAll('.aresta').forEach(p => {
-    const dentro = visivel.has(p.dataset.from) && visivel.has(p.dataset.to);
-    const noCaminho = filtro.foco &&
-      (p.dataset.from === filtro.foco || p.dataset.to === filtro.foco);
-    p.classList.toggle('apagada', !dentro);
-    p.classList.toggle('acesa', !!noCaminho);
-  });
-  document.querySelectorAll('.territorio-grupo').forEach(g =>
-    g.classList.toggle('apagada',
-      !S.NODES.some(n => n.territory === g.dataset.terr && visivel.has(n.id))));
-  $('#conta').textContent = `${visivel.size} de ${S.NODES.length} pecas`;
-}
-
-/* ══ 6 · CAMERA — pan, zoom, fit, minimapa ════════════════════════════════ */
-const palco = () => $('#palco');
-function aplicarCamera() {
-  const c = document.getElementById('camera');
-  if (c) c.setAttribute('transform',
-    `translate(${vista.x} ${vista.y}) scale(${vista.k})`);
-  minimapaVp();
-}
-function ajustar() {
-  const r = palco().getBoundingClientRect();
-  // Se o palco ainda nao tem tamanho (a primeira chamada pode acontecer antes de
-  // o browser ter feito o layout), `Math.min` daria escala 0 e o mapa saia
-  // invisivel — desenhado, com 51 pecas no DOM, e a zero pixeis. Tenta outra vez
-  // no frame seguinte em vez de publicar uma tela em branco.
-  if (r.width < 2 || r.height < 2) { requestAnimationFrame(ajustar); return; }
-  vista.k = Math.min(r.width / (MUNDO.w + 40), r.height / (MUNDO.h + 40), 1.6);
-  vista.x = (r.width - MUNDO.w * vista.k) / 2;
-  vista.y = (r.height - MUNDO.h * vista.k) / 2;
-  aplicarCamera();
-}
-function centrarEm(id) {
-  const n = nos.get(id); if (!n) return;
-  const r = palco().getBoundingClientRect();
-  vista.k = Math.max(vista.k, .85);
-  const largura = $('#painel').classList.contains('aberto') && r.width > 860
-    ? r.width - 430 : r.width;
-  vista.x = largura / 2 - (n.x + n.w / 2) * vista.k;
-  vista.y = r.height / 2 - (n.y + n.h / 2) * vista.k;
-  aplicarCamera();
-}
-function zoom(fator, cx, cy) {
-  const k = Math.min(3, Math.max(.08, vista.k * fator));
-  const r = palco().getBoundingClientRect();
-  cx = cx ?? r.width / 2; cy = cy ?? r.height / 2;
-  vista.x = cx - (cx - vista.x) * (k / vista.k);
-  vista.y = cy - (cy - vista.y) * (k / vista.k);
-  vista.k = k; aplicarCamera();
-}
-
-function minimapa() {
-  const svg = $('#minimapa svg');
-  svg.textContent = '';
+/* ══ 1 · DESENHAR O QUE O FICHEIRO DIZ ════════════════════════════════════ */
+function render() {
+  world.style.width = MUNDO.w + 'px';
+  world.style.height = MUNDO.h + 'px';
+  const svg = $('edges');
   svg.setAttribute('viewBox', `0 0 ${MUNDO.w} ${MUNDO.h}`);
-  for (const c of caixas.values())
-    svg.appendChild(el('rect', { x: c.x, y: c.y, width: c.w, height: c.h,
-      fill: corTerr(c.id), opacity: .2, rx: 10 }));
-  for (const n of nos.values())
-    svg.appendChild(el('rect', { x: n.x, y: n.y, width: n.w, height: n.h,
-      fill: CORES[n.status], rx: 4 }));
-  svg.appendChild(el('rect', { class: 'vp', id: 'vp' }));
-  svg.addEventListener('click', ev => {
-    const r = svg.getBoundingClientRect(), pr = palco().getBoundingClientRect();
-    const wx = (ev.clientX - r.left) / r.width * MUNDO.w;
-    const wy = (ev.clientY - r.top) / r.height * MUNDO.h;
-    vista.x = pr.width / 2 - wx * vista.k;
-    vista.y = pr.height / 2 - wy * vista.k;
-    aplicarCamera();
-  });
-  minimapaVp();
-}
-function minimapaVp() {
-  const vp = document.getElementById('vp'); if (!vp) return;
-  const r = palco().getBoundingClientRect();
-  vp.setAttribute('x', -vista.x / vista.k);
-  vp.setAttribute('y', -vista.y / vista.k);
-  vp.setAttribute('width', r.width / vista.k);
-  vp.setAttribute('height', r.height / vista.k);
+  svg.style.width = MUNDO.w + 'px';
+  svg.style.height = MUNDO.h + 'px';
+  $('miniSvg').setAttribute('viewBox', `0 0 ${MUNDO.w} ${MUNDO.h}`);
+
+  $('zones').innerHTML = S.TERRITORIES.map(z => `
+    <section class="zone ${z.band === 'earth' ? 'earth' : 'corporate'}"
+             style="left:${z.x}px;top:${z.y}px;width:${z.w}px;height:${z.h}px">
+      <div class="zoneHead">
+        <div class="zoneTitle">${esc(z.name)}</div>
+        <div class="zoneSub">${esc(z.why)}</div>
+      </div>
+    </section>`).join('');
+
+  $('nodes').innerHTML = nodes.map(n => `
+    <div class="node" id="node-${esc(n.id)}" data-id="${esc(n.id)}"
+         style="left:${n.x}px;top:${n.y}px" tabindex="0" role="button"
+         aria-label="${esc(n.name)} — ${statusLabel(n.ui_status)}">
+      <div class="nodeTop">
+        <div class="nodeIcon">${esc(n.icon || '●')}</div>
+        <div class="nodeHeadText">
+          <div class="nodeName">${esc(n.name)}</div>
+          <div class="nodeType">${esc(n.kind)}${n.legacy ? ' · legado' : ''}</div>
+        </div>
+        <div class="statusPill status-${n.ui_status}">${statusLabel(n.ui_status)}</div>
+      </div>
+      <div class="nodeSummary">${esc(n.what)}</div>
+      <div class="nodeFiles">${esc((n.files.length ? n.files : n.facts || [])
+        .slice(0, 2).join(' · ') || 'sem ficheiro')}</div>
+    </div>`).join('');
+
+  // A seta sai da direita de quem manda e entra na esquerda de quem recebe — o
+  // dado corre da esquerda para a direita, e a curva torna isso visivel mesmo
+  // quando as duas pecas estao a cinco zonas de distancia.
+  $('edgeLayer').innerHTML = edges.map((e, i) => {
+    const a = nodeById[e.from], b = nodeById[e.to];
+    if (!a || !b) return '';
+    // A seta sai pelo lado que aponta para o destino. Assumir sempre
+    // esquerda->direita fazia toda ligacao de volta (o teste que roda o script,
+    // o workflow que chama a coleta) dar a volta ao mapa inteiro por fora — e
+    // era isso que transformava a leitura num novelo. Aqui a curva vai pelo
+    // caminho curto, e a direcao continua legivel pela ponta da seta.
+    const atras = b.x < a.x;
+    const x1 = atras ? a.x : a.x + 285, y1 = a.y + 66;
+    const x2 = atras ? b.x + 285 : b.x, y2 = b.y + 66;
+    const dx = Math.max(110, Math.abs(x2 - x1) * .42) * (atras ? -1 : 1);
+    const d = `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
+    const cls = e.kind === 'expected' ? 'unknown'
+      : (a.ui_status === 'red' || b.ui_status === 'red') ? 'broken' : '';
+    return `<g class="dyn" data-edge="${i}" data-from="${esc(e.from)}" data-to="${esc(e.to)}">
+      <path d="${d}" class="edgePath ${cls}"></path>
+      <path d="${d}" class="edgeHit"></path></g>`;
+  }).join('');
 }
 
-/* ══ 7 · LIGAR TUDO ═══════════════════════════════════════════════════════ */
-function controlos() {
-  const p = palco();
-  let arrastando = false, ax = 0, ay = 0;
-  p.addEventListener('pointerdown', ev => {
-    if (ev.target.closest('.peca')) return;
-    arrastando = true; ax = ev.clientX - vista.x; ay = ev.clientY - vista.y;
-    p.classList.add('arrastando'); p.setPointerCapture(ev.pointerId);
+/* ══ 2 · A DICA — o que a peca faz, em portugues comum ════════════════════ */
+function showNodeTip(e, n) {
+  const de = n.inbound.map(i => nodeById[i]?.name).filter(Boolean);
+  const pa = n.outbound.map(i => nodeById[i]?.name).filter(Boolean);
+  tooltip.innerHTML =
+    `<div class="ttName">${esc(n.name)}</div>
+     <div class="ttStatus">${statusLabel(n.ui_status)}${n.legacy ? ' · LEGADO' : ''}</div>
+     <div class="ttLabel">O que faz</div><div class="ttText">${esc(n.what)}</div>
+     <div class="ttLabel">Por que está aqui</div><div class="ttText">${esc(n.why_here)}</div>
+     <div class="ttLabel">Recebe de</div><div class="ttText">${
+       de.length ? esc(de.slice(0, 3).join(' · ')) : '— ninguém'}</div>
+     <div class="ttLabel">Envia para</div><div class="ttText">${
+       pa.length ? esc(pa.slice(0, 3).join(' · ')) : '— ninguém'}</div>
+     <div class="ttLabel">Motivo do estado</div><div class="ttText">${esc(n.status_reason)}</div>`;
+  tooltip.style.display = 'block'; moveTip(e);
+}
+function showEdgeTip(e, d) {
+  const st = d.kind === 'expected' ? 'NÃO SEI — declarada, não provada' : 'LIGAÇÃO PROVADA';
+  const p = d.evidence?.[0];
+  tooltip.innerHTML =
+    `<div class="ttName">${esc(nodeById[d.from]?.name)} → ${esc(nodeById[d.to]?.name)}</div>
+     <div class="ttStatus">${st}</div>
+     <div class="ttLabel">O que passa aqui</div><div class="ttText">${esc(d.payload || d.type)}</div>
+     <div class="ttLabel">Por quê</div><div class="ttText">${esc(d.reason)}</div>
+     <div class="ttLabel">Prova</div><div class="ttText">${
+       p ? esc(p.file + ':' + p.line) : 'não há linha de código que prove'}</div>`;
+  tooltip.style.display = 'block'; moveTip(e);
+}
+function moveTip(e) {
+  let x = e.clientX + 14, y = e.clientY + 14;
+  const w = 344, h = tooltip.offsetHeight || 240;
+  if (x + w > innerWidth) x = e.clientX - w - 14;
+  if (y + h > innerHeight) y = Math.max(8, e.clientY - h - 14);
+  tooltip.style.left = x + 'px'; tooltip.style.top = y + 'px';
+}
+const hideTip = () => { tooltip.style.display = 'none'; };
+
+/* ══ 3 · O PAINEL — o detalhe todo, com a evidencia linha a linha ═════════ */
+function openDetail(id) {
+  const n = nodeById[id]; if (!n) return;
+  workspace.classList.add('detailOpen');
+  const entra = edges.filter(e => e.to === id), sai = edges.filter(e => e.from === id);
+  const negocio = (S.BUSINESS_EDGES || []).filter(b => b.from === id);
+
+  const lig = (arr, dir) => arr.length ? arr.map(e => {
+    const outro = nodeById[dir === 'in' ? e.from : e.to];
+    return `<div class="file"><b>${esc(outro?.name || '?')}</b> · ${esc(e.type)}<br>
+      ${esc(e.reason)}${e.evidence?.length
+        ? '<br>' + e.evidence.slice(0, 3).map(v => esc(v.file + ':' + v.line)).join('<br>')
+        : '<br>⚪ NÃO SEI — declarada, não provada'}</div>`;
+  }).join('') : '<div class="tags"><span class="tag">nenhuma ligação provada</span></div>';
+
+  detail.innerHTML = `
+    <div class="detailHead">
+      <button class="close" id="closeDetail" aria-label="fechar">×</button>
+      <div class="detailSub">${esc(n.kind)}${n.legacy ? ' · legado' : ''}</div>
+      <div class="detailTitle">${esc(n.name)}</div>
+      <span class="statusPill status-${n.ui_status}">${statusLabel(n.ui_status)}</span>
+    </div>
+    <div class="detailBody">
+      ${n.legacy ? `<div class="sec"><div class="evidence" style="border-color:var(--unknown)">
+        <b>LEGADO.</b> Continua no repositório, e por isso aparece no mapa — mas
+        <b>não é a peça oficial de hoje</b>.</div></div>` : ''}
+
+      <div class="sec"><h4>O que faz</h4><p>${esc(n.what)}</p></div>
+      <div class="sec"><h4>Por que está aqui</h4><p>${esc(n.why_here)}</p></div>
+      <div class="sec"><h4>Motivo do estado</h4>
+        <div class="evidence">${esc(n.status_reason)}</div></div>
+
+      ${n.departments?.length ? `<div class="sec"><h4>Departamentos</h4><div class="tags">${
+        n.departments.map(d => `<span class="tag" title="${esc(S.DEPARTMENTS[d] || '')}"
+          >${esc(d.replace(/_/g, ' '))}</span>`).join('')}</div></div>` : ''}
+
+      ${negocio.length ? `<div class="sec"><h4>A quem isto serve (declarado)</h4>${
+        negocio.map(b => `<div class="file"><b>${
+          esc(b.to.replace('DEPT:', '').replace(/_/g, ' '))}</b><br>${esc(b.reason)}<br>
+          fonte: ${esc(b.source)} · declarado por ${esc(b.declared_by)} em ${esc(b.declared_at)}
+          </div>`).join('')}</div>` : ''}
+
+      <div class="sec"><h4>Recebe de (${entra.length})</h4>${lig(entra, 'in')}</div>
+      <div class="sec"><h4>Envia para (${sai.length})</h4>${lig(sai, 'out')}</div>
+
+      ${n.facts?.length ? `<div class="sec"><h4>Medido</h4>${
+        n.facts.map(f => `<div class="file">${esc(f)}</div>`).join('')}</div>` : ''}
+
+      <div class="sec"><h4>Arquivos que implementam isto (${n.files.length})</h4>${
+        n.files.map(f => `<div class="file">${esc(f)}</div>`).join('') ||
+        '<div class="tags"><span class="tag">nenhum</span></div>'}</div>
+
+      ${n.evidence_text ? `<div class="sec"><h4>Evidência usada pelo mapa</h4>
+        <div class="evidence">${esc(n.evidence_text)}</div></div>` : ''}
+
+      ${n.changed_since_declared?.length ? `<div class="sec">
+        <h4>Mudou desde a última leitura humana</h4>${
+        n.changed_since_declared.map(f => `<div class="file">${esc(f)}</div>`).join('')}</div>` : ''}
+
+      <div class="sec"><h4>Snapshot</h4><p>
+        repo <code>${esc(S.PROVENANCE.REPO)}</code><br>
+        branch <code>${esc(S.PROVENANCE.BRANCH)}</code><br>
+        commit <code>${esc(S.PROVENANCE.HEAD.slice(0, 10))}</code><br>
+        gerado <code>${esc(S.PROVENANCE.GENERATED_AT.slice(0, 10))}</code></p></div>
+
+      <div class="sec"><h4>Como pedir mudança</h4><p>Esta tela não altera código —
+        de propósito. Para mudar isto: altere o repositório, rode
+        <code>generate_system_map.py</code> e o mapa acompanha. Nunca o contrário.</p></div>
+
+      <button class="action" id="pathBtn">Mostrar caminho completo desta peça</button>
+    </div>`;
+
+  $('closeDetail').onclick = () => {
+    workspace.classList.remove('detailOpen');
+    detail.innerHTML = '<div class="empty">Clique em uma peça para entender o que faz, '
+      + 'por que está ali, arquivos reais e evidência.</div>';
+    pathSet = null; applyFilters();
+  };
+  $('pathBtn').onclick = () => highlightPath(id);
+}
+
+/* O caminho completo: sobe e desce a partir da peca, mas NUNCA atravessa uma
+   ligacao NAO SEI. Atravessar seria transformar "talvez" em "portanto" — que e
+   exatamente o erro que este mapa existe para nao cometer. */
+function highlightPath(id) {
+  const frente = new Set([id]), tras = new Set([id]);
+  let mudou = true;
+  while (mudou) {
+    mudou = false;
+    edges.forEach(e => {
+      if (e.kind === 'expected') return;
+      if (frente.has(e.from) && !frente.has(e.to)) { frente.add(e.to); mudou = true; }
+      if (tras.has(e.to) && !tras.has(e.from)) { tras.add(e.from); mudou = true; }
+    });
+  }
+  pathSet = new Set([...frente, ...tras]);
+  applyFilters();
+}
+
+/* ══ 4 · FILTROS ═════════════════════════════════════════════════════════ */
+function activeView(n) {
+  if (currentView === 'all') return true;
+  if (currentView === 'official') return n.lane === 'official';
+  if (currentView === 'legacy') return n.lane !== 'official';
+  return (n.views || []).includes(currentView);
+}
+function applyFilters() {
+  const dept = document.querySelector('input[name=dept]:checked')?.value || 'Todos';
+  const stats = new Set([...document.querySelectorAll('input[name=status]:checked')]
+    .map(x => x.value));
+  const q = ($('search').value || '').trim().toLowerCase();
+  const vis = new Set();
+
+  nodes.forEach(n => {
+    let ok = stats.has(n.ui_status) && activeView(n);
+    if (dept !== 'Todos') ok = ok && (n.departments || []).includes(dept);
+    const palheiro = [n.name, n.kind, n.what, n.why_here, n.id, ...(n.files || [])]
+      .join(' ').toLowerCase();
+    const acha = !q || palheiro.includes(q);
+    if (pathSet) ok = ok && pathSet.has(n.id);
+    if (ok && acha) vis.add(n.id);
+    const el = $('node-' + n.id); if (!el) return;
+    el.classList.toggle('hidden', !(ok && acha));
+    el.classList.toggle('searchHit', !!q && acha && ok);
+    el.classList.toggle('highlight', !!(pathSet && pathSet.has(n.id)));
   });
-  p.addEventListener('pointermove', ev => {
-    if (!arrastando) return;
-    vista.x = ev.clientX - ax; vista.y = ev.clientY - ay; aplicarCamera();
+
+  document.querySelectorAll('#edgeLayer .dyn').forEach(g => {
+    const dentro = vis.has(g.dataset.from) && vis.has(g.dataset.to);
+    g.style.display = dentro ? '' : 'none';
+    const p = g.querySelector('.edgePath');
+    p.classList.toggle('highlight',
+      !!(pathSet && pathSet.has(g.dataset.from) && pathSet.has(g.dataset.to)
+         && !p.classList.contains('unknown')));
   });
-  const solta = () => { arrastando = false; p.classList.remove('arrastando'); };
-  p.addEventListener('pointerup', solta);
-  p.addEventListener('pointercancel', solta);
-  p.addEventListener('click', ev => { if (!ev.target.closest('.peca')) fechar(); });
-  p.addEventListener('wheel', ev => {
-    ev.preventDefault();
-    const r = p.getBoundingClientRect();
-    zoom(ev.deltaY < 0 ? 1.13 : 1 / 1.13, ev.clientX - r.left, ev.clientY - r.top);
+
+  const ligVis = edges.filter(e => vis.has(e.from) && vis.has(e.to));
+  $('kNodes').textContent = vis.size;
+  $('kEdges').textContent = ligVis.length;
+  $('kProven').textContent = [...vis].filter(i => nodeById[i].ui_status === 'green').length;
+  $('kUnknown').textContent = [...vis].filter(i => nodeById[i].ui_status === 'gray').length;
+  mini();
+}
+
+/* ══ 5 · CAMERA ══════════════════════════════════════════════════════════ */
+function transform() {
+  scale = Math.max(.03, Math.min(1.5, scale));
+  world.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`;
+  mini();
+}
+function fit() {
+  const r = viewport.getBoundingClientRect();
+  // Se o palco ainda nao tem tamanho, `Math.min` daria escala 0 e o mapa saia
+  // invisivel — desenhado, com tudo no DOM, e a zero pixeis. Tenta no frame
+  // seguinte em vez de publicar uma tela em branco.
+  if (r.width < 2 || r.height < 2) { requestAnimationFrame(fit); return; }
+  scale = Math.min((r.width - 40) / MUNDO.w, (r.height - 40) / MUNDO.h);
+  tx = (r.width - MUNDO.w * scale) / 2;
+  ty = (r.height - MUNDO.h * scale) / 2;
+  transform();
+}
+function mini() {
+  const r = viewport.getBoundingClientRect(), v = $('miniView');
+  v.setAttribute('x', -tx / scale); v.setAttribute('y', -ty / scale);
+  v.setAttribute('width', r.width / scale); v.setAttribute('height', r.height / scale);
+}
+function renderMini() {
+  const cor = { green: 'var(--ok)', yellow: 'var(--warn)',
+                red: 'var(--bad)', gray: 'var(--unknown)' };
+  $('miniNodes').innerHTML = nodes.map(n =>
+    `<rect x="${n.x}" y="${n.y}" width="285" height="132" rx="14"
+           fill="${cor[n.ui_status]}"/>`).join('');
+}
+
+/* ══ 6 · INVENTARIO — o repositorio inteiro, sem acreditar na palavra do mapa ═ */
+function renderInventory(q = '') {
+  q = q.toLowerCase();
+  $('inventoryBody').innerHTML = Object.entries(S.INVENTORY).map(([grupo, arr]) => {
+    const a = arr.filter(x => x.toLowerCase().includes(q));
+    if (!a.length) return '';
+    return `<section class="invGroup"><h3>${esc(grupo)} · ${a.length}</h3>
+      <div class="invGrid">${a.map(x => `<div class="invFile">${esc(x)}</div>`).join('')}
+      </div></section>`;
+  }).join('') || '<p style="font-size:11px">Nenhum caminho com esse filtro.</p>';
+}
+
+/* ══ 7 · LIGAR TUDO ══════════════════════════════════════════════════════ */
+function bind() {
+  nodes.forEach(n => {
+    const el = $('node-' + n.id); if (!el) return;
+    el.addEventListener('mouseenter', e => showNodeTip(e, n));
+    el.addEventListener('mousemove', moveTip);
+    el.addEventListener('mouseleave', hideTip);
+    el.addEventListener('click', e => { e.stopPropagation(); openDetail(n.id); });
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDetail(n.id); }
+    });
+  });
+  document.querySelectorAll('#edgeLayer .dyn').forEach(g => {
+    const e = edges[+g.dataset.edge], hit = g.querySelector('.edgeHit');
+    hit.addEventListener('mouseenter', ev => showEdgeTip(ev, e));
+    hit.addEventListener('mousemove', moveTip);
+    hit.addEventListener('mouseleave', hideTip);
+  });
+
+  viewport.addEventListener('pointerdown', e => {
+    if (e.target.closest('.node')) return;
+    drag = true; lx = e.clientX; ly = e.clientY;
+    viewport.classList.add('dragging'); viewport.setPointerCapture?.(e.pointerId);
+  });
+  viewport.addEventListener('pointermove', e => {
+    if (!drag) return;
+    tx += e.clientX - lx; ty += e.clientY - ly; lx = e.clientX; ly = e.clientY; transform();
+  });
+  const solta = () => { drag = false; viewport.classList.remove('dragging'); };
+  viewport.addEventListener('pointerup', solta);
+  viewport.addEventListener('pointercancel', solta);
+  viewport.addEventListener('wheel', e => {
+    e.preventDefault();
+    const r = viewport.getBoundingClientRect();
+    const mx = e.clientX - r.left, my = e.clientY - r.top, velho = scale;
+    scale = Math.max(.03, Math.min(1.5, scale * (e.deltaY < 0 ? 1.13 : 1 / 1.13)));
+    tx = mx - (mx - tx) * (scale / velho);
+    ty = my - (my - ty) * (scale / velho);
+    transform();
   }, { passive: false });
 
-  $('#mais').onclick = () => zoom(1.3);
-  $('#menos').onclick = () => zoom(1 / 1.3);
-  $('#tudo').onclick = () => { fechar(); ajustar(); };
-  $('#busca').addEventListener('input', ev => {
-    filtro.busca = ev.target.value; filtro.caminho = false; aplicarFiltros(); });
-  addEventListener('keydown', ev => {
-    if (ev.key === 'Escape') { fechar(); $('#busca').blur(); }
-    if (ev.key === '/' && document.activeElement !== $('#busca')) {
-      ev.preventDefault(); $('#busca').focus(); }
-  });
-  addEventListener('resize', minimapaVp);
-
-  const sel = (id, campo, itens, vazio) => {
-    const s = $(id);
-    s.innerHTML = `<option value="">${vazio}</option>` +
-      itens.map(([v, r]) => `<option value="${esc(v)}">${esc(r)}</option>`).join('');
-    s.onchange = () => { filtro[campo] = s.value; filtro.caminho = false; aplicarFiltros(); };
+  $('plus').onclick = () => { scale *= 1.18; transform(); };
+  $('minus').onclick = () => { scale *= .84; transform(); };
+  $('fit').onclick = fit;
+  $('reset').onclick = () => {
+    pathSet = null; $('search').value = '';
+    workspace.classList.remove('detailOpen'); applyFilters();
   };
-  sel('#f-terr', 'terr', S.TERRITORIES.map(t => [t.id, t.name]), 'todos os territorios');
-  sel('#f-dept', 'dept', Object.keys(S.DEPARTMENTS)
-    .map(d => [d, d.replace(/_/g, ' ')]), 'todos os departamentos');
-  sel('#f-kind', 'kind', [...new Set(S.NODES.map(n => n.kind))].sort()
-    .map(k => [k, k]), 'todos os tipos');
-  // OFICIAL vs LEGADO. Sem este filtro, uma peca legada senta-se ao lado da
-  // oficial com a mesma cara — e quem nao conhece o historico do repositorio
-  // nao tem como saber qual das duas e o caminho de hoje.
-  const sl = $('#f-legado');
-  sl.innerHTML = '<option value="">oficial e legado</option>' +
-    '<option value="oficial">só o oficial</option>' +
-    '<option value="legado">só o legado</option>';
-  sl.onchange = () => { filtro.legado = sl.value; filtro.caminho = false; aplicarFiltros(); };
 
-  $('#placar').innerHTML = ['PROVEN', 'PENDING', 'BROKEN', 'UNKNOWN'].map(s => {
-    const n = S.NODES.filter(x => x.status === s).length;
-    return `<button data-st="${s}" aria-pressed="true" title="${ROTULO[s]}">
-      <span class="bola" style="background:${CORES[s]}"></span>${n}</button>`;
-  }).join('') + '<span id="conta" style="align-self:center;color:var(--ink-mute)"></span>';
-  $('#placar').querySelectorAll('[data-st]').forEach(b => b.onclick = () => {
-    const s = b.dataset.st;
-    filtro.status.has(s) ? filtro.status.delete(s) : filtro.status.add(s);
-    b.setAttribute('aria-pressed', filtro.status.has(s));
-    aplicarFiltros();
-  });
+  $('search').addEventListener('input', applyFilters);
+  document.querySelectorAll('input[name=dept],input[name=status]')
+    .forEach(x => x.addEventListener('change', applyFilters));
+  document.querySelectorAll('.sideBtn[data-view]').forEach(b =>
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.sideBtn[data-view]').forEach(x =>
+        x.classList.remove('active'));
+      b.classList.add('active'); currentView = b.dataset.view;
+      pathSet = null; applyFilters();
+    }));
+
+  const modal = $('inventoryModal');
+  $('openInventory').onclick = () => { renderInventory(); modal.classList.add('open'); };
+  $('closeInventory').onclick = () => modal.classList.remove('open');
+  $('invSearch').addEventListener('input', e => renderInventory(e.target.value));
+  addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('open'); });
+  addEventListener('resize', mini);
 }
 
 async function arrancar() {
   try {
     S = await (await fetch('state.generated.json', { cache: 'no-store' })).json();
-  } catch (e) {
-    $('#palco').innerHTML = `<p style="padding:80px 22px">Nao consegui ler
-      <code>state.generated.json</code>. Corra
-      <code>py system-map/scripts/generate_system_map.py</code>.</p>`;
+  } catch (err) {
+    document.querySelector('.mapWrap').innerHTML =
+      '<p style="padding:80px 24px;font-size:13px">Não consegui ler '
+      + '<code>state.generated.json</code>. Rode '
+      + '<code>py system-map/scripts/generate_system_map.py</code>.</p>';
     return;
   }
-  document.getElementById('semjs')?.remove();
-  const c = S.COUNTS;
-  $('#carimbo').innerHTML =
-    `${esc(S.PROVENANCE.REPO)} · ${esc(S.PROVENANCE.BRANCH)}<br>` +
-    `${esc(S.PROVENANCE.HEAD.slice(0, 10))} · gerado ${esc(S.PROVENANCE.GENERATED_AT.slice(0, 10))}<br>` +
-    `${c.components} pecas · ${c.edges} ligacoes · ${c.files_covered}/${c.files_tracked} ficheiros`;
-  dispor(); desenhar(); controlos(); aplicarFiltros(); ajustar();
+  nodes = S.NODES; edges = S.EDGES; MUNDO = S.WORLD;
+  nodeById = Object.fromEntries(nodes.map(n => [n.id, n]));
+
+  const c = S.COUNTS, P = S.PROVENANCE;
+  $('snapshotTop').innerHTML =
+    `<b>REPO</b> ${esc(P.REPO)}<br>` +
+    `<b>BRANCH</b> ${esc(P.BRANCH)} @ ${esc(P.HEAD.slice(0, 7))}<br>` +
+    `<b>GERADO</b> ${esc(P.GENERATED_AT.slice(0, 10))} · ` +
+    `${c.files_covered}/${c.files_tracked} arquivos cobertos`;
+
+  // O aviso do topo nao e texto fixo: conta o que o mapa ACABOU de medir. Um
+  // banner escrito a mao continuaria a avisar de um problema ja resolvido.
+  const cinza = nodes.filter(n => n.ui_status === 'gray');
+  $('warning').innerHTML = cinza.length
+    ? `<b>${cinza.length} peça(s) em NÃO SEI:</b> ${
+        esc(cinza.map(n => n.name).join(' · '))}. Existem no repositório, e nada
+        aponta para elas nem elas apontam para nada — o mapa não inventa a ligação
+        que falta.`
+    : '<b>Nenhuma peça em NÃO SEI neste commit.</b> Toda peça tem pelo menos uma '
+      + 'ligação provada por linha de código.';
+
+  $('views').innerHTML = VISOES.map(([v, ic, rot]) =>
+    `<button class="sideBtn ${v === 'all' ? 'active' : ''}" data-view="${v}">
+      <span>${ic}</span>${esc(rot)}</button>`).join('');
+  $('depts').innerHTML = '<label class="check"><input type="radio" name="dept" '
+    + 'value="Todos" checked>Todos</label>'
+    + Object.entries(S.DEPARTMENTS).map(([k, desc]) =>
+      `<label class="check" title="${esc(desc)}"><input type="radio" name="dept"
+        value="${esc(k)}">${esc(k.replace(/_/g, ' '))}</label>`).join('');
+
+  render(); bind(); renderMini(); applyFilters();
+  requestAnimationFrame(fit);
 
   const alvo = location.hash.slice(1);
-  if (alvo && nos.has(alvo)) abrir(alvo);
+  if (alvo && nodeById[alvo]) openDetail(alvo);
 }
 arrancar();

@@ -1,66 +1,1182 @@
 {
   "SCHEMA": "sintonia.system-map.state/1",
+  "WORLD": {
+    "w": 8015,
+    "h": 2462
+  },
+  "INVENTORY": {
+    "(raiz)": [
+      ".gitattributes",
+      ".gitignore",
+      ".vercelignore",
+      "AGENTS.md",
+      "CASCO-CLIENT-DEMO.md",
+      "CLAUDE.md",
+      "DEPOIS-DO-PORTAL.md",
+      "HANDOFF-BUILD-DA-REUNIAO.md",
+      "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
+      "HANDOFF-V2-PAUSE.json",
+      "HANDOFF-V2-PAUSE.md",
+      "PORTAL-CAPABILITY-INVENTORY.md",
+      "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
+      "README.md",
+      "package.json",
+      "vercel.json"
+    ],
+    ".github": [
+      ".github/copilot-instructions.md",
+      ".github/workflows/adama-es-gate.yml",
+      ".github/workflows/apify-conexao.yml",
+      ".github/workflows/apify-sensores.yml",
+      ".github/workflows/calendario-regressoes.yml",
+      ".github/workflows/comunicacao-publica.yml",
+      ".github/workflows/supabase-conexao.yml",
+      ".github/workflows/supabase-fichas-adama.yml",
+      ".github/workflows/supabase-migrate.yml",
+      ".github/workflows/supabase-raw-roundtrip.yml",
+      ".github/workflows/supabase-storage.yml",
+      ".github/workflows/system-map.yml"
+    ],
+    "build": [
+      "build/ITALY-REALITY-HANDOFF-V2/AGROMET-CONDITIONS.json",
+      "build/ITALY-REALITY-HANDOFF-V2/CANONICAL-INTELLIGENCE.json",
+      "build/ITALY-REALITY-HANDOFF-V2/COMMERCIAL-CATALOG.json",
+      "build/ITALY-REALITY-HANDOFF-V2/COMPETITOR-PUBLIC-SIGNALS.json",
+      "build/ITALY-REALITY-HANDOFF-V2/CONFLICT-RESOLUTION.json",
+      "build/ITALY-REALITY-HANDOFF-V2/CROP-ECONOMIC-WEIGHT.json",
+      "build/ITALY-REALITY-HANDOFF-V2/CURRENT-FIELD-SIGNALS.json",
+      "build/ITALY-REALITY-HANDOFF-V2/FUTURE-EVENTS.json",
+      "build/ITALY-REALITY-HANDOFF-V2/HANDOFF-V2-REPORT.md",
+      "build/ITALY-REALITY-HANDOFF-V2/HERBICIDE-CURRENT-CONTEXT.json",
+      "build/ITALY-REALITY-HANDOFF-V2/MANIFEST.json",
+      "build/ITALY-REALITY-HANDOFF-V2/MARKET-OBSERVATIONS.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/00-START-HERE/EXECUTIVE-SUMMARY.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/00-START-HERE/FAKE-TO-REAL-REPLACEMENTS.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/00-START-HERE/O-QUE-MUDOU-NESTA-NOITE.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/00-START-HERE/README-FIRST.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/00-START-HERE/REALITY-COUNTS.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/00-START-HERE/TOP-REAL-CONTENT-FOR-DEMO.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/00-START-HERE/WHAT-TO-USE-IN-THE-PORTAL.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-crop-problem-product.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-fungicides.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-herbicides.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-insecticides.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-crops.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-other-lines.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ARCHIVE/PENDING-atos-ue-2026.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ARCHIVE/PENDING-modena-adama.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ARCHIVE/archive-index.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/COMPETITOR-WATCH/competitor-activities.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/COMPETITOR-WATCH/competitor-companies.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/COMPETITOR-WATCH/competitor-products.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/CONVERGENCE/convergence.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/CROP-WINDOWS/OVERNIGHT-SYNTHESIS.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/CROP-WINDOWS/PENDING-trentino-er.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/CROP-WINDOWS/ROUTE-TEST-ISMEA-ISTAT.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/CROP-WINDOWS/crop-windows.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/CROP-WINDOWS/current-phenology.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/CROP-WINDOWS/regional-bulletin-sources.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/EVENTS/events.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/FUTURE-RADAR/future-signals.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/LABEL-USE/label-term-census.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/LABEL-USE/label-use-pairs.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/MARKET-PULSE/FEASIBILITY-AUDIT.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/MARKET-PULSE/crop-market-summaries.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/MARKET-PULSE/crop-summary-frumento-duro.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/MARKET-PULSE/crop-summary-mais.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/MARKET-PULSE/crop-summary-olivo---olio-di-oliva.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/MARKET-PULSE/crop-summary-riso.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/MARKET-PULSE/crop-summary-vite---vino.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/MARKET-PULSE/market-capabilities.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/MARKET-PULSE/market-pulse.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/MARKET-PULSE/market-sources.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/NEWS/news.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/OPPORTUNITIES/opportunities.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/PEOPLE/people.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/RELATIONSHIPS/convergence-links.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/RELATIONSHIPS/entity-links.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/SCIENCE/PENDING-gire-mapas.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/SCIENCE/herbicide-resistance.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/SCIENCE/research-themes.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/SCIENCE/researchers.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/SCIENCE/scientific-records.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/SOURCES/sources.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/VOCI-DAL-CAMPO/field-voices.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/VOCI-DAL-CAMPO/italian-channels.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-DEMO-STORIES/AS-CINCO-HISTORIAS.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ADAMA-ITALY-HERBICIDE-UNIVERSE.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ADAMA-ITALY-PORTFOLIO-DEEP-DIVE.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/FAKE_TO_REAL_REPLACEMENT_PLAN.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-AUDITORIA-DO-PAR.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-COMPETITOR-REAL-ACTIVITY.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-CREATORS-REALITY.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-CROP-WINDOWS-REAL-EVIDENCE.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-DEMO-REALITY-MASTER-INDEX.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-EVENTS-AND-FAIRS.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-EXISTING-REALITY-INVENTORY.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-FONTES-PRIMARIAS-RELATORIO.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-FUTURE-RADAR-REAL-SIGNALS.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-NEWS-REAL-SIGNALS.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-OPPORTUNITY-CANDIDATES-REAL.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-PIEMONTE-FLAVESCENZA-2026.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-REGIONAL-CROP-REALITY.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-REGUA-RESULTADO-V0.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-SCIENCE-RESEARCHER-REALITY.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-SOCIAL-REALITY.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-VIDEO-TRANSCRIPT-REALITY.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/ITALY-VOCI-DAL-CAMPO-REAL-SOURCES.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/REGUA-ITALIA-FITOSSANITARIA.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/02-RESEARCH-ARCHIVE/TOP-50-REAL-OBJECTS.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/03-SOURCE-REGISTRY/MASTER-SOURCE-REGISTRY.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/03-SOURCE-REGISTRY/MASTER-SOURCE-REGISTRY.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/04-PROVENANCE/PROVENANCE-MATRIX.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/04-PROVENANCE/REAL-vs-DEMO-SUMMARY.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/05-GAPS-AND-LIMITS/DO-NOT-CLAIM.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/05-GAPS-AND-LIMITS/KNOWN-GAPS.md",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/06-HANDOFF-MANIFEST/DESIGN-HANDOFF.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/06-HANDOFF-MANIFEST/ID-INDEX.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/06-HANDOFF-MANIFEST/PROSA-COPIADA.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/06-HANDOFF-MANIFEST/VALIDATION-REPORT.json",
+      "build/ITALY-REALITY-HANDOFF-V2/PUBLIC-VOICES.json",
+      "build/ITALY-REALITY-HANDOFF-V2/QUARANTINED-RECORDS.json",
+      "build/ITALY-REALITY-HANDOFF-V2/README-FIRST.md",
+      "build/ITALY-REALITY-HANDOFF-V2/REGULATORY-FUTURE.json",
+      "build/ITALY-REALITY-HANDOFF-V2/RELATIONSHIPS.json",
+      "build/ITALY-REALITY-HANDOFF-V2/SOURCES.json",
+      "build/ITALY-REALITY-HANDOFF-V2/TOP-CROSSINGS.json",
+      "build/ITALY-REALITY-HANDOFF-V2/VALIDATION-MANIFEST.json",
+      "build/sintonia-es.html"
+    ],
+    "data": [
+      "data/i18n/v21-traducoes-nucleo.json",
+      "data/i18n/v21-traducoes.json",
+      "data/normalized/.gitkeep",
+      "data/raw/.gitkeep",
+      "data/raw/IT-ROTULOS/_MANIFESTO.json",
+      "data/samples/.gitkeep",
+      "data/samples/ADAMA-ES-CONFIRMACAO-REGULATORIA-DO-PAR.json",
+      "data/samples/ADAMA-ES-DOCUMENTOS-MANIFEST.csv",
+      "data/samples/ADAMA-ES-HANDOFF-GATE-V1.json",
+      "data/samples/ADAMA-ES-PRESERVACAO-DIAGNOSTICO.json",
+      "data/samples/ADAMA-ES-PRESERVACAO-PLANO.json",
+      "data/samples/ADAMA-ES-PRESERVACAO-RELATORIO.json",
+      "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json",
+      "data/samples/AGRONOMIC-CALENDAR-DESIGN-DATA-CONTRACT-V1.json",
+      "data/samples/ASK-SINTONIA-ACCEPTANCE-ES.json",
+      "data/samples/ASK-SINTONIA-EAME-MULTIPAIS-V1.json",
+      "data/samples/ASK-SINTONIA-benchmark.json",
+      "data/samples/ASK-SINTONIA-teste.json",
+      "data/samples/AUDITORIA-REGRA-COLETA-EXTERNA.json",
+      "data/samples/AUDITORIA-SOMBRA/AUDITORIA-REGUA-COMERCIAL-37.json",
+      "data/samples/AUDITORIA-SOMBRA/V11-ANTES-E-DEPOIS.json",
+      "data/samples/BACKTEST-REPILO-LEAD-TIME.json",
+      "data/samples/BENCHMARK-ORDENACAO-B2.json",
+      "data/samples/BENCHMARK-RESEARCH-SAVING-B1.json",
+      "data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json",
+      "data/samples/CAPTURE-VS-REGISTRATION-CONTRACT-V1.json",
+      "data/samples/CASE-006-es41-rain-window-vs-yield.json",
+      "data/samples/CHANGE-EVENTS-es-2025-2026.json",
+      "data/samples/COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1.json",
+      "data/samples/COMPETITOR-PUBLIC-COMM/CLASSIFICADO-V1.json",
+      "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+      "data/samples/COMPETITOR-PUBLIC-COMM/MEDICAO-PRIMEIRO-LOTE-V1.json",
+      "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json",
+      "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json",
+      "data/samples/COMPETITOR-azoxy-prothio-italy.json",
+      "data/samples/CROSS-MARKET-prothioconazole-cereal.json",
+      "data/samples/DATA-CLOCK-manifest.json",
+      "data/samples/DESIGN-DATA-CONTRACT-V1.json",
+      "data/samples/DISPLAY-LAYER-V1.json",
+      "data/samples/EAME-COMPARABILITY-CONTRACT-V1.json",
+      "data/samples/EAME-COMPETITOR-CONTRACT-V1.json",
+      "data/samples/EAME-COUNTRY-PRODUCT-INPUTS-V1.json",
+      "data/samples/EAME-RELATIONSHIP-CONTRACT-V1.json",
+      "data/samples/ES-ACTION-MAP-V2.json",
+      "data/samples/ES-ADAMA-PORTFOLIO-ROPF.json",
+      "data/samples/ES-AREA-CEREAIS-MAPA.json",
+      "data/samples/ES-CASE-001-OLIVO-REPILO.json",
+      "data/samples/ES-CASE-002-MAIZ-AMARANTHUS.json",
+      "data/samples/ES-CASE-003-CEREAL-GRAMINEAS.json",
+      "data/samples/ES-CASES-COMPARACAO-E-ACAO.json",
+      "data/samples/ES-CASO-MILHO-AMARANTHUS.json",
+      "data/samples/ES-CEREAIS-PARES-ROPF.json",
+      "data/samples/ES-CIENCIA-PARA-VOZ.json",
+      "data/samples/ES-CIENCIA-PARES-AUTORES.json",
+      "data/samples/ES-COMPARACAO-TRES-TERRITORIOS.json",
+      "data/samples/ES-COMPETITOR-VOICE.json",
+      "data/samples/ES-HERO-001-MILHO-AMARANTHUS-ACAO.json",
+      "data/samples/ES-HERO-002-OLIVAR-REPILO-ACAO.json",
+      "data/samples/ES-HERO-003-CEREAIS-SEPTORIA-ACAO.json",
+      "data/samples/ES-M11-DERIVACOES.json",
+      "data/samples/ES-MAPA-VOCABULARIO-IDS.json",
+      "data/samples/ES-MILHO-PARES-ROPF.json",
+      "data/samples/ES-PRESSAO-x-AREA-OLIVAR.json",
+      "data/samples/ES-RESEARCHERS-OLIVE.json",
+      "data/samples/ES-REVIEW-HANDOFFS.json",
+      "data/samples/ES-ROTA-DO-PAR-CROP-ISSUE.json",
+      "data/samples/ES-ROTAS-ESTRUTURADAS-M11B.json",
+      "data/samples/ES-T2-002-pac-maiz-aragon.json",
+      "data/samples/ES-T2-003-crosswalk-municipio-aragon.json",
+      "data/samples/ES-T3-001-raif-olivar-repilo-2026.json",
+      "data/samples/ES-T3-001-raif-vid-mildiu-2026.json",
+      "data/samples/ES-T3-001-repilo-serie-historica.json",
+      "data/samples/ES-T3-002-raif-cereales-invierno.json",
+      "data/samples/ES-T4-001/ES-T4-002-autorizaciones-excepcionales.json",
+      "data/samples/ES-T4-001/eppo-dictionary.json",
+      "data/samples/ES-T4-001/jerarquia.xlsx",
+      "data/samples/ES-T4-001/plagas.xlsx",
+      "data/samples/ES-T4-004-denominaciones-comunes.json",
+      "data/samples/ES-T4-004-denominaciones-medida.json",
+      "data/samples/ES-T4-004-denominaciones-padrao.json",
+      "data/samples/ES-T4-004-versoes/LEIA-ME.md",
+      "data/samples/ES-T4-005-denominadores-ropf.json",
+      "data/samples/ES-T4-005-divergencia-resolvida.json",
+      "data/samples/ES-T4-005-ficha-primaria-es01717.json",
+      "data/samples/ES-T4-005/LEIA-ME.md",
+      "data/samples/ES-T5-002-corpus-documentos.json",
+      "data/samples/ES-T6-001-adv-catalunya.json",
+      "data/samples/ES-T8-001-baseline-canais.json",
+      "data/samples/ES-T8-001-comentarios.json",
+      "data/samples/ES-T8-001-transcricoes.json",
+      "data/samples/ES-T8-001-videos.json",
+      "data/samples/ES-T8-002-entradas-enriquecimento.json",
+      "data/samples/ES-T8-002-posts.json",
+      "data/samples/ES-VOICE-INSTAGRAM.json",
+      "data/samples/ES-VOICE-LINKEDIN.json",
+      "data/samples/ES-VOICE-MEDIA-ROUTES.json",
+      "data/samples/ES-VOICE-YOUTUBE.json",
+      "data/samples/ES-VOICE-x-REGUA.json",
+      "data/samples/ES-VOZ-x-MATRIZ-DE-PRIORIDADE.json",
+      "data/samples/ES-X-VOICE-FIELD.json",
+      "data/samples/ES-X-VOICE-SCIENCE.json",
+      "data/samples/EU-T1-001-nuts2-crop-area.json",
+      "data/samples/EU-T1-002-wheat-yield-country.json",
+      "data/samples/EU-T10-001-cereal-prices.json",
+      "data/samples/EU-T4-001/CELEX-32026R1696-eng.xhtml",
+      "data/samples/EU-T4-001/evidence-32026R1696.json",
+      "data/samples/EU-T4-001/sparql-active-substance-2026.json",
+      "data/samples/EU-T5-001-openalex-people.json",
+      "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
+      "data/samples/FR-T13-001-distribution.json",
+      "data/samples/FR-T4-001/FR-T4-001-adama-crop-target.json",
+      "data/samples/FR-T4-001/FR-T4-001-adama-produtos.json",
+      "data/samples/FR-T4-001/substance_active_utf8.csv",
+      "data/samples/INVENTARIO-SCRATCHPAD-HANDOFF.json",
+      "data/samples/IT-ARPAV-VENETO/boll.txt",
+      "data/samples/IT-ARPAV-VENETO/fe.txt",
+      "data/samples/IT-ARPAV-VENETO/frutticolo_24_260826.txt",
+      "data/samples/IT-ARPAV-VENETO/lug_full.txt",
+      "data/samples/IT-ARPAV-VENETO/olivicolo_29_020926.txt",
+      "data/samples/IT-ARPAV-VENETO/orticolo_22_260826.txt",
+      "data/samples/IT-ARPAV-VENETO/staz_18.json",
+      "data/samples/IT-ARPAV-VENETO/staz_19.json",
+      "data/samples/IT-ARPAV-VENETO/staz_20004.json",
+      "data/samples/IT-ARPAV-VENETO/staz_20008.json",
+      "data/samples/IT-ARPAV-VENETO/staz_20066.json",
+      "data/samples/IT-ARPAV-VENETO/staz_23.json",
+      "data/samples/IT-ARPAV-VENETO/tab_300000079.json",
+      "data/samples/IT-ARPAV-VENETO/tab_300000092.json",
+      "data/samples/IT-ARPAV-VENETO/tab_300000139.json",
+      "data/samples/IT-ARPAV-VENETO/vite_20_270826.txt",
+      "data/samples/IT-BOLLETTINI-VPN-2026/IT-DIRETORIO-NACIONAL-BOLETINS-FITOGEST.json",
+      "data/samples/IT-BOLLETTINI-VPN-2026/txt/CAMP_AV-26-08.txt",
+      "data/samples/IT-BOLLETTINI-VPN-2026/txt/CAMP_BN-26-08.txt",
+      "data/samples/IT-BOLLETTINI-VPN-2026/txt/CAMP_CE-26-08.txt",
+      "data/samples/IT-BOLLETTINI-VPN-2026/txt/CAMP_NA-26-08.txt",
+      "data/samples/IT-BOLLETTINI-VPN-2026/txt/CAMP_SA-26-08.txt",
+      "data/samples/IT-BOLLETTINI-VPN-2026/txt/LAZIO_BOLSENA.txt",
+      "data/samples/IT-BOLLETTINI-VPN-2026/txt/LAZIO_ENTROTERRA_TUSCIA.txt",
+      "data/samples/IT-BOLLETTINI-VPN-2026/txt/LAZIO_LITORALE_VITERBESE.txt",
+      "data/samples/IT-BOLLETTINI-VPN-2026/txt/LAZIO_PIANURA_INTERNA_VITERBESE.txt",
+      "data/samples/IT-BOLLETTINI-VPN-2026/txt/LAZIO_SABINA.txt",
+      "data/samples/IT-BOLLETTINI-VPN-2026/txt/MOLISE_comunicato_5_2026.txt",
+      "data/samples/IT-BOLLETTINI-VPN-2026/txt/TN_DIB22_07ago2026.txt",
+      "data/samples/IT-BOLLETTINI-VPN-2026/txt/TN_DIB23_14ago2026.txt",
+      "data/samples/IT-BOLLETTINI-VPN-2026/txt/TN_DIB24_21ago2026.txt",
+      "data/samples/IT-BOLLETTINI-VPN-2026/txt/TN_DIB25_28ago2026.txt",
+      "data/samples/IT-CAMPO-ATUAL/IT-FLAVESCENZA-REGIOES-V1.json",
+      "data/samples/IT-CAMPO-ATUAL/IT-SINAIS-CAMPO-SETEMBRO-2026.json",
+      "data/samples/IT-CATALOGO/IT-ADAMA-CATALOG-CENSUS-2026-09-02.json",
+      "data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json",
+      "data/samples/IT-CIENCIA/IT-GIRE-RESISTENCIA-V1.json",
+      "data/samples/IT-CIENCIA/IT-GIRE-RESISTENCIA-V2.json",
+      "data/samples/IT-COMPLETUDE/IT-COMPLETUDE-OPORTUNIDADE.json",
+      "data/samples/IT-CRUZAMENTO/IT-CONVERSA-X-ROTULO.json",
+      "data/samples/IT-GIRE-MAPAS/gire-mapas-nacionais.json",
+      "data/samples/IT-GIRE-MAPAS/linee-guida/Linee_guida_Clearfield_Provisia_2026.txt",
+      "data/samples/IT-GIRE-MAPAS/linee-guida/Linee_guida_Conviso_Smart.txt",
+      "data/samples/IT-GIRE-MAPAS/linee-guida/Linee_guida_arboree.txt",
+      "data/samples/IT-GIRE-MAPAS/linee-guida/Linee_guida_cereali.txt",
+      "data/samples/IT-GIRE-MAPAS/linee-guida/Linee_guida_colture_sarchiate.txt",
+      "data/samples/IT-GIRE-MAPAS/linee-guida/Linee_guida_riso.txt",
+      "data/samples/IT-GIRE-MAPAS/linee-guida/linee_guida_AMA_soia_marzo2022.txt",
+      "data/samples/IT-GIRE-MAPAS/linee-guida/linee_guida_agricoltura_conservativa.txt",
+      "data/samples/IT-GIRE-MAPAS/linee-guida/linee_guida_girasole_2016.txt",
+      "data/samples/IT-GIRE-MAPAS/linee-guida/linee_guida_medica.txt",
+      "data/samples/IT-ISTAT-COLTIVAZIONI/istat_101_1015_coltivazioni_regioni_2024_2026.csv",
+      "data/samples/IT-ISTAT-COLTIVAZIONI/pull_extra.csv",
+      "data/samples/IT-ISTAT-COLTIVAZIONI/pull_istat_coltivazioni.py",
+      "data/samples/IT-ISTAT-COLTIVAZIONI/pull_legnose.csv",
+      "data/samples/IT-ISTAT-COLTIVAZIONI/pull_pomodoro.csv",
+      "data/samples/IT-ISTAT-COLTIVAZIONI/pull_seminativi.csv",
+      "data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json",
+      "data/samples/IT-LASTMILE/IT-LASTMILE-INVENTARIO.json",
+      "data/samples/IT-LASTMILE/IT-ROTA-COM_VPN_IT.json",
+      "data/samples/IT-LASTMILE/IT-ROTA-SEM_VPN.json",
+      "data/samples/IT-MERCADO/EU-AGRIFOOD-cereal-prices-IT.json",
+      "data/samples/IT-MERCADO/EU-AGRIFOOD-cereal-production-IT.json",
+      "data/samples/IT-MERCADO/EU-AGRIFOOD-oliveOil-prices-IT.json",
+      "data/samples/IT-MERCADO/EU-AGRIFOOD-wine-prices-IT.json",
+      "data/samples/IT-MERCADO/EUROSTAT-apri_pi_inq-input-price-index-IT.json",
+      "data/samples/IT-MERCADO/EUROSTAT-apri_pi_outq-output-price-index-IT.json",
+      "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json",
+      "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V2.json",
+      "data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json",
+      "data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json",
+      "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json",
+      "data/samples/IT-T4-001/IT-T4-001-adama-expiries.json",
+      "data/samples/IT-T4-001/IT-T4-001-adama-portfolio.json",
+      "data/samples/IT-T4-001/IT-T4-001-enriquecimento-validado.json",
+      "data/samples/IT-T4-001/IT-T4-001-validacao-contra-v21.json",
+      "data/samples/IT-V2/IT-V2-CANONICO.json",
+      "data/samples/IT-V2/IT-V2-CONFLITOS.json",
+      "data/samples/IT-V2/IT-V2-QA-ATRIBUIDO.json",
+      "data/samples/ITALY-RADAR-DO-FUTURO-V1.json",
+      "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
+      "data/samples/PIEMONTE-FD/aggiornamento_2025_strategie2026_pt.txt",
+      "data/samples/PIEMONTE-FD/area_delimitata_2026_pt.txt",
+      "data/samples/PIEMONTE-FD/bacheca.html",
+      "data/samples/PIEMONTE-FD/dash.html",
+      "data/samples/PIEMONTE-FD/dd_280_2026.txt",
+      "data/samples/PIEMONTE-FD/dd_280_2026_pt.txt",
+      "data/samples/PIEMONTE-FD/insetticidi_ammessi_2026.err",
+      "data/samples/PIEMONTE-FD/insetticidi_ammessi_2026.txt",
+      "data/samples/PIEMONTE-FD/insetticidi_ammessi_2026_pt.txt",
+      "data/samples/PIEMONTE-FD/locandina_2026_pt.txt",
+      "data/samples/PIEMONTE-FD/pagina.html",
+      "data/samples/PIEMONTE-FD/pagina.txt",
+      "data/samples/PIEMONTE-FD/piano_operativo_2026.err",
+      "data/samples/PIEMONTE-FD/piano_operativo_2026.txt",
+      "data/samples/PIEMONTE-FD/piano_operativo_2026_pt.txt",
+      "data/samples/PIEMONTE-FD/progetti_pilota_2025_pt.txt",
+      "data/samples/PIEMONTE-FD/sintesi_disposizioni_2026.err",
+      "data/samples/PIEMONTE-FD/sintesi_disposizioni_2026.txt",
+      "data/samples/PIEMONTE-FD/sintesi_disposizioni_2026_pt.txt",
+      "data/samples/PILOT-SCOPE-MATRIX-V1.json",
+      "data/samples/POLITICA-RAW-ROTA-PAGA.json",
+      "data/samples/PORTAO-10B-ES.json",
+      "data/samples/PORTAO-DE-REDE-ES-CURRENT.json",
+      "data/samples/PORTAO-DE-REDE-ES.json",
+      "data/samples/PORTOES-EAME.json",
+      "data/samples/PUBLIC-TECHNICAL-VOICE-QUEUE-ES.json",
+      "data/samples/RADAR-ADAMA-prothioconazole.json",
+      "data/samples/RADAR-DO-FUTURO-CONTRACT-V1.json",
+      "data/samples/RAIF-COORTE-REPILO.json",
+      "data/samples/RAW-GATE-ES.json",
+      "data/samples/RAW-PESADO-CONGELADO.txt",
+      "data/samples/REDTEAM-CASE-014-datas.json",
+      "data/samples/RESEARCHER-CORPUS-EAME-V1.json",
+      "data/samples/RESEARCHER-OUTLOOK-V1.json",
+      "data/samples/RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json",
+      "data/samples/ROTAS-EXTERNAS-TESTADAS-M09.json",
+      "data/samples/RUN-MANIFEST.json",
+      "data/samples/SENSOR-PILOT/CANAIS-A.json",
+      "data/samples/SENSOR-PILOT/CANAIS-B.json",
+      "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
+      "data/samples/SENSOR-PILOT/COMENTARIOS-A.json",
+      "data/samples/SENSOR-PILOT/COMENTARIOS-B.json",
+      "data/samples/SENSOR-PILOT/COMENTARIOS-C.json",
+      "data/samples/SENSOR-PILOT/COMENTARIOS-D.json",
+      "data/samples/SENSOR-PILOT/COMENTARIOS-E.json",
+      "data/samples/SENSOR-PILOT/MEDICAO.json",
+      "data/samples/SENSOR-PILOT/RUNS-A.json",
+      "data/samples/SENSOR-PILOT/RUNS-B.json",
+      "data/samples/SENSOR-PILOT/RUNS-C.json",
+      "data/samples/SENSOR-PILOT/RUNS-D.json",
+      "data/samples/SENSOR-PILOT/RUNS-E.json",
+      "data/samples/SENSOR-PILOT/TRANSCRICOES-A.json",
+      "data/samples/SENSOR-PILOT/TRANSCRICOES-B.json",
+      "data/samples/SENSOR-PILOT/TRANSCRICOES-C.json",
+      "data/samples/SENSOR-PILOT/TRANSCRICOES-D.json",
+      "data/samples/SENSOR-PILOT/TRANSCRICOES-E.json",
+      "data/samples/SENSOR-PILOT/VIDEOS-A.json",
+      "data/samples/SENSOR-PILOT/VIDEOS-B.json",
+      "data/samples/SENSOR-PILOT/VIDEOS-C.json",
+      "data/samples/SENSOR-PILOT/VIDEOS-D.json",
+      "data/samples/SENSOR-PILOT/VIDEOS-E.json",
+      "data/samples/SLICE-PLASVI-vertical.json",
+      "data/samples/SPAIN-DEMO-CONTENT-V1.json",
+      "data/samples/SPAIN-HERO-CASES-V1.json",
+      "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json",
+      "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json",
+      "data/samples/VERIFICACAO-ADVERSARIAL-PORTOES.json",
+      "data/samples/X-001-completo-mildiu-vs-clima.json",
+      "data/samples/X-001-nuts2-heat-vs-wheat.json",
+      "data/samples/X-006-eu-cas-to-ephy.json",
+      "data/samples/X-006-substance-normalisation.json",
+      "data/samples/X-007-canonical-agro-dictionary.json"
+    ],
+    "docs": [
+      "docs/adama/AVALIACAO-IT-T4-001-CONTRA-V2.1.md",
+      "docs/adama/FECHAMENTO-HANDOFF-ADAMA-ES.md",
+      "docs/adama/GATE-HANDOFF-ADAMA-ES.md",
+      "docs/adama/INTEGRACAO-CATALOGO-ADAMA-ES.md",
+      "docs/adama/RADAR-ADAMA-EAME.md",
+      "docs/apresentacao/CASOS-PARA-APRESENTACAO.md",
+      "docs/apresentacao/CONTRATO-DE-PROVA-DA-APRESENTACAO.md",
+      "docs/apresentacao/MATRIZ-DE-PROVA-EAME.md",
+      "docs/apresentacao/PILOTO-CLASSIFICACAO.md",
+      "docs/apresentacao/RECONCILIACAO-DECK-REAL.md",
+      "docs/apresentacao/SOURCE-PACKS-EAME.md",
+      "docs/apresentacao/deck/AURA-ADAMA-EAME-texto.txt",
+      "docs/capacidades/ATLAS-DE-CAPACIDADES-EAME.md",
+      "docs/cruzamentos/MATRIZ-DE-CRUZAMENTOS-EAME.md",
+      "docs/decisoes/DIARIO-DE-DECISOES.md",
+      "docs/descoberta/CAMADA-DE-VOZ-ESPANHA.md",
+      "docs/descoberta/FREEZE-DA-BASE-DO-PILOTO.md",
+      "docs/descoberta/LACUNAS-E-VEREDITO-MISSAO-03.md",
+      "docs/descoberta/MISSAO-EAME-01.md",
+      "docs/descoberta/SEGUNDA-PASSAGEM-E-PRIORIZACAO.md",
+      "docs/design/AUDITORIA-DO-RADAR-FUTURO.md",
+      "docs/design/AUDITORIA-REGUA-COMERCIAL.md",
+      "docs/design/COMMERCIAL-PRIORITY-V11.md",
+      "docs/design/COMPLETUDE-DA-OPORTUNIDADE.md",
+      "docs/design/CONTRATO-DE-DESIGN-SINTONIA.md",
+      "docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md",
+      "docs/design/ITALY-V2.1-README-FIRST.md",
+      "docs/design/OPPORTUNITY-ENGINE-REPORT.md",
+      "docs/design/REGUA-DO-SINAL-FUTURO.md",
+      "docs/design/REVISAO-COMMERCIAL-PRIORITY-V11.md",
+      "docs/design/TESTE-ADVERSARIAL-DO-PROTOTIPO.md",
+      "docs/design/VOCI-COMMERCIAL-READINESS.md",
+      "docs/design/handoff/01-opportunity-scan-para-55c2674.patch",
+      "docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md",
+      "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md",
+      "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
+      "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
+      "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+      "docs/operacao/FALHA-DE-FONTE-ESPANHA.md",
+      "docs/operacao/PORTOES-DE-COLETA-10B.md",
+      "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
+      "docs/operacao/RELATORIO-DE-ROTAS-APIFY-ES.md",
+      "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+      "docs/piloto/ASK-SINTONIA-BENCHMARK.md",
+      "docs/piloto/BASE-V2-E-VEREDITO-M09.md",
+      "docs/piloto/ENTRADA-PARA-CLAUDE-DESIGN.md",
+      "docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md",
+      "docs/piloto/O-QUE-PODEMOS-DIZER.md",
+      "docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md",
+      "docs/piloto/PROTOCOLO-BENCHMARK-RESEARCH-SAVING.md",
+      "docs/piloto/RESEARCHER-DEEP-CORPUS.md",
+      "docs/piloto/SOURCE-PACK-PILOTO.md",
+      "docs/piloto/VEREDITO-M10-HANDOFF.md",
+      "docs/ponte/ACERVO-PERSISTENTE-EAME.md",
+      "docs/ponte/BRASIL-PARA-EAME-MAPA-DE-PRIORIDADE.md",
+      "docs/regras/BRAZIL-LESSONS-TRANSFER-EAME.md",
+      "docs/regras/LIMITES-DE-DADO-PESSOAL-EAME.md",
+      "docs/regras/MODELO-DE-IDENTIDADE-EAME.md",
+      "docs/regras/POLITICA-DE-CHAVES-DESCARTAVEIS.md",
+      "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md",
+      "docs/regras/REGUA-DE-ALERTA-EAME.md",
+      "docs/regras/REGUA-DE-CHANGE-EVENT-EAME.md",
+      "docs/regras/REGUA-ITALIA-FITOSSANITARIA.md",
+      "docs/relatorios/RELATORIO-CALENDARIO-AGRONOMICO-ES.md",
+      "docs/relatorios/RELATORIO-CAMADA-COMPETITOR.md",
+      "docs/relatorios/RELATORIO-CONTENT-FREEZE-ES.md",
+      "docs/relatorios/RELATORIO-FECHAMENTO-RAW-ES.md",
+      "docs/relatorios/RELATORIO-FILA-AUTONOMA-ES.md",
+      "docs/relatorios/RELATORIO-HERO-CASES-V1-ES.md",
+      "docs/relatorios/RELATORIO-LUGAR-DO-FATO.md",
+      "docs/relatorios/RELATORIO-MADRUGADA-EAME.md",
+      "docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md",
+      "docs/relatorios/RELATORIO-RADAR-DO-FUTURO.md",
+      "docs/relatorios/RELATORIO-TRES-HERO-CASES-ES.md"
+    ],
+    "handoff": [
+      "handoff/paused-v2/ACHADOS-DA-AUDITORIA-NAO-REFUTADOS.json",
+      "handoff/paused-v2/MANIFEST.md",
+      "handoff/paused-v2/MANIFESTO.json",
+      "handoff/paused-v2/REAVALIACAO-FINAL-35.json",
+      "handoff/paused-v2/REVERIFICACAO-35-BLOQUEADORES.md",
+      "handoff/paused-v2/REVERIFICACAO-LEDGER.json",
+      "handoff/paused-v2/auditoria-pacote.json",
+      "handoff/paused-v2/conferencia-de-sentido.json",
+      "handoff/paused-v2/reverificacao/G1-CRUZAMENTO-PORTAO_G2-CRUZAMENTO-CONTEUDO_G3-GEOGRAFIA.json",
+      "handoff/paused-v2/reverificacao/G4-FONTES-SENTINELA.json",
+      "handoff/paused-v2/reverificacao/G5-FONTES-PROCESSO.json",
+      "handoff/paused-v2/reverificacao/G6-LINGUA.json",
+      "handoff/paused-v2/reverificacao/G7-MANIFESTO.json",
+      "handoff/paused-v2/reverificacao/G8-README-ENTRADA_G9-CONTEUDO-INDEVIDO.json"
+    ],
+    "italia-portale": [
+      "italia-portale/ACCETTAZIONE.md",
+      "italia-portale/BASELINE/LEGGIMI.md",
+      "italia-portale/BASELINE/RAPPORTO-ARCHITETTURA.md",
+      "italia-portale/BASELINE/RAPPORTO-RICEVITORE-2.md",
+      "italia-portale/BASELINE/RAPPORTO-RICEVITORE-3.md",
+      "italia-portale/BASELINE/RAPPORTO-RICEVITORE.md",
+      "italia-portale/BASELINE/STATO-MISSIONE.md",
+      "italia-portale/BASELINE/_ds/adama-brandwell/_adherence.oxlintrc.json",
+      "italia-portale/BASELINE/_ds/adama-brandwell/_ds_bundle.js",
+      "italia-portale/BASELINE/_ds/adama-brandwell/_ds_manifest.json",
+      "italia-portale/BASELINE/_ds/adama-brandwell/readme.md",
+      "italia-portale/BASELINE/_ds/adama-brandwell/styles.css",
+      "italia-portale/BASELINE/_ds/adama-brandwell/tokens/base.css",
+      "italia-portale/BASELINE/_ds/adama-brandwell/tokens/colors.css",
+      "italia-portale/BASELINE/_ds/adama-brandwell/tokens/patterns.css",
+      "italia-portale/BASELINE/_ds/adama-brandwell/tokens/spacing.css",
+      "italia-portale/BASELINE/_ds/adama-brandwell/tokens/typography.css",
+      "italia-portale/BASELINE/accesso.html",
+      "italia-portale/BASELINE/index.html",
+      "italia-portale/BASELINE/italy-app-model.js",
+      "italia-portale/BASELINE/italy-briefs.js",
+      "italia-portale/BASELINE/italy-canonical-windows.js",
+      "italia-portale/BASELINE/italy-catalog.js",
+      "italia-portale/BASELINE/italy-demo-data.js",
+      "italia-portale/BASELINE/italy-i18n.js",
+      "italia-portale/BASELINE/italy-ingested.js",
+      "italia-portale/BASELINE/italy-label-verdicts.js",
+      "italia-portale/BASELINE/italy-market-pulse.js",
+      "italia-portale/BASELINE/italy-real-intelligence.js",
+      "italia-portale/BASELINE/italy-science-business.js",
+      "italia-portale/BASELINE/portale.html",
+      "italia-portale/BASELINE/support.js",
+      "italia-portale/BASELINE/vercel.json",
+      "italia-portale/CHECKPOINT-INTEGRACAO-ACERVO-PORTAL.md",
+      "italia-portale/README.md",
+      "italia-portale/RICEVITORE-V2.1.md",
+      "italia-portale/audit/BASELINE-SHA256.txt",
+      "italia-portale/audit/BLOCK-CONTRACTS.md",
+      "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+      "italia-portale/audit/DO-NOT-SHOW-QA.json",
+      "italia-portale/audit/DO-NOT-SHOW-SEMANTIC-REVIEW.json",
+      "italia-portale/audit/INGESTION-REPRODUCTION.json",
+      "italia-portale/audit/STALE-GENERATOR-CONTROL.json",
+      "italia-portale/audit/_adversarial-audit.md",
+      "italia-portale/audit/_block-reports.md",
+      "italia-portale/audit/_changes.txt",
+      "italia-portale/audit/_digest.md",
+      "italia-portale/audit/_markup-requests.md",
+      "italia-portale/audit/_occurrences.md",
+      "italia-portale/audit/_specs.json",
+      "italia-portale/audit/acceptance.mjs",
+      "italia-portale/audit/action-map-consistency.mjs",
+      "italia-portale/audit/adama-product-claim.mjs",
+      "italia-portale/audit/adama-relevance-gate.mjs",
+      "italia-portale/audit/baseline-reports/RAPPORTO-ARCHITETTURA.md",
+      "italia-portale/audit/baseline-reports/RAPPORTO-RICEVITORE-2.md",
+      "italia-portale/audit/baseline-reports/RAPPORTO-RICEVITORE-3.md",
+      "italia-portale/audit/baseline-reports/RAPPORTO-RICEVITORE.md",
+      "italia-portale/audit/baseline-reports/STATO-MISSIONE.md",
+      "italia-portale/audit/blocks.mjs",
+      "italia-portale/audit/blocks/archive.js",
+      "italia-portale/audit/blocks/archive.spec.json",
+      "italia-portale/audit/blocks/brief.js",
+      "italia-portale/audit/blocks/brief.spec.json",
+      "italia-portale/audit/blocks/calendar.js",
+      "italia-portale/audit/blocks/calendar.spec.json",
+      "italia-portale/audit/blocks/case.js",
+      "italia-portale/audit/blocks/case.spec.json",
+      "italia-portale/audit/blocks/competitor.js",
+      "italia-portale/audit/blocks/competitor.spec.json",
+      "italia-portale/audit/blocks/field.js",
+      "italia-portale/audit/blocks/field.spec.json",
+      "italia-portale/audit/blocks/future.js",
+      "italia-portale/audit/blocks/future.spec.json",
+      "italia-portale/audit/blocks/head.js",
+      "italia-portale/audit/blocks/head.spec.json",
+      "italia-portale/audit/blocks/helpers.js",
+      "italia-portale/audit/blocks/helpers.spec.json",
+      "italia-portale/audit/blocks/market.js",
+      "italia-portale/audit/blocks/market.spec.json",
+      "italia-portale/audit/blocks/nav.js",
+      "italia-portale/audit/blocks/nav.spec.json",
+      "italia-portale/audit/blocks/portfolio.js",
+      "italia-portale/audit/blocks/portfolio.spec.json",
+      "italia-portale/audit/blocks/product.js",
+      "italia-portale/audit/blocks/product.spec.json",
+      "italia-portale/audit/blocks/science.js",
+      "italia-portale/audit/blocks/science.spec.json",
+      "italia-portale/audit/blocks/search.js",
+      "italia-portale/audit/blocks/search.spec.json",
+      "italia-portale/audit/blocks/signal.js",
+      "italia-portale/audit/blocks/signal.spec.json",
+      "italia-portale/audit/blocks/voci.js",
+      "italia-portale/audit/blocks/voci.spec.json",
+      "italia-portale/audit/blocks/windows.js",
+      "italia-portale/audit/blocks/windows.spec.json",
+      "italia-portale/audit/brandwell.mjs",
+      "italia-portale/audit/browser-deep.mjs",
+      "italia-portale/audit/browser.mjs",
+      "italia-portale/audit/build-gate.mjs",
+      "italia-portale/audit/cadeia-de-familias.mjs",
+      "italia-portale/audit/casa-gate.mjs",
+      "italia-portale/audit/casco/brandwell-parita.mjs",
+      "italia-portale/audit/casco/censo-demo.mjs",
+      "italia-portale/audit/casco/censo-precedenza.mjs",
+      "italia-portale/audit/casco/demo-visibile.mjs",
+      "italia-portale/audit/casco/due-mappe.mjs",
+      "italia-portale/audit/casco/falso-zero.mjs",
+      "italia-portale/audit/casco/fase4-inventario.mjs",
+      "italia-portale/audit/casco/fonti-collegate.mjs",
+      "italia-portale/audit/casco/fonti-divario.mjs",
+      "italia-portale/audit/casco/fuga-tsr.mjs",
+      "italia-portale/audit/casco/mappa-azioni.mjs",
+      "italia-portale/audit/casco/parita-visiva.mjs",
+      "italia-portale/audit/casco/quarantatre.mjs",
+      "italia-portale/audit/casco/release-gate.mjs",
+      "italia-portale/audit/casco/ricchezza.mjs",
+      "italia-portale/audit/casco/sinale.mjs",
+      "italia-portale/audit/casco/sperimentali.mjs",
+      "italia-portale/audit/checks.mjs",
+      "italia-portale/audit/click-audit.mjs",
+      "italia-portale/audit/client-boundary.mjs",
+      "italia-portale/audit/client-surface.mjs",
+      "italia-portale/audit/competitor-population.mjs",
+      "italia-portale/audit/contract-numbers.mjs",
+      "italia-portale/audit/counters.mjs",
+      "italia-portale/audit/cta-navigation.mjs",
+      "italia-portale/audit/deploy-surface.mjs",
+      "italia-portale/audit/do-not-show.mjs",
+      "italia-portale/audit/external-only.mjs",
+      "italia-portale/audit/future-ruler.mjs",
+      "italia-portale/audit/ingestion-provenance.mjs",
+      "italia-portale/audit/internal-token.mjs",
+      "italia-portale/audit/inventory.mjs",
+      "italia-portale/audit/lang.mjs",
+      "italia-portale/audit/lib/drive.mjs",
+      "italia-portale/audit/lib/harness.mjs",
+      "italia-portale/audit/lib/nav-names.mjs",
+      "italia-portale/audit/lib/pacote.mjs",
+      "italia-portale/audit/lib/scan.mjs",
+      "italia-portale/audit/link-asset.mjs",
+      "italia-portale/audit/lote-completo.mjs",
+      "italia-portale/audit/market-price-claim.mjs",
+      "italia-portale/audit/meeting-browser.mjs",
+      "italia-portale/audit/meeting-gate.mjs",
+      "italia-portale/audit/meeting-public.mjs",
+      "italia-portale/audit/mirror.mjs",
+      "italia-portale/audit/mobile.mjs",
+      "italia-portale/audit/negative-control.mjs",
+      "italia-portale/audit/opportunity-detail.mjs",
+      "italia-portale/audit/opportunity-hub.mjs",
+      "italia-portale/audit/opportunity-trace.mjs",
+      "italia-portale/audit/pdf-gate.mjs",
+      "italia-portale/audit/portfolio-claims.mjs",
+      "italia-portale/audit/probe-relationships.mjs",
+      "italia-portale/audit/product-identity.mjs",
+      "italia-portale/audit/production.mjs",
+      "italia-portale/audit/prova-da-build.mjs",
+      "italia-portale/audit/publication-boundary.mjs",
+      "italia-portale/audit/reachability.mjs",
+      "italia-portale/audit/reconciliacao-do-catalogo.mjs",
+      "italia-portale/audit/responsive.mjs",
+      "italia-portale/audit/rtv-gate.mjs",
+      "italia-portale/audit/run.mjs",
+      "italia-portale/audit/screen-arithmetic.mjs",
+      "italia-portale/audit/serve.mjs",
+      "italia-portale/audit/snapshot-failure.mjs",
+      "italia-portale/audit/splice.mjs",
+      "italia-portale/audit/stale-generator-gate.mjs",
+      "italia-portale/audit/surface-contract.mjs",
+      "italia-portale/audit/upstream-ingestion.mjs",
+      "italia-portale/audit/v21-gate.mjs",
+      "italia-portale/client/.gitignore",
+      "italia-portale/client/.vercelignore",
+      "italia-portale/client/LEGGIMI.md",
+      "italia-portale/client/_ds/adama-brandwell/_adherence.oxlintrc.json",
+      "italia-portale/client/_ds/adama-brandwell/_ds_bundle.js",
+      "italia-portale/client/_ds/adama-brandwell/_ds_manifest.json",
+      "italia-portale/client/_ds/adama-brandwell/readme.md",
+      "italia-portale/client/_ds/adama-brandwell/styles.css",
+      "italia-portale/client/_ds/adama-brandwell/tokens/base.css",
+      "italia-portale/client/_ds/adama-brandwell/tokens/colors.css",
+      "italia-portale/client/_ds/adama-brandwell/tokens/patterns.css",
+      "italia-portale/client/_ds/adama-brandwell/tokens/spacing.css",
+      "italia-portale/client/_ds/adama-brandwell/tokens/typography.css",
+      "italia-portale/client/accesso.html",
+      "italia-portale/client/adama-relevance.js",
+      "italia-portale/client/casa.html",
+      "italia-portale/client/index.html",
+      "italia-portale/client/italy-app-model.js",
+      "italia-portale/client/italy-briefs.js",
+      "italia-portale/client/italy-canonical-windows.js",
+      "italia-portale/client/italy-casa.js",
+      "italia-portale/client/italy-catalog.js",
+      "italia-portale/client/italy-demo-data.js",
+      "italia-portale/client/italy-handoff-v21.js",
+      "italia-portale/client/italy-i18n.js",
+      "italia-portale/client/italy-ingested.js",
+      "italia-portale/client/italy-label-verdicts.js",
+      "italia-portale/client/italy-market-pulse.js",
+      "italia-portale/client/italy-pdf.js",
+      "italia-portale/client/italy-real-intelligence.js",
+      "italia-portale/client/italy-science-business.js",
+      "italia-portale/client/meeting-intelligence-snapshot.js",
+      "italia-portale/client/meeting-intelligence-snapshot.json",
+      "italia-portale/client/meeting-labels.js",
+      "italia-portale/client/meeting-surface.js",
+      "italia-portale/client/portale.html",
+      "italia-portale/client/support.js",
+      "italia-portale/client/upstream/IT-FUTURO-HANDOFF-LINHA-B-V1.json",
+      "italia-portale/client/upstream/IT-HANDOFF-LINHA-B-FITOSSANITARIO-V1.json",
+      "italia-portale/client/upstream/IT-HANDOFF-LINHA-B-FONTES-V1.json",
+      "italia-portale/client/upstream/IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json",
+      "italia-portale/client/upstream/IT-PORTAL-SPRINT-HANDOFF-HUMAN-SENSORS-V1.json",
+      "italia-portale/client/upstream/IT-TOP3-SENSORES-V1.json",
+      "italia-portale/client/upstream/UPSTREAM-PINS.json",
+      "italia-portale/client/vercel.json"
+    ],
+    "prototype": [
+      "prototype/portal/.gitkeep",
+      "prototype/portal/CONGELADO.md",
+      "prototype/portal/index.html"
+    ],
+    "research": [
+      "research/adama-italy-product-intelligence-deep/ACTIVE-INGREDIENTS.json",
+      "research/adama-italy-product-intelligence-deep/ADAMA-ITALY-PRODUCT-INTELLIGENCE-INVENTORY.md",
+      "research/adama-italy-product-intelligence-deep/ADAMA-PRODUCT-SOURCES.json",
+      "research/adama-italy-product-intelligence-deep/BUILD-SUMMARY.json",
+      "research/adama-italy-product-intelligence-deep/CATEGORY-CENSUS.json",
+      "research/adama-italy-product-intelligence-deep/COMMERCIAL-REGULATORY-RECONCILIATION.json",
+      "research/adama-italy-product-intelligence-deep/EU-ACTIVE-SUBSTANCE-STATUS.json",
+      "research/adama-italy-product-intelligence-deep/EU-SOURCE-540-2011.json",
+      "research/adama-italy-product-intelligence-deep/EXPIRY-CLUSTERS.json",
+      "research/adama-italy-product-intelligence-deep/FRAC-CLASSIFICATIONS.json",
+      "research/adama-italy-product-intelligence-deep/FUNGICIDE-LABEL-USES.json",
+      "research/adama-italy-product-intelligence-deep/HANDOFF-TO-V2.1.json",
+      "research/adama-italy-product-intelligence-deep/HANDOFF-TO-V2.1.md",
+      "research/adama-italy-product-intelligence-deep/HERBICIDE-LABEL-USES.json",
+      "research/adama-italy-product-intelligence-deep/INSECTICIDE-LABEL-USES.json",
+      "research/adama-italy-product-intelligence-deep/INVENTORY.md",
+      "research/adama-italy-product-intelligence-deep/LABEL-MANIFEST.json",
+      "research/adama-italy-product-intelligence-deep/LABEL-USES.json",
+      "research/adama-italy-product-intelligence-deep/MOA-CLASSIFICATIONS.json",
+      "research/adama-italy-product-intelligence-deep/MOA-SOURCE-FRAC.json",
+      "research/adama-italy-product-intelligence-deep/MOA-SOURCE-HRAC.json",
+      "research/adama-italy-product-intelligence-deep/MOA-SOURCE-IRAC.json",
+      "research/adama-italy-product-intelligence-deep/PRODUCT-CROP-COVERAGE.json",
+      "research/adama-italy-product-intelligence-deep/PRODUCT-IDENTITY-MAP.json",
+      "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json",
+      "research/adama-italy-product-intelligence-deep/PRODUCTS-REGULATORY.json",
+      "research/adama-italy-product-intelligence-deep/QA-REPORT.json",
+      "research/adama-italy-product-intelligence-deep/QA-REPORT.md",
+      "research/adama-italy-product-intelligence-deep/QUARANTINE.json",
+      "research/adama-italy-product-intelligence-deep/README-FIRST.md",
+      "research/adama-italy-product-intelligence-deep/REGULATORY-FUTURE-DEEP.json",
+      "research/adama-italy-product-intelligence-deep/REGULATORY-LINEAGE.json",
+      "research/adama-italy-product-intelligence-deep/SPECIALI-DEEP.json",
+      "research/adama-italy-product-intelligence-deep/TARGET-PRODUCT-COVERAGE.json",
+      "research/competitors/.gitkeep",
+      "research/europe/.gitkeep",
+      "research/france/.gitkeep",
+      "research/italy-demo-reality/ADAMA-ITALY-CROP-PROBLEM-PRODUCT-MATRIX.json",
+      "research/italy-demo-reality/ADAMA-ITALY-HERBICIDE-UNIVERSE.md",
+      "research/italy-demo-reality/ADAMA-ITALY-PORTFOLIO-DEEP-DIVE.md",
+      "research/italy-demo-reality/FAKE_TO_REAL_REPLACEMENT_PLAN.md",
+      "research/italy-demo-reality/ITALY-AUDITORIA-DO-PAR.md",
+      "research/italy-demo-reality/ITALY-COMPETITOR-REAL-ACTIVITY.md",
+      "research/italy-demo-reality/ITALY-CREATORS-REALITY.md",
+      "research/italy-demo-reality/ITALY-CROP-WINDOWS-REAL-EVIDENCE.md",
+      "research/italy-demo-reality/ITALY-DEMO-REALITY-MASTER-INDEX.md",
+      "research/italy-demo-reality/ITALY-EVENTS-AND-FAIRS.md",
+      "research/italy-demo-reality/ITALY-EXISTING-REALITY-INVENTORY.json",
+      "research/italy-demo-reality/ITALY-EXISTING-REALITY-INVENTORY.md",
+      "research/italy-demo-reality/ITALY-FONTES-PRIMARIAS-RELATORIO.md",
+      "research/italy-demo-reality/ITALY-FUTURE-RADAR-REAL-SIGNALS.md",
+      "research/italy-demo-reality/ITALY-NEWS-REAL-SIGNALS.md",
+      "research/italy-demo-reality/ITALY-OPPORTUNITY-CANDIDATES-REAL.md",
+      "research/italy-demo-reality/ITALY-PIEMONTE-FLAVESCENZA-2026.md",
+      "research/italy-demo-reality/ITALY-REGIONAL-CROP-REALITY.md",
+      "research/italy-demo-reality/ITALY-REGUA-RESULTADO-V0.md",
+      "research/italy-demo-reality/ITALY-SCIENCE-RESEARCHER-REALITY.md",
+      "research/italy-demo-reality/ITALY-SOCIAL-REALITY.md",
+      "research/italy-demo-reality/ITALY-VIDEO-TRANSCRIPT-REALITY.md",
+      "research/italy-demo-reality/ITALY-VOCI-DAL-CAMPO-REAL-SOURCES.md",
+      "research/italy-demo-reality/TOP-50-REAL-OBJECTS.md",
+      "research/italy-demo-reality/handoff/00-START-HERE_EXECUTIVE-SUMMARY.md",
+      "research/italy-demo-reality/handoff/00-START-HERE_FAKE-TO-REAL-REPLACEMENTS.md",
+      "research/italy-demo-reality/handoff/00-START-HERE_O-QUE-MUDOU-NESTA-NOITE.md",
+      "research/italy-demo-reality/handoff/00-START-HERE_README-FIRST.md",
+      "research/italy-demo-reality/handoff/00-START-HERE_TOP-REAL-CONTENT-FOR-DEMO.md",
+      "research/italy-demo-reality/handoff/00-START-HERE_WHAT-TO-USE-IN-THE-PORTAL.md",
+      "research/italy-demo-reality/handoff/02-DEMO-STORIES_AS-CINCO-HISTORIAS.md",
+      "research/italy-demo-reality/handoff/05-GAPS-AND-LIMITS_DO-NOT-CLAIM.md",
+      "research/italy-demo-reality/handoff/05-GAPS-AND-LIMITS_KNOWN-GAPS.md",
+      "research/italy-lastmile/LAST-MILE-REALITY-GAPS.json",
+      "research/italy-lastmile/LAST-MILE-REALITY-GAPS.md",
+      "research/italy-lastmile/NEW-REAL-DATA.json",
+      "research/italy-lastmile/NEW-REAL-SOURCES.json",
+      "research/italy/.gitkeep",
+      "research/people/.gitkeep",
+      "research/spain/.gitkeep"
+    ],
+    "scripts": [
+      "scripts/.gitkeep",
+      "scripts/adama_catalogo_ler.py",
+      "scripts/adama_catalogo_montar.py",
+      "scripts/adama_es_gate.py",
+      "scripts/adama_es_import_rules.py",
+      "scripts/adama_it_eu.py",
+      "scripts/adama_it_frac.py",
+      "scripts/adama_it_gaps.py",
+      "scripts/adama_it_intelligence.py",
+      "scripts/adama_it_labels.py",
+      "scripts/adama_it_moa.py",
+      "scripts/adama_it_qa.py",
+      "scripts/adama_relevance.py",
+      "scripts/agrifood_ue.py",
+      "scripts/apify_contrato.py",
+      "scripts/apify_pool.py",
+      "scripts/apify_recuperar.py",
+      "scripts/ask_sintonia.py",
+      "scripts/auditoria.py",
+      "scripts/auditoria_regua_comercial.py",
+      "scripts/build_portal.py",
+      "scripts/cadeia_canonica.sh",
+      "scripts/calendario_handoff.py",
+      "scripts/catalogo_importar.py",
+      "scripts/cdp.py",
+      "scripts/cellar.sh",
+      "scripts/chain.py",
+      "scripts/cicatrizes_brasil.py",
+      "scripts/coleta_checkpoint.py",
+      "scripts/coletor.py",
+      "scripts/comunicacao_classificar.py",
+      "scripts/comunicacao_coleta.py",
+      "scripts/comunicacao_identidade.py",
+      "scripts/comunicacao_lote.py",
+      "scripts/comunicacao_medir.py",
+      "scripts/comunicacao_universo.py",
+      "scripts/consolidar_leque.py",
+      "scripts/contrato_ator.py",
+      "scripts/corpus_es.py",
+      "scripts/corpus_pesquisador.py",
+      "scripts/corrigir_custo.py",
+      "scripts/coverage.py",
+      "scripts/cruzar_regua_rotulo.py",
+      "scripts/data_clock.py",
+      "scripts/denominaciones.py",
+      "scripts/ephy.sh",
+      "scripts/eppo_gd.py",
+      "scripts/eu_substancia_adama_it.py",
+      "scripts/fato_local.py",
+      "scripts/filas.py",
+      "scripts/freeze_es.py",
+      "scripts/gire_mapas.py",
+      "scripts/importar_italia.py",
+      "scripts/instagram_coleta.py",
+      "scripts/instagram_diario.py",
+      "scripts/instagram_janela.py",
+      "scripts/instagram_pessoal.py",
+      "scripts/instagram_transcrever.py",
+      "scripts/inventario_esperado.py",
+      "scripts/it_casa_dados.py",
+      "scripts/lastmile_entregar.py",
+      "scripts/lastmile_inventario.py",
+      "scripts/lastmile_para_supabase.py",
+      "scripts/lastmile_relatorio.py",
+      "scripts/ler_saida_leque.py",
+      "scripts/lugar_do_fato.py",
+      "scripts/mapa_regfi.py",
+      "scripts/matriz_recorte.py",
+      "scripts/meeting_snapshot.py",
+      "scripts/metricas_canonicas.py",
+      "scripts/navegador.py",
+      "scripts/normalize_agro.py",
+      "scripts/normalize_substance.py",
+      "scripts/pacote.py",
+      "scripts/pacote_camadas.py",
+      "scripts/pacote_camadas2.py",
+      "scripts/pacote_camadas3.py",
+      "scripts/pacote_convergencia.py",
+      "scripts/pacote_docs.py",
+      "scripts/pacote_fenologia.py",
+      "scripts/pacote_mercado.py",
+      "scripts/pacote_montar.py",
+      "scripts/pacote_normalizar.py",
+      "scripts/pacote_relacoes_convergencia.py",
+      "scripts/pdf_text.py",
+      "scripts/portao.py",
+      "scripts/portoes_eame.py",
+      "scripts/preservar_pdf.py",
+      "scripts/proto_es.py",
+      "scripts/proveniencia.py",
+      "scripts/rede.py",
+      "scripts/regua_italia.py",
+      "scripts/regulatorio_importar.py",
+      "scripts/ropf_pre_requisito.py",
+      "scripts/rotulos_baixar.py",
+      "scripts/rotulos_censo.py",
+      "scripts/rotulos_ler.py",
+      "scripts/sensor_canal_identidade.py",
+      "scripts/sensor_coleta.py",
+      "scripts/sensor_medir.py",
+      "scripts/site_v21_ingest.py",
+      "scripts/source_health.py",
+      "scripts/speaker_identidade.py",
+      "scripts/speaker_universo.py",
+      "scripts/sql_conferir.py",
+      "scripts/testa_rota_italia.py",
+      "scripts/texto_fonte.py",
+      "scripts/universo_ciencia_it.py",
+      "scripts/v21_aceitacao.py",
+      "scripts/v21_adama_registro_validar.py",
+      "scripts/v21_antes_e_depois.py",
+      "scripts/v21_cadeia.sh",
+      "scripts/v21_campos_de_lingua.py",
+      "scripts/v21_carimbar_origem.py",
+      "scripts/v21_comercial.py",
+      "scripts/v21_completude_oportunidade.py",
+      "scripts/v21_contrato_do_pacote.py",
+      "scripts/v21_crossings.py",
+      "scripts/v21_datas.py",
+      "scripts/v21_dominio_da_alegacao.py",
+      "scripts/v21_fechar.py",
+      "scripts/v21_fontes_faltantes.py",
+      "scripts/v21_fontes_rechavear.py",
+      "scripts/v21_geografia_contrato.py",
+      "scripts/v21_handoff_json.py",
+      "scripts/v21_ingest.py",
+      "scripts/v21_ingest_b.py",
+      "scripts/v21_ingest_c.py",
+      "scripts/v21_necessidade.py",
+      "scripts/v21_normalizar.py",
+      "scripts/v21_oportunidades.py",
+      "scripts/v21_procedencia_contrato.py",
+      "scripts/v21_procedencia_religar.py",
+      "scripts/v21_reavaliar_35.py",
+      "scripts/v21_reverificacao_ledger.py",
+      "scripts/v21_tm_colher.py",
+      "scripts/v21_traducao_trava.py",
+      "scripts/v21_vozes_reconciliar.py",
+      "scripts/v2_conflitos.py",
+      "scripts/v2_cruzamentos.py",
+      "scripts/v2_dedup_e_familias.py",
+      "scripts/v2_fechar.py",
+      "scripts/v2_montar_handoff.py",
+      "scripts/v2_qa_atribuir.py",
+      "scripts/v2_relatorio.py",
+      "scripts/voz.py"
+    ],
+    "supabase": [
+      "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql",
+      "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql",
+      "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql",
+      "supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql",
+      "supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql",
+      "supabase/ensaios/SENSOR-HUMANO-CINCO-PERFIS.sql",
+      "supabase/fixtures/es_calendario_mvp.sql",
+      "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql",
+      "supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql",
+      "supabase/importacoes/IT-CAMADAS-2026-09-02.sql",
+      "supabase/importacoes/IT-LASTMILE-2026-09-02.sql",
+      "supabase/migrations/001_fundacao_geografia_e_proveniencia.sql",
+      "supabase/migrations/002_identidade_pessoa_org_canal.sql",
+      "supabase/migrations/003_conteudo_documento_video_transcricao.sql",
+      "supabase/migrations/004_crop_issue_par_explicito.sql",
+      "supabase/migrations/005_camada_analitica_observado_vs_derivado.sql",
+      "supabase/migrations/006_regulatorio_e_rls.sql",
+      "supabase/migrations/007_views_de_apoio.sql",
+      "supabase/migrations/008_verificacao_pos_aplicacao.sql",
+      "supabase/migrations/009_semantica_de_pais.sql",
+      "supabase/migrations/010_calendario_agronomico.sql",
+      "supabase/migrations/011_calendario_consultas.sql",
+      "supabase/migrations/012_contexto_temporal_do_caso.sql",
+      "supabase/migrations/013_captura_nao_e_registro.sql",
+      "supabase/migrations/014_catalogo_publico_fabricante.sql",
+      "supabase/migrations/015_cicatrizes_do_brasil.sql",
+      "supabase/migrations/016_checkpoint_e_unidade_analitica.sql",
+      "supabase/migrations/017_o_que_a_conferencia_de_localizacao_achou.sql",
+      "supabase/migrations/018_o_lugar_do_fato_ganha_dono.sql",
+      "supabase/migrations/019_camada_ue_e_resistencia.sql",
+      "supabase/migrations/020_fonte_externa_e_estado_de_rota.sql",
+      "supabase/migrations/021_fato_externo_publicado.sql",
+      "supabase/tests/mutacao_cicatrizes.sql",
+      "supabase/tests/mutacao_coleta.sql",
+      "supabase/tests/mutacao_lugar_do_fato.sql",
+      "supabase/tests/regressoes_calendario.sql",
+      "supabase/tests/regressoes_captura.sql",
+      "supabase/tests/regressoes_catalogo_es.sql",
+      "supabase/tests/regressoes_cicatrizes.sql",
+      "supabase/tests/regressoes_coleta.sql",
+      "supabase/tests/regressoes_lugar_do_fato.sql",
+      "supabase/tests/regressoes_regulatorio_es.sql"
+    ],
+    "system-map": [
+      "system-map/README.md",
+      "system-map/app/index.html",
+      "system-map/app/map.css",
+      "system-map/app/map.js",
+      "system-map/data/architecture.declared.json",
+      "system-map/scripts/generate_system_map.py",
+      "system-map/scripts/scan_repo.py",
+      "system-map/scripts/validate_system_map.py",
+      "system-map/tests/test_system_map.py"
+    ],
+    "tests": [
+      "tests/.gitkeep",
+      "tests/fixtures/yt-raw-minimo.json",
+      "tests/test_adama_es_gate.py",
+      "tests/test_adama_es_import_rules.py",
+      "tests/test_adama_relevance.py",
+      "tests/test_calendario_temporal.py",
+      "tests/test_canonico.py",
+      "tests/test_cicatrizes_brasil.py",
+      "tests/test_coleta_externa.py",
+      "tests/test_coleta_resiliente.py",
+      "tests/test_competitor_layer.py",
+      "tests/test_completude_oportunidade.py",
+      "tests/test_comunicacao.py",
+      "tests/test_evidence.py",
+      "tests/test_handoff.py",
+      "tests/test_hero_cases_v1.py",
+      "tests/test_lugar_do_fato.py",
+      "tests/test_metricas.py",
+      "tests/test_migrations.py",
+      "tests/test_navegador.py",
+      "tests/test_operacao.py",
+      "tests/test_pipeline.py",
+      "tests/test_portao.py",
+      "tests/test_portoes_eame.py",
+      "tests/test_prioridade_comercial.py",
+      "tests/test_proveniencia.py",
+      "tests/test_radar_futuro.py",
+      "tests/test_v21_datas.py",
+      "tests/test_v21_geografia.py",
+      "tests/test_v21_mercado.py",
+      "tests/test_v21_traducao_trava.py",
+      "tests/test_voz.py"
+    ]
+  },
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "350a4fe7d9badfee49eb2d70f517e86b1259dc7a",
-    "GENERATED_AT": "2026-09-07T01:56:03Z"
+    "HEAD": "a638dd94bc6789fec9b7bd685b0fc659d1eeff2d",
+    "GENERATED_AT": "2026-09-07T10:29:28-03:00"
   },
   "TERRITORIES": [
     {
-      "id": "T-FONTE",
-      "name": "FONTES E COLETA",
-      "why": "De onde o dado entra. Nada existe no SINTONIA sem passar por aqui primeiro."
+      "id": "Z-LINEAGE",
+      "name": "LINHAGENS E DONOS",
+      "why": "Qual branch decide, qual branch consome e qual pacote e o canonico",
+      "band": "corporate",
+      "views": [
+        "lineage",
+        "official"
+      ],
+      "x": 300,
+      "y": 190,
+      "w": 405,
+      "h": 1972,
+      "count": 4
     },
     {
-      "id": "T-REGUA",
-      "name": "REGUAS E LEIS",
-      "why": "As leis que decidem o que conta como verdade. Quem manda no significado do dado."
+      "id": "Z-ACERVO",
+      "name": "ACERVO PINADO",
+      "why": "De onde o dado entra. Nada existe no SINTONIA sem passar por aqui primeiro",
+      "band": "earth",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "x": 1005,
+      "y": 190,
+      "w": 820,
+      "h": 1972,
+      "count": 10
     },
     {
-      "id": "T-MOTOR",
-      "name": "MOTOR — CADEIA V2.1",
-      "why": "Onde o dado bruto vira caso. A ordem importa e nao e adivinhavel."
+      "id": "Z-GERADOR",
+      "name": "GERADOR CANONICO V2.1",
+      "why": "A cadeia que constroi o pacote; a ordem e lei, nao convencao",
+      "band": "corporate",
+      "views": [
+        "generator",
+        "acervo"
+      ],
+      "x": 2125,
+      "y": 190,
+      "w": 820,
+      "h": 1972,
+      "count": 8
     },
     {
-      "id": "T-PACOTE",
+      "id": "Z-PACOTE",
       "name": "PACOTE CANONICO",
-      "why": "O artefacto fechado que o portal serve. Derivado — nunca dono da lei."
+      "why": "Artefato derivado e reproduzivel — nao e a fonte; e gerado",
+      "band": "earth",
+      "views": [
+        "generator",
+        "portal"
+      ],
+      "x": 3245,
+      "y": 190,
+      "w": 405,
+      "h": 1972,
+      "count": 3
     },
     {
-      "id": "T-PORTAL",
-      "name": "PORTAL (o que o cliente ve)",
-      "why": "A superficie. Apresenta decisao ja tomada pelo motor; nao recalcula nada."
+      "id": "Z-FRONTEIRA",
+      "name": "FRONTEIRA PACOTE -> PORTAL",
+      "why": "Fail-closed: o unico ponto por onde o pacote atravessa para a tela",
+      "band": "corporate",
+      "views": [
+        "portal"
+      ],
+      "x": 3950,
+      "y": 190,
+      "w": 405,
+      "h": 1972,
+      "count": 2
     },
     {
-      "id": "T-PORTAO",
-      "name": "PORTOES E AUDITORIA",
-      "why": "O que impede coisa errada de chegar ao cliente. Falha fechado, de proposito."
+      "id": "Z-MODELO",
+      "name": "MODELO E REGUAS DE APRESENTACAO",
+      "why": "Dao forma e significado sem voltar a decidir o que o motor ja decidiu",
+      "band": "earth",
+      "views": [
+        "opportunity",
+        "portal",
+        "science"
+      ],
+      "x": 4655,
+      "y": 190,
+      "w": 820,
+      "h": 1972,
+      "count": 7
     },
     {
-      "id": "T-PERSIST",
-      "name": "PERSISTENCIA",
-      "why": "Onde o dado fica guardado entre uma corrida e outra."
+      "id": "Z-SUPERFICIE",
+      "name": "SUPERFICIES",
+      "why": "O que o cliente e a reuniao realmente conseguem ver",
+      "band": "corporate",
+      "views": [
+        "portal",
+        "meeting"
+      ],
+      "x": 5775,
+      "y": 190,
+      "w": 405,
+      "h": 1972,
+      "count": 3
     },
     {
-      "id": "T-CI",
-      "name": "CI E EXECUCAO",
-      "why": "Quem roda o que, quando, e em que maquina."
-    },
-    {
-      "id": "T-PROVA",
-      "name": "TESTES E PROVA",
-      "why": "O que transforma 'eu acho' em 'esta provado'."
-    },
-    {
-      "id": "T-DS",
-      "name": "DESIGN SYSTEM ADAMA",
-      "why": "A forma. Fonte visual oficial — extrato local dos tokens."
-    },
-    {
-      "id": "T-MAPA",
-      "name": "SYSTEM MAP",
-      "why": "Este proprio instrumento. Aparece no mapa porque tambem e parte do sistema."
+      "id": "Z-INFRA",
+      "name": "AUDITORIA, CI E INFRA",
+      "why": "Portoes, testes, design system, coleta e persistencia fora da rota principal",
+      "band": "earth",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "x": 6480,
+      "y": 190,
+      "w": 1235,
+      "h": 1972,
+      "count": 18
     }
   ],
   "DEPARTMENTS": {
@@ -78,7 +1194,7 @@
     {
       "id": "C-ADAMA-CATALOGO",
       "name": "Catalogo de produtos ADAMA",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "engine",
       "what": "Monta e le o catalogo de produtos da propria ADAMA em cada pais.",
       "why_here": "Sem saber o que a ADAMA vende naquele pais, nao da para dizer se uma oportunidade e atendivel.",
@@ -87,6 +1203,13 @@
         "COMERCIAL"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "scripts/adama_catalogo_ler.py",
         "scripts/adama_catalogo_montar.py",
@@ -105,12 +1228,14 @@
       "outbound": [
         "C-PORTAL-DADOS",
         "C-RELEVANCIA"
-      ]
+      ],
+      "x": 1065,
+      "y": 360
     },
     {
       "id": "C-ADAMA-ES",
       "name": "Portao e importacao ADAMA Espanha",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "gate",
       "what": "Confere as regras de importacao do catalogo espanhol antes de ele entrar.",
       "why_here": "A Espanha entrou depois e com fonte diferente; sem portao proprio ela contaminaria a base.",
@@ -118,6 +1243,13 @@
         "REGULATORIO_PORTFOLIO"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⛨",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "scripts/adama_es_gate.py",
         "scripts/adama_es_import_rules.py",
@@ -134,12 +1266,14 @@
       ],
       "outbound": [
         "C-SUPABASE"
-      ]
+      ],
+      "x": 1480,
+      "y": 360
     },
     {
       "id": "C-ADAMA-IT",
       "name": "Inteligencia de produto ADAMA Italia",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "engine",
       "what": "Le rotulo, modo de acao, substancia europeia e lacuna de portfolio da ADAMA na Italia.",
       "why_here": "A Italia e o piloto: e onde a leitura de portfolio foi provada primeiro.",
@@ -148,6 +1282,14 @@
         "TECNICO_CIENCIA"
       ],
       "legacy": false,
+      "ui_status": "gray",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "infra",
+        "science"
+      ],
+      "lane": "official",
       "files": [
         "scripts/adama_it_eu.py",
         "scripts/adama_it_frac.py",
@@ -164,12 +1306,14 @@
       "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
       "changed_since_declared": [],
       "inbound": [],
-      "outbound": []
+      "outbound": [],
+      "x": 1065,
+      "y": 682
     },
     {
       "id": "C-APIFY-POOL",
       "name": "Pool de tokens Apify",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "library",
       "what": "Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.",
       "why_here": "Sem isto, um erro de rede imprimia a chave inteira no log de uma execucao publica.",
@@ -177,6 +1321,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "▤",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "scripts/apify_contrato.py",
         "scripts/apify_pool.py",
@@ -195,12 +1346,14 @@
         "C-CORPUS",
         "C-TESTES"
       ],
-      "outbound": []
+      "outbound": [],
+      "x": 1480,
+      "y": 682
     },
     {
       "id": "C-ARTEFACTO-V21",
       "name": "Artefacto embarcado (italy-handoff-v21.js)",
-      "territory": "T-PACOTE",
+      "territory": "Z-PACOTE",
       "kind": "artifact",
       "what": "O ficheiro de dados que viaja para o cliente. E o unico que chega la.",
       "why_here": "Derivado — nunca dono da lei. Se ele e a lei divergirem, quem manda e a lei.",
@@ -208,6 +1361,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "◫",
+      "views": [
+        "generator",
+        "portal"
+      ],
+      "lane": "official",
       "files": [
         "italia-portale/client/italy-handoff-v21.js",
         "italia-portale/client/italy-ingested.js"
@@ -219,12 +1379,14 @@
       "inbound": [
         "C-PORTAL-CASCO"
       ],
-      "outbound": []
+      "outbound": [],
+      "x": 3305,
+      "y": 360
     },
     {
       "id": "C-ASK-SINTONIA",
       "name": "Ask Sintonia",
-      "territory": "T-PORTAL",
+      "territory": "Z-SUPERFICIE",
       "kind": "engine",
       "what": "A porta de pergunta em linguagem de gente sobre o que o sistema ja provou.",
       "why_here": "E a unica peca desenhada para quem nao sabe onde procurar.",
@@ -234,6 +1396,13 @@
         "LIDERANCA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "meeting",
+        "portal"
+      ],
+      "lane": "official",
       "files": [
         "scripts/ask_sintonia.py",
         "scripts/navegador.py",
@@ -247,12 +1416,14 @@
         "C-COLETA-BASE",
         "C-TESTES"
       ],
-      "outbound": []
+      "outbound": [],
+      "x": 5835,
+      "y": 360
     },
     {
       "id": "C-AUDIT-BLOCOS",
       "name": "Auditoria de blocos do portal",
-      "territory": "T-PORTAO",
+      "territory": "Z-INFRA",
       "kind": "gate",
       "what": "Confere bloco por bloco se a tela mostra o que o contrato daquele bloco manda.",
       "why_here": "Bloco e a unidade de contrato da superficie.",
@@ -260,6 +1431,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⛨",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "italia-portale/audit/BLOCK-CONTRACTS.md",
         "italia-portale/audit/blocks.mjs",
@@ -291,12 +1469,14 @@
       ],
       "outbound": [
         "C-AUDIT-HARNESS"
-      ]
+      ],
+      "x": 6540,
+      "y": 360
     },
     {
       "id": "C-AUDIT-CASCO",
       "name": "Auditoria do casco",
-      "territory": "T-PORTAO",
+      "territory": "Z-INFRA",
       "kind": "gate",
       "what": "Confere a paridade visual, a demo, os falsos zeros e a fuga de conteudo do casco.",
       "why_here": "Casco quebrado engana antes de o dado ser lido.",
@@ -304,6 +1484,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⛨",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "italia-portale/audit/casco/censo-demo.mjs",
         "italia-portale/audit/casco/censo-precedenza.mjs",
@@ -330,12 +1517,14 @@
       "outbound": [
         "C-AUDIT-HARNESS",
         "C-PORTAL-CASCO"
-      ]
+      ],
+      "x": 6955,
+      "y": 360
     },
     {
       "id": "C-AUDIT-GERAL",
       "name": "Demais auditorias do portal",
-      "territory": "T-PORTAO",
+      "territory": "Z-INFRA",
       "kind": "gate",
       "what": "O resto das conferencias: aceitacao, numeros do contrato, superficie, navegacao, idioma.",
       "why_here": "Cada uma prova uma promessa diferente da tela.",
@@ -343,6 +1532,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⛨",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "italia-portale/audit/acceptance.mjs",
         "italia-portale/audit/action-map-consistency.mjs",
@@ -408,12 +1604,14 @@
         "C-AUDIT-BLOCOS",
         "C-AUDIT-HARNESS",
         "C-PORTAO-BUILD"
-      ]
+      ],
+      "x": 7370,
+      "y": 360
     },
     {
       "id": "C-AUDIT-HARNESS",
       "name": "Harness de auditoria",
-      "territory": "T-PORTAO",
+      "territory": "Z-INFRA",
       "kind": "library",
       "what": "A base comum que todas as auditorias usam para rodar e relatar do mesmo jeito.",
       "why_here": "E o ficheiro mais importado do repositorio inteiro.",
@@ -421,6 +1619,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "▤",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "italia-portale/audit/lib/drive.mjs",
         "italia-portale/audit/lib/harness.mjs",
@@ -439,12 +1644,14 @@
         "C-AUDIT-MARCA",
         "C-PORTAO-BUILD"
       ],
-      "outbound": []
+      "outbound": [],
+      "x": 6540,
+      "y": 682
     },
     {
       "id": "C-AUDIT-MARCA",
       "name": "Auditoria de marca ADAMA",
-      "territory": "T-PORTAO",
+      "territory": "Z-INFRA",
       "kind": "gate",
       "what": "Confere se a tela obedece ao Design System oficial da ADAMA.",
       "why_here": "A forma tambem tem lei, e ela nao e opcional.",
@@ -453,6 +1660,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⛨",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "italia-portale/audit/adama-product-claim.mjs",
         "italia-portale/audit/adama-relevance-gate.mjs",
@@ -467,12 +1681,14 @@
       "outbound": [
         "C-AUDIT-HARNESS",
         "C-RELEVANCIA"
-      ]
+      ],
+      "x": 6955,
+      "y": 682
     },
     {
       "id": "C-CADEIA-V21",
       "name": "Cadeia canonica V2.1",
-      "territory": "T-MOTOR",
+      "territory": "Z-GERADOR",
       "kind": "chain",
       "what": "O roteiro que roda os trinta passos do motor na ordem certa, do dado bruto ate o pacote fechado.",
       "why_here": "A ordem nao e adivinhavel. Rodar um passo sozinho produz um pacote que parece bom e esta errado.",
@@ -480,6 +1696,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⛓",
+      "views": [
+        "acervo",
+        "generator"
+      ],
+      "lane": "official",
       "files": [
         "scripts/cadeia_canonica.sh",
         "scripts/chain.py",
@@ -508,12 +1731,14 @@
         "C-V21-FONTES",
         "C-V21-INGEST",
         "C-V21-OPORTUNIDADE"
-      ]
+      ],
+      "x": 2185,
+      "y": 360
     },
     {
       "id": "C-CI-COLETA",
       "name": "Workflows de coleta",
-      "territory": "T-CI",
+      "territory": "Z-INFRA",
       "kind": "workflow",
       "what": "Os botoes que disparam coleta paga, sempre com a fase gratuita rodando primeiro.",
       "why_here": "Coleta paga sem contrato conferido antes ja queimou execucoes.",
@@ -521,6 +1746,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "▶",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         ".github/workflows/adama-es-gate.yml",
         ".github/workflows/apify-conexao.yml",
@@ -538,12 +1770,14 @@
         "C-COLETA-PUBLICA",
         "C-CORPUS",
         "C-TESTES"
-      ]
+      ],
+      "x": 7370,
+      "y": 682
     },
     {
       "id": "C-CI-MAPA",
       "name": "Workflow do System Map",
-      "territory": "T-CI",
+      "territory": "Z-INFRA",
       "kind": "workflow",
       "what": "Em cada mudanca, regera o mapa e reprova se o que foi commitado nao bate com o repositorio.",
       "why_here": "E o que impede o 'depois alguem atualiza o mapa'.",
@@ -551,6 +1785,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "▶",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         ".github/workflows/system-map.yml"
       ],
@@ -564,12 +1805,14 @@
         "C-MAPA-SCAN",
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR"
-      ]
+      ],
+      "x": 6540,
+      "y": 1004
     },
     {
       "id": "C-CI-PERSIST",
       "name": "Workflows de persistencia",
-      "territory": "T-CI",
+      "territory": "Z-INFRA",
       "kind": "workflow",
       "what": "Conferem a conexao com o banco, rodam migracao e provam que o dado volta igual ao que entrou.",
       "why_here": "Migracao sem prova de ida e volta e perda de dado com aparencia de sucesso.",
@@ -577,6 +1820,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "▶",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         ".github/workflows/supabase-conexao.yml",
         ".github/workflows/supabase-fichas-adama.yml",
@@ -592,12 +1842,14 @@
       "outbound": [
         "C-CADEIA-V21",
         "C-MEDICAO"
-      ]
+      ],
+      "x": 6955,
+      "y": 1004
     },
     {
       "id": "C-CI-REGRESSAO",
       "name": "Calendario de regressoes",
-      "territory": "T-CI",
+      "territory": "Z-INFRA",
       "kind": "workflow",
       "what": "Roda de tempos em tempos as provas que garantem que nada quebrou sozinho.",
       "why_here": "Coisa que passou ontem pode falhar hoje sem ninguem ter mexido nela.",
@@ -605,6 +1857,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "▶",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         ".github/workflows/calendario-regressoes.yml"
       ],
@@ -617,12 +1876,14 @@
         "C-ADAMA-CATALOGO",
         "C-CADEIA-V21",
         "C-MEDICAO"
-      ]
+      ],
+      "x": 7370,
+      "y": 1004
     },
     {
       "id": "C-CICATRIZES-BR",
       "name": "Cicatrizes do Brasil (lei portada)",
-      "territory": "T-REGUA",
+      "territory": "Z-MODELO",
       "kind": "contract",
       "what": "Traz para o EAME as leis que o Brasil ja aprendeu na dor, em vez de reinventar cada uma.",
       "why_here": "O EAME nao inventa contrato novo quando o Brasil ja tem lei madura para a mesma pergunta.",
@@ -630,6 +1891,14 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "§",
+      "views": [
+        "opportunity",
+        "portal",
+        "science"
+      ],
+      "lane": "official",
       "files": [
         "scripts/cicatrizes_brasil.py"
       ],
@@ -644,12 +1913,14 @@
       "outbound": [
         "C-PROVENIENCIA",
         "C-TESTES"
-      ]
+      ],
+      "x": 4715,
+      "y": 360
     },
     {
       "id": "C-COLETA-BASE",
       "name": "Coletor e portoes de coleta",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "engine",
       "what": "O motor generico de coleta e o portao que decide, de graca, se vale gastar maquina antes de gastar.",
       "why_here": "Coletar sem portao ja custou execucoes pagas que devolveram o alvo errado.",
@@ -657,6 +1928,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "scripts/cdp.py",
         "scripts/coleta_checkpoint.py",
@@ -684,12 +1962,14 @@
         "C-MEDICAO",
         "C-PROVENIENCIA",
         "C-VOZ"
-      ]
+      ],
+      "x": 1065,
+      "y": 1004
     },
     {
       "id": "C-COLETA-INSTAGRAM",
       "name": "Coleta Instagram",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "engine",
       "what": "Recolhe publicacoes de Instagram das contas autorizadas e transcreve o que e falado em video.",
       "why_here": "Boa parte da fala real de produtor e de tecnico nao esta em texto — esta em video.",
@@ -697,6 +1977,13 @@
         "INTELIGENCIA"
       ],
       "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "scripts/instagram_coleta.py",
         "scripts/instagram_diario.py",
@@ -714,12 +2001,14 @@
         "C-COLETA-BASE",
         "C-MEDICAO",
         "C-PROVENIENCIA"
-      ]
+      ],
+      "x": 1480,
+      "y": 1004
     },
     {
       "id": "C-COLETA-PUBLICA",
       "name": "Coleta de comunicacao publica do concorrente",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "engine",
       "what": "Recolhe o que os concorrentes publicam em canais abertos e classifica cada peca.",
       "why_here": "Saber o que o concorrente esta dizendo em publico, sem depender de ninguem contar.",
@@ -728,6 +2017,13 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "scripts/comunicacao_classificar.py",
         "scripts/comunicacao_coleta.py",
@@ -747,12 +2043,14 @@
       "outbound": [
         "C-APIFY-POOL",
         "C-COLETA-BASE"
-      ]
+      ],
+      "x": 1065,
+      "y": 1326
     },
     {
       "id": "C-CORPUS",
       "name": "Corpus de voz e de pesquisador",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "engine",
       "what": "Junta a fala real de campo e a producao dos pesquisadores num corpo de texto consultavel.",
       "why_here": "A voz do campo e a ciencia sao duas evidencias diferentes e nao podem virar a mesma coisa.",
@@ -761,6 +2059,14 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "infra",
+        "science"
+      ],
+      "lane": "official",
       "files": [
         "scripts/corpus_es.py",
         "scripts/corpus_pesquisador.py",
@@ -782,12 +2088,14 @@
         "C-APIFY-POOL",
         "C-COLETA-BASE",
         "C-PROVENIENCIA"
-      ]
+      ],
+      "x": 1480,
+      "y": 1326
     },
     {
       "id": "C-DATA-CLOCK",
       "name": "Regua do tempo",
-      "territory": "T-REGUA",
+      "territory": "Z-MODELO",
       "kind": "contract",
       "what": "Decide qual data vale: a do fato, nao a da publicacao, e nunca a data regulatoria virando janela agronomica.",
       "why_here": "Trocar data de publicacao por data do fato desloca a safra inteira.",
@@ -796,6 +2104,14 @@
         "REGULATORIO_PORTFOLIO"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "§",
+      "views": [
+        "opportunity",
+        "portal",
+        "science"
+      ],
+      "lane": "official",
       "files": [
         "scripts/calendario_handoff.py",
         "scripts/data_clock.py",
@@ -812,12 +2128,14 @@
       ],
       "outbound": [
         "C-SUPABASE"
-      ]
+      ],
+      "x": 5130,
+      "y": 360
     },
     {
       "id": "C-DS-ADAMA",
       "name": "Extrato local do ADAMA Design System",
-      "territory": "T-DS",
+      "territory": "Z-INFRA",
       "kind": "library",
       "what": "As cores, tipografia, espacamentos e fontes oficiais da ADAMA, versionados aqui como extrato.",
       "why_here": "Extrato local nao e o Design System — serve para o codigo nao divergir dos tokens.",
@@ -825,6 +2143,13 @@
         "MARKETING"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "▤",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "italia-portale/BASELINE/_ds/adama-brandwell/_adherence.oxlintrc.json",
         "italia-portale/BASELINE/_ds/adama-brandwell/_ds_bundle.js",
@@ -854,12 +2179,14 @@
       "inbound": [
         "C-PORTAL-CASCO"
       ],
-      "outbound": []
+      "outbound": [],
+      "x": 6540,
+      "y": 1326
     },
     {
       "id": "C-FONTES-EU",
       "name": "Fontes regulatorias e cientificas europeias",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "engine",
       "what": "Le as bases oficiais da Europa — registro de produtos, pragas, denominacoes, dados agroalimentares.",
       "why_here": "Fonte oficial e o unico chao que nao depende de alguem ter postado.",
@@ -868,6 +2195,14 @@
         "TECNICO_CIENCIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "infra",
+        "science"
+      ],
+      "lane": "official",
       "files": [
         "scripts/agrifood_ue.py",
         "scripts/cellar.sh",
@@ -889,12 +2224,14 @@
       ],
       "outbound": [
         "C-ROTULOS"
-      ]
+      ],
+      "x": 1065,
+      "y": 1648
     },
     {
       "id": "C-LASTMILE",
       "name": "Ultima milha da entrega",
-      "territory": "T-PACOTE",
+      "territory": "Z-PACOTE",
       "kind": "engine",
       "what": "Leva o resultado ate onde ele e consumido: inventario, relatorio, banco e entrega final.",
       "why_here": "Resultado que fica no disco da maquina nao chegou a ninguem.",
@@ -903,6 +2240,13 @@
         "COMERCIAL"
       ],
       "legacy": false,
+      "ui_status": "gray",
+      "icon": "⚙",
+      "views": [
+        "generator",
+        "portal"
+      ],
+      "lane": "official",
       "files": [
         "scripts/lastmile_entregar.py",
         "scripts/lastmile_inventario.py",
@@ -916,12 +2260,14 @@
       "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
       "changed_since_declared": [],
       "inbound": [],
-      "outbound": []
+      "outbound": [],
+      "x": 3305,
+      "y": 682
     },
     {
       "id": "C-LUGAR-DO-FATO",
       "name": "Regua do lugar do fato",
-      "territory": "T-REGUA",
+      "territory": "Z-MODELO",
       "kind": "contract",
       "what": "Separa o lugar onde o fato aconteceu do lugar de onde o documento foi publicado.",
       "why_here": "Fonte italiana falando de Espanha nao torna o fato italiano. Esta lei impede essa troca.",
@@ -930,6 +2276,14 @@
         "INTELIGENCIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "§",
+      "views": [
+        "opportunity",
+        "portal",
+        "science"
+      ],
+      "lane": "official",
       "files": [
         "scripts/fato_local.py",
         "scripts/gire_mapas.py",
@@ -946,12 +2300,14 @@
       ],
       "outbound": [
         "C-V21-INGEST"
-      ]
+      ],
+      "x": 4715,
+      "y": 682
     },
     {
       "id": "C-MAPA-APP",
       "name": "Interface do System Map",
-      "territory": "T-MAPA",
+      "territory": "Z-INFRA",
       "kind": "surface",
       "what": "A tela do mapa: navegar, aproximar, buscar, filtrar e clicar em cada peca.",
       "why_here": "So renderiza. Nenhum fato arquitetural mora dentro dela.",
@@ -960,6 +2316,13 @@
         "LIDERANCA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "▣",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "system-map/app/index.html",
         "system-map/app/map.css",
@@ -972,12 +2335,14 @@
       "inbound": [
         "C-MAPA-GERADOR"
       ],
-      "outbound": []
+      "outbound": [],
+      "x": 6955,
+      "y": 1326
     },
     {
       "id": "C-MAPA-GERADOR",
       "name": "Gerador do System Map",
-      "territory": "T-MAPA",
+      "territory": "Z-INFRA",
       "kind": "engine",
       "what": "Junta o que a maquina mediu com o que o humano declarou e calcula o status de cada peca.",
       "why_here": "O status nasce de regra escrita, nao de escolha de quem esta olhando.",
@@ -985,6 +2350,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "system-map/scripts/generate_system_map.py"
       ],
@@ -999,12 +2371,14 @@
       "outbound": [
         "C-MAPA-APP",
         "C-MAPA-SCAN"
-      ]
+      ],
+      "x": 7370,
+      "y": 1326
     },
     {
       "id": "C-MAPA-SCAN",
       "name": "Scanner do System Map",
-      "territory": "T-MAPA",
+      "territory": "Z-INFRA",
       "kind": "engine",
       "what": "Le o repositorio e devolve so os fatos: que ficheiro existe, quem importa quem, quem roda o que.",
       "why_here": "E a unica fonte de aresta tecnica do mapa. Sem ele, o mapa seria opiniao desenhada.",
@@ -1012,6 +2386,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "system-map/scripts/scan_repo.py"
       ],
@@ -1024,12 +2405,14 @@
         "C-MAPA-GERADOR",
         "C-MAPA-VALIDADOR"
       ],
-      "outbound": []
+      "outbound": [],
+      "x": 6540,
+      "y": 1648
     },
     {
       "id": "C-MAPA-TESTES",
       "name": "Testes do System Map",
-      "territory": "T-MAPA",
+      "territory": "Z-INFRA",
       "kind": "test",
       "what": "Provam que o mapa nao inventa aresta, nao pinta verde sem evidencia e nao perde o NAO SEI.",
       "why_here": "Um mapa de auditoria que nao e auditado nao vale nada.",
@@ -1037,6 +2420,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "yellow",
+      "icon": "✓",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "system-map/tests/test_system_map.py"
       ],
@@ -1047,12 +2437,14 @@
       "inbound": [
         "C-CI-MAPA"
       ],
-      "outbound": []
+      "outbound": [],
+      "x": 6955,
+      "y": 1648
     },
     {
       "id": "C-MAPA-VALIDADOR",
       "name": "Validador do System Map",
-      "territory": "T-MAPA",
+      "territory": "Z-INFRA",
       "kind": "gate",
       "what": "Reprova a mudanca quando o mapa fica desatualizado, quando ha aresta sem prova ou verde sem evidencia.",
       "why_here": "E o dente da lei. Sem ele, AGENTS.md seria so um texto pedindo por favor.",
@@ -1060,6 +2452,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⛨",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "system-map/scripts/validate_system_map.py"
       ],
@@ -1073,12 +2472,14 @@
       "outbound": [
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN"
-      ]
+      ],
+      "x": 7370,
+      "y": 1648
     },
     {
       "id": "C-MEDICAO",
       "name": "Auditoria, cobertura e custo",
-      "territory": "T-PROVA",
+      "territory": "Z-INFRA",
       "kind": "engine",
       "what": "Mede o proprio sistema: o que foi coberto, o que era esperado e quanto custou.",
       "why_here": "Sistema que nao se mede nao sabe o que esta faltando nele.",
@@ -1087,6 +2488,13 @@
         "LIDERANCA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "scripts/auditoria.py",
         "scripts/corrigir_custo.py",
@@ -1105,12 +2513,14 @@
         "C-COLETA-INSTAGRAM",
         "C-TESTES"
       ],
-      "outbound": []
+      "outbound": [],
+      "x": 6540,
+      "y": 1970
     },
     {
       "id": "C-PACOTE-CAMADAS",
       "name": "Montagem do pacote por camadas",
-      "territory": "T-PACOTE",
+      "territory": "Z-PACOTE",
       "kind": "engine",
       "what": "Monta o pacote de entrega em camadas e mede o que ficou dentro.",
       "why_here": "Separar montagem de decisao: aqui so se empacota o que o motor ja decidiu.",
@@ -1118,6 +2528,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "generator",
+        "portal"
+      ],
+      "lane": "official",
       "files": [
         "scripts/metricas_canonicas.py",
         "scripts/pacote.py",
@@ -1143,12 +2560,14 @@
         "C-TESTES",
         "C-V21-CRUZAMENTO",
         "C-V21-INGEST"
-      ]
+      ],
+      "x": 3305,
+      "y": 1004
     },
     {
       "id": "C-PORTAL-CASCO",
       "name": "Casco do portal",
-      "territory": "T-PORTAL",
+      "territory": "Z-SUPERFICIE",
       "kind": "surface",
       "what": "As paginas que o cliente abre: entrada, casa e portal.",
       "why_here": "A superficie apresenta o que ja foi decidido. Nao decide.",
@@ -1158,6 +2577,13 @@
         "LIDERANCA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "▣",
+      "views": [
+        "meeting",
+        "portal"
+      ],
+      "lane": "official",
       "files": [
         "italia-portale/client/accesso.html",
         "italia-portale/client/casa.html",
@@ -1176,12 +2602,14 @@
         "C-DS-ADAMA",
         "C-PORTAL-DADOS",
         "C-PORTAL-MODELO"
-      ]
+      ],
+      "x": 5835,
+      "y": 682
     },
     {
       "id": "C-PORTAL-DADOS",
       "name": "Camadas de dado do portal",
-      "territory": "T-PORTAL",
+      "territory": "Z-SUPERFICIE",
       "kind": "surface",
       "what": "Os blocos de conteudo que o portal mostra: casos, catalogo, ciencia, rotulo, mercado, reuniao.",
       "why_here": "Cada bloco tem um dono de dado diferente e por isso e listado separado.",
@@ -1192,6 +2620,13 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "▣",
+      "views": [
+        "meeting",
+        "portal"
+      ],
+      "lane": "official",
       "files": [
         "italia-portale/client/adama-relevance.js",
         "italia-portale/client/italy-briefs.js",
@@ -1218,12 +2653,14 @@
       ],
       "outbound": [
         "C-RELEVANCIA"
-      ]
+      ],
+      "x": 5835,
+      "y": 1004
     },
     {
       "id": "C-PORTAL-MODELO",
       "name": "Modelo de aplicacao do portal",
-      "territory": "T-PORTAL",
+      "territory": "Z-MODELO",
       "kind": "surface",
       "what": "A logica de tela: o que aparece, em que ordem, com que rotulo.",
       "why_here": "Guarda a leitura, nao a decisao.",
@@ -1232,6 +2669,14 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "▣",
+      "views": [
+        "opportunity",
+        "portal",
+        "science"
+      ],
+      "lane": "official",
       "files": [
         "italia-portale/client/italy-app-model.js",
         "italia-portale/client/italy-casa.js",
@@ -1248,12 +2693,14 @@
       "outbound": [
         "C-ADAMA-CATALOGO",
         "C-PORTAL-DADOS"
-      ]
+      ],
+      "x": 5130,
+      "y": 682
     },
     {
       "id": "C-PORTAO-BUILD",
       "name": "Portao da build",
-      "territory": "T-PORTAO",
+      "territory": "Z-FRONTEIRA",
       "kind": "gate",
       "what": "Roda antes de qualquer publicacao e barra pacote atrasado ou artefacto que nao prove sua origem.",
       "why_here": "Nao ha bandeira para desligar. Portao que se chama a parte e disciplina; no caminho, e regra.",
@@ -1261,6 +2708,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⛨",
+      "views": [
+        "audit",
+        "portal"
+      ],
+      "lane": "official",
       "files": [
         "italia-portale/audit/build-gate.mjs",
         "italia-portale/audit/casa-gate.mjs",
@@ -1276,12 +2730,14 @@
       "outbound": [
         "C-AUDIT-GERAL",
         "C-AUDIT-HARNESS"
-      ]
+      ],
+      "x": 4010,
+      "y": 360
     },
     {
       "id": "C-PROVENIENCIA",
       "name": "Regua de procedencia",
-      "territory": "T-REGUA",
+      "territory": "Z-MODELO",
       "kind": "contract",
       "what": "Decide de onde cada afirmacao veio e nao deixa a origem se perder no caminho.",
       "why_here": "Sem procedencia, um numero vira verdade so porque esta escrito.",
@@ -1290,6 +2746,14 @@
         "INTELIGENCIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "§",
+      "views": [
+        "opportunity",
+        "portal",
+        "science"
+      ],
+      "lane": "official",
       "files": [
         "scripts/proveniencia.py",
         "scripts/v21_carimbar_origem.py",
@@ -1308,12 +2772,14 @@
         "C-CORPUS",
         "C-TESTES"
       ],
-      "outbound": []
+      "outbound": [],
+      "x": 4715,
+      "y": 1004
     },
     {
       "id": "C-RELEVANCIA",
       "name": "Regua de relevancia ADAMA",
-      "territory": "T-REGUA",
+      "territory": "Z-MODELO",
       "kind": "contract",
       "what": "Decide se um sinal interessa a ADAMA, e o quanto.",
       "why_here": "Ha um unico dono da relevancia. Duas reguas de relevancia sao duas verdades.",
@@ -1322,6 +2788,14 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "§",
+      "views": [
+        "opportunity",
+        "portal",
+        "science"
+      ],
+      "lane": "official",
       "files": [
         "scripts/adama_relevance.py",
         "scripts/auditoria_regua_comercial.py",
@@ -1339,12 +2813,14 @@
       ],
       "outbound": [
         "C-CORPUS"
-      ]
+      ],
+      "x": 5130,
+      "y": 1004
     },
     {
       "id": "C-ROTULOS",
       "name": "Rotulos",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "engine",
       "what": "Baixa, conta e le os rotulos oficiais dos produtos.",
       "why_here": "O rotulo e o unico documento que diz o que e legalmente permitido fazer com o produto.",
@@ -1353,6 +2829,13 @@
         "TECNICO_CIENCIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "scripts/cruzar_regua_rotulo.py",
         "scripts/mapa_regfi.py",
@@ -1372,12 +2855,14 @@
         "C-FONTES-EU",
         "C-TESTES"
       ],
-      "outbound": []
+      "outbound": [],
+      "x": 1480,
+      "y": 1648
     },
     {
       "id": "C-SITE-INGEST",
       "name": "Ingestao do pacote no site",
-      "territory": "T-PACOTE",
+      "territory": "Z-FRONTEIRA",
       "kind": "engine",
       "what": "Pega o pacote fechado e o transforma no ficheiro que o portal carrega.",
       "why_here": "Unica porta entre o motor e a tela. Recusa pacote que nao prove a propria procedencia.",
@@ -1385,6 +2870,12 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "gray",
+      "icon": "⚙",
+      "views": [
+        "portal"
+      ],
+      "lane": "official",
       "files": [
         "scripts/build_portal.py",
         "scripts/site_v21_ingest.py"
@@ -1394,12 +2885,14 @@
       "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
       "changed_since_declared": [],
       "inbound": [],
-      "outbound": []
+      "outbound": [],
+      "x": 4010,
+      "y": 682
     },
     {
       "id": "C-SUPABASE",
       "name": "Persistencia Supabase",
-      "territory": "T-PERSIST",
+      "territory": "Z-INFRA",
       "kind": "engine",
       "what": "Onde o dado coletado fica guardado, e as migracoes que mudam o formato dessa guarda.",
       "why_here": "Entre uma corrida e outra o dado precisa existir em algum lugar que nao seja a memoria da maquina.",
@@ -1407,6 +2900,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "scripts/sql_conferir.py",
         "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql",
@@ -1461,12 +2961,14 @@
         "C-CADEIA-V21",
         "C-DATA-CLOCK"
       ],
-      "outbound": []
+      "outbound": [],
+      "x": 6955,
+      "y": 1970
     },
     {
       "id": "C-TESTES",
       "name": "Suite de testes",
-      "territory": "T-PROVA",
+      "territory": "Z-INFRA",
       "kind": "test",
       "what": "As provas executaveis do repositorio, uma por lei ou por peca.",
       "why_here": "E o que separa 'esta escrito' de 'esta provado'.",
@@ -1474,6 +2976,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "✓",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
       "files": [
         "tests/test_adama_es_gate.py",
         "tests/test_adama_es_import_rules.py",
@@ -1537,12 +3046,14 @@
         "C-V21-INGEST",
         "C-V21-OPORTUNIDADE",
         "C-VOZ"
-      ]
+      ],
+      "x": 7370,
+      "y": 1970
     },
     {
       "id": "C-V2-LEGADO",
       "name": "Cadeia V2 (legado)",
-      "territory": "T-MOTOR",
+      "territory": "Z-GERADOR",
       "kind": "engine",
       "what": "A geracao anterior do motor, antes da V2.1.",
       "why_here": "Continua no repositorio e por isso aparece no mapa — mas nao e a cadeia oficial de hoje.",
@@ -1550,6 +3061,13 @@
         "ENGENHARIA"
       ],
       "legacy": true,
+      "ui_status": "gray",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "generator"
+      ],
+      "lane": "legacy",
       "files": [
         "scripts/v2_conflitos.py",
         "scripts/v2_cruzamentos.py",
@@ -1564,12 +3082,14 @@
       "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
       "changed_since_declared": [],
       "inbound": [],
-      "outbound": []
+      "outbound": [],
+      "x": 2600,
+      "y": 360
     },
     {
       "id": "C-V21-COMERCIAL",
       "name": "Leitura comercial e completude",
-      "territory": "T-MOTOR",
+      "territory": "Z-GERADOR",
       "kind": "engine",
       "what": "Mede se o caso esta completo o bastante para virar conversa comercial, e reavalia quando muda.",
       "why_here": "Caso incompleto virando pedido de venda e o erro mais caro que este sistema pode cometer.",
@@ -1578,6 +3098,15 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "generator",
+        "meeting",
+        "opportunity"
+      ],
+      "lane": "official",
       "files": [
         "scripts/v21_adama_registro_validar.py",
         "scripts/v21_antes_e_depois.py",
@@ -1602,12 +3131,14 @@
         "C-V21-CONTRATO",
         "C-V21-INGEST",
         "C-V21-OPORTUNIDADE"
-      ]
+      ],
+      "x": 2185,
+      "y": 682
     },
     {
       "id": "C-V21-CONTRATO",
       "name": "Contrato do pacote",
-      "territory": "T-MOTOR",
+      "territory": "Z-GERADOR",
       "kind": "contract",
       "what": "Confere se o pacote fechado obedece as contagens e as regras antes de existir.",
       "why_here": "Pacote que nao prova a si mesmo nao pode chegar ao portal.",
@@ -1615,6 +3146,14 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "§",
+      "views": [
+        "acervo",
+        "audit",
+        "generator"
+      ],
+      "lane": "official",
       "files": [
         "scripts/v21_aceitacao.py",
         "scripts/v21_contrato_do_pacote.py",
@@ -1631,12 +3170,14 @@
       ],
       "outbound": [
         "C-V21-COMERCIAL"
-      ]
+      ],
+      "x": 2600,
+      "y": 682
     },
     {
       "id": "C-V21-CRUZAMENTO",
       "name": "Cruzamentos e convergencia",
-      "territory": "T-MOTOR",
+      "territory": "Z-GERADOR",
       "kind": "engine",
       "what": "Cruza sinais de origens diferentes e ve onde eles se encontram.",
       "why_here": "Um sinal sozinho e ruido. O valor esta no encontro de dois.",
@@ -1645,6 +3186,13 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "generator"
+      ],
+      "lane": "official",
       "files": [
         "scripts/consolidar_leque.py",
         "scripts/matriz_recorte.py",
@@ -1661,12 +3209,14 @@
       ],
       "outbound": [
         "C-V21-INGEST"
-      ]
+      ],
+      "x": 2185,
+      "y": 1004
     },
     {
       "id": "C-V21-FONTES",
       "name": "Religacao de fontes do pacote",
-      "territory": "T-MOTOR",
+      "territory": "Z-GERADOR",
       "kind": "engine",
       "what": "Garante que cada caso do pacote continua ligado a fonte que o provou.",
       "why_here": "Caso sem fonte religada e afirmacao orfa.",
@@ -1675,6 +3225,13 @@
         "INTELIGENCIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "generator"
+      ],
+      "lane": "official",
       "files": [
         "scripts/source_health.py",
         "scripts/v21_fontes_faltantes.py",
@@ -1689,12 +3246,14 @@
         "C-CADEIA-V21",
         "C-TESTES"
       ],
-      "outbound": []
+      "outbound": [],
+      "x": 2600,
+      "y": 1004
     },
     {
       "id": "C-V21-INGEST",
       "name": "Ingestao V2.1",
-      "territory": "T-MOTOR",
+      "territory": "Z-GERADOR",
       "kind": "engine",
       "what": "Entrada do motor: le o dado bruto e o coloca no formato que o resto da cadeia entende.",
       "why_here": "Primeiro degrau da cadeia. Tudo depois depende do que entra aqui.",
@@ -1702,6 +3261,13 @@
         "ENGENHARIA"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "generator"
+      ],
+      "lane": "official",
       "files": [
         "scripts/normalize_agro.py",
         "scripts/normalize_substance.py",
@@ -1726,12 +3292,14 @@
       "outbound": [
         "C-DATA-CLOCK",
         "C-FONTES-EU"
-      ]
+      ],
+      "x": 2185,
+      "y": 1326
     },
     {
       "id": "C-V21-OPORTUNIDADE",
       "name": "Motor de Oportunidade",
-      "territory": "T-MOTOR",
+      "territory": "Z-GERADOR",
       "kind": "engine",
       "what": "Transforma cruzamento provado em caso de oportunidade, com dono, lugar e momento.",
       "why_here": "E aqui que o sistema decide. A tela nao recalcula nada disto.",
@@ -1741,6 +3309,14 @@
         "FIELD_SALES"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "generator",
+        "opportunity"
+      ],
+      "lane": "official",
       "files": [
         "scripts/v21_dominio_da_alegacao.py",
         "scripts/v21_fechar.py",
@@ -1758,12 +3334,14 @@
       "outbound": [
         "C-DATA-CLOCK",
         "C-V21-COMERCIAL"
-      ]
+      ],
+      "x": 2600,
+      "y": 1326
     },
     {
       "id": "C-VOZ",
       "name": "Regua da voz",
-      "territory": "T-REGUA",
+      "territory": "Z-MODELO",
       "kind": "contract",
       "what": "Guarda como o sistema fala: sinal nao vira pedido, ausencia nao vira negativo.",
       "why_here": "A maior parte do erro de leitura nasce na frase, nao no numero.",
@@ -1772,6 +3350,14 @@
         "MARKETING"
       ],
       "legacy": false,
+      "ui_status": "green",
+      "icon": "§",
+      "views": [
+        "opportunity",
+        "portal",
+        "science"
+      ],
+      "lane": "official",
       "files": [
         "scripts/texto_fonte.py",
         "scripts/voz.py"
@@ -1784,7 +3370,152 @@
         "C-COLETA-BASE",
         "C-TESTES"
       ],
-      "outbound": []
+      "outbound": [],
+      "x": 4715,
+      "y": 1326
+    },
+    {
+      "id": "lineage_consumer",
+      "name": "Linha que consome (esta arvore)",
+      "kind": "branch consumidora",
+      "icon": "B",
+      "facts": [
+        "branch claude/system-map-canonical-v1",
+        "HEAD a638dd94bc6789fec9b7bd685b0fc659d1eeff2d"
+      ],
+      "proof": "git-measurement",
+      "territory": "Z-LINEAGE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "what": "E a branch onde este mapa foi medido. Ela consome inteligencia; nao e dona do gerador.",
+      "why_here": "Separar consumidor de gerador impede que a linha do portal reescreva inteligencia com uma cadeia atrasada.",
+      "files": [],
+      "file_count": 0,
+      "status_reason": "o git prova a branch e o commit; nao ha aqui nada declarado a mao.",
+      "evidence_text": "Medido pelo proprio git desta arvore no momento em que o mapa foi gerado.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "views": [
+        "lineage",
+        "official"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "x": 360,
+      "y": 360
+    },
+    {
+      "id": "lineage_generator",
+      "name": "Linha geradora canonica",
+      "kind": "branch geradora",
+      "icon": "A",
+      "facts": [
+        "branch claude/acervo-to-package-intelligence-v1",
+        "COMMIT 51010733be8a846a280e5f52e7e50d671c68a18f"
+      ],
+      "proof": "document",
+      "territory": "Z-LINEAGE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "what": "E o dono do pacote canonico: claude/acervo-to-package-intelligence-v1.",
+      "why_here": "a inteligencia tem UM dono. A Linha B consome; nao gera, nao decide e nao arbitra.",
+      "files": [
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json"
+      ],
+      "file_count": 1,
+      "status_reason": "o proprio repositorio declara este dono, por escrito, num contrato versionado.",
+      "evidence_text": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json declara esta linhagem como CANONICAL_GENERATOR.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "views": [
+        "lineage",
+        "official"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "x": 360,
+      "y": 682
+    },
+    {
+      "id": "lineage_package",
+      "name": "Pacote canonico esperado",
+      "kind": "artefato",
+      "icon": "◫",
+      "facts": [
+        "EXPECTED_BUILD_ID V21-06c6421d001ea52a"
+      ],
+      "proof": "document",
+      "territory": "Z-LINEAGE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "what": "O unico BUILD_ID que pode atravessar para o site: V21-06c6421d001ea52a.",
+      "why_here": "Um pacote que nao prova a sua identidade nao chega ao cliente.",
+      "files": [
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json"
+      ],
+      "file_count": 1,
+      "status_reason": "esta escrito no contrato e o portao da build recusa qualquer outro.",
+      "evidence_text": "um portao que avisa e um portao que se ignora na sexta-feira a noite. Se a proveniencia nao se prova, a build para — nao passa com aviso.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "views": [
+        "lineage",
+        "official"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "x": 360,
+      "y": 1004
+    },
+    {
+      "id": "lineage_stale",
+      "name": "Safras atrasadas conhecidas (4)",
+      "kind": "artefato vencido",
+      "icon": "✕",
+      "facts": [
+        "V21-99226fbb90dcdbc2 — o zip historico commitado: 37 casos, sem MEETING_SURFACE_RULE",
+        "V21-5d312cb90a0de01d — o que a cadeia local desta linhagem produz hoje: PREPARE_NOW em 11 cas",
+        "V21-69bf448ac934a6d9 — a safra de 55c2674: 43 casos e vereditos identicos aos de hoje, mas se",
+        "V21-044e4924854d5f0a — a safra de 5fac11f: mesmos 43 casos e mesmos vereditos, mas sem TRANSC"
+      ],
+      "proof": "document",
+      "territory": "Z-LINEAGE",
+      "status": "PENDING",
+      "ui_status": "yellow",
+      "what": "Pacotes que ja existiram e que o portao reconhece para RECUSAR.",
+      "why_here": "Saber o nome do errado e o que permite recusa-lo. Sem esta lista, uma safra velha passava com cara de nova.",
+      "files": [
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json"
+      ],
+      "file_count": 1,
+      "status_reason": "existem e estao barrados de proposito — nao e defeito, e memoria.",
+      "evidence_text": "cada um destes BUILD_IDs esta nomeado no contrato como conhecido-e-recusado.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "views": [
+        "lineage",
+        "official"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "x": 360,
+      "y": 1326
     }
   ],
   "EDGES": [
@@ -3308,17 +5039,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 160,
+          "line": 291,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 160,
+          "line": 291,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 161,
+          "line": 292,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ]
@@ -3334,7 +5065,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 339,
+          "line": 495,
           "snippet": "subprocess.run([sys.executable, str(Path(__file__).with_name(\"scan_repo.py\"))],"
         }
       ]
@@ -4431,9 +6162,9 @@
   "UNCLAIMED_FILES_COUNT": 641,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 51,
-    "components_proven": 43,
-    "components_pending": 4,
+    "components": 55,
+    "components_proven": 46,
+    "components_pending": 5,
     "components_broken": 0,
     "components_unknown": 4,
     "edges": 120,

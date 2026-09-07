@@ -25,7 +25,7 @@ quem está errado é ele, e o CI reprova.
 
 ```bash
 py system-map/scripts/generate_system_map.py    # regerar (scan + estado + build)
-py system-map/scripts/validate_system_map.py    # validar (10 provas, falha fechado)
+py system-map/scripts/validate_system_map.py    # validar (11 provas, falha fechado)
 py system-map/tests/test_system_map.py          # provar que as regras não afrouxaram
 py system-map/scripts/scan_repo.py              # só medir o repositório
 ```
@@ -51,7 +51,7 @@ e abra `http://localhost:8080/system-map/`.
 system-map/
   README.md                        este ficheiro
   app/                             a TELA — só renderiza, não sabe nada
-    index.html  map.js  map.css
+    index.html  map.js  map.css     (a casca do protótipo aprovado, sem factos dentro)
   data/
     architecture.declared.json     o que o HUMANO declara (nome, frase, departamento)
     architecture.generated.json    o que a MÁQUINA mede (ficheiros, imports, chamadas)
@@ -120,6 +120,29 @@ Recarimbar sem reler é o único jeito de mentir neste sistema.
 
 ---
 
+## AS OITO ZONAS
+
+O mapa corre da esquerda para a direita, na direção em que o dado corre:
+
+```
+LINHAGENS  →  ACERVO  →  GERADOR  →  PACOTE  →  FRONTEIRA  →  MODELO  →  SUPERFÍCIES     AUDITORIA
+ E DONOS      PINADO     V2.1       CANÔNICO   PACOTE→PORTAL  E RÉGUAS                    CI E INFRA
+```
+
+**LINHAGENS E DONOS** é a única zona que não é código. As peças dela são factos
+sobre *quem manda*, e por isso cada uma declara em `proof` de onde vem a prova:
+
+| `proof` | de onde vem |
+|---|---|
+| `document` | `italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json` — o repositório declarando por escrito qual é a linhagem geradora, o commit dela e o `BUILD_ID` esperado |
+| `git-measurement` | o `git` desta árvore: branch e HEAD de quem está a consumir |
+
+Um facto sobre quem manda não é importado por ninguém — exigir-lhe um `import`
+seria exigir a prova errada. Mas *nenhum* tipo de prova é "eu sei": o validador
+recusa peça de linhagem que não nomeie um dos dois (`P6_LINHAGEM_DIZ_A_PROVA`).
+
+---
+
 ## DETERMINISMO
 
 Mesma árvore + mesmo HEAD = **byte a byte** o mesmo ficheiro. Por isso
@@ -146,12 +169,13 @@ Pintar peça quebrada de roxo Pest Control daria a uma cor de marca um segundo
 significado, e a partir daí nenhuma das duas leituras seria confiável. Por isso:
 
 ```
-TERRITÓRIO  → cor de marca ADAMA (preenchimento e cabeçalho)
-STATUS      → rampa própria de engenharia (bolinha + contorno)
+ZONA    → cor de marca ADAMA (--adama no topo corporativo, --earth no alternado)
+ESTADO  → rampa própria de engenharia (--ok --warn --bad --unknown), na pastilha
 ```
 
-O único valor fora do BrandWell é o vermelho de erro (`#c2321f`). Está
-declarado no topo de `app/map.css`.
+Assim a marca continua a dizer *"que assunto é este"* e o estado continua a dizer
+*"isto funciona?"*, sem os dois competirem pelo mesmo pixel. O único valor fora
+do BrandWell é o vermelho de erro (`--bad: #c53b35`), no topo de `app/map.css`.
 
 ---
 

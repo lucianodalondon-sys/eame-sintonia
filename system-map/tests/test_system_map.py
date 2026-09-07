@@ -67,8 +67,20 @@ prova("aresta_declarada_e_nao_provada_fica_cinza",
 VALIDOS = {"PROVEN", "PENDING", "BROKEN", "UNKNOWN"}
 prova("status_do_vocabulario_fechado", all(n["status"] in VALIDOS for n in S["NODES"]))
 prova("verde_nunca_e_so_existir",
-      all(n["inbound"] or n["outbound"] for n in S["NODES"] if n["status"] == "PROVEN"),
-      "peca verde sem nenhuma ligacao provada e verde por existir")
+      all(n["inbound"] or n["outbound"]
+          or (n["territory"] == "Z-LINEAGE"
+              and (n["files"] or n.get("proof") == "git-measurement"))
+          for n in S["NODES"] if n["status"] == "PROVEN"),
+      "peca verde sem ligacao provada nem documento que a prove e verde por existir")
+prova("linhagem_verde_nomeia_a_prova",
+      all(n["files"] or n.get("proof") == "git-measurement"
+          for n in S["NODES"]
+          if n["territory"] == "Z-LINEAGE" and n["status"] == "PROVEN"),
+      "facto sobre quem manda tem de citar documento versionado ou medicao do git")
+prova("linhagem_declara_o_tipo_de_prova",
+      all(n.get("proof") in ("document", "git-measurement")
+          for n in S["NODES"] if n["territory"] == "Z-LINEAGE"),
+      "'eu sei' nao e um tipo de prova aceite")
 prova("vermelho_e_so_ausencia",
       all(n["file_count"] == 0 for n in S["NODES"] if n["status"] == "BROKEN"))
 prova("cinza_nao_tem_ligacao",
@@ -140,11 +152,24 @@ prova("README_aponta_agentes_para_AGENTS_md",
 # ── a app so renderiza ───────────────────────────────────────────────────────
 js = (RAIZ / "system-map" / "app" / "map.js").read_text(encoding="utf-8")
 prova("a_tela_le_o_estado_de_um_ficheiro", "state.generated.json" in js)
-prova("a_tela_usa_tokens_do_design_system",
-      "--st-proven" in (RAIZ / "system-map" / "app" / "map.css").read_text(encoding="utf-8"))
+css = (RAIZ / "system-map" / "app" / "map.css").read_text(encoding="utf-8")
+prova("a_tela_usa_tokens_do_design_system", "--adama:#009845" in css,
+      "o verde ADAMA tem de estar no token, nao espalhado a mao pela folha")
+prova("a_rampa_de_estado_e_separada_da_marca",
+      all(t in css for t in ("--ok:", "--warn:", "--bad:", "--unknown:")),
+      "estado e marca a partilhar a mesma cor estragam as duas leituras")
 html = (RAIZ / "system-map" / "app" / "index.html").read_text(encoding="utf-8")
 prova("a_pagina_carrega_o_design_system_oficial", "_ds/adama-brandwell" in html)
-prova("a_pagina_sobrevive_sem_javascript", "<noscript>" in html and "semjs" in html)
+prova("a_pagina_sobrevive_sem_javascript",
+      "<noscript>" in html and "state.generated.json" in html,
+      "sem JS, a pagina tem de apontar para o ficheiro que carrega o mesmo conteudo")
+
+# A tela nao pode voltar a guardar factos. O prototipo original trazia as pecas
+# escritas dentro do JS — foi exatamente isso que esta missao veio desfazer.
+proibido = [t for t in ("const nodes=[", "const edges=[", "const NODES", "const SNAP")
+            if t in js]
+prova("a_tela_nao_guarda_facto_nenhum", not proibido,
+      f"encontrado no map.js: {proibido} — facto escrito na tela nao passa por validador")
 
 print()
 if falhas:

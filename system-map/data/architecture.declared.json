@@ -28,66 +28,91 @@
   },
   "TERRITORIES": [
     {
-      "id": "T-FONTE",
-      "name": "FONTES E COLETA",
-      "why": "De onde o dado entra. Nada existe no SINTONIA sem passar por aqui primeiro."
+      "id": "Z-LINEAGE",
+      "name": "LINHAGENS E DONOS",
+      "why": "Qual branch decide, qual branch consome e qual pacote e o canonico",
+      "band": "corporate",
+      "views": [
+        "lineage",
+        "official"
+      ]
     },
     {
-      "id": "T-REGUA",
-      "name": "REGUAS E LEIS",
-      "why": "As leis que decidem o que conta como verdade. Quem manda no significado do dado."
+      "id": "Z-ACERVO",
+      "name": "ACERVO PINADO",
+      "why": "De onde o dado entra. Nada existe no SINTONIA sem passar por aqui primeiro",
+      "band": "earth",
+      "views": [
+        "acervo",
+        "infra"
+      ]
     },
     {
-      "id": "T-MOTOR",
-      "name": "MOTOR — CADEIA V2.1",
-      "why": "Onde o dado bruto vira caso. A ordem importa e nao e adivinhavel."
+      "id": "Z-GERADOR",
+      "name": "GERADOR CANONICO V2.1",
+      "why": "A cadeia que constroi o pacote; a ordem e lei, nao convencao",
+      "band": "corporate",
+      "views": [
+        "generator",
+        "acervo"
+      ]
     },
     {
-      "id": "T-PACOTE",
+      "id": "Z-PACOTE",
       "name": "PACOTE CANONICO",
-      "why": "O artefacto fechado que o portal serve. Derivado — nunca dono da lei."
+      "why": "Artefato derivado e reproduzivel — nao e a fonte; e gerado",
+      "band": "earth",
+      "views": [
+        "generator",
+        "portal"
+      ]
     },
     {
-      "id": "T-PORTAL",
-      "name": "PORTAL (o que o cliente ve)",
-      "why": "A superficie. Apresenta decisao ja tomada pelo motor; nao recalcula nada."
+      "id": "Z-FRONTEIRA",
+      "name": "FRONTEIRA PACOTE -> PORTAL",
+      "why": "Fail-closed: o unico ponto por onde o pacote atravessa para a tela",
+      "band": "corporate",
+      "views": [
+        "portal"
+      ]
     },
     {
-      "id": "T-PORTAO",
-      "name": "PORTOES E AUDITORIA",
-      "why": "O que impede coisa errada de chegar ao cliente. Falha fechado, de proposito."
+      "id": "Z-MODELO",
+      "name": "MODELO E REGUAS DE APRESENTACAO",
+      "why": "Dao forma e significado sem voltar a decidir o que o motor ja decidiu",
+      "band": "earth",
+      "views": [
+        "opportunity",
+        "portal",
+        "science"
+      ]
     },
     {
-      "id": "T-PERSIST",
-      "name": "PERSISTENCIA",
-      "why": "Onde o dado fica guardado entre uma corrida e outra."
+      "id": "Z-SUPERFICIE",
+      "name": "SUPERFICIES",
+      "why": "O que o cliente e a reuniao realmente conseguem ver",
+      "band": "corporate",
+      "views": [
+        "portal",
+        "meeting"
+      ]
     },
     {
-      "id": "T-CI",
-      "name": "CI E EXECUCAO",
-      "why": "Quem roda o que, quando, e em que maquina."
-    },
-    {
-      "id": "T-PROVA",
-      "name": "TESTES E PROVA",
-      "why": "O que transforma 'eu acho' em 'esta provado'."
-    },
-    {
-      "id": "T-DS",
-      "name": "DESIGN SYSTEM ADAMA",
-      "why": "A forma. Fonte visual oficial — extrato local dos tokens."
-    },
-    {
-      "id": "T-MAPA",
-      "name": "SYSTEM MAP",
-      "why": "Este proprio instrumento. Aparece no mapa porque tambem e parte do sistema."
+      "id": "Z-INFRA",
+      "name": "AUDITORIA, CI E INFRA",
+      "why": "Portoes, testes, design system, coleta e persistencia fora da rota principal",
+      "band": "earth",
+      "views": [
+        "audit",
+        "infra"
+      ]
     }
   ],
   "COMPONENTS": [
     {
       "id": "C-APIFY-POOL",
       "name": "Pool de tokens Apify",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "library",
       "what": "Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.",
       "why_here": "Sem isto, um erro de rede imprimia a chave inteira no log de uma execucao publica.",
@@ -99,12 +124,14 @@
         "scripts/apify_contrato.py",
         "scripts/apify_recuperar.py",
         "scripts/contrato_ator.py"
-      ]
+      ],
+      "views": [],
+      "icon": "▤"
     },
     {
       "id": "C-COLETA-PUBLICA",
       "name": "Coleta de comunicacao publica do concorrente",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "engine",
       "what": "Recolhe o que os concorrentes publicam em canais abertos e classifica cada peca.",
       "why_here": "Saber o que o concorrente esta dizendo em publico, sem depender de ninguem contar.",
@@ -114,12 +141,14 @@
       ],
       "files": [
         "scripts/comunicacao_*.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-COLETA-INSTAGRAM",
       "name": "Coleta Instagram",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "engine",
       "what": "Recolhe publicacoes de Instagram das contas autorizadas e transcreve o que e falado em video.",
       "why_here": "Boa parte da fala real de produtor e de tecnico nao esta em texto — esta em video.",
@@ -128,12 +157,14 @@
       ],
       "files": [
         "scripts/instagram_*.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-COLETA-BASE",
       "name": "Coletor e portoes de coleta",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "engine",
       "what": "O motor generico de coleta e o portao que decide, de graca, se vale gastar maquina antes de gastar.",
       "why_here": "Coletar sem portao ja custou execucoes pagas que devolveram o alvo errado.",
@@ -147,12 +178,14 @@
         "scripts/portoes*.py",
         "scripts/filas.py",
         "scripts/cdp.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-FONTES-EU",
       "name": "Fontes regulatorias e cientificas europeias",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "engine",
       "what": "Le as bases oficiais da Europa — registro de produtos, pragas, denominacoes, dados agroalimentares.",
       "why_here": "Fonte oficial e o unico chao que nao depende de alguem ter postado.",
@@ -168,12 +201,16 @@
         "scripts/cellar.sh",
         "scripts/eu_substancia_adama_it.py",
         "scripts/regulatorio*.py"
-      ]
+      ],
+      "views": [
+        "science"
+      ],
+      "icon": "⚙"
     },
     {
       "id": "C-CORPUS",
       "name": "Corpus de voz e de pesquisador",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "engine",
       "what": "Junta a fala real de campo e a producao dos pesquisadores num corpo de texto consultavel.",
       "why_here": "A voz do campo e a ciencia sao duas evidencias diferentes e nao podem virar a mesma coisa.",
@@ -185,12 +222,16 @@
         "scripts/corpus_*.py",
         "scripts/speaker*.py",
         "scripts/sensor*.py"
-      ]
+      ],
+      "views": [
+        "science"
+      ],
+      "icon": "⚙"
     },
     {
       "id": "C-PROVENIENCIA",
       "name": "Regua de procedencia",
-      "territory": "T-REGUA",
+      "territory": "Z-MODELO",
       "kind": "contract",
       "what": "Decide de onde cada afirmacao veio e nao deixa a origem se perder no caminho.",
       "why_here": "Sem procedencia, um numero vira verdade so porque esta escrito.",
@@ -203,12 +244,14 @@
         "scripts/v21_procedencia_contrato.py",
         "scripts/v21_procedencia_religar.py",
         "scripts/v21_carimbar_origem.py"
-      ]
+      ],
+      "views": [],
+      "icon": "§"
     },
     {
       "id": "C-LUGAR-DO-FATO",
       "name": "Regua do lugar do fato",
-      "territory": "T-REGUA",
+      "territory": "Z-MODELO",
       "kind": "contract",
       "what": "Separa o lugar onde o fato aconteceu do lugar de onde o documento foi publicado.",
       "why_here": "Fonte italiana falando de Espanha nao torna o fato italiano. Esta lei impede essa troca.",
@@ -221,12 +264,14 @@
         "scripts/lugar*.py",
         "scripts/v21_geografia_contrato.py",
         "scripts/gire_mapas.py"
-      ]
+      ],
+      "views": [],
+      "icon": "§"
     },
     {
       "id": "C-DATA-CLOCK",
       "name": "Regua do tempo",
-      "territory": "T-REGUA",
+      "territory": "Z-MODELO",
       "kind": "contract",
       "what": "Decide qual data vale: a do fato, nao a da publicacao, e nunca a data regulatoria virando janela agronomica.",
       "why_here": "Trocar data de publicacao por data do fato desloca a safra inteira.",
@@ -238,12 +283,14 @@
         "scripts/data_clock.py",
         "scripts/v21_datas*.py",
         "scripts/calendario_*.py"
-      ]
+      ],
+      "views": [],
+      "icon": "§"
     },
     {
       "id": "C-RELEVANCIA",
       "name": "Regua de relevancia ADAMA",
-      "territory": "T-REGUA",
+      "territory": "Z-MODELO",
       "kind": "contract",
       "what": "Decide se um sinal interessa a ADAMA, e o quanto.",
       "why_here": "Ha um unico dono da relevancia. Duas reguas de relevancia sao duas verdades.",
@@ -255,12 +302,16 @@
         "scripts/adama_relevance.py",
         "scripts/regua*.py",
         "scripts/auditoria_regua_comercial.py"
-      ]
+      ],
+      "views": [
+        "opportunity"
+      ],
+      "icon": "§"
     },
     {
       "id": "C-CICATRIZES-BR",
       "name": "Cicatrizes do Brasil (lei portada)",
-      "territory": "T-REGUA",
+      "territory": "Z-MODELO",
       "kind": "contract",
       "what": "Traz para o EAME as leis que o Brasil ja aprendeu na dor, em vez de reinventar cada uma.",
       "why_here": "O EAME nao inventa contrato novo quando o Brasil ja tem lei madura para a mesma pergunta.",
@@ -269,12 +320,14 @@
       ],
       "files": [
         "scripts/cicatrizes_brasil.py"
-      ]
+      ],
+      "views": [],
+      "icon": "§"
     },
     {
       "id": "C-VOZ",
       "name": "Regua da voz",
-      "territory": "T-REGUA",
+      "territory": "Z-MODELO",
       "kind": "contract",
       "what": "Guarda como o sistema fala: sinal nao vira pedido, ausencia nao vira negativo.",
       "why_here": "A maior parte do erro de leitura nasce na frase, nao no numero.",
@@ -285,12 +338,14 @@
       "files": [
         "scripts/voz.py",
         "scripts/texto*.py"
-      ]
+      ],
+      "views": [],
+      "icon": "§"
     },
     {
       "id": "C-ADAMA-CATALOGO",
       "name": "Catalogo de produtos ADAMA",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "engine",
       "what": "Monta e le o catalogo de produtos da propria ADAMA em cada pais.",
       "why_here": "Sem saber o que a ADAMA vende naquele pais, nao da para dizer se uma oportunidade e atendivel.",
@@ -303,12 +358,14 @@
         "scripts/catalogo_importar.py",
         "scripts/importar_italia.py",
         "scripts/it_casa_dados.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-ADAMA-IT",
       "name": "Inteligencia de produto ADAMA Italia",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "engine",
       "what": "Le rotulo, modo de acao, substancia europeia e lacuna de portfolio da ADAMA na Italia.",
       "why_here": "A Italia e o piloto: e onde a leitura de portfolio foi provada primeiro.",
@@ -320,12 +377,16 @@
         "scripts/adama_it_*.py",
         "scripts/universo_ciencia_it.py",
         "scripts/testa_rota_italia.py"
-      ]
+      ],
+      "views": [
+        "science"
+      ],
+      "icon": "⚙"
     },
     {
       "id": "C-ADAMA-ES",
       "name": "Portao e importacao ADAMA Espanha",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "gate",
       "what": "Confere as regras de importacao do catalogo espanhol antes de ele entrar.",
       "why_here": "A Espanha entrou depois e com fonte diferente; sem portao proprio ela contaminaria a base.",
@@ -336,12 +397,14 @@
         "scripts/adama_es_*.py",
         "scripts/freeze_es.py",
         "scripts/proto_es.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⛨"
     },
     {
       "id": "C-ROTULOS",
       "name": "Rotulos",
-      "territory": "T-FONTE",
+      "territory": "Z-ACERVO",
       "kind": "engine",
       "what": "Baixa, conta e le os rotulos oficiais dos produtos.",
       "why_here": "O rotulo e o unico documento que diz o que e legalmente permitido fazer com o produto.",
@@ -356,12 +419,14 @@
         "scripts/preservar_pdf.py",
         "scripts/mapa_regfi.py",
         "scripts/ropf_pre_requisito.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-V2-LEGADO",
       "name": "Cadeia V2 (legado)",
-      "territory": "T-MOTOR",
+      "territory": "Z-GERADOR",
       "kind": "engine",
       "what": "A geracao anterior do motor, antes da V2.1.",
       "why_here": "Continua no repositorio e por isso aparece no mapa — mas nao e a cadeia oficial de hoje.",
@@ -371,12 +436,14 @@
       "legacy": true,
       "files": [
         "scripts/v2_*.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-V21-COMERCIAL",
       "name": "Leitura comercial e completude",
-      "territory": "T-MOTOR",
+      "territory": "Z-GERADOR",
       "kind": "engine",
       "what": "Mede se o caso esta completo o bastante para virar conversa comercial, e reavalia quando muda.",
       "why_here": "Caso incompleto virando pedido de venda e o erro mais caro que este sistema pode cometer.",
@@ -394,12 +461,17 @@
         "scripts/v21_campos_de_lingua.py",
         "scripts/v21_adama_registro_validar.py",
         "scripts/v21_tm_colher.py"
-      ]
+      ],
+      "views": [
+        "meeting",
+        "opportunity"
+      ],
+      "icon": "⚙"
     },
     {
       "id": "C-LASTMILE",
       "name": "Ultima milha da entrega",
-      "territory": "T-PACOTE",
+      "territory": "Z-PACOTE",
       "kind": "engine",
       "what": "Leva o resultado ate onde ele e consumido: inventario, relatorio, banco e entrega final.",
       "why_here": "Resultado que fica no disco da maquina nao chegou a ninguem.",
@@ -411,12 +483,14 @@
         "scripts/lastmile_*.py",
         "scripts/ler_saida_leque.py",
         "scripts/meeting_snapshot.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-ASK-SINTONIA",
       "name": "Ask Sintonia",
-      "territory": "T-PORTAL",
+      "territory": "Z-SUPERFICIE",
       "kind": "engine",
       "what": "A porta de pergunta em linguagem de gente sobre o que o sistema ja provou.",
       "why_here": "E a unica peca desenhada para quem nao sabe onde procurar.",
@@ -429,12 +503,14 @@
         "scripts/ask_sintonia.py",
         "scripts/navegador.py",
         "scripts/rede.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-MEDICAO",
       "name": "Auditoria, cobertura e custo",
-      "territory": "T-PROVA",
+      "territory": "Z-INFRA",
       "kind": "engine",
       "what": "Mede o proprio sistema: o que foi coberto, o que era esperado e quanto custou.",
       "why_here": "Sistema que nao se mede nao sabe o que esta faltando nele.",
@@ -447,12 +523,14 @@
         "scripts/coverage.py",
         "scripts/corrigir_custo.py",
         "scripts/inventario_esperado.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-CADEIA-V21",
       "name": "Cadeia canonica V2.1",
-      "territory": "T-MOTOR",
+      "territory": "Z-GERADOR",
       "kind": "chain",
       "what": "O roteiro que roda os trinta passos do motor na ordem certa, do dado bruto ate o pacote fechado.",
       "why_here": "A ordem nao e adivinhavel. Rodar um passo sozinho produz um pacote que parece bom e esta errado.",
@@ -463,12 +541,14 @@
         "scripts/v21_cadeia.sh",
         "scripts/cadeia_canonica.sh",
         "scripts/chain.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⛓"
     },
     {
       "id": "C-V21-INGEST",
       "name": "Ingestao V2.1",
-      "territory": "T-MOTOR",
+      "territory": "Z-GERADOR",
       "kind": "engine",
       "what": "Entrada do motor: le o dado bruto e o coloca no formato que o resto da cadeia entende.",
       "why_here": "Primeiro degrau da cadeia. Tudo depois depende do que entra aqui.",
@@ -480,12 +560,14 @@
         "scripts/v21_normalizar.py",
         "scripts/normalize*.py",
         "scripts/pacote_normalizar.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-V21-CRUZAMENTO",
       "name": "Cruzamentos e convergencia",
-      "territory": "T-MOTOR",
+      "territory": "Z-GERADOR",
       "kind": "engine",
       "what": "Cruza sinais de origens diferentes e ve onde eles se encontram.",
       "why_here": "Um sinal sozinho e ruido. O valor esta no encontro de dois.",
@@ -498,12 +580,14 @@
         "scripts/pacote_convergencia.py",
         "scripts/consolidar_leque.py",
         "scripts/matriz*.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-V21-OPORTUNIDADE",
       "name": "Motor de Oportunidade",
-      "territory": "T-MOTOR",
+      "territory": "Z-GERADOR",
       "kind": "engine",
       "what": "Transforma cruzamento provado em caso de oportunidade, com dono, lugar e momento.",
       "why_here": "E aqui que o sistema decide. A tela nao recalcula nada disto.",
@@ -516,12 +600,16 @@
         "scripts/v21_oportunidades.py",
         "scripts/v21_dominio_da_alegacao.py",
         "scripts/v21_fechar.py"
-      ]
+      ],
+      "views": [
+        "opportunity"
+      ],
+      "icon": "⚙"
     },
     {
       "id": "C-V21-CONTRATO",
       "name": "Contrato do pacote",
-      "territory": "T-MOTOR",
+      "territory": "Z-GERADOR",
       "kind": "contract",
       "what": "Confere se o pacote fechado obedece as contagens e as regras antes de existir.",
       "why_here": "Pacote que nao prova a si mesmo nao pode chegar ao portal.",
@@ -532,12 +620,16 @@
         "scripts/v21_contrato_do_pacote.py",
         "scripts/v21_aceitacao.py",
         "scripts/v21_traducao_trava.py"
-      ]
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "§"
     },
     {
       "id": "C-V21-FONTES",
       "name": "Religacao de fontes do pacote",
-      "territory": "T-MOTOR",
+      "territory": "Z-GERADOR",
       "kind": "engine",
       "what": "Garante que cada caso do pacote continua ligado a fonte que o provou.",
       "why_here": "Caso sem fonte religada e afirmacao orfa.",
@@ -549,12 +641,14 @@
         "scripts/v21_fontes_*.py",
         "scripts/v21_vozes_reconciliar.py",
         "scripts/source*.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-PACOTE-CAMADAS",
       "name": "Montagem do pacote por camadas",
-      "territory": "T-PACOTE",
+      "territory": "Z-PACOTE",
       "kind": "engine",
       "what": "Monta o pacote de entrega em camadas e mede o que ficou dentro.",
       "why_here": "Separar montagem de decisao: aqui so se empacota o que o motor ja decidiu.",
@@ -569,12 +663,14 @@
       "exclude": [
         "scripts/pacote_normalizar.py",
         "scripts/pacote_convergencia.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-SITE-INGEST",
       "name": "Ingestao do pacote no site",
-      "territory": "T-PACOTE",
+      "territory": "Z-FRONTEIRA",
       "kind": "engine",
       "what": "Pega o pacote fechado e o transforma no ficheiro que o portal carrega.",
       "why_here": "Unica porta entre o motor e a tela. Recusa pacote que nao prove a propria procedencia.",
@@ -584,12 +680,14 @@
       "files": [
         "scripts/site_v21_ingest.py",
         "scripts/build_portal.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-ARTEFACTO-V21",
       "name": "Artefacto embarcado (italy-handoff-v21.js)",
-      "territory": "T-PACOTE",
+      "territory": "Z-PACOTE",
       "kind": "artifact",
       "what": "O ficheiro de dados que viaja para o cliente. E o unico que chega la.",
       "why_here": "Derivado — nunca dono da lei. Se ele e a lei divergirem, quem manda e a lei.",
@@ -599,12 +697,14 @@
       "files": [
         "italia-portale/client/italy-handoff-v21.js",
         "italia-portale/client/italy-ingested.js"
-      ]
+      ],
+      "views": [],
+      "icon": "◫"
     },
     {
       "id": "C-PORTAL-CASCO",
       "name": "Casco do portal",
-      "territory": "T-PORTAL",
+      "territory": "Z-SUPERFICIE",
       "kind": "surface",
       "what": "As paginas que o cliente abre: entrada, casa e portal.",
       "why_here": "A superficie apresenta o que ja foi decidido. Nao decide.",
@@ -615,12 +715,16 @@
       ],
       "files": [
         "italia-portale/client/*.html"
-      ]
+      ],
+      "views": [
+        "meeting"
+      ],
+      "icon": "▣"
     },
     {
       "id": "C-PORTAL-MODELO",
       "name": "Modelo de aplicacao do portal",
-      "territory": "T-PORTAL",
+      "territory": "Z-MODELO",
       "kind": "surface",
       "what": "A logica de tela: o que aparece, em que ordem, com que rotulo.",
       "why_here": "Guarda a leitura, nao a decisao.",
@@ -634,12 +738,14 @@
         "italia-portale/client/italy-casa.js",
         "italia-portale/client/italy-i18n.js",
         "italia-portale/client/support.js"
-      ]
+      ],
+      "views": [],
+      "icon": "▣"
     },
     {
       "id": "C-PORTAL-DADOS",
       "name": "Camadas de dado do portal",
-      "territory": "T-PORTAL",
+      "territory": "Z-SUPERFICIE",
       "kind": "surface",
       "what": "Os blocos de conteudo que o portal mostra: casos, catalogo, ciencia, rotulo, mercado, reuniao.",
       "why_here": "Cada bloco tem um dono de dado diferente e por isso e listado separado.",
@@ -661,12 +767,16 @@
         "italia-portale/client/italy-i18n.js",
         "italia-portale/client/italy-handoff-v21.js",
         "italia-portale/client/italy-ingested.js"
-      ]
+      ],
+      "views": [
+        "meeting"
+      ],
+      "icon": "▣"
     },
     {
       "id": "C-PORTAO-BUILD",
       "name": "Portao da build",
-      "territory": "T-PORTAO",
+      "territory": "Z-FRONTEIRA",
       "kind": "gate",
       "what": "Roda antes de qualquer publicacao e barra pacote atrasado ou artefacto que nao prove sua origem.",
       "why_here": "Nao ha bandeira para desligar. Portao que se chama a parte e disciplina; no caminho, e regra.",
@@ -677,12 +787,16 @@
         "italia-portale/audit/build-gate.mjs",
         "italia-portale/audit/ingestion-provenance.mjs",
         "italia-portale/audit/casa-gate.mjs"
-      ]
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "⛨"
     },
     {
       "id": "C-AUDIT-HARNESS",
       "name": "Harness de auditoria",
-      "territory": "T-PORTAO",
+      "territory": "Z-INFRA",
       "kind": "library",
       "what": "A base comum que todas as auditorias usam para rodar e relatar do mesmo jeito.",
       "why_here": "E o ficheiro mais importado do repositorio inteiro.",
@@ -691,12 +805,14 @@
       ],
       "files": [
         "italia-portale/audit/lib/*.mjs"
-      ]
+      ],
+      "views": [],
+      "icon": "▤"
     },
     {
       "id": "C-AUDIT-BLOCOS",
       "name": "Auditoria de blocos do portal",
-      "territory": "T-PORTAO",
+      "territory": "Z-INFRA",
       "kind": "gate",
       "what": "Confere bloco por bloco se a tela mostra o que o contrato daquele bloco manda.",
       "why_here": "Bloco e a unidade de contrato da superficie.",
@@ -707,12 +823,16 @@
         "italia-portale/audit/blocks.mjs",
         "italia-portale/audit/blocks/*.js",
         "italia-portale/audit/BLOCK-CONTRACTS.md"
-      ]
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "⛨"
     },
     {
       "id": "C-AUDIT-CASCO",
       "name": "Auditoria do casco",
-      "territory": "T-PORTAO",
+      "territory": "Z-INFRA",
       "kind": "gate",
       "what": "Confere a paridade visual, a demo, os falsos zeros e a fuga de conteudo do casco.",
       "why_here": "Casco quebrado engana antes de o dado ser lido.",
@@ -724,12 +844,16 @@
       ],
       "exclude": [
         "italia-portale/audit/casco/brandwell-parita.mjs"
-      ]
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "⛨"
     },
     {
       "id": "C-AUDIT-MARCA",
       "name": "Auditoria de marca ADAMA",
-      "territory": "T-PORTAO",
+      "territory": "Z-INFRA",
       "kind": "gate",
       "what": "Confere se a tela obedece ao Design System oficial da ADAMA.",
       "why_here": "A forma tambem tem lei, e ela nao e opcional.",
@@ -741,12 +865,16 @@
         "italia-portale/audit/brandwell.mjs",
         "italia-portale/audit/casco/brandwell-parita.mjs",
         "italia-portale/audit/adama-*.mjs"
-      ]
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "⛨"
     },
     {
       "id": "C-AUDIT-GERAL",
       "name": "Demais auditorias do portal",
-      "territory": "T-PORTAO",
+      "territory": "Z-INFRA",
       "kind": "gate",
       "what": "O resto das conferencias: aceitacao, numeros do contrato, superficie, navegacao, idioma.",
       "why_here": "Cada uma prova uma promessa diferente da tela.",
@@ -763,12 +891,16 @@
         "italia-portale/audit/blocks.mjs",
         "italia-portale/audit/brandwell.mjs",
         "italia-portale/audit/adama-*.mjs"
-      ]
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "⛨"
     },
     {
       "id": "C-SUPABASE",
       "name": "Persistencia Supabase",
-      "territory": "T-PERSIST",
+      "territory": "Z-INFRA",
       "kind": "engine",
       "what": "Onde o dado coletado fica guardado, e as migracoes que mudam o formato dessa guarda.",
       "why_here": "Entre uma corrida e outra o dado precisa existir em algum lugar que nao seja a memoria da maquina.",
@@ -779,12 +911,14 @@
         "supabase/**",
         "scripts/sql*.py",
         "scripts/supabase*.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-CI-COLETA",
       "name": "Workflows de coleta",
-      "territory": "T-CI",
+      "territory": "Z-INFRA",
       "kind": "workflow",
       "what": "Os botoes que disparam coleta paga, sempre com a fase gratuita rodando primeiro.",
       "why_here": "Coleta paga sem contrato conferido antes ja queimou execucoes.",
@@ -795,12 +929,14 @@
         ".github/workflows/apify-*.yml",
         ".github/workflows/comunicacao-publica.yml",
         ".github/workflows/adama-es-gate.yml"
-      ]
+      ],
+      "views": [],
+      "icon": "▶"
     },
     {
       "id": "C-CI-PERSIST",
       "name": "Workflows de persistencia",
-      "territory": "T-CI",
+      "territory": "Z-INFRA",
       "kind": "workflow",
       "what": "Conferem a conexao com o banco, rodam migracao e provam que o dado volta igual ao que entrou.",
       "why_here": "Migracao sem prova de ida e volta e perda de dado com aparencia de sucesso.",
@@ -809,12 +945,14 @@
       ],
       "files": [
         ".github/workflows/supabase-*.yml"
-      ]
+      ],
+      "views": [],
+      "icon": "▶"
     },
     {
       "id": "C-CI-REGRESSAO",
       "name": "Calendario de regressoes",
-      "territory": "T-CI",
+      "territory": "Z-INFRA",
       "kind": "workflow",
       "what": "Roda de tempos em tempos as provas que garantem que nada quebrou sozinho.",
       "why_here": "Coisa que passou ontem pode falhar hoje sem ninguem ter mexido nela.",
@@ -823,12 +961,14 @@
       ],
       "files": [
         ".github/workflows/calendario-regressoes.yml"
-      ]
+      ],
+      "views": [],
+      "icon": "▶"
     },
     {
       "id": "C-TESTES",
       "name": "Suite de testes",
-      "territory": "T-PROVA",
+      "territory": "Z-INFRA",
       "kind": "test",
       "what": "As provas executaveis do repositorio, uma por lei ou por peca.",
       "why_here": "E o que separa 'esta escrito' de 'esta provado'.",
@@ -837,12 +977,16 @@
       ],
       "files": [
         "tests/*.py"
-      ]
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "✓"
     },
     {
       "id": "C-DS-ADAMA",
       "name": "Extrato local do ADAMA Design System",
-      "territory": "T-DS",
+      "territory": "Z-INFRA",
       "kind": "library",
       "what": "As cores, tipografia, espacamentos e fontes oficiais da ADAMA, versionados aqui como extrato.",
       "why_here": "Extrato local nao e o Design System — serve para o codigo nao divergir dos tokens.",
@@ -852,12 +996,14 @@
       "files": [
         "italia-portale/client/_ds/**",
         "italia-portale/BASELINE/_ds/**"
-      ]
+      ],
+      "views": [],
+      "icon": "▤"
     },
     {
       "id": "C-MAPA-SCAN",
       "name": "Scanner do System Map",
-      "territory": "T-MAPA",
+      "territory": "Z-INFRA",
       "kind": "engine",
       "what": "Le o repositorio e devolve so os fatos: que ficheiro existe, quem importa quem, quem roda o que.",
       "why_here": "E a unica fonte de aresta tecnica do mapa. Sem ele, o mapa seria opiniao desenhada.",
@@ -866,12 +1012,14 @@
       ],
       "files": [
         "system-map/scripts/scan_repo.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-MAPA-GERADOR",
       "name": "Gerador do System Map",
-      "territory": "T-MAPA",
+      "territory": "Z-INFRA",
       "kind": "engine",
       "what": "Junta o que a maquina mediu com o que o humano declarou e calcula o status de cada peca.",
       "why_here": "O status nasce de regra escrita, nao de escolha de quem esta olhando.",
@@ -880,12 +1028,14 @@
       ],
       "files": [
         "system-map/scripts/generate_system_map.py"
-      ]
+      ],
+      "views": [],
+      "icon": "⚙"
     },
     {
       "id": "C-MAPA-VALIDADOR",
       "name": "Validador do System Map",
-      "territory": "T-MAPA",
+      "territory": "Z-INFRA",
       "kind": "gate",
       "what": "Reprova a mudanca quando o mapa fica desatualizado, quando ha aresta sem prova ou verde sem evidencia.",
       "why_here": "E o dente da lei. Sem ele, AGENTS.md seria so um texto pedindo por favor.",
@@ -894,12 +1044,16 @@
       ],
       "files": [
         "system-map/scripts/validate_system_map.py"
-      ]
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "⛨"
     },
     {
       "id": "C-MAPA-APP",
       "name": "Interface do System Map",
-      "territory": "T-MAPA",
+      "territory": "Z-INFRA",
       "kind": "surface",
       "what": "A tela do mapa: navegar, aproximar, buscar, filtrar e clicar em cada peca.",
       "why_here": "So renderiza. Nenhum fato arquitetural mora dentro dela.",
@@ -909,12 +1063,14 @@
       ],
       "files": [
         "system-map/app/**"
-      ]
+      ],
+      "views": [],
+      "icon": "▣"
     },
     {
       "id": "C-MAPA-TESTES",
       "name": "Testes do System Map",
-      "territory": "T-MAPA",
+      "territory": "Z-INFRA",
       "kind": "test",
       "what": "Provam que o mapa nao inventa aresta, nao pinta verde sem evidencia e nao perde o NAO SEI.",
       "why_here": "Um mapa de auditoria que nao e auditado nao vale nada.",
@@ -923,12 +1079,14 @@
       ],
       "files": [
         "system-map/tests/*.py"
-      ]
+      ],
+      "views": [],
+      "icon": "✓"
     },
     {
       "id": "C-CI-MAPA",
       "name": "Workflow do System Map",
-      "territory": "T-CI",
+      "territory": "Z-INFRA",
       "kind": "workflow",
       "what": "Em cada mudanca, regera o mapa e reprova se o que foi commitado nao bate com o repositorio.",
       "why_here": "E o que impede o 'depois alguem atualiza o mapa'.",
@@ -937,7 +1095,9 @@
       ],
       "files": [
         ".github/workflows/system-map.yml"
-      ]
+      ],
+      "views": [],
+      "icon": "▶"
     }
   ],
   "BUSINESS_EDGES": [
@@ -1321,13 +1481,13 @@
     "supabase/tests/regressoes_coleta.sql": "87516f571d050ce0abf4eabe0f0291fb4b29882e",
     "supabase/tests/regressoes_lugar_do_fato.sql": "a5abde721e6f06cb4ef4e793699dce2d396d4a3a",
     "supabase/tests/regressoes_regulatorio_es.sql": "7c806a2cda0a2adc3b24e9e3e8e3bb406acd72d7",
-    "system-map/app/index.html": "24fea2081ee89d94277591437a7171f7695a785b",
-    "system-map/app/map.css": "f37f3f90c2a9006c813761499b5b03e24d80c0de",
-    "system-map/app/map.js": "99fa1da710e4e772dd0bc1943110cde6296e8fc7",
-    "system-map/scripts/generate_system_map.py": "61c5abfc5cc01e4a8cadf123f249c1afd751413b",
+    "system-map/app/index.html": "cfb552460d2560644e1ff0ceafe23ca9a3d00c8c",
+    "system-map/app/map.css": "1f06609ea79ed4eadfc730b324b05cd185321979",
+    "system-map/app/map.js": "8c81f37882f51ec7d338515d1c2a7fb7393ee4cb",
+    "system-map/scripts/generate_system_map.py": "cc9e142ee028d68a64833a4e9a260b4406e7fcad",
     "system-map/scripts/scan_repo.py": "8f6a67bc650582f939d0c72f09a6069a7c15b53c",
-    "system-map/scripts/validate_system_map.py": "e8b44368ea3883dd7fffc673e5a4b8c0aceac5d7",
-    "system-map/tests/test_system_map.py": "f6633f247f431f2362547333e59517c1fd2d5dfd",
+    "system-map/scripts/validate_system_map.py": "e2d94eb358aef1c6dd7e44064e6bcd982370b59f",
+    "system-map/tests/test_system_map.py": "8407e0609feabcb4b3e3b5c48dcf25e2af011434",
     "tests/test_adama_es_gate.py": "3c7bbce2f3f2b88ac9474fda1ecc2bf3da66674c",
     "tests/test_adama_es_import_rules.py": "590e552c5e2520b975dd002a0cb6a85b2686cc78",
     "tests/test_adama_relevance.py": "1c9230263667227d67e3b082dd1c2cd23cdbf5d2",

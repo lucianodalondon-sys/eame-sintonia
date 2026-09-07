@@ -4,63 +4,133 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>SINTONIA System Map — mapa da arquitetura</title>
+<title>SINTONIA EAME · Mapa fiel ao repositório</title>
 
-<!-- Tokens oficiais do ADAMA Design System. Extrato versionado no repositorio;
+<!-- Tokens oficiais do ADAMA Design System. Extrato versionado no repositório;
      a fonte continua a ser o Claude Design (ver CLAUDE.md). Caminho relativo
-     porque a app e servida em /system-map/ ao lado de /_ds/. -->
+     porque a app é servida em /system-map/, ao lado de /_ds/. -->
 <link rel="stylesheet" href="../_ds/adama-brandwell/tokens/colors.css">
 <link rel="stylesheet" href="../_ds/adama-brandwell/tokens/typography.css">
-<link rel="stylesheet" href="../_ds/adama-brandwell/tokens/spacing.css">
-<link rel="stylesheet" href="../_ds/adama-brandwell/tokens/base.css">
 <link rel="stylesheet" href="map.css">
 </head>
 <body>
 
-<header id="topo">
-  <h1>SINTONIA System Map<small>o mapa e derivado do repositorio — nunca o contrario</small></h1>
-  <input id="busca" type="search" placeholder="buscar peca, ficheiro ou assunto  ( / )"
-         aria-label="buscar no mapa">
-  <div id="placar" role="group" aria-label="filtrar por status"></div>
-  <div id="carimbo"></div>
+<!-- ══════════════════════════════════════════════════════════════════════════
+     Esta página é a casca do protótipo aprovado, mantida como estava.
+     A diferença é o que a preenche: nada aqui está escrito à mão. Zonas, peças,
+     ligações, estados e o inventário vêm de `state.generated.json`, que o
+     gerador produz a partir do repositório.
+
+         O MAPA É DERIVADO DO REPO. O REPO NÃO É DERIVADO DO MAPA.
+
+     Se encontrar neste ficheiro o nome de uma peça ou de um commit escrito à
+     mão, isso é um bug: é um facto a esconder-se na tela, onde nenhum validador
+     o alcança.
+     ══════════════════════════════════════════════════════════════════════════ -->
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brandMark"></div>
+    <div>
+      <div class="brandTitle">SINTONIA EAME</div>
+      <div class="brandSub">Mapa vivo · arquitetura factual do repositório</div>
+    </div>
+  </div>
+  <div class="search">
+    <input id="search" placeholder="Buscar peça, arquivo, régua, função…"
+           aria-label="buscar no mapa">
+  </div>
+  <div class="snapshotTop" id="snapshotTop"></div>
 </header>
 
-<main id="palco" aria-label="mapa navegavel da arquitetura">
-  <svg role="img" aria-label="mapa da arquitetura do SINTONIA EAME"></svg>
-</main>
+<div class="workspace" id="workspace">
+  <aside class="sidebar">
+    <div class="sideTitle">Visão</div>
+    <div id="views"></div>
+    <div class="filter">
+      <div class="sideTitle">Departamento / dono</div>
+      <div id="depts"></div>
+    </div>
+    <div class="filter">
+      <div class="sideTitle">Estado</div>
+      <label class="check"><input type="checkbox" name="status" value="green" checked><span class="dot green"></span>Provado atual</label>
+      <label class="check"><input type="checkbox" name="status" value="yellow" checked><span class="dot yellow"></span>Atenção / limitação</label>
+      <label class="check"><input type="checkbox" name="status" value="red" checked><span class="dot red"></span>Bloqueado / órfão provado</label>
+      <label class="check"><input type="checkbox" name="status" value="gray" checked><span class="dot gray"></span>NÃO SEI</label>
+    </div>
+    <div class="infoBox"><b>Lei do mapa</b><br>
+      Uma seta verde precisa de import, chamada, runner ou artefato — com ficheiro
+      e linha que se possam apontar. Linha cinza tracejada = relação declarada e
+      ainda <b>não provada</b>. Nada aqui foi desenhado por parecer lógico.</div>
+    <button class="invBtn" id="openInventory">Abrir inventário de arquivos rastreados</button>
+  </aside>
 
-<aside id="painel" aria-label="detalhe da peca" aria-live="polite"></aside>
-<div id="dica" role="tooltip"></div>
+  <main class="mapWrap">
+    <div class="canvasTitle">
+      <b>Sistema atual, da fonte até a tela</b>
+      <span>Arraste · zoom · hover · clique · “mostrar caminho completo”</span>
+    </div>
+    <div class="warning" id="warning"></div>
 
-<nav id="minimapa" aria-label="minimapa"><svg></svg></nav>
-<div id="controlos">
-  <button id="mais"  title="aproximar"  aria-label="aproximar">+</button>
-  <button id="menos" title="afastar"    aria-label="afastar">−</button>
-  <button id="tudo" class="largo" title="ver tudo">ver tudo</button>
+    <div id="viewport"><div id="world">
+      <svg id="edges">
+        <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3"
+              orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L8,3 z" fill="#6e7e78"/></marker></defs>
+        <g id="edgeLayer"></g>
+      </svg>
+      <div id="zones"></div>
+      <div id="nodes"></div>
+    </div></div>
+
+    <div class="mini">
+      <div class="miniTitle">Mapa</div>
+      <svg id="miniSvg" preserveAspectRatio="none">
+        <g id="miniNodes"></g><rect id="miniView"/>
+      </svg>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><b id="kNodes">—</b>peças</div>
+      <div class="kpi"><b id="kEdges">—</b>ligações</div>
+      <div class="kpi"><b id="kProven">—</b>provadas</div>
+      <div class="kpi"><b id="kUnknown">—</b>não sei</div>
+    </div>
+    <div class="controls">
+      <button class="ctrl" id="fit"   title="Enquadrar">□</button>
+      <button class="ctrl" id="minus" title="Afastar">−</button>
+      <button class="ctrl" id="plus"  title="Aproximar">+</button>
+      <button class="ctrl" id="reset" title="Limpar seleção">×</button>
+    </div>
+  </main>
+
+  <aside class="detail" id="detail">
+    <div class="empty">Clique em uma peça para entender o que faz, por que está
+      ali, arquivos reais e evidência.</div>
+  </aside>
 </div>
-<div id="filtros">
-  <select id="f-terr" aria-label="filtrar por territorio"></select>
-  <select id="f-dept" aria-label="filtrar por departamento"></select>
-  <select id="f-kind" aria-label="filtrar por tipo de peca"></select>
-  <select id="f-legado" aria-label="filtrar oficial ou legado"></select>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="modal" id="inventoryModal">
+  <div class="modalCard">
+    <div class="modalHead">
+      <h2>Inventário rastreado do repositório</h2>
+      <input class="modalSearch" id="invSearch" placeholder="Filtrar caminho…">
+      <button class="modalClose" id="closeInventory">×</button>
+    </div>
+    <div class="modalBody" id="inventoryBody"></div>
+  </div>
 </div>
 
-<!-- SEM JAVASCRIPT: a lista continua legivel. Um mapa de auditoria que
-     desaparece quando o JS falha nao serve para auditar nada. O `map.js`
-     remove este bloco assim que consegue ler o estado. -->
-<noscript><style>#palco,#minimapa,#controlos,#filtros,#placar{display:none}</style></noscript>
-<section id="semjs">
-  <h2 style="margin:0 0 6px">Lista das pecas</h2>
-  <p style="color:#8a7d7a;font-size:13px;margin:0 0 18px">
-    Versao sem mapa. O ficheiro <code>state.generated.json</code>, ao lado desta
-    pagina, carrega o mesmo conteudo em formato de maquina.</p>
-  <table>
-    <thead><tr><th>peca</th><th>o que faz</th><th>status</th></tr></thead>
-    <tbody id="semjs-linhas">
-      <tr><td colspan="3"><a href="state.generated.json">abrir state.generated.json</a></td></tr>
-    </tbody>
-  </table>
-</section>
+<!-- SEM JAVASCRIPT: o conteúdo continua alcançável. Um mapa de auditoria que
+     desaparece quando o JS falha não serve para auditar nada. -->
+<noscript><div style="position:fixed;left:8px;right:8px;bottom:8px;z-index:9999;
+  background:#fff8e2;border:1px solid #eedb9e;padding:10px;border-radius:10px;
+  font:12px/1.5 Arial,sans-serif">
+  O mapa precisa de JavaScript para ser navegado. O mesmo conteúdo, em formato de
+  máquina, está em <a href="state.generated.json">state.generated.json</a> —
+  peças, ligações, estados e a evidência de cada uma.
+</div></noscript>
 
 <script src="map.js"></script>
 </body>

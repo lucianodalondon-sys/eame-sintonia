@@ -140,6 +140,137 @@ def prova_do_tipo(kind: str, ent: list, sai: list, tem_teste: bool) -> tuple[boo
     return False, "tipo de peca sem regra de prova definida."
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# O DESENHO — calculado aqui, nunca na tela
+# ─────────────────────────────────────────────────────────────────────────────
+# A tela recebe x e y prontos. E de proposito: layout calculado no browser muda
+# com a largura da janela, e duas pessoas a olhar o mesmo commit veriam mapas
+# diferentes. Aqui e deterministico — mesmo estado, mesmo desenho, sempre.
+#
+# O ESPACO E O QUE TORNA A LIGACAO LEGIVEL. Cartoes encostados fazem as setas
+# passar por cima uns dos outros e o mapa deixa de responder a unica pergunta
+# que interessa: o que liga a o que. Por isso as folgas abaixo sao largas, e o
+# mundo fica grande — para isso ha pan, zoom e minimapa.
+NO_L, NO_A = 285, 132          # tamanho do cartao
+GAP_Y, GAP_X = 190, 130         # entre cartoes: respiro para a seta passar
+ZONA_PAD, ZONA_CAB = 60, 110    # margem interna e cabecalho da zona
+ZONA_GAP = 300                 # entre zonas: a fronteira tem de se ver
+TOPO = 190
+
+
+def linhagem() -> list:
+    """As pecas da zona LINHAGENS E DONOS.
+
+    Nao sao codigo: sao FACTOS sobre quem manda. E por isso nao podem ser
+    inventadas nem escritas a mao. Vem de dois sitios que se podem apontar:
+
+      · `italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json`, onde o proprio
+        repositorio declara qual e a linhagem geradora, o commit dela e o
+        BUILD_ID esperado — e diz, por escrito, que a inteligencia tem UM dono;
+      · o `git` desta arvore, para a branch e o HEAD de quem esta a consumir.
+
+    Se o contrato desaparecer, esta zona fica com o que o git prova e nada mais.
+    NAO SEI e melhor do que um dono inventado.
+    """
+    contrato = RAIZ / "italia-portale" / "audit" / "CANONICAL-PACKAGE-CONTRACT.json"
+    saida = []
+
+    def no(id_, nome, tipo, icon, status, what, why, files, evidence, reason,
+           proof="document"):
+        # PROOF diz QUE TIPO de prova sustenta esta peca. As de codigo provam-se
+        # por aresta; estas nao — um facto sobre quem manda nao e importado por
+        # ninguem. Ou vem de um DOCUMENTO nomeado e versionado, ou vem de uma
+        # MEDICAO do proprio git. O campo obriga a dizer qual, e o validador
+        # recusa verde sem um dos dois. "Eu sei" nao e um valor aceite.
+        reais = [f for f in files if (RAIZ / f).exists()]
+        factos = [f for f in files if f not in reais]
+        saida.append({"id": id_, "name": nome, "kind": tipo, "icon": icon,
+                      "facts": factos, "proof": proof,
+                      "territory": "Z-LINEAGE", "status": status,
+                      "ui_status": {"PROVEN": "green", "PENDING": "yellow",
+                                    "BROKEN": "red", "UNKNOWN": "gray"}[status],
+                      "what": what, "why_here": why, "files": reais,
+                      "file_count": len(reais), "status_reason": reason,
+                      "evidence_text": evidence, "departments": ["ENGENHARIA"],
+                      "views": ["lineage", "official"], "lane": "official",
+                      "legacy": False, "changed_since_declared": [],
+                      "inbound": [], "outbound": []})
+
+    def git_(*a):
+        return subprocess.run(["git", "-C", str(RAIZ), *a], capture_output=True,
+                              text=True, encoding="utf-8", errors="replace").stdout.strip()
+
+    ramo, head = git_("rev-parse", "--abbrev-ref", "HEAD"), git_("rev-parse", "HEAD")
+    no("lineage_consumer", "Linha que consome (esta arvore)", "branch consumidora", "B",
+       VERDE,
+       "E a branch onde este mapa foi medido. Ela consome inteligencia; nao e dona do gerador.",
+       "Separar consumidor de gerador impede que a linha do portal reescreva inteligencia com uma cadeia atrasada.",
+       [f"branch {ramo}", f"HEAD {head}"],
+       "Medido pelo proprio git desta arvore no momento em que o mapa foi gerado.",
+       "o git prova a branch e o commit; nao ha aqui nada declarado a mao.",
+       proof="git-measurement")
+
+    if not contrato.exists():
+        no("lineage_generator", "Linha geradora", "branch geradora", "A", CINZA,
+           "Quem e o dono do pacote canonico.", "A inteligencia tem um dono so.",
+           [], "", "⚪ NAO SEI: o contrato canonico nao esta nesta arvore.")
+        return saida
+
+    C = json.loads(contrato.read_text(encoding="utf-8"))
+    G = C.get("CANONICAL_GENERATOR", {})
+    rel = "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json"
+    no("lineage_generator", "Linha geradora canonica", "branch geradora", "A", VERDE,
+       f"E o dono do pacote canonico: {G.get('LINHAGEM', '?')}.",
+       G.get("PORQUE", "A inteligencia tem um dono so."),
+       [f"branch {G.get('LINHAGEM', '?')}", f"COMMIT {G.get('COMMIT', '?')}", rel],
+       f"{rel} declara esta linhagem como CANONICAL_GENERATOR.",
+       "o proprio repositorio declara este dono, por escrito, num contrato versionado.")
+    no("lineage_package", "Pacote canonico esperado", "artefato", "◫", VERDE,
+       f"O unico BUILD_ID que pode atravessar para o site: {C.get('EXPECTED_BUILD_ID', '?')}.",
+       "Um pacote que nao prova a sua identidade nao chega ao cliente.",
+       [f"EXPECTED_BUILD_ID {C.get('EXPECTED_BUILD_ID', '?')}", rel],
+       C.get("PORQUE_FAIL_CLOSED", "")[:200],
+       "esta escrito no contrato e o portao da build recusa qualquer outro.")
+    stale = C.get("STALE_KNOWN_BUILD_IDS", {})
+    if stale:
+        no("lineage_stale", f"Safras atrasadas conhecidas ({len(stale)})", "artefato vencido",
+           "✕", AMARELO,
+           "Pacotes que ja existiram e que o portao reconhece para RECUSAR.",
+           "Saber o nome do errado e o que permite recusa-lo. Sem esta lista, uma safra velha passava com cara de nova.",
+           [f"{k} — {v[:70]}" for k, v in stale.items()] + [rel],
+           "cada um destes BUILD_IDs esta nomeado no contrato como conhecido-e-recusado.",
+           "existem e estao barrados de proposito — nao e defeito, e memoria.")
+    return saida
+
+
+def desenhar(zonas: list, nos: list) -> tuple[list, list, int, int]:
+    """Coloca cada peca numa coluna, e cada zona lado a lado, da esquerda para a
+    direita — que e a direcao em que o dado corre: fonte → motor → pacote → tela."""
+    por_zona: dict[str, list] = {z["id"]: [] for z in zonas}
+    for n in nos:
+        por_zona.get(n["territory"], []).append(n)
+
+    x = ZONA_GAP
+    caixas = []
+    for z in zonas:
+        membros = sorted(por_zona[z["id"]], key=lambda n: n["id"])
+        # Zonas grandes ganham colunas em vez de virarem uma tira infinita.
+        cols = 1 if len(membros) <= 5 else (2 if len(membros) <= 12 else 3)
+        linhas = -(-len(membros) // cols) if membros else 1
+        larg = ZONA_PAD * 2 + cols * NO_L + (cols - 1) * GAP_X
+        alt = ZONA_CAB + ZONA_PAD * 2 + linhas * NO_A + max(0, linhas - 1) * GAP_Y
+        for i, n in enumerate(membros):
+            n["x"] = x + ZONA_PAD + (i % cols) * (NO_L + GAP_X)
+            n["y"] = TOPO + ZONA_CAB + ZONA_PAD + (i // cols) * (NO_A + GAP_Y)
+        caixas.append({**z, "x": x, "y": TOPO, "w": larg, "h": alt, "count": len(membros)})
+        x += larg + ZONA_GAP
+
+    altura = max(c["y"] + c["h"] for c in caixas) + ZONA_GAP
+    for c in caixas:
+        c["h"] = altura - TOPO - ZONA_GAP  # todas as zonas com a mesma altura
+    return caixas, nos, x, altura
+
+
 def construir(estado: dict) -> None:
     """Publica a app dentro do que a Vercel serve, numa rota SEPARADA.
 
@@ -277,6 +408,18 @@ def main_uma_vez(stamp: bool) -> int:
             "kind": c["kind"], "what": c["what"], "why_here": c["why_here"],
             "departments": c.get("departments", []),
             "legacy": bool(c.get("legacy")),
+            # ── campos que a tela consome, no vocabulario dela ──────────────
+            # verde/amarelo/vermelho/cinza e a leitura humana; PROVEN/PENDING/
+            # BROKEN/UNKNOWN e a leitura da maquina. Sao a MESMA decisao, dita
+            # duas vezes — a traducao mora aqui e nao no browser, para nao haver
+            # um segundo sitio onde alguem possa mudar o significado de verde.
+            "ui_status": {"PROVEN": "green", "PENDING": "yellow",
+                          "BROKEN": "red", "UNKNOWN": "gray"}[status],
+            "icon": c.get("icon", "●"),
+            "views": sorted(set(c.get("views", []))
+                            | set(next(t.get("views", []) for t in D["TERRITORIES"]
+                                       if t["id"] == c["territory"]))),
+            "lane": "legacy" if c.get("legacy") else "official",
             "files": fs, "file_count": len(fs),
             "status": status, "status_reason": motivo,
             "changed_since_declared": mudou,
@@ -289,10 +432,23 @@ def main_uma_vez(stamp: bool) -> int:
                               if f["code_dir"] and f["readable"] and p not in dono)
     nao_reivindicados = sorted(p for p in arquivos if p not in dono)
 
+    nos = nos + linhagem()
+    zonas, nos, mundo_w, mundo_h = desenhar(D["TERRITORIES"], nos)
+
+    # INVENTARIO: os ficheiros rastreados, agrupados pela pasta de topo. E o que
+    # responde "o mapa esta a olhar para o meu repositorio todo?" sem obrigar
+    # ninguem a acreditar na palavra do mapa.
+    inventario: dict[str, list] = {}
+    for caminho in sorted(arquivos):
+        grupo = caminho.split("/")[0] if "/" in caminho else "(raiz)"
+        inventario.setdefault(grupo, []).append(caminho)
+
     estado = {
         "SCHEMA": "sintonia.system-map.state/1",
+        "WORLD": {"w": mundo_w, "h": mundo_h},
+        "INVENTORY": inventario,
         "PROVENANCE": G["PROVENANCE"],
-        "TERRITORIES": D["TERRITORIES"],
+        "TERRITORIES": zonas,
         "DEPARTMENTS": D["DEPARTMENTS"],
         "NODES": sorted(nos, key=lambda n: n["id"]),
         "EDGES": sorted(ligacoes.values(), key=lambda l: (l["from"], l["to"], l["type"])),

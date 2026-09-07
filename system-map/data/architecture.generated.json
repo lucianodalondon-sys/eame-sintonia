@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "350a4fe7d9badfee49eb2d70f517e86b1259dc7a",
-    "GENERATED_AT": "2026-09-07T01:56:03Z"
+    "HEAD": "a638dd94bc6789fec9b7bd685b0fc659d1eeff2d",
+    "GENERATED_AT": "2026-09-07T10:29:28-03:00"
   },
   "FILES": [
     {
@@ -114,7 +114,7 @@
     },
     {
       "path": "AGENTS.md",
-      "sha": "7de6fd38ce4b5bb7793a13cde4af5704244138ce",
+      "sha": "b5a61d9503ee3fb8ee0536c57e1f406ba8c9d9b3",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6848,42 +6848,42 @@
     },
     {
       "path": "system-map/README.md",
-      "sha": "d7bcd2fb64a89249bff97595ddb8d8a18b33a583",
+      "sha": "465be9e29161d999b136093135f255867371fdb4",
       "ext": ".md",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/app/index.html",
-      "sha": "24fea2081ee89d94277591437a7171f7695a785b",
+      "sha": "cfb552460d2560644e1ff0ceafe23ca9a3d00c8c",
       "ext": ".html",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/app/map.css",
-      "sha": "f37f3f90c2a9006c813761499b5b03e24d80c0de",
+      "sha": "1f06609ea79ed4eadfc730b324b05cd185321979",
       "ext": ".css",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/app/map.js",
-      "sha": "99fa1da710e4e772dd0bc1943110cde6296e8fc7",
+      "sha": "8c81f37882f51ec7d338515d1c2a7fb7393ee4cb",
       "ext": ".js",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "8fcaec3e4699709c205fe7717824ed2dd3e6202c",
+      "sha": "83ae54623344c0b451ffdbc9d9b072ec342d0b2b",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "61c5abfc5cc01e4a8cadf123f249c1afd751413b",
+      "sha": "cc9e142ee028d68a64833a4e9a260b4406e7fcad",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6897,14 +6897,14 @@
     },
     {
       "path": "system-map/scripts/validate_system_map.py",
-      "sha": "e8b44368ea3883dd7fffc673e5a4b8c0aceac5d7",
+      "sha": "e2d94eb358aef1c6dd7e44064e6bcd982370b59f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/tests/test_system_map.py",
-      "sha": "f6633f247f431f2362547333e59517c1fd2d5dfd",
+      "sha": "8407e0609feabcb4b3e3b5c48dcf25e2af011434",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -12451,7 +12451,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/app/index.html",
-        "line": 16,
+        "line": 14,
         "snippet": "<link rel=\"stylesheet\" href=\"map.css\">"
       }
     },
@@ -12462,8 +12462,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/app/index.html",
-        "line": 65,
+        "line": 135,
         "snippet": "<script src=\"map.js\"></script>"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 221,
+        "snippet": "rel = \"italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json\""
       }
     },
     {
@@ -12473,7 +12484,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 160,
+        "line": 291,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -12484,7 +12495,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 161,
+        "line": 292,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -12495,7 +12506,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 160,
+        "line": 291,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -12506,7 +12517,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 339,
+        "line": 495,
         "snippet": "subprocess.run([sys.executable, str(Path(__file__).with_name(\"scan_repo.py\"))],"
       }
     },
@@ -12539,7 +12550,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 124,
+        "line": 136,
         "snippet": "agents = RAIZ / \"AGENTS.md\""
       }
     },
@@ -12550,7 +12561,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 133,
+        "line": 145,
         "snippet": "claude = RAIZ / \"CLAUDE.md\""
       }
     },
@@ -12561,7 +12572,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 136,
+        "line": 148,
         "snippet": "readme = RAIZ / \"README.md\""
       }
     },
@@ -13043,6 +13054,6 @@
     "files_tracked": 1019,
     "files_readable": 337,
     "files_code_dir": 379,
-    "file_edges": 536
+    "file_edges": 537
   }
 }

@@ -114,6 +114,7 @@ Recarimbar sem reler é o único jeito de mentir neste sistema. Não faça isso.
 | `P4_FICHEIROS_REAIS` | todo ficheiro citado pelo mapa existe |
 | `P5_ARESTA_PROVADA` | nenhuma ligação técnica sem linha de código que a prove |
 | `P6_VERDE_TEM_PROVA` | nenhum verde só por o ficheiro existir, nenhum verde velho |
+| `P6_LINHAGEM_DIZ_A_PROVA` | toda peça de linhagem diz se a prova é documento ou medição do git |
 | `P7_NAO_SEI_VIVE` | ligação declarada e não provada continua `UNKNOWN` |
 | `P8_UM_DONO` | nenhum ficheiro reivindicado por duas peças |
 | `P9_CODIGO_DECLARADO` | todo ficheiro de código pertence a uma peça do mapa |
