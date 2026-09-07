@@ -249,6 +249,35 @@ function grupoHTML(g) {
   </details>`;
 }
 
+/* AS COLETAS QUE JA FORAM FEITAS — o que cada corrida trouxe, e o que sobrou.
+   `trouxe` e `sobrou` sao os dois numeros que respondem «o que e descartado»: a
+   diferenca entre eles nao e desperdicio, e o filtro a trabalhar. Mas so se sabe
+   se ele trabalha bem quando os dois ficam guardados lado a lado. */
+function corridasHTML(F) {
+  if (!F?.corridas?.length) return '';
+  return `<div class="sec">
+    <h4>As coletas que já foram feitas (${F.total})</h4>
+    <p style="font-size:10px;color:#8a827e;margin-bottom:9px">
+      <b>${F.fontes_ja_coletadas.length}</b> fontes já foram buscadas;
+      <b>${F.fontes_nunca_coletadas.length}</b> nunca. Trouxeram
+      <b>${F.trouxe_total}</b> itens e <b>${F.sobrou_total}</b> atravessaram a régua.
+      ${F.custo_total_usd ? `Custo medido: <b>US$ ${F.custo_total_usd}</b> em ${
+        F.com_custo_medido} das ${F.total}.` : 'O custo só ficou guardado em ' +
+        F.com_custo_medido + ' das ' + F.total + '.'}</p>
+    ${F.corridas.map(c => `<div class="file">
+      <b>${esc(c.fonte || '— fonte sem ficha')}</b> · ${esc(c.plataforma)}
+      ${c.estado ? `<span style="float:right">${esc(c.estado)}</span>` : ''}<br>
+      trouxe <b>${c.trouxe ?? '?'}</b> · sobrou <b>${c.sobrou ?? '?'}</b>${
+        c.rendimento !== null ? ` · rendimento <b>${c.rendimento}%</b>` : ''}${
+        c.custou_usd ? ` · US$ ${c.custou_usd}` : ''}<br>
+      <span style="color:#8a827e">quem foi buscar: ${esc(c.quem_foi_buscar)}</span>${
+      c.que_pergunta ? `<br><span style="color:#8a827e">pergunta: ${
+        esc(typeof c.que_pergunta === 'string' ? c.que_pergunta
+            : JSON.stringify(c.que_pergunta)).slice(0, 160)}</span>` : ''}${
+      c.erro ? `<br><b style="color:#8c2b27">erro: ${esc(c.erro).slice(0, 120)}</b>` : ''}
+    </div>`).join('')}</div>`;
+}
+
 function blocoFontes(n) {
   const abertas = n.groups[0];
   const redes = n.groups.slice(1);
@@ -259,6 +288,7 @@ function blocoFontes(n) {
         ${esc(n.header_claim.leitura)}</div></div>` : ''}
 
     ${escadaHTML(n.intake)}
+    ${corridasHTML(n.runs)}
 
     <div class="sec"><h4>O acervo, por tipo de fonte</h4>
       <p style="font-size:10px;color:#8a827e;margin-bottom:9px">Clique num grupo

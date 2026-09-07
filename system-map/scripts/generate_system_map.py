@@ -366,6 +366,8 @@ def as_fontes() -> tuple[list, list]:
         "changed_since_declared": [], "inbound": [], "outbound": [],
         "groups": grupos,
         "header_claim": S.get("HEADER_CLAIM"),
+        "runs": S.get("COLETAS_FEITAS"),
+        "memoria": S.get("MEMORIA_DA_COLETA"),
         "intake": S.get("INTAKE"),
     }
     no["file_count"] = len(no["files"])
@@ -630,6 +632,46 @@ def achados(arquivos: dict) -> list:
         if not any(c in t for c in ("SOURCE_LOCATION", "FACT_LOCATION",
                                     "CAPTURED_AT", "PUBLICATION_DATE", "FACT_DATE")):
             sem_carimbo.append(rel)
+    fs = DADOS / "sources.generated.json"
+    if fs.exists():
+        S2 = json.loads(fs.read_text(encoding="utf-8"))
+        F = S2.get("COLETAS_FEITAS") or {}
+        c2 = S2["COUNTS"]
+        if S2.get("COLETADAS_SEM_FICHA"):
+            saida.append({
+                "id": "a-coleta-mais-feita-e-a-menos-documentada",
+                "titulo": "A coleta mais feita é a menos documentada.",
+                "texto": (
+                    f"{', '.join(S2['COLETADAS_SEM_FICHA'])} aparecem no atlas apenas "
+                    f"como linha de tabela, sem ficha — sem nome, sem método de acesso, "
+                    f"sem evidência. E são justamente as mais coletadas: "
+                    f"{len([r for r in F.get('corridas', []) if r['fonte'] in S2['COLETADAS_SEM_FICHA']])} "
+                    f"das {F.get('total', 0)} corridas registadas foram buscar a estas."),
+                "porque_importa": (
+                    "Sem ficha, ninguém sabe como se volta lá: por que porta se entra, "
+                    "o que se espera de volta, o que fazer quando quebrar. A próxima "
+                    "pessoa refaz a descoberta do zero — e paga por ela outra vez."),
+                "evidencia": [S2["PROVENANCE"]["ATLAS"], F.get("ficheiro", "")],
+            })
+        if F.get("total") and c2.get("fontes_nunca_coletadas"):
+            paises = " · ".join(f"{k} {v}" for k, v in F["por_pais"].items())
+            saida.append({
+                "id": "quase-nenhuma-fonte-foi-coletada",
+                "titulo": (f"{c2['fontes_nunca_coletadas']} fontes nunca foram "
+                           f"coletadas. Todas as corridas foram num país só."),
+                "texto": (
+                    f"Há {F['total']} corridas registadas, e o país delas é: {paises}. "
+                    f"Elas trouxeram {F['trouxe_total']} itens e {F['sobrou_total']} "
+                    f"atravessaram a régua. As outras {c2['fontes_nunca_coletadas']} "
+                    f"fontes com ficha nunca foram buscadas — existem no acervo e nunca "
+                    f"produziram nada."),
+                "porque_importa": (
+                    "Uma fonte registada e nunca coletada é trabalho de descoberta que "
+                    "ainda não virou dado. E um acervo que só foi exercitado num país "
+                    "não provou que funciona nos outros."),
+                "evidencia": [F.get("ficheiro", "")],
+            })
+
     if sem_carimbo:
         saida.append({
             "id": "coleta-sem-data-nem-lugar",

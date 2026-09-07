@@ -88,6 +88,33 @@ def contagem_declarada() -> dict:
     return {}
 
 
+def citadas_sem_ficha() -> list:
+    """Fontes que o atlas NOMEIA em tabela, mas para as quais nao escreveu ficha.
+
+    `ES-T8-001`, `ES-T8-002` e `ES-T8-003` aparecem numa tabela de resumo com o
+    numero de origens e o veredito — mas sem SOURCE_NAME, sem ACCESS_METHOD, sem
+    EVIDENCE. Sao tres linhas de tabela, e nao tres fichas.
+
+    E sao exatamente as que MAIS foram coletadas: oito das dez corridas
+    registadas foram buscar a estas tres.
+
+        A COLETA MAIS FEITA E A MENOS DOCUMENTADA.
+
+    Isto nao e detalhe de arrumacao. Sem ficha, ninguem sabe como se volta la:
+    por que porta se entra, o que se espera de volta, o que fazer quando quebrar.
+    A proxima pessoa refaz a descoberta do zero — e paga por ela outra vez.
+    """
+    linhas, achadas = ler(ATLAS), []
+    RE_LINHA = re.compile(r"^\|\s*`((?:EU|FR|ES|IT)-T\d{1,2}-\d{3})`\s*\|(.+)\|\s*$")
+    for n, l in enumerate(linhas, 1):
+        m = RE_LINHA.match(l.strip())
+        if m:
+            celulas = [c.strip().strip("*") for c in m.group(2).split("|")]
+            achadas.append({"source_id": m.group(1), "line": n,
+                            "o_que_a_tabela_diz": " · ".join(c for c in celulas if c)})
+    return achadas
+
+
 def veredito(bruto: str) -> str:
     v = (bruto or "").strip().upper()
     for conhecido in ("GREEN", "YELLOW", "RED", "PARCIAL"):
@@ -321,6 +348,157 @@ def a_porta(fontes: list, contratos: dict) -> dict:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# 7 · AS COLETAS QUE JA FORAM FEITAS
+# ─────────────────────────────────────────────────────────────────────────────
+MANIFESTO = "data/samples/RUN-MANIFEST.json"
+
+
+def coletas_feitas(fontes: list) -> dict:
+    """Cruza cada corrida registada com a fonte que ela foi buscar.
+
+    O `RUN_ID` comeca pelo `SOURCE_ID` — `ES-T8-001-2026-08-29-a` foi buscar a
+    fonte `ES-T8-001`. E isso fecha o circulo que faltava:
+
+        a fonte  ->  como foi buscada  ->  o que trouxe  ->  o que sobrou
+                                                          ->  quanto custou
+
+    `ITEM_COUNT_RAW` e `ITEM_COUNT_NORMALIZED` sao os dois numeros que respondem
+    «o que e descartado»: o que veio, e o que atravessou a regua. A diferenca
+    entre os dois nao e desperdicio — e o filtro a trabalhar. Mas so se sabe se
+    esta a trabalhar bem quando os dois numeros ficam guardados lado a lado.
+
+        UMA COLETA SEM RENDIMENTO MEDIDO E UMA COLETA QUE NAO ENSINA A SEGUINTE.
+
+    Nada e inferido: os campos vazios aparecem como `NOT_PRESERVED`, que e o que
+    o proprio manifesto escreve quando nao guardou.
+    """
+    p = RAIZ / MANIFESTO
+    if not p.exists():
+        return {}
+    try:
+        d = json.loads(p.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+
+    ids = {f["source_id"] for f in fontes} | {
+        c["source_id"] for c in citadas_sem_ficha()}
+    vazio = ("NOT_PRESERVED", None, "", "NAO SEI")
+
+    def num(v):
+        return v if isinstance(v, int) else None
+
+    corridas = []
+    for r in d.get("RUNS", []):
+        rid = r.get("RUN_ID", "")
+        # a fonte e o prefixo mais longo do RUN_ID que exista no atlas
+        fonte = next((i for i in sorted(ids, key=len, reverse=True)
+                      if rid.startswith(i)), None)
+        cru, limpo = num(r.get("ITEM_COUNT_RAW")), num(r.get("ITEM_COUNT_NORMALIZED"))
+        corridas.append({
+            "run_id": rid,
+            "fonte": fonte,
+            "plataforma": r.get("PLATFORM", ""),
+            "quem_foi_buscar": r.get("ACTOR", ""),
+            "com_que_parametros": r.get("INPUT") if r.get("INPUT") not in vazio else None,
+            "que_pergunta": r.get("QUERY") if r.get("QUERY") not in vazio else None,
+            "pais": r.get("COUNTRY", ""),
+            "missao": r.get("MISSION", ""),
+            "trouxe": cru,
+            "sobrou": limpo,
+            "rendimento": (round(100 * limpo / cru) if cru and limpo is not None
+                           and cru > 0 else None),
+            "custou_usd": r.get("COST_USD") if r.get("COST_USD") not in vazio else None,
+            "estado": r.get("STATUS", ""),
+            "erro": r.get("ERROR") if r.get("ERROR") not in vazio else None,
+            "prova": r.get("EVIDENCE_PATH") if r.get("EVIDENCE_PATH") not in vazio else None,
+            "bruto": r.get("RAW_EVIDENCE_PATH") if r.get("RAW_EVIDENCE_PATH") not in vazio else None,
+        })
+
+    por_pais: dict[str, int] = {}
+    por_plataforma: dict[str, int] = {}
+    for c in corridas:
+        por_pais[c["pais"]] = por_pais.get(c["pais"], 0) + 1
+        por_plataforma[c["plataforma"]] = por_plataforma.get(c["plataforma"], 0) + 1
+
+    com_rend = [c for c in corridas if c["rendimento"] is not None]
+    com_custo = [c for c in corridas if isinstance(c["custou_usd"], (int, float))]
+    fontes_com_corrida = {c["fonte"] for c in corridas if c["fonte"]}
+
+    return {
+        "ficheiro": MANIFESTO,
+        "corridas": corridas,
+        "total": len(corridas),
+        "por_pais": dict(sorted(por_pais.items())),
+        "por_plataforma": dict(sorted(por_plataforma.items())),
+        "fontes_ja_coletadas": sorted(fontes_com_corrida),
+        "fontes_nunca_coletadas": sorted(ids - fontes_com_corrida),
+        "com_rendimento_medido": len(com_rend),
+        "com_custo_medido": len(com_custo),
+        "custo_total_usd": round(sum(c["custou_usd"] for c in com_custo), 2) if com_custo else None,
+        "trouxe_total": sum(c["trouxe"] for c in corridas if c["trouxe"]),
+        "sobrou_total": sum(c["sobrou"] for c in corridas if c["sobrou"]),
+    }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 6 · A MEMORIA DA COLETA — o que cada coletor faz, medido nele proprio
+# ─────────────────────────────────────────────────────────────────────────────
+CARIMBO_DATA = ("CAPTURED_AT", "PUBLICATION_DATE", "FACT_DATE", "CAPTURE_DATE")
+CARIMBO_LUGAR = ("SOURCE_LOCATION", "FACT_LOCATION", "COUNTRY")
+MARCA_DESCARTE = ("EXCLUSION_REASON", "DESCARTAD", "RECUSAD", "NOT_ELIGIBLE",
+                  "EXCLUID", "MOTIVO_DA_RECUSA", "REJEIT")
+
+
+def memoria_da_coleta(arquivos: list) -> list:
+    """Cinco perguntas, por coletor, respondidas pelo proprio ficheiro.
+
+        1 · como se busca          2 · o que traz
+        3 · como e filtrada        4 · o que e descartado, e porque
+        5 · onde fica antes de ir para a inteligencia
+
+    Uma coleta so aprende com a coleta feita se a coleta feita tiver deixado
+    resposta escrita. Hoje, cinco das vinte e tres fontes tem contrato de busca;
+    as outras dezoito so existem na memoria de quem as descobriu.
+
+        O QUE NAO FOI ESCRITO NAO SE APRENDE — REPETE-SE.
+
+    Nada aqui e declarado. Cada resposta sai do proprio ficheiro do coletor: os
+    campos que ele carimba, as leis que ele importa, se ele regista o que deixou
+    de fora. O que ele nao fizer aparece como buraco, e nao como silencio.
+    """
+    saida = []
+    for rel in sorted(f for f in arquivos
+                      if f.startswith(("coleta/", "regras/")) and f.endswith(".py")):
+        p = RAIZ / rel
+        try:
+            t = p.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        if not re.search(r"open\(|json\.dump|write_text", t):
+            continue  # nao grava registo: nao e coletor
+
+        data = sorted({c for c in CARIMBO_DATA if c in t})
+        lugar = sorted({c for c in CARIMBO_LUGAR if c in t})
+        leis = sorted({m for m in re.findall(
+            r"^\s*import\s+(proveniencia|voz|cicatrizes_brasil|lugar_do_fato|"
+            r"fato_local|source_health|sensor_medir|comunicacao_identidade)",
+            t, re.M)})
+        saida.append({
+            "ficheiro": rel,
+            "como_se_chama": re.search(r"^\s+(?:python3?|py)\s+([\w/.\- ]+)",
+                                       t, re.M).group(1).strip()
+                             if re.search(r"^\s+(?:python3?|py)\s+[\w/.\- ]+", t, re.M)
+                             else "",
+            "carimba_data": data,
+            "carimba_lugar": lugar,
+            "separa_fonte_do_fato": "SOURCE_LOCATION" in t and "FACT_LOCATION" in t,
+            "leis_que_obedece": leis,
+            "regista_descarte": [m for m in MARCA_DESCARTE if m in t.upper()][:3],
+        })
+    return saida
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # 5 · AS PALAVRAS — o que e realmente digitado na busca
 # ─────────────────────────────────────────────────────────────────────────────
 def as_palavras(arquivos: list[str]) -> list[dict]:
@@ -407,6 +585,8 @@ def main() -> int:
     arquivos = [f["path"] for f in G["FILES"]]
 
     fontes = do_atlas()
+    com_ficha = {f["source_id"] for f in fontes}
+    so_em_tabela = [c for c in citadas_sem_ficha() if c["source_id"] not in com_ficha]
     contratos = dos_contratos()
     for f in fontes:
         f["contract"] = contratos.get(f["source_id"])
@@ -424,9 +604,12 @@ def main() -> int:
         "SCHEMA": "sintonia.system-map.sources/1",
         "PROVENANCE": {"HEAD": head, "ATLAS": ATLAS, "CONTRATOS": CONTRATOS},
         "SOURCES": fontes,
+        "CITADAS_SEM_FICHA": so_em_tabela,
         "ACCOUNTS": as_contas(),
         "INTAKE": a_porta(fontes, contratos),
         "SEARCH_TERMS": as_palavras(arquivos),
+        "MEMORIA_DA_COLETA": memoria_da_coleta(arquivos),
+        "COLETAS_FEITAS": coletas_feitas(fontes),
         "ENDPOINTS": as_portas(arquivos),
         "COUNTS": {
             "sources": len(fontes),
@@ -441,6 +624,26 @@ def main() -> int:
         t["total_palavras"] for t in dados["SEARCH_TERMS"])
     dados["COUNTS"]["endpoints"] = len(dados["ENDPOINTS"])
     dados["COUNTS"]["candidates"] = len(dados["INTAKE"]["candidatas"])
+    M = dados["MEMORIA_DA_COLETA"]
+    dados["COUNTS"]["coletores"] = len(M)
+    dados["COUNTS"]["coletores_com_data"] = sum(1 for m in M if m["carimba_data"])
+    dados["COUNTS"]["coletores_com_lugar"] = sum(1 for m in M if m["carimba_lugar"])
+    dados["COUNTS"]["coletores_que_separam_fonte_do_fato"] = sum(
+        1 for m in M if m["separa_fonte_do_fato"])
+    dados["COUNTS"]["coletores_que_registam_descarte"] = sum(
+        1 for m in M if m["regista_descarte"])
+    F = dados["COLETAS_FEITAS"]
+    dados["COUNTS"]["corridas_registadas"] = F.get("total", 0)
+    dados["COUNTS"]["fontes_ja_coletadas"] = len(F.get("fontes_ja_coletadas", []))
+    dados["COUNTS"]["fontes_nunca_coletadas"] = len(F.get("fontes_nunca_coletadas", []))
+    dados["COUNTS"]["citadas_sem_ficha"] = len(so_em_tabela)
+
+    # O cruzamento que dói: das fontes que foram MESMO coletadas, quantas nao
+    # tem ficha? Cada uma destas e uma descoberta que vai ser refeita do zero.
+    coletadas = set(F.get("fontes_ja_coletadas", []))
+    sem_ficha_e_coletadas = sorted(coletadas & {c["source_id"] for c in so_em_tabela})
+    dados["COLETADAS_SEM_FICHA"] = sem_ficha_e_coletadas
+    dados["COUNTS"]["coletadas_sem_ficha"] = len(sem_ficha_e_coletadas)
     dados["COUNTS"]["accounts"] = dados["ACCOUNTS"].get("total", 0)
     dados["COUNTS"]["accounts_authorized"] = dados["ACCOUNTS"].get("autorizadas", 0)
 
@@ -469,6 +672,23 @@ def main() -> int:
     print(f"  contas de rede social: {c['accounts']} "
           f"({c['accounts_authorized']} autorizadas) em "
           f"{len(dados['ACCOUNTS'].get('por_plataforma', {}))} plataformas")
+    print(f"  memoria da coleta: {c['coletores']} coletores · "
+          f"{c['coletores_com_data']} carimbam data · "
+          f"{c['coletores_com_lugar']} carimbam lugar · "
+          f"{c['coletores_que_separam_fonte_do_fato']} separam fonte do fato · "
+          f"{c['coletores_que_registam_descarte']} registam o descarte")
+    if so_em_tabela:
+        print(f"  ATENCAO: {len(so_em_tabela)} fonte(s) citadas em tabela, sem ficha: "
+              + ", ".join(c["source_id"] for c in so_em_tabela[:8]))
+    if dados["COUNTS"].get("coletadas_sem_ficha"):
+        print(f"  ATENCAO: {dados['COUNTS']['coletadas_sem_ficha']} destas JA FORAM "
+              f"COLETADAS: {', '.join(dados['COLETADAS_SEM_FICHA'])}")
+    if F.get("total"):
+        print(f"  coletas ja feitas: {F['total']} corridas · "
+              f"{c['fontes_ja_coletadas']} fontes ja coletadas, "
+              f"{c['fontes_nunca_coletadas']} nunca · "
+              f"trouxe {F['trouxe_total']} e sobrou {F['sobrou_total']}")
+        print(f"     por pais: " + " · ".join(f"{k}={v}" for k, v in F["por_pais"].items()))
     print(f"COLETA=OK · fontes={c['sources']} (com contrato de busca: {c['with_contract']}) "
           f"· palavras={c['search_terms']} em {c['search_term_groups']} grupos "
           f"· portas={c['endpoints']}")
