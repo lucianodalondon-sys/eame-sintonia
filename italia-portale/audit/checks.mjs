@@ -343,14 +343,18 @@ check('N1', 'Nav counts match the active normalized collections', () => {
        esattamente il difetto per cui questo controllo esiste. */
     (() => { const s2 = m.ctx.MEETING_SURFACE && m.ctx.MEETING_SURFACE.build('it');
              return s2 ? s2.commercial.length : (m.ctx.MEETING_INTELLIGENCE || {}).TOTAL_CASES; })(),
-    /* I SEGNALI NON HANNO PIU UN BADGE: non sono uno strumento, e la voce di
-       primo livello e stata tolta. Restano raggiungibili da una riga in fondo
-       al radar, e il loro numero non e un contatore di menu. */
     /* IL PORTAFOGLIO SALE, PERCHE E UNO STRUMENTO. La barra ha due gruppi e
        questa lista li segue nell'ordine in cui l'occhio li incontra: prima i
        due strumenti, poi l'evidenza. La sorgente di ogni numero non cambia. */
     AM.collections.products.count,
-    AM.collections.futureSignals.count,
+    /* L'ARCHIVIO SEGNALI NON HA PIU UN BADGE, PERCHE NON HA PIU UNA VOCE.
+       Tre, letti sotto quarantaquattro, dicevano «qui dentro non c'e quasi
+       niente» di una popolazione che esiste per essere spiegata. La voce esce
+       dalla barra; la rotta `#future`, la vista e le sue tre porte restano —
+       e chi le misura e `superficie-visivel.mjs`, che pesa la PORTA e non il
+       badge. Qui sparisce solo il contatore, perche qui si contano voci.
+
+           UN BADGE PER UNA VOCE CHE NON C'E CONTROLLA UN MENU IMMAGINARIO. */
     /* IL RADAR FUTURO HA ADESSO UN BADGE, E QUINDI HA UN GUARDIANO.
        I 44 non stanno in nessuna collezione normalizzata del modello: vivono in
        `italy-casa.js`, che e il loro proprietario. Il numero si legge DA LI —

@@ -93,6 +93,14 @@ const rfDesenhadas = (() => {
   const v = vals({ view: 'radarfuturo' });
   return (v.rfGroups || []).reduce((a, g) => a + ((g.cards || []).length), 0);
 })();
+/* A PORTA DA OUTRA POPULACAO. O Archivio segnali deixou a barra lateral; a
+   unica coisa que impede isso de ser um desaparecimento e a linha que, da
+   vista gemea, o nomeia com o numero do dono. Mede-se o numero, nao a linha:
+   uma linha com o numero errado leva a um sitio que nao e o que promete. */
+const portaArquivo = (() => {
+  const r = vals({ view: 'radarfuturo' }).saRoute || null;
+  return !!(r && r.count === n('futureSignals') && typeof r.count === 'number');
+})();
 
 const LINHAS = [
   {
@@ -120,11 +128,18 @@ const LINHAS = [
   {
     familia: 'SIGNAL_ARCHIVE',
     modelo: n('futureSignals'),
-    rota: '#future',
-    visivel: (vFuture.visibleSignals || []).length,
-    alcancavel: (vFuture.visibleSignals || []).length,
-    componente: 'sc-for visibleSignals · isSignal',
-    nota: 'populacao distinta do Radar Futuro, e agora com rota para ela',
+    /* A voz saiu da barra lateral por decisao de produto: tres, ao lado de
+       quarenta e quatro, lia-se como «aqui nao ha quase nada». SAIR DA BARRA
+       NAO PODE QUERER DIZER SAIR DO PRODUTO — por isso a porta passa a ser
+       MEDIDA, e nao assumida: a vista do Radar Futuro tem de levar o numero do
+       dono ate a outra populacao. Se essa linha se partir, o visivel cai a
+       zero aqui, exactamente como cairia se a rota nao existisse. */
+    rota: portaArquivo ? 'Radar Futuro -> «L\'altra popolazione» -> #future' : 'NENHUMA ROTA DO PORTAL',
+    visivel: portaArquivo ? (vFuture.visibleSignals || []).length : 0,
+    alcancavel: portaArquivo ? (vFuture.visibleSignals || []).length : 0,
+    componente: 'saRoute (isRadarFuturo) -> sc-for visibleSignals · isSignal',
+    nota: 'populacao distinta do Radar Futuro; fora da barra lateral, alcancada pela vista '
+      + 'gemea, pelo fundo do radar de oportunidades e pela ficha da janela colturale',
   },
   {
     familia: 'TRANSCRIPTS',

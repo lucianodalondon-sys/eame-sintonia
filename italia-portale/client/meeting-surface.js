@@ -140,6 +140,10 @@
      Lists that need a machine hook name it for that purpose, one list at a
      time, so the hook is always deliberate. */
   const labList = (codes, lang) => (codes || []).map((c) => ({ label: lab(c, lang) })).filter((r) => r.label);
+  /* Le due lacune di WHAT_IS_MISSING che parlano di GEOGRAFIA. Sono nominate
+     una per una: un `/REGION|AREA/` prenderebbe domani un codice che non ha
+     niente a che vedere con il luogo, e la mappa lo mostrerebbe lo stesso. */
+  const GEO_GAP = new Set(['REGION_NOT_DECLARED', 'OFFICIAL_AREA_NOT_CLIENT_SAFE']);
   const labListTraced = (codes, lang, field) => (codes || [])
     .map((c) => { const l = lab(c, lang); return l ? { label: l, [field]: c } : null; })
     .filter(Boolean);
@@ -507,6 +511,18 @@
       actions: actionsOf(c, lang),
       evidence: evidenceOf(c, lang),
       missing: labList(c.WHAT_IS_MISSING, lang),
+      /* ── LA LACUNA GEOGRAFICA, SEPARATA DALLE ALTRE ──────────────────────
+         Il contesto regionale mostra un luogo, e un luogo mostrato senza la
+         sua lacuna si legge come un luogo SAPUTO. Su 43 casi, 26 dichiarano
+         REGION_NOT_DECLARED e tutti e 43 dichiarano che la superficie
+         ufficiale non e utilizzabile verso il cliente.
+
+             UNA MAPPA CHE TACE CIO CHE NON SA E UNA MAPPA CHE MENTE.
+
+         Il FILTRO sta qui, dove i codici vivono, e non nel markup: cosi
+         attraversa la frontiera solo la frase, mai la chiave — la regola di
+         `labList` resta intera e nessun hook nuovo nasce per questa lista. */
+      missingGeo: labList((c.WHAT_IS_MISSING || []).filter((k) => GEO_GAP.has(k)), lang),
 
       needDirectionToken: qual('NEED_DIRECTION', c.NEED_DIRECTION), needDirection: lab(c.NEED_DIRECTION, lang),
       needDocument: c.NEED_EVIDENCE_ID || null,

@@ -448,3 +448,94 @@ claude/auditoria-acervo-inteligencia-2nknje = 4b22957
 árvores                                    = 6541bba… idênticas
 commits exclusivos perdidos                = 0 (fast-forward de 5a5ab60)
 ```
+
+---
+
+## 8 · CONTEXTO REGIONAL, FORÇA DA EVIDÊNCIA, E O ARCHIVIO FORA DA BARRA
+
+Três pedidos do leitor, medidos antes de escritos.
+
+### 8.1 · A carta a caselle — o que o motor tem, e o que não tem
+
+A referência mostrava três linhas: **Region**, **Crop relevance** («Major Olive
+area — ISTAT regional scale») e **Validate next** («Basilicata · Calabria»).
+Só uma delas tem dado no motor.
+
+| linha da referência | campo do motor | estado | o que se desenha |
+|---|---|---|---|
+| Region | `GEOGRAPHY` / `CLAIM_GEOGRAPHY` | **existe** — 17/43 nomeiam região, 19 Itália, 7 UE | nome + a casella acesa |
+| precisão NUTS | derivado do lugar declarado | **existe** | `NUTS-2` região · `NUTS-0` país · `EU` |
+| escala | `GEOGRAPHIC_SCOPE` | **existe** — 19 nacional, 10 provincial, 7 regional, 7 europeu | linha própria |
+| Crop relevance / área ISTAT | `AREA_OFICIAL_HA`, `AREA_OFICIAL_ANO` | **null nos 43**, e `OFFICIAL_AREA_NOT_CLIENT_SAFE` declarado nos 43 | **não se desenha** |
+| Validate next (regiões vizinhas) | não existe campo | **inexistente** | **não se desenha** |
+| nº de regiões do par | `COMMERCIAL_MAGNITUDE_DIMENSIONS.REGIOES_DO_PAR` | existe (18/43) mas está em `BOOKKEEPING_EXACT` | **não atravessa a fronteira, por lei** |
+
+Onde a referência punha uma frase de relevância agronómica, a ficha põe a
+**lacuna com as palavras do motor** — `missingGeo`, filtrado por código dentro
+de `meeting-surface.js`, onde os códigos vivem, para que só a frase atravesse.
+
+    UMA MAPA QUE CALA O QUE NÃO SABE É UMA MAPA QUE MENTE.
+
+A carta tem três estados e nenhum quarto: região declarada acende **uma**
+casella na cor da linha ADAMA; escala nacional acende **todas** no tom
+profundo; escala europeia não acende nenhuma. A nota por baixo diz, em
+palavras, que é um índice e não uma projecção — e o bloco é `aria-hidden`,
+porque cada facto que a carta desenha está escrito ao lado.
+
+### 8.2 · A força da evidência
+
+`mcStrength` estava calculado desde a missão anterior e nunca era desenhado.
+Passa a barras, com a nota que impede a leitura errada: a escala é **interna ao
+caso**, não é uma pontuação.
+
+### 8.3 · O Archivio segnali sai da barra, e não do produto
+
+Três, ao lado de quarenta e quatro, na mesma coluna, lia-se como «aqui dentro
+não há quase nada». A voz sai da barra lateral; **nada foi apagado**:
+
+```
+rota #future                     responde
+Component.CAPABILITY_OF.future   admitida
+AMMESSE                          admitida
+vista visibleSignals             desenha os 3
+```
+
+E ganha a porta que faltava: a vista gémea do Radar Futuro passa a nomeá-lo com
+o número do dono (`saRoute`), espelho exacto da linha que, do arquivo, remete
+para os 44. A régua `superficie-visivel.mjs` deixou de assumir a rota e passa a
+**medi-la** (`portaArquivo`): se a linha se partir, `SIGNAL_ARCHIVE` cai a
+`VISIBLE = 0`, exactamente como cairia se a rota não existisse.
+
+### 8.4 · ADAMA Design System — o que se reutilizou e o que não existia lá
+
+Consultado antes de desenhar. O manifesto declara `Badge · Button · Card ·
+ProductIcon · Tag` mais os cartões de marca; **não** declara carta, grelha de
+casellas, gráfico nem barra.
+
+```
+Card                          REUTILIZADO   superfície #1C1817 · raio 14px · borda 1px
+cores da linha (pest/disease) REUTILIZADO   CATEGORY_UI.color · .dark · .soft
+Earth Grey / Text Grey        REUTILIZADO   #8F8886 · #EDEAE9
+ícone oficial da categoria    INTACTO       nenhum ícone novo, nenhum emoji
+
+ADAMA_DESIGN_SYSTEM_MATCH = NOT_FOUND   (carta a caselle · barra de força)
+NEW_PATTERN_REQUIRED      = YES
+```
+
+**Motivo:** o Design System não tem componente de mapa nem de gráfico. Os dois
+padrões novos foram construídos apenas com tokens oficiais — não introduzem cor,
+tipo, raio nem ícone fora da paleta — e passam BW1 (paleta), BW2 (contraste AA) e
+BW3 (sem caixa-alta em títulos ≥16px).
+
+### 8.5 · Medição
+
+```
+run.mjs                72/72
+brandwell               5/5   (BW1 paleta · BW2 contraste · BW3 sem caixa-alta)
+casa-gate              30/30
+meeting-gate           23/23
+cta-navigation         13/13
+viagens do leitor      31/31 passos · ERROS DE PÁGINA 0
+mobile 390px           overflow 0
+carta a caselle        20 casellas · 1 acesa em 13/13 fichas · cor = linha da categoria
+```
