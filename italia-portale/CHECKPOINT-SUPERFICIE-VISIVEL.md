@@ -343,3 +343,108 @@ Verificado em *worktree* sobre `5a5ab60`: **idêntico**. Não é desta missão.
 - **Seis portões continuam sem corredor** (`negative-control`, `action-map-consistency`,
   `cta-navigation`, `opportunity-trace`, e outros). `superficie-visivel` não é o sétimo:
   `run.mjs` chama-o.
+
+---
+
+## 7 · MEETING POLISH — a inteligência passa a ver-se em segundos
+
+Segunda passagem, sobre o mesmo HEAD. O motor já tinha tudo; a superfície é que
+não mostrava. Nenhum facto novo entrou — mudou o que se vê primeiro.
+
+### O cartão do radar
+
+Treze cartões diziam cultura, avversità, região e estado. Somavam-se todos.
+
+> **Se todos os cartões se parecem, nenhum diz nada.**
+
+Cada um mostra agora `SCIENZA · VOCI TECNICHE · CONCORRENZA · SEGNALI DI CAMPO ·
+PRODOTTI ADAMA` e quantas famílias independentes trazem evidência. **Sem pastilha
+com zero**: uma caixa vazia desenhada para encher espaço não informa, ocupa. E as
+cores não mudam por família — a regra ADAMA proíbe misturar as linhas e o cartão
+já tem a sua: distingue a palavra, não a tinta.
+
+### Um cálculo, dois leitores
+
+`incrocio(cultura, avversità)` é o dono. Calcula-se por **coppia** (13 casos em 7
+coppie) e o vocabulário resolve-se com `AM.cropResolve`, que já existia. Onde a
+coppia não se resolve, não se procura: declara-se que não se pode procurar.
+
+### A ficha
+
+Nova ordem: herói → **RELAZIONE ADAMA compacta** → **SEGNALI CONVERGENTI** →
+ciência, voz técnica e concorrência → portafoglio inteiro (um interruptor) →
+`VEDI LA PROVA` → perché ora → finestra → mappa → evidenze →
+**COSA NON SAPPIAMO ANCORA**.
+
+> **O produto é a resposta. Não pode ser a primeira pergunta.**
+
+Sete campos por produto abriam a ficha antes de se saber porque o caso existe.
+Continuam todos lá, inteiros, um estrato adiante.
+
+`QUERY_*` **não é** `PROVED_*`: cada linha de ciência diz se o texto sustenta a
+coppia ou se só a busca a encontrou. Medido em Vite × Peronospora: 66 materiais,
+**34 sustentados**.
+
+A concorrência mostra empresa, data, estado temporal e a citação pública na
+língua em que foi dita. `ATIVO` separado de `HISTÓRICO`.
+
+### O Radar Futuro
+
+Abria com `ITFC-001` e `6 / 11`. Um identificativo interno e um rácio de defeitos
+são a **recibo** da leitura, não a leitura. Abre agora pela **ação** — preparar ou
+monitorar — e pelo que o cartão **pode citar**. O id, o sensor e as lacunas ficam
+no rodapé de cada ficha. E não se inventou nada: 12 dos 13 campos obrigatórios
+não viajam no handoff, e onde a fonte não dá um facto, não aparece um.
+
+### Os três casos WOW
+
+Medidos por diversidade de famílias, não escolhidos à mão. Os três com as quatro
+famílias (ciência + voz técnica + concorrência + relação ADAMA):
+
+| caso | região | famílias |
+|---|---|---|
+| Vite · Peronospora | Friuli-Venezia Giulia | 4 — 66 ciência · 4 voz · 44 concorrência · 2 ADAMA |
+| Vite · Peronospora | Umbria | 4 — idem |
+| Vite · Peronospora | Emilia-Romagna | 4 — idem |
+
+Usam **o mesmo componente** de todos os outros. São exemplos, não uma UI especial.
+
+### Três erros de consola a menos
+
+`<path d="{{ p }}">` estava no documento antes do runtime o substituir, e o parser
+SVG lia-o logo: três erros por carregamento, medidos. O ícone passa a data-URI —
+o padrão que esta página já usava para todos os outros.
+
+> **Um erro que o leitor não vê é na mesma um erro.**
+
+### Um portão que guardava uma tabela
+
+`LEDGER_44_NAVIGABLE` prendia-se a `table tbody tr` e reprovou porque a
+apresentação mudou. A lei é «os 44 estão desenhados», não «há uma tabela».
+
+> **Um portão preso ao desenho cai com o desenho, e leva a lei com ele.**
+
+### Medido
+
+```
+run.mjs                72/72   (com SV1)
+casa-gate              30/30
+brandwell               5/5
+meeting-gate           23/23
+browser                 7/7
+responsive             PASS
+mobile                 50 ecrãs · overflow 0
+reachability           PASS
+build-gate             PASS · V21-06c6421d001ea52a
+release-gate (disco)   BROWSER_ERRORS 0 · BROKEN_LINKS 0
+viagens do leitor      26/26 passos · ERROS DE PÁGINA 0 (eram 3)
+```
+
+### Promoção
+
+```
+claude/visible-intelligence-v1            = 4b22957
+claude/auditoria-acervo-inteligencia-2nknje = 4b22957
+árvores                                    = 6541bba… idênticas
+commits exclusivos perdidos                = 0 (fast-forward de 5a5ab60)
+```
