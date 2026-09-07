@@ -108,9 +108,17 @@ INICIO_CULTURA = [(k, re.compile(r'^\s*(' + r + r')', re.I)) for k, r in CULTURA
 # ── CABEÇALHO DA TABELA DE USO ──────────────────────────────────────────────────
 # Só entra se as DUAS colunas aparecem perto uma da outra. «COLTURE TRATTATE»
 # sozinho costuma ser intervalo de sicurezza, não tabela de uso.
+# «MALATTIA» É COMO O RÓTULO DE FUNGICIDA ESCREVE O CABEÇALHO.
+# O AVASTEL abre a tabela com «Coltura | Malattia fungina» e junta 4 culturas a
+# 5 doenças cada, linha a linha — tabela impecável, e o leitor dizia
+# TABELA_NAO_LOCALIZADA porque a alternância não tinha a palavra. O padrão
+# aceitava `patogen`, que é o termo técnico; o rótulo comercial escreve o termo
+# do agrónomo. Uma palavra, e não um relaxamento da lei: continua a ser preciso
+# «coltura» a menos de 60 caracteres, e o par continua a nascer só DENTRO da
+# linha. Nenhum par novo vem de varrer o documento.
 CABECALHO = re.compile(
-    r'coltur[ae][\s\S]{0,60}?(parassit|avversit|infestant|malerb|patogen|insett)'
-    r'|(parassit|avversit|infestant|malerb)[\s\S]{0,60}?coltur[ae]', re.I)
+    r'coltur[ae][\s\S]{0,60}?(parassit|avversit|infestant|malerb|patogen|insett|malatti)'
+    r'|(parassit|avversit|infestant|malerb|malatti)[\s\S]{0,60}?coltur[ae]', re.I)
 
 # Onde a tabela termina: começou outra seção do rótulo.
 FIM_TABELA = re.compile(
@@ -436,8 +444,18 @@ def canonizar(txt, tabela):
     return 'NAO_MAPEADO'
 
 
+# O cabeçalho que anuncia uma coluna de DOENÇA. Não é heurística nossa: é a
+# palavra que o próprio rótulo escreveu por cima da coluna.
+CABECALHO_DE_DOENCA = re.compile(r'malatti|patogen', re.I)
+
+
 def regiao_da_tabela(texto):
-    """→ lista de blocos de texto que são tabela de uso. Vazia = não localizada."""
+    """→ lista de blocos de tabela de uso. Vazia = não localizada.
+
+    Cada bloco leva consigo o que o SEU cabeçalho declarava. Um rótulo pode ter
+    duas tabelas — uma de doenças, outra de infestantes — e a natureza do alvo é
+    do cabeçalho de cada uma, nunca do documento inteiro.
+    """
     blocos = []
     for m in CABECALHO.finditer(texto):
         ini = m.start()
@@ -450,7 +468,8 @@ def regiao_da_tabela(texto):
             if len(corpo) > 400:
                 break
         if corpo:
-            blocos.append('\n'.join(corpo))
+            blocos.append({'TEXTO': '\n'.join(corpo),
+                           'COLUNA_E_DOENCA': bool(CABECALHO_DE_DOENCA.search(m.group(0)))})
     return blocos
 
 
@@ -496,6 +515,10 @@ def _e_nome_de_cultura_solto(lit):
     return False
 
 
+# O infinitivo italiano, na abertura de um falso binomio.
+VERBO_ITALIANO = re.compile(r'^[A-Z][a-z]*(?:are|ere|ire)\s', re.U)
+
+
 def alvos_da_linha(texto):
     """→ [(literal, canonico)]. O literal é o fato; o canônico é nossa leitura."""
     achados, vistos = [], set()
@@ -508,6 +531,16 @@ def alvos_da_linha(texto):
     for m in BINOMIO.finditer(texto):
         lit = m.group(0).strip()
         if NAO_E_ALVO.match(lit) or len(lit) < 7:
+            continue
+        # UM VERBO NO INFINITIVO NAO E UM GENERO.
+        # «Eseguire massimo un trattamento per anno» tem a forma exata de um
+        # binomio latino — maiuscula, minuscula, duas palavras — e entrou como
+        # alvo do triticale. O italiano nomeia a instrucao com o infinitivo
+        # (-are/-ere/-ire); o latim nomeia o genero com -a, -um, -us, -is.
+        # Medido contra os 343 literais distintos ja lidos: apanha 11, e as 11
+        # sao frases de instrucao («Applicare alla», «Irrorare omogeneamente»,
+        # «Svuotare completamente»). Nenhum alvo verdadeiro cai aqui.
+        if VERBO_ITALIANO.match(lit):
             continue
         if _e_nome_de_cultura_solto(lit):
             continue
@@ -768,14 +801,22 @@ def main():
             continue
 
         n0 = len(pares)
-        for bloco in blocos:
+        for bl in blocos:
+            bloco, coluna_e_doenca = bl['TEXTO'], bl['COLUNA_E_DOENCA']
             for ln in linhas_da_tabela(bloco):
                 txt = re.sub(r'\s+', ' ', ' '.join(ln['TEXTO'])).strip()
                 if len(txt) > 600:
                     txt = txt[:600]
                 for lit, canon in alvos_da_linha(txt):
                     grupo = None
-                    if canon == 'NAO_MAPEADO':
+                    # NUMA TABELA DE DOENCAS NAO SE PESCA DANINHA.
+                    # `Blumeria graminis` e `Microdochium spp` sairam como
+                    # PLANTA_INFESTANTE de um fungicida de cereais, porque o
+                    # canonizador de daninha e o ultimo recurso e devolve NAO_SEI
+                    # para qualquer binomio que nao reconheca. Mas a coluna diz
+                    # «Malattia fungina»: quem escreveu o rotulo ja declarou a
+                    # natureza do alvo, e essa declaracao vence o nosso palpite.
+                    if canon == 'NAO_MAPEADO' and not coluna_e_doenca:
                         canon_d, grupo = canonizar_daninha(lit)
                         if canon_d != 'NAO_MAPEADO':
                             canon = canon_d
