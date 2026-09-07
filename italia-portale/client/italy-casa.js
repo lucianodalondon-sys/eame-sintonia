@@ -110,7 +110,7 @@ window.ITALY_CASA = {
  },
  "DETERMINISTICO": "SIM — sem relogio, sem aleatorio, chaves ordenadas",
  "DONOS_DA_APRESENTACAO": {
-  "meeting-intelligence-snapshot.json": "sha256:12f9ba6496cf928d89c8e4770972c9b0c73f7d03fd317ac423c3d2f1c48181fd",
+  "meeting-intelligence-snapshot.json": "sha256:beef9e4baee5128e7ca29ab784c4d5921a8e2d42117eeacdaeb7e0afef393024",
   "meeting-labels.js": "sha256:8ea7e824d12866626441acc8f10fa2525116241cde054be7122808a06adf6c2a"
  },
  "DO_NOT_SHOW": [
@@ -1534,7 +1534,7 @@ window.ITALY_CASA = {
   "RECENCIA_TERRITORIAL": "a camada territorial foi produzida com a leitura de data defeituosa do achado 07. Mostra-se cobertura, nunca recencia."
  },
  "OPPORTUNITA_ATTUALI": {
-  "BUILD_ID": "V21-15071cc31d3461d3",
+  "BUILD_ID": "V21-56e837c134a2bcd3",
   "CASI": [
    {
     "AMBITO": "PROVINCIAL",
@@ -1671,25 +1671,25 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1054",
+      "ID": "IT-LBL-1024",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1134",
+      "ID": "IT-LBL-1113",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1673",
+      "ID": "IT-LBL-1193",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-2239",
+      "ID": "IT-LBL-1794",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -1701,7 +1701,7 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-965",
+      "ID": "IT-LBL-4908",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -2645,25 +2645,25 @@ window.ITALY_CASA = {
     "EVIDENZE": [
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1071",
+      "ID": "IT-LBL-1130",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1078",
+      "ID": "IT-LBL-1137",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1151",
+      "ID": "IT-LBL-1210",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1158",
+      "ID": "IT-LBL-1217",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -2934,13 +2934,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1015",
+      "ID": "IT-LBL-1074",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1204",
+      "ID": "IT-LBL-1263",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -4256,13 +4256,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1032",
+      "ID": "IT-LBL-1091",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1033",
+      "ID": "IT-LBL-1092",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -4512,13 +4512,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-2662",
+      "ID": "IT-LBL-5362",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-2663",
+      "ID": "IT-LBL-5363",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -4770,25 +4770,25 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1931",
+      "ID": "IT-LBL-3178",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1932",
+      "ID": "IT-LBL-3179",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1933",
+      "ID": "IT-LBL-3180",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-2096",
+      "ID": "IT-LBL-3663",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -5052,13 +5052,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1002",
+      "ID": "IT-LBL-1061",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1749",
+      "ID": "IT-LBL-1870",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -5325,7 +5325,7 @@ window.ITALY_CASA = {
       "RUOLO": "BACKGROUND_ONLY"
      }
     ],
-    "EVIDENZE_TOTALE": 261,
+    "EVIDENZE_TOTALE": 266,
     "E_OPPORTUNITA_COMMERCIALE": true,
     "FAMIGLIE": [
      "ACTIVE_INGREDIENT",
@@ -5530,19 +5530,19 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1795",
+      "ID": "IT-LBL-1918",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1796",
+      "ID": "IT-LBL-1919",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1797",
+      "ID": "IT-LBL-1920",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -5714,6 +5714,7 @@ window.ITALY_CASA = {
        "AI_AZOXYSTROBIN",
        "AI_BUPIRIMATE",
        "AI_CYMOXANIL",
+       "AI_FLONICAMID_IKI_220",
        "AI_FOLPET",
        "AI_PIRIMICARB",
        "AI_TEBUCONAZOLE"
@@ -6005,6 +6006,11 @@ window.ITALY_CASA = {
       "ATTIVO": "CYMOXANIL",
       "CODICE": "EU_APPROVAL_EXPIRES",
       "DATA": "2027-11-30"
+     },
+     {
+      "ATTIVO": "FLONICAMID (IKI-220)",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2026-11-30"
      },
      {
       "ATTIVO": "TEBUCONAZOLE",
@@ -6456,8 +6462,11 @@ window.ITALY_CASA = {
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
        "AI_AZOXYSTROBIN",
+       "AI_CHLOROTOLURON",
        "AI_DIFENOCONAZOLE",
+       "AI_DIFLUFENICAN",
        "AI_FLUXAPYROXAD",
+       "AI_FOLPET",
        "AI_LAMBDA_CYHALOTHRIN",
        "AI_PIRIMICARB",
        "AI_PROTHIOCONAZOLE",
@@ -6501,7 +6510,8 @@ window.ITALY_CASA = {
        "CATPRD_MAGANICR",
        "CATPRD_MAXENTISR",
        "CATPRD_PIRIMOR_50",
-       "CATPRD_SCHERMO_0_5_G"
+       "CATPRD_SCHERMO_0_5_G",
+       "CATPRD_STAVENTO"
       ],
       "FATTO_CODICE": "VERIFIED_LABEL_MATCH",
       "FATTO_DATA": null,
@@ -6815,6 +6825,26 @@ window.ITALY_CASA = {
        }
       ],
       "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
+       "FOLPET"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_STAVENTO",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "Stavento®",
+      "REGISTRO": "017752",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
     "PRODOTTO_PRINCIPALE": null,
@@ -6842,6 +6872,11 @@ window.ITALY_CASA = {
       "DATA": "2027-10-31"
      },
      {
+      "ATTIVO": "FOLPET",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
+     },
+     {
       "ATTIVO": "LAMBDA-CYHALOTHRIN",
       "CODICE": "EU_APPROVAL_EXPIRES",
       "DATA": "2029-01-31"
@@ -6862,7 +6897,18 @@ window.ITALY_CASA = {
       "DATA": "2027-05-31"
      }
     ],
-    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "CHLOROTOLURON",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2028-06-30"
+     },
+     {
+      "ATTIVO": "DIFLUFENICAN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-08-31"
+     }
+    ],
     "RILEVANZA": "B",
     "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
     "RILEVANZA_SUPERFICIE": "RADAR",
@@ -6923,6 +6969,7 @@ window.ITALY_CASA = {
       "AZIONE": "WATCH_REGULATORY_DATE",
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
+       "AI_FLONICAMID_IKI_220",
        "AI_LAMBDA_CYHALOTHRIN",
        "AI_TAU_FLUVALINATE"
       ],
@@ -7197,7 +7244,13 @@ window.ITALY_CASA = {
       "DATA": "2027-01-31"
      }
     ],
-    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "FLONICAMID (IKI-220)",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2026-11-30"
+     }
+    ],
     "RILEVANZA": "B",
     "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
     "RILEVANZA_SUPERFICIE": "RADAR",
@@ -7333,13 +7386,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1088",
+      "ID": "IT-LBL-1147",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1089",
+      "ID": "IT-LBL-1148",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -7628,13 +7681,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1650",
+      "ID": "IT-LBL-1771",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1651",
+      "ID": "IT-LBL-1772",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -7652,13 +7705,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-740",
+      "ID": "IT-LBL-799",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-741",
+      "ID": "IT-LBL-800",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -8236,7 +8289,9 @@ window.ITALY_CASA = {
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
        "AI_AZOXYSTROBIN",
+       "AI_CHLOROTOLURON",
        "AI_DIFENOCONAZOLE",
+       "AI_DIFLUFENICAN",
        "AI_FLORASULAM",
        "AI_FLUROXYPYR",
        "AI_FLUXAPYROXAD",
@@ -8310,37 +8365,37 @@ window.ITALY_CASA = {
     "EVIDENZE": [
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1629",
+      "ID": "IT-LBL-1750",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1630",
+      "ID": "IT-LBL-1751",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1631",
+      "ID": "IT-LBL-1752",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1632",
+      "ID": "IT-LBL-1753",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1795",
+      "ID": "IT-LBL-1915",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1796",
+      "ID": "IT-LBL-1918",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -8373,6 +8428,7 @@ window.ITALY_CASA = {
     },
     "FONTI_CHIAVI": 2,
     "FONTI_URL": [
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36530",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41520"
     ],
@@ -8516,6 +8572,16 @@ window.ITALY_CASA = {
      }
     ],
     "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "CHLOROTOLURON",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2028-06-30"
+     },
+     {
+      "ATTIVO": "DIFLUFENICAN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-08-31"
+     },
      {
       "ATTIVO": "FLORASULAM",
       "CODICE": "EU_APPROVAL_EXPIRES",
@@ -8996,13 +9062,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1650",
+      "ID": "IT-LBL-1771",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1651",
+      "ID": "IT-LBL-1772",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -9020,13 +9086,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-740",
+      "ID": "IT-LBL-799",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-741",
+      "ID": "IT-LBL-800",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -9662,6 +9728,7 @@ window.ITALY_CASA = {
       "EVIDENZA": [
        "AI_CAPTAN",
        "AI_CHLORANTRANILIPROLE",
+       "AI_FLONICAMID_IKI_220",
        "AI_FLUAZINAM",
        "AI_LAMBDA_CYHALOTHRIN",
        "AI_PIRIMICARB",
@@ -10027,6 +10094,11 @@ window.ITALY_CASA = {
       "ATTIVO": "CHLORANTRANILIPROLE",
       "CODICE": "EU_APPROVAL_EXPIRES",
       "DATA": "2027-05-31"
+     },
+     {
+      "ATTIVO": "FLONICAMID (IKI-220)",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2026-11-30"
      }
     ],
     "RILEVANZA": "B",
@@ -10622,25 +10694,25 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1054",
+      "ID": "IT-LBL-1024",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1134",
+      "ID": "IT-LBL-1113",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1673",
+      "ID": "IT-LBL-1193",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-2239",
+      "ID": "IT-LBL-1794",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -10652,7 +10724,7 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-965",
+      "ID": "IT-LBL-4908",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -10919,13 +10991,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1013",
+      "ID": "IT-LBL-1072",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1527",
+      "ID": "IT-LBL-1648",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -11227,13 +11299,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1282",
+      "ID": "IT-LBL-1341",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1380",
+      "ID": "IT-LBL-1439",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -11251,7 +11323,7 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-820",
+      "ID": "IT-LBL-879",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -11523,19 +11595,19 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1650",
+      "ID": "IT-LBL-1771",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1923",
+      "ID": "IT-LBL-2828",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1929",
+      "ID": "IT-LBL-3176",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -11547,7 +11619,7 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-740",
+      "ID": "IT-LBL-799",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -11803,25 +11875,25 @@ window.ITALY_CASA = {
     "EVIDENZE": [
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-969",
+      "ID": "IT-LBL-1028",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-970",
+      "ID": "IT-LBL-1029",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-971",
+      "ID": "IT-LBL-1030",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-972",
+      "ID": "IT-LBL-1031",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -12081,25 +12153,25 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1071",
+      "ID": "IT-LBL-1130",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1078",
+      "ID": "IT-LBL-1137",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1151",
+      "ID": "IT-LBL-1210",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1158",
+      "ID": "IT-LBL-1217",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -12398,37 +12470,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-2521",
+      "ID": "IT-LBL-1028",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-969",
+      "ID": "IT-LBL-1029",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-970",
+      "ID": "IT-LBL-1030",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-971",
+      "ID": "IT-LBL-1031",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-972",
+      "ID": "IT-LBL-1032",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-973",
+      "ID": "IT-LBL-5191",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -12656,13 +12728,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1013",
+      "ID": "IT-LBL-1072",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1527",
+      "ID": "IT-LBL-1648",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -12963,13 +13035,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1013",
+      "ID": "IT-LBL-1072",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1527",
+      "ID": "IT-LBL-1648",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -13276,13 +13348,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1282",
+      "ID": "IT-LBL-1341",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1380",
+      "ID": "IT-LBL-1439",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -13300,7 +13372,7 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-820",
+      "ID": "IT-LBL-879",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -13587,13 +13659,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1002",
+      "ID": "IT-LBL-1061",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1008",
+      "ID": "IT-LBL-1067",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -13981,13 +14053,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1002",
+      "ID": "IT-LBL-1061",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1008",
+      "ID": "IT-LBL-1067",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -14378,13 +14450,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1002",
+      "ID": "IT-LBL-1061",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1008",
+      "ID": "IT-LBL-1067",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -14797,37 +14869,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-2521",
+      "ID": "IT-LBL-1028",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-969",
+      "ID": "IT-LBL-1029",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-970",
+      "ID": "IT-LBL-1030",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-971",
+      "ID": "IT-LBL-1031",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-972",
+      "ID": "IT-LBL-1032",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-973",
+      "ID": "IT-LBL-5191",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -15046,19 +15118,19 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1070",
+      "ID": "IT-LBL-1129",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1077",
+      "ID": "IT-LBL-1136",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1094",
+      "ID": "IT-LBL-1153",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -15344,7 +15416,7 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1537",
+      "ID": "IT-LBL-1658",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -15468,7 +15540,7 @@ window.ITALY_CASA = {
    "PREENCHER_NAO_PROMOVE": "TARGET_FIT vale ON_MINISTERIAL_LABEL em 65 de 65 correspondencias: e uma constante, e nao distingue nada. Se a lei se apoiasse nela, escrever um alvo no caso promovia-o — medido, 10 dos 21 B subiriam sem nada observado. Por isso o problema agronomico exige evidencia que DECIDA um elo (SUPPORTS_SIGNAL ou SUPPORTS_DIRECTION). Com a regra, preencher o alvo nos 21 B promove UM: OPP_00C5B6E15185, que ja traz 4 sinais de campo e 4 evidencias de sinal — esse subiria por ter facto, nao por ter campo cheio.",
    "SO_A_PUBLICA": true
   },
-  "MEETING_CUTOFF": "2026-09-07T16:31:00Z",
+  "MEETING_CUTOFF": "2026-09-07T17:46:16Z",
   "OPPORTUNITA": 17,
   "ORIZZONTE": "ADESSO",
   "PER_STATO": {
@@ -15492,9 +15564,9 @@ window.ITALY_CASA = {
    "RADAR": 21,
    "SEGNALI": 4
   },
-  "RULE_VERSION": "V21-15071cc31d3461d3",
+  "RULE_VERSION": "V21-56e837c134a2bcd3",
   "SEGNALI": 4,
-  "SOURCE_HEAD": "b0103bc",
+  "SOURCE_HEAD": "5a61844c",
   "TOTALE": 43
  },
  "RADAR_FUTURO": {

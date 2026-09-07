@@ -831,16 +831,44 @@ check('H2', 'The V2.1 universe counts are MEASURED, not declared', () => {
      Segunda subida declarada, 2.389 -> 2.702: o cabecalho da seccao de uso pedia
      «MODALITA» sem acento e o rotulo escreve «MODALITÀ». Quarenta e seis
      etiquetas tinham a seccao inteira do outro lado desse caractere.
-     Os numeros que NAO podiam mexer nao mexeram: 43 casos e os cinco estados
-     canonicos, verificados no CANONICAL-PACKAGE-CONTRACT. */
-  eq('label use pairs', C.productRelationships.count, 2702);
+
+     TERCEIRA SUBIDA DECLARADA, 2.702 -> 5.402, E ESTA DOBRA O UNIVERSO.
+     Nao dobrou porque se afrouxou nada: dobrou porque doze dos quinze rotulos
+     novos entram pelo nivel FRACO, e o nivel fraco cruza duas listas.
+       · 2.702 -> 2.734, nivel FORTE: o cabecalho da seccao de uso e uma LISTA,
+         e o rotulo escreve-a na ordem que quer. «COLTURE, DOSI E MODALITA'
+         D'IMPIEGO» e o mesmo cabecalho, com um item mudado de lugar. Abriu
+         APYZA WG, APYZA 500 WG, DICURAN PLUS e STAVENTO, com cultura e alvo na
+         MESMA linha.
+       · 2.734 -> 5.402, nivel FRACO: ha rotulo que declara a cultura a abrir a
+         linha da SUA dose («Colza : 2 litri per ettaro») e nunca escreve «per
+         il diserbo di:». Abriu a familia da pendimetalina inteira — 12 rotulos
+         da mesma molecula com marcas diferentes. Ai o par nasce do cruzamento
+         entre a lista de culturas e a lista de daninhas que o rotulo declara
+         SEPARADAMENTE, e vai a tela com a frase que diz que NAO afirma controlo
+         daquela daninha naquela cultura. E a mesma leitura que os outros 42
+         rotulos de herbicida ja tinham; um rotulo com 16 culturas e 20 daninhas
+         contribui 320 linhas por construcao.
+     A trava que impediu o erro obvio: so se le a cultura quando a dose e POR
+     HECTARE. O ACTIVUS ME lista as mesmas culturas duas vezes — uma com a dose,
+     outra na «fascia di rispetto» de 20 metros dos cursos de agua — e nenhuma
+     das que so aparecem na faixa entrou.
+     84 -> 85 alvos distintos: um alvo novo, vindo do espectro da pendimetalina.
+
+     MEDIDO CONTRA CONTROLO: a cadeia correu primeiro sem alteracao nenhuma e
+     reproduziu V21-15071cc31d3461d3. Os numeros que NAO podiam mexer nao
+     mexeram: 43 casos, os cinco estados canonicos (WATCH 21, TO_VALIDATE 9,
+     FUTURE_PREPARATION 7, VALIDATE_NOW 4, ACT_NOW 2), 6 publicaveis e a LEI
+     ADAMA A=17 B=21 C=4 D=1. Zero pares saidos, zero rotulos que perderam a
+     leitura. */
+  eq('label use pairs', C.productRelationships.count, 5402);
   eq('active substances', C.activeIngredients.count, 53);
   /* CROPS and TARGETS are the label corpus's own vocabulary, recounted from the
      pairs rather than read off a list anybody typed. */
   const crops = new Set(C.productRelationships.records.map((r) => r.cropOnLabel).filter(Boolean));
   const targets = new Set(C.productRelationships.records.map((r) => r.target).filter(Boolean));
   eq('distinct label crops', crops.size, 35);
-  eq('distinct label targets', targets.size, 84);
+  eq('distinct label targets', targets.size, 85);
   return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad };
 });
 

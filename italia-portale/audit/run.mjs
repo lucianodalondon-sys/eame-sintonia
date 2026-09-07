@@ -6,6 +6,7 @@
    node audit/run.mjs --verbose     print every detail
    Exit code 0 only when every check passes. */
 import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { runAll } from './checks.mjs';
 
 const argv = process.argv.slice(2);
@@ -63,7 +64,16 @@ for (const r of results) {
    medicoes dos outros controlos, que e o defeito que `mount()` ja tem quando
    se reutiliza. Vinte e tres segundos e o preco de nao mentir. */
 if (!only) {
-  const sv = spawnSync(process.execPath, [new URL('./superficie-visivel.mjs', import.meta.url).pathname],
+  /* `.pathname` DE UM file:// NAO E UM CAMINHO — EM WINDOWS.
+     Da `/C:/repo/audit/superficie-visivel.mjs`, com uma barra a mais a frente,
+     e o Node responde MODULE_NOT_FOUND. O portao passava a correr sozinho e
+     reprovava aqui dentro, sempre, em qualquer maquina Windows — um FAIL que
+     nao era do portal nem dos dados, e que nenhuma leitura do relatorio
+     conseguia explicar. `fileURLToPath` e a conversao que sabe das duas
+     plataformas, e em Linux devolve exactamente o que `.pathname` devolvia.
+
+         UM PORTAO QUE REPROVA POR CAUSA DA MAQUINA NAO ESTA A MEDIR O PORTAL. */
+  const sv = spawnSync(process.execPath, [fileURLToPath(new URL('./superficie-visivel.mjs', import.meta.url))],
     { encoding: 'utf8' });
   const passou = sv.status === 0;
   const linha = String(sv.stdout || '').split('\n').find((l) => /VALUE_EXISTS/.test(l)) || '';

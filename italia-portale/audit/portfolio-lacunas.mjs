@@ -11,7 +11,7 @@
    regua que vai a rede mede a rede, nao o produto. */
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { loadData, mount } from './lib/harness.mjs';
 
 const AQUI = path.dirname(fileURLToPath(import.meta.url));
@@ -75,7 +75,19 @@ export async function medirLacunas() {
     completos: linhas.filter((l) => !l.falta.length).length };
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+/* FUI EU QUE ME CHAMARAM PELO NOME?
+   A comparacao era `import.meta.url === \`file://${process.argv[1]}\``, e ela
+   so acerta em Linux. Em Windows `import.meta.url` e
+   `file:///C:/repo/audit/portfolio-lacunas.mjs` e `process.argv[1]` e
+   `C:\repo\audit\portfolio-lacunas.mjs`: nunca sao iguais. Resultado — a regua
+   corria, nao imprimia NADA e saia com codigo 0. Quem a corresse via silencio
+   e sucesso, e concluia que estava tudo bem.
+
+       UMA REGUA MUDA QUE DIZ «OK» E PIOR QUE UMA REGUA QUE FALHA.
+       A que falha, ve-se.
+
+   `pathToFileURL` faz a conversao pelo lado certo e vale nas duas plataformas. */
+if (import.meta.url === pathToFileURL(process.argv[1] || '').href) {
   const r = await medirLacunas();
   console.log('');
   console.log('  SINTONIA · LACUNAS DO PORTAFOGLIO — o que falta, e de quem e');

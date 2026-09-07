@@ -2,16 +2,22 @@
   "DATASET": "SINTONIA-CANONICAL-PACKAGE-CONTRACT-V1",
   "LEI": "o que qualquer pacote tem de provar para atravessar a fronteira do site. Um so dono: este ficheiro. Quem verifica em JS e quem verifica em Python leem daqui, para a regra nao existir em duas linguas e divergir na terceira vez que alguem a mudar.",
   "CAPTURED_AT": "2026-09-07",
-  "SOURCE": "medido em b0103bc (claude/acervo-to-package-intelligence-v1) pela cadeia canonica. O determinismo desta linhagem ja tinha sido provado na safra anterior, reproduzindo V21-06c6421d001ea52a byte a byte com o input antigo.",
+  "SOURCE": "medido em 5a61844c (claude/acervo-to-package-intelligence-v1) pela cadeia canonica, na maquina do dono, com pypdf 6.14.2. O determinismo desta linhagem foi RE-PROVADO nesta safra: corrida com os ficheiros de b0103bc, sem alteracao nenhuma, a cadeia reproduziu V21-15071cc31d3461d3 — o id que este contrato esperava. So depois se aplicou a alteracao do leitor e se mediu a diferenca.",
+  "CONTROLO_DESTA_SAFRA": {
+    "PORQUE_EXISTE": "uma alteracao medida sem controlo e um palpite. Correu-se a cadeia DUAS vezes: uma com os ficheiros do commit anterior, outra com a alteracao.",
+    "SEM_A_ALTERACAO": "V21-15071cc31d3461d3 · 43 casos · 2702 PRODUCT_RELATIONSHIPS",
+    "COM_A_ALTERACAO": "V21-56e837c134a2bcd3 · 43 casos · 5402 PRODUCT_RELATIONSHIPS",
+    "O_QUE_MEXEU_ENTRE_AS_DUAS": "so PRODUCT_RELATIONSHIPS. Nenhum caso mudou de estado, e o perfil de falhas da cadeia e identico nas duas corridas."
+  },
   "CANONICAL_GENERATOR": {
     "LINHAGEM": "claude/acervo-to-package-intelligence-v1",
-    "COMMIT": "b0103bc",
+    "COMMIT": "5a61844c",
     "PORQUE": "a inteligencia tem UM dono. A Linha B consome; nao gera, nao decide e nao arbitra.",
     "A_CADEIA_LOCAL_DESTA_LINHAGEM_ESTA_ATRASADA": true,
     "O_QUE_ELA_PRODUZ_SE_CORRIDA_AQUI": "V21-5d312cb90a0de01d — sem MEETING_SURFACE_RULE e com PREPARE_NOW em 11 casos",
-    "COMMIT_ANTERIOR": "51010733be8a846a280e5f52e7e50d671c68a18f"
+    "COMMIT_ANTERIOR": "b0103bca4856d02ca1801c807b67eb5d462b4d5c"
   },
-  "EXPECTED_BUILD_ID": "V21-15071cc31d3461d3",
+  "EXPECTED_BUILD_ID": "V21-56e837c134a2bcd3",
   "EXPECTED_CASES": 43,
   "REVOKED_STATES": [
     "PREPARE_NOW"
@@ -37,16 +43,19 @@
     "V21-69bf448ac934a6d9": "a safra de 55c2674: 43 casos e vereditos identicos aos de hoje, mas sem a camada de declaracao de cortes (CROSS_INTELLIGENCE_*, PORTFOLIO_*, EVIDENCE_SCAN_*) e com 55 pares produto x cultura em vez de 213",
     "V21-044e4924854d5f0a": "a safra de 5fac11f: mesmos 43 casos e mesmos vereditos, mas sem TRANSCRIPTS, sem SCIENCE-CORPUS e sem FACT-TIME-PLACE-V1",
     "V21-06c6421d001ea52a": "a safra de 5101073 com o rotulo lido a 02/09: 2030 pares de uso, 102 dos 163 rotulos lidos. Mesmos 43 casos e mesmos vereditos que a safra actual — o que mudou foi so quanto do rotulo se conseguiu ler.",
-    "V21-fb74d2728213e8dd": "a safra de 40477d5: 2.389 pares e 119 dos 163 rotulos lidos. Mesmos 43 casos, mas WATCH 22 e VALIDATE_NOW 3 — antes de o acento de «MODALITÀ» destapar o FOLPAN 80 WDG para o caso Pomodoro x Peronospora."
+    "V21-fb74d2728213e8dd": "a safra de 40477d5: 2.389 pares e 119 dos 163 rotulos lidos. Mesmos 43 casos, mas WATCH 22 e VALIDATE_NOW 3 — antes de o acento de «MODALITÀ» destapar o FOLPAN 80 WDG para o caso Pomodoro x Peronospora.",
+    "V21-15071cc31d3461d3": "a safra de b0103bc: 2.702 pares declarados e 132/163 rotulos lidos. SAIU por duas razoes, e a segunda importa mais que a primeira. (1) o leitor passou a ouvir a cultura declarada como cabecalho da sua propria dose, e 147/163 rotulos passaram a ser lidos — 5.402 pares. (2) o ficheiro de pares desta safra dizia 2.702, mas o codigo do mesmo commit produz 2.701: o par a mais era do SULTAN, com «infestant» (pedaco de palavra) por alvo e a linha do Aglio debaixo da cultura CIPOLLA. Falso positivo de um cabecalho falso. Os 43 casos e os vereditos desta safra continuam validos — o que ela nao tinha era quanto do rotulo se conseguia ler."
   },
   "FAIL_CLOSED": true,
   "PORQUE_FAIL_CLOSED": "um portao que avisa e um portao que se ignora na sexta-feira a noite. Se a proveniencia nao se prova, a build para — nao passa com aviso.",
   "O_QUE_MUDOU_NESTA_SAFRA": {
-    "PRODUCT_RELATIONSHIPS": "2389 -> 2702",
-    "ROTULOS_LIDOS": "119/163 -> 132/163",
-    "ESTADO_QUE_MEXEU": "WATCH 22 -> 21 e VALIDATE_NOW 3 -> 4",
-    "QUAL_CASO": "OPP_EA2AE1EFB775 · Pomodoro x Peronospora · O1_FIELD_PRESSURE",
-    "PORQUE": "o padrao do cabecalho pedia «MODALITA» sem acento e o rotulo escreve «MODALITÀ»: a seccao de uso de 46 etiquetas ficava do outro lado de um caractere. Destapada, o FOLPAN 80 WDG le-se em POMODORO contro Peronospora (Phytophthora infestans) — cultura e alvo na mesma frase, BLOCO_DA_CULTURA — e o caso deixa de ter SEM_VINCULO_COM_PORTFOLIO. Nao e uma promocao nossa: e o motor a deixar de ter razao para dizer que nao havia produto.",
-    "O_QUE_NAO_MUDOU": "43 casos, TO_VALIDATE 9, FUTURE_PREPARATION 7, ACT_NOW 2."
+    "PRODUCT_RELATIONSHIPS": "2702 -> 5402",
+    "ROTULOS_LIDOS": "132/163 -> 147/163 (a base honesta era 131: ver V21-15071cc31d3461d3 em STALE_KNOWN_BUILD_IDS)",
+    "ESTADO_QUE_MEXEU": "nenhum",
+    "QUAL_CASO": "nenhum",
+    "PORQUE": "duas coisas que o rotulo escreve e o leitor nao ouvia. (1) O cabecalho da seccao de uso e uma LISTA, e o rotulo escreve-a na ordem que quer: «COLTURE, DOSI E MODALITA' D'IMPIEGO» e «EPOCHE, DOSI E MODALITA DI IMPIEGO» sao o cabecalho que o padrao ja conhecia, com um item mudado de lugar. Abriu APYZA WG, APYZA 500 WG, DICURAN PLUS e STAVENTO, todos no nivel forte LINHA_DA_TABELA. (2) Ha rotulo que declara a cultura a abrir a linha da SUA dose — «Colza : 2 litri per ettaro», «Patata: 3 l/ha» — e nunca escreve «per il diserbo di:». Le-se so dentro da seccao de uso e so quando a dose e POR HECTARE; e essa segunda trava que deixa de fora «20 metri dai corpi idrici superficiali», que tem a mesma forma e e faixa de seguranca, nao uso. Abriu a familia da pendimetalina inteira (12 rotulos), no nivel fraco DECLARACAO_DE_PRODUTO, com a ressalva que ja existia.",
+    "PORQUE_O_UNIVERSO_DOBROU": "porque 12 dos 15 rotulos novos sao lidos no nivel fraco, onde o par nasce do cruzamento entre a lista de culturas e a lista de daninhas que o rotulo declara SEPARADAMENTE. E a mesma leitura que os outros 42 rotulos de herbicida ja tinham, e o par vai a tela com a frase que diz que nao afirma controlo daquela daninha naquela cultura. Um rotulo com 16 culturas e 20 daninhas contribui 320 linhas — o numero e grande por construcao, e por isso esta declarado aqui em vez de aparecer sozinho no H2.",
+    "O_QUE_NAO_MUDOU": "43 casos, 6 publicaveis, 37 VALIDATION_REQUIRED, e todos os estados. Medido contra controlo na mesma maquina.",
+    "O_QUE_CONTINUA_A_FALHAR_E_NAO_E_DESTA_SAFRA": "a cadeia sai com exit 1 no CONTRATO DA SUPERFICIE, por 4 criterios que o portal teria de adivinhar. Falha identica na corrida de controlo, sem alteracao nenhuma — e divida anterior, nao efeito desta safra."
   }
 }

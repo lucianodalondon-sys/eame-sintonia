@@ -37,8 +37,24 @@ import { PT_MARKERS } from './lang.mjs';
    PASS sem nunca ter disparado. */
 import { medir, controloNegativo, QA } from './do-not-show.mjs';
 
-const require_ = createRequire(import.meta.url);
-const { chromium } = require_('/opt/node22/lib/node_modules/playwright/index.js');
+/* O NAVEGADOR PROCURA-SE, NAO SE FIXA NUM CAMINHO DE UMA MAQUINA SO.
+   Estavam aqui dois caminhos absolutos de Linux — o pacote em
+   `/opt/node22/lib/node_modules/playwright` e o binario em
+   `/opt/pw-browsers/chromium`. Em Windows nenhum existe, e este portao de 30
+   controlos morria em MODULE_NOT_FOUND antes do primeiro deles: nunca correu
+   na maquina do dono do projecto.
+
+       PORTAO QUE SO CORRE NUM SITIO SO GUARDA UM SITIO.
+
+   O `lib/drive.mjs`, ao lado, ja fazia isto bem, e este e o mesmo desenho:
+   importa `playwright-core` pelo nome e procura o binario do Linux; se nao o
+   achar, `executablePath` fica `undefined` e o playwright usa o navegador que
+   ele proprio traz. Em Linux nada muda; em Windows passa a correr. */
+import { chromium } from 'playwright-core';
+
+const EXEC_CHROMIUM = ['/opt/pw-browsers/chromium/chrome-linux/chrome',
+  '/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
+  '/opt/pw-browsers/chromium'].find((p) => fs.existsSync(p));
 
 const AQUI = path.dirname(fileURLToPath(import.meta.url));
 const RAIZ = path.resolve(AQUI, '..', '..');
@@ -64,7 +80,7 @@ const R = [];
 const check = (id, fn) => { try { R.push({ id, ...fn() }); }
   catch (e) { R.push({ id, pass: false, detail: [`LANCOU: ${e.message}`] }); } };
 
-const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const b = await chromium.launch({ executablePath: EXEC_CHROMIUM, args: ['--no-sandbox'] });
 const pg = await b.newPage({ viewport: { width: 1280, height: 1000 } });
 const erros = [];
 pg.on('pageerror', (e) => erros.push(e.message));
