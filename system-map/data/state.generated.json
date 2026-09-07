@@ -158,12 +158,12 @@
       "coleta/comunicacao_classificar.py",
       "coleta/comunicacao_coleta.py",
       "coleta/comunicacao_medir.py",
-      "coleta/corpus_es.py",
       "coleta/corpus_pesquisador.py",
       "coleta/cruzar_regua_rotulo.py",
       "coleta/denominaciones.py",
       "coleta/ephy.sh",
       "coleta/eppo_gd.py",
+      "coleta/es/corpus_es.py",
       "coleta/eu_substancia_adama_it.py",
       "coleta/filas.py",
       "coleta/gire_mapas.py",
@@ -558,9 +558,9 @@
       "fontes/fonte_nova.py"
     ],
     "guarda": [
-      "guarda/adama_es_gate.py",
-      "guarda/adama_es_import_rules.py",
       "guarda/catalogo_importar.py",
+      "guarda/es/adama_es_gate.py",
+      "guarda/es/adama_es_import_rules.py",
       "guarda/importar_italia.py",
       "guarda/sql_conferir.py"
     ],
@@ -884,7 +884,7 @@
       "provas/chain.py",
       "provas/corrigir_custo.py",
       "provas/coverage.py",
-      "provas/freeze_es.py",
+      "provas/es/freeze_es.py",
       "provas/inventario_esperado.py",
       "provas/testa_rota_italia.py"
     ],
@@ -1033,8 +1033,8 @@
     ],
     "superficie": [
       "superficie/ask_sintonia.py",
+      "superficie/es/proto_es.py",
       "superficie/it_casa_dados.py",
-      "superficie/proto_es.py",
       "superficie/rede.py"
     ],
     "system-map": [
@@ -1052,9 +1052,9 @@
     ],
     "tests": [
       "tests/.gitkeep",
+      "tests/es/test_adama_es_gate.py",
+      "tests/es/test_adama_es_import_rules.py",
       "tests/fixtures/yt-raw-minimo.json",
-      "tests/test_adama_es_gate.py",
-      "tests/test_adama_es_import_rules.py",
       "tests/test_adama_relevance.py",
       "tests/test_calendario_temporal.py",
       "tests/test_canonico.py",
@@ -1117,16 +1117,16 @@
     },
     {
       "id": "coleta-sem-data-nem-lugar",
-      "titulo": "15 coletores gravam registo sem data nem lugar.",
-      "texto": "13 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · corpus_es.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · texto_fonte.py",
+      "titulo": "14 coletores gravam registo sem data nem lugar.",
+      "texto": "13 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/coletor.py",
-        "coleta/corpus_es.py",
         "coleta/cruzar_regua_rotulo.py",
         "coleta/denominaciones.py",
         "coleta/eppo_gd.py",
-        "coleta/filas.py"
+        "coleta/filas.py",
+        "coleta/gire_mapas.py"
       ]
     }
   ],
@@ -1441,8 +1441,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "81d25f952509dd4fbb7beb116e4b4941301bed12",
-    "GENERATED_AT": "2026-09-07T13:14:35-03:00"
+    "HEAD": "df09a9892790d8853904b1662c9faacf2bf2188b",
+    "GENERATED_AT": "2026-09-07T13:20:50-03:00"
   },
   "FAMILIES": [
     {
@@ -1715,11 +1715,11 @@
   "NODES": [
     {
       "id": "C-ADAMA-ES",
-      "name": "O portao do catalogo espanhol",
+      "name": "O portao do catalogo espanhol · projeto futuro",
       "territory": "Z-GUARDA",
       "kind": "gate",
       "what": "Mede o que o catalogo espanhol entrega, campo por campo, e decide se ele pode entrar. Nao importa nada.",
-      "why_here": "A Espanha entrou depois e com fonte diferente. As regras de normalizacao vivem no ponto onde o artefato vira linha canonica — o unico lugar onde podem ser auditadas contra o texto literal da fonte.",
+      "why_here": "A Espanha entrou depois e com fonte diferente. As regras de normalizacao vivem no ponto onde o artefato vira linha canonica — o unico lugar onde podem ser auditadas contra o texto literal da fonte. PROJETO FUTURO: construido e provado no piloto de Espanha, guardado a espera do seu momento. Nao e legado — nao morreu; e nao e rota de hoje — nao esta a andar.",
       "departments": [
         "REGULATORIO_PORTFOLIO"
       ],
@@ -1729,11 +1729,11 @@
       "views": [
         "infra"
       ],
-      "lane": "official",
+      "lane": "futuro",
       "family": "F-COLETA",
       "files": [
-        "guarda/adama_es_gate.py",
-        "guarda/adama_es_import_rules.py"
+        "guarda/es/adama_es_gate.py",
+        "guarda/es/adama_es_import_rules.py"
       ],
       "file_count": 2,
       "status": "PROVEN",
@@ -1744,8 +1744,7 @@
       ],
       "inbound": [
         "C-CI-COLETA",
-        "C-SUPABASE",
-        "C-TESTES"
+        "C-SUPABASE"
       ],
       "outbound": [
         "C-CI-COLETA",
@@ -3598,15 +3597,6 @@
           ]
         },
         {
-          "ficheiro": "coleta/corpus_es.py",
-          "como_se_chama": "coleta/corpus_es.py buscar",
-          "carimba_data": [],
-          "carimba_lugar": [],
-          "separa_fonte_do_fato": false,
-          "leis_que_obedece": [],
-          "regista_descarte": []
-        },
-        {
           "ficheiro": "coleta/corpus_pesquisador.py",
           "como_se_chama": "coleta/corpus_pesquisador.py coletar",
           "carimba_data": [],
@@ -3642,6 +3632,15 @@
         {
           "ficheiro": "coleta/eppo_gd.py",
           "como_se_chama": "coleta/eppo_gd.py PLASVI VITVI",
+          "carimba_data": [],
+          "carimba_lugar": [],
+          "separa_fonte_do_fato": false,
+          "leis_que_obedece": [],
+          "regista_descarte": []
+        },
+        {
+          "ficheiro": "coleta/es/corpus_es.py",
+          "como_se_chama": "coleta/es/corpus_es.py buscar",
           "carimba_data": [],
           "carimba_lugar": [],
           "separa_fonte_do_fato": false,
@@ -5021,8 +5020,8 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "coleta/corpus_es.py",
         "coleta/corpus_pesquisador.py",
+        "coleta/es/corpus_es.py",
         "coleta/sensor_canal_identidade.py",
         "coleta/speaker_identidade.py",
         "coleta/speaker_universo.py",
@@ -5498,7 +5497,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "audit",
@@ -5511,9 +5510,11 @@
         "system-map/scripts/mudar_gaveta.py"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/scripts/generate_system_map.py"
+      ],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -5680,7 +5681,7 @@
         "provas/auditoria.py",
         "provas/corrigir_custo.py",
         "provas/coverage.py",
-        "provas/freeze_es.py",
+        "provas/es/freeze_es.py",
         "provas/inventario_esperado.py",
         "provas/testa_rota_italia.py"
       ],
@@ -6024,8 +6025,8 @@
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
-        "superficie/it_casa_dados.py",
-        "superficie/proto_es.py"
+        "superficie/es/proto_es.py",
+        "superficie/it_casa_dados.py"
       ],
       "file_count": 15,
       "status": "PROVEN",
@@ -6700,8 +6701,8 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "tests/test_adama_es_gate.py",
-        "tests/test_adama_es_import_rules.py",
+        "tests/es/test_adama_es_gate.py",
+        "tests/es/test_adama_es_import_rules.py",
         "tests/test_adama_relevance.py",
         "tests/test_calendario_temporal.py",
         "tests/test_canonico.py",
@@ -6755,7 +6756,6 @@
         "C-V21-COMERCIAL"
       ],
       "outbound": [
-        "C-ADAMA-ES",
         "C-APIFY-POOL",
         "C-ASK-SINTONIA",
         "C-CI-COLETA",
@@ -7216,7 +7216,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 81d25f952509dd4fbb7beb116e4b4941301bed12"
+        "HEAD df09a9892790d8853904b1662c9faacf2bf2188b"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -7378,12 +7378,12 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O portao do catalogo espanhol alimenta Os botoes que disparam a coleta. Provado por 2 linhas de codigo.",
+      "reason": "O portao do catalogo espanhol · projeto futuro alimenta Os botoes que disparam a coleta. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/adama-es-gate.yml",
           "line": 16,
-          "snippet": "- 'guarda/adama_es_gate.py'"
+          "snippet": "- 'guarda/es/adama_es_gate.py'"
         },
         {
           "file": ".github/workflows/adama-es-gate.yml",
@@ -7399,10 +7399,10 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O portao do catalogo espanhol alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O portao do catalogo espanhol · projeto futuro alimenta Suite de testes. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "tests/test_adama_es_gate.py",
+          "file": "tests/es/test_adama_es_gate.py",
           "line": 21,
           "snippet": "open(PORTAO, 'leitura')  # PORTAO = data/samples/ADAMA-ES-HANDOFF-GATE-V1.json"
         }
@@ -8484,12 +8484,12 @@
       "payload": "execucao",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que disparam a coleta manda rodar O portao do catalogo espanhol. Provado por 1 linha de codigo.",
+      "reason": "Os botoes que disparam a coleta manda rodar O portao do catalogo espanhol · projeto futuro. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/adama-es-gate.yml",
           "line": 16,
-          "snippet": "- 'guarda/adama_es_gate.py'"
+          "snippet": "- 'guarda/es/adama_es_gate.py'"
         }
       ]
     },
@@ -8589,7 +8589,7 @@
         {
           "file": ".github/workflows/adama-es-gate.yml",
           "line": 18,
-          "snippet": "- 'tests/test_adama_es_gate.py'"
+          "snippet": "- 'tests/es/test_adama_es_gate.py'"
         },
         {
           "file": ".github/workflows/comunicacao-publica.yml",
@@ -9635,12 +9635,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1067,
+          "line": 1076,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1067,
+          "line": 1076,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ]
@@ -10919,15 +10919,15 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta O portao do catalogo espanhol. Provado por 2 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta O portao do catalogo espanhol · projeto futuro. Provado por 2 linhas de codigo.",
       "evidence": [
         {
-          "file": "guarda/adama_es_gate.py",
+          "file": "guarda/es/adama_es_gate.py",
           "line": 282,
           "snippet": "'ADAMA-ES-ENSAIO-CINCO-CASOS.sql',"
         },
         {
-          "file": "guarda/adama_es_gate.py",
+          "file": "guarda/es/adama_es_gate.py",
           "line": 724,
           "snippet": "'ONDE_FOI_RESOLVIDO': 'supabase/migrations/013_captura_nao_e_registro.sql',"
         }
@@ -11222,37 +11222,37 @@
       "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 16 linhas de codigo.",
       "evidence": [
         {
-          "file": "tests/test_adama_es_gate.py",
+          "file": "tests/es/test_adama_es_gate.py",
           "line": 304,
           "snippet": "open(p, 'leitura')  # p = supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql"
         },
         {
-          "file": "tests/test_adama_es_gate.py",
+          "file": "tests/es/test_adama_es_gate.py",
           "line": 322,
           "snippet": "'013_captura_nao_e_registro.sql': 'CAPTURE != REGISTRATION',"
         },
         {
-          "file": "tests/test_adama_es_gate.py",
+          "file": "tests/es/test_adama_es_gate.py",
           "line": 323,
           "snippet": "'015_cicatrizes_do_brasil.sql': 'praca',"
         },
         {
-          "file": "tests/test_adama_es_gate.py",
+          "file": "tests/es/test_adama_es_gate.py",
           "line": 324,
           "snippet": "'016_checkpoint_e_unidade_analitica.sql': 'SEM_CHECKPOINT_NAO_GASTEI',"
         },
         {
-          "file": "tests/test_adama_es_gate.py",
+          "file": "tests/es/test_adama_es_gate.py",
           "line": 325,
           "snippet": "'017_o_que_a_conferencia_de_localizacao_achou.sql': 'PUBLISHED_AT != FACT_TIME',"
         },
         {
-          "file": "tests/test_adama_es_gate.py",
+          "file": "tests/es/test_adama_es_gate.py",
           "line": 326,
           "snippet": "'018_o_lugar_do_fato_ganha_dono.sql': 'DOIS DONOS DA MESMA LEI',"
         },
         {
-          "file": "tests/test_adama_es_gate.py",
+          "file": "tests/es/test_adama_es_gate.py",
           "line": 327,
           "snippet": "'014_catalogo_publico_fabricante.sql': 'HANDOFF_SCHEMA_VALID_THEN',"
         },
@@ -11280,22 +11280,6 @@
           "file": "tests/test_calendario_temporal.py",
           "line": 315,
           "snippet": "p = os.path.join(FIXTURES, 'es_calendario_mvp.sql')"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-ADAMA-ES",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa O portao do catalogo espanhol. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_adama_es_import_rules.py",
-          "line": 16,
-          "snippet": "import adama_es_import_rules as R  # noqa: E402"
         }
       ]
     },
@@ -11359,7 +11343,7 @@
         {
           "file": ".github/workflows/adama-es-gate.yml",
           "line": 18,
-          "snippet": "- 'tests/test_adama_es_gate.py'"
+          "snippet": "- 'tests/es/test_adama_es_gate.py'"
         }
       ]
     },
@@ -11626,7 +11610,7 @@
       "reason": "Suite de testes alimenta Camadas de dado do portal. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "superficie/proto_es.py",
+          "file": "superficie/es/proto_es.py",
           "line": 36,
           "snippet": "pack = carrega('SPAIN-HERO-CASES-V1.json')"
         }
@@ -12406,12 +12390,12 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 69,
-    "components_proven": 54,
-    "components_pending": 15,
+    "components_proven": 53,
+    "components_pending": 16,
     "components_broken": 0,
     "components_unknown": 0,
-    "edges": 241,
-    "edges_proven": 241,
+    "edges": 240,
+    "edges_proven": 240,
     "edges_unknown": 0,
     "business_edges": 4,
     "files_tracked": 1031,

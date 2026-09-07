@@ -214,7 +214,7 @@ d = {
  "known_blockers": [
   "a pasta C:/eame-sintonia e um worktree COMPARTILHADO com outra sessao Claude "
   "(missao do PORTAL/SITE). Ha arquivos modificados que NAO sao desta missao: "
-  "italia-portale/, scripts/instagram_*, tests/test_adama_es_gate.py, act.json, "
+  "italia-portale/, scripts/instagram_*, tests/es/test_adama_es_gate.py, act.json, "
   "b.json, st*.json, tmp_ce/. Nunca inclui-los num commit desta missao.",
  ],
 

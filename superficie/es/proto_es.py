@@ -10,7 +10,7 @@ import json
 import os
 import sys
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SAMPLES = os.path.join(ROOT, 'data', 'samples')
 MAPA_KEY = {'ES-CASE-001': 'ES-CASE-001-OLIVO',
             'ES-CASE-002': 'ES-CASE-002-MILHO',
@@ -468,9 +468,9 @@ def render(pack, v2, casos):
 
       <p class="pe">Toda a página é gerada de <code>SPAIN-HERO-CASES-V1.json</code>,
       <code>ES-ACTION-MAP-V2.json</code> e <code>EAME-RELATIONSHIP-CONTRACT-V1.json</code>
-      por <code>superficie/proto_es.py</code>. Nenhum texto de caso foi escrito na tela.
+      por <code>superficie/es/proto_es.py</code>. Nenhum texto de caso foi escrito na tela.
       O freeze verifica os artefatos por sha256: se um mudar, a página muda junto e
-      <code>provas/freeze_es.py</code> reprova.</p>
+      <code>provas/es/freeze_es.py</code> reprova.</p>
     </main>
   </div>
 </div>

@@ -13,9 +13,9 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'guarda/adama_es_gate.py'
+      - 'guarda/es/adama_es_gate.py'
       - 'supabase/ensaios/**'
-      - 'tests/test_adama_es_gate.py'
+      - 'tests/es/test_adama_es_gate.py'
       - '.github/workflows/adama-es-gate.yml'
 
 permissions:
@@ -77,7 +77,7 @@ jobs:
       - name: 3 · o portao mede, e o red team se testa por mutacao
         run: |
           set -e
-          python3 guarda/adama_es_gate.py --dsn "$CINCO" \
+          python3 guarda/es/adama_es_gate.py --dsn "$CINCO" \
             --dsn-interferencia "$PGURL" | tee /tmp/g
           grep -q "NAO_PEGOU_TESTE_INUTIL" /tmp/g \
             && { echo "PARADO: mutacao nao pegou — o red team perdeu os dentes"; exit 1; } \
@@ -86,7 +86,7 @@ jobs:
       - name: 4 · o artefato no Git bate com a medicao de agora?
         run: |
           set -e
-          python3 guarda/adama_es_gate.py --dsn "$CINCO" \
+          python3 guarda/es/adama_es_gate.py --dsn "$CINCO" \
             --dsn-interferencia "$PGURL" --build >/dev/null
           git diff --exit-code -- data/samples/ADAMA-ES-HANDOFF-GATE-V1.json \
             && echo "PORTAO_REPRODUZIVEL=PASS" \
@@ -111,7 +111,7 @@ jobs:
       - name: 5 · as regressoes do portao, e as 45 do calendario no banco limpo
         run: |
           set -e
-          python3 -m unittest tests.test_adama_es_gate 2>&1 | tail -3
+          python3 -m unittest tests.es.test_adama_es_gate 2>&1 | tail -3
           # As 45 rodam contra a fixture ES SOZINHA. Com as duas camadas juntas elas
           # param na nº 12 — e essa parada e o achado C-7, medido no passo 3, nao um
           # teste a ignorar. Por isso aqui e um banco proprio, e sem "|| true".

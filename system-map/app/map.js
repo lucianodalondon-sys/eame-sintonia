@@ -32,7 +32,8 @@ const VISOES = [
   ['generator', '⚙', 'Gerador V2.1'], ['opportunity', '◎', 'Opportunity + relevância'],
   ['portal', '▣', 'Pacote → portal'], ['meeting', '▤', 'Reunião / Comercial'],
   ['science', 'Σ', 'Ciência / Desenv. Mercado'], ['audit', '✓', 'Auditoria / contratos'],
-  ['infra', '⌁', 'Coleta / infra'], ['legacy', '○', 'Legado / fora do oficial'],
+  ['infra', '⌁', 'Coleta / infra'], ['futuro', '◷', 'Projeto futuro / guardado'],
+  ['legacy', '○', 'Legado / fora do oficial'],
 ];
 
 let S, nodes = [], edges = [], nodeById = {}, MUNDO = { w: 1, h: 1 };
@@ -89,7 +90,8 @@ function render() {
         <div class="nodeHeadText">
           <div class="nodeName">${esc(n.name)}</div>
           <div class="nodeType">${esc(n.kind)}${n.legacy ? ' · legado' : ''}${
-            n.pais && n.pais !== 'TRANSVERSAL' ? ' · ' + esc(n.pais) : ''}</div>
+            n.pais && n.pais !== 'TRANSVERSAL' ? ' · ' + esc(n.pais) : ''}${
+            n.lane === 'futuro' ? ' · projeto futuro' : ''}</div>
         </div>
         <div class="statusPill status-${n.ui_status}">${statusLabel(n.ui_status)}</div>
       </div>
@@ -326,6 +328,10 @@ function openDetail(id) {
       <span class="statusPill status-${n.ui_status}">${statusLabel(n.ui_status)}</span>
     </div>
     <div class="detailBody">
+      ${n.lane === 'futuro' ? `<div class="sec"><div class="evidence"
+        style="border-color:var(--warn)">◷ <b>PROJETO FUTURO.</b> Construído e
+        provado, guardado à espera do seu momento. <b>Não é legado</b> — não morreu.
+        <b>Não é rota de hoje</b> — não está andando.</div></div>` : ''}
       ${n.legacy ? `<div class="sec"><div class="evidence" style="border-color:var(--unknown)">
         <b>LEGADO.</b> Continua no repositório, e por isso aparece no mapa — mas
         <b>não é a peça oficial de hoje</b>.</div></div>` : ''}
@@ -435,7 +441,12 @@ function highlightPath(id) {
 function activeView(n) {
   if (currentView === 'all') return true;
   if (currentView === 'official') return n.lane === 'official';
-  if (currentView === 'legacy') return n.lane !== 'official';
+  // «futuro» e «legado» sao coisas diferentes, e confundi-las custa caro: legado
+  // e o que morreu; futuro e o que foi construido, provado, e esta a espera do
+  // seu momento. Dizer que o piloto de Espanha e legado seria enterra-lo vivo.
+  if (currentView === 'futuro') return n.lane === 'futuro';
+  if (currentView === 'legacy') return n.lane === 'legacy'
+                                   || (n.lane !== 'official' && n.lane !== 'futuro');
   return (n.views || []).includes(currentView);
 }
 function applyFilters() {

@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "81d25f952509dd4fbb7beb116e4b4941301bed12",
+    "HEAD": "df09a9892790d8853904b1662c9faacf2bf2188b",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -1629,15 +1629,6 @@
       ]
     },
     {
-      "ficheiro": "coleta/corpus_es.py",
-      "como_se_chama": "coleta/corpus_es.py buscar",
-      "carimba_data": [],
-      "carimba_lugar": [],
-      "separa_fonte_do_fato": false,
-      "leis_que_obedece": [],
-      "regista_descarte": []
-    },
-    {
       "ficheiro": "coleta/corpus_pesquisador.py",
       "como_se_chama": "coleta/corpus_pesquisador.py coletar",
       "carimba_data": [],
@@ -1673,6 +1664,15 @@
     {
       "ficheiro": "coleta/eppo_gd.py",
       "como_se_chama": "coleta/eppo_gd.py PLASVI VITVI",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/es/corpus_es.py",
+      "como_se_chama": "coleta/es/corpus_es.py buscar",
       "carimba_data": [],
       "carimba_lugar": [],
       "separa_fonte_do_fato": false,
@@ -2572,12 +2572,12 @@
       "endpoint": "https://api.openalex.org/works'",
       "usado_por": [
         {
-          "file": "coleta/corpus_es.py",
-          "line": 34
-        },
-        {
           "file": "coleta/corpus_pesquisador.py",
           "line": 102
+        },
+        {
+          "file": "coleta/es/corpus_es.py",
+          "line": 34
         },
         {
           "file": "coleta/speaker_universo.py",
@@ -2768,7 +2768,7 @@
           "line": 15
         },
         {
-          "file": "guarda/adama_es_gate.py",
+          "file": "guarda/es/adama_es_gate.py",
           "line": 435
         }
       ]

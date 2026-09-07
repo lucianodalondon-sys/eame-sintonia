@@ -182,6 +182,38 @@ dá na raiz, tal como dava de `scripts/x.py`. Se as gavetas estivessem dentro de
 `scripts/`, esses 90 passariam a apontar para o sítio errado e escreveriam dado
 onde não devem — **sem dar erro**.
 
+### País dentro da gaveta
+
+Peça que serve **um país só** mora em `<gaveta>/<país>/`:
+
+```
+guarda/es/adama_es_gate.py      a gaveta é `guarda` — a etapa
+coleta/es/corpus_es.py          `es` vem depois — o país
+```
+
+**A gaveta continua dizendo a ETAPA.** O país entra depois dela, e por isso
+`P2_PASTA_BATE_COM_MAPA` continua valendo — ela olha o primeiro pedaço do caminho.
+
+Peça que serve mais de um país, ou nenhum, fica na raiz da gaveta. Não invente
+subpasta de país para uma peça transversal: `TRANSVERSAL` é a verdade sobre ela.
+
+**Descer um nível muda a profundidade.** `dirname(dirname(abspath(__file__)))`
+de `guarda/x.py` dá a raiz; de `guarda/es/x.py` dá `guarda`. Cada ficheiro que
+desce ganha um `dirname` a mais — senão escreve dado dentro da gaveta e **não dá
+erro nenhum**.
+
+### Três estados, e não dois
+
+| estado | o que quer dizer |
+|---|---|
+| `official` | rota de hoje |
+| `futuro` | construído e provado, **guardado à espera do seu momento** |
+| `legacy` | ficou para trás |
+
+`futuro` e `legacy` não são a mesma coisa, e confundi-las custa caro: legado é o
+que morreu; futuro é o que está pronto e parado. Marcar o piloto de Espanha como
+legado seria enterrá-lo vivo.
+
 ### Import entre gavetas
 
 Os scripts importam-se pelo nome curto (`import proveniencia`). Como cada um vive

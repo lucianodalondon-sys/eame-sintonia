@@ -10,7 +10,7 @@ import json
 import os
 import sys
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SAMPLES = os.path.join(ROOT, 'data', 'samples')
 PACK = os.path.join(SAMPLES, 'SPAIN-DEMO-CONTENT-V1.json')
 

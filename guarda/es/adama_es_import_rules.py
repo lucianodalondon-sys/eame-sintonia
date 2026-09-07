@@ -23,7 +23,7 @@ RT-11 · origem do alvo
   admite como alvo autorizado o que veio de uma linha de tabela ancorada.
 
 Uso:
-    python3 guarda/adama_es_import_rules.py --autoteste
+    python3 guarda/es/adama_es_import_rules.py --autoteste
 """
 import re
 import sys

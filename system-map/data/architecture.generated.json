@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "81d25f952509dd4fbb7beb116e4b4941301bed12",
-    "GENERATED_AT": "2026-09-07T13:14:35-03:00"
+    "HEAD": "df09a9892790d8853904b1662c9faacf2bf2188b",
+    "GENERATED_AT": "2026-09-07T13:20:50-03:00"
   },
   "FILES": [
     {
@@ -23,7 +23,7 @@
     },
     {
       "path": ".github/workflows/adama-es-gate.yml",
-      "sha": "079d48faf6aeffb5e77550f43256b5e7dc76edf2",
+      "sha": "99e78fd194730364658538e48a32cea14d94db99",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -121,7 +121,7 @@
     },
     {
       "path": "AGENTS.md",
-      "sha": "e57be2b3fba90fc8e822a3c02a0f1c29f54d3205",
+      "sha": "499f72e3de18c9936190f8028b2fbc97efde8fdf",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -163,14 +163,14 @@
     },
     {
       "path": "HANDOFF-V2-PAUSE.json",
-      "sha": "fc5fdedf2ae7758eadb859eae3b0fd0919b55240",
+      "sha": "5d2449aac8b4f58fb09e35c6f88e539a4bc99c33",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "HANDOFF-V2-PAUSE.md",
-      "sha": "6f8584f9446a16017f8a0548bacbf788e033ad2e",
+      "sha": "2de3a3ad3d55d1e1e45ab8459b6693103f59de57",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -198,7 +198,7 @@
     },
     {
       "path": "_gavetas.py",
-      "sha": "d8d65827f60ae370491bebf17fe6a9cce8440b50",
+      "sha": "b51c009c942bfc6e8174def78b4d248e2a307e38",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -1016,13 +1016,6 @@
       "code_dir": true
     },
     {
-      "path": "coleta/corpus_es.py",
-      "sha": "110592b1a0fd1680d69d964a7833c0ae121661fe",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
       "path": "coleta/corpus_pesquisador.py",
       "sha": "e5613f75a2ed65eb2c314e542bcb094574d849ab",
       "ext": ".py",
@@ -1053,6 +1046,13 @@
     {
       "path": "coleta/eppo_gd.py",
       "sha": "1f648008e6773ab9e71bc267ab4907ee5bc259d1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/es/corpus_es.py",
+      "sha": "aad52ff62357f5aeaeb6c4c7821f92189b3e69a1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -3096,14 +3096,14 @@
     },
     {
       "path": "docs/adama/FECHAMENTO-HANDOFF-ADAMA-ES.md",
-      "sha": "8b7a124e6c44575903cd5683184caec6679b994e",
+      "sha": "51b42afecf94ca68c55bfd97f5bcb6a96c10b609",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/adama/GATE-HANDOFF-ADAMA-ES.md",
-      "sha": "33dea783c30d76a40ccf4b3d53f613af7d5ee146",
+      "sha": "8363bf1c1fd5d9a67f71076365a812f89b9e3a9e",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3299,7 +3299,7 @@
     },
     {
       "path": "docs/design/TESTE-ADVERSARIAL-DO-PROTOTIPO.md",
-      "sha": "8d111d175891a364438c6f76c3364ae3d4b711e7",
+      "sha": "b632cf7d9d7ab984c73229cea9b2a311caba6ab2",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3593,7 +3593,7 @@
     },
     {
       "path": "docs/relatorios/RELATORIO-MADRUGADA-EAME.md",
-      "sha": "ee3225ae62ac55a0c4a3a120199232a27394ae6f",
+      "sha": "b93b55372546ea7919c9b47239bd10ecaff2a601",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3746,22 +3746,22 @@
       "code_dir": true
     },
     {
-      "path": "guarda/adama_es_gate.py",
-      "sha": "bbc08de4dae759030bc2a28151f73c49b21fe5d0",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
-      "path": "guarda/adama_es_import_rules.py",
-      "sha": "41c87a4ec4925ea1fb74ff5e1f7317b2760605b6",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
       "path": "guarda/catalogo_importar.py",
       "sha": "fb56f21c646d7c12c0d58292dbee9c09cc56f531",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "guarda/es/adama_es_gate.py",
+      "sha": "de8316fb43cf9baae3652fcf0ad5fb27571fab13",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "guarda/es/adama_es_import_rules.py",
+      "sha": "1f4ebfe1f59585935b6b4c1af1298517e041dcb5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5854,7 +5854,7 @@
     },
     {
       "path": "pacote/v21_handoff_json.py",
-      "sha": "4f5ac76484aff2bb0470bd078ede173d1300a561",
+      "sha": "a568315812ecb8204a1263f3fdfa18ebf3ec7fb4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5923,8 +5923,8 @@
       "code_dir": true
     },
     {
-      "path": "provas/freeze_es.py",
-      "sha": "a4c1a68b9d00c9df3f6e98d08206d93138f841bd",
+      "path": "provas/es/freeze_es.py",
+      "sha": "8c38918e870ad9a7d8671dcd17d3bef0dc96e7e6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6896,15 +6896,15 @@
       "code_dir": true
     },
     {
-      "path": "superficie/it_casa_dados.py",
-      "sha": "f51b5a7ce31fd613adc7ed6f7c026bb554ef06a1",
+      "path": "superficie/es/proto_es.py",
+      "sha": "7c6d9f551016e5f1c607116b5f16284a04b18688",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
-      "path": "superficie/proto_es.py",
-      "sha": "85553d1be3db4a959aed2fc3301b32165a817ae2",
+      "path": "superficie/it_casa_dados.py",
+      "sha": "f51b5a7ce31fd613adc7ed6f7c026bb554ef06a1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6939,21 +6939,21 @@
     },
     {
       "path": "system-map/app/map.js",
-      "sha": "956a958242f64c234093b1b2a1b99de4f259ef33",
+      "sha": "6f6a92327f2824f3ce18d92dd9bc62e743245e02",
       "ext": ".js",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "b8004db528ee028c12cc240267c7fc16da93d1c2",
+      "sha": "81f08533820c4986848cc80b4ef47e4a21f48276",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "16242771e0a9d5af3e51e053a750fd09542678e6",
+      "sha": "028efbb26abadf40ba1bce1c742e2242e210d997",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7001,24 +7001,24 @@
       "code_dir": true
     },
     {
+      "path": "tests/es/test_adama_es_gate.py",
+      "sha": "e58ce40ff87e320bb0bc6db69eda7ff962dc1c59",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/es/test_adama_es_import_rules.py",
+      "sha": "61f94d944a9344085bc3512df1fb92ecb338e8d8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/fixtures/yt-raw-minimo.json",
       "sha": "edaa95f839ca77ce698d3800fdde17466ac84ef1",
       "ext": ".json",
       "readable": false,
-      "code_dir": true
-    },
-    {
-      "path": "tests/test_adama_es_gate.py",
-      "sha": "eb7990d2ab9941216546941ae913f7ef2592c7f9",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
-      "path": "tests/test_adama_es_import_rules.py",
-      "sha": "527228ffc3f90a1f5df0611ec4d24eb37b1e2b39",
-      "ext": ".py",
-      "readable": true,
       "code_dir": true
     },
     {
@@ -7239,24 +7239,24 @@
     },
     {
       "from_file": ".github/workflows/adama-es-gate.yml",
-      "to_file": "guarda/adama_es_gate.py",
+      "to_file": "guarda/es/adama_es_gate.py",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/adama-es-gate.yml",
         "line": 16,
-        "snippet": "- 'guarda/adama_es_gate.py'"
+        "snippet": "- 'guarda/es/adama_es_gate.py'"
       }
     },
     {
       "from_file": ".github/workflows/adama-es-gate.yml",
-      "to_file": "guarda/adama_es_gate.py",
+      "to_file": "guarda/es/adama_es_gate.py",
       "type": "RUNS",
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/adama-es-gate.yml",
         "line": 16,
-        "snippet": "- 'guarda/adama_es_gate.py'"
+        "snippet": "- 'guarda/es/adama_es_gate.py'"
       }
     },
     {
@@ -7327,24 +7327,24 @@
     },
     {
       "from_file": ".github/workflows/adama-es-gate.yml",
-      "to_file": "tests/test_adama_es_gate.py",
+      "to_file": "tests/es/test_adama_es_gate.py",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/adama-es-gate.yml",
         "line": 18,
-        "snippet": "- 'tests/test_adama_es_gate.py'"
+        "snippet": "- 'tests/es/test_adama_es_gate.py'"
       }
     },
     {
       "from_file": ".github/workflows/adama-es-gate.yml",
-      "to_file": "tests/test_adama_es_gate.py",
+      "to_file": "tests/es/test_adama_es_gate.py",
       "type": "RUNS",
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/adama-es-gate.yml",
         "line": 18,
-        "snippet": "- 'tests/test_adama_es_gate.py'"
+        "snippet": "- 'tests/es/test_adama_es_gate.py'"
       }
     },
     {
@@ -9515,105 +9515,6 @@
       }
     },
     {
-      "from_file": "guarda/adama_es_gate.py",
-      "to_file": "_gavetas.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "guarda/adama_es_gate.py",
-        "line": 22,
-        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho"
-      }
-    },
-    {
-      "from_file": "guarda/adama_es_gate.py",
-      "to_file": "data/samples/ADAMA-ES-HANDOFF-GATE-V1.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "guarda/adama_es_gate.py",
-        "line": 23,
-        "snippet": "SAIDA = os.path.join(RAIZ, 'data', 'samples', 'ADAMA-ES-HANDOFF-GATE-V1.json')"
-      }
-    },
-    {
-      "from_file": "guarda/adama_es_gate.py",
-      "to_file": "data/samples/ADAMA-ES-HANDOFF-GATE-V1.json",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "guarda/adama_es_gate.py",
-        "line": 1030,
-        "snippet": "open(SAIDA, 'w')  # SAIDA = data/samples/ADAMA-ES-HANDOFF-GATE-V1.json"
-      }
-    },
-    {
-      "from_file": "guarda/adama_es_gate.py",
-      "to_file": "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "guarda/adama_es_gate.py",
-        "line": 414,
-        "snippet": "base = do_ref('data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json')"
-      }
-    },
-    {
-      "from_file": "guarda/adama_es_gate.py",
-      "to_file": "data/samples/CAPTURE-VS-REGISTRATION-CONTRACT-V1.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "guarda/adama_es_gate.py",
-        "line": 742,
-        "snippet": "'CONTRATO': 'data/samples/CAPTURE-VS-REGISTRATION-CONTRACT-V1.json',"
-      }
-    },
-    {
-      "from_file": "guarda/adama_es_gate.py",
-      "to_file": "data/samples/ES-ADAMA-PORTFOLIO-ROPF.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "guarda/adama_es_gate.py",
-        "line": 415,
-        "snippet": "open(ROPF, 'leitura')  # ROPF = data/samples/ES-ADAMA-PORTFOLIO-ROPF.json"
-      }
-    },
-    {
-      "from_file": "guarda/adama_es_gate.py",
-      "to_file": "guarda/adama_es_import_rules.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "guarda/adama_es_gate.py",
-        "line": 684,
-        "snippet": "import adama_es_import_rules as R"
-      }
-    },
-    {
-      "from_file": "guarda/adama_es_gate.py",
-      "to_file": "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "guarda/adama_es_gate.py",
-        "line": 282,
-        "snippet": "'ADAMA-ES-ENSAIO-CINCO-CASOS.sql',"
-      }
-    },
-    {
-      "from_file": "guarda/adama_es_gate.py",
-      "to_file": "supabase/migrations/013_captura_nao_e_registro.sql",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "guarda/adama_es_gate.py",
-        "line": 724,
-        "snippet": "'ONDE_FOI_RESOLVIDO': 'supabase/migrations/013_captura_nao_e_registro.sql',"
-      }
-    },
-    {
       "from_file": "guarda/catalogo_importar.py",
       "to_file": "data/samples/ADAMA-ES-CONFIRMACAO-REGULATORIA-DO-PAR.json",
       "type": "READS",
@@ -9688,6 +9589,105 @@
         "file": "guarda/catalogo_importar.py",
         "line": 637,
         "snippet": "open(SQL_OUT, 'w')  # SQL_OUT = supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql"
+      }
+    },
+    {
+      "from_file": "guarda/es/adama_es_gate.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "guarda/es/adama_es_gate.py",
+        "line": 22,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho"
+      }
+    },
+    {
+      "from_file": "guarda/es/adama_es_gate.py",
+      "to_file": "data/samples/ADAMA-ES-HANDOFF-GATE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "guarda/es/adama_es_gate.py",
+        "line": 23,
+        "snippet": "SAIDA = os.path.join(RAIZ, 'data', 'samples', 'ADAMA-ES-HANDOFF-GATE-V1.json')"
+      }
+    },
+    {
+      "from_file": "guarda/es/adama_es_gate.py",
+      "to_file": "data/samples/ADAMA-ES-HANDOFF-GATE-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "guarda/es/adama_es_gate.py",
+        "line": 1030,
+        "snippet": "open(SAIDA, 'w')  # SAIDA = data/samples/ADAMA-ES-HANDOFF-GATE-V1.json"
+      }
+    },
+    {
+      "from_file": "guarda/es/adama_es_gate.py",
+      "to_file": "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "guarda/es/adama_es_gate.py",
+        "line": 414,
+        "snippet": "base = do_ref('data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json')"
+      }
+    },
+    {
+      "from_file": "guarda/es/adama_es_gate.py",
+      "to_file": "data/samples/CAPTURE-VS-REGISTRATION-CONTRACT-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "guarda/es/adama_es_gate.py",
+        "line": 742,
+        "snippet": "'CONTRATO': 'data/samples/CAPTURE-VS-REGISTRATION-CONTRACT-V1.json',"
+      }
+    },
+    {
+      "from_file": "guarda/es/adama_es_gate.py",
+      "to_file": "data/samples/ES-ADAMA-PORTFOLIO-ROPF.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "guarda/es/adama_es_gate.py",
+        "line": 415,
+        "snippet": "open(ROPF, 'leitura')  # ROPF = data/samples/ES-ADAMA-PORTFOLIO-ROPF.json"
+      }
+    },
+    {
+      "from_file": "guarda/es/adama_es_gate.py",
+      "to_file": "guarda/es/adama_es_import_rules.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "guarda/es/adama_es_gate.py",
+        "line": 684,
+        "snippet": "import adama_es_import_rules as R"
+      }
+    },
+    {
+      "from_file": "guarda/es/adama_es_gate.py",
+      "to_file": "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "guarda/es/adama_es_gate.py",
+        "line": 282,
+        "snippet": "'ADAMA-ES-ENSAIO-CINCO-CASOS.sql',"
+      }
+    },
+    {
+      "from_file": "guarda/es/adama_es_gate.py",
+      "to_file": "supabase/migrations/013_captura_nao_e_registro.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "guarda/es/adama_es_gate.py",
+        "line": 724,
+        "snippet": "'ONDE_FOI_RESOLVIDO': 'supabase/migrations/013_captura_nao_e_registro.sql',"
       }
     },
     {
@@ -19162,12 +19162,12 @@
       }
     },
     {
-      "from_file": "provas/freeze_es.py",
+      "from_file": "provas/es/freeze_es.py",
       "to_file": "data/samples/SPAIN-DEMO-CONTENT-V1.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
-        "file": "provas/freeze_es.py",
+        "file": "provas/es/freeze_es.py",
         "line": 19,
         "snippet": "open(PACK, 'leitura')  # PACK = data/samples/SPAIN-DEMO-CONTENT-V1.json"
       }
@@ -19800,6 +19800,61 @@
       }
     },
     {
+      "from_file": "superficie/es/proto_es.py",
+      "to_file": "build/sintonia-es.html",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "superficie/es/proto_es.py",
+        "line": 497,
+        "snippet": "open(dest, 'w')  # dest = build/sintonia-es.html"
+      }
+    },
+    {
+      "from_file": "superficie/es/proto_es.py",
+      "to_file": "data/samples/EAME-RELATIONSHIP-CONTRACT-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "superficie/es/proto_es.py",
+        "line": 424,
+        "snippet": "rel = carrega('EAME-RELATIONSHIP-CONTRACT-V1.json')"
+      }
+    },
+    {
+      "from_file": "superficie/es/proto_es.py",
+      "to_file": "data/samples/ES-ACTION-MAP-V2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "superficie/es/proto_es.py",
+        "line": 37,
+        "snippet": "v2 = carrega('ES-ACTION-MAP-V2.json')"
+      }
+    },
+    {
+      "from_file": "superficie/es/proto_es.py",
+      "to_file": "data/samples/SPAIN-DEMO-CONTENT-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "superficie/es/proto_es.py",
+        "line": 423,
+        "snippet": "freeze = carrega('SPAIN-DEMO-CONTENT-V1.json')['FREEZE']"
+      }
+    },
+    {
+      "from_file": "superficie/es/proto_es.py",
+      "to_file": "data/samples/SPAIN-HERO-CASES-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "superficie/es/proto_es.py",
+        "line": 36,
+        "snippet": "pack = carrega('SPAIN-HERO-CASES-V1.json')"
+      }
+    },
+    {
       "from_file": "superficie/it_casa_dados.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -19954,61 +20009,6 @@
       }
     },
     {
-      "from_file": "superficie/proto_es.py",
-      "to_file": "build/sintonia-es.html",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "superficie/proto_es.py",
-        "line": 497,
-        "snippet": "open(dest, 'w')  # dest = build/sintonia-es.html"
-      }
-    },
-    {
-      "from_file": "superficie/proto_es.py",
-      "to_file": "data/samples/EAME-RELATIONSHIP-CONTRACT-V1.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "superficie/proto_es.py",
-        "line": 424,
-        "snippet": "rel = carrega('EAME-RELATIONSHIP-CONTRACT-V1.json')"
-      }
-    },
-    {
-      "from_file": "superficie/proto_es.py",
-      "to_file": "data/samples/ES-ACTION-MAP-V2.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "superficie/proto_es.py",
-        "line": 37,
-        "snippet": "v2 = carrega('ES-ACTION-MAP-V2.json')"
-      }
-    },
-    {
-      "from_file": "superficie/proto_es.py",
-      "to_file": "data/samples/SPAIN-DEMO-CONTENT-V1.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "superficie/proto_es.py",
-        "line": 423,
-        "snippet": "freeze = carrega('SPAIN-DEMO-CONTENT-V1.json')['FREEZE']"
-      }
-    },
-    {
-      "from_file": "superficie/proto_es.py",
-      "to_file": "data/samples/SPAIN-HERO-CASES-V1.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "superficie/proto_es.py",
-        "line": 36,
-        "snippet": "pack = carrega('SPAIN-HERO-CASES-V1.json')"
-      }
-    },
-    {
       "from_file": "system-map/app/index.html",
       "to_file": "system-map/app/map.css",
       "type": "READS",
@@ -20125,7 +20125,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1067,
+        "line": 1076,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -20136,7 +20136,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1067,
+        "line": 1076,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -20438,124 +20438,113 @@
       }
     },
     {
-      "from_file": "tests/test_adama_es_gate.py",
+      "from_file": "tests/es/test_adama_es_gate.py",
       "to_file": "data/samples/ADAMA-ES-HANDOFF-GATE-V1.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
-        "file": "tests/test_adama_es_gate.py",
+        "file": "tests/es/test_adama_es_gate.py",
         "line": 21,
         "snippet": "open(PORTAO, 'leitura')  # PORTAO = data/samples/ADAMA-ES-HANDOFF-GATE-V1.json"
       }
     },
     {
-      "from_file": "tests/test_adama_es_gate.py",
+      "from_file": "tests/es/test_adama_es_gate.py",
       "to_file": "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
-        "file": "tests/test_adama_es_gate.py",
+        "file": "tests/es/test_adama_es_gate.py",
         "line": 304,
         "snippet": "open(p, 'leitura')  # p = supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql"
       }
     },
     {
-      "from_file": "tests/test_adama_es_gate.py",
+      "from_file": "tests/es/test_adama_es_gate.py",
       "to_file": "supabase/migrations/013_captura_nao_e_registro.sql",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
-        "file": "tests/test_adama_es_gate.py",
+        "file": "tests/es/test_adama_es_gate.py",
         "line": 322,
         "snippet": "'013_captura_nao_e_registro.sql': 'CAPTURE != REGISTRATION',"
       }
     },
     {
-      "from_file": "tests/test_adama_es_gate.py",
+      "from_file": "tests/es/test_adama_es_gate.py",
       "to_file": "supabase/migrations/014_catalogo_publico_fabricante.sql",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
-        "file": "tests/test_adama_es_gate.py",
+        "file": "tests/es/test_adama_es_gate.py",
         "line": 327,
         "snippet": "'014_catalogo_publico_fabricante.sql': 'HANDOFF_SCHEMA_VALID_THEN',"
       }
     },
     {
-      "from_file": "tests/test_adama_es_gate.py",
+      "from_file": "tests/es/test_adama_es_gate.py",
       "to_file": "supabase/migrations/015_cicatrizes_do_brasil.sql",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
-        "file": "tests/test_adama_es_gate.py",
+        "file": "tests/es/test_adama_es_gate.py",
         "line": 323,
         "snippet": "'015_cicatrizes_do_brasil.sql': 'praca',"
       }
     },
     {
-      "from_file": "tests/test_adama_es_gate.py",
+      "from_file": "tests/es/test_adama_es_gate.py",
       "to_file": "supabase/migrations/016_checkpoint_e_unidade_analitica.sql",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
-        "file": "tests/test_adama_es_gate.py",
+        "file": "tests/es/test_adama_es_gate.py",
         "line": 324,
         "snippet": "'016_checkpoint_e_unidade_analitica.sql': 'SEM_CHECKPOINT_NAO_GASTEI',"
       }
     },
     {
-      "from_file": "tests/test_adama_es_gate.py",
+      "from_file": "tests/es/test_adama_es_gate.py",
       "to_file": "supabase/migrations/017_o_que_a_conferencia_de_localizacao_achou.sql",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
-        "file": "tests/test_adama_es_gate.py",
+        "file": "tests/es/test_adama_es_gate.py",
         "line": 325,
         "snippet": "'017_o_que_a_conferencia_de_localizacao_achou.sql': 'PUBLISHED_AT != FACT_TIME',"
       }
     },
     {
-      "from_file": "tests/test_adama_es_gate.py",
+      "from_file": "tests/es/test_adama_es_gate.py",
       "to_file": "supabase/migrations/018_o_lugar_do_fato_ganha_dono.sql",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
-        "file": "tests/test_adama_es_gate.py",
+        "file": "tests/es/test_adama_es_gate.py",
         "line": 326,
         "snippet": "'018_o_lugar_do_fato_ganha_dono.sql': 'DOIS DONOS DA MESMA LEI',"
       }
     },
     {
-      "from_file": "tests/test_adama_es_import_rules.py",
+      "from_file": "tests/es/test_adama_es_import_rules.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
-        "file": "tests/test_adama_es_import_rules.py",
+        "file": "tests/es/test_adama_es_import_rules.py",
         "line": 15,
         "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
       }
     },
     {
-      "from_file": "tests/test_adama_es_import_rules.py",
+      "from_file": "tests/es/test_adama_es_import_rules.py",
       "to_file": "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
-        "file": "tests/test_adama_es_import_rules.py",
+        "file": "tests/es/test_adama_es_import_rules.py",
         "line": 177,
         "snippet": "'ADAMA-ES-PRODUCT-INTELLIGENCE.json'], text=True))"
-      }
-    },
-    {
-      "from_file": "tests/test_adama_es_import_rules.py",
-      "to_file": "guarda/adama_es_import_rules.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "tests/test_adama_es_import_rules.py",
-        "line": 16,
-        "snippet": "import adama_es_import_rules as R  # noqa: E402"
       }
     },
     {
@@ -22730,7 +22719,7 @@
     "files_tracked": 1031,
     "files_readable": 346,
     "files_code_dir": 387,
-    "file_edges": 1409,
+    "file_edges": 1408,
     "declared_missing_here": 1
   },
   "ELSEWHERE": {

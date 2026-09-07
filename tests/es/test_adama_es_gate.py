@@ -12,7 +12,7 @@ import os
 import re
 import unittest
 
-RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 AMOSTRAS = os.path.join(RAIZ, 'data', 'samples')
 PORTAO = os.path.join(AMOSTRAS, 'ADAMA-ES-HANDOFF-GATE-V1.json')
 

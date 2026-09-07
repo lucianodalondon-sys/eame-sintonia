@@ -1,6 +1,6 @@
 # Teste adversarial do protótipo — Espanha
 
-`2026-08-30` · gerado por `superficie/proto_es.py` do pacote congelado `V1.1` (HEAD `9ee2716`)
+`2026-08-30` · gerado por `superficie/es/proto_es.py` do pacote congelado `V1.1` (HEAD `9ee2716`)
 Publicado: https://claude.ai/code/artifact/b6abefbc-896a-49f9-86b2-1fa4b11c2567
 
 ---

@@ -10,8 +10,8 @@ sem os quais o modelo de voz proíbe atribuir papel a alguém.
 como `RESEARCHER` porque a base declara a afiliação institucional dele, não porque escreve
 sobre agricultura.
 
-    python3 coleta/corpus_es.py buscar    # varre os temas e grava o corpus bruto
-    python3 coleta/corpus_es.py resumo    # lê o corpus gravado e resume
+    python3 coleta/es/corpus_es.py buscar    # varre os temas e grava o corpus bruto
+    python3 coleta/es/corpus_es.py resumo    # lê o corpus gravado e resume
 
 Universo de busca, declarado (é o que permite auditar como chegamos à amostra):
   · base: OpenAlex (api.openalex.org), sem chave
@@ -29,7 +29,7 @@ import urllib.parse
 import urllib.request
 from collections import Counter, defaultdict
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DEST = os.path.join(ROOT, 'data', 'raw', 'ES-T5-002')
 API = 'https://api.openalex.org/works'
 MAILTO = 'sintonia-eame@example.invalid'      # polite pool do OpenAlex

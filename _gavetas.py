@@ -24,7 +24,17 @@ _RAIZ = os.path.dirname(os.path.abspath(__file__))
 
 GAVETAS = ("coleta", "ferramentas", "fontes", "guarda", "leis", "motor", "pacote", "portoes", "provas", "regras", "superficie")
 
+# A gaveta, e as prateleiras dentro dela. Uma peca que so serve um pais mora em
+# `<gaveta>/<pais>/` — a gaveta continua a dizer a ETAPA, e o pais entra depois.
+# Sem esta segunda volta, `guarda/es/adama_es_import_rules` deixava de ser
+# encontrado, e o teste dele acordava com «No module named».
 for _g in GAVETAS:
     _p = os.path.join(_RAIZ, _g)
-    if os.path.isdir(_p) and _p not in sys.path:
+    if not os.path.isdir(_p):
+        continue
+    if _p not in sys.path:
         sys.path.insert(0, _p)
+    for _sub in sorted(os.listdir(_p)):
+        _q = os.path.join(_p, _sub)
+        if os.path.isdir(_q) and not _sub.startswith(('_', '.')) and _q not in sys.path:
+            sys.path.insert(0, _q)

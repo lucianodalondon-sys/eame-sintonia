@@ -950,7 +950,16 @@ def main_uma_vez(stamp: bool) -> int:
             "views": sorted(set(c.get("views", []))
                             | set(next(t.get("views", []) for t in D["TERRITORIES"]
                                        if t["id"] == c["territory"]))),
-            "lane": "legacy" if c.get("legacy") else "official",
+            # A faixa: `official` e a rota de hoje, `legacy` ficou para tras, e
+            # `futuro` foi construido, provado, e esta guardado a espera do seu
+            # momento. Uma peca cujos ficheiros vivem TODOS numa prateleira de
+            # pais (`<gaveta>/es/`) e, por construcao, de um pais so — e enquanto
+            # esse pais nao for o da rota, ela e projeto futuro, e nao legado.
+            # Enterrar como legado o que so esta a espera custa caro.
+            "lane": (c.get("lane") or ("legacy" if c.get("legacy") else
+                     ("futuro" if c["_files"] and all(
+                         len(f.split("/")) > 2 and f.split("/")[1] in ("es", "fr", "eu")
+                         for f in c["_files"]) else "official"))),
             "family": next(t["family"] for t in D["TERRITORIES"]
                            if t["id"] == c["territory"]),
             "files": fs, "file_count": len(fs),

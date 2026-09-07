@@ -80,7 +80,7 @@ mesmo tempo**. Durante esta sessão a branch mudou sozinha: começou em
 
 > **Antes de qualquer commit, rode `git status` e confira o que é seu.** Há
 > arquivos modificados de outra frente de trabalho (`italia-portale/`,
-> `scripts/instagram_*`, `tests/test_adama_es_gate.py`) que **não devem entrar**
+> `scripts/instagram_*`, `tests/es/test_adama_es_gate.py`) que **não devem entrar**
 > num commit desta missão.
 
 Há 15 worktrees ativos no disco (`git worktree list`), um por frente de trabalho.
@@ -491,7 +491,7 @@ export PYTHONIOENCODING=utf-8:replace && bash motor/v21_cadeia.sh
 - ❌ **Não trate os 99 achados da auditoria como confirmados.** Eles não passaram
   pela refutação, e parte foi medida enquanto o pacote mudava.
 - ❌ **Não commite** os arquivos de `italia-portale/`, `scripts/instagram_*`,
-  `tests/test_adama_es_gate.py`, `act.json`, `b.json`, `st*.json`, `tmp_ce/` —
+  `tests/es/test_adama_es_gate.py`, `act.json`, `b.json`, `st*.json`, `tmp_ce/` —
   são de **outra sessão** trabalhando na mesma pasta.
 - ❌ **Não aplique as migrations do Supabase** sem pedido explícito do usuário.
 
@@ -521,7 +521,7 @@ FAÇA NESTA ORDEM:
    Compare o HEAD com o campo "head" do JSON.
 4. Rode `git status --short`. ⚠️ ATENÇÃO: esta pasta é um worktree COMPARTILHADO
    com outra sessão do Claude. Há arquivos modificados que NÃO são desta missão
-   (italia-portale/, scripts/instagram_*, tests/test_adama_es_gate.py, act.json,
+   (italia-portale/, scripts/instagram_*, tests/es/test_adama_es_gate.py, act.json,
    b.json, st*.json, tmp_ce/). Nunca os inclua num commit desta missão.
 5. Rode a verificação leve, que reconta tudo dos arquivos:
        export PYTHONIOENCODING=utf-8:replace && py motor/v21_aceitacao.py

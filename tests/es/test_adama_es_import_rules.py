@@ -10,7 +10,7 @@ import re
 import sys
 import unittest
 
-RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, RAIZ)
 import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import adama_es_import_rules as R  # noqa: E402

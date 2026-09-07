@@ -144,7 +144,7 @@ e o termo cobre 100% do catálogo.
 | `PAIR_TABLE_ROW` — linha de tabela ancorada que nomeia cultivo **e** agente | **5** | **sim** |
 | `PAGE_BODY_TEXT` — varredura de texto | **176** | não |
 
-`guarda/adama_es_import_rules.py`. O mesmo termo entra ou não conforme a **âncora**, nunca
+`guarda/es/adama_es_import_rules.py`. O mesmo termo entra ou não conforme a **âncora**, nunca
 conforme a palavra: `MALAS HIERBAS` numa linha de tabela do TRINITY é alvo legítimo; a mesma
 string solta na página do NEPTUNE não é.
 

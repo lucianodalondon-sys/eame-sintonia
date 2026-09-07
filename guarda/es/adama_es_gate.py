@@ -7,8 +7,8 @@ decide se a camada local pode entrar no motor dos quatro relógios.
 
 Ele NÃO importa nada. Nenhuma linha vai para o banco canônico.
 
-  python3 guarda/adama_es_gate.py                 # mede e imprime
-  python3 guarda/adama_es_gate.py --build         # grava o artefato
+  python3 guarda/es/adama_es_gate.py                 # mede e imprime
+  python3 guarda/es/adama_es_gate.py --build         # grava o artefato
 """
 import collections
 import json
@@ -17,7 +17,7 @@ import re
 import subprocess
 import sys
 
-RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, RAIZ)
 import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho
 SAIDA = os.path.join(RAIZ, 'data', 'samples', 'ADAMA-ES-HANDOFF-GATE-V1.json')
@@ -746,7 +746,7 @@ def correcoes(h):
                    '"desde BBCH 00 hasta BBCH 07" e o artefato guarda 00-00',
         'CAUSA_MEDIDA': '_bbch() usa BBCH.search() — a PRIMEIRA ocorrência — e faz '
                         '`m.group(2) or m.group(1)`, derivando o fim do início',
-        'ONDE_FOI_RESOLVIDO': 'guarda/adama_es_import_rules.py · normalizar_bbch',
+        'ONDE_FOI_RESOLVIDO': 'guarda/es/adama_es_import_rules.py · normalizar_bbch',
         'COMO': 'a regra nunca deriva o fim a partir do início. Faixa fechada só com '
                 'traço ou com linguagem que ligue duas menções; ponta aberta vira '
                 'APPROXIMATE com o texto inteiro.',
@@ -771,7 +771,7 @@ def correcoes(h):
             'literal "MALAS HIERBAS" aparece em 46 — os outros 10 têm um termo mais '
             'específico que o absorve em _colapsar_sobrepostos. A conclusão fica mais '
             'forte, não mais fraca.',
-        'ONDE_FOI_RESOLVIDO': 'guarda/adama_es_import_rules.py · '
+        'ONDE_FOI_RESOLVIDO': 'guarda/es/adama_es_import_rules.py · '
                               'classificar_origem_do_issue / pode_virar_alvo_autorizado',
         'COMO': 'classificação por ORIGEM, não por lista de palavras. Só PAIR_TABLE_ROW '
                 '— linha de tabela ancorada que nomeia cultivo E agente — pode virar '
