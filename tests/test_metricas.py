@@ -3,7 +3,7 @@
 Provas de que o NÚMERO PUBLICADO é o NÚMERO DERIVADO.
 
 `tests/test_canonico.py` compara documentos entre si. Este compara documento contra
-**dono**: `scripts/metricas_canonicas.py` deriva o valor da evidência, e cada documento
+**dono**: `pacote/metricas_canonicas.py` deriva o valor da evidência, e cada documento
 que publica aquele número tem de publicar exatamente esse valor.
 
 O que isto impede, e já aconteceu três vezes: a suíte crescer de 25 para 91 provas e três
@@ -20,7 +20,8 @@ import sys
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+sys.path.insert(0, ROOT)
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 from metricas_canonicas import build, Ledger                    # noqa: E402
 
 DOCS = os.path.join(ROOT, 'docs')
@@ -175,7 +176,7 @@ class TestNumeroCorrenteTemDono(unittest.TestCase):
         fora = sync(check_only=True)
         self.assertEqual([], fora,
                          'documento publica valor diferente do dono: %s — '
-                         'rode python3 scripts/metricas_canonicas.py --sync' % fora)
+                         'rode python3 pacote/metricas_canonicas.py --sync' % fora)
 
     def test_o_sync_alcanca_os_documentos_da_raiz(self):
         """O handoff mora na raiz. Enquanto o sync so via docs/, ele nao tinha dono."""
@@ -228,13 +229,13 @@ class TestAskSintoniaNaoSeVendeComoMedicao(unittest.TestCase):
         self.assertRegex(doc, r'(?i)o placar diz o que o sistema TEM DE fazer')
 
     def test_o_script_avisa_antes_de_imprimir_o_placar(self):
-        with open(os.path.join(ROOT, 'scripts', 'ask_sintonia.py'), encoding='utf-8') as f:
+        with open(os.path.join(ROOT, 'superficie', 'ask_sintonia.py'), encoding='utf-8') as f:
             src = f.read()
         self.assertIn('CONTRATO DE ACEITAÇÃO', src)
         self.assertIn('veredito ESCRITO À MÃO', src)
 
     def test_as_perguntas_executadas_sao_cinco(self):
-        with open(os.path.join(ROOT, 'scripts', 'ask_sintonia.py'), encoding='utf-8') as f:
+        with open(os.path.join(ROOT, 'superficie', 'ask_sintonia.py'), encoding='utf-8') as f:
             src = f.read()
         executadas = re.findall(r'^def (q\d+)\(\):', src, re.M)
         self.assertEqual(len(executadas), 5,

@@ -96,14 +96,14 @@ jobs:
           echo "INTERPRETADOR=NENHUM"; exit 1
 
       - name: 1 · censo do pool (nunca valor)
-        run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py
+        run: PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py
 
       - name: 2 · rodar a fase
         env:
           RUNNER_NAME: ${{ runner.name }}
         run: |
           echo "FASE=${{ inputs.fase }} · LOTE=${{ inputs.lote }} · RUNNER=${{ runner.name }}"
-          PYTHONIOENCODING=utf-8 $PY scripts/sensor_coleta.py \
+          PYTHONIOENCODING=utf-8 $PY regras/sensor_coleta.py \
             "${{ inputs.fase }}" "${{ inputs.lote }}"
 
       - name: 3 · devolver o resultado ao repositório

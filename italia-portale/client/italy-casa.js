@@ -1,4 +1,4 @@
-/* GERADO por scripts/it_casa_dados.py — nao editar a mao.
+/* GERADO por superficie/it_casa_dados.py — nao editar a mao.
    Os numeros vem dos donos ja julgados; aqui nao se reconta nada.
    As frases IT/EN vem de meeting-labels.js, que continua a ser o unico
    dono de labels: este pacote transporta-as, nao as escreve. */
@@ -206,7 +206,7 @@ window.ITALY_CASA = {
   },
   "RESPONDE_PT": "temos olhos aqui"
  },
- "GERADO_POR": "scripts/it_casa_dados.py",
+ "GERADO_POR": "superficie/it_casa_dados.py",
  "HASHES_CONSUMIDOS": {
   "IT-FUTURO-HANDOFF-LINHA-B-V1.json": "sha256:5512f25e83a0da922fd6ca0e916f9ef398510633c62af3753f113674e58d0cc0",
   "IT-HANDOFF-LINHA-B-FITOSSANITARIO-V1.json": "sha256:328310a59e715c593405a51ee5eef4290bc17f502a3b6b6b854bb530158ed0db",

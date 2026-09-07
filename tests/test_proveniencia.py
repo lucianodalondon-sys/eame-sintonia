@@ -10,7 +10,8 @@ Cada teste aqui existe por um defeito medido, nao por simetria:
 import json, os, re, sys, unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+sys.path.insert(0, ROOT)
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import proveniencia as pv   # noqa: E402
 import auditoria as au      # noqa: E402
 
@@ -189,7 +190,7 @@ class TestInventarioDoBrutoPago(unittest.TestCase):
         RAW_PAID_FILES_IN_SCOPE = set(pv.arquivos_raw_pagos())
         self.assertEqual(RAW_PAID_FILES_IN_SCOPE, POLICY_RAW_FILES,
                          'a politica do bruto pago divergiu do diretorio real — '
-                         'rode: python3 scripts/proveniencia.py --sync-politica')
+                         'rode: python3 regras/proveniencia.py --sync-politica')
 
     def test_o_tamanho_publicado_e_derivado_e_nao_digitado(self):
         real = sum(os.path.getsize(os.path.join(ROOT, f))

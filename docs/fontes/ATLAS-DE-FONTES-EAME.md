@@ -191,7 +191,7 @@ DOCUMENT_ID_AVAILABLE:        SIM — CELEX (ex.: 32026R1696), ELI, cellar UUID
 PUBLICATION_DATE_AVAILABLE:   SIM — data do documento e data de publicação no JO
 RAW_EVIDENCE_PRESERVABLE:     SIM — XHTML integral do ato, por língua
 AUTOMATION_FEASIBILITY:       ALTA — endpoint público, sem chave, sem scraping de HTML
-COLLECTION_FEASIBILITY:       ALTA — `scripts/cellar.sh` reproduz a coleta
+COLLECTION_FEASIBILITY:       ALTA — `coleta/cellar.sh` reproduz a coleta
 LEGAL_OR_ACCESS_RISK:         BAIXO — legislação pública oficial; sem dado pessoal
 REAL_EXAMPLE:                 CELEX 32026R1696 — Reg. Exec. (UE) 2026/1696, de 14/07/2026,
                               renova a aprovação da substância ativa ácido pelargônico
@@ -266,7 +266,7 @@ TERRITORY:                    T4 (alimenta também T1, T3 e T9)
 SOURCE_TYPE:                  Registro oficial de autorizações (AMM), dados abertos
 URL:                          https://www.data.gouv.fr/datasets/donnees-ouvertes-du-catalogue-e-phy-des-produits-phytopharmaceutiques-matieres-fertilisantes-et-supports-de-culture-adjuvants-produits-mixtes-et-melanges
 ACCESS_METHOD:                CSV e XML em ZIP, resolvidos pela API do data.gouv.fr.
-                              Sem chave, sem scraping. `scripts/ephy.sh download`.
+                              Sem chave, sem scraping. `coleta/ephy.sh download`.
 CROPS:                        todas as culturas do catálogo francês (Blé, Vigne, Orge, Maïs…)
 TOPICS:                       produto, nº AMM, titular, substâncias ativas, função,
                               formulação, estado de autorização, data de retirada,
@@ -481,7 +481,7 @@ ACCESS_METHOD:                as rotas que o próprio frontend chama, declaradas
                                 GET  Productos/GetProductoById?idProducto=N
                                 GET  Productos/ExportFichaProductoPdfGet?idProducto=N
                                 POST Exportaciones/ExportJsonProductos  (dataDto[...])
-                              Cliente: scripts/mapa_regfi.py
+                              Cliente: coleta/mapa_regfi.py
 UPDATE_FREQUENCY:             semanal — a página declara a data da última atualização da
                               base ("viernes, 28 de agosto de 2026 14:00")
 FORMAT:                       HTML (grade) · JSON (ficha e export) · PDF (ficha oficial)
@@ -1215,7 +1215,7 @@ COUNTRY:                      EUROPE
 TERRITORY:                    T12
 ACCESS_METHOD:                **a mesma infraestrutura já provada em EU-T4-001** —
                               SPARQL + content negotiation. Muda apenas a consulta.
-                              `./scripts/cellar.sh sparql "<consulta>"`
+                              `./coleta/cellar.sh sparql "<consulta>"`
 TOPICS:                       PAC, condicionalidade, ecoesquemas, restrições, sustentabilidade
 GEOGRAPHIC_GRANULARITY:       UNIÃO EUROPEIA
 UPDATE_FREQUENCY:             contínua
@@ -1228,7 +1228,7 @@ REAL_EXAMPLE:                 CELEX 32026R0148 e 32026R0149, ambos de 21/01/2026
                               comum**.
 ADAMA_USE_CASE:               EAME / COUNTRY / REGULATORY: mudanças de política que afetam
                               o produtor antes de afetarem o mercado.
-EVIDENCE:                     mesma cadeia de EU-T4-001; consulta registrada em scripts/cellar.sh
+EVIDENCE:                     mesma cadeia de EU-T4-001; consulta registrada em coleta/cellar.sh
 VERDICT:                      GREEN
 ```
 

@@ -94,7 +94,7 @@
   "handoff/paused-v2/MANIFESTO.json",
   "handoff/paused-v2/ACHADOS-DA-AUDITORIA-NAO-REFUTADOS.json",
   "docs/design/ITALY-V2.1-README-FIRST.md",
-  "scripts/v21_cadeia.sh",
+  "motor/v21_cadeia.sh",
   "data/i18n/v21-traducoes.json",
   "build/SINTONIA-ITALY-REALITY-HANDOFF-V2.1.zip",
   "build/ITALY-REALITY-HANDOFF-V2/"
@@ -252,8 +252,8 @@
  },
  "commands": {
   "python": "py (nao 'python'). SEMPRE com: export PYTHONIOENCODING=utf-8:replace",
-  "verificacao_leve": "export PYTHONIOENCODING=utf-8:replace && py scripts/v21_aceitacao.py",
-  "reconstruir_pacote": "export PYTHONIOENCODING=utf-8:replace && bash scripts/v21_cadeia.sh",
+  "verificacao_leve": "export PYTHONIOENCODING=utf-8:replace && py motor/v21_aceitacao.py",
+  "reconstruir_pacote": "export PYTHONIOENCODING=utf-8:replace && bash motor/v21_cadeia.sh",
   "testes_da_trava": "export PYTHONIOENCODING=utf-8:replace && py -c \"import sys;sys.path[:0]=['tests','scripts'];import test_v21_traducao_trava as T;[getattr(T,n)() for n in dir(T) if n.startswith('test_')];print('ok')\"",
   "AVISO_DA_CADEIA": "v21_ingest.py faz rmtree da pasta do pacote. Rodar um passo do meio sozinho apaga EM SILENCIO carimbos, rechaveamento e traducoes. Rode a cadeia INTEIRA."
  },
@@ -296,7 +296,7 @@
  ],
  "token_heavy_tasks_running": 0,
  "known_blockers": [
-  "a pasta C:/eame-sintonia e um worktree COMPARTILHADO com outra sessao Claude (missao do PORTAL/SITE). Ha arquivos modificados que NAO sao desta missao: italia-portale/, scripts/instagram_*, tests/test_adama_es_gate.py, act.json, b.json, st*.json, tmp_ce/. Nunca inclui-los num commit desta missao."
+  "a pasta C:/eame-sintonia e um worktree COMPARTILHADO com outra sessao Claude (missao do PORTAL/SITE). Ha arquivos modificados que NAO sao desta missao: italia-portale/, scripts/instagram_*, tests/es/test_adama_es_gate.py, act.json, b.json, st*.json, tmp_ce/. Nunca inclui-los num commit desta missao."
  ],
  "next_step": "Reverificar os 35 achados BLOQUEIA_ENTREGA de handoff/paused-v2/ACHADOS-DA-AUDITORIA-NAO-REFUTADOS.json, um a um, contra o DESIGN-INGEST atual — e so entao corrigir o que sobreviver. Comecar por: (1) PROVINCIAL virou REGIONAL em 24 registros client-safe; (2) 11 de 14 cruzamentos de rotulo casam a cultura certa com o problema errado; (3) um boletim do Friuli carimbado tambem como Toscana; (4) 2.222 registros citam 'fonte nao declarada' como unica fonte.",
  "head_note": "este e o SHA do commit de documentacao. O commit de metadado que gravou este proprio SHA vem logo depois — o HEAD final da branch esta em head_final.",

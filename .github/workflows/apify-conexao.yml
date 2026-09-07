@@ -18,7 +18,7 @@
 #
 # O SEGREDO NÃO SAI DAQUI
 # ------------------------
-# `scripts/apify_pool.py` já é o dono desta regra: `censo()` devolve presença,
+# `ferramentas/apify_pool.py` já é o dono desta regra: `censo()` devolve presença,
 # tamanho e formato — nunca valor — e `redigir()` apaga qualquer coisa com cara
 # de token, inclusive dentro de URL, porque um traceback de urllib carrega a URL
 # inteira. Todo texto de erro passa por ela antes de ir para o log. O GitHub
@@ -65,13 +65,13 @@ jobs:
 
       - name: A/B · censo do pool (presença e quantidade — nunca valor)
         run: |
-          PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py
+          PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py
 
       - name: C · cada posição autentica? (GET /users/me — READ ONLY)
         run: |
           PYTHONIOENCODING=utf-8 $PY - <<'PYEOF'
           import json, sys, urllib.error, urllib.request
-          sys.path.insert(0, 'scripts')
+          sys.path.insert(0, '.'); import _gavetas
           import apify_pool as ap
 
           chaves = ap.pool()
@@ -116,7 +116,7 @@ jobs:
         run: |
           PYTHONIOENCODING=utf-8 $PY - <<'PYEOF'
           import json, sys, urllib.error, urllib.request
-          sys.path.insert(0, 'scripts')
+          sys.path.insert(0, '.'); import _gavetas
           import apify_pool as ap
 
           # Os três são coisas DIFERENTES e não podem virar um número só:

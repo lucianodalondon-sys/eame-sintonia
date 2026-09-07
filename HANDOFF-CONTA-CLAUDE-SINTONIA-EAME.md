@@ -99,7 +99,7 @@ próprio documento diz *"se dois documentos discordarem sobre o que é o produto
 | `docs/piloto/ENTRADA-PARA-CLAUDE-DESIGN.md` | CURRENT **como pacote de fatos e números**, não como arquitetura |
 | `docs/descoberta/MISSAO-EAME-01.md`, `SEGUNDA-PASSAGEM…`, `LACUNAS-E-VEREDITO-MISSAO-03.md` | **HISTORICAL** — registro de missão, não estado |
 | `docs/piloto/VEREDITO-M10-HANDOFF.md` | CURRENT para o veredito de M10 |
-| `docs/operacao/PORTOES-DE-COLETA-10B.md` | **CURRENT** — o estado mais recente |
+| `medidas/PORTOES-DE-COLETA-10B.md` | **CURRENT** — o estado mais recente |
 
 **Nunca voltar para a arquitetura de 18 ferramentas.** Foi reduzida deliberadamente.
 
@@ -124,7 +124,7 @@ EVIDENCE · VOICE.
 
 ## F · ESTADO DA ESPANHA — números derivados do ledger
 
-> Todos abaixo saem de `python3 scripts/metricas_canonicas.py`. **Se divergirem, o ledger
+> Todos abaixo saem de `python3 pacote/metricas_canonicas.py`. **Se divergirem, o ledger
 > vence e o documento está velho.**
 
 ### VÍDEO — `ES-T8-001`
@@ -368,8 +368,8 @@ falso — não por receita.
 
 ## N · ASK SINTONIA
 
-**`scripts/ask_sintonia.py`** tem **5 perguntas executáveis** — funções `q1`…`q5`
-(verificado: `grep -n "^def q" scripts/ask_sintonia.py`). Cada uma devolve `ANSWER` ·
+**`superficie/ask_sintonia.py`** tem **5 perguntas executáveis** — funções `q1`…`q5`
+(verificado: `grep -n "^def q" superficie/ask_sintonia.py`). Cada uma devolve `ANSWER` ·
 `EVIDENCE` · `SOURCE` · `WHAT_IS_FACT` · `WHAT_IS_DERIVED` · `WHAT_IS_UNKNOWN` ·
 `CONFIDENCE`.
 
@@ -468,7 +468,7 @@ preservada. Teste **ponta a ponta** em `tests/test_pipeline.py` com fixture mín
 
 ## R · DATA CLOCK
 
-`scripts/data_clock.py` → `data/samples/DATA-CLOCK-manifest.json`.
+`leis/data_clock.py` → `data/samples/DATA-CLOCK-manifest.json`.
 
 Registra por arquivo: `SOURCE_ID` · `VERSION_DATE` · `COLLECTION_DATE` · `SIZE_BYTES` ·
 **`SHA-256`** · `ARCHIVING_URGENCY`.
@@ -555,7 +555,7 @@ lacunas inventadas. Artefato: `data/samples/AUDITORIA-REGRA-COLETA-EXTERNA.json`
 ela lia. Um auditor afirmou que a regra não existia em `docs/regras/` e listou 4 arquivos
 onde havia 5, porque leu **antes** do commit que a criou.
 
-**Nova regra, implementada em `scripts/auditoria.py`:** `AUDIT_TARGET_SHA` é definido antes;
+**Nova regra, implementada em `provas/auditoria.py`:** `AUDIT_TARGET_SHA` é definido antes;
 o auditor lê um **worktree `--detach`**. Se o SHA auditado mudar, a auditoria é
 **INVÁLIDA — não "com ressalva"**. Quatro modos de invalidação, todos testados.
 
@@ -664,7 +664,7 @@ Verificadas hoje, todas continuam válidas:
 ## Z · SE EU FOSSE A PRÓXIMA CONTA — o que não está óbvio no código
 
 ### Arquivos em que eu confio mais
-`data/samples/*.json` com envelope de proveniência. `scripts/metricas_canonicas.py` — **é a
+`data/samples/*.json` com envelope de proveniência. `pacote/metricas_canonicas.py` — **é a
 fonte de verdade dos números**, e há teste que reprova documento com número divergente.
 `tests/` inteiro: 280 testes que codificam as leis, não só o comportamento.
 
@@ -674,7 +674,7 @@ Qualquer `.md` com número digitado sem marcador `<!--M:NOME-->`. Os documentos 
 
 ### Onde os números divergem
 **Sempre no mesmo lugar: contagem de testes, contagem de fontes, e contagem de origens vs
-conteúdos.** Por isso o ledger existe. Rode `python3 scripts/metricas_canonicas.py --sync`
+conteúdos.** Por isso o ledger existe. Rode `python3 pacote/metricas_canonicas.py --sync`
 depois de qualquer mudança e a suíte reprova se algo ficou para trás.
 
 ### Bugs que se repetiram — os mesmos três, várias vezes
@@ -696,7 +696,7 @@ Aconteceu duas vezes (denominações espanholas 96,9 % falso; papel LinkedIn 100
 
 ### Onde a próxima conta provavelmente erraria
 1. **Confiar num HEAD de memória.** Meça sempre.
-2. **Auditar árvore em movimento.** Use `scripts/auditoria.py`.
+2. **Auditar árvore em movimento.** Use `provas/auditoria.py`.
 3. **Tratar os 47 NAO_ATENDIDO como lista de tarefas.**
 4. **Reconstruir o corpus científico** achando que não existe — existe, em
    `ES-T5-002-corpus-documentos.json`.
@@ -759,9 +759,9 @@ científico (380 instituições com afiliação declarada).
 | 1 | `HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md` | este documento | CURRENT | mapa da casa |
 | 2 | `docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md` | o que o produto É | **CURRENT — manda** | se dois documentos discordam, este vence |
 | 3 | `docs/regras/MODELO-DE-IDENTIDADE-EAME.md` | identidade de entidade e de origem | CURRENT | quase todo erro grave veio daqui |
-| 4 | `docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md` | como coletar | CURRENT | prioridade, contratos de campo, fail closed |
-| 5 | `docs/operacao/PORTOES-DE-COLETA-10B.md` | os seis portões | CURRENT | diz se pode coletar |
-| 6 | `scripts/metricas_canonicas.py` | ledger de números | CURRENT | **fonte de verdade numérica** |
+| 4 | `medidas/REGRA-DE-COLETA-EXTERNA-EAME.md` | como coletar | CURRENT | prioridade, contratos de campo, fail closed |
+| 5 | `medidas/PORTOES-DE-COLETA-10B.md` | os seis portões | CURRENT | diz se pode coletar |
+| 6 | `pacote/metricas_canonicas.py` | ledger de números | CURRENT | **fonte de verdade numérica** |
 | 7 | `docs/descoberta/CAMADA-DE-VOZ-ESPANHA.md` | a rodada espanhola inteira | CURRENT | inclui as correções |
 | 8 | `data/samples/AUDITORIA-REGRA-COLETA-EXTERNA.json` | 206 achados + backlog | CURRENT | o que falta e o que não |
 | 9 | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | 36 fontes | CURRENT | de onde vem cada dado |
@@ -786,34 +786,34 @@ python3 -m unittest discover -s tests -q          # silencioso
 python3 -m unittest tests.test_pipeline            # um arquivo
 
 # ledger de métricas — FONTE DE VERDADE dos números
-python3 scripts/metricas_canonicas.py              # tabela legível
-python3 scripts/metricas_canonicas.py --json       # máquina
-python3 scripts/metricas_canonicas.py --sync       # reescreve marcadores nos documentos
+python3 pacote/metricas_canonicas.py              # tabela legível
+python3 pacote/metricas_canonicas.py --json       # máquina
+python3 pacote/metricas_canonicas.py --sync       # reescreve marcadores nos documentos
 
 # portão de saída — pode coletar?
-python3 scripts/portao.py
-python3 scripts/portao.py --json
+python3 medidas/portao.py
+python3 medidas/portao.py --json
 
 # auditoria contra alvo congelado
-python3 scripts/auditoria.py                       # SHA e estado da árvore
-python3 scripts/auditoria.py --congelar            # cria o worktree só-leitura
+python3 provas/auditoria.py                       # SHA e estado da árvore
+python3 provas/auditoria.py --congelar            # cria o worktree só-leitura
 
 # proveniência — o RUN_ID resolve
-python3 scripts/proveniencia.py
-python3 scripts/proveniencia.py --campos
+python3 regras/proveniencia.py
+python3 regras/proveniencia.py --campos
 
 # relógio de dados — recalcula SHA-256 de tudo que é vigiado
-python3 scripts/data_clock.py
+python3 leis/data_clock.py
 
 # contratos da camada de voz
-python3 scripts/voz.py
-python3 scripts/voz.py --campos
+python3 medidas/voz.py
+python3 medidas/voz.py --campos
 
 # filas de descoberta
-python3 scripts/filas.py
+python3 coleta/filas.py
 
 # Ask Sintonia
-python3 scripts/ask_sintonia.py
+python3 superficie/ask_sintonia.py
 ```
 
 ---

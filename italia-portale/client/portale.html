@@ -43,12 +43,12 @@
 <script src="meeting-intelligence-snapshot.js"></script>
 <script src="meeting-labels.js"></script>
 <!-- IL VERDETTO DELLA LEGGE DI RILEVANZA, PRIMA DI CHI LO LEGGE.
-     La legge vive in scripts/adama_relevance.py e si decide LA. Questo file
+     La legge vive in leis/adama_relevance.py e si decide LA. Questo file
      trasporta il verdetto; meeting-surface.js lo legge e non lo ricalcola. -->
 <script src="adama-relevance.js"></script>
 <script src="meeting-surface.js"></script>
 <!-- IL PACCHETTO DELLA CASA, LETTO ANCHE QUI.
-     `scripts/it_casa_dados.py` e l'adattatore di presentazione, e italy-casa.js
+     `superficie/it_casa_dados.py` e l'adattatore di presentazione, e italy-casa.js
      e il suo unico pacchetto. La casa lo legge; da qui in avanti lo legge anche
      il portale, per il numero che i due schermi hanno in comune: quante
      opportunita sono sul tavolo adesso.
@@ -3552,7 +3552,7 @@ class Component extends DCLogic {
        Il radar mostra le 26 opportunita commerciali; i 17 che restano vivono
        come segnali. La somma — quante letture sono sul tavolo adesso — e la
        stessa cifra che apre la casa, e viene da li: `window.ITALY_CASA`, che
-       `scripts/it_casa_dados.py` deriva dall'istantanea canonica.
+       `superficie/it_casa_dados.py` deriva dall'istantanea canonica.
 
            SCRIVERE 43 QUI FAREBBE UNA SECONDA VERITA.
            UNA SECONDA VERITA E QUELLA CHE NON CAMBIA QUANDO IL MOTORE CAMBIA.

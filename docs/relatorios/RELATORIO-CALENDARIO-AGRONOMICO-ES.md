@@ -111,7 +111,7 @@ Ela carrega só dado com fonte. Está escrito no cabeçalho dela o que ficou de 
 
 `AGRONOMIC-CALENDAR-DESIGN-DATA-CONTRACT-V1` diz o que o Design **recebe** e o que cada valor significa. Não diz como desenhar, e não carrega uma única cor — cor é do Design System.
 
-O exemplo dentro dele **não foi escrito à mão**: é lido do banco por `scripts/calendario_handoff.py`. Se o motor mudar de resposta, o contrato muda junto ou o teste reprova. Contrato que descreve um payload que o código não produz é pior do que contrato nenhum.
+O exemplo dentro dele **não foi escrito à mão**: é lido do banco por `leis/calendario_handoff.py`. Se o motor mudar de resposta, o contrato muda junto ou o teste reprova. Contrato que descreve um payload que o código não produz é pior do que contrato nenhum.
 
 `DISPLAY-LAYER-V1` ganhou **54 regras** em PT/EN/ES, cobrindo todo valor que o motor consegue emitir — e um teste confere essa cobertura enum por enum, porque uma enum nova sem regra de exibição chega crua na tela do cliente.
 
@@ -140,6 +140,6 @@ Não construiu HTML, não decidiu pixel, não redesenhou o portal, não inventou
 | `supabase/fixtures/es_calendario_mvp.sql` | Espanha, só dado com fonte |
 | `supabase/tests/regressoes_calendario.sql` | 45 afirmações de significado contra Postgres real |
 | `tests/test_calendario_temporal.py` | 37 regressões que não precisam de banco |
-| `scripts/calendario_handoff.py` | monta o contrato do Design lendo o banco |
+| `leis/calendario_handoff.py` | monta o contrato do Design lendo o banco |
 | `data/samples/AGRONOMIC-CALENDAR-DESIGN-DATA-CONTRACT-V1.json` | o que o Design recebe |
 | `.github/workflows/calendario-regressoes.yml` | roda tudo isso num Postgres descartável, sem segredo |

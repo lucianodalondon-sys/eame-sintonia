@@ -109,7 +109,7 @@ Medido nas duas línguas. Os números são os que a barra imprime.
 MENU_LABEL            = OPPORTUNITÀ ATTUALI · CURRENT OPPORTUNITIES  (13)
 CAPABILITY_ID         = HOME  (ARQUITETURA-DE-PRODUTO-ATUAL §HOME)
 SOURCE_OF_DEFINITION  = docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md, 2026-08-29
-DATA_INPUT            = window.ITALY_CASA (italy-casa.js), gerado por scripts/it_casa_dados.py
+DATA_INPUT            = window.ITALY_CASA (italy-casa.js), gerado por superficie/it_casa_dados.py
 INTELLIGENCE_INPUT    = pacote V21-69bf448ac934a6d9 · 43 casos · lei ADAMA de relevancia
 CURRENT_OWNER         = italia-portale/client/casa.html + italy-casa.js
 LEGACY_OR_CURRENT     = CURRENT
@@ -130,7 +130,7 @@ MENU_LABEL            = Radar delle Opportunità · Opportunity Radar  (13)
 CAPABILITY_ID         = MT2 · GEOGRAPHIC COMMERCIAL PRIORITY
 SOURCE_OF_DEFINITION  = docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md §MT2
 DATA_INPUT            = AM.collections.opportunities (43, CANONICAL, HANDOFF_V21)
-INTELLIGENCE_INPUT    = adama-relevance.js (scripts/adama_relevance.py) · meeting-surface.js
+INTELLIGENCE_INPUT    = adama-relevance.js (leis/adama_relevance.py) · meeting-surface.js
 CURRENT_OWNER         = portale.html vista 'meeting' + meeting-surface.js
 LEGACY_OR_CURRENT     = CURRENT
 DUPLICATES_WITH       = item 0 (contador identico) · vista legacy 'case' (detalhe paralelo)

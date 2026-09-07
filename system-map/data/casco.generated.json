@@ -1,0 +1,744 @@
+{
+  "SCHEMA": "sintonia.system-map.casco/1",
+  "PROVENANCE": {
+    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
+    "BLOCOS": "italia-portale/audit/blocks",
+    "CLIENTE": "italia-portale/client"
+  },
+  "FERRAMENTAS": [
+    {
+      "vista": "meeting",
+      "nome": "Radar delle Opportunità",
+      "chave_do_rotulo": "navMeeting",
+      "prova_do_nome": {
+        "file": "italia-portale/client/portale.html",
+        "line": 4421,
+        "snippet": "['meeting', mtL('navMeeting'), relev ? relev.OPPORTUNITA : meetingCount],"
+      },
+      "blocos": [
+        "case"
+      ],
+      "o_que_alimenta": "APP.collections.upstreamOpportunities — 3 records from ITALY_INGEST.OPPORTUNITIES (PROVENANCE REAL_DERIVED), enriched by APP.collections.windows (29 ITALY_CANONICAL windows, provenance CANONICAL/EXPECTED_NORM) for dates and status, by window.ITALY_LABEL_VERDICTS.verdict() for portfolio strength (currently NOT read by italy-app-model.js at all), and by AM.productByKey for product identity. Per-region numbers can only come from APP.collections.windows (9 regions, 29 windows). The 29 D.CASES become an explicit default-OFF demo collection (APP.collections.demoOpportunityScenarios, provenance DEMO_SCENARIO).",
+      "resumo": "Today the Opportunity Radar is 100% legacy fixture. `const CASES = D.CASES.map(c => this.decorate(c))` (portale.html:2515) turns 29 hand-authored demo cases into the default feed: 8 KPI tiles, the card grid, the 20-tile region map with per-region \"cases / +N signals\", and the full Opportunity Detail (hero, window bar, portfolio block, KNOW/WATCH, evidence bars, mini-map, competitor rows, action map, executive timeline, sources). Facts on that screen come from three different places and only one is real. The audited part is the CANONICAL layer: each demo case looks up its canonical window by LEGACY_CASE_ID and takes START_DATE, END_DATE, DATE_STATE, DATE_CONFIDENCE, CURRENT_STATUS, STATUS_REASON, CROP_STAGE_CLASS, ISSUE_STAGE_CLASS from it (italy-demo-data.js:243-273) — 29 windows, all PROVENANCE=EXPECTED_NORM, all SOURCE_IDS=[], all PRODUCT_MATCHES=[]. The portfolio strength classes are also real: italy-demo-data.js:280-311 calls ITALY_LABEL_VERDICTS.verdict(crop, issue, product) (12 VERIFIED, 7 NOT_FOUND, default LABEL_CHECK_NEEDED). Everything else on the card and the detail page — issue title, latin name, crop, region, `sub`, `cat`/category colour, products list, `primary`, happening, why, know[], watch[], timeline[], evidence{field,science,official,people,market}, evidenceTotal, evidenceLabel, origin, updated, adjacent[], source, competitors[], actions[], departments[] — is authored or generated inside italy-demo-data.js (competitors[] is literally built from a seeded PRNG, timeline[] is arithmetic on `origin`). The real backing is 3 records in ITALY_INGEST.OPPORTUNITIES.",
+      "confianca": "high",
+      "camadas": {
+        "italy-demo-data.js": {
+          "tipo": "FIXTURE",
+          "o_que_e": "escrito a mao para a tela nao ficar vazia",
+          "prova": {
+            "file": "italia-portale/audit/blocks/case.spec.json",
+            "line": 4,
+            "snippet": "\"summary\": \"Today the Opportunity Radar is 100% legacy fixture. `const CASES = D.CASES.map(c => this.decorate(c))` (portale.html:2515) turns 29 hand-a"
+          }
+        },
+        "ITALY_CANONICAL": {
+          "tipo": "CANONICO",
+          "o_que_e": "a lei aplicada sobre o real",
+          "prova": {
+            "file": "italia-portale/audit/blocks/case.spec.json",
+            "line": 5,
+            "snippet": "\"realSource\": \"APP.collections.upstreamOpportunities — 3 records from ITALY_INGEST.OPPORTUNITIES (PROVENANCE REAL_DERIVED), enriched by APP.collection"
+          }
+        },
+        "ITALY_INGEST": {
+          "tipo": "REAL",
+          "o_que_e": "veio do motor, com procedencia",
+          "prova": {
+            "file": "italia-portale/audit/blocks/case.spec.json",
+            "line": 4,
+            "snippet": "\"summary\": \"Today the Opportunity Radar is 100% legacy fixture. `const CASES = D.CASES.map(c => this.decorate(c))` (portale.html:2515) turns 29 hand-a"
+          }
+        },
+        "ITALY_LABEL_VERDICTS": {
+          "tipo": "CANONICO",
+          "o_que_e": "veredito de rotulo, medido",
+          "prova": {
+            "file": "italia-portale/audit/blocks/case.spec.json",
+            "line": 4,
+            "snippet": "\"summary\": \"Today the Opportunity Radar is 100% legacy fixture. `const CASES = D.CASES.map(c => this.decorate(c))` (portale.html:2515) turns 29 hand-a"
+          }
+        }
+      },
+      "riscos": [
+        "The screen loses roughly 70% of its content. Measured honestly: the radar goes from 29 cards to 3, and the detail page loses the evidence bars, the competitor panel, the action map, the executive timeline, the field inbox, the adjacency map shading, the latin name, the origin tile and the label-timing line. What remains — title, what is happening with a named document and date, why it matters, what we know, what we do not know, interpretations, sources — is genuinely strong content, but it is one column where there were three. The client must be told BEFORE the edit, not after, and §3 forbids redesigning the screen to fill the hole.",
+        "The three real records are written in PORTUGUESE, and §11 makes Italian the default language. TITLE, CROP, ISSUE, CURRENT_EVIDENCE, WHAT_WE_KNOW, WHAT_WE_DO_NOT_KNOW and INTERPRETATIONS are all pt-BR ('Videira', 'Milho grao', 'a obrigacao de tratar o vetor e norma, nao recomendacao'). The regulatory quotes inside them are Italian. This is not a translation the engineer may perform — translating a source record is exactly the fact-mutation the product law forbids, and product/company/Latin names must not be touched at all. Either upstream reissues the records in Italian, or the portal ships with visibly Portuguese body text on its three real cards. Flag to the data owner before STEP 2.",
+        "ISSUE_TYPE on opp 003 is the literal string 'NAO SEI' ('I do not know'). The same literal appears across the real data: VOICES.REGION is 'NAO SEI' 17/17, NEWS.REGION 8/8, FUTURE_SIGNALS.REGION 2/3. Any code path that renders a raw field will print 'NAO SEI' to an Italian user. Every new binding needs an explicit guard mapping it to t.notKnown.",
+        "Four incompatible crop vocabularies coexist in the real data and the synonym table is load-bearing. Measured: OPPORTUNITIES.CROP is Portuguese; CANONICAL.CROP_NAME and D.CASES.crop are English; COMP_ACTIVITIES.crops is Latin/Italian ('Vitis vinifera' 42, 'Zea mays' 67, 'colture' 59, 'cereali' 24); VOICES.CROP and SCIENCE.CROP are SCREAMING_SNAKE ('VINE' 45, 'MAIZE' 8, 'DURUM_WHEAT' 40). If the table is wrong the detail page will show competitor and science cross-links belonging to the wrong crop — a silent wrong answer, worse than an empty panel. Build it as one reviewed literal and default to empty, never to a fuzzy match.",
+        "There is a FIFTH id space for cases. VOICES.CASE_ID measures as IT-VINE-FLAVESCENCE (8 voices), IT-MAIZE-WEED (8) and IT-DURUM_WHEAT-FUSARIUM (1). Only the first corresponds to a real opportunity. So if the detail page adds a field-voices panel, opp 001 gets 8 voices and opp 002 and 003 get zero — and the 8 MAIZE voices are about WEEDS, not the piralide that opp 002 is about. Do not join maize to maize.",
+        "All 29 canonical windows measure PROVENANCE = 'EXPECTED_NORM', SOURCE_IDS = [] and PRODUCT_MATCHES = []. They are audited agronomic norms, not observations, and they carry no traceable source. Treating them as the radar's real feed instead of the 3 opportunities would produce a denser and more comfortable screen that still cannot answer 'who published this'. That temptation will present itself around STEP 9 when the KPI numbers look thin. Windows already have their own screen; leave them there.",
+        "MARKET_CONTEXT, COMPETITOR_CONTEXT and FIELD_VOICES are present on 3/3 records but their values are folder paths ('ver 01-DESIGN-READY/MARKET-PULSE/'). They look like fields and are not data. Any engineer scanning the schema will try to render them. They must be dropped in the mapper, not passed through.",
+        "WHAT_IS_HAPPENING.SOURCE_ID is present 3/3 and resolvable 0/3 ('IT-T3-002', 'IT-T3-006 (ERSA FVG)', 'IT-T4-001' against an IG.SOURCES id set that only contains IT-SRC-* ids). Rendering it as a clickable source would produce dead links on every real card. Text only.",
+        "CURRENT_EVIDENCE and WHAT_WE_KNOW are byte-identical on all 3 records. Rendering both fills two panels with the same list and manufactures an appearance of corroboration. Render one.",
+        "decorate() at portale.html:2425 does `Object.assign(c, ...)` — it mutates its input. Because it is called per render (see the comment at 2516) it currently writes presentation labels back into the demo records. Reusing that pattern on AM.collections.opportunities.records would corrupt the shared model across views. decorateOpportunity must return a new object; this is easy to miss when copying the existing method.",
+        "Cross-domain edits. Lines 2580, 2665, 2860-2863, 2946 and 3169 sit in the Competitor, Crop Windows and Market domains and are owned by other specs. Their D.CASES reads must be removed for this domain to be clean, so the serial engineer has to sequence these with the other domain owners or the same lines will be edited twice.",
+        "state.showScenarios already exists and is already false by default, but grep it before wiring: if another screen already uses it for a different purpose, the new radar toggle would silently change that screen too."
+      ],
+      "perguntas_abertas": [
+        "Will upstream reissue the 3 OPPORTUNITIES records in Italian, or does the portal ship with Portuguese body text on its three real cards? This blocks nothing technically but it is the single most visible quality issue after the count drop, and it is not the engineer's call to translate.",
+        "All three records carry the identical SOURCE_IDS triple [IT-SRC-MINISTERO, IT-SRC-PIEMONTE, IT-SRC-OPENALEX], so the 'sources behind this case' panel shows the same 3 rows on every case. Is that the real provenance, or is it a placeholder that upstream intends to make per-record? If placeholder, the panel should show the WHAT_IS_HAPPENING.DOCUMENT string alone until it is fixed.",
+        "Opp 003 ('Portfolio ADAMA Italia — authorisation expiry calendar') is not a crop x issue case at all: no crop, no region beyond 'Italia (nacional)', no agronomic window, ISSUE_TYPE 'NAO SEI'. Should it appear on the crop-oriented Opportunity Radar, or does it belong on the Portfolio screen? Rendering it as a radar card forces every crop/region/window binding to degrade at once.",
+        "Opp 002's CURRENT_EVIDENCE states in prose that six ADAMA products name Piralide/Diabrotica on the maize label, while its ADAMA_PRODUCTS array is empty. Is the array simply unfilled upstream? Confirm before shipping a card that says LABEL_CHECK_NEEDED next to a sentence claiming six labelled products.",
+        "Should the radar keep the word 'opportunity' at all? FORBIDDEN_LABEL is present 3/3 and reads 'nao chamar de \"oportunidade Italia\" nem de \"oportunidade comercial\"', and CASE_LABEL says 'CONVERGENCIA QUE MERECE INVESTIGACAO'. That affects the nav item, the i18n keys, the KPI tile and the page title — a naming decision, not an engineering one.",
+        "Is a canonical window allowed to be bound to a real opportunity by content match (crop + region + issue), given that LEGACY_CASE_ID does not connect the two id spaces? A content match is a judgement, and §7 says presentation may not invent an agronomic state. Recommendation: bind only opp 001 -> IT-WIN-0001 if a human confirms it, and leave the other two unbound.",
+        "Does the '29 canonical windows' number get to keep the word 'cases' anywhere in the UI, or must every occurrence be relabelled? The region map, the KPI status tiles and the windows nav badge all currently count windows while saying or implying cases."
+      ],
+      "ficheiros": [
+        "italia-portale/audit/blocks/case.spec.json"
+      ],
+      "confissoes": [
+        "o contrato diz: 100% legacy fixture",
+        "o contrato diz: escrito a mao",
+        "o contrato diz: gerado por sorteio, nao medido",
+        "o contrato diz: so uma parte e real"
+      ],
+      "tecido_comum": [
+        "italia-portale/audit/blocks/brief.spec.json"
+      ],
+      "dominios_do_contrato": [
+        "Opportunity Radar + Opportunity Detail (D.CASES, D.REGION_STATS, decorate(), Data-State panel)"
+      ],
+      "de_onde_vem": "MISTURA",
+      "leitura": "Mistura dado real com dado escrito a mao. Quem olha nao consegue dizer qual e qual — e a tela nao avisa.",
+      "registos_citados": [
+        3
+      ]
+    },
+    {
+      "vista": "future",
+      "nome": "Archivio segnali",
+      "chave_do_rotulo": "navFuture",
+      "prova_do_nome": {
+        "file": "italia-portale/client/portale.html",
+        "line": 4427,
+        "snippet": "['future', T.navFuture, navN('futureSignals')],"
+      },
+      "blocos": [],
+      "o_que_alimenta": "",
+      "resumo": "",
+      "confianca": "",
+      "camadas": {},
+      "riscos": [],
+      "perguntas_abertas": [],
+      "ficheiros": [],
+      "confissoes": [],
+      "tecido_comum": [
+        "italia-portale/audit/blocks/future.spec.json",
+        "italia-portale/audit/blocks/signal.spec.json"
+      ],
+      "de_onde_vem": "NAO SEI",
+      "leitura": "Nao da para dizer de onde vem o que esta nesta tela. Esta ferramenta nao tem contrato de bloco nenhum escrito.",
+      "registos_citados": []
+    },
+    {
+      "vista": "windows",
+      "nome": "Finestre Colturali",
+      "chave_do_rotulo": "navWindows",
+      "prova_do_nome": {
+        "file": "italia-portale/client/portale.html",
+        "line": 4428,
+        "snippet": "['windows', T.navWindows, navN('windows')],"
+      },
+      "blocos": [
+        "calendar",
+        "windows"
+      ],
+      "o_que_alimenta": "Primary: APP.collections.windows (29 records, provenance CANONICAL, from window.ITALY_CANONICAL.windows). Secondary, currently NOT exposed by the model and must be added: window.ITALY_INGEST.CROP_WINDOWS (7 records — 5 grapevine Flavescenza rows with REGULATORY_ACT / REGULATORY_WINDOW / MONITORING_WINDOW / APPLICATION_WINDOW_2026 / PREPARATION_WINDOW / COVERAGE_STATE, plus 2 Modena field-observation rows that are the only OBSERVED_STAGE values in the whole pack) and window.ITALY_LABEL_VERDICTS (12 VERIFIED tuples, the only real product-to-window relationship). IG.CROPS[17] has NO region and NO area fields and therefore backs nothing on these screens. Coverage after migration: 29 rows over 10 crops x 9 regions (vs 40 fixture rows over 8 crops); 24/29 rows have real dates; 11/29 have a verified ADAMA product; 2/29 (Veneto, Piemonte Flavescenza) gain a real regulatory act; 0/29 have an observed crop stage. · Primary: APP.collections.windows (29 records, provenance CANONICAL, from window.ITALY_CANONICAL.windows). Secondary, currently NOT exposed by the model and must be added: window.ITALY_INGEST.CROP_WINDOWS (7 records — 5 grapevine Flavescenza rows with REGULATORY_ACT / REGULATORY_WINDOW / MONITORING_WINDOW / APPLICATION_WINDOW_2026 / PREPARATION_WINDOW / COVERAGE_STATE, plus 2 Modena field-observation rows that are the only OBSERVED_STAGE values in the whole pack) and window.ITALY_LABEL_VERDICTS (12 VERIFIED tuples, the only real product-to-window relationship). IG.CROPS[17] has NO region and NO area fields and therefore backs nothing on these screens. Coverage after migration: 29 rows over 10 crops x 9 regions (vs 40 fixture rows over 8 crops); 24/29 rows have real dates; 11/29 have a verified ADAMA product; 2/29 (Veneto, Piemonte Flavescenza) gain a real regulatory act; 0/29 have an observed crop stage.",
+      "resumo": "Two screens live here. (A) view 'windows' (markup 535-751) is NOT a window list at all — it is the CROP CALENDAR: a rolling month timeline whose rows, dates, phenology bands, hectares, per-region date offsets and observed-stage dots ALL come from the demo fixtures D.CROP_CAL (8 crops, 40 crop x region rows) and D.OBSERVED (10 rows). The canonical contract is never consulted on this screen. (B) view 'window' (markup 752-810) is the window detail, fed by D.WINDOWS[29], a fixture that wraps each canonical window in ~20 decorated fields (prep, bucket, early, why, readiness, ladder, scale, kind) that have no upstream equivalent. Measured reality: CANONICAL supplies 29 windows with crop/issue/region/windowType/status/statusReason/dateState/dateConfidence 29/29, START_DATE and END_DATE 24/29, and NOTHING else — CROP_STAGE 0/29, ISSUE_STAGE 0/29, GENERATION_OR_STAGE 0/29, LABEL_TRIGGER 0/29, REGULATORY_TIMING 0/29, PRODUCT_MATCHES empty 29/29, SOURCE_IDS empty 29/29. IG.CROP_WINDOWS[7] carries the only real regulatory acts (5 grapevine Flavescenza rows) and the only two real observed stages (both Modena province). ITALY_LABEL_VERDICTS supplies 12 VERIFIED crop x issue x product tuples covering 11 of 29 windows. Everything else on both screens is fixture. · Two screens live here. (A) view 'windows' (markup 535-751) is NOT a window list at all — it is the CROP CALENDAR: a rolling month timeline whose rows, dates, phenology bands, hectares, per-region date offsets and observed-stage dots ALL come from the demo fixtures D.CROP_CAL (8 crops, 40 crop x region rows) and D.OBSERVED (10 rows). The canonical contract is never consulted on this screen. (B) view 'window' (markup 752-810) is the window detail, fed by D.WINDOWS[29], a fixture that wraps each canonical window in ~20 decorated fields (prep, bucket, early, why, readiness, ladder, scale, kind) that have no upstream equivalent. Measured reality: CANONICAL supplies 29 windows with crop/issue/region/windowType/status/statusReason/dateState/dateConfidence 29/29, START_DATE and END_DATE 24/29, and NOTHING else — CROP_STAGE 0/29, ISSUE_STAGE 0/29, GENERATION_OR_STAGE 0/29, LABEL_TRIGGER 0/29, REGULATORY_TIMING 0/29, PRODUCT_MATCHES empty 29/29, SOURCE_IDS empty 29/29. IG.CROP_WINDOWS[7] carries the only real regulatory acts (5 grapevine Flavescenza rows) and the only two real observed stages (both Modena province). ITALY_LABEL_VERDICTS supplies 12 VERIFIED crop x issue x product tuples covering 11 of 29 windows. Everything else on both screens is fixture.",
+      "confianca": "high",
+      "camadas": {
+        "ITALY_CANONICAL": {
+          "tipo": "CANONICO",
+          "o_que_e": "a lei aplicada sobre o real",
+          "prova": {
+            "file": "italia-portale/audit/blocks/windows.spec.json",
+            "line": 5,
+            "snippet": "\"realSource\": \"Primary: APP.collections.windows (29 records, provenance CANONICAL, from window.ITALY_CANONICAL.windows). Secondary, currently NOT expo"
+          }
+        },
+        "ITALY_INGEST": {
+          "tipo": "REAL",
+          "o_que_e": "veio do motor, com procedencia",
+          "prova": {
+            "file": "italia-portale/audit/blocks/windows.spec.json",
+            "line": 5,
+            "snippet": "\"realSource\": \"Primary: APP.collections.windows (29 records, provenance CANONICAL, from window.ITALY_CANONICAL.windows). Secondary, currently NOT expo"
+          }
+        },
+        "ITALY_LABEL_VERDICTS": {
+          "tipo": "CANONICO",
+          "o_que_e": "veredito de rotulo, medido",
+          "prova": {
+            "file": "italia-portale/audit/blocks/windows.spec.json",
+            "line": 4,
+            "snippet": "\"summary\": \"Two screens live here. (A) view 'windows' (markup 535-751) is NOT a window list at all — it is the CROP CALENDAR: a rolling month timeline"
+          }
+        }
+      },
+      "riscos": [
+        "The screen gets visibly emptier and there is no way around it. The timeline loses the crop-cycle band, the weed band and the observed dot on every row; the region column loses its hectare line and its scale chip; the row count drops 40 -> 29; the season view loses its phase cards. What remains per row is: the canonical window bar, the preparation bar (labelled interpretation), a status chip, a date range and a product line. Rule 3 says a smaller truthful screen beats a dense fake one and rule 12 says do not redesign to compensate — the serial engineer must be told this is expected, not a bug, or the instinct will be to backfill.",
+        "Whole crops disappear from the crop rail. Wheat loses all five of its regions (no canonical Septoria window exists for Veneto, Piemonte, Lombardia, Toscana or Umbria) and Durum Wheat keeps 3 of 6. Anyone who has demoed the Wheat calendar will read this as a regression.",
+        "IG.CROP_WINDOWS free text is in Portuguese, not Italian — 'aberta — inicio de agosto a fim de setembro', 'FECHADA — as janelas obrigatorias terminaram em junho'. Piping it straight into an Italian-default UI (rule 11) would be worse than showing nothing. Either fence it as a verbatim analyst note or hold it back until the next ingest translates it.",
+        "The label-verdict join is separator-sensitive. IT-WIN-0016 'Cereal Aphids · BYDV Risk' versus the audit's 'Cereal Aphids / BYDV Risk' is the only case today, but the same class of mismatch will silently drop future matches. Normalize once in the model and never in a view.",
+        "strengthFor() and productByKey links in italy-app-model.js still route through D.CASES.productLinks (line 102). This domain does not own that path, but the window screens consume its output through wd.c.productObjs. If the products domain migrates on a different schedule, the window detail will briefly read verified products from one source and the case-derived list from another. Coordinate step 10 with whoever owns the products domain.",
+        "The upstream OPPORTUNITIES use LEGACY_CASE_ID 'IT-HERO-001..003' while canonical windows use LEGACY_CASE_ID 'IT-OPP-001..029'. There is no overlap, so the three real opportunities cannot currently be joined to a window by legacy id. Do not invent a join.",
+        "Deleting the fixture id (WIN-001 -> IT-WIN-0001) breaks any saved deep link and any hardcoded id in briefs, notifications or tests. The legacyId field plus a redirect in openWindow() is the cheap mitigation; skipping it will look like a routing bug.",
+        "D.WINDOW_KPI feeds the nav badge at line 2608 and today returns 29 by coincidence. If someone fixes the badge without fixing the badge's source, the number stays right for the wrong reason and the coupling survives the migration unnoticed.",
+        "The screen gets visibly emptier and there is no way around it. The timeline loses the crop-cycle band, the weed band and the observed dot on every row; the region column loses its hectare line and its scale chip; the row count drops 40 -> 29; the season view loses its phase cards. What remains per row is: the canonical window bar, the preparation bar (labelled interpretation), a status chip, a date range and a product line. Rule 3 says a smaller truthful screen beats a dense fake one and rule 12 says do not redesign to compensate — the serial engineer must be told this is expected, not a bug, or the instinct will be to backfill.",
+        "Whole crops disappear from the crop rail. Wheat loses all five of its regions (no canonical Septoria window exists for Veneto, Piemonte, Lombardia, Toscana or Umbria) and Durum Wheat keeps 3 of 6. Anyone who has demoed the Wheat calendar will read this as a regression.",
+        "IG.CROP_WINDOWS free text is in Portuguese, not Italian — 'aberta — inicio de agosto a fim de setembro', 'FECHADA — as janelas obrigatorias terminaram em junho'. Piping it straight into an Italian-default UI (rule 11) would be worse than showing nothing. Either fence it as a verbatim analyst note or hold it back until the next ingest translates it.",
+        "The label-verdict join is separator-sensitive. IT-WIN-0016 'Cereal Aphids · BYDV Risk' versus the audit's 'Cereal Aphids / BYDV Risk' is the only case today, but the same class of mismatch will silently drop future matches. Normalize once in the model and never in a view."
+      ],
+      "perguntas_abertas": [
+        "Are the 10 D.OBSERVED rows (Consorzio Brunello harvest start, ERSA FVG BBCH 65-75, the Veneto and Umbria bulletin series) real observations from an earlier collection that simply never made it into ITALY_INGEST? If they are, the right fix is to promote them upstream into CROP_WINDOWS with dates and source ids, not to delete them — that would restore the observed dot on roughly 8 of 29 rows and is the single highest-value data question in this domain.",
+        "Is the empty PRODUCT_MATCHES array on all 29 canonical windows intentional (the audit deliberately keeps product linkage in ITALY_LABEL_VERDICTS) or is it an unfilled field? If it is meant to be filled, the model should prefer it over the verdicts join and the join becomes a fallback.",
+        "SOURCE_IDS is empty on all 29 windows. Should a window inherit the source ids of the regional regulatory act it joins (IT-SRC-REGIONAL, IT-SRC-PIEMONTE), or must a window's provenance stay strictly EXPECTED_NORM until the audit attaches its own sources?",
+        "WINDOW_TYPE is 'APPLICATION' for 29/29. Are MONITORING and REGULATORY window types planned as separate canonical records? If so, the calendar's monitoring and regulatory lanes should be built as row types now rather than as joined attributes of an application window.",
+        "D.PREP_LEAD is a single global 90 days for every crop, region and department. Is 90 a Sintonia planning convention that should be stated as such once, or a placeholder that the business owner intends to vary by crop? The interpretation label should name whichever it is.",
+        "Should the three regulatory acts whose region has no canonical window (Lombardia, Trentino, Emilia-Romagna Flavescenza) appear on the calendar as regulatory-only rows with no application window, or only in a separate list? They are real, dated, primary-source-backed facts and hiding them because the window audit has not caught up would be its own kind of loss.",
+        "Are the 10 D.OBSERVED rows (Consorzio Brunello harvest start, ERSA FVG BBCH 65-75, the Veneto and Umbria bulletin series) real observations from an earlier collection that simply never made it into ITALY_INGEST? If they are, the right fix is to promote them upstream into CROP_WINDOWS with dates and source ids, not to delete them — that would restore the observed dot on roughly 8 of 29 rows and is the single highest-value data question in this domain.",
+        "Is the empty PRODUCT_MATCHES array on all 29 canonical windows intentional (the audit deliberately keeps product linkage in ITALY_LABEL_VERDICTS) or is it an unfilled field? If it is meant to be filled, the model should prefer it over the verdicts join and the join becomes a fallback.",
+        "SOURCE_IDS is empty on all 29 windows. Should a window inherit the source ids of the regional regulatory act it joins (IT-SRC-REGIONAL, IT-SRC-PIEMONTE), or must a window's provenance stay strictly EXPECTED_NORM until the audit attaches its own sources?",
+        "WINDOW_TYPE is 'APPLICATION' for 29/29. Are MONITORING and REGULATORY window types planned as separate canonical records? If so, the calendar's monitoring and regulatory lanes should be built as row types now rather than as joined attributes of an application window.",
+        "D.PREP_LEAD is a single global 90 days for every crop, region and department. Is 90 a Sintonia planning convention that should be stated as such once, or a placeholder that the business owner intends to vary by crop? The interpretation label should name whichever it is.",
+        "Should the three regulatory acts whose region has no canonical window (Lombardia, Trentino, Emilia-Romagna Flavescenza) appear on the calendar as regulatory-only rows with no application window, or only in a separate list? They are real, dated, primary-source-backed facts and hiding them because the window audit has not caught up would be its own kind of loss."
+      ],
+      "ficheiros": [
+        "italia-portale/audit/blocks/calendar.spec.json",
+        "italia-portale/audit/blocks/windows.spec.json"
+      ],
+      "confissoes": [],
+      "dominios_do_contrato": [
+        "CROP WINDOWS + CROP CALENDAR + PREPARATION CLOCK"
+      ],
+      "de_onde_vem": "REAL",
+      "leitura": "Tudo o que esta aqui vem de dado com procedencia.",
+      "registos_citados": [
+        29,
+        7
+      ]
+    },
+    {
+      "vista": "market",
+      "nome": "Polso di Mercato",
+      "chave_do_rotulo": "navMarket",
+      "prova_do_nome": {
+        "file": "italia-portale/client/portale.html",
+        "line": 4429,
+        "snippet": "['market', T.navMarket, navN('marketObservations')],"
+      },
+      "blocos": [
+        "market"
+      ],
+      "o_que_alimenta": "APP.collections.marketObservations (77 records, all provenance REAL_SOURCE, all sourceId IT-SRC-AGRIFOOD = \"European Commission — Agri-food Data Portal\", FREQUENCY weekly, LATEST_OBSERVATION 2026-08-23) is the only real backing for prices. Coverage measured by crop: Wheat 13 obs / 13 piazze / all current / latest period end 2026-08-23; Maize 11 / 11 / all current / 2026-08-23; Durum Wheat 8 / 8 / 7 current / 2026-08-09; Barley 8 / 8 / all current / 2026-08-09 (no crop tab exists for it); Olive 36 / 13 piazze / 26 current + 10 dead series / 2026-08-02; Grapevine 1 record, series stopped in 2025, PRICE_RAW EUR61.75 / HL; Tomato 0; Sugar Beet 0; Apple 0. Units are NOT interchangeable: CEREAL 40 rows in TONNES, OLIVE_OIL 36 rows in EUR/100kg, WINE 1 row in Euro/HL. Secondary real backings the screen must use instead of the fixture: APP.collections.windows (canonical CURRENT_STATUS, daysToStart/daysToEnd) for the agronomic-window box; IG.LINKS (219 regulatory label rows with crop + product + labelUrl, evidence REGULATORY_FACT) for \"portfolio relevant to this crop\"; APP.collections.sources for the source map. IG.MARKET_SUMMARIES (5 rows: MAIS, FRUMENTO DURO, OLIVO/OLIO DI OLIVA, VITE/VINO, RISO) is only a file manifest (CROP, FILE, CHARS) — the .md bodies are not in the client bundle, so it can back a \"written analysis exists upstream\" pointer and nothing more.",
+      "resumo": "Today the Market Pulse screen is driven end-to-end by window.ITALY_MARKET (italy-market-pulse.js, 596 lines), which is NOT ingested data: it is a hand-authored editorial fixture. It carries no record id, no SOURCE_ID and no PROVENANCE on any of its 8 crop objects, and it attributes its numbers to ISMEA, CUN Grano Duro, BMTI/Unioncamere, ICQRF, Agrofarma-Federchimica, Baltic Exchange, JRC MARS and Veneto Agricoltura — measured: NONE of those appear in IG.SOURCES (31 registered sources), and 20 of its 23 chart values do not exist anywhere in the 77 real market observations (the 3 that coincide numerically — 245, 4.55, 250 — share no id and sit on unrelated products). From that fixture the screen renders a market temperature verdict (PRESSURED / BALANCED / MIXED SIGNALS), a Sintonia \"reading\", drivers, a PAST-TODAY-OUTLOOK trajectory, a 3-6 month outlook, ISMEA farmer confidence (-1.4), a Baltic Dry input-cost card, production/stocks/trade, per-piazza tables, \"what changed\", commentary, and an industry tab of Agrofarma sector figures. The only real backing is APP.collections.marketObservations: 77 EU Commission Agri-food Data Portal weekly price rows (IT-SRC-AGRIFOOD, GEOGRAPHY uniformly \"IT — praca nomeada\"), covering Wheat 13, Maize 11, Durum 8, Barley 8, Olive 36, Grapevine 1 — and ZERO for Tomato, Sugar Beet and Apple, which are three of the eight crop tabs. Five legacy D.* reads (lines 2945-2949) additionally pull crop windows, opportunity cases, portfolio product lists and signal colours out of the demo fixture into the green \"WHAT THIS MEANS FOR ADAMA\" panel.",
+      "confianca": "high",
+      "camadas": {
+        "ITALY_MARKET": {
+          "tipo": "NAO SEI",
+          "o_que_e": "camada nao classificada",
+          "prova": {
+            "file": "italia-portale/audit/blocks/market.spec.json",
+            "line": 4,
+            "snippet": "\"summary\": \"Today the Market Pulse screen is driven end-to-end by window.ITALY_MARKET (italy-market-pulse.js, 596 lines), which is NOT ingested data: "
+          }
+        }
+      },
+      "riscos": [
+        "The screen shrinks hard. Of roughly 14 rendered components on the crop tab, 9 disappear outright and 2 more lose their headline number. Rule 3 says a smaller truthful screen wins and rule 12 says do not redesign, so the engineer must resist the instinct to backfill the empty grid space.",
+        "Blast radius outside the domain. The temperature verdict is read on five other screens (Radar 679, Crop Windows 732/2762, Competitor Watch 1693, Science 2132, Opportunity case 329-336). Removing it silently changes four other people's screens. This must be sequenced with them, not done unilaterally.",
+        "The crop mapping is an interpretation, not a field. 'MAI|FEED', 'BLTPAN|PAN', 'DUR|UNKNOWN', 'ORGFOUR|FEED' are EC product codes; nothing upstream says MAI = Maize. It is a safe reading, but it must be declared in the model and visible on screen, and 'DUR|UNKNOWN' carries an explicit unknown quality class that must not be presented as 'durum fino'.",
+        "Stale data can be read as current. 12 of 77 rows are on stopped series and their own SERIES_WARNING says the last quotation is NOT a current price — including the only Grapevine row (stopped 2025) and 10 of the 36 olive rows (some last quoted in 2010). If the piazza table renders them plainly, the screen becomes less trustworthy than the fixture it replaced.",
+        "Unit and stage collisions. Olive is EUR/100kg, cereals EUR/t, wine Euro/HL; and 40 of 77 rows carry a STAGE (farm gate vs delivery to first customer vs departure from farm) while 37 carry none. Any averaging, ranking or single 'the price' headline across those is methodologically wrong.",
+        "One source, one point in time. All 77 rows come from a single provider (EC Agri-food Data Portal) and only the latest observation of each series was ingested, though the source holds 190-364 points per series. The screen must not imply a monitored multi-source market picture.",
+        "Numbers the business already saw will change downward. The ADAMA panel's product count drops for 5 of 8 crops (Maize 11->3, Durum 9->3, Grapevine 8->1) and the opportunities count drops from 29 to 3 application-wide. Someone will read that as a regression rather than a correction; it needs to be announced, not just shipped.",
+        "Three crop tabs go empty and one uncovered crop (Barley, 8 real observations) has no home. Whatever is decided, the nav badge, the crop rail and the sc-for placeholder hints must be updated together or the rail will render ghosts.",
+        "MK.INTERNAL is currently unreachable, so deleting it is invisible in QA. If only the cpMarketObj prop is removed and the constant is left in italy-market-pulse.js, the next person to build an 'internal data' card will find it sitting there ready to use."
+      ],
+      "perguntas_abertas": [
+        "IG.MARKET_SUMMARIES points at five written analyses (MAIS, FRUMENTO DURO, OLIVO/OLIO DI OLIVA, VITE/VINO, RISO — 22k to 33k characters each) whose .md bodies are not in the client bundle. Is that upstream prose the intended replacement for the fixture reading/commentary, and should it be ingested? If yes, most of what I marked REMOVE could come back with provenance.",
+        "Rice has an upstream market summary and a canonical window but zero price observations and no crop tab. Barley has 8 current price observations and no tab, no window, no summary. What decides which crops get a Market Pulse tab — portfolio relevance, window coverage, or data coverage?",
+        "Should the FEASIBILITY audit table survive? It is methodology rather than fact, which makes it legal, but every row currently names a route (ISMEA, CUN, BMTI, Eurostat, JRC MARS) that was never connected, so as printed it overstates what the product can do today.",
+        "The EC records give week-on-week and year-on-year percentages per piazza (72/77 and 67/77 present). Is showing those percentages acceptable, or does a per-piazza percentage read as a market trend and therefore fall under the rule against presentation inventing a state?",
+        "Who owns the removal of the market temperature from the four other screens, and does the Crop Windows drawer keep its 'MARKET PULSE ... context, not proof of demand' box at all once there is no verdict to put in it?",
+        "The i18n key t.cannotProveList and t.notObservableNote are correct and should stay, but t.subMarket still promises 'condizioni, dinamica, offerta, fiducia e prospettive' — dynamics, supply, confidence and outlook all die in this migration. Who rewrites that subtitle in both languages?"
+      ],
+      "ficheiros": [
+        "italia-portale/audit/blocks/market.spec.json"
+      ],
+      "confissoes": [
+        "o contrato diz: escrito a mao"
+      ],
+      "dominios_do_contrato": [
+        "MARKET PULSE"
+      ],
+      "de_onde_vem": "MISTURA",
+      "leitura": "Mistura dado real com dado escrito a mao. Quem olha nao consegue dizer qual e qual — e a tela nao avisa.",
+      "registos_citados": [
+        77,
+        1
+      ]
+    },
+    {
+      "vista": "voices",
+      "nome": "Voci dal Campo",
+      "chave_do_rotulo": "navVoices",
+      "prova_do_nome": {
+        "file": "italia-portale/client/portale.html",
+        "line": 4430,
+        "snippet": "['voices', T.navVoices, navN('voices')],"
+      },
+      "blocos": [],
+      "o_que_alimenta": "",
+      "resumo": "",
+      "confianca": "",
+      "camadas": {},
+      "riscos": [],
+      "perguntas_abertas": [],
+      "ficheiros": [],
+      "confissoes": [],
+      "tecido_comum": [
+        "italia-portale/audit/blocks/voci.spec.json"
+      ],
+      "de_onde_vem": "NAO SEI",
+      "leitura": "Nao da para dizer de onde vem o que esta nesta tela. Esta ferramenta nao tem contrato de bloco nenhum escrito.",
+      "registos_citados": []
+    },
+    {
+      "vista": "competitors",
+      "nome": "Concorrenza",
+      "chave_do_rotulo": "navCompetitors",
+      "prova_do_nome": {
+        "file": "italia-portale/client/portale.html",
+        "line": 4431,
+        "snippet": "['competitors', T.navCompetitors, navN('competitorActivities')],"
+      },
+      "blocos": [
+        "competitor"
+      ],
+      "o_que_alimenta": "APP.collections.competitorActivities (503 records, already normalized in italy-app-model.js lines 132-148 with a correct geoClass: 414 REACHED_IN_ITALY, 89 MULTI_COUNTRY_OR_UNRESOLVED, 0 REACH_NOT_RESOLVED) + IG.COMP_COMPANIES (14 rows that are really 11 companies — the paid rows are title-case \"Bayer\" and the organic rows are upper-case \"BAYER\"; they must be merged on upper-case name) + IG.COMP_PRODUCTS (36) + APP.collections.windows (29 canonical windows) for the WINDOW cross-link + window.ITALY_LABEL_VERDICTS (12 VERIFIED crop/issue/product triples, 7 NOT_FOUND) for any ADAMA-portfolio statement. Note: all 29 canonical windows have PRODUCT_MATCHES = [] (measured), so the portfolio side of every competitor x window cross-link can only come from ITALY_LABEL_VERDICTS, which italy-app-model.js does not read today.",
+      "resumo": "Today the whole Competitor Watch screen is fed by window.ITALY_DEMO: 72 fabricated activities across 6 companies and 6 activity types (PAID 23, ORGANIC 16, VIDEO 10, PEOPLE 8, EVENT 9, PRODUCT/PORTFOLIO 6), plus 4 pre-baked demo aggregates (D.MATRIX, D.CROP_COLS, D.ISSUE_ROWS, D.WHAT_CHANGED) and 14 fabricated competitor products (D.CPRODUCTS). Every visible fact on the screen — headline, crop, issue, region, timing state (\"IN WINDOW\"/\"EARLY\"), \"ADAMA RESPONSE: VERIFIED PORTFOLIO RESPONSE\", \"NEWLY OBSERVED\", lead-time bars, video durations, transcripts, people mentions, event participation, creative thumbnails — is invented by the fixture or by actDeco() decorating the fixture. The real backing exists and is bigger: IG.COMP_ACTIVITIES has 503 records (414 PAID from META_ADS_LIBRARY reaching IT, 89 ORGANIC_VIDEO from YOUTUBE), 11 distinct companies, 36 proven competitor products. But the real records are much thinner per row: 320/503 carry no crop at all, 405/503 carry no issue, 401/503 carry no product, 89/503 carry no date, no url, no text and no country. The screen must therefore keep its layout but show far fewer decorated facts, drop four of its six activity types entirely, and stop claiming a portfolio verdict, a timing verdict or a lead time on each card.",
+      "confianca": "high",
+      "camadas": {
+        "ITALY_DEMO": {
+          "tipo": "FIXTURE",
+          "o_que_e": "escrito a mao para a tela nao ficar vazia",
+          "prova": {
+            "file": "italia-portale/audit/blocks/competitor.spec.json",
+            "line": 4,
+            "snippet": "\"summary\": \"Today the whole Competitor Watch screen is fed by window.ITALY_DEMO: 72 fabricated activities across 6 companies and 6 activity types (PAI"
+          }
+        },
+        "ITALY_LABEL_VERDICTS": {
+          "tipo": "CANONICO",
+          "o_que_e": "veredito de rotulo, medido",
+          "prova": {
+            "file": "italia-portale/audit/blocks/competitor.spec.json",
+            "line": 5,
+            "snippet": "\"realSource\": \"APP.collections.competitorActivities (503 records, already normalized in italy-app-model.js lines 132-148 with a correct geoClass: 414 "
+          }
+        }
+      },
+      "riscos": [
+        "The screen gets visibly emptier per card while the totals get much bigger (72 -> 503). A reader who only looks at the header will think the product improved; a reader who opens a card will think it regressed. The what-changed strip in particular goes from six confident tiles to essentially one number, because only 1 real record falls inside 7 days.",
+        "320 of 503 activities carry no crop and 405 carry no issue. Any widget that groups by crop or issue silently describes a minority of the corpus. Every such panel must publish its own denominator or it will be read as covering everything.",
+        "The botanical-to-common-name mapping (Vitis vinifera -> Grapevine) is safe, but the temptation to extend it to the umbrella words (colture, cereali, frutta, ortaggi — 96 activities) is not. 'cereali' is the advertiser's word for an unspecified set; turning it into Wheat would manufacture a fact.",
+        "Latin binomials are both crop names and issue names in this corpus, and §11 forbids translating them or truncating at '('. A generic il()/cl() translation pass over the issue filter would corrupt 'Plasmopara viticola' into a Sintonia label.",
+        "The 89 ORGANIC_VIDEO records are near-empty (no date, url, text, country, crop, issue). They are real and must be counted, but any list that sorts or filters by time will drop them without saying so. If they are quietly excluded, the company totals on two different panels will disagree (e.g. Syngenta 55 total but 30 in any dated view).",
+        "REACHED_IN_ITALY is already correct in the model, but the countrySem string literally says AD_REACHED_COUNTRY != AD_TARGETED_COUNTRY. If the card shows only the flag and drops the caveat, 414 reach observations silently become 414 Italian targeting claims.",
+        "IG.COMP_COMPANIES' case-duplicate rows (Bayer/BAYER, Corteva/CORTEVA, Syngenta/SYNGENTA) will double-count company totals if merged naively by exact string. Bayer would show 69 paid on one panel and 86 total on another.",
+        "The ADAMA-portfolio side of this domain currently rests entirely on D.CASES[].productLinks, which italy-app-model.js reads at lines 102-105 while never reading ITALY_LABEL_VERDICTS. Until step 5 lands, any 'portfolio' wording anywhere in Competitor Watch is demo-backed. This is a cross-domain dependency and the serial engineer should not let a competitor-side edit ship a portfolio claim ahead of it.",
+        "The matrix and issue-table markup hard-code their column counts in grid-template-columns strings that appear twice each (header row and data row). Changing one and not the other misaligns the table without any error."
+      ],
+      "perguntas_abertas": [
+        "Can upstream supply a synonym table mapping observed advertiser issue terms to canonical ISSUE_NAMEs (Plasmopara viticola -> Downy Mildew, Erysiphe necator -> Powdery Mildew, Zymoseptoria tritici -> Septoria Leaf Blotch, Ceratitis capitata -> Mediterranean Fruit Fly)? Without it the COMPETITOR x ISSUE table can show no portfolio column and the Competitor x Window cross-link resolves for almost nothing (only 30 of 503 activities carry a species-level issue at all).",
+        "Should Citrus, Sunflower and Peach appear in the crop density and matrix even though they have no canonical crop window? They are real observed communication (15, 9 and 2 items) but they cannot cross-link to anything. My recommendation is yes, with no window column.",
+        "What is the actual collection horizon of the Meta Ad Library pull? The corpus spans 2019-12-05 to 2026-08-26 but per-company first dates differ wildly (BASF 2023-03, FMC 2025-10). If the horizon is per-page rather than global, even the per-company 'first observed' date is not comparable across companies and should be suppressed, not just the lead-time card.",
+        "The reference date is 2026-09-02 and the latest observation is 2026-08-26. Is the corpus a one-off load or will it refresh? If it will not refresh, every 'last 30 days' widget on this screen will decay into an empty box and should be reframed as a fixed observation period with explicit start and end dates.",
+        "Do the 89 ORGANIC_VIDEO records have any recoverable metadata upstream (title, publish date, url, view count)? IG.CHANNELS carries EXAMPLE_TITLE / EXAMPLE_URL / VIEWS / EXAMPLE_PUBLISHED_AT for 30 channels — if those channels are the same YouTube sources, upstream may be able to attach dates and titles, which would restore the organic half of the feed. Until then the organic records are countable but not displayable as feed items.",
+        "Is the CREATIVE GALLERY worth keeping at all with no captured assets, or should the tab be removed so the remaining views (feed, by issue) are not diluted? This is a product decision, not an engineering one."
+      ],
+      "ficheiros": [
+        "italia-portale/audit/blocks/competitor.spec.json"
+      ],
+      "confissoes": [],
+      "dominios_do_contrato": [
+        "COMPETITOR WATCH + COMPETITOR x WINDOW (feed, filters, tabs, company profile, gallery, crop density, changed-this-week, company x crop MATRIX, ISSUE_ROWS, competitor products, event cross-links, lead-time)"
+      ],
+      "de_onde_vem": "MISTURA",
+      "leitura": "Mistura dado real com dado escrito a mao. Quem olha nao consegue dizer qual e qual — e a tela nao avisa.",
+      "registos_citados": [
+        503
+      ]
+    },
+    {
+      "vista": "science",
+      "nome": "Intelligence Scientifica",
+      "chave_do_rotulo": "navScience",
+      "prova_do_nome": {
+        "file": "italia-portale/client/portale.html",
+        "line": 4432,
+        "snippet": "['science', T.navScience, navN('scienceRecords')],"
+      },
+      "blocos": [
+        "science"
+      ],
+      "o_que_alimenta": "APP.collections.scienceRecords (88, from IG.SCIENCE) + APP.collections.researchers (60, from IG.RESEARCHERS) + APP.collections.resistance (34, from IG.RESISTANCE) + a NEW APP.collections.scienceThemes projected from IG.THEMES (5). Institutions must be DERIVED, and there are two distinct and non-interchangeable derivations: (a) IG.SCIENCE[].INSTITUTION — 6 distinct values, the FIRST AUTHOR's affiliation on each of the 88 records: University of Verona 27, University of Turin 25, University of Milan 16, Institute of Sciences of Food Production 15, INRAE 3, Instituto de Agricultura Sostenible 2 (the last two are French and Spanish, not Italian); (b) IG.THEMES[].INSTITUTIONS_TOP — 37 distinct institutions with a per-theme WORKS count (11-12 per theme). (a) counts records in this corpus; (b) counts works in the upstream OpenAlex theme query. They must never be summed or shown under one label. window.ITALY_SCIENCE stays as an explicitly-labelled interpretation layer, but only for the 5 theme keys that have a real counterpart.",
+      "resumo": "Today the Science screen shows 13 \"classified themes\" (10 from D.SCI_THEMES + 3 from ITALY_SCIENCE.EXTRA_THEMES), a 36-row \"RECENT RESEARCH\" table, a 14-name \"RESEARCHERS\" panel, a 12-row \"INSTITUTIONS · 12\" panel, a GIRE resistance block, and a per-theme detail view (isTheme, markup 2157-2184). Only two of those blocks stand on real ingested data: the GIRE resistance block (portale.html 3244-3300 reads window.ITALY_INGEST.RESISTANCE directly, 34 cases, every field 34/34 populated) and 12 of the 36 research rows (which come from window.ITALY_REAL.SCIENCE, an older hand-curated fixture, not from IG). The other 24 research rows are procedurally generated in italy-demo-data.js:385-389 with seed() — fabricated year, institution, study type, descriptor, \"why\" prose and study location. The 12 institutions are a hardcoded name array (italy-demo-data.js:370) whose record counts are counted over those fabricated rows. The real backing is IG.THEMES (5), IG.SCIENCE (88), IG.RESEARCHERS (60) and IG.RESISTANCE (34); italy-app-model.js already exposes scienceRecords/researchers/resistance but three of its science field mappings are dead (measured 0/88 and 0/60) because it reads demo-era key names that the real schema does not have.",
+      "confianca": "high",
+      "camadas": {
+        "italy-demo-data.js": {
+          "tipo": "FIXTURE",
+          "o_que_e": "escrito a mao para a tela nao ficar vazia",
+          "prova": {
+            "file": "italia-portale/audit/blocks/science.spec.json",
+            "line": 4,
+            "snippet": "\"summary\": \"Today the Science screen shows 13 \\\"classified themes\\\" (10 from D.SCI_THEMES + 3 from ITALY_SCIENCE.EXTRA_THEMES), a 36-row \\\"RECENT RESE"
+          }
+        },
+        "ITALY_INGEST": {
+          "tipo": "REAL",
+          "o_que_e": "veio do motor, com procedencia",
+          "prova": {
+            "file": "italia-portale/audit/blocks/science.spec.json",
+            "line": 4,
+            "snippet": "\"summary\": \"Today the Science screen shows 13 \\\"classified themes\\\" (10 from D.SCI_THEMES + 3 from ITALY_SCIENCE.EXTRA_THEMES), a 36-row \\\"RECENT RESE"
+          }
+        },
+        "ITALY_REAL": {
+          "tipo": "NAO SEI",
+          "o_que_e": "camada nao classificada",
+          "prova": {
+            "file": "italia-portale/audit/blocks/science.spec.json",
+            "line": 4,
+            "snippet": "\"summary\": \"Today the Science screen shows 13 \\\"classified themes\\\" (10 from D.SCI_THEMES + 3 from ITALY_SCIENCE.EXTRA_THEMES), a 36-row \\\"RECENT RESE"
+          }
+        },
+        "ITALY_SCIENCE": {
+          "tipo": "NAO SEI",
+          "o_que_e": "camada nao classificada",
+          "prova": {
+            "file": "italia-portale/audit/blocks/science.spec.json",
+            "line": 4,
+            "snippet": "\"summary\": \"Today the Science screen shows 13 \\\"classified themes\\\" (10 from D.SCI_THEMES + 3 from ITALY_SCIENCE.EXTRA_THEMES), a 36-row \\\"RECENT RESE"
+          }
+        }
+      },
+      "riscos": [
+        "The screen gets visibly emptier and the numbers get visibly smaller: 13 themes -> 5, 12 institutions -> 6, 36 'records' -> 88 (this one grows), 14 researchers -> 60. Three of the five theme detail pages will have an empty publications list. Someone will read that as a regression. It is not; it is the first honest version of this screen.",
+        "The 88-record corpus is 7 authors deep. If the count ships without that caption next to it, it will be quoted as 'Sintonia monitors 88 Italian studies' and there is no way to walk that back later. This is the highest-consequence item in the whole domain.",
+        "Two of the six real institutions are not Italian (INRAE, France; Instituto de Agricultura Sostenible, Spain). Any header wording like 'Italian institutions' becomes false the moment the panel is repointed.",
+        "IG.SCIENCE has no theme key. The record<->theme join is inferred from CROP+ISSUE and it leaves 5 of 88 records (IT-SCI-001, 002, 086, 087, 088) belonging to no theme. Those records must stay reachable in the flat table, or 5 real records silently vanish from the product.",
+        "INSTITUTION on a record is the FIRST author's affiliation, and INSTITUTIONS_TOP on a theme is a works count from a different query. The two panels sit within 20 lines of each other in the markup (2082 and 2175) and mixing their denominators is the easiest mistake available here.",
+        "IG.RESEARCHERS.ROLE and FACT_REGION are 60/60 Portuguese analyst notes ('NÃO SEI — ...'). They already flow through the app model unfiltered. Any view that binds AM researcher role today ships that note to the user; the guard must land in the model, not in one view.",
+        "The theme<->opportunity link is deleted in three places (case detail 2628, archive detail 3340, theme detail 2176). If any of the three is missed, a fixture-only relationship keeps rendering while the other two disappear, which is worse than either state alone.",
+        "T.CROPS / T.ISSUES do not have entries for a single real token. Repointing the view without the token->label map first will put VINE, DURUM_WHEAT and FLAVESCENCE on an Italian screen in raw uppercase.",
+        "th0 falls back to sciDetailThemes[0]. Every existing link and bookmark to a demo theme id (8 of 10 ids disappear) will silently render a different theme's facts under the requested id unless STEP 13 lands with STEP 8.",
+        "winFor2() (line 3197) reads D.WINDOWS and turns it into 'WINDOW OPEN · N days remaining'. It belongs to the windows domain but is invoked from buildTheme, so it can be missed by both owners. Coordinate this one line explicitly.",
+        "ITALY_SCIENCE.B is authored interpretation, not a fixture, and the UI already labels it honestly. Deleting it wholesale would remove the one thing on the screen that connects science to business. Deleting only the 5 orphan keys is the right cut, and it is a judgement call worth confirming with the product owner."
+      ],
+      "perguntas_abertas": [
+        "ITALY_SCIENCE.B is Sintonia's own business interpretation, already labelled on screen as 'an interpretation layer over the science, not a scientific conclusion'. Does Rule 2 (a demo fixture may never supply a fact) apply to it? My reading: the rel/short/why/shows/notShows prose is interpretation, allowed, but ONLY over a theme that really exists upstream — so keep the 5 mapped keys, drop the 5 orphans. Confirm before deleting authored copy.",
+        "The three EXTRA_THEMES (herbicide resistance, weed management, biocontrol) declare works:null and 'not ingested' in their own text. Should they stay visible under a separate labelled heading (my recommendation, since they document a known gap), or be removed until data exists?",
+        "IG.THEMES.WORKS (135/70/71/27/17) counts works matching an OpenAlex QUERY. IG.SCIENCE holds 88 harvested records. These are two different universes and the theme detail page will show both at once (works 71, records 0 for OLIVE_BACTROCERA). What exact wording distinguishes them on screen?",
+        "Is there an upstream plan to add a THEME key to IG.SCIENCE? If yes, the CROP+ISSUE join in STEP 4 is temporary scaffolding and should be marked as such in a comment.",
+        "The 'BUSINESS RELEVANCE' column of the records table (SB.RECORD_REL, keyed by demo themeId) can only resolve for the two themes that have records. Keep the column with blanks, or drop the column?",
+        "Does any other domain already bind AM.collections.researchers[].role or .org? If so the Portuguese note may already be on screen somewhere I did not look, and the model-side guard becomes urgent rather than tidy.",
+        "window.ITALY_REAL.SCIENCE (12) and .RESEARCHERS (14) are an earlier hand-curated real fixture with fields IG does not have (kind, what, region, focus, note). Is it superseded by IG entirely, or is it a second real source that should be merged? I assumed superseded; it is the one assumption in this spec I could not settle from the data alone."
+      ],
+      "ficheiros": [
+        "italia-portale/audit/blocks/science.spec.json"
+      ],
+      "confissoes": [],
+      "dominios_do_contrato": [
+        "SCIENTIFIC INTELLIGENCE (themes, research records, institutions, researchers, resistance)"
+      ],
+      "de_onde_vem": "MISTURA",
+      "leitura": "Mistura dado real com dado escrito a mao. Quem olha nao consegue dizer qual e qual — e a tela nao avisa.",
+      "registos_citados": [
+        88
+      ]
+    },
+    {
+      "vista": "portfolio",
+      "nome": "Portafoglio",
+      "chave_do_rotulo": "navPortfolio",
+      "prova_do_nome": {
+        "file": "italia-portale/client/portale.html",
+        "line": 4433,
+        "snippet": "['portfolio', T.navPortfolio, navN('products')],"
+      },
+      "blocos": [
+        "portfolio",
+        "product"
+      ],
+      "o_que_alimenta": "APP.productRelationships (new canonical collection) fed, in precedence order, by: (1) ITALY_CANONICAL.windows[].PRODUCT_MATCHES — MEASURED EMPTY: all 29 windows have PRODUCT_MATCHES = [], so this tier contributes 0 rows today and exists only so the next HANDOFF load lights it up; (2) window.ITALY_LABEL_VERDICTS — 12 VERIFIED triples + 7 NOT_FOUND triples, audit date 2026-09-02, source \"Claude Code reading of 163 official Italian product labels\"; (3) IG.LINKS — 219 rows, all prov REAL_FACT / evidence REGULATORY_FACT, carrying crop enum + Latin target + product + reg + ai + moa + labelUrl, covering only 19 distinct products; (4) IG.PRODUCTS[].crops + [].line for the RELATED_PORTFOLIO tier. Product identity keeps coming from IG.PRODUCTS (163) joined to ITALY_CATALOG.ITEMS (44, matchState REGULATORY_MATCH_CONFIRMED 41 / NOT_FOUND 3). Windows come from AM.collections.windows (29 canonical), never D.WINDOWS. · APP.productRelationships (new canonical collection) fed, in precedence order, by: (1) ITALY_CANONICAL.windows[].PRODUCT_MATCHES — MEASURED EMPTY: all 29 windows have PRODUCT_MATCHES = [], so this tier contributes 0 rows today and exists only so the next HANDOFF load lights it up; (2) window.ITALY_LABEL_VERDICTS — 12 VERIFIED triples + 7 NOT_FOUND triples, audit date 2026-09-02, source \"Claude Code reading of 163 official Italian product labels\"; (3) IG.LINKS — 219 rows, all prov REAL_FACT / evidence REGULATORY_FACT, carrying crop enum + Latin target + product + reg + ai + moa + labelUrl, covering only 19 distinct products; (4) IG.PRODUCTS[].crops + [].line for the RELATED_PORTFOLIO tier. Product identity keeps coming from IG.PRODUCTS (163) joined to ITALY_CATALOG.ITEMS (44, matchState REGULATORY_MATCH_CONFIRMED 41 / NOT_FOUND 3). Windows come from AM.collections.windows (29 canonical), never D.WINDOWS.",
+      "resumo": "Two screens plus a cross-cutting relationship graph. PORTAFOGLIO (portale.html markup 1397-1424, logic 3026-3047) is already clean: it lists AM.products (166 = 163 real registrations + BUDGE/EXELGROW/PARLEAF which are catalog-only) in two deliberately separate tabs, CATALOGO COMMERCIALE (44 catalog items) and UNIVERSO REGOLATORIO (163 registrations), filtered by categoryLabel (ERBICIDI 91 / FUNGICIDI 46 / INSETTICIDI 23 / SPECIALI 6). PRODUCT INTELLIGENCE (markup 1339-1395, logic 2999-3023) shows one product's identity plus three relationship cards (verified / check-needed / not-confirmed) and a separate \"VEDI OPPORTUNITÀ COLLEGATE\" CTA. The identity facts are real (IG.PRODUCTS: name, reg, holder, ai, form, regCat, line, status, expiry, hrac/frac/irac, labelUrl — 163/163 populated). The RELATIONSHIPS are not: italy-app-model.js line 102 builds every product link by walking D.CASES[].productLinks, so which crop x issue x product triples exist at all is decided by a demo fixture (29 demo cases, 80 links). window.ITALY_LABEL_VERDICTS — the real 163-label audit — is loaded but italy-app-model.js never reads it; only italy-demo-data.js line 281 calls LV.verdict() to GRADE the fixture's own candidate list. The measured consequence: 57 distinct triples, of which 42 are LABEL_CHECK_NEEDED invented by the fixture; the visible 10 / 10 / 9 is the portfolioState of the 29 demo opportunity cards. · Two screens plus a cross-cutting relationship graph. PORTAFOGLIO (portale.html markup 1397-1424, logic 3026-3047) is already clean: it lists AM.products (166 = 163 real registrations + BUDGE/EXELGROW/PARLEAF which are catalog-only) in two deliberately separate tabs, CATALOGO COMMERCIALE (44 catalog items) and UNIVERSO REGOLATORIO (163 registrations), filtered by categoryLabel (ERBICIDI 91 / FUNGICIDI 46 / INSETTICIDI 23 / SPECIALI 6). PRODUCT INTELLIGENCE (markup 1339-1395, logic 2999-3023) shows one product's identity plus three relationship cards (verified / check-needed / not-confirmed) and a separate \"VEDI OPPORTUNITÀ COLLEGATE\" CTA. The identity facts are real (IG.PRODUCTS: name, reg, holder, ai, form, regCat, line, status, expiry, hrac/frac/irac, labelUrl — 163/163 populated). The RELATIONSHIPS are not: italy-app-model.js line 102 builds every product link by walking D.CASES[].productLinks, so which crop x issue x product triples exist at all is decided by a demo fixture (29 demo cases, 80 links). window.ITALY_LABEL_VERDICTS — the real 163-label audit — is loaded but italy-app-model.js never reads it; only italy-demo-data.js line 281 calls LV.verdict() to GRADE the fixture's own candidate list. The measured consequence: 57 distinct triples, of which 42 are LABEL_CHECK_NEEDED invented by the fixture; the visible 10 / 10 / 9 is the portfolioState of the 29 demo opportunity cards.",
+      "confianca": "high",
+      "camadas": {
+        "italy-demo-data.js": {
+          "tipo": "FIXTURE",
+          "o_que_e": "escrito a mao para a tela nao ficar vazia",
+          "prova": {
+            "file": "italia-portale/audit/blocks/product.spec.json",
+            "line": 4,
+            "snippet": "\"summary\": \"Two screens plus a cross-cutting relationship graph. PORTAFOGLIO (portale.html markup 1397-1424, logic 3026-3047) is already clean: it lis"
+          }
+        },
+        "ITALY_CANONICAL": {
+          "tipo": "CANONICO",
+          "o_que_e": "a lei aplicada sobre o real",
+          "prova": {
+            "file": "italia-portale/audit/blocks/product.spec.json",
+            "line": 5,
+            "snippet": "\"realSource\": \"APP.productRelationships (new canonical collection) fed, in precedence order, by: (1) ITALY_CANONICAL.windows[].PRODUCT_MATCHES — MEASU"
+          }
+        },
+        "ITALY_CATALOG": {
+          "tipo": "REAL",
+          "o_que_e": "catalogo de produto",
+          "prova": {
+            "file": "italia-portale/audit/blocks/product.spec.json",
+            "line": 5,
+            "snippet": "\"realSource\": \"APP.productRelationships (new canonical collection) fed, in precedence order, by: (1) ITALY_CANONICAL.windows[].PRODUCT_MATCHES — MEASU"
+          }
+        },
+        "ITALY_LABEL_VERDICTS": {
+          "tipo": "CANONICO",
+          "o_que_e": "veredito de rotulo, medido",
+          "prova": {
+            "file": "italia-portale/audit/blocks/product.spec.json",
+            "line": 4,
+            "snippet": "\"summary\": \"Two screens plus a cross-cutting relationship graph. PORTAFOGLIO (portale.html markup 1397-1424, logic 3026-3047) is already clean: it lis"
+          }
+        }
+      },
+      "riscos": [
+        "The rebuild's headline number gets WORSE, and that is the point. Window-level portfolio state goes from 10 VERIFIED / 10 LABEL_CHECK_NEEDED / 9 NO_CONFIRMED (measured today, on the 29 opportunity cards) to 12 VERIFIED / 6 LABEL_CHECK_NEEDED / 10 RELATED_PORTFOLIO / 1 NO_CONFIRMED. Verified goes UP (12 vs 10, because 4 audited verified triples were never reachable through the fixture and 2 fixture cards claimed verified without one), but 10 cards drop to the pale-blue RELATED_PORTFOLIO state and one card — Maize · Mycotoxin Risk, IT-WIN-0021 — ends with nothing at all, because no ADAMA fungicide is registered on maize in the 163 rows and 'Mycotoxin Risk' is not a label target. Anyone expecting the screen to get denser will read this as a regression.",
+        "The ISSUE_TARGET table is the one hand-authored input in the entire chain and it decides 15 of the 44 evidence-backed rows. If it is written loosely it manufactures matches; if it is written tightly it starves the check-needed class. It must be versioned, attributed, and surfaced per row via mappingRule — otherwise the rebuild replaces a demo fixture with an undocumented human judgement, which is the same defect wearing a better coat.",
+        "The RELATED_PORTFOLIO tier is enormous and low-value: 321 rows over 29 windows, with individual windows carrying up to 38 related products (Durum Wheat · Resistant grass weeds). It must be collapsed in the UI (a count plus a 'see all' link), never rendered as a list, or the screens become unreadable and the four-class hierarchy loses meaning.",
+        "Tier 1 is empty. The precedence 'HANDOFF V2.1 canonical > verified label verdict' is honoured in code but contributes nothing today: all 29 canonical windows have PRODUCT_MATCHES = []. Do not describe the result as canonical-backed. The strongest real evidence in the system is a 12-verified / 7-not-found audit of 163 labels, dated 2026-09-02, whose own SCOPE_NOTE says it verified the main visible claims and not every connection.",
+        "The label audit is small relative to the screens it governs: 19 audited triples against 29 windows and 166 products. Its NOT_FOUND set is 7 triples covering 6 products, and three of those seven are the same claim (Olive Fruit Fly) repeated across three windows — so a single audit row drives three cards to the palest state.",
+        "IG.LINKS covers 19 of 163 products. IG.CROPS states the gap explicitly and it is severe: GRAPEVINE has 61 products mentioning the crop and 1 with a use row read; DURUM_WHEAT has 14 and 0. Any check-needed count computed from use rows is a floor, not a measurement of the portfolio.",
+        "Deep links break. The competitor-product route ('cproduct') currently addresses 14 demo names; the real set is 36 different names. Old ids, bookmarks and any in-page chip pointing at Belanty/Revysol/Movento will 404 unless a fallback is added.",
+        "Four different ADAMA legal entities hold the 163 registrations (ADAMA ITALIA 85, ADAMA AGAN 35, ADAMA MAKHTESHIM 26, ADAMA DEUTSCHLAND 17) while the catalog is the Italian commercial site. Do not merge holder and seller into one 'ADAMA has this product' claim, and keep the two Portafoglio tabs separate — 41 of 44 catalog items match a registration, 3 (BUDGE, EXELGROW, PARLEAF, all SPECIALI) do not and are marked REGULATORY_MATCH_NOT_FOUND upstream.",
+        "15 of the 163 registrations have an expiry earlier than the 2026-09-02 reference date and 41 expire before 2027-01-01. Nothing in the current portfolio screens reads expiry. Surfacing a verified label match for an expired authorisation would be a new, avoidable false claim — worth guarding even though it is outside the strict scope of this migration.",
+        "D.CASES remains the source of the 29 opportunity objects even after relationships are rebuilt. This spec removes the demo from PRODUCT RELATIONSHIPS only; the opportunity/radar domain owner must handle the rest, and until then the relationship layer will be correct while the card it sits inside is still a scenario.",
+        "The rebuild's headline number gets WORSE, and that is the point. Window-level portfolio state goes from 10 VERIFIED / 10 LABEL_CHECK_NEEDED / 9 NO_CONFIRMED (measured today, on the 29 opportunity cards) to 12 VERIFIED / 6 LABEL_CHECK_NEEDED / 10 RELATED_PORTFOLIO / 1 NO_CONFIRMED. Verified goes UP (12 vs 10, because 4 audited verified triples were never reachable through the fixture and 2 fixture cards claimed verified without one), but 10 cards drop to the pale-blue RELATED_PORTFOLIO state and one card — Maize · Mycotoxin Risk, IT-WIN-0021 — ends with nothing at all, because no ADAMA fungicide is registered on maize in the 163 rows and 'Mycotoxin Risk' is not a label target. Anyone expecting the screen to get denser will read this as a regression.",
+        "The ISSUE_TARGET table is the one hand-authored input in the entire chain and it decides 15 of the 44 evidence-backed rows. If it is written loosely it manufactures matches; if it is written tightly it starves the check-needed class. It must be versioned, attributed, and surfaced per row via mappingRule — otherwise the rebuild replaces a demo fixture with an undocumented human judgement, which is the same defect wearing a better coat."
+      ],
+      "perguntas_abertas": [
+        "Is the ISSUE_TARGET mapping (English issue name -> Latin label target) acceptable as a Sintonia-authored artefact, or must it come from upstream? If it must come from upstream, tier 3 disappears and the result is 12 verified / 0 check-needed / 16 related / 1 no-confirmed across the 29 windows.",
+        "Should Durum Wheat inherit the WHEAT_GENERIC ('Frumento') use rows? DURUM_WHEAT itself has 0 use rows read. Inheriting adds check-needed candidates on two Durum Wheat windows; not inheriting leaves them related-only. This is an agronomic/regulatory call, not an engineering one.",
+        "Should RELATED_PORTFOLIO be gated more tightly than crop + product line? A tighter gate (e.g. same MoA family as an already-verified product) would cut the 321 rows sharply but adds another authored rule.",
+        "The 'region' line under each relationship card: relabel it as the window's region, or delete it? A label authorisation has no region.",
+        "Does the competitor-product view survive at all? IG.COMP_PRODUCTS has four fields. If crops/issues/dates cannot be derived from the 102 product-bearing activities, the view becomes a name, a company, an ad count and a proof string — which may be better folded into the company page than kept as its own route.",
+        "Is a fifth state (NOT_ASSESSED) acceptable alongside the four mandated strength classes, or must 'nothing has been looked at' be expressed as LABEL_CHECK_NEEDED? Collapsing it into LABEL_CHECK_NEEDED would put ~53 products and every unmatched triple into the amber class and re-inflate the number the rebuild is meant to deflate.",
+        "Is the ISSUE_TARGET mapping (English issue name -> Latin label target) acceptable as a Sintonia-authored artefact, or must it come from upstream? If it must come from upstream, tier 3 disappears and the result is 12 verified / 0 check-needed / 16 related / 1 no-confirmed across the 29 windows.",
+        "Should Durum Wheat inherit the WHEAT_GENERIC ('Frumento') use rows? DURUM_WHEAT itself has 0 use rows read. Inheriting adds check-needed candidates on two Durum Wheat windows; not inheriting leaves them related-only. This is an agronomic/regulatory call, not an engineering one.",
+        "Should RELATED_PORTFOLIO be gated more tightly than crop + product line? A tighter gate (e.g. same MoA family as an already-verified product) would cut the 321 rows sharply but adds another authored rule.",
+        "The 'region' line under each relationship card: relabel it as the window's region, or delete it? A label authorisation has no region.",
+        "Does the competitor-product view survive at all? IG.COMP_PRODUCTS has four fields. If crops/issues/dates cannot be derived from the 102 product-bearing activities, the view becomes a name, a company, an ad count and a proof string — which may be better folded into the company page than kept as its own route.",
+        "Is a fifth state (NOT_ASSESSED) acceptable alongside the four mandated strength classes, or must 'nothing has been looked at' be expressed as LABEL_CHECK_NEEDED? Collapsing it into LABEL_CHECK_NEEDED would put ~53 products and every unmatched triple into the amber class and re-inflate the number the rebuild is meant to deflate."
+      ],
+      "ficheiros": [
+        "italia-portale/audit/blocks/portfolio.spec.json",
+        "italia-portale/audit/blocks/product.spec.json"
+      ],
+      "confissoes": [],
+      "dominios_do_contrato": [
+        "PORTFOLIO / PRODUCT INTELLIGENCE / PRODUCT RELATIONSHIPS"
+      ],
+      "de_onde_vem": "MISTURA",
+      "leitura": "Mistura dado real com dado escrito a mao. Quem olha nao consegue dizer qual e qual — e a tela nao avisa.",
+      "registos_citados": []
+    },
+    {
+      "vista": "archive",
+      "nome": "Archivio",
+      "chave_do_rotulo": "navArchive",
+      "prova_do_nome": {
+        "file": "italia-portale/client/portale.html",
+        "line": 4434,
+        "snippet": "['archive', T.navArchive, navN('archive')],"
+      },
+      "blocos": [
+        "archive"
+      ],
+      "o_que_alimenta": "window.ITALY_APP_MODEL.collections.archive (740 records, provenance REAL_DERIVED), built in italy-app-model.js lines 266-276 as an index over scienceRecords (88, from IG.SCIENCE), marketObservations (77, from IG.MARKET), competitorActivities (503, from IG.COMP_ACTIVITIES), voices (17, from IG.VOICES), events (18, from IG.EVENTS), news (8, from IG.NEWS) and windows (29, from ITALY_CANONICAL.windows). Measured: 740 rows, 740 unique ids, 0 duplicate ids, 0 null ids; provenance is REAL_SOURCE (711) or CANONICAL (29) — zero synthetic rows.",
+      "resumo": "The Archive screen (portale.html markup 2186-2232) is a paginated table of \"intelligence captures\": date, type, item title + crop/region subtitle, source, and a \"CONNECTED TO\" column, plus a text query, four dropdown filters (type / crop / region / company), nine coloured type chips with counts, and a right-hand drawer with a summary paragraph, crop/issue/region tags and up to six cross-links (opportunity, future signal, ADAMA product, competitor, source, research topic). Today every fact on that screen comes from window.ITALY_DEMO.ARCHIVE: 448 rows, of which 420 are procedurally generated in italy-demo-data.js lines 522-538 (type, source route, company, product, caseObj, signal and an English prose summary are all synthesised from a modulo over the demo CASES/SIGNALS arrays) and only 28 are real (news + bulletins + science re-shaped at lines 539-543). The screen also feeds the nav badge (line 2608, K.archive = 448), the Data-State panel Archive row (line 2530), the Source-detail \"LATEST CAPTURES · N IN ARCHIVE\" block (line 3368, markup 2311-2312) and the global search ARCHIVE group (line 3383). The real replacement, APP.collections.archive, already exists and holds 740 rows derived from the normalized collections, but it is currently dead code — declared as A_ARCHIVE0 at line 2467 and never read.",
+      "confianca": "high",
+      "camadas": {
+        "italy-demo-data.js": {
+          "tipo": "FIXTURE",
+          "o_que_e": "escrito a mao para a tela nao ficar vazia",
+          "prova": {
+            "file": "italia-portale/audit/blocks/archive.spec.json",
+            "line": 4,
+            "snippet": "\"summary\": \"The Archive screen (portale.html markup 2186-2232) is a paginated table of \\\"intelligence captures\\\": date, type, item title + crop/region"
+          }
+        },
+        "ITALY_APP_MODEL": {
+          "tipo": "NAO SEI",
+          "o_que_e": "camada nao classificada",
+          "prova": {
+            "file": "italia-portale/audit/blocks/archive.spec.json",
+            "line": 5,
+            "snippet": "\"realSource\": \"window.ITALY_APP_MODEL.collections.archive (740 records, provenance REAL_DERIVED), built in italy-app-model.js lines 266-276 as an inde"
+          }
+        },
+        "ITALY_CANONICAL": {
+          "tipo": "CANONICO",
+          "o_que_e": "a lei aplicada sobre o real",
+          "prova": {
+            "file": "italia-portale/audit/blocks/archive.spec.json",
+            "line": 5,
+            "snippet": "\"realSource\": \"window.ITALY_APP_MODEL.collections.archive (740 records, provenance REAL_DERIVED), built in italy-app-model.js lines 266-276 as an inde"
+          }
+        },
+        "ITALY_DEMO": {
+          "tipo": "FIXTURE",
+          "o_que_e": "escrito a mao para a tela nao ficar vazia",
+          "prova": {
+            "file": "italia-portale/audit/blocks/archive.spec.json",
+            "line": 4,
+            "snippet": "\"summary\": \"The Archive screen (portale.html markup 2186-2232) is a paginated table of \\\"intelligence captures\\\": date, type, item title + crop/region"
+          }
+        }
+      },
+      "riscos": [
+        "The archive count on the nav badge goes UP (448 -> 740) while the screen gets visibly thinner: no region column content, no summary paragraph on 323 rows, an empty CONNECTED TO cell on 711 rows. Someone will read that as a regression. It is the opposite — 420 of the old 448 rows were fabricated. Say so before the review, not after.",
+        "The 29 WINDOW rows are the ONLY rows with a region and the ONLY rows with a case link, and they are also the least document-like rows in the set: ITALY_CANONICAL.windows[].PROVENANCE is measured 'EXPECTED_NORM', they have no url (29/29 null), and their source reads the literal 'CANONICAL'. Any feature rebuilt on them (a region facet, a per-case evidence list) would be resting an observational claim on an expected agronomic norm. Decide deliberately whether they belong in an archive of captures at all.",
+        "The crop filter is a correctness trap. If line 2194 keeps reading the shared {{ cropOptions }} prop, the UI will silently look fine and return at most 5 rows for any crop — a wrong-looking-right failure, the worst kind. This must be caught in the same commit that touches the model, not later.",
+        "COMPETITOR rows are 503 of 740 = 68% of the archive. Sorting by date newest-first will make the first pages almost entirely Meta ad records, and the '2026-01-30'-style start dates are ad campaign starts, not publication dates of an observation. Do not let the date column imply 'when this was observed'. Also §9: an archive row must not inherit REACHED_IN_ITALY framing from its geoClass.",
+        "archive.source is a display label mixing four vocabularies; if the engineer wires the aSource filter to it instead of the new sourceId, the filter will half-work (it will match 'YOUTUBE' across both VOICE and COMPETITOR rows but split 'University of Verona' from 'IT-SRC-OPENALEX' even though both are OpenAlex science). Join on sourceId only.",
+        "The source-detail cross-link depends on a collection owned by another domain. sources.id is demo-polluted for 6 of 31 rows. If the SOURCES owner does not expose a clean sourceId, the 'LATEST CAPTURES · N IN ARCHIVE' block will show 0 for those 6 sources and no one will notice.",
+        "18 rows carry the literal string 'NAO SEI' in the date field and 17 of them are VOICES (all 17 IG.VOICES.DATE are 'NAO SEI'). If any code path does new Date(a.date) or a string sort, these will land somewhere arbitrary. Handle dateState explicitly.",
+        "Line 3332's unguarded D.ARCHIVE.find(a => a.type === t).typeColor throws the moment a listed type has zero rows. A naive port that swaps D.ARCHIVE for the real collection while keeping the hardcoded 9-type list at line 3331 will crash the Archive view immediately, because 5 of those 9 types have zero real rows.",
+        "The title re-composition at line 3326 splits the title on ' · ' and translates each part through T.ARCHTYPES/T.CROPS/T.ISSUES. That was safe on generated titles. On real titles it is not — it would chop publisher headlines and scientific paper titles (e.g. the Xylella fastidiosa paper title) at arbitrary separators and risks truncating a taxonomic name, which §11 forbids. This code must be deleted, not adapted."
+      ],
+      "perguntas_abertas": [
+        "Should the 29 WINDOW rows (upstream PROVENANCE 'EXPECTED_NORM', no url, source literal 'CANONICAL') be in the archive at all? Excluding them gives a cleaner 711-row archive of genuinely captured artefacts — but then legacyCaseId and region drop to 0/711 and the 'VIEW IN ARCHIVE →' link from every opportunity detail must be removed rather than degraded.",
+        "Two of the 8 NEWS publishers do not resolve to a source-registry id because of name drift ('Agronotizie' vs 'AgroNotizie (Image Line)'; 'Consorzio Fitosanitario di Modena' vs 'Consorzio Fitosanitario Provinciale di Modena'). Should these be normalized upstream in the ingest, or left null? I did not fuzzy-match them — that is a guess, not a derivation.",
+        "The crop dimension has 47 distinct values across 5 incompatible vocabularies (canonical English, uppercase codes, Latin binomials, generic Italian words, olive-oil grades). Is normalizing them an upstream ingest job for the next package, or does the portal ship a visibly-grouped dropdown that admits the vocabularies are different?",
+        "Should COMPETITOR ad copy (IG.COMP_ACTIVITIES.text, 392/503) be shown verbatim in the drawer? It is public observed communication and §11 says do not translate it — but it is also marketing prose from a competitor rendered inside an ADAMA product, which may need a label rather than a design decision from me.",
+        "The 'CONNECTED TO' column loses its meaning once opportunity links cover only 3.9% of rows. Does the product owner want the column repurposed (source / company / kind-appropriate relation) or emptied and the grid narrowed? §12 says preserve component proportions, so I propose repurposing, but this is a product call.",
+        "italy-app-model.js does not read window.ITALY_LABEL_VERDICTS at all. That is out of my domain, but if a future archive kind carries label-audit records this is where they would land — flagging it so it is not forgotten."
+      ],
+      "ficheiros": [
+        "italia-portale/audit/blocks/archive.spec.json"
+      ],
+      "confissoes": [],
+      "dominios_do_contrato": [
+        "ARCHIVE"
+      ],
+      "de_onde_vem": "MISTURA",
+      "leitura": "Mistura dado real com dado escrito a mao. Quem olha nao consegue dizer qual e qual — e a tela nao avisa.",
+      "registos_citados": [
+        740
+      ]
+    },
+    {
+      "vista": "sources",
+      "nome": "Registro delle fonti",
+      "chave_do_rotulo": "navSources",
+      "prova_do_nome": {
+        "file": "italia-portale/client/portale.html",
+        "line": 4435,
+        "snippet": "['sources', T.navSources, navN('sources')]"
+      },
+      "blocos": [],
+      "o_que_alimenta": "",
+      "resumo": "",
+      "confianca": "",
+      "camadas": {},
+      "riscos": [],
+      "perguntas_abertas": [],
+      "ficheiros": [],
+      "confissoes": [],
+      "de_onde_vem": "NAO SEI",
+      "leitura": "Nao da para dizer de onde vem o que esta nesta tela. Esta ferramenta nao tem contrato de bloco nenhum escrito.",
+      "registos_citados": []
+    },
+    {
+      "vista": "field",
+      "nome": "Rete Commerciale di Campo",
+      "chave_do_rotulo": "navField",
+      "prova_do_nome": {
+        "file": "italia-portale/client/portale.html",
+        "line": 4437,
+        "snippet": "const navIntegrations = [['field', T.navField, allMessages.length]];"
+      },
+      "blocos": [],
+      "o_que_alimenta": "",
+      "resumo": "",
+      "confianca": "",
+      "camadas": {},
+      "riscos": [],
+      "perguntas_abertas": [],
+      "ficheiros": [],
+      "confissoes": [],
+      "tecido_comum": [
+        "italia-portale/audit/blocks/field.spec.json"
+      ],
+      "de_onde_vem": "NAO SEI",
+      "leitura": "Nao da para dizer de onde vem o que esta nesta tela. Esta ferramenta nao tem contrato de bloco nenhum escrito.",
+      "registos_citados": []
+    }
+  ],
+  "CAMADAS_PUBLICADAS": {
+    "ITALY_APP_MODEL": [
+      "italia-portale/client/italy-app-model.js"
+    ],
+    "ITALY_BRIEFS": [
+      "italia-portale/client/italy-briefs.js"
+    ],
+    "ITALY_CANONICAL": [
+      "italia-portale/client/italy-canonical-windows.js"
+    ],
+    "ITALY_CASA": [
+      "italia-portale/client/italy-casa.js"
+    ],
+    "ITALY_CATALOG": [
+      "italia-portale/client/italy-catalog.js"
+    ],
+    "ITALY_DEMO": [
+      "italia-portale/client/italy-demo-data.js"
+    ],
+    "ITALY_INGEST": [
+      "italia-portale/client/italy-ingested.js"
+    ],
+    "ITALY_LABEL_VERDICTS": [
+      "italia-portale/client/italy-label-verdicts.js"
+    ],
+    "ITALY_MARKET": [
+      "italia-portale/client/italy-market-pulse.js"
+    ],
+    "ITALY_PDF": [
+      "italia-portale/client/italy-pdf.js"
+    ],
+    "ITALY_REAL": [
+      "italia-portale/client/italy-real-intelligence.js"
+    ],
+    "ITALY_SCIENCE": [
+      "italia-portale/client/italy-science-business.js"
+    ],
+    "MEETING_INTELLIGENCE": [
+      "italia-portale/client/meeting-intelligence-snapshot.js"
+    ],
+    "MEETING_LABELS": [
+      "italia-portale/client/meeting-labels.js"
+    ],
+    "MEETING_SURFACE": [
+      "italia-portale/client/meeting-surface.js"
+    ]
+  },
+  "COUNTS": {
+    "ferramentas": 11,
+    "por_origem": {
+      "MISTURA": 6,
+      "NAO SEI": 4,
+      "REAL": 1
+    },
+    "camadas_publicadas": 15
+  }
+}

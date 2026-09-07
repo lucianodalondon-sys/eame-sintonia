@@ -17,7 +17,7 @@ MARCADOR = re.compile(r'<!--/?M:?[A-Z0-9_]*-->')
 def rd(*p):
     """Lê um documento canônico, removendo os marcadores de sincronização.
 
-    `<!--M:NOME-->98<!--/M-->` é andaime de `scripts/metricas_canonicas.py --sync`.
+    `<!--M:NOME-->98<!--/M-->` é andaime de `pacote/metricas_canonicas.py --sync`.
     Para quem lê o documento — e para estes testes — o que existe ali é o número.
     """
     with open(os.path.join(D, *p), encoding='utf-8') as f:

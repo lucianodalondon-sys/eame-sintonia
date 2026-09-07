@@ -19,7 +19,7 @@ A MISSÃO 07 provou a matéria-prima. Esta responde a outra pergunta:
 ## 1 · COLD START — 4 de 4 cadeias reconstruídas
 
 Executadas do zero, sem usar intermediário processado de nenhuma missão anterior.
-`scripts/chain.py`.
+`provas/chain.py`.
 
 | cadeia | resultado | saúde | passos AUTO | MANUAIS | JULGAMENTO | cobertura | bate com o congelado? |
 |---|---|---|---|---|---|---|---|
@@ -125,7 +125,7 @@ E **1.998 tem data de validade**: cai sozinho em 03 e 30/09/2026, com a fonte no
 
 ## 4 · DEGRADAÇÃO DE FONTE — 11 formas de apodrecer, 11 falham fechado
 
-`tests/test_operacao.py::TestDegradacaoDeFonte`, contra `scripts/source_health.py`.
+`tests/test_operacao.py::TestDegradacaoDeFonte`, contra `medidas/source_health.py`.
 
 | o que acontece | resultado | perigoso? |
 |---|---|---|
@@ -257,7 +257,7 @@ e transforma uma fonte caída em queda de mercado.
 ## 10 · FRESHNESS DO ASK SINTONIA
 
 O benchmark media verdade e recusa. Ganhou a terceira dimensão
-(`scripts/ask_sintonia.py::FRESHNESS`):
+(`superficie/ask_sintonia.py::FRESHNESS`):
 
 | | n |
 |---|---|

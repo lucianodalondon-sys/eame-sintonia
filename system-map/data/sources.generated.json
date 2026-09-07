@@ -1,0 +1,4441 @@
+{
+  "SCHEMA": "sintonia.system-map.sources/1",
+  "PROVENANCE": {
+    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
+    "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+    "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
+  },
+  "SOURCES": [
+    {
+      "source_id": "ES-T3-001",
+      "name": "Datos de seguimiento de plagas y enfermedades en las estaciones de control biológico [2006–2026]",
+      "owner": "Junta de Andalucía — Consejería de Agricultura, Pesca, Agua y Desarrollo Rural",
+      "country": "ESPANHA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "rede oficial de monitoramento em campo, dados abertos",
+      "url": "https://www.juntadeandalucia.es/datosabiertos/portal/dataset/raif",
+      "access_method": "CKAN API + ZIP com XML. **Atenção:** a URL de download que a API devolve aponta para `gdc-pdpopendata-ckan.paas.junta- andalucia.es`, host que este ambiente não alcança (502 no CONNECT). Trocando o host por `www.juntadeandalucia.es`, o mesmo caminho baixa normalmente. Registrado porque é a diferença entre a fonte \"não funcionar\" e funcionar.",
+      "language": "ES",
+      "update_frequency": "semanal (visor); dataset atualizado em 2026-08-26",
+      "historical_depth": "2006–2026 conforme a cultura (vid desde 2017)",
+      "automation": "ALTA (XML com nomes de campo codificados em `_x0020_`)",
+      "collection": "ALTA — vid 3,9 MB; olivar 57 MB",
+      "risk": "BAIXO — CC BY 4.0. **Atenção GDPR:** há coordenadas de parcela. São parcelas de monitoramento de agrupamentos técnicos, não cadastro de produtor identificado — mas o uso de coordenadas precisa de revisão antes de publicação. `NÃO SEI / REQUER REVISÃO` para difusão externa.",
+      "use_case": "TECHNICAL / MD / COMMERCIAL: pressão real de doença por cultura, por província e por semana — não opinião de campo.",
+      "real_example": "Vid 2026: 639 amostragens em Cádiz, Córdoba e Huelva. Campos medidos incluem \"1601 Mildiu: % cepas afectadas\", \"1701 Oidio: % cepas afectadas\", \"0401 Lobesia: nº adultos/ trampa feromona y día\" e \"1604 Mildiu: condiciones favorables (0=No; 1=Si)\".",
+      "evidence_path": "data/samples/ES-T3-001-raif-vid-mildiu-2026.json data/samples/X-001-completo-mildiu-vs-clima.json",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 697,
+        "snippet": "bloco ES-T3-001 no atlas de fontes"
+      },
+      "contract": {
+        "retrieval_method": "CKAN → ZIP → XML. **PASSO MANUAL**: a URL que o CKAN devolve aponta para `gdc-pdpopendata-ckan.paas.junta-andalucia.es`, host inalcançável daqui; trocar por `www.juntadeandalucia.es` mantendo o caminho",
+        "http_method": "GET",
+        "parameters": "",
+        "auth_required": "não",
+        "output_type": "ZIP com XML (Access export; nomes de tag em `_x00NN_`)",
+        "expected_fields": "PROVINCIA · MUNICIPIO · CODPARCELA · FECHA · \"1702 Repilo: % Hojas  con Repilo Visible\" (52 campos)",
+        "identity_keys": "CODPARCELA + FECHA",
+        "date_field": "FECHA",
+        "update_behavior": "semanal durante a safra",
+        "expected_failures": "host do CKAN mudar de novo · nome de campo mudar (os nomes têm espaço duplo e número de ordem: `1702 Repilo: % Hojas  con…`)",
+        "fail_closed_rule": "zero leituras do campo levanta — \"sem doença\" e \"sem dado\" não podem produzir a mesma saída",
+        "fallback": "visor web do RAIF (consulta, não dump)",
+        "archive_requirement": "baixo — a fonte republica a série inteira",
+        "criticality": "PRIMARY · OPEN DATA (CKAN), CC BY 4.0",
+        "evidence": {
+          "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+          "line": 173,
+          "snippet": "contrato de ES-T3-001"
+        }
+      },
+      "sabe_coletar": true
+    },
+    {
+      "source_id": "ES-T4-001",
+      "name": "Jerarquía de especies vegetales · Clasificación de plagas",
+      "owner": "MAPA — Ministerio de Agricultura, Pesca y Alimentación",
+      "country": "ESPANHA",
+      "territory": "T4",
+      "territory_name": "Regulatorio",
+      "type": "Tabelas de referência do Registro de Productos Fitosanitarios",
+      "url": "https://www.mapa.gob.es/dam/mapa/contenido/agricultura/temas/ sanidad-vegetal/medios-de-defensa-fitosanitaria/ registro-productos-fitosanitarios/{jerarquia,plagas}.xlsx",
+      "access_method": "XLSX direto",
+      "language": "ES + nome científico latino",
+      "update_frequency": "NÃO SEI — o arquivo não declara periodicidade",
+      "historical_depth": "",
+      "automation": "ALTA",
+      "collection": "ALTA (74 KB + 119 KB)",
+      "risk": "BAIXO — publicação oficial. Sem dado pessoal.",
+      "use_case": "infraestrutura: é o que permite falar de \"míldio da videira\" nos três países como sendo a mesma coisa.",
+      "real_example": "813 espécies vegetais (710 com EPPO) e 1.395 linhas de pragas. VITVI = Vitis vinifera; TRZAX = Triticum aestivum/durum; PLASVI = \"Mildiu de la vid, Plasmopara viticola\"; SEPTTR = \"Septoriosis del trigo, Zymoseptoria tritici\"; GUIGBI = \"Black rot… Phyllosticta ampelicida\".",
+      "evidence_path": "data/samples/ES-T4-001/ (inclui eppo-dictionary.json derivado: 492 culturas e 1.381 pragas indexadas por código EPPO)",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 361,
+        "snippet": "bloco ES-T4-001 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "ES-T4-002",
+      "name": "Autorizaciones excepcionales vigentes",
+      "owner": "MAPA",
+      "country": "ESPANHA",
+      "territory": "T4",
+      "territory_name": "Regulatorio",
+      "type": "Lista oficial de autorizações de emergência",
+      "url": ".../registro-productos-fitosanitarios/autorizaciones_excepcionales.xls",
+      "access_method": "XLS (formato OLE2 legado, 32 MB; requer xlrd)",
+      "language": "ES",
+      "update_frequency": "o próprio arquivo declara a data de situação (24/08/2026)",
+      "historical_depth": "",
+      "automation": "MÉDIA — .xls legado, cabeçalho em linha variável",
+      "collection": "ALTA",
+      "risk": "BAIXO",
+      "use_case": "MARKET DEVELOPMENT / PORTFOLIO / R&D: uma autorização excepcional é o Estado espanhol **declarando oficialmente que não existe solução normal** para aquele problema naquela cultura. É necessidade não atendida, documentada e datada.",
+      "real_example": "45 autorizações excepcionais vigentes em 24/08/2026. Ex.: Manzano y peral × fuego bacteriano (Erwinia amylovora); Champiñón × telaraña (fluxapyroxad 30% SC); Remolacha azucarera × pulgón (flonicamida 50% WG); Fresal × desinfección del suelo (metam sodio 51% SL).",
+      "evidence_path": "data/samples/ES-T4-001/ES-T4-002-autorizaciones-excepcionales.json",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 396,
+        "snippet": "bloco ES-T4-002 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "ES-T4-003",
+      "name": "Registro de Productos Fitosanitarios — aplicação de consulta",
+      "owner": "MAPA",
+      "country": "ESPANHA",
+      "territory": "T4",
+      "territory_name": "Regulatorio",
+      "type": "",
+      "url": "https://www.mapa.gob.es/es/agricultura/temas/sanidad-vegetal/ productos-fitosanitarios/registro-productos",
+      "access_method": "aplicação web de consulta. **Não foi encontrado** dump aberto equivalente ao E-Phy francês ou ao CSV italiano.",
+      "language": "",
+      "update_frequency": "",
+      "historical_depth": "",
+      "automation": "",
+      "collection": "NÃO SEI — exigiria consulta form-a-form",
+      "risk": "NÃO SEI / REQUER REVISÃO — automatizar a consulta pode conflitar com os termos de uso. Não foi tentado.",
+      "use_case": "",
+      "real_example": "nenhum",
+      "evidence_path": "",
+      "verdict": "NAO SEI",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 430,
+        "snippet": "bloco ES-T4-003 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "ES-T4-005",
+      "name": "Registro Oficial de Productos Fitosanitarios — rotas públicas",
+      "owner": "MAPA — D.G. de Sanidad de la Producción Agroalimentaria",
+      "country": "ESPANHA",
+      "territory": "T4",
+      "territory_name": "Regulatorio",
+      "type": "",
+      "url": "https://servicio.mapa.gob.es/regfiweb/",
+      "access_method": "as rotas que o próprio frontend chama, declaradas em texto aberto na página (<input type=\"hidden\">) e em /regfiweb/js/site.min.js: GET  Productos/ProductosGrid?NumRegistro=&Titular=&IdEstado= GET  Productos/GetProductoById?idProducto=N GET  Productos/ExportFichaProductoPdfGet?idProducto=N POST Exportaciones/ExportJsonProductos  (dataDto[...]) Cliente: coleta/mapa_regfi.py",
+      "language": "",
+      "update_frequency": "semanal — a página declara a data da última atualização da base (\"viernes, 28 de agosto de 2026 14:00\")",
+      "historical_depth": "",
+      "automation": "",
+      "collection": "ALTA e EDUCADA — o export devolve o conjunto filtrado inteiro numa requisição; não é preciso paginar a grade",
+      "risk": "BAIXO — nenhuma autenticação contornada, nenhuma vulnerabilidade usada, nenhuma carga: um POST substitui centenas de páginas. RISCO REAL: não é dataset publicado, logo a rota pode mudar sem aviso. Arquivar cada versão.",
+      "use_case": "",
+      "real_example": "ES-01717 · SORATEL MAX · titular ADAMA Agriculture España S.A. · fabricante ADAMA Agricultural Solutions Ltd. · planta (Neot Hovav) · azoxistrobina 20% + protioconazol 15% · Vigente · cebada, centeno, trigo, triticale",
+      "evidence_path": "data/samples/ES-T4-005-ficha-primaria-es01717.json data/samples/ES-T4-005-denominadores-ropf.json",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 470,
+        "snippet": "bloco ES-T4-005 no atlas de fontes"
+      },
+      "contract": {
+        "retrieval_method": "coleta/mapa_regfi.py {producto|export|total|divergencia}",
+        "http_method": "GET (grade, ficha, PDF) · POST (export)",
+        "parameters": "NumRegistro · Titular · Fabricante · IdEstado · IdSustancia … (export: dataDto[<filtro>])",
+        "auth_required": "não",
+        "output_type": "HTML (grade) · JSON (ficha e export) · PDF (ficha oficial)",
+        "expected_fields": "numRegistro · nombre · titular · fabricante · fabrica · formulado · estado · tramite · 6 pares de datas (48 campos)",
+        "identity_keys": "numRegistro (3.084 únicos) · idProducto (interno, volátil)",
+        "date_field": "fechaInscripcion · fechaCaducidad · fechaModificacion · fechaLimiteVenta · fechaTramite",
+        "update_behavior": "semanal (\"Última actualización de la base de datos: <data>\")",
+        "expected_failures": "rota renomeada · `IdEstado` mudar de semântica · grade voltar a exigir sessão · export passar a exigir antiforgery token",
+        "fail_closed_rule": "contrato COMPLETO de 48 campos: campo novo → DEGRADED, campo ausente → FAILED. Ficha não encontrada levanta, não devolve vazio",
+        "fallback": "**nenhum equivalente.** Ver FALHA-DE-FONTE-ESPANHA.md",
+        "archive_requirement": "**obrigatório.** Uma versão arquivada (2026-08-29). Enquanto houver só uma, o estado é BASELINE_ESTABLISHED",
+        "criticality": "PRIMARY · **PUBLIC APPLICATION ROUTE**",
+        "evidence": {
+          "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+          "line": 69,
+          "snippet": "contrato de ES-T4-005"
+        }
+      },
+      "sabe_coletar": true
+    },
+    {
+      "source_id": "ES-T5-002",
+      "name": "OpenAlex, recorte espanhol declarado",
+      "owner": "",
+      "country": "ESPANHA",
+      "territory": "T5",
+      "territory_name": "Preco e mercado",
+      "type": "",
+      "url": "",
+      "access_method": "REST JSON, sem chave — **rota gratuita e REPLICÁVEL**",
+      "language": "",
+      "update_frequency": "",
+      "historical_depth": "",
+      "automation": "",
+      "collection": "ALTA",
+      "risk": "**GDPR: pessoas identificadas.** Entram apenas campos que a própria pessoa publicou como identidade acadêmica.",
+      "use_case": "",
+      "real_example": "",
+      "evidence_path": "data/samples/ES-T5-002-corpus-documentos.json data/samples/ES-RESEARCHERS-OLIVE.json",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 924,
+        "snippet": "bloco ES-T5-002 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "EU-T1-001",
+      "name": "Crop production in EU standard humidity by NUTS 2 region",
+      "owner": "Eurostat",
+      "country": "EUROPA",
+      "territory": "T1",
+      "territory_name": "Cultura e producao",
+      "type": "Estatística oficial europeia",
+      "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpshr",
+      "access_method": "API REST, JSON-stat 2.0, sem chave",
+      "language": "EN (+ DE, FR)",
+      "update_frequency": "anual (fonte declarou atualização em 2026-05-28)",
+      "historical_depth": "**2000–2024, 25 anos** verificados para FR/ES/IT",
+      "automation": "ALTA",
+      "collection": "ALTA",
+      "risk": "BAIXO — política de reutilização do Eurostat, sem dado pessoal",
+      "use_case": "MD / COMMERCIAL / EAME: onde estão de fato as culturas, em que região, com que peso e com que evolução em 25 anos.",
+      "real_example": "5.685 valores NUTS2 para FR/ES/IT, 2000–2024. Trigo comum 2024: ES41 Castilla y León 771,8 mil ha; FRB0 Centre–Val de Loire 544,6; FRE2 Picardie 472,0. Cevada 2024: ES42 Castilla-La Mancha 702,7 mil ha.",
+      "evidence_path": "data/samples/EU-T1-001-nuts2-crop-area.json",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 542,
+        "snippet": "bloco EU-T1-001 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "EU-T1-002",
+      "name": "Crop production in EU standard humidity",
+      "owner": "Eurostat",
+      "country": "EUROPA",
+      "territory": "T1",
+      "territory_name": "Cultura e producao",
+      "type": "",
+      "url": "",
+      "access_method": "API REST JSON-stat, sem chave",
+      "language": "",
+      "update_frequency": "fonte declarou atualização em 2026-08-17",
+      "historical_depth": "2010–2026 (ES já com 2026; FR e IT até 2025)",
+      "automation": "ALTA",
+      "collection": "",
+      "risk": "BAIXO",
+      "use_case": "leitura de ano bom e ano ruim por país, série longa",
+      "real_example": "rendimento de trigo comum (t/ha): FR 2023 7,28 → **2024 6,02** → 2025 7,34 ES 2022 3,07 → **2023 2,14** → 2024 3,74 → 2025 4,51 IT 2021 6,26 → 2024 5,03 → 2025 5,02",
+      "evidence_path": "data/samples/EU-T1-002-wheat-yield-country.json",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 582,
+        "snippet": "bloco EU-T1-002 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "EU-T10-001",
+      "name": "European Commission — Agri-food Data Portal (cereal prices)",
+      "owner": "Comissão Europeia — DG AGRI",
+      "country": "EUROPA",
+      "territory": "T10",
+      "territory_name": "Politica e subsidio",
+      "type": "série oficial de preços de mercado",
+      "url": "https://www.ec.europa.eu/agrifood/api/cereal/prices",
+      "access_method": "REST JSON, **sem chave** (parâmetros: memberStateCodes, years, beginDate)",
+      "language": "EN",
+      "update_frequency": "**semanal** — verificado com dado da semana de 17–23/08/2026",
+      "historical_depth": "consultável por ano",
+      "automation": "ALTA",
+      "collection": "ALTA — 2.562 registros numa chamada",
+      "risk": "BAIXO",
+      "use_case": "COMMERCIAL / EAME / MD: capacidade de pagamento do produtor e atratividade relativa da cultura, por país e por praça.",
+      "real_example": "Milho forrageiro em Mantova (IT), semana de 17–23/08/2026: **€243,50/t**, saída de fazenda. Trigo panificável, média nacional: FR €234,30/t (30/07/2026) e IT €219,31/t (06/08/2026). Trigo duro: FR €267,50 × IT €271,83.",
+      "evidence_path": "data/samples/EU-T10-001-cereal-prices.json",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 982,
+        "snippet": "bloco EU-T10-001 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "EU-T12-001",
+      "name": "CELLAR / EU Publications Office — camada de política agrícola",
+      "owner": "Publications Office of the European Union",
+      "country": "EUROPA",
+      "territory": "T12",
+      "territory_name": "Substancia ativa",
+      "type": "",
+      "url": "",
+      "access_method": "**a mesma infraestrutura já provada em EU-T4-001** — SPARQL + content negotiation. Muda apenas a consulta. `./coleta/cellar.sh sparql \"<consulta>\"`",
+      "language": "",
+      "update_frequency": "contínua",
+      "historical_depth": "todo o acervo CELEX",
+      "automation": "ALTA",
+      "collection": "",
+      "risk": "BAIXO",
+      "use_case": "EAME / COUNTRY / REGULATORY: mudanças de política que afetam o produtor antes de afetarem o mercado.",
+      "real_example": "CELEX 32026R0148 e 32026R0149, ambos de 21/01/2026, alterando regulamentos de execução e delegado da **política agrícola comum**.",
+      "evidence_path": "mesma cadeia de EU-T4-001; consulta registrada em coleta/cellar.sh",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 1210,
+        "snippet": "bloco EU-T12-001 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "EU-T2-001",
+      "name": "NASA POWER — Daily Point (community AG)",
+      "owner": "NASA Langley Research Center",
+      "country": "EUROPA",
+      "territory": "T2",
+      "territory_name": "Clima e tempo",
+      "type": "reanálise climática servida por API",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point",
+      "access_method": "API REST JSON, **sem chave, sem cadastro**",
+      "language": "EN",
+      "update_frequency": "diária, com defasagem de poucos dias",
+      "historical_depth": "décadas (verificado 2020–2024 sem falha)",
+      "automation": "ALTA",
+      "collection": "ALTA — uma chamada cobre anos inteiros",
+      "risk": "BAIXO — dado público da NASA. Sem dado pessoal.",
+      "use_case": "TECHNICAL / MD: exposição climática por região e por janela fenológica, com série histórica, em qualquer ponto dos 3 países.",
+      "real_example": "ES41 Castilla y León (ponto-rótulo NUTS2): chuva de fevereiro a abril — 2020: 170,9 mm · 2021: 142,3 · 2022: 120,5 · **2023: 34,9** · 2024: 142,2 mm.",
+      "evidence_path": "data/samples/X-001-nuts2-heat-vs-wheat.json data/samples/CASE-006-es41-rain-window-vs-yield.json",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 621,
+        "snippet": "bloco EU-T2-001 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "EU-T2-002",
+      "name": "NUTS_LB_2024_4326_LEVL_2 (label points)",
+      "owner": "Eurostat / GISCO",
+      "country": "EUROPA",
+      "territory": "T2",
+      "territory_name": "Clima e tempo",
+      "type": "",
+      "url": "",
+      "access_method": "GeoJSON direto, sem chave",
+      "language": "",
+      "update_frequency": "",
+      "historical_depth": "",
+      "automation": "ALTA",
+      "collection": "",
+      "risk": "BAIXO",
+      "use_case": "é o que liga estatística agrícola e clima na mesma geografia",
+      "real_example": "ES41 (−4,788 / 41,751) · FRB0 (1,684 / 47,485) · FRE2 (2,808 / 49,642) · ITC1 (7,923 / 45,060)",
+      "evidence_path": "",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 658,
+        "snippet": "bloco EU-T2-002 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "EU-T2-003",
+      "name": "Open-Meteo Historical Weather API (ERA5)",
+      "owner": "",
+      "country": "EUROPA",
+      "territory": "T2",
+      "territory_name": "Clima e tempo",
+      "type": "",
+      "url": "",
+      "access_method": "API REST, sem chave, com **cota diária por IP**",
+      "language": "",
+      "update_frequency": "",
+      "historical_depth": "",
+      "automation": "",
+      "collection": "**NÃO TESTÁVEL HOJE NESTE AMBIENTE**",
+      "risk": "",
+      "use_case": "",
+      "real_example": "nenhum",
+      "evidence_path": "",
+      "verdict": "NAO SEI",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 677,
+        "snippet": "bloco EU-T2-003 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "EU-T3-001",
+      "name": "EPPO Global Database",
+      "owner": "European and Mediterranean Plant Protection Organization",
+      "country": "EUROPA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "",
+      "url": "https://gd.eppo.int  ·  API: https://data.eppo.int/api/rest/1.0/",
+      "access_method": "site HTML acessível (HTTP 200). **API REST devolveu `403 — \"You do not have sufficent rights\"`**: exige token de conta EPPO, que não temos.",
+      "language": "",
+      "update_frequency": "",
+      "historical_depth": "",
+      "automation": "",
+      "collection": "",
+      "risk": "requer cadastro; termos não avaliados",
+      "use_case": "",
+      "real_example": "nenhum capturado pela API",
+      "evidence_path": "",
+      "verdict": "NAO SEI",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 853,
+        "snippet": "bloco EU-T3-001 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "EU-T4-001",
+      "name": "CELLAR / EU Publications Office (Official Journal of the EU)",
+      "owner": "Publications Office of the European Union",
+      "country": "EUROPA",
+      "territory": "T4",
+      "territory_name": "Regulatorio",
+      "type": "Registro legal oficial primário",
+      "url": "https://publications.europa.eu/webapi/rdf/sparql https://publications.europa.eu/resource/celex/<CELEX>",
+      "access_method": "API — SPARQL (JSON) + content negotiation HTTP (Accept: application/xhtml+xml; Accept-Language: eng|fra|spa|ita)",
+      "language": "24 línguas oficiais (EN, FR, ES, IT verificadas)",
+      "update_frequency": "contínua (cada edição do Jornal Oficial)",
+      "historical_depth": "todo o acervo CELEX",
+      "automation": "ALTA — endpoint público, sem chave, sem scraping de HTML",
+      "collection": "ALTA — `coleta/cellar.sh` reproduz a coleta",
+      "risk": "BAIXO — legislação pública oficial; sem dado pessoal",
+      "use_case": "REGULATORY e PORTFOLIO — saber, na data, que substância entra, é renovada (e até quando) ou sai do mercado europeu.",
+      "real_example": "CELEX 32026R1696 — Reg. Exec. (UE) 2026/1696, de 14/07/2026, renova a aprovação da substância ativa ácido pelargônico (CAS 112-05-0, CIPAC 888), pureza >= 889 g/kg, aprovação 2026-10-01, expiração 2041-09-30. Texto integral obtido em EN, FR, ES e IT.",
+      "evidence_path": "data/samples/EU-T4-001/ (sparql-active-substance-2026.json, CELEX-32026R1696-eng.xhtml, evidence-32026R1696.json com os 4 idiomas)",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 169,
+        "snippet": "bloco EU-T4-001 no atlas de fontes"
+      },
+      "contract": {
+        "retrieval_method": "coleta/cellar.sh {sparql|act|substances}",
+        "http_method": "GET",
+        "parameters": "query SPARQL · CELEX · iso3 do idioma",
+        "auth_required": "não",
+        "output_type": "JSON (SPARQL) · XHTML (texto integral)",
+        "expected_fields": "CELEX · data · título · texto integral",
+        "identity_keys": "CELEX",
+        "date_field": "data do ato",
+        "update_behavior": "acervo cumulativo — atos não são reescritos",
+        "expected_failures": "timeout do endpoint SPARQL · negociação de conteúdo devolver o idioma errado sem avisar",
+        "fail_closed_rule": "exigir `Accept-Language` iso3 e conferir o idioma recebido",
+        "fallback": "EUR-Lex por CELEX (mesma casa, outra rota)",
+        "archive_requirement": "baixo — o acervo é estável",
+        "criticality": "PRIMARY · OPEN DATA (SPARQL + content negotiation)",
+        "evidence": {
+          "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+          "line": 208,
+          "snippet": "contrato de EU-T4-001"
+        }
+      },
+      "sabe_coletar": true
+    },
+    {
+      "source_id": "EU-T4-002",
+      "name": "EU Pesticides Database",
+      "owner": "Comissão Europeia — DG SANTE",
+      "country": "EUROPA",
+      "territory": "T4",
+      "territory_name": "Regulatorio",
+      "type": "Base de dados oficial consolidada (substâncias ativas, MRLs)",
+      "url": "https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/",
+      "access_method": "aplicação Angular (SPA) + API JSON interna (/api/subst/getSubstances) — observado, não obtido",
+      "language": "EN (+ outras)",
+      "update_frequency": "",
+      "historical_depth": "",
+      "automation": "NÃO SEI",
+      "collection": "BLOQUEADO NESTE AMBIENTE",
+      "risk": "NÃO SEI / REQUER REVISÃO (termos de uso da API interna)",
+      "use_case": "seria a visão consolidada de substância ativa + MRL",
+      "real_example": "nenhum capturado",
+      "evidence_path": "nenhuma — ver motivo abaixo",
+      "verdict": "NAO SEI",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 215,
+        "snippet": "bloco EU-T4-002 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "EU-T5-001",
+      "name": "OpenAlex",
+      "owner": "OurResearch (organização sem fins lucrativos)",
+      "country": "EUROPA",
+      "territory": "T5",
+      "territory_name": "Preco e mercado",
+      "type": "agregador bibliográfico aberto",
+      "url": "https://api.openalex.org/works",
+      "access_method": "REST JSON, **sem chave**; *polite pool* via `mailto`",
+      "language": "EN (metadados)",
+      "update_frequency": "contínua",
+      "historical_depth": "décadas",
+      "automation": "ALTA — **com limite de taxa**: `429 Too Many Requests` observado em rajada. Exige recuo entre chamadas.",
+      "collection": "ALTA",
+      "risk": "BAIXO na licença. **GDPR: são pessoas identificadas.** Nome, instituição e produção são públicos e profissionais, mas qualquer perfilamento de pessoa exige revisão — `NÃO SEI / REQUER REVISÃO` (P-008).",
+      "use_case": "R&D / TECHNICAL / MD: quem realmente produz conhecimento sobre um problema agronômico específico, em que instituição e desde quando — para parceria, ensaio, consulta técnica e antena.",
+      "real_example": "\"Quem trabalha repetidamente com resistência a herbicidas na França?\" → **Christophe Délye (9 trabalhos, Agroécologie/INRAE Dijon, 2019–2023)**, Valérie Le Corre (6), Séverine Michel (5), Fanny Pernin (4) — os quatro no mesmo laboratório. \"Que pesquisadores aparecem ligados a doenças da videira na Itália?\" → **Silvia Laura Toffolatti (17, Università di Milano)**, Michele Perazzolli (12, Fondazione Edmund Mach), Giuliana Maddalena (11, Milano), Vittorio Rossi (10, Università Cattolica del Sacro Cuore).",
+      "evidence_path": "data/samples/EU-T5-001-openalex-people.json",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 879,
+        "snippet": "bloco EU-T5-001 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "FR-T13-001",
+      "name": "recherche-entreprises.api.gouv.fr (base SIRENE)",
+      "owner": "DINUM / INSEE (França)",
+      "country": "FRANCA",
+      "territory": "T13",
+      "territory_name": "",
+      "type": "registro oficial de empresas, dados abertos",
+      "url": "https://recherche-entreprises.api.gouv.fr/search",
+      "access_method": "REST JSON, **sem chave**, filtrável por código NAF",
+      "language": "FR",
+      "update_frequency": "contínua (base SIRENE)",
+      "historical_depth": "data de criação por empresa",
+      "automation": "ALTA (observado corte de conexão em rajada; exige recuo)",
+      "collection": "",
+      "risk": "BAIXO — Licence Ouverte. Pessoas jurídicas.",
+      "use_case": "COMMERCIAL / MD: mapa de quem distribui e onde — a rede que está entre a ADAMA e o produtor.",
+      "real_example": "NAF **46.21Z** (atacado de grãos, sementes e alimentos para animais): **4.646 empresas**. Entre as maiores da amostra: OCEALIA, SOUFFLET AGRICULTURE, VIVESCIA, AXEREAL, NATUP, ARTERRIS, OXYANE, CAVAC — as grandes cooperativas francesas. NAF **46.75Z** (atacado de produtos químicos): **4.251 empresas**, com BRENNTAG, BASF FRANCE e GIVAUDAN na amostra.",
+      "evidence_path": "data/samples/FR-T13-001-distribution.json",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 1276,
+        "snippet": "bloco FR-T13-001 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "FR-T3-001",
+      "name": "Bulletins de Santé du Végétal",
+      "owner": "rede de epidemiovigilância — DRAAF, Chambres d'agriculture, institutos técnicos (ARVALIS, ITB…), dados no Vigicultures®",
+      "country": "FRANCA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "boletim oficial de vigilância fitossanitária",
+      "url": "",
+      "access_method": "**PDF por região e por setor**, publicado em sites de DRAAF, câmaras de agricultura, institutos e na base documental do Ecophytopic. Não foi encontrada API nem dump aberto.",
+      "language": "FR",
+      "update_frequency": "semanal na safra",
+      "historical_depth": "anos, dispersos por site",
+      "automation": "**BAIXA** — descentralizada, sem formato comum, conteúdo em texto corrido dentro de PDF. Coletar exigiria varredura de dezenas de sites, o que esta missão **proíbe** (§16, sem scraping agressivo).",
+      "collection": "",
+      "risk": "publicação pública e gratuita; `NÃO SEI / REQUER REVISÃO` quanto a reuso sistemático.",
+      "use_case": "TECHNICAL: leitura semanal de pressão por região e cultura. Alto valor de conteúdo, alto custo de coleta.",
+      "real_example": "Hauts-de-France — BSV Grandes Cultures n°32 de 25/08/2026 e BSV Pommes de Terre n°27 de 27/08/2026 (publicação ARVALIS para a rede regional). Verificado em 28/08/2026: um dia de defasagem.",
+      "evidence_path": "",
+      "verdict": "YELLOW",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 757,
+        "snippet": "bloco FR-T3-001 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "FR-T3-002",
+      "name": "Archive en agro-écologie de BSV",
+      "owner": "publicado em data.gouv.fr (licença CC-BY), origem pestobserver.eu",
+      "country": "FRANCA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "",
+      "url": "",
+      "access_method": "ZIP (OCR, 173 MB) e RAR de amostra (14,9 MB)",
+      "language": "",
+      "update_frequency": "",
+      "historical_depth": "**40.899 documentos**, com parte de 1960 a 2000 (OCR declarado de qualidade média nesse período)",
+      "automation": "",
+      "collection": "**NÃO CONSEGUIDA NESTA RODADA** — o download em `static.data.gouv.fr` foi cortado (`Connection reset by peer`; o proxy registrou `ws_closed_mid_exchange` após 7 s), tanto no pacote OCR quanto na amostra. O mesmo host serviu o E-Phy (3,9 MB) sem problema, então o corte parece ligado ao volume ou ao recurso, não ao domínio.",
+      "risk": "BAIXO (CC-BY)",
+      "use_case": "",
+      "real_example": "nenhum capturado",
+      "evidence_path": "",
+      "verdict": "NAO SEI",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 796,
+        "snippet": "bloco FR-T3-002 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "FR-T4-001",
+      "name": "Données ouvertes du catalogue E-Phy",
+      "owner": "ANSES (Agence nationale de sécurité sanitaire) via data.gouv.fr",
+      "country": "FRANCA",
+      "territory": "T4",
+      "territory_name": "Regulatorio",
+      "type": "Registro oficial de autorizações (AMM), dados abertos",
+      "url": "https://www.data.gouv.fr/datasets/donnees-ouvertes-du-catalogue-e-phy-des-produits-phytopharmaceutiques-matieres-fertilisantes-et-supports-de-culture-adjuvants-produits-mixtes-et-melanges",
+      "access_method": "CSV e XML em ZIP, resolvidos pela API do data.gouv.fr. Sem chave, sem scraping. `coleta/ephy.sh download`.",
+      "language": "FR",
+      "update_frequency": "semanal (declarada e confirmada: versão de 2026-08-25)",
+      "historical_depth": "estado atual + datas de 1ª autorização e de retirada; série histórica exige arquivar as versões semanais",
+      "automation": "ALTA",
+      "collection": "ALTA — 3,9 MB comprimidos, ~41 MB abertos, 10 tabelas",
+      "risk": "BAIXO — Licence Ouverte (fr-lo). Sem dado pessoal: o titular é pessoa jurídica.",
+      "use_case": "REGULATORY, PORTFOLIO, MARKET DEVELOPMENT, COMMERCIAL: o que a ADAMA pode legalmente vender na França, em que cultura, contra que alvo — e o mesmo para cada concorrente.",
+      "real_example": "15.140 produtos; 18.558 usos autorizados. AMM 2080088 \"NEMO\" (ADAMA FRANCE SAS), nicosulfuron 40 g/L, herbicida, uso Maïs*Désherbage, dose 1,5 L/ha, ZNT aquática 20 m, decisão de 08/07/2014.",
+      "evidence_path": "data/samples/FR-T4-001/",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 258,
+        "snippet": "bloco FR-T4-001 no atlas de fontes"
+      },
+      "contract": {
+        "retrieval_method": "coleta/ephy.sh download [destino]",
+        "http_method": "GET (API do catálogo) + GET (ZIP resolvido)",
+        "parameters": "nenhum — o id do dataset é fixo",
+        "auth_required": "não",
+        "output_type": "ZIP com CSV UTF-8, separador ';'",
+        "expected_fields": "numero AMM · nom produit · titulaire · Substances actives · Etat d'autorisation · Numéro AMM du produit de référence",
+        "identity_keys": "numero AMM",
+        "date_field": "Date de première autorisation · Date de retrait du produit",
+        "update_behavior": "semanal, substituição integral",
+        "expected_failures": "reset de conexão transitório (observado no cold start da M08); mudança do título do recurso quebra o seletor \"zip + utf8\"",
+        "fail_closed_rule": "`set -euo pipefail` + retry exponencial 4×; sem CSV, a cadeia levanta ChainFailure e não devolve número",
+        "fallback": "nenhum equivalente. O E-Phy é o próprio open data.",
+        "archive_requirement": "**obrigatório e semanal** — é FORWARD-ONLY; o que não for arquivado deixa de existir",
+        "criticality": "PRIMARY · OPEN DATA",
+        "evidence": {
+          "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+          "line": 34,
+          "snippet": "contrato de FR-T4-001"
+        }
+      },
+      "sabe_coletar": true
+    },
+    {
+      "source_id": "IT-T3-001",
+      "name": "IT-T3-001",
+      "owner": "Regione Emilia-Romagna — Servizio fitosanitario; Consorzi Fitosanitari Provinciali (Reggio Emilia, Modena…)",
+      "country": "ITALIA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "",
+      "url": "",
+      "access_method": "PDF semanal por província, em caminho previsível",
+      "language": "IT",
+      "update_frequency": "semanal na safra",
+      "historical_depth": "",
+      "automation": "MÉDIA — PDF, mas com nomenclatura e caminho regulares",
+      "collection": "",
+      "risk": "`NÃO SEI / REQUER REVISÃO` para reuso sistemático",
+      "use_case": "TECHNICAL: recomendação oficial de defesa por província",
+      "real_example": "\"Bollettino 15 del 21 maggio 2026 — Reggio Emilia\", publicado no portal da Regione Emilia-Romagna (bollettini interprovinciali di produzione integrata e biologica 2026).",
+      "evidence_path": "",
+      "verdict": "YELLOW",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 825,
+        "snippet": "bloco IT-T3-001 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "IT-T4-001",
+      "name": "Fitosanitari — elenco dei prodotti fitosanitari autorizzati",
+      "owner": "Ministero della Salute (Italia)",
+      "country": "ITALIA",
+      "territory": "T4",
+      "territory_name": "Regulatorio",
+      "type": "Registro oficial de autorizações, dados abertos",
+      "url": "https://www.dati.salute.gov.it/it/dataset/fitosanitari/ arquivo: /sites/default/files/opendata/PROD_FTS_6_<AAAAMMDD>.csv",
+      "access_method": "CSV direto (4,6 MB), sem chave",
+      "language": "IT",
+      "update_frequency": "o nome do arquivo é datado; versão obtida de 2026-08-24",
+      "historical_depth": "registros desde 1970 (o mais antigo observado: ENOVIT, 1970), com estado atual, motivo e data de revogação",
+      "automation": "MÉDIA-ALTA — o nome do arquivo muda a cada versão e precisa ser descoberto na página do dataset",
+      "collection": "ALTA",
+      "risk": "BAIXO — CC BY 4.0. Endereços são de pessoa jurídica.",
+      "use_case": "REGULATORY / PORTFOLIO: calendário de vencimentos do próprio portfólio italiano e do de cada concorrente.",
+      "real_example": "17.695 produtos; 3.712 em vigor. ADAMA ITALIA S.R.L. com 155 autorizações de vencimento futuro — 58 nos próximos 6 meses. Reg. 008929 TOPIK 240 EC (clodinafop + cloquintocet mexyl), vencimento 31/07/2027.",
+      "evidence_path": "data/samples/IT-T4-001/",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 310,
+        "snippet": "bloco IT-T4-001 no atlas de fontes"
+      },
+      "contract": {
+        "retrieval_method": "provas/chain.py run it-prothioconazole — o nome datado do arquivo é DESCOBERTO na página do dataset, nunca chutado",
+        "http_method": "GET (página) + GET (CSV)",
+        "parameters": "nenhum",
+        "auth_required": "não",
+        "output_type": "CSV ';', 17.695 linhas, ~4,6 MB",
+        "expected_fields": "num_registrazione · denominazione_prodotto · ragione_sociale · sostanze_attive · stato_amministrativo · data_scadenza_autorizzazione · motivo_della revoca",
+        "identity_keys": "num_registrazione",
+        "date_field": "data_registrazione · data_scadenza_autorizzazione · data_decreto_revoca · data_decorrenza_revoca",
+        "update_behavior": "novo arquivo datado; os antigos parecem permanecer publicados",
+        "expected_failures": "mudança do padrão do nome · mudança do HTML da página (o regex de descoberta é a dependência real) · 200 com HTML no lugar do CSV",
+        "fail_closed_rule": "se o regex não achar nenhum `PROD_FTS_*.csv`, levanta. Se o corpo começar com `<html`, levanta.",
+        "fallback": "o mesmo arquivo em `.json` e `.xml`, na mesma pasta",
+        "archive_requirement": "recomendável, não crítico — o nome datado já é uma versão",
+        "criticality": "PRIMARY · WEB (arquivo estático datado)",
+        "evidence": {
+          "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+          "line": 136,
+          "snippet": "contrato de IT-T4-001"
+        }
+      },
+      "sabe_coletar": true
+    }
+  ],
+  "CITADAS_SEM_FICHA": [
+    {
+      "source_id": "ES-T8-001",
+      "line": 1151,
+      "o_que_a_tabela_diz": "YouTube · 157 canais · 252 vídeos · 15 transcrições · PROVED"
+    },
+    {
+      "source_id": "ES-T8-002",
+      "line": 1152,
+      "o_que_a_tabela_diz": "LinkedIn · 202 perfis · 179 declaram ES · PROVED** (identidade) · PARCIAL (conteúdo)"
+    },
+    {
+      "source_id": "ES-T8-003",
+      "line": 1153,
+      "o_que_a_tabela_diz": "Instagram · 32 contas agronômicas · FAILED_WITH_REASON"
+    }
+  ],
+  "MASTER_ITALIANO": [
+    {
+      "source_id": "IT-T1-001",
+      "name": "ISTAT — coltivazioni (SDMX / esploradati)",
+      "owner": "ISTAT — Istituto Nazionale di Statistica",
+      "owner_kind": "OFFICIAL_NATIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T1",
+      "territory_name": "Cultura e producao",
+      "type": "estatística oficial nacional",
+      "role": "VALIDATION_SOURCE",
+      "url": "https://esploradati.istat.it",
+      "access_method": "NÃO SEI — SDMX declarado, rota não confirmada",
+      "crops": "todas as culturas do censo italiano",
+      "topics": "área, produção, ano, região",
+      "region": "nacional com desagregação regional",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "PRE_EXISTING",
+      "verdict": "NAO SEI",
+      "prova": "área e produção declaradas oficialmente",
+      "nao_prova": "pressão de praga · preço · uso de produto · decisão do produtor",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T10-001",
+      "name": "ISMEA Mercati — preços por produto e praça",
+      "owner": "ISMEA — Istituto di Servizi per il Mercato Agricolo Alimentare",
+      "owner_kind": "OFFICIAL_NATIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T10",
+      "territory_name": "Politica e subsidio",
+      "type": "série oficial de preços de mercado",
+      "role": "MARKET_SOURCE",
+      "url": "https://www.ismeamercati.it",
+      "access_method": "NÃO SEI — investigar exportação estruturada",
+      "crops": "múltiplas",
+      "topics": "produto, mercado/praça, data, preço, unidade, variação",
+      "region": "nacional com praças nomeadas",
+      "update_frequency": "NÃO SEI (esperado: semanal)",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "preço praticado numa praça, numa data",
+      "nao_prova": "volume vendido · margem do produtor · decisão de compra de insumo",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T10-002",
+      "name": "BMTI — analisi di mercato cereali",
+      "owner": "BMTI — Borsa Merci Telematica Italiana S.c.p.A.",
+      "owner_kind": "OTHER",
+      "country": "ITALIA",
+      "territory": "T10",
+      "territory_name": "Politica e subsidio",
+      "type": "análise de mercado telemática",
+      "role": "MARKET_SOURCE",
+      "url": "https://www.bmti.it",
+      "access_method": "NÃO SEI",
+      "crops": "DURUM_WHEAT · SOFT_WHEAT · MAIZE",
+      "topics": "preço, tendência, análise",
+      "region": "nacional",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T10-003",
+      "name": "ISTAT — commercio estero (import/export agrícola)",
+      "owner": "ISTAT — Istituto Nazionale di Statistica",
+      "owner_kind": "OFFICIAL_NATIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T10",
+      "territory_name": "Politica e subsidio",
+      "type": "estatística oficial de comércio exterior",
+      "role": "MARKET_SOURCE",
+      "url": "https://www.coeweb.istat.it",
+      "access_method": "NÃO SEI",
+      "crops": "por commodity",
+      "topics": "commodity, import/export, período, país, valor/volume",
+      "region": "nacional",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T10-004",
+      "name": "ICQRF — Cantina Italia",
+      "owner": "ICQRF — Dipartimento dell'Ispettorato centrale della tutela della qualità e repressione frodi",
+      "owner_kind": "OFFICIAL_NATIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T10",
+      "territory_name": "Politica e subsidio",
+      "type": "relatório oficial de estoque declarado",
+      "role": "MARKET_SOURCE",
+      "url": "https://www.politicheagricole.it",
+      "access_method": "NÃO SEI (esperado PDF)",
+      "crops": "GRAPE (vinho)",
+      "topics": "estoque declarado de vinho por região",
+      "region": "nacional com desagregação regional",
+      "update_frequency": "NÃO SEI (esperado: mensal)",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T10-005",
+      "name": "ICQRF — Frantoio Italia",
+      "owner": "ICQRF — Dipartimento dell'Ispettorato centrale della tutela della qualità e repressione frodi",
+      "owner_kind": "OFFICIAL_NATIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T10",
+      "territory_name": "Politica e subsidio",
+      "type": "relatório oficial de estoque declarado",
+      "role": "MARKET_SOURCE",
+      "url": "https://www.politicheagricole.it",
+      "access_method": "NÃO SEI (esperado PDF)",
+      "crops": "OLIVE (azeite)",
+      "topics": "estoque declarado de azeite por região",
+      "region": "nacional com desagregação regional",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T11-001",
+      "name": "EIMA International",
+      "owner": "FederUnacoma / EIMA International",
+      "owner_kind": "TRADE_ASSOCIATION",
+      "country": "ITALIA",
+      "territory": "T11",
+      "territory_name": "Solo e agua",
+      "type": "feira internacional",
+      "role": "DISCOVERY_SOURCE",
+      "url": "https://www.eima.it",
+      "access_method": "site institucional (HTML)",
+      "crops": "transversal (maquinário)",
+      "topics": "expositores, planta do salão, edição, datas",
+      "region": "Bologna",
+      "update_frequency": "EVENT_DRIVEN (bienal)",
+      "historical_depth": "NÃO SEI",
+      "status": "PRE_EXISTING",
+      "verdict": "YELLOW",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T11-002",
+      "name": "Enovitis in Campo",
+      "owner": "Unione Italiana Vini (Enovitis in Campo)",
+      "owner_kind": "TRADE_ASSOCIATION",
+      "country": "ITALIA",
+      "territory": "T11",
+      "territory_name": "Solo e agua",
+      "type": "feira de campo",
+      "role": "DISCOVERY_SOURCE",
+      "url": "https://www.enovitisincampo.it",
+      "access_method": "NÃO SEI",
+      "crops": "GRAPE",
+      "topics": "evento, local, data, expositor, sessão/tema",
+      "region": "itinerante",
+      "update_frequency": "EVENT_DRIVEN (anual)",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T11-003",
+      "name": "Fieragricola (Veronafiere)",
+      "owner": "Veronafiere S.p.A. (Fieragricola)",
+      "owner_kind": "COMPANY",
+      "country": "ITALIA",
+      "territory": "T11",
+      "territory_name": "Solo e agua",
+      "type": "feira agrícola",
+      "role": "DISCOVERY_SOURCE",
+      "url": "https://www.fieragricola.it",
+      "access_method": "NÃO SEI",
+      "crops": "transversal",
+      "topics": "expositores, programa",
+      "region": "Verona",
+      "update_frequency": "EVENT_DRIVEN (bienal)",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T11-004",
+      "name": "FEM — eventos e convegni técnicos",
+      "owner": "Fondazione Edmund Mach (FEM)",
+      "owner_kind": "FOUNDATION",
+      "country": "ITALIA",
+      "territory": "T11",
+      "territory_name": "Solo e agua",
+      "type": "eventos de fundação de pesquisa",
+      "role": "DISCOVERY_SOURCE",
+      "url": "https://www.fmach.it",
+      "access_method": "NÃO SEI",
+      "crops": "GRAPE · APPLE",
+      "topics": "convegni, temas, speakers",
+      "region": "Trentino",
+      "update_frequency": "EVENT_DRIVEN",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T12-002",
+      "name": "MASAF — PSP / Piano Strategico della PAC in Italia",
+      "owner": "MASAF — Ministero dell'Agricoltura, della Sovranità Alimentare e delle Foreste",
+      "owner_kind": "OFFICIAL_NATIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T12",
+      "territory_name": "Substancia ativa",
+      "type": "documento oficial de política",
+      "role": "TECHNICAL_GUIDANCE_SOURCE",
+      "url": "https://www.politicheagricole.it",
+      "access_method": "NÃO SEI (esperado PDF)",
+      "crops": "transversal",
+      "topics": "produção integrada, redução de insumos, orgânico, água, solo, agricultura de precisão",
+      "region": "nacional",
+      "update_frequency": "NÃO SEI (versões do plano)",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "o que a política exige e financia",
+      "nao_prova": "adesão do produtor · prática realizada em campo",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T2-001",
+      "name": "ARPAE — Bollettino agrometeorologico regionale",
+      "owner": "ARPAE Emilia-Romagna",
+      "owner_kind": "OFFICIAL_REGIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T2",
+      "territory_name": "Clima e tempo",
+      "type": "boletim agrometeorológico",
+      "role": "FIELD_SIGNAL_SOURCE",
+      "url": "https://www.arpae.it/it/temi-ambientali/meteo/agrometeo",
+      "access_method": "NÃO SEI (esperado HTML/PDF)",
+      "crops": "transversal",
+      "topics": "precipitação, temperatura, água no solo, agroclima",
+      "region": "Emilia-Romagna",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "condição meteorológica medida e interpretada na região",
+      "nao_prova": "incidência de doença · tratamento realizado · perda de produção",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T2-002",
+      "name": "ARPAV — Agrometeo / Agrometeo Informa / bollettini zonali",
+      "owner": "ARPAV — Agenzia Regionale per la Prevenzione e Protezione Ambientale del Veneto",
+      "owner_kind": "OFFICIAL_REGIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T2",
+      "territory_name": "Clima e tempo",
+      "type": "boletim agrometeorológico zonal",
+      "role": "FIELD_SIGNAL_SOURCE",
+      "url": "https://www.arpa.veneto.it/dati-ambientali/bollettini/agrometeo",
+      "access_method": "NÃO SEI (esperado PDF/HTML)",
+      "crops": "transversal, com recortes por cultura nos bollettini zonali",
+      "topics": "chuva, temperatura, evapotranspiração, alerta agroclimático",
+      "region": "Veneto",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "condição agrometeorológica medida no Veneto",
+      "nao_prova": "praga · doença · mercado",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T2-003",
+      "name": "CNR-IBE — Drought Observatory / Osservatorio Siccità",
+      "owner": "CNR-IBE — Istituto per la BioEconomia",
+      "owner_kind": "RESEARCH_INSTITUTION",
+      "country": "ITALIA",
+      "territory": "T2",
+      "territory_name": "Clima e tempo",
+      "type": "observatório de seca com índices e mapas",
+      "role": "FIELD_SIGNAL_SOURCE",
+      "url": "https://drought.climateservices.it",
+      "access_method": "NÃO SEI — investigar; NÃO PRESUMIR API",
+      "crops": "transversal",
+      "topics": "seca, SPI/SPEI, mapas, downloads geográficos",
+      "region": "nacional com grade geográfica",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "índice de seca modelado por área e período",
+      "nao_prova": "estresse observado na lavoura · perda · irrigação realizada",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T2-004",
+      "name": "SIAS Sicilia — agrometeorologia regional",
+      "owner": "SIAS — Servizio Informativo Agrometeorologico Siciliano",
+      "owner_kind": "OFFICIAL_REGIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T2",
+      "territory_name": "Clima e tempo",
+      "type": "serviço agrometeorológico regional",
+      "role": "FIELD_SIGNAL_SOURCE",
+      "url": "http://www.sias.regione.sicilia.it",
+      "access_method": "NÃO SEI",
+      "crops": "transversal",
+      "topics": "chuva, temperatura, seca, território",
+      "region": "Sicilia",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "medida agrometeorológica siciliana",
+      "nao_prova": "sanidade da cultura · mercado",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T2-005",
+      "name": "ALSIA — agrometeorologia Basilicata",
+      "owner": "ALSIA — Agenzia Lucana di Sviluppo e Innovazione in Agricoltura",
+      "owner_kind": "OFFICIAL_REGIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T2",
+      "territory_name": "Clima e tempo",
+      "type": "serviço agrometeorológico regional",
+      "role": "FIELD_SIGNAL_SOURCE",
+      "url": "https://www.alsia.it",
+      "access_method": "NÃO SEI",
+      "crops": "transversal",
+      "topics": "agrometeorologia, estações",
+      "region": "Basilicata",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "clima medido na Basilicata",
+      "nao_prova": "praga · doença",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T3-001",
+      "name": "Bollettini di produzione integrata — Emilia-Romagna e consórcios provinciais",
+      "owner": "Regione Emilia-Romagna — Servizio Fitosanitario",
+      "owner_kind": "OFFICIAL_REGIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "boletim oficial de defesa integrada",
+      "role": "TECHNICAL_GUIDANCE_SOURCE",
+      "url": "https://agricoltura.regione.emilia-romagna.it",
+      "access_method": "PDF semanal por província, caminho previsível",
+      "crops": "múltiplas",
+      "topics": "defesa integrada, recomendação por província",
+      "region": "Emilia-Romagna",
+      "update_frequency": "semanal na safra",
+      "historical_depth": "NÃO SEI",
+      "status": "PRE_EXISTING",
+      "verdict": "YELLOW",
+      "prova": "recomendação oficial de defesa por província e semana",
+      "nao_prova": "tratamento realizado · incidência medida · venda",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T3-002",
+      "name": "Campania — Bollettini fitosanitari regionali",
+      "owner": "Regione Campania — Servizio Fitosanitario Regionale",
+      "owner_kind": "OFFICIAL_REGIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "boletim fitossanitário oficial",
+      "role": "FIELD_SIGNAL_SOURCE",
+      "url": "https://www.agricoltura.regione.campania.it",
+      "access_method": "NÃO SEI (esperado PDF)",
+      "crops": "múltiplas",
+      "topics": "fenologia, avversità, difesa integrata, província",
+      "region": "Campania",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "observação e recomendação oficial regional",
+      "nao_prova": "incidência nacional · aplicação realizada",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T3-003",
+      "name": "SIMFITO — sistema informativo fitossanitário da Campania",
+      "owner": "Regione Campania — Servizio Fitosanitario Regionale",
+      "owner_kind": "OFFICIAL_REGIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "sistema informativo",
+      "role": "FIELD_SIGNAL_SOURCE",
+      "url": "NÃO SEI",
+      "access_method": "NÃO SEI — verificar se há parte pública",
+      "crops": "NÃO SEI",
+      "topics": "monitoramento fitossanitário",
+      "region": "Campania",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T3-004",
+      "name": "ALSIA — bollettini fitosanitari Basilicata",
+      "owner": "ALSIA — Agenzia Lucana di Sviluppo e Innovazione in Agricoltura",
+      "owner_kind": "OFFICIAL_REGIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "boletim fitossanitário regional",
+      "role": "FIELD_SIGNAL_SOURCE",
+      "url": "https://www.alsia.it",
+      "access_method": "NÃO SEI",
+      "crops": "NÃO SEI",
+      "topics": "fitossanidade, defesa",
+      "region": "Basilicata",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T3-005",
+      "name": "Terre dell'Etruria — Monitoraggio mosca dell'olivo",
+      "owner": "Terre dell'Etruria — Società Cooperativa Agricola",
+      "owner_kind": "COOPERATIVE",
+      "country": "ITALIA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "rede de monitoramento de armadilha em campo",
+      "role": "FIELD_SIGNAL_SOURCE",
+      "url": "https://www.terretruria.it",
+      "access_method": "NÃO SEI (esperado HTML/PDF periódico)",
+      "crops": "OLIVE",
+      "topics": "Bactrocera oleae, captura, infestação, fenologia, alerta, recomendação",
+      "region": "Toscana (costa, Livorno/Grosseto)",
+      "update_frequency": "NÃO SEI (esperado: semanal/quinzenal na estação)",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "monitoramento · fenologia · captura · observação · recomendação técnica",
+      "nao_prova": "venda · estoque · market share · uso realizado · produto ADAMA comprado · incidência nacional",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T3-006",
+      "name": "Terre dell'Etruria — Bollettini tecnici",
+      "owner": "Terre dell'Etruria — Società Cooperativa Agricola",
+      "owner_kind": "COOPERATIVE",
+      "country": "ITALIA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "boletim técnico de cooperativa",
+      "role": "TECHNICAL_GUIDANCE_SOURCE",
+      "url": "https://www.terretruria.it",
+      "access_method": "NÃO SEI",
+      "crops": "múltiplas — separar por cultura se necessário",
+      "topics": "orientação técnica de defesa",
+      "region": "Toscana",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T3-007",
+      "name": "Sicilia — Servizio Fitosanitario / difesa integrata",
+      "owner": "Regione Siciliana — Servizio Fitosanitario Regionale",
+      "owner_kind": "OFFICIAL_REGIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "documento fitossanitário oficial regional",
+      "role": "TECHNICAL_GUIDANCE_SOURCE",
+      "url": "https://www.regione.sicilia.it",
+      "access_method": "NÃO SEI",
+      "crops": "múltiplas",
+      "topics": "difesa integrata, deroghe, avversità",
+      "region": "Sicilia",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T3-008",
+      "name": "ARIF Puglia / Agrometeo Puglia — rete fitosanitaria",
+      "owner": "ARIF Puglia — Agenzia Regionale per le Attività Irrigue e Forestali",
+      "owner_kind": "OFFICIAL_REGIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "rede regional",
+      "role": "FIELD_SIGNAL_SOURCE",
+      "url": "https://www.arifpuglia.it",
+      "access_method": "NÃO SEI",
+      "crops": "OLIVE · DURUM_WHEAT",
+      "topics": "monitoramento, alerta, agrometeorologia",
+      "region": "Puglia",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T3-009",
+      "name": "Assoproli Bari — assistenza tecnica e monitoraggio olivicolo",
+      "owner": "Assoproli Bari — Associazione Produttori Olivicoli",
+      "owner_kind": "PRODUCER_ORG",
+      "country": "ITALIA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "organização de produtores",
+      "role": "FIELD_SIGNAL_SOURCE",
+      "url": "https://www.assoproli.it",
+      "access_method": "NÃO SEI",
+      "crops": "OLIVE",
+      "topics": "monitoramento, mosca, assistência técnica",
+      "region": "Puglia (Bari)",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T3-010",
+      "name": "APOL Lecce — monitoraggio olivicolo",
+      "owner": "APOL Lecce — Associazione Produttori Olivicoli Lecce",
+      "owner_kind": "PRODUCER_ORG",
+      "country": "ITALIA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "organização de produtores",
+      "role": "FIELD_SIGNAL_SOURCE",
+      "url": "NÃO SEI",
+      "access_method": "NÃO SEI",
+      "crops": "OLIVE",
+      "topics": "monitoramento olivícola",
+      "region": "Puglia (Lecce)",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T3-011",
+      "name": "AGRIOS — direttive, aggiornamenti e deroghe per la produzione integrata",
+      "owner": "AGRIOS — Arbeitsgruppe für den Integrierten Obstbau Südtirol",
+      "owner_kind": "TECHNICAL_NETWORK",
+      "country": "ITALIA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "diretriz técnica de rede",
+      "role": "TECHNICAL_GUIDANCE_SOURCE",
+      "url": "https://www.agrios.it",
+      "access_method": "NÃO SEI (esperado PDF)",
+      "crops": "APPLE",
+      "topics": "difesa integrata, direttive, aggiornamenti, deroghe",
+      "region": "Südtirol (Bolzano)",
+      "update_frequency": "NÃO SEI (esperado: anual + atualizações na safra)",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "o que a rede sul-tirolesa RECOMENDA e o que autoriza por exceção",
+      "nao_prova": "o que foi aplicado no pomar · produto comprado",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T3-012",
+      "name": "FEM — Bollettini / guide tecniche di difesa integrata",
+      "owner": "Fondazione Edmund Mach (FEM)",
+      "owner_kind": "FOUNDATION",
+      "country": "ITALIA",
+      "territory": "T3",
+      "territory_name": "Praga e doenca",
+      "type": "boletim técnico de fundação de pesquisa",
+      "role": "TECHNICAL_GUIDANCE_SOURCE",
+      "url": "https://www.fmach.it",
+      "access_method": "NÃO SEI",
+      "crops": "GRAPE · APPLE",
+      "topics": "difesa integrata, avversità, fenologia",
+      "region": "Trentino",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T4-001",
+      "name": "Ministero della Salute — banca dati prodotti fitosanitari",
+      "owner": "Ministero della Salute",
+      "owner_kind": "OFFICIAL_NATIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T4",
+      "territory_name": "Regulatorio",
+      "type": "registro oficial de autorizações, dados abertos",
+      "role": "VALIDATION_SOURCE",
+      "url": "https://www.dati.salute.gov.it/it/dataset/fitosanitari/",
+      "access_method": "CSV direto (4,6 MB), sem chave",
+      "crops": "NÃO PRESENTE no arquivo",
+      "topics": "registro, titular, vencimento, revogação, substâncias ativas",
+      "region": "nacional",
+      "update_frequency": "arquivo datado; versão obtida 2026-08-24",
+      "historical_depth": "desde 1970",
+      "status": "PRE_EXISTING",
+      "verdict": "GREEN",
+      "prova": "REGULATORY_AUTHORIZATION — o que está autorizado e até quando",
+      "nao_prova": "cultura · alvo · disponibilidade comercial · venda. AUTORIZADO != COMERCIALMENTE DISPONÍVEL.",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T5-001",
+      "name": "CREA — Giornata del Mais (programa e contribuições técnicas)",
+      "owner": "CREA — Consiglio per la ricerca in agricoltura e l'analisi dell'economia agraria",
+      "owner_kind": "RESEARCH_INSTITUTION",
+      "country": "ITALIA",
+      "territory": "T5",
+      "territory_name": "Preco e mercado",
+      "type": "evento científico com material técnico",
+      "role": "SCIENCE_SOURCE",
+      "url": "https://www.crea.gov.it",
+      "access_method": "NÃO SEI (esperado PDF/vídeo)",
+      "crops": "MAIZE",
+      "topics": "tema, cultura, problema, autor, instituição, ano",
+      "region": "nacional",
+      "update_frequency": "ANNUAL (a confirmar)",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T5-002",
+      "name": "FEM OpenPub — repositório de publicações",
+      "owner": "Fondazione Edmund Mach (FEM)",
+      "owner_kind": "FOUNDATION",
+      "country": "ITALIA",
+      "territory": "T5",
+      "territory_name": "Preco e mercado",
+      "type": "repositório institucional",
+      "role": "SCIENCE_SOURCE",
+      "url": "https://publications.fmach.it",
+      "access_method": "NÃO SEI",
+      "crops": "GRAPE · APPLE e outras",
+      "topics": "papers, autores, instituição",
+      "region": "Trentino",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T5-003",
+      "name": "Giornate Fitopatologiche — atti e programma",
+      "owner": "Giornate Fitopatologiche",
+      "owner_kind": "OTHER",
+      "country": "ITALIA",
+      "territory": "T5",
+      "territory_name": "Preco e mercado",
+      "type": "anais de congresso científico",
+      "role": "SCIENCE_SOURCE",
+      "url": "https://www.giornatefitopatologiche.it",
+      "access_method": "NÃO SEI (esperado PDF)",
+      "crops": "múltiplas",
+      "topics": "cultura, problema, substância/prática quando explícita, autor, instituição",
+      "region": "nacional",
+      "update_frequency": "BIENAL (a confirmar)",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T5-004",
+      "name": "CNR IRIS — repositório institucional",
+      "owner": "CNR — Consiglio Nazionale delle Ricerche (repositório IRIS)",
+      "owner_kind": "RESEARCH_INSTITUTION",
+      "country": "ITALIA",
+      "territory": "T5",
+      "territory_name": "Preco e mercado",
+      "type": "repositório institucional",
+      "role": "SCIENCE_SOURCE",
+      "url": "https://iris.cnr.it",
+      "access_method": "NÃO SEI",
+      "crops": "transversal",
+      "topics": "produção científica do CNR",
+      "region": "nacional",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T5-005",
+      "name": "SIRFI — flora infestante e resistência a herbicidas",
+      "owner": "SIRFI — Società Italiana per la Ricerca sulla Flora Infestante",
+      "owner_kind": "OTHER",
+      "country": "ITALIA",
+      "territory": "T5",
+      "territory_name": "Preco e mercado",
+      "type": "sociedade científica",
+      "role": "SCIENCE_SOURCE",
+      "url": "https://www.sirfi.it",
+      "access_method": "NÃO SEI",
+      "crops": "transversal",
+      "topics": "weed science, resistência a herbicida, flora infestante",
+      "region": "nacional",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T7-001",
+      "name": "Terre dell'Etruria — Servizio agronomico / agronomi",
+      "owner": "Terre dell'Etruria — Società Cooperativa Agricola",
+      "owner_kind": "COOPERATIVE",
+      "country": "ITALIA",
+      "territory": "T7",
+      "territory_name": "Ciencia e ensaio",
+      "type": "rede técnica de cooperativa",
+      "role": "IDENTITY_SOURCE",
+      "url": "https://www.terretruria.it",
+      "access_method": "NÃO SEI",
+      "crops": "OLIVE e outras",
+      "topics": "agrônomos, assistência técnica",
+      "region": "Toscana",
+      "update_frequency": "IRREGULAR (esperado)",
+      "historical_depth": "não aplicável",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T7-002",
+      "name": "MASAF — elenco delle OP e AOP riconosciute",
+      "owner": "MASAF — Ministero dell'Agricoltura, della Sovranità Alimentare e delle Foreste",
+      "owner_kind": "OFFICIAL_NATIONAL_AGENCY",
+      "country": "ITALIA",
+      "territory": "T7",
+      "territory_name": "Ciencia e ensaio",
+      "type": "lista oficial de reconhecimento",
+      "role": "IDENTITY_SOURCE",
+      "url": "https://www.politicheagricole.it",
+      "access_method": "NÃO SEI (esperado PDF/XLSX)",
+      "crops": "por setor",
+      "topics": "nome, tipo, setor, região, reconhecimento, data/lista",
+      "region": "nacional com desagregação regional",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "quais organizações o Estado italiano reconhece, em que setor e região",
+      "nao_prova": "atividade · volume · influência técnica · pressão de praga",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T7-003",
+      "name": "CAI — assistenza tecnica, prove e note tecniche",
+      "owner": "Consorzi Agrari d'Italia — CAI S.p.A.",
+      "owner_kind": "CONSORTIUM",
+      "country": "ITALIA",
+      "territory": "T7",
+      "territory_name": "Ciencia e ensaio",
+      "type": "consórcio agrário nacional",
+      "role": "TECHNICAL_GUIDANCE_SOURCE",
+      "url": "https://www.consorziagrariditalia.it",
+      "access_method": "NÃO SEI",
+      "crops": "múltiplas",
+      "topics": "agronomi, assistenza tecnica, ricerca e sviluppo, prove, note tecniche, bollettini",
+      "region": "nacional",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T7-004",
+      "name": "Apo Conerpo — assistenza tecnica, ricerca e progetti",
+      "owner": "Apo Conerpo",
+      "owner_kind": "AOP",
+      "country": "ITALIA",
+      "territory": "T7",
+      "territory_name": "Ciencia e ensaio",
+      "type": "AOP",
+      "role": "IDENTITY_SOURCE",
+      "url": "https://www.apoconerpo.com",
+      "access_method": "NÃO SEI",
+      "crops": "hortofrutícolas",
+      "topics": "assistência técnica, pesquisa, projetos, cooperativas associadas",
+      "region": "Emilia-Romagna e nacional",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T7-005",
+      "name": "Agrintesa — agronomi / rete tecnica",
+      "owner": "Agrintesa Società Cooperativa Agricola",
+      "owner_kind": "COOPERATIVE",
+      "country": "ITALIA",
+      "territory": "T7",
+      "territory_name": "Ciencia e ensaio",
+      "type": "cooperativa",
+      "role": "IDENTITY_SOURCE",
+      "url": "https://www.agrintesa.it",
+      "access_method": "NÃO SEI",
+      "crops": "frutícolas",
+      "topics": "agrônomos, rede técnica",
+      "region": "Emilia-Romagna",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T7-006",
+      "name": "FEM — Centro Trasferimento Tecnologico (assistência técnica)",
+      "owner": "Fondazione Edmund Mach (FEM)",
+      "owner_kind": "FOUNDATION",
+      "country": "ITALIA",
+      "territory": "T7",
+      "territory_name": "Ciencia e ensaio",
+      "type": "serviço de extensão de fundação",
+      "role": "IDENTITY_SOURCE",
+      "url": "https://www.fmach.it",
+      "access_method": "NÃO SEI",
+      "crops": "GRAPE · APPLE",
+      "topics": "transferência tecnológica, técnicos",
+      "region": "Trentino",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T7-007",
+      "name": "Apofruit — Apofruit Notizie e conteúdo técnico",
+      "owner": "Apofruit Italia Società Cooperativa Agricola",
+      "owner_kind": "COOPERATIVE",
+      "country": "ITALIA",
+      "territory": "T7",
+      "territory_name": "Ciencia e ensaio",
+      "type": "publicação de cooperativa",
+      "role": "TECHNICAL_GUIDANCE_SOURCE",
+      "url": "https://www.apofruit.it",
+      "access_method": "NÃO SEI (PDF é rota válida)",
+      "crops": "frutícolas",
+      "topics": "conteúdo técnico, temas de campo",
+      "region": "Emilia-Romagna e nacional",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T7-008",
+      "name": "Ortofruit Italia — ufficio tecnico",
+      "owner": "Ortofruit Italia",
+      "owner_kind": "PRODUCER_ORG",
+      "country": "ITALIA",
+      "territory": "T7",
+      "territory_name": "Ciencia e ensaio",
+      "type": "organização de produtores",
+      "role": "IDENTITY_SOURCE",
+      "url": "https://www.ortofruititalia.it",
+      "access_method": "NÃO SEI",
+      "crops": "frutícolas",
+      "topics": "técnicos, especialização por cultura",
+      "region": "Piemonte",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T7-009",
+      "name": "VOG — rede de cooperativas produtoras",
+      "owner": "VOG — Consorzio Cooperative Ortofrutticole Alto Adige",
+      "owner_kind": "COOPERATIVE",
+      "country": "ITALIA",
+      "territory": "T7",
+      "territory_name": "Ciencia e ensaio",
+      "type": "consórcio de cooperativas",
+      "role": "IDENTITY_SOURCE",
+      "url": "https://www.vog.it",
+      "access_method": "NÃO SEI",
+      "crops": "APPLE",
+      "topics": "rede de produtores, cooperativas associadas",
+      "region": "Südtirol",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T7-010",
+      "name": "Melinda — rede de produtores da Val di Non",
+      "owner": "Melinda Consorzio",
+      "owner_kind": "CONSORTIUM",
+      "country": "ITALIA",
+      "territory": "T7",
+      "territory_name": "Ciencia e ensaio",
+      "type": "consórcio",
+      "role": "IDENTITY_SOURCE",
+      "url": "https://www.melinda.it",
+      "access_method": "NÃO SEI",
+      "crops": "APPLE",
+      "topics": "rede de produtores",
+      "region": "Trentino (Val di Non)",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T7-011",
+      "name": "CAVIT — rede cooperativa e sistema técnico",
+      "owner": "CAVIT — Cantina Viticoltori Trentini",
+      "owner_kind": "COOPERATIVE",
+      "country": "ITALIA",
+      "territory": "T7",
+      "territory_name": "Ciencia e ensaio",
+      "type": "cooperativa vitivinícola",
+      "role": "IDENTITY_SOURCE",
+      "url": "https://www.cavit.it",
+      "access_method": "NÃO SEI",
+      "crops": "GRAPE",
+      "topics": "rede cooperativa, sistema técnico",
+      "region": "Trentino",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T7-012",
+      "name": "PICA — plataforma técnica",
+      "owner": "PICA — Piattaforma Integrata Cartografica Agriviticola",
+      "owner_kind": "OTHER",
+      "country": "ITALIA",
+      "territory": "T7",
+      "territory_name": "Ciencia e ensaio",
+      "type": "sistema de informação técnica",
+      "role": "IDENTITY_SOURCE",
+      "url": "NÃO SEI",
+      "access_method": "NÃO SEI",
+      "crops": "GRAPE",
+      "topics": "cartografia agrivitícola integrada",
+      "region": "Trentino",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T9-001",
+      "name": "BASF Italia — comunicação pública",
+      "owner": "BASF Italia S.p.A.",
+      "owner_kind": "COMPANY",
+      "country": "ITALIA",
+      "territory": "T9",
+      "territory_name": "Concorrente",
+      "type": "site institucional de empresa",
+      "role": "DISCOVERY_SOURCE",
+      "url": "https://www.agro.basf.it",
+      "access_method": "NÃO SEI",
+      "crops": "múltiplas",
+      "topics": "comunicação técnica, produto, cultura",
+      "region": "nacional",
+      "update_frequency": "NÃO SEI",
+      "historical_depth": "NÃO SEI",
+      "status": "REDEFINED",
+      "verdict": "NAO SEI",
+      "prova": "COMPANY_CLAIM — o que a empresa diz publicamente",
+      "nao_prova": "registro · venda · market share · uso real. COMPANY_CLAIM != REGULATORY_FACT.",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T9-002",
+      "name": "Bayer CropScience Italia — comunicação pública",
+      "owner": "Bayer CropScience Italia",
+      "owner_kind": "COMPANY",
+      "country": "ITALIA",
+      "territory": "T9",
+      "territory_name": "Concorrente",
+      "type": "site institucional",
+      "role": "DISCOVERY_SOURCE",
+      "url": "https://www.cropscience.bayer.it",
+      "access_method": "NÃO SEI",
+      "crops": "",
+      "topics": "",
+      "region": "nacional",
+      "update_frequency": "",
+      "historical_depth": "",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T9-003",
+      "name": "Syngenta Italia — comunicação pública",
+      "owner": "Syngenta Italia S.p.A.",
+      "owner_kind": "COMPANY",
+      "country": "ITALIA",
+      "territory": "T9",
+      "territory_name": "Concorrente",
+      "type": "site institucional",
+      "role": "DISCOVERY_SOURCE",
+      "url": "https://www.syngenta.it",
+      "access_method": "NÃO SEI",
+      "crops": "",
+      "topics": "",
+      "region": "nacional",
+      "update_frequency": "",
+      "historical_depth": "",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T9-004",
+      "name": "Corteva Italia — comunicação pública",
+      "owner": "Corteva Agriscience Italia",
+      "owner_kind": "COMPANY",
+      "country": "ITALIA",
+      "territory": "T9",
+      "territory_name": "Concorrente",
+      "type": "site institucional",
+      "role": "DISCOVERY_SOURCE",
+      "url": "https://www.corteva.it",
+      "access_method": "NÃO SEI",
+      "crops": "",
+      "topics": "",
+      "region": "nacional",
+      "update_frequency": "",
+      "historical_depth": "",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T9-005",
+      "name": "Nufarm Italia — comunicação pública",
+      "owner": "Nufarm Italia S.r.l.",
+      "owner_kind": "COMPANY",
+      "country": "ITALIA",
+      "territory": "T9",
+      "territory_name": "Concorrente",
+      "type": "site institucional",
+      "role": "DISCOVERY_SOURCE",
+      "url": "https://www.nufarm.com/it",
+      "access_method": "NÃO SEI",
+      "crops": "",
+      "topics": "",
+      "region": "nacional",
+      "update_frequency": "",
+      "historical_depth": "",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T9-006",
+      "name": "FMC Italia — comunicação pública",
+      "owner": "FMC Agricultural Solutions Italia",
+      "owner_kind": "COMPANY",
+      "country": "ITALIA",
+      "territory": "T9",
+      "territory_name": "Concorrente",
+      "type": "site institucional",
+      "role": "DISCOVERY_SOURCE",
+      "url": "https://www.fmcagro.it",
+      "access_method": "NÃO SEI",
+      "crops": "",
+      "topics": "",
+      "region": "nacional",
+      "update_frequency": "",
+      "historical_depth": "",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T9-007",
+      "name": "UPL Italia — comunicação pública",
+      "owner": "UPL Italia S.r.l.",
+      "owner_kind": "COMPANY",
+      "country": "ITALIA",
+      "territory": "T9",
+      "territory_name": "Concorrente",
+      "type": "site institucional",
+      "role": "DISCOVERY_SOURCE",
+      "url": "https://www.upl-ltd.com/it",
+      "access_method": "NÃO SEI",
+      "crops": "",
+      "topics": "",
+      "region": "nacional",
+      "update_frequency": "",
+      "historical_depth": "",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    },
+    {
+      "source_id": "IT-T9-008",
+      "name": "ADAMA Italia — comunicação pública",
+      "owner": "ADAMA Italia S.r.l.",
+      "owner_kind": "COMPANY",
+      "country": "ITALIA",
+      "territory": "T9",
+      "territory_name": "Concorrente",
+      "type": "site institucional",
+      "role": "DISCOVERY_SOURCE",
+      "url": "https://www.adama.com/italia",
+      "access_method": "NÃO SEI",
+      "crops": "",
+      "topics": "",
+      "region": "nacional",
+      "update_frequency": "",
+      "historical_depth": "",
+      "status": "NEW",
+      "verdict": "NAO SEI",
+      "prova": "",
+      "nao_prova": "",
+      "onde": "candidatas/ITALY-SOURCE-MASTER-V1.json"
+    }
+  ],
+  "RECONCILIACAO": {
+    "so_no_atlas": [
+      "ES-T3-001",
+      "ES-T4-001",
+      "ES-T4-002",
+      "ES-T4-003",
+      "ES-T4-005",
+      "ES-T5-002",
+      "EU-T1-001",
+      "EU-T1-002",
+      "EU-T10-001",
+      "EU-T12-001",
+      "EU-T2-001",
+      "EU-T2-002",
+      "EU-T2-003",
+      "EU-T3-001",
+      "EU-T4-001",
+      "EU-T4-002",
+      "EU-T5-001",
+      "FR-T13-001",
+      "FR-T3-001",
+      "FR-T3-002",
+      "FR-T4-001"
+    ],
+    "so_no_master_italiano": [
+      "IT-T1-001",
+      "IT-T10-001",
+      "IT-T10-002",
+      "IT-T10-003",
+      "IT-T10-004",
+      "IT-T10-005",
+      "IT-T11-001",
+      "IT-T11-002",
+      "IT-T11-003",
+      "IT-T11-004",
+      "IT-T12-002",
+      "IT-T2-001",
+      "IT-T2-002",
+      "IT-T2-003",
+      "IT-T2-004",
+      "IT-T2-005",
+      "IT-T3-002",
+      "IT-T3-003",
+      "IT-T3-004",
+      "IT-T3-005",
+      "IT-T3-006",
+      "IT-T3-007",
+      "IT-T3-008",
+      "IT-T3-009",
+      "IT-T3-010",
+      "IT-T3-011",
+      "IT-T3-012",
+      "IT-T5-001",
+      "IT-T5-002",
+      "IT-T5-003",
+      "IT-T5-004",
+      "IT-T5-005",
+      "IT-T7-001",
+      "IT-T7-002",
+      "IT-T7-003",
+      "IT-T7-004",
+      "IT-T7-005",
+      "IT-T7-006",
+      "IT-T7-007",
+      "IT-T7-008",
+      "IT-T7-009",
+      "IT-T7-010",
+      "IT-T7-011",
+      "IT-T7-012",
+      "IT-T9-001",
+      "IT-T9-002",
+      "IT-T9-003",
+      "IT-T9-004",
+      "IT-T9-005",
+      "IT-T9-006",
+      "IT-T9-007",
+      "IT-T9-008"
+    ],
+    "nos_dois": [
+      "IT-T3-001",
+      "IT-T4-001"
+    ],
+    "so_citadas_em_tabela": [
+      "ES-T8-001",
+      "ES-T8-002",
+      "ES-T8-003"
+    ],
+    "total_distintas": 78,
+    "leitura": "23 tem ficha no atlas, 54 estao no levantamento italiano, 2 estao nos dois. 52 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico."
+  },
+  "ACCOUNTS": {
+    "file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+    "por_plataforma": {
+      "FACEBOOK": {
+        "plataforma": "FACEBOOK",
+        "total": 17,
+        "autorizadas": 10,
+        "contas": [
+          {
+            "empresa": "BASF",
+            "pais": "ES",
+            "handle": "BASF.Agro.Espana",
+            "url": "https://es-la.facebook.com/BASF.Agro.Espana/",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "BASF",
+            "pais": "IT",
+            "handle": "BASF-Agricultural-Solutions-1741459832625091",
+            "url": "https://www.facebook.com/BASF-Agricultural-Solutions-1741459832625091/",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "BAYER",
+            "pais": "ES",
+            "handle": "Bayer4CropsES",
+            "url": "https://www.facebook.com/Bayer4CropsES",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "BAYER",
+            "pais": "IT",
+            "handle": "BayerCropScienceItalia",
+            "url": "https://www.facebook.com/BayerCropScienceItalia",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "CORTEVA",
+            "pais": "ES",
+            "handle": "CortevaES",
+            "url": "https://www.facebook.com/CortevaES",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "NUFARM",
+            "pais": "FR",
+            "handle": "Nufarm-France",
+            "url": "https://www.facebook.com/people/Nufarm-France/100088697208474/",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "NUFARM",
+            "pais": "IT",
+            "handle": "Nufarm-Italia-2312073685546312",
+            "url": "https://www.facebook.com/Nufarm-Italia-2312073685546312",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "SYNGENTA",
+            "pais": "ES",
+            "handle": "SyngentaES",
+            "url": "https://www.facebook.com/SyngentaES/",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "SYNGENTA",
+            "pais": "FR",
+            "handle": "SyngentaFrance",
+            "url": "https://www.facebook.com/SyngentaFrance",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "SYNGENTA",
+            "pais": "IT",
+            "handle": "Syngenta-2007689772789481",
+            "url": "https://www.facebook.com/Syngenta-2007689772789481",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "BAYER",
+            "pais": "FR",
+            "handle": "dekalbfr",
+            "url": "https://www.facebook.com/dekalbfr",
+            "autorizada": false,
+            "identidade": "PROVED",
+            "porque": "a página é de MARCA/PRODUTO, não da empresa no país (PAGE_ROLE=PRODUCT_BRAND). O lote é COMPANY x COUNTRY."
+          },
+          {
+            "empresa": "NUFARM",
+            "pais": "ES",
+            "handle": "NOT_KNOWN",
+            "url": "https://www.facebook.com/policy.php/",
+            "autorizada": false,
+            "identidade": "REJECTED",
+            "porque": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
+          },
+          {
+            "empresa": "NUFARM",
+            "pais": "FR",
+            "handle": "NOT_KNOWN",
+            "url": "https://www.facebook.com/policy.php/",
+            "autorizada": false,
+            "identidade": "REJECTED",
+            "porque": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)"
+          },
+          {
+            "empresa": "NUFARM",
+            "pais": "IT",
+            "handle": "NOT_KNOWN",
+            "url": "https://www.facebook.com/policy.php/",
+            "autorizada": false,
+            "identidade": "REJECTED",
+            "porque": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como IT (COUNTRY_SCOPE=NOT_KNOWN)"
+          },
+          {
+            "empresa": "SYNGENTA",
+            "pais": "ES",
+            "handle": "NOT_KNOWN",
+            "url": "https://www.facebook.com/policy.php/",
+            "autorizada": false,
+            "identidade": "REJECTED",
+            "porque": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
+          },
+          {
+            "empresa": "SYNGENTA",
+            "pais": "FR",
+            "handle": "NOT_KNOWN",
+            "url": "https://www.facebook.com/policy.php/",
+            "autorizada": false,
+            "identidade": "REJECTED",
+            "porque": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)"
+          },
+          {
+            "empresa": "SYNGENTA",
+            "pais": "IT",
+            "handle": "NOT_KNOWN",
+            "url": "https://www.facebook.com/policy.php/",
+            "autorizada": false,
+            "identidade": "REJECTED",
+            "porque": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como IT (COUNTRY_SCOPE=NOT_KNOWN)"
+          }
+        ]
+      },
+      "INSTAGRAM": {
+        "plataforma": "INSTAGRAM",
+        "total": 7,
+        "autorizadas": 5,
+        "contas": [
+          {
+            "empresa": "BASF",
+            "pais": "ES",
+            "handle": "basf_agroes",
+            "url": "https://www.instagram.com/basf_agroes/",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "BAYER",
+            "pais": "ES",
+            "handle": "bayer4cropses",
+            "url": "https://www.instagram.com/bayer4cropses/",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "BAYER",
+            "pais": "IT",
+            "handle": "bayer_italia",
+            "url": "https://www.instagram.com/bayer_italia",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "SYNGENTA",
+            "pais": "ES",
+            "handle": "syngenta.es",
+            "url": "https://instagram.com/syngenta.es",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "SYNGENTA",
+            "pais": "IT",
+            "handle": "syngentaitalia",
+            "url": "https://www.instagram.com/syngentaitalia/",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "BASF",
+            "pais": "IT",
+            "handle": "basf_global",
+            "url": "https://www.instagram.com/basf_global/?hl=it",
+            "autorizada": false,
+            "identidade": "PROVED",
+            "porque": "o país da conta não está provado como IT (COUNTRY_SCOPE=GLOBAL)"
+          },
+          {
+            "empresa": "CORTEVA",
+            "pais": "FR",
+            "handle": "cortevabiologicals",
+            "url": "https://www.instagram.com/cortevabiologicals/",
+            "autorizada": false,
+            "identidade": "PROVED",
+            "porque": "o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN) · a página é de MARCA/PRODUTO, não da empresa no país (PAGE_ROLE=PRODUCT_BRAND). O lote é COMPANY x COUNTRY."
+          }
+        ]
+      },
+      "LINKEDIN": {
+        "plataforma": "LINKEDIN",
+        "total": 6,
+        "autorizadas": 0,
+        "contas": [
+          {
+            "empresa": "BASF",
+            "pais": "ES",
+            "handle": "basf",
+            "url": "https://www.linkedin.com/company/basf",
+            "autorizada": false,
+            "identidade": "PROVED",
+            "porque": "o país da conta não está provado como ES (COUNTRY_SCOPE=GLOBAL)"
+          },
+          {
+            "empresa": "BASF",
+            "pais": "IT",
+            "handle": "basf",
+            "url": "https://www.linkedin.com/company/basf/?originalSubdomain=it",
+            "autorizada": false,
+            "identidade": "PROVED",
+            "porque": "o país da conta não está provado como IT (COUNTRY_SCOPE=GLOBAL)"
+          },
+          {
+            "empresa": "BAYER",
+            "pais": "IT",
+            "handle": "bayer-cropscience",
+            "url": "https://it.linkedin.com/company/bayer-cropscience",
+            "autorizada": false,
+            "identidade": "PROVED",
+            "porque": "o país da conta não está provado como IT (COUNTRY_SCOPE=GLOBAL)"
+          },
+          {
+            "empresa": "NUFARM",
+            "pais": "ES",
+            "handle": "nufarm",
+            "url": "https://www.linkedin.com/company/nufarm/",
+            "autorizada": false,
+            "identidade": "PROVED",
+            "porque": "o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
+          },
+          {
+            "empresa": "NUFARM",
+            "pais": "FR",
+            "handle": "nufarm",
+            "url": "https://www.linkedin.com/company/nufarm/",
+            "autorizada": false,
+            "identidade": "PROVED",
+            "porque": "o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)"
+          },
+          {
+            "empresa": "NUFARM",
+            "pais": "IT",
+            "handle": "nufarm",
+            "url": "https://au.linkedin.com/company/nufarm",
+            "autorizada": false,
+            "identidade": "PROVED",
+            "porque": "o país da conta não está provado como IT (COUNTRY_SCOPE=NOT_KNOWN)"
+          }
+        ]
+      },
+      "YOUTUBE": {
+        "plataforma": "YOUTUBE",
+        "total": 14,
+        "autorizadas": 7,
+        "contas": [
+          {
+            "empresa": "BAYER",
+            "pais": "ES",
+            "handle": "BayerCropScienceEspaña",
+            "url": "https://www.youtube.com/c/BayerCropScienceEspa%C3%B1a",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "BAYER",
+            "pais": "FR",
+            "handle": "BayerAgri",
+            "url": "https://www.youtube.com/@BayerAgri",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "BAYER",
+            "pais": "IT",
+            "handle": "BayerCropScienceIT",
+            "url": "https://www.youtube.com/user/BayerCropScienceIT",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "NUFARM",
+            "pais": "ES",
+            "handle": "nufarmespana",
+            "url": "https://www.youtube.com/user/nufarmespana",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "SYNGENTA",
+            "pais": "ES",
+            "handle": "SyngentaES",
+            "url": "https://www.youtube.com/user/SyngentaES",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "SYNGENTA",
+            "pais": "FR",
+            "handle": "SyngentaFrance",
+            "url": "https://youtube.com/user/SyngentaFrance/",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "SYNGENTA",
+            "pais": "IT",
+            "handle": "Syngentaitaly",
+            "url": "https://www.youtube.com/Syngentaitaly",
+            "autorizada": true,
+            "identidade": "PROVED",
+            "porque": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
+          },
+          {
+            "empresa": "BASF",
+            "pais": "ES",
+            "handle": "NOT_KNOWN",
+            "url": "https://www.youtube.com/playlist?v=tNVpHYn5hZQ&list=PL6qwtP-pW0yQJvssDjPH7qB2K8nOowsGU",
+            "autorizada": false,
+            "identidade": "REJECTED",
+            "porque": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
+          },
+          {
+            "empresa": "BASF",
+            "pais": "FR",
+            "handle": "NOT_KNOWN",
+            "url": "https://www.youtube.com/playlist?list=PL6qwtP-pW0yRMtJpEWKVqnNL_THdY8OwH",
+            "autorizada": false,
+            "identidade": "REJECTED",
+            "porque": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)"
+          },
+          {
+            "empresa": "BASF",
+            "pais": "IT",
+            "handle": "NOT_KNOWN",
+            "url": "https://youtube.com/playlist?list=PL6qwtP-pW0yTjVhFPDJ164KR3ot2_zgqy",
+            "autorizada": false,
+            "identidade": "REJECTED",
+            "porque": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como IT (COUNTRY_SCOPE=NOT_KNOWN)"
+          },
+          {
+            "empresa": "BAYER",
+            "pais": "ES",
+            "handle": "NOT_KNOWN",
+            "url": "https://www.youtube.com/watch?v=iWTktO4WKQ0",
+            "autorizada": false,
+            "identidade": "REJECTED",
+            "porque": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
+          },
+          {
+            "empresa": "BAYER",
+            "pais": "FR",
+            "handle": "NOT_KNOWN",
+            "url": "https://www.youtube.com/watch?v=NqYEfsuaBbg",
+            "autorizada": false,
+            "identidade": "REJECTED",
+            "porque": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)"
+          },
+          {
+            "empresa": "CORTEVA",
+            "pais": "FR",
+            "handle": "CortevaBiologicals",
+            "url": "https://www.youtube.com/@CortevaBiologicals",
+            "autorizada": false,
+            "identidade": "PROVED",
+            "porque": "o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN) · a página é de MARCA/PRODUTO, não da empresa no país (PAGE_ROLE=PRODUCT_BRAND). O lote é COMPANY x COUNTRY."
+          },
+          {
+            "empresa": "SYNGENTA",
+            "pais": "ES",
+            "handle": "NOT_KNOWN",
+            "url": "https://www.youtube.com/watch?v=rZV7WGA9y8M&t=1s",
+            "autorizada": false,
+            "identidade": "REJECTED",
+            "porque": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
+          }
+        ]
+      }
+    },
+    "total": 44,
+    "autorizadas": 22
+  },
+  "INTAKE": {
+    "porta": "candidatas/fonte_nova.py",
+    "fila_file": "candidatas/FONTES-CANDIDATAS.json",
+    "tipos_aceites": [],
+    "escada": [
+      {
+        "degrau": 1,
+        "nome": "CANDIDATA",
+        "o_que_e": "alguem viu que existe. Ninguem abriu ainda.",
+        "quantas": 0,
+        "onde": "candidatas/FONTES-CANDIDATAS.json",
+        "sobe_como": "abrir, olhar o que entrega e guardar um exemplo real"
+      },
+      {
+        "degrau": 2,
+        "nome": "REGISTADA",
+        "o_que_e": "tem ficha no atlas, com exemplo real guardado.",
+        "quantas": 18,
+        "onde": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "sobe_como": "escrever COMO se busca e o que fazer quando quebrar"
+      },
+      {
+        "degrau": 3,
+        "nome": "CONTRATADA",
+        "o_que_e": "tem contrato de busca escrito.",
+        "quantas": 5,
+        "onde": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+        "sobe_como": "por a busca a correr sozinha, num workflow"
+      },
+      {
+        "degrau": 4,
+        "nome": "AUTOMATICA",
+        "o_que_e": "a maquina vai la sozinha, sem ninguem por perto.",
+        "quantas": null,
+        "onde": ".github/workflows/",
+        "sobe_como": "—"
+      }
+    ],
+    "por_tipo": {},
+    "candidatas": [],
+    "nao_verificadas": 5
+  },
+  "SEARCH_TERMS": [
+    {
+      "file": "regras/rotulos_censo.py",
+      "line": 48,
+      "variavel": "TERMOS",
+      "grupos": [
+        {
+          "grupo": "SCAPHOIDEUS_TITANUS",
+          "palavras": [
+            "scaphoideus",
+            "scafoideo"
+          ],
+          "porque": "vetor da flavescencia dourada, de controle obrigatorio em 5 regioes"
+        },
+        {
+          "grupo": "FLAVESCENZA_DOURADA",
+          "palavras": [
+            "flavescenza",
+            "giallumi della vite"
+          ],
+          "porque": "a doenca em si; o rotulo trata o vetor, nao o fitoplasma"
+        },
+        {
+          "grupo": "BACTROCERA_OLEAE",
+          "palavras": [
+            "bactrocera oleae",
+            "mosca dell.oliva",
+            "mosca dell.olivo"
+          ],
+          "porque": "mosca da oliveira -- a principal praga do olival italiano"
+        },
+        {
+          "grupo": "BACTROCERA_OUTRAS",
+          "palavras": [
+            "bactrocera dorsalis",
+            "bactrocera zonata"
+          ],
+          "porque": "outras Bactrocera; NAO sao a mosca da oliveira"
+        },
+        {
+          "grupo": "OCCHIO_DI_PAVONE",
+          "palavras": [
+            "occhio di pavone",
+            "spilocaea",
+            "cicloconio",
+            "venturia oleaginea"
+          ],
+          "porque": "a principal doenca do olival italiano"
+        },
+        {
+          "grupo": "OLIVO",
+          "palavras": [
+            "olivo",
+            "oliveto",
+            "olive da",
+            "olivicol"
+          ],
+          "porque": "a cultura oliveira, em qualquer uso"
+        },
+        {
+          "grupo": "VENTURIA_MELO",
+          "palavras": [
+            "ticchiolatura",
+            "venturia inaequalis"
+          ],
+          "porque": "sarna da macieira"
+        },
+        {
+          "grupo": "HALYOMORPHA",
+          "palavras": [
+            "halyomorpha",
+            "cimice asiatica"
+          ],
+          "porque": "percevejo asiatico"
+        },
+        {
+          "grupo": "DIABROTICA",
+          "palavras": [
+            "diabrotica"
+          ],
+          "porque": "praga do milho"
+        },
+        {
+          "grupo": "OSTRINIA",
+          "palavras": [
+            "ostrinia",
+            "piralide"
+          ],
+          "porque": "broca do milho"
+        },
+        {
+          "grupo": "FUSARIUM",
+          "palavras": [
+            "fusarium",
+            "fusarios"
+          ],
+          "porque": "fusariose, ligada a micotoxina"
+        },
+        {
+          "grupo": "ZYMOSEPTORIA",
+          "palavras": [
+            "zymoseptoria",
+            "septoria",
+            "septorios"
+          ],
+          "porque": "septoriose do trigo"
+        },
+        {
+          "grupo": "ECHINOCHLOA",
+          "palavras": [
+            "echinochloa",
+            "giavone"
+          ],
+          "porque": "a daninha do arroz"
+        },
+        {
+          "grupo": "ORYZA_CRODO",
+          "palavras": [
+            "riso crodo"
+          ],
+          "porque": "arroz daninho"
+        },
+        {
+          "grupo": "AMBROSIA",
+          "palavras": [
+            "ambrosia artemisiifolia"
+          ],
+          "porque": "daninha invasora com impacto de saude"
+        },
+        {
+          "grupo": "POPILLIA",
+          "palavras": [
+            "popillia japonica"
+          ],
+          "porque": "praga quarentenaria em expansao no norte"
+        },
+        {
+          "grupo": "XYLELLA",
+          "palavras": [
+            "xylella"
+          ],
+          "porque": "bacteria de quarentena do olival do sul"
+        }
+      ],
+      "total_palavras": 35
+    },
+    {
+      "file": "regras/sensor_coleta.py",
+      "line": 132,
+      "variavel": "TERMOS",
+      "grupos": [
+        {
+          "grupo": "ES-OLIVE-REPILO",
+          "palavras": [
+            "repilo del olivo",
+            "Venturia oleaginea olivo",
+            "repilo olivar tratamiento",
+            "jornada tecnica olivar repilo"
+          ]
+        },
+        {
+          "grupo": "ES-CEREAL-SEPTORIA",
+          "palavras": [
+            "septoria trigo",
+            "septoriosis del trigo",
+            "Zymoseptoria tritici trigo",
+            "jornada tecnica cereal septoria"
+          ]
+        },
+        {
+          "grupo": "IT-VINE-FLAVESCENCE",
+          "palavras": [
+            "flavescenza dorata vite",
+            "flavescenza dorata vigneto",
+            "giallumi della vite",
+            "convegno flavescenza dorata"
+          ]
+        },
+        {
+          "grupo": "IT-DURUM_WHEAT-FUSARIUM",
+          "palavras": [
+            "fusariosi grano duro",
+            "micotossine grano duro",
+            "fusariosi della spiga",
+            "convegno grano duro micotossine"
+          ]
+        },
+        {
+          "grupo": "FR-VINE-DOWNY_MILDEW",
+          "palavras": [
+            "mildiou de la vigne",
+            "Plasmopara viticola vigne",
+            "mildiou vigne traitement",
+            "webinaire mildiou vigne"
+          ]
+        },
+        {
+          "grupo": "FR-CEREAL-SEPTORIA",
+          "palavras": [
+            "septoriose du ble",
+            "Zymoseptoria tritici ble",
+            "septoriose ble traitement",
+            "webinaire septoriose ble"
+          ]
+        },
+        {
+          "grupo": "IT-MAIZE-WEED",
+          "palavras": [
+            "diserbo del mais",
+            "infestanti del mais",
+            "diserbo mais pre-emergenza",
+            "diserbo mais post-emergenza"
+          ]
+        },
+        {
+          "grupo": "IT-CEREAL-WEED",
+          "palavras": [
+            "diserbo dei cereali",
+            "diserbo del grano infestanti",
+            "loietto resistente frumento",
+            "avena resistente diserbo grano"
+          ]
+        },
+        {
+          "grupo": "IT-SOYBEAN-AMARANTHUS",
+          "palavras": [
+            "amaranto resistente soia",
+            "diserbo della soia",
+            "infestanti resistenti soia",
+            "resistenza erbicidi soia"
+          ]
+        },
+        {
+          "grupo": "IT-SUGARBEET-WEED",
+          "palavras": [
+            "diserbo barbabietola da zucchero",
+            "diserbo bietola",
+            "infestanti barbabietola",
+            "diserbo bietola post-emergenza"
+          ]
+        },
+        {
+          "grupo": "IT-RICE-WEED",
+          "palavras": [
+            "diserbo del riso",
+            "riso crodo diserbo",
+            "giavone risaia",
+            "diserbo risaia infestanti"
+          ]
+        },
+        {
+          "grupo": "IT-APPLE-DISEASE",
+          "palavras": [
+            "ticchiolatura del melo",
+            "difesa del melo",
+            "ticchiolatura melo trattamenti",
+            "melo maculatura bruna"
+          ]
+        },
+        {
+          "grupo": "IT-VINE-WEED",
+          "palavras": [
+            "diserbo del vigneto",
+            "gestione del sottofila vigneto",
+            "inerbimento vigneto",
+            "diserbo sottofila vite"
+          ]
+        },
+        {
+          "grupo": "IT-OLIVE-BACTROCERA",
+          "palavras": [
+            "mosca delle olive difesa",
+            "Bactrocera oleae olivo",
+            "monitoraggio mosca olivo",
+            "trattamento mosca olive"
+          ]
+        },
+        {
+          "grupo": "IT-CEREAL-SEPTORIA",
+          "palavras": [
+            "septoriosi del frumento",
+            "malattie fogliari frumento",
+            "difesa cereali a paglia",
+            "ruggine gialla frumento"
+          ]
+        },
+        {
+          "grupo": "IT-APPLE-INSECT",
+          "palavras": [
+            "afidi del melo difesa",
+            "carpocapsa del melo",
+            "insetticidi melo difesa",
+            "difesa melo insetti"
+          ]
+        },
+        {
+          "grupo": "IT-TOMATO-DISEASE",
+          "palavras": [
+            "peronospora del pomodoro",
+            "difesa pomodoro malattie",
+            "alternaria pomodoro",
+            "botrite pomodoro difesa"
+          ]
+        }
+      ],
+      "total_palavras": 68
+    }
+  ],
+  "MEMORIA_DA_COLETA": [
+    {
+      "ficheiro": "coleta/agrifood_ue.py",
+      "como_se_chama": "coleta/agrifood_ue.py cereal/prices IT 2024 2025 2026",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/coleta_checkpoint.py",
+      "como_se_chama": "",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/coletor.py",
+      "como_se_chama": "",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/comunicacao_classificar.py",
+      "como_se_chama": "coleta/comunicacao_classificar.py",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/comunicacao_coleta.py",
+      "como_se_chama": "coleta/comunicacao_coleta.py contratos",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/comunicacao_medir.py",
+      "como_se_chama": "coleta/comunicacao_medir.py",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": [
+        "NOT_ELIGIBLE",
+        "REJEIT"
+      ]
+    },
+    {
+      "ficheiro": "coleta/corpus_pesquisador.py",
+      "como_se_chama": "coleta/corpus_pesquisador.py coletar",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/cruzar_regua_rotulo.py",
+      "como_se_chama": "coleta/cruzar_regua_rotulo.py",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/denominaciones.py",
+      "como_se_chama": "coleta/denominaciones.py",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": [
+        "DESCARTAD"
+      ]
+    },
+    {
+      "ficheiro": "coleta/eppo_gd.py",
+      "como_se_chama": "coleta/eppo_gd.py PLASVI VITVI",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/es/corpus_es.py",
+      "como_se_chama": "coleta/es/corpus_es.py buscar",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/eu_substancia_adama_it.py",
+      "como_se_chama": "coleta/eu_substancia_adama_it.py",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/filas.py",
+      "como_se_chama": "",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": [
+        "RECUSAD"
+      ]
+    },
+    {
+      "ficheiro": "coleta/gire_mapas.py",
+      "como_se_chama": ".tmp/gire_mapas.py            -",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/instagram_coleta.py",
+      "como_se_chama": "coleta/instagram_coleta.py contratos",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/instagram_diario.py",
+      "como_se_chama": "coleta/instagram_diario.py fila",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/instagram_janela.py",
+      "como_se_chama": "coleta/instagram_janela.py perfis",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/instagram_pessoal.py",
+      "como_se_chama": "coleta/instagram_pessoal.py estado",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/mapa_regfi.py",
+      "como_se_chama": "coleta/mapa_regfi.py producto ES-01717",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/pdf_text.py",
+      "como_se_chama": "coleta/pdf_text.py arquivo.pdf",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/preservar_pdf.py",
+      "como_se_chama": "coleta/preservar_pdf.py data/samples/PIEMONTE-FD IT/PIEMONTE-FD",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/regulatorio_importar.py",
+      "como_se_chama": "coleta/regulatorio_importar.py --sql",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/ropf_pre_requisito.py",
+      "como_se_chama": "coleta/ropf_pre_requisito.py",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/rotulos_baixar.py",
+      "como_se_chama": "coleta/rotulos_baixar.py",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/rotulos_ler.py",
+      "como_se_chama": "coleta/rotulos_ler.py",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/sensor_canal_identidade.py",
+      "como_se_chama": "coleta/sensor_canal_identidade.py",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/speaker_identidade.py",
+      "como_se_chama": "coleta/speaker_identidade.py montar",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": [
+        "RECUSAD"
+      ]
+    },
+    {
+      "ficheiro": "coleta/speaker_universo.py",
+      "como_se_chama": "coleta/speaker_universo.py buscar IT",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/texto_fonte.py",
+      "como_se_chama": "coleta/texto_fonte.py eu 32026R1826",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/universo_ciencia_it.py",
+      "como_se_chama": "coleta/universo_ciencia_it.py",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": [
+        "RECUSAD"
+      ]
+    },
+    {
+      "ficheiro": "coleta/youtube_janela.py",
+      "como_se_chama": "coleta/youtube_janela.py canais",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/youtube_relevancia.py",
+      "como_se_chama": "coleta/youtube_relevancia.py fontes",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [
+        "sensor_medir"
+      ],
+      "regista_descarte": [
+        "RECUSAD"
+      ]
+    },
+    {
+      "ficheiro": "regras/comunicacao_identidade.py",
+      "como_se_chama": "regras/comunicacao_identidade.py",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": [
+        "EXCLUSION_REASON",
+        "DESCARTAD"
+      ]
+    },
+    {
+      "ficheiro": "regras/comunicacao_lote.py",
+      "como_se_chama": "regras/comunicacao_lote.py",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "regras/comunicacao_universo.py",
+      "como_se_chama": "regras/comunicacao_universo.py",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "regras/proveniencia.py",
+      "como_se_chama": "",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "regras/rotulos_censo.py",
+      "como_se_chama": "regras/rotulos_censo.py",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "regras/sensor_coleta.py",
+      "como_se_chama": "regras/sensor_coleta.py contratos",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
+      "regista_descarte": [
+        "RECUSAD"
+      ]
+    },
+    {
+      "ficheiro": "regras/sensor_medir.py",
+      "como_se_chama": "regras/sensor_medir.py",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    }
+  ],
+  "COLETAS_FEITAS": {
+    "ficheiro": "data/samples/RUN-MANIFEST.json",
+    "corridas": [
+      {
+        "run_id": "ES-T5-002-2026-08-29-a",
+        "fonte": "ES-T5-002",
+        "plataforma": "OPENALEX",
+        "quem_foi_buscar": "scripts/corpus_es.py (coletor próprio, rota gratuita)",
+        "com_que_parametros": {
+          "filtro": "institutions.country_code:es, publication_year:2019-2026",
+          "temas": "12, cada um com CROP e ISSUE declarados"
+        },
+        "que_pergunta": "12 temas declarados",
+        "pais": "ES",
+        "missao": "10A-ES",
+        "trouxe": 1771,
+        "sobrou": 1771,
+        "rendimento": 100,
+        "custou_usd": 0.0,
+        "estado": "SUCCESS",
+        "erro": "rota GRATUITA e replicável: o bruto é cache (D-003), a cadeia o refaz",
+        "prova": "data/samples/ES-T5-002-corpus-documentos.json",
+        "bruto": "data/raw/ES-T5-002/openalex_works.json"
+      },
+      {
+        "run_id": "ES-T8-001-2026-08-29-a",
+        "fonte": "ES-T8-001",
+        "plataforma": "YOUTUBE",
+        "quem_foi_buscar": "apify/streamers~youtube-scraper (busca por termo)",
+        "com_que_parametros": {
+          "searchQueries": [
+            "repilo del olivo tratamiento",
+            "Venturia oleaginea olivo",
+            "sanidad vegetal olivar",
+            "jornada tecnica olivar",
+            "webinar olivar fitosanitario",
+            "tuberculosis del olivo",
+            "verticilosis olivar"
+          ],
+          "maxResults": 40,
+          "maxResultsShorts": 0,
+          "maxResultStreams": 0,
+          "sortVideosBy": "POPULAR",
+          "videoType": "video"
+        },
+        "que_pergunta": [
+          "repilo del olivo tratamiento",
+          "Venturia oleaginea olivo",
+          "sanidad vegetal olivar",
+          "jornada tecnica olivar",
+          "webinar olivar fitosanitario",
+          "tuberculosis del olivo",
+          "verticilosis olivar"
+        ],
+        "pais": "ES",
+        "missao": "10A-ES",
+        "trouxe": 252,
+        "sobrou": 252,
+        "rendimento": 100,
+        "custou_usd": null,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "data/samples/ES-T8-001-videos.json",
+        "bruto": "data/samples/raw-paid/ES-T8-001-youtube-search.raw.json.gz"
+      },
+      {
+        "run_id": "ES-T8-001-COMMENTS-2026-08-29-a",
+        "fonte": "ES-T8-001",
+        "plataforma": "YOUTUBE",
+        "quem_foi_buscar": "apify/streamers~youtube-comments-scraper",
+        "com_que_parametros": {
+          "startUrls": "48 vídeos on-topic (ISSUE declarado) com >=1 comentário",
+          "maxComments": 40,
+          "sortCommentsBy": "TOP_COMMENTS"
+        },
+        "que_pergunta": "comentários dos 48 vídeos on-topic",
+        "pais": "ES",
+        "missao": "10A-ES",
+        "trouxe": 346,
+        "sobrou": 346,
+        "rendimento": 100,
+        "custou_usd": null,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "data/samples/ES-T8-001-comentarios.json",
+        "bruto": "data/samples/raw-paid/ES-T8-001-youtube-comments.raw.json.gz"
+      },
+      {
+        "run_id": "ES-T8-001-TRANSCRIPT-2026-08-29-a",
+        "fonte": "ES-T8-001",
+        "plataforma": "YOUTUBE",
+        "quem_foi_buscar": "apify/pintostudio~youtube-transcript-scraper",
+        "com_que_parametros": {
+          "videoUrls": [
+            {
+              "url": "https://www.youtube.com/watch?v=AuoBaMztBfw"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=OPUd0BMUbcA"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=lXaN7gZcTgo"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=uYJ7f5fmwVE"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=suRYs1KqeRc"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=VwKIZpNz2MQ"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=TQH1rUR8ZQ4"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=aQdBb9JhjoQ"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=pDOLXMhjHPU"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=nyIrd9Ihl_c"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=jimPyc7kHSw"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=mko8wSJpiSg"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=HdI2-O6pM0E"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=3lv1lvtmgEQ"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=dgG6DbcRQP0"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=nDgtDHSqPLg"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=SFOH1MGAozE"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=lkBi7PUYFI0"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=fgbbzC-IOj0"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=475MH04j8t0"
+            }
+          ]
+        },
+        "que_pergunta": "20 vídeos >=15 min de canais com papel declarado",
+        "pais": "ES",
+        "missao": "10A-ES",
+        "trouxe": 20,
+        "sobrou": 15,
+        "rendimento": 75,
+        "custou_usd": null,
+        "estado": "PARTIAL",
+        "erro": "5 vídeos sem legenda pública — REQUESTED_EMPTY, não ausência",
+        "prova": "data/samples/ES-T8-001-transcricoes.json",
+        "bruto": "data/samples/raw-paid/ES-T8-001-youtube-transcripts.raw.json.gz"
+      },
+      {
+        "run_id": "ES-T8-002-2026-08-29-a",
+        "fonte": "ES-T8-002",
+        "plataforma": "LINKEDIN",
+        "quem_foi_buscar": "apify/harvestapi~linkedin-post-search",
+        "com_que_parametros": {
+          "lote_a": {
+            "searchQueries": [
+              "repilo olivo",
+              "Venturia oleaginea",
+              "olivar fungicida",
+              "sanidad vegetal olivar"
+            ],
+            "maxPosts": 25,
+            "postedLimit": "any",
+            "sortBy": "date"
+          },
+          "lote_b": {
+            "searchQueries": [
+              "repilo del olivo",
+              "Venturia oleaginea olivar",
+              "tuberculosis del olivo",
+              "Verticillium olivar",
+              "sanidad vegetal olivar España",
+              "fungicida olivar",
+              "olivar Andalucía plaga",
+              "asesoramiento fitosanitario olivar",
+              "tratamiento olivar cobre",
+              "Xylella olivar España",
+              "mosca del olivo Bactrocera",
+              "agronomo olivar",
+              "cooperativa olivar tratamiento",
+              "RAIF Andalucía"
+            ],
+            "maxPosts": 40,
+            "postedLimit": "any",
+            "sortBy": "date"
+          }
+        },
+        "que_pergunta": "18 termos técnicos sobre olivar e sanidade vegetal",
+        "pais": "ES",
+        "missao": "10A-ES",
+        "trouxe": 472,
+        "sobrou": 372,
+        "rendimento": 79,
+        "custou_usd": null,
+        "estado": "SUCCESS",
+        "erro": "100 duplicatas por POST_ID entre consultas — ver DEDUPE",
+        "prova": "data/samples/ES-T8-002-posts.json",
+        "bruto": [
+          "data/samples/raw-paid/ES-T8-002-linkedin-posts-a.raw.json.gz",
+          "data/samples/raw-paid/ES-T8-002-linkedin-posts-b.raw.json.gz"
+        ]
+      },
+      {
+        "run_id": "ES-T8-002-PROFILES-2026-08-29-a",
+        "fonte": "ES-T8-002",
+        "plataforma": "LINKEDIN",
+        "quem_foi_buscar": "apify/harvestapi~linkedin-profile-scraper",
+        "com_que_parametros": {
+          "profileScraperMode": "Profile details no email ($4 per 1k)",
+          "queries": "120 URLs de perfil em 12 lotes de 10 (limite do plano gratuito)",
+          "LISTA_LITERAL": "data/samples/ES-T8-002-entradas-enriquecimento.json"
+        },
+        "que_pergunta": "enriquecimento de identidade das origens vindas da busca de posts",
+        "pais": "ES",
+        "missao": "10A-ES",
+        "trouxe": 120,
+        "sobrou": 115,
+        "rendimento": 96,
+        "custou_usd": 0.484,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "data/samples/ES-VOICE-LINKEDIN.json",
+        "bruto": "data/samples/raw-paid/ES-T8-002-linkedin-profiles.raw.json.gz"
+      },
+      {
+        "run_id": "ES-T8-002-TITLESEARCH-2026-08-29-a",
+        "fonte": "ES-T8-002",
+        "plataforma": "LINKEDIN",
+        "quem_foi_buscar": "apify/harvestapi~linkedin-profile-search",
+        "com_que_parametros": {
+          "rodada_1": {
+            "profileScraperMode": "Full",
+            "searchQuery": "olivar",
+            "currentJobTitles": [
+              "asesor agrícola",
+              "técnico agrícola",
+              "ingeniero agrónomo"
+            ],
+            "locations": [
+              "Spain"
+            ],
+            "maxItems": 10,
+            "takePages": 1
+          },
+          "rodada_2": "6 conjuntos cargo x região",
+          "rodada_3": "5 buscas só por cargo"
+        },
+        "que_pergunta": "descoberta por CARGO DECLARADO, não por post",
+        "pais": "ES",
+        "missao": "10A-ES",
+        "trouxe": 101,
+        "sobrou": 87,
+        "rendimento": 86,
+        "custou_usd": null,
+        "estado": "PARTIAL",
+        "erro": "4 das 11 consultas devolveram 0 — sobre-restricao, falha fechada. O bruto desta execucao foi fundido com o do enriquecimento antes de ser preservado: os dois compartilham o mesmo arquivo e NAO sao separaveis a posteriori.",
+        "prova": "data/samples/ES-VOICE-LINKEDIN.json",
+        "bruto": [
+          "data/samples/raw-paid/ES-T8-002-linkedin-profiles.raw.json.gz",
+          "data/samples/raw-paid/ES-T8-002-titlesearch-test.raw.json.gz"
+        ]
+      },
+      {
+        "run_id": "ES-T8-003-2026-08-29-a",
+        "fonte": "ES-T8-003",
+        "plataforma": "INSTAGRAM",
+        "quem_foi_buscar": "apify/instagram-hashtag-scraper",
+        "com_que_parametros": {
+          "hashtags": [
+            "repilo",
+            "olivar",
+            "sanidadvegetal"
+          ],
+          "resultsLimit": 20
+        },
+        "que_pergunta": [
+          "repilo",
+          "olivar",
+          "sanidadvegetal"
+        ],
+        "pais": "ES",
+        "missao": "10A-ES",
+        "trouxe": 60,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": null,
+        "estado": "SUCCESS",
+        "erro": "rota REPROVADA na medição: 24 de 32 contas sem país declarado. Não escalada.",
+        "prova": "data/samples/ES-VOICE-INSTAGRAM.json",
+        "bruto": "data/samples/raw-paid/ES-T8-003-instagram-hashtags.raw.json.gz"
+      },
+      {
+        "run_id": "GATE-TEST-RUNMANIFEST-2026-08-29-c",
+        "fonte": null,
+        "plataforma": "LINKEDIN",
+        "quem_foi_buscar": "harvestapi~linkedin-profile-search",
+        "com_que_parametros": {
+          "profileScraperMode": "Full",
+          "searchQuery": "olivar",
+          "currentJobTitles": [
+            "asesor agrícola"
+          ],
+          "locations": [
+            "Spain"
+          ],
+          "maxItems": 5,
+          "takePages": 1
+        },
+        "que_pergunta": "teste de portao do coletor — nao e coleta",
+        "pais": "ES",
+        "missao": "10B-ES",
+        "trouxe": 0,
+        "sobrou": 0,
+        "rendimento": null,
+        "custou_usd": 0,
+        "estado": "PARTIAL",
+        "erro": "SUCCEEDED com ZERO itens — degradacao que se apresenta como sucesso. statusMessage da plataforma: \"free user run limit reached\" (o ator limita contas gratuitas a 10 execucoes). Registro corrigido depois que o coletor passou a detectar este caso.",
+        "prova": "n/a — execucao de verificacao do portao",
+        "bruto": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-c.raw.json.gz"
+      },
+      {
+        "run_id": "GATE-TEST-RUNMANIFEST-2026-08-29-d",
+        "fonte": null,
+        "plataforma": "LINKEDIN",
+        "quem_foi_buscar": "harvestapi~linkedin-profile-search",
+        "com_que_parametros": {
+          "profileScraperMode": "Full",
+          "searchQuery": "olivar",
+          "currentJobTitles": [
+            "asesor agrícola"
+          ],
+          "locations": [
+            "Spain"
+          ],
+          "maxItems": 5,
+          "takePages": 1
+        },
+        "que_pergunta": "teste de portao do coletor — nao e coleta",
+        "pais": "ES",
+        "missao": "10B-ES",
+        "trouxe": 5,
+        "sobrou": 5,
+        "rendimento": 100,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "n/a — execucao de verificacao do portao",
+        "bruto": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-d.raw.json.gz"
+      },
+      {
+        "run_id": "XX-T7-2026-09-07-193646",
+        "fonte": null,
+        "plataforma": "OpenAlex, ORCID",
+        "quem_foi_buscar": "coleta/corpus_pesquisador.py",
+        "com_que_parametros": {},
+        "que_pergunta": "Ciencia e ensaio (T7) · PONTUAL · pedido manual",
+        "pais": "NAO SEI",
+        "missao": "Ciencia e ensaio",
+        "trouxe": 12,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "OK",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T9-2026-09-07-193647",
+        "fonte": null,
+        "plataforma": "YouTube, Instagram, LinkedIn, Facebook",
+        "quem_foi_buscar": "coleta/comunicacao_coleta.py",
+        "com_que_parametros": {},
+        "que_pergunta": "Concorrente (T9) · PONTUAL · pedido manual",
+        "pais": "NAO SEI",
+        "missao": "Concorrente",
+        "trouxe": 78,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "OK",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T4-2026-09-07-193647",
+        "fonte": null,
+        "plataforma": "registro oficial (HTTP)",
+        "quem_foi_buscar": "coleta/rotulos_baixar.py",
+        "com_que_parametros": {},
+        "que_pergunta": "Regulatorio (T4) · PONTUAL · pedido manual",
+        "pais": "NAO SEI",
+        "missao": "Regulatorio",
+        "trouxe": 163,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "OK",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      }
+    ],
+    "total": 13,
+    "por_pais": {
+      "ES": 10,
+      "NAO SEI": 3
+    },
+    "por_plataforma": {
+      "INSTAGRAM": 1,
+      "LINKEDIN": 5,
+      "OPENALEX": 1,
+      "OpenAlex, ORCID": 1,
+      "YOUTUBE": 3,
+      "YouTube, Instagram, LinkedIn, Facebook": 1,
+      "registro oficial (HTTP)": 1
+    },
+    "fontes_ja_coletadas": [
+      "ES-T5-002",
+      "ES-T8-001",
+      "ES-T8-002",
+      "ES-T8-003"
+    ],
+    "fontes_nunca_coletadas": [
+      "ES-T3-001",
+      "ES-T4-001",
+      "ES-T4-002",
+      "ES-T4-003",
+      "ES-T4-005",
+      "EU-T1-001",
+      "EU-T1-002",
+      "EU-T10-001",
+      "EU-T12-001",
+      "EU-T2-001",
+      "EU-T2-002",
+      "EU-T2-003",
+      "EU-T3-001",
+      "EU-T4-001",
+      "EU-T4-002",
+      "EU-T5-001",
+      "FR-T13-001",
+      "FR-T3-001",
+      "FR-T3-002",
+      "FR-T4-001",
+      "IT-T3-001",
+      "IT-T4-001"
+    ],
+    "com_rendimento_medido": 12,
+    "com_custo_medido": 7,
+    "custo_total_usd": 0.48,
+    "trouxe_total": 3400,
+    "sobrou_total": 2963
+  },
+  "COLETAS_ITALIANAS": {
+    "ficheiro_observacoes": "data/collection-ledger/italy/observations.ndjson",
+    "ficheiro_corridas": "data/collection-ledger/italy/runs.ndjson",
+    "observacoes": 144,
+    "corridas": 6,
+    "por_fonte": {
+      "IT-T2-002": 124,
+      "IT-T3-005": 6,
+      "IT-T2-004": 6,
+      "IT-T3-002": 2,
+      "IT-T3-010": 2,
+      "IT-T3-008": 2,
+      "IT-T4-001": 2
+    },
+    "documentos_novos": 25,
+    "ja_vistos": 109,
+    "com_sha256": 144,
+    "com_fact_time": 144,
+    "com_cadencia": 144,
+    "corridas_com_egress": 6,
+    "campos": [
+      "BYTES",
+      "CADENCE_STATE",
+      "CAPTURED_AT",
+      "COLLECTION_RUN_STARTED_AT",
+      "DECLARED_FREQUENCY",
+      "DISCOVERY_DEGRADED",
+      "DOCUMENT_ID",
+      "DOCUMENT_VERSION_ID",
+      "EXPECTED_NEXT_UPDATE",
+      "FACT_TIME",
+      "HEALTH_STATE",
+      "MIME_ASSINATURA",
+      "OBSERVATION_RESULT",
+      "OBSERVED_FREQUENCY",
+      "PARSE_ERROR",
+      "PONTOS",
+      "RAW_OBJECT_CREATED",
+      "RAW_PATH",
+      "RAW_PRESERVED_BEFORE_PARSE",
+      "RAW_SHA256",
+      "RUN_ID",
+      "SOURCE_DATE",
+      "SOURCE_DATE_ISO",
+      "SOURCE_ID",
+      "SOURCE_URL",
+      "parse"
+    ]
+  },
+  "ENDPOINTS": [
+    {
+      "endpoint": "https://api.apify.com/v2",
+      "usado_por": [
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 129
+        },
+        {
+          "file": "ferramentas/apify_contrato.py",
+          "line": 128
+        },
+        {
+          "file": "ferramentas/contrato_ator.py",
+          "line": 26
+        },
+        {
+          "file": "provas/corrigir_custo.py",
+          "line": 44
+        },
+        {
+          "file": "superficie/rede.py",
+          "line": 32
+        }
+      ]
+    },
+    {
+      "endpoint": "https://api.openalex.org/works'",
+      "usado_por": [
+        {
+          "file": "coleta/corpus_pesquisador.py",
+          "line": 102
+        },
+        {
+          "file": "coleta/es/corpus_es.py",
+          "line": 34
+        },
+        {
+          "file": "coleta/speaker_universo.py",
+          "line": 67
+        },
+        {
+          "file": "coleta/universo_ciencia_it.py",
+          "line": 51
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.instagram.com/p",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_coleta.py",
+          "line": 183
+        },
+        {
+          "file": "coleta/instagram_diario.py",
+          "line": 484
+        },
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 673
+        },
+        {
+          "file": "ferramentas/instagram_transcrever.py",
+          "line": 187
+        }
+      ]
+    },
+    {
+      "endpoint": "https://publications.europa.eu/webapi",
+      "usado_por": [
+        {
+          "file": "coleta/cellar.sh",
+          "line": 13
+        },
+        {
+          "file": "coleta/eu_substancia_adama_it.py",
+          "line": 141
+        },
+        {
+          "file": "pacote/pacote_camadas2.py",
+          "line": 38
+        }
+      ]
+    },
+    {
+      "endpoint": "https://api.apify.com/v2'",
+      "usado_por": [
+        {
+          "file": "coleta/coletor.py",
+          "line": 79
+        },
+        {
+          "file": "ferramentas/apify_recuperar.py",
+          "line": 61
+        },
+        {
+          "file": "ferramentas/contrato_ator.py",
+          "line": 65
+        }
+      ]
+    },
+    {
+      "endpoint": "https://pub.orcid.org/v3.0",
+      "usado_por": [
+        {
+          "file": "coleta/corpus_pesquisador.py",
+          "line": 103
+        },
+        {
+          "file": "coleta/speaker_identidade.py",
+          "line": 78
+        },
+        {
+          "file": "superficie/rede.py",
+          "line": 26
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.hracglobal.com/tools",
+      "usado_por": [
+        {
+          "file": "fontes/adama_it_intelligence.py",
+          "line": 46
+        },
+        {
+          "file": "fontes/adama_it_moa.py",
+          "line": 20
+        },
+        {
+          "file": "motor/v21_ingest_c.py",
+          "line": 172
+        }
+      ]
+    },
+    {
+      "endpoint": "https://irac-online.org/mode-of-action",
+      "usado_por": [
+        {
+          "file": "fontes/adama_it_intelligence.py",
+          "line": 47
+        },
+        {
+          "file": "fontes/adama_it_moa.py",
+          "line": 21
+        },
+        {
+          "file": "motor/v21_ingest_c.py",
+          "line": 173
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.ec.europa.eu/agrifood",
+      "usado_por": [
+        {
+          "file": "coleta/agrifood_ue.py",
+          "line": 33
+        },
+        {
+          "file": "pacote/pacote_camadas2.py",
+          "line": 42
+        }
+      ]
+    },
+    {
+      "endpoint": "https://publications.europa.eu/resource",
+      "usado_por": [
+        {
+          "file": "coleta/cellar.sh",
+          "line": 14
+        },
+        {
+          "file": "coleta/texto_fonte.py",
+          "line": 26
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.instagram.com/%s",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_diario.py",
+          "line": 374
+        },
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 671
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.fitosanitari.salute.gov.it/",
+      "usado_por": [
+        {
+          "file": "coleta/rotulos_baixar.py",
+          "line": 125
+        },
+        {
+          "file": "fontes/adama_it_labels.py",
+          "line": 72
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com/watch?v='",
+      "usado_por": [
+        {
+          "file": "coleta/youtube_janela.py",
+          "line": 329
+        },
+        {
+          "file": "ferramentas/youtube_transcrever.py",
+          "line": 151
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.adama.com/france",
+      "usado_por": [
+        {
+          "file": "ferramentas/navegador.py",
+          "line": 15
+        },
+        {
+          "file": "guarda/es/adama_es_gate.py",
+          "line": 435
+        }
+      ]
+    },
+    {
+      "endpoint": "https://exemplo.invalid',",
+      "usado_por": [
+        {
+          "file": "ferramentas/navegador.py",
+          "line": 236
+        },
+        {
+          "file": "tests/test_navegador.py",
+          "line": 109
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.adama.com'",
+      "usado_por": [
+        {
+          "file": "fontes/adama_catalogo_ler.py",
+          "line": 130
+        },
+        {
+          "file": "fontes/adama_catalogo_montar.py",
+          "line": 53
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.frac.info/media",
+      "usado_por": [
+        {
+          "file": "fontes/adama_it_frac.py",
+          "line": 28
+        },
+        {
+          "file": "fontes/adama_it_intelligence.py",
+          "line": 48
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.adama.com/italia",
+      "usado_por": [
+        {
+          "file": "motor/v21_ingest.py",
+          "line": 281
+        },
+        {
+          "file": "pacote/pacote_camadas3.py",
+          "line": 44
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com',",
+      "usado_por": [
+        {
+          "file": "pacote/pacote_camadas2.py",
+          "line": 57
+        },
+        {
+          "file": "superficie/rede.py",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "endpoint": "https://github.com/lucianodalondon-sys",
+      "usado_por": [
+        {
+          "file": "pacote/pacote_camadas3.py",
+          "line": 303
+        },
+        {
+          "file": "pacote/v21_handoff_json.py",
+          "line": 23
+        }
+      ]
+    },
+    {
+      "endpoint": "https://it.linkedin.com/company",
+      "usado_por": [
+        {
+          "file": "regras/comunicacao_identidade.py",
+          "line": 399
+        },
+        {
+          "file": "tests/test_comunicacao.py",
+          "line": 58
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.instagram.com/exemplo",
+      "usado_por": [
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 146
+        }
+      ]
+    },
+    {
+      "endpoint": "https://doi.org/',",
+      "usado_por": [
+        {
+          "file": "coleta/corpus_pesquisador.py",
+          "line": 390
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.data.gouv.fr/api",
+      "usado_por": [
+        {
+          "file": "coleta/ephy.sh",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "endpoint": "https://gd.eppo.int/taxon",
+      "usado_por": [
+        {
+          "file": "coleta/eppo_gd.py",
+          "line": 28
+        }
+      ]
+    },
+    {
+      "endpoint": "https://ipinfo.io/json',",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 442
+        }
+      ]
+    },
+    {
+      "endpoint": "https://servicio.mapa.gob.es/regfiweb'",
+      "usado_por": [
+        {
+          "file": "coleta/mapa_regfi.py",
+          "line": 44
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.fitosanitari.salute.gov.it/',",
+      "usado_por": [
+        {
+          "file": "coleta/rotulos_baixar.py",
+          "line": 59
+        }
+      ]
+    },
+    {
+      "endpoint": "https://orcid.org/0000-...'.",
+      "usado_por": [
+        {
+          "file": "coleta/speaker_identidade.py",
+          "line": 128
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com/'",
+      "usado_por": [
+        {
+          "file": "coleta/youtube_janela.py",
+          "line": 169
+        }
+      ]
+    },
+    {
+      "endpoint": "https://esploradati.istat.it/SDMXWS",
+      "usado_por": [
+        {
+          "file": "data/samples/IT-ISTAT-COLTIVAZIONI/pull_istat_coltivazioni.py",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.linkedin.com/in",
+      "usado_por": [
+        {
+          "file": "ferramentas/apify_contrato.py",
+          "line": 63
+        }
+      ]
+    },
+    {
+      "endpoint": "https://exemplo.invalid",
+      "usado_por": [
+        {
+          "file": "ferramentas/cdp.py",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "endpoint": "https://example.com'",
+      "usado_por": [
+        {
+          "file": "ferramentas/cdp.py",
+          "line": 382
+        }
+      ]
+    },
+    {
+      "endpoint": "https://eur-lex.europa.eu/legal-content",
+      "usado_por": [
+        {
+          "file": "fontes/adama_it_eu.py",
+          "line": 29
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.adama.com/spain",
+      "usado_por": [
+        {
+          "file": "guarda/catalogo_importar.py",
+          "line": 139
+        }
+      ]
+    },
+    {
+      "endpoint": "https://esploradati.istat.it',ARRAY['ESTATISTICA_OFICIAL']::fonte_natureza[],",
+      "usado_por": [
+        {
+          "file": "pacote/lastmile_para_supabase.py",
+          "line": 217
+        }
+      ]
+    },
+    {
+      "endpoint": "https://esploradati.istat.it')",
+      "usado_por": [
+        {
+          "file": "pacote/lastmile_para_supabase.py",
+          "line": 226
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.salute.gov.it/',",
+      "usado_por": [
+        {
+          "file": "pacote/pacote_camadas2.py",
+          "line": 34
+        }
+      ]
+    },
+    {
+      "endpoint": "https://api.openalex.org',",
+      "usado_por": [
+        {
+          "file": "pacote/pacote_camadas2.py",
+          "line": 49
+        }
+      ]
+    }
+  ],
+  "COUNTS": {
+    "sources": 23,
+    "with_contract": 5,
+    "by_country": {
+      "ESPANHA": 6,
+      "EUROPA": 11,
+      "FRANCA": 4,
+      "ITALIA": 2
+    },
+    "by_verdict": {
+      "GREEN": 16,
+      "NAO SEI": 5,
+      "YELLOW": 2
+    },
+    "search_term_groups": 34,
+    "search_terms": 103,
+    "endpoints": 40,
+    "candidates": 0,
+    "coletores": 39,
+    "coletores_com_data": 12,
+    "coletores_com_lugar": 24,
+    "coletores_que_separam_fonte_do_fato": 18,
+    "coletores_que_registam_descarte": 8,
+    "corridas_registadas": 19,
+    "observacoes_registadas": 144,
+    "fontes_ja_coletadas": 4,
+    "fontes_nunca_coletadas": 22,
+    "citadas_sem_ficha": 3,
+    "fontes_no_master_italiano": 54,
+    "fontes_distintas": 78,
+    "levantadas_sem_ficha": 52,
+    "coletadas_sem_ficha": 3,
+    "accounts": 44,
+    "accounts_authorized": 22
+  },
+  "COLETADAS_SEM_FICHA": [
+    "ES-T8-001",
+    "ES-T8-002",
+    "ES-T8-003"
+  ],
+  "HEADER_CLAIM": {
+    "total": 37,
+    "line": 9,
+    "green": 16,
+    "yellow": 4,
+    "nao_sei": 17,
+    "fichas_completas": 23,
+    "divergencia": 14,
+    "leitura": "O cabecalho do atlas diz 37 fontes registradas; fichas completas, com SOURCE_ID valido, ha 23. Faltam 14 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
+  }
+}

@@ -1,0 +1,209 @@
+/* SINTONIA SYSTEM MAP — a forma
+   ---------------------------------------------------------------------------
+   Esta folha e a do prototipo aprovado, mantida como estava. As unicas coisas
+   que sairam foram a largura e a altura fixas do mundo (6700x3300): elas agora
+   vem do estado gerado, senao a tela cortava zonas assim que o repositorio
+   crescesse — e um mapa que corta o que nao cabe mente sem avisar.
+
+   As cores sao os tokens oficiais do ADAMA Design System (--adama, --earth,
+   --text). A rampa de estado (--ok / --warn / --bad / --unknown) e propria de
+   engenharia: o BrandWell nao tem cor de erro, e dar a uma cor de produto um
+   segundo significado estragaria as duas leituras.
+   --------------------------------------------------------------------------- */
+:root{
+ --adama:#009845;--adama-dark:#00783f;--earth:#978b87;--earth10:#f4f2f2;--earth20:#e5e1e0;--earth40:#cbc5c3;
+ --text:#5f504d;--white:#fff;--bg:#f6f7f6;--line:#dedad8;
+ --ok:#198754;--warn:#d99a00;--bad:#c53b35;--unknown:#7f8b87;
+ --shadow:0 12px 34px rgba(48,42,39,.10);
+}
+*{box-sizing:border-box}html,body{margin:0;height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:var(--bg);overflow:hidden}
+button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px solid var(--earth20);display:flex;align-items:center;padding:0 18px;gap:16px;z-index:80;position:relative}
+.brand{display:flex;align-items:center;gap:12px;min-width:300px}.brandMark{width:38px;height:38px;border-radius:11px;background:var(--adama);position:relative}
+.brandMark:after{content:"";position:absolute;width:25px;height:13px;background:#fff;left:7px;top:12px;border-radius:100% 0 100% 0;transform:rotate(-34deg)}
+.brandTitle{font-weight:800;font-size:20px;letter-spacing:.025em;color:#27483e}.brandSub{font-size:10px;color:#7b7775;margin-top:3px}
+.search{flex:1;max-width:610px;position:relative}.search input{width:100%;border:1px solid var(--earth20);background:#fafafa;border-radius:12px;padding:12px 38px 12px 40px;outline:none}
+.search input:focus{border-color:var(--adama);box-shadow:0 0 0 3px rgba(0,152,69,.1)}.search:before{content:"⌕";position:absolute;left:14px;top:7px;font-size:25px;color:#7d8985}
+.snapshotTop{margin-left:auto;text-align:right;font-size:9.5px;line-height:1.45;color:#817b78}.snapshotTop b{color:#415b53}
+.workspace{height:calc(100% - 76px);display:grid;grid-template-columns:265px 1fr 0;transition:grid-template-columns .2s ease}.workspace.detailOpen{grid-template-columns:265px 1fr 410px}
+.sidebar{background:#fff;border-right:1px solid var(--earth20);padding:14px 12px;overflow:auto;z-index:50}.sideTitle{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#8c8582;font-weight:800;margin:12px 7px 7px}
+.sideBtn{width:100%;border:0;background:transparent;border-radius:9px;padding:9px 10px;text-align:left;color:#4d5f59;cursor:pointer;font-size:11px;display:flex;gap:9px;align-items:center}
+.sideBtn:hover,.sideBtn.active{background:#edf7f1;color:var(--adama-dark);font-weight:700}
+.filter{border-top:1px solid #efedec;margin-top:10px;padding-top:5px}.check{font-size:10.5px;display:flex;align-items:center;gap:7px;padding:5px 7px;cursor:pointer}.check input{accent-color:var(--adama)}
+.dot{width:9px;height:9px;border-radius:50%}.dot.green{background:var(--ok)}.dot.yellow{background:var(--warn)}.dot.red{background:var(--bad)}.dot.gray{background:var(--unknown)}
+.infoBox{margin:8px 5px;background:var(--earth10);border:1px solid var(--earth20);border-radius:10px;padding:9px;font-size:9.5px;line-height:1.4}
+.invBtn{width:100%;border:1px solid var(--adama);background:#fff;color:var(--adama-dark);border-radius:9px;padding:9px;font-weight:700;font-size:10px;cursor:pointer}.invBtn:hover{background:#edf7f1}
+.mapWrap{position:relative;overflow:hidden;background:linear-gradient(rgba(255,255,255,.84),rgba(255,255,255,.84)),radial-gradient(circle at 20% 30%,#e9f5ee 0 12%,transparent 13%),radial-gradient(circle at 78% 68%,#efeeee 0 15%,transparent 16%)}
+#viewport{position:absolute;inset:0;overflow:hidden;cursor:grab;user-select:none;touch-action:none}#viewport.dragging{cursor:grabbing}
+#world{position:absolute;transform-origin:0 0;will-change:transform;transform:translate(8px,18px) scale(.145)}
+.zone{position:absolute;border:1px solid var(--earth20);border-radius:24px;background:rgba(255,255,255,.75);box-shadow:0 14px 38px rgba(60,50,45,.05);overflow:hidden}
+.zone.corporate{border-top:5px solid var(--adama)}.zone.earth{border-top:5px solid var(--earth)}
+.zoneHead{height:72px;border-bottom:1px solid #eeeae8;padding:15px 18px}.zoneTitle{font-size:15px;font-weight:800;color:#38574e}.zoneSub{font-size:9.5px;color:#827b77;margin-top:5px;max-width:88%}
+.node{position:absolute;width:285px;min-height:112px;background:#fff;border:1px solid #e2dedc;border-radius:14px;padding:11px 12px;z-index:10;box-shadow:0 7px 19px rgba(45,40,37,.08);cursor:pointer;transition:.14s}
+.node:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(45,40,37,.14);border-color:#a9c8ba}.node.hidden{display:none}.node.dim{opacity:.12;filter:grayscale(1)}.node.highlight{border-color:var(--adama);box-shadow:0 0 0 4px rgba(0,152,69,.15),0 14px 28px rgba(45,40,37,.14)}.node.searchHit{border-color:#00783f;box-shadow:0 0 0 4px rgba(0,120,63,.12)}
+.nodeTop{display:flex;gap:9px;align-items:flex-start}.nodeIcon{width:31px;height:31px;border-radius:9px;background:#edf5f0;color:var(--adama-dark);display:grid;place-items:center;font-size:11px;font-weight:900;flex:none}
+.nodeHeadText{flex:1;min-width:0}.nodeName{font-size:12.5px;font-weight:800;line-height:1.17;color:#334f47}.nodeType{font-size:8.3px;text-transform:uppercase;letter-spacing:.07em;color:#958d89;margin-top:4px;font-weight:700}
+.statusPill{font-size:7.8px;font-weight:800;padding:4px 6px;border-radius:999px;white-space:nowrap;border:1px solid transparent}
+.status-green{background:#e8f5ec;color:#176f3c;border-color:#cae4d2}.status-yellow{background:#fff4d1;color:#805d00;border-color:#efdca0}.status-red{background:#fde8e6;color:#8c2b27;border-color:#efc1bd}.status-gray{background:#eff1f0;color:#63716c;border-color:#dfe4e2}
+.nodeSummary{font-size:9.6px;line-height:1.38;margin-top:8px;color:#66736f}.nodeFiles{font-family:monospace;font-size:7.8px;color:#a09995;margin-top:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#edges{position:absolute;inset:0;z-index:4;overflow:visible;pointer-events:none}.edgePath{fill:none;stroke:#6e7e78;stroke-width:2.8;opacity:.53;marker-end:url(#arrow)}
+.edgePath.dashed{stroke-dasharray:10 8}.edgePath.unknown{stroke:#a8afac;stroke-dasharray:5 8;opacity:.45}.edgePath.broken{stroke:var(--bad);stroke-dasharray:12 7;opacity:.75}.edgePath.dim{opacity:.04}.edgePath.highlight{stroke:var(--adama);stroke-width:5;opacity:1}
+.edgeHit{fill:none;stroke:transparent;stroke-width:18;pointer-events:stroke;cursor:help}
+.canvasTitle{position:absolute;left:18px;top:14px;z-index:35;background:rgba(255,255,255,.94);border:1px solid var(--earth20);border-radius:12px;padding:10px 13px;box-shadow:var(--shadow);max-width:560px}.canvasTitle b{font-size:12px}.canvasTitle span{display:block;font-size:8.8px;color:#807976;margin-top:3px}
+/* Recolhido, o aviso e uma pastilha de uma linha. Aberto, ele rola dentro de si
+   proprio em vez de crescer por cima do mapa — o mapa e para ser olhado. */
+.warning{position:absolute;left:18px;top:78px;z-index:34;max-width:570px}
+.warning.aberto{max-height:calc(100% - 110px);overflow:auto;background:#fff8e2;
+  border:1px solid #eedb9e;border-left:4px solid var(--warn);border-radius:10px}
+.achadoTag{background:#fff8e2;border:1px solid #eedb9e;border-left:4px solid var(--warn);
+  border-radius:10px;padding:7px 12px;font-size:10px;font-weight:700;color:#69580e;
+  cursor:pointer;box-shadow:var(--shadow);display:flex;gap:8px;align-items:center}
+.achadoTag[disabled]{cursor:default;opacity:.7;font-weight:400}
+.achadoTag span{font-weight:400;text-decoration:underline;opacity:.8}
+.achadoTag:hover:not([disabled]){background:#fdf1cf}
+.achado{font-size:9px;line-height:1.45;color:#69580e;padding:8px 11px;
+  border-top:1px solid #eedb9e}
+.achado:first-child{border-top:0}
+.achadoOnde{opacity:.7;font-family:monospace;font-size:8px;word-break:break-all}
+.controls{position:absolute;right:15px;bottom:15px;display:flex;gap:7px;z-index:40}.ctrl{width:39px;height:39px;border:1px solid var(--earth20);background:#fff;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,.08);cursor:pointer;color:#4d6059;font-weight:800}
+.mini{position:absolute;left:16px;bottom:15px;width:220px;height:134px;background:rgba(255,255,255,.95);border:1px solid var(--earth20);border-radius:12px;z-index:38;box-shadow:var(--shadow);overflow:hidden}.miniTitle{font-size:8px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:#8d8581;padding:8px 9px 4px}#miniSvg{width:100%;height:104px}#miniView{fill:rgba(0,152,69,.06);stroke:var(--adama);stroke-width:8}
+.kpis{position:absolute;left:250px;bottom:15px;z-index:38;background:rgba(255,255,255,.95);border:1px solid var(--earth20);border-radius:12px;padding:8px 10px;box-shadow:var(--shadow);display:flex;gap:8px}.kpi{font-size:8px;color:#8b8480;min-width:62px}.kpi b{display:block;font-size:13px;color:#3e5b52}
+.tooltip{position:fixed;width:330px;z-index:2000;background:#263f37;color:#fff;border-radius:12px;padding:13px 14px;box-shadow:0 18px 50px rgba(0,0,0,.3);display:none;pointer-events:none}.ttName{font-weight:800;font-size:12px}.ttStatus{font-size:8px;color:#b7d0c6;margin:4px 0 9px}.ttLabel{font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:#99bdb0;font-weight:800;margin-top:7px}.ttText{font-size:10px;line-height:1.4;color:#eef7f2;margin-top:2px}
+.detail{background:#fff;border-left:1px solid var(--earth20);overflow:auto;z-index:55}.empty{padding:24px;font-size:11px;color:#8a827e}.detailHead{position:sticky;top:0;background:#fff;border-bottom:1px solid #ece8e6;padding:16px;z-index:2}.close{float:right;border:0;background:#f1efee;border-radius:8px;width:31px;height:31px;cursor:pointer}.detailSub{font-size:9px;color:#968e8a;text-transform:uppercase;letter-spacing:.07em}.detailTitle{font-size:19px;font-weight:800;color:#315048;margin:4px 0 8px}.detailBody{padding:16px}.sec{margin-bottom:18px}.sec h4{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:#958d89;margin:0 0 7px}.sec p{font-size:11px;line-height:1.5;margin:0}.tags{display:flex;flex-wrap:wrap;gap:5px}.tag{font-size:9px;background:#f5f3f2;border:1px solid #e9e5e3;padding:5px 7px;border-radius:999px}.file{font:9px/1.45 monospace;background:#faf9f8;border:1px solid #ece8e6;border-radius:7px;padding:6px 7px;margin:4px 0;word-break:break-all}.evidence{border-left:4px solid var(--adama);background:#edf7f1;padding:9px 10px;border-radius:7px;font-size:10px;line-height:1.45}.action{width:100%;border:1px solid var(--adama);background:#fff;color:var(--adama-dark);border-radius:9px;padding:10px;font-size:10px;font-weight:800;cursor:pointer}
+.modal{position:fixed;inset:0;background:rgba(25,24,23,.46);z-index:3000;display:none;padding:4vh 5vw}.modal.open{display:block}.modalCard{height:92vh;background:#fff;border-radius:16px;box-shadow:0 25px 70px rgba(0,0,0,.3);display:flex;flex-direction:column;overflow:hidden}.modalHead{padding:15px 18px;border-bottom:1px solid var(--earth20);display:flex;align-items:center;gap:12px}.modalHead h2{font-size:18px;margin:0;color:#315048}.modalBody{padding:15px 18px;overflow:auto}.invGroup{margin-bottom:18px}.invGroup h3{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#827b77}.invGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:5px}.invFile{font:9px/1.35 monospace;border:1px solid #eeeae8;background:#faf9f8;border-radius:6px;padding:6px}.modalSearch{flex:1;max-width:480px;border:1px solid var(--earth20);border-radius:9px;padding:9px 10px}.modalClose{border:0;background:#f1efee;border-radius:8px;width:34px;height:34px;cursor:pointer}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   AS TRES FAMILIAS — COLETA · INTELIGENCIA · ENTREGA
+
+   A cor aqui responde a UMA pergunta: "em que parte da historia este bloco
+   esta?". Nao e categoria de produto ADAMA. As tres cores vem do BrandWell
+   (Disease Control, ADAMA Green, Crop Enhancement) porque sao as cores da casa
+   e ja se distinguem bem umas das outras — mas neste mapa carregam o
+   significado do PROCESSO, e isso esta escrito aqui para ninguem ler um bloco
+   azul e pensar "fungicida".
+
+       COLETA        azul     trazer para dentro
+       INTELIGENCIA  verde    transformar e provar
+       ENTREGA       laranja  levar ate quem precisa
+
+   O ESTADO (verde/amarelo/vermelho/cinza da pastilha) continua noutra rampa,
+   noutro sitio do cartao. Familia diz DE QUE ASSUNTO E; estado diz SE FUNCIONA.
+   Dois significados nunca partilham o mesmo pixel.
+   ══════════════════════════════════════════════════════════════════════════ */
+:root{
+ --fam-coleta:#00a0df;--fam-coleta-bg:#eaf7fd;
+ --fam-inteligencia:#009845;--fam-inteligencia-bg:#ecf7f0;
+ --fam-entrega:#f89e18;--fam-entrega-bg:#fef4e6;
+ /* A SALA DE ESPERA e cinzenta de proposito. Azul, verde e laranja dizem
+    «aqui acontece alguma coisa»; aqui nao acontece — o dado so dorme entre a
+    coleta que acabou e a inteligencia que ainda nao comecou. Pintar de cor
+    forte faria a sala de espera parecer mais uma etapa de trabalho. */
+ --fam-espera:#8a827e;--fam-espera-bg:#f4f2f1;
+}
+.family{position:absolute;border-radius:34px;border:2px dashed;z-index:1;pointer-events:none}
+.family.F-COLETA{border-color:var(--fam-coleta);background:var(--fam-coleta-bg)}
+.family.F-ESPERA{border-color:var(--fam-espera);background:var(--fam-espera-bg)}
+.family.F-INTELIGENCIA{border-color:var(--fam-inteligencia);background:var(--fam-inteligencia-bg)}
+.family.F-ENTREGA{border-color:var(--fam-entrega);background:var(--fam-entrega-bg)}
+.familyHead{position:absolute;left:50%;transform:translateX(-50%);top:-1px;text-align:center;padding:10px 22px;border-radius:0 0 18px 18px;color:#fff;white-space:nowrap}
+.family.F-COLETA .familyHead{background:var(--fam-coleta)}
+.family.F-ESPERA .familyHead{background:var(--fam-espera)}
+.family.F-INTELIGENCIA .familyHead{background:var(--fam-inteligencia)}
+.family.F-ENTREGA .familyHead{background:var(--fam-entrega)}
+.familyName{font-size:30px;font-weight:800;letter-spacing:.06em;line-height:1}
+.familyWhy{font-size:12px;margin-top:6px;opacity:.92;max-width:760px;white-space:normal;margin-inline:auto}
+.family.dim{opacity:.18}
+
+/* A zona herda a cor da familia no topo — assim o bloco pequeno continua a
+   dizer a que parte da historia pertence, mesmo com a faixa fora do ecra. */
+.zone{z-index:2}
+.zone.F-COLETA{border-top:5px solid var(--fam-coleta)}
+.zone.F-ESPERA{border-top:5px solid var(--fam-espera)}
+.zone.F-INTELIGENCIA{border-top:5px solid var(--fam-inteligencia)}
+.zone.F-ENTREGA{border-top:5px solid var(--fam-entrega)}
+.zoneFam{font-size:8.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.zone.F-COLETA .zoneFam{color:var(--fam-coleta)}
+.zone.F-ESPERA .zoneFam{color:var(--fam-espera)}
+.zone.F-INTELIGENCIA .zoneFam{color:var(--fam-inteligencia)}
+.zone.F-ENTREGA .zoneFam{color:var(--fam-entrega)}
+.zoneHead{height:auto;min-height:78px}
+
+/* A barra lateral: escolher uma familia e a primeira coisa que se faz. */
+.famBtn{width:100%;border:1px solid var(--earth20);background:#fff;border-radius:10px;
+ padding:9px 11px;text-align:left;cursor:pointer;font-size:11px;font-weight:700;
+ display:flex;gap:9px;align-items:center;margin-bottom:6px;color:#4d5f59}
+.famBtn .swatch{width:13px;height:13px;border-radius:4px;flex:none}
+/* A REDE DE SEGURANCA VEM PRIMEIRO. Quando nasceu A ESPERA, faltou a regra da
+   cor dela: o botao ativo ficou com texto branco sobre fundo branco, ou seja,
+   um retangulo vazio. Um filtro que desaparece ao ser ligado e pior do que um
+   filtro feio. Agora o fundo neutro e o valor por omissao, e cada familia so
+   o substitui — familia nova entra legivel mesmo que alguem se esqueca dela. */
+.famBtn.active{color:#fff;border-color:transparent;background:var(--earth60,#8a827e)}
+.famBtn.active[data-fam="F-COLETA"]{background:var(--fam-coleta)}
+.famBtn.active[data-fam="F-INTELIGENCIA"]{background:var(--fam-inteligencia)}
+.famBtn.active[data-fam="F-ENTREGA"]{background:var(--fam-entrega)}
+.famBtn.active[data-fam="F-ESPERA"]{background:var(--fam-espera)}
+.famBtn.active .swatch{background:#fff}
+.famBtn small{display:block;font-weight:400;font-size:9px;opacity:.8;margin-top:2px}
+
+
+/* O acervo de fontes dentro do painel. `details` em vez de uma lista aberta:
+   sao 67 linhas ao todo, e despeja-las de uma vez faz o painel deixar de ser
+   leitura para ser rolagem. */
+.grupoFonte{border:1px solid var(--earth20);border-radius:9px;margin-bottom:7px;background:#fff}
+.grupoFonte summary{cursor:pointer;padding:9px 11px;font-size:11px;list-style:none;border-radius:9px}
+.grupoFonte summary::-webkit-details-marker{display:none}
+.grupoFonte summary:before{content:"▸ ";color:var(--adama);font-weight:800}
+.grupoFonte[open] summary:before{content:"▾ "}
+.grupoFonte[open] summary{border-bottom:1px solid var(--earth20);border-radius:9px 9px 0 0;background:#fafafa}
+.grupoSub{display:block;font-weight:400;color:#8a827e;font-size:9.5px;margin-top:3px}
+.grupoPorque{font-size:10px;line-height:1.45;color:#66736f;margin:9px 11px 4px}
+.grupoOnde{font-size:9px;color:#a09995;margin:0 11px 8px}
+.grupoFonte .file{margin:5px 9px}
+
+
+/* Enquanto o rato esta pousado num cartao, tudo o que nao toca nele recua.
+   `.dim` ja existia para o filtro; aqui o apagamento e mais suave de proposito —
+   o cartao continua legivel, so deixa de competir pela atencao. */
+#world.focando .node{opacity:.22;filter:grayscale(.7);transition:opacity .12s}
+#world.focando .node.vizinho{opacity:1;filter:none;border-color:#a9c8ba}
+#world.focando .node.noFoco{opacity:1;filter:none;border-color:var(--adama);
+  box-shadow:0 0 0 4px rgba(0,152,69,.18),0 14px 28px rgba(45,40,37,.16)}
+#world.focando .edgePath{opacity:.03}
+#world.focando .dyn.acesa .edgePath{opacity:1;stroke:var(--adama);stroke-width:4.5}
+#world.focando .dyn.acesa .edgePath.unknown{stroke:var(--unknown);stroke-width:3.5}
+#world.focando .dyn.acesa .edgePath.broken{stroke:var(--bad);stroke-width:4.5}
+
+@media(max-width:1050px){
+ .topbar{height:74px;padding:0 11px;gap:8px}.brand{min-width:0;flex:1}.brandTitle{font-size:17px}.brandSub{font-size:9px}.snapshotTop{display:none}.search{flex:0 0 58px}.search input{height:46px;padding:0;font-size:0}.search:before{left:19px;top:8px}
+ .workspace,.workspace.detailOpen{display:block;height:calc(100vh - 74px);height:calc(100dvh - 74px);position:relative}.sidebar,.detail{display:none}.mapWrap{position:absolute;inset:0}
+ #world{transform:translate(2px,18px) scale(.105)}.canvasTitle{left:9px;top:9px;padding:7px 9px;max-width:68%}.warning{left:9px;top:61px;max-width:72%;font-size:7.5px;padding:6px 7px}
+ .mini{display:none}.familyName{font-size:22px}.familyWhy{display:none}.kpis{left:9px;bottom:9px;padding:6px 7px}.kpi:nth-child(n+3){display:none}.controls{right:9px;bottom:9px}.ctrl{width:35px;height:35px}
+ .modal{padding:1vh 2vw}.modalCard{height:98vh}.invGrid{grid-template-columns:1fr}
+}
+
+/* o segundo nome do cartao: o que o nome italiano quer dizer */
+.nodeAlias{font-size:9px;color:#8a827e;line-height:1.2;margin-top:1px}
+
+/* ONDE PARA O QUE SAI: uma marca pequena, nao um cartao novo.
+   Dois cartoes «GIT» e «SUPABASE» com trinta e duas setas cada dariam um novelo
+   por cima do mapa — a pergunta ficaria mais dificil, nao mais facil. */
+.destinoChips{display:flex;gap:3px;margin-bottom:3px}
+.dchip{font-size:8px;font-weight:700;letter-spacing:.04em;padding:1px 5px;
+  border-radius:9999px;line-height:1.5;white-space:nowrap}
+.dGIT{background:#eceaf6;color:#4b4a72}
+.dSUPABASE{background:#e4f0e7;color:#2f5c3c}
+
+/* ══ AS TRES NATUREZAS DE SETA ═══════════════════════════════════════════
+   «O dado corre daqui para ali», «esta peca e feita com aquela» e «aquela
+   manda esta correr» sao coisas diferentes. Desenhadas com o mesmo traco,
+   produzem um novelo em que a corrente da coleta desaparece — e a pergunta
+   «depois das fontes vem o que?» fica sem resposta visivel.
+
+   O caminho do DADO fica cheio. As outras duas ficam a tracejado e mais
+   claras: continuam la, continuam clicaveis, mas param de disputar o olho. */
+.dyn.natMONTAGEM .edgePath,
+.dyn.natDISPARO  .edgePath{stroke-dasharray:3 4;opacity:.30}
+.dyn.natMONTAGEM .edgePath{stroke-width:1}
+/* com o foco num cartao, a seta acesa volta a ser inteira, seja qual for a
+   natureza: quem esta a seguir UMA ligacao quer ve-la toda. */
+.dyn.acesa .edgePath{stroke-dasharray:none;opacity:1}

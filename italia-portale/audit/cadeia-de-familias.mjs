@@ -41,7 +41,7 @@
    A PROVA DE QUE O PACOTE CANONICO SE OBTEM (medida em 2026-09-06)
    ----------------------------------------------------------------
        git worktree add --detach /tmp/wt 55c2674
-       cd /tmp/wt && bash scripts/v21_cadeia.sh          # exit 0, ~20s
+       cd /tmp/wt && bash motor/v21_cadeia.sh          # exit 0, ~20s
        cp -r /tmp/wt/build/ITALY-REALITY-HANDOFF-V2.1 build/
    Resultado: 32/32 ficheiros com o SHA256 de INGESTION-REPRODUCTION.json e
    BUILD_ID V21-69bf448ac934a6d9 — o mesmo que o portal serve. O pacote nao se

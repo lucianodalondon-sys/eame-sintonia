@@ -4,8 +4,8 @@
 > (`docs/adama/PORTFOLIO-ADAMA-ITALIA.md`, dado em `data/samples/IT-T4-001/`).
 >
 > **Nada aqui foi escrito à mão.** Todo número sai de
-> `scripts/v21_adama_registro_validar.py`, que reconta dos arquivos a cada execução.
-> Para conferir: `python3 scripts/v21_adama_registro_validar.py`
+> `motor/v21_adama_registro_validar.py`, que reconta dos arquivos a cada execução.
+> Para conferir: `python3 motor/v21_adama_registro_validar.py`
 
 Fonte: Ministero della Salute — Banca dati dei prodotti fitosanitari,
 arquivo `PROD_FTS_6_20260831.csv`, versão do dado `20260831`, lido em `2026-09-02`.

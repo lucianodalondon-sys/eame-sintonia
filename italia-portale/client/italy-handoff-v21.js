@@ -1,6 +1,6 @@
 /* SINTONIA ITALIA · O PACOTE V2.1, NA FRONTEIRA DO SITE
    ---------------------------------------------------------------------------
-   GERADO. Nao edite: `python3 scripts/site_v21_ingest.py` reescreve o arquivo
+   GERADO. Nao edite: `python3 portoes/site_v21_ingest.py` reescreve o arquivo
    inteiro a partir de build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/.
 
    BUILD_ID  V21-06c6421d001ea52a

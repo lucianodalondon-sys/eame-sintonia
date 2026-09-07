@@ -1,0 +1,2576 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon"  href="/sr/favicon.ico" />
+<link href="/sr/jstree/themes/default/style.min.css" rel="stylesheet" type="text/css"><link rel="stylesheet" href="/sr/jquery-ui/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css" href="https://static.cineca.it/jd/npm/jgrowl@1.4.9/jquery.jgrowl.min.css" />
+<link rel="stylesheet" href="https://static.cineca.it/jd/npm/select2@4.0.13/dist/css/select2.min.css" />
+<link rel="stylesheet" href="https://static.cineca.it/jd/npm/select2-bootstrap-5-theme@1.1.1/dist/select2-bootstrap-5-theme.min.css" />
+<link rel="stylesheet" href="/sr/cineca/css/bootstrap-ricerca.min.css">
+<link rel="stylesheet" href="/sr/local.css"><title>Establishment and parasitism levels of Ganaspis kimorum on Drosophila suzukii in Northeastern Italy: insights from a 4-yr release program</title>
+	<script src="https://static.cineca.it/jd/npm/jquery@3.7.1/dist/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/sr/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/sr/jquery-ui-i18n/jquery.ui.datepicker-it.latest.js" charset="utf-8"></script>
+<script src="https://static.cineca.it/jd/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://static.cineca.it/jd/npm/jgrowl@1.4.9/jquery.jgrowl.min.js"></script>
+<script src="https://static.cineca.it/jd/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
+<script src="https://static.cineca.it/jd/npm/blueimp-tmpl@3.20.0/js/tmpl.min.js"></script><script type="text/javascript" src="/sr/jstree/jstree.min.js"></script><script type="text/javascript" src="/sr/jquery/js/jquery.displaytag-ajax-1.2.js"></script>
+<script src="https://static.cineca.it/jd/npm/js-cookie@3.0.5/dist/js.cookie.min.js" integrity="sha256-WCzAhd2P6gRJF9Hv3oOOd+hFJi/QJbv+Azn4CGB8gfY=" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+	var JQ = $;
+	var j = $;
+</script>
+<script type="text/javascript">
+</script>
+<script type="text/javascript" src="/sr/cineca/js/cilea.js?fwkVersion=26.9.0.0"></script>
+<script type="text/javascript" src="/sr/cineca/js/fragment.js?fwkVersion=26.9.0.0"></script>
+<script type="text/javascript" src="/sr/cineca/js/treeview.js?fwkVersion=26.9.0.0"></script>
+<script type="text/javascript" src="/sr/cineca/js/ap-tool.js?fwkVersion=26.9.0.0"></script>
+<span style="display:none;" id="rememberToSaveText">Attenzione: i dati modificati non sono ancora stati salvati. Per confermare inserimenti o cancellazioni di voci è necessario confermare con il tasto SALVA/INSERISCI in fondo alla pagina</span>
+<script type="text/javascript" src="/sr/cineca/js/print.js?fwkVersion=26.9.0.0"></script>
+<script type="text/javascript" src="/sr/cineca/js/widget.js?fwkVersion=26.9.0.0"></script>
+<script type="text/javascript" src="/sr/cineca/js/layout.js?fwkVersion=26.9.0.0"></script>
+
+
+
+
+<script type="text/javascript">
+	var authenticatedPersonId='';
+	var authenticatedUser=false;
+</script>
+<script type="text/javascript" src="https://openpub.fmach.it/static/js/utils.js"></script>
+	<script type="text/javascript" src="https://openpub.fmach.it/static/js/choice-support.js"></script>
+<script type="text/javascript">
+				j(document).ready(function() {
+					j('body').on('change','#itemxpage', function() {
+						var dspaceObjectId = $('#dspaceObjectId').val();
+						if (dspaceObjectId != null && dspaceObjectId != '') {
+							$('#modal_display_item').modal('toggle');
+							showEventLog(dspaceObjectId, '1', this.value);
+						}
+					});
+					j('body').on('click',"#modal_display_item .pagination li:not('.active') .page-link", function(event) {
+						var pagesize = $('#itemxpage').val();
+						var dspaceObjectId = $('#dspaceObjectId').val();
+						var url = new URL(this.href);
+						var page = url.searchParams.get("page");
+						if (page == null || isNaN(page)){
+							page = 1;
+						}
+						if (dspaceObjectId != null && dspaceObjectId != '') {
+							$('#modal_display_item').modal('toggle');
+							showEventLog(dspaceObjectId,page, pagesize);
+						}
+						return false;
+					});
+				});
+				function showEventLog(dsoId, page, pagesize) {
+					   var url = "/dspaceObjectEventLog/widgetSearch.modal";
+					jQuery.ajax({
+						url: url,
+						method: 'GET',
+						data: {dspaceObjectId: dsoId, posting: 1, modalSize: 'xlarge', page: page, pageSize: pagesize},
+						success: function(data) {
+			                var $modal = $(data);
+			                $modal.attr('id','modal_display_item');
+							$('body').append($modal);
+							var myModal = new bootstrap.Modal(document.getElementById('modal_display_item'), {backdrop: true});
+							myModal.show();
+			                $modal.filter('.modal').on('hidden.bs.modal', function(){
+			                	$modal.remove();
+							});
+			                
+						}
+					});
+				}
+				</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	checkMoreless();
+});
+function checkMoreless() {
+	if($('.moreless-more').length) {
+		var more = $('<a class="btn-link"></a>').html('&nbsp;espandi');	
+		more.click(function(){
+			var moretext = $(this).next('.moreless-more');
+			var lesstext = $(this).prev('.moreless-fixed');		
+			lesstext.html(lesstext.html().substring(0, lesstext.html().length-3));		
+			moretext.toggleClass('hide');
+			$(this).toggleClass('hide');
+			var less = $('<a class="btn-link"></a>').html('&nbsp;comprimi');
+			less.click(function(){
+				var moretext = $(this).prev('.moreless-more');
+				moretext.toggleClass('hide');
+				$(this).toggleClass('hide');
+				moretext.prev('a').toggleClass('hide');
+				var elements = document.getElementsByTagName('span');
+				for (var i = 0; i < elements.length; i++) {				
+					if((elements[i].className).indexOf('moreless-fixed') > -1) {
+						if(elements[i].innerHTML.indexOf('...') == -1){
+							elements[i].innerHTML=elements[i].innerHTML+'...';												
+						}
+					}
+				}
+			});
+			moretext.after(less);
+		});	
+		$('.moreless-more').before(more);
+		$('.moreless-more').toggleClass('hide');
+		
+	}
+}
+</script><script>
+      window.customCookieJsonConfigPath='/sr/cookie-config.json';
+    </script>
+
+	<script src="https://static.iu.cineca.it/v1/default.js"></script>
+	<script type="text/javascript">
+	function isThirdPartyCookieEnabled() {
+		var cookieString = Cookies.get('cc_cookie');
+		if (cookieString==null||cookieString=="")
+			return false;
+		var cookieJson = JSON.parse(cookieString);
+		var retValue = false;
+		$.each(cookieJson.level , function (key, value) {
+			if(value == 'thirdParty')
+				retValue = true;
+		});
+		return retValue;
+	}
+	$(document).on('click', '.c-bn', function() { 
+		Cookies.set('thirdParty',isThirdPartyCookieEnabled(), { path: '/'});
+	});
+	Cookies.set('thirdParty',isThirdPartyCookieEnabled(), { path: '/' });
+	</script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		if (typeof trackEventCategoryDone === "undefined") {
+			
+			trackEvent('trackPageView');
+		}
+	});
+	</script>
+<script type="text/javascript" src="/sr/local.js?fwkVersion=26.9.0.0"></script>
+
+	
+	
+	
+	
+	
+	
+	
+	
+<link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+<meta name="DCTERMS.dateAccepted" content="2025-07-23T08:49:01Z" scheme="DCTERMS.W3CDTF" />
+<meta name="DCTERMS.available" content="2025-07-23T08:49:01Z" scheme="DCTERMS.W3CDTF" />
+<meta name="DCTERMS.issued" content="2025-07-15" scheme="DCTERMS.W3CDTF" />
+<meta name="DCTERMS.bibliographicCitation" content="Rossi Stacconi, M.V.; Fellin, L.; Grassi, A.; Colmagro, A.; Puppato, S.; Anfora, G. (2025-07-15). Establishment and parasitism levels of Ganaspis kimorum on Drosophila suzukii in Northeastern Italy: insights from a 4-yr release program. JOURNAL OF ECONOMIC ENTOMOLOGY, 118 (5): 2003-2011. doi: 10.1093/jee/toaf170 handle: https://hdl.handle.net/10449/91515" xml:lang="en" />
+<meta name="DC.identifier" content="https://hdl.handle.net/10449/91515" scheme="DCTERMS.URI" />
+<meta name="DC.language" content="eng" xml:lang="en" scheme="DCTERMS.RFC1766" />
+<meta name="DC.title" content="Establishment and parasitism levels of Ganaspis kimorum on Drosophila suzukii in Northeastern Italy: insights from a 4-yr release program" xml:lang="en" />
+<meta name="DC.description" content="6" />
+<meta name="DC.identifier" content="10.1093/jee/toaf170" xml:lang="en" />
+<meta name="DC.identifier" content="crossref" xml:lang="*" />
+<meta name="DC.relation" content="2003" xml:lang="en" />
+<meta name="DC.relation" content="5" xml:lang="en" />
+<meta name="DC.relation" content="2011" xml:lang="en" />
+<meta name="DC.relation" content="118" xml:lang="en" />
+<meta name="DC.subject" content="Propagative biocontrol" />
+<meta name="DC.subject" content="Spotted-wing Drosophila" />
+<meta name="DC.type" content="Internazionale" xml:lang="en" />
+<meta name="DC.type" content="si" xml:lang="en" />
+<meta name="DC.type" content="Esperti anonimi/Anonymous referees" xml:lang="en" />
+<meta name="DC.description" content="restricted" xml:lang="en" />
+<meta name="DC.type" content="With coauthor/editor out of FEM" xml:lang="en" />
+<meta name="DC.type" content="1 - Contributi in rivista::1.01 Articolo in rivista" xml:lang="it" />
+<meta name="DC.identifier" content="WOS:001528785900001" xml:lang="en" />
+<meta name="DC.identifier" content="40662876" xml:lang="en" />
+<meta name="DC.identifier" content="2-s2.0-105019193947" xml:lang="en" />
+<meta name="DC.description" content="No" xml:lang="en" />
+<meta name="DC.subject" content="Figitidae" />
+<meta name="DC.date" content="2025-07-22T07:24:34Z" xml:lang="*" scheme="DCTERMS.W3CDTF" />
+<meta name="DC.date" content="2025-07-22T07:24:34Z" xml:lang="*" scheme="DCTERMS.W3CDTF" />
+<meta name="DC.type" content="info:eu-repo/semantics/article" />
+<meta name="DC.type" content="262" />
+<meta name="DC.description" content="The management of the invasive fruit fly Drosophila suzukii (Diptera: Drosophilidae) still relies on chemical control, despite concerns about pesticide resistance and environmental impact. Integrated pest management strategies are being explored, but current options remain limited and often insufficient. In invaded regions, local natural enemies are mostly generalist pupal parasitoids, which have proven inadequate for controlling this rapidly spreading pest. Conversely, in its native range, D. suzukii is host to more specialized larval parasitoids that may mitigate its impact on fruit crops. Extensive foreign exploration and risk assessments identified the larval endoparasitoid Ganaspis kimorum (Hymenoptera: Figitidae) as the most suitable candidate for classical biological control. In 2021, Italy launched a propagative biocontrol program utilizing a Japanese population of G. kimorum. Here, we present the results from the first 4 yr of releases conducted in Northeast Italy, where the parasitoid was released at 20 different locations. We provide an overview of the monitoring activities at these sites to determine whether G. kimorum has successfully established and to assess its parasitism levels on both the target pest and nontarget species. Results confirmed that G. kimorum is a specialist on D. suzukii and likely does not compete with local parasitoids for reproductive resources. Collected data also suggest that the parasitoid has become established in several locations, and it is gradually expanding its range from the initial release sites. Four years after the initial release of G. kimorum, the data gathered offers valuable insights into the efficacy and ecological implications of this biocontrol strategy" />
+<meta name="DC.contributor" content="CRI [2022-01 - today]: PLANT PROTECTION" xml:lang="*" />
+<meta name="DC.contributor" content="CTT [2024-01 - today]: DIPARTIMENTO INNOVAZIONE NELLE PRODUZIONI AGRARIE E ZOOTECNICHE" xml:lang="*" />
+<meta name="DC.contributor" content="2274" xml:lang="*" />
+<meta name="DC.contributor" content="2589" xml:lang="*" />
+<meta name="DC.subject" content="Figitidae" xml:lang="*" />
+<meta name="DC.subject" content="Propagative biocontrol" xml:lang="*" />
+<meta name="DC.subject" content="Spotted-wing Drosophila" xml:lang="*" />
+<meta name="DC.date" content="2026/07/16 01:56:48" xml:lang="*" scheme="DCTERMS.W3CDTF" />
+<meta name="DC.date" content="1784159808249" xml:lang="*" scheme="DCTERMS.W3CDTF" />
+<meta name="DC.identifier" content="W4412453826" />
+<meta name="DC.description" content="Rossi Stacconi, M.V.; Fellin, L.; Grassi, A.; Colmagro, A.; Puppato, S.; Anfora, G." xml:lang="en" />
+<meta name="DC.description" content="Rossi Stacconi, M.V.; Fellin, L.; Grassi, A.; Colmagro, A.; Puppato, S.; Anfora, G." />
+
+<meta name="citation_title" content="Establishment and parasitism levels of Ganaspis kimorum on Drosophila suzukii in Northeastern Italy: insights from a 4-yr release program" />
+<meta name="citation_author" content="Rossi Stacconi, M.V." />
+<meta name="citation_author_email" content="marcovalerio.rossistacconi@fmach.it" />
+<meta name="citation_author_orcid" content="0000-0001-8291-3660" />
+<meta name="citation_author" content="Fellin, L." />
+<meta name="citation_author" content="Grassi, A." />
+<meta name="citation_author_email" content="alberto.grassi@fmach.it" />
+<meta name="citation_author_orcid" content="0000-0001-9805-0265" />
+<meta name="citation_author" content="Colmagro, A." />
+<meta name="citation_author_email" content="asia.colmagro@fmach.it" />
+<meta name="citation_author" content="Puppato, S." />
+<meta name="citation_author_email" content="simone.puppato@fmach.it" />
+<meta name="citation_author" content="Anfora, G." />
+<meta name="citation_date" content="2025-07-15" />
+<meta name="citation_issn" content="0022-0493" />
+<meta name="citation_journal_title" content="JOURNAL OF ECONOMIC ENTOMOLOGY" />
+<meta name="citation_volume" content="118" />
+<meta name="citation_issue" content="5" />
+<meta name="citation_firstpage" content="2003" />
+<meta name="citation_lastpage" content="2011" />
+<meta name="citation_doi" content="10.1093/jee/toaf170" />
+<meta name="citation_pmid" content="40662876" />
+<meta name="citation_abstract_html_url" content="https://openpub.fmach.it/handle/10449/91515" />
+<meta name="citation_language" content="eng" />
+<meta name="citation_keywords" content="Settore AGR/11 - ENTOMOLOGIA GENERALE E APPLICATA" />
+
+	
+	
+	
+	
+	<script type="text/javascript">
+	$(document).on('click', '.c-bn', function() { 
+		location.reload();
+	});
+	</script>
+
+	
+
+
+
+</head>
+<body class="body-default body-anonymous">
+	
+
+
+
+<header class="navbar navbar-expand-md navbar-dark sticky-top layout-top bg-primary iu-hide">
+	<nav class="container-fluid flex-wrap flex-md-nowrap" aria-label="menu top">
+		<a class="navbar-brand ps-0 pt-0 pb-0 pe-3" href="https://openpub.fmach.it/" aria-label="link homepage" id="uiLogoLink">
+			<img src="/sr/logo_iris.png" alt="IRIS" id="uiLogoImg" class="d-block my-1 navbar-brand-img"/>
+		</a>
+		<a class="navbar-brand ps-3 pt-0 pb-0 pe-3 me-3" href="" aria-label="link homepage università" id="customerLogoLink">
+			<img src="/sr/logo_customer.png" alt="IRIS" id="clientLogoImg" class="d-block my-1 navbar-brand-img"/>
+		</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="mostra/nascondi menu">
+			<span class="fas fa-bars"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav flex-row flex-wrap pt-2 py-md-0">
+				
+
+
+
+
+
+
+
+	
+</ul>
+			<ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+				<li class="nav-item col-6 col-md-auto " id="topNavHome">
+					<a class="nav-link p-2" href="https://openpub.fmach.it/">Home</a>
+				</li>
+				<li class="nav-item col-6 col-md-auto dropdown">
+					<a class="nav-link p-2 dropdown-toggle" href="#" id="navbarDropdownBrowse" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Sfoglia</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownBrowse">
+						<a class="dropdown-item" href="https://openpub.fmach.it/community-list">Macrotipologie<br/>&amp;&nbsp;tipologie</a>
+							<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="https://openpub.fmach.it/browse?type=author">Autore</a>
+						<a class="dropdown-item" href="https://openpub.fmach.it/browse?type=title">Titolo</a>
+						<a class="dropdown-item" href="https://openpub.fmach.it/browse?type=relationJournal">Riviste</a>
+						<a class="dropdown-item" href="https://openpub.fmach.it/browse?type=type">Tipologia</a>
+						<a class="dropdown-item" href="https://openpub.fmach.it/browse?type=subjectSsd">Settore Scientifico Disciplinare</a>
+						</div>
+				</li>
+			</ul>
+			<form class="navbar-search-top d-flex" action="https://openpub.fmach.it/simple-search" method="get" role="search">
+				<div class="input-group p-2">
+					<input class="form-control bg-primary layout-top-input" type="search" placeholder="Search&nbsp;IRIS" name="query" id="tequery" size="25" aria-label="Search&nbsp;IRIS">
+					<button class="btn btn-primary layout-top-input-btn" type="submit"><span class="fas fa-search"></span></button>
+				</div>
+			</form>
+			<ul class="navbar-nav flex-row flex-wrap">
+		 		<li class="nav-item col-6 col-md-auto dropdown">
+					<a class="nav-link p-2 dropdown-toggle" href="#" id="navbarDropdownLanguage" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						IT</a>
+					<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownLanguage">
+						<a class="dropdown-item" href="javascript:reloadLanguageModuleAll('https://openpub.fmach.it',['bi','rm','gw','ma','','saiku','ap'],'/language/change.json','it');" ><img src="/sr/cineca/images/flag/flag_it.png" alt="Italiano" title=""/>&nbsp;Italiano</a>
+						<a class="dropdown-item" href="javascript:reloadLanguageModuleAll('https://openpub.fmach.it',['bi','rm','gw','ma','','saiku','ap'],'/language/change.json','en');" ><img src="/sr/cineca/images/flag/flag_en.png" alt="English" title="English"/>&nbsp;English</a>
+							</div>
+				</li>
+				<li class="nav-item col-6 col-md-auto ">
+					
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+<!-- Javascript starts here
+document.write('<a class="nav-link p-2" href="#" onClick="var popupwin = window.open(\'https://wiki.u-gov.it/confluence/x/HJEWAw\',\'dspacepopup\',\'height=600,width=850,resizable,scrollbars\');popupwin.focus();return false;"><span class="fas fa-question-circle" title="Aiuto"></span></a>');
+// -->
+</script><noscript><a href="https://wiki.u-gov.it/confluence/x/HJEWAw" target="dspacepopup"><span class="fas fa-question-circle" title="Aiuto"></span></a></noscript>
+</li>
+				<li class="nav-item col-6 col-md-auto dropdown"><a class="nav-link p-2" href="https://openpub.fmach.it/securityLanding.htm">LOGIN</a></li>
+				</ul>
+		</div>
+	</nav>
+</header>
+
+
+
+
+<div class="site-header iu-hide bg-secondary text-white">
+				<div class="site-title CinecaSiteIntroduction" id="headerText">
+					<div>
+						<h1>CINECA IRIS <small>Institutional Research Information System</small></h1></div>
+				</div>
+			</div>
+		<div class="container-xxl ps-0 pe-0 layout-no-sidebar" id="mainContainerDiv">
+		
+
+
+
+<main class="layout-main" id="content">
+			<div class="container-fluid page-content">
+	        	<nav aria-label="breadcrumb" class="mt-2 iu-hide">
+	<form name="breadCrumbsForm" id="breadCrumbsForm" method="post">
+		<ol class="breadcrumb rounded">
+			<li class="breadcrumb-item"><a href="/">IRIS</a></li>
+		
+		
+			
+				<li class="breadcrumb-item"><a href="/handle/10449/21261">01 Pubblicazioni FEM</a></li>
+			
+				<li class="breadcrumb-item"><a href="/handle/10449/74059">1 - Contributi in rivista</a></li>
+			
+			<li class="breadcrumb-item"><a href="/handle/10449/74107">1.01 Articolo in rivista</a></li></ol>
+	</form>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+		
+		
+	
+
+
+
+
+
+
+
+
+
+
+<p class="searchIndexItemDescription abstractEng">The management of the invasive fruit fly Drosophila suzukii (Diptera: Drosophilidae) still relies on chemical control, despite concerns about pesticide resistance and environmental impact. Integrated pest management strategies are being explored, but current options remain limited and often insufficient. In invaded regions, local natural enemies are mostly generalist pupal parasitoids, which have proven inadequate for controlling this rapidly spreading pest. Conversely, in its native range, D. suzukii is host to more specialized larval parasitoids that may mitigate its impact on fruit crops. Extensive foreign exploration and risk assessments identified the larval endoparasitoid Ganaspis kimorum (Hymenoptera: Figitidae) as the most suitable candidate for classical biological control. In 2021, Italy launched a propagative biocontrol program utilizing a Japanese population of G. kimorum. Here, we present the results from the first 4 yr of releases conducted in Northeast Italy, where the parasitoid was released at 20 different locations. We provide an overview of the monitoring activities at these sites to determine whether G. kimorum has successfully established and to assess its parasitism levels on both the target pest and nontarget species. Results confirmed that G. kimorum is a specialist on D. suzukii and likely does not compete with local parasitoids for reproductive resources. Collected data also suggest that the parasitoid has become established in several locations, and it is gradually expanding its range from the initial release sites. Four years after the initial release of G. kimorum, the data gathered offers valuable insights into the efficacy and ecological implications of this biocontrol strategy</p>
+
+<p class="searchIndexItemDescription citation">Rossi Stacconi, M.V.; Fellin, L.; Grassi, A.; Colmagro, A.; Puppato, S.; Anfora, G. (2025-07-15). Establishment and parasitism levels of Ganaspis kimorum on Drosophila suzukii in Northeastern Italy: insights from a 4-yr release program. JOURNAL OF ECONOMIC ENTOMOLOGY, 118 (5): 2003-2011. doi: 10.1093/jee/toaf170 handle: https://hdl.handle.net/10449/91515</p>
+
+
+
+
+		
+	
+
+<div class="row">
+
+<div class="col-lg-12 col-xl-9">
+	<div class="card">
+	<div class="card-body">
+		<div>
+			
+			
+			
+			
+			
+			
+				
+					
+					
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+			
+			
+			
+			
+			<h3 class="mb-1 text-secondary">Establishment and parasitism levels of Ganaspis kimorum on Drosophila suzukii in Northeastern Italy: insights from a 4-yr release program</h3>
+			<h5>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+	
+		
+		
+		
+		
+		
+	
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+		
+		
+		
+		
+		
+			
+			
+			
+		
+		
+		
+		
+			
+			
+				
+				
+					
+					
+					
+					
+						
+							
+						
+						
+					
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			
+			
+		
+			
+			
+				
+				
+					
+					
+					
+					
+						
+							
+						
+						
+					
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			
+			
+		
+			
+			
+				
+				
+					
+					
+					
+					
+						
+							
+						
+						
+					
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			
+			
+		
+			
+			
+				
+				
+					
+					
+					
+					
+						
+							
+						
+						
+					
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			
+			
+		
+			
+			
+				
+				
+					
+					
+					
+					
+						
+							
+						
+						
+					
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			
+			
+		
+			
+			
+				
+				
+					
+					
+					
+					
+						
+						
+							
+							
+						
+					
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			
+			
+		
+		
+		
+		
+	
+
+
+<em><span class="contributor internalContributor internalContributor40aeb5f3-73dc-4152-b032-80a6b7b51695 m-1"><a href="/cris/rp/rp00033" class="authority author">Rossi Stacconi, M. V.</a><sup class="ms-1"><h6 class="badge bg-info"><span class="fas fa-at" title="Corresponding author"></span></h6>
+						
+						
+							<h6 class="badge bg-dark">Primo</h6></sup>;</span><span class="contributor internalContributor internalContributor40aeb5f3-73dc-4152-b032-80a6b7b51695 m-1"><a href="/cris/rp/rp04307" class="authority author">Fellin, L.</a>;</span><span class="contributor internalContributor internalContributor40aeb5f3-73dc-4152-b032-80a6b7b51695 m-1"><a href="/cris/rp/rp00530" class="authority author">Grassi, A.</a>;</span><span class="contributor internalContributor internalContributor40aeb5f3-73dc-4152-b032-80a6b7b51695 m-1"><a href="/cris/rp/rp08990" class="authority author">Colmagro, A.</a>;</span><span class="contributor internalContributor internalContributor40aeb5f3-73dc-4152-b032-80a6b7b51695 m-1"><a href="/cris/rp/rp03888" class="authority author">Puppato, S.</a>;</span><span class="contributor externalContributor externalContributor40aeb5f3-73dc-4152-b032-80a6b7b51695 m-1  disabled" aria-disabled="true" style="display:none;">Anfora, G.</span></em>
+
+	<span onclick="JQ('.externalContributor40aeb5f3-73dc-4152-b032-80a6b7b51695').toggle();JQ('.showExternalText40aeb5f3-73dc-4152-b032-80a6b7b51695').toggle();JQ('.hideExternalText40aeb5f3-73dc-4152-b032-80a6b7b51695').toggle();" class="btn btn-sm btn-outline-secondary m-1">
+		<span class="showExternalText40aeb5f3-73dc-4152-b032-80a6b7b51695"><span class="fas fa-users" title="mostra contributor esterni"></span></span>
+		<span class="hideExternalText40aeb5f3-73dc-4152-b032-80a6b7b51695" style="display:none;"><span class="fas fa-user" title="nascondi contributor esterni"></span></span>
+	</span>
+
+</h5>
+			<h5>2025-07-15</h5>
+			<hr/>
+			
+				<h4 class="mb-1">Abstract</h4>
+				The management of the invasive fruit fly Drosophila suzukii (Diptera: Drosophilidae) still relies on chemical control, despite concerns about pesticide resistance and environmental impact. Integrated pest management strategies are being explored, but current options remain limited and often insufficient. In invaded regions, local natural enemies are mostly generalist pupal parasitoids, which have proven inadequate for controlling this rapidly spreading pest. Conversely, in its native range, D. suzukii is host to more specialized larval parasitoids that may mitigate its impact on fruit crops. Extensive foreign exploration and risk assessments identified the larval endoparasitoid Ganaspis kimorum (Hymenoptera: Figitidae) as the most suitable candidate for classical biological control. In 2021, Italy launched a propagative biocontrol program utilizing a Japanese population of G. kimorum. Here, we present the results from the first 4 yr of releases conducted in Northeast Italy, where the parasitoid was released at 20 different locations. We provide an overview of the monitoring activities at these sites to determine whether G. kimorum has successfully established and to assess its parasitism levels on both the target pest and nontarget species. Results confirmed that G. kimorum is a specialist on D. suzukii and likely does not compete with local parasitoids for reproductive resources. Collected data also suggest that the parasitoid has become established in several locations, and it is gradually expanding its range from the initial release sites. Four years after the initial release of G. kimorum, the data gathered offers valuable insights into the efficacy and ecological implications of this biocontrol strategy
+			
+		</div>
+	<div class="dspace-display-item tabbable page-tabs mt-3">
+		<h5>
+		<ul class="nav nav-tabs border-bottom fw-bold">
+			<li class="nav-item"><a class="nav-link active" href="#tab_default" onclick="changeItemView('simple');" data-bs-toggle="tab">Scheda breve</a></li>
+			<li class="nav-item"><a class="nav-link " href="#tab_default" onclick="changeItemView('complete');" data-bs-toggle="tab">Scheda completa</a></li>
+			<li class="nav-item"><a class="nav-link " href="#tab_default" onclick="changeItemView('full');" data-bs-toggle="tab">Scheda completa (DC)</a></li>
+			
+			
+			
+					
+			<li class="nav-item"><a class="nav-link" onclick="location.href='/cris/item/10449/91515/statistics'" data-bs-toggle="tab"><span class="far fa-chart-bar"></span></a></li>
+			
+				
+				
+				<li class="nav-item"><a class="nav-link" onclick="window.open('https://strutture-provincia.primo.exlibrisgroup.com/openurl/39SBT_INST/39SBT_INST:39SBT_FEM?rft_id=info:doi/10.1093%2Fjee%2Ftoaf170&rft_id=info:pmid/40662876&rft.issn=0022-0493&rft.atitle=Establishment+and+parasitism+levels+of+Ganaspis+kimorum+on+Drosophila+suzukii+in+Northeastern+Italy%3A+insights+from+a+4-yr+release+program&rft.date=2025-07-15&rft.jtitle=JOURNAL+OF+ECONOMIC+ENTOMOLOGY&rft.volume=118&rft.spage=2003&rft.issue=5','_blank');" data-bs-toggle="tab"><img src="https://www.fmach.it/var/fem/storage/images/media/images/discovery-fem2/13047859-1-ita-IT/Discovery-FEM_popup.jpg" border="0" alt="SFX Query" style="max-height: 20px;" /></a></li>
+			
+		</ul>
+		</h5>
+		<div class="tab-content">
+			<div class="tab-pane active fade show" id="tab_default">
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="itemDisplayTable container-fluid g-3">
+	
+		
+		
+		
+		
+		
+		
+	
+		
+		
+		
+		
+		
+		
+	
+		
+		
+		
+		
+		
+		
+	
+		
+		
+		
+		
+		
+		
+			
+			
+			
+			
+			
+				
+			
+			
+				
+					
+				
+				
+			
+		
+	
+		
+		
+		
+		
+		
+		
+			
+			
+			
+			
+			
+				
+			
+			
+				
+					
+				
+				
+			
+		
+	
+		
+		
+		
+		
+		
+		
+			
+			
+			
+			
+			
+				
+			
+			
+				
+					
+				
+				
+			
+		
+	
+		
+		
+		
+		
+		
+		
+			
+			
+			
+			
+			
+				
+			
+			
+				
+					
+				
+				
+			
+		
+	
+		
+		
+		
+		
+		
+		
+			
+			
+			
+			
+			
+				
+			
+			
+				
+					
+				
+				
+			
+		
+	
+		
+		
+		
+		
+		
+		
+			
+			
+			
+			
+			
+				
+			
+			
+				
+					
+						
+						
+							 
+							 
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	<div class="line form-group row metadataFieldValue pt-2 pb-2 dc_subject_keywordseng" id="dc.subject.keywordseng_line" >
+		
+		<div class="line-label col-md-12"><label for="dc.subject.keywordseng" class="control-label   metadataFieldLabel dc_subject_keywordseng">
+	<span class="line-label-text">Keywords</span>
+	
+	
+    	
+        
+        	
+			
+        
+    
+	
+	
+</label></div>
+		<div class="line-content col-sm-12" id="dc.subject.keywordseng_content">
+			
+				
+				<em>Propagative biocontrol<br/>Spotted-wing Drosophila</em>
+			
+			
+			
+			
+		</div>
+	</div>
+
+							 
+						
+					
+				
+				
+			
+		
+	
+		
+		
+		
+		
+		
+		
+			
+			
+			
+			
+			
+				
+			
+			
+				
+					
+				
+				
+			
+		
+	
+		
+		
+		
+		
+		
+		
+			
+			
+			
+			
+			
+				
+			
+			
+				
+					
+				
+				
+			
+		
+	
+		
+		
+		
+		
+		
+		
+			
+			
+			
+			
+			
+				
+			
+			
+				
+					
+				
+				
+			
+		
+	
+		
+		
+		
+		
+		
+		
+			
+			
+			
+			
+			
+				
+			
+			
+				
+					
+				
+				
+			
+		
+	
+		
+		
+		
+		
+		
+		
+			
+			
+			
+			
+			
+				
+			
+			
+				
+					
+						
+						
+							 
+							 
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	<div class="line form-group row metadataFieldValue pt-2 pb-2 dc_subject_keywords" id="dc.subject.keywords_line" >
+		
+		<div class="line-label col-md-12"><label for="dc.subject.keywords" class="control-label   metadataFieldLabel dc_subject_keywords">
+	<span class="line-label-text">Keywords</span>
+	
+	
+    	
+        
+        	
+			
+        
+    
+	
+	
+</label></div>
+		<div class="line-content col-sm-12" id="dc.subject.keywords_content">
+			
+				
+				<em>Figitidae</em>
+			
+			
+			
+			
+		</div>
+	</div>
+
+							 
+						
+					
+				
+				
+			
+		
+	
+		
+		
+		
+		
+		
+		
+			
+			
+			
+			
+			
+				
+			
+			
+				
+					
+						
+						
+							 
+							 
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	<div class="line form-group row metadataFieldValue pt-2 pb-2 dc_authority_academicField2000" id="dc.authority.academicField2000_line" >
+		
+		<div class="line-label col-md-12"><label for="dc.authority.academicField2000" class="control-label   metadataFieldLabel dc_authority_academicField2000">
+	<span class="line-label-text">MIUR subjects (validi fino a 24/06/2024)</span>
+	
+	
+    	
+        
+        	
+			
+        
+    
+	
+	
+</label></div>
+		<div class="line-content col-sm-12" id="dc.authority.academicField2000_content">
+			
+				
+				<em>Settore AGR/11 - ENTOMOLOGIA GENERALE E APPLICATA</em>
+			
+			
+			
+			
+		</div>
+	</div>
+
+							 
+						
+					
+				
+				
+			
+		
+	
+		
+		
+		
+		
+		
+		
+			
+			
+			
+			
+			
+				
+			
+			
+				
+					
+						
+						
+							 
+							 
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	<div class="line form-group row metadataFieldValue pt-2 pb-2 dc_authority_academicField2024" id="dc.authority.academicField2024_line" >
+		
+		<div class="line-label col-md-12"><label for="dc.authority.academicField2024" class="control-label   metadataFieldLabel dc_authority_academicField2024">
+	<span class="line-label-text">MIUR subjects (validi dal 09/05/2024)</span>
+	
+	
+    	
+        
+        	
+			
+        
+    
+	
+	
+</label></div>
+		<div class="line-content col-sm-12" id="dc.authority.academicField2024_content">
+			
+				
+				<em>Settore AGRI-05/A - Entomologia generale e applicata</em>
+			
+			
+			
+			
+		</div>
+	</div>
+
+							 
+						
+					
+				
+				
+			
+		
+	
+		
+		
+		
+		
+		
+		
+			
+			
+			
+			
+			
+				
+			
+			
+				
+					
+						
+						
+							 
+							 
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	<div class="line form-group row metadataFieldValue pt-2 pb-2 dc_date_issued" id="dc.date.issued_line" >
+		
+		<div class="line-label col-md-12"><label for="dc.date.issued" class="control-label   metadataFieldLabel dc_date_issued">
+	<span class="line-label-text">Date of issue</span>
+	
+	
+    	
+        
+        	
+			
+        
+    
+	
+	
+</label></div>
+		<div class="line-content col-sm-12" id="dc.date.issued_content">
+			
+				
+				<em>15-lug-2025</em>
+			
+			
+			
+			
+		</div>
+	</div>
+
+							 
+						
+					
+				
+				
+			
+		
+	
+		
+		
+		
+		
+		
+		
+			
+			
+			
+			
+			
+				
+			
+			
+				
+					
+						
+						
+							 
+							 
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	<div class="line form-group row metadataFieldValue pt-2 pb-2 dc_identifier_citation" id="dc.identifier.citation_line" >
+		
+		<div class="line-label col-md-12"><label for="dc.identifier.citation" class="control-label   metadataFieldLabel dc_identifier_citation">
+	<span class="line-label-text">Citazione</span>
+	
+	
+    	
+        
+        	
+			
+        
+    
+	
+	
+</label></div>
+		<div class="line-content col-sm-12" id="dc.identifier.citation_content">
+			
+				
+				<em>Rossi Stacconi, M.V.; Fellin, L.; Grassi, A.; Colmagro, A.; Puppato, S.; Anfora, G. (2025-07-15). Establishment and parasitism levels of Ganaspis kimorum on Drosophila suzukii in Northeastern Italy: insights from a 4-yr release program. JOURNAL OF ECONOMIC ENTOMOLOGY, 118 (5): 2003-2011. doi: 10.1093/jee/toaf170 handle: https://hdl.handle.net/10449/91515</em>
+			
+			
+			
+			
+		</div>
+	</div>
+
+							 
+						
+					
+				
+				
+			
+		
+	
+	
+	
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	<div class="line form-group row metadataFieldValue pt-2 pb-2 dspace_collection" id="dspace_collection_line" >
+		
+		<div class="line-label col-md-12"><label for="dspace_collection" class="control-label   metadataFieldLabel dspace_collection">
+	<span class="line-label-text">Appare nelle tipologie:</span>
+	
+	
+    	
+        
+        	
+			
+        
+    
+	
+	
+</label></div>
+		<div class="line-content col-sm-12" id="dspace_collection_content">
+			
+				
+				<a href="/handle/10449/74107">1.01 Articolo in rivista</a>
+			
+			
+			
+			
+		</div>
+	</div>
+
+	
+</div>
+
+
+
+
+			</div>
+		</div>
+	</div></div>
+	</div>
+
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/x-tmpl" id="tmpLicenseDetail">
+<div class="d-flex align-items-center">
+	{% if (o.licenseImage != null) { %}
+		<div class="flex-shrink-0">
+			{% if (o.licenseLegal != null) { %}
+				<a href="{%= o.licenseLegal %}" target="_blank">
+			{% } %}
+			<img src="{%= o.licenseImage %}" />
+			{%if (o.licenseLegal != null) {  %}
+				</a>
+			{% }  %}
+		</div>
+	{% } %}
+	<div class="flex-grow-1 ms-3">
+		{% if (o.licenseLegal != null) { %}
+			<a href="{%= o.licenseLegal %}" target="_blank">
+		{% } %}
+		{%# o.licenseName %}
+		{%if (o.licenseLegal != null) {  %}
+			</a>
+		{% }  %}
+	</div>
+</div>
+</script>
+
+<div id="bitstreams" class="card bg-white mt-2">
+		<div class="card-header">File in questo prodotto:</div>
+
+
+	
+	
+	
+    
+	
+	
+	
+	
+	
+	
+	
+	
+		
+			
+				
+			
+		
+		
+	
+	
+	
+	
+		
+		
+			<table class="table card-body">
+				<tr>
+					
+						
+					
+					<th id="t1" class="standard">File</th>
+					<th id="t3" class="standard d-none d-sm-table-cell">Dimensione</th>
+					<th id="t4" class="standard d-none d-sm-table-cell">Formato</th>
+					<th id="t5" class="standard d-none d-sm-table-cell">&nbsp;</th>
+				</tr>
+				
+				
+				
+				
+						
+						
+						
+					        
+					        	
+					        
+					    
+						
+						
+							
+							<tr>
+								
+									
+								
+								<td headers="t1" class="standard break-all">
+									
+										
+										
+										
+										
+											
+												
+												
+												    
+												
+											
+										
+									
+									
+										
+										
+											2025 JEE Rossi Stacconi et al.pdf
+										
+																				
+									
+										
+											<p class="badge bg-info">solo utenti autorizzati</p>
+										
+										
+									
+									
+									
+									
+										<div class="col-12 mb-2">
+											Tipologia:
+											Versione editoriale (Publisher’s layout)
+										</div>
+									
+									
+									
+									
+										<div class="col-12 mb-2">
+											Licenza:
+											
+											
+												Tutti i diritti riservati (All rights reserved)
+												
+												
+												
+											
+										</div>
+									
+									<div class="col-12 mb-2 d-block d-sm-none">
+										Dimensione
+										904.85 kB
+									</div>
+									<div class="col-12 mb-2 d-block d-sm-none">
+										Formato
+										Adobe PDF
+									</div>
+										
+										<div class="col-12 mb-2 d-block d-sm-none">
+											<a class="btn btn-warning" target="_blank" rel="noopener" href="/retrieve/ecca2143-914c-409b-abf5-832dc86973f9/2025%20JEE%20Rossi%20Stacconi%20et%20al.pdf"><span class="fas fa-lock"></span>&nbsp; Visualizza/Apri</a>
+													
+												
+												
+													<a class="btn btn-warning" href="/request-item?handle=10449/91515&bitstreamId=ecca2143-914c-409b-abf5-832dc86973f9"><span class="fas fa-lock"></span>&nbsp; Richiedi una copia</a>
+										</div>
+								</td>
+								<td headers="t3" class="standard d-none d-sm-table-cell">904.85 kB</td>
+								<td headers="t4" class="standard d-none d-sm-table-cell">Adobe PDF</td>
+								<td class="standard d-none d-sm-table-cell">
+									
+									<a class="btn btn-warning" target="_blank" rel="noopener" href="/retrieve/ecca2143-914c-409b-abf5-832dc86973f9/2025%20JEE%20Rossi%20Stacconi%20et%20al.pdf"><span class="fas fa-lock"></span>&nbsp; Visualizza/Apri</a>
+													
+												
+												
+													<a class="btn btn-warning" href="/request-item?handle=10449/91515&bitstreamId=ecca2143-914c-409b-abf5-832dc86973f9"><span class="fas fa-lock"></span>&nbsp; Richiedi una copia</a>
+								</td>
+							</tr>
+							
+					
+				
+			</table>
+		
+	
+
+</div>
+
+
+
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	<div class="col-lg-12 mt-2">
+		
+		
+	</div>
+	<div class="col-lg-12 mt-2">
+		
+		
+			
+			
+				<p class="submitFormHelp alert alert-info">I documenti in IRIS sono protetti da copyright e tutti i diritti sono riservati, salvo diversa indicazione.</p>
+			
+		
+	</div>
+</div>
+<div class="col-lg-12 col-xl-3" id="itemInformationsDiv">
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	<div id="_line"  >
+		<div class="accordion" id="accordion_">
+			<div class="accordion-item">
+		    	<h5 class="accordion-header" id="heading_">
+			      	<button class="accordion-button bg-info bg-opacity-25 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_" aria-expanded="false" aria-controls="collapse_"><i class="fas fa-info-circle"></i>&nbsp;Informazioni</button>
+			    </h5>
+			    <div id="collapse_" class="accordion-collapse collapse show" aria-labelledby="heading_" data-bs-parent="#accordion_">
+			    	<div class="accordion-body">
+			        	
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+			
+			Utilizza questo identificativo per citare o creare un link a questo documento: <code>https://hdl.handle.net/10449/91515</code>
+			
+		
+	
+	
+	
+
+			      	</div>
+			    </div>
+			</div>
+		</div>
+	</div>
+
+	
+	
+	
+		
+			
+			
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<script type="text/javascript">
+		runningExternal=false;
+	</script>
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+		
+	
+
+<div class="card border-white mt-2" >
+	<div class="card-header bg-white text-primary"><h5>Citazioni</h5></div>
+	
+		
+			 <ul class="list-group list-group-flush">
+			   
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="list-group-item d-flex justify-content-between align-items-start">
+	
+	
+	
+		
+		
+		
+	
+	<a href="http://www.ncbi.nlm.nih.gov/pubmed/40662876" target="_blank" rel="noopener"><img src="https://openpub.fmach.it/sr/cineca/images/thirdparty/pmc_small.png" style="height: 18px;" alt="???jsp.display-item.citation.pmc???"/></a>
+	<span class="badge bg-secondary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" id="pmcCitedResultTotal" title="aggiornato in data 03-09-2026 02:24" >2</span>
+</li>
+
+<script type="text/javascript">
+	var pmcChartData = [];
+	pmcChartData[0] = 0;
+	pmcChartData[1] = 0;
+	pmcChartData[2] = 0;
+	pmcChartData[3] = 0;
+	pmcChartData[4] = 0;
+	pmcChartData[5] = 0;
+	function pmcUpdateCitationQueue(forceUpdate) {
+		//console.log('call pmcUpdateCitation');
+		if (runningExternal) {
+			var rnd=Math.floor(Math.random() * (2000 + 1) + 1000);
+			//console.log('wait pmcUpdateCitation for '+rnd);
+			setTimeout(() => {
+				pmcUpdateCitationQueue(forceUpdate);
+			}, rnd);
+		} else {
+			//console.log('executing pmcUpdateCitation');
+			runningExternal=true;
+			pmcUpdateCitation(forceUpdate)
+		}
+	}
+	function pmcUpdateCitation(forceUpdate) {
+		$('#pmcCitedResultTotal').append('<div class="spinner-border spinner-border-sm ms-2" role="status"></div>');
+		$.ajax({
+			url: '/itemExternalCitation/pmc/get.json',
+			dataType: 'json',
+			data: { discriminator: 'pmc', itemId: '40aeb5f3-73dc-4152-b032-80a6b7b51695', forceUpdate: forceUpdate }
+		}).done(function(adata) {
+			$('#pmcCitedResultTotal').tooltip('dispose');
+			$('#pmcCitedResultTotal').prop("onclick", null).off("click");
+			if (adata.total==null){
+				$('#pmcCitedResultTotal').html('2');
+			} else {
+				$('#pmcCitedResultTotal').html(adata.total);
+			}
+			var year=new Date().getFullYear();
+			pmcChartData[0] = (adata.yearTotalMap[''+(year-5)]!=null ? adata.yearTotalMap[''+(year-5)] : 0);
+			pmcChartData[1] = (adata.yearTotalMap[''+(year-4)]!=null ? adata.yearTotalMap[''+(year-4)] : 0);
+			pmcChartData[2] = (adata.yearTotalMap[''+(year-3)]!=null ? adata.yearTotalMap[''+(year-3)] : 0);
+			pmcChartData[3] = (adata.yearTotalMap[''+(year-2)]!=null ? adata.yearTotalMap[''+(year-2)] : 0);
+			pmcChartData[4] = (adata.yearTotalMap[''+(year-1)]!=null ? adata.yearTotalMap[''+(year-1)] : 0);
+			pmcChartData[5] = (adata.yearTotalMap[''+year]!=null ? adata.yearTotalMap[''+year] : 0);
+			drawChart();
+		}).always(function(adata){
+			//console.log('end pmcUpdateCitation');
+			runningExternal=false;
+		});
+	}
+</script>
+
+			
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="list-group-item d-flex justify-content-between align-items-start">
+	
+	
+	
+		
+		
+		
+	
+	<a href="http://www.scopus.com/inward/record.url?partnerID=3MLxHJVE&origin=inward&eid=2-s2.0-105019193947" target="_blank" rel="noopener"><img src="https://openpub.fmach.it/sr/cineca/images/thirdparty/scopus_small.png" style="height: 18px;" alt="Scopus"/></a>
+	<span class="badge bg-secondary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" id="scopusCitedResultTotal" title="aggiornato in data 27-08-2026 07:08" >8</span>
+</li>
+
+<script type="text/javascript">
+	var scopusChartData = [];
+	scopusChartData[0] = 0;
+	scopusChartData[1] = 0;
+	scopusChartData[2] = 0;
+	scopusChartData[3] = 0;
+	scopusChartData[4] = 0;
+	scopusChartData[5] = 8;
+	function scopusUpdateCitationQueue(forceUpdate) {
+		//console.log('call scopusUpdateCitation');
+		if (runningExternal) {
+			var rnd=Math.floor(Math.random() * (2000 + 1) + 1000);
+			//console.log('wait scopusUpdateCitation for '+rnd);
+			setTimeout(() => {
+				scopusUpdateCitationQueue(forceUpdate);
+			}, rnd);
+		} else {
+			//console.log('executing scopusUpdateCitation');
+			runningExternal=true;
+			scopusUpdateCitation(forceUpdate)
+		}
+	}
+	function scopusUpdateCitation(forceUpdate) {
+		$('#scopusCitedResultTotal').append('<div class="spinner-border spinner-border-sm ms-2" role="status"></div>');
+		$.ajax({
+			url: '/itemExternalCitation/scopus/get.json',
+			dataType: 'json',
+			data: { discriminator: 'scopus', itemId: '40aeb5f3-73dc-4152-b032-80a6b7b51695', forceUpdate: forceUpdate }
+		}).done(function(adata) {
+			$('#scopusCitedResultTotal').tooltip('dispose');
+			$('#scopusCitedResultTotal').prop("onclick", null).off("click");
+			if (adata.total==null){
+				$('#scopusCitedResultTotal').html('8');
+			} else {
+				$('#scopusCitedResultTotal').html(adata.total);
+			}
+			var year=new Date().getFullYear();
+			scopusChartData[0] = (adata.yearTotalMap[''+(year-5)]!=null ? adata.yearTotalMap[''+(year-5)] : 0);
+			scopusChartData[1] = (adata.yearTotalMap[''+(year-4)]!=null ? adata.yearTotalMap[''+(year-4)] : 0);
+			scopusChartData[2] = (adata.yearTotalMap[''+(year-3)]!=null ? adata.yearTotalMap[''+(year-3)] : 0);
+			scopusChartData[3] = (adata.yearTotalMap[''+(year-2)]!=null ? adata.yearTotalMap[''+(year-2)] : 0);
+			scopusChartData[4] = (adata.yearTotalMap[''+(year-1)]!=null ? adata.yearTotalMap[''+(year-1)] : 0);
+			scopusChartData[5] = (adata.yearTotalMap[''+year]!=null ? adata.yearTotalMap[''+year] : 0);
+			drawChart();
+		}).always(function(adata){
+			//console.log('end scopusUpdateCitation');
+			runningExternal=false;
+		});
+	}
+</script>
+
+			
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="list-group-item d-flex justify-content-between align-items-start">
+	
+	
+	
+		
+		
+		
+	
+	<a href="https://www.webofscience.com/api/gateway?GWVersion=2&SrcApp=CINECA&SrcAuth=WosAPI&DestLinkType=FullRecord&DestApp=WOS_CPL&KeyUT=WOS:001528785900001" target="_blank" rel="noopener"><img src="https://openpub.fmach.it/sr/cineca/images/thirdparty/isi_small.png" style="height: 18px;" alt="???jsp.display-item.citation.isi???"/></a>
+	<span class="badge bg-secondary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" id="isiCitedResultTotal" title="aggiornato in data 03-09-2026 18:10" >7</span>
+</li>
+
+<script type="text/javascript">
+	var isiChartData = [];
+	isiChartData[0] = 0;
+	isiChartData[1] = 0;
+	isiChartData[2] = 0;
+	isiChartData[3] = 0;
+	isiChartData[4] = 0;
+	isiChartData[5] = 0;
+	function isiUpdateCitationQueue(forceUpdate) {
+		//console.log('call isiUpdateCitation');
+		if (runningExternal) {
+			var rnd=Math.floor(Math.random() * (2000 + 1) + 1000);
+			//console.log('wait isiUpdateCitation for '+rnd);
+			setTimeout(() => {
+				isiUpdateCitationQueue(forceUpdate);
+			}, rnd);
+		} else {
+			//console.log('executing isiUpdateCitation');
+			runningExternal=true;
+			isiUpdateCitation(forceUpdate)
+		}
+	}
+	function isiUpdateCitation(forceUpdate) {
+		$('#isiCitedResultTotal').append('<div class="spinner-border spinner-border-sm ms-2" role="status"></div>');
+		$.ajax({
+			url: '/itemExternalCitation/isi/get.json',
+			dataType: 'json',
+			data: { discriminator: 'isi', itemId: '40aeb5f3-73dc-4152-b032-80a6b7b51695', forceUpdate: forceUpdate }
+		}).done(function(adata) {
+			$('#isiCitedResultTotal').tooltip('dispose');
+			$('#isiCitedResultTotal').prop("onclick", null).off("click");
+			if (adata.total==null){
+				$('#isiCitedResultTotal').html('7');
+			} else {
+				$('#isiCitedResultTotal').html(adata.total);
+			}
+			var year=new Date().getFullYear();
+			isiChartData[0] = (adata.yearTotalMap[''+(year-5)]!=null ? adata.yearTotalMap[''+(year-5)] : 0);
+			isiChartData[1] = (adata.yearTotalMap[''+(year-4)]!=null ? adata.yearTotalMap[''+(year-4)] : 0);
+			isiChartData[2] = (adata.yearTotalMap[''+(year-3)]!=null ? adata.yearTotalMap[''+(year-3)] : 0);
+			isiChartData[3] = (adata.yearTotalMap[''+(year-2)]!=null ? adata.yearTotalMap[''+(year-2)] : 0);
+			isiChartData[4] = (adata.yearTotalMap[''+(year-1)]!=null ? adata.yearTotalMap[''+(year-1)] : 0);
+			isiChartData[5] = (adata.yearTotalMap[''+year]!=null ? adata.yearTotalMap[''+year] : 0);
+			drawChart();
+		}).always(function(adata){
+			//console.log('end isiUpdateCitation');
+			runningExternal=false;
+		});
+	}
+</script>
+
+			
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="list-group-item d-flex justify-content-between align-items-start">
+	
+	
+	
+		
+		
+		
+	
+	<a href="https://openalex.org/works/W4412453826" target="_blank" rel="noopener"><img src="https://openpub.fmach.it/sr/cineca/images/thirdparty/openalex_small.png" style="height: 18px;" alt="OpenAlex"/></a>
+	<span class="badge bg-secondary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" id="openalexCitedResultTotal" title="aggiornato in data 05-09-2026 20:24" >8</span>
+</li>
+
+<script type="text/javascript">
+	var openalexChartData = [];
+	openalexChartData[0] = 0;
+	openalexChartData[1] = 0;
+	openalexChartData[2] = 0;
+	openalexChartData[3] = 0;
+	openalexChartData[4] = 0;
+	openalexChartData[5] = 0;
+	function openalexUpdateCitationQueue(forceUpdate) {
+		//console.log('call openalexUpdateCitation');
+		if (runningExternal) {
+			var rnd=Math.floor(Math.random() * (2000 + 1) + 1000);
+			//console.log('wait openalexUpdateCitation for '+rnd);
+			setTimeout(() => {
+				openalexUpdateCitationQueue(forceUpdate);
+			}, rnd);
+		} else {
+			//console.log('executing openalexUpdateCitation');
+			runningExternal=true;
+			openalexUpdateCitation(forceUpdate)
+		}
+	}
+	function openalexUpdateCitation(forceUpdate) {
+		$('#openalexCitedResultTotal').append('<div class="spinner-border spinner-border-sm ms-2" role="status"></div>');
+		$.ajax({
+			url: '/itemExternalCitation/openalex/get.json',
+			dataType: 'json',
+			data: { discriminator: 'openalex', itemId: '40aeb5f3-73dc-4152-b032-80a6b7b51695', forceUpdate: forceUpdate }
+		}).done(function(adata) {
+			$('#openalexCitedResultTotal').tooltip('dispose');
+			$('#openalexCitedResultTotal').prop("onclick", null).off("click");
+			if (adata.total==null){
+				$('#openalexCitedResultTotal').html('8');
+			} else {
+				$('#openalexCitedResultTotal').html(adata.total);
+			}
+			var year=new Date().getFullYear();
+			openalexChartData[0] = (adata.yearTotalMap[''+(year-5)]!=null ? adata.yearTotalMap[''+(year-5)] : 0);
+			openalexChartData[1] = (adata.yearTotalMap[''+(year-4)]!=null ? adata.yearTotalMap[''+(year-4)] : 0);
+			openalexChartData[2] = (adata.yearTotalMap[''+(year-3)]!=null ? adata.yearTotalMap[''+(year-3)] : 0);
+			openalexChartData[3] = (adata.yearTotalMap[''+(year-2)]!=null ? adata.yearTotalMap[''+(year-2)] : 0);
+			openalexChartData[4] = (adata.yearTotalMap[''+(year-1)]!=null ? adata.yearTotalMap[''+(year-1)] : 0);
+			openalexChartData[5] = (adata.yearTotalMap[''+year]!=null ? adata.yearTotalMap[''+year] : 0);
+			drawChart();
+		}).always(function(adata){
+			//console.log('end openalexUpdateCitation');
+			runningExternal=false;
+		});
+	}
+</script>
+
+			
+			
+				<li class="list-group-item d-flex justify-content-between align-items-start" style="display: none;" id="citation_chart_panel">
+					<div id="citation_chart" style="width: 100%;"></div>
+					
+					
+						<script type="text/javascript">
+							$('#citation_chart').html('<span class="fas fa-shield" title="il componente non può essere visualizzato perché i cookie di terze parti sono stati disabilitati. Riabilitarli tramite il pannello Utilizzo dei cookie situato a fondo pagina"><span> ');
+						</script>
+					
+				</li>
+			
+		
+			  </ul>
+		
+		
+	
+	
+</div>
+
+
+	
+	
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+		
+	
+
+<div class="card border-white mt-2" >
+	<div class="card-header bg-white text-primary"><h5>social impact</h5></div>
+	
+		
+			 <ul class="list-group list-group-flush">
+			   
+			
+			
+				<li class="list-group-item d-flex justify-content-between align-items-start">
+					<a id="plumx" href="https://plu.mx/plum/a/?doi=10.1093/jee/toaf170" class="plumx-plum-print-popup"></a>
+					<script type="text/javascript">
+					if (isThirdPartyCookieEnabled()) {
+						$.getScript("//cdn.plu.mx/widget-popup.js", function() {
+						});
+					}
+					else {
+						$('#plumx').attr('href','#').html('<span class="fas fa-shield" title="il componente non può essere visualizzato perché i cookie di terze parti sono stati disabilitati. Riabilitarli tramite il pannello Utilizzo dei cookie situato a fondo pagina"><span> ');
+					}
+					</script>
+				</li>
+			
+		
+			  </ul>
+		
+		
+	
+	
+</div>
+
+
+	
+</div>
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="dialog-confirm-delete" class="modal">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header bg-success text-white">
+				<h5 id="dialog-confirm-delete_title" class="modal-title">
+					
+						Conferma cancellazione
+						
+					
+				</h5>
+				
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				
+			</div>
+			<div id="dialog-confirm-delete_content" class="modal-body with-padding">
+				<p class="message">Sei sicuro che questo prodotto debba essere cancellato?</p>
+			</div>
+			<div id="dialog-confirm-delete_footer" class="modal-footer bg-light">
+				
+					<button type="button" class="btn btn-secondary " data-bs-dismiss="modal">
+						
+							
+							Chiudi
+						
+					</button>
+				
+				
+				
+						<button type="button"  id="button-confirm-delete"  class="btn btn-secondary "  >
+						
+							Elimina
+							
+						
+					</button>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+    <script type="text/javascript">
+    var modeNow;
+    function changeItemView(mode) {
+        $('#tab_default').html('<i class="fas fa-spinner fa-pulse fa-3x fa-fw mt-3"></i>');
+        $.ajax({
+            
+                
+                url: '/fragment/handle/10449/91515',
+                data: { mode: mode, descriptionAbstractUsedField: 'dc.description.abstracteng' }
+                
+                
+            
+        }).done(function(data) {
+            modeNow=mode;
+            $('#tab_default').html(data);
+            //change url
+            //var href="/handle/10449/91515";
+            var href=window.location.href;
+            if (!href.includes("mode=")) {
+                if (!href.includes("?"))
+                    href+='?mode='+mode;
+                else
+                    href+='&mode='+mode;
+            }
+            else
+                href=href.replace( /(mode=)[a-z]+/ig, '$1'+mode );
+            window.history.pushState("", "", href);          
+        });
+    }
+    function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+            vars[key] = value;
+        });
+        return vars;
+    }
+    j('#button-confirm-delete').click(function() {
+    	location.href='/item/version/reinstateOrWithdraw.htm?itemId=' + '40aeb5f3-73dc-4152-b032-80a6b7b51695';
+    });
+    j('#button-confirm-force-delete').click(function() {
+    	location.href='/item/version/reinstateOrWithdraw.htm?forceWithdraw=true&itemId=' + '40aeb5f3-73dc-4152-b032-80a6b7b51695';
+    });
+    
+    function getSOLR() {
+		$('li a.nav-link active').removeClass('active');
+		$('#linkSOLR').addClass('active');
+        $('#tab_default').html('<i class="fas fa-spinner fa-pulse fa-3x fa-fw mt-3"></i>');
+    	$.ajax('/itemSolr/get.json?itemUUID=40aeb5f3-73dc-4152-b032-80a6b7b51695')
+		.done(function(data) {
+            $('#tab_default').html('<pre>'+JSON.stringify(data, null,'    ')+'</pre>');
+		});
+    }
+    </script>
+    
+				
+
+
+
+<script type="text/javascript">
+	function showAbout() {
+		jQuery.ajax({
+			url: "/about.modal",
+			type: 'GET',
+			success: function(data) {
+                var $modal = jQuery(data);
+				jQuery('body').append($modal);
+                $modal.filter('.modal').modal('show');
+                $modal.filter('.modal').on('hidden.bs.modal', function(){
+                	$modal.remove();
+				});
+                $modal.attr('id','modal_about');
+                $modal.modal('show')
+			},
+			error: function(data,extStatus, errorThrown) {
+				$.jGrowl('errore generico di comunicazione', { sticky: true, theme: 'bg-danger text-white' });
+			}
+		});
+	}
+	function showCookies() {
+		showCookieSettings();
+	}
+	function showPrivacyInfo() {
+		window.open('/aboutPrivacyInfo.htm', '_blank').focus();
+	}	
+</script>
+<script type="text/javascript">
+	function asn1820List() {
+		
+
+
+
+
+		jQuery('#asn1820-div').modal('show');
+			
+	}
+	</script>
+	<div class="modal fade" id="asn1820-div" tabindex="-1" role="dialog" aria-labelledby="asn1820Label" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="asn1820Label">simulazione ASN</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+				</div>
+				<div class="modal-body with-padding">
+					Il report seguente simula gli indicatori relativi alla propria produzione scientifica in relazione alle soglie ASN 2023-2025 del proprio SC/SSD. Si ricorda che il superamento dei valori soglia (almeno 2 su 3) è requisito necessario ma non sufficiente al conseguimento dell'abilitazione.<br/>La simulazione si basa sui dati IRIS e sugli indicatori bibliometrici alla data indicata e non tiene conto di eventuali periodi di congedo obbligatorio, che in sede di domanda ASN danno diritto a incrementi percentuali dei valori. La simulazione può differire dall'esito di un’eventuale domanda ASN sia per errori di catalogazione e/o dati mancanti in IRIS, sia per la variabilità dei dati bibliometrici nel tempo. Si consideri che Anvur calcola i valori degli indicatori all'ultima data utile per la presentazione delle domande.<br/><br/>La presente simulazione è stata realizzata sulla base delle specifiche raccolte sul tavolo ER del Focus Group IRIS coordinato dall’Università di Modena e Reggio Emilia e delle regole riportate nel DM 589/2018 e allegata Tabella A. Cineca, l’Università di Modena e Reggio Emilia e il Focus Group IRIS non si assumono alcuna responsabilità in merito all’uso che il diretto interessato o terzi faranno della simulazione. Si specifica inoltre che la simulazione contiene calcoli effettuati con dati e algoritmi di pubblico dominio e deve quindi essere considerata come un mero ausilio al calcolo svolgibile manualmente o con strumenti equivalenti.</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+					<button type="button" class="btn btn-primary" onclick="location.href='/bi/asn1820/widgetSearch.htm?CLEAR&dataType=MV'">procedi</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<div class="modal fade" id="genericFragmentErrorModal" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true" style="z-index: 10000">
+	<div class="modal-dialog">	
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Errore</h4>
+				<button aria-hidden="true" data-bs-dismiss="modal" class="btn-close" type="button"></button>						
+			</div>
+			<div class="modal-body with-padding">					
+				<div class="callout alert bg-danger">
+					<h5>Errore</h5>
+					<p id="genericFragmentErrorModalContent"></p>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
+<script type="text/javascript">
+	var forceLogindModuleMap = reloadInit(['bi','rm','gw','ma','','saiku','ap']);
+	</script>
+</div>
+		</main>
+	</div>
+	<div class="clearfix"></div>
+<footer class="bd-footer py-2 mt-2 bg-light d-flex justify-content-between fw-bold iu-hide">
+	<div class="ms-2">
+		Powered by <a class="text-decoration-none" href="https://www.cineca.it/sistemi-informativi-universita/ricerca/iris-la-gestione-della-ricerca">IRIS</a>	<span style="margin-left: 10px; margin-right: 10px;">-</span>	<a class="text-decoration-none" onclick="showAbout();" href="#">about IRIS</a>	<span style="margin-left: 10px; margin-right: 10px;">-</span>	<a class="text-decoration-none" onclick="showCookies();" href="#">Utilizzo dei cookie</a>	<span style="margin-left: 10px; margin-right: 10px;">-</span>	<a class="text-decoration-none" onclick="showPrivacyInfo();" href="#">Privacy</a>	</div>
+	<div class="me-2">
+		
+
+
+
+
+
+	<a href="http://www.cineca.it" target="_blank"><img alt="Logo CINECA" height="15px;" src="/sr/cineca/images/interface/logo-cineca-small-white.png"></a>
+	
+<span>&nbsp;Copyright&nbsp;&copy;&nbsp;2026&nbsp;</span><a href="/htmlmap" style="display:none;"></a></div>
+</footer></body>
+</html>

@@ -571,6 +571,6 @@ proibidos de sair de casa.
   na §7. Nenhum é da camada comercial, e consertá-los é outra missão.
 * **A coluna comercial no portal**: os campos `COMMERCIAL_PRIORITY` e
   `EXTERNAL_MATERIAL_READY` atravessam a fronteira do site em
-  `scripts/site_v21_ingest.py` para que o portal deixe de manter uma **segunda
+  `portoes/site_v21_ingest.py` para que o portal deixe de manter uma **segunda
   régua** de material externo. Uma régua duplicada são duas réguas que vão
   divergir.

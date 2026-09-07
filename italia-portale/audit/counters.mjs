@@ -81,7 +81,7 @@ const R = (label, model, screen, note) => rows.push({ label, model, screen, note
 /* ══ LE 43 SI DIVIDONO IN TRE, E IL TOTALE NON SPARISCE ═══════════════════
    Questo blocco confrontava le 43 del pacchetto con la pastiglia del radar, e
    la pastiglia ne dice 13. Non e una divergenza: e la LEGGE DI RILEVANZA
-   ADAMA (scripts/adama_relevance.py), che chiama «opportunita» solo cio che si
+   ADAMA (leis/adama_relevance.py), che chiama «opportunita» solo cio che si
    lega a un prodotto ADAMA e manda il resto a radar e a segnali. La riga
    `TO VALIDATE` peggiorava l'errore: la sua regex prendeva il «21» di
    «21 RADAR · DA VALIDARE» e lo confrontava con le 10 TO_VALIDATE del modello.

@@ -7,8 +7,9 @@ import os
 import sys
 from datetime import date
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
-    os.path.abspath(__file__))), 'scripts'))
+sys.path.insert(0, os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__))))
+import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho
 import v21_datas as DT  # noqa: E402
 
 CORTE = date(2026, 9, 2)

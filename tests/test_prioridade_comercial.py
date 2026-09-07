@@ -16,7 +16,8 @@ import sys
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+sys.path.insert(0, ROOT)
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import v21_comercial as CM  # noqa: E402
 import v21_necessidade as NE  # noqa: E402
 import v21_oportunidades as OP  # noqa: E402
@@ -27,7 +28,7 @@ ING = os.path.join(ROOT, 'build', 'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST')
 def _pacote(arq):
     p = os.path.join(ING, arq)
     if not os.path.exists(p):
-        raise unittest.SkipTest('pacote nao construido: rode scripts/v21_cadeia.sh')
+        raise unittest.SkipTest('pacote nao construido: rode motor/v21_cadeia.sh')
     return json.load(open(p, encoding='utf-8'))['RECORDS']
 
 

@@ -4,7 +4,7 @@ O deck promete *"a way to query the evidence layer"* (SLIDE 5). Antes de qualque
 é preciso provar que a camada **é consultável** — e que **sabe recusar**.
 
 **Não é chat.** É consulta determinística sobre evidência preservada.
-Execução: `scripts/ask_sintonia.py` · Dados: `../../data/samples/ASK-SINTONIA-benchmark.json`
+Execução: `superficie/ask_sintonia.py` · Dados: `../../data/samples/ASK-SINTONIA-benchmark.json`
 
 ---
 

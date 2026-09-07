@@ -1,7 +1,7 @@
 # ═══════════════════════════════════════════════════════════════════════
 # APLICA A CADEIA CANONICA no Supabase EAME e roda a 008 contra o banco REAL.
 #
-# A ordem NAO mora aqui: mora em scripts/cadeia_canonica.sh, que o CI usa
+# A ordem NAO mora aqui: mora em motor/cadeia_canonica.sh, que o CI usa
 # tambem. Duas listas de passos em dois arquivos divergem — e a missao pediu
 # uma ordem so.
 # A 008 e a ULTIMA, nao a oitava: ela confere o que as outras escreveram.
@@ -77,19 +77,19 @@ jobs:
           #
           # Isso e derivavel das migrations, e nao precisa de numero nenhum.
           excedente=$(psql "$SUPABASE_DB_URL" -tAc \
-            "$(python3 scripts/inventario_esperado.py --sql)")
+            "$(python3 provas/inventario_esperado.py --sql)")
           if [ -n "$excedente" ]; then
             echo "PARADO: public tem tabela que nenhuma migration cria: $excedente"
             echo "Escrever aqui seria escrever por cima de algo que ninguem declarou."
             exit 1
           fi
           echo "ESTADO_ACEITO=$n tabelas, nenhuma fora do que o Git cria"
-          python3 scripts/inventario_esperado.py | head -1
+          python3 provas/inventario_esperado.py | head -1
 
       - name: 2 · aplicar a cadeia canonica de migrations
         # A ordem vem do script, nao daqui. O mesmo script roda no CI contra um
         # Postgres descartavel — e por isso as duas ordens nao podem divergir.
-        run: bash scripts/cadeia_canonica.sh migrations "$SUPABASE_DB_URL"
+        run: bash motor/cadeia_canonica.sh migrations "$SUPABASE_DB_URL"
 
       - name: 3 · 008 — o banco REAL tem as travas que o Git diz ter?
         # Inclui os quatro relogios: sem esta conferencia, um banco sem
@@ -118,7 +118,7 @@ jobs:
           # A ordem vem do mesmo script que o CI usa. Regulatorio ANTES do
           # catalogo: as 52 ROPF_ONLY nao tem lado de produto e precisam de um
           # registro existente para satisfazer crosswalk_tem_pelo_menos_um_lado.
-          bash scripts/cadeia_canonica.sh importacoes "$SUPABASE_DB_URL"
+          bash motor/cadeia_canonica.sh importacoes "$SUPABASE_DB_URL"
 
       - name: 6 · contadores medidos DO BANCO REAL
         if: inputs.importar

@@ -183,7 +183,7 @@ Regras do diário:
   de quem a fez. Um engenheiro novo conseguia baixar o E-Phy e não conseguia chegar a
   "77 produtos, ADAMA 3". O RAIF era pior: a troca de host que faz o download funcionar
   estava em prosa no atlas.
-- **Decisão:** toda cadeia que produz um fato do piloto vive em `scripts/chain.py` e
+- **Decisão:** toda cadeia que produz um fato do piloto vive em `provas/chain.py` e
   declara cada passo como `AUTOMATIC`, `MANUAL` ou `HUMAN_JUDGMENT`.
 - **Motivo:** o objetivo não é zerar julgamento humano — é saber **onde ele está**.
   Um dicionário de grupo empresarial não é dado; é decisão nossa, e move números.
@@ -227,7 +227,7 @@ Regras do diário:
   conflito, carregava 486/1.004/36/61/34 **sem marcador**; e o rótulo do benchmark do Ask
   dizia "20 perguntas" com 35 no arquivo.
 - **Decisão:** (a) inventário de população que muda é **derivado da população real**, nunca
-  digitado — `scripts/proveniencia.py` passa a ser o dono do diretório `raw-paid/`;
+  digitado — `regras/proveniencia.py` passa a ser o dono do diretório `raw-paid/`;
   (b) quando duas coisas inventariam a mesma população, cada uma **declara seu escopo** e
   existe **reconciliação executável** entre elas e o disco; (c) todo número **corrente**
   publicado em `.md` tem marcador ligado ao ledger — e o `--sync` passa a alcançar a raiz;
@@ -541,8 +541,8 @@ vez de apagada.
 **Quem decidiu:** Luciano autorizou a missão da madrugada («continuar até as 10 da manhã,
 sempre organizando material para um piloto»). As escolhas técnicas de cada bloco foram
 tomadas na execução e estão em `docs/regras/REGUA-ITALIA-FITOSSANITARIA.md` (leis 8 e 9) e
-nos cabeçalhos de `scripts/rotulos_ler.py`, `scripts/rotulos_censo.py` e
-`scripts/cruzar_regua_rotulo.py`.
+nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
+`coleta/cruzar_regua_rotulo.py`.
 
 ---
 

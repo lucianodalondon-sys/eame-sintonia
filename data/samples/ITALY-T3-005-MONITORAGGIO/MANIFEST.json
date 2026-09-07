@@ -1,0 +1,156 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T3-005",
+ "OWNER_ID": "IT-OWN-008",
+ "SOURCE_NAME": "Terre dell'Etruria — Monitoraggio mosca dell'olivo",
+ "URL": "https://www.terretruria.it/monitoraggio",
+ "CAPTURE": {
+  "CAPTURED_AT_UTC": "2026-09-07T13:29:34Z",
+  "METHOD": "curl (HTTP GET), User-Agent de navegador, Accept-Language it-IT",
+  "EGRESS_IP": "205.147.30.20",
+  "EGRESS_GEO": "Milano, Lombardia, IT — AS208172 Proton AG",
+  "EGRESS_KIND": "VPN_COMERCIAL — nao e ISP residencial italiano",
+  "ROBOTS_TXT": "User-agent: * / Allow: /  — coleta compativel com o robots.txt do site",
+  "AUTH_USED": "NENHUMA. Nao se tentou contornar autenticacao.",
+  "REMOTE_IP_DO_SERVIDOR": "77.39.212.39",
+  "HTTP_STATUS": 200,
+  "SERVER": "Apache",
+  "SERVER_DATE": "Mon, 07 Sep 2026 13:29:31 GMT",
+  "LAST_MODIFIED": null,
+  "ETAG": null
+ },
+ "FILES": [
+  {
+   "path": "monitoraggio-2026-09-07.html",
+   "role": "DOCUMENTO_PRIMARIO — pagina publica tal como servida",
+   "MIME": "text/html; charset=UTF-8",
+   "BYTES": 274247,
+   "SHA256": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122"
+  },
+  {
+   "path": "points-2026-09-07.json",
+   "role": "DERIVADO — extracao dos 139 pontos do documento primario, por regex",
+   "MIME": "application/json",
+   "SHA256": "859eefd5e5d5059a51457c4a205e9db3aa3d03f18ca098848931d782567ccb6d",
+   "gerado_por": "extract-points.js (nesta mesma pasta) sobre o documento primario",
+   "aviso": "derivado NAO e evidencia. A evidencia e o HTML com o SHA256 acima.",
+   "BYTES": 33593
+  },
+  {
+   "path": "headers.txt",
+   "role": "cabecalhos HTTP da resposta preservada",
+   "BYTES": 407,
+   "SHA256": "40c1b3c2fbd71986586b656b6ef31ae17d2468cd155b3e8be1b178da56c77f5a"
+  }
+ ],
+ "ESTABILIDADE_MEDIDA": {
+  "duas_coletas": "13:04Z e 13:29Z do mesmo dia",
+  "resultado": "SHA256 identico nas duas — a pagina e byte-estavel dentro da janela medida",
+  "consequencia": "o hash serve como prova re-verificavel; nao ha ruido por requisicao"
+ },
+ "RAW_EVIDENCE_STATE": "PRESERVED",
+ "DOCUMENTO": {
+  "titulo": "Bollettino del periodo dal 31-08-2026 al 06-09-2026",
+  "fase_fenologica": "accrescimento frutto fase II",
+  "corpo_publico": "CLIMA + IRRIGAZIONE + MOSCA DELLE OLIVE — texto tecnico aberto",
+  "corpo_fechado": "\"Accedi o registrati per leggere il bollettino completo e le indicazioni tecniche\" — ha bollettino completo alem do que se le sem login"
+ },
+ "LEGENDA_DAS_CORES": {
+  "fonte": "extraida do proprio documento preservado (blocos <h3>Legenda infestazione</h3> e <h3>Legenda catture</h3>)",
+  "Legenda infestazione": {
+   "LIGHTGREY": "Dato non rilevato",
+   "GREEN": "Nessuna allerta",
+   "YELLOW": "Pre allerta",
+   "RED": "Allerta",
+   "BLUE": "Sotto trattamento"
+  },
+  "Legenda catture": {
+   "LIGHTGREY": "Dato non rilevato",
+   "GREEN": "Stazionario",
+   "YELLOW": "In aumento",
+   "RED": "In forte aumento",
+   "nota_do_site": "* Rispetto alla settimana precedente",
+   "acesso": "a legenda e publica, mas o VALOR de catture por ponto e LOGIN_REQUIRED"
+  }
+ },
+ "O_QUE_UM_PONTO_REVELA": {
+  "campos": [
+   "nome do ponto (COMUNE, localidade) — ex.: \"ALBERESE, Alberese-cimitero\"",
+   "point_id numerico interno do site — ex.: 22635",
+   "Latitudine / Longitudine com 4 casas decimais",
+   "Data di campionamento (dia exato da coleta em campo)",
+   "Infestazione attiva: percentual inteiro + rotulo de alerta + cor",
+   "Catture adulti: LOGIN_REQUIRED — o texto literal e \"Dato per utenti registrati\""
+  ],
+  "onde_estao": "todos os 139 pontos vem no HTML da pagina publica, em blocos <div class=\"row reports_points\">; o clique no mapa apenas revela o bloco ja presente",
+  "consequencia": "nao ha API nem XHR a descobrir — o dado por ponto ja esta no documento preservado"
+ },
+ "PONTOS": {
+  "TOTAL": 139,
+  "CORRECAO_AO_CATALOGO": "o catalogo dizia ~60-80 pontos, com base em contagem visual de mapa. Sao 139 point_id unicos e 139 pares lat/lon unicos.",
+  "datas_de_campionamento_presentes": [
+   "31-08-2026",
+   "01-09-2026",
+   "02-09-2026",
+   "03-09-2026",
+   "04-09-2026",
+   "-"
+  ],
+  "distribuicao_infestazione_attiva": {
+   "sem dado (-)": 29,
+   "0%, Nessuna allerta": 61,
+   "1%, Nessuna allerta": 14,
+   "2%, Nessuna allerta": 8,
+   "3%, Nessuna allerta": 6,
+   "4%, Nessuna allerta": 6,
+   "0%, Sotto trattamento": 6,
+   "2%, Pre allerta": 1,
+   "4%, Pre allerta": 2,
+   "5%, Pre allerta": 1,
+   "6%, Pre allerta": 1,
+   "5%, Allerta": 1,
+   "6%, Allerta": 2,
+   "7%, Allerta": 1
+  },
+  "leitura_honesta": "110 dos 139 pontos tem valor; 29 estao sem dado nesta edicao. Dos 110 com valor, 4 estao em Allerta e 5 em Pre allerta. O limiar tecnico que o proprio boletim cita e 5% de infestacao ativa para intervento larvicida."
+ },
+ "ARQUIVO_DE_EDICOES_ANTERIORES": {
+  "RESULTADO": "NAO EXISTE PUBLICAMENTE",
+  "evidencia_1": "o link https://www.terretruria.it/bollettini aparece no rodape do site e devolve HTTP 404",
+  "evidencia_2": "o sitemap.xml oficial tem 927 URLs e apenas UMA rota de monitoramento (/monitoraggio) — nenhuma pagina de arquivo, nenhum PDF de boletim",
+  "evidencia_3": "a Wayback Machine estava fora do ar em 2026-09-07 (\"Internet Archive services are temporarily offline\") — nao foi possivel usar snapshots de terceiro como prova de recorrencia",
+  "indicios_no_codigo_fonte_NAO_sao_prova": [
+   "ha um <h3> COMENTADO com \"Bollettino del periodo dal 07/09/2026 al 13/09/2026\" — a proxima edicao ja esta preparada no HTML, mas NAO esta publicada",
+   "ha outro trecho comentado: \"L'attivita di monitoraggio riprendera a Giugno 2025\" — resquicio de temporada anterior",
+   "o sitemap declara changefreq weekly para as paginas do site — declaracao do site, nao medicao nossa"
+  ],
+  "conclusao": "so ha UMA edicao publicada por vez, e o site substitui a anterior. Prova de recorrencia so pode vir de captura repetida nossa, semana a semana."
+ },
+ "CAMADA_FECHADA": {
+  "nome": "Catture adulti (mappa e valores)",
+  "acesso": "LOGIN_REQUIRED — \"Dato per utenti registrati\"; ha formulario de adesao ao servico",
+  "classificacao": "PUBLIC_CAPABILITY",
+  "regra_aplicada": "NAO se tentou contornar autenticacao"
+ },
+ "VERDICT": "NAO SEI — promissora, agora com evidencia preservada",
+ "por_que_ainda_nao_GREEN": "UPDATE_FREQUENCY continua NAO SEI. Uma edicao preservada nao prova frequencia, e o site nao guarda arquivo. GREEN so depois de uma segunda captura independente, em data posterior, mostrando outro periodo.",
+ "o_que_esta_captura_resolveu": [
+  "legenda das cores — RESOLVIDO, extraida do documento",
+  "o que um ponto revela ao ser clicado — RESOLVIDO, seis campos, todos no HTML publico",
+  "arquivo de edicoes anteriores — RESOLVIDO como resposta NEGATIVA: nao existe",
+  "preservar o documento com hash — RESOLVIDO, RAW_EVIDENCE_STATE = PRESERVED"
+ ],
+ "PROXIMO_PASSO": "recapturar /monitoraggio depois de 2026-09-13. Se o titulo virar outro periodo e o SHA256 mudar, UPDATE_FREQUENCY = SEMANAL fica provado e o veredito pode virar GREEN.",
+ "OWNER_KIND": "COOPERATIVE",
+ "SOURCE_LOCATION": "Livorno — sede da cooperativa Terre dell Etruria",
+ "FACT_LOCATION": "costa da Toscana: Lucca, Pisa, Livorno, Piombino, Grosseto, Orbetello. DIFERENTE da sede.",
+ "ORIGINAL_LANGUAGE": "it",
+ "EVIDENCE_CLASS": "OBSERVED_FIELD_SIGNAL (infestacao ativa medida em ponto) + COOPERATIVE_GUIDANCE (o texto do boletim recomenda)",
+ "CROP": "olivo",
+ "ISSUE": "mosca dell olivo (Bactrocera oleae)",
+ "TOPICS": "monitoramento por ponto, infestacao ativa, capturas de adultos, limiar de intervencao",
+ "WHAT_IT_PROVES": "que existe monitoramento por ponto geolocalizado de mosca-da-azeitona na costa toscana, publicado aberto, com percentual de infestacao ativa e rotulo de alerta por ponto e data exata de coleta em campo",
+ "WHAT_IT_DOES_NOT_PROVE": "capturas de adultos por ponto (camada fechada por login) · tratamento realizado · venda · estoque · uso de produto · market share · incidencia nacional. RECOMENDACAO != TRATAMENTO REALIZADO.",
+ "SOURCE_ROLE": "FIELD_SIGNAL_SOURCE",
+ "AUTOMATION_FEASIBILITY": "HIGH — URL unica e estavel, sem JavaScript, sem login para a camada aberta, e os 139 pontos ja vem no HTML. Unico atrito: o site nao guarda arquivo, entao quem nao coletar na semana perde a edicao."
+}

@@ -1,5 +1,13 @@
 # SINTONIA EAME
 
+> ### FOR AI / CODING AGENTS
+>
+> Before changing the repository: **read [`AGENTS.md`](AGENTS.md).**
+>
+> Antes de alterar o repositório: **leia [`AGENTS.md`](AGENTS.md).**
+> Ele carrega a lei do SINTONIA System Map — o mapa navegável da arquitetura,
+> em [`system-map/`](system-map/), publicado em `/system-map/`.
+
 Repositório dedicado **exclusivamente** ao SINTONIA EAME.
 
 Escopo inicial:

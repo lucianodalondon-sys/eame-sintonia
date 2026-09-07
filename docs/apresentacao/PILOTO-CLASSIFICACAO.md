@@ -35,7 +35,7 @@ técnico identificado **e** nenhum bloqueio conhecido. O incerto vai para `EXPLO
 | **Normalização de titular → grupo empresarial** (DECK-015) | construir e medir | baixo custo; **CASE-015 já mostra a necessidade e o teste** |
 | **Comunicação de concorrente** (DECK-005, 011) | coleta repetível | **a rota existe**: PDFs técnicos corporativos com data no caminho (`syngenta.it/.../2025/12/17/...`), imprensa técnica com arquivo datado, e o registro oficial para cruzar. A MISSÃO 03 testou as *home pages* (403) — a rota errada |
 | **Registro espanhol de produtos** (DECK-001 em ES) | acesso ou permissão | a fonte existe e é oficial; falta a via |
-| **Detecção de "novo registro"** (DECK-012) | versionar semanalmente | `scripts/data_clock.py` já registra versão, data e SHA-256 |
+| **Detecção de "novo registro"** (DECK-012) | versionar semanalmente | `leis/data_clock.py` já registra versão, data e SHA-256 |
 | **Baseline de campo em FR e IT** | processar PDF de boletim | conteúdo existe: corpus BSV de 40.899 documentos e boletins IT de 2025–2026 |
 | **Régua de confiança e de independência** | aplicar a casos reais | já escritas em `../regras/REGUA-DE-ALERTA-EAME.md` |
 

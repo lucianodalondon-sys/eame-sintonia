@@ -57,7 +57,7 @@ COMMON_DENOMINATIONS:
 |---|---|---|
 | todos os campos acima | **MAPA / ROPF** — `GetProductoById?idProducto=114367` **e** a ficha oficial em PDF (`ExportFichaProductoPdfGet`, 5 páginas, doc `114367-2026210`), duas rotas independentes da mesma autoridade | **PRIMÁRIA** |
 | nome anterior `MAXENTIS` | **MAPA — dc_web.pdf, versão de 28/05/2025** (documento arquivado) | **PRIMÁRIA** |
-| denominações, concessionárias, datas de aceite | **MAPA — dc_web.pdf (26/08/2026)**, lido por `scripts/denominaciones.py` | **PRIMÁRIA** |
+| denominações, concessionárias, datas de aceite | **MAPA — dc_web.pdf (26/08/2026)**, lido por `coleta/denominaciones.py` | **PRIMÁRIA** |
 
 **Nenhum campo do ES-01717 depende mais de fonte secundária.**
 
@@ -133,7 +133,7 @@ estrutura é **estável em todos os baldes** — nenhum registro precisou de cam
 
 ## COBERTURA DO PARSER — declarada, não presumida
 
-`scripts/denominaciones.py` resolve **1.228 de 1.786 linhas (68,8%)**. O resto fica
+`coleta/denominaciones.py` resolve **1.228 de 1.786 linhas (68,8%)**. O resto fica
 `UNRESOLVED`, nunca adivinhado:
 
 | motivo | linhas |

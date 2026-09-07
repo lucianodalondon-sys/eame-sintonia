@@ -1,6 +1,6 @@
 # A completude da oportunidade · o que o cartão deixou de olhar
 
-> Todo número deste relatório sai de `scripts/v21_completude_oportunidade.py`, que
+> Todo número deste relatório sai de `motor/v21_completude_oportunidade.py`, que
 > lê o pacote **servido** (`italia-portale/client/italy-handoff-v21.js`,
 > `BUILD_ID V21-69bf448ac934a6d9`, 43 oportunidades), o instantâneo da reunião
 > (`meeting-intelligence-snapshot.json`) e o pacote que chega ao browser
@@ -261,7 +261,7 @@ páginas de cultura foram lidas.
 
 As sete sobreviventes: CEREALI · MAIS · POMACEE · POMODORO · RISO · SOIA · VITE.
 
-O próprio `scripts/adama_catalogo_montar.py` já declara o limite, e com todas as
+O próprio `fontes/adama_catalogo_montar.py` já declara o limite, e com todas as
 letras:
 
 > `CULTURA_LEIA_ASSIM`: «chegamos a este produto por link de outra ficha, não por
@@ -275,7 +275,7 @@ letras:
 
 ## 4 · O corte de doze, que ninguém declara
 
-`scripts/v21_oportunidades.py:574`
+`motor/v21_oportunidades.py:574`
 
 ```python
 'PRODUCT_RELATIONSHIPS': produtos[:12],
@@ -319,7 +319,7 @@ desta vez em **todos os 43 cartões**.
 
 O mecanismo **não é um filtro de tela** — corrigindo o que esta medição afirmou
 primeiro. `meeting_snapshot.py` e `it_casa_dados.py` copiam `PORTFOLIO_MATCHES`
-tal e qual. Quem corta é o motor, em `scripts/v21_comercial.py:191`:
+tal e qual. Quem corta é o motor, em `motor/v21_comercial.py:191`:
 
 ```python
 def casar(rotulos, ix_comercial):
@@ -455,7 +455,7 @@ evidência mudaria o veredito de cartões já publicados, e essa é decisão da
 linhagem canónica, não desta medição.
 
 **Correção sobre o corpus de vídeo.** Ele **não** ficou todo de fora, e dizer
-que ficou seria caluniar a cadeia. `scripts/pacote_camadas.py:25` lê
+que ficou seria caluniar a cadeia. `pacote/pacote_camadas.py:25` lê
 `SENSOR-PILOT/MEDICAO.json` e `v21_ingest_b.py` transforma o resultado em
 `PUBLIC-VOICES` e `PUBLIC-CHANNELS`. O que passou, medido:
 

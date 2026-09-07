@@ -58,7 +58,7 @@ fechado, e as duas causas medidas sumiriam junto.
 
 ## O portão abriu por derivação, não por digitação
 
-`IMPORT_CAN_BE_NEXT_MISSION` não foi escrito. Ele sai de `scripts/portoes_eame.py`:
+`IMPORT_CAN_BE_NEXT_MISSION` não foi escrito. Ele sai de `medidas/portoes_eame.py`:
 
 ```
 IMPORT = (CATALOG_IMPORT_ENGINEERING_GATE == READY) AND (RAW fechado)
