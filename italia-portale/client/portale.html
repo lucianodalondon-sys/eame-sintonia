@@ -528,6 +528,30 @@
       </div>
       </sc-if>
 
+      <!-- ══ CERCARE PER COLTURA E PER PRODOTTO ═══════════════════════════
+           Le pastiglie di stato tagliano per fascia; queste tre dicono DI CHE
+           COSA si parla. La barra legge le parole che la scheda gia porta, le
+           due tendine nascono dalle righe che filtreranno, e il numero verde
+           dice quante schede restano. -->
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="display:inline-flex;align-items:center;gap:8px;height:32px;min-width:250px;flex:1 1 250px;max-width:380px;padding:0 12px;border-radius:9999px;background:{{ mSearch.bg }};border:1px solid {{ mSearch.border }}" style-hover="border-color:rgba(203,197,195,0.5)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#B1A9A7" stroke-width="2" stroke-linecap="round" style="flex:0 0 13px"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+          <input value="{{ mSearch.q }}" onChange="{{ mSearch.set }}" data-radar-search="1" placeholder="{{ mSearch.ph }}" style="flex:1;min-width:0;background:transparent;border:0;outline:0;color:#fff;font-size:11.5px;font-family:inherit">
+          <sc-if value="{{ mSearch.on }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;font-weight:700;color:#00B152;white-space:nowrap">{{ mSearch.hits }}</span></sc-if>
+        </span>
+        <sc-for list="{{ mPickers }}" as="f" hint-placeholder-count="2">
+          <span style="position:relative;display:inline-flex;align-items:center;height:32px;border-radius:9999px;background:{{ f.bg }};border:1px solid {{ f.border }};overflow:hidden" style-hover="border-color:rgba(203,197,195,0.5)">
+            <span style="width:3px;align-self:stretch;background:{{ f.rail }};flex:0 0 3px"></span>
+            <span style="position:relative;display:inline-flex;align-items:center;height:32px;padding:0 26px 0 12px">
+              <span style="font-size:11.5px;font-weight:{{ f.weight }};color:{{ f.color }};white-space:nowrap;pointer-events:none">{{ f.label }}</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#B1A9A7" stroke-width="3" style="position:absolute;right:10px;top:11px;pointer-events:none"><path d="m6 9 6 6 6-6"></path></svg>
+              <select value="{{ f.value }}" onChange="{{ f.set }}" style="position:absolute;inset:0;width:100%;height:100%;opacity:0;border:0;font-family:inherit;cursor:pointer" style-focus="opacity:0.001;box-shadow:0 0 0 2px rgba(0,152,69,0.45)"><sc-for list="{{ f.options }}" as="o" hint-placeholder-count="1"><option value="{{ o.v }}">{{ o.l }}</option></sc-for></select>
+            </span>
+          </span>
+        </sc-for>
+        <sc-if value="{{ mHasFilters }}" hint-placeholder-val="{{ false }}"><span onClick="{{ mClear }}" data-radar-clear="1" style="height:32px;display:inline-flex;align-items:center;padding:0 14px;border-radius:9999px;font-size:11px;font-weight:700;color:#00B152;cursor:pointer;border:1px solid rgba(0,152,69,0.45);background:rgba(0,152,69,0.10)" style-hover="background:rgba(0,152,69,0.2)">{{ t.clearAll }} ×</span></sc-if>
+      </div>
+
       <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
         <sc-for list="{{ meetingStatusBtns }}" as="b" hint-placeholder-count="6">
           <span onClick="{{ b.go }}" data-meeting-filter="{{ b.token }}" style="display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 13px;border-radius:9999px;cursor:pointer;font-size:11px;font-weight:700;background:{{ b.bg }};border:1px solid {{ b.border }};color:{{ b.ink }}" style-hover="border-color:rgba(203,197,195,0.5)">{{ b.label }}<b style="font-variant-numeric:tabular-nums;opacity:0.75">{{ b.value }}</b></span>
@@ -535,6 +559,9 @@
       </div>
 
       <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ mt.cases }} · <span style="color:#fff">{{ meetingShownCount }}</span> {{ mt.of }} {{ meetingFilteredCount }}</div>
+      <!-- UNA GRIGLIA VUOTA SEMBRA UNO SCHERMO ROTTO. Quando il filtro non
+           lascia niente lo si DICE, con il modo di tornare indietro accanto. -->
+      <sc-if value="{{ mNone }}" hint-placeholder-val="{{ false }}"><div data-radar-empty="1" style="padding:22px;text-align:center;color:#EDEAE9;font-size:12px">{{ t.noResultsFilters }} <span onClick="{{ mClear }}" style="color:#00B152;cursor:pointer;font-weight:700">{{ t.lblClearFilters }}</span></div></sc-if>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:11px;align-items:stretch">
         <sc-for list="{{ meetingCases }}" as="c" hint-placeholder-count="12">
@@ -2332,6 +2359,14 @@
           <div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ t.subPortfolio }}</div>
         </div>
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <!-- La stessa barra del radar, sullo stesso universo: si scrive il
+               nome, la sostanza attiva o l'anno di scadenza e la griglia si
+               stringe. Il numero a destra dice quante schede restano. -->
+          <span style="display:inline-flex;align-items:center;gap:8px;height:30px;min-width:230px;flex:1 1 230px;max-width:340px;padding:0 12px;border-radius:9999px;background:{{ port.qBg }};border:1px solid {{ port.qBorder }}" style-hover="border-color:rgba(203,197,195,0.5)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#B1A9A7" stroke-width="2" stroke-linecap="round" style="flex:0 0 13px"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+            <input value="{{ port.q }}" onChange="{{ port.setQ }}" data-portfolio-search="1" placeholder="{{ t.portSearchPh }}" style="flex:1;min-width:0;background:transparent;border:0;outline:0;color:#fff;font-size:11.5px;font-family:inherit">
+            <sc-if value="{{ port.qOn }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;font-weight:700;color:#00B152;white-space:nowrap">{{ port.qHits }}</span></sc-if>
+          </span>
           <sc-for list="{{ port.tabs }}" as="x" hint-placeholder-count="2"><span onClick="{{ x.go }}" style="cursor:pointer;padding:7px 13px;border-radius:9999px;background:{{ x.bg }};border:1px solid {{ x.border }};color:{{ x.color }};font-size:10px;font-weight:700;letter-spacing:0.09em;white-space:nowrap">{{ x.label }}</span></sc-for>
           <select value="{{ port.cat }}" onChange="{{ port.setCat }}" style="height:30px;padding:0 12px;border-radius:9999px;background:#1C1817;border:1px solid rgba(203,197,195,0.18);color:#EDEAE9;font-size:11px;font-family:inherit;outline:0;cursor:pointer"><sc-for list="{{ port.cats }}" as="o" hint-placeholder-count="1"><option value="{{ o.v }}">{{ o.l }}</option></sc-for></select>
         </div>
@@ -2344,6 +2379,15 @@
             <span style="font-size:10px;font-weight:700;letter-spacing:0.08em;color:{{ p.catColor }}">{{ p.cat }}</span>
             <span style="font-size:10px;color:#9A9391;line-height:1.4">{{ p.ai }}</span>
             <span style="font-size:10px;color:{{ p.proofColor }};padding-top:2px">{{ p.proof }}</span>
+            <!-- LA SCADENZA DELL'AUTORIZZAZIONE · la data che il registro
+                 dichiara, e quanto manca contato dalla data di riferimento
+                 scritta sotto il titolo. Quando il registro tace, «non noto»
+                 sta qui con lo stesso peso della data. -->
+            <span data-expiry-slot="1" data-expiry="{{ p.exp.date }}" style="display:inline-flex;align-items:center;gap:6px;align-self:flex-start;margin-top:2px;padding:3px 9px;border-radius:9999px;background:{{ p.exp.bg }};border:1px solid {{ p.exp.edge }};white-space:nowrap">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="{{ p.exp.ink }}" stroke-width="2.2" stroke-linecap="round" style="flex:0 0 10px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>
+              <span style="font-size:10px;font-weight:{{ p.exp.weight }};color:{{ p.exp.ink }};letter-spacing:0.03em">{{ p.exp.date }}</span>
+              <sc-if value="{{ p.exp.rest }}" hint-placeholder-val="{{ true }}"><span style="font-size:10px;font-weight:600;color:{{ p.exp.ink }};opacity:0.85">· {{ p.exp.rest }}</span></sc-if>
+            </span>
           </div>
         </sc-for>
       </div>
@@ -3313,7 +3357,7 @@ class Component extends DCLogic {
     } catch (e) { return 'meeting'; }
   }
 
-  state = { view: Component.VIEW_FROM_HASH(), caseId: null, mCaseId: null, mStatus: '', mShown: 24, companyId: null, themeId: null, personId: null, sourceId: null, archiveId: null,
+  state = { view: Component.VIEW_FROM_HASH(), caseId: null, mCaseId: null, mStatus: '', oppQ: '', oppCrop: '', oppProd: '', mShown: 24, companyId: null, themeId: null, personId: null, sourceId: null, archiveId: null,
     fCrop: '', fIssue: '', fRegion: '', fStatus: '', fProduct: '', fDept: '', sort: 'relevant', showAll: false, query: '', committedQuery: '',
     futureStatus: '', futureSource: '', futureShown: 16, compView: 'feed', fCompany: '', fType: '', fPeriod: '', compShown: 12, eventId: null, cproductId: null,
     showDataState: false, mcProof: false, mcPort: false,
@@ -3321,7 +3365,7 @@ class Component extends DCLogic {
     archiveQuery: '', aType: '', aCrop: '', aRegion: '', aCompany: '', aCase: '', aSource: '', archivePage: 0, sourceGroup: 'ALL', peopleCat: 'ALL',
     mCrop: 'maize', mTab: 'crop',
     lang: (() => { try { return localStorage.getItem('sintonia_lang') === 'en' ? 'en' : 'it'; } catch (e) { return 'it'; } })(),
-    productId: null, portTab: 'commercial', portCat: '',
+    productId: null, portTab: 'commercial', portCat: '', portQ: '',
     /* calStart is the month offset the calendar opens on. It was 7, which put AM.REF
        2026-09-02 at 8.6% of the track — the reference date pinned to the left edge with
        almost no history behind it — while the calendar's own TODAY button computes
@@ -4298,7 +4342,35 @@ class Component extends DCLogic {
     /* Il filtro e una LETTURA, non un giudizio: taglia l'elenco per uno stato
        che il motore ha gia scritto, e non ne calcola nessuno. */
     /* Il filtro lavora sullo STATO CLIENTE, non sullo stato del motore. */
-    const meetingFiltered = s.mStatus ? meetingAll.filter((c) => c.clientState === s.mStatus) : meetingAll;
+    /* ══ CERCARE L'OPPORTUNITA, NON SCORRERLA ═════════════════════════════
+       Le pastiglie di stato qui sopra tagliano per FASCIA — sei voci — e non
+       c'era nient'altro: per trovare il caso del pomodoro, o i casi dove entra
+       MAXENTIS, si scorreva. Quarantatre schede in griglia sono un elenco, non
+       una risposta.
+
+           IL CLIENTE NON ARRIVA CON UNO STATO IN TESTA.
+           ARRIVA CON UNA COLTURA O CON UN PRODOTTO.
+
+       Tre affordance, e nessuna inventa un dato:
+       · la BARRA legge le parole che il caso gia dichiara — titolo, coltura,
+         bersaglio, geografia, stato, archetipo e i nomi dei prodotti collegati;
+       · la tendina delle COLTURE e quella dei PRODOTTI nascono dalle righe che
+         filtreranno, mai da un elenco scritto a mano: una voce che non esiste
+         nei dati e un invito a svuotare lo schermo.
+       · il conteggio accanto dice quante schede restano. Un filtro che non
+         dice quanto ha tolto sembra uno schermo rotto.                       */
+    const MFOLD = (x) => String(x == null ? '' : x).normalize('NFD').split('')
+      .filter((ch) => { const n0 = ch.charCodeAt(0); return n0 < 768 || n0 > 879; }).join('').toLowerCase();
+    const mProdNames = (c) => ((c.products && c.products.matches) || []).map((m) => m.name).filter(Boolean);
+    const mHay = (c) => MFOLD([c.title, c.crop, c.target, c.geography, c.scopeLabel,
+      c.status, c.priority, c.archetype, c.cropCode, c.targetCode, c.geoCode, c.id]
+      .concat(mProdNames(c)).filter(Boolean).join(' \u00b7 '));
+    const mTermos = MFOLD(s.oppQ || '').trim() ? MFOLD(s.oppQ).trim().split(/\s+/).filter(Boolean) : [];
+    const meetingFiltered = meetingAll
+      .filter((c) => !s.mStatus || c.clientState === s.mStatus)
+      .filter((c) => !s.oppCrop || c.crop === s.oppCrop)
+      .filter((c) => !s.oppProd || mProdNames(c).indexOf(s.oppProd) >= 0)
+      .filter((c) => !mTermos.length || (() => { const h = mHay(c); return mTermos.every((t) => h.indexOf(t) >= 0); })());
     const meetingShown = meetingFiltered.slice(0, s.mShown || 24).map((c) => Object.assign({}, c, {
       open: () => this.go({ view: 'mcase', mCaseId: c.id }),
       /* Il numero dei prodotti si legge dalla lista, non da un contatore
@@ -4843,6 +4915,7 @@ class Component extends DCLogic {
        legacy scenario rows still carry. */
     const inRegion = (c, r) => !r || c.region === r || (Array.isArray(c.regionKeys) && c.regionKeys.indexOf(r) >= 0);
     let filtered = CASES.filter(c => (!s.fCrop || c.crop === s.fCrop) && (!s.fIssue || c.issue === s.fIssue) && inRegion(c, s.fRegion) && (!s.fStatus || c.status === s.fStatus) && (!s.fProduct || c.products.includes(s.fProduct)) && (!s.fDept || c.departments.includes(s.fDept)));
+
     /* `relevant` NON vive piu qui: la riga sotto la costruisce per intero, e
        questa copia — con una precedenza di operatori sbagliata, `a - b || x < y
        ? 1 : -1`, che restituisce sempre 1 o -1 ignorando il primo termine — era
@@ -8224,7 +8297,26 @@ class Component extends DCLogic {
          only registrations proved to be publicly sold. */
       const linked = universe.filter(p => p.inCommercial && p.inRegulatory).length;
       const cats = [...new Set(universe.map(p => p.categoryLabel).filter(Boolean))].sort();
-      const shown = universe.filter(p => !s.portCat || p.categoryLabel === s.portCat);
+      /* ══ LA BARRA DEL PORTAFOGLIO ═════════════════════════════════════════
+         Il menu accanto sceglie la CATEGORIA — quattro voci — su un universo
+         che qui arriva a centosessantasei prodotti in ordine alfabetico. Per
+         trovare MAXENTIS bisognava scorrere. La barra legge il nome, la
+         sostanza attiva, la categoria, il titolare dell'autorizzazione, il
+         numero di registrazione e la data di scadenza: tutto cio che il
+         prodotto DICHIARA, niente che qualcuno abbia dedotto.
+
+             CENTOSESSANTASEI SCHEDE IN ORDINE ALFABETICO SONO UN ELENCO,
+             NON UNA RISPOSTA.                                              */
+      const PFOLD = (x) => String(x == null ? '' : x).normalize('NFD').split('')
+        .filter((ch) => { const n0 = ch.charCodeAt(0); return n0 < 768 || n0 > 879; }).join('').toLowerCase();
+      const pQ = PFOLD(s.portQ || '').trim();
+      const pHay = (pr) => PFOLD([pr.name, pr.categoryLabel, pr.line, pr.holder, pr.reg,
+        pr.regCat, pr.form, pr.status, pr.expiry]
+        .concat(pr.ai || []).concat(pr.crops || []).concat(pr.targets || [])
+        .filter(Boolean).join(' \u00b7 '));
+      const pTermos = pQ ? pQ.split(/\s+/).filter(Boolean) : [];
+      const shown = universe.filter(p => (!s.portCat || p.categoryLabel === s.portCat)
+        && (!pTermos.length || (() => { const h = pHay(p); return pTermos.every((t) => h.indexOf(t) >= 0); })()));
       /* The card badge line is two bare glyphs with no legend anywhere on this
          screen, so the legend is stated in the four audited strength names rather
          than left to be guessed. △ reads 0 on 166/166 products: the rebuilt
@@ -8252,6 +8344,56 @@ class Component extends DCLogic {
          Universo regolatorio tab printed "163/163" over 60 rendered cards. The cap
          now sits above the 166 products the model holds and count reports what is
          actually on screen, so the ratio can no longer be wrong. */
+      /* ══ LA SCADENZA DELL'AUTORIZZAZIONE, SULLA SCHEDA ════════════════════
+         EXPIRY e presente su 163/163 registrazioni e il portafoglio non la
+         diceva: bisognava aprire il prodotto per sapere se l'autorizzazione
+         finisce fra due mesi o fra quattordici anni. Per chi vende, quella
+         data cambia la conversazione — e le due cose non sono la stessa
+         notizia.
+
+             UN DATO CHE ESISTE E NON SI VEDE VALE QUANTO UN DATO CHE MANCA.
+
+         Tre regole, e nessuna inventa niente:
+         · la DATA e cio che il registro dichiara, scritta per intero;
+         · il CONTO ALLA ROVESCIA e aritmetica su quella data, contata dalla
+           data di riferimento del pacchetto (non dall'orologio del browser,
+           che farebbe due lettori vedere due numeri diversi sullo stesso
+           pacchetto). La data di riferimento e scritta una volta sotto il
+           titolo, accanto ai numeri, come vuole il contratto di design;
+         · quando il registro TACE si scrive «non noto», con lo stesso peso
+           tipografico della data e nel medesimo inchiostro chiaro — mai un
+           grigio spento, mai una riga vuota.
+
+         Il colore non e un giudizio commerciale: sale solo per LUMINANZA man
+         mano che la data si avvicina, e la sola pastiglia PIENA e quella gia
+         scaduta. Non esiste un rosso d'allarme nel nostro estratto del design
+         system, quindi non se ne inventa uno.
+              ADAMA_DESIGN_SYSTEM_MATCH = NOT_FOUND (colore di allarme)
+              NEW_PATTERN_REQUIRED = NO — si riusa l'ambra gia in uso.        */
+      const MESI = T.months || ['GEN', 'FEB', 'MAR', 'APR', 'MAG', 'GIU', 'LUG', 'AGO', 'SET', 'OTT', 'NOV', 'DIC'];
+      const dataLunga = (iso) => { const d = AM.asDate ? AM.asDate(iso) : null;
+        return d ? (String(d.getDate()).padStart(2, '0') + ' ' + MESI[d.getMonth()] + ' ' + d.getFullYear()) : null; };
+      const quanto = (n) => {
+        const g = Math.abs(n);
+        if (g < 45) return g + ' ' + (T.expDays || 'giorni');
+        if (g < 730) return Math.round(g / 30.44) + ' ' + (T.expMonths || 'mesi');
+        return Math.round(g / 365.25) + ' ' + (T.expYears || 'anni');
+      };
+      const scadenza = (pr) => {
+        const iso = pr.expiry || null;
+        const dt = iso ? dataLunga(iso) : null;
+        const n = (typeof pr.expiresInDays === 'number') ? pr.expiresInDays : null;
+        if (!dt || n === null) return { has: true, date: T.ksNotKnown || 'non noto', rest: '',
+          ink: '#EDEAE9', bg: 'transparent', edge: 'rgba(203,197,195,0.22)', weight: 700 };
+        if (n < 0) return { has: true, date: dt, rest: (T.expExpired || 'scaduta') + ' · ' + quanto(n),
+          ink: '#110E0D', bg: '#F5B317', edge: '#F5B317', weight: 700 };
+        if (n <= 180) return { has: true, date: dt, rest: (T.expIn || 'tra') + ' ' + quanto(n),
+          ink: '#F5B317', bg: 'rgba(245,179,23,0.12)', edge: 'rgba(245,179,23,0.55)', weight: 700 };
+        if (n <= 730) return { has: true, date: dt, rest: (T.expIn || 'tra') + ' ' + quanto(n),
+          ink: '#EDEAE9', bg: 'rgba(255,255,255,0.05)', edge: 'rgba(203,197,195,0.22)', weight: 600 };
+        return { has: true, date: dt, rest: (T.expIn || 'tra') + ' ' + quanto(n),
+          ink: '#C9C3C1', bg: 'transparent', edge: 'rgba(203,197,195,0.16)', weight: 600 };
+      };
       const items = shown.slice(0, 240);
       port = {
         tabs: [['commercial', T.portCommercialTab], ['regulatory', T.portRegulatoryTab]].map(t => { const on = s.portTab === t[0];
@@ -8260,9 +8402,18 @@ class Component extends DCLogic {
           isComm ? T.portCommercialNote : T.portRegulatoryNote,
           linked + '/' + universe.length + ' → ' + (isComm ? T.prodRegistered : T.prodInCatalog),
           legend,
+          /* L'ETA DEL DATO ACCANTO AL NUMERO, come vuole il contratto di design:
+             il conto alla rovescia sulle schede e contato DA QUI, non
+             dall'orologio di chi guarda. */
+          (T.expCountedFrom || 'countdown from') + ' ' + (AM.referenceDate || ''),
         ].filter(Boolean).join(' · '),
         cats: [{ v: '', l: T.portAllCats }].concat(cats.map(c => ({ v: c, l: c }))),
         cat: s.portCat, setCat: (ev) => this.setState({ portCat: ev.target.value }),
+        q: s.portQ, setQ: (ev) => this.setState({ portQ: ev.target.value }),
+        qOn: !!pQ,
+        qBg: pQ ? 'rgba(0,152,69,0.10)' : 'rgba(255,255,255,0.05)',
+        qBorder: pQ ? 'rgba(0,152,69,0.45)' : 'rgba(203,197,195,0.18)',
+        qHits: pQ ? (shown.length + ' ' + (T.radarSearchHits || 'matches')) : '',
         count: items.length, total: universe.length,
         items: items.map(p => ({
           name: p.name,
@@ -8292,6 +8443,7 @@ class Component extends DCLogic {
           proofColor: (p.verifiedLinks.length || p.relatedLinks.length) ? '#8F8886'
             : ((AM.STRENGTH && AM.STRENGTH.NO_CONFIRMED_MATCH_CURRENT_READING) || {}).color || '#B1A9A7',
           catColor: TINT[p.categoryLabel] || (CU.unknown || {}).color || '#8F8886',
+          exp: scadenza(p),
           go: () => this.openProduct(p.name)
         })),
         none: shown.length === 0
@@ -10842,8 +10994,8 @@ class Component extends DCLogic {
       hasRadarEntry: (s.view !== 'mradar') && meetingRadar.length > 0,
       meetingSignalsCount: meetingSignals.length,
       meetingRadarCount: meetingRadar.length,
-      goSignals: () => this.go({ view: 'msignals', mStatus: '', mShown: 24 }),
-      goRadarValidate: () => this.go({ view: 'mradar', mStatus: '', mShown: 24 }),
+      goSignals: () => this.go({ view: 'msignals', mStatus: '', oppQ: '', oppCrop: '', oppProd: '', mShown: 24 }),
+      goRadarValidate: () => this.go({ view: 'mradar', mStatus: '', oppQ: '', oppCrop: '', oppProd: '', mShown: 24 }),
       /* i contatori commerciali esistono solo dove ci sono opportunita */
       hasCommercialCounts: !isSignalsView && !isRadarView,
       mt: {
@@ -10875,6 +11027,36 @@ class Component extends DCLogic {
       meetingCounts,
       meetingKpis,
       meetingStatusBtns,
+      /* ── LE TRE AFFORDANCE DEL RADAR VIVO ────────────────────────────────
+         Le opzioni nascono da `meetingAll` — l'universo PRIMA di questi
+         filtri — e non da `meetingFiltered`: derivarle dal risultato farebbe
+         sparire dalla tendina la voce appena scelta, e nessuno saprebbe come
+         tornare indietro. */
+      mSearch: {
+        q: s.oppQ,
+        set: (ev) => this.setState({ oppQ: ev.target.value, mShown: 24 }),
+        ph: T.radarSearchPh || 'Filtra…',
+        on: !!mTermos.length,
+        hits: mTermos.length ? (meetingFiltered.length + ' ' + (T.radarSearchHits || 'matches')) : '',
+        bg: mTermos.length ? 'rgba(0,152,69,0.10)' : 'rgba(255,255,255,0.05)',
+        border: mTermos.length ? 'rgba(0,152,69,0.45)' : 'rgba(203,197,195,0.18)',
+      },
+      mPickers: [
+        { key: 'oppCrop', accent: ((AM.CATEGORY_UI || {}).weed || {}).color || '#7DB41E',
+          value: s.oppCrop, set: (ev) => this.setState({ oppCrop: ev.target.value, mShown: 24 }),
+          options: [{ v: '', l: T.allCrops }].concat(
+            [...new Set(meetingAll.map((c) => c.crop).filter(Boolean))].sort().map((v) => ({ v, l: v }))) },
+        { key: 'oppProd', accent: ((AM.CATEGORY_UI || {}).disease || {}).dark || '#00698F',
+          value: s.oppProd, set: (ev) => this.setState({ oppProd: ev.target.value, mShown: 24 }),
+          options: [{ v: '', l: T.linkedProducts || T.allProducts }].concat(
+            [...new Set([].concat.apply([], meetingAll.map(mProdNames)))].sort().map((v) => ({ v, l: v }))) },
+      ].map((f) => ({ value: f.value, set: f.set, options: f.options,
+        label: (f.options.filter((o0) => o0.v === f.value)[0] || f.options[0] || { l: '' }).l,
+        bg: f.value ? f.accent + '1F' : '#1C1817', border: f.value ? f.accent : 'rgba(203,197,195,0.18)',
+        rail: f.accent, color: f.value ? '#fff' : '#D6D2D0', weight: f.value ? 700 : 500 })),
+      mHasFilters: !!(s.oppQ || '').trim() || !!s.oppCrop || !!s.oppProd,
+      mClear: () => this.setState({ oppQ: '', oppCrop: '', oppProd: '', mShown: 24 }),
+      mNone: meetingFiltered.length === 0,
       meetingCases: meetingShown,
       meetingShownCount: meetingShown.length,
       meetingFilteredCount: meetingFiltered.length,

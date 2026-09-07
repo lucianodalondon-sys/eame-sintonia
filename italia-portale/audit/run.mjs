@@ -116,6 +116,31 @@ if (!only) {
   if (!r.pass && r.detail) for (const line of r.detail) console.log(`        ${DIM}${String(line).slice(0, 150)}${X}`);
 }
 
+/* ══ BB1 · AS BARRAS DE BUSCA, DIGITADAS DE VERDADE ════════════════════════
+   Uma barra de busca so existe quando alguem digita nela: o modelo pode
+   filtrar bem e o campo perder o foco a cada tecla, e entao quem escreve
+   «pomodoro» fica com um «p» na tela. Isso nao se le no codigo.
+
+       UM CONTROLO QUE NAO DIGITA NAO MEDE UMA BARRA DE BUSCA.
+
+   Corre em processo separado pela mesma razao que SV1: abre um Chromium e
+   monta o portal inteiro. */
+if (!only) {
+  const bb = spawnSync(process.execPath, [fileURLToPath(new URL('./barras-de-busca.mjs', import.meta.url))],
+    { encoding: 'utf8' });
+  const passou = bb.status === 0;
+  const linha = String(bb.stdout || '').split('\n').find((l) => /passing/.test(l)) || '';
+  results.push({
+    id: 'BB1', title: 'The search bars and the expiry pill work when typed into',
+    pass: passou, expected: '0 failing',
+    measured: linha.replace(/\x1b\[[0-9;]*m/g, '').trim() || (passou ? 'ok' : 'ver barras-de-busca.mjs'),
+    detail: passou ? undefined : String(bb.stdout || bb.stderr || '').split('\n').slice(-16),
+  });
+  const r = results[results.length - 1];
+  console.log(`  ${r.pass ? `${G}PASS${X}` : `${R}FAIL${X}`}  ${pad(r.id, 5)} ${pad(r.title, 58)} ${DIM}exp${X} ${pad(r.expected, 12)} ${DIM}got${X} ${r.measured}`);
+  if (!r.pass && r.detail) for (const line of r.detail) console.log(`        ${DIM}${String(line).slice(0, 150)}${X}`);
+}
+
 const nonMisurati = results.filter((r) => r.notTestable);
 const misurabili = results.filter((r) => !r.notTestable);
 const ok = misurabili.filter((r) => r.pass).length;

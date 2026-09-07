@@ -10,6 +10,15 @@
     // ── shell ────────────────────────────────────────────
     brandline: 'ADAMA ITALIA · INTELLIGENCE',
     searchPh: 'Cerca coltura o prodotto…',
+    /* LA BARRA DEL RADAR NON E QUELLA DELL'INTESTAZIONE.
+       Quella in alto porta a un'altra schermata (view: 'search'); questa
+       restringe le schede che si stanno gia guardando, senza cambiare
+       pagina — e per questo dice CHE COSA cerca, non «cerca». */
+    radarSearchPh: 'Filtra: coltura, prodotto, avversita, regione…',
+    radarSearchHits: 'corrispondenze',
+    portSearchPh: 'Cerca prodotto, sostanza attiva, scadenza…',
+    expDays: 'giorni', expMonths: 'mesi', expYears: 'anni',
+    expIn: 'tra', expExpired: 'scaduta', expCountedFrom: 'conto alla rovescia dal',
     enter: 'INVIO',
     demoEnv: 'AMBIENTE DIMOSTRATIVO',
     notifications: 'NOTIFICHE · DATE DIMOSTRATIVE',
@@ -749,6 +758,11 @@
     lang: 'en',
     brandline: 'ADAMA ITALY · INTELLIGENCE',
     searchPh: 'Search crop or product…',
+    radarSearchPh: 'Filter: crop, product, issue, region…',
+    radarSearchHits: 'matches',
+    portSearchPh: 'Search product, active substance, expiry…',
+    expDays: 'days', expMonths: 'months', expYears: 'years',
+    expIn: 'in', expExpired: 'expired', expCountedFrom: 'countdown from',
     enter: 'ENTER',
     demoEnv: 'DEMONSTRATION ENVIRONMENT',
     notifications: 'NOTIFICATIONS · DEMO TIMESTAMPS',
