@@ -1,0 +1,644 @@
+{
+ "DATASET": "ACERVO-SOURCES-V1",
+ "SCHEMA_VERSION": "V1",
+ "O_QUE_ISTO_E": "o endereco IMUTAVEL de cada insumo de acervo que atravessa para o pacote. Endereco = (COMMIT, PATH, BLOB) + SHA256 do conteudo.",
+ "O_QUE_ISTO_NAO_E": [
+  "nao e copia do acervo: o byte continua vivendo no seu ref de origem",
+  "nao e descoberta em tempo de build: a cadeia LE isto, nunca reescreve",
+  "nao prova que o insumo esta correto — prova que e ESTE insumo"
+ ],
+ "LEI": "um caminho sem ref nao e endereco. Dois refs desta arvore nao tem merge-base: o mesmo caminho pode ser outro arquivo noutro ref.",
+ "REFS_LIDOS": [
+  {
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422"
+  },
+  {
+   "REF": "claude/eame-meta-competitor",
+   "COMMIT": "a2fad2d03e04ba071a7a66b0a502b5a515b5246b"
+  },
+  {
+   "REF": "HEAD",
+   "COMMIT": "5fac11f87a4cb247f28aa56aa26a9780df2e6806"
+  }
+ ],
+ "PRECEDENCIA": "o primeiro ref da lista que contiver o caminho vence. Assim o acervo canonico manda, e HEAD so completa.",
+ "COUNT_TOTAL": 55,
+ "BY_FAMILY": {
+  "ADS": 2,
+  "SCIENCE": 1,
+  "TRANSCRIPTS": 52
+ },
+ "BY_REF": {
+  "claude/eame-meta-competitor": 2,
+  "sintonia/canonical": 53
+ },
+ "BYTES_TOTAL": 13481547,
+ "SOURCES": [
+  {
+   "KEY": "ADS__META_EAME_META_ADS_ENTITIES_EAME_V1_JSON",
+   "FAMILY": "ADS",
+   "ROLE": "ENTITIES",
+   "REF": "claude/eame-meta-competitor",
+   "COMMIT": "a2fad2d03e04ba071a7a66b0a502b5a515b5246b",
+   "PATH": "data/samples/META-EAME/META-ADS-ENTITIES-EAME-V1.json",
+   "BLOB": "c0a1a671f1a56ad7056aa0be8cd5146ed22de35d",
+   "BYTES": 5365141,
+   "SHA256": "6f54afe7d03e6e093659f2de19406ff2eacd2a2240978e7eef361906e8a92c50"
+  },
+  {
+   "KEY": "ADS__META_EAME_META_ADS_EVENTS_EAME_V1_JSON",
+   "FAMILY": "ADS",
+   "ROLE": "EVENTS",
+   "REF": "claude/eame-meta-competitor",
+   "COMMIT": "a2fad2d03e04ba071a7a66b0a502b5a515b5246b",
+   "PATH": "data/samples/META-EAME/META-ADS-EVENTS-EAME-V1.json",
+   "BLOB": "deab4c188c8b9ab95096b67aeb56d313d78f8c41",
+   "BYTES": 384803,
+   "SHA256": "ef331aff0d8dd66483ab115a669b490ee72595822cfb1fa2c2d4994ca9e63dc1"
+  },
+  {
+   "KEY": "SCIENCE__RESEARCHER_CORPUS_EAME_V1_JSON",
+   "FAMILY": "SCIENCE",
+   "ROLE": "CORPUS",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/RESEARCHER-CORPUS-EAME-V1.json",
+   "BLOB": "5a2261390d37553e3a9d7b554fbe2cbb2e696fc9",
+   "BYTES": 2135565,
+   "SHA256": "1991c15781ca397b812cc7ed71b9812ef0b256e98548b9f236cbff61d9773bdf"
+  },
+  {
+   "KEY": "TRANSCRIPTS__ES_T8_001_TRANSCRICOES_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "BATCH",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/ES-T8-001-transcricoes.json",
+   "BLOB": "a305d3f5a2df1afee333b541335972789221bbc8",
+   "BYTES": 727820,
+   "SHA256": "699e34d751821fa4ace90551d9c06e57628c7d56f4b3b4bd23ca9d3fadbc6120"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_IT_CONVEGNO_V1_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "MANIFEST",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/IT-CONVEGNO-V1.json",
+   "BLOB": "dc101ef841c6fec494fd863b06bddfb4e55f240e",
+   "BYTES": 46750,
+   "SHA256": "2ce4c14749d2212737e99fe2f4ad43c8854dd0c16ad936cd86cc8461ad6f1764"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_3M0OXLSK4RO_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/3m0OxLSK4ro.json",
+   "BLOB": "9b8d3da44161f0b46afca27c12f6e580a8f2b5d2",
+   "BYTES": 208042,
+   "SHA256": "ef9476ee088a80c7606086506f15fe1a91f37bedecbf7418cc346aa8aca8aa67"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_4YBYICVGUHG_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/4ybyIcvgUhg.json",
+   "BLOB": "86cd96b91febeb0cae0aacfcbb6b592ef3cc86fa",
+   "BYTES": 180047,
+   "SHA256": "1520a52710fd731b4edb5d20ad396266c9d5a451a512206e32a6c01e943abcd9"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_6ENIYJZPGHW_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/6eNiYjzPGHw.json",
+   "BLOB": "012ff23891c0bbaab4d98a68deb7ef046e49a6ee",
+   "BYTES": 161470,
+   "SHA256": "e47b69fde90778767e1dc8286344a6243ec98f8c5e0ebb43e4963acd3cab0ae0"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_8_RNTHLSY9Q_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/8_rnThlsy9Q.json",
+   "BLOB": "19aeaf05a2b45221b530a34cdd1c51316e982a31",
+   "BYTES": 172803,
+   "SHA256": "408b86e87ca3b5a945172564c382d8a68973302e112589b62de0286b38a003b6"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_CYV76YVC98S_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/CYV76yVc98s.json",
+   "BLOB": "812550c531528731bdf33dab7d19c2047e64850b",
+   "BYTES": 178407,
+   "SHA256": "ac03a3172e6a77abc16ecfcadb81f3ea886391cc885cc10dc8092582cb41554c"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_D9RKF6P1YY0_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/D9rKf6p1YY0.json",
+   "BLOB": "2e38a2e5f5043c44ad8d4b2d357e8b1d6b4f1cc8",
+   "BYTES": 143517,
+   "SHA256": "a9797e59878c1f7130aaaf4716b80df3412085371082f6de2cf3ef3c9f5820ff"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_GIIPQ_NHIIM_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/GIiPq_NhIiM.json",
+   "BLOB": "a7a24006499be923281316933c1e79386e952478",
+   "BYTES": 150920,
+   "SHA256": "141bf66f5a952a0607f25ae726220d9f176deef2d45b449951ce299c9d9b52e7"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_VE8GAWINRMY_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/VE8gaWinRmY.json",
+   "BLOB": "2831c427347bef824ba8291f9abd43069e6c078a",
+   "BYTES": 157463,
+   "SHA256": "6947f129cf1b8a1f69fe651d03dc69265a1e6bca7297010b41dec8e1bf46ab85"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_AZHKLPD3QAG_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/azHKlPD3qAg.json",
+   "BLOB": "d67c69e03e2f03c6e80fbbc5c0d45ab00ddfa906",
+   "BYTES": 153723,
+   "SHA256": "7eff098d5539f4f3add6b5f0dbb520f427bfe2c8aa8e9383c01ff2e970495929"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_DGMP236Z4UQ_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/dGmP236Z4uQ.json",
+   "BLOB": "449af5a7c1d6a1e992565568918b7b250cf7ff18",
+   "BYTES": 194696,
+   "SHA256": "47e10d83c78d022b6c4abdb7368a5de19675ec8d39164a904f46541c653a3e39"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_GDNHHPENG7Y_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/gDNHhPeng7Y.json",
+   "BLOB": "a7cfcdffd1dc21ee32dda07158adfdf013b6e870",
+   "BYTES": 180104,
+   "SHA256": "be393017a8e6a4a44e337f11f268fb2c34d1878788296dd310c235de637efdf8"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_LR4ALW_8VXA_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/lr4Alw-8VXA.json",
+   "BLOB": "b4314f72d06eb25e70bd16397684302a545dd83d",
+   "BYTES": 62181,
+   "SHA256": "78bfd01e9042dae461f84da0397c0c69dd1f055424507c7ee523b14b0e55d80e"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_M50XQCQQJP4_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/m50xqCqqJP4.json",
+   "BLOB": "af09b31d0a8df116ca9cf7eb1507afd2ee43e425",
+   "BYTES": 241238,
+   "SHA256": "b954f3e9716836535116f791523d14f2ac5c8f8ddfa39bf59046e3c595724a5c"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_MIUNZ_PH3RY_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/mIunZ-pH3RY.json",
+   "BLOB": "96b690173208a1f56bdf67d9942fed290a2a8785",
+   "BYTES": 193357,
+   "SHA256": "c9c10e7fcd2037cfe2b0938373dbfe611a176d6f5b23b5aabfc61924143efec9"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_OR7L165QV_C_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/or7l165Qv_c.json",
+   "BLOB": "7986ffdf7f885303855a06e5ba5daf47fbe88af7",
+   "BYTES": 165940,
+   "SHA256": "b0ef8bf5da95ab951a7a3473c7eefe56f7c05963a3016ccc38b25543c1e0dc1b"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_SZSLKUD2CY4_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/szsLkUd2cy4.json",
+   "BLOB": "8ae89022f7b7d30c08a515b8a6bb07ff56eaca27",
+   "BYTES": 180054,
+   "SHA256": "c5a4dff89c5b75c4edb0eceb78c6440169ca48bcc2f1688f0b892d5ed6a721f6"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_FALAS_UF5BX_OTEES_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V1/falas/uf5bx-oTees.json",
+   "BLOB": "5499e086b329e08be7393220f92bc5226154c2d4",
+   "BYTES": 139491,
+   "SHA256": "5e45c8dec79ea91d99dec30079102ed5062a8511a5a3cf440c6497d9029fc3fb"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V2_IT_CONVEGNO_RESGATE_V2_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "MANIFEST",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V2/IT-CONVEGNO-RESGATE-V2.json",
+   "BLOB": "ac3b26a1b6121adf1d8e16320a5d50815a5ae892",
+   "BYTES": 9491,
+   "SHA256": "7ea2039f14512d93e5383c062ed3a4e59bb8fcb9667d9a93e2201b0edd09d22b"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V2_FALAS_4LUYIORL4A_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V2/falas/-4lUyIORl4A.json",
+   "BLOB": "85d981eab7728ca69af73995c294cb1463a11a0c",
+   "BYTES": 175818,
+   "SHA256": "1bd624784fca8a9b09889f621d0758bc567c7f1e1c288d121f7932402869dccd"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V2_FALAS_AOOVHTTQVPA_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V2/falas/AOOVhtTQvPA.json",
+   "BLOB": "8ed4ad740b33361d022d9373c371958f3dd9c0b6",
+   "BYTES": 7163,
+   "SHA256": "a219c52504264b09720a97249e690873f738428a1e55a204c15672b00c4392a6"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_CONVEGNO_V2_FALAS_WH20ZKHF5CC_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-CONVEGNO-V2/falas/wh20ZkHf5Cc.json",
+   "BLOB": "4fe05e9dbea888cbbdd40bdb3ce6ffb2afb07170",
+   "BYTES": 62662,
+   "SHA256": "2461b02bfe2807f147cc7a68602c1a1a89630913103362585ce04c9b6f69e715"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_INSTAGRAM_V1_IT_INSTAGRAM_TRANSCRICOES_V1_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "BATCH",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-INSTAGRAM-V1/IT-INSTAGRAM-TRANSCRICOES-V1.json",
+   "BLOB": "bf5a140c0b31d50c3042aefc7e84fdbbd95b011a",
+   "BYTES": 138880,
+   "SHA256": "108a886a0f08898e997ee80a4dfe0ff488998b046b3bdf990890e486cfd4abca"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_INSTAGRAM_V2_IT_INSTAGRAM_TRANSCRICOES_V2_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "BATCH",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-INSTAGRAM-V2/IT-INSTAGRAM-TRANSCRICOES-V2.json",
+   "BLOB": "b336373493c44956a32ee55fd6bfbce497b67bff",
+   "BYTES": 53290,
+   "SHA256": "067fe58f7a316856f2f687c06a33572c3b3a491b1e49d03f8f8cf2e89baf4847"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_INSTAGRAM_V3_IT_INSTAGRAM_TRANSCRICOES_V3_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "BATCH",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-INSTAGRAM-V3/IT-INSTAGRAM-TRANSCRICOES-V3.json",
+   "BLOB": "2857ee5ee37137b1b417ffeca79a253e1fb70af9",
+   "BYTES": 19913,
+   "SHA256": "1d20f9db2f493d635bcde0e9eb66b708234f2b45224edceee68415e724c513f6"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_IT_VIDEO_FALAS_V1_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "MANIFEST",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/IT-VIDEO-FALAS-V1.json",
+   "BLOB": "cd68124adaa3ca2b2ba069fdfd500f3eb3369054",
+   "BYTES": 25187,
+   "SHA256": "c6086b7888684e372961df9fccf118211e8854bec55c04aabca67f56c0aa73a2"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_2JGJJQQCR_S_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/2jgjJQqcr-s.json",
+   "BLOB": "36c6ec177f032a3a13a69e8143f9070cfdde72d6",
+   "BYTES": 1538,
+   "SHA256": "1e7b73c27d447432d86631471ece6f0d452bedb3c610a11be908c6ef8720bd1d"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_3TDE1ZDHUVU_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/3tDE1zDHUvU.json",
+   "BLOB": "8c872a26b1fbd7796624db99d95d122d007073b3",
+   "BYTES": 95766,
+   "SHA256": "019e063d068a182623316d49c34381d0c42a4c4d379cbca08d52ca55a6003211"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_67B_G9X49GQ_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/67b-g9X49GQ.json",
+   "BLOB": "04a9c2d0dd1ce85c1d6c12f6bfdbe0b6fece13e9",
+   "BYTES": 1923,
+   "SHA256": "e2d10763bf327e63837f1a5a81db6a76f2cf10292876cfa9f8f5f91139b5250f"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_AEF_A2AVP7E_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/AEF-A2AVP7E.json",
+   "BLOB": "4f8fd8bbffd5eb1991d79e445d37cebe62921b84",
+   "BYTES": 1564,
+   "SHA256": "55255d3d5125ac6b67bffaff28b69a15e40fba2e859cdff7d832056fc8774336"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_AUYXP_5HFZC_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/AuYXP_5Hfzc.json",
+   "BLOB": "1cbffd8288bc75329d34323eaebea2ca2c77282d",
+   "BYTES": 2010,
+   "SHA256": "17a009f8bd714d0fa7ced262e528c2b63da441d772b9069c33168046c397a659"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_D8BW5IP35RM_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/D8BW5iP35rM.json",
+   "BLOB": "514d29b1c6d3b5502bb5101954ef0cf105b3fba8",
+   "BYTES": 1904,
+   "SHA256": "3474cc12675ee3f42abb9ae41f56f9153d9b45dd893df933d32362e689fec0d5"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_EMDDKVGFZEM_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/EmDDkVgfzEM.json",
+   "BLOB": "92ea1a41151d7701c22960f3baad1fc2218ea135",
+   "BYTES": 1893,
+   "SHA256": "7356d94dbbf3353a06a6cb3ffa0d0dda1bc659dea4b1a2c496dcd80c52a8048f"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_HD4ZAIURPSO_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/HD4ZaIURPso.json",
+   "BLOB": "a0166995a6a3498e36f3899e5c89f51cd74c4ce4",
+   "BYTES": 1686,
+   "SHA256": "66acabe28b5c61a6ce4578d0188f72baa65afa687d6fbdabde50a84b5d268ca2"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_INGNJTELZKG_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/INGnJtElzkg.json",
+   "BLOB": "9debc5f0d4a286375846642e264264946a0e4c25",
+   "BYTES": 1001,
+   "SHA256": "38d77860de1d8428ede14e4e229bba90e3c3119fd17308e55e8c8761d88f424c"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_SLTX6OQFIGA_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/SlTx6OqFiGA.json",
+   "BLOB": "4c280d2a7da8cbc5c309b8fdadd4b48653ad428f",
+   "BYTES": 998,
+   "SHA256": "2007ce282979afa405450cf277d9b37cf81c4d0ececea68cec3c77b384639fd7"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_ACAE_KZKL0W_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/acAe_KZkL0w.json",
+   "BLOB": "65f2f0f994916cc279129bb415dde90812a372f2",
+   "BYTES": 2423,
+   "SHA256": "9d65a93a74542a5f0569ded6d593cab447c6cd42b02eaf2d5030c4709a120a90"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_AH8ST9HB7HU_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/ah8sT9hB7HU.json",
+   "BLOB": "ead1baac469b3a5abdaf3fcc683ca0197f7ad851",
+   "BYTES": 1095,
+   "SHA256": "d8ccd1fd7bb3b440db049ae297ff67e424f77956059a249b4cb7ef024645d78e"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_EP1KX19XXS8_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/ep1KX19XxS8.json",
+   "BLOB": "811e4b62480daeaa90c69fd281933f53ea99628d",
+   "BYTES": 70049,
+   "SHA256": "62229c7d35b7a273a4c83827f59429b6b728aab774a018c033375c59d1952752"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_F0TZDU2J67E_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/f0Tzdu2j67E.json",
+   "BLOB": "026acc37873ba61014eb0dbb8bfd3cfc82c20443",
+   "BYTES": 1041,
+   "SHA256": "6afd509ee8c97a4703959607f4080376e16af3aee0822479c1164fb075265c56"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_OFRKFRZZKNO_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/ofRkFRzzkno.json",
+   "BLOB": "1adcb8230c4af48e27ef016701aea38999f26102",
+   "BYTES": 83728,
+   "SHA256": "92b379c2ac7307c1baac281428d4e352dadf872c653dff05e4807edbab57959d"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_URUXJEZDP3O_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/uruXJezDp3o.json",
+   "BLOB": "4a5fc9148c6a5ca5e850e94c4610e360da05f712",
+   "BYTES": 1768,
+   "SHA256": "8aa47c7e9b2fef5cbfa54a8354a5f710def7950dbc43d38d06e0282e3f66c4d6"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_YFZ7ETXY2ZU_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/yFZ7eTXY2zU.json",
+   "BLOB": "9ae618c1e97f5bd62be3d3cd8001d26d1b6b14f9",
+   "BYTES": 106329,
+   "SHA256": "c843b7e5ea919865632f866710e27d25b64421d2a36833f2db3058056a4f6728"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VIDEO_V1_FALAS_ZKLVZODUBUQ_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "FALA",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VIDEO-V1/falas/zklvzODubuQ.json",
+   "BLOB": "d821c969a05564f8c15aed09af51e24abd61d2a6",
+   "BYTES": 2207,
+   "SHA256": "341e60f3cd5ad2186e579931955f177118cc31f8c532ec1fd06b1e25e4709ae0"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VOZ_AUDIO_V1_IT_VOZ_AUDIO_TRANSCRICOES_V1_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "BATCH",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VOZ-AUDIO-V1/IT-VOZ-AUDIO-TRANSCRICOES-V1.json",
+   "BLOB": "d5c055a89e84cc0df569f48b064f9cf6b4d0afc5",
+   "BYTES": 298991,
+   "SHA256": "35eb23db70709877582892014bb104d11a3983e054e85dd02489f5855683dd3b"
+  },
+  {
+   "KEY": "TRANSCRIPTS__IT_VOZ_AUDIO_V2_IT_VOZ_AUDIO_TRANSCRICOES_V2_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "BATCH",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-TRANSCRICOES-V2.json",
+   "BLOB": "63d88bc6a0877f7c5828cd7a4100c92cf0a64aa2",
+   "BYTES": 310522,
+   "SHA256": "739a000282afcba3f9d8f6e47cd114f5b7723592e57373e1d5e7a4d3f587cfe9"
+  },
+  {
+   "KEY": "TRANSCRIPTS__SENSOR_PILOT_TRANSCRICOES_A_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "BATCH",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/SENSOR-PILOT/TRANSCRICOES-A.json",
+   "BLOB": "56b2316eb7e9af77edb71365ee1945b8752fffc1",
+   "BYTES": 165327,
+   "SHA256": "9794a3e50045e3a8d826577e4737ee9145c38123cb3e601c820572620d91e471"
+  },
+  {
+   "KEY": "TRANSCRIPTS__SENSOR_PILOT_TRANSCRICOES_B_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "BATCH",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/SENSOR-PILOT/TRANSCRICOES-B.json",
+   "BLOB": "45ea8bd9129589ad326cdd2df6d7825406e83f22",
+   "BYTES": 143987,
+   "SHA256": "40dfb443ef0a03f833cf9360cb111e182c650eaffcb229a3cf480d04a34a41e4"
+  },
+  {
+   "KEY": "TRANSCRIPTS__SENSOR_PILOT_TRANSCRICOES_C_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "BATCH",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/SENSOR-PILOT/TRANSCRICOES-C.json",
+   "BLOB": "83be185b8f4eab8a371b9cedcb3af880a9dfc855",
+   "BYTES": 135972,
+   "SHA256": "5e0a6ecebdfc62cd92f2fe3eb5accb640b658fe1444daf61cdc4fff6193c281d"
+  },
+  {
+   "KEY": "TRANSCRIPTS__SENSOR_PILOT_TRANSCRICOES_D_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "BATCH",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/SENSOR-PILOT/TRANSCRICOES-D.json",
+   "BLOB": "c825e778168b79fb213a22d9513539a528d0b704",
+   "BYTES": 15856,
+   "SHA256": "701dca327d84ae98348599d53e36af052b81f02aae2ec506b4b025106b427966"
+  },
+  {
+   "KEY": "TRANSCRIPTS__SENSOR_PILOT_TRANSCRICOES_E_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "BATCH",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/SENSOR-PILOT/TRANSCRICOES-E.json",
+   "BLOB": "2620761156f0c5cf19d103888ffc467ede474ab2",
+   "BYTES": 16033,
+   "SHA256": "6bccd0303d1195756c1e511ccb870d3a70d2f50865b357d6da2888a692796eae"
+  }
+ ]
+}
