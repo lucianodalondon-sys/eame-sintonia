@@ -599,11 +599,13 @@
           <div style="font-size:12.5px;line-height:1.45;color:{{ mc.onInk }}">{{ mc.whyCommercial }}</div>
           <!-- I codici del motore restano visibili come motivo: dove la frase
                manca sono l'unica cosa vera che si puo mostrare. -->
+          <sc-if value="{{ mcProofOn }}" hint-placeholder-val="{{ false }}">
           <div style="display:flex;gap:6px;flex-wrap:wrap">
             <sc-for list="{{ mcWhyCommercialCodes }}" as="q" hint-placeholder-count="2">
               <span style="display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:9999px;font-size:10px;color:{{ mc.onBody }};border:1px solid {{ mc.onChipEdge }}">{{ q.label }}</span>
             </sc-for>
           </div>
+          </sc-if>
           <sc-if value="{{ mc.commercialDoesNotProve }}" hint-placeholder-val="{{ true }}"><div style="font-size:11px;line-height:1.4;color:{{ mc.onMuted }}">{{ mc.commercialDoesNotProve }}</div></sc-if>
           <!-- Dove il motore rimandava a un proprio campo, la cosa indicata sta
                QUI: la direzione della fonte come frase, e l'estratto come il
@@ -656,6 +658,14 @@
         </div>
       </div>
 
+      <!-- ══ L'INTERRUTTORE DELLA PROVA ══════════════════════════════════
+           Un solo comando, con il suo nome, per tutta la scheda. La scheda si
+           legge senza sigle; chi verifica le accende dove stanno.          -->
+      <div style="display:flex;align-items:center;gap:11px;flex-wrap:wrap">
+        <span onClick="{{ toggleMcProof }}" data-mc-proof="{{ mcProofOn }}" style="display:inline-flex;align-items:center;height:28px;padding:0 14px;border-radius:9999px;cursor:pointer;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.12em;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)" style-hover="color:#fff;border-color:rgba(203,197,195,0.45)">{{ mcProofLabel }}</span>
+        <span style="font-size:10.5px;color:#8F8886">{{ t.mbProofNote }}</span>
+      </div>
+
       <!-- ══ PERCHE ORA · i cinque anelli, e quello che manca ═══════════════
            La catena e del motore: SEGNALE → REGOLA → CONDIZIONE ADESSO →
            PORTAFOGLIO → TEMPO. Dove un anello manca lo si DICE; non si
@@ -673,11 +683,13 @@
             </div>
           </sc-for>
         </div>
+        <sc-if value="{{ mcProofOn }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;gap:7px;flex-wrap:wrap">
           <sc-for list="{{ mcWhyCodes }}" as="w" hint-placeholder-count="2">
             <span style="display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:9999px;font-size:10px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ w.label }}</span>
           </sc-for>
         </div>
+        </sc-if>
       </div>
 
       <!-- ══ FINESTRA · UN SOLO PADRONE, DUE DOMANDE ═══════════════════════
@@ -718,6 +730,121 @@
           <sc-if value="{{ mc.threshold }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10.5px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.22)">{{ mc.threshold }}</span></sc-if>
 
         </div>
+      </div>
+
+      <!-- ══ CIO CHE SI SA OLTRE IL CASO ═══════════════════════════════════
+           Le 763 pubblicazioni e le 184 trascrizioni arrivavano nel browser e
+           nessuna riga le leggeva. Qui si leggono, con il LEGAME dichiarato in
+           testa e il LUOGO DEL FATTO accanto a ogni riga: una coppia coltura ×
+           avversita che coincide non fa di un preprint francese una prova
+           italiana, e questa e la sola riga che lo impedisce.
+
+           Il riquadro non sparisce quando non trova niente: dire «questa coppia
+           non e stata interrogata» e diverso da dire niente, ed e la differenza
+           fra un vuoto di scienza e un vuoto di ricerca.                    -->
+      <div data-meeting-beyond="{{ mcBeyond.pair }}" style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);padding:15px 17px;display:flex;flex-direction:column;gap:11px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap">
+          <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ t.mbTitle }}</div>
+          <sc-if value="{{ mcBeyond.paired }}" hint-placeholder-val="{{ true }}">
+            <span style="font-size:10.5px;color:#8F8886">{{ t.mbJoin }} · <b style="color:#C9C3C1;font-weight:600">{{ mcBeyond.pair }}</b> — {{ t.mbJoinNote }}</span>
+          </sc-if>
+        </div>
+
+        <!-- La coppia non si risolve: il blocco DICHIARA che non puo cercare. -->
+        <sc-if value="{{ mcBeyond.noPair }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:12.5px;line-height:1.45;color:#EDEAE9">{{ t.mbNoPair }}</div>
+        </sc-if>
+
+        <sc-if value="{{ mcBeyond.paired }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:13px">
+
+          <!-- ── SCIENZA ─────────────────────────────────────────────────── -->
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+              <span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ t.mbScience }}</span>
+              <sc-if value="{{ mcBeyond.hasSci }}" hint-placeholder-val="{{ true }}">
+                <span style="font-size:11.5px;color:#C9C3C1"><b style="color:#fff;font-weight:700;font-variant-numeric:tabular-nums">{{ mcBeyond.sciN }}</b> · <b style="color:#fff;font-weight:700;font-variant-numeric:tabular-nums">{{ mcBeyond.sciOnCase }}</b> {{ t.mbOnCase }}</span>
+              </sc-if>
+            </div>
+            <sc-if value="{{ mcBeyond.noSci }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12.5px;line-height:1.45;color:#EDEAE9">{{ t.mbNoScience }}</div>
+            </sc-if>
+            <sc-if value="{{ mcBeyond.hasSci }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-wrap:wrap;gap:5px">
+              <span style="font-size:10px;color:#8F8886;align-self:center">{{ t.mbPlace }}</span>
+              <sc-for list="{{ mcBeyond.sciPlaces }}" as="pl" hint-placeholder-count="4">
+                <span style="display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 10px;border-radius:9999px;font-size:10px;color:#C9C3C1;border:1px solid rgba(203,197,195,0.18)">{{ pl.label }} <b style="color:#fff;font-weight:700;font-variant-numeric:tabular-nums">{{ pl.n }}</b></span>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <sc-for list="{{ mcBeyond.sciRows }}" as="r" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;gap:3px;padding:9px 11px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(203,197,195,0.09)">
+                  <div style="font-size:12px;line-height:1.35;color:#EDEAE9">{{ r.title }}</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:9px;font-size:10.5px;color:#8F8886">
+                    <span>{{ r.meta }}</span>
+                    <sc-if value="{{ r.hasCited }}" hint-placeholder-val="{{ true }}"><span>{{ r.cited }} {{ t.mbCited }}</span></sc-if>
+                    <span>{{ r.adherence }}</span>
+                    <span>{{ t.mbPlace }} · <b style="color:#C9C3C1;font-weight:600">{{ r.place }}</b></span>
+                    <sc-if value="{{ r.hasUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ r.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none">DOI →</a></sc-if>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            </sc-if>
+          </div>
+
+          <!-- ── VOCE TECNICA ────────────────────────────────────────────── -->
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+              <span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ t.mbVoice }}</span>
+              <sc-if value="{{ mcBeyond.hasVoice }}" hint-placeholder-val="{{ true }}">
+                <span style="font-size:11.5px;color:#C9C3C1"><b style="color:#fff;font-weight:700;font-variant-numeric:tabular-nums">{{ mcBeyond.voiceN }}</b></span>
+              </sc-if>
+            </div>
+            <sc-if value="{{ mcBeyond.noVoice }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12.5px;line-height:1.45;color:#EDEAE9">{{ mcBeyond.noVoiceL }}</div>
+            </sc-if>
+            <sc-if value="{{ mcBeyond.hasVoice }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <sc-for list="{{ mcBeyond.voiceRows }}" as="w" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;gap:3px;padding:9px 11px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(203,197,195,0.09)">
+                  <div style="font-size:12px;line-height:1.35;color:#EDEAE9">{{ w.title }}</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:9px;font-size:10.5px;color:#8F8886">
+                    <span>{{ w.channel }}</span>
+                    <sc-if value="{{ w.hasWhen }}" hint-placeholder-val="{{ true }}"><span>{{ t.mbWhen }} · {{ w.when }}</span></sc-if>
+                    <sc-if value="{{ w.hasChars }}" hint-placeholder-val="{{ true }}"><span>{{ w.chars }} {{ t.mbChars }}</span></sc-if>
+                    <span>{{ t.mbPlace }} · <b style="color:#C9C3C1;font-weight:600">{{ w.place }}</b></span>
+                    <sc-if value="{{ w.hasUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ w.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none">{{ t.frExplore }}</a></sc-if>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <!-- LA SCALA HA CINQUE GRADINI E NESSUNO IMPLICA IL SUCCESSIVO. -->
+            <sc-if value="{{ mcBeyond.voiceNoneCited }}" hint-placeholder-val="{{ true }}">
+              <div style="font-size:11.5px;line-height:1.4;color:#EDEAE9">{{ t.mbNotEvidence }}</div>
+            </sc-if>
+            </sc-if>
+          </div>
+
+          <!-- ── CONCORRENZA · legame di sola coltura, e detto ───────────── -->
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+              <span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ t.mbComp }}</span>
+              <sc-if value="{{ mcBeyond.hasComp }}" hint-placeholder-val="{{ true }}">
+                <span style="font-size:11.5px;color:#C9C3C1"><b style="color:#fff;font-weight:700;font-variant-numeric:tabular-nums">{{ mcBeyond.compActive }}</b> {{ t.mbActiveNow }} · <b style="color:#C9C3C1;font-weight:600;font-variant-numeric:tabular-nums">{{ mcBeyond.compHistory }}</b> {{ t.mbHistory }}</span>
+                <span onClick="{{ goCompetitors }}" style="font-size:10.5px;color:#00B152;cursor:pointer">{{ t.navCompetitors }} →</span>
+              </sc-if>
+            </div>
+            <sc-if value="{{ mcBeyond.noComp }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12.5px;line-height:1.45;color:#EDEAE9">{{ t.mbNoComp }}</div>
+            </sc-if>
+            <sc-if value="{{ mcBeyond.hasComp }}" hint-placeholder-val="{{ true }}">
+              <div style="font-size:10.5px;color:#8F8886">{{ t.mbCropOnly }}</div>
+            </sc-if>
+          </div>
+
+        </div>
+        </sc-if>
       </div>
 
       <!-- ══ MAPPA DELLE AZIONI · esattamente ACTION_BY_DEPARTMENT ═════════
@@ -762,7 +889,7 @@
               <span style="font-size:10px;color:#C9C3C1">{{ e.why }}</span>
               <span style="font-size:10px;color:#8F8886">{{ e.familyLabel }}</span>
               <span onClick="{{ e.go }}" style="font-size:10px;font-weight:700;letter-spacing:0.06em;color:{{ e.openColor }};cursor:{{ e.cursor }}">{{ e.openL }}</span>
-              <span style="font-size:10px;font-variant-numeric:tabular-nums;color:#8F8886">{{ e.ref }}</span>
+              <sc-if value="{{ mcProofOn }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;font-variant-numeric:tabular-nums;color:#8F8886">{{ e.ref }}</span></sc-if>
             </div>
           </sc-for>
         </div>
@@ -2785,7 +2912,7 @@ class Component extends DCLogic {
   state = { view: Component.VIEW_FROM_HASH(), caseId: null, mCaseId: null, mStatus: '', mShown: 24, companyId: null, themeId: null, personId: null, sourceId: null, archiveId: null,
     fCrop: '', fIssue: '', fRegion: '', fStatus: '', fProduct: '', fDept: '', sort: 'relevant', showAll: false, query: '', committedQuery: '',
     futureStatus: '', futureSource: '', futureShown: 16, compView: 'feed', fCompany: '', fType: '', fPeriod: '', compShown: 12, eventId: null, cproductId: null,
-    showDataState: false,
+    showDataState: false, mcProof: false,
     sciFilter: '', sciImpactId: null, sciHorizon: 'ALL', gireAll: false, showScenarios: false,
     archiveQuery: '', aType: '', aCrop: '', aRegion: '', aCompany: '', aCase: '', aSource: '', archivePage: 0, sourceGroup: 'ALL', peopleCat: 'ALL',
     mCrop: 'maize', mTab: 'crop',
@@ -5143,6 +5270,142 @@ class Component extends DCLogic {
       });
     });
     const mcEvUnresolved = mcEvidenceRows.filter((r) => !r.resolved).length;
+
+    /* ══ CIO CHE SI SA OLTRE IL CASO ══════════════════════════════════════════
+       Misurato su questo HEAD, prima di questo blocco:
+
+           scienceCorpus   763 materiali   riferimenti in portale.html: 0
+           transcripts     184 trascrizioni riferimenti in portale.html: 0
+
+       Arrivavano nel pacchetto, arrivavano nel motore, arrivavano nel browser —
+       e nessuna riga di codice li leggeva.
+
+           UN DATO CHE ARRIVA E CHE NESSUNO LEGGE NON E INTEGRATO.
+           E PESO.
+
+       IL LEGAME E DICHIARATO, NON INDOVINATO. La scheda della riunione parla in
+       CROP_GRAPEVINE / ISSUE_DOWNY_MILDEW; il corpus parla in VINE /
+       DOWNY_MILDEW. Il ponte fra i due vocabolari esiste gia e ha un
+       proprietario — `AM.cropResolve`, con la sua tavola CROP_BY_TOKEN. Si usa
+       QUELLO. Scrivere qui una seconda tavola di sinonimi farebbe una seconda
+       legge, e due leggi con lo stesso scopo divergono alla terza modifica.
+
+       Il prefisso `ISSUE_` e lo spazio dei nomi dell'entita, non parte del
+       nome: toglierlo e leggere il codice, non tradurlo. Se la coppia non si
+       risolve il blocco NON cerca: dichiara che non puo cercare.
+
+           INTERROGARE IL CORPUS SENZA IL LEGAME SIGNIFICA INVENTARLO.
+
+       E il luogo del fatto viaggia con ogni riga, perche e la sola cosa che
+       impedisce a un preprint francese di leggersi come prova italiana:
+       misurato sulla coppia Vite × Peronospora, 15 materiali su 66 hanno
+       COUNTRY_OF_FACT = FR e 2 hanno IT. La coincidenza di coltura e avversita
+       non e coincidenza di paese, e la scheda lo deve dire da sola. */
+    const mbCropOf = (v) => { const r = (AM && AM.cropResolve) ? AM.cropResolve(v) : null; return (r && r.scope === 'RESOLVED') ? r.key : null; };
+    const mbIssueOf = (v) => String(v || '').replace(/^ISSUE_/, '').toUpperCase() || null;
+    const mbCrop = mcCase ? mbCropOf(mcCase.cropCode || mcCase.crop) : null;
+    const mbIssue = mcCase ? mbIssueOf(mcCase.targetCode) : null;
+    const mbPaired = !!(mbCrop && mbIssue);
+    const mbPlaceL = (v) => (T.PLACEOF && T.PLACEOF[v]) || (v ? String(v) : (T.PLACEOF ? T.PLACEOF.NOT_ESTABLISHED : ''));
+    const mbAdhL = (v) => (T.ADHERENCE && T.ADHERENCE[v]) || (v ? String(v).replace(/_/g, ' ').toLowerCase() : '');
+
+    /* SCIENZA — l'aderenza al caso ORDINA, e non filtra: nascondere i 32 che
+       non stanno sul caso congelato farebbe leggere i 34 come tutto il
+       materiale che esiste sulla coppia. Si vedono i primi quattro, e il
+       conteggio dice quanti sono in tutto. */
+    const MB_ADH_RANK = { ON_FROZEN_CASE: 0, CROP_ONLY: 1, ISSUE_ONLY: 1, OFF_CASE: 2 };
+    const mbSciAll = mbPaired ? recs('scienceCorpus').filter((r) =>
+      mbCropOf(r.queryCrop) === mbCrop && mbIssueOf(r.queryIssue) === mbIssue) : [];
+    const mbSciRows = mbSciAll.slice()
+      .sort((a, b) => ((MB_ADH_RANK[a.caseAdherence] === undefined ? 3 : MB_ADH_RANK[a.caseAdherence])
+                     - (MB_ADH_RANK[b.caseAdherence] === undefined ? 3 : MB_ADH_RANK[b.caseAdherence]))
+                     || ((b.citedBy || 0) - (a.citedBy || 0)))
+      .slice(0, 4)
+      .map((r) => ({
+        title: r.title || '',
+        meta: [r.venue, r.year].filter(Boolean).join(' · '),
+        cited: typeof r.citedBy === 'number' ? r.citedBy : null,
+        hasCited: typeof r.citedBy === 'number' && r.citedBy > 0,
+        adherence: mbAdhL(r.caseAdherence),
+        onCase: r.caseAdherence === 'ON_FROZEN_CASE',
+        place: mbPlaceL(r.countryOfFact),
+        placeKnown: !!r.countryOfFact && r.countryOfFact !== 'NOT_ESTABLISHED',
+        /* Il DOI e un indirizzo, e si apre solo quando c'e. Un <a> senza href
+           e un invito che non porta da nessuna parte. */
+        url: r.doi ? ('https://doi.org/' + String(r.doi).replace(/^https?:\/\/doi\.org\//i, '')) : '',
+        hasUrl: !!r.doi,
+      }));
+    /* Il PAESE DEL FATTO, contato. E la riga che impedisce di leggere una
+       coppia coincidente come prova locale. */
+    const mbSciPlaces = (() => {
+      const m = new Map();
+      for (const r of mbSciAll) { const k = r.countryOfFact || 'NOT_ESTABLISHED'; m.set(k, (m.get(k) || 0) + 1); }
+      return [...m.entries()]
+        .sort((a, b) => (a[0] === 'NOT_ESTABLISHED' ? 1 : b[0] === 'NOT_ESTABLISHED' ? -1 : b[1] - a[1]))
+        .map(([k, n]) => ({ label: mbPlaceL(k), n, known: k !== 'NOT_ESTABLISHED' }));
+    })();
+
+    /* VOCE TECNICA — la scala della trascrizione ha cinque gradini e nessuno
+       implica il successivo. Si mostra chi ESISTE ed e UTILIZZABILE, e si dice
+       a voce alta che il motore non la cita: promuovere il parlato a prova
+       perche esiste e esattamente il passo che questo pacchetto rifiuta. */
+    const mbVoiceAll = mbPaired ? recs('transcripts').filter((r) =>
+      mbCropOf(r.routeCrop) === mbCrop && mbIssueOf(r.routeIssue) === mbIssue) : [];
+    const mbVoiceUsable = mbVoiceAll.filter((r) => r.usable);
+    const mbVoiceRows = mbVoiceUsable.slice(0, 4).map((r) => ({
+      title: r.title || '',
+      channel: r.channel || '',
+      when: r.publishedAt || '',
+      hasWhen: !!r.publishedAt,
+      chars: typeof r.chars === 'number' ? r.chars : null,
+      hasChars: typeof r.chars === 'number' && r.chars > 0,
+      place: mbPlaceL(r.factCountry),
+      placeKnown: !!r.factCountry && r.factCountry !== 'NOT_ESTABLISHED',
+      url: r.videoId && r.platform === 'YOUTUBE' ? ('https://www.youtube.com/watch?v=' + r.videoId) : '',
+      hasUrl: !!(r.videoId && r.platform === 'YOUTUBE'),
+    }));
+    const mbVoiceCited = mbVoiceUsable.filter((r) => r.usedAsEvidence).length;
+
+    /* CONCORRENZA — il legame qui e SOLO la coltura: `issueIds` e vuoto in
+       577 su 577 e `issuesObserved` e testo libero in italiano e in latino.
+       Fingere una coppia su quel campo sarebbe la giuntura fragile che il
+       controllo A3 esiste per vietare. Si dice cosa lega, e si separa cio che
+       e ATTIVO da cio che e STORICO: una campagna finita non e una campagna. */
+    const mbCompAll = mbCrop ? recs('competitorActivities').filter((r) =>
+      (r.cropKeys && r.cropKeys.length ? r.cropKeys : [r.cropKey]).indexOf(mbCrop) >= 0) : [];
+    const mbCompActive = mbCompAll.filter((r) => r.isActive === true).length;
+
+    const mcBeyond = {
+      paired: mbPaired,
+      pair: mbPaired ? (mbCrop + ' × ' + mbIssue.replace(/_/g, ' ').toLowerCase()) : '',
+      sciN: mbSciAll.length,
+      sciOnCase: mbSciAll.filter((r) => r.caseAdherence === 'ON_FROZEN_CASE').length,
+      hasSci: mbSciAll.length > 0,
+      sciRows: mbSciRows,
+      sciPlaces: mbSciPlaces,
+      voiceN: mbVoiceUsable.length,
+      hasVoice: mbVoiceUsable.length > 0,
+      voiceRows: mbVoiceRows,
+      /* Se un giorno il motore citasse una trascrizione, questa riga tacerebbe
+         da sola invece di continuare a dire una cosa vecchia. */
+      voiceNoneCited: mbVoiceUsable.length > 0 && mbVoiceCited === 0,
+      voicePoolN: recs('transcripts').length,
+      compN: mbCompAll.length,
+      hasComp: mbCompAll.length > 0,
+      compActive: mbCompActive,
+      compHistory: mbCompAll.length - mbCompActive,
+    };
+    /* Il runtime non ha `sc-if` negato: la negazione si calcola QUI, come per
+       ogni altro blocco di questa pagina. Un attributo inventato nel markup
+       sarebbe stato letto come vero e il silenzio non si sarebbe mai visto. */
+    mcBeyond.noPair = !mcBeyond.paired;
+    mcBeyond.noSci = mcBeyond.paired && !mcBeyond.hasSci;
+    mcBeyond.noVoice = mcBeyond.paired && !mcBeyond.hasVoice;
+    mcBeyond.noComp = mcBeyond.paired && !mcBeyond.hasComp;
+    /* Il numero entra nella frase del dizionario, non accanto: «ne porta 184
+       in tutto, raccolte su altre coppie» dice perche il vuoto e un vuoto di
+       ricerca e non di materia. */
+    mcBeyond.noVoiceL = String(T.mbNoVoice || '').replace('{n}', mcBeyond.voicePoolN);
 
     /* ── i prodotti, per NOME ─────────────────────────────────────────────── */
     const csProductRows = ((csRec && csRec.productLinks) || []).map((l) => {
@@ -9637,6 +9900,24 @@ class Component extends DCLogic {
       mcNegatives: mcCase ? mcCase.evidence.negatives : [],
       mcCooling: mcCase ? mcCase.evidence.cooling : [],
       mcMissingList: mcCase ? mcCase.missing : [],
+      /* Il blocco che legge le due famiglie che nessuno leggeva. */
+      mcBeyond,
+      /* ══ LA PROVA STA SOTTO LA LETTURA, NON SOPRA ════════════════════════
+         I codici del motore, le sigle delle regole e i riferimenti di evidenza
+         sono TRACCIABILITA: servono a chi verifica, non a chi legge. Stavano
+         in mezzo alla scheda e la dominavano — sigle prima dei fatti.
+
+             LA SIGLA NON E LA LETTURA. E LA RICEVUTA DELLA LETTURA.
+
+         Restano a un click, in posto, con un interruttore che dice il suo nome.
+         Cio che NON entra qui: «COSA MANCA». Il contratto di design e esplicito
+         — NAO SEI «nunca colapsado por padrao» — e una lacuna nascosta dietro
+         un bottone e una lacuna che nessuno apre.
+
+             LA PROVA SI PUO PIEGARE. LA LACUNA NO. */
+      mcProofOn: !!s.mcProof,
+      mcProofLabel: s.mcProof ? (T.mbProofHide || '') : (T.mbProof || ''),
+      toggleMcProof: () => this.setState({ mcProof: !s.mcProof }),
       /* ── LA SCHEDA DEVE PORTARE DA QUALCHE PARTE ──────────────────────
          La rotta precedente offriva «VEDI LA RIGA IN ARCHIVIO →», che chiama
          `archiveWith({ aCase: id })`. Quel filtro confronta `legacyCaseId`, e

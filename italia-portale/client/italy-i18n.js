@@ -96,6 +96,41 @@
        non aveva rotta: la distinzione era dichiarata e non verificabile.
        Questa etichetta porta il lettore all'altra popolazione. */
     frOtherPop: 'L\'altra popolazione:',
+    /* ══ CIO CHE SI SA OLTRE IL CASO ═════════════════════════════════════
+       Il pacchetto porta 763 materiali scientifici e 184 trascrizioni, e
+       NESSUNA riga di questo portale li leggeva: misurato, zero riferimenti in
+       `portale.html`. Arrivavano al browser e morivano li.
+
+           UN DATO CHE ARRIVA E CHE NESSUNO LEGGE NON E INTEGRATO.
+
+       Queste frasi esistono perche quel blocco possa dire anche il SILENZIO:
+       dove la coppia non e stata interrogata, la scheda lo dichiara invece di
+       tacere, che e la sola differenza fra «non c'e scienza» e «non abbiamo
+       cercato». */
+    mbTitle: 'Cosa si sa oltre il caso',
+    mbJoin: 'Legame dichiarato · coltura × avversità',
+    mbJoinNote: 'è la coppia, non il caso: due schede sulla stessa coppia leggono lo stesso materiale.',
+    mbNoPair: 'Questo caso non risolve una coppia coltura × avversità. Interrogare il corpus senza il legame significherebbe inventarlo.',
+    mbScience: 'SCIENZA',
+    mbVoice: 'VOCE TECNICA',
+    mbComp: 'CONCORRENZA',
+    mbPlace: 'Luogo del fatto',
+    mbWhen: 'Pubblicato',
+    mbCited: 'citazioni',
+    mbChars: 'caratteri',
+    mbOnCase: 'sul caso congelato',
+    mbNoScience: 'Il corpus non porta materiale per questa coppia. Non è un vuoto della scienza: è una coppia che questo pacchetto non ha interrogato.',
+    mbNoVoice: 'Nessuna trascrizione per questa coppia. Il pacchetto ne porta {n} in tutto, raccolte su altre coppie.',
+    mbNotEvidence: 'Nessuna di queste è usata come prova in questo pacchetto: la trascrizione esiste, il motore non la cita.',
+    mbCropOnly: 'stessa coltura — non lo stesso caso',
+    mbActiveNow: 'attive oggi',
+    mbHistory: 'storico, non attivo',
+    mbNoComp: 'Nessuna attività di concorrente su questa coltura.',
+    mbProof: 'VEDI LA PROVA',
+    mbProofHide: 'NASCONDI LA PROVA',
+    mbProofNote: 'Codici del motore, regole e riferimenti di evidenza. Sono la tracciabilità, non la lettura.',
+    ADHERENCE: { ON_FROZEN_CASE: 'sul caso congelato', CROP_ONLY: 'solo la coltura', ISSUE_ONLY: 'solo l\'avversità', OFF_CASE: 'fuori dal caso' },
+    PLACEOF: { NOT_ESTABLISHED: 'NON STABILITO', IT: 'Italia', FR: 'Francia', ES: 'Spagna', DE: 'Germania', TN: 'Tunisia', PT: 'Portogallo', GR: 'Grecia', US: 'Stati Uniti', CN: 'Cina', AU: 'Australia' },
     frPortfolio: 'Portafoglio', frUpdated: 'Aggiornato', frExplore: 'ESPLORA SEGNALE →',
     ARCHTYPES: { 'BULLETIN': 'Bollettino di campo', 'FIELD_SIGNAL': 'Lettura di campo', 'News article': 'Articolo di stampa', 'Field bulletin': 'Bollettino di campo', 'Regulatory record': 'Record normativo', 'Label': 'Etichetta', 'Scientific paper': 'Pubblicazione scientifica', 'Researcher signal': 'Segnale di ricercatore', 'Technical article': 'Articolo tecnico', 'Competitor activity': 'Attività concorrente', 'Producer-organization update': 'Aggiornamento da organizzazione di produttori', 'Monitoring observation': 'Osservazione di monitoraggio', 'COMPETITOR': 'Attività di concorrente', 'SCIENCE': 'Pubblicazione scientifica', 'MARKET': 'Osservazione di prezzo', 'RESISTANCE': 'Caso di resistenza', 'WINDOW': 'Finestra colturale', 'EVENT': 'Evento di settore', 'VOICE': 'Voce pubblica', 'NEWS': 'Articolo di stampa' },
     arcSub: 'elementi indicizzati su scienza, mercato, concorrenza, voci, eventi, notizie e finestre colturali.',
@@ -731,6 +766,30 @@
     frSub: 'What may become an opportunity next — {n} monitored signals across Italy.',
     frSubA: 'Separate population from Future Radar —', frWhyWatch: 'WHY WATCH', frWhoTalking: 'WHO IS TALKING', frNextWindow: 'Next window',
     frOtherPop: 'The other population:',
+    mbTitle: 'What is known beyond the case',
+    mbJoin: 'Declared join · crop × issue',
+    mbJoinNote: 'it is the pair, not the case: two cards on the same pair read the same material.',
+    mbNoPair: 'This case does not resolve to a crop × issue pair. Querying the corpus without the join would mean inventing it.',
+    mbScience: 'SCIENCE',
+    mbVoice: 'TECHNICAL VOICE',
+    mbComp: 'COMPETITORS',
+    mbPlace: 'Place of fact',
+    mbWhen: 'Published',
+    mbCited: 'citations',
+    mbChars: 'characters',
+    mbOnCase: 'on the frozen case',
+    mbNoScience: 'The corpus carries no material for this pair. This is not a gap in science: it is a pair this package never queried.',
+    mbNoVoice: 'No transcript for this pair. The package carries {n} in all, collected on other pairs.',
+    mbNotEvidence: 'None of these is used as evidence in this package: the transcript exists, the engine does not cite it.',
+    mbCropOnly: 'same crop — not the same case',
+    mbActiveNow: 'active today',
+    mbHistory: 'history, not active',
+    mbNoComp: 'No competitor activity on this crop.',
+    mbProof: 'SEE THE PROOF',
+    mbProofHide: 'HIDE THE PROOF',
+    mbProofNote: 'Engine codes, rules and evidence references. They are the traceability, not the reading.',
+    ADHERENCE: { ON_FROZEN_CASE: 'on the frozen case', CROP_ONLY: 'crop only', ISSUE_ONLY: 'issue only', OFF_CASE: 'off case' },
+    PLACEOF: { NOT_ESTABLISHED: 'NOT ESTABLISHED', IT: 'Italy', FR: 'France', ES: 'Spain', DE: 'Germany', TN: 'Tunisia', PT: 'Portugal', GR: 'Greece', US: 'United States', CN: 'China', AU: 'Australia' },
     frPortfolio: 'Portfolio', frUpdated: 'Updated', frExplore: 'EXPLORE SIGNAL →',
     ARCHTYPES: { 'BULLETIN': 'Field bulletin', 'FIELD_SIGNAL': 'Field reading', 'COMPETITOR': 'Competitor activity', 'SCIENCE': 'Scientific publication', 'MARKET': 'Price observation', 'RESISTANCE': 'Resistance case', 'WINDOW': 'Crop window', 'EVENT': 'Sector event', 'VOICE': 'Public voice', 'NEWS': 'News article' },
     arcSub: 'items indexed over science, market, competitors, voices, events, news and crop windows.',
