@@ -2407,50 +2407,120 @@
     </div>
     </sc-if>
 
-    <!-- ================= ETICHETTE UFFICIALI · LABEL INTELLIGENCE =========
-         Uma capacidade que chega de fora com a sua propria lei. O desenho aqui
-         tem UMA obrigacao acima de todas: nao facilitar a leitura apagando o
-         que a ferramenta recusou afirmar.
+    <!-- ================= LABEL INTELLIGENCE · L'ELENCO ====================
+         A ordem da tela e a ordem do trabalho: primeiro O QUE ESTOU A
+         PROCURAR (tipo de produto, busca), depois QUANTOS SOBRAM, depois os
+         produtos. A cobertura tecnica vai para o fim — e informacao de
+         auditoria, nao o que se faz com a ferramenta.
 
-             UMA TELA FACIL DE LER QUE ESCONDE O QUE NAO SE SABE
-             NAO E FACIL: E FALSA, E LE-SE DEPRESSA POR ISSO.
-
-         Por isso o token de ignorancia continua na tela com o proprio nome, e
-         a frase italiana fica AO LADO — nunca no lugar. E por isso as sete
-         coberturas ficam sete.                                              -->
+             UMA TELA QUE ABRE COM SETE PERCENTAGENS ENSINA QUE ISTO E UM
+             RELATORIO. ABRE COM UMA BARRA DE TIPOS E ENSINA QUE E UMA
+             FERRAMENTA.                                                     -->
     <sc-if value="{{ isEtichette }}" hint-placeholder-val="{{ false }}">
     <div data-li-view="1" style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:14px">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap">
-        <div style="display:flex;flex-direction:column;gap:5px;max-width:74ch">
+        <div style="display:flex;flex-direction:column;gap:4px;max-width:72ch">
           <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><h1 style="margin:0;font-size:26px;font-weight:700;letter-spacing:-0.015em;color:#fff">{{ t.liTitle }}</h1><span style="padding:3px 9px;border-radius:9999px;background:rgba(0,152,69,0.16);border:1px solid rgba(0,152,69,0.45);font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.12em;color:#00B152">{{ t.liBadge }}</span></div>
           <div style="font-family:var(--font-secondary);font-size:14px;line-height:1.45;color:#C9C3C1">{{ t.liSub }}</div>
-          <!-- A LINHA QUE O CONTRATO DE ACOPLAMENTO EXIGE, E QUE NAO PODE
-               VIVER SO NUM COMENTARIO: uso autorizado nao e oportunidade. -->
-          <div data-li-not-opportunity="1" style="display:flex;align-items:flex-start;gap:8px;margin-top:3px;padding:9px 12px;border-radius:10px;background:rgba(245,179,23,0.08);border:1px solid rgba(245,179,23,0.35)">
-            <span style="font-size:11.5px;line-height:1.45;color:#EDEAE9">{{ t.liNotOpportunity }}</span>
-          </div>
         </div>
-        <!-- A FONTE DIZ QUEM E, OU A TELA NAO E AUDITAVEL -->
-        <div style="display:flex;flex-direction:column;gap:3px;padding:10px 13px;border-radius:11px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);min-width:260px">
+        <div style="display:flex;flex-direction:column;gap:3px;padding:10px 13px;border-radius:11px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);min-width:250px">
           <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ t.liProvenance }}</div>
           <span style="font-size:10.5px;color:#C9C3C1">{{ li.meta.authority }}</span>
-          <span style="font-size:10.5px;color:#C9C3C1">{{ t.liSnapshot }} <b style="color:#fff;font-variant-numeric:tabular-nums">{{ li.meta.snapshot }}</b></span>
-          <span style="font-size:10.5px;color:#C9C3C1">{{ t.liRuleset }} <b style="color:#fff">{{ li.meta.ruleset }}</b></span>
+          <span style="font-size:10.5px;color:#C9C3C1">{{ t.liUpdated }} <b style="color:#fff;font-variant-numeric:tabular-nums">{{ li.sommario.aggiornato }}</b></span>
           <span data-li-seal="{{ li.meta.seal }}" style="font-size:10.5px;color:#C9C3C1">{{ t.liSeal }} <b style="color:#fff;font-variant-numeric:tabular-nums">{{ li.meta.seal }}</b></span>
         </div>
       </div>
 
-      <!-- ══ AS SETE COBERTURAS, SETE ═══════════════════════════════════════
-           Colapsa-las num numero so seria a mentira mais confortavel desta
-           tela: 100% de rotulos descarregados nao diz nada sobre quantas
-           tabelas de uso foram lidas — 78,5% — nem sobre doses — 12,9%. -->
-      <div style="display:flex;flex-direction:column;gap:7px">
-        <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:var(--font-secondary);font-size:11px;font-weight:700;letter-spacing:0.16em;color:#00B152">{{ t.liCoverage }}</span><span style="font-size:10.5px;color:#8F8886;line-height:1.45">{{ t.liCoverageRule }}</span></div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(186px,1fr));gap:8px">
+      <!-- ══ A BARRA DE TIPOS · a taxonomia e a do Ministero ═══════════════
+           Dez classes oficiais, com o numero de cada uma. A cor e o icone sao
+           da linha ADAMA correspondente — e onde a classe nao cai numa das
+           tres linhas da marca, fica neutra, sem cor inventada. O estado
+           escolhido nao depende so da cor: tem fundo, borda, peso e trilho. -->
+      <div style="display:flex;align-items:stretch;gap:6px;flex-wrap:wrap">
+        <sc-for list="{{ li.tipi }}" as="x" hint-placeholder-count="8">
+          <span onClick="{{ x.go }}" data-li-type="{{ x.code }}" style="position:relative;display:inline-flex;flex-direction:column;cursor:pointer;border-radius:10px;background:{{ x.bg }};border:1px solid {{ x.border }};overflow:hidden" style-hover="border-color:rgba(203,197,195,0.5)">
+            <span style="height:{{ x.railH }};background:{{ x.rail }}"></span>
+            <span style="display:inline-flex;align-items:center;gap:7px;padding:7px 12px">
+              <sc-if value="{{ x.hasIcon }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="" style="display:block;width:14px;height:14px;flex:0 0 14px;opacity:0.95;background:url({{ x.icon }}) center/contain no-repeat"></span></sc-if>
+              <span style="font-size:11px;font-weight:{{ x.weight }};letter-spacing:0.04em;color:{{ x.ink }};white-space:nowrap">{{ x.label }}</span>
+              <b style="font-size:11px;font-weight:700;color:{{ x.ink }};opacity:0.7;font-variant-numeric:tabular-nums">{{ x.n }}</b>
+            </span>
+          </span>
+        </sc-for>
+      </div>
+
+      <!-- ══ AS SEIS BUSCAS · todas sobre campos estruturados ══════════════ -->
+      <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">
+        <sc-for list="{{ li.campos }}" as="f" hint-placeholder-count="6">
+          <span style="display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px;border-radius:9999px;background:{{ f.bg }};border:1px solid {{ f.border }};flex:0 1 auto" style-hover="border-color:rgba(203,197,195,0.5)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#B1A9A7" stroke-width="2" stroke-linecap="round" style="flex:0 0 12px"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+            <input value="{{ f.v }}" onChange="{{ f.set }}" data-li-field="{{ f.key }}" placeholder="{{ f.ph }}" style="width:150px;min-width:0;background:transparent;border:0;outline:0;color:#fff;font-size:11px;font-family:inherit">
+          </span>
+        </sc-for>
+        <sc-if value="{{ li.temFiltro }}" hint-placeholder-val="{{ false }}"><span onClick="{{ li.clear }}" data-li-clear="1" style="height:32px;display:inline-flex;align-items:center;padding:0 14px;border-radius:9999px;font-size:11px;font-weight:700;color:#00B152;cursor:pointer;border:1px solid rgba(0,152,69,0.45);background:rgba(0,152,69,0.10)" style-hover="background:rgba(0,152,69,0.2)">{{ t.liClear }} ×</span></sc-if>
+      </div>
+
+      <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+        <span data-li-count="{{ li.count }}" style="font-size:13px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums">{{ li.count }} <span style="font-weight:400;color:#8F8886">{{ t.liProducts }}</span></span>
+        <span style="font-size:10.5px;color:#8F8886">{{ t.liOf }} {{ li.total }}</span>
+        <!-- Uma busca por cultura nao promove nada: di-lo onde se le. -->
+        <sc-if value="{{ li.matching }}" hint-placeholder-val="{{ false }}"><span data-li-match-note="1" style="font-size:10.5px;color:#F5B317;line-height:1.45">{{ t.liMatchNote }}</span></sc-if>
+      </div>
+
+      <!-- ══ OS CARTOES · a linha ADAMA reconhece-se antes de se ler ═══════ -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:9px">
+        <sc-for list="{{ li.items }}" as="p" hint-placeholder-count="12">
+          <div onClick="{{ p.go }}" data-li-card="{{ p.reg }}" data-li-activity="{{ p.activity }}" style="position:relative;overflow:hidden;border-radius:12px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:0 0 11px;display:flex;flex-direction:column;gap:6px;cursor:pointer" style-hover="border-color:{{ p.lineColor }}">
+            <!-- a faixa da linha, e o nome oficial da classe do registo -->
+            <span style="display:flex;align-items:center;gap:7px;padding:7px 12px;background:{{ p.lineColor }}1F;border-bottom:1px solid {{ p.lineColor }}59">
+              <sc-if value="{{ p.hasLineIcon }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="" style="display:block;width:14px;height:14px;flex:0 0 14px;background:url({{ p.lineIcon }}) center/contain no-repeat"></span></sc-if>
+              <span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.1em;color:{{ p.lineColor }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.activity }}</span>
+            </span>
+            <div style="padding:0 12px;display:flex;flex-direction:column;gap:4px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                <span style="font-size:14px;font-weight:700;color:#fff;line-height:1.2;overflow-wrap:anywhere">{{ p.name }}</span>
+                <span style="font-size:10px;color:#8F8886;font-variant-numeric:tabular-nums;white-space:nowrap">{{ p.reg }}</span>
+              </div>
+              <span style="font-size:10.5px;color:#9A9391;line-height:1.4">{{ p.actives }}</span>
+              <span style="font-size:10px;color:#8F8886;line-height:1.4">{{ p.holder }}</span>
+              <!-- A SINTESE HUMANA. «12 usi trovati · 8 verificati» diz o que
+                   «0 / 16» nunca disse. E o que nao ha nao vira zero: quando
+                   nao ha tabela de uso, o estado do leitor entra por nome. -->
+              <sc-if value="{{ p.hasUsi }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:2px;padding-top:3px">
+                <span style="font-size:11.5px;color:#EDEAE9"><b style="font-weight:700;color:#fff;font-variant-numeric:tabular-nums">{{ p.usi }}</b> {{ t.liUsesFound }}</span>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;font-size:10.5px">
+                  <span style="color:#00B152;font-weight:700;font-variant-numeric:tabular-nums">{{ p.ver }} <span style="font-weight:400;opacity:0.85">{{ t.liStVerified }}</span></span>
+                  <span style="color:#F5B317;font-weight:700;font-variant-numeric:tabular-nums">{{ p.found }} <span style="font-weight:400;opacity:0.85">{{ t.liStFound }}</span></span>
+                  <sc-if value="{{ p.unk }}" hint-placeholder-val="{{ false }}"><span style="color:#C9C3C1;font-weight:700;font-variant-numeric:tabular-nums">{{ p.unk }} <span style="font-weight:400;opacity:0.85">{{ t.liStUnknown }}</span></span></sc-if>
+                </div>
+                <span style="font-size:10px;color:#8F8886">{{ p.crops }} {{ t.liCrops }} · {{ p.targets }} {{ t.liTargets }} · {{ p.doses }} {{ t.liDosesN }}</span>
+              </div>
+              </sc-if>
+              <sc-if value="{{ p.noUsi }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:2px;padding-top:3px">
+                <span style="font-size:11px;color:#EDEAE9;line-height:1.4">{{ p.doseState.gloss }}</span>
+                <span data-li-token="{{ p.doseState.code }}" style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.04em;color:#8F8886">{{ p.doseState.code }}</span>
+              </div>
+              </sc-if>
+              <sc-if value="{{ p.hasMatch }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;color:#F5B317;padding-top:2px">{{ p.matchLine }}</span></sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <sc-if value="{{ li.canMore }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;justify-content:center"><span onClick="{{ li.more }}" style="cursor:pointer;padding:8px 18px;border-radius:9999px;border:1px solid rgba(0,152,69,0.5);color:#00B152;font-size:10.5px;font-weight:700;letter-spacing:0.10em">+ 48</span></div>
+      </sc-if>
+      <sc-if value="{{ li.none }}" hint-placeholder-val="{{ false }}"><div data-li-empty="1" style="padding:22px;text-align:center;color:#EDEAE9;font-size:12px">{{ t.liNotFound }} <span onClick="{{ li.clear }}" style="color:#00B152;cursor:pointer;font-weight:700">{{ t.liClear }}</span></div></sc-if>
+
+      <!-- ══ COBERTURA E AUDITORIA · no fim, e sete ════════════════════════ -->
+      <div style="display:flex;flex-direction:column;gap:8px;padding-top:8px;border-top:1px solid rgba(203,197,195,0.10)">
+        <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:var(--font-secondary);font-size:11px;font-weight:700;letter-spacing:0.16em;color:#8F8886">{{ t.liCoverage }}</span><span style="font-size:10.5px;color:#8F8886;line-height:1.45">{{ t.liCoverageRule }}</span></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:8px">
           <sc-for list="{{ li.coberturas }}" as="c" hint-placeholder-count="7">
             <div data-li-coverage="{{ c.code }}" style="border-radius:11px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:10px 12px;display:flex;flex-direction:column;gap:5px">
               <span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.08em;color:#B1A9A7;line-height:1.3">{{ c.code }}</span>
-              <div style="display:flex;align-items:baseline;gap:6px"><b style="font-size:21px;font-weight:300;line-height:1;color:{{ c.ink }};font-variant-numeric:tabular-nums">{{ c.pct }}</b><span style="font-size:10.5px;color:#8F8886;font-variant-numeric:tabular-nums">{{ c.covered }}/{{ c.of }}</span></div>
+              <div style="display:flex;align-items:baseline;gap:6px"><b style="font-size:19px;font-weight:300;line-height:1;color:{{ c.ink }};font-variant-numeric:tabular-nums">{{ c.pct }}</b><span style="font-size:10px;color:#8F8886;font-variant-numeric:tabular-nums">{{ c.covered }}/{{ c.of }}</span></div>
               <div style="height:3px;background:rgba(255,255,255,0.07);overflow:hidden"><div style="width:{{ c.w }};height:100%;background:{{ c.ink }}"></div></div>
             </div>
           </sc-for>
@@ -2459,175 +2529,206 @@
           <span style="font-size:10px;color:#EDEAE9;line-height:1.5">{{ li.coverageNote }}</span>
           <span data-li-token="{{ li.coverageToken }}" style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.04em;color:#B1A9A7">{{ li.coverageToken }}</span>
         </div>
+        <div data-li-fact-how="1" style="display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;padding:11px 13px;border-radius:11px;background:#1C1817;border:1px solid rgba(203,197,195,0.10)">
+          <span style="display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:9999px;background:#00B152;color:#110E0D;font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.11em;white-space:nowrap">{{ t.liStVerified }}</span>
+          <span style="display:flex;align-items:baseline;gap:6px;white-space:nowrap"><b style="font-size:18px;font-weight:300;color:#fff;font-variant-numeric:tabular-nums">{{ li.sommario.ver }}</b><span style="font-size:11px;color:#8F8886">/ {{ li.sommario.usi }}</span></span>
+          <span style="flex:1;min-width:260px;font-size:10.5px;line-height:1.5;color:#C9C3C1">{{ t.liFactHow }}</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:10px 12px;border-radius:10px;background:rgba(245,179,23,0.08);border:1px solid rgba(245,179,23,0.32)">
+          <span data-li-not-opportunity="1" style="font-size:11px;line-height:1.45;color:#EDEAE9">{{ t.liNotOpportunity }}</span>
+        </div>
       </div>
-
-      <!-- ══ O SELO FATO, DITO ONDE SE LE ═══════════════════════════════════
-           «Tres colunas» soa a tres testes independentes. Nao e o que o censo
-           de hoje diz, e a diferenca entre a formula e a medicao e exactamente
-           o pecado que a lei da ferramenta se obriga a nao repetir.        -->
-      <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;padding:12px 14px;border-radius:12px;background:#1C1817;border:1px solid rgba(203,197,195,0.10)">
-        <span style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;background:#00B152;color:#110E0D;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.12em;white-space:nowrap">{{ t.liFact }}</span>
-        <span style="display:flex;align-items:baseline;gap:6px;white-space:nowrap"><b style="font-size:20px;font-weight:300;color:#fff;font-variant-numeric:tabular-nums">{{ li.totals.fatti }}</b><span style="font-size:11px;color:#8F8886">/ {{ li.totals.usi }} · {{ li.totals.fattiPct }}</span></span>
-        <span data-li-fact-how="1" style="flex:1;min-width:280px;font-size:11px;line-height:1.5;color:#C9C3C1">{{ t.liFactHow }}</span>
-      </div>
-
-      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-        <span style="display:inline-flex;align-items:center;gap:8px;height:32px;min-width:260px;flex:1 1 260px;max-width:400px;padding:0 12px;border-radius:9999px;background:{{ li.qBg }};border:1px solid {{ li.qBorder }}" style-hover="border-color:rgba(203,197,195,0.5)">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#B1A9A7" stroke-width="2" stroke-linecap="round" style="flex:0 0 13px"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
-          <input value="{{ li.q }}" onChange="{{ li.setQ }}" data-li-search="1" placeholder="{{ t.liSearchPh }}" style="flex:1;min-width:0;background:transparent;border:0;outline:0;color:#fff;font-size:11.5px;font-family:inherit">
-          <sc-if value="{{ li.qOn }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;font-weight:700;color:#00B152;white-space:nowrap">{{ li.qHits }}</span></sc-if>
-        </span>
-        <span onClick="{{ li.toggleFact }}" data-li-only-fact="1" style="display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 14px;border-radius:9999px;cursor:pointer;background:{{ li.factBtnBg }};border:1px solid {{ li.factBtnBorder }};color:{{ li.factBtnInk }};font-size:11.5px;font-weight:700;white-space:nowrap" style-hover="border-color:rgba(203,197,195,0.5)">{{ t.liOnlyFact }}</span>
-        <span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ li.shown }} / {{ li.filtered }} {{ t.liProducts }} · {{ li.totals.usi }} {{ t.liUsesN }} · {{ li.totals.dosi }} {{ t.liDosesN }}</span>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:9px">
-        <sc-for list="{{ li.items }}" as="p" hint-placeholder-count="12">
-          <div onClick="{{ p.go }}" data-li-card="{{ p.reg }}" style="border-radius:12px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:12px 13px;display:flex;flex-direction:column;gap:5px;cursor:pointer" style-hover="border-color:rgba(0,152,69,0.45)">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
-              <span style="font-size:13.5px;font-weight:700;color:#fff;line-height:1.2;overflow-wrap:anywhere">{{ p.name }}</span>
-              <span style="font-size:10px;color:#8F8886;font-variant-numeric:tabular-nums;white-space:nowrap">{{ p.reg }}</span>
-            </div>
-            <span style="font-size:10.5px;color:#9A9391;line-height:1.4">{{ p.actives }}</span>
-            <span style="font-size:10px;color:#8F8886;line-height:1.4">{{ p.holder }}</span>
-            <!-- «21 su 34» diz o que «21» nao diz. E quando nao ha nenhum uso,
-                 o estado do leitor entra com o proprio nome: falha de leitor
-                 nao e ausencia regulatoria. -->
-            <sc-if value="{{ p.noUse }}" hint-placeholder-val="{{ false }}">
-              <div style="display:flex;flex-direction:column;gap:2px;padding-top:3px">
-                <span data-li-token="{{ p.doseState.code }}" style="font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.05em;color:#F5B317;overflow-wrap:anywhere">{{ p.doseState.code }}</span>
-                <span style="font-size:10px;color:#EDEAE9;line-height:1.4">{{ p.doseState.gloss }}</span>
-              </div>
-            </sc-if>
-            <sc-if value="{{ p.usi }}" hint-placeholder-val="{{ true }}">
-              <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;padding-top:3px">
-                <span style="display:inline-flex;align-items:baseline;gap:4px"><b style="font-size:16px;font-weight:300;color:#00B152;font-variant-numeric:tabular-nums">{{ p.fatti }}</b><span style="font-size:10px;color:#8F8886">/ {{ p.usi }} {{ t.liUsesN }}</span></span>
-                <span style="font-size:10px;color:#8F8886">· {{ p.dosi }} {{ t.liDosesN }}</span>
-              </div>
-            </sc-if>
-          </div>
-        </sc-for>
-      </div>
-      <sc-if value="{{ li.canMore }}" hint-placeholder-val="{{ true }}">
-        <div style="display:flex;justify-content:center"><span onClick="{{ li.more }}" style="cursor:pointer;padding:8px 18px;border-radius:9999px;border:1px solid rgba(0,152,69,0.5);color:#00B152;font-size:10.5px;font-weight:700;letter-spacing:0.10em">+ 48</span></div>
-      </sc-if>
-      <sc-if value="{{ li.none }}" hint-placeholder-val="{{ false }}"><div data-li-empty="1" style="padding:22px;text-align:center;color:#EDEAE9;font-size:12px">{{ t.liNotFound }}</div></sc-if>
     </div>
     </sc-if>
 
-    <!-- ================= LA FICHA DI UN'ETICHETTA ======================== -->
+    <!-- ================= LA FICHA DI UN'ETICHETTA ========================
+         A pagina abre pelo produto, nao pelo relatorio do extractor. Os
+         codigos nao desaparecem: mudam de lugar, para «Come SINTONIA
+         l'ha verificato».
+
+             DUAS PROFUNDIDADES: QUEM LE A ETICHETTA, E QUEM AUDITA.        -->
     <sc-if value="{{ isEtichetta }}" hint-placeholder-val="{{ false }}">
     <div data-li-view="1" style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:14px">
       <sc-if value="{{ li.detMissing }}" hint-placeholder-val="{{ false }}"><div style="padding:22px;color:#EDEAE9;font-size:12px">{{ t.liNotFound }}</div></sc-if>
       <sc-if value="{{ li.hasDet }}" hint-placeholder-val="{{ true }}">
       <div style="display:flex;flex-direction:column;gap:14px">
-        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap">
-          <div style="display:flex;flex-direction:column;gap:4px">
-            <span onClick="{{ li.det.back }}" style="font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.12em;color:#00B152;cursor:pointer">← {{ t.liBackToList }}</span>
-            <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><h1 style="margin:0;font-size:26px;font-weight:700;letter-spacing:-0.015em;color:#fff">{{ li.det.name }}</h1><span style="font-size:12px;color:#8F8886;font-variant-numeric:tabular-nums">n. {{ li.det.reg }}</span></div>
-            <span style="font-size:12.5px;color:#C9C3C1">{{ li.det.actives }}</span>
-            <span style="font-size:11px;color:#9A9391">{{ li.det.holder }} · {{ li.det.formulation }} · {{ li.det.activity }}</span>
+        <span onClick="{{ li.det.back }}" style="font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.12em;color:#00B152;cursor:pointer;align-self:flex-start">← {{ t.liBackToList }}</span>
+
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:18px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="display:inline-flex;align-items:center;gap:8px;align-self:flex-start;padding:5px 12px;border-radius:9999px;background:{{ li.det.lineColor }}1F;border:1px solid {{ li.det.lineColor }}59">
+              <sc-if value="{{ li.det.hasLineIcon }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="" style="display:block;width:15px;height:15px;flex:0 0 15px;background:url({{ li.det.lineIcon }}) center/contain no-repeat"></span></sc-if>
+              <span style="font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.1em;color:{{ li.det.lineColor }}">{{ li.det.activity }}</span>
+            </span>
+            <h1 style="margin:0;font-size:28px;font-weight:700;letter-spacing:-0.015em;color:#fff">{{ li.det.name }}</h1>
+            <div style="display:flex;flex-wrap:wrap;gap:18px;padding-top:2px">
+              <span style="display:flex;flex-direction:column;gap:1px"><span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.11em;color:#8F8886">{{ t.liFldSubstance }}</span><span style="font-size:12.5px;font-weight:700;color:#EDEAE9">{{ li.det.actives }}</span></span>
+              <span style="display:flex;flex-direction:column;gap:1px"><span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.11em;color:#8F8886">{{ t.liFldReg }}</span><span style="font-size:12.5px;font-weight:700;color:#EDEAE9;font-variant-numeric:tabular-nums">{{ li.det.reg }}</span></span>
+              <span style="display:flex;flex-direction:column;gap:1px"><span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.11em;color:#8F8886">{{ t.liFldHolder }}</span><span style="font-size:12.5px;color:#EDEAE9">{{ li.det.holder }}</span></span>
+              <span style="display:flex;flex-direction:column;gap:1px"><span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.11em;color:#8F8886">{{ t.liFldFormulation }}</span><span style="font-size:12.5px;color:#EDEAE9">{{ li.det.formulation }}</span></span>
+            </div>
           </div>
-          <div style="display:flex;flex-direction:column;gap:3px;padding:10px 13px;border-radius:11px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);min-width:280px">
-            <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ t.liProvenance }}</div>
-            <sc-if value="{{ li.det.hasPdf }}" hint-placeholder-val="{{ true }}"><a href="{{ li.det.pdfUrl }}" target="_blank" style="font-size:10.5px;font-weight:700;color:#00B152;text-decoration:none">{{ t.liOpenPdf }} →</a></sc-if>
-            <sc-if value="{{ li.det.hasSha }}" hint-placeholder-val="{{ true }}"><span data-li-pdfsha="{{ li.det.pdfSha }}" style="font-size:10px;color:#C9C3C1;font-variant-numeric:tabular-nums;overflow-wrap:anywhere">sha256 {{ li.det.pdfSha }}…</span></sc-if>
-            <span style="font-size:10px;color:#C9C3C1">{{ t.liSnapshot }} {{ li.det.snapshot }} · {{ li.det.capturedAt }}</span>
-            <sc-if value="{{ li.det.hasSource }}" hint-placeholder-val="{{ true }}"><a href="{{ li.det.sourceUrl }}" target="_blank" style="font-size:10px;color:#8F8886;text-decoration:none;overflow-wrap:anywhere">{{ t.liSourceCsv }} →</a></sc-if>
+          <div style="display:flex;flex-direction:column;gap:4px;padding:11px 13px;border-radius:11px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);min-width:260px">
+            <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.14em;color:#8F8886">{{ t.liOfficialDoc }}</div>
+            <sc-if value="{{ li.det.hasPdf }}" hint-placeholder-val="{{ true }}"><a href="{{ li.det.pdfUrl }}" target="_blank" data-li-pdf="1" style="display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:#00B152;text-decoration:none">{{ t.liOpenPdf }} →</a></sc-if>
+            <sc-if value="{{ li.det.hasSha }}" hint-placeholder-val="{{ true }}"><span data-li-pdfsha="{{ li.det.pdfSha }}" style="font-size:9.5px;color:#8F8886;font-variant-numeric:tabular-nums;overflow-wrap:anywhere">sha256 {{ li.det.pdfSha }}…</span></sc-if>
+            <span style="font-size:10px;color:#C9C3C1">{{ t.liLastObserved }} {{ li.det.capturedAt }}</span>
           </div>
         </div>
 
-        <!-- R-09 · VENCER NAO E SER REVOGADO. Os dois campos, e nenhuma
-             conclusao de saida de mercado. -->
+        <!-- ══ DUAS DATAS QUE NAO SAO A MESMA COISA ═══════════════════════
+             O estado do REGISTO e a validade que a PROPRIA etichetta declara
+             sao factos diferentes, de fontes diferentes. Estavam juntos e
+             liam-se como um so. -->
         <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:stretch">
-          <div style="flex:1 1 220px;border-radius:11px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:11px 13px;display:flex;flex-direction:column;gap:3px">
-            <span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">stato · scadenza</span>
-            <span style="font-size:12.5px;font-weight:700;color:#fff">{{ li.det.status }} · {{ li.det.expiry }}</span>
+          <div style="flex:1 1 250px;border-radius:11px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:11px 13px;display:flex;flex-direction:column;gap:3px">
+            <span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.11em;color:#8F8886">{{ t.liRegStatus }}</span>
+            <span style="font-size:13px;font-weight:700;color:#fff">{{ li.det.status }} · {{ li.det.expiry }}</span>
             <span style="font-size:10px;color:#EDEAE9;line-height:1.45">{{ li.det.expiryNote }}</span>
           </div>
-          <!-- R-19 · a vigencia que a PROPRIA etichetta declara. Onde a regra
-               nao traduz a forma em data, mostra-se a FRASE — nunca um vazio,
-               que se leria «o rotulo nao declara». -->
           <div style="flex:2 1 340px;border-radius:11px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:11px 13px;display:flex;flex-direction:column;gap:4px">
-            <span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.liValidity }}</span>
-            <div style="display:flex;flex-direction:column;gap:2px">
-              <span data-li-token="{{ li.det.validity.code }}" style="font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.04em;color:#F5B317;overflow-wrap:anywhere">{{ li.det.validity.code }}</span>
-              <span style="font-size:11px;color:#EDEAE9;line-height:1.45">{{ li.det.validity.gloss }}</span>
-            </div>
+            <span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.11em;color:#8F8886">{{ t.liValidity }}</span>
+            <sc-if value="{{ li.det.hasWindow }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px;font-weight:700;color:#fff">{{ li.det.validFrom }} → {{ li.det.validTo }}</span></sc-if>
+            <!-- «FOUND — NOT PARSED» nao e UNKNOWN: a frase existe, e esta aqui -->
+            <sc-if value="{{ li.det.validityFound }}" hint-placeholder-val="{{ false }}"><span data-li-found-not-parsed="1" style="display:inline-flex;align-self:flex-start;align-items:center;height:19px;padding:0 9px;border-radius:9999px;border:1px solid rgba(245,179,23,0.55);color:#F5B317;font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.06em">{{ t.liFoundNotParsed }}</span></sc-if>
             <sc-if value="{{ li.det.validityQuote.quoted }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;color:#fff;font-family:var(--font-secondary);line-height:1.5">{{ t.liLabelWrites }}: “{{ li.det.validityQuote.text }}”</span></sc-if>
             <sc-if value="{{ li.det.validityQuote.notQuoted }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;color:#C9C3C1;line-height:1.5">{{ t.liExtractorReading }}: {{ li.det.validityQuote.text }}</span></sc-if>
           </div>
         </div>
 
-        <!-- ══ USI AUTORIZZATI · agrupados pela cultura ════════════════════ -->
+        <!-- ══ LABEL SUMMARY · o resumo humano antes de qualquer codigo ═══ -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px">
+          <div style="border-radius:11px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:10px 12px;display:flex;flex-direction:column;gap:2px"><b style="font-size:22px;font-weight:300;color:#fff;font-variant-numeric:tabular-nums">{{ li.det.sum.n }}</b><span style="font-size:10px;color:#8F8886">{{ t.liUsesFound }}</span></div>
+          <div style="border-radius:11px;border:1px solid rgba(0,152,69,0.35);background:rgba(0,152,69,0.08);padding:10px 12px;display:flex;flex-direction:column;gap:2px"><b style="font-size:22px;font-weight:300;color:#00B152;font-variant-numeric:tabular-nums">{{ li.det.sum.ver }}</b><span style="font-size:10px;color:#8F8886">{{ t.liStVerified }}</span></div>
+          <div style="border-radius:11px;border:1px solid rgba(245,179,23,0.32);background:rgba(245,179,23,0.07);padding:10px 12px;display:flex;flex-direction:column;gap:2px"><b style="font-size:22px;font-weight:300;color:#F5B317;font-variant-numeric:tabular-nums">{{ li.det.sum.found }}</b><span style="font-size:10px;color:#8F8886">{{ t.liStFound }}</span></div>
+          <div style="border-radius:11px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:10px 12px;display:flex;flex-direction:column;gap:2px"><b style="font-size:22px;font-weight:300;color:#C9C3C1;font-variant-numeric:tabular-nums">{{ li.det.sum.unk }}</b><span style="font-size:10px;color:#8F8886">{{ t.liStUnknown }}</span></div>
+          <div style="border-radius:11px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:10px 12px;display:flex;flex-direction:column;gap:2px"><b style="font-size:22px;font-weight:300;color:#EDEAE9;font-variant-numeric:tabular-nums">{{ li.det.sum.crops }}</b><span style="font-size:10px;color:#8F8886">{{ t.liCrops }}</span></div>
+          <div style="border-radius:11px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:10px 12px;display:flex;flex-direction:column;gap:2px"><b style="font-size:22px;font-weight:300;color:#EDEAE9;font-variant-numeric:tabular-nums">{{ li.det.sum.targets }}</b><span style="font-size:10px;color:#8F8886">{{ t.liTargets }}</span></div>
+          <div style="border-radius:11px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:10px 12px;display:flex;flex-direction:column;gap:2px"><b style="font-size:22px;font-weight:300;color:#5CC3EE;font-variant-numeric:tabular-nums">{{ li.det.sum.doses }}</b><span style="font-size:10px;color:#8F8886">{{ t.liDosesN }}</span></div>
+          <div style="border-radius:11px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:10px 12px;display:flex;flex-direction:column;gap:2px"><b style="font-size:22px;font-weight:300;color:#B1A9A7;font-variant-numeric:tabular-nums">{{ li.det.sum.phi }}</b><span data-li-token="{{ li.det.sum.phiState }}" style="font-size:9px;color:#8F8886;font-family:var(--font-secondary);letter-spacing:0.04em">PHI · {{ li.det.sum.phiState }}</span></div>
+        </div>
+
+        <!-- ══ USI · com busca local e os quatro estados ══════════════════ -->
         <div style="display:flex;flex-direction:column;gap:9px">
-          <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
             <span style="font-family:var(--font-secondary);font-size:11px;font-weight:700;letter-spacing:0.16em;color:#00B152">{{ t.liUses }}</span>
-            <span style="font-size:11px;color:#8F8886"><b style="color:#00B152;font-variant-numeric:tabular-nums">{{ li.det.fattiTot }}</b> {{ t.liOf }} {{ li.det.usiTot }} {{ t.liProven }}</span>
+            <span style="display:inline-flex;align-items:center;gap:7px;height:30px;min-width:230px;flex:1 1 230px;max-width:330px;padding:0 12px;border-radius:9999px;background:rgba(255,255,255,0.05);border:1px solid rgba(203,197,195,0.18)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#B1A9A7" stroke-width="2" stroke-linecap="round" style="flex:0 0 12px"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+              <input value="{{ li.det.inQ }}" onChange="{{ li.det.setIn }}" data-li-inlabel="1" placeholder="{{ t.liSearchInside }}" style="flex:1;min-width:0;background:transparent;border:0;outline:0;color:#fff;font-size:11px;font-family:inherit">
+            </span>
+            <sc-for list="{{ li.det.btnEstado }}" as="b" hint-placeholder-count="4">
+              <span onClick="{{ b.go }}" data-li-state-btn="{{ b.code }}" style="display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:9999px;cursor:pointer;background:{{ b.bg }};border:1px solid {{ b.border }};color:{{ b.ink }};font-size:10.5px;font-weight:{{ b.weight }};white-space:nowrap">{{ b.label }}<b style="font-variant-numeric:tabular-nums;opacity:0.75">{{ b.n }}</b></span>
+            </sc-for>
           </div>
-          <sc-if value="{{ li.det.hasUsi }}" hint-placeholder-val="{{ true }}">
+
+          <sc-if value="{{ li.det.noneAfterFilter }}" hint-placeholder-val="{{ false }}"><div style="padding:18px;text-align:center;color:#EDEAE9;font-size:11.5px">{{ t.liNotFound }}</div></sc-if>
+
           <div style="display:flex;flex-direction:column;gap:8px">
             <sc-for list="{{ li.det.usiGroups }}" as="g" hint-placeholder-count="4">
               <div style="border-radius:12px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:11px 13px;display:flex;flex-direction:column;gap:8px">
-                <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap"><span style="font-size:13.5px;font-weight:700;color:#fff">{{ g.crop }}</span><span style="font-size:10.5px;color:#8F8886"><b style="color:#00B152;font-variant-numeric:tabular-nums">{{ g.fatti }}</b> {{ t.liOf }} {{ g.n }} {{ t.liProven }}</span></div>
-                <div style="display:flex;flex-direction:column;gap:7px">
-                  <sc-for list="{{ g.rows }}" as="u" hint-placeholder-count="6">
-                    <div data-li-use="{{ u.target }}" style="display:flex;flex-direction:column;gap:4px;padding:8px 10px;border-radius:9px;background:rgba(0,0,0,0.28);border:1px solid rgba(255,255,255,0.07)">
-                      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-                        <span style="font-size:12.5px;font-weight:700;color:#EDEAE9">{{ u.target }}</span>
-                        <sc-if value="{{ u.fact }}" hint-placeholder-val="{{ true }}"><span data-li-seal-fact="1" style="display:inline-flex;align-items:center;height:19px;padding:0 9px;border-radius:9999px;background:#00B152;color:#110E0D;font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.11em">{{ u.seal }}</span></sc-if>
-                        <sc-if value="{{ u.notFact }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:19px;padding:0 9px;border-radius:9999px;background:transparent;border:1px solid rgba(245,179,23,0.55);color:#F5B317;font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.06em">{{ u.seal }}</span></sc-if>
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                  <span role="img" aria-label="" style="display:block;width:15px;height:15px;flex:0 0 15px;opacity:0.85;background:url({{ g.cropIcon }}) center/contain no-repeat"></span>
+                  <span style="font-size:14px;font-weight:700;color:#fff">{{ g.crop }}</span>
+                  <span style="font-size:10.5px;color:#8F8886"><b style="color:#00B152;font-variant-numeric:tabular-nums">{{ g.ver }}</b> {{ t.liOf }} {{ g.n }} {{ t.liStVerified }}</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <sc-for list="{{ g.rows }}" as="u" hint-placeholder-count="4">
+                    <div data-li-use="{{ u.key }}" data-li-state="{{ u.state }}" style="display:flex;flex-direction:column;gap:5px;padding:9px 11px;border-radius:9px;background:{{ u.stBg }};border:1px solid {{ u.stEdge }}">
+                      <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+                        <sc-if value="{{ u.hasTgtIcon }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="{{ u.tgtClass }}" title="{{ u.tgtClass }}" style="display:block;width:14px;height:14px;flex:0 0 14px;background:url({{ u.tgtIcon }}) center/contain no-repeat"></span></sc-if>
+                        <span style="font-size:13px;font-weight:700;color:#EDEAE9">{{ u.target }}</span>
+                        <span style="display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 9px;border-radius:9999px;border:1px solid {{ u.stEdge }};color:{{ u.stInk }};font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.06em;white-space:nowrap">{{ u.stMark }} {{ u.stLabel }}</span>
                         <sc-if value="{{ u.hasScope }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;color:#B1A9A7">{{ t.liScope }}: {{ u.scope }}</span></sc-if>
+                        <span onClick="{{ u.toggle }}" data-li-evidence-btn="1" style="margin-left:auto;font-size:10px;font-weight:700;letter-spacing:0.06em;color:#00B152;cursor:pointer;white-space:nowrap">{{ t.liViewEvidence }} ▸</span>
                       </div>
-                      <!-- OS ESTADOS DECLARADOS · o token com o proprio nome, e
-                           a frase italiana AO LADO. Nunca um sem o outro. -->
-                      <div style="display:flex;flex-wrap:wrap;gap:5px">
-                        <sc-for list="{{ u.states }}" as="st" hint-placeholder-count="5">
-                          <span data-li-token="{{ st.code }}" title="{{ st.gloss }}" style="display:inline-flex;flex-direction:column;gap:1px;padding:4px 8px;border-radius:7px;background:rgba(255,255,255,0.05);border:1px solid rgba(203,197,195,0.16);max-width:100%">
-                            <span style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.04em;color:#B1A9A7;overflow-wrap:anywhere">{{ st.code }}<sc-if value="{{ st.hasRule }}" hint-placeholder-val="{{ true }}"><span style="color:#00B152"> · {{ st.rule }}</span></sc-if></span>
-                            <span style="font-size:10px;color:#EDEAE9;line-height:1.35">{{ st.gloss }}</span>
-                          </span>
-                        </sc-for>
+                      <!-- A FRASE QUE EXPLICA O ESTADO, EM LINGUAGEM DE GENTE.
+                           E aqui que «not proven» deixa de se ler como
+                           «not authorised». -->
+                      <span style="font-size:11px;color:#EDEAE9;line-height:1.45">{{ u.stWhy }}</span>
+                      <sc-if value="{{ u.open }}" hint-placeholder-val="{{ false }}">
+                      <div data-li-evidence="1" style="display:flex;flex-direction:column;gap:7px;padding:9px 10px;border-radius:8px;background:rgba(0,0,0,0.32);border:1px solid rgba(255,255,255,0.08)">
+                        <div style="display:flex;flex-direction:column;gap:2px">
+                          <span style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#8F8886">{{ t.liFldCrop }}</span>
+                          <sc-if value="{{ u.evCrop.quoted }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;color:#fff;font-family:var(--font-secondary);line-height:1.5">{{ t.liLabelWrites }}: “{{ u.evCrop.text }}”</span></sc-if>
+                          <sc-if value="{{ u.evCrop.notQuoted }}" hint-placeholder-val="{{ false }}"><span style="font-size:10.5px;color:#C9C3C1;line-height:1.45">{{ t.liExtractorReading }}: {{ u.evCrop.text }}</span></sc-if>
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:2px">
+                          <span style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#8F8886">{{ t.liFldTarget }}</span>
+                          <sc-if value="{{ u.evTarget.quoted }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;color:#fff;font-family:var(--font-secondary);line-height:1.5">{{ t.liLabelWrites }}: “{{ u.evTarget.text }}”</span></sc-if>
+                          <sc-if value="{{ u.evTarget.notQuoted }}" hint-placeholder-val="{{ false }}"><span style="font-size:10.5px;color:#C9C3C1;line-height:1.45">{{ t.liExtractorReading }}: {{ u.evTarget.text }}</span></sc-if>
+                        </div>
+                        <!-- OS CODIGOS · continuam inteiros, so mudaram de sitio -->
+                        <div style="display:flex;flex-direction:column;gap:3px;padding-top:5px;border-top:1px solid rgba(255,255,255,0.07)">
+                          <span style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#8F8886">{{ t.liHowVerified }}</span>
+                          <div style="display:flex;flex-wrap:wrap;gap:5px">
+                            <sc-for list="{{ u.states }}" as="st" hint-placeholder-count="5">
+                              <span data-li-token="{{ st.code }}" title="{{ st.gloss }}" style="display:inline-flex;flex-direction:column;gap:1px;padding:4px 8px;border-radius:7px;background:rgba(255,255,255,0.05);border:1px solid rgba(203,197,195,0.16);max-width:100%">
+                                <span style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.04em;color:#B1A9A7;overflow-wrap:anywhere">{{ st.code }}<sc-if value="{{ st.hasRule }}" hint-placeholder-val="{{ true }}"><span style="color:#00B152"> · {{ st.rule }}</span></sc-if></span>
+                                <span style="font-size:10px;color:#EDEAE9;line-height:1.35">{{ st.gloss }}</span>
+                              </span>
+                            </sc-for>
+                          </div>
+                          <span data-li-token="{{ u.tgtState }}" style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.04em;color:#8F8886;padding-top:3px">{{ u.tgtState }} → {{ u.tgtClass }}</span>
+                        </div>
                       </div>
-                      <sc-if value="{{ u.cita.quoted }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;color:#fff;font-family:var(--font-secondary);line-height:1.5">{{ t.liLabelWrites }}: “{{ u.cita.text }}”</span></sc-if>
-                      <sc-if value="{{ u.cita.notQuoted }}" hint-placeholder-val="{{ true }}"><span style="font-size:10.5px;color:#C9C3C1;line-height:1.45">{{ t.liExtractorReading }}: {{ u.cita.text }}</span></sc-if>
+                      </sc-if>
                     </div>
                   </sc-for>
                 </div>
               </div>
             </sc-for>
           </div>
-          </sc-if>
-          <sc-if value="{{ li.det.hasUsi }}" hint-placeholder-val="{{ true }}"></sc-if>
         </div>
 
-        <!-- ══ DOSI ═══════════════════════════════════════════════════════
-             O numero so aparece quando o numero existe. Onde a ferramenta o
-             reteve — R-22, R-11, R-13 — entra o estado com o proprio nome. -->
-        <div style="display:flex;flex-direction:column;gap:9px">
-          <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+        <!-- ══ O QUE A ETICHETTA NAO AUTORIZA · so com prova positiva ═════ -->
+        <sc-if value="{{ li.det.hasNaoAutorizados }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:var(--font-secondary);font-size:11px;font-weight:700;letter-spacing:0.16em;color:#C77BC3">{{ t.liRemoved }}</span><span style="font-size:10.5px;color:#8F8886">{{ li.det.nNaoAutorizados }}</span><span style="font-size:10.5px;color:#EDEAE9;line-height:1.45">{{ t.liRemovedNote }}</span></div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <sc-for list="{{ li.det.naoAutorizados }}" as="x" hint-placeholder-count="3">
+              <div data-li-removed="{{ x.kind }}" style="display:flex;flex-direction:column;gap:4px;padding:9px 11px;border-radius:9px;background:rgba(157,29,150,0.08);border:1px solid rgba(199,123,195,0.32)">
+                <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+                  <span style="font-size:12.5px;font-weight:700;color:#EDEAE9">{{ x.crop }} · {{ x.target }}</span>
+                  <span style="display:inline-flex;align-items:center;height:19px;padding:0 9px;border-radius:9999px;border:1px solid {{ x.ink }};color:{{ x.ink }};font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.06em;white-space:nowrap">{{ x.kindLabel }}</span>
+                </div>
+                <span style="font-size:11px;color:#EDEAE9;line-height:1.45">{{ x.why.gloss }}</span>
+                <sc-if value="{{ x.cita.quoted }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;color:#fff;font-family:var(--font-secondary);line-height:1.5">{{ t.liLabelWrites }}: “{{ x.cita.text }}”</span></sc-if>
+                <sc-if value="{{ x.cita.notQuoted }}" hint-placeholder-val="{{ false }}"><span style="font-size:10.5px;color:#C9C3C1;line-height:1.45">{{ t.liExtractorReading }}: {{ x.cita.text }}</span></sc-if>
+                <span data-li-token="{{ x.why.code }}" style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.04em;color:#8F8886">{{ x.why.code }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ══ DOSI ══════════════════════════════════════════════════════ -->
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
             <span style="font-family:var(--font-secondary);font-size:11px;font-weight:700;letter-spacing:0.16em;color:#00A0DF">{{ t.liDoses }}</span>
-            <span data-li-token="{{ li.det.doseState.code }}" style="font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.04em;color:#B1A9A7">{{ li.det.doseState.code }}</span>
             <span style="font-size:10.5px;color:#EDEAE9">{{ li.det.doseState.gloss }}</span>
           </div>
           <sc-if value="{{ li.det.hasDosi }}" hint-placeholder-val="{{ true }}">
-          <div style="display:flex;flex-direction:column;gap:7px">
-            <sc-for list="{{ li.det.dosi }}" as="d" hint-placeholder-count="6">
-              <div data-li-dose="1" style="border-radius:11px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:11px 13px;display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <sc-for list="{{ li.det.dosi }}" as="d" hint-placeholder-count="5">
+              <div data-li-dose="1" style="border-radius:11px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;border-left:3px solid {{ d.tgtColor }};padding:10px 12px;display:flex;flex-direction:column;gap:5px">
                 <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
                   <span style="font-size:12.5px;font-weight:700;color:#fff">{{ d.crop }}</span>
                   <span style="font-size:11.5px;color:#C9C3C1">{{ d.target }}</span>
                   <sc-if value="{{ d.hasPage }}" hint-placeholder-val="{{ true }}"><span style="font-size:10px;color:#8F8886">{{ t.liPage }} {{ d.page }}</span></sc-if>
                 </div>
                 <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:baseline">
-                  <sc-if value="{{ d.hasHa }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:baseline;gap:5px"><b style="font-size:16px;font-weight:400;color:#5CC3EE;font-variant-numeric:tabular-nums">{{ d.ha }}</b></span></sc-if>
-                  <sc-if value="{{ d.hasConc }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:baseline;gap:5px"><b style="font-size:14px;font-weight:400;color:#C9C3C1;font-variant-numeric:tabular-nums">{{ d.conc }}</b></span></sc-if>
+                  <sc-if value="{{ d.hasHa }}" hint-placeholder-val="{{ true }}"><b style="font-size:16px;font-weight:400;color:#5CC3EE;font-variant-numeric:tabular-nums">{{ d.ha }}</b></sc-if>
+                  <sc-if value="{{ d.hasConc }}" hint-placeholder-val="{{ true }}"><b style="font-size:14px;font-weight:400;color:#C9C3C1;font-variant-numeric:tabular-nums">{{ d.conc }}</b></sc-if>
+                  <sc-if value="{{ d.noNum }}" hint-placeholder-val="{{ false }}"><span style="font-size:11.5px;font-weight:700;color:#EDEAE9">{{ t.ksNotKnown }}</span></sc-if>
                   <sc-if value="{{ d.hasMax }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;color:#B1A9A7">{{ t.liMaxApp }} <b style="color:#EDEAE9">{{ d.maxApp }}</b></span></sc-if>
                   <sc-if value="{{ d.hasInterval }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;color:#B1A9A7">{{ t.liInterval }} <b style="color:#EDEAE9">{{ d.interval }}</b></span></sc-if>
                   <sc-if value="{{ d.inherited }}" hint-placeholder-val="{{ false }}"><span style="padding:2px 8px;border-radius:9999px;border:1px solid rgba(245,179,23,0.5);color:#F5B317;font-size:9.5px;font-weight:700;letter-spacing:0.06em">{{ t.liInherited }}</span></sc-if>
                   <sc-if value="{{ d.review }}" hint-placeholder-val="{{ false }}"><span style="padding:2px 8px;border-radius:9999px;border:1px solid rgba(245,179,23,0.5);color:#F5B317;font-size:9.5px;font-weight:700;letter-spacing:0.06em">{{ t.liNeedsReview }}</span></sc-if>
                 </div>
-                <div style="display:flex;flex-wrap:wrap;gap:5px">
+                <sc-if value="{{ d.cita.quoted }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;color:#fff;font-family:var(--font-secondary);line-height:1.5">{{ t.liLabelWrites }}: “{{ d.cita.text }}”</span></sc-if>
+                <sc-if value="{{ d.cita.notQuoted }}" hint-placeholder-val="{{ false }}"><span style="font-size:10.5px;color:#C9C3C1;line-height:1.45">{{ t.liExtractorReading }}: {{ d.cita.text }}</span></sc-if>
+                <sc-if value="{{ li.det.audit }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-wrap:wrap;gap:5px;padding-top:4px">
                   <sc-for list="{{ d.states }}" as="st" hint-placeholder-count="5">
                     <span data-li-token="{{ st.code }}" title="{{ st.gloss }}" style="display:inline-flex;flex-direction:column;gap:1px;padding:4px 8px;border-radius:7px;background:rgba(255,255,255,0.05);border:1px solid rgba(203,197,195,0.16);max-width:100%">
                       <span style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.04em;color:#B1A9A7;overflow-wrap:anywhere">{{ st.code }}<sc-if value="{{ st.hasRule }}" hint-placeholder-val="{{ true }}"><span style="color:#00A0DF"> · {{ st.rule }}</span></sc-if></span>
@@ -2635,10 +2736,56 @@
                     </span>
                   </sc-for>
                 </div>
-                <sc-if value="{{ d.cita.quoted }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;color:#fff;font-family:var(--font-secondary);line-height:1.5">{{ t.liLabelWrites }}: “{{ d.cita.text }}”</span></sc-if>
-                <sc-if value="{{ d.cita.notQuoted }}" hint-placeholder-val="{{ false }}"><span style="font-size:10.5px;color:#C9C3C1;line-height:1.45">{{ t.liExtractorReading }}: {{ d.cita.text }}</span></sc-if>
+                </sc-if>
               </div>
             </sc-for>
+          </div>
+          </sc-if>
+        </div>
+
+        <!-- ══ COSA E CAMBIATO · o que o historico REALMENTE permite ══════ -->
+        <div style="display:flex;flex-direction:column;gap:7px;padding:12px 14px;border-radius:12px;background:#1C1817;border:1px solid rgba(203,197,195,0.10)">
+          <span style="font-family:var(--font-secondary);font-size:11px;font-weight:700;letter-spacing:0.16em;color:#8F8886">{{ t.liWhatChanged }}</span>
+          <sc-if value="{{ li.det.hasChanges }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <sc-for list="{{ li.det.changes }}" as="ch" hint-placeholder-count="2">
+              <div data-li-change="{{ ch.type }}" style="display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:8px;background:rgba(0,0,0,0.28);border:1px solid rgba(255,255,255,0.07)">
+                <span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.06em;color:#5CC3EE">{{ ch.type }} · {{ ch.when }}</span>
+                <span style="font-size:11.5px;color:#EDEAE9"><span style="color:#8F8886">{{ ch.before }}</span> → <b style="color:#fff">{{ ch.after }}</b></span>
+                <sc-if value="{{ ch.hasMeaning }}" hint-placeholder-val="{{ true }}"><span style="font-size:10.5px;color:#C9C3C1;line-height:1.45">{{ ch.meaning }}</span></sc-if>
+              </div>
+            </sc-for>
+          </div>
+          </sc-if>
+          <sc-if value="{{ li.det.changesNone }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;color:#EDEAE9;line-height:1.5">{{ t.liNoChanges }}</span></sc-if>
+          <!-- A COMPARACAO QUE NAO SE PODE FAZER, DITA COM O SEU NOME -->
+          <div style="display:flex;flex-direction:column;gap:2px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07)">
+            <span data-li-token="{{ li.compareState }}" style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.04em;color:#8F8886">{{ li.compareState }}</span>
+            <span style="font-size:10.5px;color:#EDEAE9;line-height:1.5">{{ t.liCompareWhy }}</span>
+          </div>
+        </div>
+
+        <!-- ══ COME SINTONIA L'HA VERIFICATO · a auditoria, dobrada ═══════ -->
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span onClick="{{ li.det.toggleAudit }}" data-li-audit-toggle="1" style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:8px 14px;border-radius:9999px;cursor:pointer;background:#1C1817;border:1px solid rgba(203,197,195,0.22);font-family:var(--font-secondary);font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:#C9C3C1" style-hover="border-color:rgba(203,197,195,0.5)">{{ li.det.auditLabel }}</span>
+          <sc-if value="{{ li.det.audit }}" hint-placeholder-val="{{ false }}">
+          <div data-li-audit="1" style="display:flex;flex-direction:column;gap:7px;padding:13px 15px;border-radius:12px;background:#1C1817;border:1px solid rgba(203,197,195,0.10)">
+            <div style="display:flex;flex-wrap:wrap;gap:18px">
+              <span style="display:flex;flex-direction:column;gap:1px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#8F8886">{{ t.liSnapshot }}</span><span style="font-size:11px;color:#EDEAE9;font-variant-numeric:tabular-nums">{{ li.det.snapshot }}</span></span>
+              <span style="display:flex;flex-direction:column;gap:1px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#8F8886">{{ t.liRuleset }}</span><span style="font-size:11px;color:#EDEAE9">{{ li.meta.ruleset }}</span></span>
+              <span style="display:flex;flex-direction:column;gap:1px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#8F8886">RUN</span><span style="font-size:11px;color:#EDEAE9">{{ li.det.run }}</span></span>
+              <span style="display:flex;flex-direction:column;gap:1px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#8F8886">{{ t.liSeal }}</span><span style="font-size:11px;color:#EDEAE9;font-variant-numeric:tabular-nums">{{ li.meta.seal }}</span></span>
+              <span style="display:flex;flex-direction:column;gap:1px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#8F8886">{{ t.liLineRule }}</span><span data-li-token="{{ li.det.lineState }}" style="font-size:11px;color:#EDEAE9">{{ li.det.lineState }}</span></span>
+            </div>
+            <sc-if value="{{ li.det.hasSource }}" hint-placeholder-val="{{ true }}"><a href="{{ li.det.sourceUrl }}" target="_blank" style="font-size:10.5px;color:#8F8886;text-decoration:none;overflow-wrap:anywhere">{{ t.liSourceCsv }} →</a></sc-if>
+            <div style="display:flex;flex-direction:column;gap:2px;padding-top:5px;border-top:1px solid rgba(255,255,255,0.07)">
+              <span data-li-token="{{ li.det.validity.code }}" style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.04em;color:#B1A9A7">{{ li.det.validity.code }}<sc-if value="{{ li.det.validity.hasRule }}" hint-placeholder-val="{{ true }}"><span style="color:#00B152"> · {{ li.det.validity.rule }}</span></sc-if></span>
+              <span style="font-size:10.5px;color:#EDEAE9;line-height:1.4">{{ li.det.validity.gloss }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <span data-li-token="{{ li.det.doseState.code }}" style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.04em;color:#B1A9A7">{{ li.det.doseState.code }}</span>
+              <span style="font-size:10.5px;color:#EDEAE9;line-height:1.4">{{ li.det.doseState.gloss }}</span>
+            </div>
           </div>
           </sc-if>
         </div>
@@ -3618,7 +3765,14 @@ class Component extends DCLogic {
     mCrop: 'maize', mTab: 'crop',
     lang: (() => { try { return localStorage.getItem('sintonia_lang') === 'en' ? 'en' : 'it'; } catch (e) { return 'it'; } })(),
     productId: null, portTab: 'commercial', portCat: '', portQ: '',
-    etReg: null, etQ: '', etShown: 24, etOnlyFact: false,
+    /* LABEL INTELLIGENCE · o estado da ferramenta. `liTipo` e a classe do
+       registo; as seis buscas sao seis campos porque sao seis perguntas
+       diferentes, e combina-las e o ponto. `liIn` busca DENTRO de uma
+       etichetta, `liEstado` filtra pelos quatro estados humanos, e
+       `liAudit` abre a auditoria que antes estava sempre a vista. */
+    etReg: null, etShown: 24,
+    liTipo: '', liQ: '', liSub: '', liCrop: '', liTgt: '', liReg: '', liHold: '',
+    liIn: '', liEstado: '', liOpenRow: null, liAudit: false,
     /* calStart is the month offset the calendar opens on. It was 7, which put AM.REF
        2026-09-02 at 8.6% of the track — the reference date pinned to the left edge with
        almost no history behind it — while the calendar's own TODAY button computes
@@ -8728,210 +8882,520 @@ class Component extends DCLogic {
       };
     }
     /* ══ §11b · LABEL INTELLIGENCE ════════════════════════════════════════════
-       Uma capacidade inteira chega de fora, com a sua propria lei escrita, os
-       seus proprios portoes e um selo que prova que o payload nao foi tocado.
-       O trabalho aqui NAO e interpretar: e mostrar sem perder nada.
+       Uma capacidade inteira chega de fora, com a sua lei escrita, os seus
+       portoes e um selo que prova que o payload nao foi tocado. O trabalho aqui
+       nao e interpretar: e mostrar sem perder nada — e sem obrigar quem le a
+       saber o que e R-14.
 
-           O QUE ESTA TELA RESPONDE:
-               o que o rotulo oficial ADAMA autoriza, como esta estruturado
-               e o que mudou.
+           O QUE ESTA FERRAMENTA RESPONDE:
+               ler, verificar e comparar as etichette oficiais dos produtos.
 
            O QUE ELA NAO RESPONDE, E NAO PODE SER FEITA RESPONDER POR JUNCAO:
                OPPORTUNITY · SCIENTIFIC_INTELLIGENCE · DISEASE_INTELLIGENCE ·
                COMPETITOR_INTELLIGENCE
 
-       Uso autorizado NAO E oportunidade comercial, e por isso esta vista nao
-       tem um so botao que leve ao radar: o cruzamento e do leitor, nao do
-       codigo. A frase esta na tela, nao so neste comentario.
+       Uso autorizado NAO E oportunidade comercial, e ausencia de autorizacao
+       tambem nao e. Por isso esta vista nao tem um so botao que leve ao radar.
 
        TRES OBRIGACOES QUE VIAJAM COM O DADO, e que o portao mede:
-        1 · todo token de ignorancia continua visivel COM O PROPRIO NOME. Nunca
-            «-», nunca «0», nunca «N/A», nunca celula vazia. A glosa italiana
-            fica AO LADO do token, nunca no lugar dele;
-        2 · nenhuma frase ganha aspas sem `QUOTE_VERBATIM`. O verbo «l'etichetta
-            scrive» e a afirmacao mais forte da ferramenta, e uma citacao
-            remontada manda o leitor procurar no PDF uma frase que nao esta la;
-        3 · as sete coberturas nunca colapsam num numero so. Cobertura por
-            rotulo esconde o que o leitor nao leu.                            */
+        1 · todo token de ignorancia continua visivel COM O PROPRIO NOME —
+            agora dentro de «Come SINTONIA l'ha verificato», nao na cara de
+            quem so quer ler a etichetta;
+        2 · nenhuma frase ganha aspas sem `QUOTE_VERBATIM`;
+        3 · as sete coberturas nunca colapsam num numero so.                 */
     let li = null;
     if (window.ITALY_LABEL_INTELLIGENCE) {
       const LI = window.ITALY_LABEL_INTELLIGENCE;
       const LEX = window.ITALY_LABEL_LEXICON || {};
       const PRODOTTI = LI.products || [];
+      const CU = (AM && AM.CATEGORY_UI) || {};
 
-      /* O CHIP DE ESTADO · o token e a glosa, e nunca um sem o outro.
-         `code` e o campo onde o token viaja: `checks.mjs` isenta esse nome do
-         controlo de ingles acidental porque um token de maquina NAO e copy —
-         e o proprio nome do estado, e traduzi-lo seria apaga-lo. */
+      /* ══ A TAXONOMIA E DO REGISTO, NAO MINHA ══════════════════════════════
+         O campo `activity` do registo italiano classifica os 166 produtos, e
+         classifica TODOS: medido, 166/166, zero por classificar. Sao dez
+         classes oficiais, escritas em italiano pelo Ministero — e e essa a
+         nomenclatura que a barra usa. Traduzi-las para «HERBICIDES» seria
+         inventar uma taxonomia por cima de uma que existe.
+
+             DISERBANTE 78 · FUNGICIDA 46 · INSETTICIDA 18 ·
+             DISERBANTE-ANTIDOTO AGRONOMICO 13 · INSETTICIDA-ACARICIDA 4 ·
+             AFICIDA 3 · MOLLUSCHICIDA 1 · INSETTICIDA-DISERBANTE 1 ·
+             DIRADANTE 1 · COADIUVANTE 1
+
+         A LINHA ADAMA — Pest / Disease / Weed Control — e outra coisa: e a
+         semantica visual da marca, e o portal ja a tem em `AM.CATEGORY_UI`,
+         com as cores e os icones oficiais. Ligar a classe do registo a linha
+         da marca e uma REGRA, e esta escrita aqui com nome proprio, para poder
+         ser conferida:
+
+             LINE_FROM_REGISTRY_ACTIVITY
+               DISERBANTE, DISERBANTE-ANTIDOTO AGRONOMICO   -> weed
+               FUNGICIDA                                     -> disease
+               INSETTICIDA, INSETTICIDA-ACARICIDA, AFICIDA   -> pest
+
+             LINE_NOT_IN_ADAMA_THREE_LINES
+               MOLLUSCHICIDA, DIRADANTE, COADIUVANTE
+             LINE_NOT_DECIDED_COMPOSITE_ACTIVITY
+               INSETTICIDA-DISERBANTE  (duas linhas ao mesmo tempo)
+
+         Os quatro que sobram NAO recebem cor inventada: ficam no neutro do
+         modelo, com o estado escrito. Quatro em 166.                        */
+      const LINHA_DA_ACTIVIDADE = {
+        'DISERBANTE': 'weed', 'DISERBANTE-ANTIDOTO AGRONOMICO': 'weed',
+        'FUNGICIDA': 'disease',
+        'INSETTICIDA': 'pest', 'INSETTICIDA-ACARICIDA': 'pest', 'AFICIDA': 'pest',
+      };
+      const COMPOSTA = { 'INSETTICIDA-DISERBANTE': 1 };
+      const linhaDe = (act) => {
+        const k = LINHA_DA_ACTIVIDADE[act];
+        if (k) return { ui: CU[k] || CU.unknown, key: k, state: 'LINE_FROM_REGISTRY_ACTIVITY' };
+        if (COMPOSTA[act]) return { ui: CU.unknown, key: 'unknown', state: 'LINE_NOT_DECIDED_COMPOSITE_ACTIVITY' };
+        return { ui: CU.unknown, key: 'unknown', state: 'LINE_NOT_IN_ADAMA_THREE_LINES' };
+      };
+
+      /* ══ A CLASSE DO ALVO · DERIVADA, E DECLARADA COMO DERIVADA ═══════════
+         O portal tem 21 avversita classificadas (PEST/DISEASE/WEED) e nenhuma
+         das 57 do registo casa com elas: sao vocabularios diferentes. Nao ha
+         taxonomia aqui que diga que OIDIO e uma doenca.
+
+             NAO SE DA ICONE DE DOENCA A QUEM NAO SE SABE SER DOENCA.
+
+         O que HA e a actividade oficial do produto que autoriza o uso: os
+         alvos de um FUNGICIDA sao doencas, os de um DISERBANTE sao infestantes.
+         Isso e DERIVACAO, nao declaracao — e por isso tem nome proprio e um
+         controlo que a pode desmentir: se um alvo aparecesse sob duas linhas
+         diferentes, a derivacao estaria contradita e o alvo iria a UNKNOWN.
+
+             MEDIDO: 57 alvos, 57 derivados, ZERO contraditos.
+
+         A regra chama-se TARGET_CLASS_FROM_PRODUCT_ACTIVITY e viaja com o
+         alvo ate a tela, onde o modo auditoria a mostra. */
+      const CLASSE_DO_ALVO = (() => {
+        const m = {};
+        for (const p0 of PRODOTTI) {
+          const l = LINHA_DA_ACTIVIDADE[p0.activity];
+          if (!l) continue;
+          for (const u of p0.uses || []) {
+            if (!u.target) continue;
+            (m[u.target] = m[u.target] || new Set()).add(l);
+          }
+        }
+        const out = {};
+        for (const k of Object.keys(m)) out[k] = m[k].size === 1 ? [...m[k]][0] : null;
+        return out;
+      })();
+      const alvoUi = (t) => {
+        const k = CLASSE_DO_ALVO[t] || null;
+        return k ? { ui: CU[k] || CU.unknown, key: k, state: 'TARGET_CLASS_FROM_PRODUCT_ACTIVITY' }
+          : { ui: CU.unknown, key: 'unknown', state: 'TARGET_CLASS_UNKNOWN' };
+      };
+      /* NAO HA ICONE OFICIAL DE CULTURA no extrato versionado do Design System
+         — ha os tres icones de LINHA e nove de tema. O portal ja usa
+         `farm-management` para a dimensao CULTURA nas suas proprias barras de
+         filtro, e reusa-se esse, em vez de importar uma biblioteca generica.
+             ADAMA_DESIGN_SYSTEM_MATCH = PARTIAL (nao ha icone por cultura)
+             NEW_PATTERN_REQUIRED = NO (reusa-se o do proprio portal)        */
+      const ICONE_CULTURA = ICO('farm-management');
+
       const chip = (v) => {
         const t = String(v == null ? '' : v);
         if (!t) return null;
         const e = LEX[t] || null;
         return { code: t, gloss: e ? (s.lang === 'en' ? e.en : e.it) : '',
-          hasGloss: !!(e && (s.lang === 'en' ? e.en : e.it)),
           rule: e && e.regra ? e.regra : '', hasRule: !!(e && e.regra) };
       };
       const chips = (obj, campos) => campos.map((k) => chip(obj[k])).filter(Boolean);
 
-      /* A CITACAO · so `QUOTE_VERBATIM` ganha aspas. Os outros oito estados
-         saem com o texto marcado como LEITURA DO EXTRATOR, sem aspas e sem o
-         verbo. E a regra R-18, e e a afirmacao mais forte da ferramenta. */
       const citazione = (testo, stato) => {
-        /* «““Etichetta autorizzata…””» — a frase de vigencia ja chega do payload
-           entre aspas tipograficas, e a tela punha as suas por cima. Duas aspas
-           a volta da mesma frase nao sao um erro de estilo: fazem a citacao
-           parecer citacao de citacao, e a citacao e a afirmacao mais forte
-           desta ferramenta. Tiram-se as de fora, nunca o texto. */
+        /* «““Etichetta autorizzata…””» — a frase ja chega do payload entre
+           aspas tipograficas, e a tela punha as suas por cima. */
         const cru = String(testo == null ? '' : testo).trim();
         const txt = cru.replace(/^[“"«]+\s*/, '').replace(/\s*[”"»]+$/, '');
         const st = String(stato || '');
-        if (!txt || txt === 'NOT_PRESERVED') return { has: false, quoted: false, text: '', state: chip(stato || 'NOT_PRESERVED') };
+        if (!txt || txt === 'NOT_PRESERVED') return { has: false, quoted: false, notQuoted: false, text: '', state: chip(stato || 'NOT_PRESERVED') };
         const ok = st === 'QUOTE_VERBATIM';
         return { has: true, quoted: ok, notQuoted: !ok, text: txt, state: chip(st || 'NOT_CHECKED') };
       };
 
-      /* AS SETE COBERTURAS, LADO A LADO E NUNCA SOMADAS.
-         «Cobertura nao e uma so. Sao 7 coberturas separadas, de proposito.» */
+      /* ══ OS QUATRO ESTADOS HUMANOS ════════════════════════════════════════
+         «0 su 16 provati» le-se «nao existem 16 usos autorizados», e nao e
+         isso que os dados dizem. Dizem: dezasseis combinacoes LIDAS no
+         documento, nenhuma delas com o par provado pela geometria da tabela.
+
+             NOT PROVEN NAO E NOT AUTHORISED.
+             E a distancia entre as duas frases e o trabalho desta tela.
+
+         O mapeamento NAO altera nenhuma verdade guardada — le os mesmos
+         campos e diz-lhes o nome que uma pessoa usa:
+
+           VERIFIED   `fact` verdadeiro: o contrato fechou as tres colunas.
+           FOUND      o nome da cultura E o do alvo sao palavras do documento,
+                      a linha sobreviveu a regra de exclusao, e so o
+                      emparelhamento geometrico nao pode ser medido.
+           UNKNOWN    um dos nomes nao e palavra do documento (taxonomia,
+                      prefixo, ausente): nao ha como concluir.
+           ERROR      o controlo nem chegou a correr.
+
+         MEDIDO nos 2.873: VERIFIED 1.324 · FOUND 1.278 · UNKNOWN 271 ·
+         ERROR 0. E NOT AUTHORISED nao aparece aqui de todo — vive noutro
+         bloco, so onde ha prova positiva. */
+      const NOME_OK = { CROP_NAME_LITERAL: 1, CROP_NAME_INFLECTED_IN_LABEL: 1 };
+      const ALVO_OK = { TARGET_NAME_LITERAL: 1, TARGET_NAME_INFLECTED_IN_LABEL: 1 };
+      const NAO_CORREU = { TARGET_NAME_NOT_CHECKED: 1, CROP_NAME_NOT_CHECKED: 1, NOT_CHECKED: 1, NOT_ATTEMPTED: 1 };
+      const estadoDe = (u) => {
+        if (u.fact) return 'VERIFIED';
+        if (NAO_CORREU[u.crop_name] || NAO_CORREU[u.target_name]) return 'ERROR';
+        if (NOME_OK[u.crop_name] && ALVO_OK[u.target_name] && u.exclusion_check === 'ATTESTED_OUTSIDE_EXCLUSION') return 'FOUND';
+        return 'UNKNOWN';
+      };
+      const ESTADO_UI = {
+        VERIFIED: { label: T.liStVerified, mark: '✓', ink: '#00B152', bg: 'rgba(0,152,69,0.14)', edge: 'rgba(0,152,69,0.55)', why: T.liWhyVerified },
+        FOUND: { label: T.liStFound, mark: '⚠', ink: '#F5B317', bg: 'rgba(245,179,23,0.10)', edge: 'rgba(245,179,23,0.45)', why: T.liWhyFound },
+        UNKNOWN: { label: T.liStUnknown, mark: '?', ink: '#C9C3C1', bg: 'rgba(255,255,255,0.05)', edge: 'rgba(203,197,195,0.28)', why: T.liWhyUnknown },
+        ERROR: { label: T.liStError, mark: '!', ink: '#C77BC3', bg: 'rgba(157,29,150,0.12)', edge: 'rgba(199,123,195,0.55)', why: T.liWhyError },
+      };
+
+      /* ── o resumo de um produto, contado uma vez ─────────────────────────── */
+      const resumo = (p0) => {
+        const us = p0.uses || [];
+        const c = { VERIFIED: 0, FOUND: 0, UNKNOWN: 0, ERROR: 0 };
+        for (const u of us) c[estadoDe(u)]++;
+        return { n: us.length, c,
+          crops: new Set(us.map((u) => u.crop).filter(Boolean)).size,
+          targets: new Set(us.map((u) => u.target).filter(Boolean)).size,
+          doses: (p0.doses || []).length,
+          removed: (p0.uses_retirados || []).length + (p0.uses_contraditos || []).length + (p0.uses_rotacao || []).length };
+      };
+
+      /* ══ AS SETE COBERTURAS, NUNCA SEIS NEM OITO ══════════════════════════ */
       const COB = LI.coverage || {};
       const coberturas = Object.keys(COB).map((k) => {
         const c = COB[k] || {};
-        return { code: k, covered: c.COVERED, of: c.OF, pct: (c.PCT === null || c.PCT === undefined) ? (T.ksNotKnown || '') : (c.PCT + '%'),
-          /* a barra e proporcao, nao juizo: 0% desenha-se vazia e le-se vazia */
+        return { code: k, covered: c.COVERED, of: c.OF,
+          pct: (c.PCT === null || c.PCT === undefined) ? (T.ksNotKnown || '') : (c.PCT + '%'),
           w: (typeof c.PCT === 'number' ? Math.max(c.PCT, 0) : 0) + '%',
           ink: (typeof c.PCT === 'number' && c.PCT >= 99) ? '#00B152' : (typeof c.PCT === 'number' && c.PCT >= 50) ? '#F5B317' : '#B1A9A7' };
       });
 
-      const somaUsi = PRODOTTI.reduce((a, p0) => a + ((p0.uses || []).length), 0);
-      const somaFatti = PRODOTTI.reduce((a, p0) => a + (p0.uses || []).filter((u) => u.fact).length, 0);
-      const somaDosi = PRODOTTI.reduce((a, p0) => a + ((p0.doses || []).length), 0);
+      /* ══ A BARRA DE TIPOS · so as classes que os dados tem ════════════════ */
+      const contaAct = {};
+      for (const p0 of PRODOTTI) { const a = p0.activity || 'UNCLASSIFIED'; contaAct[a] = (contaAct[a] || 0) + 1; }
+      const tipos = [{ code: '', label: T.liAll, n: PRODOTTI.length, ui: null }]
+        .concat(Object.keys(contaAct).sort((a, b) => contaAct[b] - contaAct[a]).map((a) => {
+          const l = linhaDe(a);
+          return { code: a, label: a, n: contaAct[a], ui: l.ui, lineKey: l.key, lineState: l.state };
+        }))
+        .map((t0) => {
+          const on = s.liTipo === t0.code;
+          const cor = t0.ui && t0.ui.color ? t0.ui.color : '#978B87';
+          return Object.assign({}, t0, {
+            on,
+            icon: (t0.ui && t0.ui.iconAsset) || '',
+            hasIcon: !!(t0.ui && t0.ui.iconAsset),
+            /* O ESTADO SELECIONADO NAO PODE DEPENDER SO DA COR — a barra usa
+               fundo, borda, peso E um sublinhado, como manda a acessibilidade. */
+            bg: on ? cor + '26' : '#1C1817',
+            border: on ? cor : 'rgba(203,197,195,0.18)',
+            ink: on ? '#fff' : '#D6D2D0',
+            weight: on ? 700 : 500,
+            rail: cor,
+            railH: on ? '3px' : '0px',
+            go: () => this.setState({ liTipo: t0.code, etShown: 24 }),
+          });
+        });
 
-      /* A BARRA · as mesmas palavras que a ficha ja escreve, e nada mais. */
-      const EFOLD = (x) => String(x == null ? '' : x).normalize('NFD').split('')
+      /* ══ AS BUSCAS POR DIMENSAO · so as que os dados sustentam ════════════
+         Medido no acervo: 166 produtos, 166 numeros de registo, 56 substancias
+         activas, 4 titulares, 46 culturas e 57 alvos. Todas as seis buscam
+         sobre campos estruturados; nenhuma e decorativa.
+
+             UMA BUSCA QUE NAO BUSCA E PIOR DO QUE NENHUMA:
+             ENSINA QUE O ACERVO NAO TEM O QUE ELA NAO ENCONTRA.               */
+      const FOLD = (x) => String(x == null ? '' : x).normalize('NFD').split('')
         .filter((ch) => { const n0 = ch.charCodeAt(0); return n0 < 768 || n0 > 879; }).join('').toLowerCase();
-      const eQ = EFOLD(s.etQ || '').trim();
-      const eTermos = eQ ? eQ.split(/\s+/).filter(Boolean) : [];
-      const eHay = (p0) => EFOLD([p0.name, p0.reg, p0.holder, p0.actives, p0.formulation,
-        p0.activity, p0.status, p0.expiry]
-        .concat((p0.uses || []).map((u) => (u.crop || '') + ' ' + (u.target || '')))
-        .filter(Boolean).join(' · '));
+      const termos = (v) => { const t = FOLD(v || '').trim(); return t ? t.split(/\s+/).filter(Boolean) : []; };
+      const tQ = termos(s.liQ), tSub = termos(s.liSub), tCrop = termos(s.liCrop),
+        tTgt = termos(s.liTgt), tReg = termos(s.liReg), tHold = termos(s.liHold);
+      const bate = (hay, ts) => { const h = FOLD(hay); return ts.every((t) => h.indexOf(t) >= 0); };
 
-      const filtrados = PRODOTTI
-        .filter((p0) => !s.etOnlyFact || (p0.uses || []).some((u) => u.fact))
-        .filter((p0) => !eTermos.length || (() => { const h = eHay(p0); return eTermos.every((t) => h.indexOf(t) >= 0); })());
+      const passa = (p0) => {
+        if (s.liTipo && p0.activity !== s.liTipo) return false;
+        if (tSub.length && !bate(p0.actives || '', tSub)) return false;
+        if (tReg.length && !bate(p0.reg || '', tReg)) return false;
+        if (tHold.length && !bate(p0.holder || '', tHold)) return false;
+        if (tCrop.length && !(p0.uses || []).some((u) => bate(u.crop || '', tCrop))) return false;
+        if (tTgt.length && !(p0.uses || []).some((u) => bate(u.target || '', tTgt))) return false;
+        if (tQ.length) {
+          const h = [p0.name, p0.reg, p0.holder, p0.actives, p0.formulation, p0.activity]
+            .concat((p0.uses || []).map((u) => (u.crop || '') + ' ' + (u.target || ''))).filter(Boolean).join(' · ');
+          if (!bate(h, tQ)) return false;
+        }
+        return true;
+      };
+      const filtrados = PRODOTTI.filter(passa);
+      const mostrati = filtrados.slice(0, s.etShown || 24);
+      const temFiltro = !!(s.liTipo || tQ.length || tSub.length || tCrop.length || tTgt.length || tReg.length || tHold.length);
+
+      /* ══ FILTRAR POR CULTURA NAO PROMOVE NADA A AUTORIZADO ════════════════
+         Quem procura «WHEAT» quer ver os produtos que a nomeiam. Se a linha
+         correspondente ainda nao tem o par provado, ela aparece — no seu
+         estado, e nao no de cima.
+
+             UMA OCORRENCIA TEXTUAL NAO VIRA AUTORIZACAO POR TER SIDO
+             ENCONTRADA POR UMA BUSCA.                                       */
+      const casaCultura = (p0) => {
+        if (!tCrop.length && !tTgt.length) return null;
+        const rows = (p0.uses || []).filter((u) =>
+          (!tCrop.length || bate(u.crop || '', tCrop)) && (!tTgt.length || bate(u.target || '', tTgt)));
+        const c = { VERIFIED: 0, FOUND: 0, UNKNOWN: 0, ERROR: 0 };
+        for (const u of rows) c[estadoDe(u)]++;
+        return { n: rows.length, c, hasVer: c.VERIFIED > 0, hasFound: c.FOUND > 0 };
+      };
 
       const cartao = (p0) => {
-        const us = p0.uses || [];
-        const fatti = us.filter((u) => u.fact).length;
+        const r = resumo(p0);
+        const l = linhaDe(p0.activity);
+        const m = casaCultura(p0);
         return {
           reg: p0.reg, name: p0.name,
           holder: p0.holder || (T.ksNotKnown || ''),
           actives: p0.actives || (T.ksNotKnown || ''),
-          status: p0.status || (T.ksNotKnown || ''),
-          usi: us.length, fatti, dosi: (p0.doses || []).length,
-          /* «21 su 34 provati» diz mais do que «21». E quando nao ha nenhum uso,
-             o estado do leitor de dose entra com o proprio nome — porque
-             falha de leitor NAO e ausencia regulatoria. */
-          noUse: us.length === 0,
+          activity: p0.activity || 'UNCLASSIFIED',
+          lineColor: (l.ui && l.ui.color) || '#978B87',
+          lineIcon: (l.ui && l.ui.iconAsset) || '', hasLineIcon: !!(l.ui && l.ui.iconAsset),
+          lineState: l.state,
+          usi: r.n, ver: r.c.VERIFIED, found: r.c.FOUND, unk: r.c.UNKNOWN, err: r.c.ERROR,
+          crops: r.crops, targets: r.targets, doses: r.doses,
+          hasUsi: r.n > 0, noUsi: r.n === 0,
           doseState: chip(p0.dose_state || 'NOT_CHECKED'),
-          expiry: p0.expiry || (T.ksNotKnown || ''),
+          match: m, hasMatch: !!m,
+          matchLine: m ? (m.n + ' ' + (T.liMatching || '') + ' · ' + m.c.VERIFIED + ' ' + (T.liStVerified || '') + ' · ' + m.c.FOUND + ' ' + (T.liStFound || '')) : '',
           go: () => this.go({ view: 'etichetta', etReg: p0.reg }),
         };
       };
 
-      const mostrati = filtrados.slice(0, s.etShown || 24);
-
-      /* ── A FICHA DE UM ROTULO ──────────────────────────────────────────── */
-      const alvo = s.etReg ? (PRODOTTI.filter((p0) => p0.reg === s.etReg)[0] || null) : null;
+      /* ══ A FICHA DE UMA ETICHETTA ═════════════════════════════════════════ */
+      const alvoP = s.etReg ? (PRODOTTI.filter((p0) => p0.reg === s.etReg)[0] || null) : null;
       let det = null;
-      if (alvo) {
-        /* OS USOS, AGRUPADOS PELA CULTURA. Um gerente le blocos, nao linhas:
-           a cultura e o bloco, e o alvo e o chip dentro dele. O selo FATO fica
-           no chip, porque e o par que e provado — nao a cultura. */
-        const porCultura = {};
-        for (const u of (alvo.uses || [])) {
-          const k = u.crop || (T.ksNotKnown || '?');
-          (porCultura[k] = porCultura[k] || []).push(u);
-        }
-        const usiGroups = Object.keys(porCultura).sort().map((k) => {
-          const rows = porCultura[k];
-          return {
-            crop: k, n: rows.length, fatti: rows.filter((u) => u.fact).length,
-            rows: rows.map((u) => ({
-              target: u.target || (T.ksNotKnown || ''),
-              fact: !!u.fact, notFact: !u.fact,
-              /* O SELO NAO E «TRES TESTES INDEPENDENTES DISSERAM SIM».
-                 A formula exige tres colunas; medido no censo de hoje, R-14
-                 sozinha da os mesmos 1.324. A tela diz isso onde o leitor o le,
-                 nao so no rodape. */
-              seal: u.fact ? (T.liFact || 'FATTO') : (T.liNotProven || ''),
-              states: chips(u, ['pair_check', 'crop_name', 'target_name', 'exclusion_check', 'route', 'evidence']),
-              cita: citazione(u.target_raw, u.target_raw_state),
-              scope: (u.crop_scope || []).join(' · '),
-              hasScope: !!(u.crop_scope || []).length,
-            })),
-          };
-        });
+      if (alvoP) {
+        const l = linhaDe(alvoP.activity);
+        const r = resumo(alvoP);
 
-        const dosi = (alvo.doses || []).map((d) => ({
+        /* A busca DENTRO da etichetta, e os quatro botoes de estado. Uma
+           etichetta com 184 pares nao se le a rolar. */
+        const tIn = termos(s.liIn);
+        const linha = (u) => {
+          const st = estadoDe(u);
+          const au = alvoUi(u.target);
+          const ui = ESTADO_UI[st] || ESTADO_UI.UNKNOWN;
+          return {
+            crop: u.crop || (T.ksNotKnown || ''), target: u.target || (T.ksNotKnown || ''),
+            state: st,
+            stLabel: ui.label, stMark: ui.mark, stInk: ui.ink, stBg: ui.bg, stEdge: ui.edge,
+            stWhy: ui.why,
+            /* A CLASSE DO ALVO E A LINHA DO PRODUTO SAO DUAS DIMENSOES, e o
+               desenho nao as mistura: a cor da linha nunca faz um uso nao
+               verificado parecer verificado — o estado tem inchoustro proprio. */
+            tgtColor: (au.ui && au.ui.color) || '#978B87',
+            tgtIcon: (au.ui && au.ui.iconAsset) || '', hasTgtIcon: !!(au.ui && au.ui.iconAsset),
+            tgtClass: au.key === 'unknown' ? (T.ksNotKnown || '') : ((au.ui && au.ui.label) || ''),
+            tgtState: au.state,
+            cropIcon: ICONE_CULTURA,
+            /* A EVIDENCIA A UM CLIQUE: o que o extractor leu, com o estado da
+               citacao ao lado. As aspas so com QUOTE_VERBATIM. */
+            evCrop: citazione(u.crop_raw, u.crop_raw_state),
+            evTarget: citazione(u.target_raw, u.target_raw_state),
+            states: chips(u, ['pair_check', 'crop_name', 'target_name', 'exclusion_check', 'route', 'evidence']),
+            scope: (u.crop_scope || []).join(' · '), hasScope: !!(u.crop_scope || []).length,
+            key: (u.crop || '') + '·' + (u.target || ''),
+            open: !!s.liOpenRow && s.liOpenRow === ((u.crop || '') + '·' + (u.target || '')),
+            toggle: () => this.setState({ liOpenRow: s.liOpenRow === ((u.crop || '') + '·' + (u.target || '')) ? null : ((u.crop || '') + '·' + (u.target || '')) }),
+          };
+        };
+        const todas = (alvoP.uses || []).map(linha)
+          .filter((x) => !s.liEstado || x.state === s.liEstado)
+          .filter((x) => !tIn.length || bate(x.crop + ' ' + x.target, tIn));
+        /* agrupa pela cultura, que e como se le uma etichetta */
+        const porCultura = {};
+        for (const x of todas) (porCultura[x.crop] = porCultura[x.crop] || []).push(x);
+        const usiGroups = Object.keys(porCultura).sort().map((k) => ({
+          crop: k, rows: porCultura[k], n: porCultura[k].length,
+          ver: porCultura[k].filter((x) => x.state === 'VERIFIED').length,
+          cropIcon: ICONE_CULTURA,
+        }));
+
+        const btnEstado = ['', 'VERIFIED', 'FOUND', 'UNKNOWN', 'ERROR'].map((code) => {
+          const n = code ? (alvoP.uses || []).filter((u) => estadoDe(u) === code).length : (alvoP.uses || []).length;
+          const ui = code ? ESTADO_UI[code] : { label: T.liAll, ink: '#D6D2D0', edge: 'rgba(203,197,195,0.28)', bg: '#1C1817' };
+          const on = (s.liEstado || '') === code;
+          return { code, label: ui.label, n,
+            bg: on ? (ui.bg || '#1C1817') : '#1C1817', border: on ? (ui.edge || '#009845') : 'rgba(203,197,195,0.18)',
+            ink: on ? (ui.ink || '#fff') : '#9A9391', weight: on ? 700 : 500,
+            /* um botao que filtra para zero e um convite a esvaziar o ecra */
+            go: () => this.setState({ liEstado: code, liOpenRow: null }) };
+        }).filter((b) => b.n > 0 || b.code === '');
+
+        /* ══ O QUE A ETICHETTA NAO AUTORIZA — SO COM PROVA POSITIVA ═════════
+           NOT AUTHORISED nao se deduz de uma ausencia. Estes tres conjuntos
+           sao o contrario: sao linhas que o documento CONTRADIZ, e cada uma
+           traz o mecanismo e a frase que a derrubou.
+
+               2 retiradas  · a cultura so aparece DENTRO de uma exclusao
+               4 rotacao    · so aparece numa proibicao de semeadura
+              49 contraditas· a geometria da tabela desmente o par
+
+           E as tres nao dizem a mesma coisa: as duas primeiras sao a
+           etichetta a EXCLUIR; a terceira e o par a nao existir na tabela —
+           que nao e o mesmo que a cultura nao ser autorizada.                */
+        const naoAutorizados = (alvoP.uses_retirados || []).map((x) => ({
+          crop: x.CROP || '', target: x.TARGET || '', kind: 'EXCLUDED',
+          kindLabel: T.liNotAuthorised, ink: '#C77BC3',
+          why: chip(x.WHY || 'CROP_ONLY_INSIDE_EXCLUSION'),
+          cita: citazione(x.EXCLUSION_TEXT, x.EXCLUSION_QUOTE_STATE === 'QUOTED' ? 'QUOTE_VERBATIM' : 'NOT_PRESERVED'),
+        })).concat((alvoP.uses_rotacao || []).map((x) => ({
+          crop: x.CROP || '', target: x.TARGET || '', kind: 'ROTATION',
+          kindLabel: T.liNotAUse, ink: '#C77BC3',
+          why: chip(x.WHY || 'CROP_ONLY_IN_ROTATION_RESTRICTION'),
+          cita: citazione(x.ROTATION_TEXT || x.QUOTE, 'NOT_PRESERVED'),
+        }))).concat((alvoP.uses_contraditos || []).map((x) => ({
+          crop: x.CROP || '', target: x.TARGET || '', kind: 'CONTRADICTED',
+          kindLabel: T.liPairContradicted, ink: '#F5B317',
+          why: chip(x.MECHANISM || 'CROP_CELL_DOES_NOT_CONTAIN_TARGET'),
+          cita: citazione(x.CROP_AS_WRITTEN, 'NOT_PRESERVED'),
+        })));
+
+        const dosi = (alvoP.doses || []).map((d) => ({
           crop: d.crop || (T.ksNotKnown || ''), target: d.target || (T.ksNotKnown || ''),
-          /* O NUMERO SO APARECE QUANDO O NUMERO EXISTE. Onde a ferramenta o
-             reteve, entra o estado com o proprio nome — nunca um traco. */
           ha: (d.dose_ha !== null && d.dose_ha !== undefined && d.dose_ha !== '') ? (d.dose_ha + ' ' + (d.unit_ha || '')) : '',
           hasHa: !!(d.dose_ha !== null && d.dose_ha !== undefined && d.dose_ha !== ''),
           conc: (d.dose_conc !== null && d.dose_conc !== undefined && d.dose_conc !== '') ? (d.dose_conc + ' ' + (d.unit_conc || '')) : '',
           hasConc: !!(d.dose_conc !== null && d.dose_conc !== undefined && d.dose_conc !== ''),
+          /* SEM NUMERO NAO E ZERO: e o estado, com o proprio nome. */
+          noNum: !(d.dose_ha || d.dose_conc),
           maxApp: d.max_app === null || d.max_app === undefined || d.max_app === '' ? '' : String(d.max_app),
           hasMax: !(d.max_app === null || d.max_app === undefined || d.max_app === ''),
           interval: d.interval === null || d.interval === undefined || d.interval === '' ? '' : String(d.interval),
           hasInterval: !(d.interval === null || d.interval === undefined || d.interval === ''),
           inherited: !!(d.crop_inherited || d.dose_ha_inherited || d.max_app_inherited),
+          review: !!d.needs_review,
           states: chips(d, ['band_check', 'crop_check', 'target_literal', 'max_check', 'interval_check', 'rule_check']),
           cita: citazione(d.quote, d.quote_state),
-          review: !!d.needs_review, rejected: !!d.rejected,
           page: (d.page === null || d.page === undefined) ? '' : String(d.page),
           hasPage: !(d.page === null || d.page === undefined),
+          tgtColor: (alvoUi(d.target).ui || {}).color || '#978B87',
         }));
 
         det = {
-          reg: alvo.reg, name: alvo.name,
-          holder: alvo.holder || (T.ksNotKnown || ''),
-          actives: alvo.actives || (T.ksNotKnown || ''),
-          formulation: alvo.formulation || (T.ksNotKnown || ''),
-          activity: alvo.activity || (T.ksNotKnown || ''),
-          status: alvo.status || (T.ksNotKnown || ''),
-          registeredAt: alvo.registered_at || (T.ksNotKnown || ''),
-          expiry: alvo.expiry || (T.ksNotKnown || ''),
-          /* R-09 EXIGE NOTA PERMANENTE: vencer NAO e ser revogado. A tela
-             mostra os dois campos e nao conclui saida de mercado. */
+          reg: alvoP.reg, name: alvoP.name,
+          activity: alvoP.activity || 'UNCLASSIFIED',
+          lineColor: (l.ui && l.ui.color) || '#978B87',
+          lineIcon: (l.ui && l.ui.iconAsset) || '', hasLineIcon: !!(l.ui && l.ui.iconAsset),
+          lineLabel: (l.ui && l.ui.label) || '', hasLineLabel: !!(l.ui && l.ui.label),
+          lineState: l.state,
+          holder: alvoP.holder || (T.ksNotKnown || ''),
+          actives: alvoP.actives || (T.ksNotKnown || ''),
+          formulation: alvoP.formulation || (T.ksNotKnown || ''),
+          status: alvoP.status || (T.ksNotKnown || ''),
+          registeredAt: alvoP.registered_at || (T.ksNotKnown || ''),
+          expiry: alvoP.expiry || (T.ksNotKnown || ''),
           expiryNote: T.liExpiryNote || '',
-          /* A PROVENIENCIA E UMA ROTA ATE UM DOCUMENTO EM DISCO, e o sha e a
-             unica coisa que prova que o documento e aquele. */
-          pdfUrl: alvo.pdf_url || '', hasPdf: !!alvo.pdf_url,
-          pdfSha: (alvo.pdf_sha || '').slice(0, 16), hasSha: !!alvo.pdf_sha,
-          sourceUrl: alvo.source_url || '', hasSource: !!alvo.source_url,
-          snapshot: alvo.snapshot || (T.ksNotKnown || ''),
-          capturedAt: alvo.captured_at || (T.ksNotKnown || ''),
-          run: alvo.run || (T.ksNotKnown || ''),
-          /* R-19 · a vigencia que a PROPRIA etichetta declara, com o estado do
-             leitor ao lado. `NOT_PRESENT` le-se «nao esta no rotulo» e seria
-             mentira: 112 rotulos declaram-na numa forma que a regra nao traduz
-             em data, e por isso o que se mostra e a FRASE. */
-          validity: chip(alvo.label_validity_state || 'VALIDITY_NOT_CHECKED'),
-          validityQuote: citazione(alvo.label_validity_literal || alvo.label_validity_quote,
-            alvo.label_validity_literal ? 'QUOTE_VERBATIM' : 'NOT_PRESERVED'),
-          validFrom: alvo.label_valid_from || (T.ksNotKnown || ''),
-          validTo: alvo.label_valid_to || (T.ksNotKnown || ''),
+          pdfUrl: alvoP.pdf_url || '', hasPdf: !!alvoP.pdf_url,
+          pdfSha: (alvoP.pdf_sha || '').slice(0, 16), hasSha: !!alvoP.pdf_sha,
+          sourceUrl: alvoP.source_url || '', hasSource: !!alvoP.source_url,
+          snapshot: alvoP.snapshot || (T.ksNotKnown || ''),
+          capturedAt: alvoP.captured_at || (T.ksNotKnown || ''),
+          run: alvoP.run || (T.ksNotKnown || ''),
+          /* R-19 · «FOUND — NOT PARSED» nao e UNKNOWN: sabemos que a frase
+             existe, e ela esta aqui. Dizer UNKNOWN onde a frase existe seria
+             perder informacao que ja temos. */
+          validity: chip(alvoP.label_validity_state || 'VALIDITY_NOT_CHECKED'),
+          validityFound: alvoP.label_validity_state === 'VALIDITY_PHRASE_PRESENT_FORM_NOT_READ',
+          validityRead: alvoP.label_validity_state === 'VALIDITY_WINDOW_READ',
+          /* «NOT_PRESENT → NOT_PRESENT» APARECIA COMO SE FOSSE UMA JANELA.
+             162 dos 163 rotulos trazem o sentinela nos dois campos, e a linha
+             desenhava-o como data. Um sentinela impresso onde se espera uma
+             data le-se como um valor — e o valor que ele nega. A janela so se
+             desenha quando ha janela; onde nao ha, fala o estado, que ja esta
+             logo abaixo com o proprio nome. */
+          validFrom: (alvoP.label_valid_from && alvoP.label_valid_from !== 'NOT_PRESENT') ? alvoP.label_valid_from : '',
+          validTo: (alvoP.label_valid_to && alvoP.label_valid_to !== 'NOT_PRESENT') ? alvoP.label_valid_to : '',
+          hasWindow: !!((alvoP.label_valid_from && alvoP.label_valid_from !== 'NOT_PRESENT')
+            || (alvoP.label_valid_to && alvoP.label_valid_to !== 'NOT_PRESENT')),
+          /* ══ EU DEI ASPAS A UMA FRASE QUE NINGUEM VERIFICOU ═══════════════
+             A primeira versao desta linha carimbava `QUOTE_VERBATIM` sempre
+             que `label_validity_literal` existisse — isto e, EU decidia que a
+             frase era citavel, quando R-18 diz que so o portao da ferramenta
+             decide isso. E o payload nao tem estado de citacao para este campo:
+             nenhum controlo o verificou.
+
+             O preco apareceu na tela: em LEOPARD 5 EC o literal chega ja
+             truncado do payload — «etta autorizzata con Decreto...», sem o
+             «Etich» — e ia entre aspas, com o verbo «l'etichetta scrive».
+             Mandava o leitor procurar no PDF uma frase que comeca noutro sitio.
+
+                 UMA CITACAO QUE NAO PASSOU PELO PORTAO NAO E UMA CITACAO,
+                 POR MAIS VERDADEIRA QUE PARECA.
+
+             Vai como LEITURA DO EXTRATOR, sem aspas e sem o verbo. O texto
+             nao se perde; perde-se a promessa que ninguem podia cumprir. */
+          validityQuote: citazione(alvoP.label_validity_literal || alvoP.label_validity_quote, 'NOT_CHECKED'),
+          /* O RESUMO HUMANO, ANTES DE QUALQUER CODIGO */
+          sum: { n: r.n, ver: r.c.VERIFIED, found: r.c.FOUND, unk: r.c.UNKNOWN, err: r.c.ERROR,
+            crops: r.crops, targets: r.targets, doses: r.doses,
+            /* PHI e zero em todo o acervo POR DECISAO, e o texto di-lo. */
+            phi: 0, phiState: 'PROTOTYPE_NOT_SHIPPED' },
           usiGroups, hasUsi: usiGroups.length > 0,
-          usiTot: (alvo.uses || []).length,
-          fattiTot: (alvo.uses || []).filter((u) => u.fact).length,
+          noneAfterFilter: usiGroups.length === 0 && r.n > 0,
+          btnEstado,
+          inQ: s.liIn, setIn: (ev) => this.setState({ liIn: ev.target.value, liOpenRow: null }),
+          naoAutorizados, hasNaoAutorizados: naoAutorizados.length > 0,
+          nNaoAutorizados: naoAutorizados.length,
           dosi, hasDosi: dosi.length > 0,
-          doseState: chip(alvo.dose_state || 'NOT_CHECKED'),
+          doseState: chip(alvoP.dose_state || 'NOT_CHECKED'),
+          audit: !!s.liAudit,
+          toggleAudit: () => this.setState({ liAudit: !s.liAudit }),
+          auditLabel: s.liAudit ? (T.liAuditHide || '') : (T.liAuditShow || ''),
           back: () => this.go({ view: 'etichette' }),
         };
       }
 
+      /* ══ O QUE MUDOU · medido, e nao prometido ════════════════════════════
+         O historico existe: 60 instantaneos oficiais, 54 distintos, janela
+         20250714..20260831, 528 diferencas brutas das quais 496 sao ruido
+         declarado (N-01 a N-05) e 36 mudancas verdadeiras. Delas, 51 objectos
+         saem PROVED.
+
+             MAS O HISTORICO E DO REGISTO, NAO DA ETICHETTA.
+
+         Os dois instantaneos comparados sao CSV do Ministero: data de validade,
+         estado administrativo, titular, substancias, acto de revoga. Nenhum
+         deles carrega cultura, alvo, dose ou carencia — e por isso a comparacao
+         CULTURA/ALVO/DOSE/PHI entre duas leituras de etichetta
+
+             NOT_IMPLEMENTABLE_WITH_CURRENT_EVIDENCE
+
+         e diz-se com essas palavras, em vez de se desenhar um diff vazio que
+         pareceria dizer «nada mudou».                                        */
+      const mudou = (LI.objects || []).filter((o) => o.PROOF_STATE === 'PROVED');
+      const mudouDoProduto = (reg) => mudou.filter((o) => o.REGISTRATION_ID === reg).map((o) => ({
+        type: o.OBJECT_TYPE, when: o.DETECTED_AT || o.CAPTURED_AT || '',
+        before: o.BEFORE_VALUE === null || o.BEFORE_VALUE === undefined ? 'NOT_PRESENT' : String(o.BEFORE_VALUE),
+        after: o.AFTER_VALUE === null || o.AFTER_VALUE === undefined ? 'NOT_PRESENT' : String(o.AFTER_VALUE),
+        rule: o.DERIVED_BY_RULE || '', hasRule: !!o.DERIVED_BY_RULE,
+        meaning: o.DERIVED_REGULATORY_MEANING || '', hasMeaning: !!o.DERIVED_REGULATORY_MEANING,
+      }));
+      if (det) {
+        det.changes = mudouDoProduto(det.reg);
+        det.hasChanges = det.changes.length > 0;
+        det.changesNone = det.changes.length === 0;
+      }
+
+      const totVer = PRODOTTI.reduce((a, p0) => a + (p0.uses || []).filter((u) => u.fact).length, 0);
+      const totUsi = PRODOTTI.reduce((a, p0) => a + (p0.uses || []).length, 0);
+      const totFound = PRODOTTI.reduce((a, p0) => a + (p0.uses || []).filter((u) => estadoDe(u) === 'FOUND').length, 0);
+      const totUnk = PRODOTTI.reduce((a, p0) => a + (p0.uses || []).filter((u) => estadoDe(u) === 'UNKNOWN').length, 0);
+
       li = {
-        /* A IDENTIDADE DA FONTE, sem a qual nenhuma destas linhas e auditavel. */
         meta: {
           tool: LI.TOOL, version: LI.VERSION,
           authority: LI.SOURCE_AUTHORITY, license: LI.LICENSE,
@@ -8941,44 +9405,55 @@ class Component extends DCLogic {
           seal: ((LI.PRODUCED_BY || {}).CONTENT_SHA256 || '').slice(0, 16),
           module: (LI.PRODUCED_BY || {}).MODULE || '',
         },
-        coberturas,
-        /* ══ A NOTA DA COBERTURA VEM EM PORTUGUES, E NAO PODE IR ASSIM ══════
-           `LI.coverage_note` diz, no payload: «cada cobertura conta uma coisa
-           diferente e nenhuma implica a seguinte. PHI_COVERAGE = 0 por decisao:
-           o extrator de carencia esta marcado PROTOTYPE_NOT_SHIPPED e nada e
-           publicado». E prosa de investigacao em portugues, e este portal tem
-           uma lei sobre isso desde que 219 linhas de uso chegaram assim ao
-           cliente italiano — `audit/lang.mjs` reprova a build por menos.
-
-               PROSA DE INVESTIGACAO PORTUGUESA NAO CHEGA AO CLIENTE ITALIANO.
-
-           Traduzir nao e apagar: a frase italiana em `t.liCoverageWhy` diz o
-           MESMO — que as sete nao se implicam, e que o zero da carencia e uma
-           DECISAO e nao uma falha. Vai como copy do portal, sem aspas e sem o
-           verbo de citacao, porque uma traducao nossa nao e o que a ferramenta
-           escreveu. O token `PROTOTYPE_NOT_SHIPPED` fica intacto ao lado: esse
-           e nome de estado, e nome de estado nao se traduz. */
-        coverageNote: T.liCoverageWhy || '',
-        coverageToken: 'PROTOTYPE_NOT_SHIPPED',
-        totals: { prodotti: PRODOTTI.length, usi: somaUsi, fatti: somaFatti, dosi: somaDosi,
-          fattiPct: somaUsi ? (Math.round(somaFatti / somaUsi * 1000) / 10) + '%' : (T.ksNotKnown || '') },
+        /* O RESUMO HUMANO NO TOPO — antes de qualquer cobertura tecnica. */
+        sommario: {
+          labels: (COB.LABEL_READ_COVERAGE || {}).OF || PRODOTTI.length,
+          prodotti: PRODOTTI.length,
+          usi: totUsi, ver: totVer, found: totFound, unk: totUnk,
+          dosi: PRODOTTI.reduce((a, p0) => a + ((p0.doses || []).length), 0),
+          doseCov: (COB.DOSE_COVERAGE || {}).PCT + '%',
+          phiCov: (COB.PHI_COVERAGE || {}).PCT + '%',
+          phiState: 'PROTOTYPE_NOT_SHIPPED',
+          aggiornato: LI.DATA_DATE || '',
+        },
+        coberturas, coverageNote: T.liCoverageWhy || '', coverageToken: 'PROTOTYPE_NOT_SHIPPED',
+        tipi: tipos, tipoOn: s.liTipo,
+        /* AS SEIS BUSCAS. A primeira e contextual: o texto do marcador muda
+           com o tipo escolhido, e o universo que ela varre ja e o do tipo. */
+        qPh: s.liTipo ? ((T.liSearchIn || '') + ' ' + s.liTipo.toLowerCase() + '…') : (T.liSearchPh || ''),
+        campos: [
+          { key: 'liQ', label: T.liFldAny, v: s.liQ, ph: s.liTipo ? ((T.liSearchIn || '') + ' ' + s.liTipo.toLowerCase() + '…') : (T.liSearchPh || ''), wide: true },
+          { key: 'liSub', label: T.liFldSubstance, v: s.liSub, ph: T.liFldSubstance },
+          { key: 'liCrop', label: T.liFldCrop, v: s.liCrop, ph: T.liFldCrop },
+          { key: 'liTgt', label: T.liFldTarget, v: s.liTgt, ph: T.liFldTarget },
+          { key: 'liReg', label: T.liFldReg, v: s.liReg, ph: T.liFldReg },
+          { key: 'liHold', label: T.liFldHolder, v: s.liHold, ph: T.liFldHolder },
+        ].map((f) => ({
+          key: f.key, label: f.label, v: f.v || '', ph: f.ph, on: !!(f.v || '').trim(),
+          wide: !!f.wide, narrow: !f.wide,
+          bg: (f.v || '').trim() ? 'rgba(0,152,69,0.10)' : 'rgba(255,255,255,0.05)',
+          border: (f.v || '').trim() ? 'rgba(0,152,69,0.45)' : 'rgba(203,197,195,0.18)',
+          set: ((k) => (ev) => { const p = {}; p[k] = ev.target.value; p.etShown = 24; this.setState(p); })(f.key),
+        })),
+        temFiltro,
+        clear: () => this.setState({ liTipo: '', liQ: '', liSub: '', liCrop: '', liTgt: '', liReg: '', liHold: '', etShown: 24 }),
+        /* «Quantos ficam» dito sempre, com ou sem filtro. */
+        count: filtrados.length, total: PRODOTTI.length,
         items: mostrati.map(cartao),
-        shown: mostrati.length, total: PRODOTTI.length, filtered: filtrados.length,
+        shown: mostrati.length,
         canMore: filtrados.length > mostrati.length,
         more: () => this.setState({ etShown: (s.etShown || 24) + 48 }),
         none: filtrados.length === 0,
-        q: s.etQ, setQ: (ev) => this.setState({ etQ: ev.target.value, etShown: 24 }),
-        qOn: !!eTermos.length,
-        qHits: eTermos.length ? (filtrados.length + ' ' + (T.radarSearchHits || 'matches')) : '',
-        qBg: eTermos.length ? 'rgba(0,152,69,0.10)' : 'rgba(255,255,255,0.05)',
-        qBorder: eTermos.length ? 'rgba(0,152,69,0.45)' : 'rgba(203,197,195,0.18)',
-        onlyFact: !!s.etOnlyFact,
-        toggleFact: () => this.setState({ etOnlyFact: !s.etOnlyFact, etShown: 24 }),
-        factBtnBg: s.etOnlyFact ? 'rgba(0,152,69,0.20)' : '#1C1817',
-        factBtnBorder: s.etOnlyFact ? '#009845' : 'rgba(203,197,195,0.18)',
-        factBtnInk: s.etOnlyFact ? '#fff' : '#D6D2D0',
-        det, hasDet: !!det,
-        detMissing: !!(s.etReg && !det),
+        /* quando ha busca por cultura ou alvo, a lista diz que o casamento
+           textual NAO e autorizacao provada. */
+        matching: !!(tCrop.length || tTgt.length),
+        det, hasDet: !!det, detMissing: !!(s.etReg && !det),
+        /* O QUE MUDOU, no acervo inteiro */
+        changesTotal: mudou.length,
+        historyWindow: (LI.history || {}).window || '',
+        historySnapshots: (LI.history || {}).snapshots || 0,
+        historyNoisePct: (LI.history || {}).noise_pct,
+        compareState: 'NOT_IMPLEMENTABLE_WITH_CURRENT_EVIDENCE',
       };
     }
 
