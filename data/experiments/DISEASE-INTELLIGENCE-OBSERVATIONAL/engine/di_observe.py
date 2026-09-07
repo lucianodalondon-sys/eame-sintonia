@@ -65,7 +65,12 @@ def pooled(visits, lo, hi, province, metric, only_sites=None):
             continue
         if only_sites is not None and v["visit_key"]["id_field"] not in only_sites:
             continue
-        if not v["usable_for_rates"]:
+        um = v.get("usable_by_measurement", {}).get(metric)
+        if um is not None:
+            if not um["usable"]:
+                excluded += 1
+                continue
+        elif not v["usable_for_rates"]:
             excluded += 1
             continue
         c = v["measurements"][metric]["value"]

@@ -136,33 +136,53 @@ def load_visits(case_dir, sheet, as_of, wanted=("SAMPLE_SIZE / DENOMINATOR",
                 "value": None if cell is None else cell["value"],
                 "source_file": None if cell is None else cell["source_file"]}
 
+        # Usability is decided PER MEASUREMENT, not per visit.
+        #
+        # The first version marked the WHOLE visit unusable when any column failed, so a visit
+        # whose ACTIVE count is a clean 7 of 100 was dropped from the ACTIVE rate because its
+        # TOTAL column read 106 of 100. That couples metrics which have nothing to do with each
+        # other and quietly throws away good observations. Found by the independent
+        # reproduction (t4), which read only the two columns it needed and therefore kept them.
         n = rec["measurements"].get(denom_key, {}).get("value")
+        denom_bad = None
         if n is None:
-            rec["usable_for_rates"] = False
-            rec["exclusion_reasons"].append("denominator_missing")
+            denom_bad = "denominator_missing"
         elif n <= 0:
-            rec["usable_for_rates"] = False
-            rec["exclusion_reasons"].append("denominator_zero_or_negative")
+            denom_bad = "denominator_zero_or_negative"
+        rec["usable_by_measurement"] = {}
         for c in wanted:
             if c == denom_key:
                 continue
+            reasons = []
+            if denom_bad:
+                reasons.append(denom_bad)
             v = rec["measurements"][c]["value"]
             if v is None:
-                continue
-            if v < 0:
-                rec["usable_for_rates"] = False
-                rec["exclusion_reasons"].append(f"negative_count:{c}")
+                reasons.append("value_missing")
+            elif v < 0:
+                reasons.append("negative_count")
             elif n is not None and n > 0 and v > n:
-                rec["usable_for_rates"] = False
-                rec["exclusion_reasons"].append(f"count_exceeds_sample:{c}")
-        for r in rec["exclusion_reasons"]:
-            excluded[r] += 1
+                reasons.append("count_exceeds_sample")
+            rec["usable_by_measurement"][c] = {"usable": not reasons, "reasons": reasons}
+            for r in reasons:
+                excluded[f"{r}:{c}"] += 1
+        # kept for readers that want a single flag: usable for at least one measurement
+        rec["usable_for_rates"] = any(x["usable"]
+                                      for x in rec["usable_by_measurement"].values())
+        rec["exclusion_reasons"] = sorted(
+            {f"{r}:{c}" for c, x in rec["usable_by_measurement"].items()
+             for r in x["reasons"]})
         visits.append(rec)
 
     return {"AS_OF": as_of.isoformat(),
             "VISIT_KEY": sheet["VISIT_KEY"]["KEY"],
             "n_visits": len(visits),
-            "n_visits_usable_for_rates": sum(1 for v in visits if v["usable_for_rates"]),
+            "n_visits_usable_for_at_least_one_measurement":
+                sum(1 for v in visits if v["usable_for_rates"]),
+            "n_visits_usable_by_measurement": {
+                c: sum(1 for v in visits
+                       if v.get("usable_by_measurement", {}).get(c, {}).get("usable"))
+                for c in wanted if c != "SAMPLE_SIZE / DENOMINATOR"},
             "n_rows_dropped_because_dated_after_as_of": dropped_future,
             "exclusions": dict(sorted(excluded.items())),
             "provenance": provenance,
@@ -195,7 +215,9 @@ if __name__ == "__main__":
     r = load_visits(case, sheet, as_of)
     print(f"AS_OF {r['AS_OF']}  visit key {r['VISIT_KEY']}")
     print(f"  visits loaded              {r['n_visits']:,}")
-    print(f"  usable for rates           {r['n_visits_usable_for_rates']:,}")
+    print(f"  usable for >=1 measurement {r['n_visits_usable_for_at_least_one_measurement']:,}")
+    for c, n in r["n_visits_usable_by_measurement"].items():
+        print(f"    usable for {c:32s} {n:,}")
     print(f"  dropped: dated after as_of {r['n_rows_dropped_because_dated_after_as_of']:,}")
     print(f"  exclusions                 {r['exclusions']}")
     for c, p in r["provenance"].items():

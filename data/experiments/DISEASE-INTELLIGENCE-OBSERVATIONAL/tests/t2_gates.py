@@ -191,12 +191,16 @@ def g5(mutate=False):
     if mutate:
         # MUTATION: visits with no denominator are allowed back in and counted as zero-rate
         bad = bad + ["<mutation: a cell published with a zero denominator>"]
-    ok = not bad and loaded["exclusions"].get("denominator_zero_or_negative", 0) > 0
+    # exclusion keys are now per measurement, e.g.
+    # "denominator_zero_or_negative:ACTIVE_INFESTATION_COUNT"
+    denom_excl = sum(v for k, v in loaded["exclusions"].items()
+                     if k.startswith("denominator_"))
+    ok = not bad and denom_excl > 0
     return (PASS if ok else FAIL), {
         "published_cells_without_a_denominator": bad,
-        "visits_excluded_for_a_zero_or_missing_denominator":
-            loaded["exclusions"].get("denominator_zero_or_negative", 0)
-            + loaded["exclusions"].get("denominator_missing", 0)}
+        "visits_excluded_for_a_zero_or_missing_denominator": denom_excl,
+        "by_reason": {k: v for k, v in sorted(loaded["exclusions"].items())
+                      if k.startswith("denominator_")}}
 
 
 # ─────────────────────────────────────────────────────────────── G6 unit trap

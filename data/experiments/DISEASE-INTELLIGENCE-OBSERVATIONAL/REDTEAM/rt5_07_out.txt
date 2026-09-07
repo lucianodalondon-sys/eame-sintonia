@@ -1,0 +1,49 @@
+Could not find platform independent libraries <prefix>
+done ACTIVE_INFESTATION_COUNT: 8580 cells so far
+done DAMAGING_INFESTATION_COUNT: 17160 cells so far
+done TOTAL_INFESTATION_COUNT: 25740 cells so far
+
+WALK-FORWARD SCREEN, 2010-04-01 to 2026-09-06, every 7 days
+  publication dates                  : 858
+  cells run (10 provinces x 3 metrics x dates): 25,740
+  INSUFFICIENT_DATA                  : 22,938 of 25,740 (89.1%)
+  cells with a historical class      : 2,802 of 25,740 (10.9%)
+    TYPICAL                          : 1,367 (48.8% of speaking)
+    BELOW_HISTORICAL                 : 507 (18.1%)
+    ABOVE_HISTORICAL                 : 928 (33.1%)
+  directional calls                  : 1,435 (51.2% of speaking cells)
+  EXPECTED under exchangeability     : 1479 (52.8% of speaking cells), 740 BELOW + 740 ABOVE
+  observed/expected                  : 0.97x
+  BELOW:ABOVE ratio observed         : 507:928 (0.55:1); expected 1:1
+  dates on which at least one province+metric gets a directional call: 228 of 858 (26.6%)
+
+  by metric:
+    ACTIVE_INFESTATION_COUNT       speak   934 of  8580  BELOW   192  ABOVE   290  TYPICAL   452
+    DAMAGING_INFESTATION_COUNT     speak   934 of  8580  BELOW   140  ABOVE   276  TYPICAL   518
+    TOTAL_INFESTATION_COUNT        speak   934 of  8580  BELOW   175  ABOVE   362  TYPICAL   397
+
+  by province (ACTIVE_INFESTATION_COUNT only):
+    Arezzo          speak   54 of  858  BELOW   20  ABOVE   13  TYPICAL   21
+    Firenze         speak  236 of  858  BELOW   52  ABOVE   51  TYPICAL  133
+    Grosseto        speak  202 of  858  BELOW   57  ABOVE   62  TYPICAL   83
+    Livorno         speak   24 of  858  BELOW    0  ABOVE   11  TYPICAL   13
+    Lucca           speak   31 of  858  BELOW    5  ABOVE   22  TYPICAL    4
+    Massa-Carrara   speak    0 of  858  BELOW    0  ABOVE    0  TYPICAL    0
+    Pisa            speak  107 of  858  BELOW   24  ABOVE   27  TYPICAL   56
+    Pistoia         speak   52 of  858  BELOW    8  ABOVE   18  TYPICAL   26
+    Prato           speak    0 of  858  BELOW    0  ABOVE    0  TYPICAL    0
+    Siena           speak  228 of  858  BELOW   26  ABOVE   86  TYPICAL  116
+
+  CLASS CHURN (ACTIVE only): consecutive publication dates 7 days apart
+    Arezzo          class changed on 8 of 49 consecutive 7-day steps (16.3%)
+    Firenze         class changed on 29 of 220 consecutive 7-day steps (13.2%)
+    Grosseto        class changed on 36 of 189 consecutive 7-day steps (19.0%)
+    Livorno         class changed on 4 of 22 consecutive 7-day steps (18.2%)
+    Lucca           class changed on 4 of 27 consecutive 7-day steps (14.8%)
+    Massa-Carrara   class changed on 0 of 0 consecutive 7-day steps (None%)
+    Pisa            class changed on 21 of 96 consecutive 7-day steps (21.9%)
+    Pistoia         class changed on 12 of 47 consecutive 7-day steps (25.5%)
+    Prato           class changed on 0 of 0 consecutive 7-day steps (None%)
+    Siena           class changed on 32 of 212 consecutive 7-day steps (15.1%)
+
+wrote rt5_07_multiplicity.json

@@ -6,17 +6,29 @@
    "date"
   ],
   "n_visits": 79251,
-  "n_visits_usable_for_rates": 75600,
+  "n_visits_usable_for_at_least_one_measurement": 75683,
+  "n_visits_usable_by_measurement": {
+   "ACTIVE_INFESTATION_COUNT": 75663,
+   "DAMAGING_INFESTATION_COUNT": 75655,
+   "TOTAL_INFESTATION_COUNT": 75565
+  },
   "n_rows_dropped_because_dated_after_as_of": 0,
   "exclusions": {
    "count_exceeds_sample:ACTIVE_INFESTATION_COUNT": 17,
    "count_exceeds_sample:DAMAGING_INFESTATION_COUNT": 9,
    "count_exceeds_sample:TOTAL_INFESTATION_COUNT": 89,
-   "denominator_missing": 177,
-   "denominator_zero_or_negative": 3381,
+   "denominator_missing:ACTIVE_INFESTATION_COUNT": 177,
+   "denominator_missing:DAMAGING_INFESTATION_COUNT": 177,
+   "denominator_missing:TOTAL_INFESTATION_COUNT": 177,
+   "denominator_zero_or_negative:ACTIVE_INFESTATION_COUNT": 3381,
+   "denominator_zero_or_negative:DAMAGING_INFESTATION_COUNT": 3381,
+   "denominator_zero_or_negative:TOTAL_INFESTATION_COUNT": 3381,
    "negative_count:ACTIVE_INFESTATION_COUNT": 2,
    "negative_count:DAMAGING_INFESTATION_COUNT": 4,
-   "negative_count:TOTAL_INFESTATION_COUNT": 4
+   "negative_count:TOTAL_INFESTATION_COUNT": 4,
+   "value_missing:ACTIVE_INFESTATION_COUNT": 1217,
+   "value_missing:DAMAGING_INFESTATION_COUNT": 1232,
+   "value_missing:TOTAL_INFESTATION_COUNT": 1241
   },
   "provenance": {
    "SAMPLE_SIZE / DENOMINATOR": {
@@ -978,10 +990,10 @@
      },
      {
       "season": 2023,
-      "rate_pct": 6.5225,
-      "n_visits": 222,
+      "rate_pct": 6.6009,
+      "n_visits": 223,
       "n_sites": 72,
-      "drupes_sampled": 22200
+      "drupes_sampled": 22300
      },
      {
       "season": 2024,
@@ -1243,7 +1255,7 @@
     "baseline_n": 20,
     "baseline_rate_pct_median": 2.5627,
     "baseline_rate_pct_min": 0.2909,
-    "baseline_rate_pct_max": 6.1228,
+    "baseline_rate_pct_max": 6.1174,
     "baseline_detail": [
      {
       "season": 2006,
@@ -1303,10 +1315,10 @@
      },
      {
       "season": 2014,
-      "rate_pct": 5.92,
-      "n_visits": 50,
+      "rate_pct": 5.9082,
+      "n_visits": 51,
       "n_sites": 21,
-      "drupes_sampled": 5000
+      "drupes_sampled": 5010
      },
      {
       "season": 2015,
@@ -1317,10 +1329,10 @@
      },
      {
       "season": 2016,
-      "rate_pct": 6.1228,
-      "n_visits": 112,
+      "rate_pct": 6.1174,
+      "n_visits": 113,
       "n_sites": 54,
-      "drupes_sampled": 11204
+      "drupes_sampled": 11214
      },
      {
       "season": 2017,
@@ -1380,10 +1392,10 @@
      },
      {
       "season": 2025,
-      "rate_pct": 4.5255,
-      "n_visits": 312,
+      "rate_pct": 4.6466,
+      "n_visits": 313,
       "n_sites": 111,
-      "drupes_sampled": 34960
+      "drupes_sampled": 35060
      }
     ],
     "percentile_against_own_history": 0.1,
@@ -1410,9 +1422,9 @@
       "season": 2025,
       "n_groves_shared": 75,
       "rate_now_on_those_groves_pct": 0.7053,
-      "rate_then_on_those_groves_pct": 4.1413,
+      "rate_then_on_those_groves_pct": 4.3151,
       "drupes_now": 18050,
-      "drupes_then": 24560
+      "drupes_then": 24660
      }
     ],
     "matched_panel_seasons": 2,
@@ -1420,7 +1432,7 @@
     "historical_matched_reason": "2 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "historical_state_unmatched": "BELOW_HISTORICAL",
     "observed_trend": "STABLE_OBSERVED",
-    "observed_trend_reason": "0.5876% -> 0.8249% -> 0.6575% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0699 percentage points. This describes windows that have already happened.",
+    "observed_trend_reason": "0.5876% -> 0.8374% -> 0.6575% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0699 percentage points. This describes windows that have already happened.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
@@ -1430,9 +1442,9 @@
      },
      {
       "window_end": "2026-08-09",
-      "rate_pct": 0.8249,
-      "n_visits": 441,
-      "drupes_sampled": 49135
+      "rate_pct": 0.8374,
+      "n_visits": 442,
+      "drupes_sampled": 49235
      },
      {
       "window_end": "2026-09-06",
@@ -1670,10 +1682,10 @@
      },
      {
       "season": 2025,
-      "rate_pct": 9.4912,
-      "n_visits": 114,
-      "n_sites": 51,
-      "drupes_sampled": 11400
+      "rate_pct": 9.453,
+      "n_visits": 117,
+      "n_sites": 52,
+      "drupes_sampled": 11700
      }
     ],
     "percentile_against_own_history": 0.0,
@@ -1682,7 +1694,7 @@
     "panel_overlap_with_baseline_seasons": {
      "median_groves_shared": 0.0,
      "min": 0,
-     "max": 27,
+     "max": 28,
      "seasons_sharing_at_least_the_declared_minimum": 1,
      "of_seasons": 20,
      "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
@@ -1690,11 +1702,11 @@
     "matched_panel_comparisons": [
      {
       "season": 2025,
-      "n_groves_shared": 27,
-      "rate_now_on_those_groves_pct": 0.8,
-      "rate_then_on_those_groves_pct": 10.5484,
-      "drupes_now": 8000,
-      "drupes_then": 6200
+      "n_groves_shared": 28,
+      "rate_now_on_those_groves_pct": 0.7952,
+      "rate_then_on_those_groves_pct": 10.4308,
+      "drupes_now": 8300,
+      "drupes_then": 6500
      }
     ],
     "matched_panel_seasons": 1,
@@ -1702,7 +1714,7 @@
     "historical_matched_reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "historical_state_unmatched": "BELOW_HISTORICAL",
     "observed_trend": "STABLE_OBSERVED",
-    "observed_trend_reason": "0.4722% -> 1.8387% -> 0.9216% over 3 consecutive 28-day windows ending 2026-09-06; change 0.4494 percentage points. This describes windows that have already happened.",
+    "observed_trend_reason": "0.4722% -> 1.8153% -> 0.9216% over 3 consecutive 28-day windows ending 2026-09-06; change 0.4494 percentage points. This describes windows that have already happened.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
@@ -1712,9 +1724,9 @@
      },
      {
       "window_end": "2026-08-09",
-      "rate_pct": 1.8387,
-      "n_visits": 155,
-      "drupes_sampled": 15500
+      "rate_pct": 1.8153,
+      "n_visits": 157,
+      "drupes_sampled": 15700
      },
      {
       "window_end": "2026-09-06",
@@ -1815,7 +1827,7 @@
     "baseline_n": 20,
     "baseline_rate_pct_median": 3.5238,
     "baseline_rate_pct_min": 0.7826,
-    "baseline_rate_pct_max": 16.6792,
+    "baseline_rate_pct_max": 16.6481,
     "baseline_detail": [
      {
       "season": 2006,
@@ -1875,10 +1887,10 @@
      },
      {
       "season": 2014,
-      "rate_pct": 16.6792,
-      "n_visits": 53,
+      "rate_pct": 16.6481,
+      "n_visits": 54,
       "n_sites": 20,
-      "drupes_sampled": 5300
+      "drupes_sampled": 5400
      },
      {
       "season": 2015,
@@ -1952,10 +1964,10 @@
      },
      {
       "season": 2025,
-      "rate_pct": 5.6833,
-      "n_visits": 60,
+      "rate_pct": 5.6935,
+      "n_visits": 62,
       "n_sites": 17,
-      "drupes_sampled": 6000
+      "drupes_sampled": 6200
      }
     ],
     "percentile_against_own_history": 0.15,
@@ -1990,9 +2002,9 @@
       "season": 2025,
       "n_groves_shared": 13,
       "rate_now_on_those_groves_pct": 1.2245,
-      "rate_then_on_those_groves_pct": 5.7174,
+      "rate_then_on_those_groves_pct": 5.7292,
       "drupes_now": 4900,
-      "drupes_then": 4600
+      "drupes_then": 4800
      }
     ],
     "matched_panel_seasons": 3,
@@ -2167,10 +2179,10 @@
      },
      {
       "season": 2020,
-      "rate_pct": 3.1842,
-      "n_visits": 35,
-      "n_sites": 11,
-      "drupes_sampled": 3822
+      "rate_pct": 4.7538,
+      "n_visits": 37,
+      "n_sites": 12,
+      "drupes_sampled": 3919
      },
      {
       "season": 2021,
@@ -2449,10 +2461,10 @@
      },
      {
       "season": 2020,
-      "rate_pct": 3.1722,
-      "n_visits": 138,
-      "n_sites": 48,
-      "drupes_sampled": 14050
+      "rate_pct": 3.2035,
+      "n_visits": 139,
+      "n_sites": 49,
+      "drupes_sampled": 14100
      },
      {
       "season": 2021,
@@ -3278,10 +3290,10 @@
      },
      {
       "season": 2021,
-      "rate_pct": 3.7333,
-      "n_visits": 132,
+      "rate_pct": 3.845,
+      "n_visits": 135,
       "n_sites": 44,
-      "drupes_sampled": 12750
+      "drupes_sampled": 12900
      },
      {
       "season": 2022,
@@ -3424,9 +3436,9 @@
       "season": 2021,
       "n_groves_shared": 20,
       "rate_now_on_those_groves_pct": 1.1211,
-      "rate_then_on_those_groves_pct": 4.2261,
+      "rate_then_on_those_groves_pct": 4.4576,
       "drupes_now": 6333,
-      "drupes_then": 5750
+      "drupes_then": 5900
      },
      {
       "season": 2022,

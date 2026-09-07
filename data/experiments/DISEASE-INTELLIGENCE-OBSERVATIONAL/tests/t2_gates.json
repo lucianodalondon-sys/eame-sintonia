@@ -72,8 +72,8 @@
   "STATUS": "PROVED",
   "EVIDENCE_REAL": {
    "hashes": [
-    "6ef8545e743f6670d9d976ac48cd75952ff694471818ed6aed7295270a9f3826",
-    "6ef8545e743f6670d9d976ac48cd75952ff694471818ed6aed7295270a9f3826"
+    "e5d634be8eab3cbc1b5510b679b23ff4af98dbe6e2c0b30abd3fc1070c7d3fcd",
+    "e5d634be8eab3cbc1b5510b679b23ff4af98dbe6e2c0b30abd3fc1070c7d3fcd"
    ],
    "distinct": 1
   },
@@ -114,13 +114,29 @@
   "STATUS": "PROVED",
   "EVIDENCE_REAL": {
    "published_cells_without_a_denominator": [],
-   "visits_excluded_for_a_zero_or_missing_denominator": 3558
+   "visits_excluded_for_a_zero_or_missing_denominator": 10674,
+   "by_reason": {
+    "denominator_missing:ACTIVE_INFESTATION_COUNT": 177,
+    "denominator_missing:DAMAGING_INFESTATION_COUNT": 177,
+    "denominator_missing:TOTAL_INFESTATION_COUNT": 177,
+    "denominator_zero_or_negative:ACTIVE_INFESTATION_COUNT": 3381,
+    "denominator_zero_or_negative:DAMAGING_INFESTATION_COUNT": 3381,
+    "denominator_zero_or_negative:TOTAL_INFESTATION_COUNT": 3381
+   }
   },
   "EVIDENCE_MUTATED": {
    "published_cells_without_a_denominator": [
     "<mutation: a cell published with a zero denominator>"
    ],
-   "visits_excluded_for_a_zero_or_missing_denominator": 3558
+   "visits_excluded_for_a_zero_or_missing_denominator": 10674,
+   "by_reason": {
+    "denominator_missing:ACTIVE_INFESTATION_COUNT": 177,
+    "denominator_missing:DAMAGING_INFESTATION_COUNT": 177,
+    "denominator_missing:TOTAL_INFESTATION_COUNT": 177,
+    "denominator_zero_or_negative:ACTIVE_INFESTATION_COUNT": 3381,
+    "denominator_zero_or_negative:DAMAGING_INFESTATION_COUNT": 3381,
+    "denominator_zero_or_negative:TOTAL_INFESTATION_COUNT": 3381
+   }
   }
  },
  "G6_THE_BAND_IS_APPLIED_TO_A_RATE": {

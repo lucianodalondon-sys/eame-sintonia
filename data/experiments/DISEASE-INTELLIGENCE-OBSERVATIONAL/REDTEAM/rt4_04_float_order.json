@@ -1,0 +1,1282 @@
+{
+ "AS_OF": "2026-09-06",
+ "Q1_non_integer_addends": {
+  "numerator_values_read": 234063,
+  "numerator_values_that_are_NOT_integers": 975,
+  "denominator_values_that_are_NOT_integers": 0,
+  "NOTE": "if both are 0, float addition of these addends is exact and order is provably irrelevant; if not 0, order can matter and Q2 decides whether it does"
+ },
+ "Q2_order": {
+  "n_windows_where_any_order_changed_something": 36,
+  "detail": [
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Grosseto",
+    "window": "baseline_2020",
+    "n_addends": 500,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 1.6185,
+      "num_float": "901.6000000000003",
+      "den_float": "55707.0",
+      "int_num": 901,
+      "int_den": 55707
+     },
+     "reversed": {
+      "rate_pct": 1.6185,
+      "num_float": "901.5999999999999",
+      "den_float": "55707.0",
+      "int_num": 901,
+      "int_den": 55707
+     },
+     "sorted_val_asc": {
+      "rate_pct": 1.6185,
+      "num_float": "901.6000000000001",
+      "den_float": "55707.0",
+      "int_num": 901,
+      "int_den": 55707
+     },
+     "sorted_val_desc": {
+      "rate_pct": 1.6185,
+      "num_float": "901.5999999999999",
+      "den_float": "55707.0",
+      "int_num": 901,
+      "int_den": 55707
+     },
+     "shuffle_a": {
+      "rate_pct": 1.6185,
+      "num_float": "901.6000000000003",
+      "den_float": "55707.0",
+      "int_num": 901,
+      "int_den": 55707
+     },
+     "shuffle_b": {
+      "rate_pct": 1.6185,
+      "num_float": "901.5999999999999",
+      "den_float": "55707.0",
+      "int_num": 901,
+      "int_den": 55707
+     }
+    }
+   },
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Grosseto",
+    "window": "baseline_2024",
+    "n_addends": 415,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 0.6844,
+      "num_float": "305.59999999999997",
+      "den_float": "44649.0",
+      "int_num": 305,
+      "int_den": 44649
+     },
+     "reversed": {
+      "rate_pct": 0.6844,
+      "num_float": "305.6",
+      "den_float": "44649.0",
+      "int_num": 305,
+      "int_den": 44649
+     },
+     "sorted_val_asc": {
+      "rate_pct": 0.6844,
+      "num_float": "305.6",
+      "den_float": "44649.0",
+      "int_num": 305,
+      "int_den": 44649
+     },
+     "sorted_val_desc": {
+      "rate_pct": 0.6844,
+      "num_float": "305.6",
+      "den_float": "44649.0",
+      "int_num": 305,
+      "int_den": 44649
+     },
+     "shuffle_a": {
+      "rate_pct": 0.6844,
+      "num_float": "305.59999999999997",
+      "den_float": "44649.0",
+      "int_num": 305,
+      "int_den": 44649
+     },
+     "shuffle_b": {
+      "rate_pct": 0.6844,
+      "num_float": "305.6",
+      "den_float": "44649.0",
+      "int_num": 305,
+      "int_den": 44649
+     }
+    }
+   },
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Grosseto",
+    "window": "baseline_2025",
+    "n_addends": 313,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 4.6466,
+      "num_float": "1629.0999999999997",
+      "den_float": "35060.0",
+      "int_num": 1629,
+      "int_den": 35060
+     },
+     "reversed": {
+      "rate_pct": 4.6466,
+      "num_float": "1629.1",
+      "den_float": "35060.0",
+      "int_num": 1629,
+      "int_den": 35060
+     },
+     "sorted_val_asc": {
+      "rate_pct": 4.6466,
+      "num_float": "1629.1",
+      "den_float": "35060.0",
+      "int_num": 1629,
+      "int_den": 35060
+     },
+     "sorted_val_desc": {
+      "rate_pct": 4.6466,
+      "num_float": "1629.0999999999997",
+      "den_float": "35060.0",
+      "int_num": 1629,
+      "int_den": 35060
+     },
+     "shuffle_a": {
+      "rate_pct": 4.6466,
+      "num_float": "1629.1",
+      "den_float": "35060.0",
+      "int_num": 1629,
+      "int_den": 35060
+     },
+     "shuffle_b": {
+      "rate_pct": 4.6466,
+      "num_float": "1629.1",
+      "den_float": "35060.0",
+      "int_num": 1629,
+      "int_den": 35060
+     }
+    }
+   },
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Grosseto",
+    "window": "trend_-1",
+    "n_addends": 442,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 0.8374,
+      "num_float": "412.3",
+      "den_float": "49235.0",
+      "int_num": 412,
+      "int_den": 49235
+     },
+     "reversed": {
+      "rate_pct": 0.8374,
+      "num_float": "412.3",
+      "den_float": "49235.0",
+      "int_num": 412,
+      "int_den": 49235
+     },
+     "sorted_val_asc": {
+      "rate_pct": 0.8374,
+      "num_float": "412.3",
+      "den_float": "49235.0",
+      "int_num": 412,
+      "int_den": 49235
+     },
+     "sorted_val_desc": {
+      "rate_pct": 0.8374,
+      "num_float": "412.3000000000001",
+      "den_float": "49235.0",
+      "int_num": 412,
+      "int_den": 49235
+     },
+     "shuffle_a": {
+      "rate_pct": 0.8374,
+      "num_float": "412.3",
+      "den_float": "49235.0",
+      "int_num": 412,
+      "int_den": 49235
+     },
+     "shuffle_b": {
+      "rate_pct": 0.8374,
+      "num_float": "412.3",
+      "den_float": "49235.0",
+      "int_num": 412,
+      "int_den": 49235
+     }
+    }
+   },
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Massa-Carrara",
+    "window": "baseline_2020",
+    "n_addends": 37,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 4.7538,
+      "num_float": "186.29999999999998",
+      "den_float": "3919.0",
+      "int_num": 186,
+      "int_den": 3919
+     },
+     "reversed": {
+      "rate_pct": 4.7538,
+      "num_float": "186.3",
+      "den_float": "3919.0",
+      "int_num": 186,
+      "int_den": 3919
+     },
+     "sorted_val_asc": {
+      "rate_pct": 4.7538,
+      "num_float": "186.3",
+      "den_float": "3919.0",
+      "int_num": 186,
+      "int_den": 3919
+     },
+     "sorted_val_desc": {
+      "rate_pct": 4.7538,
+      "num_float": "186.29999999999995",
+      "den_float": "3919.0",
+      "int_num": 186,
+      "int_den": 3919
+     },
+     "shuffle_a": {
+      "rate_pct": 4.7538,
+      "num_float": "186.29999999999995",
+      "den_float": "3919.0",
+      "int_num": 186,
+      "int_den": 3919
+     },
+     "shuffle_b": {
+      "rate_pct": 4.7538,
+      "num_float": "186.3",
+      "den_float": "3919.0",
+      "int_num": 186,
+      "int_den": 3919
+     }
+    }
+   },
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Massa-Carrara",
+    "window": "baseline_2022",
+    "n_addends": 21,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 2.7107,
+      "num_float": "57.9",
+      "den_float": "2136.0",
+      "int_num": 57,
+      "int_den": 2136
+     },
+     "reversed": {
+      "rate_pct": 2.7107,
+      "num_float": "57.89999999999999",
+      "den_float": "2136.0",
+      "int_num": 57,
+      "int_den": 2136
+     },
+     "sorted_val_asc": {
+      "rate_pct": 2.7107,
+      "num_float": "57.9",
+      "den_float": "2136.0",
+      "int_num": 57,
+      "int_den": 2136
+     },
+     "sorted_val_desc": {
+      "rate_pct": 2.7107,
+      "num_float": "57.89999999999999",
+      "den_float": "2136.0",
+      "int_num": 57,
+      "int_den": 2136
+     },
+     "shuffle_a": {
+      "rate_pct": 2.7107,
+      "num_float": "57.9",
+      "den_float": "2136.0",
+      "int_num": 57,
+      "int_den": 2136
+     },
+     "shuffle_b": {
+      "rate_pct": 2.7107,
+      "num_float": "57.89999999999999",
+      "den_float": "2136.0",
+      "int_num": 57,
+      "int_den": 2136
+     }
+    }
+   },
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Massa-Carrara",
+    "window": "baseline_2023",
+    "n_addends": 15,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 4.8635,
+      "num_float": "65.9",
+      "den_float": "1355.0",
+      "int_num": 65,
+      "int_den": 1355
+     },
+     "reversed": {
+      "rate_pct": 4.8635,
+      "num_float": "65.89999999999999",
+      "den_float": "1355.0",
+      "int_num": 65,
+      "int_den": 1355
+     },
+     "sorted_val_asc": {
+      "rate_pct": 4.8635,
+      "num_float": "65.9",
+      "den_float": "1355.0",
+      "int_num": 65,
+      "int_den": 1355
+     },
+     "sorted_val_desc": {
+      "rate_pct": 4.8635,
+      "num_float": "65.9",
+      "den_float": "1355.0",
+      "int_num": 65,
+      "int_den": 1355
+     },
+     "shuffle_a": {
+      "rate_pct": 4.8635,
+      "num_float": "65.89999999999999",
+      "den_float": "1355.0",
+      "int_num": 65,
+      "int_den": 1355
+     },
+     "shuffle_b": {
+      "rate_pct": 4.8635,
+      "num_float": "65.9",
+      "den_float": "1355.0",
+      "int_num": 65,
+      "int_den": 1355
+     }
+    }
+   },
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Pisa",
+    "window": "current",
+    "n_addends": 85,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 1.02,
+      "num_float": "93.8",
+      "den_float": "9196.0",
+      "int_num": 93,
+      "int_den": 9196
+     },
+     "reversed": {
+      "rate_pct": 1.02,
+      "num_float": "93.8",
+      "den_float": "9196.0",
+      "int_num": 93,
+      "int_den": 9196
+     },
+     "sorted_val_asc": {
+      "rate_pct": 1.02,
+      "num_float": "93.8",
+      "den_float": "9196.0",
+      "int_num": 93,
+      "int_den": 9196
+     },
+     "sorted_val_desc": {
+      "rate_pct": 1.02,
+      "num_float": "93.8",
+      "den_float": "9196.0",
+      "int_num": 93,
+      "int_den": 9196
+     },
+     "shuffle_a": {
+      "rate_pct": 1.02,
+      "num_float": "93.79999999999998",
+      "den_float": "9196.0",
+      "int_num": 93,
+      "int_den": 9196
+     },
+     "shuffle_b": {
+      "rate_pct": 1.02,
+      "num_float": "93.80000000000001",
+      "den_float": "9196.0",
+      "int_num": 93,
+      "int_den": 9196
+     }
+    }
+   },
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Pisa",
+    "window": "baseline_2020",
+    "n_addends": 139,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 3.2035,
+      "num_float": "451.70000000000005",
+      "den_float": "14100.0",
+      "int_num": 451,
+      "int_den": 14100
+     },
+     "reversed": {
+      "rate_pct": 3.2035,
+      "num_float": "451.69999999999993",
+      "den_float": "14100.0",
+      "int_num": 451,
+      "int_den": 14100
+     },
+     "sorted_val_asc": {
+      "rate_pct": 3.2035,
+      "num_float": "451.70000000000005",
+      "den_float": "14100.0",
+      "int_num": 451,
+      "int_den": 14100
+     },
+     "sorted_val_desc": {
+      "rate_pct": 3.2035,
+      "num_float": "451.70000000000005",
+      "den_float": "14100.0",
+      "int_num": 451,
+      "int_den": 14100
+     },
+     "shuffle_a": {
+      "rate_pct": 3.2035,
+      "num_float": "451.7",
+      "den_float": "14100.0",
+      "int_num": 451,
+      "int_den": 14100
+     },
+     "shuffle_b": {
+      "rate_pct": 3.2035,
+      "num_float": "451.69999999999993",
+      "den_float": "14100.0",
+      "int_num": 451,
+      "int_den": 14100
+     }
+    }
+   },
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Pisa",
+    "window": "baseline_2021",
+    "n_addends": 92,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 3.0049,
+      "num_float": "279.69999999999993",
+      "den_float": "9308.0",
+      "int_num": 279,
+      "int_den": 9308
+     },
+     "reversed": {
+      "rate_pct": 3.0049,
+      "num_float": "279.7",
+      "den_float": "9308.0",
+      "int_num": 279,
+      "int_den": 9308
+     },
+     "sorted_val_asc": {
+      "rate_pct": 3.0049,
+      "num_float": "279.7",
+      "den_float": "9308.0",
+      "int_num": 279,
+      "int_den": 9308
+     },
+     "sorted_val_desc": {
+      "rate_pct": 3.0049,
+      "num_float": "279.69999999999993",
+      "den_float": "9308.0",
+      "int_num": 279,
+      "int_den": 9308
+     },
+     "shuffle_a": {
+      "rate_pct": 3.0049,
+      "num_float": "279.7",
+      "den_float": "9308.0",
+      "int_num": 279,
+      "int_den": 9308
+     },
+     "shuffle_b": {
+      "rate_pct": 3.0049,
+      "num_float": "279.7",
+      "den_float": "9308.0",
+      "int_num": 279,
+      "int_den": 9308
+     }
+    }
+   },
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Pisa",
+    "window": "baseline_2023",
+    "n_addends": 55,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 5.554,
+      "num_float": "317.3",
+      "den_float": "5713.0",
+      "int_num": 317,
+      "int_den": 5713
+     },
+     "reversed": {
+      "rate_pct": 5.554,
+      "num_float": "317.29999999999995",
+      "den_float": "5713.0",
+      "int_num": 317,
+      "int_den": 5713
+     },
+     "sorted_val_asc": {
+      "rate_pct": 5.554,
+      "num_float": "317.3",
+      "den_float": "5713.0",
+      "int_num": 317,
+      "int_den": 5713
+     },
+     "sorted_val_desc": {
+      "rate_pct": 5.554,
+      "num_float": "317.3",
+      "den_float": "5713.0",
+      "int_num": 317,
+      "int_den": 5713
+     },
+     "shuffle_a": {
+      "rate_pct": 5.554,
+      "num_float": "317.3",
+      "den_float": "5713.0",
+      "int_num": 317,
+      "int_den": 5713
+     },
+     "shuffle_b": {
+      "rate_pct": 5.554,
+      "num_float": "317.3",
+      "den_float": "5713.0",
+      "int_num": 317,
+      "int_den": 5713
+     }
+    }
+   },
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Pisa",
+    "window": "baseline_2025",
+    "n_addends": 107,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 8.9403,
+      "num_float": "974.4",
+      "den_float": "10899.0",
+      "int_num": 974,
+      "int_den": 10899
+     },
+     "reversed": {
+      "rate_pct": 8.9403,
+      "num_float": "974.4000000000001",
+      "den_float": "10899.0",
+      "int_num": 974,
+      "int_den": 10899
+     },
+     "sorted_val_asc": {
+      "rate_pct": 8.9403,
+      "num_float": "974.4",
+      "den_float": "10899.0",
+      "int_num": 974,
+      "int_den": 10899
+     },
+     "sorted_val_desc": {
+      "rate_pct": 8.9403,
+      "num_float": "974.4000000000001",
+      "den_float": "10899.0",
+      "int_num": 974,
+      "int_den": 10899
+     },
+     "shuffle_a": {
+      "rate_pct": 8.9403,
+      "num_float": "974.4000000000001",
+      "den_float": "10899.0",
+      "int_num": 974,
+      "int_den": 10899
+     },
+     "shuffle_b": {
+      "rate_pct": 8.9403,
+      "num_float": "974.4",
+      "den_float": "10899.0",
+      "int_num": 974,
+      "int_den": 10899
+     }
+    }
+   },
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Pisa",
+    "window": "trend_-1",
+    "n_addends": 65,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 0.5022,
+      "num_float": "39.1",
+      "den_float": "7786.0",
+      "int_num": 39,
+      "int_den": 7786
+     },
+     "reversed": {
+      "rate_pct": 0.5022,
+      "num_float": "39.1",
+      "den_float": "7786.0",
+      "int_num": 39,
+      "int_den": 7786
+     },
+     "sorted_val_asc": {
+      "rate_pct": 0.5022,
+      "num_float": "39.099999999999994",
+      "den_float": "7786.0",
+      "int_num": 39,
+      "int_den": 7786
+     },
+     "sorted_val_desc": {
+      "rate_pct": 0.5022,
+      "num_float": "39.099999999999994",
+      "den_float": "7786.0",
+      "int_num": 39,
+      "int_den": 7786
+     },
+     "shuffle_a": {
+      "rate_pct": 0.5022,
+      "num_float": "39.099999999999994",
+      "den_float": "7786.0",
+      "int_num": 39,
+      "int_den": 7786
+     },
+     "shuffle_b": {
+      "rate_pct": 0.5022,
+      "num_float": "39.1",
+      "den_float": "7786.0",
+      "int_num": 39,
+      "int_den": 7786
+     }
+    }
+   },
+   {
+    "metric": "DAMAGING_INFESTATION_COUNT",
+    "province": "Grosseto",
+    "window": "baseline_2020",
+    "n_addends": 498,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 0.7619,
+      "num_float": "422.9",
+      "den_float": "55507.0",
+      "int_num": 422,
+      "int_den": 55507
+     },
+     "reversed": {
+      "rate_pct": 0.7619,
+      "num_float": "422.90000000000003",
+      "den_float": "55507.0",
+      "int_num": 422,
+      "int_den": 55507
+     },
+     "sorted_val_asc": {
+      "rate_pct": 0.7619,
+      "num_float": "422.90000000000003",
+      "den_float": "55507.0",
+      "int_num": 422,
+      "int_den": 55507
+     },
+     "sorted_val_desc": {
+      "rate_pct": 0.7619,
+      "num_float": "422.9",
+      "den_float": "55507.0",
+      "int_num": 422,
+      "int_den": 55507
+     },
+     "shuffle_a": {
+      "rate_pct": 0.7619,
+      "num_float": "422.9",
+      "den_float": "55507.0",
+      "int_num": 422,
+      "int_den": 55507
+     },
+     "shuffle_b": {
+      "rate_pct": 0.7619,
+      "num_float": "422.9",
+      "den_float": "55507.0",
+      "int_num": 422,
+      "int_den": 55507
+     }
+    }
+   },
+   {
+    "metric": "DAMAGING_INFESTATION_COUNT",
+    "province": "Grosseto",
+    "window": "baseline_2021",
+    "n_addends": 280,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 0.9847,
+      "num_float": "313.3",
+      "den_float": "31816.0",
+      "int_num": 313,
+      "int_den": 31816
+     },
+     "reversed": {
+      "rate_pct": 0.9847,
+      "num_float": "313.3",
+      "den_float": "31816.0",
+      "int_num": 313,
+      "int_den": 31816
+     },
+     "sorted_val_asc": {
+      "rate_pct": 0.9847,
+      "num_float": "313.29999999999995",
+      "den_float": "31816.0",
+      "int_num": 313,
+      "int_den": 31816
+     },
+     "sorted_val_desc": {
+      "rate_pct": 0.9847,
+      "num_float": "313.29999999999995",
+      "den_float": "31816.0",
+      "int_num": 313,
+      "int_den": 31816
+     },
+     "shuffle_a": {
+      "rate_pct": 0.9847,
+      "num_float": "313.3",
+      "den_float": "31816.0",
+      "int_num": 313,
+      "int_den": 31816
+     },
+     "shuffle_b": {
+      "rate_pct": 0.9847,
+      "num_float": "313.29999999999995",
+      "den_float": "31816.0",
+      "int_num": 313,
+      "int_den": 31816
+     }
+    }
+   },
+   {
+    "metric": "DAMAGING_INFESTATION_COUNT",
+    "province": "Grosseto",
+    "window": "baseline_2024",
+    "n_addends": 415,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 0.0081,
+      "num_float": "3.6",
+      "den_float": "44649.0",
+      "int_num": 3,
+      "int_den": 44649
+     },
+     "reversed": {
+      "rate_pct": 0.0081,
+      "num_float": "3.6",
+      "den_float": "44649.0",
+      "int_num": 3,
+      "int_den": 44649
+     },
+     "sorted_val_asc": {
+      "rate_pct": 0.0081,
+      "num_float": "3.6",
+      "den_float": "44649.0",
+      "int_num": 3,
+      "int_den": 44649
+     },
+     "sorted_val_desc": {
+      "rate_pct": 0.0081,
+      "num_float": "3.6",
+      "den_float": "44649.0",
+      "int_num": 3,
+      "int_den": 44649
+     },
+     "shuffle_a": {
+      "rate_pct": 0.0081,
+      "num_float": "3.6",
+      "den_float": "44649.0",
+      "int_num": 3,
+      "int_den": 44649
+     },
+     "shuffle_b": {
+      "rate_pct": 0.0081,
+      "num_float": "3.6000000000000005",
+      "den_float": "44649.0",
+      "int_num": 3,
+      "int_den": 44649
+     }
+    }
+   },
+   {
+    "metric": "DAMAGING_INFESTATION_COUNT",
+    "province": "Pisa",
+    "window": "baseline_2020",
+    "n_addends": 139,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 6.0404,
+      "num_float": "851.6999999999998",
+      "den_float": "14100.0",
+      "int_num": 851,
+      "int_den": 14100
+     },
+     "reversed": {
+      "rate_pct": 6.0404,
+      "num_float": "851.7000000000002",
+      "den_float": "14100.0",
+      "int_num": 851,
+      "int_den": 14100
+     },
+     "sorted_val_asc": {
+      "rate_pct": 6.0404,
+      "num_float": "851.7",
+      "den_float": "14100.0",
+      "int_num": 851,
+      "int_den": 14100
+     },
+     "sorted_val_desc": {
+      "rate_pct": 6.0404,
+      "num_float": "851.7",
+      "den_float": "14100.0",
+      "int_num": 851,
+      "int_den": 14100
+     },
+     "shuffle_a": {
+      "rate_pct": 6.0404,
+      "num_float": "851.7",
+      "den_float": "14100.0",
+      "int_num": 851,
+      "int_den": 14100
+     },
+     "shuffle_b": {
+      "rate_pct": 6.0404,
+      "num_float": "851.7",
+      "den_float": "14100.0",
+      "int_num": 851,
+      "int_den": 14100
+     }
+    }
+   },
+   {
+    "metric": "DAMAGING_INFESTATION_COUNT",
+    "province": "Pisa",
+    "window": "baseline_2021",
+    "n_addends": 92,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 2.2432,
+      "num_float": "208.80000000000004",
+      "den_float": "9308.0",
+      "int_num": 208,
+      "int_den": 9308
+     },
+     "reversed": {
+      "rate_pct": 2.2432,
+      "num_float": "208.8",
+      "den_float": "9308.0",
+      "int_num": 208,
+      "int_den": 9308
+     },
+     "sorted_val_asc": {
+      "rate_pct": 2.2432,
+      "num_float": "208.8",
+      "den_float": "9308.0",
+      "int_num": 208,
+      "int_den": 9308
+     },
+     "sorted_val_desc": {
+      "rate_pct": 2.2432,
+      "num_float": "208.8",
+      "den_float": "9308.0",
+      "int_num": 208,
+      "int_den": 9308
+     },
+     "shuffle_a": {
+      "rate_pct": 2.2432,
+      "num_float": "208.79999999999998",
+      "den_float": "9308.0",
+      "int_num": 208,
+      "int_den": 9308
+     },
+     "shuffle_b": {
+      "rate_pct": 2.2432,
+      "num_float": "208.8",
+      "den_float": "9308.0",
+      "int_num": 208,
+      "int_den": 9308
+     }
+    }
+   },
+   {
+    "metric": "DAMAGING_INFESTATION_COUNT",
+    "province": "Pisa",
+    "window": "baseline_2023",
+    "n_addends": 55,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 8.6697,
+      "num_float": "495.3",
+      "den_float": "5713.0",
+      "int_num": 495,
+      "int_den": 5713
+     },
+     "reversed": {
+      "rate_pct": 8.6697,
+      "num_float": "495.3",
+      "den_float": "5713.0",
+      "int_num": 495,
+      "int_den": 5713
+     },
+     "sorted_val_asc": {
+      "rate_pct": 8.6697,
+      "num_float": "495.30000000000007",
+      "den_float": "5713.0",
+      "int_num": 495,
+      "int_den": 5713
+     },
+     "sorted_val_desc": {
+      "rate_pct": 8.6697,
+      "num_float": "495.3",
+      "den_float": "5713.0",
+      "int_num": 495,
+      "int_den": 5713
+     },
+     "shuffle_a": {
+      "rate_pct": 8.6697,
+      "num_float": "495.30000000000007",
+      "den_float": "5713.0",
+      "int_num": 495,
+      "int_den": 5713
+     },
+     "shuffle_b": {
+      "rate_pct": 8.6697,
+      "num_float": "495.29999999999995",
+      "den_float": "5713.0",
+      "int_num": 495,
+      "int_den": 5713
+     }
+    }
+   },
+   {
+    "metric": "DAMAGING_INFESTATION_COUNT",
+    "province": "Pisa",
+    "window": "baseline_2024",
+    "n_addends": 69,
+    "SAME_ROUNDED_DIFFERENT_FLOAT": true,
+    "orders": {
+     "as_published": {
+      "rate_pct": 0.428,
+      "num_float": "30.799999999999997",
+      "den_float": "7197.0",
+      "int_num": 30,
+      "int_den": 7197
+     },
+     "reversed": {
+      "rate_pct": 0.428,
+      "num_float": "30.8",
+      "den_float": "7197.0",
+      "int_num": 30,
+      "int_den": 7197
+     },
+     "sorted_val_asc": {
+      "rate_pct": 0.428,
+      "num_float": "30.8",
+      "den_float": "7197.0",
+      "int_num": 30,
+      "int_den": 7197
+     },
+     "sorted_val_desc": {
+      "rate_pct": 0.428,
+      "num_float": "30.8",
+      "den_float": "7197.0",
+      "int_num": 30,
+      "int_den": 7197
+     },
+     "shuffle_a": {
+      "rate_pct": 0.428,
+      "num_float": "30.8",
+      "den_float": "7197.0",
+      "int_num": 30,
+      "int_den": 7197
+     },
+     "shuffle_b": {
+      "rate_pct": 0.428,
+      "num_float": "30.799999999999997",
+      "den_float": "7197.0",
+      "int_num": 30,
+      "int_den": 7197
+     }
+    }
+   }
+  ]
+ },
+ "Q3_boundary": {
+  "n_windows_scored": 669,
+  "closest_20_to_a_rounding_boundary": [
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Siena",
+    "window": "baseline_2025",
+    "rate_pct": 5.7188,
+    "q": "5.71875",
+    "distance_to_rounding_boundary": 0.0,
+    "distance_in_ULPs_of_q": 0.0,
+    "n_addends": 102,
+    "num": "549.0",
+    "den": "9600.0"
+   },
+   {
+    "metric": "TOTAL_INFESTATION_COUNT",
+    "province": "Livorno",
+    "window": "baseline_2020",
+    "rate_pct": 28.0938,
+    "q": "28.09375",
+    "distance_to_rounding_boundary": 0.0,
+    "distance_in_ULPs_of_q": 0.0,
+    "n_addends": 64,
+    "num": "1798.0",
+    "den": "6400.0"
+   },
+   {
+    "metric": "TOTAL_INFESTATION_COUNT",
+    "province": "Lucca",
+    "window": "baseline_2014",
+    "rate_pct": 58.3519,
+    "q": "58.351851851851855",
+    "distance_to_rounding_boundary": 1.8518518540076913e-06,
+    "distance_in_ULPs_of_q": 260624978.73920003,
+    "n_addends": 54,
+    "num": "3151.0",
+    "den": "5400.0"
+   },
+   {
+    "metric": "TOTAL_INFESTATION_COUNT",
+    "province": "Siena",
+    "window": "baseline_2014",
+    "rate_pct": 12.2784,
+    "q": "12.278350515463918",
+    "distance_to_rounding_boundary": 5.154639176907949e-07,
+    "distance_in_ULPs_of_q": 290180388.4544,
+    "n_addends": 97,
+    "num": "1191.0",
+    "den": "9700.0"
+   },
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Firenze",
+    "window": "baseline_2007",
+    "rate_pct": 12.5344,
+    "q": "12.534449321220782",
+    "distance_to_rounding_boundary": 6.787792182876729e-07,
+    "distance_in_ULPs_of_q": 382118729.3184,
+    "n_addends": 101,
+    "num": "1228.0",
+    "den": "9797.0"
+   },
+   {
+    "metric": "TOTAL_INFESTATION_COUNT",
+    "province": "Pisa",
+    "window": "baseline_2017",
+    "rate_pct": 6.5495,
+    "q": "6.54954954954955",
+    "distance_to_rounding_boundary": 4.5045045044389556e-07,
+    "distance_in_ULPs_of_q": 507162120.19200003,
+    "n_addends": 111,
+    "num": "727.0",
+    "den": "11100.0"
+   },
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Lucca",
+    "window": "baseline_2014",
+    "rate_pct": 16.6481,
+    "q": "16.64814814814815",
+    "distance_to_rounding_boundary": 1.8518518510973081e-06,
+    "distance_in_ULPs_of_q": 521249956.6592,
+    "n_addends": 54,
+    "num": "899.0",
+    "den": "5400.0"
+   },
+   {
+    "metric": "TOTAL_INFESTATION_COUNT",
+    "province": "Pistoia",
+    "window": "baseline_2025",
+    "rate_pct": 31.8519,
+    "q": "31.85185185185185",
+    "distance_to_rounding_boundary": 1.8518518540076913e-06,
+    "distance_in_ULPs_of_q": 521249957.47840005,
+    "n_addends": 27,
+    "num": "860.0",
+    "den": "2700.0"
+   },
+   {
+    "metric": "TOTAL_INFESTATION_COUNT",
+    "province": "Pisa",
+    "window": "baseline_2020",
+    "rate_pct": 16.5113,
+    "q": "16.5113475177305",
+    "distance_to_rounding_boundary": 2.4822695006150753e-06,
+    "distance_in_ULPs_of_q": 698696749.8752,
+    "n_addends": 139,
+    "num": "2328.1000000000004",
+    "den": "14100.0"
+   },
+   {
+    "metric": "TOTAL_INFESTATION_COUNT",
+    "province": "Lucca",
+    "window": "baseline_2023",
+    "rate_pct": 16.6203,
+    "q": "16.620253164556964",
+    "distance_to_rounding_boundary": 3.1645569630200044e-06,
+    "distance_in_ULPs_of_q": 890743597.4656,
+    "n_addends": 79,
+    "num": "1313.0",
+    "den": "7900.0"
+   },
+   {
+    "metric": "TOTAL_INFESTATION_COUNT",
+    "province": "Firenze",
+    "window": "baseline_2007",
+    "rate_pct": 32.0915,
+    "q": "32.09145656833724",
+    "distance_to_rounding_boundary": 6.568337243515998e-06,
+    "distance_in_ULPs_of_q": 924411286.3232,
+    "n_addends": 101,
+    "num": "3144.0",
+    "den": "9797.0"
+   },
+   {
+    "metric": "TOTAL_INFESTATION_COUNT",
+    "province": "Pisa",
+    "window": "baseline_2019",
+    "rate_pct": 20.4653,
+    "q": "20.465346534653467",
+    "distance_to_rounding_boundary": 3.4653465321753175e-06,
+    "distance_in_ULPs_of_q": 975408334.4384,
+    "n_addends": 101,
+    "num": "2067.0",
+    "den": "10100.0"
+   },
+   {
+    "metric": "TOTAL_INFESTATION_COUNT",
+    "province": "Pisa",
+    "window": "baseline_2014",
+    "rate_pct": 32.1646,
+    "q": "32.164556962025316",
+    "distance_to_rounding_boundary": 6.96202531689778e-06,
+    "distance_in_ULPs_of_q": 979817956.9664,
+    "n_addends": 79,
+    "num": "2541.0",
+    "den": "7900.0"
+   },
+   {
+    "metric": "TOTAL_INFESTATION_COUNT",
+    "province": "Pistoia",
+    "window": "baseline_2011",
+    "rate_pct": 18.2462,
+    "q": "18.246153846153845",
+    "distance_to_rounding_boundary": 3.8461538439150904e-06,
+    "distance_in_ULPs_of_q": 1082596063.6416001,
+    "n_addends": 65,
+    "num": "1186.0",
+    "den": "6500.0"
+   },
+   {
+    "metric": "TOTAL_INFESTATION_COUNT",
+    "province": "Siena",
+    "window": "baseline_2019",
+    "rate_pct": 9.5891,
+    "q": "9.589147286821705",
+    "distance_to_rounding_boundary": 2.7131782946526075e-06,
+    "distance_in_ULPs_of_q": 1527383594.5984,
+    "n_addends": 129,
+    "num": "1237.0",
+    "den": "12900.0"
+   },
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Grosseto",
+    "window": "baseline_2024",
+    "rate_pct": 0.6844,
+    "q": "0.6844498197048086",
+    "distance_to_rounding_boundary": 1.8029519142146455e-07,
+    "distance_in_ULPs_of_q": 1623954713.8048,
+    "n_addends": 415,
+    "num": "305.59999999999997",
+    "den": "44649.0"
+   },
+   {
+    "metric": "TOTAL_INFESTATION_COUNT",
+    "province": "Siena",
+    "window": "baseline_2011",
+    "rate_pct": 4.4848,
+    "q": "4.484848484848484",
+    "distance_to_rounding_boundary": 1.5151515159232078e-06,
+    "distance_in_ULPs_of_q": 1705908950.6304002,
+    "n_addends": 116,
+    "num": "518.0",
+    "den": "11550.0"
+   },
+   {
+    "metric": "DAMAGING_INFESTATION_COUNT",
+    "province": "Firenze",
+    "window": "baseline_2014",
+    "rate_pct": 10.1532,
+    "q": "10.153153153153154",
+    "distance_to_rounding_boundary": 3.153153153834865e-06,
+    "distance_in_ULPs_of_q": 1775067421.0816002,
+    "n_addends": 111,
+    "num": "1127.0",
+    "den": "11100.0"
+   },
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Lucca",
+    "window": "baseline_2025",
+    "rate_pct": 5.6935,
+    "q": "5.693548387096774",
+    "distance_to_rounding_boundary": 1.61290322575951e-06,
+    "distance_in_ULPs_of_q": 1815967591.6288002,
+    "n_addends": 62,
+    "num": "353.0",
+    "den": "6200.0"
+   },
+   {
+    "metric": "TOTAL_INFESTATION_COUNT",
+    "province": "Siena",
+    "window": "baseline_2023",
+    "rate_pct": 18.2432,
+    "q": "18.243243243243242",
+    "distance_to_rounding_boundary": 6.756756757386029e-06,
+    "distance_in_ULPs_of_q": 1901857950.9248002,
+    "n_addends": 111,
+    "num": "2025.0",
+    "den": "11100.0"
+   }
+  ],
+  "n_within_1000_ULPs": 2,
+  "n_within_1e6_ULPs": 2
+ },
+ "windows_tested": 669
+}

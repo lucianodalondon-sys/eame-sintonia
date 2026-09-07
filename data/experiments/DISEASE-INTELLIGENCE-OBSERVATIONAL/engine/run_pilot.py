@@ -13,7 +13,7 @@ loaded = di_core.load_visits(CASE, sheet, as_of)
 provs = sorted({v["province"] for v in loaded["visits"] if v["province"]})
 cells = [di_observe.cell(loaded["visits"], sheet, p, METRIC, as_of) for p in provs]
 print(f"AS_OF {as_of}   metric {METRIC}   visits {loaded['n_visits']:,} "
-      f"(usable {loaded['n_visits_usable_for_rates']:,})")
+      f"(usable {loaded['n_visits_usable_for_at_least_one_measurement']:,})")
 print(f"{'province':15s} {'rate%':>7} {'band':>22} {'n_vis':>6} {'sites':>6} {'drupes':>8} "
       f"{'hist':>18} {'base_med%':>9} {'trend':>20} {'pub':>5} {'matched':>7}")
 for c in cells:
