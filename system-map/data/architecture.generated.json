@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "aae3728a25b0ebd02e45fc0aedc7e4b4e2a86d5d",
-    "GENERATED_AT": "2026-09-07T16:14:23-03:00"
+    "HEAD": "1f357c55ea3c52ff28b38aab187bbac162c61714",
+    "GENERATED_AT": "2026-09-07T16:18:39-03:00"
   },
   "FILES": [
     {
@@ -93,7 +93,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "d2978258a6de7611481389c3ff55073c3ce6118a",
+      "sha": "9e50d150bed51762f36dee987032a4c272eefe1c",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -7681,14 +7681,14 @@
     },
     {
       "path": "system-map/app/map.js",
-      "sha": "5d10416ddeb10c24456511d42e567dda4991d6da",
+      "sha": "3daa8fae865ade0840ade2bf788fa25bb8256436",
       "ext": ".js",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "d18b54564381b06ff2fbdffcddba9370359c46e4",
+      "sha": "7fea574d6083d909989614e0c79703e2e5155f81",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -7696,6 +7696,13 @@
     {
       "path": "system-map/data/censo-da-coleta.generated.json",
       "sha": "8dea15177c91f6276131bf591b86d1dd9562dfd9",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/data/pente-fino.generated.json",
+      "sha": "47e42c9c8c58667331980a5225c543e5a2667e8e",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -7709,7 +7716,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "5df08583b9bbc74403d487a26bd617d53f440732",
+      "sha": "6e2782cd29948347cb6acbb4548eff90b1643808",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7717,6 +7724,13 @@
     {
       "path": "system-map/scripts/mudar_gaveta.py",
       "sha": "99736f74a118a545f946246f88c041153e4bb342",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/pente_fino_da_coleta.py",
+      "sha": "7c6f8bd541be3e5aef7aaf3df2514af423f14928",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7730,7 +7744,7 @@
     },
     {
       "path": "system-map/scripts/scan_repo.py",
-      "sha": "c3381581f275c3de013fed483eacf9c817055946",
+      "sha": "009e569e6834b3869c4f941fc96ad9553b8580b0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8546,7 +8560,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 88,
+        "line": 89,
         "snippet": "run: python3 provas/testa_coleta_canonica.py"
       }
     },
@@ -8557,7 +8571,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 79,
+        "line": 80,
         "snippet": "run: python3 regras/padrao_da_coleta.py"
       }
     },
@@ -8579,8 +8593,19 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 68,
+        "line": 69,
         "snippet": "python3 system-map/scripts/generate_system_map.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/pente_fino_da_coleta.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 68,
+        "snippet": "python3 system-map/scripts/pente_fino_da_coleta.py"
       }
     },
     {
@@ -8623,7 +8648,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 76,
+        "line": 77,
         "snippet": "run: python3 system-map/scripts/validate_system_map.py"
       }
     },
@@ -8634,7 +8659,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 82,
+        "line": 83,
         "snippet": "run: python3 system-map/tests/test_system_map.py"
       }
     },
@@ -21988,7 +22013,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1193,
+        "line": 1239,
         "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
       }
     },
@@ -21999,7 +22024,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1171,
+        "line": 1217,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -22010,7 +22035,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 952,
+        "line": 998,
         "snippet": "destino = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -22043,7 +22068,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1372,
+        "line": 1418,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
       }
     },
@@ -22054,7 +22079,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1394,
+        "line": 1440,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -22065,7 +22090,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1395,
+        "line": 1441,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -22076,7 +22101,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1394,
+        "line": 1440,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -22098,7 +22123,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1731,
+        "line": 1792,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -22109,7 +22134,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1731,
+        "line": 1792,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -22120,7 +22145,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1133,
+        "line": 1179,
         "snippet": "vj = RAIZ / \"vercel.json\""
       }
     },
@@ -22133,6 +22158,17 @@
         "file": "system-map/scripts/mudar_gaveta.py",
         "line": 31,
         "snippet": "DECL = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/pente_fino_da_coleta.py",
+      "to_file": "system-map/data/pente-fino.generated.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/pente_fino_da_coleta.py",
+        "line": 38,
+        "snippet": "SAIDA = RAIZ / \"system-map\" / \"data\" / \"pente-fino.generated.json\""
       }
     },
     {
@@ -22186,7 +22222,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_repo.py",
-        "line": 294,
+        "line": 355,
         "snippet": "\"\"\"`'PUBLIC-COMM-FIRST-BATCH-EAME.json'` -> o unico ficheiro com esse nome."
       }
     },
@@ -22197,7 +22233,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_repo.py",
-        "line": 304,
+        "line": 365,
         "snippet": "\"\"\"`<script src=\"italy-v21.js\">` e um caminho relativo a propria pasta."
       }
     },
@@ -22208,7 +22244,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_repo.py",
-        "line": 446,
+        "line": 532,
         "snippet": "decl = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
       }
     },
@@ -24787,11 +24823,387 @@
       }
     }
   ],
+  "ESCRITAS_EM_PASTA": {
+    "coleta/agrifood_ue.py": [
+      {
+        "pasta": "data/samples/IT-MERCADO",
+        "line": 164,
+        "constante": "dest"
+      }
+    ],
+    "coleta/comunicacao_classificar.py": [
+      {
+        "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
+        "line": 249,
+        "constante": "SAIDA"
+      }
+    ],
+    "coleta/comunicacao_coleta.py": [
+      {
+        "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
+        "line": 106,
+        "constante": "SAIDA"
+      }
+    ],
+    "coleta/comunicacao_medir.py": [
+      {
+        "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
+        "line": 181,
+        "constante": "SAIDA"
+      }
+    ],
+    "coleta/es/corpus_es.py": [
+      {
+        "pasta": "data/raw",
+        "line": 90,
+        "constante": "DEST"
+      }
+    ],
+    "coleta/regulatorio_importar.py": [
+      {
+        "pasta": "supabase/importacoes",
+        "line": 186,
+        "constante": "SAIDA"
+      }
+    ],
+    "coleta/ropf_pre_requisito.py": [
+      {
+        "pasta": "supabase/ensaios",
+        "line": 119,
+        "constante": "SAIDA"
+      }
+    ],
+    "ferramentas/apify_contrato.py": [
+      {
+        "pasta": "data/samples",
+        "line": 192,
+        "constante": "DEST"
+      }
+    ],
+    "ferramentas/apify_recuperar.py": [
+      {
+        "pasta": "data/samples",
+        "line": 222,
+        "constante": "DEST"
+      }
+    ],
+    "fontes/adama_it_gaps.py": [
+      {
+        "pasta": "research/adama-italy-product-intelligence-deep",
+        "line": 51,
+        "constante": "OUT"
+      }
+    ],
+    "fontes/adama_it_intelligence.py": [
+      {
+        "pasta": "research/adama-italy-product-intelligence-deep",
+        "line": 479,
+        "constante": "OUT"
+      }
+    ],
+    "fontes/adama_it_labels.py": [
+      {
+        "pasta": "research/adama-italy-product-intelligence-deep",
+        "line": 116,
+        "constante": "OUT"
+      }
+    ],
+    "fontes/adama_it_qa.py": [
+      {
+        "pasta": "research/adama-italy-product-intelligence-deep",
+        "line": 301,
+        "constante": "OUT"
+      }
+    ],
+    "guarda/catalogo_importar.py": [
+      {
+        "pasta": "data/normalized",
+        "line": 627,
+        "constante": "LINHAS_OUT"
+      },
+      {
+        "pasta": "supabase/importacoes",
+        "line": 637,
+        "constante": "SQL_OUT"
+      }
+    ],
+    "guarda/es/adama_es_gate.py": [
+      {
+        "pasta": "data/samples",
+        "line": 1030,
+        "constante": "SAIDA"
+      }
+    ],
+    "leis/auditoria_regua_comercial.py": [
+      {
+        "pasta": "data/samples/AUDITORIA-SOMBRA",
+        "line": 570,
+        "constante": "SAIDA"
+      }
+    ],
+    "leis/data_clock.py": [
+      {
+        "pasta": "data/samples",
+        "line": 105,
+        "constante": "OUT"
+      }
+    ],
+    "leis/v21_geografia_contrato.py": [
+      {
+        "pasta": "build",
+        "line": 119,
+        "constante": "destino"
+      }
+    ],
+    "leis/v21_procedencia_contrato.py": [
+      {
+        "pasta": "build",
+        "line": 97,
+        "constante": "destino"
+      }
+    ],
+    "motor/consolidar_leque.py": [
+      {
+        "pasta": "data/samples/IT-CIENCIA",
+        "line": 132,
+        "constante": "d1"
+      },
+      {
+        "pasta": "data/samples/IT-REGUA",
+        "line": 204,
+        "constante": "d2"
+      }
+    ],
+    "motor/normalize_agro.py": [
+      {
+        "pasta": "data/samples",
+        "line": 297,
+        "constante": "OUT"
+      }
+    ],
+    "motor/normalize_substance.py": [
+      {
+        "pasta": "data/samples",
+        "line": 218,
+        "constante": "OUT"
+      }
+    ],
+    "motor/v21_adama_registro_validar.py": [
+      {
+        "pasta": "data/samples",
+        "line": 308,
+        "constante": "OUT"
+      }
+    ],
+    "motor/v21_antes_e_depois.py": [
+      {
+        "pasta": "data/samples/AUDITORIA-SOMBRA",
+        "line": 179,
+        "constante": "SAIDA"
+      }
+    ],
+    "motor/v21_completude_oportunidade.py": [
+      {
+        "pasta": "data/samples/IT-CATALOGO",
+        "line": 745,
+        "constante": "p"
+      }
+    ],
+    "motor/v21_crossings.py": [
+      {
+        "pasta": "build",
+        "line": 407,
+        "constante": "ING"
+      }
+    ],
+    "motor/v21_reverificacao_ledger.py": [
+      {
+        "pasta": "handoff/paused-v2",
+        "line": 127,
+        "constante": "destino"
+      }
+    ],
+    "motor/v21_tm_colher.py": [
+      {
+        "pasta": "data/i18n",
+        "line": 146,
+        "constante": "TM"
+      }
+    ],
+    "motor/v2_cruzamentos.py": [
+      {
+        "pasta": "build/ITALY-REALITY-HANDOFF-V2",
+        "line": 262,
+        "constante": "PKG"
+      }
+    ],
+    "motor/v2_fechar.py": [
+      {
+        "pasta": "build/ITALY-REALITY-HANDOFF-V2",
+        "line": 63,
+        "constante": "PKG"
+      }
+    ],
+    "motor/v2_montar_handoff.py": [
+      {
+        "pasta": "build/ITALY-REALITY-HANDOFF-V2",
+        "line": 182,
+        "constante": "SAIDA"
+      }
+    ],
+    "motor/v2_relatorio.py": [
+      {
+        "pasta": "build/ITALY-REALITY-HANDOFF-V2",
+        "line": 61,
+        "constante": "PKG"
+      }
+    ],
+    "pacote/lastmile_entregar.py": [
+      {
+        "pasta": "research/italy-lastmile",
+        "line": 199,
+        "constante": "SAIDA"
+      }
+    ],
+    "pacote/lastmile_inventario.py": [
+      {
+        "pasta": "data/samples/IT-LASTMILE",
+        "line": 341,
+        "constante": "d"
+      }
+    ],
+    "pacote/pacote_docs.py": [
+      {
+        "pasta": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/04-PROVENANCE",
+        "line": 185,
+        "constante": "d4"
+      },
+      {
+        "pasta": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/03-SOURCE-REGISTRY",
+        "line": 223,
+        "constante": "d3"
+      },
+      {
+        "pasta": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/06-HANDOFF-MANIFEST",
+        "line": 276,
+        "constante": "d6"
+      },
+      {
+        "pasta": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/00-START-HERE",
+        "line": 169,
+        "constante": "d0"
+      }
+    ],
+    "pacote/pacote_fenologia.py": [
+      {
+        "pasta": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/CROP-WINDOWS",
+        "line": 109,
+        "constante": "dd"
+      }
+    ],
+    "pacote/pacote_mercado.py": [
+      {
+        "pasta": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/MARKET-PULSE",
+        "line": 162,
+        "constante": "d"
+      }
+    ],
+    "pacote/pacote_montar.py": [
+      {
+        "pasta": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/RELATIONSHIPS",
+        "line": 162,
+        "constante": "d"
+      },
+      {
+        "pasta": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/06-HANDOFF-MANIFEST",
+        "line": 177,
+        "constante": "dm"
+      }
+    ],
+    "pacote/pacote_relacoes_convergencia.py": [
+      {
+        "pasta": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/RELATIONSHIPS",
+        "line": 279,
+        "constante": "destino"
+      }
+    ],
+    "portoes/build_portal.py": [
+      {
+        "pasta": "prototype/portal",
+        "line": 507,
+        "constante": "OUT"
+      }
+    ],
+    "regras/cicatrizes_brasil.py": [
+      {
+        "pasta": "data/samples",
+        "line": 600,
+        "constante": "SAIDA"
+      }
+    ],
+    "regras/comunicacao_identidade.py": [
+      {
+        "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
+        "line": 633,
+        "constante": "SAIDA"
+      }
+    ],
+    "regras/comunicacao_lote.py": [
+      {
+        "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
+        "line": 173,
+        "constante": "SAIDA"
+      }
+    ],
+    "regras/padrao_da_coleta.py": [
+      {
+        "pasta": "data/samples",
+        "line": 269,
+        "constante": "CHAO"
+      }
+    ],
+    "regras/portoes_eame.py": [
+      {
+        "pasta": "data/samples",
+        "line": 357,
+        "constante": "SAIDA"
+      }
+    ],
+    "regras/proveniencia.py": [
+      {
+        "pasta": "data/samples",
+        "line": 147,
+        "constante": "MANIFESTO"
+      }
+    ],
+    "regras/sensor_coleta.py": [
+      {
+        "pasta": "data/samples/SENSOR-PILOT",
+        "line": 289,
+        "constante": "SAIDA"
+      }
+    ],
+    "regras/sensor_medir.py": [
+      {
+        "pasta": "data/samples/SENSOR-PILOT",
+        "line": 426,
+        "constante": "PILOT"
+      }
+    ],
+    "superficie/es/proto_es.py": [
+      {
+        "pasta": "build",
+        "line": 497,
+        "constante": "dest"
+      }
+    ]
+  },
   "COUNTS": {
-    "files_tracked": 1140,
-    "files_readable": 387,
-    "files_code_dir": 430,
-    "file_edges": 1527,
+    "files_tracked": 1142,
+    "files_readable": 388,
+    "files_code_dir": 432,
+    "file_edges": 1529,
+    "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

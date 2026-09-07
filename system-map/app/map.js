@@ -457,6 +457,15 @@ function openDetail(id) {
 
       ${n.ligado_nela ? blocoCasco(n) : ''}
 
+      ${n.nao_guarda_nada ? `<div class="sec">
+        <h4>O que entra por aqui vai parar onde?</h4>
+        <p style="font-size:11px;color:#4a443f;margin-bottom:8px">${esc(n.nao_guarda_nada)}</p>${
+        (n.o_que_entra_vai_para || []).map(d => `<div class="file">
+          ${esc(d.ficheiro)}
+          <div style="font-size:10px;color:#8a827e">quem escreve: ${esc(d.acao)} ·
+            prova: ${esc(d.prova.file)}:${d.prova.line}</div>
+        </div>`).join('')}</div>` : ''}
+
       ${n.destino_texto ? `<div class="sec">
         <h4>Onde para o que sai daqui</h4>
         <p style="font-size:11px;color:#4a443f;margin-bottom:8px">${esc(n.destino_texto)}</p>

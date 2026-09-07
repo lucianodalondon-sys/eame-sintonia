@@ -209,6 +209,67 @@ def escritas_por_constante(caminho: str, unicos: dict) -> list[tuple]:
     return saida
 
 
+def escritas_em_pasta(caminho: str, pastas_unicas: dict) -> list[tuple]:
+    """`SAIDA = os.path.join(SAMPLES, 'X')` e depois `open(os.path.join(SAIDA, nome), 'w')`.
+
+    O NOME DO FICHEIRO E UMA VARIAVEL, e por isso a medicao anterior nao via nada:
+    ela so seguia constantes ate um ficheiro com nome fixo. O resultado era um
+    beco sem saida no mapa — «Colher o Instagram» e «Colher o que o concorrente
+    publica» apareciam a nao escrever nada, quando escrevem uma pasta inteira.
+
+    Um cartao que diz «nao guarda nada» sobre uma peca que guarda e pior do que
+    um cartao vazio: parece uma medicao, e e so um ponto cego.
+
+    O que se consegue saber com honestidade e a PASTA — e a pasta ja responde a
+    pergunta que interessa: «o que entra por aqui vai parar onde?».
+
+    NAO GERA ARESTA. Uma pasta nao e um ficheiro, e reivindicar os ficheiros la
+    dentro daria a esta peca a posse de coisas que outra pode ter escrito. Fica
+    como facto ao lado, para o cartao poder responder.
+    """
+    try:
+        arvore = ast.parse((RAIZ / caminho).read_text(encoding="utf-8", errors="replace"))
+    except (SyntaxError, OSError):
+        return []
+
+    de_pasta: dict[str, str] = {}
+    for no in ast.walk(arvore):
+        if not isinstance(no, ast.Assign) or len(no.targets) != 1:
+            continue
+        alvo = no.targets[0]
+        if not isinstance(alvo, ast.Name):
+            continue
+        for pedaco in ast.walk(no.value):
+            if isinstance(pedaco, ast.Constant) and isinstance(pedaco.value, str):
+                achado = pastas_unicas.get(pedaco.value.strip("/").split("/")[-1])
+                if achado:
+                    de_pasta[alvo.id] = achado
+
+    if not de_pasta:
+        return []
+
+    fora = []
+    for no in ast.walk(arvore):
+        if not (isinstance(no, ast.Call) and getattr(no.func, "id", "") == "open"):
+            continue
+        modo = ""
+        if len(no.args) > 1 and isinstance(no.args[1], ast.Constant):
+            modo = str(no.args[1].value)
+        for kw in no.keywords:
+            if kw.arg == "mode" and isinstance(kw.value, ast.Constant):
+                modo = str(kw.value.value)
+        if modo[:1] not in ("w", "a"):
+            continue
+        # open(os.path.join(CONST, <o que for>), 'w')
+        if not no.args:
+            continue
+        for pedaco in ast.walk(no.args[0]):
+            if isinstance(pedaco, ast.Name) and pedaco.id in de_pasta:
+                fora.append((de_pasta[pedaco.id], no.lineno, pedaco.id))
+                break
+    return fora
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # 3 · O QUE FOI DECLARADO E NAO ESTA AQUI — mas existe noutro sitio
 # ─────────────────────────────────────────────────────────────────────────────
@@ -313,7 +374,7 @@ def relativo(lit: str, origem: str, arquivos: dict) -> str | None:
     return alvo if alvo in arquivos else None
 
 
-def arestas(arquivos: dict) -> list[dict]:
+def arestas(arquivos: dict) -> tuple[list, dict]:
     saida: list[dict] = []
     vistas: set[tuple] = set()
 
@@ -335,10 +396,30 @@ def arestas(arquivos: dict) -> list[dict]:
             "payload": carga, "evidence": ev,
         })
 
+    # nome de pasta -> caminho, so quando o nome e UNICO. Havendo duas pastas
+    # com o mesmo nome, escolher uma seria inventar.
+    from collections import Counter
+    todas_pastas = {}
+    conta_pastas = Counter()
+    for c in arquivos:
+        partes = c.split("/")
+        for k in range(1, len(partes)):
+            d = "/".join(partes[:k])
+            if d not in todas_pastas:
+                conta_pastas[partes[k - 1]] += 1
+                todas_pastas[d] = partes[k - 1]
+    pastas_unicas = {b: d for d, b in todas_pastas.items() if conta_pastas[b] == 1}
+
+    escritas_de_pasta: dict[str, list] = {}
     for caminho, meta in arquivos.items():
         if not meta["readable"]:
             continue
         if meta["ext"] == ".py":
+            for pasta, n, const in escritas_em_pasta(caminho, pastas_unicas):
+                escritas_de_pasta.setdefault(caminho, [])
+                if not any(x["pasta"] == pasta for x in escritas_de_pasta[caminho]):
+                    escritas_de_pasta[caminho].append(
+                        {"pasta": pasta, "line": n, "constante": const})
             for alvo, tipo, n, const, modo in escritas_por_constante(caminho, unicos):
                 add(caminho, alvo, tipo,
                     prova(caminho, n, f"open({const}, {modo!r})  # {const} = {alvo}"),
@@ -400,7 +481,9 @@ def arestas(arquivos: dict) -> list[dict]:
                     add(caminho, alvo, tipo, prova(caminho, n, crua), "artefacto")
 
     saida.sort(key=lambda e: (e["from_file"], e["to_file"], e["type"]))
-    return saida
+    # a segunda coisa e o que se escreve numa PASTA com nome variavel: nao vira
+    # aresta (uma pasta nao e um ficheiro), mas responde «vai parar onde?».
+    return saida, escritas_de_pasta
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -413,6 +496,7 @@ def main() -> int:
         return 1
 
     head = git("rev-parse", "HEAD")
+    _arestas, _em_pasta = arestas(arquivos)
     fatos = {
         "SCHEMA": "sintonia.system-map.generated/1",
         # PROVENIENCIA vive num bloco a parte, e o validador IGNORA-O ao medir
@@ -432,7 +516,8 @@ def main() -> int:
             "GENERATED_AT": git("show", "-s", "--format=%cI", head),
         },
         "FILES": list(arquivos.values()),
-        "FILE_EDGES": arestas(arquivos),
+        "FILE_EDGES": _arestas,
+        "ESCRITAS_EM_PASTA": _em_pasta,
         "COUNTS": {
             "files_tracked": len(arquivos),
             "files_readable": sum(1 for f in arquivos.values() if f["readable"]),
@@ -440,6 +525,7 @@ def main() -> int:
         },
     }
     fatos["COUNTS"]["file_edges"] = len(fatos["FILE_EDGES"])
+    fatos["COUNTS"]["escritas_em_pasta"] = sum(len(v) for v in _em_pasta.values())
 
     # O mapa declara ficheiros; alguns podem nao estar nesta arvore. Medir onde
     # eles estao e barato e responde a pergunta que o vermelho sozinho nao responde.

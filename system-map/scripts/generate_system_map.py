@@ -495,7 +495,7 @@ CANAIS = (
 )
 
 
-def os_veiculos(comps: list, dono: dict) -> tuple[list, list]:
+def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
     """Um cartao por canal, e uma seta de cada acao para o canal que ela usa.
 
     O ESTADO DIZ SE ALGUEM USA O CANAL, nao se o canal funciona. Verde e «ha
@@ -528,6 +528,42 @@ def os_veiculos(comps: list, dono: dict) -> tuple[list, list]:
                                    "snippet": achou[1].strip()[:150]})
                     break
 
+        # ── E O QUE ENTRA POR AQUI, VAI PARAR ONDE? ──────────────────────
+        # O cartao dizia «recebe de 3 acoes, envia para ninguem», e isso lia-se
+        # como um beco sem saida — como se o canal engolisse o que capta.
+        #
+        # O canal nao guarda nada, e nunca guardou: quem guarda e a acao que
+        # passa por ele. Mas dizer «envia para ninguem» e pior do que nao dizer
+        # nada, porque parece uma medicao e e so uma consequencia de o canal nao
+        # ser uma peca que escreve.
+        #
+        # Entao mede-se o que interessa: para cada acao que sai por este canal,
+        # ONDE e que ela larga o que trouxe. Nao se inventa seta — a seta
+        # continua a ser da acao, que e quem realmente escreve. O canal apenas
+        # passa a saber responder a pergunta.
+        destinos = []
+        for aid in sorted(set(quem)):
+            for f in next((c.get("_files", []) for c in comps if c["id"] == aid), []):
+                for x in (G.get("ESCRITAS_EM_PASTA") or {}).get(f, []):
+                    # duas acoes podem encher a MESMA pasta; o destino e um so
+                    ja = {d.get("_chave") for d in destinos}
+                    if x["pasta"] not in ja:
+                        destinos.append({
+                            "_chave": x["pasta"],
+                            "acao": aid, "ficheiro": x["pasta"] + "/  (pasta inteira)",
+                            "prova": {"file": f, "line": x["line"],
+                                      "snippet": f"escreve em {x['constante']}"}})
+            for e in G["FILE_EDGES"]:
+                if (e["type"] == "WRITES" and dono.get(e["from_file"]) == aid
+                        and e["to_file"] not in {d.get("_chave") for d in destinos}):
+                    destinos.append({
+                        "_chave": e["to_file"],
+                        "acao": aid, "ficheiro": e["to_file"],
+                        "prova": {"file": e["from_file"],
+                                  "line": e.get("line") or 1,
+                                  "snippet": e.get("snippet", "")[:120]},
+                    })
+
         nos.append({
             "id": vid, "name": nome, "kind": "veiculo", "icon": "◈",
             "territory": "Z-VEICULOS", "family": "F-COLETA",
@@ -552,6 +588,16 @@ def os_veiculos(comps: list, dono: dict) -> tuple[list, list]:
             "evidence_text": "", "departments": [], "views": ["acervo"],
             "lane": "official", "legacy": False, "changed_since_declared": [],
             "inbound": [], "outbound": [], "file_count": 0,
+            "o_que_entra_vai_para": destinos,
+            "nao_guarda_nada": (
+                "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a "
+                "acao que sai por aqui, e e por isso que este cartao nao tem seta "
+                "de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o "
+                "que entra por este canal acaba por ficar."
+                if destinos else
+                "Um canal nao guarda nada — ele so deixa passar. E NAO SEI onde "
+                "acaba o que entra por aqui: nenhuma das acoes que o usam declara, "
+                "no codigo, um ficheiro onde escreve o que trouxe."),
         })
         ligacoes += provas
     return nos, ligacoes
@@ -1453,7 +1499,7 @@ def main_uma_vez(stamp: bool) -> int:
                 dono[e["to_file"]] = autor
                 produz.setdefault(autor, []).append(e["to_file"])
 
-    veiculos, lig_veiculos = os_veiculos(comps, dono)
+    veiculos, lig_veiculos = os_veiculos(comps, dono, G)
     gerados += veiculos
 
     # ── 2 · arestas de ficheiro sobem para arestas de componente ─────────────
@@ -1660,6 +1706,21 @@ def main_uma_vez(stamp: bool) -> int:
     for n in nos:
         n["inbound"] = sorted({l["from"] for l in tecnicas if l["to"] == n["id"]})
         n["outbound"] = sorted({l["to"] for l in tecnicas if l["from"] == n["id"]})
+
+    # A PASTA E UM DESTINO, mesmo quando o nome do ficheiro e uma variavel.
+    # Sem isto, dois coletores que enchem uma pasta inteira apareciam a «nao
+    # escrever nada» — e um cartao que diz isso sobre uma peca que guarda e pior
+    # que um cartao vazio: parece medicao, e e ponto cego.
+    em_pasta = G.get("ESCRITAS_EM_PASTA") or {}
+    for n in nos:
+        pastas = []
+        for f in n.get("files", []):
+            for x in em_pasta.get(f, []):
+                if x["pasta"] not in [q["pasta"] for q in pastas]:
+                    pastas.append({"pasta": x["pasta"],
+                                   "prova": {"file": f, "line": x["line"],
+                                             "snippet": f"escreve em {x['constante']}"}})
+        n["escreve_na_pasta"] = pastas
 
     onde_para_o_que_sai(nos, produz, _rastreados(), G, dono)
 
