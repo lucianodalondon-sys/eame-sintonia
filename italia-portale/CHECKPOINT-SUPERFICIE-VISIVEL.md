@@ -596,3 +596,84 @@ Os 14 com etiqueta são o grupo accionável: a etiqueta está em
 `fitosanitari.salute.gov.it`, temos o URL, ninguém leu os usos dela. É uma
 **lacuna de recolha**, não de ligação — e a recolha está fora do que esta missão
 pode fazer.
+
+---
+
+## 11 · OS RÓTULOS LIDOS POR DENTRO — 102 → 119, E O PACOTE REGENERADO
+
+Partiu de uma pergunta simples sobre os cartões vazios do portfólio: *temos o
+dado e não está ligado, ou não temos o dado?* A resposta obrigou a descer até à
+recolha, e a subir de volta até ao pacote canónico.
+
+### 11.1 · O que já existia
+
+`scripts/rotulos_baixar.py` e `scripts/rotulos_ler.py` já tinham corrido a
+2 de Setembro: **163/163** etiquetas descarregadas do Ministero, **2030 pares**
+lidos de **102/163** produtos. Os cartões vazios não eram lacuna de recolha —
+eram o leitor a recusar adivinhar, que é a lei dele:
+
+> *«Um rótulo com 4 culturas e 6 alvos não tem 24 pares. Tem os pares que a
+> TABELA une, linha a linha.»*
+
+### 11.2 · A rota que estava fechada por um certificado
+
+`research/.../LABEL-USES.json` regista 7 rotas de recuperação tentadas. A do
+Ministero falhou com `SSL certificate problem: unable to get local issuer
+certificate` — o servidor serve só o certificado folha, sem o intermédio. Fui
+buscar o intermédio ao endereço que o próprio certificado publica (extensão AIA,
+`tiTrust.crt.sectigo.com`) e completei a cadeia. **A verificação TLS ficou
+ligada**: não se desliga uma fechadura por estar mal montada do outro lado.
+
+### 11.3 · Determinismo antes de mudar
+
+163 PDF restaurados e conferidos contra o sha256 de 02/09: **163/163
+idênticos**. Leitor corrido sem lhe tocar: **2030 pares, ficheiro byte a byte
+igual ao commitado**. Só depois disso mudei uma linha.
+
+### 11.4 · As quatro mudanças
+
+| # | o quê | porquê |
+|---|---|---|
+| 1 | `malatti` no cabeçalho da tabela | o `Avastel®` abre com «Coltura \| Malattia fungina»; o padrão aceitava `patogen`, o termo técnico, e não o do agrónomo |
+| 2 | numa tabela de doenças não se pesca daninha | `Blumeria graminis` saía como PLANTA_INFESTANTE num fungicida de cereais; a coluna já declara a natureza do alvo |
+| 3 | uma tabela sem linha de cultura não é tabela | uma frase (`...la coltura abbia almeno 3 foglie ed infestanti...`) fazia de cabeçalho e **fechava a porta do herbicida** a TOPIK, PRESSING, VIP |
+| 4 | verbos e legendas não são organismos | «Eseguire massimo», «Moderatamente suscettibili» têm a forma de binómio latino |
+
+**Tentei e desfiz:** fechar a tabela em «Applicare il prodotto». Essas frases
+também aparecem *dentro* de tabelas boas — cortava 6 produtos. Um ganho que
+custa seis leituras não é um ganho.
+
+### 11.5 · Onde o leitor continua a dizer NÃO SEI, e está certo
+
+`GOLTIX® TOP` nomeia 17 daninhas e nenhuma cultura tratada: todas as culturas na
+página estão em contexto de **rotação** («in caso di fallimento della coltura»).
+`ACTIVUS ME` nomeia 26 culturas, todas na lista de **fascia di sicurezza** —
+zonas tampão, não usos autorizados. Ligá-las seria exactamente «pescar alvo de
+outra cultura».
+
+### 11.6 · A subida até ao pacote
+
+O `CANONICAL-PACKAGE-CONTRACT` nomeia um dono único da geração:
+`claude/acervo-to-package-intelligence-v1`. A cadeia foi corrida **lá** — e
+primeiro com o input antigo, reproduzindo `V21-06c6421d001ea52a` exactamente,
+como controlo. Só então o input passou aos 2389.
+
+```
+BUILD_ID          V21-06c6421d001ea52a -> V21-fb74d2728213e8dd
+relações          2030 -> 2389
+rótulos lidos     102/163 -> 119/163
+alvos distintos   78 -> 84
+portfólio         27/51 -> 30/51 cartões com dados
+
+casos             43        (inalterado)
+WATCH 22 · TO_VALIDATE 9 · FUTURE_PREPARATION 7 · VALIDATE_NOW 3 · ACT_NOW 2
+                            (inalterados — é isto que prova que está certo)
+```
+
+### 11.7 · Os recibos andam com o pacote
+
+`CANONICAL-PACKAGE-CONTRACT.json` e `INGESTION-REPRODUCTION.json` passam a
+nomear `40477d5`; o id anterior entra em `STALE_KNOWN_BUILD_IDS` **com a razão
+pela qual saiu**. O `H2` — que existe para apanhar linhas que somem em silêncio
+— foi actualizado com a justificação escrita ao lado: 2030 → 2389 não é deriva,
+é ter lido mais do mesmo documento.
