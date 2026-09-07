@@ -87,8 +87,10 @@ canónico no disco. `MOTOR_IN → ACEITE` é o que o modelo recebeu e aceitou;
 
 ```
 ACERVO_TO_PORTAL_AUDIT_COMPLETE ..... PARCIAL
-    5 famílias auditadas a fundo por lente independente (pacote, ciência, vídeo,
-    janelas, anúncios) + 11 medições diretas. 7 lentes ainda em execução.
+    12 lentes independentes concluíram + árbitro adversarial + 11 medições
+    diretas. As 26 famílias fecham nas 3 fronteiras a jusante; o lado ACERVO só
+    foi medido em 6 famílias — nas outras 20 não existe manifesto contra o qual
+    comparar, e isso é declarado em vez de estimado.
 
 PORTAL_IS_USING_LATEST_INTELLIGENCE . SIM
     O artefacto publicado é byte-idêntico ao regerado pelo próprio
@@ -116,10 +118,11 @@ ACTIVE_ADS_INTEGRATED ............... PARCIAL
     NENHUM traz a data de verificação que o provaria — data que existe no
     acervo em 414/414. ACTIVE_ADS_PROVED = 0 no pacote.
 
-FUTURE_RADAR_PRESENT ................ SIM (na casa)
-    A superfície da casa declara RADAR FUTURO 45 totais · 44 mostráveis ·
-    1 abatido · 23 preparar · 21 monitorar · 0 agir agora.
-    A separação das três telas continua por confirmar — lente em execução.
+FUTURE_RADAR_PRESENT ................ SIM, mas sem porta e sem assunto
+    44 fichas desenhadas em casa.html, com portão próprio (casa-gate 30/30).
+    Mas ZERO rotas do portal levam a casa.html — `navCasa` é código morto — e
+    12 dos 13 campos obrigatórios do próprio handoff estão a 0/44.
+    SIGNAL_ARCHIVE_SEPARATE = SIM (o arquivo é população à parte, 1114 registos).
 
 OPPORTUNITY_CROSS_INTELLIGENCE ...... PARCIAL, e agora MEDIDO
     Cada um dos 43 cartões declara 24 famílias consultadas (1032 consultas):
@@ -127,13 +130,25 @@ OPPORTUNITY_CROSS_INTELLIGENCE ...... PARCIAL, e agora MEDIDO
     276 sem chave de cultura. Consultar não é usar: EVIDENCE_SCAN diz
     1529 encontradas · 359 usadas · 1170 omitidas.
 
-PRINCIPAL_LOSS_POINT ................ O ACERVO NÃO ATRAVESSA A INGESTÃO
+PRINCIPAL_LOSS_POINT ................ DOIS, E O SEGUNDO SÓ APARECEU NO FIM
+
+  (a) O ACERVO NÃO ATRAVESSA A INGESTÃO
     Não é o transporte pacote→portal: esse não perde nada (0 de 6.895).
     É a fronteira ACERVO→PACOTE, e mede-se em três famílias:
         transcrições   5.033.374 caracteres → 0
         ciência        763 materiais → 88, e 93.933 ch de abstract → 0
         anúncios       414 datas de verificação no acervo → 0 no pacote
     O dono dessa fronteira é a linhagem geradora.
+
+  (b) MOTOR → SUPERFÍCIE, classe «valor calculado sem markup»
+    O transporte não perde um registo (0 falhas em 26 famílias). A segunda perda
+    mora em campos que CHEGAM ao browser e que nenhuma linha de markup lê:
+        26 campos de declaração de corte (1170 evidências omitidas, 80 produtos)
+         9 campos de mc.*  ·  4 eixos de confiança
+        250 + 120 citações de evidência por ação e por elo
+         5 campos de vídeo em 147 cartões
+    Um dado que chega e não é lido é indistinguível de um dado que não chegou —
+    e não há portão que o veja, porque os portões medem o que o markup liga.
 ```
 
 ---
@@ -150,6 +165,11 @@ PRINCIPAL_LOSS_POINT ................ O ACERVO NÃO ATRAVESSA A INGESTÃO
 | 6 | "Validato" afirmava validação que ninguém fez | `portale.html` | → "Dati al" / "Data as of" |
 | 7 | Checkpoint escrito à mão em 4 ficheiros | `audit/lib/pacote.mjs` + 3 portões | um dono só |
 | 8 | Safra da Opportunity não chegava ao portal | 3 geradores | 55 → **213** pares; 0 → **611** justificações |
+| 9 | Ficha da reunião mostrava códigos nus | `portale.html` | **0 → 384** provas com nome, 372 com «Apri» |
+| 10 | Contraste 3,02:1 a 9,5px — **regressão minha** | `portale.html:765` | → 4,80:1 a 10px, BW2 verde |
+| 11 | "fino al **null**" impresso ao cliente | `portale.html:4955` | **7 → 0** ocorrências |
+| 12 | Arquivo prometia caso inexistente | `portale.html` | **29 → 0** promessas falsas |
+| 13 | Guarda apagava a bandeira "texto retido" | `meeting-surface.js` | **0 → 33** declarações de proveniência |
 
 **Instrumentos novos, versionados:**
 - `audit/cadeia-de-familias.mjs` — mede as 26 famílias em 4 fronteiras, 5 perguntas (T1–T5)
@@ -280,6 +300,31 @@ Colidem com `claude/opportunity-commercial-priority-v1` — não editados aqui:
 
 ---
 
+## 10b · O QUE O ÁRBITRO REFUTOU, E O QUE EU REFUTEI AO ÁRBITRO
+
+O árbitro adversarial correu sobre as 10 lentes e **refutou 15 achados**. Cinco
+por ESTADO — já corrigidos por commits desta missão (a pastilha das janelas, o
+"Validato", os 384 códigos nus, os 147 cartões vazios a montante, e o BUILD_ID
+do próprio grounding). Os outros por medição: nomes de campo que não existem,
+causas alegadas que o teste não confirmou.
+
+**E um blocker do árbitro é refutado por medição minha.** Ele diz que esta
+linhagem editou `scripts/site_v21_ingest.py` "apesar de scripts/ ser território
+da branch paralela". A regra é grossa demais. Medido por ficheiro:
+
+```
+scripts/site_v21_ingest.py    NÃO existe em 5fac11f — só nesta linhagem
+scripts/meeting_snapshot.py   NÃO existe em 5fac11f — só nesta linhagem
+scripts/it_casa_dados.py      NÃO existe em 5fac11f — só nesta linhagem
+git diff --name-only 84f0375 5fac11f -- <os três>  →  0 ficheiros
+```
+
+Os três geradores da fronteira do portal são exclusivos desta casa e a branch
+paralela nunca lhes tocou. Não há colisão. O que colide é `scripts/v21_*.py`,
+e nenhum desses foi tocado.
+
+---
+
 ## 11 · VERIFICAÇÕES EXECUTADAS
 
 ```
@@ -292,9 +337,27 @@ audit/cadeia-de-familias.mjs .......... T1–T5, 0 falhas, 0 não medidos
 audit/reconciliacao-do-catalogo.mjs ... 711 = 275 + 436 · 213 pares · cobertura 38,7%
 audit/competitor-population.mjs ....... PASS · 577 corpus · 569 no DOM em IT e EN
 
+audit/brandwell.mjs ................... BW1 BW2 BW3 TY1 TY2 — todos PASS
+
 audit/surface-contract.mjs ............ 3/8 — IDÊNTICO ao DEMO_HEAD intocado (§8)
 audit/action-map-consistency.mjs ...... 10 discordâncias — IDÊNTICO ao DEMO_HEAD
+audit/negative-control.mjs ............ 6/7 FAIL — vermelho permanente, ver abaixo
 audit/click-audit.mjs ................. NÃO EXECUTADO (excedeu 600 s)
+```
+
+**Duas pendências de instrumentação, medidas e não corrigidas nesta missão:**
+
+1. **Seis portões não são chamados por runner nenhum** — `brandwell`, `casa-gate`,
+   `negative-control`, `action-map-consistency`, `cta-navigation`,
+   `opportunity-trace`. `npm run prebuild` só chama `build-gate.mjs`. Foi
+   exactamente assim que a minha regressão de contraste passou por uma suite que
+   dizia 71/71.
+2. **`negative-control.mjs` está 6/7 FAIL por razão alheia ao que mede** — o seu
+   controlo-da-cópia lê `scripts/it_casa_dados.py`, fora da árvore que ele copia,
+   logo ENOENT. Um vermelho permanente que ninguém corre torna um FAIL novo
+   indistinguível de um velho.
+
+```
 ```
 
 **Limitações declaradas.** Duas hipóteses do orquestrador foram derrubadas pela
