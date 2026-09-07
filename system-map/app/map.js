@@ -494,6 +494,15 @@ function highlightPath(id) {
 
 /* ══ 4 · FILTROS ═════════════════════════════════════════════════════════ */
 function activeView(n) {
+  /* AQUI E A ITALIA. O que e de outro pais nao aparece por omissao.
+     Este mapa e do projeto italiano. Uma peca que existe so para outro pais
+     nao pertence a vista normal — nao foi apagada, esta guardada, e vive na
+     vista «Projeto futuro / guardado», onde continua inteira e provada.
+     Hoje isso e UMA peca: o portao do catalogo espanhol.
+     Nao confundir com a maquina comum — o motor, o banco, os testes — que
+     ja processou dado espanhol e continua a ser da casa toda. */
+  if (currentView !== 'futuro' && currentView !== 'legacy'
+      && n.pais && n.pais !== 'ITALIA' && n.pais !== 'TRANSVERSAL') return false;
   if (currentView === 'all') return true;
   if (currentView === 'official') return n.lane === 'official';
   // «futuro» e «legado» sao coisas diferentes, e confundi-las custa caro: legado
@@ -768,11 +777,18 @@ async function arrancar() {
     };
   }
 
-  const paises = [...new Set(S.NODES.map(n => n.pais).filter(Boolean))].sort();
+  /* SO SE OFERECE O QUE SE PODE MOSTRAR.
+     A lista de paises saia de todas as pecas, incluindo as guardadas, e por
+     isso oferecia «ESPANHA» numa vista onde nenhuma peca espanhola aparece —
+     um botao que promete e nao entrega. Agora so entram os paises com peca
+     propria a vista, que aqui e a Italia, mais o tronco comum. */
+  const paises = [...new Set(S.NODES
+    .filter(n => n.pais === 'ITALIA' || n.pais === 'TRANSVERSAL')
+    .map(n => n.pais))].sort();
   $('paises').innerHTML = '<label class="check"><input type="radio" name="pais" '
-    + 'value="" checked>Todos os países</label>'
+    + 'value="" checked>Tudo o que este mapa mostra</label>'
     + paises.map(x => `<label class="check"><input type="radio" name="pais"
-        value="${esc(x)}">${esc(x)} · ${
+        value="${esc(x)}">${x === 'TRANSVERSAL' ? 'SÓ O TRONCO COMUM' : esc(x)} · ${
         (x === 'TRANSVERSAL'
           ? S.NODES.filter(n => n.pais === x).length
           : S.NODES.filter(n => n.pais === x || n.pais === 'TRANSVERSAL').length)

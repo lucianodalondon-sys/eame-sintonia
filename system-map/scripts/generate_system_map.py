@@ -710,36 +710,83 @@ def pais_de(caminho: str) -> str | None:
     return TRADUZ_PAIS.get((m.group(1) or m.group(2)).upper())
 
 
+# A prateleira de pais: `<gaveta>/es/…`, `tests/es/…`. E a convencao desta casa
+# para guardar codigo de um pais, e e o sinal mais forte que existe — mais forte
+# do que o nome do ficheiro.
+PRATELEIRA_PAIS = re.compile(r"(?:^|/)(es|it|fr)/", re.I)
+
+
+def pais_do_codigo(caminho: str) -> str | None:
+    """De que pais e ESTE ficheiro — pela prateleira onde vive ou pelo nome."""
+    m = PRATELEIRA_PAIS.search(caminho)
+    if m:
+        return TRADUZ_PAIS.get(m.group(1).upper())
+    return pais_de(caminho)
+
+
 def paises_das_pecas(nos: list, G: dict, dono: dict) -> None:
-    """Poe em cada peca os paises que ela realmente toca, e quantas vezes."""
-    conta: dict[str, dict] = {}
+    """De que pais e cada peca — e de que pais e o dado que ela ja tocou.
+
+    SAO DUAS PERGUNTAS DIFERENTES, E MISTURA-LAS DEU UM ERRO CARO.
+
+    Antes, contava-se tudo junto: os ficheiros da peca MAIS todo o artefato que
+    ela le ou escreve. O resultado foi que «O motor de buscar», «O banco onde o
+    dado fica guardado» e a «Suite de testes» apareciam no mapa como pecas
+    ESPANHOLAS — treze ao todo. Nao sao. Sao a maquina comum da casa; ficaram
+    marcadas assim porque o dado que passou por elas ate hoje foi espanhol.
+
+    A diferenca importa muito, porque a pergunta seguinte e «entao tira a
+    Espanha daqui» — e obedecer a isso teria apagado do mapa o motor, o banco e
+    os testes. Um rotulo errado nao e um detalhe de cor: e o que faz uma decisao
+    ruim parecer obvia.
+
+    Agora sao dois campos separados:
+        pais         de quem e o CODIGO — a prateleira onde ele vive
+        paises_dado  que dado ela ja tocou, e quantas vezes (informacao, nao
+                     identidade: um banco que guardou dado espanhol continua a
+                     ser o banco, nao uma peca espanhola)
+    """
+    proprio: dict[str, dict] = {}
+    do_dado: dict[str, dict] = {}
+    sem_bandeira: dict[str, int] = {}
     for n in nos:
-        c = conta.setdefault(n["id"], {})
+        c = proprio.setdefault(n["id"], {})
         for f in n["files"]:
-            p = pais_de(f)
+            p = pais_do_codigo(f)
             if p:
                 c[p] = c.get(p, 0) + 1
-    # e os artefatos que ela le e escreve
+            else:
+                # ficheiro sem bandeira e a maquina comum, e VOTA. Sem isto,
+                # cinco ficheiros espanhois entre quarenta e tres faziam «O
+                # banco onde o dado fica guardado» virar uma peca espanhola.
+                sem_bandeira[n["id"]] = sem_bandeira.get(n["id"], 0) + 1
     for e in G["FILE_EDGES"]:
         for lado, outro in (("from_file", "to_file"), ("to_file", "from_file")):
             d = dono.get(e[lado])
             if not d:
                 continue
-            p = pais_de(e[outro])
+            p = pais_do_codigo(e[outro])
             if p:
-                c = conta.setdefault(d, {})
+                c = do_dado.setdefault(d, {})
                 c[p] = c.get(p, 0) + 1
+
     for n in nos:
-        c = conta.get(n["id"], {})
+        c = proprio.get(n["id"], {})
         n["paises"] = dict(sorted(c.items(), key=lambda x: -x[1]))
-        # o pais da peca e o que ela toca MAIS, e so quando ha maioria clara.
+        n["paises_dado"] = dict(sorted(do_dado.get(n["id"], {}).items(),
+                                       key=lambda x: -x[1]))
+        # UMA PECA SO E DE UM PAIS SE A MAIORIA DO CODIGO DELA FOR DESSE PAIS.
+        # O codigo sem bandeira conta como maquina comum e vota — e quase sempre
+        # ganha, que e o certo: a casa e uma so, e os paises sao inquilinos dela.
         # Empate nao vira escolha: vira TRANSVERSAL, que e o que ele e.
+        comum = sem_bandeira.get(n["id"], 0)
         if not c:
             n["pais"] = "TRANSVERSAL"
         else:
             top = max(c.values())
             donos = [k for k, v in c.items() if v == top]
-            n["pais"] = donos[0] if len(donos) == 1 else "TRANSVERSAL"
+            n["pais"] = (donos[0] if len(donos) == 1 and top > comum
+                         else "TRANSVERSAL")
 
 
 def entregue_a_inteligencia(nos: list, G: dict, dono: dict, produz: dict) -> None:
