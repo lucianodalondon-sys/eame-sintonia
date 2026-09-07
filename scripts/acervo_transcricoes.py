@@ -216,9 +216,96 @@ def _tid(plataforma, vid, n):
     return 'IT-TRX-%s-%s' % ((plataforma or 'UNK')[:3].upper(), base[:32])
 
 
+def enriquecimento():
+    """{video_id: metadados} — título, canal, país do fato e CASE_ID.
+
+    ⚠️ SÓ METADADO. `MEDICAO.json` e `ES-T8-001-videos.json` também têm campo
+    `TRANSCRIPT`, e lê-lo aqui contaria a mesma fala duas vezes — uma pelo lote
+    de transcrição, outra pelo arquivo de enriquecimento.
+
+        O ARQUIVO QUE SABE MAIS SOBRE O MESMO OBJETO NÃO É OUTRO OBJETO.
+
+    `CROP` e `ISSUE` daqui vêm da busca, e viajam com esse nome: o próprio
+    acervo declara a base em `CROP_ISSUE_BASIS`.
+    """
+    fontes = {s['KEY']: s for s in manifesto()['SOURCES']}
+    idx = {}
+    for s in sorted((s for s in fontes.values() if s['ROLE'] == 'ENRICHMENT'),
+                    key=lambda s: s['PATH']):
+        d = ler(s['KEY'], fontes)
+        itens = []
+        for k, v in d.items():
+            if isinstance(v, list) and v and isinstance(v[0], dict):
+                itens.extend(v)
+        for x in itens:
+            vid = x.get('EXTERNAL_ID') or x.get('CONTENT_ID') or _vid(
+                x.get('SOURCE_URL') or x.get('URL'))
+            if not vid or _e_sentinela(vid) or vid in idx:
+                continue
+            idx[vid] = {
+                'TITLE': x.get('TITLE'),
+                'CHANNEL': x.get('CHANNEL') or x.get('CHANNEL_NAME'),
+                'CHANNEL_ID': x.get('CHANNEL_URL') or x.get('CHANNEL_ID')
+                or x.get('ORIGIN_ID'),
+                'COUNTRY': x.get('COUNTRY_OF_FACT') or x.get('FACT_LOCATION')
+                or x.get('COUNTRY'),
+                'COUNTRY_EVIDENCE': x.get('COUNTRY_OF_FACT_EVIDENCE')
+                or x.get('FACT_LOCATION_RULE'),
+                'CASE_ID': x.get('CASE_ID'),
+                'PUB': x.get('PUBLISHED_AT') or x.get('PUBLICATION_DATE'),
+                'DUR': x.get('DURATION'),
+                'CROP_Q': x.get('CROP'),
+                'ISSUE_Q': x.get('ISSUE'),
+                'CROP_ISSUE_BASIS': x.get('CROP_ISSUE_BASIS'),
+                'LANG': x.get('LANGUAGE') or x.get('TRANSCRIPT_LANGUAGE'),
+                'REGION': x.get('REGION_OF_FACT'),
+                'FROM': s['PATH'],
+            }
+    return idx
+
+
+def _aplica(o, e):
+    """O enriquecimento PREENCHE o que está UNKNOWN. Nunca sobrescreve o que a
+    própria rota da transcrição declarou — a rota que trouxe a fala está mais
+    perto dela."""
+    if not e:
+        return o
+    o['ENRICHED_FROM'] = e['FROM']
+    if o['TITLE'] == 'UNKNOWN' and e.get('TITLE') and not _e_sentinela(e['TITLE']):
+        o['TITLE'] = e['TITLE']
+    if o['CHANNEL_NAME'] == 'UNKNOWN' and e.get('CHANNEL') \
+            and not _e_sentinela(e['CHANNEL']):
+        o['CHANNEL_NAME'] = e['CHANNEL']
+    if o['CHANNEL_ID'] == 'UNKNOWN' and e.get('CHANNEL_ID'):
+        o['CHANNEL_ID'] = e['CHANNEL_ID']
+    if not o['PUBLICATION_DATE'] and e.get('PUB') and not _e_sentinela(e['PUB']):
+        o['PUBLICATION_DATE'] = e['PUB']
+    if o['SOURCE_COUNTRY'] == 'UNKNOWN':
+        o['SOURCE_COUNTRY'] = _pais(e.get('COUNTRY'))
+        o['SOURCE_COUNTRY_DECLARED'] = o['SOURCE_COUNTRY_DECLARED'] or e.get('COUNTRY')
+        o['SOURCE_COUNTRY_EVIDENCE'] = e.get('COUNTRY_EVIDENCE')
+    if o['SOURCE_LANGUAGE'] == 'UNKNOWN' and e.get('LANG'):
+        o['SOURCE_LANGUAGE'] = _lang(e['LANG'])
+    if o['CASE_ID'] == 'UNKNOWN' and e.get('CASE_ID') and not _e_sentinela(e['CASE_ID']):
+        o['CASE_ID'] = e['CASE_ID']
+        # O CASE_ID nomeia o pais do caso na propria chave: ES-OLIVE-REPILO.
+        pref = str(e['CASE_ID']).split('-')[0].upper()
+        o['CASE_COUNTRY'] = pref if pref in ('IT', 'ES', 'FR') else 'UNKNOWN'
+    if not o['CROP_DECLARED_BY_THE_ROUTE'] and e.get('CROP_Q'):
+        o['CROP_DECLARED_BY_THE_ROUTE'] = e['CROP_Q']
+    if not o['ISSUE_DECLARED_BY_THE_ROUTE'] and e.get('ISSUE_Q'):
+        o['ISSUE_DECLARED_BY_THE_ROUTE'] = e['ISSUE_Q']
+    if e.get('CROP_ISSUE_BASIS'):
+        o['CROP_ISSUE_BASIS'] = e['CROP_ISSUE_BASIS']
+    if not o['REGION_NAMED'] and e.get('REGION') and not _e_sentinela(e['REGION']):
+        o['REGION_NAMED'] = e['REGION']
+    return o
+
+
 def censo():
     """Todas as transcrições do acervo, normalizadas. Ordem determinística."""
     fontes = {s['KEY']: s for s in manifesto()['SOURCES']}
+    enr = enriquecimento()
     out, n = [], 0
 
     for s in sorted((s for s in fontes.values() if s['FAMILY'] == 'TRANSCRIPTS'),
@@ -228,6 +315,8 @@ def censo():
         p = s['PATH']
         n += 1
 
+        if s['ROLE'] == 'ENRICHMENT':
+            continue          # só metadado, e já foi lido em enriquecimento()
         if s['ROLE'] == 'FALA':
             o = _fala_convegno(d, c, _tid(d.get('PLATFORM'),
                                           d.get('EXTERNAL_ID') or _vid(d.get('URL')), n))
@@ -254,6 +343,7 @@ def censo():
                                                n * 100 + i), d))
         # ROLE == MANIFEST: é CENSO da rota, não conteúdo. Entra em `pedidos()`.
 
+    out = [_aplica(o, enr.get(o['VIDEO_ID'])) for o in out]
     # a mesma fala pode ter sido colhida duas vezes; o objeto é o VÍDEO.
     return _dedup(out)
 

@@ -162,3 +162,10 @@ echo "── 9 · os contratos: cada lei vira contador, e o zero e medido ──
 # R4 · o manifesto lido por um consumidor que nao interpreta nada. Roda por
 # ultimo porque le o pacote inteiro ja fechado — inclusive o proprio manifesto.
 "$PY" scripts/v21_contrato_da_superficie.py
+
+echo
+echo "── 10 · a contabilidade da fronteira ACERVO -> PACOTE ──────────────────"
+# Por ultimo, porque le o pacote fechado E o acervo pinado, e compara os dois.
+# FALHA (exit 1) se alguma familia nao fechar em INCLUDED+EXCLUDED+UNKNOWN.
+# Ja apanhou um defeito meu: 926 anuncios sem estado nenhum.
+"$PY" scripts/acervo_perda.py

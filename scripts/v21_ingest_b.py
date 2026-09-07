@@ -270,6 +270,24 @@ def main():
           'participacao de mercado.')
 
     # ══ CIÊNCIA · PESQUISADORES · RESISTÊNCIA ════════════════════════════════
+    #
+    # ⚠️ AS TRÊS FAMÍLIAS NOMEIAM O ALVO EM CAMPOS DIFERENTES, e o laço pedia o
+    # campo de UMA delas para as três. `scientific-records.json` declara `ISSUE`
+    # em 88 de 88 — FLAVESCENCE 43 · FUSARIUM 40 · REPILO 2 · DOWNY_MILDEW 2 ·
+    # SEPTORIA 1 — e o laço perguntava por `SPECIES`, `SPECIES_IT` e `TARGET`,
+    # que nenhum registro de ciência tem. Resultado: `ISSUE_IDS` vazio em 88/88.
+    #
+    #     PERGUNTAR O CAMPO ERRADO NÃO DÁ ERRO: DÁ VAZIO.
+    #     E vazio parece «a fonte não declarou», quando a fonte declarou tudo.
+    #
+    # O custo não era cosmético: sem `ISSUE_IDS` a camada científica não junta
+    # por problema com nenhuma outra família. É por isso que a ciência aparece
+    # em tão poucos cruzamentos.
+    CAMPOS_DE_ALVO = {
+        'SCIENCE': ('ISSUE',),
+        'RESEARCHERS': ('ISSUE', 'TARGET'),
+        'RESISTANCE': ('SPECIES', 'SPECIES_IT', 'TARGET'),
+    }
     for arq, chave, col, tipo, nome in (
             ('SCIENCE/scientific-records.json', 'RECORDS', 'SCIENCE',
              'SCIENTIFIC_RECORD', 'SCIENCE.json'),
@@ -277,11 +295,12 @@ def main():
              'RESEARCHER', 'RESEARCHERS.json'),
             ('SCIENCE/herbicide-resistance.json', 'RESISTANCES', 'RESISTANCE',
              'RESISTANCE_RECORD', 'RESISTANCE.json')):
+        alvo = CAMPOS_DE_ALVO[col]
         itens = [do_anterior(
             x, tipo, [x.get('SOURCE_URL') or x.get('URL') or x.get('DOI')],
             x.get('PUBLISHED_AT') or x.get('FIRST_CASE_YEAR'),
             [N.crop_id(x.get('CROP') or x.get('CROP_DECLARED'))],
-            [N.issue_id(x.get('SPECIES'), x.get('SPECIES_IT'), x.get('TARGET'))],
+            [N.issue_id(*(x.get(c) for c in alvo))],
             N.region_ids(x.get('REGION')), N.escopo(x.get('REGION')),
             extra={k: v for k, v in x.items() if k != 'ID'})
             for x in ant(arq, chave)]

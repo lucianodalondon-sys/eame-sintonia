@@ -50,8 +50,24 @@ REGRAS = [
     (r'^data/samples/IT-VIDEO-V1/IT-VIDEO-FALAS-V1\.json$', 'TRANSCRIPTS', 'MANIFEST'),
     (r'^data/samples/IT-INSTAGRAM-V\d/IT-INSTAGRAM-TRANSCRICOES-V\d\.json$',
      'TRANSCRIPTS', 'BATCH'),
-    (r'^data/samples/IT-VOZ-AUDIO-V\d/IT-VOZ-AUDIO-TRANSCRICOES-V\d\.json$',
+    # ⚠️ `IT-VOZ-AUDIO-LOCAIS-V2.json` FALTAVA, e a regra so pedia TRANSCRICOES.
+    # Sao 10 objetos, 8 com fala e 129.566 caracteres — os boletins semanais da
+    # oliveira de agosto/2026, Diachem em Voghera, Agrion no Piemonte, arroz e
+    # grao duro em Foggia. A regra estreita nao dava erro: dava silencio.
+    #
+    #     REGRA DE DESCOBERTA QUE NAO ACHA NAO RECLAMA. SO ENTREGA MENOS.
+    (r'^data/samples/IT-VOZ-AUDIO-V\d/IT-VOZ-AUDIO-(TRANSCRICOES|LOCAIS)-V\d\.json$',
      'TRANSCRIPTS', 'BATCH'),
+    # ── ENRIQUECIMENTO ──────────────────────────────────────────────────────
+    # Estes DOIS carregam titulo, canal, pais do fato e CASE_ID dos videos —
+    # que os lotes de transcricao nao carregam. Sao lidos SO por metadado:
+    # ambos tambem tem campo TRANSCRIPT, e conta-lo seria contar a mesma fala
+    # duas vezes.
+    #
+    #     ARQUIVO DE ENRIQUECIMENTO ENTRA PELO QUE ELE SABE A MAIS,
+    #     NUNCA PELO QUE ELE REPETE.
+    (r'^data/samples/SENSOR-PILOT/MEDICAO\.json$', 'TRANSCRIPTS', 'ENRICHMENT'),
+    (r'^data/samples/ES-T8-001-videos\.json$', 'TRANSCRIPTS', 'ENRICHMENT'),
     (r'^data/samples/SENSOR-PILOT/TRANSCRICOES-[A-E]\.json$', 'TRANSCRIPTS', 'BATCH'),
     (r'^data/samples/ES-T8-001-transcricoes\.json$', 'TRANSCRIPTS', 'BATCH'),
 ]

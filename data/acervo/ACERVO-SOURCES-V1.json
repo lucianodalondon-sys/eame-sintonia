@@ -19,21 +19,21 @@
   },
   {
    "REF": "HEAD",
-   "COMMIT": "5fac11f87a4cb247f28aa56aa26a9780df2e6806"
+   "COMMIT": "5d40dffa07a990153012111e0f89931fddc73522"
   }
  ],
  "PRECEDENCIA": "o primeiro ref da lista que contiver o caminho vence. Assim o acervo canonico manda, e HEAD so completa.",
- "COUNT_TOTAL": 55,
+ "COUNT_TOTAL": 58,
  "BY_FAMILY": {
   "ADS": 2,
   "SCIENCE": 1,
-  "TRANSCRIPTS": 52
+  "TRANSCRIPTS": 55
  },
  "BY_REF": {
   "claude/eame-meta-competitor": 2,
-  "sintonia/canonical": 53
+  "sintonia/canonical": 56
  },
- "BYTES_TOTAL": 13481547,
+ "BYTES_TOTAL": 22652342,
  "SOURCES": [
   {
    "KEY": "ADS__META_EAME_META_ADS_ENTITIES_EAME_V1_JSON",
@@ -78,6 +78,17 @@
    "BLOB": "a305d3f5a2df1afee333b541335972789221bbc8",
    "BYTES": 727820,
    "SHA256": "699e34d751821fa4ace90551d9c06e57628c7d56f4b3b4bd23ca9d3fadbc6120"
+  },
+  {
+   "KEY": "TRANSCRIPTS__ES_T8_001_VIDEOS_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "ENRICHMENT",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/ES-T8-001-videos.json",
+   "BLOB": "0f1d16917932e21a3d3e0fd0ebaee13e1ae55f4c",
+   "BYTES": 520472,
+   "SHA256": "8c19dff8eb41aa91c932799ec3f4128026c7dd7297419fefa68beae4d17ce67f"
   },
   {
    "KEY": "TRANSCRIPTS__IT_CONVEGNO_V1_IT_CONVEGNO_V1_JSON",
@@ -575,6 +586,17 @@
    "SHA256": "35eb23db70709877582892014bb104d11a3983e054e85dd02489f5855683dd3b"
   },
   {
+   "KEY": "TRANSCRIPTS__IT_VOZ_AUDIO_V2_IT_VOZ_AUDIO_LOCAIS_V2_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "BATCH",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-LOCAIS-V2.json",
+   "BLOB": "b1fa84f0e637a470a33a034ee7c5128ba280481c",
+   "BYTES": 147426,
+   "SHA256": "4bc33b08fc962e98273bba6b2c121edb82dc24f16ab0befde82f7f9731fe7238"
+  },
+  {
    "KEY": "TRANSCRIPTS__IT_VOZ_AUDIO_V2_IT_VOZ_AUDIO_TRANSCRICOES_V2_JSON",
    "FAMILY": "TRANSCRIPTS",
    "ROLE": "BATCH",
@@ -584,6 +606,17 @@
    "BLOB": "63d88bc6a0877f7c5828cd7a4100c92cf0a64aa2",
    "BYTES": 310522,
    "SHA256": "739a000282afcba3f9d8f6e47cd114f5b7723592e57373e1d5e7a4d3f587cfe9"
+  },
+  {
+   "KEY": "TRANSCRIPTS__SENSOR_PILOT_MEDICAO_JSON",
+   "FAMILY": "TRANSCRIPTS",
+   "ROLE": "ENRICHMENT",
+   "REF": "sintonia/canonical",
+   "COMMIT": "10af4a7accff88494eb097978c171601994a3422",
+   "PATH": "data/samples/SENSOR-PILOT/MEDICAO.json",
+   "BLOB": "14e0d660b114ce92c03a30f932db84728f0727d0",
+   "BYTES": 8502897,
+   "SHA256": "30dbe2e6f6fd9456cac6a304365499e85eaa0b151748d5b4de815ed798a9202c"
   },
   {
    "KEY": "TRANSCRIPTS__SENSOR_PILOT_TRANSCRICOES_A_JSON",

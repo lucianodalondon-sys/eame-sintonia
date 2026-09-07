@@ -70,8 +70,21 @@ CROP_ALIAS = {
 
 # ── PROBLEMA ─────────────────────────────────────────────────────────────────
 ISSUE_ALIAS = {
+    # ⚠️ `flavescence` (a grafia inglesa/francesa) faltava, e sao 43 dos 88
+    # registros de ciencia. A tabela tinha o italiano, o portugues e uma
+    # composicao inglesa — e nao a palavra inglesa sozinha, que e justamente a
+    # que a rota de ciencia escreve.
     'ISSUE_FLAVESCENCE': ['flavescenza', 'flavescenza dorata', 'flavescencia',
+                          'flavescence', 'flavescence doree',
                           'giallumi', 'golden flavescence'],
+    # ⚠️ REPILO nao existia na tabela, e e a doenca central do caso da oliveira.
+    # `venturia` sozinho NAO entra aqui: ja pertence a ISSUE_SCAB (ticchiolatura
+    # da macieira), e casar por palavra inteira faria a mancha da oliveira virar
+    # sarna da macieira. So os binomios completos, que sao mais longos e ganham
+    # de `venturia` na ordem de _casa.
+    'ISSUE_REPILO': ['repilo', 'occhio di pavone', 'olive leaf spot',
+                     'spilocaea oleagina', 'venturia oleaginea',
+                     'fusicladium oleagineum'],
     'ISSUE_SCAPHOIDEUS': ['scaphoideus', 'scaphoideus titanus', 'scafoideo'],
     'ISSUE_DOWNY_MILDEW': ['peronospora', 'plasmopara', 'downy mildew', 'mildiu'],
     'ISSUE_POWDERY_MILDEW': ['oidio', 'erysiphe', 'powdery mildew', 'mal bianco'],
