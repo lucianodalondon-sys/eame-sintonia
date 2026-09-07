@@ -141,6 +141,31 @@ if (!only) {
   if (!r.pass && r.detail) for (const line of r.detail) console.log(`        ${DIM}${String(line).slice(0, 150)}${X}`);
 }
 
+/* ══ ET1 · O ACOPLAMENTO DA LABEL INTELLIGENCE ═════════════════════════════
+   Uma capacidade que chega de fora traz os seus portoes — e os portoes dela
+   medem a ferramenta dela, nunca o que a nossa tela faz com ela.
+
+       QUEM ACOPLA TEM DE MEDIR O ACOPLAMENTO.
+
+   `etichette-gate.mjs` mede as quatro maneiras de o acoplamento mentir:
+   calar um token de ignorancia, por aspas onde nao ha citacao, colapsar as
+   sete coberturas numa so, e deixar uso autorizado virar oportunidade. */
+if (!only) {
+  const et = spawnSync(process.execPath, [fileURLToPath(new URL('./etichette-gate.mjs', import.meta.url))],
+    { encoding: 'utf8' });
+  const passou = et.status === 0;
+  const linha = String(et.stdout || '').split('\n').find((l) => /passing/.test(l)) || '';
+  results.push({
+    id: 'ET1', title: 'Label Intelligence keeps its own law on our screen',
+    pass: passou, expected: '0 failing',
+    measured: linha.replace(/\x1b\[[0-9;]*m/g, '').trim() || (passou ? 'ok' : 'ver etichette-gate.mjs'),
+    detail: passou ? undefined : String(et.stdout || et.stderr || '').split('\n').slice(-16),
+  });
+  const r = results[results.length - 1];
+  console.log(`  ${r.pass ? `${G}PASS${X}` : `${R}FAIL${X}`}  ${pad(r.id, 5)} ${pad(r.title, 58)} ${DIM}exp${X} ${pad(r.expected, 12)} ${DIM}got${X} ${r.measured}`);
+  if (!r.pass && r.detail) for (const line of r.detail) console.log(`        ${DIM}${String(line).slice(0, 150)}${X}`);
+}
+
 const nonMisurati = results.filter((r) => r.notTestable);
 const misurabili = results.filter((r) => !r.notTestable);
 const ok = misurabili.filter((r) => r.pass).length;
