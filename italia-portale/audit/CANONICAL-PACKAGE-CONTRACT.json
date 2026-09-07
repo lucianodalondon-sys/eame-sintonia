@@ -2,7 +2,7 @@
   "DATASET": "SINTONIA-CANONICAL-PACKAGE-CONTRACT-V1",
   "LEI": "o que qualquer pacote tem de provar para atravessar a fronteira do site. Um so dono: este ficheiro. Quem verifica em JS e quem verifica em Python leem daqui, para a regra nao existir em duas linguas e divergir na terceira vez que alguem a mudar.",
   "CAPTURED_AT": "2026-09-07",
-  "SOURCE": "medido em 4f4360b6 (claude/acervo-to-package-intelligence-v1) pela cadeia canonica, na maquina do dono, com pypdf 6.14.2. O determinismo desta linhagem foi RE-PROVADO nesta safra: corrida com os ficheiros de b0103bc, sem alteracao nenhuma, a cadeia reproduziu V21-15071cc31d3461d3 — o id que este contrato esperava antes. So depois se aplicaram as alteracoes e se mediu a diferenca.",
+  "SOURCE": "medido em fb96f49d (claude/acervo-to-package-intelligence-v1) pela cadeia canonica, na maquina do dono, com pypdf 6.14.2.",
   "CONTROLO_DESTA_SAFRA": {
     "PORQUE_EXISTE": "uma alteracao medida sem controlo e um palpite. Correu-se a cadeia DUAS vezes: uma com os ficheiros do commit anterior, outra com a alteracao.",
     "SEM_A_ALTERACAO": "V21-15071cc31d3461d3 · 43 casos · 2702 PRODUCT_RELATIONSHIPS",
@@ -11,11 +11,11 @@
   },
   "CANONICAL_GENERATOR": {
     "LINHAGEM": "claude/acervo-to-package-intelligence-v1",
-    "COMMIT": "4f4360b6",
+    "COMMIT": "fb96f49d",
     "PORQUE": "a inteligencia tem UM dono. A Linha B consome; nao gera, nao decide e nao arbitra.",
     "A_CADEIA_LOCAL_DESTA_LINHAGEM_ESTA_ATRASADA": true,
     "O_QUE_ELA_PRODUZ_SE_CORRIDA_AQUI": "V21-5d312cb90a0de01d — sem MEETING_SURFACE_RULE e com PREPARE_NOW em 11 casos",
-    "COMMIT_ANTERIOR": "5a61844c"
+    "COMMIT_ANTERIOR": "e58351fd"
   },
   "EXPECTED_BUILD_ID": "V21-ef6e7e5f37eaa6e6",
   "EXPECTED_CASES": 43,
@@ -57,8 +57,8 @@
     "PORQUE": "duas coisas que o rotulo escreve e o leitor nao ouvia. (1) O cabecalho da seccao de uso e uma LISTA, e o rotulo escreve-a na ordem que quer: «COLTURE, DOSI E MODALITA' D'IMPIEGO» e «EPOCHE, DOSI E MODALITA DI IMPIEGO» sao o cabecalho que o padrao ja conhecia, com um item mudado de lugar. Abriu APYZA WG, APYZA 500 WG, DICURAN PLUS e STAVENTO, todos no nivel forte LINHA_DA_TABELA. (2) Ha rotulo que declara a cultura a abrir a linha da SUA dose — «Colza : 2 litri per ettaro», «Patata: 3 l/ha» — e nunca escreve «per il diserbo di:». Le-se so dentro da seccao de uso e so quando a dose e POR HECTARE; e essa segunda trava que deixa de fora «20 metri dai corpi idrici superficiali», que tem a mesma forma e e faixa de seguranca, nao uso. Abriu a familia da pendimetalina inteira (12 rotulos), no nivel fraco DECLARACAO_DE_PRODUTO, com a ressalva que ja existia.",
     "PORQUE_O_UNIVERSO_DOBROU": "porque 12 dos 15 rotulos novos sao lidos no nivel fraco, onde o par nasce do cruzamento entre a lista de culturas e a lista de daninhas que o rotulo declara SEPARADAMENTE. E a mesma leitura que os outros 42 rotulos de herbicida ja tinham, e o par vai a tela com a frase que diz que nao afirma controlo daquela daninha naquela cultura. Um rotulo com 16 culturas e 20 daninhas contribui 320 linhas — o numero e grande por construcao, e por isso esta declarado aqui em vez de aparecer sozinho no H2.",
     "O_QUE_NAO_MUDOU": "43 casos, 6 publicaveis, 37 VALIDATION_REQUIRED, e todos os estados. Medido contra controlo na mesma maquina.",
-    "O_QUE_CONTINUA_A_FALHAR_E_NAO_E_DESTA_SAFRA": "a cadeia sai com exit 1 no CONTRATO DA SUPERFICIE, por 4 criterios que o portal teria de adivinhar. Falha identica na corrida de controlo, sem alteracao nenhuma — e divida anterior, nao efeito desta safra.",
     "AS_51_FICHAS_DO_CATALOGO": "segunda entrada desta safra: as fichas de produto do site, lidas uma a uma. O coletor lia paginas de CULTURA e extraia so os LINKS — a ficha nunca era aberta, e o cartao dizia «principio ativo: nao conhecido» com o dado a um clique. Produtos comerciais sem substancia ativa: 51 -> 0. Nenhum caso mexeu e o CASE_IDS_SHA256 continua o mesmo.",
-    "O_VAZIO_PASSA_A_DIZER_PORQUE": "cinco dos 51 nao actuam sobre organismo nenhum (dois biostimulantes, dois coadiuvantes, um diradante). O cartao deixa de lhes mostrar a mesma frase que mostra a quem falta leitura: para esses o vazio e a resposta certa. Quem os classifica e a ADAMA, na frase da propria ficha."
+    "O_VAZIO_PASSA_A_DIZER_PORQUE": "cinco dos 51 nao actuam sobre organismo nenhum (dois biostimulantes, dois coadiuvantes, um diradante). O cartao deixa de lhes mostrar a mesma frase que mostra a quem falta leitura: para esses o vazio e a resposta certa. Quem os classifica e a ADAMA, na frase da propria ficha.",
+    "A_CADEIA_PASSOU_A_SAIR_EXIT_0": "e58351fd, de outra sessao a trabalhar no mesmo ramo, corrigiu as contagens declaradas do CONTRATO DA SUPERFICIE — a divida que esta safra tinha reportado como anterior. Com esse commit por baixo, a cadeia sai exit 0 e o BUILD_ID nao muda: V21-ef6e7e5f37eaa6e6 antes e depois. O conserto e dele; a nota fica aqui porque o recibo desta safra dizia «nao sai exit 0» e deixou de ser verdade."
   }
 }

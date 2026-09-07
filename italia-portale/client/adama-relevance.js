@@ -53,7 +53,7 @@ window.ADAMA_RELEVANCE = {
   "RADAR": 21,
   "SEGNALI": 4
  },
- "SOURCE_HEAD": "4f4360b6",
+ "SOURCE_HEAD": "fb96f49d",
  "TOTALE": 43,
  "VERDETTI": {
   "OPP_00C5B6E15185": {
