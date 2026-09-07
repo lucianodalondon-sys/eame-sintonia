@@ -83,6 +83,16 @@ const vozNaBarra = (() => {
   return (vals({ view: 'meeting' }).navEvidence || [])
     .some((v) => v && v.count === n0 && typeof n0 === 'number');
 })();
+/* E DESENHADAS QUER DIZER DESENHADAS POR ESTE PORTAL.
+   Os 44 viviam em `casa.html`, uma pagina com identidade visual propria, e a
+   regua contentava-se com «o dono tem 44 no pacote». Agora sao uma VISTA deste
+   guscio: conta-se o que a vista realmente monta.
+
+       O DONO TER O DADO NAO E O PORTAL DESENHAR O DADO. */
+const rfDesenhadas = (() => {
+  const v = vals({ view: 'radarfuturo' });
+  return (v.rfGroups || []).reduce((a, g) => a + ((g.cards || []).length), 0);
+})();
 
 const LINHAS = [
   {
@@ -98,14 +108,14 @@ const LINHAS = [
   {
     familia: 'FUTURE_RADAR',
     modelo: RF.RENDERIZAVEIS || 0,
-    rota: vozNaBarra ? 'menu «Radar Futuro» -> casa.html#radar-futuro' : 'NENHUMA ROTA DO PORTAL',
-    visivel: vozNaBarra ? (RF.REGISTRO || []).length : 0,
-    alcancavel: vozNaBarra ? (RF.REGISTRO || []).length : 0,
-    componente: vozNaBarra ? 'navEvidence «Radar Futuro» -> casa.html ledgerHtml()'
-      : 'casa.html ledgerHtml() (desenhado, e sem porta)',
+    rota: vozNaBarra ? 'menu «Radar Futuro» -> #radarfuturo' : 'NENHUMA ROTA DO PORTAL',
+    visivel: vozNaBarra ? rfDesenhadas : 0,
+    alcancavel: vozNaBarra ? rfDesenhadas : 0,
+    componente: 'navEvidence «Radar Futuro» -> sc-for rfGroups/g.cards (isRadarFuturo)',
     nota: 'nao esta no pacote V2.1: o dono e italy-casa.js, gerado de '
       + 'IT-FUTURO-HANDOFF-LINHA-B-V1.json. 12 dos 13 campos obrigatorios do cartao NAO viajam '
-      + '— o registo mostra estado, accao, portfolio e a CONTAGEM das lacunas',
+      + '— a ficha abre pela accao e pelo que o cartao PODE citar, e o id, o sensor e a '
+      + 'CONTAGEM das lacunas ficam no rodape',
   },
   {
     familia: 'SIGNAL_ARCHIVE',

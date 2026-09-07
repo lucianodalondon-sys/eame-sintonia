@@ -96,6 +96,12 @@
        non aveva rotta: la distinzione era dichiarata e non verificabile.
        Questa etichetta porta il lettore all'altra popolazione. */
     frOtherPop: 'L\'altra popolazione:',
+    /* O Radar Futuro passou a ser uma vista deste portal; estas quatro frases
+       sao as unicas que a vista escreve, e nenhuma delas afirma um facto: uma
+       conta, uma diz o que nao se soma, e duas nomeiam colunas de rodape. */
+    rfJudged: 'giudicati', rfShowable: 'mostrabili', rfDropped: 'abbattuto',
+    rfNotSum: 'Il Radar Futuro NON si somma alle opportunità attuali: è la campagna successiva, non il tavolo di oggi.',
+    rfLegend: 'La specifica per segnale resta a monte. In fondo a ogni scheda: identificativo, verdetto sul sensore, e il conteggio delle lacune dichiarate — difetti trovati / cose che ancora non sappiamo.',
     /* ══ L'INCROCIO, NEL CARTELLINO E NELLA SCHEDA ═══════════════════════
        Il cartellino diceva coltura, avversita, regione e stato — e nient'altro.
        Tredici cartellini cosi si somigliano tutti, e chi guarda non ha modo di
@@ -794,6 +800,9 @@
     frSub: 'What may become an opportunity next — {n} monitored signals across Italy.',
     frSubA: 'Separate population from Future Radar —', frWhyWatch: 'WHY WATCH', frWhoTalking: 'WHO IS TALKING', frNextWindow: 'Next window',
     frOtherPop: 'The other population:',
+    rfJudged: 'judged', rfShowable: 'showable', rfDropped: 'dropped',
+    rfNotSum: 'Future Radar does NOT add to the current opportunities: it is the next campaign, not today\'s table.',
+    rfLegend: 'The per-signal specification stays upstream. At the foot of each card: identifier, sensor verdict, and the count of declared gaps — defects found / things we still do not know.',
     xSci: 'SCIENCE', xVoice: 'TECH VOICES', xComp: 'COMPETITOR SIGNALS',
     xField: 'FIELD SIGNALS', xAdama: 'ADAMA PRODUCTS',
     xConverging: 'CONVERGING SIGNALS',

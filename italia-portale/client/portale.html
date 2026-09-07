@@ -2216,6 +2216,65 @@
     </sc-if>
 
     <!-- ================= FUTURE RADAR ================= -->
+    <!-- ══ RADAR FUTURO · OS 44, COM OS COMPONENTES DESTE GUSCIO ══════════
+         Estavam noutra pagina, com outra grelha e outro cabecalho. O dado nao
+         mudou de dono — continua a vir de `window.ITALY_CASA` — e os codigos
+         continuam a virar frase no mesmo dicionario. Mudou quem os desenha.
+
+             DUAS IDENTIDADES VISUAIS SAO DOIS PRODUTOS,
+             MESMO QUANDO SAO O MESMO DADO.
+
+         Abre pela ACCAO e pelo que o cartao PODE citar. O identificativo, o
+         sensor e a contagem das lacunas ficam no rodape: sao a receita da
+         leitura, nao a leitura.                                            -->
+    <sc-if value="{{ isRadarFuturo }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <h1 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-0.015em;color:#fff">{{ pageTitle }}</h1>
+        <sc-if value="{{ rfMeta.has }}" hint-placeholder-val="{{ true }}">
+        <div style="font-family:var(--font-secondary);font-size:15px;line-height:1.5;color:#C9C3C1;max-width:70ch">
+          <b style="color:#fff;font-variant-numeric:tabular-nums">{{ rfMeta.total }}</b> {{ t.rfJudged }} ·
+          <b style="color:#fff;font-variant-numeric:tabular-nums">{{ rfMeta.mostraveis }}</b> {{ t.rfShowable }} ·
+          <b style="color:#fff;font-variant-numeric:tabular-nums">{{ rfMeta.derrubado }}</b> {{ t.rfDropped }}
+        </div>
+        <!-- O LIMITE VIAJA COM O NUMERO. Sem esta linha, «AGIRE ORA = 0» le-se
+             como falta de leitura em vez de decisao da regra. -->
+        <div style="font-size:12.5px;line-height:1.5;color:#F5B317;max-width:76ch">{{ rfMeta.limite }}</div>
+        <div style="font-size:12.5px;line-height:1.5;color:#8F8886;max-width:76ch">{{ t.rfNotSum }}</div>
+        </sc-if>
+      </div>
+
+      <sc-for list="{{ rfGroups }}" as="g" hint-placeholder-count="2">
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <div style="display:flex;align-items:baseline;gap:9px">
+            <span style="font-size:26px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ g.n }}</span>
+            <span style="font-family:var(--font-secondary);font-size:12px;font-weight:700;letter-spacing:0.14em;color:#8F8886">{{ g.label }}</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:10px">
+            <sc-for list="{{ g.cards }}" as="r" hint-placeholder-count="8">
+              <div data-itfc="{{ r.id }}" data-azione="{{ r.acao }}" style="border-radius:13px;border:1px solid rgba(203,197,195,0.12);background:#1C1817;padding:14px 15px;display:flex;flex-direction:column;gap:9px">
+                <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">
+                  <span style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.11em;background:{{ r.acaoBg }};border:1px solid {{ r.acaoEdge }};color:{{ r.acaoInk }}">{{ r.acao }}</span>
+                  <span style="font-size:11.5px;color:#B1A9A7">{{ r.estado }}</span>
+                  <sc-if value="{{ r.hasAviso }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:20px;padding:0 9px;border-radius:9999px;font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#8F8886;border:1px solid rgba(203,197,195,0.20)">{{ r.aviso }}</span></sc-if>
+                </div>
+                <div style="font-size:16px;font-weight:600;line-height:1.25;color:#fff">{{ r.classe }}</div>
+                <sc-if value="{{ r.hasPode }}" hint-placeholder-val="{{ true }}"><div style="font-size:12px;line-height:1.45;color:#B1A9A7">{{ r.pode }}</div></sc-if>
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:2px;padding-top:9px;border-top:1px solid rgba(203,197,195,0.10)">
+                  <span style="font-size:10.5px;letter-spacing:0.08em;color:#8F8886;font-variant-numeric:tabular-nums">{{ r.id }}</span>
+                  <sc-if value="{{ r.hasSensor }}" hint-placeholder-val="{{ false }}"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:{{ r.sensorColor }}">{{ r.sensor }}</span></sc-if>
+                  <span style="margin-left:auto;font-size:10.5px;color:#8F8886;font-variant-numeric:tabular-nums">{{ r.lacunas }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+
+      <div style="font-size:11.5px;line-height:1.6;color:#8F8886;max-width:80ch">{{ t.rfLegend }}</div>
+    </div>
+    </sc-if>
+
     <sc-if value="{{ isFuture }}" hint-placeholder-val="{{ false }}">
     <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:14px">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
@@ -2994,10 +3053,11 @@ class Component extends DCLogic {
      V21-69bf448ac934a6d9 e combacia 5/5. Il checkpoint precedente era
      b3935bd / V21-358954754db5ea2f: gli stessi 43 casi con gli stessi
      valori — a cambiare e stato il CONTRATTO, non il dato. */
-  /* ══ LA CASA PUNTA A UNO STRUMENTO, E LO STRUMENTO SI APRE ═══════════════
-     `casa.html` e la prima pagina: mostra l'intelligenza e poi manda agli
-     strumenti. Senza un indirizzo per vista, ogni suo collegamento arrivava
-     sulla stessa schermata — «vai alle finestre colturali» apriva il radar.
+  /* ══ OGNI VISTA HA UN INDIRIZZO, E L'INDIRIZZO LA APRE ═══════════════════
+     Senza un frammento per vista, ogni collegamento in arrivo cadeva sulla
+     stessa schermata — «vai alle finestre colturali» apriva il radar. La
+     regola vale per i collegamenti di fuori e per il tasto F5 allo stesso
+     modo, e adesso vale anche per `#radarfuturo`.
 
          UN COLLEGAMENTO CHE ARRIVA SEMPRE NELLO STESSO POSTO NON E UN
          COLLEGAMENTO. E UN PULSANTE CON UN'ETICHETTA SBAGLIATA.
@@ -3008,7 +3068,7 @@ class Component extends DCLogic {
   /* UN SOLO MAPPA VISTA -> CAPACITA. Lo leggeva la barra per accendere la voce
      attiva; adesso lo legge anche l'indirizzo, per non finire con due verita su
      dove il lettore si trova. */
-  static CAPABILITY_OF = { radar: 'radar', case: 'radar', brief: 'radar', meeting: 'meeting', mcase: 'meeting', field: 'field', windows: 'windows', window: 'windows', market: 'market', signal: 'future', future: 'future', competitors: 'competitors', company: 'competitors', event: 'competitors', cproduct: 'competitors', science: 'science', theme: 'science', archive: 'archive', portfolio: 'portfolio', product: 'portfolio', voices: 'voices', sources: 'sources', source: 'sources', person: 'sources', search: '' };
+  static CAPABILITY_OF = { radarfuturo: 'radarfuturo', radar: 'radar', case: 'radar', brief: 'radar', meeting: 'meeting', mcase: 'meeting', field: 'field', windows: 'windows', window: 'windows', market: 'market', signal: 'future', future: 'future', competitors: 'competitors', company: 'competitors', event: 'competitors', cproduct: 'competitors', science: 'science', theme: 'science', archive: 'archive', portfolio: 'portfolio', product: 'portfolio', voices: 'voices', sources: 'sources', source: 'sources', person: 'sources', search: '' };
 
   static VIEW_FROM_HASH() {
     /* «Field Sales» NON E TRA LE VISTE RAGGIUNGIBILI.
@@ -3025,8 +3085,11 @@ class Component extends DCLogic {
 
        Il menu non la offriva gia; restava questo elenco. Il codice della vista
        non e cancellato: smette di avere una rotta. */
+    /* «radarfuturo» entra na lista porque passou a ser uma VISTA deste guscio e
+       nao mais uma pagina a parte: quem recarrega em #radarfuturo tem de voltar
+       aos 44, e nao ao radar. */
     const AMMESSE = ['meeting', 'future', 'windows', 'market', 'voices', 'competitors',
-      'science', 'portfolio', 'archive', 'sources'];
+      'science', 'portfolio', 'archive', 'sources', 'radarfuturo'];
     try {
       const h = String((typeof window !== 'undefined' && window.location && window.location.hash) || '').replace(/^#/, '');
       return AMMESSE.includes(h) ? h : 'meeting';
@@ -3918,6 +3981,65 @@ class Component extends DCLogic {
       xCache.set(chiave, out);
       return out;
     }
+
+    /* ══ OS 44 DO RADAR FUTURO, DENTRO DO PORTAL ═══════════════════════════
+       Estavam desenhados em `casa.html` — outra grelha, outra escala, outro
+       cabecalho. A rota funcionava e o leitor sentia na mesma que tinha saido
+       do produto.
+
+           DUAS IDENTIDADES VISUAIS SAO DOIS PRODUTOS,
+           MESMO QUANDO SAO O MESMO DADO.
+
+       O dono do dado NAO muda: `window.ITALY_CASA.RADAR_FUTURO`, gerado por
+       `scripts/it_casa_dados.py`. O dicionario tambem nao: os codigos viram
+       frase em `meeting-labels.js`, como em todo o resto deste ficheiro.
+       Muda so quem os desenha.
+
+       E NAO SE INVENTA UM CAMPO. Medido no handoff da Linha B: 12 dos 13
+       campos obrigatorios do cartao — cultura, avversita, regiao, citacao,
+       fonte, data, janela — NAO viajam. A ficha abre pela ACCAO e pelo que o
+       cartao PODE citar, que e o unico facto comercial que esta origem da. */
+    const RF_DADOS = (window.ITALY_CASA && window.ITALY_CASA.RADAR_FUTURO) || null;
+    const rfFicha = (r) => {
+      const avisoL = r.AVISO ? mtL(r.AVISO) : '';
+      const estadoL = mtL(r.ESTADO);
+      return {
+        id: r.ID,
+        acao: mtL(r.ACAO),
+        prep: r.ACAO === 'PREPARAR',
+        estado: estadoL,
+        /* ESTADO e AVISO caem no mesmo par de palavras em 39 dos 44. Repetir
+           «lettura parziale» na mesma linha nao avisa: repete. */
+        aviso: (avisoL && avisoL.toLowerCase() !== String(estadoL).toLowerCase()) ? avisoL : '',
+        hasAviso: !!(avisoL && avisoL.toLowerCase() !== String(estadoL).toLowerCase()),
+        classe: mtL(r.PORTFOLIO_CLASSE),
+        pode: r.O_CARTAO_PODE ? mtL(r.O_CARTAO_PODE) : '',
+        hasPode: !!r.O_CARTAO_PODE,
+        sensor: r.SENSOR ? mtL(r.SENSOR) : '',
+        hasSensor: !!r.SENSOR,
+        sensorOk: r.SENSOR === 'SENSOR_EXECUTABLE',
+        sensorColor: r.SENSOR === 'SENSOR_EXECUTABLE' ? '#00B152' : '#8F8886',
+        /* Contagens, nunca citacoes: a prosa das lacunas e portuguesa e fica a
+           montante. O numero atravessa; o paragrafo nao. */
+        lacunas: r.DEFEITOS + ' / ' + r.NAO_SABEMOS,
+        acaoBg: r.ACAO === 'PREPARAR' ? 'rgba(0,160,223,0.14)' : 'rgba(151,139,135,0.14)',
+        acaoInk: r.ACAO === 'PREPARAR' ? '#5CC3EE' : '#B1A9A7',
+        acaoEdge: r.ACAO === 'PREPARAR' ? 'rgba(0,160,223,0.42)' : 'rgba(203,197,195,0.20)',
+      };
+    };
+    const rfGroups = RF_DADOS ? [['PREPARAR', RF_DADOS.PREPARAR], ['MONITORAR', RF_DADOS.MONITORAR]]
+      .map(([cod]) => {
+        const linhas = (RF_DADOS.REGISTRO || []).filter((r) => r.ACAO === cod);
+        return { label: mtL(cod), n: linhas.length, cards: linhas.map(rfFicha), has: linhas.length > 0 };
+      }).filter((g) => g.has) : [];
+    const rfMeta = RF_DADOS ? {
+      total: RF_DADOS.TOTAL, mostraveis: RF_DADOS.RENDERIZAVEIS, derrubado: RF_DADOS.DERRUBADOS,
+      agir: RF_DADOS.AGIR_AGORA,
+      /* O limite viaja COM o numero, sempre: «AGIRE ORA e zero por decisao da
+         regra, nao por falta de leitura» e a frase que impede a leitura errada. */
+      limite: (RF_DADOS.LIMITE && RF_DADOS.LIMITE[s.lang]) || '',
+      has: true,
+    } : { has: false };
 
     /* ══ INTELLIGENCE OGGI ════════════════════════════════════════════════
        Sei numeri, e ognuno con una semantica gia provata altrove in questa
@@ -4849,11 +4971,17 @@ class Component extends DCLogic {
            TRE SEGNALI ACCANTO A NIENTE SI LEGGONO COME TUTTO IL FUTURO.
            TRE ACCANTO A QUARANTAQUATTRO SI LEGGONO PER QUELLO CHE SONO.
 
-       La voce porta a `casa.html#radar-futuro`, dove il registro dei 44 e gia
-       disegnato e gia sorvegliato dal suo cancello (`casa-gate.mjs`). NON si
-       ridisegna qui: costruire una seconda superficie per gli stessi 44 farebbe
-       due registri dello stesso insieme, ed e esattamente l'errore che il
-       portale ha gia pagato una volta con i due radar.
+       La voce porta alla vista `#radarfuturo` di QUESTO guscio. Portava a
+       `casa.html`, che ha una identita visuale propria: il lettore arrivava e
+       sentiva di avere lasciato il prodotto. Il dato non ha cambiato
+       proprietario — resta `window.ITALY_CASA` — e i codici diventano frase
+       nello stesso dizionario di sempre. E cambiato chi li disegna.
+
+           DUE IDENTITA VISUALI SONO DUE PRODOTTI,
+           ANCHE QUANDO SONO LO STESSO DATO.
+
+       Non sono due registri: `casa.html` non e piu raggiungibile da nessuna
+       rotta, quindi non esistono due superfici vive per lo stesso insieme.
 
        Il contatore viene da `window.ITALY_CASA` — il proprietario — e tace se
        il proprietario non c'e: scrivere 44 a mano farebbe una seconda verita,
@@ -4866,9 +4994,25 @@ class Component extends DCLogic {
       label: String(mtL('casaRadarName') || '').toLowerCase()
         .replace(/(^|[\s·-])([a-zà-ÿ])/g, (m0, a, b) => a + b.toUpperCase()),
       count: (CASA_RF && typeof CASA_RF.RENDERIZAVEIS === 'number') ? CASA_RF.RENDERIZAVEIS : '',
-      go: () => { window.location.href = 'casa.html#radar-futuro'; },
-      bg: 'transparent', border: 'transparent', dot: 'rgba(151,139,135,0.35)',
-      color: '#9A9391', weight: 400 };
+      /* ══ O RADAR FUTURO DEIXA DE SER OUTRA PAGINA ═════════════════════
+         `casa.html` tem identidade visual propria — outra grelha, outra escala,
+         outro cabecalho — e um leitor que salta para la sente que saiu do
+         produto. A rota existia e funcionava; o que nao funcionava era a
+         SENSACAO de continuidade.
+
+             UMA PORTA QUE LEVA A OUTRA CASA NAO E UMA PORTA DO PORTAL.
+
+         Os 44 passam a desenhar-se AQUI, com os componentes deste guscio e com
+         os mesmos codigos do mesmo dicionario. O dado nao muda de dono:
+         continua a vir de `window.ITALY_CASA`, que este ficheiro ja carrega. */
+      go: () => this.go({ view: 'radarfuturo' }),
+      /* Agora que e uma vista, acende como as outras: uma voz que leva a algum
+         sitio e nunca se acende faz o leitor duvidar de que chegou la. */
+      bg: activeOf[s.view] === 'radarfuturo' ? 'rgba(0,152,69,0.13)' : 'transparent',
+      border: activeOf[s.view] === 'radarfuturo' ? 'rgba(0,152,69,0.40)' : 'transparent',
+      dot: activeOf[s.view] === 'radarfuturo' ? '#009845' : 'rgba(151,139,135,0.35)',
+      color: activeOf[s.view] === 'radarfuturo' ? '#fff' : '#9A9391',
+      weight: activeOf[s.view] === 'radarfuturo' ? 600 : 400 };
     /* ══ DUE STRUMENTI, E SOTTO DI LORO L'EVIDENZA ═══════════════════════════
        C'erano undici voci di pari livello, e la prima ripeteva il numero della
        seconda. Chi apriva il portale leggeva «undici strumenti», non «due
@@ -10107,7 +10251,9 @@ class Component extends DCLogic {
 
     /* portfolio, product and voices had no entry, so the breadcrumb bar was blank on three
        of the twenty-six screens. The keys already exist in italy-i18n.js. */
-    const titles = { meeting: mtL('navMeeting').toUpperCase(), mcase: mtL('navMeeting').toUpperCase(), portfolio: (T.navPortfolio || '').toUpperCase(), product: (T.navPortfolio || '').toUpperCase(), voices: (T.navVoices || '').toUpperCase(), radar: (T.navRadar || '').toUpperCase(), case: (T.navRadar || '').toUpperCase(), brief: 'ACTION BRIEF', field: (T.navField || '').toUpperCase(), windows: (T.navWindows || '').toUpperCase(), window: (T.navWindows || '').toUpperCase(), market: (T.navMarket || '').toUpperCase(), signal: (T.navFuture || '').toUpperCase(), future: (T.navFuture || '').toUpperCase(), competitors: (T.navCompetitors || '').toUpperCase(), company: (T.navCompetitors || '').toUpperCase(), event: (T.navCompetitors || '').toUpperCase() + ' · ' + (T.lblEventWatch || 'EVENT WATCH'), cproduct: (T.navCompetitors || '').toUpperCase(), science: (T.navScience || '').toUpperCase(), theme: (T.navScience || '').toUpperCase(), archive: (T.navArchive || '').toUpperCase(), sources: (T.navSources || '').toUpperCase(), source: (T.navSources || '').toUpperCase(), person: (T.navSources || '').toUpperCase() + ' · ' + (T.lblPeople || 'PEOPLE'), search: (T.lblSearch || 'SEARCH') };
+    const titles = { radarfuturo: String(mtL('casaRadarName') || '').toLowerCase()
+        .replace(/(^|[\s·-])([a-zà-ÿ])/g, (m0, a, b) => a + b.toUpperCase()),
+      meeting: mtL('navMeeting').toUpperCase(), mcase: mtL('navMeeting').toUpperCase(), portfolio: (T.navPortfolio || '').toUpperCase(), product: (T.navPortfolio || '').toUpperCase(), voices: (T.navVoices || '').toUpperCase(), radar: (T.navRadar || '').toUpperCase(), case: (T.navRadar || '').toUpperCase(), brief: 'ACTION BRIEF', field: (T.navField || '').toUpperCase(), windows: (T.navWindows || '').toUpperCase(), window: (T.navWindows || '').toUpperCase(), market: (T.navMarket || '').toUpperCase(), signal: (T.navFuture || '').toUpperCase(), future: (T.navFuture || '').toUpperCase(), competitors: (T.navCompetitors || '').toUpperCase(), company: (T.navCompetitors || '').toUpperCase(), event: (T.navCompetitors || '').toUpperCase() + ' · ' + (T.lblEventWatch || 'EVENT WATCH'), cproduct: (T.navCompetitors || '').toUpperCase(), science: (T.navScience || '').toUpperCase(), theme: (T.navScience || '').toUpperCase(), archive: (T.navArchive || '').toUpperCase(), sources: (T.navSources || '').toUpperCase(), source: (T.navSources || '').toUpperCase(), person: (T.navSources || '').toUpperCase() + ' · ' + (T.lblPeople || 'PEOPLE'), search: (T.lblSearch || 'SEARCH') };
     /* Every branch is evaluated before the view is picked, so each detail object is read
        through a guard: several domains now resolve to null on an unknown id instead of
        silently substituting record[0], and a bare .label would throw on the way there. */
@@ -10241,6 +10387,8 @@ class Component extends DCLogic {
       mcMissingList: mcCase ? mcCase.missing : [],
       /* Il blocco che legge le due famiglie che nessuno leggeva. */
       intelToday,
+      isRadarFuturo: s.view === 'radarfuturo',
+      rfGroups, rfMeta,
       mcBeyond, mcConv,
       /* Il portafoglio intero non e sparito: ha un interruttore, e il conteggio
          accanto al nome prova che nessun prodotto e stato tolto. */
