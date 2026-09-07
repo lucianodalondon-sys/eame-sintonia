@@ -31,26 +31,45 @@
       "id": "Z-FONTES",
       "family": "F-COLETA",
       "name": "1 · AS FONTES",
-      "why": "De onde o dado vem. Cada ficha diz o dono, o pais, o que a fonte tem e se ja foi vista com os proprios olhos",
+      "why": "De onde o dado vem. O acervo que se consulta ANTES de coletar, e a porta por onde entra fonte nova",
       "views": [
         "acervo"
       ]
     },
     {
-      "id": "Z-COMO",
+      "id": "Z-VEICULOS",
       "family": "F-COLETA",
-      "name": "2 · COMO SE BUSCA",
-      "why": "O meio, os parametros e as palavras. Quem vai la buscar, por qual porta, com que termo escrito na lingua do pais",
+      "name": "2 · OS VEICULOS",
+      "why": "Quem vai la buscar. Um veiculo por natureza de fonte — video, rede social, base oficial, rotulo, catalogo",
       "views": [
         "acervo",
         "infra"
       ]
     },
     {
+      "id": "Z-REGRAS",
+      "family": "F-COLETA",
+      "name": "3 · AS REGRAS E AS PALAVRAS",
+      "why": "O que pode ser coletado, de quem, e com que termo escrito na lingua do pais. Veiculo sem regra atropela",
+      "views": [
+        "acervo",
+        "audit"
+      ]
+    },
+    {
+      "id": "Z-FERRAMENTAS",
+      "family": "F-COLETA",
+      "name": "4 · AS FERRAMENTAS",
+      "why": "Com o que se vai: a rota paga, a rota gratis pelo navegador, o despachador e a transcricao local",
+      "views": [
+        "infra"
+      ]
+    },
+    {
       "id": "Z-GUARDA",
       "family": "F-COLETA",
-      "name": "3 · ONDE FICA E QUEM MANDA BUSCAR",
-      "why": "Onde o dado dorme entre uma corrida e outra, e o botao que dispara a coleta",
+      "name": "5 · ONDE FICA E QUEM DISPARA",
+      "why": "Onde o que voltou dorme entre uma corrida e outra, e o botao que manda ir",
       "views": [
         "infra"
       ]
@@ -128,6 +147,170 @@
   ],
   "COMPONENTS": [
     {
+      "id": "C-COLETA-YOUTUBE",
+      "name": "O que se fala em video no YouTube",
+      "territory": "Z-VEICULOS",
+      "kind": "engine",
+      "icon": "▶",
+      "views": [
+        "acervo"
+      ],
+      "what": "Le os canais, lista os videos, e decide quais valem a hora de maquina da transcricao.",
+      "why_here": "Video entrega o que nenhuma outra camada entrega: fala tecnica longa. Medido na Espanha: 15 videos deram 705.149 caracteres de fala tecnica — nenhuma outra camada chegou perto por unidade de custo.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "scripts/youtube_janela.py",
+        "scripts/youtube_relevancia.py"
+      ]
+    },
+    {
+      "id": "C-REGRA-COLETA",
+      "name": "A regra de coleta externa",
+      "territory": "Z-REGRAS",
+      "kind": "contract",
+      "icon": "§",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "what": "A lei que diz o que se coleta primeiro e o que nao pode ser esquecido: video, pesquisadores e LinkedIn nao sao acessorios.",
+      "why_here": "Veiculo sem regra atropela. A ordem de prioridade nao e gosto: video vem primeiro porque e a unica camada que entrega fala tecnica longa.",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md",
+        "docs/operacao/PORTOES-DE-COLETA-10B.md",
+        "scripts/portao.py",
+        "scripts/portoes_eame.py"
+      ]
+    },
+    {
+      "id": "C-PALAVRAS",
+      "name": "As palavras que a busca digita",
+      "territory": "Z-REGRAS",
+      "kind": "contract",
+      "icon": "“",
+      "views": [
+        "acervo"
+      ],
+      "what": "Os termos de busca, agrupados por pais-cultura-problema, na lingua de quem trabalha no campo daquele pais.",
+      "why_here": "Buscar 'septoria wheat' na Franca devolve literatura internacional, nao a conversa tecnica francesa. E o CROP e o ISSUE de cada item saem DESTA consulta, nunca de leitura livre do titulo — e o que torna a linha auditavel.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "scripts/sensor_coleta.py",
+        "scripts/sensor_medir.py",
+        "scripts/rotulos_censo.py"
+      ]
+    },
+    {
+      "id": "C-IDENTIDADE",
+      "name": "Quem esta autorizado a ser coletado",
+      "territory": "Z-REGRAS",
+      "kind": "contract",
+      "icon": "⛨",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "what": "A regua que decide se uma conta publica entra na coleta: identidade provada e conta local do pais.",
+      "why_here": "Estar na lista nao e autorizacao. Sem esta regua, oito execucoes pagas ja foram queimadas nesta casa devolvendo o alvo errado.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "scripts/comunicacao_identidade.py",
+        "scripts/comunicacao_lote.py",
+        "scripts/comunicacao_universo.py"
+      ]
+    },
+    {
+      "id": "C-SAUDE-FONTE",
+      "name": "A saude de cada fonte",
+      "territory": "Z-REGRAS",
+      "kind": "contract",
+      "icon": "♥",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "what": "Diz se uma fonte respondeu bem, respondeu torto, ou nao respondeu.",
+      "why_here": "HTTP 200 nao basta: ha 200 com pagina de erro — status bom, corpo lixo. Por isso a checagem e de schema e identidade. E lista vazia e FALHA, nunca 'zero resultados': a diferenca entre 'nao ha' e 'nao consegui ver' e a diferenca entre um relatorio e uma mentira.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "scripts/source_health.py"
+      ]
+    },
+    {
+      "id": "C-SINTONIA-SCRAP",
+      "name": "SINTONIA SCRAP — o despachador",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "workflow",
+      "icon": "⚡",
+      "views": [
+        "infra",
+        "acervo"
+      ],
+      "what": "O botao unico da coleta de Instagram e YouTube: 24 fases, as gratis primeiro, despachavel de qualquer lugar sem ninguem estar na maquina.",
+      "why_here": "Os cinco `instagram_*.py` rodavam A MAO. Isso significa que a coleta so existia enquanto alguem estivesse sentado nela. Aqui ela vira despacho: quem pede nao precisa estar na maquina, e o que rodou fica no historico. A ordem e lei: LOTE CONGELADO -> PERFIL -> OBJETO -> so entao ROTA PAGA.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        ".github/workflows/sintonia-scrap.yml"
+      ]
+    },
+    {
+      "id": "C-NAVEGADOR",
+      "name": "O navegador — a rota gratis",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "library",
+      "icon": "◎",
+      "views": [
+        "infra"
+      ],
+      "what": "Abre a pagina publica pelo proprio navegador e le o que ela ja mostra de graca.",
+      "why_here": "A rota publica ja entrega bio, seguidores, os 12 posts recentes, a legenda inteira, a data e as curtidas. Pagar por isso seria pagar duas vezes.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "scripts/navegador.py",
+        "scripts/cdp.py"
+      ]
+    },
+    {
+      "id": "C-TRANSCRICAO",
+      "name": "A fala vira texto, sem fatura",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "engine",
+      "icon": "♪",
+      "views": [
+        "infra"
+      ],
+      "what": "Transcreve o audio dos videos na propria maquina, com whisper local.",
+      "why_here": "Custa tempo de maquina, nao fatura. A rota paga de transcricao cobra por minuto — e ha ator que cobra por minuto INICIADO.",
+      "departments": [
+        "ENGENHARIA",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "scripts/instagram_transcrever.py",
+        "scripts/youtube_transcrever.py"
+      ]
+    },
+    {
       "id": "C-PORTA-FONTE",
       "name": "A porta de entrada de fonte nova",
       "territory": "Z-FONTES",
@@ -148,8 +331,8 @@
     },
     {
       "id": "C-APIFY-POOL",
-      "name": "As chaves de acesso",
-      "territory": "Z-COMO",
+      "name": "Apify — a rota paga",
+      "territory": "Z-FERRAMENTAS",
       "kind": "library",
       "what": "Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.",
       "why_here": "Sem isto, um erro de rede imprimia a chave inteira no log de uma execucao publica.",
@@ -163,12 +346,12 @@
         "scripts/contrato_ator.py"
       ],
       "views": [],
-      "icon": "▤"
+      "icon": "€"
     },
     {
       "id": "C-COLETA-PUBLICA",
       "name": "O que o concorrente publica em canal aberto",
-      "territory": "Z-COMO",
+      "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Recolhe o que os concorrentes publicam em canais abertos e classifica cada peca.",
       "why_here": "Saber o que o concorrente esta dizendo em publico, sem depender de ninguem contar.",
@@ -177,7 +360,9 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "files": [
-        "scripts/comunicacao_*.py"
+        "scripts/comunicacao_coleta.py",
+        "scripts/comunicacao_classificar.py",
+        "scripts/comunicacao_medir.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -185,7 +370,7 @@
     {
       "id": "C-COLETA-INSTAGRAM",
       "name": "O que se fala em video no Instagram",
-      "territory": "Z-COMO",
+      "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Recolhe publicacoes de Instagram das contas autorizadas e transcreve o que e falado em video.",
       "why_here": "Boa parte da fala real de produtor e de tecnico nao esta em texto — esta em video.",
@@ -193,15 +378,18 @@
         "INTELIGENCIA"
       ],
       "files": [
-        "scripts/instagram_*.py"
+        "scripts/instagram_coleta.py",
+        "scripts/instagram_diario.py",
+        "scripts/instagram_janela.py",
+        "scripts/instagram_pessoal.py"
       ],
       "views": [],
       "icon": "⚙"
     },
     {
       "id": "C-COLETA-BASE",
-      "name": "O motor de buscar e o portao que decide se vale",
-      "territory": "Z-COMO",
+      "name": "O motor de buscar",
+      "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "O motor generico de coleta e o portao que decide, de graca, se vale gastar maquina antes de gastar.",
       "why_here": "Coletar sem portao ja custou execucoes pagas que devolveram o alvo errado.",
@@ -211,10 +399,7 @@
       "files": [
         "scripts/coletor.py",
         "scripts/coleta_checkpoint.py",
-        "scripts/portao*.py",
-        "scripts/portoes*.py",
-        "scripts/filas.py",
-        "scripts/cdp.py"
+        "scripts/filas.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -222,7 +407,7 @@
     {
       "id": "C-FONTES-EU",
       "name": "As bases oficiais da Europa",
-      "territory": "Z-COMO",
+      "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Le as bases oficiais da Europa — registro de produtos, pragas, denominacoes, dados agroalimentares.",
       "why_here": "Fonte oficial e o unico chao que nao depende de alguem ter postado.",
@@ -247,7 +432,7 @@
     {
       "id": "C-CORPUS",
       "name": "A fala do campo e a producao dos pesquisadores",
-      "territory": "Z-COMO",
+      "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Junta a fala real de campo e a producao dos pesquisadores num corpo de texto consultavel.",
       "why_here": "A voz do campo e a ciencia sao duas evidencias diferentes e nao podem virar a mesma coisa.",
@@ -258,7 +443,7 @@
       "files": [
         "scripts/corpus_*.py",
         "scripts/speaker*.py",
-        "scripts/sensor*.py"
+        "scripts/sensor_canal_identidade.py"
       ],
       "views": [
         "science"
@@ -382,7 +567,7 @@
     {
       "id": "C-ADAMA-CATALOGO",
       "name": "O que a ADAMA vende em cada pais",
-      "territory": "Z-COMO",
+      "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Monta e le o catalogo de produtos da propria ADAMA em cada pais.",
       "why_here": "Sem saber o que a ADAMA vende naquele pais, nao da para dizer se uma oportunidade e atendivel.",
@@ -402,7 +587,7 @@
     {
       "id": "C-ADAMA-IT",
       "name": "O portfolio da ADAMA na Italia",
-      "territory": "Z-COMO",
+      "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Le rotulo, modo de acao, substancia europeia e lacuna de portfolio da ADAMA na Italia.",
       "why_here": "A Italia e o piloto: e onde a leitura de portfolio foi provada primeiro.",
@@ -423,7 +608,7 @@
     {
       "id": "C-ADAMA-ES",
       "name": "A entrada do catalogo da Espanha",
-      "territory": "Z-COMO",
+      "territory": "Z-VEICULOS",
       "kind": "gate",
       "what": "Confere as regras de importacao do catalogo espanhol antes de ele entrar.",
       "why_here": "A Espanha entrou depois e com fonte diferente; sem portao proprio ela contaminaria a base.",
@@ -441,7 +626,7 @@
     {
       "id": "C-ROTULOS",
       "name": "Os rotulos oficiais dos produtos",
-      "territory": "Z-COMO",
+      "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Baixa, conta e le os rotulos oficiais dos produtos.",
       "why_here": "O rotulo e o unico documento que diz o que e legalmente permitido fazer com o produto.",
@@ -450,7 +635,8 @@
         "TECNICO_CIENCIA"
       ],
       "files": [
-        "scripts/rotulos_*.py",
+        "scripts/rotulos_baixar.py",
+        "scripts/rotulos_ler.py",
         "scripts/cruzar_regua_rotulo.py",
         "scripts/pdf_text.py",
         "scripts/preservar_pdf.py",
@@ -538,7 +724,6 @@
       ],
       "files": [
         "scripts/ask_sintonia.py",
-        "scripts/navegador.py",
         "scripts/rede.py"
       ],
       "views": [],
@@ -680,7 +865,10 @@
         "scripts/source*.py"
       ],
       "views": [],
-      "icon": "⚙"
+      "icon": "⚙",
+      "exclude": [
+        "scripts/source_health.py"
+      ]
     },
     {
       "id": "C-PACOTE-CAMADAS",
@@ -1183,6 +1371,7 @@
     ".github/workflows/apify-sensores.yml": "645c739e2079b67fe4867a8de0349670652c1077",
     ".github/workflows/calendario-regressoes.yml": "c9c11c591e8dd07b7e53e41afd09d56416e837dd",
     ".github/workflows/comunicacao-publica.yml": "fefdff114ac800ef60d764fe5140c3e09099d3be",
+    ".github/workflows/sintonia-scrap.yml": "e7a4576d9b61c6ee9ba01e604df27b4491f94161",
     ".github/workflows/supabase-conexao.yml": "573173a3964780b6d76fffacc654ee8248737b44",
     ".github/workflows/supabase-fichas-adama.yml": "4a0af73478a00107ea0ee4077a4574cfea0eb61a",
     ".github/workflows/supabase-migrate.yml": "b103d3a0a67af1b1cd867c65e07f751f5a02adf3",
@@ -1190,6 +1379,8 @@
     ".github/workflows/supabase-storage.yml": "cf95ae286c72c84f23aa906392b6c88dc4f88cd2",
     ".github/workflows/system-map.yml": "825d7a0dfb28cd37d69df980e60b9b2036ae267b",
     "data/samples/FONTES-CANDIDATAS.json": "7f5d31b069f50b2c547d4cf15c23c9e183bad680",
+    "docs/operacao/PORTOES-DE-COLETA-10B.md": "aeef00a584cd88b4a1646a1cc6fbd80c5adf463d",
+    "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md": "d92be7f6dd52b8d9099f73d3612348bc62d3f9db",
     "italia-portale/BASELINE/_ds/adama-brandwell/_adherence.oxlintrc.json": "33b460a7e2a4606240e3ce74c734a2ca6a4ae703",
     "italia-portale/BASELINE/_ds/adama-brandwell/_ds_bundle.js": "5181841ff9f5e3a465908bcdcbd563655bbd6b67",
     "italia-portale/BASELINE/_ds/adama-brandwell/_ds_manifest.json": "1a13f1400c39b3d0e066cf95835bbb7d2e56aeff",
@@ -1479,6 +1670,9 @@
     "scripts/v2_qa_atribuir.py": "b7eceb2a34b5840b8aaa7aa750c41edf28126089",
     "scripts/v2_relatorio.py": "7004e0377e5127bb15345f16d2dd39faaa37ceba",
     "scripts/voz.py": "94c454b64a1c13a6fb6059918f1edbdd358cd791",
+    "scripts/youtube_janela.py": "ac85bb1d3ebd91ba115ad8bd4bae79de48ceba90",
+    "scripts/youtube_relevancia.py": "05be03a25a7a86651d22c8fb80d6e5a3527d26fa",
+    "scripts/youtube_transcrever.py": "72ae22c8328df367238ff04a935b04bc43236a7d",
     "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql": "11570d02661fe076cb03e6709398d503c4974e31",
     "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql": "9b8e725253337e098aa586a4df9b131ac4d55dbd",
     "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql": "8c49ffa85d7f83a46bba0adfed7fd59c66bebe82",
@@ -1525,7 +1719,7 @@
     "system-map/app/map.css": "d70a895270eca4dd5684c116772153890a648a55",
     "system-map/app/map.js": "f04eb0b54571fc61b3b088212ed010e082e811ae",
     "system-map/scripts/generate_system_map.py": "b732cad43dea7c85daff1a3ad154625c5a8bf026",
-    "system-map/scripts/scan_repo.py": "8f6a67bc650582f939d0c72f09a6069a7c15b53c",
+    "system-map/scripts/scan_repo.py": "78e8e36dd295159a4055d788c9b8be2fb98ff269",
     "system-map/scripts/scan_sources.py": "d0f92cd8327f4c49287509058d87dc7eefc76903",
     "system-map/scripts/validate_system_map.py": "62710dacf74abc5ee9ed695720057fd202d4e9a7",
     "system-map/tests/test_system_map.py": "fc9a1034c1a801eb5492ac2d8b018be7e95730c5",

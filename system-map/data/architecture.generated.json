@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "34b20e6bc5fb39b66fe3d47bc7d899a4bf8d7bfe",
-    "GENERATED_AT": "2026-09-07T10:57:41-03:00"
+    "HEAD": "0edbbd43b258c813d960c9ecb23e5e0bad846a0f",
+    "GENERATED_AT": "2026-09-07T11:21:02-03:00"
   },
   "FILES": [
     {
@@ -52,6 +52,13 @@
     {
       "path": ".github/workflows/comunicacao-publica.yml",
       "sha": "fefdff114ac800ef60d764fe5140c3e09099d3be",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/sintonia-scrap.yml",
+      "sha": "e7a4576d9b61c6ee9ba01e604df27b4491f94161",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -3117,7 +3124,7 @@
     },
     {
       "path": "docs/operacao/PORTOES-DE-COLETA-10B.md",
-      "sha": "94380052d0793303f9b62c63163b69644c733112",
+      "sha": "aeef00a584cd88b4a1646a1cc6fbd80c5adf463d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6574,6 +6581,27 @@
       "code_dir": true
     },
     {
+      "path": "scripts/youtube_janela.py",
+      "sha": "ac85bb1d3ebd91ba115ad8bd4bae79de48ceba90",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/youtube_relevancia.py",
+      "sha": "05be03a25a7a86651d22c8fb80d6e5a3527d26fa",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/youtube_transcrever.py",
+      "sha": "72ae22c8328df367238ff04a935b04bc43236a7d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql",
       "sha": "11570d02661fe076cb03e6709398d503c4974e31",
       "ext": ".sql",
@@ -6897,7 +6925,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "0d19e881fb12cf3526922c666d963a189d1c115d",
+      "sha": "15f1332d2cee5849d6d26fcc02fb788a2d5b6aaf",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -6911,7 +6939,7 @@
     },
     {
       "path": "system-map/scripts/scan_repo.py",
-      "sha": "8f6a67bc650582f939d0c72f09a6069a7c15b53c",
+      "sha": "78e8e36dd295159a4055d788c9b8be2fb98ff269",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7366,6 +7394,116 @@
         "file": ".github/workflows/comunicacao-publica.yml",
         "line": 105,
         "snippet": "PYTHONIOENCODING=utf-8 $PY tests/test_comunicacao.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/sintonia-scrap.yml",
+      "to_file": "scripts/apify_pool.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/sintonia-scrap.yml",
+        "line": 216,
+        "snippet": "run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/sintonia-scrap.yml",
+      "to_file": "scripts/instagram_coleta.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/sintonia-scrap.yml",
+        "line": 250,
+        "snippet": "*)               PYTHONIOENCODING=utf-8 $PY scripts/instagram_coleta.py \"${{ inputs.fase }}\" ;;"
+      }
+    },
+    {
+      "from_file": ".github/workflows/sintonia-scrap.yml",
+      "to_file": "scripts/instagram_diario.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/sintonia-scrap.yml",
+        "line": 239,
+        "snippet": "diario)          PYTHONIOENCODING=utf-8 $PY scripts/instagram_diario.py rodar   $CONTA ;;"
+      }
+    },
+    {
+      "from_file": ".github/workflows/sintonia-scrap.yml",
+      "to_file": "scripts/instagram_janela.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/sintonia-scrap.yml",
+        "line": 234,
+        "snippet": "janela)          PYTHONIOENCODING=utf-8 $PY scripts/instagram_janela.py tudo    $TETO ;;"
+      }
+    },
+    {
+      "from_file": ".github/workflows/sintonia-scrap.yml",
+      "to_file": "scripts/instagram_pessoal.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/sintonia-scrap.yml",
+        "line": 224,
+        "snippet": "PYTHONIOENCODING=utf-8 $PY scripts/instagram_pessoal.py estado"
+      }
+    },
+    {
+      "from_file": ".github/workflows/sintonia-scrap.yml",
+      "to_file": "scripts/instagram_transcrever.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/sintonia-scrap.yml",
+        "line": 237,
+        "snippet": "transcrever)     PYTHONIOENCODING=utf-8 $PY scripts/instagram_transcrever.py rodar \"${{ inputs.modelo }}\" $TETO ;;"
+      }
+    },
+    {
+      "from_file": ".github/workflows/sintonia-scrap.yml",
+      "to_file": "scripts/navegador.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/sintonia-scrap.yml",
+        "line": 174,
+        "snippet": "run: PYTHONIOENCODING=utf-8 $PY scripts/navegador.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/sintonia-scrap.yml",
+      "to_file": "scripts/youtube_janela.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/sintonia-scrap.yml",
+        "line": 243,
+        "snippet": "yt-canais)       PYTHONIOENCODING=utf-8 $PY scripts/youtube_janela.py canais ;;"
+      }
+    },
+    {
+      "from_file": ".github/workflows/sintonia-scrap.yml",
+      "to_file": "scripts/youtube_relevancia.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/sintonia-scrap.yml",
+        "line": 246,
+        "snippet": "yt-relevancia)   PYTHONIOENCODING=utf-8 $PY scripts/youtube_relevancia.py tudo ;;"
+      }
+    },
+    {
+      "from_file": ".github/workflows/sintonia-scrap.yml",
+      "to_file": "scripts/youtube_transcrever.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/sintonia-scrap.yml",
+        "line": 248,
+        "snippet": "yt-alvos)        PYTHONIOENCODING=utf-8 $PY scripts/youtube_transcrever.py alvos ;;"
       }
     },
     {
@@ -12495,6 +12633,28 @@
       }
     },
     {
+      "from_file": "scripts/youtube_janela.py",
+      "to_file": "scripts/cdp.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/youtube_janela.py",
+        "line": 66,
+        "snippet": "import cdp                       # noqa: E402  — o navegador, em biblioteca padrão"
+      }
+    },
+    {
+      "from_file": "scripts/youtube_relevancia.py",
+      "to_file": "scripts/sensor_medir.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/youtube_relevancia.py",
+        "line": 74,
+        "snippet": "import sensor_medir as sm        # noqa: E402  — dono do léxico multilíngue desta casa"
+      }
+    },
+    {
       "from_file": "system-map/app/index.html",
       "to_file": "system-map/app/map.css",
       "type": "READS",
@@ -13211,9 +13371,15 @@
     }
   ],
   "COUNTS": {
-    "files_tracked": 1023,
-    "files_readable": 339,
-    "files_code_dir": 381,
-    "file_edges": 549
+    "files_tracked": 1027,
+    "files_readable": 343,
+    "files_code_dir": 385,
+    "file_edges": 561,
+    "declared_missing_here": 1
+  },
+  "ELSEWHERE": {
+    "italia-portale/client/italy-v21.js": [
+      "origin/claude/italy-source-master-v1"
+    ]
   }
 }

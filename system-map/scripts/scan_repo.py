@@ -124,6 +124,41 @@ def prova(caminho: str, n: int, linha: str) -> dict:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# 3 · O QUE FOI DECLARADO E NAO ESTA AQUI — mas existe noutro sitio
+# ─────────────────────────────────────────────────────────────────────────────
+def onde_mais(declarados: set[str], presentes: set[str]) -> dict:
+    """Para cada ficheiro declarado no mapa e ausente desta arvore, procura em que
+    branches remotas ele existe.
+
+    Isto muda o significado do vermelho. Sem esta medicao, uma peca ausente diz
+    apenas "nao existe" — e quem le conclui que foi apagada, ou que nunca foi
+    feita. Com ela, o mapa consegue dizer a verdade inteira:
+
+        NAO ESTA AQUI. ESTA ALI. E ALI NAO E O SITIO DE ONDE SE PUBLICA.
+
+    Que e um problema completamente diferente, e muito mais caro: significa que a
+    ferramenta foi construida, funciona, e mesmo assim nao corre — porque o botao
+    ficou noutra gaveta.
+
+    So le `git ls-tree`. Nao faz checkout, nao mistura arvores, nao traz nada para
+    ca. Medir onde uma coisa esta nao e o mesmo que traze-la, e a decisao de a
+    trazer e de gente.
+    """
+    faltam = sorted(declarados - presentes)
+    if not faltam:
+        return {}
+    ramos = [b.strip() for b in git("branch", "-r", "--format=%(refname:short)").splitlines()
+             if b.strip() and "->" not in b]
+    achados: dict[str, list] = {}
+    for ramo in ramos:
+        arvore = set(git("ls-tree", "-r", "--name-only", ramo).splitlines())
+        for f in faltam:
+            if f in arvore:
+                achados.setdefault(f, []).append(ramo)
+    return {f: sorted(r) for f, r in sorted(achados.items())}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # 2 · AS ARESTAS — cada uma nasce de uma linha que da para apontar
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -283,6 +318,16 @@ def main() -> int:
         },
     }
     fatos["COUNTS"]["file_edges"] = len(fatos["FILE_EDGES"])
+
+    # O mapa declara ficheiros; alguns podem nao estar nesta arvore. Medir onde
+    # eles estao e barato e responde a pergunta que o vermelho sozinho nao responde.
+    decl = RAIZ / "system-map" / "data" / "architecture.declared.json"
+    if decl.exists():
+        D = json.loads(decl.read_text(encoding="utf-8"))
+        pedidos = {f for c in D.get("COMPONENTS", []) for f in c["files"]
+                   if not any(ch in f for ch in "*?[")}
+        fatos["ELSEWHERE"] = onde_mais(pedidos, set(arquivos))
+        fatos["COUNTS"]["declared_missing_here"] = len(fatos["ELSEWHERE"])
 
     SAIDA.parent.mkdir(parents=True, exist_ok=True)
     SAIDA.write_text(
