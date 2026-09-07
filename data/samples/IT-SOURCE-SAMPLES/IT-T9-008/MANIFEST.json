@@ -1,0 +1,71 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T9-008",
+ "OWNER_ID": "IT-OWN-ADAMA-IT",
+ "OWNER_CANONICAL_NAME": "ADAMA Italia",
+ "OWNER_KIND": "COMPANY",
+ "TERRITORY": "T9",
+ "SOURCE_TYPE": "CONTEUDO_TECNICO_DE_EMPRESA",
+ "SOURCE_ROLE": "COMPETITIVE_INTELLIGENCE",
+ "CAPTURE": {
+  "CAPTURED_AT_UTC": "2026-09-07T15:05:00Z",
+  "METODO": "leitura do DOM renderizado pelo navegador, do IP italiano",
+  "EGRESS_IP": "205.147.30.20",
+  "EGRESS_GEO": "Milano, IT — Proton AG",
+  "EGRESS_KIND": "VPN_COMERCIAL",
+  "AUTH_USED": "NENHUMA"
+ },
+ "FILES": [
+  {
+   "RAW_FILE": "adama-orticole-2026-06-03.BROWSER-EXTRACT.json",
+   "role": "EXTRATO do DOM renderizado — NAO sao os bytes servidos pelo site",
+   "MIME": "application/json",
+   "BYTES": 5295,
+   "SHA256": "9f56e17877efe44f086c65efb9e4910f138b8273a0eaedc70842ac697f1218c6",
+   "ASSINATURA_REAL_DOS_BYTES": "JSON"
+  }
+ ],
+ "RAW_EVIDENCE_STATE": "BROWSER_RENDERED_EXTRACT",
+ "motivo_nao_PRESERVED": "o site devolve HTTP 403 para qualquer cliente sem navegador, testado com curl e cabecalhos completos do mesmo IP italiano. Os bytes originais nao puderam ser guardados.",
+ "SOURCE_URL": "https://www.adama.com/italia/it/articolo/orticole-come-controllare-le-infestanti-anche-quelle-piu-difficili",
+ "CANONICAL_URL": "https://www.adama.com/italia/it/articolo/orticole-come-controllare-le-infestanti-anche-quelle-piu-difficili",
+ "ORIGINAL_TITLE": "Orticole: come controllare le infestanti, anche quelle piu difficili",
+ "ORIGINAL_LANGUAGE": "it",
+ "SOURCE_DATE": "2026-06-03T16:36:57+0200 (published) · 2026-06-03T16:45:17+0200 (modified)",
+ "SOURCE_LOCATION": "site nacional ADAMA Italia",
+ "FACT_LOCATION": "UNKNOWN — o artigo nao localiza nenhum fato de campo. Nao inferir pela sede.",
+ "EVIDENCE_CLASS": "COMPANY_CLAIM",
+ "LEI_APLICADA": "COMPANY_CLAIM != REGULATORY_FACT",
+ "CROP": "orticole / pomodoro",
+ "ISSUE": "infestanti e resistencia a herbicidas",
+ "TOPICS": "erbicida, bifenox, inibidor de PPO, pre-trapianto, resistencia",
+ "WHAT_IT_PROVES": [
+  "que a ADAMA Italia publica conteudo tecnico datado, em italiano, aberto e sem login",
+  "que ela associa publicamente o produto Sonavio® a bifenox, a inibicao de PPO e ao problema de resistencia em horticolas/tomate",
+  "que o site exige NAVEGADOR: 403 para curl mesmo com cabecalhos completos, do mesmo IP italiano"
+ ],
+ "WHAT_IT_DOES_NOT_PROVE": [
+  "que Sonavio® esta autorizado na Italia — isso so o registro do Ministero prova",
+  "que esta comercialmente disponivel",
+  "eficacia, venda, estoque, market share ou uso realizado",
+  "qualquer ocorrencia de campo — o artigo nao mede nada em campo"
+ ],
+ "ACCESS_INSTRUMENT": "BROWSER",
+ "VPN_COUNTRY": "IT",
+ "BROWSER_REQUIRED": "YES",
+ "JS_REQUIRED": "NAO SEI — o conteudo aparece no DOM renderizado; nao se testou o HTML sem JavaScript, porque o servidor recusa a requisicao antes disso",
+ "INTERACTION_REQUIRED": "NO",
+ "LOGIN_REQUIRED": "NO",
+ "CAPTCHA_OBSERVED": "NO",
+ "WAF_OBSERVED": "YES",
+ "UPDATE_FREQUENCY": "NÃO SEI — uma amostra so",
+ "AUTOMATION_FEASIBILITY": "MEDIUM — exige navegador de verdade. BROWSER_REQUIRED nao e SOURCE_UNAUTOMATABLE.",
+ "VERDICT": "YELLOW",
+ "por_que": "conteudo tecnico real, datado e relevante, mas os bytes originais nao puderam ser preservados: e extrato de DOM, nao documento. Nao pode ser GREEN.",
+ "PRIORITY": "P1",
+ "DECISAO_ADAMA": [
+  "COMPETITIVE_INTELLIGENCE",
+  "MARKETING",
+  "TECHNICAL"
+ ]
+}

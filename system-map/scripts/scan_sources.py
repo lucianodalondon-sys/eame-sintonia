@@ -189,6 +189,82 @@ def do_atlas() -> list[dict]:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# 1b · O SEGUNDO CATALOGO — e a reconciliacao com o primeiro
+# ─────────────────────────────────────────────────────────────────────────────
+MASTER_IT = "data/samples/ITALY-SOURCE-MASTER-V1.json"
+
+
+def do_master() -> list:
+    """As 54 fontes italianas, do catalogo que a coleta de Italia levantou.
+
+    Ele tem campos que o atlas nao tem, e sao bons: `OWNER_ID` (dono normalizado,
+    44 deles), `SOURCE_ROLE`, `WHAT_IT_PROVES` e — o melhor de todos —
+    `WHAT_IT_DOES_NOT_PROVE`, que e a pergunta que quase nenhum catalogo faz.
+
+    Mas ele nasceu AO LADO do atlas, e nao dentro dele. Duas listas a responder
+    «que fontes o SINTONIA tem» sao duas verdades, e a segunda envelhece calada.
+
+        NAO SE APAGA UM REGISTO PARA ARRUMAR. RECONCILIA-SE.
+
+    O atlas continua a ser o registo canonico das FICHAS. Este e lido como o que
+    e — um levantamento — e o mapa mostra, fonte a fonte, em qual dos dois ela
+    esta. A diferenca entre as duas listas deixa de ser silencio e passa a ser
+    uma coluna.
+    """
+    p = RAIZ / MASTER_IT
+    if not p.exists():
+        return []
+    try:
+        d = json.loads(p.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return []
+    donos = {o["OWNER_ID"]: o for o in d.get("owners", [])}
+    fora = []
+    for s in d.get("sources", []):
+        dono = donos.get(s.get("OWNER_ID"), {})
+        sid = s.get("SOURCE_ID", "")
+        pais, terr = (sid.split("-") + ["", ""])[:2]
+        fora.append({
+            "source_id": sid,
+            "name": s.get("SOURCE_NAME", sid),
+            "owner": dono.get("OWNER_CANONICAL_NAME", ""),
+            "owner_kind": dono.get("OWNER_KIND", ""),
+            "country": PAIS.get(pais, "?"),
+            "territory": terr, "territory_name": TERRITORIO.get(terr, ""),
+            "type": s.get("SOURCE_TYPE", ""), "role": s.get("SOURCE_ROLE", ""),
+            "url": s.get("URL", ""), "access_method": s.get("ACCESS_METHOD", ""),
+            "crops": s.get("CROPS", ""), "topics": s.get("TOPICS", ""),
+            "region": s.get("REGION", ""),
+            "update_frequency": s.get("UPDATE_FREQUENCY", ""),
+            "historical_depth": s.get("HISTORICAL_DEPTH", ""),
+            "status": s.get("STATUS", ""),
+            "verdict": veredito(s.get("ATLAS_VERDICT", "")),
+            "prova": s.get("WHAT_IT_PROVES", ""),
+            "nao_prova": s.get("WHAT_IT_DOES_NOT_PROVE", ""),
+            "onde": MASTER_IT,
+        })
+    return sorted(fora, key=lambda x: x["source_id"])
+
+
+def reconciliar(atlas: list, master: list, citadas: list) -> dict:
+    """Onde cada fonte esta registada — e onde nao esta."""
+    a = {f["source_id"] for f in atlas}
+    m = {f["source_id"] for f in master}
+    c = {x["source_id"] for x in citadas}
+    return {
+        "so_no_atlas": sorted(a - m),
+        "so_no_master_italiano": sorted(m - a - c),
+        "nos_dois": sorted(a & m),
+        "so_citadas_em_tabela": sorted(c - a - m),
+        "total_distintas": len(a | m | c),
+        "leitura": (
+            f"{len(a)} tem ficha no atlas, {len(m)} estao no levantamento italiano, "
+            f"{len(a & m)} estao nos dois. {len(m - a - c)} foram levantadas em Italia "
+            f"e nunca ganharam ficha no atlas — e o atlas e o registo canonico."),
+    }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # 2 · OS CONTRATOS — como se busca, e o que fazer quando quebra
 # ─────────────────────────────────────────────────────────────────────────────
 RE_CONTRATO = re.compile(r"^([A-Z_/]{4,32})\s{2,}(.*)$")
@@ -440,6 +516,74 @@ def coletas_feitas(fontes: list) -> dict:
     }
 
 
+LEDGER_IT = "data/collection-ledger/italy/observations.ndjson"
+RUNS_IT = "data/collection-ledger/italy/runs.ndjson"
+
+
+def coletas_italianas() -> dict:
+    """O registo da coleta italiana — outro formato, a mesma pergunta.
+
+    Sao dois registos de coleta nesta casa, e nenhum sabia do outro:
+
+        RUN-MANIFEST.json          10 corridas, campos em MAIUSCULAS, uma linha
+        observations.ndjson       144 observacoes, uma por linha, outro esquema
+
+    Nao se apaga um registo para arrumar. O que se faz e ler os dois e apresentar
+    UMA memoria — com a diferenca de formato a vista, porque ela e um facto sobre
+    a casa e nao um detalhe a esconder.
+
+    E o registo italiano e mais rico: guarda o SHA256 de cada documento, a
+    assinatura MIME, o `FACT_TIME` separado do `CAPTURED_AT`, o estado de saude,
+    a cadencia esperada e o IP por onde a requisicao saiu. Tres coisas dessas o
+    manifesto espanhol nao tem.
+    """
+    obs, runs = [], []
+    p = RAIZ / LEDGER_IT
+    if p.exists():
+        for l in p.read_text(encoding="utf-8", errors="replace").splitlines():
+            if l.strip():
+                try:
+                    obs.append(json.loads(l))
+                except json.JSONDecodeError:
+                    pass
+    q = RAIZ / RUNS_IT
+    if q.exists():
+        for l in q.read_text(encoding="utf-8", errors="replace").splitlines():
+            if l.strip():
+                try:
+                    runs.append(json.loads(l))
+                except json.JSONDecodeError:
+                    pass
+    if not obs and not runs:
+        return {}
+
+    por_fonte: dict[str, int] = {}
+    novos = repetidos = 0
+    for o in obs:
+        sid = o.get("SOURCE_ID", "?")
+        por_fonte[sid] = por_fonte.get(sid, 0) + 1
+        r = (o.get("OBSERVATION_RESULT") or "").upper()
+        if "NEW" in r or "NOVO" in r:
+            novos += 1
+        elif "SEEN" in r or "AGAIN" in r or "REPETID" in r:
+            repetidos += 1
+
+    return {
+        "ficheiro_observacoes": LEDGER_IT,
+        "ficheiro_corridas": RUNS_IT,
+        "observacoes": len(obs),
+        "corridas": len(runs),
+        "por_fonte": dict(sorted(por_fonte.items(), key=lambda x: -x[1])),
+        "documentos_novos": novos,
+        "ja_vistos": repetidos,
+        "com_sha256": sum(1 for o in obs if o.get("RAW_SHA256")),
+        "com_fact_time": sum(1 for o in obs if o.get("FACT_TIME")),
+        "com_cadencia": sum(1 for o in obs if o.get("CADENCE_STATE")),
+        "corridas_com_egress": sum(1 for r in runs if r.get("EGRESS_IP")),
+        "campos": sorted(obs[0]) if obs else [],
+    }
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # 6 · A MEMORIA DA COLETA — o que cada coletor faz, medido nele proprio
 # ─────────────────────────────────────────────────────────────────────────────
@@ -585,6 +729,7 @@ def main() -> int:
     arquivos = [f["path"] for f in G["FILES"]]
 
     fontes = do_atlas()
+    master = do_master()
     com_ficha = {f["source_id"] for f in fontes}
     so_em_tabela = [c for c in citadas_sem_ficha() if c["source_id"] not in com_ficha]
     contratos = dos_contratos()
@@ -605,11 +750,14 @@ def main() -> int:
         "PROVENANCE": {"HEAD": head, "ATLAS": ATLAS, "CONTRATOS": CONTRATOS},
         "SOURCES": fontes,
         "CITADAS_SEM_FICHA": so_em_tabela,
+        "MASTER_ITALIANO": master,
+        "RECONCILIACAO": reconciliar(fontes, master, so_em_tabela),
         "ACCOUNTS": as_contas(),
         "INTAKE": a_porta(fontes, contratos),
         "SEARCH_TERMS": as_palavras(arquivos),
         "MEMORIA_DA_COLETA": memoria_da_coleta(arquivos),
         "COLETAS_FEITAS": coletas_feitas(fontes),
+        "COLETAS_ITALIANAS": coletas_italianas(),
         "ENDPOINTS": as_portas(arquivos),
         "COUNTS": {
             "sources": len(fontes),
@@ -633,10 +781,16 @@ def main() -> int:
     dados["COUNTS"]["coletores_que_registam_descarte"] = sum(
         1 for m in M if m["regista_descarte"])
     F = dados["COLETAS_FEITAS"]
-    dados["COUNTS"]["corridas_registadas"] = F.get("total", 0)
+    I = dados["COLETAS_ITALIANAS"]
+    dados["COUNTS"]["corridas_registadas"] = F.get("total", 0) + I.get("corridas", 0)
+    dados["COUNTS"]["observacoes_registadas"] = I.get("observacoes", 0)
     dados["COUNTS"]["fontes_ja_coletadas"] = len(F.get("fontes_ja_coletadas", []))
     dados["COUNTS"]["fontes_nunca_coletadas"] = len(F.get("fontes_nunca_coletadas", []))
     dados["COUNTS"]["citadas_sem_ficha"] = len(so_em_tabela)
+    R = dados["RECONCILIACAO"]
+    dados["COUNTS"]["fontes_no_master_italiano"] = len(master)
+    dados["COUNTS"]["fontes_distintas"] = R["total_distintas"]
+    dados["COUNTS"]["levantadas_sem_ficha"] = len(R["so_no_master_italiano"])
 
     # O cruzamento que dói: das fontes que foram MESMO coletadas, quantas nao
     # tem ficha? Cada uma destas e uma descoberta que vai ser refeita do zero.
@@ -677,12 +831,20 @@ def main() -> int:
           f"{c['coletores_com_lugar']} carimbam lugar · "
           f"{c['coletores_que_separam_fonte_do_fato']} separam fonte do fato · "
           f"{c['coletores_que_registam_descarte']} registam o descarte")
+    if master:
+        print(f"  levantamento italiano: {len(master)} fontes · "
+              f"{len(dados['RECONCILIACAO']['nos_dois'])} tambem no atlas · "
+              f"{len(dados['RECONCILIACAO']['so_no_master_italiano'])} so no levantamento")
     if so_em_tabela:
         print(f"  ATENCAO: {len(so_em_tabela)} fonte(s) citadas em tabela, sem ficha: "
               + ", ".join(c["source_id"] for c in so_em_tabela[:8]))
     if dados["COUNTS"].get("coletadas_sem_ficha"):
         print(f"  ATENCAO: {dados['COUNTS']['coletadas_sem_ficha']} destas JA FORAM "
               f"COLETADAS: {', '.join(dados['COLETADAS_SEM_FICHA'])}")
+    if I.get("observacoes"):
+        print(f"  registo italiano: {I['observacoes']} observacoes em {I['corridas']} "
+              f"corridas · {I['com_sha256']} com SHA256 · {I['com_fact_time']} com "
+              f"FACT_TIME · {I['com_cadencia']} com cadencia")
     if F.get("total"):
         print(f"  coletas ja feitas: {F['total']} corridas · "
               f"{c['fontes_ja_coletadas']} fontes ja coletadas, "

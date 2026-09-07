@@ -1,0 +1,70 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T9-002",
+ "OWNER_ID": "IT-OWN-BAYER-IT",
+ "OWNER_CANONICAL_NAME": "Bayer Crop Science Italia",
+ "OWNER_KIND": "COMPANY",
+ "TERRITORY": "T9",
+ "SOURCE_TYPE": "CONTEUDO_TECNICO_DE_EMPRESA",
+ "SOURCE_ROLE": "COMPETITIVE_INTELLIGENCE",
+ "CAPTURE": {
+  "CAPTURED_AT_UTC": "2026-09-07T15:12:00Z",
+  "METODO": "leitura do DOM renderizado pelo navegador, do IP italiano",
+  "EGRESS_IP": "205.147.30.20",
+  "EGRESS_GEO": "Milano, IT — Proton AG",
+  "EGRESS_KIND": "VPN_COMERCIAL",
+  "AUTH_USED": "NENHUMA"
+ },
+ "FILES": [
+  {
+   "RAW_FILE": "bayer-mais-lab-2026.BROWSER-EXTRACT.json",
+   "role": "EXTRATO do DOM renderizado — NAO sao os bytes servidos pelo site",
+   "MIME": "application/json",
+   "BYTES": 3477,
+   "SHA256": "d4dcf6ca631ddb98be9dd89fe9341cef6022f0f13a63a570c4e5cec3738708a4",
+   "ASSINATURA_REAL_DOS_BYTES": "JSON"
+  }
+ ],
+ "RAW_EVIDENCE_STATE": "BROWSER_RENDERED_EXTRACT",
+ "motivo_nao_PRESERVED": "o site devolve HTTP 403 para qualquer cliente sem navegador, testado com curl e cabecalhos completos do mesmo IP italiano. Os bytes originais nao puderam ser guardados.",
+ "SOURCE_URL": "https://www.cropscience.bayer.it/Magazine/News/Generica/Mais-Lab",
+ "CANONICAL_URL": "https://www.cropscience.bayer.it/magazine/news/generica/mais-lab",
+ "ORIGINAL_TITLE": "Arriva Mais Lab: il nuovo podcast dedicato alla coltivazione del mais",
+ "ORIGINAL_LANGUAGE": "it",
+ "SOURCE_DATE": "primeira parte anunciada para 10 marzo 2026; a pagina ja fala de 'seconda stagione'. A pagina NAO expoe data de publicacao em metadado — SOURCE_DATE e o que o texto declara, nao um campo do site.",
+ "SOURCE_LOCATION": "site nacional Bayer Crop Science Italia",
+ "FACT_LOCATION": "UNKNOWN — nenhum fato de campo localizado. Nao inferir pela sede.",
+ "EVIDENCE_CLASS": "COMPANY_CLAIM",
+ "LEI_APLICADA": "COMPANY_CLAIM != REGULATORY_FACT",
+ "CROP": "mais",
+ "ISSUE": "infestanti resistentes / diserbo",
+ "TOPICS": "resistencia a herbicida, pre e post-emergencia, dose, timing, rotacao",
+ "WHAT_IT_PROVES": [
+  "que a Bayer Italia publica conteudo tecnico aberto sobre milho, com pessoas nomeadas e cargo",
+  "que ela escolheu RESISTENCIA A HERBICIDA em milho como tema de campanha em 2026",
+  "que o site exige NAVEGADOR: 403 para curl do mesmo IP italiano"
+ ],
+ "WHAT_IT_DOES_NOT_PROVE": [
+  "autorizacao de nenhum produto — so o registro do Ministero prova",
+  "venda, estoque, market share, uso realizado ou eficacia",
+  "qualquer ocorrencia de campo"
+ ],
+ "ACCESS_INSTRUMENT": "BROWSER",
+ "VPN_COUNTRY": "IT",
+ "BROWSER_REQUIRED": "YES",
+ "JS_REQUIRED": "NAO SEI — servidor recusa antes de dar para testar sem JavaScript",
+ "INTERACTION_REQUIRED": "NO",
+ "LOGIN_REQUIRED": "NO",
+ "CAPTCHA_OBSERVED": "NO",
+ "WAF_OBSERVED": "YES",
+ "UPDATE_FREQUENCY": "NÃO SEI — uma amostra so",
+ "AUTOMATION_FEASIBILITY": "MEDIUM — exige navegador de verdade. BROWSER_REQUIRED nao e SOURCE_UNAUTOMATABLE.",
+ "VERDICT": "YELLOW",
+ "por_que": "conteudo tecnico real, datado e relevante, mas os bytes originais nao puderam ser preservados: e extrato de DOM, nao documento. Nao pode ser GREEN.",
+ "PRIORITY": "P1",
+ "DECISAO_ADAMA": [
+  "COMPETITIVE_INTELLIGENCE",
+  "MARKETING",
+  "TECHNICAL"
+ ]
+}

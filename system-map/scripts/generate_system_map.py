@@ -629,6 +629,44 @@ def paises_das_pecas(nos: list, G: dict, dono: dict) -> None:
             n["pais"] = donos[0] if len(donos) == 1 else "TRANSVERSAL"
 
 
+def entregue_a_inteligencia(nos: list, G: dict, dono: dict, produz: dict) -> None:
+    """Para cada peca da coleta: o que ela produz JA CHEGOU a inteligencia?
+
+        O QUE JA PASSOU NAO PODE FICAR PRESO NA COLETA.
+
+    Um artefato que a coleta produziu e que a inteligencia ja le esta ENTREGUE:
+    cumpriu o seu caminho. Um que ninguem do outro lado le esta PARADO — pode ser
+    porque ainda nao chegou a vez dele, pode ser porque foi esquecido, e a
+    diferenca entre as duas coisas so aparece quando alguem conta.
+
+    Medido, nao declarado: um artefato esta entregue quando existe uma aresta
+    provada dele para uma peca de INTELIGENCIA ou de ENTREGA.
+    """
+    fam = {n["id"]: n["family"] for n in nos}
+    # quem le cada ficheiro
+    leem: dict[str, set] = {}
+    for e in G["FILE_EDGES"]:
+        if e["type"] not in ("READS", "IMPORTS"):
+            continue
+        quem = dono.get(e["from_file"])
+        if quem:
+            leem.setdefault(e["to_file"], set()).add(quem)
+
+    for n in nos:
+        if n.get("family") != "F-COLETA":
+            continue
+        arte = produz.get(n["id"], [])
+        entregues, parados = [], []
+        for a in arte:
+            destinos = {d for d in leem.get(a, set()) if fam.get(d) != "F-COLETA"}
+            (entregues if destinos else parados).append(a)
+        n["entregue_a_inteligencia"] = sorted(entregues)
+        n["parado_na_coleta"] = sorted(parados)
+
+
+NOS_PARA_ACHADO: list = []
+
+
 def achados(arquivos: dict) -> list:
     """FACTOS que o mapa nota sozinho e que ninguem pediu para ele notar.
 
@@ -695,6 +733,22 @@ def achados(arquivos: dict) -> list:
         S2 = json.loads(fs.read_text(encoding="utf-8"))
         F = S2.get("COLETAS_FEITAS") or {}
         c2 = S2["COUNTS"]
+        R = S2.get("RECONCILIACAO") or {}
+        if R.get("so_no_master_italiano"):
+            saida.append({
+                "id": "duas-listas-de-fontes",
+                "titulo": (f"{len(R['so_no_master_italiano'])} fontes foram levantadas "
+                           f"em Italia e nunca ganharam ficha no atlas."),
+                "texto": R["leitura"],
+                "porque_importa": (
+                    "O levantamento italiano tem campos que o atlas nao tem — o dono "
+                    "normalizado, o papel da fonte, e o melhor de todos: o que ela NAO "
+                    "prova. Mas nasceu ao lado do atlas, e nao dentro dele. Duas listas "
+                    "a responder «que fontes temos» sao duas verdades, e a segunda "
+                    "envelhece calada."),
+                "evidencia": [S2["PROVENANCE"]["ATLAS"],
+                              "data/samples/ITALY-SOURCE-MASTER-V1.json"],
+            })
         if S2.get("COLETADAS_SEM_FICHA"):
             saida.append({
                 "id": "a-coleta-mais-feita-e-a-menos-documentada",
@@ -746,6 +800,22 @@ def achados(arquivos: dict) -> list:
         if not any(c in t for c in ("SOURCE_LOCATION", "FACT_LOCATION",
                                     "CAPTURED_AT", "PUBLICATION_DATE", "FACT_DATE")):
             sem_carimbo.append(rel)
+
+    parados = sorted({a for n in NOS_PARA_ACHADO for a in n.get("parado_na_coleta", [])})
+    if parados:
+        saida.append({
+            "id": "parado-na-coleta",
+            "titulo": f"{len(parados)} artefatos da coleta nunca chegaram a inteligencia.",
+            "texto": ("A coleta produziu-os e ninguem do outro lado os le: "
+                      + " · ".join(a.split("/")[-1] for a in parados[:8])
+                      + (f" … e mais {len(parados)-8}" if len(parados) > 8 else "")),
+            "porque_importa": (
+                "O que ja passou para a inteligencia nao deve ficar preso na coleta — e "
+                "o que nunca passou tem de aparecer, porque pode ser que ainda nao "
+                "chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as "
+                "duas coisas so aparece quando alguem conta."),
+            "evidencia": parados[:6],
+        })
 
     if sem_carimbo:
         saida.append({
@@ -988,6 +1058,8 @@ def main_uma_vez(stamp: bool) -> int:
         n["outbound"] = sorted({l["to"] for l in tecnicas if l["from"] == n["id"]})
 
     paises_das_pecas(nos, G, dono)
+    entregue_a_inteligencia(nos, G, dono, produz)
+    NOS_PARA_ACHADO[:] = nos
 
     # A fonte aponta para o componente que a busca. A prova e a linha do contrato
     # que NOMEIA o script — a mesma regra de sempre: sem linha, sem seta.

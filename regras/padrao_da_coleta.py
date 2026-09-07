@@ -62,6 +62,8 @@ ATLAS = os.path.join(ROOT, 'docs', 'fontes', 'ATLAS-DE-FONTES-EAME.md')
 CONTRATOS = os.path.join(ROOT, 'docs', 'operacao', 'CONTRATOS-DAS-FONTES-EAME.md')
 MANIFESTO = os.path.join(ROOT, 'data', 'samples', 'RUN-MANIFEST.json')
 CHAO = os.path.join(ROOT, 'data', 'samples', 'PADRAO-DA-COLETA-CHAO.json')
+LEDGER = os.path.join(ROOT, 'data', 'collection-ledger', 'italy', 'observations.ndjson')
+LEDGER_RUNS = os.path.join(ROOT, 'data', 'collection-ledger', 'italy', 'runs.ndjson')
 
 GAVETAS_DE_COLETA = ('coleta', 'regras')
 CARIMBO_DATA = ('CAPTURED_AT', 'PUBLICATION_DATE', 'FACT_DATE', 'CAPTURE_DATE')
@@ -147,6 +149,37 @@ def medir():
     def cheio(campo):
         return [r['RUN_ID'] for r in runs if r.get(campo) not in VAZIO]
 
+    # O REGISTO ITALIANO ENTRA NA MEDICAO — e o chao sobe com ele.
+    #
+    # A coleta de Italia guarda tres coisas que a espanhola nao guardava, e as
+    # tres sao boas demais para ficarem so num pais:
+    #
+    #   RAW_SHA256      a impressao digital do documento. Testemunho nao e prova.
+    #   FACT_TIME       o tempo do FACTO, separado do tempo da CAPTURA.
+    #   CADENCE_STATE   quando a fonte DEVERIA publicar outra vez — sem isto,
+    #                   uma fonte que morreu parece so uma fonte quieta.
+    #
+    # E nas corridas: EGRESS_IP, por onde a requisicao saiu. Numa coleta que
+    # depende de sair por um pais, nao guardar isso e nao saber se o que voltou
+    # veio do sitio certo.
+    obs = []
+    for caminho in (LEDGER,):
+        if os.path.exists(caminho):
+            for linha in _texto(caminho).splitlines():
+                if linha.strip():
+                    try:
+                        obs.append(json.loads(linha))
+                    except ValueError:
+                        pass
+    runs_it = []
+    if os.path.exists(LEDGER_RUNS):
+        for linha in _texto(LEDGER_RUNS).splitlines():
+            if linha.strip():
+                try:
+                    runs_it.append(json.loads(linha))
+                except ValueError:
+                    pass
+
     return {
         'fontes_com_ficha': sorted(com_ficha),
         'fontes_so_citadas': sorted(so_citadas),
@@ -174,6 +207,17 @@ def medir():
             and isinstance(r.get('ITEM_COUNT_NORMALIZED'), int)),
         'corridas_com_custo': sorted(cheio('COST_USD')),
         'corridas_com_hora': sorted(cheio('STARTED_AT')),
+        'observacoes': [o.get('DOCUMENT_VERSION_ID') or o.get('DOCUMENT_ID')
+                        for o in obs],
+        'observacoes_SEM_sha256': [o.get('DOCUMENT_ID') for o in obs
+                                   if not o.get('RAW_SHA256')],
+        'observacoes_SEM_fact_time': [o.get('DOCUMENT_ID') for o in obs
+                                      if o.get('FACT_TIME') in VAZIO],
+        'observacoes_SEM_cadencia': [o.get('DOCUMENT_ID') for o in obs
+                                     if o.get('CADENCE_STATE') in VAZIO],
+        'corridas_SEM_egress': [r.get('RUN_ID') for r in runs_it
+                                if r.get('EGRESS_IP') in VAZIO],
+        '_runs_it': [r.get('RUN_ID') for r in runs_it],
         'paises_ja_exercitados': sorted({r.get('COUNTRY') for r in runs
                                          if r.get('COUNTRY') not in VAZIO}),
     }
@@ -200,12 +244,26 @@ REGRAS = [
      'trabalhar. So se sabe se ele trabalha bem com os dois numeros lado a lado.'),
     ('CORRIDA_GUARDA_O_CUSTO', 'corridas_SEM_custo', 'menor',
      'Coleta paga sem custo guardado e coleta que nunca se aprende a orcamentar.'),
+    # ── o chao que subiu com a coleta italiana ──────────────────────────────
+    ('DOCUMENTO_TEM_IMPRESSAO_DIGITAL', 'observacoes_SEM_sha256', 'menor',
+     'Testemunho nao e prova. Sem SHA256, nada distingue o documento guardado de '
+     'uma copia trocada — e a prova vira palavra.'),
+    ('OBSERVACAO_SEPARA_O_TEMPO_DO_FATO_DA_CAPTURA', 'observacoes_SEM_fact_time', 'menor',
+     'A data em que eu vi nao e a data em que aconteceu. Publicacao nao vira '
+     'fact time.'),
+    ('FONTE_DECLARA_QUANDO_VOLTA_A_PUBLICAR', 'observacoes_SEM_cadencia', 'menor',
+     'Sem cadencia esperada, uma fonte que morreu parece so uma fonte quieta — e '
+     'o silencio dela nunca vira aviso.'),
+    ('CORRIDA_GUARDA_POR_ONDE_SAIU', 'corridas_SEM_egress', 'menor',
+     'Numa coleta que depende de sair por um pais, nao guardar o IP de saida e '
+     'nao saber se o que voltou veio do sitio certo.'),
 ]
 
 
 def main():
     fixar = '--fixar' in sys.argv
     agora = medir()
+    runs_it_n = agora['_runs_it']
 
     if fixar or not os.path.exists(CHAO):
         with open(CHAO, 'w', encoding='utf-8') as f:
@@ -252,6 +310,15 @@ def main():
     print('    %-38s %d de %d' % ('fontes com contrato de busca',
                                   len(agora['fontes_com_contrato_de_busca']),
                                   len(agora['fontes_com_ficha'])))
+    print('    %-38s %d de %d' % ('observacoes com impressao digital',
+                                  len(agora['observacoes']) - len(agora['observacoes_SEM_sha256']),
+                                  len(agora['observacoes'])))
+    print('    %-38s %d de %d' % ('observacoes com tempo do fato',
+                                  len(agora['observacoes']) - len(agora['observacoes_SEM_fact_time']),
+                                  len(agora['observacoes'])))
+    print('    %-38s %d de %d' % ('corridas com o IP de saida',
+                                  len(runs_it_n) - len(agora['corridas_SEM_egress']),
+                                  len(runs_it_n)))
     print('    %-38s %d de %d' % ('corridas com custo guardado',
                                   len(agora['corridas_com_custo']),
                                   len(agora['corridas'])))

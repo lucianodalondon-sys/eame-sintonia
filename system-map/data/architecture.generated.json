@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "df09a9892790d8853904b1662c9faacf2bf2188b",
-    "GENERATED_AT": "2026-09-07T13:20:50-03:00"
+    "HEAD": "8843415b194cad2cb76f9ec4d8f7db1ce546d90c",
+    "GENERATED_AT": "2026-09-07T13:30:56-03:00"
   },
   "FILES": [
     {
@@ -1107,6 +1107,34 @@
       "code_dir": true
     },
     {
+      "path": "coleta/italy_find_docs.mjs",
+      "sha": "2dae3b0e5137e56cb0944e39ee1b096c52bdf59f",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/italy_pilot_collect.mjs",
+      "sha": "6090e3a142a32b3b8fa907d19c97c7f5c89801c8",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/italy_probe.mjs",
+      "sha": "1f3397ce65b6b00c3fb494bba407e40536a6c8e4",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/italy_recurrent_collect.mjs",
+      "sha": "53d17a8d4838164997c4517264c95db52094a1aa",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "coleta/mapa_regfi.py",
       "sha": "865a1708eaed2a5d15f295551e00e0466a5afc17",
       "ext": ".py",
@@ -1205,6 +1233,48 @@
       "code_dir": true
     },
     {
+      "path": "data/collection-ledger/italy/observations.ndjson",
+      "sha": "e260fd0d360372dc5f7ad1aa87f810a77dd51afc",
+      "ext": ".ndjson",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-ledger/italy/runs.ndjson",
+      "sha": "adb912d50ac60bcce36243f78729efa0fc0f8559",
+      "ext": ".ndjson",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/.gitattributes",
+      "sha": "1fe2411f9af1668cbdf2b8ad9412e205aa6b03f1",
+      "ext": "",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html",
+      "sha": "4b95391102f93e5bafb80acc79155c773f6e0dd8",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
+      "sha": "8906a910181473c5d52bb2253c9d7d2249a2cdde",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
+      "sha": "def6ea8a531859318fb7c325b6130cfea34d3afc",
+      "ext": ".csv",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/i18n/v21-traducoes-nucleo.json",
       "sha": "0e8558c1d67958f5b8421b00a94575c3cfebabd3",
       "ext": ".json",
@@ -1236,6 +1306,13 @@
       "path": "data/raw/IT-ROTULOS/_MANIFESTO.json",
       "sha": "976b488e64e9b56ff8ddefa665a5be448406169e",
       "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/.gitattributes",
+      "sha": "42d831c052761879171ab535981c6eaf04807530",
+      "ext": "",
       "readable": false,
       "code_dir": false
     },
@@ -2479,6 +2556,13 @@
       "code_dir": false
     },
     {
+      "path": "data/samples/IT-PROBE/probe-fase-c.json",
+      "sha": "a92f731901b920f5f1a6bb77bdb536252af4d267",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json",
       "sha": "143f2243c76a5aac9b1f24887a9d7ada63ae50ac",
       "ext": ".json",
@@ -2509,6 +2593,342 @@
     {
       "path": "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json",
       "sha": "78a5a13e88b32a4752e4d76deee854b53db8e3e8",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T1-001/ISTAT_101_1015_COLTIVAZIONI_2_2025.csv",
+      "sha": "39db1f43ffaf53db94e3f6b662860899a72531ba",
+      "ext": ".csv",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T1-001/MANIFEST.json",
+      "sha": "ce2925addb62b2fcfb5ecd5771332b628cee2050",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46622",
+      "sha": "79a25450e608308b6e669ca2560a450717e6a29d",
+      "ext": "",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46622.headers.txt",
+      "sha": "b2322202eb973e957019d09e2edb6a16a2061369",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46647",
+      "sha": "46df194fbb0ec0c409b2c26b01726be9018e2efd",
+      "ext": "",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46647.headers.txt",
+      "sha": "2dfe2c6cc20f6190a388141ed0bfd39519f6a39d",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/MANIFEST.json",
+      "sha": "100bcc68096b6d2a76be954b8c165acc418cad29",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/34_boll_agro_20260824.pdf.headers.txt",
+      "sha": "44ddcf99c57c5c760a9e51dcd5e63f0bfad8b07a",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/35_boll_agro_20260831.pdf.headers.txt",
+      "sha": "bf7de8677fe5c9f86d4b0b38aa54289544d21eef",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/MANIFEST.json",
+      "sha": "2c3469347ba0c90d3cf7ee2fcb11bf942cfe66d4",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/MANIFEST.json",
+      "sha": "91270853b6c0c3d2d2733bdaab7b72cd84db74b0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_01.pdf.headers.txt",
+      "sha": "eeab4d43aa1da150b10cb2067f30475246187c88",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_09.pdf.headers.txt",
+      "sha": "43f32a522c7d38471d95f29b3e8211bc4e6992e2",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/MANIFEST.json",
+      "sha": "406380e3850abc7f1ea1bc1000b98e989a410337",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0500_00.html",
+      "sha": "a735066b3e9c2b6e5ef19fb669c9b6f33605076a",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0500_00.html.headers.txt",
+      "sha": "c0f1b4d986e3e5cd19bbd2ba2c51ed299481b588",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0530_00.html",
+      "sha": "4b95391102f93e5bafb80acc79155c773f6e0dd8",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0530_00.html.headers.txt",
+      "sha": "6f6ef2e96524cb23f130769336fbb1a897f96cc2",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/MANIFEST.json",
+      "sha": "56ec20cb3512d43f49042c6c32fe7e65b8f90bb9",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/NA-02-09.pdf.headers.txt",
+      "sha": "1f2358ba572f40701302579a2683d6de0c680125",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-02-09.pdf.headers.txt",
+      "sha": "0254a749b86d18ffbf79dccf0384a3a45e2402de",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-26-08.pdf.headers.txt",
+      "sha": "f9ce624a85ffe3ec71606f055fbd734d48180ce8",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Giornaliero_Meteorologico_N136_07-09-2026.pdf.headers.txt",
+      "sha": "314e64eb2bcae0efcb50cc1e838776b9d9f78744",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/MANIFEST.json",
+      "sha": "2d73ee14358a8180da506c949c981a8e3582735e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Notiziario_Agrometeorologico_N35_26-08-2026.pdf.headers.txt",
+      "sha": "4436ad8318118492be775fac44c6928ebb07d895",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Notiziario_Agrometeorologico_N36_02-09-2026.pdf.headers.txt",
+      "sha": "9ed15905a598eac94fcc1d710827138b3437e7b3",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T3-010/Bollettino_Mosca_dellOlivo_n_8_del_31_08_2026.pdf.headers.txt",
+      "sha": "50163132944a8e8751433140ba3169db512e25de",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T3-010/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf.headers.txt",
+      "sha": "95501907c3ece4565eb620557ae3ef995f1c2977",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T3-010/MANIFEST.json",
+      "sha": "7f85e591ccbbc0ef669724d14a73f340a29933e7",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T3-011/0286_26_Agrios_Broschuere_Richtlinien_integrierte_Kernobstbau_IT_WEB.pdf.headers.txt",
+      "sha": "0ba44a52e015f20f55dddfb1ded60e0ed0c5b739",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T3-011/MANIFEST.json",
+      "sha": "6b7e6d1f1033f4f5b938c88771fd34938bd83ade",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/ID_6_Dataset_Fitosanitari_v2.0.pdf.headers.txt",
+      "sha": "4006b4b9aec919a405445b6ee78f03e8b958594c",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/MANIFEST.json",
+      "sha": "e5996989b6af516a2cf62400fbb497e6939753be",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv",
+      "sha": "def6ea8a531859318fb7c325b6130cfea34d3afc",
+      "ext": ".csv",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv.headers.txt",
+      "sha": "c0fea6577d54224df9b61f21749ba70d754c3714",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T5-002/91515",
+      "sha": "d999493467bfaf037581a753467996c613020199",
+      "ext": "",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T5-002/91515.headers.txt",
+      "sha": "06e46c9a18e44ed59507781310c3ac17a10ed4b2",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T5-002/MANIFEST.json",
+      "sha": "0245adc28d47269748efee6e8bb8c18743cd01c4",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/11_Altieri_Bilancio-Fitosanitario-Olivo-2024-25-Basilicata.pdf.headers.txt",
+      "sha": "c12bc750f38fd71969266b3845152b765147ece8",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/7_Alesi_olivo-2025_-Bilancio-Fitosanitario-Marche.pdf.headers.txt",
+      "sha": "3a4e9eb33641dd941bee7131802453d54ee7898f",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/MANIFEST.json",
+      "sha": "ddd6476b6862562d460960e63370c130ec50ec3f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T7-002/ELENCO-OP-AOP-al-31-12-2025-agg-08-04-2026.ods",
+      "sha": "4367a03dec8756c6bffac47b3c7e93b1694e030e",
+      "ext": ".ods",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T7-002/ELENCO-OP-AOP-al-31-12-2025-agg-08-04-2026.ods.headers.txt",
+      "sha": "ec1468727d6f511cb21860175079a5ccd1631521",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T7-002/MANIFEST.json",
+      "sha": "a895238608359cf837d677b24c18f1b89067ea36",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T9-002/MANIFEST.json",
+      "sha": "6e945d79dc7ce434f7ae9aaf7afdb453839b1300",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T9-002/bayer-mais-lab-2026.BROWSER-EXTRACT.json",
+      "sha": "56cb39ec32d3f8bc12461543887f1f671bbeeb57",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T9-008/MANIFEST.json",
+      "sha": "237ae2f3ab6e17a18d0c5e1cccc36d834551001f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T9-008/adama-orticole-2026-06-03.BROWSER-EXTRACT.json",
+      "sha": "fbc59dd3637d4bcd864730605a36bd94126b5724",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2570,8 +2990,57 @@
       "code_dir": false
     },
     {
+      "path": "data/samples/ITALY-SOURCE-MASTER-V1.json",
+      "sha": "c592eb1fe8ad05736235b4e6d4769cee3e8beb1a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/ITALY-T3-005-MONITORAGGIO/MANIFEST.json",
+      "sha": "931ec5c3e1aed60326b0744e363a0957932de528",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/ITALY-T3-005-MONITORAGGIO/extract-points.js",
+      "sha": "41ca5487a485b4ea6b830dfb8ed509f10556e03b",
+      "ext": ".js",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/ITALY-T3-005-MONITORAGGIO/headers.txt",
+      "sha": "bc4d6ffd2e15f2b070211468647615237c3981ad",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/ITALY-T3-005-MONITORAGGIO/meta.txt",
+      "sha": "60b37a52189fc4c68f41d3fac878885825808c85",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/ITALY-T3-005-MONITORAGGIO/monitoraggio-2026-09-07.html",
+      "sha": "8906a910181473c5d52bb2253c9d7d2249a2cdde",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/ITALY-T3-005-MONITORAGGIO/points-2026-09-07.json",
+      "sha": "6eed6c6e9ceae8123e39e01fc84fe8f8471285d4",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/samples/PADRAO-DA-COLETA-CHAO.json",
-      "sha": "24c41c23e4c17b62182dcf260a3fa0cd612df57e",
+      "sha": "41f30022e5602a573bbce0f28091fc5179862bcb",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -3347,6 +3816,20 @@
       "code_dir": false
     },
     {
+      "path": "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
+      "sha": "f6125fd30f24c207bc9fe7ec3a76db9fc51f1412",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/fontes/ITALY-SOURCE-MASTER-V1.md",
+      "sha": "fcc6a1f939dd1115ba2e7738f4e1f4ce3c3bc86b",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
       "sha": "5369f9dec828a82c7ae56c30467a618ec5b144d1",
       "ext": ".md",
@@ -3370,6 +3853,27 @@
     {
       "path": "docs/operacao/FALHA-DE-FONTE-ESPANHA.md",
       "sha": "be2100f41e3c093d0ab635a5a93496c2e7b81aeb",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md",
+      "sha": "b88af52f912e6582b627ffacec1b5a7bf28ffd7a",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/ITALY-RECURRENT-PILOT-V1.md",
+      "sha": "7010dba9d6ac96d6a950a7ee3df2534be627f3ad",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md",
+      "sha": "7f6804ccb8cca672f61a58194ded597f60e05060",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3655,6 +4159,13 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/html_text.mjs",
+      "sha": "9de70aa5082d92379e90cc12740c7f909f5951b2",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/instagram_transcrever.py",
       "sha": "119d1bf0082b63d0cf493f85f524342b005bec8b",
       "ext": ".py",
@@ -3662,9 +4173,37 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/italy-forward-only-live.cmd",
+      "sha": "e64b11653b1662df091dfec638c98121dd36424e",
+      "ext": ".cmd",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/italy_extract_fields.mjs",
+      "sha": "2559668a967122cc7f0dd9030722fc65928ddffc",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/navegador.py",
       "sha": "1036720e34f532b7c9743ceadf11b919f7be5917",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/ods_peek.mjs",
+      "sha": "a8747652572183b74a4fd0aed1839cb943e47287",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/pdf_peek.mjs",
+      "sha": "95b98304b53669439acd3af49eb1393d76447c63",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -3746,6 +4285,48 @@
       "code_dir": true
     },
     {
+      "path": "fontes/italy_fill_manifests.mjs",
+      "sha": "ffa51a075f620037661662daba0dfe9a12b637e7",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "fontes/italy_fill_manifests_browser.mjs",
+      "sha": "c2f0ca08f5f5408db7a1945e0d02f2ea6997b803",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "fontes/italy_fix_semantics.mjs",
+      "sha": "bb5906d7c9b393724ac08c0f94528baf835c5593",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "fontes/italy_profiles.mjs",
+      "sha": "445164345e6aa765e10fc1a9bf87639365da383f",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "fontes/italy_update_master_browser.mjs",
+      "sha": "74218a06a98b43d5948b9c1de65d7f0947d2618a",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "fontes/italy_write_matrix.mjs",
+      "sha": "b36746c0b0322f13bf7c63be327af20d6565da97",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "guarda/catalogo_importar.py",
       "sha": "fb56f21c646d7c12c0d58292dbee9c09cc56f531",
       "ext": ".py",
@@ -3770,6 +4351,13 @@
       "path": "guarda/importar_italia.py",
       "sha": "46304462a2d72ea658415c3ca8ffcfff0cea585f",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "guarda/italy_preserve.mjs",
+      "sha": "c8c4d1f75f558405a3f92dbaca029d3626b5d6a2",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -4229,6 +4817,13 @@
       "code_dir": true
     },
     {
+      "path": "italia-portale/audit/_v21-schema.md",
+      "sha": "9598dd53ff72fb417d2bc308bb2d2ab3a5428826",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "italia-portale/audit/acceptance.mjs",
       "sha": "236fa520700aa04d51e9ce62a0d91e5bf332d1f7",
       "ext": ".mjs",
@@ -4579,6 +5174,13 @@
       "code_dir": true
     },
     {
+      "path": "italia-portale/audit/build-v21.mjs",
+      "sha": "727f59496b8f2666d8a253cccc96c45ab2e99b62",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "italia-portale/audit/cadeia-de-familias.mjs",
       "sha": "d12b05bf439eb5fb90e6a0c6893ccf786dfb0dd1",
       "ext": ".mjs",
@@ -4782,6 +5384,13 @@
       "code_dir": true
     },
     {
+      "path": "italia-portale/audit/exposure.mjs",
+      "sha": "d96becff244eb89aa9f544c8c076901b2ed45a41",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "italia-portale/audit/external-only.mjs",
       "sha": "0ecd5883d7e3333abfccded2ea6ac2d386f1eca7",
       "ext": ".mjs",
@@ -4880,6 +5489,20 @@
       "code_dir": true
     },
     {
+      "path": "italia-portale/audit/markup-flat.mjs",
+      "sha": "3405dc274f1052963fa8671e4680f4d02e4b0bf6",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "italia-portale/audit/markup-holes.mjs",
+      "sha": "169a769f675ea668338c74b9c660872debc883ec",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "italia-portale/audit/meeting-browser.mjs",
       "sha": "fbeaa274322e47f5b4c8e3c18cbc82e3716af1c5",
       "ext": ".mjs",
@@ -4959,6 +5582,13 @@
     {
       "path": "italia-portale/audit/probe-relationships.mjs",
       "sha": "eb15b78907fbefd91c1cf02a1c66651f952d180f",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "italia-portale/audit/probe-v21.mjs",
+      "sha": "19a279831ce7b63d94b94854ca2e2a8f848beece",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -5295,6 +5925,13 @@
     {
       "path": "italia-portale/client/italy-science-business.js",
       "sha": "94f897e77d635161cc0060712dba81375d7ffd4c",
+      "ext": ".js",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "italia-portale/client/italy-v21.js",
+      "sha": "2a28b62c73f893d93c632e89efadaec26b7fdaf2",
       "ext": ".js",
       "readable": true,
       "code_dir": true
@@ -5937,6 +6574,20 @@
       "code_dir": true
     },
     {
+      "path": "provas/italy_accounting.mjs",
+      "sha": "9a40f552a0341d55057745fdabaa0d5995a2b022",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/italy_pilot_negativos.mjs",
+      "sha": "a3969ca0688cd93406ca9f7fc85b4a5fa4f81924",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/testa_rota_italia.py",
       "sha": "4fb25815bd63df037ca315f8530d1d420b23fa3d",
       "ext": ".py",
@@ -5979,6 +6630,41 @@
       "code_dir": true
     },
     {
+      "path": "regras/italy_contract_test.mjs",
+      "sha": "1e80bfd62a7b12b47cc31b62e87a13a311006e16",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/italy_contracts.mjs",
+      "sha": "ae6fc38c114ed3b996021f6f120632a234c8a533",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/italy_pilot_guards.mjs",
+      "sha": "c00367024fc2977b93c6e16ac9bc0855d97a227d",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/italy_scheduling_guards.mjs",
+      "sha": "00ddc15436475edb56b683406937f16da9de6e6d",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/italy_source_health.mjs",
+      "sha": "811be31b016cfdcce4cf096b41d38c563c7927b2",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "regras/lugar_do_fato.py",
       "sha": "a47380e9624322d50243060908cfd94036547c65",
       "ext": ".py",
@@ -5987,7 +6673,7 @@
     },
     {
       "path": "regras/padrao_da_coleta.py",
-      "sha": "655885ba9a4381d8687322b696528b64e0b294df",
+      "sha": "743b45a96836cb85261b7279cd700e5470709227",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6946,14 +7632,14 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "81f08533820c4986848cc80b4ef47e4a21f48276",
+      "sha": "91b0ddd4161f922aa5ca1f1858a654a05757c9c0",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "028efbb26abadf40ba1bce1c742e2242e210d997",
+      "sha": "90074cb8d3526493f21bd500f0bbbf271c27a4ac",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6974,7 +7660,7 @@
     },
     {
       "path": "system-map/scripts/scan_sources.py",
-      "sha": "37cd4c3bfb7948b82deb0be11ea0c566e9595f9f",
+      "sha": "e0c7318bd99fdee6126f4941dcab131cd0453177",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8448,6 +9134,83 @@
       }
     },
     {
+      "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 107,
+        "snippet": "return [{ url: c.CANONICAL_ENTRY_URL, nome: \"monitoraggio.html\" }];"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 27,
+        "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_probe.mjs",
+      "to_file": "data/samples/IT-PROBE/probe-fase-c.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_probe.mjs",
+        "line": 21,
+        "snippet": "const OUT = process.argv[2] || \"data/samples/IT-PROBE/probe-fase-c.json\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_probe.mjs",
+      "to_file": "data/samples/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_probe.mjs",
+        "line": 23,
+        "snippet": "const master = JSON.parse(readFileSync(\"data/samples/ITALY-SOURCE-MASTER-V1.json\", \"utf8\"));"
+      }
+    },
+    {
+      "from_file": "coleta/italy_recurrent_collect.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_recurrent_collect.mjs",
+        "line": 128,
+        "snippet": "const { executarRodada } = await import(\"./italy_pilot_collect.mjs\");"
+      }
+    },
+    {
+      "from_file": "coleta/italy_recurrent_collect.mjs",
+      "to_file": "fontes/italy_profiles.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_recurrent_collect.mjs",
+        "line": 27,
+        "snippet": "import { PROFILES, PERFIL_PADRAO } from \"./italy_profiles.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_recurrent_collect.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_recurrent_collect.mjs",
+        "line": 28,
+        "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
       "from_file": "coleta/preservar_pdf.py",
       "to_file": "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
       "type": "READS",
@@ -8756,6 +9519,17 @@
       }
     },
     {
+      "from_file": "data/samples/ITALY-T3-005-MONITORAGGIO/extract-points.js",
+      "to_file": "data/samples/ITALY-T3-005-MONITORAGGIO/monitoraggio-2026-09-07.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "data/samples/ITALY-T3-005-MONITORAGGIO/extract-points.js",
+        "line": 5,
+        "snippet": "const src = process.argv[2] || \"monitoraggio-2026-09-07.html\";"
+      }
+    },
+    {
       "from_file": "ferramentas/apify_contrato.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -8863,6 +9637,28 @@
         "file": "ferramentas/instagram_transcrever.py",
         "line": 183,
         "snippet": "import cdp"
+      }
+    },
+    {
+      "from_file": "ferramentas/italy_extract_fields.mjs",
+      "to_file": "data/samples/ITALY-T3-005-MONITORAGGIO/points-2026-09-07.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/italy_extract_fields.mjs",
+        "line": 66,
+        "snippet": "const pts = JSON.parse(readFileSync(\"data/samples/ITALY-T3-005-MONITORAGGIO/points-2026-09-07.json\", \"utf8\"));"
+      }
+    },
+    {
+      "from_file": "ferramentas/italy_extract_fields.mjs",
+      "to_file": "ferramentas/ods_peek.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/italy_extract_fields.mjs",
+        "line": 79,
+        "snippet": "const ods = execFileSync(\"node\", [\"ferramentas/ods_peek.mjs\", `${D}/IT-T7-002/ELENCO-OP-AOP-al-31-12-2025-agg-08-04-2026.ods`, \"100000\"], { encoding: \"utf8\", ma"
       }
     },
     {
@@ -9512,6 +10308,61 @@
         "file": "fontes/fonte_nova.py",
         "line": 63,
         "snippet": "FILA = RAIZ / \"data\" / \"samples\" / \"FONTES-CANDIDATAS.json\""
+      }
+    },
+    {
+      "from_file": "fontes/italy_fix_semantics.mjs",
+      "to_file": "data/samples/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "fontes/italy_fix_semantics.mjs",
+        "line": 50,
+        "snippet": "patch(\"data/samples/ITALY-SOURCE-MASTER-V1.json\", d => {"
+      }
+    },
+    {
+      "from_file": "fontes/italy_update_master_browser.mjs",
+      "to_file": "data/samples/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "fontes/italy_update_master_browser.mjs",
+        "line": 2,
+        "snippet": "const p = \"data/samples/ITALY-SOURCE-MASTER-V1.json\";"
+      }
+    },
+    {
+      "from_file": "fontes/italy_write_matrix.mjs",
+      "to_file": "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "fontes/italy_write_matrix.mjs",
+        "line": 73,
+        "snippet": "writeFileSync(\"docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md\", L.join(\"\\n\") + \"\\n\");"
+      }
+    },
+    {
+      "from_file": "fontes/italy_write_matrix.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "fontes/italy_write_matrix.mjs",
+        "line": 2,
+        "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "fontes/italy_write_matrix.mjs",
+      "to_file": "regras/italy_source_health.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "fontes/italy_write_matrix.mjs",
+        "line": 3,
+        "snippet": "import { medir } from \"./italy_source_health.mjs\";"
       }
     },
     {
@@ -10458,6 +11309,39 @@
         "file": "italia-portale/audit/build-gate.mjs",
         "line": 55,
         "snippet": "const f = path.join(CLIENTE, 'italy-handoff-v21.js');"
+      }
+    },
+    {
+      "from_file": "italia-portale/audit/build-v21.mjs",
+      "to_file": "italia-portale/audit/lib/harness.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "italia-portale/audit/build-v21.mjs",
+        "line": 34,
+        "snippet": "import { CLIENT } from './lib/harness.mjs';"
+      }
+    },
+    {
+      "from_file": "italia-portale/audit/build-v21.mjs",
+      "to_file": "italia-portale/audit/lib/harness.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/audit/build-v21.mjs",
+        "line": 34,
+        "snippet": "import { CLIENT } from './lib/harness.mjs';"
+      }
+    },
+    {
+      "from_file": "italia-portale/audit/build-v21.mjs",
+      "to_file": "italia-portale/client/italy-v21.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/audit/build-v21.mjs",
+        "line": 38,
+        "snippet": "const OUT = path.join(CLIENT, 'italy-v21.js');"
       }
     },
     {
@@ -11540,17 +12424,6 @@
     },
     {
       "from_file": "italia-portale/audit/deploy-surface.mjs",
-      "to_file": "build/ITALY-REALITY-HANDOFF-V2/MANIFEST.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "italia-portale/audit/deploy-surface.mjs",
-        "line": 36,
-        "snippet": "'/build/ITALY-REALITY-HANDOFF-V2/MANIFEST.json',"
-      }
-    },
-    {
-      "from_file": "italia-portale/audit/deploy-surface.mjs",
       "to_file": "italia-portale/ACCETTAZIONE.md",
       "type": "READS",
       "payload": "artefacto",
@@ -11668,6 +12541,28 @@
         "file": "italia-portale/audit/do-not-show.mjs",
         "line": 43,
         "snippet": "export const QA = JSON.parse(fs.readFileSync(new URL('./DO-NOT-SHOW-QA.json', import.meta.url), 'utf8'));"
+      }
+    },
+    {
+      "from_file": "italia-portale/audit/exposure.mjs",
+      "to_file": "italia-portale/audit/lib/harness.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "italia-portale/audit/exposure.mjs",
+        "line": 16,
+        "snippet": "import { CLIENT } from './lib/harness.mjs';"
+      }
+    },
+    {
+      "from_file": "italia-portale/audit/exposure.mjs",
+      "to_file": "italia-portale/audit/lib/harness.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/audit/exposure.mjs",
+        "line": 16,
+        "snippet": "import { CLIENT } from './lib/harness.mjs';"
       }
     },
     {
@@ -12218,6 +13113,72 @@
         "file": "italia-portale/audit/market-price-claim.mjs",
         "line": 20,
         "snippet": "import { mount, loadData } from './lib/harness.mjs';"
+      }
+    },
+    {
+      "from_file": "italia-portale/audit/markup-flat.mjs",
+      "to_file": "italia-portale/audit/lang.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "italia-portale/audit/markup-flat.mjs",
+        "line": 6,
+        "snippet": "import { isPortuguese } from './lang.mjs';"
+      }
+    },
+    {
+      "from_file": "italia-portale/audit/markup-flat.mjs",
+      "to_file": "italia-portale/audit/lang.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/audit/markup-flat.mjs",
+        "line": 6,
+        "snippet": "import { isPortuguese } from './lang.mjs';"
+      }
+    },
+    {
+      "from_file": "italia-portale/audit/markup-flat.mjs",
+      "to_file": "italia-portale/audit/lib/harness.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "italia-portale/audit/markup-flat.mjs",
+        "line": 5,
+        "snippet": "import { mount, usePortal } from './lib/harness.mjs';"
+      }
+    },
+    {
+      "from_file": "italia-portale/audit/markup-flat.mjs",
+      "to_file": "italia-portale/audit/lib/harness.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/audit/markup-flat.mjs",
+        "line": 5,
+        "snippet": "import { mount, usePortal } from './lib/harness.mjs';"
+      }
+    },
+    {
+      "from_file": "italia-portale/audit/markup-holes.mjs",
+      "to_file": "italia-portale/audit/lib/harness.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "italia-portale/audit/markup-holes.mjs",
+        "line": 5,
+        "snippet": "import { mount, usePortal } from './lib/harness.mjs';"
+      }
+    },
+    {
+      "from_file": "italia-portale/audit/markup-holes.mjs",
+      "to_file": "italia-portale/audit/lib/harness.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/audit/markup-holes.mjs",
+        "line": 5,
+        "snippet": "import { mount, usePortal } from './lib/harness.mjs';"
       }
     },
     {
@@ -13516,6 +14477,336 @@
         "file": "italia-portale/client/italy-casa.js",
         "line": 209,
         "snippet": "\"GERADO_POR\": \"superficie/it_casa_dados.py\","
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/AGROMET-CONDITIONS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/COMPETITOR-PUBLIC-SIGNALS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/CROP-ECONOMIC-WEIGHT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/CURRENT-FIELD-SIGNALS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/FUTURE-EVENTS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/MARKET-OBSERVATIONS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-crop-problem-product.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/COMPETITOR-WATCH/competitor-activities.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/CROP-WINDOWS/crop-windows.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/CROP-WINDOWS/current-phenology.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/EVENTS/events.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/FUTURE-RADAR/future-signals.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/LABEL-USE/label-use-pairs.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/MARKET-PULSE/market-pulse.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/NEWS/news.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/OPPORTUNITIES/opportunities.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/SCIENCE/herbicide-resistance.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/SCIENCE/researchers.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/SCIENCE/scientific-records.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/SOURCES/sources.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/VOCI-DAL-CAMPO/field-voices.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/VOCI-DAL-CAMPO/italian-channels.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PUBLIC-VOICES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/REGULATORY-FUTURE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/RELATIONSHIPS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/SOURCES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "research/adama-italy-product-intelligence-deep/ACTIVE-INGREDIENTS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/italy-v21.js",
+      "to_file": "research/adama-italy-product-intelligence-deep/PRODUCTS-REGULATORY.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/italy-v21.js",
+        "line": 5,
+        "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
       }
     },
     {
@@ -16391,17 +17682,6 @@
     },
     {
       "from_file": "motor/v2_fechar.py",
-      "to_file": "build/ITALY-REALITY-HANDOFF-V2/MANIFEST.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "motor/v2_fechar.py",
-        "line": 88,
-        "snippet": "}, open(os.path.join(PKG, 'MANIFEST.json'), 'w', encoding='utf-8'),"
-      }
-    },
-    {
-      "from_file": "motor/v2_fechar.py",
       "to_file": "build/ITALY-REALITY-HANDOFF-V2/QUARANTINED-RECORDS.json",
       "type": "READS",
       "payload": "artefacto",
@@ -19173,6 +20453,50 @@
       }
     },
     {
+      "from_file": "provas/italy_accounting.mjs",
+      "to_file": "data/samples/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/italy_accounting.mjs",
+        "line": 60,
+        "snippet": "ROTAS_NO_CATALOGO: JSON.parse(readFileSync(\"data/samples/ITALY-SOURCE-MASTER-V1.json\", \"utf8\")).sources.length,"
+      }
+    },
+    {
+      "from_file": "provas/italy_pilot_negativos.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/italy_pilot_negativos.mjs",
+        "line": 7,
+        "snippet": "import { normalizarSias, estadoDeCadencia, lerLedger } from \"./italy_pilot_collect.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/italy_pilot_negativos.mjs",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/italy_pilot_negativos.mjs",
+        "line": 30,
+        "snippet": "const runs = readFileSync(\"data/collection-ledger/italy/runs.ndjson\", \"utf8\").trim().split(\"\\n\").map(JSON.parse);"
+      }
+    },
+    {
+      "from_file": "provas/italy_pilot_negativos.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/italy_pilot_negativos.mjs",
+        "line": 8,
+        "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
       "from_file": "regras/cicatrizes_brasil.py",
       "to_file": "data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json",
       "type": "READS",
@@ -19283,6 +20607,237 @@
       }
     },
     {
+      "from_file": "regras/italy_contract_test.mjs",
+      "to_file": "data/samples/IT-PROBE/probe-fase-c.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_contract_test.mjs",
+        "line": 46,
+        "snippet": "const probe = JSON.parse(readFileSync(\"data/samples/IT-PROBE/probe-fase-c.json\", \"utf8\"));"
+      }
+    },
+    {
+      "from_file": "regras/italy_contract_test.mjs",
+      "to_file": "data/samples/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_contract_test.mjs",
+        "line": 14,
+        "snippet": "const master = JSON.parse(readFileSync(\"data/samples/ITALY-SOURCE-MASTER-V1.json\", \"utf8\"));"
+      }
+    },
+    {
+      "from_file": "regras/italy_contract_test.mjs",
+      "to_file": "data/samples/ITALY-T3-005-MONITORAGGIO/MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_contract_test.mjs",
+        "line": 18,
+        "snippet": "const extras = [[\"IT-T3-005\", JSON.parse(readFileSync(\"data/samples/ITALY-T3-005-MONITORAGGIO/MANIFEST.json\", \"utf8\"))]];"
+      }
+    },
+    {
+      "from_file": "regras/italy_contract_test.mjs",
+      "to_file": "provas/italy_accounting.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_contract_test.mjs",
+        "line": 157,
+        "snippet": "const { contabilidade, ACCESS_ONLY, BASE_CLASSIFIED_SET } = await import(\"./italy_accounting.mjs\");"
+      }
+    },
+    {
+      "from_file": "regras/italy_contract_test.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_contract_test.mjs",
+        "line": 156,
+        "snippet": "const { CONTRACTS } = await import(\"./italy_contracts.mjs\");"
+      }
+    },
+    {
+      "from_file": "regras/italy_contract_test.mjs",
+      "to_file": "regras/italy_pilot_guards.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_contract_test.mjs",
+        "line": 241,
+        "snippet": "const { guardasDoPiloto } = await import(\"./italy_pilot_guards.mjs\");"
+      }
+    },
+    {
+      "from_file": "regras/italy_contract_test.mjs",
+      "to_file": "regras/italy_scheduling_guards.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_contract_test.mjs",
+        "line": 243,
+        "snippet": "const { guardasDeAgendamento } = await import(\"./italy_scheduling_guards.mjs\");"
+      }
+    },
+    {
+      "from_file": "regras/italy_contract_test.mjs",
+      "to_file": "regras/italy_source_health.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_contract_test.mjs",
+        "line": 158,
+        "snippet": "const { medir } = await import(\"./italy_source_health.mjs\");"
+      }
+    },
+    {
+      "from_file": "regras/italy_pilot_guards.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_pilot_guards.mjs",
+        "line": 5,
+        "snippet": "import { PILOT_SOURCES, lerLedger, estadoDeCadencia } from \"./italy_pilot_collect.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/italy_pilot_guards.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_pilot_guards.mjs",
+        "line": 99,
+        "snippet": "const arquivos = [\"coleta/italy_pilot_collect.mjs\", \"provas/italy_pilot_negativos.mjs\"].map(f => readFileSync(f, \"utf8\")).join(\"\");"
+      }
+    },
+    {
+      "from_file": "regras/italy_pilot_guards.mjs",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_pilot_guards.mjs",
+        "line": 9,
+        "snippet": "const runs = readFileSync(\"data/collection-ledger/italy/runs.ndjson\", \"utf8\").trim().split(\"\\n\").map(l => JSON.parse(l));"
+      }
+    },
+    {
+      "from_file": "regras/italy_pilot_guards.mjs",
+      "to_file": "provas/italy_pilot_negativos.mjs",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_pilot_guards.mjs",
+        "line": 99,
+        "snippet": "const arquivos = [\"coleta/italy_pilot_collect.mjs\", \"provas/italy_pilot_negativos.mjs\"].map(f => readFileSync(f, \"utf8\")).join(\"\");"
+      }
+    },
+    {
+      "from_file": "regras/italy_pilot_guards.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/italy_pilot_guards.mjs",
+        "line": 4,
+        "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/italy_pilot_guards.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_pilot_guards.mjs",
+        "line": 4,
+        "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/italy_scheduling_guards.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_scheduling_guards.mjs",
+        "line": 26,
+        "snippet": "runner.indexOf(\"checarEgress()\") < runner.indexOf(\"italy_pilot_collect.mjs\"));"
+      }
+    },
+    {
+      "from_file": "regras/italy_scheduling_guards.mjs",
+      "to_file": "coleta/italy_recurrent_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_scheduling_guards.mjs",
+        "line": 12,
+        "snippet": "const runner = readFileSync(\"coleta/italy_recurrent_collect.mjs\", \"utf8\");"
+      }
+    },
+    {
+      "from_file": "regras/italy_scheduling_guards.mjs",
+      "to_file": "docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_scheduling_guards.mjs",
+        "line": 51,
+        "snippet": "/IgnoreNew/.test(readFileSync(\"docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md\", \"utf8\")));"
+      }
+    },
+    {
+      "from_file": "regras/italy_scheduling_guards.mjs",
+      "to_file": "fontes/italy_profiles.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_scheduling_guards.mjs",
+        "line": 4,
+        "snippet": "import { PROFILES } from \"./italy_profiles.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/italy_source_health.mjs",
+      "to_file": "ferramentas/ods_peek.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_source_health.mjs",
+        "line": 38,
+        "snippet": "if (tipo === \"ZIP\") { try { return execFileSync(\"node\", [\"ferramentas/ods_peek.mjs\", caminho, \"4000\"], { encoding: \"utf8\" }); } catch { return \"\"; } }"
+      }
+    },
+    {
+      "from_file": "regras/italy_source_health.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/italy_source_health.mjs",
+        "line": 14,
+        "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/italy_source_health.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_source_health.mjs",
+        "line": 14,
+        "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
       "from_file": "regras/padrao_da_coleta.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -19295,12 +20850,34 @@
     },
     {
       "from_file": "regras/padrao_da_coleta.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/padrao_da_coleta.py",
+        "line": 65,
+        "snippet": "LEDGER = os.path.join(ROOT, 'data', 'collection-ledger', 'italy', 'observations.ndjson')"
+      }
+    },
+    {
+      "from_file": "regras/padrao_da_coleta.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/padrao_da_coleta.py",
+        "line": 66,
+        "snippet": "LEDGER_RUNS = os.path.join(ROOT, 'data', 'collection-ledger', 'italy', 'runs.ndjson')"
+      }
+    },
+    {
+      "from_file": "regras/padrao_da_coleta.py",
       "to_file": "data/samples/PADRAO-DA-COLETA-CHAO.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "regras/padrao_da_coleta.py",
-        "line": 223,
+        "line": 281,
         "snippet": "open(CHAO, 'leitura')  # CHAO = data/samples/PADRAO-DA-COLETA-CHAO.json"
       }
     },
@@ -19311,7 +20888,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/padrao_da_coleta.py",
-        "line": 211,
+        "line": 269,
         "snippet": "open(CHAO, 'w')  # CHAO = data/samples/PADRAO-DA-COLETA-CHAO.json"
       }
     },
@@ -20032,12 +21609,23 @@
     },
     {
       "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "data/samples/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 750,
+        "snippet": "\"data/samples/ITALY-SOURCE-MASTER-V1.json\"],"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
       "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 690,
+        "line": 728,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -20081,7 +21669,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 786,
+        "line": 856,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -20092,7 +21680,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 787,
+        "line": 857,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -20103,7 +21691,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 786,
+        "line": 856,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -20125,7 +21713,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1076,
+        "line": 1148,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -20136,7 +21724,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1076,
+        "line": 1148,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -20147,7 +21735,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 652,
+        "line": 690,
         "snippet": "vj = RAIZ / \"vercel.json\""
       }
     },
@@ -20186,6 +21774,17 @@
     },
     {
       "from_file": "system-map/scripts/scan_repo.py",
+      "to_file": "italia-portale/client/italy-v21.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/scan_repo.py",
+        "line": 304,
+        "snippet": "\"\"\"`<script src=\"italy-v21.js\">` e um caminho relativo a propria pasta."
+      }
+    },
+    {
+      "from_file": "system-map/scripts/scan_repo.py",
       "to_file": "system-map/data/architecture.declared.json",
       "type": "READS",
       "payload": "artefacto",
@@ -20197,12 +21796,34 @@
     },
     {
       "from_file": "system-map/scripts/scan_sources.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/scan_sources.py",
+        "line": 519,
+        "snippet": "LEDGER_IT = \"data/collection-ledger/italy/observations.ndjson\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/scan_sources.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/scan_sources.py",
+        "line": 520,
+        "snippet": "RUNS_IT = \"data/collection-ledger/italy/runs.ndjson\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/scan_sources.py",
       "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_sources.py",
-        "line": 244,
+        "line": 320,
         "snippet": "CONTAS = \"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\""
       }
     },
@@ -20213,8 +21834,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_sources.py",
-        "line": 293,
+        "line": 369,
         "snippet": "FILA = \"data/samples/FONTES-CANDIDATAS.json\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/scan_sources.py",
+      "to_file": "data/samples/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/scan_sources.py",
+        "line": 194,
+        "snippet": "MASTER_IT = \"data/samples/ITALY-SOURCE-MASTER-V1.json\""
       }
     },
     {
@@ -20224,7 +21856,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_sources.py",
-        "line": 353,
+        "line": 429,
         "snippet": "MANIFESTO = \"data/samples/RUN-MANIFEST.json\""
       }
     },
@@ -20257,7 +21889,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_sources.py",
-        "line": 322,
+        "line": 398,
         "snippet": "\"porta\": \"fontes/fonte_nova.py\","
       }
     },
@@ -22716,20 +24348,11 @@
     }
   ],
   "COUNTS": {
-    "files_tracked": 1031,
-    "files_readable": 346,
-    "files_code_dir": 387,
-    "file_edges": 1408,
-    "declared_missing_here": 1
+    "files_tracked": 1129,
+    "files_readable": 380,
+    "files_code_dir": 417,
+    "file_edges": 1494,
+    "declared_missing_here": 0
   },
-  "ELSEWHERE": {
-    "italia-portale/client/italy-v21.js": [
-      "origin/claude/italy-forward-only-scheduling-v1",
-      "origin/claude/italy-recurrent-source-pilot-v1",
-      "origin/claude/italy-source-browser-v1",
-      "origin/claude/italy-source-contracts-v1",
-      "origin/claude/italy-source-master-v1",
-      "origin/ops/italy-forward-only-live"
-    ]
-  }
+  "ELSEWHERE": {}
 }

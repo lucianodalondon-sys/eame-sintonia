@@ -1,0 +1,65 @@
+{
+ "AVISO_DE_NATUREZA": "ISTO NAO E O HTML SERVIDO. E um EXTRATO do DOM renderizado, lido pelo navegador italiano. O site devolve HTTP 403 para curl com User-Agent de navegador, do mesmo IP italiano (testado na home e em duas subpaginas).",
+ "RAW_EVIDENCE_STATE": "BROWSER_RENDERED_EXTRACT — nao equivale a RAW_PRESERVED",
+ "ACCESS_INSTRUMENT": "BROWSER",
+ "VPN_COUNTRY": "IT",
+ "EGRESS_IP": "205.147.30.20",
+ "CAPTURED_AT_UTC": "2026-09-07T15:12:00Z",
+
+ "SOURCE_ID": "IT-T9-002",
+ "OWNER_CANONICAL_NAME": "Bayer Crop Science Italia",
+ "OWNER_KIND": "COMPANY",
+ "TERRITORY": "T9",
+ "SOURCE_URL": "https://www.cropscience.bayer.it/Magazine/News/Generica/Mais-Lab",
+ "CANONICAL_URL": "https://www.cropscience.bayer.it/magazine/news/generica/mais-lab",
+ "ORIGINAL_TITLE": "Arriva Mais Lab: il nuovo podcast dedicato alla coltivazione del mais",
+ "ORIGINAL_LANGUAGE": "it",
+ "SOURCE_DATE": "primeira parte anunciada para 10 marzo 2026; a pagina ja fala de 'seconda stagione'. A pagina NAO expoe data de publicacao em metadado — SOURCE_DATE e o que o texto declara, nao um campo do site.",
+ "HTML_RENDERIZADO_BYTES": 283952,
+
+ "CONTEUDO_EXTRAIDO": {
+  "meta_description": "Mais Lab è il nuovo podcast di Bayer Crop Science dedicato al diserbo, infestanti difficili e gestione delle resistenze in maiscoltura",
+  "formato": "podcast em tres episodios + video 'dal campo'",
+  "cultura": "mais",
+  "problema": "diserbo, infestanti difficili, gestao de RESISTENCIA",
+  "marca_citada": "Dekalb",
+  "pessoas_nomeadas": [
+   "Veronica Venuti — Marketing & Communication Specialist",
+   "Chiara Pagliarin — Corn Solutions Expert",
+   "Emanuele Badalotti — Corn Agronomy Expert",
+   "Michele Colaluce — Product Specialist Dekalb"
+  ],
+  "contexto_declarado_pela_empresa": "variabilita climatica, limitazioni regolatorie e diffusione di infestanti resistenti richiedono strategie di diserbo piu flessibili e integrate",
+  "temas_operacionais": "dose, timing, rotazione colturale, pre-emergenza e post-emergenza"
+ },
+
+ "EVIDENCE_CLASS": "COMPANY_CLAIM",
+ "LEI_APLICADA": "COMPANY_CLAIM != REGULATORY_FACT",
+
+ "SOURCE_LOCATION": "site nacional Bayer Crop Science Italia",
+ "FACT_LOCATION": "UNKNOWN — nenhum fato de campo localizado. Nao inferir pela sede.",
+
+ "CROP": "mais",
+ "ISSUE": "infestanti resistentes / diserbo",
+ "TOPICS": "resistencia a herbicida, pre e post-emergencia, dose, timing, rotacao",
+
+ "WHAT_IT_PROVES": [
+  "que a Bayer Italia publica conteudo tecnico aberto sobre milho, com pessoas nomeadas e cargo",
+  "que ela escolheu RESISTENCIA A HERBICIDA em milho como tema de campanha em 2026",
+  "que o site exige NAVEGADOR: 403 para curl do mesmo IP italiano"
+ ],
+ "WHAT_IT_DOES_NOT_PROVE": [
+  "autorizacao de nenhum produto — so o registro do Ministero prova",
+  "venda, estoque, market share, uso realizado ou eficacia",
+  "qualquer ocorrencia de campo"
+ ],
+
+ "ACHADO_COMPARATIVO": "ADAMA (IT-T9-008) e Bayer (IT-T9-002) estao, no mesmo ano, comunicando o MESMO problema — resistencia de plantas daninhas a herbicida — em culturas diferentes (horticolas/tomate na ADAMA, milho na Bayer). Isso e COMPETITIVE_INTELLIGENCE observada, nao inferida: sao duas paginas datadas dos proprios sites.",
+
+ "BROWSER_REQUIRED": "YES",
+ "JS_REQUIRED": "NAO SEI — servidor recusa antes de dar para testar sem JavaScript",
+ "INTERACTION_REQUIRED": "NO",
+ "LOGIN_REQUIRED": "NO",
+ "CAPTCHA_OBSERVED": "NO",
+ "WAF_OBSERVED": "YES — 403 para cliente sem navegador"
+}

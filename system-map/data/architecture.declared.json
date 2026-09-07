@@ -169,6 +169,142 @@
   ],
   "COMPONENTS": [
     {
+      "id": "C-IT-CATALOGO",
+      "name": "O levantamento das fontes italianas",
+      "territory": "Z-FONTES",
+      "kind": "engine",
+      "icon": "◫",
+      "views": [
+        "acervo"
+      ],
+      "what": "Monta e mantem o catalogo das 54 fontes italianas: dono, territorio, rota, cultura, cadencia — e o que cada uma NAO prova.",
+      "why_here": "Tem campos que o atlas nao tem, e o melhor deles e `WHAT_IT_DOES_NOT_PROVE` — a pergunta que quase nenhum catalogo faz. Mas nasceu AO LADO do atlas, e nao dentro dele: duas listas a responder «que fontes temos» sao duas verdades, e a segunda envelhece calada. O mapa reconcilia as duas, fonte a fonte.",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "fontes/italy_fill_manifests.mjs",
+        "fontes/italy_fill_manifests_browser.mjs",
+        "fontes/italy_fix_semantics.mjs",
+        "fontes/italy_profiles.mjs",
+        "fontes/italy_update_master_browser.mjs",
+        "fontes/italy_write_matrix.mjs",
+        "data/samples/ITALY-SOURCE-MASTER-V1.json",
+        "docs/fontes/ITALY-SOURCE-MASTER-V1.md"
+      ]
+    },
+    {
+      "id": "C-IT-COLETA",
+      "name": "Colher as fontes italianas",
+      "territory": "Z-VEICULOS",
+      "kind": "engine",
+      "icon": "⇩",
+      "views": [
+        "acervo"
+      ],
+      "what": "Mede a porta de cada fonte, acha o documento do dia, colhe e volta amanha reconhecendo o que ja viu.",
+      "why_here": "Bate a porta antes de entrar: medir custa zero e evita gastar maquina onde nao ha ninguem. E `ACCESS_OK` no curl e sinal FORTE, mas `BLOCKED` e sinal FRACO — muitos sites recusam curl e aceitam navegador. Confundir os dois faz um endereco nosso errado virar «o pais bloqueia».",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "coleta/italy_find_docs.mjs",
+        "coleta/italy_pilot_collect.mjs",
+        "coleta/italy_probe.mjs",
+        "coleta/italy_recurrent_collect.mjs"
+      ]
+    },
+    {
+      "id": "C-LEITORES",
+      "name": "Abrir PDF, ODS e HTML",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "library",
+      "icon": "▤",
+      "views": [
+        "infra"
+      ],
+      "what": "Tira o texto de dentro de um PDF, de uma planilha ODS ou de uma pagina.",
+      "why_here": "O `pdftotext` ja estava na maquina o tempo todo, e a seccao fitossanitaria que faltava apareceu inteira sem OCR nenhum. Procurar ferramenta antes de escrever uma custa uma tarde e poupa um mes.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "ferramentas/html_text.mjs",
+        "ferramentas/italy_extract_fields.mjs",
+        "ferramentas/ods_peek.mjs",
+        "ferramentas/pdf_peek.mjs",
+        "ferramentas/italy-forward-only-live.cmd"
+      ]
+    },
+    {
+      "id": "C-IT-CONTRATOS",
+      "name": "O contrato de cada fonte italiana",
+      "territory": "Z-REGRAS",
+      "kind": "contract",
+      "icon": "§",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "what": "13 contratos executaveis: quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo — e COMO ELE FALHA.",
+      "why_here": "Os testes precisaram de ver vermelho: oito documentos foram corrompidos de proposito, na memoria e nunca no disco, e os oito reprovaram. Um PDF que virou «Access denied» com HTTP 200 reprovou — porque 200 nao e prova de nada. Teste que nunca viu vermelho nao e teste.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "regras/italy_contract_test.mjs",
+        "regras/italy_contracts.mjs",
+        "regras/italy_pilot_guards.mjs",
+        "regras/italy_scheduling_guards.mjs",
+        "regras/italy_source_health.mjs",
+        "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md"
+      ]
+    },
+    {
+      "id": "C-IT-PRESERVAR",
+      "name": "Guardar com impressao digital",
+      "territory": "Z-GUARDA",
+      "kind": "engine",
+      "icon": "⛃",
+      "views": [
+        "infra"
+      ],
+      "what": "Guarda o documento e o SHA256 dele: se um byte mudar, o numero muda.",
+      "why_here": "Testemunho nao e prova — ver na tela nao vale. E o Git ia trocar as quebras de linha dos ficheiros guardados, o que mudaria os bytes e quebraria TODOS os hashes: a prova viraria mentira sem ninguem reparar. Foi travado antes de gravar.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "guarda/italy_preserve.mjs",
+        "data/collection-ledger/italy/observations.ndjson",
+        "data/collection-ledger/italy/runs.ndjson"
+      ]
+    },
+    {
+      "id": "C-IT-CONTAS",
+      "name": "A conta da coleta italiana",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "icon": "∑",
+      "views": [
+        "audit"
+      ],
+      "what": "Conta o que foi medido e tenta quebrar o que foi guardado, com casos negativos de proposito.",
+      "why_here": "Numero digitado a mao mente: o placar errou duas vezes e a contagem de organizacoes tres. A contabilidade passou a ser CALCULADA, nunca digitada. E `ACCESS_CLASSIFICATION` nao e `ANALYTIC_VERDICT` — estado de porta nao e veredito sobre a fonte.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/italy_accounting.mjs",
+        "provas/italy_pilot_negativos.mjs",
+        "docs/operacao/ITALY-RECURRENT-PILOT-V1.md",
+        "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md"
+      ]
+    },
+    {
       "id": "C-PADRAO-COLETA",
       "name": "O padrao do departamento de coleta",
       "territory": "Z-REGRAS",
@@ -1512,6 +1648,10 @@
     "coleta/instagram_diario.py": "5de534f894d437afcdfbb076df362cbfe8160cc0",
     "coleta/instagram_janela.py": "fdc73e0ed394882cca514441cd3f8d00e49b5df0",
     "coleta/instagram_pessoal.py": "18d4ff1c3308b7ac09a516e3e96147f9fc5d7363",
+    "coleta/italy_find_docs.mjs": "2dae3b0e5137e56cb0944e39ee1b096c52bdf59f",
+    "coleta/italy_pilot_collect.mjs": "6090e3a142a32b3b8fa907d19c97c7f5c89801c8",
+    "coleta/italy_probe.mjs": "1f3397ce65b6b00c3fb494bba407e40536a6c8e4",
+    "coleta/italy_recurrent_collect.mjs": "53d17a8d4838164997c4517264c95db52094a1aa",
     "coleta/mapa_regfi.py": "865a1708eaed2a5d15f295551e00e0466a5afc17",
     "coleta/pdf_text.py": "53a53feff1a9679d74c08b22e57616434e92b522",
     "coleta/preservar_pdf.py": "c234c140644c39c0c655bdc413ad70eae7ae1620",
@@ -1526,9 +1666,16 @@
     "coleta/universo_ciencia_it.py": "b3762073beeee185530f34d14deefcd54064fb16",
     "coleta/youtube_janela.py": "0a6d282083699c420288ca7036391507138c646f",
     "coleta/youtube_relevancia.py": "fb9f96174ae4be313aa2c0b21d4c6ed1558e3e39",
+    "data/collection-ledger/italy/observations.ndjson": "e260fd0d360372dc5f7ad1aa87f810a77dd51afc",
+    "data/collection-ledger/italy/runs.ndjson": "adb912d50ac60bcce36243f78729efa0fc0f8559",
     "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json": "dce86043d875046110e7cf3e8e1ee2f35b364d52",
     "data/samples/FONTES-CANDIDATAS.json": "7f5d31b069f50b2c547d4cf15c23c9e183bad680",
-    "data/samples/PADRAO-DA-COLETA-CHAO.json": "24c41c23e4c17b62182dcf260a3fa0cd612df57e",
+    "data/samples/ITALY-SOURCE-MASTER-V1.json": "c592eb1fe8ad05736235b4e6d4769cee3e8beb1a",
+    "data/samples/PADRAO-DA-COLETA-CHAO.json": "41f30022e5602a573bbce0f28091fc5179862bcb",
+    "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md": "f6125fd30f24c207bc9fe7ec3a76db9fc51f1412",
+    "docs/fontes/ITALY-SOURCE-MASTER-V1.md": "fcc6a1f939dd1115ba2e7738f4e1f4ce3c3bc86b",
+    "docs/operacao/ITALY-RECURRENT-PILOT-V1.md": "7010dba9d6ac96d6a950a7ee3df2534be627f3ad",
+    "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md": "7f6804ccb8cca672f61a58194ded597f60e05060",
     "docs/operacao/PORTOES-DE-COLETA-10B.md": "814fb81c878bbfde008f5b2725c0feaa0c56f4eb",
     "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md": "6322b416ebe3e817d498b0413de06d4188a3f96b",
     "ferramentas/apify_contrato.py": "b20e59e7fd180da05022046a30dd5e13c25ebe9f",
@@ -1536,8 +1683,13 @@
     "ferramentas/apify_recuperar.py": "9d77a396c095551647c46769c32ecbe7157c49a4",
     "ferramentas/cdp.py": "6686df7ef8508d4a55c93140f28a31742f797d58",
     "ferramentas/contrato_ator.py": "f11b2b1ee7fa5f8b30e72b779e3c79a18c15fb0b",
+    "ferramentas/html_text.mjs": "9de70aa5082d92379e90cc12740c7f909f5951b2",
     "ferramentas/instagram_transcrever.py": "119d1bf0082b63d0cf493f85f524342b005bec8b",
+    "ferramentas/italy-forward-only-live.cmd": "e64b11653b1662df091dfec638c98121dd36424e",
+    "ferramentas/italy_extract_fields.mjs": "2559668a967122cc7f0dd9030722fc65928ddffc",
     "ferramentas/navegador.py": "1036720e34f532b7c9743ceadf11b919f7be5917",
+    "ferramentas/ods_peek.mjs": "a8747652572183b74a4fd0aed1839cb943e47287",
+    "ferramentas/pdf_peek.mjs": "95b98304b53669439acd3af49eb1393d76447c63",
     "ferramentas/youtube_transcrever.py": "20cb560327529d6029e7cf4607cf420666cecbac",
     "fontes/adama_catalogo_ler.py": "3e2baac26bef2697ff12ec5aa841d16036471d1b",
     "fontes/adama_catalogo_montar.py": "55fe6ac5d1a2b944a6e0d46db058687bee2bc284",
@@ -1549,10 +1701,17 @@
     "fontes/adama_it_moa.py": "57b26541315e0350ef066f8a83cb88821829acf9",
     "fontes/adama_it_qa.py": "70ecc42de14172e60e4a657a37dcbb10b7ae3bf2",
     "fontes/fonte_nova.py": "0abc32e7cb5c24e9b9f62f2c285292fea622b95a",
+    "fontes/italy_fill_manifests.mjs": "ffa51a075f620037661662daba0dfe9a12b637e7",
+    "fontes/italy_fill_manifests_browser.mjs": "c2f0ca08f5f5408db7a1945e0d02f2ea6997b803",
+    "fontes/italy_fix_semantics.mjs": "bb5906d7c9b393724ac08c0f94528baf835c5593",
+    "fontes/italy_profiles.mjs": "445164345e6aa765e10fc1a9bf87639365da383f",
+    "fontes/italy_update_master_browser.mjs": "74218a06a98b43d5948b9c1de65d7f0947d2618a",
+    "fontes/italy_write_matrix.mjs": "b36746c0b0322f13bf7c63be327af20d6565da97",
     "guarda/catalogo_importar.py": "fb56f21c646d7c12c0d58292dbee9c09cc56f531",
     "guarda/es/adama_es_gate.py": "de8316fb43cf9baae3652fcf0ad5fb27571fab13",
     "guarda/es/adama_es_import_rules.py": "1f4ebfe1f59585935b6b4c1af1298517e041dcb5",
     "guarda/importar_italia.py": "46304462a2d72ea658415c3ca8ffcfff0cea585f",
+    "guarda/italy_preserve.mjs": "c8c4d1f75f558405a3f92dbaca029d3626b5d6a2",
     "guarda/sql_conferir.py": "8e27ab6e65c9d53f0e2607f07a287f4b769ae2d8",
     "italia-portale/BASELINE/_ds/adama-brandwell/_adherence.oxlintrc.json": "33b460a7e2a4606240e3ce74c734a2ca6a4ae703",
     "italia-portale/BASELINE/_ds/adama-brandwell/_ds_bundle.js": "5181841ff9f5e3a465908bcdcbd563655bbd6b67",
@@ -1592,6 +1751,7 @@
     "italia-portale/audit/browser-deep.mjs": "83a902e4f3f22ce88b30395033edac09554d08d5",
     "italia-portale/audit/browser.mjs": "62e89adec9a9f2710199e9f2e8cbc4d0ef0d4bde",
     "italia-portale/audit/build-gate.mjs": "5f55a42e9871a4c0db2aef21534e9b0805934a96",
+    "italia-portale/audit/build-v21.mjs": "727f59496b8f2666d8a253cccc96c45ab2e99b62",
     "italia-portale/audit/cadeia-de-familias.mjs": "d12b05bf439eb5fb90e6a0c6893ccf786dfb0dd1",
     "italia-portale/audit/casa-gate.mjs": "97e116eb9dfcc4f169663ad02191d3018feb8305",
     "italia-portale/audit/casco/brandwell-parita.mjs": "670d9e740427082596af423d2de0d58a2a277b40",
@@ -1621,6 +1781,7 @@
     "italia-portale/audit/cta-navigation.mjs": "fb0571589f440a30b4be8695d7465c8e0c5ef903",
     "italia-portale/audit/deploy-surface.mjs": "2c869a80ee1f6fb8f07ef001756470e612df83a0",
     "italia-portale/audit/do-not-show.mjs": "fbeef183796cb064ae11daf4faf0e0e4c26cc9c7",
+    "italia-portale/audit/exposure.mjs": "d96becff244eb89aa9f544c8c076901b2ed45a41",
     "italia-portale/audit/external-only.mjs": "0ecd5883d7e3333abfccded2ea6ac2d386f1eca7",
     "italia-portale/audit/future-ruler.mjs": "f68d2147ab6ceabd5505c9ecd7dab1e809f8a098",
     "italia-portale/audit/ingestion-provenance.mjs": "26af27f9803840cc3de00d75ffd634d834448cf3",
@@ -1635,6 +1796,8 @@
     "italia-portale/audit/link-asset.mjs": "4636fa30b17af3cbbb04ede71efbd7e46699288e",
     "italia-portale/audit/lote-completo.mjs": "d44a922b8ce409efc3f87d9a49d14c8b65426c31",
     "italia-portale/audit/market-price-claim.mjs": "408dbd21adf3e269d2e93b13a125e086584a31d2",
+    "italia-portale/audit/markup-flat.mjs": "3405dc274f1052963fa8671e4680f4d02e4b0bf6",
+    "italia-portale/audit/markup-holes.mjs": "169a769f675ea668338c74b9c660872debc883ec",
     "italia-portale/audit/meeting-browser.mjs": "fbeaa274322e47f5b4c8e3c18cbc82e3716af1c5",
     "italia-portale/audit/meeting-gate.mjs": "15bbb1d14bb9fc29bd98e8bfe5a36e185bf762a1",
     "italia-portale/audit/meeting-public.mjs": "7a6db77cb460619f9c2404ad20d033650b4dccf3",
@@ -1647,6 +1810,7 @@
     "italia-portale/audit/pdf-gate.mjs": "db31bf90f4317e64f89d3eb401c03c3672da1619",
     "italia-portale/audit/portfolio-claims.mjs": "c26f620353effdd64dd2a4b740adcb86bd78f7dc",
     "italia-portale/audit/probe-relationships.mjs": "eb15b78907fbefd91c1cf02a1c66651f952d180f",
+    "italia-portale/audit/probe-v21.mjs": "19a279831ce7b63d94b94854ca2e2a8f848beece",
     "italia-portale/audit/product-identity.mjs": "6e370d477a80b5ff360870bfa4cccb93eb1cb018",
     "italia-portale/audit/production.mjs": "64cf67fb2f46c955d430bd7cf8bf2efa59881d5b",
     "italia-portale/audit/prova-da-build.mjs": "1d3b103a74c8e0709035ef6316ba33fdcf2d2881",
@@ -1692,6 +1856,7 @@
     "italia-portale/client/italy-pdf.js": "dbd891879039ec4f07698d2d9a27dbeebb553ab8",
     "italia-portale/client/italy-real-intelligence.js": "ccca2071aa5865f5ae0408987eef1dc94ab8405e",
     "italia-portale/client/italy-science-business.js": "94f897e77d635161cc0060712dba81375d7ffd4c",
+    "italia-portale/client/italy-v21.js": "2a28b62c73f893d93c632e89efadaec26b7fdaf2",
     "italia-portale/client/meeting-intelligence-snapshot.js": "14cb8a517260b1b6430285d4a4d9e07f69b5b38c",
     "italia-portale/client/meeting-labels.js": "15426752e1234ba5e5a34ff1bbf5d3a80e10071a",
     "italia-portale/client/meeting-surface.js": "ef67af20e21f4a2b77ce98ac6cc30b08ea9467c2",
@@ -1770,14 +1935,21 @@
     "provas/coverage.py": "7bb882a2ee00ad189593a1e159c108c5541458b8",
     "provas/es/freeze_es.py": "8c38918e870ad9a7d8671dcd17d3bef0dc96e7e6",
     "provas/inventario_esperado.py": "d3043da78bdd927622cfedb11a67afbcb85382bb",
+    "provas/italy_accounting.mjs": "9a40f552a0341d55057745fdabaa0d5995a2b022",
+    "provas/italy_pilot_negativos.mjs": "a3969ca0688cd93406ca9f7fc85b4a5fa4f81924",
     "provas/testa_rota_italia.py": "4fb25815bd63df037ca315f8530d1d420b23fa3d",
     "regras/cicatrizes_brasil.py": "2d69fc63b3004c7c5ae197169fd611d84a2c650b",
     "regras/comunicacao_identidade.py": "3afe6c18b66d13826a262a184787271a8ee3211f",
     "regras/comunicacao_lote.py": "098fc6d67af9fa697025f2afe8bf0bcf40749254",
     "regras/comunicacao_universo.py": "37e4638950e2619cb19b218f3ab73be0700625a0",
     "regras/fato_local.py": "c8dae2ca5a82dc3ba634db715ede5a1180e765bc",
+    "regras/italy_contract_test.mjs": "1e80bfd62a7b12b47cc31b62e87a13a311006e16",
+    "regras/italy_contracts.mjs": "ae6fc38c114ed3b996021f6f120632a234c8a533",
+    "regras/italy_pilot_guards.mjs": "c00367024fc2977b93c6e16ac9bc0855d97a227d",
+    "regras/italy_scheduling_guards.mjs": "00ddc15436475edb56b683406937f16da9de6e6d",
+    "regras/italy_source_health.mjs": "811be31b016cfdcce4cf096b41d38c563c7927b2",
     "regras/lugar_do_fato.py": "a47380e9624322d50243060908cfd94036547c65",
-    "regras/padrao_da_coleta.py": "655885ba9a4381d8687322b696528b64e0b294df",
+    "regras/padrao_da_coleta.py": "743b45a96836cb85261b7279cd700e5470709227",
     "regras/portao.py": "967ff47ca35bbf781f6bd8b34976f08ad1c760ae",
     "regras/portoes_eame.py": "ea3ad259d8dd594578cb9c4c62f1d21d5520fead",
     "regras/proveniencia.py": "23dafffefa884d2e095509a2bbe7984575f05636",
@@ -1835,10 +2007,10 @@
     "system-map/app/index.html": "cd2fedf7baae6ace57be8d81dbe950f9ab1aef1d",
     "system-map/app/map.css": "d70a895270eca4dd5684c116772153890a648a55",
     "system-map/app/map.js": "6f6a92327f2824f3ce18d92dd9bc62e743245e02",
-    "system-map/scripts/generate_system_map.py": "16242771e0a9d5af3e51e053a750fd09542678e6",
+    "system-map/scripts/generate_system_map.py": "90074cb8d3526493f21bd500f0bbbf271c27a4ac",
     "system-map/scripts/mudar_gaveta.py": "99736f74a118a545f946246f88c041153e4bb342",
     "system-map/scripts/scan_repo.py": "c3381581f275c3de013fed483eacf9c817055946",
-    "system-map/scripts/scan_sources.py": "37cd4c3bfb7948b82deb0be11ea0c566e9595f9f",
+    "system-map/scripts/scan_sources.py": "e0c7318bd99fdee6126f4941dcab131cd0453177",
     "system-map/scripts/validate_system_map.py": "90db5bed5eaf40806c1ef83da6c96cbeb8906030",
     "system-map/tests/test_system_map.py": "91530ca778e788452d99b2c6f594302d68a53145",
     "tests/es/test_adama_es_gate.py": "e58ce40ff87e320bb0bc6db69eda7ff962dc1c59",

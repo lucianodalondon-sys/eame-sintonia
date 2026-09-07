@@ -1,0 +1,64 @@
+{
+ "AVISO_DE_NATUREZA": "ISTO NAO E O HTML SERVIDO PELO SITE. E um EXTRATO do DOM ja renderizado, lido pelo navegador italiano. O site devolve HTTP 403 para qualquer requisicao sem navegador — testado com curl e todos os cabecalhos de navegador, inclusive Sec-Fetch e Accept-Language it-IT. Portanto os bytes originais NAO puderam ser preservados.",
+ "RAW_EVIDENCE_STATE": "BROWSER_RENDERED_EXTRACT — nao equivale a RAW_PRESERVED",
+ "ACCESS_INSTRUMENT": "BROWSER",
+ "VPN_COUNTRY": "IT",
+ "EGRESS_IP": "205.147.30.20",
+ "CAPTURED_AT_UTC": "2026-09-07T15:05:00Z",
+
+ "SOURCE_URL": "https://www.adama.com/italia/it/articolo/orticole-come-controllare-le-infestanti-anche-quelle-piu-difficili",
+ "CANONICAL_URL": "https://www.adama.com/italia/it/articolo/orticole-come-controllare-le-infestanti-anche-quelle-piu-difficili",
+ "ORIGINAL_TITLE": "Orticole: come controllare le infestanti, anche quelle piu difficili",
+ "ORIGINAL_LANGUAGE": "it",
+ "SOURCE_DATE": "2026-06-03T16:36:57+0200 (published) · 2026-06-03T16:45:17+0200 (modified)",
+ "CMS_DECLARADO": "Drupal 10",
+ "HTML_RENDERIZADO_BYTES": 36271,
+
+ "CONTEUDO_EXTRAIDO": {
+  "meta_description": "Sonavio® è l'erbicida di pre trapianto di ADAMA che agisce per assorbimento fogliare contrastando anche le infestanti più difficili da gestire",
+  "json_ld_about": ["Articolo", "Pomodoro"],
+  "produto_citado": "Sonavio®",
+  "substancia_ativa_citada": "bifenox",
+  "modo_de_acao_citado": "inibicao da enzima PPO (protoporfirinogeno ossidasi); absorcao foliar; clorose, dessecamento e necrose",
+  "problema_tratado": "infestanti (plantas daninhas) e desenvolvimento de RESISTENCIA aos principios ativos mais comuns",
+  "cultura": "orticole; o JSON-LD do proprio site marca 'Pomodoro'",
+  "remete_para": "AgroNotizie (midia tecnica) para o artigo completo",
+  "texto": "Orticole: come controllare le infestanti, anche quelle piu difficili. Sonavio® e l'erbicida di pre trapianto di ADAMA che agisce per assorbimento fogliare contrastando anche le infestanti piu difficili da gestire. ARTICOLO 03 Giugno, 2026, 2min read. La presenza di infestanti puo creare competizione con le colture per acqua, luce e nutrienti, incidendo sulla qualita della produzione e rallentando le operazioni di raccolta. In alcuni casi, le malerbe possono anche essere vettori di virosi e batteriosi, favorendo la diffusione di problematiche fitosanitarie. A rendere ancora piu complesso il quadro, e lo sviluppo di resistenze ai piu comuni principi attivi impiegati nel controllo delle infestanti, che richiede strategie sempre piu integrate, capaci di combinare pratiche agronomiche e interventi chimici mirati. Sonavio®, l'erbicida alleato contro le resistenze. Tra le soluzioni chimiche disponibili nel mercato c'e Sonavio®, erbicida di ADAMA a base di bifenox, una sostanza attiva che agisce per assorbimento fogliare attraverso l'inibizione dell'enzima PPO (protoporfirinogeno ossidasi). La sua azione porta alla rottura delle membrane cellulari delle infestanti bersaglio, che si manifesta con sintomi visibili come clorosi fogliari (ingiallimenti), seguite da disseccamento e necrosi dei tessuti vegetali nel giro di pochi giorni. Leggi l'articolo completo su AgroNotizie."
+ },
+
+ "ESTRUTURA_DO_SITE_OBSERVADA": {
+  "menu_colture": ["Pomodoro", "Cereali", "Soia", "Vite", "Mais", "Pomacee", "Riso"],
+  "outros_ramos": ["Prodotti / crop-protection", "Sistemi riso (FullPage®, Max-Ace®)", "Linee tecniche", "Articoli, News ed Eventi"],
+  "utilidade": "o proprio menu ja e um mapa CULTURA x LINHA da ADAMA Italia — util para T9, sem inferencia"
+ },
+
+ "EVIDENCE_CLASS": "COMPANY_CLAIM",
+ "LEI_APLICADA": "COMPANY_CLAIM != REGULATORY_FACT. Vale inclusive para a ADAMA. Este documento prova o que a ADAMA COMUNICA; quem prova autorizacao e o registro do Ministero della Salute (IT-T4-001).",
+
+ "SOURCE_LOCATION": "site nacional ADAMA Italia",
+ "FACT_LOCATION": "UNKNOWN — o artigo nao localiza nenhum fato de campo. Nao inferir pela sede.",
+
+ "CROP": "orticole / pomodoro",
+ "ISSUE": "infestanti e resistencia a herbicidas",
+ "TOPICS": "erbicida, bifenox, inibidor de PPO, pre-trapianto, resistencia",
+
+ "WHAT_IT_PROVES": [
+  "que a ADAMA Italia publica conteudo tecnico datado, em italiano, aberto e sem login",
+  "que ela associa publicamente o produto Sonavio® a bifenox, a inibicao de PPO e ao problema de resistencia em horticolas/tomate",
+  "que o site exige NAVEGADOR: 403 para curl mesmo com cabecalhos completos, do mesmo IP italiano"
+ ],
+ "WHAT_IT_DOES_NOT_PROVE": [
+  "que Sonavio® esta autorizado na Italia — isso so o registro do Ministero prova",
+  "que esta comercialmente disponivel",
+  "eficacia, venda, estoque, market share ou uso realizado",
+  "qualquer ocorrencia de campo — o artigo nao mede nada em campo"
+ ],
+
+ "BROWSER_REQUIRED": "YES",
+ "JS_REQUIRED": "NAO SEI — o conteudo aparece no DOM renderizado; nao se testou o HTML sem JavaScript, porque o servidor recusa a requisicao antes disso",
+ "INTERACTION_REQUIRED": "NO",
+ "LOGIN_REQUIRED": "NO",
+ "CAPTCHA_OBSERVED": "NO",
+ "WAF_OBSERVED": "YES — 403 para cliente sem navegador. Assinaturas de Akamai e mPulse/Boomerang no HTML.",
+ "nota_sobre_o_403": "BROWSER_REQUIRED nao e SOURCE_UNAUTOMATABLE. Automacao continua possivel com navegador de verdade; so nao com curl."
+}

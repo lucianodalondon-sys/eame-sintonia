@@ -1,0 +1,81 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T2-004",
+ "OWNER_ID": "IT-OWN-SIAS",
+ "CAPTURE": {
+  "CAPTURED_AT_UTC": "2026-09-07T14:34:48.240Z",
+  "METODO": "curl HTTP GET com User-Agent de navegador, do IP de saida italiano",
+  "EGRESS_IP": "205.147.30.20",
+  "EGRESS_GEO": "Milano, Lombardia, IT — AS208172 Proton AG",
+  "EGRESS_KIND": "VPN_COMERCIAL — nao e ISP residencial italiano",
+  "AUTH_USED": "NENHUMA. Nao se tentou contornar autenticacao."
+ },
+ "FILES": [
+  {
+   "RAW_FILE": "NHEOWL0530_00.html",
+   "SOURCE_URL": "http://www.sias.regione.sicilia.it/NHEOWL0530_00.html",
+   "URL_EFETIVA": "http://www.sias.regione.sicilia.it/NHEOWL0530_00.html",
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=ISO-8859-1",
+   "BYTES": 79628,
+   "SHA256": "6c71cc19127283da8ffc3b45ae50956a6c8ab383e20fd247689825f5c3345635",
+   "ASSINATURA_REAL_DOS_BYTES": "HTML/XML",
+   "ALERTA": null,
+   "SERVER_IP": "93.41.160.6"
+  },
+  {
+   "RAW_FILE": "NHEOWL0500_00.html",
+   "SOURCE_URL": "http://www.sias.regione.sicilia.it/NHEOWL0500_00.html",
+   "URL_EFETIVA": "http://www.sias.regione.sicilia.it/NHEOWL0500_00.html",
+   "HTTP_STATUS": 200,
+   "MIME": "text/html; charset=ISO-8859-1",
+   "BYTES": 67232,
+   "SHA256": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+   "ASSINATURA_REAL_DOS_BYTES": "HTML/XML",
+   "ALERTA": null,
+   "SERVER_IP": "93.41.160.6"
+  }
+ ],
+ "SOURCE_DATE": "janela 26/08/2026 a 05/09/2026 (11 dias) na tabela de chuva",
+ "ORIGINAL_LANGUAGE": "it",
+ "ORIGINAL_TITLE": "Precipitazioni giornaliere (mm) — dal 26/08/2026 al 05/09/2026",
+ "SOURCE_LOCATION": "Palermo — Regione Siciliana",
+ "FACT_LOCATION": "estacoes da Sicilia, agrupadas por provincia (ex.: Calatafimi, Castellammare del Golfo, Castelvetrano, Erice, Marsala, Mazara del Vallo, Pantelleria, Salemi)",
+ "EVIDENCE_CLASS": "AGROCLIMATIC_SIGNAL",
+ "CROP": "n/a",
+ "TOPICS": "chuva diaria, temperatura minima, ultimo dia chuvoso, chuva acumulada desde 1 de janeiro",
+ "WHAT_IT_PROVES": "que a Sicilia publica dado agrometeorologico diario por estacao, aberto, sem login, com janela movel de 11 dias e acumulado anual",
+ "WHAT_IT_DOES_NOT_PROVE": "praga · cultura · decisao de tratamento · dado por talhao · serie historica longa (a pagina so mostra a janela corrente)",
+ "RAW_EVIDENCE_STATE": "PRESERVED",
+ "UPDATE_FREQUENCY": "DAILY — a tabela e diaria e a janela termina 2 dias antes de hoje. Mas so uma captura foi feita: UPDATE_FREQUENCY = NÃO SEI ate a segunda.",
+ "AUTOMATION_FEASIBILITY": "HIGH — HTML estatico com URL fixa por grandeza, sem JavaScript, sem login. Atrito: charset antigo (iso-8859-1) e frameset na navegacao.",
+ "VERDICT": "GREEN",
+ "OWNER_CANONICAL_NAME": "SIAS — Servizio Informativo Agrometeorologico Siciliano (Regione Siciliana)",
+ "OWNER_KIND": "OFFICIAL_REGIONAL_AGENCY",
+ "TERRITORY": "T2",
+ "SOURCE_NAME": "SIAS — tabelas de consulta por grandeza meteorologica",
+ "SOURCE_TYPE": "TABELA_DE_DADOS",
+ "ACCESS_METHOD": "HTML",
+ "ACCESS_INSTRUMENT": "BROWSER",
+ "VPN_COUNTRY": "IT",
+ "BROWSER_REQUIRED": "NAO para baixar a tabela, SIM para achar a rota: o site e um FRAMESET antigo e a leitura direta da home devolve casca vazia. Foi preciso descer nos frames.",
+ "JS_REQUIRED": "NO",
+ "INTERACTION_REQUIRED": "NO",
+ "LOGIN_REQUIRED": "NO",
+ "CAPTCHA_OBSERVED": "NO",
+ "WAF_OBSERVED": "NO",
+ "ROTA_NAVEGADA": "sias.regione.sicilia.it > (frame) home.htm > Dati > Consultazione per grandezza > Precipitazioni giornaliere / T min giornaliera",
+ "CANONICAL_URL": "http://www.sias.regione.sicilia.it/NHEOWL0530_00.html",
+ "LEI_DE_NAO_PROMOCAO": {
+  "regra": "AGROCLIMATIC_SIGNAL != PEST_OCCURRENCE"
+ },
+ "GEOGRAPHIC_GRANULARITY": "ESTACAO — a rede declara 88 estacoes; a tabela agrupa por provincia",
+ "conteudo_medido": "tabela com valor por estacao e por dia, coluna 'Ultimo giorno piovoso' e coluna 'Precipitazioni cumulate dal 1 gen'. Horario declarado em UTC pelo proprio site.",
+ "HISTORICAL_DEPTH": "a pagina corrente cobre 11 dias. Existe 'SEZIONE RICHIESTA DATI' para serie historica — NAO testada nesta rodada.",
+ "PRIORITY": "P1",
+ "por_que": "dado real por estacao preservado com hash, rota fixa e automatizavel. P1 porque e clima, nao sinal de praga — e a Sicilia ainda nao tem fonte fitossanitaria provada.",
+ "DECISAO_ADAMA": [
+  "TECHNICAL"
+ ],
+ "pergunta_da_missao": "A ADAMA passa a ver a chuva e a temperatura da Sicilia estacao por estacao. Fecha metade da lacuna siciliana: o clima entra, o sinal de praga continua fora."
+}

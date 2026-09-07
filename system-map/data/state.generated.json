@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 11540,
-    "h": 2140
+    "h": 2462
   },
   "INVENTORY": {
     "(raiz)": [
@@ -171,6 +171,10 @@
       "coleta/instagram_diario.py",
       "coleta/instagram_janela.py",
       "coleta/instagram_pessoal.py",
+      "coleta/italy_find_docs.mjs",
+      "coleta/italy_pilot_collect.mjs",
+      "coleta/italy_probe.mjs",
+      "coleta/italy_recurrent_collect.mjs",
       "coleta/mapa_regfi.py",
       "coleta/pdf_text.py",
       "coleta/preservar_pdf.py",
@@ -187,11 +191,18 @@
       "coleta/youtube_relevancia.py"
     ],
     "data": [
+      "data/collection-ledger/italy/observations.ndjson",
+      "data/collection-ledger/italy/runs.ndjson",
+      "data/collection-store/.gitattributes",
+      "data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html",
+      "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
+      "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
       "data/i18n/v21-traducoes-nucleo.json",
       "data/i18n/v21-traducoes.json",
       "data/normalized/.gitkeep",
       "data/raw/.gitkeep",
       "data/raw/IT-ROTULOS/_MANIFESTO.json",
+      "data/samples/.gitattributes",
       "data/samples/.gitkeep",
       "data/samples/ADAMA-ES-CONFIRMACAO-REGULATORIA-DO-PAR.json",
       "data/samples/ADAMA-ES-DOCUMENTOS-MANIFEST.csv",
@@ -369,11 +380,60 @@
       "data/samples/IT-MERCADO/EU-AGRIFOOD-wine-prices-IT.json",
       "data/samples/IT-MERCADO/EUROSTAT-apri_pi_inq-input-price-index-IT.json",
       "data/samples/IT-MERCADO/EUROSTAT-apri_pi_outq-output-price-index-IT.json",
+      "data/samples/IT-PROBE/probe-fase-c.json",
       "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json",
       "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V2.json",
       "data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json",
       "data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json",
       "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T1-001/ISTAT_101_1015_COLTIVAZIONI_2_2025.csv",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T1-001/MANIFEST.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46622",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46622.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46647",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46647.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/MANIFEST.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/34_boll_agro_20260824.pdf.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/35_boll_agro_20260831.pdf.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/MANIFEST.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/MANIFEST.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_01.pdf.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_09.pdf.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/MANIFEST.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0500_00.html",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0500_00.html.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0530_00.html",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0530_00.html.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/MANIFEST.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/NA-02-09.pdf.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-02-09.pdf.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-26-08.pdf.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Giornaliero_Meteorologico_N136_07-09-2026.pdf.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/MANIFEST.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Notiziario_Agrometeorologico_N35_26-08-2026.pdf.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Notiziario_Agrometeorologico_N36_02-09-2026.pdf.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T3-010/Bollettino_Mosca_dellOlivo_n_8_del_31_08_2026.pdf.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T3-010/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T3-010/MANIFEST.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T3-011/0286_26_Agrios_Broschuere_Richtlinien_integrierte_Kernobstbau_IT_WEB.pdf.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T3-011/MANIFEST.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/ID_6_Dataset_Fitosanitari_v2.0.pdf.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/MANIFEST.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T5-002/91515",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T5-002/91515.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T5-002/MANIFEST.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/11_Altieri_Bilancio-Fitosanitario-Olivo-2024-25-Basilicata.pdf.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/7_Alesi_olivo-2025_-Bilancio-Fitosanitario-Marche.pdf.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/MANIFEST.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T7-002/ELENCO-OP-AOP-al-31-12-2025-agg-08-04-2026.ods",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T7-002/ELENCO-OP-AOP-al-31-12-2025-agg-08-04-2026.ods.headers.txt",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T7-002/MANIFEST.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T9-002/MANIFEST.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T9-002/bayer-mais-lab-2026.BROWSER-EXTRACT.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T9-008/MANIFEST.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T9-008/adama-orticole-2026-06-03.BROWSER-EXTRACT.json",
       "data/samples/IT-T4-001/IT-T4-001-adama-expiries.json",
       "data/samples/IT-T4-001/IT-T4-001-adama-portfolio.json",
       "data/samples/IT-T4-001/IT-T4-001-enriquecimento-validado.json",
@@ -382,6 +442,13 @@
       "data/samples/IT-V2/IT-V2-CONFLITOS.json",
       "data/samples/IT-V2/IT-V2-QA-ATRIBUIDO.json",
       "data/samples/ITALY-RADAR-DO-FUTURO-V1.json",
+      "data/samples/ITALY-SOURCE-MASTER-V1.json",
+      "data/samples/ITALY-T3-005-MONITORAGGIO/MANIFEST.json",
+      "data/samples/ITALY-T3-005-MONITORAGGIO/extract-points.js",
+      "data/samples/ITALY-T3-005-MONITORAGGIO/headers.txt",
+      "data/samples/ITALY-T3-005-MONITORAGGIO/meta.txt",
+      "data/samples/ITALY-T3-005-MONITORAGGIO/monitoraggio-2026-09-07.html",
+      "data/samples/ITALY-T3-005-MONITORAGGIO/points-2026-09-07.json",
       "data/samples/PADRAO-DA-COLETA-CHAO.json",
       "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
       "data/samples/PIEMONTE-FD/aggiornamento_2025_strategie2026_pt.txt",
@@ -495,10 +562,15 @@
       "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md",
       "docs/fontes/ATLAS-DE-FONTES-EAME.md",
       "docs/fontes/INDICE-DE-FONTES.md",
+      "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
+      "docs/fontes/ITALY-SOURCE-MASTER-V1.md",
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
       "docs/operacao/FALHA-DE-FONTE-ESPANHA.md",
+      "docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md",
+      "docs/operacao/ITALY-RECURRENT-PILOT-V1.md",
+      "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md",
       "docs/operacao/PORTOES-DE-COLETA-10B.md",
       "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
       "docs/operacao/RELATORIO-DE-ROTAS-APIFY-ES.md",
@@ -541,8 +613,13 @@
       "ferramentas/apify_recuperar.py",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
+      "ferramentas/html_text.mjs",
       "ferramentas/instagram_transcrever.py",
+      "ferramentas/italy-forward-only-live.cmd",
+      "ferramentas/italy_extract_fields.mjs",
       "ferramentas/navegador.py",
+      "ferramentas/ods_peek.mjs",
+      "ferramentas/pdf_peek.mjs",
       "ferramentas/youtube_transcrever.py"
     ],
     "fontes": [
@@ -555,13 +632,20 @@
       "fontes/adama_it_labels.py",
       "fontes/adama_it_moa.py",
       "fontes/adama_it_qa.py",
-      "fontes/fonte_nova.py"
+      "fontes/fonte_nova.py",
+      "fontes/italy_fill_manifests.mjs",
+      "fontes/italy_fill_manifests_browser.mjs",
+      "fontes/italy_fix_semantics.mjs",
+      "fontes/italy_profiles.mjs",
+      "fontes/italy_update_master_browser.mjs",
+      "fontes/italy_write_matrix.mjs"
     ],
     "guarda": [
       "guarda/catalogo_importar.py",
       "guarda/es/adama_es_gate.py",
       "guarda/es/adama_es_import_rules.py",
       "guarda/importar_italia.py",
+      "guarda/italy_preserve.mjs",
       "guarda/sql_conferir.py"
     ],
     "handoff": [
@@ -631,6 +715,7 @@
       "italia-portale/audit/_markup-requests.md",
       "italia-portale/audit/_occurrences.md",
       "italia-portale/audit/_specs.json",
+      "italia-portale/audit/_v21-schema.md",
       "italia-portale/audit/acceptance.mjs",
       "italia-portale/audit/action-map-consistency.mjs",
       "italia-portale/audit/adama-product-claim.mjs",
@@ -681,6 +766,7 @@
       "italia-portale/audit/browser-deep.mjs",
       "italia-portale/audit/browser.mjs",
       "italia-portale/audit/build-gate.mjs",
+      "italia-portale/audit/build-v21.mjs",
       "italia-portale/audit/cadeia-de-familias.mjs",
       "italia-portale/audit/casa-gate.mjs",
       "italia-portale/audit/casco/brandwell-parita.mjs",
@@ -710,6 +796,7 @@
       "italia-portale/audit/cta-navigation.mjs",
       "italia-portale/audit/deploy-surface.mjs",
       "italia-portale/audit/do-not-show.mjs",
+      "italia-portale/audit/exposure.mjs",
       "italia-portale/audit/external-only.mjs",
       "italia-portale/audit/future-ruler.mjs",
       "italia-portale/audit/ingestion-provenance.mjs",
@@ -724,6 +811,8 @@
       "italia-portale/audit/link-asset.mjs",
       "italia-portale/audit/lote-completo.mjs",
       "italia-portale/audit/market-price-claim.mjs",
+      "italia-portale/audit/markup-flat.mjs",
+      "italia-portale/audit/markup-holes.mjs",
       "italia-portale/audit/meeting-browser.mjs",
       "italia-portale/audit/meeting-gate.mjs",
       "italia-portale/audit/meeting-public.mjs",
@@ -736,6 +825,7 @@
       "italia-portale/audit/pdf-gate.mjs",
       "italia-portale/audit/portfolio-claims.mjs",
       "italia-portale/audit/probe-relationships.mjs",
+      "italia-portale/audit/probe-v21.mjs",
       "italia-portale/audit/product-identity.mjs",
       "italia-portale/audit/production.mjs",
       "italia-portale/audit/prova-da-build.mjs",
@@ -784,6 +874,7 @@
       "italia-portale/client/italy-pdf.js",
       "italia-portale/client/italy-real-intelligence.js",
       "italia-portale/client/italy-science-business.js",
+      "italia-portale/client/italy-v21.js",
       "italia-portale/client/meeting-intelligence-snapshot.js",
       "italia-portale/client/meeting-intelligence-snapshot.json",
       "italia-portale/client/meeting-labels.js",
@@ -886,6 +977,8 @@
       "provas/coverage.py",
       "provas/es/freeze_es.py",
       "provas/inventario_esperado.py",
+      "provas/italy_accounting.mjs",
+      "provas/italy_pilot_negativos.mjs",
       "provas/testa_rota_italia.py"
     ],
     "regras": [
@@ -894,6 +987,11 @@
       "regras/comunicacao_lote.py",
       "regras/comunicacao_universo.py",
       "regras/fato_local.py",
+      "regras/italy_contract_test.mjs",
+      "regras/italy_contracts.mjs",
+      "regras/italy_pilot_guards.mjs",
+      "regras/italy_scheduling_guards.mjs",
+      "regras/italy_source_health.mjs",
       "regras/lugar_do_fato.py",
       "regras/padrao_da_coleta.py",
       "regras/portao.py",
@@ -1089,11 +1187,21 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 447 ficheiros (83%) · ESPANHA 76 ficheiros (14%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 447 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 538 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 538 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
+      ]
+    },
+    {
+      "id": "duas-listas-de-fontes",
+      "titulo": "52 fontes foram levantadas em Italia e nunca ganharam ficha no atlas.",
+      "texto": "23 tem ficha no atlas, 54 estao no levantamento italiano, 2 estao nos dois. 52 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico.",
+      "porque_importa": "O levantamento italiano tem campos que o atlas nao tem — o dono normalizado, o papel da fonte, e o melhor de todos: o que ela NAO prova. Mas nasceu ao lado do atlas, e nao dentro dele. Duas listas a responder «que fontes temos» sao duas verdades, e a segunda envelhece calada.",
+      "evidencia": [
+        "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "data/samples/ITALY-SOURCE-MASTER-V1.json"
       ]
     },
     {
@@ -1113,6 +1221,20 @@
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
+      ]
+    },
+    {
+      "id": "parado-na-coleta",
+      "titulo": "8 artefatos da coleta nunca chegaram a inteligencia.",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: UNIVERSO-CONTAS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json · SPEAKER-UNIVERSE-PILOT-V1.json · EU-SOURCE-540-2011.json · MOA-SOURCE-FRAC.json",
+      "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
+      "evidencia": [
+        "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json",
+        "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
+        "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json",
+        "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
+        "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
+        "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
       ]
     },
     {
@@ -1441,8 +1563,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "df09a9892790d8853904b1662c9faacf2bf2188b",
-    "GENERATED_AT": "2026-09-07T13:20:50-03:00"
+    "HEAD": "8843415b194cad2cb76f9ec4d8f7db1ce546d90c",
+    "GENERATED_AT": "2026-09-07T13:30:56-03:00"
   },
   "FAMILIES": [
     {
@@ -1452,7 +1574,7 @@
       "x": 260,
       "y": 60,
       "w": 4840,
-      "h": 1820,
+      "h": 2142,
       "zones": [
         "Z-DISPARA",
         "Z-FONTES",
@@ -1461,7 +1583,7 @@
         "Z-REGRAS",
         "Z-GUARDA"
       ],
-      "count": 28
+      "count": 33
     },
     {
       "id": "F-INTELIGENCIA",
@@ -1470,14 +1592,14 @@
       "x": 5320,
       "y": 60,
       "w": 3430,
-      "h": 1820,
+      "h": 2142,
       "zones": [
         "Z-LINEAGE",
         "Z-REGUAS",
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 26
+      "count": 27
     },
     {
       "id": "F-ENTREGA",
@@ -1486,7 +1608,7 @@
       "x": 8970,
       "y": 60,
       "w": 2310,
-      "h": 1820,
+      "h": 2142,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -1508,7 +1630,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 1650,
+      "h": 1972,
       "count": 1
     },
     {
@@ -1523,8 +1645,8 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 1650,
-      "count": 3
+      "h": 1972,
+      "count": 4
     },
     {
       "id": "Z-FERRAMENTAS",
@@ -1538,8 +1660,8 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 1650,
-      "count": 4
+      "h": 1972,
+      "count": 5
     },
     {
       "id": "Z-VEICULOS",
@@ -1554,8 +1676,8 @@
       "x": 2415,
       "y": 190,
       "w": 820,
-      "h": 1650,
-      "count": 7
+      "h": 1972,
+      "count": 8
     },
     {
       "id": "Z-REGRAS",
@@ -1570,8 +1692,8 @@
       "x": 3535,
       "y": 190,
       "w": 820,
-      "h": 1650,
-      "count": 9
+      "h": 1972,
+      "count": 10
     },
     {
       "id": "Z-GUARDA",
@@ -1585,8 +1707,8 @@
       "x": 4655,
       "y": 190,
       "w": 405,
-      "h": 1650,
-      "count": 4
+      "h": 1972,
+      "count": 5
     },
     {
       "id": "Z-LINEAGE",
@@ -1601,7 +1723,7 @@
       "x": 5360,
       "y": 190,
       "w": 405,
-      "h": 1650,
+      "h": 1972,
       "count": 4
     },
     {
@@ -1617,7 +1739,7 @@
       "x": 6065,
       "y": 190,
       "w": 405,
-      "h": 1650,
+      "h": 1972,
       "count": 4
     },
     {
@@ -1633,7 +1755,7 @@
       "x": 6770,
       "y": 190,
       "w": 820,
-      "h": 1650,
+      "h": 1972,
       "count": 8
     },
     {
@@ -1649,8 +1771,8 @@
       "x": 7890,
       "y": 190,
       "w": 820,
-      "h": 1650,
-      "count": 10
+      "h": 1972,
+      "count": 11
     },
     {
       "id": "Z-PACOTE",
@@ -1665,7 +1787,7 @@
       "x": 9010,
       "y": 190,
       "w": 405,
-      "h": 1650,
+      "h": 1972,
       "count": 3
     },
     {
@@ -1681,7 +1803,7 @@
       "x": 9715,
       "y": 190,
       "w": 820,
-      "h": 1650,
+      "h": 1972,
       "count": 7
     },
     {
@@ -1697,7 +1819,7 @@
       "x": 10835,
       "y": 190,
       "w": 405,
-      "h": 1650,
+      "h": 1972,
       "count": 5
     }
   ],
@@ -1754,6 +1876,10 @@
         "ESPANHA": 8
       },
       "pais": "ESPANHA",
+      "entregue_a_inteligencia": [
+        "data/samples/ADAMA-ES-HANDOFF-GATE-V1.json"
+      ],
+      "parado_na_coleta": [],
       "x": 4715,
       "y": 360
     },
@@ -1807,6 +1933,13 @@
         "EUROPA": 6
       },
       "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [
+        "data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json"
+      ],
+      "parado_na_coleta": [
+        "research/adama-italy-product-intelligence-deep/EU-SOURCE-540-2011.json",
+        "research/adama-italy-product-intelligence-deep/MOA-SOURCE-FRAC.json"
+      ],
       "x": 1065,
       "y": 360
     },
@@ -1851,6 +1984,8 @@
       "outbound": [],
       "paises": {},
       "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
       "x": 1770,
       "y": 360
     },
@@ -4139,6 +4274,8 @@
       "file_count": 3,
       "paises": {},
       "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
       "x": 1065,
       "y": 682
     },
@@ -4325,6 +4462,7 @@
         "italia-portale/audit/action-map-consistency.mjs",
         "italia-portale/audit/browser-deep.mjs",
         "italia-portale/audit/browser.mjs",
+        "italia-portale/audit/build-v21.mjs",
         "italia-portale/audit/cadeia-de-familias.mjs",
         "italia-portale/audit/checks.mjs",
         "italia-portale/audit/click-audit.mjs",
@@ -4336,6 +4474,7 @@
         "italia-portale/audit/cta-navigation.mjs",
         "italia-portale/audit/deploy-surface.mjs",
         "italia-portale/audit/do-not-show.mjs",
+        "italia-portale/audit/exposure.mjs",
         "italia-portale/audit/external-only.mjs",
         "italia-portale/audit/future-ruler.mjs",
         "italia-portale/audit/internal-token.mjs",
@@ -4344,6 +4483,8 @@
         "italia-portale/audit/link-asset.mjs",
         "italia-portale/audit/lote-completo.mjs",
         "italia-portale/audit/market-price-claim.mjs",
+        "italia-portale/audit/markup-flat.mjs",
+        "italia-portale/audit/markup-holes.mjs",
         "italia-portale/audit/meeting-browser.mjs",
         "italia-portale/audit/meeting-gate.mjs",
         "italia-portale/audit/meeting-public.mjs",
@@ -4356,6 +4497,7 @@
         "italia-portale/audit/pdf-gate.mjs",
         "italia-portale/audit/portfolio-claims.mjs",
         "italia-portale/audit/probe-relationships.mjs",
+        "italia-portale/audit/probe-v21.mjs",
         "italia-portale/audit/product-identity.mjs",
         "italia-portale/audit/production.mjs",
         "italia-portale/audit/prova-da-build.mjs",
@@ -4374,7 +4516,7 @@
         "italia-portale/audit/upstream-ingestion.mjs",
         "italia-portale/audit/v21-gate.mjs"
       ],
-      "file_count": 52,
+      "file_count": 57,
       "status": "PROVEN",
       "status_reason": "esta no caminho: alguem o chama antes de publicar.",
       "changed_since_declared": [],
@@ -4399,7 +4541,7 @@
         "C-PORTAO-BUILD"
       ],
       "paises": {
-        "ITALIA": 11
+        "ITALIA": 10
       },
       "pais": "ITALIA",
       "x": 9775,
@@ -4608,6 +4750,8 @@
         "ESPANHA": 3
       },
       "pais": "ESPANHA",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
       "x": 360,
       "y": 360
     },
@@ -4691,6 +4835,8 @@
       ],
       "paises": {},
       "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
       "x": 4715,
       "y": 682
     },
@@ -4776,6 +4922,10 @@
       ],
       "paises": {},
       "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [
+        "data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json"
+      ],
+      "parado_na_coleta": [],
       "x": 3595,
       "y": 360
     },
@@ -4822,6 +4972,8 @@
         "ESPANHA": 2
       },
       "pais": "ESPANHA",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
       "x": 2475,
       "y": 360
     },
@@ -4870,6 +5022,8 @@
       ],
       "paises": {},
       "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
       "x": 2890,
       "y": 360
     },
@@ -4915,6 +5069,8 @@
       ],
       "paises": {},
       "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
       "x": 2475,
       "y": 682
     },
@@ -4957,6 +5113,8 @@
       ],
       "paises": {},
       "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
       "x": 2890,
       "y": 682
     },
@@ -4995,6 +5153,8 @@
       "outbound": [],
       "paises": {},
       "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
       "x": 4010,
       "y": 360
     },
@@ -5047,6 +5207,15 @@
         "ITALIA": 2
       },
       "pais": "ITALIA",
+      "entregue_a_inteligencia": [
+        "data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json",
+        "data/samples/RESEARCHER-CORPUS-EAME-V1.json"
+      ],
+      "parado_na_coleta": [
+        "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
+        "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
+        "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+      ],
       "x": 2475,
       "y": 1004
     },
@@ -5213,6 +5382,10 @@
         "ITALIA": 2
       },
       "pais": "ESPANHA",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [
+        "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json"
+      ],
       "x": 2890,
       "y": 1004
     },
@@ -5265,6 +5438,10 @@
       ],
       "paises": {},
       "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [
+        "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json"
+      ],
       "x": 3595,
       "y": 682
     },
@@ -5308,8 +5485,256 @@
         "ITALIA": 4
       },
       "pais": "ESPANHA",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
       "x": 4715,
       "y": 1004
+    },
+    {
+      "id": "C-IT-CATALOGO",
+      "name": "O levantamento das fontes italianas",
+      "territory": "Z-FONTES",
+      "kind": "engine",
+      "what": "Monta e mantem o catalogo das 54 fontes italianas: dono, territorio, rota, cultura, cadencia — e o que cada uma NAO prova.",
+      "why_here": "Tem campos que o atlas nao tem, e o melhor deles e `WHAT_IT_DOES_NOT_PROVE` — a pergunta que quase nenhum catalogo faz. Mas nasceu AO LADO do atlas, e nao dentro dele: duas listas a responder «que fontes temos» sao duas verdades, e a segunda envelhece calada. O mapa reconcilia as duas, fonte a fonte.",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◫",
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "data/samples/ITALY-SOURCE-MASTER-V1.json",
+        "docs/fontes/ITALY-SOURCE-MASTER-V1.md",
+        "fontes/italy_fill_manifests.mjs",
+        "fontes/italy_fill_manifests_browser.mjs",
+        "fontes/italy_fix_semantics.mjs",
+        "fontes/italy_profiles.mjs",
+        "fontes/italy_update_master_browser.mjs",
+        "fontes/italy_write_matrix.mjs"
+      ],
+      "file_count": 8,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-IT-CONTRATOS"
+      ],
+      "outbound": [
+        "C-IT-COLETA",
+        "C-IT-CONTAS",
+        "C-IT-CONTRATOS",
+        "C-MAPA-GERADOR",
+        "C-MAPA-SCAN"
+      ],
+      "paises": {
+        "ITALIA": 20
+      },
+      "pais": "ITALIA",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "x": 1065,
+      "y": 1004
+    },
+    {
+      "id": "C-IT-COLETA",
+      "name": "Colher as fontes italianas",
+      "territory": "Z-VEICULOS",
+      "kind": "engine",
+      "what": "Mede a porta de cada fonte, acha o documento do dia, colhe e volta amanha reconhecendo o que ja viu.",
+      "why_here": "Bate a porta antes de entrar: medir custa zero e evita gastar maquina onde nao ha ninguem. E `ACCESS_OK` no curl e sinal FORTE, mas `BLOCKED` e sinal FRACO — muitos sites recusam curl e aceitam navegador. Confundir os dois faz um endereco nosso errado virar «o pais bloqueia».",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⇩",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "coleta/italy_find_docs.mjs",
+        "coleta/italy_pilot_collect.mjs",
+        "coleta/italy_probe.mjs",
+        "coleta/italy_recurrent_collect.mjs"
+      ],
+      "file_count": 4,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-IT-CATALOGO",
+        "C-IT-CONTRATOS"
+      ],
+      "outbound": [
+        "C-IT-CONTAS",
+        "C-IT-CONTRATOS"
+      ],
+      "paises": {
+        "ITALIA": 17
+      },
+      "pais": "ITALIA",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "x": 2475,
+      "y": 1326
+    },
+    {
+      "id": "C-IT-CONTAS",
+      "name": "A conta da coleta italiana",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "what": "Conta o que foi medido e tenta quebrar o que foi guardado, com casos negativos de proposito.",
+      "why_here": "Numero digitado a mao mente: o placar errou duas vezes e a contagem de organizacoes tres. A contabilidade passou a ser CALCULADA, nunca digitada. E `ACCESS_CLASSIFICATION` nao e `ANALYTIC_VERDICT` — estado de porta nao e veredito sobre a fonte.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "green",
+      "icon": "∑",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "docs/operacao/ITALY-RECURRENT-PILOT-V1.md",
+        "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md",
+        "provas/italy_accounting.mjs",
+        "provas/italy_pilot_negativos.mjs"
+      ],
+      "file_count": 4,
+      "status": "PROVEN",
+      "status_reason": "o teste aponta para codigo real do repositorio.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-IT-CATALOGO",
+        "C-IT-COLETA",
+        "C-IT-CONTRATOS",
+        "C-IT-PRESERVAR"
+      ],
+      "outbound": [
+        "C-IT-CONTRATOS"
+      ],
+      "paises": {
+        "ITALIA": 9
+      },
+      "pais": "ITALIA",
+      "x": 7950,
+      "y": 682
+    },
+    {
+      "id": "C-IT-CONTRATOS",
+      "name": "O contrato de cada fonte italiana",
+      "territory": "Z-REGRAS",
+      "kind": "contract",
+      "what": "13 contratos executaveis: quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo — e COMO ELE FALHA.",
+      "why_here": "Os testes precisaram de ver vermelho: oito documentos foram corrompidos de proposito, na memoria e nunca no disco, e os oito reprovaram. Um PDF que virou «Access denied» com HTTP 200 reprovou — porque 200 nao e prova de nada. Teste que nunca viu vermelho nao e teste.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "§",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
+        "regras/italy_contract_test.mjs",
+        "regras/italy_contracts.mjs",
+        "regras/italy_pilot_guards.mjs",
+        "regras/italy_scheduling_guards.mjs",
+        "regras/italy_source_health.mjs"
+      ],
+      "file_count": 6,
+      "status": "PENDING",
+      "status_reason": "e uma lei sem prova executavel apontando para ela.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-IT-CATALOGO",
+        "C-IT-COLETA",
+        "C-IT-CONTAS",
+        "C-LEITORES"
+      ],
+      "outbound": [
+        "C-IT-CATALOGO",
+        "C-IT-COLETA",
+        "C-IT-CONTAS",
+        "C-IT-PRESERVAR"
+      ],
+      "paises": {
+        "ITALIA": 39
+      },
+      "pais": "ITALIA",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "x": 4010,
+      "y": 682
+    },
+    {
+      "id": "C-IT-PRESERVAR",
+      "name": "Guardar com impressao digital",
+      "territory": "Z-GUARDA",
+      "kind": "engine",
+      "what": "Guarda o documento e o SHA256 dele: se um byte mudar, o numero muda.",
+      "why_here": "Testemunho nao e prova — ver na tela nao vale. E o Git ia trocar as quebras de linha dos ficheiros guardados, o que mudaria os bytes e quebraria TODOS os hashes: a prova viraria mentira sem ninguem reparar. Foi travado antes de gravar.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⛃",
+      "views": [
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "data/collection-ledger/italy/observations.ndjson",
+        "data/collection-ledger/italy/runs.ndjson",
+        "guarda/italy_preserve.mjs"
+      ],
+      "file_count": 3,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-IT-CONTRATOS"
+      ],
+      "outbound": [
+        "C-IT-CONTAS",
+        "C-MAPA-SCAN",
+        "C-PADRAO-COLETA"
+      ],
+      "paises": {
+        "ITALIA": 3
+      },
+      "pais": "ITALIA",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "x": 4715,
+      "y": 1326
     },
     {
       "id": "C-LASTMILE",
@@ -5369,6 +5794,49 @@
       "y": 682
     },
     {
+      "id": "C-LEITORES",
+      "name": "Abrir PDF, ODS e HTML",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "library",
+      "what": "Tira o texto de dentro de um PDF, de uma planilha ODS ou de uma pagina.",
+      "why_here": "O `pdftotext` ja estava na maquina o tempo todo, e a seccao fitossanitaria que faltava apareceu inteira sem OCR nenhum. Procurar ferramenta antes de escrever uma custa uma tarde e poupa um mes.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▤",
+      "views": [
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "ferramentas/html_text.mjs",
+        "ferramentas/italy-forward-only-live.cmd",
+        "ferramentas/italy_extract_fields.mjs",
+        "ferramentas/ods_peek.mjs",
+        "ferramentas/pdf_peek.mjs"
+      ],
+      "file_count": 5,
+      "status": "PENDING",
+      "status_reason": "biblioteca que ninguem importa nem carrega.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-IT-CONTRATOS"
+      ],
+      "paises": {
+        "ITALIA": 5
+      },
+      "pais": "ITALIA",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "x": 1770,
+      "y": 682
+    },
+    {
       "id": "C-LUGAR-COLETA",
       "name": "O lugar do fato — carimbado na coleta",
       "territory": "Z-REGRAS",
@@ -5403,8 +5871,10 @@
       "outbound": [],
       "paises": {},
       "pais": "TRANSVERSAL",
-      "x": 4010,
-      "y": 682
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "x": 3595,
+      "y": 1004
     },
     {
       "id": "C-LUGAR-DO-FATO",
@@ -5483,7 +5953,7 @@
       ],
       "paises": {},
       "pais": "TRANSVERSAL",
-      "x": 7950,
+      "x": 8365,
       "y": 682
     },
     {
@@ -5497,7 +5967,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "⚙",
       "views": [
         "audit",
@@ -5510,15 +5980,14 @@
         "system-map/scripts/mudar_gaveta.py"
       ],
       "file_count": 2,
-      "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        "system-map/scripts/generate_system_map.py"
-      ],
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
         "C-CI-MAPA",
+        "C-IT-CATALOGO",
         "C-MAPA-APP",
         "C-MAPA-SCAN",
         "lineage_stale"
@@ -5526,10 +5995,12 @@
       "outbound": [
         "C-MAPA-VALIDADOR"
       ],
-      "paises": {},
-      "pais": "TRANSVERSAL",
-      "x": 8365,
-      "y": 682
+      "paises": {
+        "ITALIA": 1
+      },
+      "pais": "ITALIA",
+      "x": 7950,
+      "y": 1004
     },
     {
       "id": "C-MAPA-SCAN",
@@ -5562,7 +6033,10 @@
       "inbound": [
         "C-AS-FONTES",
         "C-CI-MAPA",
+        "C-IT-CATALOGO",
+        "C-IT-PRESERVAR",
         "C-PORTA-FONTE",
+        "C-PORTAL-MODELO",
         "C-PROCEDENCIA"
       ],
       "outbound": [
@@ -5571,9 +6045,11 @@
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR"
       ],
-      "paises": {},
-      "pais": "TRANSVERSAL",
-      "x": 7950,
+      "paises": {
+        "ITALIA": 1
+      },
+      "pais": "ITALIA",
+      "x": 8365,
       "y": 1004
     },
     {
@@ -5613,8 +6089,8 @@
       "outbound": [],
       "paises": {},
       "pais": "TRANSVERSAL",
-      "x": 8365,
-      "y": 1004
+      "x": 7950,
+      "y": 1326
     },
     {
       "id": "C-MAPA-VALIDADOR",
@@ -5654,7 +6130,7 @@
       ],
       "paises": {},
       "pais": "TRANSVERSAL",
-      "x": 7950,
+      "x": 8365,
       "y": 1326
     },
     {
@@ -5704,8 +6180,8 @@
         "ESPANHA": 1
       },
       "pais": "ESPANHA",
-      "x": 8365,
-      "y": 1326
+      "x": 7950,
+      "y": 1648
     },
     {
       "id": "C-NAVEGADOR",
@@ -5744,8 +6220,10 @@
       "outbound": [],
       "paises": {},
       "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
       "x": 1770,
-      "y": 682
+      "y": 1004
     },
     {
       "id": "C-PACOTE-CAMADAS",
@@ -5844,12 +6322,15 @@
       "inbound": [
         "C-AS-FONTES",
         "C-CI-MAPA",
+        "C-IT-PRESERVAR",
         "C-PROCEDENCIA"
       ],
       "outbound": [],
       "paises": {},
       "pais": "TRANSVERSAL",
-      "x": 3595,
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "x": 4010,
       "y": 1004
     },
     {
@@ -5901,8 +6382,12 @@
         "ITALIA": 3
       },
       "pais": "ITALIA",
-      "x": 4010,
-      "y": 1004
+      "entregue_a_inteligencia": [
+        "data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json"
+      ],
+      "parado_na_coleta": [],
+      "x": 3595,
+      "y": 1326
     },
     {
       "id": "C-PORTA-FONTE",
@@ -5939,8 +6424,10 @@
       ],
       "paises": {},
       "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
       "x": 1065,
-      "y": 1004
+      "y": 1326
     },
     {
       "id": "C-PORTAL-CASCO",
@@ -6082,28 +6569,33 @@
         "italia-portale/client/italy-app-model.js",
         "italia-portale/client/italy-casa.js",
         "italia-portale/client/italy-i18n.js",
+        "italia-portale/client/italy-v21.js",
         "italia-portale/client/support.js"
       ],
-      "file_count": 4,
+      "file_count": 5,
       "status": "PROVEN",
       "status_reason": "a superficie carrega dado ou codigo do repositorio.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-LASTMILE",
-        "C-PORTAL-DADOS"
+        "C-PORTAL-DADOS",
+        "C-V21-FONTES"
       ],
       "outbound": [
         "C-AUDIT-GERAL",
         "C-AUDIT-HARNESS",
         "C-AUDIT-MARCA",
+        "C-MAPA-SCAN",
         "C-PORTAL-CASCO",
         "C-PORTAL-DADOS",
         "C-PORTAO-BUILD",
         "C-V21-COMERCIAL"
       ],
-      "paises": {},
-      "pais": "TRANSVERSAL",
+      "paises": {
+        "ITALIA": 27
+      },
+      "pais": "ITALIA",
       "x": 10895,
       "y": 1648
     },
@@ -6203,7 +6695,12 @@
       ],
       "paises": {},
       "pais": "TRANSVERSAL",
-      "x": 3595,
+      "entregue_a_inteligencia": [
+        "data/samples/POLITICA-RAW-ROTA-PAGA.json",
+        "data/samples/RUN-MANIFEST.json"
+      ],
+      "parado_na_coleta": [],
+      "x": 4010,
       "y": 1326
     },
     {
@@ -6287,7 +6784,7 @@
       ],
       "paises": {},
       "pais": "TRANSVERSAL",
-      "x": 7950,
+      "x": 8365,
       "y": 1648
     },
     {
@@ -6344,8 +6841,12 @@
         "ESPANHA": 3
       },
       "pais": "ESPANHA",
-      "x": 4010,
-      "y": 1326
+      "entregue_a_inteligencia": [
+        "data/samples/PORTOES-EAME.json"
+      ],
+      "parado_na_coleta": [],
+      "x": 3595,
+      "y": 1648
     },
     {
       "id": "C-RELEVANCIA",
@@ -6455,7 +6956,15 @@
         "ESPANHA": 3
       },
       "pais": "ITALIA",
-      "x": 2475,
+      "entregue_a_inteligencia": [
+        "data/raw/IT-ROTULOS/_MANIFESTO.json",
+        "data/samples/IT-CRUZAMENTO/IT-CONVERSA-X-ROTULO.json",
+        "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json"
+      ],
+      "parado_na_coleta": [
+        "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json"
+      ],
+      "x": 2890,
       "y": 1326
     },
     {
@@ -6493,7 +7002,9 @@
       "outbound": [],
       "paises": {},
       "pais": "TRANSVERSAL",
-      "x": 3595,
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "x": 4010,
       "y": 1648
     },
     {
@@ -6536,8 +7047,10 @@
       ],
       "paises": {},
       "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
       "x": 1770,
-      "y": 1004
+      "y": 1326
     },
     {
       "id": "C-SITE-INGEST",
@@ -6678,8 +7191,10 @@
         "ITALIA": 2
       },
       "pais": "ESPANHA",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
       "x": 4715,
-      "y": 1326
+      "y": 1648
     },
     {
       "id": "C-TESTES",
@@ -6788,8 +7303,8 @@
         "EUROPA": 2
       },
       "pais": "ESPANHA",
-      "x": 8365,
-      "y": 1648
+      "x": 7950,
+      "y": 1970
     },
     {
       "id": "C-TRANSCRICAO",
@@ -6828,8 +7343,10 @@
       ],
       "paises": {},
       "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
       "x": 1770,
-      "y": 1326
+      "y": 1648
     },
     {
       "id": "C-V2-LEGADO",
@@ -6878,7 +7395,7 @@
         "C-V21-OPORTUNIDADE"
       ],
       "paises": {
-        "ITALIA": 60
+        "ITALIA": 59
       },
       "pais": "ITALIA",
       "x": 7245,
@@ -7084,6 +7601,7 @@
       ],
       "outbound": [
         "C-AUDIT-GERAL",
+        "C-PORTAL-MODELO",
         "C-PROVENIENCIA",
         "C-SITE-INGEST",
         "C-V2-LEGADO",
@@ -7216,7 +7734,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD df09a9892790d8853904b1662c9faacf2bf2188b"
+        "HEAD 8843415b194cad2cb76f9ec4d8f7db1ce546d90c"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -7651,7 +8169,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 690,
+          "line": 728,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ]
@@ -7677,7 +8195,7 @@
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 244,
+          "line": 320,
           "snippet": "CONTAS = \"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\""
         }
       ]
@@ -7914,7 +8432,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Demais auditorias do portal importa Harness de auditoria. Provado por 62 linhas de codigo.",
+      "reason": "Demais auditorias do portal importa Harness de auditoria. Provado por 66 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/acceptance.mjs",
@@ -7957,6 +8475,11 @@
           "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
         },
         {
+          "file": "italia-portale/audit/build-v21.mjs",
+          "line": 34,
+          "snippet": "import { CLIENT } from './lib/harness.mjs';"
+        },
+        {
           "file": "italia-portale/audit/cadeia-de-familias.mjs",
           "line": 52,
           "snippet": "import { loadData } from './lib/harness.mjs';"
@@ -7970,11 +8493,6 @@
           "file": "italia-portale/audit/checks.mjs",
           "line": 12,
           "snippet": "import { mount, loadData, CLIENT, readPortal, extractLogic, extractMarkup, nullRate } from './lib/harness.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/checks.mjs",
-          "line": 14,
-          "snippet": "import { scanAll, grepPackage, walkPackage } from './lib/scan.mjs';"
         }
       ]
     },
@@ -8124,7 +8642,7 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Harness de auditoria alimenta Demais auditorias do portal. Provado por 62 linhas de codigo.",
+      "reason": "Harness de auditoria alimenta Demais auditorias do portal. Provado por 66 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/acceptance.mjs",
@@ -8167,6 +8685,11 @@
           "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
         },
         {
+          "file": "italia-portale/audit/build-v21.mjs",
+          "line": 34,
+          "snippet": "import { CLIENT } from './lib/harness.mjs';"
+        },
+        {
           "file": "italia-portale/audit/cadeia-de-familias.mjs",
           "line": 52,
           "snippet": "import { loadData } from './lib/harness.mjs';"
@@ -8180,11 +8703,6 @@
           "file": "italia-portale/audit/checks.mjs",
           "line": 12,
           "snippet": "import { mount, loadData, CLIENT, readPortal, extractLogic, extractMarkup, nullRate } from './lib/harness.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/checks.mjs",
-          "line": 14,
-          "snippet": "import { scanAll, grepPackage, walkPackage } from './lib/scan.mjs';"
         }
       ]
     },
@@ -9366,6 +9884,334 @@
       ]
     },
     {
+      "from": "C-IT-CATALOGO",
+      "to": "C-IT-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O levantamento das fontes italianas alimenta Colher as fontes italianas. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/italy_probe.mjs",
+          "line": 23,
+          "snippet": "const master = JSON.parse(readFileSync(\"data/samples/ITALY-SOURCE-MASTER-V1.json\", \"utf8\"));"
+        },
+        {
+          "file": "coleta/italy_recurrent_collect.mjs",
+          "line": 27,
+          "snippet": "import { PROFILES, PERFIL_PADRAO } from \"./italy_profiles.mjs\";"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CATALOGO",
+      "to": "C-IT-CONTAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O levantamento das fontes italianas alimenta A conta da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/italy_accounting.mjs",
+          "line": 60,
+          "snippet": "ROTAS_NO_CATALOGO: JSON.parse(readFileSync(\"data/samples/ITALY-SOURCE-MASTER-V1.json\", \"utf8\")).sources.length,"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CATALOGO",
+      "to": "C-IT-CONTRATOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O levantamento das fontes italianas alimenta O contrato de cada fonte italiana. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "regras/italy_contract_test.mjs",
+          "line": 14,
+          "snippet": "const master = JSON.parse(readFileSync(\"data/samples/ITALY-SOURCE-MASTER-V1.json\", \"utf8\"));"
+        },
+        {
+          "file": "regras/italy_scheduling_guards.mjs",
+          "line": 4,
+          "snippet": "import { PROFILES } from \"./italy_profiles.mjs\";"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CATALOGO",
+      "to": "C-IT-CONTRATOS",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O levantamento das fontes italianas escreve em O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "fontes/italy_write_matrix.mjs",
+          "line": 73,
+          "snippet": "writeFileSync(\"docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md\", L.join(\"\\n\") + \"\\n\");"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CATALOGO",
+      "to": "C-MAPA-GERADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O levantamento das fontes italianas alimenta Gerador do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 750,
+          "snippet": "\"data/samples/ITALY-SOURCE-MASTER-V1.json\"],"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CATALOGO",
+      "to": "C-MAPA-SCAN",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O levantamento das fontes italianas alimenta Scanner do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/scan_sources.py",
+          "line": 194,
+          "snippet": "MASTER_IT = \"data/samples/ITALY-SOURCE-MASTER-V1.json\""
+        }
+      ]
+    },
+    {
+      "from": "C-IT-COLETA",
+      "to": "C-IT-CONTAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas alimenta A conta da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/italy_pilot_negativos.mjs",
+          "line": 7,
+          "snippet": "import { normalizarSias, estadoDeCadencia, lerLedger } from \"./italy_pilot_collect.mjs\";"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-COLETA",
+      "to": "C-IT-CONTRATOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas alimenta O contrato de cada fonte italiana. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "regras/italy_pilot_guards.mjs",
+          "line": 5,
+          "snippet": "import { PILOT_SOURCES, lerLedger, estadoDeCadencia } from \"./italy_pilot_collect.mjs\";"
+        },
+        {
+          "file": "regras/italy_scheduling_guards.mjs",
+          "line": 12,
+          "snippet": "const runner = readFileSync(\"coleta/italy_recurrent_collect.mjs\", \"utf8\");"
+        },
+        {
+          "file": "regras/italy_scheduling_guards.mjs",
+          "line": 26,
+          "snippet": "runner.indexOf(\"checarEgress()\") < runner.indexOf(\"italy_pilot_collect.mjs\"));"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CONTAS",
+      "to": "C-IT-CONTRATOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A conta da coleta italiana alimenta O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/italy_contract_test.mjs",
+          "line": 157,
+          "snippet": "const { contabilidade, ACCESS_ONLY, BASE_CLASSIFIED_SET } = await import(\"./italy_accounting.mjs\");"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-IT-CATALOGO",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana alimenta O levantamento das fontes italianas. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "fontes/italy_write_matrix.mjs",
+          "line": 2,
+          "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+        },
+        {
+          "file": "fontes/italy_write_matrix.mjs",
+          "line": 3,
+          "snippet": "import { medir } from \"./italy_source_health.mjs\";"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-IT-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana alimenta Colher as fontes italianas. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 27,
+          "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+        },
+        {
+          "file": "coleta/italy_recurrent_collect.mjs",
+          "line": 28,
+          "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-IT-COLETA",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana escreve em Colher as fontes italianas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/italy_pilot_guards.mjs",
+          "line": 99,
+          "snippet": "const arquivos = [\"coleta/italy_pilot_collect.mjs\", \"provas/italy_pilot_negativos.mjs\"].map(f => readFileSync(f, \"utf8\")).join(\"\");"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-IT-CONTAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana alimenta A conta da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/italy_pilot_negativos.mjs",
+          "line": 8,
+          "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-IT-CONTAS",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana escreve em A conta da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/italy_pilot_guards.mjs",
+          "line": 99,
+          "snippet": "const arquivos = [\"coleta/italy_pilot_collect.mjs\", \"provas/italy_pilot_negativos.mjs\"].map(f => readFileSync(f, \"utf8\")).join(\"\");"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-IT-PRESERVAR",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana escreve em Guardar com impressao digital. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/italy_pilot_guards.mjs",
+          "line": 9,
+          "snippet": "const runs = readFileSync(\"data/collection-ledger/italy/runs.ndjson\", \"utf8\").trim().split(\"\\n\").map(l => JSON.parse(l));"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-IT-CONTAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta A conta da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/italy_pilot_negativos.mjs",
+          "line": 30,
+          "snippet": "const runs = readFileSync(\"data/collection-ledger/italy/runs.ndjson\", \"utf8\").trim().split(\"\\n\").map(JSON.parse);"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-MAPA-SCAN",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta Scanner do System Map. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/scan_sources.py",
+          "line": 519,
+          "snippet": "LEDGER_IT = \"data/collection-ledger/italy/observations.ndjson\""
+        },
+        {
+          "file": "system-map/scripts/scan_sources.py",
+          "line": 520,
+          "snippet": "RUNS_IT = \"data/collection-ledger/italy/runs.ndjson\""
+        }
+      ]
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-PADRAO-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta O padrao do departamento de coleta. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "regras/padrao_da_coleta.py",
+          "line": 65,
+          "snippet": "LEDGER = os.path.join(ROOT, 'data', 'collection-ledger', 'italy', 'observations.ndjson')"
+        },
+        {
+          "file": "regras/padrao_da_coleta.py",
+          "line": 66,
+          "snippet": "LEDGER_RUNS = os.path.join(ROOT, 'data', 'collection-ledger', 'italy', 'runs.ndjson')"
+        }
+      ]
+    },
+    {
       "from": "C-LASTMILE",
       "to": "C-AUDIT-GERAL",
       "type": "READS",
@@ -9509,6 +10355,22 @@
       ]
     },
     {
+      "from": "C-LEITORES",
+      "to": "C-IT-CONTRATOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Abrir PDF, ODS e HTML alimenta O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/italy_source_health.mjs",
+          "line": 38,
+          "snippet": "if (tipo === \"ZIP\") { try { return execFileSync(\"node\", [\"ferramentas/ods_peek.mjs\", caminho, \"4000\"], { encoding: \"utf8\" }); } catch { return \"\"; } }"
+        }
+      ]
+    },
+    {
       "from": "C-LUGAR-DO-FATO",
       "to": "C-V21-INGEST",
       "type": "IMPORTS",
@@ -9535,17 +10397,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 786,
+          "line": 856,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 786,
+          "line": 856,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 787,
+          "line": 857,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ]
@@ -9635,12 +10497,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1076,
+          "line": 1148,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1076,
+          "line": 1148,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ]
@@ -9846,12 +10708,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 293,
+          "line": 369,
           "snippet": "FILA = \"data/samples/FONTES-CANDIDATAS.json\""
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 322,
+          "line": 398,
           "snippet": "\"porta\": \"fontes/fonte_nova.py\","
         }
       ]
@@ -10153,8 +11015,13 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal alimenta Demais auditorias do portal. Provado por 1 linha de codigo.",
+      "reason": "Modelo de aplicacao do portal alimenta Demais auditorias do portal. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "italia-portale/audit/build-v21.mjs",
+          "line": 38,
+          "snippet": "const OUT = path.join(CLIENT, 'italy-v21.js');"
+        },
         {
           "file": "italia-portale/audit/negative-control.mjs",
           "line": 159,
@@ -10191,6 +11058,22 @@
           "file": "italia-portale/audit/adama-relevance-gate.mjs",
           "line": 40,
           "snippet": "'meeting-labels.js', 'adama-relevance.js', 'italy-casa.js',"
+        }
+      ]
+    },
+    {
+      "from": "C-PORTAL-MODELO",
+      "to": "C-MAPA-SCAN",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Modelo de aplicacao do portal alimenta Scanner do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/scan_repo.py",
+          "line": 304,
+          "snippet": "\"\"\"`<script src=\"italy-v21.js\">` e um caminho relativo a propria pasta."
         }
       ]
     },
@@ -10404,7 +11287,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 353,
+          "line": 429,
           "snippet": "MANIFESTO = \"data/samples/RUN-MANIFEST.json\""
         }
       ]
@@ -12015,6 +12898,27 @@
     },
     {
       "from": "C-V21-FONTES",
+      "to": "C-PORTAL-MODELO",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Religacao de fontes do pacote alimenta Modelo de aplicacao do portal. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/client/italy-v21.js",
+          "line": 5,
+          "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+        },
+        {
+          "file": "italia-portale/client/italy-v21.js",
+          "line": 5,
+          "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+        }
+      ]
+    },
+    {
+      "from": "C-V21-FONTES",
       "to": "C-PROVENIENCIA",
       "type": "READS",
       "payload": "artefacto",
@@ -12386,20 +13290,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 585,
+  "UNCLAIMED_FILES_COUNT": 647,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 69,
-    "components_proven": 53,
-    "components_pending": 16,
+    "components": 75,
+    "components_proven": 55,
+    "components_pending": 20,
     "components_broken": 0,
     "components_unknown": 0,
-    "edges": 240,
-    "edges_proven": 240,
+    "edges": 261,
+    "edges_proven": 261,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1031,
-    "files_covered": 446,
+    "files_tracked": 1129,
+    "files_covered": 482,
     "files_code_unclaimed": 0
   }
 }
