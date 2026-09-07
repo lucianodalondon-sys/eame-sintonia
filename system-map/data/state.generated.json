@@ -1583,8 +1583,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "eacced2f1e8538bda58392b349fa0da443710633",
-    "GENERATED_AT": "2026-09-07T17:09:09-03:00"
+    "HEAD": "d188d3248abb40241b4bd52607f866c6542c5668",
+    "GENERATED_AT": "2026-09-07T17:13:05-03:00"
   },
   "FAMILIES": [
     {
@@ -2121,11 +2121,11 @@
       "status_reason": "esta no caminho: alguem o chama antes de publicar.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [
+      "inbound": [],
+      "outbound": [
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA"
       ],
-      "outbound": [],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -2169,14 +2169,14 @@
       "produces": [],
       "inbound": [
         "C-CI-COLETA",
+        "C-SINTONIA-SCRAP"
+      ],
+      "outbound": [
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
         "C-PALAVRAS",
-        "C-SINTONIA-SCRAP",
-        "C-TESTES"
-      ],
-      "outbound": [
+        "C-TESTES",
         "V-FACEBOOK",
         "V-INSTAGRAM",
         "V-LINKEDIN",
@@ -2216,7 +2216,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "◫",
       "views": [
         "generator",
@@ -2229,8 +2229,8 @@
         "italia-portale/client/italy-ingested.js"
       ],
       "file_count": 2,
-      "status": "PENDING",
-      "status_reason": "artefacto que ninguem le — pode ser sobra.",
+      "status": "PROVEN",
+      "status_reason": "algum portao ou pagina le este artefacto.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
@@ -4677,12 +4677,10 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-AUDIT-GERAL",
         "C-AUDIT-HARNESS"
       ],
       "outbound": [
-        "C-AUDIT-GERAL",
-        "C-AUDIT-HARNESS"
+        "C-AUDIT-GERAL"
       ],
       "paises": {},
       "paises_dado": {},
@@ -4749,9 +4747,7 @@
         "C-AUDIT-HARNESS",
         "C-TELA-FIELD"
       ],
-      "outbound": [
-        "C-AUDIT-HARNESS"
-      ],
+      "outbound": [],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -4860,8 +4856,6 @@
         "C-V21-FONTES"
       ],
       "outbound": [
-        "C-AUDIT-BLOCOS",
-        "C-AUDIT-HARNESS",
         "C-PORTAO-BUILD"
       ],
       "paises": {},
@@ -4918,13 +4912,8 @@
       "produces": [],
       "inbound": [
         "C-ARTEFACTO-V21",
-        "C-AUDIT-BLOCOS",
-        "C-AUDIT-CASCO",
-        "C-AUDIT-GERAL",
-        "C-AUDIT-MARCA",
         "C-PORTAL-DADOS",
         "C-PORTAL-MODELO",
-        "C-PORTAO-BUILD",
         "lineage_stale"
       ],
       "outbound": [
@@ -4983,9 +4972,7 @@
         "C-PORTAL-MODELO",
         "C-RELEVANCIA"
       ],
-      "outbound": [
-        "C-AUDIT-HARNESS"
-      ],
+      "outbound": [],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -5330,7 +5317,6 @@
       ],
       "inbound": [
         "C-PROCEDENCIA",
-        "C-REGRA-COLETA",
         "C-TESTES"
       ],
       "outbound": [
@@ -5399,17 +5385,15 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-APIFY-POOL",
+        "C-PROCEDENCIA",
+        "V-LINKEDIN"
+      ],
+      "outbound": [
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
         "C-PALAVRAS",
-        "C-TESTES",
-        "V-INSTAGRAM",
-        "V-LINKEDIN",
-        "V-YOUTUBE"
-      ],
-      "outbound": [
-        "C-APIFY-POOL",
-        "C-PROCEDENCIA"
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
@@ -5456,20 +5440,19 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-APIFY-POOL",
+        "C-COLETA-BASE",
         "C-IDENTIDADE",
+        "C-MEDICAO",
+        "C-NAVEGADOR",
+        "C-PROCEDENCIA",
         "C-SINTONIA-SCRAP",
-        "C-TRANSCRICAO",
-        "V-FACEBOOK",
         "V-HTTP",
         "V-INSTAGRAM"
       ],
       "outbound": [
-        "C-APIFY-POOL",
-        "C-COLETA-BASE",
-        "C-MEDICAO",
-        "C-NAVEGADOR",
         "C-PORTA-FONTE",
-        "C-PROCEDENCIA"
+        "C-TRANSCRICAO"
       ],
       "paises": {},
       "paises_dado": {},
@@ -5514,19 +5497,19 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-APIFY-POOL",
         "C-AS-FONTES",
         "C-CI-COLETA",
+        "C-COLETA-BASE",
         "C-IDENTIDADE",
-        "C-TESTES",
         "V-FACEBOOK",
         "V-INSTAGRAM",
         "V-LINKEDIN",
         "V-YOUTUBE"
       ],
       "outbound": [
-        "C-APIFY-POOL",
-        "C-COLETA-BASE",
-        "C-RECEITAS"
+        "C-RECEITAS",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -5580,15 +5563,13 @@
       "produces": [],
       "inbound": [
         "C-IDENTIDADE",
+        "C-NAVEGADOR",
+        "C-PALAVRAS",
         "C-SINTONIA-SCRAP",
         "V-HTTP",
-        "V-INSTAGRAM",
         "V-YOUTUBE"
       ],
-      "outbound": [
-        "C-NAVEGADOR",
-        "C-PALAVRAS"
-      ],
+      "outbound": [],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -5626,14 +5607,14 @@
       ],
       "file_count": 1,
       "status": "PROVEN",
-      "status_reason": "existe teste que exercita esta lei.",
+      "status_reason": "o motor importa esta lei para decidir.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [
+      "inbound": [],
+      "outbound": [
         "C-REGRA-COLETA",
         "C-TESTES"
       ],
-      "outbound": [],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -5783,23 +5764,22 @@
       ],
       "file_count": 3,
       "status": "PROVEN",
-      "status_reason": "existe teste que exercita esta lei.",
+      "status_reason": "o motor importa esta lei para decidir.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/DATA-CLOCK-manifest.json"
       ],
       "inbound": [
         "C-PROCEDENCIA",
-        "C-SUPABASE",
-        "C-TESTES",
-        "C-V21-INGEST",
-        "C-V21-OPORTUNIDADE"
+        "C-SUPABASE"
       ],
       "outbound": [
         "C-RECEITAS",
         "C-REGRA-COLETA",
         "C-SAUDE-FONTE",
-        "C-TESTES"
+        "C-TESTES",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE"
       ],
       "paises": {},
       "paises_dado": {
@@ -5843,7 +5823,7 @@
         "MARKETING"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "▤",
       "views": [
         "meeting",
@@ -5874,8 +5854,8 @@
         "italia-portale/client/_ds/adama-brandwell/tokens/typography.css"
       ],
       "file_count": 20,
-      "status": "PENDING",
-      "status_reason": "biblioteca que ninguem importa nem carrega.",
+      "status": "PROVEN",
+      "status_reason": "outras pecas importam ou carregam isto.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
@@ -5933,18 +5913,18 @@
         "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json"
       ],
       "inbound": [
-        "C-RECORRENCIA",
+        "C-ROTULOS",
         "C-SUPABASE",
-        "C-TESTES",
-        "C-V21-INGEST",
         "V-HTTP"
       ],
       "outbound": [
         "C-IMPORTAR",
         "C-RECEITAS",
+        "C-RECORRENCIA",
         "C-REGRA-COLETA",
-        "C-ROTULOS",
-        "C-SUPABASE"
+        "C-SUPABASE",
+        "C-TESTES",
+        "C-V21-INGEST"
       ],
       "paises": {},
       "paises_dado": {
@@ -6023,7 +6003,7 @@
       ],
       "file_count": 4,
       "status": "PROVEN",
-      "status_reason": "existe teste que exercita esta lei.",
+      "status_reason": "o motor importa esta lei para decidir.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json"
@@ -6031,8 +6011,7 @@
       "inbound": [
         "C-AS-FONTES",
         "C-CI-COLETA",
-        "C-MAPA-SCAN",
-        "C-TESTES"
+        "C-MAPA-SCAN"
       ],
       "outbound": [
         "C-CI-COLETA",
@@ -6581,7 +6560,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "▤",
       "views": [
         "infra"
@@ -6596,8 +6575,8 @@
         "ferramentas/pdf_peek.mjs"
       ],
       "file_count": 5,
-      "status": "PENDING",
-      "status_reason": "biblioteca que ninguem importa nem carrega.",
+      "status": "PROVEN",
+      "status_reason": "outras pecas importam ou carregam isto.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
@@ -6648,14 +6627,13 @@
       ],
       "file_count": 2,
       "status": "PROVEN",
-      "status_reason": "existe teste que exercita esta lei.",
+      "status_reason": "o motor importa esta lei para decidir.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [
-        "C-TESTES"
-      ],
+      "inbound": [],
       "outbound": [
-        "C-RECEITAS"
+        "C-RECEITAS",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -6698,11 +6676,10 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CADEIA-V21"
-      ],
-      "outbound": [
+        "C-CADEIA-V21",
         "C-V21-INGEST"
       ],
+      "outbound": [],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -7013,13 +6990,13 @@
       "produces": [],
       "inbound": [
         "C-CI-PERSIST",
-        "C-CI-REGRESSAO",
-        "C-COLETA-INSTAGRAM",
-        "C-RECORRENCIA",
-        "C-TESTES"
+        "C-CI-REGRESSAO"
       ],
       "outbound": [
-        "C-REGRA-COLETA"
+        "C-COLETA-INSTAGRAM",
+        "C-RECORRENCIA",
+        "C-REGRA-COLETA",
+        "C-TESTES"
       ],
       "paises": {
         "ESPANHA": 1
@@ -7063,14 +7040,13 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-COLETA-INSTAGRAM",
-        "C-COLETA-YOUTUBE",
-        "C-SINTONIA-SCRAP",
-        "C-TESTES",
-        "C-TRANSCRICAO"
+        "C-SINTONIA-SCRAP"
       ],
       "outbound": [
-        "V-FACEBOOK",
+        "C-COLETA-INSTAGRAM",
+        "C-COLETA-YOUTUBE",
+        "C-TESTES",
+        "C-TRANSCRICAO",
         "V-INSTAGRAM",
         "V-YOUTUBE"
       ],
@@ -7115,14 +7091,14 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-ADMISSAO",
         "C-CI-COLETA",
+        "C-PEDIDO",
         "C-PROCEDENCIA",
-        "C-PROVA-COLETA"
+        "C-RECEITAS"
       ],
       "outbound": [
-        "C-ADMISSAO",
-        "C-PEDIDO",
-        "C-RECEITAS"
+        "C-PROVA-COLETA"
       ],
       "paises": {},
       "paises_dado": {},
@@ -7187,11 +7163,11 @@
         "C-RELEVANCIA",
         "C-TESTES",
         "C-V21-COMERCIAL",
+        "C-V21-CRUZAMENTO",
         "C-V21-INGEST"
       ],
       "outbound": [
-        "C-V21-CRUZAMENTO",
-        "C-V21-INGEST"
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
@@ -7389,16 +7365,16 @@
         "data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json"
       ],
       "inbound": [
+        "C-APIFY-POOL",
         "C-CI-COLETA",
-        "C-COLETA-YOUTUBE",
+        "C-COLETA-BASE",
         "C-CORPUS",
-        "C-RELEVANCIA",
+        "C-PROCEDENCIA",
         "C-ROTULOS"
       ],
       "outbound": [
-        "C-APIFY-POOL",
-        "C-COLETA-BASE",
-        "C-PROCEDENCIA",
+        "C-COLETA-YOUTUBE",
+        "C-RELEVANCIA",
         "C-V21-CRUZAMENTO"
       ],
       "paises": {},
@@ -7461,12 +7437,12 @@
       "status_reason": "o motor importa esta lei para decidir.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [
+      "inbound": [],
+      "outbound": [
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
         "C-RECEITAS"
       ],
-      "outbound": [],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -7645,7 +7621,6 @@
         "C-PORTAL-CASCO",
         "C-PORTAL-MODELO",
         "C-PORTAO-BUILD",
-        "C-RELEVANCIA",
         "C-TELA-ARCHIVE",
         "C-TELA-COMPETITORS",
         "C-TELA-FIELD",
@@ -7788,8 +7763,7 @@
         "lineage_stale"
       ],
       "outbound": [
-        "C-AUDIT-GERAL",
-        "C-AUDIT-HARNESS"
+        "C-AUDIT-GERAL"
       ],
       "paises": {},
       "paises_dado": {},
@@ -7826,25 +7800,22 @@
       ],
       "file_count": 1,
       "status": "PROVEN",
-      "status_reason": "existe teste que exercita esta lei.",
+      "status_reason": "o motor importa esta lei para decidir.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/POLITICA-RAW-ROTA-PAGA.json",
         "data/samples/RUN-MANIFEST.json"
       ],
-      "inbound": [
-        "C-COLETA-BASE",
-        "C-COLETA-INSTAGRAM",
-        "C-PALAVRAS",
-        "C-REGRA-COLETA",
-        "C-TESTES"
-      ],
+      "inbound": [],
       "outbound": [
         "C-CICATRIZES-BR",
+        "C-COLETA-BASE",
+        "C-COLETA-INSTAGRAM",
         "C-DATA-CLOCK",
         "C-MAPA-SCAN",
         "C-ORQUESTRADOR",
         "C-PADRAO-COLETA",
+        "C-PALAVRAS",
         "C-RECEITAS",
         "C-REGRA-COLETA",
         "C-TESTES"
@@ -7899,7 +7870,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -7911,20 +7882,19 @@
         "provas/testa_coleta_canonica.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
+      "status": "PENDING",
+      "status_reason": "teste que nao toca em nada do repositorio.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-ADAMA-ES",
-        "C-CI-MAPA"
-      ],
-      "outbound": [
         "C-ADMISSAO",
+        "C-CI-MAPA",
         "C-ORQUESTRADOR",
         "C-PEDIDO",
         "C-RECEITAS"
       ],
+      "outbound": [],
       "paises": {},
       "paises_dado": {
         "ESPANHA": 1
@@ -8025,13 +7995,13 @@
         "C-DATA-CLOCK",
         "C-FONTES-EU",
         "C-LUGAR-COLETA",
-        "C-ORQUESTRADOR",
+        "C-PEDIDO",
         "C-PROCEDENCIA",
-        "C-PROVA-COLETA",
         "C-ROTULOS"
       ],
       "outbound": [
-        "C-PEDIDO"
+        "C-ORQUESTRADOR",
+        "C-PROVA-COLETA"
       ],
       "paises": {},
       "paises_dado": {},
@@ -8073,13 +8043,12 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-TESTES"
-      ],
-      "outbound": [
         "C-FONTES-EU",
         "C-MEDICAO",
         "C-ROTULOS",
-        "C-SAUDE-FONTE",
+        "C-SAUDE-FONTE"
+      ],
+      "outbound": [
         "C-TESTES"
       ],
       "paises": {},
@@ -8120,7 +8089,7 @@
       ],
       "file_count": 4,
       "status": "PROVEN",
-      "status_reason": "existe teste que exercita esta lei.",
+      "status_reason": "o motor importa esta lei para decidir.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/PORTOES-EAME.json"
@@ -8129,17 +8098,14 @@
         "C-CADEIA-V21",
         "C-CI-PERSIST",
         "C-CICATRIZES-BR",
+        "C-CONTRATO-CAMPOS",
         "C-DATA-CLOCK",
         "C-FONTES-EU",
         "C-MEDICAO",
         "C-PROCEDENCIA",
-        "C-SUPABASE",
-        "C-TESTES"
+        "C-SUPABASE"
       ],
       "outbound": [
-        "C-CICATRIZES-BR",
-        "C-CONTRATO-CAMPOS",
-        "C-PROCEDENCIA",
         "C-TESTES"
       ],
       "paises": {},
@@ -8203,22 +8169,21 @@
       ],
       "file_count": 3,
       "status": "PROVEN",
-      "status_reason": "existe teste que exercita esta lei.",
+      "status_reason": "o motor importa esta lei para decidir.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/AUDITORIA-SOMBRA/AUDITORIA-REGUA-COMERCIAL-37.json",
         "data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json"
       ],
       "inbound": [
-        "C-PORTAL-DADOS",
-        "C-TESTES"
+        "C-PALAVRAS"
       ],
       "outbound": [
         "C-AUDIT-MARCA",
         "C-PACOTE-CAMADAS",
-        "C-PALAVRAS",
         "C-PORTAL-DADOS",
         "C-ROTULOS",
+        "C-TESTES",
         "C-V21-CRUZAMENTO"
       ],
       "paises": {},
@@ -8297,17 +8262,17 @@
         "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json"
       ],
       "inbound": [
-        "C-FONTES-EU",
-        "C-RECORRENCIA",
         "C-RELEVANCIA",
         "C-SUPABASE",
-        "C-TESTES",
         "V-HTTP"
       ],
       "outbound": [
+        "C-FONTES-EU",
         "C-PALAVRAS",
         "C-RECEITAS",
+        "C-RECORRENCIA",
         "C-SUPABASE",
+        "C-TESTES",
         "C-V21-CRUZAMENTO"
       ],
       "paises": {},
@@ -8391,15 +8356,16 @@
       ],
       "file_count": 1,
       "status": "PROVEN",
-      "status_reason": "existe teste que exercita esta lei.",
+      "status_reason": "o motor importa esta lei para decidir.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-DATA-CLOCK",
+        "C-DATA-CLOCK"
+      ],
+      "outbound": [
         "C-RECORRENCIA",
         "C-TESTES"
       ],
-      "outbound": [],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -9745,23 +9711,10 @@
       ],
       "inbound": [
         "C-ADAMA-ES",
+        "C-APIFY-POOL",
         "C-AS-FONTES",
         "C-ASK-SINTONIA",
         "C-CI-COLETA",
-        "C-CICATRIZES-BR",
-        "C-DATA-CLOCK",
-        "C-IDENTIDADE",
-        "C-LASTMILE",
-        "C-PROCEDENCIA",
-        "C-RECORRENCIA",
-        "C-REGRA-COLETA",
-        "C-SUPABASE",
-        "C-V21-COMERCIAL"
-      ],
-      "outbound": [
-        "C-ADAMA-ES",
-        "C-APIFY-POOL",
-        "C-ASK-SINTONIA",
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
         "C-COLETA-PUBLICA",
@@ -9769,21 +9722,29 @@
         "C-DATA-CLOCK",
         "C-FONTES-EU",
         "C-IDENTIDADE",
+        "C-LASTMILE",
         "C-LUGAR-COLETA",
         "C-MEDICAO",
         "C-NAVEGADOR",
         "C-PACOTE-CAMADAS",
-        "C-PORTAL-DADOS",
         "C-PROCEDENCIA",
         "C-RECORRENCIA",
         "C-REGRA-COLETA",
         "C-RELEVANCIA",
         "C-ROTULOS",
         "C-SAUDE-FONTE",
+        "C-SUPABASE",
         "C-V21-COMERCIAL",
         "C-V21-CONTRATO",
         "C-V21-INGEST",
         "C-V21-OPORTUNIDADE"
+      ],
+      "outbound": [
+        "C-ADAMA-ES",
+        "C-ASK-SINTONIA",
+        "C-CICATRIZES-BR",
+        "C-PACOTE-CAMADAS",
+        "C-PORTAL-DADOS"
       ],
       "paises": {
         "ESPANHA": 2
@@ -9851,12 +9812,11 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-COLETA-INSTAGRAM",
+        "C-NAVEGADOR",
         "C-SINTONIA-SCRAP"
       ],
-      "outbound": [
-        "C-COLETA-INSTAGRAM",
-        "C-NAVEGADOR"
-      ],
+      "outbound": [],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -10011,16 +9971,16 @@
         "C-ARTEFACTO-V21",
         "C-LASTMILE",
         "C-PORTAL-MODELO",
-        "C-TESTES",
         "C-V21-CONTRATO",
         "C-V21-FONTES",
+        "C-V21-INGEST",
         "C-V21-OPORTUNIDADE"
       ],
       "outbound": [
         "C-PACOTE-CAMADAS",
         "C-TESTES",
         "C-V21-CONTRATO",
-        "C-V21-INGEST"
+        "C-V21-OPORTUNIDADE"
       ],
       "paises": {},
       "paises_dado": {
@@ -10129,16 +10089,16 @@
       ],
       "file_count": 3,
       "status": "PROVEN",
-      "status_reason": "existe teste que exercita esta lei.",
+      "status_reason": "o motor importa esta lei para decidir.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-CADEIA-V21",
-        "C-TESTES",
         "C-V21-COMERCIAL",
         "C-V21-FONTES"
       ],
       "outbound": [
+        "C-TESTES",
         "C-V21-COMERCIAL"
       ],
       "paises": {},
@@ -10188,14 +10148,14 @@
       ],
       "inbound": [
         "C-CADEIA-V21",
-        "C-PACOTE-CAMADAS",
         "C-PALAVRAS",
         "C-RELEVANCIA",
         "C-ROTULOS",
-        "C-V21-FONTES"
+        "C-V21-FONTES",
+        "C-V21-INGEST"
       ],
       "outbound": [
-        "C-V21-INGEST"
+        "C-PACOTE-CAMADAS"
       ],
       "paises": {},
       "paises_dado": {
@@ -10358,17 +10318,16 @@
       "inbound": [
         "C-ADAMA-IT",
         "C-CADEIA-V21",
+        "C-DATA-CLOCK",
+        "C-FONTES-EU",
+        "C-V21-FONTES"
+      ],
+      "outbound": [
         "C-LUGAR-DO-FATO",
         "C-PACOTE-CAMADAS",
         "C-TESTES",
         "C-V21-COMERCIAL",
-        "C-V21-CRUZAMENTO",
-        "C-V21-FONTES"
-      ],
-      "outbound": [
-        "C-DATA-CLOCK",
-        "C-FONTES-EU",
-        "C-PACOTE-CAMADAS"
+        "C-V21-CRUZAMENTO"
       ],
       "paises": {},
       "paises_dado": {
@@ -10442,12 +10401,13 @@
       "produces": [],
       "inbound": [
         "C-CADEIA-V21",
-        "C-TESTES",
+        "C-DATA-CLOCK",
         "C-V2-LEGADO",
+        "C-V21-COMERCIAL",
         "C-V21-FONTES"
       ],
       "outbound": [
-        "C-DATA-CLOCK",
+        "C-TESTES",
         "C-V21-COMERCIAL"
       ],
       "paises": {},
@@ -10472,17 +10432,16 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "A pagina publica da marca, ainda viva em varios mercados agricolas. Hoje 2 acao(oes) da coleta passam por aqui.",
+      "what": "A pagina publica da marca, ainda viva em varios mercados agricolas. Hoje 1 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
         "contas publicas mapeadas neste canal: 17",
         "dessas, autorizadas a coletar: 10",
-        "acoes da coleta que passam por aqui: 2",
-        "prova: coleta/comunicacao_classificar.py:55",
-        "prova: coleta/instagram_janela.py:127"
+        "acoes da coleta que passam por aqui: 1",
+        "prova: coleta/comunicacao_classificar.py:55"
       ],
-      "status_reason": "2 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "1 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -10493,11 +10452,9 @@
       "changed_since_declared": [],
       "inbound": [
         "C-APIFY-POOL",
-        "C-AS-FONTES",
-        "C-NAVEGADOR"
+        "C-AS-FONTES"
       ],
       "outbound": [
-        "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA"
       ],
       "file_count": 0,
@@ -10526,9 +10483,7 @@
           }
         }
       ],
-      "saem_daqui_sem_destino": [
-        "C-COLETA-INSTAGRAM"
-      ],
+      "saem_daqui_sem_destino": [],
       "precisa_de_ferramenta": true,
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
       "paises": {},
@@ -10773,20 +10728,18 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "A pagina publica: o que a marca publica para quem a segue. Hoje 5 acao(oes) da coleta passam por aqui.",
+      "what": "A pagina publica: o que a marca publica para quem a segue. Hoje 3 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
         "contas publicas mapeadas neste canal: 7",
         "dessas, autorizadas a coletar: 5",
-        "acoes da coleta que passam por aqui: 5",
-        "prova: coleta/youtube_janela.py:16",
+        "acoes da coleta que passam por aqui: 3",
         "prova: coleta/comunicacao_classificar.py:55",
-        "prova: coleta/instagram_coleta.py:3",
-        "prova: coleta/coletor.py:54",
+        "prova: coleta/instagram_coleta.py:73",
         "prova: coleta/speaker_identidade.py:171"
       ],
-      "status_reason": "5 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "3 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -10801,10 +10754,8 @@
         "C-NAVEGADOR"
       ],
       "outbound": [
-        "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
-        "C-COLETA-YOUTUBE",
         "C-CORPUS"
       ],
       "file_count": 0,
@@ -10894,9 +10845,7 @@
         }
       ],
       "saem_daqui_sem_destino": [
-        "C-COLETA-BASE",
-        "C-COLETA-INSTAGRAM",
-        "C-COLETA-YOUTUBE"
+        "C-COLETA-INSTAGRAM"
       ],
       "precisa_de_ferramenta": true,
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
@@ -10930,8 +10879,8 @@
         "dessas, autorizadas a coletar: 0",
         "acoes da coleta que passam por aqui: 3",
         "prova: coleta/comunicacao_classificar.py:55",
-        "prova: coleta/filas.py:82",
-        "prova: coleta/corpus_pesquisador.py:32"
+        "prova: coleta/filas.py:93",
+        "prova: coleta/sensor_canal_identidade.py:186"
       ],
       "status_reason": "3 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
@@ -11058,19 +11007,18 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "Video publico: o que o canal do concorrente e o do sector poem no ar. Hoje 4 acao(oes) da coleta passam por aqui.",
+      "what": "Video publico: o que o canal do concorrente e o do sector poem no ar. Hoje 3 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
         "contas publicas mapeadas neste canal: 14",
         "dessas, autorizadas a coletar: 7",
-        "acoes da coleta que passam por aqui: 4",
-        "prova: coleta/youtube_janela.py:3",
+        "acoes da coleta que passam por aqui: 3",
+        "prova: coleta/youtube_janela.py:70",
         "prova: coleta/comunicacao_classificar.py:55",
-        "prova: coleta/filas.py:83",
-        "prova: coleta/corpus_pesquisador.py:32"
+        "prova: coleta/speaker_identidade.py:170"
       ],
-      "status_reason": "4 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "3 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -11085,7 +11033,6 @@
         "C-NAVEGADOR"
       ],
       "outbound": [
-        "C-COLETA-BASE",
         "C-COLETA-PUBLICA",
         "C-COLETA-YOUTUBE",
         "C-CORPUS"
@@ -11177,7 +11124,6 @@
         }
       ],
       "saem_daqui_sem_destino": [
-        "C-COLETA-BASE",
         "C-COLETA-YOUTUBE"
       ],
       "precisa_de_ferramenta": true,
@@ -11201,7 +11147,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD eacced2f1e8538bda58392b349fa0da443710633"
+        "HEAD d188d3248abb40241b4bd52607f866c6542c5668"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -11467,6 +11413,135 @@
       ]
     },
     {
+      "from": "C-ADMISSAO",
+      "to": "C-ORQUESTRADOR",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao importa O orquestrador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pedido/orquestrador.py",
+          "line": 54,
+          "snippet": "import admissao as adm  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao importa Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/testa_coleta_canonica.py",
+          "line": 32,
+          "snippet": "import admissao as adm  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-APIFY-POOL",
+      "to": "C-COLETA-BASE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Apify — a rota paga importa O motor de buscar. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/coleta_checkpoint.py",
+          "line": 45,
+          "snippet": "import apify_pool as ap  # noqa: E402  — dono único da rotação"
+        }
+      ]
+    },
+    {
+      "from": "C-APIFY-POOL",
+      "to": "C-COLETA-INSTAGRAM",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Apify — a rota paga importa Colher o Instagram. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/instagram_coleta.py",
+          "line": 70,
+          "snippet": "import apify_pool as ap          # noqa: E402  — dono único da rotação de chave"
+        },
+        {
+          "file": "coleta/instagram_coleta.py",
+          "line": 72,
+          "snippet": "import contrato_ator as ca       # noqa: E402  — o portão grátis do gasto"
+        }
+      ]
+    },
+    {
+      "from": "C-APIFY-POOL",
+      "to": "C-COLETA-PUBLICA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Apify — a rota paga importa Colher o que o concorrente publica. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 57,
+          "snippet": "import apify_pool as ap        # noqa: E402  — dono único da rotação de chave"
+        },
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 142,
+          "snippet": "import contrato_ator as ca"
+        }
+      ]
+    },
+    {
+      "from": "C-APIFY-POOL",
+      "to": "C-PALAVRAS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Apify — a rota paga importa As palavras que a busca digita. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/sensor_coleta.py",
+          "line": 62,
+          "snippet": "import apify_pool as ap        # noqa: E402  — dono único da rotação"
+        }
+      ]
+    },
+    {
+      "from": "C-APIFY-POOL",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Apify — a rota paga importa Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_coleta_resiliente.py",
+          "line": 19,
+          "snippet": "import apify_pool as ap          # noqa: E402"
+        }
+      ]
+    },
+    {
       "from": "C-APIFY-POOL",
       "to": "V-FACEBOOK",
       "type": "ABRE_O_CANAL",
@@ -11494,9 +11569,9 @@
       "reason": "E por esta ferramenta que se chega a este canal. Um canal pode ter mais de uma rota — e saber qual e saber se aquela coleta custa dinheiro. MEDIDO NO MESMO FICHEIRO: um coletor que usa duas rotas e dois canais aparece ligado aos quatro pares, e o mapa nao consegue dizer qual rota serviu qual canal.",
       "evidence": [
         {
-          "file": "coleta/youtube_janela.py",
-          "line": 471,
-          "snippet": "'APIFY_RUNS': 0, 'COST_USD': 0,"
+          "file": "coleta/comunicacao_classificar.py",
+          "line": 11,
+          "snippet": "Apify. É a mesma separação que o piloto de sensores já usa nesta casa."
         }
       ]
     },
@@ -11797,12 +11872,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 394,
+          "line": 408,
           "snippet": "CONTRATOS_REL = \"docs/operacao/CONTRATOS-DAS-FONTES-EAME.md\""
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1380,
+          "line": 1461,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ]
@@ -12000,6 +12075,23 @@
     {
       "from": "C-ASK-SINTONIA",
       "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia importa Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_coleta_externa.py",
+          "line": 551,
+          "snippet": "import rede"
+        }
+      ]
+    },
+    {
+      "from": "C-ASK-SINTONIA",
+      "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "natureza": "FLUXO",
@@ -12011,6 +12103,23 @@
           "file": "tests/test_coleta_externa.py",
           "line": 655,
           "snippet": "self.assertIn('superficie/rede.py', self.atual['QUEM_MANDA'])"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-BLOCOS",
+      "to": "C-AUDIT-GERAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria de blocos do portal importa Demais auditorias do portal. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/splice.mjs",
+          "line": 18,
+          "snippet": "import { BLOCKS } from './blocks.mjs';"
         }
       ]
     },
@@ -12032,14 +12141,63 @@
       ]
     },
     {
-      "from": "C-AUDIT-BLOCOS",
-      "to": "C-AUDIT-HARNESS",
+      "from": "C-AUDIT-GERAL",
+      "to": "C-PORTAO-BUILD",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Auditoria de blocos do portal importa Harness de auditoria. Provado por 1 linha de codigo.",
+      "reason": "Demais auditorias do portal importa Portao da build. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/casa-gate.mjs",
+          "line": 32,
+          "snippet": "import { PT_MARKERS } from './lang.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casa-gate.mjs",
+          "line": 38,
+          "snippet": "import { medir, controloNegativo, QA } from './do-not-show.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-GERAL",
+      "to": "C-PORTAO-BUILD",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Demais auditorias do portal alimenta Portao da build. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/casa-gate.mjs",
+          "line": 32,
+          "snippet": "import { PT_MARKERS } from './lang.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casa-gate.mjs",
+          "line": 38,
+          "snippet": "import { medir, controloNegativo, QA } from './do-not-show.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casa-gate.mjs",
+          "line": 368,
+          "snippet": "const PINS = J('UPSTREAM-PINS.json').PINS || {};"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-HARNESS",
+      "to": "C-AUDIT-BLOCOS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Harness de auditoria importa Auditoria de blocos do portal. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/blocks.mjs",
@@ -12049,14 +12207,31 @@
       ]
     },
     {
-      "from": "C-AUDIT-CASCO",
-      "to": "C-AUDIT-HARNESS",
+      "from": "C-AUDIT-HARNESS",
+      "to": "C-AUDIT-BLOCOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Harness de auditoria alimenta Auditoria de blocos do portal. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/blocks.mjs",
+          "line": 6,
+          "snippet": "import { CLIENT, readPortal, extractLogic } from './lib/harness.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-HARNESS",
+      "to": "C-AUDIT-CASCO",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Auditoria do casco importa Harness de auditoria. Provado por 17 linhas de codigo.",
+      "reason": "Harness de auditoria importa Auditoria do casco. Provado por 17 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/casco/censo-demo.mjs",
@@ -12117,166 +12292,6 @@
           "file": "italia-portale/audit/casco/quarantatre.mjs",
           "line": 11,
           "snippet": "import { loadData } from '../lib/harness.mjs';"
-        }
-      ]
-    },
-    {
-      "from": "C-AUDIT-GERAL",
-      "to": "C-AUDIT-BLOCOS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Demais auditorias do portal importa Auditoria de blocos do portal. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "italia-portale/audit/splice.mjs",
-          "line": 18,
-          "snippet": "import { BLOCKS } from './blocks.mjs';"
-        }
-      ]
-    },
-    {
-      "from": "C-AUDIT-GERAL",
-      "to": "C-AUDIT-HARNESS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Demais auditorias do portal importa Harness de auditoria. Provado por 66 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "italia-portale/audit/acceptance.mjs",
-          "line": 12,
-          "snippet": "import { loadData, mount, CLIENT } from './lib/harness.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/acceptance.mjs",
-          "line": 13,
-          "snippet": "import { scanAll, grepPackage } from './lib/scan.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/action-map-consistency.mjs",
-          "line": 27,
-          "snippet": "import { serve, open, openCase, clickTitle, C, line } from './lib/drive.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/action-map-consistency.mjs",
-          "line": 28,
-          "snippet": "import { loadData } from './lib/harness.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/browser-deep.mjs",
-          "line": 33,
-          "snippet": "import { loadData } from './lib/harness.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/browser-deep.mjs",
-          "line": 34,
-          "snippet": "import { navMap } from './lib/nav-names.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/browser.mjs",
-          "line": 31,
-          "snippet": "import { navMap } from './lib/nav-names.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/browser.mjs",
-          "line": 32,
-          "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/build-v21.mjs",
-          "line": 34,
-          "snippet": "import { CLIENT } from './lib/harness.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/cadeia-de-familias.mjs",
-          "line": 52,
-          "snippet": "import { loadData } from './lib/harness.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/cadeia-de-familias.mjs",
-          "line": 53,
-          "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/checks.mjs",
-          "line": 12,
-          "snippet": "import { mount, loadData, CLIENT, readPortal, extractLogic, extractMarkup, nullRate } from './lib/harness.mjs';"
-        }
-      ]
-    },
-    {
-      "from": "C-AUDIT-GERAL",
-      "to": "C-PORTAO-BUILD",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Demais auditorias do portal importa Portao da build. Provado por 3 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "italia-portale/audit/checks.mjs",
-          "line": 13,
-          "snippet": "import { EXPECTED_BUILD_ID } from './ingestion-provenance.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/snapshot-failure.mjs",
-          "line": 24,
-          "snippet": "import { EXPECTED_BUILD_ID, REVOKED_STATES } from './ingestion-provenance.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/stale-generator-gate.mjs",
-          "line": 21,
-          "snippet": "import { recusas, CONTRATO } from './ingestion-provenance.mjs';"
-        }
-      ]
-    },
-    {
-      "from": "C-AUDIT-GERAL",
-      "to": "C-PORTAO-BUILD",
-      "type": "READS",
-      "payload": "artefacto",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Demais auditorias do portal alimenta Portao da build. Provado por 3 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "italia-portale/audit/casa-gate.mjs",
-          "line": 32,
-          "snippet": "import { PT_MARKERS } from './lang.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/casa-gate.mjs",
-          "line": 38,
-          "snippet": "import { medir, controloNegativo, QA } from './do-not-show.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/casa-gate.mjs",
-          "line": 368,
-          "snippet": "const PINS = J('UPSTREAM-PINS.json').PINS || {};"
-        }
-      ]
-    },
-    {
-      "from": "C-AUDIT-HARNESS",
-      "to": "C-AUDIT-BLOCOS",
-      "type": "READS",
-      "payload": "artefacto",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Harness de auditoria alimenta Auditoria de blocos do portal. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "italia-portale/audit/blocks.mjs",
-          "line": 6,
-          "snippet": "import { CLIENT, readPortal, extractLogic } from './lib/harness.mjs';"
         }
       ]
     },
@@ -12355,6 +12370,78 @@
     {
       "from": "C-AUDIT-HARNESS",
       "to": "C-AUDIT-GERAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Harness de auditoria importa Demais auditorias do portal. Provado por 66 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/acceptance.mjs",
+          "line": 12,
+          "snippet": "import { loadData, mount, CLIENT } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/acceptance.mjs",
+          "line": 13,
+          "snippet": "import { scanAll, grepPackage } from './lib/scan.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/action-map-consistency.mjs",
+          "line": 27,
+          "snippet": "import { serve, open, openCase, clickTitle, C, line } from './lib/drive.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/action-map-consistency.mjs",
+          "line": 28,
+          "snippet": "import { loadData } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/browser-deep.mjs",
+          "line": 33,
+          "snippet": "import { loadData } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/browser-deep.mjs",
+          "line": 34,
+          "snippet": "import { navMap } from './lib/nav-names.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/browser.mjs",
+          "line": 31,
+          "snippet": "import { navMap } from './lib/nav-names.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/browser.mjs",
+          "line": 32,
+          "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/build-v21.mjs",
+          "line": 34,
+          "snippet": "import { CLIENT } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/cadeia-de-familias.mjs",
+          "line": 52,
+          "snippet": "import { loadData } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/cadeia-de-familias.mjs",
+          "line": 53,
+          "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/checks.mjs",
+          "line": 12,
+          "snippet": "import { mount, loadData, CLIENT, readPortal, extractLogic, extractMarkup, nullRate } from './lib/harness.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-HARNESS",
+      "to": "C-AUDIT-GERAL",
       "type": "READS",
       "payload": "artefacto",
       "natureza": "FLUXO",
@@ -12427,6 +12514,28 @@
     {
       "from": "C-AUDIT-HARNESS",
       "to": "C-AUDIT-MARCA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Harness de auditoria importa Auditoria de marca ADAMA. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/adama-product-claim.mjs",
+          "line": 25,
+          "snippet": "import { mount, loadData } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/brandwell.mjs",
+          "line": 18,
+          "snippet": "import { serve, open, clickTitle, openCase, nav, C, line } from './lib/drive.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-HARNESS",
+      "to": "C-AUDIT-MARCA",
       "type": "READS",
       "payload": "artefacto",
       "natureza": "FLUXO",
@@ -12449,6 +12558,28 @@
     {
       "from": "C-AUDIT-HARNESS",
       "to": "C-PORTAO-BUILD",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Harness de auditoria importa Portao da build. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/ingestion-provenance.mjs",
+          "line": 28,
+          "snippet": "import { CLIENT } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/ingestion-provenance.mjs",
+          "line": 29,
+          "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-HARNESS",
+      "to": "C-PORTAO-BUILD",
       "type": "READS",
       "payload": "artefacto",
       "natureza": "FLUXO",
@@ -12465,28 +12596,6 @@
           "file": "italia-portale/audit/ingestion-provenance.mjs",
           "line": 29,
           "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
-        }
-      ]
-    },
-    {
-      "from": "C-AUDIT-MARCA",
-      "to": "C-AUDIT-HARNESS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Auditoria de marca ADAMA importa Harness de auditoria. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "italia-portale/audit/adama-product-claim.mjs",
-          "line": 25,
-          "snippet": "import { mount, loadData } from './lib/harness.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/brandwell.mjs",
-          "line": 18,
-          "snippet": "import { serve, open, clickTitle, openCase, nav, C, line } from './lib/drive.mjs';"
         }
       ]
     },
@@ -13088,6 +13197,23 @@
     {
       "from": "C-CICATRIZES-BR",
       "to": "C-REGRA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cicatrizes do Brasil (lei portada) importa A regra de coleta externa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/portoes_eame.py",
+          "line": 41,
+          "snippet": "from cicatrizes_brasil import monta as monta_cicatrizes           # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-CICATRIZES-BR",
+      "to": "C-REGRA-COLETA",
       "type": "READS",
       "payload": "artefacto",
       "natureza": "FLUXO",
@@ -13099,6 +13225,28 @@
           "file": "regras/portoes_eame.py",
           "line": 296,
           "snippet": "'DERIVADO_DE': ['regras/cicatrizes_brasil.py',"
+        }
+      ]
+    },
+    {
+      "from": "C-CICATRIZES-BR",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cicatrizes do Brasil (lei portada) importa Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_cicatrizes_brasil.py",
+          "line": 77,
+          "snippet": "import cicatrizes_brasil as C"
+        },
+        {
+          "file": "tests/test_portoes_eame.py",
+          "line": 105,
+          "snippet": "from cicatrizes_brasil import monta as mc"
         }
       ]
     },
@@ -13121,69 +13269,13 @@
     },
     {
       "from": "C-COLETA-BASE",
-      "to": "C-APIFY-POOL",
+      "to": "C-COLETA-INSTAGRAM",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar importa Apify — a rota paga. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "coleta/coleta_checkpoint.py",
-          "line": 45,
-          "snippet": "import apify_pool as ap  # noqa: E402  — dono único da rotação"
-        }
-      ]
-    },
-    {
-      "from": "C-COLETA-BASE",
-      "to": "C-PROCEDENCIA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O motor de buscar importa De onde veio — carimbado na coleta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "coleta/coletor.py",
-          "line": 76,
-          "snippet": "import proveniencia as pv  # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-COLETA-INSTAGRAM",
-      "to": "C-APIFY-POOL",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Colher o Instagram importa Apify — a rota paga. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "coleta/instagram_coleta.py",
-          "line": 70,
-          "snippet": "import apify_pool as ap          # noqa: E402  — dono único da rotação de chave"
-        },
-        {
-          "file": "coleta/instagram_coleta.py",
-          "line": 72,
-          "snippet": "import contrato_ator as ca       # noqa: E402  — o portão grátis do gasto"
-        }
-      ]
-    },
-    {
-      "from": "C-COLETA-INSTAGRAM",
-      "to": "C-COLETA-BASE",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Colher o Instagram importa O motor de buscar. Provado por 1 linha de codigo.",
+      "reason": "O motor de buscar importa Colher o Instagram. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "coleta/instagram_coleta.py",
@@ -13193,41 +13285,53 @@
       ]
     },
     {
-      "from": "C-COLETA-INSTAGRAM",
-      "to": "C-MEDICAO",
+      "from": "C-COLETA-BASE",
+      "to": "C-COLETA-PUBLICA",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o Instagram importa Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
+      "reason": "O motor de buscar importa Colher o que o concorrente publica. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "coleta/instagram_coleta.py",
-          "line": 556,
-          "snippet": "import corrigir_custo as cc"
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 58,
+          "snippet": "import coletor                 # noqa: E402  — porta única das rotas pagas"
         }
       ]
     },
     {
-      "from": "C-COLETA-INSTAGRAM",
-      "to": "C-NAVEGADOR",
+      "from": "C-COLETA-BASE",
+      "to": "C-PALAVRAS",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o Instagram importa O navegador — a rota gratis. Provado por 2 linhas de codigo.",
+      "reason": "O motor de buscar importa As palavras que a busca digita. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "coleta/instagram_diario.py",
-          "line": 83,
-          "snippet": "import cdp                       # noqa: E402"
-        },
+          "file": "regras/sensor_coleta.py",
+          "line": 63,
+          "snippet": "import coletor                 # noqa: E402  — porta única das rotas pagas"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar importa Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
         {
-          "file": "coleta/instagram_janela.py",
-          "line": 73,
-          "snippet": "import cdp                       # noqa: E402  — o navegador, em biblioteca padrão"
+          "file": "tests/test_coleta_resiliente.py",
+          "line": 20,
+          "snippet": "import coleta_checkpoint as C    # noqa: E402"
         }
       ]
     },
@@ -13250,59 +13354,21 @@
     },
     {
       "from": "C-COLETA-INSTAGRAM",
-      "to": "C-PROCEDENCIA",
+      "to": "C-TRANSCRICAO",
       "type": "IMPORTS",
       "payload": "codigo",
-      "natureza": "MONTAGEM",
+      "natureza": "FLUXO",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o Instagram importa De onde veio — carimbado na coleta. Provado por 1 linha de codigo.",
+      "reason": "Colher o Instagram importa A fala vira texto, sem fatura. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "coleta/instagram_janela.py",
-          "line": 74,
-          "snippet": "import proveniencia as pv        # noqa: E402"
+          "file": "ferramentas/instagram_transcrever.py",
+          "line": 184,
+          "snippet": "import instagram_janela as ij"
         }
-      ]
-    },
-    {
-      "from": "C-COLETA-PUBLICA",
-      "to": "C-APIFY-POOL",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Colher o que o concorrente publica importa Apify — a rota paga. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "coleta/comunicacao_coleta.py",
-          "line": 57,
-          "snippet": "import apify_pool as ap        # noqa: E402  — dono único da rotação de chave"
-        },
-        {
-          "file": "coleta/comunicacao_coleta.py",
-          "line": 142,
-          "snippet": "import contrato_ator as ca"
-        }
-      ]
-    },
-    {
-      "from": "C-COLETA-PUBLICA",
-      "to": "C-COLETA-BASE",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Colher o que o concorrente publica importa O motor de buscar. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "coleta/comunicacao_coleta.py",
-          "line": 58,
-          "snippet": "import coletor                 # noqa: E402  — porta única das rotas pagas"
-        }
-      ]
+      ],
+      "passa_pelo_preparo": true
     },
     {
       "from": "C-COLETA-PUBLICA",
@@ -13322,36 +13388,63 @@
       ]
     },
     {
-      "from": "C-COLETA-YOUTUBE",
-      "to": "C-NAVEGADOR",
+      "from": "C-COLETA-PUBLICA",
+      "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o YouTube importa O navegador — a rota gratis. Provado por 1 linha de codigo.",
+      "reason": "Colher o que o concorrente publica importa Suite de testes. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "coleta/youtube_janela.py",
-          "line": 67,
-          "snippet": "import cdp                       # noqa: E402  — o navegador, em biblioteca padrão"
+          "file": "tests/test_comunicacao.py",
+          "line": 27,
+          "snippet": "import comunicacao_classificar as cl      # noqa: E402"
         }
       ]
     },
     {
-      "from": "C-COLETA-YOUTUBE",
-      "to": "C-PALAVRAS",
+      "from": "C-CONTRATO-CAMPOS",
+      "to": "C-REGRA-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o YouTube importa As palavras que a busca digita. Provado por 1 linha de codigo.",
+      "reason": "O que a coleta tem de trazer importa A regra de coleta externa. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "coleta/youtube_relevancia.py",
-          "line": 75,
-          "snippet": "import sensor_medir as sm        # noqa: E402  — dono do léxico multilíngue desta casa"
+          "file": "regras/portao.py",
+          "line": 21,
+          "snippet": "import voz                 # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-CONTRATO-CAMPOS",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que a coleta tem de trazer importa Suite de testes. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_coleta_externa.py",
+          "line": 14,
+          "snippet": "import voz  # noqa: E402"
+        },
+        {
+          "file": "tests/test_pipeline.py",
+          "line": 18,
+          "snippet": "import voz  # noqa: E402"
+        },
+        {
+          "file": "tests/test_voz.py",
+          "line": 317,
+          "snippet": "import voz as _voz"
         }
       ]
     },
@@ -13485,6 +13578,23 @@
     {
       "from": "C-DATA-CLOCK",
       "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Regua do tempo importa Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_v21_datas.py",
+          "line": 13,
+          "snippet": "import v21_datas as DT  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-DATA-CLOCK",
+      "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "natureza": "FLUXO",
@@ -13501,6 +13611,40 @@
           "file": "tests/test_proveniencia.py",
           "line": 276,
           "snippet": "vigiados = {f['FILE'] for f in amostra('DATA-CLOCK-manifest.json')['files']}"
+        }
+      ]
+    },
+    {
+      "from": "C-DATA-CLOCK",
+      "to": "C-V21-INGEST",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Regua do tempo importa Ingestao V2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/v21_ingest_b.py",
+          "line": 37,
+          "snippet": "import v21_datas as DT            # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-DATA-CLOCK",
+      "to": "C-V21-OPORTUNIDADE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Regua do tempo importa Motor de Oportunidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/v21_oportunidades.py",
+          "line": 44,
+          "snippet": "import v21_datas as DT  # noqa: E402"
         }
       ]
     },
@@ -13609,6 +13753,23 @@
     },
     {
       "from": "C-FONTES-EU",
+      "to": "C-RECORRENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ler as bases oficiais da Europa importa A prova de que o fato se refaz. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/chain.py",
+          "line": 220,
+          "snippet": "from denominaciones import read, split_rows"
+        }
+      ]
+    },
+    {
+      "from": "C-FONTES-EU",
       "to": "C-REGRA-COLETA",
       "type": "READS",
       "payload": "artefacto",
@@ -13626,23 +13787,6 @@
     },
     {
       "from": "C-FONTES-EU",
-      "to": "C-ROTULOS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Ler as bases oficiais da Europa importa Baixar e ler os rotulos oficiais. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "coleta/denominaciones.py",
-          "line": 36,
-          "snippet": "from pdf_text import text                                     # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-FONTES-EU",
       "to": "C-SUPABASE",
       "type": "WRITES",
       "payload": "artefacto",
@@ -13655,6 +13799,40 @@
           "file": "coleta/regulatorio_importar.py",
           "line": 186,
           "snippet": "open(SAIDA, 'w')  # SAIDA = supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql"
+        }
+      ]
+    },
+    {
+      "from": "C-FONTES-EU",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ler as bases oficiais da Europa importa Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_operacao.py",
+          "line": 25,
+          "snippet": "from denominaciones import parse_text, read, split_rows, fold   # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-FONTES-EU",
+      "to": "C-V21-INGEST",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ler as bases oficiais da Europa importa Ingestao V2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/normalize_agro.py",
+          "line": 29,
+          "snippet": "from eppo_gd import names as eppo_names"
         }
       ]
     },
@@ -13750,6 +13928,28 @@
           "file": ".github/workflows/sintonia-scrap.yml",
           "line": 152,
           "snippet": "if [ ! -f data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json ]; then"
+        }
+      ]
+    },
+    {
+      "from": "C-IDENTIDADE",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Quem esta autorizado a ser coletado importa Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_comunicacao.py",
+          "line": 28,
+          "snippet": "import comunicacao_identidade as ident    # noqa: E402"
+        },
+        {
+          "file": "tests/test_comunicacao.py",
+          "line": 29,
+          "snippet": "import comunicacao_universo as uni        # noqa: E402"
         }
       ]
     },
@@ -13877,7 +14077,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1402,
+          "line": 1483,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ]
@@ -14320,19 +14520,24 @@
       ]
     },
     {
-      "from": "C-LUGAR-DO-FATO",
-      "to": "C-V21-INGEST",
+      "from": "C-LUGAR-COLETA",
+      "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A geografia do pacote importa Ingestao V2.1. Provado por 1 linha de codigo.",
+      "reason": "O lugar do fato — carimbado na coleta importa Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
-          "file": "leis/v21_geografia_contrato.py",
-          "line": 26,
-          "snippet": "import v21_normalizar as N  # noqa: E402"
+          "file": "tests/test_lugar_do_fato.py",
+          "line": 22,
+          "snippet": "import lugar_do_fato as L                                          # noqa: E402"
+        },
+        {
+          "file": "tests/test_lugar_do_fato.py",
+          "line": 23,
+          "snippet": "import fato_local as IT                                            # noqa: E402"
         }
       ]
     },
@@ -14348,17 +14553,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1603,
+          "line": 1684,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1603,
+          "line": 1684,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1604,
+          "line": 1685,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ]
@@ -14453,12 +14658,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2030,
+          "line": 2124,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2030,
+          "line": 2124,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ]
@@ -14526,6 +14731,40 @@
     },
     {
       "from": "C-MEDICAO",
+      "to": "C-COLETA-INSTAGRAM",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria, cobertura e custo importa Colher o Instagram. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/instagram_coleta.py",
+          "line": 556,
+          "snippet": "import corrigir_custo as cc"
+        }
+      ]
+    },
+    {
+      "from": "C-MEDICAO",
+      "to": "C-RECORRENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria, cobertura e custo importa A prova de que o fato se refaz. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/chain.py",
+          "line": 42,
+          "snippet": "from coverage import Coverage                                  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-MEDICAO",
       "to": "C-REGRA-COLETA",
       "type": "READS",
       "payload": "artefacto",
@@ -14542,21 +14781,105 @@
       ]
     },
     {
-      "from": "C-NAVEGADOR",
-      "to": "V-FACEBOOK",
-      "type": "ABRE_O_CANAL",
-      "payload": "rota",
-      "natureza": "FLUXO",
+      "from": "C-MEDICAO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "E por esta ferramenta que se chega a este canal. Um canal pode ter mais de uma rota — e saber qual e saber se aquela coleta custa dinheiro. MEDIDO NO MESMO FICHEIRO: um coletor que usa duas rotas e dois canais aparece ligado aos quatro pares, e o mapa nao consegue dizer qual rota serviu qual canal.",
+      "reason": "Auditoria, cobertura e custo importa Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_operacao.py",
+          "line": 24,
+          "snippet": "from coverage import Coverage, CoverageError                   # noqa: E402"
+        },
+        {
+          "file": "tests/test_portao.py",
+          "line": 324,
+          "snippet": "import auditoria as au"
+        },
+        {
+          "file": "tests/test_proveniencia.py",
+          "line": 16,
+          "snippet": "import auditoria as au      # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-NAVEGADOR",
+      "to": "C-COLETA-INSTAGRAM",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O navegador — a rota gratis importa Colher o Instagram. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/instagram_diario.py",
+          "line": 83,
+          "snippet": "import cdp                       # noqa: E402"
+        },
         {
           "file": "coleta/instagram_janela.py",
           "line": 73,
           "snippet": "import cdp                       # noqa: E402  — o navegador, em biblioteca padrão"
         }
       ]
+    },
+    {
+      "from": "C-NAVEGADOR",
+      "to": "C-COLETA-YOUTUBE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O navegador — a rota gratis importa Colher o YouTube. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/youtube_janela.py",
+          "line": 67,
+          "snippet": "import cdp                       # noqa: E402  — o navegador, em biblioteca padrão"
+        }
+      ]
+    },
+    {
+      "from": "C-NAVEGADOR",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O navegador — a rota gratis importa Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_navegador.py",
+          "line": 25,
+          "snippet": "import navegador as nav                                        # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-NAVEGADOR",
+      "to": "C-TRANSCRICAO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O navegador — a rota gratis importa A fala vira texto, sem fatura. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/instagram_transcrever.py",
+          "line": 183,
+          "snippet": "import cdp"
+        }
+      ],
+      "passa_pelo_preparo": true
     },
     {
       "from": "C-NAVEGADOR",
@@ -14569,9 +14892,9 @@
       "reason": "E por esta ferramenta que se chega a este canal. Um canal pode ter mais de uma rota — e saber qual e saber se aquela coleta custa dinheiro. MEDIDO NO MESMO FICHEIRO: um coletor que usa duas rotas e dois canais aparece ligado aos quatro pares, e o mapa nao consegue dizer qual rota serviu qual canal.",
       "evidence": [
         {
-          "file": "coleta/youtube_janela.py",
-          "line": 37,
-          "snippet": "de rede, e por isso a camada `legendas` usa o navegador de verdade desta máquina,"
+          "file": "coleta/instagram_coleta.py",
+          "line": 7,
+          "snippet": "py coleta/instagram_coleta.py janela         # GRÁTIS · a rota do navegador"
         }
       ]
     },
@@ -14594,162 +14917,74 @@
     },
     {
       "from": "C-ORQUESTRADOR",
-      "to": "C-ADMISSAO",
+      "to": "C-PROVA-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador importa A porta de admissao. Provado por 1 linha de codigo.",
+      "reason": "O orquestrador importa Provas da coleta canonica. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "pedido/orquestrador.py",
-          "line": 54,
-          "snippet": "import admissao as adm  # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-ORQUESTRADOR",
-      "to": "C-PEDIDO",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O orquestrador importa O pedido de coleta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "pedido/orquestrador.py",
-          "line": 52,
-          "snippet": "from pedido import Pedido, de_uma_frase, PedidoInvalido, ERRO, COLHIDO  # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-ORQUESTRADOR",
-      "to": "C-RECEITAS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O orquestrador importa A receita da coleta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "pedido/orquestrador.py",
-          "line": 53,
-          "snippet": "from receitas import resolver, Plano  # noqa: E402"
+          "file": "provas/testa_coleta_canonica.py",
+          "line": 31,
+          "snippet": "import orquestrador as orq  # noqa: E402"
         }
       ]
     },
     {
       "from": "C-PACOTE-CAMADAS",
-      "to": "C-V21-CRUZAMENTO",
+      "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Montagem do pacote por camadas importa Cruzamentos e convergencia. Provado por 1 linha de codigo.",
+      "reason": "Montagem do pacote por camadas importa Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
-          "file": "pacote/pacote.py",
-          "line": 35,
-          "snippet": "from pacote_convergencia import camada_convergencia              # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-PACOTE-CAMADAS",
-      "to": "C-V21-INGEST",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Montagem do pacote por camadas importa Ingestao V2.1. Provado por 6 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "pacote/pacote.py",
-          "line": 27,
-          "snippet": "from pacote_normalizar import camada_adama, DR                      # noqa: E402"
+          "file": "tests/test_handoff.py",
+          "line": 97,
+          "snippet": "import metricas_canonicas as mc"
         },
         {
-          "file": "pacote/pacote_camadas.py",
-          "line": 20,
-          "snippet": "from pacote_normalizar import (git_json, local_json, grava, env, novo_id,  # noqa: E402"
-        },
-        {
-          "file": "pacote/pacote_camadas2.py",
-          "line": 21,
-          "snippet": "from pacote_normalizar import (git_json, local_json, grava, env, novo_id,  # noqa: E402"
-        },
-        {
-          "file": "pacote/pacote_camadas3.py",
+          "file": "tests/test_metricas.py",
           "line": 25,
-          "snippet": "from pacote_normalizar import (git_json, local_json, grava, env, novo_id,  # noqa: E402"
-        },
-        {
-          "file": "pacote/pacote_fenologia.py",
-          "line": 33,
-          "snippet": "from pacote_normalizar import grava, env, novo_id, DR  # noqa: E402"
-        },
-        {
-          "file": "pacote/pacote_mercado.py",
-          "line": 32,
-          "snippet": "from pacote_normalizar import grava, env, novo_id, DR, ROOT, local_json  # noqa: E402"
+          "snippet": "from metricas_canonicas import build, Ledger                    # noqa: E402"
         }
       ]
     },
     {
       "from": "C-PALAVRAS",
-      "to": "C-APIFY-POOL",
+      "to": "C-COLETA-YOUTUBE",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As palavras que a busca digita importa Apify — a rota paga. Provado por 1 linha de codigo.",
+      "reason": "As palavras que a busca digita importa Colher o YouTube. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "regras/sensor_coleta.py",
-          "line": 62,
-          "snippet": "import apify_pool as ap        # noqa: E402  — dono único da rotação"
+          "file": "coleta/youtube_relevancia.py",
+          "line": 75,
+          "snippet": "import sensor_medir as sm        # noqa: E402  — dono do léxico multilíngue desta casa"
         }
       ]
     },
     {
       "from": "C-PALAVRAS",
-      "to": "C-COLETA-BASE",
+      "to": "C-RELEVANCIA",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As palavras que a busca digita importa O motor de buscar. Provado por 1 linha de codigo.",
+      "reason": "As palavras que a busca digita importa Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "regras/sensor_coleta.py",
-          "line": 63,
-          "snippet": "import coletor                 # noqa: E402  — porta única das rotas pagas"
-        }
-      ]
-    },
-    {
-      "from": "C-PALAVRAS",
-      "to": "C-PROCEDENCIA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "As palavras que a busca digita importa De onde veio — carimbado na coleta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "regras/sensor_coleta.py",
-          "line": 64,
-          "snippet": "import proveniencia as pv      # noqa: E402"
+          "file": "leis/regua_italia.py",
+          "line": 57,
+          "snippet": "from sensor_medir import plateia_do_canal as _pdc"
         }
       ]
     },
@@ -14767,6 +15002,57 @@
           "file": "motor/pacote_convergencia.py",
           "line": 101,
           "snippet": "cen = local_json(os.path.join('IT-ROTULOS', 'IT-CENSO-DE-TERMOS.json'))"
+        }
+      ]
+    },
+    {
+      "from": "C-PEDIDO",
+      "to": "C-ORQUESTRADOR",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O pedido de coleta importa O orquestrador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pedido/orquestrador.py",
+          "line": 52,
+          "snippet": "from pedido import Pedido, de_uma_frase, PedidoInvalido, ERRO, COLHIDO  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-PEDIDO",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O pedido de coleta importa Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/testa_coleta_canonica.py",
+          "line": 29,
+          "snippet": "from pedido import de_uma_frase, Pedido, PedidoInvalido  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-PEDIDO",
+      "to": "C-RECEITAS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O pedido de coleta importa A receita da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 46,
+          "snippet": "from pedido import Pedido, ALVOS  # noqa: E402"
         }
       ]
     },
@@ -15029,23 +15315,6 @@
           "file": "italia-portale/audit/casa-gate.mjs",
           "line": 553,
           "snippet": "const gerador = fs.readFileSync(path.resolve(AQUI, '..', '..', 'superficie', 'it_casa_dados.py'), 'utf8');"
-        }
-      ]
-    },
-    {
-      "from": "C-PORTAL-DADOS",
-      "to": "C-RELEVANCIA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Camadas de dado do portal importa Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "superficie/it_casa_dados.py",
-          "line": 77,
-          "snippet": "from adama_relevance import (CONTRATO as LEI_ADAMA, classificar, contar,"
         }
       ]
     },
@@ -15468,17 +15737,22 @@
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Portao da build importa Demais auditorias do portal. Provado por 2 linhas de codigo.",
+      "reason": "Portao da build importa Demais auditorias do portal. Provado por 3 linhas de codigo.",
       "evidence": [
         {
-          "file": "italia-portale/audit/casa-gate.mjs",
-          "line": 32,
-          "snippet": "import { PT_MARKERS } from './lang.mjs';"
+          "file": "italia-portale/audit/checks.mjs",
+          "line": 13,
+          "snippet": "import { EXPECTED_BUILD_ID } from './ingestion-provenance.mjs';"
         },
         {
-          "file": "italia-portale/audit/casa-gate.mjs",
-          "line": 38,
-          "snippet": "import { medir, controloNegativo, QA } from './do-not-show.mjs';"
+          "file": "italia-portale/audit/snapshot-failure.mjs",
+          "line": 24,
+          "snippet": "import { EXPECTED_BUILD_ID, REVOKED_STATES } from './ingestion-provenance.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/stale-generator-gate.mjs",
+          "line": 21,
+          "snippet": "import { recusas, CONTRATO } from './ingestion-provenance.mjs';"
         }
       ]
     },
@@ -15525,28 +15799,6 @@
       ]
     },
     {
-      "from": "C-PORTAO-BUILD",
-      "to": "C-AUDIT-HARNESS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Portao da build importa Harness de auditoria. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "italia-portale/audit/ingestion-provenance.mjs",
-          "line": 28,
-          "snippet": "import { CLIENT } from './lib/harness.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/ingestion-provenance.mjs",
-          "line": 29,
-          "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
-        }
-      ]
-    },
-    {
       "from": "C-PROCEDENCIA",
       "to": "C-CICATRIZES-BR",
       "type": "READS",
@@ -15560,6 +15812,40 @@
           "file": "regras/cicatrizes_brasil.py",
           "line": 179,
           "snippet": "'ONDE_NO_BRASIL': 'proveniencia.py',"
+        }
+      ]
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-COLETA-BASE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta importa O motor de buscar. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/coletor.py",
+          "line": 76,
+          "snippet": "import proveniencia as pv  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-COLETA-INSTAGRAM",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta importa Colher o Instagram. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 74,
+          "snippet": "import proveniencia as pv        # noqa: E402"
         }
       ]
     },
@@ -15633,6 +15919,23 @@
     },
     {
       "from": "C-PROCEDENCIA",
+      "to": "C-PALAVRAS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta importa As palavras que a busca digita. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/sensor_coleta.py",
+          "line": 64,
+          "snippet": "import proveniencia as pv      # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-PROCEDENCIA",
       "to": "C-RECEITAS",
       "type": "READS",
       "payload": "artefacto",
@@ -15656,6 +15959,23 @@
     {
       "from": "C-PROCEDENCIA",
       "to": "C-REGRA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta importa A regra de coleta externa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/portao.py",
+          "line": 20,
+          "snippet": "import proveniencia as pv  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-REGRA-COLETA",
       "type": "READS",
       "payload": "artefacto",
       "natureza": "FLUXO",
@@ -15667,6 +15987,33 @@
           "file": "regras/portao.py",
           "line": 44,
           "snippet": "if os.path.basename(caminho) == 'RUN-MANIFEST.json':"
+        }
+      ]
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta importa Suite de testes. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_handoff.py",
+          "line": 157,
+          "snippet": "import proveniencia as pv"
+        },
+        {
+          "file": "tests/test_portao.py",
+          "line": 13,
+          "snippet": "import proveniencia as pv          # noqa: E402"
+        },
+        {
+          "file": "tests/test_proveniencia.py",
+          "line": 15,
+          "snippet": "import proveniencia as pv   # noqa: E402"
         }
       ]
     },
@@ -15693,65 +16040,31 @@
       ]
     },
     {
-      "from": "C-PROVA-COLETA",
-      "to": "C-ADMISSAO",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Provas da coleta canonica importa A porta de admissao. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "provas/testa_coleta_canonica.py",
-          "line": 32,
-          "snippet": "import admissao as adm  # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-PROVA-COLETA",
+      "from": "C-RECEITAS",
       "to": "C-ORQUESTRADOR",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica importa O orquestrador. Provado por 1 linha de codigo.",
+      "reason": "A receita da coleta importa O orquestrador. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "provas/testa_coleta_canonica.py",
-          "line": 31,
-          "snippet": "import orquestrador as orq  # noqa: E402"
+          "file": "pedido/orquestrador.py",
+          "line": 53,
+          "snippet": "from receitas import resolver, Plano  # noqa: E402"
         }
       ]
     },
     {
-      "from": "C-PROVA-COLETA",
-      "to": "C-PEDIDO",
+      "from": "C-RECEITAS",
+      "to": "C-PROVA-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica importa O pedido de coleta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "provas/testa_coleta_canonica.py",
-          "line": 29,
-          "snippet": "from pedido import de_uma_frase, Pedido, PedidoInvalido  # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-PROVA-COLETA",
-      "to": "C-RECEITAS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Provas da coleta canonica importa A receita da coleta. Provado por 1 linha de codigo.",
+      "reason": "A receita da coleta importa Provas da coleta canonica. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "provas/testa_coleta_canonica.py",
@@ -15761,87 +16074,19 @@
       ]
     },
     {
-      "from": "C-RECEITAS",
-      "to": "C-PEDIDO",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A receita da coleta importa O pedido de coleta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "pedido/receitas.py",
-          "line": 46,
-          "snippet": "from pedido import Pedido, ALVOS  # noqa: E402"
-        }
-      ]
-    },
-    {
       "from": "C-RECORRENCIA",
-      "to": "C-FONTES-EU",
+      "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A prova de que o fato se refaz importa Ler as bases oficiais da Europa. Provado por 1 linha de codigo.",
+      "reason": "A prova de que o fato se refaz importa Suite de testes. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "provas/chain.py",
-          "line": 220,
-          "snippet": "from denominaciones import read, split_rows"
-        }
-      ]
-    },
-    {
-      "from": "C-RECORRENCIA",
-      "to": "C-MEDICAO",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova de que o fato se refaz importa Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "provas/chain.py",
-          "line": 42,
-          "snippet": "from coverage import Coverage                                  # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-RECORRENCIA",
-      "to": "C-ROTULOS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova de que o fato se refaz importa Baixar e ler os rotulos oficiais. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "provas/chain.py",
-          "line": 188,
-          "snippet": "import mapa_regfi"
-        }
-      ]
-    },
-    {
-      "from": "C-RECORRENCIA",
-      "to": "C-SAUDE-FONTE",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova de que o fato se refaz importa A saude de cada fonte. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "provas/chain.py",
-          "line": 43,
-          "snippet": "import source_health as sh                                     # noqa: E402"
+          "file": "tests/test_operacao.py",
+          "line": 350,
+          "snippet": "import chain"
         }
       ]
     },
@@ -15864,52 +16109,23 @@
     },
     {
       "from": "C-REGRA-COLETA",
-      "to": "C-CICATRIZES-BR",
+      "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A regra de coleta externa importa Cicatrizes do Brasil (lei portada). Provado por 1 linha de codigo.",
+      "reason": "A regra de coleta externa importa Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
-          "file": "regras/portoes_eame.py",
-          "line": 41,
-          "snippet": "from cicatrizes_brasil import monta as monta_cicatrizes           # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-REGRA-COLETA",
-      "to": "C-CONTRATO-CAMPOS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A regra de coleta externa importa O que a coleta tem de trazer. Provado por 1 linha de codigo.",
-      "evidence": [
+          "file": "tests/test_portao.py",
+          "line": 12,
+          "snippet": "import portao, filas, voz          # noqa: E402"
+        },
         {
-          "file": "regras/portao.py",
-          "line": 21,
-          "snippet": "import voz                 # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-REGRA-COLETA",
-      "to": "C-PROCEDENCIA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A regra de coleta externa importa De onde veio — carimbado na coleta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "regras/portao.py",
+          "file": "tests/test_portoes_eame.py",
           "line": 20,
-          "snippet": "import proveniencia as pv  # noqa: E402"
+          "snippet": "import portoes_eame as P                                          # noqa: E402"
         }
       ]
     },
@@ -15971,18 +16187,18 @@
     },
     {
       "from": "C-RELEVANCIA",
-      "to": "C-PALAVRAS",
+      "to": "C-PORTAL-DADOS",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Regua de relevancia ADAMA importa As palavras que a busca digita. Provado por 1 linha de codigo.",
+      "reason": "Regua de relevancia ADAMA importa Camadas de dado do portal. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "leis/regua_italia.py",
-          "line": 57,
-          "snippet": "from sensor_medir import plateia_do_canal as _pdc"
+          "file": "superficie/it_casa_dados.py",
+          "line": 77,
+          "snippet": "from adama_relevance import (CONTRATO as LEI_ADAMA, classificar, contar,"
         }
       ]
     },
@@ -16027,6 +16243,23 @@
     },
     {
       "from": "C-RELEVANCIA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Regua de relevancia ADAMA importa Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_adama_relevance.py",
+          "line": 22,
+          "snippet": "from adama_relevance import (classificar, contar, produto_que_prova,   # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-RELEVANCIA",
       "to": "C-V21-CRUZAMENTO",
       "type": "READS",
       "payload": "artefacto",
@@ -16039,6 +16272,23 @@
           "file": "motor/pacote_convergencia.py",
           "line": 193,
           "snippet": "'data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json',"
+        }
+      ]
+    },
+    {
+      "from": "C-ROTULOS",
+      "to": "C-FONTES-EU",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Baixar e ler os rotulos oficiais importa Ler as bases oficiais da Europa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/denominaciones.py",
+          "line": 36,
+          "snippet": "from pdf_text import text                                     # noqa: E402"
         }
       ]
     },
@@ -16078,6 +16328,23 @@
     },
     {
       "from": "C-ROTULOS",
+      "to": "C-RECORRENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Baixar e ler os rotulos oficiais importa A prova de que o fato se refaz. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/chain.py",
+          "line": 188,
+          "snippet": "import mapa_regfi"
+        }
+      ]
+    },
+    {
+      "from": "C-ROTULOS",
       "to": "C-SUPABASE",
       "type": "WRITES",
       "payload": "artefacto",
@@ -16090,6 +16357,23 @@
           "file": "coleta/ropf_pre_requisito.py",
           "line": 119,
           "snippet": "open(SAIDA, 'w')  # SAIDA = supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql"
+        }
+      ]
+    },
+    {
+      "from": "C-ROTULOS",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Baixar e ler os rotulos oficiais importa Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_operacao.py",
+          "line": 26,
+          "snippet": "from mapa_regfi import explain_divergence, selling_off          # noqa: E402"
         }
       ]
     },
@@ -16117,6 +16401,40 @@
           "file": "motor/pacote_convergencia.py",
           "line": 78,
           "snippet": "'data/raw/IT-ROTULOS/_MANIFESTO.json'],"
+        }
+      ]
+    },
+    {
+      "from": "C-SAUDE-FONTE",
+      "to": "C-RECORRENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A saude de cada fonte importa A prova de que o fato se refaz. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/chain.py",
+          "line": 43,
+          "snippet": "import source_health as sh                                     # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-SAUDE-FONTE",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A saude de cada fonte importa Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_operacao.py",
+          "line": 23,
+          "snippet": "import source_health as sh                                     # noqa: E402"
         }
       ]
     },
@@ -16720,40 +17038,6 @@
     },
     {
       "from": "C-TESTES",
-      "to": "C-APIFY-POOL",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa Apify — a rota paga. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_coleta_resiliente.py",
-          "line": 19,
-          "snippet": "import apify_pool as ap          # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-ASK-SINTONIA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa Ask Sintonia. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_coleta_externa.py",
-          "line": 551,
-          "snippet": "import rede"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
       "to": "C-ASK-SINTONIA",
       "type": "WRITES",
       "payload": "artefacto",
@@ -16772,28 +17056,6 @@
     {
       "from": "C-TESTES",
       "to": "C-CICATRIZES-BR",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa Cicatrizes do Brasil (lei portada). Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_cicatrizes_brasil.py",
-          "line": 77,
-          "snippet": "import cicatrizes_brasil as C"
-        },
-        {
-          "file": "tests/test_portoes_eame.py",
-          "line": 105,
-          "snippet": "from cicatrizes_brasil import monta as mc"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-CICATRIZES-BR",
       "type": "READS",
       "payload": "artefacto",
       "natureza": "FLUXO",
@@ -16805,211 +17067,6 @@
           "file": "regras/cicatrizes_brasil.py",
           "line": 159,
           "snippet": "'OWNER': 'tests/test_operacao.py',"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-COLETA-BASE",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa O motor de buscar. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_coleta_resiliente.py",
-          "line": 20,
-          "snippet": "import coleta_checkpoint as C    # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-COLETA-PUBLICA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa Colher o que o concorrente publica. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_comunicacao.py",
-          "line": 27,
-          "snippet": "import comunicacao_classificar as cl      # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-CONTRATO-CAMPOS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa O que a coleta tem de trazer. Provado por 3 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_coleta_externa.py",
-          "line": 14,
-          "snippet": "import voz  # noqa: E402"
-        },
-        {
-          "file": "tests/test_pipeline.py",
-          "line": 18,
-          "snippet": "import voz  # noqa: E402"
-        },
-        {
-          "file": "tests/test_voz.py",
-          "line": 317,
-          "snippet": "import voz as _voz"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-DATA-CLOCK",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa Regua do tempo. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_v21_datas.py",
-          "line": 13,
-          "snippet": "import v21_datas as DT  # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-FONTES-EU",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa Ler as bases oficiais da Europa. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_operacao.py",
-          "line": 25,
-          "snippet": "from denominaciones import parse_text, read, split_rows, fold   # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-IDENTIDADE",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa Quem esta autorizado a ser coletado. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_comunicacao.py",
-          "line": 28,
-          "snippet": "import comunicacao_identidade as ident    # noqa: E402"
-        },
-        {
-          "file": "tests/test_comunicacao.py",
-          "line": 29,
-          "snippet": "import comunicacao_universo as uni        # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-LUGAR-COLETA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa O lugar do fato — carimbado na coleta. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_lugar_do_fato.py",
-          "line": 22,
-          "snippet": "import lugar_do_fato as L                                          # noqa: E402"
-        },
-        {
-          "file": "tests/test_lugar_do_fato.py",
-          "line": 23,
-          "snippet": "import fato_local as IT                                            # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-MEDICAO",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa Auditoria, cobertura e custo. Provado por 3 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_operacao.py",
-          "line": 24,
-          "snippet": "from coverage import Coverage, CoverageError                   # noqa: E402"
-        },
-        {
-          "file": "tests/test_portao.py",
-          "line": 324,
-          "snippet": "import auditoria as au"
-        },
-        {
-          "file": "tests/test_proveniencia.py",
-          "line": 16,
-          "snippet": "import auditoria as au      # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-NAVEGADOR",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa O navegador — a rota gratis. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_navegador.py",
-          "line": 25,
-          "snippet": "import navegador as nav                                        # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-PACOTE-CAMADAS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa Montagem do pacote por camadas. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_handoff.py",
-          "line": 97,
-          "snippet": "import metricas_canonicas as mc"
-        },
-        {
-          "file": "tests/test_metricas.py",
-          "line": 25,
-          "snippet": "from metricas_canonicas import build, Ledger                    # noqa: E402"
         }
       ]
     },
@@ -17051,242 +17108,6 @@
           "snippet": "pack = carrega('SPAIN-HERO-CASES-V1.json')"
         }
       ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-PROCEDENCIA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa De onde veio — carimbado na coleta. Provado por 3 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_handoff.py",
-          "line": 157,
-          "snippet": "import proveniencia as pv"
-        },
-        {
-          "file": "tests/test_portao.py",
-          "line": 13,
-          "snippet": "import proveniencia as pv          # noqa: E402"
-        },
-        {
-          "file": "tests/test_proveniencia.py",
-          "line": 15,
-          "snippet": "import proveniencia as pv   # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-RECORRENCIA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa A prova de que o fato se refaz. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_operacao.py",
-          "line": 350,
-          "snippet": "import chain"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-REGRA-COLETA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa A regra de coleta externa. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_portao.py",
-          "line": 12,
-          "snippet": "import portao, filas, voz          # noqa: E402"
-        },
-        {
-          "file": "tests/test_portoes_eame.py",
-          "line": 20,
-          "snippet": "import portoes_eame as P                                          # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-RELEVANCIA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_adama_relevance.py",
-          "line": 22,
-          "snippet": "from adama_relevance import (classificar, contar, produto_que_prova,   # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-ROTULOS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa Baixar e ler os rotulos oficiais. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_operacao.py",
-          "line": 26,
-          "snippet": "from mapa_regfi import explain_divergence, selling_off          # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-SAUDE-FONTE",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa A saude de cada fonte. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_operacao.py",
-          "line": 23,
-          "snippet": "import source_health as sh                                     # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-V21-COMERCIAL",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa Leitura comercial e completude. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_prioridade_comercial.py",
-          "line": 21,
-          "snippet": "import v21_comercial as CM  # noqa: E402"
-        },
-        {
-          "file": "tests/test_prioridade_comercial.py",
-          "line": 22,
-          "snippet": "import v21_necessidade as NE  # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-V21-CONTRATO",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa Contrato do pacote. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_v21_traducao_trava.py",
-          "line": 29,
-          "snippet": "from v21_traducao_trava import conferir  # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-V21-INGEST",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa Ingestao V2.1. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_v21_geografia.py",
-          "line": 21,
-          "snippet": "import v21_normalizar as N  # noqa: E402"
-        },
-        {
-          "file": "tests/test_v21_mercado.py",
-          "line": 17,
-          "snippet": "import v21_normalizar as N  # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-V21-OPORTUNIDADE",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "MONTAGEM",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes importa Motor de Oportunidade. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_completude_oportunidade.py",
-          "line": 56,
-          "snippet": "import v21_oportunidades as M"
-        },
-        {
-          "file": "tests/test_prioridade_comercial.py",
-          "line": 23,
-          "snippet": "import v21_oportunidades as OP  # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-TRANSCRICAO",
-      "to": "C-COLETA-INSTAGRAM",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura importa Colher o Instagram. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "ferramentas/instagram_transcrever.py",
-          "line": 184,
-          "snippet": "import instagram_janela as ij"
-        }
-      ],
-      "passa_pelo_preparo": true
-    },
-    {
-      "from": "C-TRANSCRICAO",
-      "to": "C-NAVEGADOR",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura importa O navegador — a rota gratis. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "ferramentas/instagram_transcrever.py",
-          "line": 183,
-          "snippet": "import cdp"
-        }
-      ],
-      "passa_pelo_preparo": true
     },
     {
       "from": "C-V2-LEGADO",
@@ -17342,6 +17163,28 @@
     {
       "from": "C-V21-COMERCIAL",
       "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Leitura comercial e completude importa Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_prioridade_comercial.py",
+          "line": 21,
+          "snippet": "import v21_comercial as CM  # noqa: E402"
+        },
+        {
+          "file": "tests/test_prioridade_comercial.py",
+          "line": 22,
+          "snippet": "import v21_necessidade as NE  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-V21-COMERCIAL",
+      "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "natureza": "FLUXO",
@@ -17364,12 +17207,17 @@
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Leitura comercial e completude importa Contrato do pacote. Provado por 1 linha de codigo.",
+      "reason": "Leitura comercial e completude importa Contrato do pacote. Provado por 2 linhas de codigo.",
       "evidence": [
         {
-          "file": "motor/v21_tm_colher.py",
-          "line": 41,
-          "snippet": "from v21_traducao_trava import conferir"
+          "file": "motor/v21_aceitacao.py",
+          "line": 39,
+          "snippet": "from v21_campos_de_lingua import (LEITURA, MISTO, campos_do_registro,  # noqa"
+        },
+        {
+          "file": "motor/v21_traducao_trava.py",
+          "line": 54,
+          "snippet": "from v21_campos_de_lingua import (LEITURA, MISTO, PROMOVE, campos_do_registro,  # noqa"
         }
       ]
     },
@@ -17392,23 +17240,40 @@
     },
     {
       "from": "C-V21-COMERCIAL",
-      "to": "C-V21-INGEST",
+      "to": "C-V21-OPORTUNIDADE",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Leitura comercial e completude importa Ingestao V2.1. Provado por 2 linhas de codigo.",
+      "reason": "Leitura comercial e completude importa Motor de Oportunidade. Provado por 2 linhas de codigo.",
       "evidence": [
         {
-          "file": "motor/v21_comercial.py",
-          "line": 305,
-          "snippet": "import v21_normalizar as N"
+          "file": "motor/v21_oportunidades.py",
+          "line": 45,
+          "snippet": "import v21_necessidade as NE  # noqa: E402"
         },
         {
-          "file": "motor/v21_necessidade.py",
-          "line": 70,
-          "snippet": "import v21_normalizar as N  # noqa: E402"
+          "file": "motor/v21_oportunidades.py",
+          "line": 46,
+          "snippet": "import v21_comercial as CM  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-V21-CONTRATO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Contrato do pacote importa Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_v21_traducao_trava.py",
+          "line": 29,
+          "snippet": "from v21_traducao_trava import conferir  # noqa: E402"
         }
       ]
     },
@@ -17420,34 +17285,29 @@
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Contrato do pacote importa Leitura comercial e completude. Provado por 2 linhas de codigo.",
+      "reason": "Contrato do pacote importa Leitura comercial e completude. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "motor/v21_aceitacao.py",
-          "line": 39,
-          "snippet": "from v21_campos_de_lingua import (LEITURA, MISTO, campos_do_registro,  # noqa"
-        },
-        {
-          "file": "motor/v21_traducao_trava.py",
-          "line": 54,
-          "snippet": "from v21_campos_de_lingua import (LEITURA, MISTO, PROMOVE, campos_do_registro,  # noqa"
+          "file": "motor/v21_tm_colher.py",
+          "line": 41,
+          "snippet": "from v21_traducao_trava import conferir"
         }
       ]
     },
     {
       "from": "C-V21-CRUZAMENTO",
-      "to": "C-V21-INGEST",
+      "to": "C-PACOTE-CAMADAS",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Cruzamentos e convergencia importa Ingestao V2.1. Provado por 1 linha de codigo.",
+      "reason": "Cruzamentos e convergencia importa Montagem do pacote por camadas. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "motor/pacote_convergencia.py",
-          "line": 34,
-          "snippet": "from pacote_normalizar import DR, env, grava, local_json, novo_id  # noqa: F401"
+          "file": "pacote/pacote.py",
+          "line": 35,
+          "snippet": "from pacote_convergencia import camada_convergencia              # noqa: E402"
         }
       ]
     },
@@ -17668,35 +17528,60 @@
     },
     {
       "from": "C-V21-INGEST",
-      "to": "C-DATA-CLOCK",
+      "to": "C-LUGAR-DO-FATO",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ingestao V2.1 importa Regua do tempo. Provado por 1 linha de codigo.",
+      "reason": "Ingestao V2.1 importa A geografia do pacote. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "motor/v21_ingest_b.py",
-          "line": 37,
-          "snippet": "import v21_datas as DT            # noqa: E402"
+          "file": "leis/v21_geografia_contrato.py",
+          "line": 26,
+          "snippet": "import v21_normalizar as N  # noqa: E402"
         }
       ]
     },
     {
       "from": "C-V21-INGEST",
-      "to": "C-FONTES-EU",
+      "to": "C-PACOTE-CAMADAS",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ingestao V2.1 importa Ler as bases oficiais da Europa. Provado por 1 linha de codigo.",
+      "reason": "Ingestao V2.1 importa Montagem do pacote por camadas. Provado por 6 linhas de codigo.",
       "evidence": [
         {
-          "file": "motor/normalize_agro.py",
-          "line": 29,
-          "snippet": "from eppo_gd import names as eppo_names"
+          "file": "pacote/pacote.py",
+          "line": 27,
+          "snippet": "from pacote_normalizar import camada_adama, DR                      # noqa: E402"
+        },
+        {
+          "file": "pacote/pacote_camadas.py",
+          "line": 20,
+          "snippet": "from pacote_normalizar import (git_json, local_json, grava, env, novo_id,  # noqa: E402"
+        },
+        {
+          "file": "pacote/pacote_camadas2.py",
+          "line": 21,
+          "snippet": "from pacote_normalizar import (git_json, local_json, grava, env, novo_id,  # noqa: E402"
+        },
+        {
+          "file": "pacote/pacote_camadas3.py",
+          "line": 25,
+          "snippet": "from pacote_normalizar import (git_json, local_json, grava, env, novo_id,  # noqa: E402"
+        },
+        {
+          "file": "pacote/pacote_fenologia.py",
+          "line": 33,
+          "snippet": "from pacote_normalizar import grava, env, novo_id, DR  # noqa: E402"
+        },
+        {
+          "file": "pacote/pacote_mercado.py",
+          "line": 32,
+          "snippet": "from pacote_normalizar import grava, env, novo_id, DR, ROOT, local_json  # noqa: E402"
         }
       ]
     },
@@ -17723,41 +17608,85 @@
       ]
     },
     {
-      "from": "C-V21-OPORTUNIDADE",
-      "to": "C-DATA-CLOCK",
+      "from": "C-V21-INGEST",
+      "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Motor de Oportunidade importa Regua do tempo. Provado por 1 linha de codigo.",
+      "reason": "Ingestao V2.1 importa Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
-          "file": "motor/v21_oportunidades.py",
-          "line": 44,
-          "snippet": "import v21_datas as DT  # noqa: E402"
+          "file": "tests/test_v21_geografia.py",
+          "line": 21,
+          "snippet": "import v21_normalizar as N  # noqa: E402"
+        },
+        {
+          "file": "tests/test_v21_mercado.py",
+          "line": 17,
+          "snippet": "import v21_normalizar as N  # noqa: E402"
         }
       ]
     },
     {
-      "from": "C-V21-OPORTUNIDADE",
+      "from": "C-V21-INGEST",
       "to": "C-V21-COMERCIAL",
       "type": "IMPORTS",
       "payload": "codigo",
       "natureza": "MONTAGEM",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Motor de Oportunidade importa Leitura comercial e completude. Provado por 2 linhas de codigo.",
+      "reason": "Ingestao V2.1 importa Leitura comercial e completude. Provado por 2 linhas de codigo.",
       "evidence": [
         {
-          "file": "motor/v21_oportunidades.py",
-          "line": 45,
-          "snippet": "import v21_necessidade as NE  # noqa: E402"
+          "file": "motor/v21_comercial.py",
+          "line": 305,
+          "snippet": "import v21_normalizar as N"
         },
         {
-          "file": "motor/v21_oportunidades.py",
-          "line": 46,
-          "snippet": "import v21_comercial as CM  # noqa: E402"
+          "file": "motor/v21_necessidade.py",
+          "line": 70,
+          "snippet": "import v21_normalizar as N  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-V21-INGEST",
+      "to": "C-V21-CRUZAMENTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ingestao V2.1 importa Cruzamentos e convergencia. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/pacote_convergencia.py",
+          "line": 34,
+          "snippet": "from pacote_normalizar import DR, env, grava, local_json, novo_id  # noqa: F401"
+        }
+      ]
+    },
+    {
+      "from": "C-V21-OPORTUNIDADE",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Motor de Oportunidade importa Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_completude_oportunidade.py",
+          "line": 56,
+          "snippet": "import v21_oportunidades as M"
+        },
+        {
+          "file": "tests/test_prioridade_comercial.py",
+          "line": 23,
+          "snippet": "import v21_oportunidades as OP  # noqa: E402"
         }
       ]
     },
@@ -17775,23 +17704,6 @@
           "file": "motor/v21_completude_oportunidade.py",
           "line": 147,
           "snippet": "src = open(os.path.join(ROOT, 'motor', 'v21_oportunidades.py'),"
-        }
-      ]
-    },
-    {
-      "from": "V-FACEBOOK",
-      "to": "C-COLETA-INSTAGRAM",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «Colher o Instagram», que e quem o chama e quem guarda o que ele devolve.",
-      "evidence": [
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 127,
-          "snippet": ".find(h => h && /^https?:/.test(h) && !/instagram\\.com|facebook\\.com/.test(h));"
         }
       ]
     },
@@ -17899,23 +17811,6 @@
     },
     {
       "from": "V-INSTAGRAM",
-      "to": "C-COLETA-BASE",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «O motor de buscar», que e quem o chama e quem guarda o que ele devolve.",
-      "evidence": [
-        {
-          "file": "coleta/coletor.py",
-          "line": 54,
-          "snippet": "`build`      → `&build=`. Os quatro atores oficiais de Instagram foram reconstruídos no"
-        }
-      ]
-    },
-    {
-      "from": "V-INSTAGRAM",
       "to": "C-COLETA-INSTAGRAM",
       "type": "VIAJA_POR",
       "payload": "coleta",
@@ -17926,8 +17821,8 @@
       "evidence": [
         {
           "file": "coleta/instagram_coleta.py",
-          "line": 3,
-          "snippet": "INSTAGRAM — o orquestrador. Uma fase por comando, um teto por fase, um manifesto por fase."
+          "line": 73,
+          "snippet": "import instagram_pessoal as ip"
         }
       ]
     },
@@ -17945,23 +17840,6 @@
           "file": "coleta/comunicacao_classificar.py",
           "line": 55,
           "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
-        }
-      ]
-    },
-    {
-      "from": "V-INSTAGRAM",
-      "to": "C-COLETA-YOUTUBE",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «Colher o YouTube», que e quem o chama e quem guarda o que ele devolve.",
-      "evidence": [
-        {
-          "file": "coleta/youtube_janela.py",
-          "line": 16,
-          "snippet": "com `PLATFORM = YOUTUBE`. São 7 — duas a mais que as 5 do Instagram."
         }
       ]
     },
@@ -17994,8 +17872,8 @@
       "evidence": [
         {
           "file": "coleta/filas.py",
-          "line": 82,
-          "snippet": "'PUBLIC_LINKEDIN_STATUS': 'NOT_TESTED',"
+          "line": 93,
+          "snippet": "origens = _ler('ES-VOICE-LINKEDIN.json')['ORIGINS']"
         }
       ]
     },
@@ -18027,26 +17905,9 @@
       "reason": "O que sai deste canal entra em «Montar o corpus de fala e de ciencia», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
-          "file": "coleta/corpus_pesquisador.py",
-          "line": 32,
-          "snippet": "Apify continua autorizada para YouTube e LinkedIn, mas **não neste lote**. O motivo é"
-        }
-      ]
-    },
-    {
-      "from": "V-YOUTUBE",
-      "to": "C-COLETA-BASE",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «O motor de buscar», que e quem o chama e quem guarda o que ele devolve.",
-      "evidence": [
-        {
-          "file": "coleta/filas.py",
-          "line": 83,
-          "snippet": "'PUBLIC_YOUTUBE_STATUS': 'NOT_TESTED',"
+          "file": "coleta/sensor_canal_identidade.py",
+          "line": 186,
+          "snippet": "if c['SOURCE_PLATFORM'] != 'LINKEDIN':"
         }
       ]
     },
@@ -18079,8 +17940,8 @@
       "evidence": [
         {
           "file": "coleta/youtube_janela.py",
-          "line": 3,
-          "snippet": "YOUTUBE PELA JANELA — tudo o que a rota pública entrega antes de gastar um centavo."
+          "line": 70,
+          "snippet": "SAIDA = os.path.join(SAMPLES, 'YOUTUBE-JANELA')"
         }
       ]
     },
@@ -18095,9 +17956,9 @@
       "reason": "O que sai deste canal entra em «Montar o corpus de fala e de ciencia», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
-          "file": "coleta/corpus_pesquisador.py",
-          "line": 32,
-          "snippet": "Apify continua autorizada para YouTube e LinkedIn, mas **não neste lote**. O motivo é"
+          "file": "coleta/speaker_identidade.py",
+          "line": 170,
+          "snippet": "('youtube.com', 'YOUTUBE'), ('youtu.be', 'YOUTUBE'),"
         }
       ]
     },
@@ -18130,7 +17991,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 177,
+          "line": 191,
           "snippet": "contrato = RAIZ / \"italia-portale\" / \"audit\" / \"CANONICAL-PACKAGE-CONTRACT.json\""
         }
       ]
@@ -18213,12 +18074,12 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 97,
-    "components_proven": 66,
-    "components_pending": 27,
+    "components_proven": 68,
+    "components_pending": 25,
     "components_broken": 0,
     "components_unknown": 4,
-    "edges": 327,
-    "edges_proven": 327,
+    "edges": 322,
+    "edges_proven": 322,
     "edges_unknown": 0,
     "business_edges": 4,
     "files_tracked": 1143,

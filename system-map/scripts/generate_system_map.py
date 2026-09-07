@@ -40,6 +40,7 @@ E o unico mecanismo que impede verde velho de sobreviver a mudanca.
 """
 
 import fnmatch
+import ast
 import json
 import re
 import shutil
@@ -81,10 +82,22 @@ def casa(caminho: str, padrao: str) -> bool:
 # A prova exigida de cada tipo de peca
 # ─────────────────────────────────────────────────────────────────────────────
 def prova_do_tipo(kind: str, ent: list, sai: list, tem_teste: bool) -> tuple[bool, str]:
-    """Devolve (passou, frase que explica em portugues comum)."""
+    """Devolve (passou, frase que explica em portugues comum).
+
+    ATENCAO A DIRECAO. Desde que o `IMPORTS` passou a seguir o dado, «quem me
+    importa» deixou de estar na ENTRADA e passou a estar na SAIDA: o codigo da
+    biblioteca corre para dentro de quem a usa, e a seta vai no mesmo sentido.
+
+    Enquanto estas regras nao acompanharam, o mapa dizia «Apify: biblioteca que
+    ninguem importa» sobre uma peca com NOVE ligacoes de import. Uma regra
+    escrita para a direcao antiga produz um status errado com a mesma cara de um
+    status certo — e essa e a pior avaria que este ficheiro pode ter.
+    """
     corre = any(e["type"] == "RUNS" for e in ent)
-    importado = any(e["type"] == "IMPORTS" for e in ent)
-    lido = any(e["type"] in ("READS", "IMPORTS") for e in ent)
+    # quem me importa: agora sai de mim para quem me usa
+    importado = any(e["type"] == "IMPORTS" for e in sai)
+    lido = (any(e["type"] == "READS" for e in ent)
+            or any(e["type"] in ("READS", "IMPORTS") for e in sai))
 
     if kind in ("engine", "chain"):
         if corre:
@@ -105,7 +118,7 @@ def prova_do_tipo(kind: str, ent: list, sai: list, tem_teste: bool) -> tuple[boo
     if kind == "gate":
         if corre or importado:
             return True, "esta no caminho: alguem o chama antes de publicar."
-        if any(e["type"] == "IMPORTS" for e in sai):
+        if any(e["type"] == "IMPORTS" for e in ent):
             return False, "importa coisas, mas ninguem o chama — portao fora do caminho nao guarda nada."
         return False, "portao que ninguem chama."
 
@@ -134,7 +147,8 @@ def prova_do_tipo(kind: str, ent: list, sai: list, tem_teste: bool) -> tuple[boo
         return False, "superficie sem ligacao provada com o dado que deveria mostrar."
 
     if kind == "artifact":
-        if lido:
+        # o READS ja vem virado: quem le o artefacto esta na SAIDA dele
+        if sai:
             return True, "algum portao ou pagina le este artefacto."
         return False, "artefacto que ninguem le — pode ser sobra."
 
@@ -481,18 +495,80 @@ def em_bom_portugues(x: dict, ligado: list) -> str:
 #
 # Estes cartoes nao sao escritos a mao: nascem de procurar o canal dentro do
 # codigo de cada acao, e cada seta carrega o ficheiro e a linha onde ele aparece.
+# MENCIONAR UM CANAL NAO E USAR UM CANAL — e este erro ja me apanhou duas vezes.
+# A primeira foi com o Supabase: um ficheiro que FALAVA do banco nos comentarios
+# saiu marcado como quem grava nele. A segunda foi aqui: «Colher o YouTube»
+# aparecia ligado ao INSTAGRAM porque o cabecalho do ficheiro compara os dois —
+# «trinta por pagina, contra os DOZE do muro do Instagram». Isso e prosa, nao
+# codigo.
+#
+#     UMA SETA FALSA E PIOR QUE UMA SETA EM FALTA.
+#     A que falta faz perguntar. A falsa faz decidir errado.
+#
+# Por isso o padrao exige uma forma de USO — o endereco, a constante em
+# maiusculas, o import ou a chamada — e nunca a palavra solta numa frase.
 CANAIS = (
-    ("V-YOUTUBE", "YOUTUBE", r"youtube|yt_dlp|youtu\.be",
+    ("V-YOUTUBE", "YOUTUBE",
+     r"youtube\.com|youtu\.be|yt_dlp|\bYOUTUBE\b|youtube_\w+\s*\(|import\s+youtube",
      "Video publico: o que o canal do concorrente e o do sector poem no ar."),
-    ("V-INSTAGRAM", "INSTAGRAM", r"instagram",
+    ("V-INSTAGRAM", "INSTAGRAM",
+     r"instagram\.com|\bINSTAGRAM\b|instagram_\w+\s*\(|import\s+instagram",
      "A pagina publica: o que a marca publica para quem a segue."),
-    ("V-LINKEDIN", "LINKEDIN", r"linkedin",
+    ("V-LINKEDIN", "LINKEDIN",
+     r"linkedin\.com|\bLINKEDIN\b|linkedin_\w+\s*\(|import\s+linkedin",
      "A pagina de empresa e a das pessoas: contratacao, evento, anuncio."),
-    ("V-FACEBOOK", "FACEBOOK", r"facebook",
+    ("V-FACEBOOK", "FACEBOOK",
+     r"facebook\.com|\bFACEBOOK\b|facebook_\w+\s*\(|import\s+facebook",
      "A pagina publica da marca, ainda viva em varios mercados agricolas."),
-    ("V-HTTP", "PEDIDO HTTP DIRETO", r"requests\.|httpx|urllib\.request|aiohttp",
+    ("V-HTTP", "PEDIDO HTTP DIRETO",
+     r"requests\.(get|post|put|head)|httpx\.|urllib\.request|aiohttp",
      "O site aberto, sem plataforma pelo meio: base oficial, PDF, pagina, ficheiro."),
 )
+
+
+def sem_comentarios(texto: str) -> str:
+    """Tira o que e prosa, para que so o codigo responda.
+
+    COMENTARIOS **E** DOCSTRINGS. Achei que os comentarios chegavam, e nao
+    chegam: os ficheiros desta casa explicam-se em docstrings longas, e uma
+    delas tem um titulo em maiusculas —
+
+        O YOUTUBE E MAIS BARATO QUE O INSTAGRAM, NAO MAIS CARO.
+
+    — que passou por todos os filtros. A palavra estava em maiusculas, como uma
+    constante, mas era so enfase. «Colher o YouTube» ficou ligado ao INSTAGRAM
+    por causa de uma frase que compara os dois precos.
+
+    Nao ha padrao esperto que distinga enfase de constante. O que resolve e
+    tirar a prosa toda antes de procurar.
+    """
+    try:
+        arvore = ast.parse(texto)
+    except SyntaxError:
+        arvore = None
+
+    linhas = texto.splitlines()
+    if arvore is not None:
+        for no in ast.walk(arvore):
+            if not isinstance(no, (ast.Module, ast.FunctionDef, ast.AsyncFunctionDef,
+                                   ast.ClassDef)):
+                continue
+            corpo = getattr(no, "body", None)
+            if not corpo:
+                continue
+            primeiro = corpo[0]
+            if (isinstance(primeiro, ast.Expr)
+                    and isinstance(primeiro.value, ast.Constant)
+                    and isinstance(primeiro.value.value, str)):
+                de = primeiro.lineno - 1
+                ate = (primeiro.end_lineno or primeiro.lineno)
+                for k in range(de, min(ate, len(linhas))):
+                    linhas[k] = ""
+
+    fora = []
+    for linha in linhas:
+        fora.append("" if linha.lstrip().startswith("#") else linha.split("#", 1)[0])
+    return "\n".join(fora)
 
 
 def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
@@ -523,7 +599,11 @@ def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
         ficheiro_das_contas = (_S.get("ACCOUNTS") or {}).get("file", "")
 
     for vid, nome, padrao, o_que in CANAIS:
-        rx = _re.compile(padrao, _re.I)
+        # SEM «ignorar maiusculas», e de proposito. Com ela, o teste da constante
+        # `INSTAGRAM` casava com a palavra «Instagram» no meio de uma frase — que
+        # e exatamente o que ele existia para excluir. A regra so vale se
+        # distinguir `PLATFORM = INSTAGRAM` de «o muro do Instagram».
+        rx = _re.compile(padrao)
         quem, provas = [], []
         for a in acoes:
             for f in a.get("_files", []):
@@ -531,11 +611,12 @@ def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
                 if not cam.is_file():
                     continue
                 try:
-                    linhas = cam.read_text(encoding="utf-8", errors="replace").splitlines()
+                    linhas = sem_comentarios(
+                        cam.read_text(encoding="utf-8", errors="replace")).splitlines()
                 except OSError:
                     continue
                 achou = next(((i, l) for i, l in enumerate(linhas, 1)
-                              if rx.search(l) and not l.strip().startswith("#")), None)
+                              if rx.search(l)), None)
                 if achou:
                     quem.append(a["id"])
                     provas.append({"acao": a["id"], "veiculo": vid,
@@ -1681,10 +1762,23 @@ def main_uma_vez(stamp: bool) -> int:
         # o dado sai do corpus e vai para o pacote.
         #
         # Um mapa de processo tem de responder "para onde isto vai". Por isso a
-        # leitura e virada: quem foi lido ALIMENTA quem leu. `IMPORTS` e `RUNS`
-        # ficam como estao — ali a seta e mesmo de dependencia: quem importa
-        # depende de quem e importado, e quem manda rodar manda mesmo.
-        if e["type"] == "READS":
+        # leitura e virada: quem foi lido ALIMENTA quem leu.
+        #
+        # E O IMPORT TAMBEM, e isto foi uma correcao. Ele ficava como esta no
+        # codigo — importador para importado — e o mapa passava a ter DUAS
+        # direcoes ao mesmo tempo: o READS a apontar para a frente, o IMPORTS
+        # para tras. Quem seguia uma corrente batia numa seta ao contrario sem
+        # aviso, e a leitura partia-se ali.
+        #
+        # «Colher o YouTube -> As palavras que a busca digita» era o exemplo:
+        # lia-se como se o coletor entregasse palavras ao lexico, quando e o
+        # lexico que lhe da as palavras. A seta certa e a que segue o que passa
+        # na linha — e o que passa num import e o CODIGO do importado a entrar
+        # no importador.
+        #
+        # `RUNS` fica como esta: ali nao passa nada: passa uma ordem, e a ordem
+        # vai mesmo de quem manda para quem obedece.
+        if e["type"] in ("READS", "IMPORTS"):
             a, b = b, a
         chave = (a, b, e["type"])
         alvo = ligacoes.setdefault(chave, {

@@ -45,7 +45,7 @@ A lei que diz o que se coleta primeiro e o que nao pode ser esquecido: video, pe
 
 | | |
 |---|---|
-| estado | PROVEN — existe teste que exercita esta lei. |
+| estado | PROVEN — o motor importa esta lei para decidir. |
 | onde vive | `docs/operacao/PORTOES-DE-COLETA-10B.md` |
 | onde vive | `docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md` |
 | onde vive | `regras/portao.py` |
@@ -59,7 +59,7 @@ Diz se uma fonte respondeu bem, respondeu torto, ou nao respondeu.
 
 | | |
 |---|---|
-| estado | PROVEN — existe teste que exercita esta lei. |
+| estado | PROVEN — o motor importa esta lei para decidir. |
 | onde vive | `regras/source_health.py` |
 
 ### As palavras que a busca digita
@@ -94,7 +94,7 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 
 | | |
 |---|---|
-| estado | PROVEN — existe teste que exercita esta lei. |
+| estado | PROVEN — o motor importa esta lei para decidir. |
 | onde vive | `regras/proveniencia.py` |
 
 ### O contrato de cada fonte italiana
@@ -121,7 +121,7 @@ Separa o lugar de onde o documento veio do lugar onde o fato aconteceu, e propoe
 
 | | |
 |---|---|
-| estado | PROVEN — existe teste que exercita esta lei. |
+| estado | PROVEN — o motor importa esta lei para decidir. |
 | onde vive | `regras/fato_local.py` |
 | onde vive | `regras/lugar_do_fato.py` |
 
@@ -145,7 +145,7 @@ O contrato de campos por video — 32 campos, em codigo — e a regua de como o 
 
 | | |
 |---|---|
-| estado | PROVEN — existe teste que exercita esta lei. |
+| estado | PROVEN — o motor importa esta lei para decidir. |
 | onde vive | `regras/voz.py` |
 
 ### Quem esta autorizado a ser coletado
@@ -156,7 +156,7 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 
 | | |
 |---|---|
-| estado | PROVEN — existe teste que exercita esta lei. |
+| estado | PROVEN — o motor importa esta lei para decidir. |
 | onde vive | `data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json` |
 | onde vive | `regras/comunicacao_identidade.py` |
 | onde vive | `regras/comunicacao_lote.py` |
