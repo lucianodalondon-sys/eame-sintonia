@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "9aae470fb8e94741d48d5afa170790d84b96b0e6",
-    "GENERATED_AT": "2026-09-07T14:20:27-03:00"
+    "HEAD": "0bf160a2eefed46b43e394e00f54021b97567e87",
+    "GENERATED_AT": "2026-09-07T14:31:37-03:00"
   },
   "FILES": [
     {
@@ -7632,21 +7632,21 @@
     },
     {
       "path": "system-map/app/map.js",
-      "sha": "5bd18024abda85fa542947ed23d3f1410dec52e9",
+      "sha": "e93f39ffd72619eefac4024c350ee4f82b49a121",
       "ext": ".js",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "3b184476eaa800bb1a511dd31e1c3d21a46dee58",
+      "sha": "bdd932eaab8c72a26dafbac13daa55c3df3d29ce",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "383509d416c589b012b3a4116de851deaa2510f9",
+      "sha": "a92fdc19b11669bb9ebdada7a96edd9bb00ab206",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7654,6 +7654,13 @@
     {
       "path": "system-map/scripts/mudar_gaveta.py",
       "sha": "99736f74a118a545f946246f88c041153e4bb342",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/scan_casco.py",
+      "sha": "4cd63238a80cd2c4a264c8871d323bd206ab5175",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8599,6 +8606,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 67,
         "snippet": "python3 system-map/scripts/generate_system_map.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/scan_casco.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 66,
+        "snippet": "python3 system-map/scripts/scan_casco.py"
       }
     },
     {
@@ -21621,7 +21639,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 881,
+        "line": 863,
         "snippet": "\"data/samples/ITALY-SOURCE-MASTER-V1.json\"],"
       }
     },
@@ -21632,7 +21650,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 859,
+        "line": 841,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -21643,7 +21661,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 695,
+        "line": 677,
         "snippet": "destino = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -21676,7 +21694,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1060,
+        "line": 1042,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
       }
     },
@@ -21687,7 +21705,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1082,
+        "line": 1064,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -21698,7 +21716,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1083,
+        "line": 1065,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -21709,7 +21727,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1082,
+        "line": 1064,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -21731,7 +21749,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1398,
+        "line": 1380,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -21742,7 +21760,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1398,
+        "line": 1380,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -21753,7 +21771,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 821,
+        "line": 803,
         "snippet": "vj = RAIZ / \"vercel.json\""
       }
     },
@@ -21766,6 +21784,39 @@
         "file": "system-map/scripts/mudar_gaveta.py",
         "line": 31,
         "snippet": "DECL = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/scan_casco.py",
+      "to_file": "italia-portale/client/italy-i18n.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/scan_casco.py",
+        "line": 95,
+        "snippet": "I18N = \"italia-portale/client/italy-i18n.js\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/scan_casco.py",
+      "to_file": "italia-portale/client/meeting-labels.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/scan_casco.py",
+        "line": 104,
+        "snippet": "ROTULOS_REUNIAO = \"italia-portale/client/meeting-labels.js\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/scan_casco.py",
+      "to_file": "italia-portale/client/portale.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/scan_casco.py",
+        "line": 94,
+        "snippet": "PORTALE = \"italia-portale/client/portale.html\""
       }
     },
     {
@@ -21964,6 +22015,17 @@
         "file": "system-map/scripts/validate_system_map.py",
         "line": 108,
         "snippet": "\"generate_system_map.py\"):"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/validate_system_map.py",
+      "to_file": "system-map/scripts/scan_casco.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/validate_system_map.py",
+        "line": 107,
+        "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"scan_casco.py\","
       }
     },
     {
@@ -24377,10 +24439,10 @@
     }
   ],
   "COUNTS": {
-    "files_tracked": 1130,
-    "files_readable": 380,
-    "files_code_dir": 418,
-    "file_edges": 1496,
+    "files_tracked": 1131,
+    "files_readable": 381,
+    "files_code_dir": 419,
+    "file_edges": 1501,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

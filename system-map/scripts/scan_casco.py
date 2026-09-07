@@ -84,6 +84,97 @@ CONFISSOES = (
 RE_GLOBAL = re.compile(r"\b(ITALY_[A-Z_]+|MEETING_[A-Z_]+)\b")
 
 
+# ── QUEM DECIDE QUAIS SAO AS FERRAMENTAS ────────────────────────────────────
+# Nao sou eu, e nao e o nome do contrato. E o MENU DO PORTAL. A primeira versao
+# deste ficheiro montava um cartao por «dominio» de contrato e saiam nomes que
+# ninguem reconhece — «NAV COUNTERS + DATA STATE / PROVENANCE PANEL», «Helper
+# relationships, visual tokens». Isso nao e uma ferramenta: e uma gaveta do
+# codigo. Quem abre o portal ve «Radar delle Opportunita», e e esse o nome que
+# tem de estar no cartao.
+PORTALE = "italia-portale/client/portale.html"
+I18N = "italia-portale/client/italy-i18n.js"
+
+# a linha do menu: ['radar', T.navRadar, navN('cases')]
+RE_MENU = re.compile(
+    r"\[\s*'(\w+)'\s*,\s*(?:T\.(\w+)|mtL\(\s*'(\w+)'\s*\))\s*,")
+RE_ROTULO = re.compile(r"^\s*(nav[A-Za-z]+)\s*:\s*'((?:[^'\\]|\\.)*)'", re.M)
+
+# O rotulo do «Radar delle Opportunita» nao vive no i18n normal, vive na tabela
+# da reuniao, e la cada chave e um par [italiano, ingles].
+ROTULOS_REUNIAO = "italia-portale/client/meeting-labels.js"
+RE_ROTULO_PAR = re.compile(
+    r"^\s*(nav[A-Za-z]+)\s*:\s*\[\s*'((?:[^'\\]|\\.)*)'", re.M)
+
+# ── QUE CONTRATO DESCREVE QUE FERRAMENTA ────────────────────────────────────
+# Isto tambem nao e palpite meu: o portal ja tem a tabela feita, em
+# `CAPABILITY_OF`, que diz a que ferramenta pertence cada tela. A ficha do
+# produto pertence ao Portafoglio, a ficha do caso pertence ao Radar. Leio essa
+# tabela em vez de a reescrever — reescrever seria criar uma segunda verdade.
+RE_CAPACIDADE = re.compile(r"static\s+CAPABILITY_OF\s*=\s*\{([^}]*)\}")
+RE_PAR = re.compile(r"(\w+)\s*:\s*'(\w*)'")
+
+# A rota 'radar' e a rota 'meeting' desenham a MESMA tela — o proprio portal
+# diz isso numa linha (`isMeeting: s.view === 'meeting' || s.view === 'radar'`),
+# e so 'meeting' aparece no menu. Sem esta ponte, o contrato do Radar ficava
+# orfao. E a unica ponte que este ficheiro faz, e tem linha que a prova.
+CAPACIDADE_DOBRADA = {"radar": "meeting"}
+
+# Tres contratos tem nome de ficheiro que nao e nome de tela. Isto SIM e leitura
+# minha, nao medicao — fica aqui em cima, curta, para se poder discordar:
+#     calendar   -> windows      o calendario e a mesma tela das Finestre
+#     competitor -> competitors  singular no ficheiro, plural na tela
+#     voci       -> voices       o ficheiro esta em italiano, a tela em ingles
+LEITURA_MINHA = {"calendar": "windows", "competitor": "competitors",
+                 "voci": "voices"}
+
+# E quatro contratos nao sao ferramenta nenhuma — sao o casco a volta: o
+# cabecalho, o menu, os ajudantes e a busca do topo. Nao ganham cartao.
+NAO_E_FERRAMENTA = {"head", "helpers", "nav", "search"}
+
+
+def capacidade_das_telas() -> dict:
+    """A tabela do portal: cada tela pertence a que ferramenta. Medida."""
+    m = RE_CAPACIDADE.search(texto(PORTALE))
+    if not m:
+        return {}
+    fora = {}
+    for tela, cap in RE_PAR.findall(m.group(1)):
+        if cap:
+            fora[tela] = CAPACIDADE_DOBRADA.get(cap, cap)
+    return fora
+
+
+def o_menu() -> list:
+    """As ferramentas, na ordem e com o nome que o portal mostra. Medido.
+
+    O ficheiro de rotulos traz o italiano PRIMEIRO e o ingles depois. Quem abre
+    o portal ve o italiano, e e esse que vai para o cartao — por isso guardo a
+    primeira vez que cada chave aparece, nunca a ultima.
+    """
+    linhas = texto(PORTALE).splitlines()
+    rotulos: dict[str, str] = {}
+    for chave, valor in (RE_ROTULO.findall(texto(I18N))
+                         + RE_ROTULO_PAR.findall(texto(ROTULOS_REUNIAO))):
+        rotulos.setdefault(chave, valor)
+
+    fora, vistos = [], set()
+    for i, l in enumerate(linhas, 1):
+        m = RE_MENU.search(l)
+        if not m:
+            continue
+        vista, chave = m.group(1), (m.group(2) or m.group(3) or "")
+        if not chave.startswith("nav") or vista in vistos:
+            continue
+        vistos.add(vista)
+        fora.append({
+            "vista": vista,
+            "nome": rotulos.get(chave, chave),
+            "chave_do_rotulo": chave,
+            "prova_do_nome": {"file": PORTALE, "line": i, "snippet": l.strip()[:150]},
+        })
+    return fora
+
+
 def texto(rel: str) -> str:
     p = RAIZ / rel
     try:
@@ -93,13 +184,41 @@ def texto(rel: str) -> str:
 
 
 def ferramentas() -> list:
-    """Uma entrada por contrato de bloco, agrupada pelo dominio que ele declara."""
-    por_dominio: dict[str, dict] = {}
+    """UMA ENTRADA POR FERRAMENTA DO MENU — com o nome que o portal mostra.
+
+    A versao anterior agrupava por «dominio» do contrato e saiam cartoes chamados
+    «NAV COUNTERS + DATA STATE / PROVENANCE PANEL». Isso e o nome de uma gaveta do
+    codigo, nao de uma ferramenta: ninguem abre o portal e ve isso escrito.
+
+    Agora e ao contrario. Primeiro pergunta-se ao MENU quais sao as ferramentas —
+    sao onze, e chamam-se «Radar delle Opportunita», «Portafoglio», «Archivio».
+    Depois cada contrato de bloco vai para a ferramenta a que pertence, usando a
+    tabela que o proprio portal ja mantem. Uma ferramenta pode ter varios
+    contratos (o Radar tem dois: o caso e o brief) e pode nao ter nenhum — e
+    quando nao tem, o cartao diz NAO SEI, que e a resposta honesta.
+    """
+    menu = o_menu()
+    if not menu:
+        return []
+    capacidade = capacidade_das_telas()
+    por_ferramenta = {f["vista"]: dict(f, blocos=[], o_que_alimenta="", resumo="",
+                                       confianca="", camadas={}, registos=[],
+                                       riscos=[], perguntas_abertas=[],
+                                       ficheiros=[], confissoes=[])
+                      for f in menu}
+
     d = RAIZ / BLOCOS
     if not d.is_dir():
-        return []
+        return list(por_ferramenta.values())
 
     for p in sorted(d.glob("*.spec.json")):
+        raiz_do_nome = p.name.replace(".spec.json", "")
+        if raiz_do_nome in NAO_E_FERRAMENTA:
+            continue
+        tela = LEITURA_MINHA.get(raiz_do_nome, raiz_do_nome)
+        vista = capacidade.get(tela)
+        if vista not in por_ferramenta:
+            continue
         try:
             bruto = json.loads(p.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
@@ -133,20 +252,22 @@ def ferramentas() -> list:
             tipo, o_que = CAMADAS.get(g, ("NAO SEI", "camada nao classificada"))
             camadas[g] = {"tipo": tipo, "o_que_e": o_que, "prova": onde(g)}
 
-        alvo = por_dominio.setdefault(dominio, {
-            "dominio": dominio,
-            "blocos": [],
-            "o_que_alimenta": real,
-            "resumo": resumo,
-            "confianca": e.get("confidence", ""),
-            "camadas": {},
-            "registos": [],
-            "riscos": e.get("risks") if isinstance(e.get("risks"), list) else [],
-            "perguntas_abertas": (e.get("openQuestions")
-                                  if isinstance(e.get("openQuestions"), list) else []),
-            "ficheiros": [],
-            "confissoes": [],
-        })
+        alvo = por_ferramenta[vista]
+        # Varios contratos podem cair na mesma ferramenta. Empilha-se tudo:
+        # duas descricoes de duas partes da mesma tela continuam a ser a mesma
+        # tela, e quem olha o cartao quer as duas.
+        alvo["o_que_alimenta"] = ((alvo["o_que_alimenta"] + " · " + real).strip(" ·")
+                                  if real else alvo["o_que_alimenta"])
+        alvo["resumo"] = ((alvo["resumo"] + " · " + resumo).strip(" ·")
+                          if resumo else alvo["resumo"])
+        alvo["confianca"] = alvo["confianca"] or e.get("confidence", "")
+        alvo["dominios_do_contrato"] = sorted(
+            set(alvo.get("dominios_do_contrato", []) + ([dominio] if dominio else [])))
+        for campo, chave in (("riscos", "risks"),
+                             ("perguntas_abertas", "openQuestions")):
+            v = e.get(chave)
+            if isinstance(v, list):
+                alvo[campo] += v
         for rx, frase in CONFISSOES:
             if rx.search(junto) and frase not in alvo["confissoes"]:
                 alvo["confissoes"].append(frase)
@@ -159,7 +280,7 @@ def ferramentas() -> list:
             except ValueError:
                 pass
 
-    for f in por_dominio.values():
+    for f in por_ferramenta.values():
         tipos = {c["tipo"] for c in f["camadas"].values()}
         if f["confissoes"]:
             tipos.add("FIXTURE")
@@ -168,8 +289,11 @@ def ferramentas() -> list:
         # porque parece medicao.
         if not tipos:
             f["de_onde_vem"] = "NAO SEI"
-            f["leitura"] = ("Nao da para dizer de onde vem o que esta na tela: o "
-                            "contrato deste bloco nao nomeia camada nenhuma.")
+            f["leitura"] = (
+                "Nao da para dizer de onde vem o que esta nesta tela. "
+                + ("Esta ferramenta nao tem contrato de bloco nenhum escrito."
+                   if not f["ficheiros"] else
+                   "O contrato existe, mas nao nomeia camada de dado nenhuma."))
         elif tipos == {"FIXTURE"}:
             f["de_onde_vem"] = "SO FIXTURE"
             f["leitura"] = ("Tudo o que esta aqui foi escrito a mao para a tela nao "
@@ -185,8 +309,11 @@ def ferramentas() -> list:
         f.pop("registos", None)
         f["blocos"] = sorted(set(f["blocos"]))
         f["ficheiros"] = sorted(set(f["ficheiros"]))
+        f["riscos"] = f["riscos"][:12]
+        f["perguntas_abertas"] = f["perguntas_abertas"][:12]
 
-    return sorted(por_dominio.values(), key=lambda x: x["dominio"])
+    # A ordem e a do menu, nao a alfabetica: e assim que a pessoa as ve.
+    return list(por_ferramenta.values())
 
 
 def camadas_no_cliente() -> dict:
@@ -237,7 +364,8 @@ def main() -> int:
           + " · ".join(f"{k} {v}" for k, v in c["por_origem"].items())
           + f" · {c['camadas_publicadas']} camadas publicadas pelo cliente")
     for f in fs:
-        print(f"    {f['de_onde_vem']:11s} {f['dominio'][:62]}")
+        print(f"    {f['de_onde_vem']:11s} {f['nome'][:40]:42s}"
+              f"{len(f['blocos'])} contrato(s) · {len(f['camadas'])} camada(s)")
     return 0
 
 

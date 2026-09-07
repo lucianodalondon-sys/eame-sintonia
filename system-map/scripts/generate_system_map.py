@@ -393,28 +393,6 @@ def as_fontes() -> tuple[list, list]:
 
 CONTRATOS_REL = "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
 
-# Como o nome do dominio aparece no contrato e como aparece na tela nao sao a
-# mesma coisa. Quem olha o mapa procura o nome que ve no portal.
-NOME_NA_TELA = {
-    "Opportunity Radar + Opportunity Detail": "RADAR DAS OPORTUNIDADES",
-    "PORTFOLIO / PRODUCT INTELLIGENCE / PRODUCT RELATIONSHIPS": "PORTFOLIO",
-    "CROP WINDOWS + CROP CALENDAR + PREPARATION CLOCK": "JANELAS DE CULTURA",
-    "MARKET PULSE": "PULSO DE MERCADO",
-    "COMPETITOR WATCH + COMPETITOR x WINDOW": "CONCORRENCIA",
-    "SCIENTIFIC INTELLIGENCE": "CIENCIA",
-    "ARCHIVE": "ARQUIVO",
-    "GLOBAL SEARCH": "BUSCA GLOBAL",
-    "NAV COUNTERS + DATA STATE / PROVENANCE PANEL": "CONTADORES E PROCEDENCIA",
-}
-
-
-def nome_da_ferramenta(dominio: str) -> str:
-    for chave, nome in NOME_NA_TELA.items():
-        if dominio.startswith(chave):
-            return nome
-    return dominio.split("(")[0].split("+")[0].strip().upper()[:34] or "FERRAMENTA"
-
-
 def as_ferramentas() -> tuple[list, list]:
     """UMA PECA POR FERRAMENTA DA TELA, e cada uma diz o que esta ligado nela HOJE.
 
@@ -455,6 +433,10 @@ def as_ferramentas() -> tuple[list, list]:
     for x in C["FERRAMENTAS"]:
         est, ui = cor.get(x["de_onde_vem"], (CINZA, "gray"))
         fich = [a for a in x["ficheiros"] if (RAIZ / a).is_file()]
+        nome_menu = x["prova_do_nome"]["file"]
+        if not fich and (RAIZ / nome_menu).is_file():
+            # sem contrato, o unico facto provado e que ela existe no menu
+            fich = [nome_menu]
         if not fich:
             est, ui = CINZA, "gray"
 
@@ -468,7 +450,8 @@ def as_ferramentas() -> tuple[list, list]:
         } for nome, c in sorted(x["camadas"].items(),
                                 key=lambda kv: (kv[1]["tipo"] != "REAL", kv[0]))]
 
-        factos = [f"contratos de bloco que a descrevem: {len(x['blocos'])}",
+        factos = [f"aparece no menu do portal como «{x['nome']}»",
+                  f"contratos de bloco que a descrevem: {len(x['blocos'])}",
                   f"camadas de dado ligadas a ela: {len(ligado)}"]
         for t in ("REAL", "CANONICO", "FIXTURE"):
             n = sum(1 for c in ligado if c["tipo"] == t)
@@ -487,13 +470,12 @@ def as_ferramentas() -> tuple[list, list]:
             motivo = "NAO SEI: nao encontrei o contrato de bloco desta ferramenta."
 
         nos.append({
-            "id": "C-TELA-" + re.sub(r"[^A-Z0-9]+", "-",
-                                     nome_da_ferramenta(x["dominio"]).upper()).strip("-"),
-            "name": nome_da_ferramenta(x["dominio"]),
+            "id": "C-TELA-" + x["vista"].upper(),
+            "name": x["nome"],
             "kind": "tela", "icon": "▤",
             "territory": "Z-SUPERFICIE", "family": "F-ENTREGA",
             "status": est, "ui_status": ui, "proof": "document",
-            "what": (x["resumo"][:400] or x["dominio"])
+            "what": (x["resumo"][:400] or "NAO SEI o que esta tela mostra.")
                     + (" ..." if len(x["resumo"]) > 400 else ""),
             "why_here": ("E uma das ferramentas que a pessoa abre no portal. Existe "
                          "para responder uma pergunta de negocio — e so vale a "
@@ -520,7 +502,7 @@ def as_ferramentas() -> tuple[list, list]:
                     ligacoes.append({"to_file": ficheiro, "node": nos[-1]["id"],
                                      "evidence": c["prova"]})
 
-    return sorted(nos, key=lambda n: n["id"]), ligacoes
+    return nos, ligacoes  # na ordem do menu, que e a ordem que a pessoa ve
 
 
 

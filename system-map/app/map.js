@@ -39,6 +39,11 @@ const VISOES = [
 let S, nodes = [], edges = [], nodeById = {}, MUNDO = { w: 1, h: 1 };
 let scale = .145, tx = 8, ty = 18, drag = false, lx = 0, ly = 0;
 let currentView = 'all', pathSet = null, currentFam = '', hoverId = null;
+/* O cartao CLICADO fica preso: o caminho dele nao se desfaz quando o rato sai.
+   Seguir uma seta com o olho obriga a mover o rato ao longo dela, e enquanto o
+   realce vivia so no hover era exatamente esse movimento que o apagava. Preso,
+   da para percorrer o caminho todo com calma. Sai clicando fora, ou no X. */
+let presoId = null;
 
 const famNome = id => S.FAMILIES.find(f => f.id === id)?.name || '';
 
@@ -172,7 +177,9 @@ function moveTip(e) {
    E so realce: nao filtra, nao muda contagem, nao altera estado. Tirar o rato
    devolve o mapa exatamente como estava. O que muda o que esta visivel sao os
    filtros e o "mostrar caminho completo"; isto aqui e para o olho. */
-function focar(id) {
+function focar(id, forcar) {
+  /* com um cartao preso, o rato deixa de mandar — so o clique desfaz */
+  if (presoId && !forcar) return;
   if (hoverId === id) return;
   hoverId = id;
   const palco = document.getElementById('world');
@@ -462,7 +469,7 @@ function openDetail(id) {
     workspace.classList.remove('detailOpen');
     detail.innerHTML = '<div class="empty">Clique em uma peça para entender o que faz, '
       + 'por que está ali, arquivos reais e evidência.</div>';
-    pathSet = null; applyFilters();
+    pathSet = null; presoId = null; focar(null, true); applyFilters();
   };
   $('pathBtn').onclick = () => highlightPath(id);
 }
@@ -508,9 +515,17 @@ function applyFilters() {
   nodes.forEach(n => {
     let ok = stats.has(n.ui_status) && activeView(n);
     if (currentFam) ok = ok && n.family === currentFam;
-    // O pais so filtra quem TEM pais. Uma peca de codigo nao e de pais nenhum, e
-    // escondê-la ao filtrar por Espanha faria o mapa parecer que ela nao existe.
-    if (pais) ok = ok && n.pais === pais;
+    /* ESCOLHER «ITALIA» NAO PODE ESCONDER A MAQUINA QUE A ITALIA USA.
+       Antes, escolher ITALIA deixava 25 cartoes de 86 no ecra, e o mapa parecia
+       um projeto minusculo. Nao era: as outras 48 pecas sao TRANSVERSAIS — o
+       motor, as reguas, o gerador — e a Italia usa-as todos os dias. Esconder
+       a maquina de alguem porque ela nao tem bandeira na testa nao e filtrar,
+       e mentir por omissao.
+       Agora, escolher um pais mostra o que e DESSE pais mais o que serve todos.
+       Quem quiser so o tronco comum escolhe TRANSVERSAL, que continua a filtrar
+       exatamente por ele. */
+    if (pais) ok = ok && (n.pais === pais
+                          || (pais !== 'TRANSVERSAL' && n.pais === 'TRANSVERSAL'));
     if (dept !== 'Todos') ok = ok && (n.departments || []).includes(dept);
     const palheiro = [n.name, n.kind, n.what, n.why_here, n.id, ...(n.files || [])]
       .join(' ').toLowerCase();
@@ -602,9 +617,24 @@ function bind() {
     el.addEventListener('mouseleave', () => { hideTip(); focar(null); });
     el.addEventListener('focus', () => focar(n.id));
     el.addEventListener('blur', () => focar(null));
-    el.addEventListener('click', e => { e.stopPropagation(); openDetail(n.id); });
+    el.addEventListener('contextmenu', e => {
+      if (!presoId) return;
+      e.preventDefault(); e.stopPropagation();
+      presoId = null; focar(null, true);
+    });
+    el.addEventListener('click', e => {
+      e.stopPropagation();
+      presoId = null;              // solta o anterior para poder prender este
+      focar(n.id, true);
+      presoId = n.id;
+      openDetail(n.id);
+    });
     el.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDetail(n.id); }
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        presoId = null; focar(n.id, true); presoId = n.id;
+        openDetail(n.id);
+      }
     });
   });
   document.querySelectorAll('#edgeLayer .dyn').forEach(g => {
@@ -614,8 +644,22 @@ function bind() {
     hit.addEventListener('mouseleave', hideTip);
   });
 
+  /* SOLTAR E COM O BOTAO DIREITO, E SO COM ELE.
+     Antes, arrastar o mapa soltava o cartao preso — e arrastar o mapa e
+     exatamente o que se precisa de fazer para seguir uma seta ate a outra
+     ponta. O gesto que serve para acompanhar a ligacao nao pode ser o mesmo
+     que apaga a ligacao. Agora: clique esquerdo prende, botao direito solta,
+     e arrastar nao mexe em nada. */
+  viewport.addEventListener('contextmenu', e => {
+    if (!presoId) return;
+    e.preventDefault();
+    presoId = null;
+    focar(null, true);
+  });
+
   viewport.addEventListener('pointerdown', e => {
     if (e.target.closest('.node')) return;
+    if (e.button === 2) return;              // o direito e para soltar, nao arrasta
     drag = true; lx = e.clientX; ly = e.clientY;
     viewport.classList.add('dragging'); viewport.setPointerCapture?.(e.pointerId);
   });
@@ -729,7 +773,11 @@ async function arrancar() {
     + 'value="" checked>Todos os países</label>'
     + paises.map(x => `<label class="check"><input type="radio" name="pais"
         value="${esc(x)}">${esc(x)} · ${
-        S.NODES.filter(n => n.pais === x).length}</label>`).join('');
+        (x === 'TRANSVERSAL'
+          ? S.NODES.filter(n => n.pais === x).length
+          : S.NODES.filter(n => n.pais === x || n.pais === 'TRANSVERSAL').length)
+        }${x === 'TRANSVERSAL' ? '' : ' <span style="color:#8a827e">(com o tronco comum)</span>'
+        }</label>`).join('');
 
   $('fams').innerHTML = S.FAMILIES.map(f =>
     `<button class="famBtn" data-fam="${esc(f.id)}">
