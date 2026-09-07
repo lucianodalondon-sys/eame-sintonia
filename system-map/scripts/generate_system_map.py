@@ -430,7 +430,7 @@ def as_ferramentas() -> tuple[list, list]:
     publica = C.get("CAMADAS_PUBLICADAS", {})
 
     nos, ligacoes = [], []
-    for x in C["FERRAMENTAS"]:
+    for ordem, x in enumerate(C["FERRAMENTAS"]):
         est, ui = cor.get(x["de_onde_vem"], (CINZA, "gray"))
         fich = [a for a in x["ficheiros"] if (RAIZ / a).is_file()]
         nome_menu = x["prova_do_nome"]["file"]
@@ -462,6 +462,9 @@ def as_ferramentas() -> tuple[list, list]:
                           + ", ".join(str(n) for n in x["registos_citados"]))
         if x.get("confianca"):
             factos.append(f"confianca declarada no contrato: {x['confianca']}")
+        if x.get("tecido_comum"):
+            factos.append("contratos que a tocam mas falam de varias telas: "
+                          + str(len(x["tecido_comum"])))
 
         motivo = x["leitura"]
         if x.get("confissoes"):
@@ -473,7 +476,11 @@ def as_ferramentas() -> tuple[list, list]:
             "id": "C-TELA-" + x["vista"].upper(),
             "name": x["nome"],
             "kind": "tela", "icon": "▤",
-            "territory": "Z-SUPERFICIE", "family": "F-ENTREGA",
+            "territory": "Z-TELAS", "family": "F-ENTREGA",
+            # a ordem e a do menu do portal, nao a alfabetica: e assim que a
+            # pessoa as ve, e um mapa que reordena o que ela conhece obriga-a a
+            # procurar duas vezes.
+            "ordem": ordem,
             "status": est, "ui_status": ui, "proof": "document",
             "what": (x["resumo"][:400] or "NAO SEI o que esta tela mostra.")
                     + (" ..." if len(x["resumo"]) > 400 else ""),
@@ -489,6 +496,7 @@ def as_ferramentas() -> tuple[list, list]:
             "inbound": [], "outbound": [],
             "de_onde_vem": x["de_onde_vem"],
             "ligado_nela": ligado,
+            "tecido_comum": x.get("tecido_comum") or [],
             "riscos": x.get("riscos") or [],
             "perguntas_abertas": x.get("perguntas_abertas") or [],
             "file_count": len(fich),
@@ -517,7 +525,10 @@ def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, 
     x = ZONA_GAP
     caixas = []
     for z in zonas:
-        membros = sorted(por_zona[z["id"]], key=lambda n: n["id"])
+        # peca com ordem propria (as ferramentas do portal) respeita-a; o resto
+        # fica por id, que e estavel entre geracoes.
+        membros = sorted(por_zona[z["id"]],
+                         key=lambda n: (n.get("ordem", 10**6), n["id"]))
         # Zonas grandes ganham colunas em vez de virarem uma tira infinita.
         cols = 1 if len(membros) <= 5 else (2 if len(membros) <= 12 else 3)
         linhas = -(-len(membros) // cols) if membros else 1

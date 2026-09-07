@@ -211,13 +211,41 @@ def ferramentas() -> list:
     if not d.is_dir():
         return list(por_ferramenta.values())
 
+    def a_que_ferramenta(nome_do_ficheiro: str):
+        if nome_do_ficheiro in NAO_E_FERRAMENTA:
+            return None
+        v = capacidade.get(LEITURA_MINHA.get(nome_do_ficheiro, nome_do_ficheiro))
+        return v if v in por_ferramenta else None
+
+    # ── UM TEXTO GENERICO NAO E O CONTRATO DE NINGUEM ────────────────────────
+    # Seis destes ficheiros carregam exatamente o mesmo `domain` — «Helper
+    # relationships, visual tokens, Field Sales...» — e esse texto fala de
+    # tabelas de cor, nao do Radar nem das Vozes do Campo. Ao dividir por nome de
+    # ficheiro, esse paragrafo ia parar a quatro cartoes diferentes como se
+    # fosse a descricao de cada um. Quatro telas a dizer a mesma coisa nao e
+    # informacao: e ruido com ar de facto.
+    #
+    # A regra que os separa e medida, nao escrita a mao: se o mesmo `domain`
+    # aparece em ficheiros que pertencem a MAIS DE UMA ferramenta, entao ele
+    # nao descreve nenhuma delas — descreve o que esta por baixo de todas.
+    donos_do_dominio: dict[str, set] = {}
+    for p in sorted(d.glob("*.spec.json")):
+        v = a_que_ferramenta(p.name.replace(".spec.json", ""))
+        if not v:
+            continue
+        try:
+            b = json.loads(p.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        e0 = (b[0] if isinstance(b, list) and b else b) or {}
+        if isinstance(e0, dict) and e0.get("domain"):
+            donos_do_dominio.setdefault(str(e0["domain"]), set()).add(v)
+    dominios_partilhados = {k for k, v in donos_do_dominio.items() if len(v) > 1}
+
     for p in sorted(d.glob("*.spec.json")):
         raiz_do_nome = p.name.replace(".spec.json", "")
-        if raiz_do_nome in NAO_E_FERRAMENTA:
-            continue
-        tela = LEITURA_MINHA.get(raiz_do_nome, raiz_do_nome)
-        vista = capacidade.get(tela)
-        if vista not in por_ferramenta:
+        vista = a_que_ferramenta(raiz_do_nome)
+        if not vista:
             continue
         try:
             bruto = json.loads(p.read_text(encoding="utf-8"))
@@ -227,6 +255,12 @@ def ferramentas() -> list:
         if not isinstance(e, dict):
             continue
         dominio = str(e.get("domain") or p.stem).strip()
+        if dominio in dominios_partilhados:
+            # e o tecido comum a varias telas, nao o contrato desta. Fica
+            # registado no cartao, para nao desaparecer, mas nao fala por ela.
+            por_ferramenta[vista].setdefault("tecido_comum", []).append(
+                f"{BLOCOS}/{p.name}")
+            continue
         real = str(e.get("realSource") or "")
         resumo = str(e.get("summary") or "")
 

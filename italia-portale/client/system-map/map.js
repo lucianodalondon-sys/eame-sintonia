@@ -328,6 +328,13 @@ function blocoCasco(n) {
         </div>`).join('') ||
       '<div class="tags"><span class="tag">NÃO SEI</span></div>'}</div>${
 
+    (n.tecido_comum || []).length ? `<div class="sec">
+      <h4>Contratos que a tocam, mas não falam dela (${n.tecido_comum.length})</h4>
+      <p style="font-size:10px;color:#8a827e;margin-bottom:8px">Descrevem o que está
+        por baixo de várias telas — tabelas de cor, formatação, o relógio. Ficam aqui
+        para não sumirem, mas não servem de descrição desta ferramenta.</p>${
+      n.tecido_comum.map(f => `<div class="file">${esc(f)}</div>`).join('')}</div>` : ''}${
+
     (n.riscos || []).length ? `<div class="sec"><h4>Riscos que o contrato já anotou</h4>${
       n.riscos.map(r => `<div class="file">${esc(typeof r === 'string' ? r
         : (r.risk || r.text || JSON.stringify(r)))}</div>`).join('')}</div>` : ''}${
