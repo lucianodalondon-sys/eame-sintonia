@@ -1,0 +1,228 @@
+{
+ "DATASET": "ADAMA-IT-OS-10-FORA-DA-LEITURA-V1",
+ "O_QUE_E": "os 10 produtos do catalogo comercial ADAMA Italia que a leitura do registo nao apanhava, procurados um a um no registo fitossanitario COMPLETO — sem filtro de titular.",
+ "PORQUE_NAO_APARECIAM": "a leitura anterior filtrava o registo pelos 5 titulares do grupo ADAMA (602 linhas, 163 vivas). Seis destes dez estao registados a OUTRO titular; quatro nao estao neste registo de todo.",
+ "LEI": "AUSENCIA AQUI NAO E AUSENCIA NO MUNDO. Nenhuma linha abaixo diz «a ADAMA nao tem» — diz «nao encontramos nesta leitura, e eis o que a leitura devolveu».",
+ "A_CORRIDA": {
+  "PROCUREI": 10,
+  "PORTAS_BATIDAS": 1,
+  "PORTAS_QUE_RESPONDERAM": 1,
+  "ACHEI": 6,
+  "NAO_ACHEI": 4,
+  "PORTA": "IT-T4-001 — Ministero della Salute, dataset aberto dos prodotti fitosanitari",
+  "PORQUE_ESTA_PORTA": "ja estava no acervo com veredito GREEN e rota registada (CSV direto, 4,6 MB, sem chave). Consultar o acervo antes de coletar poupou as duas portas que o brief propunha, ambas dependentes de sessao de navegador.",
+  "PORTAS_QUE_NAO_PRECISEI_DE_BATER": [
+   "dettaglioDataset.jsp?menu=dati&idPag=6 (a do brief)",
+   "FitosanitariServlet campo NOME (a do brief) — precisa de sessao de navegador"
+  ]
+ },
+ "SOURCE_ID": "IT-T4-001",
+ "SOURCE_URL": "https://www.dati.salute.gov.it/it/dataset/fitosanitari/",
+ "RAW_FILE": "data/raw/IT-T4-001/PROD_FTS_6_20260907.csv",
+ "RAW_SHA256": "9cd4d156369facf186b40727d96ef5253b3aef93e9e08deae8ac8082c1de5a48",
+ "RAW_BYTES": 4594288,
+ "SHA256_CONFERIDO_CONTRA": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/MANIFEST.json (branch claude/system-map-canonical-v1) — bate byte a byte",
+ "CAPTURED_AT": "2026-09-07T17:08:42.457Z",
+ "FACT_TIME": "2026-09-07 — a data esta no nome do ficheiro (PROD_FTS_6_20260907); e o estado do registo nesse dia",
+ "SOURCE_LOCATION": "Roma — servidor 93.148.195.97",
+ "FACT_LOCATION": "ITALIA — abrangencia nacional",
+ "CADENCE_STATE": "VIVA — ficheiro datado do proprio dia; 2 capturas observadas (2026-08-31 e 2026-09-07). Periodicidade exacta: NAO SEI.",
+ "EGRESS_IP": "205.147.30.20",
+ "EGRESS_GEO": "Milano, Lombardia, IT — AS208172 Proton AG",
+ "EGRESS_KIND": "VPN_COMERCIAL — nao e ISP residencial italiano",
+ "AUTH_USED": "NENHUMA",
+ "HTTP_STATUS": 200,
+ "ITEM_COUNT_RAW": 17695,
+ "ITEM_COUNT_NORMALIZED": 10,
+ "COST_USD": 0,
+ "O_QUE_ISTO_PROVA": "que o produto tem (ou nao tem) autorizacao formal em Italia, de quem e, com que substancia e ate quando.",
+ "O_QUE_ISTO_NAO_PROVA": "cultura · alvo · disponibilidade comercial · venda. AUTORIZADO != COMERCIALMENTE DISPONIVEL. E titular do registo != quem distribui.",
+ "ITENS": [
+  {
+   "PRODUTO_NO_CATALOGO": "BUDGE",
+   "TERMO_BUSCADO": "BUDGE",
+   "VEREDITO": "NAO_E_FITOSSANITARIO",
+   "ENCONTRADO_NO_REGISTO": false,
+   "LINHAS_DEVOLVIDAS": 0,
+   "O_QUE_O_REGISTO_DEVOLVEU": [],
+   "NOTA": "o codigo da casa (scripts/v21_ingest.py, dict NAO_FITOSSANITARIO) declara registo de FERTILIZANTE n 0037584/22 — outro regime regulatorio, outro registo. A busca no registo fitossanitario confirma ausencia total."
+  },
+  {
+   "PRODUTO_NO_CATALOGO": "CLEMATIS",
+   "TERMO_BUSCADO": "CLEMATIS",
+   "VEREDITO": "ACHADO_SOB_OUTRO_TITULAR",
+   "ENCONTRADO_NO_REGISTO": true,
+   "LINHAS_DEVOLVIDAS": 1,
+   "O_QUE_O_REGISTO_DEVOLVEU": [
+    {
+     "NUM_REGISTRAZIONE": "017746",
+     "DENOMINAZIONE": "CLEMATIS",
+     "RAGIONE_SOCIALE": "ALBAUGH TKI D.O.O",
+     "STATO_AMMINISTRATIVO": "Autorizzato",
+     "DATA_SCADENZA": "30/09/2026",
+     "SOSTANZE_ATTIVE": "CLOMAZONE",
+     "FORMULAZIONE": "SOSPENSIONE DI CAPSULE"
+    }
+   ],
+   "NOTA": null
+  },
+  {
+   "PRODUTO_NO_CATALOGO": "EXELGROW",
+   "TERMO_BUSCADO": "EXELGROW",
+   "VEREDITO": "NAO_E_FITOSSANITARIO",
+   "ENCONTRADO_NO_REGISTO": false,
+   "LINHAS_DEVOLVIDAS": 0,
+   "O_QUE_O_REGISTO_DEVOLVEU": [],
+   "NOTA": "o codigo da casa declara registo de FERTILIZANTE n 0023801/18. A busca confirma ausencia total no registo fitossanitario."
+  },
+  {
+   "PRODUTO_NO_CATALOGO": "FULLPAGER RICE CROPPING SOLUTION",
+   "TERMO_BUSCADO": "FULLPAGER",
+   "VEREDITO": "SISTEMA_NAO_PRODUTO",
+   "ENCONTRADO_NO_REGISTO": false,
+   "LINHAS_DEVOLVIDAS": 0,
+   "O_QUE_O_REGISTO_DEVOLVEU": [],
+   "NOTA": "o codigo da casa (dict SISTEMA_NAO_PRODUTO) declara que e um PROGRAMA comercial, nao um produto registavel. A busca confirma ausencia total."
+  },
+  {
+   "PRODUTO_NO_CATALOGO": "MAVITA 250 EC",
+   "TERMO_BUSCADO": "MAVITA",
+   "VEREDITO": "ACHADO_SOB_OUTRO_TITULAR",
+   "ENCONTRADO_NO_REGISTO": true,
+   "LINHAS_DEVOLVIDAS": 1,
+   "O_QUE_O_REGISTO_DEVOLVEU": [
+    {
+     "NUM_REGISTRAZIONE": "015293",
+     "DENOMINAZIONE": "MAVITA 250 EC",
+     "RAGIONE_SOCIALE": "SYNGENTA CROP PROTECTION AG",
+     "STATO_AMMINISTRATIVO": "Ri-registrato",
+     "DATA_SCADENZA": "31/01/2028",
+     "SOSTANZE_ATTIVE": "DIFENOCONAZOLE",
+     "FORMULAZIONE": "CONCENTRATO EMULSIONABILE"
+    }
+   ],
+   "NOTA": null
+  },
+  {
+   "PRODUTO_NO_CATALOGO": "MAX ACER RICE CROPPING SOLUTION",
+   "TERMO_BUSCADO": "MAX ACER",
+   "VEREDITO": "SISTEMA_NAO_PRODUTO",
+   "ENCONTRADO_NO_REGISTO": false,
+   "LINHAS_DEVOLVIDAS": 0,
+   "O_QUE_O_REGISTO_DEVOLVEU": [],
+   "NOTA": "idem FULLPAGER: programa comercial, nao produto. Ausencia total confirmada."
+  },
+  {
+   "PRODUTO_NO_CATALOGO": "Mirador SC",
+   "TERMO_BUSCADO": "MIRADOR",
+   "VEREDITO": "ACHADO_SOB_OUTRO_TITULAR",
+   "ENCONTRADO_NO_REGISTO": true,
+   "LINHAS_DEVOLVIDAS": 4,
+   "O_QUE_O_REGISTO_DEVOLVEU": [
+    {
+     "NUM_REGISTRAZIONE": "011624",
+     "DENOMINAZIONE": "MIRADOR",
+     "RAGIONE_SOCIALE": "SCAM S.P.A.",
+     "STATO_AMMINISTRATIVO": "Revocato",
+     "DATA_SCADENZA": "31/12/2010",
+     "SOSTANZE_ATTIVE": "CYROMAZINE",
+     "FORMULAZIONE": "POLVERE BAGNABILE"
+    },
+    {
+     "NUM_REGISTRAZIONE": "012813",
+     "DENOMINAZIONE": "MIRADOR XTRA",
+     "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+     "STATO_AMMINISTRATIVO": "Revocato",
+     "DATA_SCADENZA": "31/12/2024",
+     "SOSTANZE_ATTIVE": "AZOXYSTROBIN|CYPROCONAZOLE",
+     "FORMULAZIONE": "SOSPENSIONE CONCENTRATA"
+    },
+    {
+     "NUM_REGISTRAZIONE": "015111",
+     "DENOMINAZIONE": "MIRADOR SC",
+     "RAGIONE_SOCIALE": "SYNGENTA CROP PROTECTION AG",
+     "STATO_AMMINISTRATIVO": "Ri-registrato",
+     "DATA_SCADENZA": "31/05/2027",
+     "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
+     "FORMULAZIONE": "SOSPENSIONE CONCENTRATA"
+    },
+    {
+     "NUM_REGISTRAZIONE": "017824",
+     "DENOMINAZIONE": "MIRADOR TURBO",
+     "RAGIONE_SOCIALE": "ADAMA ITALIA S.R.L.",
+     "STATO_AMMINISTRATIVO": "Autorizzato",
+     "DATA_SCADENZA": "31/05/2027",
+     "SOSTANZE_ATTIVE": "AZOXYSTROBIN|TEBUCONAZOLE",
+     "FORMULAZIONE": "SOSPENSIONE CONCENTRATA"
+    }
+   ],
+   "NOTA": null
+  },
+  {
+   "PRODUTO_NO_CATALOGO": "PARLEAF",
+   "TERMO_BUSCADO": "PARLEAF",
+   "VEREDITO": "ACHADO_SOB_OUTRO_TITULAR",
+   "ENCONTRADO_NO_REGISTO": true,
+   "LINHAS_DEVOLVIDAS": 1,
+   "O_QUE_O_REGISTO_DEVOLVEU": [
+    {
+     "NUM_REGISTRAZIONE": "017807",
+     "DENOMINAZIONE": "PARLEAF",
+     "RAGIONE_SOCIALE": "MICROCIDE LTD",
+     "STATO_AMMINISTRATIVO": "Autorizzato",
+     "DATA_SCADENZA": "31/12/2027",
+     "SOSTANZE_ATTIVE": "PLANT OILS / RAPE SEED OIL",
+     "FORMULAZIONE": "CONCENTRATO EMULSIONABILE"
+    }
+   ],
+   "NOTA": null
+  },
+  {
+   "PRODUTO_NO_CATALOGO": "TIMELINE TRIO",
+   "TERMO_BUSCADO": "TIMELINE",
+   "VEREDITO": "ACHADO_SOB_OUTRO_TITULAR",
+   "ENCONTRADO_NO_REGISTO": true,
+   "LINHAS_DEVOLVIDAS": 2,
+   "O_QUE_O_REGISTO_DEVOLVEU": [
+    {
+     "NUM_REGISTRAZIONE": "014935",
+     "DENOMINAZIONE": "TIMELINE TRIO",
+     "RAGIONE_SOCIALE": "SYNGENTA CROP PROTECTION AG",
+     "STATO_AMMINISTRATIVO": "Autorizzato",
+     "DATA_SCADENZA": "31/12/2029",
+     "SOSTANZE_ATTIVE": "CLODINAFOP|CLOQUINTOCET MEXYL|FLORASULAM|PINOXADEN",
+     "FORMULAZIONE": "CONCENTRATO EMULSIONABILE"
+    },
+    {
+     "NUM_REGISTRAZIONE": "018146",
+     "DENOMINAZIONE": "TIMELINE FX",
+     "RAGIONE_SOCIALE": "SYNGENTA CROP PROTECTION AG",
+     "STATO_AMMINISTRATIVO": "Autorizzato con procedura zonale",
+     "DATA_SCADENZA": "31/12/2029",
+     "SOSTANZE_ATTIVE": "FLUROXYPYR|FLORASULAM|PINOXADEN",
+     "FORMULAZIONE": "CONCENTRATO EMULSIONABILE"
+    }
+   ],
+   "NOTA": null
+  },
+  {
+   "PRODUTO_NO_CATALOGO": "ZAKEO 250 SC",
+   "TERMO_BUSCADO": "ZAKEO",
+   "VEREDITO": "ACHADO_SOB_OUTRO_TITULAR",
+   "ENCONTRADO_NO_REGISTO": true,
+   "LINHAS_DEVOLVIDAS": 1,
+   "O_QUE_O_REGISTO_DEVOLVEU": [
+    {
+     "NUM_REGISTRAZIONE": "017099",
+     "DENOMINAZIONE": "ZAKEO 250 SC",
+     "RAGIONE_SOCIALE": "SYNGENTA CROP PROTECTION AG",
+     "STATO_AMMINISTRATIVO": "Ri-registrato",
+     "DATA_SCADENZA": "31/05/2027",
+     "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
+     "FORMULAZIONE": "SOSPENSIONE CONCENTRATA"
+    }
+   ],
+   "NOTA": null
+  }
+ ]
+}

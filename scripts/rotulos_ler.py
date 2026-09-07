@@ -353,6 +353,47 @@ def ler_herbicida(texto):
                 if re.match(r"\s*(sp{1,2}\.|spp|[a-z]{4,}\s*\()", depois, re.I):
                     continue
                 culturas.append(k)
+
+    # A CULTURA DECLARADA COMO CABECALHO DA SUA PROPRIA DOSE.
+    #
+    # Ha rotulo que nunca escreve «per il diserbo di:» nem poe a cultura no
+    # subtitulo. Ele declara-a onde ela pesa: a abrir a linha da dose dela.
+    #
+    #     Colza : 2 litri in 400-500 litri di acqua per ettaro.   (SULTAN 011526)
+    #     Patata: 3 l/ha in pre-emergenza                         (ACTIVUS ME 017116)
+    #
+    # Isto e sinal do documento, nao regra nossa: o rotulo so escreve uma dose
+    # por hectare para uma cultura em que o produto esta autorizado.
+    #
+    # DUAS TRAVAS, E AS DUAS SAO ESTREITAS:
+    #   1. so se procura DENTRO da seccao de uso (`regiao_de_impiego`). Varrer o
+    #      documento inteiro seria o erro que a lei do par existe para impedir —
+    #      e e exactamente o que faria ler a lista da «fascia di rispetto» do
+    #      ACTIVUS ME, onde as mesmas culturas aparecem por causa da distancia
+    #      da agua e nao por causa do uso.
+    #   2. so se aceita quando a dose e POR HECTARE. «20 metri dai corpi idrici»
+    #      nao casa, e e por isso que a faixa de seguranca nao entra.
+    #
+    # E so corre quando os dois caminhos acima nao acharam nada — nunca altera
+    # uma leitura que ja existia.
+    #
+    #     UMA DOSE POR HECTARE E UMA DECLARACAO DE USO. UMA DISTANCIA NAO E.
+    if not culturas:
+        for bloco in regiao_de_impiego(texto):
+            for m4 in DOSE_DA_CULTURA.finditer(bloco):
+                cab = m4.group(1).strip()
+                for k, rx in CULTURAS_RX:
+                    m = rx.search(_n(cab))
+                    if not m or k in culturas:
+                        continue
+                    depois = cab[m.end():m.end() + 14]
+                    if re.match(r"\s*(sp{1,2}\.|spp|[a-z]{4,}\s*\()", depois, re.I):
+                        continue
+                    culturas.append(k)
+                    evid.setdefault('CITACAO_DAS_CULTURAS',
+                                    re.sub(r'\s+', ' ', m4.group(0)).strip()[:300])
+                    evid['COMO_A_CULTURA_FOI_LIDA'] = (
+                        'cabecalho da dose, dentro da seccao de uso')
     return culturas, daninhas, evid
 
 
@@ -618,13 +659,41 @@ def alvos_da_linha(texto):
 #     UM CARACTERE NAO E UM DETALHE QUANDO E O UNICO QUE SEPARA
 #     O LEITOR DA SECCAO QUE ELE VEIO LER.
 #
-# `MODALIT[AÀ]` e o unico alargamento: nao se aceita mais nenhuma palavra nova,
-# so a mesma palavra escrita como o documento a escreve.
+# `MODALIT[AÀ]` foi o primeiro alargamento: nao aceitou palavra nova nenhuma,
+# so a mesma palavra escrita como o documento a escreve. O segundo esta abaixo.
+#
+# ── SEGUNDO ALARGAMENTO ─────────────────────────────────────────────────────
+# O MESMO CABECALHO, COM A LISTA ESCRITA NOUTRA ORDEM.
+#
+# O cabecalho da seccao de uso e uma LISTA do que a seccao enumera, e o rotulo
+# escreve-a na ordem que quer. O padrao conhecia as ordens que comecam por DOSI,
+# MODALITA, CAMPI ou EPOCHE — mas nao as que comecam por COLTURE:
+#
+#     COLTURE, DOSI E MODALITA' D'IMPIEGO   (Stavento 017752, APYZA WG 018156)
+#     EPOCHE, DOSI E MODALITA DI IMPIEGO    (SEEDRON 016152)
+#
+# Nao e cabecalho novo: e a mesma lista com um item mudado de lugar. O prefixo
+# aceita tres palavras e SO UMA DELAS E NOVA — COLTURE; EPOCHE e CAMPI ja
+# estavam no padrao, noutra posicao. E o prefixo sozinho nao abre nada: o corpo
+# continua a exigir DOSI junto de MODALITA ou CAMPI.
+#
+#     A ORDEM DOS ITENS DE UMA LISTA NAO MUDA O QUE A LISTA E.
 CABECALHO_IMPIEGO = re.compile(
-    r'^\s*(DOSI[,\s]+MODALIT[AÀ]|DOSI\s+E\s+MODALIT[AÀ]|MODALIT[AÀ].{0,3}\s+E\s+DOSI|'
+    r'^\s*(?:(?:COLTURE|EPOCHE|CAMPI)[,\s]+)?'
+    r'(DOSI[,\s]+MODALIT[AÀ]|DOSI\s+E\s+MODALIT[AÀ]|MODALIT[AÀ].{0,3}\s+E\s+DOSI|'
     r'CAMPI\s+E\s+DOSI|DOSI\s+D.IMPIEGO|CAMPI\s+D.IMPIEGO|EPOCHE\s+E\s+DOSI|'
     r'DOSI\s+E\s+EPOCHE|MODALIT[AÀ].{0,3}\s+D.IMPIEGO\s+E\s+DOSI|'
-    r'DOSI[,\s]+MODALIT[AÀ].{0,3}\s+E\s+CAMPI)', re.I | re.M)
+    r'DOSI[,\s]+MODALIT[AÀ].{0,3}\s+E\s+CAMPI|'
+    r'DOSI[,\s]+EPOCHE\s+E\s+MODALIT[AÀ])', re.I | re.M)
+
+# A cultura a abrir a linha da SUA dose. Usado so por `ler_herbicida`, e so
+# dentro da seccao de uso — a razao esta escrita la, junto da trava.
+# O look-ahead exige a dose POR HECTARE: e ele que deixa de fora «20 metri dai
+# corpi idrici superficiali», que tem a mesma forma e nao e uso.
+DOSE_DA_CULTURA = re.compile(
+    r'^[ \t]*([A-ZÀ-Ý][^:\n]{2,90}?)[ \t]*:[ \t]*'
+    r'(?=[^\n]{0,50}?\d[\d,\.\s\-–]*[ \t]*(?:l|L|kg|litri|ml|g)\b'
+    r'[^\n]{0,25}?(?:/\s*ha|per\s+ettaro|/ha))', re.M)
 
 # Dentro do bloco, a frase que apresenta os alvos.
 ABRE_ALVOS_NO_BLOCO = re.compile(
