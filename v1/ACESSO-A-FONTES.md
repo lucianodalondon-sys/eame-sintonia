@@ -70,3 +70,37 @@ missao local com VPN.
 Se um dia fizer falta o catalogo comercial — que seria contexto, nunca prova
 regulatoria — a linha acima ja esta preenchida com o que se sabe e com o que
 nao se sabe.
+
+## Reconstrucao a partir de um checkout limpo — medida, nao suposta
+
+A pergunta e uma so: quem clonar este repositorio consegue chegar ao MESMO
+arquivo que a reuniao vai ver, ou o entregavel so existe na maquina de quem o
+fez? Medido no commit `2b41156`, com um clone novo em diretorio separado.
+
+| conferencia | resultado |
+|---|---|
+| 13 artefatos selados no clone limpo | MODULE_SHA256 bate com o modulo em disco e CONTENT_SHA256 bate com o proprio conteudo, nos 13 |
+| 223 fontes primarias contra `v1/fonte/MANIFESTO-FONTE.json` | **223/223** batem o sha256: 60 snapshots do registro e 163 etichette |
+| `payload.py` + `build.sh` no clone limpo | `CASCO-PAYLOAD.json` e `label-intelligence.html` saem **byte a byte** iguais aos versionados |
+
+    RECONSTRUCAO_A_PARTIR_DE_CHECKOUT_LIMPO = SIM, com o passo 0b
+
+O acervo primario NAO esta no git, de proposito: sao 272 MB de CSV oficial mais
+os PDFs. O que esta versionado e o MANIFESTO, com sha256 e URL de cada um dos
+223 arquivos, e `v1/fonte/recoletar.py` rebaixa e confere cada um contra ele.
+Sem esse passo o clone nao reproduz — e e por isso que ele e o passo 0b da
+esteira, antes de qualquer leitura.
+
+### O que acontece quando a fonte primaria FALTA
+
+Isto foi medido de proposito, rodando `payload.py` no clone limpo ANTES de
+entregar os arquivos: os produtos que dependem do snapshot do registro saem com
+
+    status   = NOT_IN_SNAPSHOT      (e nao "Revocato")
+    expiry   = NOT_KNOWN            (e nao "2040-06-30")
+    actives  = NOT_KNOWN            (e nao "METAMITRON|LENACIL")
+
+Ou seja: sem a fonte, a ferramenta perde o fato e DIZ que perdeu. Ela nao
+recorre a memoria, nao repete o valor da execucao anterior e nao preenche com
+zero ou traco. A direcao da falha, sob perda de insumo, e a ignorancia nomeada —
+que e a unica coisa que a LEI ZERO pede quando o documento nao esta la.
