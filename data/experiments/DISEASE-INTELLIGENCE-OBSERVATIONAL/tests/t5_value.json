@@ -1,0 +1,907 @@
+{
+ "AS_OF": "2026-09-06",
+ "RULE": "HIGH: publishable AND (a matched historical class that is not TYPICAL, OR a named direction of change, OR a reading outside the source's green band). MEDIUM: publishable, matched history available, and TYPICAL. LOW: publishable observation only. UNKNOWN: the observation is not publishable.",
+ "POPULATION": 20,
+ "DISTRIBUTION": {
+  "MEDIUM": 2,
+  "HIGH": 5,
+  "LOW": 13
+ },
+ "CELLS_PRODUCING_AN_ACTIONABLE_SENTENCE": 5,
+ "ROWS": [
+  {
+   "province": "Arezzo",
+   "metric": "ACTIVE_INFESTATION_COUNT",
+   "VALUE": "MEDIUM",
+   "why": "matched history available and it says TYPICAL",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.1636% of sampled drupes (9 of 5500), source band 0-6%",
+    "B_HOW_MANY_OBSERVATIONS": "55 visits to 17 groves by 2 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-09-02",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "TYPICAL",
+     "reason": "on the groves shared with each prior season, this window reads lower than 4 of 6 of them and higher than 2",
+     "matched_seasons": 6
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "UNKNOWN",
+     "reason": "2 usable consecutive windows, below the declared minimum of 3"
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": true,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "MONITOR"
+    },
+    "WHY_DM_MIGHT_CARE": null,
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity"
+    ]
+   }
+  },
+  {
+   "province": "Firenze",
+   "metric": "ACTIVE_INFESTATION_COUNT",
+   "VALUE": "HIGH",
+   "why": "matched history says BELOW_HISTORICAL",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.0664% of sampled drupes (16 of 24100), source band 0-6%",
+    "B_HOW_MANY_OBSERVATIONS": "241 visits to 73 groves by 4 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-09-02",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "BELOW_HISTORICAL",
+     "reason": "on the groves shared with each prior season, this window reads lower than 14 of 14 of them and higher than 0",
+     "matched_seasons": 14
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "STABLE_OBSERVED",
+     "reason": "0.0159% -> 0.156% -> 0.0664% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0505 percentage points. This describes windows that have already happened."
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": true,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "MONITOR"
+    },
+    "WHY_DM_MIGHT_CARE": "Firenze reads below its own matched history in 14 of 14 comparable seasons",
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity"
+    ]
+   }
+  },
+  {
+   "province": "Grosseto",
+   "metric": "ACTIVE_INFESTATION_COUNT",
+   "VALUE": "LOW",
+   "why": "an observation with no comparable history and no named direction",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.6575% of sampled drupes (228 of 34720), source band 0-6%",
+    "B_HOW_MANY_OBSERVATIONS": "320 visits to 157 groves by 3 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-09-04",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "INSUFFICIENT_DATA",
+     "reason": "2 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+     "matched_seasons": 2
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "STABLE_OBSERVED",
+     "reason": "0.5876% -> 0.8374% -> 0.6575% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0699 percentage points. This describes windows that have already happened."
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": false,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "NO_ESCALATION"
+    },
+    "WHY_DM_MIGHT_CARE": null,
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity",
+     "how this compares with this province's own past: the groves monitored now are not the ones monitored then"
+    ]
+   }
+  },
+  {
+   "province": "Livorno",
+   "metric": "ACTIVE_INFESTATION_COUNT",
+   "VALUE": "LOW",
+   "why": "an observation with no comparable history and no named direction",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.9216% of sampled drupes (141 of 15300), source band 0-6%",
+    "B_HOW_MANY_OBSERVATIONS": "153 visits to 77 groves by 2 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-09-04",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "INSUFFICIENT_DATA",
+     "reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+     "matched_seasons": 1
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "STABLE_OBSERVED",
+     "reason": "0.4722% -> 1.8153% -> 0.9216% over 3 consecutive 28-day windows ending 2026-09-06; change 0.4494 percentage points. This describes windows that have already happened."
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": false,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "NO_ESCALATION"
+    },
+    "WHY_DM_MIGHT_CARE": null,
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity",
+     "how this compares with this province's own past: the groves monitored now are not the ones monitored then"
+    ]
+   }
+  },
+  {
+   "province": "Lucca",
+   "metric": "ACTIVE_INFESTATION_COUNT",
+   "VALUE": "HIGH",
+   "why": "a named direction: INCREASING_OBSERVED",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "1.1509% of sampled drupes (61 of 5300), source band 0-6%",
+    "B_HOW_MANY_OBSERVATIONS": "53 visits to 14 groves by 1 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-08-31",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "INSUFFICIENT_DATA",
+     "reason": "3 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+     "matched_seasons": 3
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "INCREASING_OBSERVED",
+     "reason": "0.0769% -> 0.4464% -> 1.1509% over 3 consecutive 28-day windows ending 2026-09-06; change 1.074 percentage points. This describes windows that have already happened."
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": false,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "INVESTIGATE"
+    },
+    "WHY_DM_MIGHT_CARE": "observed infestation in Lucca rose across three windows that have already ended, ending at 1.1509% of 5300 sampled drupes; its own history is NOT comparable",
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity",
+     "how this compares with this province's own past: the groves monitored now are not the ones monitored then"
+    ]
+   }
+  },
+  {
+   "province": "Massa-Carrara",
+   "metric": "ACTIVE_INFESTATION_COUNT",
+   "VALUE": "LOW",
+   "why": "an observation with no comparable history and no named direction",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.566% of sampled drupes (30 of 5300), source band 0-6%",
+    "B_HOW_MANY_OBSERVATIONS": "40 visits to 10 groves by 1 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-08-31",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "INSUFFICIENT_DATA",
+     "reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+     "matched_seasons": 1
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "STABLE_OBSERVED",
+     "reason": "0.0% -> 0.7838% -> 0.566% over 3 consecutive 28-day windows ending 2026-09-06; change 0.566 percentage points. This describes windows that have already happened."
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": false,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "NO_ESCALATION"
+    },
+    "WHY_DM_MIGHT_CARE": null,
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity",
+     "how this compares with this province's own past: the groves monitored now are not the ones monitored then"
+    ]
+   }
+  },
+  {
+   "province": "Pisa",
+   "metric": "ACTIVE_INFESTATION_COUNT",
+   "VALUE": "LOW",
+   "why": "an observation with no comparable history and no named direction",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "1.02% of sampled drupes (93 of 9196), source band 0-6%",
+    "B_HOW_MANY_OBSERVATIONS": "85 visits to 45 groves by 4 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-09-02",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "INSUFFICIENT_DATA",
+     "reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+     "matched_seasons": 1
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "STABLE_OBSERVED",
+     "reason": "0.04% -> 0.5022% -> 1.02% over 3 consecutive 28-day windows ending 2026-09-06; change 0.98 percentage points. This describes windows that have already happened."
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": false,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "NO_ESCALATION"
+    },
+    "WHY_DM_MIGHT_CARE": null,
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity",
+     "how this compares with this province's own past: the groves monitored now are not the ones monitored then"
+    ]
+   }
+  },
+  {
+   "province": "Pistoia",
+   "metric": "ACTIVE_INFESTATION_COUNT",
+   "VALUE": "LOW",
+   "why": "an observation with no comparable history and no named direction",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.0278% of sampled drupes (1 of 3600), source band 0-6%",
+    "B_HOW_MANY_OBSERVATIONS": "36 visits to 16 groves by 2 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-09-02",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "INSUFFICIENT_DATA",
+     "reason": "0 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+     "matched_seasons": 0
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "STABLE_OBSERVED",
+     "reason": "0.0% -> 0.0% -> 0.0278% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0278 percentage points. This describes windows that have already happened."
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": false,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "NO_ESCALATION"
+    },
+    "WHY_DM_MIGHT_CARE": null,
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity",
+     "how this compares with this province's own past: the groves monitored now are not the ones monitored then"
+    ]
+   }
+  },
+  {
+   "province": "Prato",
+   "metric": "ACTIVE_INFESTATION_COUNT",
+   "VALUE": "LOW",
+   "why": "an observation with no comparable history and no named direction",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.0417% of sampled drupes (1 of 2400), source band 0-6%",
+    "B_HOW_MANY_OBSERVATIONS": "24 visits to 7 groves by 2 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-09-02",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "INSUFFICIENT_DATA",
+     "reason": "0 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+     "matched_seasons": 0
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "UNKNOWN",
+     "reason": "2 usable consecutive windows, below the declared minimum of 3"
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": false,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "NO_ESCALATION"
+    },
+    "WHY_DM_MIGHT_CARE": null,
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity",
+     "how this compares with this province's own past: the groves monitored now are not the ones monitored then"
+    ]
+   }
+  },
+  {
+   "province": "Siena",
+   "metric": "ACTIVE_INFESTATION_COUNT",
+   "VALUE": "HIGH",
+   "why": "matched history says BELOW_HISTORICAL",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.6909% of sampled drupes (127 of 18383), source band 0-6%",
+    "B_HOW_MANY_OBSERVATIONS": "186 visits to 61 groves by 6 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-09-03",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "BELOW_HISTORICAL",
+     "reason": "on the groves shared with each prior season, this window reads lower than 14 of 17 of them and higher than 3",
+     "matched_seasons": 17
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "STABLE_OBSERVED",
+     "reason": "0.0% -> 0.2718% -> 0.6909% over 3 consecutive 28-day windows ending 2026-09-06; change 0.6909 percentage points. This describes windows that have already happened."
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": true,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "MONITOR"
+    },
+    "WHY_DM_MIGHT_CARE": "Siena reads below its own matched history in 14 of 17 comparable seasons",
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity"
+    ]
+   }
+  },
+  {
+   "province": "Arezzo",
+   "metric": "DAMAGING_INFESTATION_COUNT",
+   "VALUE": "MEDIUM",
+   "why": "matched history available and it says TYPICAL",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.0% of sampled drupes (0 of 5500), source band Nessuna Infestazione",
+    "B_HOW_MANY_OBSERVATIONS": "55 visits to 17 groves by 2 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-09-02",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "TYPICAL",
+     "reason": "on the groves shared with each prior season, this window reads lower than 2 of 6 of them and higher than 0",
+     "matched_seasons": 6
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "UNKNOWN",
+     "reason": "2 usable consecutive windows, below the declared minimum of 3"
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": true,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "MONITOR"
+    },
+    "WHY_DM_MIGHT_CARE": null,
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity"
+    ]
+   }
+  },
+  {
+   "province": "Firenze",
+   "metric": "DAMAGING_INFESTATION_COUNT",
+   "VALUE": "HIGH",
+   "why": "matched history says BELOW_HISTORICAL",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.0% of sampled drupes (0 of 24100), source band Nessuna Infestazione",
+    "B_HOW_MANY_OBSERVATIONS": "241 visits to 73 groves by 4 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-09-02",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "BELOW_HISTORICAL",
+     "reason": "on the groves shared with each prior season, this window reads lower than 12 of 14 of them and higher than 0",
+     "matched_seasons": 14
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "STABLE_OBSERVED",
+     "reason": "0.127% -> 0.0% -> 0.0% over 3 consecutive 28-day windows ending 2026-09-06; change -0.127 percentage points. This describes windows that have already happened."
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": true,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "MONITOR"
+    },
+    "WHY_DM_MIGHT_CARE": "Firenze reads below its own matched history in 12 of 14 comparable seasons",
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity"
+    ]
+   }
+  },
+  {
+   "province": "Grosseto",
+   "metric": "DAMAGING_INFESTATION_COUNT",
+   "VALUE": "LOW",
+   "why": "an observation with no comparable history and no named direction",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.0578% of sampled drupes (20 of 34620), source band 0-6%",
+    "B_HOW_MANY_OBSERVATIONS": "319 visits to 156 groves by 3 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-09-04",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "INSUFFICIENT_DATA",
+     "reason": "2 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+     "matched_seasons": 2
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "STABLE_OBSERVED",
+     "reason": "0.1186% -> 0.0193% -> 0.0578% over 3 consecutive 28-day windows ending 2026-09-06; change -0.0608 percentage points. This describes windows that have already happened."
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": false,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "NO_ESCALATION"
+    },
+    "WHY_DM_MIGHT_CARE": null,
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity",
+     "how this compares with this province's own past: the groves monitored now are not the ones monitored then"
+    ]
+   }
+  },
+  {
+   "province": "Livorno",
+   "metric": "DAMAGING_INFESTATION_COUNT",
+   "VALUE": "LOW",
+   "why": "an observation with no comparable history and no named direction",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.1242% of sampled drupes (19 of 15300), source band 0-6%",
+    "B_HOW_MANY_OBSERVATIONS": "153 visits to 77 groves by 2 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-09-04",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "INSUFFICIENT_DATA",
+     "reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+     "matched_seasons": 1
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "STABLE_OBSERVED",
+     "reason": "0.0694% -> 0.0833% -> 0.1242% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0548 percentage points. This describes windows that have already happened."
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": false,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "NO_ESCALATION"
+    },
+    "WHY_DM_MIGHT_CARE": null,
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity",
+     "how this compares with this province's own past: the groves monitored now are not the ones monitored then"
+    ]
+   }
+  },
+  {
+   "province": "Lucca",
+   "metric": "DAMAGING_INFESTATION_COUNT",
+   "VALUE": "LOW",
+   "why": "an observation with no comparable history and no named direction",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.0% of sampled drupes (0 of 5300), source band Nessuna Infestazione",
+    "B_HOW_MANY_OBSERVATIONS": "53 visits to 14 groves by 1 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-08-31",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "INSUFFICIENT_DATA",
+     "reason": "3 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+     "matched_seasons": 3
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "STABLE_OBSERVED",
+     "reason": "0.0% -> 0.0% -> 0.0% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0 percentage points. This describes windows that have already happened."
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": false,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "NO_ESCALATION"
+    },
+    "WHY_DM_MIGHT_CARE": null,
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity",
+     "how this compares with this province's own past: the groves monitored now are not the ones monitored then"
+    ]
+   }
+  },
+  {
+   "province": "Massa-Carrara",
+   "metric": "DAMAGING_INFESTATION_COUNT",
+   "VALUE": "LOW",
+   "why": "an observation with no comparable history and no named direction",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.4151% of sampled drupes (22 of 5300), source band 0-6%",
+    "B_HOW_MANY_OBSERVATIONS": "40 visits to 10 groves by 1 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-08-31",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "INSUFFICIENT_DATA",
+     "reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+     "matched_seasons": 1
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "STABLE_OBSERVED",
+     "reason": "0.0% -> 0.1622% -> 0.4151% over 3 consecutive 28-day windows ending 2026-09-06; change 0.4151 percentage points. This describes windows that have already happened."
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": false,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "NO_ESCALATION"
+    },
+    "WHY_DM_MIGHT_CARE": null,
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity",
+     "how this compares with this province's own past: the groves monitored now are not the ones monitored then"
+    ]
+   }
+  },
+  {
+   "province": "Pisa",
+   "metric": "DAMAGING_INFESTATION_COUNT",
+   "VALUE": "LOW",
+   "why": "an observation with no comparable history and no named direction",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.1077% of sampled drupes (9 of 9196), source band 0-6%",
+    "B_HOW_MANY_OBSERVATIONS": "85 visits to 45 groves by 4 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-09-02",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "INSUFFICIENT_DATA",
+     "reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+     "matched_seasons": 1
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "STABLE_OBSERVED",
+     "reason": "0.0% -> 0.0128% -> 0.1077% over 3 consecutive 28-day windows ending 2026-09-06; change 0.1077 percentage points. This describes windows that have already happened."
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": false,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "NO_ESCALATION"
+    },
+    "WHY_DM_MIGHT_CARE": null,
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity",
+     "how this compares with this province's own past: the groves monitored now are not the ones monitored then"
+    ]
+   }
+  },
+  {
+   "province": "Pistoia",
+   "metric": "DAMAGING_INFESTATION_COUNT",
+   "VALUE": "LOW",
+   "why": "an observation with no comparable history and no named direction",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.0% of sampled drupes (0 of 3600), source band Nessuna Infestazione",
+    "B_HOW_MANY_OBSERVATIONS": "36 visits to 16 groves by 2 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-09-02",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "INSUFFICIENT_DATA",
+     "reason": "0 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+     "matched_seasons": 0
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "STABLE_OBSERVED",
+     "reason": "0.0% -> 0.0% -> 0.0% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0 percentage points. This describes windows that have already happened."
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": false,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "NO_ESCALATION"
+    },
+    "WHY_DM_MIGHT_CARE": null,
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity",
+     "how this compares with this province's own past: the groves monitored now are not the ones monitored then"
+    ]
+   }
+  },
+  {
+   "province": "Prato",
+   "metric": "DAMAGING_INFESTATION_COUNT",
+   "VALUE": "LOW",
+   "why": "an observation with no comparable history and no named direction",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.0% of sampled drupes (0 of 2400), source band Nessuna Infestazione",
+    "B_HOW_MANY_OBSERVATIONS": "24 visits to 7 groves by 2 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-09-02",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "INSUFFICIENT_DATA",
+     "reason": "0 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+     "matched_seasons": 0
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "UNKNOWN",
+     "reason": "2 usable consecutive windows, below the declared minimum of 3"
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": false,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "NO_ESCALATION"
+    },
+    "WHY_DM_MIGHT_CARE": null,
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity",
+     "how this compares with this province's own past: the groves monitored now are not the ones monitored then"
+    ]
+   }
+  },
+  {
+   "province": "Siena",
+   "metric": "DAMAGING_INFESTATION_COUNT",
+   "VALUE": "HIGH",
+   "why": "matched history says BELOW_HISTORICAL",
+   "questions": {
+    "A_WHAT_WAS_OBSERVED": "0.0816% of sampled drupes (15 of 18383), source band 0-6%",
+    "B_HOW_MANY_OBSERVATIONS": "186 visits to 61 groves by 6 organisations",
+    "C_HOW_RECENT": {
+     "window": [
+      "2026-08-10",
+      "2026-09-06"
+     ],
+     "last_observation": "2026-09-03",
+     "as_of": "2026-09-06"
+    },
+    "D_AGAINST_ITS_OWN_HISTORY": {
+     "state": "BELOW_HISTORICAL",
+     "reason": "on the groves shared with each prior season, this window reads lower than 16 of 17 of them and higher than 0",
+     "matched_seasons": 17
+    },
+    "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
+    "F_OBSERVED_CHANGE": {
+     "trend": "STABLE_OBSERVED",
+     "reason": "0.0% -> 0.0209% -> 0.0816% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0816 percentage points. This describes windows that have already happened."
+    },
+    "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
+    "H_PUBLISHABLE": {
+     "observation": true,
+     "historical_comparison": true,
+     "reason": "enough visits and enough sampled drupes for the observation"
+    },
+    "I_ADAMA_RELEVANCE": {
+     "relevance": "NO",
+     "attention_class": "MONITOR"
+    },
+    "WHY_DM_MIGHT_CARE": "Siena reads below its own matched history in 16 of 17 comparable seasons",
+    "WHAT_WE_CANNOT_CONCLUDE": [
+     "that this will rise or fall - there is no forecast in this tool",
+     "anything about groves nobody visited",
+     "that there is a commercial opportunity"
+    ]
+   }
+  }
+ ]
+}
