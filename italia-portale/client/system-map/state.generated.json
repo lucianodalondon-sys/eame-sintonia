@@ -1370,8 +1370,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "0edbbd43b258c813d960c9ecb23e5e0bad846a0f",
-    "GENERATED_AT": "2026-09-07T11:21:02-03:00"
+    "HEAD": "592284cf33bad4386a58be92bd0661f43516e3cd",
+    "GENERATED_AT": "2026-09-07T11:31:54-03:00"
   },
   "FAMILIES": [
     {
@@ -1428,7 +1428,7 @@
       "id": "Z-FONTES",
       "family": "F-COLETA",
       "name": "1 · AS FONTES",
-      "why": "De onde o dado vem. O acervo que se consulta ANTES de coletar, e a porta por onde entra fonte nova",
+      "why": "De onde o dado vem — de fora e de dentro. O acervo que se consulta ANTES de coletar, o que a ADAMA ja sabe de si, e a porta por onde entra fonte nova",
       "views": [
         "acervo"
       ],
@@ -1436,13 +1436,13 @@
       "y": 190,
       "w": 405,
       "h": 1650,
-      "count": 2
+      "count": 3
     },
     {
       "id": "Z-VEICULOS",
       "family": "F-COLETA",
       "name": "2 · OS VEICULOS",
-      "why": "Quem vai la buscar. Um veiculo por natureza de fonte — video, rede social, base oficial, rotulo, catalogo",
+      "why": "Quem VAI BUSCAR. Se nao sai daqui para trazer alguma coisa, nao e veiculo — e informacao, regra ou ferramenta",
       "views": [
         "acervo",
         "infra"
@@ -1451,7 +1451,7 @@
       "y": 190,
       "w": 820,
       "h": 1650,
-      "count": 10
+      "count": 7
     },
     {
       "id": "Z-REGRAS",
@@ -1466,7 +1466,7 @@
       "y": 190,
       "w": 405,
       "h": 1650,
-      "count": 4
+      "count": 5
     },
     {
       "id": "Z-FERRAMENTAS",
@@ -1494,7 +1494,7 @@
       "y": 190,
       "w": 405,
       "h": 1650,
-      "count": 3
+      "count": 4
     },
     {
       "id": "Z-LINEAGE",
@@ -1615,54 +1615,12 @@
   },
   "NODES": [
     {
-      "id": "C-ADAMA-CATALOGO",
-      "name": "O que a ADAMA vende em cada pais",
-      "territory": "Z-VEICULOS",
-      "kind": "engine",
-      "what": "Monta e le o catalogo de produtos da propria ADAMA em cada pais.",
-      "why_here": "Sem saber o que a ADAMA vende naquele pais, nao da para dizer se uma oportunidade e atendivel.",
-      "departments": [
-        "REGULATORIO_PORTFOLIO",
-        "COMERCIAL"
-      ],
-      "legacy": false,
-      "ui_status": "green",
-      "icon": "⚙",
-      "views": [
-        "acervo",
-        "infra"
-      ],
-      "lane": "official",
-      "family": "F-COLETA",
-      "files": [
-        "scripts/adama_catalogo_ler.py",
-        "scripts/adama_catalogo_montar.py",
-        "scripts/catalogo_importar.py",
-        "scripts/importar_italia.py",
-        "scripts/it_casa_dados.py"
-      ],
-      "file_count": 5,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
-      "inbound": [
-        "C-CI-REGRESSAO",
-        "C-PORTAL-MODELO"
-      ],
-      "outbound": [
-        "C-PORTAL-DADOS",
-        "C-RELEVANCIA"
-      ],
-      "x": 1065,
-      "y": 360
-    },
-    {
       "id": "C-ADAMA-ES",
-      "name": "A entrada do catalogo da Espanha",
-      "territory": "Z-VEICULOS",
+      "name": "O portao do catalogo espanhol",
+      "territory": "Z-REGRAS",
       "kind": "gate",
-      "what": "Confere as regras de importacao do catalogo espanhol antes de ele entrar.",
-      "why_here": "A Espanha entrou depois e com fonte diferente; sem portao proprio ela contaminaria a base.",
+      "what": "Mede o que o catalogo espanhol entrega, campo por campo, e decide se ele pode entrar. Nao importa nada.",
+      "why_here": "A Espanha entrou depois e com fonte diferente. As regras de normalizacao vivem no ponto onde o artefato vira linha canonica — o unico lugar onde podem ser auditadas contra o texto literal da fonte.",
       "departments": [
         "REGULATORIO_PORTFOLIO"
       ],
@@ -1671,17 +1629,15 @@
       "icon": "⛨",
       "views": [
         "acervo",
-        "infra"
+        "audit"
       ],
       "lane": "official",
       "family": "F-COLETA",
       "files": [
         "scripts/adama_es_gate.py",
-        "scripts/adama_es_import_rules.py",
-        "scripts/freeze_es.py",
-        "scripts/proto_es.py"
+        "scripts/adama_es_import_rules.py"
       ],
-      "file_count": 4,
+      "file_count": 2,
       "status": "PROVEN",
       "status_reason": "esta no caminho: alguem o chama antes de publicar.",
       "changed_since_declared": [],
@@ -1692,40 +1648,39 @@
       "outbound": [
         "C-SUPABASE"
       ],
-      "x": 1480,
+      "x": 2185,
       "y": 360
     },
     {
       "id": "C-ADAMA-IT",
-      "name": "O portfolio da ADAMA na Italia",
-      "territory": "Z-VEICULOS",
-      "kind": "engine",
-      "what": "Le rotulo, modo de acao, substancia europeia e lacuna de portfolio da ADAMA na Italia.",
-      "why_here": "A Italia e o piloto: e onde a leitura de portfolio foi provada primeiro.",
+      "name": "O que a ADAMA sabe de si",
+      "territory": "Z-FONTES",
+      "kind": "contract",
+      "what": "O catalogo comercial e o portfolio da ADAMA lidos por dentro: o que vende em cada pais, com que rotulo, modo de acao e substancia — e onde ha lacuna.",
+      "why_here": "Sem saber o que a ADAMA vende naquele pais, nao da para dizer se uma oportunidade e atendivel. Nada aqui sai para buscar: o catalogo veio de paginas salvas a mao, e o portfolio e reaproveitado como entrada. E o inventario que se consulta ANTES de coletar.",
       "departments": [
         "REGULATORIO_PORTFOLIO",
         "TECNICO_CIENCIA"
       ],
       "legacy": false,
       "ui_status": "gray",
-      "icon": "⚙",
+      "icon": "◪",
       "views": [
         "acervo",
-        "infra",
         "science"
       ],
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        "scripts/adama_catalogo_ler.py",
+        "scripts/adama_catalogo_montar.py",
         "scripts/adama_it_eu.py",
         "scripts/adama_it_frac.py",
         "scripts/adama_it_gaps.py",
         "scripts/adama_it_intelligence.py",
         "scripts/adama_it_labels.py",
         "scripts/adama_it_moa.py",
-        "scripts/adama_it_qa.py",
-        "scripts/testa_rota_italia.py",
-        "scripts/universo_ciencia_it.py"
+        "scripts/adama_it_qa.py"
       ],
       "file_count": 9,
       "status": "UNKNOWN",
@@ -1733,8 +1688,8 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 1065,
-      "y": 682
+      "x": 360,
+      "y": 360
     },
     {
       "id": "C-APIFY-POOL",
@@ -3048,7 +3003,7 @@
       },
       "file_count": 3,
       "x": 360,
-      "y": 360
+      "y": 682
     },
     {
       "id": "C-ASK-SINTONIA",
@@ -3440,6 +3395,7 @@
       "outbound": [
         "C-ADAMA-ES",
         "C-APIFY-POOL",
+        "C-AS-FONTES",
         "C-COLETA-PUBLICA",
         "C-IDENTIDADE",
         "C-PALAVRAS",
@@ -3549,8 +3505,8 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [
-        "C-ADAMA-CATALOGO",
         "C-CADEIA-V21",
+        "C-IMPORTAR",
         "C-MEDICAO"
       ],
       "x": 7660,
@@ -3631,12 +3587,12 @@
         "C-APIFY-POOL",
         "C-PROVENIENCIA"
       ],
-      "x": 1480,
-      "y": 682
+      "x": 1065,
+      "y": 360
     },
     {
       "id": "C-COLETA-INSTAGRAM",
-      "name": "O que se fala em video no Instagram",
+      "name": "Colher o Instagram",
       "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Recolhe publicacoes de Instagram das contas autorizadas e transcreve o que e falado em video.",
@@ -3675,12 +3631,12 @@
         "C-NAVEGADOR",
         "C-PROVENIENCIA"
       ],
-      "x": 1065,
-      "y": 1004
+      "x": 1480,
+      "y": 360
     },
     {
       "id": "C-COLETA-PUBLICA",
-      "name": "O que o concorrente publica em canal aberto",
+      "name": "Colher o que o concorrente publica",
       "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Recolhe o que os concorrentes publicam em canais abertos e classifica cada peca.",
@@ -3715,12 +3671,12 @@
         "C-APIFY-POOL",
         "C-COLETA-BASE"
       ],
-      "x": 1480,
-      "y": 1004
+      "x": 1065,
+      "y": 682
     },
     {
       "id": "C-COLETA-YOUTUBE",
-      "name": "O que se fala em video no YouTube",
+      "name": "Colher o YouTube",
       "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Le os canais, lista os videos, e decide quais valem a hora de maquina da transcricao.",
@@ -3753,12 +3709,12 @@
         "C-NAVEGADOR",
         "C-PALAVRAS"
       ],
-      "x": 1065,
-      "y": 1326
+      "x": 1480,
+      "y": 682
     },
     {
       "id": "C-CORPUS",
-      "name": "A fala do campo e a producao dos pesquisadores",
+      "name": "Montar o corpus de fala e de ciencia",
       "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Junta a fala real de campo e a producao dos pesquisadores num corpo de texto consultavel.",
@@ -3782,16 +3738,17 @@
         "scripts/corpus_pesquisador.py",
         "scripts/sensor_canal_identidade.py",
         "scripts/speaker_identidade.py",
-        "scripts/speaker_universo.py"
+        "scripts/speaker_universo.py",
+        "scripts/universo_ciencia_it.py"
       ],
-      "file_count": 5,
+      "file_count": 6,
       "status": "UNKNOWN",
       "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 1480,
-      "y": 1326
+      "x": 1065,
+      "y": 1004
     },
     {
       "id": "C-DATA-CLOCK",
@@ -3887,7 +3844,7 @@
     },
     {
       "id": "C-FONTES-EU",
-      "name": "As bases oficiais da Europa",
+      "name": "Ler as bases oficiais da Europa",
       "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Le as bases oficiais da Europa — registro de produtos, pragas, denominacoes, dados agroalimentares.",
@@ -3928,8 +3885,8 @@
       "outbound": [
         "C-ROTULOS"
       ],
-      "x": 1065,
-      "y": 1648
+      "x": 1480,
+      "y": 1004
     },
     {
       "id": "C-IDENTIDADE",
@@ -3952,11 +3909,12 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json",
         "scripts/comunicacao_identidade.py",
         "scripts/comunicacao_lote.py",
         "scripts/comunicacao_universo.py"
       ],
-      "file_count": 3,
+      "file_count": 4,
       "status": "PROVEN",
       "status_reason": "existe teste que exercita esta lei.",
       "changed_since_declared": [],
@@ -3966,7 +3924,40 @@
       ],
       "outbound": [],
       "x": 2185,
-      "y": 360
+      "y": 682
+    },
+    {
+      "id": "C-IMPORTAR",
+      "name": "Levar o dado para o banco",
+      "territory": "Z-GUARDA",
+      "kind": "engine",
+      "what": "Transforma o artefato do Git em SQL idempotente e leva-o para o banco.",
+      "why_here": "Gera SQL em vez de falar direto com o banco porque o SQL e AUDITAVEL: ele entra no Git e pode ser lido antes de correr.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "green",
+      "icon": "⇥",
+      "views": [
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "scripts/catalogo_importar.py",
+        "scripts/importar_italia.py"
+      ],
+      "file_count": 2,
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CI-REGRESSAO"
+      ],
+      "outbound": [],
+      "x": 3595,
+      "y": 1004
     },
     {
       "id": "C-LASTMILE",
@@ -4112,8 +4103,10 @@
         "C-MAPA-VALIDADOR"
       ],
       "outbound": [
+        "C-AS-FONTES",
         "C-MAPA-APP",
-        "C-MAPA-SCAN"
+        "C-MAPA-SCAN",
+        "lineage_stale"
       ],
       "x": 7660,
       "y": 682
@@ -4151,6 +4144,7 @@
         "C-MAPA-VALIDADOR"
       ],
       "outbound": [
+        "C-AS-FONTES",
         "C-PORTA-FONTE"
       ],
       "x": 7245,
@@ -4167,7 +4161,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "✓",
       "views": [
         "audit",
@@ -4179,13 +4173,15 @@
         "system-map/tests/test_system_map.py"
       ],
       "file_count": 1,
-      "status": "PENDING",
-      "status_reason": "teste que nao toca em nada do repositorio.",
+      "status": "PROVEN",
+      "status_reason": "o teste aponta para codigo real do repositorio.",
       "changed_since_declared": [],
       "inbound": [
         "C-CI-MAPA"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-AS-FONTES"
+      ],
       "x": 7660,
       "y": 1004
     },
@@ -4249,9 +4245,11 @@
         "scripts/auditoria.py",
         "scripts/corrigir_custo.py",
         "scripts/coverage.py",
-        "scripts/inventario_esperado.py"
+        "scripts/freeze_es.py",
+        "scripts/inventario_esperado.py",
+        "scripts/testa_rota_italia.py"
       ],
-      "file_count": 4,
+      "file_count": 6,
       "status": "PROVEN",
       "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
       "changed_since_declared": [],
@@ -4344,6 +4342,7 @@
         "C-TESTES"
       ],
       "outbound": [
+        "C-AS-FONTES",
         "C-CADEIA-V21",
         "C-TESTES",
         "C-V21-CRUZAMENTO",
@@ -4392,7 +4391,7 @@
         "C-PROVENIENCIA"
       ],
       "x": 2185,
-      "y": 682
+      "y": 1004
     },
     {
       "id": "C-PORTA-FONTE",
@@ -4427,7 +4426,7 @@
         "C-COLETA-INSTAGRAM"
       ],
       "x": 360,
-      "y": 682
+      "y": 1004
     },
     {
       "id": "C-PORTAL-CASCO",
@@ -4507,14 +4506,15 @@
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
-        "italia-portale/client/meeting-surface.js"
+        "italia-portale/client/meeting-surface.js",
+        "scripts/it_casa_dados.py",
+        "scripts/proto_es.py"
       ],
-      "file_count": 13,
+      "file_count": 15,
       "status": "PROVEN",
       "status_reason": "a superficie carrega dado ou codigo do repositorio.",
       "changed_since_declared": [],
       "inbound": [
-        "C-ADAMA-CATALOGO",
         "C-PORTAL-CASCO",
         "C-PORTAL-MODELO"
       ],
@@ -4558,7 +4558,6 @@
         "C-PORTAL-CASCO"
       ],
       "outbound": [
-        "C-ADAMA-CATALOGO",
         "C-PORTAL-DADOS"
       ],
       "x": 10190,
@@ -4597,7 +4596,8 @@
       ],
       "outbound": [
         "C-AUDIT-GERAL",
-        "C-AUDIT-HARNESS"
+        "C-AUDIT-HARNESS",
+        "lineage_stale"
       ],
       "x": 9485,
       "y": 1004
@@ -4687,7 +4687,7 @@
         "C-VOZ"
       ],
       "x": 2185,
-      "y": 1004
+      "y": 1326
     },
     {
       "id": "C-RELEVANCIA",
@@ -4719,7 +4719,6 @@
       "status_reason": "existe teste que exercita esta lei.",
       "changed_since_declared": [],
       "inbound": [
-        "C-ADAMA-CATALOGO",
         "C-AUDIT-MARCA",
         "C-PORTAL-DADOS",
         "C-TESTES"
@@ -4732,7 +4731,7 @@
     },
     {
       "id": "C-ROTULOS",
-      "name": "Os rotulos oficiais dos produtos",
+      "name": "Baixar e ler os rotulos oficiais",
       "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Baixa, conta e le os rotulos oficiais dos produtos.",
@@ -4769,8 +4768,8 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 1480,
-      "y": 1648
+      "x": 1065,
+      "y": 1326
     },
     {
       "id": "C-SAUDE-FONTE",
@@ -4804,7 +4803,7 @@
       ],
       "outbound": [],
       "x": 2185,
-      "y": 1326
+      "y": 1648
     },
     {
       "id": "C-SINTONIA-SCRAP",
@@ -4855,7 +4854,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "gray",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "audit",
@@ -4868,11 +4867,14 @@
         "scripts/site_v21_ingest.py"
       ],
       "file_count": 2,
-      "status": "UNKNOWN",
-      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "inbound": [],
-      "outbound": [],
+      "outbound": [
+        "C-AS-FONTES",
+        "lineage_stale"
+      ],
       "x": 9070,
       "y": 1326
     },
@@ -4950,7 +4952,7 @@
       ],
       "outbound": [],
       "x": 3595,
-      "y": 1004
+      "y": 1326
     },
     {
       "id": "C-TESTES",
@@ -5412,7 +5414,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 0edbbd43b258c813d960c9ecb23e5e0bad846a0f"
+        "HEAD 592284cf33bad4386a58be92bd0661f43516e3cd"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -5555,61 +5557,13 @@
   ],
   "EDGES": [
     {
-      "from": "C-ADAMA-CATALOGO",
-      "to": "C-PORTAL-DADOS",
-      "type": "READS",
-      "payload": "artefacto",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O que a ADAMA vende em cada pais le Camadas de dado do portal. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "scripts/it_casa_dados.py",
-          "line": 1011,
-          "snippet": "'DONO': 'italia-portale/client/meeting-labels.js',"
-        }
-      ]
-    },
-    {
-      "from": "C-ADAMA-CATALOGO",
-      "to": "C-RELEVANCIA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O que a ADAMA vende em cada pais importa Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "scripts/it_casa_dados.py",
-          "line": 76,
-          "snippet": "from adama_relevance import (CONTRATO as LEI_ADAMA, classificar, contar,"
-        }
-      ]
-    },
-    {
-      "from": "C-ADAMA-CATALOGO",
-      "to": "C-RELEVANCIA",
-      "type": "READS",
-      "payload": "artefacto",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O que a ADAMA vende em cada pais le Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "scripts/it_casa_dados.py",
-          "line": 1026,
-          "snippet": "'DONO_DA_LEI': 'scripts/adama_relevance.py',"
-        }
-      ]
-    },
-    {
       "from": "C-ADAMA-ES",
       "to": "C-SUPABASE",
       "type": "READS",
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A entrada do catalogo da Espanha le O banco onde o dado fica guardado. Provado por 1 linha de codigo.",
+      "reason": "O portao do catalogo espanhol le O banco onde o dado fica guardado. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/adama_es_gate.py",
@@ -5641,7 +5595,7 @@
       "payload": "coleta",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "2 fonte(s) declaram, no contrato de busca, que quem vai la buscar e «As bases oficiais da Europa».",
+      "reason": "2 fonte(s) declaram, no contrato de busca, que quem vai la buscar e «Ler as bases oficiais da Europa».",
       "evidence": [
         {
           "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
@@ -5662,7 +5616,7 @@
       "payload": "coleta",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "1 fonte(s) declaram, no contrato de busca, que quem vai la buscar e «Os rotulos oficiais dos produtos».",
+      "reason": "1 fonte(s) declaram, no contrato de busca, que quem vai la buscar e «Baixar e ler os rotulos oficiais».",
       "evidence": [
         {
           "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
@@ -6177,7 +6131,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 importa As bases oficiais da Europa. Provado por 1 linha de codigo.",
+      "reason": "Cadeia canonica V2.1 importa Ler as bases oficiais da Europa. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/chain.py",
@@ -6251,7 +6205,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 importa Os rotulos oficiais dos produtos. Provado por 1 linha de codigo.",
+      "reason": "Cadeia canonica V2.1 importa Baixar e ler os rotulos oficiais. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/chain.py",
@@ -6419,7 +6373,7 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que disparam a coleta le A entrada do catalogo da Espanha. Provado por 1 linha de codigo.",
+      "reason": "Os botoes que disparam a coleta le O portao do catalogo espanhol. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/adama-es-gate.yml",
@@ -6435,7 +6389,7 @@
       "payload": "execucao",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que disparam a coleta manda rodar A entrada do catalogo da Espanha. Provado por 1 linha de codigo.",
+      "reason": "Os botoes que disparam a coleta manda rodar O portao do catalogo espanhol. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/adama-es-gate.yml",
@@ -6472,12 +6426,28 @@
     },
     {
       "from": "C-CI-COLETA",
+      "to": "C-AS-FONTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que disparam a coleta le AS FONTES. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/comunicacao-publica.yml",
+          "line": 110,
+          "snippet": "contas = json.load(open('data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json',"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-COLETA",
       "to": "C-COLETA-PUBLICA",
       "type": "RUNS",
       "payload": "execucao",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que disparam a coleta manda rodar O que o concorrente publica em canal aberto. Provado por 3 linhas de codigo.",
+      "reason": "Os botoes que disparam a coleta manda rodar Colher o que o concorrente publica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/comunicacao-publica.yml",
@@ -6668,22 +6638,6 @@
     },
     {
       "from": "C-CI-REGRESSAO",
-      "to": "C-ADAMA-CATALOGO",
-      "type": "RUNS",
-      "payload": "execucao",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Calendario de regressoes manda rodar O que a ADAMA vende em cada pais. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/calendario-regressoes.yml",
-          "line": 235,
-          "snippet": "python3 scripts/catalogo_importar.py --sql >/dev/null"
-        }
-      ]
-    },
-    {
-      "from": "C-CI-REGRESSAO",
       "to": "C-CADEIA-V21",
       "type": "RUNS",
       "payload": "execucao",
@@ -6695,6 +6649,22 @@
           "file": ".github/workflows/calendario-regressoes.yml",
           "line": 159,
           "snippet": "# os dois chamam o MESMO scripts/cadeia_canonica.sh. Se a ordem mudar"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-REGRESSAO",
+      "to": "C-IMPORTAR",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Calendario de regressoes manda rodar Levar o dado para o banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/calendario-regressoes.yml",
+          "line": 235,
+          "snippet": "python3 scripts/catalogo_importar.py --sql >/dev/null"
         }
       ]
     },
@@ -6785,7 +6755,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que se fala em video no Instagram importa Apify — a rota paga. Provado por 2 linhas de codigo.",
+      "reason": "Colher o Instagram importa Apify — a rota paga. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "scripts/instagram_coleta.py",
@@ -6806,7 +6776,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que se fala em video no Instagram importa O motor de buscar. Provado por 1 linha de codigo.",
+      "reason": "Colher o Instagram importa O motor de buscar. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/instagram_coleta.py",
@@ -6822,7 +6792,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que se fala em video no Instagram importa Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
+      "reason": "Colher o Instagram importa Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/instagram_coleta.py",
@@ -6838,7 +6808,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que se fala em video no Instagram importa O navegador — a rota gratis. Provado por 2 linhas de codigo.",
+      "reason": "Colher o Instagram importa O navegador — a rota gratis. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "scripts/instagram_diario.py",
@@ -6859,7 +6829,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que se fala em video no Instagram importa Regua de procedencia. Provado por 1 linha de codigo.",
+      "reason": "Colher o Instagram importa Regua de procedencia. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/instagram_janela.py",
@@ -6875,7 +6845,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que o concorrente publica em canal aberto importa Apify — a rota paga. Provado por 2 linhas de codigo.",
+      "reason": "Colher o que o concorrente publica importa Apify — a rota paga. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "scripts/comunicacao_coleta.py",
@@ -6896,7 +6866,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que o concorrente publica em canal aberto importa O motor de buscar. Provado por 1 linha de codigo.",
+      "reason": "Colher o que o concorrente publica importa O motor de buscar. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/comunicacao_coleta.py",
@@ -6912,7 +6882,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que se fala em video no YouTube importa O navegador — a rota gratis. Provado por 1 linha de codigo.",
+      "reason": "Colher o YouTube importa O navegador — a rota gratis. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/youtube_janela.py",
@@ -6928,7 +6898,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que se fala em video no YouTube importa As palavras que a busca digita. Provado por 1 linha de codigo.",
+      "reason": "Colher o YouTube importa As palavras que a busca digita. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/youtube_relevancia.py",
@@ -6980,7 +6950,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As bases oficiais da Europa importa Os rotulos oficiais dos produtos. Provado por 1 linha de codigo.",
+      "reason": "Ler as bases oficiais da Europa importa Baixar e ler os rotulos oficiais. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/denominaciones.py",
@@ -7002,6 +6972,22 @@
           "file": "scripts/v21_geografia_contrato.py",
           "line": 25,
           "snippet": "import v21_normalizar as N  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-MAPA-GERADOR",
+      "to": "C-AS-FONTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gerador do System Map le AS FONTES. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 392,
+          "snippet": "CONTRATOS_REL = \"docs/operacao/CONTRATOS-DAS-FONTES-EAME.md\""
         }
       ]
     },
@@ -7042,13 +7028,55 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 816,
+          "line": 824,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 816,
+          "line": 824,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
+        }
+      ]
+    },
+    {
+      "from": "C-MAPA-GERADOR",
+      "to": "lineage_stale",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gerador do System Map le Safras atrasadas conhecidas (4). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 224,
+          "snippet": "rel = \"italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json\""
+        }
+      ]
+    },
+    {
+      "from": "C-MAPA-SCAN",
+      "to": "C-AS-FONTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Scanner do System Map le AS FONTES. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/scan_sources.py",
+          "line": 47,
+          "snippet": "ATLAS = \"docs/fontes/ATLAS-DE-FONTES-EAME.md\""
+        },
+        {
+          "file": "system-map/scripts/scan_sources.py",
+          "line": 48,
+          "snippet": "CONTRATOS = \"docs/operacao/CONTRATOS-DAS-FONTES-EAME.md\""
+        },
+        {
+          "file": "system-map/scripts/scan_sources.py",
+          "line": 217,
+          "snippet": "CONTAS = \"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\""
         }
       ]
     },
@@ -7070,6 +7098,22 @@
           "file": "system-map/scripts/scan_sources.py",
           "line": 295,
           "snippet": "\"porta\": \"scripts/fonte_nova.py\","
+        }
+      ]
+    },
+    {
+      "from": "C-MAPA-TESTES",
+      "to": "C-AS-FONTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map le AS FONTES. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_system_map.py",
+          "line": 142,
+          "snippet": "and K[\"escada\"][0][\"onde\"] != \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
         }
       ]
     },
@@ -7107,6 +7151,22 @@
           "file": "system-map/scripts/validate_system_map.py",
           "line": 103,
           "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"generate_system_map.py\"):"
+        }
+      ]
+    },
+    {
+      "from": "C-PACOTE-CAMADAS",
+      "to": "C-AS-FONTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Montagem do pacote por camadas le AS FONTES. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/metricas_canonicas.py",
+          "line": 117,
+          "snippet": "source='docs/fontes/ATLAS-DE-FONTES-EAME.md',"
         }
       ]
     },
@@ -7254,7 +7314,7 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada de fonte nova le O que se fala em video no Instagram. Provado por 1 linha de codigo.",
+      "reason": "A porta de entrada de fonte nova le Colher o Instagram. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/fonte_nova.py",
@@ -7450,32 +7510,37 @@
     {
       "from": "C-PORTAL-DADOS",
       "to": "C-RELEVANCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Camadas de dado do portal importa Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/it_casa_dados.py",
+          "line": 76,
+          "snippet": "from adama_relevance import (CONTRATO as LEI_ADAMA, classificar, contar,"
+        }
+      ]
+    },
+    {
+      "from": "C-PORTAL-DADOS",
+      "to": "C-RELEVANCIA",
       "type": "READS",
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Camadas de dado do portal le Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
+      "reason": "Camadas de dado do portal le Regua de relevancia ADAMA. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/client/adama-relevance.js",
           "line": 6,
           "snippet": "\"DONO_DA_LEI\": \"scripts/adama_relevance.py\","
-        }
-      ]
-    },
-    {
-      "from": "C-PORTAL-MODELO",
-      "to": "C-ADAMA-CATALOGO",
-      "type": "READS",
-      "payload": "artefacto",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal le O que a ADAMA vende em cada pais. Provado por 1 linha de codigo.",
-      "evidence": [
+        },
         {
-          "file": "italia-portale/client/italy-casa.js",
-          "line": 209,
-          "snippet": "\"GERADO_POR\": \"scripts/it_casa_dados.py\","
+          "file": "scripts/it_casa_dados.py",
+          "line": 1026,
+          "snippet": "'DONO_DA_LEI': 'scripts/adama_relevance.py',"
         }
       ]
     },
@@ -7486,12 +7551,17 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal le Camadas de dado do portal. Provado por 1 linha de codigo.",
+      "reason": "Modelo de aplicacao do portal le Camadas de dado do portal. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/client/italy-casa.js",
           "line": 114,
           "snippet": "\"meeting-labels.js\": \"sha256:8ea7e824d12866626441acc8f10fa2525116241cde054be7122808a06adf6c2a\""
+        },
+        {
+          "file": "italia-portale/client/italy-casa.js",
+          "line": 209,
+          "snippet": "\"GERADO_POR\": \"scripts/it_casa_dados.py\","
         }
       ]
     },
@@ -7580,6 +7650,22 @@
       ]
     },
     {
+      "from": "C-PORTAO-BUILD",
+      "to": "lineage_stale",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Portao da build le Safras atrasadas conhecidas (4). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/ingestion-provenance.mjs",
+          "line": 38,
+          "snippet": "fs.readFileSync(new URL('./CANONICAL-PACKAGE-CONTRACT.json', import.meta.url), 'utf8'),"
+        }
+      ]
+    },
+    {
       "from": "C-REGRA-COLETA",
       "to": "C-CADEIA-V21",
       "type": "READS",
@@ -7634,7 +7720,7 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A regra de coleta externa le As bases oficiais da Europa. Provado por 1 linha de codigo.",
+      "reason": "A regra de coleta externa le Ler as bases oficiais da Europa. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/portoes_eame.py",
@@ -7730,7 +7816,7 @@
       "payload": "execucao",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — o despachador manda rodar O que se fala em video no Instagram. Provado por 4 linhas de codigo.",
+      "reason": "SINTONIA SCRAP — o despachador manda rodar Colher o Instagram. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
@@ -7761,7 +7847,7 @@
       "payload": "execucao",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — o despachador manda rodar O que se fala em video no YouTube. Provado por 2 linhas de codigo.",
+      "reason": "SINTONIA SCRAP — o despachador manda rodar Colher o YouTube. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
@@ -7813,13 +7899,45 @@
       ]
     },
     {
+      "from": "C-SITE-INGEST",
+      "to": "C-AS-FONTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ingestao do pacote no site le AS FONTES. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/build_portal.py",
+          "line": 422,
+          "snippet": "'docs/fontes/ATLAS-DE-FONTES-EAME.md',"
+        }
+      ]
+    },
+    {
+      "from": "C-SITE-INGEST",
+      "to": "lineage_stale",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ingestao do pacote no site le Safras atrasadas conhecidas (4). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/site_v21_ingest.py",
+          "line": 763,
+          "snippet": "'italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json' % ING)"
+        }
+      ]
+    },
+    {
       "from": "C-TESTES",
       "to": "C-ADAMA-ES",
       "type": "IMPORTS",
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes importa A entrada do catalogo da Espanha. Provado por 1 linha de codigo.",
+      "reason": "Suite de testes importa O portao do catalogo espanhol. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "tests/test_adama_es_import_rules.py",
@@ -7936,7 +8054,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes importa O que o concorrente publica em canal aberto. Provado por 1 linha de codigo.",
+      "reason": "Suite de testes importa Colher o que o concorrente publica. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "tests/test_comunicacao.py",
@@ -7968,7 +8086,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes importa As bases oficiais da Europa. Provado por 1 linha de codigo.",
+      "reason": "Suite de testes importa Ler as bases oficiais da Europa. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "tests/test_operacao.py",
@@ -8152,7 +8270,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes importa Os rotulos oficiais dos produtos. Provado por 1 linha de codigo.",
+      "reason": "Suite de testes importa Baixar e ler os rotulos oficiais. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "tests/test_operacao.py",
@@ -8289,7 +8407,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura importa O que se fala em video no Instagram. Provado por 1 linha de codigo.",
+      "reason": "A fala vira texto, sem fatura importa Colher o Instagram. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/instagram_transcrever.py",
@@ -8427,7 +8545,7 @@
       "payload": "codigo",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ingestao V2.1 importa As bases oficiais da Europa. Provado por 1 linha de codigo.",
+      "reason": "Ingestao V2.1 importa Ler as bases oficiais da Europa. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/normalize_agro.py",
@@ -8513,20 +8631,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 640,
+  "UNCLAIMED_FILES_COUNT": 635,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 65,
-    "components_proven": 54,
+    "components_proven": 55,
     "components_pending": 6,
     "components_broken": 0,
-    "components_unknown": 5,
-    "edges": 139,
-    "edges_proven": 139,
+    "components_unknown": 4,
+    "edges": 145,
+    "edges_proven": 145,
     "edges_unknown": 0,
     "business_edges": 4,
     "files_tracked": 1027,
-    "files_covered": 387,
+    "files_covered": 392,
     "files_code_unclaimed": 0
   }
 }

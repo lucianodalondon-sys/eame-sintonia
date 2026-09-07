@@ -134,6 +134,28 @@ push e cada pull request. **Falha fechado**: erro inesperado também é `FAIL`.
 
 ---
 
+## TRAZER FICHEIRO DE OUTRA BRANCH — compare antes
+
+Este repositório tem 68 branches, e **uma branch mais antiga pode conter uma versão
+mais velha do mesmo ficheiro**. `git checkout <branch> -- <ficheiro>` sobrescreve
+sem perguntar e sem avisar.
+
+Aconteceu nesta missão: ao trazer `sintonia-scrap.yml` da branch antiga, veio junto
+um `PORTOES-DE-COLETA-10B.md` **54 linhas mais curto** — apagando o registo inteiro
+da verificação adversarial da Missão 10C. O `git diff --stat` mostrou; se ninguém
+tivesse olhado, a prova de que seis dos sete portões foram refutados teria sumido.
+
+**Antes de trazer, compare. Depois de trazer, confira o que saiu:**
+
+```bash
+git diff --numstat origin/main -- . | awk '$2>0 {print "APAGOU "$2" linhas: "$3}'
+```
+
+Linha apagada que você não pretendia apagar é regressão, mesmo quando o ficheiro
+é "só documentação". Documentação apagada não dá erro em teste nenhum.
+
+---
+
 ## FONTE NOVA — a porta, e a escada
 
 O acervo de fontes é **capital parado**: consulta-se antes de coletar, não se

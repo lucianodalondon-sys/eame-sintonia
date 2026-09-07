@@ -603,7 +603,13 @@ def main_uma_vez(stamp: bool) -> int:
     # Um ficheiro so pode ter UM dono. Dois donos seria duas verdades sobre a
     # mesma linha de codigo. O primeiro que reivindica fica com ele, e o
     # validador reprova conflito.
-    dono: dict[str, str] = {}
+    # As pecas GERADAS (as fontes, a linhagem) tem de existir antes do mapa de
+    # donos: sem isso, nenhuma seta consegue apontar para elas.
+    gerados = linhagem()
+    fontes, lig_fontes = as_fontes()
+    gerados += fontes
+
+    dono: dict[str, str] = {f: g["id"] for g in gerados for f in g["files"]}
     conflitos: list[dict] = []
     for c in comps:
         c["_files"] = []
@@ -612,6 +618,8 @@ def main_uma_vez(stamp: bool) -> int:
             for caminho in arquivos:
                 if any(casa(caminho, x) for x in fora):
                     continue  # pertence a outro componente, declarado a mao
+                if dono.get(caminho, "").startswith(("C-AS-FONTES", "lineage_")):
+                    continue  # ja e de uma peca gerada; nao se reivindica por cima
                 if casa(caminho, padrao):
                     if caminho in dono and dono[caminho] != c["id"]:
                         conflitos.append({"file": caminho, "claimed_by": [dono[caminho], c["id"]]})
@@ -640,8 +648,9 @@ def main_uma_vez(stamp: bool) -> int:
         n = len(lig["evidence"])
         verbo = {"IMPORTS": "importa", "READS": "le", "WRITES": "escreve em",
                  "RUNS": "manda rodar"}.get(lig["type"], lig["type"].lower())
-        de = next(c["name"] for c in comps if c["id"] == lig["from"])
-        para = next(c["name"] for c in comps if c["id"] == lig["to"])
+        nomes = {c["id"]: c["name"] for c in comps}
+        nomes.update({g["id"]: g["name"] for g in gerados})
+        de, para = nomes.get(lig["from"], lig["from"]), nomes.get(lig["to"], lig["to"])
         lig["reason"] = (f"{de} {verbo} {para}. Provado por {n} "
                          f"linha{'s' if n > 1 else ''} de codigo.")
         lig["evidence"] = sorted(lig["evidence"], key=lambda x: (x["file"], x["line"]))[:12]
@@ -727,12 +736,11 @@ def main_uma_vez(stamp: bool) -> int:
                               if f["code_dir"] and f["readable"] and p not in dono)
     nao_reivindicados = sorted(p for p in arquivos if p not in dono)
 
-    fontes, lig_fontes = as_fontes()
-    nos = nos + linhagem() + fontes
+    nos = nos + gerados
 
     # A fonte aponta para o componente que a busca. A prova e a linha do contrato
     # que NOMEIA o script — a mesma regra de sempre: sem linha, sem seta.
-    dono_de = {f: c["id"] for c in comps for f in c["_files"]}
+    dono_de = dict(dono)
     for lf in lig_fontes:
         alvo = dono_de.get(lf["to_file"])
         if not alvo:

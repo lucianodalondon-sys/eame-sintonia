@@ -31,7 +31,7 @@
       "id": "Z-FONTES",
       "family": "F-COLETA",
       "name": "1 · AS FONTES",
-      "why": "De onde o dado vem. O acervo que se consulta ANTES de coletar, e a porta por onde entra fonte nova",
+      "why": "De onde o dado vem — de fora e de dentro. O acervo que se consulta ANTES de coletar, o que a ADAMA ja sabe de si, e a porta por onde entra fonte nova",
       "views": [
         "acervo"
       ]
@@ -40,7 +40,7 @@
       "id": "Z-VEICULOS",
       "family": "F-COLETA",
       "name": "2 · OS VEICULOS",
-      "why": "Quem vai la buscar. Um veiculo por natureza de fonte — video, rede social, base oficial, rotulo, catalogo",
+      "why": "Quem VAI BUSCAR. Se nao sai daqui para trazer alguma coisa, nao e veiculo — e informacao, regra ou ferramenta",
       "views": [
         "acervo",
         "infra"
@@ -147,8 +147,27 @@
   ],
   "COMPONENTS": [
     {
+      "id": "C-IMPORTAR",
+      "name": "Levar o dado para o banco",
+      "territory": "Z-GUARDA",
+      "kind": "engine",
+      "icon": "⇥",
+      "views": [
+        "infra"
+      ],
+      "what": "Transforma o artefato do Git em SQL idempotente e leva-o para o banco.",
+      "why_here": "Gera SQL em vez de falar direto com o banco porque o SQL e AUDITAVEL: ele entra no Git e pode ser lido antes de correr.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "scripts/catalogo_importar.py",
+        "scripts/importar_italia.py"
+      ]
+    },
+    {
       "id": "C-COLETA-YOUTUBE",
-      "name": "O que se fala em video no YouTube",
+      "name": "Colher o YouTube",
       "territory": "Z-VEICULOS",
       "kind": "engine",
       "icon": "▶",
@@ -229,7 +248,8 @@
       "files": [
         "scripts/comunicacao_identidade.py",
         "scripts/comunicacao_lote.py",
-        "scripts/comunicacao_universo.py"
+        "scripts/comunicacao_universo.py",
+        "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json"
       ]
     },
     {
@@ -350,7 +370,7 @@
     },
     {
       "id": "C-COLETA-PUBLICA",
-      "name": "O que o concorrente publica em canal aberto",
+      "name": "Colher o que o concorrente publica",
       "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Recolhe o que os concorrentes publicam em canais abertos e classifica cada peca.",
@@ -369,7 +389,7 @@
     },
     {
       "id": "C-COLETA-INSTAGRAM",
-      "name": "O que se fala em video no Instagram",
+      "name": "Colher o Instagram",
       "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Recolhe publicacoes de Instagram das contas autorizadas e transcreve o que e falado em video.",
@@ -406,7 +426,7 @@
     },
     {
       "id": "C-FONTES-EU",
-      "name": "As bases oficiais da Europa",
+      "name": "Ler as bases oficiais da Europa",
       "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Le as bases oficiais da Europa — registro de produtos, pragas, denominacoes, dados agroalimentares.",
@@ -431,7 +451,7 @@
     },
     {
       "id": "C-CORPUS",
-      "name": "A fala do campo e a producao dos pesquisadores",
+      "name": "Montar o corpus de fala e de ciencia",
       "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Junta a fala real de campo e a producao dos pesquisadores num corpo de texto consultavel.",
@@ -443,7 +463,8 @@
       "files": [
         "scripts/corpus_*.py",
         "scripts/speaker*.py",
-        "scripts/sensor_canal_identidade.py"
+        "scripts/sensor_canal_identidade.py",
+        "scripts/universo_ciencia_it.py"
       ],
       "views": [
         "science"
@@ -565,67 +586,52 @@
       "icon": "§"
     },
     {
-      "id": "C-ADAMA-CATALOGO",
-      "name": "O que a ADAMA vende em cada pais",
-      "territory": "Z-VEICULOS",
-      "kind": "engine",
-      "what": "Monta e le o catalogo de produtos da propria ADAMA em cada pais.",
-      "why_here": "Sem saber o que a ADAMA vende naquele pais, nao da para dizer se uma oportunidade e atendivel.",
-      "departments": [
-        "REGULATORIO_PORTFOLIO",
-        "COMERCIAL"
-      ],
-      "files": [
-        "scripts/adama_catalogo_*.py",
-        "scripts/catalogo_importar.py",
-        "scripts/importar_italia.py",
-        "scripts/it_casa_dados.py"
-      ],
-      "views": [],
-      "icon": "⚙"
-    },
-    {
       "id": "C-ADAMA-IT",
-      "name": "O portfolio da ADAMA na Italia",
-      "territory": "Z-VEICULOS",
-      "kind": "engine",
-      "what": "Le rotulo, modo de acao, substancia europeia e lacuna de portfolio da ADAMA na Italia.",
-      "why_here": "A Italia e o piloto: e onde a leitura de portfolio foi provada primeiro.",
+      "name": "O que a ADAMA sabe de si",
+      "territory": "Z-FONTES",
+      "kind": "contract",
+      "what": "O catalogo comercial e o portfolio da ADAMA lidos por dentro: o que vende em cada pais, com que rotulo, modo de acao e substancia — e onde ha lacuna.",
+      "why_here": "Sem saber o que a ADAMA vende naquele pais, nao da para dizer se uma oportunidade e atendivel. Nada aqui sai para buscar: o catalogo veio de paginas salvas a mao, e o portfolio e reaproveitado como entrada. E o inventario que se consulta ANTES de coletar.",
       "departments": [
         "REGULATORIO_PORTFOLIO",
         "TECNICO_CIENCIA"
       ],
       "files": [
-        "scripts/adama_it_*.py",
-        "scripts/universo_ciencia_it.py",
-        "scripts/testa_rota_italia.py"
+        "scripts/adama_it_eu.py",
+        "scripts/adama_it_frac.py",
+        "scripts/adama_it_gaps.py",
+        "scripts/adama_it_intelligence.py",
+        "scripts/adama_it_labels.py",
+        "scripts/adama_it_moa.py",
+        "scripts/adama_it_qa.py",
+        "scripts/adama_catalogo_ler.py",
+        "scripts/adama_catalogo_montar.py"
       ],
       "views": [
         "science"
       ],
-      "icon": "⚙"
+      "icon": "◪"
     },
     {
       "id": "C-ADAMA-ES",
-      "name": "A entrada do catalogo da Espanha",
-      "territory": "Z-VEICULOS",
+      "name": "O portao do catalogo espanhol",
+      "territory": "Z-REGRAS",
       "kind": "gate",
-      "what": "Confere as regras de importacao do catalogo espanhol antes de ele entrar.",
-      "why_here": "A Espanha entrou depois e com fonte diferente; sem portao proprio ela contaminaria a base.",
+      "what": "Mede o que o catalogo espanhol entrega, campo por campo, e decide se ele pode entrar. Nao importa nada.",
+      "why_here": "A Espanha entrou depois e com fonte diferente. As regras de normalizacao vivem no ponto onde o artefato vira linha canonica — o unico lugar onde podem ser auditadas contra o texto literal da fonte.",
       "departments": [
         "REGULATORIO_PORTFOLIO"
       ],
       "files": [
-        "scripts/adama_es_*.py",
-        "scripts/freeze_es.py",
-        "scripts/proto_es.py"
+        "scripts/adama_es_gate.py",
+        "scripts/adama_es_import_rules.py"
       ],
       "views": [],
       "icon": "⛨"
     },
     {
       "id": "C-ROTULOS",
-      "name": "Os rotulos oficiais dos produtos",
+      "name": "Baixar e ler os rotulos oficiais",
       "territory": "Z-VEICULOS",
       "kind": "engine",
       "what": "Baixa, conta e le os rotulos oficiais dos produtos.",
@@ -744,7 +750,9 @@
         "scripts/auditoria.py",
         "scripts/coverage.py",
         "scripts/corrigir_custo.py",
-        "scripts/inventario_esperado.py"
+        "scripts/inventario_esperado.py",
+        "scripts/freeze_es.py",
+        "scripts/testa_rota_italia.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -983,7 +991,9 @@
       "files": [
         "italia-portale/client/italy-*.js",
         "italia-portale/client/meeting-*.js",
-        "italia-portale/client/adama-relevance.js"
+        "italia-portale/client/adama-relevance.js",
+        "scripts/it_casa_dados.py",
+        "scripts/proto_es.py"
       ],
       "exclude": [
         "italia-portale/client/italy-app-model.js",
@@ -1378,8 +1388,9 @@
     ".github/workflows/supabase-raw-roundtrip.yml": "7b8f182ab89d1176299913069a05220d1e90ae82",
     ".github/workflows/supabase-storage.yml": "cf95ae286c72c84f23aa906392b6c88dc4f88cd2",
     ".github/workflows/system-map.yml": "825d7a0dfb28cd37d69df980e60b9b2036ae267b",
+    "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json": "dce86043d875046110e7cf3e8e1ee2f35b364d52",
     "data/samples/FONTES-CANDIDATAS.json": "7f5d31b069f50b2c547d4cf15c23c9e183bad680",
-    "docs/operacao/PORTOES-DE-COLETA-10B.md": "aeef00a584cd88b4a1646a1cc6fbd80c5adf463d",
+    "docs/operacao/PORTOES-DE-COLETA-10B.md": "94380052d0793303f9b62c63163b69644c733112",
     "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md": "d92be7f6dd52b8d9099f73d3612348bc62d3f9db",
     "italia-portale/BASELINE/_ds/adama-brandwell/_adherence.oxlintrc.json": "33b460a7e2a4606240e3ce74c734a2ca6a4ae703",
     "italia-portale/BASELINE/_ds/adama-brandwell/_ds_bundle.js": "5181841ff9f5e3a465908bcdcbd563655bbd6b67",
@@ -1718,7 +1729,7 @@
     "system-map/app/index.html": "cd2fedf7baae6ace57be8d81dbe950f9ab1aef1d",
     "system-map/app/map.css": "d70a895270eca4dd5684c116772153890a648a55",
     "system-map/app/map.js": "f04eb0b54571fc61b3b088212ed010e082e811ae",
-    "system-map/scripts/generate_system_map.py": "b732cad43dea7c85daff1a3ad154625c5a8bf026",
+    "system-map/scripts/generate_system_map.py": "ef4454dbfad29eeb7aa71390ee243385cadd12d3",
     "system-map/scripts/scan_repo.py": "78e8e36dd295159a4055d788c9b8be2fb98ff269",
     "system-map/scripts/scan_sources.py": "d0f92cd8327f4c49287509058d87dc7eefc76903",
     "system-map/scripts/validate_system_map.py": "62710dacf74abc5ee9ed695720057fd202d4e9a7",
