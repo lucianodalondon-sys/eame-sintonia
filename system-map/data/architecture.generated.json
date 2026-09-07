@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "1f357c55ea3c52ff28b38aab187bbac162c61714",
-    "GENERATED_AT": "2026-09-07T16:18:39-03:00"
+    "HEAD": "cba255517f8ef0327ac0d916a8afc2943c3bba9a",
+    "GENERATED_AT": "2026-09-07T16:28:24-03:00"
   },
   "FILES": [
     {
@@ -198,7 +198,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "660c5b7600fc513ec637cbc390715a8da921c8cb",
+      "sha": "ba263a7b85a0f82b7b68901ecd74f1ab4ce7a8c6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -3095,6 +3095,13 @@
       "code_dir": false
     },
     {
+      "path": "data/samples/LIVRO-DE-DECISOES.json",
+      "sha": "4cc471bdde9c5883a537181ce1e7de201ff6c898",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/samples/PADRAO-DA-COLETA-CHAO.json",
       "sha": "41f30022e5602a573bbce0f28091fc5179862bcb",
       "ext": ".json",
@@ -3362,7 +3369,7 @@
     },
     {
       "path": "data/samples/RUN-MANIFEST.json",
-      "sha": "38a812c0892c6ffe69514e46919b06e7c277240b",
+      "sha": "8104f774c1cb7a65683ab76b99682bb236304feb",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -6519,7 +6526,7 @@
     },
     {
       "path": "pedido/orquestrador.py",
-      "sha": "71860146b2323d76dd0c29e64c5420332a10aef6",
+      "sha": "d9c90b3e3b4fd3c24c1bc453c2ddc3661b017a7b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6533,7 +6540,7 @@
     },
     {
       "path": "pedido/receitas.py",
-      "sha": "f493c40c276a64ea553a643e2a86a46d71a6b38d",
+      "sha": "2f8b5fdf3da8f45f2de1ffe48f6f14eb2f178ef7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7688,7 +7695,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "7fea574d6083d909989614e0c79703e2e5155f81",
+      "sha": "e62848c20b0124a870e9ffe347cca2ddcf4386a5",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8672,6 +8679,17 @@
         "file": "admissao/admissao.py",
         "line": 67,
         "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "admissao/admissao.py",
+      "to_file": "data/samples/LIVRO-DE-DECISOES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/admissao.py",
+        "line": 69,
+        "snippet": "LIVRO = RAIZ / \"data\" / \"samples\" / \"LIVRO-DE-DECISOES.json\""
       }
     },
     {
@@ -20231,8 +20249,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "pedido/orquestrador.py",
-        "line": 49,
+        "line": 50,
         "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "pedido/orquestrador.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pedido/orquestrador.py",
+        "line": 54,
+        "snippet": "import admissao as adm  # noqa: E402"
       }
     },
     {
@@ -20242,7 +20271,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/orquestrador.py",
-        "line": 54,
+        "line": 128,
         "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
       }
     },
@@ -20253,7 +20282,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "pedido/orquestrador.py",
-        "line": 51,
+        "line": 52,
         "snippet": "from pedido import Pedido, de_uma_frase, PedidoInvalido, ERRO, COLHIDO  # noqa: E402"
       }
     },
@@ -20264,7 +20293,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "pedido/orquestrador.py",
-        "line": 52,
+        "line": 53,
         "snippet": "from receitas import resolver, Plano  # noqa: E402"
       }
     },
@@ -20286,7 +20315,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 85,
+        "line": 92,
         "snippet": "\"roda\": [\"coleta/comunicacao_coleta.py\"],"
       }
     },
@@ -20308,7 +20337,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 77,
+        "line": 83,
         "snippet": "\"roda\": [\"coleta/eppo_gd.py\"],"
       }
     },
@@ -20319,8 +20348,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 69,
+        "line": 74,
         "snippet": "\"roda\": [\"coleta/rotulos_baixar.py\"],"
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "data/samples/RESEARCHER-CORPUS-EAME-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 66,
+        "snippet": "\"larga_em\": [\"data/samples/RESEARCHER-CORPUS-EAME-V1.json\"],"
       }
     },
     {
@@ -20330,7 +20370,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 109,
+        "line": 117,
         "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
       }
     },
@@ -20341,7 +20381,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 105,
+        "line": 113,
         "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
       }
     },
@@ -20363,7 +20403,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 107,
+        "line": 115,
         "snippet": "(\"lugar do fato\", \"regras/fato_local.py\","
       }
     },
@@ -20374,7 +20414,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 103,
+        "line": 111,
         "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
       }
     },
@@ -25199,10 +25239,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1142,
+    "files_tracked": 1143,
     "files_readable": 388,
     "files_code_dir": 432,
-    "file_edges": 1529,
+    "file_edges": 1532,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },

@@ -4,6 +4,7 @@
 O ORQUESTRADOR — quem responde «qual caminho executar para este pedido».
 
     py pedido/orquestrador.py "colete materiais de pesquisadores"
+    py pedido/orquestrador.py "colete concorrentes" --so-a-porta   # so a peneira
     py pedido/orquestrador.py "colete materiais novos de pesquisadores da Espanha" --so-plano
 
 ELE NAO COLETA. Nao abre pagina, nao chama API, nao raspa nada. Ele escolhe o
@@ -50,6 +51,79 @@ import _gavetas  # noqa: E402,F401
 
 from pedido import Pedido, de_uma_frase, PedidoInvalido, ERRO, COLHIDO  # noqa: E402
 from receitas import resolver, Plano  # noqa: E402
+import admissao as adm  # noqa: E402
+
+PRONTOS = RAIZ / "data" / "samples" / "PRONTO-PARA-INTELIGENCIA"
+
+
+def a_colheita(e: dict) -> tuple[list, str]:
+    """O que o executor largou — e, quando nao largou nada, PORQUE.
+
+    Esta funcao existe por causa de uma pergunta simples que nao tinha resposta:
+    «o que o YouTube colhe vai para onde?». Ia para uma pasta que ninguem lia, e
+    o caminho acabava ali. A porta de admissao estava construida e NINGUEM
+    entregava nela — so o teste.
+
+        UMA PORTA POR ONDE NINGUEM PASSA NAO E UMA PORTA.
+        E UMA PAREDE COM MACANETA.
+
+    Aqui a colheita e lida e levada a porta. Quando o sitio declarado nao existe,
+    isso nao e um erro a esconder: e o facto mais util que a corrida produziu, e
+    sai escrito no recibo.
+    """
+    itens, notas = [], []
+    for onde in e.get("larga_em") or []:
+        alvo = RAIZ / onde
+        if not alvo.exists():
+            notas.append(f"«{onde}» nao existe nesta arvore: o executor declara que "
+                         f"larga ai, e nao ha nada. Ou nunca correu aqui, ou o que "
+                         f"ele escreveu nunca foi guardado.")
+            continue
+        ficheiros = sorted(alvo.glob("*.json")) if alvo.is_dir() else [alvo]
+        for f in ficheiros:
+            try:
+                d = json.loads(f.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, OSError) as ex:
+                notas.append(f"«{f.name}» nao deu para ler: {type(ex).__name__}")
+                continue
+            # uma lista, ou o primeiro campo do ficheiro que seja lista de fichas
+            lista = d if isinstance(d, list) else next(
+                (v for v in d.values() if isinstance(v, list) and v
+                 and isinstance(v[0], dict)), [])
+            for x in lista:
+                if isinstance(x, dict):
+                    x.setdefault("_de", f.relative_to(RAIZ).as_posix())
+                    itens.append(x)
+    return itens, " · ".join(notas)
+
+
+def pela_porta(itens: list, universo: str, run_id: str) -> dict:
+    """Leva cada item a porta de admissao e guarda TODAS as decisoes.
+
+    TODAS, e nao so as que passaram: o «nao» sem testemunha e trabalho perdido
+    duas vezes — perde-se o item e perde-se a informacao de que aquela fonte
+    entrega lixo.
+    """
+    decisoes = [adm.decidir(x, universo, corrida=run_id) for x in itens]
+    if decisoes:
+        adm.escrever(decisoes)
+
+    aceites = []
+    for x, d in zip(itens, decisoes):
+        if d.resultado == adm.SIM:
+            aceites.append(adm.pronto_para_inteligencia(x, d))
+    if aceites:
+        PRONTOS.mkdir(parents=True, exist_ok=True)
+        corpo = json.dumps({"RUN_ID": run_id, "ITENS": aceites},
+                           ensure_ascii=False, indent=2)
+        (PRONTOS / f"{run_id}.json").write_text(corpo + "\n", encoding="utf-8")
+
+    conta: dict = {}
+    for d in decisoes:
+        conta[d.resultado] = conta.get(d.resultado, 0) + 1
+    return {"itens": len(itens), "por_resultado": conta, "prontos": len(aceites),
+            "ficheiro": (PRONTOS / f"{run_id}.json").relative_to(RAIZ).as_posix()
+                        if aceites else ""}
 
 MANIFESTO = RAIZ / "data" / "samples" / "RUN-MANIFEST.json"
 
@@ -94,7 +168,8 @@ def guardar_recibo(recibo: dict) -> None:
                          encoding="utf-8")
 
 
-def correr(p: Pedido, so_plano: bool = False, seco: bool = False) -> dict:
+def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
+           so_a_porta: bool = False) -> dict:
     """Do pedido ao recibo. Devolve o recibo, sempre — mesmo quando falha."""
     plano = resolver(p)
 
@@ -123,9 +198,15 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False) -> dict:
     inicio = agora()
     saida, erro, codigo = "", "", 0
 
-    if seco:
-        # ensaio: prova o caminho inteiro sem gastar rede nem dinheiro
-        saida, codigo = "(ensaio seco: o executor nao foi chamado)", 0
+    if seco or so_a_porta:
+        # ensaio: prova o caminho inteiro sem gastar rede nem dinheiro.
+        # `--so-a-porta` vai mais longe: nao colhe, mas leva a colheita QUE JA
+        # EXISTE a peneira. E o que permite reprocessar quando a regra muda —
+        # sem isto, mudar a regra obrigaria a coletar tudo outra vez, e ninguem
+        # o faria; a regra nova valeria so para o que viesse depois.
+        saida, codigo = ("(nao se colheu: so se levou a colheita a porta)"
+                         if so_a_porta else
+                         "(ensaio seco: o executor nao foi chamado)"), 0
     else:
         try:
             r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),
@@ -150,7 +231,12 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False) -> dict:
         "COMANDO": " ".join(comando),
         "STARTED_AT": inicio,
         "FINISHED_AT": agora(),
-        "COST_USD": 0 if e["custo"] == "gratuito" else "NAO SEI",
+        # Custo ZERO quando o executor nao foi chamado: uma passagem so pela
+        # peneira nao abre ligacao nenhuma. Escrever «NAO SEI» aqui seria pior
+        # que impreciso — o portao do padrao conta os «NAO SEI» como divida, e
+        # eu estaria a inventar divida sobre uma corrida que nao gastou nada.
+        "COST_USD": (0 if (seco or so_a_porta or e["custo"] == "gratuito")
+                     else "NAO SEI"),
         "ITEM_COUNT_RAW": "NAO SEI",
         "ITEM_COUNT_NORMALIZED": "NAO SEI",
         "ERROR": erro.strip(),
@@ -160,13 +246,29 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False) -> dict:
         "SAIDA": saida.strip()[-1500:],
         "_plano": plano,
     }
+
+    # ── E A COLHEITA VAI A PORTA ────────────────────────────────────────────
+    # O caminho so esta fechado aqui. Antes desta parte, o executor corria,
+    # largava o que trouxe numa pasta, e ninguem ia buscar: a peneira existia e
+    # nada passava por ela.
+    itens, notas = a_colheita(e)
+    recibo["COLHEITA_ENCONTRADA"] = len(itens)
+    recibo["COLHEITA_NAO_ENCONTRADA"] = notas
+    if itens and (so_a_porta or not seco):
+        r = pela_porta(itens, p.alvo, recibo["RUN_ID"])
+        recibo["ADMISSAO"] = r
+        recibo["ITEM_COUNT_RAW"] = r["itens"]
+        recibo["ITEM_COUNT_NORMALIZED"] = r["prontos"]
+        recibo["ESTADO_DOS_ITENS"] = ("PRONTO_PARA_INTELIGENCIA" if r["prontos"]
+                                      else "NA_PORTA")
     return recibo
 
 
 def main() -> int:
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     so_plano = "--so-plano" in sys.argv
-    seco = "--seco" in sys.argv
+    so_a_porta = "--so-a-porta" in sys.argv
+    seco = "--seco" in sys.argv and not so_a_porta
     # --filtro fase=posts --filtro plataforma=youtube
     extras = {}
     for i, a in enumerate(sys.argv):
@@ -182,7 +284,7 @@ def main() -> int:
         print(f"PEDIDO RECUSADO: {ex}")
         return 2
 
-    recibo = correr(p, so_plano=so_plano, seco=seco)
+    recibo = correr(p, so_plano=so_plano, seco=seco, so_a_porta=so_a_porta)
     plano = recibo.pop("_plano")
     print(plano.em_palavras())
     print()
@@ -201,6 +303,15 @@ def main() -> int:
     print(f"  de {recibo['STARTED_AT']} a {recibo['FINISHED_AT']}")
     if recibo["ERROR"]:
         print(f"  ERRO (nao e rejeicao): {recibo['ERROR'][:300]}")
+    print(f"  colheita encontrada: {recibo.get('COLHEITA_ENCONTRADA', 0)} item(ns)")
+    if recibo.get("COLHEITA_NAO_ENCONTRADA"):
+        print(f"  NAO ENCONTREI O QUE ELE LARGOU: {recibo['COLHEITA_NAO_ENCONTRADA']}")
+    a = recibo.get("ADMISSAO")
+    if a and a["itens"]:
+        print("  pela porta de admissao: "
+              + " · ".join(f"{k} {v}" for k, v in sorted(a["por_resultado"].items())))
+        if a["ficheiro"]:
+            print(f"  prontos para a inteligencia: {a['prontos']} -> {a['ficheiro']}")
     if seco:
         print("  (ensaio seco: nada foi coletado e nada foi escrito no manifesto)")
     return 0 if recibo["STATUS"] == "OK" else 1

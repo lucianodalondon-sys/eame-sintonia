@@ -461,6 +461,7 @@
       "data/samples/ITALY-T3-005-MONITORAGGIO/meta.txt",
       "data/samples/ITALY-T3-005-MONITORAGGIO/monitoraggio-2026-09-07.html",
       "data/samples/ITALY-T3-005-MONITORAGGIO/points-2026-09-07.json",
+      "data/samples/LIVRO-DE-DECISOES.json",
       "data/samples/PADRAO-DA-COLETA-CHAO.json",
       "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
       "data/samples/PIEMONTE-FD/aggiornamento_2025_strategie2026_pt.txt",
@@ -1226,7 +1227,7 @@
     {
       "id": "a-coleta-mais-feita-e-a-menos-documentada",
       "titulo": "A coleta mais feita é a menos documentada.",
-      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 10 corridas registadas foram buscar a estas.",
+      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 13 corridas registadas foram buscar a estas.",
       "porque_importa": "Sem ficha, ninguém sabe como se volta lá: por que porta se entra, o que se espera de volta, o que fazer quando quebrar. A próxima pessoa refaz a descoberta do zero — e paga por ela outra vez.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -1236,7 +1237,7 @@
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
       "titulo": "22 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 10 corridas registadas, e o país delas é: ES 10. Elas trouxeram 3147 itens e 2963 atravessaram a régua. As outras 22 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "texto": "Há 13 corridas registadas, e o país delas é: ES 10 · NAO SEI 3. Elas trouxeram 3400 itens e 2963 atravessaram a régua. As outras 22 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -1582,8 +1583,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "1f357c55ea3c52ff28b38aab187bbac162c61714",
-    "GENERATED_AT": "2026-09-07T16:18:39-03:00"
+    "HEAD": "cba255517f8ef0327ac0d916a8afc2943c3bba9a",
+    "GENERATED_AT": "2026-09-07T16:28:24-03:00"
   },
   "FAMILIES": [
     {
@@ -2121,6 +2122,7 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-ORQUESTRADOR",
         "C-PROVA-COLETA"
       ],
       "outbound": [],
@@ -3819,17 +3821,75 @@
             "erro": null,
             "prova": "n/a — execucao de verificacao do portao",
             "bruto": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-d.raw.json.gz"
+          },
+          {
+            "run_id": "XX-T7-2026-09-07-193646",
+            "fonte": null,
+            "plataforma": "OpenAlex, ORCID",
+            "quem_foi_buscar": "coleta/corpus_pesquisador.py",
+            "com_que_parametros": {},
+            "que_pergunta": "Ciencia e ensaio (T7) · PONTUAL · pedido manual",
+            "pais": "NAO SEI",
+            "missao": "Ciencia e ensaio",
+            "trouxe": 12,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "OK",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "XX-T9-2026-09-07-193647",
+            "fonte": null,
+            "plataforma": "YouTube, Instagram, LinkedIn, Facebook",
+            "quem_foi_buscar": "coleta/comunicacao_coleta.py",
+            "com_que_parametros": {},
+            "que_pergunta": "Concorrente (T9) · PONTUAL · pedido manual",
+            "pais": "NAO SEI",
+            "missao": "Concorrente",
+            "trouxe": 78,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "OK",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "XX-T4-2026-09-07-193647",
+            "fonte": null,
+            "plataforma": "registro oficial (HTTP)",
+            "quem_foi_buscar": "coleta/rotulos_baixar.py",
+            "com_que_parametros": {},
+            "que_pergunta": "Regulatorio (T4) · PONTUAL · pedido manual",
+            "pais": "NAO SEI",
+            "missao": "Regulatorio",
+            "trouxe": 163,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "OK",
+            "erro": null,
+            "prova": null,
+            "bruto": null
           }
         ],
-        "total": 10,
+        "total": 13,
         "por_pais": {
-          "ES": 10
+          "ES": 10,
+          "NAO SEI": 3
         },
         "por_plataforma": {
           "INSTAGRAM": 1,
           "LINKEDIN": 5,
           "OPENALEX": 1,
-          "YOUTUBE": 3
+          "OpenAlex, ORCID": 1,
+          "YOUTUBE": 3,
+          "YouTube, Instagram, LinkedIn, Facebook": 1,
+          "registro oficial (HTTP)": 1
         },
         "fontes_ja_coletadas": [
           "ES-T5-002",
@@ -3861,10 +3921,10 @@
           "IT-T3-001",
           "IT-T4-001"
         ],
-        "com_rendimento_medido": 9,
-        "com_custo_medido": 4,
+        "com_rendimento_medido": 12,
+        "com_custo_medido": 7,
         "custo_total_usd": 0.48,
-        "trouxe_total": 3147,
+        "trouxe_total": 3400,
         "sobrou_total": 2963
       },
       "memoria": [
@@ -7040,6 +7100,7 @@
         "C-PROVA-COLETA"
       ],
       "outbound": [
+        "C-ADMISSAO",
         "C-PEDIDO",
         "C-RECEITAS"
       ],
@@ -11022,7 +11083,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 1f357c55ea3c52ff28b38aab187bbac162c61714"
+        "HEAD cba255517f8ef0327ac0d916a8afc2943c3bba9a"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -13015,7 +13076,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 85,
+          "line": 92,
           "snippet": "\"roda\": [\"coleta/comunicacao_coleta.py\"],"
         }
       ]
@@ -13223,12 +13284,17 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Montar o corpus de fala e de ciencia alimenta A receita da coleta. Provado por 1 linha de codigo.",
+      "reason": "Montar o corpus de fala e de ciencia alimenta A receita da coleta. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "pedido/receitas.py",
           "line": 61,
           "snippet": "\"roda\": [\"coleta/corpus_pesquisador.py\", \"coletar\"],"
+        },
+        {
+          "file": "pedido/receitas.py",
+          "line": 66,
+          "snippet": "\"larga_em\": [\"data/samples/RESEARCHER-CORPUS-EAME-V1.json\"],"
         }
       ]
     },
@@ -13307,7 +13373,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 105,
+          "line": 113,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
         }
       ]
@@ -13459,7 +13525,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 77,
+          "line": 83,
           "snippet": "\"roda\": [\"coleta/eppo_gd.py\"],"
         }
       ]
@@ -14148,7 +14214,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 107,
+          "line": 115,
           "snippet": "(\"lugar do fato\", \"regras/fato_local.py\","
         }
       ]
@@ -14366,6 +14432,22 @@
     },
     {
       "from": "C-ORQUESTRADOR",
+      "to": "C-ADMISSAO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador importa A porta de admissao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pedido/orquestrador.py",
+          "line": 54,
+          "snippet": "import admissao as adm  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-ORQUESTRADOR",
       "to": "C-PEDIDO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -14375,7 +14457,7 @@
       "evidence": [
         {
           "file": "pedido/orquestrador.py",
-          "line": 51,
+          "line": 52,
           "snippet": "from pedido import Pedido, de_uma_frase, PedidoInvalido, ERRO, COLHIDO  # noqa: E402"
         }
       ]
@@ -14391,7 +14473,7 @@
       "evidence": [
         {
           "file": "pedido/orquestrador.py",
-          "line": 52,
+          "line": 53,
           "snippet": "from receitas import resolver, Plano  # noqa: E402"
         }
       ]
@@ -15319,7 +15401,7 @@
       "evidence": [
         {
           "file": "pedido/orquestrador.py",
-          "line": 54,
+          "line": 128,
           "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
         }
       ]
@@ -15351,12 +15433,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 103,
+          "line": 111,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
         },
         {
           "file": "pedido/receitas.py",
-          "line": 109,
+          "line": 117,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
         }
       ]
@@ -15755,7 +15837,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 69,
+          "line": 74,
           "snippet": "\"roda\": [\"coleta/rotulos_baixar.py\"],"
         }
       ]
@@ -17502,7 +17584,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 643,
+  "UNCLAIMED_FILES_COUNT": 644,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 97,
@@ -17510,11 +17592,11 @@
     "components_pending": 27,
     "components_broken": 0,
     "components_unknown": 4,
-    "edges": 315,
-    "edges_proven": 315,
+    "edges": 316,
+    "edges_proven": 316,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1142,
+    "files_tracked": 1143,
     "files_covered": 499,
     "files_code_unclaimed": 0
   }

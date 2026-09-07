@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "1f357c55ea3c52ff28b38aab187bbac162c61714",
+    "HEAD": "cba255517f8ef0327ac0d916a8afc2943c3bba9a",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -3828,17 +3828,75 @@
         "erro": null,
         "prova": "n/a — execucao de verificacao do portao",
         "bruto": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-d.raw.json.gz"
+      },
+      {
+        "run_id": "XX-T7-2026-09-07-193646",
+        "fonte": null,
+        "plataforma": "OpenAlex, ORCID",
+        "quem_foi_buscar": "coleta/corpus_pesquisador.py",
+        "com_que_parametros": {},
+        "que_pergunta": "Ciencia e ensaio (T7) · PONTUAL · pedido manual",
+        "pais": "NAO SEI",
+        "missao": "Ciencia e ensaio",
+        "trouxe": 12,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "OK",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T9-2026-09-07-193647",
+        "fonte": null,
+        "plataforma": "YouTube, Instagram, LinkedIn, Facebook",
+        "quem_foi_buscar": "coleta/comunicacao_coleta.py",
+        "com_que_parametros": {},
+        "que_pergunta": "Concorrente (T9) · PONTUAL · pedido manual",
+        "pais": "NAO SEI",
+        "missao": "Concorrente",
+        "trouxe": 78,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "OK",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T4-2026-09-07-193647",
+        "fonte": null,
+        "plataforma": "registro oficial (HTTP)",
+        "quem_foi_buscar": "coleta/rotulos_baixar.py",
+        "com_que_parametros": {},
+        "que_pergunta": "Regulatorio (T4) · PONTUAL · pedido manual",
+        "pais": "NAO SEI",
+        "missao": "Regulatorio",
+        "trouxe": 163,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "OK",
+        "erro": null,
+        "prova": null,
+        "bruto": null
       }
     ],
-    "total": 10,
+    "total": 13,
     "por_pais": {
-      "ES": 10
+      "ES": 10,
+      "NAO SEI": 3
     },
     "por_plataforma": {
       "INSTAGRAM": 1,
       "LINKEDIN": 5,
       "OPENALEX": 1,
-      "YOUTUBE": 3
+      "OpenAlex, ORCID": 1,
+      "YOUTUBE": 3,
+      "YouTube, Instagram, LinkedIn, Facebook": 1,
+      "registro oficial (HTTP)": 1
     },
     "fontes_ja_coletadas": [
       "ES-T5-002",
@@ -3870,10 +3928,10 @@
       "IT-T3-001",
       "IT-T4-001"
     ],
-    "com_rendimento_medido": 9,
-    "com_custo_medido": 4,
+    "com_rendimento_medido": 12,
+    "com_custo_medido": 7,
     "custo_total_usd": 0.48,
-    "trouxe_total": 3147,
+    "trouxe_total": 3400,
     "sobrou_total": 2963
   },
   "COLETAS_ITALIANAS": {
@@ -4442,7 +4500,7 @@
     "coletores_com_lugar": 28,
     "coletores_que_separam_fonte_do_fato": 22,
     "coletores_que_registam_descarte": 11,
-    "corridas_registadas": 16,
+    "corridas_registadas": 19,
     "observacoes_registadas": 144,
     "fontes_ja_coletadas": 4,
     "fontes_nunca_coletadas": 22,

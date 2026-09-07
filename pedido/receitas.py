@@ -59,6 +59,11 @@ EXECUTORES = {
     "T7": [{
         "id": "corpus-pesquisador",
         "roda": ["coleta/corpus_pesquisador.py", "coletar"],
+        # ONDE ELE LARGA o que traz. Sem isto declarado, o orquestrador corre o
+        # executor e fica sem saber o que procurar — e a colheita nunca chega a
+        # porta de admissao. Foi o que se descobriu ao perguntar «o que o YouTube
+        # colhe vai para onde?»: ia para uma pasta que ninguem lia.
+        "larga_em": ["data/samples/RESEARCHER-CORPUS-EAME-V1.json"],
         "rotas": ["OpenAlex", "ORCID"],
         "o_que_traz": "obra publicada com data, tipo, veiculo e DOI, e a autoria "
                       "declarada obra a obra",
@@ -67,6 +72,7 @@ EXECUTORES = {
     "T4": [{
         "id": "rotulos-oficiais",
         "roda": ["coleta/rotulos_baixar.py"],
+        "larga_em": ["data/raw/IT-ROTULOS"],
         "rotas": ["registro oficial (HTTP)"],
         "o_que_traz": "o rotulo oficial do produto, como PDF, com a data em que "
                       "foi baixado",
@@ -75,6 +81,7 @@ EXECUTORES = {
     "T3": [{
         "id": "eppo",
         "roda": ["coleta/eppo_gd.py"],
+        "larga_em": ["data/samples/IT-PRAGAS"],
         "rotas": ["EPPO Global Database"],
         "o_que_traz": "a ficha da praga ou doenca, com o nome cientifico e a "
                       "distribuicao declarada",
@@ -89,6 +96,7 @@ EXECUTORES = {
         # linha de comando do script: ele pede, e a receita traduz.
         "argumentos_de_filtros": ["fase", "plataforma"],
         "filtros_por_omissao": {"fase": "posts"},
+        "larga_em": ["data/samples/COMPETITOR-PUBLIC-COMM"],
         "rotas": ["YouTube", "Instagram", "LinkedIn", "Facebook"],
         "o_que_traz": "o que o concorrente publicou em canal aberto, com a data "
                       "e o endereco de onde veio",

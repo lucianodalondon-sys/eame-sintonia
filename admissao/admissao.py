@@ -105,6 +105,31 @@ class Decisao:
 # ── AS PERGUNTAS DA PORTA ───────────────────────────────────────────────────
 # Cada uma devolve (resultado, motivo, evidencia). A ordem importa: as que
 # apuram se DA PARA OLHAR vem primeiro, porque nao se julga o que nao se leu.
+# NAO E UMA COISA COLHIDA — E UM REGISTO SOBRE A COLETA.
+#
+# Sao duas especies diferentes, e confundi-las escondeu o achado mais duro desta
+# missao. Ao ligar a porta pela primeira vez a uma colheita real, 253 registos
+# sairam todos barrados na primeira pergunta, e o motivo dizia so «veio sem
+# texto». Parecia um defeito da peneira. Nao era.
+#
+#     `RESEARCHER-CORPUS` guarda 12 PESSOAS com o campo MATERIALS_FOUND = 124.
+#     Guarda a CONTAGEM dos materiais. Nao guarda os materiais.
+#
+# Um registo destes nao e um item mal colhido: e outra especie de coisa — a
+# ficha de onde se pode coletar, ou o resumo do que se coletou. Chamar-lhe
+# NAO_SEI e dar uma resposta educada a uma pergunta que nao se devia ter feito,
+# e por isso ninguem vai investigar.
+NAO_E_ITEM = (
+    # ficha de conta: onde se pode coletar
+    "ACCOUNT_HANDLE", "ACCOUNT_URL", "ACCOUNT_IDENTITY_STATE",
+    "COLLECTION_AUTHORIZED", "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH", "ANCHOR_KIND",
+    # ficha de pessoa com contagem: o resumo do que se coletou
+    "PERSON_ID", "MATERIALS_FOUND", "ORCID_WORKS_DECLARED", "IDENTITY_STATE",
+    "PUBLIC_CHANNELS_DECLARED",
+)
+CHEIRA_A_CATALOGO = NAO_E_ITEM  # nome antigo, mantido para nao partir chamadas
+
+
 def _legivel(item: dict) -> tuple:
     t = item.get("texto") or item.get("title") or item.get("nome") or ""
     if item.get("erro_de_leitura"):
@@ -112,6 +137,20 @@ def _legivel(item: dict) -> tuple:
                       "Isto nao e uma rejeicao: ninguem chegou a olhar."), \
                {"erro": str(item["erro_de_leitura"])[:200]}
     if not str(t).strip():
+        # SEPARAR «VEIO VAZIO» DE «NAO E UM ITEM».
+        # A primeira vez que a porta correu sobre uma colheita real, os 78
+        # registos sairam todos NAO_SEI — e isso escondia o que importava: nao
+        # eram publicacoes mal colhidas, eram FICHAS DE CONTA. A pasta guardava
+        # o catalogo de quem se pode coletar, nao o que foi coletado.
+        # NAO_SEI ali era uma resposta educada a uma pergunta que nao se devia
+        # ter feito, e por isso ninguem ia investigar.
+        marcas = [k for k in CHEIRA_A_CATALOGO if k in item]
+        if marcas:
+            return NAO_SE_APLICA, (
+                "isto nao e uma coisa colhida: e uma ficha de conta ou de "
+                "catalogo. A pergunta «serve para este universo?» nao se aplica "
+                "— o que esta aqui e o registo de ONDE se pode coletar, nao o "
+                "que se coletou."), {"campos_de_catalogo": marcas[:4]}
         return NAO_SEI, ("o item veio sem texto nenhum. Sem conteudo nao da para "
                          "dizer se serve — e «nao consegui ver» nao e «nao serve»."), {}
     return SIM, "tem conteudo legivel", {"caracteres": len(str(t))}
